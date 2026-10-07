@@ -276,7 +276,9 @@ RoadSegment::~RoadSegment(void)
 //=============================================================================
 /** Allocates & sets the vertex entries. */
 //=============================================================================
-// ?SetVertexBuffer@RoadSegment@@ present-unmatched
+// Retail road vertices include normals: loadLit4PtSection uses the same 0x24-byte layout.
+struct BfmeRoadLitVertex { float x, y, z, nx, ny, nz; unsigned int diffuse; float u, v; };
+
 void RoadSegment::SetVertexBuffer(VertexFormatXYZDUV1 *vb, Int numVertex)
 {
 	if (m_vb) {
@@ -286,15 +288,15 @@ void RoadSegment::SetVertexBuffer(VertexFormatXYZDUV1 *vb, Int numVertex)
 	}
 	Vector3 verts[MAX_SEG_VERTEX];
 	if (numVertex<1 || numVertex > MAX_SEG_VERTEX) return;
-	m_vb = NEW VertexFormatXYZDUV1[numVertex];	// pool[]ify
+	m_vb = (VertexFormatXYZDUV1 *) NEW BfmeRoadLitVertex[numVertex];	// pool[]ify
 	if (!m_vb) return;
 	m_numVertex = numVertex;
-	memcpy(m_vb, vb, numVertex*sizeof(VertexFormatXYZDUV1));
+	memcpy(m_vb, vb, numVertex*sizeof(BfmeRoadLitVertex));
 	Int i;
 	for (i=0; i<numVertex; i++) {
-		verts[i].X = m_vb[i].x;
-		verts[i].Y = m_vb[i].y;
-		verts[i].Z = m_vb[i].z;
+		verts[i].X = ((BfmeRoadLitVertex *)m_vb)[i].x;
+		verts[i].Y = ((BfmeRoadLitVertex *)m_vb)[i].y;
+		verts[i].Z = ((BfmeRoadLitVertex *)m_vb)[i].z;
 	}
 	SphereClass bounds(verts, numVertex);
 	m_bounds = bounds;
@@ -324,12 +326,11 @@ void RoadSegment::SetIndexBuffer(UnsignedShort *ib, Int numIndex)
 //=============================================================================
 /** Copies vertex entries into destination_vb. */
 //=============================================================================
-// ?GetVertices@RoadSegment@@ present-unmatched
 Int RoadSegment::GetVertices(VertexFormatXYZDUV1 *destination_vb, Int numToCopy)
 {
 	if (m_vb == NULL || numToCopy<1) return	(0);
 	if (numToCopy > m_numVertex) return(0);
-	memcpy(destination_vb, m_vb, numToCopy*sizeof(VertexFormatXYZDUV1));
+	memcpy(destination_vb, m_vb, numToCopy*sizeof(BfmeRoadLitVertex));
 	return(numToCopy);
 }
 
