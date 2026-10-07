@@ -182,6 +182,25 @@ private:
 	ExperienceScalarTable *m_defaultScalarTable;	// +0x20
 };
 
+// The address-derived singleton view at 0x288CFA is called by the matched
+// ExperienceTracker forwarder at 0x39ABFF. Its direct call to
+// FindExperienceLevelList at 0x288C34 supports the shared store layout.
+class Rva00288CFA
+{
+public:
+	bool rva00288CFA(Int value);
+};
+
+extern const void *__stdcall Rva00288940Find(const void *arg);
+// The retail callsite supplies an otherwise-dead ECX=this as well as the list
+// argument. This member-function view preserves that register while resolving
+// to the already-rowed stdcall symbol; the callee consumes only its stack arg.
+union Rva00288940Call
+{
+	const void *(__stdcall *freeCall)(const void *);
+	const void *(Rva00288CFA::*memberCall)(const void *);
+};
+
 static inline ExperienceLevel *finalLevel(const ExperienceLevelHandle &levelHandle)
 {
 	return (ExperienceLevel *)levelHandle.m_iter->getFinalOverride();
@@ -265,6 +284,25 @@ ExperienceLevelHandle ExperienceLevelStore::FindCurrentLevel(const ExperienceTra
 		}
 	}
 	return ExperienceLevelHandle(0);
+}
+
+// ?rva00288CFA@Rva00288CFA@@QAE_NH@Z
+// Target evidence: calls the rowed list lookup at 0x288C34, searches that list
+// through 0x288940, then compares the returned level's +0x18 integer against
+// the input tracker's +0x10 float. No named target identity is established.
+bool Rva00288CFA::rva00288CFA(Int value)
+{
+	ExperienceLevelStore *store = (ExperienceLevelStore *)this;
+	const ExperienceTracker *tracker = (const ExperienceTracker *)value;
+	ExperienceLevelList *list = store->FindExperienceLevelList(tracker);
+	if (list == 0)
+		return false;
+	Rva00288940Call find;
+	find.freeCall = Rva00288940Find;
+	const ExperienceLevel *level = (const ExperienceLevel *)((this->*find.memberCall)(list));
+	if (level == 0)
+		return false;
+	return level->m_requiredExperience > *(const float *)((const char *)tracker + 0x10);
 }
 
 // SplitString, retail 0x0028970B (WorldBuilder name): split on whitespace into
