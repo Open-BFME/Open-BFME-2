@@ -10,6 +10,10 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
+// restartMissionMenu's replay test expands isNotEmpty in place (test the
+// buffer, then cmp word [eax+4]); the shared header keeps it out of line.
+template <> inline bool StringBase<unsigned short>::isNotEmpty() const { return m_data && m_data->length != 0; }
+
 extern "C" char *__cdecl strcpy(char *destination, const char *source);
 
 void __cdecl Rva00434160Init(int a, int b, bool c);
@@ -23,13 +27,32 @@ class GameLogic
 {
 public:
 	bool isInMultiplayerGame();
+	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);
+	void rva0023D0E3(bool selfDestruct);
+	// Zero Hour calls clearGameData at the same point; the name is unproven here.
+	void rva00376E92(bool showScoreScreen, bool flag);
 
-	unsigned char m_pad000[0x110];
+	unsigned char m_pad000[0x40];
+	unsigned int m_40; // +0x40
+	unsigned char m_pad044[0x6D - 0x44];
+	bool m_6d; // +0x6D
+	unsigned char m_pad06e[0x94 - 0x6E];
+	int m_94; // +0x94, the rank points a restart passes on
+	unsigned char m_pad098[0xA4 - 0x98];
+	int m_a4; // +0xA4, the difficulty a restart passes on
+	unsigned char m_pad0a8[0x110 - 0xA8];
 	int m_110; // +0x110
 	int m_114; // +0x114
 };
 
 extern GameLogic *TheGameLogic;
+
+// The rowed check 0x0023C902 on the same object.
+class Rva0023C902
+{
+public:
+	int rva0023C902();
+};
 
 // The rowed bool field reader 0x00210C66 on the same object.
 class Rva00210C66CmpBoolField
@@ -70,11 +93,30 @@ struct RGBColor
 
 class Mouse
 {
+	friend class AptQuitMenu;
+
 public:
+#define MOUSE_SLOT(N) virtual void slot##N();
+	MOUSE_SLOT(00) MOUSE_SLOT(01) MOUSE_SLOT(02) MOUSE_SLOT(03) MOUSE_SLOT(04)
+	MOUSE_SLOT(05) MOUSE_SLOT(06) MOUSE_SLOT(07) MOUSE_SLOT(08) MOUSE_SLOT(09)
+	MOUSE_SLOT(10) MOUSE_SLOT(11) MOUSE_SLOT(12) MOUSE_SLOT(13) MOUSE_SLOT(14)
+	MOUSE_SLOT(15) MOUSE_SLOT(16) MOUSE_SLOT(17) MOUSE_SLOT(18)
+#undef MOUSE_SLOT
+	virtual void setCursor(int cursor);
 	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
+
+private:
+	void commitPendingCursor();
 };
 
 extern Mouse *TheMouse;
+
+// The rowed 0x001EDDC6 on TheMouse (BFME1's bfmeSetYR).
+class Rva001EDDC6
+{
+public:
+	void rva001EDDC6(unsigned char value);
+};
 
 // TheLivingWorldLogic (the ledger's g_009FEF10); its rowed
 // isSelectionLocked 0x0004253A tells a war of the ring game apart.
@@ -86,24 +128,283 @@ public:
 
 extern BfmeSelectionState *g_009FEF10;
 
-// TheRecorder (0x00E02290, the ledger's g_bfme939Helper): its rowed mode
-// getter 0x0030F2C7 answers 1 while a replay plays back.
-struct Bfme939Helper
+// The living-world logic's player at +0x98 and its byte +0x3C5.
+struct LivingWorldPlayer
 {
-	int get() const;
+	unsigned char m_pad000[0x3C5];
+	bool m_3c5; // +0x3C5
 };
 
-extern Bfme939Helper *g_bfme939Helper;
+struct LivingWorldLocal
+{
+	unsigned char m_pad000[0x98];
+	LivingWorldPlayer *m_98; // +0x98
+	unsigned char m_pad09c[0xB4 - 0x9C];
+	bool m_b4; // +0xB4
+	unsigned char m_pad0b5[0x168 - 0xB5];
+	bool m_168; // +0x168
+};
 
-// The living-world logic's rowed readers on the same object: the
-// player count 0x002B5256 and the check 0x002B254F, whose int callers read
-// only its low byte.
+// The rowed two-flag predicate 0x0051AEEF on the same object.
+class Rva0051AEEF
+{
+public:
+	bool rva0051AEEF() const;
+};
+
+class Rva002B2B66
+{
+public:
+	int rva002B2B66();
+};
+
+// The +0x10 view TheInGameUI's 0x000CF155 returns and the folded forwarder
+// to its vslot 3 (0x005CB265), both pinned.
+class Rva005CB260;
+
+class Rva005CB265
+{
+public:
+	virtual int rva005CB265();
+};
+
+// TheInGameUI (0x00DFEDF0): vslot 94 shows or hides the quit menu (BFME1's
+// slot 84) and vslot 95 tells whether it is up.
+class InGameUI
+{
+public:
+#define IGUI_SLOT(N) virtual void slot##N();
+	IGUI_SLOT(00) IGUI_SLOT(01) IGUI_SLOT(02) IGUI_SLOT(03) IGUI_SLOT(04)
+	IGUI_SLOT(05) IGUI_SLOT(06) IGUI_SLOT(07) IGUI_SLOT(08) IGUI_SLOT(09)
+	IGUI_SLOT(10) IGUI_SLOT(11) IGUI_SLOT(12) IGUI_SLOT(13) IGUI_SLOT(14)
+	IGUI_SLOT(15) IGUI_SLOT(16) IGUI_SLOT(17) IGUI_SLOT(18) IGUI_SLOT(19)
+	IGUI_SLOT(20) IGUI_SLOT(21) IGUI_SLOT(22) IGUI_SLOT(23) IGUI_SLOT(24)
+	IGUI_SLOT(25) IGUI_SLOT(26) IGUI_SLOT(27) IGUI_SLOT(28) IGUI_SLOT(29)
+	IGUI_SLOT(30) IGUI_SLOT(31) IGUI_SLOT(32) IGUI_SLOT(33) IGUI_SLOT(34)
+	IGUI_SLOT(35) IGUI_SLOT(36) IGUI_SLOT(37) IGUI_SLOT(38) IGUI_SLOT(39)
+	IGUI_SLOT(40) IGUI_SLOT(41) IGUI_SLOT(42) IGUI_SLOT(43) IGUI_SLOT(44)
+	IGUI_SLOT(45) IGUI_SLOT(46) IGUI_SLOT(47) IGUI_SLOT(48) IGUI_SLOT(49)
+	IGUI_SLOT(50) IGUI_SLOT(51) IGUI_SLOT(52) IGUI_SLOT(53) IGUI_SLOT(54)
+	IGUI_SLOT(55) IGUI_SLOT(56) IGUI_SLOT(57) IGUI_SLOT(58) IGUI_SLOT(59)
+	IGUI_SLOT(60) IGUI_SLOT(61) IGUI_SLOT(62) IGUI_SLOT(63) IGUI_SLOT(64)
+	IGUI_SLOT(65) IGUI_SLOT(66) IGUI_SLOT(67) IGUI_SLOT(68) IGUI_SLOT(69)
+	IGUI_SLOT(70) IGUI_SLOT(71) IGUI_SLOT(72) IGUI_SLOT(73) IGUI_SLOT(74)
+	IGUI_SLOT(75) IGUI_SLOT(76) IGUI_SLOT(77) IGUI_SLOT(78) IGUI_SLOT(79)
+	IGUI_SLOT(80) IGUI_SLOT(81) IGUI_SLOT(82) IGUI_SLOT(83) IGUI_SLOT(84)
+	IGUI_SLOT(85) IGUI_SLOT(86) IGUI_SLOT(87) IGUI_SLOT(88) IGUI_SLOT(89)
+	IGUI_SLOT(90) IGUI_SLOT(91) IGUI_SLOT(92) IGUI_SLOT(93)
+#undef IGUI_SLOT
+	virtual void slot94(bool visible);
+	virtual bool slot95();
+
+	Rva005CB260 *rva000CF155();
+
+	unsigned char m_pad004[0x8C5 - 4];
+	bool m_clientQuiet; // +0x8C5
+};
+
+extern InGameUI *TheInGameUI;
+
+// TheShell (0x00E01E48) and its rowed 0x0035BF4C (BFME1's Shell::hide).
+class Shell
+{
+public:
+	void rva0035BF4C(bool flag);
+	void rva0035C7CF(bool flag);
+	void push(AsciiString name, bool flag);
+};
+
+extern Shell *TheShell;
+
+// TheNetwork (0x00DFEA28): vslot 37 quits the network game.
+class NetworkInterface
+{
+public:
+#define NET_SLOT(N) virtual void slot##N();
+	NET_SLOT(00) NET_SLOT(01) NET_SLOT(02) NET_SLOT(03) NET_SLOT(04)
+	NET_SLOT(05) NET_SLOT(06) NET_SLOT(07) NET_SLOT(08) NET_SLOT(09)
+	NET_SLOT(10) NET_SLOT(11) NET_SLOT(12) NET_SLOT(13) NET_SLOT(14)
+	NET_SLOT(15) NET_SLOT(16) NET_SLOT(17) NET_SLOT(18) NET_SLOT(19)
+	NET_SLOT(20) NET_SLOT(21) NET_SLOT(22) NET_SLOT(23) NET_SLOT(24)
+	NET_SLOT(25) NET_SLOT(26) NET_SLOT(27) NET_SLOT(28) NET_SLOT(29)
+	NET_SLOT(30) NET_SLOT(31) NET_SLOT(32) NET_SLOT(33) NET_SLOT(34)
+	NET_SLOT(35) NET_SLOT(36)
+#undef NET_SLOT
+	virtual void quitGame();
+};
+
+extern NetworkInterface *TheNetwork;
+
+class GameMessage
+{
+public:
+	void appendIntegerArgument(int arg);
+	void appendBooleanArgument(bool arg);
+};
+
+// MessageStreamSubsystem (0x00A00950); appendMessage is vslot 18.
+class MessageStream
+{
+public:
+#define MSG_SLOT(N) virtual void slot##N();
+	MSG_SLOT(00) MSG_SLOT(01) MSG_SLOT(02) MSG_SLOT(03) MSG_SLOT(04)
+	MSG_SLOT(05) MSG_SLOT(06) MSG_SLOT(07) MSG_SLOT(08) MSG_SLOT(09)
+	MSG_SLOT(10) MSG_SLOT(11) MSG_SLOT(12) MSG_SLOT(13) MSG_SLOT(14)
+	MSG_SLOT(15) MSG_SLOT(16) MSG_SLOT(17)
+#undef MSG_SLOT
+	virtual GameMessage *appendMessage(int type);
+};
+
+extern MessageStream *MessageStreamSubsystem;
+
+// The network quit's frame limit (.rdata 0x007ED97C).
+extern unsigned int g_007ED97C;
+
+// TheScriptEngine (0x009FE16C): +0x1A104 is negative unless the game is ending.
+class ScriptEngine
+{
+public:
+	unsigned char m_pad00000[0x1A104];
+	int m_1a104; // +0x1A104
+};
+
+extern ScriptEngine *TheScriptEngine;
+
+class GameWindowTransitionsHandler
+{
+public:
+	bool isFinished();
+};
+
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+
+// TheDisplay (0x009FE9D8): vslots 87 and 88 hold the quit menu back.
+class Display
+{
+public:
+#define DISPLAY_SLOT(N) virtual void slot##N();
+	DISPLAY_SLOT(00) DISPLAY_SLOT(01) DISPLAY_SLOT(02) DISPLAY_SLOT(03) DISPLAY_SLOT(04)
+	DISPLAY_SLOT(05) DISPLAY_SLOT(06) DISPLAY_SLOT(07) DISPLAY_SLOT(08) DISPLAY_SLOT(09)
+	DISPLAY_SLOT(10) DISPLAY_SLOT(11) DISPLAY_SLOT(12) DISPLAY_SLOT(13) DISPLAY_SLOT(14)
+	DISPLAY_SLOT(15) DISPLAY_SLOT(16) DISPLAY_SLOT(17) DISPLAY_SLOT(18) DISPLAY_SLOT(19)
+	DISPLAY_SLOT(20) DISPLAY_SLOT(21) DISPLAY_SLOT(22) DISPLAY_SLOT(23) DISPLAY_SLOT(24)
+	DISPLAY_SLOT(25) DISPLAY_SLOT(26) DISPLAY_SLOT(27) DISPLAY_SLOT(28) DISPLAY_SLOT(29)
+	DISPLAY_SLOT(30) DISPLAY_SLOT(31) DISPLAY_SLOT(32) DISPLAY_SLOT(33) DISPLAY_SLOT(34)
+	DISPLAY_SLOT(35) DISPLAY_SLOT(36) DISPLAY_SLOT(37) DISPLAY_SLOT(38) DISPLAY_SLOT(39)
+	DISPLAY_SLOT(40) DISPLAY_SLOT(41) DISPLAY_SLOT(42) DISPLAY_SLOT(43) DISPLAY_SLOT(44)
+	DISPLAY_SLOT(45) DISPLAY_SLOT(46) DISPLAY_SLOT(47) DISPLAY_SLOT(48) DISPLAY_SLOT(49)
+	DISPLAY_SLOT(50) DISPLAY_SLOT(51) DISPLAY_SLOT(52) DISPLAY_SLOT(53) DISPLAY_SLOT(54)
+	DISPLAY_SLOT(55) DISPLAY_SLOT(56) DISPLAY_SLOT(57) DISPLAY_SLOT(58) DISPLAY_SLOT(59)
+	DISPLAY_SLOT(60) DISPLAY_SLOT(61) DISPLAY_SLOT(62) DISPLAY_SLOT(63) DISPLAY_SLOT(64)
+	DISPLAY_SLOT(65) DISPLAY_SLOT(66) DISPLAY_SLOT(67) DISPLAY_SLOT(68) DISPLAY_SLOT(69)
+	DISPLAY_SLOT(70) DISPLAY_SLOT(71) DISPLAY_SLOT(72) DISPLAY_SLOT(73) DISPLAY_SLOT(74)
+	DISPLAY_SLOT(75) DISPLAY_SLOT(76) DISPLAY_SLOT(77) DISPLAY_SLOT(78) DISPLAY_SLOT(79)
+	DISPLAY_SLOT(80) DISPLAY_SLOT(81) DISPLAY_SLOT(82) DISPLAY_SLOT(83) DISPLAY_SLOT(84)
+	DISPLAY_SLOT(85) DISPLAY_SLOT(86)
+#undef DISPLAY_SLOT
+	virtual bool slot87();
+	virtual bool slot88();
+};
+
+extern Display *TheDisplay;
+
+// Further screens that keep the quit menu closed while up
+// (ColdGlobalDwordGetters.cpp).
+extern int g_Va00E0492C;
+extern int g_Va00E0330C;
+extern int g_Va00E048D0;
+
+// TheLinearCampaignManager-like holder at 0x009FDC8C: a running campaign
+// restarts through its +0x10 member (the rowed 0x001ECEF6).
+struct Rva0023D607Holder
+{
+	unsigned char m_pad000[0x10];
+	void *m_10; // +0x10
+	void rva001ECEF6();
+};
+
+extern Rva0023D607Holder *g_Rva0023D607Holder;
+
+// TheWritableGlobalData (0x009FE758): the map name and the pending file.
+class GlobalData
+{
+public:
+	unsigned char m_pad000[0x0C];
+	AsciiString m_mapName; // +0x0C
+	unsigned char m_pad010[0xAC0 - 0x10];
+	AsciiString m_pendingFile; // +0xAC0
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+// TheGameState (0x009FF08C): the rowed save-directory test 0x002DC7C1 and
+// the folded AsciiString +0x2C copy getter 0x0004F833 (rowed under
+// Player::getBaseSide) that hands back the pristine map name.
+class GameState;
+extern GameState *TheGameState;
+
+class Rva002DC7C1
+{
+public:
+	bool rva002DC7C1(const UnicodeString &name) const;
+};
+
+class Player
+{
+public:
+	AsciiString getBaseSide() const;
+};
+
+// TheRecorder (0x00A02290).
+enum RecorderModeType
+{
+	RECORDERMODETYPE_RECORD,
+	RECORDERMODETYPE_PLAYBACK
+};
+
+class RecorderClass
+{
+public:
+	RecorderModeType getMode();
+	void stopRecording();
+	bool playbackFile(UnicodeString filename);
+};
+
+extern RecorderClass *TheRecorder;
+
+// The rowed replay file name getter 0x0037B5A0 on TheRecorder.
+class Rva0037B5A0
+{
+public:
+	UnicodeString rva0037B5A0();
+};
+
+// TheGameEngine (0x009FE710): vslots 19 and 20.
+class GameEngine
+{
+public:
+#define ENGINE_SLOT(N) virtual void slot##N();
+	ENGINE_SLOT(00) ENGINE_SLOT(01) ENGINE_SLOT(02) ENGINE_SLOT(03) ENGINE_SLOT(04)
+	ENGINE_SLOT(05) ENGINE_SLOT(06) ENGINE_SLOT(07) ENGINE_SLOT(08) ENGINE_SLOT(09)
+	ENGINE_SLOT(10) ENGINE_SLOT(11) ENGINE_SLOT(12) ENGINE_SLOT(13) ENGINE_SLOT(14)
+	ENGINE_SLOT(15) ENGINE_SLOT(16) ENGINE_SLOT(17) ENGINE_SLOT(18)
+#undef ENGINE_SLOT
+	virtual int getFramesPerSecondLimit();
+	virtual void setQuitting(bool quitting);
+};
+
+extern GameEngine *TheGameEngine;
+
+// The living-world logic's rowed 0x002B36F3.
 class Rva002BA8F1Logic
 {
 public:
+	void rva002B36F3();
 	int rva002B5256(bool flag);
 };
 
+// The living world's rowed check 0x002B254F, whose int callers read only
+// its low byte.
 class Rva002B254F
 {
 public:
@@ -120,17 +421,13 @@ public:
 
 extern Rva002D3627Host *g_00DFEF18;
 
-// Rva00222547Get.cpp's 0x00222547 (the window whose Apt movie this one
-// plays in) and the Apt player's rowed call 0x00222A8B on its level.
-class GameWindow;
-GameWindow *Rva00222547Get(GameWindow *window);
+void InitRandom(unsigned int seed);
 
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *level, const char *function, int argc, const char *a0,
-		void *a1, void *a2, void *a3, void *a4);
-};
+// The panels the quit menu closes (all rowed).
+void __cdecl Rva0043C96FEnable(void);
+void __cdecl Rva004E855CClose(void);
+void __cdecl Rva004E400DEnable(void);
+void __cdecl Rva0050E9D3Enable(void);
 
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // MpGameSetupSlots.cpp): a binding of an object and an eight-byte
@@ -248,6 +545,7 @@ class WindowManager
 {
 public:
 	void bfme_showBackground(int kind);
+	void bfme_hideBackground(bool flag);
 };
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -263,6 +561,23 @@ protected:
 private:
 	unsigned char m_pad004[0x218 - 4];
 };
+
+// Rva00222547Get.cpp's 0x00222547 (the window whose Apt movie this one
+// plays in) and the Apt player's rowed call 0x00222A8B on its level.
+GameWindow *Rva00222547Get(GameWindow *window);
+
+class Rva00222A8BTarget
+{
+public:
+	int invoke(void *level, const char *function, int argc, const char *a0,
+		void *a1, void *a2, void *a3, void *a4);
+};
+
+// Greys out the named button of a screen's Apt movie.
+static __forceinline void DisableButton(GameWindow *window, const char *button)
+{
+	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(Rva00222547Get(window), "disableButton", 1, button, 0, 0, 0, 0);
+}
 
 class Rva005248D0
 {
@@ -293,6 +608,7 @@ class AptQuitMenu : public _bfme_AptGameWindow
 {
 public:
 	AptQuitMenu(void *context);
+	virtual ~AptQuitMenu();
 
 	void OnInitialized(const char *unused);
 	void RestartMission(const char *unused);
@@ -415,6 +731,184 @@ void AptQuitMenu::Externs(int query, char *value, bool set)
 	strcpy(value, label);
 }
 
+// Retail 0x0051B15E, 512 bytes: the quit menu's destructor, as BFME1's
+// ~BfmeAptScreenQuitMenu (AptQuitMenu.cpp there). The open menu hides
+// itself, unpauses a single player game and, when exiting, quits the
+// network game, ends the war of the ring battle (0x448 surrender unless
+// selection is locked, then 0x6B8 with the rowed 0x002B2B66) or runs
+// GameLogic's exit tail 0x0023D0E3, and shows background 1; otherwise it
+// hides the background unless +0x27D. Then "APT:Pause" is relabelled.
+// Retail reads TheGameLogic once, keeps it across isInMultiplayerGame and
+// rereads it only after the three calls that can change it; the rereads
+// are spelled out.
+AptQuitMenu::~AptQuitMenu()
+{
+	if (this != TheAptQuitMenu)
+		return;
+	TheAptQuitMenu = 0;
+	if (TheInGameUI)
+		TheInGameUI->slot94(false);
+	GameLogic *logic = TheGameLogic;
+	if (logic && !logic->isInMultiplayerGame())
+	{
+		logic->rva0023CD9E(false, m_280, true);
+		logic = TheGameLogic;
+	}
+	if (TheMouse)
+	{
+		TheMouse->commitPendingCursor();
+		logic = TheGameLogic;
+	}
+	if (TheShell && !m_exit)
+	{
+		TheShell->rva0035BF4C(false);
+		logic = TheGameLogic;
+	}
+	if (logic && m_exit)
+	{
+		if (logic->m_40 < g_007ED97C && (logic->m_110 == 1 || logic->m_110 == 5) && TheNetwork)
+			TheNetwork->quitGame();
+		else if (logic->m_114 != 3 && g_009FEF10)
+		{
+			if (((LivingWorldLocal *)g_009FEF10)->m_98)
+				((LivingWorldLocal *)g_009FEF10)->m_98->m_3c5 = true;
+			if (!g_009FEF10->isSelectionLocked())
+			{
+				GameMessage *surrender = MessageStreamSubsystem->appendMessage(0x448);
+				surrender->appendBooleanArgument(true);
+			}
+			GameMessage *msg = MessageStreamSubsystem->appendMessage(0x6B8);
+			msg->appendIntegerArgument(((Rva002B2B66 *)g_009FEF10)->rva002B2B66());
+		}
+		else
+			logic->rva0023D0E3(true);
+		if (g_bfmeAptWindowManager)
+			((WindowManager *)g_bfmeAptWindowManager)->bfme_showBackground(1);
+	}
+	else if (!m_27d && g_bfmeAptWindowManager)
+		((WindowManager *)g_bfmeAptWindowManager)->bfme_hideBackground(false);
+	AsciiString key("APT:Pause");
+	g_bfmeAptWindowManager->bfmeSetText(key, TheGameText->fetch("APT:Pause"), false);
+}
+
+// Retail 0x0051B369, 398 bytes: opens the quit menu, as BFME1's
+// showQuitMenu (ShowQuitMenu.cpp there; Zero Hour QuitMenu.cpp's
+// ToggleQuitMenu show arm). Nothing happens while a quit menu exists, the
+// menu is up, another screen holds it back, the game is loading or ending
+// (0x0023C902, +0x6D, the script engine), a war of the ring battle is
+// resolving or a transition is running. Otherwise the side panels close,
+// a single player game pauses, and the shell pushes "QuitMenu.apt".
+// Name inferred from the donors.
+void ShowQuitMenu()
+{
+	if (TheAptQuitMenu)
+		return;
+	if (TheInGameUI->slot95())
+		return;
+	if (g_Va00E0492C)
+		return;
+	if (g_Va00E0330C)
+		return;
+	if ((unsigned char)((Rva0023C902 *)TheGameLogic)->rva0023C902())
+		return;
+	if (TheGameLogic->m_6d)
+		return;
+	if (TheScriptEngine->m_1a104 >= 0)
+		return;
+	if (g_009FEF10 && ((LivingWorldLocal *)g_009FEF10)->m_b4 && ((LivingWorldLocal *)g_009FEF10)->m_168)
+		return;
+	if (!TheTransitionHandler->isFinished())
+		return;
+	if (g_Va00E048D0)
+		return;
+	if (TheDisplay)
+	{
+		if (TheDisplay->slot88())
+			return;
+		if (TheDisplay->slot87())
+			return;
+	}
+	if (g_009FEF10 && ((Rva0051AEEF *)g_009FEF10)->rva0051AEEF())
+		return;
+
+	Rva0043C96FEnable();
+	Rva004E855CClose();
+	Rva004E400DEnable();
+	Rva0050E9D3Enable();
+	((Rva005CB265 *)TheInGameUI->rva000CF155())->Rva005CB265::rva005CB265();
+	((Rva001EDDC6 *)TheMouse)->rva001EDDC6(1);
+
+	GameLogic *logic = TheGameLogic;
+	if (!logic->isInMultiplayerGame())
+		logic->rva0023CD9E(true, 0, true);
+	TheMouse->setCursor(2);
+	TheShell->rva0035C7CF(false);
+	TheShell->push(AsciiString("QuitMenu.apt"), false);
+	TheInGameUI->slot94(true);
+}
+
+// Retail 0x0051B4F7, 23 bytes: closes the open quit menu (as its
+// ReturnToGame does) or opens one; Zero Hour QuitMenu.cpp's name.
+void ToggleQuitMenu()
+{
+	if (TheAptQuitMenu)
+	{
+		Rva0051AF0BEnable(0);
+		return;
+	}
+	ShowQuitMenu();
+}
+
+// Retail 0x0051B90B, 468 bytes: Zero Hour QuitMenu.cpp's
+// restartMissionMenu, run by the quit menu's update once RestartMission
+// set +0x27E. Closes the menu; a running campaign restarts itself.
+// Otherwise the game is cleared and either the replay plays again or a
+// new game (0x1E) starts on the pristine map in the same mode,
+// difficulty, rank points and frame limit.
+void restartMissionMenu()
+{
+	Rva0051AF0BEnable(2);
+	if (g_Rva0023D607Holder && g_Rva0023D607Holder->m_10)
+	{
+		g_Rva0023D607Holder->rva001ECEF6();
+		return;
+	}
+	int gameMode = TheGameLogic->m_110;
+	AsciiString mapName = TheWritableGlobalData->m_mapName;
+	if (((Rva002DC7C1 *)TheGameState)->rva002DC7C1(UnicodeString(mapName)))
+		mapName = ((Player *)TheGameState)->getBaseSide();
+
+	UnicodeString replayFile = ((Rva0037B5A0 *)TheRecorder)->rva0037B5A0();
+	if (TheRecorder->getMode() == RECORDERMODETYPE_RECORD)
+		TheRecorder->stopRecording();
+
+	int rankPointsStartedWith = TheGameLogic->m_94;
+	int diff = TheGameLogic->m_a4;
+	int fps = TheGameEngine->getFramesPerSecondLimit();
+
+	TheGameLogic->rva00376E92(false, false);
+	TheGameEngine->setQuitting(false);
+	if (g_009FEF10)
+		((Rva002BA8F1Logic *)g_009FEF10)->rva002B36F3();
+
+	if (replayFile.isNotEmpty())
+	{
+		TheRecorder->playbackFile(replayFile);
+	}
+	else
+	{
+		TheWritableGlobalData->m_pendingFile = mapName;
+		GameMessage *msg = MessageStreamSubsystem->appendMessage(0x1E);
+		msg->appendIntegerArgument(gameMode);
+		msg->appendIntegerArgument(diff);
+		msg->appendIntegerArgument(rankPointsStartedWith);
+		msg->appendIntegerArgument(fps);
+		if (gameMode != 2)
+			InitRandom(0);
+	}
+	TheInGameUI->m_clientQuiet = true;
+}
+
 // Retail 0x0051B50E, 167 bytes. Name unknown. Shows the restart button's
 // tooltip: restart in a campaign (mode 3) or without a game, else forfeit,
 // or surrender in a war of the ring game.
@@ -436,12 +930,6 @@ void AptQuitMenu::HandleOverRestartButton(const char *unused)
 		TheMouse->rva001EEA6D(tooltip, -1, 0, 1.0f);
 }
 
-// Greys out the named button of a screen's Apt movie.
-static __forceinline void DisableButton(GameWindow *window, const char *button)
-{
-	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(Rva00222547Get(window), "disableButton", 1, button, 0, 0, 0, 0);
-}
-
 // Retail 0x0051B5B5, 821 bytes: "AptQuitMenu::OnInitialized". Disables
 // what the current game cannot do -- in a multiplayer game or a replay
 // restart (or, in a war of the ring game, exit), save unless a saveable war
@@ -451,7 +939,7 @@ static __forceinline void DisableButton(GameWindow *window, const char *button)
 void AptQuitMenu::OnInitialized(const char *unused)
 {
 	if ((TheGameLogic && TheGameLogic->isInMultiplayerGame())
-		|| (g_bfme939Helper && g_bfme939Helper->get() == 1))
+		|| (TheRecorder && TheRecorder->getMode() == RECORDERMODETYPE_PLAYBACK))
 	{
 		if (TheGameLogic->m_114 != 3)
 		{
@@ -505,6 +993,13 @@ void AptQuitMenu::OnInitialized(const char *unused)
 		AsciiString key("APT:RestartOrSurrender");
 		g_bfmeAptWindowManager->bfmeSetText(key, TheGameText->fetch("APT:Restart"), false);
 	}
+}
+
+// Retail 0x0051B8EA, 5 bytes: the toggle as AptPalantir::OnBttnOptions
+// (0x002D30C7) reaches it, a tail jump. Name unknown.
+void Rva0051B8EA()
+{
+	ToggleQuitMenu();
 }
 
 // The extern handlers' names, by query (0x00C66BF8).
