@@ -781,3 +781,65 @@ void GameSpyInfo::reset(void)
 	m_additionalDisconnects = -1;
 	m_unk163C = false;
 }
+
+class Rva00382077 { public: ~Rva00382077(); };
+class Rva0038201D { public: ~Rva0038201D(); };
+class Rva0038204A { public: ~Rva0038204A(); };
+class Rva003820A4 { public: ~Rva003820A4(); };
+class Rva003820D1 { public: ~Rva003820D1(); };
+
+class Rva00383567
+{
+public:
+	void rva00383567();
+};
+
+void Rva00383567::rva00383567()
+{
+	((Rva00382077 *)this)->~Rva00382077();
+}
+
+class Rva0038356C
+{
+public:
+	void rva0038356C();
+};
+
+void Rva0038356C::rva0038356C()
+{
+	((Rva0038201D *)this)->~Rva0038201D();
+}
+
+class Rva00383571
+{
+public:
+	void rva00383571();
+};
+
+void Rva00383571::rva00383571()
+{
+	((Rva0038204A *)this)->~Rva0038204A();
+}
+
+class Rva00383576
+{
+public:
+	void rva00383576();
+};
+
+void Rva00383576::rva00383576()
+{
+	((Rva003820A4 *)this)->~Rva003820A4();
+}
+
+class Rva0038357B
+{
+public:
+	void rva0038357B();
+};
+
+void Rva0038357B::rva0038357B()
+{
+	((Rva003820D1 *)this)->~Rva003820D1();
+}
+
