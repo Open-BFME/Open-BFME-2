@@ -17,6 +17,8 @@ typedef _STL::_Rb_tree<float, TreeValue00372FF4, _STL::_Select1st<TreeValue00372
 // STLport _Rb_tree<float,pair<const float,opaque>>::insert_unique. Donor vendor/stlport/stl/_tree.c insert_unique.
 // Retail float walk proven by movss/comiss at 0x5AD1BD/0x5AD1FA (key at +0x10); calls rowed _M_insert 0x00372FF4 and _M_decrement 0x242C0.
 template Tree00372FF4::iterator Tree00372FF4::_M_insert(_STL::_Rb_tree_node_base *, _STL::_Rb_tree_node_base *, const TreeValue00372FF4 &, _STL::_Rb_tree_node_base *);
+// Retail's 57-byte 0x004EA301 walk compares pair.first and calls this typed _M_insert.
+template Tree00372FF4::iterator Tree00372FF4::insert_equal(const TreeValue00372FF4 &);
 template void Tree00372FF4::_M_erase(Tree00372FF4::_Link_type);
 template void Tree00372FF4::clear();
 template _STL::pair<Tree00372FF4::iterator, bool> Tree00372FF4::insert_unique(const TreeValue00372FF4 &);
