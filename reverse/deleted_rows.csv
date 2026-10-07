@@ -857,3 +857,4 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?d_003f1bd3@@YAXXZ,0x003F1BD3,Converted to verified LivingWorldRegion limit check
 ?d_00412b94@@YAXXZ,0x00412B94,Converted to verified Apt image lookup and float-coordinate draw wrapper
 ?d_0030b7c2@@YAXXZ,0x0030B7C2,Rebase cleanup: upstream byte-verified C++ point query supersedes this generated placeholder at the same address.
+?d_004ebeb7@@YAXXZ,0x004EBEB7,retracted gen-dump wave 5601afe3d3
