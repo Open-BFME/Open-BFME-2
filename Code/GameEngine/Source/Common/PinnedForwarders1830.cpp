@@ -566,3 +566,46 @@ void Rva005D13D5::rva005D13D5()
 	if (m_C)
 		m_C->rva000B3FD0();
 }
+
+// Native 2B3B66..2B3BCF: no stack arguments; walks an array of
+// groups at +8C/+90 and each group's array at +1B8/+1BC, invoking
+// the verified dirty-coordinate method 319E7C on every element.
+// The original receiver and group names remain unknown.
+class Rva003195C9Owner
+{
+public:
+    void rva00319E7C();
+};
+struct Rva002B3B66Range
+{
+    Rva003195C9Owner **begin, **end;
+    unsigned size() const { return static_cast<unsigned>(end - begin); }
+};
+struct Rva002B3B66Group
+{
+    unsigned char pad[0x1B8];
+    Rva002B3B66Range items;
+};
+struct Rva002B3B66Groups
+{
+    Rva002B3B66Group **begin, **end;
+    unsigned size() const { return static_cast<unsigned>(end - begin); }
+    Rva002B3B66Group *operator[](unsigned i) const { return begin[i]; }
+};
+class Rva002B3B66
+{
+public:
+    void rva002B3B66();
+private:
+    unsigned char pad[0x8C];
+    Rva002B3B66Groups groups;
+};
+void Rva002B3B66::rva002B3B66()
+{
+    for (unsigned i = 0; i < groups.size(); ++i)
+    {
+        Rva002B3B66Range &range = groups[i]->items;
+        for (unsigned j = 0; j < range.size(); ++j)
+            range.begin[j]->rva00319E7C();
+    }
+}
