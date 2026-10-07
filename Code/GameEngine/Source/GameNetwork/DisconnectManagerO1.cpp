@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii_common /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/disconnectmanager /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// cl: /Ireference/shims/bfme2_ascii_common /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs /Ireference/open-bfme-1/inputs/reference/shims/disconnectmanager /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // stlport
 //
 // DisconnectManager bodies ported from Open-BFME-1's
@@ -10,6 +10,9 @@
 // 0x004D4176 (61B) and playerHasAdvancedAFrame 0x004D3BB5 (34B). Callee
 // addresses are read off retail's call sites (reverse/symbols.csv). Only the
 // placed bodies are carried; the donor's other definitions are omitted.
+// The unit links STLport statically through the bfmealloc shim and builds
+// with /EHs: update's ping strings are freed through _free (0x00030830) with
+// the unwind state stored before the call, as retail does.
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -107,6 +110,7 @@ public:
 	Bool isPlayerInGame(Int slot);
 	Int isPlayerSlotActive(Int slot);
 	UnsignedByte rva004CEF58(Int slot);
+	UnsignedByte rva004CEFC2(Int slot, UnsignedInt timeout);
 	UnsignedInt getNextPacketRouterSlot(UnsignedInt slot);
 	void sendDisconnectFrameCommand();
 	void resendFrameRangeToPlayer(Int playerID, UnsignedInt startFrame, UnsignedInt endFrame);
@@ -148,7 +152,8 @@ public:
 	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
 	virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
 	virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
-	virtual void slot36(); virtual void slot37();
+	virtual void slot36();
+	virtual void rva0025E233();		///< 0x00BF6040#37, leaves the game
 	virtual void voteForPlayerDisconnect(Int slot);
 };
 
@@ -890,6 +895,186 @@ void DisconnectManager::updateDisconnectStatus(ConnectionManager *conMgr) {
 					}
 				}
 			}
+		}
+	}
+}
+
+// BFME 2's stall bookkeeping, read by update (retail 0x004D46FC) and cleared
+// by init: the last ping request time at +0x268 (the header's m_pingFrame
+// slot), the stalled flag at +0x270 and per slot a stall count (words at
+// +0x272) and a charged-this-stall flag (bytes at +0x282).
+struct BfmeDisconnectStallFields
+{
+	char m_unreconstructed_000[0x268];
+	UnsignedInt m_lastPingTime;					///< retail this+0x268
+	Int m_unknown26C;						///< retail this+0x26c, cleared by init
+	Bool m_stalled;							///< retail this+0x270
+	UnsignedShort m_stallCount[MAX_SLOTS];				///< retail this+0x272
+	Bool m_stallCharged[MAX_SLOTS];					///< retail this+0x282
+};
+
+// The calls update makes into code rowed under address names: a shutdown
+// step at its start, the end-of-stall step and the screen-off step.
+void Rva00512CCDShutdown();
+
+class Rva004D3942
+{
+public:
+	void rva004D3942(ConnectionManager *conMgr);
+};
+
+class Rva004D3906
+{
+public:
+	void rva004D3906(Int slot);
+};
+
+// The victory conditions, held in the data ledger under an address name; update
+// asks slots +0x4C, +0x48 and +0x54 whether the game is decided.
+struct UnknownE03138
+{
+	virtual void u00(); virtual void u01(); virtual void u02(); virtual void u03();
+	virtual void u04(); virtual void u05(); virtual void u06(); virtual void u07();
+	virtual void u08(); virtual void u09(); virtual void u10(); virtual void u11();
+	virtual void u12(); virtual void u13(); virtual void u14(); virtual void u15();
+	virtual void u16(); virtual void u17();
+	virtual Bool u18();
+	virtual Bool u19();
+	virtual void u20();
+	virtual Bool u21();
+};
+
+extern UnknownE03138 *g_00E03138;
+
+// Zero Hour and Open-BFME-1 DisconnectManager::update (track the last logic
+// frame and when it was reached, update the disconnect status while the
+// screen is on, request pings from the first ping server and count the
+// answered repetitions under 2000 ms). BFME 2 rewrote the stall detection,
+// read from retail 0x004D46FC: after 0x00512CCD, every slot that is not
+// local-or-live (0x004CEF58), not active (0x004CF0CD) and still connected
+// counts as stalled; its stall is charged once per stall to the slot itself
+// while the ping success ratio (0x004D38D8) is at least 0.1, else to the local
+// slot. Every other slot clears its flag (the local one only when nothing
+// stalls) and resets its timeout. A slot that is inactive, connected and
+// silent for 5000 ms (0x004CEFC2) asks for pings. With no load screen
+// (GameLogic+0x120) and the screen off, the game is left through Network's
+// vtable slot 37 once the local slot has stalled five times, when fewer than
+// two players remain, or in GameLogic+0x114 mode 3 when the victory
+// conditions say so; otherwise the screen is turned on. Pings go out at most
+// every 3000 ms and, while stalled, only within 5000 ms of the screen coming
+// on, with fixed repetitions (5) and timeout (2000 ms) where the donor asks
+// GameSpyConfig.
+void DisconnectManager::update(ConnectionManager *conMgr)
+{
+	BfmeDisconnectStallFields *stall = (BfmeDisconnectStallFields *)this;
+
+	Rva00512CCDShutdown();
+
+	Int numStalled = 0;
+	Bool needPing = false;
+	Int localSlot = conMgr->getLocalPlayerID();
+	BFMEConnectionManager *bfmeMgr = (BFMEConnectionManager *)conMgr;
+	for (Int i = 0; i < MAX_SLOTS; ++i)
+	{
+		if (!(UnsignedByte)bfmeMgr->isPlayerSlotActive(i) && bfmeMgr->isPlayerConnected(i) &&
+			!bfmeMgr->rva004CEFC2(i, 5000))
+			needPing = true;
+		if (!bfmeMgr->rva004CEF58(i) && !(UnsignedByte)bfmeMgr->isPlayerSlotActive(i) &&
+			bfmeMgr->isPlayerConnected(i))
+		{
+			++numStalled;
+			Int slot = i;
+			if (!((Rva004D38D8 *)this)->rva004D38D8(0.1f))
+				slot = localSlot;
+			if (!stall->m_stallCharged[slot])
+			{
+				stall->m_stallCharged[slot] = true;
+				++stall->m_stallCount[slot];
+			}
+		}
+		else
+		{
+			if (i != localSlot)
+				stall->m_stallCharged[i] = false;
+			Int translated = Rva004D39DEGet(i, conMgr->getLocalPlayerID());
+			if (translated != -1)
+				resetPlayerTimeout(translated);
+		}
+	}
+
+	if (numStalled == 0)
+		stall->m_stallCharged[localSlot] = false;
+
+	if (numStalled > 0)
+	{
+		stall->m_stalled = true;
+		if ((TheGameLogic == 0 || *(void **)((char *)TheGameLogic + 0x120) == 0) &&
+			m_disconnectState == DISCONNECTSTATETYPE_SCREENOFF)
+		{
+			if ((stall->m_stallCount[localSlot] < 5 || TheNetwork == 0) && conMgr->getNumPlayers() >= 2)
+			{
+				if (*(Int *)((char *)TheGameLogic + 0x114) != 3)
+					turnOnScreen(conMgr);
+				else if (g_00E03138 != 0 &&
+					(g_00E03138->u19() || g_00E03138->u18() || g_00E03138->u21()))
+				{
+					if (TheNetwork != 0)
+						((BFMENetworkVoteFacade *)TheNetwork)->rva0025E233();
+				}
+				else
+					turnOnScreen(conMgr);
+			}
+			else if (TheNetwork != 0)
+				((BFMENetworkVoteFacade *)TheNetwork)->rva0025E233();
+		}
+		((Rva004D3942 *)this)->rva004D3942(conMgr);
+	}
+	else
+	{
+		stall->m_stalled = false;
+		if (m_disconnectState == DISCONNECTSTATETYPE_SCREENON)
+			((Rva004D3906 *)this)->rva004D3906(conMgr->getLocalPlayerID());
+	}
+
+	if (m_lastFrameTime == -1 || m_lastFrame != reinterpret_cast<GameLogic *>(reinterpret_cast<char *>(TheGameLogic) + 4)->getFrame())
+	{
+		m_lastFrame = reinterpret_cast<GameLogic *>(reinterpret_cast<char *>(TheGameLogic) + 4)->getFrame();
+		m_lastFrameTime = timeGetTime();
+	}
+
+	if (m_disconnectState != DISCONNECTSTATETYPE_SCREENOFF)
+		updateDisconnectStatus(conMgr);
+
+	if (needPing)
+	{
+		if (ThePinger == 0)
+			return;
+		if (timeGetTime() - stall->m_lastPingTime > 3000 &&
+			(numStalled == 0 || timeGetTime() - m_timeOfDisconnectScreenOn < 5000))
+		{
+			PingRequest req;
+			req.hostname = TheGameSpyConfig->getPingServers().begin()->str();
+			req.repetitions = 5;
+			req.timeout = 2000;
+			m_pingsSent += req.repetitions;
+			ThePinger->addRequest(req);
+			stall->m_lastPingTime = timeGetTime();
+		}
+	}
+	else
+	{
+		m_pingsSent = 0;
+		m_pingsRecieved = 0;
+		stall->m_lastPingTime = 0;
+	}
+
+	if (ThePinger != 0)
+	{
+		PingResponse resp;
+		while (ThePinger->getResponse(resp))
+		{
+			if (needPing && resp.avgPing < 2000)
+				m_pingsRecieved += resp.repetitions;
 		}
 	}
 }
