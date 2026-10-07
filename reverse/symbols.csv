@@ -15473,3 +15473,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 
 ?rva0037F8AC@Rva0037F8AC@@QAEXPAX@Z,0x0037F8AC,callee of ?rva0037F90F@Rva0037F8AC@@QAEPAV1@PAXPAURva0037F90FInput@@1@Z
 ?rva0037F87A@Rva0037F4EA@@QAEXPAX@Z,0x0037F87A,callee of ?rva0037F8AC@Rva0037F8AC@@QAEXPAX@Z
+?rva00283D70@TerrainLogic@@QAEPAVObject@@PAX@Z,0x00283D70,FireSpreadUpdate::update callees: TerrainLogic object resolver 0x283D70 (EH prolog; arg [ebp+8]; returns Object*) and calcNextSpreadDelay 0x48B7D9 (row Rva0048B7D9Calc.cpp; FireSpreadUpdate.cpp file literal)
+?rva0048B7D9@FireSpreadUpdate@@QAEIXZ,0x0048B7D9,FireSpreadUpdate::update callees: TerrainLogic object resolver 0x283D70 (EH prolog; arg [ebp+8]; returns Object*) and calcNextSpreadDelay 0x48B7D9 (row Rva0048B7D9Calc.cpp; FireSpreadUpdate.cpp file literal)
