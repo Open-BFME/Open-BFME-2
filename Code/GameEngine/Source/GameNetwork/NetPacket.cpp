@@ -26,6 +26,8 @@ class NetCommandMsg
 {
 public:
 	NetCommandMsg();
+	UnsignedInt getTimestamp() { return m_timestamp; }
+	UnsignedInt getExecutionFrame() { return m_executionFrame; }
 	UnsignedInt getPlayerID() { return m_playerID; }
 	UnsignedShort getID() { return m_id; }
 	Int getNetCommandType() { return m_commandType; }
@@ -38,27 +40,77 @@ public:
 	Int m_referenceCount;
 };
 
-// +0x28 payload length of the data-carrying message the room check at
-// 0x0058D296 charges for.
-class NetCommandMsgData28 : public NetCommandMsg
+// The 0x2C data-carrying message: the room check at 0x0058D296 charges its
+// +0x28 payload length, rva0058EDEF serializes +0x1C/+0x20/+0x28 and the +0x24
+// buffer, and the static reader rva0058E20D rebuilds it in the same order
+// through the rowed ctor 0x004D58DE and rva004D5925(data, len). One class
+// across the three is a structural inference from that shared layout.
+class Rva004D58DE : public NetCommandMsg
 {
 public:
-	UnsignedByte m_pad1C[0x28 - 0x1C];
-	UnsignedInt m_dataLen28;
+	Rva004D58DE();
+	void rva004D5925(unsigned char *data, unsigned int len);
+	UnsignedInt get1c() { return m_1c; }
+	UnsignedShort get20() { return m_20; }
+	unsigned char *getData() { return m_24; }
+	UnsignedInt getDataLength() { return m_28; }
+	UnsignedInt m_1c;
+	UnsignedShort m_20;
+	unsigned char *m_24;
+	UnsignedInt m_28;
 };
 
+// The wrapper getters are out of line under their ledger names. Retail folds
+// the same-offset getters of the other message classes onto these (and onto
+// NetProgressCommandMsg::getPercentage, Rva004D5767WordField::get), so the
+// add* bodies below call them under these names: getData (+0x1C dword),
+// getDataLength (+0x20) and getDataOffset (+0x24).
 class NetWrapperCommandMsg : public NetCommandMsg
 {
 public:
+	UnsignedShort getWrappedCommandID();
+	UnsignedInt getChunkNumber();
+	UnsignedInt getNumChunks();
+	UnsignedInt getTotalDataLength();
 	UnsignedInt getDataLength();
+	UnsignedInt getDataOffset();
+	UnsignedByte *getData();
+};
+
+// +0x1C byte getter.
+class NetProgressCommandMsg : public NetCommandMsg
+{
+public:
+	UnsignedByte getPercentage();
+};
+
+// +0x1C word getter.
+class Rva004D5767WordField
+{
+public:
+	UnsignedShort get() const;
+};
+
+// Frame message addFrameCommand serializes: three dwords after the base.
+class NetFrameCommandMsg : public NetCommandMsg
+{
+public:
+	UnsignedInt get1c() { return m_1c; }
+	UnsignedInt get20() { return m_20; }
+	UnsignedInt get24() { return m_24; }
+	UnsignedInt m_1c;
+	UnsignedInt m_20;
+	UnsignedInt m_24;
 };
 
 class NetCommandRef
 {
 public:
+	NetCommandRef(NetCommandMsg *msg);
 	~NetCommandRef();
 	NetCommandMsg *getCommand() { return m_msg; }
 	UnsignedByte getRelay() const { return m_relay; }
+	void setRelay(UnsignedByte relay) { m_relay = relay; }
 	NetCommandMsg *m_msg;
 	NetCommandRef *m_next;
 	NetCommandRef *m_prev;
@@ -96,6 +148,7 @@ public:
 	NetPacket(TransportMessage *msg);
 	void init();
 	void reset();
+	Bool rva0058D18C(NetCommandRef *msg);
 	Bool rva0058D211(NetCommandRef *msg);
 	Bool rva0058D296(NetCommandRef *msg);
 	Bool rva0058D310(NetCommandRef *msg);
@@ -130,6 +183,21 @@ protected:
 	Bool isRoomForFrameMessage(NetCommandRef *msg);
 	UnsignedByte rva0058D70B(NetCommandRef *msg);
 	void rva0058D826(Int a, Int b, Int c, Int d, Int e);
+	Bool addInformPlayerLeaveFrameCommand(NetCommandRef *msg);
+	Bool rva0058E8EA(NetCommandRef *msg);
+	Bool addDisconnectFrameCommand(NetCommandRef *msg);
+	Bool rva0058EDEF(NetCommandRef *msg);
+	Bool addFileProgressCommand(NetCommandRef *msg);
+	Bool addWrapperCommand(NetCommandRef *msg);
+	Bool rva0058F5E3(NetCommandRef *msg);
+	Bool addProgressMessage(NetCommandRef *msg);
+	Bool addDisconnectVoteCommand(NetCommandRef *msg);
+	Bool addDisconnectPlayerCommand(NetCommandRef *msg);
+	Bool rva0058FE15(NetCommandRef *msg);
+	Bool addDestroyPlayerCommand(NetCommandRef *msg);
+	Bool addRouterFallbackCommand(NetCommandRef *msg);
+	Bool addPlayerLeaveCommand(NetCommandRef *msg);
+	Bool addFrameCommand(NetCommandRef *msg);
 
 public:
 	UnsignedByte m_packet[0x1DC];
@@ -153,17 +221,6 @@ public:
 	void setPlayerIndex(UnsignedInt v);
 private:
 	UnsignedInt m_playerIndex; // +0x1C: NetCommandMsg is 0x1C bytes
-};
-
-class Rva004D58DE : public NetCommandMsg
-{
-public:
-	Rva004D58DE();
-	void rva004D5925(unsigned char *data, unsigned int len);
-	UnsignedInt m_1c;
-	UnsignedShort m_20;
-	unsigned char *m_24;
-	UnsignedInt m_28;
 };
 
 class NetAckBothCommandMsg
@@ -321,10 +378,11 @@ public:
 	void set(unsigned char value);
 };
 
-class BFMENetRouterFallbackCommandMsg
+class BFMENetRouterFallbackCommandMsg : public NetCommandMsg
 {
 public:
 	void setPlayerOrder(const int *players);
+	Int m_playerOrder[8]; // +0x1C, per the BFME1 donor
 };
 
 class BFMENetInformPlayerLeaveFrameCommandMsg
@@ -389,6 +447,45 @@ void NetPacket::reset()
 		m_lastCommand = 0;
 	}
 	init();
+}
+
+// ?rva0058D18C@NetPacket@@QAE_NPAVNetCommandRef@@@Z, retail 0x0058D18C, 133 bytes:
+// rva0058D211 with a fixed 9 instead of 5, the room check of the two bodies
+// that serialize two dwords (addInformPlayerLeaveFrameCommand, rva0058E8EA).
+Bool NetPacket::rva0058D18C(NetCommandRef *msg)
+{
+	Int len = 0;
+	Bool needNewCommandID = false;
+	NetCommandMsg *cmdMsg = msg->m_msg;
+	if (m_lastCommandType != (UnsignedInt)cmdMsg->m_commandType) {
+		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+	}
+	if (m_lastRelay != msg->m_relay) {
+		++len;
+		++len;
+	}
+	if (m_lastTimestamp != cmdMsg->m_timestamp) {
+		len += sizeof(UnsignedInt) + sizeof(UnsignedByte);
+	}
+	if (m_lastFrame != cmdMsg->m_executionFrame) {
+		len += sizeof(UnsignedInt) + sizeof(UnsignedByte);
+	}
+	UnsignedInt lastPlayer = m_lastPlayerID;
+	if (lastPlayer != cmdMsg->m_playerID) {
+		++len;
+		++len;
+		needNewCommandID = true;
+	}
+	UnsignedInt lastID = m_lastCommandID;
+	UnsignedInt cmdID = cmdMsg->m_id;
+	if (((lastID + 1) != cmdID) ||
+		(needNewCommandID == true)) {
+		len += sizeof(UnsignedByte) + sizeof(UnsignedShort);
+	}
+	if ((len + m_packetLen + 9) > MAX_PACKET_SIZE) {
+		return false;
+	}
+	return true;
 }
 
 // ?rva0058D211@NetPacket@@QAE_NPAVNetCommandRef@@@Z, retail 0x0058D211, 133 bytes,
@@ -461,7 +558,7 @@ Bool NetPacket::rva0058D296(NetCommandRef *msg)
 		(needNewCommandID == true)) {
 		len += sizeof(UnsignedByte) + sizeof(UnsignedShort);
 	}
-	Int base = m_packetLen + ((NetCommandMsgData28 *)cmdMsg)->m_dataLen28;
+	Int base = m_packetLen + ((Rva004D58DE *)cmdMsg)->m_28;
 	if ((len + base + 0xB) > MAX_PACKET_SIZE) {
 		return false;
 	}
@@ -1158,3 +1255,4 @@ NetPacket::NetPacket(TransportMessage *msg)
 	memcpy(m_packet, msg->data, sizeof(m_packet));
 	m_numCommands = -1;
 }
+
