@@ -36,6 +36,7 @@ public:
 	unsigned char rva000AE234(int xIndex, int yIndex);
 	bool rva0006AB49(int xIndex, int yIndex) const;
 	unsigned char rva0006AB98(int xIndex, int yIndex);
+	bool rva000AE1DC(int xIndex, int yIndex) const;
 	int getXExtent() const { return m_width; }
 	int getYExtent() const { return m_height; }
 	int getBorderSizeInline() const { return m_borderSize; }
@@ -53,6 +54,7 @@ class BaseHeightMapRenderObjClass
 {
 public:
 	bool isCliffCell(float x, float y);
+	bool rva00067298(float x, float y);
 	unsigned char rva00067225(float x, float y);
 	unsigned char rva0006730B(float x, float y);
 	bool rva0006B114(float x, float y);
@@ -74,6 +76,19 @@ bool BaseHeightMapRenderObjClass::isCliffCell(float x, float y)
 	if (iX >= m_map->getXExtent() - 1) iX = m_map->getXExtent() - 2;
 	if (iY >= m_map->getYExtent() - 1) iY = m_map->getYExtent() - 2;
 	return m_map->getCliffState(iX, iY);
+}
+
+bool BaseHeightMapRenderObjClass::rva00067298(float x, float y)
+{
+	if (m_map == 0)
+		return false;
+	int iX = m_map->getBorderSizeInline() - (int)(x * -0.1f);
+	int iY = m_map->getBorderSizeInline() - (int)(y * -0.1f);
+	if (iX < 0) iX = 0;
+	if (iY < 0) iY = 0;
+	if (iX >= m_map->getXExtent() - 1) iX = m_map->getXExtent() - 2;
+	if (iY >= m_map->getYExtent() - 1) iY = m_map->getYExtent() - 2;
+	return m_map->rva000AE1DC(iX, iY);
 }
 
 unsigned char BaseHeightMapRenderObjClass::rva00067225(float x, float y)
