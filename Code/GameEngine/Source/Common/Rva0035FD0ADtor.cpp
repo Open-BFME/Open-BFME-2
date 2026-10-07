@@ -30,28 +30,53 @@ public:
 extern DisplayStringManager *TheDisplayStringManager;
 
 template <typename T> class StringBase {
-public: ~StringBase() { releaseBuffer(); }
+public: StringBase() : m_data(0) {}
+	~StringBase() { releaseBuffer(); }
 private: void releaseBuffer();
 	T *m_data; };
 
-class Rva001DBAC3
+class Rva001DBAA4
 {
 public:
-	virtual ~Rva001DBAC3();
+	Rva001DBAA4();
+	virtual ~Rva001DBAA4();
+	int m_frameLength;
+	bool m_isFinished;
+	bool m_isForward;
+	bool m_isReversed;
+	int m_C;
 };
 
-class Rva0035FD0A : public Rva001DBAC3
+class Rva0035FD0A : public Rva001DBAA4
 {
 public:
+	Rva0035FD0A();
 	virtual ~Rva0035FD0A();
-private:
-	char m_pad4[8];
-	int m_C;
-	char m_pad10[28];
+	int m_startFrame;
+	int m_endFrame;
+	char m_pad18[0x10];
+	int m_drawState;
 	StringBase<unsigned short> m_2C;
 	StringBase<unsigned short> m_30;
 	DisplayString *m_34;
 };
+
+// Native [0x0035FCD6,0x0035FD0A), 52 bytes. The two zeroed words at
+// +0x2C/+0x30 are the independently rowed destructor's wide-string
+// subobjects, whose inline default construction precedes the body stores.
+// The 0x38-byte factory at 0x0035FD73 and its StartFrame/EndFrame table
+// prove the prefix fields; vtable slot 2 points to rowed TextType update.
+// Original class name remains conservatively address-derived here.
+Rva0035FD0A::Rva0035FD0A()
+{
+	m_drawState = -1;
+	m_endFrame = 30;
+	m_frameLength = 30;
+	m_startFrame = 0;
+	m_C = 0;
+	m_isForward = true;
+	m_34 = 0;
+}
 
 Rva0035FD0A::~Rva0035FD0A()
 {
