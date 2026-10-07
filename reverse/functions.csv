@@ -66800,3 +66800,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva00203BE9@@YAXXZ,,0x00203BE9,56,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setSides.cpp,matched,address-derived message dispatch from packet globals and callees; no donor identity claimed
 ?Rva004CB047Parse@@YAXPAVINI@@PAX1PBX@Z,,0x004CB047,172,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004CB047Parse.cpp,matched,callback storage use and target vector from packet plus parser size from sibling TU
 ?rva0056655F@Rva0056655FOwner@@QAEXABUElem003AF9E0@@@Z,,0x0056655F,11,Code/GameEngine/Source/Common/Rva0056654FThunk.cpp,matched,tail-jump append plus 0x84 via Elem pushback
+??0Rva000FB87B@@QAE@XZ,,0x000FB87B,59,Code/GameEngine/Source/Common/Bfme/Rva000FB87BCtor.cpp,matched,leaf ctor via rowed Vector_base 0x00211E58 and vtbl_00BCF2F8 plus 0x1C
