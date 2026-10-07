@@ -66938,3 +66938,4 @@ _rva0062AF56D3DXVec3Transform@12,,0x0062AF56,6,Code/GameEngine/Source/Common/Rva
 ?rva0036CFE5@AIGroup@@QAE_NPBVPlayer@@@Z,,0x0036CFE5,80,Code/GameEngine/Source/GameLogic/AI/AIGroupMembership_Rva0036CFA4.cpp,matched,same list remove as removeAny provider 0x250 slotE0
 ?rva0059E861@Rva0059E861@@QAE_NABVAsciiString@@@Z,,0x0059E861,17,Code/GameEngine/Source/Common/Rva0059E861Wrapper.cpp,matched,leaf called from 0x0059E9B5; callee Faction 0x00441E4D; pushes arg and this+4
 ?rva005D3287@Rva005D3287@@QAEX_N@Z,,0x005D3287,7,Code/GameEngine/Source/Common/Rva005D3287Thunk.cpp,matched,leaf tail-jmp to Impl SetVisibility 0x005D321D; caller 0x00578664
+?rva002E8251@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z,,0x002E8251,247,Code/GameEngine/Source/GameLogic/AI/PathfinderCellLineWalks.cpp,matched,pin plus caller 0x002EAE16 plus abut to 0x002E8348 plus flag test

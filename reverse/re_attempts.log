@@ -16011,3 +16011,5 @@ FUN_008474c7	0x004474C7	537	no-boundary	Target starts at displacement byte 0xC4 
 ?setDisplayMode@Display@@UAE_NIII_N@Z	0x0025C262	278	partial	Display setDisplayMode donor near miss 4B push-via-reg plus mov-esp-ebp vs leave t=35 model=muse-spark score=0.93 stash=reverse/attempts/0x0025c262.cpp
 ??0BfmePod264@@QAE@ABU0@@Z	0x00289CEB	143	blocked	EH states 3vs5 5vs6 and and-vs-mov zeros persist after base-dtor and body-order levers t=12 model=muse-spark
 ?rva0039B4EC@ExperienceTracker@@QAE_NH_N0@Z	0x0039B4EC	92	partial	bool to int movzx plus global reloc only 94of92 0 reg diffs t=15 model=muse-spark score=0.97 stash=reverse/attempts/0x0039b4ec.cpp
+?rva004D00BB@ConnectionManager@@QAEXH@Z	0x004D00BB	179	blocked	EH prolog inline vs __EH_prolog plus ebx-vs-edi and lea patterns persist across 4 variants with precedent flags t=25 model=muse-05
+?rva004FAC99@Rva004FAC99@@QAEXABV?$StringBase@D@@@Z	0x004FAC99	55	blocked	EH inline vs __EH_prolog persists across 3 variants incl no-STLport minimal same as 0x004D00BB wall t=18 model=muse-05

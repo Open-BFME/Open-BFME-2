@@ -56,7 +56,8 @@ ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord
 class PathfindCell
 {
 public:
-	char m_unreconstructed[0x10];
+	char m_pad[12];
+	Int m_flags;
 };
 
 class PathfindLayer
@@ -116,6 +117,8 @@ private:
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F5925Info )
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F4D8BInfo )
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F600CInfo )
+	Int rva002E8251(const ICoord2D *startCell, const ICoord2D *destinationCell,
+		PathfindLayerEnum layer, Rva002E7ED6Info *callbackInfo);
 
 	char m_beforeMap[0x10];
 	PathfindCell **m_map;
@@ -299,6 +302,79 @@ PATHFINDER_CELL_LINE_WALK( Rva002F4491Info )
 PATHFINDER_CELL_LINE_WALK( Rva002F5925Info )
 PATHFINDER_CELL_LINE_WALK( Rva002F4D8BInfo )
 PATHFINDER_CELL_LINE_WALK( Rva002F600CInfo )
+
+// ?rva002E8251@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z @0x002E8251 247B.
+// Private line walk checking flags &0x3f0 vs 0x10 via rowed getCell 0x002E6D62
+// and abs 0x00629952. Same Bresenham as iterateCellsAlongLine above with the
+// callback replaced by the flag test. Evidence is pin plus caller 0x002EAE16
+// plus abut to 0x002E8348.
+Int Pathfinder::rva002E8251(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002E7ED6Info *callbackInfo)
+{
+	(void)callbackInfo;
+	Int delta_x = abs(destinationCell->x - startCell->x);
+	Int delta_y = abs(destinationCell->y - startCell->y);
+
+	Int xinc2, yinc1, xinc1, numpixels, numadd, den;
+	Int yinc2, num;
+	if (delta_x >= delta_y)
+	{
+		numpixels = delta_x + 1;
+		num = 2 * delta_y - delta_x;
+		numadd = delta_y << 1;
+		den = 2 * (delta_y - delta_x);
+		xinc2 = 1;
+		yinc2 = 0;
+		yinc1 = 1;
+		xinc1 = 1;
+	}
+	else
+	{
+		numpixels = delta_y + 1;
+		num = 2 * delta_x - delta_y;
+		numadd = delta_x << 1;
+		den = 2 * (delta_x - delta_y);
+		yinc2 = 1;
+		xinc2 = 0;
+		yinc1 = 1;
+		xinc1 = 1;
+	}
+
+	if (startCell->x > destinationCell->x)
+	{
+		xinc2 = -xinc2;
+		xinc1 = -1;
+	}
+	if (startCell->y > destinationCell->y)
+	{
+		yinc2 = -yinc2;
+		yinc1 = -1;
+	}
+
+	Int x = startCell->x;
+	Int y = startCell->y;
+	for (Int curpixel = 0; curpixel < numpixels; curpixel++)
+	{
+		PathfindCell *currentCell = getCell(layer, x, y);
+		if (currentCell == 0)
+			return 0;
+		Int blocked = ((currentCell->m_flags & 0x3f0) != 0x10);
+		if (blocked)
+			return blocked;
+		if (num < 0)
+		{
+			num += numadd;
+			x += xinc2;
+			y += yinc2;
+		}
+		else
+		{
+			num += den;
+			x += xinc1;
+			y += yinc1;
+		}
+	}
+	return 0;
+}
 
 // ?rva002F9578@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F4D8BInfo@@@Z @0x002F9578 63B.
 // The caller and adjacent Pathfinder helpers establish the class; both world-to-cell
