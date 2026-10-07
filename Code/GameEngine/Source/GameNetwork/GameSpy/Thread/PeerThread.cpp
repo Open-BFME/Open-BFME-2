@@ -400,12 +400,13 @@ public:
 	std::string ladderIP( void ) { return m_ladderIP; }
 	UnsignedShort ladderPort( void ) { return m_ladderPort; }
 	std::string pingStr( void ) { return m_pingStr; }
-	std::string getPlayerName(Int idx) { return m_playerNames[idx]; }
-	Int getPlayerWins(Int idx) { return m_playerWins[idx]; }
-	Int getPlayerLosses(Int idx) { return m_playerLosses[idx]; }
-	Int getPlayerProfileID(Int idx) { return m_playerProfileID[idx]; }
-	Int getPlayerFaction(Int idx) { return m_playerFactions[idx]; }
-	Int getPlayerColor(Int idx) { return m_playerColors[idx]; }
+	std::string getPlayerName(Int idx);
+	Int getPlayerWins(Int idx);
+	Int getPlayerLosses(Int idx);
+	Int getPlayerProfileID(Int idx);
+	Int getPlayerFaction(Int idx);
+	Int getPlayerColor(Int idx);
+	Int getPlayerHandicap(Int idx);
 	Int getNumPlayers(void) { return m_numPlayers; }
 	Int getMaxPlayers(void) { return m_maxPlayers; }
 	Int getNumObservers(void) { return m_numObservers; }
@@ -999,35 +1000,36 @@ static void QRPlayerKeyCallback
 	if (!t->isHosting())
 		t->stopHostingAlready(peer);
 
+	// BFME 2 keeps Zero Hour's logging shape in release: every value is also
+	// stored into val, and each macro argument is evaluated twice. The keys
+	// are the ones Thread_Function registers.
 #undef ADD
 #undef ADDINT
-#ifdef DEBUG_LOGGING
 	AsciiString val = "";
 #define ADD(x) { qr2_buffer_add(buffer, x); val = x; }
 #define ADDINT(x) { qr2_buffer_add_int(buffer, x); val.format("%d",x); }
-#else
-#define ADD(x) { qr2_buffer_add(buffer, x); }
-#define ADDINT(x) { qr2_buffer_add_int(buffer, x); }
-#endif
 
 	switch(key)
 	{
-	case NAME__KEY:
-		ADD(t->getPlayerName(index).c_str());
-		break;
-	case WINS__KEY:
-		ADDINT(t->getPlayerWins(index));
-		break;
-	case LOSSES__KEY:
-		ADDINT(t->getPlayerLosses(index));
-		break;
 	case PID__KEY:
 		ADDINT(t->getPlayerProfileID(index));
 		break;
-	case FACTION__KEY:
-		ADDINT(t->getPlayerLosses(index));
+	case 0x3e: // name_
+		ADD(t->getPlayerName(index).c_str());
 		break;
-	case COLOR__KEY:
+	case 0x3f: // faction_
+		ADDINT(t->getPlayerFaction(index));
+		break;
+	case 0x40: // color_
+		ADDINT(t->getPlayerColor(index));
+		break;
+	case 0x41: // handicap_
+		ADDINT(t->getPlayerHandicap(index));
+		break;
+	case 0x42: // wins_
+		ADDINT(t->getPlayerWins(index));
+		break;
+	case 0x43: // losses_
 		ADDINT(t->getPlayerLosses(index));
 		break;
 	default:
@@ -1731,9 +1733,9 @@ struct BfmePeerThreadView
 	Int playerWins[MAX_SLOTS];
 	Int playerLosses[MAX_SLOTS];
 	Int playerProfileID[MAX_SLOTS];
-	Int playerValue1DC[MAX_SLOTS];
-	Int playerValue1FC[MAX_SLOTS];
-	Int playerValue21C[MAX_SLOTS];
+	Int playerColors[MAX_SLOTS];
+	Int playerHandicaps[MAX_SLOTS];
+	Int playerFactions[MAX_SLOTS];
 	Int numPlayers;
 	Int maxPlayers;
 	Int numObservers;
@@ -1758,6 +1760,59 @@ struct BfmePeerThreadView
 	unsigned char unknown4A9[3];
 	MutexClass *lock;
 };
+
+// BFME 2 bounds-checks the per-slot getters and keeps them out of line; their
+// only callers are the QR2 player-key callback and the server-key callback.
+// Which array each one reads follows from QRPlayerKeyCallback: pid_ (27),
+// faction_ (0x3f), color_ (0x40), handicap_ (0x41), wins_ (0x42) and
+// losses_ (0x43) as Thread_Function registers them.
+Int PeerThreadClass::getPlayerWins(Int idx)
+{
+	if (idx < 0 || idx >= MAX_SLOTS)
+		return 0;
+	return reinterpret_cast<BfmePeerThreadView *>(this)->playerWins[idx];
+}
+
+Int PeerThreadClass::getPlayerLosses(Int idx)
+{
+	if (idx < 0 || idx >= MAX_SLOTS)
+		return 0;
+	return reinterpret_cast<BfmePeerThreadView *>(this)->playerLosses[idx];
+}
+
+Int PeerThreadClass::getPlayerProfileID(Int idx)
+{
+	if (idx < 0 || idx >= MAX_SLOTS)
+		return 0;
+	return reinterpret_cast<BfmePeerThreadView *>(this)->playerProfileID[idx];
+}
+
+Int PeerThreadClass::getPlayerFaction(Int idx)
+{
+	if (idx < 0 || idx >= MAX_SLOTS)
+		return 0;
+	return reinterpret_cast<BfmePeerThreadView *>(this)->playerFactions[idx];
+}
+
+Int PeerThreadClass::getPlayerColor(Int idx)
+{
+	if (idx < 0 || idx >= MAX_SLOTS)
+		return 0;
+	return reinterpret_cast<BfmePeerThreadView *>(this)->playerColors[idx];
+}
+
+Int PeerThreadClass::getPlayerHandicap(Int idx)
+{
+	if (idx < 0 || idx >= MAX_SLOTS)
+		return 0;
+	return reinterpret_cast<BfmePeerThreadView *>(this)->playerHandicaps[idx];
+}
+
+// Native [389EA5,389F2C),135B. An out-of-range slot reads as "UNKNOWN".
+std::string PeerThreadClass::getPlayerName(Int idx)
+{
+	return (idx >= 0 && idx < MAX_SLOTS) ? reinterpret_cast<BfmePeerThreadView *>(this)->playerNames[idx] : std::string("UNKNOWN");
+}
 
 // The global after TheGameSpyInfo (0x00E02324); its +0x5C word gates the
 // per-pass stats push.
@@ -2131,9 +2186,9 @@ void PeerThreadClass::Thread_Function()
 						self->playerWins[i] = payload.gameOptions.wins[i];
 						self->playerLosses[i] = payload.gameOptions.losses[i];
 						self->playerProfileID[i] = payload.gameOptions.profileID[i];
-						self->playerValue21C[i] = payload.gameOptions.slotValue60[i];
-						self->playerValue1DC[i] = payload.gameOptions.slotValue80[i];
-						self->playerValue1FC[i] = payload.gameOptions.slotValueA0[i];
+						self->playerFactions[i] = payload.gameOptions.slotValue60[i];
+						self->playerColors[i] = payload.gameOptions.slotValue80[i];
+						self->playerHandicaps[i] = payload.gameOptions.slotValueA0[i];
 					}
 
 					s_wantStateChangedHeartbeat = TRUE;
@@ -2204,9 +2259,9 @@ void PeerThreadClass::Thread_Function()
 						self->playerWins[i] = 0;
 						self->playerLosses[i] = 0;
 						self->playerProfileID[i] = 0;
-						self->playerValue21C[i] = 0;
-						self->playerValue1DC[i] = 0;
-						self->playerValue1FC[i] = 0;
+						self->playerFactions[i] = 0;
+						self->playerColors[i] = 0;
+						self->playerHandicaps[i] = 0;
 					}
 					self->hasPassword = incomingRequest.password.length() != 0;
 					self->playerNames[0] = self->loginName;
