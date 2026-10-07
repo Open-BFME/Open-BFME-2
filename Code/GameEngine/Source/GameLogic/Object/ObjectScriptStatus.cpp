@@ -78,14 +78,21 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_COUNT
 };
 
-// 16B single-bit mask built by the pinned 0x23DA79 helper (memset 0x10 plus
-// one ORed bit) and consumed by the pinned 0x28CDEB inner setter.
-struct ObjectStatusMask
+// Native 0x23DA79 consumes two arguments (RET8) and builds four words.
+// The boolean is already on the outer 0x28CDEB call stack while the mask
+// is constructed; it belongs to that setter, whose own RET8 consumes it.
+class Rva0023DA79
 {
-	ObjectStatusMask *Rva0023DA79( int reserved, ObjectStatusTypes bit, Bool flag );
-	int m_bits[ 4 ];
+public:
+	Rva0023DA79 *rva0023DA79(int ignored, int index);
+	unsigned int m_bits[4];
 };
 
+class Rva00346BC0
+{
+public:
+	unsigned int m_words[4];
+};
 
 class PartitionData
 {
@@ -104,7 +111,7 @@ public:
 	void setStatus( ObjectStatusTypes bit, Bool flag );
 	Bool rva00292ED0( DisabledType type );
 	void rva00292EB3( DisabledType type );
-	void Rva0028CDEB( ObjectStatusMask *mask );
+	void rva0028CDEB(const Rva00346BC0 &mask, bool set);
 
 private:
 	unsigned char m_pad00[ 0x1F8 ];
@@ -132,8 +139,8 @@ void Object::makeDirty( void )
 // ?setStatus@Object@@QAEXW4ObjectStatusTypes@@_N@Z
 void Object::setStatus( ObjectStatusTypes bit, Bool flag )
 {
-	ObjectStatusMask mask;
-	Rva0028CDEB( mask.Rva0023DA79( 0, bit, flag ) );
+	Rva0023DA79 mask;
+	rva0028CDEB(*reinterpret_cast<const Rva00346BC0 *>(mask.rva0023DA79(0, (int)bit)), flag);
 }
 
 // ?setScriptStatus@Object@@QAEXW4ObjectScriptStatusBit@@_N@Z
