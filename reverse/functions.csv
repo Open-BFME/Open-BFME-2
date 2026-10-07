@@ -68234,3 +68234,7 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva000581F5@Rva000581F5@@QAEXXZ,,0x000581F5,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
 ?rva00216BF0@Rva00216BF0@@QAEXXZ,,0x00216BF0,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
 ?rva00289706@Rva00289706@@QAEXXZ,,0x00289706,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
+??1Rva0052710C@@QAE@XZ,,0x0052710C,5,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,
+?rva0052AC0A@Rva0052AC0A@@QAEXXZ,,0x0052AC0A,5,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,
+??1Rva005D32D4@@QAE@XZ,,0x005D32D4,5,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,
+??1Rva005E893E@@QAE@XZ,,0x005E893E,5,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,

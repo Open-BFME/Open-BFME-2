@@ -1673,4 +1673,31 @@ Rva005D4FFC::~Rva005D4FFC()
 	((Rva005D4FA0 *)this)->clear();
 }
 
+Rva0052710C::~Rva0052710C()
+{
+	((Rva00526F12 *)this)->clear();
+}
+
+class Rva0052AC0A
+{
+public:
+	void rva0052AC0A();
+};
+
+void Rva0052AC0A::rva0052AC0A()
+{
+	((Rva0052A76C *)this)->clear();
+}
+
+Rva005D32D4::~Rva005D32D4()
+{
+	((Rva005D32AA *)this)->clear();
+}
+
+Rva005E893E::~Rva005E893E()
+{
+	((Rva005E88EE *)this)->clear();
+}
+
+
 
