@@ -78,22 +78,59 @@ private:
 
 class AIUpdateInterface;
 
-class Object
+// The 28-byte kind-of mask.
+template <int N> class BitFlags
+{
+private:
+	unsigned int m_bits[7];
+};
+typedef BitFlags<116> KindOfMaskType;
+extern KindOfMaskType KINDOFMASK_NONE;
+
+enum WeaponSetType
+{
+	// The two weapon sets BFME 2's transports grant by rider kind; ZH grants
+	// WEAPONSET_PLAYER_UPGRADE from armed riders.
+	BFME_WEAPONSET_4 = 4,
+	BFME_WEAPONSET_5 = 5
+};
+
+// Object::getWeaponSetFlags (lea eax,[ecx+0x370]); the row keeps its
+// address-derived name.
+class Rva0028B7AELeaGetter
+{
+public:
+	void *get() const;
+};
+
+class Thing
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	__forceinline Bool isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
+	Bool isKindOfMulti(const KindOfMaskType &mustBeSet, const KindOfMaskType &mustBeClear) const;
 	const Coord3D *getPosition() const { return &m_pos; }
-	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
-	Bool isUsingAirborneLocomotor() const;
-	Int rva0028B511() const; // Zero Hour's getLayer
-	void kill(DamageType damageType = DAMAGE_UNRESISTABLE, DeathType deathType = DEATH_NORMAL);
 private:
 	void *m_vtable;
 	const ThingTemplate *m_template; // +0x04
 	char m_pad08[0x38 - 0x08];
 	Coord3D m_pos; // +0x38
-	char m_pad44[0x258 - 0x44];
+	char m_pad44[0x48 - 0x44];
+};
+
+class Object : public Thing
+{
+public:
+	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
+	Bool isUsingAirborneLocomotor() const;
+	Int rva0028B511() const; // Zero Hour's getLayer
+	void kill(DamageType damageType = DAMAGE_UNRESISTABLE, DeathType deathType = DEATH_NORMAL);
+	const unsigned int *getWeaponSetFlags() const { return (const unsigned int *)((const Rva0028B7AELeaGetter *)this)->get(); }
+	Bool testWeaponSetFlag(WeaponSetType wst) const { return ((*getWeaponSetFlags() >> wst) & 1) != 0; }
+	void setWeaponSetFlag(WeaponSetType wst);
+	void clearWeaponSetFlag(WeaponSetType wst);
+private:
+	char m_pad48[0x258 - 0x48];
 	AIUpdateInterface *m_ai; // +0x258
 };
 
@@ -162,7 +199,10 @@ public:
 class TransportContainModuleData
 {
 public:
-	char m_pad00[0x142];
+	char m_pad00[0xB0];
+	KindOfMaskType m_upgradeKindOfA; // +0xB0, grants weapon set 4
+	KindOfMaskType m_upgradeKindOfB; // +0xCC, grants weapon set 5
+	char m_padE8[0x142 - 0xE8];
 	Bool m_destroyRidersWhoAreNotFreeToExit; // +0x142
 };
 
@@ -175,6 +215,9 @@ protected:
 	virtual void killRidersWhoAreNotFreeToExit(); // +0x64
 	virtual void rvaSlot26();
 	virtual Bool isSpecificRiderFreeToExit(Object *obj); // +0x6C
+	virtual void createPayload(); // +0x70
+	virtual void rvaSlot29();
+	virtual void letRidersUpgradeWeaponSet(); // +0x78
 private:
 	const TransportContainModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
@@ -244,4 +287,40 @@ Bool TransportContain::isSpecificRiderFreeToExit(Object *specificObject)
 		return FALSE;
 
 	return TRUE;
+}
+
+// ?letRidersUpgradeWeaponSet@TransportContain@@MAEXXZ @0x0046760D
+void TransportContain::letRidersUpgradeWeaponSet()
+{
+	Object *self = getObject();
+	const TransportContainModuleData *d = getTransportContainModuleData();
+
+	Rva0046247DPair riders;
+	((Rva0046247D *)this)->rva0046247D(riders);
+	Bool anyRiderA = FALSE;
+	Bool anyRiderB = FALSE;
+	for (IntList::iterator it = ((IntList *)riders.source)->begin(); it != ((IntList *)riders.source)->end(); ++it)
+	{
+		Object *rider = (Object *)*it;
+		if (rider->isKindOfMulti(d->m_upgradeKindOfA, KINDOFMASK_NONE))
+			anyRiderA = TRUE;
+		else if (rider->isKindOfMulti(d->m_upgradeKindOfB, KINDOFMASK_NONE))
+			anyRiderB = TRUE;
+	}
+
+	if (anyRiderA)
+	{
+		if (!self->testWeaponSetFlag(BFME_WEAPONSET_4))
+			self->setWeaponSetFlag(BFME_WEAPONSET_4);
+	}
+	else if (self->testWeaponSetFlag(BFME_WEAPONSET_4))
+		self->clearWeaponSetFlag(BFME_WEAPONSET_4);
+
+	if (anyRiderB)
+	{
+		if (!self->testWeaponSetFlag(BFME_WEAPONSET_5))
+			self->setWeaponSetFlag(BFME_WEAPONSET_5);
+	}
+	else if (self->testWeaponSetFlag(BFME_WEAPONSET_5))
+		self->clearWeaponSetFlag(BFME_WEAPONSET_5);
 }
