@@ -101,6 +101,13 @@ public:
 	virtual AsciiString getPath();
 };
 
+// AsciiString getter at +0x20 (rowed under its address name).
+class Rva002D9BC1AsciiField
+{
+public:
+	AsciiString get() const;
+};
+
 // +0x20 word getter and +0x24 byte getter (rowed under their address names).
 class Rva004D5973WordField
 {
@@ -236,6 +243,7 @@ protected:
 	UnsignedByte rva0058D513(NetCommandRef *msg);
 	Bool isRoomForFrameMessage(NetCommandRef *msg);
 	UnsignedByte rva0058D70B(NetCommandRef *msg);
+	Bool isRoomForGameSpyStatsAuthKeyMessage(NetCommandRef *msg);
 	void rva0058D826(Int a, Int b, Int c, Int d, Int e);
 	Bool addInformPlayerLeaveFrameCommand(NetCommandRef *msg);
 	Bool rva0058E8EA(NetCommandRef *msg);
@@ -258,6 +266,7 @@ protected:
 	Bool rva005936DB(NetCommandRef *msg);
 	Bool addFileAnnounceCommand(NetCommandRef *msg);
 	Bool addRequestGameSpyStatsAuthKeyCommand(NetCommandRef *msg);
+	Bool addGameSpyStatsAuthKeyCommand(NetCommandRef *msg);
 	Bool rva005939EE(NetCommandRef *msg);
 	Bool addAckCommand(NetCommandRef *msg, UnsignedShort commandID, UnsignedByte originalPlayerID, UnsignedInt ackValue20, UnsignedInt ackValue24);
 
@@ -923,6 +932,42 @@ UnsignedByte NetPacket::rva0058D70B(NetCommandRef *msg)
 	}
 	Int total = m_packetLen + len + 12;
 	return total <= MAX_PACKET_SIZE;
+}
+
+// ?isRoomForGameSpyStatsAuthKeyMessage@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x00591DAB, 251 bytes:
+// the BFME1 donor's isRoomForGameSpyStatsAuthKeyMessage
+// (NetPacket_isRoomForGameSpyStatsAuthKeyMessage.cpp) plus BFME's timestamp
+// charge: header bytes, then both strings' lengths and their terminators.
+// The inline getters keep len and needNewCommandID in the frame, as retail.
+Bool NetPacket::isRoomForGameSpyStatsAuthKeyMessage(NetCommandRef *msg)
+{
+	Int len = 0;
+	Bool needNewCommandID = false;
+	NetCommandMsg *cmdMsg = msg->getCommand();
+	if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+		++len;
+		len += sizeof(UnsignedByte);
+	}
+	if (m_lastRelay != msg->getRelay()) {
+		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+	}
+	if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+		len += sizeof(UnsignedInt) + sizeof(UnsignedByte);
+	}
+	if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+		++len;
+		len += sizeof(UnsignedByte);
+		needNewCommandID = true;
+	}
+	if (((m_lastCommandID + 1) != (UnsignedShort)(cmdMsg->getID())) || (needNewCommandID == true)) {
+		len += sizeof(UnsignedShort) + sizeof(UnsignedByte);
+	}
+	++len;
+	len += ((CDDrive *)cmdMsg)->CDDrive::getPath().getLength() + ((Rva002D9BC1AsciiField *)cmdMsg)->get().getLength() + 2;
+	if ((len + m_packetLen) > MAX_PACKET_SIZE) {
+		return false;
+	}
+	return true;
 }
 
 // ?rva0058D826@NetPacket@@IAEXHHHHH@Z @0x0058D826 265B.
