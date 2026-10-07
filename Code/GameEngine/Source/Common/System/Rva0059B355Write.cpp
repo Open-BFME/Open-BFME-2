@@ -17,7 +17,8 @@ template <> class StringBase<char>
 public:
 	StringBase() : m_data(0) {}
 	StringBase(const StringBase<char> &other);
-	~StringBase() { releaseBuffer(); }
+	// The existing destructor alias resolves to retail releaseBuffer at RVA 0x36410.
+	~StringBase();
 	char *getBufferForRead(int len);
 private:
 	void releaseBuffer();
