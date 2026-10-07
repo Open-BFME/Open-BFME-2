@@ -248,3 +248,25 @@ void Rva0047A040Base9E0::rva00588E44(void *contain)
 	}
 }
 
+// ?rva00588F61 @0x00588F61 153B. HordeGarrisonContain's +0x20 slot 32
+// (0x00479BF3) calls it with the contain, an object and a value it passes on
+// as aiExit's CommandSourceType: each contained object forwards both to its
+// +0x250 slot-0x7C member's slot 0x84, or without one to
+// AICommandInterface::aiExit (0x0036F39B) through its +0x258 AI.
+void Rva0047A040Base9E0::rva00588F61(void *contain, Object *obj, CommandSourceType cmdSource)
+{
+	IntList items = ((Rva00588E44Contain *)((char *)contain + 0x20))->slot118().rva0036AE51();
+	for (IntList::iterator it = items.begin(); it != items.end(); ++it) {
+		Object *o = (Object *)*it;
+		Rva00588E44Body *body = o->m_250;
+		if (body != 0) {
+			Rva00588E44Contain *member = body->slot7C();
+			if (member != 0)
+				member->slot84(obj, cmdSource);
+		} else {
+			AIUpdateInterface *ai = o->m_258;
+			if (ai != 0)
+				ai->aiExit(obj, cmdSource);
+		}
+	}
+}
