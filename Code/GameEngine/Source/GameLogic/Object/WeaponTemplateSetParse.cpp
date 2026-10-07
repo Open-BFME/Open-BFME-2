@@ -57,7 +57,17 @@ enum WeaponSlotType
 };
 
 extern const char *TheWeaponSlotTypeNames[];
-extern const char *TheCommandSourceMaskNames[];
+// ZH AI.h supplies the command-source table semantics. Target VA 0x00DBC2B4
+// retains exactly these three names and a null sentinel, rather than ZH's
+// additional FROM_DOZER and DEFAULT_SWITCH_WEAPON entries. Full strings and
+// all three pointer relocations are checked against the retail image.
+const char *TheCommandSourceMaskNames[] =
+{
+	"FROM_PLAYER",
+	"FROM_SCRIPT",
+	"FROM_AI",
+	NULL
+};
 
 class WeaponTemplateSet
 {
