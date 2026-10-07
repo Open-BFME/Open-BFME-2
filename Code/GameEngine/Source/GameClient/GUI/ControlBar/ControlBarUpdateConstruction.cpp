@@ -14,6 +14,41 @@ class GameWindow
 {
 };
 
+#define RVA0053EB81_VIRTUAL(name) virtual void name();
+
+// Vtable offsets used by the target method. The object type and the virtual
+// method identities remain unresolved; only the three observed slots are
+// typed by their return use.
+class Rva0053EB81Subject
+{
+public:
+	RVA0053EB81_VIRTUAL(pad00) RVA0053EB81_VIRTUAL(pad01) RVA0053EB81_VIRTUAL(pad02) RVA0053EB81_VIRTUAL(pad03)
+	RVA0053EB81_VIRTUAL(pad04) RVA0053EB81_VIRTUAL(pad05) RVA0053EB81_VIRTUAL(pad06) RVA0053EB81_VIRTUAL(pad07)
+	RVA0053EB81_VIRTUAL(pad08) RVA0053EB81_VIRTUAL(pad09) RVA0053EB81_VIRTUAL(pad10) RVA0053EB81_VIRTUAL(pad11)
+	RVA0053EB81_VIRTUAL(pad12) RVA0053EB81_VIRTUAL(pad13) RVA0053EB81_VIRTUAL(pad14) RVA0053EB81_VIRTUAL(pad15)
+	RVA0053EB81_VIRTUAL(pad16) RVA0053EB81_VIRTUAL(pad17) RVA0053EB81_VIRTUAL(pad18) RVA0053EB81_VIRTUAL(pad19)
+	RVA0053EB81_VIRTUAL(pad20) RVA0053EB81_VIRTUAL(pad21) RVA0053EB81_VIRTUAL(pad22) RVA0053EB81_VIRTUAL(pad23)
+	RVA0053EB81_VIRTUAL(pad24) RVA0053EB81_VIRTUAL(pad25) RVA0053EB81_VIRTUAL(pad26) RVA0053EB81_VIRTUAL(pad27)
+	RVA0053EB81_VIRTUAL(pad28) RVA0053EB81_VIRTUAL(pad29) RVA0053EB81_VIRTUAL(pad30) RVA0053EB81_VIRTUAL(pad31)
+	RVA0053EB81_VIRTUAL(pad32) RVA0053EB81_VIRTUAL(pad33) RVA0053EB81_VIRTUAL(pad34) RVA0053EB81_VIRTUAL(pad35)
+	RVA0053EB81_VIRTUAL(pad36) RVA0053EB81_VIRTUAL(pad37) RVA0053EB81_VIRTUAL(pad38) RVA0053EB81_VIRTUAL(pad39)
+	RVA0053EB81_VIRTUAL(pad40) RVA0053EB81_VIRTUAL(pad41) RVA0053EB81_VIRTUAL(pad42) RVA0053EB81_VIRTUAL(pad43)
+	RVA0053EB81_VIRTUAL(pad44) RVA0053EB81_VIRTUAL(pad45) RVA0053EB81_VIRTUAL(pad46) RVA0053EB81_VIRTUAL(pad47)
+	RVA0053EB81_VIRTUAL(pad48) RVA0053EB81_VIRTUAL(pad49) RVA0053EB81_VIRTUAL(pad50) RVA0053EB81_VIRTUAL(pad51)
+	RVA0053EB81_VIRTUAL(pad52) RVA0053EB81_VIRTUAL(pad53)
+	virtual bool rva0053EB81SlotD8();
+	RVA0053EB81_VIRTUAL(pad55)
+	virtual int rva0053EB81SlotE0();
+	RVA0053EB81_VIRTUAL(pad57) RVA0053EB81_VIRTUAL(pad58) RVA0053EB81_VIRTUAL(pad59) RVA0053EB81_VIRTUAL(pad60)
+	RVA0053EB81_VIRTUAL(pad61) RVA0053EB81_VIRTUAL(pad62) RVA0053EB81_VIRTUAL(pad63) RVA0053EB81_VIRTUAL(pad64)
+	RVA0053EB81_VIRTUAL(pad65) RVA0053EB81_VIRTUAL(pad66) RVA0053EB81_VIRTUAL(pad67) RVA0053EB81_VIRTUAL(pad68)
+	RVA0053EB81_VIRTUAL(pad69) RVA0053EB81_VIRTUAL(pad70) RVA0053EB81_VIRTUAL(pad71) RVA0053EB81_VIRTUAL(pad72)
+	RVA0053EB81_VIRTUAL(pad73) RVA0053EB81_VIRTUAL(pad74)
+	virtual int rva0053EB81Slot12C();
+};
+
+#undef RVA0053EB81_VIRTUAL
+
 class Object
 {
 public:
@@ -25,7 +60,13 @@ public:
 	}
 
 private:
-	unsigned char m_pad[0x280];
+	unsigned char m_pad000[0x250];
+
+public:
+	Rva0053EB81Subject *m_250;
+
+private:
+	unsigned char m_pad254[0x2c];
 	float m_constructionPercent;
 };
 
@@ -40,6 +81,9 @@ class ControlBar
 public:
 	void updateConstructionTextDisplay(Object *obj);
 	void rva0053E4B1();
+	void rva0053EB81();
+	void rva0053E783(void *object, int flag);
+	void switchToContext(int context, void *object);
 	void rva0031D230();
 
 private:
@@ -47,7 +91,18 @@ private:
 	Rva0053E4B1Owner *m_6c;
 	unsigned char m_pad70[8];
 	float m_displayedConstructPercent;
+	unsigned char m_pad7c[4];
+	int m_80;
 };
+
+class PlayerList
+{
+public:
+	unsigned char m_pad00[0x10];
+	int m_10;
+};
+
+extern PlayerList *ThePlayerList;
 
 enum NameKeyType
 {
@@ -185,4 +240,27 @@ void ControlBar::rva0053E4B1()
 	if (m_displayedConstructPercent != obj->getConstructionPercent()) {
 		updateConstructionTextDisplay(obj);
 	}
+}
+
+// Retail 0x0053EB81, 114 bytes. Address-derived method name. The ControlBar
+// association follows the target thiscall shape and the +0x6C owner path also
+// used by matched sibling 0x0053E4B1. The selected object at
+// owner->object+0x250 is only an ABI view; its class and virtual method
+// meanings remain unresolved.
+void ControlBar::rva0053EB81()
+{
+	Rva0053E4B1Owner *owner = m_6c;
+	Object *object = owner->m_fc;
+	Rva0053EB81Subject *subject = object->m_250;
+	if (!subject)
+	{
+		switchToContext(0, owner);
+		return;
+	}
+
+	int localPlayer = ThePlayerList->m_10;
+	if (!subject->rva0053EB81SlotD8() || subject->rva0053EB81SlotE0() != localPlayer)
+		return rva0031D230();
+	if (m_80 != subject->rva0053EB81Slot12C())
+		rva0053E783(object, 1);
 }
