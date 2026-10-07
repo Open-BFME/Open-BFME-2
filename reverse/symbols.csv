@@ -15403,3 +15403,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?SetType@Rva0007BB16Record@@QAEXI@Z,0x002B230F,callee of ?Load@Impl@FXShaderAsset@@QAEXPBD@Z
 _D3DXCreateEffect@36,0x0062AFB0,callee of ?Load@Impl@FXShaderAsset@@QAEXPBD@Z
 _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAEXPBD@Z
+??0Rva00082EB8@@QAE@XZ,0x001F81BF,callee of ??0FXShaderSetup@@QAE@XZ

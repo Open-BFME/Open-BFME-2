@@ -25272,7 +25272,7 @@ pin	reverse/symbols.csv	0x001513AD	1
 pin	reverse/symbols.csv	0x0015142A	1
 pin	reverse/symbols.csv	0x0015145C	1
 pin	reverse/symbols.csv	0x00151553	1
-pin	reverse/symbols.csv	0x00151597	3	allow=88b0f7789ce653d0f09f0c74d80cbf011178c02b
+pin	reverse/symbols.csv	0x00151597	3
 pin	reverse/symbols.csv	0x00151DCB	1
 pin	reverse/symbols.csv	0x00151E4D	1
 pin	reverse/symbols.csv	0x00151FCA	1
@@ -25925,7 +25925,7 @@ pin	reverse/symbols.csv	0x001F66C6	1
 pin	reverse/symbols.csv	0x001F6882	1
 pin	reverse/symbols.csv	0x001F80F6	1
 pin	reverse/symbols.csv	0x001F8167	2
-pin	reverse/symbols.csv	0x001F81BF	1
+pin	reverse/symbols.csv	0x001F81BF	2	allow=683a77efb3e4771373ab5b403f21113b05a96bdc
 pin	reverse/symbols.csv	0x001F82AB	2
 pin	reverse/symbols.csv	0x001F8384	1
 pin	reverse/symbols.csv	0x001F8437	20	allow=6be72a18a1635403b3f999a3dc64be72c2072cf4
@@ -26963,7 +26963,7 @@ pin	reverse/symbols.csv	0x002B221A	1
 pin	reverse/symbols.csv	0x002B224B	1
 pin	reverse/symbols.csv	0x002B228D	1
 pin	reverse/symbols.csv	0x002B2294	1
-pin	reverse/symbols.csv	0x002B230F	1	allow=88b0f7789ce653d0f09f0c74d80cbf011178c02b
+pin	reverse/symbols.csv	0x002B230F	1
 pin	reverse/symbols.csv	0x002B2579	1
 pin	reverse/symbols.csv	0x002B2590	1
 pin	reverse/symbols.csv	0x002B269E	1
@@ -32306,8 +32306,8 @@ pin	reverse/symbols.csv	0x0062AF26	1
 pin	reverse/symbols.csv	0x0062AF38	1
 pin	reverse/symbols.csv	0x0062AF44	1
 pin	reverse/symbols.csv	0x0062AF74	1
-pin	reverse/symbols.csv	0x0062AFAA	1	allow=88b0f7789ce653d0f09f0c74d80cbf011178c02b
-pin	reverse/symbols.csv	0x0062AFB0	1	allow=88b0f7789ce653d0f09f0c74d80cbf011178c02b
+pin	reverse/symbols.csv	0x0062AFAA	1
+pin	reverse/symbols.csv	0x0062AFB0	1
 pin	reverse/symbols.csv	0x0062AFBC	1
 pin	reverse/symbols.csv	0x0062AFC8	1
 pin	reverse/symbols.csv	0x0062B16A	1
@@ -36098,7 +36098,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva0011653FCluster.cpp	1Rva00116
 present_unmatched	Code/GameEngine/Source/Common/Rva0014F699Assign.cpp	_bfmeRva0014F699Anchor	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00150558Dtor.cpp	1Rva00BC6F24Base@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00151632Dtor.cpp	bfmeEmitRva00151632Dtor@@YAXPAVRva00151632@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/Rva001525FBFinish.cpp	0Rva001525FBBase@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00154320Cluster.cpp	Rva001544F0::~Rva001544F0	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00154320Cluster.cpp	bfmeEmitFontCharsClassGdiStateDtor@@YAXPAVFontCharsClassGdiState@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva001705A0LazyObject.cpp	0Rva001705A0Inner@@	1
