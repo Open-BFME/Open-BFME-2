@@ -919,3 +919,58 @@ void getPreorderCallback(int localid, int profileid, persisttype_t type, int ind
 	resp.preorder = (data && strcmp(data, "\\preorder\\1") == 0);
 	TheGameSpyPSMessageQueue->addResponse(resp);
 }
+
+// The save-side Xfer: constructor 0x0060D1F7, open 0x0060D10A, close
+// 0x0060C8CD and virtual destructor 0x0060D0B3; 0x40 bytes on the frame.
+class Xfer;
+class XferSave : public XferStub
+{
+public:
+	XferSave();
+	virtual ~XferSave();
+	unsigned char Open(Xfer *stream, int arg2, bool arg3);
+	void close();
+private:
+	unsigned char m_pad04[0x3C];
+};
+
+// The named memory stream XferSave writes into: made by 0x006023C1 and
+// drained by 0x006021A4, which hands back its buffer and length.
+class BfmeMade_009CB5F0;
+BfmeMade_009CB5F0 *bfmeMake_009CB5F0(void *owner);
+class BfmeThingEC
+{
+public:
+	int bfmeTakeEC(int *out);
+};
+
+// Native [55686A,556982),280B with its catch funclet at 0x556957. Serializes
+// the tournament, open-play and strategic blocks into a "playerStats" stream
+// and returns its buffer and length; the stats thread hands both to
+// SetPersistData (index 1) and frees the buffer. A failed open yields none.
+char *rva0055686A(const PSPlayerAllStats *stats, int *len)
+{
+	BfmeMade_009CB5F0 *stream = bfmeMake_009CB5F0((void *)"playerStats");
+	if (!stream)
+	{
+		*len = 0;
+		return 0;
+	}
+
+	XferSave xfer;
+	try
+	{
+		xfer.Open((Xfer *)stream, 1, false);
+	}
+	catch (...)
+	{
+		*len = 0;
+		return 0;
+	}
+
+	stats->rva00556508().rva005550A0(&xfer);
+	stats->rva00389DF1().rva005550A0(&xfer);
+	stats->rva00389E0F().rva005550A0(&xfer);
+	xfer.close();
+	return (char *)((BfmeThingEC *)stream)->bfmeTakeEC(len);
+}
