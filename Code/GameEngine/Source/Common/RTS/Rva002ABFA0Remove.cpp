@@ -24,6 +24,7 @@ class Rva002ABFA0
 {
 public:
 	void rva002ABFA0(void *p);
+	void rva002ACEDF(void *p);
 private:
 	char m_pad[0x700];
 	_STL::list<short, _STL::allocator<short> > m_list;
@@ -33,4 +34,10 @@ void Rva002ABFA0::rva002ABFA0(void *p)
 {
 	unsigned short key = *(unsigned short *)((char *)p + 0x5d8);
 	m_list.remove((short)key);
+}
+
+void Rva002ABFA0::rva002ACEDF(void *p)
+{
+	unsigned short key = *(unsigned short *)((char *)p + 0x5d8);
+	m_list.push_back((short)key);
 }
