@@ -605,3 +605,19 @@ void DisconnectManager::resetPlayerTimeouts(ConnectionManager *conMgr) {
 		}
 	}
 }
+
+// Open-BFME-1's processDisconnectVote: a vote counts only when its sender is
+// still in the game. The donor reads the vote's slot (+0x1c byte) and frame
+// (+0x20) through NetDisconnectVoteCommandMsg::getSlot/getVoteFrame; retail's
+// linker folded those into the identical getters 0x004C54EC and 0x0030D377,
+// which carry the names called here.
+void DisconnectManager::processDisconnectVote(NetCommandMsg *msg, ConnectionManager *conMgr) {
+	Int transSlot = Rva004D39DEGet(msg->getPlayerID(), conMgr->getLocalPlayerID());
+
+	if (isPlayerInGame(transSlot, conMgr) == FALSE) {
+		return;
+	}
+
+	applyDisconnectVote(((NetProgressCommandMsg *)msg)->getPercentage(),
+		((NetWrapperCommandMsg *)msg)->getDataLength(), msg->getPlayerID(), conMgr);
+}
