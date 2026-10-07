@@ -1,6 +1,4 @@
-// ?rva0016801A@Rva0016801A@@QAEPAXH@Z
-// partial score=0.93 date=2026-10-07
-// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS /O1 /arch:SSE /G7
 // ?rva0016801A@Rva0016801A@@QAEPAXH@Z @0x0016801A 38B
 // Evidence: pin ?rva0016801A@Rva0016801A@@QAEPAXH@Z; caller 0x001683AE in Rva001683A7Init.cpp; callee Resize 0x00167F88 rowed in wwlib_pod_container_bodies.cpp; data g_00BD41AC at 0x007D41AC.
 

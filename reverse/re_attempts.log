@@ -16354,3 +16354,7 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ??1Rva0022CA95@@MAE@XZ	0x002149AA	196	blocked	EH prolog inline-vs-__EH_prolog plus pointer-vs-index loops plus missing byte states t=22 model=muse-spark
 ??0Rva00527FA7@@QAE@HABVAsciiString@@@Z	0x00527FA7	585	blocked	unclaimed delegate code targets 0x00527D7E 0x00527D88 0x00527D8F 0x00527DDD 0x00527E05 as data no extern name t=12 model=muse-spark
 ?rva00527122@Rva00527122@@QAEXXZ	0x00527122	598	blocked	ref 598B multi-virtual IAT plus 4 globals exceeds single-session box t=8 model=muse-spark
+?rva0037E815@Rva0037E421@@QAEMHPAVObject@@@Z	0x0037E815	101	blocked	ecx-kept this across same-class call needs codegen lever t=20 model=muse-19
+?rva001DF1A4@Eva@@QAEXXZ	0x001DF1A4	120	blocked	vslot slot9 donor mismatch ZH Eva has 4 virtuals BFME1 Eva.h not found listOverlap t=15 model=muse-19
+?rva0037E898@Rva0037E421@@QAEMHPAXPAVObject@@@Z	0x0037E898	125	blocked	same ecx-kept this wall as 0x0037E815 t=5 model=muse-19
+?rva0037E649@Rva0037E421@@QAEHPAVObject@@@Z	0x0037E649	159	blocked	needs Player Rva002A9BF2 Rva002A8F24 inheritance plus provisional global type t=10 model=muse-19
