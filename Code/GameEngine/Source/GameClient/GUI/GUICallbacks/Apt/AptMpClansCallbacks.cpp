@@ -3,8 +3,8 @@
 // BFME2's lobby clans panel (the AptMpGameSetup panel's +0x190 member) Apt
 // callbacks "AptMpClans::WebSite" (0x0057F41A) and "AptMpClans::InitGadgets"
 // (0x0057F9A3), bound by those names as member pointers by the panel's
-// registration 0x0057FAB0; that binding is their only reference. The class
-// is named for the strings' prefix.
+// registration 0x0057FAB0 (recovered below); that binding is their only
+// reference. The class is named for the strings' prefix.
 
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -52,6 +52,120 @@ public:
 
 	void deleteClan(const AsciiString &clan, const AsciiString &member);
 };
+// The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
+// MpGameSetupSlots.cpp): a binding of an
+// object and an eight-byte multiple-inheritance member pointer, and the
+// refcounted holder rowed 0x0057BC63 builds from it.
+class __multiple_inheritance FunctorTarget;
+typedef void (FunctorTarget::*FunctorMethod)(void);
+
+struct FunctorBinding
+{
+	FunctorBinding(FunctorMethod method, FunctorTarget *target) : m_target(target), m_method(method) {}
+
+	FunctorTarget *m_target;
+	unsigned int m_pad;
+	FunctorMethod m_method;
+};
+
+class FunctorWrapperHead
+{
+public:
+	void *m_vtbl;
+	int m_refCount; // +0x04
+};
+
+class Rva0057BC63FunctorHolder
+{
+public:
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
+	Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : m_ptr(other.m_ptr)
+	{
+		if (m_ptr)
+			++m_ptr->m_refCount;
+	}
+
+	FunctorWrapperHead *m_ptr;
+};
+
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
+
+template <class T> class AptRef : public Rva0057BC63FunctorHolder
+{
+public:
+	AptRef(FunctorBinding binding) : Rva0057BC63FunctorHolder(binding) {}
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+};
+
+class AptCommandMap;
+class AptExternHandler;
+
+namespace _STL
+{
+	template <class T> class allocator {};
+
+	template <class T, class A = allocator<T> > class vector
+	{
+	private:
+		T *m_start;
+		T *m_finish;
+		T *m_endOfStorage;
+	};
+}
+
+class AptCommandMapAdder
+{
+public:
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptExternHandlerAdder
+{
+public:
+	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
+
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+// 0x00411458 (pinned; see MpGameSetupSlots.cpp) stores the screen
+// reference under the name.
+class AptScreenInitGadgets;
+void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
+
+// The Apt player (0x00DFE4CC) and its rowed text setter.
+class BfmeAptWindowManager
+{
+public:
+	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
+};
+
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+// "MpClans::Initialized" is bound to the chat panel's query, the rowed
+// AptMpChat::rva0057FDBF (AptMpChatCallbacks.cpp).
+class AptMpChat
+{
+public:
+	void rva0057FDBF(int query, char *result, bool skip);
+};
+
+// The clans panel's +0x9C object; the registration clears its +0x08.
+struct Rva0057FAB0Owner
+{
+	int m_00;
+	int m_04;
+	int m_08;
+};
+
 void GadgetListBoxSetColumnWidths(GameWindow *listBox, int columns, int *widths);
 
 class AptMpClans
@@ -66,14 +180,22 @@ public:
 	void PopulateMyClans(const UnicodeString &name);
 	void rva0057F5ED();
 
+	void rva0057FAB0();
+
 private:
-	unsigned char m_pad000[0x58];
+	unsigned char m_pad000[0x04];
+	AptCommandMapAdder m_commandMaps; // +0x04
+	AptExternHandlerAdder m_externHandlers; // +0x10
+	unsigned char m_pad01c[0x58 - 0x1C];
 	GameSpyLoginPreferences m_prefs; // +0x58
-	unsigned char m_pad05c[0xA0 - 0x5C];
+	unsigned char m_pad05c[0x9C - 0x5C];
+	Rva0057FAB0Owner *m_9c; // +0x9C
 	GameWindow *m_clanName; // +0xA0
 	GameWindow *m_clanPlayers; // +0xA4
-	unsigned char m_pad0a8[0xAC - 0xA8];
+	bool m_registered; // +0xA8
+	unsigned char m_pad0a9[0xAC - 0xA9];
 	AsciiString m_clan; // +0xAC
+	UnicodeString m_error; // +0xB0
 };
 
 // Retail 0x0057F41A, 108 bytes: "AptMpClans::WebSite" opens the localized
@@ -118,4 +240,40 @@ void AptMpClans::Delete(const char *unused)
 		m_prefs.write();
 		PopulateMyClans(UnicodeString::TheEmptyString);
 	}
+}
+
+// Retail 0x0057FAB0, 453 bytes. Name unknown. The clans panel's Apt
+// registration (called by AptMpGameSetup::rva0044303D on its +0x190
+// member): binds "MpClans::Initialized" (extern handler index 0),
+// "AptMpClans::Delete", "AptMpClans::WebSite" and the
+// "AptMpClans::InitGadgets" screen reference, then empties the error text
+// and publishes it as "CLAN:Error".
+// The handlers are bound as eight-byte multiple-inheritance member pointers.
+#pragma pointers_to_members(full_generality, multiple_inheritance)
+void AptMpClans::rva0057FAB0()
+{
+	m_9c->m_08 = 0;
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpChat::rva0057FDBF);
+		AsciiString name("MpClans::Initialized");
+		m_externHandlers.AddExternHandler(name, 0, AptRef<AptExternHandler>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpClans::Delete);
+		AsciiString name("AptMpClans::Delete");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpClans::WebSite);
+		AsciiString name("AptMpClans::WebSite");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpClans::InitGadgets);
+		AsciiString name("AptMpClans::InitGadgets");
+		_bfme_setAptScreenRef(name, AptRef<AptScreenInitGadgets>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	m_registered = true;
+	m_error = UnicodeString::TheEmptyString;
+	g_bfmeAptWindowManager->bfmeSetText(AsciiString("CLAN:Error"), m_error, false);
 }
