@@ -15488,3 +15488,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0058CACAType25@NetPacket@@KAXPAEPAVNetCommandRef@@@Z,0x0058CACA,ICF twin of FillBufferWithKeepAliveCommand: FillBufferWithCommand type-25 arm call at 0x00592B2C
 ?rva0058CCF2Type17@NetPacket@@KAXPAEPAVNetCommandRef@@@Z,0x0058CCF2,ICF twin of Rva0058CCF2Write: FillBufferWithCommand type-17 arm call at 0x00592B8E
 ?rva0058CF83Type9@NetPacket@@KAXPAEPAVNetCommandRef@@@Z,0x0058CF83,ICF twin of Rva0058CF83Write: FillBufferWithCommand type-9 arm call at 0x00592BE6
+?rva0058E0B0Type17@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z,0x0058E0B0,ICF twin of rva0058E0B0: ConstructNetCommandMsgFromRawData type-17 reader call at 0x00592832

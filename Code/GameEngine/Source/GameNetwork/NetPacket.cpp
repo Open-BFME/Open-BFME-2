@@ -40,6 +40,11 @@ public:
 	UnsignedInt getPlayerID() { return m_playerID; }
 	UnsignedShort getID() { return m_id; }
 	Int getNetCommandType() { return m_commandType; }
+	void setTiming(UnsignedInt timestamp, UnsignedInt frame) { m_timestamp = timestamp; m_executionFrame = frame; }
+	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
+	void setID(UnsignedShort id) { m_id = id; }
+	void setNetCommandType(Int type) { m_commandType = type; }
+	void detach();
 	virtual ~NetCommandMsg();
 	UnsignedInt m_timestamp;
 	UnsignedInt m_executionFrame;
@@ -347,6 +352,16 @@ void Rva0058D041Write(UnsignedByte *buffer, NetCommandRef *msg);
 void Rva0058CEC5Write(char *buffer, NetCommandRef *msg);
 void Rva0058CF83Write(char *buffer, NetCommandRef *msg);
 
+// Readers rowed as free functions under their address names.
+class Rva004D64F5;
+class Rva004D65DC;
+class Rva004D6208;
+class Rva004D62A9;
+Rva004D64F5 *Rva00592496Read(Int data, UnsignedInt *readOffset);
+Rva004D65DC *Rva00592520Read(Int data, UnsignedInt *readOffset);
+Rva004D6208 *Rva005922FBRead(Int data, UnsignedInt *readOffset);
+Rva004D62A9 *Rva005923C5Read(Int data, UnsignedInt *readOffset);
+
 class NetPacket
 {
 public:
@@ -392,8 +407,13 @@ public:
 	static NetCommandMsg *rva0058E3F4(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E481(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E511(UnsignedByte *data, Int &readOffset);
+	static NetCommandRef *ConstructNetCommandMsgFromRawData(UnsignedByte *data, UnsignedShort dataLength);
+	// The type-17 reader the linker folded into the type-16 body; its own symbol
+	// keeps ConstructNetCommandMsgFromRawData's two call blocks apart.
+	static NetCommandMsg *rva0058E0B0Type17(UnsignedByte *data, Int &readOffset);
 
 protected:
+	static NetCommandMsg *readWrapperMessage(UnsignedByte *data, Int &readOffset);
 	Bool isRoomForWrapperMessage(NetCommandRef *msg);
 	Bool rva0058D461(NetCommandRef *msg);
 	Bool rva0058D4BA(NetCommandRef *msg);
@@ -2063,6 +2083,137 @@ void NetPacket::FillBufferWithCommand(UnsignedByte *buffer, NetCommandRef *msg)
 		rva0059129F(buffer, msg);
 		break;
 	}
+}
+
+// ?ConstructNetCommandMsgFromRawData@NetPacket@@SAPAVNetCommandRef@@PAEG@Z, retail 0x00592607, 917 bytes:
+// the BFME1 donor's (NetPacket.cpp) tagged-field parser with BFME's changes
+// read off the image: an 'S' field carries the timestamp, the command ID is
+// kept in a dword, the readers are tested in addCommand's order, and an unknown
+// type or a reader that fails returns no reference at all.
+NetCommandRef *NetPacket::ConstructNetCommandMsgFromRawData(UnsignedByte *data, UnsignedShort dataLength)
+{
+	Int commandType = 0;
+	UnsignedInt commandID = 0;
+	UnsignedInt timestamp = 0;
+	UnsignedInt frame = 0;
+	UnsignedByte playerID = 0;
+	UnsignedByte relay = 0;
+
+	Int offset = 0;
+	Bool notDone = true;
+	NetCommandRef *ref = 0;
+
+	while ((offset < (Int)dataLength) && notDone) {
+		if (data[offset] == 'T') {
+			++offset;
+			memcpy(&commandType, data + offset, sizeof(UnsignedByte));
+			offset += sizeof(UnsignedByte);
+		} else if (data[offset] == 'R') {
+			++offset;
+			memcpy(&relay, data + offset, sizeof(UnsignedByte));
+			offset += sizeof(UnsignedByte);
+		} else if (data[offset] == 'P') {
+			++offset;
+			memcpy(&playerID, data + offset, sizeof(UnsignedByte));
+			offset += sizeof(UnsignedByte);
+		} else if (data[offset] == 'C') {
+			++offset;
+			memcpy(&commandID, data + offset, sizeof(UnsignedShort));
+			offset += sizeof(UnsignedShort);
+		} else if (data[offset] == 'S') {
+			++offset;
+			memcpy(&timestamp, data + offset, sizeof(UnsignedInt));
+			offset += sizeof(UnsignedInt);
+		} else if (data[offset] == 'F') {
+			++offset;
+			memcpy(&frame, data + offset, sizeof(UnsignedInt));
+			offset += sizeof(UnsignedInt);
+		} else if (data[offset] == 'D') {
+			++offset;
+			Int readOffset = offset;
+			NetCommandMsg *msg;
+			if (commandType == 4) {
+				msg = rva00591EA6(data, readOffset);
+			} else if (commandType == 0) {
+				msg = rva0058DA7E(data, readOffset);
+			} else if (commandType == 1) {
+				msg = rva0058DB4D(data, readOffset);
+			} else if (commandType == 2) {
+				msg = rva0058DC1C(data, readOffset);
+			} else if (commandType == 3) {
+				msg = rva0058DCEB(data, readOffset);
+			} else if (commandType == 23) {
+				msg = rva0058DD89(data, readOffset);
+			} else if (commandType == 10) {
+				msg = rva0058DDF2(data, readOffset);
+			} else if (commandType == 11) {
+				msg = rva0058DE5B(data, readOffset);
+			} else if (commandType == 12) {
+				msg = rva0058DEC5(data, readOffset);
+			} else if (commandType == 25) {
+				msg = rva0058DEF7(data, readOffset);
+			} else if (commandType == 26) {
+				msg = rva0058DF29(data, readOffset);
+			} else if (commandType == 13) {
+				msg = rva0059205C(data, readOffset);
+			} else if (commandType == 27) {
+				msg = rva0058DFB8(data, readOffset);
+			} else if (commandType == 14) {
+				msg = rva00592123(data, readOffset);
+			} else if (commandType == 15) {
+				msg = rva0058E047(data, readOffset);
+			} else if (commandType == 16) {
+				msg = rva0058E0B0(data, readOffset);
+			} else if (commandType == 17) {
+				msg = rva0058E0B0Type17(data, readOffset);
+			} else if (commandType == 18) {
+				msg = readWrapperMessage(data, readOffset);
+			} else if (commandType == 20) {
+				msg = rva0058E20D(data, readOffset);
+			} else if (commandType == 19) {
+				msg = (NetCommandMsg *)Rva005922FBRead((Int)data, (UnsignedInt *)&readOffset);
+			} else if (commandType == 21) {
+				msg = (NetCommandMsg *)Rva005923C5Read((Int)data, (UnsignedInt *)&readOffset);
+			} else if (commandType == 22) {
+				msg = rva0058E2D7(data, readOffset);
+			} else if (commandType == 8) {
+				msg = rva0058E367(data, readOffset);
+			} else if (commandType == 7) {
+				msg = rva0058E3F4(data, readOffset);
+			} else if (commandType == 9) {
+				msg = rva0058E481(data, readOffset);
+			} else if (commandType == 28) {
+				msg = rva0058E511(data, readOffset);
+			} else if (commandType == 5) {
+				msg = (NetCommandMsg *)Rva00592496Read((Int)data, (UnsignedInt *)&readOffset);
+			} else if (commandType == 6) {
+				msg = (NetCommandMsg *)Rva00592520Read((Int)data, (UnsignedInt *)&readOffset);
+			} else if (commandType == 30) {
+				msg = rva00592208(data, readOffset);
+			} else {
+				return 0;
+			}
+			if (msg == 0) {
+				return 0;
+			}
+
+			msg->setTiming(timestamp, frame);
+			msg->setID(commandID);
+			msg->setPlayerID(playerID);
+			msg->setNetCommandType(commandType);
+
+			ref = new NetCommandRef(msg);
+			ref->setRelay(relay);
+
+			msg->detach();
+			msg = 0;
+
+			offset = readOffset;
+			notDone = false;
+		}
+	}
+
+	return ref;
 }
 
 // ?FillBufferWithGameCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058C488, 696 bytes:
