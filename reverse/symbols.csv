@@ -15605,3 +15605,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??0Rva0031AB1ENode@@QAE@XZ,0x0035B8AA,unrowed ctor on the 0x2CC list node in prepend gate 0x0031AB1E; callee read from its REL32 displacement; address name
 ?rva003F8052@Rva003F8052@@QAEEXZ,0x003F8052,pinned for 0x003F8478 caller; body banked near-miss (partial 0.95)
 ?rva003FB793@Rva003F936EHost@@QAEXPAUVec3@@@Z,0x003FB793,callee of 0x003F936E in same TU; body banked near-miss (partial 0.7)
+?rva003F2F24@Rva003F3F03@@QAEXXZ,0x003F2F24,no-arg member called by 0x003F3F03 after initFromINI; body unclaimed
+?rva003F3B4F@Rva003F3F03@@QAEXXZ,0x003F3B4F,dump range 19 target called by 0x003F3F03; 176B body unclaimed
