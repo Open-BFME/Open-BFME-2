@@ -15598,3 +15598,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00318C32@Rva00318C32Owner@@QAEHXZ,0x00318C32,banked float handoff reused by gate 0x003195C9; address from its REL32 displacement
 ?rva003190BB@Rva003190BBOwner@@QAE_NPAH@Z,0x003190BB,banked wheel fallback reused by gate 0x003195C9; address from its REL32 displacement
 ?rva00538F6B@Rva00538F6B@@QAEXPAX000@Z,0x00538F6B,unrowed four-pointer worker on the +0x90 subobject in gate 0x003195C9; callee read from its REL32 displacement; address name
+?rva00318B83Free@@YGPBUTWheelInfo@@PAX@Z,0x00318B83,callee-cleanup free-form entry to the 17B getter taking the pushed arg without this (stale ecx at gate 0x00319831); same address as rowed getWheelInfo
+?rva00538ED1@Rva00538ED1@@QAEXXZ,0x00538ED1,unrowed dense-wheel worker reading owner from stale stack slot in gate 0x00319831 (declared taking only this); callee read from its REL32 displacement; address name
