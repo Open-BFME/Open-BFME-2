@@ -129,6 +129,16 @@
 // "StancesBehavior" (guard bit 0x00E02E28, key 0x00E02E24), and the module's
 // rowed 0x0045ED4B stance is compared with the parameter's int. BFME 2-only
 // condition with no donor body, so the method keeps an address name.
+//
+// ?rva003E51D9@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E51D9 142B
+// Target evidence: jump-table case 147 calls 0x003E51D9, which
+// initConditionTemplates names OBJECT_OF_TYPE_OR_LIST_INSIDE_REFD_BASE
+// (object type, base). The named base (rowed getUnitNamed 0x003588E7)
+// yields its CastleBehavior module (findModule on the rowed key 0x003955DA),
+// and the rowed CastleBehavior walk 0x003977F6 tests the parsed
+// ObjectTypesTemp list; retail turns its byte result into the Boolean with
+// test/setne. BFME 2-only condition with no donor body, so the method keeps
+// an address name.
 #include <vector>
 #include "ascii_string.h"
 
@@ -250,6 +260,17 @@ class StancesBehavior
 {
 public:
 	int rva0045ED4B() const;
+};
+
+class ObjectTypes;
+
+// The module findModule returns for CastleBehavior's rowed name key
+// 0x003955DA; the rowed 0x003977F6 tests its members against a type set.
+class CastleBehavior
+{
+public:
+	static NameKeyType rva0003955DA();
+	bool rva003977F6(ObjectTypes *types);
 };
 
 class Object
@@ -472,6 +493,7 @@ protected:
 	bool evaluatePlayerHasKilledTypeUnits(Parameter *, Parameter *, Parameter *);
 	bool rva003E63CD(Condition *, Parameter *, Parameter *, Parameter *);
 	bool rva003E5267(Parameter *, Parameter *);
+	bool rva003E51D9(Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -864,4 +886,18 @@ bool ScriptConditions::rva003E5267(Parameter *pUnitParm, Parameter *pStanceParm)
 		return stances->rva0045ED4B() == stance;
 	}
 	return false;
+}
+
+bool ScriptConditions::rva003E51D9(Parameter *pTypeParm, Parameter *pBaseParm)
+{
+	Object *theBase = TheScriptEngine->getUnitNamed(pBaseParm);
+	if (!theBase)
+		return false;
+	CastleBehavior *castle = (CastleBehavior *)theBase->findModule(CastleBehavior::rva0003955DA());
+	if (!castle)
+		return false;
+	ObjectTypesTemp types;
+	Script_objectTypesFromParam(pTypeParm, types.m_types);
+	bool found = castle->rva003977F6(types.m_types) != 0;
+	return found;
 }
