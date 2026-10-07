@@ -68432,3 +68432,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva002B2DEE@@YA_NPAVGameMessage@@PAHHPAVRva003F468D@@H@Z,,0x002B2DEE,67,Code/GameEngine/Source/GameLogic/LivingWorld/Rva002B2DAD.cpp,matched,native GameMessage integer output plus battle participant range check; compiler-private ECX message and four caller-cleaned stack words; existing 30F4EA and 3F4DAE providers; original helper name unknown
 ?d_0032a587@@YAXXZ,,0x0032A587,117,Code/gen_asm/d_0032a587.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_003980bf@@YAXXZ,,0x003980BF,156,Code/gen_asm/d_003980bf.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_004ebeb7@@YAXXZ,,0x004EBEB7,148,Code/gen_asm/d_004ebeb7.asm,matched,gen-dump;bounds=ghidra-inventory
