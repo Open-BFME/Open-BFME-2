@@ -698,6 +698,14 @@ public:
 	void rva00512EDD(Int slot, UnicodeString playerName);
 };
 
+// The screen's per-slot name setter, the donor's DisconnectMenu::setPlayerName,
+// is rowed at 0x00513497 under a placeholder class.
+class Rva00513497
+{
+public:
+	void rva00513497(Int slot, UnicodeString name);
+};
+
 // BFME's GameSlot keeps the donor's m_disconnected at +0x48, not Zero Hour's
 // +0x3c: the isHuman-then-flag predicate 0x004FD9CF (the donor's
 // GameSlot::disconnected shape) tests the same byte.
@@ -733,5 +741,24 @@ void DisconnectManager::disconnectPlayer(Int slot, ConnectionManager *conMgr) {
 			((AptDisconnectScreen *)TheDisconnectMenu)->rva00512EDD(transSlot, uname);
 		}
 		conMgr->disconnectPlayer(slot);
+	}
+}
+
+// Open-BFME-1's populateDisconnectScreen. BFME skips the whole pass when no
+// disconnect menu exists and counts votes with the connection manager.
+void DisconnectManager::populateDisconnectScreen(ConnectionManager *conMgr) {
+	if (TheDisconnectMenu == NULL) {
+		return;
+	}
+
+	for (Int i = 0; i < MAX_SLOTS; ++i) {
+		UnicodeString name = conMgr->getPlayerName(i);
+		Int slot = Rva004D39DEGet(i, conMgr->getLocalPlayerID());
+		if (slot != -1) {
+			((Rva00513497 *)TheDisconnectMenu)->rva00513497(slot, name);
+
+			Int numVotes = countVotesForPlayer(i, conMgr);
+			TheDisconnectMenu->updateVotes(slot, numVotes);
+		}
 	}
 }

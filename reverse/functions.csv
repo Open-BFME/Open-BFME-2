@@ -68673,3 +68673,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?d_0006b804@@YAXXZ,,0x0006B804,145,Code/gen_asm/d_0005bb52.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00211fa8@@YAXXZ,,0x00211FA8,111,Code/gen_asm/d_0005bb52.asm,matched,gen-dump;bounds=ghidra-inventory
 ?rva174ba6@Rva00DF6F94GapFillerContext@@QAEXXZ,,0x00174BA6,113,Code/Libraries/Source/WWVegas/WW3D2/MeshGapFillerFlush.cpp,matched,Native Ghidra174BA6..174C17 RET0; caller1173F0 establishes DF6F94 receiver; three measured pointer ranges; native texture and D3D shader resets; original worker names unproven; O1 region default
+?populateDisconnectScreen@DisconnectManager@@IAEXPAVConnectionManager@@@Z,,0x004D40DB,155,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp,matched,Open-BFME-1 DisconnectManager::populateDisconnectScreen donor (6d94342) with BFME TheDisconnectMenu early-out and two-argument countVotesForPlayer; setPlayerName via placeholder 0x00513497
