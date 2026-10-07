@@ -6289,8 +6289,6 @@ name,address,notes
 ?Rva0008103AAdjust@@YAXPAM@Z,0x0008103A,cdecl one-argument helper (Ghidra FUN_0048103a; 520B; pop ecx after the call) that rewrites the four-float vector in place using the same 0x00DE2000+0x260 object and SyncTime product; callee of ?Rva00080F95Mean2@@YAXPAUID3DXEffect@@PBD@Z at retail 0x0008101D read from its REL32 displacement; body unrowed
 ?Rva0008A1FDDestroy@@YAXPAX0H@Z,0x0008A1FD,"callee read from retail REL32 in forwarder 0x0008AFDC (E8 at 0x8AFEA -> 0x8A1FD); aux stays unrowed per re_log blocked 5457 (needs push-0 ??_G recipe), pinned only to unblock forwarder"
 ?Rva0009017D@@YAPAXPBDM_NH@Z,0x0009017D,SEH font-handle worker (mov eax scope + __EH_prolog head); cdecl (name, float size, bold, extra) returning handle; direct callee x2 of Rva000902A6 at 0x902A6
-?Rva000A03BFDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A03BF,"gadget draw function (cdecl window, instance data) slot 3 of gadget vtable 0x00BC8C54#3 calls (REL32 at 0x000A0873); identity not recovered"
-?Rva000A0581Draw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A0581,"gadget draw function (cdecl window, instance data) slot 3 of gadget vtable 0x00BC8C80#3 calls (REL32 at 0x000A0885); identity not recovered"
 ?Rva000A0D5EDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A0D5E,"gadget draw function (cdecl window, instance data) slot 3 of gadget vtable 0x00BC8D04#3 calls (REL32 at 0x000A12EC); identity not recovered"
 ?Rva000A136ADraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A136A,"gadget draw function (cdecl window, instance data) slot 3 of gadget vtable 0x00BC8D88#3 calls (REL32 at 0x000A15F2); identity not recovered"
 ?Rva000A166ADraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A166A,"gadget draw function (cdecl window, instance data) slot 3 of gadget vtable 0x00BC8D5C#3 calls (REL32 at 0x000A1D01); identity not recovered"
@@ -15248,3 +15246,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva0005407E@MilesAudioManager@@QAEXPAVINI@@@Z,0x0005407E,Target callsites 0x54206 and 0x54214 from 0x541DB set ECX=this and pass INI*; address-derived helper names; helper identity remains unresolved
 ?rva000540A7@MilesAudioManager@@QAEXPAVINI@@@Z,0x000540A7,Target callsites 0x54206 and 0x54214 from 0x541DB set ECX=this and pass INI*; address-derived helper names; helper identity remains unresolved
 ?rva000A8B04@Rva000A8B04@@QAEXMM@Z,0x000A8B04,Ghidra 31B target reached from 0x53AFA at 0x53B3D and 0x53B5A; thiscall receiver is pending-slot object plus 0x0C; body reads two float arguments and calls 0x10FD5E; owner identity remains unresolved
+?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z,0x0009FE49,callee of ?W3DGadgetTextEntryDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z

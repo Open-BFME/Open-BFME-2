@@ -15,8 +15,8 @@
 //   0x000A1CFB  0x00BC8D5C#3  Rva000A166ADraw
 //   0x000A3131  0x00BC904C#3  W3DGadgetListBoxDraw
 //   0x000A6097  0x00BC7DC8#3  W3DGadgetPushButtonImageDraw
-//   0x000A086D  0x00BC8C54#3  Rva000A03BFDraw
-//   0x000A087F  0x00BC8C80#3  Rva000A0581Draw
+//   0x000A086D  0x00BC8C54#3  W3DGadgetTextEntryDraw
+//   0x000A087F  0x00BC8C80#3  W3DGadgetTextEntryImageDraw
 //   0x000A0C42  0x00BC8CAC#3  W3DGadgetStaticTextDraw
 //   0x000A12E6  0x00BC8D04#3  Rva000A0D5EDraw
 //   0x000A15EC  0x00BC8D88#3  Rva000A136ADraw
@@ -130,8 +130,6 @@ WindowMsgHandledType Rva00321E5CSystem(GameWindow *window, UnsignedInt msg, Wind
 WindowMsgHandledType Rva00322C25Input(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 WindowMsgHandledType Rva00324E92Input(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 WindowMsgHandledType Rva003285D4Input(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
-void Rva000A03BFDraw(GameWindow *window, WinInstanceData *instData);
-void Rva000A0581Draw(GameWindow *window, WinInstanceData *instData);
 void Rva000A0D5EDraw(GameWindow *window, WinInstanceData *instData);
 void Rva000A136ADraw(GameWindow *window, WinInstanceData *instData);
 void Rva000A166ADraw(GameWindow *window, WinInstanceData *instData);
@@ -147,6 +145,8 @@ void W3DGadgetPushButtonImageDraw(GameWindow *window, WinInstanceData *instData)
 void W3DGadgetStaticTextDraw(GameWindow *window, WinInstanceData *instData);
 void W3DGadgetTabControlDraw(GameWindow *window, WinInstanceData *instData);
 void W3DGadgetTabControlImageDraw(GameWindow *window, WinInstanceData *instData);
+void W3DGadgetTextEntryDraw(GameWindow *window, WinInstanceData *instData);
+void W3DGadgetTextEntryImageDraw(GameWindow *window, WinInstanceData *instData);
 
 class Rva000A1CFBWindow : public GameWindow
 {
@@ -224,7 +224,7 @@ public:
 
 Int Rva000A086DWindow::draw(WinInstanceData *instData)
 {
-	Rva000A03BFDraw(this, instData);
+	W3DGadgetTextEntryDraw(this, instData);
 	return 1;
 }
 
@@ -246,7 +246,7 @@ public:
 
 Int Rva000A087FWindow::draw(WinInstanceData *instData)
 {
-	Rva000A0581Draw(this, instData);
+	W3DGadgetTextEntryImageDraw(this, instData);
 	return 1;
 }
 

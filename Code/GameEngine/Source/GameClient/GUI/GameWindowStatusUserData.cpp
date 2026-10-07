@@ -36,6 +36,8 @@ public:
 	Color winGetDisabledTextBorderColor(void);
 	Color winGetHiliteTextColor(void);
 	Color winGetHiliteTextBorderColor(void);
+	Color winGetIMECompositeTextColor(void);
+	Color winGetIMECompositeBorderColor(void);
 	GameFont *winGetFont(void);
 	WinInstanceData *winGetInstanceData(void);
 	GameWindow *winGetNext(void);
@@ -61,7 +63,8 @@ private:
 	char m_pad48[0x144];
 	Color m_textColor[6];	// +0x18C enabled, enabled border, disabled,
 							//        disabled border, hilite, hilite border
-	char m_pad1A4[0x10];
+	Color m_imeCompositeTextColor[2];	// +0x1A4 colour, border
+	char m_pad1AC[0x08];
 	GameFont *m_font;		// +0x1B4
 	char m_pad1B8[0x40];
 	GameWindow *m_next;		// +0x1F8
@@ -110,6 +113,13 @@ Color GameWindow::winGetDisabledTextBorderColor(void) { return m_textColor[3]; }
 Color GameWindow::winGetHiliteTextColor(void) { return m_textColor[4]; }
 Color GameWindow::winGetHiliteTextBorderColor(void) { return m_textColor[5]; }
 GameFont *GameWindow::winGetFont(void) { return m_font; }
+
+// The IME composite text colour and border (+0x1A4, +0x1A8), right after the
+// six text colours as Zero Hour's m_imeCompositeText follows the hilite text:
+// both text-entry draw callbacks (0x000A03BF, 0x000A0581) call them where
+// Zero Hour's do, at one-load getters retail folded with identical rowed ones.
+Color GameWindow::winGetIMECompositeTextColor(void) { return m_imeCompositeTextColor[0]; }
+Color GameWindow::winGetIMECompositeBorderColor(void) { return m_imeCompositeTextColor[1]; }
 
 // winGetInstanceData (0x00314046, lea +0x30), winGetNext (0x003140F1,
 // +0x1F8, just before m_prev/m_parent/m_child as in Zero Hour) and
