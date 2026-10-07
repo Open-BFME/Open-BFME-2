@@ -36,6 +36,9 @@ import csv
 import sys
 from pathlib import Path
 
+from capstone import CS_ARCH_X86, CS_MODE_32, CS_GRP_CALL, CS_GRP_JUMP, CS_GRP_RET, Cs
+from capstone.x86 import X86_INS_JMP, X86_OP_IMM
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import build
@@ -151,6 +154,73 @@ def asm_db(body, per_line=16):
     return "\n".join(out)
 
 
+def reachable_terminal_end(body, rva, known_starts=()):
+    """Prove the last instruction's boundary from reachable x86 control flow.
+
+    Opcode-looking operands are not evidence, and a final short jump may
+    return to an earlier shared epilogue. Follow branches without decoding
+    unreachable inline data; reject truncated instructions or overlapping
+    instruction streams. Calls retain the existing terminal-call allowance.
+    """
+    decoder = Cs(CS_ARCH_X86, CS_MODE_32)
+    decoder.detail = True
+    end = rva + len(body)
+    pending, visited, occupied = [rva], set(), {}
+    terminal = False
+    indirect_jump = False
+    while pending:
+        address = pending.pop()
+        if address in visited or not rva <= address < end:
+            continue
+        instruction = next(decoder.disasm(body[address - rva:], address, count=1), None)
+        if instruction is None:
+            return False
+        following = address + instruction.size
+        if any(byte in occupied for byte in range(address, following)):
+            return False
+        visited.add(address)
+        occupied.update((byte, address) for byte in range(address, following))
+        jump = instruction.group(CS_GRP_JUMP)
+        returns = instruction.group(CS_GRP_RET)
+        if following == end:
+            if returns or instruction.group(CS_GRP_CALL):
+                terminal = True
+            elif instruction.id == X86_INS_JMP:
+                targets = [operand.imm for operand in instruction.operands
+                           if operand.type == X86_OP_IMM]
+                # An unproven external target may be a continuation of this
+                # very function (not a tail callee), as with split EH bodies.
+                terminal = not targets or all(rva <= target < end or target in known_starts
+                                              for target in targets)
+        if jump:
+            indirect_jump |= not any(operand.type == X86_OP_IMM
+                                     for operand in instruction.operands)
+            for operand in instruction.operands:
+                if operand.type == X86_OP_IMM:
+                    pending.append(operand.imm)
+        if not returns and instruction.id != X86_INS_JMP:
+            pending.append(following)
+    if terminal:
+        return True
+    # A switch's table destinations are outside this byte slice. Preserve its
+    # terminal-instruction evidence only when a full linear decode reaches
+    # that instruction; a raw RET-looking operand still cannot qualify.
+    if indirect_jump:
+        following = rva
+        last = None
+        for instruction in decoder.disasm(body, rva):
+            following = instruction.address + instruction.size
+            last = instruction
+        if following != end or last is None:
+            return False
+        if last.group(CS_GRP_RET) or last.group(CS_GRP_CALL):
+            return True
+        targets = [operand.imm for operand in last.operands if operand.type == X86_OP_IMM]
+        return last.id == X86_INS_JMP and all(
+            rva <= target < end or target in known_starts for target in targets)
+    return False
+
+
 def defensible_end(body, rva, size, claimed_starts, byte_at):
     """True when the END of [rva, rva+size) is corroborated by positive evidence.
 
@@ -167,13 +237,8 @@ def defensible_end(body, rva, size, claimed_starts, byte_at):
     green as a dump before the filter existed.
     """
     end = rva + size
-    ends_ok = bool(body) and (
-        body[-1] in (0xC3, 0xE9, 0xEB)                  # ret / jmp rel
-        or (size >= 3 and body[-3] == 0xC2)             # ret imm16
-        or (size >= 5 and body[-5] == 0xE8)             # call rel32
-        or (size >= 6 and body[-6] == 0xFF))            # call/jmp mem
     next_ok = end in claimed_starts or byte_at(end) == 0xCC or end % 16 == 0
-    return ends_ok or next_ok
+    return next_ok or (len(body) == size and reachable_terminal_end(body, rva, claimed_starts))
 
 
 def asm_wave(args):
