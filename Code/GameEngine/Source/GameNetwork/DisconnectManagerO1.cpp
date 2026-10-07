@@ -565,3 +565,15 @@ Bool DisconnectManager::allOnSameFrame(ConnectionManager *conMgr) {
 	}
 	return retval;
 }
+
+// Open-BFME-1's applyDisconnectVote: record the vote, recount, and refresh
+// the disconnect menu's count for the translated slot when the menu exists.
+void DisconnectManager::applyDisconnectVote(Int slot, UnsignedInt frame, Int fromSlot, ConnectionManager *conMgr) {
+	m_playerVotes[slot][fromSlot].vote = TRUE;
+	m_playerVotes[slot][fromSlot].frame = frame;
+	Int numVotes = countVotesForPlayer(slot, conMgr);
+	Int transSlot = Rva004D39DEGet(slot, conMgr->getLocalPlayerID());
+	if (transSlot != -1 && TheDisconnectMenu) {
+		TheDisconnectMenu->updateVotes(transSlot, numVotes);
+	}
+}
