@@ -43,7 +43,7 @@ public:
 	virtual void _d25();
 	virtual void _d26();
 	virtual void _d27();
-	virtual void _d28();
+	virtual void _slot70(float &v);
 	virtual void _d29();
 	virtual void _slot78(int &v);
 	virtual void _d31();
@@ -60,10 +60,19 @@ public:
 	void rva003828B6();
 };
 
+class MapFloatHolder : public _STL::map<unsigned char, float> {};
+class MapIntHolder : public _STL::map<unsigned char, int> {};
+class Rva0038204A { public: void rva003828DF(); };
+class Rva00382077 { public: void rva00382908(); };
+template <> float &_STL::map<unsigned char, float>::operator[](const unsigned char &);
+template <> int &_STL::map<unsigned char, int>::operator[](const unsigned char &);
+
 class PSPlayerStats
 {
 public:
 	void XferMap(MapHolder *a, XferStub *b);
+	void rva0055499A(MapFloatHolder *a, XferStub *b);
+	void rva00554A4A(MapIntHolder *a, XferStub *b);
 };
 
 void PSPlayerStats::XferMap(MapHolder *a, XferStub *b)
@@ -88,6 +97,60 @@ void PSPlayerStats::XferMap(MapHolder *a, XferStub *b)
 		short v;
 		b->_slot88(k);
 		b->_slot80(v);
+		(*a)[k] = v;
+	} while (--n != 0);
+}
+
+// Retail 0x0055499A: uchar/float map, node key +0x10 and value +0x14; xfer slots 0x88/0x70.
+void PSPlayerStats::rva0055499A(MapFloatHolder *a, XferStub *b)
+{
+	unsigned int cnt = *(unsigned int *)((char *)a + 4);
+	unsigned int n = cnt;
+	b->_slot78((int &)n);
+	if (b->_isWriting()) {
+		for (MapFloatHolder::iterator it = a->begin(); it._M_node != a->end()._M_node; ++it) {
+			unsigned char k = (*it).first;
+			float v = (*it).second;
+			b->_slot88(k);
+			b->_slot70(v);
+		}
+		return;
+	}
+	((Rva0038204A *)a)->rva003828DF();
+	if (n <= 0U)
+		return;
+	do {
+		unsigned char k;
+		float v;
+		b->_slot88(k);
+		b->_slot70(v);
+		(*a)[k] = v;
+	} while (--n != 0);
+}
+
+// Retail 0x00554A4A: uchar/int map, node key +0x10 and value +0x14; xfer slots 0x88/0x78.
+void PSPlayerStats::rva00554A4A(MapIntHolder *a, XferStub *b)
+{
+	unsigned int cnt = *(unsigned int *)((char *)a + 4);
+	unsigned int n = cnt;
+	b->_slot78((int &)n);
+	if (b->_isWriting()) {
+		for (MapIntHolder::iterator it = a->begin(); it._M_node != a->end()._M_node; ++it) {
+			unsigned char k = (*it).first;
+			int v = (*it).second;
+			b->_slot88(k);
+			b->_slot78(v);
+		}
+		return;
+	}
+	((Rva00382077 *)a)->rva00382908();
+	if (n <= 0U)
+		return;
+	do {
+		unsigned char k;
+		int v;
+		b->_slot88(k);
+		b->_slot78(v);
 		(*a)[k] = v;
 	} while (--n != 0);
 }
