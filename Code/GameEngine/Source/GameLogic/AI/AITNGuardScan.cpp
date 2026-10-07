@@ -3,7 +3,7 @@
 // ?TunnelNetworkScan@@YIPAVObject@@PAV1@@Z, retail 0x00545DEE, 146 bytes.
 // Zero Hour AITNGuard.cpp's file-static TunnelNetworkScan: the closest
 // enemy of the owner it may attack and that shares its map status, within
-// AITNGuardMachine::getStdGuardRange. Its caller AITNGuardInnerState::update
+// AIGuardMachine::getStdGuardRange. Its caller AITNGuardInnerState::update
 // (0x005463C9) passes the owner in ECX with nothing on the stack, the
 // register convention whole-program optimisation gives a static; __fastcall
 // is that convention for a one-pointer argument, so a separately compiled
@@ -93,7 +93,9 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-class AITNGuardMachine
+// The inherited static range helper belongs to AIGuardMachine; its
+// verified definition in AIGuardStates.cpp is the native 0x00542C2A call.
+class AIGuardMachine
 {
 public:
 	static float getStdGuardRange(const Object *obj);	// 0x00542C2A
@@ -106,5 +108,5 @@ Object *__fastcall TunnelNetworkScan(Object *owner)
 	Rva00260EB1Filter f1(owner, 1, false);
 	Rva000421C8 *filters = f1.link(f2.link(&filterMapStatus));
 	return ThePartitionManager->getClosestObject(&owner->m_pos,
-		AITNGuardMachine::getStdGuardRange(owner), 0, filters);
+		AIGuardMachine::getStdGuardRange(owner), 0, filters);
 }
