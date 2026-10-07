@@ -28,9 +28,9 @@ public:
 	bool rva002B3325(Arg54 *a, Arg54 *b);
 };
 
-extern Rva002B3325 *g_Va00DFEF10;
-Rva002B3325 *g_Va00DFEF10;
-
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva004FAE34Elem
 {
 	char m_pad[0x4C];
@@ -65,7 +65,7 @@ void Rva004FAE34Owner::rva004FAE34(_STL::vector<ScienceType> *out)
 	int off = 0;
 	do
 	{
-		if (g_Va00DFEF10->rva002B3325((Arg54 *)sub, (Arg54 *)(*(int *)((char *)begin + off + 0x4C))))
+		if (((Rva002B3325 *)TheLivingWorldLogic)->rva002B3325((Arg54 *)sub, (Arg54 *)(*(int *)((char *)begin + off + 0x4C))))
 		{
 			ScienceType v = *(ScienceType *)((char *)*arr + off + 0x4C);
 			((_STL::vector<EvaMessage> *)out)->push_back((EvaMessage)v);
