@@ -135,6 +135,10 @@ public:
 	void setPosition(const Coord3D *pos);
 	void updateDrawable();
 	void setIndicatorColor(Int color);
+	void setDrawableHidden(Bool hide);
+	// The stealth look and heat-vision opacity setter: look, friendly
+	// opacity min and max, and the pulse period in seconds.
+	void rva00275DCE(Int look, Real opacityMin, Real opacityMax, Real pulseSeconds);
 	// The per-unit sound lookup (Zero Hour's ThingTemplate::getPerUnitSound).
 	Rva002390CB rva00274CD8(const AsciiString &name);
 private:
@@ -494,6 +498,7 @@ class FXList
 public:
 	static void doFXPos(const FXList *fx, const Coord3D *primary, const Matrix3D *primaryMtx = NULL,
 		Real primarySpeed = 0.0f, const Coord3D *secondary = NULL);
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary = NULL);
 };
 
 // AudioEventRTS::setObjectID, rowed under an address-derived name.
@@ -554,6 +559,16 @@ class Rva00373EEC
 public:
 	void rva00373EEC(UnsignedInt numFrames);
 };
+
+// Zero Hour's Drawable::isDrawableEffectivelyHidden (0x00270260), rowed
+// under an address-derived name.
+class Rva00270260
+{
+public:
+	bool rva00270260();
+};
+
+extern float g_secondsPerLogicFrame;
 
 struct ObjectListNode
 {
@@ -696,13 +711,19 @@ public:
 	UnsignedInt m_stealthLevel; // +0x0C StealthForbiddenConditions
 	char m_pad10[0x20 - 0x10];
 	Real m_stealthSpeed; // +0x20 MoveThresholdSpeed
-	char m_pad24[0x30 - 0x24];
+	Real m_friendlyOpacityMin; // +0x24 FriendlyOpacityMin
+	Real m_friendlyOpacityMax; // +0x28 FriendlyOpacityMax
+	UnsignedInt m_pulseFrequency; // +0x2C PulseFrequency
 	Bool m_teamDisguised; // +0x30 DisguisesAsTeam
 	char m_pad31[0x38 - 0x31];
 	Bool m_orderIdleEnemiesToAttackMeUponReveal; // +0x38 OrderIdleEnemiesToAttackMeUponReveal
 	const FXList *m_disguiseRevealFX; // +0x3C DisguiseRevealFX
 	const FXList *m_disguiseFX; // +0x40 DisguiseFX
-	char m_pad44[0x55 - 0x44];
+	const FXList *m_becomeStealthedFX; // +0x44 BecomeStealthedFX
+	const FXList *m_exitStealthFX; // +0x48 ExitStealthFX
+	const FXList *m_becomeStealthedOneRingFX; // +0x4C BecomeStealthedOneRingFX
+	const FXList *m_exitStealthOneRingFX; // +0x50 ExitStealthOneRingFX
+	Bool m_startsActive; // +0x54 StartsActive
 	Bool m_innateStealth; // +0x55 InnateStealth
 	Bool m_detectedByFriendliesOnly; // +0x56 DetectedByFriendliesOnly
 	char m_pad57;
@@ -728,12 +749,15 @@ public:
 	StealthLookType calcStealthedStatusForPlayer(const Object *obj, const Player *player);
 	void disguiseAsObject(const Object *target);
 	void changeVisualDisguise();
+	virtual UpdateSleepTime update();
+	UpdateSleepTime rva00374FD5();
 	Bool canDisguise() const { return getStealthUpdateModuleData()->m_teamDisguised; }
 	Bool isDisguised() const { return m_disguiseAsTemplate != NULL; }
 	Int getDisguisedPlayerIndex() const { return m_disguiseAsPlayerIndex; }
 	const ThingTemplate *getDisguisedTemplate() { return m_disguiseAsTemplate; }
 private:
 	const StealthUpdateModuleData *getStealthUpdateModuleData() const { return (const StealthUpdateModuleData *)m_moduleData; }
+	UpdateSleepTime calcSleepTime() const { return m_enabled ? UPDATE_SLEEP_NONE : UPDATE_SLEEP_FOREVER; }
 
 	UnsignedInt m_stealthAllowedFrame; // +0x20
 	UnsignedInt m_detectionExpiresFrame; // +0x24
@@ -751,6 +775,8 @@ private:
 	Bool m_transitioningToDisguise; // +0x45
 	Bool m_disguised; // +0x46
 	Bool m_xferRestoreDisguise; // +0x47
+	char m_pad48[0x148 - 0x48];
+	Bool m_148; // +0x148 set while this module is the object's stealth
 };
 
 // ?getStealthLevel@StealthUpdate@@QBEIXZ @0x00373D15
@@ -1248,4 +1274,112 @@ void StealthUpdate::changeVisualDisguise()
 
 	// couldn't possibly need to restore a disguise now :)
 	m_xferRestoreDisguise = FALSE;
+}
+
+// ?update@StealthUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x003756A8
+// The update interface override (this at +0x10). Zero Hour's game-load
+// disguise restore, then the per-frame logic moved into 0x00374FD5 runs only
+// while the object's stealth module is this one; afterwards the drawable's
+// stealth look is refreshed and the stealth FX play on status changes.
+UpdateSleepTime StealthUpdate::update()
+{
+	// restore disguise if we need to from a game load
+	if (m_xferRestoreDisguise == TRUE)
+	{
+		Drawable *draw = getObject()->getDrawable();
+		Bool wasHidden = FALSE;
+
+		// hack! if drawable was hidden (such as if we're inside a container) we must keep that state
+		if (draw && ((Rva00270260 *)draw)->rva00270260())
+			wasHidden = TRUE;
+
+		// do the change (we get a new drawable from this)
+		changeVisualDisguise();
+
+		// restore hidden state in the new drawable
+		draw = getObject()->getDrawable();
+		if (wasHidden && draw)
+			draw->setDrawableHidden(TRUE);
+	}
+
+	Object *self = getObject();
+	StealthUpdate *stealth = self->getStealth();
+	if (this != stealth)
+	{
+		if (m_148)
+		{
+			m_148 = FALSE;
+			if (stealth == NULL)
+				markAsDetected(0, 1, NULL, true);
+			else
+			{
+				((Rva00373EEC *)this)->rva00373EEC(0);
+				disguiseAsObject(NULL);
+			}
+			changeVisualDisguise();
+		}
+		return calcSleepTime();
+	}
+
+	m_148 = TRUE;
+	UpdateSleepTime result = rva00374FD5();
+
+	Drawable *draw = self->getDrawable();
+	const StealthUpdateModuleData *data = getStealthUpdateModuleData();
+	if (draw)
+	{
+		StealthLookType stealthLook = calcStealthedStatusForPlayer(self, ThePlayerList->getLocalPlayer());
+		draw->rva00275DCE(stealthLook, data->m_friendlyOpacityMin, data->m_friendlyOpacityMax,
+			data->m_pulseFrequency * g_secondsPerLogicFrame);
+	}
+
+	Bool wasStealthed = m_32;
+	if (wasStealthed != self->testStatus(OBJECT_STATUS_STEALTHED))
+	{
+		if (!m_34)
+		{
+			if (wasStealthed)
+			{
+				if (m_33)
+					FXList::doFXObj(getStealthUpdateModuleData()->m_exitStealthOneRingFX, getObject());
+				else
+					FXList::doFXObj(getStealthUpdateModuleData()->m_exitStealthFX, getObject());
+			}
+			else
+			{
+				if (m_31)
+					FXList::doFXObj(getStealthUpdateModuleData()->m_becomeStealthedOneRingFX, getObject());
+				else
+					FXList::doFXObj(getStealthUpdateModuleData()->m_becomeStealthedFX, getObject());
+			}
+		}
+		if (m_32)
+			rva00373D5E();
+		m_32 = self->testStatus(OBJECT_STATUS_STEALTHED);
+		m_33 = m_31;
+	}
+	else
+	{
+		Bool wasOneRing = m_33;
+		if (wasOneRing != m_31)
+		{
+			if (self->testStatus(OBJECT_STATUS_STEALTHED))
+			{
+				if (wasOneRing)
+				{
+					FXList::doFXObj(getStealthUpdateModuleData()->m_exitStealthOneRingFX, getObject());
+					FXList::doFXObj(getStealthUpdateModuleData()->m_becomeStealthedFX, getObject());
+				}
+				else
+				{
+					FXList::doFXObj(getStealthUpdateModuleData()->m_exitStealthFX, getObject());
+					FXList::doFXObj(getStealthUpdateModuleData()->m_becomeStealthedOneRingFX, getObject());
+				}
+			}
+			m_33 = m_31;
+		}
+	}
+
+	m_34 = FALSE;
+	return result;
 }
