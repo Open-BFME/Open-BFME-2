@@ -15273,3 +15273,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?buildDescription@?$BitFlags@$0GF@@@QBEXPAVAsciiString@@H@Z,0x0045D908,101-entry BodyStateNames formatter; BFME1 buildDescription API and BFME2 rowed lookup shape
 ??0Rva0043B660@@QAE@XZ,0x0043B6D7,default constructor paired with Rva0043B660 dtor and vtable 0x00C3D5F0; rowed set ctor at member +4
 ?getRenderTexture@W3DShaderManager@@SAPAUIDirect3DTexture8@@XZ,0x00075E36,callee of ?testHardwareSupport@W3DSmudgeManager@@QAE_NXZ
+??4HTreePivotTransform@@QAEAAU0@ABU0@@Z,0x0050403D,ICF fold: the 0x1C pivot transform implicit operator= (7-dword copy returning this) is a byte twin of the 0x1C copy ctor rowed there; caller 0x0014E139

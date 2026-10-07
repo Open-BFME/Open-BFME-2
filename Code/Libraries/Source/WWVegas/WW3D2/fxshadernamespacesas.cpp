@@ -61,6 +61,12 @@ struct ID3DXEffect
 	virtual HRESULT __stdcall SetMatrix(D3DXHANDLE parameter, const void *matrix);	// +0x98
 	FX_SLOT(39) FX_SLOT(40) FX_SLOT(41) FX_SLOT(42) FX_SLOT(43)
 	virtual HRESULT __stdcall SetMatrixTranspose(D3DXHANDLE parameter, const void *matrix);	// +0xB0
+	FX_SLOT(45) FX_SLOT(46) FX_SLOT(47)
+	FX_SLOT(48) FX_SLOT(49) FX_SLOT(50) FX_SLOT(51) FX_SLOT(52) FX_SLOT(53) FX_SLOT(54) FX_SLOT(55)
+	FX_SLOT(56) FX_SLOT(57) FX_SLOT(58) FX_SLOT(59) FX_SLOT(60) FX_SLOT(61) FX_SLOT(62) FX_SLOT(63)
+	FX_SLOT(64) FX_SLOT(65) FX_SLOT(66) FX_SLOT(67) FX_SLOT(68) FX_SLOT(69) FX_SLOT(70) FX_SLOT(71)
+	FX_SLOT(72) FX_SLOT(73) FX_SLOT(74) FX_SLOT(75) FX_SLOT(76) FX_SLOT(77)
+	virtual HRESULT __stdcall SetRawValue(D3DXHANDLE parameter, const void *data, unsigned int byteOffset, unsigned int bytes);	// +0x138
 };
 #undef FX_SLOT
 
@@ -267,9 +273,119 @@ enum ScienceType
 };
 
 // The 0x30-byte transform the skeleton's instancing vector holds.
-struct Matrix3D
+class Vector3
 {
-	float Row[3][4];
+public:
+	__forceinline Vector3() {}
+	__forceinline Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
+
+	float X;
+	float Y;
+	float Z;
+};
+
+class Matrix3D
+{
+public:
+	__forceinline Matrix3D() {}
+	__forceinline void Get_Translation(Vector3 *set) const
+	{
+		set->X = Row[0][3]; set->Y = Row[1][3]; set->Z = Row[2][3];
+	}
+	__forceinline Vector4 &operator[](int i) { return Row[i]; }
+	__forceinline const Vector4 &operator[](int i) const { return Row[i]; }
+	__forceinline Matrix3D &operator=(const Matrix3D &m)
+	{
+		Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2];
+		return *this;
+	}
+
+	Vector4 Row[3];
+};
+
+class Quaternion
+{
+public:
+	__forceinline Quaternion() {}
+	__forceinline Quaternion &operator=(const Quaternion &q) { X = q.X; Y = q.Y; Z = q.Z; W = q.W; return *this; }
+
+	float X;
+	float Y;
+	float Z;
+	float W;
+};
+
+Quaternion Build_Quaternion(const Matrix3D &m);
+
+// The bone palette the SetArray_MeshToJointToWorld_* setters upload
+// (WorldBuilder's asserts name the bound; retail compares against 100).
+#define MAX_SUPPORTED_BONE_MATRICES 100
+
+// An HTree pivot's current transform (+0x30 of the 0x58-byte pivot): a
+// rotation quaternion and a translation, expanded into a Matrix3D the way
+// WorldBuilder's out-of-line copy (0x009FAF30) does.
+struct HTreePivotTransform
+{
+	__forceinline void Get_Matrix3D(Matrix3D &m) const
+	{
+		float xx = Rotation.X * Rotation.X * 2.0f;
+		float xy = Rotation.X * Rotation.Y * 2.0f;
+		float xz = Rotation.X * Rotation.Z * 2.0f;
+		float xw = Rotation.X * Rotation.W * 2.0f;
+		float yy = Rotation.Y * Rotation.Y * 2.0f;
+		float yz = Rotation.Y * Rotation.Z * 2.0f;
+		float yw = Rotation.Y * Rotation.W * 2.0f;
+		float zz = Rotation.Z * Rotation.Z * 2.0f;
+		float zw = Rotation.Z * Rotation.W * 2.0f;
+		m[0][0] = 1.0f - yy - zz;
+		m[0][1] = xy - zw;
+		m[0][2] = xz + yw;
+		m[1][0] = xy + zw;
+		m[1][1] = 1.0f - zz - xx;
+		m[1][2] = yz - xw;
+		m[2][0] = xz - yw;
+		m[2][1] = yz + xw;
+		m[2][2] = 1.0f - yy - xx;
+		m[0][3] = Translation.X;
+		m[1][3] = Translation.Y;
+		m[2][3] = Translation.Z;
+	}
+
+	Quaternion Rotation;
+	Vector3 Translation;
+};
+
+// The 0x20-byte palette entry SetArray_MeshToJointToWorld_BoneTransform
+// uploads: a pivot transform and a zeroed last float.
+struct BoneTransform : public HTreePivotTransform
+{
+	__forceinline BoneTransform() : m_unused(0.0f) {}
+	__forceinline void Set(const Matrix3D &m)
+	{
+		Rotation = Build_Quaternion(m);
+		m.Get_Translation(&Translation);
+	}
+
+	float m_unused;
+};
+
+struct HTreePivot
+{
+	char m_unknown00[0x30];
+	HTreePivotTransform Transform;
+	char m_unknown4C[0x58 - 0x4C];
+};
+
+// HTreeClass (Name[16], NumPivots, Pivot): the skinned mesh's hierarchy.
+class HTreeClass
+{
+public:
+	int Num_Pivots() const { return NumPivots; }
+	const HTreePivotTransform &Get_Transform(int pivot) const { return Pivot[pivot].Transform; }
+private:
+	char Name[16];
+	int NumPivots;
+	HTreePivot *Pivot;
 };
 
 class FXShaderParameterSourceNamespace
@@ -424,8 +540,8 @@ public:
 		Matrix_MeshToJointToWorld m_MeshToJointToWorld;			// +0x04
 		Matrix_MeshToJointToView m_MeshToJointToView;			// +0x08
 		Matrix_MeshToJointToProjection m_MeshToJointToProjection;	// +0x0C
-		const void *m_SkinInfo;						// +0x10
-		const std::vector<unsigned short> *m_BoneMappingTable;		// +0x14
+		const HTreeClass *m_SkinInfo;					// +0x10
+		const std::vector<short> *m_BoneMappingTable;			// +0x14
 		int m_NumJointsPerVertex;					// +0x18
 		const std::vector<Matrix3D> *m_InstancingInfo;			// +0x1C
 	};
@@ -840,6 +956,123 @@ void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::rva0014DF88(
 		effect->SetInt(parameter, m_BoneMappingTable->size());
 	else
 		effect->SetInt(parameter, 1);
+}
+
+// Retail 0x0014DFE5, 828 bytes.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::SetArray_MeshToJointToWorld_BoneTransform(ID3DXEffect *effect, D3DXHANDLE parameter)
+{
+	D3DXPARAMETER_DESC desc;
+	if (effect->GetParameterDesc(parameter, &desc) < 0)
+		return;
+	if (desc.Elements <= 0)
+		return;
+
+	static BoneTransform bones[MAX_SUPPORTED_BONE_MATRICES];
+
+	if (m_InstancingInfo)
+	{
+		if (desc.Elements > MAX_SUPPORTED_BONE_MATRICES || m_InstancingInfo->size() > desc.Elements)
+			return;
+		int i = 0;
+		for (std::vector<Matrix3D>::const_iterator it = m_InstancingInfo->begin(); it != m_InstancingInfo->end(); ++it, ++i)
+			bones[i].Set(*it);
+		effect->SetRawValue(parameter, bones, 0, m_InstancingInfo->size() * sizeof(BoneTransform));
+	}
+	else if (m_SkinInfo && m_BoneMappingTable)
+	{
+		if (desc.Elements > MAX_SUPPORTED_BONE_MATRICES || m_BoneMappingTable->size() > desc.Elements || m_BoneMappingTable->back() >= m_SkinInfo->Num_Pivots())
+			return;
+		int i = 0;
+		for (std::vector<short>::const_iterator it = m_BoneMappingTable->begin(); it != m_BoneMappingTable->end(); ++it, ++i)
+			(HTreePivotTransform &)bones[i] = m_SkinInfo->Get_Transform(*it);
+		effect->SetRawValue(parameter, bones, 0, m_BoneMappingTable->size() * sizeof(BoneTransform));
+	}
+	else
+	{
+		Rva0007671F world;
+		DX8Wrapper::Get_Transform(D3DTS_WORLD, world);
+		BoneTransform bone;
+		bone.Set((const Matrix3D &)world);
+		effect->SetRawValue(parameter, &bone, 0, sizeof(BoneTransform));
+	}
+}
+
+// Retail 0x0014E321, 1000 bytes.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::SetArray_MeshToJointToWorld_Matrix3D(ID3DXEffect *effect, D3DXHANDLE parameter)
+{
+	D3DXPARAMETER_DESC desc;
+	if (effect->GetParameterDesc(parameter, &desc) < 0)
+		return;
+	if (desc.Elements <= 0)
+		return;
+
+	static Matrix3D bones[MAX_SUPPORTED_BONE_MATRICES];
+
+	if (m_InstancingInfo)
+	{
+		if (desc.Elements > MAX_SUPPORTED_BONE_MATRICES || m_InstancingInfo->size() > desc.Elements)
+			return;
+		effect->SetRawValue(parameter, &(*m_InstancingInfo)[0], 0, m_InstancingInfo->size() * sizeof(Matrix3D));
+	}
+	else if (m_SkinInfo && m_BoneMappingTable)
+	{
+		if (desc.Elements > MAX_SUPPORTED_BONE_MATRICES || m_BoneMappingTable->size() > desc.Elements || m_BoneMappingTable->back() >= m_SkinInfo->Num_Pivots())
+			return;
+		int i = 0;
+		for (std::vector<short>::const_iterator it = m_BoneMappingTable->begin(); it != m_BoneMappingTable->end(); ++it, ++i)
+			m_SkinInfo->Get_Transform(*it).Get_Matrix3D(bones[i]);
+		effect->SetRawValue(parameter, bones, 0, m_BoneMappingTable->size() * sizeof(Matrix3D));
+	}
+	else
+	{
+		Rva0007671F world;
+		DX8Wrapper::Get_Transform(D3DTS_WORLD, world);
+		effect->SetRawValue(parameter, &world, 0, sizeof(Matrix3D));
+	}
+}
+
+// Retail 0x0014E709, 1227 bytes.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::SetArray_MeshToJointToWorld_Matrix4x4(ID3DXEffect *effect, D3DXHANDLE parameter)
+{
+	D3DXPARAMETER_DESC desc;
+	if (effect->GetParameterDesc(parameter, &desc) < 0)
+		return;
+	if (desc.Elements <= 0)
+		return;
+
+	static Rva0007671F bones[MAX_SUPPORTED_BONE_MATRICES];
+	static bool first = true;
+	if (first)
+	{
+		for (int i = 0; i < MAX_SUPPORTED_BONE_MATRICES; i++)
+			bones[i].Make_Identity();
+		first = false;
+	}
+
+	if (m_InstancingInfo)
+	{
+		if (desc.Elements > MAX_SUPPORTED_BONE_MATRICES || m_InstancingInfo->size() > desc.Elements)
+			return;
+		int i = 0;
+		for (std::vector<Matrix3D>::const_iterator it = m_InstancingInfo->begin(); it != m_InstancingInfo->end(); ++it, ++i)
+			(Matrix3D &)bones[i] = *it;
+		effect->SetRawValue(parameter, bones, 0, m_InstancingInfo->size() * sizeof(Matrix4));
+	}
+	else if (m_SkinInfo && m_BoneMappingTable)
+	{
+		if (desc.Elements > MAX_SUPPORTED_BONE_MATRICES || m_BoneMappingTable->size() > desc.Elements || m_BoneMappingTable->back() >= m_SkinInfo->Num_Pivots())
+			return;
+		int i = 0;
+		for (std::vector<short>::const_iterator it = m_BoneMappingTable->begin(); it != m_BoneMappingTable->end(); ++it, ++i)
+			m_SkinInfo->Get_Transform(*it).Get_Matrix3D((Matrix3D &)bones[i]);
+		effect->SetRawValue(parameter, bones, 0, m_BoneMappingTable->size() * sizeof(Matrix4));
+	}
+	else
+	{
+		Rva0007671F world;
+		DX8Wrapper::Get_Transform(D3DTS_WORLD, world);
+		effect->SetRawValue(parameter, &world, 0, sizeof(Matrix4));
+	}
 }
 
 // Retail 0x0014EBD4, 404 bytes (vtable 0x00BD3874 slot 2).
