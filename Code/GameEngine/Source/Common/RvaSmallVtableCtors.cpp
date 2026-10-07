@@ -568,15 +568,44 @@ struct Rva0054D54ANode
 	Rva0054D54ANode *m_next;
 };
 
+// The node list's view of a message: the argument count byte at +0x18 and
+// the per-argument type query.
+enum GameMessageArgumentDataType
+{
+	ARGUMENTDATATYPE_INTEGER,
+	ARGUMENTDATATYPE_REAL,
+	ARGUMENTDATATYPE_BOOLEAN,
+	ARGUMENTDATATYPE_OBJECTID,
+	ARGUMENTDATATYPE_DRAWABLEID,
+	ARGUMENTDATATYPE_TEAMID,
+	ARGUMENTDATATYPE_LOCATION,
+	ARGUMENTDATATYPE_PIXEL,
+	ARGUMENTDATATYPE_PIXELREGION,
+	ARGUMENTDATATYPE_TIMESTAMP,
+	ARGUMENTDATATYPE_WIDECHAR,
+	ARGUMENTDATATYPE_UNKNOWN
+};
+
+class GameMessage
+{
+public:
+	unsigned char getArgumentCount() const { return m_argCount; }
+	GameMessageArgumentDataType getArgumentDataType(int argIndex);
+private:
+	char m_pad[0x18];
+	unsigned char m_argCount;
+};
+
 class Rva0054D54A
 {
 public:
 	Rva0054D54A();
+	Rva0054D54A(GameMessage *msg);
 	virtual ~Rva0054D54A();
 private:
 	Rva0054D54ANode *m_04;
 	void *m_08;
-	void *m_0C;
+	int m_0C;
 };
 
 Rva0054D54A::Rva0054D54A()
@@ -709,6 +738,37 @@ void Rva0054D5D3::rva0054D5D3(void *a, void *b)
 		Rva0054D593 *p = new Rva0054D593(a, b);
 		m_08->m_04 = p;
 		m_08 = m_08->m_04;
+	}
+}
+
+// ??0Rva0054D54A@@QAE@PAVGameMessage@@@Z @0x0054D64D 123B: ZH's
+// GameMessageParser(GameMessage *) constructor, statement for statement: runs
+// of equal argument types become one rva0054D5D3(type, count) append each,
+// counted at +0xC (ARGUMENTDATATYPE_UNKNOWN, 11, seeds the run type). The
+// add-game-command room check 0x0058D92F builds one with operator new(0x10)
+// and walks the +4 list it makes, so this class is GameMessageParser in all but
+// name; the append is reached through its own address-named class.
+Rva0054D54A::Rva0054D54A(GameMessage *msg)
+	: m_04(0), m_08(0), m_0C(0)
+{
+	unsigned char argCount = msg->getArgumentCount();
+	GameMessageArgumentDataType lasttype = ARGUMENTDATATYPE_UNKNOWN;
+	int thisTypeCount = 0;
+	for (unsigned char i = 0; i < argCount; ++i) {
+		GameMessageArgumentDataType type = msg->getArgumentDataType(i);
+		if (type != lasttype) {
+			if (thisTypeCount > 0) {
+				((Rva0054D5D3 *)this)->rva0054D5D3((void *)lasttype, (void *)thisTypeCount);
+				++m_0C;
+			}
+			lasttype = type;
+			thisTypeCount = 0;
+		}
+		++thisTypeCount;
+	}
+	if (thisTypeCount > 0) {
+		((Rva0054D5D3 *)this)->rva0054D5D3((void *)lasttype, (void *)thisTypeCount);
+		++m_0C;
 	}
 }
 
