@@ -2368,6 +2368,30 @@ UnsignedByte *WorldHeightMap::getRGBAlphaDataForWidth(Int width, TBlendTileInfo 
 	}
 	return m_alphaTiles[alphaTileNdx]->getRGBDataForWidth(width);
 }
+// Native000ADDCE..000ADE29 RET12. BFME1 ba7ddda7e8
+// WorldHeightMap.cpp supplies the blendTileData semantic lead; target adds
+// the raw-tile mode argument. Existing TU buffers and alpha getter are reused.
+// External helper declarations below are native call ABI views; original
+// linkage spelling remains unknown. Raw loaderAC88E reads signed word arg8,
+// four further words and ECX, RET20/AL. SetupAC6F9 RET0 ignores ECX. MMX
+// blendAC63F reads four cdecl words, RET0, source/destination/alpha/count.
+class Rva000ADDCEWorldHeightMapView
+{
+public:
+ bool rawTile(Short tile,Int width,UnsignedByte *buffer,Int bytes,Int mode);
+ void blendTile(TBlendTileInfo *blend,Int width,Int mode);
+};
+void __cdecl Rva000AC6F9SetupAlphaTiles();
+void __cdecl Rva000AC63FBlendPixels(UnsignedByte *source,UnsignedByte *destination,UnsignedByte *alpha,Int pixels);
+void Rva000ADDCEWorldHeightMapView::blendTile(TBlendTileInfo *blend,Int width,Int mode)
+{
+ if(rawTile(blend->blendNdx,width,s_blendBuffer,0x2000,mode)) {
+  Rva000AC6F9SetupAlphaTiles();
+  UnsignedByte *alpha=reinterpret_cast<WorldHeightMap *>(this)->getRGBAlphaDataForWidth(width,blend);
+  if(alpha)Rva000AC63FBlendPixels(s_blendBuffer,s_buffer,alpha,width*width);
+ }
+}
+
 #pragma optimize("", on)
 
 // ?setupAlphaTiles@WorldHeightMap@@ present-unmatched
