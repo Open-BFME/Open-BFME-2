@@ -66863,3 +66863,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva001089EA@Rva001089EA@@QAEXHPAM0@Z,,0x001089EA,33,Code/GameEngine/Source/Common/Rva001089EAGetOffsets.cpp,matched,address-derived indexed lookup copies entry floats to outputs
 ?rva003B2498@Rva003B2498@@QAEAAV1@ABV1@@Z,,0x003B2498,47,Code/GameEngine/Source/Common/Rva003B2498StringRecordCopy.cpp,matched,address-derived record copy delegates the string member to StringBase set
 ?Rva003BC582Set@@YGXABVAsciiString@@H@Z,,0x003BC582,76,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BC582.cpp,matched,mask loop via ScriptEngine rva00357475 and PlayerList getEachPlayerFromMask calling Rva003805BB float method
+?rva002FDB44@Rva002FDB44@@QAEXPAV1@@Z,,0x002FDB44,25,Code/GameEngine/Source/Common/Rva002FDB44.cpp,matched,address-based class inferred from packet body and caller xref
