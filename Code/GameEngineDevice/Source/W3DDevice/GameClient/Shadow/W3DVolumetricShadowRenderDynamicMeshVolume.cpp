@@ -260,9 +260,11 @@ class StringClass
 {
 public:
 	StringClass(int initial_len = 0, bool hint_temporary = false);
-	~StringClass(void);
+	~StringClass() { Free_String(); }
 private:
 	char *m_Buffer;
+private:
+	void Free_String();
 };
 
 extern unsigned number_of_DX8_calls;

@@ -15,7 +15,7 @@ public: virtual ~Rva009EB810TailBase();
 private: unsigned char unknown04[0x10];
 };
 class StringClass {
-public: ~StringClass();	// retail: Free_String's body 0x00610A40 (aliased); no inline copy here
+public: ~StringClass() { Free_String(); }
 private: void Free_String(); char *buffer;
 };
 class HLodDefClass { public: ~HLodDefClass(); };

@@ -23,7 +23,9 @@ class StringClass
 {
 public:
 	StringClass(int value, bool flag);
-	~StringClass();
+	~StringClass() { Free_String(); }
+private:
+	void Free_String();
 };
 
 class DX8Wrapper

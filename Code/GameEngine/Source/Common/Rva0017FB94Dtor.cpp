@@ -17,7 +17,9 @@ public:
 class StringClass
 {
 public:
-	~StringClass();
+	~StringClass() { Free_String(); }
+private:
+	void Free_String();
 };
 
 class Rva0061ED80

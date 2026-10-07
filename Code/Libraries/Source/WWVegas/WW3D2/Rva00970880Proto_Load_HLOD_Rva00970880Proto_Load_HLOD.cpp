@@ -20,12 +20,14 @@ class StringClass
 {
 public:
 	StringClass(const StringClass &string, bool hint_temporary = false);
-	~StringClass();
+	~StringClass() { Free_String(); }
 	const StringClass &operator+=(const char *string);
 	operator const char *() const { return m_buffer; }
 
 private:
 	char *m_buffer;
+private:
+	void Free_String();
 };
 
 extern "C" const char Rva011139E4_W3D_Extension[];

@@ -4,8 +4,10 @@
 class StringClass
 {
 public:
-	~StringClass();
+	~StringClass() { Free_String(); }
 	char *m_buffer;
+private:
+	void Free_String();
 };
 
 class Rva009EB810TailBase
