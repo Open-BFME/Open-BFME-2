@@ -67158,3 +67158,4 @@ _gpSetInfoCacheFilenameA,,0x0072D2C0,5,Code/GameEngine/Source/GameNetwork/GameSp
 ?rva00413E27@Rva00413E27@@QAEPAURva00413E27Bucket@@H@Z,,0x00413E27,46,Code/GameEngine/Source/Common/Thing/Rva00413E27Lookup.cpp,matched,bucket traversal and key comparison from packet caller class unproven
 ??1Rva00362E1C@@UAE@XZ,,0x00362E1C,87,Code/GameEngine/Source/Common/Rva00362E1CDtor.cpp,matched,virtual dtor via TheGameClient erase plus array plus Snapshot base
 ?rva00167EB9@Rva00167EB9@@QAEABVRva00126399@@ABV2@@Z,,0x00167EB9,11,Code/GameEngine/Source/Common/Rva00167EB9Thunk.cpp,matched,caller and rowed assignment target support address-derived forwarding member
+?rva002D893B@Radar@@QAEXPBURva002D893BColorSource@@PBUCoord3D@@W4RadarEventType@@M@Z,,0x002D893B,224,Code/GameEngine/Source/Common/System/Radar_createEvent.cpp,matched,Radar internal call and target color component flow support address-derived overload
