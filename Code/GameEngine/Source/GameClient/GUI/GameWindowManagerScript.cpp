@@ -144,7 +144,8 @@ static GameWinDrawFunc			drawFunc = NULL;
 AsciiString g_systemCallbackName;
 AsciiString g_inputCallbackName;
 AsciiString g_tooltipCallbackName;
-static AsciiString theDrawString;
+// Expose the original fourth string at native RVA A01314, preserving order.
+AsciiString g_drawCallbackName;
 
 // default visual properties
 static Color defEnabledColor		= 0;
@@ -822,8 +823,8 @@ static Bool parseDrawCallback( char *token, WinInstanceData *instData,
 
 	// save a pointer of the function address
 	DEBUG_ASSERTCRASH( TheNameKeyGenerator && TheFunctionLexicon, ("Invalid singletons") );
-	theDrawString = c;
-	NameKeyType key = TheNameKeyGenerator->nameToKey( theDrawString );
+	g_drawCallbackName = c;
+	NameKeyType key = TheNameKeyGenerator->nameToKey( g_drawCallbackName );
 	drawFunc = TheFunctionLexicon->gameWinDrawFunc( key );
 
 	return TRUE;
@@ -2150,7 +2151,7 @@ static GameWindow *createWindow( char *type,
 			editData->systemCallbackString = g_systemCallbackName;
 			editData->inputCallbackString = g_inputCallbackName;
 			editData->tooltipCallbackString = g_tooltipCallbackName;
-			editData->drawCallbackString = theDrawString;
+			editData->drawCallbackString = g_drawCallbackName;
 
 		}  // end if
 
@@ -2373,7 +2374,7 @@ static GameWindow *parseWindow( File *inFile, char *buffer )
 	g_systemCallbackName.clear();
 	g_inputCallbackName.clear();
 	g_tooltipCallbackName.clear();
-	theDrawString.clear();
+	g_drawCallbackName.clear();
 
 	// get the size of the parent, or if no parent present the screen
 	if( parent )
@@ -2618,7 +2619,7 @@ void GameWindowManager::freeStaticStrings(void)
 	g_systemCallbackName.clear();
 	g_inputCallbackName.clear();
 	g_tooltipCallbackName.clear();
-	theDrawString.clear();
+	g_drawCallbackName.clear();
 }
 #pragma optimize("", on)
 

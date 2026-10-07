@@ -210,3 +210,31 @@ WindowLayoutInitFunc FunctionLexicon::winLayoutInitFunc( NameKeyType key, TableI
 	// search the specified table
 	return (WindowLayoutInitFunc)findFunction( key, index );
 }
+
+// Donor 968ca36c32 supplies the draw accessor's purpose and control flow.
+// Native 0x2D2341 calls findFunction with tables 3 then 4 (or the requested
+// index), on the same lexicon pointer used by the DRAWCALLBACK parser.
+GameWinDrawFunc FunctionLexicon::gameWinDrawFunc(NameKeyType key, TableIndex index)
+{
+    if (index == TABLE_ANY) {
+        GameWinDrawFunc func = (GameWinDrawFunc)findFunction(key, TABLE_GAME_WIN_DEVICEDRAW);
+        if (func == NULL)
+            func = (GameWinDrawFunc)findFunction(key, TABLE_GAME_WIN_DRAW);
+        return func;
+    }
+    return (GameWinDrawFunc)findFunction(key, index);
+}
+
+// Target-only wrapper: Native 0x2D2371 is selected by the WINCLASS parser
+// and calls the same verified worker with 5 then 6. No callback signature
+// or stronger table identity is inferred from the neighboring draw body.
+void *FunctionLexicon::rva002D2371(NameKeyType key, TableIndex index)
+{
+    if (index == TABLE_ANY) {
+        void *func = findFunction(key, TABLE_BFME_UNIDENTIFIED_5);
+        if (func == NULL)
+            func = findFunction(key, TABLE_BFME_UNIDENTIFIED_6);
+        return func;
+    }
+    return findFunction(key, index);
+}

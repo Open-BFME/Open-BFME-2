@@ -114,6 +114,10 @@ public:
 	GameWinTooltipFunc  gameWinTooltipFunc( NameKeyType key, TableIndex = TABLE_GAME_WIN_TOOLTIP );
 	GameWinDrawFunc			gameWinDrawFunc( NameKeyType key, TableIndex = TABLE_ANY  );
 
+	// Native 0x2D2371: WINCLASS parser lookup, trying table 5 then 6.
+	// The callback ABI and both table roles remain unresolved.
+	void *rva002D2371( NameKeyType key, TableIndex = TABLE_ANY );
+
 	// Window layout functions ----------------------------------------------------------------------
 	WindowLayoutInitFunc			winLayoutInitFunc( NameKeyType key, TableIndex = TABLE_ANY );
 	WindowLayoutUpdateFunc		winLayoutUpdateFunc( NameKeyType key, TableIndex = TABLE_WIN_LAYOUT_UPDATE );
