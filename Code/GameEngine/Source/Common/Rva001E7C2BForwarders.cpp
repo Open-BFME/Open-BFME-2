@@ -10,6 +10,17 @@ public:
 	void rva001e7053(unsigned int, unsigned int, float, float);
 };
 
+class Thing;
+class Rva001E702E {
+public:
+	void rva001E702E(Thing *, int, int);
+};
+
+class Rva001E6007 {
+public:
+	void rva001e6007(unsigned int, unsigned int, float, float);
+};
+
 class Rva001E8C1B {
 public:
 	void rva001e8c1b(unsigned int, unsigned int, float, float);
@@ -24,6 +35,13 @@ class Rva001E9045 {
 public:
 	void rva001e9045(unsigned int, unsigned int, float, float);
 };
+
+// ?rva001e7053@Rva001E7053@@QAEXIIMM@Z
+void Rva001E7053::rva001e7053(unsigned int a, unsigned int b, float c, float d)
+{
+	reinterpret_cast<Rva001E702E *>(this)->rva001E702E(reinterpret_cast<Thing *>(a), (int)b, 0);
+	reinterpret_cast<Rva001E6007 *>(this)->rva001e6007(a, b, c, d);
+}
 
 void Rva001E7C2B::rva001e7c2b(unsigned int a, unsigned int b, float c, float d)
 {

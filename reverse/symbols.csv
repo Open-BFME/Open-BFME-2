@@ -15386,5 +15386,6 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva003FCD71@Rva003FCD71@@QAEXXZ,0x003FCD71,Direct method targets on vector elements in unclaimed 0x00212761/0x002110DF; address-derived receiver class and operation remain unresolved; 0x003FCD71 body stays blocked in re_attempts.log
 ?rva003FCDD5@Rva003FCD71@@QAEXH@Z,0x003FCDD5,Direct method targets on vector elements in unclaimed 0x00212761/0x002110DF; address-derived receiver class and operation remain unresolved; 0x003FCD71 body stays blocked in re_attempts.log
 ?rva0059DFFB@Rva0059DFFB@@QAEXXZ,0x0059DFFB,callee of ?rva004FC470@Rva004FC470@@QAEX_N@Z
+?rva001e6007@Rva001E6007@@QAEXIIMM@Z,0x001E6007,"Ghidra boundary FUN_005e6007 is 1295 bytes; exact direct-call target at 0x001E707D receives the four forwarded dwords in ECX with ret 16; semantic identity unknown"
 ?rva001e7053@Rva001E7053@@QAEXIIMM@Z,0x001E7053,"address-derived call target; Ghidra boundary FUN_005e7053 is 52 bytes; exact REL32 caller 0x001E7C2B; semantic identity unknown"
 ?rva001e8c1b@Rva001E8C1B@@QAEXIIMM@Z,0x001E8C1B,"address-derived call target; Ghidra boundary FUN_005e8c1b is 744 bytes; exact REL32 caller 0x001E9045; semantic identity unknown"
