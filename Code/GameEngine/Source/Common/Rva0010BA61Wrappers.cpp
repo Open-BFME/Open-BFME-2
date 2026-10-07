@@ -253,3 +253,34 @@ void Rva005E6BB4::rva005E6BB4()
 	((Coord3D *)this)->~Coord3D();
 	m_20->tail005E6AD8();
 }
+
+// Native 0x005E6B8F..0x005E6BA3, 20B. The +0x14 member runs the
+// complete 81B no-argument helper; the tail uses this-0x0C and the
+// existing 0x005F327A owner through its 0x005F604C retail jump thunk.
+// Neither the wrapper's original class nor its method name is known.
+class Rva005E6B3E
+{
+public:
+	void rva005E6B3E();
+};
+
+class Rva005F327ARun
+{
+public:
+	void run();
+};
+
+class Rva005E6B8F
+{
+public:
+	void rva005E6B8F();
+private:
+	char m_pad00[0x14];
+	Rva005E6B3E *m_14;
+};
+
+void Rva005E6B8F::rva005E6B8F()
+{
+	m_14->rva005E6B3E();
+	((Rva005F327ARun *)((char *)this - 0x0C))->run();
+}

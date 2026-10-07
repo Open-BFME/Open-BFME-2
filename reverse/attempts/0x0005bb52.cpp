@@ -1,4 +1,6 @@
 // ?rva0005BB52@MilesAudioManager@@QAEXPAXPBUCoord3D@@@Z
+// partial score=0.93 date=2026-10-08
+// ?rva0005BB52@MilesAudioManager@@QAEXPAXPBUCoord3D@@@Z
 // partial score=0.95 date=2026-10-07
 // ?rva0005BB52@MilesAudioManager@@QAEXPAXPBUCoord3D@@@Z
 // cl: /O1 /arch:SSE /G7 /Oy- /DNDEBUG /DWIN32 /MD /EHsc /ICode/Libraries/Include/Lib

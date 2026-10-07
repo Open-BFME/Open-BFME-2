@@ -1,5 +1,5 @@
 // ?rva003980BF@Rva003980BF@@QAEPAXPAXHH@Z
-// partial score=0.94 date=2026-10-07
+// partial score=0.97 date=2026-10-08
 // cl: /O1 /arch:SSE /G7 /Oy- /MD
 // stlport
 #include <vector>
@@ -23,28 +23,29 @@ public:
 };
 void *Rva003980BF::rva003980BF(void *target, int which, int mode)
 {
- if (!target) return target;
+ if (!target) return 0;
+ void *volatile &targetHome = target;
  Rva003980BFIds *ids = &normal;
- if ((((Rva003980BFFlags *)target)->flags & 1) && alternate.size() != 0)
+ if ((((Rva003980BFFlags *)target)->flags & 1) && alternate.size() > 0)
   ids = &alternate;
  if (which == -2)
  {
   for (unsigned *p = ids->begin(); p != ids->end(); ++p)
   {
    unsigned id = *(const volatile unsigned *)p;
-   void *result = rva00397FEB(context, id, target, mode);
+   void *result = rva00397FEB(context, id, targetHome, mode);
    if (result) return result;
   }
  }
  else
  {
   unsigned count = ids->size();
-  if (count)
+  if (count > 0)
   {
    if ((unsigned)which > count - 1) which = count - 1;
    else if (which < 0) which = 0;
    unsigned id = *(const volatile unsigned *)&(*ids)[which];
-   void *result = rva00397FEB(context, id, target, mode);
+   void *result = rva00397FEB(context, id, targetHome, mode);
    if (result) return result;
   }
  }
