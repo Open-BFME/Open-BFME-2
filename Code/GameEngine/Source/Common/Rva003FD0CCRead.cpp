@@ -28,3 +28,35 @@ void Rva003FD0CC::rva003FD0CC(char *dst, int offset, int count)
 	}
 	memcpy(dst, m_extra + offset - len, count);
 }
+
+// Native 0x003FD05E..0x003FD0CC, RET12. VslotMemberForwarders uses
+// this existing address-derived ABI spelling: destination is a 32-bit
+// buffer address. The original concatenation-template type is unproven.
+// Prefix +0 is the rowed 12-byte string/text node; suffix +0xC is an
+// AsciiString reference, independently shown by its buffer and +8 text.
+class AsciiStringPlusText {public: int length() const;};
+class Rva003FD05ETarget
+{
+ Rva003FD0CC m_prefix;
+ const AsciiString *m_suffix;
+public:
+ void rva003FD05E(int destination, int offset, int count);
+};
+
+void Rva003FD05ETarget::rva003FD05E(int destination, int offset, int count)
+{
+ int total=((AsciiStringPlusText *)this)->length();
+ if (offset<total) {
+  int chunk=count;
+  if (offset+count>total)
+   chunk=total-offset;
+  m_prefix.rva003FD0CC((char *)destination,offset,chunk);
+  count-=chunk;
+  if (count<=0)
+   return;
+  destination+=chunk;
+  offset+=chunk;
+ }
+ offset-=total;
+ memcpy((char *)destination,m_suffix->str()+offset,count);
+}
