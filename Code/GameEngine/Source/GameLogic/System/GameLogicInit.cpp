@@ -505,6 +505,7 @@ public:
 	void rva00241529(unsigned int crc, int player, unsigned int frame, GameMessage *message,
 		bool forced, BfmeThingEC *stream);
 	void rva0023F8DA(void);
+	const AsciiString &rva0023FB58(int index);
 	PlayerLeaveStatus *getPlayerLeaveStatus(int playerIndex);
 	void rva002401DD(BfmeThingEC *stream, unsigned int frame, int player);
 
@@ -531,9 +532,10 @@ public:
 	Rva00241529Record *m_48;
 	IntList::iterator m_4c;
 	IntList m_50;
-	char m_pad054[0x58 - 0x54];
+	AsciiString m_54;
 	_STL::vector<AsciiString> m_58;
-	char m_pad064[0x6c - 0x64];
+	AsciiString m_64;
+	AsciiString m_68;
 	bool m_6c;
 	bool m_6d;
 	char m_pad06E[0x70 - 0x6e];
@@ -586,7 +588,9 @@ public:
 	char m_pad184[0x1b0 - 0x184];
 	int m_1b0;
 	int m_1b4;
-	char m_pad1B8[0x1c0 - 0x1b8];
+	int m_1b8;
+	bool m_1bc;
+	char m_pad1BD[0x1c0 - 0x1bd];
 	ObjectTOCList m_objectTOC;
 	char m_pad1C4[0x2a4 - 0x1c4];
 	int m_2a4;
@@ -1444,7 +1448,9 @@ public:
 	Rva003805BB m_skillPoints;
 	char m_pad24[0x34 - 0x24];
 	PlayerTemplate *m_34;
-	char m_pad38[0x54 - 0x38];
+	char m_pad38[0x4c - 0x38];
+	AsciiString m_4c;
+	char m_pad50[0x54 - 0x50];
 	int m_playerIndex;                                                   // +0x54
 	char m_pad58[0x5c - 0x58];
 	PlayerType m_playerType;
@@ -2420,6 +2426,8 @@ private:
 	char m_pad00[0x68];
 };
 
+class File;
+
 enum RecorderModeType
 {
 	RECORDERMODETYPE_RECORD,
@@ -2432,6 +2440,8 @@ class RecorderClass
 public:
 	bool isMultiplayer(void);
 	RecorderModeType getMode(void);
+	void logCRCMismatch(void);
+	void rva0037BE15(File *output, unsigned int frame);
 
 	char m_pad000[0xe68];
 	int m_e68;
@@ -2947,6 +2957,7 @@ public:
 class FileSystem
 {
 public:
+	File *openFile(const char *filename, int access, int bufferSize);
 	bool doesFileExist(const char *filename) const;
 };
 
@@ -2970,7 +2981,7 @@ public:
 	virtual void g12(void) = 0;
 	virtual void g13(void) = 0;
 	virtual void g14(void) = 0;
-	virtual void g15(void) = 0;
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0; // +0x3C
 	virtual void g16(void) = 0;
 	virtual void g17(void) = 0;
 	virtual void g18(void) = 0;
@@ -3633,11 +3644,15 @@ public:
 };
 extern MessageStream *MessageStreamSubsystem;
 
-// The diagnostic stream: 0x006021A4 hands back its buffer and its size.
+// The diagnostic stream: 0x006021A4 hands back its buffer and its size; the
+// desync reporter names its file after the string at +4.
 class BfmeThingEC
 {
 public:
+	virtual void e00(void);
 	int bfmeTakeEC(int *size);
+
+	AsciiString m_04;
 };
 
 struct Rva00241529Record
@@ -3860,4 +3875,16 @@ void GameLogic::rva0023F8DA(void)
 			line.format("      Slot %d: PlayerLeaveStatus does not exist.\n", i);
 		*last += line;
 	}
+}
+
+// ?rva0023FB58@GameLogic@@QAEABVAsciiString@@H@Z @0x0023FB58 104B (Ghidra
+// FUN_0063fb58). Indexed read of the string vector at this+0x58 with a
+// function-local "Invalid Slot" fallback (object 0x009FE940, guard bit
+// 0x009FE944); the desync reporter 0x002401DD reads every entry through it.
+const AsciiString &GameLogic::rva0023FB58(int index)
+{
+	if (index >= 0 && index < m_58.size())
+		return m_58[index];
+	static AsciiString invalid("Invalid Slot");
+	return invalid;
 }
