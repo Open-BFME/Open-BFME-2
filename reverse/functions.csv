@@ -67611,3 +67611,5 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva00538383@QuadStrip2D@@QAEXM@Z,,0x00538383,153,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp,matched,caller 0x0030BC84 lea ecx +0x68 same as siblings and true 153B ret end
 ?rva001FD85E@Rva001FD85E@@QAEXXZ,,0x001FD85E,5,Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_insert.cpp,matched,
 ?rva001FD863@Rva001FD863@@QAEXXZ,,0x001FD863,5,Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_insert.cpp,matched,
+?rva002238E1@Rva002238E1@@QAEXXZ,,0x002238E1,5,Code/GameEngine/Source/Common/System/INIMacroTableDtorO1.cpp,matched,
+?rva002239AD@Rva002239AD@@QAEXXZ,,0x002239AD,5,Code/GameEngine/Source/Common/System/INIMacroTableDtorO1.cpp,matched,

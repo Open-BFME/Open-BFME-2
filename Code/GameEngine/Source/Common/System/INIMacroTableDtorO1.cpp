@@ -27,3 +27,31 @@ template <> inline void _STL::allocator<void *>::deallocate(void **p, unsigned i
         freeMacroBucketStorage(p);
 }
 template MacroTable::~hashtable();
+
+class Rva002238E1
+{
+public:
+	void rva002238E1();
+};
+
+void Rva002238E1::rva002238E1()
+{
+	((MacroTable *)this)->~hashtable();
+}
+
+class Rva0022366C
+{
+public:
+	~Rva0022366C();
+};
+
+class Rva002239AD
+{
+public:
+	void rva002239AD();
+};
+
+void Rva002239AD::rva002239AD()
+{
+	((Rva0022366C *)this)->~Rva0022366C();
+}
