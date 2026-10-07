@@ -26,3 +26,19 @@ void AptOnlineShell::LoadChildScreen(const char *str)
 	if (m_28C.isEmpty())
 		m_28C.set(str);
 }
+
+// ?rva0056DC76@Rva0056DC76@@QAEXPBD@Z @0x0056DC76 8B member forwarder to rowed
+// ?LoadChildScreen@AptOnlineShell@@QAEXPBD@Z (0x00517027; str arg passes
+// through the shared stack slot). No callers. Honest address name.
+class Rva0056DC76
+{
+public:
+	void rva0056DC76(const char *str);
+private:
+	char m_pad[0x58];
+	AptOnlineShell *m_member;
+};
+void Rva0056DC76::rva0056DC76(const char *str)
+{
+	return m_member->LoadChildScreen(str);
+}

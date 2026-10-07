@@ -7443,3 +7443,28 @@ void Rva00523EC0::rva00523EC0()
 	return m_member->~Rva00523EC0Marker();
 }
 
+// Rva005C392A view for the thunk below. The method is declared only and
+// resolves to the rowed ?rva005C392A@Rva005C392A@@QAEXXZ (0x005C392A, 8B
+// vtable slot in VslotSmallBodiesAE.cpp); declared here (not defined) so the
+// tailcall is preserved.
+class Rva005C392A
+{
+public:
+	void rva005C392A();
+};
+
+// ?rva00567782@Rva00567782@@QAEXXZ @0x00567782 8B member forwarder to rowed
+// ?rva005C392A@Rva005C392A@@QAEXXZ (0x005C392A). No callers. Honest address name.
+class Rva00567782
+{
+public:
+	void rva00567782();
+private:
+	char m_pad[8];
+	Rva005C392A *m_member;
+};
+void Rva00567782::rva00567782()
+{
+	return m_member->rva005C392A();
+}
+
