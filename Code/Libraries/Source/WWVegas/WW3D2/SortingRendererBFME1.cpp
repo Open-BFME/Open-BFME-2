@@ -148,6 +148,12 @@ public:
 		unsigned short *Get_Index_Array() { return Indices; }
 	};
 };
+// BFME's REF_PTR_RELEASE clears the pointer inside its test, where the Zero
+// Hour macro stores NULL unconditionally; DX8Wrapper::Release_Render_State
+// (0x0011C500) is emitted from this unit with that shape.
+#include "refcount.h"
+#undef REF_PTR_RELEASE
+#define REF_PTR_RELEASE(x)		{ if (x) { x->Release_Ref(); x = NULL; } }
 #include "dx8wrapper.h"
 #include "vertmaterial.h"
 #include "texture.h"
@@ -875,39 +881,6 @@ void SortingRendererClass::Flush_Sorting_Pool()
 // (data ledger 0x009B61F8), BFME2's inline render-state copy and an inlined
 // Insert_To_Sorting_Pool. Flush_Sorting_Pool (0x0012E8C0) is its only call
 // into the pool.
-// Release_Render_State with each pointer cleared inside its own test, as
-// retail stores the null only after a release.
-class BfmeSortingStateRelease : DX8Wrapper {
-public:
-	static __forceinline void release()
-	{
-		if (render_state.index_buffer)
-			render_state.index_buffer->Release_Engine_Ref();
-		for (int i = 0; i < MAX_VERTEX_STREAMS; ++i)
-			if (render_state.vertex_buffers[i])
-				render_state.vertex_buffers[i]->Release_Engine_Ref();
-		for (int i = 0; i < MAX_VERTEX_STREAMS; ++i)
-			if (render_state.vertex_buffers[i]) {
-				render_state.vertex_buffers[i]->Release_Ref();
-				render_state.vertex_buffers[i] = 0;
-			}
-		if (render_state.index_buffer) {
-			render_state.index_buffer->Release_Ref();
-			render_state.index_buffer = 0;
-		}
-		_ReadWriteBarrier();
-		if (render_state.material) {
-			render_state.material->Release_Ref();
-			render_state.material = 0;
-		}
-		for (int i = 0; i < MAX_TEXTURE_STAGES; ++i)
-			if (render_state.Textures[i]) {
-				render_state.Textures[i]->Release_Ref();
-				render_state.Textures[i] = 0;
-			}
-	}
-};
-
 // ?Flush@SortingRendererClass@@SAXXZ
 void SortingRendererClass::Flush()
 {
@@ -927,7 +900,7 @@ void SortingRendererClass::Flush()
 		else {
 			DX8Wrapper::Set_Render_State(reinterpret_cast<const RenderStateStruct &>(state->sorting_state));
 			DX8Wrapper::Draw_Triangles((unsigned)state->start_index,(unsigned)state->polygon_count,(unsigned)state->min_vertex_index,(unsigned)state->vertex_count);
-			BfmeSortingStateRelease::release();
+			DX8Wrapper::Release_Render_State();
 			Release_Refs(state);
 			clean_list.Add_Head(state);
 		}
