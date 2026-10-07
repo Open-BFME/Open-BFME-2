@@ -74,6 +74,8 @@ class Rva0044EF5E : public UpdateModule, public Rva0044EF5EIface20
 {
 public:
 	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
+	// The complete destructor is the verified SpecialAbilityUpdate owner.
+	virtual ~Rva0044EF5E();
 
 private:
 	int m_24;

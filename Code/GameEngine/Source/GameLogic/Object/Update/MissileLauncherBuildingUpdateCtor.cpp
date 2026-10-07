@@ -46,11 +46,6 @@ protected:
 	unsigned char m_pad2[0x88 - 0x24];
 };
 
-// ??1Rva0044EF5E@@ present-unmatched
-Rva0044EF5E::~Rva0044EF5E()
-{
-}
-
 class StoreObjectsSpecialPower : public Rva0044EF5E
 {
 public:

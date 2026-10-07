@@ -77,3 +77,7 @@ SpecialAbilityUpdate::~SpecialAbilityUpdate()
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??1Rva00451F45@@UAE@XZ=??1SpecialAbilityUpdate@@UAE@XZ")
+
+// The rowed constructor and its derived callers use this opaque base spelling.
+// Native calls and the shared vtable identify the same complete destructor.
+#pragma comment(linker, "/alternatename:??1Rva0044EF5E@@UAE@XZ=??1SpecialAbilityUpdate@@UAE@XZ")
