@@ -67263,3 +67263,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva000E07F4@@YAHPAVRva000E07F4Obj@@PAVRva000E07F4Host@@@Z,,0x000E07F4,34,Code/GameEngine/Source/Common/Rva000E07F4.cpp,matched,cdecl returns 1; kind bit 0x80 or null skips thiscall 0x000E0584
 ??_ERva00112291@@UAEPAXI@Z,,0x000E1072,78,Code/GameEngine/Source/Common/Rva000E1072.cpp,matched,vector deleting destructor stride 0xD4 calling pinned element dtor 0x00112291
 ?rva000E585F@Rva006F8700Owner@@QAEXPAX0PAH1@Z,,0x000E585F,95,Code/GameEngine/Source/Common/Rva000E585F.cpp,matched,folds rowed 0x000E569A into arg4 and +0x40 and 0x000E56AF into arg3 with quotient 3 at +0x48
+?rva000C3886@Rva000C3886@@QAEXPAXMPAURva000C3886Range@@PAURva000C3886Obj@@0@Z,,0x000C3886,114,Code/GameEngine/Source/Common/Rva000C3886.cpp,matched,114B forwarder: flag 0x10 at +0xF4 then three callees
