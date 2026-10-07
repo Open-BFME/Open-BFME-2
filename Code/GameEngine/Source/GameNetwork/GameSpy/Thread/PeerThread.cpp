@@ -2866,9 +2866,20 @@ void disconnectedCallback(PEER peer, const char * reason, void * param)
 	TheGameSpyPeerMessageQueue->addResponse(resp);
 }
 
+// GameSpy peer.h's third MessageType (peerCallbacks.c); the sweep shim's
+// Peer.h stops at ActionMessage.
+static const MessageType NoticeMessage = (MessageType)2;
+
 void roomMessageCallback(PEER peer, RoomType roomType, const char * nick, const char * message, MessageType messageType, void * param)
 {
 	PeerResponse resp;
+	if (messageType == NoticeMessage)
+	{
+		resp.peerResponseType = PeerResponse::PEERRESPONSE_ROOMNOTICE;
+		resp.text = MultiByteToWideCharSingleLine(message);
+		TheGameSpyPeerMessageQueue->addResponse(resp);
+		return;
+	}
 	resp.peerResponseType = PeerResponse::PEERRESPONSE_MESSAGE;
 	resp.nick = nick;
 	resp.text = MultiByteToWideCharSingleLine(message);
@@ -2900,7 +2911,7 @@ void roomMessageCallback(PEER peer, RoomType roomType, const char * nick, const 
 					{
 						Int pool = atoi(poolStr);
 						Int size = atoi(sizeStr);
-						if (pool == t->getQMLadder())
+						if (pool == reinterpret_cast<BfmeQuickMatchThread *>(t)->QM.ladderID)
 						{
 							poolSize = size;
 							break;

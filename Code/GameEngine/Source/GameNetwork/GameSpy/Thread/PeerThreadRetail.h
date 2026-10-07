@@ -303,6 +303,9 @@ public:
 		PEERRESPONSE_QUICKMATCHSTATUS,
 		PEERRESPONSE_GAMESTART,
 		PEERRESPONSE_FAILEDTOHOST,
+		// BFME 2: a room NoticeMessage's text alone (roomMessageCallback
+		// 0x0038BE17 stores 0x14); the name is descriptive.
+		PEERRESPONSE_ROOMNOTICE,
 		PEERRESPONSE_MAX
 	} peerResponseType;
 
