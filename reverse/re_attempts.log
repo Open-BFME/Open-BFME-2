@@ -17293,3 +17293,4 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?rva000E0856@Rva000E0856@@QAEXPAX@Z	0x000E0856	621	blocked	EH call-form __EH_prolog mov-eax-plus-call plus inline fs-restore same 7.1 wall as banked 0x2B3F3B and blocked 0x2B64C7 family; 621B unlock body t=10 model=muse-02
 ??0Rva000E0AE2@@QAE@XZ	0x000E0AE2	898	blocked	EH call-form __EH_prolog plus inline fs-restore same 7.1 wall as banked 0x2B3F3B and blocked 0x2B64C7 family; 898B ctor-like body t=5 model=muse-02
 ?rva000E0584@Rva000E07F4Host@@QAEXPAVRva000E07F4Obj@@@Z	0x000E0584	624	blocked	no donor hits; ArmorTemplate true list layout at +4 plus pin-only hashtable _M_find plus 5 rva000E04CE calls with vector-hashtable interplay; 624B needs donor or layout breakthrough t=15 model=muse-02
+?groupAttackObjectPrivate@AIGroup@@AAEX_NPAVObject@@HW4CommandSourceType@@@Z	0x0036FD64	463	blocked	EH prolog inline vs __EH_prolog plus new size and list scheduling t=25 model=muse-spark
