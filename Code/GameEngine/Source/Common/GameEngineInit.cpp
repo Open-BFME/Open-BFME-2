@@ -17,6 +17,8 @@
 // This remains C++ with ordinary lifetimes, not an explicit storage overlay.
 // stlport
 #include <map>
+#include <hash_map>
+#include <vector>
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -83,7 +85,36 @@ class SpecialPowerStore { public: SpecialPowerStore(); char m_data[0x1c]; };
 class DamageFXStore;
 class Rva00360BB8Store { public: Rva00360BB8Store(); char m_data[0x20]; };
 class ArmorStore;
-class Rva001D9670Store { public: Rva001D9670Store(); char m_data[0x38]; };
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0,
+	NAMEKEY_MAX = 1 << 23,
+	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
+};
+namespace rts
+{
+template <typename T> struct hash;
+template <> struct hash<NameKeyType>
+{
+	size_t operator()(const NameKeyType &value) const { return (size_t)value; }
+};
+}
+class ArmorTemplate { char m_data[0x98]; };
+struct Rva001D9651Element { char m_data[1]; };
+typedef std::hash_map<int, Rva001D9651Element> Rva001D9651Map;
+typedef std::hash_map<NameKeyType, ArmorTemplate, rts::hash<NameKeyType>,
+	std::equal_to<NameKeyType> > ArmorTemplateMap;
+class Object;
+class Rva001D9670Store : public SubsystemInterface
+{
+public:
+	Rva001D9670Store();
+
+private:
+	Rva001D9651Map m_mapStorage;
+	std::vector<Object *> m_ready;
+	std::vector<Object *> m_pending;
+};
 class BuildAssistant { public: BuildAssistant(); char m_data[0x28]; };
 class Rva0022A809Subsystem { public: Rva0022A809Subsystem(); char m_data[0x24]; };
 class Rva0022A87ESubsystem { public: Rva0022A87ESubsystem(); char m_data[0x20]; };
@@ -589,6 +620,19 @@ __forceinline void GameEngine::initTiming()
 __forceinline DebugStream *put(DebugStream *stream, const char *text)
 {
 	return stream->write(text);
+}
+
+// Target evidence: Ghidra boundary 0x001D9670..0x001D96EB (124 bytes); the
+// constructor calls the 12-byte SubsystemInterface body at +0, the rowed map
+// constructor at +0x0C, stores VA 0x00BD9CB0, then constructs and clears the
+// pointer-vector slots at +0x20/+0x2C. The member model follows that
+// order; the map constructor type is a rowed byte-equivalent view and does not
+// assert the target's mapped type. Constructor and element names stay address-derived.
+Rva001D9670Store::Rva001D9670Store()
+{
+	((ArmorTemplateMap *)&m_mapStorage)->clear();
+	m_ready.clear();
+	m_pending.clear();
 }
 
 void GameEngine::init(Int argc, char *argv[])
