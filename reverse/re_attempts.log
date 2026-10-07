@@ -16403,3 +16403,6 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?rva005AE990@AptMessenger@@QAEXXZ	0x005AE990	174	blocked	stack storage form shifts frame by 4 bytes and loses target cleanup call; t=18 model=gpt-6
 ?rva005AEA3E@AptMessenger@@QAEXXZ	0x005AEA3E	238	blocked	retail constructs an unnamed StringBase copy temporary before slot +0x12c; the available AsciiString forms add a stack home and EH cleanup; t=22 model=gpt-6
 ??0Rva003EE0CF@@QAE@PBD@Z	0x003EE0CF	239	blocked	identity and object layout unprovable: conflicting overlapping string and vector subobjects plus mid-function boundary warning t=5 model=gpt-6
+?rva00294C1A@Object@@QAEXPAV1@_NM@Z	0x00294C1A	305	blocked	target reuses the dead bool argument slot for the float modifier and retains a separate virtual target layout; current source remains 7 bytes long with unresolved local slot and dispatch shape t=12 model=gpt-6
+?rva00487B7D@Rva00487B7D@@QAE...	0x00487B7D	248	blocked	reference BoneFXUpdate body differs from target handle-return ABI and target structure offsets; BFME handle overload is unavailable in this TU and the body is 62 bytes short t=12 model=gpt-6
+??1Rva0021FFEE@@UAE@XZ	0x0021FFEE	279	blocked	vptr store at +0x12 targets unclaimed VA 0x00BE648C with no ledger name; explicit extern relocation remains zero and class identity is unproven t=6 model=gpt-6
