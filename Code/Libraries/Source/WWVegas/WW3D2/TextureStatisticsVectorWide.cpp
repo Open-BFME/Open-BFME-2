@@ -79,6 +79,7 @@ struct TextureStatisticsStructWide
 	int change_count;
 	int unmodelled[6];
 
+	TextureStatisticsStructWide &operator=(TextureStatisticsStructWide const &other);
 	bool operator==(TextureStatisticsStructWide const &other) const
 	{
 		return tex == other.tex;
