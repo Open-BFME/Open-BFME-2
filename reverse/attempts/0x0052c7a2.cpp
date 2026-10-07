@@ -1,4 +1,6 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// ?rva0052C7A2@Rva0052BFE1@@QAEPAVRva00564DF2NameView@@ABVAsciiString@@@Z
+// partial score=0.9 date=2026-10-07
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /arch:SSE
 // LivingWorldCampaignManager.cpp -- campaign-manager members recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names the
 // function and the index overload it calls (0x003B8C06); retail supplies the
@@ -15,7 +17,13 @@ typedef unsigned int UnsignedInt;
 // Address-only view of the receiver returned by the native active-entry lookup.
 // Its 27-byte folded getter copies the +4 AsciiString through the hidden result.
 // Neither the record class nor the getter's original identity is established.
-class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
+class Rva00564DF2NameView {
+public:
+    AsciiString rva00564DF2() const;
+    char opaque00[4];
+    AsciiString name04;
+    char opaque08[0xB8-8];
+};
 
 class Rva0052BFE1
 {
@@ -25,6 +33,10 @@ public:
 	void *rva0052BFE1(Int a, Int b);				// 0x0052BFE1
 	unsigned char opaque_00[4];
 	AsciiString m_name04;
+    UnsignedInt recordCount() const { return finish10 - start0C; }
+    Rva00564DF2NameView &recordAt(UnsignedInt i) { return start0C[i]; }
+    Int index08;
+    Rva00564DF2NameView *start0C, *finish10, *end14;
 };
 
 // STLport vector view: three pointers, inline size() and operator[].
@@ -162,5 +174,13 @@ Rva00564DF2NameView *LivingWorldCampaignManager::rva003B8D4D(const AsciiString &
 {
     if (m_campaignIndex >= 0 && (UnsignedInt)m_campaignIndex < m_campaignVector.size())
         return m_campaignVector[m_campaignIndex]->rva0052C7A2(name);
+    return 0;
+}
+
+Rva00564DF2NameView *Rva0052BFE1::rva0052C7A2(const AsciiString &name)
+{
+    for (UnsignedInt i = 0; i < recordCount(); ++i)
+        if (recordAt(i).rva00564DF2().compare(name) == 0)
+            return &recordAt(i);
     return 0;
 }
