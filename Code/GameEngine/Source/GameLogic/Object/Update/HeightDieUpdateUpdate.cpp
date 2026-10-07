@@ -11,9 +11,7 @@
 // TargetHeightIncludesStructures +0xC, OnlyWhenMovingDown +0xD,
 // DestroyAttachedParticlesAtHeight +0x10, SnapToGroundOnDeath +0x14 and
 // InitialDelay +0x18. BFME 2 differences from ZH:
-// - getHighestLayerForDestination is the unnamed TerrainLogic member
-//   0x002803F9 (the ZH body: ground height at the position, then the bridge
-//   layers).
+// - getHighestLayerForDestination (0x002803F9) drops ZH's wall layer.
 // - The structure scan passes one partition filter, BFME 2's KindOf filter
 //   (Rva0004584D) over the KINDOF_STRUCTURE mask (bit 7) and the empty mask,
 //   and walks the range query's result handle with next() only.
@@ -116,8 +114,7 @@ public:
 	virtual void t03(); virtual void t04(); virtual void t05();
 	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const;
 	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Coord3D *normal = 0, Bool clip = true) const;
-	// getHighestLayerForDestination
-	PathfindLayerEnum rva002803F9(const Coord3D *pos, Bool onlyHealthyBridges = false);
+	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *pos, Bool onlyHealthyBridges = false);
 };
 
 extern TerrainLogic *TheTerrainLogic;
@@ -292,7 +289,7 @@ UpdateSleepTime HeightDieUpdate::update( void )
 		// if including structures, check for bridges
 		if (modData->m_targetHeightIncludesStructures)
 		{
-			PathfindLayerEnum layer = TheTerrainLogic->rva002803F9(pos);
+			PathfindLayerEnum layer = TheTerrainLogic->getHighestLayerForDestination(pos);
 			if (layer != LAYER_GROUND)
 			{
 				Real layerHeight = TheTerrainLogic->getLayerHeight(pos->x, pos->y, layer);

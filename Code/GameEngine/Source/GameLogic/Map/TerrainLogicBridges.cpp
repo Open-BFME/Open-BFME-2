@@ -4,8 +4,10 @@
 // and 42, objectInteractsWithBridgeLayer,
 // objectInteractsWithBridgeEnd and pickBridge, slots 43..45 of the TerrainLogic
 // vftable (0x007FB2C8; slots 65..67 of W3DTerrainLogic's at 0x007C5838), and
-// deleteBridge and updateBridgeDamageStates, slots 48 and 49. All are Zero
-// Hour's (GameLogic/Map/TerrainLogic.cpp). The interaction
+// deleteBridge and updateBridgeDamageStates, slots 48 and 49, with
+// loadPostProcess (slot 1) and the non-virtual getHighestLayerForDestination,
+// which reads the ground height through slot 6 (+0x18) and has no wall
+// layer. All are Zero Hour's (GameLogic/Map/TerrainLogic.cpp). The interaction
 // tests: the bridge on the object's layer, the point test (layer only), a
 // pathfind-cell-padded box around the object tested against the bridge ends,
 // the deck height within LAYER_Z_CLOSE_ENOUGH_F and (layer only) the rubble
@@ -179,20 +181,35 @@ private:
 extern AI *TheAI;
 extern GameLogic *TheGameLogic;
 
-template <int N> class TerrainLogicSlots : public TerrainLogicSlots<N - 1>
+// N unnamed vftable slots appended to Base.
+template <class Base, int N> class TerrainLogicSlots : public TerrainLogicSlots<Base, N - 1>
 {
 public:
-	virtual void gap(char (*)[N]);
+	virtual void gap(Base *, char (*)[N]);
 };
-template <> class TerrainLogicSlots<1>
+template <class Base> class TerrainLogicSlots<Base, 0> : public Base
 {
-public:
-	virtual void gap(char (*)[1]);
 };
 
-class TerrainLogic : public TerrainLogicSlots<40>
+class TerrainLogicHead
 {
 public:
+	virtual void slot0();
+protected:
+	virtual void loadPostProcess(void); // +0x04
+};
+
+class TerrainLogicGround : public TerrainLogicSlots<TerrainLogicHead, 4>
+{
+public:
+	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = NULL) const; // +0x18
+};
+
+class TerrainLogic : public TerrainLogicSlots<TerrainLogicGround, 33>
+{
+public:
+	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *pos, Bool onlyHealthyBridges = false);
+
 	virtual Bridge *getFirstBridge() const; // +0xA0
 	virtual Bridge *findBridgeAt(const Coord3D *pLoc) const; // +0xA4
 	virtual Bridge *findBridgeLayerAt(const Coord3D *pLoc, PathfindLayerEnum layer, Bool clip = false) const; // +0xA8
@@ -203,6 +220,8 @@ public:
 	virtual void slot47();
 	virtual void deleteBridge(Bridge *bridge); // +0xC0
 	virtual void updateBridgeDamageStates(void); // +0xC4
+protected:
+	virtual void loadPostProcess(void); // +0x04
 private:
 	char m_pad04[0x40 - 0x04];
 	Bridge *m_bridgeListHead; // +0x40
@@ -424,4 +443,43 @@ void TerrainLogic::updateBridgeDamageStates( void )
 		pBridge = pBridge->getNext();
 	}
 	m_bridgeDamageStatesChanged = true;
+}
+
+// ?loadPostProcess@TerrainLogic@@MAEXXZ @0x002820A0
+// After a load, drop every bridge whose bridge object did not come back.
+void TerrainLogic::loadPostProcess( void )
+{
+	Bridge *pBridge = getFirstBridge();
+	Bridge *pNext;
+	while (pBridge) {
+		pNext = pBridge->getNext();
+		Object *obj = TheGameLogic->findObjectByID(pBridge->peekBridgeInfo()->bridgeObjectID);
+		if (obj == NULL)
+			deleteBridge(pBridge);
+		pBridge = pNext;
+	}
+}
+
+// ?getHighestLayerForDestination@TerrainLogic@@QAE?AW4PathfindLayerEnum@@PBUCoord3D@@_N@Z @0x002803F9
+// Zero Hour's search less its wall layer.
+PathfindLayerEnum TerrainLogic::getHighestLayerForDestination(const Coord3D *pos, Bool onlyHealthyBridges)
+{
+	PathfindLayerEnum bestLayer = LAYER_GROUND;
+	Real bestDistance = pos->z - getGroundHeight(pos->x, pos->y);	// NOT fabs in this case.
+
+	for (Bridge *pBridge = getFirstBridge(); pBridge != NULL; pBridge = pBridge->getNext()) {
+
+		if (onlyHealthyBridges && pBridge->peekBridgeInfo()->curDamageState == BODY_RUBBLE)
+			continue;
+
+		if (pBridge->isPointOnBridge(pos) ) {
+			Real delta = pos->z - pBridge->getBridgeHeight(pos, NULL);
+			// must be ABOVE (or on) the bridge for this call. (srj)
+			if (delta >= 0 && fabs(delta) < fabs(bestDistance)) {
+				bestLayer = (PathfindLayerEnum)pBridge->getLayer();
+				bestDistance = delta;
+			}
+		}
+	}
+	return(bestLayer);
 }
