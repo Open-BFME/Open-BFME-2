@@ -43,6 +43,41 @@ struct Rva0020A227Element
 	Rva0020A227Element() : obj(0) {}
 };
 
+// Target views used by ScriptEngine::walkNamed at 0x0020A775. The node's
+// first two words and the array offsets below come from that body; meanings
+// beyond the observed accesses are intentionally left address-derived.
+struct Rva003412E0Node
+{
+	Rva003412E0Node *m_next;
+	int m_index;
+};
+
+class Rva00355950Arr
+{
+	public:
+	char m_pad[0x38];
+	void *m_entries;
+};
+
+// Reuse the established helper owner and signatures from ScriptLeafCheck.cpp.
+// The walkNamed target passes its first argument as ECX to both methods.
+class Rva003B489CHolder
+{
+public:
+	bool check(const void *arg) const;
+	int rva003B4885(const void *arg) const;
+
+private:
+	char m_pad[0x38];
+	void *m_table;
+};
+
+struct Rva00355950Record
+{
+	char m_pad[0x2A];
+	bool m_skip;
+};
+
 class Object
 {
 public:
@@ -64,6 +99,8 @@ class ScriptEngine
 {
 public:
 	void rva0020A7C9();
+	void walkNamed(Rva00355950Arr *array, Rva003412E0Node *node, bool requireMatch);
+	void rva0020A586(void *record, void *entry);
 
 private:
 	char m_pad[0x1A120];
@@ -87,5 +124,26 @@ void ScriptEngine::rva0020A7C9()
 		tmp.key.set(obj->m_name88);
 		tmp.obj = obj;
 		m_vec.push_back(tmp);
+	}
+}
+
+// ?walkNamed@ScriptEngine@@QAEXPAVRva00355950Arr@@PAURva003412E0Node@@_N@Z
+// @0x0020A775 84B. The target walks the node chain, optionally tests each
+// node with the rowed helper at RVA 0x003B489C, obtains its record through
+// the rowed helper at RVA 0x003B4885, and calls the
+// rowed-by-pin ScriptEngine helper at 0x0020A586 for records whose +0x2A byte
+// is clear. The target evidence proves these accesses; record semantics remain
+// unresolved.
+void ScriptEngine::walkNamed(Rva00355950Arr *array, Rva003412E0Node *node, bool requireMatch)
+{
+	for (; node != 0; node = node->m_next) {
+		const Rva003B489CHolder *holder = (const Rva003B489CHolder *)array;
+		if (requireMatch && !holder->check(node))
+			continue;
+		Rva00355950Record *record = (Rva00355950Record *)holder->rva003B4885(node);
+		if (!record->m_skip) {
+			char *entry = (char *)array->m_entries + node->m_index * 0x14 + 8;
+			rva0020A586(record, entry);
+		}
 	}
 }
