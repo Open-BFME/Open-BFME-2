@@ -9,7 +9,9 @@ public:
 	void rva0022277D(void *v);
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 struct Rva005EB7FESlot
 {
@@ -30,7 +32,7 @@ void Rva005EB7FE::rva005EB7FE()
 {
 	m00->m0c = 0;
 	if (m00->m08 != 0) {
-		TheRva00222A8BTarget->rva0022277D((void *)m00->m04);
+		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva0022277D((void *)m00->m04);
 		m00->m08 = 0;
 	}
 }
@@ -38,4 +40,3 @@ void Rva005EB7FE::rva005EB7FE()
 // The slot at VA 0x00DFE4CC is the Apt window manager pointer, defined as
 // g_bfmeAptWindowManager in Rva005832D0MapName.cpp; this TU's facade name for
 // the same object binds to that definition rather than defining it twice.
-#pragma comment(linker, "/alternatename:?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
