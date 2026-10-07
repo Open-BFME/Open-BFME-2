@@ -46,3 +46,38 @@ Rva000FB87B::Rva000FB87B()
 	m_28 = 0;
 	m_30 = 0;
 }
+
+// ??0Rva000FB8B6@@QAE@XZ 53B @0x000FB8B6: leaf ctor storing vtbl_00BCF2F8+0x38
+// zeroes 0x04-0x0C constructs vector<PlayerAITypeEntry> at 0x10 via rowed
+// Vector_base 0x00211E58 then zeroes 0x1C-0x28. Evidence: leaf lane caller
+// 0x007AC95B; prev 0x000FB87B next 0x000FB8EB; same vector-base row;
+// vtable extern vtbl_00BCF2F8 at +0x38.
+class Rva000FB8B6
+{
+public:
+	Rva000FB8B6();
+private:
+	const void *m_vptr;
+	int m_04;
+	int m_08;
+	unsigned char m_0C;
+	unsigned char m_pad0D[3];
+	unsigned char m_vec10[0xC];
+	int m_1C;
+	int m_20;
+	int m_24;
+	int m_28;
+};
+
+Rva000FB8B6::Rva000FB8B6()
+{
+	*(unsigned int *)this = (unsigned int)&vtbl_00BCF2F8[14];
+	m_04 = 0;
+	m_08 = 0;
+	m_0C = 0;
+	((PlayerAITypeVecBase &)m_vec10)._STL::_Vector_base<PlayerAITypeEntry, _STL::allocator<PlayerAITypeEntry> >::_Vector_base(_STL::allocator<PlayerAITypeEntry>());
+	m_1C = 0;
+	m_20 = 0;
+	m_24 = 0;
+	m_28 = 0;
+}

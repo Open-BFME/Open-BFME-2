@@ -66820,3 +66820,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ??0Rva0022A8F3Subsystem@@QAE@XZ,,0x0022E092,55,Code/GameEngine/Source/GameClient/Rva0022A8F3SubsystemCtor.cpp,matched,pin ctor caller GameEngine init baseConstruct hash_map PlayerAITypeSet pattern
 ??0Rva0022AA52Subsystem@@QAE@XZ,,0x0022E03F,55,Code/GameEngine/Source/GameClient/Rva0022AA52SubsystemCtor.cpp,matched,pin ctor caller GameEngine init baseConstruct hash_map subsystem pattern
 ??0Rva005EEE5A@@QAE@XZ,,0x005EEE5A,17,Code/GameEngine/Source/GameClient/GUI/Rva005EEE5A.cpp,matched,address-derived constructor with packet caller references and target vtable store; class identity unresolved
+??0Rva000FB8B6@@QAE@XZ,,0x000FB8B6,53,Code/GameEngine/Source/Common/Bfme/Rva000FB87BCtor.cpp,matched,leaf ctor vtbl+0x38 vector at 0x10 via rowed Vector_base
