@@ -238,7 +238,7 @@ inline Bool Object::testStatus( ObjectStatusTypes bit ) const
 // ?isKindOf@Object@@QBE_NW4KindOfType@@@Z
 // Retail 0x0006F039. Same shape over the KindOf words at +0x10C; callers pass
 // bits past 400, which only the KindOf mask spans.
-Bool Object::isKindOf( KindOfType kind ) const
+inline Bool Object::isKindOf( KindOfType kind ) const
 {
 	return ( m_kindOfBits[(UnsignedInt)kind >> 5] & ( 1 << ( kind & 31 ) ) ) != 0;
 }
@@ -370,5 +370,6 @@ void _bfmeObjectAccessorInlineAnchor(Object *o)
     o->getStealth();
     o->getAI();
     o->testStatus((ObjectStatusTypes)0);
+    o->isKindOf((KindOfType)0);
 }
 #pragma inline_depth()
