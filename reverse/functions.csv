@@ -66829,3 +66829,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva004CDA35@Rva004CDA35@@QAEXXZ,,0x004CDA35,20,Code/GameEngine/Source/GameLogic/Object/Update/Rva004CDA35ScienceTypesClear.cpp,matched,address-derived caller proves thiscall vector clear shape
 ?rva0026109D@Rva00261058@@UAE_NPAVObject@@@Z,,0x0026109D,65,Code/GameEngine/Source/Common/Rva00261058Ctor.cpp,matched,vtable slot and fields from matched ctor calls verified against target
 ?rva00261BFB@Rva00261BFB@@UAE_NPAVObject@@@Z,,0x00261BFB,93,Code/GameEngine/Source/Common/Rva00261BFB.cpp,matched,stored callback slot and observed fields calls and conditions from target
+?Rva00390911XferCoordVector@@YAPAVXfer@@PAV1@PAUAICommandCoordVector@@@Z,,0x00390911,205,Code/GameEngine/Source/Common/Rva00390911Xfer.cpp,matched,Version11 count via 0x2C 0x78 save loop via 0x60 reserve pushback FormatText Throw

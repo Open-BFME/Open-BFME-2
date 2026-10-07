@@ -15624,3 +15624,4 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?rva00295A84@Rva00295A84@@QAE_NPAVObject@@@Z	0x00295A84	546	blocked	identity and semantics are not established by the packet; all three callers are unclaimed and no donor evidence yet agent=luna-06
 ?rva0027DF9D@Rva0027DF9D@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z	0x0027DF9D	683	partial	under retail flags body is 683 bytes and 204 instructions; remaining minXY scheduling and x87 pop order with float and import relocations agent=luna-06 score=0.97 stash=reverse/attempts/0x0027df9d.cpp
 ?rva00354B44@AIFollowPathAndEvacuateState@@QAE?AW4StateReturnType@@XZ	0x00354B44	295	blocked	control flow and target data models not established within lookup budget t=4 model=gpt-6
+?rva003A59C3@Rva003A59C3@@QAEHH@Z	0x003A59C3	127	blocked	Ghidra missed start plus WARN byte-before-FF may be mid-function and sole caller 0x003AD069 also mid-function unclaimed; boundary unprovable t=8 model=muse-19
