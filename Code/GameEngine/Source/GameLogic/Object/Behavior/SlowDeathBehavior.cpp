@@ -140,18 +140,7 @@ SlowDeathBehavior::~SlowDeathBehavior( void )
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?getProbabilityModifier@SlowDeathBehavior@@UBEHPBVDamageInfo@@@Z present-unmatched
-Int SlowDeathBehavior::getProbabilityModifier( const DamageInfo *damageInfo ) const
-{
-	// Calculating how far past dead we were allows us to pick more spectacular deaths when
-	// severly killed, and more sedate ones when only slightly killed.
-	// eg ( 200 hp max, had 10 left, took 50 damage, 40 overkill, (40/200) * 100 = 20 overkill %)
-	Int overkillDamage = damageInfo->out.m_actualDamageDealt - damageInfo->out.m_actualDamageClipped;
-	Real overkillPercent = (float)overkillDamage / (float)getObject()->getBodyModule()->getMaxHealth();
-	Int overkillModifier = overkillPercent * getSlowDeathBehaviorModuleData()->m_modifierBonusPerOverkillPercent;
-
-	return max( getSlowDeathBehaviorModuleData()->m_probabilityModifier + overkillModifier, 1 );
-}
+// SlowDeathBehavior::getProbabilityModifier is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp (0x0045D5DA).
 
 //-------------------------------------------------------------------------------------------------
 // Line-number padding and filename restore so GameLogicRandomValueReal calls match retail.
@@ -409,201 +398,15 @@ void SlowDeathBehavior::beginSlowDeath(const DamageInfo *damageInfo)
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?SlowDeathBehavior::doPhaseStuff present-unmatched
-void SlowDeathBehavior::doPhaseStuff(SlowDeathPhaseType sdphase)
-{
-	const SlowDeathBehaviorModuleData* d = getSlowDeathBehaviorModuleData();
-	Int idx, listSize;
-
-	if (!d->m_maskOfLoadedEffects)
-		return;	//has no ocl, fx, or weapons.
-
-	listSize = d->m_fx[sdphase].size();
-	if (listSize > 0)
-	{
-		idx = GameLogicRandomValue(0, listSize-1);
-		const FXListVec& v = d->m_fx[sdphase];
-		DEBUG_ASSERTCRASH(idx>=0&&idx<v.size(),("bad idx"));
-		const FXList* fxl = v[idx];
-		FXList::doFXObj(fxl, getObject(), NULL);
-	}
-
-	listSize = d->m_ocls[sdphase].size();
-	if (listSize > 0)
-	{
-		idx = GameLogicRandomValue(0, listSize-1);
-		const OCLVec& v = d->m_ocls[sdphase];
-		DEBUG_ASSERTCRASH(idx>=0&&idx<v.size(),("bad idx"));
-		const ObjectCreationList* ocl = v[idx];
-		ObjectCreationList::create(ocl, getObject(), NULL);
-	}
-
-	listSize = d->m_weapons[sdphase].size();
-	if (listSize > 0)
-	{
-		idx = GameLogicRandomValue(0, listSize-1);
-		const WeaponTemplateVec& v = d->m_weapons[sdphase];
-		DEBUG_ASSERTCRASH(idx>=0&&idx<v.size(),("bad idx"));
-		const WeaponTemplate* wt = v[idx];
-		if (wt)
-		{
-			TheWeaponStore->createAndFireTempWeapon(wt, getObject(), getObject()->getPosition());
-		}
-	}
-}
+// SlowDeathBehavior::doPhaseStuff is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp (0x0045D97A).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?update@SlowDeathBehavior@@UAE?AW4UpdateSleepTime@@XZ present-unmatched
-UpdateSleepTime SlowDeathBehavior::update()
-{
-	//DEBUG_LOG(("updating SlowDeathBehavior %08lx\n",this));
-	DEBUG_ASSERTCRASH(isSlowDeathActivated(), ("hmm, this should not be possible"));
-
-	const SlowDeathBehaviorModuleData* d = getSlowDeathBehaviorModuleData();
-	Object* obj = getObject();
-
-	Real timeScale = TheGameLODManager->getSlowDeathScale();
-
-	// Check if we have normal time scale but LODManager is requeseting acceleration
-	if (timeScale != 1.0f && m_acceleratedTimeScale == 1.0f && !d->hasNonLodEffects())
-	{	
-		// speed of deaths has been increased since beginning of death
-		// so adjust it to current levels.
-		if (timeScale == 0)
-		{	
-			// instant death
-			TheGameLogic->destroyObject(obj);
-			return UPDATE_SLEEP_NONE;
-		}
-
-		m_sinkFrame = (Real)m_sinkFrame * timeScale;
-		m_midpointFrame = (Real)m_midpointFrame * timeScale;
-		m_destructionFrame = (Real)m_destructionFrame * timeScale;
-		m_acceleratedTimeScale = timeScale;
-	};	
-
-	UnsignedInt now = TheGameLogic->getFrame();
-	
-
-	if ((m_flags & (1<<FLUNG_INTO_AIR)) != 0)
-	{
-		if ((m_flags & (1<<BOUNCED)) == 0)
-		{
-			++m_sinkFrame;
-			++m_midpointFrame;
-			++m_destructionFrame;
-			if (!obj->isAboveTerrain())
-			{
-				obj->clearAndSetModelConditionFlags(MAKE_MODELCONDITION_MASK(MODELCONDITION_EXPLODED_FLAILING), 
-																						MAKE_MODELCONDITION_MASK(MODELCONDITION_EXPLODED_BOUNCING));
-				m_flags |= (1<<BOUNCED);
-			}
-			
-			// Here we want to make sure we die if we collide with a tree on the way down
-			PhysicsBehavior *phys = obj->getPhysics();
-			if ( phys )
-			{
-				ObjectID treeID = phys->getLastCollidee();
-				Object *tree = TheGameLogic->findObjectByID( treeID );
-				if ( tree )
-				{
-					if (tree->isKindOf( KINDOF_SHRUBBERY ) )
-					{
-						obj->setDisabled( DISABLED_HELD );
-						obj->clearModelConditionFlags( MAKE_MODELCONDITION_MASK(MODELCONDITION_EXPLODED_FLAILING) ); 
-						obj->clearModelConditionFlags( MAKE_MODELCONDITION_MASK(MODELCONDITION_EXPLODED_BOUNCING) ); 
-						obj->setModelConditionFlags(   MAKE_MODELCONDITION_MASK(MODELCONDITION_PARACHUTING) ); //looks like he is snagged in a tree
-						obj->setPositionZ( obj->getPosition()->z - (d->m_sinkRate * 50.0f) );// make him sink faster
-						if ( !obj->isAboveTerrain() )
-							TheGameLogic->destroyObject(obj);
-
-					}
-				}
-			}
-
-
-
-		}
-	}
-
-	if ( (now >= m_sinkFrame && d->m_sinkRate > 0.0f) )
-	{
-		// disable Physics (if any) so that we can control the sink...
-		obj->setDisabled( DISABLED_HELD );
-		Coord3D pos = *obj->getPosition();
-		pos.z -= d->m_sinkRate / m_acceleratedTimeScale;
-		obj->setPosition( &pos );
-	}
-
-	if( now >= m_midpointFrame && (m_flags & (1<<MIDPOINT_EXECUTED)) == 0 )
-	{
-		doPhaseStuff(SDPHASE_MIDPOINT);
-		m_flags |= (1<<MIDPOINT_EXECUTED);
-	}
-
-	if (now >= m_destructionFrame)
-	{
-		doPhaseStuff(SDPHASE_FINAL);
-		TheGameLogic->destroyObject(obj);
-	}
-
-	return UPDATE_SLEEP_NONE;
-}
+// SlowDeathBehavior::update is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp (0x0045DB0B).
 
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior_onDie_Thunk.cpp
-// ?onDie@SlowDeathBehavior@@UAEXPBVDamageInfo@@@Z present-unmatched
-void SlowDeathBehavior::onDie( const DamageInfo *damageInfo )
-{
-	Object *obj = getObject();
-
-	if (!isDieApplicable(damageInfo))
-		return;
-
-	AIUpdateInterface *ai = obj->getAIUpdateInterface();
-	if (ai)
-	{
-		// has another AI already handled us. (hopefully another SlowDeathBehavior)
-		if (ai->isAiInDeadState())
-			return;
-		ai->markAsDead();
-	}
-
-	// deselect this unit for all players.
-	TheGameLogic->deselectObject(obj, PLAYERMASK_ALL, TRUE);
-
-	Int total = 0;
-	for (BehaviorModule** update = obj->getBehaviorModules(); *update; ++update)
-	{
-		SlowDeathBehaviorInterface* sdu = (*update)->getSlowDeathBehaviorInterface();
-		if (sdu != NULL && sdu->isDieApplicable(damageInfo))
-		{
-			total += sdu->getProbabilityModifier( damageInfo );
-		}
-	}
-	DEBUG_ASSERTCRASH(total > 0, ("Hmm, this is wrong"));
-
-
-	// this returns a value from 1...total, inclusive
-	Int roll = GameLogicRandomValue(1, total);
-
-	for (/* UpdateModuleInterface** */ update = obj->getBehaviorModules(); *update; ++update)
-	{
-		SlowDeathBehaviorInterface* sdu = (*update)->getSlowDeathBehaviorInterface();
-		if (sdu != NULL && sdu->isDieApplicable(damageInfo))
-		{
-			roll -= sdu->getProbabilityModifier( damageInfo );
-			if (roll <= 0)
-			{
-				sdu->beginSlowDeath(damageInfo);
-				return;
-			}
-		}
-	}
-
-	DEBUG_CRASH(("We should never get here"));
-}
+// SlowDeathBehavior::onDie is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp (0x0045E6B8).
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */

@@ -143,21 +143,7 @@ void MaterialInfoClass::Process_Texture_Reduction(void)
 	}
 }
 */
-// ?Free@MaterialInfoClass@@AAEXXZ present-unmatched
-void MaterialInfoClass::Free(void) 
-{
-	int i;
-	
-	for (i=0; i<VertexMaterials.Count(); i++) {
-		REF_PTR_RELEASE(VertexMaterials[i]);
-	}
-	VertexMaterials.Delete_All(); 
-
-	for (i=0; i<Textures.Count(); i++) {
-		REF_PTR_RELEASE(Textures[i]);
-	}
-	Textures.Delete_All();
-}
+// MaterialInfoClass::Free is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoFree.cpp (0x0016EE70).
 
 
 // ??0MaterialRemapperClass@@QAE@PAVMaterialInfoClass@@0@Z present-unmatched
@@ -288,19 +274,7 @@ void MaterialCollectorClass::Collect_Materials(MeshModelClass * mesh)
 	}
 }
 
-// ?Reset@MaterialCollectorClass@@QAEXXZ present-unmatched
-void MaterialCollectorClass::Reset(void)
-{
-	for (int ti=0; ti<Textures.Count(); ti++) {
-		REF_PTR_RELEASE(Textures[ti]);
-	}
-	for (int vi=0; vi<VertexMaterials.Count(); vi++) {
-		REF_PTR_RELEASE(VertexMaterials[vi]);
-	}
-	Textures.Clear();
-	VertexMaterials.Clear();
-	Shaders.Clear();
-}
+// MaterialCollectorClass::Reset is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorDestructor.cpp (0x0016F460).
 
 // ?Add_Texture@MaterialCollectorClass@@QAEXPAVTextureClass@@@Z present-unmatched
 void MaterialCollectorClass::Add_Texture(TextureClass * tex)

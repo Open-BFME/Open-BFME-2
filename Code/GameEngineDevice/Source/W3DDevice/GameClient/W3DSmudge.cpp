@@ -83,61 +83,7 @@ void W3DSmudgeManager::reset (void)
 //Make sure (SMUDGE_DRAW_SIZE * 12) < 65535 because that's the max index buffer size.
 #define SMUDGE_DRAW_SIZE	500	//draw at most 50 smudges per call. Tweak value to improve CPU/GPU parallelism.
 
-// ?W3DSmudgeManager::ReAcquireResources present-unmatched
-void W3DSmudgeManager::ReAcquireResources(void)
-{
-	ReleaseResources();
-
-	SurfaceClass *surface=DX8Wrapper::_Get_DX8_Back_Buffer();
-	SurfaceClass::SurfaceDescription surface_desc;
-
-	surface->Get_Description(surface_desc);
-	REF_PTR_RELEASE(surface);
-
-	#ifdef USE_COPY_RECTS
-	m_backgroundTexture = MSGNEW("TextureClass") TextureClass(TheTacticalView->getWidth(),TheTacticalView->getHeight(),surface_desc.Format,MIP_LEVELS_1,TextureClass::POOL_DEFAULT, true);
-	#endif
-
-	m_backBufferWidth = surface_desc.Width;
-	m_backBufferHeight = surface_desc.Height;
-
-	m_indexBuffer=NEW_REF(DX8IndexBufferClass,(SMUDGE_DRAW_SIZE*4*3));	//allocate 4 triangles per smudge, each with 3 indices.
-
-	// Fill up the IB with static vertex indices that will be used for all smudges.
-	{
-		DX8IndexBufferClass::WriteLockClass lockIdxBuffer(m_indexBuffer);
-		UnsignedShort *ib=lockIdxBuffer.Get_Index_Array();
-		//quad of 4 triangles:
-		//	0-----3
-		//  |\   /|
-		//  |  4  |
-		//	|/   \|
-		//  1-----2
-		Int vbCount=0;
-		for (Int i=0; i<SMUDGE_DRAW_SIZE; i++)
-		{
-			//Top
-			ib[0]=vbCount;
-			ib[1]=vbCount+4;
-			ib[2]=vbCount+3;
-			//Right
-			ib[3]=vbCount+3;
-			ib[4]=vbCount+4;
-			ib[5]=vbCount+2;
-			//Bottom
-			ib[6]=vbCount+2;
-			ib[7]=vbCount+4;
-			ib[8]=vbCount+1;
-			//Left
-			ib[9]=vbCount+1;
-			ib[10]=vbCount+4;
-			ib[11]=vbCount+0;
-
-			vbCount += 5;
-			ib+=12;
-		}
-	}
-}
+// W3DSmudgeManager::ReAcquireResources is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000A6176Finish.cpp (0x000A6176).
 
 /*Copies a portion of the current render target into a specified buffer*/
 Int copyRect(unsigned char *buf, Int bufSize, int oX, int oY, int width, int height)

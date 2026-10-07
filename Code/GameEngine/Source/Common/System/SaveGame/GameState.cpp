@@ -856,35 +856,7 @@ const char* PORTABLE_MAPS				= "Maps\\";
 const char* PORTABLE_USER_MAPS	= "UserData\\Maps\\";
 
 // ------------------------------------------------------------------------------------------------
-// ?realMapPathToPortableMapPath@GameState@@ present-unmatched
-AsciiString GameState::realMapPathToPortableMapPath(const AsciiString& in) const
-{
-	AsciiString prefix;
-	if (((const StringBase<char> *)&in)->startsWithNoCase(getSaveDirectory().str()))
-	{
-		prefix = PORTABLE_SAVE;
-		concatStringBase(prefix, getMapLeafName(in));
-	}
-	else if (((const StringBase<char> *)&in)->startsWithNoCase(TheMapCache->getMapDir().str()))
-	{
-		prefix = PORTABLE_MAPS;
-		concatStringBase(prefix, getMapLeafAndDirName(in));
-	}
-	else if (((const StringBase<char> *)&in)->startsWithNoCase(TheMapCache->getUserMapDir().str()))
-	{
-		prefix = PORTABLE_USER_MAPS;
-		concatStringBase(prefix, getMapLeafAndDirName(in));
-	}
-	else
-	{
-		DEBUG_CRASH(("Map file was not found in any of the expected directories; this is impossible"));
-		//throw INI_INVALID_DATA;
-		// uncaught exceptions crash us. better to just use a bad path.
-		prefix = in;
-	}
-	((StringBase<char> *)&prefix)->toLower();
-	return prefix;
-}
+// GameState::realMapPathToPortableMapPath is defined with its retail-matched body in Code/GameEngine/Source/Common/System/SaveGame/GameStateRealMapPathToPortable.cpp (0x002DC833).
 
 // ------------------------------------------------------------------------------------------------
 // ?portableMapPathToRealMapPath@GameState@@ present-unmatched
@@ -1312,18 +1284,7 @@ void GameState::iterateSaveFiles( IterateSaveFileCallback callback, void *userDa
 // ------------------------------------------------------------------------------------------------
 /** Save game to xfer or load game using xfer */
 // ------------------------------------------------------------------------------------------------
-// ?friend_xferSaveDataForCRC@GameState@@ present-unmatched
-void GameState::friend_xferSaveDataForCRC( Xfer *xfer, SnapshotType which )
-{
-	DEBUG_LOG(("GameState::friend_xferSaveDataForCRC() - SnapshotType %d\n", which));
-	SaveGameInfo *gameInfo = getSaveGameInfo();
-	gameInfo->description.clear();
-	gameInfo->saveFileType = SAVE_FILE_TYPE_NORMAL;
-	((StringBase<char> *)&gameInfo->missionMapName)->clear();
-	((StringBase<char> *)&gameInfo->pristineMapName)->clear();
-
-	xferSaveData(xfer, which);
-}
+// GameState::friend_xferSaveDataForCRC is defined with its retail-matched body in Code/GameEngine/Source/Common/System/SaveGame/GameStateFriend.cpp (0x002DDD0B).
 
 // ------------------------------------------------------------------------------------------------
 /** Save game to xfer or load game using xfer */

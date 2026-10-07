@@ -257,77 +257,7 @@ ConnectionManager::ConnectionManager(void)
 /**
  * Initialize the connection manager and any subsystems.
  */
-// ?init@ConnectionManager@@ present-unmatched
-void ConnectionManager::init() 
-{
-//	if (m_transport == NULL) {
-//		m_transport = new Transport;
-//	}
-//	m_transport->reset();
-
-	for (UnsignedInt i = 0; i < NUM_CONNECTIONS; ++i) {
-		m_connections[i] = NULL;
-	}
-
-	if (m_pendingCommands == NULL) {
-		m_pendingCommands = newInstance(NetCommandList);
-		m_pendingCommands->init();
-	}
-	m_pendingCommands->reset();
-
-	if (m_relayedCommands == NULL) {
-		m_relayedCommands = newInstance(NetCommandList);
-		m_relayedCommands->init();
-	}
-	m_relayedCommands->reset();
-
-	m_localSlot = -1;
-#ifdef MEMORYPOOL_DEBUG
-	TheMemoryPoolFactory->debugSetInitFillerIndex(m_localSlot);
-#endif
-	m_packetRouterSlot = 0; /// @todo The LAN/WOL interface should be telling us who the packet router is based on machine specs passed around through game options.
-	for (i = 0; i < MAX_SLOTS; ++i) {
-		m_packetRouterFallback[i] = -1;
-	}
-
-	for (i = 0; i < MAX_SLOTS; ++i) {
-		if (m_frameData[i] != NULL) {
-			m_frameData[i]->deleteInstance();
-			m_frameData[i] = NULL;
-		}
-	}
-
-//	m_averageFps = 30;			// since 30 fps is the desired rate, we'll start off at that.
-//	m_averageLatency = (Real)0.2; // 200ms seems like a good starting point.
-
-	for (i = 0; i < MAX_SLOTS; ++i) {
-		m_fpsAverages[i] = -1;
-	}
-	for (i = 0; i < MAX_SLOTS; ++i) {
-		m_latencyAverages[i] = 0.0; // using zero since all floating point standards should be able to specify 0.0 accurately.
-	}
-	m_smallestPacketArrivalCushion = -1;
-
-	m_frameMetrics.init();
-
-	TheDisconnectMenu = NEW DisconnectMenu;
-	TheDisconnectMenu->init();
-
-	m_disconnectManager = NEW DisconnectManager;
-	m_disconnectManager->init();
-
-	TheDisconnectMenu->attachDisconnectManager(m_disconnectManager);
-	TheDisconnectMenu->hideScreen();
-
-	m_netCommandWrapperList = newInstance(NetCommandWrapperList);
-	m_netCommandWrapperList->init();
-
-	s_fileCommandMap.clear();
-	s_fileRecipientMaskMap.clear();
-	for (i = 0; i < MAX_SLOTS; ++i) {
-		s_fileProgressMap[i].clear();
-	}
-}
+// ConnectionManager::init is defined with its retail-matched body in Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp (0x004D24A2).
 
 /**
  * Reset the connection manager and any subsystems.
@@ -542,128 +472,7 @@ void ConnectionManager::doRelay() {
  * This is where the non-synchronized network commands should be processed.
  * Return TRUE if the command should not be relayed. Return FALSE if it should be relayed.
  */
-// ?processNetCommand@ConnectionManager@@ present-unmatched
-Bool ConnectionManager::processNetCommand(NetCommandRef *ref) {
-	NetCommandMsg *msg = ref->getCommand();
-
-	if ((msg->getNetCommandType() == NETCOMMANDTYPE_ACKSTAGE1) ||
-			(msg->getNetCommandType() == NETCOMMANDTYPE_ACKSTAGE2) ||
-			(msg->getNetCommandType() == NETCOMMANDTYPE_ACKBOTH)) {
-
-		processAck(msg);
-		return FALSE;
-	}
-
-	if ((m_connections[msg->getPlayerID()] == NULL) && (msg->getPlayerID() != m_localSlot)) {
-		// if this is from a player that is no longer in the game, then ignore them.
-		return TRUE;
-	}
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_WRAPPER) {
-		processWrapper(ref); // need to send the NetCommandRef since we have to construct the relay for the wrapped command.
-		return FALSE;
-	}
-
-	if ((msg->getPlayerID() >= 0) && (msg->getPlayerID() < MAX_SLOTS) && (msg->getPlayerID() != m_localSlot)) {
-		if (m_connections[msg->getPlayerID()] == NULL) {
-			return TRUE;
-		}
-	}
-
-	// Don't allow an out of date command to be sent through.
-	// Its unnecessary traffic and it could cause problems.
-	//
-	// This was a fix for a command count bug where a command would be
-	// executed, then a command for that old frame would be added to the
-	// FrameData for that frame + 256, and would screw up the command count.
-
-	if (IsCommandSynchronized(msg->getNetCommandType())) {
-		if (ref->getCommand()->getExecutionFrame() < TheGameLogic->getFrame()) {
-			return TRUE;
-		}
-	}
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_FRAMEINFO) {
-		processFrameInfo((NetFrameCommandMsg *)msg);
-		
-		// need to set the relay so we don't send it to ourselves.
-		UnsignedByte relay = ref->getRelay();
-		relay = relay & (0xff ^ (1 << m_localSlot));
-		ref->setRelay(relay);
-		return FALSE;
-	}
-	
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_PROGRESS)
-	{
-		//DEBUG_LOG(("ConnectionManager::processNetCommand - got a progress net command from player %d\n", msg->getPlayerID()));
-		processProgress((NetProgressCommandMsg *) msg);
-
-		// need to set the relay so we don't send it to ourselves.
-		UnsignedByte relay = ref->getRelay();
-		relay = relay & (0xff ^ (1 << m_localSlot));
-		ref->setRelay(relay);
-		return FALSE;
-	}
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_TIMEOUTSTART)
-	{
-		DEBUG_LOG(("ConnectionManager::processNetCommand - got a TimeOut GameStart net command from player %d\n", msg->getPlayerID()));
-		processTimeOutGameStart(msg);
-		return FALSE;
-	}
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_RUNAHEADMETRICS) {
-		processRunAheadMetrics((NetRunAheadMetricsCommandMsg *)msg);
-		return TRUE;
-	}
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_KEEPALIVE) {
-		return TRUE;
-	}
-
-	if ((msg->getNetCommandType() > NETCOMMANDTYPE_DISCONNECTSTART) && (msg->getNetCommandType() < NETCOMMANDTYPE_DISCONNECTEND)) {
-		m_disconnectManager->processDisconnectCommand(ref, this);
-		return TRUE;
-	}
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_DISCONNECTCHAT) {
-		processDisconnectChat((NetDisconnectChatCommandMsg *)msg);
-	}
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_LOADCOMPLETE)
-	{
-		DEBUG_LOG(("ConnectionManager::processNetCommand - got a Load Complete net command from player %d\n", msg->getPlayerID()));
-		processLoadComplete(msg);
-		return FALSE;
-	}
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_CHAT) {
-		processChat((NetChatCommandMsg *)msg);
-		return FALSE;
-	} 
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_FILE) {
-		processFile((NetFileCommandMsg *)msg);
-		return FALSE;
-	} 
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_FILEANNOUNCE) {
-		processFileAnnounce((NetFileAnnounceCommandMsg *)msg);
-		return FALSE;
-	} 
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_FILEPROGRESS) {
-		processFileProgress((NetFileProgressCommandMsg *)msg);
-		return FALSE;
-	}
-
-	if (msg->getNetCommandType() == NETCOMMANDTYPE_FRAMERESENDREQUEST) {
-		processFrameResendRequest((NetFrameResendRequestCommandMsg *)msg);
-		return TRUE;
-	}
-
-	return FALSE;
-}
+// ConnectionManager::processNetCommand is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/ConnectionManager_processNetCommand.cpp (0x004D2F04).
 
 // ?processFrameResendRequest@ConnectionManager@@ present-unmatched
 void ConnectionManager::processFrameResendRequest(NetFrameResendRequestCommandMsg *msg) {
@@ -749,21 +558,7 @@ void ConnectionManager::processRunAheadMetrics(NetRunAheadMetricsCommandMsg *msg
 	}
 }
 
-// ?processDisconnectChat@ConnectionManager@@ present-unmatched
-void ConnectionManager::processDisconnectChat(NetDisconnectChatCommandMsg *msg) 
-{
-	UnicodeString unitext;
-	UnicodeString name;
-	UnsignedByte playerID = msg->getPlayerID();
-	if (playerID == m_localSlot) {
-		name = m_localUser->GetName();
-	} else if (isPlayerConnected(playerID)) {
-		name = m_connections[playerID]->getUser()->GetName();
-	}
-	unitext.format(L"[%ls] %ls", name.str(), msg->getText().str());
-//	DEBUG_LOG(("ConnectionManager::processDisconnectChat - got message from player %d, message is %ls\n", playerID, unitext.str()));
-	TheDisconnectMenu->showChat(unitext); // <-- need to implement this
-}
+// ConnectionManager::processDisconnectChat is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/ConnectionManager_processDisconnectChat.cpp (0x004D1023).
 
 // ?processChat@ConnectionManager@@ present-unmatched
 void ConnectionManager::processChat(NetChatCommandMsg *msg) 
@@ -807,90 +602,7 @@ void ConnectionManager::processChat(NetChatCommandMsg *msg)
 	}
 }
 
-// ?processFile@ConnectionManager@@ present-unmatched
-void ConnectionManager::processFile(NetFileCommandMsg *msg) 
-{
-#ifdef _INTERNAL
-	UnicodeString log;
-	log.format(L"Saw file transfer: '%hs' of %d bytes from %d", msg->getPortableFilename().str(), msg->getFileLength(), msg->getPlayerID());
-	DEBUG_LOG(("%ls\n", log.str()));
-#endif
-
-	if (TheFileSystem->doesFileExist(msg->getRealFilename().str()))
-	{
-		DEBUG_LOG(("File exists already!\n"));
-		//return;
-	}
-
-	UnsignedByte *buf = msg->getFileData();
-	Int len = msg->getFileLength();
-
-	// uncompress Targas
-#ifdef COMPRESS_TARGAS
-	Bool deleteBuf = FALSE;
-	if (msg->getFilename().endsWith(".tga") && CompressionManager::isDataCompressed(buf, len))
-	{
-		Int uncompLen = CompressionManager::getUncompressedSize(buf, len);
-		UnsignedByte *uncompBuffer = NEW UnsignedByte[uncompLen];
-		Int actualLen = CompressionManager::decompressData(buf, len, uncompBuffer, uncompLen);
-		if (actualLen == uncompLen)
-		{
-			DEBUG_LOG(("Uncompressed Targa after map transfer\n"));
-			deleteBuf = TRUE;
-			buf = uncompBuffer;
-			len = uncompLen;
-		}
-		else
-		{
-			DEBUG_LOG(("Failed to uncompress Targa after map transfer\n"));
-			delete[] uncompBuffer; // failed to decompress, so just use the source
-		}
-	}
-#endif // COMPRESS_TARGAS
-
-	File *fp = TheFileSystem->openFile(msg->getRealFilename().str(), File::CREATE | File::BINARY | File::WRITE);
-	if (fp)
-	{
-		fp->write(buf, len);
-		fp->close();
-		fp = NULL;
-		DEBUG_LOG(("Wrote %d bytes to file %s!\n",len,msg->getRealFilename().str()));
-
-	}
-	else
-	{
-		DEBUG_LOG(("Cannot open file!\n"));
-	}
-
-	DEBUG_LOG(("ConnectionManager::processFile() - sending a NetFileProgressCommandMsg\n"));
-	
-	Int commandID = msg->getID();
-	Int newProgress = 100;
-
-	s_fileProgressMap[m_localSlot][commandID] = newProgress;
-
-	Int progressMask = 0xff ^ (1 << m_localSlot);
-	NetFileProgressCommandMsg *progressMsg = newInstance(NetFileProgressCommandMsg);
-	progressMsg->setPlayerID(m_localSlot);
-	progressMsg->setID(0);
-	if (DoesCommandRequireACommandID(progressMsg->getNetCommandType()))
-	{
-		progressMsg->setID(GenerateNextCommandID());
-	}
-	progressMsg->setFileID(commandID);
-	progressMsg->setProgress(newProgress);
-	sendLocalCommand(progressMsg, progressMask);
-	processFileProgress(progressMsg);
-	progressMsg->detach();
-
-#ifdef COMPRESS_TARGAS
-	if (deleteBuf)
-	{
-		delete[] buf;
-		buf = NULL;
-	}
-#endif // COMPRESS_TARGAS
-}
+// ConnectionManager::processFile is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/ConnectionManager_fileTransfer.cpp (0x004D2B16).
 
 #pragma optimize("s", on)
 void ConnectionManager::processFileAnnounce(NetFileAnnounceCommandMsg *msg) 
@@ -913,15 +625,7 @@ void ConnectionManager::processFileAnnounce(NetFileAnnounceCommandMsg *msg)
 }
 #pragma optimize("", on)
 
-// ?processFileProgress@ConnectionManager@@ present-unmatched
-void ConnectionManager::processFileProgress(NetFileProgressCommandMsg *msg) 
-{
-	DEBUG_LOG(("ConnectionManager::processFileProgress() - command %d is at %d%%\n",
-		msg->getFileID(), msg->getProgress()));
-	Int oldProgress = s_fileProgressMap[msg->getPlayerID()][msg->getFileID()];
-
-	s_fileProgressMap[msg->getPlayerID()][msg->getFileID()] = max(oldProgress, msg->getProgress());
-}
+// ConnectionManager::processFileProgress is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/ConnectionManager_fileTransfer.cpp (0x004D2852).
 
 void ConnectionManager::processProgress( NetProgressCommandMsg *msg )
 {
@@ -1114,21 +818,7 @@ UnsignedInt ConnectionManager::getPacketRouterFallbackSlot(Int packetRouterNumbe
 
 // ConnectionManager::getPacketRouterSlot: defined in ConnectionManagerLocalSlot.cpp (its row's unit).
 
-// ?areAllQueuesEmpty@ConnectionManager@@ present-unmatched
-Bool ConnectionManager::areAllQueuesEmpty(void) {
-	Bool retval = TRUE;
-	for (Int i = 0; (i < MAX_SLOTS) && retval; ++i) {
-		if (m_connections[i] != NULL) {
-			if (m_connections[i]->isQueueEmpty() == FALSE) {
-				//DEBUG_LOG(("ConnectionManager::areAllQueuesEmpty() - m_connections[%d] is not empty\n", i));
-				//m_connections[i]->debugPrintCommands();
-				retval = FALSE;
-			}
-		}
-	}
-
-	return retval;
-}
+// ConnectionManager::areAllQueuesEmpty is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/ConnectionManager_areAllQueuesEmptyTwin_Rva004CF3B9.cpp (0x004CF3B9).
 
 // ?canILeave@ConnectionManager@@ present-unmatched
 Bool ConnectionManager::canILeave() {
@@ -1839,81 +1529,7 @@ void ConnectionManager::doKeepAlive() {
 	}
 }
 
-// ?disconnectPlayer@ConnectionManager@@ present-unmatched
-PlayerLeaveCode ConnectionManager::disconnectPlayer(Int slot) {
-	// Need to do the deletion of the slot's connection and frame data here.
-	PlayerLeaveCode retval = PLAYERLEAVECODE_CLIENT;
-	DEBUG_LOG(("ConnectionManager::disconnectPlayer - disconnecting slot %d on frame %d\n", slot, TheGameLogic->getFrame()));
-
-	if ((slot < 0) || (slot >= MAX_SLOTS)) {
-		return PLAYERLEAVECODE_UNKNOWN;
-	}
-
-	if (TheGameInfo)
-	{
-		GameSlot *gSlot = TheGameInfo->getSlot( slot );
-		if (gSlot && !gSlot->lastFrameInGame())
-		{
-			DEBUG_LOG(("ConnectionManager::disconnectPlayer(%d) - slot is last in the game on frame %d\n",
-				slot, TheGameLogic->getFrame()));
-			gSlot->setLastFrameInGame(TheGameLogic->getFrame());
-		}
-	}
-
-	UnicodeString unicodeName;
-	unicodeName = getPlayerName(slot);
-	if (unicodeName.getLength() > 0 && m_connections[slot]) {
-		TheInGameUI->message("Network:PlayerLeftGame", unicodeName.str());
-
-		// People are boneheads. Also play a sound
-		static AudioEventRTS leftGameSound("GUIMessageReceived");
-		TheAudio->addAudioEvent(&leftGameSound);
-	}
-
-	if ((m_frameData[slot] != NULL) && (m_frameData[slot]->getIsQuitting() == FALSE)) {
-		DEBUG_LOG(("ConnectionManager::disconnectPlayer - deleting player %d frame data\n", slot));
-		m_frameData[slot]->deleteInstance();
-		m_frameData[slot] = NULL;
-	}
-
-	if (m_connections[slot] != NULL && !m_connections[slot]->isQuitting()) {
-		DEBUG_LOG(("ConnectionManager::disconnectPlayer - deleting player %d connection\n", slot));
-		m_connections[slot]->deleteInstance();
-		m_connections[slot] = NULL;
-	}
-
-//	if (playerID == m_localSlot) {
-//		TheMessageStream->appendMessage(GameMessage::MSG_CLEAR_GAME_DATA);
-//	}
-
-	if (slot == m_packetRouterSlot) {
-		Int index = 0;
-		while ((index < (MAX_SLOTS-1)) && (m_packetRouterFallback[index] != m_packetRouterSlot)) {
-			++index;
-		}
-		++index;
-		m_packetRouterSlot = m_packetRouterFallback[index];
-		DEBUG_LOG(("Packet router left.  New packet router is slot %d\n", m_packetRouterSlot));
-		retval = PLAYERLEAVECODE_PACKETROUTER;
-	}
-	if (m_localSlot == slot) {
-		DEBUG_LOG(("Disconnecting self\n"));
-		retval = PLAYERLEAVECODE_LOCAL;
-	}
-
-	// Take the player out of the fallback plan
-	Int fallbackindex = 0;
-	while ((fallbackindex < MAX_SLOTS) && (m_packetRouterFallback[fallbackindex] != slot)) {
-		++fallbackindex;
-	}
-
-	for (Int i = fallbackindex; i < MAX_SLOTS-1; ++i) {
-		m_packetRouterFallback[i] = m_packetRouterFallback[i+1];
-	}
-	m_packetRouterFallback[MAX_SLOTS-1] = -1;
-
-	return retval;
-}
+// ConnectionManager::disconnectPlayer is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/ConnectionManager_disconnectPlayer.cpp (0x004D13F8).
 
 // ?quitGame@ConnectionManager@@ present-unmatched
 void ConnectionManager::quitGame() {
@@ -1977,16 +1593,7 @@ void ConnectionManager::resendPendingCommands() {
 
 // ConnectionManager::getLocalPlayerID: defined in ConnectionManagerLocalSlot.cpp (its row's unit).
 
-// ?getPlayerName@ConnectionManager@@ present-unmatched
-UnicodeString ConnectionManager::getPlayerName(Int playerNum) {
-	UnicodeString retval;
-	if( playerNum == m_localSlot ) {
-		retval = m_localUser->GetName();
-	}	else if (((m_connections[playerNum] != NULL) && (m_connections[playerNum]->isQuitting() == FALSE))) {
-		retval = m_connections[playerNum]->getUser()->GetName();
-	}
-	return retval;
-}
+// ConnectionManager::getPlayerName is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp (0x004D0198).
 
 /**
  * Take a user list and make connections and frame data manager objects for each of the players.
@@ -2252,133 +1859,11 @@ void ConnectionManager::sendDisconnectChat(UnicodeString text) {
 	processDisconnectChat(msg);
 }
 
-// ?sendFileAnnounce@ConnectionManager@@ present-unmatched
-UnsignedShort ConnectionManager::sendFileAnnounce(AsciiString path, UnsignedByte playerMask)
-{
-	File *theFile = TheLocalFileSystem->openFile(path.str());
-	if (!theFile || !theFile->size())
-	{
-		UnicodeString log;
-		log.format(L"Not sending file '%hs' to %X\n", path.str(), playerMask);
-		DEBUG_LOG(("%ls\n", log.str()));
-		if (TheLAN)
-			TheLAN->OnChat(UnicodeString(L"sendFile"), 0, log, LANAPI::LANCHAT_SYSTEM);
-		return 0;
-	}
+// ConnectionManager::sendFileAnnounce is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/ConnectionManager_sendFileAnnounce.cpp (0x004D2D6A).
 
-	theFile->close();
+// ConnectionManager::sendFile is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/ConnectionManager_sendFile.cpp (0x004D1927).
 
-	Int announceMask = 0xff ^ (1 << m_localSlot);
-	NetFileAnnounceCommandMsg *announceMsg = newInstance(NetFileAnnounceCommandMsg);
-	announceMsg->setPlayerID(m_localSlot);
-	if (DoesCommandRequireACommandID(announceMsg->getNetCommandType()) == TRUE) {
-		announceMsg->setID(GenerateNextCommandID());
-	}
-	announceMsg->setRealFilename(path);
-	announceMsg->setPlayerMask(playerMask);
-	UnsignedShort fileID = GenerateNextCommandID();
-	announceMsg->setFileID(fileID);
-	DEBUG_LOG(("ConnectionManager::sendFileAnnounce() - creating announce message with ID of %d from %d to mask %X for '%s' going to %X as command %d\n",
-		announceMsg->getID(), announceMsg->getPlayerID(), announceMask, announceMsg->getRealFilename().str(),
-		announceMsg->getPlayerMask(), announceMsg->getFileID()));
-
-	processFileAnnounce(announceMsg); // set up things for the host
-
-	DEBUG_LOG(("Sending file announce to %X\n", announceMask));
-	sendLocalCommand(announceMsg, announceMask);
-	announceMsg->detach();
-
-	return fileID;
-}
-
-// ?sendFile@ConnectionManager@@ present-unmatched
-void ConnectionManager::sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID)
-{
-	File *theFile = TheLocalFileSystem->openFile(path.str());
-	if (!theFile || !theFile->size())
-	{
-		UnicodeString log;
-		log.format(L"Not sending file '%hs' to %X\n", path.str(), playerMask);
-		DEBUG_LOG(("%ls\n", log.str()));
-		if (TheLAN)
-			TheLAN->OnChat(UnicodeString(L"sendFile"), 0, log, LANAPI::LANCHAT_SYSTEM);
-		return;
-	}
-
-	Int len = theFile->size();
-	char *buf = theFile->readEntireAndClose();
-
-	// compress Targas
-#ifdef COMPRESS_TARGAS
-	char *compressedBuf = NULL;
-	Int compressedLen = path.endsWith(".tga")?CompressionManager::getMaxCompressedSize(len, CompressionManager::getPreferredCompression()):0;
-	Int compressedSize = 0;
-	if (compressedLen)
-		compressedSize = CompressionManager::compressData(CompressionManager::getPreferredCompression(),
-		buf, len, compressedBuf, compressedLen);
-
-	if (compressedBuf && !compressedSize)
-	{
-		delete[] compressedBuf;
-		compressedBuf = NULL;
-	}
-#endif // COMPRESS_TARGAS
-
-	NetFileCommandMsg *fileMsg = newInstance(NetFileCommandMsg);
-	fileMsg->setPlayerID(m_localSlot);
-	fileMsg->setID(commandID);
-	fileMsg->setRealFilename(path);
-#ifdef COMPRESS_TARGAS
-	if (compressedBuf)
-	{
-		DEBUG_LOG(("Compressed '%s' from %d to %d (%g%%) before transfer\n", path.str(), len, compressedSize,
-			(Real)compressedSize/(Real)len*100.0f));
-		fileMsg->setFileData((unsigned char *)compressedBuf, compressedSize);
-	}
-	else
-#endif // COMPRESS_TARGAS
-	{
-		fileMsg->setFileData((unsigned char *)buf, len);
-	}
-
-	DEBUG_LOG(("ConnectionManager::sendFile() - creating file message with ID of %d for '%s' going to %X from %d, size of %d\n",
-		fileMsg->getID(), fileMsg->getRealFilename().str(), playerMask, fileMsg->getPlayerID(), fileMsg->getFileLength()));
-
-	delete[] buf;
-	buf = NULL;
-#ifdef COMPRESS_TARGAS
-	if (compressedBuf)
-	{
-		delete[] compressedBuf;
-		compressedBuf = NULL;
-	}
-#endif // COMPRESS_TARGAS
-
-	DEBUG_LOG(("Sending file: '%s', len %d, to %X\n", path.str(), len, playerMask));
-
-	sendLocalCommand(fileMsg, playerMask);
-
-	fileMsg->detach();
-}
-
-// ?getFileTransferProgress@ConnectionManager@@ present-unmatched
-Int ConnectionManager::getFileTransferProgress(Int playerID, AsciiString path)
-{
-	FileCommandMap::iterator commandIt = s_fileCommandMap.begin();
-	while (commandIt != s_fileCommandMap.end())
-	{
-		//DEBUG_LOG(("ConnectionManager::getFileTransferProgress(%s): looking at existing transfer of '%s'\n",
-		//	path.str(), commandIt->second.str()));
-		if (commandIt->second == path)
-		{
-			return s_fileProgressMap[playerID][commandIt->first];
-		}
-		++commandIt;
-	}
-	//DEBUG_LOG(("Falling back to 0, since we couldn't find the map\n"));
-	DEBUG_LOG(("ConnectionManager::getFileTransferProgress: path %s not found\n",path.str()));
-	return 0;
-}
+// ConnectionManager::getFileTransferProgress is defined with its retail-matched body in Code/GameEngine/Source/Common/ConnectionManagerRva004D28C6.cpp (0x004D28C6).
 
 
 // ?voteForPlayerDisconnect@ConnectionManager@@ present-unmatched
@@ -2531,14 +2016,7 @@ void ConnectionManager::notifyOthersOfNewFrame(UnsignedInt frame) {
 	msg->detach();
 }
 
-// ?sendFrameDataToPlayer@ConnectionManager@@ present-unmatched
-void ConnectionManager::sendFrameDataToPlayer(UnsignedInt playerID, UnsignedInt startingFrame) {
-	DEBUG_LOG(("ConnectionManager::sendFrameDataToPlayer - sending frame data to player %d starting with frame %d\n", playerID, startingFrame));
-	for (UnsignedInt frame = startingFrame; frame < TheGameLogic->getFrame(); ++frame) {
-		sendSingleFrameToPlayer(playerID, frame);
-	}
-	DEBUG_LOG(("ConnectionManager::sendFrameDataToPlayer - done sending commands to player %d\n", playerID));
-}
+// ConnectionManager::sendFrameDataToPlayer is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/ConnectionManagerO1.cpp (0x004D04A4).
 
 // ?sendSingleFrameToPlayer@ConnectionManager@@ present-unmatched
 void ConnectionManager::sendSingleFrameToPlayer(UnsignedInt playerID, UnsignedInt frame) {

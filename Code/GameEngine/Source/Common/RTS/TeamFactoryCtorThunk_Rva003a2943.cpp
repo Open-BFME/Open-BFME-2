@@ -227,23 +227,4 @@ void TeamFactory::addTeamPrototypeToList(TeamPrototype *team)
 	m_prototypes[nk] = team;
 }
 
-// ?initTeam@TeamFactory@@QAEXABVAsciiString@@0_NPAVDict@@@Z present-unmatched
-void TeamFactory::initTeam(const AsciiString &name, const AsciiString &owner, bool isSingleton, Dict *d)
-{
-	// BFME returns early instead of asserting: 0x000F8195 calls
-	// findTeamPrototype and jumps to the epilogue when it is non-null.
-	if (findTeamPrototype(owner, name) != 0)
-		return;
-
-	Player *pOwner = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(owner.str()));
-	if (!pOwner)
-		pOwner = ThePlayerList->m_neutral;
-
-	TeamPrototype *proto = new TeamPrototype(this, owner, name, pOwner, isSingleton, d,
-												++m_uniqueTeamPrototypeID);
-
-	// Retail re-reads the two strings off the prototype it just built
-	// (proto+0x10 and proto+0x14) rather than reusing the parameters.
-	if (isSingleton)
-		createInactiveTeam(proto->m_first, proto->m_second);
-}
+// TeamFactory::initTeam is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/TeamFactoryInitTeam.cpp (0x003A404D).

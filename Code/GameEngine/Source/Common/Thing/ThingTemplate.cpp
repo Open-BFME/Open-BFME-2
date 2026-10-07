@@ -323,82 +323,7 @@ const ModuleInfo::Nugget *ModuleInfo::getNuggetWithTag( const AsciiString& tag )
 // ------------------------------------------------------------------------------------------------
 /** Add this module info to the thing template */
 // ------------------------------------------------------------------------------------------------
-// ?ModuleInfo::addModuleInfo present-unmatched
-void ModuleInfo::addModuleInfo(ThingTemplate *thingTemplate, 
-															 const AsciiString& name, 
-															 const AsciiString& moduleTag, 
-															 const ModuleData* data, 
-															 Int interfaceMask, 
-															 Bool inheritable,
-                               Bool overrideableByLikeKind)
-{
-
-	//
-	// there must be a module tag present, and it must be unique across all module infos
-	// for this thing template
-	//
-#if defined(_DEBUG) || defined(_INTERNAL)
-	// get module info
-	const Nugget *nugget;
-	
-	nugget = thingTemplate->getBehaviorModuleInfo().getNuggetWithTag( moduleTag );
-	if( nugget != NULL )
-	{
-
-		// compare this nugget tag against the tag for the new data we're going to submit
-		DEBUG_ASSERTCRASH( nugget->m_moduleTag != moduleTag,
-											 ("addModuleInfo - ERROR defining module '%s' on thing template '%s'.  The module '%s' has the tag '%s' which must be unique among all modules for this object, but the tag '%s' is also already on module '%s' within this object.\n\nPlease make unique tag names within an object definition\n",
-												name.str(),
-												thingTemplate->getName().str(),
-												name.str(),
-												moduleTag.str(),
-												moduleTag.str(),
-												nugget->first.str()) );
-
-		// srj sez: prevent people from ignoring this.
-		throw INI_INVALID_DATA;
-	}  // end if
-
-	nugget = thingTemplate->getDrawModuleInfo().getNuggetWithTag( moduleTag );
-	if( nugget != NULL )
-	{
-
-		// compare this nugget tag against the tag for the new data we're going to submit
-		DEBUG_ASSERTCRASH( nugget->m_moduleTag != moduleTag,
-											 ("addModuleInfo - ERROR defining module '%s' on thing template '%s'.  The module '%s' has the tag '%s' which must be unique among all modules for this object, but the tag '%s' is also already on module '%s' within this object.\n\nPlease make unique tag names within an object definition\n",
-												name.str(),
-												thingTemplate->getName().str(),
-												name.str(),
-												moduleTag.str(),
-												moduleTag.str(),
-												nugget->first.str()) );
-
-		// srj sez: prevent people from ignoring this.
-		throw INI_INVALID_DATA;
-	}  // end if
-
-	nugget = thingTemplate->getClientUpdateModuleInfo().getNuggetWithTag( moduleTag );
-	if( nugget != NULL )
-	{
-
-		// compare this nugget tag against the tag for the new data we're going to submit
-		DEBUG_ASSERTCRASH( nugget->m_moduleTag != moduleTag,
-											 ("addModuleInfo - ERROR defining module '%s' on thing template '%s'.  The module '%s' has the tag '%s' which must be unique among all modules for this object, but the tag '%s' is also already on module '%s' within this object.\n\nPlease make unique tag names within an object definition\n",
-												name.str(),
-												thingTemplate->getName().str(),
-												name.str(),
-												moduleTag.str(),
-												moduleTag.str(),
-												nugget->first.str()) );
-		// srj sez: prevent people from ignoring this.
-		throw INI_INVALID_DATA;
-	}  // end if
-
-#endif
-
-	m_info.push_back(Nugget(name, moduleTag, data, interfaceMask, inheritable, overrideableByLikeKind));
-
-}
+// ModuleInfo::addModuleInfo is defined with its retail-matched body in Code/GameEngine/Source/Common/Thing/ModuleInfoAddModuleInfo.cpp (0x0033D553).
 
 //-------------------------------------------------------------------------------------------------
 // ?ModuleInfo::clearModuleDataWithTag present-unmatched
@@ -1021,19 +946,7 @@ ThingTemplate::ThingTemplate() :
 }
 
 //-------------------------------------------------------------------------------------------------
-AIUpdateModuleData *ThingTemplate::friend_getAIModuleInfo(void)
-{
-	Int numModInfos = m_behaviorModuleInfo.getCount();
-	for (int j = 0; j < numModInfos; ++j) 
-	{
-		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->isAiModuleData()) 
-		{
-			return (AIUpdateModuleData *)m_behaviorModuleInfo.friend_getNthData(j);
-		}
-	}
-
-	return NULL;
-}
+// ThingTemplate::friend_getAIModuleInfo is defined with its retail-matched body in Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp (0x0033B387).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -1111,80 +1024,7 @@ void ThingTemplate::validateAudio()
 }
 
 //-------------------------------------------------------------------------------------------------
-void ThingTemplate::validate()
-{
-	if (m_shadowTextureName.isEmpty())
-	{	
-		// no texture given, pick a default
-		switch (getTemplateGeometryInfo().getGeomType())
-		{
-			case GEOMETRY_SPHERE:
-			case GEOMETRY_CYLINDER:
-				m_shadowTextureName = "shadow";
-				break;
-			case GEOMETRY_BOX:
-				m_shadowTextureName = "shadows";
-				break;
-		}
-	}
-
-	validateAudio();
-
-#if defined(_DEBUG) || defined(_INTERNAL)
-	
-	if (getName() == "DefaultThingTemplate")
-		return;
-
-	// neutron missile is an old special case....
-	if (getName() == "NeutronMissile")
-		return;
-
-	// another cheesy special case....
-	if (getName() == "FlamethrowerProjectileStream")
-		return;
-
-	// drawable-only templates are exempt from further checks.
-	if (isKindOf(KINDOF_DRAWABLE_ONLY))
-		return;
-
-	// build-variation templates are exempt from further checks.
-	if (!m_buildVariations.empty())
-		return;
-
-	Bool isImmobile = isKindOf(KINDOF_IMMOBILE);
-	
-	if (isKindOf(KINDOF_SHRUBBERY) && !isImmobile)
-	{
-		DEBUG_CRASH(("SHRUBBERY %s must be marked IMMOBILE!",getName().str()));
-	}
-
-	if (isKindOf(KINDOF_STRUCTURE) && !isImmobile)
-	{
-		DEBUG_CRASH(("Structure %s is not marked immobile, but probably should be -- please fix it. (If we ever add mobile structures, this debug sniffer will need to be revised.)\n",getName().str()));
-	}
-
-	if (isKindOf(KINDOF_STICK_TO_TERRAIN_SLOPE) && !isImmobile)
-	{
-		DEBUG_CRASH(("item %s is marked STICK_TO_TERRAIN_SLOPE but not IMMOBILE -- please fix it.\n",getName().str()));
-	}
-
-	if (isKindOf(KINDOF_STRUCTURE))
-	{
-		if (m_armorTemplateSets.empty() || (m_armorTemplateSets.size() == 1 && m_armorTemplateSets[0].getArmorTemplate() == NULL))
-		{
-			DEBUG_CRASH(("Structure %s has no armor, but probably should (StructureArmor) -- please fix it.)\n",getName().str()));
-		}
-		for (ArmorTemplateSetVector::const_iterator it = m_armorTemplateSets.begin(); it != m_armorTemplateSets.end(); ++it)
-		{
-			if (it->getDamageFX() == NULL)
-			{
-				DEBUG_CRASH(("Structure %s has no ArmorDamageFX, and really should.\n",getName().str()));
-			}
-		}
-	}
-
-#endif
-}
+// ThingTemplate::validate is defined with its retail-matched body in Code/GameEngine/Source/Common/Thing/ThingTemplateValidate.cpp (0x0033B4CD).
 
 //-------------------------------------------------------------------------------------------------
 // copy the guts of that into this, but preserve this' name, id, and list-links.
@@ -1225,69 +1065,7 @@ ThingTemplate::~ThingTemplate()
 } 
 
 //=============================================================================
-// ?ThingTemplate::resolveNames present-unmatched
-void ThingTemplate::resolveNames()
-{
-	Int i, j;
-	
-	//Kris: July 31, 2003
-	//NOTE: Make sure that all code in this function supports caching properly. For example,
-	//      templates can be partially overridden by map.ini files. When this happens, strings
-	//      that have been parsed are looked up, cached, then cleared. The problem is if a string
-	//      gets cached, but not overridden, it will be clear the next time we call this function.
-	//      so we will want to make sure we don't NULL out cached data if the string is empty. A
-	//      concrete example is overriding an object with prerequisites. We just override the portrait.
-	//      So the 1st time we call this function, we get the standard template data. During this first
-	//      call, the strings are looked up, cached, and cleared. Then we override the portrait in the 
-	//      map.ini. The next time we call this function, we look up all the strings again. The prereq
-	//      names didn't used to check for empty strings so they would NULL out all the previous prereqs
-	//      the object had. So be sure to make sure all string lookups don't blindly lookup things -- check
-	//      if the string isNotEmpty first!
-
-	for (i = 0; i < m_prereqInfo.size(); i++)
-	{
-		m_prereqInfo[i].resolveNames();
-	}
-
-	const Int MAX_BF = 32;
-	const ThingTemplate* tmpls[MAX_BF];
-	for (i = 0; i < m_prereqInfo.size(); i++)
-	{
-		Int count = m_prereqInfo[i].getAllPossibleBuildFacilityTemplates(tmpls, MAX_BF);
-		for (j = 0; j < count; j++)
-		{
-			// casting const away is a little evil, but justified in this case:
-			// PropductionPrerequisite should only be allowed 'const' access,
-			// but ThingTemplate can muck with stuff with gleeful abandon. (srj)
-			if( tmpls[ j ] )
-				const_cast<ThingTemplate*>(tmpls[j])->m_isBuildFacility = true;
-			// DEBUG_LOG(("BF: %s is a buildfacility for %s\n",tmpls[j]->m_nameString.str(),this->m_nameString.str()));
-		}
-	}
-	
-	if (isKindOf(KINDOF_COMMANDCENTER)) {
-		// Command centers are considered factories. jba.
-		m_isBuildFacility = true;
-	}
-
-	// keep a pointer to portrait and button image if present for speed later
-	if( TheMappedImageCollection )
-	{
-		if( m_selectedPortraitImageName.isNotEmpty() )
-		{
-			m_selectedPortraitImage = TheMappedImageCollection->findImageByName( m_selectedPortraitImageName );
-			DEBUG_ASSERTCRASH( m_selectedPortraitImage, ("%s is looking for Portrait %s but can't find it. Skipping...", getName().str(), m_buttonImageName.str() ) );
-			m_selectedPortraitImageName.clear();	// we're done with this, so nuke it
-		}
-		if( m_buttonImageName.isNotEmpty() )
-		{
-			m_buttonImage = TheMappedImageCollection->findImageByName( m_buttonImageName );
-			DEBUG_ASSERTCRASH( m_buttonImage, ("%s is looking for ButtonImage %s but can't find it. Skipping...", getName().str(), m_buttonImageName.str() ) );
-			m_buttonImageName.clear();	// we're done with this, so nuke it
-		}
-	}
-
-}
+// ThingTemplate::resolveNames is defined with its retail-matched body in Code/GameEngine/Source/Common/Thing/Rva0033C2C2ResolveNames.cpp (0x0033C2C2).
 
 //=============================================================================
 #ifdef LOAD_TEST_ASSETS
@@ -1380,18 +1158,7 @@ Int ThingTemplate::getSkillPointValue(Int level) const
 }
 
 //-----------------------------------------------------------------------------
-// ?ThingTemplate::getBuildFacilityTemplate present-unmatched
-const ThingTemplate *ThingTemplate::getBuildFacilityTemplate( const Player *player ) const
-{
-	if (getPrereqCount() > 0)
-	{
-		return m_prereqInfo[0].getExistingBuildFacilityTemplate(player);	// might return null
-	}
-	else
-	{
-		return NULL;
-	}
-}
+// ThingTemplate::getBuildFacilityTemplate is defined with its retail-matched body in Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp (0x0033A97F).
 
 //-------------------------------------------------------------------------------------------------
 // ?ThingTemplate::getBuildable present-unmatched
