@@ -4609,7 +4609,6 @@ name,address,notes
 ??1Rva00514EAB@@UAE@XZ,0x00514EAB,opaque dtor called by the scalar deleting dtor at 0x0051588B (vtable 0x00C65F10#0); identity unproven; address-derived name
 ??1Rva00514EABResourceView@@QAE@XZ,0x005B6EFE,Native514EAB resource290 call-only ABI view; complete rowed provider independently byte verified; destructor reads0/4 and close reads0C/10; original resource name unknown
 ??1Rva005173F8@@UAE@XZ,0x005173F8,opaque dtor called by the scalar deleting dtor at 0x00517582 (vtable 0x00C66428#0); identity unproven; address-derived name
-??1Rva0051B15E@@UAE@XZ,0x0051B15E,opaque dtor called by the scalar deleting dtor at 0x0051B8EF (vtable 0x00C66C58#0); identity unproven; address-derived name
 ??1Rva0051D93@@UAE@XZ,0x0051D93,opaque lea+vptr dtor head (lea eax,[ecx+0x88], vptr 0xBC5318); called by scalar-deleting-dtor at 0x51DB0; identity unproven, address-derived name
 ??1Rva00520211Element@@QAE@XZ,0x0051FB52,target destroy loop 0x5200F4 calls this once per 0x50-byte element; the body releases nested fields and storage but Rva00520211Element remains opaque
 ??1Rva005204EF@@UAE@XZ,0x005204EF,opaque dtor called by the scalar deleting dtor at 0x005206E2 (vtable 0x00C675DC#0); identity unproven; address-derived name

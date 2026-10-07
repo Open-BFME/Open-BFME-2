@@ -21,8 +21,12 @@ class GameLogic
 {
 public:
 	bool isInMultiplayerGame();
+	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);
+	void rva0023D0E3(bool selfDestruct);
 
-	unsigned char m_pad000[0x110];
+	unsigned char m_pad000[0x40];
+	unsigned int m_40; // +0x40
+	unsigned char m_pad044[0x110 - 0x44];
 	int m_110; // +0x110
 	int m_114; // +0x114
 };
@@ -68,8 +72,13 @@ struct RGBColor
 
 class Mouse
 {
+	friend class AptQuitMenu;
+
 public:
 	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
+
+private:
+	void commitPendingCursor();
 };
 
 extern Mouse *TheMouse;
@@ -83,6 +92,108 @@ public:
 };
 
 extern BfmeSelectionState *g_009FEF10;
+
+// The living-world logic's player at +0x98 and its byte +0x3C5.
+struct LivingWorldPlayer
+{
+	unsigned char m_pad000[0x3C5];
+	bool m_3c5; // +0x3C5
+};
+
+struct LivingWorldLocal
+{
+	unsigned char m_pad000[0x98];
+	LivingWorldPlayer *m_98; // +0x98
+};
+
+class Rva002B2B66
+{
+public:
+	int rva002B2B66();
+};
+
+// TheInGameUI (0x00DFEDF0): vslot 94 hides the quit menu (BFME1's slot 84).
+class InGameUI
+{
+public:
+#define IGUI_SLOT(N) virtual void slot##N();
+	IGUI_SLOT(00) IGUI_SLOT(01) IGUI_SLOT(02) IGUI_SLOT(03) IGUI_SLOT(04)
+	IGUI_SLOT(05) IGUI_SLOT(06) IGUI_SLOT(07) IGUI_SLOT(08) IGUI_SLOT(09)
+	IGUI_SLOT(10) IGUI_SLOT(11) IGUI_SLOT(12) IGUI_SLOT(13) IGUI_SLOT(14)
+	IGUI_SLOT(15) IGUI_SLOT(16) IGUI_SLOT(17) IGUI_SLOT(18) IGUI_SLOT(19)
+	IGUI_SLOT(20) IGUI_SLOT(21) IGUI_SLOT(22) IGUI_SLOT(23) IGUI_SLOT(24)
+	IGUI_SLOT(25) IGUI_SLOT(26) IGUI_SLOT(27) IGUI_SLOT(28) IGUI_SLOT(29)
+	IGUI_SLOT(30) IGUI_SLOT(31) IGUI_SLOT(32) IGUI_SLOT(33) IGUI_SLOT(34)
+	IGUI_SLOT(35) IGUI_SLOT(36) IGUI_SLOT(37) IGUI_SLOT(38) IGUI_SLOT(39)
+	IGUI_SLOT(40) IGUI_SLOT(41) IGUI_SLOT(42) IGUI_SLOT(43) IGUI_SLOT(44)
+	IGUI_SLOT(45) IGUI_SLOT(46) IGUI_SLOT(47) IGUI_SLOT(48) IGUI_SLOT(49)
+	IGUI_SLOT(50) IGUI_SLOT(51) IGUI_SLOT(52) IGUI_SLOT(53) IGUI_SLOT(54)
+	IGUI_SLOT(55) IGUI_SLOT(56) IGUI_SLOT(57) IGUI_SLOT(58) IGUI_SLOT(59)
+	IGUI_SLOT(60) IGUI_SLOT(61) IGUI_SLOT(62) IGUI_SLOT(63) IGUI_SLOT(64)
+	IGUI_SLOT(65) IGUI_SLOT(66) IGUI_SLOT(67) IGUI_SLOT(68) IGUI_SLOT(69)
+	IGUI_SLOT(70) IGUI_SLOT(71) IGUI_SLOT(72) IGUI_SLOT(73) IGUI_SLOT(74)
+	IGUI_SLOT(75) IGUI_SLOT(76) IGUI_SLOT(77) IGUI_SLOT(78) IGUI_SLOT(79)
+	IGUI_SLOT(80) IGUI_SLOT(81) IGUI_SLOT(82) IGUI_SLOT(83) IGUI_SLOT(84)
+	IGUI_SLOT(85) IGUI_SLOT(86) IGUI_SLOT(87) IGUI_SLOT(88) IGUI_SLOT(89)
+	IGUI_SLOT(90) IGUI_SLOT(91) IGUI_SLOT(92) IGUI_SLOT(93)
+#undef IGUI_SLOT
+	virtual void slot94(bool visible);
+};
+
+extern InGameUI *TheInGameUI;
+
+// TheShell (0x00E01E48) and its rowed 0x0035BF4C (BFME1's Shell::hide).
+class Shell
+{
+public:
+	void rva0035BF4C(bool flag);
+};
+
+extern Shell *TheShell;
+
+// TheNetwork (0x00DFEA28): vslot 37 quits the network game.
+class NetworkInterface
+{
+public:
+#define NET_SLOT(N) virtual void slot##N();
+	NET_SLOT(00) NET_SLOT(01) NET_SLOT(02) NET_SLOT(03) NET_SLOT(04)
+	NET_SLOT(05) NET_SLOT(06) NET_SLOT(07) NET_SLOT(08) NET_SLOT(09)
+	NET_SLOT(10) NET_SLOT(11) NET_SLOT(12) NET_SLOT(13) NET_SLOT(14)
+	NET_SLOT(15) NET_SLOT(16) NET_SLOT(17) NET_SLOT(18) NET_SLOT(19)
+	NET_SLOT(20) NET_SLOT(21) NET_SLOT(22) NET_SLOT(23) NET_SLOT(24)
+	NET_SLOT(25) NET_SLOT(26) NET_SLOT(27) NET_SLOT(28) NET_SLOT(29)
+	NET_SLOT(30) NET_SLOT(31) NET_SLOT(32) NET_SLOT(33) NET_SLOT(34)
+	NET_SLOT(35) NET_SLOT(36)
+#undef NET_SLOT
+	virtual void quitGame();
+};
+
+extern NetworkInterface *TheNetwork;
+
+class GameMessage
+{
+public:
+	void appendIntegerArgument(int arg);
+	void appendBooleanArgument(bool arg);
+};
+
+// MessageStreamSubsystem (0x00A00950); appendMessage is vslot 18.
+class MessageStream
+{
+public:
+#define MSG_SLOT(N) virtual void slot##N();
+	MSG_SLOT(00) MSG_SLOT(01) MSG_SLOT(02) MSG_SLOT(03) MSG_SLOT(04)
+	MSG_SLOT(05) MSG_SLOT(06) MSG_SLOT(07) MSG_SLOT(08) MSG_SLOT(09)
+	MSG_SLOT(10) MSG_SLOT(11) MSG_SLOT(12) MSG_SLOT(13) MSG_SLOT(14)
+	MSG_SLOT(15) MSG_SLOT(16) MSG_SLOT(17)
+#undef MSG_SLOT
+	virtual GameMessage *appendMessage(int type);
+};
+
+extern MessageStream *MessageStreamSubsystem;
+
+// The network quit's frame limit (.rdata 0x007ED97C).
+extern unsigned int g_007ED97C;
 
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // MpGameSetupSlots.cpp): a binding of an object and an eight-byte
@@ -200,6 +311,7 @@ class WindowManager
 {
 public:
 	void bfme_showBackground(int kind);
+	void bfme_hideBackground(bool flag);
 };
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -245,6 +357,7 @@ class AptQuitMenu : public _bfme_AptGameWindow
 {
 public:
 	AptQuitMenu(void *context);
+	virtual ~AptQuitMenu();
 
 	void OnInitialized(const char *unused);
 	void RestartMission(const char *unused);
@@ -365,6 +478,66 @@ void AptQuitMenu::Externs(int query, char *value, bool set)
 	else
 		label = "Forfeit";
 	strcpy(value, label);
+}
+
+// Retail 0x0051B15E, 512 bytes: the quit menu's destructor, as BFME1's
+// ~BfmeAptScreenQuitMenu (AptQuitMenu.cpp there). The open menu hides
+// itself, unpauses a single player game and, when exiting, quits the
+// network game, ends the war of the ring battle (0x448 surrender unless
+// selection is locked, then 0x6B8 with the rowed 0x002B2B66) or runs
+// GameLogic's exit tail 0x0023D0E3, and shows background 1; otherwise it
+// hides the background unless +0x27D. Then "APT:Pause" is relabelled.
+// Retail reads TheGameLogic once, keeps it across isInMultiplayerGame and
+// rereads it only after the three calls that can change it; the rereads
+// are spelled out.
+AptQuitMenu::~AptQuitMenu()
+{
+	if (this != TheAptQuitMenu)
+		return;
+	TheAptQuitMenu = 0;
+	if (TheInGameUI)
+		TheInGameUI->slot94(false);
+	GameLogic *logic = TheGameLogic;
+	if (logic && !logic->isInMultiplayerGame())
+	{
+		logic->rva0023CD9E(false, m_280, true);
+		logic = TheGameLogic;
+	}
+	if (TheMouse)
+	{
+		TheMouse->commitPendingCursor();
+		logic = TheGameLogic;
+	}
+	if (TheShell && !m_exit)
+	{
+		TheShell->rva0035BF4C(false);
+		logic = TheGameLogic;
+	}
+	if (logic && m_exit)
+	{
+		if (logic->m_40 < g_007ED97C && (logic->m_110 == 1 || logic->m_110 == 5) && TheNetwork)
+			TheNetwork->quitGame();
+		else if (logic->m_114 != 3 && g_009FEF10)
+		{
+			if (((LivingWorldLocal *)g_009FEF10)->m_98)
+				((LivingWorldLocal *)g_009FEF10)->m_98->m_3c5 = true;
+			if (!g_009FEF10->isSelectionLocked())
+			{
+				GameMessage *surrender = MessageStreamSubsystem->appendMessage(0x448);
+				surrender->appendBooleanArgument(true);
+			}
+			GameMessage *msg = MessageStreamSubsystem->appendMessage(0x6B8);
+			msg->appendIntegerArgument(((Rva002B2B66 *)g_009FEF10)->rva002B2B66());
+		}
+		else
+			logic->rva0023D0E3(true);
+		if (g_bfmeAptWindowManager)
+			((WindowManager *)g_bfmeAptWindowManager)->bfme_showBackground(1);
+	}
+	else if (!m_27d && g_bfmeAptWindowManager)
+		((WindowManager *)g_bfmeAptWindowManager)->bfme_hideBackground(false);
+	AsciiString key("APT:Pause");
+	g_bfmeAptWindowManager->bfmeSetText(key, TheGameText->fetch("APT:Pause"), false);
 }
 
 // Retail 0x0051B50E, 167 bytes. Name unknown. Shows the restart button's
