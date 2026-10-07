@@ -29,8 +29,13 @@ struct RespawnThrowInfoAnchor { int a,b,c,d; };
 static const RespawnThrowInfoAnchor respawnThrowInfoAnchor = {0,0,0,0};
 struct RespawnRule {
     unsigned level, cost; int time; float health; bool autoSpawn;
-    RespawnRule(unsigned ruleLevel=1):level(ruleLevel),cost(0),time(0),health(1.0f),autoSpawn(false) {}
 };
+// Parser-local initialization avoids emitting a competing constructor for
+// the descriptive RespawnRule facade. Both retail parsers inline these stores.
+static __forceinline void initializeRespawnRule(RespawnRule &rule, unsigned level=1)
+{
+    rule.level=level; rule.cost=0; rule.time=0; rule.health=1.0f; rule.autoSpawn=false;
+}
 class RespawnUpdate;
 namespace _STL {
 template <class _Key, class _Mapped> struct pair;
@@ -70,6 +75,7 @@ public:
     INI::parser(ini,instance,&rule.member,0);
 void RespawnUpdate::iniParseDefaultRule(INI *ini, void *instance, void *store, const void *) {
     RespawnRule rule;
+    initializeRespawnRule(rule);
     BFME2RespawnRuleTree *rules=(BFME2RespawnRuleTree *)store;
     if(((RespawnRuleTree *)rules)->_M_find<unsigned int>(rule.level) != rules->sentinel)
         THROW0("RespawnUpdate::iniParseDefaultRule -- Duplicate RespawnRules entry.")
@@ -88,11 +94,13 @@ void RespawnUpdate::iniParseDefaultRule(INI *ini, void *instance, void *store, c
 #define THROW2(message,a,b) { INIException e; e.INIException::INIException(3,message,a,b); _CxxThrowException(&e, (const _s__ThrowInfo *)&respawnThrowInfoAnchor); __assume(0); }
 void RespawnUpdate::iniParseNewRuleForLevel(INI *ini, void *instance, void *store, const void *) {
     RespawnRule defaultRule;
+    initializeRespawnRule(defaultRule);
     BFME2RespawnRuleTree *rules=(BFME2RespawnRuleTree *)store;
     void *node=(void *)((RespawnRuleTree *)rules)->_M_find<unsigned int>(defaultRule.level);
     if(node==rules->sentinel) THROW0("RespawnUpdate::iniParseNewRuleForLevel -- You cannot parse a 'RespawnEntry' before 'RespawnRules'. Please add a 'RespawnRules' -- which represents level 1.")
     defaultRule=*(const RespawnRule *)((const char *)node+0x10);
-    RespawnRule rule(0);
+    RespawnRule rule;
+    initializeRespawnRule(rule,0);
     const char *token=ini->getNextToken(ini->colon);
     if(!token || _strcmpi(token,"Level")!=0) THROW1("RespawnUpdate::iniParseNewRuleForLevel -- RespawnEntry expecting 'Level' entry. You specified %s.",token)
     if(strcmp(token,"Level")!=0) THROW1("RespawnUpdate::iniParseNewRuleForLevel -- RespawnEntry for 'Level' is case sensitive. You specified %s.",token)
