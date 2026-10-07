@@ -22,3 +22,4 @@ reverse/functions.csv text eol=lf merge=union
 reverse/symbols.csv text eol=lf merge=union
 reverse/deleted_rows.csv text eol=lf merge=union
 reverse/re_attempts.log text eol=lf merge=union
+reverse/body_owners.csv text eol=lf merge=union
