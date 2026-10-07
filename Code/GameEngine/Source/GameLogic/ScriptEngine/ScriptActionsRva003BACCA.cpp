@@ -65,7 +65,7 @@ public:
 	virtual void s48();
 	virtual void s49();
 	virtual void s50();
-	virtual void s51();
+	virtual void s51(float value, int milliseconds, int mode, float a, float b);
 	virtual void s52();
 	virtual void s53();
 	virtual void s54();
@@ -73,9 +73,9 @@ public:
 	virtual void s56();
 	virtual void s57();
 	virtual void s58();
-	virtual void s59();
-	virtual void s60();
-	virtual void s61();
+	virtual void s59(float value, int milliseconds, float a, float b);
+	virtual void s60(float value, int milliseconds, float a, float b);
+	virtual void s61(float value, int milliseconds, float a, float b);
 	virtual void s62(float angle, int milliseconds, float a, float b);
 };
 
@@ -104,4 +104,39 @@ void __stdcall Rva003BAC6D(float a0, float a1, float a2, float a3)
 	reinterpret_cast<TacticalView *>(TheTacticalView)->s62(
 		a0 * 0.01745329238474369f, (int)(a1 * 1000.0f),
 		a2 * 1000.0f, a3 * 1000.0f);
+}
+
+// Five sibling RET16 script wrappers. Each native body passes its first
+// float unchanged, scales the other three by the retail 1000.0f literal,
+// and truncates the second argument to an integer. Slots and the extra
+// mode argument below are read separately from each bounded retail body.
+// The original action and virtual-method names remain unresolved.
+void __stdcall Rva003BAB7A(float a0, float a1, float a2, float a3)
+{
+	reinterpret_cast<TacticalView *>(TheTacticalView)->s59(
+		a0, (int)(a1 * 1000.0f), a2 * 1000.0f, a3 * 1000.0f);
+}
+
+void __stdcall Rva003BABCB(float a0, float a1, float a2, float a3)
+{
+	reinterpret_cast<TacticalView *>(TheTacticalView)->s60(
+		a0, (int)(a1 * 1000.0f), a2 * 1000.0f, a3 * 1000.0f);
+}
+
+void __stdcall Rva003BAC1C(float a0, float a1, float a2, float a3)
+{
+	reinterpret_cast<TacticalView *>(TheTacticalView)->s61(
+		a0, (int)(a1 * 1000.0f), a2 * 1000.0f, a3 * 1000.0f);
+}
+
+void __stdcall Rva003BAECA(float a0, float a1, float a2, float a3)
+{
+	reinterpret_cast<TacticalView *>(TheTacticalView)->s51(
+		a0, (int)(a1 * 1000.0f), 0, a2 * 1000.0f, a3 * 1000.0f);
+}
+
+void __stdcall Rva003BAF95(float a0, float a1, float a2, float a3)
+{
+	reinterpret_cast<TacticalView *>(TheTacticalView)->s51(
+		a0, (int)(a1 * 1000.0f), 1, a2 * 1000.0f, a3 * 1000.0f);
 }
