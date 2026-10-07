@@ -1244,36 +1244,33 @@ static void AuthenticateCDKeyCallback
 #endif // SERVER_DEBUGGING
 }
 
-static SerialAuthResult doCDKeyAuthentication( PEER peer )
+// BFME2's persistent-storage request is the 0x598-byte record rowed in
+// PersistentStorageThread.cpp (ctor556523, dtor38A1F2): request type,
+// a dword the ctor sets to 3, the 0x548-byte stats block whose setID552CDE
+// stamps every sub-block, then the cdkey/nick/password/email strings.
+class PSPlayerAllStats
 {
-	SerialAuthResult retval = SERIAL_NONEXISTENT;
-	if (!peer)
-		return retval;
+public:
+	void setID(Int id);
+private:
+	char m_data[0x548];
+};
 
-	AsciiString s = "";
-	if (GetStringFromRegistry("\\ergc", "", s) && s.isNotEmpty())
-	{
-#ifdef SERVER_DEBUGGING
-		DEBUG_LOG(("Before peerAuthenticateCDKey()\n"));
-		CheckServers(peer);
-#endif // SERVER_DEBUGGING
-		peerAuthenticateCDKey(peer, s.str(), AuthenticateCDKeyCallback, &retval, PEERTrue);
-#ifdef SERVER_DEBUGGING
-		DEBUG_LOG(("After peerAuthenticateCDKey()\n"));
-		CheckServers(peer);
-#endif // SERVER_DEBUGGING
-	}
-	
-	if (retval == SERIAL_OK)
-	{
-		PSRequest req;
-		req.requestType = PSRequest::PSREQUEST_READCDKEYSTATS;
-		req.cdkey = s.str();
-		TheGameSpyPSMessageQueue->addRequest(req);
-	}
+struct BfmeOpaqueOwnedRecord1432
+{
+	BfmeOpaqueOwnedRecord1432();
+	~BfmeOpaqueOwnedRecord1432();
+	Int requestType;
+	Int m_04;
+	PSPlayerAllStats player;
+	std::string cdkey;
+	std::string nick;
+	std::string password;
+	std::string email;
+	char m_580[0x18];
+};
 
-	return retval;
-}
+static SerialAuthResult doCDKeyAuthentication( PEER peer );
 
 #define INBUF_LEN 256
 void checkQR2Queries( PEER peer, SOCKET sock )
@@ -2398,6 +2395,35 @@ void PeerThreadClass::Thread_Function()
 	}
 }
 
+// Native [38B4D7,38B5DB),260B. BFME2 sends the cdkey stats read through its
+// own request record (type 3) rather than Zero Hour's PSRequest. The key is
+// read through StringBase<char>::str(), whose TheNullChr (0x7BAC1C) is the
+// fallback retail loads; the registry check inlines isEmpty. Defined after
+// Thread_Function: compiled ahead of it, this body flips the register tie in
+// Thread_Function's heartbeat-deadline add (0x0038FFF0).
+static SerialAuthResult doCDKeyAuthentication( PEER peer )
+{
+	SerialAuthResult retval = SERIAL_NONEXISTENT;
+	if (!peer)
+		return retval;
+
+	AsciiString s = "";
+	if (GetStringFromRegistry("\\ergc", "", s) && !s.isEmpty())
+	{
+		peerAuthenticateCDKey(peer, s.str(), AuthenticateCDKeyCallback, &retval, PEERTrue);
+	}
+
+	if (retval == SERIAL_OK)
+	{
+		BfmeOpaqueOwnedRecord1432 req;
+		req.requestType = 3;
+		req.cdkey = ((const StringBase<char> &)s).str();
+		TheGameSpyPSMessageQueue->addRequest(reinterpret_cast<const PSRequest &>(req));
+	}
+
+	return retval;
+}
+
 static void getPlayerProfileIDCallback(PEER peer,  PEERBool success,  const char * nick,  int profileID,  void * param)
 {
 	if (success && param != NULL)
@@ -2595,32 +2621,6 @@ static void listGroupRoomsCallback(PEER peer, PEERBool success,
 // response; no other retail code references either address.
 static char s_loginTextA[256];
 static char s_loginTextB[256];
-
-// BFME2's persistent-storage request is the 0x598-byte record rowed in
-// PersistentStorageThread.cpp (ctor556523, dtor38A1F2): request type,
-// a dword the ctor sets to 3, the 0x548-byte stats block whose setID552CDE
-// stamps every sub-block, then the cdkey/nick/password/email strings.
-class PSPlayerAllStats
-{
-public:
-	void setID(Int id);
-private:
-	char m_data[0x548];
-};
-
-struct BfmeOpaqueOwnedRecord1432
-{
-	BfmeOpaqueOwnedRecord1432();
-	~BfmeOpaqueOwnedRecord1432();
-	Int requestType;
-	Int m_04;
-	PSPlayerAllStats player;
-	std::string cdkey;
-	std::string nick;
-	std::string password;
-	std::string email;
-	char m_580[0x18];
-};
 
 // Retail swaps the fallback IP through the second wsock32!htonl IAT slot
 // (0xBBA998; the later two swaps load 0xBBA9A4), as udp.cpp's Bind does.
