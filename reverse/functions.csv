@@ -47885,7 +47885,6 @@ _rva0075B4C6D3DXQuaternionSlerp@16,,0x0075B4C6,6,Code/Libraries/Source/WWVegas/W
 ?rva000DD878@W3DBridgeBuffer@@QAEXH@Z,,0x000DD878,64,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferRva000DD878.cpp,matched,W3DBridgeBuffer method via neighbours and caller 0x000DF745
 ?rva0052A36A@Rva0052A36A@@QAEXPAUOut0052A36A@@@Z,,0x0052A36A,29,Code/GameEngine/Source/Common/Rva0052A36A.cpp,matched,leaf array fetch base plus idx times 20 float int to out
 ?Rva005DB335Get@@YAHH@Z,,0x005DB335,53,Code/GameEngine/Source/Common/Rva005DB335Get.cpp,matched,unlock free func 0-3 via global 0x00E05FB4 virtuals plus0x10 plus0x14
-?Rva00552C5FGet@@YAEXZ,,0x00552C5F,27,Code/GameEngine/Source/Common/Rva00552C5FStats.cpp,matched,free stats connected check init fallback callers 0x0055819C
 ?rva001100A6@Rva001100A6@@QAEXXZ,,0x001100A6,31,Code/GameEngine/Source/Common/Rva001100A6Method.cpp,matched,virtual slot12 stdcall via mid+1C clears DC callers 0xA9F98
 ?rva001103A5@Rva001103A5@@QAIXABV?$RefCountPtr@VTextureClass@@@@@Z,,0x001103A5,49,Code/Libraries/Source/WWVegas/WW3D2/Rva001103A5Setter.cpp,matched,fastcall texture slot setter with dual dirty flags callers 0xA9F98
 ??1Rva005E0B0F@@UAE@XZ,,0x005E0B0F,128,Code/GameEngine/Source/Common/Rva005E0B0FDtor.cpp,matched,dtor vtable 877960 base 86E330 forwarder int holder Release strings
@@ -47918,9 +47917,6 @@ _rva0075B4C6D3DXQuaternionSlerp@16,,0x0075B4C6,6,Code/Libraries/Source/WWVegas/W
 ?Rva00118C20@@YAXXZ,,0x00118C20,116,Code/Libraries/Source/WWVegas/WW3D2/Rva00118C20State.cpp,matched,unlock prev pattern G7 SSE HasStencil
 ?Rva00118BA0@@YAXXZ,,0x00118BA0,118,Code/Libraries/Source/WWVegas/WW3D2/Rva00118BA0State.cpp,matched,unlock sibling G7 SSE HasStencil
 ?Rva00118810@@YAXXZ,,0x00118810,129,Code/Libraries/Source/WWVegas/WW3D2/Rva00118810Set.cpp,matched,DX8 render-state setup via rowed Set_DX8_Render_State caller 0x00155AD0
-?rva00552C7ACallback@@YAXHHHHPAX@Z,,0x00552C7A,24,Code/GameEngine/Source/Common/Rva00552C5FStats.cpp,matched,GameSpy stats callback flag setter
-?rva00552C92Callback@@YAXHHHHHHPAX@Z,,0x00552C92,12,Code/GameEngine/Source/Common/Rva00552C5FStats.cpp,matched,GameSpy stats callback counter decrement
-?rva00552C9ECallback@@YAXHHHHPAX@Z,,0x00552C9E,26,Code/GameEngine/Source/Common/Rva00552C5FStats.cpp,matched,GameSpy stats callback record writer
 ??0Rva00552F2E@@QAE@XZ,,0x00552F2E,20,Code/GameEngine/Source/Common/Rva00552F2EHelpers.cpp,matched,
 ?set@Rva00552F55@@QAEAAU1@PBDPBF@Z,,0x00552F55,24,Code/GameEngine/Source/Common/Rva00552F2EHelpers.cpp,matched,
 ?set@Rva00552F6D@@QAEAAU1@PBDPBH@Z,,0x00552F6D,22,Code/GameEngine/Source/Common/Rva00552F2EHelpers.cpp,matched,
