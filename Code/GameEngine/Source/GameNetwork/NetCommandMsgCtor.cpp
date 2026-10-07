@@ -247,6 +247,25 @@ Rva004D59D1::Rva004D59D1() : NetCommandMsg()
 	m_commandType = (NetCommandType)8;
 }
 
+// ??0Rva004D5A10@@QAE@XZ @0x004D5A10 32B: calls base plus dword -1 at +0x1c via Or plus vtable 0x860284 plus type 7 plus dword 1 at +0x20.
+// Honest-address ctor; Or/Mov recipe; unblocks 0x004D00BB 0x0058E3F4.
+// Callers at 0x004D00E0 0x0058E419.
+class Rva004D5A10 : public NetCommandMsg
+{
+public:
+	Rva004D5A10();
+private:
+	unsigned int m_1c;
+	unsigned int m_20;
+};
+
+Rva004D5A10::Rva004D5A10() : NetCommandMsg()
+{
+	m_1c = (unsigned int)-1;
+	m_commandType = (NetCommandType)7;
+	m_20 = 1;
+}
+
 // ??0Rva004D5A30@@QAE@XZ @0x004D5A30 29B: calls base plus dword 0 at +0x1c via And plus dword 0 at +0x20 via And plus vtable 0x860294 plus type 9.
 // Honest-address ctor; same /O1 And recipe as siblings above; unblocks 0x0058E481 0x004CFD06.
 // Callers at 0x004CFDA2 0x0058E4A5.
