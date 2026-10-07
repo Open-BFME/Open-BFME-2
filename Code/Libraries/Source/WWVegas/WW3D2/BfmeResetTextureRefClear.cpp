@@ -24,6 +24,24 @@ void BfmeResetTextureRef::clear()
 	}
 }
 
+class Member0C00739C70
+{
+public:
+	void clear();
+};
+
+class Rva0004D754
+{
+public:
+	void clear();
+	Member0C00739C70 *m_ptr;
+};
+
+void Rva0004D754::clear()
+{
+	m_ptr->clear();
+}
+
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?clear@Rva00180023@@QAEXXZ=?clear@BfmeResetTextureRef@@QAEXXZ")

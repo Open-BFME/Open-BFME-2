@@ -59,3 +59,10 @@ void bfmeVectorDeleteAnchorV07()
 	new Snapshot[2];
 	new Xfer[2];
 }
+
+void Rva002253C2Init();
+
+void Rva0000179A()
+{
+	Rva002253C2Init();
+}

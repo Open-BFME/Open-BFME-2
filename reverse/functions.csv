@@ -67086,3 +67086,6 @@ _getinfo,,0x00747E00,679,Code/Libraries/Source/Lua/ldblib.c,matched,Lua 4.0.1 st
 ?rva005FFEE5@Rva005FFEE5@@QAEHABUTreeHintRef00217D4C@@@Z,,0x005FFEE5,8,Code/GameEngine/Source/Common/Rva005FFEE5Forward.cpp,matched,callers 0x005FB0CD 0x005FB39F 0x005FB574 prev 0x005FFED5 forwarder to rowed 0x005FFCCB
 ?rva00082C98@Rva00082C98Host@@QAEXIHHH@Z,,0x00082C98,73,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva00082C98Clamp.cpp,matched,finish stash 0.96 plus region flags via vector erase and helper pin
 ??1Rva001EB63C@@QAE@XZ,,0x001EB63C,78,Code/GameEngine/Source/Common/Rva001EB05EDtor.cpp,matched,chain via 0x001EB05E pins Rva001EB63C linkbonus
+?clear@Rva0004D754@@QAEXXZ,,0x0004D754,7,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRefClear.cpp,matched,forward clear to Member0C00739C70 at 0x00116760
+?Rva0000179A@@YAXXZ,,0x0000179A,5,Code/GameEngine/Source/Common/VectorDeletingDtorsV07.cpp,matched,5-byte thunk forwarding to Rva002253C2Init
+?dtor@Rva00001DACClass@@QAEXXZ,,0x00001DAC,5,Code/Libraries/Source/ATL/atlconv.cpp,matched,5-byte thunk forwarding to W3DRadarResetSurface destructor

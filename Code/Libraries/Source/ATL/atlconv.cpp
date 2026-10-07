@@ -319,3 +319,21 @@ template CW2AEX<128>::CW2AEX(LPCWSTR psz);
 template CW2AEX<128>::~CW2AEX();
 
 }
+
+class W3DRadarResetSurface
+{
+public:
+	~W3DRadarResetSurface();
+};
+
+class Rva00001DACClass
+{
+public:
+	void dtor();
+};
+
+void Rva00001DACClass::dtor()
+{
+	reinterpret_cast<W3DRadarResetSurface *>(this)->~W3DRadarResetSurface();
+}
+
