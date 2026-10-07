@@ -3,8 +3,8 @@
 //
 // BFME2's in-game player status / objectives screen (PlayerStatus.apt and
 // Objectives.apt share it): its constructor, which binds the callbacks of
-// AptPlayerStatusCallbacks.cpp by name, and the Apt queries that need an
-// EH frame. BFME 1's AptScreenFactories.cpp (0x0052C660) is the donor.
+// AptPlayerStatusCallbacks.cpp by name, and its extern query. BFME 1's
+// AptScreenFactories.cpp (0x0052C660) is the donor.
 
 #include <vector>
 #include "ascii_string.h"
@@ -20,14 +20,15 @@ private:
 	unsigned char m_pad004[0x218 - 4];
 };
 
-// The window manager's background switch (VA 0x00DFE4CC).
+// The Apt window manager (VA 0x00DFE4CC) and its background switch.
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+
 class Rva00222A8BTarget
 {
 public:
 	void rva002233A6(int mode);
 };
-
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // AptScoreScreenCallbacks.cpp).
@@ -134,7 +135,8 @@ private:
 };
 
 // The open player status screen (VA 0x00E04450).
-extern int g_Va00E04450;
+struct GlobalA04450;
+extern GlobalA04450 *g_Va00A04450;
 
 class GameWindow;
 
@@ -155,8 +157,8 @@ public:
 	// Unrowed 0x004E434C: "NumOfPlayers", "InSkirmish" and
 	// "AptObjectivesMenu::InputEnabled" by index, pinned by address.
 	void rva004E434C(int query, char *result, bool set);
-	// Unrowed 0x004E4553: "Objective%d", the row's objective text, pinned
-	// by address.
+	// "Objective%d", the row's objective text
+	// (AptPlayerStatusObjectiveText.cpp).
 	void rva004E4553(int row, char *result, bool set);
 
 private:
@@ -188,42 +190,11 @@ public:
 
 extern InGameUI *TheInGameUI;
 
-// The objectives (Rva0039B95FCount.cpp's g_00E031E8; its +0x10 list is
-// Rva0051C0E7Ctor.cpp's Rva004266A1, whose rowed 0x004267E9 returns an
-// objective's text).
-struct Rva0039B95FHolder;
-extern Rva0039B95FHolder *g_00E031E8;
-
-class Rva004266A1
-{
-public:
-	void *rva004267E9(int index);
-};
-
-struct AptPlayerStatusObjectives
-{
-	unsigned char m_pad00[0x10];
-	Rva004266A1 *m_list; // +0x10
-};
-
-// AptPlayerStatusCallbacks.cpp's row-to-objective map, pinned by address.
-int __cdecl Rva004E43F2(int row);
-
-// The string's buffer header (ascii_string.h: a count, the length, the
-// capacity, then the characters).
-struct AptPlayerStatusTextData
-{
-	int m_refCount;
-	unsigned short m_length; // +0x04
-	unsigned short m_capacity;
-	char m_chars[1]; // +0x08
-};
-
 // The extern queries' names, by index (0x00C621A8).
 static const char *const s_externNames[] = { "NumOfPlayers", "InSkirmish", "AptObjectivesMenu::InputEnabled" };
 
 // Retail 0x004E4A45, 954 bytes: the screen's constructor. The first one
-// opened becomes g_Va00E04450 and binds its callbacks by name under both
+// opened becomes g_Va00A04450 and binds its callbacks by name under both
 // screens' prefixes, the three extern queries, "Objective1".."12" with
 // their "Status" twins, "ScoreScreen:PlayerColor:0".."7", switches the
 // window manager's background and binds InitGadgets as its screen
@@ -233,9 +204,9 @@ AptPlayerStatus::AptPlayerStatus(void *context)
 	: _bfme_AptGameWindow(context),
 	  m_state(2)
 {
-	if (g_Va00E04450 != 0)
+	if (g_Va00A04450 != 0)
 		return;
-	g_Va00E04450 = (int)this;
+	g_Va00A04450 = (GlobalA04450 *)this;
 	memset(m_mute, 0, sizeof(m_mute));
 	memset(m_slot, 0, sizeof(m_slot));
 	{
@@ -293,7 +264,7 @@ AptPlayerStatus::AptPlayerStatus(void *context)
 			m_externHandlers.AddExternHandler(name, slot, AptRef<AptExternHandler>(binding));
 		}
 	}
-	TheRva00222A8BTarget->rva002233A6(2);
+	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva002233A6(2);
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptPlayerStatus::InitGadgets);
 		AsciiString screen("AptPlayerStatus::InitGadgets");
@@ -322,27 +293,6 @@ void AptPlayerStatus::rva004E434C(int query, char *result, bool set)
 		if (!set)
 			strcpy(result, TheGameLogic->m_gameMode != 6 || TheInGameUI->m_16 ? "1" : "0");
 		break;
-	}
-}
-
-// Retail 0x004E4553, 167 bytes: "Objective%d" for each of the twelve rows,
-// the row's objective text behind a '$' (empty otherwise).
-void AptPlayerStatus::rva004E4553(int row, char *result, bool set)
-{
-	result[0] = 0;
-	if (m_state == 0 && row >= 0 && row < 12 && !set)
-	{
-		AsciiString text;
-		int index = Rva004E43F2(row);
-		Rva004266A1 *list;
-		if (index >= 0 && g_00E031E8 && (list = ((AptPlayerStatusObjectives *)g_00E031E8)->m_list) != 0)
-			text = *(const AsciiString *)list->rva004267E9(index);
-		const AptPlayerStatusTextData *data = *(AptPlayerStatusTextData *const *)&text;
-		if (data && data->m_length && data->m_length + 2 < 255)
-		{
-			result[0] = '$';
-			strcpy(result + 1, data->m_chars);
-		}
 	}
 }
 
