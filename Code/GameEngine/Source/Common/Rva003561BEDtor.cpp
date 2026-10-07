@@ -46,16 +46,18 @@ public:
 	virtual void slot68();
 #undef DISPLAY_SLOT
 };
-struct Display : W3DDisplay { };
+class Display : public W3DDisplay { };
 extern Display *TheDisplay;
 
-struct GameLogic {
+class GameLogic {
+	public:
 	unsigned char unknown[0x78];
 	unsigned char field78;
 };
 extern GameLogic *TheGameLogic;
 
-struct Shell {
+class Shell {
+	public:
 	void rva0035C7CF(bool);
 };
 extern Shell *TheShell;
