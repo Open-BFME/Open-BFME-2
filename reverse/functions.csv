@@ -66860,3 +66860,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?DivideInternalFPF@@YAXPAUInternalFPF@@00@Z,,0x006B97F0,801,Code/Libraries/Source/Benchmark/emfloat.cpp,matched,BYTEmark emfloat.c static; identity from REL32 pin and matched SetupCPUEmFloatArrays/DoEmFloatIteration callers; 801B through nop plus 9-entry jump table and 25-byte case index; inlined locx zero test uses IsMantissaZeroOrdered (index table 0/2/1/3) to keep retail's OR order
 ?Rva000032B8@@YANM@Z,,0x000032B8,17,Code/Libraries/Source/ATL/AtlMathWrappers.cpp,matched,address named wrapper byte matches retail
 ?Rva000032C9@@YANM@Z,,0x000032C9,17,Code/Libraries/Source/ATL/AtlMathWrappers.cpp,matched,address named wrapper byte matches retail
+?rva001089EA@Rva001089EA@@QAEXHPAM0@Z,,0x001089EA,33,Code/GameEngine/Source/Common/Rva001089EAGetOffsets.cpp,matched,address-derived indexed lookup copies entry floats to outputs
