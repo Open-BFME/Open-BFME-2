@@ -50,6 +50,10 @@ int CommUDPResolve(void *ref, const char *addr, char *buffer, int length, char d
 	return -1;
 }
 
+extern "C" void Rva00817230(void)
+{
+}
+
 // Hands a datagram to the socket layer, logging "CommUDPWrite: SocketSendto
 // returned %d" on the way out.
 int CommUDPWrite(void *ref, void *packet)

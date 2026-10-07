@@ -67456,3 +67456,6 @@ _Rva00177F34,,0x00177F34,78,Code/GameEngine/Source/Common/Rva00177F34.cpp,matche
 ?rva004E4553@AptPlayerStatus@@QAEXHPAD_N@Z,,0x004E4553,167,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusObjectiveText.cpp,matched,AptPlayerStatus row handler via Rva004E43F2 and g_00E031E8 text
 ?Rva001DFC2AParse@@YAXPAVINI@@PAX1PBX@Z,,0x001DFC2A,168,Code/GameEngine/Source/Common/INI/INIThinFieldParsers4.cpp,matched,REF table Color R G B 1/255 parseRGBColor shape bound -255
 ??1Rva0004D729@@QAE@XZ,,0x0004D754,7,Code/Libraries/Source/WWVegas/WW3D2/Rva0004D729.cpp,matched,lock-rect helper destructor tail jumps to rowed clear 0x00116760
+_Rva008118E0,,0x0067D7E0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,empty Gamespy table stub shared with BFME1
+_Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,empty CommUDP stub shared with BFME1
+?Rva008062C0@@YAXXZ,,0x00672300,5,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,matched,empty ProtoMangle stub shared with BFME1

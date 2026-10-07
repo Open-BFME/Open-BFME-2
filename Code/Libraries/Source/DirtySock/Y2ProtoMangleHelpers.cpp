@@ -292,6 +292,10 @@ void Rva00804630HttpGet( Rva008042B0Http *http, const char *host, int port,
 	Rva008046E0HttpRequest( http, host, port, query );
 }
 
+void Rva008062C0( void )
+{
+}
+
 void Rva00804550RequestPeerAddress( Rva00804150ProtoMangleRef *ref )
 {
 	char strUrl[ 0x100 ];

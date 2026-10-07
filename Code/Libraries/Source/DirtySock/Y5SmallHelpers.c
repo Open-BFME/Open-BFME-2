@@ -833,6 +833,11 @@ void Rva008118C0(void *table)
 	(void)table;
 }
 
+void Rva008118E0(void *table)
+{
+	(void)table;
+}
+
 /*
  * These unresolved data references are witnessed by DIR32 relocations in
  * Y5SmallHelpers' matched bytes.  Initializers are the retail .data bytes;
