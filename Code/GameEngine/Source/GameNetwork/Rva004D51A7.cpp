@@ -15,7 +15,8 @@ struct SlotVals
 class Transport
 {
 public:
-	void clearSlot_Rva004D5133(unsigned short index);
+	// Native calls target the verified TransportUpdate.cpp slot-removal provider.
+	void RemoveSocketForSlot(unsigned short index);
 	void rva004D51A7(void *obj, unsigned short index, int *vals);
 
 private:
@@ -32,7 +33,7 @@ void Transport::rva004D51A7(void *obj, unsigned short index, int *vals)
 {
 	if (index >= 8)
 		return;
-	clearSlot_Rva004D5133(index);
+	RemoveSocketForSlot(index);
 	m_slots[index].m_obj = obj;
 	m_slots[index].m_pair = *(SlotVals *)vals;
 }

@@ -35,7 +35,8 @@ class Transport
 {
 public:
 	bool rva004D53B5(void *addr);
-	void clearSlot_Rva004D5133(unsigned short index);
+	// Native calls target the verified TransportUpdate.cpp slot-removal provider.
+	void RemoveSocketForSlot(unsigned short index);
 private:
 	TransportMessage m_outBuffer[128];
 	TransportMessage m_inBuffer[128];
@@ -75,7 +76,7 @@ bool Transport::rva004D53B5(void *addr)
 	m_flag40E00 = false;
 	m_ptr40E04 = addr;
 	for (int i = 0; i < 8; ++i)
-		clearSlot_Rva004D5133((unsigned short)i);
+		RemoveSocketForSlot((unsigned short)i);
 	for (int i = 0; i < 128; ++i)
 	{
 		m_outBuffer[i].m_length = 0;

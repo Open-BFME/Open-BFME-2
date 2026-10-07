@@ -35,7 +35,8 @@ class Transport
 public:
 	Transport(void);
 	~Transport(void);
-	void clearSlot_Rva004D5133(unsigned short index);
+	// Native calls target the verified TransportUpdate.cpp slot-removal provider.
+	void RemoveSocketForSlot(unsigned short index);
 	void Rva004D5496(void);
 	bool allowBroadcasts(bool);
 	void clearBuffer_Rva004D4A59(void);
@@ -79,7 +80,7 @@ Rva004D4A80Slot::Rva004D4A80Slot(void)
 void Transport::Rva004D5496(void)
 {
 	for (int i = 0; i < 8; ++i)
-		clearSlot_Rva004D5133((unsigned short)i);
+		RemoveSocketForSlot((unsigned short)i);
 	if (m_winsockActive) {
 		WSACleanup();
 		m_winsockActive = false;
