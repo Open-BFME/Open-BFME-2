@@ -1,5 +1,5 @@
 // ?loadFromDict@TeamTemplateInfo@@QAEXPAVDict@@@Z
-// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /DBFME_ASCII_KEEP_COPY_SET_BODY /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 // TeamTemplateInfo dictionary loader, RVA 0x0039FEBB..0x003A0CD1, 3606 bytes.
 // Reference semantic guide: open-bfme-1 d6db6bfa4fd3bd86c1d7ca4a5ab882d7c453a92c,
 // game/GameEngine/Source/Common/RTS/TeamTemplateInfoConstructor.cpp.

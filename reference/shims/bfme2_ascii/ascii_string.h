@@ -136,7 +136,15 @@ public:
 	}
 	void clear();
 	void set(const char *s);
+	#if defined(BFME_ASCII_KEEP_COPY_SET_BODY)
+	// These callers require the original class method surface for exact codegen;
+	// their verified objects emit no public copy-set COMDAT.
 	void set(const AsciiString &s) { ((StringBase<char> *)this)->set(*(const StringBase<char> *)&s); }
+#else
+	// The public spelling folds to StringBase<char>::set at RVA 0x366F0.
+	void set(const AsciiString &s);
+	__forceinline void setCopyInline(const AsciiString &s) { ((StringBase<char> *)this)->set(*(const StringBase<char> *)&s); }
+#endif
 	// Retail call sites pin this spelling to the same 37-byte worker as
 	// StringBase<char>::concat(const char *) at RVA 0x00005629.
 	void concat(const char *s);

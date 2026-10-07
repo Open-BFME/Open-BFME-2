@@ -57,13 +57,11 @@ public:
     AsciiString(const AsciiString &other)
         : StringBase<char>(other) {}
     ~AsciiString();
-    void set(const AsciiString &other)
-    {
-        StringBase<char>::set(other);
-    }
+    // Public copy-set uses the existing folded StringBase worker.
+    void set(const AsciiString &other);
     AsciiString &operator=(const AsciiString &other)
     {
-        set(other);
+        StringBase<char>::set(other);
         return *this;
     }
     // No AsciiString::compare here: retail's comparator calls the shared

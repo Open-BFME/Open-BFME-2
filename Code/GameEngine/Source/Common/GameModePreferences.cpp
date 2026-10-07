@@ -532,7 +532,7 @@ void GameModePreferences::rva0044DD1E(Int val)
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 void GameModePreferences::rva0044DD83(AsciiString val)
 {
-	(*this)[makeKey("Map")].set(AsciiStringToQuotedPrintable(val));
+	(*this)[makeKey("Map")].setCopyInline(AsciiStringToQuotedPrintable(val));
 }
 
 // ?rva0044DDFB@GameModePreferences@@QAEXPAH@Z @0x0044DDFB (95B): Rules setter

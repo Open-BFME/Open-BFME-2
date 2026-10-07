@@ -63,7 +63,7 @@ public:
 void FirewallHelperClass::flagNeedToRefresh(Bool flag)
 {
 	OptionPreferences prefs;
-	(prefs)["FirewallNeedToRefresh"].set(flag ? AsciiString("TRUE") : AsciiString("FALSE"));
+	(prefs)["FirewallNeedToRefresh"].setCopyInline(flag ? AsciiString("TRUE") : AsciiString("FALSE"));
 	prefs.write();
 }
 

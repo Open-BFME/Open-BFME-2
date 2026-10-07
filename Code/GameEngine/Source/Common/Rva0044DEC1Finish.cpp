@@ -121,9 +121,9 @@ AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 // same quoted-printable store under the "GameName" key.
 void GameModePreferences::rva0044DE5A(const AsciiString &val)
 {
-	(*this)[makeKey("GameName")].set(AsciiStringToQuotedPrintable(val));
+	(*this)[makeKey("GameName")].setCopyInline(AsciiStringToQuotedPrintable(val));
 }
 void GameModePreferences::rva0044DEC1(const AsciiString &val)
 {
-	(*this)[makeKey("Password")].set(AsciiStringToQuotedPrintable(val));
+	(*this)[makeKey("Password")].setCopyInline(AsciiStringToQuotedPrintable(val));
 }

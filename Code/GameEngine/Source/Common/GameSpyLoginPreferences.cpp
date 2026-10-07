@@ -336,8 +336,8 @@ void GameSpyLoginPreferences::rva005CACDE(AsciiString email, AsciiString nick, A
 {
 	if (_STL::find(m_emailNickMap[email].begin(), m_emailNickMap[email].end(), nick) == m_emailNickMap[email].end())
 		m_emailNickMap[email].push_back(nick);
-	m_emailPasswordMap[email].set(pass);
-	m_emailDateMap[email].set(date);
+	m_emailPasswordMap[email].setCopyInline(pass);
+	m_emailDateMap[email].setCopyInline(date);
 }
 
 void GameSpyLoginPreferences::rva005CABF9(AsciiString email)

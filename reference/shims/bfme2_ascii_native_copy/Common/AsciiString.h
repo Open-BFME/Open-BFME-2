@@ -1,3 +1,6 @@
+// Frozen from Open-BFME-1 968ca36c3265b295297e6aed45a6bd89ffe59c40,
+// inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h.
+// Preserve all other declarations and inline bodies.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -44,12 +47,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-
-// BFME shim (TU-scoped, reference/shims/zh_ascii_outofline): Zero Hour's Common/AsciiString.h,
-// verbatim except that clear(), set(const char*) and concat(const char*) are declared, not
-// defined. Retail has no AsciiString copy of them: each is the StringBase<char> body it folds to
-// (0x00036410, 0x000055F5, 0x00005629; /alternatename in string_base.cpp). The inline copies
-// offered the link a second, non-retail body.
 
 #ifndef ASCIISTRING_H
 #define ASCIISTRING_H
@@ -448,7 +445,12 @@ inline Bool AsciiString::isEmpty() const
 }
 
 // -----------------------------------------------------
-// OUT OF LINE: AsciiString::clear() folds to a StringBase<char> body in retail (symbols.csv pin)
+inline void AsciiString::clear()
+{
+	validate();
+	releaseBuffer();
+	validate();
+}
 
 // -----------------------------------------------------
 inline char AsciiString::getCharAt(int index) const
@@ -471,7 +473,23 @@ inline const char* AsciiString::str() const
 // RVA 0x366F0 through the established AsciiString::set link binding.
 
 // -----------------------------------------------------
-// OUT OF LINE: AsciiString::set(const char* s) folds to a StringBase<char> body in retail (symbols.csv pin)
+inline void AsciiString::set(const char* s)
+{
+	validate();
+	if (!m_data || s != peek())
+	{
+		int len = s ? strlen(s) : 0;
+		if (len)
+		{
+			ensureUniqueBufferOfSize(len + 1, false, s, NULL);
+		}
+		else
+		{
+			releaseBuffer();
+		}
+	}
+	validate();
+}
 
 // -----------------------------------------------------
 inline AsciiString& AsciiString::operator=(const AsciiString& stringSrc)
@@ -492,10 +510,31 @@ inline AsciiString& AsciiString::operator=(const char* s)
 }
 
 // -----------------------------------------------------
-// OUT OF LINE: AsciiString::concat(const char* s) folds to a StringBase<char> body in retail (symbols.csv pin)
+inline void AsciiString::concat(const char* s)
+{
+	validate();
+	int addlen = strlen(s);
+	if (addlen == 0)
+		return;	// my, that was easy
+
+	if (m_data)
+	{
+		ensureUniqueBufferOfSize(getLength() + addlen + 1, true, NULL, s);
+	}
+	else
+	{
+		set(s);
+	}
+	validate();
+}
 
 // -----------------------------------------------------
-// OUT OF LINE: AsciiString::concat(const AsciiString&) folds to StringBase<char>::concat 0x00006987 (alias in string_base.cpp)
+inline void AsciiString::concat(const AsciiString& stringSrc)
+{
+	validate();
+	concat(stringSrc.str());
+	validate();
+}
 
 // -----------------------------------------------------
 inline void AsciiString::concat(const char c)
