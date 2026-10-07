@@ -42,3 +42,20 @@ public:
     void assign(const Rva00210CA2Record *source);
 };
 void Rva00210CA2::assign(const Rva00210CA2Record *source) { value=*source; }
+
+// Native0052AF5F..0052AF70, complete17-byte three-word copy with RET4.
+// Separate Ghidra entry begins52AF5F after the preceding constructor's RET4;
+// the following getter starts52AF70. No direct REL32 call/jump was found.
+// ECX destination+18 and the stack source argument establish thiscall copy
+// ABI. Words are opaque representation: original record/receiver names,
+// signedness, and relationships to neighboring Palantir payloads are unknown.
+// This uses the verified field-copy pattern of this unit; no donor name is
+// promoted merely from its similar instructions, and it introduces no callee.
+struct Rva0052AF5FRecord { unsigned int words[3]; };
+class Rva0052AF5F {
+    char m_pad[0x18];
+    Rva0052AF5FRecord value;
+public:
+    void assign(const Rva0052AF5FRecord *source);
+};
+void Rva0052AF5F::assign(const Rva0052AF5FRecord *source) { value=*source; }
