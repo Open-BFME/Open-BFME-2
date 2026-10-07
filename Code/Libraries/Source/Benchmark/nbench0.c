@@ -54,62 +54,39 @@
 #include "nbench0.h"
 #include "hardware.h"
 
-/*************
-**** main ****
-*************/
-#ifdef MAC
-void main(void)
-#else
-int nbench_main(int argc, char *argv[])
-#endif
+/*******************
+**** RunBenchmark ****
+********************
+** BFME local delta (EA): the game runs BYTEmark through this entry point
+** instead of main() (Zero Hour's benchmark.h declares it; W3DShaderManager
+** calls it with no arguments and three result pointers).  It raises the
+** process and thread priority for the run, keeps only the Linux-style memory,
+** integer and floating-point indexes, and prints nothing but the confidence
+** warnings.  BFME 2 retail 0x006B3640 (673 bytes).
+*/
+extern "C" int RunBenchmark(int argc, char *argv[], float *floatResult,
+	float *intResult, float *memResult)
 {
 int i;                  /* Index */
-time_t time_and_date;   /* Self-explanatory */
-struct tm *loctime;
 double bmean;           /* Benchmark mean */
 double bstdev;          /* Benchmark stdev */
 double lx_memindex;     /* Linux memory index (mainly integer operations)*/
 double lx_intindex;     /* Linux integer index */
 double lx_fpindex;      /* Linux floating-point index */
-double intindex;        /* Integer index */
-double fpindex;         /* Floating-point index */
 ulong bnumrun;          /* # of runs */
+unsigned long priority_class;
+int thread_priority;
 
-#ifdef MAC
-        MaxApplZone();
-#endif
-
-#ifdef MACTIMEMGR
-/* Set up high res timer */
-MacHSTdelay=600*1000*1000;      /* Delay is 10 minutes */
-
-memset((char *)&myTMTask,0,sizeof(TMTask));
-
-/* Prime and remove the task, calculating overhead */
-PrimeTime((QElemPtr)&myTMTask,-MacHSTdelay);
-RmvTime((QElemPtr)&myTMTask);
-MacHSTohead=MacHSTdelay+myTMTask.tmCount;
-#endif
-
-#ifdef WIN31TIMER
-/* Set up the size of the timer info structure */
-win31tinfo.dwSize=(DWORD)sizeof(TIMERINFO);
-/* Load library */
-if((hThlp=LoadLibrary("TOOLHELP.DLL"))<32)
-{       printf("Error loading TOOLHELP\n");
-        exit(0);
-}
-if(!(lpfn=GetProcAddress(hThlp,"TimerCount")))
-{       printf("TOOLHELP error\n");
-        exit(0);
-}
-#endif
+priority_class=GetPriorityClass(GetCurrentProcess());
+thread_priority=GetThreadPriority(GetCurrentThread());
+SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS);
+SetThreadPriority(GetCurrentThread(),THREAD_PRIORITY_HIGHEST);
 
 /*
 ** Set global parameters to default.
 */
 global_min_ticks=MINIMUM_TICKS;
-global_min_seconds=MINIMUM_SECONDS;
+global_min_seconds=1;
 global_allstats=0;
 global_custrun=0;
 global_align=8;
@@ -117,8 +94,6 @@ write_to_file=0;
 lx_memindex=(double)1.0;        /* set for geometric mean computations */
 lx_intindex=(double)1.0;
 lx_fpindex=(double)1.0;
-intindex=(double)1.0;
-fpindex=(double)1.0;
 mem_array_ents=0;               /* Nothing in mem array */
 
 /*
@@ -126,9 +101,7 @@ mem_array_ents=0;               /* Nothing in mem array */
 ** otherwise
 */
 for(i=0;i<NUMTESTS;i++)
-		tests_to_do[i]=1;
-
-		//tests_to_do[0]=0;
+	tests_to_do[i]=1;
 
 /*
 ** Initialize test data structures to default
@@ -162,115 +135,28 @@ global_nnetstruct.adjust=0;
 global_lustruct.adjust=0;
 
 /*
-** For Macintosh -- read the command line.
-*/
-#ifdef MAC
-UCommandLine();
-#endif
-
-/*
-** Handle any command-line arguments.
-*/
-if(argc>1)
-        for(i=1;i<argc;i++)
-                if(parse_arg(argv[i])==-1)
-                {       display_help(argv[0]);
-                        exit(0);
-                }
-/*
-** Output header
-*/
-#ifdef LINUX
-output_string("\nBYTEmark* Native Mode Benchmark ver. 2 (10/95)\n");
-output_string("Index-split by Andrew D. Balsa (11/97)\n");
-output_string("Linux/Unix* port by Uwe F. Mayer (12/96,11/97)\n");
-#else
-output_string("BBBBBB   YYY   Y  TTTTTTT  EEEEEEE\n");
-output_string("BBB   B  YYY   Y    TTT    EEE\n");
-output_string("BBB   B  YYY   Y    TTT    EEE\n");
-output_string("BBBBBB    YYY Y     TTT    EEEEEEE\n");
-output_string("BBB   B    YYY      TTT    EEE\n");
-output_string("BBB   B    YYY      TTT    EEE\n");
-output_string("BBBBBB     YYY      TTT    EEEEEEE\n\n");
-output_string("\nBYTEmark (tm) Native Mode Benchmark ver. 2 (10/95)\n");
-#endif
-/*
-** See if the user wants all stats.  Output heading info
-** if so.
-*/
-if(global_allstats)
-{
-                output_string("\n");
-                output_string("============================== ALL STATISTICS ===============================\n");
-        time(&time_and_date);
-        loctime=localtime(&time_and_date);
-        sprintf(buffer,"**Date and time of benchmark run: %s",asctime(loctime));
-        output_string(buffer);
-        sprintf(buffer,"**Sizeof: char:%u short:%u int:%u long:%u u8:%u u16:%u u32:%u int32:%u\n",
-                (unsigned int)sizeof(char),
-                (unsigned int)sizeof(short),
-                (unsigned int)sizeof(int),
-                (unsigned int)sizeof(long),
-                (unsigned int)sizeof(u8),
-                (unsigned int)sizeof(u16),
-                (unsigned int)sizeof(u32),
-                (unsigned int)sizeof(int32));
-        output_string(buffer);
-#ifdef LINUX
-#include "sysinfo.c"
-#else
-        sprintf(buffer,"**%s\n",sysname);
-        output_string(buffer);
-        sprintf(buffer,"**%s\n",compilername);
-        output_string(buffer);
-        sprintf(buffer,"**%s\n",compilerversion);
-        output_string(buffer);
-#endif
-                output_string("=============================================================================\n");
-}
-
-/*
 ** Execute the tests.
 */
-#ifdef LINUX
-output_string("\nTEST                : Iterations/sec.  : Old Index   : New Index\n");
-output_string("                    :                  : Pentium 90* : AMD K6/233*\n");
-output_string("--------------------:------------------:-------------:------------\n");
-#endif
-
 for(i=0;i<NUMTESTS;i++)
 {
-        if(tests_to_do[i])
-        {       sprintf(buffer,"%s    :",ftestnames[i]);
-                                output_string(buffer);
-                if (0!=bench_with_confidence(i,
-                        &bmean,
-                        &bstdev,
-                        &bnumrun)){
+	if(tests_to_do[i])
+	{
+		if (0!=bench_with_confidence(i,
+			&bmean,
+			&bstdev,
+			&bnumrun)){
 		  output_string("\n** WARNING: The current test result is NOT 95 % statistically certain.\n");
 		  output_string("** WARNING: The variation among the individual results is too large.\n");
 		  output_string("                    :");
 		}
-#ifdef LINUX
-                sprintf(buffer," %15.5g  :  %9.2f  :  %9.2f\n",
-                        bmean,bmean/bindex[i],bmean/lx_bindex[i]);
-#else
-		sprintf(buffer,"  Iterations/sec.: %13.2f  Index: %6.2f\n",
-                        bmean,bmean/bindex[i]);
-#endif
-                output_string(buffer);
 		/*
 		** Gather integer or FP indexes
 		*/
 		if((i==4)||(i==8)||(i==9)){
-		  /* FP index */
-		  fpindex=fpindex*(bmean/bindex[i]);
 		  /* Linux FP index */
 		  lx_fpindex=lx_fpindex*(bmean/lx_bindex[i]);
 		}
 		else{
-		  /* Integer index */
-		  intindex=intindex*(bmean/bindex[i]);
 		  if((i==0)||(i==3)||(i==6)||(i==7))
 		    /* Linux integer index */
 		    lx_intindex=lx_intindex*(bmean/lx_bindex[i]);
@@ -278,60 +164,22 @@ for(i=0;i<NUMTESTS;i++)
 		    /* Linux memory index */
 		    lx_memindex=lx_memindex*(bmean/lx_bindex[i]);
 		}
-
-                if(global_allstats)
-                {
-                        sprintf(buffer,"  Absolute standard deviation: %g\n",bstdev);
-                        output_string(buffer);
-			if (bmean>(double)1e-100){
-			  /* avoid division by zero */
-			  sprintf(buffer,"  Relative standard deviation: %g %%\n",
-				  (double)100*bstdev/bmean);
-			  output_string(buffer);
-			}
-                        sprintf(buffer,"  Number of runs: %lu\n",bnumrun);
-                        output_string(buffer);
-                        show_stats(i);
-                        sprintf(buffer,"Done with %s\n\n",ftestnames[i]);
-                        output_string(buffer);
-                }
-        }
+	}
 }
-/* printf("...done...\n"); */
 
 /*
-** Output the total indexes
+** Hand back the Linux-style indexes.
 */
-if(1)//global_custrun==1)
+if(global_custrun==0)
 {
-        output_string("==========================ORIGINAL BYTEMARK RESULTS==========================\n");
-        sprintf(buffer,"INTEGER INDEX       : %.3f\n",
-                       pow(intindex,(double).142857));
-        output_string(buffer);
-        sprintf(buffer,"FLOATING-POINT INDEX: %.3f\n",
-                        pow(fpindex,(double).33333));
-        output_string(buffer);
-        output_string("Baseline (MSDOS*)   : Pentium* 90, 256 KB L2-cache, Watcom* compiler 10.0\n");
-#ifdef LINUX
-        output_string("==============================LINUX DATA BELOW===============================\n");
-	hardware(write_to_file, global_ofile);
-#include "sysinfoc.c"
-        sprintf(buffer,"MEMORY INDEX        : %.3f\n",
-                       pow(lx_memindex,(double).3333333333));
-        output_string(buffer);
-        sprintf(buffer,"INTEGER INDEX       : %.3f\n",
-                       pow(lx_intindex,(double).25));
-        output_string(buffer);
-        sprintf(buffer,"FLOATING-POINT INDEX: %.3f\n",
-                        pow(lx_fpindex,(double).3333333333));
-        output_string(buffer);
-        output_string("Baseline (LINUX)    : AMD K6/233*, 512 KB L2-cache, gcc 2.7.2.3, libc-5.4.38\n");
-#endif
-output_string("* Trademarks are property of their respective holder.\n");
+	*memResult=(float)pow(lx_memindex,(double).3333333333);
+	*intResult=(float)pow(lx_intindex,(double).25);
+	*floatResult=(float)pow(lx_fpindex,(double).3333333333);
 }
 
-//exit(0);
-return 0;
+SetThreadPriority(GetCurrentThread(),thread_priority);
+SetPriorityClass(GetCurrentProcess(),priority_class);
+return 1;
 }
 
 /**************
