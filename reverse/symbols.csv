@@ -15399,3 +15399,7 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?findTOCEntryByName@GameLogic@@QAEPAUObjectTOCEntry@@VAsciiString@@@Z,0x00240167,ZH GameLogic::findTOCEntryByName: circular search of the TOC list at this+0x1C0 by name; read from the REL32 at xferObjectTOC 0x00245FE5
 ??0HRawAnimClass@@QAE@XZ,0x0018D2A0,callee of ?Rva0014D078_LoadAnim@Rva0014CD63_Prototype@@QAEXXZ
 ?Load_W3D@HCompressedAnimClass@@QAEHAAVChunkLoadClass@@@Z,0x0018FE90,callee of ?Rva0014D078_LoadAnim@Rva0014CD63_Prototype@@QAEXXZ
+??0Rva0007BB16Record@@QAE@XZ,0x00151597,callee of ?Load@Impl@FXShaderAsset@@QAEXPBD@Z
+?SetType@Rva0007BB16Record@@QAEXI@Z,0x002B230F,callee of ?Load@Impl@FXShaderAsset@@QAEXPBD@Z
+_D3DXCreateEffect@36,0x0062AFB0,callee of ?Load@Impl@FXShaderAsset@@QAEXPBD@Z
+_D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAEXPBD@Z
