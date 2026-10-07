@@ -67690,3 +67690,9 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?doSend@Connection@@QAEI_N@Z,,0x0058BB5C,499,Code/GameEngine/Source/GameNetwork/Connection_doSend.cpp,matched,BFME1 donor Connection_doSend.cpp plus BFME2 retire test on TheGameLogic+0x38/+0x40 vs run-ahead slack; callers flush/update; doRetryMetrics called not inlined
 ?rva0058B8BA@NetCommandRef@@QAE?AVAsciiString@@XZ,,0x0058B8BA,142,Code/GameEngine/Source/GameNetwork/NetCommandRefContents.cpp,matched,NetCommandRef contents string %s relay=0x%X over m_msg slot-3 getContentsAsAsciiString plus relay +0xC; donor shape BFME1 BfmeOrderDescribeZT.cpp
 ?sendNetCommandMsg@Connection@@QAEXPAVNetCommandMsg@@E@Z,,0x0058BDFA,430,Code/GameEngine/Source/GameNetwork/Connection_sendNetCommandMsg.cpp,matched,BFME1 donor Connection_sendNetCommandMsg.cpp plus BFME2 constructGameMessage for type 4; /EHs for the list dtor state reset; list<NetPacket*> base dtor proven as the list<int> fold
+??1Rva005F8F5A@@UAE@XZ,,0x005F8F5A,5,Code/GameEngine/Source/Common/OpaqueThunkDtorsB18.cpp,matched,novtable empty dtor jmp rowed base 0x005FE7FA via caller 0x005F8F3E
+??1Rva005F8F7B@@UAE@XZ,,0x005F8F7B,5,Code/GameEngine/Source/Common/OpaqueThunkDtorsB18.cpp,matched,novtable empty dtor jmp rowed base 0x005FE750 via caller 0x005F8F5F
+??1Rva005FA141@@UAE@XZ,,0x005FA141,5,Code/GameEngine/Source/Common/OpaqueThunkDtorsB18.cpp,matched,novtable empty dtor jmp rowed base 0x005F8FEE via caller 0x005FA125
+??1Rva005FCFE5@@UAE@XZ,,0x005FCFE5,5,Code/GameEngine/Source/Common/OpaqueThunkDtorsB18.cpp,matched,novtable empty dtor jmp rowed base 0x005FCF0E via caller 0x005FCFC9
+??1Rva005FED4D@@UAE@XZ,,0x005FED4D,5,Code/GameEngine/Source/Common/OpaqueThunkDtorsB18.cpp,matched,novtable empty dtor jmp rowed base 0x005FF95C via caller 0x005FEDB1
+??1Rva00600379@@UAE@XZ,,0x00600379,5,Code/GameEngine/Source/Common/OpaqueThunkDtorsB18.cpp,matched,novtable empty dtor jmp rowed base 0x00600084 via caller 0x006003D3
