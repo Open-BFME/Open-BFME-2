@@ -67258,3 +67258,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva003EE083@Rva003EE083@@QAEPAXABVAsciiString@@@Z,,0x003EE083,76,Code/GameEngine/Source/Common/Rva003EE083Lookup.cpp,matched,caller and rowed BitRange string getter
 ??1Rva004D759C@@UAE@XZ,,0x004D759C,139,Code/GameEngine/Source/Common/Rva004D759CDtor.cpp,matched,ctor vtable and donor state cleanup semantics with target layout
 ?rva0021F797@CreateAHeroManager@@QAEPAVRva0040A3F9@@XZ,,0x0021F797,16,Code/GameEngine/Source/Common/CreateAHeroManagerList.cpp,matched,same-this CRC call and returned manager offset 0x174
+?Rva003BB898@@YGX_N0@Z,,0x003BB898,85,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBE91.cpp,matched,adjacent TacticalView table calls and byte argument use address identity retained
