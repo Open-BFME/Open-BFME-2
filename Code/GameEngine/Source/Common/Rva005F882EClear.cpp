@@ -56,3 +56,23 @@ void Rva005F882E::rva005F882E()
 	_STL::vector<Rva005F8620Element, _STL::allocator<Rva005F8620Element> > &vec = m_vec;
 	vec.erase(vec.begin(), vec.end());
 }
+
+// ?rva005F884D@Rva005F884D@@QAEXXZ @0x005F884D 8 bytes.
+// Chain thunk: loads Rva005F882E* at +4 then tail-jumps to its clear.
+// Evidence: packet mov ecx,[ecx+4] then jmp to rowed 0x005F882E;
+// caller 0x005E8EF2 sets ecx=esi+8 then calls here; sibling forwarder
+// Rva005E88DDForwarder.cpp shows the same mov-then-jmp shape.
+class Rva005F884D
+{
+public:
+	void rva005F884D();
+
+private:
+	char m_pad00[4];
+	Rva005F882E *m_ptr;
+};
+
+void Rva005F884D::rva005F884D()
+{
+	m_ptr->rva005F882E();
+}
