@@ -68175,3 +68175,7 @@ uw_0076892b,,0x0076892B,11,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matche
 ?rva006026A0@Rva006026E0@@QAEHXZ,,0x006026A0,26,Code/GameEngine/Source/Common/Rva006026E0Cluster.cpp,matched,flagged pointer-field getter sibling of 0x006027F0
 ?rva006027B0@Rva006026E0@@QAEHXZ,,0x006027B0,26,Code/GameEngine/Source/Common/Rva006026E0Cluster.cpp,matched,flagged pointer-field getter sibling of 0x006027F0
 ?rva00602870@Rva006026E0@@QAEHXZ,,0x00602870,26,Code/GameEngine/Source/Common/Rva006026E0Cluster.cpp,matched,flagged pointer-field getter sibling of 0x006027F0
+?rva005D3F8D@Rva005D3F93@@QBEEXZ,,0x005D3F8D,6,Code/GameEngine/Source/Common/Rva005D3F93BitSetter.cpp,matched,
+?rva005D3FB4@Rva005D3FBD@@QBEEXZ,,0x005D3FB4,9,Code/GameEngine/Source/Common/Rva005D3FBDBitSetter.cpp,matched,
+?rva002D2C12@Rva005248D0@@QBEEXZ,,0x002D2C12,6,Code/GameEngine/Source/Common/Rva002D2C12BitGetters.cpp,matched,
+?rva002D2C18@Rva005248D0@@QBEEXZ,,0x002D2C18,9,Code/GameEngine/Source/Common/Rva002D2C12BitGetters.cpp,matched,
