@@ -40,3 +40,15 @@ Rva00126350 &Rva00126350::operator=(const Rva00126350 &other)
 	}
 	return *this;
 }
+
+class Rva00126399
+{
+public:
+	const Rva00126399 &operator=(const Rva00126399 &other);
+};
+
+const Rva00126399 &Rva00126399::operator=(const Rva00126399 &other)
+{
+	return (const Rva00126399 &)((RefCountPtr<TextureClass> *)this)->operator=(*(const RefCountPtr<TextureClass> *)&other);
+}
+

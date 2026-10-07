@@ -63,3 +63,15 @@ void bfmeEmitstlport_vector_rva0007bb16_destroy(Rva0007BB16Record *p)
 	_STL::_Destroy(p, p + 1);
 }
 #pragma inline_depth()
+
+class Rva0007C632Dtor
+{
+public:
+	~Rva0007C632Dtor();
+};
+
+Rva0007C632Dtor::~Rva0007C632Dtor()
+{
+	((_STL::vector<Rva0007BB16Record> *)this)->~vector();
+}
+

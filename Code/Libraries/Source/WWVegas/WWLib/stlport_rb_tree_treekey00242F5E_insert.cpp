@@ -26,3 +26,38 @@ public:
 template _STL::pair<TreeKey00242F5ESetTree::iterator, bool> TreeKey00242F5ESetTree::insert_unique(const TreeKey00242F5ESetTree::value_type &);
 typedef _STL::set<TreeKey00242F5E, Rva000A7AA7Less, _STL::allocator<TreeKey00242F5E> > TreeKey00242F5ESet;
 template _STL::pair<TreeKey00242F5ESet::iterator, bool> TreeKey00242F5ESet::insert(const TreeKey00242F5ESet::value_type &);
+
+class Rva000A7BB5
+{
+public:
+	~Rva000A7BB5();
+};
+
+class Rva000A79CE
+{
+public:
+	~Rva000A79CE();
+};
+
+class Rva000A7CE9
+{
+public:
+	void rva000A7CE9();
+};
+
+void Rva000A7CE9::rva000A7CE9()
+{
+	((Rva000A7BB5 *)this)->~Rva000A7BB5();
+}
+
+class Rva000A7CEE
+{
+public:
+	void rva000A7CEE();
+};
+
+void Rva000A7CEE::rva000A7CEE()
+{
+	((Rva000A79CE *)this)->~Rva000A79CE();
+}
+

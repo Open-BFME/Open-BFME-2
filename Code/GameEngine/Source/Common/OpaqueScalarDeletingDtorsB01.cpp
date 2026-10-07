@@ -63,6 +63,25 @@ class Rva000E5033 { public: __declspec(noinline) virtual ~Rva000E5033(); };
 Rva000E5033::~Rva000E5033() {}
 void Rva000E5033_Delete(Rva000E5033 *p) { delete p; }
 
+class Rva000E488F;
+class Rva000E57FF
+{
+public:
+	void rva000E57FF(Rva000E488F *arg);
+};
+
+class Rva000E585A
+{
+public:
+	void rva000E585A(Rva000E488F *arg);
+};
+
+void Rva000E585A::rva000E585A(Rva000E488F *arg)
+{
+	((Rva000E57FF *)this)->rva000E57FF(arg);
+}
+
+
 // ??_GRva000E59D3@@UAEPAXI@Z @0x000E5A2B 28B; calls pinned ??1 at 0x000E59D3
 class Rva000E59D3 { public: __declspec(noinline) virtual ~Rva000E59D3(); };
 // ??1Rva000E59D3@@UAE@XZ present-unmatched

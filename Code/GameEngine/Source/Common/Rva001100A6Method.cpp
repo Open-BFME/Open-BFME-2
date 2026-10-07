@@ -41,3 +41,15 @@ void Rva001100A6::rva001100A6()
 		m_cleared = 0;
 	}
 }
+
+class Rva001100C5
+{
+public:
+	void rva001100C5();
+};
+
+void Rva001100C5::rva001100C5()
+{
+	((Rva001100A6 *)this)->rva001100A6();
+}
+

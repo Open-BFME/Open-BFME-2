@@ -114,3 +114,21 @@ Rva001364F7Iter Rva001364F7::rva00136642(Rva001364F7Iter position, const TreeKey
 		}
 	}
 }
+
+class Rva001363CC
+{
+public:
+	~Rva001363CC();
+};
+
+class Rva00136768Dtor
+{
+public:
+	~Rva00136768Dtor();
+};
+
+Rva00136768Dtor::~Rva00136768Dtor()
+{
+	((Rva001363CC *)this)->~Rva001363CC();
+}
+
