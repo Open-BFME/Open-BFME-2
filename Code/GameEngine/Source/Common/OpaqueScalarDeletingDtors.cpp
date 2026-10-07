@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD /EHsc
 // The shared headers declare these members with the access/virtual spelling
 // the referring objects use; this TU emits the paired definition spelling.
 // Same function, same address: bind the header spelling here.
@@ -661,19 +661,35 @@ void Rva00A6454_Anchor(Rva00A6454 *p)
 	p->Rva00A6454::~Rva00A6454();
 }
 
-class Rva00A8E0A_B2
-{
-public:
-	virtual void f2();
+// Native A8E0A..A8E79: audio deletion notification and three members.
+// The notification callee is the byte-verified PlayingAudio cleanup in
+// MilesAudioManager; keep the existing address-derived owner spelling.
+struct PlayingAudio;
+class AudioManager;
+extern AudioManager *TheAudio;
+class MilesAudioManager {public: void onPlayingAudioDeleted(PlayingAudio &);};
+class OpaqueRefCounted {public: void Release_Ref();};
+struct Rva00A8E0AEvent {char unknown00[0x88]; OpaqueRefCounted ref88;};
+struct Rva00A8E0AEventHolder {
+ Rva00A8E0AEvent *event;
+ ~Rva00A8E0AEventHolder() {if (event) event->ref88.Release_Ref();}
 };
-
-class Rva00A8E0A : public Rva0049B47C, public MiBase1, public Rva00A8E0A_B2
-{
-public:
-	virtual ~Rva00A8E0A()
-	{
-	}
+class BfmeStringTailRecord156 {public: ~BfmeStringTailRecord156(); private: void *pointer;};
+class Rva00690FF0Handle {public: ~Rva00690FF0Handle(); private: void *pointer;};
+class Rva00051E4D {public: virtual ~Rva00051E4D() {}};
+class Rva00A8E0A : public Rva00051E4D {
+public: virtual ~Rva00A8E0A();
+private:
+ char unknown04[8];
+ BfmeStringTailRecord156 member0C;
+ char unknown10[12];
+ Rva00A8E0AEventHolder event1C;
+ Rva00690FF0Handle file20;
 };
+Rva00A8E0A::~Rva00A8E0A() {
+ if (TheAudio)
+  reinterpret_cast<MilesAudioManager *>(TheAudio)->onPlayingAudioDeleted(*reinterpret_cast<PlayingAudio *>(this));
+}
 
 // Anchor: forces out-of-line emission of the in-class destructor COMDAT,
 // including the scalar deleting destructor.
