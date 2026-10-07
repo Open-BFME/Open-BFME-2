@@ -67809,3 +67809,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0027F28E@@YGXHMH@Z,,0x0027F28E,36,Code/GameEngine/Source/Common/Rva0027F28E.cpp,matched,float forward with coalesced copy-local and Oy-
 ?rva002860CF@Rva002860CFHost@@QAEXH@Z,,0x002860CF,61,Code/GameEngine/Source/Common/Rva002860CF.cpp,matched,vtable-as-data forward with member virtual
 ?rva0028B749@Rva0028B749Host@@QAEXHM@Z,,0x0028B749,36,Code/GameEngine/Source/Common/Rva0028B749.cpp,matched,gated player float forward
+?rva0028BAC0@Rva0028BAC0Host@@QAEXXZ,,0x0028BAC0,132,Code/GameEngine/Source/Common/Rva0028BAC0.cpp,matched,manager cascade with single twin notify
