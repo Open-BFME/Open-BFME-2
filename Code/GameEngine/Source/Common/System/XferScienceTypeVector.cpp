@@ -120,3 +120,45 @@ Xfer *Rva00398280Xfer(Xfer *xfer, ScienceTypeVector *vec)
 	}
 	return xfer;
 }
+
+// Target [0x003F5A72,0x003F5B3E) is a complete cdecl vector transfer.
+// Version {1,1}, 4-byte element stride, count, reserve/push-back and both
+// element calls are independently read from retail. The calls reach the
+// rowed LivingWorldPlayerID helper at 0x002034C4. The existing ScienceType
+// vector is a compiler ABI view of the measured 12-byte vector and 4-byte
+// elements here; the original container type and function spelling are unknown.
+// Source guide: the verified 0x00398280 vector-transfer implementation above.
+extern void __cdecl XferLivingWorldPlayerID(Xfer *xfer, int *id);
+
+Xfer *Rva003F5A72Xfer(Xfer *xfer, void *storage)
+{
+	ScienceTypeVector *vec = static_cast<ScienceTypeVector *>(storage);
+	XferVersion version;
+	version.m_version = 1;
+	version.m_currentVersion = 1;
+	xfer->xferVersion(version);
+
+	UnsignedInt count = (UnsignedInt)vec->size();
+	xfer->xferTypeName("std::vector").xferUnsignedInt(count);
+
+	if (xfer->isSaving()) {
+		ScienceType *end = vec->end();
+		ScienceType *cur = vec->begin();
+		while (cur != end) {
+			XferLivingWorldPlayerID(xfer, (int *)cur);
+			++cur;
+		}
+	} else {
+		if (!vec->empty()) {
+			throw XferException(4, "Vector must be empty on load");
+		}
+		vec->reserve(count);
+		ScienceType value;
+		while (count != 0) {
+			--count;
+			vec->push_back(value);
+			XferLivingWorldPlayerID(xfer, (int *)&vec->back());
+		}
+	}
+	return xfer;
+}
