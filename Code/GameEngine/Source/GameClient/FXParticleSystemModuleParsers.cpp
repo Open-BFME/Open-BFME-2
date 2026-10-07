@@ -258,3 +258,32 @@ FX_PARTICLE_PARSER(GpuDrawModuleTemplate, g_00C6CA20)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?parse@HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z=?parse@SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVINI@@@Z")
+
+// Native 55CAAC..55CAEF scales a random unit vector into its return storage.
+// BFME1 968ca36c: PointEmissionVolumeVelocity.cpp supplies the return-by-value
+// shape; the original BFME2 method name and unused argument types are unknown.
+class Coord3D;
+Coord3D *__cdecl Rva003AFA64FillUnitVector(Coord3D *out);
+
+struct Rva0055CAACVector
+{
+	Rva0055CAACVector() {}
+	__forceinline Rva0055CAACVector(const Rva0055CAACVector &other)
+	{
+		x = other.x;
+		y = other.y;
+		z = other.z;
+	}
+	float x, y, z;
+};
+
+Rva0055CAACVector __stdcall Rva0055CAAC(unsigned int, float scale, unsigned int)
+{
+	Rva0055CAACVector direction;
+	Rva003AFA64FillUnitVector(reinterpret_cast<Coord3D *>(&direction));
+	Rva0055CAACVector result;
+	result.x = direction.x * scale;
+	result.y = direction.y * scale;
+	result.z = direction.z * scale;
+	return result;
+}
