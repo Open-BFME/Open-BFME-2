@@ -15587,3 +15587,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?find@Rva00388F63Map@@QAEPAXPAH@Z,0x00388F63,placeholder pin for 0x004FF997 find; address read from REL32 at 0x004FF9A2; identity unproven
 ?rva004FBC4D@Rva004FBC4D@@QAEXHHH@Z,0x004FBC4D,callee of 0x004FF28E read from REL32 at 0x004FF29D; three-int thiscall; identity unproven
 ?rva0020E449Copy@Rva0020E449Caller@@QAEXH@Z,0x0020E449,placeholder int alias for 0x004FF28E +0x2C subobject; same address as rowed copy ctor
+??1Rva004FF630Member@@QAE@XZ,0x004FF630,pinned placeholder dtor: REL32 target of the +0x1C member teardown in Rva00502D03 0x00502D03

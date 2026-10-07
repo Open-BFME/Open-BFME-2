@@ -67855,3 +67855,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004FDA42@Rva004FDA42Owner@@QAEXXZ,,0x004FDA42,32,Code/GameEngine/Source/Common/Rva004FDA42Clear.cpp,matched,
 ?rva004FF997@Rva004FF997Owner@@QAEHH@Z,,0x004FF997,31,Code/GameEngine/Source/Common/Rva004FF997Find.cpp,matched,
 ?rva004FF28E@Rva004FF28EOwner@@QAEHHHHHH@Z,,0x004FF28E,50,Code/GameEngine/Source/Common/Rva004FF28ECtor.cpp,matched,
+??1Rva00502D03@@QAE@XZ,,0x00502D03,69,Code/GameEngine/Source/Common/Rva001EB63CDtorFamily.cpp,matched,EH dtor: +0x1C via pinned 0x004FF630 then +0x10 via pinned 0x0050298D then +0x04 via pinned 0x005029CA
