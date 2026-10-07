@@ -84,6 +84,7 @@ public:
 	virtual void _slot24() = 0;
 	virtual void _slot25() = 0;
 	virtual Object *getUnitNamed(const AsciiString &name) = 0;
+	void *rva002086C5(AsciiString name);
 
 protected:
 	friend class ScriptActions;
@@ -244,10 +245,6 @@ extern void j_00020dc9();
 // ILT shared by the already-converted BitFlags setter at 0x001C62B0.
 extern Int bfmeLookup_001c62b0(void *name);
 
-class BfmeGetCounterCall
-{
-};
-
 struct BfmeCommandPointsCall
 {
 	Int call(Int includeReserved);
@@ -294,11 +291,7 @@ void ScriptActions::doCounterMathCounter(Parameter *counter,
 	result = destination->m_value;
 	int value;
 	value = 0;
-	typedef const ScriptCounter *(BfmeGetCounterCall::*GetCounterFunction)(AsciiString);
-	union { void (*raw)(void); GetCounterFunction member; } getCounter;
-	getCounter.raw = j_000142b3;
-	source = (reinterpret_cast<BfmeGetCounterCall *>(TheScriptEngine)
-		->*getCounter.member)(otherCounter->getString());
+	source = (const ScriptCounter *)TheScriptEngine->rva002086C5(otherCounter->getString());
 	if (source)
 		value = source->m_value;
 
