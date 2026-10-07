@@ -1,6 +1,6 @@
 // cl: /O1 /arch:SSE /MD
 // ?rva002B26D0@Rva002B26D0@@QAEXPAVRva00318C79Owner@@PAXMM1@Z @0x002B26D0 50B.
-// ?rva002B2702@Rva002B26D0@@QAEXPAVRva00318C79Owner@@PAX1@Z @0x002B2702 85B.
+// ?rva002B2702@Rva002B2702@@QAEXPAX0H@Z @0x002B2702 85B.
 // Owner/key guard pair (both thiscall through the +0xB0 helper host).
 // rva002B26D0 (stdcall-shaped body, but callers pass this in ecx, so it is
 // a member that never touches this): bail when owner or key is null, resolve
@@ -28,6 +28,13 @@ public:
 
 struct RvaFloatPair
 {
+	__forceinline RvaFloatPair() {}
+	__forceinline ~RvaFloatPair() {}
+	__forceinline RvaFloatPair(const RvaFloatPair &that)
+	{
+		f0 = that.f0;
+		f1 = that.f1;
+	}
 	float f0;
 	float f1;
 };
@@ -42,7 +49,6 @@ class Rva002B26D0
 {
 public:
 	void rva002B26D0(Rva00318C79Owner *owner, void *key, RvaFloatPair pair, void *extra);
-	void rva002B2702(Rva00318C79Owner *owner, void *key, void *extra);
 
 private:
 	unsigned char m_pad00[0xB0];
@@ -59,14 +65,26 @@ void Rva002B26D0::rva002B26D0(Rva00318C79Owner *owner, void *key, RvaFloatPair p
 		owner->rva0031A591(&pair.f0, key, extra);
 }
 
-// ?rva002B2702@Rva002B26D0@@QAEXPAVRva00318C79Owner@@PAX1@Z present-unmatched
-void Rva002B26D0::rva002B2702(Rva00318C79Owner *owner, void *key, void *extra)
+// Keep the established address-derived pin used by the script-action callers.
+// Retail's SSE pair construction supplies evidence for the explicit memberwise
+// float copy, rather than the implicit integer copy of a trivial aggregate.
+class Rva002B2702
 {
-	float buf[2];
+public:
+	void rva002B2702(void *owner, void *key, int extra);
+private:
+	unsigned char m_pad00[0xB0];
+	Rva002B2702B0 *m_b0;
+};
+
+void Rva002B2702::rva002B2702(void *owner, void *key, int extra)
+{
+	RvaFloatPair buf;
 	if (owner == 0)
 		return;
 	if (key == 0)
 		return;
-	m_b0->rva0020EA58(key, buf);
-	rva002B26D0(owner, key, *(RvaFloatPair *)buf, extra);
+	m_b0->rva0020EA58(key, &buf.f0);
+	((Rva002B26D0 *)this)->rva002B26D0((Rva00318C79Owner *)owner,
+		key, buf, (void *)extra);
 }
