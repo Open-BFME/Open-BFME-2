@@ -15604,3 +15604,9 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?rva00383865@GameSpyInfo@@UAEXH@Z	0x00383865	340	blocked	ABI and semantics unresolved: argument is stored as room ID and its address is passed to GameInfo conversion; available PeerDefs donor does not explain this target body t=4 model=gpt-6
 ?rva00419AB8@Rva00419AB8@@QAE_NPBDHHPAAPBDH@Z	0x00419AB8	176	blocked	clean call shape cannot target the rowed strcmp wrapper: packet declares ?ji_006291c6@@YAXXZ with no parameters while retail passes two cdecl arguments; inline asm or an unrelated function-pointer cast is forbidden t=3 model=gpt-6.1-sol
 ?Rva004195ECParse@@YAXPAVINI@@PAX1PBX@Z	0x004195EC	119	blocked	stack slot placement and two map argument moves differ t=8 model=gpt-6 (stash 0.95 kept)
+?rva004A2D49@Rva004A2D49@@QAEX_N@Z	0x004A2D49	30	partial	retail pushes member memory directly after enum; compiler adds a mov into eax before the push agent=luna-05 score=0.9 stash=reverse/attempts/0x004a2d49.cpp
+?rva004A2D49@Rva004A2D49@@QAEX_N@Z	0x004A2D49	30	blocked	six variants leave one extra mov from member load scheduling; existing banked 0.90 attempt remains the best agent=luna-05
+?rva0005623E@MilesAudioManager@@QAE_NHPAPAXH@Z	0x0005623E	100	blocked	shared helper declaration cannot represent the observed second and third pointer arguments without an unrelated-type cast; target signature ambiguous t=3 model=gpt-6.1
+?rva0005634C@MilesAudioManager@@QAEXHMI@Z	0x0005634C	178	blocked	compiler rejects __thiscall declarations under retail flags t=1 model=gpt-6
+?Rva000563FECall@@YA...	0x000563FE	194	blocked	caller is Xfer serialization but callee identity and argument layout are unproven t=2 model=gpt-6
+?Rva00327D86Update@@YAXPAVGameWindow@@_N@Z	0x00327D86	82	blocked	volatile/constant-clear code shape differs at +0x18 and +0x4c plus pointer checks at +0x23 and +0x39 t=12 model=gpt-6
