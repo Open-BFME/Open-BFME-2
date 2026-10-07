@@ -83,6 +83,14 @@ class Image:
         push = head.find(b"\x6a\xff\x64\xa1\0\0\0\0\x68")  # push -1; mov eax,fs:[0]; push thunk
         if 0 <= push <= 12:
             offsets.append(push + 9)
+        # /O2 may schedule a stack-argument load into edx between the FS
+        # load and handler push (Render2DClass geometry allocator, 0x11BD80).
+        # Require the complete unchanged FS installation, not an arbitrary
+        # push whose immediate happens to name a FuncInfo thunk.
+        push = head.find(b"\x6a\xff\x64\xa1\0\0\0\0\x8b\x54\x24")
+        if 0 <= push <= 12 and head[push + 12:push + 13] == b"\x68" \
+                and head[push + 17:push + 25] == b"\x50\x64\x89\x25\0\0\0\0":
+            offsets.append(push + 13)
         for offset in offsets:
             thunk = struct.unpack_from("<I", head, offset)[0] - self.base
             if 0 <= thunk < self.size - 10 and self.bytes[thunk] == 0xB8 \

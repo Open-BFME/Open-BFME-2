@@ -144,3 +144,60 @@ def test_nonmatching_eh_graph_supplies_no_funclet_identity(tmp_path):
 
 def test_missing_parent_supplies_no_funclet_identity(tmp_path):
     assert eh_verify.verified_funclet_locations(Retail(OURS), obj(tmp_path, OURS), "absent", FUNC) == {}
+
+
+def scheduled_stack_frame(retail, load=b"\x8b\x54\x24\x14", install=True):
+    image = bytearray(retail.bytes)
+    prolog = bytes.fromhex("6aff64a100000000") + load + b"\x68" \
+        + struct.pack("<I", BASE + THUNK) + bytes.fromhex("5064892500000000")
+    if not install:
+        prolog = prolog[:-7] + b"\x90" * 7
+    image[FUNC:FUNC + len(prolog)] = prolog
+    retail.bytes = bytes(image)
+    return retail
+
+
+def test_stack_load_scheduled_before_handler_push():
+    retail = scheduled_stack_frame(Retail(OURS))
+    assert retail.frame_funcinfo(FUNC) == (THUNK, FUNCINFO)
+
+
+def test_scheduled_frame_with_bad_handler_is_rejected():
+    retail = scheduled_stack_frame(Retail(OURS))
+    image = bytearray(retail.bytes)
+    image[FUNC + 13:FUNC + 17] = struct.pack("<I", BASE + GUARD)
+    retail.bytes = bytes(image)
+    assert retail.frame_funcinfo(FUNC) is None
+
+
+def test_scheduled_frame_requires_fs_installation():
+    assert scheduled_stack_frame(Retail(OURS), install=False).frame_funcinfo(FUNC) is None
+
+
+def test_scheduled_load_cannot_clobber_fs_value_or_stack():
+    for load in (bytes.fromhex("8b442414"), bytes.fromhex("8b642414"),
+                 bytes.fromhex("e8542414")):
+        assert scheduled_stack_frame(Retail(OURS), load=load).frame_funcinfo(FUNC) is None
+
+
+def test_scheduled_frame_keeps_eh_bytes_check(tmp_path):
+    retail = scheduled_stack_frame(Retail(OURS))
+    # Move the fixture's handler relocation to the scheduled push.
+    symbol_obj = obj(tmp_path, OURS)
+    frame = bytearray(retail.bytes[FUNC:FUNC + 25])
+    frame[13:17] = bytes(4)
+    symbol_obj.sections[0]["data"] = bytes(frame)
+    symbol_obj.sections[0]["relocs"] = [(13, 2, 6)]
+    assert eh_verify.verify_row(retail, symbol_obj, "_f", FUNC) == ("EXACT", "")
+    changed = bytearray(symbol_obj.sections[2]["data"])
+    changed[4] = 2
+    symbol_obj.sections[2]["data"] = bytes(changed)
+    assert eh_verify.verify_row(retail, symbol_obj, "_f", FUNC)[0] == "bytes_differ"
+
+
+def test_scheduled_frame_requires_funcinfo_magic():
+    retail = scheduled_stack_frame(Retail(OURS))
+    image = bytearray(retail.bytes)
+    image[FUNCINFO:FUNCINFO + 4] = bytes(4)
+    retail.bytes = bytes(image)
+    assert retail.frame_funcinfo(FUNC) is None
