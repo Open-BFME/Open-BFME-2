@@ -67,3 +67,52 @@ void _bfmeDetailedDirInfoAnchor(DetailedArchivedDirectoryInfo *d)
 {
 	d->~DetailedArchivedDirectoryInfo();
 }
+
+typedef _STL::_Rb_tree<AsciiString, _STL::pair<const AsciiString, ArchivedFileInfo>, _STL::_Select1st<_STL::pair<const AsciiString, ArchivedFileInfo> >, _STL::less<AsciiString>, _STL::allocator<_STL::pair<const AsciiString, ArchivedFileInfo> > > ArchivedFileTree;
+
+class Rva002241D1
+{
+public:
+	void rva002241D1();
+};
+
+void Rva002241D1::rva002241D1()
+{
+	((ArchivedFileTree *)this)->ArchivedFileTree::~_Rb_tree();
+}
+
+class Rva00224243
+{
+public:
+	void rva00224243();
+};
+
+void Rva00224243::rva00224243()
+{
+	((ArchivedFileTree *)this)->ArchivedFileTree::~_Rb_tree();
+}
+
+class Rva00224248
+{
+public:
+	void rva00224248();
+};
+
+void Rva00224248::rva00224248()
+{
+	((ArchivedFileTree *)this)->ArchivedFileTree::~_Rb_tree();
+}
+
+class Rva0022424D
+{
+public:
+	void rva0022424D();
+};
+
+void Rva0022424D::rva0022424D()
+{
+	((ArchivedFileTree *)this)->ArchivedFileTree::~_Rb_tree();
+}
+
+
+
