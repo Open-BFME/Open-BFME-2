@@ -248,3 +248,38 @@ void ConnectionManager::processWrapper(NetCommandRef *ref)
 		}
 	}
 }
+
+void ConnectionManager::processFile(NetFileCommandMsg *msg)
+{
+	TheFileSystem->doesFileExist(((const Rva004D632D *)msg)->rva004D632D().str());
+
+	UnsignedByte *buf = msg->getFileData();
+	Int len = msg->getFileLength();
+
+	File *fp = TheFileSystem->openFile(((const Rva004D632D *)msg)->rva004D632D().str(), File::CREATE | File::BINARY | File::WRITE);
+	if (fp)
+	{
+		fp->write(buf, len);
+		fp->close();
+		fp = 0;
+	}
+
+	Int commandID = msg->getID();
+	Int newProgress = 100;
+
+	m_fileProgressMap[m_localSlot][commandID] = newProgress;
+
+	Int progressMask = 0xff ^ (1 << m_localSlot);
+	NetFileProgressCommandMsg *progressMsg = new Rva004D598E;
+	progressMsg->setPlayerID(m_localSlot);
+	progressMsg->setID(0);
+	if (DoesCommandRequireACommandID(progressMsg->getNetCommandType()))
+	{
+		progressMsg->setID(GenerateNextCommandID());
+	}
+	progressMsg->setFileID(commandID);
+	progressMsg->setProgress(newProgress);
+	sendLocalCommand(progressMsg, progressMask);
+	processFileProgress(progressMsg);
+	progressMsg->detach();
+}
