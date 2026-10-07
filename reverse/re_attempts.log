@@ -17317,3 +17317,5 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?rva004083FF@Rva005B023A@@QAEXH@Z	0x004083FF	1082	blocked	ADDRESS-NAMED globals g_Va00DFE348 g_Va00DBA4E4 skip per packet t=3 model=muse-05
 ?rva00408C11@Rva00408C11@@QAEHXZ	0x00408C11	1489	blocked	needs callee 0x00408A55 unrowed t=3 model=muse-05
 ?ctorRva0027C2C9@@QAE@PBVCoord3D@@PBXMN@Zplaceholder	0x003940B8	187	blocked	compile fails _ReadWriteBarrier not found and placeholder ctor name not valid mangled needs clean model without barrier hack t=5 model=muse-05
+?rva005382F4@QuadStrip2D@@QAEXABUBfmeE8@@@Z	0x005382F4	143	partial	region y_min load order swapped ours edx-then-ecx retail ecx-then-edx x_min fixed via float ref slot 34of36 insns match t=12 model=muse-13 score=0.95 stash=reverse/attempts/0x005382f4.cpp
+?rva005382F4@QuadStrip2D@@QAEXABUBfmeE8@@@Z	0x005382F4	143	blocked	region y_min load order swapped ours edx-then-ecx retail ecx-then-edx x_min fixed via single float ref others direct 34of36 insns match t=15 model=muse-13 (stash 0.95 kept)
