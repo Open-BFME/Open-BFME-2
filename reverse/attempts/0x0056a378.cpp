@@ -1,17 +1,11 @@
-// ?rva0056A378@LargeGroupAudioKeyMap@@QAEXPAX@Z
-// partial score=0.9 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// ?rva0056A378@LargeGroupAudioKeyMap@@QAEXABV1@@Z
+// partial score=0.92 date=2026-10-07
+// ?rva0056A378@LargeGroupAudioKeyMap@@QAEXABV1@@Z
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /MD
 //
-// ?rva0056A378@LargeGroupAudioKeyMap@@QAEXABV1@@Z @0x0056A378 135B.
-// Copy/assign: self-guard, release the +0x2C slots through pinned 0x005C8565
-// plus rowed ::operator delete 0x0002FD60 with nulling, run rowed
-// LargeGroupAudioKeyMap::operator= 0x003ED989, copy the +0xC
-// OpaqueRefElement4 via rowed operator= 0x00239099 and the +0x10 StringBase
-// via rowed set 0x000366F0, refill the +0x14 vector-ish struct through pinned
-// 0x00569F0C, then clear +0xC down the element range. Counter lives in the
-// dead [ebp+8] home, slot spill in [ebp-4]. Method on the rowed
-// LargeGroupAudioKeyMap (operator= call proves class); honest
-// address-derived method name.
+// Retail 0x0056A378 135B. Copy/assign on LargeGroupAudioKeyMap, evidenced by
+// the rowed assignment call and matching caller context; field operations
+// follow the target body and rowed/pinned callees.
 #include "ascii_string.h"
 
 struct OpaqueRefElement4
@@ -38,7 +32,7 @@ class LargeGroupAudioKeyMap
 {
 public:
 	LargeGroupAudioKeyMap &operator=(const LargeGroupAudioKeyMap &other);
-	void rva0056A378(void *other);
+	void rva0056A378(const LargeGroupAudioKeyMap &other);
 private:
 	char m_pad[0xC];
 	OpaqueRefElement4 m_0C;
@@ -55,17 +49,13 @@ struct Rva0056A378Elem
 	char m_pad10[4];
 };
 
-// The int parameter carries the other's pointer bits and is reused as the
-// slot-loop counter once the pointer is cached in edi (its home then dead).
-void LargeGroupAudioKeyMap::rva0056A378(void *other)
+void LargeGroupAudioKeyMap::rva0056A378(const LargeGroupAudioKeyMap &other)
 {
-	LargeGroupAudioKeyMap *o = (LargeGroupAudioKeyMap *)other;
+	const LargeGroupAudioKeyMap *o = &other;
 	if (o == this)
 		return;
 	Rva005C8565 **slot = m_slots;
-	// Counter reuses the dead [ebp+8] home: `other` is cached in edi/o and
-	// never re-read via its home, so punning it as int lands the counter.
-	((int &)other) = 4;
+	int count = 4;
 	do {
 		Rva005C8565 *s = *slot;
 		if (s != 0) {
@@ -74,7 +64,7 @@ void LargeGroupAudioKeyMap::rva0056A378(void *other)
 			*slot = 0;
 		}
 		++slot;
-	} while (--((int &)other) != 0);
+	} while (--count != 0);
 	operator=(*o);
 	m_0C = o->m_0C;
 	m_10.set(o->m_10);
