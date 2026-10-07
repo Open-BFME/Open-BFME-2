@@ -1,4 +1,6 @@
 // ?d_003fbb99@@YAXXZ
+// partial score=0.94 date=2026-10-07
+// ?d_003fbb99@@YAXXZ
 // partial score=0.8 date=2026-10-07
 // cl: /DNDEBUG /MD /Op
 // ?rva003FBA58@Rva003FBA58@@QAEXXZ @0x003FBA58 140B
@@ -20,7 +22,18 @@ public:
 	void rva003FB9EB(int a, int b);
 };
 
-struct Vec3 { float x, y, z; };
+struct Vec3 {
+    float x, y, z;
+    Vec3() {}
+    Vec3(const Vec3 &v) : x(v.x), y(v.y), z(v.z) {}
+    float getX() const { return x; }
+};
+static __forceinline Vec3 subtract3FBB99(Vec3 a, const Vec3 &b) {
+    Vec3 r;
+    r.x=a.x-b.x; r.y=a.y-b.y; r.z=a.z-b.z;
+    return r;
+}
+
 class Rva003F936EHost
 {
 public:
@@ -145,10 +158,7 @@ void Rva003FBA58::rva003FBB99()
     reinterpret_cast<Rva003FB793Inner *>(m_08)->vfunc20();
     Vec3 position;
     reinterpret_cast<Rva003F936EHost *>(this)->rva003FB793(&position);
-    Vec3 delta;
-    delta.x = m_to.x - m_from.x;
-    delta.y = m_to.y - m_from.y;
-    delta.z = m_to.z - m_from.z;
+    Vec3 delta = subtract3FBB99(m_to, m_from);
     float factor;
     if (m_4c == 1)
         factor = m_rate;
@@ -156,14 +166,14 @@ void Rva003FBA58::rva003FBB99()
         factor = 0.0f - m_rate;
     else
         goto apply;
-    delta.x = factor * delta.x;
+    delta.x = factor * delta.getX();
     delta.y *= factor;
     delta.z *= factor;
 apply:
     float x = position.x + delta.x;
     Vec3 next;
     next.y = position.y + delta.y;
-    next.z = position.z + delta.z;
     next.x = x;
+    next.z = position.z + delta.z;
     s07(&next);
 }
