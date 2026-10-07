@@ -83,6 +83,12 @@ template float &BfmeByteFloatMap::operator[](const unsigned char &);
 // for byte indices 0..5, keeps the first index whose low-byte result exceeds
 // the current maximum, and returns that index. The callee's class identity
 // and the caller's original name remain unresolved.
+class Rva005B8053 { public: void *rva005B8053(const unsigned char *); };
+struct Rva00553CDEMap {
+    void *header;
+    unsigned count;
+    unsigned reserved;
+};
 class Rva00553CDE
 {
 public:
@@ -112,4 +118,17 @@ unsigned char Rva00553D26::rva00553D26()
 		++index;
 	} while (index < 6);
 	return bestIndex;
+}
+
+// Native [553CDE,553D26),72B sums the low words at two map nodes for a byte key.
+// Missing keys contribute zero; maps +4/+10 have the same 12-byte ABI as stats maps.
+unsigned short Rva00553CDE::rva00553CDE(unsigned char index) {
+    unsigned short total=0;
+    Rva00553CDEMap *a=(Rva00553CDEMap *)((char *)this+4);
+    void *n=((Rva005B8053 *)a)->rva005B8053(&index);
+    if (n!=a->header) total=*(unsigned short *)((char *)n+0x12);
+    Rva00553CDEMap *b=(Rva00553CDEMap *)((char *)this+0x10);
+    n=((Rva005B8053 *)b)->rva005B8053(&index);
+    if (n!=b->header) total+=*(unsigned short *)((char *)n+0x12);
+    return total;
 }
