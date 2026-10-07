@@ -21,4 +21,5 @@ private:
     Rva00051CA2 slots[5];
 };
 Rva00051CA2::Rva00051CA2() : x(0.0f), y(0.0f), z(0.0f), active(false) {}
+Rva0005276C::Rva0005276C() {}
 Rva0005276C::~Rva0005276C() {}
