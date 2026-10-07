@@ -222,6 +222,7 @@ class Rva001127F2TerrainPrefix
 public:
 	bool advanceScan( ICoord2D &right, int xOffset, int yOffset,
 		int width, int height );
+    bool advanceYThenX(ICoord2D &point,int xOffset,int yOffset,int width,int height);
 
 private:
 	Byte m_pad00[0x50];
@@ -265,3 +266,29 @@ bool Rva001127F2TerrainPrefix::advanceScan( ICoord2D &right, int xOffset,
 	return false;
 }
 
+
+// Native 11274C..1127F2 is the Y-first counterpart: both loops and RET20
+// independently reproduce all 166 bytes with this compatible observed prefix.
+// Shared offsets do not establish a shared original class or allocation size.
+bool Rva001127F2TerrainPrefix::advanceYThenX(ICoord2D &point,
+    int xOffset,int yOffset,int width,int height) {
+    Rva00729300BitPlane *map = m_map;
+    int mapWidth = map->m_width;
+    int mapHeight = map->m_height;
+    int yOrigin = m_yOrigin;
+    int limitX = mapWidth - m_xOrigin;
+    int limitY = mapHeight - yOrigin;
+    limitX--;
+    limitY--;
+    while (point.y < height + yOffset && point.y < limitY) {
+        point.y++;
+        if (m_map->test(point.x + m_xOrigin, point.y + m_yOrigin))
+            return true;
+    }
+    while (point.x < xOffset + width - 1 && point.x < limitX - 1) {
+        point.x++;
+        if (m_map->test(point.x + m_xOrigin, point.y + m_yOrigin))
+            return true;
+    }
+    return false;
+}
