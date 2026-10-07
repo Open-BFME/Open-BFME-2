@@ -15299,7 +15299,8 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva005CD690@Rva005CD690Call@@QAEHPAX@Z,0x005CD690,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
 ??0Rva0057525FCall@@QAE@PAVRva00574A8A@@II@Z,0x0057525F,callee of ??0Rva00574A8A@@QAE@II@Z
 ?Rva00411523CallAsFree@@YAXXZ,0x00411523,Address-derived call-shape alias; 0x0022244D call site preserves original ECX and the body at 0x00411523 does not read it
-?rva00222481@Rva00222481Target@@QAEXH@Z,0x00222481,Address-derived call views supported by direct retail calls or tail call at 0x0022274A; semantic names and unobserved ABI details unresolved
 ?Rva006CFAB0@@YAXH@Z,0x006CFAB0,Address-derived call views supported by direct retail calls or tail call at 0x0022274A; semantic names and unobserved ABI details unresolved
 ?Rva00411B52@@YAXXZ,0x00411B52,Address-derived call views supported by direct retail calls or tail call at 0x0022274A; semantic names and unobserved ABI details unresolved
 ?Rva006CDF60@@YAXXZ,0x006CDF60,Address-derived call views supported by direct retail calls or tail call at 0x0022274A; semantic names and unobserved ABI details unresolved
+?Rva00411E80@@YAXH@Z,0x00411E80,Address-derived cdecl call views from retail direct calls in 0x00222481; semantic names and unobserved ABI details unresolved
+?Rva006CC600@@YAXPBDPAD@Z,0x006CC600,Address-derived cdecl call view from retail direct call in 0x00222481; first arg is const literal and second is stack buffer
