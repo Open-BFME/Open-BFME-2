@@ -1,4 +1,6 @@
-// cl: /EHsc /MD
+// cl: /O1 /Oi /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// stlport
+#include <algorithm>
 // ?rva0042CB81@Rva0042CBB6@@QAEXH@Z @0x0042CB81 53B via conditional counter decrement plus zero-guard clear
 // Evidence: layout matches Rva0042CBB6Ctor (+8 +0x30 +0x34 +0x39); callers 5 incl 0x0042CE09 0x0042D0CD; unblocks 0x0042D068
 class Mouse
@@ -19,6 +21,7 @@ class Rva0042CBB6
 {
 public:
 	void rva0042CB81(int x);
+	void rva0042CC1B();
 	void rva0042CAEB(int y);
 	void rva0042CB57(int x);
 private:
@@ -80,4 +83,34 @@ void Rva0042CBB6::rva0042CB57(int x)
 	if ((x & cur) == 0)
 		m_08 = cur + x;
 	m_39 = 1;
+}
+
+// Native Ghidra extent 0x0042CC1B..0x0042CC7B, 96 bytes, thiscall RET0.
+// The consumed offsets and reset constants agree with the rowed constructor
+// at 0x0042CBB6; original class and field meanings remain unknown.
+// STLport 4.5.3's generic fill with a bool value retains the runtime pointer
+// span for +0x3A..+0x3D. Its char overload folds that span into a constant
+// memset and does not reproduce the retail comparison and REP stores.
+void Rva0042CBB6::rva0042CC1B()
+{
+	m_08 = 0;
+	m_0C = 2;
+	m_14 = 0;
+	m_10 = 0;
+	m_1C = 0;
+	m_18 = 0;
+	m_24 = 0;
+	m_20 = 0;
+	m_2C = 0;
+	m_28 = 0;
+	m_30 = 0;
+	m_34 = 0;
+	m_38 = 1;
+	m_39 = 0;
+	m_3E = 0;
+	m_3F = 0;
+	m_40 = 0;
+	m_41 = 0;
+	m_42 = 0;
+	_STL::fill(m_3A, m_3A + 4, false);
 }
