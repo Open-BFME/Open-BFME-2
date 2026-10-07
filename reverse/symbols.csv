@@ -15521,3 +15521,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00273C47@Rva00273C47Host@@QAEXXZ,0x00273C47,thiscall no args from switch 0x2796D9 case 3
 ?rva002778E1@@YAXXZ,0x002778E1,global no args from switch 0x2796D9 case 5
 ?rva000B3FA5@WeaponTemplateSetHead@@QAEXHH@Z,0x000B3FA5,thiscall with 2 ints from 0x27930F on stack tmp
+?rva0027D244@Rva0027D244Host@@QAEXH@Z,0x0027D244,thiscall with int from 0x27F13C on stack buf
+?rva0027DF9D@Rva0027DF9DHost@@QAEXHMPAXHH@Z,0x0027DF9D,thiscall with 5 args from 0x27F13C

@@ -67805,3 +67805,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva00276B32@Rva00276B32Host@@QAE_NHH@Z,,0x00276B32,99,Code/GameEngine/Source/Common/Rva00276B32.cpp,matched,gated helper forward with position and dirvector
 ?rva002796D9@Rva002796D9Host@@QAEXH@Z,,0x002796D9,114,Code/GameEngine/Source/Common/Rva002796D9.cpp,matched,switch dispatcher over mode
 ?rva0027930F@Rva0027930FHost@@QAEXH@Z,,0x0027930F,69,Code/GameEngine/Source/Common/Rva0027930F.cpp,matched,copy-ctor tmp plus flag call and state replace
+?rva0027F13C@Rva0027F13CHost@@QAEHHHM@Z,,0x0027F13C,53,Code/GameEngine/Source/Common/Rva0027F13C.cpp,matched,float forward with stack buf
