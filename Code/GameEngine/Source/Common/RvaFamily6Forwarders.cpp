@@ -22,6 +22,7 @@ RvaF6Ret Helper0030FA44(int v);
 RvaF6Ret Helper0056BCE5(int v);
 RvaF6Ret Helper0056BABF(int v);
 RvaF6Ret Helper0056BB8C(int v);
+RvaF6Ret Helper0056BC3D(int v);
 
 class Rva003113DD
 {
@@ -104,3 +105,31 @@ RvaF6Ret Rva005CE3C4::rva005CE3C4()
 {
 	return m_08.method();
 }
+
+class Rva005CEC10
+{
+public:
+	RvaF6Ret method();
+private:
+	int m_00; // +0x0
+};
+
+RvaF6Ret Rva005CEC10::method()
+{
+	return Helper0056BC3D(m_00);
+}
+
+class Rva005CEBF6
+{
+public:
+	RvaF6Ret method();
+private:
+	char m_pad[8];
+	Rva005CEC10 m_08; // +0x8
+};
+
+RvaF6Ret Rva005CEBF6::method()
+{
+	return m_08.method();
+}
+
