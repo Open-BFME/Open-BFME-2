@@ -111,6 +111,15 @@ public:
 	virtual bool rva004AB3AE() = 0;
 };
 
+// The native update calls 0x004AB4AB with the complete module this pointer.
+// Its verified provider reads the same +0x28 object ID; use that existing
+// const thiscall bool() identity without emitting a second implementation.
+class Rva004AB4AB
+{
+public:
+    bool rva004AB4AB() const;
+};
+
 class WallUpgradeUpdate : public UpdateModule, public Rva004AB3EBIface, public Rva004AB3AEIface
 {
 public:
@@ -118,7 +127,6 @@ public:
 	virtual bool rva004AB3AE();
 	virtual UpdateSleepTime update();
 	void scanForBuildingAndPossess();
-	bool rva004AB4AB() const;
 private:
 	int m_28;
 	int m_2C; // +0x2C
@@ -161,7 +169,7 @@ UpdateSleepTime WallUpgradeUpdate::update()
 	}
 	if (m_31)
 	{
-		if (rva004AB4AB())
+		if (reinterpret_cast<const Rva004AB4AB *>(this)->rva004AB4AB())
 		{
 			Object *obj = m_object;
 			obj->rva0028DA28();
