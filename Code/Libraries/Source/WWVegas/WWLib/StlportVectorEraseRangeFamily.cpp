@@ -260,3 +260,63 @@ template Rva003F610FElement *_STL::vector<Rva003F610FElement >::erase(Rva003F610
 template BfmeStringHeadRecord184 *_STL::vector<BfmeStringHeadRecord184 >::erase(BfmeStringHeadRecord184 *, BfmeStringHeadRecord184 *);
 struct Rva000B690BRecord;
 template Rva000B690BRecord *_STL::__copy_ptrs<Rva000B690BRecord *, Rva000B690BRecord *>(Rva000B690BRecord *, Rva000B690BRecord *, Rva000B690BRecord *, const _STL::__false_type &);
+
+
+// Target slot 6 in vtable VA 0x00BC68F0 is 0x0007A7DD; slots 2 and 3 are
+// the independently named W3DHordeModelDraw name getter and xfer method. The
+// name stays address-derived because the BFME1 donor owner is different.
+// The BFME1 donor at revision 968ca36c3265b295297e6aed45a6bd89ffe59c40
+// places the same 95-byte helper-lifetime body as
+// Gen_00755E70::bfmeBeginYS under BFME2 /O1 settings. This is semantic donor
+// evidence, not target evidence for the class name or helper member layout.
+// Retail data references at this body name a 40-byte static helper at VA
+// 0x00DE1FC8 and a current-helper pointer at VA 0x00DE1FB8. Keep its storage
+// opaque; the existing destructor pin at 0x0007A4E6 handles its lifetime.
+class Gen_00755E70;
+class Gen01304B64;
+
+class Rva007A4E6
+{
+public:
+	~Rva007A4E6();
+};
+
+class BfmeHelperYS
+{
+public:
+	BfmeHelperYS();
+	~BfmeHelperYS()
+	{
+		reinterpret_cast<Rva007A4E6 *>(this)->~Rva007A4E6();
+	}
+	void bfmeAttachYS(Gen_00755E70 *owner);
+
+private:
+	unsigned char m_targetObservedStorage[40];
+};
+
+class Gen_00755E70
+{
+public:
+	void bfmeFinishYS();
+};
+
+class W3DHordeModelDraw
+{
+public:
+	void rva0007A7DD();
+};
+
+extern Gen01304B64 *g_Va01304B64;
+
+// ?rva0007A7DD@W3DHordeModelDraw@@QAEXXZ @ 0x0007A7DD (95B).
+// The function is virtual in the target vtable; this TU declares only the
+// thiscall body so it does not emit a competing class vftable.
+void W3DHordeModelDraw::rva0007A7DD()
+{
+	static BfmeHelperYS s_bfmeHelperYS;
+	BfmeHelperYS *helper = &s_bfmeHelperYS;
+	g_Va01304B64 = reinterpret_cast<Gen01304B64 *>(helper);
+	helper->bfmeAttachYS(reinterpret_cast<Gen_00755E70 *>(this));
+	reinterpret_cast<Gen_00755E70 *>(this)->bfmeFinishYS();
+}
