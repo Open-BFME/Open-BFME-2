@@ -23,7 +23,9 @@ public:
 	vector &operator=(const vector &other);
 	void push_back(const T &x);
 	T *erase(T *pos);
+	T *erase(T *first, T *last);
 	T *begin() { return m_start; }
+	T *end() { return m_finish; }
 private:
 	T *m_start;
 	T *m_finish;
@@ -36,6 +38,7 @@ public:
 	QuadStrip2D &rva005388F7(const QuadStrip2D &other);
 	void rva005389D9(const BfmeFloat4Record00469C61 &x);
 	void rva00538768(int index);
+	void rva00538931();
 private:
 	_STL::vector<BfmePod16, _STL::allocator<BfmePod16> > m_vec;
 	Region2D m_region;
@@ -67,5 +70,15 @@ void QuadStrip2D::rva005389D9(const BfmeFloat4Record00469C61 &x)
 void QuadStrip2D::rva00538768(int index)
 {
 	m_vec.erase(m_vec.begin() + index);
+	m_20 = 1;
+}
+
+// ?rva00538931@QuadStrip2D@@QAEXXZ @0x00538931 (19B).
+// Erases the whole vector through the rowed range erase then sets m_20=1,
+// the same vector-op-plus-flag shape as the two bodies above. Prev row in
+// this TU is QuadStrip2D 0x005388F7; caller 0x0030BE4E passes the holder.
+void QuadStrip2D::rva00538931()
+{
+	m_vec.erase(m_vec.begin(), m_vec.end());
 	m_20 = 1;
 }
