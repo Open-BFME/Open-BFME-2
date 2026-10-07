@@ -127,7 +127,9 @@ extern Bool TheLiteCRC;
 extern Bool TheBinaryDeepCRC;
 extern Int TheDebugCRCFromFrame;
 extern Int TheDebugCRCUntilFrame;
-extern Int NET_CRC_INTERVAL;
+// Native RVA 0x009BC800: mutable four-byte interval initially 100.
+// The command-line parser writes it and replay/game-info consumers read it.
+Int NET_CRC_INTERVAL = 100;
 
 class GameLogic
 {

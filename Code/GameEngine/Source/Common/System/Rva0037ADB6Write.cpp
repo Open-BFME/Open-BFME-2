@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?logCRCMismatch@RecorderClass@@QAEXXZ @0x0037ADB6 152B: recorder file patch via ftell fseek fwrite rows plus globals g_00DBC800 and TheGameLogic+0x40 into members +0xe60 +0xe64. Evidence: null FILE at +0x10 early out plus IAT ftell fseek fwrite plus fixed offsets 0x14 0x18 plus restore ftell pos; same FILE+0x10 family as Rva0037B287Write; caller 0x00240225.
+// ?logCRCMismatch@RecorderClass@@QAEXXZ @0x0037ADB6 152B: recorder file patch via ftell fseek fwrite rows plus globals NET_CRC_INTERVAL and TheGameLogic+0x40 into members +0xe60 +0xe64. Evidence: null FILE at +0x10 early out plus IAT ftell fseek fwrite plus fixed offsets 0x14 0x18 plus restore ftell pos; same FILE+0x10 family as Rva0037B287Write; caller 0x00240225.
 #include "unicode_string.h"
 
 struct FILE;
@@ -12,7 +12,7 @@ extern "C" __declspec(dllimport) int __cdecl fclose(FILE *stream);
 class NetworkInterface;
 extern NetworkInterface *TheNetwork;
 
-extern unsigned int g_00DBC800;
+extern int NET_CRC_INTERVAL;
 
 class GameLogic
 {
@@ -41,7 +41,7 @@ void RecorderClass::logCRCMismatch()
 {
 	if (m_file10 == 0)
 		return;
-	m_e60 = (int)g_00DBC800;
+	m_e60 = (int)NET_CRC_INTERVAL;
 	m_e64 = TheGameLogic->m_40;
 	long pos = ftell(m_file10);
 	if (fseek(m_file10, 0x14, 0) == 0)
