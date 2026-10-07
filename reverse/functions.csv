@@ -67595,3 +67595,7 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva00532041@Rva002E99F9Sub460@@QAEGHHHPAPAURva00532041Record@@@Z,,0x00532041,40,Code/GameEngine/Source/Common/Rva002E99F9Sub460Rva00532041.cpp,matched,banked attempt re-verified exact against the current ledger and landed unchanged (stash reverse/attempts/0x00532041.cpp)
 ?rva004FB27E@Rva004FB27E@@QAEXXZ,,0x004FB27E,67,Code/GameEngine/Source/Common/Rva004FB27EBufferCalls.cpp,matched,Native Ghidra extent 4FB27E..4FB2C1 RET0; seven-argument helper 59DD3F has RET28; argument six is its output count; target caller increments +C by that count; member offsets and ABI from native accesses; original identity unknown.
 ?rva004FB2C1@Rva004FB2C1@@QAEXXZ,,0x004FB2C1,66,Code/GameEngine/Source/Common/Rva004FB27EBufferCalls.cpp,matched,Native Ghidra extent 4FB2C1..4FB303 RET0; eight-argument helper 59D2DA has RET32; final argument is output count; target caller increments +10 by that count; offsets and ABI from native accesses; original identity unknown.
+??$min@M@@YAABMABM0@Z,,0x0000578A,19,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,min<float> reference helper
+??$max@M@@YAABMABM0@Z,,0x0000579D,19,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,max<float> reference helper
+??$min@H@@YAABHABH0@Z,,0x000057B0,16,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,min<int> reference helper
+??$max@H@@YAABHABH0@Z,,0x000057C0,16,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,max<int> reference helper

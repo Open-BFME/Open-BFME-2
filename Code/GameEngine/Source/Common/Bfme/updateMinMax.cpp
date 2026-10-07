@@ -40,3 +40,27 @@ void updateMinMax(float *min, float val, float *max)
 	if (val > *max)
 		*max = val;
 }
+
+// Template min and max helpers returning const references:
+//   0x0000578A: min<float> comiss / cmova (19B)
+//   0x0000579D: max<float> comiss / cmovbe (19B)
+//   0x000057B0: min<int>   cmp / cmovge (16B)
+//   0x000057C0: max<int>   cmp / cmovle (16B)
+
+template <class T>
+const T &min(const T &a, const T &b)
+{
+	return (a < b) ? a : b;
+}
+
+template <class T>
+const T &max(const T &a, const T &b)
+{
+	return (a > b) ? a : b;
+}
+
+template const float &min<float>(const float &, const float &);
+template const float &max<float>(const float &, const float &);
+template const int &min<int>(const int &, const int &);
+template const int &max<int>(const int &, const int &);
+
