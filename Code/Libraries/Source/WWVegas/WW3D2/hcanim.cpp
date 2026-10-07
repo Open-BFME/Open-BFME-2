@@ -90,13 +90,189 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "htree.h"
+// BFME2's TimeCodedMotionChannelClass is stateless: the search cache moved out
+// to the caller, which passes it by reference (retail 0x0018EC60 reads and
+// writes it through its second argument), and +0x14 is the last packet index
+// that the binary search falls back to. motchan.h still describes BFME1's
+// cached class, so it is renamed out of the way and redeclared below.
+#define TimeCodedMotionChannelClass BfmeOneTimeCodedMotionChannelClass
 #include "motchan.h"
+#undef TimeCodedMotionChannelClass
 #include "chunkio.h"
 #include "w3d_file.h"
 #include "wwdebug.h"
 #include <string.h>
 #include "nstrdup.h"
 
+
+// The normalized quaternion lerp at 0x00717550 (ledger
+// ?BFME2_Nlerp@@YAXAAVQuaternion@@ABV1@1M@Z) that BFME2 blends with where Zero
+// Hour calls Fast_Slerp.
+void BFME2_Nlerp(Quaternion &result, const Quaternion &p, const Quaternion &q, float alpha);
+
+class TimeCodedMotionChannelClass : public W3DMPO
+{
+public:
+
+	TimeCodedMotionChannelClass(void);
+	~TimeCodedMotionChannelClass(void);
+
+	bool	Load_W3D(ChunkLoadClass & cload);
+	int	Get_Type(void) { return Type; }
+	int	Get_Pivot(void) { return PivotIdx; }
+	void	Get_Vector(float32 frame, float * setvec);
+	Quaternion Get_QuatVector(float32 frame);
+	void	Get_Vector(float32 frame, float * setvec, uint32 & cachedIdx);
+	void	Get_QuatVector(float32 frame, Quaternion & q, uint32 & cachedIdx);
+
+	int		Get_Channel_Memory_Usage(void);
+
+private:
+
+	uint32	PivotIdx;			// what pivot is this channel applied to
+	uint32	Type;					// what type of channel is this
+	int		VectorLen;			// size of each individual vector
+	uint32	PacketSize;			// size of each packet
+	uint32	NumTimeCodes;		// Number of packets
+	uint32	LastTimeCodeIdx;	// absolute index to last time code
+	uint32 *	Data;					// pointer to packet data
+
+	void 		Free(void);
+	uint32	get_index(uint32 timecode, uint32 & cachedIdx);
+
+	friend class HCompressedAnimClass;
+};
+
+/***********************************************************************************************
+ * TimeCodedMotionChannelClass::get_index -- returns packet index                             *
+ *                                                                                             *
+ * BFME2 (retail 0x0018EC60): the caller owns the cache. The look-ahead only runs while two   *
+ * more packets fit before the last one, and the binary search is folded in.                  *
+ *=============================================================================================*/
+WWINLINE uint32 TimeCodedMotionChannelClass::get_index(uint32 timecode, uint32 & cachedIdx)
+{
+	uint32 idx = cachedIdx;
+
+	if (idx + PacketSize * 2 <= LastTimeCodeIdx) {
+		uint32 * packet = &Data[idx];
+		if (timecode >= (packet[0] & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG)) {
+			if (timecode < (packet[PacketSize] & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG)) {
+				return idx;
+			}
+			if (timecode < (packet[PacketSize * 2] & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG)) {
+				cachedIdx = idx + PacketSize;
+				return cachedIdx;
+			}
+		}
+	}
+
+	// special case last packet
+	if (timecode >= (Data[LastTimeCodeIdx] & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG)) {
+		cachedIdx = LastTimeCodeIdx;
+		return LastTimeCodeIdx;
+	}
+
+	int leftIdx = 0;
+	int rightIdx = NumTimeCodes - 2;
+
+	for (;;) {
+		int dx = (leftIdx + rightIdx) / 2;
+		uint32 * packet = &Data[dx * PacketSize];
+
+		if (timecode < (packet[0] & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG)) {
+			rightIdx = dx;
+			continue;
+		}
+
+		if (timecode < (packet[PacketSize] & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG)) {
+			cachedIdx = packet - Data;
+			return cachedIdx;
+		}
+
+		if (leftIdx ^ dx) {
+			leftIdx = dx;
+			continue;
+		}
+
+		leftIdx++;
+	}
+}
+
+/***********************************************************************************************
+ * TimeCodedMotionChannelClass::Get_Vector -- returns the value for the specified frame #     *
+ *                                                                                             *
+ * BFME2 (retail 0x0018ED50): one float per packet, and the search cache comes from the      *
+ * caller.                                                                                     *
+ *=============================================================================================*/
+void	TimeCodedMotionChannelClass::Get_Vector(float32 frame, float * setvec, uint32 & cachedIdx)
+{
+	uint32 tc0 = frame;
+
+	uint32 pidx = get_index(tc0, cachedIdx);
+	uint32 p2idx;
+
+	if (pidx == ((NumTimeCodes - 1) * PacketSize)) {
+		*setvec = *(float32 *)&Data[pidx+1];
+		return;
+	} else {
+		p2idx = pidx + PacketSize;
+	}
+
+	uint32 time = Data[p2idx];
+
+	if (time & W3D_TIMECODED_BINARY_MOVEMENT_FLAG) {
+		*setvec = *(float32 *)&Data[pidx+1];
+		return;
+	}
+
+	float32 time1 = (Data[pidx] & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG);
+	float32 time2 = (time & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG);
+
+	float32 ratio = (frame - time1) / (time2 - time1);
+
+	float32 *frame1 = (float32 *) &Data[pidx+1];
+	float32 *frame2 = (float32 *) &Data[p2idx+1];
+
+	*setvec = WWMath::Lerp(frame1[0],frame2[0],ratio);
+}
+
+/***********************************************************************************************
+ * TimeCodedMotionChannelClass::Get_QuatVector -- returns the orientation for the frame #     *
+ *                                                                                             *
+ * BFME2 (retail 0x0018EEF0): writes through the caller's quaternion and blends with the      *
+ * normalized lerp at 0x00717550 instead of returning a Fast_Slerp result.                    *
+ *=============================================================================================*/
+void TimeCodedMotionChannelClass::Get_QuatVector(float32 frame, Quaternion & q, uint32 & cachedIdx)
+{
+	float32 * packets = (float32 *) Data;
+	uint32 tc0 = frame;
+
+	uint32 pidx = get_index(tc0, cachedIdx);
+	uint32 p2idx;
+
+	if (pidx == LastTimeCodeIdx) {
+		float32 *vec = &packets[pidx+1];
+		q.Set(vec[0], vec[1], vec[2], vec[3]);
+		return;
+	} else {
+		p2idx = pidx + PacketSize;
+	}
+
+	uint32 time = Data[p2idx];
+
+	if (time & W3D_TIMECODED_BINARY_MOVEMENT_FLAG) {
+		// its a binary movement!
+		float32 *vec = &packets[pidx+1];
+		q.Set(vec[0], vec[1], vec[2], vec[3]);
+		return;
+	}
+
+	// The next timecode never carries the flag here, so retail converts it unmasked.
+	float32 time1 = (Data[pidx] & ~W3D_TIMECODED_BINARY_MOVEMENT_FLAG);
+	float32 ratio = (frame - time1) / ((float32)time - time1);
+
+	BFME2_Nlerp(q, *(Quaternion *)&packets[pidx+1], *(Quaternion *)&packets[p2idx+1], ratio);
+}
 
 struct NodeCompressedMotionStruct
 {
