@@ -52,3 +52,46 @@ void Rva000732B8::rva000732B8()
 	}
 	m_complete = 1;
 }
+
+// Native 0x000740CE..0x00074136 is a complete 104-byte no-argument
+// method. It repeats the measured nested byte-array comparison, but the
+// completion flag is at +0x40 and the set at +0x44. Both calls independently
+// reach the existing clear (0x72FE6) and set<int>::insert (0xBC15D) providers.
+// The shared STLport operation is a source lead; the owner remains unknown.
+typedef _STL::set<int> Rva000740CESet;
+
+class Rva000740CE
+{
+public:
+	void rva000740CE();
+
+private:
+	int m_innerCount;			// +0
+	int m_outerCount;			// +4
+	char m_pad08[0x38 - 0x08];
+	unsigned char *m_left;		// +0x38
+	unsigned char *m_right;		// +0x3C
+	
+	unsigned char m_complete;	// +0x40
+	char m_pad41[3];
+	Rva000740CESet m_differences;	// +0x44
+};
+
+void Rva000740CE::rva000740CE()
+{
+	((Rva00072FE6 *)(void *)&m_differences)->rva00072FE6();
+	unsigned char *right = m_right;
+	unsigned char *left = m_left;
+	int key;
+	int outer;
+	outer = 0;
+	key = 0;
+	for (; outer < m_outerCount; ++outer) {
+		int inner = 0;
+		for (; inner < m_innerCount; ++inner, ++right, ++left, ++key) {
+			if (*right != *left)
+				m_differences.insert(key);
+		}
+	}
+	m_complete = 1;
+}
