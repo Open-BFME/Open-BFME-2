@@ -6,16 +6,22 @@
 class Rva0054C88AInner
 {
 public:
+	void rva0054C805(float);
 	char m_lead[0x14];
 	int m_val;
 };
 class Rva0054C88A
 {
 public:
+	void rva0054C877(float val);
 	bool rva0054C88A();
 	char m_lead0[4];
 	Rva0054C88AInner *m_ptr;
 };
+void Rva0054C88A::rva0054C877(float val)
+{
+	m_ptr->rva0054C805(val);
+}
 bool Rva0054C88A::rva0054C88A()
 {
 	return m_ptr->m_val != 0;

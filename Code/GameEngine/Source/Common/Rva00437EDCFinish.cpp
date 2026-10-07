@@ -6,8 +6,16 @@ extern int g_Va00E032FC;
 class Rva0054C88A
 {
 public:
+	void rva0054C877(float);
 	bool rva0054C88A();
 };
+
+void Rva00437EC4Set(float val)
+{
+	Rva0054C88A *p = (Rva0054C88A *)g_Va00E032FC;
+	if (p != 0)
+		p->rva0054C877(val);
+}
 
 bool Rva00437EDCGet()
 {
