@@ -15365,3 +15365,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 
 ?SetEnabled@Impl@AptScrollBar@@QAEX_N@Z,0x005D4949,callee of ?SetEnabled@Rva005D49CD@@QAEX_N@Z
 ?rva00158BA0@Rva00158BA0@@QAEXPAMPBG@Z,0x00158BA0,callee of ?rva00105CF6@Rva00105CF6@@QAEXPAPBGPAH1@Z
+?rva00112AD1@Rva00112AD1@@QAE_NHHHM@Z,0x00112AD1,retail REL32 at 0x00113191 targets 0x00112AD1; caller supplies 0; 0; this+0x58; float arg2 and callee ret 0x10 confirms four stack slots; address-derived dependency only; body unrecovered
