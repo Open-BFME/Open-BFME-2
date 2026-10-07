@@ -15391,3 +15391,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva001e7053@Rva001E7053@@QAEXIIMM@Z,0x001E7053,"address-derived call target; Ghidra boundary FUN_005e7053 is 52 bytes; exact REL32 caller 0x001E7C2B; semantic identity unknown"
 ?rva001e8c1b@Rva001E8C1B@@QAEXIIMM@Z,0x001E8C1B,"address-derived call target; Ghidra boundary FUN_005e8c1b is 744 bytes; exact REL32 caller 0x001E9045; semantic identity unknown"
 ?rva002122D4@Rva002122D4@@QAEHH@Z,0x002122D4,Direct REL32 target at 0x00212313 from fresh 0x002122FD; target body remains separately blocked
+??0Rva002214A6@@QAE@ABVAsciiString@@@Z,0x0022141E,Target ctor shares vtable 0x00C1C780 and global-map path with rowed dtor 0x002214A6; the call at 0x002215DC passes the AsciiString used to initialize the same +4 iterator; semantics inferred from paired target bodies
