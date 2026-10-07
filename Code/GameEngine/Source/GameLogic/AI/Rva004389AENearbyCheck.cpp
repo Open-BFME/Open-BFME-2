@@ -180,11 +180,15 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-class TerrainLogic
+// Native 0x27F108 takes four 32-bit argument slots and returns the result
+// word at temporary+0x14. The caller only tests that full word for zero.
+// Reuse the verified provider contract; no pointer-result identity is assumed.
+class BfmeThingCME
 {
 public:
-	void *rva0027F108(const Coord3D *pos, float radius, bool flag, int unused);	// 0x0027F108
+	int rva0027F108(void *position, float radius, int flag, int unused);
 };
+class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 
 struct Rva004388E3Template
@@ -228,7 +232,8 @@ bool Rva004389AE::rva004388E3(Object *obj, const Coord3D *pos, Rva004388E3Templa
 	if (other && !other->isEffectivelyDead())
 		return true;
 
-	return TheTerrainLogic->rva0027F108(pos, 50.0f, true, 0) ? true : false;
+	return reinterpret_cast<BfmeThingCME *>(TheTerrainLogic)->rva0027F108(
+		const_cast<Coord3D *>(pos), 50.0f, 1, 0) ? true : false;
 }
 
 bool Rva004389AE::rva004389AE(Object *obj, const Coord3D *pos, Rva004388E3Template *tmpl)
