@@ -68106,3 +68106,4 @@ uw_0076892b,,0x0076892B,11,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matche
 ?processFileProgress@ConnectionManager@@AAEXPAVNetFileProgressCommandMsg@@@Z,,0x004D2852,116,Code/GameEngine/Source/GameNetwork/ConnectionManager_fileTransfer.cpp,matched,
 ?processWrapper@ConnectionManager@@AAEXPAVNetCommandRef@@@Z,,0x004D29C7,335,Code/GameEngine/Source/GameNetwork/ConnectionManager_fileTransfer.cpp,matched,
 ?processFile@ConnectionManager@@AAEXPAVNetFileCommandMsg@@@Z,,0x004D2B16,376,Code/GameEngine/Source/GameNetwork/ConnectionManager_fileTransfer.cpp,matched,
+?sendFileAnnounce@ConnectionManager@@QAEGVAsciiString@@E@Z,,0x004D2D6A,410,Code/GameEngine/Source/GameNetwork/ConnectionManager_sendFileAnnounce.cpp,matched,
