@@ -29,10 +29,9 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Player
 {
 public:
-	int getPlayerIndex() const { return m_playerIndex; }
+	// Matched callers use the target player index at +0x54 directly;
+	// avoid an out-of-line getter shared with incompatible layouts.
 	int getPlayerMask() const { return 1 << m_playerIndex; }
-
-private:
 	unsigned char m_pad00[0x54];
 	int m_playerIndex; // +0x54
 };
@@ -68,8 +67,8 @@ int ScriptEngine::rva00357475(const AsciiString &name, Bool *matchedSpecialName)
 		return 0;
 
 	int mask = 0;
-	int thisIndex = TheScriptEngine->getCurrentPlayer()->getPlayerIndex();
-	int localIndex = ThePlayerList->m_local->getPlayerIndex();
+	int thisIndex = TheScriptEngine->getCurrentPlayer()->m_playerIndex;
+	int localIndex = ThePlayerList->m_local->m_playerIndex;
 	if (name.compare("<This Player's Enemies>") == 0)
 		mask = ThePlayerList->getPlayersWithRelationship(thisIndex, 4, false);
 	else if (name.compare("<This Player's Allies incl Self>") == 0)

@@ -125,8 +125,9 @@ typedef int Int;
 class Player
 {
 public:
-	Int getPlayerIndex( void ) const { return m_playerIndex; }
-private:
+	// Matched callers use the target player index at +0x54 directly;
+	// avoid an out-of-line getter shared with incompatible layouts.
+public:
 	char m_unrecovered00[ 0x54 ];
 	Int m_playerIndex;																												///< 0x54
 };
@@ -167,7 +168,7 @@ void Energy::xfer( Xfer *xfer )
 	// owning player
 	Int owningPlayerIndex;
 	if( xfer->IsStoring() )
-		owningPlayerIndex = m_owner->getPlayerIndex();
+		owningPlayerIndex = m_owner->m_playerIndex;
 	*xfer == owningPlayerIndex;
 	m_owner = ThePlayerList->getNthPlayer( owningPlayerIndex );
 

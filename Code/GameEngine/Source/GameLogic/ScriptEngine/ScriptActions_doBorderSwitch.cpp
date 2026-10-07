@@ -35,9 +35,8 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Player
 {
 public:
-	int getPlayerIndex() const { return m_playerIndex; }
-
-private:
+	// Matched callers use the target player index at +0x54 directly;
+	// avoid an out-of-line getter shared with incompatible layouts.
 	unsigned char m_pad[0x54];
 	int m_playerIndex; // +0x54
 };
@@ -88,7 +87,7 @@ void ScriptActions::doBorderSwitch(Int borderToUse)
 		Player *observer = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey("ReplayObserver"));
 
 		if (observer != NULL) {
-			observerPlayerIndex = observer->getPlayerIndex();
+			observerPlayerIndex = observer->m_playerIndex;
 		}
 	}
 

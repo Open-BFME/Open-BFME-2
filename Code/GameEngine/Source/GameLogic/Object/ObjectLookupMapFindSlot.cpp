@@ -85,8 +85,9 @@ Object **ObjectLookupMap::findSlot( int *key )
 class Player
 {
 public:
-	int getPlayerIndex() const { return m_index54; }
-private:
+	// Matched callers use the target player index at +0x54 directly;
+	// avoid an out-of-line getter shared with incompatible layouts.
+public:
 	char m_pad00[0x54];
 	int m_index54; // +0x54
 };
@@ -110,7 +111,7 @@ void Rva002ADF9C::rva002ADF9C(const Player *p, Object *o)
 {
 	if (!p)
 		return;
-	int key = p->getPlayerIndex();
+	int key = p->m_index54;
 	Object **slot = m_holder->m_map.findSlot(&key);
 	*slot = o;
 }
