@@ -16009,3 +16009,5 @@ FUN_008474c7	0x004474C7	537	no-boundary	Target starts at displacement byte 0xC4 
 ??0Rva0040AECC@@QAE@XZ	0x0040AECC	23	blocked	vector holder 6 variants: Ob0 forces base call but early mov esi ecx plus mov vs and for +0xC plus reg swap lea eax vs ecx t=30 model=muse-spark
 ?rva0040ADDD@Rva0040ADDD@@QBE_NPBVRva0040A7D5@@@Z	0x0040ADDD	29	blocked	contains via rowed Find 35 vs 29B: key mov eax vs push mem plus bool xor-mov vs setne al plus first push reg t=20 model=muse-spark
 ?setDisplayMode@Display@@UAE_NIII_N@Z	0x0025C262	278	partial	Display setDisplayMode donor near miss 4B push-via-reg plus mov-esp-ebp vs leave t=35 model=muse-spark score=0.93 stash=reverse/attempts/0x0025c262.cpp
+??0BfmePod264@@QAE@ABU0@@Z	0x00289CEB	143	blocked	EH states 3vs5 5vs6 and and-vs-mov zeros persist after base-dtor and body-order levers t=12 model=muse-spark
+?rva0039B4EC@ExperienceTracker@@QAE_NH_N0@Z	0x0039B4EC	92	partial	bool to int movzx plus global reloc only 94of92 0 reg diffs t=15 model=muse-spark score=0.97 stash=reverse/attempts/0x0039b4ec.cpp
