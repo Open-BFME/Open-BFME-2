@@ -25,17 +25,19 @@ public:
 	virtual void bfmeWriteVCSA(void *what);
 };
 
-class ObjectIsMobileBody
+// Native Object+8 owner call reaches the verified mobility body 0x002907A1.
+// Reuse its Object thiscall bool() identity; keep the caller layout unchanged.
+class Object
 {
 public:
-	bool isMobile() const;
+	bool rva002907A1();
 };
 
 class BfmeThingCSA
 {
 public:
 	unsigned char m_bfmeHead[8];
-	ObjectIsMobileBody *m_bfmeSub;
+	Object *m_bfmeSub;
 	unsigned char m_bfmeGap[0x24];
 	BfmeOutCSA *m_bfmeOut;
 	unsigned char m_bfmeGap2[0x14];
@@ -45,7 +47,7 @@ public:
 
 void BfmeThingCSA::bfmeGoCSA(void *what)
 {
-	if (m_bfmeSub->isMobile())
+	if (m_bfmeSub->rva002907A1())
 	{
 		m_bfmeOut->bfmeBeginCSA();
 		m_bfmeVal = what;

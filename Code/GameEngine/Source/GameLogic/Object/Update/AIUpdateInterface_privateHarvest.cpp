@@ -39,7 +39,7 @@ public:
 	virtual void bfmeWriteVCTA(void *what);
 };
 
-class ObjectIsMobileBody;
+class Object;
 
 class AIUpdateInterface
 {
@@ -47,22 +47,24 @@ protected:
 	virtual void privateHarvest(const Coord3D *pos, CommandSourceType cmdSource);
 public:
 	unsigned char m_bfmeHead[8 - 4];
-	ObjectIsMobileBody *m_object;
+	Object *m_object;
 	unsigned char m_bfmeGap[0x24];
 	BfmeOutCTA *m_stateMachine;
 	unsigned char m_bfmeGap2[0x14];
 	CommandSourceType m_lastCommandSource;
 };
 
-class ObjectIsMobileBody
+// Native Object+8 owner call reaches the verified mobility body 0x002907A1.
+// Reuse its Object thiscall bool() identity; keep the caller layout unchanged.
+class Object
 {
 public:
-	bool isMobile() const;
+	bool rva002907A1();
 };
 
 void AIUpdateInterface::privateHarvest(const Coord3D *pos, CommandSourceType cmdSource)
 {
-	if (m_object->isMobile())
+	if (m_object->rva002907A1())
 	{
 		m_stateMachine->bfmeBeginCTA();
 		// ILT 0x0000314D resolves to StateMachine::setGoalPosition at 0x000A0880.
