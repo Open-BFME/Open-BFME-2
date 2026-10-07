@@ -191,6 +191,40 @@ Rva00588E44Contain *Rva0047A040Base9E0::rva00588BF3(void *contain, Object *obj)
 	return 0;
 }
 
+// ?rva00588C4E @0x00588C4E 214B. HordeGarrisonContain's +0x20 slot 61
+// (0x00479BDD) calls it with the contain and a position: the closest (2D,
+// squared, from FLT_MAX at 0x00BBB8E0) member object whose drawable test
+// 0x00270260 is false, over every contained object's +0x250 slot-0x78
+// member list. Returns the object in eax (the void-return pin is the caller's view).
+Object *Rva0047A040Base9E0::rva00588C4E(void *contain, const Coord3D *pos)
+{
+	Rva0036AE51ListView view = ((Rva00588E44Contain *)((char *)contain + 0x20))->slot118();
+	Object *best = 0;
+	float bestDist = 3.402823466e+38F;
+	for (IntList::iterator it = view.b->begin(); it != view.b->end(); ++it) {
+		Rva00588E44Body *body = ((Object *)*it)->m_250;
+		if (body == 0)
+			continue;
+		Rva00588E44Contain *member = body->slot78();
+		if (member == 0)
+			continue;
+		Rva0036AE51ListView memberView = member->slot108();
+		for (IntList::iterator jt = memberView.b->begin(); jt != memberView.b->end(); ++jt) {
+			Object *o = (Object *)*jt;
+			if (((Rva00270260 *)o->getDrawable())->rva00270260() == true)
+				continue;
+			float dx = pos->x - o->m_38;
+			float dy = pos->y - o->m_3c;
+			float dist = dx * dx + dy * dy;
+			if (dist < bestDist) {
+				best = o;
+				bestDist = dist;
+			}
+		}
+	}
+	return best;
+}
+
 void Rva0047A040Base9E0::rva00588E44(void *contain)
 {
 	Rva00588E44Contain *c = (Rva00588E44Contain *)((char *)contain + 0x20);
