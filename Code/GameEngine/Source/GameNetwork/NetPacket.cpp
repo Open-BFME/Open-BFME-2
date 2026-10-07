@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // NetPacket.cpp: the NetPacket bodies retail links from this TU (tu_map approved),
 // folded from 24 one-function split units that shared these exact flags.
 // One NetPacket view replaces the per-unit ones; every field offset below is the
@@ -18,7 +18,11 @@ typedef unsigned char UnsignedByte;
 typedef bool Bool;
 enum { MAX_PACKET_SIZE = 0x1DC };
 
+#include "ascii_string.h"
+#include "unicode_string.h"
+
 extern "C" void *__cdecl memcpy(void *dest, const void *src, unsigned int count);
+extern "C" unsigned char *__cdecl _mbscpy(unsigned char *dest, const unsigned char *src);
 void *__cdecl operator new(unsigned int size);
 void *__cdecl operator new[](unsigned int size);
 
@@ -65,6 +69,51 @@ public:
 // NetProgressCommandMsg::getPercentage, Rva004D5767WordField::get), so the
 // add* bodies below call them under these names: getData (+0x1C dword),
 // getDataLength (+0x20) and getDataOffset (+0x24).
+// UnicodeString getter at +0x1C (rowed under its address name).
+class Rva004D6119
+{
+public:
+	UnicodeString rva004D6119() const;
+};
+
+// UnicodeString getter at +0x24 (rowed under its address name).
+class Rva0023E928
+{
+public:
+	UnicodeString rva0023E928() const;
+};
+
+// Type-30 message: dwords at +0x1C/+0x20, a UnicodeString at +0x24.
+class NetType30CommandMsg : public NetCommandMsg
+{
+public:
+	UnsignedInt get1c() { return m_1c; }
+	UnsignedInt get20() { return m_20; }
+	UnsignedInt m_1c;
+	UnsignedInt m_20;
+};
+
+// The +0x1C AsciiString getter is rowed as CDDrive::getPath (retail folds the
+// same-offset getters); it is called qualified, as the tree's other callers do.
+class CDDrive
+{
+public:
+	virtual AsciiString getPath();
+};
+
+// +0x20 word getter and +0x24 byte getter (rowed under their address names).
+class Rva004D5973WordField
+{
+public:
+	UnsignedShort get() const;
+};
+
+class Rva001DCD01ByteField
+{
+public:
+	UnsignedByte get() const;
+};
+
 class NetWrapperCommandMsg : public NetCommandMsg
 {
 public:
@@ -150,6 +199,11 @@ public:
 	void reset();
 	Bool rva0058D18C(NetCommandRef *msg);
 	Bool rva0058D211(NetCommandRef *msg);
+	UnsignedByte rva0059192A(NetCommandRef *msg);
+	UnsignedByte rva005919AF(NetCommandRef *msg);
+	UnsignedByte rva00591A65(NetCommandRef *msg);
+	UnsignedByte rva0059188C(NetCommandRef *msg);
+	UnsignedByte rva00591D0D(NetCommandRef *msg);
 	Bool rva0058D296(NetCommandRef *msg);
 	Bool rva0058D310(NetCommandRef *msg);
 	Bool rva0058D58A(NetCommandRef *msg);
@@ -199,6 +253,11 @@ protected:
 	Bool addPlayerLeaveCommand(NetCommandRef *msg);
 	Bool addFrameCommand(NetCommandRef *msg);
 	Bool isAckRepeat(NetCommandRef *msg);
+	Bool addDisconnectChatCommand(NetCommandRef *msg);
+	Bool addChatCommand(NetCommandRef *msg);
+	Bool rva005936DB(NetCommandRef *msg);
+	Bool addFileAnnounceCommand(NetCommandRef *msg);
+	Bool addRequestGameSpyStatsAuthKeyCommand(NetCommandRef *msg);
 	Bool rva005939EE(NetCommandRef *msg);
 	Bool addAckCommand(NetCommandRef *msg, UnsignedShort commandID, UnsignedByte originalPlayerID, UnsignedInt ackValue20, UnsignedInt ackValue24);
 
@@ -2372,3 +2431,75 @@ Bool NetPacket::rva005939EE(NetCommandRef *msg)
 	NetAckBothCommandMsg *ackmsg = (NetAckBothCommandMsg *)msg->getCommand();
 	return addAckCommand(msg, ackmsg->getCommandID(), ackmsg->getOriginalPlayerID(), ackmsg->get20(), ackmsg->get24());
 }
+
+// ?addFileAnnounceCommand@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x00592F2B, 678 bytes:
+// addCommand's type-21 arm, BFME1's FILEANNOUNCE shifted by the inserted
+// type: T/R/S/P/C/D, then the NUL-terminated file name, file ID word and
+// player mask byte.
+Bool NetPacket::addFileAnnounceCommand(NetCommandRef *msg)
+{
+	Bool needNewCommandID = false;
+	if (rva0059188C(msg)) {
+		NetCommandMsg *cmdMsg = msg->getCommand();
+		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+			m_packet[m_packetLen] = 'T';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getNetCommandType();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastCommandType = cmdMsg->getNetCommandType();
+		}
+		if (m_lastRelay != msg->getRelay()) {
+			m_packet[m_packetLen] = 'R';
+			++m_packetLen;
+			UnsignedByte newRelay = msg->getRelay();
+			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastRelay = newRelay;
+		}
+		if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+			m_packet[m_packetLen] = 'S';
+			++m_packetLen;
+			UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+			memcpy(m_packet + m_packetLen, &newTimestamp, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastTimestamp = newTimestamp;
+		}
+		if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+			m_packet[m_packetLen] = 'P';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getPlayerID();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastPlayerID = cmdMsg->getPlayerID();
+			needNewCommandID = true;
+		}
+		if (((m_lastCommandID + 1) != (UnsignedShort)(cmdMsg->getID())) || (needNewCommandID == true)) {
+			m_packet[m_packetLen] = 'C';
+			++m_packetLen;
+			UnsignedShort newID = cmdMsg->getID();
+			memcpy(m_packet + m_packetLen, &newID, sizeof(UnsignedShort));
+			m_packetLen += sizeof(UnsignedShort);
+		}
+		m_lastCommandID = cmdMsg->getID();
+		m_packet[m_packetLen] = 'D';
+		++m_packetLen;
+		AsciiString filename = ((CDDrive *)cmdMsg)->CDDrive::getPath();
+		_mbscpy(m_packet + m_packetLen, (const unsigned char *)filename.str());
+		m_packetLen += filename.getLength() + 1;
+		UnsignedShort fileID = ((Rva004D5973WordField *)cmdMsg)->get();
+		memcpy(m_packet + m_packetLen, &fileID, sizeof(UnsignedShort));
+		m_packetLen += sizeof(UnsignedShort);
+		UnsignedByte playerMask = ((Rva001DCD01ByteField *)cmdMsg)->get();
+		memcpy(m_packet + m_packetLen, &playerMask, sizeof(UnsignedByte));
+		m_packetLen += sizeof(UnsignedByte);
+		++m_numCommands;
+		if (m_lastCommand != 0) {
+			delete m_lastCommand;
+			m_lastCommand = 0;
+		}
+		m_lastCommand = new NetCommandRef(msg->getCommand());
+		m_lastCommand->setRelay(msg->getRelay());
+		return true;
+	}
+	return false;
+}
+
