@@ -47,9 +47,23 @@ struct Rva00161050
 	Rva00161050(const Rva00161050 &other);
 };
 
-Rva00161050::Rva00161050(const Rva00161050 &other)
+__forceinline Rva00161050::Rva00161050(const Rva00161050 &other)
 	: m0(other.m0),
 	  m_tail(other.m_tail),
 	  m20(other.m20)
 {
+}
+
+// Native Ghidra extent 0x001610F0..0x00161141, 81 bytes, cdecl RET0.
+// The rowed 36-byte copy walk and STLport vector fill call this helper.
+// The null guard and inlined copy constructor reproduce the consumed layout
+// of the adjacent 77-byte constructor above; the original element identity
+// remains unknown. Force inlining retains its standalone byte-exact copy.
+inline void *operator new(unsigned int, void *storage) { return storage; }
+struct Elem36;
+
+void gen001610F0(Elem36 *slot, const Elem36 *source)
+{
+	if (slot)
+		new (slot) Rva00161050(*reinterpret_cast<const Rva00161050 *>(source));
 }
