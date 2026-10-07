@@ -256,3 +256,12 @@ void Rva000524AALoop()
 	for (int i = 0; i < 3; ++i)
 		TheAudio->m_volumeData[i].refreshAll();
 }
+
+// ?rva000524D6@@YAXXZ retail 0x000524D6 12B.
+// Clears g_00DB3F7C then tail-jumps to Rva000524AALoop. Evidence is pin plus
+// caller 0x0005CB14 plus LINK BONUS plus abut to 0x000524AA.
+void rva000524D6()
+{
+	g_00DB3F7C = 0;
+	Rva000524AALoop();
+}
