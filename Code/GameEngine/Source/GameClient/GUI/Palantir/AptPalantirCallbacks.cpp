@@ -224,7 +224,8 @@ class Rva00222A8BTarget
 {
 public:
 	// Unrowed 0x0022277D (98 bytes; ret 4), pinned by address.
-	void rva0022277D(void *movie);
+	// Native provider compares the incoming 32-bit index with 14 and returns AL.
+	bool rva0022277D(int index);
 
 	unsigned char m_pad000[0x318];
 	int m_318; // +0x318, 2 for the right mouse button
@@ -388,7 +389,7 @@ void AptPalantir::OnInitialized(const char *unused)
 // Retail 0x002D2FE3, 31 bytes: "AptPalantir::OnClosed".
 void AptPalantir::OnClosed(const char *unused)
 {
-	TheRva00222A8BTarget->rva0022277D(m_movie);
+	TheRva00222A8BTarget->rva0022277D(reinterpret_cast<int>(m_movie));
 	m_flags = (m_flags & ~2) | 4;
 }
 

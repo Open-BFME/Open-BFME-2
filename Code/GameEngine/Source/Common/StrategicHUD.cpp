@@ -359,7 +359,8 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva00222A8BTarget
 {
 public:
-	void rva0022277D(void *movie);
+	// Native provider compares the incoming 32-bit index with 14 and returns AL.
+	bool rva0022277D(int index);
 };
 
 namespace StrategicHUD
@@ -512,7 +513,7 @@ void StrategicHUD::HUD::rva0042D5D6()
 StrategicHUD::HUD::Impl::~Impl()
 {
 	if (m_state != 0 && g_bfmeAptWindowManager != 0)
-		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva0022277D((void *)m_level);
+		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva0022277D(reinterpret_cast<int>((void *)m_level));
 }
 
 // Retail 0x0042D9E3, 148 bytes: bound as "_level%u_OnChecklistLoaded".

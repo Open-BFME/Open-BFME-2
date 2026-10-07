@@ -13,7 +13,8 @@ struct BfmePod28 { int a[7]; };
 class Rva00222A8BTarget
 {
 public:
-	void rva0022277D(void *arg);
+	// Native provider compares the incoming 32-bit index with 14 and returns AL.
+	bool rva0022277D(int index);
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
@@ -44,7 +45,7 @@ void BannerUI::Hide(bool on)
 	m_flag34 = on;
 	if (on)
 	{
-		TheRva00222A8BTarget->rva0022277D(m_ptr24);
+		TheRva00222A8BTarget->rva0022277D(reinterpret_cast<int>(m_ptr24));
 		_STL::vector<BfmePod28> &vr = m_vec28;
 		vr.erase(vr.begin(), vr.end());
 		m_flag20 = 0;

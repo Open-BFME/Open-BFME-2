@@ -16,7 +16,8 @@ typedef bool Bool;
 class Rva00222A8BTarget
 {
 public:
-	void rva0022277D(void *level);			// 0x0022277D, WB AptPlayer::HideLevel
+	// Native provider compares the incoming 32-bit index with 14 and returns AL.
+	bool rva0022277D(int index);			// 0x0022277D, WB AptPlayer::HideLevel
 };
 
 class Rva002224FE
@@ -61,7 +62,7 @@ void StrategicVeterancy::Hide()
 {
 	if (m_impl->m_state != 0)
 	{
-		TheRva00222A8BTarget->rva0022277D(m_impl->m_level);
+		TheRva00222A8BTarget->rva0022277D(reinterpret_cast<int>(m_impl->m_level));
 		m_impl->m_state = 0;
 	}
 }

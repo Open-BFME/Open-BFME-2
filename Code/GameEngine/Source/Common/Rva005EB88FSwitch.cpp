@@ -4,7 +4,8 @@
 class Rva00222A8BTarget
 {
 public:
-	void rva0022277D(void *p);
+	// Native provider compares the incoming 32-bit index with 14 and returns AL.
+	bool rva0022277D(int index);
 };
 class BfmeAptWindowManager : public Rva00222A8BTarget {};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -37,7 +38,7 @@ void Rva005EB88F::rva005EB88F()
 			m_stateObject->rva005EB825();
 		break;
 	case 4:
-		g_bfmeAptWindowManager->rva0022277D(m_04);
+		g_bfmeAptWindowManager->rva0022277D(reinterpret_cast<int>(m_04));
 		m_state = 0;
 		break;
 	case 5:

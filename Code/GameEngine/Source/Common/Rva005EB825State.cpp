@@ -10,7 +10,8 @@
 class Rva00222A8BTarget
 {
 public:
-	void rva0022277D(void *p);
+	// Native provider compares the incoming 32-bit index with 14 and returns AL.
+	bool rva0022277D(int index);
 };
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 void __cdecl Rva00516F21Invoke(Rva00222A8BTarget *t, void *p, const char *a, const char *b);
@@ -36,7 +37,7 @@ void Rva005EB825::rva005EB825()
 	m_00->m_0C = 0;
 	switch (m_00->m_08) {
 	case 1:
-		TheRva00222A8BTarget->rva0022277D(m_00->m_04);
+		TheRva00222A8BTarget->rva0022277D(reinterpret_cast<int>(m_00->m_04));
 		m_00->m_08 = 0;
 		break;
 	case 2:

@@ -10,7 +10,8 @@ public:
 class Rva00222A8BTarget
 {
 public:
-	void rva0022277D(void *p);
+	// Native provider compares the incoming 32-bit index with 14 and returns AL.
+	bool rva0022277D(int index);
 };
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -73,7 +74,7 @@ void Rva0040FCC0::rva0040FCC0(int /*dummy*/)
 	v04(1);
 	m_24->v13();
 	TheAptMgr0040FCC0->PopFocus(m_24->m_274);
-	TheRvaTgt0040FCC0->rva0022277D(m_24->m_274);
+	TheRvaTgt0040FCC0->rva0022277D(reinterpret_cast<int>(m_24->m_274));
 	m_28 = 0;
 shutdown:
 	TheShell->shutdownComplete((WindowLayout *)this, false);

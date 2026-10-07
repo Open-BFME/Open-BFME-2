@@ -8,7 +8,8 @@
 class Rva00222A8BTarget
 {
 public:
-	void rva0022277D(void *owner);
+	// Native provider compares the incoming 32-bit index with 14 and returns AL.
+	bool rva0022277D(int index);
 };
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 #pragma comment(linker, "/alternatename:?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
@@ -38,7 +39,7 @@ void StrategicHUD::HUD::FadeOut()
 	switch (m_impl->m_08)
 	{
 	case 1:
-		TheRva00222A8BTarget->rva0022277D(m_impl->m_04);
+		TheRva00222A8BTarget->rva0022277D(reinterpret_cast<int>(m_impl->m_04));
 		m_impl->m_08 = 0;
 		break;
 	case 2:

@@ -39,7 +39,8 @@ extern Mouse *TheMouse;
 class Rva00222A8BTarget
 {
 public:
-	void rva0022277D(void *owner);
+	// Native provider compares the incoming 32-bit index with 14 and returns AL.
+	bool rva0022277D(int index);
 };
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
@@ -338,7 +339,7 @@ void Rva005EC23E::rva005EC23E()
 	switch (m_window->m_state)
 	{
 	case 1:
-		TheRva00222A8BTarget->rva0022277D(m_window->m_owner);
+		TheRva00222A8BTarget->rva0022277D(reinterpret_cast<int>(m_window->m_owner));
 		m_window->m_state = 0;
 		break;
 	case 2:
