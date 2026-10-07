@@ -94,9 +94,12 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // to the caller, which passes it by reference (retail 0x0018EC60 reads and
 // writes it through its second argument), and +0x14 is the last packet index
 // that the binary search falls back to. motchan.h still describes BFME1's
-// cached class, so it is renamed out of the way and redeclared below.
+// cached class, so it is renamed out of the way and redeclared below. The
+// adaptive-delta channel lost its cache the same way.
 #define TimeCodedMotionChannelClass BfmeOneTimeCodedMotionChannelClass
+#define AdaptiveDeltaMotionChannelClass BfmeOneAdaptiveDeltaMotionChannelClass
 #include "motchan.h"
+#undef AdaptiveDeltaMotionChannelClass
 #undef TimeCodedMotionChannelClass
 #include "chunkio.h"
 #include "w3d_file.h"
@@ -272,6 +275,189 @@ void TimeCodedMotionChannelClass::Get_QuatVector(float32 frame, Quaternion & q, 
 	float32 ratio = (frame - time1) / ((float32)time - time1);
 
 	BFME2_Nlerp(q, *(Quaternion *)&packets[pidx+1], *(Quaternion *)&packets[p2idx+1], ratio);
+}
+
+// The adaptive-delta filter table, owned by AdaptiveDeltaMotionChannelFinish.cpp
+// (retail 0x00DB67D8).
+extern float filtertable[256];
+
+// Decoded values for two consecutive frames of an N-float adaptive-delta
+// channel. The caller owns it and starts Frame at 0x0FFFFFFF, an index no
+// channel reaches. Descriptive name: retail only shows the 4 + 2*N*4 byte layout.
+template <int N> struct AdaptiveDeltaCacheStruct
+{
+	uint32	Frame;
+	float		Value[2 * N];
+};
+
+/*
+** BFME2's AdaptiveDeltaMotionChannelClass (0x1C bytes, see the matched
+** constructor at 0x00195F60). Retail compiles each sampler once per vector
+** length: the scalar copies have no vector loop and 9-byte packet strides, the
+** quaternion copies count four vectors over 36-byte strides. That is a
+** compile-time length, so the bodies below are templates on it.
+*/
+class AdaptiveDeltaMotionChannelClass : public W3DMPO
+{
+public:
+
+	AdaptiveDeltaMotionChannelClass(void);
+	~AdaptiveDeltaMotionChannelClass(void);
+
+	bool	Load_W3D(ChunkLoadClass & cload);
+	int	Get_Type(void) { return Type; }
+	int	Get_Pivot(void) { return PivotIdx; }
+	void	Get_Vector(float32 frame, float * setvec);
+	Quaternion Get_QuatVector(float32 frame);
+	void	Get_Vector(float32 frame, float * setvec, AdaptiveDeltaCacheStruct<1> & cache);
+	void	Get_QuatVector(float32 frame, Quaternion & q, AdaptiveDeltaCacheStruct<4> & cache);
+
+	int		Get_Channel_Memory_Usage(void);
+
+private:
+
+	enum { PACKET_SIZE = 9 };
+
+	uint32	PivotIdx;			// what pivot is this channel applied to
+	uint32	Type;					// what type of channel is this
+	int		VectorLen;			// size of each individual vector
+	uint32	NumFrames;			// Number of frames
+	uint32	DataByteCount;
+	float		Scale;				// Scale Filter, this much
+	uint32  *Data;				 	// pointer to packet data
+
+	void 		Free(void);
+
+	template <int N> void getframe(uint32 frame_idx, AdaptiveDeltaCacheStruct<N> & cache);
+	template <int N> void decompress(uint32 src_idx, float *srcdata, uint32 frame_idx, float *outdata);
+
+	friend class HCompressedAnimClass;
+};
+
+/***********************************************************************************************
+ * AdaptiveDeltaMotionChannelClass::decompress -- decode N floats up to frame_idx             *
+ *                                                                                             *
+ * BFME2 (retail 0x0018F910 for one float, 0x0018F9C0 for four): continues from src_idx and   *
+ * srcdata, or from the uncompressed header when srcdata is NULL. Nothing is decoded for a     *
+ * frame past the end, so the source values are passed through.                               *
+ *=============================================================================================*/
+// ?AdaptiveDeltaMotionChannelClass::decompress<4> present-unmatched
+template <int N>
+void AdaptiveDeltaMotionChannelClass::decompress(uint32 src_idx, float *srcdata, uint32 frame_idx, float *outdata)
+{
+	unsigned char *base = (unsigned char *) Data;
+
+	if (srcdata == NULL) {
+		src_idx = 0;
+		srcdata = (float *) base;
+	}
+
+	if (frame_idx >= NumFrames) {
+		src_idx = frame_idx;
+	}
+
+	base += sizeof(float) * N;										// skip non-compressed header information
+	base += (PACKET_SIZE * N) * (src_idx >> 4);				// skip out to current packet
+
+	for (int vi = 0; vi < N; vi++) {
+		unsigned char *pPacket = base + PACKET_SIZE * vi;
+		float last_value = srcdata[vi];
+		if (src_idx < frame_idx) {
+			int fi = src_idx & 0xF;
+			uint32 frame = src_idx;
+			do {
+			float filter = filtertable[*pPacket] * Scale;	// decompression filter
+			pPacket++;
+
+			// data is grouped in sets of 16 nybbles
+			do {
+				int factor = pPacket[fi >> 1] << 24;
+				if ((fi & 1) == 0) {
+					factor <<= 4;
+				}
+				factor >>= 28;									// sign-extended nybble, -8 to +7
+
+				last_value += factor * filter;
+
+				frame++;
+				if (frame >= frame_idx) break;
+				fi++;
+			} while (fi < 16);
+
+			fi = 0;
+			pPacket += (PACKET_SIZE * N) - 1;					// skip to next packet
+			} while (frame < frame_idx);
+		}
+
+		outdata[vi] = last_value;
+	}
+}
+
+/***********************************************************************************************
+ * AdaptiveDeltaMotionChannelClass::getframe -- fill the caller's cache for frame_idx          *
+ *                                                                                             *
+ * BFME2 (retail 0x0018FC20 for one float, 0x0018FCC0 for four): the cache holds frame_idx    *
+ * and frame_idx+1. A channel of another length reads as zero.                                 *
+ *=============================================================================================*/
+// ?AdaptiveDeltaMotionChannelClass::getframe<4> present-unmatched
+template <int N>
+void AdaptiveDeltaMotionChannelClass::getframe(uint32 frame_idx, AdaptiveDeltaCacheStruct<N> & cache)
+{
+	if (VectorLen != N) {
+		memset(cache.Value, 0, sizeof(cache.Value));
+		return;
+	}
+
+	if (frame_idx >= NumFrames) frame_idx = NumFrames - 1;
+
+	if (cache.Frame + 1 == frame_idx) {
+		// Sliding window
+		cache.Frame++;
+		memcpy(&cache.Value[0], &cache.Value[N], N * sizeof(float));
+		decompress<N>(frame_idx, &cache.Value[0], frame_idx + 1, &cache.Value[N]);
+		return;
+	}
+
+	if (frame_idx == cache.Frame) return;
+
+	if (frame_idx < cache.Frame) {
+		cache.Frame = frame_idx;
+		decompress<N>(0, NULL, frame_idx, &cache.Value[0]);
+	} else {
+		decompress<N>(cache.Frame + 1, &cache.Value[N], frame_idx, &cache.Value[0]);
+		cache.Frame = frame_idx;
+	}
+
+	decompress<N>(frame_idx, &cache.Value[0], frame_idx + 1, &cache.Value[N]);
+}
+
+/***********************************************************************************************
+ * AdaptiveDeltaMotionChannelClass::Get_Vector -- returns the value for the specified frame #  *
+ *                                                                                             *
+ * BFME2 (retail 0x0018FD90).                                                                  *
+ *=============================================================================================*/
+void	AdaptiveDeltaMotionChannelClass::Get_Vector(float32 frame, float * setvec, AdaptiveDeltaCacheStruct<1> & cache)
+{
+	int frame1 = frame;
+
+	getframe(frame1, cache);
+
+	*setvec = WWMath::Lerp(cache.Value[0], cache.Value[1], frame - frame1);
+}
+
+/***********************************************************************************************
+ * AdaptiveDeltaMotionChannelClass::Get_QuatVector -- returns the orientation for the frame # *
+ *                                                                                             *
+ * BFME2 (retail 0x0018FDE0): blends with the normalized lerp at 0x00717550.                  *
+ *=============================================================================================*/
+// ?AdaptiveDeltaMotionChannelClass::Get_QuatVector present-unmatched
+void AdaptiveDeltaMotionChannelClass::Get_QuatVector(float32 frame, Quaternion & q, AdaptiveDeltaCacheStruct<4> & cache)
+{
+	int frame1 = frame;
+
+	getframe(frame1, cache);
+
+	BFME2_Nlerp(q, *(Quaternion *)&cache.Value[0], *(Quaternion *)&cache.Value[4], frame - frame1);
 }
 
 struct NodeCompressedMotionStruct
