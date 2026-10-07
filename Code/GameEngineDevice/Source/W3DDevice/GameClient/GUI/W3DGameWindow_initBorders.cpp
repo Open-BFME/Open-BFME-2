@@ -5,8 +5,8 @@
 // donor game/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameWindow.cpp (reference/open-bfme-1 @ 6d943426).
 // The donor body does not place at BFME 1's flags; compiled /O1 it is
 // byte-identical to retail once relocations are masked (unique hit on
-// unclaimed .text). Only the placed body is defined here; the donor's
-// other definitions are omitted.
+// unclaimed .text). The initializer and border drawing method share their
+// native static table here; unrelated donor definitions are omitted.
 // class-gate: allow AsciiString the donor's own view; the placed body is byte-exact under it
 // Open-BFME5: W3DGameWindow::~W3DGameWindow, retail 0x004655F0,
 // zh_sweep packet 004655f0.
@@ -17,50 +17,14 @@ typedef int Color;
 typedef bool Bool;
 static const Bool FALSE = false;
 class Image;
-class Display
+// The target uses the existing W3DDisplay image wrapper at 4D6B3. The
+// reference Display virtual-slot view is unnecessary for this caller.
+class Display;
+class W3DDisplay
 {
 public:
-	virtual void unused00(); virtual void unused01();
-	virtual void unused02(); virtual void unused03();
-	virtual void unused04(); virtual void unused05();
-	virtual void unused06(); virtual void unused07();
-	virtual void unused08(); virtual void unused09();
-	virtual void unused10(); virtual void unused11();
-	virtual void unused12(); virtual void unused13();
-	virtual void unused14(); virtual void unused15();
-	virtual void unused16(); virtual void unused17();
-	virtual void unused18(); virtual void unused19();
-	virtual void unused20(); virtual void unused21();
-	virtual void unused22(); virtual void unused23();
-	virtual void unused24(); virtual void unused25();
-	virtual void unused26(); virtual void unused27();
-	virtual void unused28(); virtual void unused29();
-	virtual void unused30(); virtual void unused31();
-	virtual void unused32(); virtual void unused33();
-	virtual void setClipRegion(void *region);
-	virtual void unused35();
-	virtual void enableClipping(Bool onoff);
-	virtual void unused37(); virtual void unused38();
-	virtual void unused39(); virtual void unused40();
-	virtual void unused41(); virtual void unused42();
-	virtual void unused43(); virtual void beginImageDraw();
-	virtual void unused45(); virtual void unused46();
-	virtual void unused47(); virtual void unused48();
-	virtual void unused49(); virtual void unused50();
-	virtual void unused51(); virtual void unused52();
-	virtual void drawImageCore(const Image *image, Real startX, Real startY,
-										Real endX, Real endY, Color color, Int mode);
-	virtual void unused54();
-	virtual void endImageDraw(void);
-
-	inline void drawImage(const Image *image, Real startX, Real startY,
-									 Real endX, Real endY, Color color = -1,
-									 Int mode = 2)
-	{
-		beginImageDraw();
-		drawImageCore(image, startX, startY, endX, endY, color, mode);
-		endImageDraw();
-	}
+    void rva0004D6B3(Image *image, Real startX, Real startY,
+        Real endX, Real endY, Color color = -1, Int mode = 2);
 };
 extern Display *TheDisplay;
 //
@@ -204,3 +168,105 @@ void initBorders(void)
 }
 
   // end ~W3DGameWindow
+
+// BFME 1 donor 1399ad37d42ea52a63829e417c46a1ba9ed2cd20, W3DGameWindow.cpp.
+// Target 105584/1391 begins immediately after rowed initBorders 1052FF/645.
+// The native init call and shared border-image slots tie this drawing method
+// to the initializer above; retain one table and one initialized flag.
+// Reference identity/algorithm: W3DGameWindow::blitBorderRect, 20-pixel lines
+// with 10-pixel short pieces and four corner images. Native bounds, display
+// virtual calls and full extent are verified independently for BFME 2.
+void W3DGameWindow::blitBorderRect( Int x, Int y, Int width, Int height )
+{
+	Int Offset = 15;
+	Int OffsetLower = 5;
+	if( bordersInit == FALSE )
+		initBorders();
+
+	Int originalX = x;
+	Int originalY = y;
+	Int maxX = x + width;
+	Int maxY = y + height;
+	Int x2, y2;
+	Int size = 20;
+	Int halfSize = size / 2;
+
+	y = originalY - Offset;
+	y2 = maxY - OffsetLower;
+	x2 = maxX - (OffsetLower + BORDER_LINE_SIZE);
+
+	for( x=(originalX + OffsetLower); x <= x2; x += BORDER_LINE_SIZE )
+	{
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_HORIZONTAL_TOP ]),
+															 x, y, x + size, y + size );
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_HORIZONTAL_BOTTOM ]),
+															 x, y2, x + size, y2 + size );
+	}
+
+	x2 = maxX - 5;
+	if( (x2 - x) >= (BORDER_LINE_SIZE / 2) )
+	{
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_HORIZONTAL_TOP_SHORT ]),
+															 x, y, x + halfSize, y + size );
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_HORIZONTAL_BOTTOM_SHORT ]),
+															 x, y2, x + halfSize, y2 + size );
+		x += (BORDER_LINE_SIZE / 2);
+	}
+
+	if( x < x2 )
+	{
+		x -= ((BORDER_LINE_SIZE / 2) - (((x2 - x) + 1) & ~1));
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_HORIZONTAL_TOP_SHORT ]),
+															 x, y, x + halfSize, y + size );
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_HORIZONTAL_BOTTOM_SHORT ]),
+															 x, y2, x + halfSize, y2 + size );
+	}
+
+	x = originalX - Offset;
+	x2 = maxX - OffsetLower;
+	y2 = maxY - (OffsetLower + BORDER_LINE_SIZE);
+
+	for( y=(originalY + OffsetLower); y <= y2; y += BORDER_LINE_SIZE )
+	{
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_VERTICAL_LEFT ]),
+															 x, y, x + size, y + size );
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_VERTICAL_RIGHT ]),
+															 x2, y, x2 + size, y + size );
+	}
+
+	y2 = maxY - OffsetLower;
+	if( (y2 - y) >= (BORDER_LINE_SIZE / 2) )
+	{
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_VERTICAL_LEFT_SHORT ]),
+															 x, y, x + size, y + halfSize );
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_VERTICAL_RIGHT_SHORT ]),
+															 x2, y, x2 + size, y + halfSize );
+		y += (BORDER_LINE_SIZE / 2);
+	}
+
+	if( y < y2 )
+	{
+		y -= ((BORDER_LINE_SIZE / 2) - (((y2 - y) + 1) & ~1));
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_VERTICAL_LEFT_SHORT ]),
+															 x, y, x + size, y + halfSize );
+		reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_VERTICAL_RIGHT_SHORT ]),
+															 x2, y, x2 + size, y + halfSize );
+	}
+
+	x = originalX - BORDER_CORNER_SIZE;
+	y = originalY - BORDER_CORNER_SIZE;
+	reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_CORNER_UL ]),
+														 x, y, x + size, y + size );
+	x = maxX - 5;
+	y = originalY - BORDER_CORNER_SIZE;
+	reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_CORNER_UR ]),
+														 x, y, x + size, y + size );
+	x = originalX - BORDER_CORNER_SIZE;
+	y = maxY - 5;
+	reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_CORNER_LL ]),
+														 x, y, x + size, y + size );
+	x = maxX - 5;
+	y = maxY - 5;
+	reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3( const_cast<Image *>(borderPieces[ BORDER_CORNER_LR ]),
+														 x, y, x + size, y + size );
+}
