@@ -6,6 +6,12 @@
 // mov [0x28] 0xBC6F20 then vtable 0xBDD978 at +0 then mov [0x28] 0xBDD974.
 // Caller at 0x001E2C0F plus base vtable 0x7DD970 prove AsciiString passthrough.
 
+extern "C" const void *const vtbl_00BDD978[];  // ??_7Rva001E2906@@6BRva001E2747@@@
+#pragma comment(linker, "/alternatename:_vtbl_00BDD978=??_7Rva001E2906@@6BRva001E2747@@@")
+
+extern "C" const void *const vtbl_00BDD974[];  // ??_7Rva001E2906@@6BRva0007DF07@@@
+#pragma comment(linker, "/alternatename:_vtbl_00BDD974=??_7Rva001E2906@@6BRva0007DF07@@@")
+
 extern "C" const void *const vtbl_00BC6F20[];  // folded, 7 classes; via ??_7Rva0007DF07@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BC6F20=??_7Rva0007DF07@@6B@")
 
@@ -39,6 +45,6 @@ private:
 
 Rva001E28B8::Rva001E28B8(const AsciiString &name) : Rva001E2747(name)
 {
-	*(unsigned int *)this = (unsigned int)0x00BDD978;
-	m_28.m_vtable = (void *)0x00BDD974;
+	*(unsigned int *)this = (unsigned int)((unsigned int)vtbl_00BDD978);
+	m_28.m_vtable = (void *)((unsigned int)vtbl_00BDD974);
 }

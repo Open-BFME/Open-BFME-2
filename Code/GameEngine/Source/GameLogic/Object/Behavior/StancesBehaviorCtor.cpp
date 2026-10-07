@@ -11,6 +11,12 @@
 // bytes (next explicit store is +0x30); its 23B body (Vector_base 0x211E58 +
 // or -1 at +0x0C) fits a vector plus flag word.
 
+extern "C" const void *const vtbl_00C424DC[];  // ??_7StancesBehavior@@6BRva0024A797@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C424DC=??_7StancesBehavior@@6BRva0024A797@@@")
+
+extern "C" const void *const vtbl_00C424D0[];  // ??_7StancesBehavior@@6BStancesBehaviorInterfaceB@@@
+#pragma comment(linker, "/alternatename:_vtbl_00C424D0=??_7StancesBehavior@@6BStancesBehaviorInterfaceB@@@")
+
 extern "C" const void *const vtbl_00BEFF90[];  // folded, 80 classes; via ??_7AIGateUpdate@@6BBehaviorModuleOther@@@
 #pragma comment(linker, "/alternatename:_vtbl_00BEFF90=??_7AIGateUpdate@@6BBehaviorModuleOther@@@")
 
@@ -51,7 +57,7 @@ StancesBehavior::StancesBehavior(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
 	m_30 = 0;
-	m_vtable = reinterpret_cast<const void *>(0xC424DC);
+	m_vtable = reinterpret_cast<const void *>(((unsigned int)vtbl_00C424DC));
 	m_p0C = reinterpret_cast<const void *>(((unsigned int)vtbl_00BEFF90));
-	m_p10 = reinterpret_cast<const void *>(0xC424D0);
+	m_p10 = reinterpret_cast<const void *>(((unsigned int)vtbl_00C424D0));
 }
