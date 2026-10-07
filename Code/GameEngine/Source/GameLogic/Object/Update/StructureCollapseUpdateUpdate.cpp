@@ -2,6 +2,7 @@
 //
 // ?getCollapseHeight@StructureCollapseUpdate@@IBEMXZ, retail 0x004A438B, 94 bytes.
 // ?update@StructureCollapseUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail 0x004A46BF, 1011 bytes.
+// ?beginStructureCollapse@StructureCollapseUpdate@@IAEXPBVDamageInfo@@@Z, retail 0x004A459B, 211 bytes.
 //
 // update: the Zero Hour StructureCollapseUpdate::update (reference
 // CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source/GameLogic/Object/
@@ -19,12 +20,24 @@
 // - the done state calls the BFME 2 doCollapseDoneStuff (0x004A44B1, rowed
 //   under its address name; it also destroys the object when the module data
 //   says so), clears model conditions 0x43, 0x44, 0x45 and 5 through the
-//   pinned Object mask clear 0x001E42F2 and sets condition 59 (+0x110 bit 27)
+//   pinned Object mask clear 0x001E42F2 and sets condition 59 (+0x110 bit 27,
+//   POST_RUBBLE in the model condition names table 0x00DBAA98)
 //   with the rowed notifier 0x0028AE6D, and its matrix reset passes
 //   preservePrevious true to the two-argument setInstanceMatrix (0x002711C6).
 // The random calls carry the retail file string 0x00C52680 and its line
 // numbers (0xCA, 0xD8, 0xEE, 0xF7, 0x100), reproduced with #line as
 // StructureCollapseUpdate.cpp does for its own call.
+//
+// beginStructureCollapse: Zero Hour's, with two BFME 2 changes. It caches the
+// object's position at +0x38 before the collapse-delay roll (module data
+// +0x38/+0x3C, line 141). And when the object carries model condition 334
+// (DESTROYED_WHILST_BEING_CONSTRUCTED in the names table, tested through the
+// Object bit test 0x0006F039 under its pinned address name) the collapse
+// starts already sunk: the current height becomes minus the collapse height
+// times the unbuilt fraction (1 - construction percent at Object+0x280 *
+// 0.01), and the object is moved there through the rowed two-argument Object
+// position call 0x0029660C. It ends with UpdateModule::setWakeFrame
+// (0x0044DF71). Its caller is the rowed onDie (0x004A466E).
 //
 // getCollapseHeight: the collapse depth; BFME 1 has the same-name getter
 // (game/GameEngine/Source/GameLogic/Object/Update/
@@ -84,7 +97,8 @@ enum StructureCollapseStateType
 
 enum ModelConditionFlagType
 {
-	MODELCONDITION_POST_COLLAPSE = 1 * 32 + 27
+	MODELCONDITION_POST_RUBBLE = 1 * 32 + 27,
+	MODELCONDITION_DESTROYED_WHILST_BEING_CONSTRUCTED = 334
 };
 
 // The 0x4C-byte model condition mask with four bits set (0x0028F5C6).
@@ -171,6 +185,11 @@ class Object : public Thing
 public:
 	void rva001E42F2(const int *clear);
 	void rva0028AE6D();
+	Bool rva0006F039(Int bit) const;
+	void rva0029660C(const Coord3D *pos, Bool preserve);
+
+	Bool testModelConditionFlag(ModelConditionFlagType mc) const { return rva0006F039(mc); }
+	Real getConstructionPercent() const { return m_constructionPercent; }
 
 	__forceinline void setModelConditionState(ModelConditionFlagType mc)
 	{
@@ -188,6 +207,8 @@ private:
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x254 - 0x158];
 	BodyModuleInterface *m_body; // +0x254
+	unsigned char m_pad258[0x280 - 0x258];
+	Real m_constructionPercent; // +0x280
 };
 
 class GameLogic
@@ -211,11 +232,14 @@ extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData ((const GlobalData *)TheWritableGlobalData)
 
 class ModuleData;
+class DamageInfo;
 
 class StructureCollapseUpdateModuleData
 {
 public:
-	unsigned char m_pad000[0x40];
+	unsigned char m_pad000[0x38];
+	UnsignedInt m_minCollapseDelay; // +0x38
+	UnsignedInt m_maxCollapseDelay; // +0x3C
 	UnsignedInt m_minBurstDelay; // +0x40
 	UnsignedInt m_maxBurstDelay; // +0x44
 	Int m_bigBurstFrequency; // +0x48
@@ -254,6 +278,9 @@ public:
 
 class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
+protected:
+	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
+
 private:
 	UnsignedInt m_nextCallFrameAndPhase; // +0x14
 	Int m_indexInLogic; // +0x18
@@ -279,6 +306,7 @@ public:
 	virtual UpdateSleepTime update();
 
 protected:
+	void beginStructureCollapse(const DamageInfo *damageInfo);
 	Real getCollapseHeight() const;
 	void doPhaseStuff(StructureCollapsePhaseType scphase, const Coord3D *target);
 	void doCollapseDoneStuff() { ((Rva004A44B1 *)this)->rva004A44B1(); }
@@ -389,7 +417,7 @@ UpdateSleepTime StructureCollapseUpdate::update( void )
 			doCollapseDoneStuff();
 
 			building->rva001E42F2((const int *)&Rva0028F5C6(0, 0x43, 0x44, 0x45, 5));
-			building->setModelConditionState(MODELCONDITION_POST_COLLAPSE);
+			building->setModelConditionState(MODELCONDITION_POST_RUBBLE);
 			building->setOrientation(building->getOrientation());
 
 			// Need to update body particle systems, now
@@ -416,4 +444,38 @@ UpdateSleepTime StructureCollapseUpdate::update( void )
 	}
 
 	return UPDATE_SLEEP_NONE;
+}
+
+// ?beginStructureCollapse@StructureCollapseUpdate@@IAEXPBVDamageInfo@@@Z
+void StructureCollapseUpdate::beginStructureCollapse(const DamageInfo *damageInfo)
+{
+	const StructureCollapseUpdateModuleData *d = getStructureCollapseUpdateModuleData();
+
+	Object *building = getObject();
+	m_collapsePosition = *building->getPosition();
+	UnsignedInt now = TheGameLogic->getFrame();
+	// This has to use a game logic random value since the bursts can spawn debris, and debris is sync'd.
+#line 141 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureCollapseUpdate.cpp"
+	m_collapseFrame = now + GameLogicRandomValue(d->m_minCollapseDelay, d->m_maxCollapseDelay);
+
+	doPhaseStuff(SCPHASE_INITIAL, building->getPosition());
+
+	m_collapseState = COLLAPSESTATE_WAITINGFORCOLLAPSESTART;
+	m_currentHeight = 0.0f;
+
+	if (building->testModelConditionFlag(MODELCONDITION_DESTROYED_WHILST_BEING_CONSTRUCTED))
+	{
+		// Only the unbuilt part is left to collapse.
+		Real percent = building->getConstructionPercent();
+		m_currentHeight = -(getCollapseHeight() * (1.0f - percent * 0.01f));
+
+		Coord3D pos;
+		const Coord3D *base = &m_collapsePosition;
+		pos.x = base->x;
+		pos.y = base->y;
+		pos.z = base->z + m_currentHeight;
+		building->rva0029660C(&pos, false);
+	}
+
+	setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
 }
