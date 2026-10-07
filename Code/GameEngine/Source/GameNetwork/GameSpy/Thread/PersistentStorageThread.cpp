@@ -256,6 +256,8 @@ public:
 class PSPlayerAllStats
 {
 public:
+    PSPlayerAllStats(Int id);
+    void rva00552CB8();
     Rva003844D7 rva00389DF1() const;
     Rva0038454E rva00389E0F() const;
 	PSPlayerAllStats &operator=(const PSPlayerAllStats &that);
@@ -722,6 +724,55 @@ Rva00385333::Rva00385333(const Rva00385333 &source) : Rva003844D7(0) {
 // These return the same concrete members as the native RVO getters389DF1/389E0F.
 Rva003844D7 PSPlayerAllStats::rva00389DF1() const { return m_openPlayStats; }
 Rva0038454E PSPlayerAllStats::rva00389E0F() const { return m_strategicStats; }
+
+// Native [55621F,55628F),112B builds each stats block from id0 in member
+// order, resets the record through552CB8, then stores the id in the blocks'
+// +0x150 slots from last to first before the record's own +0.
+PSPlayerAllStats::PSPlayerAllStats(Int id)
+	: m_tournamentStats(0), m_openPlayStats(0), m_strategicStats(0)
+{
+	rva00552CB8();
+	m_strategicStats.m_id = id;
+	m_openPlayStats.m_id = id;
+	m_tournamentStats.m_id = id;
+	m_id = id;
+}
+
+// The 0x598-byte request record that connectCallback38B9F8 fills for the
+// stats thread queue (E05FC8 slot4) and destroys through pinned38A1F2. Its
+// copy constructor556375 and deque rows establish the members; BFME1's
+// PSRequest is the donor lead for the request type at +0, the strings
+// (+0x550 cdkey, +0x55C nick, +0x568 password, +0x574 email, +0x58C results)
+// and the flags/house fields at +0x580..+0x584. The dword at +4 is a BFME2
+// addition the constructor defaults to 3.
+struct BfmeOpaqueOwnedRecord1432
+{
+	BfmeOpaqueOwnedRecord1432();
+	~BfmeOpaqueOwnedRecord1432();
+	Int requestType;
+	Int m_04;
+	PSPlayerAllStats player;
+	Rva00385333String cdkey;
+	Rva00385333String nick;
+	Rva00385333String password;
+	Rva00385333String email;
+	bool addDiscon;
+	bool addDesync;
+	Int lastHouse;
+	Int m_588;
+	Rva00385333String results;
+};
+typedef char RequestRecordSizeCheck[sizeof(BfmeOpaqueOwnedRecord1432) == 0x598 ? 1 : -1];
+
+// Native [556523,5565C5),162B.
+BfmeOpaqueOwnedRecord1432::BfmeOpaqueOwnedRecord1432() : player(0)
+{
+	player.rva00552CB8();
+	requestType = 0;
+	addDiscon = addDesync = false;
+	lastHouse = -1;
+	m_04 = 3;
+}
 
 // Native queue methods555BD5/555C76 lock mutex04 and query the int-key map90.
 // BFME1 findPlayerStatsByID is the semantic guide; receiver name is unproved.
