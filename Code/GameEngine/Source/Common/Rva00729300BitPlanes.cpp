@@ -217,18 +217,51 @@ struct ICoord2D
 	int y;
 };
 
-class Rva00729570Terrain
+class Rva001127F2TerrainPrefix
 {
 public:
-	bool advanceRight( ICoord2D &right, int xOffset, int yOffset,
+	bool advanceScan( ICoord2D &right, int xOffset, int yOffset,
 		int width, int height );
 
 private:
-	Byte m_pad00[0x40];
+	Byte m_pad00[0x50];
 	int m_xOrigin;
 	int m_yOrigin;
-	int m_width;
+	int m_unmodelled58;
 	Rva00729300BitPlane *m_map;
 };
 
+
+
+// The full BFME1 ba7ddda7 donor with the same +10 origin/map shift also
+// places this entire 166B body at 1127F2..112898. Independent native RET20,
+// two scan loops, ordered coordinate updates and calls to 1126FD establish
+// the behavior. Its earlier bank differed in loop bounds; the donor source
+// now reproduces every byte. Original owner and directional labels remain
+// unproven; keep this separate observed prefix from the other receiver.
+bool Rva001127F2TerrainPrefix::advanceScan( ICoord2D &right, int xOffset,
+	int yOffset, int width, int height )
+{
+	Rva00729300BitPlane *map = m_map;
+	int mapWidth = map->m_width;
+	int mapHeight = map->m_height;
+	int yOrigin = m_yOrigin;
+	int limitX = mapWidth - m_xOrigin;
+	int limitY = mapHeight - yOrigin;
+	limitX--;
+	limitY--;
+	while( right.x < width + xOffset && right.x < limitX )
+	{
+		right.x++;
+		if( m_map->test( right.x + m_xOrigin, right.y + m_yOrigin ) )
+			return true;
+	}
+	while( right.y < yOffset + height - 1 && right.y < limitY - 1 )
+	{
+		right.y++;
+		if( m_map->test( right.x + m_xOrigin, right.y + m_yOrigin ) )
+			return true;
+	}
+	return false;
+}
 
