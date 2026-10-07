@@ -341,14 +341,6 @@ int Rva0033A7BBGet(void)
 	return 0x00dc85c4;
 }
 
-// ?Rva0035B298Get@@YAHXZ @ 0x0035b298 (6B): returns 0x00de0878.
-// Follows a lea plus ret tail (its jb targets mid-code, not this body).
-// No direct callers. Opaque address-derived name.
-int Rva0035B298Get(void)
-{
-	return 0x00de0878;
-}
-
 // ?Rva0035C959Get@@YAHXZ @ 0x0035c959 (6B): returns 0x00c162a0.
 // Follows a pop plus ret tail. No direct callers. Opaque
 // address-derived name.

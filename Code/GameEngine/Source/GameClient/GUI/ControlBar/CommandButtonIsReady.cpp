@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 //
 // CommandButton::isReady(const Object *), retail 0x0035B069 (135 bytes),
 // pinned. Zero Hour's body (GameClient/GUI/ControlBar/ControlBar.cpp) with
@@ -9,6 +10,14 @@
 // 0x0028BB9E, reached through its address-named view) at 100% (vslot 2,
 // fld1/fucomip), or an upgrade the source is affected by (pinned 0x002940B9,
 // address-named view) and does not yet have (rowed 0x00290D2B).
+//
+// Built /O1 /G7 against STLport like the Apt screens (AptDisconnectScreen.cpp):
+// the label lists are vector<AsciiString>, and only that build keeps the
+// label getters' isEmpty call out of line and reloads the list bounds in
+// every block as retail does.
+#include <vector>
+#include "ascii_string.h"
+
 typedef bool Bool;
 typedef float Real;
 
@@ -83,6 +92,8 @@ class CommandButton
 public:
 	Bool isReady(const Object *sourceObj) const;
 	const Image *rva0035B19E() const;
+	const AsciiString &rva0035B1E9() const;
+	const AsciiString &rva0035B26F() const;
 private:
 	char m_pad00[0x14];
 	int m_commandType;                         // +0x14
@@ -90,10 +101,15 @@ private:
 	const UpgradeTemplate *m_upgradeTemplate;  // +0x24
 	char m_pad28[0x44 - 0x28];
 	const SpecialPowerTemplate *m_specialPower; // +0x44
-	char m_pad48[0xEC - 0x48];
+	char m_pad48[0x58 - 0x48];
+	_STL::vector<AsciiString> m_labels;        // +0x58
+	_STL::vector<AsciiString> m_descriptions;  // +0x64
+	char m_pad70[0x7C - 0x70];
+	AsciiString m_label;                       // +0x7C, wins over m_labels when set
+	char m_pad80[0xEC - 0x80];
 	CommandButtonImageList m_images;           // +0xEC
 	char m_padF8[0xFC - 0xF8];
-	int m_imageIndex;                          // +0xFC
+	int m_listIndex;                           // +0xFC, selects from m_images and the label lists
 };
 
 Bool CommandButton::isReady(const Object *sourceObj) const
@@ -123,10 +139,40 @@ Bool CommandButton::isReady(const Object *sourceObj) const
 // spell store (parseSpellIndex_Thunk.cpp, 0x0043C9FD) binds it per button.
 const Image *CommandButton::rva0035B19E() const
 {
-	int index = m_imageIndex;
+	int index = m_listIndex;
 	if (index < 0)
 		return 0;
 	if ((unsigned int)index < (unsigned int)m_images.size())
 		return m_images.at(index);
 	return 0;
+}
+
+// Retail 0x0035B1E9, 73 bytes: the button's label, +0x7C when set, else the
+// entry of the +0x58 list the +0xFC index selects, clamped to the last one,
+// or the empty string for an empty list. The spell store's frame update
+// (parseSpellIndex_Thunk.cpp, 0x0043CD3C) fetches its help text with it.
+const AsciiString &CommandButton::rva0035B1E9() const
+{
+	if (!m_label.isEmpty())
+		return m_label;
+	if (!m_labels.empty())
+	{
+		if ((unsigned int)m_listIndex >= m_labels.size())
+			return m_labels.back();
+		return m_labels[m_listIndex];
+	}
+	return AsciiString::TheEmptyString;
+}
+
+// Retail 0x0035B26F, 47 bytes: the same selection from the +0x64 list with
+// no override; the spell store's description text.
+const AsciiString &CommandButton::rva0035B26F() const
+{
+	if (!m_descriptions.empty())
+	{
+		if ((unsigned int)m_listIndex >= m_descriptions.size())
+			return m_descriptions.back();
+		return m_descriptions[m_listIndex];
+	}
+	return AsciiString::TheEmptyString;
 }

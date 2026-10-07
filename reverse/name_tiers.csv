@@ -8654,8 +8654,6 @@ _rva0060E7F0,0x00211245,address,placeholder
 ?rva0035B164@Rva0035B164@@QAEHH@Z,0x0035B164,address,placeholder
 ?rva0035B1C3@Rva0035B1C3@@QAEHH@Z,0x0035B1C3,address,placeholder
 ?rva0035B232@Rva0035B232@@QAEPBVAsciiString@@H@Z,0x0035B232,address,placeholder
-?get@Rva0035B28ASubDwordField@@QBEHXZ,0x0035B28A,address,placeholder
-?Rva0035B298Get@@YAHXZ,0x0035B298,address,placeholder
 ?rva0035B29E@Rva0035B29E@@QAEPBVAsciiString@@H@Z,0x0035B29E,address,placeholder
 ?rva0035B424@Rva0035B424@@QAEXH@Z,0x0035B424,address,placeholder
 ?check@Rva0035B449Owner@@QAE_NPBX@Z,0x0035B449,address,placeholder

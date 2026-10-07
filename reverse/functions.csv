@@ -11178,7 +11178,6 @@ _luaU_undump,,0x00756D10,133,Code/Libraries/Source/Lua/lundump.c,matched,object-
 ?get@Rva00219823SubDwordField@@QBEHXZ,,0x00219823,7,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp,matched,disp8 sub dword getter; opaque holder
 ??_GRva0047F92D@@UAEPAXI@Z,,0x0047FA39,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ?get@Rva0033167BSubDwordField@@QBEHXZ,,0x0033167B,7,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp,matched,disp8 sub dword getter; opaque holder
-?get@Rva0035B28ASubDwordField@@QBEHXZ,,0x0035B28A,7,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp,matched,disp8 sub dword getter; opaque holder
 ?get@Rva003B8B3DSubDwordField@@QBEHXZ,,0x003B8B3D,7,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp,matched,disp8 sub dword getter; opaque holder
 ?name@Rva001E70BCNamed@@QBEPBDXZ,,0x001E70BC,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning LocomotorSet; vtable ref in .rdata; address-derived placeholder name
 ?get@Rva0040CAC5SubDwordField@@QBEHXZ,,0x0040CAC5,7,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp,matched,disp8 sub dword getter; opaque holder
@@ -35578,7 +35577,6 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva00309E24Get@@YAHXZ,,0x00309E24,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva0033A507Get@@YAHXZ,,0x0033A507,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva0033A7BBGet@@YAHXZ,,0x0033A7BB,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
-?Rva0035B298Get@@YAHXZ,,0x0035B298,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva0035C959Get@@YAHXZ,,0x0035C959,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva0039009BGet@@YAHXZ,,0x0039009B,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva003B0FA6Get@@YAHXZ,,0x003B0FA6,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
@@ -68884,3 +68882,5 @@ __ehhandler$?Rva002D4464Fire@@YAHPAVRva00222A8BTarget@@PAXPBDPAHPAM4@Z,,0x007774
 ?finishShowPurchaseScience@@YAXXZ,,0x0043CB48,378,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp,matched,BFME1 donor finishShowPurchaseScience (ControlBar_finishShowPurchaseScience.cpp) supplies name and check order; target adds enable flag and 0xE04910 and pause and side-panel calls; SpellStore.apt literal
 ?rva0035B19E@CommandButton@@QBEPBVImage@@XZ,,0x0035B19E,37,Code/GameEngine/Source/GameClient/GUI/ControlBar/CommandButtonIsReady.cpp,matched,CommandButton image getter: caller 0x0043C9FD passes a CommandSet::getCommandButton result as ecx; bounds-checked twin of 0x0035B1C3 indexing the +0xEC list by the +0xFC field
 ?rva0043C9FD@AptSpellStore@@QAEXXZ,,0x0043C9FD,331,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp,matched,BFME1 donor BfmeAptScreenSpellStore::unidentified_000062DF (AptScreenSpellStoreUpdate000062DF.cpp); target: ctor 0x0043D686 calls it last; buttons from the local player's command set via 0x0031DF89; image and cost names match retail strings
+?rva0035B1E9@CommandButton@@QBEABVAsciiString@@XZ,,0x0035B1E9,73,Code/GameEngine/Source/GameClient/GUI/ControlBar/CommandButtonIsReady.cpp,matched,CommandButton label getter: +0x7C override when non-empty (out-of-line isEmpty 0x1E2F) else the +0x58 vector<AsciiString> entry the +0xFC index selects clamped to back() or TheEmptyString; caller 0x0043CD3C passes the spell store button; /O1 /G7 STLport build
+?rva0035B26F@CommandButton@@QBEABVAsciiString@@XZ,,0x0035B26F,47,Code/GameEngine/Source/GameClient/GUI/ControlBar/CommandButtonIsReady.cpp,matched,CommandButton description getter: the +0x64 vector<AsciiString> entry the +0xFC index selects clamped to back() or TheEmptyString; absorbs the mis-split tail rows Rva0035B28ASubDwordField (its back() tail) and Rva0035B298Get (its je target); caller 0x0043CD3C; /O1 /G7 STLport build
