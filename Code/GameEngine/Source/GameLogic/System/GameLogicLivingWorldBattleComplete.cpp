@@ -82,6 +82,7 @@ class Rva002BA8F1Logic
 {
 public:
 	Rva002E2903Player *find(int id, unsigned int *outIndex);
+	bool rva002B3669();
 	Rva0020E6B7RegionManager *getRegionManager() const { return m_regionManager; }
 
 private:
@@ -124,6 +125,7 @@ public:
 class GameLogic
 {
 public:
+	void rva0023DA4E();
 	void LivingWorldTacticalBattleComplete();
 	Rva003F468DParticipant *GetLivingWorldTacticalVictor();
 	void rva00376E92(int a, int b);
@@ -177,4 +179,15 @@ void GameLogic::LivingWorldTacticalBattleComplete()
 		rva00376E92(1, 0);
 		TransitionFromLivingWorldTacticalBattle();
 	}
+}
+
+// ?rva0023DA4E@GameLogic@@QAEXXZ
+// Ghidra bounds 0x0023DA4E at 43 bytes. The body gates on the rowed
+// 0x002B3669 query of g_009FEF10; success pushes 1 then 0 for the pinned GameLogic helper; failure tail-calls LivingWorldTacticalBattleComplete.
+void GameLogic::rva0023DA4E()
+{
+	if (g_009FEF10 && g_009FEF10->rva002B3669())
+		rva00376E92(0, 1);
+	else
+		LivingWorldTacticalBattleComplete();
 }
