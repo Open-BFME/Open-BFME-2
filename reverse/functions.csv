@@ -67867,3 +67867,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva00319831@Rva003195C9Owner@@QAEXPAX@Z,,0x00319831,58,Code/GameEngine/Source/GameClient/Drawable/Rva00319831Copy.cpp,matched,dump-lane range 14: dense-wheel copier with stale-stack-owner worker and listener forEach; w3c-r14
 ?rva00319AA0@Rva003195C9Owner@@QAEXPBH@Z,,0x00319AA0,106,Code/GameEngine/Source/Common/System/Rva00319AA0Handoff.cpp,matched,dump-lane range 14: float handoff mirroring arg pair then banked gate plus helper slot5; w3c-r14
 ?rva00319E7C@Rva003195C9Owner@@QAEXXZ,,0x00319E7C,39,Code/GameEngine/Source/GameClient/Drawable/Rva00319E7CDirty.cpp,matched,dump-lane range 14: NaN-aware dirty check syncing +0x3C pair; w3c-r14
+?rva0031AB1E@Rva0031AB1EOwner@@QAEPAVRva0031AB1ENode@@PBVAsciiString@@@Z,,0x0031AB1E,89,Code/GameEngine/Source/Common/System/Rva0031AB1EPrepend.cpp,matched,dump-lane range 14: list prepend via throwing new-expression 0x2CC node; w3c-r14
