@@ -8,6 +8,10 @@
 // ?rva0057C094@Rva0057C04F@@QAEXH@Z @0x0057C094 190B: vslot 1 of vtable 0x0086F2D4 TurnNumber setter.
 // Formats APT:_level%u.%s_TurnNumber from +4 level and +8 prefix str then Unicode int format then bfmeSetText false
 // then AptCall Go then flag at +0x18. Evidence: same literals and globals as free Rva0057A51CSet plus Go plus slot 1.
+//
+// ?rva0057C042@Rva0057C04F@@QAEXPBD@Z @0x0057C042 13B: clears +0x18 flag when set.
+// Takes const char* to match sibling OnUnload delegates (ret 4, unused arg).
+// Evidence: cmp byte [ecx+0x18] je clear; delegate target for _OnDone in ctor 0x0057C152.
 #include "ascii_string.h"
 #include "unicode_string.h"
 #pragma comment(linker, "/alternatename:??_7Base00@@6B@=_s_first0C")
@@ -45,6 +49,7 @@ class Rva0057C04F : public Base00
 public:
 	~Rva0057C04F();
 	virtual void dummy();
+	void rva0057C042(const char *name);
 	void rva0057C094(int turn);
 private:
 	int m_level04;
@@ -65,6 +70,12 @@ void Base00::dummy()
 // ?dummy@Rva0057C04F@@UAEXXZ present-unmatched
 void Rva0057C04F::dummy()
 {
+}
+
+void Rva0057C04F::rva0057C042(const char *name)
+{
+	if (m_flag18 != 0)
+		m_flag18 = 0;
 }
 
 void Rva0057C04F::rva0057C094(int turn)

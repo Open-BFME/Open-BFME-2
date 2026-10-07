@@ -66712,3 +66712,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0041E9A4@Rva0041F042@@QAEXXZ,,0x0041E9A4,46,Code/GameEngine/Source/GameClient/GUI/Rva0041E9A4.cpp,matched,vtable slot9 iterates WindowVideoMap calling notifyAll on each second
 ?rva005F1D06@Rva005F1D06@@QAEHPAD@Z,,0x005F1D06,37,Code/GameEngine/Source/Common/Rva005F1D06Write.cpp,matched,gap base write plus pair write at +0x10 caller 0x005F1D7C
 ?rva002D4688@Rva002D4688@@QAEHPAD@Z,,0x002D4688,37,Code/GameEngine/Source/Common/Rva002D4688.cpp,matched,caller 0x002D5155 pair writes at 0x109D3A and 0xB44F0
+?rva0057C042@Rva0057C04F@@QAEXPBD@Z,,0x0057C042,13,Code/GameEngine/Source/GameClient/Rva0057C04FDtor.cpp,matched,clears flag at +0x18 when set delegate target for OnDone
