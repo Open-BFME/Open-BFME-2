@@ -187,12 +187,17 @@ public:
 	void rva003B92B9(_STL::vector<const ModuleData *> *out);
 };
 
+class Image;
+
 class GameWindow
 {
 public:
 	int winHide(bool hide);
 	int winEnable(bool enable);
 	unsigned int winSetStatus(unsigned int status);
+	unsigned int winClearStatus(unsigned int status);
+	void winSetUserData(void *data);
+	int winSetEnabledImage(int index, const Image *image);
 	GameWindow *winGetChild();
 	GameWindow *winGetNext();
 };
@@ -220,7 +225,18 @@ class Image
 {
 public:
 	virtual ~Image();
+
+	unsigned char m_pad04[0x8 - 0x4];
+	AsciiString m_name;	// +0x08
 };
+
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+
+extern ImageCollection *TheMappedImageCollection;
 class Display;
 extern Display *TheDisplay;
 
@@ -338,7 +354,11 @@ public:
 	Bool m_isMultiplayer;	// +0x24
 	unsigned char m_pad25[0x38 - 0x25];
 	_STL::map<AsciiString, Rva0057DA21Waypoint> m_waypoints;	// +0x38
+	unsigned char m_pad44[0x50 - 0x44];
+	AsciiString m_fileName;	// +0x50
 };
+
+Image *getMapPreviewImage(AsciiString mapName);
 
 // SkirmishGameOptionsMenu's helpers (ZH MapUtil).
 void positionAdditionalImages(MapMetaData *mmd, GameWindow *mapWindow, Bool force);
@@ -897,4 +917,68 @@ void AptMapPreview::rva0057DA21(MapMetaData *map)
 			}
 		}
 	}
+}
+
+// AptMapPreview::rva0057DDAE, retail 0x0057DDAE (589 bytes). Name unknown.
+// Puts the map picture on the current-map window: the living-world map in
+// strategic mode, else the map's preview (ScrollShroud over _art.tga art)
+// or MissingMap, then runs the start spot pass. ZH positionStartSpots'
+// picture half.
+void AptMapPreview::rva0057DDAE(MapMetaData *map)
+{
+	Int mode = m_mode;
+	Bool strategic = mode == 1;
+	if (strategic)
+	{
+		if (m_currentMap == 0)
+			return;
+		static const Image *livingWorldMap = TheMappedImageCollection->findImageByName(AsciiString("AptLWMap"));
+		m_currentMap->winSetEnabledImage(1, 0);
+		m_currentMap->winSetStatus(0x80);
+		m_currentMap->winSetEnabledImage(0, livingWorldMap);
+		return;
+	}
+	if (m_currentMap == 0)
+		return;
+	m_currentMap->winSetEnabledImage(1, 0);
+	if (map == 0)
+	{
+		m_currentMap->winSetUserData(0);
+		static const Image *unknownImage = TheMappedImageCollection->findImageByName(AsciiString("MissingMap"));
+		if (unknownImage)
+		{
+			m_currentMap->winSetStatus(0x80);
+			m_currentMap->winSetEnabledImage(0, unknownImage);
+		}
+		else
+		{
+			m_currentMap->winClearStatus(0x80);
+		}
+	}
+	else
+	{
+		Image *image = getMapPreviewImage(map->m_fileName);
+		if (image != 0 && image->m_name.endsWithNoCase("_art.tga"))
+			m_currentMap->winSetEnabledImage(1, TheMappedImageCollection->findImageByName(AsciiString("ScrollShroud")));
+		m_currentMap->winSetUserData(map);
+		if (image != 0)
+		{
+			m_currentMap->winSetStatus(0x80);
+			m_currentMap->winSetEnabledImage(0, image);
+		}
+		else
+		{
+			static const Image *unknownImage = TheMappedImageCollection->findImageByName(AsciiString("MissingMap"));
+			if (unknownImage)
+			{
+				m_currentMap->winSetStatus(0x80);
+				m_currentMap->winSetEnabledImage(0, unknownImage);
+			}
+			else
+			{
+				m_currentMap->winClearStatus(0x80);
+			}
+		}
+	}
+	rva0057DA21(map);
 }
