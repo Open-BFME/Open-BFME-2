@@ -65,7 +65,6 @@ public:
 };
 
 extern const float BfmeZeroRange;
-extern const float g_00BCEA18;
 
 struct Inner
 {
@@ -103,7 +102,7 @@ void Rva004C7F5C::rva004C7F5C(Object *obj)
 		float *p280 = &obj->m_280;
 		if (*p280 >= BfmeZeroRange)
 		{
-			if (g_00BCEA18 > *p280)
+			if (99.0f > *p280) // retail's immutable float at RVA 0x007CEA18
 				return;
 		}
 	}

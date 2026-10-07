@@ -106,7 +106,6 @@ public:
 	int m_movementPenaltyDamageState;
 };
 extern GlobalData *TheWritableGlobalData;
-extern const float g_00C17CFC;
 
 class PathDeleteArgument
 {
@@ -142,7 +141,7 @@ void AIGroup::rva0036CE87()
 
 void AIGroup::recompute()
 {
-	float closeDist = g_00C17CFC;
+	float closeDist = 1.0e9f; // retail's immutable float at RVA 0x00817CFC
 	Coord3D center;
 	getCenter(&center);
 	rva0036CE87();
