@@ -15378,6 +15378,3 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva0028D680@Rva0028D680@@QAEXXZ,0x0028D680,REL32 at 0x0023D6C2 targets this body; caller passes the current linked node in ECX with no stack arguments after a getDrawable check; address-derived helper name and operation remain unresolved.
 ??0Rva0023FC98@@QAE@PBVAsciiString@@@Z,0x0023FC98,caller at 0x00240D8C allocates 0x10 bytes and passes a const AsciiString pointer in the constructor slot; target initializes a vtable-like word at +0 and the string subobject at +8; address-derived object identity remains unresolved.
 ?moveTeamTo@Team@@QAEXUCoord3D@@@Z,0x0039E7F2,"candidate alias: Open-BFME-1 Team.cpp identifies TeamPrototype::moveTeamTo(Coord3D) forwarding to Team::moveTeamTo(Coord3D); BFME2 target caller 0x0039F03A builds a 12-byte Coord3D argument block and calls 0x0039E7F2, whose matched body is currently address-derived with a three-float ABI. The alias and ABI equivalence are structural inferences, not an independent target symbol fact."
-?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
-?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
-?onContaining@HordeContain@@UAEXPAVObject@@_N@Z,0x0046FA46,callee of ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z
