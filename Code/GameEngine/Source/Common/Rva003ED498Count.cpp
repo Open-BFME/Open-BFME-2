@@ -25,6 +25,7 @@ public:
 };
 }
 
+class Rva003ED5A5Xfer;
 struct BitRange
 {
 	unsigned *m_begin;
@@ -34,6 +35,7 @@ struct BitRange
 	AsciiString rva003ED4E5();
 	AsciiString rva00568BE2();
 	void rva003ED411(const BitRange &other);
+	void rva003ED5A5(Rva003ED5A5Xfer *xfer);
 };
 struct TreeNode
 {
@@ -150,4 +152,56 @@ void BitRange::rva003ED411(const BitRange &other)
 		record = (TreeNode *)
 			_STL::_Rb_global<bool>::_M_increment(&record->m_base);
 	}
+}
+
+class XferException
+{
+public:
+	XferException(int tag, const char *format, ...);
+	XferException(const XferException &that);
+	~XferException();
+	char *text;
+	int tag;
+};
+
+struct Rva003ED5A5Version
+{
+	unsigned char version;
+	unsigned char currentVersion;
+};
+
+class Rva003ED5A5Xfer
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual bool slot08();
+	#define RVA3ED5A5_SLOT(n) virtual void slot##n();
+	RVA3ED5A5_SLOT(0C) RVA3ED5A5_SLOT(10) RVA3ED5A5_SLOT(14)
+	RVA3ED5A5_SLOT(18) RVA3ED5A5_SLOT(1C) RVA3ED5A5_SLOT(20) RVA3ED5A5_SLOT(24)
+	virtual void slot28(Rva003ED5A5Version *version);
+	RVA3ED5A5_SLOT(2C) RVA3ED5A5_SLOT(30) RVA3ED5A5_SLOT(34) RVA3ED5A5_SLOT(38)
+	RVA3ED5A5_SLOT(3C) RVA3ED5A5_SLOT(40) RVA3ED5A5_SLOT(44) RVA3ED5A5_SLOT(48)
+	RVA3ED5A5_SLOT(4C) RVA3ED5A5_SLOT(50) RVA3ED5A5_SLOT(54) RVA3ED5A5_SLOT(58)
+	RVA3ED5A5_SLOT(5C) RVA3ED5A5_SLOT(60) RVA3ED5A5_SLOT(64) RVA3ED5A5_SLOT(68)
+	virtual void slot6C(AsciiString *value);
+	#undef RVA3ED5A5_SLOT
+};
+
+// BFME1 donor968ca36c LargeGroupAudioKeyMapXfer.cpp provides the version,
+// save-only check and key-string transfer. Native target3ED5A5..3ED62B
+// RET4 dispatches the final string transfer at +0x6C rather than +0x68.
+// Throw metadata at VA CFFD18 independently identifies XferException.
+// Use its real constructor and a C++ throw, and the existing native string
+// builder, rather than the donor's explicit formatter/throw/thunk machinery.
+void BitRange::rva003ED5A5(Rva003ED5A5Xfer *xfer)
+{
+	Rva003ED5A5Version version;
+	version.version = 1;
+	version.currentVersion = 1;
+	xfer->slot28(&version);
+	if (!xfer->slot08())
+		throw XferException(5, 0);
+	AsciiString value = rva003ED4E5();
+	xfer->slot6C(&value);
 }
