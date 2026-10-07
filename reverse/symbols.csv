@@ -15535,3 +15535,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva002CB933@Weapon@@QAE_NPAVObject@@PAXMH@Z,0x002CB933,Seat-r10 Weapon thiscall (Object star
 ?rva00421292@Rva00421520@@QAEXPAVRva004210B0@@PBX@Z,0x00421292,Seat-r10 Rva00421520 thiscall (holder star
 ?rva0031A591@Rva00318C79Owner@@QAEXPAMPAX1@Z,0x0031A591,Owner thiscall (float pair; key; extra) via 0x2B26D0 call site; EH prolog via 0x629188; identity not recovered
+?rva003F0588@Rva002B2590P2@@QAEPAXXZ,0x003F0588,Range-scan thiscall on +0x170/+0x174 members via 0x2B2590 call site; identity not recovered
+?rva003EFE72@Rva002B2590P2@@QAEXPAX0@Z,0x003EFE72,Ret-8 forward thunk into 0x004FC3DC swapping this to first arg via 0x2B2590 call site; identity not recovered
