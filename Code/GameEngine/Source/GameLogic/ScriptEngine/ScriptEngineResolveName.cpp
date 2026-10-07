@@ -42,3 +42,55 @@ AsciiString Rva002046C0Owner::resolveName(const AsciiString &name)
 {
 	return Rva0032A9D3Split(const_cast<AsciiString &>(name), m_defaultPrefix);
 }
+
+// Native inventory boundary 0x0032AAEE..0x0032ABDA (236B), ending in RET 8.
+// ECX+0x0C supplies an array of 16-byte records; MOVSX reads signed 16-bit
+// links at +0 and +2. The twelve remaining bytes are never consumed here.
+// Removing both records and reinserting each at the other's position is the
+// structural interpretation of the target writes. The original container,
+// method name and relationship to the preceding name splitter are unknown.
+struct Rva0032AAEENode
+{
+	short next;
+	short previous;
+	char unknown04[12];
+};
+
+class Rva0032AAEE
+{
+public:
+	void rva0032AAEE(int a, int b);
+
+private:
+	char unknown00[12];
+	Rva0032AAEENode *nodes;
+};
+
+void Rva0032AAEE::rva0032AAEE(int a, int b)
+{
+	if (a == b)
+		return;
+	if (nodes[a].previous == b) {
+		int tmp = a;
+		a = b;
+		b = tmp;
+	}
+
+	Rva0032AAEENode *first = &nodes[a];
+	Rva0032AAEENode *second = &nodes[b];
+	int beforeFirst = first->previous;
+	nodes[beforeFirst].next = first->next;
+	nodes[first->next].previous = (short)beforeFirst;
+	int beforeSecond = second->previous;
+	nodes[beforeSecond].next = second->next;
+	nodes[second->next].previous = (short)beforeSecond;
+
+	first->next = nodes[beforeSecond].next;
+	first->previous = (short)beforeSecond;
+	nodes[beforeSecond].next = (short)a;
+	nodes[first->next].previous = (short)a;
+	second->next = nodes[beforeFirst].next;
+	second->previous = (short)beforeFirst;
+	nodes[beforeFirst].next = (short)b;
+	nodes[second->next].previous = (short)b;
+}
