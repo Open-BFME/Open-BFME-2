@@ -1039,26 +1039,65 @@ float HCompressedAnimClass::_bfme_hanim_fade(int pividx,float frame)
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?HCompressedAnimClass::Get_Translation present-unmatched
 void HCompressedAnimClass::Get_Translation( Vector3& trans, int pividx, float frame ) const
 {
+	if (VectorMotion) {
+		BFME2MotionChannel * chan = VectorMotion[pividx].Channels[0];
+		if (chan) chan->UnknownSlot3(frame, &(trans[0]), NULL);
+		else trans[0] = 0.0f;
+		chan = VectorMotion[pividx].Channels[1];
+		if (chan) chan->UnknownSlot3(frame, &(trans[1]), NULL);
+		else trans[1] = 0.0f;
+		chan = VectorMotion[pividx].Channels[2];
+		if (chan) chan->UnknownSlot3(frame, &(trans[2]), NULL);
+		else trans[2] = 0.0f;
+		return;
+	}
+
 	struct NodeCompressedMotionStruct * motion = &NodeMotion[pividx];
 	  
 	trans=Vector3(0,0,0);
 
 	switch(Flavor) {
 		case ANIM_FLAVOR_TIMECODED:
-			if (motion->tc.X) motion->tc.X->Get_Vector(frame, &(trans[0]));
-			if (motion->tc.Y) motion->tc.Y->Get_Vector(frame, &(trans[1]));
-			if (motion->tc.Z) motion->tc.Z->Get_Vector(frame, &(trans[2]));
+			if (motion->tc.X) {
+				uint32 cache = 0x0FFFFFFF;
+				motion->tc.X->Get_Vector(frame, &(trans[0]), cache);
+			}
+			if (motion->tc.Y) {
+				uint32 cache = 0x0FFFFFFF;
+				motion->tc.Y->Get_Vector(frame, &(trans[1]), cache);
+			}
+			if (motion->tc.Z) {
+				uint32 cache = 0x0FFFFFFF;
+				motion->tc.Z->Get_Vector(frame, &(trans[2]), cache);
+			}
 			break;
 		case ANIM_FLAVOR_ADAPTIVE_DELTA:
-			if (motion->ad.X) motion->ad.X->Get_Vector(frame, &(trans[0]));
-			if (motion->ad.Y) motion->ad.Y->Get_Vector(frame, &(trans[1]));
-			if (motion->ad.Z) motion->ad.Z->Get_Vector(frame, &(trans[2]));
-			break;
-		default:
-			WWASSERT(0);	// unknown flavor
+			if (motion->ad.X) {
+				AdaptiveDeltaCacheStruct<1> cache;
+				cache.Frame = 0x0FFFFFFF;
+				int frame1 = frame;
+				motion->ad.X->getframe(frame1, cache);
+				float t = frame - frame1;
+				trans[0] = WWMath::Lerp(cache.Value[0], cache.Value[1], t);
+			}
+			if (motion->ad.Y) {
+				AdaptiveDeltaCacheStruct<1> cache;
+				cache.Frame = 0x0FFFFFFF;
+				int frame1 = frame;
+				motion->ad.Y->getframe(frame1, cache);
+				float t = frame - frame1;
+				trans[1] = WWMath::Lerp(cache.Value[0], cache.Value[1], t);
+			}
+			if (motion->ad.Z) {
+				AdaptiveDeltaCacheStruct<1> cache;
+				cache.Frame = 0x0FFFFFFF;
+				int frame1 = frame;
+				motion->ad.Z->getframe(frame1, cache);
+				float t = frame - frame1;
+				trans[2] = WWMath::Lerp(cache.Value[0], cache.Value[1], t);
+			}
 			break;
 	}
 }
