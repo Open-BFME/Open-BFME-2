@@ -110,6 +110,16 @@
 // ObjectTypes list (rowed ScriptEngine::getObjectTypes 0x00357651) sums the
 // rowed 0x0039C0F4 count over getNthInList, otherwise the raw type name is
 // counted, and the total is compared with the count parameter's getInt.
+//
+// ?rva003E63CD@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@11@Z @ 0x003E63CD 217B
+// Target evidence: jump-table case 134 calls 0x003E63CD, which
+// initConditionTemplates names COMPARISON_TREES_IN_TRIGGER_AREA (comparison,
+// int, trigger area). The area comes from the rowed
+// getQualifiedTriggerAreaByName 0x0035768D; the cached result is reused
+// while TheTerrainLogic's +0x1910 stamp is not past the condition's custom
+// frame, otherwise the rowed TerrainLogic query 0x0027F171 counts inside the
+// trigger and Zero Hour's six-way comparison sets the cache. BFME 2-only
+// condition with no donor body, so the method keeps an address name.
 #include <vector>
 #include "ascii_string.h"
 
@@ -372,9 +382,32 @@ public:
 };
 extern TeamFactory *TheTeamFactory;
 
+class PolygonTrigger;
+
+// TerrainLogic (TheTerrainLogic 0x00DFEC50): +0x1910 is the frame stamp
+// TerrainLogicRva00283CE7.cpp stores from TheGameLogic's frame; the rowed
+// 0x0027F171 counts the grid hits inside a PolygonTrigger's radius.
+class BfmeThingCME
+{
+public:
+	int rva0027F171(PolygonTrigger *trigger);
+};
+
+class TerrainLogic
+{
+public:
+	unsigned int getStamp() const { return m_stamp; }
+	int rva0027F171(PolygonTrigger *trigger) { return reinterpret_cast<BfmeThingCME *>(this)->rva0027F171(trigger); }
+private:
+	unsigned char m_pad00[0x1910];
+	unsigned int m_stamp; // +0x1910
+};
+extern TerrainLogic *TheTerrainLogic;
+
 class ScriptEngine
 {
 public:
+	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
 	Team *getTeamNamed(AsciiString, bool);
 	Object *getUnitNamed(Parameter *pUnitParm);
 	int rva00357B82(Parameter *pPlayerParm);
@@ -405,6 +438,7 @@ protected:
 	bool evaluateNamedDestroyedByType(Parameter *, Parameter *);
 	bool evaluateHasCommandPointsToBuildUnit(Parameter *, Parameter *);
 	bool evaluatePlayerHasKilledTypeUnits(Parameter *, Parameter *, Parameter *);
+	bool rva003E63CD(Condition *, Parameter *, Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -752,5 +786,35 @@ bool ScriptConditions::evaluatePlayerHasKilledTypeUnits(Parameter *pPlayerParm, 
 			return total >= pCountParm->getInt();
 		}
 	}
+	return false;
+}
+
+bool ScriptConditions::rva003E63CD(Condition *pCondition, Parameter *pComparisonParm, Parameter *pCountParm, Parameter *pTriggerParm)
+{
+	PolygonTrigger *pTrig = TheScriptEngine->getQualifiedTriggerAreaByName(pTriggerParm->getString());
+	if (!pTrig)
+		return false;
+	if (TheTerrainLogic->getStamp() <= pCondition->getCustomFrame()) {
+		if (pCondition->getCustomData() == -1)
+			return false;
+		if (pCondition->getCustomData() == 1)
+			return true;
+	}
+	int count = TheTerrainLogic->rva0027F171(pTrig);
+	bool comparison = false;
+	switch (pComparisonParm->getInt()) {
+		case 0: comparison = count < pCountParm->getInt(); break;
+		case 1: comparison = count <= pCountParm->getInt(); break;
+		case 2: comparison = count == pCountParm->getInt(); break;
+		case 3: comparison = count >= pCountParm->getInt(); break;
+		case 4: comparison = count > pCountParm->getInt(); break;
+		case 5: comparison = count != pCountParm->getInt(); break;
+	}
+	pCondition->setCustomFrame(TheScriptEngine->getFrameObjectCountChanged());
+	if (comparison) {
+		pCondition->setCustomData(1);
+		return true;
+	}
+	pCondition->setCustomData(-1);
 	return false;
 }
