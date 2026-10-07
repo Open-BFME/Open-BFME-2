@@ -1,23 +1,36 @@
 // ?Rva00624790@Q1Receiver0134FAAC@@QAEXXZ
 // partial score=1.0 date=2026-10-07
+// ?Rva00624790@Q1Receiver0134FAAC@@QAEXXZ
 // cl: /O2 /G6 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/sweep
 // stlport
-// Reference: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
-// game/Libraries/Source/assetmanager/Q1Receiver0134FAAC_m009F1AE0.cpp.
-// Target: Ghidra624790..624D54,1476B. Guarded global wrapper61F190
-// independently supplies the E09C0C registry; its queue loop, worker624130
-// call, virtual element cost atslot38, state bits and final set clear identify
-// the donor operation. Original target method/class names remain unproved.
-// Target differences: locks34/68, seven40B queues80 and sets198..1D4;
-// the counter20 is64-bit and the virtual cost is zero-extended before the
-// subtraction. The native low/high subtraction and signed clamp prove this.
-// The int deque is only a four-byte pointer-storage ABI view, as in the
-// already verified worker unit. Known byte allocator307F0/free30830 and
-// int-deque map growth73D5E0 providers preserve the native allocation calls.
-// The final tree erase uses the actual existing POD provider692F5. Its node
-// link offsets are shared; no map payload identity is inferred for this set.
-// This is a partial receiver view; its unused allocation extent is unknown.
-// Worker624130 is an existing pinned dependency whose near match is banked.
+
+// Retail RVA 0x009F1AE0, 1470 bytes. Identity is address-derived: its one
+// caller, the unclaimed guarded forwarder at 0x009EBC40 (mov ecx,[0x0134FAAC];
+// test ecx,ecx; je; jmp 0x009F1AE0), proves the receiver and the no-argument
+// thiscall ABI but is itself unnamed, and no vtable slot or string names this
+// body, so the method keeps its address.
+//
+// The receiver is the object g_theAssetRegistry (0x0134FAAC) points at, the
+// same object as the matched Q1Receiver0134FAAC methods beside this file and
+// the Gen_dtor_009eb9e0 constructor in
+// W3DDevice/GameLogic/Rva009EB960Ctor.cpp: it holds the section
+// at +0x60, seven 0x28-byte STLport deques from +0x78 and four 0x14-byte set
+// wrappers from +0x190. Retail proves each piece here:
+//   * every deque block is 0x80 bytes and operator[] advances 32 elements per
+//     node, so the element is one pointer;
+//   * each element has a vtable (slot +0x38 returns an int that is subtracted
+//     from +0x20 and clamped at zero) and a flag word at +4 whose bits 16..23
+//     name the deque the element belongs in (the push target is
+//     m_deques78[queue]) and whose bit 25 is cleared on every visit. Retail
+//     loads, masks and stores the queue number and re-reads it after writing
+//     it, which is a volatile bit-field; the single-bit flags are plain (the
+//     sibling 0x009F1510 tests bit 25 in the register it just stored);
+//   * push_back's _M_push_back_aux_v is inlined, so the TU was built without
+//     STLport exceptions (a try block keeps MSVC from inlining it);
+//   * the +0x1CC wrapper's tree is cleared through an inline member that also
+//     sets the flag at wrapper +0x10, addressed from the wrapper pointer.
+// 0x009F1510 is pinned as Rva00624130::handle (the pointer-tail thunk at
+// 0x009EBA30 reaches it); retail passes this same receiver in ECX.
 
 // Retail mixes direct static free with imported memmove.
 #include <stdlib.h>
@@ -194,8 +207,12 @@ private:
 	Q1ReceiverLocalSet m_set1a4;
 	Q1ReceiverLocalSet m_set1b8;
 	Q1ReceiverLocalSet m_set1cc;
+	unsigned int m_field1e0;
+	unsigned int m_field1e4;
+	unsigned char m_unmodelled_1e8[0x0C];
 };
 
+typedef char Q1Receiver009F1AE0SizeCheck[sizeof(Q1Receiver0134FAAC) == 0x200 ? 1 : -1];
 
 void Q1Receiver0134FAAC::Rva00624790()
 {
