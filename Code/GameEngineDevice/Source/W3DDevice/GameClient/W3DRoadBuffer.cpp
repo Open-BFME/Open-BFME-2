@@ -77,6 +77,7 @@
 #include "WW3D2/MeshMdl.h"
 
 static const Real TEE_WIDTH_ADJUSTMENT = 1.03f;
+extern float g_Va00BBB8D8;
 
 #ifdef _INTERNAL
 // for occasional debugging...
@@ -579,7 +580,159 @@ the road vector gives the direction of the road, and the road normal is perpendi
 to the road normal.  */
 //=============================================================================
 // byte-exact reconstruction: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBufferLoadFloat4PtSectionThunk.cpp
-// ?loadFloat4PtSection@W3DRoadBuffer@@ present-unmatched
+// Retail terrain height dispatch is vtable slot +0x248 (shared with loadLit4PtSection).
+class RoadTerrainVtbl
+{
+public:
+	virtual void s000();
+	virtual void s001();
+	virtual void s002();
+	virtual void s003();
+	virtual void s004();
+	virtual void s005();
+	virtual void s006();
+	virtual void s007();
+	virtual void s008();
+	virtual void s009();
+	virtual void s010();
+	virtual void s011();
+	virtual void s012();
+	virtual void s013();
+	virtual void s014();
+	virtual void s015();
+	virtual void s016();
+	virtual void s017();
+	virtual void s018();
+	virtual void s019();
+	virtual void s020();
+	virtual void s021();
+	virtual void s022();
+	virtual void s023();
+	virtual void s024();
+	virtual void s025();
+	virtual void s026();
+	virtual void s027();
+	virtual void s028();
+	virtual void s029();
+	virtual void s030();
+	virtual void s031();
+	virtual void s032();
+	virtual void s033();
+	virtual void s034();
+	virtual void s035();
+	virtual void s036();
+	virtual void s037();
+	virtual void s038();
+	virtual void s039();
+	virtual void s040();
+	virtual void s041();
+	virtual void s042();
+	virtual void s043();
+	virtual void s044();
+	virtual void s045();
+	virtual void s046();
+	virtual void s047();
+	virtual void s048();
+	virtual void s049();
+	virtual void s050();
+	virtual void s051();
+	virtual void s052();
+	virtual void s053();
+	virtual void s054();
+	virtual void s055();
+	virtual void s056();
+	virtual void s057();
+	virtual void s058();
+	virtual void s059();
+	virtual void s060();
+	virtual void s061();
+	virtual void s062();
+	virtual void s063();
+	virtual void s064();
+	virtual void s065();
+	virtual void s066();
+	virtual void s067();
+	virtual void s068();
+	virtual void s069();
+	virtual void s070();
+	virtual void s071();
+	virtual void s072();
+	virtual void s073();
+	virtual void s074();
+	virtual void s075();
+	virtual void s076();
+	virtual void s077();
+	virtual void s078();
+	virtual void s079();
+	virtual void s080();
+	virtual void s081();
+	virtual void s082();
+	virtual void s083();
+	virtual void s084();
+	virtual void s085();
+	virtual void s086();
+	virtual void s087();
+	virtual void s088();
+	virtual void s089();
+	virtual void s090();
+	virtual void s091();
+	virtual void s092();
+	virtual void s093();
+	virtual void s094();
+	virtual void s095();
+	virtual void s096();
+	virtual void s097();
+	virtual void s098();
+	virtual void s099();
+	virtual void s100();
+	virtual void s101();
+	virtual void s102();
+	virtual void s103();
+	virtual void s104();
+	virtual void s105();
+	virtual void s106();
+	virtual void s107();
+	virtual void s108();
+	virtual void s109();
+	virtual void s110();
+	virtual void s111();
+	virtual void s112();
+	virtual void s113();
+	virtual void s114();
+	virtual void s115();
+	virtual void s116();
+	virtual void s117();
+	virtual void s118();
+	virtual void s119();
+	virtual void s120();
+	virtual void s121();
+	virtual void s122();
+	virtual void s123();
+	virtual void s124();
+	virtual void s125();
+	virtual void s126();
+	virtual void s127();
+	virtual void s128();
+	virtual void s129();
+	virtual void s130();
+	virtual void s131();
+	virtual void s132();
+	virtual void s133();
+	virtual void s134();
+	virtual void s135();
+	virtual void s136();
+	virtual void s137();
+	virtual void s138();
+	virtual void s139();
+	virtual void s140();
+	virtual void s141();
+	virtual void s142();
+	virtual void s143();
+	virtual void s144();
+	virtual void s145();
+	virtual Real getMaxCellHeight(Real x, Real y) const;
+};
+
 void W3DRoadBuffer::loadFloat4PtSection(RoadSegment *pRoad, Vector2 loc,
 														Vector2 roadNormal, Vector2 roadVector,
 														Vector2 *cornersP, 
@@ -589,7 +742,8 @@ void W3DRoadBuffer::loadFloat4PtSection(RoadSegment *pRoad, Vector2 loc,
 	const Real FLOAT_AMOUNT = MAP_HEIGHT_SCALE/8;
 	const Real MAX_ERROR = MAP_HEIGHT_SCALE*1.1f;
 	UnsignedShort ib[MAX_SEG_INDEX];
-	VertexFormatXYZDUV1 vb[MAX_SEG_VERTEX];
+	// Retail stores XYZ, normal, diffuse and UV in a 36-byte road vertex.
+	VertexFormatXYZNDUV1 vb[MAX_SEG_VERTEX];
 	Int numRoadVertices = 0;
 	Int numRoadIndices = 0;
 	
@@ -659,14 +813,14 @@ void W3DRoadBuffer::loadFloat4PtSection(RoadSegment *pRoad, Vector2 loc,
 			nextColumn.lightGradient = false;
 			nextColumn.uIndex = i;
 
-			Real minHeight=m_map->getMaxHeightValue()*MAP_HEIGHT_SCALE;
+			Real minHeight=65535.0f*(MAP_HEIGHT_SCALE/16);
 			Real maxHeight = m_map->getMinHeightValue()*MAP_HEIGHT_SCALE;
 			for (j=0; j<vCount; j++) {
 				Real jFactor = ((Real)j / (vCount-1));
 				Real jBarFactor = 1.0f-jFactor;
 				nextColumn.vtx[j] = origin +  (uVector1 * jBarFactor * iFactor) + (uVector2 * jFactor * iFactor) +
 													(vVector1 * iBarFactor * jFactor) + (vVector2 * iFactor * jFactor) ;	
-				Real z = TheTerrainRenderObject->getMaxCellHeight(nextColumn.vtx[j].X, nextColumn.vtx[j].Y); 
+				Real z = ((RoadTerrainVtbl *)TheTerrainRenderObject)->getMaxCellHeight(nextColumn.vtx[j].X, nextColumn.vtx[j].Y);
 				if (z<minHeight) minHeight = z;
 				if (z>maxHeight) maxHeight = z;
 				nextColumn.vertexIndex[j] = -1;
@@ -734,6 +888,9 @@ void W3DRoadBuffer::loadFloat4PtSection(RoadSegment *pRoad, Vector2 loc,
 				vb[numRoadVertices].x = curColumn.vtx[j].X;
 				vb[numRoadVertices].y = curColumn.vtx[j].Y;
 				vb[numRoadVertices].z = curColumn.vtx[j].Z+FLOAT_AMOUNT;
+				vb[numRoadVertices].nx = 0.0f;
+				vb[numRoadVertices].ny = 0.0f;
+				vb[numRoadVertices].nz = g_Va00BBB8D8;
 				vb[numRoadVertices].diffuse = diffuse;
 				curColumn.vertexIndex[j] = numRoadVertices;
 				numRoadVertices++;
@@ -789,7 +946,7 @@ void W3DRoadBuffer::loadFloat4PtSection(RoadSegment *pRoad, Vector2 loc,
 		}
 		curColumn = nextColumn;
 	}
-	pRoad->SetVertexBuffer(vb, numRoadVertices);
+	pRoad->SetVertexBuffer((VertexFormatXYZDUV1*)vb, numRoadVertices);
 	pRoad->SetIndexBuffer(ib, numRoadIndices);
 }
 
