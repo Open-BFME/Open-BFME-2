@@ -74,8 +74,23 @@
 // and BFME 2 clears two further slot strings. Otherwise the player-info map
 // (vslot 21) entry found through the looked-up info gives the profile ID,
 // the clan string (Zero Hour's locale setter in that place), rank points and
-// favorite side. Zero Hour's numHumans < 2 launch becomes one call to
-// 0x004FED35 on the room.
+// favorite side. Zero Hour's numHumans < 2 branch keeps only its launchGame
+// call (0x004FED35).
+//
+// GameSpyStagingRoom::launchGame @ 0x004FED35 (874 bytes). Identity from target
+// evidence: startGame calls it where Zero Hour's startGame calls launchGame,
+// and the NAT code at 0x005A63ED calls it where Zero Hour's NAT calls
+// launchGame once connections are established. rva004FE126 is called instead
+// at 0x005A63E3 when the room's +0x5C is 1.
+// The body is Zero Hour's launchGame in BFME 2's form: preorder marks, the
+// network as in rva004FE126, the hero transfer check and the map transfer
+// (both failing as in rva004FDEFF), the pending file, then MSG_NEW_GAME
+// (0x1E) carrying GAME_INTERNET (5), 1, 0 and +0x1018, TheGameLogic's byte
+// +0x9D set as in LANAPI::OnGameStart, the logic random seed, buddy status 4
+// with the room name and the global in TheNAT's place deleted. BFME 2 adds a
+// quick-match tail: when +0xFF4 is set, persistent-storage request type 7
+// (only if +0x101C is set; no queue null check) and then type 5 (with a
+// null check) go to TheGameSpyPSMessageQueue.
 #include <string>
 #include <map>
 #include "ascii_string.h"
@@ -250,7 +265,7 @@ public:
 	virtual void reset(void);
 	virtual void startGame(Int gameID);
 	void cleanUpSlotPointers(void);
-	void rva004FED35(void);
+	void launchGame(void);
 	void rva004FDEFF(LivingWorldBattle *battle);
 	void rva004FE126(void);
 private:
@@ -618,6 +633,126 @@ void GameSpyStagingRoom::rva004FE126(void)
 	}
 }
 
+// TheGameLogic's byte +0x9D, which the shared GameLogic view does not lay
+// out; LANAPI::OnGameStart sets it the same way after MSG_NEW_GAME.
+struct GameLogicStartView
+{
+	UnsignedByte m_pre9D[0x9D];
+	Bool m_bfme9D;					// +0x9D
+};
+
+// BFME 2's 0x598-byte persistent-storage request (the rowed ctor 0x00556523
+// and dtor 0x0038A1F2), queued through TheGameSpyPSMessageQueue vslot 4.
+struct BfmeOpaqueOwnedRecord1432
+{
+	BfmeOpaqueOwnedRecord1432();
+	~BfmeOpaqueOwnedRecord1432();
+	Int requestType;
+	UnsignedByte m_pad04[0x598 - 4];
+};
+
+class GameSpyPSMessageQueueInterface
+{
+public:
+	virtual ~GameSpyPSMessageQueueInterface();
+	virtual void startThread(void);
+	virtual void endThread(void);
+	virtual Bool isThreadRunning(void);
+	virtual void addRequest(const BfmeOpaqueOwnedRecord1432 &req);	// slot 4 (+0x10)
+};
+extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
+
+void GameSpyStagingRoom::launchGame(void)
+{
+	setGameInProgress(true);
+	for (Int i = 0; i < MAX_SLOTS; ++i)
+	{
+		GameSpyGameSlot *slot = (GameSpyGameSlot *)getSlot(i);
+		if (slot->isHuman())
+		{
+			if (TheGameSpyInfo->didPlayerPreorder(slot->getProfileID()))
+				markPlayerAsPreorder(i);
+		}
+	}
+
+	CreateTheNetwork();
+	BfmeNetAddress localAddress = m_localAddress;
+	if (g_Va00E063F8)
+		localAddress.m_port = g_Va00E063F8->rva005A684F(getLocalSlotNum());
+	TheNetwork->setLocalAddress(&localAddress);
+	if (g_Va00E063F8)
+	{
+		g_Va00E063F8->rva005A6A4C();
+		TheNetwork->attachTransport(g_Va00E063F8->rva005801F2());
+	}
+	else
+	{
+		TheNetwork->initTransport();
+	}
+	TheNetwork->parseUserList(this);
+	TheGameLogic->rva00376E92(false, false);
+
+	Bool heroesOk = Rva0044C3D4();
+	if (!heroesOk)
+	{
+		if (TheNetwork)
+		{
+			::delete TheNetwork;
+			TheNetwork = 0;
+		}
+		GSMessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("GUI:CouldNotTransferHero"), 0);
+		PopBackToLobby();
+		return;
+	}
+
+	Bool filesOk = DoAnyMapTransfers(this);
+	TheMapCache->updateCache();
+	if (!filesOk || TheMapCache->findMap(getMap()) == 0)
+	{
+		if (TheNetwork)
+		{
+			::delete TheNetwork;
+			TheNetwork = 0;
+		}
+		GSMessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("GUI:CouldNotTransferMap"), 0);
+		PopBackToLobby();
+		return;
+	}
+
+	TheWritableGlobalData->m_pendingFile = TheGameSpyGame->getMap();
+
+	GameMessage *msg = MessageStreamSubsystem->appendMessage(0x1E);
+	msg->appendIntegerArgument(5);
+	msg->appendIntegerArgument(1);
+	msg->appendIntegerArgument(0);
+	msg->appendIntegerArgument(m_bfme1018);
+	((GameLogicStartView *)TheGameLogic)->m_bfme9D = true;
+
+	InitGameLogicRandom(getSeed());
+	updateBuddyStatus(GAMESPY_BUDDY_STATUS_4, 0,
+		WideCharStringToMultiByte(((Rva0022C4DF *)TheGameSpyGame)->rva0022C4DF().str()));
+
+	if (g_Va00E063F8)
+	{
+		::delete g_Va00E063F8;
+		g_Va00E063F8 = 0;
+	}
+
+	if (m_isQM)
+	{
+		if (m_bfme101C)
+		{
+			BfmeOpaqueOwnedRecord1432 req;
+			req.requestType = 7;
+			TheGameSpyPSMessageQueue->addRequest(req);
+		}
+		BfmeOpaqueOwnedRecord1432 req;
+		req.requestType = 5;
+		if (TheGameSpyPSMessageQueue)
+			TheGameSpyPSMessageQueue->addRequest(req);
+	}
+}
+
 // Retail's str() falls back to its function-local TheNullChr, which the
 // linker folded with the "" literal at 0x00BBAC1C. This TU's shim str()
 // returns "" itself, so the empty quick-match strings below name the pinned
@@ -663,5 +798,5 @@ void GameSpyStagingRoom::startGame(Int gameID)
 	}
 
 	if (numHumans < 2)
-		rva004FED35();
+		launchGame();
 }
