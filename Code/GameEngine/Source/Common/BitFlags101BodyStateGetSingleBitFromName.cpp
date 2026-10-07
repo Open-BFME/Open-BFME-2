@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 
 // Evidence: retail 0x0028C819 (54 bytes) is byte-identical to the landed
@@ -6,11 +6,22 @@
 // reads 0x00DA5F30, whose first entries are DESTROYED, CAN_ATTACK,
 // UNDER_CONSTRUCTION (101 names total). Same _strcmpi thunk at 0x00BBA518.
 
+#include "ascii_string.h"
+
 #include <bitset>
 #include <string.h>
 
 typedef int Int;
 typedef bool Bool;
+
+// Target evidence: 0x0045D908 uses the 101-entry BodyStateNames table and
+// calls this rowed lookup for each set bit. Keep its cross-TU view identical
+// to the already matched helper declaration in Rva0028C753.cpp.
+class Rva0028C753
+{
+public:
+	void *rva0028C753(unsigned int idx);
+};
 
 // BodyStateNames: the retail string table at VA 0xda5f30.
 const char *BodyStateNames[101] = {
@@ -122,6 +133,7 @@ class BitFlags
 {
 public:
 	static Int getSingleBitFromName( const char *token );
+	void buildDescription( AsciiString *str, Int maxPerLine ) const;
 
 private:
 	_STL::bitset<NUMBITS> m_bits;
@@ -139,5 +151,39 @@ Int BitFlags<NUMBITS>::getSingleBitFromName( const char *token )
 	return -1;
 }
 
+// BFME1's BitFlags<304>/<86>::buildDescription templates establish the API
+// and formatting behavior. Retail's 101-bit BFME2 body differs in its lookup:
+// it uses the matched 0x0028C753 helper, which reads this bitset and the
+// BodyStateNames table at 0x00DA5F30.
+template <size_t NUMBITS>
+void BitFlags<NUMBITS>::buildDescription( AsciiString *str, Int maxPerLine ) const
+{
+	if ( str == 0 )
+		return;
+
+	((StringBase<char> *)str)->clear();
+	Bool first = true;
+	Int count = 0;
+	for ( Int i = 0; i < static_cast<Int>( NUMBITS ); ++i )
+	{
+		const char *bitName = (const char *)((Rva0028C753 *)this)->rva0028C753( (unsigned int)i );
+		if ( bitName == 0 )
+			continue;
+
+		if ( !first )
+			((StringBase<char> *)str)->concat( ", " );
+		if ( count >= maxPerLine )
+		{
+			count = 0;
+			((StringBase<char> *)str)->concat( "\n" );
+		}
+		first = false;
+		((StringBase<char> *)str)->concat( bitName );
+		++count;
+	}
+}
+
 // ?getSingleBitFromName@?$BitFlags@$0GF@@@SAHPBD@Z
 template Int BitFlags<101>::getSingleBitFromName( const char *token );
+
+template void BitFlags<101>::buildDescription( AsciiString *, Int ) const;
