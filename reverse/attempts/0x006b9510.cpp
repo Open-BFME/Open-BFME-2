@@ -1,3 +1,13 @@
+// ?MultiplyInternalFPF@@YAXPAUInternalFPF@@00@Z
+// partial score=0.997 date=2026-10-07
+// ?MultiplyInternalFPF@@YAXPAUInternalFPF@@00@Z
+// cl: /GS /MD /GR- /EHsc- -Ireference/shims/nbench -ICode/Libraries/Source/Benchmark
+// Whole emfloat.c with the extra_bits zero test routed through
+// IsMantissaZeroOrdered (0,2,1,3): that fixes the +0x216/+0x220 load pair.
+// Left: +0x15D/+0x161, the j=3 Add16Bits inline puts x->mantissa[3] in ecx
+// and z->mantissa[3] in eax; retail the reverse (c+b vs b+c). Unmoved by
+// call-site b/c swap, helper accum orders, single-expression accum, j index
+// table (worse, 116), for-init carry, /G5 /G7 /Ox no-SSE, C mode.
 /*
 ** emfloat.c
 ** Source for emulated floating-point routines.
@@ -913,7 +923,7 @@ case NORMAL_NORMAL:
         /*
         ** Set the sticky bit if any bits set in extra bits.
         */
-        if (IsMantissaZero(extra_bits))
+        if (IsMantissaZeroOrdered(extra_bits))
         {
                 z->mantissa[INTERNAL_FPF_PRECISION-1] |= 1;
         }
