@@ -18,6 +18,14 @@
 // W3DModelDrawO1Inlines.cpp; unblocks 0x004261B8, 0x000C6A4D, 0x00385FE1.
 #include <map>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0,
