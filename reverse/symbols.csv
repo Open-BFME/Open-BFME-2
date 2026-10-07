@@ -15543,3 +15543,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0020EA58@Rva002B2702B0@@QAE_NPAXPAM@Z,0x0020EA58,Helper thiscall (key; float-pair buf) via 0x2B2702 call site; body reloads ecx from first stack param and ends ret 8 so true convention uncertain; identity not recovered
 ?rva0020EC99@Rva0020EC99Helper@@QAEHPAVRva00318C32@@HHHH@Z,0x0020EC99,Helper thiscall (a1
 ?rva0020F832@Rva0020F832Helper@@QAE_NPAX0@Z,0x0020F832,Helper thiscall (a1
+?rva0020F2F1@Rva0020F2F1Helper@@QAEXPAX0@Z,0x0020F2F1,Helper thiscall (a1
