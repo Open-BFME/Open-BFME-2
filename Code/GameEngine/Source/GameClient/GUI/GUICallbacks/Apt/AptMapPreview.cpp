@@ -503,6 +503,33 @@ void AptMapPreview::rva0057D746(Rva0020E89C *previous, Rva0020E89C *current)
 	}
 }
 
+// Retail 0x0057D85D, 152 bytes. Name unknown. A region pick (ignored
+// while the game's +0x8C is set): when the campaign allows a start there
+// and the +0x6C callback is bound, reports the first region of its group
+// a player slot holds (else the region itself) and highlights it.
+void AptMapPreview::rva0057D85D(Rva0020E89C *region)
+{
+	GameInfo *info = (GameInfo *)m_18->rva0043DA65();
+	if (info != 0 && info->m_8c)
+		return;
+	if (!AllowsStartInRegion((Int)region))
+		return;
+	if (m_regionPicked.m_op == 0)
+		return;
+	Rva0020E89C *picked = region;
+	rva0057D709((Int)region, &m_regions);
+	for (unsigned int i = 0; i < m_regions.size(); ++i)
+	{
+		if (((Rva0057C688 *)this)->rva0057C688(((Rva0020E89C *)m_regions[i])->m_slot) != 0)
+		{
+			picked = (Rva0020E89C *)m_regions[i];
+			break;
+		}
+	}
+	m_regionPicked.invoke((int)picked);
+	rva0057D746(0, picked);
+}
+
 // Retail 0x0057E058, 499 bytes. Name unknown. Refreshes the preview from
 // the game's map: title, the three map panels, description and picture;
 // then points the strategic scenario combo box at the game's campaign
