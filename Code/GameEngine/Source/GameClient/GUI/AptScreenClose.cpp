@@ -110,3 +110,20 @@ void Rva000559CB::rva000559CB()
 	((Rva00053DC5 *)this)->~Rva00053DC5();
 }
 
+
+class Rva004111CC
+{
+public:
+	~Rva004111CC();
+};
+
+class Rva00411453Tree
+{
+public:
+	~Rva00411453Tree();
+};
+
+Rva00411453Tree::~Rva00411453Tree()
+{
+	((Rva004111CC *)this)->~Rva004111CC();
+}
