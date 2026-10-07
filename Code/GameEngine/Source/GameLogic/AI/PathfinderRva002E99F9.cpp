@@ -27,11 +27,40 @@ public:
 	char m_pad0[8];
 	unsigned short m_8;
 };
+class Rva005310E3
+{
+public:
+	int rva005310E3();
+private:
+	char m_lead[4];
+	unsigned char m_4;
+	unsigned char m_5;
+	char m_pad[2];
+	int m_8;
+};
+class Rva00531A44
+{
+public:
+	Rva00531A44 &rva00531A44(unsigned short count);
+	void rva00531A93();
+	unsigned short rva00531AEE(unsigned short idx);
+	unsigned short rva00531B20(unsigned short idx);
+	void rva00531ABB(unsigned short idx);
+private:
+	unsigned short m_count;
+	unsigned short m_zero;
+	unsigned short *m_p4;
+	unsigned char *m_p8;
+	unsigned short *m_pC;
+	unsigned short *m_p10;
+};
+int __cdecl rva0053123A(void *item);
 class Rva002E99F9Sub460
 {
 public:
 	unsigned short rva0053241F(void *s, unsigned short w);
 	unsigned short rva00531FD4(void *s, unsigned short w);
+	unsigned short rva00531FE6(bool force, void *item, unsigned short value);
 };
 struct Rva002E99F9Arg1
 {
@@ -88,4 +117,27 @@ int Pathfinder::FindBrokenBridge(Rva002E99F9Arg1 *a1, const Coord3D * volatile a
 	a2 = (const Coord3D *)r5;
 	m_sub460.rva0053241F(&q, r4);
 	return 0;
+}
+
+// ?rva00531FE6@Rva002E99F9Sub460@@QAEG_NPAXG@Z @0x00531FE6 91B
+// Target evidence: item bit 3 returns 1; rowed 0x005310E3 supplies a signed count; the
+// address-derived 0x0053123A lookup maps negative -1 to 1 and other negative values to 0;
+// nonnegative indexes select an Rva00531A44 slot ending in rowed 0x00531B20.
+// Structural inference: the class relation to Rva002E99F9Sub460 is supported by thunk
+// 0x0053241F which forwards (true, item, value) to this body; item identity remains unknown.
+unsigned short Rva002E99F9Sub460::rva00531FE6(bool force, void *item, unsigned short value)
+{
+	if (*((unsigned char *)item) & 0x08)
+		return 1;
+
+	int count = ((Rva005310E3 *)item)->rva005310E3();
+	if (force)
+		++count;
+	int index = rva0053123A(item);
+	if (index < 0)
+		return index == -1;
+
+	unsigned int slot = count * 7 + index + 0x15E1;
+	Rva00531A44 *entry = (Rva00531A44 *)((char *)this + slot * 0x14);
+	return entry->rva00531B20(value);
 }
