@@ -6,6 +6,15 @@
 // at +0x68 (WB member m_livingWorldWindow); start regions come from that
 // window's +0x29C -> +0x1C set, asked through 0x004FD8A8 (unnamed).
 
+// game.dat imports msvcr71's strrchr but links its own free (0x00030830,
+// see bfmealloc), which the cl line gets by emptying _CRTIMP; string.h is
+// read first with the import spelling.
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#undef _CRTIMP
+#define _CRTIMP
+
 #include "../../../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -424,14 +433,24 @@ struct Rva0057DA21Waypoint
 class MapMetaData
 {
 public:
-	unsigned char m_pad00[0x20];
+	UnicodeString m_displayName;	// +0x00
+	unsigned char m_pad04[0x20 - 0x4];
 	Int m_numPlayers;	// +0x20
 	Bool m_isMultiplayer;	// +0x24
 	unsigned char m_pad25[0x38 - 0x25];
 	_STL::map<AsciiString, Rva0057DA21Waypoint> m_waypoints;	// +0x38
 	unsigned char m_pad44[0x50 - 0x44];
 	AsciiString m_fileName;	// +0x50
+	unsigned char m_pad54[0xf8 - 0x54];
+	UnicodeString m_f8;	// +0xF8, a second display name
 };
+
+// ZH MapCache: the map records by lower-case file name.
+class MapCache : public _STL::map<AsciiString, MapMetaData>
+{
+};
+
+extern MapCache *TheMapCache;
 
 Image *getMapPreviewImage(AsciiString mapName);
 
@@ -1123,4 +1142,30 @@ void AptMapPreview::rva0057DB97()
 		if (info->m_8c && g_00DFE1C8 != 0 && info->m_c8 != 0 && owner != 0)
 			owner->rva003EEBEF(info->m_c8);
 	}
+}
+
+// AptMapPreview::rva0057D922, retail 0x0057D922 (255 bytes). Name unknown.
+// The map record for a map file name: TheMapCache's entry under the lower
+// case name, else the ctor's placeholder record relabelled with the
+// translated file name (path stripped), one player.
+MapMetaData *AptMapPreview::rva0057D922(const AsciiString &map)
+{
+	AsciiString lowerMap = map;
+	lowerMap.toLower();
+	MapCache::iterator it = TheMapCache->find(lowerMap);
+	if (it != TheMapCache->end())
+		return &(*it).second;
+	UnicodeString name;
+	AsciiString fileName;
+	const char *slash = strrchr(map.str(), '\\');
+	if (slash != 0)
+		fileName = slash + 1;
+	else
+		fileName = map;
+	name.translate(fileName);
+	m_defaultMap->m_numPlayers = 1;
+	m_defaultMap->m_displayName = name;
+	m_defaultMap->m_f8 = name;
+	m_defaultMap->m_fileName = map;
+	return m_defaultMap;
 }
