@@ -20,6 +20,7 @@ enum { MAX_PACKET_SIZE = 0x1DC };
 
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
 extern "C" void *__cdecl memcpy(void *dest, const void *src, unsigned int count);
 extern "C" unsigned char *__cdecl _mbscpy(unsigned char *dest, const unsigned char *src);
@@ -99,6 +100,96 @@ class CDDrive
 {
 public:
 	virtual AsciiString getPath();
+};
+
+// GameMessage, as addGameCommand and its room check read it: the type at
+// +0x10, the argument count byte at +0x18 and the rowed argument queries.
+enum GameMessageArgumentDataType
+{
+	ARGUMENTDATATYPE_INTEGER,
+	ARGUMENTDATATYPE_REAL,
+	ARGUMENTDATATYPE_BOOLEAN,
+	ARGUMENTDATATYPE_OBJECTID,
+	ARGUMENTDATATYPE_DRAWABLEID,
+	ARGUMENTDATATYPE_TEAMID,
+	ARGUMENTDATATYPE_LOCATION,
+	ARGUMENTDATATYPE_PIXEL,
+	ARGUMENTDATATYPE_PIXELREGION,
+	ARGUMENTDATATYPE_TIMESTAMP,
+	ARGUMENTDATATYPE_WIDECHAR,
+	ARGUMENTDATATYPE_UNKNOWN
+};
+
+struct ICoord2D
+{
+	Int x, y;
+};
+
+struct IRegion2D
+{
+	ICoord2D lo, hi;
+};
+
+union GameMessageArgumentType
+{
+	Int integer;
+	float real;
+	Bool boolean;
+	UnsignedInt objectID;
+	UnsignedInt drawableID;
+	UnsignedInt teamID;
+	Coord3D location;
+	ICoord2D pixel;
+	IRegion2D pixelRegion;
+	UnsignedInt timestamp;
+	unsigned short wChar;
+};
+
+class GameMessage
+{
+public:
+	virtual ~GameMessage();
+	Int getType() const { return m_type; }
+	UnsignedByte getArgumentCount() const { return m_argCount; }
+	GameMessageArgumentDataType getArgumentDataType(Int argIndex);
+	const GameMessageArgumentType *getArgument(Int argIndex) const;
+	UnsignedInt m_04[3];
+	Int m_type;
+	UnsignedInt m_14;
+	UnsignedByte m_argCount;
+};
+
+class NetGameCommandMsg : public NetCommandMsg
+{
+public:
+	GameMessage *constructGameMessage();
+};
+
+// GameMessageParser and its argument-type nodes, rowed under their address
+// names (RvaSmallVtableCtors.cpp): a run's type at +8 and count at +0xC, the
+// next node at +4; the parser's first node at +4 and its run count at +0xC.
+class Rva0054D593
+{
+public:
+	virtual ~Rva0054D593();
+	Rva0054D593 *getNext() { return m_next; }
+	GameMessageArgumentDataType getType() { return m_type; }
+	Int getArgCount() { return m_argCount; }
+	Rva0054D593 *m_next;
+	GameMessageArgumentDataType m_type;
+	Int m_argCount;
+};
+
+class Rva0054D54A
+{
+public:
+	Rva0054D54A(GameMessage *msg);
+	virtual ~Rva0054D54A();
+	Rva0054D593 *getFirstArgumentType() { return m_first; }
+	Int getNumTypes() { return m_argTypeCount; }
+	Rva0054D593 *m_first;
+	Rva0054D593 *m_last;
+	Int m_argTypeCount;
 };
 
 // AsciiString getter at +0x20 (rowed under its address name).
@@ -245,6 +336,7 @@ protected:
 	UnsignedByte rva0058D70B(NetCommandRef *msg);
 	Bool isRoomForGameSpyStatsAuthKeyMessage(NetCommandRef *msg);
 	Bool isRoomForFileMessage(NetCommandRef *msg);
+	Bool isRoomForGameMessage(NetCommandRef *msg, GameMessage *gmsg);
 	void rva0058D826(Int a, Int b, Int c, Int d, Int e);
 	Bool addInformPlayerLeaveFrameCommand(NetCommandRef *msg);
 	Bool rva0058E8EA(NetCommandRef *msg);
@@ -1002,6 +1094,77 @@ Bool NetPacket::isRoomForFileMessage(NetCommandRef *msg)
 	len += sizeof(UnsignedInt);
 	len += cmdMsg->getDataOffset();
 	if ((len + m_packetLen) > MAX_PACKET_SIZE) {
+		return false;
+	}
+	return true;
+}
+
+// ?isRoomForGameMessage@NetPacket@@IAE_NPAVNetCommandRef@@PAVGameMessage@@@Z, retail 0x0058D92F, 335 bytes:
+// the BFME1 donor's isRoomForGameMessage (NetPacket_addGameCommand.cpp) with
+// BFME's timestamp charge first: header bytes, 'D' plus type plus run count,
+// then two bytes and the argument data per GameMessageParser run. Retail frees
+// the parser with a flag-0 destructor call and the global operator delete,
+// which is what ::delete emits.
+Bool NetPacket::isRoomForGameMessage(NetCommandRef *msg, GameMessage *gmsg)
+{
+	Int msglen = 0;
+	NetGameCommandMsg *cmdMsg = (NetGameCommandMsg *)(msg->getCommand());
+	Bool needNewCommandID = false;
+	if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+		msglen += sizeof(UnsignedInt) + sizeof(UnsignedByte);
+	}
+	if (m_lastFrame != cmdMsg->getExecutionFrame()) {
+		msglen += sizeof(UnsignedInt) + sizeof(UnsignedByte);
+	}
+	if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+		msglen += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+		needNewCommandID = true;
+	}
+	if (m_lastRelay != msg->getRelay()) {
+		msglen += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+	}
+	if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+		msglen += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+	}
+	if (((m_lastCommandID + 1) != (UnsignedShort)(cmdMsg->getID())) || (needNewCommandID == true)) {
+		msglen += sizeof(UnsignedShort) + sizeof(UnsignedByte);
+	}
+	Rva0054D54A *parser = new Rva0054D54A(gmsg);
+	++msglen;
+	msglen += sizeof(Int);
+	msglen += sizeof(UnsignedByte);
+	Rva0054D593 *arg = parser->getFirstArgumentType();
+	while (arg != 0) {
+		msglen += 2 * sizeof(UnsignedByte);
+		GameMessageArgumentDataType type = arg->getType();
+		if (type == ARGUMENTDATATYPE_INTEGER) {
+			msglen += arg->getArgCount() * sizeof(Int);
+		} else if (type == ARGUMENTDATATYPE_REAL) {
+			msglen += arg->getArgCount() * sizeof(float);
+		} else if (type == ARGUMENTDATATYPE_BOOLEAN) {
+			msglen += arg->getArgCount() * sizeof(Bool);
+		} else if (type == ARGUMENTDATATYPE_OBJECTID) {
+			msglen += arg->getArgCount() * sizeof(UnsignedInt);
+		} else if (type == ARGUMENTDATATYPE_DRAWABLEID) {
+			msglen += arg->getArgCount() * sizeof(UnsignedInt);
+		} else if (type == ARGUMENTDATATYPE_TEAMID) {
+			msglen += arg->getArgCount() * sizeof(UnsignedInt);
+		} else if (type == ARGUMENTDATATYPE_LOCATION) {
+			msglen += arg->getArgCount() * (3 * sizeof(float));
+		} else if (type == ARGUMENTDATATYPE_PIXEL) {
+			msglen += arg->getArgCount() * (2 * sizeof(Int));
+		} else if (type == ARGUMENTDATATYPE_PIXELREGION) {
+			msglen += arg->getArgCount() * (4 * sizeof(Int));
+		} else if (type == ARGUMENTDATATYPE_TIMESTAMP) {
+			msglen += arg->getArgCount() * sizeof(UnsignedInt);
+		} else if (type == ARGUMENTDATATYPE_WIDECHAR) {
+			msglen += arg->getArgCount() * sizeof(unsigned short);
+		}
+		arg = arg->getNext();
+	}
+	::delete parser;
+	parser = 0;
+	if (msglen > (MAX_PACKET_SIZE - m_packetLen)) {
 		return false;
 	}
 	return true;
