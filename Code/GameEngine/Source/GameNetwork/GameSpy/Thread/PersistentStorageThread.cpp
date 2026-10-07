@@ -33,6 +33,8 @@ template <class CharT> class allocator;
 template <class CharT, class Traits, class Alloc> class basic_string
 {
 public:
+    basic_string();
+    ~basic_string();
 	basic_string &operator=(const CharT *text);
     basic_string &assign(const basic_string &);
     unsigned size() const { return finish - start; }
@@ -237,6 +239,8 @@ public:
 class Rva00385333 : public Rva003844D7	// tournament stats block
 {
 public:
+	Rva00385333(int);
+	Rva00385333(const Rva00385333 &);
     void rva00555DDC(XferStub *);
 	void rva00555F68();
 	~Rva00385333();						// 0x00385333
@@ -246,7 +250,7 @@ public:
 	unsigned short m_192;
 	Int m_194;
 	Int m_198;
-	unsigned char m_pad19C[0x1a8 - 0x19c];
+	Rva00385333String m_text19C;
 };
 
 class PSPlayerAllStats
@@ -321,7 +325,7 @@ void Rva00385333::rva00555F68()
 	m_192 &= 0;
 	m_194 |= -1;
 	m_198 |= -1;
-	((Rva00385333String *)m_pad19C)->operator=(g_Rva0107301CEmptyString);
+	((Rva00385333String *)(char *)&m_text19C)->operator=(g_Rva0107301CEmptyString);
 }
 
 void Rva003844D7::reset() {
@@ -455,11 +459,11 @@ void Rva00385333::rva00555DDC(XferStub *xfer) {
     xfer->_slot7c(m_198);
     AsciiString wireText;
     if (xfer->_isWriting()) {
-        ((StringBase<char> *)&wireText)->set(*(const char **)m_pad19C);
+        ((StringBase<char> *)&wireText)->set(*(const char **)(char *)&m_text19C);
         xfer->_slot6c(wireText);
     } else {
         xfer->_slot6c(wireText);
-        ((Rva00385333String *)m_pad19C)->operator=(wireText.str());
+        ((Rva00385333String *)(char *)&m_text19C)->operator=(wireText.str());
     }
 }
 
@@ -703,6 +707,16 @@ Rva003844D7::Rva003844D7(int id) : Rva00553E47StatsCore(0) {
 Rva003844D7::Rva003844D7(const Rva003844D7 &source) : Rva00553E47StatsCore(0) {
     reset();
     rva00555845(&source);
+}
+
+// Tournament vtable86B114 inherits the five prefix slots and adds final merge.
+Rva00385333::Rva00385333(int id) : Rva003844D7(0) {
+    rva00555F68();
+    m_id = id;
+}
+Rva00385333::Rva00385333(const Rva00385333 &source) : Rva003844D7(0) {
+    rva00555F68();
+    ((Rva00555D74 *)this)->rva00555D74((const Rva00555D74 *)&source);
 }
 
 // These return the same concrete members as the native RVO getters389DF1/389E0F.
