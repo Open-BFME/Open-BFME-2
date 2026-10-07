@@ -15508,3 +15508,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?Rva006CF1B0@@YAXH@Z,0x006CF1B0,cdecl notify taking the throttled delay; 5B thunk forwarding to 0xACF040; caller cleans (pop ecx) in 0x2251E5
 ?rva00224F6C@Rva00222A8BTarget@@QAEXXZ,0x00224F6C,tail thiscall ending 0x2251E5 (pops+jmp); 633B EH body unrowed; address-derived method name pending its recovery
 ?rva00286926@Rva00286926Host@@QAEXHHHHH@Z,0x00286926,thiscall with 5 ints from 0x287519 nested loops
+?rva00278341@Rva00278341Host@@QAEXHH@Z,0x00278341,thiscall with 2 ints from 0x2783F6

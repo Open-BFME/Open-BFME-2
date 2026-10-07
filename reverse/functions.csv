@@ -67801,3 +67801,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??0Rva0022CD78@@QAE@XZ,,0x0022CD78,70,Code/GameEngine/Source/Common/Rva0022CD78Ctor.cpp,matched,
 ?rva002251E5@Rva00222A8BTarget@@QAEXXZ,,0x002251E5,180,Code/GameEngine/Source/GameClient/Rva002251E5Update.cpp,matched,
 ?rva00287519@Rva00287519Host@@QAEXH@Z,,0x00287519,57,Code/GameEngine/Source/Common/Rva00287519.cpp,matched,nested counted loops forwarding i i j arg 0
+?rva002783F6@Rva002783F6Host@@QAEXH@Z,,0x002783F6,74,Code/GameEngine/Source/Common/Rva002783F6.cpp,matched,triple gate plus virtual v20 forward to 0x278341
