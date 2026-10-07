@@ -67250,3 +67250,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva0016801A@Rva0016801A@@QAEPAXH@Z,,0x0016801A,38,Code/GameEngine/Source/Common/Rva0016801AInit.cpp,matched,pin caller 0x001683AE callee Resize 0x00167F88 data g_00BD41AC
 ?rva005B4AD9@Rva005B4BDB@@QAEXH@Z,,0x005B4AD9,258,Code/GameEngine/Source/Common/Rva005B4BDB.cpp,matched,REF AptCreateAHero NamePrompt handler GadgetTextEntryGetText isEmpty TheGameText fetch Rva00437E84
 ??0Rva000AB910@@QAE@ABVAsciiString@@@Z,,0x000AB910,70,Code/GameEngine/Source/Common/Rva000AB910Ctor.cpp,matched,target offsets support string integer and two maps
+??0Rva0022A9DDSubsystem@@QAE@XZ,,0x0022DF79,55,Code/GameEngine/Source/GameClient/Rva0022DF79SubsystemCtor.cpp,matched,GameEngine init caller names subsystem; matching sibling constructor recipe
