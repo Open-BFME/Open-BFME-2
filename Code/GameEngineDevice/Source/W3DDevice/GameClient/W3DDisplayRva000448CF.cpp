@@ -10,6 +10,10 @@
 // target facts, Render2D +0x48 flag label descriptive. No header edits.
 typedef unsigned long uint32;
 
+struct ICoord2D { int x,y; };
+struct IRegion2D { ICoord2D lo,hi; };
+bool ClipLine2D(ICoord2D *start,ICoord2D *end,ICoord2D *returnStart,ICoord2D *returnEnd,IRegion2D *region);
+
 class Vector2
 {
 public:
@@ -22,6 +26,11 @@ class Render2DClass
 {
 public:
 	void Add_Line(const Vector2 &a, const Vector2 &b, float width, uint32 color);
+	// Native00042C80..00042EBD RET14 independently consumes two 2-float
+	// references, float width and two unsigned colours. It normalizes the
+	// perpendicular endpoint delta, allocates4 vertices/6 indices and assigns
+	// distinct colours to each endpoint pair: donor Add_Line(a,b,width,c0,c1).
+	void Add_Line(const Vector2 &a, const Vector2 &b, float width, uint32 color0, uint32 color1);
 	char m_pad48[0x48];
 	unsigned char m_flag48;
 };
@@ -53,9 +62,12 @@ class W3DDisplay : public Display
 {
 public:
 	void rva000448CF(float x1, float y1, float x2, float y2, float width, uint32 color);
+	void rva00044928(float x1, float y1, float x2, float y2, float width, uint32 color0, uint32 color1);
 private:
 	char m_pad14[0x164];
 	Render2DClass *m_render2D;
+	IRegion2D m_clipRegion; // native +0x16C
+	bool m_isClippedEnabled; // native +0x17C
 };
 
 void W3DDisplay::rva000448CF(float x1, float y1, float x2, float y2, float width, uint32 color)
@@ -64,4 +76,26 @@ void W3DDisplay::rva000448CF(float x1, float y1, float x2, float y2, float width
 	rdClear->m_flag48 = 0;
 	Render2DClass *rd = m_render2D;
 	rd->Add_Line(Vector2(x1, y1), Vector2(x2, y2), width, color);
+}
+
+// Native00044928..00044A1A RET1C: same measured receiver and +0x168
+// renderer as the preceding 89-byte wrapper, but optionally clips through
+// rowed ClipLine2D00025F406 and forwards two endpoint colours. Semantic lead
+// is BFME1/ZH W3DDisplay::drawLine (two colours) plus drawOpenRect's clipping
+// pattern, at BFME1 ba7ddda7e8. Target coordinates are floats, unlike the
+// donor's integer overload, and the original overload name remains unknown.
+void W3DDisplay::rva00044928(float x1, float y1, float x2, float y2, float width, uint32 color0, uint32 color1)
+{
+    m_render2D->m_flag48 = 0;
+    if (m_isClippedEnabled) {
+        ICoord2D start,end,returnStart,returnEnd;
+        start.x=(int)x1; start.y=(int)y1;
+        end.x=(int)x2; end.y=(int)y2;
+        if (ClipLine2D(&start,&end,&returnStart,&returnEnd,&m_clipRegion))
+            m_render2D->Add_Line(Vector2((float)returnStart.x,(float)returnStart.y),
+                                Vector2((float)returnEnd.x,(float)returnEnd.y),
+                                width,color0,color1);
+    } else {
+        m_render2D->Add_Line(Vector2(x1,y1),Vector2(x2,y2),width,color0,color1);
+    }
 }
