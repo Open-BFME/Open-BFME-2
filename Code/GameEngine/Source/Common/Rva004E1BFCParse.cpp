@@ -1,12 +1,12 @@
-// ?Rva004E1BFCParse@@YAXPAVINI@@PAX@Z
-// partial score=0.99 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc
 // ?Rva004E1BFCParse@@YAXPAVINI@@PAX@Z @0x004E1BFC 126B
 // ParseMoveArmyBlockAndAddToLivingWorldCampaignAct proc: throws INIException 3 on null ini or instance
-// with retail literal then builds Rva004E1B00 record inline then INI::initFromINI with table
+// with retail literal then builds TracerFXNugget record inline then INI::initFromINI with table
 // g_00C61830 then append 0x00566537. Evidence: table slot 0x0086CD84 neighbour MoveArmy plus string
 // ParseMoveArmyBlockAndAddToLivingWorldCampaignAct plus sibling LivingWorld append thunks plus vtable
-// 0x00C61DB4 plus DoXfer 0x004E1302 with GetSnapshotName MoveArmy.
+// ??_7TracerFXNugget@@6B@ at 0x00861DB4 plus dtor row ??1TracerFXNugget@@MAE@XZ at 0x004E1B00 plus DoXfer
+// 0x004E1302 with GetSnapshotName MoveArmy. Record uses the rowed names so the vptr store and the dtor
+// call resolve by address. Minimal local view: vptr plus two strings is all this body touches.
 
 struct FieldParse;
 
@@ -32,13 +32,14 @@ extern const FieldParse g_00C61830;
 
 #include "ascii_string.h"
 
-class Rva004E1B00
+class TracerFXNugget
 {
-public:
-	virtual ~Rva004E1B00();
+protected:
+	virtual ~TracerFXNugget();
 private:
 	AsciiString m_str04;
 	AsciiString m_str08;
+	friend void Rva004E1BFCParse(INI *ini, void *instance);
 };
 
 class Rva0052BDE6
@@ -57,7 +58,7 @@ void Rva004E1BFCParse(INI *ini, void *instance)
 {
 	if (ini && instance)
 	{
-		Rva004E1B00 record;
+		TracerFXNugget record;
 		ini->initFromINI(&record, &g_00C61830);
 		((Rva00566537Owner *)instance)->append(*(const Rva0052BDE6 *)&record);
 	}
