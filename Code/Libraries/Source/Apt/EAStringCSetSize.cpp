@@ -8,7 +8,6 @@
 // then installs the low word. Layout from retail: this+0 is the rep pointer,
 // rep+2 is the size word, rep+4 is the capacity word. Assert/call/flag
 // pattern mirrors AptDisplayList.cpp and AptActionInterpreterBitwise.cpp.
-// ?GetInternalMaxSize@EAStringC@@QBEIXZ present-unmatched
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
