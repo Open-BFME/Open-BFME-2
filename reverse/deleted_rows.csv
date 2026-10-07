@@ -881,3 +881,4 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?d_0031adae@@YAXXZ,0x0031ADAE,Converted to verified C++ in codex2 506-byte batch; keep orphan PROC and prevent union-merge resurrection
 ?d_0047ba10@@YAXXZ,0x0047BA10,Converted to verified C++ in codex2 506-byte batch; keep orphan PROC and prevent union-merge resurrection
 ?d_005e9687@@YAXXZ,0x005E9687,Converted to verified C++ in codex2 506-byte batch; keep orphan PROC and prevent union-merge resurrection
+?d_00375af7@@YAXXZ,0x00375AF7,Converted to verified C++ height query; keep orphan PROC
