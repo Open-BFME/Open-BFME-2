@@ -67263,3 +67263,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?Rva0056B668Parse@@YAXPAVINI@@PAX1PBX@Z,,0x0056B668,255,Code/GameEngine/Source/Common/Rva0056B668Parse.cpp,matched,stored Object callback with ArmyIcon parser strings matching BF1F sibling
 ??0Rva0022B0B8Subsystem@@QAE@XZ,,0x003EF5A3,55,Code/GameEngine/Source/Common/Rva0022B0B8Subsystem.cpp,matched,caller GameEngine init and rowed constructor sequence with vtable evidence
 ?Rva003BBE04@@YGX_N@Z,,0x003BBE04,46,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarVisibility.cpp,matched,retail branch selects matched hide or show callback then display slot 86
+??4Rva0051F87B@@QAEAAV0@ABV0@@Z,,0x0051F972,111,Code/GameEngine/Source/Common/Rva0051F87BAssign.cpp,matched,same layout as rowed copy 0x0051F87B and ctor 0x0051FAFC with vtable 0x0086745C
