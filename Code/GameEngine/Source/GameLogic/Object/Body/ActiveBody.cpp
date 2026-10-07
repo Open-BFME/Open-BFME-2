@@ -414,10 +414,13 @@ public:
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	Drawable *getDrawable() const;			// 0x005508E2
 	Object *getContainedBy() const { return m_containedBy; }
+	const Coord3D *getPosition() const { return (const Coord3D *)m_cachedPos; }
 
 	void *m_vptr;
 	const ThingTemplate *m_template;	// +0x04
-	unsigned char m_pad08[0x74 - 0x08];
+	Real m_transform[3][4];			// +0x08: rows, translation in column 3
+	Real m_cachedPos[3];			// +0x38
+	unsigned char m_pad44[0x74 - 0x44];
 	Int m_id;			// +0x74
 	unsigned char m_pad78[0x94 - 0x78];
 	UnsignedInt m_status;			// +0x94
@@ -699,7 +702,8 @@ public:
 	virtual void clearArmorSetFlag(ArmorSetType ast);	// +0x34
 	virtual void i14(); virtual void i15();
 	virtual void i16(); virtual void i17(); virtual void i18(); virtual void i19();
-	virtual void i20(); virtual void i21();
+	virtual void i20();
+	virtual void setInitialHealth(Real initialPercent, Bool directional);	// +0x54
 	virtual void setMaxHealth(Real maxHealth, MaxHealthChangeType healthChangeType);	// +0x58
 	virtual void i23();
 	virtual void i24(); virtual void i25(); virtual void i26(); virtual void i27();
@@ -724,6 +728,8 @@ public:
 	virtual void rva004BE69C();
 	virtual void onDelete();
 	void setCorrectDamageState(Bool arg);
+	void rva004BFB1C(Real amount, const Coord3D *pos);	// 0x004BFB1C
+	void rva004BFCD4(Real amount, DamageInfo *damageInfo);
 
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -1470,5 +1476,28 @@ void ActiveBody::setCorrectDamageState(Bool arg)
 			if (c.m_stage == m_field34 && c.m_ocl)
 				c.m_ocl->create(getObject(), 0, 0);
 		}
+	}
+}
+
+// The side-damage source point: a plain three-float copy (this unit's Coord3D
+// view carries the out-of-line constructor and destructor the bone array uses).
+struct ActiveBodySidePoint
+{
+	Real x, y, z;
+};
+
+// ActiveBody, retail 0x004BFCD4 (83B): attemptDamage's directional branch
+// (damage type 4). Spread the damage over the sides facing the source's
+// position (its transform translation) through 0x004BFB1C.
+void ActiveBody::rva004BFCD4(Real amount, DamageInfo *damageInfo)
+{
+	Object *source = TheGameLogic->findObjectByID(damageInfo->in.m_sourceID);
+	if (source)
+	{
+		ActiveBodySidePoint pos;
+		pos.x = source->m_transform[0][3];
+		pos.y = source->m_transform[1][3];
+		pos.z = source->m_transform[2][3];
+		rva004BFB1C(amount, (const Coord3D *)&pos);
 	}
 }
