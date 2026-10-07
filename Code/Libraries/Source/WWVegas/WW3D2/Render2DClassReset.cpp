@@ -1,4 +1,4 @@
-// cl: /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // BFME2 retail's Render2D layout uses an STLport vector of 0x74-byte ProxyClass
 // records. The live 1.06.2429.30210 snapshot has the same .text as the audited
@@ -16,6 +16,10 @@
 // tag arguments are by value, as __copy_ptrs 0x00119BB0 is mangled.
 // Reset writes the init loops itself: a forceinline helper spends the inline
 // budget and leaves push_back's copy constructor out of line, unlike retail.
+// /GX rather than /EHsc: ~vector (0x00119C00) leaves its EH state (-1) before
+// the storage free, so that free is a call that may throw; under /EHsc the C
+// free counts as nothrow and the store is dropped. ~Render2DClass, which frees
+// its raw arrays through the msvcr71 import, is Render2DClassDestructor.cpp.
 
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
 // flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
@@ -211,6 +215,7 @@ void Render2DClass::Reset()
 template void std::_Destroy<ProxyClass *>(ProxyClass *, ProxyClass *);
 template void std::vector<ProxyClass>::push_back(const ProxyClass &);
 template void std::vector<ProxyClass>::clear();
+template std::vector<ProxyClass>::~vector();
 template ProxyClass &std::vector<ProxyClass>::operator[](unsigned int);
 template ProxyClass *std::__uninitialized_fill_n(ProxyClass *, unsigned int, const ProxyClass &, const std::__false_type &);
 template ProxyClass *std::__uninitialized_copy(ProxyClass *, ProxyClass *, ProxyClass *, const std::__false_type &);
