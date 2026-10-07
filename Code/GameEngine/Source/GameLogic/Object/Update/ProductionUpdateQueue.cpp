@@ -1,4 +1,5 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /ICode/Libraries/Include /Ireference/shims/bfme2_ascii
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /ICode/Libraries/Include /Ireference/shims/bfme2_ascii
+// stlport
 //
 // ProductionUpdate queue members (BFME 2), from the Generals Zero Hour
 // ProductionUpdate.cpp and ProductionUpdate.h.
@@ -33,6 +34,14 @@
 //   +0x18 set, the cost is also stored as a float at object +0x324.
 // - addUpgrade and removeUpgrade take a trailing 0.
 // - unit matches go through ThingTemplate::isEquivalentTo.
+// - xfer is at version 7. Each entry also carries +0x18, +0x1C, quantities
+//   +0x20/+0x24, the cost, the +0x34 flag and the slot; versions 4 and 5 add
+//   a dummy Real, list<int> and Bool per entry. The tail keeps an unused
+//   uint, the +0x118..+0x120 fields, the doors, both flag sets (0x000BB710)
+//   and the version 2/3/6/7 fields.
+// The STL containers come from STLport with the bfmelist/bfmealloc shims; a
+// hand-written list view puts the dummy list's allocator temporary in a new
+// frame slot, where retail reuses the dead parameter slot.
 
 #include "ascii_string.h"
 
@@ -52,22 +61,139 @@ class Player;
 class Upgrade;
 
 
-namespace _STL
-{
-template <class T> class allocator
-{
-};
-template <class T, class A = allocator<T> > class vector
+#include <list>
+#include <vector>
+
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+class Xfer
 {
 public:
-	void push_back(const T &x);
+	class Version;
+
+	Xfer();
+	virtual ~Xfer();
+
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3DBase &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+
+	virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+
+protected:
+	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+struct XferException
+{
+	char *text;
+	int tag;
+};
+
+extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
+extern int g_guardTargetTypeThrowInfo;
+extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
+
+Xfer *Rva00460216XferList(Xfer *xfer, _STL::list<int> *list);
+Xfer *xferAsciiStringVector(Xfer *xfer, _STL::vector<AsciiString> *vec);
+
+typedef unsigned int AudioHandle;
+
+class AudioManager
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04();
+	virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09();
+	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
+	virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24();
+	virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29();
+	virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34();
+	virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
+	virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44();
+	virtual void v45(); virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49();
+	virtual void v50(); virtual void v51(); virtual void v52(); virtual void v53(); virtual void v54();
+	virtual void v55(); virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59();
+	virtual void v60(); virtual void v61(); virtual void v62(); virtual void v63(); virtual void v64();
+	virtual void v65(); virtual void v66(); virtual void v67(); virtual void v68(); virtual void v69();
+	virtual void v70(); virtual void v71(); virtual void v72(); virtual void v73(); virtual void v74();
+	virtual void v75(); virtual void v76(); virtual void v77(); virtual void v78(); virtual void v79();
+	virtual void v80(); virtual void v81(); virtual void v82(); virtual void v83(); virtual void v84();
+	virtual void v85(); virtual void v86(); virtual void v87();
+	virtual void xferAudioHandle(Xfer *xfer, AudioHandle *handle) = 0; // slot 88
+};
+
+extern AudioManager *TheAudio;
+
+// ModelConditionFlags-sized bit set (0x4C bytes) with the rowed member xfer.
+class Rva000BB710
+{
+public:
+	void xfer(Xfer *xfer);
 
 private:
-	T *m_start;
-	T *m_finish;
-	T *m_end;
+	char m_unknown00[0x4C];
 };
-}
 
 enum CanMakeType
 {
@@ -93,16 +219,40 @@ struct Rva0049D0DEMask
 	UnsignedInt m_bits[1];
 };
 
-class ThingTemplate
+// ZH Overridable: the next override is at +4 (rowed chain walk 0x001E35DF).
+class Rva001E35DFView
+{
+public:
+	const Rva001E35DFView *getFinalOverride() const
+	{
+		if (m_nextOverride)
+			return m_nextOverride->getFinalOverride();
+		return this;
+	}
+
+	void *m_vtable;
+	Rva001E35DFView *m_nextOverride;
+	Bool m_isOverride;
+};
+
+class ThingTemplate : public Rva001E35DFView
 {
 public:
 	Bool isEquivalentTo(const ThingTemplate *tt) const;
 	const AsciiString &getName() const { return m_name; }
 
 private:
-	char m_unknown00[0x64];
+	char m_unknown0C[0x64 - 0xC];
 	AsciiString m_name; // +0x64
 };
+
+class Rva002D06CA
+{
+public:
+	void *rva002D06CA(const AsciiString *key); // findTemplate
+};
+
+extern Rva002D06CA *TheThingFactory;
 
 enum UpgradeType
 {
@@ -130,9 +280,12 @@ public:
 	UpgradeType getUpgradeType() const { return m_type; }
 	UnsignedInt rva0026EF50(Player *player, Object *obj) const; // calcCostToBuild
 
+	const AsciiString &getUpgradeName() const { return m_name; }
+
 	char m_unknown00[4];
 	UpgradeType m_type; // +4
-	char m_unknown08[0x70 - 8];
+	AsciiString m_name; // +8
+	char m_unknown0C[0x70 - 0xC];
 	Int m_bfme70; // +0x70
 };
 
@@ -140,6 +293,7 @@ class UpgradeCenter
 {
 public:
 	Bool rva0026F11A(Player *player, const UpgradeTemplate *upgrade, Object *obj, Bool displayReason); // canAffordUpgrade
+	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
 };
 
 extern UpgradeCenter *TheUpgradeCenter;
@@ -186,6 +340,8 @@ enum ExitDoorType
 {
 	DOOR_1 = 0
 };
+
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 enum NameKeyType
 {
@@ -288,11 +444,14 @@ public:
 	const UpgradeTemplate *m_upgradeToResearch; // +0xC
 	Int m_productionID; // +0x10
 	Real m_percentComplete; // +0x14
-	char m_unknown18[0x28 - 0x18];
+	Real m_bfme18; // +0x18
+	Int m_bfme1C; // +0x1C
+	Int m_productionQuantityTotal; // +0x20
+	Int m_productionQuantityProduced; // +0x24
 	Int m_cost; // +0x28
-	char m_unknown2C[0x30 - 0x2C];
+	ExitDoorType m_exitDoor; // +0x2C
 	Int m_bfme30; // +0x30
-	char m_unknown34[0x38 - 0x34];
+	Bool m_bfme34; // +0x34
 	Int m_bfme38; // +0x38
 	Int m_bfme3C; // +0x3C
 	char m_unknown40[0x48 - 0x40];
@@ -336,6 +495,9 @@ public:
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
+public:
+	void xfer(Xfer *xfer);
+
 protected:
 	unsigned m_nextCallFrameAndPhase;
 	int m_indexInLogic;
@@ -383,6 +545,19 @@ public:
 	void rva0049D57F(void *entry); // removeFromProductionQueue
 };
 
+enum
+{
+	DOOR_COUNT_MAX = 4
+};
+
+struct DoorInfo
+{
+	UnsignedInt m_doorOpenedFrame;
+	UnsignedInt m_doorWaitOpenFrame;
+	UnsignedInt m_doorClosedFrame;
+	Bool m_holdOpen;
+};
+
 class ProductionUpdate : public UpdateModule, public ProductionUpdateInterface, public DieModuleInterface
 {
 public:
@@ -406,6 +581,8 @@ public:
 	virtual const Rva0049D1B1 *nextProduction(const Rva0049D1B1 *p) const;
 
 protected:
+	virtual void xfer(Xfer *xfer);
+
 	const ProductionUpdateModuleData *getProductionUpdateModuleData() const
 	{
 		return (const ProductionUpdateModuleData *)m_moduleData;
@@ -423,9 +600,17 @@ protected:
 	Rva0049D1B1 *m_productionQueueTail; // +0x2C
 	ProductionID m_uniqueID; // +0x30
 	UnsignedInt m_productionCount; // +0x34
-	char m_unknown38[0x120 - 0x38];
+	UnsignedInt m_constructionCompleteFrame; // +0x38
+	DoorInfo m_doors[DOOR_COUNT_MAX]; // +0x3C
+	Rva000BB710 m_clearFlags; // +0x7C
+	Rva000BB710 m_setFlags; // +0xC8
+	Bool m_flagsDirty; // +0x114
+	UnsignedInt m_bfme118; // +0x118
+	Bool m_bfme11C; // +0x11C
 	ObjectID m_bfme120; // +0x120
-	char m_unknown124[0x130 - 0x124];
+	char m_unknown124[0x128 - 0x124];
+	UnsignedInt m_bfme128; // +0x128
+	AudioHandle m_bfme12C; // +0x12C
 	_STL::vector<AsciiString> m_bfme130; // +0x130
 	Bool m_bfme13C; // +0x13C
 };
@@ -756,3 +941,205 @@ void ProductionUpdate::rva0049DEC8()
 	if( exitInterface )
 		exitInterface->exitSlot11();
 }
+
+// ?xfer@ProductionUpdate@@MAEXPAVXfer@@@Z @0x0049F91A 1192B
+// The ZH xfer at version 7. Over ZH it adds the entry's +0x18/+0x1C, cost,
+// +0x34 flag and slot, the object's +0x118/+0x11C/+0x120 and four gated
+// tails; version 4 and 5 entries carry a dead float, int list and flag.
+void ProductionUpdate::xfer( Xfer *xfer )
+{
+	// extend base class
+	UpdateModule::xfer( xfer );
+	if( xfer->IsLightCRC() )
+		return;
+
+	// version
+	Xfer::Version version( 1, 7 );
+	*xfer == version;
+
+	// production queue count
+	Rva0049D1B1 *production;
+	unsigned short productionCount = 0;
+	for( production = m_productionQueue; production; production = production->m_next )
+		productionCount++;
+	*xfer == productionCount;
+
+	// production queue data
+	if( xfer->IsStoring() )
+	{
+		AsciiString name;
+
+		// write all queue data
+		for( production = m_productionQueue; production; production = production->m_next )
+		{
+
+			// type
+			xfer->XferRawBytes( &production->m_type, sizeof( ProductionType ) );
+
+			// thing/upgrade template name
+			switch( production->m_type )
+			{
+				case PRODUCTION_UNIT:
+				case PRODUCTION_HORDE_UNIT:
+					name = production->m_objectToProduce->getName();
+					break;
+				case PRODUCTION_UPGRADE:
+					name = production->m_upgradeToResearch->getUpgradeName();
+					break;
+				default:
+					XferException error;
+					bfmeFormatText( &error, 5, 0 );
+					_CxxThrowException( &error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo ); __assume(0);
+			}
+			*xfer == name;
+
+			xfer->XferRawBytes( &production->m_productionID, sizeof( ProductionID ) );
+			*xfer == production->m_percentComplete;
+			*xfer == production->m_bfme18;
+			*xfer == production->m_bfme1C;
+			*xfer == production->m_productionQuantityTotal;
+			*xfer == production->m_productionQuantityProduced;
+			*xfer == production->m_cost;
+			*xfer == production->m_bfme34;
+			xfer->XferRawBytes( &production->m_exitDoor, sizeof( ExitDoorType ) );
+			Int slot = production->m_bfme30;
+			*xfer == slot;
+			if( version.m_minimum >= 4 )
+			{
+				Real unusedReal = 0.0f;
+				*xfer == unusedReal;
+				_STL::list<Int> unusedList;
+				Rva00460216XferList( xfer, &unusedList );
+			}
+			if( version.m_minimum >= 5 )
+			{
+				Bool unusedBool = FALSE;
+				*xfer == unusedBool;
+			}
+
+		}  // end for
+
+	}  // end if, save
+	else
+	{
+		AsciiString name;
+
+		// the queue should be emtpy now
+		if( m_productionQueue != NULL )
+		{
+			XferException error;
+			bfmeFormatText( &error, 5, 0 );
+			_CxxThrowException( &error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo ); __assume(0);
+		}
+
+		// read each element
+		for( unsigned short i = 0; i < productionCount; ++i )
+		{
+
+			// allocate new production entry
+			production = new Rva0049D1B1;
+
+			// tie to list at end
+			if( m_productionQueue == NULL )
+				m_productionQueue = production;
+
+			// make any existing tail pointer now point to us, and we point back to them
+			if( m_productionQueueTail )
+			{
+				m_productionQueueTail->m_next = production;
+				production->m_prev = m_productionQueueTail;
+			}
+
+			// this production entry is now the new tail at the end of the list
+			m_productionQueueTail = production;
+
+			// type
+			xfer->XferRawBytes( &production->m_type, sizeof( ProductionType ) );
+
+			// thing/upgrade template name
+			*xfer == name;
+			switch( production->m_type )
+			{
+				case PRODUCTION_UNIT:
+				case PRODUCTION_HORDE_UNIT:
+					production->m_objectToProduce = (const ThingTemplate *)TheThingFactory->rva002D06CA( &name );
+					production->m_objectToProduce = production->m_objectToProduce ?
+						(const ThingTemplate *)production->m_objectToProduce->getFinalOverride() : NULL;
+					break;
+				case PRODUCTION_UPGRADE:
+					production->m_upgradeToResearch = TheUpgradeCenter->findUpgrade( name );
+					break;
+			}
+
+			xfer->XferRawBytes( &production->m_productionID, sizeof( ProductionID ) );
+			*xfer == production->m_percentComplete;
+			*xfer == production->m_bfme18;
+			*xfer == production->m_bfme1C;
+			*xfer == production->m_productionQuantityTotal;
+			*xfer == production->m_productionQuantityProduced;
+			*xfer == production->m_cost;
+			*xfer == production->m_bfme34;
+			xfer->XferRawBytes( &production->m_exitDoor, sizeof( ExitDoorType ) );
+			Int slot;
+			*xfer == slot;
+			production->m_bfme30 = slot;
+			if( version.m_minimum >= 4 )
+			{
+				Real unusedReal = 0.0f;
+				*xfer == unusedReal;
+				_STL::list<Int> unusedList;
+				Rva00460216XferList( xfer, &unusedList );
+			}
+			if( version.m_minimum >= 5 )
+			{
+				Bool unusedBool = FALSE;
+				*xfer == unusedBool;
+			}
+
+		}  // end for, i
+
+	}  // end else, load
+
+	// unique id
+	xfer->XferRawBytes( &m_uniqueID, sizeof( ProductionID ) );
+
+	// production count
+	*xfer == m_productionCount;
+
+	// construction complete frame
+	*xfer == m_constructionCompleteFrame;
+
+	UnsignedInt unused = 0;
+	*xfer == unused;
+	XferObjectID( xfer, &m_bfme120 );
+	*xfer == m_bfme118;
+	*xfer == m_bfme11C;
+
+	// door info
+	for( Int i = 0; i < DOOR_COUNT_MAX; ++i )
+	{
+		*xfer == m_doors[ i ].m_doorOpenedFrame;
+		*xfer == m_doors[ i ].m_doorWaitOpenFrame;
+		*xfer == m_doors[ i ].m_doorClosedFrame;
+		*xfer == m_doors[ i ].m_holdOpen;
+	}
+
+	// clear flags
+	m_clearFlags.xfer( xfer );
+
+	// set flags
+	m_setFlags.xfer( xfer );
+
+	// flags dirty
+	*xfer == m_flagsDirty;
+
+	if( version.m_minimum >= 2 )
+		*xfer == m_bfme128;
+	if( version.m_minimum >= 3 && TheAudio )
+		TheAudio->xferAudioHandle( xfer, &m_bfme12C );
+	if( version.m_minimum >= 6 )
+		xferAsciiStringVector( xfer, &m_bfme130 );
+	if( version.m_minimum >= 7 )
+		*xfer == m_bfme13C;
+
+}  // end xfer
