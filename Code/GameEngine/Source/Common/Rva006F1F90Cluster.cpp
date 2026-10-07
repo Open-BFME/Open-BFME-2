@@ -51,7 +51,14 @@ public:
 	Rva006F1F90Sub *m_sub20;
 };
 
-AptValue *Rva008B6D70MakeValue(int value);
+// The native call targets the verified type-7 pooled factory at
+// 0x006D8520 in AptIntegerCreateBFME2.cpp. Only its static interface is
+// used here; neither a scalar layout nor these callers' identity is inferred.
+class AptInteger
+{
+public:
+	static AptValue *Create(int value);
+};
 
 void rva006F1F90(BfmeAptValue006DCD20 *value)
 {
@@ -65,5 +72,5 @@ void rva006F1F90(BfmeAptValue006DCD20 *value)
 			result = child->m_sub20->vf74();
 	}
 
-	Rva008B6D70MakeValue(result);
+	AptInteger::Create(result);
 }
