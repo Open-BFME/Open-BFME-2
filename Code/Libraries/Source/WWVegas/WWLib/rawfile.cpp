@@ -16,6 +16,12 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
+// FileClass's scalar deleting destructor is shared with the /O1 owner at
+// 0x00078257. Give its inline declaration the same compact stack cleanup;
+// restore the unit's settings before RawFileClass and its implementations.
+#pragma optimize("gsy", on)
+#include "wwfile.h"
+#pragma optimize("", on)
 #include	"rawfile.h"
 #include	<direct.h>
 #include	<stddef.h>
