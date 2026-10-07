@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 // AptMapPreview.cpp -- AptMapPreview members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names the function;
 // retail supplies the bytes. The preview drives its living-world window
@@ -6,6 +7,8 @@
 // window's +0x29C -> +0x1C set, asked through 0x004FD8A8 (unnamed).
 
 #include "../../../../../../Libraries/Include/Lib/Coord2D.h"
+
+#include <vector>
 
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -112,6 +115,29 @@ public:
 
 extern Rva00E02D6C *TheCampaignManager;
 
+// A campaign as the strategic scenario list reads it: +0x1C holds the
+// display label at +0x04.
+struct Rva0057D4F3CampaignInfo
+{
+	int m_00;
+	AsciiString m_label;		// +0x04, passed to TheGameText->fetch
+};
+
+struct Rva0057D4F3Campaign
+{
+	unsigned char m_pad00[0x1c];
+	Rva0057D4F3CampaignInfo *m_info;	// +0x1C
+};
+
+// 0x003B92B9 (rowed under an address name) collects the manager's
+// campaigns into the given vector.
+class ModuleData;
+class Rva003B8BAA
+{
+public:
+	void rva003B92B9(_STL::vector<const ModuleData *> *out);
+};
+
 class GameWindow
 {
 public:
@@ -125,6 +151,10 @@ class BfmeObjENK;
 void bfmeGoENK(BfmeObjENK *o, char v);
 void BfmeGadgetListBoxSetAudioFeedback(GameWindow *listbox, bool enable);
 
+void GadgetComboBoxReset(GameWindow *comboBox);
+int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, int color);
+void GadgetComboBoxSetItemData(GameWindow *comboBox, int index, void *data);
+void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int selectedIndex, bool dontHide);
 void GadgetListBoxReset(GameWindow *listbox);
 int Rva00326CF0AddLines(GameWindow *listbox, UnicodeString text, int color, int row, int column, bool overwrite);
 void GadgetListBoxSetTopVisibleEntry(GameWindow *window, int newPos);
@@ -303,6 +333,31 @@ void AptMapPreview::GameMapType(int query, char *result, bool skip)
 			break;
 		}
 	}
+}
+
+// Retail 0x0057D4F3, 242 bytes. Name unknown. Refills the strategic
+// scenario combo box (+0x50) with the campaign manager's labelled
+// campaigns, each entry carrying the campaign's manager index, selects
+// the first and refreshes the description.
+void AptMapPreview::rva0057D4F3()
+{
+	if (m_strategicScenarioComboBox == 0)
+		return;
+	GadgetComboBoxReset(m_strategicScenarioComboBox);
+	_STL::vector<Rva0057D4F3Campaign *> campaigns;
+	((Rva003B8BAA *)TheCampaignManager)->rva003B92B9((_STL::vector<const ModuleData *> *)&campaigns);
+	for (_STL::vector<Rva0057D4F3Campaign *>::iterator it = campaigns.begin(); it != campaigns.end(); ++it)
+	{
+		Rva0057D4F3Campaign *campaign = *it;
+		if (campaign->m_info != 0)
+		{
+			UnicodeString text = TheGameText->fetch(campaign->m_info->m_label, 0);
+			int index = GadgetComboBoxAddEntry(m_strategicScenarioComboBox, text, -1);
+			GadgetComboBoxSetItemData(m_strategicScenarioComboBox, index, (void *)TheCampaignManager->rva003B8BC8(campaign));
+		}
+	}
+	GadgetComboBoxSetSelectedPos(m_strategicScenarioComboBox, 0, false);
+	UpdateStrategicScenarioDesc();
 }
 
 // Retail 0x0057E25D, 382 bytes: "AptMapPreview::MapGadgetInit", the screen
