@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// stlport
 //
 // Zero Hour's DozerAIUpdate (GeneralsMD GameLogic/Object/Update/AIUpdate/
 // DozerAIUpdate.cpp) as BFME 2 kept it.
@@ -141,7 +142,10 @@
 // +0x20 command interface). New in BFME 2: without a target it falls back to
 // dozer vslot 29 before cancelling (vslot 13), setGoalPosition takes a range
 // (FLT_MAX), and two logic-random-log lines gated by g_00E03745.
+#include <list>
 #include "ascii_string.h"
+#include "unicode_string.h"
+template<> inline bool StringBase<unsigned short>::isEmpty() const { return !m_data || m_data->length == 0; }
 
 // class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line normalize (rowed 0x000035B6) that newTask calls; same three floats
 struct Coord3D
@@ -432,6 +436,7 @@ public:
 	virtual void aiDoCommand(const AICommandParms *parms) = 0;
 	void aiIdle(CommandSourceType cmdSource);
 	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiFaceObject(Object *obj, CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface24
@@ -440,29 +445,45 @@ public:
 	virtual void slot0();
 };
 
+// ZH's build sub-tasks; BFME 2 turns to face the site (2) before building.
+enum DozerBuildSubTask
+{
+	DOZER_SELECT_BUILD_DOCK_LOCATION = 0,
+	DOZER_MOVING_TO_BUILD_DOCK_LOCATION = 1,
+	DOZER_FACING_BUILD_TARGET = 2,
+	DOZER_DO_BUILD_AT_DOCK = 3
+};
+
+class Rva002390CB;
+
 class DozerAIInterface
 {
 public:
 	virtual void onDelete() = 0; // vslot 0
-	virtual void slot1() = 0;
-	virtual void slot2() = 0;
-	virtual void slot3() = 0;
+	virtual Real getRepairHealthPerSecond() const = 0; // vslot 1
+	virtual Real getBoredTime() const = 0;
+	virtual Real getBoredRange() const = 0;
 	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags) = 0; // vslot 4
 	virtual DozerTask getMostRecentCommand() = 0; // vslot 5
 	virtual Bool isTaskPending(DozerTask task) = 0; // vslot 6
 	virtual ObjectID getTaskTarget(DozerTask task) = 0; // vslot 7
-	virtual void slot8() = 0;
+	virtual Bool isAnyTaskPending() = 0; // vslot 8
 	virtual DozerTask getCurrentTask() const = 0; // vslot 9
-	virtual void slot10() = 0; virtual void slot11() = 0;
+	virtual void setCurrentTask(DozerTask task) = 0;
+	virtual Bool getIsRebuild() = 0; // vslot 11
 	virtual void newTask(DozerTask task, Object *target) = 0; // vslot 12
 	virtual void cancelTask(DozerTask task) = 0; // vslot 13
 	virtual void internalTaskComplete(DozerTask task) = 0; // vslot 14
 	virtual void internalCancelTask(DozerTask task) = 0; // vslot 15
 	virtual void internalTaskCompleteOrCancelled(DozerTask task) = 0; // vslot 16
 	virtual const Coord3D *getDockPoint(DozerTask task, DozerDockPoint point) = 0; // vslot 17
-	virtual void slot18() = 0; virtual void slot19() = 0;
-	virtual void slot20() = 0; virtual void slot21() = 0; virtual void slot22() = 0;
-	virtual void slot23() = 0;
+	virtual void setBuildSubTask(DozerBuildSubTask subTask) = 0; // vslot 18
+	virtual DozerBuildSubTask getBuildSubTask() = 0; // vslot 19
+	virtual Bool canAcceptNewRepair(Object *obj) = 0;
+	virtual void createBridgeScaffolding(Object *bridgeTower) = 0; // vslot 21
+	virtual void removeBridgeScaffolding(Object *bridgeTower) = 0;
+	// BFME 2 hands over the drawable's sound record (by reference).
+	virtual void startBuildingSound(const Rva002390CB &sound, ObjectID constructionSiteID) = 0; // vslot 23
 	virtual void finishBuildingSound() = 0; // vslot 24
 	// BFME 2's own slots. 26 (0x0048A15A) and 29 (0x00489DD1, which slot 28
 	// shares) both work on the object whose id is at DozerAIUpdate +0x4A4.
@@ -586,6 +607,7 @@ enum KindOfType
 	KINDOF_DOZER = 14,
 	KINDOF_SWARM_DOZER = 15,
 	KINDOF_BRIDGE = 22,
+	KINDOF_BRIDGE_TOWER = 24,
 	KINDOF_NO_COLLIDE = 30,
 	KINDOF_DO_NOT_CLASSIFY = 149
 };
@@ -596,6 +618,7 @@ public:
 	const AsciiString &getName() const { return m_name; }
 	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 31)); }
 	Int rva0033A69A(const Player *player, Int builder, Int a3) const;
+	Int rva0033AA1F(const Player *player, Int builder, Int a3) const;
 private:
 	unsigned char m_pad000[0x64];
 	AsciiString m_name; // +0x64
@@ -618,6 +641,28 @@ private:
 	unsigned char m_pad08[0x38 - 0x08];
 	Coord3D m_position; // +0x38
 	Real m_orientation; // +0x44
+};
+
+// BFME 2's object status bit names (the name table at .rdata 0x009A5F30).
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_UNDER_CONSTRUCTION = 2,
+	OBJECT_STATUS_RECONSTRUCTING = 21,
+	OBJECT_STATUS_PENDING_CONSTRUCTION = 87,
+	OBJECT_STATUS_PHANTOM_STRUCTURE = 88
+};
+
+// ZH's disabled types, in its order.
+enum DisabledType
+{
+	DISABLED_UNMANNED = 5
+};
+
+class Module;
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
 };
 
 class Object : public Thing
@@ -657,16 +702,33 @@ public:
 		}
 	}
 	void setProducer(Object *obj);
+	ObjectID getProducerID() const { return m_producerID; }
+	ObjectID getBuilderID() const { return m_builderID; }
+	__forceinline UnsignedInt isDisabledByType(DisabledType type) const { return m_disabledMask & (1U << type); }
+	Bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
+	Real getConstructionPercent() const { return m_constructionPercent; }
 	void setConstructionPercent(Real percent) { m_constructionPercent = percent; }
+	void setStatus(ObjectStatusTypes status, Bool set);
+	Module *findModule(NameKeyType key) const;
+	void rva001E42F2(const int *clear);
+	void setSpecialModelConditionState(ModelConditionFlagType mc, UnsignedInt frames);
+	Bool isLocallyControlled() const;
+	void *getDisplayName();
+	// ZH's attemptHealingFromSoleBenefactor (amount, source, duration).
+	Bool rva0028FEA7(Real amount, const Object *source, UnsignedInt duration);
 	Int get45C() const { return m_45C; }
 private:
 	unsigned char m_pad048[0x74 - 0x48];
 	ObjectID m_id; // +0x74
-	unsigned char m_pad078[0xA8 - 0x78];
+	ObjectID m_producerID; // +0x78
+	ObjectID m_builderID; // +0x7C
+	unsigned char m_pad080[0xA8 - 0x80];
 	GeometryInfo m_geometryInfo; // +0xA8
 	unsigned char m_pad104[0x10C - 0x104];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
-	unsigned char m_pad158[0x254 - 0x158];
+	unsigned char m_pad158[0x1C8 - 0x158];
+	UnsignedInt m_disabledMask; // +0x1C8
+	unsigned char m_pad1CC[0x254 - 0x1CC];
 	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
 	unsigned char m_pad25C[0x280 - 0x25C];
@@ -675,7 +737,9 @@ private:
 public:
 	Real m_buildCost; // +0x324
 private:
-	unsigned char m_pad328[0x454 - 0x328];
+	unsigned char m_pad328[0x438 - 0x328];
+	unsigned char m_privateStatus; // +0x438, bit 0 effectively dead
+	unsigned char m_pad439[0x454 - 0x439];
 	Bool m_454; // +0x454
 	unsigned char m_pad455[0x45C - 0x455];
 	Int m_45C; // +0x45C
@@ -758,6 +822,9 @@ class BridgeBehaviorInterface
 public:
 	virtual void slot0();
 	virtual ObjectID getTowerID(BridgeTowerType type); // vslot 1
+	virtual void createScaffolding();
+	virtual void removeScaffolding();
+	virtual Bool isScaffoldInMotion(); // vslot 4
 };
 
 class BridgeBehavior
@@ -809,7 +876,6 @@ public:
 	void makePhantomStructureNotInert();
 private:
 	enum { DOZER_NUM_TASKS = 3 };
-	enum { DOZER_SELECT_BUILD_DOCK_LOCATION = 0 };
 
 	struct DozerTaskInfo
 	{
@@ -1235,6 +1301,9 @@ class Drawable
 public:
 	void rva00274176(Bool flag);
 	void fadeIn(UnsignedInt frames);
+	void fadeOut(UnsignedInt frames);
+	Rva002390CB rva00274CD8(const AsciiString &name);
+	Bool rva002765D4(UnicodeString *name);
 	void setDrawableHidden(Bool hide);
 	void setDrawableOpacity(Real value) { m_explicitOpacity = value; }
 private:
@@ -1246,7 +1315,12 @@ class InGameUI
 {
 public:
 	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09();
-	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
+	// cl 7.1 lays overloaded virtuals out in reverse declaration order:
+	// message(AsciiString) is vslot 15 (+0x3C), message(UnicodeString) 16.
+	virtual void message(UnicodeString format, ...);
+	virtual void message(AsciiString stringManagerLabel, ...);
+	virtual void v17(); virtual void v18(); virtual void v19();
 	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29();
 	virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
 	virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49();
@@ -1605,7 +1679,8 @@ void DozerAIUpdate::rva00488CC4()
 class GlobalData
 {
 public:
-	unsigned char m_pad0000[0x11E0];
+	unsigned char m_pad0000[0x11DC];
+	UnsignedInt m_11DC; // +0x11DC, the frames a dozer takes to fade out into a site
 	UnsignedInt m_11E0; // +0x11E0, the frames a dozer takes to fade back in
 	Real m_11E4; // +0x11E4, how far it steps away from the structure it leaves
 };
@@ -1652,15 +1727,6 @@ void DozerAIUpdate::cancelTask(DozerTask task)
 
 	Rva0048A3B9Do(getObject(), 0, FALSE);
 }
-
-// BFME 2's object status bit names (the name table at .rdata 0x009A5F30).
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_UNDER_CONSTRUCTION = 2,
-	OBJECT_STATUS_RECONSTRUCTING = 21,
-	OBJECT_STATUS_PENDING_CONSTRUCTION = 87,
-	OBJECT_STATUS_PHANTOM_STRUCTURE = 88
-};
 
 // The rowed two-bit status mask builder.
 struct Rva00391F4E : public _STL::_Base_bitset<4>
@@ -1724,6 +1790,7 @@ public:
 	// where ZH keeps m_observer.
 	Bool rva002AA223() const;
 	void onStructureCreated(Object *builder, Object *structure);
+	void onStructureConstructionComplete(Object *builder, Object *structure, Bool isRebuild);
 private:
 	unsigned char m_pad000[0x5C];
 	PlayerType m_playerType; // +0x5C
@@ -1819,19 +1886,32 @@ struct ObjectStatusMask : public _STL::_Base_bitset<4>
 	void set(ObjectStatusTypes bit) { _M_w[bit >> 5] |= 1U << (bit & 31); }
 };
 
+enum BodyDamageType
+{
+	BODY_PRISTINE,
+	BODY_DAMAGED,
+	BODY_REALLYDAMAGED,
+	BODY_RUBBLE
+};
+
 class BodyModuleInterface
 {
 public:
 	virtual void i00(); virtual void i01(); virtual void i02(); virtual void i03();
 	virtual Real getHealth() const; // +0x10
-	virtual void i05(); virtual void i06(); virtual void i07();
-	virtual void i08(); virtual void i09(); virtual void i10(); virtual void i11();
+	virtual void i05();
+	virtual Real getMaxHealth() const; // +0x18
+	virtual void i07();
+	virtual BodyDamageType getDamageState() const; // +0x20
+	virtual void i09(); virtual void i10(); virtual void i11();
 	virtual void i12(); virtual void i13(); virtual void i14(); virtual void i15();
 	virtual void i16(); virtual void i17(); virtual void i18(); virtual void i19();
 	virtual void i20(); virtual void i21(); virtual void i22(); virtual void i23();
 	virtual void i24(); virtual void i25(); virtual void i26(); virtual void i27();
 	virtual void i28(); virtual void i29(); virtual void i30(); virtual void i31();
 	virtual void internalChangeHealth(Real delta, Int flag); // +0x80
+	virtual void i33(); virtual void i34(); virtual void i35();
+	virtual void evaluateVisualCondition(); // +0x90
 };
 
 enum { LBC_OK = 0 };
@@ -1877,6 +1957,7 @@ class Pathfinder
 {
 public:
 	void AddObjectToPathfindMap(Object *object);
+	void RemoveObjectFromPathfindMap(Object *object);
 };
 
 class AI
@@ -1970,4 +2051,434 @@ void DozerAIUpdate::rva0048A15A()
 
 	((Rva0029F93A *)TheInGameUI)->rva0029F93A(m_4A4);
 	m_4A4 = 0;
+}
+
+// The drawable's sound record (8 bytes, a reference at +4), as
+// DrawableKeyedLookup.cpp spells it.
+class OpaqueRefCounted
+{
+public:
+	void Release_Ref();
+};
+
+class Rva0036CA00Str
+{
+public:
+	~Rva0036CA00Str() { if (m_ref) m_ref->Release_Ref(); }
+	OpaqueRefCounted *m_ref;
+};
+
+class Rva002390CB
+{
+public:
+	int m_0;
+	Rva0036CA00Str m_4;
+};
+
+class GameTextInterface
+{
+public:
+	virtual ~GameTextInterface() {}
+	virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
+	virtual void slot04() = 0; virtual void slot05() = 0; virtual void slot06() = 0;
+	virtual void slot07() = 0; virtual void slot08() = 0; virtual void slot09() = 0;
+	virtual void slot10() = 0; virtual void slot11() = 0; virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	// cl 7.1 lays overloaded virtuals out in reverse declaration order:
+	// fetch(const char *) is slot 15 (+0x3C), fetch(const AsciiString &) 14.
+	virtual UnicodeString fetch(const char *label, Bool *exists = 0) = 0;
+	virtual UnicodeString fetch(const AsciiString &label, Bool *exists = 0) = 0;
+};
+
+extern GameTextInterface *TheGameText;
+
+enum RadarEventType
+{
+	RADAR_EVENT_INVALID = 0,
+	RADAR_EVENT_CONSTRUCTION
+};
+
+class Radar
+{
+public:
+	void createEvent(const Coord3D *world, RadarEventType type, Real secondsToLive = 4.0f);
+};
+
+extern Radar *TheRadar;
+
+// Retail calls the list destructor out of line (the shared pointer-list
+// destructor 0x00239AF4).
+class DrawableList : public _STL::list<Drawable *>
+{
+public:
+	~DrawableList() throw();
+};
+
+class PickAndPlayInfo;
+
+class GameMessage
+{
+public:
+	enum Type
+	{
+		MSG_BFME2_0x7DE = 0x7DE
+	};
+};
+
+void pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
+	PickAndPlayInfo *info);
+
+class BridgeTowerBehaviorInterface
+{
+public:
+	virtual void setBridge(Object *bridge);
+	virtual ObjectID getBridgeID(); // vslot 1
+};
+
+class BridgeTowerBehavior
+{
+public:
+	static BridgeTowerBehaviorInterface *getBridgeTowerBehaviorInterfaceFromObject(Object *obj);
+};
+
+class CastleBehavior
+{
+public:
+	static NameKeyType rva0003955DA();
+};
+
+// The three-bit model condition mask builder (19 dwords).
+class Rva00265254
+{
+public:
+	Rva00265254(UnsignedInt unused, UnsignedInt bit1, UnsignedInt bit2, UnsignedInt bit3);
+private:
+	unsigned int m_words[19];
+};
+
+class Rva0028CBFD
+{
+public:
+	void rva0028CBFD();
+};
+
+// LOGICFRAMES_PER_SECOND.
+extern const int g_009BA4E4;
+
+static const Real CONSTRUCTION_COMPLETE = -1.0f;
+
+// ZH's DozerActionDoActionState (rowed ctor 0x00488545, vtable slot 6).
+//
+// ?update@DozerActionDoActionState@@UAE?AW4StateReturnType@@XZ, retail
+// 0x0048A69E, 2028 bytes: vtable slot 6 of the state the ctor 0x00488545
+// builds. ZH DozerActionDoActionState::update's shape (task switch over
+// REPAIR and BUILD, construction percent stepping, completion through the
+// dozer's internalTaskComplete); BFME 2 adds the castle check, the rubble/
+// damage/under-construction drawable lookups (0x00274CD8) and the voice
+// response through a stack DrawableList. The BUILD branch tests the
+// complete case first, and the list is STLport's own (its by-value iterator
+// and temps fix the frame at 0xE0).
+class DozerActionDoActionState : public State
+{
+public:
+	virtual StateReturnType update();
+private:
+	DozerTask m_task; // +0x20
+};
+
+StateReturnType DozerActionDoActionState::update()
+{
+	Object *goalObject = getMachineGoalObject();
+	Object *dozer = getMachineOwner();
+	AIUpdateInterface *ai = dozer->getAIUpdateInterface();
+	if (!ai)
+		return STATE_FAILURE;
+
+	DozerAIInterface *dozerAI = ai->getDozerAIInterface();
+	if (!dozerAI)
+		return STATE_FAILURE;
+
+	// check for object gone
+	if (goalObject == 0)
+		return STATE_FAILURE;
+
+	Drawable *draw = goalObject->getDrawable();
+
+	if (dozer->isDisabledByType(DISABLED_UNMANNED)) // Yipes, I've been sniped!
+		return STATE_FAILURE;
+
+	// do the task
+	Bool complete = FALSE;
+	switch (m_task)
+	{
+		case DOZER_TASK_BUILD:
+		{
+			if (dozer->getControllingPlayer() != goalObject->getControllingPlayer()) // Yipes, SOmehow I have changed sides in mid build!
+				return STATE_FAILURE;
+
+			// if we need to select the dock location and move there do so
+			if (dozerAI->getBuildSubTask() == DOZER_SELECT_BUILD_DOCK_LOCATION)
+			{
+				const Coord3D *dockLocation = dozerAI->getDockPoint(m_task, DOZER_DOCK_POINT_ACTION);
+				if (dockLocation)
+				{
+					if (g_00E03745 && theLogicRandomLogFile)
+						fprintf(theLogicRandomLogFile, "\t\t  DozerActionDoActionState::update() moving to dock location %.03f, %.03f", dockLocation->x, dockLocation->y);
+					ai->aiMoveToPosition(dockLocation, CMD_FROM_AI);
+				}
+
+				// we're now moving to the dock location
+				dozerAI->setBuildSubTask(DOZER_MOVING_TO_BUILD_DOCK_LOCATION);
+			}
+
+			// if we're moving to the build dock location, when we become idle we are there
+			if (dozerAI->getBuildSubTask() == DOZER_MOVING_TO_BUILD_DOCK_LOCATION && ai->isIdle())
+			{
+				dozerAI->setBuildSubTask(DOZER_FACING_BUILD_TARGET);
+				ai->aiFaceObject(goalObject, CMD_FROM_AI);
+			}
+
+			if (dozerAI->getBuildSubTask() == DOZER_FACING_BUILD_TARGET && ai->isIdle())
+			{
+				dozerAI->setBuildSubTask(DOZER_DO_BUILD_AT_DOCK);
+
+				// start playing the construction sound (from the building itself)
+				if (draw)
+					dozerAI->startBuildingSound(draw->rva00274CD8("UnderConstruction"), goalObject->getID());
+
+				if (!rva004884B7(dozer))
+					dozer->getDrawable()->fadeOut(TheWritableGlobalData->m_11DC);
+			}
+
+			// only do the build if we've moved into the dock position
+			if (dozerAI->getBuildSubTask() == DOZER_DO_BUILD_AT_DOCK)
+			{
+				// the builder is now actively constructing something
+				dozer->setModelConditionState(MODELCONDITION_ACTIVELY_CONSTRUCTING);
+
+				if (goalObject->isEffectivelyDead())
+				{
+					dozerAI->cancelTask(DOZER_TASK_BUILD);
+					ai->aiIdle(CMD_FROM_AI);
+					return STATE_CONTINUE;
+				}
+
+				if (goalObject->getConstructionPercent() == CONSTRUCTION_COMPLETE)
+				{
+					Rva0048A3B9Do(dozer, goalObject, TRUE);
+					complete = TRUE;
+				}
+				else
+				{
+					// increase the construction percent of the goal object
+					Int framesToBuild = goalObject->getTemplate()->rva0033AA1F(dozer->getControllingPlayer(), (Int)dozer, -1);
+					Real percentProgressThisFrame = 100.0f / framesToBuild;
+					goalObject->setConstructionPercent(goalObject->getConstructionPercent() + percentProgressThisFrame);
+
+					// every time we construct a piece of the goal object, the goal object gets a little bit o health
+					BodyModuleInterface *body = goalObject->getBodyModule();
+					body->internalChangeHealth(body->getMaxHealth() / (Real)framesToBuild, 0);
+
+					if (goalObject->getProducerID() == INVALID_ID)
+						goalObject->setProducer(dozer);
+
+					// check for construction complete
+					if (goalObject->getConstructionPercent() >= 100.0f)
+					{
+						// clear the under construction status
+						goalObject->setStatus(OBJECT_STATUS_UNDER_CONSTRUCTION, false);
+						goalObject->setStatus(OBJECT_STATUS_RECONSTRUCTING, false);
+
+						// stop playing the construction sound!
+						dozerAI->finishBuildingSound();
+
+						// object will now be idle instead of in one of the construction actions
+						Module *castle = goalObject->findModule(CastleBehavior::rva0003955DA());
+						if (castle)
+						{
+							goalObject->rva001E42F2((const int *)&Rva0028F59A(0, MODELCONDITION_AWAITING_CONSTRUCTION));
+							goalObject->setSpecialModelConditionState(MODELCONDITION_PARTIALLY_CONSTRUCTED, 5);
+							goalObject->setSpecialModelConditionState(MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED, 5);
+						}
+						else
+						{
+							goalObject->rva001E42F2((const int *)&Rva00265254(0, MODELCONDITION_AWAITING_CONSTRUCTION,
+								MODELCONDITION_PARTIALLY_CONSTRUCTED, MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED));
+						}
+
+						// set the construction at the 100% enum value
+						goalObject->setConstructionPercent(CONSTRUCTION_COMPLETE);
+
+						body->evaluateVisualCondition();
+
+						// this object now has energy influence in the player
+						Player *player = goalObject->getControllingPlayer();
+						if (player)
+						{
+							// notification for build completeion
+							player->onStructureConstructionComplete(dozer, goalObject, dozerAI->getIsRebuild());
+							reinterpret_cast<Rva0028CBFD *>(goalObject)->rva0028CBFD();
+						}
+
+						goalObject->getDrawable()->rva00274176(true);
+
+						TheAI->pathfinder()->RemoveObjectFromPathfindMap(goalObject);
+						TheAI->pathfinder()->AddObjectToPathfindMap(goalObject);
+
+						// do some UI stuff for the constrolling player
+						if (dozer->isLocallyControlled())
+						{
+							// message the the building player
+							UnicodeString format = TheGameText->fetch("DOZER:ConstructionComplete");
+							UnicodeString objectName;
+							Drawable *goalDraw = goalObject->getDrawable();
+							objectName = (goalDraw && goalDraw->rva002765D4(&objectName)) ? objectName
+								: *(const UnicodeString *)goalObject->getDisplayName();
+							if (objectName.isEmpty())
+							{
+								UnicodeString format = TheGameText->fetch("INI:MissingDisplayName");
+								objectName.format(&format, goalObject->getTemplate()->getName().str());
+							}
+
+							UnicodeString msg;
+							msg.format(format.str(), objectName.str());
+							TheInGameUI->message(msg);
+
+							DrawableList list;
+							list.push_back(dozer->getDrawable());
+							pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_BFME2_0x7DE, 0);
+
+							/// make radar neat-o attention grabber event at build location
+							TheRadar->createEvent(goalObject->getPosition(), RADAR_EVENT_CONSTRUCTION);
+						}
+
+						Rva0048A3B9Do(dozer, goalObject, TRUE);
+						complete = TRUE;
+					}
+					else
+					{
+						if (goalObject->getBuilderID() == INVALID_ID)
+							goalObject->rva0028AFE7(dozer);
+					}
+				}
+			}
+
+			break;
+		}
+
+		case DOZER_TASK_REPAIR:
+		{
+			BodyModuleInterface *body = goalObject->getBodyModule();
+
+			if (dozerAI->getBuildSubTask() == DOZER_SELECT_BUILD_DOCK_LOCATION)
+			{
+				const Coord3D *dockLocation = dozerAI->getDockPoint(m_task, DOZER_DOCK_POINT_ACTION);
+				if (dockLocation)
+					ai->aiMoveToPosition(dockLocation, CMD_FROM_AI);
+
+				dozerAI->setBuildSubTask(DOZER_MOVING_TO_BUILD_DOCK_LOCATION);
+			}
+
+			if (dozerAI->getBuildSubTask() == DOZER_MOVING_TO_BUILD_DOCK_LOCATION && ai->isIdle())
+			{
+				dozerAI->setBuildSubTask(DOZER_FACING_BUILD_TARGET);
+				ai->aiFaceObject(goalObject, CMD_FROM_AI);
+			}
+
+			if (dozerAI->getBuildSubTask() == DOZER_FACING_BUILD_TARGET && ai->isIdle())
+			{
+				dozerAI->setBuildSubTask(DOZER_DO_BUILD_AT_DOCK);
+
+				if (draw)
+				{
+					if (body->getDamageState() == BODY_RUBBLE)
+						dozerAI->startBuildingSound(draw->rva00274CD8("UnderRepairFromRubble"), goalObject->getID());
+					else
+						dozerAI->startBuildingSound(draw->rva00274CD8("UnderRepairFromDamage"), goalObject->getID());
+				}
+			}
+
+			if (dozerAI->getBuildSubTask() == DOZER_DO_BUILD_AT_DOCK)
+			{
+				// check for fully "repaired"
+				if (body->getHealth() == body->getMaxHealth())
+				{
+					// issue repair complete message
+					TheInGameUI->message("DOZER:RepairComplete");
+
+					dozerAI->finishBuildingSound();
+
+					// we're now complete
+					complete = TRUE;
+				}
+				else
+				{
+					Bool canHeal = TRUE;
+
+					// if we are repairing a bridge, create scaffolding over the bridge if we need to
+					if (goalObject->isKindOf(KINDOF_BRIDGE_TOWER))
+						dozerAI->createBridgeScaffolding(goalObject);
+
+					// the builder is now actively repairing something, we'll borrow the constructing animation
+					dozer->setModelConditionState(MODELCONDITION_ACTIVELY_CONSTRUCTING);
+
+					// when repairing bridges, we cannot actually do any repairing until the
+					// scaffolding is extended and all the way complete
+					if (goalObject->isKindOf(KINDOF_BRIDGE_TOWER))
+					{
+						BridgeTowerBehaviorInterface *btbi = BridgeTowerBehavior::getBridgeTowerBehaviorInterfaceFromObject(goalObject);
+						Object *bridgeObject = TheGameLogic->findObjectByID(btbi->getBridgeID());
+						BridgeBehaviorInterface *bbi = BridgeBehavior::getBridgeBehaviorInterfaceFromObject(bridgeObject);
+
+						if (bbi->isScaffoldInMotion() == TRUE)
+							canHeal = FALSE;
+					}
+
+					// do healing
+					if (canHeal)
+					{
+						// figure out how much health we will restore this frame
+						Real health = body->getMaxHealth() * dozerAI->getRepairHealthPerSecond() / g_009BA4E4;
+
+						// try to give it a little bit-o-health
+						if (!goalObject->rva0028FEA7(health, dozer, 2)) // this frame and the next
+						{
+							dozerAI->internalTaskComplete(m_task);
+							getMachine()->setGoalObject(0);
+							return STATE_FAILURE;
+						}
+					}
+				}
+			}
+
+			break;
+		}
+
+		case DOZER_TASK_FORTIFY:
+		{
+			break;
+		}
+
+		default:
+		{
+			return STATE_FAILURE;
+		}
+	}
+
+	// if we're complete with the task we exit success
+	if (complete == TRUE)
+	{
+		// this task is now complete, remove it from dozer consideration
+		dozerAI->internalTaskComplete(m_task);
+
+		// to be clean get rid of the goal object we set
+		getMachine()->setGoalObject(0);
+
+		dozerAI->rva00488CC4();
+
+		// we're done
+		return STATE_SUCCESS;
+	}
+
+	return STATE_CONTINUE;
 }
