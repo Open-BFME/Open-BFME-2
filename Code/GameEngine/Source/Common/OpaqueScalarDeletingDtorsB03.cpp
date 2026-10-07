@@ -15,7 +15,6 @@
 //   0x00148DC3  0x00148BC2  0x00BD3568#0
 //   0x0014DCAC  0x0014DC9E  0x00BD3898#0
 //   0x00150A5B  0x001505CD  0x00BD3A34#0
-//   0x0015263D  0x00152411  0x00BD3B1C#1
 //   0x001684BA  0x001684D6  0x00BD41C8#1
 //   0x0018010E  0x0017FFCA  0x00BD4F50#9
 //   0x001D93B2  0x001D92C0  0x00BD9CB0#0
@@ -71,19 +70,6 @@ public:
 
 // ?<Rva001505CD::Rva001505CD> absent-from-retail
 Rva001505CD::Rva001505CD(EmitVtableTag *)
-{
-}
-
-class Rva00152411
-{
-public:
-	Rva00152411(EmitVtableTag *);
-public:
-	virtual ~Rva00152411();
-};
-
-// ?<Rva00152411::Rva00152411> absent-from-retail
-Rva00152411::Rva00152411(EmitVtableTag *)
 {
 }
 

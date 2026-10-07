@@ -4128,7 +4128,6 @@ name,address,notes
 ??1Rva0014A5B0Dtor@@UAE@XZ,0x0014A5B0,address-derived class dtor called by the 30B scalar deleting destructor at 0x0014BB70; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva0014DC9E@@UAE@XZ,0x0014DC9E,"destructor the scalar deleting destructor 0x0014DCAC calls (REL32 at 0x0014DCAF; vtable 0x00BD3898#0); opaque address name"
 ??1Rva001505CD@@UAE@XZ,0x001505CD,"destructor the scalar deleting destructor 0x00150A5B calls (REL32 at 0x00150A5E; vtable 0x00BD3A34#0); opaque address name"
-??1Rva00152411@@UAE@XZ,0x00152411,"destructor the scalar deleting destructor 0x0015263D calls (REL32 at 0x00152640; vtable 0x00BD3B1C#1); opaque address name"
 ??1Rva00155330Dtor@@UAE@XZ,0x00155330,address-derived class dtor called by the 30B scalar deleting destructor at 0x00156840; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva00156750Dtor@@UAE@XZ,0x00156750,address-derived class dtor called by the 30B scalar deleting destructor at 0x00157110; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva00157390Dtor@@UAE@XZ,0x00157390,address-derived class dtor called by the 30B scalar deleting destructor at 0x00157AB0; address read from that body REL32; class identity unproven so the model is named for the call target

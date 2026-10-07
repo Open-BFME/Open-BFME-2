@@ -8,7 +8,7 @@
 // pass hooks) and the member m_ShaderAsset at +0x08; retail supplies the
 // bytes.
 //
-// Layout, 0x34 bytes (operator new in Create 0x00152C47), from the ctors
+// Layout, 0x34 bytes (operator new in the factory 0x00152C47), from the ctors
 // 0x001525FB / 0x00152DE9 and the dtor 0x00152411: the vtable 0x00BD3B1C
 // over the ref-count base 0x00BC650C (slot 0 Delete_This, count at +4),
 // the asset holder at +0x08, the parameter list at +0x0C (out-of-line ctor
@@ -374,8 +374,6 @@ public:
 	virtual void End_Pass();
 	virtual void End_Rendering();
 
-	static RefCountPtr<FXShaderSetup> Create(const char *shaderName, const char *techniqueName,
-		const FXShaderParameterVector *parameters, int lod);
 	bool InitializeShader(const char *shaderName, const char *techniqueName,
 		const FXShaderParameterVector *parameters, int lod);
 	bool UpdateParameterList(const FXShaderParameterVector &parameters);
@@ -445,7 +443,6 @@ void FXShaderSetup::End_Rendering()
 }
 
 // FXShaderSetup::~FXShaderSetup, retail 0x00152411.
-// ??1FXShaderSetup@@MAE@XZ present-unmatched
 FXShaderSetup::~FXShaderSetup()
 {
 	if (m_ParameterBlock) {
@@ -580,9 +577,10 @@ FXShaderSetup::FXShaderSetup() : m_LOD(4), m_Technique(0), m_ParameterBlock(0)
 {
 }
 
-// FXShaderSetup::Create, retail 0x00152C47.
-// ?Create@FXShaderSetup@@SA?AV?$RefCountPtr@VFXShaderSetup@@@@PBD0PBV?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@H@Z present-unmatched
-RefCountPtr<FXShaderSetup> FXShaderSetup::Create(const char *shaderName, const char *techniqueName,
+// Retail 0x00152C47: the setup factory, a cdecl function returning the
+// holder. WorldBuilder's copy (no assert) names neither it nor its owner, so
+// the name keeps the address token.
+RefCountPtr<FXShaderSetup> Rva00152C47_CreateFXShaderSetup(const char *shaderName, const char *techniqueName,
 	const FXShaderParameterVector *parameters, int lod)
 {
 	BFMEDX8DeviceLock lock;
@@ -593,7 +591,6 @@ RefCountPtr<FXShaderSetup> FXShaderSetup::Create(const char *shaderName, const c
 }
 
 // FXShaderSetup::FXShaderSetup(const FXShaderSetup &), retail 0x00152DE9.
-// ??0FXShaderSetup@@QAE@ABV0@@Z present-unmatched
 FXShaderSetup::FXShaderSetup(const FXShaderSetup &that) : m_Technique(0), m_ParameterBlock(0)
 {
 	*this = that;
