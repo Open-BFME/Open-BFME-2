@@ -17,6 +17,7 @@ class Rva0020E5BB
 public:
  void *rva0020E5BB(int key);
  void rva0020E63F(int key, int field3c);
+ void rva0020E6AD();
 private:
  char pad[0x0c];
  int currentKey;
@@ -77,4 +78,24 @@ void Rva0020E5BB::rva0020E63F(int key, int field3c)
    ((Rva002E0BEB *)player)->rva002E0BEB(entry);
   }
  }
+}
+
+// Native20E6AD..20E6B7 RET0: reset the same manager with zero arguments.
+void Rva0020E5BB::rva0020E6AD()
+{
+ rva0020E63F(0,0);
+}
+// Native20E6B7..20E6C0 RET0: pass manager word0C to the34-key lookup.
+// The receiver and result spellings already used by the rowed callers are
+// preserved. This view does not identify the manager's original class.
+class Rva003F468D;
+class Rva0020E6B7RegionManager {
+public:
+ Rva003F468D *rva0020E6B7();
+private:
+ char pad[0x0c]; int currentKey;
+};
+Rva003F468D *Rva0020E6B7RegionManager::rva0020E6B7()
+{
+ return (Rva003F468D *)((Rva0020E5BB *)this)->rva0020E5BB(currentKey);
 }
