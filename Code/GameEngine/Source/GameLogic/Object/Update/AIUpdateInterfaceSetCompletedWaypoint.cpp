@@ -26,7 +26,8 @@ public:
 	void rva003360D2(int index, void *object, BfmeDelayedLuaEventList *eventList);
 };
 
-extern BfmeObjectEventDispatch *g_00E01DBC;
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
 
 class AIUpdateInterface
 {
@@ -44,5 +45,5 @@ void AIUpdateInterface::setCompletedWaypoint(const Waypoint *wp)
 	m_completed = wp;
 	BfmeDelayedLuaEventList list;
 	void *object = m_object;
-	g_00E01DBC->rva003360D2(2, object, &list);
+	reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(2, object, &list);
 }

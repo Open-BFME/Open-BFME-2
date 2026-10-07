@@ -70,7 +70,8 @@ struct LuaDrawableState
 {
 	unsigned char m_data[0x78];
 };
-extern LuaDrawableState *g_rva00A01DBCLuaState;	// 0x00E01DBC
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;	// 0x00E01DBC
 
 class Rva002628C3
 {
@@ -113,13 +114,13 @@ int ObjectSpy(lua_State *state)
 		return 0;
 	const char *eventName = lua_tostring(state, 3);
 	NameKeyType eventKey = TheNameKeyGenerator->nameToKey(eventName);
-	if (reinterpret_cast<Rva00332E60 *>(g_rva00A01DBCLuaState)->rva00333918((int)eventKey) == 0) {
+	if (reinterpret_cast<Rva00332E60 *>(TheLuaScriptEngine)->rva00333918((int)eventKey) == 0) {
 		io_debug(state);
 		return 0;
 	}
 	const char *spyName = lua_tostring(state, 4);
 	NameKeyType spyKey = TheNameKeyGenerator->nameToKey(spyName);
-	if (reinterpret_cast<Rva00332E60 *>(g_rva00A01DBCLuaState)->rva0033321B((int)spyKey) == 0) {
+	if (reinterpret_cast<Rva00332E60 *>(TheLuaScriptEngine)->rva0033321B((int)spyKey) == 0) {
 		io_debug(state);
 		return 0;
 	}

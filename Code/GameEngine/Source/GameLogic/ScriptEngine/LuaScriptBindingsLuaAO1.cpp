@@ -271,7 +271,8 @@ struct LuaDrawableState
 	unsigned char m_data[0x78];
 };
 
-extern LuaDrawableState *g_rva00A01DBCLuaState;
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
 
 struct BfmeCallJ63
 {
@@ -309,7 +310,7 @@ int ObjectDispatchEvent( lua_State *state )
 		return 0;
 
 	NameKeyType eventKey = TheNameKeyGenerator->nameToKey( eventName );
-	void *eventData = reinterpret_cast<BfmeCallJ63 *>(g_rva00A01DBCLuaState)->invoke(
+	void *eventData = reinterpret_cast<BfmeCallJ63 *>(TheLuaScriptEngine)->invoke(
 		(void *)eventKey);
 	if( eventData )
 	{
@@ -323,7 +324,7 @@ int ObjectDispatchEvent( lua_State *state )
 			events[1].m_string = value;
 			events[1].m_type = 4;
 		}
-		reinterpret_cast<BfmeObjectEventDispatch *>(g_rva00A01DBCLuaState)->invoke(
+		reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->invoke(
 			eventData, object, &eventList);
 	}
 

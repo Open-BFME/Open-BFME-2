@@ -6,7 +6,7 @@
 // WorldBuilder), drawable status 0x20 when the object has status bit 0x37,
 // ThingFactory::newDrawable (0x002CF21B on 0x00DFF000) for the object's
 // template, GameLogic::bindObjectAndDrawable, then a local delayed Lua event
-// list handed to the object-event dispatcher (g_00E01DBC 0x003360D2, event
+// list handed to the object-event dispatcher (TheLuaScriptEngine 0x003360D2, event
 // 0xC). WorldBuilder line 0x199A against retail 0x199D.
 
 enum ObjectStatusTypes { OBJECT_STATUS_0x37 = 0x37 };
@@ -46,7 +46,8 @@ class BfmeObjectEventDispatch
 public:
 	void rva003360D2(int event, void *obj, BfmeDelayedLuaEventList *list);
 };
-extern BfmeObjectEventDispatch *g_00E01DBC;
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
 
 class GameLogic
 {
@@ -66,5 +67,5 @@ void GameLogic::rva0023FABE(Object *obj)
 	Drawable *draw = (Drawable *)g_00DFF000->rva002CF21B((void *)obj->getTemplate(), status, random);
 	bindObjectAndDrawable(obj, draw);
 	BfmeDelayedLuaEventList events;
-	g_00E01DBC->rva003360D2(0xC, obj, &events);
+	reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(0xC, obj, &events);
 }

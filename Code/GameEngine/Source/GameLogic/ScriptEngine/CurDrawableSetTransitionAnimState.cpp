@@ -39,14 +39,15 @@ struct LuaDrawableState
 	char m_drawablePad[0x9C];
 	LuaDrawableLink *m_drawable;	// +0x9C
 };
-extern LuaDrawableState *g_rva00A01DBCLuaState;
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
 
 // ?CurDrawableSetTransitionAnimState@@YAHPAUlua_State@@@Z
 int CurDrawableSetTransitionAnimState(lua_State *state)
 {
-	if (g_rva00A01DBCLuaState->m_drawable != 0) {
+	if (reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->m_drawable != 0) {
 		if (lua_gettop(state) > 0) {
-			g_rva00A01DBCLuaState->m_drawable->m_transitionAnimState.set(lua_tostring(state, 1));
+			reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->m_drawable->m_transitionAnimState.set(lua_tostring(state, 1));
 		}
 	}
 	return 0;

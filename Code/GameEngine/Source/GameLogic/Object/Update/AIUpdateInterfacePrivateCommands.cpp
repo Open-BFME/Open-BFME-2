@@ -344,7 +344,8 @@ struct LuaDrawableState
 	void rva00333E5B(Object *obj);
 };
 
-extern LuaDrawableState *g_rva00A01DBCLuaState;
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/GameCommon.h
 class UpdateModule
@@ -2802,7 +2803,7 @@ void AIUpdateInterface::loadPostProcess()
 		obj->rva0028AD7C();
 		obj->rva0028B525(value);
 	}
-	g_rva00A01DBCLuaState->rva00333E5B(obj);
+	reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->rva00333E5B(obj);
 }
 
 // Retail 0x0026E9B8, AIUpdate vtable 0x00C47B98 slot 126 (shared by eleven

@@ -32,7 +32,8 @@ public:
 	void rva003360D2(int index, void *object, BfmeDelayedLuaEventList *eventList);
 };
 
-extern BfmeObjectEventDispatch *g_00E01DBC;
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
 
 struct Rva000B9A0EEntry
 {
@@ -66,6 +67,6 @@ void Rva000B9A0E::rva000B9A0E(void *obj, int b, int c)
 			continue;
 		BfmeDelayedLuaEventList list;
 		list.m_events[0].set(p->m_b);
-		g_00E01DBC->rva003360D2(15, obj, &list);
+		reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(15, obj, &list);
 	}
 }

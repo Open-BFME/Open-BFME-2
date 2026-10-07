@@ -106,7 +106,8 @@ class BfmeObjectEventDispatch
 public:
 	void rva003360D2(int index, void *object, BfmeDelayedLuaEventList *eventList);
 };
-extern BfmeObjectEventDispatch *g_00E01DBC;
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
 
 enum UpdateSleepTime
 {
@@ -171,7 +172,7 @@ UpdateSleepTime DelayedLuaEventUpdate::update()
 		Rva00260EB1Filter(obj, flags, false).link(Rva0026119DFilter().link(&Rva002611BFFilter(obj))), 1);
 	for (Object *other = hits.next(); other != 0; other = hits.next()) {
 		if (other != obj)
-			g_00E01DBC->rva003360D2(m_event, (void *)other, (BfmeDelayedLuaEventList *)&m_events);
+			reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(m_event, (void *)other, (BfmeDelayedLuaEventList *)&m_events);
 	}
 	TheGameLogic->destroyObject(m_object);
 	return UPDATE_SLEEP_NONE;

@@ -69,7 +69,8 @@ class BfmeObjectEventDispatch
 public:
 	void rva003360D2(int index, void *object, BfmeDelayedLuaEventList *eventList);
 };
-extern BfmeObjectEventDispatch *g_00E01DBC;
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
 
 class Team;
 
@@ -131,7 +132,7 @@ void Team::notifyTeamOfObjectDeath(Object *obj)
 	}
 	{
 		BfmeDelayedLuaEventList list;
-		g_00E01DBC->rva003360D2(7, obj, &list);
+		reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(7, obj, &list);
 	}
 
 runScripts:

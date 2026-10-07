@@ -22,13 +22,14 @@ struct LuaDrawableState
 	char m_drawablePad[0x9C];
 	LuaDrawableLink *m_drawable;	// +0x9C
 };
-extern LuaDrawableState *g_rva00A01DBCLuaState;
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
 
 // ?CurDrawablePrevAnimFraction@@YAHPAUlua_State@@@Z
 int CurDrawablePrevAnimFraction(lua_State *state)
 {
 	float frac = 0.0f;
-	LuaDrawableLink *drawable = g_rva00A01DBCLuaState->m_drawable;
+	LuaDrawableLink *drawable = reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->m_drawable;
 	if (drawable != 0) {
 		frac = drawable->m_prevAnimFraction;
 	}
