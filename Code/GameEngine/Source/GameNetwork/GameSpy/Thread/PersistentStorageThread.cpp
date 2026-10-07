@@ -1085,3 +1085,45 @@ void rva00556982(char *data, int len, PSPlayerAllStats *stats)
 	((Rva0060C45E *)&xfer)->clear();
 	file->close();
 }
+
+// Native [556C54,556DFF),427B with its catch funclet at 0x556DE1: the load
+// twin of 0x00556B3C, reading each block through its second xfer slot; the
+// open-play +0x144 copy of 0x00556982 is absent here.
+void rva00556C54(char *data, int len, PSPlayerAllStats *stats)
+{
+	File *file = createMemoryReadFile(data, len);
+	if (!file)
+	{
+		stats->rva00552CB8();
+		return;
+	}
+
+	Rva0060C5FA xfer(0, 0, 0);
+	Int version = 1;
+	try
+	{
+		if (((XferLoad *)&xfer)->Open((Rva0060C3C3Stream *)file, &version))
+		{
+			Rva00385333 tournament = stats->rva00556508();
+			Rva003844D7 openPlay = stats->rva00389DF1();
+			Rva0038454E strategic = stats->rva00389E0F();
+			tournament.rva00555109(&xfer);
+			openPlay.rva00555109(&xfer);
+			strategic.rva00555109(&xfer);
+			stats->setTournamentStats(tournament);
+			stats->setOpenPlayStats(openPlay);
+			stats->setStrategicStats(strategic);
+		}
+		else
+			stats->rva00552CB8();
+	}
+	catch (...)
+	{
+		((Rva0060C45E *)&xfer)->clear();
+		file->close();
+		stats->rva00552CB8();
+		return;
+	}
+	((Rva0060C45E *)&xfer)->clear();
+	file->close();
+}
