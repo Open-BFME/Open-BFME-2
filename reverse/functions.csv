@@ -66985,3 +66985,4 @@ _getinfo,,0x00747E00,679,Code/Libraries/Source/Lua/ldblib.c,matched,Lua 4.0.1 st
 ?setRepairState@SlavedUpdate@@QAEXW4RepairStates@@@Z,,0x004A2258,635,Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp,matched,ZH and BFME1-twin repair state machine; lines 750/767; welding handle and sparks event
 ?setFlag@Locomotor@@AAEXW4LocoFlag@1@_N@Z,,0x001E3459,31,Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp,matched,ZH Locomotor inline setFlag COMDAT called by doRepairLogic with PRECISE_Z_POS on ai curLocomotor; m_flags +0x44
 ?doRepairLogic@SlavedUpdate@@QAEXXZ,,0x004A24D3,395,Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp,matched,ZH doRepairLogic line 636; update call site 0x004A28DC
+?stopSlavedEffects@SlavedUpdate@@QAEXXZ,,0x004A1B17,61,Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp,matched,

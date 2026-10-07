@@ -51,6 +51,13 @@
 // toggle calls Locomotor::setFlag out of line. That is the 31-byte COMDAT at
 // 0x001E3459 (formerly a placeholder): mask 1 << flag at Locomotor +0x44, set
 // or cleared by the bool, which this unit emits byte for byte.
+//
+// stopSlavedEffects (0x004A1B17, 61 bytes) is Zero Hour's: BFME2 keeps the
+// slave when module data +0x55 (DieOnMastersDeath, after the +0x54
+// StayOnSameLayerAsMaster bool in the INI parse table) is set, else forgets
+// the slaver, zeroes the guard offset and clears UNSELECTABLE (status 3,
+// through setStatus 0x0023DB0E) and DISABLED_HELD (3, clearDisabled
+// 0x00291CAC). RepairWhenBelowHealth% (+0x38) is an Int in that table.
 
 #include "Common/BfmeAudioEventPrefix136.h"
 
@@ -121,6 +128,7 @@ enum CommandSourceType
 // BFME2 indexes read from these bodies.
 enum ObjectStatusTypes
 {
+	OBJECT_STATUS_UNSELECTABLE = 3,
 	OBJECT_STATUS_SLAVE_RETURNING = 30
 };
 
@@ -170,6 +178,11 @@ private:
 
 class Object;
 class AIUpdateInterface;
+
+enum DisabledType
+{
+	DISABLED_HELD = 3
+};
 
 class GameLogic
 {
@@ -429,6 +442,8 @@ public:
 	Real rva00263763(const void *other) const;
 	Bool testStatus(ObjectStatusTypes bit) const;
 	void setStatus(ObjectStatusTypes bit, Bool set = true);
+	void clearStatus(ObjectStatusTypes bit) { setStatus(bit, false); }
+	Bool clearDisabled(DisabledType type);
 	const Weapon *getCurrentWeapon(WeaponSlotType *wslot = 0) const;
 	void setWeaponBonusCondition(WeaponBonusConditionType wbc)
 	{
@@ -587,13 +602,15 @@ public:
 	Real m_repairMinAltitude; // +0x2C
 	Real m_repairMaxAltitude; // +0x30
 	Real m_repairRatePerSecond; // +0x34
-	Real m_repairWhenHealthBelowPercentage; // +0x38
+	Int m_repairWhenHealthBelowPercentage; // +0x38
 	Int m_minReadyFrames; // +0x3C
 	Int m_maxReadyFrames; // +0x40
 	Int m_minWeldFrames; // +0x44
 	Int m_maxWeldFrames; // +0x48
 	AsciiString m_weldingSysName; // +0x4C
 	AsciiString m_weldingFXBone; // +0x50
+	Bool m_stayOnSameLayerAsMaster; // +0x54
+	Bool m_dieOnMastersDeath; // +0x55
 };
 extern int g_Va00E03BBC; // SLAVED_UPDATE_RATE
 // g_Va00E03BBC: matched references place it at VA 0xe03bbc (zero-filled .bss).
@@ -609,6 +626,7 @@ public:
 	void doRepairLogic();
 	void setRepairState(RepairStates repairState);
 	void moveToNewRepairSpot();
+	void stopSlavedEffects();
 	const SlavedUpdateModuleData *getSlavedUpdateModuleData() const { return (const SlavedUpdateModuleData *)m_moduleData; }
 private:
 	unsigned char m_pad0C[0x24 - 0x0C];
@@ -925,4 +943,17 @@ void SlavedUpdate::setRepairState(RepairStates repairState)
 			break;
 		}
 	}
+}
+
+void SlavedUpdate::stopSlavedEffects()
+{
+	const SlavedUpdateModuleData *data = getSlavedUpdateModuleData();
+	if (data && data->m_dieOnMastersDeath)
+		return;
+
+	m_slaver = INVALID_ID;
+	m_guardPointOffset.zero();
+
+	getObject()->clearStatus(OBJECT_STATUS_UNSELECTABLE);
+	getObject()->clearDisabled(DISABLED_HELD);
 }
