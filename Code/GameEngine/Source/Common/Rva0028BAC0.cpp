@@ -35,11 +35,20 @@ class Rva002A8F56Host
 public:
 	void rva002A8F56(void *p);
 };
-extern PartitionManager *g_00DFE748;
-extern Rva00758240 *g_00DFE754;
-extern FireLogicSystem *g_00DFEC68;
-extern Rva00333F37Host *g_00E01DBC;
-extern Rva002A8F56Host *g_00DFEEF8;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class PartitionManager;
+extern PartitionManager *ThePartitionManager;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+extern void *g_Va00DFE754;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class Rva002872BA;
+extern Rva002872BA *TheTriggerManager;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class Rva002A8F24;
+extern Rva002A8F24 *g_00DFEEF8;
 class Rva0028BAC0Host
 {
 public:
@@ -64,17 +73,17 @@ void Rva0028BAC0Host::rva0028BAC0()
 	if (m_4C4 != 0)
 		m_4C4->makeDirty();
 	if (m_4C8 != 0)
-		g_00DFE748->rva00625330(&m_6C);
+		((PartitionManager *)ThePartitionManager)->rva00625330(&m_6C);
 	if (m_4CC != 0)
-		g_00DFE754->rva00758240((Rva009A36F0Param*)&m_70);
+		((Rva00758240 *)g_Va00DFE754)->rva00758240((Rva009A36F0Param*)&m_70);
 	if (m_49C >= 0)
 	{
-		if (g_00DFEC68 != 0)
-			g_00DFEC68->UnregisterObject((Rva00287C21Other *)this);
+		if (((FireLogicSystem *)TheTriggerManager) != 0)
+			((FireLogicSystem *)TheTriggerManager)->UnregisterObject((Rva00287C21Other *)this);
 	}
-	if (g_00E01DBC != 0)
-		g_00E01DBC->rva00333F37(this);
-	if (g_00DFEEF8 != 0)
-		g_00DFEEF8->rva002A8F56(this);
+	if (((Rva00333F37Host *)TheLuaScriptEngine) != 0)
+		((Rva00333F37Host *)TheLuaScriptEngine)->rva00333F37(this);
+	if (((Rva002A8F56Host *)g_00DFEEF8) != 0)
+		((Rva002A8F56Host *)g_00DFEEF8)->rva002A8F56(this);
 	m_454 = 0;
 }
