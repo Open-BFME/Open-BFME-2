@@ -13,6 +13,9 @@
 typedef int Int;
 typedef unsigned char UnsignedByte;
 
+extern "C" void __cdecl Rva001117E3Downsample(
+	unsigned short *source, Int width, unsigned short *destination);
+
 class RefCountClass
 {
 public:
@@ -38,6 +41,7 @@ public:
 	UnsignedByte m_tileDataMip1[0x4];
 	int m_2AB4;
 	UnsignedByte *getRGBDataForWidth(Int width);
+	void updateMips();
 };
 
 #define TILE_PIXEL_EXTENT_MIP1 32
@@ -61,4 +65,20 @@ UnsignedByte *TileData::getRGBDataForWidth(Int width)
 TileData::TileData()
 {
 	m_2AB4 = 0;
+}
+
+void TileData::updateMips()
+{
+	Rva001117E3Downsample(reinterpret_cast<unsigned short *>(m_tileData), 0x40,
+		reinterpret_cast<unsigned short *>(m_tileDataMip32));
+	Rva001117E3Downsample(reinterpret_cast<unsigned short *>(m_tileDataMip32), 0x20,
+		reinterpret_cast<unsigned short *>(m_tileDataMip16));
+	Rva001117E3Downsample(reinterpret_cast<unsigned short *>(m_tileDataMip16), 0x10,
+		reinterpret_cast<unsigned short *>(m_tileDataMip8));
+	Rva001117E3Downsample(reinterpret_cast<unsigned short *>(m_tileDataMip8), 0x08,
+		reinterpret_cast<unsigned short *>(m_tileDataMip4));
+	Rva001117E3Downsample(reinterpret_cast<unsigned short *>(m_tileDataMip4), 0x04,
+		reinterpret_cast<unsigned short *>(m_tileDataMip2));
+	Rva001117E3Downsample(reinterpret_cast<unsigned short *>(m_tileDataMip2), 0x02,
+		reinterpret_cast<unsigned short *>(m_tileDataMip1));
 }
