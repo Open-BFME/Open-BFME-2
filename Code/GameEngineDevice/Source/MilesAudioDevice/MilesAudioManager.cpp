@@ -27,6 +27,59 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include <vector>
 #include "ascii_string.h"
 
+class Xfer;
+enum INILoadType
+{
+    INI_LOAD_INVALID,
+    INI_LOAD_OVERWRITE,
+    INI_LOAD_CREATE_OVERRIDES,
+    INI_LOAD_MULTIFILE
+};
+
+class Rva00601BBCHelper
+{
+public:
+    Rva00601BBCHelper();
+    virtual ~Rva00601BBCHelper();
+
+private:
+    char m_body[0x30];
+};
+
+// INI object view copied from INI_ctor.cpp so this local has the measured
+// 0x888-byte extent. Offset +8 is kept address-derived: 0x54120 reads it and
+// passes it as the load type, but its semantic field name is not settled here.
+class INI
+{
+public:
+    INI();
+    ~INI();
+    unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer);
+
+private:
+    void *m_file;
+    AsciiString m_filename;
+
+public:
+    unsigned int m_at08;
+
+private:
+    unsigned int m_readBufferUsed;
+    unsigned int m_lineNum;
+    char m_buffer[0x418 - 0x14];
+    const char *m_seps;
+    const char *m_sepsPercent;
+    const char *m_sepsColon;
+    const char *m_sepsQuote;
+    const char *m_blockEndToken;
+    const char *m_endScriptToken;
+    unsigned char m_endOfFile;
+    char m_curBlockStart[0x838 - 0x431];
+    Rva00601BBCHelper m_helper;
+    AsciiString m_str86C;
+    _STL::vector<AsciiString> m_vec870;
+};
+
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile *);
 
 class OpaqueRefCounted {
@@ -254,6 +307,13 @@ public:
     void rva000562CF(int key);
     void rva000562A2(int key, const void *value);
     void rva0005A92A(int key, Rva0005A084Vector *output);
+    // These audio INI calls use the manager receiver and an explicit INI*.
+    // The receiver type is supported by 0x61BD2's +0x9D4 mutex access; names
+    // for 0x5407E/0x540A7 remain address-derived, with helper identity open.
+    void rva000541DB(void);
+    void rva0005407E(INI *ini);
+    void rva000540A7(INI *ini);
+    unsigned char rva00054120(INI *ini);
     void rva00057297(Rva00051107AudioRequest &request);
     bool rva000570C8(AudioEventRTS *event);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
@@ -324,6 +384,30 @@ private:
     char atB48[0xBD4 - 0xB48];
     LoopBuffer *m_loopBuffers;           // +0xBD4 (WB assert name)
 };
+
+unsigned char MilesAudioManager::rva00054120(INI *ini)
+{
+    INILoadType type = static_cast<INILoadType>(ini->m_at08);
+    unsigned char loaded = ini->loadFile(AsciiString("Data\\INI\\Music.ini"), type, 0);
+    loaded |= ini->loadFile(AsciiString("Data\\INI\\SoundEffects.ini"), type, 0);
+    loaded |= ini->loadFile(AsciiString("Data\\INI\\Speech.ini"), type, 0);
+    loaded |= ini->loadFile(AsciiString("Data\\INI\\Voice.ini"), type, 0);
+    loaded |= ini->loadFile(AsciiString("Data\\INI\\AmbientStream.ini"), type, 0);
+    loaded |= ini->loadFile(AsciiString("Data\\INI\\MiscAudio.ini"), type, 0);
+    return loaded;
+}
+
+// Target evidence: exact 0x888-byte INI local, ctor/dtor calls, and three
+// thiscall helpers with the same INI* at 0x5407E, 0x540A7 and 0x54120.
+// Audio subsystem context supports MilesAudioManager as the receiver class;
+// that class association remains a structural inference.
+void MilesAudioManager::rva000541DB(void)
+{
+    INI ini;
+    rva0005407E(&ini);
+    rva000540A7(&ini);
+    rva00054120(&ini);
+}
 
 void MilesAudioManager::moveUpMusicSystems(int newMusicSystem, int viewType, int arg)
 {
