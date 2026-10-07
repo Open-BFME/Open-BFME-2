@@ -68759,3 +68759,4 @@ uw_00773953,,0x00773953,25,Code/GameEngine/Source/GameLogic/Map/TerrainLogicWayp
 uw_00773b7a,,0x00773B7A,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicWater.cpp,matched,gen-funclet;object-symbol=$L1643;parent=?setWaterHeight@TerrainLogic@@UAEXPBVWaterHandle@@MM_N@Z;unwind state 0 of FuncInfo 0x0091AAF4 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 ??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z,,0x00282212,447,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,
 ??0Waypoint@@QAE@XZ,,0x002823D1,303,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,
+?rva00265459@Rva00263546@@QBE_NPBV1@@Z,,0x00265459,13,Code/GameEngine/Source/Common/Rva00263546Overlap.cpp,matched,native265459..265466 RET4 swapped mask receiver/argument; rowed nineteen-word overlap owner; Ob1 retains the native direct call; original method spelling unknown
