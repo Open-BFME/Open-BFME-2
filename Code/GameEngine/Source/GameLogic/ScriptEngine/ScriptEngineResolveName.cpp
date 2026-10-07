@@ -94,3 +94,36 @@ void Rva0032AAEE::rva0032AAEE(int a, int b)
 	nodes[beforeFirst].next = (short)b;
 	nodes[second->next].previous = (short)b;
 }
+
+// Native 0x0032AFD4..0x0032B067, RET 12. The receiver holds two string
+// pointers at +0/+4: the first supplies its unsigned length at buffer+4,
+// and both supply text at buffer+8 (or the retail empty string). The two
+// memcpy calls establish copying a slice across their concatenated text.
+// Shared AsciiString accessors reproduce those independent header facts;
+// the original owner/method and relationship to script names are unknown.
+class Rva0032AFD4
+{
+public:
+	void rva0032AFD4(char *out, int start, int length);
+private:
+	AsciiString *m_first;
+	AsciiString *m_second;
+};
+
+void Rva0032AFD4::rva0032AFD4(char *out, int start, int length)
+{
+	int firstLen = m_first->getLength();
+	if (start < firstLen) {
+		int count = length;
+		if (start + length > firstLen)
+			count = firstLen - start;
+		memcpy(out, m_first->str() + start, count);
+		length -= count;
+		if (length <= 0)
+			return;
+		out += count;
+		start += count;
+	}
+	start -= firstLen;
+	memcpy(out, m_second->str() + start, length);
+}
