@@ -777,7 +777,9 @@ Rva005EF5CA::operator AsciiString()
 // and guarded-delete005FA146 identify a complete nonvirtual destructor.
 // Cleanup offsets establish the storage views below; original owner and
 // container element identities remain unknown. Existing row/pin spellings
-// name the nine measured destructor calls; no new callee pins are introduced.
+// name the nine measured destructor calls. The range destructor now has
+// a real definition here and the pointer members call the rowed clear.
+// No new callee pins are introduced.
 namespace _STL {
 template<class T> class allocator {};
 template<class T, class A = allocator<T> > class vector {
@@ -786,9 +788,29 @@ private: T *begin, *end, *limit;
 };
 }
 struct Rva005F9813Record;
-class Gen_uwm_005f97d4 {public: ~Gen_uwm_005f97d4(); private: char storage[12];};
+struct BfmeContainerRecord005FDEC7;
+void free(void *pointer);
+namespace _STL { template<class Pointer> void _Destroy(Pointer begin, Pointer end); }
+struct Gen_uwm_005f97d4Storage {
+ BfmeContainerRecord005FDEC7 *begin, *end, *limit;
+ // ?Gen_uwm_005f97d4Storage::~Gen_uwm_005f97d4Storage absent-from-retail
+ __forceinline ~Gen_uwm_005f97d4Storage() { if (begin) free(begin); }
+};
+class Gen_uwm_005f97d4 : private Gen_uwm_005f97d4Storage {
+public: ~Gen_uwm_005f97d4();
+};
+// Native005F97D4..005F9813: destroy the measured 12-byte-stride range
+// through the existing STLport _Destroy then release its buffer. The
+// storage destructor mirrors STLport _Vector_base ownership and EH cleanup.
+Gen_uwm_005f97d4::~Gen_uwm_005f97d4() { _STL::_Destroy(begin, end); }
 class Rva0052413E { public: ~Rva0052413E(); private: char bytes[12]; };
-class Gen_uwm_000ad6f4 { public: ~Gen_uwm_000ad6f4(); private: void *pointer; };
+class Rva000AD6F4 {
+public:
+ void clear();
+ // ?Rva000AD6F4::~Rva000AD6F4 absent-from-retail
+ __forceinline ~Rva000AD6F4() { clear(); }
+private: void *pointer;
+};
 class Rva005F9877 {
 public: ~Rva005F9877();
 private:
@@ -798,9 +820,9 @@ private:
  char unknown18[4];
  UnicodeString string1C;
  Gen_uwm_005f97d4 records20;
- Gen_uwm_000ad6f4 owner2C;
+ Rva000AD6F4 owner2C;
  Gen_uwm_005f97d4 records30;
- Gen_uwm_000ad6f4 owner3C;
+ Rva000AD6F4 owner3C;
  _STL::vector<Rva005F9813Record> records40;
  char unknown4C[4];
  _STL::vector<Rva005F9813Record> records50;
