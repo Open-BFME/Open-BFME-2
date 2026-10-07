@@ -408,29 +408,9 @@ void LaserUpdate::initLaser( const Object *parent, const Object *target, const C
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?LaserUpdate::getCurrentLaserRadius present-unmatched
-Real LaserUpdate::getCurrentLaserRadius() const
-{
-	const Drawable *draw = getDrawable();
-	const LaserDrawInterface* ldi = NULL;
-	for( const DrawModule** d = draw->getDrawModules(); *d; ++d )
-	{
-		ldi = (*d)->getLaserDrawInterface();
-		if( ldi )
-		{
-			//***NOTE***
-			//While it appears the logic is accessing client data, it is actually accessing template module
-			//data from the client. This value is INI constant thus can't change. It's grouped with other 
-			//laser defining attributes and having it there makes it easier for artists.
-			return ldi->getLaserTemplateWidth() * m_currentWidthScalar;
-		}
-	}
-	return 0.0f;
-}
+// getCurrentLaserRadius is defined and byte-verified in LaserUpdateDtor.cpp.
+// The shared declaration stays in the LaserUpdate header for callers.
 
-// ------------------------------------------------------------------------------------------------
-/** CRC */
-// ------------------------------------------------------------------------------------------------
 // ?LaserUpdate::crc present-unmatched
 void LaserUpdate::crc( Xfer *xfer )
 {
