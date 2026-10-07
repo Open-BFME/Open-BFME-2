@@ -1,4 +1,6 @@
 // ?Rva0041BA61Get@@YG_NPAVObject@@@Z
+// partial score=0.95 date=2026-10-05
+// ?Rva0041BA61Get@@YG_NPAVObject@@@Z
 // partial score=0.93 date=2026-10-04
 // cl: /O1 /arch:SSE /MD
 // ?Rva0041BA61Get@@YG_NPAVObject@@@Z @0x0041BA61 113B. Free stdcall bool
@@ -52,17 +54,17 @@ bool __stdcall Rva0041BA61Get(Object *obj)
 	if (g_Va009FF0F8 == 0 || obj == 0)
 		return false;
 	AIUpdateInterface *ai = obj->m_ai;
-	if (ai == 0)
+	if (0 == ai)
 		return false;
 	if (!ai->rva00262BEC())
 		return false;
-	float x = obj->m_pos.x;
-	Pathfinder *pf = g_Va009FF0F8->m_pathfinder;
 	Coord3D pos;
+	const float x = obj->m_pos.x;
 	pos.x = x;
 	pos.y = obj->m_pos.y;
-	pos.z = obj->m_pos.z + g_00BC7A54;
-	int r = pf->rva002E9871(&pos);
+	pos.z = g_00BC7A54 + obj->m_pos.z;
+	Pathfinder *pf = g_Va009FF0F8->m_pathfinder;
+	const unsigned int r = pf->rva002E9871(&pos);
 	if (r < 0x11)
 		return false;
 	return true;

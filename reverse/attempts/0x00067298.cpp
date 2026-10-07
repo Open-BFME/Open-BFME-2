@@ -1,5 +1,7 @@
 // ?rva00067298@Rva00067298@@QAE_NMM@Z
 // partial score=0.92 date=2026-10-05
+// ?rva00067298@Rva00067298@@QAE_NMM@Z
+// partial score=0.92 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 // ?rva00067298@Rva00067298@@QAE_NMM@Z, retail 0x00067298, 115 bytes.
 // Leaf: clamped bit test via rowed Gen_0074BB30::bfmeBitA 0x000AE1DC.

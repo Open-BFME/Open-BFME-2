@@ -1,4 +1,6 @@
 // ?onEnter@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.93 date=2026-10-05
+// ?onEnter@TurretAIIdleState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.9 date=2026-10-04
 // cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
 //

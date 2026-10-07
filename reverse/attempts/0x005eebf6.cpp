@@ -1,3 +1,5 @@
+// ?rva005EEBF6@Rva005EEA20@@QAEXPAVRva005EE9CE@@PAVObject@@M@Z
+// partial score=0.93 date=2026-10-05
 // ?rva005EEBF6@Rva005EEA20@@QAEXPAURva005EE9CE@@PAVObject@@M@Z
 // partial score=0.96 date=2026-10-04
 // cl: /O1 /MD /GX /arch:SSE
