@@ -76,6 +76,12 @@ struct BfmeSpecialPowerTimer8
 	unsigned int m_readyFrame;
 };
 
+// Declare the rowed push_back so this TU calls it instead of emitting a
+// competing generic insert/_M_create_node copy (same as Rva002AC6B1 precedent).
+namespace _STL {
+template<> void list<BfmeSpecialPowerTimer8, allocator<BfmeSpecialPowerTimer8> >::push_back(const BfmeSpecialPowerTimer8 &);
+}
+
 typedef _STL::list<BfmeSpecialPowerTimer8> ListTimer;
 
 class Rva00203D86A;
