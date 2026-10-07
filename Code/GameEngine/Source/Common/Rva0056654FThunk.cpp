@@ -119,3 +119,28 @@ void Rva0056656AOwner::append(const Rva0052BEF0 &record)
 {
 	m_records.push_back(record);
 }
+
+struct Elem003AF9E0;
+
+namespace _STL
+{
+template <> class vector<Elem003AF9E0, allocator<Elem003AF9E0> >
+{
+public:
+	void push_back(const Elem003AF9E0 &x);
+};
+}
+
+class Rva0056655FOwner
+{
+public:
+	void rva0056655F(const Elem003AF9E0 &x);
+private:
+	char m_pad[0x84];
+	_STL::vector<Elem003AF9E0, _STL::allocator<Elem003AF9E0> > m_vec;
+};
+
+void Rva0056655FOwner::rva0056655F(const Elem003AF9E0 &x)
+{
+	m_vec.push_back(x);
+}
