@@ -1,28 +1,13 @@
 // cl: /DNDEBUG /MD /EHsc
 // ?rva0050B519@Made002CCB04@@QAEXPAX0@Z @0x0050B519 130B
-// Partition query then per-object rva0050B479: max(m_12C global) range via SSE, ForwardWideA with (b  range  3  0), EOF loop calling rowed 0x0050B479. Evidence: vtable slot 6 of 0x00864D10, members 0x12C in Ctor, globals g_Va00BBB8D8 plus ThePartitionManager, callees rowed Forward plus EOF plus rva plus WideResult dtor, chain from 0x0050B479.
+// Partition query then per-object rva0050B479: max(m_12C global) range via SSE, native range query 0x6255D0 with (b range 3 0), EOF loop calling rowed 0x0050B479. Evidence: vtable slot 6 of 0x00864D10, members 0x12C in Ctor, globals g_Va00BBB8D8 plus ThePartitionManager, callees rowed Forward plus EOF plus rva plus WideResult dtor, chain from 0x0050B479.
 extern float g_Va00BBB8D8;
 class PartitionManager;
 extern PartitionManager *ThePartitionManager;
 
 class Object;
 
-struct BfmeWideResult
-{
-	void *m_value;
-	BfmeWideResult();
-	BfmeWideResult(const BfmeWideResult &that);
-	~BfmeWideResult();
-	Object *next();	// 0x00045623
-};
-
-class BfmeWideForwardA
-{
-	char m_pad00[0x0c];
-	void *m_source;
-public:
-	BfmeWideResult bfmeForwardWideA(int a, float b, int c, int d);
-};
+#include "../../Common/PartitionRangeQueryCallView.h"
 
 class Object;
 class Made002CCB04
@@ -42,7 +27,7 @@ private:
 void Made002CCB04::rva0050B519(void *a, void *b)
 {
 	float range = (m_12C > g_Va00BBB8D8) ? m_12C : g_Va00BBB8D8;
-	BfmeWideResult iterator = ((BfmeWideForwardA *)ThePartitionManager)->bfmeForwardWideA((int)b, range, 3, 0);
+	BfmeWideResult iterator = ThePartitionManager->rva006255D0((const Coord3D *)b, range, 3, 0);
 	for (void *other = iterator.next(); other; other = iterator.next())
 		rva0050B479(a, (Object *)other);
 }

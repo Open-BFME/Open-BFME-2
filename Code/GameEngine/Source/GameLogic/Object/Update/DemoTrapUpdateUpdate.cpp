@@ -66,22 +66,8 @@ public:
 };
 #include "../../../Common/RTS/XYDistanceCallView.h"
 
-struct BfmeWideResult
-{
-	void *m_value;
-	BfmeWideResult();
-	BfmeWideResult(const BfmeWideResult &that);
-	~BfmeWideResult();
-	Object *next();	// 0x00045623
-};
-class BfmeWideForwardA
-{
-	char m_pad00[0x0c];
-	void *m_source;
-public:
-	BfmeWideResult bfmeForwardWideA(int a, float b, int c, int d);
-};
-class PartitionManager;
+#include "../../../Common/PartitionRangeQueryCallView.h"
+
 extern PartitionManager *ThePartitionManager;
 class Rva00495A2B
 {
@@ -155,7 +141,7 @@ UpdateSleepTime DemoTrapUpdate::update()
 		return UPDATE_SLEEP_NONE;
 	self->m_nextScanFrames = data->m_scanFrames;
 	bool shallDetonate = false;
-	BfmeWideResult iterator = ((BfmeWideForwardA *)ThePartitionManager)->bfmeForwardWideA((int)&me->m_pos38, data->m_triggerDetonationRange, 0, 0);
+	BfmeWideResult iterator = ThePartitionManager->rva006255D0(&me->m_pos38, data->m_triggerDetonationRange, 0, 0);
 	for (Object *other = iterator.next(); other; other = iterator.next())
 	{
 		if (other->isAnyKindOf(data->m_ignoreKindOf))

@@ -1,12 +1,6 @@
 // cl: /Ob0
 
-struct BfmeWideResult
-{
-	void *m_value;
-	BfmeWideResult();
-	BfmeWideResult(const BfmeWideResult &that);
-	~BfmeWideResult();
-};
+#include "PartitionRangeQueryCallView.h"
 
 class BfmeWideResultSource
 {
@@ -47,19 +41,6 @@ public:
 		Rva000421C8 *filters, int order);
 };
 
-// ThePartitionManager (0x00DFE748): 44 matched callers reference this
-// method by name with a const Coord3D *, a float radius, a distance type,
-// the filter chain and an iteration order.
-class PartitionManager
-{
-	char m_pad[0x10];
-	Rva00628770Impl *m_impl;
-
-public:
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distType,
-		Rva000421C8 *filters, int order);
-};
-
 class BfmeWideForward009F29A0
 {
 	char m_pad[0x10];
@@ -68,6 +49,11 @@ class BfmeWideForward009F29A0
 public:
 	BfmeWideResult forward009F29A0(int a, int b, int c);
 };
+
+BfmeWideResult PartitionManager::rva006255D0(const Coord3D *pos, float radius, int distType, int order)
+{
+	return m_impl->rva00628770(pos, radius, 0, distType, 0, order);
+}
 
 BfmeWideResult PartitionManager::iterateObjectsInRange(const Coord3D *pos, float radius,
 	int distType, Rva000421C8 *filters, int order)
