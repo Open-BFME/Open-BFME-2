@@ -212,20 +212,6 @@ Rva004318C6::Rva004318C6(void *p) : m_04(p)
 {
 }
 
-// ??0Rva0057C50C@@QAE@PAX@Z @0x0057C50C 18B, vtable VA 0xc6f31c
-class Rva0057C50C
-{
-public:
-	Rva0057C50C(void *p);
-	virtual ~Rva0057C50C() {}
-private:
-	void *m_04;
-};
-
-Rva0057C50C::Rva0057C50C(void *p) : m_04(p)
-{
-}
-
 // ??0Rva0059B060@@QAE@PAX@Z @0x0059B060 18B, vtable VA 0xc70e60
 class Rva0059B060
 {
