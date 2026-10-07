@@ -16855,3 +16855,4 @@ FUN_008602f4	0x004602F4	481	void	retracts the no-boundary row: 0x004602F4 is slo
 ?reset@LuaScriptEngine@@UAEXXZ	0x00337C8C	94	blocked	Lua reset donor GenInt vectors vs retail ScienceType Rva003371B1 plus custom Owner Rva00335C88 needs STL repair t=14 model=muse-spark
 ?rva0031C40E@Rva0031C40E@@QAEXPAX@Z	0x0031C40E	442	blocked	ADDRESS-NAMED g_Va00E01D24 new use refused t=2 model=muse-spark
 ?rva004E434C@AptPlayerStatus@@QAEXHPAD_N@Z	0x004E434C	166	blocked	member vs free-function identity unproven plus structural mismatch ours 179B vs retail 166B 6 regions control flow diverges t=10 model=muse-spark
+?rva00574192@Rva00574192@@QAEXXZ	0x00574192	191	blocked	packet marks globals 0x00A04910 and 0x00A05FAC ADDRESS-NAMED g_Va00A04910 g_Va00E05FAC; taskfile requires skipping bodies that use them t=1 model=muse-09

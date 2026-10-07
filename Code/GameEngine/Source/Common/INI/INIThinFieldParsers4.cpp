@@ -22,9 +22,18 @@ class INI
 public:
 	const char *getNextToken(const char *seps = 0);
 	const char *getNextTokenOrNull(const char *seps = 0);
+	const char *getNextSubToken(const char *expected);
+	int scanInt(const char *token);
 	int scanIndexList(const char *token, const char *const *names);
 	int scanLookupList(const char *token, const LookupListRec *table);
 	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+};
+
+struct RGBColor
+{
+	float red;
+	float green;
+	float blue;
 };
 
 class INIException
@@ -102,4 +111,26 @@ void Rva0035B864Parse(INI *ini, void *, void *store, const void *)
 void Rva0035AECFParse(INI *ini, void *instance, void *store, const void *userData)
 {
 	INI::parseBool(ini, instance, store, userData);
+}
+
+// ?Rva001DFC2AParse@@YAXPAVINI@@PAX1PBX@Z, retail 0x001DFC2A, 168 bytes.
+// Evidence: REF table slot 0x007DD27C neighbour "Color"; strings "R" "G" "B"
+// and "color value %s=%i out of range (0..255)"; callees getNextSubToken
+// 0x0002E06B scanInt 0x0002ECCF INIException 0x0002F681 plus float 1/255 at
+// 0x007BB8F0; shape follows INI::parseRGBColor with lower bound -255 per
+// retail cmp eax,0xffffff01.
+void Rva001DFC2AParse(INI *ini, void *, void *store, const void *)
+{
+	const char *names[3] = { "R", "G", "B" };
+	int colors[3];
+	for (int i = 0; i < 3; i++)
+	{
+		colors[i] = ini->scanInt(ini->getNextSubToken(names[i]));
+		if (colors[i] < -255 || colors[i] > 255)
+			throw INIException(3, "color value %s=%i out of range (0..255)", names[i], colors[i]);
+	}
+	RGBColor *theColor = (RGBColor *)store;
+	theColor->red = colors[0] * (1.0f / 255.0f);
+	theColor->green = colors[1] * (1.0f / 255.0f);
+	theColor->blue = colors[2] * (1.0f / 255.0f);
 }
