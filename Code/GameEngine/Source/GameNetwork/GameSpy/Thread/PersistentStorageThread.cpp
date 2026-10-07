@@ -8,6 +8,8 @@
 // stlport
 #include <map>
 typedef _STL::map<unsigned char, short> StatsShortMap;
+typedef _STL::map<unsigned char, int> StatsIntMap;
+template <> int &StatsIntMap::operator[](const unsigned char &);
 typedef _STL::map<unsigned char, float> StatsFloatMap;
 template <> short &StatsShortMap::operator[](const unsigned char &);
 template <> float &StatsFloatMap::operator[](const unsigned char &);
@@ -20,6 +22,12 @@ template <class CharT, class Traits, class Alloc> class basic_string
 {
 public:
 	basic_string &operator=(const CharT *text);
+    basic_string &assign(const basic_string &);
+    unsigned size() const { return finish - start; }
+private:
+    CharT *start;
+    CharT *finish;
+    CharT *storageEnd;
 };
 }
 
@@ -488,4 +496,59 @@ void Rva00553E47StatsCore::rva00554AF2(const Rva00553E47StatsCore *other) {
     m_148=other->m_148;
     m_14a=other->m_14a;
     m_14c=other->m_14c;
+}
+
+typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > Rva00555D74String;
+
+class Rva00555D74
+{
+public:
+    void rva00555D74(const Rva00555D74 *source);
+    void rva00555845(const Rva00555D74 *source);
+private:
+    unsigned char pad00[0x190];
+    unsigned short word190;
+    unsigned short word192;
+    int value194;
+    int value198;
+    Rva00555D74String text19C;
+};
+
+void Rva00555D74::rva00555D74(const Rva00555D74 *source)
+{
+    rva00555845(source);
+    word190 = source->word190;
+    word192 = source->word192;
+    if (source->value194 > 0)
+        value194 = source->value194;
+    if (source->value198 > 0)
+        value198 = source->value198;
+    if (source->text19C.size() != 0)
+        text19C.assign(source->text19C);
+}
+
+// Native [555845,555988),323B merges five12-byte maps in the common prefix.
+// Layout and signedness follow its own node tests; core merge is554AF2.
+void Rva00555D74::rva00555845(const Rva00555D74 *source) {
+    ((Rva00553E47StatsCore *)this)->rva00554AF2((const Rva00553E47StatsCore *)source);
+    for (StatsIntMap::const_iterator it=((const StatsIntMap *)((const char *)source+0x154))->begin(); it._M_node!=((const StatsIntMap *)((const char *)source+0x154))->end()._M_node; ++it) {
+        if ((unsigned int)it->second > 0)
+            (*(StatsIntMap *)((char *)this+0x154))[it->first]=it->second;
+    }
+    for (StatsShortMap::const_iterator it=((const StatsShortMap *)((const char *)source+0x160))->begin(); it._M_node!=((const StatsShortMap *)((const char *)source+0x160))->end()._M_node; ++it) {
+        if ((unsigned short)it->second > 0)
+            (*(StatsShortMap *)((char *)this+0x160))[it->first]=it->second;
+    }
+    for (StatsShortMap::const_iterator it=((const StatsShortMap *)((const char *)source+0x16c))->begin(); it._M_node!=((const StatsShortMap *)((const char *)source+0x16c))->end()._M_node; ++it) {
+        if ((unsigned short)it->second > 0)
+            (*(StatsShortMap *)((char *)this+0x16c))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)source+0x178))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)source+0x178))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)((char *)this+0x178))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)source+0x184))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)source+0x184))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)((char *)this+0x184))[it->first]=it->second;
+    }
 }
