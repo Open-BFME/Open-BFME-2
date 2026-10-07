@@ -1,6 +1,6 @@
 // cl: /MD /DNDEBUG
 //
-// ?xfer@Rva004C908B@@MAEXPAVXfer@@@Z, retail 0x004C9505, 142 bytes.
+// ?xfer@SwayClientUpdate@@MAEXPAVXfer@@@Z, retail 0x004C9505, 142 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0085EA8C (same primary as rowed ctor
 // 0x004C908B): base ObjectModule xfer via rowed 0x00560AE1 then IsLightCRC
 // early-out via Xfer slot 0x10 then Version1 via rowed 0x000053EE then five
@@ -10,7 +10,10 @@
 // (opaque Rva00362EC7 base 0x0C like ObjectModule plus 0x20 bytes per the
 // ctor which inits m_w20 -1 plus five zero floats plus m_b22 1 plus two zero
 // floats; factory 0x0025298F news 0x2C). Recipe is SlowDeathBehaviorXfer
-// base plus lightCRC plus Version1 plus member runs.
+// base plus lightCRC plus Version1 plus member runs. The class is
+// SwayClientUpdate (see SwayClientUpdate.cpp and the ctor's identity note):
+// these are Zero Hour's SwayClientUpdate::xfer members plus the two BFME
+// floats.
 
 class AsciiString;
 class UnicodeString;
@@ -100,10 +103,10 @@ protected:
 	Object *m_object;
 };
 
-class Rva004C908B : public ObjectModule
+class SwayClientUpdate : public ObjectModule
 {
 public:
-	Rva004C908B(Thing *thing, const ModuleData *moduleData);
+	SwayClientUpdate(Thing *thing, const ModuleData *moduleData);
 
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -121,7 +124,7 @@ private:
 	float m_f28;
 };
 
-void Rva004C908B::xfer(Xfer *xfer)
+void SwayClientUpdate::xfer(Xfer *xfer)
 {
 	ObjectModule::xfer(xfer);
 	if (xfer->IsLightCRC())

@@ -2,12 +2,13 @@
 //
 // ?updateSway@SwayClientUpdate@@IAEXXZ, retail 0x004C9125, 278 bytes.
 // ?clientUpdate@SwayClientUpdate@@UAEXXZ, retail 0x004C923B, 714 bytes.
+// ?loadPostProcess@SwayClientUpdate@@MAEXXZ, retail 0x004C9593, 5 bytes.
 //
 // Donor: BFME 1's SwayClientUpdate.cpp (reference/open-bfme-1/game/
 // GameEngine/Source/GameClient/Drawable/Update/SwayClientUpdate.cpp), over
 // Zero Hour's. Target facts:
-// - The class is the one the rowed ctor 0x004C908B builds (named
-//   Rva004C908B there): ZH's members from +0x0C to +0x23 and two BFME floats
+// - The class is the one the rowed ctor 0x004C908B builds: ZH's members
+//   from +0x0C to +0x23 and two BFME floats
 //   at +0x24/+0x28, the sine and cosine of the breeze direction relative to
 //   the drawable's facing, which updateSway writes and clientUpdate scales
 //   the X and Y sway by.
@@ -17,10 +18,11 @@
 //   reads +0x34) and the drawable's facing through the pinned
 //   Drawable::getTransformMatrix 0x0027628E. Its three client-random calls
 //   push the retail file string 0x00C5EAC8 with lines 73, 74 and 75.
-// - The vftable 0x00C5EA8C (installed by the ctor) holds the rowed slot
-//   0x004C9593 that tail-jumps to updateSway in slot 1, the xfer 0x004C9505
-//   in slot 3, the "SwayClientUpdate" pool key 0x004C90E0 in slot 4 and
-//   clientUpdate in slot 12.
+// - The vftable 0x00C5EA8C (installed by the ctor) holds loadPostProcess in
+//   slot 1, the xfer 0x004C9505 in slot 3, the "SwayClientUpdate" pool key
+//   0x004C90E0 in slot 4 and clientUpdate in slot 12. As in ZH,
+//   loadPostProcess extends the empty base and re-runs updateSway, a tail
+//   jump.
 // - clientUpdate tests the drawable's visible byte at +0x441, copies the
 //   instance matrix at +0x1A0 and hands it to the two-argument
 //   setInstanceMatrix (0x002711C6) with false. The burned test is the rowed
@@ -160,6 +162,8 @@ protected:
 	Real m_directionCos; // +0x28
 
 	void updateSway();
+
+	virtual void loadPostProcess();
 };
 
 // ?updateSway@SwayClientUpdate@@IAEXXZ
@@ -225,4 +229,11 @@ void SwayClientUpdate::clientUpdate()
 	Object *obj = draw->getObject();
 	if (obj && (obj->testStatus(OBJECT_STATUS_BURNED) || obj->isEffectivelyDead()))
 		stopSway();
+}
+
+// ?loadPostProcess@SwayClientUpdate@@MAEXXZ
+void SwayClientUpdate::loadPostProcess()
+{
+	// extend base class (empty)
+	updateSway();
 }

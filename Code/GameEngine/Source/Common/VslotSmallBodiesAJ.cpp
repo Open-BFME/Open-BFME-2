@@ -1404,21 +1404,6 @@ void Rva004C202F::rva004C202F()
 	rva004BF40F();
 }
 
-class Rva004C9125
-{
-public:
-	void rva004C9125();
-};
-class Rva004C9593 : public Rva004C9125
-{
-public:
-	void rva004C9593();
-};
-void Rva004C9593::rva004C9593()
-{
-	rva004C9125();
-}
-
 class Rva005C674A
 {
 public:
