@@ -265,3 +265,57 @@ StateReturnType AICowerState::update()
 	}
 	return STATE_CONTINUE;
 }
+
+class AIBackAwayState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType update();
+private:
+	unsigned char m_pad4C[0x50 - 0x4C];
+	Bool m_retargetToPathEnd; // +0x50
+	unsigned char m_pad51[0x54 - 0x51];
+	Bool m_done; // +0x54
+};
+
+StateReturnType AIBackAwayState::update()
+{
+	Object *obj = getMachineOwner();
+	obj->setModelConditionBit(65);
+	AIUpdateInterface *ai = obj->getAI();
+	Object *goal = getMachine()->getGoalObject();
+	if (!goal || goal->isEffectivelyDead() || m_done)
+		return STATE_SUCCESS;
+
+	if (m_retargetToPathEnd)
+	{
+		AIUpdateInterface *objAI = obj->getAI();
+		if (objAI->getPath() && !objAI->getBfmeFlag3B1())
+		{
+			m_goalPosition = *objAI->getPath()->getLastNode()->getPosition();
+			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 17");
+			setAdjustsDestination(false);
+			m_retargetToPathEnd = false;
+		}
+	}
+
+	if (AIInternalMoveToState::update() != STATE_CONTINUE)
+	{
+		m_done = true;
+		if (ai)
+			ai->rva00262AEA();
+	}
+
+	int id;
+	if (obj->rva0028C264(&id, 4) == true)
+	{
+		Drawable *draw = obj->getDrawable();
+		if (draw)
+		{
+			DrawableList list;
+			list.push_back(draw);
+			pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_BFME2_0x7DB, 0);
+		}
+		return STATE_SUCCESS;
+	}
+	return STATE_CONTINUE;
+}
