@@ -21,7 +21,7 @@ public:
 	ConnectionManager();
 	virtual void init();
 	virtual void reset();
-	virtual void update(bool isInGame, bool phase);
+	virtual void update(bool isInGame, int frameAdvanced);
 private:
 	char m_pad[0x121AC];
 };

@@ -59,6 +59,7 @@ public:
  void resetFrame(unsigned int frame, bool isAdvancing);
  void setQuitFrame(unsigned int frame);
  bool getIsQuitting();
+ unsigned int getQuitFrame();
 private:
  void *vtable;
  FrameData *m_frameData;
@@ -105,6 +106,9 @@ void FrameDataManager::setQuitFrame(unsigned int frame) {
  m_quitFrame = frame;
 }
 bool FrameDataManager::getIsQuitting() { return m_isQuitting; }
+// Folded onto the shared +0xC getter 0x001DB0A8; ConnectionManager::update
+// 0x004D342A calls it to compare the quit frame with the logic frame.
+unsigned int FrameDataManager::getQuitFrame() { return m_quitFrame; }
 
 // Open-BFME-1 1399ad37d42ea52a63829e417c46a1ba9ed2cd20 FrameDataManager.cpp;
 // BFME2 verifies the same ring global and 20-byte element stride. Each callee

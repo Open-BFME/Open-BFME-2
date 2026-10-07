@@ -23,11 +23,19 @@ public:
 	ObjectIdNode *find(const ObjectID &id);
 };
 
+// The network code reads the command timestamp at +0x38 and Zero Hour's
+// frame counter at +0x40 (ConnectionManager::update 0x004D342A, among others).
 class GameLogic
 {
-	char pad[0xB4];
+	char pad[0x38];
+	unsigned int m_timestamp;
+	char pad3C[0x40 - 0x3C];
+	unsigned int m_frame;
+	char pad44[0xB4 - 0x44];
 	ObjectIdMap m_map;
 
 public:
 	Object *findObjectByID(ObjectID id);
+	unsigned int getTimestamp() const { return m_timestamp; }
+	unsigned int getFrame() const { return m_frame; }
 };

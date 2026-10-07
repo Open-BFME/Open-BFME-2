@@ -118,7 +118,7 @@ public:
 	~ConnectionManager();
 	virtual void init();
 	virtual void reset();
-	virtual void update(bool isInGame);
+	virtual void update(bool isInGame, int frameAdvanced);
 
 private:
 	Rva004D060B *m_connections[MAX_SLOTS];

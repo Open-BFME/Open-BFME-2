@@ -94,7 +94,7 @@ public:
 	ConnectionManager();
 	virtual void init();
 	virtual void reset();
-	virtual void update(bool isInGame, bool phase);
+	virtual void update(bool isInGame, int frameAdvanced);
 	Connection *m_connections[8];
 	CommandHistory m_history[9];
 	void *m_transport;
