@@ -66846,3 +66846,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva002B2405@Rva002B2405@@QAE_NXZ,,0x002B2405,20,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp,matched,address-derived class retail field offsets at 0x44 and 0x2C4 adjacent setter corroborates 0x2C4
 ?allow@Rva002613AFFilter@@UAE_NPAVObject@@@Z,,0x002613AF,50,Code/GameEngine/Source/Common/PartitionFilterRva002613AFFilterAllow.cpp,matched,vtable 0x00C1FDE0 slot 1 adjacent getPlayerMask rows and filter base override
 ?rva00484869@SlaveWatcherBehavior@@QAEXH@Z,,0x00484869,97,Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehaviorDtor.cpp,matched,address-derived method on SlaveWatcherBehavior by shared slave ID field and caller-proven behavior context
+?rva005C7C7D@Rva005C7C7D@@QAEXPBVImage@@@Z,,0x005C7C7D,8,Code/GameEngine/Source/Common/Rva005C7C7DSetImage.cpp,matched,address-derived tail adjustment delegates to rowed Impl SetImage
