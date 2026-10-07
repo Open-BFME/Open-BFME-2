@@ -34,3 +34,38 @@ AsciiString __stdcall Rva0051CC8DFormat(AsciiString text)
 	}
 	return acc;
 }
+
+// The caller at 0x0051D04D preserves its owner in ECX while invoking the
+// grouping routine. This member view keeps that caller ABI; its body must be
+// an exact code and relocation twin of the existing free-function row.
+class Rva0051D009
+{
+public:
+	AsciiString rva0051CC8DFormat(AsciiString text);
+	AsciiString rva0051D009(int value);
+};
+
+AsciiString Rva0051D009::rva0051CC8DFormat(AsciiString text)
+{
+	AsciiString acc;
+	AsciiString single;
+	bool allDigits = true;
+	for (int i = 0; i < text.getLength(); ++i) {
+		char c = text.getCharAt(text.getLength() - i - 1);
+		if (c < '0' || c > '9')
+			allDigits = false;
+		single = c;
+		if (i % 3 == 0 && i != 0 && allDigits)
+			single += TheGlobalLanguageData->m_sep010;
+		single += acc;
+		acc.set(single);
+	}
+	return acc;
+}
+
+AsciiString Rva0051D009::rva0051D009(int value)
+{
+	AsciiString formatted;
+	formatted.format("%d", value);
+	return rva0051CC8DFormat(formatted);
+}
