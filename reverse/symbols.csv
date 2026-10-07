@@ -15524,3 +15524,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0027D244@Rva0027D244Host@@QAEXH@Z,0x0027D244,thiscall with int from 0x27F13C on stack buf
 ?rva0027DF9D@Rva0027DF9DHost@@QAEXHMPAXHH@Z,0x0027DF9D,thiscall with 5 args from 0x27F13C
 ?rva0027E4F3@@YGXHMPAXHH@Z,0x0027E4F3,stdcall with 5 args from 0x27F28E
+?rva00030830@@YAXPAX@Z,0x00030830,cdecl global with ptr from 0x2860CF

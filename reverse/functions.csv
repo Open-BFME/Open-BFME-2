@@ -67807,3 +67807,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0027930F@Rva0027930FHost@@QAEXH@Z,,0x0027930F,69,Code/GameEngine/Source/Common/Rva0027930F.cpp,matched,copy-ctor tmp plus flag call and state replace
 ?rva0027F13C@Rva0027F13CHost@@QAEHHHM@Z,,0x0027F13C,53,Code/GameEngine/Source/Common/Rva0027F13C.cpp,matched,float forward with stack buf
 ?rva0027F28E@@YGXHMH@Z,,0x0027F28E,36,Code/GameEngine/Source/Common/Rva0027F28E.cpp,matched,float forward with coalesced copy-local and Oy-
+?rva002860CF@Rva002860CFHost@@QAEXH@Z,,0x002860CF,61,Code/GameEngine/Source/Common/Rva002860CF.cpp,matched,vtable-as-data forward with member virtual
