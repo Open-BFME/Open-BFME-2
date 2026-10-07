@@ -305,6 +305,8 @@ private:
 	int m_body[6];
 };
 
+class Dict;
+
 // One 16-byte record of the indexed team list at SidesList+0xF44: +0 links
 // the live list (record 0 heads it), +6 is the per-key chain link that
 // TeamsInfoRec::bfmeRelease (0x0032C26D) repairs.
@@ -323,6 +325,7 @@ class TeamsInfoRec
 public:
 	void bfmeRelease(int index);
 	TeamsInfoNode *getNode(int index) { return &m_nodes[index]; }
+	int addTeam(const Dict *d);
 
 private:
 	char m_tree[0xc];
@@ -333,8 +336,19 @@ private:
 class Dict
 {
 public:
+	Dict(int numPairs = 0);
+	~Dict() { releaseData(); }
 	AsciiString getAsciiString(int key, bool *exists = 0) const;
 	void setInt(int key, int value);
+	void setBool(int key, bool value);
+	void setAsciiString(int key, const AsciiString &value);
+	void setUnicodeString(int key, const UnicodeString &value);
+	void clear(void);
+
+private:
+	void releaseData(void);
+
+	void *m_data;
 };
 
 struct SidesInfo
@@ -343,7 +357,7 @@ struct SidesInfo
 
 	void *m_pBuildList;
 	Dict m_dict;                                                         // +0x04
-	char m_pad05[0x60 - 5];
+	char m_pad08[0x60 - 8];
 };
 
 class SidesList
@@ -355,6 +369,9 @@ public:
 	void rva0032FF91(void);
 	void rva0032FD8E(void);
 	TeamsInfoRec *getTeamInfo(void) { return &m_teams; }
+	int addSide(const Dict *d);
+	void addTeam(const Dict *d) { m_teams.addTeam(d); }
+	void rva0032E02B(void);
 	int getNumSides(void) const { return m_numSides; }
 	// The header body the compiler sees but does not inline (retail calls the
 	// 0x002035BA copy): knowing it stores nothing, SetUpCampaignPlayers keeps
@@ -2091,6 +2108,7 @@ public:
 		return m_numColors;
 	}
 	bool isShroudInMultiplayer() const { return m_shroudInMultiplayer; }
+	class MultiplayerColorDefinition *getColor(int which);
 private:
 	char m_pad00[0x1c];
 	bool m_shroudInMultiplayer;                                          // +0x1C
@@ -3079,4 +3097,81 @@ void GameLogic::SetUpCampaignPlayers(void)
 			}
 		}
 	}
+}
+
+// ---------------------------------------------------------------------------
+// GameLogic 0x0023E0C7 (579B), called by 0x002469A5 after the side setup:
+// BFME 1 startNewGame's "always add in an observer Player" block, now its
+// own member: the ReplayObserver side (human, "Observer", FactionObserver,
+// no allies or enemies, colour 0's day and night colours, start index 0,
+// not local) and its singleton teamReplayObserver, then 0x0032E02B on
+// TheSidesList where BFME 1 calls validateSides.
+// ---------------------------------------------------------------------------
+class PlayerTemplate
+{
+public:
+	NameKeyType getNameKey(void) const { return m_nameKey; }
+
+private:
+	char m_pad00[0x10];
+	NameKeyType m_nameKey;                                               // +0x10
+};
+
+class MultiplayerColorDefinition
+{
+public:
+	int getColor(void) const { return m_color; }
+	int getNightColor(void) const { return m_colorNight; }
+
+private:
+	char m_pad00[0x10];
+	int m_color;                                                         // +0x10
+	char m_pad14[0x20 - 0x14];
+	int m_colorNight;                                                    // +0x20
+};
+
+extern Rva00148F5ECache TheKey_playerIsHuman;
+extern Rva00148F5ECache TheKey_playerDisplayName;
+extern Rva00148F5ECache TheKey_playerFaction;
+extern Rva00148F5ECache TheKey_playerAllies;
+extern Rva00148F5ECache TheKey_playerEnemies;
+extern Rva00148F5ECache TheKey_playerColor;
+extern Rva00148F5ECache TheKey_playerNightColor;
+extern Rva00148F5ECache TheKey_multiplayerStartIndex;
+extern Rva00148F5ECache TheKey_multiplayerIsLocal;
+extern Rva00148F5ECache TheKey_teamName;
+extern Rva00148F5ECache TheKey_teamOwner;
+extern Rva00148F5ECache TheKey_teamIsSingleton;
+
+// An inline key read is evaluated before a sibling argument's call; a direct
+// get() keeps MSVC's right-to-left argument order.
+static __forceinline NameKeyType cacheKey(Rva00148F5ECache &key)
+{
+	return key.get();
+}
+
+void GameLogic::rva0023E0C7(void)
+{
+	Dict d;
+	d.setAsciiString(((Rva00148F5ECache *)&TheKey_playerName)->get(), "ReplayObserver");
+	d.setBool(TheKey_playerIsHuman.get(), true);
+	d.setUnicodeString(TheKey_playerDisplayName.get(), UnicodeString(L"Observer"));
+	const PlayerTemplate *pt;
+	pt = ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey("FactionObserver"));
+	if (pt)
+		d.setAsciiString(cacheKey(TheKey_playerFaction), TheNameKeyGenerator->keyToName(pt->getNameKey()));
+	d.setAsciiString(TheKey_playerAllies.get(), AsciiString::TheEmptyString);
+	d.setAsciiString(TheKey_playerEnemies.get(), AsciiString::TheEmptyString);
+	d.setInt(TheKey_playerColor.get(), TheMultiplayerSettings->getColor(0)->getColor());
+	d.setInt(TheKey_playerNightColor.get(), TheMultiplayerSettings->getColor(0)->getNightColor());
+	d.setInt(TheKey_multiplayerStartIndex.get(), 0);
+	d.setBool(TheKey_multiplayerIsLocal.get(), false);
+
+	TheSidesList->addSide(&d);
+	d.clear();
+	d.setAsciiString(TheKey_teamName.get(), "teamReplayObserver");
+	d.setAsciiString(TheKey_teamOwner.get(), "ReplayObserver");
+	d.setBool(TheKey_teamIsSingleton.get(), true);
+	TheSidesList->addTeam(&d);
+	TheSidesList->rva0032E02B();
 }
