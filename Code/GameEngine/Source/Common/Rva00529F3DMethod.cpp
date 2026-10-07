@@ -4,8 +4,10 @@
 // GameLogic::findObjectByID at 0x00049DC5, checks its result through the
 // ThePlayerList receiver at VA 0x00DFEEE8 via 0x002A7DDE, then passes a local
 // message to ControlBar::bfmeShowDN at 0x00405C04 using VA 0x00E01CFC.
-// Layout evidence for BfmeMsgDN is carried by the matched sibling at
-// 0x00567A27 and its donor constructor: virtual dtor, pointer/int fields.
+// The temporary installs VA 0x00BFD010, independently owned by the
+// Rva004E7392 copy constructor at RVA 0x004E7392, with fields at +4/+8.
+// The superficially similar 0x00567A27 temporary instead uses VA 0x00C6CED8.
+// BfmeMsgDN is only the existing opaque receiver-argument spelling here.
 // The method and the checker identity remain address-derived/inferred.
 #include <stddef.h>
 
@@ -25,14 +27,16 @@ public:
 	bool Check(void *object);
 };
 
-struct BfmeMsgDN
+struct BfmeMsgDN;
+
+struct Rva004E7392
 {
-	BfmeMsgDN(int a, int b)
+	Rva004E7392(int a, int b)
 	{
 		m_04 = a;
 		m_08 = b;
 	}
-	virtual ~BfmeMsgDN() {}
+	virtual ~Rva004E7392() {}
 	int m_04;
 	int m_08;
 };
@@ -64,8 +68,8 @@ void Rva00529F3D::rva00529F3D(int argument)
 			if (ThePlayerList != NULL &&
 				((Rva005C38EChecker *)ThePlayerList)->Check(object))
 			{
-				BfmeMsgDN msg(m_30, 0);
-				TheControlBar->bfmeShowDN(&msg);
+				Rva004E7392 msg(m_30, 0);
+				TheControlBar->bfmeShowDN(reinterpret_cast<BfmeMsgDN *>(&msg));
 			}
 		}
 	}
