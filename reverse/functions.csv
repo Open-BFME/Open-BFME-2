@@ -68625,3 +68625,6 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?clearHover@Rva005FA8CDHoverPrefix@@QAEXXZ,,0x005FA8E1,20,Code/GameEngine/Source/Common/Rva005FF4D5Forward.cpp,matched,native-validate-then-mouseover-false; restored-provider-unblocks-prior-attempt
 ?rva00329FF4WriteLibraryMaps@SidesList@@QAEXAAVDataChunkOutput@@@Z,,0x00329FF4,142,Code/GameEngine/Source/GameLogic/Map/SidesListRva00329FF4DataWriters.cpp,matched,BF1-ba7ddda7-LibraryMapLists-writer-adapted-to-rowed-BFME2-side-lookup-and-vector54; full-literal-lengths
 ?rva0032996EWriteScripts@SidesList@@QAEXAAVDataChunkOutput@@@Z,,0x0032996E,63,Code/GameEngine/Source/GameLogic/Map/SidesListRva00329FF4DataWriters.cpp,matched,ZH-side-script-collection-adapted-to-embedded-ScriptList8; native-20-slot-stack-array
+?rva00118A15@@YAXXZ,,0x00118A15,11,Code/Libraries/Source/WWVegas/WW3D2/Rva00118990Init.cpp,matched,State setter for DB5FC4 global stores 5; honest address name
+?rva00118A45@@YAXXZ,,0x00118A45,11,Code/Libraries/Source/WWVegas/WW3D2/Rva00118990Init.cpp,matched,State setter for DB5FC4 global stores 1; honest address name
+?rva00118A7A@@YAXXZ,,0x00118A7A,11,Code/Libraries/Source/WWVegas/WW3D2/Rva00118990Init.cpp,matched,State setter for DB5FC4 global stores 5; honest address name

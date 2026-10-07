@@ -38,3 +38,27 @@ void Rva00118990(void)
 	g_Va00DB5FC0 = 2;
 	g_Va00DB5FC4 = 5;
 }
+
+// ?rva00118A15@@YAXXZ @ 0x00118A15 (11B). State setter for the
+// DB5FC4 global above: stores 5 (its .data initial value) then ret. No
+// callers found. Honest address name.
+void rva00118A15(void)
+{
+	g_Va00DB5FC4 = 5;
+}
+
+// ?rva00118A45@@YAXXZ @ 0x00118A45 (11B). State setter for the
+// DB5FC4 global above: stores 1 then ret. No callers found. Honest address
+// name.
+void rva00118A45(void)
+{
+	g_Va00DB5FC4 = 1;
+}
+
+// ?rva00118A7A@@YAXXZ @ 0x00118A7A (11B). State setter for the
+// DB5FC4 global above: stores 5 then ret. No callers found. Honest address
+// name.
+void rva00118A7A(void)
+{
+	g_Va00DB5FC4 = 5;
+}
