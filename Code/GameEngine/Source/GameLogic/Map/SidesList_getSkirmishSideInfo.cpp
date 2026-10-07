@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ?getSkirmishSideInfo@SidesList@@QAEPAUSidesInfo@@H@Z,
+// ?getSkirmishSideInfo@SidesList@@QAEPAVSidesInfo@@H@Z
 // retail 0x002A98D1, 33 bytes. Dedicated TU.
 //
 // Donor: SidesList::getSkirmishSideInfo, the inline accessor in
@@ -12,8 +12,9 @@
 // m_numSkirmishSides at +0x7C0, m_skirmishSides at +0x7C4 with a 0x60 stride.
 // Same spelling as the rowed getSideInfo twin at 0x002035BA.
 
-struct SidesInfo
+class SidesInfo
 {
+public:
 	unsigned char m_data[0x60];
 };
 
@@ -28,7 +29,7 @@ private:
 	SidesInfo m_skirmishSides[1]; // +0x7C4, 0x60 stride
 };
 
-// ?getSkirmishSideInfo@SidesList@@QAEPAUSidesInfo@@H@Z
+// ?getSkirmishSideInfo@SidesList@@QAEPAVSidesInfo@@H@Z
 SidesInfo *SidesList::getSkirmishSideInfo(int i)
 {
 	return (i >= 0 && i < m_numSkirmishSides) ? &m_skirmishSides[i] : 0;

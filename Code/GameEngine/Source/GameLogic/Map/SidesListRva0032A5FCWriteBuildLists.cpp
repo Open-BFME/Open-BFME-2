@@ -115,7 +115,7 @@ public:
 	AsciiString getFilename();
 };
 
-struct SidesInfo
+class SidesInfo
 {
 public:
 	BuildListInfo *getBuildList() { return m_pBuildList; }

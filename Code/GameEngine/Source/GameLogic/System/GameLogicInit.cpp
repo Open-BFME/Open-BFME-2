@@ -351,8 +351,9 @@ private:
 	void *m_data;
 };
 
-struct SidesInfo
+class SidesInfo
 {
+public:
 	Dict *getDict(void) { return &m_dict; }
 
 	void *m_pBuildList;
@@ -370,6 +371,7 @@ public:
 	void rva0032FD8E(void);
 	TeamsInfoRec *getTeamInfo(void) { return &m_teams; }
 	int addSide(const Dict *d);
+	SidesInfo *findSideInfo(AsciiString name, int *index = 0);
 	void addTeam(const Dict *d) { m_teams.addTeam(d); }
 	void rva0032E02B(void);
 	int getNumSides(void) const { return m_numSides; }
@@ -472,6 +474,7 @@ public:
 	void rva0023EE5B(bool isSkirmish, int progress);
 	void SetUpCampaignPlayers(void);
 	void rva0023E0C7(void);
+	void lastHeardFrom(int playerIndex);
 	bool rva001DCD1C(void);
 	void rva0024622F(bool loadingSaveGame);
 	void setWidth(float width) { m_width = width; }
@@ -532,7 +535,7 @@ public:
 	char m_b4[0x10c - 0xb4];
 	int m_10c;
 	int m_110;
-	char m_pad114[0x118 - 0x114];
+	int m_114;
 	int m_118;
 	bool m_11c;
 	bool m_11d;
@@ -811,6 +814,15 @@ public:
 	int m_numStartSpots;
 };
 
+// One 0x14-byte start-position record of the map metadata (array at +0x54);
+// rva0023EE5B tests only the byte at +2.
+struct MapStartPosition
+{
+	char m_pad00[2];
+	bool m_2;
+	char m_pad03[0x14 - 3];
+};
+
 class MapMetaData
 {
 public:
@@ -818,6 +830,8 @@ public:
 	int m_numPlayers;
 	char m_pad24[0x38 - 0x24];
 	WaypointMap m_waypoints;
+	char m_padWaypoints[0x54 - 0x38 - sizeof(WaypointMap)];
+	MapStartPosition m_startPositions[8];                                // +0x54
 };
 
 class MapCache
@@ -839,26 +853,43 @@ public:
 	int getColor() const { return m_c; }
 	void setColor(int color) { m_c = color; }
 	void setPlayerTemplate(int playerTemplate);
+	bool isHuman() const;
+	const unsigned short *getNameStr() const { return m_name.str(); }
 
-	char m_pad00[0xc];
+	char m_pad00[0x4];
+	int m_state;                                                         // +0x04
+	char m_pad08[0xc - 0x8];
 	int m_c;
 	int m_10;
 	int m_14;
 	int m_18;
 	int m_1c;
-	char m_pad20[0x34 - 0x20];
+	int m_bfme20;                                                        // +0x20
+	char m_pad24[0x30 - 0x24];
+	UnicodeString m_name;                                                // +0x30
 	AsciiString m_34;
+	char m_pad38[0x4c - 0x38];
+	int m_livingWorldPlayerID;                                           // +0x4C
 };
 
 class GameInfo
 {
 public:
 	virtual ~GameInfo(void);
+	virtual void gi04(void); virtual void gi08(void); virtual void gi0C(void);
+	virtual void gi10(void); virtual void gi14(void); virtual void gi18(void);
+	virtual void gi1C(void); virtual void gi20(void); virtual void gi24(void);
+	virtual void gi28(void); virtual void gi2C(void); virtual void gi30(void);
+	virtual int getLocalSlotNum(void) const;                             // +0x34
 	GameSlot *getSlot(int index);
+	bool isPlayerPreorder(int index);
 	const GameSlot *getConstSlot(int index) const;
 	AsciiString getMap() const;
 	bool isStartPositionTaken(int positionIdx, int slotToIgnore = -1) const;
 	bool isColorTaken(int colorIdx, int slotToIgnore = -1) const;
+
+	char m_pad04[0x54 - 4];
+	int m_54;                                                            // +0x54
 };
 
 extern MapCache *TheMapCache;
@@ -3050,6 +3081,8 @@ class Rva002BA8F1Logic
 {
 public:
 	Rva002E2903Player *find(const AsciiString &name, unsigned int *outIndex);
+	Rva002E2903Player *find(int id, unsigned int *outIndex);
+	struct Rva002B3740Item *rva002B2B2D(void);
 	Rva0020E6B7RegionManager *getRegionManager(void) const { return m_regionManager; }
 
 private:
@@ -3174,4 +3207,204 @@ void GameLogic::rva0023E0C7(void)
 	d.setBool(TheKey_teamIsSingleton.get(), true);
 	TheSidesList->addTeam(&d);
 	TheSidesList->rva0032E02B();
+}
+
+// ---------------------------------------------------------------------------
+// ?rva0023EE5B@GameLogic@@QAEX_NH@Z @0x0023EE5B 1685B (ret 8; called from
+// rva002469A5 with the skirmish flag and the progress base).
+// BFME 1 / Zero Hour startNewGame's slot-to-side pass, now its own member:
+// first every occupied slot is given its side name (Observer_N for an
+// observer template, Player_<start+1> in game mode 3, otherwise Player_1 for
+// the living-world player the 0x002B2B2D entry's +0x13C names and Player_N+2
+// for the rest), then each slot becomes a side Dict (name, human, display
+// name, faction, preorder, allies and enemies by team, slot +0x20, day and
+// night colours, start index, local flag, the GameInfo +0x54 value, the
+// AI-type reset when the start position's byte +2 is clear, skirmish flag
+// and difficulty from the slot state, living-world id) and a singleton
+// "team<name>" team. Every slot name goes into PlyrCreeps' enemy list when
+// the map has that side, and PlyrCreeps lands in each player's enemies.
+// Key names follow BFME 1's WellKnownKeys order; the slot +0x20 and
+// GameInfo +0x54 keys are structural guesses.
+// ---------------------------------------------------------------------------
+struct Rva002B3740Item
+{
+	char m_pad000[0x13c];
+	int m_13c;                                                           // +0x13C
+};
+
+extern Rva00148F5ECache TheKey_playerIsSkirmish;
+extern Rva00148F5ECache TheKey_playerSlot20;
+extern Rva00148F5ECache TheKey_playerStartMoney;
+extern Rva00148F5ECache TheKey_skirmishDifficulty;
+extern Rva00148F5ECache TheKey_playerIsPreorder;
+extern Rva00148F5ECache TheKey_playerAIType;
+
+void GameLogic::rva0023EE5B(bool isSkirmish, int progressCount)
+{
+	if (!TheGameInfo)
+		return;
+	GameInfo *game = TheGameInfo;
+
+	int i;
+	for (i = 0; i < 8; ++i)
+	{
+		GameSlot *slot = game->getSlot(i);
+		if (!slot || !slot->isOccupied())
+			continue;
+
+		AsciiString playerName;
+		if (slot->getPlayerTemplate() >= 0)
+		{
+			if (m_114 != 3)
+			{
+				int playerID = slot->m_livingWorldPlayerID;
+				Rva002E2903Player *player = TheLivingWorldLogic->find(playerID, 0);
+				Rva002B3740Item *item = TheLivingWorldLogic->rva002B2B2D();
+				if (player && item)
+				{
+					if (item->m_13c == player->m_id)
+						playerName.set("Player_1");
+					else
+						playerName.format("Player_%d", i + 2);
+				}
+			}
+			else
+				playerName.format("Player_%d", slot->getStartPos() + 1);
+		}
+		else
+			playerName.format("Observer_%d", i + 1);
+		slot->m_34 = playerName;
+	}
+
+	AsciiString creepsName("PlyrCreeps");
+	AsciiString creepsEnemies;
+	bool hasCreeps = TheSidesList->findSideInfo(creepsName) != 0;
+
+	for (i = 0; i < 8; ++i)
+	{
+		Rva0134FAA0->slot28();
+		bfmeReleaseQueuedDeviceInterfaces();
+
+		GameSlot *slot = game->getSlot(i);
+		if (!slot || !slot->isHuman())
+		{
+			m_128[i] = true;
+			lastHeardFrom(i);
+		}
+		if (!slot || !slot->isOccupied())
+			continue;
+
+		Dict d;
+		d.clear();
+		const AsciiString &name = slot->m_34;
+		creepsEnemies.concat(" ");
+		creepsEnemies.concat(name);
+		d.setAsciiString(((Rva00148F5ECache *)&TheKey_playerName)->get(), name);
+		d.setBool(cacheKey(TheKey_playerIsHuman), slot->isHuman());
+		d.setUnicodeString(TheKey_playerDisplayName.get(), slot->m_name);
+
+		const PlayerTemplate *pt;
+		if (slot->getPlayerTemplate() >= 0)
+			pt = ThePlayerTemplateStore->getNthPlayerTemplate(slot->getPlayerTemplate());
+		else
+			pt = ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey("FactionObserver"));
+		if (pt)
+			d.setAsciiString(cacheKey(TheKey_playerFaction), TheNameKeyGenerator->keyToName(pt->getNameKey()));
+
+		if (game->isPlayerPreorder(i))
+			d.setBool(TheKey_playerIsPreorder.get(), true);
+
+		AsciiString enemiesString;
+		AsciiString alliesString;
+		int team = slot->getTeamNumber();
+		for (int j = 0; j < 8; ++j)
+		{
+			Rva0134FAA0->slot28();
+			bfmeReleaseQueuedDeviceInterfaces();
+
+			GameSlot *teamSlot = game->getSlot(j);
+			if (i == j || !teamSlot->isOccupied())
+				continue;
+
+			const AsciiString &teamPlayer = teamSlot->m_34;
+			bool isEnemy = team == -1 || teamSlot->getTeamNumber() != team;
+			if (isEnemy)
+			{
+				if (!enemiesString.isEmpty())
+					enemiesString.concat(" ");
+				enemiesString.concat(teamPlayer);
+			}
+			else
+			{
+				if (!alliesString.isEmpty())
+					alliesString.concat(" ");
+				alliesString.concat(teamPlayer);
+			}
+		}
+
+		if (hasCreeps)
+		{
+			enemiesString.concat(" ");
+			enemiesString.concat(creepsName);
+		}
+
+		d.setAsciiString(TheKey_playerAllies.get(), alliesString);
+		d.setAsciiString(TheKey_playerEnemies.get(), enemiesString);
+		d.setInt(TheKey_playerSlot20.get(), slot->m_bfme20);
+		d.setInt(TheKey_playerColor.get(), TheMultiplayerSettings->getColor(slot->getColor())->getColor());
+		d.setInt(TheKey_playerNightColor.get(), TheMultiplayerSettings->getColor(slot->getColor())->getNightColor());
+		d.setInt(TheKey_multiplayerStartIndex.get(), slot->getStartPos());
+		d.setBool(TheKey_multiplayerIsLocal.get(), slot->isHuman() &&
+			slot->m_name.compare(game->getSlot(game->getLocalSlotNum())->getNameStr()) == 0);
+
+		if (game->m_54 >= 0)
+			d.setInt(TheKey_playerStartMoney.get(), game->m_54);
+
+		int startPos = slot->getStartPos();
+		if (startPos >= 0 && startPos < 8)
+		{
+			const MapMetaData *md = TheMapCache->findMap(game->getMap());
+			if (md)
+			{
+				const MapStartPosition *pos = &md->m_startPositions[startPos];
+				if (!pos->m_2)
+					d.setAsciiString(TheKey_playerAIType.get(), AsciiString::TheEmptyString);
+			}
+		}
+
+		if (isSkirmish)
+		{
+			d.setBool(TheKey_playerIsSkirmish.get(), true);
+			switch (slot->m_state)
+			{
+			case 2: d.setInt(TheKey_skirmishDifficulty.get(), 0); break;
+			case 3: d.setInt(TheKey_skirmishDifficulty.get(), 1); break;
+			case 4: d.setInt(TheKey_skirmishDifficulty.get(), 2); break;
+			case 5: d.setInt(TheKey_skirmishDifficulty.get(), 3); break;
+			}
+		}
+
+		d.setInt(((Rva00148F5ECache *)&TheKey_livingWorldPlayerID)->get(), slot->m_livingWorldPlayerID);
+
+		TheSidesList->findSideInfo(name);
+		TheSidesList->addSide(&d);
+
+		AsciiString teamName;
+		teamName = "team";
+		teamName.concat(name);
+		d.clear();
+		d.setAsciiString(TheKey_teamName.get(), teamName);
+		d.setAsciiString(TheKey_teamOwner.get(), name);
+		d.setBool(TheKey_teamIsSingleton.get(), true);
+		TheSidesList->addTeam(&d);
+
+		((Rva0023C7D2 *)this)->rva0023C7BB(progressCount + i);
+	}
+
+	if (hasCreeps)
+	{
+		SidesInfo *creeps = TheSidesList->findSideInfo(creepsName);
+		creeps->getDict()->setAsciiString(TheKey_playerAllies.get(), AsciiString(""));
+		creeps->getDict()->setAsciiString(TheKey_playerEnemies.get(), creepsEnemies);
+	}
 }

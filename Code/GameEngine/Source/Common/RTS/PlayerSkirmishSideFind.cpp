@@ -38,7 +38,7 @@ private:
 	void *m_data;
 };
 
-struct SidesInfo
+class SidesInfo
 {
 public:
 	Dict *getDict() { return &m_dict; }

@@ -41,8 +41,9 @@ class ScriptList
 	char m_body[0x4C];
 };
 
-struct SidesInfo
+class SidesInfo
 {
+public:
 	char m_pad[8];
 	ScriptList m_scriptList; // +0x08
 };
