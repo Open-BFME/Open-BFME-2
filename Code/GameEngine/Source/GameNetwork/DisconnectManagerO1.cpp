@@ -577,3 +577,20 @@ void DisconnectManager::applyDisconnectVote(Int slot, UnsignedInt frame, Int fro
 		TheDisconnectMenu->updateVotes(transSlot, numVotes);
 	}
 }
+
+
+// Open-BFME-1's resetPlayersVotes: drop the votes playerID cast on or
+// before frame, then refresh the menu's count as applyDisconnectVote does.
+void DisconnectManager::resetPlayersVotes(Int playerID, UnsignedInt frame, ConnectionManager *conMgr) {
+	for (Int i = 0; i < MAX_SLOTS; ++i) {
+		if (m_playerVotes[i][playerID].frame <= frame) {
+			m_playerVotes[i][playerID].vote = FALSE;
+		}
+	}
+
+	Int numVotes = countVotesForPlayer(playerID, conMgr);
+	Int transSlot = Rva004D39DEGet(playerID, conMgr->getLocalPlayerID());
+	if (transSlot != -1 && TheDisconnectMenu) {
+		TheDisconnectMenu->updateVotes(transSlot, numVotes);
+	}
+}
