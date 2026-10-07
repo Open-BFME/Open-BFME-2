@@ -812,7 +812,8 @@ int Rva00345F76::rva00345F76()
 	return (m_top18->m_mid14->m_leaf04->m_flags114 & 0x2000) ? 0 : -2;
 }
 struct IDirect3DSurface8;
-struct Vector3
+// Native 0x11D330 Clear uses WWMath's class-tagged 12B Vector3 view.
+class Vector3
 {
 public:
 	float X;

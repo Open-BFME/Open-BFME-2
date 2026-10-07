@@ -8,8 +8,11 @@
 // Sibling lane landings: Rva00118A90Stencil / Rva00118BA0State.
 // The predecrement form `--g_Va00DB5FB4` is load-bearing: `g - 1` makes VC7.1
 // emit `add eax,0xFFFFFFFF` where retail emits `sub eax,1`.
-struct Vector3
+// WWMath's Vector3 is a class with three float components. The native
+// 0x11D330 Clear provider consumes this same 12B view (class-tagged ABI).
+class Vector3
 {
+public:
 	float X;
 	float Y;
 	float Z;
