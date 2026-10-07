@@ -5,6 +5,7 @@
 // Nothing in the image calls this copy, so it keeps a descriptive free name.
 
 #include "ascii_string.h"
+#include "unicode_string.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 
 extern "C" __declspec(dllimport) int __cdecl atoi( const char * );
@@ -53,11 +54,15 @@ public:
 
 // The +0x288 member (Rva0043D3DAClear.cpp's Rva0043D3A8): vslot 0 tells
 // whether a science is already chosen; the rowed 0x0043D5CB adds one.
+class Player;
+
 class Rva0043D3A8
 {
 public:
 	virtual bool v00(ScienceType science);
 	void rva0043D5CB(ScienceType science);
+
+	Player *m_player; // +0x04, the local player the store buys for
 };
 
 class ScienceStore
@@ -67,6 +72,7 @@ public:
 	// 0x001FF47D, then the holder's vslot 1 points against
 	// getSciencePurchaseCost; pinned by address.
 	bool rva001FF4D3(Rva0043D3A8 *holder, ScienceType science) const;
+	int getSciencePurchaseCost(ScienceType science) const;
 };
 
 extern ScienceStore *TheScienceStore;
@@ -141,6 +147,66 @@ struct SpellStoreEntry
 	ScienceType *m_sciences; // +0xA4
 };
 
+class Image;
+
+// The spell book's buttons: unrowed 0x0035B19E (37 bytes) returns the
+// image its +0xFC index picks from the list at +0xEC, or null; pinned by
+// address. The sciences start at +0xA4 as in SpellStoreEntry.
+class CommandButton
+{
+public:
+	const Image *rva0035B19E() const;
+
+	unsigned char m_pad000[0xA4];
+	ScienceType *m_sciences; // +0xA4
+};
+
+class CommandSet
+{
+public:
+	const CommandButton *getCommandButton(int index) const;
+};
+
+// ThePlayerList (0x009FEEE8): the local player at +0x10.
+class PlayerList
+{
+public:
+	Player *getLocalPlayer() { return m_local; }
+
+private:
+	unsigned char m_pad000[0x10];
+	Player *m_local; // +0x10
+};
+
+extern PlayerList *ThePlayerList;
+
+// TheControlBar's rowed lookup 0x0031DF89 (Rva0031D5F8Lookup.cpp): the
+// player's command set.
+class ControlBar;
+extern ControlBar *TheControlBar;
+
+class Rva0031D5F8
+{
+public:
+	void *rva0031DF89(const void *key);
+};
+
+// The Apt window manager (0x009FE4CC): the rowed image binding 0x002239E2
+// (Rva002239B2.cpp) and text setter.
+class BfmeAptWindowManager
+{
+public:
+	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool flag);
+};
+
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+class Rva002239B2
+{
+public:
+	void rva002239E2(const AsciiString &name, const Image *image);
+};
+
 struct SpellStoreSlot
 {
 	const ModuleData *m_entry;
@@ -156,12 +222,13 @@ public:
 	void InputEnabled(int query, char *result, bool skip);
 	void OnClosed(const char *unused);
 	void OnBttnSpell(const char *name);
+	void rva0043C9FD();
 
 private:
 	unsigned char m_pad000[0x27C];
 	_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > m_chosen; // +0x27C
 	Rva0043D3A8 m_sciences; // +0x288
-	unsigned char m_pad28c[0x2A0 - 0x28C];
+	unsigned char m_pad290[0x2A0 - 0x290];
 	bool m_2a0; // +0x2A0
 	bool m_2a1;
 	bool m_2a2; // +0x2A2
@@ -252,6 +319,49 @@ void AptSpellStore::OnBttnSpell(const char *name)
 	}
 }
 
+
+// Retail 0x0043C9FD, 331 bytes, the constructor's last call; BFME 1's
+// BfmeAptScreenSpellStore::unidentified_000062DF
+// (AptScreenSpellStoreUpdate000062DF.cpp) is the donor. Unless the store
+// is closing, the local player's command set fills the twenty slots: each
+// button is recorded, its image bound as "SpellStore/Buttons/SpellN" and
+// its first science's cost published as "APT:SpellNCost". BFME 2 reads
+// the buttons from the player's command set instead of the control bar's
+// windows and keeps the player in the science holder.
+void AptSpellStore::rva0043C9FD()
+{
+	if (m_2a2)
+		return;
+	Player *player = ThePlayerList->getLocalPlayer();
+	if (!player)
+		return;
+	const CommandSet *set = (const CommandSet *)((Rva0031D5F8 *)TheControlBar)->rva0031DF89(player);
+	if (!set)
+		return;
+	m_sciences.m_player = player;
+	for (int i = 0; i < 20; ++i)
+	{
+		const CommandButton *button = set->getCommandButton(i);
+		if (!button)
+			continue;
+		SpellStoreSlot *slot = &m_slots[i];
+		slot->m_entry = (const ModuleData *)button;
+		slot->m_04 = 0;
+		const Image *image = button->rva0035B19E();
+		if (image)
+		{
+			AsciiString name;
+			name.format("SpellStore/Buttons/Spell%d", i + 1);
+			((Rva002239B2 *)g_bfmeAptWindowManager)->rva002239E2(name, image);
+		}
+		int cost = TheScienceStore->getSciencePurchaseCost(*button->m_sciences);
+		UnicodeString costText;
+		costText.format(L"%d", cost);
+		AsciiString costName;
+		costName.format("APT:Spell%dCost", i + 1);
+		g_bfmeAptWindowManager->bfmeSetText(costName, costText, false);
+	}
+}
 
 // The open spell store (VA 0x00E03314; BFME 1's g_purchaseScienceWindow).
 extern int g_Va00E03314;

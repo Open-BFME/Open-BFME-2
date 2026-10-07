@@ -65,10 +65,24 @@ static inline Bool affectedByUpgrade(const Object *obj, const UpgradeTemplate *u
 	return ((BfmeArg985 *)obj)->bfmeHas985C((int)upgrade) != 0;
 }
 
+class Image;
+
+// The button's image list (+0xEC) as the bounds-checked twin 0x0035B1C3
+// (Rva0035B1C3Finish.cpp) reads it: a signed count of the char span.
+struct CommandButtonImageList
+{
+	const Image **m_begin;
+	const Image **m_end;
+	const Image **m_capacity;
+	int size() const { return (int)((char *)m_end - (char *)m_begin) >> 2; }
+	const Image *at(int index) const { return m_begin[index]; }
+};
+
 class CommandButton
 {
 public:
 	Bool isReady(const Object *sourceObj) const;
+	const Image *rva0035B19E() const;
 private:
 	char m_pad00[0x14];
 	int m_commandType;                         // +0x14
@@ -76,6 +90,10 @@ private:
 	const UpgradeTemplate *m_upgradeTemplate;  // +0x24
 	char m_pad28[0x44 - 0x28];
 	const SpecialPowerTemplate *m_specialPower; // +0x44
+	char m_pad48[0xEC - 0x48];
+	CommandButtonImageList m_images;           // +0xEC
+	char m_padF8[0xFC - 0xF8];
+	int m_imageIndex;                          // +0xFC
 };
 
 Bool CommandButton::isReady(const Object *sourceObj) const
@@ -98,4 +116,17 @@ Bool CommandButton::isReady(const Object *sourceObj) const
 		return true;
 
 	return false;
+}
+
+// Retail 0x0035B19E, 37 bytes: the image the button's +0xFC index selects
+// from its list, or null when the index is negative or past the end. The
+// spell store (parseSpellIndex_Thunk.cpp, 0x0043C9FD) binds it per button.
+const Image *CommandButton::rva0035B19E() const
+{
+	int index = m_imageIndex;
+	if (index < 0)
+		return 0;
+	if ((unsigned int)index < (unsigned int)m_images.size())
+		return m_images.at(index);
+	return 0;
 }
