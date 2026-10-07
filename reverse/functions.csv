@@ -66933,3 +66933,4 @@ _rva0062AF56D3DXVec3Transform@12,,0x0062AF56,6,Code/GameEngine/Source/Common/Rva
 ?Rva006007DAOpen@@YGXPAX000@Z,,0x006007DA,81,Code/GameEngine/Source/Common/Rva006007A5Free.cpp,matched,archive open empty wide string plus four args slot 0x1c
 ?rva0060005A@Rva0060005A@@QAEXH_N@Z,,0x0060005A,8,Code/GameEngine/Source/Common/Rva005FFF62Family.cpp,matched,plus4 tail to rowed Set via caller 0x005FB121
 ?testHardwareSupport@W3DSmudgeManager@@QAE_NXZ,,0x000A648C,930,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSmudgeManagerTestHardwareSupport.cpp,matched,BFME1 donor W3DSmudgeManagerTestHardwareSupport.cpp d6db6bfa under /O1 /arch:SSE /G7; GeneralsMD probe; getRenderTexture out-of-line getter 0x75E36 reading the render texture static; Display getWidth/getHeight +0x40/+0x44; FVF set through counted DX8Wrapper call
+?Rva00600695Get@@YG_NPBD@Z,,0x00600695,20,Code/GameEngine/Source/Common/Rva00600676Get.cpp,matched,guarded global virtual forward slot 12 bool

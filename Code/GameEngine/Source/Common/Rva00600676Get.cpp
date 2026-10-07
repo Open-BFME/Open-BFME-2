@@ -22,6 +22,7 @@ public:
 	virtual void v9();
 	virtual void v10();
 	virtual bool v11(const char *a1);
+	virtual bool v12(const char *a1);
 };
 
 extern Rva00600676Target *G00A06E5C;
@@ -40,6 +41,17 @@ bool __stdcall Rva006006A9Get(const char *a1)
 	Rva00600676Target *p = G00A06E5C;
 	if (p != 0)
 		return p->v11(a1);
+	return false;
+}
+// ?Rva00600695Get@@YG_NPBD@Z @0x00600695 20B. Guarded global virtual forward
+// to slot 12 (0x30) with 1 stdcall arg returning bool; null returns false.
+// Same shape as v11 sibling above; prev 0x0060068A next 0x006006A9 same TU;
+// caller 0x003006D9 pushes empty literal; address-derived honest name.
+bool __stdcall Rva00600695Get(const char *a1)
+{
+	Rva00600676Target *p = G00A06E5C;
+	if (p != 0)
+		return p->v12(a1);
 	return false;
 }
 // ?G00A06E5C@@3PAVRva00600676Target@@A: the global at VA 0xe06e5c is ?TheArchiveFileSystem@@3PAVArchiveFileSystem@@A.
