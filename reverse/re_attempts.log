@@ -17395,3 +17395,7 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?rva003FB793@Rva003FB793@@QAEXPAURva003FB793Vec@@@Z	0x003FB793	52	blocked	x87 fld plus int mov vs 6 movss under O1-SSE same as prior blocked t=5 model=muse-15
 ?rva003F92DA@Rva003F92DA@@QAEXXZ	0x003F92DA	113	blocked	needs ICF twin method name for 0x003F92BB to get mov ecx esi before 2nd-4th calls t=15 model=muse-15
 ?rva005F888C@Rva005F888C@@QAEXABURva004F6986Member@@@Z	0x005F888C	66	blocked	6-variant box hit at exact 66B 21insns 0 reg diffs; scheduling only push-vs-save order plus EH state after-vs-before; true 2-string 8B holder not Payload; whole-TU stash 67868B over 64KB so no bank t=30 model=muse-spark
+?Rva0010F011Get@@YAPAXXZ	0x0010F011	71	blocked	uses counted ADDRESS-NAMED global g_Va00DEC3B4 prohibited by task policy t=2 model=gpt-6.1-sol
+?rva0005DD40@Rva0005DD40@@QAEXPAX@Z	0x0005DD40	605	blocked	no donor or target evidence proves receiver class and method signature for audio ownership body t=3 model=gpt-6.1-sol
+??0BfmeAptScreenQuickMatchMenu@@QAE@PAX@Z	0x00436259	1192	blocked	uses counted ADDRESS-NAMED global g_Va00E032E0 prohibited by task policy t=2 model=gpt-6.1-sol
+?rva0010F962@Rva0010F962@@QAEXHH@Z	0x0010F962	143	blocked	target evidence does not prove receiver identity or two parameter types for audio event construction t=3 model=gpt-6.1-sol
