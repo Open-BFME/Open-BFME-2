@@ -2,18 +2,15 @@
 // stlport
 // Target copy constructs three sixteen-byte blocks; assignment uses a separate
 // member operation. Original type names remain unknown.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit-local
+// overload keeps the inlined code and offers the link no second copy.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 struct BfmeFixedBlock16 { unsigned int words[4]; BfmeFixedBlock16(); };
@@ -25,6 +22,12 @@ struct BfmeFixedObject60 {
  BfmeFixedObject60& operator=(const BfmeFixedObject60& rhs);
 };
 typedef char FixedObjectExtent[sizeof(BfmeFixedObject60) == 60 ? 1 : -1];
+
+// erase is owned by StlportFixedObject60Assign (retail 0x000BC1C2); declare it so this
+// unit's clear calls retail's instead of emitting its own copy.
+namespace _STL {
+template <> BfmeFixedObject60 *vector<BfmeFixedObject60>::erase(BfmeFixedObject60 *, BfmeFixedObject60 *);
+}
 
 template BfmeFixedObject60 *_STL::__copy(BfmeFixedObject60 *, BfmeFixedObject60 *, BfmeFixedObject60 *, const random_access_iterator_tag &, int *);
 template BfmeFixedObject60 *_STL::__copy_ptrs(BfmeFixedObject60 *, BfmeFixedObject60 *, BfmeFixedObject60 *, _STL::__false_type);
