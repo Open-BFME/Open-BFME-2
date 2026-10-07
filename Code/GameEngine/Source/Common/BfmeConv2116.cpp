@@ -6,7 +6,14 @@ struct Coord3D
 	float z;
 };
 
-class Object;
+// The same complete victim pointer is passed to Weapon as Object and to
+// native getter 0x28B511. The verified const getter reads flag +0x48C and
+// layer word +0x40C; its purpose and declaration follow that existing owner.
+class Object
+{
+public:
+	int rva0028B511() const;
+};
 
 class Weapon
 {
@@ -14,11 +21,7 @@ public:
 	Coord3D bfmeGetLOSVictimPos(const Object *shooter, const Object *victim, int mode) const;
 };
 
-class BfmeHolderNS
-{
-public:
-	int bfmeQueryNS();
-};
+class BfmeHolderNS;
 
 struct Rva003FD060TerrainLogic
 {
@@ -57,7 +60,7 @@ void BfmeAimAAE::bfmeFireAAE(Weapon *weapon, BfmeHolderNS *victim)
 {
 	Coord3D pos = weapon->bfmeGetLOSVictimPos(0, (const Object *)victim, 1);
 
-	pos.z = ((Rva003FD060TerrainLogic *)TheTerrainLogic)->bfmeHeightAAE(pos.x, pos.y, victim->bfmeQueryNS(), 0, 1);
+	pos.z = ((Rva003FD060TerrainLogic *)TheTerrainLogic)->bfmeHeightAAE(pos.x, pos.y, reinterpret_cast<const Object *>(victim)->rva0028B511(), 0, 1);
 
 	bfmeAimAtAAE(weapon, &pos);
 }
