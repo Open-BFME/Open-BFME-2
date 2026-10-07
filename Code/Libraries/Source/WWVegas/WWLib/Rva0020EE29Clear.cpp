@@ -120,7 +120,9 @@ struct Rva00DFE1C8Host
 	void rva00212655(int val);
 	void rva002122D4(void *a);
 };
-extern Rva00DFE1C8Host *g_rva00DFE1C8;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class LivingWorldManager;
+extern LivingWorldManager *TheLivingWorldManager;
 
 // ?rva0020F9F6@Rva0020EE29@@QAEPAXPAX00@Z present-unmatched
 void *Rva0020EE29::rva0020F9F6(void *a1, void *a2, void *filter)
@@ -129,7 +131,7 @@ void *Rva0020EE29::rva0020F9F6(void *a1, void *a2, void *filter)
 	unsigned i = 0;
 	if (!inner)
 		return 0;
-	if (g_rva00DFE1C8->m_268 == (int)i)
+	if (((Rva00DFE1C8Host *)TheLivingWorldManager)->m_268 == (int)i)
 		return 0;
 	if (filter != 0) {
 		if (rva0020F91D(filter, a1, a2))
@@ -262,7 +264,7 @@ void Rva0020EE29::rva0020FB8B(Rva0020FB8BNode *arg)
 	}
 	goto end;
 found:
-	g_rva00DFE1C8->rva00212655(arg->m_30);
+	((Rva00DFE1C8Host *)TheLivingWorldManager)->rva00212655(arg->m_30);
 	m_20.vecReserve((unsigned)(((char *)vec->m_end - (char *)vec->m_begin) >> 2));
 	m_20.vecPushBack((void *&)arg);
 	vec->vecErase((void **)((char *)vec->m_begin + i * 4));
@@ -552,7 +554,7 @@ void Rva0020EE29::rva0020F795()
 {
 	Rva0020EE29 *self = this;
 	for (unsigned i = 0; i < (unsigned)(((char *)self->m_14.m_end - (char *)self->m_14.m_begin) >> 2); ++i)
-		g_rva00DFE1C8->rva00212655(self->m_14.m_begin[i]->m_30);
+		((Rva00DFE1C8Host *)TheLivingWorldManager)->rva00212655(self->m_14.m_begin[i]->m_30);
 	((Rva0020FB41Outer *)self)->rva0020F685();
 	self->rva0020EE29();
 	self->m_0C = 0;
@@ -560,8 +562,8 @@ void Rva0020EE29::rva0020F795()
 	self->m_2C = 0;
 	self->m_30 = 0;
 	if (self->m_inner) {
-		if (g_rva00DFE1C8->m_268)
-			((Rva003EF1B8Host *)g_rva00DFE1C8->m_268)->rva003EF1B8();
+		if (((Rva00DFE1C8Host *)TheLivingWorldManager)->m_268)
+			((Rva003EF1B8Host *)((Rva00DFE1C8Host *)TheLivingWorldManager)->m_268)->rva003EF1B8();
 		Rva0020F795Elem2 ***bounds = (Rva0020F795Elem2 ***)&self->m_inner->m_begin;
 		for (unsigned j = 0; j < (unsigned)(((char *)bounds[1] - (char *)bounds[0]) >> 2); ++j)
 			bounds[0][j]->rva003F3F27();
@@ -642,7 +644,7 @@ void Rva00212655::rva00212655(int arg)
 		val = sub->m_04 + 8;
 	else
 		val = 0xBBAC1C;
-	((Rva002C004FHost *)g_rva00DFE1C8)->rva002C004F((void *)val);
+	((Rva002C004FHost *)((Rva00DFE1C8Host *)TheLivingWorldManager))->rva002C004F((void *)val);
 	Rva00212655Virt *virt = (Rva00212655Virt *)sub;
 	void *nv = virt ? virt->v00(0) : 0;
 	rva002FD60(nv);
@@ -727,31 +729,8 @@ void Rva002110DF::rva002110DF(int a1)
 		m_258begin[i]->rva003FCDD5(a1);
 }
 
-// ?rva00211570@Rva00211570@@QAEXXZ @0x00211570 25B
-// Runs the rowed-pending same-class 0x00211505, then when the +0x2c4 link is
-// present tail-jumps to its rowed-pending 0x003F92DA. Evidence: retail saves
-// this across the first call, tests the link, restores, then branches to a
-// bare jump (frameless-compatible tail call, no epilogue of its own).
-// Link identity unproven (same-class provisional).
-class Rva00211570
-{
-public:
-	void rva00211570();
-	void rva00211505();
-	void rva003F92DA();
+// 0x00211570 is owned by its existing retail source unit.
 
-private:
-	char m_pad[0x2C4];
-	Rva00211570 *m_2C4;
-};
-
-void Rva00211570::rva00211570()
-{
-	rva00211505();
-	if (!m_2C4)
-		return;
-	return m_2C4->rva003F92DA();
-}
 
 // ?Rva002122FD@@YGXPAX@Z @0x002122FD 30B
 // Free __stdcall lookup chain: resolves through the VA 0x00DF36A4 singleton
@@ -783,7 +762,7 @@ extern NameKeyGenerator *g_rva00DF36A4;
 void __stdcall Rva002122FD(void *a1)
 {
 	void *t = (void *)g_rva00DF36A4->nameToKey(*(const AsciiString *)a1);
-	g_rva00DFE1C8->rva002122D4(t);
+	((Rva00DFE1C8Host *)TheLivingWorldManager)->rva002122D4(t);
 }
 
 // ?Rva0021618A@@YAPAXHHH@Z @0x0021618A 27B
