@@ -15529,3 +15529,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00333F37@Rva00333F37Host@@QAEXPAX@Z,0x00333F37,thiscall with ptr from 0x28BAC0
 ?rva002A8F56@Rva002A8F56Host@@QAEXPAX@Z,0x002A8F56,thiscall with ptr from 0x28BAC0
 ?rva0028E0F9@Rva0028E0F9Host@@QAEXHHH_N@Z,0x0028E0F9,thiscall 4-arg callee of 0x002922A9; tail ret-16; signature from 0.97 bank stash
+?rva00298480@Object@@QAEXPAVTeam@@@Z,0x00298480,Seat-g11 Object thiscall Team-star to void via 0x298AAD call site
