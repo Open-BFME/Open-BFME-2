@@ -18,7 +18,8 @@ class Thing;
 class SlaveWatcherBehaviorModuleData
 {
 public:
-	unsigned char m_pad[0x11];
+	unsigned char m_pad[0x10];
+	bool m_updateSlave; // +0x10
 	bool m_letSlaveLive; // +0x11
 };
 
@@ -37,10 +38,29 @@ enum DeathType
 	DEATH_SLAVE_WATCHER_RELEASE = 13
 };
 
+namespace _STL
+{
+template <int N> struct _Base_bitset
+{
+public:
+	unsigned int m_bits;
+	void _M_do_or(const _Base_bitset<N> &other);
+};
+}
+
+class SlaveWatcherBits : public _STL::_Base_bitset<32>
+{
+private:
+	unsigned char m_pad[0x7C];
+};
+
 class Object
 {
 public:
 	void kill(DamageType type, DeathType death);
+	void updateUpgradeModules();
+	unsigned char m_pad00[0x284];
+	SlaveWatcherBits m_upgradeBits;
 };
 
 class GameLogic
@@ -77,12 +97,18 @@ public:
 	virtual void update() = 0;
 };
 
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_UNREADY = 1
+};
+
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
 	virtual ~UpdateModule();
 
 protected:
+	void setWakeFrame(Object *object, UpdateSleepTime sleepTime);
 	unsigned int m_nextCallFrameAndPhase; // +0x14
 	int m_indexInLogic; // +0x18
 	int m_reserved1C; // +0x1C
@@ -93,10 +119,11 @@ class SlaveWatcherBehavior : public UpdateModule
 public:
 	SlaveWatcherBehavior(Thing *thing, const void *moduleData);
 	virtual ~SlaveWatcherBehavior();
+	void rva00484869(int id);
 
 private:
 	int m_slaveID; // +0x20
-	unsigned char m_pad24[0x80]; // +0x24
+	SlaveWatcherBits m_upgradeBits; // +0x24
 };
 
 // ??1SlaveWatcherBehavior@@UAE@XZ @0x00484739
@@ -111,6 +138,23 @@ SlaveWatcherBehavior::~SlaveWatcherBehavior()
 				slave->kill(DAMAGE_NORMAL, DEATH_SLAVE_WATCHER_RELEASE);
 		}
 	}
+}
+
+// ?rva00484869@SlaveWatcherBehavior@@QAEXH@Z @0x00484869: adjacent destructor rows and shared +0x20 slave ID identify the class; method name remains address-derived.
+void SlaveWatcherBehavior::rva00484869(int id)
+{
+	m_slaveID = id;
+	if (m_moduleData->m_updateSlave)
+	{
+		Object *slave = TheGameLogic->findObjectByID((ObjectID)id);
+		if (slave)
+		{
+			m_upgradeBits = m_object->m_upgradeBits;
+			slave->m_upgradeBits._M_do_or(m_upgradeBits);
+			slave->updateUpgradeModules();
+		}
+	}
+	setWakeFrame(m_object, UPDATE_SLEEP_UNREADY);
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
