@@ -23,31 +23,7 @@ class MultiListNodeClass
 };
 
 // The one-word lock is the measured BFME pool lock at 0x0006577F.
-class BFMEPoolCriticalSection
-{
-public:
-	void Lock();
-	volatile unsigned int m_locked;
-
-	class LockClass
-	{
-		BFMEPoolCriticalSection &m_cs;
-	public:
-		LockClass(BFMEPoolCriticalSection &cs) : m_cs(cs)
-		{
-			m_cs.Lock();
-		}
-
-		~LockClass()
-		{
-			m_cs.m_locked=0;
-		}
-
-	private:
-		LockClass &operator=(const LockClass&);
-		LockClass(const LockClass&);
-	};
-};
+#include "bfme_pool_critical_section.h"
 
 template<class T,int BLOCK_SIZE = 64>
 class ObjectPoolClass

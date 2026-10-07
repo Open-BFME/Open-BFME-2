@@ -64,6 +64,8 @@ public:
 	friend class LockClass;
 };
 
+// This canonical class also owns the donor fast-section include guard.
+#define BFME_FASTCRITICALSECTION_DEFINED
 class FastCriticalSectionClass
 {
 public:

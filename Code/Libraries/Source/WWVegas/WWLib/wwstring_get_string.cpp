@@ -4,6 +4,11 @@
 // Completes the banked donor reconstruction using the existing lean lock wrapper
 // and the retail tagged array allocator. All359 bytes are verified, including
 // normal and exceptional release of the temporary-string pool lock.
+// The data word keeps its existing FastCriticalSectionClass spelling.
+// Retail acquires these string pools through the pool backend at 0x6577F;
+// use its shared guard rather than emit the event-backend constructor name.
+#include "mutex.h"
+#include "bfme_pool_critical_section.h"
 #include "always.h"
 #undef W3DNEWARRAY
 void* __cdecl operator new[](unsigned int,unsigned int);
@@ -24,7 +29,7 @@ void StringClass::Get_String(int length, bool is_temp)
 	TCHAR *string = NULL;
 
 	if (is_temp && length <= MAX_TEMP_LEN && ReservedMask!=ALL_TEMP_STRINGS_USED_MASK) {
-		FastCriticalSectionClass::LockClass m(m_Mutex);
+		BFMEPoolCriticalSection::LockClass m(*reinterpret_cast<BFMEPoolCriticalSection *>(&m_Mutex));
 
 		unsigned mask=1;
 		for (int index = 0; index < MAX_TEMP_STRING; index ++, mask<<=1) {

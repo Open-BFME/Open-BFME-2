@@ -3,6 +3,11 @@
 // Complete111-byte retail extent includes both RET paths; all75 concrete bytes exact.
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath
 
+// The data word keeps its existing FastCriticalSectionClass spelling.
+// Retail acquires these string pools through the pool backend at 0x6577F;
+// use its shared guard rather than emit the event-backend constructor name.
+#include "mutex.h"
+#include "bfme_pool_critical_section.h"
 #include "always.h"
 #undef W3DNEWARRAY
 void* __cdecl operator new[](unsigned int,unsigned int);
@@ -28,7 +33,7 @@ StringClass::Free_String (void)
 			//	Make sure no one else is changing the reserved mask
 			// at the same time we are.
 			//
-			FastCriticalSectionClass::LockClass m(m_Mutex);
+			BFMEPoolCriticalSection::LockClass m(*reinterpret_cast<BFMEPoolCriticalSection *>(&m_Mutex));
 
 			unsigned index=(buffer_base/MAX_TEMP_BYTES)&(MAX_TEMP_STRING-1);
 			unsigned mask=1<<index;

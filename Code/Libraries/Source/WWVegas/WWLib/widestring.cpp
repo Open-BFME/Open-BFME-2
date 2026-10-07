@@ -42,6 +42,11 @@
 // BFME lock model (LockClass spins through a fastcall helper and inlines):
 // the BFME wwstring.h must set the shared __WWSTRING_H guard before the Zero
 // Hour widestring.h pulls its own wwstring.h/mutex.h pair in.
+// The data word keeps its existing FastCriticalSectionClass spelling.
+// Retail acquires these string pools through the pool backend at 0x6577F;
+// use its shared guard rather than emit the event-backend constructor name.
+#include "mutex.h"
+#include "bfme_pool_critical_section.h"
 #include "wwstring.h"
 #include "widestring.h"
 #include "win.h"
@@ -118,7 +123,7 @@ WideStringClass::Get_String (int length, bool is_temp)
 			//	Make sure no one else is requesting a temp pointer
 			// at the same time we are.
 			//
-			FastCriticalSectionClass::LockClass lock(m_TempMutex);
+			BFMEPoolCriticalSection::LockClass lock(*reinterpret_cast<BFMEPoolCriticalSection *>(&m_TempMutex));
 
 			//
 			//	Try to find an available temporary buffer
@@ -226,7 +231,7 @@ WideStringClass::Free_String (void)
 				//	Make sure no one else is modifying a temp pointer
 				// at the same time we are.
 				//
-				FastCriticalSectionClass::LockClass lock(m_TempMutex);
+				BFMEPoolCriticalSection::LockClass lock(*reinterpret_cast<BFMEPoolCriticalSection *>(&m_TempMutex));
 				
 				//
 				//	Release our hold on this temporary buffer

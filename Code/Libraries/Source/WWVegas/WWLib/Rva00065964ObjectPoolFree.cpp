@@ -7,13 +7,7 @@
 // lock at +0x10) but the lock flavor is BFMEPoolCriticalSection, so the
 // class keeps an address-derived name.
 
-class BFMEPoolCriticalSection
-{
-public:
-	void Lock();
-
-	volatile unsigned int m_locked;
-};
+#include "bfme_pool_critical_section.h"
 
 struct Rva00065964ObjectPool
 {

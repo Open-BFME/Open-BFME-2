@@ -21,8 +21,9 @@ extern void (AABoxClass::*const g_bfmeAABoxInitAnchor)(const MinMaxAABoxClass &)
 void (AABoxClass::*const g_bfmeAABoxInitAnchor)(const MinMaxAABoxClass &) = &AABoxClass::Init;
 extern CollisionMath::OverlapType (*const g_bfmeOverlapPlanePointAnchor)(const PlaneClass &, const Vector3 &);
 CollisionMath::OverlapType (*const g_bfmeOverlapPlanePointAnchor)(const PlaneClass &, const Vector3 &) = &CollisionMath::Overlap_Test;
-// ?_bfmeAABTreeLinkAnchor@@YAPAVAABTreeLinkClass@@PAVAABTreeCullSystemClass@@@Z absent-from-retail
-AABTreeLinkClass *_bfmeAABTreeLinkAnchor(AABTreeCullSystemClass *system)
+// ?_bfmeAABTreeLinkAnchor absent-from-retail
+// Emit the constructor without instantiating an unrelated allocation pool.
+AABTreeLinkClass *_bfmeAABTreeLinkAnchor(void *storage, AABTreeCullSystemClass *system)
 {
-	return new AABTreeLinkClass(system);
+	return ::new (storage) AABTreeLinkClass(system);
 }

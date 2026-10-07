@@ -6,19 +6,13 @@
 // lock word in ECX -- the same register this thiscall takes -- and its
 // symbols.csv pin is this address. Bind that spelling here.
 #pragma comment(linker, "/alternatename:?spin@LockClass@FastCriticalSectionClass@@CIXPAI@Z=?Lock@BFMEPoolCriticalSection@@QAEXXZ")
-class BFMEPoolCriticalSection
-{
-public:
-    void Lock();
-private:
-    unsigned int m_locked;
-};
+#include "bfme_pool_critical_section.h"
 
 void BFMEPoolYield();
 
 void BFMEPoolCriticalSection::Lock()
 {
-    unsigned int *lockWord = &m_locked;
+    volatile unsigned int *lockWord = &m_locked;
     __asm mov ebx, lockWord
     __asm lock bts dword ptr [ebx], 0
     __asm jc retry
