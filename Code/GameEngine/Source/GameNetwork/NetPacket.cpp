@@ -36,7 +36,7 @@ public:
 	UnsignedInt getPlayerID() { return m_playerID; }
 	UnsignedShort getID() { return m_id; }
 	Int getNetCommandType() { return m_commandType; }
-	void *m_vptr;
+	virtual ~NetCommandMsg();
 	UnsignedInt m_timestamp;
 	UnsignedInt m_executionFrame;
 	UnsignedInt m_playerID;
@@ -177,7 +177,10 @@ public:
 class NetGameCommandMsg : public NetCommandMsg
 {
 public:
+	NetGameCommandMsg();
 	GameMessage *constructGameMessage();
+private:
+	UnsignedInt m_gameFields[5];
 };
 
 // GameMessageParser and its argument-type nodes, rowed under their address
@@ -198,6 +201,7 @@ public:
 class Rva0054D54A
 {
 public:
+	Rva0054D54A();
 	Rva0054D54A(GameMessage *msg);
 	virtual ~Rva0054D54A();
 	Rva0054D593 *getFirstArgumentType() { return m_first; }
@@ -206,6 +210,19 @@ public:
 	Rva0054D593 *m_last;
 	Int m_argTypeCount;
 };
+
+// The parser's addArgType, rowed under its address name on the class view
+// RvaSmallVtableCtors.cpp gives it (same object; the type and count travel
+// as pointer-sized values).
+class Rva0054D5D3
+{
+public:
+	void rva0054D5D3(void *type, void *argCount);
+};
+
+// readGameMessageArgumentFromPacket, rowed with four parameters; BFME's
+// reader also passes the message type, which the body never reads.
+void Rva00590D19Add(Int type, NetGameCommandMsg *msg, const void *data, Int *readOffset, Int msgType);
 
 // AsciiString getter at +0x20 (rowed under its address name).
 class Rva002D9BC1AsciiField
@@ -335,6 +352,7 @@ public:
 	static NetCommandMsg *rva0058DEF7(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DF29(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0059205C(UnsignedByte *data, Int &readOffset);
+	static NetCommandMsg *rva00591EA6(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva00592123(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva00592208(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DFB8(UnsignedByte *data, Int &readOffset);
@@ -1521,6 +1539,73 @@ NetCommandMsg *NetPacket::rva00592208(UnsignedByte *data, Int &readOffset)
 	msg->m_1c = field1c;
 	msg->m_20 = field20;
 	return msg;
+}
+
+// ?rva00591EA6@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z, retail 0x00591EA6, 438 bytes:
+// ZH's readGameMessage with a range check on the message type (an
+// out-of-range type frees the message and returns NULL): the argument-type
+// runs go into a GameMessageParser, then each argument is read by type.
+NetCommandMsg *NetPacket::rva00591EA6(UnsignedByte *data, Int &readOffset)
+{
+	NetGameCommandMsg *msg = new NetGameCommandMsg();
+
+	Int newType;
+	memcpy(&newType, data + readOffset, sizeof(newType));
+	readOffset += sizeof(newType);
+	if (newType <= 0 || newType >= 0x7EE) {
+		::delete msg;
+		return 0;
+	}
+	((NetDisconnectPlayerCommandMsg *)msg)->setDisconnectFrame(newType);
+
+	UnsignedByte numArgTypes = 0;
+	memcpy(&numArgTypes, data + readOffset, sizeof(numArgTypes));
+	readOffset += sizeof(numArgTypes);
+
+	Int totalArgs = 0;
+	Rva0054D54A *parser = new Rva0054D54A();
+	Int j = 0;
+	for (; j < numArgTypes; ++j) {
+		UnsignedByte type = (UnsignedByte)ARGUMENTDATATYPE_UNKNOWN;
+		memcpy(&type, data + readOffset, sizeof(type));
+		readOffset += sizeof(type);
+
+		UnsignedByte argCount = 0;
+		memcpy(&argCount, data + readOffset, sizeof(argCount));
+		readOffset += sizeof(argCount);
+
+		((Rva0054D5D3 *)parser)->rva0054D5D3((void *)type, (void *)argCount);
+		totalArgs += argCount;
+	}
+
+	Rva0054D593 *parserArgType = parser->getFirstArgumentType();
+	GameMessageArgumentDataType lasttype = ARGUMENTDATATYPE_UNKNOWN;
+	Int argsLeftForType = 0;
+	if (parserArgType != 0) {
+		lasttype = parserArgType->getType();
+		argsLeftForType = parserArgType->getArgCount();
+	}
+	for (j = 0; j < totalArgs; ++j) {
+		Rva00590D19Add(lasttype, msg, data, &readOffset, newType);
+
+		--argsLeftForType;
+		if (argsLeftForType == 0) {
+			if (parserArgType == 0) {
+				return 0;
+			}
+
+			parserArgType = parserArgType->getNext();
+			if (parserArgType != 0) {
+				argsLeftForType = parserArgType->getArgCount();
+				lasttype = parserArgType->getType();
+			}
+		}
+	}
+
+	::delete parser;
+	parser = 0;
+
+	return (NetCommandMsg *)msg;
 }
 
 // ?rva0058DFB8@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058DFB8 143B.
