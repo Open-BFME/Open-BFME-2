@@ -15374,3 +15374,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva0035AA3E@Rva00359E13@@QAEXXZ,0x0035AA3E,GameLogic::init 0x243EE7 callee
 ??0Rva0004224C@@QAE@XZ,0x0004224C,GameLogic::reset 0x2442A4 callee (FP-mode guard ctor / StatsCollector dtor folded with AsciiString release)
 ??1Rva0048BA39StatsCollector@@QAE@XZ,0x0048BA39,GameLogic::reset 0x2442A4 callee (FP-mode guard ctor / StatsCollector dtor folded with AsciiString release)
+?update@FireWeaponUpdate@@UAE?AW4UpdateSleepTime@@XZ,0x0048BEE8,"FireWeaponUpdate::update: slot 0 of the +0x10 UpdateModuleInterface vftable 0x00C4C18C stored by ctor row 0x0048C0C5; called directly by OilSpillUpdate::update 0x0048C30E (base call; this the +0x10 subobject); body banked partial"
