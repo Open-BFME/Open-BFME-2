@@ -15704,3 +15704,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?Rva004177D5@@YAXH@Z,0x004177D5,callee of ?rva005AE90F@AptMessenger@@QAEXXZ
 ?rva0059FB4F@Rva0059FB4F@@QAE_NPAX@Z,0x0059FB4F,callee of ?rva005AE7C6@AptMessenger@@QAEXXZ
 ?Rva0041647A@@YAXPAX@Z,0x0041647A,callee of ?rva005AE7C6@AptMessenger@@QAEXXZ
+?rva00045213@W3DDisplay@@AAEXPADI@Z,0x00045213,callee of ?takeScreenShot@W3DDisplay@@QAEXPBD@Z
+?rva00047BC0@W3DDisplay@@AAEXPADIIPBD@Z,0x00047BC0,callee of ?takeScreenShot@W3DDisplay@@QAEXPBD@Z
