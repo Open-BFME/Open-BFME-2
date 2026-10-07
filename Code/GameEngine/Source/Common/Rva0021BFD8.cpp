@@ -6,7 +6,8 @@
 // Target evidence: contiguous gap after GetSubClassAttributeDefaultValue
 // 0x0021BFA6 (50B ends at 0x0021BFD8); three AsciiStrings at those offsets;
 // callees all StringBase plus Rva000B6AF5Build and Rva000B6AA9Rec operator.
-#define BFME_ASCII_KEEP_COPY_SET_BODY
+// Retail calls StringBase<char>::set at 0x366F0 from these inline copies.
+// Keep the shared helper instead of emitting a competing public copy-set wrapper.
 #include "ascii_string.h"
 #include "string_base.h"
 
@@ -43,13 +44,13 @@ bool Rva0021BFD8::rva0021BFD8(const StringBase<char> &arg)
 		return false;
 	AsciiString tmp;
 	Rva000B6AF5Rec rec;
-	tmp.set(*Rva000B6AF5Build(&rec, (void **)&arg, m_1c4.getLength()));
+	tmp.setCopyInline(*Rva000B6AF5Build(&rec, (void **)&arg, m_1c4.getLength()));
 	if (tmp.compareNoCase(m_1c4) == 0)
 		goto yes;
-	tmp.set(*Rva000B6AF5Build(&rec, (void **)&arg, m_1c8.getLength()));
+	tmp.setCopyInline(*Rva000B6AF5Build(&rec, (void **)&arg, m_1c8.getLength()));
 	if (tmp.compareNoCase(m_1c8) == 0)
 		goto yes;
-	tmp.set(*Rva000B6AF5Build(&rec, (void **)&arg, m_1cc.getLength()));
+	tmp.setCopyInline(*Rva000B6AF5Build(&rec, (void **)&arg, m_1cc.getLength()));
 	if (tmp.compareNoCase(m_1cc) == 0)
 		goto yes;
 	return false;
