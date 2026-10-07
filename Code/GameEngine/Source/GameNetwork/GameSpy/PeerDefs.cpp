@@ -184,12 +184,14 @@ class GameSpyPeerMessageQueueInterface
 {
 public:
 	virtual ~GameSpyPeerMessageQueueInterface();
-	virtual void s01(void);
+	virtual void startThread(void);
 	virtual void endThread(void);
 	virtual void s03(void);
 	virtual void s04(void);
 	virtual void s05(void);
 	virtual void addRequest(const BfmeOpaqueOwnedRecord492 &req);
+
+	static GameSpyPeerMessageQueueInterface *createNewMessageQueue(void);
 };
 
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
@@ -254,8 +256,8 @@ public:
 	virtual void s36(void);
 	virtual void s37(void);
 	virtual void s38(void);
-	virtual void s39(void);
-	virtual void s3A(void);
+	virtual void setDisallowAsianText(Bool val);
+	virtual void setDisallowNonAsianText(Bool val);
 	virtual void s3B(void);
 	virtual void s3C(void);
 	virtual void s3D(void);
@@ -263,9 +265,9 @@ public:
 	virtual void s3F(void);
 	virtual void s40(void);
 	virtual void s41(void);
-	virtual void s42(void);
+	virtual void setMOTD(const AsciiString &motd);
 	virtual void s43(void);
-	virtual void s44(void);
+	virtual void setConfig(const AsciiString &config);
 	virtual void s45(void);
 	virtual void s46(void);
 	virtual void s47(void);
@@ -283,6 +285,8 @@ public:
 	virtual Bool isIgnored(AsciiString nick);
 	virtual void setLocalIPs(UnsignedInt internalIP, UnsignedInt externalIP);
 	virtual UnsignedInt getInternalIP(void);
+
+	static GameSpyInfoInterface *createNewGameSpyInfoInterface(void);
 };
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
@@ -325,6 +329,8 @@ public:
 	virtual void slot07(void) = 0;
 	virtual Int getQMChannel(void) = 0;
 	virtual void setQMChannel(Int channel) = 0;
+
+	static GameSpyConfigInterface *create(AsciiString config);
 };
 
 extern GameSpyConfigInterface *TheGameSpyConfig;
@@ -374,7 +380,7 @@ class GameSpyPSMessageQueueInterface
 {
 public:
 	virtual ~GameSpyPSMessageQueueInterface();
-	virtual void s01(void);
+	virtual void startThread(void);
 	virtual void endThread(void);
 	virtual void s03(void);
 	virtual void s04(void);
@@ -392,7 +398,7 @@ class GameSpyBuddyMessageQueueInterface
 {
 public:
 	virtual ~GameSpyBuddyMessageQueueInterface();
-	virtual void s01(void);
+	virtual void startThread(void);
 	virtual void endThread(void);
 };
 
@@ -400,12 +406,62 @@ class PingerInterface
 {
 public:
 	virtual ~PingerInterface();
-	virtual void s01(void);
+	virtual void startThreads(void);
 	virtual void endThreads(void);
+
+	static PingerInterface *createNewPingerInterface(void);
 };
 
-// LadderList: non-virtual dtor rowed at 0x0054D974.
-class Rva0054D974 { public: ~Rva0054D974(); };
+// LadderList (0xC bytes): ctor 0x0054E546, non-virtual dtor rowed at 0x0054D974.
+class Rva0054D974
+{
+public:
+	Rva0054D974();
+	~Rva0054D974();
+private:
+	void *m_lists[3];
+};
+
+// The three thread factories SetUpGameSpy calls are rowed under names that
+// disagree with the globals retail stores their results in: 0x00551B28
+// (allocates 0x74 for TheGameSpyBuddyMessageQueue) is rowed as
+// GameResultsInterface's, 0x005590FC (TheGameSpyPSMessageQueue) as
+// PingerInterface's, and the pinger factory 0x005503B1 by address.
+class GameResultsInterface
+{
+public:
+	static GameResultsInterface *createNewGameResultsInterface(void);
+};
+class Rva0055011A;
+class Rva005503B1
+{
+public:
+	static Rva0055011A *rva005503B1(void);
+};
+
+// GlobalData's user-data path getter and FileSystem::createDirectory, both
+// rowed by address.
+class GlobalData
+{
+public:
+	AsciiString rva002360DE(void) const;
+};
+extern GlobalData *TheWritableGlobalData;
+class FileSystem;
+extern FileSystem *TheFileSystem;
+class Rva003006C4
+{
+public:
+	bool rva003006C4(const AsciiString &path);
+};
+
+// Rva0054F508 is CustomMatchPreferences; its getters are rowed by name.
+class CustomMatchPreferences
+{
+public:
+	Bool getDisallowAsianText(void);
+	Bool getDisallowNonAsianText(void);
+};
 
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;	// 0x00E05FC8
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;	// 0x00E05FBC
@@ -421,6 +477,7 @@ void Rva00415EF8Close(void);		// deleteNotificationBox
 class GameSpyInfo
 {
 public:
+	GameSpyInfo();			// 0x00385FE1
 	// Virtual slots follow the retail vtable at 0x00C1DD90 so that virtual
 	// self-calls encode the right slot offsets; unnamed slots are placeholders.
 	virtual ~GameSpyInfo();
@@ -1254,6 +1311,13 @@ void GameSpyInfo::reset(void)
 	((PSPlayerAllStats *)m_cachedLocalPlayerStats)->rva00552CB8();
 	m_additionalDisconnects = -1;
 	m_unk163C = false;
+}
+
+// ?createNewGameSpyInfoInterface@GameSpyInfoInterface@@SAPAV1@XZ @0x003864CC 53B
+// This TU views the interface and GameSpyInfo as unrelated classes.
+GameSpyInfoInterface *GameSpyInfoInterface::createNewGameSpyInfoInterface(void)
+{
+	return reinterpret_cast<GameSpyInfoInterface *>(new GameSpyInfo);
 }
 
 class Rva00382077 { public: ~Rva00382077(); };
