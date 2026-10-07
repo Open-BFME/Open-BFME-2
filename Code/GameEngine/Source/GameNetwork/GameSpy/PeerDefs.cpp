@@ -1014,6 +1014,18 @@ void GameSpyInfo::addStagingRoom(GameSpyStagingRoom room)
 	m_stagingRoomsDirty = m_sawFullGameList;
 }
 
+// ?removeStagingRoom@GameSpyInfo@@UAEXVGameSpyStagingRoom@@@Z @0x003837D3 115B
+void GameSpyInfo::removeStagingRoom(GameSpyStagingRoom room)
+{
+	StagingRoomMap::iterator it = m_stagingRooms.find(room.getID());
+	if (it != m_stagingRooms.end())
+	{
+		::delete it->second;
+		m_stagingRooms.erase(it);
+		m_stagingRoomsDirty = m_sawFullGameList;
+	}
+}
+
 // ?leaveStagingRoom@GameSpyInfo@@UAEXXZ @0x003858DF 119B
 void GameSpyInfo::leaveStagingRoom(void)
 {
