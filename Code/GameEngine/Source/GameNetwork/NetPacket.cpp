@@ -2933,3 +2933,74 @@ Bool NetPacket::addGameSpyStatsAuthKeyCommand(NetCommandRef *msg)
 	}
 	return false;
 }
+
+// ?addFileCommand@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x00592C8C, 671 bytes:
+// addCommand's type-19 (FILE) arm behind isRoomForFileMessage: T/R/S/P/C/D, then ZH's
+// file name, length dword and file bytes. Retail reaches the length and data
+// through folded getters rowed as NetWrapperCommandMsg::getDataOffset (+0x24)
+// and getDataLength (+0x20), so the data pointer comes back as an integer.
+Bool NetPacket::addFileCommand(NetCommandRef *msg)
+{
+	Bool needNewCommandID = false;
+	if (isRoomForFileMessage(msg)) {
+		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+			m_packet[m_packetLen] = 'T';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getNetCommandType();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastCommandType = cmdMsg->getNetCommandType();
+		}
+		if (m_lastRelay != msg->getRelay()) {
+			m_packet[m_packetLen] = 'R';
+			++m_packetLen;
+			UnsignedByte newRelay = msg->getRelay();
+			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastRelay = newRelay;
+		}
+		if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+			m_packet[m_packetLen] = 'S';
+			++m_packetLen;
+			UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+			memcpy(m_packet + m_packetLen, &newTimestamp, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastTimestamp = newTimestamp;
+		}
+		if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+			m_packet[m_packetLen] = 'P';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getPlayerID();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastPlayerID = cmdMsg->getPlayerID();
+			needNewCommandID = true;
+		}
+		if (((m_lastCommandID + 1) != (UnsignedShort)(cmdMsg->getID())) || (needNewCommandID == true)) {
+			m_packet[m_packetLen] = 'C';
+			++m_packetLen;
+			UnsignedShort newID = cmdMsg->getID();
+			memcpy(m_packet + m_packetLen, &newID, sizeof(UnsignedShort));
+			m_packetLen += sizeof(UnsignedShort);
+		}
+		m_lastCommandID = cmdMsg->getID();
+		m_packet[m_packetLen] = 'D';
+		++m_packetLen;
+		AsciiString filename = ((CDDrive *)cmdMsg)->CDDrive::getPath();
+		_mbscpy(m_packet + m_packetLen, (const unsigned char *)filename.str());
+		m_packetLen += filename.getLength() + 1;
+		UnsignedInt fileLength = cmdMsg->getDataOffset();
+		memcpy(m_packet + m_packetLen, &fileLength, sizeof(fileLength));
+		m_packetLen += sizeof(fileLength);
+		memcpy(m_packet + m_packetLen, (UnsignedByte *)cmdMsg->getDataLength(), fileLength);
+		m_packetLen += fileLength;
+		++m_numCommands;
+		if (m_lastCommand != 0) {
+			delete m_lastCommand;
+			m_lastCommand = 0;
+		}
+		m_lastCommand = new NetCommandRef(msg->getCommand());
+		m_lastCommand->setRelay(msg->getRelay());
+		return true;
+	}
+	return false;
+}
