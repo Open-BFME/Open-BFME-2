@@ -305,11 +305,33 @@ public:
 	Rva003FDC41(EmitVtableTag *);
 public:
 	virtual ~Rva003FDC41();
+	void rva003FCD58(unsigned char value);
+private:
+	char m_pad04[0xA8];			// target store is at +0xAC
+	unsigned char m_flagAC;
 };
 
 // ?<Rva003FDC41::Rva003FDC41> absent-from-retail
 Rva003FDC41::Rva003FDC41(EmitVtableTag *)
 {
+}
+
+class Rva003FB65C
+{
+public:
+	void rva003FCCC9(unsigned char value);
+};
+
+// Target identity: Ghidra references this body from vtable data at 0x00C37C98.
+// That table's 0x00C37C68 slot 0 is owned by the scalar deleting destructor
+// 0x003FDC25, which calls the pinned Rva003FDC41 destructor at 0x003FDC41.
+// Retail calls the pinned Rva003FB65C::rva003FCCC9 with the incoming byte,
+// then stores it at this+0xAC. The owner and offset follow target evidence;
+// the readable member name and helper class cast are structural models.
+void Rva003FDC41::rva003FCD58(unsigned char value)
+{
+	((Rva003FB65C *)this)->rva003FCCC9(value);
+	m_flagAC = value;
 }
 
 class Rva001A47D8
