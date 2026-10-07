@@ -1,7 +1,7 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
-// OilSpillUpdate (BFME 2): the update.
+// OilSpillUpdate (BFME 2): the update and xfer.
 //
 // Target facts. OilSpillUpdate derives from FireWeaponUpdate (its update
 // 0x0048BEE8 is slot 0 of the +0x10 vftable 0x00C4C18C the base ctor row
@@ -72,6 +72,82 @@ inline Coord3D operator-(const Coord3D &a, const Coord3D &b)
 namespace _STL {
 template <> void _Construct<Coord3D, Coord3D>(Coord3D *, const Coord3D &);
 }
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+// MSVC lists a virtual's overloads in reverse declaration order, so
+// operator==(Version &) is slot 0x28 and operator==(bool &) slot 0x90.
+class Xfer
+{
+public:
+	class Version;
+
+	virtual ~Xfer();
+
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3D &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
 
 enum UpdateSleepTime
 {
@@ -172,6 +248,9 @@ class FireWeaponUpdate : public UpdateModule
 public:
 	virtual UpdateSleepTime update();
 
+protected:
+	virtual void xfer(Xfer *xfer);
+
 private:
 	char m_unknown20[0x0C];
 };
@@ -182,6 +261,7 @@ public:
 	virtual UpdateSleepTime update();
 
 protected:
+	virtual void xfer(Xfer *xfer);
 	const OilSpillUpdateModuleData *getOilSpillUpdateModuleData() const
 	{
 		return (const OilSpillUpdateModuleData *)m_moduleData;
@@ -229,4 +309,37 @@ UpdateSleepTime OilSpillUpdate::update()
 		}
 	}
 	return UPDATE_SLEEP_NONE;
+}
+
+// ?xfer@OilSpillUpdate@@MAEXPAVXfer@@@Z @0x0048C415 235B (Ghidra boundary;
+// the primary vftable's xfer slot, base FireWeaponUpdate::xfer pinned at
+// 0x0048BAA7). Version 1 is written before the base. On load the breadcrumb
+// list is cleared through the pinned erase 0x002A133B, reserved (0x00390729)
+// and resized (row 0x000CA33C), then each position goes through the Coord3D
+// slot 0x60 and is copied back. The vector reference local lets this
+// register become the vector pointer, as retail's add esi,0x2C.
+void OilSpillUpdate::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+	FireWeaponUpdate::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	_STL::vector<Coord3D> &crumbs = m_breadcrumbs;
+	Int count = crumbs.size();
+	*xfer == count;
+	if (xfer->IsLoading())
+	{
+		crumbs.erase(crumbs.begin(), crumbs.end());
+		crumbs.reserve(count);
+		crumbs.resize(count);
+	}
+	for (Int i = 0; i < count; ++i)
+	{
+		Coord3D pos;
+		pos.set(&crumbs[i]);
+		*xfer == pos;
+		if (xfer->IsLoading())
+			crumbs[i] = pos;
+	}
 }
