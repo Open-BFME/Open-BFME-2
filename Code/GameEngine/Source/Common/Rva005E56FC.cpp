@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /MD /EHs /EHc- /D_STLP_USE_MALLOC /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /DNDEBUG
+// cl: /O1 /arch:SSE /G7 /MD /EHs /EHc- /D_STLP_USE_MALLOC /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /DNDEBUG
 // stlport
 // ?rva005E56FC@Rva005E56FC@@QAEPAXXZ @0x005E56FC 78B.
 // View then player then stdcall chain with redundant mov ecx before stdcall.
@@ -22,6 +22,21 @@ struct Rva005E59FCKeyIterator {
  bool operator==(const Rva005E59FCKeyIterator&b)const{return node==b.node;}
  bool operator!=(const Rva005E59FCKeyIterator&b)const{return node!=b.node;}
 };
+// The 12-byte vector ABI is established by the rowed range constructor
+// at 0x005E60D1 and its base at 0x00211E58. Declare that constructor here
+// so this caller cannot emit competing range/copy helpers. The destructor
+// follows the observed start-pointer test and free at both return sites.
+namespace _STL {
+template <> class vector<int, allocator<int> > {
+public:
+    template <class Iter> vector(Iter, Iter, const allocator<int>&);
+    ~vector() { if (start) ::free(start); }
+private:
+    int *start;
+    int *finish;
+    int *end_of_storage;
+};
+}
 class Rva002B6C9F {public: bool rva002B6CE5(int,int,int);};
 
 class Rva0020E89C;
