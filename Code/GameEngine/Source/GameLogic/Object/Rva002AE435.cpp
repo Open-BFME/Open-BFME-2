@@ -20,7 +20,8 @@ class Rva0035516C
 public:
 	bool rva003551B5(NameKeyType key) const;
 };
-extern Rva0035516C *g_00E01E18;
+class AiOrdersManager;
+extern AiOrdersManager *TheAiOrdersManager;
 
 class Drawable;
 class Thing
@@ -32,7 +33,7 @@ public:
 int rva002AE435(const Thing *thing, std::list<Drawable *> *output)
 {
 	NameKeyType key = *(const NameKeyType *)((const char *)thing + 0x74);
-	if (g_00E01E18->rva003551B5(key)) {
+	if (((Rva0035516C *)(void *)TheAiOrdersManager)->rva003551B5(key)) {
 		if (thing->getDrawable() != 0)
 			output->push_back(thing->getDrawable());
 	}
