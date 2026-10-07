@@ -15610,3 +15610,6 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?rva0005634C@MilesAudioManager@@QAEXHMI@Z	0x0005634C	178	blocked	compiler rejects __thiscall declarations under retail flags t=1 model=gpt-6
 ?Rva000563FECall@@YA...	0x000563FE	194	blocked	caller is Xfer serialization but callee identity and argument layout are unproven t=2 model=gpt-6
 ?Rva00327D86Update@@YAXPAVGameWindow@@_N@Z	0x00327D86	82	blocked	volatile/constant-clear code shape differs at +0x18 and +0x4c plus pointer checks at +0x23 and +0x39 t=12 model=gpt-6
+?rva00573122@Rva00573117@@QAE_NPAVPlayer@@@Z	0x00573122	237	blocked	ADDRESS-NAMED g_00E062F4 g_00DFEEF8 g_00C6E0B4 t=5 model=muse-03
+?sharedInit@Rva005CDMorph@@QAEXHHHHH@Z	0x005CD1D3	111	blocked	ADDRESS-NAMED g_00C74F68 vtable t=5 model=muse-03
+?rva005B000C@Rva005B000C@@QAEXXZ	0x005B000C	188	blocked	ebx-zero register idiom with 7 structural regions, word-cmp vs movzx and missing byte store needs model rework t=15 model=muse-spark
