@@ -10,7 +10,7 @@
 // The three-argument guard is the already-matched 108-byte
 // ?checkRange@BfmeB996Range@@QAEDHPAIPAD@Z at 0x00106715
 // (Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp), reached under
-// this body's own spelling; it writes the `stop` byte through its third
+// the same complete-object pointer; it writes the `stop` byte through its third
 // argument, which is why this body tests it after the call.
 
 class BfmeDev996
@@ -22,12 +22,19 @@ public:
 	virtual int classify( int value, int width );
 };
 
+// Call-only view of the already verified guard owner. Native call 0x10682B
+// passes the unadjusted this pointer; both views locate the device at +4.
+class BfmeB996Range
+{
+public:
+	char checkRange(int first, unsigned int *second, char *stop);
+};
+
 class BfmeB996
 {
 public:
 	char movePair( int *output, int *first, unsigned int *second,
 		unsigned int limit );
-	char checkRange( int first, unsigned int *second, char *stop );
 
 private:
 	char m_pad[ 4 ];
@@ -38,7 +45,7 @@ char BfmeB996::movePair( int *output, int *first,
 	unsigned int *second, unsigned int limit )
 {
 	char stop = 0;
-	if ( !checkRange( (int)first, second, &stop ) ||
+	if ( !reinterpret_cast<BfmeB996Range *>(this)->checkRange( (int)first, second, &stop ) ||
 		stop || *second > limit ) {
 		return 0;
 	}
