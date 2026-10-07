@@ -123,6 +123,14 @@
 // helper called only from that update (0x00489400) with the object in ESI,
 // MSVC's custom convention for a same-TU static.
 //
+// ??0Rva004885DE@@QAE@PAVObject@@H@Z, retail 0x004885DE, 227 bytes: ZH's
+// DozerActionStateMachine (owner, task), built by the action state ctor
+// 0x00488883 (new 0x40). Name key 0x253E8923 through the scalar-key base
+// view, vtable 0x0084B510, the task at +0x3C, then ZH's three states (rowed
+// pick/move/do ctors 0x004884ED, 0x0048851B, 0x00488545) with ZH's
+// transitions: pick -> move or exit-with-failure, move -> do or back to pick,
+// do -> exit with success or failure.
+//
 // ?update@DozerActionPickActionPosState@@UAE?AW4StateReturnType@@XZ,
 // retail 0x0048A4DD, 449 bytes: slot 6 of vtable 0x0084B3E0, stored by the
 // rowed ctor 0x004884ED. ZH's update: the task target (dozer interface vslot
@@ -1329,4 +1337,61 @@ StateReturnType DozerActionPickActionPosState::update()
 	ai->aiMoveToPosition(&goalPos, CMD_FROM_AI);
 
 	return STATE_SUCCESS;
+}
+
+// ZH's dozer action states (rowed ctors 0x004884ED, 0x0048851B, 0x00488545).
+class Rva004884ED : public State
+{
+public:
+	Rva004884ED(StateMachine *machine, Int task);
+private:
+	unsigned char m_pad20[0x28 - 0x20];
+};
+
+class Rva0048851B : public State
+{
+public:
+	Rva0048851B(StateMachine *machine, Int task);
+private:
+	unsigned char m_pad20[0x24 - 0x20];
+};
+
+class Rva00488545 : public State
+{
+public:
+	Rva00488545(StateMachine *machine, Int task);
+private:
+	unsigned char m_pad20[0x28 - 0x20];
+};
+
+enum
+{
+	DOZER_ACTION_PICK_ACTION_POS = 0,
+	DOZER_ACTION_MOVE_TO_ACTION_POS,
+	DOZER_ACTION_DO_ACTION
+};
+
+enum
+{
+	EXIT_MACHINE_WITH_SUCCESS = 9998,
+	EXIT_MACHINE_WITH_FAILURE = 9999
+};
+
+// ZH's DozerActionStateMachine.
+class Rva004885DE : public Rva004D759C
+{
+public:
+	Rva004885DE(Object *owner, Int task);
+protected:
+	Int m_task; // +0x3C
+};
+
+Rva004885DE::Rva004885DE(Object *owner, Int task) : Rva004D759C(owner, 0x253E8923, false)
+{
+	m_task = task;
+
+	// order matters: first state is the default state.
+	defineState(DOZER_ACTION_PICK_ACTION_POS, new Rva004884ED(this, task), DOZER_ACTION_MOVE_TO_ACTION_POS, EXIT_MACHINE_WITH_FAILURE);
+	defineState(DOZER_ACTION_MOVE_TO_ACTION_POS, new Rva0048851B(this, task), DOZER_ACTION_DO_ACTION, DOZER_ACTION_PICK_ACTION_POS);
+	defineState(DOZER_ACTION_DO_ACTION, new Rva00488545(this, task), EXIT_MACHINE_WITH_SUCCESS, EXIT_MACHINE_WITH_FAILURE);
 }
