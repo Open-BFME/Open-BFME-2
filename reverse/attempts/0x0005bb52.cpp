@@ -1,5 +1,6 @@
 // ?rva0005BB52@MilesAudioManager@@QAEXPAXPBUCoord3D@@@Z
 // partial score=0.95 date=2026-10-07
+// ?rva0005BB52@MilesAudioManager@@QAEXPAXPBUCoord3D@@@Z
 // cl: /O1 /arch:SSE /G7 /Oy- /DNDEBUG /DWIN32 /MD /EHsc /ICode/Libraries/Include/Lib
 // Ghidra 0005BB52..0005BBE2, 144B, RET8. MilesAudioManager receiver is
 // established by the same-this 52662/5A9F8 neighbours. PlayingAudio event
@@ -36,8 +37,9 @@ void MilesAudioManager::rva0005BB52(void *ref, const Coord3D *position)
 {
     void *reference = ref;
     H3DSAMPLE &sample = ref;
+    Rva0005BB52Playing *playing;
     sample = get3DSampleHandleForPlayingAudio(reference);
-    Rva0005BB52Playing *playing = *reinterpret_cast<Rva0005BB52Playing **>(reference);
+    playing = *reinterpret_cast<Rva0005BB52Playing **>(reference);
     AIL_set_3D_sample_volume(sample, rva0005A9F8(reference, 1, 1));
     float pitch = playing->event->rva002D94DD();
     if (pitch == 0.0f)
@@ -47,7 +49,6 @@ void MilesAudioManager::rva0005BB52(void *ref, const Coord3D *position)
         AIL_set_3D_sample_playback_rate(sample,
             static_cast<int>(AIL_3D_sample_playback_rate(sample) * pitch));
     rva000545C1(reference, position);
-    unsigned char result;
-    rva00055C5D(reference, &result);
+    rva00055C5D(reference, reinterpret_cast<unsigned char *>(&sample) + 3);
     rva00052FA0(reference);
 }

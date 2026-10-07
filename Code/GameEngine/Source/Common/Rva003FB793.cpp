@@ -6,8 +6,8 @@
 // slot-7 call below is indirect too, so no pins are needed.
 // ?rva003F936E@@YGXPAXPAM@Z @0x003F936E 63B.
 // Null-checked: fill a stack Vec3 via rva003FB793, overwrite x/y from the
-// float pair, forward its address to virtual slot 7. Free __stdcall (own
-// this unused by retail; callers set ecx conventionally). The 12B Vec3 write
+// float pair, forward its address to virtual slot 7. Member thiscall with an unused receiver, established by native
+// processFrame 0x003F99DC setting ECX=this before both calls. The 12B Vec3 write
 // fills the whole sub-esp reserve; the float copies land on top of it.
 struct Vec3
 {
@@ -67,7 +67,10 @@ private:
 	Rva003FB793Inner *m_p08;
 };
 
-void __stdcall rva003F936E(Rva003F936EHost *o, float *f);
+class LivingWorldEyeTower
+{
+    void rva003F936E(Rva003F936EHost *o, float *f);
+};
 
 // BFME1 1399ad37 BfmeConv1318.cpp supplies the snapshot-before-write
 // shape. Native three MOVSS loads precede all stores, so an aliased output
@@ -90,7 +93,7 @@ void Rva003F936EHost::rva003FB793(Vec3 *out)
 	out->z = z;
 }
 
-void __stdcall rva003F936E(Rva003F936EHost *o, float *f)
+void LivingWorldEyeTower::rva003F936E(Rva003F936EHost *o, float *f)
 {
 	if (o == 0)
 		return;

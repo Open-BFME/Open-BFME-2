@@ -67609,7 +67609,6 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0031AB1E@Rva0031AB1EOwner@@QAEPAVRva0031AB1ENode@@PBVAsciiString@@@Z,,0x0031AB1E,89,Code/GameEngine/Source/Common/System/Rva0031AB1EPrepend.cpp,matched,dump-lane range 14: list prepend via throwing new-expression 0x2CC node; w3c-r14
 ?rva003F8478@Rva003F8052@@QAEEXZ,,0x003F8478,31,Code/GameEngine/Source/Common/Rva003F8478.cpp,matched,dump range 19; 802B-guarded negate of 8052 (pinned)
 ?rva003F8536@Rva003F8090@@QAEEXZ,,0x003F8536,39,Code/GameEngine/Source/Common/Rva003F8509.cpp,matched,dump range 19; bounds check + 80C3 + tail 8478; 8509 parked present-unmatched (partial 0.85)
-?rva003F936E@@YGXPAVRva003F936EHost@@PAM@Z,,0x003F936E,63,Code/GameEngine/Source/Common/Rva003FB793.cpp,matched,dump range 19; fill Vec3 + slot-7 forward; B793 pinned+parked
 ?rva003F3F03@Rva003F3F03@@QAEXPAVINI@@@Z,,0x003F3F03,36,Code/GameEngine/Source/Common/Rva003F3F03.cpp,matched,dump range 19; INI-load tail via rowed initFromINI plus TU table 0xC36560 then unclaimed members 0x3F2F24 and 0x3F3B4F
 ?rva003F3F27@Rva003F3F27@@QAEXXZ,,0x003F3F27,85,Code/GameEngine/Source/Common/Rva003F3F27.cpp,matched,dump range 19; multi-clear tail via rowed 0x3F20B0 plus pinned members; zeroes +0x17c/+0x134/+0x138 and +0x1A3 byte around the +0x1A8 subobject call
 ??0Rva003FD14D@@QAE@H@Z,,0x003FD14D,31,Code/GameEngine/Source/Common/Rva003FD14D.cpp,matched,dump range 19; derived ctor via base init 0x3FC58C then shared vtable 0xC37C68 and +0xAC byte; base carries vptr so no lea
@@ -68801,3 +68800,4 @@ uw_00773b7a,,0x00773B7A,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicWater
 ?d_00051d93@@YAXXZ,,0x00051D93,29,Code/gen_asm/d_00023b30.asm,matched,gen-dump;ghidra=FUN_00451d93
 ?d_00052751@@YAXXZ,,0x00052751,27,Code/gen_asm/d_00023b30.asm,matched,gen-dump;ghidra=FUN_00452751
 ??0Rva00023B30@@QAE@PAX0@Z,,0x00023B30,24,Code/GameEngine/Source/Common/Rva000239D0Cluster.cpp,matched,Retail Ghidra 23B30..23B48 RET8; second stack argument initializes receiver word0; first argument unused; original type and name unknown; established neighboring Od unit
+?rva003F936E@LivingWorldEyeTower@@AAEXPAVRva003F936EHost@@PAM@Z,,0x003F936E,63,Code/GameEngine/Source/Common/Rva003FB793.cpp,matched,Native3F936E..3F93AD RET8; same exact63B provider; member thiscall with unused receiver established by native processFrame3F99DC setting ECX=this at both calls; owner from BFME1 LivingWorldEyeTowerApplyTo and rowed updateState3F9BED caller chain; helper remains address-named
