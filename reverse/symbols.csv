@@ -15332,3 +15332,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva004D41B3@DisconnectManager@@QAEXHPAVConnectionManager@@@Z,0x004D41B3,callee of ?rva004D4637@DisconnectManager@@QAEXPAVNetCommandMsg@@PAVConnectionManager@@@Z
 ?rva0005407E@MilesAudioManager@@QAEXPAVINI@@@Z,0x0005407E,Target callsites 0x54206 and 0x54214 from 0x541DB set ECX=this and pass INI*; address-derived helper names; helper identity remains unresolved
 ?rva000540A7@MilesAudioManager@@QAEXPAVINI@@@Z,0x000540A7,Target callsites 0x54206 and 0x54214 from 0x541DB set ECX=this and pass INI*; address-derived helper names; helper identity remains unresolved
+?rva000A8B04@Rva000A8B04@@QAEXMM@Z,0x000A8B04,Ghidra 31B target reached from 0x53AFA at 0x53B3D and 0x53B5A; thiscall receiver is pending-slot object plus 0x0C; body reads two float arguments and calls 0x10FD5E; owner identity remains unresolved

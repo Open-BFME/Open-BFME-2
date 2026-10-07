@@ -279,6 +279,13 @@ private:
     char opaque[0x14];
 };
 
+// Target view for Ghidra FUN_004a8b04: thiscall receiver with two float args.
+// The receiver's original class and operation name remain unresolved.
+class Rva000A8B04 {
+public:
+    void rva000A8B04(float first, float second);
+};
+
 class MilesAudioManager {
 public:
     // Virtual slots 0..74 are not named here; slot 75 (+0x12C) looks an
@@ -304,6 +311,8 @@ public:
     bool rva00054899(ObjectID objectID, int otherID);
     bool rva00056670(ObjectID objectID);
     bool rva00055426(int objectID);
+    float getGlobalReverbMultiplier(void);
+    void rva00053AFA(void *pendingSlot);
     void rva000562CF(int key);
     void rva000562A2(int key, const void *value);
     void rva0005A92A(int key, Rva0005A084Vector *output);
@@ -370,7 +379,9 @@ private:
     unsigned short m_maxAmbientStreams;  // +0x69C
     char at69E[0x6A4 - 0x69E];
     bool m_at6A4;                        // +0x6A4
-    char at6A5[0x6B4 - 0x6A5];
+    char at6A5[0x6A7 - 0x6A5];
+    bool m_at6A7;                        // +0x6A7, read by 0x52F4C and 0x53AFA
+    char at6A8[0x6B4 - 0x6A8];
     unsigned int m_at6B4[3];             // +0x6B4 per-view-type affect masks
     unsigned int m_at6C0[3];             // +0x6C0
     char at6CC[0x9D4 - 0x6CC];
@@ -407,6 +418,32 @@ void MilesAudioManager::rva000541DB(void)
     rva0005407E(&ini);
     rva000540A7(&ini);
     rva00054120(&ini);
+}
+
+// Address-derived pending-slot adjustment. Target evidence: the +0x6A7 flag
+// gates a reverb-scaled pair of floats; 0x52F4C is the matched room multiplier
+// and 0xA8B04 is an address-derived two-float receiver view. Original slot and
+// helper semantics remain open.
+void MilesAudioManager::rva00053AFA(void *pendingSlot)
+{
+    void * volatile *slot = reinterpret_cast<void * volatile *>(pendingSlot);
+    if (m_at6A7) {
+        char *middle = *reinterpret_cast<char **>(
+            reinterpret_cast<char *>(*slot) + 0x1C);
+        char *settings = *reinterpret_cast<char **>(middle + 8);
+        float base = *reinterpret_cast<float *>(settings + 0xA8);
+        float scaled = getGlobalReverbMultiplier() * base;
+        void *device = *slot;
+        middle = *reinterpret_cast<char **>(
+            reinterpret_cast<char *>(device) + 0x1C);
+        settings = *reinterpret_cast<char **>(middle + 8);
+        float level = *reinterpret_cast<float *>(settings + 0xAC);
+        reinterpret_cast<Rva000A8B04 *>(reinterpret_cast<char *>(device) + 0x0C)
+            ->rva000A8B04(level, scaled);
+    } else {
+        reinterpret_cast<Rva000A8B04 *>(reinterpret_cast<char *>(*slot) + 0x0C)
+            ->rva000A8B04(1.0f, 0.0f);
+    }
 }
 
 void MilesAudioManager::moveUpMusicSystems(int newMusicSystem, int viewType, int arg)
