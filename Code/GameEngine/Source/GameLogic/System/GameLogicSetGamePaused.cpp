@@ -17,6 +17,7 @@ public:
 	bool isInMultiplayerGame();
 	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);
 	bool rva0023CEE5();
+	void rva0023CF3F();
 
 private:
 	char m_pad[0x124];
@@ -25,10 +26,11 @@ private:
 	bool m_inputEnabledMemory; // +0x126
 	bool m_mouseVisibleMemory; // +0x127
 	unsigned char m_128[8]; // +0x128
-	char m_pad130[0x150 - 0x130]; // +0x130 timeouts
+	int m_timeout[8]; // +0x130, eight target-checked timer values
 	bool m_150; // +0x150
 };
 extern GameLogic *TheGameLogic;
+extern "C" __declspec(dllimport) unsigned int __stdcall timeGetTime(void);
 
 class NetworkInterface;
 extern NetworkInterface *TheNetwork;
@@ -163,4 +165,21 @@ bool GameLogic::rva0023CEE5()
 			return false;
 	}
 	return true;
+}
+
+// Target 0x0023CF3F checks the eight timer values paired with +0x128 flags
+// before setting +0x150. The matched neighboring GameLogic gate supplies the
+// shared layout; the operation's name and higher-level purpose remain unknown.
+void GameLogic::rva0023CF3F()
+{
+	if (rva0023CEE5())
+		return;
+
+	int now = (int)timeGetTime();
+	for (int i = 0; i < 8; ++i)
+	{
+		if (m_128[i] == 0 && m_timeout[i] + 0x15F90 > now)
+			return;
+	}
+	m_150 = true;
 }
