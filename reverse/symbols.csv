@@ -15550,3 +15550,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??0Rva005E62F1@@QAE@PAXHHHHHH@Z,0x005E62F1,seven-arg member ctor: REL32 read at the placement site in 0x005E663C; identity unproven
 ?rva005E72B4@@YAPAXH@Z,0x005E72B4,forwarded helper: REL32 read at the call site in 0x005E7322; identity unproven
 ?mid@Rva005E7322R@@QAEPAURva005E7322MidRet@@H@Z,0x0040CB2C,mid accessor: REL32 read at the call site in 0x005E7322; identity unproven
+?preChange@Rva005E7DD6@@QAEXXZ,0x005E7855,pre-change hook: REL32 read at the call site in 0x005E7DD6; identity unproven
+?postChange@Rva005E7DD6@@QAEXXZ,0x005E7C56,post-change hook: REL32 read at the call site in 0x005E7DD6; identity unproven
