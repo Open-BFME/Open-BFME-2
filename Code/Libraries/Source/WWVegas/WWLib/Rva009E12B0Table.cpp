@@ -8,7 +8,7 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 #pragma intrinsic(memset)
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-struct Rva009E12B0Pair { int m_a; int m_b; Rva009E12B0Pair() : m_a(0), m_b(0) {} };
+struct Rva009E12B0Pair { int m_a; int m_b; };
 struct Rva009E12B0Table {
 	int m_owner;
 	int m_4;
@@ -23,6 +23,10 @@ struct Rva009E12B0Table {
 Rva009E12B0Table::Rva009E12B0Table(int owner)
 	: m_owner(owner), m_4(0), m_8(0)
 {
+	// Retail initializes each pair before setting the table flags.
+	Rva009E12B0Pair *pair = m_pairs;
+	int remaining = 0x100;
+	do { pair->m_a = 0; pair->m_b = 0; ++pair; } while (--remaining);
 	m_flag = false;
 	m_c10 = 0;
 	// Preserve the two flag stores before the zeroing loop's EAX setup.
