@@ -14057,6 +14057,8 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00515B0A@@YAXPAVRva00515Handle@@H@Z,0x00515B0A,callee of ?Rva00515BCA@@YAXH@Z
 ?rva0053856F@Rva0053863ESub@@QAEXXZ,0x0053856F,helper reached by the 0x0053863E body with ECX=this; Ghidra boundary size 132 and matching accesses to +0x0C and +0x20; address-derived symbol only
 ?rva00538D3B@Rva00538E22@@QAEXH@Z,0x00538D3B,called by 0x00538ED1 with the same this and one 32-bit stack argument; Ghidra boundary size 134; address-derived helper with identity and semantics unproven
+?rva0031B641@ControlBar@@QAEXPAVGameWindow@@PBVCommandButton@@@Z,0x0031B641,593-byte Ghidra body; ControlBar callers 0x0053E34A and 0x0053E4F1 pass ECX=this and GameWindow plus CommandButton pointers; method association is structural and semantic identity is unresolved
+?rva0053E34A@ControlBar@@QAEXH@Z,0x0053E34A,156-byte Ghidra body; thiscall with one 32-bit argument; adjacent to matched ControlBar timer methods and calls matched findCommandButton updateContextOCLTimer WindowManager and winSetStatus; class association is structural
 ??0Rva005560DF@@QAE@ABV0@@Z,0x005560DF,Address-derived callee for fresh body 0x00556508: retail call at 0x00556517 resolves to 0x005560DF; passes destination in ECX and source pointer this+8 on stack; callee boundary 83B at Ghidra start 0x005560DF. Copy-ctor signature inferred from call ABI; class identity unresolved.
 ?DoXfer@DefaultPhysicsModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z,0x0055EECB,callee of ?xfer@Rva0055EF39@@UAEXPAVXfer@@@Z
 ?rva00548984@Rva00548984@@QAEXPAXH@Z,0x00548984,callee of ?rva005480E8@@YAXPAXW4NameKeyType@@H@Z
