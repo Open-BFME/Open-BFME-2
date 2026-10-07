@@ -137,9 +137,13 @@ static GameWinSystemFunc		systemFunc = NULL;
 static GameWinInputFunc		inputFunc = NULL;
 static GameWinTooltipFunc	tooltipFunc = NULL;
 static GameWinDrawFunc			drawFunc = NULL;
-static AsciiString theSystemString;
-static AsciiString theInputString;
-static AsciiString theTooltipString;
+// The split callback parsers reference the canonical data-ledger names.
+// Keep these strings in their original initialization order and expose this
+// existing storage: native DIR32 bindings are RVA A01308/A0130C/A01310.
+// The compiler-generated initializer/cleanup rows still verify this storage.
+AsciiString g_systemCallbackName;
+AsciiString g_inputCallbackName;
+AsciiString g_tooltipCallbackName;
 static AsciiString theDrawString;
 
 // default visual properties
@@ -737,8 +741,8 @@ static Bool parseSystemCallback( char *token, WinInstanceData *instData,
 
 	// save a pointer of the function address
 	DEBUG_ASSERTCRASH( TheNameKeyGenerator && TheFunctionLexicon, ("Invalid singletons") );
-	theSystemString = c;
-	NameKeyType key = TheNameKeyGenerator->nameToKey( theSystemString );
+	g_systemCallbackName = c;
+	NameKeyType key = TheNameKeyGenerator->nameToKey( g_systemCallbackName );
 	systemFunc = TheFunctionLexicon->gameWinSystemFunc( key );
 
 	return TRUE;
@@ -764,8 +768,8 @@ static Bool parseInputCallback( char *token, WinInstanceData *instData,
 
 	// save a pointer of the function address
 	DEBUG_ASSERTCRASH( TheNameKeyGenerator && TheFunctionLexicon, ("Invalid singletons") );
-	theInputString = c;
-	NameKeyType key = TheNameKeyGenerator->nameToKey( theInputString );
+	g_inputCallbackName = c;
+	NameKeyType key = TheNameKeyGenerator->nameToKey( g_inputCallbackName );
 	inputFunc = TheFunctionLexicon->gameWinInputFunc( key );
 
 	return TRUE;
@@ -791,8 +795,8 @@ static Bool parseTooltipCallback( char *token, WinInstanceData *instData,
 
 	// save a pointer of the function address
 	DEBUG_ASSERTCRASH( TheNameKeyGenerator && TheFunctionLexicon, ("Invalid singletons") );
-	theTooltipString = c;
-	NameKeyType key = TheNameKeyGenerator->nameToKey( theTooltipString );
+	g_tooltipCallbackName = c;
+	NameKeyType key = TheNameKeyGenerator->nameToKey( g_tooltipCallbackName );
 	tooltipFunc = TheFunctionLexicon->gameWinTooltipFunc( key );
 
 	return TRUE;
@@ -2143,9 +2147,9 @@ static GameWindow *createWindow( char *type,
 		if( editData )
 		{
 
-			editData->systemCallbackString = theSystemString;
-			editData->inputCallbackString = theInputString;
-			editData->tooltipCallbackString = theTooltipString;
+			editData->systemCallbackString = g_systemCallbackName;
+			editData->inputCallbackString = g_inputCallbackName;
+			editData->tooltipCallbackString = g_tooltipCallbackName;
 			editData->drawCallbackString = theDrawString;
 
 		}  // end if
@@ -2366,9 +2370,9 @@ static GameWindow *parseWindow( File *inFile, char *buffer )
 	inputFunc = NULL;
 	tooltipFunc = NULL;
 	drawFunc = NULL;
-	theSystemString.clear();
-	theInputString.clear();
-	theTooltipString.clear();
+	g_systemCallbackName.clear();
+	g_inputCallbackName.clear();
+	g_tooltipCallbackName.clear();
 	theDrawString.clear();
 
 	// get the size of the parent, or if no parent present the screen
@@ -2611,9 +2615,9 @@ memory leak detection code happy.*/
 #pragma optimize("s", on)
 void GameWindowManager::freeStaticStrings(void)
 {
-	theSystemString.clear();
-	theInputString.clear();
-	theTooltipString.clear();
+	g_systemCallbackName.clear();
+	g_inputCallbackName.clear();
+	g_tooltipCallbackName.clear();
 	theDrawString.clear();
 }
 #pragma optimize("", on)

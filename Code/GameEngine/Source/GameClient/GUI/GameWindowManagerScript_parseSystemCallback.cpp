@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/sweep /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme_namekey /Ireference/shims/functionlexicon_bfme2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/functionlexicon /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// stlport
 //
 // ?parseSystemCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z, retail 0x003163E8, 76 bytes.
 // Dedicated TU.
@@ -19,9 +20,8 @@
 //   0xDF36A4 (DIR32 from retail).
 // - The registry lookup at 0x2D225F is thiscall (key, index) over 12 slots
 //   at manager+0x0C (null key returns null; index -1 scans all slots via
-//   helper 0x2D2235; else slots[index]); pinned this batch as an opaque
-//   Rva-holder method (Except-cluster precedent: the Rva name claims only
-//   the address, the note describes the proven behavior).
+//   helper 0x2D2235; else slots[index]). The scoped FunctionLexicon
+//   interface now names that verified worker and its public table accessors.
 // - The system slot is index 0; the resolved pointer stores to the global
 //   at 0xE012F0 (extern; address patches from retail).
 // - Identity: the .data dispatch table at 0x9BE198 pairs 'SYSTEMCALLBACK'
@@ -35,31 +35,22 @@ typedef bool Bool;
 #define NULL 0
 #endif
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
-
-#include "ascii_string.h"
 
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &nameString);
-};
+#include "PreRTS.h"
+#include "Common/FunctionLexicon.h"
+
+
+
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-// Opaque registry holder (see header note). Decls match the same-batch pins.
-class Rva00DFF024Registry
-{
-public:
-	void *lookup(int key, int index);
-	void *lookup34(int key, int index);
-	void *lookup56(int key, int index);
-};
+// Preserve the existing global pointer binding; the call uses FunctionLexicon.
+class Rva00DFF024Registry;
 
+// Keep the established global binding and use the scoped BFME2 lexicon
+// interface: this public inline accessor calls the verified 0x002D225F
+// worker with native table 0. No private-access shim or new pin is needed.
 extern Rva00DFF024Registry *TheRva00DFF024Registry;
 extern AsciiString g_systemCallbackName;
 extern void *g_systemCallback;
@@ -85,7 +76,7 @@ static Bool parseSystemCallback(char *token, WinInstanceData *instData, char *bu
 	g_systemCallbackName.set(c);
 
 	NameKeyType key = TheNameKeyGenerator->nameToKey(g_systemCallbackName);
-	g_systemCallback = TheRva00DFF024Registry->lookup(key, 0);
+	g_systemCallback = reinterpret_cast<void *>(reinterpret_cast<FunctionLexicon *>(TheRva00DFF024Registry)->gameWinSystemFunc(key));
 
 	return true;
 }

@@ -1,11 +1,12 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/sweep /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme_namekey /Ireference/shims/functionlexicon_bfme2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/functionlexicon /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// stlport
 //
 // ?parseTooltipCallback@@YA_NPADPAVWinInstanceData@@0PAX@Z,
 // retail 0x00316480, 76 bytes. Dedicated TU.
 //
 // Clones the landed parseSystemCallback TU.
 // - name global AsciiString at 0xE01310, store global at 0xE012FC.
-// - registry lookup (pinned 0x2D225F) with index 2.
+// - verified FunctionLexicon::findFunction at 0x2D225F with index 2.
 // - dispatch table at 0x9BE198 pairs 'TOOLTIPCALLBACK' with 0x716480.
 
 typedef int Int;
@@ -15,28 +16,21 @@ typedef bool Bool;
 #define NULL 0
 #endif
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
-
-#include "ascii_string.h"
 
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const AsciiString &nameString);
-};
+#include "PreRTS.h"
+#include "Common/FunctionLexicon.h"
+
+
+
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Rva00DFF024Registry
-{
-public:
-	void *lookup(int key, int index);
-};
+class Rva00DFF024Registry;
 
+// Keep the established global binding and use the scoped BFME2 lexicon
+// interface: this public inline accessor calls the verified 0x002D225F
+// worker with native table 2. No private-access shim or new pin is needed.
 extern Rva00DFF024Registry *TheRva00DFF024Registry;
 extern AsciiString g_tooltipCallbackName;
 extern void *g_tooltipCallback;
@@ -61,7 +55,7 @@ static Bool parseTooltipCallback(char *token, WinInstanceData *instData, char *b
 	g_tooltipCallbackName.set(c);
 
 	NameKeyType key = TheNameKeyGenerator->nameToKey(g_tooltipCallbackName);
-	g_tooltipCallback = TheRva00DFF024Registry->lookup(key, 2);
+	g_tooltipCallback = reinterpret_cast<void *>(reinterpret_cast<FunctionLexicon *>(TheRva00DFF024Registry)->gameWinTooltipFunc(key));
 
 	return true;
 }
