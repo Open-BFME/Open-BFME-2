@@ -38,3 +38,32 @@ Rva000BB694::~Rva000BB694()
 {
 	((Rva000B6498 *)this)->rva000B9324();
 }
+
+class Rva000B646B
+{
+public:
+	~Rva000B646B();
+};
+
+class Rva000BBF4B
+{
+public:
+	void rva000BBF4B();
+};
+
+void Rva000BBF4B::rva000BBF4B()
+{
+	((Rva000B646B *)this)->~Rva000B646B();
+}
+
+class Rva000BBF50
+{
+public:
+	void rva000BBF50();
+};
+
+void Rva000BBF50::rva000BBF50()
+{
+	((Rva000BB694 *)this)->~Rva000BB694();
+}
+
