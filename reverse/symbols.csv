@@ -2859,7 +2859,7 @@ name,address,notes
 ??0VersionBlockParser@@QAE@PBD@Z,0x00428C04,Version-block parser ctor from 512B block at 0xA25000; called with parser local in initializeBuildMetadata 0x23870E and global init 0x238646
 ??0VertexMaterialClass@@QAE@XZ,0x0013D420,retail REL32 from VertexMaterialClass::Clone at 0x0016EB24; BFME2 vertex-material constructor
 ??0VeterancyCrateCollideModuleData@@QAE@XZ,0x00255B09,frameless ctor over rowed CrateCollide base 0x4BC657; vtable 0x00BF3AC0 also installed by 0x2562FA (MoneyProvided table sibling); members +0x5C/+0x60/+0x61/+0x64 per table; sole raw caller is ModuleData factory 0x255B2D which news 0x68
-??0VictoryConditions@@QAE@XZ,0x0004CDCD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0Rva0004CDCD@@QAE@XZ,0x0004CDCD,Native legacy factory41DFB calls unrelated C4-byte ctor4CDCD; opaque owner replaces refuted VictoryConditions guess; actual VictoryConditions ctor42017F
 ??0VictorySystem@@QAE@XZ,0x004054E1,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
 ??0Video@@QAE@ABU0@@Z,0x00689650,native construction wrapper call 0x0068971E; canonical-string Video copy constructor reproduces all 122B; target fields 0/4/8/C/10/14/18
 ??0VideoBuffer@@QAE@H@Z,0x00689140,callee of 0W3DVideoBuffer (0x000726B0) at the site its BFME1 donor calls it; may be an ICF alias
