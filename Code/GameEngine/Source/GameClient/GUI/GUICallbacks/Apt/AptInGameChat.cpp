@@ -524,7 +524,6 @@ bool AptInGameChat::rva004E8670(UnicodeString text)
 // and clears the entry; text that is not a command runs on the console
 // (receiver type 3) or is sent as the receiver type's chat line to the
 // matching players. Either way the screen then closes (+0x27C 2).
-// ?AptInGameChat::Send present-unmatched
 void AptInGameChat::Send(const char *unused)
 {
 	if (m_state != 1)
