@@ -90,7 +90,6 @@ public:
     virtual void xferAudioEvent(Xfer *xfer, unsigned int *event);
 };
 extern AudioManager *g_00DFE6E8;
-#pragma comment(linker, "/alternatename:?g_00DFE6E8@@3PAVAudioManager@@A=?TheAudio@@3PAVAudioManager@@A")
 
 class Rva003FAFB9 : public Snapshot {
 public:
