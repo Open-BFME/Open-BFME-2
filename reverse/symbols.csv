@@ -15594,3 +15594,7 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00318871@Rva003189ADSub4C@@QAEXPAVXfer@@@Z,0x00318871,unrowed thiscall on the +0x4C member object of the 0x003189AD owner taking Xfer; callee of gate 0x003189AD read from its REL32 displacement; address name
 ??0Rva003FE412Fresh@@QAE@PAXPAVRva0031934BOwner@@@Z,0x003FE412,unrowed ctor on the fresh 96B helper taking payload and owner (placement-new target); callee of gate 0x0031934B read from its REL32 displacement; address name
 ?rva00318EC0@Rva0031934BOwner@@QAEXXZ,0x00318EC0,sibling refresh ending gate 0x0031934B; callee read from its REL32 displacement; address name
+?rva00318FA1@Rva00318FA1MainOwner@@QAEHXZ,0x00318FA1,banked wheel resolver reused by gate 0x003195C9; address from its REL32 displacement
+?rva00318C32@Rva00318C32Owner@@QAEHXZ,0x00318C32,banked float handoff reused by gate 0x003195C9; address from its REL32 displacement
+?rva003190BB@Rva003190BBOwner@@QAE_NPAH@Z,0x003190BB,banked wheel fallback reused by gate 0x003195C9; address from its REL32 displacement
+?rva00538F6B@Rva00538F6B@@QAEXPAX000@Z,0x00538F6B,unrowed four-pointer worker on the +0x90 subobject in gate 0x003195C9; callee read from its REL32 displacement; address name
