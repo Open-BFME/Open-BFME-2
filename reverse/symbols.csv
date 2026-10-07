@@ -15797,3 +15797,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?snapClosestGoalPosition@Pathfinder@@QAEXPAVObject@@PAUCoord3D@@@Z,0x002F2B88,REL32 at 0x0034C314 in AIInternalMoveToState::onEnter 0x0034C146 with ECX TheAI+0x10 after adjustDestination fails; logged as post-SnapClosestGoalPosition; Zero Hour AIStates.cpp onEnter
 ?startMoveSound@AIInternalMoveToState@@AAEXXZ,0x00347225,REL32 at 0x0034C6E3 in AIInternalMoveToState::onEnter 0x0034C146 on this when the goal is more than 2.5 away; Zero Hour AIStates.cpp onEnter tail and BFME 1 row of the same name
 ?Rva001182A0@@YA_NPAXAAVRenderInfoClass@@@Z,0x001182A0,callee of ?Rva00118660Call@@YA_NPAX0@Z
+?rva003F4FD4@LivingWorldBattle@@QAEHXZ,0x003F4FD4,callee of ?rva005E9687@Rva005E9687@@QAEXXZ
