@@ -1,4 +1,7 @@
-// cl: /MD /EHsc /DNDEBUG
+// cl: /MD /EHsc /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+#include "matrix3d.h"
+#include "aabox.h"
+#include "obbox.h"
 //
 // ?rva000B3649@Rva000B3649@@QAE_NHPAURva000B3649Out@@@Z @0x000B3649 133B:
 // guarded virtual fetch. Resolves an int through slot 50 of the +0x44
@@ -68,6 +71,29 @@ public:
 	virtual void vslot049();
 	virtual int vslot050(int v);
 	virtual Rva000B3649Out *vslot051(Rva000B3649Out *out, int v);
+	virtual void vslot052();
+	virtual void vslot053();
+	virtual void vslot054();
+	virtual void vslot055();
+	virtual void vslot056();
+	virtual void vslot057();
+	virtual void vslot058();
+	virtual void vslot059();
+	virtual void vslot060();
+	virtual void vslot061();
+	virtual void vslot062();
+	virtual void vslot063();
+	virtual void vslot064();
+	virtual void vslot065();
+	virtual void vslot066();
+	virtual void vslot067();
+	virtual void vslot068(AABoxClass *box);
+
+private:
+	char m_pad04[0x14];
+
+public:
+	Matrix3D m_18;
 };
 
 class Rva000B3649
@@ -102,5 +128,30 @@ bool Rva000B3649::rva000B3649(int v, Rva000B3649Out *out)
 	out->m04[8] = p->m04[8];
 	out->m04[9] = p->m04[9];
 	out->m04[10] = p->m04[10];
+	return true;
+}
+
+class Rva000B356F
+{
+public:
+	bool rva000B356F(OBBoxClass *out);
+
+private:
+	char m_pad00[0x44];
+	Rva000B3649Src *m_44;
+};
+
+// ?rva000B356F@Rva000B356F@@QAE_NPAVOBBoxClass@@@Z
+bool Rva000B356F::rva000B356F(OBBoxClass *out)
+{
+	if (!m_44)
+		return false;
+	AABoxClass box;
+	m_44->vslot068(&box);
+	Rva000B3649Src *provider = m_44;
+	provider->vslot020();
+	Matrix3D transform = provider->m_18;
+	OBBoxClass oriented(box.Center, box.Extent);
+	OBBoxClass::Transform(transform, oriented, out);
 	return true;
 }
