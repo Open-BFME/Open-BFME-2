@@ -67307,3 +67307,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva00538931@QuadStrip2D@@QAEXXZ,,0x00538931,19,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp,matched,clear vector via rowed range erase plus m_20 flag
 ?rva0047CF67@HordeSiegeEngineContain@@UAEXPAVObject@@_N@Z,,0x0047CF67,75,Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainRva0047CF67.cpp,matched,VTABLE slot 66 HordeSiegeEngineContain plus prev next units plus pin-only callees plus SiegeEngineContain 0x0047BEF8 if-else true-false shape
 ?rva00407218@Rva00407218@@QAEXPAX0@Z,,0x00407218,186,Code/GameEngine/Source/Common/Rva00407218Body.cpp,matched,chain CommandButton INI temps via gap and RvaUpdate
+?rva003006C4@Rva003006C4@@QAE_NABVAsciiString@@@Z,,0x003006C4,29,Code/GameEngine/Source/Common/Rva003006C4AsciiString.cpp,matched,address-named bool forwarding shape packet int pin conflicts with helper
