@@ -60,12 +60,22 @@
 // EH states around the vectors' inline free() calls, which /EHs (extern "C"
 // may throw) reproduces; the unit's other bodies make no C calls in EH
 // scope.
+//
+// ?evaluatePlayerUnitCondition@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@111@Z @ 0x003E9C3B 551B
+// ZH/BFME 1 donor: the same-name ScriptConditions.cpp body. Target evidence:
+// jump-table case 58 calls 0x003E9C3B, which initConditionTemplates names
+// PLAYER_HAS_OBJECT_COMPARISON (ZH's caller of evaluatePlayerUnitCondition).
+// Same cache, vectors and prepForPlayerCounting as evaluateBuiltByPlayer; the
+// count sums every non-null player of the mask (countObjectsByThingTemplate
+// with ignoreDead true, sum 0x003BD46E) before the six-way comparison on
+// Parameter::getInt (+0x08).
 #include <vector>
 #include "ascii_string.h"
 
 class Parameter
 {
 public:
+	int getInt() const { return m_int; }
 	const AsciiString &getString() const { return m_string; }
 	unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
 	unsigned char m_afterString[8];
@@ -307,6 +317,7 @@ protected:
 	bool evaluateTeamStateIs(Parameter *, Parameter *);
 	bool evaluateTeamStateIsNot(Parameter *, Parameter *);
 	bool evaluateBuiltByPlayer(Condition *, Parameter *, Parameter *);
+	bool evaluatePlayerUnitCondition(Condition *, Parameter *, Parameter *, Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -485,6 +496,57 @@ bool ScriptConditions::evaluateBuiltByPlayer(Condition *pCondition, Parameter *p
 			pCondition->setCustomData(1); // true.
 			return true;
 		}
+	}
+	pCondition->setCustomData(-1); // false.
+	return false;
+}
+bool ScriptConditions::evaluatePlayerUnitCondition(Condition *pCondition, Parameter *pPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm, Parameter *pUnitTypeParm)
+{
+	if (pCondition->getCustomData() != 0) {
+		// We have a cached value.
+		if (TheScriptEngine->getFrameObjectCountChanged() == pCondition->getCustomFrame()) {
+			// object count hasn't changed.  Use cached value.
+			if (pCondition->getCustomData() == 1) return true;
+			if (pCondition->getCustomData() == -1) return false;
+		}
+	}
+
+	_STL::vector<int> counts;
+	_STL::vector<const ThingTemplate *> templates;
+
+	ObjectTypesTemp types;
+	Script_objectTypesFromParam(pUnitTypeParm, types.m_types);
+
+	int numObjs = types.m_types->prepForPlayerCounting(templates, counts);
+	if (numObjs == 0) {
+		return false;
+	}
+
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	int count = 0;
+	while (mask) {
+		Player *pPlayer = ThePlayerList->getEachPlayerFromMask(mask);
+		if (pPlayer) {
+			pPlayer->countObjectsByThingTemplate(numObjs, &(*templates.begin()), true, &(*counts.begin()), true);
+			count += Rva003BD46ESum(&counts);
+		}
+	}
+
+	bool comparison = false;
+	switch (pComparisonParm->getInt())
+	{
+		case 0: comparison = (count < pCountParm->getInt()); break;
+		case 1: comparison = (count <= pCountParm->getInt()); break;
+		case 2: comparison = (count == pCountParm->getInt()); break;
+		case 3: comparison = (count >= pCountParm->getInt()); break;
+		case 4: comparison = (count > pCountParm->getInt()); break;
+		case 5: comparison = (count != pCountParm->getInt()); break;
+	}
+
+	pCondition->setCustomFrame(TheScriptEngine->getFrameObjectCountChanged());
+	if (comparison) {
+		pCondition->setCustomData(1); // true.
+		return true;
 	}
 	pCondition->setCustomData(-1); // false.
 	return false;
