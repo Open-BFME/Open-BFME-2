@@ -1668,20 +1668,7 @@ GameDifficulty Player::getPlayerDifficulty(void) const
 //-------------------------------------------------------------------------------------------------
 /** A unit was just created and is ready to control */
 //-------------------------------------------------------------------------------------------------
-// ?onUnitCreated@Player@@QAEXPAVObject@@0@Z present-unmatched
-void Player::onUnitCreated( Object *factory, Object *unit )
-{
-	// When a a unit is completed, it becomes "real" as far as scripting is 
-	// concerned. jba.
-	TheScriptEngine->notifyOfObjectCreationOrDestruction();
-
-	// increment our scorekeeper
-	m_scoreKeeper.addObjectBuilt(unit);
-
-	// ai notification callback
-	if( m_ai )
-		m_ai->onUnitProduced( factory, unit );
-}  // end onUnitCreated
+// Defined in PlayerAIDelegates.cpp (BFME 2 layout: m_ai at +0x2DC).
 
 
 //-------------------------------------------------------------------------------------------------

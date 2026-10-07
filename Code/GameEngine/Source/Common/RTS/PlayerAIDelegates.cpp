@@ -7,6 +7,7 @@
 //   Player::checkBridges              0x002A9C0D  25 bytes  (slot 5)
 //   Player::getAiBaseCenter           0x002A9C26  34 bytes  (slot 6)
 //   Player::repairStructure           0x002A9C48  23 bytes  (slot 7)
+//   Player::onUnitCreated             0x002A9C5F  69 bytes
 // Identity: slots 4-7 of vtable 0x00BFDF3C, whose unique slot-2 name getter
 // returns "Player" (slot 0 is the rowed ??_GPlayer). Zero Hour declares
 // exactly these four virtuals, in this order, after Snapshot's three.
@@ -16,6 +17,13 @@
 // and m_baseCenterSet (+0x40).
 // BFME 2 difference: computeSuperweaponTarget returns nothing (retail leaves
 // EAX unset when there is no AI), so it is declared void here.
+// onUnitCreated (target evidence: direct callers SpawnBehavior::createSpawn
+// 0x0045FB15 with (spawner, spawn) on the spawn's controlling player): the
+// script engine notify is the rowed 0x002039B6 on TheScriptEngine, AIPlayer's
+// onUnitProduced is its vtable slot 7, and Zero Hour's scorekeeper call is
+// gone. BFME 2 adds a forward to the player's skirmish AI record from
+// TheSkirmishAIManager (pinned 0x002A8AB1), whose rowed
+// SkirmishAI::onUnitCreated 0x002C6A8D takes the same pair.
 
 typedef bool Bool;
 typedef int Int;
@@ -33,6 +41,30 @@ class SpecialPowerTemplate;
 class Object;
 class Waypoint;
 
+class ScriptEngine;
+extern ScriptEngine *TheScriptEngine;
+
+// notifyOfObjectCreationOrDestruction, under its rowed name.
+class Rva002039B6Host
+{
+public:
+	void rva002039B6();
+};
+
+struct Rva002A8AB1Record;
+class Rva002A8F24
+{
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *owner);
+};
+extern Rva002A8F24 *g_00DFEEF8;
+
+class SkirmishAI
+{
+public:
+	void onUnitCreated(Object *object, Object *other);
+};
+
 class AIPlayer
 {
 	friend class Player;
@@ -44,7 +76,7 @@ public:
 	virtual void computeSuperweaponTarget(const SpecialPowerTemplate *power, Coord3D *pos, Int playerNdx, Real weaponRadius);
 	virtual void slot05();
 	virtual void slot06();
-	virtual void slot07();
+	virtual void onUnitProduced(Object *factory, Object *unit);
 	virtual void slot08();
 	virtual void slot09();
 	virtual void slot10();
@@ -68,6 +100,7 @@ public:
 	virtual Bool checkBridges(Object *unit, Waypoint *way);
 	virtual Bool getAiBaseCenter(Coord3D *pos);
 	virtual void repairStructure(ObjectID structureID);
+	void onUnitCreated(Object *factory, Object *unit);
 	Bool rva002A9CA4(Int minimumCash);
 private:
 	unsigned char m_pad04[0x2DC - 0x04];
@@ -110,6 +143,24 @@ void Player::repairStructure(ObjectID structureID)
 	{
 		m_ai->repairStructure(structureID); 
 	}
+}
+
+//-------------------------------------------------------------------------------------------------
+/** A unit was just created and is ready to control */
+//-------------------------------------------------------------------------------------------------
+void Player::onUnitCreated(Object *factory, Object *unit)
+{
+	// When a a unit is completed, it becomes "real" as far as scripting is
+	// concerned. jba.
+	((Rva002039B6Host *)TheScriptEngine)->rva002039B6();
+
+	// ai notification callback
+	if (m_ai)
+		m_ai->onUnitProduced(factory, unit);
+
+	SkirmishAI *skirmishAI = (SkirmishAI *)g_00DFEEF8->rva002A8AB1(this);
+	if (skirmishAI)
+		skirmishAI->onUnitCreated(factory, unit);
 }
 
 // ?rva002A9CA4@Player@@QAE_NH@Z @ 0x002A9CA4 20B: Player AI delegate defaulting
