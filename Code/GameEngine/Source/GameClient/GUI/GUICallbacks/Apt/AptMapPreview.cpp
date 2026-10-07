@@ -580,10 +580,20 @@ public:
 	void *m_owner;
 };
 
+// What the listener's slot 1 hands the preview: +0x1C names the region
+// the highlight moves to.
+struct Rva0057D8F5Event
+{
+	unsigned char m_pad00[0x1c];
+	Rva0020E89C *m_region;	// +0x1C
+};
+
 class AptMapPreview : public Rva0086E350Listener
 {
 public:
 	AptMapPreview(Rva0043DA65 *game);
+	virtual void v04(void *a, void *b);
+	virtual void v0C(void *a, void *b, void *c);
 	Bool AllowsStartInRegion(Int region);
 	void SelectCampaign(Int campaign);
 	void UpdateStrategicScenarioDesc();	// 0x0057C99E
@@ -1338,4 +1348,19 @@ AptMapPreview::AptMapPreview(Rva0043DA65 *game)
 	m_defaultMap->m_extent.hi.z = 0.0f;
 	g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:CurrentMapName"), UnicodeString(L" "), false);
 	g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:LobbyGameType"), UnicodeString(L" "), false);
+}
+
+// Listener slot 1, retail 0x0057D8F5: moves the highlight from the region
+// in b to the event's region.
+void AptMapPreview::v04(void *a, void *b)
+{
+	rva0057D746((Rva0020E89C *)b, ((Rva0057D8F5Event *)a)->m_region);
+}
+
+// Listener slot 3, retail 0x0057D908: a region pick when b names a region
+// and c is clear.
+void AptMapPreview::v0C(void *a, void *b, void *c)
+{
+	if (b != 0 && c == 0)
+		rva0057D85D((Rva0020E89C *)b);
 }
