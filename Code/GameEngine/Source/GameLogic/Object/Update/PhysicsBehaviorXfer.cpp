@@ -148,7 +148,7 @@ struct AICommandCoordVector
 	Coord3D *m_endOfStorage;
 };
 
-void Rva00390911XferCoordVector( Xfer *xfer, AICommandCoordVector *coords );
+Xfer *Rva00390911XferCoordVector( Xfer *xfer, AICommandCoordVector *coords );
 
 class UpdateModule
 {
