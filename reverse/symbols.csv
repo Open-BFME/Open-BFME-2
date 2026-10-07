@@ -11351,7 +11351,7 @@ name,address,notes
 ?rva0021BD41@Rva0021BDAccess@@QAEHIPAX@Z,0x0021BD41,inner entry of the 0x0021BDAB chain taking index then element pointer: REL32 read at the second call site in 0x0021BDAB; resolves through 0x0021BC0D and rowed 0x00219D85; owner class identity unproven
 ?rva0021F797@Rva00219B9E@@QAEPAVRva0040A3F9@@XZ,0x0021F797,unrowed 16B thiscall (Ghidra FUN_0061f797; plain ret) on TheCreateAHeroManager (0x00DFE344): runs 0x0021F47E and returns its +0x174 hero list (the Rva0040A3F9 CreateAHeroData pointer vector); called from 0x0043DD53 and 0x004414F4; address name
 ?rva0022274A@Rva00062908Host@@QAEXXZ,0x0022274A,"member vtable slot 0x00062908 tail-jumps to; opaque address name"
-?rva0022277D@Rva00222A8BTarget@@QAEXPAX@Z,0x0022277D,unrowed 98B thiscall (Ghidra FUN_0062277d; ret 4) on the Apt window manager TheRva00222A8BTarget 0x00DFE4CC; REL32 read at AptPalantir::OnClosed 0x002D2FEF with the screen +0x5C movie; address name
+?rva0022277D@Rva00222A8BTarget@@QAEXPAX@Z,0x0022277D,rowed at this address as bool(int) from the body comparison with 14 and multiply-by-0x28 record access; this call-site view remains void(void*) and callers ignore AL; AptPalantir::OnClosed 0x002D2FEF passes its +0x5C value; address-derived name
 ?rva00222B19@Rva00222A8BTarget@@QAEHPAXPBD1H10000@Z,0x00222B19,thiscall twin of rowed free AptCall same 9 stack args via call-site mov ecx at 0x005E30E8
 ?rva00222D47@Rva00222D47Target@@QAEXHHH@Z,0x00222D47,"method a vtable-slot forwarder tail-jumps to (ret 0xc); opaque address name"
 ?rva00222D9A@Rva00222D9ATarget@@QAEXH@Z,0x00222D9A,"method a vtable-slot forwarder tail-jumps to (ret 4); opaque address name"
@@ -13963,7 +13963,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?second@Rva005E5554Member@@QAEXXZ,0x005F327A,opaque member target of tail-pair 0x005E5554 at this-8; identity unproven; address-derived name
 
 ?rva00208A09@ScriptEngine@@QAEXVAsciiString@@ABV2@@Z,0x00208A09,ScriptEngine member taking (by-value string, string ref); REL32 callee of dump-range-18 0x003C2019; identity unproven
-
 ?GadgetListboxCreateScrollbar@@YAXPAVGameWindow@@@Z,0x0032449E,"cdecl listbox scroll bar builder (Ghidra 677B); called by gogoGadgetListBox 0x002C1395 (REL32 at 0x002C145D) only when list data +0xA (scrollBar) is set, as in Zero Hour GadgetListBox.cpp"
 ??0Mouse@@QAE@XZ,0x001EEC97,"Mouse constructor: writes the Mouse vtable 0x00BE0358 (slot 10 rowed Mouse::update 0x001EDE3A, slot 16 createStreamMessages 0x001EE630) after eh-vector-constructing m_cursorInfo[0x38] stride 0x54 at +0x0C; Win32Mouse ctor 0x00041976 calls it first"
 ??1Mouse@@UAE@XZ,0x001EE3DE,"Mouse destructor (rowed as ??1Rva001EE3DE@@UAE@XZ): restores the Mouse vtable 0x00BE0358 that the pinned Mouse ctor 0x001EEC97 writes and destroys m_cursorInfo at +0x0C; Win32Mouse dtor 0x000419E3 tail-jumps to it"
