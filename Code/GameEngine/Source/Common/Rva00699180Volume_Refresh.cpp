@@ -266,6 +266,15 @@ void rva000524D6()
 	Rva000524AALoop();
 }
 
+// ?rva000524E2@@YAXXZ retail 0x000524E2 12B.
+// Sets g_00DB3F7C then tail-jumps to Rva000524AALoop. Evidence is pin plus
+// caller 0x0005CB6B plus LINK BONUS plus abut to 0x000524D6/0x000524EE.
+void rva000524E2()
+{
+	g_00DB3F7C = 1;
+	Rva000524AALoop();
+}
+
 // ?rva000524EE@@YAXHM@Z retail 0x000524EE 36B (packet 122B includes next body
 // at 0x00052512; landing the ret-terminated 36B per NOTE).
 // Bounds-checked store to g_00DB3F64 then Rva0005244ALoop. Evidence is pin
