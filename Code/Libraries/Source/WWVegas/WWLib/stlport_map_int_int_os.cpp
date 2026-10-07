@@ -69,3 +69,21 @@ template class _STL::_Rb_tree<int,_STL::pair<int const ,int>,_STL::_Select1st<_S
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?bfmeStepBVA@BfmeThingBVA@@QAEXPAV1@@Z=??4?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAEAAV01@ABV01@@Z")
+
+class Rva001E6731
+{
+public:
+	~Rva001E6731();
+};
+
+class Rva001E6FE5
+{
+public:
+	void rva001E6FE5();
+};
+
+void Rva001E6FE5::rva001E6FE5()
+{
+	((Rva001E6731 *)this)->~Rva001E6731();
+}
+

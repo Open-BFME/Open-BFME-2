@@ -42,3 +42,32 @@ template _STL::pair<DD3BCTree::iterator, bool> DD3BCTree::insert_unique(const Bf
 
 // set::insert(value) (retail 0x001DE7B5, 35B) forwards to the insert_unique above.
 template _STL::pair<_STL::set<BfmeRecord001DD3BC>::iterator, bool> _STL::set<BfmeRecord001DD3BC>::insert(const BfmeRecord001DD3BC &);
+
+class Rva001DD70F
+{
+public:
+	~Rva001DD70F();
+};
+
+class Rva001DDADC
+{
+public:
+	void rva001DDADC();
+};
+
+void Rva001DDADC::rva001DDADC()
+{
+	((Rva001DD70F *)this)->~Rva001DD70F();
+}
+
+class Rva001DDEBE
+{
+public:
+	void rva001DDEBE();
+};
+
+void Rva001DDEBE::rva001DDEBE()
+{
+	((DD3BCTree *)this)->~DD3BCTree();
+}
+

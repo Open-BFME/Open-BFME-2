@@ -125,3 +125,21 @@ void PlayerTemplate::parseProductionVeterancyLevel(INI *ini, void *instance, voi
 	Int startLevel = ini->scanIndexList(ini->getNextToken(), TheVeterancyNames);
 	self->m_productionVeterancyLevels[buildTemplateKey] = startLevel;
 }
+
+class Rva000427195
+{
+public:
+	~Rva000427195();
+};
+
+class Rva001FE065
+{
+public:
+	void rva001FE065();
+};
+
+void Rva001FE065::rva001FE065()
+{
+	((Rva000427195 *)this)->~Rva000427195();
+}
+

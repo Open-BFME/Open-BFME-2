@@ -117,3 +117,38 @@ template void _STL::list<RvaSmartPtr12>::insert<_STL::_List_iterator<RvaSmartPtr
 
 // Retail 0x001F88CA (88B): the list copy ctor built on the range insert above.
 template _STL::list<RvaSmartPtr12>::list(const _STL::list<RvaSmartPtr12> &);
+
+class Rva001B4CD8
+{
+public:
+	void rva001B4CD8();
+};
+
+class Rva001B4D09
+{
+public:
+	void rva001B4D09();
+};
+
+void Rva001B4D09::rva001B4D09()
+{
+	((Rva001B4CD8 *)this)->rva001B4CD8();
+}
+
+class Rva001F81EC
+{
+public:
+	void rva001F81EC();
+};
+
+class Rva001F8922
+{
+public:
+	void rva001F8922();
+};
+
+void Rva001F8922::rva001F8922()
+{
+	((Rva001F81EC *)this)->rva001F81EC();
+}
+
