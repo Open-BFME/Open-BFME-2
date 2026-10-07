@@ -1,39 +1,36 @@
 // cl: /MD
 //
-// ??1Rva005DA4DC@@QAE@XZ, retail 0x005DA4DC, 29 bytes.
-// Non-virtual dtor null-checking the +8 pointer member, dispatching its
-// slot-0 virtual with flag 0, freeing the result via the rowed global
-// operator delete 0x0002FD60, then nulling the member. Precedent
-// Rva00341796Dtor (slot0+0 plus delete plus null) without the slot15 call.
-// Evidence: push 0 then call [eax] then push eax then delete then null;
-// caller 0x0058B60B in unclaimed vector deleting dtor 0x0058B5D8;
-// unblocks 0x0058B5D8. Layout: member at +8 per [esi+8].
+// ??1FrameData@@QAE@XZ, retail 0x005DA4DC, 29 bytes.
+// Zero Hour's FrameData::~FrameData: delete the command list at +8 and null
+// it. BFME 2's deleteInstance is the slot-0 deleting destructor with flag 0
+// followed by the global operator delete 0x0002FD60 (the ::delete form).
+// Identity: FrameDataManager's constructor 0x0058B567 passes this body to the
+// eh vector constructor iterator as the destructor of its FrameData array
+// (constructor 0x005DA4C8), and FrameData's vector deleting destructor
+// 0x0058B5D8 calls it per element.
 
-class Rva005DA4DCMember
+class NetCommandList
 {
 public:
-	virtual void *v0(int);
+	virtual ~NetCommandList();
 };
 
-class Rva005DA4DC
+class FrameData
 {
 public:
-	~Rva005DA4DC();
+	~FrameData();
 
 private:
-	unsigned int m_00;
-	unsigned int m_04;
-	Rva005DA4DCMember *m_08;
+	unsigned int m_frameCommandCount;
+	unsigned int m_commandCount;
+	NetCommandList *m_commandList;
 };
 
-void __cdecl operator delete(void *p);
-
-Rva005DA4DC::~Rva005DA4DC()
+FrameData::~FrameData()
 {
-	if (m_08 != 0)
+	if (m_commandList != 0)
 	{
-		void *p = m_08->v0(0);
-		::operator delete(p);
-		m_08 = 0;
+		::delete m_commandList;
+		m_commandList = 0;
 	}
 }

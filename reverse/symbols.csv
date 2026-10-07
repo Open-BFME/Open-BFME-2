@@ -5569,7 +5569,6 @@ name,address,notes
 ??_EAnimatable3DObjClass@@UAEPAXI@Z,0x001A5C30,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ECameraClass@@UAEPAXI@Z,0x00133EF0,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ECompositeRenderObjClass@@UAEPAXI@Z,0x001A6150,"vector deleting destructor name a this-adjusting thunk jumps to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
-??_EFrameData@@QAEPAXI@Z,0x0058B5D8,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??_EGateOpenAndCloseBehavior@@UAEPAXI@Z,0x00498964,weak-external alias MSVC emits for the vector deleting dtor when no new[] exists; resolves to the rowed scalar deleting dtor; retail adjustor thunk 0x0049884F jumps to 0x00498964
 ??_EHAnimClass@@UAEPAXI@Z,0x0018D1C0,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_EHCompressedAnimClass@@UAEPAXI@Z,0x00190F70,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
