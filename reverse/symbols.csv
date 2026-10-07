@@ -15340,3 +15340,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva004FCA90@Rva004FD8A8Set@@QAE_NXZ,0x004FCA90,"callee of ?rva0057DB97@AptMapPreview@@QAEXXZ (REL32 at 0x0057DD3C on the living-world start region set; bool result tested before 0x004FD8A8)"
 
 
+?rva00283114@Rva00283114@@QAEXPAX@Z,0x00283114,Ghidra boundary 306B; direct same-this calls at 0x002834E6 and 0x00283505 push one pointer and ignore return; thiscall void one pointer; address-derived identity only
