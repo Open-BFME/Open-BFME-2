@@ -287,3 +287,25 @@ Rva0055CAACVector __stdcall Rva0055CAAC(unsigned int, float scale, unsigned int)
 	result.z = direction.z * scale;
 	return result;
 }
+
+// Native 55CAEF..55CB45: RET12 and two local XYZ records passed to
+// View vtable slot 11. The second endpoint is two units higher in Z;
+// retail uses the double-precision constant at VA00BC34F8.
+class View;
+extern View *TheTacticalView;
+struct Rva0055CAEFPoint { float x, y, z; };
+struct Rva0055CAEFView
+{
+    virtual void s00(); virtual void s01(); virtual void s02();
+    virtual void s03(); virtual void s04(); virtual void s05();
+    virtual void s06(); virtual void s07(); virtual void s08();
+    virtual void s09(); virtual void s10();
+    virtual void s11(const Rva0055CAEFPoint *, const Rva0055CAEFPoint *, unsigned);
+};
+
+void __stdcall Rva0055CAEFDraw(float x, float y, float z)
+{
+    Rva0055CAEFPoint first = {x, y, z};
+    Rva0055CAEFPoint second = {x, y, static_cast<float>(z + 2.0)};
+    reinterpret_cast<Rva0055CAEFView *>(TheTacticalView)->s11(&first, &second, 0xCCAAFFFF);
+}
