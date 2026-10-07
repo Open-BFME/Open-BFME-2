@@ -67328,3 +67328,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ??0Rva005D50E3@@QAE@XZ,,0x005D50E3,20,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,leaf base pin vtable 00875AFC sibling Rva005D50C4 same TU
 ?Rva003000F6Get@@YAH_N0@Z,,0x003000F6,23,Code/GameEngine/Source/GameClient/Rva003000F6Get.cpp,matched,map utility flag bit combination from caller arguments
 ?Rva00339D74ParseCurve@@YAXPAVINI@@PAX1PBX@Z,,0x00339D74,167,Code/GameEngine/Source/Common/System/INI_Rva00339D74ParseCurve.cpp,matched,REF Radius Opacity Angle via getNextToken erase sscanf Curve-set FunctionCurve-parse
+?rva003FCD58@Rva003FCD58@@UAEXE@Z,,0x003FCD58,25,Code/GameEngine/Source/Common/Rva003FCD58Method.cpp,matched,vtable slot 12 at 0x00837C68 and caller thiscall body stores byte at +0xAC after rowed base call
