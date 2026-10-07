@@ -11,6 +11,8 @@
 // Comparator less<PBD> here is unproven by erase (no calls) and is a standard placeholder; the true
 // C-string ordering is proven by the sibling find. Mapped is an opaque trivial 4-byte placeholder;
 // erase/find bytes are independent of trivial mapped size and type, true mapped unknown.
+#include <stl/_alloc.h>
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include <map>
 
 struct Rva00603A00Mapped
@@ -19,6 +21,14 @@ struct Rva00603A00Mapped
 };
 
 typedef _STL::pair<const char* const, Rva00603A00Mapped> Rva00603A00Pair;
+
+// Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
+namespace _STL {
+#pragma optimize("gsy", on)
+template <> __forceinline void allocator<_Rb_tree_node< ::Rva00603A00Pair > >::deallocate(_Rb_tree_node< ::Rva00603A00Pair > *p, size_t) const { if (p != 0) free(p); }
+#pragma optimize("", on)
+}
+
 typedef _STL::_Rb_tree<const char*, Rva00603A00Pair, _STL::_Select1st<Rva00603A00Pair>, _STL::less<const char*>, _STL::allocator<Rva00603A00Pair> > Rva00603A00Tree;
 
 template void Rva00603A00Tree::_M_erase(Rva00603A00Tree::_Link_type);

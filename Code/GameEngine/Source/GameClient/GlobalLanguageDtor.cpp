@@ -11,6 +11,8 @@
 // 0x00DFDC84 plus callers feeding getFont. ZH donor GlobalLanguage.h plus
 // BFME1 GlobalLanguage.cpp field table; BFME2 adds members so retail offsets
 // rule. Base size 0xC from GameEngineDeletingBaseDtor.cpp row.
+#include <stl/_alloc.h>
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include <list>
 
 #include "ascii_string.h"
@@ -34,6 +36,14 @@ struct Rva001EA443
 
 inline bool operator==(const Rva001EA443 &x, const Rva001EA443 &y) { return false; }
 inline bool operator<(const Rva001EA443 &x, const Rva001EA443 &y) { return false; }
+
+
+// Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
+namespace _STL {
+#pragma optimize("gsy", on)
+template <> __forceinline void allocator<_List_node< ::Rva001EA443 > >::deallocate(_List_node< ::Rva001EA443 > *p, size_t) const { if (p != 0) free(p); }
+#pragma optimize("", on)
+}
 
 class GameEngineDeletingBase
 {

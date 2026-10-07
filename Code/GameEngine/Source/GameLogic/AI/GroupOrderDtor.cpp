@@ -8,12 +8,22 @@
 // the +4 vector buffer via _free at 0x30830. Member layout follows the
 // matched copy ctor (vector<ScienceType> at +4). /EHs (not /EHsc) forces the
 // single-state EH frame around the lone free; /EHsc stays frameless.
+#include <stl/_alloc.h>
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include <vector>
 
 enum ScienceType
 {
 	SCIENCE_NONE = 0
 };
+
+
+// Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
+namespace _STL {
+#pragma optimize("gsy", on)
+template <> __forceinline void allocator<::ScienceType >::deallocate(::ScienceType *p, size_t) const { if (p != 0) free(p); }
+#pragma optimize("", on)
+}
 
 #include "Common/Snapshot.h"
 

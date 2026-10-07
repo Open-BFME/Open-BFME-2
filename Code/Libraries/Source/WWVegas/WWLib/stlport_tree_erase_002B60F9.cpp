@@ -8,6 +8,8 @@
 // bytes independent of trivial type, identity via call chain. Pinned
 // AsciiString name at this address would need a destroy call (all AsciiString
 // erases are 53B); retail has none, so the pin is a wrong-type candidate.
+#include <stl/_alloc.h>
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include <map>
 
 struct Rva002B60F9Mapped
@@ -16,6 +18,14 @@ struct Rva002B60F9Mapped
 };
 
 typedef _STL::pair<const int, Rva002B60F9Mapped> Rva002B60F9Pair;
+
+// Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
+namespace _STL {
+#pragma optimize("gsy", on)
+template <> __forceinline void allocator<_Rb_tree_node< ::Rva002B60F9Pair > >::deallocate(_Rb_tree_node< ::Rva002B60F9Pair > *p, size_t) const { if (p != 0) free(p); }
+#pragma optimize("", on)
+}
+
 typedef _STL::_Rb_tree<int, Rva002B60F9Pair, _STL::_Select1st<Rva002B60F9Pair>, _STL::less<int>, _STL::allocator<Rva002B60F9Pair> > Rva002B60F9Tree;
 
 template void Rva002B60F9Tree::_M_erase(Rva002B60F9Tree::_Link_type);

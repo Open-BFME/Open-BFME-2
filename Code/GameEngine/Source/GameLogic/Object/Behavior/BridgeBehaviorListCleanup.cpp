@@ -6,6 +6,8 @@
 // STLport cleanup for the shared BridgeDieFX/OCL list representation.
 // Registered callbacks and node-copy code establish pointer/delay/string
 // fields at +0/+4/+8. Only the string field is destroyed by thunk 0x577998.
+#include <stl/_alloc.h>
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include <list>
 #include "Common/AsciiString.h"
 
@@ -20,6 +22,14 @@ struct BridgeBehaviorListValue12 {
 	~BridgeBehaviorListValue12();
 };
 typedef char CheckBridgeListValueSize[(sizeof(BridgeBehaviorListValue12) == 12) ? 1 : -1];
+
+
+// Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
+namespace _STL {
+#pragma optimize("gsy", on)
+template <> __forceinline void allocator<_List_node< ::BridgeBehaviorListValue12 > >::deallocate(_List_node< ::BridgeBehaviorListValue12 > *p, size_t) const { if (p != 0) free(p); }
+#pragma optimize("", on)
+}
 
 typedef std::list<BridgeBehaviorListValue12> BridgeBehaviorList12;
 

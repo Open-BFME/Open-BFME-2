@@ -7,6 +7,8 @@
 // ret 4). Caller is 0x004633D3 which passes root [eax+0x04] same as clear
 // 0x00603A7F. True key/value unknown; opaque trivial 4-byte placeholder,
 // erase bytes independent of trivial type, identity via call chain.
+#include <stl/_alloc.h>
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include <map>
 
 struct Rva00462D08Mapped
@@ -15,6 +17,14 @@ struct Rva00462D08Mapped
 };
 
 typedef _STL::pair<const int, Rva00462D08Mapped> Rva00462D08Pair;
+
+// Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
+namespace _STL {
+#pragma optimize("gsy", on)
+template <> __forceinline void allocator<_Rb_tree_node< ::Rva00462D08Pair > >::deallocate(_Rb_tree_node< ::Rva00462D08Pair > *p, size_t) const { if (p != 0) free(p); }
+#pragma optimize("", on)
+}
+
 typedef _STL::_Rb_tree<int, Rva00462D08Pair, _STL::_Select1st<Rva00462D08Pair>, _STL::less<int>, _STL::allocator<Rva00462D08Pair> > Rva00462D08Tree;
 
 template void Rva00462D08Tree::_M_erase(Rva00462D08Tree::_Link_type);

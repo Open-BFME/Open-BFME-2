@@ -7,6 +7,8 @@
 // followed by copying a pointer and incrementing its non-null pointee at +4.
 // Comparison reaches the established AsciiString operator< at 0x5598C.
 // Semantic donor: BFME1 RvaTreeInsertUniqueHint.cpp and STLport pair/tree.
+#include <stl/_alloc.h>
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include <stl/_prolog.h>
 #include <stl/type_traits.h>
 #undef _STLP_DEFAULT_CONSTRUCTOR_BUG
@@ -33,6 +35,14 @@ struct TreeHintRef00221D6B {
 };
 
 typedef _STL::pair<const AsciiString, TreeHintRef00221D6B> TreeHintPair00221D6B;
+
+// Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
+namespace _STL {
+#pragma optimize("gsy", on)
+template <> __forceinline void allocator<_Rb_tree_node< ::TreeHintPair00221D6B > >::deallocate(_Rb_tree_node< ::TreeHintPair00221D6B > *p, size_t) const { if (p != 0) free(p); }
+#pragma optimize("", on)
+}
+
 typedef _STL::_Rb_tree<AsciiString, TreeHintPair00221D6B, _STL::_Select1st<TreeHintPair00221D6B>, _STL::less<AsciiString>, _STL::allocator<TreeHintPair00221D6B> > TreeHint00221D6B;
 // Retail uses its static byte allocator and has no node cleanup catch block.
 namespace _STL {

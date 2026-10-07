@@ -6,6 +6,8 @@
 // Same byte shape as rowed 45B erase 0x00462D08. Callers at 0x0016D511 and
 // 0x0016DAD3 clear plus re-init the header sentinel. True key/value unknown;
 // opaque trivial 4-byte placeholder, erase bytes independent of trivial type.
+#include <stl/_alloc.h>
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include <map>
 
 struct Rva0016CB50Mapped
@@ -14,6 +16,12 @@ struct Rva0016CB50Mapped
 };
 
 typedef _STL::pair<const int, Rva0016CB50Mapped> Rva0016CB50Pair;
+
+// Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
+namespace _STL {
+template <> __forceinline void allocator<_Rb_tree_node< ::Rva0016CB50Pair > >::deallocate(_Rb_tree_node< ::Rva0016CB50Pair > *p, size_t) const { if (p != 0) free(p); }
+}
+
 typedef _STL::_Rb_tree<int, Rva0016CB50Pair, _STL::_Select1st<Rva0016CB50Pair>, _STL::less<int>, _STL::allocator<Rva0016CB50Pair> > Rva0016CB50Tree;
 
 template void Rva0016CB50Tree::_M_erase(Rva0016CB50Tree::_Link_type);
