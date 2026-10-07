@@ -54,6 +54,17 @@
 //  - AIGoingIdleState::onEnter 0x00341E48 (40 bytes; 0x00C11798): pokes the
 //    owner's StancesBehavior module (rowed Object::findModule with the
 //    StancesBehavior key, pinned member 0x0045F235) and fails.
+//  - AIAttackMeleeEngageState::computePath 0x003457AC (905 bytes;
+//    "ComputePath26"). Donor: BFME 1's matched
+//    AIAttackMeleeEngageState_computePath (0x00177A90), whose call order and
+//    strings carry over. Target evidence: the AI word +0x16C fails at once,
+//    the state's waiting flag is +0x49, the approach timestamp +0x54 is
+//    throttled by the int at 0x009BA4E4, the victim position caches at +0x58
+//    and +0x6C/+0x70/+0x71 hold the retry frame, retry flag and "no
+//    engagement spot". The "masiwar" traces print only when GameLogic +0x1B4
+//    is positive. Pathfinder::adjustToPossibleDestination (0x002F287A) is
+//    named from the donor's same call; 0x002F23A6, 0x002CB35C and the
+//    fallback 0x003449C5 stay address-named.
 //
 // The meaning of the status, condition and AI bytes is not recovered.
 
@@ -86,15 +97,40 @@ struct Coord3D
 {
 	Real x, y, z;
 	void normalize();
+	Coord3D &operator*=(Real scale)
+	{
+		x *= scale;
+		y *= scale;
+		z *= scale;
+		return *this;
+	}
+	Coord3D &operator+=(const Coord3D &other)
+	{
+		x += other.x;
+		y += other.y;
+		z += other.z;
+		return *this;
+	}
+};
+// Retail copies the direction member-wise (three movss loads, no movsd block
+// copy) and keeps x apart from the in-place y/z scaling; only a user-written
+// copy constructor reproduces that register shape. The shipped type is not
+// known, so this TU-local view carries just that constructor.
+struct MemberwiseCoord3D : public Coord3D
+{
+	MemberwiseCoord3D(const Coord3D &other) { x = other.x; y = other.y; z = other.z; }
 };
 
 class GameLogic
 {
 public:
 	unsigned int getFrame() const { return m_frame; }
+	int getBfmeDebugLevel() const { return m_bfmeDebugLevel; }
 private:
 	unsigned char m_pad00[0x40];
 	unsigned int m_frame; // +0x40
+	unsigned char m_pad44[0x1B4 - 0x44];
+	int m_bfmeDebugLevel; // +0x1B4, gates the "masiwar" traces
 };
 extern GameLogic *TheGameLogic;
 
@@ -165,6 +201,10 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
+class LocomotorSet
+{
+};
+
 class AIUpdateInterface : public AIComputePathAISlots<136>
 {
 public:
@@ -178,7 +218,17 @@ public:
 	ObjectID getIgnoredObstacleID() const;
 	Bool isMoving() const;
 	void requestPath(Coord3D *destination, Bool isFinalGoal);
-	unsigned char m_pad004[0x3C8 - 0x04];
+	void *getPath() const { return m_path; }
+	Bool isWaitingForPath() const { return m_waitingForPath; }
+	unsigned char m_pad004[0x140 - 0x04];
+	void *m_path; // +0x140
+	unsigned char m_pad144[0x16C - 0x144];
+	int m_bfmeBlocked16C; // +0x16C; positive fails computePath at once
+	unsigned char m_pad170[0x1CC - 0x170];
+	LocomotorSet m_locomotorSet; // +0x1CC
+	unsigned char m_pad1CD[0x3B1 - 0x1CD];
+	Bool m_waitingForPath; // +0x3B1
+	unsigned char m_pad3B2[0x3C8 - 0x3B2];
 	Bool m_bfmeFlag3C8; // +0x3C8
 };
 
@@ -199,7 +249,13 @@ private:
 
 class Module;
 
-class Object
+class Thing
+{
+public:
+	const Coord3D *getUnitDirectionVector2D() const;
+};
+
+class Object : public Thing
 {
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
@@ -211,6 +267,9 @@ public:
 	void releaseWeaponLock(WeaponLockType lockType);
 	void rva0028AE6D();
 	void rva0028AD32();
+	void rva0028C2DD(Coord3D *pos) const;
+	void rva0028ACDC(const Coord3D *pos);
+	Real getGeometryRadiusB8() const { return m_geometryRadiusB8; }
 	__forceinline void clearModelConditionBit(int bit)
 	{
 		if (m_conditionBits.test(bit) != 0)
@@ -224,7 +283,9 @@ private:
 	Coord3D m_position; // +0x38
 	unsigned char m_pad044[0x74 - 0x44];
 	ObjectID m_id; // +0x74
-	unsigned char m_pad078[0x10C - 0x78];
+	unsigned char m_pad078[0xB8 - 0x78];
+	Real m_geometryRadiusB8; // +0xB8 (geometry info +0xA8, its +0x10)
+	unsigned char m_pad0BC[0x10C - 0xBC];
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x258 - (0x10C + sizeof(Rva0010CBits))];
 	AIUpdateInterface *m_ai; // +0x258
@@ -278,7 +339,8 @@ protected:
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48 - 0x2C];
 	Bool m_adjustDestination; // +0x48
-	unsigned char m_pad49[0x4C - 0x49];
+	Bool m_waitingForPath; // +0x49
+	unsigned char m_pad4A[0x4C - 0x4A];
 };
 
 class AIMoveAndTightenState : public AIInternalMoveToState
@@ -544,4 +606,177 @@ StateReturnType AIGoingIdleState::onEnter()
 			stances->rva0045F235();
 	}
 	return STATE_FAILURE;
+}
+
+class Pathfinder
+{
+public:
+	Bool adjustDestination(Object *obj, const LocomotorSet &locomotorSet,
+		Coord3D *dest, const Coord3D *groupDest);
+	Bool adjustToPossibleDestination(Object *obj, const LocomotorSet &locomotorSet,
+		Coord3D *dest);
+};
+
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+private:
+	unsigned char m_pad00[0x10];
+	Pathfinder *m_pathfinder; // +0x10
+};
+extern AI *TheAI;
+
+// Minimum frames between melee repaths (int global at 0x009BA4E4).
+extern const int g_009BA4E4;
+
+// Opaque callees, named by body address with their pinned signatures.
+class Rva002CB35CObj
+{
+public:
+	Bool rva002CB35C(int source, void *goalPos, void *victim, void *victimPos,
+		Real extra, int flag);
+};
+class Rva002F23A6
+{
+public:
+	Bool rva002F23A6(Object *source, int weapon, int locomotorSet, Coord3D *goalPos,
+		Object *victim);
+};
+Bool rva00344EB2Gate(Object *source, Thing *victim);
+Bool rva003449C5(Coord3D *goalPos, Object *source, Object *victim);
+
+// Static helper from AIStates.cpp (rowed at 0x0033FA8E from
+// AIAttackApproachTargetState_computePath_Bfme.cpp); VC7.1 passes its three
+// pointers in registers, so callers only match with a definition in the TU.
+static __declspec(noinline) Bool isSamePosition(const Coord3D *ourPos,
+	const Coord3D *prevTargetPos, const Coord3D *curTargetPos)
+{
+	Coord3D diff;
+	diff.x = curTargetPos->x - prevTargetPos->x;
+	diff.y = curTargetPos->y - prevTargetPos->y;
+	Coord3D toTarget;
+	toTarget.x = curTargetPos->x - ourPos->x;
+	toTarget.y = curTargetPos->y - ourPos->y;
+	const float TOLERANCE_FACTOR = 1.0f / (10.0f * 10.0f);
+	float toleranceSqr = (toTarget.x*toTarget.x+toTarget.y*toTarget.y) * TOLERANCE_FACTOR;
+	if (diff.x * diff.x + diff.y * diff.y > toleranceSqr)
+		return false;
+	return true;
+}
+
+static __forceinline void debugTrace(const char *text)
+{
+	FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
+	if (log != 0)
+		fprintf(log, text);
+}
+
+class AIAttackMeleeEngageState : public AIInternalMoveToState
+{
+protected:
+	virtual Bool computePath();
+	__forceinline void setGoalAlongDirection(const Coord3D *directionVector,
+		Object *target, const Coord3D &goalPosition)
+	{
+		MemberwiseCoord3D direction(*directionVector);
+		direction *= target->getGeometryRadiusB8() * 2.0f + 60.0f;
+		m_goalPosition = goalPosition;
+		m_goalPosition += direction;
+	}
+private:
+	unsigned char m_pad4C[0x54 - 0x4C];
+	unsigned int m_approachTimestamp; // +0x54
+	Coord3D m_prevVictimPos; // +0x58
+	unsigned char m_pad64[0x6C - 0x64];
+	unsigned int m_retryFrame; // +0x6C
+	Bool m_retryPending; // +0x70
+	Bool m_noEngagementSpot; // +0x71
+};
+
+Bool AIAttackMeleeEngageState::computePath()
+{
+	critterDesyncLog("CritterDesync: ComputePath26");
+	Bool forceRepath = false;
+	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	if (ai->m_bfmeBlocked16C > 0)
+		return false;
+	if (m_waitingForPath)
+	{
+		if (ai->getPath() || ai->isWaitingForPath())
+			return true;
+		m_waitingForPath = false;
+	}
+	if (!ai->getPath() && !ai->isWaitingForPath())
+		forceRepath = true;
+	if (!forceRepath && TheGameLogic->getFrame() - m_approachTimestamp < g_009BA4E4)
+		return true;
+	m_approachTimestamp = TheGameLogic->getFrame();
+
+	if (getMachine()->getGoalObject())
+	{
+		Object *source = getMachineOwner();
+		// if our victim's position hasn't changed, don't re-path
+		if (!forceRepath && isSamePosition(source->getPosition(), &m_prevVictimPos,
+			getMachine()->getGoalObject()->getPosition()))
+			return true;
+		const Weapon *weapon = source->getCurrentWeapon();
+		if (!weapon)
+			return false;
+
+		Object *victim = getMachine()->getGoalObject();
+		Coord3D victimPosition;
+		victimPosition.x = victim->getPosition()->x;
+		victimPosition.y = victim->getPosition()->y;
+		victimPosition.z = victim->getPosition()->z;
+		victim->rva0028C2DD(&victimPosition);
+		m_prevVictimPos = victimPosition;
+		if (rva00344EB2Gate(source, victim))
+		{
+			setGoalAlongDirection(victim->getUnitDirectionVector2D(), victim, victimPosition);
+			TheAI->pathfinder()->adjustToPossibleDestination(source, ai->m_locomotorSet, &m_goalPosition);
+			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 34");
+			setAdjustsDestination(false);
+			ai->requestPath(&m_goalPosition, false);
+			m_waitingForPath = ai->isWaitingForPath();
+			if (ai->getPath())
+				m_waitingForPath = false;
+			return true;
+		}
+		if (TheGameLogic->getBfmeDebugLevel() > 0 && !forceRepath)
+			debugTrace("masiwar called by AIAttackMeleeEngageState::computePath [1]");
+		if (!forceRepath && ((Rva002CB35CObj *)weapon)->rva002CB35C((int)source,
+			&m_goalPosition, victim, &m_prevVictimPos, 0.0f, 1))
+			return true;
+		if (TheGameLogic->getBfmeDebugLevel() > 0)
+		{
+			FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
+			if (log != 0)
+				fprintf(log, "AIAttackFireDuringApproachState::computePath[2] will call FindMeleeEngagmentLocation with %f,%f (m_goalPosition:%f,%f = m_prevVictimPosition:%f, %f;)",
+					(double)m_goalPosition.x, (double)m_goalPosition.y,
+					(double)m_goalPosition.x, (double)m_goalPosition.y,
+					(double)m_prevVictimPos.x, (double)m_prevVictimPos.y);
+		}
+		m_goalPosition = m_prevVictimPos;
+		m_noEngagementSpot = !((Rva002F23A6 *)TheAI->pathfinder())->rva002F23A6(source,
+			(int)weapon, (int)&ai->m_locomotorSet, &m_goalPosition, victim);
+		if (m_noEngagementSpot)
+		{
+			m_goalPosition = m_prevVictimPos;
+			if (rva003449C5(&m_goalPosition, source, victim))
+			{
+				TheAI->pathfinder()->adjustDestination(source, ai->m_locomotorSet, &m_goalPosition, 0);
+				ai->requestPath(&m_goalPosition, true);
+				return true;
+			}
+			m_retryPending = true;
+			m_retryFrame = TheGameLogic->getFrame() + g_009BA4E4 * 10;
+			return true;
+		}
+		source->rva0028ACDC(&m_goalPosition);
+		ai->requestPath(&m_goalPosition, true);
+		m_waitingForPath = ai->isWaitingForPath();
+		return true;
+	}
+	return false;
 }
