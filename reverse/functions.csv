@@ -67770,3 +67770,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005F842F@Rva005F842F@@QAEPAU1@ABURva004F6986Member@@@Z,,0x005F842F,24,Code/GameEngine/Source/Common/Rva004F6986Dtor.cpp,matched,init holder via caller 0x005F888C plus dtor 0x005F8447
 ?deselectDrawable@InGameUI@@UAEXPAVDrawable@@@Z,,0x0029F34F,136,Code/GameEngine/Source/Common/InGameUIDeselectDrawable.cpp,matched,InGameUI deselect slot57 via donor plus rowed helpers
 ?rva0030BCB2@Rva0030BCB2@@QAEMXZ,,0x0030BCB2,8,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,adjustor tail-jmp this-0x28 to Rva0053863ESub rva00538661 same as 0x0030BEE6 caller 0x0030C4B9
+?Rva003FEC05FadeScreenRegionToMapBlack@@YAHH_N@Z,,0x003FEC05,197,Code/GameEngine/Source/GameClient/GUI/Rva003FEC05.cpp,matched,fade step via rva00565170 family with reverse and tooltip
