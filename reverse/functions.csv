@@ -67248,3 +67248,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva0043BD36@SkirmishPreferences@@QAEXXZ,,0x0043BD36,256,Code/GameEngine/Source/Common/SkirmishPreferences.cpp,matched,pin plus caller 0x0043BEB7 plus rowed GameInfoToAsciiString buildProfileKey setAsciiString getSlot format concat
 ?rva0053241F@Rva002E99F9Sub460@@QAEGPAXG@Z,,0x0053241F,18,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E99F9.cpp,matched,pin same class callers FindBrokenBridge forwards true to 0x00531FE6
 ?rva0016801A@Rva0016801A@@QAEPAXH@Z,,0x0016801A,38,Code/GameEngine/Source/Common/Rva0016801AInit.cpp,matched,pin caller 0x001683AE callee Resize 0x00167F88 data g_00BD41AC
+?rva005B4AD9@Rva005B4BDB@@QAEXH@Z,,0x005B4AD9,258,Code/GameEngine/Source/Common/Rva005B4BDB.cpp,matched,REF AptCreateAHero NamePrompt handler GadgetTextEntryGetText isEmpty TheGameText fetch Rva00437E84

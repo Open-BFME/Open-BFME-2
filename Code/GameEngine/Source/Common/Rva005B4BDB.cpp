@@ -3,12 +3,36 @@
 // ?rva005B4BDB@Rva005B4BDB@@QAEXXZ retail 0x005B4BDB 97B
 // Evidence: chain lane; callee GadgetTextEntryGetText 0x00320AAB plus trim 0x00037F70 plus rva00407A6A 0x00407A6A plus virtual slot 0x14 plus releaseBuffer 0x00036E70; callers 0x005B4CB7 0x005B4D23; EH prolog with handler code 0x0079F347.
 #include "unicode_string.h"
+template <> bool StringBase<unsigned short>::isEmpty() const throw();
 class GameWindow
 {
 public:
 	unsigned int winGetStyle();
 };
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
+typedef bool Bool;
+class GameTextInterface
+{
+public:
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual UnicodeString fetch(const char *label, Bool *exists = 0) = 0;
+};
+extern GameTextInterface *TheGameText;
+void Rva00437E84(int type, const UnicodeString &text, const UnicodeString &title);
 class IMEManager
 {
 public:
@@ -65,6 +89,7 @@ public:
 	void rva005B4BDB();
 	void rva005B4D20();
 	void rva005B4C3C();
+	void rva005B4AD9(int arg);
 private:
 	char m_pad0[4];
 	Rva005B4BDBOuter *m_outer04;
@@ -93,4 +118,20 @@ void Rva005B4BDB::rva005B4C3C()
 		return;
 	GadgetTextEntrySetText(m_window08, m_outer04->m_inner.m_wide08);
 	GadgetTextEntrySetMaxChars((BfmeKeyLC *)m_window08, 0x16);
+}
+// ?rva005B4AD9@Rva005B4BDB@@QAEXH@Z retail 0x005B4AD9 258B
+// Evidence: REF constant at 0x005B5035 inside FUN_009b4f6f as handler for
+// AptCreateAHero Appearance NamePrompt; [ecx+8] GameWindow matches Rva005B4BDB
+// layout; GadgetTextEntryGetText 0x00320AAB plus isEmpty 0x00035740 plus
+// TheGameText fetch slot 0x3c plus Rva00437E84 0x00437E84 plus releaseBuffer
+// 0x00036E70; strings APT:EnterNameErrorTitle APT:EnterNameError
+// LAN:ErrorDuplicateName.
+void Rva005B4BDB::rva005B4AD9(int arg)
+{
+	bool empty = (m_window08 == 0) || GadgetTextEntryGetText(m_window08).isEmpty();
+	if (empty) {
+		Rva00437E84(0, TheGameText->fetch("APT:EnterNameErrorTitle"), TheGameText->fetch("APT:EnterNameError"));
+	} else {
+		Rva00437E84(0, TheGameText->fetch("APT:EnterNameErrorTitle"), TheGameText->fetch("LAN:ErrorDuplicateName"));
+	}
 }
