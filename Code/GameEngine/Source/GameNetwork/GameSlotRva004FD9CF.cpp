@@ -1,25 +1,26 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-// ?rva004FD9CF@GameSlot@@QBEHXZ @0x004FD9CF 27B
-// GameSlot human-plus-flag predicate beside isHuman 0x003FF0F1: calls rowed
-// isHuman on the same this then tests the flag byte at +0x48. Evidence:
-// unlock lane (unblocks 0x004FE35F 0x00520792); 5 callers pass this in ecx.
+// ?disconnected@GameSlot@@QBE_NXZ @0x004FD9CF 27B
+// GameSlot::disconnected, Zero Hour's GameInfo.h inline
+// `Bool disconnected(void) const { return isHuman() && m_disconnected; }`,
+// which BFME 2 (like BFME 1, retail 0x000A3080) keeps out of line.
+// Target evidence: it calls the rowed isHuman 0x003FF0F1 on the same this and
+// then tests the byte at +0x48; all five callers test only al, and
+// generateGameSpyGameResultsPacket 0x004FE35F calls it where Zero Hour's
+// calls slot->disconnected(). The && expression is what gives retail's
+// xor eax,eax / inc eax result; the field name is carried from Zero Hour.
 
 class GameSlot
 {
 public:
 	bool isHuman() const;
-	int rva004FD9CF() const;
+	bool disconnected() const;
 
 private:
 	char m_pad00[0x48];
-	bool m_flag48;
+	bool m_disconnected;				// +0x48
 };
 
-int GameSlot::rva004FD9CF() const
+bool GameSlot::disconnected() const
 {
-	if (isHuman()) {
-		if (m_flag48 != 0)
-			return true;
-	}
-	return false;
+	return isHuman() && m_disconnected;
 }
