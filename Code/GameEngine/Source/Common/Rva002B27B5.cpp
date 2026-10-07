@@ -1,6 +1,8 @@
 // cl: /O1 /MD /Oy-
 // ?rva002B27B5@Rva002B27B5@@QAE_NPAVRva00318C32@@H@Z @0x002B27B5 87B.
-extern class Rva003B8BAA *g_00E02D6C;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class Rva00E02D6C;
+extern Rva00E02D6C *TheCampaignManager;
 
 class Rva00318C32
 {
@@ -53,7 +55,7 @@ bool Rva002B27B5::rva002B27B5(Rva00318C32 *a, int b)
 		return false;
 	if ((unsigned char)((Rva002B254F *)this)->rva002B254F() != 0)
 	{
-		void *p = g_00E02D6C->rva003B8BAA();
+		void *p = ((Rva003B8BAA *)TheCampaignManager)->rva003B8BAA();
 		return ((TailVirt27B5 *)p)->tail(a, b);
 	}
 	return true;
