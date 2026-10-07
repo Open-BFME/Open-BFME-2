@@ -66822,3 +66822,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ??0Rva005EEE5A@@QAE@XZ,,0x005EEE5A,17,Code/GameEngine/Source/GameClient/GUI/Rva005EEE5A.cpp,matched,address-derived constructor with packet caller references and target vtable store; class identity unresolved
 ??0Rva000FB8B6@@QAE@XZ,,0x000FB8B6,53,Code/GameEngine/Source/Common/Bfme/Rva000FB87BCtor.cpp,matched,leaf ctor vtbl+0x38 vector at 0x10 via rowed Vector_base
 ?rva002BD603@LivingWorldLogic@@QAEXH@Z,,0x002BD603,76,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002BD603.cpp,matched,target ctor call and +0x178 owned pointer slot
+?rva002B296F@Rva002B296F@@QAEXXZ,,0x002B296F,29,Code/GameEngine/Source/Common/Rva002B296FMethod.cpp,matched,address-named method stores fields at packet offsets and scales the named global
