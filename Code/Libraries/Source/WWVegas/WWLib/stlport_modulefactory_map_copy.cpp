@@ -230,6 +230,17 @@ __forceinline void BfmeClearByteTree(void *tree,
     ((Rva00382077 *)tree)->rva00382908();
 }
 
+struct Rva00387568Element;
+class Rva0038204A {
+ Rva0038201DNode *m_head;
+ int m_count;
+public:
+ void rva003828DF();
+};
+__forceinline void BfmeClearByteTree(void *tree,const Rva00387568Element *) {
+ ((Rva0038204A*)tree)->rva003828DF();
+}
+
 namespace _STL {
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
 _Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &
@@ -339,3 +350,8 @@ template <> __forceinline OpaqueStatsTree::Node *OpaqueStatsTree::_M_clone_node(
 }
 template OpaqueStatsTree::Node *OpaqueStatsTree::_M_copy(Node*,Node*);
 }
+
+namespace _STL { template OpaqueStatsTree &OpaqueStatsTree::operator=(const OpaqueStatsTree&); }
+
+// Assignment387568 is rehomed from its generic-only TU; the measured clear
+// and copy providers preserve all115B while eliminating incompatible helpers.
