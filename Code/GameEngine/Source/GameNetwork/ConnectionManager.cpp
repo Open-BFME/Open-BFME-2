@@ -106,6 +106,44 @@ public:
 	_STL::_Rb_tree_node<FileCommandMap::value_type> *lower_bound(const unsigned short &key) const;
 };
 
+class Rva004D5973WordField
+{
+public:
+	unsigned short get() const;
+	char m_lead[0x20];
+	unsigned short m_value;
+};
+
+class Rva001DCD01ByteField
+{
+public:
+	unsigned char get() const;
+	char m_lead[0x22];
+	unsigned char m_value;
+};
+
+class Rva004D632D
+{
+public:
+	AsciiString rva004D632D() const;
+
+private:
+	char m_pad[0x1c];
+	AsciiString m_str1c;
+};
+
+struct Gen_lt_00940b40 : public _STL::less<unsigned short> {};
+typedef _STL::map<unsigned short, int, Gen_lt_00940b40> Rva004D2C8EFileProgressMap;
+
+class Rva004D2C8EConnectionManagerLayout
+{
+public:
+	char m_pad[0x12138];
+	FileCommandMap s_fileCommandMap;
+	FileMaskMap s_fileRecipientMaskMap;
+	Rva004D2C8EFileProgressMap s_fileProgressMap[MAX_SLOTS];
+};
+
 #pragma optimize("s", on)
 template <> AsciiString &FileCommandMap::operator[](const unsigned short &key)
 {
@@ -854,24 +892,26 @@ void ConnectionManager::processFile(NetFileCommandMsg *msg)
 #endif // COMPRESS_TARGAS
 }
 
-// ?processFileAnnounce@ConnectionManager@@ present-unmatched
+#pragma optimize("s", on)
 void ConnectionManager::processFileAnnounce(NetFileAnnounceCommandMsg *msg) 
 {
 	DEBUG_LOG(("ConnectionManager::processFileAnnounce() - expecting '%s' (%s) in command %d\n", msg->getPortableFilename().str(), msg->getRealFilename().str(), msg->getFileID()));
-	s_fileCommandMap[msg->getFileID()] = msg->getRealFilename();
-	s_fileRecipientMaskMap[msg->getFileID()] = msg->getPlayerMask();
+	Rva004D2C8EConnectionManagerLayout *layout = (Rva004D2C8EConnectionManagerLayout *)this;
+	layout->s_fileCommandMap[((Rva004D5973WordField *)msg)->get()] = ((Rva004D632D *)msg)->rva004D632D();
+	layout->s_fileRecipientMaskMap[((Rva004D5973WordField *)msg)->get()] = ((Rva001DCD01ByteField *)msg)->get();
 	for (Int i=0; i<MAX_SLOTS; ++i)
 	{
-		if ( (1<<i) & msg->getPlayerMask() )
+		if ( (1<<i) & ((Rva001DCD01ByteField *)msg)->get() )
 		{
-			s_fileProgressMap[i][msg->getFileID()] = 0;
+			layout->s_fileProgressMap[i][((Rva004D5973WordField *)msg)->get()] = 0;
 		}
 		else
 		{
-			s_fileProgressMap[i][msg->getFileID()] = 100; // they don't need to get it, so they're already done.
+			layout->s_fileProgressMap[i][((Rva004D5973WordField *)msg)->get()] = 100; // they don't need to get it, so they're already done.
 		}
 	}
 }
+#pragma optimize("", on)
 
 // ?processFileProgress@ConnectionManager@@ present-unmatched
 void ConnectionManager::processFileProgress(NetFileProgressCommandMsg *msg) 
