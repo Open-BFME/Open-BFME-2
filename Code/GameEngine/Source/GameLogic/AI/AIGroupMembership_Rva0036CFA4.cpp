@@ -54,11 +54,33 @@ class Player;
 class AIGroup;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
+class Provider250
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
+	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
+	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
+	virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
+	virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35();
+	virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39();
+	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
+	virtual void s44(); virtual void s45(); virtual void s46(); virtual void s47();
+	virtual void s48(); virtual void s49(); virtual void s50(); virtual void s51();
+	virtual void s52(); virtual void s53(); virtual void s54(); virtual void s55();
+	virtual Player *slotE0();
+};
+
 class Object
 {
 public:
 	Player *getControllingPlayer(void) const;		// ILT 0x00020824
 	void leaveGroup(void);					// ILT 0x0001F212
+	char m_pad00[0x250];
+	Provider250 *m_provider250;
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AI.h
@@ -78,6 +100,7 @@ public:
 	Bool containsAnyObjectsNotOwnedByPlayer(const Player *ownerPlayer);
 	Bool remove(Object *member);
 	Bool removeAnyObjectsNotOwnedByPlayer(const Player *ownerPlayer);
+	Bool rva0036CFE5(const Player *ownerPlayer);
 
 	Bool isEmpty(void) { return m_memberList.empty(); }
 
@@ -113,5 +136,33 @@ Bool AIGroup::removeAnyObjectsNotOwnedByPlayer( const Player *ownerPlayer )
 		++memberIterator;
 	}
 
+	return false;
+}
+
+// ?rva0036CFE5@AIGroup@@QAE_NPBVPlayer@@@Z, retail 0x0036CFE5, 80 bytes.
+// AIGroup member filter like removeAnyObjectsNotOwnedByPlayer but through the
+// Object +0x250 provider slot 0xe0: keeps objects whose provider exists and its
+// slotE0 equals the owner, otherwise advances then remove (also removes when the
+// provider is null), true when remove destroys the group. Evidence: same +0x04
+// list and remove 0x0036CF07 row as neighbours, same bool(PBVPlayer) ret-4 shape
+// as removeAny, provider +0x250 per ObjectRva0028C197 and slot 0xe0 call site.
+Bool AIGroup::rva0036CFE5(const Player *ownerPlayer)
+{
+	_STL::list<Object *>::iterator it;
+	for (it = m_memberList.begin(); it != m_memberList.end(); /* empty */) {
+		Object *obj = (*it);
+		if (!obj) {
+			continue;
+		}
+		Provider250 *p = obj->m_provider250;
+		if (!p || p->slotE0() != ownerPlayer) {
+			++it;
+			if (remove(obj)) {
+				return true;
+			}
+			continue;
+		}
+		++it;
+	}
 	return false;
 }
