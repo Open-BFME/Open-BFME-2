@@ -11207,7 +11207,6 @@ name,address,notes
 ?rva00150C22@Rva00150C22@@QAEXH@Z,0x00150C22,"41B grow wrapper variant 2; caller 0x150CD0"
 ?rva00150C4B@Rva00150C4B@@QAEXH@Z,0x00150C4B,"41B grow wrapper variant 3; caller 0x150D09"
 ?rva00151597@Rva00151597@@QAEPAXXZ,0x00151597,"51B EH builder: zeroes +0/+8, resets via 0x151248, returns this; inits 0x152DC6 scratch"
-?rva0015288F@Rva0015288F@@QAEXHHHH@Z,0x0015288F,"844B EH body; called from 0x152CDA with (virtval, fallback, other+12, 4), ecx=this"
 ?rva00152BDB@Rva00152BDB@@QAEXHURva00152DC6Tmp@@@Z,0x00152BDB,"108B EH grower true signature (int plus by-value 44B scratch); 0x152DC6 passes it in place"
 ?rva0015326D@Rva0015326D@@QAEPAXHH@Z,0x0015326D,tail-jump target of the 0x1514B2 pointer-chase chain (this/+0x14/+8 with two int args); address-derived name, signature from the call shape
 ?rva001538A8@Rva001538A8@@QAEPAXXZ,0x001538A8,"builder: zeroes +0, inits +4 via import 0xA29512, returns this; inits 0x153EE5 scratch"

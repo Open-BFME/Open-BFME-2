@@ -62794,7 +62794,7 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ??1Rva0032989F@@UAE@XZ,,0x0032989F,103,Code/GameEngine/Source/Common/Rva0032989FDtor.cpp,matched,global delete of counted pointer array then inline base dtor calling Q1Forwardee0000871A handle
 ??1RoadType@@QAE@XZ,,0x000D4F4F,108,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBufferRoadTypeDtor.cpp,matched,inline release of two refcounted buffers then two texture handle member dtors
 ??1Rva0073EE55@@UAE@XZ,,0x0073EE55,82,Code/GameEngine/Source/Common/Rva0073EE55Dtor.cpp,matched,novtable dtor calling member set and held target slot0 then two member dtors
-?rva152d1c@Rva00152D1CObj@@QAEXH@Z,,0x00152D1C,170,Code/GameEngine/Source/Common/Rva00152D1C.cpp,matched,caller 0x00117172 via mesh plus 0xB8 arg 4 LINK BONUS 131B virtual slot0 AsciiString vector pin 0x15288F
+?rva152d1c@Rva00152D1CObj@@QAEXH@Z,,0x00152D1C,170,Code/GameEngine/Source/Common/Rva00152D1C.cpp,matched,caller 0x00117172 via mesh plus 0xB8 arg 4 LINK BONUS 131B virtual slot0 AsciiString vector; calls matched FXShaderSetup::InitializeShader 0x0015288F with two strings parameters and LOD
 ?fwd@Rva005E6826Mid@@QAEXXZ,,0x005E6826,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,gap fwd adj+4 slot14 1 caller
 ?rva005E261C@Rva005E261C@@QAEXXZ,,0x005E261C,40,Code/GameEngine/Source/Common/Rva005E261C.cpp,matched,finish via unnamed temp plus tail jmp plus rowed callees
 ?ObjectHasUpgrade@@YAHPAUlua_State@@@Z,,0x003355B2,224,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHasUpgrade.cpp,matched,Lua binding via sibling HideSubObject plus UpgradeCenter

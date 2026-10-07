@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /EHs /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva152d1c@Rva00152D1CObj@@QAEXH@Z @0x00152D1C 170B evidence: caller 0x00117172 via [mesh+0x94]->[+0xB8] arg 4; LINK BONUS 131B Rva00117120Cluster; virtual slot0 or 0 then AsciiString from char then copy +0x18 then vector copy +0x0C then 0x15288F.
-// Evidence: pin ?rva152d1c@Rva00152D1CObj@@QAEXH@Z; callees rowed 0x00037BA0 0x000365F0 0x0010E604 0x0007C5D5 0x00036410 pin 0x0015288F; prev/next Common.
+// ?rva152d1c@Rva00152D1CObj@@QAEXH@Z @0x00152D1C 170B evidence: caller 0x00117172 via [mesh+0x94]->[+0xB8] arg 4; LINK BONUS 131B Rva00117120Cluster; virtual slot0 or 0 then AsciiString from char then copy +0x18 then vector copy +0x0C then matched FXShaderSetup::InitializeShader at 0x0015288F.
+// The caller passes two string pointers, the parameter vector and the LOD; the matched callee returns bool in AL, which this caller ignores. prev/next Common.
 #include "ascii_string.h"
 
 struct Rva0007BB16Record;
@@ -25,10 +25,11 @@ public:
 	virtual const char *v00();
 };
 
-class Rva0015288F
+class FXShaderSetup
 {
 public:
-	void rva0015288F(int a1, int a2, int a3, int a4);
+	bool InitializeShader(const char *shaderName, const char *techniqueName,
+		const _STL::vector<Rva0007BB16Record> *parameters, int lod);
 };
 
 class Rva00152D1CObj
@@ -49,5 +50,5 @@ void Rva00152D1CObj::rva152d1c(int n)
 	AsciiString tmp1(v);
 	AsciiString tmp2(m_str);
 	_STL::vector<Rva0007BB16Record> tmpVec(m_vec);
-	((Rva0015288F *)this)->rva0015288F((int)tmp1.str(), (int)tmp2.str(), (int)&tmpVec, n);
+	((FXShaderSetup *)this)->InitializeShader(tmp1.str(), tmp2.str(), &tmpVec, n);
 }
