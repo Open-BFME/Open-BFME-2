@@ -34,10 +34,10 @@ public:
 	void rva002110DF(int value);
 };
 
-class Rva00DFE1C8Host
+class LivingWorldManager
 {
 };
-extern Rva00DFE1C8Host *g_00DFE1C8;
+extern LivingWorldManager *TheLivingWorldManager;
 
 class Rva00213A85
 {
@@ -79,5 +79,5 @@ void Rva00213A85::rva00213C30()
 		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FADA3();
 		iterator.next();
 	}
-	((Rva00211589 *)g_00DFE1C8)->rva002110DF(0);
+	((Rva00211589 *)TheLivingWorldManager)->rva002110DF(0);
 }
