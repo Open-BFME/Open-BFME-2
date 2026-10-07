@@ -16,6 +16,7 @@ class Object
 {
 public:
 	Object *getNextObject() const { return m_next; }
+	void rva00295F05(int flags);
 
 private:
 	unsigned char m_pad00[0x8C];
@@ -43,6 +44,7 @@ class GameLogic
 {
 public:
 	void destroyAllObjectsImmediate();
+	void rva00240EBC();
 	void destroyObject(Object *obj);
 	void processDestroyList();
 
@@ -65,4 +67,18 @@ void GameLogic::destroyAllObjectsImmediate()
 	processDestroyList();
 	if (TheGameClient)
 		TheGameClient->slot36();
+}
+
+// ?rva00240EBC@GameLogic@@QAEXXZ @ 0x00240EBC (51B): retail walks the
+// pending-object vector at +0x164/+0x168 calling Object::rva00295F05(1),
+// then erases its range through the existing vector helper at 0x0031BD55.
+// The neighboring GameLogic body supports the owner and field layout; exact
+// method purpose remains address-derived.
+void GameLogic::rva00240EBC()
+{
+	for (Rva00243B52DestroyEntry **entry = m_objectsToDestroy.begin();
+		 entry != m_objectsToDestroy.end(); ++entry) {
+		reinterpret_cast<Object *>(*entry)->rva00295F05(1);
+	}
+	m_objectsToDestroy.clear();
 }
