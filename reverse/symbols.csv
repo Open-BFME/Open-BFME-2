@@ -15636,11 +15636,6 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva00416C69@@YAXXZ,0x00416C69,address-derived no-argument callee from retail call at 0x00517EBC; body identity remains unknown
 ?rva005BDAC1@@YAXXZ,0x005BDAC1,address-derived no-argument callee from retail call at 0x00517EC1; body identity remains unknown
 ?rva005AF12F@@YAXPAX@Z,0x005AF12F,address-derived one-pointer callee from retail call at 0x00517F05; body identity remains unknown
-?rva005C9BE3@Rva005C9BE3Call@@QAEHPAX@Z,0x005C9BE3,callee of ?rva00574910@Rva00574910@@QAEHPAX@Z
-?rva005CBC95@Rva005CBC95Call@@QAEHPAX@Z,0x005CBC95,callee of ?rva00574910@Rva00574910@@QAEHPAX@Z
-?rva005CD8F7@Rva005CD8F7Call@@QAEHPAX@Z,0x005CD8F7,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
-?rva005CD690@Rva005CD690Call@@QAEHPAX@Z,0x005CD690,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
-??0Rva0057525FCall@@QAE@PAVRva00574A8A@@II@Z,0x0057525F,callee of ??0Rva00574A8A@@QAE@II@Z
 ?rva002192C0@CreateAHeroManager@@QAEHXZ,0x002192C0,Direct calls from 0x0021A4E6 and 0x0021A54A; thiscall with no stack args and int result inferred from both callers. Address-derived method name; semantics unresolved.
 ?rva004099CA@Rva004099CAHelper@@QAE_NPAXH@Z,0x004099CA,Direct call from 0x0021A492 uses ECX=this+0xC and two stack args (local AsciiString address and 0); caller performs no stack cleanup and consumes AL. Thiscall bool ABI and argument shape from target; helper name and owner identity unresolved.
 ??0Rva007FA6B4Target@@QAE@PAURva002130CFOwner@@@Z,0x003FA6B4,Direct constructor call from 0x00210D1D after allocating 0x14 bytes; callee stores a vtable at object start and returns this. Address-derived target class; owner semantics unresolved.
