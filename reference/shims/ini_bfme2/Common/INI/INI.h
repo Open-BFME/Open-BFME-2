@@ -15,11 +15,11 @@ public:
 	// BFME's load takes four arguments where ZH's takes three; the subsystem
 	// loader at 0x000BB310 calls it as load(file, 1, 0, xfer).
 	void load(AsciiString filename, int loadType, int reload, void* xfer);
-	// The three-argument entry point the legend path uses (0x00853A20). Provisional
-	// name: it is NOT INI::load, which is the 1037-byte body at 0x00853610 already
-	// carried as a MASM dump — 0x00853A20 is a separate, smaller function that
-	// takes (AsciiString, INILoadType, Xfer*). Rename it if its real name turns up.
-	void loadFile(AsciiString filename, INILoadType loadType, Xfer* xfer);
+	// BFME2's verified three-argument entry point is RVA 0x0002DC75,
+	// complete 195B including its catch funclets. It returns 0/1 in AL;
+	// named callers either ignore that byte or accumulate it across files.
+	// This target-specific return differs from the BFME1 donor's void ABI.
+	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer* xfer);
 	// BFME's loadDirectory takes a fifth argument ZH's does not; the legend path
 	// calls it as loadDirectory(dir, TRUE, INI_LOAD_OVERWRITE, xfer, 0).
 	void loadDirectory(AsciiString dirpath, bool recursive, INILoadType loadType, Xfer* xfer, int extra);
