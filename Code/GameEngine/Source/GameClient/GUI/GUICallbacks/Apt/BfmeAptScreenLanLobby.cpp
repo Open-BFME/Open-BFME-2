@@ -267,6 +267,8 @@ struct TargetRef00217D4C
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
+class Rva0023E8D8;
+
 struct TreeHintRef00217D4C
 {
 	TargetRef00217D4C *m_ptr;
@@ -282,6 +284,10 @@ struct TreeHintRef00217D4C
 		if (m_ptr)
 			ReleaseTreeHintRef00217D4C(m_ptr);
 	}
+};
+
+class Rva0023E8D8 : public TreeHintRef00217D4C
+{
 };
 
 class Rva0054D2DDTarget
@@ -305,6 +311,17 @@ class Rva0054D3D9Target
 {
 public:
 	void method(int type, const UnicodeString &text, const UnicodeString &title);
+};
+
+class Rva0054D2CF
+{
+public:
+	__declspec(noinline) void Rva0054D308(int type, const UnicodeString &text, const UnicodeString &title,
+		Rva0023E8D8 callback);
+
+private:
+	unsigned char m_unknown00[4];
+	Rva0054CFB8Target *m_child04;
 };
 
 extern int g_Va00E032FC;
@@ -692,6 +709,12 @@ void Rva0054D2DDTarget::method(int type, const UnicodeString &text,
 {
 	m_child04->method(type, text, title, TreeHintRef00217D4C(),
 		TreeHintRef00217D4C());
+}
+
+void Rva0054D2CF::Rva0054D308(int type, const UnicodeString &text,
+	const UnicodeString &title, Rva0023E8D8 callback)
+{
+	m_child04->method(type, text, title, callback, TreeHintRef00217D4C());
 }
 
 void Rva0054D2DDTarget::method(int type, const UnicodeString &text,
