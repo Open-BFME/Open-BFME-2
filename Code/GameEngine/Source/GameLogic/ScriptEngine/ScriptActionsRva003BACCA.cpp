@@ -39,7 +39,8 @@ public:
 	virtual void s22();
 	virtual void s023(const Rva003BACCAPoint &p);
 	virtual void s24();
-	virtual void s25();
+	virtual void s25(void *record, int milliseconds, int enabled,
+		float a, float b, float c, int mode);
 	virtual void s26();
 	virtual void s27();
 	virtual void s28();
@@ -85,6 +86,12 @@ extern class TerrainLogic *TheTerrainLogic;
 // A call-only view of the retail terrain interface: slot 34 returns the
 // record whose embedded position starts at +0x0C. Its real method name
 // and the complete record layout remain unresolved.
+struct Rva003BB0C7Record
+{
+	unsigned char pad[0x60];
+	int type;
+};
+
 class Rva003BB05FTerrain
 {
 public:
@@ -123,6 +130,9 @@ public:
 	virtual void s32() = 0;
 	virtual void s33() = 0;
 	virtual char *s34(int index) = 0;
+	virtual void s35() = 0;
+	virtual void s36() = 0;
+	virtual Rva003BB0C7Record *s37(int index) = 0;
 };
 
 class Parameter;
@@ -229,5 +239,22 @@ void __stdcall Rva003BB05FSet(int a1, float a2, float a3, float a4, int a5)
 		reinterpret_cast<TacticalView *>(TheTacticalView)->s53(
 			record + 12, (int)(a2 * 1000.0f),
 			a3 * 1000.0f, a4 * 1000.0f, a5);
+	}
+}
+
+// Retail 0x003BB0C7..0x003BB141, RET28; dispatcher caller 0x003CADF5.
+// Terrain slot 37 returns the record; only type 6 at +0x60 is accepted.
+// View slot 25 takes that record, the scaled/truncated second argument,
+// literal 1, three scaled floats and the final integer. Argument 3 is unused.
+void __stdcall Rva003BB0C7Set(int a1, float a2, int a3,
+	float a4, float a5, float a6, int a7)
+{
+	Rva003BB0C7Record *record =
+		reinterpret_cast<Rva003BB05FTerrain *>(TheTerrainLogic)->s37(a1);
+	if (record && record->type == 6)
+	{
+		reinterpret_cast<TacticalView *>(TheTacticalView)->s25(
+			record, (int)(a2 * 1000.0f), 1,
+			a4 * 1000.0f, a5 * 1000.0f, a6 * 1000.0f, a7);
 	}
 }
