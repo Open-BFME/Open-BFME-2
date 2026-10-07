@@ -25,16 +25,19 @@ class StringClass
 public:
 StringClass(int initial_len = 0, bool hint_temporary = false);
 
-	StringClass(const char *string, bool hint_temporary = false)
+	// Both literal constructors expand inline in retail's Record_Texture_End.
+	// Keep that expansion while ordinary C-string assignment uses its owner.
+	__forceinline StringClass(const char *string, bool hint_temporary = false)
 		: m_Buffer(m_EmptyString)
 	{
 		int len = string ? (int)strlen(string) : 0;
 		if (hint_temporary || len > 0)
 			Get_String(len + 1, hint_temporary);
-		(*this) = string;
+		bfmeAssignInline(string);
 	}
 	~StringClass(void);
-	const StringClass &operator=(const char *string)
+	const StringClass &operator=(const char *string);
+	__forceinline const StringClass &bfmeAssignInline(const char *string)
 	{
 		if (string != 0)
 		{
@@ -233,7 +236,7 @@ void Record_Texture_End()
 	lastFrameRecordCount = record_count;
 	lastFrameTextureChangeCount = texture_change_count;
 
-	textureStatisticsString = "";
+	textureStatisticsString.bfmeAssignInline("");
 	if (recordTextureMode == Debug_Statistics::RECORD_TEXTURE_DETAILS)
 	{
 		char temporary[1024];

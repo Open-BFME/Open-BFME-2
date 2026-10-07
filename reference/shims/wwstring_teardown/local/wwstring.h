@@ -88,6 +88,14 @@ public:
 
 	inline const StringClass &operator= (const StringClass &string);
 	inline const StringClass &operator= (const TCHAR *string);
+#if defined(BFME_WWSTRING_INLINE_CSTR_ASSIGN)
+	// Mixed callers retain retail's inline copy at selected sites while the
+	// public assignment resolves to the verified 0x000F0E8D worker. The tag
+	// preserves inline construction without changing ordinary ctor calls.
+	__forceinline const StringClass &bfmeAssignInline(const TCHAR *string);
+	enum InlineCopy { COPY_INLINE };
+	__forceinline StringClass(const TCHAR *string, bool hint_temporary, InlineCopy);
+#endif
 
 	const StringClass &operator+= (const StringClass &string);
 	const StringClass &operator+= (const TCHAR *string);
@@ -179,9 +187,42 @@ StringClass::operator= (const TCHAR *string)
 }
 #endif // BFME_WWSTRING_NATIVE_CSTR_ASSIGN
 
+#if defined(BFME_WWSTRING_INLINE_CSTR_ASSIGN)
+// Retain retail inline expansion where an owned caller needs it; the public
+// assignment entry point remains the existing byte-verified worker.
+__forceinline const StringClass &StringClass::bfmeAssignInline(const TCHAR *string)
+{
+	if (string != 0) {
+
+		int len = _tcslen (string);
+		Uninitialised_Grow (len+1);
+		Store_Length (len);
+
+		::memcpy (m_Buffer, string, (len + 1) * sizeof (TCHAR));
+	}
+
+	return (*this);
+}
+#endif
+
 ///////////////////////////////////////////////////////////////////
 //	StringClass
 ///////////////////////////////////////////////////////////////////
+#if defined(BFME_WWSTRING_INLINE_CSTR_ASSIGN)
+__forceinline
+StringClass::StringClass (const TCHAR *string, bool hint_temporary, InlineCopy)
+	:	m_Buffer (m_EmptyString)
+{
+	int len=string ? _tcsclen(string) : 0;
+	if (hint_temporary || len>0) {
+		Get_String (len+1, hint_temporary);
+	}
+
+	bfmeAssignInline(string);
+	return ;
+}
+#endif
+
 inline
 StringClass::StringClass (const TCHAR *string, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
@@ -191,7 +232,11 @@ StringClass::StringClass (const TCHAR *string, bool hint_temporary)
 		Get_String (len+1, hint_temporary);
 	}
 
+#if defined(BFME_WWSTRING_INLINE_CSTR_CONSTRUCTOR)
+	bfmeAssignInline(string);
+#else
 	(*this) = string;
+#endif
 	return ;
 }
 
