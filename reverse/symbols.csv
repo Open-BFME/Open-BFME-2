@@ -6311,6 +6311,7 @@ name,address,notes
 ?Rva001EC1B4Worker@@YGXHHHPAD@Z,0x001EC1B4,REL32 callee decoded from target call bytes of top-byte forward 0x001ECB78; identity unproven
 ?Rva001EE4F9Grow@@QAE_NPAXH@Z,0x001EE4F9,freelist grow with retry loop; sole callee of pop 0x2393E2; virtual slot3 call; do-not-name until container identified
 ?Rva001F82ABWrite@@YAXPAX00PAPBD@Z,0x001F82AB,callee of ?u1Range_005C8320@@YAXPAX00HHPAPAX@Z at retail 0x001F8883 read from its REL32 displacement; same body as the matched ostream write ?Rva001F82ABWrite@@YAXAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@IPBDPAPBD@Z
+?Rva002152BDCompute@@YAXPAMMM@Z,0x002152BD,"BFME1 BfmeFillBC donor 824b1048d7 supports the spherical output helper; unique caller REL32 at 0x002153C7 and Ghidra 266B code boundary"
 ?Rva00222CCBBuild@@YA?AVRva00222719Temp@@PAPAVRva00222CCB@@0V1@@Z,0x00222CCB,temp-typed spelling of the rowed Rva00222CCBBuild (UnicodeString spelling; same 4-byte by-value layout) read from the REL32 at 0x0022535F and 0x002252EB; the caller builds the 0x00222719 temp in the outgoing argument slot
 ?Rva002245FF@G00524477@@QAEXHH@Z,0x002245FF,thiscall change-handler of range dispatch 0x00524477 on the 0x00DFE4CC singleton (REL32 at 0x005244C8); body unrecovered; address name
 ?Rva002264B3Fallback@@YAHHH@Z,0x002264B3,__cdecl obfuscated fallback callee of ?Rva00077140@@YAHHH@Z (BigObfHookWrappers.cpp) at retail 0x0022CB53 read from its REL32 displacement; body unrowed
