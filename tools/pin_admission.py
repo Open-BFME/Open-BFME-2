@@ -162,7 +162,11 @@ def judge(old_pins, new_pins, old_rows, new_rows):
         except (KeyError, TypeError, ValueError):
             pass
         added.append(pin)
-    names_at = names_by_address(old_rows, old_pins)
+    # Judge the proposed ownership state. Removed pins/rows must not block a
+    # corrected owner, and a newly added ledger owner must still block an alias.
+    # Added pins are checked and accumulated below so two new names also conflict.
+    retained_pins = [p for p in new_pins if pin_key(p) in before]
+    names_at = names_by_address(new_rows, retained_pins)
     for pin in added:
         for why in pin_problems(pin, names_at):
             problems.append(f"{PINS}: {pin['name']},{pin['address']}: {why}")
