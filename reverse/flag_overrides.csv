@@ -243,7 +243,6 @@ Code/GameEngine/Source/Common/Rva007F7160Get.cpp,-O2,1,1,region default loses ro
 Code/GameEngine/Source/Common/Rva00800A40Owner.cpp,,2,2,region default loses rows
 Code/GameEngine/Source/Common/Rva00801CB0.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva00813E30Wrap.cpp,-Od,1,1,region default does not compile
-Code/GameEngine/Source/Common/Rva008143A0Set.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva00815730Set.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0081C2F0Set.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0082B290Slot.cpp,-Od,4,4,region default loses rows
@@ -588,6 +587,7 @@ Code/Libraries/Source/WWVegas/WW3D2/BFME2MotionChannelCtor.cpp,-O1,1,1,region de
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordPolys.cpp,-O2 -G7,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsSkin.cpp,-O2 -G7,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsSorting.cpp,-O2 -G7,1,1,region default loses rows
+Code/Libraries/Source/WWVegas/WW3D2/FXShaderStandardSemantics.cpp,-O1,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/HTreePrototypeOwnerAssign.cpp,-O1,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDeletingDestructor.cpp,,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/LineGroupClassDestructor.cpp,-G7,2,1,region default loses rows

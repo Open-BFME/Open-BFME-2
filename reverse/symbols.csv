@@ -15404,3 +15404,7 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??0Rva00082EB8@@QAE@XZ,0x001F81BF,callee of ??0FXShaderSetup@@QAE@XZ
 ?erase@?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@QAEPAURva0007BB16Record@@PAU3@0@Z,0x0015229C,callee of ?InitializeShader@FXShaderSetup@@QAE_NPBD0PBV?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@H@Z
 ?resize@?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@QAEXI@Z,0x00152DC6,callee of ?Load_W3D@FXShaderSetup@@QAE_NAAVChunkLoadClass@@@Z
+?resize@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@QAEXI@Z,0x00153EE5,callee of ?Init@FXShaderParameterBinder@@QAEXPAUID3DXEffect@@@Z
+?push_back@?$vector@URva004DFCB0Element@@V?$allocator@URva004DFCB0Element@@@_STL@@@_STL@@QAEXABURva004DFCB0Element@@@Z,0x004DFCB0,ICF-folded 4-byte vector push_back (rowed ModuleData-const instance at this address); REL32 in FXShaderAsset::Impl::Load 0x00151915 appending validated technique handles
+?rva00455BDD@FoundationAIUpdate@@AAEXPBVThingTemplate@@PBUCoord3D@@M@Z,0x00455BDD,callee of ?rva00456134@FoundationAIUpdate: REL32 at 0x0045615F resolves to 0x00455BDD whose EH-prolog body starts there (mov eax then call __EH_prolog); restores the pin 0a2c10a446 dropped on a misread boundary
+?rva0023D68E@GameLogic@@QAEXH@Z,0x0023D68E,int-argument spelling the 0x003BD2A6 caller declares (it pushes the full dword); restores the pin f7cbfc4fcd replaced when it rowed the bool spelling at the same placeholder address
