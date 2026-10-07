@@ -50,10 +50,8 @@ public:
 	{
 	}
 
-	__forceinline ~_String_base()
-	{
-		_M_deallocate_block();
-	}
+	// Canonical native base destructor is independently verified atB3C0.
+	~_String_base();
 
 	void _M_deallocate_block();
 
