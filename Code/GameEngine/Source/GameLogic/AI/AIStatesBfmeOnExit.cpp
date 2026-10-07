@@ -58,6 +58,16 @@
 //    template has kind byte +0x11F bit 0x80 continues in AI states
 //    0x46/0x47 and otherwise fails unless it is in state 0 and the pinned
 //    Pathfinder::getClosestPointOnLand finds land.
+//  - AIEnterState::update, retail 0x0035455A (419 bytes): slot 6 of
+//    0x00C12E90, base call the pinned AIInternalMoveToState::update. Donors:
+//    Open-BFME-1 AIStates.cpp and Zero Hour AIStates.cpp. Fails without a
+//    goal or when an airborne-contained goal is out of reach. It tracks the
+//    goal's contain slot-86 position (else the goal position), sets the AI
+//    goal object and, when canEnterObject refuses, attacks an enemy goal
+//    (rowed AICommandInterface::rva0026C2D9) or fails. A held owner
+//    succeeds. After a finished move it forces the unit into the contain
+//    (slot 39, Zero Hour addToContain) when within the goal's +0xB8
+//    radius or past the +0x50 frame.
 //  - AIMoveToPositionAndEnterState::onExit, retail 0x0034C035 (99 bytes):
 //    slot 5 of 0x00C136A0. When the owner has object status 0x4E, clears it
 //    and status 3, and for a template with kind byte +0x115 mask 0x20 also
@@ -138,10 +148,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_BFME_4E = 0x4E,
 	OBJECT_STATUS_BFME_5D = 0x5D
 };
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../Common/GameLogicObjectLookupView.h"
 enum
 {
 	STATE_SUCCESS = -1,
@@ -277,12 +284,14 @@ public:
 template <class Base> class AIStateGapSlots<Base, 0> : public Base
 {
 };
-template <class Base, int N> class AIStateGapSlots2 : public AIStateGapSlots2<Base, N - 1>
+// Pure gap slots From+1..To after Base's last slot From; numbering the
+// signature by slot keeps successive fills distinct.
+template <class Base, int From, int To> class AIStateSlotFill : public AIStateSlotFill<Base, From, To - 1>
 {
 public:
-	virtual void tailGap2(char (*)[N]) = 0;
+	virtual void fill(char (*)[To]) = 0;
 };
-template <class Base> class AIStateGapSlots2<Base, 0> : public Base
+template <class Base, int From> class AIStateSlotFill<Base, From, From> : public Base
 {
 };
 
@@ -304,6 +313,7 @@ class AICommandInterface
 public:
 	void aiIdle(CommandSourceType cmdSource);
 	void rva0026C347(Object *obj, CommandSourceType cmdSource);
+	void rva0026C2D9(Object *victim, int maxShotsToFire, CommandSourceType cmdSource);
 };
 
 enum CanEnterType
@@ -311,13 +321,37 @@ enum CanEnterType
 	CHECK_CAPACITY = 0
 };
 
-class BFMEActionManager
+enum AbleToAttackType
+{
+	ATTACK_NEW_TARGET = 0
+};
+
+enum CanAttackResult
+{
+	ATTACKRESULT_POSSIBLE_AFTER_MOVING = 2,
+	ATTACKRESULT_POSSIBLE = 3
+};
+
+enum Relationship
+{
+	ENEMIES = 0
+};
+
+class ActionManager
+{
+public:
+	CanAttackResult getCanAttackObject(const Object *obj, const Object *objectToAttack,
+		CommandSourceType commandSource, AbleToAttackType attackType);
+};
+
+class BFMEActionManager : public ActionManager
 {
 public:
 	Bool canEnterObject(const Object *obj, const Object *objectToEnter, CommandSourceType commandSource,
 		CanEnterType mode, int passThrough, Bool *outFlag);
 };
 extern BFMEActionManager *TheActionManager;
+extern GameLogic *TheGameLogic;
 
 class RadarObject;
 class Player;
@@ -349,6 +383,7 @@ public:
 	void requestPath(Coord3D *destination, Bool isFinalGoal);
 	RadarObject *rva002630F5();
 	int rva00260DED() const;
+	void friend_setGoalObject(Object *obj);
 	const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)m_locomotorSet; }
 	void *getPath() const { return m_path; }
 	Bool getBfmeFlag3B1() const { return m_bfmeFlag3B1; }
@@ -415,23 +450,32 @@ struct Coord3D
 };
 
 // The contain module's slot 87 hands back the position an entering unit
-// walks to (BFME 1 donor: slot 82, its GetContainedObjectPosition). Slot 69
+// walks to (BFME 1 donor: slot 82, its GetContainedObjectPosition typedef);
+// slot 86 is the donor's slot-81 getContainedObjectPosition, which
+// AIEnterState reads (the same +5 shift). Slot 69
 // is the contain count with one zero argument (as in
 // ScriptConditions_evaluateIsBuildingEmpty.cpp); slot 32 takes a command
-// source and has no evidenced name.
+// source and has no evidenced name; slot 39 is the Zero Hour addToContain
+// that AIEnterState::update forces an arrived unit into.
 class ContainModuleSlot32 : public AIStateAISlots<32>
 {
 public:
 	virtual void slot32(CommandSourceType cmdSource) = 0;
 };
-class ContainModuleSlot69 : public AIStateGapSlots<ContainModuleSlot32, 36>
+class ContainModuleSlot39 : public AIStateSlotFill<ContainModuleSlot32, 32, 38>
+{
+public:
+	virtual void addToContain(Object *obj) = 0;
+};
+class ContainModuleSlot69 : public AIStateSlotFill<ContainModuleSlot39, 39, 68>
 {
 public:
 	virtual int getContainCount(int extra) const = 0;
 };
-class ContainModuleInterface : public AIStateGapSlots2<ContainModuleSlot69, 17>
+class ContainModuleInterface : public AIStateSlotFill<ContainModuleSlot69, 69, 85>
 {
 public:
+	virtual const Coord3D *getContainedObjectPosition() const = 0;
 	virtual const Coord3D *getEnterPosition() = 0;
 };
 
@@ -443,6 +487,7 @@ public:
 	Real getOrientation() const { return m_orientation; }
 	void setOrientation(Real angle);
 	void setPosition(const Coord3D *pos);
+	Bool isAboveTerrain() const;
 private:
 	unsigned char m_pad00[0x04];
 	const ThingTemplate *m_template; // +0x04
@@ -462,6 +507,10 @@ public:
 	void setBfmeAngle1C0(Real angle) { m_bfmeAngle1C0 = angle; }
 	Bool testStatus(ObjectStatusTypes status) const;
 	Player *getControllingPlayer() const;
+	Relationship getRelationship(const Object *that) const;
+	Real getBoundingCircleRadius() const { return m_boundingCircleRadius; }
+	Bool isDisabledHeld() const { return (m_disabledMask & 8) != 0; }
+	Object *getContainedBy() const { return m_containedBy; }
 	void setStatus(ObjectStatusTypes status, Bool set);
 	void rva00346C53(ObjectStatusTypes status, Bool set);
 	void releaseWeaponLock(WeaponLockType lockType);
@@ -493,15 +542,21 @@ private:
 	ObjectID m_id; // +0x74
 	unsigned char m_pad078[0x94 - 0x78];
 	unsigned char m_bfmeFlags94; // +0x94
-	unsigned char m_pad095[0x10C - 0x95];
+	unsigned char m_pad095[0xB8 - 0x95];
+	Real m_boundingCircleRadius; // +0xB8 (geometry info)
+	unsigned char m_pad0BC[0x10C - 0xBC];
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x1C0 - (0x10C + sizeof(Rva0010CBits))];
 	Real m_bfmeAngle1C0; // +0x1C0
-	unsigned char m_pad1C4[0x250 - 0x1C4];
+	unsigned char m_pad1C4[0x1C8 - 0x1C4];
+	unsigned char m_disabledMask; // +0x1C8 (bit 3: DISABLED_HELD)
+	unsigned char m_pad1C9[0x250 - 0x1C9];
 	ContainModuleInterface *m_contain; // +0x250
 	unsigned char m_pad254[0x258 - 0x254];
 	AIUpdateInterface *m_ai; // +0x258
-	unsigned char m_pad25C[0x410 - 0x25C];
+	unsigned char m_pad25C[0x274 - 0x25C];
+	Object *m_containedBy; // +0x274
+	unsigned char m_pad278[0x410 - 0x278];
 	void *m_bfme410; // +0x410
 };
 
@@ -877,6 +932,76 @@ void AIAttackPositionAimAtTargetState::onExit(StateExitType status)
 	if (ai && getMachineOwner()->getTemplate()->getBfmeReal53C() < 360.0f)
 		ai->rva0034BEF9Slot142(0);
 	getMachineOwner()->setStatus(OBJECT_STATUS_BFME_19, false);
+}
+
+class AIEnterState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType update();
+private:
+	int m_entryToClear; // +0x4C
+	unsigned int m_enterFrame; // +0x50
+};
+
+StateReturnType AIEnterState::update()
+{
+	Object *obj = getMachineOwner();
+	Object *goal = getMachine()->getGoalObject();
+	if (goal)
+	{
+		if (goal->getContainedBy() != 0 && goal->isAboveTerrain() && !obj->isAboveTerrain())
+			return (StateReturnType)STATE_FAILURE;
+
+		ContainModuleInterface *contain = goal->getContain();
+		if (contain)
+			m_goalPosition = *contain->getContainedObjectPosition();
+		else
+			m_goalPosition = *goal->getPosition();
+
+		obj->getAI()->friend_setGoalObject(goal);
+		if (!TheActionManager->canEnterObject(obj, goal, obj->getAI()->getLastCommandSource(),
+				CHECK_CAPACITY, 0, 0))
+		{
+			if (obj->getRelationship(goal) == ENEMIES && obj->getAI())
+			{
+				CanAttackResult result = TheActionManager->getCanAttackObject(obj, goal,
+					obj->getAI()->getLastCommandSource(), ATTACK_NEW_TARGET);
+				if (result == ATTACKRESULT_POSSIBLE || result == ATTACKRESULT_POSSIBLE_AFTER_MOVING)
+				{
+					AIUpdateInterface *ai = obj->getAI();
+					ai->m_commands.rva0026C2D9(goal, 0x7fffffff, ai->getLastCommandSource());
+					return STATE_CONTINUE;
+				}
+			}
+			return (StateReturnType)STATE_FAILURE;
+		}
+
+		if (getMachineOwner()->isDisabledHeld())
+			return (StateReturnType)STATE_SUCCESS;
+	}
+	else
+	{
+		return (StateReturnType)STATE_FAILURE;
+	}
+
+	StateReturnType code = AIInternalMoveToState::update();
+	if (code != STATE_CONTINUE)
+	{
+		ContainModuleInterface *contain = goal->getContain();
+		if (contain)
+		{
+			const Coord3D *pos = contain->getContainedObjectPosition();
+			Real dx = obj->getPosition()->x - pos->x;
+			Real dy = obj->getPosition()->y - pos->y;
+			Real radius = goal->getBoundingCircleRadius();
+			if (dx * dx + dy * dy < radius * radius || TheGameLogic->getFrame() > m_enterFrame)
+			{
+				contain->addToContain(obj);
+				code = (StateReturnType)STATE_SUCCESS;
+			}
+		}
+	}
+	return code;
 }
 
 class AIMoveAwayAndCowerState : public AIInternalMoveToState
