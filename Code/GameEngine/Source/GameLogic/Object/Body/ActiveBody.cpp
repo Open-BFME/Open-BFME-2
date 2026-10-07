@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /O1 /EHsc /MD /arch:SSE /Ireference/shims/bfme2_ascii
 // ActiveBody.cpp -- ActiveBody members recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv): WB's debug build names the function (vtable
 // pairing); retail supplies the bytes. Zero Hour's setDamageState
@@ -11,6 +11,8 @@
 // +0x24/+0x28. The health change is interface slot 32 (+0x80); the final
 // call is slot 21 (+0x54) of the primary vtable with a zero argument.
 
+#include "ascii_string.h"
+
 typedef float Real;
 typedef int Int;
 typedef bool Bool;
@@ -22,7 +24,112 @@ enum DamageType { DAMAGE_HEALING = 7 };
 enum KindOfType { KINDOF_220 = 0x220 };
 enum ObjectID { INVALID_ID = 0 };
 
+// class-gate: allow Coord3D the bone-position array is built and torn down through BFME 2's out-of-line empty Coord3D constructor and destructor (the eh vector iterators push 0x0047A6A9 and 0x000B3FD0); the canonical data-only header cannot declare them; same three floats
+struct Coord3D
+{
+	float x, y, z;
+	Coord3D();
+	~Coord3D();
+};
+
+class Matrix3D;
+class ParticleSystemTemplate;
+
+enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID = 0 };
+
+// The particle system's setters, rowed under placeholder names: position copy
+// 0x001F3899 and attached object 0x001F3C43.
+struct Rva001F3899Arg
+{
+	int m_00;
+	int m_04;
+	int m_08;
+};
+class Rva001F3899Slot
+{
+public:
+	void set(const Rva001F3899Arg &arg);
+};
+struct Rva001F3C43Arg;
+class Rva001F3C43Slot
+{
+public:
+	void set(const Rva001F3C43Arg *arg);
+};
+
 class Object;
+class ParticleSystem
+{
+public:
+	ParticleSystemID getSystemID() const { return m_systemID; }
+	void setPosition(const Coord3D *pos)
+	{
+		((Rva001F3899Slot *)this)->set(*(const Rva001F3899Arg *)pos);
+	}
+	void attachToObject(const Object *obj)
+	{
+		((Rva001F3C43Slot *)this)->set((const Rva001F3C43Arg *)obj);
+	}
+
+private:
+	char m_pad00[0xA8];
+	ParticleSystemID m_systemID;	// +0xA8
+};
+ParticleSystem *Make001FCBD7();
+
+// The 12-byte handle: the out-of-line unlink is 0x0004CBC0, which the handle's
+// destructor calls only for a live system.
+class RvaSmartPtr12
+{
+public:
+	void rva0004CBC0() throw();
+};
+class BfmeParticleSystemHandleBase
+{
+public:
+	~BfmeParticleSystemHandleBase()
+	{
+		if (m_system)
+			((RvaSmartPtr12 *)this)->rva0004CBC0();
+	}
+	ParticleSystem *m_system;
+	BfmeParticleSystemHandleBase *m_previous;
+	BfmeParticleSystemHandleBase *m_next;
+};
+class BfmeParticleSystemHandle : public BfmeParticleSystemHandleBase
+{
+public:
+	operator bool() const { return m_system != 0; }
+	ParticleSystem *operator->() const
+	{
+		return m_system ? m_system : Make001FCBD7();
+	}
+};
+
+class ParticleSystemManager
+{
+public:
+	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *sysTemplate, bool createSlaves);
+};
+extern ParticleSystemManager *TheParticleSystemManager;
+
+extern Int GetGameClientRandomValue(Int lo, Int hi, char *file, Int line);
+#define GameClientRandomValue(lo, hi) \
+	GetGameClientRandomValue((lo), (hi), __FILE__, __LINE__)
+
+// BodyParticleSystem: BFME 2 drops Zero Hour's memory pool, so the 12-byte
+// entry is a plain new with a vptr (vtable VA 0x00C5AEB0, whose only slot is
+// the rowed scalar deleting destructor 0x004BDA0C named after its address).
+class Rva004BDA0C
+{
+public:
+	virtual ~Rva004BDA0C();
+
+	ParticleSystemID m_particleSystemID;	// +0x04
+	Rva004BDA0C *m_next;			// +0x08
+};
+typedef Rva004BDA0C BodyParticleSystem;
+
 class FXList
 {
 public:
@@ -90,6 +197,8 @@ class Object
 {
 public:
 	Bool isKindOf(KindOfType kindOf) const;	// 0x0006F039
+	Int getMultiLogicalBonePosition(const char *boneNamePrefix, Int maxBones, Coord3D *positions,
+		Matrix3D *transforms, Bool convertToWorld, Int extra) const;	// 0x0028BF81
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Int getID() const { return m_id; }
 	Bool testStatusBit6() const { return (m_status >> 6) & 1; }
@@ -220,6 +329,8 @@ public:
 
 protected:
 	virtual void doDamageFX(const DamageInfo *damageInfo);
+	virtual void createParticleSystems(const AsciiString &boneBaseName,
+		const ParticleSystemTemplate *systemTemplate, Int maxSystems);
 
 private:
 	const ActiveBodyModuleData *getActiveBodyModuleData() const { return m_moduleData; }
@@ -238,7 +349,9 @@ private:
 	Int m_lastDamageFXDone;			// +0x3C
 	unsigned char m_pad40[0xC0 - 0x40];
 	UnsignedInt m_lastHealingTimestamp;	// +0xC0
-	unsigned char m_padC4[0xE0 - 0xC4];
+	unsigned char m_padC4[4];
+	BodyParticleSystem *m_particleSystems;	// +0xC8
+	unsigned char m_padCC[0xE0 - 0xCC];
 	DamageCreation *m_damageCreationBegin;	// +0xE0
 	DamageCreation *m_damageCreationEnd;	// +0xE4
 	unsigned char m_padE8[4];
@@ -380,5 +493,57 @@ void ActiveBody::doDamageFX(const DamageInfo *damageInfo)
 		DamageCreation c = *it;
 		if (c.m_type == damageInfo->in.m_creationType && c.m_field08 == 0 && c.m_ocl)
 			c.m_ocl->create(getObject(), 0, 0);
+	}
+}
+
+// ActiveBody::createParticleSystems, retail 0x004BE24A (421B): primary vtable
+// slot 19. The BFME 1 donor shape: up to maxSystems systems, each on a random
+// bone not used yet (a used-bone array instead of Zero Hour's shrinking
+// range), each recorded on the body's particle-system list at +0xC8.
+void ActiveBody::createParticleSystems(const AsciiString &boneBaseName,
+	const ParticleSystemTemplate *systemTemplate, Int maxSystems)
+{
+	Object *us = getObject();
+	if (systemTemplate == 0)
+		return;
+
+	enum { MAX_BONES = 16 };
+	Coord3D bonePositions[MAX_BONES];
+	Int numBones = us->getMultiLogicalBonePosition(boneBaseName.str(), MAX_BONES, bonePositions, 0, false, 0);
+	if (numBones == 0)
+		return;
+	if (numBones < maxSystems)
+		maxSystems = numBones;
+
+	Bool usedBoneIndices[MAX_BONES] = {};
+	for (Int i = 0; i < maxSystems; ++i)
+	{
+#line 1514 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Body\\ActiveBody.cpp"
+		Int boneIndex = GameClientRandomValue(0, numBones - 1);
+		for (Int j = 0; j < numBones; ++j)
+		{
+			if (usedBoneIndices[boneIndex] != true)
+			{
+				const Coord3D *pos = &bonePositions[boneIndex];
+				usedBoneIndices[boneIndex] = true;
+				if (pos)
+				{
+					BfmeParticleSystemHandle particleSystem =
+						TheParticleSystemManager->createParticleSystem(systemTemplate, true);
+					if (particleSystem)
+					{
+						particleSystem->setPosition(pos);
+						particleSystem->attachToObject(us);
+
+						BodyParticleSystem *newEntry = new BodyParticleSystem;
+						newEntry->m_particleSystemID = particleSystem->getSystemID();
+						newEntry->m_next = m_particleSystems;
+						m_particleSystems = newEntry;
+					}
+				}
+				break;
+			}
+			boneIndex = (boneIndex + 1) % numBones;
+		}
 	}
 }
