@@ -32,9 +32,13 @@ public:
 class DamageInfoInput
 {
 public:
-	UnsignedInt m_sourceID;			// +0x00
-	unsigned char m_pad04[0x08];
+	UnsignedInt m_field00;			// +0x00
+	ObjectID m_sourceID;			// +0x04
+	UnsignedInt m_field08;			// +0x08
 	DamageType m_damageType;		// +0x0C
+	Int m_damageFXType;			// +0x10
+	unsigned char m_pad14[0x28 - 0x14];
+	Int m_creationType;			// +0x28
 };
 
 class DamageInfo
@@ -42,7 +46,7 @@ class DamageInfo
 public:
 	void *m_vptr;
 	DamageInfoInput in;			// +0x04
-	unsigned char m_pad14[0x70 - 0x14];
+	unsigned char m_pad30[0x70 - 0x30];
 	Real m_actualDamageDealt;		// +0x70
 	Real m_actualDamageClipped;		// +0x74
 };
@@ -125,6 +129,31 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
+class DamageFX
+{
+public:
+	Bool rva003608DF(Int damageType, Real amount, const Object *source, const Object *victim);	// 0x003608DF
+};
+
+class Rva003605D5	// DamageFX throttle-time lookup (Zero Hour getDamageFXThrottleTime)
+{
+public:
+	Int rva003605D5(Int damageType, Int source);	// 0x003605D5
+};
+
+class ObjectCreationList
+{
+public:
+	void create(void *primary, void *secondary, void *lifetime);	// 0x001F08D3
+};
+
+struct DamageCreation
+{
+	ObjectCreationList *m_ocl;		// +0x00
+	Int m_type;				// +0x04
+	Int m_field08;				// +0x08
+};
+
 class Armor
 {
 public:
@@ -152,7 +181,7 @@ public:
 	virtual void m12(); virtual void m13(); virtual void m14(); virtual void m15();
 	virtual void m16();
 	virtual void validateArmorAndDamageFX();		// +0x44
-	virtual void doDamageFX(const DamageInfo *damageInfo);	// +0x48
+	virtual void doDamageFX(const DamageInfo *damageInfo) = 0;	// +0x48
 	virtual void m19(); virtual void m20();
 	virtual void rvaSlot21(Int arg);			// +0x54
 
@@ -189,6 +218,9 @@ public:
 	virtual void attemptHealing(DamageInfo *damageInfo);
 	virtual void setDamageState(BodyDamageType newState);
 
+protected:
+	virtual void doDamageFX(const DamageInfo *damageInfo);
+
 private:
 	const ActiveBodyModuleData *getActiveBodyModuleData() const { return m_moduleData; }
 	Object *getObject() const { return m_object; }
@@ -201,12 +233,19 @@ private:
 	Real m_reallyDamagedRatio;		// +0x28
 	unsigned char m_pad2C[4];
 	BodyDamageType m_curDamageState;	// +0x30
-	unsigned char m_pad34[0xC0 - 0x34];
+	unsigned char m_pad34[4];
+	UnsignedInt m_nextDamageFXTime;		// +0x38
+	Int m_lastDamageFXDone;			// +0x3C
+	unsigned char m_pad40[0xC0 - 0x40];
 	UnsignedInt m_lastHealingTimestamp;	// +0xC0
-	unsigned char m_padC4[0xEC - 0xC4];
+	unsigned char m_padC4[0xE0 - 0xC4];
+	DamageCreation *m_damageCreationBegin;	// +0xE0
+	DamageCreation *m_damageCreationEnd;	// +0xE4
+	unsigned char m_padE8[4];
 	ObjectID m_linkedObjectID;		// +0xEC
 	unsigned char m_padF0[0xF8 - 0xF0];
 	Armor m_curArmor;			// +0xF8
+	DamageFX *m_curDamageFX;		// +0xFC
 };
 
 // ActiveBody::setDamageState, retail 0x004BDAA9.
@@ -310,4 +349,36 @@ void ActiveBody::attemptHealing(DamageInfo *damageInfo)
 	}
 
 	doDamageFX(damageInfo);
+}
+
+// ActiveBody::doDamageFX, retail 0x004BED62 (191B): primary vtable slot 18.
+// Zero Hour's throttled damage FX, except that BFME 2 takes the FX damage
+// type straight from DamageInfoInput +0x10, records the throttle only when
+// DamageFX 0x003608DF reports it played something, and then runs the
+// damage-creation list (+0xE0, 12-byte entries): each entry whose type
+// matches DamageInfoInput +0x28 and whose third word is clear creates its
+// ObjectCreationList on this Object.
+void ActiveBody::doDamageFX(const DamageInfo *damageInfo)
+{
+	DamageFX *fx = m_curDamageFX;
+	Int type = damageInfo->in.m_damageFXType;
+	if (fx)
+	{
+		UnsignedInt now = TheGameLogic->getFrame();
+		if (type == m_lastDamageFXDone && m_nextDamageFXTime > now)
+			return;
+		Object *source = TheGameLogic->findObjectByID(damageInfo->in.m_sourceID);
+		if (fx->rva003608DF(type, damageInfo->m_actualDamageDealt, source, getObject()))
+		{
+			m_lastDamageFXDone = type;
+			m_nextDamageFXTime = ((Rva003605D5 *)m_curDamageFX)->rva003605D5(type, (Int)source) + now;
+		}
+	}
+
+	for (DamageCreation *it = m_damageCreationBegin; it != m_damageCreationEnd; ++it)
+	{
+		DamageCreation c = *it;
+		if (c.m_type == damageInfo->in.m_creationType && c.m_field08 == 0 && c.m_ocl)
+			c.m_ocl->create(getObject(), 0, 0);
+	}
 }
