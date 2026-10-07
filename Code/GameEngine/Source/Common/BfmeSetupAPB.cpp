@@ -36,3 +36,18 @@ int bfmeSetupAPB(void)
 #pragma comment(linker, "/alternatename:?g_bfmeFlagsAPB@@3IA=?BFME2CommandFlags@@3IA")
 #pragma comment(linker, "/alternatename:?g_bfmeOnAPB@@3_NA=?g_Rva00A02D86@@3EA")
 #pragma comment(linker, "/alternatename:?g_bfmeDoneAPB@@3_NA=?g_Rva00A02D87@@3EA")
+
+// The paired deep-CRC handler at retail 0x003B9BA1 (63 bytes).
+// The donor lite-CRC handler supplies the exception semantics; target writes
+// select bit 0x10000 and the opposite mode flag. The descriptive name
+// records that behavior, without asserting the original source spelling.
+int bfmeSetupDeepCRC(void)
+{
+	g_bfmeOnAPB = true;
+	BFME2CommandFlags |= 0x10000;
+	if (g_bfmeDoneAPB)
+	{
+		throw INIException(3, "Do not specify both -deepCRC and -liteCRC in your commandline arguments.");
+	}
+	return 1;
+}
