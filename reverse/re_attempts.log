@@ -16928,3 +16928,5 @@ FUN_0045e1bf	0x0005E1BF	143	blocked	Ghidra boundary 0x0005E1BF through 0x0005E24
 ?rva0028DAB9@Object@@AAEXXZ	0x0028DAB9	86	partial	87B vs 86B cmp byte vs mov al test wall t=20 model=muse-spark-1.3-contributor score=0.98 stash=reverse/attempts/0x0028dab9.cpp
 ?rva0041541B@Rva0041541B@@QAEHXZ	0x0041541B	97	blocked	ADDRESS-NAMED globals g_Va00E03088 plus g_00E03080 publisher refuses new use t=2 model=muse-spark-1.3-contributor
 ?rva0028DF48@Rva0028DF48@@QAEXHHH@Z	0x0028DF48	215	blocked	ADDRESS-NAMED global g_Va00DFED28 has no real name yet t=2 model=muse-15
+?Rva004E141DParse@@YAXPAVINI@@PAX@Z	0x004E141D	110	partial	xor-edx cmp and-vs-mov scheduling 111B-vs-110B t=25 model=muse-spark score=0.97 stash=reverse/attempts/0x004e141d.cpp
+?Rva004E1BFCParse@@YAXPAVINI@@PAX@Z	0x004E1BFC	126	partial	exact 126B-38insns only unresolved dtor needs twin Rva004E1B00 of Tracer t=30 model=muse-spark score=0.99 stash=reverse/attempts/0x004e1bfc.cpp
