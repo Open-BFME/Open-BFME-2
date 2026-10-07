@@ -66805,3 +66805,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva005669B7@Rva005669B7Owner@@QAEXABURva005668E9Element@@@Z,,0x005669B7,11,Code/GameEngine/Source/Common/Rva0056654FThunk.cpp,matched,tail-jump append plus 0x9C via Element pushback
 ??4Rva003844D7@@QAEAAV0@ABV0@@Z,,0x003874F9,111,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva003844D7OpAssign.cpp,matched,chain caller pin base plus five maps
 ??4Rva0038454E@@QAEAAV0@ABV0@@Z,,0x00387945,291,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038454EOpAssign.cpp,matched,chain caller pin base plus fifteen maps
+??0Rva0022BD9ASubsystem@@QAE@XZ,,0x0041EFFF,67,Code/GameEngine/Source/Common/Rva0022BD9ASubsystem.cpp,matched,leaf called by GameEngine init via new baseConstruct plus two hashmap ctors
