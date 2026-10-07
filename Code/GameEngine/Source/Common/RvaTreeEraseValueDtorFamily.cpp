@@ -278,3 +278,80 @@ Rva0050298D::~Rva0050298D()
 {
 	reinterpret_cast<Rva00502787 *>(this)->rva00502787();
 }
+
+class Rva0020762B
+{
+public:
+	void rva0020762B();
+};
+
+void Rva0020762B::rva0020762B()
+{
+	reinterpret_cast<Rva002065C8 *>(this)->rva00206EF0();
+}
+
+class Rva00207668
+{
+public:
+	void rva00207668();
+};
+
+void Rva00207668::rva00207668()
+{
+	reinterpret_cast<Rva002065FD *>(this)->rva00206F19();
+}
+
+class Rva002076A5
+{
+public:
+	void rva002076A5();
+};
+
+void Rva002076A5::rva002076A5()
+{
+	reinterpret_cast<Rva00206632 *>(this)->rva00206F42();
+}
+
+class Rva0020771F
+{
+public:
+	void rva0020771F();
+};
+
+void Rva0020771F::rva0020771F()
+{
+	reinterpret_cast<Rva0020669C *>(this)->rva00206F94();
+}
+
+class Rva0020775C
+{
+public:
+	void rva0020775C();
+};
+
+void Rva0020775C::rva0020775C()
+{
+	reinterpret_cast<Rva002066D1 *>(this)->rva00206FBD();
+}
+
+class Rva005026B1
+{
+public:
+	void rva005026B1();
+};
+
+void Rva005026B1::rva005026B1()
+{
+	reinterpret_cast<Rva00501F2D *>(this)->rva0050247A();
+}
+
+class Rva00502926
+{
+public:
+	void rva00502926();
+};
+
+void Rva00502926::rva00502926()
+{
+	reinterpret_cast<Rva005026B6 *>(this)->~Rva005026B6();
+}
