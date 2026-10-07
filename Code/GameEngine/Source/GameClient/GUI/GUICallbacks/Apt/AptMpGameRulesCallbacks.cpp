@@ -1,9 +1,13 @@
-// cl: /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's lobby game rules panel (the AptMpGameSetup panel's +0xD0 member)
 // Apt callback "AptMpGameRules::Reset", 0x0057E6DD, bound by that name as
-// a member pointer by the panel's registration 0x0057F0AA; that binding is
-// its only reference. The class is named for the string's prefix.
+// a member pointer by the panel's registration 0x0057F0AA (recovered
+// below); that binding is its only reference. The class is named for the
+// string's prefix.
+
+#include "unicode_string.h"
+#include "ascii_string.h"
 
 extern "C" __declspec(dllimport) char *__cdecl strchr(const char *text, int c);
 extern "C" __declspec(dllimport) char *__cdecl strstr(const char *text, const char *pattern);
@@ -26,6 +30,104 @@ struct AptMpGameRulesWidgets
 // Unrowed 0x00559FAC (cdecl; resets the 0x28-byte rules block at +0x8C
 // for the mode at +0x60), pinned by address.
 void __cdecl Rva00559FAC(int mode, void *rules);
+
+// The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
+// MpGameSetupSlots.cpp): a binding of an
+// object and an eight-byte multiple-inheritance member pointer, and the
+// refcounted holder rowed 0x0057BC63 builds from it.
+class __multiple_inheritance FunctorTarget;
+typedef void (FunctorTarget::*FunctorMethod)(void);
+
+struct FunctorBinding
+{
+	FunctorBinding(FunctorMethod method, FunctorTarget *target) : m_target(target), m_method(method) {}
+
+	FunctorTarget *m_target;
+	unsigned int m_pad;
+	FunctorMethod m_method;
+};
+
+class FunctorWrapperHead
+{
+public:
+	void *m_vtbl;
+	int m_refCount; // +0x04
+};
+
+class Rva0057BC63FunctorHolder
+{
+public:
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
+	Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : m_ptr(other.m_ptr)
+	{
+		if (m_ptr)
+			++m_ptr->m_refCount;
+	}
+
+	FunctorWrapperHead *m_ptr;
+};
+
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
+
+template <class T> class AptRef : public Rva0057BC63FunctorHolder
+{
+public:
+	AptRef(FunctorBinding binding) : Rva0057BC63FunctorHolder(binding) {}
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+};
+
+class AptCommandMap;
+class AptExternHandler;
+
+namespace _STL
+{
+	template <class T> class allocator {};
+
+	template <class T, class A = allocator<T> > class vector
+	{
+	private:
+		T *m_start;
+		T *m_finish;
+		T *m_endOfStorage;
+	};
+}
+
+class AptCommandMapAdder
+{
+public:
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptExternHandlerAdder
+{
+public:
+	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
+
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+// 0x00411458 (pinned; see MpGameSetupSlots.cpp) stores the screen
+// reference under the name.
+class AptScreenInitGadgets;
+void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
+
+// The Apt player (0x00DFE4CC) and its rowed text setter.
+class BfmeAptWindowManager
+{
+public:
+	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
+};
+
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class AptMpGameRules
 {
@@ -50,8 +152,12 @@ public:
 	void rva0057EF18();
 	void rva0057ED2B();
 
+	void rva0057F0AA();
+
 private:
-	unsigned char m_pad004[0x60 - 0x04];
+	AptCommandMapAdder m_commandMaps; // +0x04
+	AptExternHandlerAdder m_externHandlers; // +0x10
+	unsigned char m_pad01c[0x60 - 0x1C];
 	int m_mode; // +0x60
 	AptMpGameRulesWidgets m_comboBoxes; // +0x64
 	AptMpGameRulesWidgets m_checkBoxes; // +0x70
@@ -119,3 +225,52 @@ void AptMpGameRules::InitGadgets(const char *name, void *argument, GameWindow *w
 		rva0057ED2B();
 }
 #pragma optimize("", on)
+
+// Retail 0x0057F0AA, 564 bytes. Name unknown. The game rules panel's Apt
+// registration (called by AptMpGameSetup::rva0044303D on its +0xD0
+// member): blanks the ten "APT:RuleComboBox_<n>" and "APT:RuleCheckBox_<n>"
+// texts, resets the rules for the mode and re-files the widgets, then binds
+// "MpGameRules::NumCheckBoxes" and "MpGameRules::NumComboBoxes" (ExternFunc
+// with queries 1 and 0), "AptMpGameRules::Reset" and the
+// "AptMpGameRules::InitGadgets" screen reference. Retail packs the last
+// block's AsciiString fresh but keeps its binding in the shared slot
+// (sub esp,0x30), which needs the trailing scope.
+// The handlers are bound as eight-byte multiple-inheritance member pointers.
+#pragma pointers_to_members(full_generality, multiple_inheritance)
+void AptMpGameRules::rva0057F0AA()
+{
+	for (int i = 0; i < 10; ++i)
+	{
+		AsciiString key;
+		key.format("APT:RuleComboBox_%d", i);
+		g_bfmeAptWindowManager->bfmeSetText(key, UnicodeString(L" "), false);
+		key.format("APT:RuleCheckBox_%d", i);
+		g_bfmeAptWindowManager->bfmeSetText(key, UnicodeString(L" "), false);
+	}
+	Rva00559FAC(m_mode, m_rules);
+	rva0057EF18();
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameRules::ExternFunc);
+		AsciiString name("MpGameRules::NumCheckBoxes");
+		m_externHandlers.AddExternHandler(name, 1, AptRef<AptExternHandler>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameRules::ExternFunc);
+		AsciiString name("MpGameRules::NumComboBoxes");
+		m_externHandlers.AddExternHandler(name, 0, AptRef<AptExternHandler>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameRules::Reset);
+		AsciiString name("AptMpGameRules::Reset");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMpGameRules::InitGadgets);
+		AsciiString name("AptMpGameRules::InitGadgets");
+		_bfme_setAptScreenRef(name, AptRef<AptScreenInitGadgets>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		{
+			FunctorBinding unused(0, 0);
+			(void)unused;
+		}
+	}
+}
