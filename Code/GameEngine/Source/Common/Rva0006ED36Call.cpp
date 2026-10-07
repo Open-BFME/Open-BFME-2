@@ -27,16 +27,26 @@ class Rva0006ED36
 {
 public:
 	void rva0006ED36(void *p);
+	void rva0006EE27(void *p);
 private:
 	char m_pad00[0x108];
 	Rva0006ED36Sub m_sub;
-	char m_pad10C[0x814 - 0x108 - 4];
-	void *m_slot;
+	char m_pad10C[0x118 - 0x108 - 4];
+	void *m_slot118;
+	char m_pad11C[0x814 - 0x118 - 4];
+	void *m_slot814;
 };
 
 void Rva0006ED36::rva0006ED36(void *p)
 {
-	m_slot = p;
+	m_slot814 = p;
 	m_sub.v12();
-	m_slot = 0;
+	m_slot814 = 0;
+}
+
+void Rva0006ED36::rva0006EE27(void *p)
+{
+	m_slot118 = p;
+	m_sub.v12();
+	m_slot118 = 0;
 }
