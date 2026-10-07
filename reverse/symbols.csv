@@ -15590,3 +15590,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??1Rva004FF630Member@@QAE@XZ,0x004FF630,pinned placeholder dtor: REL32 target of the +0x1C member teardown in Rva00502D03 0x00502D03
 ?rva0040CB79@Rva0040CB79Helper@@QAEHH@Z,0x0040CB79,callee of forwarder 0x0031979C read from its REL32 displacement; w3-g26
 ?rva00319517@Rva0031979COwner@@QAEXH@Z,0x00319517,callee of forwarder 0x0031979C read from its REL32 displacement; w3-g26
+?rva00362255@Rva003189ADSub10@@QAEXPAVXfer@@@Z,0x00362255,unrowed thiscall on the +0x10 member object of the 0x003189AD owner taking Xfer; callee of gate 0x003189AD read from its REL32 displacement; address name
+?rva00318871@Rva003189ADSub4C@@QAEXPAVXfer@@@Z,0x00318871,unrowed thiscall on the +0x4C member object of the 0x003189AD owner taking Xfer; callee of gate 0x003189AD read from its REL32 displacement; address name
