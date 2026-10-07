@@ -388,6 +388,7 @@ public:
 	virtual void setRallyPoint( const Coord3D *pos ) = 0;
 	virtual const Coord3D *getRallyPoint( void ) const = 0;
 	virtual Bool getNaturalRallyPoint( Coord3D& rallyPoint, Bool offset = true ) const;
+	virtual Bool getExitPosition( Coord3D& exitPosition, Real& exitAngle ) const;
 };
 
 class QueueProductionExitUpdate : public UpdateModule, public ExitInterface
@@ -395,6 +396,7 @@ class QueueProductionExitUpdate : public UpdateModule, public ExitInterface
 public:
 	virtual void exitObjectViaDoor( Object *newObj, ExitDoorType exitDoor );
 	virtual Bool getNaturalRallyPoint( Coord3D& rallyPoint, Bool offset = true ) const;
+	virtual Bool getExitPosition( Coord3D& exitPosition, Real& exitAngle ) const;
 protected:
 	const QueueProductionExitUpdateModuleData *getQueueProductionExitUpdateModuleData() const
 	{
@@ -585,5 +587,26 @@ Bool QueueProductionExitUpdate::getNaturalRallyPoint( Coord3D& rallyPoint, Bool 
 	const Matrix3D *transform = getObject()->getTransformMatrix();
 	transform->Transform_Vector( *transform, p, &p );
 	rallyPoint = *(const Coord3D *)&p;
+	return true;
+}
+
+//-------------------------------------------------------------------------------------------------
+Bool QueueProductionExitUpdate::getExitPosition( Coord3D& exitPosition, Real& exitAngle ) const
+{
+	const Object *obj = getObject();
+	if (!obj)
+		return false;
+
+	const Matrix3D *transform = obj->getTransformMatrix();
+
+	const QueueProductionExitUpdateModuleData *md = getQueueProductionExitUpdateModuleData();
+
+	Vector3 loc;
+	loc.Set( md->m_unitCreatePoint.x, md->m_unitCreatePoint.y, md->m_unitCreatePoint.z );
+	transform->Transform_Vector( *transform, loc, &loc );
+
+	exitPosition = *(const Coord3D *)&loc;
+	exitAngle = md->m_placementViewAngle + getObject()->getOrientation();
+
 	return true;
 }

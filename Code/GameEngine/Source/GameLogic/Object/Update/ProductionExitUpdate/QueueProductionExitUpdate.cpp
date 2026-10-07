@@ -72,28 +72,7 @@ QueueProductionExitUpdate::~QueueProductionExitUpdate()
 // byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp
 
 
-// ?getExitPosition@QueueProductionExitUpdate@@UBE_NAAUCoord3D@@@Z present-unmatched
-Bool QueueProductionExitUpdate::getExitPosition( Coord3D& exitPosition ) const
-{
-	const Object *obj = getObject();
-	if (!obj)
-		return FALSE;
-
-	const Matrix3D *transform = obj->getTransformMatrix();
-
-	const QueueProductionExitUpdateModuleData *md = getQueueProductionExitUpdateModuleData();
-
-	Vector3 loc;
-	loc.Set( md->m_unitCreatePoint.x, md->m_unitCreatePoint.y, md->m_unitCreatePoint.z );
-	transform->Transform_Vector( *transform, loc, &loc );
-
-	exitPosition.x = loc.X;
-	exitPosition.y = loc.Y;
-	exitPosition.z = loc.Z;
-	
-	return TRUE;
-
-}
+// getExitPosition (BFME2 adds the exit angle out-param) byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp
 
 
 //-------------------------------------------------------------------------------------------------
