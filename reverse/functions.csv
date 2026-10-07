@@ -68465,4 +68465,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?d_003f1b7c@@YAXXZ,,0x003F1B7C,87,Code/gen_asm/d_003f1b7c.asm,matched,gen-dump;bounds=ghidra-inventory
 ?rva003F1C56@LivingWorldRegion@@QAEXPAVRva003F1C56Plot@@PBURva003F1BD3TemplateView@@@Z,,0x003F1C56,76,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionRva003F1C56.cpp,matched,Native Ghidra76 RET8; rowed LivingWorldRegion counter and limit sibling establish receiver; helper boundaries and caller ABI verified; slot2 listener broadcast and plot activation; original method names unknown
 ?d_00373373@@YAXXZ,,0x00373373,66,Code/gen_asm/d_00373373.asm,matched,gen-dump;bounds=ghidra-inventory
-?d_005cd8f7@@YAXXZ,,0x005CD8F7,65,Code/gen_asm/d_00373373.asm,matched,gen-dump;bounds=ghidra-inventory
+?rva005CD8F7@Rva005CD8F7Call@@QAEHPAX@Z,,0x005CD8F7,65,Code/GameEngine/Source/GameClient/HudKeyInputRva005CD8F7.cpp,matched,Native Ghidra65 RET4; caller5771F4 establishes GameMessage and int result; existing opaque pin spelling; type22 UI vslot17C and key39 dispatch; measured82B helper; unknown original identity

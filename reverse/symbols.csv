@@ -15178,7 +15178,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??$__uninitialized_copy@PBURva0021C21BElement@@PAU1@@_STL@@YAPAURva0021C21BElement@@PBU1@0PAU1@ABU__false_type@0@@Z,0x001DD10D,callee of ??4?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
 ?rva005C9BE3@Rva005C9BE3Call@@QAEHPAX@Z,0x005C9BE3,callee of ?rva00574910@Rva00574910@@QAEHPAX@Z
 ?rva005CBC95@Rva005CBC95Call@@QAEHPAX@Z,0x005CBC95,callee of ?rva00574910@Rva00574910@@QAEHPAX@Z
-?rva005CD8F7@Rva005CD8F7Call@@QAEHPAX@Z,0x005CD8F7,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
 ?rva005CD690@Rva005CD690Call@@QAEHPAX@Z,0x005CD690,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
 ??0Rva0057525FCall@@QAE@PAVRva00574A8A@@II@Z,0x0057525F,callee of ??0Rva00574A8A@@QAE@II@Z
 ?rva005CBB4A@Rva00574815@@QAEXHHH@Z,0x005CBB4A,callee of ?rva00574959@Rva00574959@@QAEHHH@Z
@@ -15769,3 +15768,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??0Rva0054D974@@QAE@XZ,0x0054E546,LadderList ctor: SetUpGameSpy (0x00386F7F) runs it on new(0xC) and stores the result in TheLadderList (0x00E05FB0); the body builds three lists at +0/+4/+8 and reads TheGameSpyConfig as ZH's LadderList ctor does
 ?rva003F1B7C@LivingWorldRegion@@QAE_NPAVCreateAHeroData@@PBURva003F1BD3TemplateView@@PAH@Z,0x003F1B7C,callee of ?rva003F1C56@LivingWorldRegion@@QAEXPAVRva003F1C56Plot@@PBURva003F1BD3TemplateView@@@Z
 ?rva004FC33E@Rva003F1C56Plot@@QAEXPBURva003F1BD3TemplateView@@@Z,0x004FC33E,callee of ?rva003F1C56@LivingWorldRegion@@QAEXPAVRva003F1C56Plot@@PBURva003F1BD3TemplateView@@@Z
+?rva005CD8A5@Rva005CD8F7Call@@QAEXXZ,0x005CD8A5,callee of ?rva005CD8F7@Rva005CD8F7Call@@QAEHPAX@Z
