@@ -23,6 +23,9 @@ public:
 	int scanIndexList(const char *token, const char *const *names);
 	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
 	static void Rva004E8E57_ParseAIKindOf(INI *ini, void *instance, void *store, const void *userData);
+    static void Rva002C5E40_ParseAITarget(INI *, void *, void *, const void *);
+    static void Rva002C5E8F_ParseAITargetList(INI *, void *, void *, const void *);
+    const char *getNextTokenOrNull(const char *seps);
 	static void Rva0029B919_ParseResourceClaimDecal(INI *ini, void *instance, void *store, const void *userData);
 	static void Rva005096FF_ParseWeaponSlot(INI *ini, void *instance, void *store, const void *userData);
 };
@@ -64,4 +67,31 @@ void INI::Rva0029B919_ParseResourceClaimDecal(INI *ini, void *instance, void *, 
 void INI::Rva005096FF_ParseWeaponSlot(INI *ini, void *, void *store, const void *)
 {
 	*(int *)store = ini->scanIndexList(ini->getNextToken(NULL), TheWeaponSlotTypeNames);
+}
+
+// The scalar callback 2C5E40 writes the converted AI-target index. The
+// 54-byte list callback 2C5E8F is registered as TacticalAITargets at
+// VA C3B718; it converts each token through 2C5DD0 and appends the index.
+// Its native append callee is the existing 49-byte four-byte-element
+// provider at 2E01C6. ScienceType is that provider's ledger ABI spelling;
+// this storage view does not identify the target-index field as a science.
+int getAITargetTypeFromName(const char *name);
+enum ScienceType { SCIENCE_INVALID = 0 };
+namespace _STL {
+template<class T> class allocator {};
+template<class T, class A = allocator<T> > class vector {
+public:
+    void push_back(const T &);
+};
+}
+void INI::Rva002C5E40_ParseAITarget(INI *ini, void *, void *store, const void *)
+{
+    *(int *)store = getAITargetTypeFromName(ini->getNextAsciiString().str());
+}
+void INI::Rva002C5E8F_ParseAITargetList(INI *ini, void *, void *store, const void *)
+{
+    for (const char *token = ini->getNextToken(0); token != 0; token = ini->getNextTokenOrNull(0)) {
+        ScienceType index = static_cast<ScienceType>(getAITargetTypeFromName(token));
+        reinterpret_cast<_STL::vector<ScienceType> *>(store)->push_back(index);
+    }
 }
