@@ -2432,6 +2432,63 @@ Bool NetPacket::rva005939EE(NetCommandRef *msg)
 	return addAckCommand(msg, ackmsg->getCommandID(), ackmsg->getOriginalPlayerID(), ackmsg->get20(), ackmsg->get24());
 }
 
+// ?addDisconnectChatCommand@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x005931D1, 538 bytes:
+// addCommand's type-13 arm (DISCONNECTCHAT): T/R/S/P/D, then the text's
+// length byte and UTF-16 characters from the +0x1C UnicodeString.
+Bool NetPacket::addDisconnectChatCommand(NetCommandRef *msg)
+{
+	if (rva0059192A(msg)) {
+		NetCommandMsg *cmdMsg = msg->getCommand();
+		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+			m_packet[m_packetLen] = 'T';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getNetCommandType();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastCommandType = cmdMsg->getNetCommandType();
+		}
+		if (m_lastRelay != msg->getRelay()) {
+			m_packet[m_packetLen] = 'R';
+			++m_packetLen;
+			UnsignedByte newRelay = msg->getRelay();
+			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastRelay = newRelay;
+		}
+		if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+			m_packet[m_packetLen] = 'S';
+			++m_packetLen;
+			UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+			memcpy(m_packet + m_packetLen, &newTimestamp, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastTimestamp = newTimestamp;
+		}
+		if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+			m_packet[m_packetLen] = 'P';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getPlayerID();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastPlayerID = cmdMsg->getPlayerID();
+		}
+		m_packet[m_packetLen] = 'D';
+		++m_packetLen;
+		UnicodeString unitext = ((Rva004D6119 *)cmdMsg)->rva004D6119();
+		UnsignedByte length = unitext.getLength();
+		memcpy(m_packet + m_packetLen, &length, sizeof(UnsignedByte));
+		m_packetLen += sizeof(UnsignedByte);
+		memcpy(m_packet + m_packetLen, unitext.str(), length * sizeof(unsigned short));
+		m_packetLen += length * sizeof(unsigned short);
+		++m_numCommands;
+		if (m_lastCommand != 0) {
+			delete m_lastCommand;
+			m_lastCommand = 0;
+		}
+		m_lastCommand = new NetCommandRef(msg->getCommand());
+		m_lastCommand->setRelay(msg->getRelay());
+		return true;
+	}
+	return false;
+}
+
 // ?addFileAnnounceCommand@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x00592F2B, 678 bytes:
 // addCommand's type-21 arm, BFME1's FILEANNOUNCE shifted by the inserted
 // type: T/R/S/P/C/D, then the NUL-terminated file name, file ID word and
