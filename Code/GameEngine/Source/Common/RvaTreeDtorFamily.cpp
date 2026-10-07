@@ -1630,5 +1630,61 @@ void Rva00600BB9::rva00600BB9()
 	((Rva006007A5 *)this)->~Rva006007A5();
 }
 
+class Rva00217FAD
+{
+public:
+	void rva00217FAD();
+};
+
+void Rva00217FAD::rva00217FAD()
+{
+	((Rva002177CD *)this)->~Rva002177CD();
+}
+
+class Rva002A5B2B
+{
+public:
+	void rva002A5B2B();
+};
+
+void Rva002A5B2B::rva002A5B2B()
+{
+	((Rva002A4281 *)this)->~Rva002A4281();
+}
+
+class Rva00413456
+{
+public:
+	void rva00413456();
+};
+
+void Rva00413456::rva00413456()
+{
+	((Rva0041331E *)this)->~Rva0041331E();
+}
+
+class Rva005C46D4
+{
+public:
+	void rva005C46D4();
+};
+
+void Rva005C46D4::rva005C46D4()
+{
+	((Rva005C45FE *)this)->~Rva005C45FE();
+}
+
+class Rva00601452
+{
+public:
+	void rva00601452();
+};
+
+void Rva00601452::rva00601452()
+{
+	((Rva0060126D *)this)->~Rva0060126D();
+}
+
+
 
 
