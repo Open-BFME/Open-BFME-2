@@ -16155,3 +16155,8 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?rva0039792B@Rva0039792B@@QAEXXZ	0x0039792B	203	blocked	6 variants best plus2 size end-first vs begin-first order plus mask ebx vs ebp needs layout donor t=25 model=muse-spark-1.3-contributor-free
 ?Rva004E73B9Get@@YAHXZ	0x004E73B9	231	blocked	uses esi plus 0x264 without init or save suggests thiscall but naming says free plus 8B by-value Experience handles plus g_00DFECC4 t=8 model=muse-spark-1.3-contributor-free
 ?rva000B0565@Rva000B0565@@QAEXII@Z	0x000B0565	54	blocked	same this calls voidptr erase and uchar fill_insert needs shared STL delta t=8 model=muse-spark-1.3-contributor-free
+?rva005B59FD@Rva005B5420@@QAEXXZ	0x005B59FD	178	blocked	needs method target 0x005B5418 unrowed plus folded 0x0047A69C owner unclear t=12 model=muse-spark
+??1Rva00510D0C@@UAE@XZ	0x00510D0C	123	blocked	ADDRESS-NAMED g_Va00A046B4 new use refused t=2 model=muse-spark
+?Rva003C596AGet@@YAHXZ	0x003C596A	150	blocked	ADDRESS-NAMED g_Va00DBA4E4 new use refused t=2 model=muse-spark
+??0Rva00510CC3@@QAE@HABVAsciiString@@@Z	0x00510B72	309	blocked	needs RegistryAsciiPath expr-template plus DelegateDesc layout t=10 model=muse-spark
+FUN_0045e1bf	0x0005E1BF	143	blocked	Ghidra boundary 0x0005E1BF through 0x0005E24C is 143 bytes. Direct calls reach 0x000535A6 0x00053113 and 0x0005DB6C; re_attempts.log marks the first and third blocked and the second partial. 0x0005BA08 is rowed. The three required direct callees have no function rows, so this body cannot be linked byte-true until their providers are recovered. No source body was attempted. t=8min model=gpt-6-luna
