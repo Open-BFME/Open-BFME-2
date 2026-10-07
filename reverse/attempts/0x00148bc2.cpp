@@ -1,4 +1,6 @@
 // ??1NameKeyGenerator@@UAE@XZ
+// partial score=0.96 date=2026-10-07
+// ??1NameKeyGenerator@@UAE@XZ
 // partial score=0.95 date=2026-10-07
 // cl: /O1 /DNDEBUG /MD /EHsc /Oi- /Ireference/shims/sweep /Ireference/shims/bfme_namekey /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib
 // stlport
@@ -94,13 +96,6 @@ NameKeyType NameKeyGenerator::nameToKey(const char* nameString)
 // ?freeSockets@NameKeyGenerator@@AAEXXZ 0x00148B42 66B donor ZH NameKeyGenerator.cpp freeSockets plus BFME aux KeyToBucketMap clear; callers 0x00148BFB 0x00148C6B; tail clear at this+0x2bf4c rowed as Armor hashtable clear via ICF fold
 #include "GameLogic/Armor.h"
 
-// The typed map wrapper keeps the existing 20-byte storage layout.  Its
-// destructor runs after m_mutex, matching the retail member destruction order.
-__forceinline NameKeyGenerator::KeyToBucketMap::~KeyToBucketMap()
-{
-	((std::hash_map<NameKeyType, ArmorTemplate, rts::hash<NameKeyType>, rts::equal_to<NameKeyType> > *)this)->~hash_map();
-}
-
 // The NameKeyGenerator singleton pointer. Matched DIR32 sites (e.g. the
 // Rva00148F5ECache::get row at 0x00148F5E reads it with mov ecx,[0x00DF36A4])
 // place it at VA 0x00DF36A4 in the .data zero-fill tail, so retail starts it
@@ -143,4 +138,5 @@ NameKeyGenerator::~NameKeyGenerator()
 {
 	ScopedCriticalSection scopedCriticalSection(&m_mutex);
 	freeSockets();
+	((std::hash_map<NameKeyType, Bucket *, rts::hash<NameKeyType>, rts::equal_to<NameKeyType> > *)&keyToBucketMap())->~hash_map();
 }

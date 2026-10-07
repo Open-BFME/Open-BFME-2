@@ -1,8 +1,8 @@
-// ?finish@Rva00504F09FunctionCurve@@QAEXXZ
-// partial score=0.97 date=2026-10-04
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// ?finish@Rva0006AB90FunctionCurve@@QAEXXZ
+// partial score=0.99 date=2026-10-07
+// cl: /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
 // ?addKey@Rva00504F09FunctionCurve@@QAEXMMPBM0@Z, retail 0x00504F09, 307B.
-// ?finish@Rva00504F09FunctionCurve@@QAEXXZ, retail 0x0050503C, 174B (donor
+// ?finish@Rva0006AB90FunctionCurve@@QAEXXZ, retail 0x0050503C, 174B (donor
 // Rva0006AB90FunctionCurveFinish.cpp; BFME2 uses a literal 0.0f where BFME1
 // read BfmeZeroRange).
 // BFME2 counterpart of the BFME1 key accumulator (donor
@@ -60,6 +60,25 @@ private:
 	bool m_haveOutTangent;
 };
 
+class Rva0006AB90FunctionCurve
+{
+public:
+	void finish();
+
+private:
+	Rva00504EADCurve *m_curve;
+	bool m_firstKey;
+	float m_lastTime;
+	float m_lastValue;
+	union Tangent
+	{
+		float value;
+		Int bits;
+	} m_inTangent, m_outTangent;
+	bool m_haveInTangent;
+	bool m_haveOutTangent;
+};
+
 void Rva00504F09FunctionCurve::addKey(float time, float value,
 	const float *inTangent, const float *outTangent)
 {
@@ -96,7 +115,7 @@ void Rva00504F09FunctionCurve::addKey(float time, float value,
 	m_lastValue = value;
 }
 
-void Rva00504F09FunctionCurve::finish()
+void Rva0006AB90FunctionCurve::finish()
 {
 	if (m_firstKey)
 		throw INIException(3, "Function curve does not have any keyframes");

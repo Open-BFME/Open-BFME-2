@@ -67948,3 +67948,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva003FDB90@Rva003FDB90@@QAEXXZ,,0x003FDB90,65,Code/GameEngine/Source/Common/Rva003FDB90.cpp,matched,chain via 0x3FDC46 pins 0x3FB7DB 0x3FDAEB Random_Float 0.7f offsets 0x38 0x40 0x44 0x48
 ?rva002D790A@Radar@@QAEXPAM0@Z,,0x002D790A,146,Code/GameEngine/Source/Common/System/Radar_findDrawPositions.cpp,matched,extent ratio outputs and width height comparison from retail body
 ?rva001F4A22@Rva001F4A22@@QAEXXZ,,0x001F4A22,21,Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4A22.cpp,matched,handle at 0x78 via rowed dtor plus clear
+?rva002C7253@Rva002C7253@@QBE_NXZ,,0x002C7253,25,Code/GameEngine/Source/Common/Rva002C7253.cpp,matched,six entry scan layout inferred from caller 0x0033A951 identity remains opaque
