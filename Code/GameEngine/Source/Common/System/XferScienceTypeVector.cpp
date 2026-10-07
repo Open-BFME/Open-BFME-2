@@ -162,3 +162,43 @@ Xfer *Rva003F5A72Xfer(Xfer *xfer, void *storage)
 	}
 	return xfer;
 }
+
+// Native [0x001ECA2D,0x001ECAF9), complete 204-byte cdecl transfer.
+// Independently measured slots/count/stride/reserve/push-back match the guide
+// above. Both element calls reach 0x00306232, whose verified ScienceType
+// label and ScienceStore name roundtrip establish this vector's element kind.
+// The entry uses an address-derived spelling; its original name is unknown.
+extern Xfer *Rva00306232XferScience(Xfer *xfer, ScienceType *science);
+
+Xfer *Rva001ECA2DXfer(Xfer *xfer, void *storage)
+{
+	ScienceTypeVector *vec = static_cast<ScienceTypeVector *>(storage);
+	XferVersion version;
+	version.m_version = 1;
+	version.m_currentVersion = 1;
+	xfer->xferVersion(version);
+
+	UnsignedInt count = (UnsignedInt)vec->size();
+	xfer->xferTypeName("std::vector").xferUnsignedInt(count);
+
+	if (xfer->isSaving()) {
+		ScienceType *end = vec->end();
+		ScienceType *cur = vec->begin();
+		while (cur != end) {
+			Rva00306232XferScience(xfer, cur);
+			++cur;
+		}
+	} else {
+		if (!vec->empty()) {
+			throw XferException(4, "Vector must be empty on load");
+		}
+		vec->reserve(count);
+		ScienceType value;
+		while (count != 0) {
+			--count;
+			vec->push_back(value);
+			Rva00306232XferScience(xfer, &vec->back());
+		}
+	}
+	return xfer;
+}
