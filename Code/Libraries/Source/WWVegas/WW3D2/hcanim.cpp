@@ -89,6 +89,53 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+// BFME2's loader uppercases the qualified name with the imported toupper
+// (0x00BBA5B4) before keying it, as HRawAnimClass::Load_W3D does.
+extern "C" __declspec(dllimport) int __cdecl toupper(int);
+
+// The Debug manager (theDebug, 0x00DE0880) that BFME2's missing-bone report
+// streams through. The reference Debug class is not virtual, so this view
+// carries the retail slots; only the slots called here are named.
+class HCompressedAnimDebug
+{
+public:
+	virtual void _M_slot_00();
+	virtual void _M_slot_04();
+	virtual void _M_slot_08();
+	virtual void _M_slot_0c();
+	virtual void _M_slot_10();
+	virtual void _M_slot_14();
+	virtual void _M_slot_18();
+	virtual void _M_slot_1c();
+	virtual void _M_slot_20();
+	virtual void _M_slot_24();
+	virtual void _M_slot_28();
+	virtual void _M_slot_2c();
+	virtual void _M_slot_30();
+	virtual void _M_slot_34();
+	virtual HCompressedAnimDebug &operator<<(const char *text);
+	virtual void _M_slot_3c();
+	virtual void _M_slot_40();
+	virtual void _M_slot_44();
+	virtual void _M_slot_48();
+	virtual void CrashDone(int mode);
+	virtual void _M_slot_50();
+	virtual void _M_slot_54();
+	virtual void _M_slot_58();
+	virtual void _M_slot_5c();
+	virtual void SkipNext();
+	virtual void _M_slot_64();
+	virtual void _M_slot_68();
+	virtual HCompressedAnimDebug &CrashBegin(const char *file, int line, const char *group);
+};
+extern Debug *theDebug;
+#define TheHCompressedAnimDebug (*(HCompressedAnimDebug **)&theDebug)
+
+// 0x000387C0: reads the Debug singleton's report-enabled flag; 0x00038790
+// records the report's call site (Debug::SkipNext(true)).
+bool bfmeRva000387C0();
+void _bfme_debugRecordCallsite(int kind);
+
 #include "htree.h"
 // BFME2's TimeCodedMotionChannelClass is stateless: the search cache moved out
 // to the caller, which passes it by reference (retail 0x0018EC60 reads and
@@ -473,13 +520,22 @@ public:
 	virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor);
 	virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
 	virtual int UnknownSlot6();
+	int Type, Pivot, Count, Components;
 };
 
 struct BFME2CompressedMotionChannels
 {
+	BFME2CompressedMotionChannels();
+	~BFME2CompressedMotionChannels();
 	BFME2MotionChannel *			Channels[5];		// X, Y, Z, Q, fade
 	TimeCodedBitChannelClass *	Visibility;
 };
+
+// The factory at 0x001A46B4 (BFME2MotionChannelFactory.cpp).
+BFME2MotionChannel * Load_BFME2MotionChannel(ChunkLoadClass & cload);
+
+// BFME2's chunk for one of those channels, after the compressed bit channel.
+#define W3D_CHUNK_BFME2_MOTION_CHANNEL	(W3D_CHUNK_COMPRESSED_BIT_CHANNEL + 1)
 
 struct NodeCompressedMotionStruct
 {
@@ -688,7 +744,6 @@ HCompressedAnimClass::~HCompressedAnimClass(void)
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?HCompressedAnimClass::Load_W3D present-unmatched
 int HCompressedAnimClass::Load_W3D(ChunkLoadClass & cload)
 {
 	int i = 0;
@@ -708,21 +763,26 @@ int HCompressedAnimClass::Load_W3D(ChunkLoadClass & cload)
 	}
 
 	W3dCompressedAnimHeaderStruct aheader;
-	if (cload.Read(&aheader,sizeof(W3dAnimHeaderStruct)) != sizeof(W3dAnimHeaderStruct)) {
+	if (cload.Read(&aheader,sizeof(W3dCompressedAnimHeaderStruct)) != sizeof(W3dCompressedAnimHeaderStruct)) {
 		return LOAD_ERROR;
 	}
 
 	cload.Close_Chunk();
 
+	// BFME2 knows two header versions: 0.1 carries the timecoded or
+	// adaptive-delta node channels, 1.0 the newer per-pivot motion channels.
+	bool node_motion = (aheader.Version == W3D_MAKE_VERSION(0,1));
+	if (!node_motion && aheader.Version != W3D_MAKE_VERSION(1,0)) {
+		return LOAD_ERROR;
+	}
+
 	strcpy(Name,aheader.HierarchyName);
 	strcat(Name,".");
 	strcat(Name,aheader.Name);
 
-	// TSS chasing crash bug 05/26/99
-   WWASSERT(HierarchyName != NULL);
-   WWASSERT(aheader.HierarchyName != NULL);
-   WWASSERT(sizeof(HierarchyName) >= W3D_NAME_LEN);
-   strncpy(HierarchyName,aheader.HierarchyName,W3D_NAME_LEN);
+	for (char *name = Name; *name != 0; ++name) *name = (char)toupper((int)*name);
+	_bfme_unk_hcanim_key = TheNameKeyGenerator->nameToKey(Name);
+	strncpy(HierarchyName,aheader.HierarchyName,W3D_NAME_LEN);
 
 	HTreeClass * base_pose = Get_HTree(HierarchyName);
 	if (base_pose == NULL) {
@@ -732,93 +792,134 @@ int HCompressedAnimClass::Load_W3D(ChunkLoadClass & cload)
 
 	NumFrames = aheader.NumFrames;
 	FrameRate = aheader.FrameRate;
-	Flavor    = aheader.Flavor;
-  																					
-	// Just for now                                          
-	WWASSERT((Flavor == ANIM_FLAVOR_TIMECODED)||(Flavor == ANIM_FLAVOR_ADAPTIVE_DELTA));
 
-	NodeMotion = W3DNEWARRAY NodeCompressedMotionStruct[ NumNodes ];
-	if (NodeMotion == NULL) {
-		goto Error;
-	}
+	if (node_motion) {
+		Flavor    = aheader.Flavor;
 
-	// Initialize Flavor
-	for (i=0; i<NumNodes; i++) {
-		NodeMotion[i].SetFlavor(Flavor);
-	}
+		NodeMotion = W3DNEWARRAY NodeCompressedMotionStruct[ NumNodes ];
 
-	/*
-	** Now, read in all of the other chunks (motion channels).
-	*/
-	TimeCodedMotionChannelClass * tc_chan;
-	AdaptiveDeltaMotionChannelClass * ad_chan;
-	TimeCodedBitChannelClass * newbitchan;
-
-	while (cload.Open_Chunk()) {
-
-		switch (cload.Cur_Chunk_ID()) {
-
-			case W3D_CHUNK_COMPRESSED_ANIMATION_CHANNEL:
-
-				switch ( Flavor ) {
-
-					case ANIM_FLAVOR_TIMECODED:
-						
-						if (!read_channel(cload,&tc_chan)) {
-							goto Error;
-						}			
-						if (tc_chan->Get_Pivot() < NumNodes) {
-							add_channel(tc_chan);
-						} else {
-							// PWG 12-14-98: we have only allocated space for NumNode pivots.  
-							// If we have an index thats equal or higher than NumNode we are
-							// gonna trash memory.  Boy will we trash memory.
-							// GTH 09-25-2000: print a warning and survive this error
-							delete tc_chan;
-							WWDEBUG_SAY(("ERROR! animation %s indexes a bone not present in the model. Please re-export!\r\n",Name));
-						}
-
-						break;
-
-					case ANIM_FLAVOR_ADAPTIVE_DELTA:
-						if (!read_channel(cload,&ad_chan)) {
-							goto Error;
-						}			
-						if (ad_chan->Get_Pivot() < NumNodes) {
-							add_channel(ad_chan);
-						} else {
-							// PWG 12-14-98: we have only allocated space for NumNode pivots.  
-							// If we have an index thats equal or higher than NumNode we are
-							// gonna trash memory.  Boy will we trash memory.
-							// GTH 09-25-2000: print a warning and survive this error
-							delete ad_chan;
-							WWDEBUG_SAY(("ERROR! animation %s indexes a bone not present in the model. Please re-export!\r\n",Name));
-						}
-						break;
-				}
-				break;
-	
-			case W3D_CHUNK_COMPRESSED_BIT_CHANNEL:
-				if (!read_bit_channel(cload,&newbitchan)) {
-					goto Error;
-				}
-				if (newbitchan->Get_Pivot() < NumNodes) {
-					add_bit_channel(newbitchan);
-				} else {
-					// PWG 12-14-98: we have only allocated space for NumNode pivots.  
-					// If we have an index thats equal or higher than NumNode we are
-					// gonna trash memory.  Boy will we trash memory.
-					// GTH 09-25-2000: print a warning and survive this error
-					delete newbitchan;
-					WWDEBUG_SAY(("ERROR! animation %s indexes a bone not present in the model. Please re-export!\r\n",Name));
-				}
-
-				break;
-
-			default:
-				break;
+		// Initialize Flavor
+		for (i=0; i<NumNodes; i++) {
+			NodeMotion[i].SetFlavor(Flavor);
 		}
-		cload.Close_Chunk();
+
+		/*
+		** Now, read in all of the other chunks (motion channels).
+		*/
+		TimeCodedMotionChannelClass * tc_chan;
+		AdaptiveDeltaMotionChannelClass * ad_chan;
+		TimeCodedBitChannelClass * newbitchan;
+
+		while (cload.Open_Chunk()) {
+
+			switch (cload.Cur_Chunk_ID()) {
+
+				case W3D_CHUNK_COMPRESSED_ANIMATION_CHANNEL:
+
+					switch ( Flavor ) {
+
+						case ANIM_FLAVOR_TIMECODED:
+							
+							if (!read_channel(cload,&tc_chan)) {
+								goto Error;
+							}			
+							if (tc_chan->Get_Pivot() < NumNodes) {
+								add_channel(tc_chan);
+							} else {
+								delete tc_chan;
+							}
+							break;
+
+						case ANIM_FLAVOR_ADAPTIVE_DELTA:
+							if (!read_channel(cload,&ad_chan)) {
+								goto Error;
+							}			
+							if (ad_chan->Get_Pivot() < NumNodes) {
+								add_channel(ad_chan);
+							} else {
+								delete ad_chan;
+							}
+							break;
+					}
+					break;
+		
+				case W3D_CHUNK_COMPRESSED_BIT_CHANNEL:
+					if (!read_bit_channel(cload,&newbitchan)) {
+						goto Error;
+					}
+					if (newbitchan->Get_Pivot() < NumNodes) {
+						add_bit_channel(newbitchan);
+					} else {
+						delete newbitchan;
+					}
+					break;
+
+				default:
+					break;
+			}
+			cload.Close_Chunk();
+		}
+	} else {
+		VectorMotion = W3DNEWARRAY BFME2CompressedMotionChannels[ NumNodes ];
+
+		TimeCodedBitChannelClass * newbitchan;
+
+		while (cload.Open_Chunk()) {
+
+			switch (cload.Cur_Chunk_ID()) {
+
+				case W3D_CHUNK_COMPRESSED_BIT_CHANNEL:
+					if (!read_bit_channel(cload,&newbitchan)) {
+						goto Error;
+					}
+					if (newbitchan->Get_Pivot() < NumNodes) {
+						VectorMotion[newbitchan->Get_Pivot()].Visibility = newbitchan;
+					} else {
+						delete newbitchan;
+						if (bfmeRva000387C0()) {
+							_bfme_debugRecordCallsite(1);
+							TheHCompressedAnimDebug->SkipNext();
+							(TheHCompressedAnimDebug->CrashBegin(0, 0, 0) << "ERROR! animation " << Name << " indexes a bone not present in the model. Please re-export!\r\n").CrashDone(2);
+						}
+					}
+					break;
+
+				case W3D_CHUNK_BFME2_MOTION_CHANNEL:
+				{
+					BFME2MotionChannel * chan = Load_BFME2MotionChannel(cload);
+					if (chan) {
+						if (chan->Pivot < NumNodes) {
+							int idx;
+							switch (chan->Type) {
+								case ANIM_CHANNEL_X:		idx = 0; break;
+								case ANIM_CHANNEL_Y:		idx = 1; break;
+								case ANIM_CHANNEL_Z:		idx = 2; break;
+								case ANIM_CHANNEL_Q:		idx = 3; break;
+								case ANIM_CHANNEL_FADE:	idx = 4; break;
+								default:					idx = -1; break;
+							}
+							if (idx != -1 && VectorMotion[chan->Pivot].Channels[idx] == NULL) {
+								VectorMotion[chan->Pivot].Channels[idx] = chan;
+							} else {
+								::delete chan;
+							}
+						} else {
+							::delete chan;
+							if (bfmeRva000387C0()) {
+								_bfme_debugRecordCallsite(1);
+								TheHCompressedAnimDebug->SkipNext();
+								(TheHCompressedAnimDebug->CrashBegin(0, 0, 0) << "ERROR! animation " << Name << " indexes a bone not present in the model. Please re-export!\r\n").CrashDone(2);
+							}
+						}
+					}
+					break;
+				}
+
+				default:
+					break;
+			}
+			cload.Close_Chunk();
+		}
 	}
 
 	return OK;
