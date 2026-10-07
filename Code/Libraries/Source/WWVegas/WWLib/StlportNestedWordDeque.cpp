@@ -36,3 +36,55 @@ typedef char InnerDequeSize[sizeof(InnerDeque) == 40 ? 1 : -1];
 
 template class _STL::deque<BfmeWordValue4, _STL::allocator<BfmeWordValue4> >;
 template class _STL::deque<InnerDeque, _STL::allocator<InnerDeque> >;
+
+class Rva00421BF7
+{
+public:
+	~Rva00421BF7();
+};
+
+class Rva00421C24
+{
+public:
+	~Rva00421C24();
+};
+
+class Rva00421CE9
+{
+public:
+	~Rva00421CE9();
+};
+
+class Rva00422CE9
+{
+public:
+	void rva00422CE9();
+};
+
+void Rva00422CE9::rva00422CE9()
+{
+	((Rva00421BF7 *)this)->~Rva00421BF7();
+}
+
+class Rva00422CEE
+{
+public:
+	void rva00422CEE();
+};
+
+void Rva00422CEE::rva00422CEE()
+{
+	((Rva00421C24 *)this)->~Rva00421C24();
+}
+
+class Rva00422D3E
+{
+public:
+	void rva00422D3E();
+};
+
+void Rva00422D3E::rva00422D3E()
+{
+	((Rva00421CE9 *)this)->~Rva00421CE9();
+}
+

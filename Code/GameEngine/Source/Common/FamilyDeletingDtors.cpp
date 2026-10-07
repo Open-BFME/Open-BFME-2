@@ -37,6 +37,24 @@ void famgenDelete(CrushDieModuleData *p) { delete p; }
 class BfmeStringRecord002CF550 { public: ~BfmeStringRecord002CF550(); };
 void famgenDelete(BfmeStringRecord002CF550 *p) { delete p; }
 
+class Rva00255CD1
+{
+public:
+	~Rva00255CD1();
+};
+
+class Rva00256641
+{
+public:
+	void rva00256641();
+};
+
+void Rva00256641::rva00256641()
+{
+	((Rva00255CD1 *)this)->~Rva00255CD1();
+}
+
+
 // ??_GUnicodeString@@QAEPAXI@Z @0x2605cf
 class UnicodeString { public: ~UnicodeString(); };
 void famgenDelete(UnicodeString *p) { delete p; }
