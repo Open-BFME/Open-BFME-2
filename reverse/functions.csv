@@ -67599,3 +67599,4 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ??$max@M@@YAABMABM0@Z,,0x0000579D,19,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,max<float> reference helper
 ??$min@H@@YAABHABH0@Z,,0x000057B0,16,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,min<int> reference helper
 ??$max@H@@YAABHABH0@Z,,0x000057C0,16,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,max<int> reference helper
+?voteForPlayerDisconnect@DisconnectManager@@QAEXHPAVConnectionManager@@@Z,,0x004D3DF4,105,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp,matched,BFME2 direct slot vote; target caller 0x004CF90D and +0x30 vote table support identity; +0x40 frame read uses adjusted BFME2 GameLogic view; donor supplies purpose and call order
