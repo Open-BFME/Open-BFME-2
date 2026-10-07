@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep /Ireference/shims/bfme2_ascii
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep /Ireference/shims/bfme2_ascii /GX
 //
 // ?rva004A54CE@@YAXHHQAH@Z, retail 0x004A54CE, 67 bytes.
 // ?doPhaseStuff@StructureToppleUpdate@@IAEXW4StructureTopplePhaseType@@PBUCoord3D@@@Z, retail 0x004A584B, 114 bytes.
@@ -6,6 +6,7 @@
 // ?applyCrushingDamage@StructureToppleUpdate@@IAEXM@Z, retail 0x004A5EAC, 406 bytes.
 // ?doToppleStartFX@StructureToppleUpdate@@IAEXPAVObject@@PBVDamageInfo@@@Z, retail 0x004A5B09, 88 bytes.
 // ?doAngleFX@StructureToppleUpdate@@IAEXMM@Z, retail 0x004A57DB, 112 bytes.
+// ?doToppleDelayBurstFX@StructureToppleUpdate@@IAEXXZ, retail 0x004A5B61, 299 bytes.
 //
 // Donor: Zero Hour's StructureToppleUpdate.cpp through BFME 1's matched
 // bodies (reference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/
@@ -34,6 +35,15 @@
 //   start FX list at module data +0x50, and the AngleFXInfo vector (angle,
 //   FX list) at +0xAC, whose FX fire for each angle the update's step
 //   (0x004A613B) passes.
+// - doToppleDelayBurstFX is the call the update makes whenever the frame
+//   reaches m_nextBurstFrame (+0x44) before re-rolling it, as in Zero Hour.
+//   It fires the delay FX at +0x54 on m_delayBurstLocation (+0x48), then
+//   walks the FXBoneInfo vector at +0xA0 (bone name, particle template):
+//   BFME 2's createParticleSystem (0x001F5A6A) returns the 12-byte
+//   BfmeParticleSystemHandle, whose dtor guard and null-system operator->
+//   (Make001FCBD7) are the same as in SlavedUpdateRepair.cpp, and the
+//   object's getDrawable is the pinned 0x005508E2. Its unwind is why the unit
+//   builds with /GX.
 
 #include "ascii_string.h"
 
@@ -91,6 +101,7 @@ enum
 
 class Matrix3D;
 class WeaponTemplate;
+class Drawable;
 
 class Object;
 
@@ -122,6 +133,12 @@ private:
 };
 
 typedef PhaseList<ObjectCreationList> OCLVec;
+
+struct FXBoneInfo
+{
+	AsciiString boneName;
+	const class ParticleSystemTemplate *particleSystemTemplate;
+};
 
 struct AngleFXInfo
 {
@@ -196,6 +213,7 @@ public:
 	Real getOrientation() const { return m_orientation; }
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
+	Drawable *getDrawable() const;
 
 private:
 	unsigned char m_pad000[0x38];
@@ -205,6 +223,83 @@ private:
 	GeometryInfo m_geometryInfo; // +0xCC
 	unsigned char m_pad0d4[0x254 - 0xD4];
 	BodyModuleInterface *m_body; // +0x254
+};
+
+// The particle system's position copy (0x001F3899) and attachToDrawable
+// (0x001F3C20) are rowed under placeholder names.
+struct Rva001F3899Arg
+{
+	int m_00;
+	int m_04;
+	int m_08;
+};
+class Rva001F3899Slot
+{
+public:
+	void set(const Rva001F3899Arg &arg);
+};
+class Rva0055A88BDwordField;
+class Rva001F3C20Slot
+{
+public:
+	void set(const Rva0055A88BDwordField *arg);
+};
+
+class ParticleSystem
+{
+public:
+	void setPosition(const Coord3D *pos)
+	{
+		((Rva001F3899Slot *)this)->set(*(const Rva001F3899Arg *)pos);
+	}
+	void attachToDrawable(const Drawable *draw)
+	{
+		((Rva001F3C20Slot *)this)->set((const Rva0055A88BDwordField *)draw);
+	}
+};
+ParticleSystem *Make001FCBD7();
+
+// The 12-byte handle: the out-of-line unlink is 0x0004CBC0, which the
+// handle's destructor calls only for a live system.
+class RvaSmartPtr12
+{
+public:
+	void rva0004CBC0() throw();
+};
+class BfmeParticleSystemHandleBase
+{
+public:
+	~BfmeParticleSystemHandleBase()
+	{
+		if (m_system)
+			((RvaSmartPtr12 *)this)->rva0004CBC0();
+	}
+	ParticleSystem *m_system;
+	BfmeParticleSystemHandleBase *m_previous;
+	BfmeParticleSystemHandleBase *m_next;
+};
+class BfmeParticleSystemHandle : public BfmeParticleSystemHandleBase
+{
+public:
+	operator bool() const { return m_system != 0; }
+	ParticleSystem *operator->() const
+	{
+		return m_system ? m_system : Make001FCBD7();
+	}
+};
+
+class ParticleSystemTemplate;
+class ParticleSystemManager
+{
+public:
+	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *sysTemplate, bool createSlaves);
+};
+extern ParticleSystemManager *TheParticleSystemManager;
+
+class Drawable
+{
+public:
+	Int getPristineBonePositions(const char *boneNamePrefix, Int startIndex, Coord3D *positions, Matrix3D *transforms, Int maxBones, Int unused) const;
 };
 
 class TerrainLogic
@@ -243,13 +338,14 @@ public:
 	unsigned char m_pad000[0x4C];
 	UnsignedInt m_damageFXTypes; // +0x4C
 	const FXList *m_toppleStartFXList; // +0x50
-	unsigned char m_pad054[0x60 - 0x54];
+	const FXList *m_toppleDelayFXList; // +0x54
+	unsigned char m_pad058[0x60 - 0x58];
 	const FXList *m_crushingFXList; // +0x60
 	AsciiString m_crushingWeaponName; // +0x64
 	unsigned char m_pad068[0x70 - 0x68];
 	OCLVec m_ocls[ST_PHASE_COUNT]; // +0x70
 	Int m_oclCount[ST_PHASE_COUNT]; // +0x94
-	unsigned char m_pad0a0[0xAC - 0xA0];
+	ConstVector<FXBoneInfo> fxbones; // +0xA0
 	ConstVector<AngleFXInfo> angleFX; // +0xAC
 };
 
@@ -302,6 +398,7 @@ protected:
 	void applyCrushingDamage(Real theta);
 	void doToppleStartFX(Object *building, const DamageInfo *damageInfo);
 	void doAngleFX(Real curAngle, Real newAngle);
+	void doToppleDelayBurstFX();
 	void doDamageLine(Object *building, const WeaponTemplate *wt, Real jcos, Real jsin, Real facingWidth, Real toppleAngle);
 	void doPhaseStuff(StructureTopplePhaseType stphase, const Coord3D *target);
 
@@ -491,5 +588,42 @@ void StructureToppleUpdate::doAngleFX(Real curAngle, Real newAngle)
 				FXList::doFXObj(it->fxList, getObject());
 		}
 	}
+
+}
+
+// ?doToppleDelayBurstFX@StructureToppleUpdate@@IAEXXZ
+void StructureToppleUpdate::doToppleDelayBurstFX()
+{
+	const StructureToppleUpdateModuleData *d = getStructureToppleUpdateModuleData();
+	const DamageInfo *lastDamageInfo = getObject()->getBodyModule()->getLastDamageInfo();
+
+	if( lastDamageInfo == 0 || getDamageTypeFlag( d->m_damageFXTypes, lastDamageInfo->in.m_damageType ) )
+		FXList::doFXPos(d->m_toppleDelayFXList, &m_delayBurstLocation);
+
+	Object *building = getObject();
+	Drawable *drawable = building->getDrawable();
+
+	if( lastDamageInfo == 0 || getDamageTypeFlag( d->m_damageFXTypes, lastDamageInfo->in.m_damageType ) )
+	{
+
+		for (ConstVector<FXBoneInfo>::const_iterator it = d->fxbones.begin(); it != d->fxbones.end(); ++it)
+		{
+			BfmeParticleSystemHandle sys = TheParticleSystemManager->createParticleSystem(it->particleSystemTemplate, true);
+			if (sys)
+			{
+				Coord3D pos;
+				if (drawable->getPristineBonePositions(it->boneName.str(), 0, &pos, 0, 1, 0) == 1)
+				{
+					// got the bone position...
+					sys->setPosition(&pos);
+
+					// Attatch it to the object...
+					sys->attachToDrawable(drawable);
+				}
+			}
+		}
+	}
+
+	doPhaseStuff(STPHASE_DELAY, &m_delayBurstLocation);
 
 }
