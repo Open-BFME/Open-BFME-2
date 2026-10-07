@@ -67252,15 +67252,3 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ??0Rva000AB910@@QAE@ABVAsciiString@@@Z,,0x000AB910,70,Code/GameEngine/Source/Common/Rva000AB910Ctor.cpp,matched,target offsets support string integer and two maps
 ??0Rva0022A9DDSubsystem@@QAE@XZ,,0x0022DF79,55,Code/GameEngine/Source/GameClient/Rva0022DF79SubsystemCtor.cpp,matched,GameEngine init caller names subsystem; matching sibling constructor recipe
 ?rva00211570@Rva00211570@@QAEXXZ,,0x00211570,25,Code/GameEngine/Source/GameClient/Rva00211570.cpp,matched,Observed helper call and conditional direct tail jump; field purpose unresolved
-?rva004A78B8@Rva004A78B8@@QAE_NH@Z,,0x004A78B8,41,Code/GameEngine/Source/Common/Rva004A78B8Gate.cpp,matched,virtual slot 1 then status 4 on the owner at this-0x18
-?rva004A33EE@BroadcastStealthUpdate@@QAEXXZ,,0x004A33EE,64,Code/GameEngine/Source/Common/Rva004A33EEWalk.cpp,matched,walk the id list at +0x28 then reset it
-?rva0049CCF0@Rva0049CCF0@@QAEXH@Z,,0x0049CCF0,52,Code/GameEngine/Source/Common/Rva0049CCF0Forward.cpp,matched,controlling-player lookup into virtual slot 0x2C
-?fromGate@Rva002A9BF2@@QAE_NPAV1@@Z,,0x0058AF47,108,Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp,matched,ICF twin of the stdcall chance test; thiscall shape at caller 0x004B332D
-?rva004B327F@Rva004B327F@@QAEHXZ,,0x004B327F,211,Code/GameEngine/Source/GameLogic/Object/Update/AISpecialPowerRva004B327F.cpp,matched,AISpecialPowerUpdate+0x10 arms the power object and tail-calls virtual slot 3 or returns 0x3fffffff
-?rva004ABB4B@Rva004ABB4B@@QAEHXZ,,0x004ABB4B,273,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioRva004ABB4B.cpp,matched,LargeGroupAudioUpdate+0x10 refreshes the slot when the object state changes and returns the module delay
-?rva000E6FC8@Rva000E6FC8@@QAEXXZ,,0x000E6FC8,27,Code/GameEngine/Source/Common/Rva000E6FC8.cpp,matched,GlobalData +0xD45 selects 0x14 or 2 then thiscall 0x000E6D94
-?rva000EA1F3@Rva000E6FC8@@QAEXXZ,,0x000EA1F3,39,Code/GameEngine/Source/Common/Rva000EA1F3.cpp,matched,GlobalData +0xD45 selects 0x14 else byte +0x62 selects 7 or 4 then thiscall 0x000E6D94
-?rva000E07F4@@YAHPAVRva000E07F4Obj@@PAVRva000E07F4Host@@@Z,,0x000E07F4,34,Code/GameEngine/Source/Common/Rva000E07F4.cpp,matched,cdecl returns 1; kind bit 0x80 or null skips thiscall 0x000E0584
-??_ERva00112291@@UAEPAXI@Z,,0x000E1072,78,Code/GameEngine/Source/Common/Rva000E1072.cpp,matched,vector deleting destructor stride 0xD4 calling pinned element dtor 0x00112291
-?rva000E585F@Rva006F8700Owner@@QAEXPAX0PAH1@Z,,0x000E585F,95,Code/GameEngine/Source/Common/Rva000E585F.cpp,matched,folds rowed 0x000E569A into arg4 and +0x40 and 0x000E56AF into arg3 with quotient 3 at +0x48
-?rva000C3886@Rva000C3886@@QAEXPAXMPAURva000C3886Range@@PAURva000C3886Obj@@0@Z,,0x000C3886,114,Code/GameEngine/Source/Common/Rva000C3886.cpp,matched,114B forwarder: flag 0x10 at +0xF4 then three callees
