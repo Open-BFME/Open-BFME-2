@@ -99,3 +99,29 @@ Rva003F468D *Rva0020E6B7RegionManager::rva0020E6B7()
 {
  return (Rva003F468D *)((Rva0020E5BB *)this)->rva0020E5BB(currentKey);
 }
+
+class Rva003F468D
+{
+public:
+ int rva003F4DAE(int side);
+};
+// Native 002B2DEE..002B2E31: ECX message; stack output/index/battle/side;
+// caller cleanup. GameMessage::getArgument is the independently rowed
+// 0030F4EA provider. Participant count is the independently rowed 003F4DAE
+// body on the established Rva003F468D battle view. Original helper name
+// remains unknown; the neighboring private helper proves compiler settings.
+static __declspec(noinline) bool rva002B2DEE(GameMessage *message, int *out, int index, Rva003F468D *battle, int side)
+{
+ if (index < 0) return false;
+ if (index >= ((Rva002B2DADMessageView *)message)->count) return false;
+ int value = message->getArgument(index)->integer;
+ *out = value;
+ return value >= 0 && value < battle->rva003F4DAE(side);
+}
+// ?rva002B2DEECaller absent-from-retail
+// Source-only emission anchor for the same MSVC internal ABI optimization
+// as the neighboring helper; no retail address is asserted for this wrapper.
+bool rva002B2DEECaller(GameMessage *message, int *out, int index, Rva003F468D *battle, int side)
+{
+ return rva002B2DEE(message, out, index, battle, side);
+}
