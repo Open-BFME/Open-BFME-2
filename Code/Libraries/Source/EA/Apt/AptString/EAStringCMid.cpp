@@ -46,6 +46,7 @@ public:
 	}
 	EAStringC Mid(int start) const;
 	EAStringC Mid(int start, int count) const;
+	EAStringC rva006D5ED0(int start) const;
 };
 
 extern EAStringC::StringDataC g_eaEmptyStringData;
@@ -81,4 +82,21 @@ EAStringC EAStringC::Mid(int start, int count) const
 	EAStringC result(*this);
 	result.ChangeBuffer(size, start, size, CB_PUSH_ZERO, size);
 	return result;
+}
+
+void *rva006d4d40(void *payload, int count);
+
+// 0x006D5ED0..0x006D5F28, ret 8 including the hidden return slot.
+// Advance by UTF-8 codepoints, then pass the resulting byte offset to Mid.
+// The established address-derived pin is retained; the original method name
+// is unknown. Calls, the +8 payload and the empty-string path are native facts.
+EAStringC EAStringC::rva006D5ED0(int start) const
+{
+	if (start < 0)
+		start = 0;
+	char *payload = (char *)m_pData + 8;
+	char *cursor = (char *)rva006d4d40(payload, start);
+	if (cursor == 0)
+		return EAStringC();
+	return Mid(cursor - payload);
 }
