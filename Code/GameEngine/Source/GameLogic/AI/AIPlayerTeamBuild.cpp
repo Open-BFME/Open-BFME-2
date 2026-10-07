@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 //
 // AIPlayer's factory search and team-build feasibility, Zero Hour's
 // AIPlayer.cpp bodies (GeneralsMD tree vendored under
@@ -68,6 +69,13 @@
 //    AIPlayer.cpp line 2961. Reading the side list through an inline
 //    getAiData() gives retail's edi/esi assignment, and the one-character
 //    appends inline StringBase<char>::concat(&c, 1) on the argument slot.
+//  - selectTeamToBuild 0x004F35A5 (523 bytes, vtable +0x58): ZH's two
+//    candidate lists over Player's team-prototype list at +0x32C, priority
+//    +0x21C, home-location flag +0x1E8 and the random pick at AIPlayer.cpp
+//    line 1841. The list base ctor/dtor are the pool copies 0x002AC026 and
+//    0x002ABB44; the timer scales by TAiData's poor/wealthy mods +0x24/+0x1C.
+#include <list>
+
 // GameLogic comes from the canonical GameLogicObjectLookupView.h.
 #include "ascii_string.h"
 typedef bool Bool;
@@ -135,9 +143,23 @@ public:
 enum ScienceType { SCIENCE_INVALID = -1 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
+class TeamPrototype;
+// Retail calls the team list's base destructor (0x002ABB44) with no EH state
+// transition before it, here and in Player at 0x002AE8BC, so cl saw it as
+// nothrow; list<int>'s 0x004EC395 keeps the stores everywhere.
+namespace _STL {
+template <> inline _List_base<TeamPrototype *, allocator<TeamPrototype *> >::~_List_base() throw()
+{
+	clear();
+	_M_node.deallocate(_M_node._M_data, 1);
+}
+}
+typedef _STL::list<TeamPrototype *> PlayerTeamList;
+
 class Player
 {
 public:
+	const PlayerTeamList *getPlayerTeams() const { return &m_playerTeamPrototypes; }
 	Int getSciencePurchasePoints() const { return m_sciencePurchasePoints; }
 	NameKeyType getPlayerNameKey() const { return m_playerNameKey; }
 	const AsciiString &getSide() const { return m_side; }
@@ -154,7 +176,9 @@ public:
 	unsigned int m_money;				// +0x94
 	unsigned char m_pad098[0x2EC - 0x98];
 	Team *m_defaultTeam;			// +0x2EC
-	unsigned char m_pad2F0[0x338 - 0x2F0];
+	unsigned char m_pad2F0[0x32C - 0x2F0];
+	PlayerTeamList m_playerTeamPrototypes;	// +0x32C
+	unsigned char m_pad330[0x338 - 0x330];
 	Bool m_canBuildUnits;			// +0x338
 	Bool getCanBuildUnits() const { return m_canBuildUnits; }
 	void setCanBuildUnits(Bool canBuild) { m_canBuildUnits = canBuild; }
@@ -484,7 +508,13 @@ public:
 
 struct TAiData
 {
-	char m_pad000[0x28];
+	char m_pad000[0x0C];
+	unsigned int m_resourcesWealthy;	// +0x0C
+	unsigned int m_resourcesPoor;	// +0x10
+	char m_pad014[0x1C - 0x14];
+	Real m_teamWealthyMod;		// +0x1C
+	char m_pad020[0x24 - 0x20];
+	Real m_teamPoorMod;		// +0x24
 	float m_teamResourcesToBuild;	// +0x28
 	char m_pad02C[0xF4 - 0x2C];
 	AISideInfo *m_sideInfo;		// +0xF4
@@ -544,11 +574,14 @@ public:
 	char m_pad018[0x130 - 0x18];
 	TCreateUnitsInfo m_unitsInfo[7];	// +0x130
 	Int m_numUnitsInfo;			// +0x1D8
-	char m_pad1DC[0x210 - 0x1DC];
+	char m_pad1DC[0x1E8 - 0x1DC];
+	Bool m_hasHomeLocation;			// +0x1E8
+	char m_pad1E9[0x210 - 0x1E9];
 	Bool m_bfme210;				// +0x210
 	char m_pad211[0x218 - 0x211];
 	Int m_maxInstances;			// +0x218
-	char m_pad21C[0x23C - 0x21C];
+	Int m_productionPriority;		// +0x21C
+	char m_pad220[0x23C - 0x220];
 	AsciiString m_productionCondition;	// +0x23C
 	Bool m_executeActions;			// +0x240
 };
@@ -705,7 +738,9 @@ protected:
 	virtual void slot06();
 	virtual void slot07();
 	virtual void slot08();
-	virtual void slot09();
+public:
+	virtual void buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild);	// +0x24
+protected:
 	virtual void slot10();
 public:
 	virtual Bool isSkirmishAI();					// +0x2C
@@ -722,8 +757,8 @@ protected:
 	virtual void doUpgradesAndSkills();				// +0x4C
 	virtual Object *findDozer(const Coord3D *searchPosition);	// +0x50
 	virtual void queueDozer();					// +0x54
-	virtual void slot22();
-	virtual void slot23();
+	virtual Bool selectTeamToBuild();				// +0x58
+	virtual Bool selectTeamToReinforce(Int minPriority);		// +0x5C
 	virtual Bool startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName);	// +0x60
 	virtual Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);	// +0x64
 
@@ -750,7 +785,11 @@ private:
 	TeamInQueue *m_teamBuildQueue;	// +0x04
 	TeamInQueue *m_teamReadyQueue;	// +0x08
 	Player *m_player;		// +0x0C
-	unsigned char m_pad10[0x24 - 0x10];
+	Bool m_readyToBuildTeam;	// +0x10
+	Int m_teamTimer;		// +0x14
+	unsigned char m_pad18[0x1C - 0x18];
+	Int m_teamSeconds;		// +0x1C
+	unsigned char m_pad20[0x24 - 0x20];
 	Int m_teamDelay;		// +0x24
 	unsigned char m_pad28[0x30 - 0x28];
 	Int m_skillsetSelector;		// +0x30
@@ -1303,6 +1342,77 @@ void AIPlayer::doUpgradesAndSkills()
 			}
 		}
 	}
+}
+
+Bool AIPlayer::selectTeamToBuild()
+{
+	PlayerTeamList::const_iterator t;
+	const Int invalidPri = -99999;
+	Int hiPri = invalidPri;
+	PlayerTeamList candidateList1;
+	for (t = m_player->getPlayerTeams()->begin(); t != m_player->getPlayerTeams()->end(); ++t)
+	{
+		if (isAGoodIdeaToBuildTeam(*t))
+		{
+			candidateList1.push_back(*t);
+			Int pri = (*t)->m_productionPriority;
+			if (pri > hiPri)
+				hiPri = pri;
+		}
+	}
+
+	if (selectTeamToReinforce(hiPri))
+		return true;
+
+	if (hiPri == invalidPri)
+		return false;
+
+	if (TheWritableGlobalData->m_debugAI)
+		TheScriptEngine->AppendDebugMessage("**AI** Selecting team to build", false);
+
+	PlayerTeamList candidateList;
+	Int count = 0;
+	for (t = candidateList1.begin(); t != candidateList1.end(); ++t)
+	{
+		if ((*t)->m_productionPriority == hiPri)
+		{
+			candidateList.push_back(*t);
+			count++;
+		}
+	}
+
+	Int which = GetGameLogicRandomValue(0, count - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIPlayer.cpp", 1841);
+
+	TeamPrototype *teamProto = NULL;
+	Int i = 0;
+	for (t = candidateList.begin(); t != candidateList.end(); ++t)
+	{
+		if (i == which)
+		{
+			teamProto = *t;
+			break;
+		}
+		i++;
+	}
+	if (teamProto)
+	{
+		if (!teamProto->m_hasHomeLocation && !isSkirmishAI())
+		{
+			AsciiString teamStr = "Error : team '";
+			teamStr.concat(teamProto->getName());
+			teamStr.concat("' has no Home Position (or Origin).");
+			TheScriptEngine->AppendDebugMessage(teamStr, false);
+		}
+		buildSpecificAITeam(teamProto, false);
+		m_readyToBuildTeam = false;
+		m_teamTimer = m_teamSeconds * LOGICFRAMES_PER_SECOND;
+		if (m_player->m_money < TheAI->getAiData()->m_resourcesPoor)
+			m_teamTimer = m_teamTimer / TheAI->getAiData()->m_teamPoorMod;
+		else if (m_player->m_money > TheAI->getAiData()->m_resourcesWealthy)
+			m_teamTimer = m_teamTimer / TheAI->getAiData()->m_teamWealthyMod;
+		return true;
+	}
+	return false;
 }
 
 void AIPlayer::checkReadyTeams()
