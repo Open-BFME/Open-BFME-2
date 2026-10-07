@@ -72,6 +72,7 @@
 
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
 typedef int Int;
@@ -471,7 +472,7 @@ public:
 	virtual void v14();
 	virtual void v15();
 	virtual void v16();
-	virtual void v17();
+	virtual Bool v17( void );																						///< slot 17: keeps a snapshot out of the scene
 	virtual void v18();
 	virtual void v19();
 	virtual void v20();
@@ -506,9 +507,18 @@ public:
 	virtual RenderObjClass *getRenderObject( void );													///< slot 49
 };
 
+// Drawable 0x00270260 (rowed under a placeholder name): hidden when either
+// byte +0x43D or +0x43E is set, Zero Hour's isDrawableEffectivelyHidden.
+class Rva00270260
+{
+public:
+	Bool rva00270260( void );
+};
+
 class Drawable
 {
 public:
+	Bool isDrawableEffectivelyHidden( void ) { return ((Rva00270260 *)this)->rva00270260(); }
 	DrawableID getID( void ) const;
 	void setFullyObscuredByShroud( Bool fullyObscured );
 	DrawModule **getDrawModules( void );
@@ -579,28 +589,46 @@ class CDEProvider : public virtual CDEVirtualBase
 public:
 	virtual void slot00( void ) = 0;
 	virtual void slot04( void ) = 0;
-	virtual void slot08( Int playerIndex ) = 0;
+	virtual void snapShot( Int playerIndex ) = 0;
 	virtual void freeSnapShot( Int playerIndex ) = 0;
 };
 
 // Thing: the vptr at +0x00 and the rest of the 0x64 bytes Object's
-// constructor builds ahead of the provider.
+// constructor builds ahead of the provider, with Zero Hour's cached position
+// (+0x38) and angle (+0x44) that snapShot copies.
 class Thing
 {
 public:
 	virtual void v00();
+	const Coord3D *getPosition( void ) const { return &m_cachedPos; }
+	Real getOrientation( void ) const { return m_cachedAngle; }
 private:
-	char m_unrecovered04[ 0x64 - 0x04 ];
+	char m_unrecovered04[ 0x38 - 0x04 ];
+	Coord3D m_cachedPos;																				///< 0x38
+	Real m_cachedAngle;																					///< 0x44
+	char m_unrecovered48[ 0x64 - 0x48 ];
 };
+
+// The 0x5C-byte GeometryInfo, copied through the rowed element assignment
+// 0x00064605 (the BFME 1 donor's stride-0x5C copy loop element).
+struct BfmeCopyElementA
+{
+	BfmeCopyElementA *bfmeAssign( BfmeCopyElementA *source );
+	char m_bfmeBytes[ 0x5C ];
+};
+typedef BfmeCopyElementA GeometryInfo;
 
 class Object : public Thing, public CDEProvider
 {
 public:
 	Drawable *getDrawable( void ) const;
 	ObjectID getID( void ) const { return m_id; }
+	GeometryInfo *getGeometryInfo( void ) { return &m_geometryInfo; }
 private:
 	char m_unrecovered6C[ 0x74 - 0x6C ];
 	ObjectID m_id;																							///< 0x74
+	char m_unrecovered78[ 0xA8 - 0x78 ];
+	GeometryInfo m_geometryInfo;																///< 0xA8
 };
 
 extern GameLogic *TheGameLogic;
@@ -684,7 +712,9 @@ protected:
 	virtual void xfer( Xfer *xfer );
 
 	Object *m_parentObject;																			///< 0x0C
-	char m_unrecovered10[ 0x7C - 0x10 ];
+	Coord3D m_parentPosition;																		///< 0x10
+	Real m_parentAngle;																					///< 0x1C
+	GeometryInfo m_parentGeometryInfo;													///< 0x20
 	PartitionData *m_partitionData;															///< 0x7C
 };
 
@@ -913,7 +943,7 @@ public:
 
 	virtual void slot00( void );
 	virtual void slot04( void );
-	virtual void slot08( Int playerIndex );
+	virtual void snapShot( Int playerIndex );
 	virtual void freeSnapShot( Int playerIndex );
 protected:
 	virtual void crc( Xfer *xfer );
@@ -970,6 +1000,67 @@ W3DGhostObject::W3DGhostObject()
 // ------------------------------------------------------------------------------------------------
 W3DGhostObject::~W3DGhostObject()
 {
+}
+
+// ------------------------------------------------------------------------------------------------
+/** Record the current state of the renderobjects used by this parent object
+so we can display cached state when player is looking at fogged object.
+Should only be called when object enters the fogged state.
+BFME 2 asks each draw module for its render object, leaves a snapshot out of
+the scene when the module's slot 17 says so, and copies the whole geometry
+info.*/
+// ------------------------------------------------------------------------------------------------
+void W3DGhostObject::snapShot(int playerIndex)
+{
+	if (playerIndex != TheGhostObjectManager->getLocalPlayerIndex())
+		return;	//we only snapshot things for the initial local player because local player can't change in non-debug game.
+
+	Drawable *draw=m_parentObject->getDrawable();
+	if (draw->isDrawableEffectivelyHidden())
+		return;	//don't bother to snapshot things which nobody can see.
+
+	W3DRenderObjectSnapshot *snap=m_parentSnapshots[playerIndex],*prevSnap=0;
+
+	//walk through all W3D render objects used by this object
+	for (DrawModule ** dm = draw->getDrawModules(); *dm; ++dm)
+	{
+		RenderObjClass *robj=(*dm)->getRenderObject();
+		//robj may be null for modules which have no render objects such
+		//as for build-ups that are currently disabled.
+		if (robj)
+		{
+			if (snap == 0)
+			{
+				snap = new W3DRenderObjectSnapshot(robj, &m_drawableInfo);
+				if (prevSnap)
+					prevSnap->m_next=snap;
+				else
+					m_parentSnapshots[playerIndex]=snap;
+			}
+			else
+				m_parentSnapshots[playerIndex]->update(robj, &m_drawableInfo);
+
+			//Adding and removing render objects to the scene is expensive
+			//so only do it for the real player watching the screen.
+			if (playerIndex == TheGhostObjectManager->getLocalPlayerIndex())
+			{
+				robj->Remove();	//remove normal object from scene
+				if (!(*dm)->v17())
+					snap->addToScene();
+			}
+
+			prevSnap=snap;
+			snap = snap->m_next;
+		}
+	}
+
+	//Check if we captured at least one snapshot
+	if (snap != m_parentSnapshots[playerIndex])
+	{	//save off other info we may need in case the parent object is destroyed.
+		m_parentGeometryInfo.bfmeAssign(m_parentObject->getGeometryInfo());
+		m_parentPosition=*m_parentObject->getPosition();
+		m_parentAngle=m_parentObject->getOrientation();
+	}
 }
 
 // ------------------------------------------------------------------------------------------------
