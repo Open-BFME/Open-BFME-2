@@ -1,8 +1,47 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /O1 /arch:SSE /G7 /EHs /EHc- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
+// stlport
 // AptMessenger.cpp -- AptMessenger members recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv): WB's debug build names the function; retail
 // supplies the bytes. The per-list player selections are an array of
 // pointers at +0x280; each answers through 0x005AFEF7 (unnamed).
+
+#include <vector>
+class GameSpyInfoInterface {public:
+ virtual void _M_slot_00();
+ virtual void _M_slot_04();
+ virtual void _M_slot_08();
+ virtual void _M_slot_0c();
+ virtual void _M_slot_10();
+ virtual void _M_slot_14();
+ virtual void _M_slot_18();
+ virtual void _M_slot_1c();
+ virtual void _M_slot_20();
+ virtual void _M_slot_24();
+ virtual void _M_slot_28();
+ virtual void _M_slot_2c();
+ virtual void _M_slot_30();
+ virtual void _M_slot_34();
+ virtual void _M_slot_38();
+ virtual void _M_slot_3c();
+ virtual void _M_slot_40();
+ virtual void _M_slot_44();
+ virtual void _M_slot_48();
+ virtual void _M_slot_4c();
+ virtual void _M_slot_50();
+ virtual void _M_slot_54();
+ virtual void _M_slot_58();
+ virtual void _M_slot_5c();
+ virtual void _M_slot_60();
+ virtual void _M_slot_64();
+ virtual void _M_slot_68();
+ virtual void _M_slot_6c();
+ virtual void _M_slot_70();
+ virtual void _M_slot_74();
+ virtual void _M_slot_78();
+ virtual int getLocalProfileID();
+};
+extern GameSpyInfoInterface *TheGameSpyInfo;
+void __cdecl Rva004177D5(int);
 
 typedef int Int;
 
@@ -15,7 +54,8 @@ public:
 class AptMessenger
 {
 public:
-	void GetSelectedPlayers(Int listIndex, Int a, Int b);
+	__declspec(noinline) void GetSelectedPlayers(Int listIndex, Int a, Int b);
+	void rva005AE90F();
 
 private:
 	unsigned char m_pad000[0x280];
@@ -28,4 +68,25 @@ void AptMessenger::GetSelectedPlayers(Int listIndex, Int a, Int b)
 	Rva005AFEF7List *list = m_lists[listIndex];
 	if (list)
 		list->rva005AFEF7(a, b);
+}
+
+// Native 0x005AE90F..0x005AE990 RET0; AptMessenger::OnBttn_1 calls this
+// method on the screen receiver (rowed 0x005AEF32). The vector base ctor
+// is rowed at 0x00211E58, and GetSelectedPlayers writes to that vector.
+// OnlinePreferences.cpp independently identifies TheGameSpyInfo's slot0x7C
+// as getLocalProfileID. The remaining cdecl helper's application name is unknown.
+// STLport 4.5.3 vector<int> provides the 12-byte selection container;
+// /EHs preserves the observed cleanup state before free.
+void AptMessenger::rva005AE90F()
+{
+    if (TheGameSpyInfo) {
+        _STL::vector<int> selected;
+        GetSelectedPlayers(0, (int)&selected, 0);
+        for (_STL::vector<int>::iterator it = selected.begin();
+                it != selected.end(); ++it) {
+            int profile = *it;
+            if (profile != TheGameSpyInfo->getLocalProfileID())
+                Rva004177D5(profile);
+        }
+    }
 }
