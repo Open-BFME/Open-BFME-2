@@ -89,3 +89,29 @@ Rva004110B9Tree::~Rva004110B9Tree() { dup_00410c7b(); }
 class Rva004110BETree { public: ~Rva004110BETree(); };
 Rva004110BETree::~Rva004110BETree() { ((Rva0041090E *)this)->~Rva0041090E(); }
 
+
+struct Rva00411112GlobalTable;
+struct Rva004110DCGlobalTable;
+struct Rva004114EFGlobalTable;
+extern Rva00411112GlobalTable g_Va00E0300C;
+extern Rva004110DCGlobalTable g_Va00E02FF8;
+extern Rva004114EFGlobalTable g_Va00E02FE4;
+extern unsigned int g_rva00E02FC0Bits;
+void Rva00411336(void *slot, void *owner, char *out);
+
+// Native Ghidra 0x00411E80..0x00411EC3; 67 bytes; cdecl one stack word.
+// Caller 0x00222481 supplies a level index. BFME1 1399ad37 BfmeConv1292's
+// bfmeGoSJA supplies the owner-removal sequence, but target calls the pointer
+// walker for two tables and the value walker for a third, then clears bit 0.
+// The three global declarations use their existing providers' exact spellings.
+// The byte at &v is the empty callback object's storage; no call reads its value.
+// Keep the established opaque caller name rather than promoting the donor label.
+void Rva00411E80(int value)
+{
+    char v;
+    void *owner = reinterpret_cast<void *>(value);
+    Rva00411336(&g_Va00E0300C, owner, &v);
+    Rva00411336(&g_Va00E02FF8, owner, &v);
+    bfmeLoadSJA(&g_Va00E02FE4, owner, &v);
+    g_rva00E02FC0Bits &= ~1;
+}
