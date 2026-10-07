@@ -44,9 +44,7 @@ struct Rva0060126D {
 	Rva0060126DNode *m_header;
 	int m_count;
 	Rva006038D4Less m_less;
-	// Row 0x006012ED declares void return; retail leaves the result pointer in
-	// eax so the caller addresses the new node as [eax]; declared here as
-	// returning void** to reproduce that (central retype pending).
+	// Native helper returns the output pointer in EAX. Provider and caller agree.
 	void **rva006012ED(void **result, void *x, void *y, const void *value, void *known);
 	Rva006013B7Pair rva006013B7(const Rva00600F9CElement &v);
 };

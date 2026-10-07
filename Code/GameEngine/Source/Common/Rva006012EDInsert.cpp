@@ -1,6 +1,6 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva006012ED@Rva0060126D@@QAEXPAPAXPAX1PBX1@Z @0x006012ED 146B lane=chain
+// ?rva006012ED@Rva0060126D@@QAEPAPAXPAPAXPAX1PBX1@Z @0x006012ED 146B lane=chain
 // Evidence: calls 0x006012A2 just landed plus rowed CStrLess 0x006038D4 Rebalance 0x00025490; prev 0x006012C4 next 0x0060137F same family; caller 0x0060142F in 0x006013B7; unblocks 0x006013B7.
 #include <set>
 struct Rva00600F9CElement
@@ -24,13 +24,13 @@ class Rva0060126D
 {
 public:
 	void *rva006012A2(const Rva00600F9CElement &val);
-	void rva006012ED(void **result, void *x, void *y, const void *value, void *known);
+	void **rva006012ED(void **result, void *x, void *y, const void *value, void *known);
 private:
 	Rva0060126DNode *m_header;
 	int m_count;
 	Rva006038D4Less m_less;
 };
-void Rva0060126D::rva006012ED(void **result, void *x, void *y, const void *value, void *known)
+void **Rva0060126D::rva006012ED(void **result, void *x, void *y, const void *value, void *known)
 {
 	Rva0060126DNode *yn = (Rva0060126DNode *)y;
 	Rva0060126DNode *node;
@@ -59,4 +59,8 @@ void Rva0060126D::rva006012ED(void **result, void *x, void *y, const void *value
 		reinterpret_cast<_STL::_Rb_tree_node_base *&>(m_header->parent));
 	++m_count;
 	*result = node;
+	return result;
 }
+
+// Native EAX returns the result pointer, as 0x6013B7 immediately dereferences
+// it. Reconcile the provider with that established caller ABI; bytes unchanged.
