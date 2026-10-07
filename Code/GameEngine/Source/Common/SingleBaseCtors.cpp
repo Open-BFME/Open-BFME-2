@@ -56,3 +56,15 @@ public:
 Rva005D50C4::Rva005D50C4() : Rva005D5095Base(1)
 {
 }
+
+// ??0Rva005D50E3@@QAE@XZ retail 0x005D50E3 20B
+// Evidence: leaf lane; base Rva005D5095Base(0) pin plus vtable 0x00875AFC; caller 0x005AE368; sibling Rva005D50C4 same TU same flags.
+class Rva005D50E3 : public Rva005D5095Base
+{
+public:
+	Rva005D50E3();
+};
+
+Rva005D50E3::Rva005D50E3() : Rva005D5095Base(0)
+{
+}
