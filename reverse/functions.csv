@@ -67487,3 +67487,4 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ??1Rva005D4FFC@@QAE@XZ,,0x005D4FFC,5,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,tail jump to clear 0x005D4FA0; unpins ??1Rva005D4FFC@@QAE@XZ
 ?rva0023CAD9@GameLogic@@QAEHXZ,,0x0023CAD9,14,Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CAD9.cpp,matched,gap between rowed GameLogic methods touches ecx+0x10c GameLogicInit m_10c
 ?rva0028D796@Rva0028D796@@QAEHXZ,,0x0028D796,103,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028D796.cpp,matched,leaf between didExit and isSelectable via template plus4 and tracker plus264 with FindExperienceLevelList via g_00DFECC4 and RvaFind stdcall dead ECX union and double fidiv fmul fadd
+??0Rva00415B54@@QAE@ABVAsciiString@@@Z,,0x00415B54,61,Code/GameEngine/Source/Common/Rva00415B54Ctor.cpp,matched,leaf between set ctor and parseFromINI via AsciiString base plus int plus4 init 0x64 plus set at plus8
