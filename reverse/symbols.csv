@@ -15365,3 +15365,11 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@_N3@Z,0x00298EA9,Target call from 0x0023CAE7 passes ECX as a fresh 0x4D8-byte allocation and arguments (template; mask; team; flag; true); matched Object interface bodies and their vtable evidence place subobjects at +0x64/+0x70. Constructor identity and the final flag meaning are structural inferences; the address and argument order come from the target call.
 ?rva0005230D@Rva0005230D@@QAEXMMMMM@Z,0x0005230D,callee of ?rva000537F4@MilesAudioManager@@QAEXMMMMMH@Z
 
+??0LargeGroupAudio@@QAE@XZ,0x0020DD59,GameLogic::init 0x243EE7 callee
+??0Rva00359E13@@QAE@XZ,0x00359E13,GameLogic::init 0x243EE7 callee
+??0Rva006253F0@@QAE@XZ,0x006253F0,GameLogic::init 0x243EE7 callee
+?rva000B3FD0@Rva0043B660@@QAEXXZ,0x000B3FD0,GameLogic::init 0x243EE7 callee
+?rva00240E18@GameLogic@@QAEX_N@Z,0x00240E18,GameLogic::init 0x243EE7 callee
+?rva0032D554@SidesList@@QAEXXZ,0x0032D554,GameLogic::init 0x243EE7 callee
+?rva0032F84F@SidesList@@QAEXXZ,0x0032F84F,GameLogic::init 0x243EE7 callee
+?rva0035AA3E@Rva00359E13@@QAEXXZ,0x0035AA3E,GameLogic::init 0x243EE7 callee
