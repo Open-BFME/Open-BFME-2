@@ -5682,7 +5682,7 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Peek_Outer_Scale_Channel@RingRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector2@@@@XZ,,0x0031A9C7,7,Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Add_Ref@TextureBaseClass@@QAEXXZ,,0x000424B6,5,Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??$insert@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1@Z,,0x000BB975,30,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,matched,unclaimed_scan exact; boundary confirmed by EH-prolog next-function pattern; callee pinned via retail REL32 decode
-?Peek_Additional_Pass@RenderInfoClass@@QAEPAVMaterialPassClass@@H@Z,,0x00126077,11,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?rva00126077@Rva00126077@@QAEPAXH@Z,,0x00126077,11,Code/Libraries/Source/WWVegas/WW3D2/Rva00126077Indexer.cpp,matched,inline pointer array fetch at +0x24; owner unknown (no REL32 callers or data refs); the masked-search RenderInfoClass::Peek_Additional_Pass name was the Zero Hour layout - BFME2 has it at 0x00142C30
 ??$_M_insert_dispatch@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@_STL@@@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@1@U?$_List_iterator@HU?$_Const_traits@H@_STL@@@1@1ABU__false_type@1@@Z,,0x002C526D,48,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp,matched,unclaimed_scan exact; boundary confirmed by ghidra_functions.csv extent=48 matching exactly; callee pinned via retail REL32 decode
 ?Peek_Color_Channel@SphereRenderObjClass@@QAEABV?$LERPAnimationChannelClass@VVector3@@@@XZ,,0x001DFAA6,7,Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Peek_Vector_Channel@SphereRenderObjClass@@QAEABVAlphaVectorChannel@@XZ,,0x002A982F,7,Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
@@ -8653,7 +8653,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?get@Rva00137540DwordField@@QBEHXZ,,0x00137540,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0013C960DwordField@@QBEHXZ,,0x0013C960,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva00140C20DwordField@@QBEHXZ,,0x00140C20,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00142C20DwordField@@QBEHXZ,,0x00142C20,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?Additional_Pass_Count@RenderInfoClass@@QAEHXZ,,0x00142C20,7,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,ZH rinfo.cpp body; count at +0xB0; MeshClass::Render 0x0014BB90 loops on it with Peek_Additional_Pass 0x00142C30
 ?get@Rva001435B0DwordField@@QBEHXZ,,0x001435B0,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva001435E0DwordField@@QBEHXZ,,0x001435E0,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva00149270DwordField@@QBEHXZ,,0x00149270,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
@@ -10874,7 +10874,7 @@ _luaS_newudata,,0x00750230,148,Code/Libraries/Source/Lua/lstring.c,matched,BFME1
 ?get@Rva0048D73BLeaGetter@@QBEPAXXZ,,0x0048D73B,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva0049CB8ELeaGetter@@QBEPAXXZ,,0x0049CB8E,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva0041B801FloatField@@QBEMXZ,,0x0041B801,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter; address-derived opaque holder
-?get@Rva00142C40LeaGetter@@QBEPAXXZ,,0x00142C40,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter; address-derived opaque holder
+?Get_Rendering_Method_Stack@RenderInfoClass@@QBEABV?$vector@V?$RefCountPtr@VRenderingMethod@FXShader@@@@V?$allocator@V?$RefCountPtr@VRenderingMethod@FXShader@@@@@_STL@@@_STL@@XZ,,0x00142C40,7,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,BFME2 accessor of the +0x13C rendering-method vector; MeshClass::Render 0x0014BDD0 passes its result to the FX renderer task 0x00174AAD
 ?get@Rva0028B7AELeaGetter@@QBEPAXXZ,,0x0028B7AE,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter; address-derived opaque holder
 ?get@Rva004D92E9LeaGetter@@QBEPAXXZ,,0x004D92E9,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter; address-derived opaque holder
 ?get@Rva004B39F5LeaGetter@@QBEPAXXZ,,0x004B39F5,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
@@ -39777,12 +39777,12 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ??$__uninitialized_copy@PBVRva00064640Record@@PAV1@@_STL@@YAPAVRva00064640Record@@PBV1@0PAV1@ABU__false_type@0@@Z,,0x00469CA2,38,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00064640_fill_n.cpp,matched,0x1c stride range copy via rowed _Construct 0x469C73
 ??0Rva005DD772@@QAE@XZ,,0x005DD772,81,Code/GameEngine/Source/Common/Rva005DD772Ctor.cpp,matched,base UnicodeString from narrow dash via AsciiString temp plus float zero
 ??1Rva0021A0C2@@QAE@XZ,,0x0021A0C2,68,Code/GameEngine/Source/Common/Rva0021A0C2Dtor.cpp,matched,Honest destructor with three narrow StringBase members
-?rva00142C30@Rva00142C30@@QAEPAXH@Z,,0x00142C30,11,Code/GameEngine/Source/Common/Rva00142C30Indexer.cpp,matched,indexed fetch from inline array at 0x30
+?Peek_Additional_Pass@RenderInfoClass@@QAEPAVMaterialPassClass@@H@Z,,0x00142C30,11,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,ZH rinfo.cpp body; array at +0x30; called from MeshClass::Render 0x0014BF83
 ?Rva0014FA90Copy@@YAPAVRva0014F699@@PAV1@00PAXH@Z,,0x0014FA90,50,Code/GameEngine/Source/Common/Rva0014FA90Copy.cpp,matched,forward copy via rowed 0x0014F699 dummy tag args caller 0x00150278 pushes 5
 ?rva002AC629@Player@@QAEPAVObject@@XZ,,0x002AC629,74,Code/GameEngine/Source/Common/RTS/PlayerRva002AC629.cpp,matched,Player cached finder via iterateObjects and rowed findObjectByID
 ?rva0040C64A@Rva0037DCA5@@QAEPAXXZ,,0x0040C64A,19,Code/GameEngine/Source/Common/Rva0037DCA5Get.cpp,matched,chain of rva0037DC52 fallback empty plus 0x58
 ??0Rva005C4986@@QAE@II@Z,,0x005C4986,50,Code/GameEngine/Source/Common/Rva005C4986Ctor.cpp,matched,chain ctor base 0x59B7CB plus member 0x48D0 then vptrs
-?rva00142C80@Rva00142C80@@QAEPAXXZ,,0x00142C80,14,Code/GameEngine/Source/Common/Rva00142C80LeaIndexer.cpp,matched,indexed lea from array at 0xB8 by index at 0x138
+?Current_Override_Flags@RenderInfoClass@@QAEAAW4RINFO_OVERRIDE_FLAGS@1@XZ,,0x00142C80,14,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,ZH rinfo.cpp body; OverrideFlag +0xB8 indexed by OverrideFlagLevel +0x138
 ??_GRva0021A0C2@@QAEPAXI@Z,,0x0021AC81,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-0a3a.cpp,matched,Deleting dtor for Rva0021A0C2 via AudioEventRTS shape
 ?Rva002AC04EAlloc@@YGPAXPAPAX@Z,,0x002AC04E,28,Code/GameEngine/Source/Common/Rva002AC04EAlloc.cpp,matched,Freelist node alloc via rowed pop same as Rva00239BD8Alloc
 ??$_M_allocate_and_copy@PBVRva00064640Record@@@?$vector@VRva00064640Record@@V?$allocator@VRva00064640Record@@@_STL@@@_STL@@IAEPAVRva00064640Record@@IPBV2@0@Z,,0x00469CED,45,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00064640_fill_n.cpp,matched,allocate via twin pin at 0xB40EA then rowed copy 0x469CA2 caller 0x46EE72
@@ -39791,7 +39791,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?rva0040CA24@Rva0040C985@@QAEHXZ,,0x0040CA24,22,Code/GameEngine/Source/Common/Rva0040C985Init.cpp,matched,same TU Rva0040C985 m_24 m_28 plus TheGlobalData plus caller 0x0040D299
 ?rva005391FD@Rva005391FD@@QAEXXZ,,0x005391FD,42,Code/GameEngine/Source/Common/Rva005391FD.cpp,matched,chain loop via slots 0x34 0x3C then 0x005C4CC1
 ?rva00539227@Rva005391FD@@QAEXXZ,,0x00539227,42,Code/GameEngine/Source/Common/Rva005391FD.cpp,matched,chain loop via slots 0x34 0x3C then 0x005C4CD4
-?rva00142BE0@Rva00142BE0@@QAEXXZ,,0x00142BE0,52,Code/GameEngine/Source/Common/System/Rva00142BE0ArrayPop.cpp,matched,single-step release from array at 0x30 with counts at 0xB0 and 0xB4
+?Pop_Material_Pass@RenderInfoClass@@QAEXXZ,,0x00142BE0,52,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,ZH rinfo.cpp body on the BFME2 layout; inlined into the dtor 0x00142FE0 pop loop
 ?Rva002ACF9CInsert@@YGPAPAXPAPAXPAX0@Z,,0x002ACF9C,37,Code/GameEngine/Source/Common/Rva002ACF9CInsert.cpp,matched,Freelist node insert via rowed Rva002AC04EAlloc same as Rva00239D02Insert
 ?rva004695DA@Rva004695DA@@QAEEXZ,,0x004695DA,40,Code/GameEngine/Source/Common/Rva004695DAGet.cpp,matched,flag 0x80 at obj plus4 plus116 then weapon null gives 1 else byte get
 ?rva004693AD@Rva004693AD@@QAE_NPAURva004693ADArg@@@Z,,0x004693AD,44,Code/GameEngine/Source/Common/Rva004693ADCheck.cpp,matched,int at arg74 vs this 264 26c or flag109 bit8
@@ -47738,7 +47738,7 @@ _Rva006FD040,,0x006FD040,26,Code/Libraries/Source/WWVegas/WWLib/Rva006FD040Sibli
 ?rva00029f80@Rva00029F80@@QAEXPBD0H@Z,,0x00029F80,35,Code/GameEngine/Source/Common/Rva00029F80Cluster.cpp,matched,thiscall forwarder to private _M_range_initialize at 0x78C0 with local iterator tag; unused third arg frame 0x18
 ?rva0002a2a0@Rva0002A270Thing@@QAEXPAX0@Z,,0x0002A2A0,42,Code/GameEngine/Source/Common/Rva00029F80Cluster.cpp,matched,bfmeMakeOX run wrapper for Rva0002A270Thing; computed length via 0x6F30 call into callee 0x29850
 ?rva000317c0@Rva000317C0@@QAEXXZ,,0x000317C0,21,Code/GameEngine/Source/Common/System/Rva000317C0Cluster.cpp,matched,release half of the Rva00031790 lock-holder setter; drops use count at +0x18 then LeaveCriticalSection
-?add@Rva00142BA0@@QAEXPAX@Z,,0x00142BA0,56,Code/Libraries/Source/WWVegas/WW3D2/Rva00142BA0Cluster.cpp,matched,fixed-capacity array append with /G7; count 0xb0 cap 0x1f elements 0x30 overflow 0xb4 refcount+4
+?Push_Material_Pass@RenderInfoClass@@QAEXPAVMaterialPassClass@@@Z,,0x00142BA0,56,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,ZH rinfo.cpp body on the BFME2 layout (pass array +0x30 count +0xB0 rejected +0xB4) proven by ctor 0x00142EE0
 ?set@Rva001A1BF0@@QAEXPAVVBase@@@Z,,0x001A1BF0,66,Code/Libraries/Source/WWVegas/WW3D2/Rva001A1BF0Cluster.cpp,matched,refcounted pointer setter at 0xd4; virtual slot0 release then operator delete
 ?set@Rva001A1C40@@QAEXPAVVBase@@@Z,,0x001A1C40,69,Code/Libraries/Source/WWVegas/WW3D2/Rva001A1BF0Cluster.cpp,matched,refcounted pointer setter at 0xe4; slot0 release plus tail virtual slot4 with 0.001f
 ?rva006F7540@Rva006F7540@@QAEXXZ,,0x006F7540,45,Code/GameEngine/Source/Common/Rva006F7540Cluster.cpp,matched,AptDisplayList empty assert nElements==0 at +0x80 AptDisplayList.cpp:0x537
@@ -67493,3 +67493,8 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva00213B88@Rva00213A85@@QAEXPAX@Z,,0x00213B88,54,Code/GameEngine/Source/GameClient/Rva00213A85.cpp,matched,Same target iterator skeleton at receiver+0x204 as 0x00213A85; forwards one pointer to address-derived 0x003FAD4A method on node+8 payload; exact receiver relationship and payload meaning unresolved.
 ?rva00213C30@Rva00213A85@@QAEXXZ,,0x00213C30,62,Code/GameEngine/Source/GameClient/Rva00213A85.cpp,matched,Same target iterator skeleton at receiver+0x204; calls address-derived 0x003FADA3 method on node+8 payload then rowed 0x002110DF with zero through direct global 0x00DFE1C8; exact table specialization unresolved.
 ??0Rva00260FF5@@QAE@PAVObject@@@Z,,0x00260FF5,81,Code/GameEngine/Source/Common/Rva00260FF5.cpp,matched,target disassembly and BFME1 slot-15 donor shape; +0x254 body and slot 15 supported by ObjectRva0028C264
+??1?$vector@V?$RefCountPtr@VRenderingMethod@FXShader@@@@V?$allocator@V?$RefCountPtr@VRenderingMethod@FXShader@@@@@_STL@@@_STL@@QAE@XZ,,0x00142E30,112,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,STLport vector<RefCountPtr<FXShader::RenderingMethod>> dtor (bfmealloc free); the +0x13C member's destructor called from RenderInfoClass dtor 0x00142FE0; /EHs keeps the free under EH state -1
+??0RenderInfoClass@@QAE@AAVCameraClass@@@Z,,0x00142EE0,256,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,ZH ctor plus BFME2's FogColor Vector3 at +0x08 and the zeroed pass array; six floats +0x04..+0x18 zero then 1.0f overrides; rendering-method vector at +0x13C
+??1RenderInfoClass@@QAE@XZ,,0x00142FE0,141,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,BFME2 dtor pops every remaining material pass (inlined Pop_Material_Pass) then destroys the rendering-method vector 0x00142E30
+?Push_Override_Flags@RenderInfoClass@@QAEXW4RINFO_OVERRIDE_FLAGS@1@@Z,,0x00142C50,27,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,ZH rinfo.cpp body; level +0x138 flags +0xB8
+?Pop_Override_Flags@RenderInfoClass@@QAEXXZ,,0x00142C70,8,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,ZH rinfo.cpp body; level +0x138

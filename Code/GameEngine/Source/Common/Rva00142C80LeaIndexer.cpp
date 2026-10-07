@@ -1,10 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD
 //
-// ?rva00142C80@Rva00142C80@@QAEPAXXZ, RVA 0x00142C80, 14B.
-// Indexed lea from array at +0xB8 by index at +0x138.
-// Evidence: mov eax [ecx+0x138] lea eax [ecx+eax*4+0xB8]; callers at 0x0014BED9
-// 0x0014BF26 0x0014BFA0 use result as element address; ctor 0x00142EE0 zeroes
-// +0xB8 and +0x138; honest address name.
+// 0x00142C80, the indexed lea this file was named for, is
+// RenderInfoClass::Current_Override_Flags and lives in WW3D2/rinfo.cpp.
 //
 // ?rva0030812E@Rva0030812E@@QAEPAXH@Z, retail 0x0030812E, 11 bytes.
 // Stack-indexed lea: mov eax [esp+4] lea eax [ecx+eax*4+0x78] ret 4.
@@ -12,7 +9,7 @@
 // 0x81E36/0x81CDF. Honest address name.
 //
 // ?rva003080AA@Rva003080AA@@QAEPAURva003080AARef@@H@Z, retail 0x003080AA, 25B.
-// AddRef fetch from array at +0xB8 (same offset as 0x142C80 family):
+// AddRef fetch from array at +0xB8:
 // p=m_items[i]; if (p) ++p->m_ref; return m_items[i] (reload for return).
 // Callers 0x38D9E/0x380C9. Honest address name.
 //
@@ -36,21 +33,6 @@ class Rva003080AA
 public:
 	Rva003080AARef *rva003080AA(int i);
 };
-
-class Rva00142C80
-{
-	char m_pad[0xb8];
-	void *m_items[32];
-	int m_index;
-
-public:
-	void *rva00142C80();
-};
-
-void *Rva00142C80::rva00142C80()
-{
-	return &m_items[m_index];
-}
 
 class Rva0030812E
 {
