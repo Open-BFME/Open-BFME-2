@@ -36,7 +36,11 @@ extern TeamFactory *TheTeamFactory;
 class ThingTemplate
 {
 public:
-	unsigned char m_pad00[0x618];
+	unsigned char m_pad00[0x11F];
+	unsigned char m_11F; // +0x11F
+	unsigned char m_pad120[0x610 - 0x120];
+	float m_610; // +0x610
+	unsigned char m_pad614[4]; // +0x614
 	int m_618; // +0x618
 	int m_61C; // +0x61C
 };
@@ -45,6 +49,7 @@ class Object
 public:
 	void rva0028DA67();
 	void rva0028DAB9();
+	bool rva0028DB0F(bool arg) const;
 	bool testStatus(ObjectStatusTypes s) const;
 	Player *getControllingPlayer() const;
 private:
@@ -85,4 +90,16 @@ void Object::rva0028DAB9()
 	((Rva002A9B58 *)player)->rva002A9B58((Rva002A7588In *)this);
 	m_480 = 0;
 }
+
+bool Object::rva0028DB0F(bool arg) const
+{
+	if (m_tmpl->m_610 >= 100.0f)
+	{
+		if (!arg || !(m_tmpl->m_11F & 0x80))
+			return true;
+	}
+	return false;
+}
+
+
 
