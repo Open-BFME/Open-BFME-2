@@ -266,6 +266,8 @@ static void buildNonDupRandomIndexList(Int range, Int count, Int idxList[])
 		Int idx;
 		do
 		{
+		// Retain the retail call-site line used by GetGameLogicRandomValue.
+#line 325 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureCollapseUpdate.cpp"
 			idx = GameLogicRandomValue(0, range-1);
 		} 
 		while (inList(idx, i, idxList));
