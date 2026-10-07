@@ -5,6 +5,7 @@
 // screen's registration; that binding is their only reference. The class
 // is named for the strings' prefix.
 
+#include "ascii_string.h"
 #include "unicode_string.h"
 
 extern "C" char *__cdecl strcpy(char *destination, const char *source);
@@ -83,9 +84,169 @@ public:
 
 extern BfmeSelectionState *g_009FEF10;
 
-class AptQuitMenu
+// The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
+// MpGameSetupSlots.cpp): a binding of an object and an eight-byte
+// multiple-inheritance member pointer, and the refcounted holder rowed
+// 0x0057BC63 builds from it.
+class __multiple_inheritance FunctorTarget;
+typedef void (FunctorTarget::*FunctorMethod)(void);
+
+struct FunctorBinding
+{
+	FunctorBinding(FunctorMethod method, FunctorTarget *target) : m_target(target), m_method(method) {}
+
+	FunctorTarget *m_target;
+	unsigned int m_pad;
+	FunctorMethod m_method;
+};
+
+class FunctorWrapperHead
 {
 public:
+	void *m_vtbl;
+	int m_refCount; // +0x04
+};
+
+class Rva0057BC63FunctorHolder
+{
+public:
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
+	Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : m_ptr(other.m_ptr)
+	{
+		if (m_ptr)
+			++m_ptr->m_refCount;
+	}
+
+	FunctorWrapperHead *m_ptr;
+};
+
+// Builds a binding by value: the named result is copied out, which is the
+// second sixteen-byte slot every registration in the constructor fills.
+__forceinline FunctorBinding MakeBinding(FunctorMethod method, FunctorTarget *target)
+{
+	FunctorBinding binding(method, target);
+	return binding;
+}
+
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
+
+template <class T> class AptRef : public Rva0057BC63FunctorHolder
+{
+public:
+	AptRef(const FunctorBinding &binding) : Rva0057BC63FunctorHolder(binding) {}
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+};
+
+class AptCommandMap;
+class AptExternHandler;
+class AptOverButtonHandler;
+
+namespace _STL
+{
+	template <class T> class allocator {};
+
+	template <class T, class A = allocator<T> > class vector
+	{
+	private:
+		T *m_start;
+		T *m_finish;
+		T *m_endOfStorage;
+	};
+}
+
+// The adders (AptCallbackAdders.cpp, all rowed): each registers with the
+// Apt player and remembers the name.
+class AptCommandMapAdder
+{
+public:
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptExternHandlerAdder
+{
+public:
+	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
+
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptOverButtonHandlerAdder
+{
+public:
+	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
+
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+// The Apt player (0x00DFE4CC): the rowed background switch 0x002233A6
+// and text setter 0x00225301.
+class BfmeAptWindowManager
+{
+public:
+	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
+};
+
+class WindowManager
+{
+public:
+	void bfme_showBackground(int kind);
+};
+
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+// The Apt screen base (BfmeAptGameWindowDestructor.cpp): a 0x218-byte
+// GameWindow and, at +0x218, the 0x58-byte callback registry whose adders
+// sit at +0x04, +0x10 and +0x1C.
+class GameWindow
+{
+protected:
+	virtual ~GameWindow();
+
+private:
+	unsigned char m_pad004[0x218 - 4];
+};
+
+class Rva005248D0
+{
+public:
+	virtual ~Rva005248D0();
+
+	AptCommandMapAdder m_commandMaps; // +0x04
+	AptExternHandlerAdder m_externHandlers; // +0x10
+	AptOverButtonHandlerAdder m_overButtonHandlers; // +0x1C
+
+private:
+	unsigned char m_pad028[0x58 - 0x28];
+};
+
+class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
+{
+public:
+	_bfme_AptGameWindow(void *context);
+	virtual ~_bfme_AptGameWindow();
+
+private:
+	AsciiString m_filename; // +0x270
+	int m_274;
+	char m_278;
+};
+
+class AptQuitMenu : public _bfme_AptGameWindow
+{
+public:
+	AptQuitMenu(void *context);
+
+	void OnInitialized(const char *unused);
 	void RestartMission(const char *unused);
 	void ExitMission(const char *unused);
 	void OptionsScreen(const char *unused);
@@ -101,11 +262,14 @@ public:
 	void Externs(int query, char *value, bool set);
 
 private:
-	unsigned char m_pad000[0x27C];
 	bool m_exit; // +0x27C
 	bool m_27d;
 	bool m_restart; // +0x27E
+	int m_280;
 };
+
+// The open quit menu (0x00E04910), set by its constructor.
+extern AptQuitMenu *TheAptQuitMenu;
 
 // Retail 0x0051AFB9, 10 bytes: "AptQuitMenu::RestartMission".
 void AptQuitMenu::RestartMission(const char *unused)
@@ -222,4 +386,85 @@ void AptQuitMenu::HandleOverRestartButton(const char *unused)
 	UnicodeString tooltip = TheGameText->fetch(label, &exists);
 	if (exists)
 		TheMouse->rva001EEA6D(tooltip, -1, 0, 1.0f);
+}
+
+// The extern handlers' names, by query (0x00C66BF8).
+static const char *const s_externNames[] = { "HasFocus", "AptQuitMenu::RestartPopupType" };
+
+// Retail 0x0051BADF, 1016 bytes: the quit menu's constructor. The first
+// one opened becomes TheAptQuitMenu and binds its callbacks by name
+// ("AptQuitMenu::OnInitialized" ... "AptQuitMenu::LoadMenu", the restart
+// button's tooltip and the two Externs queries), switches the Apt player
+// to background 2 and, in a multiplayer game, relabels "APT:Pause" with
+// "GUI:Menu". As BFME1's BfmeAptScreenQuitMenu constructor
+// (BfmeAptScreenQuitMenuConstructor.cpp) with BFME2's adders.
+// The handlers are bound as eight-byte multiple-inheritance member pointers.
+// The Externs loop's counter is declared before its binding is copied out,
+// which keeps it in the dead context slot rather than a register.
+#pragma pointers_to_members(full_generality, multiple_inheritance)
+AptQuitMenu::AptQuitMenu(void *context) : _bfme_AptGameWindow(context)
+{
+	m_exit = false;
+	m_27d = false;
+	m_restart = false;
+	m_280 = 0;
+	if (TheAptQuitMenu != 0)
+		return;
+	TheAptQuitMenu = this;
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptQuitMenu::OnInitialized);
+		AsciiString name("AptQuitMenu::OnInitialized");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptQuitMenu::RestartMission);
+		AsciiString name("AptQuitMenu::RestartMission");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptQuitMenu::ExitMission);
+		AsciiString name("AptQuitMenu::ExitMission");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptQuitMenu::OptionsScreen);
+		AsciiString name("AptQuitMenu::OptionsScreen");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptQuitMenu::ReturnToGame);
+		AsciiString name("AptQuitMenu::ReturnToGame");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptQuitMenu::SaveMenu);
+		AsciiString name("AptQuitMenu::SaveMenu");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptQuitMenu::LoadMenu);
+		AsciiString name("AptQuitMenu::LoadMenu");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptQuitMenu::HandleOverRestartButton);
+		AsciiString name("QuitMenu/Restart/TheButton");
+		m_overButtonHandlers.AddOverButtonHandler(name, AptRef<AptOverButtonHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptQuitMenu::Externs);
+		int query = 0;
+		FunctorBinding binding = MakeBinding(method, reinterpret_cast<FunctorTarget *>(this));
+		for (; query < 2; ++query)
+		{
+			AsciiString name(s_externNames[query]);
+			m_externHandlers.AddExternHandler(name, query, AptRef<AptExternHandler>(binding));
+		}
+	}
+	((WindowManager *)g_bfmeAptWindowManager)->bfme_showBackground(2);
+	if (TheGameLogic && TheGameLogic->isInMultiplayerGame())
+	{
+		AsciiString key("APT:Pause");
+		g_bfmeAptWindowManager->bfmeSetText(key, TheGameText->fetch("GUI:Menu"), false);
+	}
 }
