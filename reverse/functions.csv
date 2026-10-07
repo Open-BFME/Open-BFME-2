@@ -67837,3 +67837,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005E7CAA@Rva005E7CAA@@QAEXH@Z,,0x005E7CAA,86,Code/GameEngine/Source/Common/Rva005E7CAASwitch.cpp,matched,
 ??0Rva003AF89A@@QAE@ABV0@@Z,,0x003AF89A,45,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoDerivedCopies.cpp,matched,derived copy calling intermediate 0x003AF8C7 then own 4 vptrs at +0/+0x14/+0x18/+0x1c
 ?rva00050FA0@Rva00050FA0@@QAEPAV1@H@Z,,0x00050FA0,36,Code/GameEngine/Source/Common/Rva00050FA0Init.cpp,matched,Helper-then-init method returning this; SSE float zero at +0x88
+?rva0004C99B@Rva0004C99B@@QAEXXZ,,0x0004C99B,102,Code/GameEngine/Source/Common/Rva0004C99BMatrix.cpp,matched,Matrix setup with identity-ish init plus 0x00713290 and same-this helper
