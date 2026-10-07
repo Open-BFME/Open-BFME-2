@@ -109,3 +109,104 @@ void **Rva006044A0::rva006043CE(void **result, void *x, void *y, const void *val
 	*result = node;
 	return result;
 }
+
+// 603B0A/603E50: same strcmp-key insertion control flow, with the existing
+// 29E11A allocator copying a 16B value through Construct41360E. That provider
+// is ledgered as ModuleFactory; this is its measured four-word ABI view only.
+// The new tree's application owner and remaining payload meanings are unknown.
+struct Rva00603E50Value { const char *key; unsigned words[3]; };
+enum NameKeyType { NameKeyZero = 0 };
+class ModuleFactory {
+public:
+ class ModuleTemplate {
+ public: void *m_createProc; void *m_createDataProc; int m_whichInterfaces;
+ };
+};
+typedef _STL::pair<const NameKeyType, ModuleFactory::ModuleTemplate> ModuleWordPair;
+typedef _STL::_Rb_tree<NameKeyType, ModuleWordPair, _STL::_Select1st<ModuleWordPair>, _STL::less<NameKeyType>, _STL::allocator<ModuleWordPair> > ModuleWordTree;
+struct ModuleWordNodeView : ModuleWordTree {
+ static __forceinline _STL::_Rb_tree_node<ModuleWordPair> *create(void *receiver, const ModuleWordPair &value) {
+  return ((ModuleWordNodeView *)receiver)->_M_create_node(value);
+ }
+};
+struct Rva00603E50Node {
+	unsigned color;
+	Rva00603E50Node *parent;
+	Rva00603E50Node *left;
+	Rva00603E50Node *right;
+};
+struct Rva00603E50Pair {
+	Rva00603E50Node *first;
+	bool second;
+	Rva00603E50Pair(Rva00603E50Node *f, bool s) : first(f), second(s) {}
+};
+struct Rva00603E50 {
+	Rva00603E50Node *m_header;
+	int m_count;
+	Rva006038D4Less m_less;
+	// Native helper returns the output pointer in EAX.
+	void **rva00603B0A(void **result, void *x, void *y, const void *value, void *known);
+	Rva00603E50Pair rva00603E50(const Rva00603E50Value &v);
+};
+Rva00603E50Pair Rva00603E50::rva00603E50(const Rva00603E50Value &v)
+{
+	Rva00603E50Node *y = m_header;
+	Rva00603E50Node *x = m_header->parent;
+	bool comp = true;
+	while (x != 0) {
+		y = x;
+		comp = m_less(*(const char **)&v, *(const char **)((char *)x + 0x10));
+		x = comp ? x->left : x->right;
+	}
+	Rva00603E50Node *j = y;
+	if (comp) {
+		if (j == m_header->left)
+		{
+			Rva00603E50Node *tmp;
+			void **pres = rva00603B0A((void **)&tmp, y, y, &v, 0);
+			tmp = (Rva00603E50Node *)*pres;
+			return Rva00603E50Pair(tmp, true);
+		}
+		j = (Rva00603E50Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)y);
+	}
+	if (m_less(*(const char **)((char *)j + 0x10), *(const char **)&v))
+	{
+		Rva00603E50Node *tmp;
+		void **pres = rva00603B0A((void **)&tmp, x, y, &v, 0);
+		tmp = (Rva00603E50Node *)*pres;
+		return Rva00603E50Pair(tmp, true);
+	}
+	return Rva00603E50Pair(j, false);
+}
+
+void **Rva00603E50::rva00603B0A(void **result, void *x, void *y, const void *value, void *known)
+{
+	Rva00603E50Node *yn = (Rva00603E50Node *)y;
+	Rva00603E50Node *node;
+	if (yn != m_header && (known != 0 || (x == 0 && !m_less(*(const char **)value, *(const char **)((char *)yn + 0x10))))) {
+		node = (Rva00603E50Node *)ModuleWordNodeView::create(this, *(const ModuleWordPair *)value);
+		yn->right = node;
+		Rva00603E50Node *header = m_header;
+		if (yn == header->right)
+			header->right = node;
+	} else {
+		node = (Rva00603E50Node *)ModuleWordNodeView::create(this, *(const ModuleWordPair *)value);
+		yn->left = node;
+		Rva00603E50Node *header = m_header;
+		if (yn == header) {
+			header->parent = node;
+			m_header->right = node;
+		} else if (yn == header->left) {
+			header->left = node;
+		}
+	}
+	node->left = 0;
+	node->right = 0;
+	node->parent = yn;
+	_STL::_Rb_global<bool>::_Rebalance(
+		reinterpret_cast<_STL::_Rb_tree_node_base *>(node),
+		reinterpret_cast<_STL::_Rb_tree_node_base *&>(m_header->parent));
+	++m_count;
+	*result = node;
+	return result;
+}
