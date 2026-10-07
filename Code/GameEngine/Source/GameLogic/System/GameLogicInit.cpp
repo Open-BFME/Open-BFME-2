@@ -145,6 +145,7 @@ public:
 	virtual void newMap(bool loadingSaveGame);                           // +0x14
 	virtual void t06(void); virtual void t07(void);
 	virtual void getExtent(Region3D *extent) const;                      // +0x20
+	void rva002817F2(const AsciiString &filename);
 	void rva00283642(const ThingTemplate *tt, const Coord3D *pos, const Matrix3D *mtx, float scale);
 	void rva00280176(const ThingTemplate *tt, const Coord3D *pos, const Matrix3D *mtx, float scale);
 };
@@ -2901,4 +2902,46 @@ void GameLogic::rva0023E3CE(AsciiString mapName)
 	format(fullFledgeFilename, "%s\\map.str", filename);
 	if (TheFileSystem->doesFileExist(fullFledgeFilename))
 		TheGameText->initMapStringFile(fullFledgeFilename);
+}
+
+// ---------------------------------------------------------------------------
+// GameLogic 0x0023E628 (396B), called by 0x002469A5 right after the map load:
+// the loadMapINI path walk for the folder's ambientlightmap.tga, which
+// TheTerrainLogic loads (0x002817F2, which first clears through 0x0027DA58)
+// or, when the file is missing, just clears (0x0027DA58).
+// ---------------------------------------------------------------------------
+class Rva0062AF7
+{
+public:
+	void Rva0027DA58(void);
+};
+
+void GameLogic::rva0023E628(AsciiString mapName)
+{
+	if (!TheMapCache)
+		return;
+
+	char filename[260];
+	char fullFledgeFilename[260];
+
+	memset(filename, 0, 260);
+	strcpy(filename, mapName.str());
+
+	if (((Rva002DC7C1 *)TheGameState)->rva002DC7C1(UnicodeString(AsciiString(filename))))
+		strcpy(filename, TheGameState->m_pristineMapName.str());
+
+	int length = strlen(filename);
+	if (length < 4)
+		return;
+
+	char *extension = filename + length - 4;
+	while (extension > filename && *extension != '\\' && *extension != '/')
+		--extension;
+	*extension = 0;
+
+	_imp__sprintf(fullFledgeFilename, "%s\\ambientlightmap.tga", filename);
+	if (TheFileSystem->doesFileExist(fullFledgeFilename))
+		TheTerrainLogic->rva002817F2(fullFledgeFilename);
+	else
+		((Rva0062AF7 *)TheTerrainLogic)->Rva0027DA58();
 }
