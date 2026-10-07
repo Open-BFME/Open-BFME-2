@@ -67231,3 +67231,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva004CF0FB@Rva004CF0FB@@QAEHH@Z,,0x004CF0FB,24,Code/GameEngine/Source/Common/Rva004CF0FBSlot.cpp,matched,abuts 0x004CF0CD and 0x004CF113 caller 0x0025E900 offset 0x120A0 matches m_120a0 honest address method
 ?onDamage@FireWeaponWhenDamagedBehavior@@UAEXPAVDamageInfo@@@Z,,0x00482A69,187,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorUpdate.cpp,matched,slot 0 vtable 0x00849588 ZH donor onDamage reaction weapons
 ?Rva0007B6F3Set@@YAXXZ,,0x0007B6F3,14,Code/GameEngine/Source/Common/Rva0007B6F3Set.cpp,matched,packet global and rowed object method call
+?rva005B2B6D@Rva005B2B6D@@QAEXPBD@Z,,0x005B2B6D,112,Code/GameEngine/Source/Common/Rva005B2B6D.cpp,matched,virtual slot 7 uses retail path filters and rowed Mouse callback
