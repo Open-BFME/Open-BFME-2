@@ -772,3 +772,37 @@ Rva005EF5CA::operator AsciiString()
  write(tmp.getBufferForRead(length()));
  return tmp;
 }
+
+// Native 005F9877..005F9904 RET0. Existing deleting wrapper005F9B32
+// and guarded-delete005FA146 identify a complete nonvirtual destructor.
+// Cleanup offsets establish the storage views below; original owner and
+// container element identities remain unknown. Existing row/pin spellings
+// name the nine measured destructor calls; no new callee pins are introduced.
+namespace _STL {
+template<class T> class allocator {};
+template<class T, class A = allocator<T> > class vector {
+public: ~vector();
+private: T *begin, *end, *limit;
+};
+}
+struct Rva005F9813Record;
+class Gen_uwm_005f97d4 {public: ~Gen_uwm_005f97d4(); private: char storage[12];};
+class Rva0052413E { public: ~Rva0052413E(); private: char bytes[12]; };
+class Gen_uwm_000ad6f4 { public: ~Gen_uwm_000ad6f4(); private: void *pointer; };
+class Rva005F9877 {
+public: ~Rva005F9877();
+private:
+ char unknown00[8];
+ AsciiString string08;
+ Rva0052413E bindings0C;
+ char unknown18[4];
+ UnicodeString string1C;
+ Gen_uwm_005f97d4 records20;
+ Gen_uwm_000ad6f4 owner2C;
+ Gen_uwm_005f97d4 records30;
+ Gen_uwm_000ad6f4 owner3C;
+ _STL::vector<Rva005F9813Record> records40;
+ char unknown4C[4];
+ _STL::vector<Rva005F9813Record> records50;
+};
+Rva005F9877::~Rva005F9877() {}
