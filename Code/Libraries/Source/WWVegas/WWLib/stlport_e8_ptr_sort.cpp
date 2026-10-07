@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // STLport's two-argument sort over a pointer range of 8-byte elements: sort
@@ -38,3 +38,17 @@ template void _STL::sort<BfmeE8 *>(BfmeE8 *, BfmeE8 *);
 typedef bool (*BfmeE8Less)(const BfmeE8 &, const BfmeE8 &);
 
 template void _STL::sort<BfmeE8 *, BfmeE8Less>(BfmeE8 *, BfmeE8 *, BfmeE8Less);
+
+// BFME1 predlod.cpp1399ad37 supplies the float-key comparison expression.
+// Native5A90F9..5A910E establishes thiscall RET4, both float reads at+4, and
+// EAX0/1 with unordered comparisons false. The adjacent matched sort family
+// independently has eight-byte records with the same float key position.
+// Original owner and first-word meaning are unknown; no LOD type asserted.
+class Rva005A90F9FloatKey {
+ unsigned char m_unknown00[4];
+ float m_key;
+public:
+ int operator<(const Rva005A90F9FloatKey &other);
+};
+int Rva005A90F9FloatKey::operator<(const Rva005A90F9FloatKey &other)
+{ return m_key < other.m_key; }
