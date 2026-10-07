@@ -1,21 +1,23 @@
 // ?update@FireWeaponUpdate@@UAE?AW4UpdateSleepTime@@XZ
-// partial score=0.9 date=2026-10-07
+// partial score=0.92 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 //
 // FireWeaponUpdate (BFME 2): the update and its sleep-time helper.
 //
-// BANKED (partial) FireWeaponUpdate::update 0x0048BEE8 432 B. Same size as
-// retail; only the SSE register numbering of the offset rotation differs (12
-// instructions): retail runs the x chain first on copies of cos/sin
-// (xmm0 = copy of c, c in xmm1, s in xmm2), this shape runs x first on the
-// originals. Levers found: field-wise Coord3D copies (set) give the movss
-// copies; an offset Coord3D with fields assigned and z = 0 gives the frame,
-// slots and the late-folded pos.z reload/store; statement order y-then-x
-// gives the x-first schedule. An in-place Coord2D::Rotate-style
-// rotate(s, c) { new_x = c*x - s*y; y = c*y + s*x; x = new_x; } then
-// pos.add(&offset) matches the x chain exactly but is 4 bytes long (the y add
-// loads pos.y first).
+// BANKED (partial) FireWeaponUpdate::update 0x0048BEE8 432 B. Same size and
+// the whole rotate+add tail now matches; what is left is slot assignment
+// (iterator/s/c at -0x14/-0x10/-0x0C vs retail -0x0C/-0x14/-0x10) and the
+// multiply operand roles (retail keeps s/c in registers and multiplies by the
+// offset in memory). Levers: offset.set(x, y, 0.0f) through the inline
+// set(Real,Real,Real) gives retail's y add (addss xmm1,[pos.y] before the
+// x store); assigning the fields directly (offset.x = ...; z = 0) instead
+// gives retail's multiply operands and slots exactly but loads pos.y first
+// (436 B). rotate(s, c) is Coord2D::Rotate-shaped in place, then
+// pos.Add(offset, pos) (x = l.x + r.x ...; z = l.z + r.z late-folds to the
+// pos.z reload/store). Tried and worse: Coord2D offset + Add(Coord2D,
+// Coord3D) (no z store, 422 B), both-temp rotates, set(&m_offset) then z = 0,
+// block-copy init, rotate(angle) computing sin/cos inside, sin/cos before set.
 //
 // Target facts. The module data (ctor row 0x0048BC03, parse table 0xC4C210)
 // holds the FireWeaponNugget list at +0x08 and the HeroModeTrigger,
@@ -52,6 +54,9 @@ struct Coord3D
 	Real lengthSqr() const;
 	void set(const Coord3D *a) { x = a->x; y = a->y; z = a->z; }
 	void set(Real ax, Real ay, Real az) { x = ax; y = ay; z = az; }
+	void add(const Coord3D *a) { x += a->x; y += a->y; z += a->z; }
+	Coord3D &Add(const Coord3D &left, const Coord3D &right) { x = left.x + right.x; y = left.y + right.y; z = left.z + right.z; return *this; }
+	void rotate(Real sine, Real cosine) { Real new_x = cosine * x - sine * y; y = cosine * y + sine * x; x = new_x; }
 };
 
 extern "C" double __cdecl sin(double);
@@ -243,14 +248,11 @@ UpdateSleepTime FireWeaponUpdate::update()
 				{
 					Real angle = me->getOrientation();
 					Coord3D offset;
-					offset.x = entry->m_offset.x;
-					offset.y = entry->m_offset.y;
-					offset.z = 0.0f;
+					offset.set(entry->m_offset.x, entry->m_offset.y, 0.0f);
 					Real s = (Real)sin(angle);
 					Real c = (Real)cos(angle);
-					pos.y += c * offset.y + s * offset.x;
-					pos.x += c * offset.x - s * offset.y;
-					pos.z += offset.z;
+					offset.rotate(s, c);
+					pos.Add(offset, pos);
 				}
 				entry->m_weapon->forceFireWeapon(getObject(), &pos);
 				if (entry->m_oneShot)
