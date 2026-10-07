@@ -57,8 +57,10 @@ class PathfindCell
 {
 public:
 	char m_pad[12];
-	Int m_flags;
+	unsigned int m_flags;
 };
+
+class Pathfinder;
 
 class PathfindLayer
 {
@@ -70,8 +72,10 @@ private:
 };
 
 #define PATHFINDER_CELL_LINE_CALLBACK( Info ) \
-	struct Info \
+struct Info \
 	{ \
+		Pathfinder *m_pathfinder; \
+		Int m_arg; \
 		Int cellCallback( PathfindCell *previousCell, PathfindCell *currentCell, Int cellX, Int cellY ); \
 	};
 
@@ -99,6 +103,7 @@ class Pathfinder
 {
 public:
 	PathfindCell *getCell( PathfindLayerEnum layer, Int cellX, Int cellY );
+	Int rva002E7749(void *unused, Int cellX, Int cellY, Int layer, Int arg, bool check);
 	Int rva002F9578(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F4D8BInfo *info);
 
 private:
@@ -130,6 +135,28 @@ private:
 	char m_beforeLayers[0x60 - 0x24];
 	PathfindLayer m_layers[16];
 };
+
+extern bool __cdecl Rva001E3679(Int layer);
+
+// ?cellCallback@Rva002E93A7Info@@QAEHPAVPathfindCell@@0HH@Z @0x002E93A7 104B.
+// The pin and caller establish this callback type; its two stored words and
+// field offsets come from the retail loads at [this] and [this+4].
+Int Rva002E93A7Info::cellCallback(PathfindCell *previousCell, PathfindCell *currentCell, Int cellX, Int cellY)
+{
+	if (previousCell != 0)
+	{
+		Int layer = (currentCell->m_flags >> 4) & 0x3f;
+		if (Rva001E3679(layer))
+		{
+			Int previousLayer = (previousCell->m_flags >> 4) & 0x3f;
+			if (previousLayer == layer)
+				return 0;
+		}
+	}
+	Int layer = (currentCell->m_flags >> 4) & 0x3f;
+	Int result = m_pathfinder->rva002E7749(0, cellX, cellY, layer, m_arg, true);
+	return result != m_arg;
+}
 
 class Rva002E6CD8Owner
 {
