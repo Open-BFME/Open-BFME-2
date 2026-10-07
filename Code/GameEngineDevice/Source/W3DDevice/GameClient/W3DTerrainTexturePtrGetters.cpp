@@ -239,3 +239,87 @@ void Rva000E2B00CloudTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 	else
 		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
 }
+
+// ?rva000E236D@Rva000E236D@@QAEXPBD0PAVFXShaderParameterBinder@@@Z @0x000E236D 156B
+// Terrain FX three-name ResolveBindings dispatcher (Texture, ScaleUV_OffsetUV,
+// ObjectShroudStatus), same WaterDraw member pattern as the rowed particle
+// dispatcher Rva001F69B1 (Common/Rva001F69B1ParticleDrawBinder.cpp): base call,
+// Rva001530E9Parse split, comparator calls, selected callback wrapped for
+// AddBinding. Retail loads the comparator address once and reuses the name
+// slot for the selected callback, so the source models both explicitly.
+// Identity is address-derived: no vtable slot evidence yet.
+void __cdecl Rva001530E9Parse(const char *name, void *volatile path);
+
+struct Rva001530E9Path
+{
+	char m_name[0x40];
+	bool m_hasStar;
+	bool m_hasBracket;
+	int m_index;
+	const char *m_rest;
+};
+
+extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
+
+class Rva00080221
+{
+public:
+	Rva00080221(const int *arg);
+	void *m_ptr;
+};
+
+struct TreeHintRef00217D4C : public Rva00080221
+{
+	TreeHintRef00217D4C(const void *callback) : Rva00080221((const int *)&callback) {}
+	~TreeHintRef00217D4C();
+};
+
+class FXShaderParameterBinder
+{
+public:
+	void AddBinding(TreeHintRef00217D4C callback, const char *handle);
+};
+
+class Base
+{
+public:
+	virtual ~Base() {}
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry) = 0;
+};
+
+class FXShaderParameterSourceNamespace_Struct : public Base
+{
+public:
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
+};
+
+class Rva000E236D : public FXShaderParameterSourceNamespace_Struct
+{
+public:
+	void rva000E236D(const char *name, const char *handle, FXShaderParameterBinder *registry);
+};
+
+void Rva000E24C5ShroudTexture(ID3DXEffect *effect, const char *name);
+void Rva000E2409ScaleOffset(ID3DXEffect *effect, const char *name);
+void Rva000E249DObjectShroudStatus(ID3DXEffect *effect, const char *name);
+
+typedef void (*Rva000E236DCallback)(ID3DXEffect *effect, D3DXHANDLE handle);
+
+extern int (__cdecl *g_TerrainBinderCompare)(const char *, const char *);
+
+void Rva000E236D::rva000E236D(const char *name, const char *handle, FXShaderParameterBinder *registry)
+{
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, handle, registry);
+	if (name)
+	{
+		Rva001530E9Path path;
+		Rva001530E9Parse(name, &path);
+		int (__cdecl *compare)(const char *, const char *) = g_TerrainBinderCompare;
+		if (compare(path.m_name, "Texture") == 0)
+			registry->AddBinding(Rva000E24C5ShroudTexture, handle);
+		else if (compare(path.m_name, "ScaleUV_OffsetUV") == 0)
+			registry->AddBinding(Rva000E2409ScaleOffset, handle);
+		else if (compare(path.m_name, "ObjectShroudStatus") == 0)
+			registry->AddBinding(Rva000E249DObjectShroudStatus, handle);
+	}
+}
