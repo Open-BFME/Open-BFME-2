@@ -12,7 +12,6 @@
 #include "ascii_string.h"
 
 
-#pragma pack(push, 1)
 struct InsertRet00212A5A
 {
 	InsertRet00212A5A(void *node, void *owner, unsigned char found)
@@ -21,7 +20,6 @@ struct InsertRet00212A5A
 	void *m_owner;
 	unsigned char m_found;
 };
-#pragma pack(pop)
 
 class Rva000427195
 {
