@@ -16230,3 +16230,8 @@ _CommUdpProcess	0x00683A30	2207	partial	struct-typed rewrite in home TU Y4CommTr
 ??0Rva0037F27B@@QAE@XZ	0x0037F27B	69	blocked	identity unprovable: packet shows an unnamed vtable 0x00818DF0 and only unknown layout fields t=4 model=gpt-6.1-sol
 ?Rva0037F62DGet@@YG_NHPAURva0037F59BCoord@@0@Z	0x0037F62D	189	blocked	3B size drift with fallback copy register allocation at +0x78/+0x7b unchanged after source-shape trials t=12 model=gpt-6.1-sol (stash 0.92 kept)
 ?rva0056FE2C@Rva0056FE2C@@QAE...	0x0056FE2C	124	blocked	identity/layout unproven: lower_bound uses BfmeStringRecord00448113 tree but insertion uses map<int Rva0056FD5ERecord>; no target evidence joins these layouts t=6 model=gpt-6.1-sol
+?rva00052FA0@MilesAudioManager@@QAEXPAX@Z	0x00052FA0	319	partial	stream shared fstp+call placed after disabled not between; 3D fixed via effLevel temp t=45 model=muse-05 score=0.97 stash=reverse/attempts/0x00052fa0.cpp
+?rva0005294A@Rva0005294A@@QAEXPAX@Z	0x0005294A	499	blocked	ref 499B unknown class slot106 no callers needs Display View virtuals plus provisional g_00DFEF18 t=10 model=muse-05
+??0Rva00598B2A@@QAE@XZ	0x00598E85	131	blocked	ctor layout mismatch dtor says holder AsciiStringVec vs VectorBase PlayerAITypeEntry at 3C 4C needs STL EH t=15 model=muse-05
+?rva00598DA2@Rva00598DA2@@QAEXPAX@Z	0x00598DA2	196	blocked	unlock 196B Xfer virtuals 5 plus AsciiString vec needs unknown param class t=10 model=muse-05
+?rva005982EA@Rva005982EA@@QAEHPBVAsciiString@@PAXE@Z	0x005982EA	240	blocked	unlock 240B map GameLogic Object virtuals needs Xfer AsciiString t=10 model=muse-05
