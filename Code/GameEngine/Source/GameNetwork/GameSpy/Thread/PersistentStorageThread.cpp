@@ -37,7 +37,9 @@ template <class CharT, class Traits, class Alloc> class basic_string
 {
 public:
     basic_string();
-    ~basic_string();
+    // STLport's inline teardown under the game allocator: free the block when
+    // one was allocated (retail inlines it for by-value string temporaries).
+    ~basic_string() { if (start) Rva00030830FreeAllocation(start); }
 	basic_string &operator=(const CharT *text);
     basic_string &assign(const basic_string &);
     unsigned size() const { return finish - start; }
@@ -270,18 +272,12 @@ public:
 	void setOpenPlayStats(Rva003844D7 stats);
 	void setStrategicStats(Rva0038454E stats);
 	void setTournamentStats(Rva00385333 stats);
-	// Stores the id into each block's +0x150 slot from last to first, then +0.
-	void setID(Int id)
-	{
-		m_strategicStats.m_id = id;
-		m_openPlayStats.m_id = id;
-		m_tournamentStats.m_id = id;
-		m_id = id;
-	}
+	Int getLocale() const { return m_locale; }
+	void setID(Int id);
 
 private:
 	Int m_id;						// +0x000
-	Int m_unk004;					// +0x004 copied by operator= @0x003874B0
+	Int m_locale;					// +0x004 set by rva00552E9E, copied by operator= @0x003874B0
 	Rva00385333 m_tournamentStats;				// +0x008
 	Rva003844D7 m_openPlayStats;				// +0x1B0
 	Rva0038454E m_strategicStats;				// +0x340
@@ -290,10 +286,23 @@ private:
 // ??4PSPlayerAllStats@@QAEAAV0@ABV0@@Z 0x003874B0 73B: thiscall operator= copies
 // m_id plus three stats blocks via their out-of-line operator=; evidence pins
 // for the three callees naming PSPlayerAllStats set* at +0x008 +0x1B0 +0x340.
+// Native [552CDE,552CF9),27B. Defined in this unit: /O1 auto-inlines it into
+// the queue's lookup miss (0x00556674) yet calls it from the stats callback
+// (0x00557E5D), whose caller keeps edx live across the call because the body
+// was compiled here first. Stores each block's +0x150 slot from last to first,
+// then +0.
+void PSPlayerAllStats::setID(Int id)
+{
+	m_strategicStats.m_id = id;
+	m_openPlayStats.m_id = id;
+	m_tournamentStats.m_id = id;
+	m_id = id;
+}
+
 PSPlayerAllStats &PSPlayerAllStats::operator=(const PSPlayerAllStats &that)
 {
 	m_id = that.m_id;
-	m_unk004 = that.m_unk004;
+	m_locale = that.m_locale;
 	m_tournamentStats = that.m_tournamentStats;
 	m_openPlayStats = that.m_openPlayStats;
 	m_strategicStats = that.m_strategicStats;
@@ -902,9 +911,12 @@ class PSThreadClass
 {
 public:
 	void decrOpCount() { --m_opCount; }
+	Int getOpCount() const { return m_opCount; }
+	bool sawLocalPlayerData() const { return m_sawLocalPlayerData; }
 private:
 	unsigned char m_pad00[0x54];
 	Int m_opCount;
+	bool m_sawLocalPlayerData;
 };
 
 typedef enum { pd_private_ro, pd_private_rw, pd_public_ro, pd_public_rw } persisttype_t;
@@ -1152,6 +1164,7 @@ class GameSpyMiscPreferences : public UserPreferences
 public:
 	GameSpyMiscPreferences();
 	virtual ~GameSpyMiscPreferences();
+	int rva00559782();
 	void rva0055986F(AsciiString val);
 	void rva00559924(AsciiString val);
 	AsciiString rva00559813();
@@ -1539,4 +1552,111 @@ void Rva00557996::rva00557A33(int profileID)
 		data->profileID = profileID;
 		m_values[request] = (int)data;
 	}
+}
+
+// The concrete queue keeps the local player's profile ID at +0x68 (ZH's
+// inline GameSpyPSMessageQueue::getLocalPlayerID). Its email, nick and
+// password getters are rowed out of line under their own unit names and copy
+// the strings at +0x6c, +0x78 and +0x84.
+class GameSpyPSMessageQueue : public GameSpyPSMessageQueueInterface
+{
+public:
+	Int getLocalPlayerID() const { return m_localPlayerID; }
+private:
+	unsigned char m_pad04[0x64];
+	Int m_localPlayerID;
+};
+#define MESSAGE_QUEUE ((GameSpyPSMessageQueue *)TheGameSpyPSMessageQueue)
+
+class Rva00555A8BNarrowField
+{
+public:
+	Rva00385333String get() const;
+};
+class Rva00555AA6NarrowField
+{
+public:
+	Rva00385333String get() const;
+};
+class Rva00555AC1NarrowField
+{
+public:
+	Rva00385333String get() const;
+};
+
+void rva00556982(char *data, int len, PSPlayerAllStats *stats);
+void rva00556C54(char *data, int len, PSPlayerAllStats *stats);
+
+// Native [557E5D,5580FB),670B: ZH getPersistentDataCallback with the newer
+// SDK's modified-time argument. A failed read posts response type 1 and, when
+// no operation is outstanding and the local player's data never arrived,
+// re-requests it (request type 0 tagged with the index). Index 1 carries the
+// stats Xfer stream (rva00556982) and, for the local player, pushes an update
+// (request type 1) when the preference file's locale differs from the
+// stored one; index 2 carries the second stream (rva00556C54). The response
+// is type 0 with the index at +4.
+void getPersistentDataCallback(int localid, int profileid, persisttype_t type, int index, int success, time_t modified, char *data, int len, void *instance)
+{
+	PSThreadClass *t = (PSThreadClass *)instance;
+	if (!t)
+		return;
+
+	t->decrOpCount();
+
+	BfmeOpaqueOwnedRecord1408 resp;
+
+	if (!success)
+	{
+		resp.responseType = 1;
+		resp.player.setID(profileid);
+		TheGameSpyPSMessageQueue->addResponse(resp);
+		if (!t->getOpCount() && !t->sawLocalPlayerData())
+		{
+			BfmeOpaqueOwnedRecord1432 req;
+			req.requestType = 0;
+			req.m_04 = index;
+			req.player.setID(MESSAGE_QUEUE->getLocalPlayerID());
+			TheGameSpyPSMessageQueue->addRequest(req);
+		}
+		return;
+	}
+
+	resp.responseType = 0;
+	if (index == 1)
+	{
+		if (len > 0)
+			rva00556982(data, len, &resp.player);
+		if (profileid == MESSAGE_QUEUE->getLocalPlayerID())
+		{
+			GameSpyMiscPreferences pref;
+			if (pref.rva00559782() != resp.player.getLocale())
+			{
+				resp.player.rva00552E9E(pref.rva00559782());
+				BfmeOpaqueOwnedRecord1432 req;
+				req.requestType = 1;
+				req.email.assign(((const Rva00555A8BNarrowField *)TheGameSpyPSMessageQueue)->get());
+				req.nick.assign(((const Rva00555AA6NarrowField *)TheGameSpyPSMessageQueue)->get());
+				req.password.assign(((const Rva00555AC1NarrowField *)TheGameSpyPSMessageQueue)->get());
+				req.m_04 = 1;
+				req.addDesync = false;
+				req.addDiscon = false;
+				req.player = resp.player;
+				req.player.setID(profileid);
+				TheGameSpyPSMessageQueue->addRequest(req);
+			}
+		}
+	}
+	else if (index == 2)
+	{
+		if (len > 0)
+			rva00556C54(data, len, &resp.player);
+	}
+	else
+	{
+		return;
+	}
+
+	resp.player.setID(profileid);
+	resp.m_04 = index;
+	TheGameSpyPSMessageQueue->addResponse(resp);
 }

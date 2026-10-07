@@ -86,14 +86,6 @@ public:
 	void rva00552E3C(const Rva00552E3CSrc *src);
 };
 
-void PSPlayerAllStats::setID(int v)
-{
-	m_490 = v;
-	m_300 = v;
-	m_158 = v;
-	m_0 = v;
-}
-
 void PSPlayerAllStats::rva00552CF9(const PSPlayerAllStats *src)
 {
 	if (m_0 && m_0 != src->m_0)
