@@ -67599,3 +67599,4 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ??$max@M@@YAABMABM0@Z,,0x0000579D,19,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,max<float> reference helper
 ??$min@H@@YAABHABH0@Z,,0x000057B0,16,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,min<int> reference helper
 ??$max@H@@YAABHABH0@Z,,0x000057C0,16,Code/GameEngine/Source/Common/Bfme/updateMinMax.cpp,matched,max<int> reference helper
+?rva00213A0E@Rva00213A85@@QAEXXZ,,0x00213A0E,119,Code/GameEngine/Source/GameClient/Rva00213A85.cpp,matched,shares table at 0x204 with siblings calls FACE4 then audio slot14 then FACB4

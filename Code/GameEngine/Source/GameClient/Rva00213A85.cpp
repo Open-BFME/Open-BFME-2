@@ -95,6 +95,7 @@ extern LivingWorldManager *TheLivingWorldManager;
 class Rva00213A85
 {
 public:
+	void rva00213A0E();
 	void rva00213A85();
 	void rva00213AB6();
 	void rva00213AFC(void *value);
@@ -109,6 +110,26 @@ private:
 	char m_padToState[0xBB];
 	unsigned char m_state_2C0;
 };
+
+void Rva00213A85::rva00213A0E()
+{
+	Rva000411084 iterator;
+	m_table.first(&iterator);
+	while (iterator.m_node != 0) {
+		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FACE4();
+		iterator.next();
+	}
+	if (TheAudio != 0) {
+		((AudioManagerSlotView *)TheAudio)->slot14(2);
+	}
+	Rva000411084 second;
+	m_table.first(&second);
+	iterator = second;
+	while (iterator.m_node != 0) {
+		((Rva003FAC83 *)*(void **)((char *)iterator.m_node + 8))->rva003FACB4();
+		iterator.next();
+	}
+}
 
 void Rva00213A85::rva00213A85()
 {
