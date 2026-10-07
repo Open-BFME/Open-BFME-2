@@ -69,7 +69,9 @@ public:
         char m_24[0x30 - 0x24];
         IntVec m_awardNameKeys;                 // +0x30
         IntVec m_statNameKeys;                  // +0x3C
-        char m_48[0x64 - 0x48];
+        char m_48[0x58 - 0x48];
+        Int m_58;                               // +0x58
+        char m_5C[0x64 - 0x5C];
         Int m_preferedFaction;                  // +0x64
         char m_68[0xD8 - 0x68];                 // +0x68 faction mask
     };
@@ -87,6 +89,7 @@ public:
         Int rva00219CDF(UnsignedInt subClassIndex);
         Int rva00219CF6(UnsignedInt subClassIndex);
         Int rva00219D0D(UnsignedInt subClassIndex);
+        Int rva00219D3B(UnsignedInt subClassIndex);
         Int GetSubClassSpendableAttributePoints(UnsignedInt subClassIndex);
         Int GetPreferedFaction(UnsignedInt subClassIndex);
         const AsciiString &GetButtonImageName(UnsignedInt subClassIndex);
@@ -196,6 +199,14 @@ Int CreateAHeroClass::rva00219D0D(UnsignedInt subClassIndex)
     const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
     if (p)
         return p->m_18;
+    return 0;
+}
+// 0x00219D3B 23B (unnamed in WB): subclass +0x58 or 0.
+Int CreateAHeroClass::rva00219D3B(UnsignedInt subClassIndex)
+{
+    const CreateAHeroSubClass *p = rva00219B9E(subClassIndex);
+    if (p)
+        return p->m_58;
     return 0;
 }
 // CreateAHeroClass::GetSubClassSpendableAttributePoints, retail 0x00219D24 23B.
