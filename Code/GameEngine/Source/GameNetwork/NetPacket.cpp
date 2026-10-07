@@ -388,6 +388,7 @@ protected:
 	Bool isRoomForGameMessage(NetCommandRef *msg, GameMessage *gmsg);
 	static UnsignedInt GetGameCommandSize(NetCommandMsg *msg);
 	static UnsignedInt GetBufferSizeNeededForCommand(NetCommandMsg *msg);
+	static void FillBufferWithGameCommand(UnsignedByte *buffer, NetCommandRef *ref);
 	// Fixed-size arms of GetBufferSizeNeededForCommand, by command type; the
 	// constants are the ones retail's jump table returns.
 	static UnsignedInt GetType0CommandSize(NetCommandMsg *msg) { return 0x10; }
@@ -1417,6 +1418,123 @@ UnsignedInt NetPacket::GetBufferSizeNeededForCommand(NetCommandMsg *msg)
 	}
 
 	return 0;
+}
+
+// ?FillBufferWithGameCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058C488, 696 bytes:
+// the BFME1 donor's FillBufferWithGameCommand
+// (NetPacket_FillBufferWithGameCommand.cpp) with BFME's 'S' timestamp field
+// after the command type. FillBufferWithCommand reaches it from its type-4 arm.
+void NetPacket::FillBufferWithGameCommand(UnsignedByte *buffer, NetCommandRef *ref)
+{
+	NetGameCommandMsg *cmdMsg = (NetGameCommandMsg *)(ref->getCommand());
+	UnsignedShort offset = 0;
+	GameMessage *gmsg = cmdMsg->constructGameMessage();
+
+	buffer[offset] = 'T';
+	++offset;
+	buffer[offset] = cmdMsg->getNetCommandType();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'S';
+	++offset;
+	UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+	memcpy(buffer + offset, &newTimestamp, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'F';
+	++offset;
+	UnsignedInt newframe = cmdMsg->getExecutionFrame();
+	memcpy(buffer + offset, &newframe, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'R';
+	++offset;
+	UnsignedByte newRelay = ref->getRelay();
+	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'P';
+	++offset;
+	buffer[offset] = cmdMsg->getPlayerID();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'C';
+	++offset;
+	UnsignedShort newID = cmdMsg->getID();
+	memcpy(buffer + offset, &newID, sizeof(UnsignedShort));
+	offset += sizeof(UnsignedShort);
+
+	buffer[offset] = 'D';
+	++offset;
+
+	Int newType = gmsg->getType();
+	memcpy(buffer + offset, &newType, sizeof(Int));
+	offset += sizeof(Int);
+
+	Rva0054D54A *parser = new Rva0054D54A(gmsg);
+	UnsignedByte numTypes = parser->getNumTypes();
+	memcpy(buffer + offset, &numTypes, sizeof(numTypes));
+	offset += sizeof(numTypes);
+
+	Rva0054D593 *argType = parser->getFirstArgumentType();
+	while (argType != 0) {
+		UnsignedByte type = (UnsignedByte)(argType->getType());
+		memcpy(buffer + offset, &type, sizeof(type));
+		offset += sizeof(type);
+
+		UnsignedByte argTypeCount = argType->getArgCount();
+		memcpy(buffer + offset, &argTypeCount, sizeof(argTypeCount));
+		offset += sizeof(argTypeCount);
+
+		argType = argType->getNext();
+	}
+
+	Int numArgs = gmsg->getArgumentCount();
+	for (Int i = 0; i < numArgs; ++i) {
+		GameMessageArgumentDataType type = gmsg->getArgumentDataType(i);
+		GameMessageArgumentType arg = *(gmsg->getArgument(i));
+
+		if (type == ARGUMENTDATATYPE_INTEGER) {
+			memcpy(buffer + offset, &(arg.integer), sizeof(arg.integer));
+			offset += sizeof(arg.integer);
+		} else if (type == ARGUMENTDATATYPE_REAL) {
+			memcpy(buffer + offset, &(arg.real), sizeof(arg.real));
+			offset += sizeof(arg.real);
+		} else if (type == ARGUMENTDATATYPE_BOOLEAN) {
+			memcpy(buffer + offset, &(arg.boolean), sizeof(arg.boolean));
+			offset += sizeof(arg.boolean);
+		} else if (type == ARGUMENTDATATYPE_OBJECTID) {
+			memcpy(buffer + offset, &(arg.objectID), sizeof(arg.objectID));
+			offset += sizeof(arg.objectID);
+		} else if (type == ARGUMENTDATATYPE_DRAWABLEID) {
+			memcpy(buffer + offset, &(arg.drawableID), sizeof(arg.drawableID));
+			offset += sizeof(arg.drawableID);
+		} else if (type == ARGUMENTDATATYPE_TEAMID) {
+			memcpy(buffer + offset, &(arg.teamID), sizeof(arg.teamID));
+			offset += sizeof(arg.teamID);
+		} else if (type == ARGUMENTDATATYPE_LOCATION) {
+			memcpy(buffer + offset, &(arg.location), sizeof(arg.location));
+			offset += sizeof(arg.location);
+		} else if (type == ARGUMENTDATATYPE_PIXEL) {
+			memcpy(buffer + offset, &(arg.pixel), sizeof(arg.pixel));
+			offset += sizeof(arg.pixel);
+		} else if (type == ARGUMENTDATATYPE_PIXELREGION) {
+			memcpy(buffer + offset, &(arg.pixelRegion), sizeof(arg.pixelRegion));
+			offset += sizeof(arg.pixelRegion);
+		} else if (type == ARGUMENTDATATYPE_TIMESTAMP) {
+			memcpy(buffer + offset, &(arg.timestamp), sizeof(arg.timestamp));
+			offset += sizeof(arg.timestamp);
+		} else if (type == ARGUMENTDATATYPE_WIDECHAR) {
+			memcpy(buffer + offset, &(arg.wChar), sizeof(arg.wChar));
+			offset += sizeof(arg.wChar);
+		}
+	}
+
+	::delete parser;
+	parser = 0;
+
+	::delete gmsg;
+	gmsg = 0;
 }
 
 // ?writeGameMessageArgumentToPacket@NetPacket@@IAEXW4GameMessageArgumentDataType@@TGameMessageArgumentType@@@Z, retail 0x0058D826, 265 bytes:
