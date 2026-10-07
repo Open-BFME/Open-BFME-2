@@ -10,18 +10,24 @@
 // 0), drops the entry (0x002A7611, which searches the holder's +0x20 vector
 // of 12-byte {value, ID, ...} records) and clears the executed flag (mux slot
 // 9). Neither touches the UpgradeModule condition state. The holder's two
-// members are pinned by address on these call sites.
+// members now use their existing verified definitions at these call sites.
 typedef bool Bool;
 class ModuleData;
 enum ObjectID
 {
 	INVALID_ID = 0
 };
+// Native removal call 0x4B86FF passes the Player+0x60 holder unchanged.
+// The rowed erase worker models its two compared dwords as integers.
+class Rva002A7611
+{
+public:
+	void rva002A7611(int value, int id);
+};
 class Rva002A7611Holder
 {
 public:
 	void rva002A77C1(int value, ObjectID id, const void *block);
-	void rva002A7611(int value, ObjectID id);
 };
 class Player
 {
@@ -103,7 +109,8 @@ void CommandPointsUpgrade::upgradeRemovalImplementation()
 	{
 		Object *object = getObject();
 		Player *player = object->getControllingPlayer();
-		player->getRva060()->rva002A7611(getData()->m_118, object->m_id);
+		reinterpret_cast<Rva002A7611 *>(player->getRva060())->rva002A7611(
+			getData()->m_118, static_cast<int>(object->m_id));
 		setUpgradeExecuted(false);
 	}
 }
