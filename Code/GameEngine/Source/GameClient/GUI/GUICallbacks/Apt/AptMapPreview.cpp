@@ -7,8 +7,10 @@
 // window's +0x29C -> +0x1C set, asked through 0x004FD8A8 (unnamed).
 
 #include "../../../../../../Libraries/Include/Lib/Coord2D.h"
+#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 #include <vector>
+#include <map>
 
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -189,6 +191,7 @@ class GameWindow
 {
 public:
 	int winHide(bool hide);
+	int winEnable(bool enable);
 	unsigned int winSetStatus(unsigned int status);
 	GameWindow *winGetChild();
 	GameWindow *winGetNext();
@@ -208,6 +211,7 @@ void GadgetComboBoxHideDropDown(GameWindow *comboBox, bool hide);
 void GadgetListBoxReset(GameWindow *listbox);
 int Rva00326CF0AddLines(GameWindow *listbox, UnicodeString text, int color, int row, int column, bool overwrite);
 void GadgetListBoxSetTopVisibleEntry(GameWindow *window, int newPos);
+void GadgetButtonSetText(GameWindow *button, UnicodeString text);
 
 
 // The map picture; the preview deletes one it owns through the virtual
@@ -319,7 +323,35 @@ public:
 	int m_08;
 };
 
-class MapMetaData;
+// The cached map record (ZH MapMetaData): the preview reads the player
+// count, the multiplayer flag and the waypoint map.
+struct Rva0057DA21Waypoint
+{
+	Coord3D pos;
+};
+
+class MapMetaData
+{
+public:
+	unsigned char m_pad00[0x20];
+	Int m_numPlayers;	// +0x20
+	Bool m_isMultiplayer;	// +0x24
+	unsigned char m_pad25[0x38 - 0x25];
+	_STL::map<AsciiString, Rva0057DA21Waypoint> m_waypoints;	// +0x38
+};
+
+// SkirmishGameOptionsMenu's helpers (ZH MapUtil).
+void positionAdditionalImages(MapMetaData *mmd, GameWindow *mapWindow, Bool force);
+void positionStartSpotControls(GameWindow *win, GameWindow *mapWindow, Coord3D *pos, MapMetaData *mmd, GameWindow *buttonMapStartPositions[]);
+
+class GameLogic
+{
+public:
+	unsigned char m_pad00[0x114];
+	Int m_gameMode;	// +0x114
+};
+
+extern GameLogic *TheGameLogic;
 
 // The fields and virtuals of the game the preview reads.
 class GameInfo
@@ -374,6 +406,7 @@ public:
 	void rva0057D746(Rva0020E89C *previous, Rva0020E89C *current);
 	void rva0057D85D(Rva0020E89C *region);
 	void rva0057D5E5();
+	void rva0057DA21(MapMetaData *map);
 
 private:
 	unsigned char m_pad00[0x4];
@@ -391,7 +424,9 @@ private:
 	GameWindow *m_strategicTerritoryDesc;	// +0x58
 	Image *m_picture;	// +0x5C
 	bool m_ownsPicture;	// +0x60
-	unsigned char m_pad61[0x68 - 0x61];
+	bool m_enableStartSpots;	// +0x61, enables the start spot buttons
+	unsigned char m_pad62[0x64 - 0x62];
+	MapMetaData *m_defaultMap;	// +0x64, the ctor's 8-player placeholder map
 	AptLivingWorldWindow *m_livingWorldWindow;	// +0x68
 	Rva0057CC15Ref m_regionPicked;	// +0x6C
 };
@@ -807,6 +842,59 @@ void AptMapPreview::rva0057E45C()
 		{
 			DelegateDesc unused(0, 0);
 			(void)unused;
+		}
+	}
+}
+
+// AptMapPreview::rva0057DA21, retail 0x0057DA21 (374 bytes). Name unknown.
+// The preview's start spot pass, ZH positionStartSpots' shape: a real map
+// places a button on each Player_%d_Start waypoint (multiplayer maps, game
+// mode 3) and blanks the rest; no map or the placeholder map blanks all.
+void AptMapPreview::rva0057DA21(MapMetaData *map)
+{
+	if (map != 0 && map != m_defaultMap)
+	{
+		m_currentMap->winEnable(true);
+		positionAdditionalImages(map, m_currentMap, true);
+		AsciiString waypointName;
+		Int i = 0;
+		if (map->m_isMultiplayer && TheGameLogic->m_gameMode == 3)
+		{
+			for (; i < map->m_numPlayers; ++i)
+			{
+				waypointName.format("Player_%d_Start", i + 1);
+				_STL::map<AsciiString, Rva0057DA21Waypoint>::iterator it = map->m_waypoints.find(waypointName);
+				if (it != map->m_waypoints.end())
+				{
+					positionStartSpotControls(m_currentMapChildren[i], m_currentMap, &(*it).second.pos, map, m_currentMapChildren);
+					if (m_currentMapChildren[i] != 0)
+					{
+						m_currentMapChildren[i]->winEnable(m_enableStartSpots);
+						m_currentMapChildren[i]->winHide(false);
+					}
+				}
+			}
+		}
+		for (; i < 8; ++i)
+		{
+			if (m_currentMapChildren[i] != 0)
+			{
+				m_currentMapChildren[i]->winHide(true);
+				GadgetButtonSetText(m_currentMapChildren[i], TheGameText->fetch("GUI:Blank"));
+			}
+		}
+	}
+	else
+	{
+		m_currentMap->winEnable(false);
+		positionAdditionalImages(0, m_currentMap, true);
+		for (Int i = 0; i < 8; ++i)
+		{
+			if (m_currentMapChildren[i] != 0)
+			{
+				m_currentMapChildren[i]->winHide(true);
+				GadgetButtonSetText(m_currentMapChildren[i], TheGameText->fetch("GUI:Blank"));
+			}
 		}
 	}
 }
