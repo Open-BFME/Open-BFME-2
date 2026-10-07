@@ -1120,7 +1120,8 @@ def desync_items(guilty, outcome, image_args):
     alone)."""
     alone = len({r["target_rva"] for r in guilty}) == 1
     return [{"target_rva": r["target_rva"], "name": r["name"], "source": r["source"],
-             "size": int(r["target_size"] or 0), "outcome": outcome, "check": "desync",
+             "size": int(r["target_size"] or 0), "outcome": outcome,
+             "check": "desync" if outcome == "desync" else "boot-crash",
              "why": (f"game_smoke determinism {outcome} with this row's authored code alone ({image_args})"
                      if alone else f"game_smoke determinism {outcome}: {len(guilty)} rows together, no half alone "
                                    f"({image_args})"),
@@ -1190,9 +1191,13 @@ def cmd_bisect(a):
         print(f"game_smoke: bisect {len(units)} unit(s) {units[0]:#x}..: {out['outcome']}", file=sys.stderr, flush=True)
         if out["outcome"] in ("profile-changed", "guard-violation"):
             raise SystemExit(f"game_smoke: bisect stopped: {out['outcome']}")
-        return out["outcome"] == "desync"
+        if out["outcome"] == "desync" or out["outcome"].startswith(("crash-at-", "exit-")):
+            failed.setdefault("outcome", out["outcome"])
+            return True
+        return False
+    failed = {}
     guilty, steps = halve(sorted(by_rva), fails)
-    items = desync_items([r for u in guilty for r in by_rva[u]], "desync",
+    items = desync_items([r for u in guilty for r in by_rva[u]], failed.get("outcome", "desync"),
                          " ".join(f"--overlay {s}" for s in specs) + " --relayout" + (" --own-data" if own else ""))
     path = OUT / "desync_queue.json"
     path.write_text(json.dumps({"tool": "game_smoke", "items": items}, indent=1), encoding="utf-8")

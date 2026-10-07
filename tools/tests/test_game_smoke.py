@@ -173,6 +173,8 @@ class Halving(unittest.TestCase):
         item = gs.desync_items(rows, "desync", "--overlay closed --relayout")[0]
         self.assertEqual((item["check"], item["size"]), ("desync", 16))
         self.assertIn("rva:0x00401000 --overlay closed --relayout", item["pass_test"])
+        crash = gs.desync_items(rows, "crash-at-0x7", "--overlay closed --relayout --own-data")[0]
+        self.assertEqual(crash["check"], "boot-crash")                   # an in-game crash is a crash repair
 
 
 class StubCode(unittest.TestCase):
