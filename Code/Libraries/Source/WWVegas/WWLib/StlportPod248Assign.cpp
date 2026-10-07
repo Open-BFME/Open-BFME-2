@@ -1,0 +1,90 @@
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
+//
+// ??4BfmePod248@@QAEAAU0@ABU0@@Z @0x000C6C54 240B.
+// Self-check, StringBase set at +0 and +0x6C, 19-dword POD copy, then the
+// rowed container assigns. Six vector slots at +0xAC step by 0xC. Returns this.
+#include "ascii_string.h"
+// Declare the container assigns. Do not compile their bodies into this TU.
+#define _STLP_LINK_TIME_INSTANTIATION
+#include <map>
+#include <vector>
+#include <list>
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0,
+	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
+};
+
+struct PristineBoneInfo
+{
+	unsigned char m_data[52];
+};
+
+struct Gen_p64cd;
+class Rva000BB491;
+class Rva000BB4AC;
+struct BfmeStringRecord000B950F;
+struct BfmeFixedObject60;
+struct Rva000B419E;
+
+struct Pod4C
+{
+	unsigned int w[19];
+};
+
+struct BfmePod248
+{
+	AsciiString m_s00;
+	Pod4C m_pod;
+	_STL::vector<Gen_p64cd> m_v50;
+	unsigned int m_at5C;
+	unsigned int m_at60;
+	unsigned char m_at64;
+	unsigned char m_pad65[3];
+	unsigned int m_at68;
+	AsciiString m_s6C;
+	unsigned int m_at70;
+	_STL::list<Rva000B419E> m_list;
+	_STL::vector<Rva000BB491> m_v78;
+	_STL::vector<Rva000BB4AC> m_v84;
+	_STL::vector<BfmeStringRecord000B950F> m_v90;
+	unsigned char m_at9C;
+	unsigned char m_at9D;
+	unsigned char m_pad9E[2];
+	_STL::map<NameKeyType, PristineBoneInfo> m_map;
+	_STL::vector<BfmeFixedObject60> m_arr[6];
+	unsigned char m_atF4;
+	unsigned char m_padF5[3];
+
+	BfmePod248 &operator=(const BfmePod248 &rhs);
+};
+
+typedef char Pod248Size[(sizeof(BfmePod248) == 0xF8) ? 1 : -1];
+
+BfmePod248 &BfmePod248::operator=(const BfmePod248 &rhs)
+{
+	if (this != &rhs) {
+		m_s00 = rhs.m_s00;
+		m_pod = rhs.m_pod;
+		m_v50 = rhs.m_v50;
+		m_at5C = rhs.m_at5C;
+		m_at64 = rhs.m_at64;
+		m_at68 = rhs.m_at68;
+		m_at60 = rhs.m_at60;
+		m_at9D = rhs.m_at9D;
+		m_s6C = rhs.m_s6C;
+		m_list = rhs.m_list;
+		m_at70 = rhs.m_at70;
+		m_map = rhs.m_map;
+		m_v78 = rhs.m_v78;
+		m_v90 = rhs.m_v90;
+		m_v84 = rhs.m_v84;
+		m_atF4 = rhs.m_atF4;
+		m_at9C = rhs.m_at9C;
+		for (int i = 0; i < 6; ++i)
+			m_arr[i] = rhs.m_arr[i];
+	}
+	return *this;
+}

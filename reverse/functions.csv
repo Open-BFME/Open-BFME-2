@@ -67048,3 +67048,4 @@ _getinfo,,0x00747E00,679,Code/Libraries/Source/Lua/ldblib.c,matched,Lua 4.0.1 st
 ?rva000E15D1@Rva000E15D1@@QAEXXZ,,0x000E15D1,134,Code/GameEngine/Source/Common/Rva000E15D1.cpp,matched,134B stride walk: 0xD4 records and a 16-byte count record
 ?renderBibs@W3DBibBuffer@@QAEXXZ,,0x000D4228,139,Code/GameEngine/Source/Common/Rva000D4228.cpp,matched,139B bib draw: index vertex shader then two triangle ranges
 ?rva000E127B@Rva000E127B@@QAEXH@Z,,0x000E127B,177,Code/GameEngine/Source/Common/Rva000E127B.cpp,matched,177B stride walk: byte picks the element call
+??4BfmePod248@@QAEAAU0@ABU0@@Z,,0x000C6C54,240,Code/Libraries/Source/WWVegas/WWLib/StlportPod248Assign.cpp,matched,Pod248 operator= self-check then string set POD movsd and rowed container assigns; list assign pinned at 0x000BDBFA
