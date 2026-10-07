@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHs-c-
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/Rva00729300BitPlanes.cpp (donor revision
@@ -111,22 +111,104 @@ bool Rva0006AB49BitPlane::test(int x, int y) const
     return result;
 }
 
-class Rva00729D30Terrain
+// BFME1 donor ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f supplies the
+// corner-count and edge-sampling algorithms below. Independent target
+// boundaries 112ED3..112FC0 (237B) and 112FC0..1130D1 (273B) prove seven
+// stack arguments, the four byte outputs, signed upper clamps and division
+// by two truncated toward zero. Native origins are +50/+54 and the pointer
+// to the independently matched bit plane is +5C, sixteen bytes later than
+// the donor receiver. These are observed borrowed prefixes; original owner,
+// method names, geographical edge labels and allocation extent are unproven.
+// Keep the bit-test definition visible: separate-TU trials changed one
+// load/push scheduling pair in each receiver despite the same extents.
+// /O1 with ordinary frame omission matches both new receiver bodies and
+// the two pre-existing 79B bit tests; forced /Oy- changes the old tests.
+class Rva00112ED3TerrainPrefix
 {
 public:
-	void checkEdges( int xOffset, int yOffset, int width,
+	void checkUnsetEdges( int xOffset, int yOffset, int width,
 		bool *top, bool *right, bool *bottom, bool *left );
 
-	int rva00729BF0( int xOffset, int yOffset, int width,
+	int countUnsetCorners( int xOffset, int yOffset, int width,
 		bool *corner0, bool *corner1, bool *corner2, bool *corner3 );
 
 private:
-	Byte m_opaque00[0x40];
+	Byte m_opaque00[0x50];
 	int m_xOrigin;
 	int m_yOrigin;
-	int m_width;
+	int m_unmodelled58;
 	Rva00729300BitPlane *m_map;
 };
+
+void Rva00112ED3TerrainPrefix::checkUnsetEdges( int xOffset, int yOffset, int width,
+	bool *top, bool *right, bool *bottom, bool *left )
+{
+	int xOrigin = m_xOrigin;
+	Rva00729300BitPlane *map = m_map;
+	int limitX = map->m_width - 1;
+	int limitY = map->m_height - 1;
+	int minX = xOrigin + xOffset;
+	int minY = m_yOrigin + yOffset;
+	int maxX = xOffset + width;
+	if( m_xOrigin + maxX > limitX )
+		maxX = limitX - m_xOrigin;
+	register int maxY = yOffset + width;
+	if( m_yOrigin + maxY > limitY )
+		maxY = limitY - m_yOrigin;
+
+	int halfX = (maxX - xOffset) / 2;
+	int halfY = (maxY - yOffset) / 2;
+	int centerX = xOffset + halfX;
+	int centerY = yOffset + halfY;
+	*top = *right = *bottom = *left = false;
+	if( !m_map->test( minX, m_yOrigin + centerY ) )
+		*top = true;
+	if( !m_map->test( m_xOrigin + centerX, maxY + m_yOrigin ) )
+		*right = true;
+	if( !m_map->test( m_xOrigin + maxX, m_yOrigin + centerY ) )
+		*bottom = true;
+	if( !m_map->test( m_xOrigin + centerX, minY ) )
+		*left = true;
+}
+
+int Rva00112ED3TerrainPrefix::countUnsetCorners(int xOffset, int yOffset, int width, bool *corner0, bool *corner1, bool *corner2, bool *corner3)
+{
+	int xOrigin = m_xOrigin;
+	Rva00729300BitPlane *map = m_map;
+	int limitX = map->m_width - 1;
+	int limitY = map->m_height - 1;
+	int minX = xOrigin + xOffset;
+	int minY = m_yOrigin + yOffset;
+	int maxX = xOffset + width;
+	if (m_xOrigin + maxX > limitX)
+		maxX = limitX - m_xOrigin;
+	register int maxY = yOffset + width;
+	if (m_yOrigin + maxY > limitY)
+		maxY = limitY - m_yOrigin;
+	int count = 0;
+	*corner0 = *corner1 = *corner2 = *corner3 = false;
+	if (!m_map->test(minX, minY))
+	{
+		*corner0 = true;
+		++count;
+	}
+	if (!m_map->test(m_xOrigin + maxX, minY))
+	{
+		*corner1 = true;
+		++count;
+	}
+	if (!m_map->test(minX, m_yOrigin + maxY))
+	{
+		*corner2 = true;
+		++count;
+	}
+	if (!m_map->test(m_xOrigin + maxX, m_yOrigin + maxY))
+	{
+		*corner3 = true;
+		++count;
+	}
+	return count;
+}
 
 
 struct ICoord2D
