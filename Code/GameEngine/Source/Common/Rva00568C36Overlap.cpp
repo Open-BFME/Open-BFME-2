@@ -31,3 +31,26 @@ bool Rva00568C36::rva00568C36(const Rva00568C36Provider *p)
 {
 	return method(p->v7());
 }
+
+// Native 003EE058..003EE083 tests each pointer in [this+1C,this+20),
+// returning on the first overlap. The callee above independently names this
+// caller; the existing 003EDDD4 pointer-walk is the source-shape guide.
+// The application collection class remains unknown. Keep it with its typed
+// overlap provider rather than adding another private AsciiString view to
+// the adjacent string-lookup unit.
+class Rva003EE058Owner
+{
+	char m_prefix[0x1c];
+	Rva00568C36 **m_begin;
+	Rva00568C36 **m_end;
+public:
+	bool overlaps(const Rva00568C36Provider *arg);
+};
+
+bool Rva003EE058Owner::overlaps(const Rva00568C36Provider *arg)
+{
+	for (Rva00568C36 **p=m_begin; p!=m_end; ++p)
+		if ((*p)->rva00568C36(arg))
+			return true;
+	return false;
+}
