@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /ICode/Libraries/Include
 //
 // ?rva0036FA56@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@@Z, retail 0x0036FA56, 54 bytes.
 // AIGroup forward of aiFollowWaypointPathExact to each member via the rowed
@@ -7,14 +7,30 @@
 // 0x0036FF33 in AIGroupAttackTeam.cpp; caller at 0x003BF712; prev/next are
 // aiGuardPosition and groupAttackTeam with compatible flags.
 
+#include "Lib/Coord3D.h"
+
 #include <list>
 
 class Waypoint;
 class Object;
-struct Coord3D;
 class Rva003427DD;
 
+typedef bool Bool;
 typedef int Int;
+typedef unsigned int UnsignedInt;
+typedef float Real;
+
+
+enum KindOfType
+{
+	KINDOF_STRUCTURE = 7,
+	KINDOF_AIRCRAFT = 12
+};
+
+enum PathfindLayerEnum
+{
+	LAYER_GROUND = 1
+};
 
 enum CommandSourceType
 {
@@ -28,6 +44,7 @@ class AICommandInterface
 public:
 	void aiFollowWaypointPathExact(const Waypoint *waypoint, CommandSourceType cmdSource);
 	void aiMoveToAndEvacuate(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiEvacuate(Bool exposeStealthUnits, CommandSourceType cmdSource);
 	void aiMoveToAndEvacuateAndExit(const Coord3D *pos, CommandSourceType cmdSource);
 	void rva0036F19B(Object *obj, CommandSourceType cmdSource);
 	void rva0036F200(Object *obj, CommandSourceType cmdSource);
@@ -47,11 +64,62 @@ public:
 	AICommandInterface m_commands;
 };
 
+class ThingTemplate
+{
+public:
+	__forceinline Bool isKindOf(KindOfType t) const { return (m_kindof[(UnsignedInt)t >> 5] & (1u << ((UnsignedInt)t & 31))) != 0; }
+private:
+	char m_pad[0x108];
+	UnsignedInt m_kindof[4]; // +0x108
+};
+
+class ContainModuleInterface
+{
+public:
+	template <int N> struct Slot {};
+	virtual void slot(Slot<0>); virtual void slot(Slot<1>); virtual void slot(Slot<2>); virtual void slot(Slot<3>);
+	virtual void slot(Slot<4>); virtual void slot(Slot<5>); virtual void slot(Slot<6>); virtual void slot(Slot<7>);
+	virtual void slot(Slot<8>); virtual void slot(Slot<9>); virtual void slot(Slot<10>); virtual void slot(Slot<11>);
+	virtual void slot(Slot<12>); virtual void slot(Slot<13>); virtual void slot(Slot<14>); virtual void slot(Slot<15>);
+	virtual void slot(Slot<16>); virtual void slot(Slot<17>); virtual void slot(Slot<18>); virtual void slot(Slot<19>);
+	virtual void slot(Slot<20>); virtual void slot(Slot<21>); virtual void slot(Slot<22>); virtual void slot(Slot<23>);
+	virtual void slot(Slot<24>); virtual void slot(Slot<25>); virtual void slot(Slot<26>); virtual void slot(Slot<27>);
+	virtual void slot(Slot<28>); virtual void slot(Slot<29>); virtual void slot(Slot<30>); virtual void slot(Slot<31>);
+	virtual void orderAllPassengersToExit(CommandSourceType cmdSource); // +0x80
+};
+
+class TerrainLogic
+{
+public:
+	template <int N> struct Slot {};
+	virtual void slot(Slot<0>); virtual void slot(Slot<1>); virtual void slot(Slot<2>); virtual void slot(Slot<3>);
+	virtual void slot(Slot<4>); virtual void slot(Slot<5>); virtual void slot(Slot<6>);
+	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Coord3D *normal = 0, Bool clip = true) const; // +0x1C
+	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *pos, Bool onlyHealthyBridges = false);
+};
+
+extern TerrainLogic *TheTerrainLogic;
+
 class Object
 {
 public:
-	char m_pad[0x258];
-	AIUpdateInterface *m_ai;
+	__forceinline Bool isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	Bool isAirborneTarget() const { return ((m_status >> 6) & 1) != 0; }
+	const Coord3D *getPosition() const { return &m_pos; }
+	AIUpdateInterface *getAI() { return m_ai; }
+	ContainModuleInterface *getContain() const { return m_contain; }
+private:
+	char m_pad00[0x04];
+	const ThingTemplate *m_template; // +0x04
+	char m_pad08[0x38 - 0x08];
+	Coord3D m_pos; // +0x38
+	char m_pad44[0x94 - 0x44];
+	UnsignedInt m_status; // +0x94
+	char m_pad98[0x250 - 0x98];
+	ContainModuleInterface *m_contain; // +0x250
+	char m_pad254[0x258 - 0x254];
+public:
+	AIUpdateInterface *m_ai; // +0x258
 };
 
 class AIGroup
@@ -67,6 +135,7 @@ public:
 	void rva00370217(Object *obj, CommandSourceType cmdSource);
 	void groupHarvest(const Coord3D *pos, CommandSourceType cmdSource);
 	void groupExit(Object *objectToExit, CommandSourceType cmdSource);
+	void groupEvacuate(CommandSourceType cmdSource);
 	void rva00370399(const Rva003427DD *arg, CommandSourceType cmdSource);
 private:
 	std::list<Object *> m_memberList;
@@ -196,5 +265,47 @@ void AIGroup::rva00370399(const Rva003427DD *arg, CommandSourceType cmdSource)
 		AIUpdateInterface *ai = (*i)->m_ai;
 		if (ai != 0)
 			ai->m_commands.rva0036F400(arg, cmdSource);
+	}
+}
+
+// ?groupEvacuate@AIGroup@@QAEXW4CommandSourceType@@@Z, retail 0x003702B9, 224 bytes.
+// Zero Hour's groupEvacuate: an airborne aircraft moves to the ground (or
+// bridge) under it and evacuates there, any other AI unit evacuates in place,
+// and a structure orders its passengers out (ContainModuleInterface slot 32,
+// +0x80). BFME 2 keeps the AI at Object+0x258, the contain module at +0x250
+// and the airborne status bit at +0x94 bit 6; the kind-of mask is the
+// template's +0x108 (KINDOF_STRUCTURE bit 7, KINDOF_AIRCRAFT bit 12).
+// Retail copies the position member by member with no load hoisted past a
+// store, which the drop point declared at function scope reproduces; the
+// kind-of tests are fully inlined.
+void AIGroup::groupEvacuate(CommandSourceType cmdSource)
+{
+	Coord3D pos;
+	for (std::list<Object *>::iterator i = m_memberList.begin(); i != m_memberList.end(); ++i)
+	{
+		Object *obj = *i;
+		AIUpdateInterface *ai = obj->getAI();
+		if (ai)
+		{
+			if (obj->isKindOf(KINDOF_AIRCRAFT) && obj->isAirborneTarget())
+			{
+				pos.x = obj->getPosition()->x;
+				pos.y = obj->getPosition()->y;
+				pos.z = obj->getPosition()->z;
+				PathfindLayerEnum layerAtDest = TheTerrainLogic->getHighestLayerForDestination(&pos);
+				pos.z = TheTerrainLogic->getLayerHeight(pos.x, pos.y, layerAtDest);
+				ai->m_commands.aiMoveToAndEvacuate(&pos, cmdSource);
+			}
+			else
+			{
+				ai->m_commands.aiEvacuate(false, cmdSource);
+			}
+		}
+		else if (obj->isKindOf(KINDOF_STRUCTURE))
+		{
+			ContainModuleInterface *contain = obj->getContain();
+			if (contain)
+				contain->orderAllPassengersToExit(cmdSource);
+		}
 	}
 }
