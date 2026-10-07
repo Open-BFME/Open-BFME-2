@@ -25189,11 +25189,8 @@ pin	reverse/symbols.csv	0x00141F90	1
 pin	reverse/symbols.csv	0x00142060	1
 pin	reverse/symbols.csv	0x00142960	1
 pin	reverse/symbols.csv	0x00142D70	8
-pin	reverse/symbols.csv	0x00142DF0	1	allow=309e9a016ebf7559f93142676a01101bcff2557d
 pin	reverse/symbols.csv	0x00142E20	1
-pin	reverse/symbols.csv	0x00142E30	1
 pin	reverse/symbols.csv	0x00142FE0	2
-pin	reverse/symbols.csv	0x001431B0	1	allow=309e9a016ebf7559f93142676a01101bcff2557d
 pin	reverse/symbols.csv	0x00143560	1
 pin	reverse/symbols.csv	0x00143630	1
 pin	reverse/symbols.csv	0x00143A70	1
@@ -34839,8 +34836,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pot.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/pot.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/scene.cpp	"",on	1
@@ -40537,16 +40532,8 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	I
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	Reset@RenderObjectRecyclerClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	Reset_Model@RenderObjectRecyclerClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	Return_Render_Object@RenderObjectRecyclerClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	0RenderInfoClass@@QAE@AAVCameraClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	0SpecialRenderInfoClass@@QAE@AAVCameraClass@@H@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	1RenderInfoClass@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	1SpecialRenderInfoClass@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	Additional_Pass_Count@RenderInfoClass@@QAEHXZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	RenderInfoClass::Current_Override_Flags	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	RenderInfoClass::Pop_Material_Pass	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	RenderInfoClass::Pop_Override_Flags	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	RenderInfoClass::Push_Material_Pass	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	RenderInfoClass::Push_Override_Flags	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp	0RingMeshClass@@	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp	0RingPrototypeClass@@	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ringobj.cpp	0RingRenderObjClass@@	3

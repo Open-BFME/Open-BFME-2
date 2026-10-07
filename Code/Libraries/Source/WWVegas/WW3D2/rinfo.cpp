@@ -56,11 +56,17 @@
 //     vector's destructor 0x00142E30.
 // The Zero Hour fog names on +0x04, +0x14 and +0x18 are carried from the
 // donor; which float is which is not proven by target code.
+// Push_Rendering_Method (0x001431B0) and Pop_Rendering_Method (0x00142DF0)
+// are BFME2 additions named after the stack they work and Render's use. The
+// vector's out-of-line members between them (0x00142CC0..0x001431AF) are
+// this unit's COMDATs: retail calls _Construct out of line from the copy and
+// fill loops, push_back and _M_insert_overflow but inlines it, with push_back,
+// into Push_Rendering_Method, and stock STLport compiled here does the same.
 
 #include <stl/_algobase.h>
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row);
 // this unit-local overload keeps the inlined code and offers the link no
-// second copy (as Rva00142DF0StringVector.cpp does for the same vector).
+// second copy.
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
@@ -137,7 +143,7 @@ namespace _STL
 {
 // cl declines a plain `inline` through a template specialisation, so the
 // range destroy the vector's destructor expands is forced here (see
-// reference/shims/bfmealloc/README.md and Rva00142DF0StringVector.cpp).
+// reference/shims/bfmealloc/README.md).
 template <>
 __forceinline void __destroy_aux<RefCountPtr<FXShader::RenderingMethod> *>(RefCountPtr<FXShader::RenderingMethod> *__first, RefCountPtr<FXShader::RenderingMethod> *__last, const __false_type &)
 {
@@ -156,6 +162,7 @@ __forceinline void _Destroy<RefCountPtr<FXShader::RenderingMethod> *>(RefCountPt
 {
 	__destroy(__first, __last, (RefCountPtr<FXShader::RenderingMethod> *)0);
 }
+
 }
 
 const unsigned MAX_ADDITIONAL_MATERIAL_PASSES=32;
@@ -185,6 +192,8 @@ public:
 	void								Pop_Override_Flags(void);
 	RINFO_OVERRIDE_FLAGS &		Current_Override_Flags(void);
 
+	void								Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method);
+	void								Pop_Rendering_Method(void);
 	const RenderingMethodStackType & Get_Rendering_Method_Stack(void) const;
 
 	CameraClass &					Camera;						// +0x00
@@ -319,6 +328,18 @@ void RenderInfoClass::Pop_Override_Flags(void)
 RenderInfoClass::RINFO_OVERRIDE_FLAGS & RenderInfoClass::Current_Override_Flags(void)
 {
 	return OverrideFlag[OverrideFlagLevel];
+}
+
+void RenderInfoClass::Push_Rendering_Method(RefCountPtr<FXShader::RenderingMethod> method)
+{
+	RenderingMethodStack.push_back(method);
+}
+
+void RenderInfoClass::Pop_Rendering_Method(void)
+{
+	if (!RenderingMethodStack.empty()) {
+		RenderingMethodStack.pop_back();
+	}
 }
 
 
