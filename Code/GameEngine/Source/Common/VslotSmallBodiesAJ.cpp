@@ -1344,11 +1344,58 @@ void Rva003508C0::rva003508C0()
 	rva0035066B();
 }
 
+// Native 00404B03..00404B6C: two owned pointers at +12C/+130,
+// an embedded 168-byte float-pair table at +78, and trailing state fields.
+// The rowed +404B6C forwarder proves the receiver ABI. Original names unknown.
+class Rva0056C3E5
+{
+public:
+    ~Rva0056C3E5();
+    void rva0056C065();
+};
+class Rva00404781
+{
+public:
+    void rva0040475C();
+private:
+    float a[20];
+    float b[20];
+    unsigned int flags0;
+    unsigned int flags1;
+};
 class Rva00404B03
 {
 public:
-	void rva00404B03();
+    void rva00404B03();
+private:
+    unsigned char prefix00[0x14];
+    int field14;
+    unsigned char prefix18[0x78 - 0x18];
+    Rva00404781 table78;
+    unsigned char prefix120[0x12C - 0x120];
+    Rva0056C3E5 *owned[2];
+    bool flag134;
+    unsigned char prefix135[3];
+    int field138;
+    int field13C;
 };
+void Rva00404B03::rva00404B03()
+{
+    for (int i = 0; i < 2; ++i)
+    {
+        if (owned[i])
+        {
+            owned[i]->rva0056C065();
+            delete owned[i];
+            owned[i] = 0;
+        }
+    }
+    field13C = 0;
+    field14 = 0;
+    field138 = 2;
+    table78.rva0040475C();
+    flag134 = false;
+}
 class Rva00404B6C : public Rva00404B03
 {
 public:
