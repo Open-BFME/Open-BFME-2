@@ -16396,3 +16396,4 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?Rva002B31F2Visit@@YAXPAX@Z	0x002B31F2	74	blocked	callback object vtable and concrete visitor identity are unproven; cannot model virtual dispatch cleanly t=7 model=gpt-6.1
 ?rva002B3187@Rva002B3187@@QAEPAXPAX@Z	0x002B3187	107	blocked	candidate span contains multiple apparent entry points and class or signatures are unproven; no safe single C++ body t=4 model=gpt-6.1
 ??0Rva00504DF8@@QAE@ABV0@@Z	0x00504DF8	64	blocked	copy construction shape fits a 44B aggregate but its vector element type and relationship to adjacent Rva00504DF8 methods do not agree; class identity unresolved t=8 model=gpt-6.1
+?Rva0050C91DGet@@YG_NPAXPAXPAXPAXH@Z	0x0050C91D	210	blocked	dual-this argC plus unnamed table 0xdbec90 plus 5-arg stdcall t=15 model=muse-spark
