@@ -21,6 +21,8 @@
 // stay offset names: only the donor knows their meaning.
 #include <list>
 #include <map>
+#include <set>
+#include <vector>
 #include <math.h>
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -123,8 +125,15 @@ public:
 	void rva006C0810(const Region3D *extent, float cellSize);
 };
 
+class Object;
+class ThingTemplate;
+class Matrix3D;
+
 class TerrainLogic : public Snapshot, public SubsystemInterface
 {
+public:
+	void rva00283642(const ThingTemplate *tt, const Coord3D *pos, const Matrix3D *mtx, float scale);
+	void rva00280176(const ThingTemplate *tt, const Coord3D *pos, const Matrix3D *mtx, float scale);
 };
 
 class BuffLogic : public Snapshot, public SubsystemInterface
@@ -277,11 +286,32 @@ public:
 	float m_d8;
 	char m_pad0DC[0xbd0 - 0xdc];
 	int m_bd0;
+	char m_padBD4[0x1110 - 0xbd4];
+	bool m_1110;
 };
 
 class GameInfo;
 class LoadScreen;
 class Object;
+class MapObject;
+
+// One record per object the map loader created: the object and the map
+// object it came from (8 bytes; push_back 0x00539A2E).
+struct Rva0024622FEntry
+{
+	Object *obj;
+	MapObject *mapObj;
+};
+
+enum KindOfType
+{
+	KINDOF_INVALID = -1
+};
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
 
 class GameLogic : public SubsystemInterface
 {
@@ -298,6 +328,10 @@ public:
 	void rva0023D17D(void);
 	void destroyAllObjectsImmediate(void);
 	void rva00376D49(void);
+	void rva00246422(bool dontCreate);
+	Object *findObjectByID(ObjectID id);
+	void rva00244D56(_STL::vector<Rva0024622FEntry> *created, const KindOfType *excludeKind,
+		const KindOfType *requireKind, bool dontCreate);
 	void rva00244CB0(bool loadingSaveGame, GameInfo *game);
 
 	Object *getFirstObject(void) const { return m_objList; }
@@ -350,10 +384,10 @@ public:
 	int m_130[8];
 	bool m_150;
 	char m_pad151[0x154 - 0x151];
-	int m_154;
-	int m_158;
-	int m_15c;
-	int m_160;
+	Object *m_154;
+	Object *m_158;
+	Object *m_15c;
+	Object *m_160;
 	char m_pad164[0x170 - 0x164];
 	Rva00359E13 *m_170;
 	Rva0043B660 *m_174;
@@ -960,17 +994,35 @@ class ThingTemplate
 {
 public:
 	const AsciiString &getName(void) const { return m_name; }
+	__forceinline bool isKindOf(KindOfType t) const
+	{
+		unsigned int mask = 1u << (t & 31);
+		return (m_kindof[t >> 5] & mask) != 0;
+	}
 
 private:
 	char m_pad00[0x64];
 	AsciiString m_name;
+	char m_pad68[0x10c - 0x68];
+	unsigned int m_kindof[4];
 };
 
-class Object
+class Dict;
+
+class Drawable;
+
+class Thing
+{
+public:
+	Drawable *getDrawable(void) const;
+};
+
+class Object : public Thing
 {
 public:
 	const ThingTemplate *getTemplate(void) const { return m_template; }
 	Object *getNextObject(void) const { return m_next; }
+	void rva00293E64(Dict *properties);
 
 private:
 	void *m_vtbl;
@@ -1014,6 +1066,264 @@ void GameLogic::xferObjectTOC(Xfer *xfer)
 			*xfer == templateName;
 			*xfer == id;
 			addTOCEntry(templateName, id);
+		}
+	}
+}
+
+// ?rva00246422@GameLogic@@QAEX_N@Z
+// @0x00246422 1411B (ret 4 at 0x002469A2; caller 0x0024860E).
+// Target evidence: with the flag set the body walks the map object list
+// (0x00A00940) and hands every map object whose template carries kind bit 62
+// or 63 to one of two TheTerrainLogic members (0x00283642 / 0x00280176) with
+// a copy of its location, an identity Matrix3D and 1.0f; it then runs the map
+// object loader 0x00244D56 with kind 0x3C excluded and the flag passed as
+// true. With the flag clear it runs the same loader with the flag false, then
+// makes sure four named objects exist: for each preset ID (99999999,
+// 99999998, 99999996, 99999997) findObjectByID (0x00049DC5) fills
+// this+0x154/+0x158/+0x15C/+0x160; on a miss the template "TheOneTree",
+// "TheNonInteractableTree", "TheGrabbableTree" or "TheHarvestableTree" is
+// looked up (0x002D06CA), announced to a fresh asset list unless the
+// TheGlobalData+0x1110 flag is set (notify 0x0033CF34, merge 0x0061F010),
+// created on the neutral player's default team through newObject (0x002D0A23)
+// with a zeroed 16-byte mask temporary and the preset ID, and its drawable is
+// given the same ID (0x00271058). The third lookup is the only one not
+// preceded by the 0x00A099F8 slot-10 / 0x00133283 pair. Finally every object
+// the loader recorded gets 0x00293E64 with its map object's properties.
+// Shape: the kind argument is a compiler temporary (retail keeps it in the
+// dead parameter slot), so it is passed through a const reference.
+class Rva0020AA00Target
+{
+public:
+	void notify(int a, int b);
+};
+
+struct Rva001408C0Target;
+typedef _STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>,
+	_STL::allocator<Rva001408C0Target *> > Rva001408C0Set;
+
+class AssetList
+{
+public:
+	AssetList() : m_treeLayoutPad(0), m_changed(true) {}
+
+private:
+	Rva001408C0Set m_prototypes;
+	unsigned int m_treeLayoutPad;
+	bool m_changed;
+};
+
+// The second notify argument: the callee picks one of two 0x14-byte asset
+// records at +0x3C4 by its first byte.
+struct AssetLoadMode
+{
+	bool m_alternate;
+	AssetLoadMode() : m_alternate(false) {}
+};
+
+void bfmeMergeReceiverKeys(int value);
+
+class Dict
+{
+};
+
+class MapObject
+{
+public:
+	MapObject *getNext(void) const { return m_next; }
+	const Coord3D *getLocation(void);
+	Dict *getProperties(void) { return &m_properties; }
+	const ThingTemplate *getThingTemplate(void) const;
+
+private:
+	void *m_vtbl;
+	MapObject *m_next;
+	Coord3D m_location;
+	AsciiString m_objectName;
+	const ThingTemplate *m_thingTemplate;
+	float m_angle;
+	int m_flags;
+	Dict m_properties;
+};
+
+class MapObjectListHolder
+{
+public:
+	MapObject *m_first;
+};
+
+extern MapObjectListHolder *BfmeTheMapObjectListHolder;
+
+// newObjects third argument: a 16-byte bit mask, zeroed when constructed.
+struct CreateMask
+{
+	CreateMask() { memset(m_bits, 0, sizeof(m_bits)); }
+	unsigned int m_bits[4];
+};
+
+class Team;
+
+class Player
+{
+public:
+	Team *getDefaultTeam(void) const { return m_defaultTeam; }
+
+private:
+	char m_pad00[0x2ec];
+	Team *m_defaultTeam;
+};
+
+class PlayerList
+{
+public:
+	Player *getNeutralPlayer(void) const { return m_neutralPlayer; }
+
+private:
+	char m_pad00[0x18];
+	Player *m_neutralPlayer;
+};
+
+class ThingFactory
+{
+public:
+	Object *rva002D0A23(const ThingTemplate *tt, Team *team, const CreateMask &mask, ObjectID id);
+	const ThingTemplate *findTemplate(const AsciiString &name);
+};
+
+extern ThingFactory *TheThingFactory;
+extern PlayerList *ThePlayerList;
+
+class Matrix3D
+{
+public:
+	explicit Matrix3D(bool init)
+	{
+		if (init) {
+			m_row[0][0] = 1.0f; m_row[0][1] = 0.0f; m_row[0][2] = 0.0f; m_row[0][3] = 0.0f;
+			m_row[1][0] = 0.0f; m_row[1][1] = 1.0f; m_row[1][2] = 0.0f; m_row[1][3] = 0.0f;
+			m_row[2][0] = 0.0f; m_row[2][1] = 0.0f; m_row[2][2] = 1.0f; m_row[2][3] = 0.0f;
+		}
+	}
+
+private:
+	float m_row[3][4];
+};
+
+// 0x00271058 compares, unregisters and re-registers the ID at +0x100 (the
+// ZH Drawable::setID shape); the row keeps its address name.
+class Rva00271058
+{
+public:
+	void rva00271058(void *p);
+};
+
+// Binds the kind to a temporary for the loader's pointer argument.
+static __forceinline const KindOfType *kindRef(const KindOfType &kind) { return &kind; }
+
+void GameLogic::rva00246422(bool dontCreate)
+{
+	_STL::vector<Rva0024622FEntry> created;
+	if (dontCreate) {
+		for (MapObject *pMapObj = BfmeTheMapObjectListHolder->m_first; pMapObj; pMapObj = pMapObj->getNext()) {
+			Rva0134FAA0->slot28();
+			bfmeReleaseQueuedDeviceInterfaces();
+			const ThingTemplate *tt = pMapObj->getThingTemplate();
+			if (tt == 0)
+				continue;
+			if (!tt->isKindOf((KindOfType)62) && !tt->isKindOf((KindOfType)63))
+				continue;
+			const Coord3D *loc = pMapObj->getLocation();
+			Coord3D pos;
+			pos.x = loc->x;
+			pos.y = loc->y;
+			pos.z = loc->z;
+			Matrix3D mtx(true);
+			if (tt->isKindOf((KindOfType)62))
+				TheTerrainLogic->rva00283642(tt, &pos, &mtx, 1.0f);
+			else if (tt->isKindOf((KindOfType)63))
+				TheTerrainLogic->rva00280176(tt, &pos, &mtx, 1.0f);
+		}
+		rva00244D56(&created, kindRef((KindOfType)0x3c), 0, true);
+	} else {
+		rva00244D56(&created, kindRef((KindOfType)0x3c), 0, false);
+
+		Rva0134FAA0->slot28();
+		bfmeReleaseQueuedDeviceInterfaces();
+		m_154 = findObjectByID((ObjectID)99999999);
+		if (m_154 == 0) {
+			const ThingTemplate *tt = TheThingFactory->findTemplate("TheOneTree");
+			if (tt) {
+				if (!TheWritableGlobalData->m_1110) {
+					AssetLoadMode mode;
+					AssetList assets;
+					((Rva0020AA00Target *)tt)->notify((int)&assets, (int)&mode);
+					bfmeMergeReceiverKeys((int)&assets);
+				}
+				Team *team = ThePlayerList->getNeutralPlayer()->getDefaultTeam();
+				m_154 = TheThingFactory->rva002D0A23(tt, team, CreateMask(), (ObjectID)99999999);
+				if (m_154)
+					((Rva00271058 *)m_154->getDrawable())->rva00271058((void *)99999999);
+			}
+		}
+
+		Rva0134FAA0->slot28();
+		bfmeReleaseQueuedDeviceInterfaces();
+		m_158 = findObjectByID((ObjectID)99999998);
+		if (m_158 == 0) {
+			const ThingTemplate *tt = TheThingFactory->findTemplate("TheNonInteractableTree");
+			if (tt) {
+				if (!TheWritableGlobalData->m_1110) {
+					AssetLoadMode mode;
+					AssetList assets;
+					((Rva0020AA00Target *)tt)->notify((int)&assets, (int)&mode);
+					bfmeMergeReceiverKeys((int)&assets);
+				}
+				Team *team = ThePlayerList->getNeutralPlayer()->getDefaultTeam();
+				m_158 = TheThingFactory->rva002D0A23(tt, team, CreateMask(), (ObjectID)99999998);
+				if (m_158)
+					((Rva00271058 *)m_158->getDrawable())->rva00271058((void *)99999998);
+			}
+		}
+
+		m_15c = findObjectByID((ObjectID)99999996);
+		if (m_15c == 0) {
+			const ThingTemplate *tt = TheThingFactory->findTemplate("TheGrabbableTree");
+			if (tt) {
+				if (!TheWritableGlobalData->m_1110) {
+					AssetLoadMode mode;
+					AssetList assets;
+					((Rva0020AA00Target *)tt)->notify((int)&assets, (int)&mode);
+					bfmeMergeReceiverKeys((int)&assets);
+				}
+				Team *team = ThePlayerList->getNeutralPlayer()->getDefaultTeam();
+				m_15c = TheThingFactory->rva002D0A23(tt, team, CreateMask(), (ObjectID)99999996);
+				if (m_15c)
+					((Rva00271058 *)m_15c->getDrawable())->rva00271058((void *)99999996);
+			}
+		}
+
+		Rva0134FAA0->slot28();
+		bfmeReleaseQueuedDeviceInterfaces();
+		m_160 = findObjectByID((ObjectID)99999997);
+		if (m_160 == 0) {
+			const ThingTemplate *tt = TheThingFactory->findTemplate("TheHarvestableTree");
+			if (tt) {
+				if (!TheWritableGlobalData->m_1110) {
+					AssetLoadMode mode;
+					AssetList assets;
+					((Rva0020AA00Target *)tt)->notify((int)&assets, (int)&mode);
+					bfmeMergeReceiverKeys((int)&assets);
+				}
+				Team *team = ThePlayerList->getNeutralPlayer()->getDefaultTeam();
+				m_160 = TheThingFactory->rva002D0A23(tt, team, CreateMask(), (ObjectID)99999997);
+				if (m_160)
+					((Rva00271058 *)m_160->getDrawable())->rva00271058((void *)99999997);
+			}
+		}
+
+		for (Rva0024622FEntry *it = created.begin(); it != created.end(); ++it) {
+			Rva0134FAA0->slot28();
+			bfmeReleaseQueuedDeviceInterfaces();
+			it->obj->rva00293E64(it->mapObj->getProperties());
 		}
 	}
 }
