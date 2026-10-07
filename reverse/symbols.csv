@@ -15390,3 +15390,6 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva001e6007@Rva001E6007@@QAEXIIMM@Z,0x001E6007,"Ghidra boundary FUN_005e6007 is 1295 bytes; exact direct-call target at 0x001E707D receives the four forwarded dwords in ECX with ret 16; semantic identity unknown"
 ?rva001e7053@Rva001E7053@@QAEXIIMM@Z,0x001E7053,"address-derived call target; Ghidra boundary FUN_005e7053 is 52 bytes; exact REL32 caller 0x001E7C2B; semantic identity unknown"
 ?rva001e8c1b@Rva001E8C1B@@QAEXIIMM@Z,0x001E8C1B,"address-derived call target; Ghidra boundary FUN_005e8c1b is 744 bytes; exact REL32 caller 0x001E9045; semantic identity unknown"
+?rva00416C69@@YAXXZ,0x00416C69,address-derived no-argument callee from retail call at 0x00517EBC; body identity remains unknown
+?rva005BDAC1@@YAXXZ,0x005BDAC1,address-derived no-argument callee from retail call at 0x00517EC1; body identity remains unknown
+?rva005AF12F@@YAXPAX@Z,0x005AF12F,address-derived one-pointer callee from retail call at 0x00517F05; body identity remains unknown
