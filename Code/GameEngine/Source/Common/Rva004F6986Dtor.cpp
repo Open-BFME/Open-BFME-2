@@ -73,3 +73,24 @@ struct Rva005F8447
 Rva005F8447::~Rva005F8447()
 {
 }
+
+// ?rva005F842F@Rva005F842F@@QAEPAU1@ABURva004F6986Member@@@Z @0x005F842F 24B
+// Init 8-byte holder: first handle null plus second handle copied from single
+// member with AddRef. Evidence: retail zeroes [+0] plus copies [arg+0] to [+4]
+// with inc [ptr+4] guard; caller 0x005F888C builds temp at [ebp-0x14] from
+// [ebp+8] then push_back plus dtor 0x005F8447; prev 0x005F8427 next 0x005F8447.
+struct Rva005F842F
+{
+	Rva005F842F *rva005F842F(const Rva004F6986Member &src);
+	Rva004F6986Member m_00;
+	Rva004F6986Member m_04;
+};
+
+Rva005F842F *Rva005F842F::rva005F842F(const Rva004F6986Member &src)
+{
+	m_00.m_ptr = 0;
+	m_04.m_ptr = src.m_ptr;
+	if (m_04.m_ptr)
+		++m_04.m_ptr->references;
+	return this;
+}
