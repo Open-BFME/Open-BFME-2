@@ -58,6 +58,10 @@ class Rva002A8AB1Record
 {
 public:
 	void rva004EC30E(Object *object);
+	void rva002C6A3D(Object *object);
+private:
+	char m_pad00[0x168];
+	unsigned char m_168;
 };
 
 void Rva002A8AB1Record::rva004EC30E(Object *object)
@@ -74,4 +78,15 @@ void Rva002A8AB1Record::rva004EC30E(Object *object)
 	if ((flags & 0x4000) != 0 && (flags & 0x02) != 0)
 		((AIDozerManager *)((char *)this + 0x140))->rva00599825(
 			object->getID());
+}
+// ?rva002C6A3D@Rva002A8AB1Record@@QAEXPAVObject@@@Z @0x002C6A3D 17B
+// Leaf forwarder called by FoundationAIUpdate::rva00455B67 at 0x00455BC1 with
+// the new owner's record. Tests byte +0x168; when zero tail-jumps to rowed
+// Rva002A8AB1Record::rva004EC30E with the same Object*. Same class and
+// signature as the callee; pin proves the name.
+void Rva002A8AB1Record::rva002C6A3D(Object *object)
+{
+	if (m_168 != 0)
+		return;
+	rva004EC30E(object);
 }
