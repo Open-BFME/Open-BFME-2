@@ -67791,3 +67791,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??0Rva0022CA45@@QAE@XZ,,0x0022CA45,47,Code/Libraries/Source/subsystem/Rva0022CA45Ctor.cpp,matched,frameless ctor: novtable-head baseConstruct then own vtable then two outlined Vector_base E16 inits; /GX- frameless; precedent Rva00221088Ctor; address-derived
 ?rva00298835@Rva00298835@@QAEXPAUBfmeCopyElementA@@@Z,,0x00298835,94,Code/GameEngine/Source/Common/Rva00298835.cpp,matched,94B ensure-heap GeometryInfo alloc plus bfmeAssign copy
 ?rva002B35DF@Rva002B296F@@QAEXXZ,,0x002B35DF,24,Code/GameEngine/Source/Common/Rva002B296F.cpp,matched,24B refresh over rowed 0x2B296F plus flag plus raw FramesPerSecond
+?rva002B2334@Rva002B2334@@QAEXMMH@Z,,0x002B2334,41,Code/GameEngine/Source/Common/Rva002B2334.cpp,matched,
