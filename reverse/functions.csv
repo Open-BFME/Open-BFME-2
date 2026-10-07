@@ -67926,3 +67926,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva003806D4@Rva003806D4@@QAEXXZ,,0x003806D4,49,Code/GameEngine/Source/Common/Rva003806D4.cpp,matched,bare new Rva00437E72 with EH
 ?Rva00219453Validate@@YA_NHPBD@Z,,0x00219453,90,Code/GameEngine/Source/Common/INI/Rva00219453Validate.cpp,matched,CreateAHero stat validator throws INIException 3 callers 0x00220484
 ?rva0007E0EA@Rva0007E0EA@@QAEHXZ,,0x0007E0EA,7,Code/GameEngine/Source/Common/Rva0007E0EAGetter.cpp,matched,unlock 7B disp8 int-add getter via 3 callers in 0x00100A0B
+?rva003F85C6@Rva003F81FDProxy@@QAEEXZ,,0x003F85C6,19,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,Proxy forwards the selected inner result to its byte-returning method
