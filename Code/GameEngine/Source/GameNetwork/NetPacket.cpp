@@ -244,6 +244,7 @@ protected:
 	Bool isRoomForFrameMessage(NetCommandRef *msg);
 	UnsignedByte rva0058D70B(NetCommandRef *msg);
 	Bool isRoomForGameSpyStatsAuthKeyMessage(NetCommandRef *msg);
+	Bool isRoomForFileMessage(NetCommandRef *msg);
 	void rva0058D826(Int a, Int b, Int c, Int d, Int e);
 	Bool addInformPlayerLeaveFrameCommand(NetCommandRef *msg);
 	Bool rva0058E8EA(NetCommandRef *msg);
@@ -264,6 +265,7 @@ protected:
 	Bool addDisconnectChatCommand(NetCommandRef *msg);
 	Bool addChatCommand(NetCommandRef *msg);
 	Bool rva005936DB(NetCommandRef *msg);
+	Bool addFileCommand(NetCommandRef *msg);
 	Bool addFileAnnounceCommand(NetCommandRef *msg);
 	Bool addRequestGameSpyStatsAuthKeyCommand(NetCommandRef *msg);
 	Bool addGameSpyStatsAuthKeyCommand(NetCommandRef *msg);
@@ -964,6 +966,41 @@ Bool NetPacket::isRoomForGameSpyStatsAuthKeyMessage(NetCommandRef *msg)
 	}
 	++len;
 	len += ((CDDrive *)cmdMsg)->CDDrive::getPath().getLength() + ((Rva002D9BC1AsciiField *)cmdMsg)->get().getLength() + 2;
+	if ((len + m_packetLen) > MAX_PACKET_SIZE) {
+		return false;
+	}
+	return true;
+}
+
+// ?isRoomForFileMessage@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x005917DB, 177 bytes:
+// ZH's isRoomForFileMessage plus BFME's timestamp charge, term for term: the
+// name's length plus one, the length dword and the file length itself (the
+// folded +0x24 getter rowed as NetWrapperCommandMsg::getDataOffset).
+Bool NetPacket::isRoomForFileMessage(NetCommandRef *msg)
+{
+	Int len = 0;
+	Bool needNewCommandID = false;
+	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+	if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+	}
+	if (m_lastRelay != msg->getRelay()) {
+		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+	}
+	if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+		len += sizeof(UnsignedInt) + sizeof(UnsignedByte);
+	}
+	if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+		needNewCommandID = true;
+	}
+	if (((m_lastCommandID + 1) != (UnsignedShort)(cmdMsg->getID())) || (needNewCommandID == true)) {
+		len += sizeof(UnsignedByte) + sizeof(UnsignedShort);
+	}
+	len += sizeof(UnsignedByte);
+	len += ((CDDrive *)cmdMsg)->CDDrive::getPath().getLength() + 1;
+	len += sizeof(UnsignedInt);
+	len += cmdMsg->getDataOffset();
 	if ((len + m_packetLen) > MAX_PACKET_SIZE) {
 		return false;
 	}
