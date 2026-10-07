@@ -1127,3 +1127,84 @@ void rva00556C54(char *data, int len, PSPlayerAllStats *stats)
 	((Rva0060C45E *)&xfer)->clear();
 	file->close();
 }
+
+class GameSpyMiscPreferences
+{
+public:
+	GameSpyMiscPreferences();
+	virtual ~GameSpyMiscPreferences();
+	AsciiString rva00559813();
+	AsciiString rva005598C8();
+private:
+	unsigned char m_pad04[0x10];
+};
+
+// Retail 0x55325C (122 bytes): decodes a lowercase hex string, two digits
+// per output byte. The string reference arrives in eax (static, TU-local).
+static bool rva0055325C(const AsciiString &text, char *out, unsigned int outLen)
+{
+	const char *s = text.str();
+	int len = text.getLength();
+	if (s)
+	{
+		unsigned int o = 0;
+		for (int i = 0; i < len; ++i)
+		{
+			char hi;
+			if (s[i] >= 'a' && s[i] <= 'f')
+				hi = (s[i] - 'a' + 10) * 16;
+			else if (s[i] >= '0' && s[i] <= '9')
+				hi = (s[i] - '0') * 16;
+			else
+				return false;
+			++i;
+			char lo;
+			if (s[i] >= 'a' && s[i] <= 'f')
+				lo = s[i] - 'a' + 10;
+			else if (s[i] >= '0' && s[i] <= '9')
+				lo = s[i] - '0';
+			else
+				return false;
+			if (outLen >= o)
+				out[o++] = hi | lo;
+		}
+		return true;
+	}
+	return false;
+}
+
+// Retail 0x556DFF (441 bytes): rebuilds the cached player stats from the two
+// hex strings GameSpyMiscPreferences keeps (ToolTipCachedStats and
+// AllOtherCachedStats).
+PSPlayerAllStats rva00556DFF()
+{
+	PSPlayerAllStats stats(0);
+	GameSpyMiscPreferences prefs;
+	AsciiString first = prefs.rva00559813();
+	AsciiString second = prefs.rva005598C8();
+	if (first.getLength() % 2)
+		return stats;
+	int len = first.getLength() / 2;
+	if (len)
+	{
+		char *buf = new char[len];
+		if (buf && rva0055325C(first, buf, len))
+		{
+			rva00556982(buf, len, &stats);
+			delete[] buf;
+		}
+	}
+	if (second.getLength() % 2)
+		return stats;
+	len = second.getLength() / 2;
+	if (len)
+	{
+		char *buf = new char[len];
+		if (buf && rva0055325C(second, buf, len))
+		{
+			rva00556C54(buf, len, &stats);
+			delete[] buf;
+		}
+	}
+	return stats;
+}
