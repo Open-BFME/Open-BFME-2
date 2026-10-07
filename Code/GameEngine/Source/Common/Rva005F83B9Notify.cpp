@@ -17,22 +17,27 @@ struct Rva005F83B9Entry
 	int m_pad;
 };
 
+struct Rva005F83B9Vector
+{
+	Rva005F83B9Entry *m_start;
+	Rva005F83B9Entry *m_finish;
+	int size() const { return m_finish - m_start; }
+};
+
 class Rva005F83B9
 {
 public:
 	void rva005F83B9();
 	void rva00577944();
-private:
 	char m_pad[0x20];
-	Rva005F83B9Entry *m_20;
-	Rva005F83B9Entry *m_24;
+	Rva005F83B9Vector m_vec;
 };
 
 void Rva005F83B9::rva005F83B9()
 {
 	rva00577944();
-	Rva005F83B9Entry *end = m_24;
-	Rva005F83B9Entry *it = m_20;
+	Rva005F83B9Entry *end = m_vec.m_finish;
+	Rva005F83B9Entry *it = m_vec.m_start;
 	for (; it != end; ++it)
 	{
 		Rva005F83B9Item *o = it->m_obj;
@@ -46,11 +51,18 @@ void Rva005F83B9::rva005F83B9()
 class Rva005F8427
 {
 public:
+	int rva005F8408() const;
 	void rva005F8427();
 private:
 	char m_pad[4];
 	Rva005F83B9 *m_member;
 };
+
+int Rva005F8427::rva005F8408() const
+{
+	return m_member->m_vec.size();
+}
+
 void Rva005F8427::rva005F8427()
 {
 	return m_member->rva005F83B9();

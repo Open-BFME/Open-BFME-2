@@ -68223,3 +68223,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva002B3D0E@Rva002B3D0E@@QAEXXZ,,0x002B3D0E,115,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,Native Ghidra115B no stack args; nested pointer ranges receiver8C-90 group1B8-1BC; complete rowed61B element319610; tail receiverB0 to full775B 20FDDF RET0 placeholder; exact sibling2B3B66 algorithm guide; identities unknown; helper remains unrecovered beyond middle lane
 ?fwd@Rva005E6817Mid@@QAEXXZ,,0x005E6817,7,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,
 ?fwd@Rva005E682EMid@@QAEXXZ,,0x005E682E,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,
+?rva005F8408@Rva005F8427@@QBEHXZ,,0x005F8408,15,Code/GameEngine/Source/Common/Rva005F83B9Notify.cpp,matched,
