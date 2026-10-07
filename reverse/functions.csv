@@ -67400,3 +67400,4 @@ _Rva00177F34,,0x00177F34,78,Code/GameEngine/Source/Common/Rva00177F34.cpp,matche
 ?xfer@Rva003FAFB9@@MAEXPAVXfer@@@Z,,0x003FADB5,179,Code/GameEngine/Source/Common/Rva003FAFB9Dtor.cpp,matched,slot 3 of matched vtable 0x00C37A08
 ??0Rva0022BD25Subsystem@@QAE@XZ,,0x0041F913,55,Code/GameEngine/Source/Common/Rva0022BD25SubsystemCtor.cpp,matched,pin Rva0022BD25Subsystem caller 0x0022F955 vtable 0x00C3B8C8 baseConstruct plus hash_map
 ?Rva0038A288List@@YAXPAXHHPAU_SBServer@@PBDHHHH0@Z,,0x0038A288,156,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,REF callback for peerListGroupRooms in Thread_Function via 0x38FFAE with thread totals at 0x4A0 and queue slot 0x20
+?rva0020E7BD@Rva0020E7BD@@QAEXPAX@Z,,0x0020E7BD,43,Code/Libraries/Source/WWVegas/WWLib/Rva0020E7BDLoop.cpp,matched,pointer scan at +0x14 via slot0 break on false per E7E8 shape
