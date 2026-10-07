@@ -13,11 +13,14 @@ namespace StrategicHUD {
 class SelectionUIImpl;
 }
 
-class StrategicHUD::SelectionUIImpl
+// Native calls target RVA 0x5D3A91 with the unadjusted selection pointer.
+// Use the existing verified worker view (fields +0x18/+0x1C/+0x24).
+class Rva005D3A91
 {
 public:
 	void rva005D3A91();
 };
+
 class Rva005D3CA6
 {
 public:
@@ -40,7 +43,7 @@ void Rva005D3CA6::rva005D3CA6(void *v)
 	((Rva005D3AF2 *)this)->rva005D3AF2();
 	m_18 = v;
 	if (m_32)
-		((StrategicHUD::SelectionUIImpl *)this)->rva005D3A91();
+		reinterpret_cast<Rva005D3A91 *>(this)->rva005D3A91();
 }
 void Rva005D3CA6::rva005D3DD5(const TreeHintRef00217D4C &v)
 {
@@ -48,5 +51,5 @@ void Rva005D3CA6::rva005D3DD5(const TreeHintRef00217D4C &v)
 		((Rva005D3AF2 *)this)->rva005D3AF2();
 	m_24 = v;
 	if (m_30 && m_32)
-		((StrategicHUD::SelectionUIImpl *)this)->rva005D3A91();
+		reinterpret_cast<Rva005D3A91 *>(this)->rva005D3A91();
 }

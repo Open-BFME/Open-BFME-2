@@ -29,11 +29,18 @@ namespace StrategicHUD {
 class SelectionUIImpl;
 }
 
+// Native calls target RVA 0x5D3A91 with the unadjusted selection pointer.
+// Use the existing verified worker view (fields +0x18/+0x1C/+0x24).
+class Rva005D3A91
+{
+public:
+	void rva005D3A91();
+};
+
 class StrategicHUD::SelectionUIImpl
 {
 public:
 	void rva005D3B26();
-	void rva005D3A91();
 	void Show();
 
 	void *m_unused00;
@@ -63,7 +70,7 @@ void StrategicHUD::SelectionUIImpl::rva005D3B26()
 
 // ?Show@SelectionUIImpl@StrategicHUD@@QAEXXZ retail 0x005D3CFA 81B: show the panel once:
 // SetState "_show" through the rowed Rva005FB5E6AptCall (TheRva00222A8BTarget,
-// level, name), set the shown flag at +0x30, refresh 0x005D3A91 (pinned) when
+// level, name), set the shown flag at +0x30, refresh the verified 0x005D3A91 worker when
 // the flag at +0x32 is set, then tail-call the portrait refresh above.
 void StrategicHUD::SelectionUIImpl::Show()
 {
@@ -73,6 +80,6 @@ void StrategicHUD::SelectionUIImpl::Show()
 	Rva005FB5E6AptCall(TheRva00222A8BTarget, (void *)m_level, name, "SetState", "_show");
 	m_shown30 = true;
 	if (m_32)
-		rva005D3A91();
+		reinterpret_cast<Rva005D3A91 *>(this)->rva005D3A91();
 	rva005D3B26();
 }
