@@ -38,6 +38,12 @@
 //    the production-condition script found by owner and name (0x003573C4)
 //    through 0x0020D451. Reading the prototype through an inline getter, not
 //    the raw field, is what gives retail's edi/ebx assignment.
+//  - checkReadyTeams 0x004F2FC4 (498 bytes, vtable +0x40): ZH's ready-queue
+//    walk. BFME 2 finds the start script by owner and production condition
+//    (0x003573C4), calls Team 0x0039D889(false) after the unlink and has no
+//    skirmish clearTeamFlags; the 60-second timeout scales the frame-rate
+//    global at VA 0x00DBA4E4. The ready-queue next getter (+0x10) is retail's
+//    shared mov eax,[ecx+0x10] at 0x001DB09D.
 // GameLogic comes from the canonical GameLogicObjectLookupView.h.
 #include "ascii_string.h"
 typedef bool Bool;
@@ -250,7 +256,7 @@ public:
 	virtual void slot190();
 	virtual void slot194();
 	virtual void slot198();
-	virtual void slot19c();
+	virtual void joinTeam();					// +0x19C
 	virtual void slot1a0();
 	virtual void slot1a4();
 	virtual void slot1a8();
@@ -455,12 +461,15 @@ public:
 	TeamPrototype *m_proto;			// +0x30
 	char m_pad034[0x5D - 0x34];
 	Bool m_active;				// +0x5D
-	char m_pad05E[0x110 - 0x5E];
+	Bool m_created;				// +0x5E
+	char m_pad05F[0x110 - 0x5F];
 	Bool m_bfme110;				// +0x110
 	Bool m_bfme111;				// +0x111
 
 	void rva0039D889(Bool flag);
 	void disband();
+	Bool rva0039DFF8();
+	void setActive() { if (!m_active) { m_created = true; m_active = true; } }
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 	const AsciiString &getOwnerName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getOwnerName(); }
 	TeamPrototype *getPrototype() const { return m_proto; }
@@ -471,6 +480,7 @@ class TeamInQueue
 public:
 	virtual ~TeamInQueue();
 	TeamInQueue *dlink_next_TeamBuildQueue() const { return m_next; }
+	TeamInQueue *dlink_next_TeamReadyQueue() const { return m_nextReady; }
 	Bool isBuildTimeExpired();
 	Bool isMinimumBuilt();
 	Bool areBuildsComplete();
@@ -480,8 +490,17 @@ public:
 
 	TeamInQueue *m_prev;			// +0x04
 	TeamInQueue *m_next;			// +0x08
-	char m_pad0C[0x1C - 0x0C];
+	TeamInQueue *m_prevReady;		// +0x0C
+	TeamInQueue *m_nextReady;		// +0x10
+	char m_pad14[0x1C - 0x14];
 	Team *m_team;				// +0x1C
+	char m_pad20[0x24 - 0x20];
+	unsigned int m_frameStarted;		// +0x24
+	Bool m_sentToStartLocation;		// +0x28
+	char m_pad29;
+	Bool m_reinforcement;			// +0x2A
+	char m_pad2B;
+	ObjectID m_reinforcementID;		// +0x2C
 };
 
 class GlobalData
@@ -491,6 +510,8 @@ public:
 	Int m_debugAI;				// +0x9B8
 };
 extern GlobalData *TheWritableGlobalData;
+extern int g_Va00DBA4E4;
+#define LOGICFRAMES_PER_SECOND g_Va00DBA4E4
 
 class Script
 {
@@ -529,7 +550,7 @@ protected:
 	virtual void slot13();
 	virtual void slot14();
 	virtual void slot15();
-	virtual void slot16();
+	virtual void checkReadyTeams();					// +0x40
 	virtual void checkQueuedTeams();				// +0x44
 	virtual void slot18();
 	virtual void slot19();
@@ -547,10 +568,15 @@ protected:
 	{
 		return DLINK_ITERATOR<TeamInQueue>(m_teamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
 	}
+	DLINK_ITERATOR<TeamInQueue> iterate_TeamReadyQueue() const
+	{
+		return DLINK_ITERATOR<TeamInQueue>(m_teamReadyQueue, &TeamInQueue::dlink_next_TeamReadyQueue);
+	}
 
 public:
 	void removeFrom_TeamBuildQueue(TeamInQueue *team);
 	void prependTo_TeamReadyQueue(TeamInQueue *team);
+	void removeFrom_TeamReadyQueue(TeamInQueue *team);
 
 private:
 	TeamInQueue *m_teamBuildQueue;	// +0x04
@@ -886,6 +912,71 @@ void AIPlayer::checkQueuedTeams()
 				Script *script = TheScriptEngine->rva003573C4(team->m_team->getOwnerName(), cond, &scope);
 				if (script)
 					TheScriptEngine->rva0020D451(scope, script->getAction(), script, cond, (int)team->m_team);
+			}
+		}
+	}
+}
+
+void AIPlayer::checkReadyTeams()
+{
+	{
+		for (DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamReadyQueue(); !iter.done(); iter.advance())
+		{
+			TeamInQueue *team = iter.cur();
+			Bool timeExpired = team->m_frameStarted + 60 * LOGICFRAMES_PER_SECOND < TheGameLogic->getFrame();
+			Bool allIdle = true;
+			Bool anyIdle = false;
+			if (team->m_reinforcement)
+			{
+				Object *obj = TheGameLogic->findObjectByID(team->m_reinforcementID);
+				if (obj && obj->getAI())
+				{
+					allIdle = obj->getAI()->isIdle();
+					anyIdle = allIdle;
+				}
+			}
+			else
+			{
+				allIdle = team->m_team->rva0039DFF8();
+				for (DLINK_ITERATOR<Object> it = team->m_team->iterate_TeamMemberList(); !it.done(); it.advance())
+				{
+					Object *obj = it.cur();
+					if (obj->getAI() && obj->getAI()->isIdle())
+						anyIdle = true;
+				}
+			}
+			if (anyIdle && team->m_team->getPrototype()->getExecuteActions())
+			{
+				Script *script = TheScriptEngine->rva003573C4(team->m_team->getOwnerName(), team->m_team->getPrototype()->getProductionCondition(), NULL);
+				if (script && script->getAction())
+					allIdle = true;
+			}
+			if (timeExpired)
+				allIdle = true;
+			if (allIdle)
+			{
+				if (!team->m_sentToStartLocation)
+					team->m_sentToStartLocation = true;
+				removeFrom_TeamReadyQueue(team);
+				team->m_team->rva0039D889(false);
+				if (team->m_reinforcement)
+				{
+					Object *obj = TheGameLogic->findObjectByID(team->m_reinforcementID);
+					if (obj && obj->getAI())
+						obj->getAI()->joinTeam();
+				}
+				else
+				{
+					team->m_team->setActive();
+					if (TheWritableGlobalData->m_debugAI)
+					{
+						AsciiString teamName = team->m_team->getPrototype()->getName();
+						teamName.concat(" - team activated.");
+						TheScriptEngine->AppendDebugMessage(teamName, false);
+					}
+				}
+				team->deleteInstance();
+				iter = iterate_TeamReadyQueue();
 			}
 		}
 	}
