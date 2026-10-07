@@ -166,6 +166,7 @@ Rva00148F5ECache g_00DBDEF4 = { NAMEKEY_INVALID, "cameraScrollSpeedScalar" };
 class Rva00BCF670CameraSettings
 {
 public:
+	Rva00BCF670CameraSettings();
 	virtual void vslot00(); virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
 	virtual void vslot04(); virtual void vslot05(); virtual void vslot06(); virtual void vslot07();
 	virtual void vslot08(); virtual void vslot09(); virtual void vslot10(); virtual void vslot11();
@@ -297,6 +298,14 @@ void Rva00BCF670CameraSettings::reset()
 	m_custom18 = false;
 	m_lastPos20.zero();
 	m_trigger1C = 0;
+}
+
+// ??0Rva00BCF670CameraSettings@@QAE@XZ @0x00101C92 (14B).
+// The vtable address and reset call establish this constructor for the
+// address-named camera-settings record.
+Rva00BCF670CameraSettings::Rva00BCF670CameraSettings()
+{
+	reset();
 }
 
 bool Rva00BCF670CameraSettings::setTriggerArea(const AsciiString &name, const Coord3D *pos)

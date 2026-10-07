@@ -17441,3 +17441,4 @@ FUN_00759902	0x00359902	125	blocked	false-reject gen_dump end-boundary: full Ghi
 ?rva002022E9@Rva00202739@@QAEXH@Z	0x002022E9	707	blocked	packet marks globals 0x009B5FA0 and 0x009EC410 ADDRESS-NAMED g_Va00DB5FA0 g_Va00DEC410 new use refused taskfile requires skip t=1 model=muse-02
 ??0Rva005FA3B1Inner@@QAE@PAX000@Z	0x005FA3B1	1082	blocked	callee 0x005FA205 unrowed and already blocked complex EH-new needs layout plus WARN mid-function FF before start t=1 model=muse-02
 ?Rva0041B85DCheck@@YA_NPAVObject@@0H@Z	0x0041B85D	88	blocked	final cmp3 setge-al vs retail jl-mov-al1 persists after branch polarity inversion and ternary levers t=10 model=muse-02 (stash 0.99 kept)
+?rva002DD282@GameState@@QAE?AVUnicodeString@@H@Z	0x002DD282	267	blocked	substantial save-name reconstruction needs unproven GameText lookup and registry semantics t=12 model=gpt-6
