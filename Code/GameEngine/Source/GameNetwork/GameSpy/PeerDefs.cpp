@@ -132,10 +132,10 @@ public:
 	Int m_flags;
 	Int m_rankPoints;
 	Int m_side;
-	Int m_preorder;
+	Int m_unk24;
 	Int m_dc;
 	Int m_desync;
-	Int m_pad;
+	Int m_preorder;		// +0x30: updatePlayerInfo marks the profile when set
 	~PlayerInfo();
 	Bool isIgnored(void);
 };
@@ -431,7 +431,7 @@ public:
 	virtual void slot16(void);
 	virtual void rva003674FE(Int value);
 	virtual void slot18(void);
-	virtual void slot19(void);
+	virtual void updatePlayerInfo(PlayerInfo pi, AsciiString oldNick);
 	virtual void playerLeftGroupRoom(AsciiString nick);
 	virtual void slot21(void);
 	virtual PlayerInfo *rva00382CCE(const char *key);
@@ -745,6 +745,17 @@ void GameSpyInfo::setCurrentGroupRoom(Int groupID)
 {
 	m_currentGroupRoomID = groupID;
 	m_playerInfoMap.clear();
+}
+
+// ?updatePlayerInfo@GameSpyInfo@@UAEXVPlayerInfo@@VAsciiString@@@Z @0x00386EF8 135B
+void GameSpyInfo::updatePlayerInfo(PlayerInfo pi, AsciiString oldNick)
+{
+	if (!oldNick.isEmpty())
+		playerLeftGroupRoom(oldNick);
+
+	m_playerInfoMap[pi.m_name] = pi;
+	if (pi.m_preorder)
+		markPlayerAsPreorder(pi.m_profileID);
 }
 
 // ?playerLeftGroupRoom@GameSpyInfo@@UAEXVAsciiString@@@Z @0x00384660 72B
