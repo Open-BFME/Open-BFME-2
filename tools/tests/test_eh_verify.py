@@ -113,3 +113,17 @@ def test_baseline_round_trip(tmp_path, monkeypatch):
     monkeypatch.setattr(eh_verify, "BASELINE", tmp_path / "eh_baseline.csv")
     eh_verify.write_baseline({("?b", "0x2"): "obj_only", ("?a", "0x1"): "bytes_differ"})
     assert eh_verify.load_baseline() == {("?a", "0x1"): "bytes_differ", ("?b", "0x2"): "obj_only"}
+
+
+def test_frame_whose_fs_load_precedes_the_thunk_push(tmp_path):
+    # /O2 schedules `mov eax,fs:[0]` between `push -1` and `push thunk`
+    # (MeshMatDescClass::Store_Pass0_State, 0x15D5B0); the frame is still retail's.
+    retail = Retail(OURS)
+    image = bytearray(retail.bytes)
+    image[FUNC:FUNC + 14] = bytes.fromhex("6aff64a100000000") + bytes.fromhex("68") \
+        + struct.pack("<I", BASE + THUNK) + bytes.fromhex("50")
+    retail.bytes = bytes(image)
+    assert retail.frame_funcinfo(FUNC) == (THUNK, FUNCINFO)
+    image[FUNC + 9:FUNC + 13] = struct.pack("<I", BASE + GUARD)    # not a handler thunk
+    retail.bytes = bytes(image)
+    assert retail.frame_funcinfo(FUNC) is None

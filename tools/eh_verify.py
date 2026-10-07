@@ -80,6 +80,9 @@ class Image:
         push = head.find(b"\x6a\xff\x68")                    # push -1; push thunk
         if 0 <= push <= 12:
             offsets.append(push + 3)
+        push = head.find(b"\x6a\xff\x64\xa1\0\0\0\0\x68")  # push -1; mov eax,fs:[0]; push thunk
+        if 0 <= push <= 12:
+            offsets.append(push + 9)
         for offset in offsets:
             thunk = struct.unpack_from("<I", head, offset)[0] - self.base
             if 0 <= thunk < self.size - 10 and self.bytes[thunk] == 0xB8 \

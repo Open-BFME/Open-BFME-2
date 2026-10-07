@@ -9,8 +9,6 @@ name,target_rva,verdict
 ??0?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@ABV01@@Z,0x0000EA90,bytes_differ
 ??$__put_integer@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAD0V10@AAVios_base@0@HG@Z,0x00010A70,bytes_differ
 ?d_00012190@@YAXXZ,0x00012190,retail_only
-?seekoff@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@MAE?AV?$fpos@H@2@JHH@Z,0x00014010,obj_only
-?seekoff@?$basic_filebuf@GV?$char_traits@G@_STL@@@_STL@@MAE?AV?$fpos@H@2@JHH@Z,0x000149F0,obj_only
 ??0__Named_exception@_STL@@QAE@ABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@1@@Z,0x00024C40,retail_only
 ?bfmeSmallAllocPR@@YAPAXI@Z,0x000279A0,bytes_differ
 ?d_0002c7fd@@YAXXZ,0x0002C7FD,retail_only
@@ -24,19 +22,9 @@ name,target_rva,verdict
 ?Record_Texture_End@@YAXXZ,0x00129E50,obj_only
 ??1SimpleSceneClass@@UAE@XZ,0x00141DF0,bytes_differ
 ?Resize@?$VectorClass@U_ENUM_VALUE@EnumParameterClass@@@@UAE_NHPBU_ENUM_VALUE@EnumParameterClass@@@Z,0x00155690,obj_only
-?Remap_Mesh@MaterialRemapperClass@@QAEXPBVMeshMatDescClass@@PAV2@@Z,0x0016F220,obj_only
-?Resize@?$VectorClass@VBfmeHandleCX@@@@UAE_NHPBVBfmeHandleCX@@@Z,0x0016F710,obj_only
 ?Resize@?$VectorClass@VVector4@@@@UAE_NHPBVVector4@@@Z,0x001793A0,obj_only
-?Resize@?$VectorClass@VVector2@@@@UAE_NHPBVVector2@@@Z,0x0017ED60,obj_only
 ??0Rva0017FF77@@QAE@PBDHH@Z,0x0017FF77,bytes_differ
-?read_per_tri_materials@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,0x00189790,obj_only
 ??0Rva0018BEC7@@QAE@XZ,0x0018BEC7,bytes_differ
-?Resize@?$VectorClass@VModelNodeClass@HLodClass@@@@UAE_NHPBVModelNodeClass@HLodClass@@@Z,0x0019E700,obj_only
-?read_proxy_array@HLodDefClass@@AAE_NAAVChunkLoadClass@@@Z,0x0019EDD0,obj_only
-?Initialize@HLodDefClass@@QAEXAAVHLodClass@@@Z,0x0019F620,obj_only
-?Include_NULL_Lod@HLodClass@@UAEX_N@Z,0x001A0560,obj_only
-?Reset_Colors@ParticleBufferClass@@QAEXAAU?$ParticlePropertyStruct@VVector3@@@@@Z,0x001A89E0,obj_only
-?Reset_Frames@ParticleBufferClass@@QAEXAAU?$ParticlePropertyStruct@M@@@Z,0x001AA150,obj_only
 ?Rva001F949DConvert@@YA?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@2@D@Z,0x001F949D,bytes_differ
 ?init@ScriptEngine@@UAEXXZ,0x00205AFD,bytes_differ
 ??0Rva002186EB@@QAE@XZ,0x002186EB,bytes_differ
@@ -80,7 +68,6 @@ name,target_rva,verdict
 ?rva005F11D0@Rva005F11D0@@QAEXXZ,0x005F11D0,bytes_differ
 ??1Rva005FCF0E@@UAE@XZ,0x005FCF0E,bytes_differ
 ?Increase_Table_Size@?$IndexClass@HPAUINISection@@@@AAE_NH@Z,0x00616190,bytes_differ
-?Put_UUBlock@INIClass@@QAE_NPBDPBXH@Z,0x006183B0,obj_only
 ??0Rva006DE480@@QAE@XZ,0x006DE480,bytes_differ
 ??0Rva006DE510@@QAE@XZ,0x006DE510,bytes_differ
 ??0Rva006DE5A0@@QAE@XZ,0x006DE5A0,bytes_differ
