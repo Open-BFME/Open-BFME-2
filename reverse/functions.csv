@@ -48394,7 +48394,6 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptValue/Rva006
 ??0Rva004D376A@@QAE@XZ,,0x004D376A,177,Code/GameEngine/Source/Common/Rva004D376ACtor.cpp,matched,ctor vtable 0x00C601DC grid 8x8 exact via align
 ?rva004D38D8@Rva004D38D8@@QAE_NM@Z,,0x004D38D8,46,Code/GameEngine/Source/Common/Rva004D38D8Check.cpp,matched,ratio check vs float arg early true when count <= 0
 ?hasPlayerTimedOut@DisconnectManager@@IAE_NH@Z,,0x004D3AB2,48,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp,matched,Open-BFME-1 hasPlayerTimedOut (donor 6d94342) with BFME 2 notify time at GlobalData+0xc24; identity from donor shape and its timeout-test call site in isPlayerInGame 0x004D3F61; was rva004D3AB2
-?Rva00373D28Get@@YGPAVRva00373EC6@@PAVObject@@@Z,,0x00373D28,29,Code/GameEngine/Source/GameLogic/Object/Rva00373D28Finish.cpp,matched,free __stdcall forwarder Object::rva002931F5(false) then rowed rva0028F4BC; explicit null return emits retail redundant jmp-xor null path
 ?rva000B49F9@Rva000B49F9@@QAEEXZ,,0x000B49F9,35,Code/GameEngine/Source/Common/Rva000B49F9Finish.cpp,matched,else-if chain plus unsigned char local forces retail and al byte AND and fall-through return-1 block
 ??$__adjust_heap@PAHHHURva005E4300Cmp@@@_STL@@YAXPAHHHHURva005E4300Cmp@@@Z,,0x005E48C2,94,Code/Libraries/Source/WWVegas/WWLib/Rva005E48C2Finish.cpp,matched,retail comparator takes its ints by value and is stateful (operator() at 0x5E4300 dereferences this and looks the ids up) so this is not the greater<int> instantiation already rowed at 0x003B005B; comp class name address-derived; declared not defined so the call stays out of line
 ?Rva0030CA65Copy@@YAPAVRva004733E0@@PBV1@0PAV1@@Z,,0x0030CA65,38,Code/GameEngine/Source/Common/Rva0030CA65Finish.cpp,matched,BCopy loop local in/out aliases give retail frameless edi/esi
@@ -63292,7 +63291,6 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?parseGlowEffect@@YAXPAVINI@@@Z,,0x00309FB3,74,Code/GameEngine/Source/GameClient/Drawable_Rva00309fb3.cpp,matched,GlowEffect block parse donor Drawable.cpp retail table
 ?rva000466B9@W3DDisplay@@QAEXXZ,,0x000466B9,65,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplaySmallSlots.cpp,matched,slot100 vtable 0x00BC3C80 W3DDisplay m184 m188 test dtor delete
 ?rva005CD5FA@Rva005CD5FA@@QAEXE@Z,,0x005CD5FA,43,Code/GameEngine/Source/Common/Rva005CD5FA.cpp,matched,setter notify slot2 f2 uchar callers 0x005764CB
-?rva00373D15@Rva00373D15@@QAEHXZ,,0x00373D15,14,Code/GameEngine/Source/GameLogic/Object/Rva00373D15.cpp,matched,thiscall leaf between name getter and Object forwarder
 ??0Rva00382398@@QAE@XZ,,0x004FDD8B,194,Code/GameEngine/Source/Common/System/SaveGame/Rva00382398Ctor.cpp,matched,vtable 0x00819424 with copy 0x003830EA and dtor 0x00382398
 ?rva004FDB04@Rva004FDB04@@QAEXVAsciiString@@@Z,,0x004FDB04,83,Code/GameEngine/Source/Common/Rva004FDB57Assign.cpp,matched,same GameSpy slot 0x120 recipe as 0x004FDB57 with members at 0x1B8 0x1BC
 ??0Rva00544810@@QAE@PAVStateMachine@@@Z,,0x00544810,29,Code/GameEngine/Source/Common/Rva00544810Ctor.cpp,matched,State derived ctor via hash 0x26F20F3B plus vtable 0x00869B10
