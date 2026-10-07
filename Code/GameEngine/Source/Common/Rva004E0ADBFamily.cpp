@@ -70,6 +70,15 @@ public:
 	virtual void v6();
 };
 
+// The target call site passes the +0x2C subobject as ECX to RVA 0x0052B17F.
+// Keep the local type and method address-derived; the subobject's semantic
+// class remains unresolved.
+class Rva0052B17F
+{
+public:
+	void rva0052B17F();
+};
+
 extern Rva004E0918 g_00E04424;
 
 struct Holder0052B003
@@ -83,6 +92,7 @@ public:
 	void rva004E0B60(Rva004EFour f, int e);
 	void rva004E0B9B(Rva004EFour f, int e1, int e2);
 	void rva004E0C49();
+	void rva004E0CA3();
 	bool rva004E0CCB();
 	void rva004E0D19(int arg);
 	void rva004E0CB6();
@@ -93,7 +103,7 @@ private:
 	char m_pad09[0x20 - 0x09];
 	int m_20;
 	char m_pad24[0x2C - 0x24];
-	Holder0052B003 *m_2C;
+	void *m_2C;
 	Rva004E0C49Elem **m_30;
 	Rva004E0C49Elem **m_34;
 };
@@ -138,6 +148,15 @@ void Rva004E0B60::rva004E0C49()
 	rva004E0B60(f, (int)this);
 }
 
+// ?rva004E0CA3@Rva004E0B60@@QAEXXZ @0x004E0CA3 19B.
+// Calls the address-derived +0x2C subobject method at 0x0052B17F, then tails
+// to the rowed same-this sweep at 0x004E0C49.
+void Rva004E0B60::rva004E0CA3()
+{
+	((Rva0052B17F *)m_2C)->rva0052B17F();
+	rva004E0C49();
+}
+
 bool Rva004E0B60::rva004E0CCB()
 {
 	Rva004EFour f = { 0x9CC208, 0, 0, 0 };
@@ -162,6 +181,6 @@ void Rva004E0B60::rva004E0D19(int arg)
 // tail edge and prev/next in this TU.
 void Rva004E0B60::rva004E0CB6()
 {
-	m_2C->rva0052B003(0);
+	((Holder0052B003 *)m_2C)->rva0052B003(0);
 	rva004E0C49();
 }

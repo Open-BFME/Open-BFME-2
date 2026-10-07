@@ -15211,3 +15211,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??1Rva0043B4B4@@QAE@XZ,0x0043B4B4,direct call at 0x0043B67E with ECX=this+4 from the vtable-slot dtor; target helper reads and releases a pointer; helper owner remains address-derived
 ??1Rva00112291@@UAE@XZ,0x00112291,callee of ??_ERva00112291@@UAEPAXI@Z
 ?rva000E56AF@Rva006F8700Owner@@QAEHPAXHH0@Z,0x000E56AF,callee of ?rva000E585F@Rva006F8700Owner@@QAEXPAX0PAH1@Z
+?rva0052B17F@Rva0052B17F@@QAEXXZ,0x0052B17F,callee of ?rva004E0CA3@Rva004E0B60@@QAEXXZ
