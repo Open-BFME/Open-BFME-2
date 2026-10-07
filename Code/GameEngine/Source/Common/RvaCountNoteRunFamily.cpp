@@ -158,7 +158,7 @@ int Rva0052B7F8Owner::fwd(int a, int b)
 	return a;
 }
 
-// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // Native Ghidra 0x0052B894..0x0052B8ED: 89B RET4 constructor.
 // It writes the base vptr, copies the input AsciiString into an 8B
 // (name, this) entry, inserts it through the registry, then destroys the
@@ -190,4 +190,49 @@ Rva0052B894Registration::Rva0052B894Registration(const AsciiString &name)
     int result[3];
     Rva0052B7F8Owner *registry = rva0052B84F();
     registry->fwd((int)result, (int)&entry);
+}
+
+// stlport
+#include <hash_map>
+// The native getter at 0x0052B84F..0x0052B894 constructs one 20B local
+// static registry through the existing hash_map constructor at 0x0052B81C.
+// Its atexit thunk at 0x007B9298 destroys the registry through 0x0052B7B3.
+// Reuse the rowed constructor's ABI view; its int key and element type are
+// donor inferences, not established identities of the registration table.
+// STLport 4.5.3 comes from the unchanged vendor subtree at BFME 1 revision
+// 7dff0a4a9e937818d2731f9861ade1815663b9db.
+struct Rva0052B81CElement
+{
+    char bytes[1];
+    bool operator<(const Rva0052B81CElement &) const;
+    bool operator==(const Rva0052B81CElement &) const;
+};
+namespace _STL
+{
+    template<> struct hash<Rva0052B81CElement>
+    {
+        unsigned operator()(const Rva0052B81CElement &) const;
+    };
+}
+typedef _STL::hash_map<int, Rva0052B81CElement> Rva0052B84FRegistry;
+class Rva0052B7B3Dtor
+{
+public:
+    ~Rva0052B7B3Dtor();
+};
+namespace _STL
+{
+    // Leave construction to the independently rowed 31B provider. The
+    // measured destructor thunk also avoids instantiating inferred element
+    // operations when destroying this opaque registry.
+    template<> Rva0052B84FRegistry::hash_map();
+    template<> inline Rva0052B84FRegistry::~hash_map()
+    {
+        reinterpret_cast<Rva0052B7B3Dtor *>(this)->~Rva0052B7B3Dtor();
+    }
+}
+Rva0052B7F8Owner *rva0052B84F()
+{
+    static Rva0052B84FRegistry registry;
+    return reinterpret_cast<Rva0052B7F8Owner *>(&registry);
 }
