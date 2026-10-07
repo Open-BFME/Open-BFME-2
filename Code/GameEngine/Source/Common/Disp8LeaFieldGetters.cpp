@@ -75,6 +75,7 @@ BFME_DISP8_LEA_GETTER(Rva001DBA69LeaField, 0x0C)
 BFME_DISP8_LEA_GETTER(Rva0030BBA5LeaField, 0x68)
 BFME_DISP8_LEA_GETTER(Rva003F712FLeaField, 0x10)
 BFME_DISP8_NEG_LEA_GETTER(Rva004FA5F4LeaField, 12)
+BFME_DISP8_LEA_GETTER(Rva0065ECD0LeaField, 0x54)
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
