@@ -49,3 +49,76 @@ void Rva0061FFD0::rva0061FFD0()
 		--count;
 	}
 }
+
+// ?rva0061FCE0GetClockCyclesFast@@YA_JXZ
+// 0x0061FCE0 505B: the asset manager's private copy of profile.cpp's
+// GetClockCyclesFast (the profile library's own copy is rowed at 0x006C5570).
+// Three 20 ms timeGetTime windows each measure rdtsc ticks, scaled by
+// QueryPerformanceFrequency over the QueryPerformanceCounter delta (or by
+// 1000/20 without a counter); the closest pair is averaged and rounded to a
+// whole MHz. Its one caller is the asset thread function at 0x00623600, which
+// caches the result behind a local-static guard (0x00E09C18, value at
+// 0x00E09C10). The name stays address-derived: retail keeps no string for it.
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
+extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64 *count);
+extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64 *freq);
+
+__forceinline void ProfileGetTime(__int64 &t)
+{
+	_asm
+	{
+		mov ecx,[t]
+		push eax
+		push edx
+		rdtsc
+		mov [ecx],eax
+		mov [ecx+4],edx
+		pop edx
+		pop eax
+	};
+}
+
+__int64 rva0061FCE0GetClockCyclesFast(void)
+{
+	__int64 n[3];
+	for (int k = 0; k < 3; k++)
+	{
+		unsigned timeEnd = timeGetTime() + 2;
+		while (timeGetTime() < timeEnd);
+
+		__int64 start, startQPC, endQPC;
+		QueryPerformanceCounter(&startQPC);
+		ProfileGetTime(start);
+		timeEnd += 20;
+		while (timeGetTime() < timeEnd);
+		ProfileGetTime(n[k]);
+		n[k] -= start;
+
+		if (QueryPerformanceCounter(&endQPC))
+		{
+			__int64 freq;
+			QueryPerformanceFrequency(&freq);
+			n[k] = (n[k] * freq) / (endQPC - startQPC);
+		}
+		else
+		{
+			n[k] = (n[k] * 1000) / 20;
+		}
+	}
+
+	__int64 d01 = n[1] - n[0], d02 = n[2] - n[0], d12 = n[2] - n[1];
+	if (d01 < 0) d01 = -d01;
+	if (d02 < 0) d02 = -d02;
+	if (d12 < 0) d12 = -d12;
+	__int64 avg;
+	if (d01 < d02)
+	{
+		avg = d01 < d12 ? n[0] + n[1] : n[1] + n[2];
+	}
+	else
+	{
+		avg = d02 < d12 ? n[0] + n[2] : n[1] + n[2];
+	}
+
+	return ((avg / 2 + 500000) / 1000000) * 1000000;
+}
