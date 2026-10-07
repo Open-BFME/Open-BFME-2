@@ -19,8 +19,13 @@
 //    0x00C130A8, BFME 1's AIChargeTargetState_update.cpp with BFME 2
 //    offsets. Kind 0x84 (the pinned isKindOf) replaces the donor's
 //    condition tests and Object::rva0028AD32 its pathfinder removeGoal;
-//    a hit sets condition bit 132 (the bit onExit clears). The four
+//    a hit sets condition bit 132 (the bit onExit clears). The other
 //    helpers it calls with this in ECX are pinned by address.
+//  - AIChargeTargetState::rva0034BF20, retail 0x0034BF20 (223 bytes): the
+//    donor's rva0016FD30. True when the goal is within the current
+//    weapon's range (template getter 0x0049CB57) and the relative angle to
+//    it is under the template's +0x2C aim delta, floored at 0.035 (.rdata
+//    0x00C13B5C).
 //  - AIMoveToPositionAndEnterState::onExit, retail 0x0034C035 (99 bytes):
 //    slot 5 of 0x00C136A0. When the owner has object status 0x4E, clears it
 //    and status 3, and for a template with kind byte +0x115 mask 0x20 also
@@ -178,10 +183,24 @@ enum KindOfType
 	KINDOF_BFME_84 = 0x84
 };
 
+class WeaponTemplate
+{
+public:
+	Real rva0049CB57() const;
+	Real getAimDelta() const { return m_aimDelta; }
+private:
+	unsigned char m_pad00[0x2C];
+	Real m_aimDelta; // +0x2C
+};
+
 class Weapon
 {
 public:
+	const WeaponTemplate *getTemplate() const { return m_template; }
 	WeaponStatus computeStatus(Bool *valid) const;
+private:
+	unsigned char m_pad00[0x04];
+	const WeaponTemplate *m_template; // +0x04
 };
 #define FAST_AS_POSSIBLE 999999.0f
 
@@ -347,6 +366,7 @@ public:
 	void rva00346C53(ObjectStatusTypes status, Bool set);
 	void releaseWeaponLock(WeaponLockType lockType);
 	Bool isKindOf(KindOfType t) const;
+	Real GetRelativeAngle(const Coord3D *pos) const;
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	void rva0028AD32();
 	void rva0028AE6D();
@@ -528,6 +548,37 @@ StateReturnType AIChargeTargetState::update()
 		}
 	}
 	return (StateReturnType)STATE_FAILURE;
+}
+
+Bool AIChargeTargetState::rva0034BF20()
+{
+	Object *source = getMachineOwner();
+	Object *victim = getMachine()->getGoalObject();
+	if (!source || !victim)
+		return false;
+
+	const Weapon *weapon = source->getCurrentWeapon(0);
+	if (!weapon)
+		return false;
+
+	const Coord3D *victimPosition = victim->getPosition();
+	Coord3D delta;
+	delta.x = source->getPosition()->x;
+	delta.y = source->getPosition()->y;
+	delta.z = source->getPosition()->z;
+	delta.x -= victimPosition->x;
+	delta.y -= victimPosition->y;
+	delta.z -= victimPosition->z;
+	Real range = weapon->getTemplate()->rva0049CB57();
+	if (delta.x * delta.x + delta.y * delta.y + delta.z * delta.z < range * range)
+	{
+		Real angleThreshold = weapon->getTemplate()->getAimDelta();
+		if (angleThreshold < 0.035f)
+			angleThreshold = 0.035f;
+		if (source->GetRelativeAngle(victimPosition) < angleThreshold)
+			return true;
+	}
+	return false;
 }
 
 class AIMoveToPositionAndEnterState : public AIInternalMoveToState
