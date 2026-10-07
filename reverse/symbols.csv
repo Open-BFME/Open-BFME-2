@@ -4596,7 +4596,6 @@ name,address,notes
 ??1Rva00506B1B@@UAE@XZ,0x00506B28,"Rva0059A85C dtor at 0x0059A45C calls this base dtor through ECX=this; the body at this address is mov DWORD PTR [ecx],0x00C63F9C; ret -- the base vtable store -- the same 7 bytes the ledger verifies for ?apply@Rva00506B28DwordImmSetter@@QAEXXZ, so the two names share one ICF address"
 ??1Rva0050B2A@@UAE@XZ,0x0050B2A,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x50C31; identity unproven, address-derived name
 ??1Rva0050FDDC@@UAE@XZ,0x0050FDDC,opaque dtor called by the scalar deleting dtor at 0x0051062D (vtable 0x00C655BC#0); identity unproven; address-derived name
-??1Rva005105D7@@UAE@XZ,0x005105D7,opaque dtor called by the scalar deleting dtor at 0x005105BB (vtable 0x00C65604#0); identity unproven; address-derived name
 ??1Rva00510665@@UAE@XZ,0x00510665,opaque dtor called by the scalar deleting dtor at 0x00510649 (vtable 0x00C655C4#0); identity unproven; address-derived name
 ??1Rva005109D@@UAE@XZ,0x005109D,opaque neg-sbb dtor head (mov eax,ecx/neg/lea edx+sbb); called by scalar-deleting-dtor at 0x510B3; identity unproven, address-derived name
 ??1Rva00510D0C@@UAE@XZ,0x00510D0C,opaque dtor called by the scalar deleting dtor at 0x00511031 (vtable 0x00C6568C#0); identity unproven; address-derived name
