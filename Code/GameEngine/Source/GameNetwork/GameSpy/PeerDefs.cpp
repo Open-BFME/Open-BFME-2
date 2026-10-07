@@ -1320,6 +1320,55 @@ GameSpyInfoInterface *GameSpyInfoInterface::createNewGameSpyInfoInterface(void)
 	return reinterpret_cast<GameSpyInfoInterface *>(new GameSpyInfo);
 }
 
+// Retail's str() falls back to its function-local TheNullChr, which the
+// linker folded with the "" literal at 0x00BBAC1C. This TU's shim str()
+// returns "" itself, so the empty defaults below name the pinned
+// g_bfmeEmptyF9 there to keep the two constants distinct, as in retail.
+extern char g_bfmeEmptyF9[];
+
+// ?SetUpGameSpy@@YAXPBD0@Z @0x00386F7F 576B
+// ZH's SetUpGameSpy without the rank-point table; BFME 2 creates the ladder
+// directory, starts the buddy, peer and PS threads and the pinger, and reads
+// the text filters from the custom-match preferences.
+void SetUpGameSpy(const char *motdBuffer, const char *configBuffer)
+{
+	if (!motdBuffer)
+		motdBuffer = g_bfmeEmptyF9;
+	if (!configBuffer)
+		configBuffer = g_bfmeEmptyF9;
+
+	TearDownGameSpy();
+
+	AsciiString dir = TheWritableGlobalData->rva002360DE();
+	reinterpret_cast<Rva003006C4 *>(TheFileSystem)->rva003006C4(dir);
+	dir.format("%s%s", TheWritableGlobalData->rva002360DE().str(), "Online Files");
+	reinterpret_cast<Rva003006C4 *>(TheFileSystem)->rva003006C4(dir);
+	dir.format("%s%s\\Ladders", TheWritableGlobalData->rva002360DE().str(), "Online Files");
+	reinterpret_cast<Rva003006C4 *>(TheFileSystem)->rva003006C4(dir);
+
+	TheGameSpyBuddyMessageQueue = reinterpret_cast<GameSpyBuddyMessageQueueInterface *>(GameResultsInterface::createNewGameResultsInterface());
+	TheGameSpyBuddyMessageQueue->startThread();
+	TheGameSpyPeerMessageQueue = GameSpyPeerMessageQueueInterface::createNewMessageQueue();
+	TheGameSpyPeerMessageQueue->startThread();
+	TheGameSpyPSMessageQueue = reinterpret_cast<GameSpyPSMessageQueueInterface *>(PingerInterface::createNewPingerInterface());
+	TheGameSpyPSMessageQueue->startThread();
+
+	TheGameSpyInfo = GameSpyInfoInterface::createNewGameSpyInfoInterface();
+	TheGameSpyInfo->setMOTD(motdBuffer);
+	TheGameSpyInfo->setConfig(configBuffer);
+
+	Rva0054F508 pref(-1);
+	TheGameSpyInfo->setDisallowAsianText(reinterpret_cast<CustomMatchPreferences &>(pref).getDisallowAsianText());
+	TheGameSpyInfo->setDisallowNonAsianText(reinterpret_cast<CustomMatchPreferences &>(pref).getDisallowNonAsianText());
+
+	TheGameSpyConfig = GameSpyConfigInterface::create(configBuffer);
+
+	TheLadderList = new Rva0054D974;
+
+	ThePinger = reinterpret_cast<PingerInterface *>(Rva005503B1::rva005503B1());
+	ThePinger->startThreads();
+}
+
 class Rva00382077 { public: ~Rva00382077(); };
 class Rva0038201D { public: ~Rva0038201D(); };
 class Rva0038204A { public: ~Rva0038204A(); };
