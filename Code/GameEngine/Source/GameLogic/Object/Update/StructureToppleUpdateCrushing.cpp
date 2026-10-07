@@ -9,6 +9,7 @@
 // ?doToppleDelayBurstFX@StructureToppleUpdate@@IAEXXZ, retail 0x004A5B61, 299 bytes.
 // ?doToppleDoneStuff@StructureToppleUpdate@@IAEXXZ, retail 0x004A5628, 435 bytes.
 // ?update@StructureToppleUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail 0x004A6042, 1065 bytes.
+// ?beginStructureTopple@StructureToppleUpdate@@IAEXPBVDamageInfo@@@Z, retail 0x004A5C8C, 463 bytes.
 //
 // Donor: Zero Hour's StructureToppleUpdate.cpp through BFME 1's matched
 // bodies (reference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/
@@ -60,6 +61,16 @@
 //   Object's notifier 0x0028AE6D (Zero Hour's RUBBLE and POST_COLLAPSE on
 //   the drawable) and calls the body module's slot 0x28, Zero Hour's
 //   updateBodyParticleSystems.
+// - beginStructureTopple is Zero Hour's with BFME 2's fixed topple angle:
+//   when the module data's float at +0xB8 is not the unset marker -9.87654
+//   (0x00BF43A4) the angle is that many degrees off the building's facing,
+//   wrapped by normalizeAngle (0x00238954); otherwise the attacker (found
+//   by the damage source ID at DamageInfo+8 through GameLogic::findObjectByID)
+//   decides it as in Zero Hour. The topple delay is module data +0x38/+0x3C.
+//   Its four logic randoms push lines 132, 151, 164 and 181, and the burst
+//   delay roll is a logic random where Zero Hour's is a client one. The
+//   script engine call 0x00357C1F is Zero Hour's adjustToppleDirection and
+//   the wake call is UpdateModule::setWakeFrame (0x0044DF71).
 
 #include "matrix3d.h"
 #include "ascii_string.h"
@@ -76,6 +87,10 @@ Real Cos(Real x);
 
 Int GetGameLogicRandomValue(Int lo, Int hi, char *file, Int line);
 #define GameLogicRandomValue(lo, hi) GetGameLogicRandomValue((lo), (hi), __FILE__, __LINE__)
+Real GetGameLogicRandomValueReal(Real lo, Real hi, char *file, Int line);
+#define GameLogicRandomValueReal(lo, hi) GetGameLogicRandomValueReal((lo), (hi), __FILE__, __LINE__)
+
+Real normalizeAngle(Real angle);
 
 // class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line length (rowed 0x00003571) that applyCrushingDamage calls; same three floats
 struct Coord3D
@@ -141,6 +156,9 @@ enum
 	MAX_IDX = 32
 };
 
+// The module data's topple angle when the INI gives none (retail 0x00BF43A4).
+#define NO_TOPPLE_ANGLE -9.87654f
+
 class Matrix3D;
 class WeaponTemplate;
 class Drawable;
@@ -203,10 +221,17 @@ private:
 
 Bool inList(Int value, Int count, const Int idxList[]);
 
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
 class DamageInfoInput
 {
 public:
-	unsigned char m_pad00[0x10];
+	unsigned char m_pad00[0x08];
+	ObjectID m_sourceID; // +0x08
+	unsigned char m_pad0c[0x10 - 0x0C];
 	Int m_damageType; // +0x10
 };
 
@@ -418,6 +443,7 @@ class GameLogic
 {
 public:
 	UnsignedInt getFrame() { return m_frame; }
+	Object *findObjectByID(ObjectID id);
 
 private:
 	unsigned char m_pad00[0x40];
@@ -440,6 +466,15 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
+// 0x00357C1F is Zero Hour's adjustToppleDirection, rowed under an address name.
+class ScriptEngine
+{
+public:
+	void rva00357C1F(void *obj, void *dir);
+};
+
+extern ScriptEngine *TheScriptEngine;
+
 class WeaponStore
 {
 public:
@@ -459,7 +494,9 @@ class ModuleData;
 class StructureToppleUpdateModuleData
 {
 public:
-	unsigned char m_pad000[0x40];
+	unsigned char m_pad000[0x38];
+	UnsignedInt m_minToppleDelay; // +0x38
+	UnsignedInt m_maxToppleDelay; // +0x3C
 	Real m_structuralIntegrity; // +0x40
 	Real m_structuralDecay; // +0x44
 	Real m_toppleAccelerationFactor; // +0x48, a constant in Zero Hour
@@ -476,6 +513,7 @@ public:
 	Int m_oclCount[ST_PHASE_COUNT]; // +0x94
 	ConstVector<FXBoneInfo> fxbones; // +0xA0
 	ConstVector<AngleFXInfo> angleFX; // +0xAC
+	Real m_toppleAngle; // +0xB8, degrees off the facing; NO_TOPPLE_ANGLE when unset
 };
 
 class ObjectModule
@@ -506,6 +544,9 @@ public:
 
 class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
+protected:
+	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
+
 private:
 	UnsignedInt m_nextCallFrameAndPhase; // +0x14
 	Int m_indexInLogic; // +0x18
@@ -524,6 +565,7 @@ public:
 	virtual UpdateSleepTime update();
 
 protected:
+	void beginStructureTopple(const DamageInfo *damageInfo);
 	void applyCrushingDamage(Real theta);
 	void doToppleStartFX(Object *building, const DamageInfo *damageInfo);
 	void doAngleFX(Real curAngle, Real newAngle);
@@ -877,4 +919,59 @@ UpdateSleepTime StructureToppleUpdate::update( void )
 	}
 
 	return UPDATE_SLEEP_NONE;
+}
+
+// ?beginStructureTopple@StructureToppleUpdate@@IAEXPBVDamageInfo@@@Z
+void StructureToppleUpdate::beginStructureTopple(const DamageInfo *damageInfo)
+{
+	const StructureToppleUpdateModuleData *d = getStructureToppleUpdateModuleData();
+
+	if (d)
+	{
+		UnsignedInt now = TheGameLogic->getFrame();
+#line 132 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureToppleUpdate.cpp"
+		m_toppleFrame = now + GameLogicRandomValue(d->m_minToppleDelay, d->m_maxToppleDelay);
+
+		Object *attacker = TheGameLogic->findObjectByID(damageInfo->in.m_sourceID);
+		Object *building = getObject();
+
+		Real toppleAngle;
+		if (d->m_toppleAngle != NO_TOPPLE_ANGLE) {
+			toppleAngle = d->m_toppleAngle * (PI / 180.0f) + building->getOrientation();
+			toppleAngle = normalizeAngle(toppleAngle);
+		} else if (attacker == 0) {
+#line 151 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureToppleUpdate.cpp"
+			toppleAngle = GameLogicRandomValueReal(0.0f, 2*PI);
+		} else {
+			const Coord3D *attackerPos = attacker->getPosition();
+			const Coord3D *buildingPos = building->getPosition();
+
+			// Calculate the topple direction to be the opposite of the direction fired from.
+			m_toppleDirection.x = buildingPos->x - attackerPos->x;
+			m_toppleDirection.y = buildingPos->y - attackerPos->y;
+
+			// Give it a little randomness...
+			toppleAngle = m_toppleDirection.toAngle();
+#line 164 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureToppleUpdate.cpp"
+			toppleAngle += GameLogicRandomValueReal(-PI/8, PI/8);
+		}
+		m_toppleDirection.x = Cos(toppleAngle);
+		m_toppleDirection.y = Sin(toppleAngle);
+		TheScriptEngine->rva00357C1F(getObject(), &m_toppleDirection);
+
+		Real averageRadius = (building->getGeometryInfo().getMajorRadius() + building->getGeometryInfo().getMinorRadius()) / 2;
+		Real explosionRadius = averageRadius * 0.90;
+
+		m_delayBurstLocation.x = building->getPosition()->x + explosionRadius * Cos(toppleAngle);
+		m_delayBurstLocation.y = building->getPosition()->y + explosionRadius * Sin(toppleAngle);
+		m_delayBurstLocation.z = TheTerrainLogic->getGroundHeight(m_delayBurstLocation.x, m_delayBurstLocation.y);
+
+		doToppleStartFX(building, damageInfo);
+#line 181 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureToppleUpdate.cpp"
+		m_nextBurstFrame = now + GameLogicRandomValue(d->m_minToppleBurstDelay, d->m_maxToppleBurstDelay);
+
+		m_toppleState = TOPPLESTATE_WAITINGFORTOPPLESTART;
+
+		setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+	}
 }
