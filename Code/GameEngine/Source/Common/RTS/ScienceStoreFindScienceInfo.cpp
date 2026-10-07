@@ -7,6 +7,7 @@
 // Return vector copyBC07E and cleanup2CC70 are existing verified providers.
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
+#include <map>
 #include <vector>
 #include "ascii_string.h"
 
@@ -29,6 +30,13 @@ enum ScienceType
 {
 	SCIENCE_INVALID = -1
 };
+
+typedef _STL::pair<const ScienceType, bool> ScienceMemoValue;
+typedef _STL::_Rb_tree<ScienceType, ScienceMemoValue, _STL::_Select1st<ScienceMemoValue>, _STL::less<ScienceType>, _STL::allocator<ScienceMemoValue> > ScienceMemoTree;
+namespace _STL {
+// The concrete memo insertion provider is already byte-verified at1FF875.
+template <> pair<ScienceMemoTree::iterator, bool> ScienceMemoTree::insert_unique(const ScienceMemoValue &);
+}
 
 class NameKeyGenerator
 {
@@ -56,6 +64,9 @@ public:
 	bool m_isOverride;
 };
 
+// Preserve the existing wrapper's opaque parameter spelling. No Player
+// layout is asserted here; native only exposes the virtual science-query ABI.
+class Player;
 class Rva0043D3A8 {
 public:
     virtual bool v00(ScienceType science) const;
@@ -79,6 +90,7 @@ public:
 	bool playerHasPrereqsForScience(const Rva0043D3A8 *holder, ScienceType st) const;
 private:
 	const ScienceInfo *findScienceInfo(ScienceType st) const;
+	bool rva000E7C20SciencePrereqMemo(const Player *opaqueQuery, ScienceType st, void *memo) const;
 
 private:
 	void *m_unmodelled00;
@@ -134,4 +146,54 @@ bool ScienceStore::playerHasPrereqsForScience(const Rva0043D3A8 *holder, Science
         }
     }
     return false;
+}
+
+// Native1FFAA1..1FFB64 memoizes the recursive ANY-group/ALL-key predicate.
+// Its virtual query uses the same slot0 ABI witnessed in1FF47D. The original
+// callback-interface and private-helper spellings remain unproven.
+bool ScienceStore::rva000E7C20SciencePrereqMemo(const Player *opaqueQuery, ScienceType st,
+	void *memo) const
+{
+	const Rva0043D3A8 *holder = reinterpret_cast<const Rva0043D3A8 *>(opaqueQuery);
+	std::map<ScienceType, bool> *values = (std::map<ScienceType, bool> *)memo;
+	std::map<ScienceType, bool>::iterator found = values->find(st);
+	if (found._M_node != values->end()._M_node)
+		return found->second;
+
+	bool result;
+	if (holder->v00(st))
+	{
+		result = true;
+	}
+		else
+		{
+			result = false;
+			const ScienceInfo *science = findScienceInfo(st);
+			if (science)
+			{
+			int numGroups = science->m_prereqGroups.size();
+			result = (numGroups == 0);
+				for (std::vector<std::vector<ScienceType> >::const_iterator group = science->m_prereqGroups.begin();
+					group != science->m_prereqGroups.end(); ++group)
+				{
+					std::vector<ScienceType>::const_iterator item = group->begin();
+					if (item == group->end())
+						goto group_satisfied;
+					do
+					{
+						if (!rva000E7C20SciencePrereqMemo(opaqueQuery, *item, memo))
+							goto next_group;
+						++item;
+					} while (item != group->end());
+group_satisfied:
+					result = true;
+next_group:
+					if (result)
+						break;
+				}
+			}
+		}
+
+	values->insert(std::make_pair(st, result));
+	return result;
 }
