@@ -11,6 +11,7 @@
 // pinned DLINK advance at 0x00263526, rowed list insert/clear/base. Callers
 // at 0x002AB4A6 0x002AEB1D 0x003A1D63. Honest Team method name.
 #include <list>
+#include "../GameLogicObjectLookupView.h"
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -124,12 +125,67 @@ public:
 	unsigned char m_flag438;
 };
 
+class Team;
+
+class Player
+{
+public:
+	Team *getDefaultTeam() const { return m_defaultTeam; }
+private:
+	unsigned char m_pad00[0x2EC];
+	Team *m_defaultTeam; // +0x2EC
+};
+
+extern GameLogic *TheGameLogic;
+
 class Team
 {
 public:
+	Player *getControllingPlayer() const;
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
+	void deleteTeam(bool ignoreDead);
 	void rva003A1C3A(bool flag);
 };
+
+// Team::deleteTeam, retail 0x003A10FE (259 bytes), ported from Zero Hour's
+// GameEngine/Source/Common/RTS/Team.cpp. Target evidence: the controlling
+// player's default team is Player +0x2EC; the evacuation list calls the
+// rowed list<int> base ctor/insert/base dtor (0x004EC36C, 0x005925E2,
+// 0x004EC395), so the members are held as ints exactly as rva003A1C3A
+// does; getContain is Object +0x250 with getContainCount at vslot +0x114
+// and removeAllContained at +0xA8; isEffectivelyDead is Object +0x438 bit 0;
+// TheGameLogic->destroyObject is the rowed 0x00242C09.
+void Team::deleteTeam(bool ignoreDead)
+{
+	if (this == getControllingPlayer()->getDefaultTeam()) {
+		_STL::list<int> guysToMakeEvacuate;
+		for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
+			Object *obj = iter.cur();
+			int objVal = (int)obj;
+			if (!obj)
+				continue;
+			Rva003A1C3AInner *contain = obj->m_inner250;
+			if (contain && contain->v69(0) > 0)
+				guysToMakeEvacuate.push_back(objVal);
+		}
+		for (_STL::list<int>::iterator it = guysToMakeEvacuate.begin(); it != guysToMakeEvacuate.end(); ) {
+			Object *obj = (Object *)(*it);
+			it++;
+			Rva003A1C3AInner *contain = obj->m_inner250;
+			if (contain)
+				contain->v42(0);
+		}
+	}
+
+	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
+		Object *obj = iter.cur();
+		if (!obj)
+			continue;
+		if (ignoreDead && (obj->m_flag438 & 1) != 0)
+			continue;
+		TheGameLogic->destroyObject(obj);
+	}
+}
 
 void Team::rva003A1C3A(bool flag)
 {

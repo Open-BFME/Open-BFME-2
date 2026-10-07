@@ -37,6 +37,7 @@ class GameLogic
 public:
 	Object *findObjectByID(ObjectID id);
 	Object *getFirstObject();	// 0x0023CAD2
+	void destroyObject(Object *obj);	// 0x00242C09
 	unsigned int getTimestamp() const { return m_timestamp; }
 	unsigned int getFrame() const { return m_frame; }
 };
