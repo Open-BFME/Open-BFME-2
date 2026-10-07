@@ -199,6 +199,7 @@ protected:
 	Bool addPlayerLeaveCommand(NetCommandRef *msg);
 	Bool addFrameCommand(NetCommandRef *msg);
 	Bool isAckRepeat(NetCommandRef *msg);
+	Bool rva005939EE(NetCommandRef *msg);
 	Bool addAckCommand(NetCommandRef *msg, UnsignedShort commandID, UnsignedByte originalPlayerID, UnsignedInt ackValue20, UnsignedInt ackValue24);
 
 public:
@@ -229,6 +230,10 @@ class NetAckBothCommandMsg
 {
 public:
 	NetAckBothCommandMsg();
+	UnsignedShort getCommandID();
+	UnsignedByte getOriginalPlayerID();
+	UnsignedInt get20() { return m_20; }
+	UnsignedInt get24() { return m_24; }
 private:
 	char m_pad[0x1C];
 public:
@@ -2353,4 +2358,17 @@ Bool NetPacket::addAckCommand(NetCommandRef *msg, UnsignedShort commandID, Unsig
 		return true;
 	}
 	return false;
+}
+
+// ?rva005939EE@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x005939EE, 49 bytes:
+// addCommand's arm for types 0, 1 and 2 (ACKBOTH/ACKSTAGE1/ACKSTAGE2, whose
+// identical wrappers fold here; BFME1's NetPacket_ackCommands.cpp shape).
+// getCommandID/getOriginalPlayerID are the pinned ack getters (+0x1C word,
+// +0x1E byte); the +0x20/+0x24 dwords go through inline getters, which is
+// what loads them into registers before the pushes. Folded, so it keeps its
+// address name.
+Bool NetPacket::rva005939EE(NetCommandRef *msg)
+{
+	NetAckBothCommandMsg *ackmsg = (NetAckBothCommandMsg *)msg->getCommand();
+	return addAckCommand(msg, ackmsg->getCommandID(), ackmsg->getOriginalPlayerID(), ackmsg->get20(), ackmsg->get24());
 }

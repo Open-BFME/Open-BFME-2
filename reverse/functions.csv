@@ -67362,3 +67362,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?Rva003BD108SetGamePaused@@YAXXZ,,0x003BD108,14,Code/GameEngine/Source/GameLogic/Object/Rva003BD108SetGamePaused.cpp,matched,address name wrapper invokes rowed GameLogic setter true packet call target
 ?rva004FCA90@Rva004FD8A8Set@@QAE_NXZ,,0x004FCA90,12,Code/GameEngine/Source/Common/Rva004FD8A8SetEmpty.cpp,matched,caller 0x0057DD3C empty check begin==end at +0x38 +0x3c
 ?parseKey@Rva0006AF00FunctionCurve@@SAXPAVINI@@PAX1PBX@Z,,0x005050EA,239,Code/GameEngine/Source/Common/INI/Rva0006AF00FunctionCurveParseKey.cpp,matched,donor parser identity and retail token handling layout helper calls
+?rva005939EE@NetPacket@@IAE_NPAVNetCommandRef@@@Z,,0x005939EE,49,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,addCommand table 0x0059460D types 0/1/2 (ack arms folded); calls pinned NetAckBothCommandMsg getCommandID/getOriginalPlayerID then addAckCommand 0x00591B1B
