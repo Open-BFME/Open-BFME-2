@@ -175,7 +175,7 @@ struct AICommandCoordVector
 	void *m_end;
 };
 
-void Rva00390911XferCoordVector(Xfer *xfer, AICommandCoordVector *vec);
+Xfer *Rva00390911XferCoordVector(Xfer *xfer, AICommandCoordVector *vec);
 
 class BridgeBehaviorObjectIDList
 {
