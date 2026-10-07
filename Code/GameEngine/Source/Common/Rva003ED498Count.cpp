@@ -36,6 +36,7 @@ struct BitRange
 	AsciiString rva00568BE2();
 	void rva003ED411(const BitRange &other);
 	void rva003ED5A5(Rva003ED5A5Xfer *xfer);
+	void rva003EDAEB(Rva003ED5A5Xfer *xfer);
 };
 struct TreeNode
 {
@@ -174,7 +175,7 @@ class Rva003ED5A5Xfer
 {
 public:
 	virtual void slot00();
-	virtual void slot04();
+	virtual bool slot04();
 	virtual bool slot08();
 	#define RVA3ED5A5_SLOT(n) virtual void slot##n();
 	RVA3ED5A5_SLOT(0C) RVA3ED5A5_SLOT(10) RVA3ED5A5_SLOT(14)
@@ -204,4 +205,49 @@ void BitRange::rva003ED5A5(Rva003ED5A5Xfer *xfer)
 		throw XferException(5, 0);
 	AsciiString value = rva003ED4E5();
 	xfer->slot6C(&value);
+}
+
+// Call-only declarations for existing exact providers. Their use here
+// claims only the measured receiver prefix and call ABI.
+class Gen_003D3220
+{
+public:
+	bool bfmeAllZero() const;
+};
+struct Rva003ED861
+{
+	void method();
+};
+class LargeGroupAudioKeyMap
+{
+public:
+	void bfmeAddKey(const AsciiString &name);
+};
+
+struct Rva003EDAEBVersionSlot
+{
+	Rva003ED5A5Version active;
+	Rva003ED5A5Version reserved;
+};
+
+// BFME1 donor968ca36c LargeGroupAudioKeyMapRva003D47A0Load.cpp gives
+// the load-only token loop. Native3EDAEB..3EDBAE RET4 uses the already
+// verified all-zero predicate3ED391 and clear3ED861 instead of the donor's
+// inline vector loop, and its string transfer is at slot6C. Both AsciiString
+// temporaries and their nested destruction scopes are native evidence.
+void BitRange::rva003EDAEB(Rva003ED5A5Xfer *xfer)
+{
+	Rva003EDAEBVersionSlot version;
+	version.active.version = 1;
+	version.active.currentVersion = 1;
+	xfer->slot28(&version.active);
+	if (!xfer->slot04())
+		throw XferException(5, 0);
+	AsciiString value;
+	xfer->slot6C(&value);
+	if (!reinterpret_cast<Gen_003D3220 *>(this)->bfmeAllZero())
+		reinterpret_cast<Rva003ED861 *>(this)->method();
+	AsciiString name;
+	while (value.nextToken(&name, 0))
+		reinterpret_cast<LargeGroupAudioKeyMap *>(this)->bfmeAddKey(name);
 }
