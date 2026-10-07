@@ -43,7 +43,10 @@ struct Vec001DCDAF
 // argument.
 struct Arg001DCDAF
 {
-	unsigned char m_data[0x30];
+	unsigned char m_data[0x20];
+	EvaEventID *m_eventIDsStart;			// +0x20, observed retail pointer read
+	EvaEventID *m_eventIDsFinish;			// +0x24, observed retail pointer read
+	unsigned char m_pad28[0x30 - 0x28];
 };
 
 // One event's status record (0x34 bytes).
@@ -51,6 +54,7 @@ class Rva001DCDAF
 {
 public:
 	Bool rva001DCDAF(const Arg001DCDAF *info, const Vec001DCDAF *pos, const Vec001DCDAF *pos2);	// 0x001DCDAF
+	void rva001DD7C1(Arg001DCDAF *info, const Vec001DCDAF *position);
 
 	Real m_blockedTime;					// +0x00, > 0 blocks the event
 	Real m_aboutToPlayTime;					// +0x04, >= 0 when about to play
@@ -59,6 +63,17 @@ public:
 	unsigned char m_pad23[0x30 - 0x23];
 	UnsignedInt m_lastReallyPlayedFrame;			// +0x30
 };
+
+class GameLogic
+{
+public:
+	unsigned char m_pad00[0x40];
+	UnsignedInt m_frame;				// +0x40, observed retail load
+};
+
+class Eva;
+extern GameLogic *TheGameLogic;
+extern Eva *TheEva;
 
 // The status record's played counter (0x001DD240), placeholder-rowed under
 // another class name.
@@ -148,4 +163,24 @@ Bool Eva::getLastReallyPlayedFrameForEvaEvent(EvaEventID eventID, UnsignedInt *f
 		return false;
 	*frame = m_eventStatus[eventID].m_lastReallyPlayedFrame;
 	return true;
+}
+
+// ?rva001DD7C1@Rva001DCDAF@@QAEXPAUArg001DCDAF@@PBUVec001DCDAF@@@Z 74B @0x001DD7C1.
+// Class identity follows the existing 0x34-byte Rva001DCDAF status record;
+// retail writes its +0x22 flag, +0x24 position and +0x30 frame. The argument
+// pointer fields and GameLogic frame offset are direct retail observations;
+// the semantic member names remain structural inferences.
+void Rva001DCDAF::rva001DD7C1(Arg001DCDAF *info, const Vec001DCDAF *position)
+{
+	((Rva001DD240 *)this)->rva001DD240((UnsignedInt *)info);
+	EvaEventID *eventID = info->m_eventIDsStart;
+	EvaEventID *eventIDsFinish = info->m_eventIDsFinish;
+	while (eventID != eventIDsFinish)
+	{
+		TheEva->countEvaEventAsPlayed(*eventID);
+		++eventID;
+	}
+	m_hasPlayed = true;
+	m_lastReallyPlayedFrame = TheGameLogic->m_frame;
+	*(Vec001DCDAF *)((unsigned char *)this + 0x24) = *position;
 }
