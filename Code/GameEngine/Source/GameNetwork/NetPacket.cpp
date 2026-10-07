@@ -319,6 +319,17 @@ struct TransportMessage
 	UnsignedShort port;
 };
 
+// Variable-size arms of GetBufferSizeNeededForCommand, rowed as free size
+// helpers under their address names.
+struct Rva00591062Host;
+int __cdecl Rva00590F47Get(const Rva004D6119 *obj);
+int __cdecl Rva00590F76Get(const Rva004D6119 *obj);
+int Rva00590FD4Get(CDDrive *p);
+int Rva0059100AGet(CDDrive *p);
+int Rva00591036Get(CDDrive *p);
+int Rva00591062Get(Rva00591062Host *p);
+int Rva00590FA5Get(const Rva0023E928 *obj);
+
 class NetPacket
 {
 public:
@@ -376,6 +387,30 @@ protected:
 	Bool isRoomForFileMessage(NetCommandRef *msg);
 	Bool isRoomForGameMessage(NetCommandRef *msg, GameMessage *gmsg);
 	static UnsignedInt GetGameCommandSize(NetCommandMsg *msg);
+	static UnsignedInt GetBufferSizeNeededForCommand(NetCommandMsg *msg);
+	// Fixed-size arms of GetBufferSizeNeededForCommand, by command type; the
+	// constants are the ones retail's jump table returns.
+	static UnsignedInt GetType0CommandSize(NetCommandMsg *msg) { return 0x10; }
+	static UnsignedInt GetType1CommandSize(NetCommandMsg *msg) { return 0x10; }
+	static UnsignedInt GetType2CommandSize(NetCommandMsg *msg) { return 0x10; }
+	static UnsignedInt GetType3CommandSize(NetCommandMsg *msg) { return 0x20; }
+	static UnsignedInt GetType7CommandSize(NetCommandMsg *msg) { return 0x1C; }
+	static UnsignedInt GetType8CommandSize(NetCommandMsg *msg) { return 0x1A; }
+	static UnsignedInt GetType9CommandSize(NetCommandMsg *msg) { return 0x1C; }
+	static UnsignedInt GetType10CommandSize(NetCommandMsg *msg) { return 0x15; }
+	static UnsignedInt GetType11CommandSize(NetCommandMsg *msg) { return 0x18; }
+	static UnsignedInt GetType12CommandSize(NetCommandMsg *msg) { return 0xC; }
+	static UnsignedInt GetType15CommandSize(NetCommandMsg *msg) { return 0xD; }
+	static UnsignedInt GetType16CommandSize(NetCommandMsg *msg) { return 0xF; }
+	static UnsignedInt GetType17CommandSize(NetCommandMsg *msg) { return 0xF; }
+	static UnsignedInt GetType18CommandSize(NetCommandMsg *msg) { return 0x25; }
+	static UnsignedInt GetType20CommandSize(NetCommandMsg *msg) { return ((Rva004D58DE *)msg)->getDataLength() + 0x19; }
+	static UnsignedInt GetType22CommandSize(NetCommandMsg *msg) { return 0x15; }
+	static UnsignedInt GetType23CommandSize(NetCommandMsg *msg) { return 0x17; }
+	static UnsignedInt GetType25CommandSize(NetCommandMsg *msg) { return 0xC; }
+	static UnsignedInt GetType26CommandSize(NetCommandMsg *msg) { return 0x14; }
+	static UnsignedInt GetType27CommandSize(NetCommandMsg *msg) { return 0x14; }
+	static UnsignedInt GetType28CommandSize(NetCommandMsg *msg) { return 0x18; }
 	Bool addGameCommand(NetCommandRef *msg);
 	void writeGameMessageArgumentToPacket(GameMessageArgumentDataType type, GameMessageArgumentType arg);
 	Bool addInformPlayerLeaveFrameCommand(NetCommandRef *msg);
@@ -1306,6 +1341,82 @@ UnsignedInt NetPacket::GetGameCommandSize(NetCommandMsg *msg)
 	::delete gmsg;
 	gmsg = 0;
 	return msglen;
+}
+
+// ?GetBufferSizeNeededForCommand@NetPacket@@KAIPAVNetCommandMsg@@@Z, retail 0x0059299C, 271 bytes
+// with its 31-entry jump table: the BFME1 donor's per-type size dispatcher
+// (NetPacket_GetBufferSizeNeededForCommand.cpp). Its callers are
+// ConstructBigCommandPacketList's two size queries. The fixed sizes are inline
+// helpers, as in the donor, so the table stays a direct dword table; the case
+// order is addCommand's except that type 20 precedes type 19.
+UnsignedInt NetPacket::GetBufferSizeNeededForCommand(NetCommandMsg *msg)
+{
+	if (msg == 0) {
+		return true;
+	}
+
+	switch (msg->getNetCommandType()) {
+	case 4:
+		return GetGameCommandSize(msg);
+	case 1:
+		return GetType1CommandSize(msg);
+	case 2:
+		return GetType2CommandSize(msg);
+	case 0:
+		return GetType0CommandSize(msg);
+	case 3:
+		return GetType3CommandSize(msg);
+	case 23:
+		return GetType23CommandSize(msg);
+	case 10:
+		return GetType10CommandSize(msg);
+	case 11:
+		return GetType11CommandSize(msg);
+	case 12:
+		return GetType12CommandSize(msg);
+	case 25:
+		return GetType25CommandSize(msg);
+	case 26:
+		return GetType26CommandSize(msg);
+	case 13:
+		return Rva00590F47Get((const Rva004D6119 *)msg);
+	case 27:
+		return GetType27CommandSize(msg);
+	case 14:
+		return Rva00590F76Get((const Rva004D6119 *)msg);
+	case 15:
+		return GetType15CommandSize(msg);
+	case 16:
+		return GetType16CommandSize(msg);
+	case 17:
+		return GetType17CommandSize(msg);
+	case 18:
+		return GetType18CommandSize(msg);
+	case 20:
+		return GetType20CommandSize(msg);
+	case 19:
+		return Rva00590FD4Get((CDDrive *)msg);
+	case 21:
+		return Rva0059100AGet((CDDrive *)msg);
+	case 22:
+		return GetType22CommandSize(msg);
+	case 8:
+		return GetType8CommandSize(msg);
+	case 7:
+		return GetType7CommandSize(msg);
+	case 9:
+		return GetType9CommandSize(msg);
+	case 28:
+		return GetType28CommandSize(msg);
+	case 5:
+		return Rva00591036Get((CDDrive *)msg);
+	case 6:
+		return Rva00591062Get((Rva00591062Host *)msg);
+	case 30:
+		return Rva00590FA5Get((const Rva0023E928 *)msg);
+	}
+
+	return 0;
 }
 
 // ?writeGameMessageArgumentToPacket@NetPacket@@IAEXW4GameMessageArgumentDataType@@TGameMessageArgumentType@@@Z, retail 0x0058D826, 265 bytes:
