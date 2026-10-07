@@ -58,6 +58,10 @@ public:
 	int RangeD[7];
 };
 
+// Use the verified /GX vector destructor from Render2DClassReset.cpp.
+// This /EHsc caller must not instantiate another cleanup implementation.
+template<> std::vector<ProxyClass>::~vector();
+
 class Render2DClass
 {
 public:

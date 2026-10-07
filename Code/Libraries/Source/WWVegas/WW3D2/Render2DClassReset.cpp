@@ -24,6 +24,9 @@
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
 // flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
 // overload keeps the inlined code and offers the link no second copy.
+// Keep STLport allocation calls native while the raw index array uses
+// imported realloc. Declare that one CRT import separately below.
+#define realloc bfmeUnusedReallocDeclaration
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -34,11 +37,14 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 #include <string.h>
+#include <stdlib.h>
+#undef realloc
+extern "C" __declspec(dllimport) void *__cdecl realloc(void *, size_t);
 
 class TextureBaseClass
 {
 public:
-	void Add_Ref() { ++RefCount; }
+	void Add_Ref();
 	void Release_Ref();
 
 	int Unknown00;
@@ -46,14 +52,36 @@ public:
 	unsigned short Unknown06;
 };
 
+typedef unsigned long BfmeUInt32;
+
+struct BfmeRenderVertex
+{
+	float x;
+	float y;
+	float z;
+	int NextRun;
+	int IndexStart;
+	int IndexCount;
+	BfmeUInt32 color;
+	float u;
+	float v;
+	unsigned char m_unmodelled_24[0x08];
+};
+
+
 class Render2DRawArray
 {
 public:
 	void Reset_Active() { Count = 0; }
+    void *rva00118CC0(int count);
+    BfmeRenderVertex &operator[](unsigned int index) {
+        if (index >= Count) return Data[0];
+        return Data[index];
+    }
 
-	void *Data;
-	int Size;
-	int Count;
+	BfmeRenderVertex *Data;
+	unsigned int Size;
+	unsigned int Count;
 	int GrowthStep;
 };
 
@@ -67,7 +95,7 @@ public:
 	RefCountPtr(const RefCountPtr &rhs) : Referent(rhs.Referent)
 	{
 		if (Referent)
-			Referent->Add_Ref();
+			++Referent->RefCount;
 	}
 	~RefCountPtr()
 	{
@@ -77,7 +105,7 @@ public:
 	RefCountPtr &operator=(const RefCountPtr &rhs)
 	{
 		if (rhs.Referent)
-			rhs.Referent->Add_Ref();
+			++rhs.Referent->RefCount;
 		if (Referent)
 			Referent->Release_Ref();
 		Referent = rhs.Referent;
@@ -177,19 +205,44 @@ protected:
 	int GrowthStep;
 };
 
+class Render2DIndexArray
+{
+public:
+    void Reset_Active() { Count = 0; }
+	unsigned short *Add(unsigned int count)
+	{
+		if (count == 0 || count >= 0x80000000u)
+			return 0;
+		Count += count;
+		if (Count <= Size)
+			return Data + (Count - count);
+		Size = Count + GrowthStep;
+		Data = (unsigned short *)realloc(Data, Size * sizeof(unsigned short));
+		if (Data == 0)
+			return 0;
+		return Data + (Count - count);
+	}
+
+	unsigned short *Data;
+	unsigned int Size;
+	unsigned int Count;
+	int GrowthStep;
+};
+
 class Render2DClass
 {
 public:
 	void Reset();
-
 private:
+    BfmeRenderVertex *allocateGeometry006e(unsigned int vertexCount,
+        unsigned int indexCount, BfmeUInt32 **indices, BfmeUInt32 *baseVertexPair);
 	int Shader;
 	float CoordinateScale[2];
 	float CoordinateOffset[2];
 	Render2DRawArray ArrayA;
-	Render2DRawArray ArrayB;
+	Render2DIndexArray ArrayB;
 	std::vector<ProxyClass> Batches;
-	TextureBaseClass *Texture;
+	RefCountPtr<TextureBaseClass> Texture;
 	int CurrentBatch;
 	bool IsDirty;
 	unsigned char Tail[3];
@@ -209,7 +262,7 @@ void Render2DClass::Reset()
 	for (int j = 0; j < 7; ++j)
 		batch.RangeD[j] = 0;
 	Batches.push_back(batch);
-	CurrentBatch = Texture ? -1 : 0;
+	CurrentBatch = Texture.Referent ? -1 : 0;
 }
 
 template void std::_Destroy<ProxyClass *>(ProxyClass *, ProxyClass *);
@@ -230,3 +283,60 @@ void _bfmeProxyClassAssignInlineAnchor(ProxyClass *proxy)
 	proxy->ProxyClass::operator=(*proxy);
 }
 #pragma inline_depth()
+
+// Native allocator 0x0011BD80..0x0011C0EB (875 bytes), banked in BFME2
+// 2bbec0d919. Add_* callers at 0x4272E; 0x428DC; 0x42AE3; 0x42D16;
+// 0x4571D reserve 44-byte vertices and 16-bit indices through this ABI.
+// The donor-derived name is already established by Render2DClassAddQuadColor.
+// Native frame FuncInfo 0x00909034 and its unwind funclet also verify exactly.
+// A handle copy increments the native word at +4 directly; this avoids
+// emitting a competing /G7 Add_Ref copy beside retail's /G6 provider.
+BfmeRenderVertex *Render2DClass::allocateGeometry006e(
+	unsigned int vertexCount,
+	unsigned int indexCount,
+	BfmeUInt32 **indices,
+	BfmeUInt32 *baseVertexPair)
+{
+	*baseVertexPair = (ArrayA.Count << 16) | ArrayA.Count;
+	if (CurrentBatch < 0 && IsDirty && Texture.Referent) {
+		unsigned int i;
+		for (i = 1; i < Batches.size(); ++i) {
+			if (Batches[i].Texture.Referent == Texture.Referent)
+				break;
+		}
+		if (i == Batches.size()) {
+			ProxyClass batch;
+			batch.Texture = Texture;
+			for (int k = 0; k < 7; ++k) {
+				batch.RangeB[k] = -1;
+				batch.RangeC[k] = -1;
+				batch.RangeA[k] = -1;
+				batch.RangeD[k] = 0;
+			}
+			Batches.push_back(batch);
+		}
+		CurrentBatch = i;
+	}
+	ProxyClass &batch = Batches[(IsDirty && Texture.Referent) ? CurrentBatch : 0];
+	BfmeRenderVertex *vertices = (BfmeRenderVertex *)ArrayA.rva00118CC0(vertexCount);
+	*indices = (BfmeUInt32 *)ArrayB.Add(indexCount);
+	batch.RangeD[Shader] += indexCount;
+	if (batch.RangeC[Shader] >= 0) {
+		int last = batch.RangeC[Shader];
+		if (ArrayA[last].IndexStart + ArrayA[last].IndexCount == ArrayB.Count) {
+			ArrayA[last].IndexCount += indexCount;
+			return vertices;
+		}
+		// Retail reads the count before the bounds-checked access.
+		unsigned int count = ArrayA.Count;
+		ArrayA[last].NextRun = count - vertexCount;
+	} else {
+		batch.RangeA[Shader] = ArrayA.Count - vertexCount;
+		batch.RangeB[Shader] = ArrayB.Count - indexCount;
+	}
+	vertices->NextRun = 0;
+	vertices->IndexStart = ArrayB.Count - indexCount;
+	vertices->IndexCount = indexCount;
+	batch.RangeC[Shader] = ArrayA.Count - vertexCount;
+	return vertices;
+}
