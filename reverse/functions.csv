@@ -67180,3 +67180,4 @@ _gpSetInfoCacheFilenameA,,0x0072D2C0,5,Code/GameEngine/Source/GameNetwork/GameSp
 _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matched,BYTEmark RunBenchmark entry (Zero Hour benchmark.h); EA replacement of main that raises process and thread priority and returns the Linux-style indexes
 ?read_data_file@@YAHXZ,,0x006B5940,755,Code/Libraries/Source/Benchmark/nbench1.cpp,matched,BYTEmark NNET read_data_file; EA delta parses the embedded NNET.DAT (two literals via globals 0x009DBFB8/0x009DBFBC) with sscanf instead of fopen/fscanf
 ?method@Rva0054D2DDTarget@@QAEXHABVUnicodeString@@0UTreeHintRef00217D4C@@1@Z,,0x0054D362,119,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp,matched,forwards retained Unicode arguments and callback handles through matched child
+?rva0056FCDB@Rva0056FCDB@@QAEXF@Z,,0x0056FCDB,24,Code/GameEngine/Source/Common/Rva0056FCDB.cpp,matched,address-derived class from packet and byte shape
