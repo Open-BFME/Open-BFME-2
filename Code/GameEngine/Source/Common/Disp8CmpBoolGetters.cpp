@@ -321,3 +321,13 @@ int Rva00050D6C::rva00050D6C()
 {
 	return m_49 || m_4A || m_4B || m_4C;
 }
+
+// Native 0x0026FFF7..0x0027000E RET: int at +B8 equals either 1 or 2.
+// Full EAX returns 0/1; field signedness and enum meaning remain unknown.
+class Rva0026FFF7 {
+    char m_pad[0xB8];
+    int m_value;
+public:
+    int get() const;
+};
+int Rva0026FFF7::get() const { return m_value==1 || m_value==2; }
