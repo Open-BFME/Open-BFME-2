@@ -15468,3 +15468,7 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0059D2DA@Rva0059D2DA@@QAEXPAX000HHHPAH@Z,0x0059D2DA,Native REL32 at RVA 004FB2F5 in the 66B wrapper; Ghidra helper entry 0059D2DA ends in RET32; wrapper supplies eight stack arguments and uses the last argument as output count; address-derived identity.
 
 ?rva003B7C47@Rva003B573E@@QAEHABV?$StringBase@D@@@Z,0x003B7C47,callee of ?rva003B7F8E@Rva003B573E@@QAEHPAV1@H@Z
+?rva003F083A@Rva003F1093@@QAEPAVCreateAHeroData@@PAX@Z,0x003F083A,Direct REL32 callees of 0x003F1CFE; Ghidra starts and thiscall stack/register use support address-derived targets; owner typing remains structural inference.
+?rva003F1CA2@@YGXPAVCreateAHeroData@@H@Z,0x003F1CA2,Direct REL32 callee of 0x003F1CFE; Ghidra 92-byte start; target entry consumes ECX left by 0x003F083A and pops two stack arguments; address-derived name and owner relation remain inferred.
+?rva005697F7@Rva005697F7@@QAEXPAX@Z,0x005697F7,address-derived callback used by the fresh 0x003EDF69/0x003EDFD8 workers; target callsite loads the list element into ECX and pushes the incoming object pointer; both helper bodies remain unclaimed
+?rva00569863@Rva00569863@@QAEXPAX@Z,0x00569863,address-derived callback used by the fresh 0x003EDF69/0x003EDFD8 workers; target callsite loads the list element into ECX and pushes the incoming object pointer; both helper bodies remain unclaimed
