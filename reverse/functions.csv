@@ -68738,3 +68738,4 @@ uw_007aa040,,0x007AA040,11,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp,matc
 ??0Rva000B9AB2@@QAE@XZ,,0x000B9AB2,16,Code/GameEngine/Source/Common/Rva000B9AAACTor.cpp,matched,Native complete ctorB9AB2..B9AC2 calls verified20B base-record ctorB6A67 then initializes pointer+14 null; paired cleanupB9AC2 releases its+28 and destroys string+10. Original class unknown. Existing siblingB9A9E unchanged; /O1.
 ?rva0028DAB9@Object@@QAEXXZ,,0x0028DAB9,86,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DA67.cpp,matched,One-shot team-player refresh gating on +0x480 flag
 ?rva0028DB0F@Object@@QBE_N_N@Z,,0x0028DB0F,45,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DA67.cpp,matched,Template health threshold and flag check
+??E?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@_STL@@QAEAAU01@XZ,,0x00388CF0,12,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_noexc_bodies.cpp,matched,STLport bit-iterator operator++ placed from pod-noexc TU

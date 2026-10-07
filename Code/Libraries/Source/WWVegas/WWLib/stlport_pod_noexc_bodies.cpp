@@ -54,3 +54,4 @@ template class _STL::deque<BfmePod28, _STL::allocator<BfmePod28 > >;
 template class _STL::deque<BfmePod492, _STL::allocator<BfmePod492 > >;
 template class _STL::deque<BuddyRequest, _STL::allocator<BuddyRequest > >;
 template class _STL::deque<BfmePod840, _STL::allocator<BfmePod840 > >;
+template _STL::_Bit_iterator &_STL::_Bit_iterator::operator++();
