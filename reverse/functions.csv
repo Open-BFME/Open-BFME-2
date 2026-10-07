@@ -66731,3 +66731,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??0Rva005DAA48@@QAE@PAX@Z,,0x005DAA48,18,Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp,matched,address-named pointer-holder constructor distinct vtable
 ?rva0028F6BC@Rva0028F6BC@@QAE_NPBD@Z,,0x0028F6BC,47,Code/GameEngine/Source/Common/System/Rva0028F6BCBitSet.cpp,matched,sibling Rva0028F733 shape with BitFlags11 callee
 _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; extent raised to cover the /GZ RTC frame-var descriptor (locals addr/addrlen named by retail's descriptor strings)
+?rva003F8F94@PhaseSession@LivingWorldTutorial@@QAEXXZ,,0x003F8F94,30,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldTutorial.cpp,matched,PhaseSession method identity from caller and offsets from adjacent task creation

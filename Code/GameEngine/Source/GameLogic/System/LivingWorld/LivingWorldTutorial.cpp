@@ -22,6 +22,16 @@ public:
 
 extern Rva002BA8F1Logic *g_00DFEF10;	// TheLivingWorldLogic
 
+class Rva003F802B
+{
+public:
+	bool rva003F802B();
+private:
+	unsigned char m_pad00[8];
+	void *m_08;
+	int m_0C;
+};
+
 class LivingWorldTutorial
 {
 public:
@@ -36,12 +46,14 @@ public:
 	// A phase session holds the task it creates once its audio is done
 	// (+0x14) and a created flag (+0x18).
 	class PhaseSession
+		: public Rva003F802B
 	{
 	public:
 		void createTaskAfterAudio();
+		void rva003F8F94();
 
 	private:
-		unsigned char m_pad00[0x14];
+		unsigned char m_pad10[4];
 		SessionTask *m_task;			// +0x14
 		bool m_taskCreated;			// +0x18
 	};
@@ -68,4 +80,15 @@ void LivingWorldTutorial::PhaseSession::createTaskAfterAudio()
 	if (m_task)
 		m_task->create();
 	m_taskCreated = true;
+}
+
+void LivingWorldTutorial::PhaseSession::rva003F8F94()
+{
+	if (rva003F802B())
+		return;
+	if (!m_taskCreated)
+	{
+		createTaskAfterAudio();
+		m_taskCreated = true;
+	}
 }
