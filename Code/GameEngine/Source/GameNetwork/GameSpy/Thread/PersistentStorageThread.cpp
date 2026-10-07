@@ -115,6 +115,7 @@ public:
 class Rva00553E47StatsCore {
 public:
     Rva00553E47StatsCore(const Rva00553E47StatsCore &);
+    Rva00553E47StatsCore(int id);
     virtual void reset();
     virtual void rva005550A0(XferStub *);
     virtual void rva00555109(XferStub *);
@@ -572,4 +573,17 @@ void Rva00555D74::rva00555845(const Rva00555D74 *source) {
 Rva00553E47StatsCore::Rva00553E47StatsCore(const Rva00553E47StatsCore &source) {
     reset();
     rva00554AF2(&source);
+}
+
+struct StatsSystemTime {
+    unsigned short year, month, dayOfWeek, day, hour, minute, second, milliseconds;
+};
+extern "C" __declspec(dllimport) void __stdcall GetLocalTime(StatsSystemTime *);
+// Native [554463,55459E),315B initializes the same map/vtable groups as
+// the copy constructor, resets, sets the id at150, and queries local time.
+Rva00553E47StatsCore::Rva00553E47StatsCore(int id) {
+    reset();
+    m_id150=id;
+    StatsSystemTime localTime;
+    GetLocalTime(&localTime);
 }
