@@ -2,7 +2,7 @@
 // ?rva003C41BA@BfmeApplierBH@@QAEXPAXABVAsciiString@@0@Z @0x003C41BA 80B.
 // BfmeApplierBH helper that resolves a SpecialPowerTemplate by name and applies
 // it when the TerrainLogic helper is present. Evidence: calls rowed
-// findSpecialPowerTemplate 0x0029B6EB via g_00E02D4C and pin-only bfmeApplyBH
+// findSpecialPowerTemplate 0x0029B6EB via TheSpecialPowerStore and pin-only bfmeApplyBH
 // 0x003C069B; TerrainLogic virtual at +0x88; StringBase copy 0x000365F0 for the
 // by-value AsciiString; prev/next share // cl: /O1; caller 0x003CC74F.
 #include "ascii_string.h"
@@ -56,7 +56,7 @@ public:
 	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
 };
 
-extern SpecialPowerStore *g_00E02D4C;
+extern SpecialPowerStore *TheSpecialPowerStore;
 
 class BfmeSubBH
 {
@@ -74,7 +74,7 @@ public:
 void BfmeApplierBH::rva003C41BA(void *owner, const AsciiString &name, void *arg3)
 {
 	void *helper = TheTerrainLogic->v34(arg3);
-	const SpecialPowerTemplate *found = g_00E02D4C->findSpecialPowerTemplate(name);
+	const SpecialPowerTemplate *found = TheSpecialPowerStore->findSpecialPowerTemplate(name);
 	if (helper != 0 && found != 0)
 		bfmeApplyBH(owner, (void *)found, (BfmeSubBH *)((char *)helper + 0xc));
 }

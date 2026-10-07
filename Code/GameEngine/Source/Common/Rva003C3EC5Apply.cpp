@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?Rva003C3EC5Apply@@YGXPAVParameter@@ABVAsciiString@@H@Z @0x003C3EC5 97B: resolve unit via ScriptEngine then SpecialPowerTemplate by name filter via BfmeSubBEC then slot 0x20 virtual with scaled GameLogic frame. Evidence: sibling Rva003C3E75Apply same getUnitNamed 0x3588E7 via g_Va009FE16C findSpecialPowerTemplate 0x29B6EB via g_00E02D4C BfmeSubBEC 0x28BB9E StringBase copy 0x365F0; caller 0x003CC68F; ret 0xC stdcall.
+// ?Rva003C3EC5Apply@@YGXPAVParameter@@ABVAsciiString@@H@Z @0x003C3EC5 97B: resolve unit via ScriptEngine then SpecialPowerTemplate by name filter via BfmeSubBEC then slot 0x20 virtual with scaled GameLogic frame. Evidence: sibling Rva003C3E75Apply same getUnitNamed 0x3588E7 via g_Va009FE16C findSpecialPowerTemplate 0x29B6EB via TheSpecialPowerStore BfmeSubBEC 0x28BB9E StringBase copy 0x365F0; caller 0x003CC68F; ret 0xC stdcall.
 #include "ascii_string.h"
 
 class Parameter;
@@ -19,7 +19,7 @@ public:
 	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
 };
 
-extern SpecialPowerStore *g_00E02D4C;
+extern SpecialPowerStore *TheSpecialPowerStore;
 
 class BfmeSubBEC
 {
@@ -55,7 +55,7 @@ public:
 void __stdcall Rva003C3EC5Apply(Parameter *p, const AsciiString &name, int arg3)
 {
 	Object *obj = TheScriptEngine->getUnitNamed(p);
-	const SpecialPowerTemplate *found = g_00E02D4C->findSpecialPowerTemplate(name);
+	const SpecialPowerTemplate *found = TheSpecialPowerStore->findSpecialPowerTemplate(name);
 	if (obj != 0 && found != 0)
 	{
 		void *sub = ((BfmeSubBEC *)obj)->rva0028BB9E((void *)found);

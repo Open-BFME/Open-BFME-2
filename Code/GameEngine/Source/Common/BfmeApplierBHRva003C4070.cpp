@@ -22,7 +22,7 @@ public:
 	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
 };
 
-extern SpecialPowerStore *g_00E02D4C;
+extern SpecialPowerStore *TheSpecialPowerStore;
 
 class Overridable
 {
@@ -69,7 +69,7 @@ void BfmeApplierBH::rva003C4070(const AsciiString &a, const AsciiString &b)
 	if (enemy == 0)
 		return;
 	void *unk54 = *(void **)((char *)enemy + 0x54);
-	const SpecialPowerTemplate *tmpl = g_00E02D4C->findSpecialPowerTemplate(b);
+	const SpecialPowerTemplate *tmpl = TheSpecialPowerStore->findSpecialPowerTemplate(b);
 	if (tmpl == 0)
 		return;
 	float f = 50.0f;

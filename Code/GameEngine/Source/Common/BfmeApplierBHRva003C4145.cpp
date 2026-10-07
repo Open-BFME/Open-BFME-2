@@ -35,7 +35,7 @@ public:
 	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
 };
 
-extern SpecialPowerStore *g_00E02D4C;
+extern SpecialPowerStore *TheSpecialPowerStore;
 
 class BfmeSubBH
 {
@@ -59,7 +59,7 @@ void BfmeApplierBH::rva003C4145(void *owner, const AsciiString &powerName, const
 		return;
 	Coord3D pos;
 	team->rva0039E5B9(&pos);
-	const SpecialPowerTemplate *found = g_00E02D4C->findSpecialPowerTemplate(powerName);
+	const SpecialPowerTemplate *found = TheSpecialPowerStore->findSpecialPowerTemplate(powerName);
 	if (found == 0)
 		return;
 	bfmeApplyBH(owner, (void *)found, (BfmeSubBH *)&pos);

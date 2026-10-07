@@ -2,7 +2,7 @@
 //
 // ?ObjectDoSpecialPower@@YAHPAUlua_State@@@Z @0x003352F7 178B.
 // Lua callback ObjectDoSpecialPower: with at least 2 args and TheAudio present,
-// resolve object 1, name a SpecialPowerTemplate via g_00E02D4C, resolve its
+// resolve object 1, name a SpecialPowerTemplate via TheSpecialPowerStore, resolve its
 // module on the object and fire it when ready.
 //
 // Ported from Open-BFME-1
@@ -22,7 +22,7 @@
 //   Rva00990030Lookup 0x00747190, lua_type 0x007470A0!=1 bail,
 //   findObjectByID 0x00049DC5 (rowed 37B), lua_tostring 0x007473B0,
 //   StringBase 0x0037BA0 AsciiString-from-char, findSpecialPowerTemplate
-//   0x0029B6EB (rowed 71B) via g_00E02D4C [0x00E02D4C],
+//   0x0029B6EB (rowed 71B) via TheSpecialPowerStore [0x00E02D4C],
 //   friend_getFinalOverride 0x00288609 (rowed 24B) then type at [eax+0x1C],
 //   findSpecialPowerModuleInterface 0x00290E22 (rowed 69B),
 //   slot1 isReady [eax+4], slot10 doSpecialPower [eax+0x28] with 0.
@@ -103,7 +103,7 @@ class AudioManager;
 extern AudioManager *TheAudio;
 
 class SpecialPowerStore;
-extern SpecialPowerStore *g_00E02D4C;
+extern SpecialPowerStore *TheSpecialPowerStore;
 
 class SpecialPowerStore
 {
@@ -125,7 +125,7 @@ int ObjectDoSpecialPower(lua_State *state)
 	if (!object)
 		return 0;
 	const SpecialPowerTemplate *power =
-		g_00E02D4C->findSpecialPowerTemplate(lua_tostring(state, 2));
+		TheSpecialPowerStore->findSpecialPowerTemplate(lua_tostring(state, 2));
 	if (!power)
 		return 0;
 	const Overridable *finalOverride = power->friend_getFinalOverride();

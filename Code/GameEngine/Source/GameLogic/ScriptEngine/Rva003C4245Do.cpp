@@ -23,7 +23,7 @@ public:
 
 class SpecialPowerStore;
 
-extern SpecialPowerStore *g_00E02D4C;
+extern SpecialPowerStore *TheSpecialPowerStore;
 
 class SpecialPowerStore
 {
@@ -58,7 +58,7 @@ void __stdcall Rva003C4245Do(Parameter *param, const AsciiString &a, const Ascii
 {
 	Object *src = TheScriptEngine->getUnitNamed(param);
 	Object *target = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue(b);
-	const SpecialPowerTemplate *tmpl = g_00E02D4C->findSpecialPowerTemplate(a);
+	const SpecialPowerTemplate *tmpl = TheSpecialPowerStore->findSpecialPowerTemplate(a);
 	if (src == 0 || tmpl == 0 || target == 0)
 		return;
 	void *bec = ((BfmeSubBEC *)src)->rva0028BB9E((void *)tmpl);

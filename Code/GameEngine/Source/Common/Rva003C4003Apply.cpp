@@ -3,7 +3,7 @@
 // Sibling of 0x003C41BA: resolve unit via ScriptEngine then SpecialPowerTemplate
 // by name, filter via BfmeSubBEC, then apply via TerrainLogic helper and slot
 // 0x30 virtual. Evidence: rowed getUnitNamed 0x003588E7 via g_Va009FE16C,
-// rowed findSpecialPowerTemplate 0x0029B6EB via g_00E02D4C, rowed
+// rowed findSpecialPowerTemplate 0x0029B6EB via TheSpecialPowerStore, rowed
 // BfmeSubBEC 0x0028BB9E, TerrainLogic virtual +0x88, StringBase copy 0x000365F0;
 // prev/next share // cl: /O1; caller 0x003CC71D.
 #include "ascii_string.h"
@@ -67,7 +67,7 @@ public:
 	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
 };
 
-extern SpecialPowerStore *g_00E02D4C;
+extern SpecialPowerStore *TheSpecialPowerStore;
 
 class BfmeSubBEC
 {
@@ -96,7 +96,7 @@ public:
 void __stdcall Rva003C4003Apply(Parameter *p, const AsciiString &name, void *arg3)
 {
 	Object *obj = TheScriptEngine->getUnitNamed(p);
-	const SpecialPowerTemplate *found = g_00E02D4C->findSpecialPowerTemplate(name);
+	const SpecialPowerTemplate *found = TheSpecialPowerStore->findSpecialPowerTemplate(name);
 	if (obj != 0 && found != 0)
 	{
 		void *sub = ((BfmeSubBEC *)obj)->rva0028BB9E((void *)found);

@@ -29,7 +29,7 @@ public:
     const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString s);
 };
 
-extern SpecialPowerStore *g_00E02D4C;
+extern SpecialPowerStore *TheSpecialPowerStore;
 
 class Rva0049C6E1 {
 public:
@@ -48,7 +48,7 @@ bool __stdcall Rva0041CE27Check(Object *a, Object *b, int)
         return false;
     if ((b->m_p04->m_flag108 & 4) != 0)
         return false;
-    const SpecialPowerTemplate *tmpl = g_00E02D4C->findSpecialPowerTemplate("SpecialAbilityGiveUpgrade");
+    const SpecialPowerTemplate *tmpl = TheSpecialPowerStore->findSpecialPowerTemplate("SpecialAbilityGiveUpgrade");
     if (tmpl == 0)
         return false;
     void *slot = a->rva0028BD92(0x33);
