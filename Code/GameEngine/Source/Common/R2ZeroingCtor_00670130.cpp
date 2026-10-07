@@ -21,14 +21,14 @@
 // IDENTITY IS NOT RECOVERED. The class and member names are derived from an
 // address.
 
-// ??0Rva00670130@@QAE@XZ
+// ??0Rva005DA4DC@@QAE@XZ
 // retail 0x005DA4C8, 20 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/R2ZeroingConstructors.cpp
 // (reference/open-bfme-1 @ 6d943426). Byte-identical to retail once
 // relocations are masked (unique hit on unclaimed .text). Only the placed body
 // is defined here; the donor's other 33 constructors are omitted.
 
-class Rva00670130
+class Rva005DA4DC
 {
 public:
 	int m_at00;
@@ -36,9 +36,9 @@ public:
 	int m_at08;
 	int m_at0C;
 	int m_at10;
-	Rva00670130();
+	Rva005DA4DC();
 };
-Rva00670130::Rva00670130()
+Rva005DA4DC::Rva005DA4DC()
 {
 	m_at08 = 0;
 	m_at04 = 0;
@@ -46,3 +46,6 @@ Rva00670130::Rva00670130()
 	m_at0C = 0;
 	m_at10 = 0;
 }
+// BFME2 FrameDataManager constructor 0x58B567 passes this constructor and
+// Rva005DA4DC destructor 0x5DA4DC to the array-construction iterator for
+// the same 20-byte element. Reconcile that established array element owner.

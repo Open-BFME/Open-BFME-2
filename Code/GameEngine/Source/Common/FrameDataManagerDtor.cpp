@@ -19,11 +19,13 @@ private:
 	char m_pad[0x14];
 };
 
+void *operator new[](unsigned int size);
 void operator delete[](void *p);
 
 class Rva005DA4DC
 {
 public:
+	Rva005DA4DC();
 	~Rva005DA4DC();
 private:
 	char m_pad[0x14];
@@ -34,9 +36,13 @@ extern int FRAME_DATA_LENGTH;
 class FrameDataManager
 {
 public:
+	FrameDataManager(bool isLocal);
 	virtual ~FrameDataManager();
 private:
 	FrameData *m_frameData;
+	bool m_isLocal;
+	bool m_isQuitting;
+	unsigned int m_quitFrame;
 };
 
 FrameDataManager::~FrameDataManager()
@@ -57,4 +63,17 @@ FrameDataManager::~FrameDataManager()
 		delete[] (Rva005DA4DC *)m_frameData;
 		m_frameData = 0;
 	}
+}
+
+// Open-BFME-1 1399ad37d42ea52a63829e417c46a1ba9ed2cd20
+// FrameDataManager.cpp; BFME2's array iterator uses the rowed 20-byte
+// Rva005DA4DC element constructor/destructor pair, not the distinct
+// FrameData destructor at 0x70A5D0. The manager's existing methods establish
+// the storage view and quit-state offsets.
+FrameDataManager::FrameDataManager(bool isLocal)
+{
+ m_isLocal = isLocal;
+ m_frameData = (FrameData *)new Rva005DA4DC[FRAME_DATA_LENGTH];
+ m_isQuitting = false;
+ m_quitFrame = 0;
 }
