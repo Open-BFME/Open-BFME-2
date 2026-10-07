@@ -10,6 +10,33 @@
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
+class Rva00585B16
+{
+public:
+	Rva00585B16();
+	Rva00585B16(const Rva00585B16 &other);
+	~Rva00585B16();
+private:
+	int m_0;
+	float m_4;
+	float m_8;
+	float m_C;
+	int m_10;
+	int m_14;
+	int m_18;
+	unsigned char m_1C;
+	char m_pad1D[3];
+	int m_20;
+	int m_24;
+	char m_deque[0x28];
+	int m_50;
+};
+class Rva00586FC0
+{
+public:
+	void rva00586FC0(UnsignedInt count, Rva00585B16 value);
+};
+
 // 0x00041B85 (tables VA 0x00BC24E8/0x00BC8748): the rowed Mouse
 // 0x001EE5EE with both arguments, then the pinned 0x00041A83 with +0x4FA4.
 class Mouse
@@ -202,6 +229,11 @@ struct Rva00587057Entry
 {
 	char m_pad00[0x54];
 };
+template <>
+void Rva00584A7DVector<Rva00587057Entry>::grow(UnsignedInt count)
+{
+	((Rva00586FC0 *)this)->rva00586FC0(count, Rva00585B16());
+}
 class Rva00584A7D
 {
 public:
