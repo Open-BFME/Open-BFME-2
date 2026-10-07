@@ -18,16 +18,29 @@ class Rva0030A92C
 public:
 	void rva0030A92C(float z);
 };
+class Thing
+{
+public:
+	float getHeightAboveTerrain() const;
+};
+struct Rva00368C7AMetrics
+{
+	char unknown00[0x48];
+	float value48;
+};
 class Rva00368C7A
 {
 public:
 	void rva00368C7A(float amount, const Coord3D *position, int argument);
 	int rva00368B51(float amount, bool argument);
 	void rva003681F2(const Coord3D *position, const unsigned char *mask, int a, int b);
+	unsigned char rva00368271();
 private:
 	char unknown00[8];
 	Rva00368C7AObject *object;
-	char unknown0C[0x544 - 0x0C];
+	char unknown0C[0x1F0 - 0x0C];
+	Rva00368C7AMetrics *metrics;
+	char unknown1F4[0x544 - 0x1F4];
 	Coord3D previous;
 };
 
@@ -48,4 +61,21 @@ void Rva00368C7A::rva00368C7A(float amount, const Coord3D *position, int argumen
 			rva003681F2(&point, g_00E01EC0, 0, argument);
 		}
 	}
+}
+
+// Native 00368271..003682E2 RET0 returns AL containing zero or one.
+// The rowed height getter and caller establish the object and byte result;
+// the original receiver and method names remain unknown.
+unsigned char Rva00368C7A::rva00368271()
+{
+	Rva00368C7AMetrics *data = metrics;
+	Rva00368C7AObject *obj = object;
+	if (!obj || !data)
+		return 0;
+	float threshold = data->value48 * 2.0f;
+	float height = reinterpret_cast<Thing *>(obj)->getHeightAboveTerrain();
+	unsigned char above = height > threshold;
+	int also = obj->position.z > threshold && height > data->value48 * 0.3f;
+	above |= also;
+	return above;
 }
