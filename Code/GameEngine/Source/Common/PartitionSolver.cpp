@@ -79,6 +79,10 @@ Some info about partioning problems:
 
 #include "Common/PartitionSolver.h"
 
+// Retail's shared __lg<int> is rowed at 0x78C9C. The /G7 /arch:SSE
+// body emitted here differs; call the verified provider without a local copy.
+namespace _STL { template <> int __lg<int>(int); }
+
 static Bool greater_than(PairObjectIDAndUInt a, PairObjectIDAndUInt b)
 {
 	return a.second > b.second;

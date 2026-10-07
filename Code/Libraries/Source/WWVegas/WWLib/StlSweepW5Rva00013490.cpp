@@ -5,6 +5,10 @@
 #include <algorithm>
 #include <memory>
 
+// Retail's shared __lg<int> is rowed at 0x78C9C. This /O2 instantiation
+// emits a different copy; leave calls bound to the verified provider.
+namespace _STL { template <> int __lg<int>(int); }
+
 struct Rva00013490Element { Rva00013490Element();Rva00013490Element(const Rva00013490Element&);~Rva00013490Element();Rva00013490Element&operator=(const Rva00013490Element&);char bytes[1]; bool operator<(const Rva00013490Element&)const; bool operator==(const Rva00013490Element&)const; };
 template void _STL::sort(Rva00013490Element*,Rva00013490Element*);
 template void _STL::make_heap(Rva00013490Element*,Rva00013490Element*);
