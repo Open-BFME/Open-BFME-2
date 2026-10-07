@@ -178,3 +178,18 @@ void Rva005FB84E::rva005FB84E()
 {
     return m_member->ShowSurvived();
 }
+
+// ?rva005FBBFC@Rva005FBBFC@@QAEXABVUnicodeString@@@Z @0x005FBBFC 8B unlock tail-jmp forwarder to rva005FBBC0.
+// Evidence: target instruction loads the member at +4 and jumps to the rowed Impl method; signature follows that method.
+class Rva005FBBFC
+{
+public:
+    void rva005FBBFC(const UnicodeString &value);
+private:
+    char m_pad[4];
+    StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl *m_member;
+};
+void Rva005FBBFC::rva005FBBFC(const UnicodeString &value)
+{
+    return m_member->rva005FBBC0(value);
+}

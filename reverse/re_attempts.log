@@ -15175,3 +15175,4 @@ FUN_00455951	0x00055951	59	blocked	Target 0x55951/59 constructs the +0x18 temp t
 ??0AIGuardMachine@@QAE@PAVObject@@VAsciiString@@@Z	0x00543163	451	blocked	base and state constructor lowering differs substantially; six variants left 127B excess and no stable alignment t=12 model=gpt-6.1-sol
 ?update@AIGuardOuterState@@UAE?AW4StateReturnType@@XZ	0x00543B5A	362	blocked	donor update requires BFME2-specific TeamFactory lookup and attack-state helpers absent from current unit model; target call identity differs from donor APIs t=5 model=gpt-6.1-sol
 ??0Rva0020D7BC@@QAE@XZ	0x0020D7BC	61	blocked	missing base or subobject model prevents EH and initialization match t=4 model=gpt-6.1
+FUN_009fbc20	0x005FBC20	493	blocked	adjacent Impl methods imply member offsets conflicting with constructor StringBase and ObjectCreationList layout and no donor resolves owner or arguments t=5 model=gpt-6.1
