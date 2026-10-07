@@ -250,7 +250,6 @@ void BFMEConnectionManager::rva004D0BE5()
 	msg->detach();
 }
 
-// ?broadcastRouterFallbackPlan@BFMEConnectionManager@@QAEXXZ present-unmatched
 // Builds the router succession list: local player first, then remote players
 // ordered by latency with a penalty for the client/logic frame ratio.
 void BFMEConnectionManager::broadcastRouterFallbackPlan()
