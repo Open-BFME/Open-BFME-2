@@ -1,4 +1,6 @@
 // ?rva003A1626@Team@@QAEHPBVThingTemplate@@PAVRva00376A62@@HPAV1@@Z
+// partial score=0.86 date=2026-10-07
+// ?rva003A1626@Team@@QAEHPBVThingTemplate@@PAVRva00376A62@@HPAV1@@Z
 // partial score=0.85 date=2026-10-07
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
@@ -451,9 +453,16 @@ int Team::rva003A1626(const ThingTemplate *tTemplate, Rva00376A62 *filter, int m
 	while (count < maxCount) {
 		Object *best = NULL;
 		Real bestDistSqr = 0.0f;
-		for (DLINK_ITERATOR<Team> teamIt = srcTeam->getPrototype()->iterate_TeamInstanceList(); count < maxCount && !teamIt.done(); teamIt.advance()) {
-			for (DLINK_ITERATOR<Object> iter = teamIt.cur()->iterate_TeamMemberList(); !iter.done(); iter.advance()) {
+		for (DLINK_ITERATOR<Team> teamIt = srcTeam->getPrototype()->iterate_TeamInstanceList(); !teamIt.done(); teamIt.advance()) {
+			Team *team = teamIt.cur();
+			if (!team)
+				continue;
+			if (count >= maxCount)
+				break;
+			for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance()) {
 				Object *obj = iter.cur();
+				if (!obj)
+					continue;
 				Bool match = false;
 				if (tTemplate) {
 					if (obj->getTemplate()->isEquivalentTo(tTemplate))
