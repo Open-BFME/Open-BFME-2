@@ -89,6 +89,7 @@ public:
     virtual void slot86(); virtual void slot87();
     virtual void xferAudioEvent(Xfer *xfer, unsigned int *event);
 };
+extern AudioManager *TheAudio;
 extern AudioManager *g_00DFE6E8;
 
 class Rva003FAFB9 : public Snapshot {
@@ -123,7 +124,7 @@ void Rva003FAFB9::xfer(Xfer *xfer)
     if (xfer->IsLoading())
         ((Rva003FAC3F *)this)->rva003FAC3F();
 
-    g_00DFE6E8->xferAudioEvent(xfer, &m_2c);
+    TheAudio->xferAudioEvent(xfer, &m_2c);
     xfer->xferByte(&m_30);
     xfer->xferByte(&m_31);
     xfer->xferByte(&m_32);
@@ -131,5 +132,5 @@ void Rva003FAFB9::xfer(Xfer *xfer)
     unsigned char emitIndex = (unsigned char)(m_2c < 5 ? 0 : 1);
     xfer->xferByte(&emitIndex);
     if (xfer->IsLoading() && emitIndex != 0 && m_2c < 5)
-        m_2c = g_00DFE6E8->slot40();
+        m_2c = TheAudio->slot40();
 }
