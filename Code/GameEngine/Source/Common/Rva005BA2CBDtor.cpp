@@ -35,3 +35,31 @@ Rva005BA2CB::~Rva005BA2CB()
 	if (g_Va00E06548 == (int)this)
 		g_Va00E06548 = 0;
 }
+
+extern int g_Va00E06544;
+
+class Rva005BA23ABase60
+{
+public:
+	virtual void s60();
+private:
+	char m_pad04[0x6C - 0x60 - 4];
+};
+
+class Rva005BA23ABase6C
+{
+public:
+	virtual void s6C();
+};
+
+class Rva005BA23A : public Rva005A0009, public Rva005BA23ABase60, public Rva005BA23ABase6C
+{
+public:
+	virtual ~Rva005BA23A();
+};
+
+Rva005BA23A::~Rva005BA23A()
+{
+	if (g_Va00E06544 == (int)this)
+		g_Va00E06544 = 0;
+}
