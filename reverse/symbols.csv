@@ -15738,3 +15738,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00311974@Rva0022B3F6Subsystem@@QAE_NPAVRva00375A73Context@@II@Z,0x00311974,callee of ?rva00375A73@@YG_NPAVRva00375A73Context@@MPAURva00375A73Coord@@@Z
 ??0NetDisconnectVoteCommandMsg@@QAE@XZ,0x004D580E,"constructed right after the 0x24-byte allocation in sendVoteCommand 0x004D3A1B; body writes BFME2 command type 27 and clears the slot byte +0x1C and frame dword +0x20, the ZH NetDisconnectVoteCommandMsg fields processDisconnectVote 0x004D3F74 reads"
 ?rva000ECA4D@W3DTreeBuffer@@QAEXHH@Z,0x000ECA4D,callee of ?rva000ECF2A@W3DTreeBuffer@@QAE_NIH@Z
+?rva00308799@Rva00308A12@@QAEPAEPAH0@Z,0x00308799,callee of ?rva00308A12@Rva00308A12@@QAEXMPAH00@Z

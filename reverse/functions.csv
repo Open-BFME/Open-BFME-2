@@ -68433,3 +68433,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?d_0032a587@@YAXXZ,,0x0032A587,117,Code/gen_asm/d_0032a587.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_003980bf@@YAXXZ,,0x003980BF,156,Code/gen_asm/d_003980bf.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_004ebeb7@@YAXXZ,,0x004EBEB7,148,Code/gen_asm/d_004ebeb7.asm,matched,gen-dump;bounds=ghidra-inventory
+?rva00308A12@Rva00308A12@@QAEXMPAH00@Z,,0x00308A12,146,Code/GameEngine/Source/Common/Rva00308A12.cpp,matched,Native Ghidra308A12..308AA4 RET16 samples 24-bit TGA BGR buffer supplied by measured566B308799..3089CF RET8; clamps position0..1 and pixel index to width-1; emits255 fallback channels; full emitted bytes and helper relocation verified; owner identity remains opaque
