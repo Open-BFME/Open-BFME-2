@@ -27,6 +27,7 @@
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../Libraries/Source/profile/profile.h"
 
 typedef _STL::list<int, _STL::allocator<int> > IntList;
 
@@ -200,6 +201,7 @@ class Rva0023E7D9
 {
 public:
 	void rva0023E7D9(void);
+	void rva0023F88C(bool loadingSaveGame);
 };
 
 class Rva0035A1D8
@@ -281,13 +283,17 @@ public:
 class GlobalData
 {
 public:
-	char m_pad000[0xd4];
+	char m_pad000[0xc];
+	AsciiString m_mapName;
+	char m_pad010[0xd4 - 0x10];
 	float m_d4;
 	float m_d8;
 	char m_pad0DC[0xbd0 - 0xdc];
 	int m_bd0;
 	char m_padBD4[0x1110 - 0xbd4];
 	bool m_1110;
+	char m_pad1111[0x123d - 0x1111];
+	bool m_123d;
 };
 
 class GameInfo;
@@ -329,6 +335,14 @@ public:
 	void destroyAllObjectsImmediate(void);
 	void rva00376D49(void);
 	void rva00246422(bool dontCreate);
+	void rva00248558(bool loadingSaveGame);
+	void rva00241230(bool loadingSaveGame);
+	void rva002469A5(bool loadingSaveGame, int *progress);
+	void rva002421F5(bool loadingSaveGame, int *progress);
+	void rva00248278(bool loadingSaveGame);
+	void rva0023F52C(bool loadingSaveGame);
+	void rva0024004D(bool loadingSaveGame);
+	bool rva0023C8DA(unsigned char loadingSaveGame);
 	Object *findObjectByID(ObjectID id);
 	void rva00244D56(_STL::vector<Rva0024622FEntry> *created, const KindOfType *excludeKind,
 		const KindOfType *requireKind, bool dontCreate);
@@ -353,7 +367,9 @@ public:
 	int m_48;
 	int m_4c;
 	IntList m_50;
-	char m_pad054[0x70 - 0x54];
+	char m_pad054[0x6d - 0x54];
+	bool m_6d;
+	char m_pad06E[0x70 - 0x6e];
 	bool m_70;
 	bool m_71;
 	bool m_72;
@@ -363,7 +379,9 @@ public:
 	bool m_99;
 	bool m_9a;
 	bool m_9b;
-	char m_pad09C[0x9f - 0x9c];
+	bool m_9c;
+	bool m_9d;
+	char m_pad09E[0x9f - 0x9e];
 	bool m_9f;
 	int m_a0;
 	int m_a4;
@@ -372,7 +390,8 @@ public:
 	char m_pad0B0[0xb4 - 0xb0];
 	char m_b4[0x10c - 0xb4];
 	int m_10c;
-	char m_pad110[0x11d - 0x110];
+	int m_110;
+	char m_pad114[0x11d - 0x114];
 	bool m_11d;
 	char m_pad11E[0x120 - 0x11e];
 	LoadScreen *m_120;
@@ -422,11 +441,23 @@ extern Rva00200BD9Holder *g_rva00200BD9Holder;
 // 0x0004224C (rowed as a this-returning member) is the out-of-line
 // constructor of a scope guard: when TheGameLogic exists it sets the FP mode
 // on the first nesting level and counts TheGameLogic+0x1B4 up. The matching
-// count-down (0x00042212) is expanded at scope exit.
+// count-down (0x00042212) is expanded at scope exit. Both are defined in the
+// class: 0x00248558 keeps the guard in its parameter slot, which MSVC 7.1
+// does only for an empty class whose constructor and destructor it can see.
+class Rva000421FD
+{
+public:
+	void rva000421FD(void);
+};
+
 class Rva0004224C
 {
 public:
-	Rva0004224C(void);
+	Rva0004224C(void)
+	{
+		if (TheGameLogic)
+			((Rva000421FD *)TheGameLogic)->rva000421FD();
+	}
 	~Rva0004224C(void)
 	{
 		if (TheGameLogic)
@@ -1325,5 +1356,205 @@ void GameLogic::rva00246422(bool dontCreate)
 			bfmeReleaseQueuedDeviceInterfaces();
 			it->obj->rva00293E64(it->mapObj->getProperties());
 		}
+	}
+}
+
+// ?rva00248558@GameLogic@@QAEX_N@Z
+// @0x00248558 546B (ret 4 at 0x00248777; callers 0x002B4884 0x003779C4
+// 0x0041B5E3, the last passing true).
+// The new-game pass: with the main window's close item greyed and the
+// 0x009FE6E4 counter referenced, it runs the GameLogic load stages in order
+// (0x00241230, the load screen 0x00244CB0, under the FP-mode guard
+// 0x002469A5, the map-object pass 0x00246422, 0x002421F5, 0x00248278), stops
+// the "newgame" profile range, resets the frame and hero state and, when
+// GlobalData+0x123D asks for it, builds "assetload <map>[ (lod)].csv" into
+// the 0x00E09B08 buffer. Target facts: the FuncInfo at 0x00D18120 has four
+// unwind states; states 0 and 3 destroy objects at [ebp+8], the bool
+// parameter's slot, which MSVC 7.1 gives an empty class only when its
+// constructor and destructor are both inline in the class; so the close
+// guard and the FP-mode guard are written that way and stay out of line
+// (0x0023C83B/0x0023C85E, 0x0004224C/0x00042262). The progress int at
+// [ebp-0x10] is passed by address to 0x002469A5 and 0x002421F5. Stage
+// names are unknown; members keep their addresses.
+extern void *ApplicationHWnd;
+
+extern "C" __declspec(dllimport) void *__stdcall GetSystemMenu(void *wnd, int revert);
+extern "C" __declspec(dllimport) int __stdcall EnableMenuItem(void *menu, unsigned id, unsigned flags);
+
+// Retail calls strrchr through its import slot while this TU's /D_CRTIMP=
+// leaves the header declaration a direct call: a typed view of the slot.
+extern "C" char *(__cdecl * const _imp__strrchr)(const char *text, int ch);
+
+class Rva0023C83B
+{
+public:
+	Rva0023C83B(void)
+	{
+		EnableMenuItem(GetSystemMenu(ApplicationHWnd, 0), 0xF060, 1);
+	}
+	~Rva0023C83B(void) throw()
+	{
+		EnableMenuItem(GetSystemMenu(ApplicationHWnd, 0), 0xF060, 0);
+	}
+};
+
+class AudioManager
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v0a(); virtual void v0b();
+	virtual void v0c(); virtual void v0d(); virtual void v0e(); virtual void v0f();
+	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13();
+	virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17();
+	virtual void v18(); virtual void v19(); virtual void v1a(); virtual void v1b();
+	virtual void v1c(); virtual void v1d(); virtual void v1e(); virtual void v1f();
+	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
+	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
+	virtual void v28(); virtual void v29(); virtual void v2a(); virtual void v2b();
+	virtual void v2c(); virtual void v2d(); virtual void v2e(); virtual void v2f();
+	virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33();
+	virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37();
+	virtual void v38(); virtual void v39(); virtual void v3a(); virtual void v3b();
+	virtual void v3c(); virtual void v3d(); virtual void v3e(); virtual void v3f();
+	virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
+	virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47();
+	virtual void v48(); virtual void v49(); virtual void v4a(); virtual void v4b();
+	virtual void v4c(); virtual void v4d(); virtual void v4e(); virtual void v4f();
+	virtual void v50(); virtual void v51(); virtual void v52(); virtual void v53();
+	virtual void v54(); virtual void v55(); virtual void v56(); virtual void v57();
+	virtual void v58(); virtual void v59(); virtual void v5a(); virtual void v5b();
+	virtual void v5c(); virtual void v5d(); virtual void v5e(); virtual void v5f();
+	virtual void v60(); virtual void v61(); virtual void v62(); virtual void v63();
+	virtual void slot190(void);                                          // +0x190
+};
+
+class BfmeDfe6e4
+{
+public:
+	void _M_rva00625699(void);
+};
+
+// Holds a reference on the 0x009FE6E4 counter: the constructor (0x0023D46F)
+// stores the pointer and counts it up, the destructor counts it down.
+class Rva0023D46F
+{
+public:
+	Rva0023D46F(BfmeDfe6e4 *counter);
+	~Rva0023D46F(void)
+	{
+		if (m_counter)
+			m_counter->_M_rva00625699();
+	}
+
+private:
+	BfmeDfe6e4 *m_counter;
+};
+
+// A scope object whose out-of-line constructor and destructor are the shared
+// empty bodies 0x0047A6A9 / 0x000B3FD0.
+class Rva00248558Scope
+{
+public:
+	Rva00248558Scope(void);
+	~Rva00248558Scope(void);
+};
+
+class Rva0023D6D5
+{
+public:
+	void rva0023D6D5(bool loadingSaveGame);
+};
+
+class Rva0021A54A;
+
+class Rva0021B3FA
+{
+public:
+	void rva0021B3FA(void);
+};
+
+class GameLODManager
+{
+public:
+	int getStaticLODLevel(void) const { return m_staticLODLevel; }
+
+private:
+	char m_pad0000[0x1768];
+	int m_staticLODLevel;
+};
+
+
+void bfmeClearReceiverFlag(int value);
+
+extern AudioManager *TheAudio;
+extern BfmeDfe6e4 *theBfmeDfe6e4;
+extern Rva0021A54A *TheHeroManager;
+extern GameLODManager *TheGameLODManager;
+extern int SavedClientFrame;
+extern unsigned char g_00DFF004;
+extern char g_00E09B08[];
+extern int g_00E09A00;
+
+void GameLogic::rva00248558(bool loadingSaveGame)
+{
+	if (TheWritableGlobalData->m_123d)
+		g_00E09B08[0] = '\0';
+
+	Rva0023C83B closeGuard;
+	TheAudio->slot190();
+	m_9c = true;
+	Rva0023D46F counterRef(theBfmeDfe6e4);
+	Rva00248558Scope scope;
+	if (m_110 == 4)
+		TheGameInfo = 0;
+	bfmeClearReceiverFlag(0);
+
+	int progress = 3;
+	rva00241230(loadingSaveGame);
+	rva00244CB0(loadingSaveGame, TheGameInfo);
+	Rva0004224C fpModeGuard;
+	rva002469A5(loadingSaveGame, &progress);
+	rva00246422(loadingSaveGame);
+	progress = 0x29;
+	rva002421F5(loadingSaveGame, &progress);
+	((Rva0023C7D2 *)this)->rva0023C7BB(0x32);
+	rva00248278(loadingSaveGame);
+	Profile::StopRange("newgame");
+	rva0023F52C(loadingSaveGame);
+	m_6d = false;
+	g_00DFF004 = 0;
+	rva0024004D(loadingSaveGame);
+	m_72 = false;
+	m_44 = true;
+	m_9d = false;
+	rva0023C8DA(loadingSaveGame);
+	((Rva0023D6D5 *)this)->rva0023D6D5(loadingSaveGame);
+	((Rva0023E7D9 *)this)->rva0023F88C(loadingSaveGame);
+	SavedClientFrame = 0;
+	((Rva0021B3FA *)TheHeroManager)->rva0021B3FA();
+
+	if (TheWritableGlobalData->m_123d) {
+		strcpy(g_00E09B08, "assetload ");
+		const char *mapName = TheWritableGlobalData->m_mapName.str();
+		const char *slash = _imp__strrchr(mapName, '\\');
+		strcat(g_00E09B08, slash ? slash + 1 : mapName);
+		if (TheGameLODManager) {
+			switch (TheGameLODManager->getStaticLODLevel()) {
+			case 0:
+			case 1:
+				strcat(g_00E09B08, " (low)");
+				break;
+			case 2:
+				strcat(g_00E09B08, " (medium)");
+				break;
+			case 3:
+			case 4:
+				strcat(g_00E09B08, " (high)");
+				break;
+			}
+		}
+		strcat(g_00E09B08, ".csv");
+		g_00E09A00 = 0;
 	}
 }
