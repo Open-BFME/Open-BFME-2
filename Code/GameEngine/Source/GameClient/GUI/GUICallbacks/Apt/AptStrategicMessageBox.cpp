@@ -25,20 +25,43 @@ public:
 	virtual ~AptStrategicMessageBox();
 
 	static void CreateSingleton();
+	static void rva0054C729();
 
 private:
-	static AptStrategicMessageBox *s_instance;
+};
+
+extern int g_Va00E05FAC;
+
+// Address-derived view of the virtual entry called by the singleton release
+// body. Its original method identity remains unresolved.
+class Rva0054C729Vtable
+{
+public:
+	virtual void *rva0054C729VtableSlot0(unsigned int flags);
 };
 
 // AptStrategicMessageBox::AptStrategicMessageBox, retail 0x0054C770.
 AptStrategicMessageBox::AptStrategicMessageBox()
 	: Rva0054D2CF(13, "StrategicMessageBox")
 {
-	s_instance = this;
+	g_Va00E05FAC = (int)this;
 }
 
 // AptStrategicMessageBox::CreateSingleton, retail 0x0054C7C7.
 void AptStrategicMessageBox::CreateSingleton()
 {
-	s_instance = new AptStrategicMessageBox;
+	g_Va00E05FAC = (int)new AptStrategicMessageBox;
+}
+
+// ?rva0054C729@AptStrategicMessageBox@@SAXXZ, retail 0x0054C729. Target
+// evidence: this 25-byte body releases the singleton through its vtable slot
+// zero and operator delete at 0x0002FD60. The rowed dtor at 0x0054C742 clears
+// the same singleton global before chaining to the base dtor. Original method
+// name remains unresolved.
+void AptStrategicMessageBox::rva0054C729()
+{
+	void *released = g_Va00E05FAC
+		? ((Rva0054C729Vtable *)(void *)g_Va00E05FAC)->rva0054C729VtableSlot0(0)
+		: 0;
+	::operator delete(released);
 }
