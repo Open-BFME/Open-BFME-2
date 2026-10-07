@@ -15764,6 +15764,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva004AA4FE@Rva004AABB4@@QAE_NPAVObject@@0PAUCoord3D@@@Z,0x004AA4FE,callee of ?rva004AABB4@Rva004AABB4@@QAEPAVObject@@PAV2@0PAUCoord3D@@@Z
 ?rva000E6D94@Rva000E6FC8@@QAEXH@Z,0x000E6D94,callee of ?rva000E6FC8@Rva000E6FC8@@QAEXXZ
 ?rva0015288F@Rva0015288F@@QAE_NHHHH@Z,0x0015288F,844B target body returns its status in AL immediately before ret 0x10; factory caller at 0x00152C47 tests AL. Address-derived owner name; ABI verified from call sites.
-?Rva00152C47Create@@YA?AVRva00087A93@@PBD0HH@Z,0x00152C47,Address-derived factory label. Caller 0x000E153A proves hidden one-pointer holder return and four explicit args; body allocates 0x34 bytes and calls rowed constructor 0x001525FB and bool method 0x0015288F. Original name/layout unknown.
 ?rva000CF20C@W3DFloorDraw@@QAEXPAVAsciiString@@@Z,0x000CF20C,Target caller 0x000CF2CF supplies ECX=this and one AsciiString out pointer; W3DFloorDraw owner is corroborated by its rowed ctor dtor and flag setters
 ?rva00068395@BaseHeightMapRenderObjClass@@QAEXHPAVAsciiString@@0_N1@Z,0x00068395,Target caller 0x000CF2CF supplies ECX=TheTerrainRenderObject and ID string pointer string pointer byte byte; wrapper epilogue ret 20 forwards this+0x3860
