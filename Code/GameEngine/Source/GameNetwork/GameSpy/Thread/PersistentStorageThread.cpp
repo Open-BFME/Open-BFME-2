@@ -18,6 +18,24 @@ void Rva00030830FreeAllocation(void *);
 #undef free
 // STLport has already supplied the placement-new operators.
 #define _OPERATOR_NEW_DEFINED_
+// BFME 2's WWLib thread base, not ZH's 0x58-byte one that mutex.h would pull
+// in: one-argument constructor 0x00610430, virtual destructor 0x00610480 and
+// a virtual Execute (vftable slot 1), 0x50 bytes.
+#define THREAD_H
+class ThreadClass
+{
+public:
+	ThreadClass(const char *name);
+	virtual ~ThreadClass();
+	virtual void Execute();
+protected:
+	virtual void Thread_Function() = 0;
+private:
+	char m_name[0x40];
+	unsigned int m_threadId;
+	void *m_handle;
+	int m_priority;
+};
 #include <mutex.h>
 // Inline the stock integer comparison without emitting an /O1 COMDAT
 // that competes with the independently rowed /Od less<int> provider.
@@ -906,17 +924,28 @@ public:
 };
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;	// 0x00E05FC8
 
-// The stats thread keeps its outstanding GameSpy operation count at +0x54.
-class PSThreadClass
+// ZH's stats thread (vftable 0x00C6B0D0, constructor 0x0055436A) with BFME 2's
+// pending GHTTP ladder requests: the map at +0x5c keys each request handle to
+// its owned payload. Its tree teardown (erase 0x005531DD, clear 0x005532D6,
+// destructor 0x00553830) is an instantiation of its own, not the int/int one
+// at 0x0021A917, so the payload type is distinct.
+struct Rva00557996Request;
+class PSThreadClass : public ThreadClass
 {
 public:
+	virtual ~PSThreadClass();
 	void decrOpCount() { --m_opCount; }
 	Int getOpCount() const { return m_opCount; }
 	bool sawLocalPlayerData() const { return m_sawLocalPlayerData; }
+protected:
+	virtual void Thread_Function();
 private:
-	unsigned char m_pad00[0x54];
+	bool m_loginOK;
+	bool m_doneTryingToLogin;
 	Int m_opCount;
 	bool m_sawLocalPlayerData;
+	_STL::map<int, Rva00557996Request *> m_requests;
+	void *m_owner;
 };
 
 typedef enum { pd_private_ro, pd_private_rw, pd_public_ro, pd_public_rw } persisttype_t;
@@ -1659,4 +1688,19 @@ void getPersistentDataCallback(int localid, int profileid, persisttype_t type, i
 	resp.player.setID(profileid);
 	resp.m_04 = index;
 	TheGameSpyPSMessageQueue->addResponse(resp);
+}
+
+extern "C" void ghttpCleanup();
+
+// Retail 0x0055405A (120 bytes): frees every pending request payload, empties
+// the map and shuts GHTTP down; the map and ThreadClass destructors follow.
+PSThreadClass::~PSThreadClass()
+{
+	for (_STL::map<int, Rva00557996Request *>::iterator it = m_requests.begin(); it != m_requests.end(); ++it)
+	{
+		if (it->second)
+			delete it->second;
+	}
+	m_requests.clear();
+	ghttpCleanup();
 }
