@@ -6,6 +6,9 @@
 // the iterator's node is non-null; the owner and table's semantic label remain
 // address-qualified.
 #include "ascii_string.h"
+#include "../GameLogicObjectLookupView.h"
+
+extern GameLogic *TheGameLogic;
 
 struct Rva0041534BIter
 {
@@ -23,10 +26,21 @@ class Team
 {
 public:
     bool rva003A3717(const AsciiString &stateName);
+    void rva003A2DBB(float value);
+    float rva003A3736(float value);
 
 private:
-    char m_beforeStateTable[0x48];
-    Rva00056F61 m_stateTable;
+    union {
+        struct {
+            char m_beforeStateTable[0x48];
+            Rva00056F61 m_stateTable;
+        };
+        struct {
+            char m_pad000[0x120];
+            float m_120;
+            unsigned int m_124;
+        };
+    };
 };
 
 bool Team::rva003A3717(const AsciiString &stateName)
@@ -36,4 +50,11 @@ bool Team::rva003A3717(const AsciiString &stateName)
         return true;
     }
     return false;
+}
+
+float Team::rva003A3736(float value)
+{
+    if (m_124 < TheGameLogic->getFrame())
+        rva003A2DBB(value);
+    return m_120;
 }

@@ -15727,3 +15727,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??0Render2DSentenceClass@@QAE@XZ,0x00157E80,callee of ??0Gen0078D1C0@@QAE@XZ
 ?rva0035A005@Rva0035A292@@QAEXHM@Z,0x0035A005,callee of ?rva0035A292@Rva0035A292@@QAEXHM@Z
 ?GetLocalChatConnectionAddress@@YA_NVAsciiString@@GAAI@Z,0x004FE987,callee of ?connectCallback@PeerThreadClass@@QAEXPAXH@Z at retail 0x0038BA8F read from its REL32 displacement; takes the peerchat.gamespy.com string temp + port 6667 + &localIP exactly as the Zero Hour call site and its body calls gethostbyname on the AsciiString text
+?rva003A2DBB@Team@@QAEXM@Z,0x003A2DBB,callee of ?rva003A3736@Team@@QAEMM@Z
