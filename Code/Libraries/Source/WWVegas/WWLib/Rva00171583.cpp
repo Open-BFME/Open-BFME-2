@@ -18,6 +18,14 @@ struct GlyphRect
     int bottom;
 };
 
+class TextureClass;
+template <class T> class RefCountPtr;
+template <> class RefCountPtr<TextureClass>
+{
+public:
+    RefCountPtr const &operator=(RefCountPtr const &other);
+};
+
 class Rva00171024
 {
 public:
@@ -28,6 +36,7 @@ class Rva00171583
 {
 public:
     bool rva00171583(const unsigned int &key, Vec2 *outSize, Vec2 *outPos);
+    bool rva00171540(RefCountPtr<TextureClass> &reference, GlyphRect *out);
 private:
     int m_00;
     int m_04;
@@ -57,5 +66,25 @@ bool Rva00171583::rva00171583(const unsigned int &key, Vec2 *outSize, Vec2 *outP
     outPos->y = (float)(*it).second.top * m_24;
     outSize->x = (float)((*it).second.right - (*it).second.left) * m_20;
     outSize->y = (float)((*it).second.bottom - (*it).second.top) * m_24;
+    return true;
+}
+
+// ?rva00171540@Rva00171583@@QAE_NAAV?$RefCountPtr@VTextureClass@@@@PAUGlyphRect@@@Z
+// 0x00171540: target checks the iterator at +0x14 against the map root at
+// +0x08 and the validity word at +0x18, after the shared +0x1C refresh call.
+// On success it assigns the node's first 4-byte field through rowed 0x000424D0
+// and copies the following 16 bytes to the caller. Class and owner identity
+// remain unresolved; the output record type follows the adjacent 0x00171583
+// layout view.
+bool Rva00171583::rva00171540(RefCountPtr<TextureClass> &reference, GlyphRect *out)
+{
+    if (m_1c)
+        ((Rva00171024 *)this)->rva001711a6();
+    if (m_14 == *(void **)&m_map)
+        return false;
+    if (m_18 == 0)
+        return false;
+    reference = *reinterpret_cast<RefCountPtr<TextureClass> *>((char *)m_14 + 0x10);
+    *out = *reinterpret_cast<GlyphRect *>((char *)m_14 + 0x14);
     return true;
 }
