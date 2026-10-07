@@ -1,7 +1,8 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii
 // stlport
 //
-// FireWeaponUpdate (BFME 2): the sleep-time helper of update, and xfer.
+// FireWeaponUpdate (BFME 2): the sleep-time helper of update, xfer and the
+// entry builder.
 // update itself (0x0048BEE8, 432 B) is banked in
 // reverse/attempts/0x0048bee8.cpp.
 //
@@ -17,6 +18,7 @@
 // read from retail, with names from the INI field table.
 
 #include <list>
+#include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
@@ -31,8 +33,6 @@ template <class T> inline const T &maxOf(const T &a, const T &b) { return a > b 
 
 class Thing;
 class ModuleData;
-class Object;
-class FireWeaponUpdateModuleData;
 
 enum UpdateSleepTime
 {
@@ -56,6 +56,22 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
+class WeaponTemplate;
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+class Object
+{
+public:
+	ObjectID getID() const { return m_id; }
+
+private:
+	char m_unknown00[0x74];
+	ObjectID m_id; // +0x74
+};
 
 // MSVC lists a virtual's overloads in reverse declaration order, so
 // operator==(Version &) is slot 0x28 and operator==(bool &) slot 0x90.
@@ -120,13 +136,15 @@ class Weapon : public Snapshot
 {
 public:
 	UnsignedInt getPossibleNextShotFrame() const { return m_whenWeCanFireAgain; }
+	void loadAmmoNow(const Object *source);
+	void setOwnerID(ObjectID id) { m_ownerID = id; }
 
 private:
-	char m_unknown04[0x18 - 0x04];
+	const WeaponTemplate *m_template; // +0x04
+	ObjectID m_ownerID; // +0x08
+	char m_unknown0C[0x18 - 0x0C];
 	UnsignedInt m_whenWeCanFireAgain; // +0x18
 };
-
-class WeaponTemplate;
 
 enum WeaponSlotType
 {
@@ -136,6 +154,7 @@ enum WeaponSlotType
 class WeaponStore
 {
 public:
+	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
 	Weapon *allocateNewWeapon(const WeaponTemplate *tmpl, WeaponSlotType slot) const;
 };
 
@@ -152,9 +171,37 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-// One FireWeaponNugget instance (0x18 bytes, built by 0x0048BDF8).
-struct FireWeaponEntry
+// One FireWeaponNugget block of the module data (0x18 bytes, parsed by
+// 0x0048BCBB through the field table 0xC4C0C0).
+struct FireWeaponNugget
 {
+	AsciiString m_weaponName; // WeaponName
+	UnsignedInt m_fireDelay; // +0x04 FireDelay
+	Bool m_oneShot; // +0x08 OneShot
+	Coord3D m_offset; // +0x0C Offset
+};
+
+class FireWeaponUpdateModuleData
+{
+public:
+	char m_unknown00[0x08];
+	_STL::list<FireWeaponNugget *> m_nuggets; // +0x08
+};
+
+// Coord3D::zero for the canonical data-only Coord3D. Spelled as a call, the
+// zero register is materialized after the frame store, as retail has it.
+inline void zeroCoord(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; }
+
+// One FireWeaponNugget instance (0x18 bytes, built by 0x0048BDF8). Its name is
+// unknown; the address-derived one reflects that retail folded this list's
+// push_back into list<int>'s (0x0005548F).
+struct Rva0048BDF8Entry
+{
+	Rva0048BDF8Entry() : m_weapon(NULL), m_nextFireFrame(0xFFFFFFFF), m_oneShot(false)
+	{
+		zeroCoord(m_offset);
+	}
+
 	Weapon *m_weapon;
 	UnsignedInt m_nextFireFrame; // +0x04
 	Bool m_oneShot; // +0x08
@@ -202,6 +249,7 @@ class FireWeaponUpdate : public UpdateModule
 {
 public:
 	virtual UpdateSleepTime update();
+	void Rva0048BDF8Helper();
 
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -213,7 +261,7 @@ protected:
 
 private:
 	Weapon *m_weapon; // +0x20
-	_STL::list<FireWeaponEntry *> m_entries; // +0x24
+	_STL::list<Rva0048BDF8Entry *> m_entries; // +0x24
 	Bool m_entriesReady; // +0x28
 };
 
@@ -225,9 +273,9 @@ private:
 UpdateSleepTime FireWeaponUpdate::rva0048BA3E()
 {
 	UnsignedInt next = 0xFFFFFFFF;
-	for (_STL::list<FireWeaponEntry *>::iterator it = m_entries.begin(); it != m_entries.end(); ++it)
+	for (_STL::list<Rva0048BDF8Entry *>::iterator it = m_entries.begin(); it != m_entries.end(); ++it)
 	{
-		FireWeaponEntry *entry = *it;
+		Rva0048BDF8Entry *entry = *it;
 		UnsignedInt frame = maxOf(entry->m_nextFireFrame, entry->m_weapon->getPossibleNextShotFrame());
 		next = _STL::min(frame, next);
 	}
@@ -267,9 +315,9 @@ void FireWeaponUpdate::xfer(Xfer *xfer)
 		*xfer == m_entriesReady;
 		if (xfer->IsLoading())
 		{
-			for (_STL::list<FireWeaponEntry *>::iterator it = m_entries.begin(); it != m_entries.end(); ++it)
+			for (_STL::list<Rva0048BDF8Entry *>::iterator it = m_entries.begin(); it != m_entries.end(); ++it)
 			{
-				FireWeaponEntry *entry = *it;
+				Rva0048BDF8Entry *entry = *it;
 				*xfer == entry->m_oneShot;
 				*xfer == entry->m_nextFireFrame;
 				*xfer == entry->m_offset;
@@ -278,9 +326,9 @@ void FireWeaponUpdate::xfer(Xfer *xfer)
 		}
 		else if (xfer->IsStoring())
 		{
-			for (_STL::list<FireWeaponEntry *>::iterator it = m_entries.begin(); it != m_entries.end(); ++it)
+			for (_STL::list<Rva0048BDF8Entry *>::iterator it = m_entries.begin(); it != m_entries.end(); ++it)
 			{
-				FireWeaponEntry *entry = *it;
+				Rva0048BDF8Entry *entry = *it;
 				*xfer == entry->m_oneShot;
 				*xfer == entry->m_nextFireFrame;
 				*xfer == entry->m_offset;
@@ -288,4 +336,34 @@ void FireWeaponUpdate::xfer(Xfer *xfer)
 			}
 		}
 	}
+}
+
+// ?Rva0048BDF8Helper@FireWeaponUpdate@@QAEXXZ @0x0048BDF8 240B (Ghidra
+// boundary; called once, from the ctor 0x0048C0C5). Builds one entry per
+// FireWeaponNugget whose WeaponName resolves (rowed findWeaponTemplate
+// 0x002CB8BF): one-shot flag and offset copied, first fire frame FireDelay
+// frames from now, a primary weapon from TheWeaponStore owned by the object
+// (ObjectID +0x74 into Weapon +0x08) with its ammo loaded (rowed loadAmmoNow
+// 0x002CE1AC); then marks the entries ready. Method name unknown.
+void FireWeaponUpdate::Rva0048BDF8Helper()
+{
+	const FireWeaponUpdateModuleData *data = getFireWeaponUpdateModuleData();
+	UnsignedInt now = TheGameLogic ? TheGameLogic->getFrame() : 0;
+	for (_STL::list<FireWeaponNugget *>::const_iterator it = data->m_nuggets.begin(); it != data->m_nuggets.end(); ++it)
+	{
+		const FireWeaponNugget *nugget = *it;
+		const WeaponTemplate *tmpl = TheWeaponStore->findWeaponTemplate(nugget->m_weaponName);
+		if (tmpl)
+		{
+			Rva0048BDF8Entry *entry = new Rva0048BDF8Entry;
+			entry->m_oneShot = nugget->m_oneShot;
+			entry->m_nextFireFrame = nugget->m_fireDelay + now;
+			entry->m_offset = nugget->m_offset;
+			entry->m_weapon = TheWeaponStore->allocateNewWeapon(tmpl, PRIMARY_WEAPON);
+			entry->m_weapon->setOwnerID(getObject()->getID());
+			entry->m_weapon->loadAmmoNow(getObject());
+			m_entries.push_back(entry);
+		}
+	}
+	m_entriesReady = true;
 }
