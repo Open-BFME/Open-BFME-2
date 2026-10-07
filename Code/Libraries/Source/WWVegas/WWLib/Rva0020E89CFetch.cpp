@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Oy-
+// cl: /Ireference/shims/bfme2_ascii /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ?rva0020E89C@Rva0020E89C@@QAE?AVUnicodeString@@XZ @0x0020E89C 63B
 // Honest-address method returning the translated label at this+0x38:
 // empty AsciiString returns UnicodeString::TheEmptyString (data 0x00A0C898
@@ -71,4 +71,22 @@ UnicodeString Rva005C95ECGet(Rva0020E89C *obj)
 UnicodeString Rva005C95CAGet()
 {
 	return TheGameText->fetch("STRATEGICHUD:BuildPlotName");
+}
+
+// Native 003F0403..003F0442, RET4 consumes the hidden result pointer.
+// The same translated-label ABI as rva0020E89C is independently visible:
+// isEmpty at 1E2F, empty wide-string copy at 37050 and GameText slot38.
+// The label is at +0x3C. Receiver and original method name remain opaque.
+class Rva003F0403
+{
+public:
+    UnicodeString rva003F0403();
+private:
+    char unknown00[0x3C];
+    AsciiString label;
+};
+UnicodeString Rva003F0403::rva003F0403()
+{
+    if (label.isEmpty()) return UnicodeString::TheEmptyString;
+    return TheGameText->fetch(label);
 }
