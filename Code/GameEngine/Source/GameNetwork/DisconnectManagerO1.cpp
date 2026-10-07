@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/disconnectmanager /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// cl: /Ireference/shims/bfme2_ascii_common /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/disconnectmanager /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // stlport
 //
 // DisconnectManager bodies ported from Open-BFME-1's
@@ -686,5 +686,52 @@ void DisconnectManager::processDisconnectFrame(NetCommandMsg *msg, ConnectionMan
 		&& (m_disconnectFramesReceived[playerID] == TRUE)) {
 		bfmeConMgr->resendFrameRangeToPlayer(playerID, m_disconnectFrames[playerID],
 			reinterpret_cast<GameLogic *>(reinterpret_cast<char *>(TheGameLogic) + 4)->getFrame());
+	}
+}
+
+// BFME's disconnect menu is the DisconnectScreen.apt screen (0x00513558); its
+// per-slot removal, the donor's DisconnectMenu::removePlayer, is still unrowed
+// and carries the placeholder name pinned at 0x00512EDD.
+class AptDisconnectScreen
+{
+public:
+	void rva00512EDD(Int slot, UnicodeString playerName);
+};
+
+// BFME's GameSlot keeps the donor's m_disconnected at +0x48, not Zero Hour's
+// +0x3c: the isHuman-then-flag predicate 0x004FD9CF (the donor's
+// GameSlot::disconnected shape) tests the same byte.
+struct BfmeGameSlotFields
+{
+	char m_unreconstructed_00[0x48];
+	Bool m_disconnected;						///< retail this+0x48
+};
+
+// Open-BFME-1's disconnectPlayer. BFME null-checks TheDisconnectMenu before the
+// removal and ignores ConnectionManager::disconnectPlayer's leave code: the
+// donor's resendPendingCommands on a departing packet router is not called.
+void DisconnectManager::disconnectPlayer(Int slot, ConnectionManager *conMgr) {
+	if ((slot < 0) || (slot >= (MAX_SLOTS))) {
+		return;
+	}
+
+	if (TheGameInfo)
+	{
+		GameSlot *gSlot = TheGameInfo->getSlot( slot );
+		if (gSlot)
+		{
+			((BfmeGameSlotFields *)gSlot)->m_disconnected = TRUE;
+		}
+	}
+
+	Int transSlot = Rva004D39DEGet(slot, conMgr->getLocalPlayerID());
+
+	if (transSlot != -1) {
+		UnicodeString uname = conMgr->getPlayerName(slot);
+		TheRecorder->logPlayerDisconnect(uname, slot);
+		if (TheDisconnectMenu) {
+			((AptDisconnectScreen *)TheDisconnectMenu)->rva00512EDD(transSlot, uname);
+		}
+		conMgr->disconnectPlayer(slot);
 	}
 }
