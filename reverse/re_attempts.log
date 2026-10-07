@@ -15658,3 +15658,8 @@ rva004E02D7@Rva004E02D7	0x004E02D7	52	blocked	Ghidra boundary 0x004E02D7/52; exi
 ??0Rva00544C51@@QAE@PAVObject@@@Z	0x00544ED4	214	blocked	constructor target has no donor or VTABLE evidence; base and three state construction are visible but the owner layout and vtable data are unproven t=5 model=gpt-6
 ?rva00429771@Rva00429771@@QAE_NXZ	0x00429771	74	blocked	class identity and linked-list owner layout are unproven; only an unclaimed caller and the direct-call boundary establish this address body t=3 model=gpt-6
 ?canObjectForceAttack@@YAHPAVObject@@PBV1@PBVCoord3D@@@Z	0x004291C8	174	blocked	six variants still emit reversed internal register inputs because the caller TU context is missing; full bank source carries unrelated prohibited definitions t=20 model=gpt-6
+?rva004933C2@SpecialPowerModule@@QAEXXZ	0x004933C2	246	blocked	donor logic is supported but codegen still differs in EH frame and calls after six variants t=8 model=gpt-6.1
+?onEnter@AIEnterAndAttackState@@UAE?AW4StateReturnType@@XZ	0x0034FD0D	259	blocked	donor class has no onEnter body and target-specific reconstruction remains 299B with call and frame mismatches t=12 model=gpt-6.1
+?rva000353F0@Rva000353F0@@QAEXPAXHHH@Z	0x000353F0	331	blocked	class identity and four argument semantics are unproven and the adjacent allocator TU does not establish this owner t=2 model=gpt-6.1
+?rva00035540@Rva00035540@@QAE_NPAXPAUCallback@@HHHH@Z	0x00035540	210	blocked	class identity and callback ABI not established from the available target evidence t=5 model=gpt-6
+??1Rva00557CCC@@QAE@XZ	0x00557CCC	204	partial	cleanup and field offsets match after removing padding; leading derived/base vptr state and trailing vptr reset remain unexplained t=9 model=gpt-6 score=0.95 stash=reverse/attempts/0x00557ccc.cpp

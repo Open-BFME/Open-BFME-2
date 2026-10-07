@@ -66848,3 +66848,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva00484869@SlaveWatcherBehavior@@QAEXH@Z,,0x00484869,97,Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehaviorDtor.cpp,matched,address-derived method on SlaveWatcherBehavior by shared slave ID field and caller-proven behavior context
 ?rva005C7C7D@Rva005C7C7D@@QAEXPBVImage@@@Z,,0x005C7C7D,8,Code/GameEngine/Source/Common/Rva005C7C7DSetImage.cpp,matched,address-derived tail adjustment delegates to rowed Impl SetImage
 ?Rva0011F3D0Convert@@YAXPBDPAX@Z,,0x0011F3D0,128,Code/Libraries/Source/WWVegas/WW3D2/BfmeDX8CallbacksRva0011F3D0.cpp,matched,address-derived string widening calls packet-named callback global
+??1Rva00557CCC@@QAE@XZ,,0x00557CCC,204,Code/GameEngine/Source/Common/Rva00557CCCDtor.cpp,matched,destructor cleanup layout from retail offsets and vtable anchor
