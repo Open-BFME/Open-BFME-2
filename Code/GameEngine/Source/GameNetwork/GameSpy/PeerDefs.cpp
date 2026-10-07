@@ -179,9 +179,9 @@ extern Int GetAdditionalDisconnectsFromUserFile(Int playerID);
 class GameSpyPeerMessageQueueInterface
 {
 public:
-	virtual void s00(void);
+	virtual ~GameSpyPeerMessageQueueInterface();
 	virtual void s01(void);
-	virtual void s02(void);
+	virtual void endThread(void);
 	virtual void s03(void);
 	virtual void s04(void);
 	virtual void s05(void);
@@ -193,7 +193,7 @@ extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 class GameSpyInfoInterface
 {
 public:
-	virtual void s00(void);
+	virtual ~GameSpyInfoInterface();
 	virtual void s01(void);
 	virtual void s02(void);
 	virtual void s03(void);
@@ -224,7 +224,7 @@ public:
 	virtual void s1C(void);
 	virtual void s1D(void);
 	virtual void s1E(void);
-	virtual void s1F(void);
+	virtual Int getLocalProfileID(void);
 	virtual void s20(void);
 	virtual void s21(void);
 	virtual void s22(void);
@@ -277,6 +277,8 @@ public:
 	virtual void s51(void);
 	virtual void s52(void);
 	virtual Bool isIgnored(AsciiString nick);
+	virtual void setLocalIPs(UnsignedInt internalIP, UnsignedInt externalIP);
+	virtual UnsignedInt getInternalIP(void);
 };
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
@@ -307,7 +309,7 @@ extern GameTextInterface *TheGameText;
 class GameSpyConfigInterface
 {
 public:
-	virtual void slot00(void) = 0;
+	virtual ~GameSpyConfigInterface();
 	virtual void slot01(void) = 0;
 	virtual void slot02(void) = 0;
 	virtual void slot03(void) = 0;
@@ -346,6 +348,64 @@ extern Int g_lobbyRoom1IDAlt;	// 0x00E02338
 
 typedef void (*GameWinMsgBoxFunc)(void);
 void GSMessageBoxOk(UnicodeString title, UnicodeString message, GameWinMsgBoxFunc okFunc = 0);
+
+// PSPlayerStats (0x548 bytes, profile id first); its dtor 0x00385371 is rowed
+// under the address name.
+struct Gen_uw_00385371
+{
+	Int id;
+	unsigned char m_body[0x544];
+	~Gen_uw_00385371();
+};
+typedef Gen_uw_00385371 PSPlayerStats;
+
+class GameSpyPSMessageQueueInterface
+{
+public:
+	virtual ~GameSpyPSMessageQueueInterface();
+	virtual void s01(void);
+	virtual void endThread(void);
+	virtual void s03(void);
+	virtual void s04(void);
+	virtual void s05(void);
+	virtual void s06(void);
+	virtual void s07(void);
+	virtual void s08(void);
+	virtual void s09(void);
+	virtual void s0A(void);
+	virtual void s0B(void);
+	virtual PSPlayerStats findPlayerStatsByID(Int id);
+};
+
+class GameSpyBuddyMessageQueueInterface
+{
+public:
+	virtual ~GameSpyBuddyMessageQueueInterface();
+	virtual void s01(void);
+	virtual void endThread(void);
+};
+
+class PingerInterface
+{
+public:
+	virtual ~PingerInterface();
+	virtual void s01(void);
+	virtual void endThreads(void);
+};
+
+// LadderList: non-virtual dtor rowed at 0x0054D974.
+class Rva0054D974 { public: ~Rva0054D974(); };
+
+extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;	// 0x00E05FC8
+extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;	// 0x00E05FBC
+extern PingerInterface *ThePinger;		// 0x00E05FB8
+extern Rva0054D974 *TheLadderList;		// 0x00E05FB0
+
+// Unrowed 0x00556FB8: writes the stats' key/value pairs into
+// GameSpyMiscPreferences' cached stats (ZH inlines this in TearDownGameSpy).
+void Rva00556FB8(const PSPlayerStats &stats);
+void Rva003B3371Call(Int hook);		// SignalUIInteraction
+void Rva00415EF8Close(void);		// deleteNotificationBox
 
 class GameSpyInfo
 {
@@ -964,6 +1024,68 @@ void GameSpyInfo::leaveStagingRoom(void)
 	m_playerInfoMap.clear();
 	m_joinedStagingRoom = 0;
 	m_isHosting = false;
+}
+
+// ?TearDownGameSpy@@YAXXZ @0x00385956 424B
+// ZH's TearDownGameSpy without the rank-point table; BFME 2 also ends and
+// frees ThePinger and moves the cached-stats write into 0x00556FB8.
+void TearDownGameSpy(void)
+{
+	if (TheGameSpyInfo && TheGameSpyInfo->getLocalProfileID())
+	{
+		PSPlayerStats localPSStats = TheGameSpyPSMessageQueue->findPlayerStatsByID(TheGameSpyInfo->getLocalProfileID());
+		if (localPSStats.id != 0)
+			Rva00556FB8(localPSStats);
+	}
+
+	if (TheGameSpyPSMessageQueue)
+		TheGameSpyPSMessageQueue->endThread();
+	if (TheGameSpyBuddyMessageQueue)
+		TheGameSpyBuddyMessageQueue->endThread();
+	if (TheGameSpyPeerMessageQueue)
+		TheGameSpyPeerMessageQueue->endThread();
+	if (ThePinger)
+		ThePinger->endThreads();
+
+	if (TheGameSpyPSMessageQueue)
+	{
+		::delete TheGameSpyPSMessageQueue;
+		TheGameSpyPSMessageQueue = NULL;
+	}
+	if (TheGameSpyBuddyMessageQueue)
+	{
+		::delete TheGameSpyBuddyMessageQueue;
+		TheGameSpyBuddyMessageQueue = NULL;
+	}
+	if (TheGameSpyPeerMessageQueue)
+	{
+		::delete TheGameSpyPeerMessageQueue;
+		TheGameSpyPeerMessageQueue = NULL;
+	}
+	if (TheGameSpyInfo)
+	{
+		if (TheGameSpyInfo->getInternalIP())
+			Rva003B3371Call(0x13);
+		::delete TheGameSpyInfo;
+		TheGameSpyInfo = NULL;
+	}
+	if (ThePinger)
+	{
+		::delete ThePinger;
+		ThePinger = NULL;
+	}
+	if (TheLadderList)
+	{
+		delete TheLadderList;
+		TheLadderList = NULL;
+	}
+	if (TheGameSpyConfig)
+	{
+		::delete TheGameSpyConfig;
+		TheGameSpyConfig = NULL;
+	}
+
+	Rva00415EF8Close();
 }
 
 // ?reset@GameSpyInfo@@UAEXXZ @0x00385D25 261B
