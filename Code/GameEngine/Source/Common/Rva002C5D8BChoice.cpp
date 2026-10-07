@@ -1,11 +1,6 @@
 // cl: /DNDEBUG /MD
 // ?setTarget@AITarget@@QAEXPAVObject@@M@Z @0x002C5D8B 27B: forwards Object+0x38 position plus float plus Object+0x74 to 0x002C5CF7. Evidence pin REL32 at 0x005739CE in AITargetHeuristicBaseDefense slot 1 with 200.0 plus neighbours Rva002C589BXfer Dtor share flags.
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object
 {
@@ -49,6 +44,7 @@ class AITarget
 public:
 	void rva002C5CF7(const struct Coord3D *pos, float radius, int id);
 	void setTarget(Object *obj, float value);
+    void rva002C590F(const Coord3D *pos);
 private:
     void *m_owner;
     unsigned int m_04;
@@ -85,4 +81,32 @@ void AITarget::rva002C5CF7(const Coord3D *pos, float radius, int id)
     reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
     Rva003ED0C4Result result = m_table->rva003ED0C4(m_owner, 0, 0);
     m_value = result.values[0];
+}
+
+// Native 2C590F..2C59CE RET4. Trial position uses the same table as the
+// position setter; keep it only when the first result scalar improves, and
+// otherwise restore the three saved components. Original method name unknown.
+void AITarget::rva002C590F(const Coord3D *pos)
+{
+    struct PositionPair { Coord3D point; Coord3D oldPoint; } positions;
+    positions.oldPoint.x = m_table->m_position.x;
+    Coord3D *destination = &m_table->m_position;
+    positions.oldPoint.y = destination->y;
+    positions.oldPoint.z = destination->z;
+    positions.point.x = pos->x;
+    positions.point.y = pos->y;
+    positions.point.z = pos->z;
+    *destination = positions.point;
+    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
+    Rva003ED0C4Result result = m_table->rva003ED0C4(m_owner, 0, 0);
+    if (result.values[0] > m_value)
+        m_value = result.values[0];
+    else
+    {
+        positions.point.x = positions.oldPoint.x;
+        positions.point.y = positions.oldPoint.y;
+        positions.point.z = positions.oldPoint.z;
+        m_table->m_position = positions.point;
+        reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
+    }
 }
