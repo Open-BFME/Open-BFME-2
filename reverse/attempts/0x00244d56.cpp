@@ -1,39 +1,37 @@
 // ?rva00244D56@GameLogic@@QAEXPAV?$vector@URva0024622FEntry@@V?$allocator@URva0024622FEntry@@@_STL@@@_STL@@PBW4KindOfType@@1_N@Z
 // partial score=0.91 date=2026-10-07
 // ?rva00244D56@GameLogic@@QAEXPAV?$vector@URva0024622FEntry@@V?$allocator@URva0024622FEntry@@@_STL@@@_STL@@PBW4KindOfType@@1_N@Z
-// partial score=0.91 date=2026-10-07
-// cl: /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // Patch against Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp at
-// 2ad71f6faf (git apply after stripping the #if 0 wrapper). Adds the
-// TerrainLogic / AIData / ThingTemplate / Object / MapObject / Matrix3D /
-// Team / Drawable views and the body ported onto the current file (the
-// Rva0024622FEntry vector, Rva00148F5ECache keys, CreateMask, AssetLoadMode).
-// @0x00244D56 2052B; compiled 2014B. Masked of frame offsets and relocations,
-// the only residue is register allocation:
+// 18de363f53 (GameLogic::update landed, /G7 on the TU; git apply after
+// stripping the #if 0 wrapper). @0x00244D56 2052B; compiled 2014B.
+// Masked of frame offsets and relocations the residue is register allocation
+// (30 hunks):
 //  - retail spills pMapObj to ebp-0x14 for the create path and keeps the
-//    properties Dict in edi (add edi,0x24); ours keeps pMapObj in edi and
-//    rematerialises lea [edi+0x24]. The spill gives retail its pre-tested
-//    loop (cmp/je/jmp + reload at top) and the 4 extra frame bytes.
+//    properties Dict in edi (add edi,0x24); ours keeps pMapObj in edi.
+//    KNIFE EDGE (2026-10-07 probes): deleting the one use
+//    'entry.mapObj = pMapObj' (scratch only) flips ours to retail's spill,
+//    add edi,0x24 and sub esp,0x108, leaving 17 hunks; deleting the whole
+//    push_back or folding obj into team flips it too. So retail weights
+//    pMapObj one create-path use lower (or props/team/obj higher). No
+//    legitimate form found: makeEntry by value/const-ref, struct ctor,
+//    aggregate init, early entry.mapObj store, MapObject *const & alias,
+//    getFlag(int) inline, isKindOf for every kind test, props as reference,
+//    local copy of pMapObj, list-head getter, decl placement (all identical).
 //  - Rotate_Z: retail holds s in xmm0 and tmp1 in xmm1 (movaps xmm3,xmm0);
-//    ours multiplies s from memory.
-// Tried with no change to the spill (all compile identical): props as a
-// loop-top / function-scope / per-branch variable or inline
-// pMapObj->getProperties() at each use, pMapObj and thingTemplate declared
-// at function scope (donor style), if (obj) {...} instead of continue,
-// inverted prop/create branch order. Rotate_Z: cosf/sinf, c*tmp2 - s*tmp1,
-// a WWMath Vector4 Row[] with operator[] (worse), inline vs __forceinline
-// (inline is not expanded under /O1).
-// Fixed this session: getDefaultTeam() == team operand order (cmp [eax+0x2ec],ebx).
+//    ours multiplies s from memory. cosf/sinf and a Vector4 Row[] view do
+//    not change it. With the spill, the frame slots of treeA/propScale/
+//    angle/originalOwner are also permuted (-0x24..-0x30).
 // Pins needed: 0x6AA1C _Rb_tree::clear (AssetList set), 0x23B383, 0x27D3D9,
 // 0x2951AB, 0x2A851D, push_back<Rva0024622FEntry> 0x539A2E.
 // 0x24622F (bridge pass, stash 0x0024622f.cpp) needs this body in the TU.
 #if 0
 diff --git a/Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp b/Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
-index d9b100017d..1e22b73670 100644
+index 8e71043c3c..389014f562 100644
 --- a/Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
 +++ b/Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
-@@ -142,6 +142,12 @@ class Object;
+@@ -143,6 +143,12 @@ class Object;
  class ThingTemplate;
  class Matrix3D;
  
@@ -46,7 +44,7 @@ index d9b100017d..1e22b73670 100644
  class Rva00240000;
  
  class TerrainLogic : public Snapshot, public SubsystemInterface
-@@ -150,11 +156,17 @@ public:
+@@ -151,11 +157,17 @@ public:
  	virtual bool loadMap(const AsciiString &filename, Rva00240000 *stream, bool query,
  		bool newGame);                                                   // +0x10
  	virtual void newMap(bool loadingSaveGame);                           // +0x14
@@ -65,10 +63,10 @@ index d9b100017d..1e22b73670 100644
  };
  
  class BuffLogic : public Snapshot, public SubsystemInterface
-@@ -174,16 +186,32 @@ class Pathfinder
- {
+@@ -176,16 +188,32 @@ class Pathfinder
  public:
  	void rva002E8DAA(void);
+ 	void rva002F0F07(void);
 +	void AddObjectToPathfindMap(Object *obj);
 +};
 +
@@ -98,7 +96,7 @@ index d9b100017d..1e22b73670 100644
  };
  
  class AssetList;
-@@ -345,6 +373,8 @@ class Dict
+@@ -370,6 +398,8 @@ class Dict
  public:
  	Dict(int numPairs = 0);
  	~Dict() { releaseData(); }
@@ -107,7 +105,7 @@ index d9b100017d..1e22b73670 100644
  	AsciiString getAsciiString(int key, bool *exists = 0) const;
  	void setInt(int key, int value);
  	void setBool(int key, bool value);
-@@ -1232,6 +1262,7 @@ class ThingTemplate
+@@ -1311,6 +1341,7 @@ class ThingTemplate
  {
  public:
  	const AsciiString &getName(void) const { return m_name; }
@@ -115,7 +113,7 @@ index d9b100017d..1e22b73670 100644
  	__forceinline bool isKindOf(KindOfType t) const
  	{
  		unsigned int mask = 1u << (t & 31);
-@@ -1241,8 +1272,22 @@ public:
+@@ -1320,8 +1351,22 @@ public:
  private:
  	char m_pad00[0x64];
  	AsciiString m_name;
@@ -140,7 +138,7 @@ index d9b100017d..1e22b73670 100644
  };
  
  class Dict;
-@@ -1253,6 +1298,9 @@ class Thing
+@@ -1332,6 +1377,9 @@ class Thing
  {
  public:
  	Drawable *getDrawable(void) const;
@@ -149,17 +147,17 @@ index d9b100017d..1e22b73670 100644
 +	void setPosition(const Coord3D *pos);
  };
  
- class Object : public Thing
-@@ -1260,6 +1308,8 @@ class Object : public Thing
+ // DisabledMaskType: one word; its constructors memset, so it returns
+@@ -1367,6 +1415,8 @@ class Object : public Thing
  public:
  	const ThingTemplate *getTemplate(void) const { return m_template; }
  	Object *getNextObject(void) const { return m_next; }
 +	void rva002951AB(Dict *properties);
 +	void rva0028B4CE(PathfindLayerEnum layer);
  	void rva00293E64(Dict *properties);
- 
- private:
-@@ -1343,6 +1393,7 @@ class AssetList
+ 	bool testStatus(ObjectStatusTypes bit) const;
+ 	bool isDisabled(void) const { return m_disabledMask.any(); }
+@@ -1471,6 +1521,7 @@ class AssetList
  {
  public:
  	AssetList() : m_treeLayoutPad(0), m_changed(true) {}
@@ -167,7 +165,7 @@ index d9b100017d..1e22b73670 100644
  
  private:
  	Rva001408C0Set m_prototypes;
-@@ -1366,6 +1417,8 @@ class MapObject
+@@ -1494,6 +1545,8 @@ class MapObject
  public:
  	MapObject *getNext(void) const { return m_next; }
  	const Coord3D *getLocation(void);
@@ -176,7 +174,7 @@ index d9b100017d..1e22b73670 100644
  	Dict *getProperties(void) { return &m_properties; }
  	const ThingTemplate *getThingTemplate(void) const;
  
-@@ -1450,6 +1503,7 @@ public:
+@@ -1586,6 +1639,7 @@ public:
  	Player *getNthPlayer(int index);
  	Player *findPlayerWithNameKey(NameKeyType key);
  	void setLocalPlayer(Player *player);
@@ -184,7 +182,7 @@ index d9b100017d..1e22b73670 100644
  
  private:
  	char m_pad0C[0x10 - 0x0c];
-@@ -1471,6 +1525,7 @@ extern PlayerList *ThePlayerList;
+@@ -1607,6 +1661,7 @@ extern PlayerList *ThePlayerList;
  class Matrix3D
  {
  public:
@@ -192,7 +190,7 @@ index d9b100017d..1e22b73670 100644
  	explicit Matrix3D(bool init)
  	{
  		if (init) {
-@@ -1480,6 +1535,28 @@ public:
+@@ -1616,6 +1671,28 @@ public:
  		}
  	}
  
@@ -221,7 +219,7 @@ index d9b100017d..1e22b73670 100644
  private:
  	float m_row[3][4];
  };
-@@ -1723,10 +1800,13 @@ class GameLODManager
+@@ -1859,10 +1936,13 @@ class GameLODManager
  {
  public:
  	int getStaticLODLevel(void) const { return m_staticLODLevel; }
@@ -235,7 +233,7 @@ index d9b100017d..1e22b73670 100644
  };
  
  
-@@ -2456,10 +2536,13 @@ class Drawable
+@@ -2629,10 +2709,13 @@ class Drawable
  public:
  	void rva00278C6B(void);
  	Drawable *getNextDrawable(void) const { return m_next; }
@@ -249,16 +247,16 @@ index d9b100017d..1e22b73670 100644
  };
  
  class ClientFrameSubsystem
-@@ -2475,6 +2558,7 @@ public:
- 	virtual void v1c(); virtual void v1d(); virtual void v1e(); virtual void v1f();
- 	virtual void v20(); virtual void v21(); virtual void v22();
- 	virtual Drawable *getDrawableList(void);                             // +0x8C
+@@ -2651,6 +2734,7 @@ public:
+ 
+ 	char m_pad004[0xc8 - 4];
+ 	bool m_c8;
 +	void rva0023B383(Dict *properties, const ThingTemplate *tt, const Coord3D *pos);
  };
  
  enum GameSpyBuddyStatus
-@@ -3559,3 +3643,251 @@ void populateRandomSideAndColor(GameInfo *game)
- 		}
+@@ -4485,3 +4569,251 @@ void GameLogic::update(int phase)
+ 		TheGameClient->m_c8 = true;
  	}
  }
 +
