@@ -66819,3 +66819,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva0015E2B0@SegmentedLineClass@@QAEXMM@Z,,0x0015E2B0,54,Code/Libraries/Source/WWVegas/WW3D2/Rva0015E2B0Apply.cpp,matched,clamp two floats to plus 0xE4 plus 0xF8 clear bit1
 ??0Rva0022A8F3Subsystem@@QAE@XZ,,0x0022E092,55,Code/GameEngine/Source/GameClient/Rva0022A8F3SubsystemCtor.cpp,matched,pin ctor caller GameEngine init baseConstruct hash_map PlayerAITypeSet pattern
 ??0Rva0022AA52Subsystem@@QAE@XZ,,0x0022E03F,55,Code/GameEngine/Source/GameClient/Rva0022AA52SubsystemCtor.cpp,matched,pin ctor caller GameEngine init baseConstruct hash_map subsystem pattern
+??0Rva005EEE5A@@QAE@XZ,,0x005EEE5A,17,Code/GameEngine/Source/GameClient/GUI/Rva005EEE5A.cpp,matched,address-derived constructor with packet caller references and target vtable store; class identity unresolved
