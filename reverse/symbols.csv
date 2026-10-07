@@ -13949,7 +13949,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva002CB902@Weapon@@QBEDPAVObject@@PAXMH@Z,0x002CB902,const Weapon byte predicate over (object plus aux plus float plus int) called from 0x33FD98; RETAIL REL32 at 0x0033FDC4; byte return avoids caller-side bool normalization; address-named
 ?second@Rva0004378DMember@@QAEXXZ,0x0004353C,opaque member target of tail-pair 0x0004378D at +0x280; identity unproven; address-derived name
 ?second@Rva005E5554Member@@QAEXXZ,0x005F327A,opaque member target of tail-pair 0x005E5554 at this-8; identity unproven; address-derived name
-
 ?rva00208A09@ScriptEngine@@QAEXVAsciiString@@ABV2@@Z,0x00208A09,ScriptEngine member taking (by-value string, string ref); REL32 callee of dump-range-18 0x003C2019; identity unproven
 ?GadgetListboxCreateScrollbar@@YAXPAVGameWindow@@@Z,0x0032449E,"cdecl listbox scroll bar builder (Ghidra 677B); called by gogoGadgetListBox 0x002C1395 (REL32 at 0x002C145D) only when list data +0xA (scrollBar) is set, as in Zero Hour GadgetListBox.cpp"
 ??0Mouse@@QAE@XZ,0x001EEC97,"Mouse constructor: writes the Mouse vtable 0x00BE0358 (slot 10 rowed Mouse::update 0x001EDE3A, slot 16 createStreamMessages 0x001EE630) after eh-vector-constructing m_cursorInfo[0x38] stride 0x54 at +0x0C; Win32Mouse ctor 0x00041976 calls it first"
@@ -15351,7 +15350,6 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva004D0E8B@ConnectionManager@@QAEXXZ,0x004D0E8B,REL32 target read at 0x0025E23D; target Ghidra boundary is 8B; body pushes zero and calls existing pinned 0x004D00BB then returns; ECX is Network+0x0C; ConnectionManager ownership follows target TU map and caller layout; helper operation remains unresolved.
 ?rva00211505@Rva00211505@@QAEXXZ,0x00211505,REL32 call and tail jump observed in target 0x00211570; address-derived names only
 ?rva003F92DA@Rva003F92DA@@QAEXXZ,0x003F92DA,REL32 call and tail jump observed in target 0x00211570; address-derived names only
-
 ?rva001E7053@Rva001E7053@@QAEXHHMM@Z,0x001E7053,x87 twin forward targets of 0x1E7C2B/0x1E9045; thiscall (int;int;float;float) caller-side fiction; true types unproven (address-derived)
 ?rva001E8C1B@Rva001E8C1B@@QAEXHHMM@Z,0x001E8C1B,x87 twin forward targets of 0x1E7C2B/0x1E9045; thiscall (int;int;float;float) caller-side fiction; true types unproven (address-derived)
 ?rva0018C4A9@Rva0018C4A9@@QAEXPAXPAF@Z,0x0018C4A9,wchar-loop callee of 0x18C6D5; takes (out-pair; key-word-ptr) per retail reads; true types unproven (address-derived)
@@ -15359,7 +15357,6 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva00298AAD@Object@@QAEXI@Z,0x00298AAD,callee of ?rva004CC795@Rva004CC829@@QAEXPAVObject@@I@Z
 ??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@_N3@Z,0x00298EA9,Target call from 0x0023CAE7 passes ECX as a fresh 0x4D8-byte allocation and arguments (template; mask; team; flag; true); matched Object interface bodies and their vtable evidence place subobjects at +0x64/+0x70. Constructor identity and the final flag meaning are structural inferences; the address and argument order come from the target call.
 ?rva0005230D@Rva0005230D@@QAEXMMMMM@Z,0x0005230D,callee of ?rva000537F4@MilesAudioManager@@QAEXMMMMMH@Z
-
 ??0LargeGroupAudio@@QAE@XZ,0x0020DD59,GameLogic::init 0x243EE7 callee
 ??0Rva00359E13@@QAE@XZ,0x00359E13,GameLogic::init 0x243EE7 callee
 ??0Rva006253F0@@QAE@XZ,0x006253F0,GameLogic::init 0x243EE7 callee
@@ -15378,3 +15375,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 
 ?push_back@?$list@PAURva0048BDF8Entry@@V?$allocator@PAURva0048BDF8Entry@@@_STL@@@_STL@@QAEXABQAURva0048BDF8Entry@@@Z,0x0005548F,pointer-element list push_back folded with the rowed list<int> body; retail rel32 at 0x0048BEC4 in FireWeaponUpdate::Rva0048BDF8Helper on +0x24
 
+?_M_lower_bound@?$_Rb_tree@URva000F4003Element@@U1@U?$_Identity@URva000F4003Element@@@_STL@@U?$less@URva000F4003Element@@@3@V?$allocator@URva000F4003Element@@@3@@_STL@@ABEPAU?$_Rb_tree_node@URva000F4003Element@@@2@ABURva000F4003Element@@@Z,0x000F2F5A,
