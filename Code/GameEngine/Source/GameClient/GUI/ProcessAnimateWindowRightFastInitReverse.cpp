@@ -28,6 +28,10 @@
 // retail's stack-home reuse and three-register SSE schedule. No assembly.
 
 #pragma optimize("y", on)
+// Emit the shared compiler iterator under this TU's existing retail context.
+struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
+
 // Keep source headers untouched; the target copied Coord2D nontrivially.
 #define Coord2D ZHTrivialCoord2D
 #include "Lib/BaseType.h"
