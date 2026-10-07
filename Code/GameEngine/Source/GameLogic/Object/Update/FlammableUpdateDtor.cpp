@@ -653,6 +653,91 @@ void FlammableUpdate::rva0048C8F9()
 	me->m_body->updateAflame();
 }
 
+// ?tryToIgnite@FlammableUpdate@@QAEXXZ @0x0048CB18 781B (Ghidra boundary;
+// pinned name; calls at 0x003BC2CC, 0x0048B919 in FireSpreadUpdate's update
+// and 0x0048CF23 in onDamage below).
+// Donor: Zero Hour FlammableUpdate::tryToIgnite -- set AFLAME, the AFLAME
+// model condition, start the burning sound (row 0x0048C7BF), start fire
+// spreading, set the aflame/burned/damage end frames and sleep by
+// calcSleepTime. Target-only additions read from retail: the AFLAME Lua
+// event (0x003360D2), model-condition flags 190/191 with a drawable refresh
+// (0x00274176), the FireFX list at module data +0x28 played at a bone
+// transform (0x00272835, doFXPos 0x00094C29) or on the object (doFXObj
+// 0x000B2235), and the special model condition with a type-4 disable timer
+// and status 82.
+void FlammableUpdate::tryToIgnite()
+{
+	if (m_status == FS_NORMAL)
+	{
+		Object *me = getObject();
+		me->setStatus(OBJECT_STATUS_AFLAME, true);
+		me->m_body->updateAflame();
+		me->setModelConditionState(MODELCONDITION_AFLAME);
+		rva0048C7BF();
+
+		static const NameKeyType key_FireSpreadUpdate = TheNameKeyGenerator->nameToKey("FireSpreadUpdate");
+		Rva0048B7D9 *fu = (Rva0048B7D9 *)getObject()->findModule(key_FireSpreadUpdate);
+		if (fu != 0)
+			fu->rva0048B938();
+
+		m_status = FS_AFLAME;
+
+		BfmeDelayedLuaEventList list;
+		((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(OBJECT_STATUS_AFLAME, me, &list);
+
+		const FlammableUpdateModuleData *data = getFlammableUpdateModuleData();
+		UnsignedInt now = TheGameLogic->getFrame();
+		if (data->m_aflameDuration > 0)
+			m_aflameEndFrame = now + data->m_aflameDuration;
+		else
+			m_aflameEndFrame = 0x3fffffff;
+		m_burnedEndFrame = data->m_burnedDelay ? now + data->m_burnedDelay : 0;
+		m_damageEndFrame = data->m_aflameDamageDelay ? now + data->m_aflameDamageDelay : 0;
+
+		setWakeFrame(m_object, calcSleepTime());
+
+		if (data->m_flag35)
+			me->setModelConditionState(MODELCONDITION_FLAG_190);
+		if (data->m_flag37)
+			me->setModelConditionState(MODELCONDITION_FLAG_191);
+		if (data->m_flag35 || data->m_flag37)
+			me->getDrawable()->rva00274176(true);
+
+		for (_STL::vector<Rva000CF475FireFX>::const_iterator it = data->m_fireFXList.begin(); it != data->m_fireFXList.end(); )
+		{
+			Rva000CF475FireFX info = *it;
+			if (!info.boneName.isEmpty() && getObject()->getDrawable())
+			{
+				Matrix3D mtx(true);
+				getObject()->getDrawable()->rva00272835((Int)info.boneName.str(), (Int)&mtx);
+				Coord3D pos;
+				pos.x = mtx.m[0][3];
+				pos.y = mtx.m[1][3];
+				pos.z = mtx.m[2][3];
+				FXList::doFXPos(info.fx, &pos, &mtx);
+			}
+			else
+			{
+				FXList::doFXObj(info.fx, getObject());
+			}
+			++it;
+		}
+
+		if (data->m_specialConditionFrames > 0)
+		{
+			me->setSpecialModelConditionState(data->m_specialCondition, data->m_specialConditionFrames);
+			me->setDisabledUntil(DISABLED_TYPE_4, TheGameLogic->getFrame() + data->m_specialConditionFrames - 1);
+			m_specialConditionEndFrame = TheGameLogic->getFrame() + data->m_specialConditionFrames;
+			me->setStatus(OBJECT_STATUS_STATUS_82, true);
+		}
+		else
+		{
+			m_specialConditionEndFrame = TheGameLogic->getFrame();
+		}
+		setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+	}
+}
+
 // ?onDamage@FlammableUpdate@@UAEXPAVDamageInfo@@@Z @0x0048CE3E 453B (Ghidra
 // boundary; vftable entry 0x0084C3BC, this = the DamageModuleInterface base
 // at +0x20). Donor: Zero Hour FlammableUpdate::onDamage -- remember the

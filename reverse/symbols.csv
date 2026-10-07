@@ -15326,3 +15326,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva002BED69@Rva002D3627Host@@QAEHXZ,0x002BED69,caller 0x00539411 and target callee bytes show increment and return of host+0x88 dword
 ?rva00274CD8@Drawable@@QAE?AVRva002390CB@@ABVAsciiString@@@Z,0x00274CD8,callee of ?update@DozerActionDoActionState@@UAE?AW4StateReturnType@@XZ
 ?onStructureConstructionComplete@Player@@QAEXPAVObject@@0_N@Z,0x002A9D02,callee of ?update@DozerActionDoActionState@@UAE?AW4StateReturnType@@XZ
+??0Rva000CF475FireFX@@QAE@ABU0@@Z,0x000CF475,callee of ?tryToIgnite@FlammableUpdate@@QAEXXZ
