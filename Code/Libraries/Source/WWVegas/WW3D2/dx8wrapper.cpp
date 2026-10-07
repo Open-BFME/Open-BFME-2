@@ -2272,47 +2272,6 @@ void DX8Wrapper::Flip_To_Primary(void)
 /*! KM
 /* 5/17/02 KM Fixed support for render to texture with depth/stencil buffers
 */
-// ?Clear@DX8Wrapper@@ present-unmatched
-void DX8Wrapper::Clear(bool clear_color, bool clear_z_stencil, const Vector3 &color, float dest_alpha, float z, unsigned int stencil)
-{
-	DX8_THREAD_ASSERT();
-
-	// If we try to clear a stencil buffer which is not there, the entire call will fail
-	// KJM fixed this to get format from back buffer (incase render to texture is used)
-	/*bool has_stencil = (	_PresentParameters.AutoDepthStencilFormat == D3DFMT_D15S1 ||
-								_PresentParameters.AutoDepthStencilFormat == D3DFMT_D24S8 ||
-								_PresentParameters.AutoDepthStencilFormat == D3DFMT_D24X4S4);*/
-	bool has_stencil=false;
-	IDirect3DSurface8* depthbuffer;
-
-	_Get_D3D_Device8()->GetDepthStencilSurface(&depthbuffer);
-	number_of_DX8_calls++;
-
-	if (depthbuffer)
-	{
-		D3DSURFACE_DESC desc;
-		depthbuffer->GetDesc(&desc);
-		has_stencil=
-		(
-			desc.Format==D3DFMT_D15S1 ||
-			desc.Format==D3DFMT_D24S8 ||
-			desc.Format==D3DFMT_D24X4S4
-		);
-
-		// release ref
-		depthbuffer->Release();
-	}
-
-	DWORD flags = 0;
-	if (clear_color) flags |= D3DCLEAR_TARGET;
-	if (clear_z_stencil) flags |= D3DCLEAR_ZBUFFER;
-	if (clear_z_stencil && has_stencil) flags |= D3DCLEAR_STENCIL;
-	if (flags)
-	{
-		DX8CALL(Clear(0, NULL, flags, Convert_Color(color,dest_alpha), z, stencil));
-	}
-}
-
 void DX8Wrapper::Set_Viewport(CONST D3DVIEWPORT8* pViewport)
 {
 	DX8_THREAD_ASSERT();
@@ -2908,6 +2867,73 @@ struct BfmeApplyOps:DX8Wrapper {
   Device()->SetTransform(type,reinterpret_cast<const D3DMATRIX *>(&matrix));number_of_DX8_calls++;
  }
 };
+
+// D3D9 surface prefix through GetDesc (slot 0x30), in Wine/SDK order, and
+// D3D9's 32-byte D3DSURFACE_DESC.
+struct BfmeClearSurface9 {
+    virtual HRESULT __stdcall QueryInterface(REFIID riid, void** ppvObject)=0;
+    virtual ULONG __stdcall AddRef()=0;
+    virtual ULONG __stdcall Release()=0;
+    virtual HRESULT __stdcall GetDevice(void **device)=0;
+    virtual HRESULT __stdcall SetPrivateData(REFIID guid, const void *data, DWORD size, DWORD flags)=0;
+    virtual HRESULT __stdcall GetPrivateData(REFIID guid, void *data, DWORD *size)=0;
+    virtual HRESULT __stdcall FreePrivateData(REFIID guid)=0;
+    virtual DWORD __stdcall SetPriority(DWORD priority)=0;
+    virtual DWORD __stdcall GetPriority()=0;
+    virtual void __stdcall PreLoad()=0;
+    virtual DWORD __stdcall GetType()=0;
+    virtual HRESULT __stdcall GetContainer(REFIID riid, void **container)=0;
+    virtual HRESULT __stdcall GetDesc(struct BfmeSurfaceDesc9 *desc)=0;
+};
+struct BfmeSurfaceDesc9 {
+    D3DFORMAT Format;
+    DWORD Type, Usage, Pool, MultiSampleType, MultiSampleQuality, Width, Height;
+};
+
+//**********************************************************************************************
+//! Clear current render device
+/*! KM
+/* 5/17/02 KM Fixed support for render to texture with depth/stencil buffers
+*/
+// BFME 2 (retail 0x0011D330) takes the stencil clear as its own flag where
+// Zero Hour derived it from clear_z_stencil; the rest is ZH's body on the
+// D3D9 device and surface.
+void DX8Wrapper::Clear(bool clear_color, bool clear_z_stencil, bool clear_stencil, const Vector3 &color, float dest_alpha, float z, unsigned int stencil)
+{
+	DX8_THREAD_ASSERT();
+
+	// If we try to clear a stencil buffer which is not there, the entire call will fail
+	bool has_stencil=false;
+	BfmeClearSurface9* depthbuffer;
+
+	BfmeApplyOps::Device()->GetDepthStencilSurface(reinterpret_cast<IDirect3DSurface9 **>(&depthbuffer));
+	number_of_DX8_calls++;
+
+	if (depthbuffer)
+	{
+		BfmeSurfaceDesc9 desc;
+		depthbuffer->GetDesc(&desc);
+		has_stencil=
+		(
+			desc.Format==D3DFMT_D15S1 ||
+			desc.Format==D3DFMT_D24S8 ||
+			desc.Format==D3DFMT_D24X4S4
+		);
+
+		// release ref
+		depthbuffer->Release();
+	}
+
+	DWORD flags = 0;
+	if (clear_color) flags |= D3DCLEAR_TARGET;
+	if (clear_z_stencil) flags |= D3DCLEAR_ZBUFFER;
+	if (clear_stencil && has_stencil) flags |= D3DCLEAR_STENCIL;
+	if (flags)
+	{
+		BfmeApplyOps::Device()->Clear(0, NULL, flags, Convert_Color(color,dest_alpha), z, stencil);
+		number_of_DX8_calls++;
+	}
+}
 // BFME 2's End_Scene (retail 0x00122BE0). Zero Hour's body on the D3D9 device,
 // defined after Set_Vertex_Buffer and Set_Index_Buffer, which retail inlines
 // here. BFME 2 adds a statistics roll-over every Interval presented frames, a

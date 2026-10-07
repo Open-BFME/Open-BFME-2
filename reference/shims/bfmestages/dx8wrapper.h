@@ -294,6 +294,8 @@ public:
 	static void Flip_To_Primary(void);
 
 	static void Clear(bool clear_color, bool clear_z_stencil, const Vector3 &color, float dest_alpha=0.0f, float z=1.0f, unsigned int stencil=0);
+	// BFME 2 splits the stencil clear out of clear_z_stencil (retail 0x0011D330).
+	static void Clear(bool clear_color, bool clear_z_stencil, bool clear_stencil, const Vector3 &color, float dest_alpha=0.0f, float z=1.0f, unsigned int stencil=0);
 
 	static void	Set_Viewport(CONST D3DVIEWPORT8* pViewport);
 
@@ -1025,7 +1027,7 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha)
 {
 	const float scale = 255.0;
-	unsigned int col;
+	unsigned int col=0;
 
 	// Multiply r, g, b and a components (0.0,...,1.0) by 255 and convert to integer. Or the integer values togerher
 	// such that 32 bit ingeger has AAAAAAAARRRRRRRRGGGGGGGGBBBBBBBB.
