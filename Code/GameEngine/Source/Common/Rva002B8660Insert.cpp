@@ -1,5 +1,3 @@
-// ?rva002B8660@Rva002B8660@@QAEPAXHH@Z
-// partial score=0.93 date=2026-10-07
 // cl: /O1 /EHsc /MD /arch:SSE /G7 /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva002B8660@Rva002B8660@@QAEPAXHH@Z @0x002B8660 74B. Multimap insert at this+0x13c with key from spawn-army +0x4c and value from arg +0x14 after LivingWorldCampaignManager::UseGenericSpawnArmyForPlayer; same +0x13c/+0x4c/+0x14 shape as rowed neighbour Rva002B86AA lookup at 0x002B86AA; prev 0x002B8644 next 0x002B86AA contiguous; callees rowed 0x003B8CE0 and 0x004FF876; caller 0x0059E7AA; address-derived honest name.
@@ -41,6 +39,6 @@ void *Rva002B8660::rva002B8660(Int a, Int b)
 {
 	void *army = g_00E02D6C->UseGenericSpawnArmyForPlayer(a, b);
 	if (army)
-		m_map13C.insert(_STL::multimap<Int, Int>::value_type(((Rva002B8660Key *)army)->m_4c, ((Rva002B8660Val *)b)->m_14));
+		m_map13C.insert(_STL::make_pair(((Rva002B8660Key *)army)->m_4c, ((Rva002B8660Val *)b)->m_14));
 	return army;
 }
