@@ -42,10 +42,16 @@ public:
 	unsigned char m_11a;
 };
 
-class AIUpdateInterface
+class AIUpdateInterface;
+
+// Native call at 0x0029DEFB targets Rva00264274Path.cpp (0x00264274).
+// ECX is the same AI update pointer read from Object+0x258; the sole stack
+// argument is the destination and AL is the bool result. Retain the
+// provider spelling without asserting a semantic name for its path test.
+class Rva00264274
 {
 public:
-	bool isQuickPathAvailable(const Coord3D *destination) const;
+	bool rva00264274(const Coord3D *destination);
 };
 
 class Object
@@ -171,7 +177,7 @@ bool Rva0029DE76::rva0029DE76(const Coord3D *pos)
 			return true;
 		if (!ai)
 			continue;
-		if (ai->isQuickPathAvailable(pos))
+		if (reinterpret_cast<Rva00264274 *>(ai)->rva00264274(pos))
 			return true;
 	}
 	return false;
