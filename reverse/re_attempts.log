@@ -17394,3 +17394,4 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?Rva00415D33Parse@@YAXPAVINI@@@Z	0x00415D33	314	partial	314B vs 314B same 106 insns only add ecx 0xc vs push eax order swapped at insert call t=30 model=muse-15 score=0.99 stash=reverse/attempts/0x00415d33.cpp
 ?rva003FB793@Rva003FB793@@QAEXPAURva003FB793Vec@@@Z	0x003FB793	52	blocked	x87 fld plus int mov vs 6 movss under O1-SSE same as prior blocked t=5 model=muse-15
 ?rva003F92DA@Rva003F92DA@@QAEXXZ	0x003F92DA	113	blocked	needs ICF twin method name for 0x003F92BB to get mov ecx esi before 2nd-4th calls t=15 model=muse-15
+?rva005F888C@Rva005F888C@@QAEXABURva004F6986Member@@@Z	0x005F888C	66	blocked	6-variant box hit at exact 66B 21insns 0 reg diffs; scheduling only push-vs-save order plus EH state after-vs-before; true 2-string 8B holder not Payload; whole-TU stash 67868B over 64KB so no bank t=30 model=muse-spark

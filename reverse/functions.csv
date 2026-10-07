@@ -67908,3 +67908,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva001FD19E@Rva001FD19E@@QAEPBDH@Z,,0x001FD19E,25,Code/GameEngine/Source/Common/Rva001FD19EGetter.cpp,matched,bounds-checked slot getter stride 4 offset 0x48 OOB empty string caller 0x00241ECC
 ?Rva00211142Clone@@YGPAVRva00210F3D@@PAV1@@Z,,0x00211142,89,Code/GameEngine/Source/Common/Rva00211142Clone.cpp,matched,clone via new ctor assign link flag caller 0x002137F1
 ?Rva0038072AClear@@YAXXZ,,0x0038072A,67,Code/GameEngine/Source/Common/Rva0038072AClear.cpp,matched,tooltip manager owner free messagebox tail
+?rva005170F1@Rva005170CD@@QAEXXZ,,0x005170F1,170,Code/GameEngine/Source/Common/Rva005170CDReset.cpp,matched,unlock disconnect error via GameSpy plus GameText fetches plus Rva00437E84
