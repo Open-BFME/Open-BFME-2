@@ -151,6 +151,7 @@ public:
 
 	void bfmeQuery1279(int nDepth, int name, void **ppPrev, void **ppItem);
 	void rva006F6FB0(int key, AptCIH *pNewItem);
+	void rva006F7030(int key, AptCIH *pNewItem, AptCIH *pPrev, AptCIH *pItemAtDepth);
 	AptCIH *rva006F6D60(AptCIH *pOldItem, AptCIH *pNewItem);
 
 	static void *operator new(unsigned int size)
@@ -557,3 +558,20 @@ void AptDisplayList::clear(bool flag)
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
 #pragma comment(linker, "/alternatename:?g_00E182E0@@3PAXA=?g_aptDateInterpreter@@3UAptActionInterpreter@@A")
+
+// Native6F7030..6F7090 RET16. Same item assertion and 17-bit key write
+// as rva006F6FB0; this sibling receives the already-found previous/depth
+// items instead of querying them. Original method name remains unknown.
+void BfmeQuery1279::rva006F7030(int key, AptCIH *pNewItem, AptCIH *pPrev,
+                              AptCIH *pItemAtDepth)
+{
+    if (pItemAtDepth != 0 &&
+        !((const BfmeAptValue006DCD20 *)pItemAtDepth)->isUndefined()) {
+        g_bfmeAptAssertAtE17734("pItemAtDepth == NULL || pItemAtDepth->isUndefined()",
+            "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x211);
+        if (g_bfmeAptBreakOnAssertAtDDC01C)
+            __debugbreak();
+    }
+    AptCIH *node = rva006F6D60(pPrev, pNewItem);
+    node->m_key = node->m_key ^ ((node->m_key ^ (unsigned int)key) & 0x1FFFFu);
+}
