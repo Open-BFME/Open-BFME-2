@@ -394,6 +394,7 @@ protected:
 	static void FillBufferWithProgressMessage(UnsignedByte *buffer, NetCommandRef *msg);
 	static void FillBufferWithRouterFallbackCommand(UnsignedByte *buffer, NetCommandRef *msg);
 	static void FillBufferWithChatCommand(UnsignedByte *buffer, NetCommandRef *msg);
+	static void rva0059129F(UnsignedByte *buffer, NetCommandRef *msg);
 	// Fixed-size arms of GetBufferSizeNeededForCommand, by command type; the
 	// constants are the ones retail's jump table returns.
 	static UnsignedInt GetType0CommandSize(NetCommandMsg *msg) { return 0x10; }
@@ -1663,6 +1664,69 @@ void NetPacket::FillBufferWithChatCommand(UnsignedByte *buffer, NetCommandRef *m
 
 	memcpy(buffer + offset, &playerMask, sizeof(Int));
 	offset += sizeof(Int);
+}
+
+// ?rva0059129F@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0059129F, 300 bytes:
+// FillBufferWithCommand's type-30 arm, the serializer of the message
+// rva00592208 reads back: the chat serializer's T/S/F/R/P/C/D header, then the
+// +0x24 text as length byte and UTF-16 characters, then the +0x1C and +0x20
+// dwords. No identity beyond its address.
+void NetPacket::rva0059129F(UnsignedByte *buffer, NetCommandRef *msg)
+{
+	NetType30CommandMsg *cmdMsg = (NetType30CommandMsg *)msg->getCommand();
+	UnsignedShort offset = 0;
+
+	buffer[offset] = 'T';
+	++offset;
+	buffer[offset] = cmdMsg->getNetCommandType();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'S';
+	++offset;
+	UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+	memcpy(buffer + offset, &newTimestamp, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'F';
+	++offset;
+	UnsignedInt newframe = cmdMsg->getExecutionFrame();
+	memcpy(buffer + offset, &newframe, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'R';
+	++offset;
+	UnsignedByte newRelay = msg->getRelay();
+	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'P';
+	++offset;
+	buffer[offset] = cmdMsg->getPlayerID();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'C';
+	++offset;
+	UnsignedShort newID = cmdMsg->getID();
+	memcpy(buffer + offset, &newID, sizeof(UnsignedShort));
+	offset += sizeof(UnsignedShort);
+
+	buffer[offset] = 'D';
+	++offset;
+	UnicodeString unitext = ((Rva0023E928 *)cmdMsg)->rva0023E928();
+	UnsignedByte length = unitext.getLength();
+	UnsignedInt value1c = cmdMsg->get1c();
+	memcpy(buffer + offset, &length, sizeof(UnsignedByte));
+	offset += sizeof(UnsignedByte);
+
+	memcpy(buffer + offset, unitext.str(), length * sizeof(unsigned short));
+	offset += length * sizeof(unsigned short);
+
+	memcpy(buffer + offset, &value1c, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	UnsignedInt value20 = cmdMsg->get20();
+	memcpy(buffer + offset, &value20, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
 }
 
 // ?FillBufferWithGameCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058C488, 696 bytes:
