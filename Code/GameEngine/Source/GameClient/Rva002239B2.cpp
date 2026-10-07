@@ -31,7 +31,6 @@ class Rva002239B2
 {
 public:
 	void rva002239B2(const void *key, Rva001408C0Target *value);
-	void rva002239E2(const void *key, Rva001408C0Target *value);
 
 private:
 	char m_pad[0x70];
@@ -47,8 +46,3 @@ void Rva002239B2::rva002239B2(const void *key, Rva001408C0Target *value)
 	m_set84.insert(value);
 }
 
-void Rva002239B2::rva002239E2(const void *key, Rva001408C0Target *value)
-{
-	void *record = m_table90.rva002235F3(key);
-	*(void **)record = value;
-}
