@@ -610,7 +610,6 @@ FXShaderSetup &FXShaderSetup::operator=(const FXShaderSetup &that)
 
 // FXShaderSetup::Load_W3D, retail 0x00152E4D: W3D_CHUNK_FX_SHADER_INFO and
 // one W3D_CHUNK_FX_SHADER_CONSTANT chunk per parameter.
-// ?Load_W3D@FXShaderSetup@@QAE_NAAVChunkLoadClass@@@Z present-unmatched
 bool FXShaderSetup::Load_W3D(ChunkLoadClass &cload)
 {
 	if (!cload.Open_Chunk())

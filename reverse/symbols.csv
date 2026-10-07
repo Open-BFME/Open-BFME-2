@@ -15404,3 +15404,4 @@ _D3DXCreateEffect@36,0x0062AFB0,callee of ?Load@Impl@FXShaderAsset@@QAEXPBD@Z
 _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAEXPBD@Z
 ??0Rva00082EB8@@QAE@XZ,0x001F81BF,callee of ??0FXShaderSetup@@QAE@XZ
 ?erase@?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@QAEPAURva0007BB16Record@@PAU3@0@Z,0x0015229C,callee of ?InitializeShader@FXShaderSetup@@QAE_NPBD0PBV?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@H@Z
+?resize@?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@QAEXI@Z,0x00152DC6,callee of ?Load_W3D@FXShaderSetup@@QAE_NAAVChunkLoadClass@@@Z
