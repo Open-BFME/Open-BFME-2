@@ -1,6 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /arch:SSE /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common
 //
-// TerrainLogic's bridge methods: objectInteractsWithBridgeLayer,
+// TerrainLogic's bridge methods: findBridgeAt and findBridgeLayerAt, slots 41
+// and 42, objectInteractsWithBridgeLayer,
 // objectInteractsWithBridgeEnd and pickBridge, slots 43..45 of the TerrainLogic
 // vftable (0x007FB2C8; slots 65..67 of W3DTerrainLogic's at 0x007C5838), and
 // deleteBridge and updateBridgeDamageStates, slots 48 and 49. All are Zero
@@ -41,7 +42,8 @@ typedef float Real;
 enum PathfindLayerEnum
 {
 	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
+	LAYER_GROUND = 1,
+	LAYER_LAST = 15
 };
 
 enum BodyDamageType
@@ -192,8 +194,8 @@ class TerrainLogic : public TerrainLogicSlots<40>
 {
 public:
 	virtual Bridge *getFirstBridge() const; // +0xA0
-	virtual void slot41();
-	virtual void slot42();
+	virtual Bridge *findBridgeAt(const Coord3D *pLoc) const; // +0xA4
+	virtual Bridge *findBridgeLayerAt(const Coord3D *pLoc, PathfindLayerEnum layer, Bool clip = false) const; // +0xA8
 	virtual Bool objectInteractsWithBridgeLayer(Object *obj, Int layer, Bool considerBridgeHealth = true) const; // +0xAC
 	virtual Bool objectInteractsWithBridgeEnd(Object *obj, Int layer) const; // +0xB0
 	virtual Bool pickBridge(const Vector3 &from, const Vector3 &to, Vector3 *pos); // +0xB4
@@ -206,6 +208,39 @@ private:
 	Bridge *m_bridgeListHead; // +0x40
 	Bool m_bridgeDamageStatesChanged; // +0x44
 };
+
+// ?findBridgeAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@@Z @0x0027F30A
+Bridge * TerrainLogic::findBridgeAt( const Coord3D *pLoc) const
+{
+
+	Bridge *pBridge = getFirstBridge();
+	while (pBridge) {
+		if (pBridge->isPointOnBridge(pLoc)) {
+			return(pBridge);
+		}
+		pBridge = pBridge->getNext();
+	}
+	return(NULL);
+}
+
+// ?findBridgeLayerAt@TerrainLogic@@UBEPAVBridge@@PBUCoord3D@@W4PathfindLayerEnum@@_N@Z @0x0027F337
+// Zero Hour's lookup; BFME 2 also refuses a layer past LAYER_LAST.
+Bridge * TerrainLogic::findBridgeLayerAt( const Coord3D *pLoc, PathfindLayerEnum layer, Bool clip) const
+{
+	if (layer == LAYER_GROUND || layer > LAYER_LAST)
+		return NULL;
+
+	Bridge *pBridge = getFirstBridge();
+	while (pBridge)
+	{
+		if (pBridge->getLayer() == layer && (!clip || pBridge->isPointOnBridge(pLoc)))
+		{
+			return(pBridge);
+		}
+		pBridge = pBridge->getNext();
+	}
+	return(NULL);
+}
 
 // ?objectInteractsWithBridgeLayer@TerrainLogic@@UBE_NPAVObject@@H_N@Z @0x002804B2
 // Zero Hour's test less its LAYER_WALL case.
