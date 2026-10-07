@@ -15539,3 +15539,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003EFE72@Rva002B2590P2@@QAEXPAX0@Z,0x003EFE72,Ret-8 forward thunk into 0x004FC3DC swapping this to first arg via 0x2B2590 call site; identity not recovered
 ?rva00319831@Arg54@@QAEXPAX@Z,0x00319831,Arg54 thiscall (extra) via 0x2B2834 call site; body stages through 0x318B83 plus 0x538ED1 plus 0x3197EE; identity not recovered
 ?rva002BF652@Rva002BF652@@QAEPAXPAX@Z,0x002BF652,Helper thiscall (value) returning lookup via 0x2B2BEC call site on the 0xDFEF18 singleton; identity not recovered
+?rva0020FAEA@Rva002B2757B0@@QAEPAXPAMH@Z,0x0020FAEA,Helper thiscall (mode; float-pair buf) via 0x2B2757 plus three more call sites all pushing (X; buf); identity not recovered
