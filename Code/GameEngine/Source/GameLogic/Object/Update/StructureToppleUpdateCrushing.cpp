@@ -10,6 +10,7 @@
 // ?doToppleDoneStuff@StructureToppleUpdate@@IAEXXZ, retail 0x004A5628, 435 bytes.
 // ?update@StructureToppleUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail 0x004A6042, 1065 bytes.
 // ?beginStructureTopple@StructureToppleUpdate@@IAEXPBVDamageInfo@@@Z, retail 0x004A5C8C, 463 bytes.
+// ?onDie@StructureToppleUpdate@@UAEXPBVDamageInfo@@@Z, retail 0x004A5E5B, 81 bytes.
 //
 // Donor: Zero Hour's StructureToppleUpdate.cpp through BFME 1's matched
 // bodies (reference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/
@@ -71,6 +72,10 @@
 //   delay roll is a logic random where Zero Hour's is a client one. The
 //   script engine call 0x00357C1F is Zero Hour's adjustToppleDirection and
 //   the wake call is UpdateModule::setWakeFrame (0x0044DF71).
+// - onDie is Zero Hour's, entered on the DieModuleInterface subobject at
+//   +0x20 as in StructureCollapseUpdate::onDie (0x004A466E): the module
+//   data's DieMuxData at +0x08, the object's AI at +0x258 and the 32-bit
+//   all-players mask 0xFFFFF.
 
 #include "matrix3d.h"
 #include "ascii_string.h"
@@ -241,6 +246,12 @@ public:
 	DamageInfoInput in;
 };
 
+class AIUpdateInterface
+{
+public:
+	void markAsDead();
+};
+
 class BodyModuleInterface
 {
 public:
@@ -323,6 +334,7 @@ class Object : public Thing
 public:
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
+	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	Drawable *getDrawable() const;
 	Module *findUpdateModule(NameKeyType key) const { return findModule(key); }
 	void setTransformMatrix(const Matrix3D *mx);
@@ -354,6 +366,7 @@ private:
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x254 - 0x158];
 	BodyModuleInterface *m_body; // +0x254
+	AIUpdateInterface *m_ai; // +0x258
 };
 
 // The particle system's position copy (0x001F3899) and attachToDrawable
@@ -439,9 +452,13 @@ public:
 	void stopAllBoneFX();
 };
 
+typedef UnsignedInt PlayerMaskType;
+const PlayerMaskType PLAYERMASK_ALL = 0xfffff;
+
 class GameLogic
 {
 public:
+	void deselectObject(Object *obj, PlayerMaskType playerMask, Bool affectClient);
 	UnsignedInt getFrame() { return m_frame; }
 	Object *findObjectByID(ObjectID id);
 
@@ -491,10 +508,21 @@ inline Bool getDamageTypeFlag(UnsignedInt flags, Int damageType)
 
 class ModuleData;
 
+class DieMuxData
+{
+public:
+	Bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const;
+
+private:
+	unsigned char m_pad[4];
+};
+
 class StructureToppleUpdateModuleData
 {
 public:
-	unsigned char m_pad000[0x38];
+	unsigned char m_pad000[0x08];
+	DieMuxData m_dieMuxData; // +0x08
+	unsigned char m_pad00c[0x38 - 0x0C];
 	UnsignedInt m_minToppleDelay; // +0x38
 	UnsignedInt m_maxToppleDelay; // +0x3C
 	Real m_structuralIntegrity; // +0x40
@@ -556,13 +584,14 @@ private:
 class DieModuleInterface
 {
 public:
-	virtual void dieModuleInterfaceSlot();
+	virtual void onDie(const DamageInfo *damageInfo) = 0;
 };
 
 class StructureToppleUpdate : public UpdateModule, public DieModuleInterface
 {
 public:
 	virtual UpdateSleepTime update();
+	virtual void onDie(const DamageInfo *damageInfo);
 
 protected:
 	void beginStructureTopple(const DamageInfo *damageInfo);
@@ -974,4 +1003,21 @@ void StructureToppleUpdate::beginStructureTopple(const DamageInfo *damageInfo)
 
 		setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
 	}
+}
+
+// ?onDie@StructureToppleUpdate@@UAEXPBVDamageInfo@@@Z
+void StructureToppleUpdate::onDie( const DamageInfo *damageInfo )
+{
+	const StructureToppleUpdateModuleData* d = getStructureToppleUpdateModuleData();
+	if (!d->m_dieMuxData.isDieApplicable(getObject(), damageInfo))
+		return;
+
+	AIUpdateInterface *ai = getObject()->getAIUpdateInterface();
+	if (ai)
+		ai->markAsDead();
+
+	// Deselect the object for all players.
+	TheGameLogic->deselectObject(getObject(), PLAYERMASK_ALL, true);
+
+	beginStructureTopple(damageInfo);
 }
