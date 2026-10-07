@@ -82,7 +82,11 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "WW3D2/matpass.h"
 #include "WW3D2/shader.h"
 #include "WW3D2/DX8Caps.h"
-#include "WW3D2/colorspace.h"
+// Retail keeps the size-optimized RGB/HSV definitions in ColorSpaceO1Inlines.
+// Declare the shared calls here so this unit cannot supply a different copy.
+#include "vector3.h"
+void RGB_To_HSV(Vector3 &, const Vector3 &);
+void HSV_To_RGB(Vector3 &, const Vector3 &);
 
 #include "WW3D2/shdlib.h"
 #ifdef _INTERNAL

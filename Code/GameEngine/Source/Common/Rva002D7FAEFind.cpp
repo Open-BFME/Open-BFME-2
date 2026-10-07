@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
 //
 // ?rva002D7FAE@Rva002D7FAEOwner@@QAEXPAVObject@@@Z @0x002D7FAE 62B: list
 // lookup with side effect (thiscall, 1 Object arg, void). Null arg or
@@ -56,4 +56,32 @@ void Rva002D7FAEOwner::rva002D7FAE(Object *obj)
 	return;
 FOUND:
 	n->m_0c = rva002D7BFD(p->m_280);
+}
+
+
+// BFME 1 ba7ddda7 Rva00107A50RadarColor.cpp supplies the RGB/HSV saturation
+// semantic guide. Target 2D7BFD..2D7CC6 proves all 201 bytes: four unpacked
+// floats, RGB/HSV temporaries, 1.6 saturation scale clamped to 1, then byte
+// channel casts and ARGB packing. Direct float-to-byte casts preserve native
+// x87 truncation under /arch:SSE; an intermediate int changes that codegen.
+// The local RGB/HSV pair keeps target stack offsets; it is scratch storage,
+// not a claimed persistent target class layout. Original helper name unknown.
+class Vector3 {public:float X,Y,Z;};
+void Rva002D2ACAGet(int,float*,float*,float*,float*);
+void RGB_To_HSV(Vector3&,const Vector3&);
+void HSV_To_RGB(Vector3&,const Vector3&);
+int rva002D7BFD(int color) {
+float red,green,blue,alpha;
+struct {Vector3 rgb,hsv;} vectors;
+Rva002D2ACAGet(color,&red,&green,&blue,&alpha);
+vectors.rgb.X=red;vectors.rgb.Y=green;vectors.rgb.Z=blue;
+RGB_To_HSV(vectors.hsv,vectors.rgb);
+vectors.hsv.Y*=1.6f;
+if(vectors.hsv.Y>1.0f)vectors.hsv.Y=1.0f;
+HSV_To_RGB(vectors.rgb,vectors.hsv);
+unsigned char a=(unsigned char)(alpha*255.0f);
+unsigned char r=(unsigned char)(vectors.rgb.X*255.0f);
+unsigned char g=(unsigned char)(vectors.rgb.Y*255.0f);
+unsigned char b=(unsigned char)(vectors.rgb.Z*255.0f);
+return (a<<24)|(r<<16)|(g<<8)|b;
 }
