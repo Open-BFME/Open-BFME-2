@@ -15575,3 +15575,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva004E0CA3@Rva004E0CA3@@QAEXXZ,0x004E0CA3,tail-jmp target of 0x004FC21A with ecx already holding the +0x20 field object; no-arg thiscall
 ?rva005048B5@Rva005048B5@@QAEXPBX@Z,0x005048B5,address-arg thiscall callee of 0x00504DF8 (+0x08 subobject) read from REL32 at 0x00504E10
 ?rva0050492F@Rva0050492F@@QAEXPAVRva00504DF8Owner@@@Z,0x0050492F,owner-temp thiscall callee of 0x00504E38 read from REL32 at 0x00504E52
+??0Rva004E3184@@QAE@H@Z,0x004E30D5,Rva004E3184 int-ctor: vtable 0x861F28 store plus member zeroing; 0x004FA9B1 builds its Rva004E3184 temp (rowed dtor 0x004E3184) through this ctor pushing one int 0
+?rva002E0764@Rva002E2903Player@@QAEXPAVRva004E3184@@@Z,0x002E0764,thiscall one-arg worker on the Player* from rowed find 0x004FA5F8 taking the Rva004E3184 temp address; called from 0x004FA9B1 with the temp; return ignored
