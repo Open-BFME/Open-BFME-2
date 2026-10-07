@@ -6,7 +6,8 @@
 
 struct GeometryShape
 {
-	char _pad[0xc];
+	char _pad[8];
+	float m_radiusAt8;
 	float m_minorRadius;
 	char _pad2[0x24 - 0x10];
 };
@@ -19,11 +20,19 @@ private:
 	std::vector<GeometryShape> m_shapes;
 public:
 	void rva004BBA3D(float f);
+	void rva004BBA15(float f);
 };
 
 void GeometryInfo::rva004BBA3D(float f)
 {
 	if (m_shapes.size() > 0)
 		m_shapes[0].m_minorRadius = f;
+	calcBoundingStuff();
+}
+
+void GeometryInfo::rva004BBA15(float f)
+{
+	if (m_shapes.size() > 0)
+		m_shapes[0].m_radiusAt8 = f;
 	calcBoundingStuff();
 }
