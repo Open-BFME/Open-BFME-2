@@ -375,6 +375,7 @@ protected:
 	Bool isRoomForGameSpyStatsAuthKeyMessage(NetCommandRef *msg);
 	Bool isRoomForFileMessage(NetCommandRef *msg);
 	Bool isRoomForGameMessage(NetCommandRef *msg, GameMessage *gmsg);
+	static UnsignedInt GetGameCommandSize(NetCommandMsg *msg);
 	Bool addGameCommand(NetCommandRef *msg);
 	void writeGameMessageArgumentToPacket(GameMessageArgumentDataType type, GameMessageArgumentType arg);
 	Bool addInformPlayerLeaveFrameCommand(NetCommandRef *msg);
@@ -1249,6 +1250,62 @@ Bool NetPacket::isRoomForGameMessage(NetCommandRef *msg, GameMessage *gmsg)
 		return false;
 	}
 	return true;
+}
+
+// ?GetGameCommandSize@NetPacket@@KAIPAVNetCommandMsg@@@Z, retail 0x0058C356, 259 bytes:
+// the BFME1 donor's GetGameCommandSize (NetPacket_GetBufferSizeNeededForCommand.cpp)
+// with BFME's timestamp field in the header charge (0x19 where the donor has
+// 0x14). GetBufferSizeNeededForCommand reaches it from its type-4 arm; the
+// parser is freed the way isRoomForGameMessage frees it.
+UnsignedInt NetPacket::GetGameCommandSize(NetCommandMsg *msg)
+{
+	NetGameCommandMsg *cmdMsg = (NetGameCommandMsg *)msg;
+	UnsignedShort msglen = 0;
+	msglen += sizeof(UnsignedInt) + sizeof(UnsignedByte);
+	msglen += sizeof(UnsignedInt) + sizeof(UnsignedByte);
+	msglen += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+	msglen += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+	msglen += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+	msglen += sizeof(UnsignedShort) + sizeof(UnsignedByte);
+	msglen += sizeof(UnsignedByte);
+	GameMessage *gmsg = cmdMsg->constructGameMessage();
+	Rva0054D54A *parser = new Rva0054D54A(gmsg);
+	msglen += sizeof(Int);
+	msglen += sizeof(UnsignedByte);
+	Rva0054D593 *arg = parser->getFirstArgumentType();
+	while (arg != 0) {
+		msglen += 2 * sizeof(UnsignedByte);
+		GameMessageArgumentDataType type = arg->getType();
+		if (type == ARGUMENTDATATYPE_INTEGER) {
+			msglen += arg->getArgCount() * sizeof(Int);
+		} else if (type == ARGUMENTDATATYPE_REAL) {
+			msglen += arg->getArgCount() * sizeof(float);
+		} else if (type == ARGUMENTDATATYPE_BOOLEAN) {
+			msglen += arg->getArgCount() * sizeof(Bool);
+		} else if (type == ARGUMENTDATATYPE_OBJECTID) {
+			msglen += arg->getArgCount() * sizeof(UnsignedInt);
+		} else if (type == ARGUMENTDATATYPE_DRAWABLEID) {
+			msglen += arg->getArgCount() * sizeof(UnsignedInt);
+		} else if (type == ARGUMENTDATATYPE_TEAMID) {
+			msglen += arg->getArgCount() * sizeof(UnsignedInt);
+		} else if (type == ARGUMENTDATATYPE_LOCATION) {
+			msglen += arg->getArgCount() * (3 * sizeof(float));
+		} else if (type == ARGUMENTDATATYPE_PIXEL) {
+			msglen += arg->getArgCount() * (2 * sizeof(Int));
+		} else if (type == ARGUMENTDATATYPE_PIXELREGION) {
+			msglen += arg->getArgCount() * (4 * sizeof(Int));
+		} else if (type == ARGUMENTDATATYPE_TIMESTAMP) {
+			msglen += arg->getArgCount() * sizeof(UnsignedInt);
+		} else if (type == ARGUMENTDATATYPE_WIDECHAR) {
+			msglen += arg->getArgCount() * sizeof(unsigned short);
+		}
+		arg = arg->getNext();
+	}
+	::delete parser;
+	parser = 0;
+	::delete gmsg;
+	gmsg = 0;
+	return msglen;
 }
 
 // ?writeGameMessageArgumentToPacket@NetPacket@@IAEXW4GameMessageArgumentDataType@@TGameMessageArgumentType@@@Z, retail 0x0058D826, 265 bytes:
