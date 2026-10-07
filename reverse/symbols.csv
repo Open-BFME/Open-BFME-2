@@ -15544,3 +15544,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0020EC99@Rva0020EC99Helper@@QAEHPAVRva00318C32@@HHHH@Z,0x0020EC99,Helper thiscall (a1
 ?rva0020F832@Rva0020F832Helper@@QAE_NPAX0@Z,0x0020F832,Helper thiscall (a1
 ?rva0020F2F1@Rva0020F2F1Helper@@QAEXPAX0@Z,0x0020F2F1,Helper thiscall (a1
+?rva0030F4EA@Rva0030F4EA@@SGPAXPAX@Z,0x0030F4EA,Static stdcall (p) to ptr via 0x2B2D5E/0x2B2DAD/0x2B2DEE call sites; ret 4; identity not recovered
+?rva002B2579@Rva002B2579Host@@QAEPAXPAX@Z,0x002B2579,Host thiscall (p) to ptr via 0x2B2D5E call site on g_00DFEF10; ret 4; identity not recovered
+?rva004E0625@Rva004E0625@@QAEPAXXZ,0x004E0625,Thiscall to ptr via 0x2B2D5E call site; ret; identity not recovered
