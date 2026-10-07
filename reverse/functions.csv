@@ -67949,3 +67949,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva002D790A@Radar@@QAEXPAM0@Z,,0x002D790A,146,Code/GameEngine/Source/Common/System/Radar_findDrawPositions.cpp,matched,extent ratio outputs and width height comparison from retail body
 ?rva001F4A22@Rva001F4A22@@QAEXXZ,,0x001F4A22,21,Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4A22.cpp,matched,handle at 0x78 via rowed dtor plus clear
 ?rva002C7253@Rva002C7253@@QBE_NXZ,,0x002C7253,25,Code/GameEngine/Source/Common/Rva002C7253.cpp,matched,six entry scan layout inferred from caller 0x0033A951 identity remains opaque
+??0BfmeStringTailRecord180@@QAE@XZ,,0x000C0D7A,41,Code/GameEngine/Source/Common/BfmeStringTailRecord180Ctor.cpp,matched,180-byte record ctor text vector heads callers 0x000C876D layout from dtor
