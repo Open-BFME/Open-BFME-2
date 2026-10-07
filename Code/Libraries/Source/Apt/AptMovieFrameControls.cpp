@@ -20,7 +20,10 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 bool g_aptBackgroundSet = false;
 void (__cdecl *g_aptBackgroundCallback)(int) = 0;
-extern void (__cdecl *g_bfmeAptFreeAtE17784)(void *,int);
+// Both this dispatcher and Rva006F3670 reference the same callback slot.
+// Retail VA 0xE17784 is four zero-filled bytes before callback registration.
+// Retain the existing ABI/name without asserting the conflicting donor role.
+void (__cdecl *g_bfmeAptFreeAtE17784)(void *,int) = 0;
 void AptDebuggerPrint(int,const char *,...);
 #define CHECK(c,l,s) if(!(c)){g_bfmeAptAssertAtE17734(s,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptMovie.cpp",l);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
 struct AptFrame; class AptDisplayList; class AptPseudoDisplayList;
