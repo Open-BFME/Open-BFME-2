@@ -268,6 +268,9 @@ public:
 	int m_bd0;
 };
 
+class GameInfo;
+class LoadScreen;
+
 class GameLogic : public SubsystemInterface
 {
 public:
@@ -283,6 +286,12 @@ public:
 	void rva0023D17D(void);
 	void destroyAllObjectsImmediate(void);
 	void rva00376D49(void);
+	void rva00244CB0(bool loadingSaveGame, GameInfo *game);
+
+private:
+	LoadScreen *getLoadScreen(bool saveGame);
+
+public:
 
 	char m_pad00C[0x10 - 0x0c];
 	char m_10[0x24 - 0x10];
@@ -296,7 +305,8 @@ public:
 	char m_pad054[0x70 - 0x54];
 	bool m_70;
 	bool m_71;
-	char m_pad072[0x94 - 0x72];
+	bool m_72;
+	char m_pad073[0x94 - 0x73];
 	int m_94;
 	bool m_98;
 	bool m_99;
@@ -311,7 +321,8 @@ public:
 	int m_10c;
 	char m_pad110[0x11d - 0x110];
 	bool m_11d;
-	char m_pad11E[0x124 - 0x11e];
+	char m_pad11E[0x120 - 0x11e];
+	LoadScreen *m_120;
 	bool m_124;
 	bool m_125;
 	bool m_126;
@@ -592,6 +603,7 @@ class GameSlot
 {
 public:
 	bool isOccupied() const;
+	void saveOffOriginalInfo();
 	int getStartPos() const { return m_10; }
 	void setStartPos(int startPos) { m_10 = startPos; }
 	int getPlayerTemplate() const { return m_18; }
@@ -757,4 +769,85 @@ void populateRandomStartPosition(GameInfo *game)
 		}
 		slot->setStartPos(posIdx);
 	}
+}
+
+// ?rva00244CB0@GameLogic@@QAEX_NPAVGameInfo@@@Z @0x00244CB0 166B (ret 8 at
+// 0x00244D53; Ghidra's 20-byte FUN_00644cb0 stops at the first call). Called
+// once, from 0x002485EE in the BFME 2 new-game setup (0x00248558). Target
+// evidence: it is the ZH startNewGame stretch that saves off each slot's
+// original info (0x003FF0D4) unless loading a save, populates the random start
+// positions (0x0024485C) and then sides and colors (0x002444BE; ZH calls them in
+// the other order), and stores getLoadScreen(saveGame) (0x0023DD48, the switch
+// on m_gameMode at +0x110 that news each mode's load screen) in m_loadScreen
+// (+0x120), calling its slot-2 init(game). BFME 2 brackets it with the
+// 0x00A099F8 singleton's slot 10 and the queued device-interface release
+// (0x00133283), runs the GameLogic helpers 0x0023C7D2 and 0x0023C7BB(0), pokes
+// TheTransitionHandler slot 9 unless the +0x72 flag is set, and ends with
+// setFPMode. The helper and flag meanings are not established.
+class LoadScreen
+{
+public:
+	virtual ~LoadScreen(void);
+	virtual void v01(void);
+	virtual void init(GameInfo *game);                                   // +0x08
+};
+
+class Rva009EB960
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09();
+	virtual void slot28();
+};
+
+class GameWindowTransitionsHandler
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08();
+	virtual void slot24();
+};
+
+class Rva0023C7D2
+{
+public:
+	void rva0023C7D2(void);
+	void rva0023C7BB(int value);
+};
+
+extern Rva009EB960 *Rva0134FAA0;
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+
+void bfmeReleaseQueuedDeviceInterfaces(void);
+void populateRandomSideAndColor(GameInfo *game);
+
+void GameLogic::rva00244CB0(bool loadingSaveGame, GameInfo *game)
+{
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	((Rva0023C7D2 *)this)->rva0023C7D2();
+	if (!m_72)
+		TheTransitionHandler->slot24();
+
+	if (game && !loadingSaveGame) {
+		for (int i = 0; i < 8; ++i) {
+			GameSlot *slot = game->getSlot(i);
+			if (slot)
+				slot->saveOffOriginalInfo();
+		}
+	}
+
+	populateRandomStartPosition(game);
+	populateRandomSideAndColor(game);
+
+	m_120 = getLoadScreen(loadingSaveGame);
+	if (m_120)
+		m_120->init(game);
+
+	((Rva0023C7D2 *)this)->rva0023C7BB(0);
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	setFPMode();
 }
