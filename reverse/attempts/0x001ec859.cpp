@@ -1,6 +1,9 @@
 // ?rva001EC859@Rva001EC859@@QAEPAXHH@Z
 // partial score=0.88 date=2026-10-07
+// ?rva001EC859@Rva001EC859@@QAEPAXHH@Z
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
+// O2 gives the native direct quantity load but adds other instructions;
+// O1/Ot has not been tried. Source-volatile quantity alone still CSEs its address.
 // Native Ghidra 001EC859..001EC8C0, 103B, RET8.
 // Preserve the existing address-derived caller pin's word ABI (void*, int, int).
 // Search 001EB023 proves a 172-byte record range at +A4/+A8; its key input
@@ -73,7 +76,7 @@ void *Rva001EC859::rva001EC859(int key, int argument)
             view->flags |= 0x10;
         }
         used.push_back(*reinterpret_cast<const BfmePod172 *>(record));
-        int quantity = record->quantity;
+        int quantity = reinterpret_cast<const volatile Rva001EB023Elem *>(record)->quantity;
         if (quantity <= 1)
             reinterpret_cast<Rva001EBCD8 *>(reinterpret_cast<char *>(this) + 0xA4)
                 ->rva001EBCD8(record);
