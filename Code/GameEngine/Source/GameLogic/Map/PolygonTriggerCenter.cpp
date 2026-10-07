@@ -53,10 +53,20 @@ private:
 class PolygonTrigger
 {
 public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual void slot18(Int height);
+	virtual void slot1C();
+	virtual void slot20(const Coord2D *offset);
 	Coord2D getCenterPoint2D(void) const;
 	void getCenterPoint(Coord3D *pOutCoord) const;
+	void rva002E38AF(const Coord3D *offset);
 private:
-	unsigned char m_pad00[0x08];
+	unsigned char m_pad04[0x04];
 	Rva0030B719Shape m_shape; // +0x08 (0x28 bytes)
 	Int m_defaultHeight; // +0x30
 };
@@ -81,4 +91,17 @@ void PolygonTrigger::getCenterPoint(Coord3D* pOutCoord)	const
 	} else {
 		(*pOutCoord).z = m_defaultHeight;
 	}
+}
+
+// ?rva002E38AF@PolygonTrigger@@QAEXPBUCoord3D@@@Z
+// Native Ghidra extent 0x002E38AF..0x002E38F3, RET 4. Retail calls the
+// rowed compiler vcall thunks for slots +0x20 and +0x18. Those calls
+// establish dispatch and argument shapes; their original names are unknown.
+void PolygonTrigger::rva002E38AF(const Coord3D *offset)
+{
+	Coord2D planar;
+	planar.x = offset->x;
+	planar.y = offset->y;
+	(this->*(&PolygonTrigger::slot20))(&planar);
+	(this->*(&PolygonTrigger::slot18))((Int)(offset->z + m_defaultHeight));
 }
