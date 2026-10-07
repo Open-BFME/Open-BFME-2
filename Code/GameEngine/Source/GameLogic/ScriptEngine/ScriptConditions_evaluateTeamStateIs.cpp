@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 // ZH donor: GeneralsMD ScriptConditions.cpp evaluateTeamStateIs and
 // evaluateTeamStateIsNot. Target evidence: the evaluateCondition jump table
 // (0x007EC5C0) sends cases 11 and 12 to 0x003E9471 and 0x003E94E5, which
@@ -44,6 +45,22 @@
 // ??0ObjectTypesTemp@@QAE@XZ @ 0x003BA7FF 64B (rehomed from
 // ObjectTypesTempCtor.cpp): m_types(0) then new ObjectTypes (0x14 bytes,
 // rowed ctor 0x003769F9), as Zero Hour's ScriptConditions.cpp helper.
+//
+// ?evaluateBuiltByPlayer@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z @ 0x003E977E 430B
+// ZH/BFME 1 donor: the same-name ScriptConditions.cpp body. Target evidence:
+// jump-table case 23 calls 0x003E977E, which initConditionTemplates names
+// BUILT_BY_PLAYER. The body looks the type up with the pinned
+// ThingFactory::findTemplate 0x002D06CA before the cached-result test
+// (Condition customData +0x44 / customFrame +0x48 against TheScriptEngine
+// +0x1A15C), fills two STLport vectors through ObjectTypes::
+// prepForPlayerCounting 0x00376C50 (its body walks m_objectTypes, pushes each
+// found template and resizes the counts, as ZH's) and, unlike ZH's single
+// player, counts every player of the parameter's mask with the rowed
+// countObjectsByThingTemplate 0x002AB0C5 and sum 0x003BD46E. Retail records
+// EH states around the vectors' inline free() calls, which /EHs (extern "C"
+// may throw) reproduces; the unit's other bodies make no C calls in EH
+// scope.
+#include <vector>
 #include "ascii_string.h"
 
 class Parameter
@@ -161,6 +178,7 @@ public:
 	ObjectTypes();
 	virtual ~ObjectTypes();
 	bool isInSet(const AsciiString &name) const;
+	int prepForPlayerCounting(_STL::vector<const ThingTemplate *> &templates, _STL::vector<int> &counts);
 private:
 	AsciiString m_listName; // +0x04
 	void *m_objectTypes[3]; // +0x08 vector<AsciiString>
@@ -185,6 +203,34 @@ ObjectTypesTemp::ObjectTypesTemp() : m_types(0)
 }
 
 void Script_objectTypesFromParam(Parameter *pTypeParm, ObjectTypes *outObjectTypes);
+
+class Player
+{
+public:
+	void countObjectsByThingTemplate(int numThingTemplates, const ThingTemplate *const *things, bool ignoreDead, int *counts, bool ignoreUnderConstruction) const;
+};
+
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
+};
+extern ThingFactory *TheThingFactory;
+
+int __cdecl Rva003BD46ESum(void *range);
+
+class Condition
+{
+public:
+	int getCustomData() const { return m_customData; }
+	unsigned int getCustomFrame() const { return m_customFrame; }
+	void setCustomData(int value) { m_customData = value; }
+	void setCustomFrame(unsigned int value) { m_customFrame = value; }
+private:
+	unsigned char m_pad00[0x44];
+	int m_customData; // +0x44
+	unsigned int m_customFrame; // +0x48
+};
 
 class PlayerList
 {
@@ -242,6 +288,10 @@ public:
 	Team *getTeamNamed(AsciiString, bool);
 	Object *getUnitNamed(Parameter *pUnitParm);
 	int rva00357B82(Parameter *pPlayerParm);
+	unsigned int getFrameObjectCountChanged() const { return m_frameObjectCountChanged; }
+private:
+	unsigned char m_pad00[0x1A15C];
+	unsigned int m_frameObjectCountChanged; // +0x1A15C
 };
 extern ScriptEngine *TheScriptEngine;
 
@@ -256,6 +306,7 @@ protected:
 	bool evaluateNamedAttackedByPlayer(Parameter *, Parameter *);
 	bool evaluateTeamStateIs(Parameter *, Parameter *);
 	bool evaluateTeamStateIsNot(Parameter *, Parameter *);
+	bool evaluateBuiltByPlayer(Condition *, Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -395,5 +446,46 @@ bool ScriptConditions::evaluateNamedAttackedByPlayer(Parameter *pUnitParm, Param
 			return true;
 		}
 	}
+	return false;
+}
+bool ScriptConditions::evaluateBuiltByPlayer(Condition *pCondition, Parameter *pTypeParm, Parameter *pPlayerParm)
+{
+	const ThingTemplate *pTemplate = TheThingFactory->findTemplate(pTypeParm->getString());
+	if (!pTemplate) {
+		return false;
+	}
+
+	if (pCondition->getCustomData() != 0) {
+		// We have a cached value.
+		if (TheScriptEngine->getFrameObjectCountChanged() == pCondition->getCustomFrame()) {
+			// object count hasn't changed.  Use cached value.
+			if (pCondition->getCustomData() == 1) return true;
+			if (pCondition->getCustomData() == -1) return false;
+		}
+	}
+
+	_STL::vector<int> counts;
+	_STL::vector<const ThingTemplate *> templates;
+
+	ObjectTypesTemp types;
+	Script_objectTypesFromParam(pTypeParm, types.m_types);
+
+	int numTemplates = types.m_types->prepForPlayerCounting(templates, counts);
+	if (numTemplates == 0) {
+		return false;
+	}
+
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	while (mask) {
+		Player *pPlayer = ThePlayerList->getEachPlayerFromMask(mask);
+		pPlayer->countObjectsByThingTemplate(numTemplates, &(*templates.begin()), false, &(*counts.begin()), true);
+		pCondition->setCustomFrame(TheScriptEngine->getFrameObjectCountChanged());
+		int sumOfObjs = Rva003BD46ESum(&counts);
+		if (sumOfObjs != 0) {
+			pCondition->setCustomData(1); // true.
+			return true;
+		}
+	}
+	pCondition->setCustomData(-1); // false.
 	return false;
 }
