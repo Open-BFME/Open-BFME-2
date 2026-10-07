@@ -279,7 +279,6 @@ Bool DoAnyMapTransfers(GameInfo *game);
 void InitGameLogicRandom(UnsignedInt seed);
 void GSMessageBoxOk(UnicodeString titleString, UnicodeString bodyString, void (*okFunc)(void));
 
-// ?GameSpyStagingRoom::rva004FDEFF present-unmatched
 void GameSpyStagingRoom::rva004FDEFF(LivingWorldBattle *battle)
 {
 	if (!battle)
