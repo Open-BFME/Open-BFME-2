@@ -54,7 +54,9 @@ void forwardRegistrySettingRva0061F1A0(unsigned value,int second) {
 #undef _CRTIMP
 #define _CRTIMP
 #include <deque>
-// Native deque auxiliaries use the established byte allocator and map provider.
+#include <hash_map>
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+#include <set>
 namespace _STL {
 template <> class allocator<char> {
 public:
@@ -164,19 +166,46 @@ public:
     __forceinline ~AssetWorkerHeapScope() { m_scope.rva000309B0(); }
 };
 
+struct Rva001408C0Target;
+typedef Rva001408C0Target *Rva001408C0Key;
+typedef _STL::set<Rva001408C0Key> Rva001408C0Set;
+struct Rva009F2140AssetSetGroup {
+    Rva001408C0Set m_tree;
+    unsigned m_count;
+    bool m_active;
+    unsigned char m_padding[3];
+};
+typedef _STL::_Rb_tree<Rva001408C0Key, Rva001408C0Key,
+    _STL::_Identity<Rva001408C0Key>, _STL::less<Rva001408C0Key>,
+    _STL::allocator<Rva001408C0Key> > AssetKeyTree;
+namespace _STL {
+// Consume the existing complete insert_unique provider at422047.
+template <> AssetKeyTree::iterator
+AssetKeyTree::_M_insert(_Rb_tree_node_base *, _Rb_tree_node_base *,
+    const Rva001408C0Key &, _Rb_tree_node_base *);
+}
+typedef _STL::hash_map<int, Rva009EF0D0Element *> AssetHash;
+
 class AssetRegistry
 {
 public:
 	void Worker_Thread_00622480();
+	void Queue_Keys_00622680(bool front, const Rva001408C0Set &keys);
 
 private:
 	unsigned int m_thread;
 	unsigned int m_threadId;
 	bool m_flag08;
-	unsigned char m_unmodelled_009[0x5f];
+	unsigned char m_unmodelled_009[0x43];
+	AssetHash m_map4c;
+	unsigned char m_unmodelled_060[8];
 	CRITICAL_SECTION m_lock68;
 	AssetQueue m_deques80[7];
-	unsigned char m_unmodelled_198[0x5c];
+	Rva009F2140AssetSetGroup m_set198;
+	unsigned char m_unmodelled_1ac[0x3c];
+	unsigned m_field1e8;
+	unsigned m_field1ec;
+	unsigned m_unmodelled_1f0;
 	bool m_flag1f4;
 };
 
@@ -237,3 +266,39 @@ void AssetRegistry::Worker_Thread_00622480()
 			Sleep(1);
 	}
 }
+
+// Open-BFME-1 1399ad37 AssetRegistryQueueKeys009EFBF0 reference.
+// Target [622680,6227D1),337B shares the worker registry layout: map4C,
+// queues80, set198, counters1E8/1EC. Native hash lookup and state7 reset,
+// deque front/back calls621690/621620, tree insert422047 and successor24250
+// establish the same operation. The opaque key spelling is inherited from
+// those existing providers; no original target class name is asserted.
+void AssetRegistry::Queue_Keys_00622680(bool front, const Rva001408C0Set &keys)
+{
+	for (Rva001408C0Set::const_iterator it = keys.begin(); it != keys.end(); ++it)
+	{
+		AssetHash::const_iterator found = m_map4c.find((int)*it);
+		if (found != m_map4c.end())
+		{
+			Rva009EF0D0Element *asset = (*found).second;
+			if (asset->m_state == 7)
+			{
+				unsigned int flags = asset->m_word & 0xff00ffff;
+				asset->m_word = flags;
+				asset->m_word = flags | 0x2000000;
+				if (front)
+				{
+					m_deques80[asset->m_state].push_front(*(const int *)&asset);
+					++m_field1e8;
+				}
+				else
+				{
+					m_deques80[asset->m_state].push_back(*(const int *)&asset);
+					++m_field1ec;
+				}
+				m_set198.m_tree.insert(*it);
+			}
+		}
+	}
+}
+
