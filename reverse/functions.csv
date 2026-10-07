@@ -67287,3 +67287,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva004601CC@SpawnBehavior@@UAEXXZ,,0x004601CC,74,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_rva004601CC.cpp,matched,SpawnBehaviorInterface vftable 0x008425AC slot 12; due replacement times spent on orphan reclaim 0x0045F9D8 then list<int> erase 0x00438539; name address-derived
 ?rva000FDD1C@Rva000FDD1C@@QAE_NHHHH@Z,,0x000FDD1C,147,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FDD1C.cpp,matched,table slot 3 identity remains unproven; renderer references and virtual slots follow retail bytes
 ?rva00538768@QuadStrip2D@@QAEXH@Z,,0x00538768,26,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp,matched,gap erase m_start+index plus m_20 flag via rowed erase
+?rva005CFB9E@Rva005CFB9E@@QAEXPAX00@Z,,0x005CFB9E,36,Code/GameEngine/Source/Common/Rva005CFB9EAnimation.cpp,matched,vtable slot evidence and rowed lazy helper relationship
