@@ -35,6 +35,20 @@ public:
 	void rva0027E248(Coord3D *center, float radius, Rva0027D30D *result, bool flag, int mode);
 };
 
+class Rva0027D35F
+{
+public:
+	unsigned char value;
+	// The caller's context occupies an aligned argument word. Only its low
+	// byte is initialized or read; the remaining bytes have no asserted data.
+	unsigned char m_unwritten[3];
+};
+class Rva0027E79E
+{
+public:
+	void rva0027E79E(Coord3D *center, float radius, Rva0027D35F *result, bool flag, int mode);
+};
+
 inline const int &largerDimension(const int &width, const int &height)
 {
 	return width > height ? width : height;
@@ -54,6 +68,7 @@ public:
 	int bfmeGoCME(void *what);
 	int rva0027F108(void *what, float value, int one, int two);
 	int rva0027F171(PolygonTrigger *trigger);
+	void rva0027F2B2(Coord3D *center, float radius, unsigned char value);
 };
 
 int BfmeThingCME::bfmeGoCME(void *what)
@@ -88,4 +103,14 @@ int BfmeThingCME::rva0027F171(PolygonTrigger *trigger)
 	float radius = static_cast<float>(largerDimension(width, height));
 	reinterpret_cast<Rva0027E248 *>(this)->rva0027E248(&center, radius, &result, false, 0);
 	return result.count;
+}
+
+// Native 0x0027F2B2..0x0027F2D6, RET 12. The third argument initializes
+// the one-byte context consumed by the rowed 0x0027D35F callback, reached
+// through the 683-byte grid query at 0x0027E79E. The two filter args are zero.
+void BfmeThingCME::rva0027F2B2(Coord3D *center, float radius, unsigned char value)
+{
+	Rva0027D35F result;
+	result.value = value;
+	reinterpret_cast<Rva0027E79E *>(this)->rva0027E79E(center, radius, &result, false, 0);
 }
