@@ -68693,3 +68693,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva0008F0CA@Rva0008F0CA@@QAEXXZ,,0x0008F0CA,175,Code/GameEngine/Source/GameClient/InGameUISetEngineInputEnabled.cpp,matched,Full native8F0CA..8F179; clean BFME1 W3DInGameUIDraw guide ba7ddda7 adapted to target state3C and drag28 plus measured virtual150/154/1E0 and four view slots1E4..1F0; global providers and exact input-slot prefix; receiver name remains opaque
 ?rva0006EE27@Rva0006ED36@@QAEXPAX@Z,,0x0006EE27,31,Code/GameEngine/Source/Common/Rva0006ED36Call.cpp,matched,stores arg at +0x118 then virtual slot 12 on member at +0x108 then clears; sibling of 0x0006ED36
 ?d_003fbb99@@YAXXZ,,0x003FBB99,180,Code/gen_asm/d_003fbb99.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_005c33dd@@YAXXZ,,0x005C33DD,74,Code/gen_asm/d_005c33dd.asm,matched,gen-dump;bounds=ghidra-inventory
