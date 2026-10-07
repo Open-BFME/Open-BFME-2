@@ -6,8 +6,11 @@ class NetCommandList {
 public:
  void reset();
 };
+enum FrameDataReturnType { FRAMEDATA_NOTREADY, FRAMEDATA_RESEND, FRAMEDATA_READY };
 class FrameData {
 public:
+ FrameDataReturnType allCommandsReady(bool debugSpewage);
+ unsigned int getAckCommandCount();
  __declspec(noinline) unsigned int getFrameCommandCount();
  unsigned int getCommandCount();
  NetCommandList *getCommandList();
@@ -45,6 +48,9 @@ __declspec(noinline) void FrameData::setFrameCommandCount(unsigned int count) {
 
 class FrameDataManager {
 public:
+ FrameDataReturnType allCommandsReady(unsigned int frame, bool debugSpewage);
+ int rva00670890(unsigned int frame, int mark);
+ unsigned int getAckCommandCount(unsigned int frame);
  void destroyGameMessages();
  unsigned int getCommandCount(unsigned int frame);
  NetCommandList *getFrameCommandList(unsigned int frame);
@@ -99,3 +105,24 @@ void FrameDataManager::setQuitFrame(unsigned int frame) {
  m_quitFrame = frame;
 }
 bool FrameDataManager::getIsQuitting() { return m_isQuitting; }
+
+// Open-BFME-1 1399ad37d42ea52a63829e417c46a1ba9ed2cd20 FrameDataManager.cpp;
+// BFME2 verifies the same ring global and 20-byte element stride. Each callee
+// has a matched BFME2 provider. The count-by-mark helper keeps its donor name;
+// its original type and method name remain unknown.
+FrameDataReturnType FrameDataManager::allCommandsReady(unsigned int frame, bool debugSpewage) {
+ unsigned int frameindex = frame % FRAME_DATA_LENGTH;
+ return m_frameData[frameindex].allCommandsReady(debugSpewage);
+}
+class BfmeThingYN {
+public:
+ int bfmeCountYN(int mark) const;
+};
+int FrameDataManager::rva00670890(unsigned int frame, int mark) {
+ unsigned int frameindex = frame % FRAME_DATA_LENGTH;
+ return ((const BfmeThingYN *)&m_frameData[frameindex])->bfmeCountYN(mark);
+}
+unsigned int FrameDataManager::getAckCommandCount(unsigned int frame) {
+ unsigned int frameindex = frame % FRAME_DATA_LENGTH;
+ return m_frameData[frameindex].getAckCommandCount();
+}
