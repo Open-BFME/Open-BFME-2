@@ -53,6 +53,7 @@ class Rva005C976F
 {
 public:
     void rva005C976F();
+    int rva005C9823();
 private:
     char m_pad00[8];
     unsigned int m_flags08;
@@ -78,4 +79,25 @@ void Rva005C976F::rva005C976F()
         m_helper218.rva005C96A9(m_hint260, m_value264);
         m_helper218.rva00524D01(m_name258, m_flags25c);
     }
+}
+
+// ?rva005C9823@Rva005C976F@@QAEHXZ
+// Native Ghidra extent 0x005C9823..0x005C9880; RET 0. Changes in bit
+// 0x10 choose a virtual +0x24 call or the verified restoration wrapper.
+// The helper's state bit 0 gates its final virtual +0x28 call.
+int Rva005C976F::rva005C9823()
+{
+    if (!(m_previous254 & 0x10) && (m_flags08 & 0x10))
+    {
+        if (m_helper218.stateFlags() & 1)
+            m_helper218.slot24();
+    }
+    else if ((m_previous254 & 0x10) && !(m_flags08 & 0x10))
+    {
+        rva005C976F();
+    }
+    m_previous254 = m_flags08;
+    if (m_helper218.stateFlags() & 1)
+        m_helper218.slot28();
+    return 1;
 }
