@@ -1,7 +1,5 @@
 // ?rva00044FF2@W3DDisplay@@QAEXHHH@Z
 // partial score=0.97 date=2026-10-07
-// ?rva00044FF2@W3DDisplay@@QAEXHHH@Z
-// partial score=0.97 date=2026-10-07
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX-
 //
 // Small W3DDisplay vtable slots (vtable VA 0x00BC3C80, which also holds
@@ -20,16 +18,15 @@ typedef bool Bool;
 class GlobalData;
 extern GlobalData *TheGlobalData;
 extern void *g_Va00DFE750;
-
+class BfmeTaintManager
+{
+public:
+	Int rva006C0840(Int x, Int y);
+};
 class Rva000683DC
 {
 public:
- void rva000683DC();
-};
-class Rva006C0840
-{
-public:
- Int rva006C0840(Int x, Int y);
+	void rva000683DC();
 };
 
 void __cdecl operator delete(void *p);
@@ -49,7 +46,8 @@ class Rva000729CC
 public:
 	void rva000729CC(Bool on);
 	void rva00073CC0(Int a, Int b, Int c, Int d);
- void rva000731F4(Int x, Int y, unsigned char level, Bool flag);
+	void rva00073CC0(Int x, Int y, unsigned char level, Bool update);
+	void rva000731F4(Int x, Int y, unsigned char level, Bool update);
 };
 
 class BaseHeightMapRenderObjClass
@@ -90,7 +88,7 @@ class W3DDisplay
 {
 public:
 	void rva00044FD5(Bool on);
- void rva00044FF2(Int x, Int y, Int setting);
+	void rva00044FF2(Int x, Int y, Int setting);
 	void rva00045086(Bool on);
 	void rva000450A3(Int a, Int b, Int c);
 	Bool rva000466FA();
@@ -167,24 +165,23 @@ Int W3DDisplay::rva00049F4F(Rva00049F4FObject *obj)
 	return 0;
 }
 
-// Native 0x00044FF2..0x00045086, RET 12. ZH W3DDisplay::setShroudLevel
-// supplies the shroud-alpha/notification semantics. BFME 2 independently
-// uses +0x3878 and +0x387C helpers and GlobalData bytes BE8/BE9/BEA;
-// the extra taint query and second helper update are target evidence.
-// The method and unclaimed helper identities remain address derived.
+// Native 44FF2..45086 RET12. ZH setShroudLevel supplies the semantic
+// guide; native bytes establish alpha BE8/BE9/BEA and helpers3878/387C.
+// The 73CC0 callee reads byte arguments at EBP+10/+14; retain the older
+// word-based declaration only for the already matched 450A3 access view.
 void W3DDisplay::rva00044FF2(Int x, Int y, Int setting)
 {
- if (TheTerrainRenderObject && TheTerrainRenderObject->m_3878)
- {
-  if (setting == 2)
-   TheTerrainRenderObject->m_3878->rva000731F4(x, y, ((const unsigned char *)TheGlobalData)[0xBEA], false);
-  else if (setting == 1)
-   TheTerrainRenderObject->m_3878->rva000731F4(x, y, ((const unsigned char *)TheGlobalData)[0xBE9], false);
-  else
-   TheTerrainRenderObject->m_3878->rva000731F4(x, y, ((const unsigned char *)TheGlobalData)[0xBE8], false);
-  ((Rva000683DC *)TheTerrainRenderObject)->rva000683DC();
-  Rva000729CC *helper = TheTerrainRenderObject->m_387c;
-  if (helper && g_Va00DFE750)
-   helper->rva00073CC0(x, y, ((Rva006C0840 *)g_Va00DFE750)->rva006C0840(x, y), 1);
- }
+	if (TheTerrainRenderObject && TheTerrainRenderObject->m_3878)
+	{
+		if (setting == 2)
+			TheTerrainRenderObject->m_3878->rva000731F4(x, y, ((const unsigned char *)TheGlobalData)[0xBEA], false);
+		else if (setting == 1)
+			TheTerrainRenderObject->m_3878->rva000731F4(x, y, ((const unsigned char *)TheGlobalData)[0xBE9], false);
+		else
+			TheTerrainRenderObject->m_3878->rva000731F4(x, y, ((const unsigned char *)TheGlobalData)[0xBE8], false);
+		((Rva000683DC *)TheTerrainRenderObject)->rva000683DC();
+		Rva000729CC *helper = TheTerrainRenderObject->m_387c;
+		if (helper && g_Va00DFE750)
+			helper->rva00073CC0(x, y, (unsigned char)((BfmeTaintManager *)g_Va00DFE750)->rva006C0840(x, y), true);
+	}
 }
