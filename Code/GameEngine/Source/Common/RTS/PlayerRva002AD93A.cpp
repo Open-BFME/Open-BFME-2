@@ -1,6 +1,21 @@
-// ?rva002AD93A@Player@@QAEXPBVUpgradeTemplate@@H@Z
-// partial score=0.9491 date=2026-10-05
-// cl: /O1 /Ireference/shims/moduledata /DNDEBUG /MD
+// cl: /Ireference/shims/moduledata /DNDEBUG /MD
+//
+// ?rva002AD93A@Player@@QAEXPBVUpgradeTemplate@@H@Z @ 0x002AD93A 195B
+//
+// Target evidence: thiscall on Player (ret 8: upgrade template and an int
+// flag). Walks the +0x32C team-prototype list; for each prototype's +0x334
+// team instance list (member pointer 0x9C4AF5) it calls the rowed
+// Object::updateUpgradeModules 0x00292EEA on every team member. Then, when
+// the template is non-null and the flag is zero, it picks the template's
+// +0x4C/+0x50/+0x54 event (local player / ally via getRelationship 0x002AD0C6
+// on the +0x2EC team / other) and passes it to the Eva global 0x00DFDC30
+// member 0x001DE2DA.
+// Donor (Zero Hour Player::onUpgradeCompleted): the team walk with Zero
+// Hour's null-team and null-member skips and the checked DLINK_ITERATOR
+// advance; those skips are what give retail's top-tested team loop with the
+// jmp back edge. The name onUpgradeCompleted and the meaning of the int flag
+// are donor inferences, so the row keeps its address name.
+
 typedef bool Bool;
 typedef int Int;
 
@@ -28,9 +43,10 @@ public:
 	DLINK_ITERATOR(OBJCLASS* cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc)
 	{
 	}
-	__forceinline void advance()
+	void advance()
 	{
-		m_cur = ((*m_cur).*(m_getNextFunc))();
+		if (m_cur)
+			m_cur = ((*m_cur).*(m_getNextFunc))();
 	}
 	Bool done() const
 	{
@@ -120,7 +136,7 @@ class Eva
 public:
 	void rva001DE2DA(Int eventId, const struct Coord3D *pos, Int x);
 };
-extern Eva *g_00DFDC30;
+extern Eva *TheEva;
 
 class Player
 {
@@ -138,19 +154,18 @@ void Player::rva002AD93A(const UpgradeTemplate *upgrade, Int x)
 {
 	for (PlayerTeamNode *it = m_playerTeamPrototypes->m_next; it != m_playerTeamPrototypes; it = it->m_next)
 	{
-		DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList();
-	team_loop:
-		if (!iter.done())
+		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
-			for (DLINK_ITERATOR<Object> iter2 = iter.cur()->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
+			Team *team = iter.cur();
+			if (!team)
+				continue;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
 			{
 				Object *obj = iter2.cur();
 				if (!obj)
 					continue;
 				obj->updateUpgradeModules();
 			}
-			iter.advance();
-			goto team_loop;
 		}
 	}
 	if (upgrade == 0 || x != 0)
@@ -166,5 +181,5 @@ void Player::rva002AD93A(const UpgradeTemplate *upgrade, Int x)
 		else
 			eventId = upgrade->m_evaEnemy;
 	}
-	g_00DFDC30->rva001DE2DA(eventId, 0, 0);
+	TheEva->rva001DE2DA(eventId, 0, 0);
 }
