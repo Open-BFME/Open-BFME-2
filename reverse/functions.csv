@@ -49174,8 +49174,6 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptValue/Rva006
 ??0ScriptActionsInterface@@QAE@XZ,,0x003BA89A,18,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_ctor.cpp,matched,ScriptActionsInterface default ctor base SubsystemInterface plus 0xC1FD98 vptr store
 ?rva0037F551@Rva0037F551@@QAEAAV1@ABV1@@Z,,0x0037F551,45,Code/GameEngine/Source/Common/Rva0037F551.cpp,matched,chain from 0x0037F51A; two 0x20 copies plus int and bool; caller 0x0037F71F
 ?rva003FD9FA@Rva003FD9FA@@QAEXPBVRvaSmartPtr12@@HHH@Z,,0x003FD9FA,31,Code/GameEngine/Source/Common/Rva003FD9FA.cpp,matched,chain from 0x003FC7C7 rowed callee plus 12B copy to +0xAC
-?rva004F10C2@Rva004F10C2@@QAE_NXZ,,0x004F10C2,36,Code/GameEngine/Source/Common/Rva004F10C2.cpp,matched,caller 0x004F19D3 offsets plus0x14 plus0x04 plus0x0C plus0x19 plus0x109bit0x40 true via next getter
-?rva004F19D3@Rva004F19D3@@QAE_NXZ,,0x004F19D3,35,Code/GameEngine/Source/Common/Rva004F10C2.cpp,matched,chain from 0x004F10C2 calls pred then winGetStatus next at plus8 head at plus4
 ?rva0005516F@Rva0005516F@@QAEXPAUHolder@@H@Z,,0x0005516F,83,Code/GameEngine/Source/Common/Rva0005516FMethod.cpp,matched,outer array plus0x12C stride0x1C4 row 0x550F7 fanout key2
 ?rva0048E6D2@DeployStyleAIUpdate@@QAEXXZ,,0x0048E6D2,38,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdateHelper.cpp,matched,DeployStyle file-unit leaf over 0x4B4 0x4D5 0x4D6 caller 0x004AE611
 ?rva002DAD81@Rva002DAD81@@QAEXVAsciiString@@@Z,,0x002DAD81,52,Code/Libraries/Source/WWVegas/WWLib/Rva002DAD81Set.cpp,matched,twin of Rva002DAD4DSet plus caller 0x002DB704 plus prev O1 EHsc flags
