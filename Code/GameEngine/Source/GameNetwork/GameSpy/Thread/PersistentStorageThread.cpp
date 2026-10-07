@@ -1303,7 +1303,7 @@ class Gen_00654130
 public:
 	void bfmeErase(void *key);
 	unsigned char m_prefix[0x5c];
-	_STL::map<void *, void *> m_values;
+	_STL::map<int, int> m_values;
 };
 
 // Retail 0x005571FC (264 bytes), reached through adapter 0x00557902: a
@@ -1317,7 +1317,7 @@ public:
 };
 int Rva005571FC::rva005571FC(int request, int result, int buffer, int, int)
 {
-	_STL::map<void *, void *>::iterator it = m_values.find(*(void *const *)&request);
+	_STL::map<int, int>::iterator it = m_values.find(request);
 	if (result != 0 || it._M_node == m_values.end()._M_node || it->second == 0)
 	{
 		bfmeErase((void *)request);
@@ -1353,7 +1353,7 @@ public:
 };
 int Rva00557304::rva00557304(int request, int result, int buffer, int, int)
 {
-	_STL::map<void *, void *>::iterator it = m_values.find(*(void *const *)&request);
+	_STL::map<int, int>::iterator it = m_values.find(request);
 	if (result != 0 || it._M_node == m_values.end()._M_node || it->second == 0)
 	{
 		bfmeErase((void *)request);
@@ -1400,7 +1400,7 @@ public:
 };
 int Rva005573FA::rva005573FA(int request, int result, int buffer, int, int)
 {
-	_STL::map<void *, void *>::iterator it = m_values.find(*(void *const *)&request);
+	_STL::map<int, int>::iterator it = m_values.find(request);
 	if (result != 0 || it._M_node == m_values.end()._M_node || it->second == 0)
 	{
 		bfmeErase((void *)request);
@@ -1488,4 +1488,55 @@ int Rva005573FA::rva005573FA(int request, int result, int buffer, int, int)
 	}
 	bfmeErase((void *)request);
 	return 1;
+}
+
+extern "C" int ghttpGetA(const char *url, int blocking, int (__cdecl *callback)(int, int, int, int, int, void *), void *param);
+int __cdecl rva00557902(int a1, int a2, int a3, int a4, int a5, void *context);
+int __cdecl rva00557927(int a1, int a2, int a3, int a4, int a5, void *context);
+
+// Pending-request payload stored in the owner's request map: the owner, the
+// ladder selector (1 or 2) and the profile ID, 0xC bytes.
+struct Rva00557996Request
+{
+	Gen_00654130 *owner;
+	int ladder;
+	int profileID;
+};
+
+class Rva00557996 : public Gen_00654130
+{
+public:
+	void rva00557996(int ladder);
+	void rva00557A33(int profileID);
+};
+
+void Rva00557996::rva00557996(int ladder)
+{
+	AsciiString url;
+	if (ladder == 1)
+		url.format("http://lotrebfme2.arenasdk.gamespy.com/ladderstats.sdk?ladderid=35030&action=COUNT", ladder);
+	else
+		url.format("http://lotrebfme2.arenasdk.gamespy.com/ladderstats.sdk?ladderid=35033&action=COUNT", 2);
+	int request = ghttpGetA(url.str(), 0, rva00557902, this);
+	if (request)
+	{
+		Rva00557996Request *data = new Rva00557996Request;
+		data->owner = this;
+		data->ladder = ladder;
+		m_values[request] = (int)data;
+	}
+}
+
+void Rva00557996::rva00557A33(int profileID)
+{
+	AsciiString url;
+	url.format("http://lotrebfme2.arenasdk.gamespy.com/ladderrank.sdk?ladderid=35030,35033&profileid=%d", profileID);
+	int request = ghttpGetA(url.str(), 0, rva00557927, this);
+	if (request)
+	{
+		Rva00557996Request *data = new Rva00557996Request;
+		data->owner = this;
+		data->profileID = profileID;
+		m_values[request] = (int)data;
+	}
 }
