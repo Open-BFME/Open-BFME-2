@@ -44,10 +44,26 @@ private:
 	unsigned char m_refresh;
 };
 
+struct Rva00538674Point
+{
+	Rva00538674Point() {}
+	__forceinline Rva00538674Point(const Rva00538674Point &that)
+	{
+		x = that.x;
+		y = that.y;
+	}
+	float x, y;
+};
+
 class Rva00538674Sub
 {
 public:
-	void run(int value);
+	Rva00538674Point *run(Rva00538674Point *output);
+private:
+	char m_pad00[0x0C];
+	float m_xMin, m_yMin, m_xMax, m_yMax;
+	float m_pad1C;
+	unsigned char m_dirty;
 };
 
 class Rva0007E03ASub
@@ -94,8 +110,24 @@ int Rva0030BEE6Owner::fwd(int value)
 
 int Rva0030BEF9Owner::fwd(int value)
 {
-	((Rva00538674Sub *)((char *)this - 0x28))->run(value);
+	((Rva00538674Sub *)((char *)this - 0x28))->run(
+		reinterpret_cast<Rva00538674Point *>(value));
 	return value;
+}
+
+// Native 538674..5386B7 returns the midpoint of the four floats at C..18.
+// Its same-object refresh call uses the existing helper at 53856F; owner and
+// original value-type identity are unknown. The caller supplies return storage.
+Rva00538674Point *Rva00538674Sub::run(Rva00538674Point *output)
+{
+	__assume(output != 0);
+	if (m_dirty)
+		reinterpret_cast<Rva0053863ESub *>(this)->rva0053856F();
+	Rva00538674Point result;
+	result.x = (m_xMax + m_xMin) * 0.5f;
+	result.y = (m_yMax + m_yMin) * 0.5f;
+	::new (output) Rva00538674Point(result);
+	return output;
 }
 
 int Rva00330C0FOwner::fwd(int value)
