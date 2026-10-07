@@ -776,3 +776,182 @@ def build_image(base=0x10000000, out=bi.OUT, tag="boot", overlay=(), status=bi.L
     if not rc:
         report["_layout"] = layout
     return report
+
+
+# ---------------------------------------------------------------- static findings
+STATIC_QUEUE = bi.OUT / "static_queue.json"
+INLINE_GAP = 16
+
+
+def inline_data_findings(r, sites, rows, starts, ledger=None):
+    """Rows that read retail bytes just past their own extent: a relocated field in the
+    row points into .text after the row's end and before the next known function start,
+    where no ledger row is (an /RTC frame descriptor `lea edx, [desc]`, a constant the
+    row returns the address of), within INLINE_GAP bytes of the end and with no int3
+    padding before it (past padding it is an unnamed function's entry). In place this works only because retail's bytes follow
+    the row; moved, the row reads whatever follows its copy. `ledger` (all matched rows,
+    default `rows`) decides what another row owns."""
+    tstart, _, text = r.secs[".text"]
+    ext = sorted({(int(x["target_rva"], 16), int(x["target_size"] or 0)) for x in (ledger or rows)})
+    los = [e[0] for e in ext]
+    starts = sorted(starts)
+    startset = set(starts)
+
+    def owned(t):
+        i = bisect.bisect_right(los, t) - 1
+        while i >= 0 and los[i] > t - OWN_CAP:
+            if t < los[i] + ext[i][1]:
+                return True
+            i -= 1
+        return False
+    out = []
+    for row in rows:
+        lo, n = int(row["target_rva"], 16), int(row["target_size"] or 0)
+        if n <= 0 or not tstart <= lo < bi.FUNCLETS:
+            continue
+        k = bisect.bisect_right(starts, lo)
+        nxt = min(starts[k] if k < len(starts) else bi.FUNCLETS, bi.FUNCLETS)
+        reads = []
+        for s in sites[bisect.bisect_left(sites, lo):bisect.bisect_left(sites, lo + n - 3)]:
+            t = r.u32(s) - bi.RETAIL_BASE
+            if lo + n <= t < min(nxt, lo + n + INLINE_GAP) and t not in startset and not owned(t)                     and 0xCC not in text[lo + n - tstart:t - tstart]:
+                reads.append((s, t))
+        if reads:
+            last = max(t for _, t in reads)
+            out.append({"target_rva": row["target_rva"], "name": row["name"], "source": row["source"],
+                        "size": n, "check": "inline-data",
+                        "why": f"reads retail .text past its extent: field {reads[0][0]:#x} -> {reads[0][1]:#x} "
+                               f"({len(reads)} field(s), up to +{last - lo - n:#x} past its end {lo + n:#x}, next "
+                               f"known start {nxt:#x}) that no row owns; row the data or raise the extent over it "
+                               "(an object label at its end binds to the moved copy's end)",
+                        "fields": [[f"{s:#x}", f"{t:#x}"] for s, t in reads]})
+    return out
+
+
+def table_slots(r, rlo, siteset, starts=frozenset()):
+    """Dwords from rlo that are relocation sites into .text, up to the next datum the
+    data ledger starts (retail's table length)."""
+    n = 0
+    while rlo + 4 * n in siteset and r.section_of(r.u32(rlo + 4 * n) - bi.RETAIL_BASE) == ".text" and             (n == 0 or rlo + 4 * n not in starts):
+        n += 1
+    return n
+
+
+def datum_starts():
+    """Retail addresses reverse/data_ledger.csv starts a datum at (vtables abut without
+    RTTI: one class's table runs straight into the next one's)."""
+    import csv
+    path = bi.ROOT / "reverse" / "data_ledger.csv"
+    if not path.exists():
+        return frozenset()
+    with open(path, newline="", encoding="utf-8") as f:
+        return frozenset(int(x["address"], 16) for x in csv.DictReader(f) if x.get("address"))
+
+
+def truncated_table_findings(r, sites, rows, objs, starts=None):
+    """Rows whose object defines a table of code pointers (a vtable, a dispatch table)
+    shorter than retail's: plan_own's `code-pointer-table-continues-in-retail` rule,
+    applied to every DIR32 reference a row's unit makes to data its object defines. The
+    datum's retail start is the row's retail field minus the reference's offset in the
+    datum. Owned (--own-data), a call through a slot past the object's copy reads
+    garbage (Debug's 1-slot vtable against retail's 49). A table that ends where the
+    data ledger (`starts`) starts another datum is whole: the next class's vtable."""
+    siteset = set(sites)
+    starts = datum_starts() if starts is None else starts
+    units, _ = bi.find_units(r, rows, objs)
+    found = {}
+    for u in units:
+        secs, syms, data = u.obj
+        s = secs[u.sec - 1]
+        for off, si, kind in s.relocs:
+            o = off - u.off
+            if kind != bi.DIR32 or not 0 <= o <= u.size - 4 or not r.section_of(u.rva + o):
+                continue
+            y = syms[si]
+            if not 0 < y.sec <= len(secs) or secs[y.sec - 1].name.startswith(".text"):
+                continue
+            q = y.value + struct.unpack_from("<i", data, s.ptr + off)[0]
+            lo, n = datum_extent(u.obj, y.sec, q)
+            rlo = r.u32(u.rva + o) - bi.RETAIL_BASE - (q - lo)
+            if n < 4 or r.section_of(rlo) is None or rlo + n in starts or                     not table_continues(r, rlo, n, siteset):
+                continue
+            slots = table_slots(r, rlo, siteset, starts)
+            if 4 * slots <= n:                          # the object's copy is not shorter
+                continue
+            for row in u.rows:
+                f = found.setdefault((row["target_rva"], row["name"]), {
+                    "target_rva": row["target_rva"], "name": row["name"], "source": row["source"],
+                    "size": int(row["target_size"] or 0), "check": "truncated-table", "tables": []})
+                if all(x[0] != f"{rlo:#x}" for x in f["tables"]):
+                    f["tables"].append([f"{rlo:#x}", y.name, n, 4 * slots])
+    out = []
+    for f in found.values():
+        rlo, name, n, rn = f["tables"][0]
+        more = len(f["tables"]) - 1
+        f["why"] = (f"its object defines {name} at retail {rlo} as {n} byte(s); retail's code-pointer table "
+                    f"runs on ({rn} bytes of .text pointers from there)" + (f", and {more} more table(s)" if more
+                                                                             else "")
+                    + "; declare the whole class / table in the object")
+        out.append(f)
+    return out
+
+
+def static_findings(overlay=("Code/",), rows=None, objs=None, tables=True, ledger=None):
+    """{"inline-data": [...], "truncated-table": [...]} for the overlay's rows, judged
+    from the ledger, retail game.dat and (tables) the rows' objects: no link, no run."""
+    import link_cycle
+    r = bi.Retail()
+    sites, _ = bi.all_sites(r)
+    rows = bi.overlay_rows(overlay) if rows is None else rows
+    if ledger is None:
+        ledger = [x for x in bi.ledger_rows() if x["status"] == "matched"]
+    out = {"inline-data": inline_data_findings(r, sites, rows, bi.function_starts(), ledger)}
+    if tables:
+        out["truncated-table"] = truncated_table_findings(r, sites, rows, objs or link_cycle.Objects([]))
+    return out
+
+
+def queue_items(found):
+    """repair_queue items, each with its own check and pass test."""
+    return [dict(f, pass_test=f"python3 tools/boot_relayout.py findings --overlay rva:{f['target_rva']} "
+                              f"--only {check} --no-write  (exit 0: the row is no longer flagged)")
+            for check, fs in found.items() for f in fs]
+
+
+def main(argv=None):
+    import argparse
+    import sys
+    ap = argparse.ArgumentParser(description="Static relayout findings: no link, no game run")
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    p = sub.add_parser("findings", help="rows that read data past their extent, or whose object defines a "
+                                        "truncated code-pointer table; writes build/boot/static_queue.json")
+    p.add_argument("--overlay", action="append", help="row set, as boot_image.py link --overlay (default Code/)")
+    p.add_argument("--only", choices=("inline-data", "truncated-table"))
+    p.add_argument("--out", type=Path, default=STATIC_QUEUE, help="repair_queue reads it (REPAIR_STATIC)")
+    p.add_argument("--no-write", action="store_true", help="list only; exit 1 when a row is flagged")
+    p.add_argument("--limit", type=int, default=20)
+    a = ap.parse_args(argv)
+    overlay = a.overlay or ["Code/"]
+    t0 = time.time()
+    found = static_findings(overlay, tables=a.only != "inline-data")
+    if a.only:
+        found = {a.only: found[a.only]}
+    for check, fs in found.items():
+        extra = (f", {len({t[0] for f in fs for t in f['tables']})} distinct table(s)"
+                 if check == "truncated-table" else "")
+        print(f"{check}: {len(fs)} row(s){extra}")
+        for f in fs[:a.limit]:
+            print(f"  {f['target_rva']} {f['name'][:70]}  {f['source']}\n      {f['why'][:220]}")
+    items = queue_items(found)
+    print(f"{len(items)} item(s), {time.time() - t0:.0f} s", file=sys.stderr)
+    if a.no_write:
+        return 1 if items else 0
+    a.out.parent.mkdir(parents=True, exist_ok=True)
+    a.out.write_text(json.dumps({"tool": "boot_relayout findings", "overlay": overlay, "items": items}, indent=1),
+                     encoding="utf-8")
+    print(f"-> {a.out}", file=sys.stderr)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

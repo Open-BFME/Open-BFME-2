@@ -7,6 +7,7 @@ check to fail (and the next round to refuse what it blamed). Each build links
 an image with the VS2003 toolchain (about 30 s); the tests skip without the
 pilot's objects.
 """
+import json
 import shutil
 import struct
 import sys
@@ -252,6 +253,89 @@ class TruncatedTable(unittest.TestCase):
         sites = set(boot_image.all_sites(r)[0])
         self.assertTrue(boot_relayout.table_continues(r, 0x7BE810, 4, sites))
         self.assertFalse(boot_relayout.table_continues(r, 0x7BE810, 196, sites))   # all 49 slots
+
+
+DEBUG_CTOR = "Code/Libraries/Source/WWVegas/WWDebug/DebugConstructor.cpp"
+
+
+def debug_rows():
+    try:
+        rows = boot_image.overlay_rows([DEBUG_CTOR])
+        return rows if rows and all(boot_image.build.row_object(r).exists() for r in rows) else []
+    except (SystemExit, Exception):
+        return []
+
+
+class StaticFindings(unittest.TestCase):
+    """`boot_relayout.py findings`: the relayout findings, from the ledger, retail and
+    the rows' objects, without a link or a run."""
+    @classmethod
+    def setUpClass(cls):
+        import boot_relayout
+        cls.br = boot_relayout
+        cls.r = boot_image.Retail()
+        cls.sites = boot_image.all_sites(cls.r)[0]
+        cls.starts = boot_image.function_starts()
+
+    def row(self, rva, size, name="f", source="Code/x.c"):
+        return {"target_rva": f"0x{rva:08X}", "target_size": str(size), "name": name, "source": source}
+
+    def test_dirtysock_row_cut_before_its_rtc_descriptor_is_flagged(self):
+        # _Rva007FD080 was ledgered 210 bytes (relayout-bfme2 finding 3): `lea edx, [0x669622]`
+        # reads the /RTC frame descriptor that follows; cc908a06d9 raised it to 235.
+        short = self.row(0x669550, 210)
+        got = self.br.inline_data_findings(self.r, self.sites, [short], self.starts)
+        self.assertEqual([x["check"] for x in got], ["inline-data"])
+        self.assertIn(["0x6695fd", "0x669622"], got[0]["fields"])
+        whole = self.row(0x669550, 235)
+        self.assertEqual(self.br.inline_data_findings(self.r, self.sites, [whole], self.starts), [])
+
+    def test_own_jump_table_and_calls_are_not_inline_data(self):
+        rows = boot_image.overlay_rows([f"rva:{JUMP:#x}"])
+        self.assertEqual(self.br.inline_data_findings(self.r, self.sites, rows, self.starts), [])
+
+    def test_data_another_row_owns_is_not_flagged(self):
+        short = self.row(0x669550, 210)
+        tail = self.row(0x669622, 25, "desc")                  # a row owning the descriptor
+        self.assertEqual(self.br.inline_data_findings(self.r, self.sites, [short], self.starts, [short, tail]), [])
+
+    @unittest.skipUnless(debug_rows(), "WWDebug objects not built")
+    def test_debug_constructor_defines_a_one_slot_vtable(self):
+        import link_cycle
+        got = self.br.truncated_table_findings(self.r, self.sites, debug_rows(), link_cycle.Objects([]))
+        tables = {t[1]: t for f in got for t in f["tables"]}
+        self.assertIn("??_7Debug@@6B@", tables)
+        rlo, _, n, rn = tables["??_7Debug@@6B@"]
+        self.assertEqual((rlo, n), ("0x7be810", 4))
+        self.assertGreaterEqual(rn, 140)                       # debug.obj alone defines 35 slots
+        self.assertTrue(all(f["check"] == "truncated-table" and "pass_test" not in f for f in got))
+
+    @unittest.skipUnless(ready(), "pilot objects not built")
+    def test_pilot_rows_define_no_truncated_table(self):
+        import link_cycle
+        rows = boot_image.overlay_rows([PILOT])
+        self.assertEqual(self.br.truncated_table_findings(self.r, self.sites, rows, link_cycle.Objects([])), [])
+
+
+class FindingsCli(unittest.TestCase):
+    def test_queue_and_exit_codes(self):
+        import boot_relayout
+        found = {"inline-data": [{"target_rva": "0x00669550", "name": "f", "source": "Code/x.c", "size": 210,
+                                  "check": "inline-data", "why": "w"}], "truncated-table": []}
+        saved = boot_relayout.static_findings
+        try:
+            boot_relayout.static_findings = lambda overlay, tables=True: found
+            with tempfile.TemporaryDirectory() as d:
+                out = Path(d) / "q.json"
+                self.assertEqual(boot_relayout.main(["findings", "--out", str(out)]), 0)
+                item = json.loads(out.read_text())["items"][0]
+                self.assertEqual(item["check"], "inline-data")
+                self.assertIn("--overlay rva:0x00669550 --only inline-data --no-write", item["pass_test"])
+                self.assertEqual(boot_relayout.main(["findings", "--no-write"]), 1)
+                found["inline-data"] = []
+                self.assertEqual(boot_relayout.main(["findings", "--no-write"]), 0)
+        finally:
+            boot_relayout.static_findings = saved
 
 if __name__ == "__main__":
     unittest.main()
