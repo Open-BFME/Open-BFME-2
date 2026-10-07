@@ -121,6 +121,21 @@ BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva004F614BPtrChase32Field, 0x2C, 0x494)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva00507548PtrChase32Field, 0x04, 0x110)
 BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva005A00CCPtrChase32Field, 0x08, 0x274)
 
+// Address-named indexed pointer-chase getter at retail 0x005F6B12.
+class Rva005F6B12
+{
+public:
+	int rva005F6B12(int index) const;
+private:
+	char m_pad00[4];
+	int *m_values;
+};
+
+int Rva005F6B12::rva005F6B12(int index) const
+{
+	return m_values[index + 15];
+}
+
 // Byte bit-7 getters: ptr-chase byte read plus shr to LSB (bool from high bit).
 // Retail 0x005FC73B is mov eax,[ecx+0x18] / mov al,[eax+0x34] / shr al,7 / ret.
 struct Rva005FC73BPtrChaseInner
