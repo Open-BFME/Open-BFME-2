@@ -886,3 +886,4 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?d_003682f1@@YAXXZ,0x003682F1,Converted to verified C++ waypoint-state wrapper; keep orphan PROC
 ?d_00108895@@YAXXZ,0x00108895,Generated placeholder superseded by byte-verified 97-byte resource-owner reset in Rva00108895Reset.cpp; tombstone prevents resurrection by the union merge driver.
 ?putObjectAtGarrisonPoint@GarrisonContain@@IAEXPAVObject@@HHH@Z,0x00477DA1,Renamed to the ObjectID enum ABI used by the official GarrisonContain header and current callers. The enum and former int spellings have the same 32-bit x86 ABI and the provider recompiled to the same exact 175 bytes.
+?d_002153c7@@YAXXZ,0x002153C7,replaced by verified 149-byte C++ recovery at 0x002153C7
