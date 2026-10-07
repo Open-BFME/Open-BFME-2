@@ -328,6 +328,7 @@ public:
     void rva0005A92A(int key, Rva0005A084Vector *output);
     void rva0005B137(void);
     AsciiString rva0005B19E(const AsciiString &key);
+    AsciiString rva0005B1FA(const AsciiString &key);
     // These audio INI calls use the manager receiver and an explicit INI*.
     // The receiver type is supported by 0x61BD2's +0x9D4 mutex access; names
     // for 0x5407E/0x540A7 remain address-derived, with helper identity open.
@@ -516,6 +517,31 @@ AsciiString MilesAudioManager::rva0005B19E(const AsciiString &key)
     }
 
     return *reinterpret_cast<AsciiString *>(reinterpret_cast<char *>(next) + 0x10);
+}
+
+// Target evidence: the 92B body shares the +0x6A4 initialization gate and
+// +0xB0 string tree with 0x5B19E. It returns the empty string for a zero
+// count; otherwise it finds the key, maps the leftmost node to the header,
+// decrements once, and copies the node string at +0x10. The manager identity
+// remains a structural inference from the surrounding audio methods.
+AsciiString MilesAudioManager::rva0005B1FA(const AsciiString &key)
+{
+    if (!m_at6A4)
+        rva0005B137();
+
+    if (*reinterpret_cast<unsigned int *>(reinterpret_cast<char *>(this) + 0xB4) == 0)
+        return AsciiString::TheEmptyString;
+
+    Rva001F8437 *tree = reinterpret_cast<Rva001F8437 *>(
+        reinterpret_cast<char *>(this) + 0xB0);
+    void *node = tree->rva001F8437(key);
+    void *header = *reinterpret_cast<void **>(tree);
+    if (node == *reinterpret_cast<void **>(reinterpret_cast<char *>(header) + 8))
+        node = header;
+
+    node = _STL::_Rb_global<bool>::_M_decrement(
+        reinterpret_cast<_STL::_Rb_tree_node_base *>(node));
+    return *reinterpret_cast<AsciiString *>(reinterpret_cast<char *>(node) + 0x10);
 }
 
 // Retail @ 0x0005AC61 gates the move-up helper on the per-view active system.
