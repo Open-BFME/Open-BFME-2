@@ -17,7 +17,22 @@ typedef unsigned int UnsignedInt;
 // Neither the record class nor the getter's original identity is established.
 class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
 
-class Rva0052BFE1
+class GlobalData
+{
+public:
+	char m_pad[0x86];
+	unsigned char m_86;
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+class Rva0052C036
+{
+public:
+	bool rva0052C036();
+};
+
+class Rva0052BFE1 : public Rva0052C036
 {
 public:
 	Rva00564DF2NameView *rva0052C119();
@@ -43,6 +58,7 @@ private:
 class LivingWorldCampaignManager
 {
 public:
+	bool rva003B8CAC();
 	Rva00564DF2NameView *rva003B8D4D(const AsciiString &name);
 	AsciiString rva003B8D06();
 	void StartNewCampaign(const AsciiString &campaignName);
@@ -56,6 +72,8 @@ private:
 	unsigned char m_pad00[0x10];
 	Int m_campaignIndex;					// +0x10 (WB assert name)
 	CampaignVectorView<Rva0052BFE1 *> m_campaignVector;	// +0x14
+	unsigned char m_pad20[0x2D - 0x20];
+	unsigned char m_2D;
 };
 
 // LivingWorldCampaignManager::StartNewCampaign, retail 0x003B8E6C.
@@ -64,6 +82,20 @@ void LivingWorldCampaignManager::StartNewCampaign(const AsciiString &campaignNam
 	Int index = rva003B8E2B(campaignName);
 	if (index != -1)
 		StartNewCampaign(index);
+}
+
+// ?rva003B8CAC@LivingWorldCampaignManager@@QAE_NXZ, retail 0x003B8CAC (52 bytes).
+bool LivingWorldCampaignManager::rva003B8CAC()
+{
+	if (TheWritableGlobalData->m_86 != 0)
+	{
+		if (m_campaignIndex >= 0 && (UnsignedInt)m_campaignIndex < m_campaignVector.size())
+		{
+			m_2D = 0;
+			return m_campaignVector[m_campaignIndex]->rva0052C036();
+		}
+	}
+	return false;
 }
 
 // LivingWorldCampaignManager::UseGenericSpawnArmyForPlayer, retail 0x003B8CE0
