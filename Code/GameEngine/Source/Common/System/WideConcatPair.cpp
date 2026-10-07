@@ -109,6 +109,31 @@ int BFME2WideConcatPair::copyPayloads(unsigned short *dst) const
 	return first + second;
 }
 
+
+class Rva000B3F84Pair
+{
+public:
+	int copyWchars(unsigned short *dst);
+};
+
+class Rva002DCD9A
+{
+public:
+	int rva002dcd9a(unsigned short *dst);
+private:
+	BFME2WideStringRef m_first;
+	Rva000B3F84Pair m_second;
+};
+
+// @0x002DCD9A (37B): copies two adjacent wide payloads. The retail call sites
+// identify the first as BFME2WideStringRef and the second as Rva000B3F84Pair.
+int Rva002DCD9A::rva002dcd9a(unsigned short *dst)
+{
+	int first = m_first.copyPayloadTo(dst);
+	int second = m_second.copyWchars(dst + first);
+	return first + second;
+}
+
 // ??BBFME2WideConcatPair@@QAE?AV?$StringBase@G@@XZ @0x0021C3F7 (98B)
 BFME2WideConcatPair::operator StringBase<unsigned short>()
 {
