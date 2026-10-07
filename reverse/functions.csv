@@ -38883,7 +38883,6 @@ _VP6_EncodeValue,,0x001C6D20,125,Code/Libraries/Source/VP6/Huffman.cpp,matched,B
 ??0Rva005965A5@@QAE@XZ,,0x005965A5,33,Code/GameEngine/Source/Common/Rva005965A5Ctor.cpp,matched,Derived ctor via base plus vector
 ??0Rva00596389@@QAE@H@Z,,0x00596366,35,Code/GameEngine/Source/Common/Rva0025BFE3Derived.cpp,matched,Rva00596389 ctor via base plus ints
 ?Rva00596095Get@@YGHPAX@Z,,0x00596095,44,Code/GameEngine/Source/Common/Rva00596095Bits.cpp,matched,Bit predicate via three status bytes
-?lookup56@Rva00DFF024Registry@@QAEPAXHH@Z,,0x002D2371,48,Code/GameEngine/Source/Common/Rva00DFF024RegistryLookup56.cpp,matched,pinned fallback lookup tries 5 then 6; callers 0x22329A and parseWinClass; callee lookup pin 0x2D225F
 ??0Rva002D22CA@@QAE@XZ,,0x002D22AC,30,Code/GameEngine/Source/Common/Rva002D22CACtor.cpp,matched,vtable 0x00802A20 names Rva002D22CA ctor; base 12B via Dtor.cpp; unblocks 0x4CA3A; loop keeps lea-xor order
 ?rva002D2D13@Rva002D2D13@@QAEXPAXH@Z,,0x002D2D13,32,Code/GameEngine/Source/Common/Rva002D2D13Calls.cpp,matched,virtual slot 31 twice with this and this+4; caller 0x2D649B; O1 gives eax
 ?setOrientation@Thing@@QAEXM@Z,,0x0030AB9D,480,Code/GameEngine/Source/Common/Thing/ThingSetOrientation.cpp,matched,BFME1 donor Thing setOrientation via 0x108 KINDOF and 0x48 align slot
@@ -42163,7 +42162,6 @@ _piChannelUserPartedA,,0x006AAF90,243,Code/GameEngine/Source/GameNetwork/GameSpy
 ??0Rva0059F479@@QAE@ABV0@@Z,,0x0059F479,29,Code/GameEngine/Source/Common/Rva0059F479Copy.cpp,matched,copy ctor int plus Open2Rec via rowed copy
 ?rva002AE475@Player@@QAEXPAX@Z,,0x002AE475,17,Code/GameEngine/Source/Common/RTS/PlayerRva002AE252.cpp,matched,Player iterateObjects wrapper
 ?rva001D98BD@Rva001D98BD@@QAE_NH@Z,,0x001D98BD,79,Code/GameEngine/Source/Common/Thing/Rva001D98BD.cpp,matched,caller 0x0005AF27 self-call 0x001D98E4 vector 0x80-0x84 type 0xB0
-?lookup34@Rva00DFF024Registry@@QAEPAXHH@Z,,0x002D2341,48,Code/GameEngine/Source/Common/Rva00DFF024RegistryLookup56.cpp,matched,fallback lookup tries 3 then 4 when b is minus 1 else b via pinned lookup
 ??0Rva002FED8D@@QAE@VAsciiString@@@Z,,0x002FED8D,95,Code/GameEngine/Source/Common/Rva002FED8DCtor.cpp,matched,unlock lane AsciiString plus list ctor twin of CreateCrate
 ?Rva009C4E90@@YAXPAFPAEPBEPBFH@Z,,0x001D5790,485,Code/GameEngine/Source/Common/Rva009C4E90.cpp,matched,
 ?Rva009A7300Subtract8x8@@YAXPBEPAGH@Z,,0x001B7D60,450,Code/GameEngine/Source/Common/SmallGaps/Rva009A7300Subtract8x8.cpp,matched,
