@@ -32,35 +32,9 @@ int Rva005234A7Get(void)
 	return (int)"GUI:PlayerGone";
 }
 
-// ?Rva00559F57Get@@YAHXZ @ 0x00559f57 (6B): returns 0x00dd2380.
-// Follows a ret (xor eax,eax / ret); paired 6B getter below.
-// Opaque address-derived name.
-int Rva00559F57Get(void)
-{
-	return 0x00dd2380;
-}
-
-// ?Rva00559F5DGet@@YAHXZ @ 0x00559f5d (6B): returns 0x00dd236c.
-// Abuts the 0x00559f57 getter above. Opaque address-derived name.
-int Rva00559F5DGet(void)
-{
-	return 0x00dd236c;
-}
-
-// ?Rva00559F72Get@@YAHXZ @ 0x00559f72 (6B): returns 0x00dd2390.
-// Follows a ret (xor eax,eax / ret); paired 6B getter below.
-// Opaque address-derived name.
-int Rva00559F72Get(void)
-{
-	return 0x00dd2390;
-}
-
-// ?Rva00559F78Get@@YAHXZ @ 0x00559f78 (6B): returns 0x00dd2374.
-// Abuts the 0x00559f72 getter above. Opaque address-derived name.
-int Rva00559F78Get(void)
-{
-	return 0x00dd2374;
-}
+// Four 559F57/5D/72/78 return arms were retired: they belong to the
+// complete 27-byte selectors at 559F48 and 559F63. Internal case branches
+// target them; no independent function entry is proved.
 
 // ?Rva006C5E87Get@@YAHXZ @ 0x006c5e87 (6B): returns 0x00bbac1c.
 // Follows int3 padding. Opaque address-derived name.
