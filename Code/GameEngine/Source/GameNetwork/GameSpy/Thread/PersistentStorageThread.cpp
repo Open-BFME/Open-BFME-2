@@ -260,6 +260,7 @@ public:
     void rva00552CB8();
     Rva003844D7 rva00389DF1() const;
     Rva0038454E rva00389E0F() const;
+    Rva00385333 rva00556508() const;
 	PSPlayerAllStats &operator=(const PSPlayerAllStats &that);
 	void setOpenPlayStats(Rva003844D7 stats);
 	void setStrategicStats(Rva0038454E stats);
@@ -724,6 +725,7 @@ Rva00385333::Rva00385333(const Rva00385333 &source) : Rva003844D7(0) {
 // These return the same concrete members as the native RVO getters389DF1/389E0F.
 Rva003844D7 PSPlayerAllStats::rva00389DF1() const { return m_openPlayStats; }
 Rva0038454E PSPlayerAllStats::rva00389E0F() const { return m_strategicStats; }
+Rva00385333 PSPlayerAllStats::rva00556508() const { return m_tournamentStats; }
 
 // Native [55621F,55628F),112B builds each stats block from id0 in member
 // order, resets the record through552CB8, then stores the id in the blocks'
@@ -780,6 +782,7 @@ class Rva00555BD5StatsQueue {
 public:
     Rva003844D7 rva00555BD5(int id);
     Rva0038454E rva00555C76(int id);
+    Rva00385333 rva00556730(int id);
 private:
     unsigned m_00;
     MutexClass m_mutex04;
@@ -800,5 +803,13 @@ Rva0038454E Rva00555BD5StatsQueue::rva00555C76(int id) {
     if (it._M_node != m_playerStats.end()._M_node)
         return it->second.rva00389E0F();
     Rva0038454E empty(0);
+    return empty;
+}
+Rva00385333 Rva00555BD5StatsQueue::rva00556730(int id) {
+    MutexClass::LockClass lock(m_mutex04);
+    _STL::map<int, PSPlayerAllStats>::iterator it=m_playerStats.find(id);
+    if (it._M_node != m_playerStats.end()._M_node)
+        return it->second.rva00556508();
+    Rva00385333 empty(0);
     return empty;
 }
