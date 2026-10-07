@@ -68800,3 +68800,4 @@ uw_00773b7a,,0x00773B7A,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicWater
 ?d_0005109d@@YAXXZ,,0x0005109D,22,Code/gen_asm/d_00023b30.asm,matched,gen-dump;ghidra=FUN_0045109d
 ?d_00051d93@@YAXXZ,,0x00051D93,29,Code/gen_asm/d_00023b30.asm,matched,gen-dump;ghidra=FUN_00451d93
 ?d_00052751@@YAXXZ,,0x00052751,27,Code/gen_asm/d_00023b30.asm,matched,gen-dump;ghidra=FUN_00452751
+??0Rva00023B30@@QAE@PAX0@Z,,0x00023B30,24,Code/GameEngine/Source/Common/Rva000239D0Cluster.cpp,matched,Retail Ghidra 23B30..23B48 RET8; second stack argument initializes receiver word0; first argument unused; original type and name unknown; established neighboring Od unit

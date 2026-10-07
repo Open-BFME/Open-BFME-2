@@ -64,3 +64,18 @@ void Rva00023B00::f(void *p, unsigned unused)
 	if (p)
 		free(p);
 }
+
+// 0x00023B30..0x00023B48: RET8 initializer. Retail writes the second
+// stack argument to the receiver's first word and returns the receiver.
+// The first argument is unused; neither the original type nor its name is known.
+class Rva00023B30
+{
+public:
+    Rva00023B30(void *unused, void *value);
+private:
+    void *m_value;
+};
+
+Rva00023B30::Rva00023B30(void *unused, void *value) : m_value(value)
+{
+}
