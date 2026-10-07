@@ -109,7 +109,7 @@ public:
 	virtual void slot33() {}
 	virtual void slot34() {}
 	virtual void slot35() {}
-	virtual void slot36() {}
+	virtual void rva00463138();
 	virtual void slot37() {}
 	virtual void slot38() {}
 	virtual void slot39() {}
@@ -209,6 +209,37 @@ void OpenContainActionIface::rva00465011(Object *object)
 			AIUpdateInterfaceView *currentAI = (AIUpdateInterfaceView *)rider->m_ai;
 			Object *owner = contain->m_object;
 			currentAI->m_command.aiExit(owner, (CommandSourceType)(unsigned long)object);
+		}
+	}
+}
+
+// Target facts: 0x00463138 is an 89-byte body at slot 36 of the OpenContain
+// +0x20 interface vtable at 0x00C433B0. It walks the live list at parent+0x54,
+// tests each rider template's +0x10C flag bit 1, conditionally calls the
+// rowed Object::rva0028F4BC result with (0,1,0,1), then calls the pinned
+// GameLogic subobject method at +0x178 with (rider,0,0,1). These accesses and
+// call targets are target-proven; the address-derived method name carries no
+// stronger semantic claim.
+//
+// Structural inference: the vtable slot belongs to the +0x20 OpenContain
+// interface view established by slot 32 in this TU. The method saves the next
+// list iterator before invoking either helper, matching the target's load
+// order. The role of the flag and the GameLogic call remains unresolved.
+void OpenContainActionIface::rva00463138()
+{
+	OpenContain *contain = (OpenContain *)((char *)this - 0x20);
+	IntList::iterator it = contain->m_containList.begin();
+	while (it != contain->m_containList.end())
+	{
+		Object *rider = (Object *)*it;
+		const bool flagged = (rider->m_template->m_kindFlags & 2) != 0;
+		++it;
+		if (flagged)
+		{
+			Rva00373EC6 *helper = rider->rva0028F4BC();
+			if (helper != 0)
+				helper->rva0037446E(0, 1, 0, 1);
+			TheGameLogic->m_178->rva00439E0C(rider, 0, 0, 1);
 		}
 	}
 }
