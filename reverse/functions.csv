@@ -67841,3 +67841,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004B5A65@Rva004B5A65_Secondary@@QAEXXZ,,0x004B5A65,91,Code/GameEngine/Source/GameLogic/Object/Upgrade/Rva004B5A65Secondary.cpp,matched,
 ?rva004B5B4C@Rva004B5A65_Secondary@@QAEXXZ,,0x004B5B4C,54,Code/GameEngine/Source/GameLogic/Object/Upgrade/Rva004B5A65Secondary.cpp,matched,
 ?rva004B5AC0@Rva004B5AC0_Primary@@QAIXHPAVPlayer@@0@Z,,0x004B5AC0,140,Code/GameEngine/Source/GameLogic/Object/Upgrade/Rva004B5A65Secondary.cpp,matched,
+?rva004BD97A@@YGHH@Z,,0x004BD97A,39,Code/GameEngine/Source/Common/Rva004BD97ACheck.cpp,matched,
