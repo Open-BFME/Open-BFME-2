@@ -16218,3 +16218,4 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?update@Rva0037F87A@@QAEXH@Z	0x0037F87A	50	blocked	thiscall parameter and record ownership are not established; first shape is 6B short and misses forwarded ECX plus member result offset t=20 model=gpt-6.1-sol
 ?rva00082D6A@Rva00082D6A@@QAEXXZ	0x00082D6A	168	blocked	complex virtual float loop plus garbage args needs donor t=15 model=muse-spark
 ?rva00082D2A@Rva00082C98Host@@QAEXI@Z	0x00082D2A	15	blocked	thin wrapper sub-plus-push frameless garbage args needs lever t=8 model=muse-spark
+??0Rva0057C3C4@@QAE@HABVAsciiString@@@Z	0x0057C3C4	213	blocked	compile wall C2549 CharSource plus C2678 AsciiString operator-plus plus C2039 AddCommandMap not member needs RegistryAsciiPath expr-template plus DelegateDesc layout t=10 model=muse-03
