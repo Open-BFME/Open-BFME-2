@@ -20,6 +20,11 @@ class TintEnvelope
 {
 public:
 	void play(const RGBColor *peak, unsigned int attackFrames, unsigned int decayFrames, unsigned int sustainAtPeak);
+	void rva002719A7(float first, float second);
+private:
+	unsigned char m_unreconstructed_00[0x3C];
+	float m_3C;
+	float m_40;
 };
 
 extern float g_Va00BBB8D8;
@@ -66,4 +71,15 @@ void Drawable::rva00275490(const RGBColor *peak)
 		m_68->m_38 = 0;
 		m_114 &= ~4;
 	}
+}
+
+// BFME1 1399ad37 DrawableUpdateDrawable.cpp donor calls this setPulse.
+// Native +0x3C/+0x40 are established by the 25-byte two-float stores.
+// TintEnvelope owner follows the constructor/play family; the original
+// target method name remains unproven, so retain its native address.
+// ?rva002719A7@TintEnvelope@@QAEXMM@Z
+void TintEnvelope::rva002719A7(float first, float second)
+{
+	m_3C = first;
+	m_40 = second;
 }
