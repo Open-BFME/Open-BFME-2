@@ -1,18 +1,17 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 
 #include "ascii_string.h"
 
-class Rva0058C100CommandManager
+// The native calls reach the rowed ControlBar methods at 31BE3C and 405DBC.
+// Use their real definitions rather than the retired command-manager aliases.
+class CommandButton;
+class GameWindow;
+class ControlBar
 {
 public:
-	void *find( const AsciiString *name );
-	void execute( int value, void *command );
+ const CommandButton *findCommandButton(const AsciiString &name);
+ void rva004C1B60(GameWindow *window, void *command);
 };
-
-// Retail global 0x012F33F8; the canonical mangled spelling is
-// ?TheControlBar@@3PAVControlBar@@A, so the pointee must be the real
-// ControlBar and only the calls need the TU-local view of it.
-class ControlBar;
 extern ControlBar *TheControlBar;
 
 void __stdcall rva0058C100ObserveNext( void * )
@@ -20,8 +19,8 @@ void __stdcall rva0058C100ObserveNext( void * )
 	void *command;
 	{
 		AsciiString name( "NonCommand_ObserveNextPlayer" );
-		command = ((Rva0058C100CommandManager *)TheControlBar)->find( &name );
+		command = (void *)TheControlBar->findCommandButton( name );
 	}
 	if( command )
-		((Rva0058C100CommandManager *)TheControlBar)->execute( 0, command );
+		TheControlBar->rva004C1B60( 0, command );
 }

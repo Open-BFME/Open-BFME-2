@@ -1,18 +1,15 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 
 #include "ascii_string.h"
 
-class Rva0058C100CommandManager
+class CommandButton;
+class GameWindow;
+class ControlBar
 {
 public:
-	void *find( const AsciiString *name );
-	void execute( int value, void *command );
+ const CommandButton *findCommandButton(const AsciiString &name);
+ void rva004C1B60(GameWindow *window, void *command);
 };
-
-// Retail global 0x012F33F8; the canonical mangled spelling is
-// ?TheControlBar@@3PAVControlBar@@A, so the pointee must be the real
-// ControlBar and only the calls need the TU-local view of it.
-class ControlBar;
 extern ControlBar *TheControlBar;
 
 struct Rva0058BCD0State
@@ -36,9 +33,34 @@ void Gen0058BCD0::handle( int )
 		void *command;
 		{
 			AsciiString name( "NonCommand_Resources" );
-			command = ((Rva0058C100CommandManager *)TheControlBar)->find( &name );
+			command = (void *)TheControlBar->findCommandButton( name );
 		}
 		if( command )
-			((Rva0058C100CommandManager *)TheControlBar)->execute( 0, command );
+			TheControlBar->rva004C1B60( 0, command );
 	}
+}
+
+// Target 0x002D39E5..0x002D3A53: sibling of the Resources callback.
+// The literal establishes the UI command; original receiver identity is unknown.
+// The state pointer is at +0 and retail tests its float at +0 against 1.0f.
+// Both calls use the established ControlBar definitions, without alias pins.
+class Rva002D39E5
+{
+public:
+ void handle(int unused);
+private:
+ float *m_multiplier;
+};
+void Rva002D39E5::handle(int)
+{
+ if (*m_multiplier != 1.0f)
+ {
+  const CommandButton *command;
+  {
+   AsciiString name("NonCommand_ResourceMultiplier");
+   command = TheControlBar->findCommandButton(name);
+  }
+  if (command)
+   TheControlBar->rva004C1B60(0, (void *)command);
+ }
 }

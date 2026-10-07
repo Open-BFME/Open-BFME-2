@@ -9461,7 +9461,6 @@ name,address,notes
 ?evaluateBezSegmentAtT@BezierSegment@@QBEXMPAUCoord3D@@@Z,0x0010FE6D,callee read from the retail REL32 in placed BFME1-donor body ?forward@Rva000059EDBezierSegmentThunk@@QBEXMPAUCoord3D@@@Z (0x000A8B37)
 ?evaluateNamedInsideArea@ScriptConditions@@IAE_NPAVParameter@@0@Z,0x003E5EFF,target 0x3E66D5 wrapper directly calls the named-inside-area handler at this exact boundary
 ?evaluateSkirmishPlayerHasUnitsInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z,0x003E782D,"call-site agreement: matched evaluateSkirmishPlayerIsOutsideArea 0x003E79AF returns its negation with the same three arguments, as the BFME1 donor does"
-?execute@Rva0058C100CommandManager@@QAEXHPAX@Z,0x00405DBC,callee of ?handle@Gen0058BCD0@@QAEXH@Z at retail 0x002D3A53 read from its REL32 displacement; ICF alias onto ?rva004C1B60@ControlBar@@QAEXPAVGameWindow@@PAX@Z (matched)
 ?expandPrototypeValues@Rva00700170@@QAEXPAX0@Z,0x00700170,BFME1 donor method name is provisional; target call from 0x702B40 and thiscall signature support this address but owner identity remains RVA-derived
 ?f_00881ef0@@YAXPAX@Z,0x0002FD80
 ?factoryCreateString@@YAPAVAptValue@@XZ,0x006D7210,Native Error lookup calls original AptString::Create static factory; pointer return ABI alias
@@ -9498,7 +9497,6 @@ name,address,notes
 ?find@Rva0033D3B8Map@@QAEPAUMapNode@@ABVAsciiString@@@Z,0x001F8437,Rva0033D3B8 string-map find at this+0x394; aliases the rowed STLport _M_find worker body (same 78B key-only shape as the Skirmish/MapCache twins)
 ?find@Rva003BAD00Owner@@QAEPAVGen003B9DC0Node@@H@Z,0x001F8437,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?find@Rva005257F6Registry@@QAEPAXABVRva005257F6String@@@Z,0x0031BE3C,retail 005257F6 call at +4F to matched ControlBar findCommandButton using target command literal
-?find@Rva0058C100CommandManager@@QAEPAXPBVAsciiString@@@Z,0x0031BE3C,callee of ?handle@Gen0058BCD0@@QAEXH@Z at retail 0x002D3A53 read from its REL32 displacement; ICF alias onto ?findCommandButton@ControlBar@@QAEPBVCommandButton@@ABVAsciiString@@@Z (matched)
 ?find@Rva00591560Context@@QAEPAVRva00591560Resource@@XZ,0x005C4ACD
 ?find@Rva00612430Owner@@QAEPAURva00612430Item@@ABVAsciiString@@@Z,0x002120C2,callee of ?Rva0060C1B0@@YGXPAXPBVAsciiString@@@Z at retail 0x003F92BB read from its REL32 displacement; body unrowed
 ?find@Rva00786BD0Owner@@QAEPAXI@Z,0x000AA867,callee of ?Rva00786C70Find@@YAPAXPAVRva00786BD0Owner@@I@Z at retail 0x000AA8AE read from its REL32 displacement; ICF alias onto ?rva000AA867@Rva000AA867@@QBEPBVArmorTemplate@@W4NameKeyType@@@Z (matched)
