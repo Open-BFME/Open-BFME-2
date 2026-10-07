@@ -2793,6 +2793,27 @@ static __forceinline void getPlayerInfo(PeerThreadClass *t, PEER peer, const cha
 // ?setPeerResponseCode absent-from-retail
 template <class Code> static __forceinline void setPeerResponseCode(Code &code, Int value) { code = static_cast<Code>(value); }
 
+// ?Rva0038A288List@@YAXPAXHHPAU_SBServer@@PBDHHHH0@Z @0x0038A288 156B evidence: REF callback stored at 0x0038FFAE in Thread_Function for peerListGroupRooms; 10-param group-room enum; thread totals at +0x4A0 +0x4A4 zeroed for LISTGROUPROOMS; queue slot 0x20; type 0x15 with payload 6 7
+void Rva0038A288List(PEER peer, PEERBool success, int groupID, SBServer server, const char *name, int numWaiting, int maxWaiting, int numGames, int numPlaying, void *param)
+{
+	BfmePeerThreadView *t = (BfmePeerThreadView *)param;
+	if (!t || !success)
+		return;
+	if (groupID == 0)
+	{
+		PeerResponse resp;
+		setPeerResponseCode(resp.peerResponseType, 0x15);
+		resp.unknown_payload[6] = t->value4A0;
+		resp.unknown_payload[7] = t->value4A4;
+		TheGameSpyPeerMessageQueue->addResponse(resp);
+	}
+	else
+	{
+		t->value4A0 += numGames;
+		t->value4A4 += numWaiting + numPlaying;
+	}
+}
+
 static void roomKeyChangedCallback(PEER peer, RoomType roomType, const char *nick, const char *key, const char *val, void *param)
 {
 #ifdef USE_BROADCAST_KEYS
