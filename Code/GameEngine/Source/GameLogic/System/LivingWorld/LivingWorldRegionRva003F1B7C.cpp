@@ -38,10 +38,7 @@ bool LivingWorldRegion::rva003F1B7C(CreateAHeroData *hero,
         return false;
 
     CreateAHeroData *key = record->key;
-    int limit = reinterpret_cast<Rva003F11EC *>(reinterpret_cast<char *>(this) + 0x14)
-        ->rva003F11EC(key);
-    int count = rva003F0614(key);
-    if (count >= limit)
+    if (rva003F0614(key) >= reinterpret_cast<Rva003F11EC *>(reinterpret_cast<char *>(this) + 0x14)->rva003F11EC(key))
     {
         if (reason)
             *reason = 2;
