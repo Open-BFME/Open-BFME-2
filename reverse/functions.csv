@@ -67239,3 +67239,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva002AD13F@Rva002AD13F@@QAE_NPAVRva002AD13FKeySource@@@Z,,0x002AD13F,95,Code/GameEngine/Source/GameLogic/Object/Rva002AD13F.cpp,matched,Target clears the table for null input or removes the NameKeyType at input plus 0x54 when its iterator is present
 ?rva00214ACC@Rva00214ACC@@QAEXURva004DFCB0Element@@@Z,,0x00214ACC,16,Code/GameEngine/Source/Common/Rva00214ACCPush.cpp,matched,rowed push_back 0x004DFCB0 caller 0x00214CFF abuts 0x00214AC7 honest address method
 ?rva005B2CE5@Rva005B2B6D@@QAEXPBD@Z,,0x005B2CE5,250,Code/GameEngine/Source/Common/Rva005B2B6D.cpp,matched,address derived callback shares UnicodeString offset with neighboring method
+?rva000B4A9F@Rva000B4A9F@@QAEPBDXZ,,0x000B4A9F,22,Code/GameEngine/Source/Common/Rva000B4A9F.cpp,matched,finish-first via barrier plus empty literal plus 10 callers
