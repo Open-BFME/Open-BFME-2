@@ -1481,3 +1481,76 @@ Bool NetPacket::addDisconnectFrameCommand(NetCommandRef *msg)
 	return false;
 }
 
+// ?rva0058EDEF@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x0058EDEF, 649 bytes:
+// addCommand's type-20 arm, the type BFME2 inserts: room check rva0058D296,
+// T/R/S/P/C/D, then Rva004D58DE's +0x1C dword, +0x20 word, +0x28 length and
+// that many bytes of the +0x24 buffer.
+Bool NetPacket::rva0058EDEF(NetCommandRef *msg)
+{
+	Bool needNewCommandID = false;
+	if (rva0058D296(msg)) {
+		Rva004D58DE *cmdMsg = (Rva004D58DE *)msg->getCommand();
+		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+			m_packet[m_packetLen] = 'T';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getNetCommandType();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastCommandType = cmdMsg->getNetCommandType();
+		}
+		if (m_lastRelay != msg->getRelay()) {
+			m_packet[m_packetLen] = 'R';
+			++m_packetLen;
+			UnsignedByte newRelay = msg->getRelay();
+			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastRelay = newRelay;
+		}
+		if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+			m_packet[m_packetLen] = 'S';
+			++m_packetLen;
+			UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+			memcpy(m_packet + m_packetLen, &newTimestamp, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastTimestamp = newTimestamp;
+		}
+		if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+			m_packet[m_packetLen] = 'P';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getPlayerID();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastPlayerID = cmdMsg->getPlayerID();
+			needNewCommandID = true;
+		}
+		if (((m_lastCommandID + 1) != (UnsignedShort)(cmdMsg->getID())) || (needNewCommandID == true)) {
+			m_packet[m_packetLen] = 'C';
+			++m_packetLen;
+			UnsignedShort newID = cmdMsg->getID();
+			memcpy(m_packet + m_packetLen, &newID, sizeof(UnsignedShort));
+			m_packetLen += sizeof(UnsignedShort);
+		}
+		m_lastCommandID = cmdMsg->getID();
+		m_packet[m_packetLen] = 'D';
+		++m_packetLen;
+		UnsignedInt value = cmdMsg->get1c();
+		memcpy(m_packet + m_packetLen, &value, sizeof(UnsignedInt));
+		m_packetLen += sizeof(UnsignedInt);
+		UnsignedShort shortValue = cmdMsg->get20();
+		memcpy(m_packet + m_packetLen, &shortValue, sizeof(UnsignedShort));
+		m_packetLen += sizeof(UnsignedShort);
+		UnsignedInt dataLength = cmdMsg->getDataLength();
+		memcpy(m_packet + m_packetLen, &dataLength, sizeof(UnsignedInt));
+		m_packetLen += sizeof(UnsignedInt);
+		memcpy(m_packet + m_packetLen, cmdMsg->getData(), dataLength);
+		m_packetLen += dataLength;
+		++m_numCommands;
+		if (m_lastCommand != 0) {
+			delete m_lastCommand;
+			m_lastCommand = 0;
+		}
+		m_lastCommand = new NetCommandRef(msg->getCommand());
+		m_lastCommand->setRelay(msg->getRelay());
+		return true;
+	}
+	return false;
+}
+
