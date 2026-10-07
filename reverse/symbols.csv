@@ -4095,7 +4095,6 @@ name,address,notes
 ??1Rva00108B4D@@UAE@XZ,0x00108B4D,"destructor the scalar deleting destructor 0x000EFAD2 calls (REL32 at 0x000EFAD5; vtable 0x00BCEFA0#0); opaque address name"
 ??1Rva001095B2@@UAE@XZ,0x001095B2,opaque dtor; call target of retail scalar-deleting-dtor at 0x10B9C9 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva00109610@@UAE@XZ,0x00109610,opaque dtor; call target of retail scalar-deleting-dtor at 0x10BA83 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
-??1Rva00109BEB@@UAE@XZ,0x00109BEB,opaque dtor; call target of retail scalar-deleting-dtor at 0x109DB3 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva00109C7F@@UAE@XZ,0x00109C7F,opaque dtor; call target of retail scalar-deleting-dtor at 0x109C63 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva0010C785@@UAE@XZ,0x0010C785,opaque dtor; call target of retail scalar-deleting-dtor at 0x10C825 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva0010EDC2@@UAE@XZ,0x0010EDC2,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0xA7797; identity unproven, address-derived name
@@ -4887,7 +4886,6 @@ name,address,notes
 ??1Rva0060D031Member@@QAE@XZ,0x0060D031,Target direct call from XferSave field at +0x18; opaque helper identity
 ??1Rva0060FE2@@UAE@XZ,0x0060FE2,opaque SEH dtor (mov-eax-cookie prologue, sub esp frame); called by scalar-deleting-dtor at 0x61AA1; identity unproven, address-derived name
 ??1Rva006109C0@@UAE@XZ,0x006109C0,"destructor the scalar deleting destructor 0x000657E6 calls (REL32 at 0x000657E9; vtable 0x00BC5C6C#0); opaque address name"
-??1Rva00613B90@@UAE@XZ,0x00613B90,opaque dtor; call target of retail scalar-deleting-dtor at 0xF0B65 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva006154D0Dtor@@UAE@XZ,0x006154D0,address-derived class dtor called by the 30B scalar deleting destructor at 0x0013C860; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva006162B0Dtor@@UAE@XZ,0x006162B0,address-derived class dtor called by the 30B scalar deleting destructor at 0x00616490; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva0061ED80@@UAE@XZ,0x0061ED80,opaque vector-destroying dtor (17B: member+0xC via ehvec 0x42FD80 + vptr); tail-called by single-inheritance dtor at 0x180EA0; identity unproven, address-derived name
