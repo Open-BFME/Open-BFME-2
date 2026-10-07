@@ -342,6 +342,46 @@ void Rva0044BD53::rva0044BD53(Int a)
 	m_08.handle(a);
 }
 
+// 0x00575C5D: validates two signed endpoint deltas, builds a point from lower coords,
+// calls 0x005757A5, reports whether +0x28 changed.
+struct Rva00575C5DPoint
+{
+	int x;
+	int y;
+};
+
+class Rva005757A5
+{
+public:
+	void rva005757A5(int point);
+};
+
+class Rva00575C5D
+{
+public:
+	int rva00575C5D(const int *bounds, int unused);
+private:
+	char m_pad00[0x28];
+	void *m_28;
+};
+
+int Rva00575C5D::rva00575C5D(const int *bounds, int unused)
+{
+	int width = bounds[2] - bounds[0];
+	if (width <= 0) {
+		int height = bounds[3] - bounds[1];
+		if (height <= 0) {
+			void *old = m_28;
+			Rva00575C5DPoint point;
+			point.x = bounds[0];
+			point.y = bounds[1];
+			((Rva005757A5 *)this)->rva005757A5((int)&point);
+			return (m_28 != old) ? 1 : 0;
+		}
+	}
+	return 0;
+}
+
 // 0x00575CA6: the rowed clear 0x000AD6F4 on the +0x24 member.
 class Rva000AD6F4
 {
