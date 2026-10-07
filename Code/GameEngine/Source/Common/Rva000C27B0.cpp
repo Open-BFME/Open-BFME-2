@@ -1,5 +1,3 @@
-// ??4Rva000C27B0@@QAEAAV0@ABV0@@Z
-// partial score=0.97 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /EHs-c- /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // ??4Rva000C27B0@@QAEAAV0@ABV0@@Z, retail 0x000C27B0 464B.
@@ -128,8 +126,10 @@ Rva000C27B0 &Rva000C27B0::operator=(const Rva000C27B0 &that)
 	m_9c = that.m_9c;
 	m_a8 = that.m_a8;
 	m_d0 = that.m_d0;
-	m_f5 = that.m_f5;
-	m_4c.erase(m_4c.begin(), m_4c.end());
+	unsigned char f5tmp = that.m_f5;
+	_STL::vector<AsciiString, _STL::allocator<AsciiString> > *p4c = &m_4c;
+	m_f5 = f5tmp;
+	p4c->erase(p4c->begin(), p4c->end());
 	for (int i = 0; i < (int)that.m_4c.size(); ++i)
 		m_4c.push_back(that.m_4c.begin()[i]);
 	m_e0 = that.m_e0;
