@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib
 // Target method identity comes from the Zero Hour W3DVolumetricShadow donor and
-// the retail HLOD vtable calls.  BFME2 splits per-mesh population into the
-// adjacent address-derived helper; its object offsets are read from retail.
+// the retail HLOD vtable calls.  BFME2 splits per-mesh population into
+// initFromMesh (0x000F1018); its object offsets are read from retail.
 #include <string.h>
 
 #define MAX_SHADOW_CASTER_MESHES 160
@@ -252,7 +252,7 @@ public:
     virtual const char *Get_Key();
     W3DShadowGeometry();
     int initFromHLOD(RenderObjClass *robj);
-    int rva000F1018(MeshModelClass *model, int index, W3DShadowGeometry *parent);
+    int initFromMesh(RenderObjClass *robj, int mesh_index, W3DShadowGeometry *parent_geometry);
     void Set_Name(const char *value) { nameStorage.rva000055F5(value); }
     const char *Get_Name() const { return nameStorage.Peek_Buffer(); }
 private:
@@ -275,7 +275,7 @@ int W3DShadowGeometry::initFromHLOD(RenderObjClass *robj)
             hlod->Peek_Lod_Model(top, i)->Class_ID() == 0)
         {
             MeshModelClass *model = hlod->Peek_Lod_Model(top, i)->Get_Model();
-            rva000F1018(model, i, this);
+            initFromMesh((RenderObjClass *)model, i, this);
         }
     }
     return m_meshCount != 0;
@@ -308,7 +308,7 @@ int W3DShadowGeometryManager::Load_Geom(RenderObjClass *robj, const char *name)
             result = newgeom->initFromHLOD(robj);
     }
     else
-        result = newgeom->rva000F1018(robj->Get_Model(), -1, newgeom);
+        result = newgeom->initFromMesh((RenderObjClass *)robj->Get_Model(), -1, newgeom);
 
     if (result != true)
     {

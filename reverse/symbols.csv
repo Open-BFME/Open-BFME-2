@@ -11161,7 +11161,6 @@ name,address,notes
 ?rva000EE04A@W3DPropBuffer@@QAEXHM@Z,0x000EE04A,pin for 0x68073 second call
 ?rva000EE198@Rva000EE198NullTarget@@QAEXXZ,0x000EE198,null-checked tail jmp target of forwarder 0x00068385; original name unknown
 ?rva000F0A75@W3DVolumetricShadowManager@@QAEXPAX@Z,0x000F0A75,"W3DVolumetricShadowManager member taking an owner, called from vtable slot 0x000F168B; opaque address name"
-?rva000F1018@W3DShadowGeometry@@QAEHPAVMeshModelClass@@HPAV1@@Z,0x000F1018,retail REL32 inside 0x000F1F60 resolves to this address; Ghidra bounds the callee at 424 bytes; method uses W3DShadowGeometry this and MeshModelClass index parent arguments; address-derived name and helper purpose remains inferred from BFME1 donor
 ?rva000F1D24@Rva000F28C3Holder@@QAEXHPAURva000F28C3Poly@@@Z,0x000F1D24,retail REL32 at 0x000F2940 in 0x000F28C3 targets 0x000F1D24 (thiscall 2 stack args int plus ptr void return per call site; single caller; opaque address name pin candidate-not-proof)
 ?rva000F4017@Rva000F42F7Host@@QAEXH@Z,0x000F4017,"member a vtable slot 0x000F42F7 calls with a constant argument; opaque address name"
 ?rva000F4AB7@Rva000F4AB7@@QAEXH@Z,0x000F4AB7,method on the 0x00DEBCD8 object called from 0x0009A361 with the global still in ecx; original name unknown
