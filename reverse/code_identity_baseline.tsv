@@ -5595,7 +5595,6 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowMana
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderVolume.cpp	?RenderVolume@W3DVolumetricShadow@@IAEXHH@Z	?RenderDynamicMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@@Z	0x000F42FF	unowned
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderVolume.cpp	?RenderVolume@W3DVolumetricShadow@@IAEXHH@Z	?RenderMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@@Z	0x000F200A	unowned
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderVolume.cpp	?RenderVolume@W3DVolumetricShadow@@IAEXHH@Z	?getTransformMatrix@Drawable@@QBEPBVMatrix3D@@XZ	0x0027628E	unowned
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadow_Rva000F2CFC.cpp	?lookup@Rva007BDB70ArrayOwner@@QAEPAURva007BDB70Record@@H@Z	?ensureStorage@Rva007BDB70ArrayOwner@@QAEXXZ	0x000F2963	unowned
 Code/GameEngineDevice/Source/W3DDevice/GameClient/TileDataGetRGBDataForWidth.cpp	??_GTileData@@UAEPAXI@Z	??1TileData@@UAE@XZ	0x0011172A	unowned
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBibBuffer.cpp	?Set_Shader@DX8Wrapper@@SAXABVShaderClass@@@Z	??1StringClass@@QAE@XZ	0x00610A40	wrong
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferCtor.cpp	??0W3DBridgeBuffer@@QAE@XZ	??0W3DBridge@@QAE@XZ	0x000DD97F	unowned

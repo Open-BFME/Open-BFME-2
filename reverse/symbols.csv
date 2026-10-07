@@ -5986,7 +5986,6 @@ name,address,notes
 ?GetName@User@@QAE?AVAsciiString@@XZ,0x00564DF2,callee of ?j_00019eca@Glo012F1024Item@@QAEXXZ at retail 0x005669FD read from its REL32 displacement; User name getter returning AsciiString by hidden buffer; folds with the 27B ?dup_00564df2 body at this address (object-symbol ?getName@Image@@QBE?AVAsciiString@@XZ)
 ?GetNextAptValue@AptValueGC_PoolManager@@QAEPAVAptValue@@PBV2@@Z,0x006D2B70,"auto-pin (permute --pins): REL32 call target read from retail in 0x006e6f80, whose banked body is byte-exact once this call resolves"
 ?GetNumValues@AptValueVector@@QBEHXZ,0x007244B0,Native branch and Pop handlers call folded four-byte +4 dword getter; AptValueVector header0fccceed2b337669 supplies const signature; target ReleaseValues proves count+4; alias uses existing folded provider
-?GetPolygonIndex@Rva007BDB70ArrayOwner@@QBEXJPAF@Z,0x000F0FCD,retail REL32 at 0x000F2D98 in 0x000F2D25 targets 0x000F0FCD (thiscall 2 stack args idx plus out Short[3]; opaque address name pin candidate-not-proof)
 ?GetRandomNumber@@YAHPAUlua_State@@@Z,0x00332E2F,Lua callback: LuaScriptEngine registration at 0x00338317 passes this address to luaV_Cclosure then lua_setglobal("GetRandomNumber"); start follows a ret; name is the Lua global it is bound to
 ?GetResult@Rva005E1753Class@@QAE?AURva005E1753Result@@XZ,0x005E1753,Rva005E1753Class member returning Rva005E1753Result by value called by 0x5CC478 0x5E92A5 0x5F56A4 0x5F595C 0x5F5D35
 ?GetRootAnimation@AptCIH@@QAEPAV1@XZ,0x006E0CB0,Original APT ABI and native709870 call or unwind target; existing providers aliased where recovered
@@ -8859,7 +8858,6 @@ name,address,notes
 ?buildFieldParse@VeterancyCrateCollideModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x00251246,chained link: base CrateCollide proc 0x4BC7FE plus table 0xBEFB60 (EffectRange at +0x5C plus AddsOwnerVeterancy at +0x60 plus IsPilot at +0x61 plus AffectsUpToLevel at +0x64); pushed as proc VA by ModuleData factory 0x255B2D
 ?buildFieldParse@ViewShakeFXNugget@@SAXAAVMultiIniFieldParse@@@Z,0x001E0829,cdecl field-parse builder called by ViewShakeFXNugget::parse (0x001E1611); name is BFME's ModuleData convention
 ?buildFieldParse@WanderAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z,0x0024F1F2,chained link: base proc 0x2638FF plus table 0xBEF580 (WildBeast at +0x64 plus ConditionForEntry at +0x68 plus Selectable at +0x6C plus WanderDistance at +0x70); pushed as proc VA by ModuleData factory 0x24F248
-?buildPolygonNormals@Rva007BDB70ArrayOwner@@QAEXXZ,0x000F28C3,retail REL32 at 0x000F2D4A in 0x000F2D25 targets 0x000F28C3 (thiscall 0 stack args; holder lazy-init; opaque address name pin candidate-not-proof)
 ?buildProviderList@MilesAudioManager@@AAEXXZ,0x00051744,openDevice donor call; target enumerates Miles providers into 12B records at +0x6CC and sets count +0x9CC
 ?buildSegments@W3DRopeDraw@@AAEXXZ,0x000CA9F1,address read from the REL32 displacement at a placed body
 ?buildTerrainTexture@W3DRadar@@IAEXPAVTerrainLogic@@@Z,0x0004FAFF,REL32 callee of W3DRadar::refreshTerrain 0x000500F7 after the base refresh, as Zero Hour's buildTerrainTexture(terrain)
@@ -9362,7 +9360,6 @@ name,address,notes
 ?enableRadar@Player@@QAEXXZ,0x002AAAF9,address read from the REL32 displacement at a byte-verified placed body (0x2AB8D0)
 ?end@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEPBQAXXZ,0x00023BA0,ICF alias of the non-const end landed at this address, for the same reason as begin
 ?ensureCharPage@FontCharsClass@@AAEXG@Z,0x00155220,page-table filler called with (this char) by loadCharacterData 0x158580; address read from its REL32; true identity unproven (opaque)
-?ensureStorage@Rva007BDB70ArrayOwner@@QAEXXZ,0x000F2963,callee of ?lookup@Rva007BDB70ArrayOwner@@QAEPAURva007BDB70Record@@H@Z at retail 0x000F2CFC read from its REL32 displacement; body unrowed
 ?ensureUniqueBufferOfSize@?$StringBase@D@@AAEXH_NPBV?$CharSource@D@@1@Z,0x000364A0,Exact BFME2 PE export1625 identifies private StringBase char buffer preparation API; independently called by exported AsciiString translate38170 with length-minus-one and false/null/null
 ?ensureUniqueBufferOfSize@?$StringBase@G@@AAEXH_NPBV?$CharSource@G@@1@Z,0x00036F00,Exact BFME2 PE export1626 identifies private StringBase unsigned-short buffer preparation API; independently called by exported UnicodeString translate6CB5F0 with length-minus-one and false/null/null
 ?entEnragedInitialValue@@YAHHIPBXH@Z,0x00233FF4,callee of 0EntEnragedUpdate (0x004B2516) at the site its BFME1 donor calls it; may be an ICF alias
@@ -11160,7 +11157,6 @@ name,address,notes
 ?rva000EE04A@W3DPropBuffer@@QAEXHM@Z,0x000EE04A,pin for 0x68073 second call
 ?rva000EE198@Rva000EE198NullTarget@@QAEXXZ,0x000EE198,null-checked tail jmp target of forwarder 0x00068385; original name unknown
 ?rva000F0A75@W3DVolumetricShadowManager@@QAEXPAX@Z,0x000F0A75,"W3DVolumetricShadowManager member taking an owner, called from vtable slot 0x000F168B; opaque address name"
-?rva000F1D24@Rva000F28C3Holder@@QAEXHPAURva000F28C3Poly@@@Z,0x000F1D24,retail REL32 at 0x000F2940 in 0x000F28C3 targets 0x000F1D24 (thiscall 2 stack args int plus ptr void return per call site; single caller; opaque address name pin candidate-not-proof)
 ?rva000F4017@Rva000F42F7Host@@QAEXH@Z,0x000F4017,"member a vtable slot 0x000F42F7 calls with a constant argument; opaque address name"
 ?rva000F4AB7@Rva000F4AB7@@QAEXH@Z,0x000F4AB7,method on the 0x00DEBCD8 object called from 0x0009A361 with the global still in ecx; original name unknown
 ?rva000FF5E6@Rva0007E90ECallee@@QAEXH@Z,0x000FF5E6,dump range 1 marker callee for 0x7E90E
