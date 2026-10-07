@@ -15377,3 +15377,6 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 
 ?_M_lower_bound@?$_Rb_tree@URva000F4003Element@@U1@U?$_Identity@URva000F4003Element@@@_STL@@U?$less@URva000F4003Element@@@3@V?$allocator@URva000F4003Element@@@3@@_STL@@ABEPAU?$_Rb_tree_node@URva000F4003Element@@@2@ABURva000F4003Element@@@Z,0x000F2F5A,
 ?rva000AC2F6@Rva000AC2F6@@QAEXHPAM000_N@Z,0x000AC2F6,address-derived helper read from the placed-target call at 0x000AE4E8; Ghidra boundary 0x000AC2F6 is an in-image function body; not a thunk; name and float-layout semantics remain provisional
+?rva00416C69@@YAXXZ,0x00416C69,address-derived no-argument callee from retail call at 0x00517EBC; body identity remains unknown
+?rva005BDAC1@@YAXXZ,0x005BDAC1,address-derived no-argument callee from retail call at 0x00517EC1; body identity remains unknown
+?rva005AF12F@@YAXPAX@Z,0x005AF12F,address-derived one-pointer callee from retail call at 0x00517F05; body identity remains unknown
