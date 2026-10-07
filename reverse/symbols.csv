@@ -15415,3 +15415,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva005BDAC1@@YAXXZ,0x005BDAC1,address-derived no-argument callee from retail call at 0x00517EC1; body identity remains unknown
 ?rva005AF12F@@YAXPAX@Z,0x005AF12F,address-derived one-pointer callee from retail call at 0x00517F05; body identity remains unknown
 ?rva0053E783@ControlBar@@QAEXPAXH@Z,0x0053E783,Direct thiscall call from ControlBar rva0053EB81 at 0x0053EB81 pushes an opaque object pointer and 1. Two-argument ABI follows the call site. Address-derived name; callee identity and argument meanings unresolved
+?rva00416C69@@YAXXZ,0x00416C69,address-derived no-argument callee from retail call at 0x00517EBC; body identity remains unknown
+?rva005BDAC1@@YAXXZ,0x005BDAC1,address-derived no-argument callee from retail call at 0x00517EC1; body identity remains unknown
+?rva005AF12F@@YAXPAX@Z,0x005AF12F,address-derived one-pointer callee from retail call at 0x00517F05; body identity remains unknown
