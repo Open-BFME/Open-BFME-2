@@ -24,7 +24,7 @@
 typedef int Int;
 typedef bool Bool;
 
-extern const char *TheKindOfBitNames[0xDA]; ///< retail [0x00DBBE18]
+extern const char *TheKindOfBitNames[0xDA + 1]; ///< retail [0x00DBBE18]
 
 template <size_t NUMBITS>
 class BitFlags
