@@ -15695,3 +15695,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?update@DisconnectManager@@QAEXPAVConnectionManager@@@Z,0x004D46FC,callee of ?update@ConnectionManager@@UAEX_NH@Z
 ?rva0020FDDF@Rva0020FDDFHost@@QAEXXZ,0x0020FDDF,callee of ?rva002B3D0E@Rva002B3D0E@@QAEXXZ
 ?registerOwnedObject@CastleBehavior@@QAEXPAVObject@@@Z,0x003986EF,callee of ?createOwnedObject@CastleBehavior@@QAEPAVObject@@PAX@Z
+?rva002EE43A@Rva002EE43A@@QAEPAV1@HPAXHHPBUCoord3D@@@Z,0x002EE43A,callee of ?rva002FC95E@Pathfinder@@QAEXPAVObject@@HPAUCoord3D@@PBU3@@Z
