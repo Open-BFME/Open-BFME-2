@@ -16775,3 +16775,7 @@ FUN_0045e1bf	0x0005E1BF	143	blocked	Ghidra boundary 0x0005E1BF through 0x0005E24
 ?rva002B931C@Rva002B931C@@QAEPAVArmorTemplate@@PBVAsciiString@@@Z	0x002B931C	45	blocked	frame sub-vs-pushes plus this-vs-key live range t=14 model=muse-spark
 ??1Rva0037DEE4@@UAE@XZ	0x0037DEE4	72	blocked	MI manual vtable plus EH plus base ambiguity t=8 model=muse-spark
 ?Rva000FC34F@@YGHH@Z	0x000FC34F	590	blocked	ref 590B needs 5 unnamed globals plus unknown vtable class plus EH wall t=6 model=muse-spark
+?rva00283505@Rva002834E6Owner@@QAEXXZ	0x00283505	98	partial	MSVC folds retail separate nonempty branch into loop setup; 7-byte duplicate bound-load structure remains t=12 model=luna-01 score=0.92 stash=reverse/attempts/0x00283505.cpp
+?buildBeacons@TerrainLogic@@AAEXXZ	0x00283E9C	270	blocked	unresolved retail global at 0xde0880 plus local register and cleanup shape differ t=8 min model=gpt-6.1-sol
+?rva00283505@Rva002834E6Owner@@QAEXXZ	0x00283505	98	blocked	six variants leave 93B vs 98B with loop and register allocation differences beyond the banked bound load t=18 min model=gpt-6.1-sol
+?Rva006ECA70PointHitTest@@YAPAVAptValue@@PAXH@Z	0x006ECA70	431	blocked	callback and coordinate model still emits 459B versus the 431B body with unresolved global operands and x87 comparison shape differences t=12 min model=gpt-6.1-sol
