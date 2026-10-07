@@ -590,15 +590,18 @@ protected:
 	virtual void xfer(Xfer *xfer);				// +0x0C
 public:
 	virtual void m04(); virtual void m05(); virtual void m06(); virtual void m07();
-	virtual void m08(); virtual void m09(); virtual void m10(); virtual void m11();
+	virtual void onDelete();				// +0x20
+	virtual void m09(); virtual void m10(); virtual void m11();
 	virtual void m12();
 	virtual void rva004BE69C();				// +0x34
 	virtual void m14(); virtual void m15();
 	virtual void m16();
-	virtual void validateArmorAndDamageFX();		// +0x44
+	virtual void validateArmorAndDamageFX() const;		// +0x44
 	virtual void doDamageFX(const DamageInfo *damageInfo) = 0;	// +0x48
-	virtual void m19(); virtual void m20();
+	virtual void m19();
+	virtual void deleteAllParticleSystems();		// +0x50
 	virtual void rvaSlot21(Int arg);			// +0x54
+	virtual void rva004BF9ED();				// +0x58
 
 protected:
 	const ActiveBodyModuleData *m_moduleData;	// +0x04
@@ -611,7 +614,8 @@ class BodyModuleInterface
 public:
 	virtual void attemptDamage(DamageInfo *damageInfo);	// +0x00
 	virtual void attemptHealing(DamageInfo *damageInfo);	// +0x04
-	virtual void i02(); virtual void i03();
+	virtual Real estimateDamage(DamageInfoInput &damageInfo) const;	// +0x08
+	virtual void i03();
 	virtual Real getHealth() const;				// +0x10
 	virtual Real getHealthRatio() const;			// +0x14
 	virtual Real getMaxHealth() const;			// +0x18
@@ -636,10 +640,12 @@ class ActiveBody : public BodyModule, public BodyModuleInterface
 {
 public:
 	virtual void attemptHealing(DamageInfo *damageInfo);
+	virtual Real estimateDamage(DamageInfoInput &damageInfo) const;
 	virtual void setDamageState(BodyDamageType newState);
 	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);
 
 	virtual void rva004BE69C();
+	virtual void onDelete();
 	void setCorrectDamageState(Bool arg);
 
 protected:
@@ -683,6 +689,28 @@ private:
 	Armor m_curArmor;			// +0xF8
 	DamageFX *m_curDamageFX;		// +0xFC
 };
+
+// ActiveBody::estimateDamage, retail 0x004BDB01 (36B): BodyModuleInterface
+// slot 2. Zero Hour's validate-then-armor-adjust without its subdual,
+// garrison and sniper special cases; BFME 2's armor takes the whole input,
+// the Object and a flag (set here, clear when attemptDamage adjusts).
+Real ActiveBody::estimateDamage(DamageInfoInput &damageInfo) const
+{
+	validateArmorAndDamageFX();
+	return m_curArmor.adjustDamage(&damageInfo, getObject(), true);
+}
+
+// ActiveBody::onDelete, retail 0x004BDCAC (54B): primary vtable slot 8. Unless
+// the Object is already effectively dead (+0x438 bit 0) or its template has
+// kind 25 or 89, run primary slot 22 first; then delete the particle systems
+// (slot 20), as Zero Hour's onDelete does.
+void ActiveBody::onDelete()
+{
+	Object *obj = getObject();
+	if (!(obj->m_flags438 & 1) && !obj->getTemplate()->testKindOf(25) && !obj->getTemplate()->testKindOf(89))
+		rva004BF9ED();
+	deleteAllParticleSystems();
+}
 
 // ActiveBody::setDamageState, retail 0x004BDAA9.
 void ActiveBody::setDamageState(BodyDamageType newState)
