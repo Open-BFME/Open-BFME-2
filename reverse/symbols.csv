@@ -3126,7 +3126,7 @@ name,address,notes
 ??1BfmeObjCF@@QAE@XZ,0x0007FAB3,callee of ?bfmeAssignCF@BfmeRefCF@@QAEPAV1@ABV1@@Z at retail 0x0041D5D0 read from its REL32 displacement; destroys the refcounted object at m_bfmePtrCF+0x10 reaching zero; ICF alias onto BasicStringCharDtor_dup (matched)
 ??1BfmeObject544@@QAE@XZ,0x004CACB8,Neutral544-byte target destructor; direct call from4CAE55 range cleanup; destroys member20C and8 member objects ofsize38 at4C; ctor4CAD61 confirms layout; original type unknown
 ??1BfmeOpaqueOwnedRecord1408@@QAE@XZ,0x00555ADF,address read from the REL32 displacement at a placed body
-??1BfmeOpaqueOwnedRecord1408Member@@QAE@XZ,0x00385371,address read from the JMP displacement at 0x555AE2 in the pinned implicit ~BfmeOpaqueOwnedRecord1408 (add ecx 8 then jmp) and the inlined temp destruction at 0x558E88 in _M_push_back_aux_v; Ghidra boundary 0x385371/75
+??1PSPlayerAllStats@@QAE@XZ,0x00385371,implicit PSPlayerAllStats dtor: destroys the blocks at +0x340 +0x1B0 +0x08 through rowed 0x0038454E 0x003844D7 0x00385333; JMP target at 0x555AE2 (add ecx 8) in the implicit ~BfmeOpaqueOwnedRecord1408 and the temp destruction in the rowed PS stats find 0x556674; Ghidra boundary 0x385371/75
 ??1BfmeOpaqueOwnedRecord1432@@QAE@XZ,0x0038A1F2,address read from the REL32 displacement at a placed body
 ??1BfmeOpaqueOwnedRecord2148@@QAE@XZ,0x0041A200,callee REL32 read by locate.py from a unique masked-byte placement emitted by StlportOwnedRecordDeque.cpp
 ??1BfmeOpaqueOwnedRecord492@@QAE@XZ,0x001EF723,Target nonvirtual lifetime callee with full 259-byte boundary; copy/cleanup of owned strings and arrays independently inspected; matching deque temporary and element calls establish thiscall ABI; original record name unknown

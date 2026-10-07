@@ -265,6 +265,14 @@ public:
 	void setOpenPlayStats(Rva003844D7 stats);
 	void setStrategicStats(Rva0038454E stats);
 	void setTournamentStats(Rva00385333 stats);
+	// Stores the id into each block's +0x150 slot from last to first, then +0.
+	void setID(Int id)
+	{
+		m_strategicStats.m_id = id;
+		m_openPlayStats.m_id = id;
+		m_tournamentStats.m_id = id;
+		m_id = id;
+	}
 
 private:
 	Int m_id;						// +0x000
@@ -804,6 +812,7 @@ public:
     Rva003844D7 rva00555BD5(int id);
     Rva0038454E rva00555C76(int id);
     Rva00385333 rva00556730(int id);
+    PSPlayerAllStats rva00556674(int id);
 private:
     unsigned m_00;
     MutexClass m_mutex04;
@@ -832,5 +841,18 @@ Rva00385333 Rva00555BD5StatsQueue::rva00556730(int id) {
     if (it._M_node != m_playerStats.end()._M_node)
         return it->second.rva00556508();
     Rva00385333 empty(0);
+    return empty;
+}
+
+// Native [556674,556730),188B is vtable slot 12 beside the three block
+// getters: ZH's findPlayerStatsByID shape, returning the whole record and an
+// id-0 record on a miss.
+PSPlayerAllStats Rva00555BD5StatsQueue::rva00556674(int id) {
+    MutexClass::LockClass lock(m_mutex04);
+    _STL::map<int, PSPlayerAllStats>::iterator it=m_playerStats.find(id);
+    if (it._M_node != m_playerStats.end()._M_node)
+        return it->second;
+    PSPlayerAllStats empty(0);
+    empty.setID(0);
     return empty;
 }

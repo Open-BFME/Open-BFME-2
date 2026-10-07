@@ -40,23 +40,18 @@ struct BfmeOpaqueOwnedRecord840 {
 };
 
 // A separate deque node at RVA 0x0055315a advances by 0x580 bytes.
-// Its owning type and member meanings are not yet known.
+// Its owning type and tail meanings are not yet known.
 // Its destructor is implicit: the target's out-of-line copy at 0x00555ADF
 // is `add ecx, 8; jmp 0x00385371`, so the only nontrivial member sits at +8.
-struct BfmeOpaqueOwnedRecord1408Member {
-	union {
-		unsigned int alignmentWitness;
-		unsigned char bytes[0x548];
-	};
-	~BfmeOpaqueOwnedRecord1408Member();
-};
 
-// Only the assignment ABI and complete 0x548-byte extent are consumed here.
-// The provider's WorldBuilder-backed name and three-block layout are recorded
-// in GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp (0x003874B0).
+// Only the assignment and destructor ABI and complete 0x548-byte extent are
+// consumed here. The provider's WorldBuilder-backed name and three-block
+// layout are recorded in GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp
+// (operator= 0x003874B0, implicit destructor 0x00385371).
 class PSPlayerAllStats {
 public:
 	PSPlayerAllStats &operator=(const PSPlayerAllStats &);
+	~PSPlayerAllStats();
 private:
 	union {
 		unsigned int alignmentWitness;
@@ -70,7 +65,7 @@ struct BfmeOwnedRecord1408Tail5 {
 
 struct BfmeOpaqueOwnedRecord1408 {
 	unsigned int head[2];
-	BfmeOpaqueOwnedRecord1408Member member;
+	PSPlayerAllStats member;
 	BfmeOwnedRecord1408Tail5 tail550;
 	unsigned int value564;
 	unsigned int value568;
@@ -94,7 +89,7 @@ BfmeOpaqueOwnedRecord1408 &BfmeOpaqueOwnedRecord1408::operator=(
 {
 	head[0] = other.head[0];
 	head[1] = other.head[1];
-	*(PSPlayerAllStats *)&member = *(const PSPlayerAllStats *)&other.member;
+	member = other.member;
 	tail550 = other.tail550;
 	value564 = other.value564;
 	value568 = other.value568;

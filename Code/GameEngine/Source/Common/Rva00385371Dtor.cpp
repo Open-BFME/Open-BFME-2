@@ -42,7 +42,3 @@ private:
 Gen_uw_00385371::~Gen_uw_00385371()
 {
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??1BfmeOpaqueOwnedRecord1408Member@@QAE@XZ=??1Gen_uw_00385371@@QAE@XZ")

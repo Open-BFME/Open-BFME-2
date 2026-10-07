@@ -7,17 +7,22 @@
 // rowed __destroy 0x005560B2. Caller 0x00557BDC.
 #include <deque>
 
-struct BfmeOpaqueOwnedRecord1408Member {
+// The +8 stats record's implicit destructor is 0x00385371; only its ABI and
+// 0x548-byte extent are consumed here (layout: PersistentStorageThread.cpp).
+class PSPlayerAllStats {
+public:
+	~PSPlayerAllStats();
+private:
 	union {
 		unsigned int alignmentWitness;
-		unsigned char bytes[1400];
+		unsigned char bytes[0x548];
 	};
-	~BfmeOpaqueOwnedRecord1408Member();
 };
 
 struct BfmeOpaqueOwnedRecord1408 {
 	unsigned int head[2];
-	BfmeOpaqueOwnedRecord1408Member member;
+	PSPlayerAllStats member;
+	unsigned int tail[12];
 	BfmeOpaqueOwnedRecord1408();
 	BfmeOpaqueOwnedRecord1408(const BfmeOpaqueOwnedRecord1408 &);
 };
