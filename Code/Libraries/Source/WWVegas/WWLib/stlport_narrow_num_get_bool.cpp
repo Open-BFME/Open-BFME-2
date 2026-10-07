@@ -72,6 +72,17 @@ int __cdecl wctomb(char *dest, unsigned short ch);
 }
 
 #define _STLP_INTERNAL_STREAMBUF
+#include <stl/_alloc.h>
+// Keep retail's inline character-buffer cleanup; the public allocator
+// entry point is supplied by its separately verified owner.
+namespace _STL {
+template <> void __malloc_alloc<0>::deallocate(void *, size_t);
+#pragma optimize("gsy", on)
+template <> __forceinline void allocator<char>::deallocate(char *p, size_t) const { if (p != 0) free(p); }
+template <> __forceinline void allocator<unsigned short>::deallocate(unsigned short *p, size_t) const { if (p != 0) free(p); }
+#pragma optimize("", on)
+}
+
 #include <locale>
 // The locale implementation is opaque in _locale.h. Its three vtable slots
 // are established by stlport_locale.cpp; visibility here inlines _M_decr.

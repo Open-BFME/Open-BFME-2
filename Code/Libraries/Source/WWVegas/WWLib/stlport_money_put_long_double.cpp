@@ -52,6 +52,17 @@ size_t __cdecl wcstombs(char *dest, const unsigned short *source, size_t count);
 int __cdecl wctomb(char *dest, unsigned short ch);
 }
 
+#include <stl/_alloc.h>
+// Keep retail's inline character-buffer cleanup; the public allocator
+// entry point is supplied by its separately verified owner.
+namespace _STL {
+template <> void __malloc_alloc<0>::deallocate(void *, size_t);
+#pragma optimize("gsy", on)
+template <> __forceinline void allocator<char>::deallocate(char *p, size_t) const { if (p != 0) free(p); }
+template <> __forceinline void allocator<unsigned short>::deallocate(unsigned short *p, size_t) const { if (p != 0) free(p); }
+#pragma optimize("", on)
+}
+
 #include <locale>
 
 // _locale.h forward-declares _Locale_impl as an opaque type and declares
