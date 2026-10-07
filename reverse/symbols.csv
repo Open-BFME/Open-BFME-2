@@ -15317,3 +15317,7 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva0057D922@AptMapPreview@@QAEPAVMapMetaData@@ABVAsciiString@@@Z,0x0057D922,callee of ?rva0057E058@AptMapPreview@@QAEXXZ (REL32 at 0x0057E095 with the preview as this and GameInfo::getMap's AsciiString); Ghidra FUN_0097d922 255B returning the MapMetaData; same address as the ?rva0057D922@Rva0057D922@@ placeholder pin; address name
 ?rva0057DDAE@AptMapPreview@@QAEXPAVMapMetaData@@@Z,0x0057DDAE,callee of ?rva0057E058@AptMapPreview@@QAEXXZ (REL32 at 0x0057E0B9 with the preview as this and the looked-up MapMetaData); Ghidra FUN_0097ddae 589B; address name
 ?rva0057D19A@AptMapPreview@@QAEXPAVMapMetaData@@@Z,0x0057D19A,callee of ?rva0057E058@AptMapPreview@@QAEXXZ (REL32 at 0x0057E0C1 with the preview as this and the looked-up MapMetaData); Ghidra FUN_0097d19a 852B; address name
+?renderShadows@W3DVolumetricShadowManagerV2@@QAEXAAVRenderInfoClass@@@Z,0x00107F8B,callee of ?renderShadows@W3DVolumetricShadowManager@@QAEXAAVRenderInfoClass@@@Z
+?Update@W3DVolumetricShadow@@QAEX_N@Z,0x000F4017,callee of ?renderShadows@W3DVolumetricShadowManager@@QAEXAAVRenderInfoClass@@@Z
+?getDX8Format@W3DBufferManager@@SAHW4VBM_FVF_TYPES@1@@Z,0x00115DE8,callee of ?renderShadows@W3DVolumetricShadowManager@@QAEXAAVRenderInfoClass@@@Z
+?getNextVertexBuffer@W3DBufferManager@@QAEPAUW3DVertexBuffer@1@PAU21@W4VBM_FVF_TYPES@1@@Z,0x000EFB14,callee of ?renderShadows@W3DVolumetricShadowManager@@QAEXAAVRenderInfoClass@@@Z
