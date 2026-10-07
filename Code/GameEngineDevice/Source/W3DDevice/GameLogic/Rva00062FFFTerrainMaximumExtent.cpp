@@ -39,11 +39,14 @@ class Rva00062FFFTerrainPrefix
 {
 public:
     void getMaximumPathfindExtent(Region3D *extent) const;
+    void activeBoundaryExtent(Region3D *extent) const;
+    void largestBoundaryExtent(Region3D *extent) const;
 
 private:
     char m_pad00[0x30];
     BoundaryVector m_boundaries;
-    char m_pad3c[0x191c - 0x3c];
+    int m_activeBoundary; // native active index +3C
+    char m_pad40[0x191c - 0x40];
     Real m_mapMinZ;
     Real m_mapMaxZ;
 };
@@ -61,6 +64,65 @@ void Rva00062FFFTerrainPrefix::getMaximumPathfindExtent(Region3D *extent) const
             extent->hi.x = m_boundaries[i].x * MAP_XY_FACTOR;
         if (extent->hi.y < m_boundaries[i].y * MAP_XY_FACTOR)
             extent->hi.y = m_boundaries[i].y * MAP_XY_FACTOR;
+    }
+
+    extent->lo.z = m_mapMinZ;
+    extent->hi.z = m_mapMaxZ;
+}
+
+// Adjacent BFC5890 slots +20/+24 contain 62EF8/62F64. Native complete
+// extents are 62EF8..62F64 (108B RET4) and 62F64..62FFF (155B RET4),
+// independently disassembled. First uses target +3C to select one boundary;
+// its pointer-equality empty test is the native form of ZH getExtent's guard.
+// The second is the exact clean ba7ddda7 W3DTerrainLogicGetExtent.cpp body:
+// unscaled floating extrema across all boundaries, then scale by 10 and copy
+// z limits. Its original slot spelling remains unasserted. The same measured
+// vector/z offsets and ordinary compiler flags reproduce each whole body.
+void Rva00062FFFTerrainPrefix::activeBoundaryExtent(Region3D *extent) const {
+ extent->lo.x=0.0f;
+ extent->lo.y=0.0f;
+ if(!m_boundaries.empty()) {
+  extent->hi.x=m_boundaries[m_activeBoundary].x*MAP_XY_FACTOR;
+  extent->hi.y=m_boundaries[m_activeBoundary].y*MAP_XY_FACTOR;
+ }else {
+  extent->hi.x=0.0f;
+  extent->hi.y=0.0f;
+ }
+ extent->lo.z=m_mapMinZ;
+ extent->hi.z=m_mapMaxZ;
+}
+
+void Rva00062FFFTerrainPrefix::largestBoundaryExtent(Region3D *extent) const
+{
+    extent->lo.x = 0.0f;
+    extent->lo.y = 0.0f;
+
+    struct Extrema
+    {
+        Real x;
+        Real y;
+    } extrema;
+
+    if (!m_boundaries.empty())
+    {
+        extrema.x = m_boundaries[0].x;
+        extrema.y = m_boundaries[0].y;
+
+        for (Int i = 1; i < m_boundaries.size(); ++i)
+        {
+            if (m_boundaries[i].x > extrema.x)
+                extrema.x = m_boundaries[i].x;
+            if (m_boundaries[i].y > extrema.y)
+                extrema.y = m_boundaries[i].y;
+        }
+
+        extent->hi.x = extrema.x * MAP_XY_FACTOR;
+        extent->hi.y = extrema.y * MAP_XY_FACTOR;
+    }
+    else
+    {
+        extent->hi.x = 0.0f;
+        extent->hi.y = 0.0f;
     }
 
     extent->lo.z = m_mapMinZ;
