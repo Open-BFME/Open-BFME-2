@@ -67911,3 +67911,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005170F1@Rva005170CD@@QAEXXZ,,0x005170F1,170,Code/GameEngine/Source/Common/Rva005170CDReset.cpp,matched,unlock disconnect error via GameSpy plus GameText fetches plus Rva00437E84
 ?Rva002B6E8ACalc@@YGXPAVRva003F287F@@HPAH1@Z,,0x002B6E8A,167,Code/GameEngine/Source/Common/Rva002B6E8ACalc.cpp,matched,sums target getters across eligible module data records
 ?rva002dcd9a@Rva002DCD9A@@QAEHPAG@Z,,0x002DCD9A,37,Code/GameEngine/Source/Common/System/WideConcatPair.cpp,matched,wide payload helper pair from retail calls
+?rva002B8F27@Rva002B8F27@@QAEXPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z,,0x002B8F27,100,Code/GameEngine/Source/Common/Rva002B8F27.cpp,matched,Address-derived list filter walks this plus 8 and appends matching ModuleData views; relation inferred from push_back target facts are direct
