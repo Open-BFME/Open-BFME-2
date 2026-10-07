@@ -67486,3 +67486,4 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva005288B8@Rva005288B8@@QAEXXZ,,0x005288B8,5,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,Unadjusted thiscall tail jump to rowed method 0x005287D0; wrapper identity remains address-derived.
 ??1Rva005D4FFC@@QAE@XZ,,0x005D4FFC,5,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,tail jump to clear 0x005D4FA0; unpins ??1Rva005D4FFC@@QAE@XZ
 ?rva0023CAD9@GameLogic@@QAEHXZ,,0x0023CAD9,14,Code/GameEngine/Source/GameLogic/System/GameLogicRva0023CAD9.cpp,matched,gap between rowed GameLogic methods touches ecx+0x10c GameLogicInit m_10c
+?rva0028D796@Rva0028D796@@QAEHXZ,,0x0028D796,103,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028D796.cpp,matched,leaf between didExit and isSelectable via template plus4 and tracker plus264 with FindExperienceLevelList via g_00DFECC4 and RvaFind stdcall dead ECX union and double fidiv fmul fadd

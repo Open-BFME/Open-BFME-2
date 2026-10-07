@@ -1,7 +1,7 @@
 // ?rva00033930@Rva00034C90@@QAEXXZ
-// partial score=0.85 date=2026-10-05
+// partial score=0.96 date=2026-10-07
 // ?wrapper@Rva00034C90@@QAEXXZ
-// cl: /O2 /MD
+// cl: /MD
 // ?wrapper@Rva00034C90@@QAEXXZ @0x00034C90 104B address-derived refcount guard
 // wrapper: m_pLock at +0x4E4 points at a CRITICAL_SECTION+refcount lock.
 // EnterCriticalSection (IAT 0xBBA200) runs, the volatile +0x18 refcount is
@@ -44,11 +44,16 @@ public:
 	Rva00034C90Block *m_next0C;
 };
 
+class Rva00033B90Allocator
+{
+public:
+	void rva00033700(void *, unsigned int, bool, void *, void *, void *);
+};
+
 class Rva00034C90
 {
 public:
 	void rva00033930();
-	void rva00033700(int a1, int a2, int a3, int a4, int a5, int a6);
 	void wrapper();
 private:
 	char m_pad00[4];
@@ -69,18 +74,8 @@ void Rva00034C90::wrapper()
 
 // ?rva00033930@Rva00034C90@@QAEXXZ @0x00033930 325B true extent (ret 0x33A74)
 // address-derived thiscall no-arg member of Rva00034C90 reached from wrapper
-// 0x00034C90 (pin 7354, candidate not identity). Trial-2 from r10 bank 0.55:
-// (1) next-test reads follow block [neighbor+nhead+4] bit0 (nhead live as
-// offset; unlink/grow neighbor on clear, clear-bit+footer on set);
-// (2) anchor pointer local (Block *anchor = this+0x30) so anchor.next emits
-// [esi+0xC]; (3) main-first/else-tail arrangement for far-je init tail with
-// this-homed [esp]; (4) next-in-ebp via folded direct splices (no p/n
-// locals). Provider 0x00033700 investigated read-only: thiscall 6xint
-// ret0x18 (pushes 0,0,1,0,0,0 from here), early-out on first two args zero,
-// else tail-calls unrowed 0x000332D0 with this+6 args; init path sets up
-// +0x04=0x40/buckets/anchor/cur/tables + IAT Enter/Leave + 0x30D90 Init.
-// 33700 still unrowed/pin-less (zero symbols.csv hits); no pin added here.
-// Member names descriptive-only; only offsets/sizes/masks/ABI are facts.
+// 0x00034C90; coalesce pass over buckets +0x08.. anchored list +0x30 with
+// cur +0x440; far-tail inits via rowed Rva00033B90Allocator::rva00033700.
 void Rva00034C90::rva00033930()
 {
 	if (m_count04 != 0)
@@ -99,11 +94,12 @@ void Rva00034C90::rva00033930()
 				{
 					next = block->m_next0C;
 					unsigned head = block->m_head04 & 0x7ffffffbU;
-					unsigned base = head & 0x7ffffff8U;
 					block->m_head04 = head;
+					unsigned base = head & 0x7ffffff8U;
+					unsigned savedHead = head;
 					Rva00034C90Block *neighbor = (Rva00034C90Block *)((char *)block + base);
-					unsigned nhead = *(unsigned *)((char *)neighbor + 4) & 0x7ffffff8U;
-					if ((head & 1) == 0)
+					head = *(unsigned *)((char *)neighbor + 4) & 0x7ffffff8U;
+					if ((savedHead & 1) == 0)
 					{
 						unsigned prevSize = block->m_size00;
 						base += prevSize;
@@ -113,7 +109,7 @@ void Rva00034C90::rva00033930()
 						block->m_prev08->m_next0C = block->m_next0C;
 						block->m_next0C->m_prev08 = block->m_prev08;
 					}
-					if ((*(unsigned char *)((char *)neighbor + nhead + 4) & 1) != 0)
+					if ((*(unsigned char *)((char *)neighbor + head + 4) & 1) != 0)
 					{
 						*(unsigned *)((char *)neighbor + 4) &= 0xfffffffeU;
 						neighbor->m_size00 = base;
@@ -122,7 +118,7 @@ void Rva00034C90::rva00033930()
 					{
 						neighbor->m_prev08->m_next0C = neighbor->m_next0C;
 						neighbor->m_next0C->m_prev08 = neighbor->m_prev08;
-						base += nhead;
+						base += head;
 						block->m_head04 = base | 1;
 						*(unsigned *)((char *)block + base) = base;
 					}
@@ -155,6 +151,6 @@ void Rva00034C90::rva00033930()
 	}
 	else
 	{
-		rva00033700(0, 0, 1, 0, 0, 0);
+		((Rva00033B90Allocator *)this)->rva00033700(0, 0, true, 0, 0, 0);
 	}
 }
