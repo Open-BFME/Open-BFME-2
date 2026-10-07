@@ -320,6 +320,7 @@ public:
 	static NetCommandMsg *rva0058DEF7(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DF29(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0059205C(UnsignedByte *data, Int &readOffset);
+	static NetCommandMsg *rva00592123(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DFB8(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E047(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E0B0(UnsignedByte *data, Int &readOffset);
@@ -1451,6 +1452,30 @@ NetCommandMsg *NetPacket::rva0059205C(UnsignedByte *data, Int &readOffset)
 	UnicodeString unitext;
 	unitext.set(text);
 	msg->rva004D6187(unitext);
+	return (NetCommandMsg *)msg;
+}
+
+// ?rva00592123@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z, retail 0x00592123, 229 bytes:
+// ZH's readChatMessage on the rowed type-14 ctor Rva004D6134: the disconnect
+// chat text plus a player mask, stored through the folded +0x20 dword setter.
+NetCommandMsg *NetPacket::rva00592123(UnsignedByte *data, Int &readOffset)
+{
+	Rva004D6134 *msg = new Rva004D6134();
+	UnsignedShort text[256];
+	UnsignedByte length;
+	Int playerMask;
+	memcpy(&length, data + readOffset, sizeof(UnsignedByte));
+	++readOffset;
+	memcpy(text, data + readOffset, length * sizeof(UnsignedShort));
+	readOffset += length * sizeof(UnsignedShort);
+	text[length] = 0;
+	memcpy(&playerMask, data + readOffset, sizeof(Int));
+	readOffset += sizeof(Int);
+
+	UnicodeString unitext;
+	unitext.set(text);
+	((Rva004D60CA *)msg)->rva004D6187(unitext);
+	((BFMENetInformPlayerLeaveFrameCommandMsg *)msg)->setLeavingPlayerID(playerMask);
 	return (NetCommandMsg *)msg;
 }
 
