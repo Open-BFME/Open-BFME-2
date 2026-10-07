@@ -6993,7 +6993,7 @@ _Rva0080EF50,,0x0067AE50,381,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,ma
 _Rva0080F0D0,,0x0067AFD0,46,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
 _Rva00810120,,0x0067C020,3791,Code/Libraries/Source/DirtySock/Y4CommDigest.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; upgrades pin to row
 _Rva008136C0,,0x0067F5C0,190,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; callees pinned
-_Rva008137C0,,0x0067F6C0,177,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; callee pinned
+_Rva008137C0,,0x0067F6C0,202,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; callee pinned
 _Rva00813890,,0x0067F790,267,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; callee pinned
 _Rva00813A50,,0x0067F950,659,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; callees pinned
 _Rva00813D00,,0x0067FC00,295,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
@@ -7010,11 +7010,11 @@ _Rva0080B4B0,,0x006773B0,3803,Code/Libraries/Source/DirtySock/Y2Rva00806580Modul
 _Rva00816160,,0x00682060,283,Code/Libraries/Source/DirtySock/Y4CommRingIdle.c,matched,bfme1 DirtySock small-unit exact placement; caller context disambiguates twin; upgrades pin to row
 _Rva00818500,,0x00684400,283,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,bfme1 DirtySock small-unit exact placement; caller context disambiguates twin
 _Rva00813100@24,,0x0067F000,1468,Code/Libraries/Source/DirtySock/Rva00813100ConnectionSetup.cpp,matched,bfme1 DirtySock connsetup exact source; ret-truncated unique hit; upgrades pin to row
-?Rva007FDFF0Connect@@YAPAXPBDH@Z,,0x0066A4C0,494,Code/Libraries/Source/DirtySock/Rva007FDFF0Connect.cpp,matched,bfme1 DirtySock connect exact source; ret-truncated unique hit; Win32 imports by slot identity
+?Rva007FDFF0Connect@@YAPAXPBDH@Z,,0x0066A4C0,518,Code/Libraries/Source/DirtySock/Rva007FDFF0Connect.cpp,matched,bfme1 DirtySock connect exact source; ret-truncated unique hit; Win32 imports by slot identity
 _Rva0080B1B0,,0x006770B0,678,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 DirtySock module exact source; pinned address; default-name VA retargeted to this image
 ??$_Construct@VBuddyResponse@@V1@@_STL@@YAXPAVBuddyResponse@@ABV1@@Z,,0x005507B0,24,Code/GameEngine/Source/GameNetwork/GameSpy/BuddyResponseDequePushBackAux.cpp,matched,bfme1 GameSpy sweep exact placement; verbatim source import
 ?Rva007ECD90@@YAHPADHPBDH@Z,,0x00659CC0,207,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,matched,bfme1 DirtySock EBAE0 exact source; ret-truncated unique hit
-_Rva0081AE20,,0x00686D20,450,Code/Libraries/Source/DirtySock/Rva00819630TapiTransport.cpp,matched,bfme1 DirtySock Tapi exact source; ret-truncated unique hit
+_Rva0081AE20,,0x00686D20,475,Code/Libraries/Source/DirtySock/Rva00819630TapiTransport.cpp,matched,bfme1 DirtySock Tapi exact source; ret-truncated unique hit
 ??1Gen0080ACD0@@UAE@XZ,,0x00676730,264,Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp,matched,bfme1 DirtySock scalar exact source; fixed-sweep unique hit; upgrades pin to row
 ??_GGen007EB140@@UAEPAXI@Z,,0x006580E0,35,Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp,matched,bfme1 DirtySock scalar exact source; fixed-sweep unique hit; callees pinned
 ??_GGen007F47E0@@UAEPAXI@Z,,0x00661290,38,Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp,matched,bfme1 DirtySock scalar exact source; fixed-sweep unique hit; callees pinned
@@ -7092,10 +7092,10 @@ _PeerOperationsComplete,,0x0069FF40,95,Code/GameEngine/Source/GameNetwork/GameSp
 ?Rva007FFB50AddrText@@YAPADI@Z,,0x0066C020,186,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,matched,bfme1 DirtySock protomangle exact source; unique masked hit; callee pinned
 ?Rva007FFC10TextAddr@@YAIPBD@Z,,0x0066C0E0,158,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,matched,bfme1 DirtySock text-addr exact source; inverse of AddrText; parser pinned
 _Rva007FF790,,0x0066BC60,205,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 DirtySock dotted-quad parser exact source; TextAddr callee
-?Rva007FFA60Swap16@@YAGG@Z,,0x0066BF30,76,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 DirtySock swap16 exact source; 16-bit param shift and mov-ax return
-?Rva007FF9F0Swap32@@YAII@Z,,0x0066BEC0,85,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 DirtySock swap32 exact source; 4-byte store with MSB-first byte reads
-?Rva007FF990Swap16@@YAHG@Z,,0x0066BE60,69,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 DirtySock swap16 exact source; int return via full eax not mov-ax
-?Rva007FFAD0@@YAII@Z,,0x0066BFA0,102,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 byte-swap exact source; param-shifting big-endian store
+?Rva007FFA60Swap16@@YAGG@Z,,0x0066BF30,98,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 DirtySock swap16 exact source; 16-bit param shift and mov-ax return
+?Rva007FF9F0Swap32@@YAII@Z,,0x0066BEC0,107,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 DirtySock swap32 exact source; 4-byte store with MSB-first byte reads
+?Rva007FF990Swap16@@YAHG@Z,,0x0066BE60,91,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 DirtySock swap16 exact source; int return via full eax not mov-ax
+?Rva007FFAD0@@YAII@Z,,0x0066BFA0,124,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 byte-swap exact source; param-shifting big-endian store
 _Rva0080AD00,,0x00676C00,223,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,bfme1 DirtySock tick-mix exact source; iCount window plus optional RC4
 ?_M_set_node@?$_Deque_iterator@VBuddyRequest@@@_STL@@QAEXPAPAVBuddyRequest@@@Z,,0x005507E7,23,Code/GameEngine/Source/GameNetwork/GameSpy/BuddyRequestDequePushBackAux.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??4?$VectorClass@VProxyClass@@@@QAEAAV0@ABV0@@Z,,0x0016F610,249,Code/Libraries/Source/WWVegas/WW3D2/VectorClassProxyAssign.cpp,matched,TU-scoped 4B refcounted-handle ProxyClass; Clear at slot3; IsValid juggling; new[] count-prefix plus eh-ctor; needs /G7 for add-over-inc codegen
@@ -7129,15 +7129,15 @@ _Rva007FEA20,,0x0066AEF0,114,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWr
 _Rva007FEE10,,0x0066B2E0,38,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; idle-list teardown via matched lock pair
 _Rva007FD3F0,,0x006698C0,240,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; socket close upgrades pin to row
 _Rva007FD660,,0x00669B30,310,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,matched,bfme1 Y4DirtySockSocket remap exact source; xmap table lookup via same-TU AddrText
-_Rva007FD920,,0x00669DF0,259,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; raw-aware send upgrades pin to row
+_Rva007FD920,,0x00669DF0,301,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; raw-aware send upgrades pin to row
 _Rva007FDA50,,0x00669F20,259,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; timestamping recv upgrades pin to row
 _Rva007FEF60,,0x0066B430,22,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; current-time wrapper via CRT time
 _Rva007FD5C0,,0x00669A90,153,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; connect wrapper via xmap remap upgrades pin to row
 _Rva007FD2D0,,0x006697A0,279,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; socket open upgrades pin to row
 _Rva007FD7D0,,0x00669CA0,324,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; accept wrapper upgrades pin to row
 _Rva007FEA00,,0x0066AED0,29,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; tick forwarder onto GetTickCount upgrades pin to row
-_Rva007FE310,,0x0066A7E0,491,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; address remap via routing query
-_Rva007FDB60,,0x0066A030,705,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; SocketInfo selector with connect-status check
+_Rva007FE310,,0x0066A7E0,516,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; address remap via routing query
+_Rva007FDB60,,0x0066A030,790,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; SocketInfo selector with connect-status check
 _Rva007FED40,,0x0066B210,65,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; idle-callback table append
 _Rva007FED90,,0x0066B260,120,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; idle-callback table remove zeroes entry
 _Rva007FEE40,,0x0066B310,280,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; idle dispatcher with swap-with-last compaction
@@ -7145,7 +7145,7 @@ _Rva007FE620,,0x0066AAF0,67,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWra
 _Rva007FE670,,0x0066AB40,75,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; shutdown handshake clears thread then resets lists
 _Rva007FD170,,0x00669640,245,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; idle pump fires due callbacks and drains kill list
 _Rva007FD270,,0x00669740,83,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; module shutdown drains list then tears down
-_Rva007FD080,,0x00669550,210,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; module create starts worker then WSAStartup version
+_Rva007FD080,,0x00669550,235,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; module create starts worker then WSAStartup version
 _Rva007FE520,,0x0066A9F0,247,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; module startup creates worker thread
 _Rva007FE210,,0x0066A6E0,54,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; probe-then-free via InterlockedExchange
 _Rva007FE250,,0x0066A720,178,Code/Libraries/Source/DirtySock/Y4DirtySockSocketWrappers.c,matched,bfme1 Y4DirtySockSocket exact source; hostname resolve via gethostbyname big-endian assemble
@@ -7163,7 +7163,7 @@ _Rva0080D590,,0x00679490,144,Code/GameEngine/Source/GameNetwork/Y4DirtySockHashW
 _Rva0080D620,,0x00679520,145,Code/GameEngine/Source/GameNetwork/Y4DirtySockHashWrap.c,matched,bfme1 Y4DirtySockHashWrap exact source; one-shot SHA-1 via CryptSha1Init/Update/Final; see docs/reconstruction/dirtysdk-crypto.md
 _Rva0080D6C0,,0x006795C0,224,Code/GameEngine/Source/GameNetwork/Y4DirtySockHashWrap.c,matched,bfme1 Y4DirtySockHashWrap exact source; RSA one-shot via existing setup/copy and cryptrsa entry; see docs/reconstruction/dirtysdk-crypto.md
 _Rva007FFCB0,,0x0066C180,282,Code/Libraries/Source/DirtySock/Y4DirtySockAddrText.c,matched,bfme1 Y4DirtySockAddrText exact source; socket-address builder via host-port parser
-_Rva0080C960,,0x00678860,3040,Code/Libraries/Source/DirtySock/ProtoSSLParseCertificate.c,matched,bfme1 ProtoSSLParseCertificate exact source; X509 parser via HashWrap trio
+_Rva0080C960,,0x00678860,3109,Code/Libraries/Source/DirtySock/ProtoSSLParseCertificate.c,matched,bfme1 ProtoSSLParseCertificate exact source; X509 parser via HashWrap trio
 _Rva0081B010,,0x00686F10,1692,Code/Libraries/Source/DirtySock/Rva0081B010CommWorker.cpp,matched,bfme1 Rva0081B010CommWorker source; serial worker with retail stale default pointer
 ?Rva007ECAF0@@YAHPADHPBDH@Z,,0x00659A20,230,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,matched,bfme1 DirtySock EBAE0 exact source; flag-mask to letters via same-TU body
 ?Rva00800040JoinI64@@YAXPB_JIPADID@Z,,0x0066C4F0,289,Code/GameEngine/Source/GameNetwork/Y2FeslUtilJoinI64.cpp,matched,bfme1 Y2FeslUtilJoinI64 source; int64-array join via sprintf percent-I64d
@@ -45831,7 +45831,7 @@ _REF_encode@16,,0x0068B050,108,Code/Libraries/Source/Compression/EAC/refencode.c
 ?rva005F2792@Rva005F2792@@QAEXXZ,,0x005F2792,102,Code/GameEngine/Source/Common/Rva005F2792.cpp,matched,chain via 0x00224455 callers 0x005F27F8 0x005F2B22 format row 0x00038150
 ?Rva00564284WriteHeader@@YAXPBXPAVFile@@PAI@Z,,0x00564284,216,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00564284WriteHeader.cpp,matched,same 216B shape as velocity header push 8 GetKey Pad Put Write
 ?Rva009B2A50@@YAXPAURva009A6130Context@@PAE1@Z,,0x001C3440,1835,Code/GameEngine/Source/Common/Rva009B2A50DeringFrame.cpp,matched,BFME1 byte-identical donor; b1 0x009B2A50
-_Rva00819920,,0x00685820,1536,Code/Libraries/Source/DirtySock/Rva00819920Comm.cpp,matched,BFME1 byte-identical donor; b1 0x00819920
+_Rva00819920,,0x00685820,1581,Code/Libraries/Source/DirtySock/Rva00819920Comm.cpp,matched,BFME1 byte-identical donor; b1 0x00819920
 ?Rva009C5890@@YAXPAF00@Z,,0x001D6190,1032,Code/GameEngine/Source/Common/Rva009C5890.cpp,matched,BFME1 byte-identical donor; b1 0x009C5890
 ?rva0040ADFA@Rva0040ADFA@@QBE_NPBX@Z,,0x0040ADFA,50,Code/Libraries/Source/WWVegas/WWLib/Rva0040ADFAContains.cpp,matched,unlock lane sorted int array contains via nameToKey and binary_search
 ?rva0040AE2C@Rva0040AE2C@@QBE_NPBX@Z,,0x0040AE2C,50,Code/Libraries/Source/WWVegas/WWLib/Rva0040ADFAContains.cpp,matched,unlock lane same shape plus 0x10 0x14 via nameToKey and binary_search

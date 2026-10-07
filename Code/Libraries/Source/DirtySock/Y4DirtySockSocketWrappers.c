@@ -319,15 +319,15 @@ int Rva007FD920(struct Rva007FD4E0Socket *socket, const char *buffer,
 	int length, int flags, void *to, int toLength)
 {
 	int result;
-	char scratch[0x10];
+	char temp[0x10];
 	const struct Rva007FD920IpHeader *header;
-	int timeToLive;
+	int parm;
 
 	if (socket->m_type == 3)
 	{
 		header = (const struct Rva007FD920IpHeader *)buffer;
-		timeToLive = header->m_timeToLive;
-		setsockopt(socket->m_socket, 0, 4, &timeToLive, 4);
+		parm = header->m_timeToLive;
+		setsockopt(socket->m_socket, 0, 4, &parm, 4);
 
 		length -= (header->m_versionAndLength & 0x0F) * 4;
 		buffer = buffer + (header->m_versionAndLength & 0x0F) * 4;
@@ -339,7 +339,7 @@ int Rva007FD920(struct Rva007FD4E0Socket *socket, const char *buffer,
 		result = send(socket->m_socket, buffer, length, 0);
 	else
 		result = sendto(socket->m_socket, buffer, length, 0,
-			Rva007FD660(scratch, to), toLength);
+			Rva007FD660(temp, to), toLength);
 
 	return Rva007FD540(result);
 }
@@ -514,7 +514,7 @@ int __stdcall WSAIoctl(unsigned int socket, unsigned int code,
 int Rva007FE310(void *dest, int destLength, const void *src, int srcLength)
 {
 	unsigned int probeSocket;
-	char queryBuffer[0x10];
+	char addr[0x10];
 	int lastError;
 
 	if (destLength != srcLength)
@@ -533,12 +533,12 @@ int Rva007FE310(void *dest, int destLength, const void *src, int srcLength)
 		{
 			if (g_Rva0130AB54Version >= 0x200)
 			{
-				if (WSAIoctl(probeSocket, 0xC8000014, src, srcLength, queryBuffer,
+				if (WSAIoctl(probeSocket, 0xC8000014, src, srcLength, addr,
 					0x10, &destLength, 0, 0) < 0)
 				{
 					lastError = WSAGetLastError();
 				}
-				memcpy((char *)dest + 4, queryBuffer + 4, 4);
+				memcpy((char *)dest + 4, addr + 4, 4);
 
 				if (SOCKET_ADDR_BYTES(dest) == 0x7F000001)
 					memcpy((char *)dest + 4, (const char *)src + 4, 4);
@@ -546,9 +546,9 @@ int Rva007FE310(void *dest, int destLength, const void *src, int srcLength)
 
 			if (SOCKET_ADDR_BYTES(dest) == 0
 				&& connect(probeSocket, src, srcLength) == 0
-				&& getsockname(probeSocket, queryBuffer, &destLength) == 0)
+				&& getsockname(probeSocket, addr, &destLength) == 0)
 			{
-				memcpy((char *)dest + 4, queryBuffer + 4, 4);
+				memcpy((char *)dest + 4, addr + 4, 4);
 			}
 
 			closesocket(probeSocket);
@@ -599,10 +599,10 @@ int Rva007FDB60(struct Rva007FD4E0Socket *socket, int selector, void *buffer,
 	int bufferLength)
 {
 	int queryResult;
-	struct SocketFdSet writableSet;
-	struct SocketFdSet exceptSet;
-	struct SocketTimeVal timeout;
-	char peerAddress[0x10];
+	struct SocketFdSet fdwrite;
+	struct SocketFdSet fdexcept;
+	struct SocketTimeVal tv;
+	char peeraddr[0x10];
 
 	if (buffer != 0)
 		memset(buffer, 0, bufferLength);
@@ -632,18 +632,18 @@ int Rva007FDB60(struct Rva007FD4E0Socket *socket, int selector, void *buffer,
 	{
 		if (socket->m_opened == 0)
 		{
-			writableSet.fd_count = 0;
-			exceptSet.fd_count = 0;
-			SOCKET_FD_SET(socket->m_socket, &writableSet);
-			SOCKET_FD_SET(socket->m_socket, &exceptSet);
+			fdwrite.fd_count = 0;
+			fdexcept.fd_count = 0;
+			SOCKET_FD_SET(socket->m_socket, &fdwrite);
+			SOCKET_FD_SET(socket->m_socket, &fdexcept);
 
-			timeout.tv_sec = timeout.tv_usec = 0;
+			tv.tv_sec = tv.tv_usec = 0;
 
-			if (select(1, 0, &writableSet, &exceptSet, &timeout) != 0)
+			if (select(1, 0, &fdwrite, &fdexcept, &tv) != 0)
 			{
-				if (exceptSet.fd_count > 0)
+				if (fdexcept.fd_count > 0)
 					socket->m_opened = -1;
-				if (writableSet.fd_count > 0)
+				if (fdwrite.fd_count > 0)
 					socket->m_opened = 1;
 			}
 		}
@@ -651,7 +651,7 @@ int Rva007FDB60(struct Rva007FD4E0Socket *socket, int selector, void *buffer,
 		if (socket->m_opened > 0)
 		{
 			bufferLength = 0x10;
-			queryResult = Rva007FD540(getpeername(socket->m_socket, peerAddress,
+			queryResult = Rva007FD540(getpeername(socket->m_socket, peeraddr,
 				&bufferLength));
 			if (queryResult == -2)
 				socket->m_opened = -1;
@@ -828,7 +828,7 @@ void Rva007FE520(int priority);
 
 void Rva007FD080(int startupPriority)
 {
-	struct WsaStartupData startupData;
+	struct WsaStartupData data;
 	int startupResult;
 
 	Rva007FE520(startupPriority);
@@ -837,11 +837,11 @@ void Rva007FD080(int startupPriority)
 	g_Rva0130AB60 = 0;
 	g_Rva0130AB64 = 0;
 
-	memset(&startupData, 0, sizeof startupData);
-	startupResult = WSAStartup(2, &startupData);
+	memset(&data, 0, sizeof data);
+	startupResult = WSAStartup(2, &data);
 
-	g_Rva0130AB54Version = ((unsigned char)(startupData.requestedVersion & 0xFF) << 8)
-		| (unsigned char)((unsigned int)startupData.requestedVersion >> 8);
+	g_Rva0130AB54Version = ((unsigned char)(data.requestedVersion & 0xFF) << 8)
+		| (unsigned char)((unsigned int)data.requestedVersion >> 8);
 }
 
 __declspec(dllimport) int __stdcall CreateThread(

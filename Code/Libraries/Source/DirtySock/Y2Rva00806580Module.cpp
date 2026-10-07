@@ -1485,13 +1485,13 @@ extern "C" int Rva007FF790( char *sa, const char *text )
 // returns int.
 unsigned short Rva007FFA60Swap16( unsigned short value )
 {
-	unsigned char bytePair[ 2 ];
+	unsigned char x[ 2 ];
 
-	bytePair[ 1 ] = (unsigned char)value;
+	x[ 1 ] = (unsigned char)value;
 	value >>= 8;
-	bytePair[ 0 ] = (unsigned char)value;
+	x[ 0 ] = (unsigned char)value;
 
-	return *(unsigned short *)bytePair;
+	return *(unsigned short *)x;
 }
 
 // 0x0066BEC0 is the 32-bit companion of the swaps above -- retail's frame
@@ -1501,10 +1501,10 @@ unsigned short Rva007FFA60Swap16( unsigned short value )
 // unsigned return matches the existing decl/pin (32-bit mov, no sign effect).
 unsigned int Rva007FF9F0Swap32( unsigned int value )
 {
-	unsigned char quad[ 4 ];
+	unsigned char x[ 4 ];
 
-	*(unsigned int *)quad = value;
-	return ( ( ( ( quad[ 0 ] << 8 ) | quad[ 1 ] ) << 8 ) | quad[ 2 ] ) << 8 | quad[ 3 ];
+	*(unsigned int *)x = value;
+	return ( ( ( ( x[ 0 ] << 8 ) | x[ 1 ] ) << 8 ) | x[ 2 ] ) << 8 | x[ 3 ];
 }
 
 // 0x0066BE60 is a 16-bit byte swap -- network-to-host order, or equally
@@ -1519,10 +1519,10 @@ unsigned int Rva007FF9F0Swap32( unsigned int value )
 // rather than short (unlike 0x0066BF30 which returns via mov ax).
 int Rva007FF990Swap16( unsigned short value )
 {
-	unsigned char pair[ 2 ];
+	unsigned char x[ 2 ];
 
-	*(unsigned short *)pair = value;
-	return ( pair[ 0 ] << 8 ) | pair[ 1 ];
+	*(unsigned short *)x = value;
+	return ( x[ 0 ] << 8 ) | x[ 1 ];
 }
 
 // 0x0066BFA0 reverses 32-bit byte order by shifting the PARAMETER and storing
@@ -1533,17 +1533,17 @@ int Rva007FF990Swap16( unsigned short value )
 // threshold, just like the 2-byte swap buffers above).
 unsigned int Rva007FFAD0( unsigned int value )
 {
-	unsigned char result[ 4 ];
+	unsigned char x[ 4 ];
 
-	result[ 3 ] = (unsigned char)value;
+	x[ 3 ] = (unsigned char)value;
 	value >>= 8;
-	result[ 2 ] = (unsigned char)value;
+	x[ 2 ] = (unsigned char)value;
 	value >>= 8;
-	result[ 1 ] = (unsigned char)value;
+	x[ 1 ] = (unsigned char)value;
 	value >>= 8;
-	result[ 0 ] = (unsigned char)value;
+	x[ 0 ] = (unsigned char)value;
 
-	return *(unsigned int *)result;
+	return *(unsigned int *)x;
 }
 
 // 0x00676C00 mixes the tick counters with a 32-dword window off iCount, then
