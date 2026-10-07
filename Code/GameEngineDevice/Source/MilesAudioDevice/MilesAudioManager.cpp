@@ -286,6 +286,16 @@ public:
     void rva000A8B04(float first, float second);
 };
 
+// Address-derived callee view for the tree lookup used at 0x0005B1C2.
+class Rva001F8437 {
+public:
+    void *rva001F8437(const AsciiString &key);
+};
+
+// Existing donor-derived alias of the rowed STLport tree increment worker.
+struct BfmeNode1105;
+BfmeNode1105 *__cdecl bfmeNext1105(BfmeNode1105 *node);
+
 class MilesAudioManager {
 public:
     // Virtual slots 0..74 are not named here; slot 75 (+0x12C) looks an
@@ -316,6 +326,8 @@ public:
     void rva000562CF(int key);
     void rva000562A2(int key, const void *value);
     void rva0005A92A(int key, Rva0005A084Vector *output);
+    void rva0005B137(void);
+    AsciiString rva0005B19E(const AsciiString &key);
     // These audio INI calls use the manager receiver and an explicit INI*.
     // The receiver type is supported by 0x61BD2's +0x9D4 mutex access; names
     // for 0x5407E/0x540A7 remain address-derived, with helper identity open.
@@ -478,6 +490,32 @@ void MilesAudioManager::rva0005A92A(int key, Rva0005A084Vector *output)
     void *result = 0;
     if (rva0005623E(key, &result, 0) && result)
         output->push_back(*reinterpret_cast<const Rva0005A084Element *>(reinterpret_cast<char *>(result) + 8));
+}
+
+// Target evidence: the 92B body tests the byte at this+0x6A4, searches a
+// tree at this+0xB0 by AsciiString key, advances the found node, wraps to the
+// header's left node, and copy-returns the node string at +0x10 (or the empty
+// string at 0x00DE0878). MilesAudioManager receiver identity is a structural
+// inference from these fields and the surrounding audio methods.
+AsciiString MilesAudioManager::rva0005B19E(const AsciiString &key)
+{
+    if (!m_at6A4)
+        rva0005B137();
+
+    Rva001F8437 *tree = reinterpret_cast<Rva001F8437 *>(
+        reinterpret_cast<char *>(this) + 0xB0);
+    void *next = tree->rva001F8437(key);
+    if (next != *reinterpret_cast<void **>(tree))
+        next = bfmeNext1105(reinterpret_cast<BfmeNode1105 *>(next));
+
+    void *header = *reinterpret_cast<void **>(tree);
+    if (next == header) {
+        next = *reinterpret_cast<void **>(reinterpret_cast<char *>(header) + 8);
+        if (next == header)
+            return AsciiString::TheEmptyString;
+    }
+
+    return *reinterpret_cast<AsciiString *>(reinterpret_cast<char *>(next) + 0x10);
 }
 
 // Retail @ 0x0005AC61 gates the move-up helper on the per-view active system.
