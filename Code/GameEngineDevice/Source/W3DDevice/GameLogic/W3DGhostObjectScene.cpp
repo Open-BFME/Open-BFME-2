@@ -39,12 +39,28 @@
 // It clears the sub-object transforms-dirty bit (0x00200000 of the word at
 // +0x10) and sets the HLod hierarchy-valid byte +0xF4 on a CLASSID_HLOD
 // sub-object. Donor-carried: the names and the Zero Hour body.
+//
+// W3DGhostObject::xfer (0x00063F78, slot 3 of the table 0x00BC5994) extends
+// the rowed GhostObject::xfer 0x003059F5, whose class is the Snapshot at +0x00
+// with the parent object at +0x0C. The DrawableInfo at +0xD0 is Zero Hour's
+// (object ID, drawable, ghost object, flags); the drawable's ID comes from the
+// pinned Drawable::getID 0x0055A88B and is resolved through slot 16 of
+// TheGameClient. Snapshots are rebuilt with the loader 0x00137364, the rowed
+// disableUVAnimations and W3DRenderObjectSnapshot's constructor, and added to
+// W3DDisplay::m_3DScene. The render object's scale is the float at +0x48;
+// ThePlayerList's local player is +0x10 and its index +0x54. Both refusals
+// throw XferException tag 4. Donor-carried: the names and the Zero Hour body.
 
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 
 typedef int Int;
 typedef bool Bool;
+typedef float Real;
+typedef unsigned char UnsignedByte;
+typedef unsigned int UnsignedInt;
+
+enum { MAX_PLAYER_COUNT = 20 };
 
 class HAnimClass;
 struct DrawableInfo;
@@ -124,6 +140,30 @@ protected:
 
 // The rowed 0x003062FE (Zero Hour xferMatrix3D) sends the three rows of four floats.
 void Rva003062FEXfer(Xfer *xfer, float *vals);
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+enum DrawableID
+{
+	INVALID_DRAWABLE_ID = 0
+};
+
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
+void XferDrawableID(Xfer *xfer, Int *drawableID);
+
+class XferException
+{
+public:
+	XferException(int tag, const char *format, ...);
+	XferException(const XferException &that);
+	~XferException(void);
+
+	char *text;
+	int tagValue;
+};
 
 class Vector4
 {
@@ -309,11 +349,13 @@ public:
 	}
 
 	const Matrix3D &Get_Transform( void ) const { Validate_Transform(); return Transform; }
+	float Get_ObjectScale( void ) const { return ObjectScale; }
 private:
 	char m_unrecovered08[ 0x10 - 0x08 ];
 	unsigned int Bits;																												///< 0x10
 	char m_unrecovered14[ 0x18 - 0x14 ];
 	Matrix3D Transform;																												///< 0x18
+	float ObjectScale;																												///< 0x48
 };
 
 // BFME 2 HLodClass (Animatable3DObjClass) appends Peek_Animation_And_Info as a
@@ -354,7 +396,7 @@ public:
 
 	void Friend_Set_Hierarchy_Valid( bool onoff ) const { IsTreeValid = onoff; }
 private:
-	char m_unrecovered48[ 0xF4 - 0x48 ];
+	char m_unrecovered4C[ 0xF4 - 0x4C ];
 	mutable bool IsTreeValid;																									///< 0xF4
 };
 
@@ -371,6 +413,24 @@ class W3DDisplay
 public:
 	static RTS3DScene *m_3DScene;
 };
+
+// The asset manager's loader: the free 0x00137364 (name, scale, options) with
+// the option block call sites build empty (W3DMouseInitW3DAssets.cpp).
+class Rva0013101E
+{
+public:
+	Rva0013101E() : m_a( 0 ), m_b( 0 ), m_c( 0 ), m_d1( 0 ), m_d2( 0 ), m_d3( 0 ) {}
+
+	unsigned m_a : 3;
+	unsigned m_b : 27;
+	unsigned m_c : 1;
+	unsigned m_keep : 1;
+	unsigned m_d1;
+	unsigned m_d2;
+	unsigned m_d3;
+};
+
+RenderObjClass *Rva00137364CreateRenderObj( const char *name, float scale, const Rva0013101E &options = Rva0013101E() );
 
 // Draw modules: BFME 2 asks a draw module for its render object through a
 // virtual (slot 49) where Zero Hour cast getObjectDrawInterface() to
@@ -433,9 +493,53 @@ public:
 class Drawable
 {
 public:
+	DrawableID getID( void ) const;
 	void setFullyObscuredByShroud( Bool fullyObscured );
 	DrawModule **getDrawModules( void );
 };
+
+// BFME 2 GameClient: findDrawableByID is slot 16 of TheGameClient's table.
+class GameClient
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual Drawable *findDrawableByID( const DrawableID id );								///< slot 16
+};
+extern GameClient *TheGameClient;
+
+class Player
+{
+public:
+	Int getPlayerIndex( void ) const { return m_playerIndex; }
+private:
+	char m_unrecovered00[ 0x54 ];
+	Int m_playerIndex;																					///< 0x54
+};
+
+class PlayerList
+{
+public:
+	Player *getLocalPlayer( void ) { return m_local; }
+private:
+	char m_unrecovered00[ 0x10 ];
+	Player *m_local;																						///< 0x10
+};
+extern PlayerList *ThePlayerList;
 
 class Object
 {
@@ -466,7 +570,27 @@ protected:
 };
 extern GhostObjectManager *TheGhostObjectManager;
 
-class GhostObject;
+class GhostObject : public Snapshot
+{
+protected:
+	virtual void crc( Xfer *xfer );
+	virtual void xfer( Xfer *xfer );
+	virtual void loadPostProcess( void );
+
+	char m_unrecovered04[ 0x0C - 0x04 ];
+	Object *m_parentObject;																			///< 0x0C
+	char m_unrecovered10[ 0x7C - 0x10 ];
+	PartitionData *m_partitionData;															///< 0x7C
+};
+
+struct DrawableInfo
+{
+	ObjectID m_shroudStatusObjectID;														///< 0xD0 in W3DGhostObject
+	Drawable *m_drawable;																				///< 0xD4
+	GhostObject *m_ghostObject;																	///< 0xD8
+	Int m_flags;																								///< 0xDC
+};
+
 class W3DGhostObjectManager;
 
 /**This class will hold all information about a W3D RenderObject needed to
@@ -478,6 +602,7 @@ class W3DRenderObjectSnapshot : public Snapshot
 	W3DRenderObjectSnapshot(RenderObjClass *m_parentRobj, DrawableInfo *drawInfo, Bool cloneParentRobj = true);
 	~W3DRenderObjectSnapshot();
 	void update(RenderObjClass *robj, DrawableInfo *drawInfo, Bool cloneParentRobj=true);	///<refresh the current snapshot with latest state
+	void addToScene(void) { W3DDisplay::m_3DScene->Add_Render_Object(m_robj); }
 
 protected:
 	virtual void crc( Xfer *xfer );
@@ -672,10 +797,14 @@ W3DRenderObjectSnapshot::~W3DRenderObjectSnapshot()
 	REF_PTR_RELEASE(m_robj);
 }
 
-class W3DGhostObject
+class W3DGhostObject : public GhostObject
 {
 	friend class W3DGhostObjectManager;
 protected:
+	virtual void crc( Xfer *xfer );
+	virtual void xfer( Xfer *xfer );
+	virtual void loadPostProcess( void );
+
 	void removeParentObject( void );
 	void restoreParentObject( void );
 	void addToScene( int playerIndex );
@@ -683,12 +812,8 @@ protected:
 	void getShroudStatus( int playerIndex );
 	void freeAllSnapShots( void );
 
-	char m_unrecovered00[ 0x0C ];
-	Object *m_parentObject;																			///< 0x0C
-	char m_unrecovered10[ 0x7C - 0x10 ];
-	PartitionData *m_partitionData;																			///< 0x7C
-	W3DRenderObjectSnapshot *m_parentSnapshots[ 20 ];						///< 0x80
-	char m_unrecoveredD0[ 0xE0 - 0xD0 ];
+	W3DRenderObjectSnapshot *m_parentSnapshots[ MAX_PLAYER_COUNT ];		///< 0x80
+	DrawableInfo m_drawableInfo;																///< 0xD0
 	W3DGhostObject *m_nextSystem;																///< 0xE0
 	W3DGhostObject *m_prevSystem;																///< 0xE4
 };
@@ -820,6 +945,162 @@ void W3DGhostObject::freeAllSnapShots(void)
 			m_parentSnapshots[playerIndex]=0;
 		}
 }
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version
+	* BFME 2 extends the base class first and stops there on a light CRC, then
+	* versions through Xfer::Version1. It writes no render object colour, refuses
+	* a render object the loader cannot create and no longer saves the partition
+	* shroudedness that Zero Hour appended. */
+// ------------------------------------------------------------------------------------------------
+void W3DGhostObject::xfer( Xfer *xfer )
+{
+
+	// extend base class
+	GhostObject::xfer( xfer );
+
+	if( xfer->IsLightCRC() )
+		return;
+
+	// version
+	xfer->Version1();
+
+	// xfer the drawable info object id
+	XferObjectID( xfer, &m_drawableInfo.m_shroudStatusObjectID );
+
+	// drawable info flags
+	*xfer == m_drawableInfo.m_flags;
+
+	// drawable info drawable pointer
+	DrawableID drawableID = m_drawableInfo.m_drawable ? m_drawableInfo.m_drawable->getID() : INVALID_DRAWABLE_ID;
+	XferDrawableID( xfer, (Int *)&drawableID );
+	if( xfer->IsLoading() )
+	{
+
+		// reconnect the drawable pointer
+		m_drawableInfo.m_drawable = TheGameClient->findDrawableByID( drawableID );
+
+	}  // end if
+
+	// xfer snapshot array
+	UnsignedByte snapshotCount;
+	for( Int i = 0; i < MAX_PLAYER_COUNT; ++i )
+	{
+
+		// count the snapshots at this index
+		snapshotCount = 0;
+		W3DRenderObjectSnapshot *objectSnapshot = m_parentSnapshots[ i ];
+		while( objectSnapshot )
+		{
+
+			// increment count
+			snapshotCount++;
+
+			// on to the next snapshot
+			objectSnapshot = objectSnapshot->m_next;
+
+		}  // end while
+
+		// xfer the snapshot count at this index
+		*xfer == snapshotCount;
+
+		//
+		// sanity, this catches when we read from the file a count of zero, but our data
+		// structure already has something allocated in this snapshot index
+		//
+		if( snapshotCount == 0 && m_parentSnapshots[ i ] != 0 )
+			throw XferException( 4, 0 );
+
+		// xfer each of the snapshots at this index
+		Real scale;
+		UnsignedInt color;
+		AsciiString name;
+		if( xfer->IsStoring() )
+		{
+
+			// iterate through list
+			objectSnapshot = m_parentSnapshots[ i ];
+			while( objectSnapshot )
+			{
+
+				// write name from render object
+				name.set( objectSnapshot->m_robj->Get_Name() );
+				*xfer == name;
+
+				// write scale from render object
+				scale = objectSnapshot->m_robj->Get_ObjectScale();
+				*xfer == scale;
+
+				// BFME 2 keeps the colour field but always writes zero
+				color = 0;
+				*xfer == color;
+
+				// xfer data
+				*xfer == *objectSnapshot;
+
+				// onto the next
+				objectSnapshot = objectSnapshot->m_next;
+
+			}  // end while
+
+		}  // end if, save
+		else
+		{
+			RenderObjClass *renderObject;
+			W3DRenderObjectSnapshot *prevObjectSnapshot = 0;
+
+			for( UnsignedByte j = 0; j < snapshotCount; ++j )
+			{
+
+				// read render object name
+				*xfer == name;
+
+				// read scale
+				*xfer == scale;
+
+				// read color
+				*xfer == color;
+
+				// create the render object
+				renderObject = Rva00137364CreateRenderObj( name.str(), scale );
+				if( renderObject == 0 )
+					throw XferException( 4, 0 );
+				disableUVAnimations(renderObject);
+
+				// we're loading, allocate new snapshot
+				objectSnapshot = new W3DRenderObjectSnapshot( renderObject, &m_drawableInfo, false );
+
+				// attach to list
+				if( prevObjectSnapshot )
+					prevObjectSnapshot->m_next = objectSnapshot;
+				else
+					m_parentSnapshots[ i ] = objectSnapshot;
+				prevObjectSnapshot = objectSnapshot;
+
+				// xfer data
+				*xfer == *objectSnapshot;
+
+				// add snapshot to the scene
+				objectSnapshot->addToScene();
+
+			}  // end for, j
+
+		}  // end else, load
+
+	}  // end for, i
+
+	//
+	// since there is a snapshot for this object, there cannot be a regular object/drawable
+	// in the world, we need to remove it
+	//
+	if( m_parentObject &&
+			m_parentSnapshots[ ThePlayerList->getLocalPlayer()->getPlayerIndex() ] != 0 &&
+			xfer->IsLoading() )
+		removeParentObject();
+
+}  // end xfer
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
