@@ -12,6 +12,7 @@ class BitFlags
 {
 public:
 	int countInverseIntersection(const BitFlags &that) const;
+	int countIntersection(const BitFlags &that) const;
 
 private:
 	unsigned m_words[4];
@@ -32,6 +33,28 @@ inline int BitFlags<117>::countInverseIntersection(const BitFlags &that) const
 	}
 	return total;
 }
+// Target 0033ADFC..0033AE53: four-word mine/theirs intersection.
+// The separate mask temporaries follow verified SWAR sibling 00046827.
+template <>
+int BitFlags<117>::countIntersection(const BitFlags &that) const
+{
+    int total = 0;
+    const unsigned *mine = m_words;
+    const unsigned *theirs = that.m_words;
+    for (unsigned i = 0; i < 4; ++i) {
+        unsigned v = theirs[i] & mine[i];
+        v = v - ((v >> 1) & 0x55555555);
+        unsigned orig = v;
+        unsigned low = orig & 0x33333333;
+        unsigned high = (orig >> 2) & 0x33333333;
+        v = high + low;
+        v = ((v >> 4) + v) & 0x0F0F0F0F;
+        v = (v * 0x01010101) >> 24;
+        total += (int)v;
+    }
+    return total;
+}
+
 #pragma inline_depth(0)
 // ?bfmeEmitBitFlags117CountInverseIntersection@@YAXPAV?$BitFlags@$0HF@@@@Z present-unmatched
 void bfmeEmitBitFlags117CountInverseIntersection(BitFlags<117> *p)
