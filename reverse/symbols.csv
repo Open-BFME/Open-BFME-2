@@ -14029,7 +14029,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva005318DB@Rva002E99F9Sub460@@QAE_NPAX00@Z,0x005318DB,157-byte Ghidra body; bool result and three pointer arguments follow caller-side ABI; receiver relation to Rva002E99F9Sub460 is structural and payload types remain unknown
 ?DoXfer@DefaultPhysicsModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z,0x0055EECB,callee of ?xfer@Rva0055EF39@@UAEXPAVXfer@@@Z
 ?rva00548984@Rva00548984@@QAEXPAXH@Z,0x00548984,callee of ?rva005480E8@@YAXPAXW4NameKeyType@@H@Z
-?rva005571FC@Rva005571FC@@QAEHHHHHH@Z,0x005571FC,Ghidra extent and direct callback-adapter call target; context stays in ECX and five stack arguments are passed; address-derived method identity unresolved
 ?rva005570AB@Rva005570AB@@QAEHHHHHH@Z,0x005570AB,Ghidra extent and direct callback-adapter call target; context stays in ECX and five stack arguments are passed; address-derived method identity unresolved
 ?rva005573FA@Rva005573FA@@QAEHHHHHH@Z,0x005573FA,Ghidra extent and direct callback-adapter call target; context stays in ECX and five stack arguments are passed; address-derived method identity unresolved
 ?rva00557304@Rva00557304@@QAEHHHHHH@Z,0x00557304,Ghidra extent and direct callback-adapter call target; context stays in ECX and five stack arguments are passed; address-derived method identity unresolved

@@ -1,3 +1,5 @@
+// ?rva005570AB@Rva005570AB@@QAEHHHHHH@Z
+// partial score=0.98 date=2026-10-07
 // cl: /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
 // PersistentStorageThread.cpp -- GameSpy persistent-stats members recovered
 // from WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names
@@ -1304,37 +1306,49 @@ public:
 	_STL::map<void *, void *> m_values;
 };
 
-// Retail 0x005571FC (264 bytes), reached through adapter 0x00557902: a
-// successful numeric reply other than -2 posts response type 4 with the value
-// and the payload's +4 kind when that kind is 1 or 2; the request is erased on
-// every path.
-class Rva005571FC : public Gen_00654130
+struct Rva005570ABRequest
+{
+	int m_00;
+	int m_04;
+	int m_08;
+	int getID() const { return m_08; }
+};
+
+// Retail 0x005570AB (337 bytes), reached through adapter 0x00557927: a
+// successful reply "a,b" whose numbers are both nonzero posts response type 3
+// with the payload's +8 id; the request is erased on every path.
+class Rva005570AB : public Gen_00654130
 {
 public:
-	int rva005571FC(int a1, int a2, int a3, int a4, int a5);
+	int rva005570AB(int a1, int a2, int a3, int a4, int a5);
 };
-int Rva005571FC::rva005571FC(int request, int result, int buffer, int, int)
+int Rva005570AB::rva005570AB(int request, int result, int buffer, int, int)
 {
 	_STL::map<void *, void *>::iterator it = m_values.find(*(void *const *)&request);
-	if (result != 0 || it._M_node == m_values.end()._M_node || it->second == 0)
+	if (it._M_node == m_values.end()._M_node || it->second == 0 || result != 0)
 	{
 		bfmeErase((void *)request);
 		return 1;
 	}
 	AsciiString text((const char *)buffer);
 	text.trim();
-	int value = atoi(text.str());
-	if (value != -2)
+	char *sep = strstr(text.str(), ",");
+	if (sep && sep[1])
 	{
-		int kind = ((int *)it->second)[1];
-		if (kind == 1 || kind == 2)
+		*sep = 0;
+		int first = atoi(text.str());
+		int second = atoi(sep + 1);
+		if (first && second)
 		{
 			BfmeOpaqueOwnedRecord1408 resp;
-			resp.responseType = 4;
-			resp.m_55C = value;
-			resp.m_560 = kind;
+			resp.responseType = 3;
+			resp.m_554 = first;
+			resp.m_558 = second;
+			resp.m_550 = ((int *)it->second)[2];
 			if (TheGameSpyPSMessageQueue)
 				TheGameSpyPSMessageQueue->addResponse(resp);
+			bfmeErase((void *)request);
+			return 1;
 		}
 	}
 	bfmeErase((void *)request);
