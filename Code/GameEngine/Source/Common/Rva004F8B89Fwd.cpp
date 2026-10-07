@@ -249,9 +249,11 @@ class Rva004F6187
 {
 public:
 	void rva004F6187();
+	void rva004F61B1();
 
 private:
-	char m_pad[0x0C];
+	char m_pad[0x78];
+	int m_flag;
 };
 
 // ?rva004F6187@Rva004F6187@@QAEXXZ @0x004F6187 42B.
@@ -271,4 +273,52 @@ void Rva004F6187::rva004F6187()
 		pend = (void ***)((char *)pend + 0xC);
 		--n;
 	} while (n != 0);
+}
+
+class Rva0059ADB9
+{
+public:
+	bool rva0059ADB9();
+};
+
+// ?rva004F61B1@Rva004F6187@@QAEXXZ @0x004F61B1 110B.
+// Target evidence: the two begin/end pairs at +0x0C/+0x10 and +0x18/+0x1C
+// each scan pointer elements and call the matched predicate at 0x0059ADB9;
+// the resulting flags conditionally clear or set the dword at +0x78.
+// Structural inference: the pair offsets match adjacent method 0x004F6187's
+// two-list walk, so its address-derived owner spelling is reused. The owner
+// identity remains unresolved.
+void Rva004F6187::rva004F61B1()
+{
+	bool found[2];
+	void ***range = (void ***)((char *)this + 0x10);
+	int i = 0;
+	do
+	{
+		found[i] = false;
+		register void **endValue = *range;
+		register void **current = range[-1];
+		void ** volatile end = endValue;
+		if (current != endValue)
+		{
+			do
+			{
+				if (((Rva0059ADB9 *)*current)->rva0059ADB9())
+				{
+					found[i] = true;
+					break;
+				}
+				++current;
+			} while (current != end);
+		}
+		++i;
+		range += 3;
+	} while (i < 2);
+	if (found[1])
+	{
+		if (!found[0])
+			m_flag = 1;
+	}
+	else
+		m_flag = 0;
 }
