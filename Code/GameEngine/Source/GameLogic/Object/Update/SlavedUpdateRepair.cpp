@@ -58,6 +58,14 @@
 // the slaver, zeroes the guard offset and clears UNSELECTABLE (status 3,
 // through setStatus 0x0023DB0E) and DISABLED_HELD (3, clearDisabled
 // 0x00291CAC). RepairWhenBelowHealth% (+0x38) is an Int in that table.
+//
+// startSlavedEffects (0x004A1A69, 174 bytes, line 862) is Zero Hour's; BFME2
+// sets UNSELECTABLE only under MarkUnselectable (+0x6C in the INI parse
+// table) and passes the slave interface to Drawable 0x002710AE. The slave
+// interface overrides follow its vftable at 0x00851E30: onEnslave
+// (0x004A1BFD), onSlaverDie (0x004A1C05) and onSlaverDamage (0x004A1C59,
+// aiGoProne). They run on the +0x20 subobject, behind UpdateModule's 0x20
+// bytes (interface vptrs at +0x0C and +0x10).
 
 #include "Common/BfmeAudioEventPrefix136.h"
 
@@ -314,6 +322,18 @@ public:
 	Drawable *getDrawable() const;
 };
 
+// Drawable 0x002710AE takes the slaver and this module's slave interface:
+// when the interface's slot 5 (UseSlaverAsControlForEvaObjectSightedEvents,
+// module data +0x6D) is set it copies the slaver drawable's bytes +0x445 and
+// +0x446. Rowed under a placeholder name and parameter classes.
+class BuildListInfo;
+class Arg2;
+class Rva002710AE
+{
+public:
+	void rva002710AE(BuildListInfo *slaver, Arg2 *slavedInterface);
+};
+
 // The welding system's position and lifetime setters, rowed under placeholder
 // names at 0x001F3899 (position copy) and 0x001F3D03 (lifetime range).
 struct Rva001F3899Arg
@@ -430,6 +450,7 @@ public:
 class Object : public Thing
 {
 public:
+	ObjectID getID() const { return m_id; }
 	const Coord3D *getPosition() const { return &m_position; }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
@@ -469,7 +490,9 @@ public:
 private:
 	unsigned char m_pad000[0x38];
 	Coord3D m_position; // +0x38
-	unsigned char m_pad044[0xBC - 0x44];
+	unsigned char m_pad044[0x74 - 0x44];
+	ObjectID m_id; // +0x74
+	unsigned char m_pad078[0xBC - 0x78];
 	Real m_boundingSphereRadius; // +0xBC
 	unsigned char m_pad0C0[0x10C - 0xC0];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
@@ -480,14 +503,38 @@ private:
 	int m_weaponBonusCondition; // +0x380
 };
 class ModuleData;
-class BehaviorModule
+class ObjectModule
 {
 public:
-	virtual ~BehaviorModule();
+	virtual ~ObjectModule();
 	Object *getObject() const { return m_object; }
 protected:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
+};
+class BehaviorModuleInterface
+{
+public:
+	virtual void behaviorModuleInterfaceSlot00();
+};
+// BehaviorModule's interface vptr is at +0x0C, UpdateModule's at +0x10.
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+};
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+private:
+	unsigned char m_pad14[0x20 - 0x14];
 };
 enum RepairStates
 {
@@ -542,6 +589,10 @@ class AICommandInterface
 public:
 	virtual void aiDoCommand(const AICommandParms *parms);
 	void aiIdle(CommandSourceType cmdSource);
+	// Zero Hour's aiGoProne (0x0036F400: AICMD 0x1D copying the DamageInfo
+	// into the command block at +0x3C), rowed under a placeholder whose
+	// parameter class Rva003427DD is that DamageInfo.
+	void rva0036F400(const class Rva003427DD *info, CommandSourceType cmdSource);
 	// Retail 0x0026C26D; visible here (as in BFME1's twin) so VC7.1 sees it
 	// does not retain the position.
 	__declspec(noinline) void aiMoveToPosition(const Coord3D *pos, Int cmdSource)
@@ -574,6 +625,10 @@ public:
 	virtual bool chooseLocomotorSet(LocomotorSetType wst) = 0;
 	Locomotor *getCurLocomotor() { return m_curLocomotor; }
 	void aiIdle(CommandSourceType cmdSource) { m_commands.aiIdle(cmdSource); }
+	void aiGoProne(const DamageInfo *info, CommandSourceType cmdSource)
+	{
+		m_commands.rva0036F400((const Rva003427DD *)info, cmdSource);
+	}
 	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource) { m_commands.aiMoveToPosition(pos, cmdSource); }
 	void aiAttackPosition(Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource)
 	{
@@ -611,13 +666,32 @@ public:
 	AsciiString m_weldingFXBone; // +0x50
 	Bool m_stayOnSameLayerAsMaster; // +0x54
 	Bool m_dieOnMastersDeath; // +0x55
+	unsigned char m_pad56[0x6C - 0x56];
+	Bool m_markUnselectable; // +0x6C
 };
 extern int g_Va00E03BBC; // SLAVED_UPDATE_RATE
 // g_Va00E03BBC: matched references place it at VA 0xe03bbc (zero-filled .bss).
 int g_Va00E03BBC;
-class SlavedUpdate : public BehaviorModule
+// SlavedUpdateInterface (vptr at +0x20), Zero Hour's slot order: retail
+// vftable 0x00851E30 holds getSlaverID, onEnslave 0x004A1BFD, onSlaverDie
+// 0x004A1C05, onSlaverDamage 0x004A1C59, isSelfTasking, then BFME2's
+// additions.
+class SlavedUpdateInterface
 {
 public:
+	virtual ObjectID getSlaverID() const = 0;
+	virtual void onEnslave(const Object *slaver) = 0;
+	virtual void onSlaverDie(const DamageInfo *info) = 0;
+	virtual void onSlaverDamage(const DamageInfo *info) = 0;
+	virtual Bool isSelfTasking() const = 0;
+};
+class SlavedUpdate : public UpdateModule, public SlavedUpdateInterface
+{
+public:
+	virtual void onEnslave(const Object *slaver);
+	virtual void onSlaverDie(const DamageInfo *info);
+	virtual void onSlaverDamage(const DamageInfo *info);
+	void startSlavedEffects(const Object *slaver);
 	void endRepair();
 	void setRepairModelConditionStates(ModelConditionFlagType flag);
 	void doAttackLogic(const Object *target);
@@ -629,7 +703,6 @@ public:
 	void stopSlavedEffects();
 	const SlavedUpdateModuleData *getSlavedUpdateModuleData() const { return (const SlavedUpdateModuleData *)m_moduleData; }
 private:
-	unsigned char m_pad0C[0x24 - 0x0C];
 	ObjectID m_slaver; // +0x24
 	Coord3D m_guardPointOffset; // +0x28
 	int m_framesToWait; // +0x34
@@ -956,4 +1029,44 @@ void SlavedUpdate::stopSlavedEffects()
 
 	getObject()->clearStatus(OBJECT_STATUS_UNSELECTABLE);
 	getObject()->clearDisabled(DISABLED_HELD);
+}
+
+void SlavedUpdate::onEnslave(const Object *slaver)
+{
+	startSlavedEffects(slaver);
+}
+
+void SlavedUpdate::onSlaverDie(const DamageInfo *info)
+{
+	stopSlavedEffects();
+}
+
+void SlavedUpdate::onSlaverDamage(const DamageInfo *info)
+{
+	// Only slaves with a ProneUpdate will even care.
+	AIUpdateInterface *ai = getObject()->getAIUpdateInterface();
+	if (ai)
+		ai->aiGoProne(info, CMD_FROM_AI);
+}
+
+void SlavedUpdate::startSlavedEffects(const Object *slaver)
+{
+	if (!slaver)
+		return;
+
+	m_slaver = slaver->getID();
+	const SlavedUpdateModuleData *data = getSlavedUpdateModuleData();
+
+	// Decide where our pinned stray point is
+	Real randomDirection = GameLogicRandomValueReal(0, 2 * PI, 862);
+	m_guardPointOffset.zero();
+	m_guardPointOffset.x += data->m_guardMaxRange * Cos(randomDirection);
+	m_guardPointOffset.y += data->m_guardMaxRange * Sin(randomDirection);
+
+	if (data->m_markUnselectable)
+		getObject()->setStatus(OBJECT_STATUS_UNSELECTABLE);
+
+	Drawable *draw = getObject()->getDrawable();
+	if (draw)
+		((Rva002710AE *)draw)->rva002710AE((BuildListInfo *)slaver, (Arg2 *)(SlavedUpdateInterface *)this);
 }
