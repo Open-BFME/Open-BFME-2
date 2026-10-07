@@ -42,6 +42,7 @@ struct Rva0016825DLineView {
     char unknownD4[0x18];
     float width;
     void bounds(Rva0016825DBox &box) const;
+    void sphere(struct Rva001681EDSphere &sphere) const;
 };
 void Rva0016825DLineView::bounds(Rva0016825DBox &box) const
 {
@@ -61,4 +62,31 @@ void Rva0016825DLineView::bounds(Rva0016825DBox &box) const
     } else {
         box.Init(Rva0016825DPoint(0,0,0),Rva0016825DPoint(1,1,1));
     }
+}
+
+// The donor WWMath::Sqrt x87 helper is retained only for this proven codegen
+// blocker: ordinary C++ sqrt and a float wrapper both emitted 81B, while this
+// preserves the native single-precision argument/result spills and fsqrt.
+static __forceinline float rva001681EDSqrt(float value) { float result; __asm {
+        fld [value]
+        fsqrt
+        fstp [result]
+    } return result; }
+struct Rva001681EDSphere {
+    Rva0016825DPoint Center;
+    float Radius;
+};
+// Native1681ED..16825D: 112B RET4, vtable word7D42D4 next to bounds.
+// The complete body dispatches the box accessor through slot110, copies its
+// center, and takes the length of its extent. BF1 ba7 segline.cpp supplies
+// the same algorithm; it does not establish the original owner name.
+void Rva0016825DLineView::sphere(Rva001681EDSphere &sphere) const
+{
+    Rva0016825DBox box;
+    typedef void (Rva0016825DLineView::*BoundsFn)(Rva0016825DBox &) const;
+    union { void *address; BoundsFn member; } fn;
+    fn.address=(*reinterpret_cast<void *const *const *>(this))[0x110/4];
+    (this->*fn.member)(box);
+    sphere.Center=box.Center;
+    sphere.Radius=rva001681EDSqrt(box.Extent.X*box.Extent.X+box.Extent.Y*box.Extent.Y+box.Extent.Z*box.Extent.Z);
 }
