@@ -115,6 +115,15 @@ class Matrix4
 {
 public:
 	__forceinline Matrix4() {}
+	__forceinline Matrix4(const Matrix4 &m)
+	{
+		Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2]; Row[3] = m.Row[3];
+	}
+	__forceinline explicit Matrix4(bool identity)
+	{
+		if (identity)
+			Make_Identity();
+	}
 	__forceinline Matrix4(const Vector4 &r0, const Vector4 &r1, const Vector4 &r2, const Vector4 &r3)
 	{
 		Init(r0, r1, r2, r3);
@@ -264,6 +273,45 @@ protected:
 };
 
 class FXShaderParameterBinder;
+
+// The texture handle (texture.cpp): a 16-bit reference count at +4 that the
+// rowed TextureBaseClass::Release_Ref (0x0061ED10) drops; RefCountPtr's
+// assignment is rowed at 0x000424D0 and its copy constructor pinned at
+// 0x000424BB.
+class TextureBaseClass
+{
+public:
+	__forceinline void Add_Ref() { ++m_refCount; }
+	void Release_Ref();
+
+private:
+	void *m_vtable;
+	unsigned short m_refCount;
+};
+
+class TextureClass : public TextureBaseClass
+{
+};
+
+template <class T>
+class RefCountPtr
+{
+public:
+	RefCountPtr() : ptr(0) {}
+	RefCountPtr(const RefCountPtr &that) : ptr(that.ptr)
+	{
+		if (ptr)
+			ptr->Add_Ref();
+	}
+	~RefCountPtr()
+	{
+		if (ptr)
+			ptr->Release_Ref();
+	}
+	const RefCountPtr &operator=(const RefCountPtr &that);
+
+	T *ptr;
+};
 
 // The rowed second PushDynamicSetStack 0x0015354E takes its argument under
 // this placeholder enum; the skeleton source passes 1.
@@ -502,12 +550,14 @@ public:
 	// at +0x48 through an inline accessor (name not in either binary).
 	struct SourceNamespace_Shadow : public FXShaderParameterSourceNamespace_Struct
 	{
+		SourceNamespace_Shadow();
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 		void rva0014D96A(ID3DXEffect *effect, D3DXHANDLE parameter);
-		bool hasShadowMap() const { return m_shadowMap != 0; }
+		void rva0014DA92(const Matrix4 &worldToShadow, RefCountPtr<TextureClass> shadowMap);
+		bool hasShadowMap() const { return m_shadowMap.ptr != 0; }
 		int m_index;
-		Rva0007671F m_WorldToShadow;	// +0x08
-		void *m_shadowMap;		// +0x48
+		Matrix4 m_WorldToShadow;		// +0x08
+		RefCountPtr<TextureClass> m_shadowMap;	// +0x48
 	};
 
 	// vtable 0x00BD38A0, dispatcher 0x0014FFF6. Member names after the
@@ -549,6 +599,8 @@ public:
 	virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 
 	void NumShadows(ID3DXEffect *effect, D3DXHANDLE parameter);
+	void SetShadowMapInfo(int shadowMapIndex, const Matrix4 &worldToShadow, RefCountPtr<TextureClass> shadowMap);
+	void rva0014F7F2(int shadowMapIndex);
 
 private:
 	SourceNamespace_Camera m_SourceNamespace_Camera;					// +0x04
@@ -690,6 +742,22 @@ void FXShaderParameterSourceNamespaceSAS::NumShadows(ID3DXEffect *effect, D3DXHA
 			break;
 	}
 	effect->SetInt(parameter, i);
+}
+
+// Retail 0x0014F778, 122 bytes (WorldBuilder 0x009F87C0, which asserts the
+// index is in range).
+void FXShaderParameterSourceNamespaceSAS::SetShadowMapInfo(int shadowMapIndex, const Matrix4 &worldToShadow, RefCountPtr<TextureClass> shadowMap)
+{
+	if (shadowMapIndex < 0 || shadowMapIndex >= m_SourceNamespace_Shadow.GetSize())
+		return;
+	m_SourceNamespace_Shadow.rva0014F454(shadowMapIndex).rva0014DA92(worldToShadow, shadowMap);
+}
+
+// Retail 0x0014F7F2, 122 bytes (WorldBuilder 0x009F8870): an identity
+// transform and no map.
+void FXShaderParameterSourceNamespaceSAS::rva0014F7F2(int shadowMapIndex)
+{
+	SetShadowMapInfo(shadowMapIndex, Matrix4(true), RefCountPtr<TextureClass>());
 }
 
 // Retail 0x0014F454, 44 bytes: an index out of range yields the default.
@@ -883,6 +951,20 @@ void FXShaderParameterSourceNamespaceSAS::SourceNamespace_PointLight::ResolveBin
 void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow::rva0014D96A(ID3DXEffect *effect, D3DXHANDLE parameter)
 {
 	effect->SetMatrixTranspose(parameter, &m_WorldToShadow);
+}
+
+// Retail 0x0014DA92, 154 bytes (WorldBuilder 0x009F9EB0).
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow::rva0014DA92(const Matrix4 &worldToShadow, RefCountPtr<TextureClass> shadowMap)
+{
+	m_WorldToShadow = worldToShadow;
+	RefCountPtr<TextureClass> &map = m_shadowMap;
+	map = shadowMap;
+}
+
+// Retail 0x0014DB9F, 160 bytes.
+FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow::SourceNamespace_Shadow()
+	: m_index(-1), m_WorldToShadow(true)
+{
 }
 
 // Retail 0x0014FF57, 159 bytes.
