@@ -840,3 +840,4 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?copyFrom@Rva005F8F00@@QAEPAV1@PBX@Z,0x005F8F00,Duplicate reconstruction retired; retained ??0Rva005F8F00@@QAE@ABV0@@Z in Code/GameEngine/Source/Common/Rva005E35B5Memcpy.cpp; same retail extent; October 5 double-row audit
 ??$__copy_backward_ptrs@PAEPAE@_STL@@YAPAEPAE00ABU__true_type@0@@Z,0x002C17D6,Redundant helper claim; retained ??$__copy_backward_ptrs@PAPAXPAPAX@_STL@@YAPAPAXPAPAX00ABU__true_type@0@@Z; distinct target byte-vector instantiation identity unproven; October 5 double-row audit
 ?d_00282b26@@YAXXZ,0x00282B26,Generated dump placeholder replaced by the byte-verified 121-byte C++ walker in Rva00282B26.cpp.
+?d_00283033@@YAXXZ,0x00283033,Generated dump placeholder replaced by the verified 78-byte pointer-key removal in Rva002833A3C5.cpp; retired again after the union merge.
