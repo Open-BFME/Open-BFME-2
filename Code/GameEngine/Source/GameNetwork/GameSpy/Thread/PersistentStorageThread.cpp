@@ -977,6 +977,36 @@ char *rva0055686A(const PSPlayerAllStats *stats, int *len)
 	return (char *)((BfmeThingEC *)stream)->bfmeTakeEC(len);
 }
 
+// Native [556B3C,556C54),280B with its catch funclet at 0x556C29: the same
+// "playerStats" serializer through each block's second xfer slot, whose
+// buffer the stats thread (0x005589AE) stores at SetPersistData index 2.
+char *rva00556B3C(const PSPlayerAllStats *stats, int *len)
+{
+	BfmeMade_009CB5F0 *stream = bfmeMake_009CB5F0((void *)"playerStats");
+	if (!stream)
+	{
+		*len = 0;
+		return 0;
+	}
+
+	XferSave xfer;
+	try
+	{
+		xfer.Open((Xfer *)stream, 1, false);
+	}
+	catch (...)
+	{
+		*len = 0;
+		return 0;
+	}
+
+	stats->rva00556508().rva00555109(&xfer);
+	stats->rva00389DF1().rva00555109(&xfer);
+	stats->rva00389E0F().rva00555109(&xfer);
+	xfer.close();
+	return (char *)((BfmeThingEC *)stream)->bfmeTakeEC(len);
+}
+
 // The load-side Xfer: built from three null pointers by 0x0060C5FA, opened
 // on a stream by 0x0060C3C3, cleared by 0x0060C45E and torn down through the
 // base destructor 0x004053E7; 0x20 bytes on the frame.
