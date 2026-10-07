@@ -265,3 +265,17 @@ void rva000524D6()
 	g_00DB3F7C = 0;
 	Rva000524AALoop();
 }
+
+// ?rva000524EE@@YAXHM@Z retail 0x000524EE 36B (packet 122B includes next body
+// at 0x00052512; landing the ret-terminated 36B per NOTE).
+// Bounds-checked store to g_00DB3F64 then Rva0005244ALoop. Evidence is pin
+// plus callers 0x0005CBBE plus LINK BONUS plus abut to 0x000524D6.
+void rva000524EE(int idx, float value)
+{
+	if (idx < 0)
+		return;
+	if (idx >= 6)
+		return;
+	g_00DB3F64[idx] = value;
+	Rva0005244ALoop(idx);
+}
