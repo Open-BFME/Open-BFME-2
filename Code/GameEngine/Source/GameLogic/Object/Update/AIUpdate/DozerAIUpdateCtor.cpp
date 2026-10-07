@@ -122,6 +122,17 @@
 // ?Rva00489256Do@@YAXPAVObject@@@Z, retail 0x00489256, 95 bytes: a static
 // helper called only from that update (0x00489400) with the object in ESI,
 // MSVC's custom convention for a same-TU static.
+//
+// ?update@DozerActionPickActionPosState@@UAE?AW4StateReturnType@@XZ,
+// retail 0x0048A4DD, 449 bytes: slot 6 of vtable 0x0084B3E0, stored by the
+// rowed ctor 0x004884ED. ZH's update: the task target (dozer interface vslot
+// 7 through findObjectByID), the dock point (vslot 17) or a findPositionAround
+// on the bounding sphere starting at the angle back to us (Coord2D::toAngle
+// 0x00005923), then the machine goal object and position and a move order
+// (ignoreObstacle 0x00268D88, aiMoveToPosition 0x0026C26D through the AI's
+// +0x20 command interface). New in BFME 2: without a target it falls back to
+// dozer vslot 29 before cancelling (vslot 13), setGoalPosition takes a range
+// (FLT_MAX), and two logic-random-log lines gated by g_00E03745.
 #include "ascii_string.h"
 
 // class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line normalize (rowed 0x000035B6) that newTask calls; same three floats
@@ -161,6 +172,19 @@ extern "C" FILE *theLogicRandomLogFile;
 // BFME 1's docking diagnostics switches (0x00DCBF44 and 0x00E03CA8).
 extern bool g_bfmeDockingDesyncLog;
 extern bool g_bfmeDockingTraceActive;
+
+// Logic random log switch (data ledger 0x00A03745).
+extern unsigned char g_00E03745;
+
+// class-gate: allow Coord2D the canonical data-only header cannot declare BFME 2's out-of-line toAngle (rowed 0x00005923) that the pick state calls; same two floats
+class Coord2D
+{
+public:
+	Real toAngle() const;
+
+	float x;
+	float y;
+};
 
 enum ObjectID
 {
@@ -205,6 +229,7 @@ public:
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
 	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
+	void setGoalPosition(const Coord3D *pos, Real range);
 protected:
 	unsigned char m_pad04[0x14 - 0x04];
 	Object *m_owner; // +0x14
@@ -356,6 +381,7 @@ class AICommandInterface
 public:
 	virtual void aiDoCommand(const AICommandParms *parms) = 0;
 	void aiIdle(CommandSourceType cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface24
@@ -374,14 +400,16 @@ public:
 	virtual void slot4() = 0;
 	virtual DozerTask getMostRecentCommand() = 0; // vslot 5
 	virtual Bool isTaskPending(DozerTask task) = 0; // vslot 6
-	virtual void slot7() = 0; virtual void slot8() = 0;
+	virtual ObjectID getTaskTarget(DozerTask task) = 0; // vslot 7
+	virtual void slot8() = 0;
 	virtual DozerTask getCurrentTask() const = 0; // vslot 9
 	virtual void slot10() = 0; virtual void slot11() = 0;
 	virtual void newTask(DozerTask task, Object *target) = 0; // vslot 12
 	virtual void cancelTask(DozerTask task) = 0; // vslot 13
 	virtual void internalTaskComplete(DozerTask task) = 0; // vslot 14
 	virtual void slot15() = 0; virtual void slot16() = 0;
-	virtual void slot17() = 0; virtual void slot18() = 0; virtual void slot19() = 0;
+	virtual const Coord3D *getDockPoint(DozerTask task, Int point) = 0; // vslot 17
+	virtual void slot18() = 0; virtual void slot19() = 0;
 	virtual void slot20() = 0; virtual void slot21() = 0; virtual void slot22() = 0;
 	virtual void slot23() = 0;
 	virtual void finishBuildingSound() = 0; // vslot 24
@@ -422,6 +450,7 @@ public:
 	virtual Bool isAllowedToRespondToAiCommands(const AICommandParms *parms) const; // vslot 148 (+0x250)
 	virtual void aiDoCommand(const AICommandParms *parms);
 	Bool isPathAvailable(const Coord3D *destination) const;
+	void ignoreObstacle(const Object *obj);
 	Bool findNearestLabeledContactPointOnTarget(Object *target, Coord3D *result, const Coord3D *workingPosition, Bool skipCollideTest);
 protected:
 	virtual ~AIUpdateInterface();
@@ -1234,4 +1263,70 @@ StateReturnType DozerActionMoveToActionPosState::update()
 		return STATE_FAILURE;
 
 	return STATE_CONTINUE;
+}
+
+class DozerActionPickActionPosState : public State
+{
+public:
+	virtual StateReturnType update();
+private:
+	DozerTask m_task; // +0x20
+};
+
+StateReturnType DozerActionPickActionPosState::update()
+{
+	StateMachine *machine = getMachine();
+	Object *dozer = machine->getOwner();
+
+	AIUpdateInterface *ai = dozer->getAIUpdateInterface();
+	if (!ai)
+		return STATE_FAILURE;
+	DozerAIInterface *dozerAI = ai->getDozerAIInterface();
+	if (!dozerAI)
+		return STATE_FAILURE;
+
+	Object *goalObject = TheGameLogic->findObjectByID(dozerAI->getTaskTarget(m_task));
+	if (goalObject == 0)
+	{
+		goalObject = dozerAI->vslot29();
+		if (goalObject == 0)
+		{
+			getMachine()->setGoalObject(goalObject);
+			dozerAI->cancelTask(m_task);
+			return STATE_FAILURE;
+		}
+	}
+
+	Coord3D goalPos;
+	const Coord3D *pos = dozerAI->getDockPoint(m_task, 0 /* DOZER_DOCK_POINT_START */);
+	if (pos)
+		goalPos = *pos;
+	else
+	{
+		Coord2D v;
+		v.x = dozer->getPosition()->x - goalObject->getPosition()->x;
+		v.y = dozer->getPosition()->y - goalObject->getPosition()->y;
+
+		Real radius = goalObject->getGeometryInfo().getBoundingSphereRadius();
+		FindPositionOptions fpOptions;
+		fpOptions.minRadius = radius;
+		fpOptions.maxRadius = radius;
+		fpOptions.startAngle = v.toAngle();
+		if (PartitionManager::findPositionAround(goalObject->getPosition(), &fpOptions, &goalPos) == FALSE)
+			goalPos = *goalObject->getPosition();
+		else if (g_00E03745 && theLogicRandomLogFile)
+			fprintf(theLogicRandomLogFile, "\t\t  DozerActionPickActionPosState::update() goalPos is uninitialized");
+
+		ai->ignoreObstacle(goalObject);
+	}
+
+	if (g_00E03745 && theLogicRandomLogFile)
+		fprintf(theLogicRandomLogFile, "\t\t  DozerActionPickActionPosState::update(), moving to goalPos %.03f, %.03f", goalPos.x, goalPos.y);
+
+	machine->setGoalObject(goalObject);
+	machine->setGoalPosition(&goalPos, 3.402823466e+38f);
+	ai->ignoreObstacle(goalObject);
+	ai->aiMoveToPosition(&goalPos, CMD_FROM_AI);
+
+	return STATE_SUCCESS;
 }
