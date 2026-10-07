@@ -1206,6 +1206,7 @@ name,address,notes
 ??$copy_backward@PAW4Rva0021B68DKey@@PAW41@@_STL@@YAPAW4Rva0021B68DKey@@PAW41@00@Z,0x005E42D3,address read from the retail REL32 in __linear_insert 0x0021C736; rowed under another name (ICF copy_backward<ObjectID*>)
 ??$copy_backward@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@U10@00@Z,0x00585A18
 ??$copy_backward@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@U10@00@Z,0x00055825,address read from the REL32 displacement at a placed body
+??$decompress@$03@AdaptiveDeltaMotionChannelClass@@AAEXKPAMK0@Z,0x0018F9C0,BFME2 hcanim.cpp 4-float decompress instance called four times by getframe<4> 0x0018FCC0; body banked partial (register permutation)
 ??$fill@PAUBfmeAsciiScalarValue8@@U1@@_STL@@YAXPAUBfmeAsciiScalarValue8@@0ABU1@@Z,0x005DD6F7
 ??$fill@PAUBfmePod20@@U1@@_STL@@YAXPAUBfmePod20@@0ABU1@@Z,0x0052A3F1,target fill-insert 0x5B1748 calls this at 0x5B17C9 and 0x5B1809; boundary 0x52A3F1/35 copies five DWORDs per 0x14-byte element with rep movsd; BfmePod20 is a size-only emitter alias, not an application-type claim
 ??$fill@PAUBfmePod36@@U1@@_STL@@YAXPAUBfmePod36@@0ABU1@@Z,0x000AD806,ICF twin of StringRecord fill 0x000AD806 via fill-insert 0x000B0478 same 35B rep-movsd
@@ -15491,7 +15492,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva002BF5B0@Rva002D3627Host@@QAE_NPBVCoord2D@@PAUCoord3D@@@Z,0x002BF5B0,callee of ?rva002B2A95@Rva002B2A95Callback@@QAEXPBVRva002E0687@@PBURva002B2A95Record@@PAX@Z
 ?rva003197B7@Rva00319AA0@@QAEXXZ,0x003197B7,callee of ?rva00319AA0@Rva00319AA0@@QAEXPBVCoord2D@@@Z
 ?rva003667D4@PathfindLayer@@QAEXXZ,0x003667D4,callee of ?rva00366DEC@PathfindLayer@@QAEXXZ
-
 ?Rva00219B9E@@YGPAXH@Z,0x00219B9E,free lookup used by the 0x0021BE2x run with one stack arg; pointer return null-checked
 ?rva003EF1B8@Rva003EF1B8Host@@QAEXXZ,0x003EF1B8,singleton-gated notify used by 0x0020F795; this from [0x00DFE1C8]+0x268 with no args
 ?rva003F0DC6@Rva00210D6DElem@@QAEXXZ,0x003F0DC6,element runner used by 0x00210D6D over the +0x2c vector with no args

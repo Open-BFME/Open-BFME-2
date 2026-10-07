@@ -341,7 +341,7 @@ private:
  * srcdata, or from the uncompressed header when srcdata is NULL. Nothing is decoded for a     *
  * frame past the end, so the source values are passed through.                               *
  *=============================================================================================*/
-// ?AdaptiveDeltaMotionChannelClass::decompress<4> present-unmatched
+// ??$decompress@$00@AdaptiveDeltaMotionChannelClass@@AAEXKPAMK0@Z
 template <int N>
 void AdaptiveDeltaMotionChannelClass::decompress(uint32 src_idx, float *srcdata, uint32 frame_idx, float *outdata)
 {
@@ -399,7 +399,7 @@ void AdaptiveDeltaMotionChannelClass::decompress(uint32 src_idx, float *srcdata,
  * BFME2 (retail 0x0018FC20 for one float, 0x0018FCC0 for four): the cache holds frame_idx    *
  * and frame_idx+1. A channel of another length reads as zero.                                 *
  *=============================================================================================*/
-// ?AdaptiveDeltaMotionChannelClass::getframe<4> present-unmatched
+// ??$getframe@$03@AdaptiveDeltaMotionChannelClass@@AAEXKAAU?$AdaptiveDeltaCacheStruct@$03@@@Z
 template <int N>
 void AdaptiveDeltaMotionChannelClass::getframe(uint32 frame_idx, AdaptiveDeltaCacheStruct<N> & cache)
 {
@@ -450,7 +450,6 @@ void	AdaptiveDeltaMotionChannelClass::Get_Vector(float32 frame, float * setvec, 
  *                                                                                             *
  * BFME2 (retail 0x0018FDE0): blends with the normalized lerp at 0x00717550.                  *
  *=============================================================================================*/
-// ?AdaptiveDeltaMotionChannelClass::Get_QuatVector present-unmatched
 void AdaptiveDeltaMotionChannelClass::Get_QuatVector(float32 frame, Quaternion & q, AdaptiveDeltaCacheStruct<4> & cache)
 {
 	int frame1 = frame;
