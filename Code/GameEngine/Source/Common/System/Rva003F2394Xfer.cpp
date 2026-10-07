@@ -3,18 +3,11 @@
 // ?Rva003F2394Xfer@@YAPAVXfer@@PAV1@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z, retail 0x003F2394, 204 bytes.
 // Free-function Xfer vector<ScienceType> helper version {1,1} via slot 0x28, size via slot 0x2C/0x78, isSaving via slot 0x08.
 // Evidence: donor XferScienceTypeVector.cpp 0x00398280 same 204B shape and same rowed reserve 0x002A1410 push_back 0x002E01C6 _bfmeFormatText 0x0060C36E plus pin _CxxThrowException 0x00629094; strings "std::vector" and "Vector must be empty on load"; elements via rowed XferLivingWorldArmyID 0x00318D1E; callers 0x003F3BFF 0x0040E6F6.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// Use the existing retail max<unsigned int> provider at 0x13740.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
+template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
-}
-#pragma optimize("", on)
 
 #include <vector>
 
@@ -26,6 +19,12 @@ enum ScienceType
 {
 	SCIENCE_0 = 0
 };
+// The same ScienceType vector's native overflow is rowed at 0x148D00.
+namespace _STL {
+template <> void vector<ScienceType, allocator<ScienceType> >::_M_insert_overflow(
+    ScienceType *, const ScienceType &, const __false_type &, unsigned int, bool);
+template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
+}
 
 struct XferVersion
 {
