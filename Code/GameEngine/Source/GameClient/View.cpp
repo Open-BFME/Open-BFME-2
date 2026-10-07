@@ -312,3 +312,28 @@ void View::xfer( Xfer *xfer )
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?setDesiredSpeed@AIUpdateInterface@@QAEXM@Z=?setHeightAboveGround@View@@UAEXM@Z")
+
+// Native FUN_0065e9de spans 0025E9DE..0025EA2E, ending in RET 28.
+// It stores seven scalar floats at +4..+1C and then sets byte +0 to one.
+// The original receiver and field meanings remain unknown. ZH ViewLocation
+// has a similar initializer, but its six-argument signature is different.
+class Rva0025E9DE
+{
+public:
+	void rva0025E9DE(float a, float b, float c, float d, float e, float f, float g);
+private:
+	bool flag00;
+	float value04, value08, value0C, value10, value14, value18, value1C;
+};
+
+void Rva0025E9DE::rva0025E9DE(float a, float b, float c, float d, float e, float f, float g)
+{
+	value04 = a;
+	value08 = b;
+	value0C = c;
+	value10 = d;
+	value14 = e;
+	value18 = f;
+	value1C = g;
+	flag00 = true;
+}
