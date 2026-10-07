@@ -11,6 +11,7 @@ class RadiusDecalTemplate
 {
 public:
 	void rva00330CDD(const RadiusDecalTemplate &other);
+	bool rva00331578(const RadiusDecalTemplate &other) const;
 private:
 	AsciiString m_name; // +0x00
 	AsciiString m_secondName; // +0x04
@@ -41,4 +42,27 @@ void RadiusDecalTemplate::rva00330CDD(const RadiusDecalTemplate &other)
 	m_unmodelled28 = other.m_unmodelled28;
 	m_unmodelled2C = other.m_unmodelled2C;
 	m_unmodelled30 = other.m_unmodelled30;
+}
+
+// ?rva00331578@RadiusDecalTemplate@@QBE_NABV1@@Z
+// Native Ghidra extent 0x00331578..0x0033162B; RET 4. The two string
+// compares call the verified worker at 0x000069D6. Its consumed layout
+// and field order agree with the rowed assignment and constructor views.
+// Retail leaves the +0x1c byte out of this comparison.
+bool RadiusDecalTemplate::rva00331578(const RadiusDecalTemplate &other) const
+{
+	if (m_shadowType == other.m_shadowType
+		&& m_minOpacity == other.m_minOpacity
+		&& m_maxOpacity == other.m_maxOpacity
+		&& m_opacityThrobTime == other.m_opacityThrobTime
+		&& m_color == other.m_color
+		&& m_name.compare(other.m_name) == 0
+		&& m_secondName.compare(other.m_secondName) == 0
+		&& m_unmodelled24 == other.m_unmodelled24
+		&& m_unmodelled20 == other.m_unmodelled20
+		&& m_unmodelled28 == other.m_unmodelled28
+		&& m_unmodelled2C == other.m_unmodelled2C
+		&& m_unmodelled30 == other.m_unmodelled30)
+		return true;
+	return false;
 }
