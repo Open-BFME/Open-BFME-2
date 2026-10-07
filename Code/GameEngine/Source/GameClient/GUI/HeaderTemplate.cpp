@@ -164,6 +164,15 @@ HeaderTemplateManager *TheHeaderTemplateManager = NULL;
 // PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 
+HeaderTemplate *HeaderTemplateManager::getFirstHeader( void )
+{
+	HeaderTemplateListIt it = m_headerTemplateList.begin();
+	if( it == m_headerTemplateList.end())
+		return NULL;
+
+	return *it;
+}
+
 HeaderTemplate *HeaderTemplateManager::getNextHeader( HeaderTemplate *ht )
 {
 	HeaderTemplateListIt it = m_headerTemplateList.begin();
