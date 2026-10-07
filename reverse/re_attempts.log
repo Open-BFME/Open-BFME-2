@@ -16704,3 +16704,9 @@ uw_00769058	0x00769058	11	blocked	false-reject functions: retail FuncInfo 0x0090
 ??0Rva005DCC24@@QAE@ABVAsciiString@@@Z	0x005DCC0A	26	blocked	ctor base Rva004ECECD vs file base Rva004EDCE9 mismatch; dtor row calls Rva004EDCE9 same vtable; unifying breaks landed dtor; identity unprovable t=10 model=muse-09
 ?rva00512EDD@Rva00512EDD@@QAEXHVUnicodeString@@@Z	0x00512EDD	355	partial	votes temp at ebp-0x18 vs retail ebp+8 reuse of slot home; sub esp 0x10 vs 0xc; 355B/116insns 0 structural regions only stack-home scheduling left t=25 model=muse-09 score=0.97 stash=reverse/attempts/0x00512edd.cpp
 ??0Rva004E8B38@@QAE@PAX@Z	0x004E8B38	518	blocked	packet marks global 0x00A04478 ADDRESS-NAMED g_Va00E04478; taskfile requires skipping bodies that use it t=1 model=muse-09
+?rva004D6FC4@Rva004D6FC4@@QAEXPAX@Z	0x004D6FC4	273	blocked	multi-argument virtual Xfer slots and their stack cleanup remain unresolved after checking the adjacent serializers and helper declarations t=9 model=gpt-6.1-sol
+?rva005B314B@Rva005B314B@@QAEXPBD@Z	0x005B314B	250	blocked	error path indexes unnamed image data at 0x00DD3A9C and taskfile forbids inventing a global name t=12 model=gpt-6.1-sol
+?rva005B3245@Rva005B2DDF@@QAEXPBD@Z	0x005B3245	144	blocked	the rowed Unicode description helper types its second argument as int but retail passes an empty string relocation there and no clean typed call preserves it t=13 model=gpt-6.1-sol
+?rva004972A9@Rva004972A9@@QAEXPAVINI@@PAXPAX@Z	0x004972A9	293	blocked	callback identity and argument types remain unproven from the ExpLevelDraw table slot t=4 model=gpt-6.1-sol
+?rva0049714F@Rva0049714F@@QAEXPAVINI@@PAXPAX@Z	0x0049714F	345	blocked	field callback identity and parameter types remain unproven from the MorphCondition table slot t=2 model=gpt-6.1-sol
+?Rva004DCAE4Parse@@YAXPAVINI@@PAX1PBX@Z	0x004DCAE4	341	blocked	required Common/INI.h unavailable in worker checkout after include-path trials t=10 model=gpt-6.1-sol
