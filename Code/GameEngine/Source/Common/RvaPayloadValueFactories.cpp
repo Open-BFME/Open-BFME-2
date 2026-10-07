@@ -240,3 +240,20 @@ RvaCloneResult<Rva005CDF6C> Rva005CE06CReceiver::create(const RvaPayloadInput16 
  payload.value=value;
  return Rva005CDFF5Create(&payload);
 }
+
+// Native [005CDCC2,005CDCDC),26B, RET8. The destination receives the
+// second argument's four words at00..0C and the first scalar at10.
+// This is the same 20-byte payload shape the adjacent verified factory
+// composes. Original constructor owner and scalar meaning stay unknown.
+class Rva005CDCC2Payload {
+public:
+ Rva005CDCC2Payload(int scalar, const RvaPayloadInput16 &input);
+private:
+ RvaPayloadInput16 first;
+ int value;
+};
+Rva005CDCC2Payload::Rva005CDCC2Payload(int scalar,
+                                    const RvaPayloadInput16 &input)
+ : first(input), value(scalar)
+{
+}
