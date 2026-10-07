@@ -27,7 +27,9 @@ public:
 	void *rva002BF652(void *value);
 };
 
-extern Rva002BF652 *g_Va00DFEF18;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class Rva002D3627Host;
+extern Rva002D3627Host *g_00DFEF18;
 
 class Rva002B2BEC
 {
@@ -44,5 +46,5 @@ void *Rva002B2BEC::rva002B2BEC(Rva002B2BECArg *arg)
 	void *r = m_b0->rva002104B6(&arg->m_2C);
 	if (r == 0)
 		return r;
-	return g_Va00DFEF18->rva002BF652(r);
+	return ((Rva002BF652 *)g_00DFEF18)->rva002BF652(r);
 }
