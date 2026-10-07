@@ -1,7 +1,7 @@
 // cl: /O1 /MD
 // Range-34 dump lane: 61B plain method at 0x005EA4FC (ret).
 // Runs virtual slot 0x1C on the +8 member's +0x14 subobject; on true,
-// creates message 0x6BE through Glo00A00950 slot 0x48, appends the +0xC
+// creates message 0x6BE through ((GlobalHolder*)MessageStreamSubsystem) slot 0x48, appends the +0xC
 // subobject's +0x34 word through the rowed 0x0030F936, then tail-jumps to
 // the pinned 0x005EA136 member method. Same global recipe as
 // Rva002B2E77Finish.cpp. All identities unproven (address-derived).
@@ -22,7 +22,9 @@ public:
 	virtual GameMessage* newMessage(int type);
 };
 
-extern GlobalHolder* Glo00A00950;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class MessageStream;
+extern MessageStream *MessageStreamSubsystem;
 
 class Rva005EA4FCM14
 {
@@ -60,11 +62,10 @@ void Rva005EA4FC::rva005EA4FC()
 {
 	if (!m08->m14->v07())
 		return;
-	GameMessage *msg = Glo00A00950->newMessage(0x6BE);
+	GameMessage *msg = ((GlobalHolder*)MessageStreamSubsystem)->newMessage(0x6BE);
 	msg->appendIntegerArgument(m08->m0c->m34);
 	m08->rva005EA136();
 }
 
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?Glo00A00950@@3PAVGlobalHolder@@A=?MessageStreamSubsystem@@3PAVMessageStream@@A")
