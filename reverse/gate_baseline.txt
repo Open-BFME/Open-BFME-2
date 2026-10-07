@@ -8,43 +8,9 @@
 # genalias   a gen-alias row's masked call is not a twin of its named callee
 # alias-row  object-symbol= alias row still trusted for callee resolution
 # Seeded 2026-10-05 from a full-ledger shadow run at 7e13084dfc.
-genalias 0x000BBBF3 ?dup_000BBBF3@@YAXXZ
-genalias 0x000BBC19 ?dup_000BBC19@@YAXXZ
-genalias 0x000CF503 ?dup_000CF503@@YAXXZ
-genalias 0x000CF529 ?dup_000CF529@@YAXXZ
-genalias 0x000D0496 ?dup_000D0496@@YAXXZ
-genalias 0x000D04BC ?dup_000D04BC@@YAXXZ
-genalias 0x0014918D ?dup_0014918d@@YAXXZ
 genalias 0x001AC6C0 ?Resize@?$SimpleDynVecClass@M@@UAE_NH@Z
-genalias 0x001D9B3C ?dup_001D9B3C@@YAXXZ
-genalias 0x001D9B62 ?dup_001D9B62@@YAXXZ
-genalias 0x00205709 ?dup_00205709@@YAXXZ
-genalias 0x0020572F ?dup_0020572F@@YAXXZ
-genalias 0x0021072A ?dup_0021072A@@YAXXZ
 genalias 0x0021C21B ?dup_0021c21b@@YAXXZ
-genalias 0x00224C76 ?dup_00224c76@@YAXXZ
-genalias 0x00260664 ?dup_00260664@@YAXXZ
-genalias 0x0026068A ?dup_0026068A@@YAXXZ
-genalias 0x00288A11 ?dup_00288A11@@YAXXZ
-genalias 0x00288A37 ?dup_00288A37@@YAXXZ
-genalias 0x002A5876 ?dup_002a5876@@YAXXZ
-genalias 0x002AF625 ?dup_002af625@@YAXXZ
 genalias 0x002D922A ??1?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAE@XZ
-genalias 0x00317CCD ?dup_00317CCD@@YAXXZ
-genalias 0x00317CF2 ?dup_00317CF2@@YAXXZ
-genalias 0x0031B9EB ?dup_0031b9eb@@YAXXZ
-genalias 0x0032AD7D ?dup_0032AD7D@@YAXXZ
-genalias 0x0032ADA3 ?dup_0032ADA3@@YAXXZ
-genalias 0x00355B42 ?dup_00355b42@@YAXXZ
-genalias 0x00358DA0 ?dup_00358da0@@YAXXZ
-genalias 0x003F1A8C ?dup_003F1A8C@@YAXXZ
-genalias 0x0048C84C ?dup_0048C84C@@YAXXZ
-genalias 0x0048C872 ?dup_0048C872@@YAXXZ
-genalias 0x0049DD38 ?dup_0049DD38@@YAXXZ
-genalias 0x0049DD5E ?dup_0049DD5E@@YAXXZ
-genalias 0x004C3AF2 ?dup_004C3AF2@@YAXXZ
-genalias 0x005FE226 ?dup_005fe226@@YAXXZ
-genalias 0x005FE24C ?dup_005FE24C@@YAXXZ
 ltable 0x00670960 ?Rva00804920Update@@YAPBDPAURva008042B0Http@@@Z
 ltable 0x0067FFD0 _Rva008140D0
 ltable 0x00682560 _CommSRPListen
