@@ -15561,3 +15561,7 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0002D99E3@@YGXH@Z,0x002D99E3,stdcall helper called by 0x00050FA0 with its int arg; address-derived
 ?rva000713290@Rva000713290@@QAEXPAX@Z,0x00713290,matrix method on stack buffer for 0x0004C99B; takes second buffer; address-derived
 ?rva00023A1BB@Rva0004C99B@@QAEXXZ,0x0023A1BB,same-this helper of matrix setup 0x0004C99B; address-derived
+?rva002B0E55@Player@@QAEXPAVRva004B5A65Owner@@H@Z,0x002B0E55,Player worker called by secondary apply 0x004B5A65 (and primary 0x004B5AC0); grant path with owner and target int
+?rva002ADC03@Player@@QAEXPAVRva004B5A65Owner@@H@Z,0x002ADC03,Player worker called by secondary apply 0x004B5A65 (and primary 0x004B5AC0); remove path with owner and target int
+?rva002B212A@Player@@QAEXPAVRva004B5A65Owner@@H@Z,0x002B212A,Player worker called by secondary remove 0x004B5B4C (and primary 0x004B5AC0); grant path with owner and target int
+?rva002ACD09@Player@@QAEXPAVRva004B5A65Owner@@H@Z,0x002ACD09,Player worker called by secondary remove 0x004B5B4C (and primary 0x004B5AC0); remove path with owner and target int
