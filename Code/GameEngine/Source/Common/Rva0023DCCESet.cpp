@@ -6,6 +6,8 @@
 // Evidence: retail branch bytes; callees rowed (isEmpty 0x1E2F, StringBase set 0x366F0,
 // OpaqueRef op= 0x239099, releaseBuffer 0x36410, clear 0xA8C9B); callers at 0x1EB5A3 0x21258A 0x242953 0x2B3739 0x515598.
 
+class Rva0023DC8E;
+
 template <typename T> class StringBase
 {
 public:
@@ -15,6 +17,7 @@ private:
 	void releaseBuffer();
 	T *m_data;
 	friend class Rva0023DCCE;
+	friend class Rva0023DC8E;
 };
 
 class AsciiString : public StringBase<char>
@@ -68,6 +71,35 @@ void Rva0023DCCE::rva0023DCCE(const AsciiString &a, const OpaqueRefElement4 &b, 
 		((StringBase<char> *)&m_str)->set(a);
 		m_a = b;
 		m_b = c;
+	}
+}
+
+// Ghidra FUN_0063dc8e is a 64-byte sibling immediately before this setter.
+// It applies the same empty-string/global-flag condition to a single string
+// member at +0x74; its host identity remains address-derived.
+class Rva0023DC8E
+{
+public:
+	void rva0023DC8E(const AsciiString &value);
+
+private:
+	char m_pad00[0x72];
+	unsigned char m_flag;
+	char m_pad73;
+	AsciiString m_string;
+};
+
+void Rva0023DC8E::rva0023DC8E(const AsciiString &value)
+{
+	if (value.isEmpty() || TheWritableGlobalData->m_flag9AD)
+	{
+		m_flag = 0;
+		((StringBase<char> *)&m_string)->releaseBuffer();
+	}
+	else
+	{
+		m_flag = 1;
+		((StringBase<char> *)&m_string)->set(value);
 	}
 }
 // ?TheWritableGlobalData@@3PAVGlobalData@@A: the global at VA 0xdfe758.
