@@ -18,8 +18,10 @@ public:
 	int m_08;
 };
 
-extern AsciiString TheRva00318ABBSrc;
-extern AsciiString TheRva00318ABBDst;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+extern unsigned int g_00E01CF0;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+extern unsigned int g_00E01CF4;
 extern const FieldParse TheRva00318ABBSunbeam;
 
 class Rva00318ABBTarget
@@ -39,10 +41,10 @@ extern Rva00318ABBTarget *TheRva00318ABBTarget;
 
 void rva00318ABB(INI *ini)
 {
-	TheRva00318ABBDst = TheRva00318ABBSrc;
-	ini->initFromINI(&TheRva00318ABBDst, &TheRva00318ABBSunbeam);
+	(*(AsciiString *)&g_00E01CF4) = (*(AsciiString *)&g_00E01CF0);
+	ini->initFromINI(&(*(AsciiString *)&g_00E01CF4), &TheRva00318ABBSunbeam);
 	if (ini->m_08 != 2 && ini->m_08 != 4)
-		TheRva00318ABBSrc = TheRva00318ABBDst;
+		(*(AsciiString *)&g_00E01CF0) = (*(AsciiString *)&g_00E01CF4);
 	if (TheRva00318ABBTarget != 0)
 		return TheRva00318ABBTarget->t14();
 }
