@@ -28,6 +28,7 @@ class Gen_008812D0
 {
 public:
 	Gen_008812D0();
+	~Gen_008812D0();
 
 private:
 	unsigned char m_data[0x30];
@@ -52,4 +53,14 @@ private:
 BfmeTaintManager::BfmeTaintManager()
 {
 	m_grid = new Gen_008812D0;
+}
+
+// Retail 0x006C09A0 (115B), the destructor the scalar deleting destructor at
+// 0x006C0B60 calls: the same two vtables and SEH frame as the constructor,
+// then the owned grid is destroyed through its rowed destructor 0x006C0D70
+// and freed, Snapshot's inline destructor resets +0x0C to 0x00BBB554, and
+// the SubsystemInterface base destructor (pin 0x001B4E74) runs last.
+BfmeTaintManager::~BfmeTaintManager()
+{
+	delete m_grid;
 }
