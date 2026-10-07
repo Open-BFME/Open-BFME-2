@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /GX
 //
 // SlavedUpdate methods, Zero Hour SlavedUpdate.cpp transferred: endRepair
 // (retail 0x004A1C10, 73 bytes) and setRepairModelConditionStates (retail
@@ -30,6 +30,22 @@
 // AIUpdateInterface +0x20 (0x0026C26D, whose body is visible as in BFME 1's
 // twin so the position temporaries share a stack slot) and sets the
 // DRONE_SPOTTING weapon bonus (bit 6 of Object +0x380) inline.
+//
+// setRepairState (0x004A2258, 635 bytes) follows BFME 1's matched twin and the
+// Zero Hour state machine: it is the setter doRepairLogic and update call with
+// REPAIRSTATE_READY/WELDING, the ready and weld frame counts come from module
+// data +0x3C..+0x48 at SlavedUpdate.cpp lines 750 and 767, and the welding
+// effect uses the template named at +0x4C placed at the bone named at +0x50
+// (Thing::getDrawable 0x005508E2, Drawable::getPristineBonePositions
+// 0x0027274D). BFME2's lifetime is m_framesToWait * LOGICFRAMES_PER_SECOND;
+// the position and lifetime setters are the rowed 0x001F3899 and 0x001F3D03,
+// and the sparks event is the canonical 0x88-byte audio event built from
+// TheAudio's misc-audio entry at +0x68. The handle's destructor only unlinks a
+// live system (its out-of-line copy is 0x002115C5, the unwind action), so the
+// unlink 0x0004CBC0 is declared not to throw, as retail sets no state before it.
+// Retail adds the bone offset with the object's coordinate loaded first.
+
+#include "Common/BfmeAudioEventPrefix136.h"
 
 typedef float Real;
 typedef int Int;
@@ -168,7 +184,9 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
+int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
+#define GameLogicRandomValue(lo, hi, line) GetGameLogicRandomValue(lo, hi, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\SlavedUpdate.cpp", line)
 #define GameLogicRandomValueReal(lo, hi, line) GetGameLogicRandomValueReal(lo, hi, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\SlavedUpdate.cpp", line)
 float Cos(float value);
 float Sin(float value);
@@ -261,7 +279,135 @@ public:
 	Real bfmeDistanceSquared(const BfmeVec3EJ *point) const;
 };
 
-class Object
+class Matrix3D;
+class Drawable
+{
+public:
+	Int getPristineBonePositions(const char *boneNamePrefix, Int startIndex,
+		Coord3D *positions, Matrix3D *transforms, Int maxBones, Int extra) const;
+};
+
+// Object's Thing base: the drawable getter rowed at 0x005508E2.
+class Thing
+{
+public:
+	Drawable *getDrawable() const;
+};
+
+// The welding system's position and lifetime setters, rowed under placeholder
+// names at 0x001F3899 (position copy) and 0x001F3D03 (lifetime range).
+struct Rva001F3899Arg
+{
+	int m_00;
+	int m_04;
+	int m_08;
+};
+class Rva001F3899Slot
+{
+public:
+	void set(const Rva001F3899Arg &arg);
+};
+class Rva001F3D03Slot
+{
+public:
+	void set(float a, float b);
+};
+
+class ParticleSystem
+{
+public:
+	void setPosition(const Coord3D *pos)
+	{
+		((Rva001F3899Slot *)this)->set(*(const Rva001F3899Arg *)pos);
+	}
+	__forceinline void setLifetimeRange(Real lo, Real hi)
+	{
+		((Rva001F3D03Slot *)this)->set(lo, hi);
+	}
+};
+ParticleSystem *Make001FCBD7();
+
+// The 12-byte handle: the out-of-line unlink is 0x0004CBC0, which the handle's
+// destructor calls only for a live system (out of line, retail 0x002115C5).
+class RvaSmartPtr12
+{
+public:
+	void rva0004CBC0() throw();
+};
+class BfmeParticleSystemHandleBase
+{
+public:
+	~BfmeParticleSystemHandleBase()
+	{
+		if (m_system)
+			((RvaSmartPtr12 *)this)->rva0004CBC0();
+	}
+	ParticleSystem *m_system;
+	BfmeParticleSystemHandleBase *m_previous;
+	BfmeParticleSystemHandleBase *m_next;
+};
+class BfmeParticleSystemHandle : public BfmeParticleSystemHandleBase
+{
+public:
+	operator bool() const { return m_system != 0; }
+	ParticleSystem *operator->() const
+	{
+		return m_system ? m_system : Make001FCBD7();
+	}
+};
+
+class ParticleSystemTemplate;
+class ParticleSystemManager
+{
+public:
+	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
+	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *sysTemplate, bool createSlaves);
+};
+extern ParticleSystemManager *TheParticleSystemManager;
+
+// TheAudio's misc-audio table (slot 78) holds the repair sparks event at +0x68;
+// addAudioEvent is slot 25 and 0x002D9508 sets an event's position.
+struct MiscAudio
+{
+	char m_pad[0x68];
+	OpaqueRefElement4 m_repairSparks; // +0x68
+};
+class AudioManager
+{
+public:
+#define AUDIO_SLOT(n) virtual void audioSlot##n();
+	AUDIO_SLOT(00) AUDIO_SLOT(01) AUDIO_SLOT(02) AUDIO_SLOT(03)
+	AUDIO_SLOT(04) AUDIO_SLOT(05) AUDIO_SLOT(06) AUDIO_SLOT(07)
+	AUDIO_SLOT(08) AUDIO_SLOT(09) AUDIO_SLOT(10) AUDIO_SLOT(11)
+	AUDIO_SLOT(12) AUDIO_SLOT(13) AUDIO_SLOT(14) AUDIO_SLOT(15)
+	AUDIO_SLOT(16) AUDIO_SLOT(17) AUDIO_SLOT(18) AUDIO_SLOT(19)
+	AUDIO_SLOT(20) AUDIO_SLOT(21) AUDIO_SLOT(22) AUDIO_SLOT(23)
+	AUDIO_SLOT(24)
+	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *event);
+	AUDIO_SLOT(26) AUDIO_SLOT(27) AUDIO_SLOT(28) AUDIO_SLOT(29)
+	AUDIO_SLOT(30) AUDIO_SLOT(31) AUDIO_SLOT(32) AUDIO_SLOT(33)
+	AUDIO_SLOT(34) AUDIO_SLOT(35) AUDIO_SLOT(36) AUDIO_SLOT(37)
+	AUDIO_SLOT(38) AUDIO_SLOT(39) AUDIO_SLOT(40) AUDIO_SLOT(41)
+	AUDIO_SLOT(42) AUDIO_SLOT(43) AUDIO_SLOT(44) AUDIO_SLOT(45)
+	AUDIO_SLOT(46) AUDIO_SLOT(47) AUDIO_SLOT(48) AUDIO_SLOT(49)
+	AUDIO_SLOT(50) AUDIO_SLOT(51) AUDIO_SLOT(52) AUDIO_SLOT(53)
+	AUDIO_SLOT(54) AUDIO_SLOT(55) AUDIO_SLOT(56) AUDIO_SLOT(57)
+	AUDIO_SLOT(58) AUDIO_SLOT(59) AUDIO_SLOT(60) AUDIO_SLOT(61)
+	AUDIO_SLOT(62) AUDIO_SLOT(63) AUDIO_SLOT(64) AUDIO_SLOT(65)
+	AUDIO_SLOT(66) AUDIO_SLOT(67) AUDIO_SLOT(68) AUDIO_SLOT(69)
+	AUDIO_SLOT(70) AUDIO_SLOT(71) AUDIO_SLOT(72) AUDIO_SLOT(73)
+	AUDIO_SLOT(74) AUDIO_SLOT(75) AUDIO_SLOT(76) AUDIO_SLOT(77)
+#undef AUDIO_SLOT
+	virtual MiscAudio *getMiscAudio();
+};
+extern AudioManager *TheAudio;
+class Rva002D9508
+{
+public:
+	void rva002D9508(const void *src);
+};
+
+class Object : public Thing
 {
 public:
 	const Coord3D *getPosition() const { return &m_position; }
@@ -434,6 +580,13 @@ public:
 	Real m_repairMinAltitude; // +0x2C
 	Real m_repairMaxAltitude; // +0x30
 	Real m_repairRatePerSecond; // +0x34
+	Real m_repairWhenHealthBelowPercentage; // +0x38
+	Int m_minReadyFrames; // +0x3C
+	Int m_maxReadyFrames; // +0x40
+	Int m_minWeldFrames; // +0x44
+	Int m_maxWeldFrames; // +0x48
+	AsciiString m_weldingSysName; // +0x4C
+	AsciiString m_weldingFXBone; // +0x50
 };
 extern int g_Va00E03BBC; // SLAVED_UPDATE_RATE
 // g_Va00E03BBC: matched references place it at VA 0xe03bbc (zero-filled .bss).
@@ -448,6 +601,7 @@ public:
 	void doGuardLogic(Coord3D *pinnedPosition, Bool idle);
 	void doRepairLogic();
 	void setRepairState(RepairStates repairState);
+	void moveToNewRepairSpot();
 	const SlavedUpdateModuleData *getSlavedUpdateModuleData() const { return (const SlavedUpdateModuleData *)m_moduleData; }
 private:
 	unsigned char m_pad0C[0x24 - 0x0C];
@@ -590,5 +744,96 @@ void SlavedUpdate::doScoutLogic(const Coord3D *mastersDestination)
 	if (ai)
 	{
 		ai->aiMoveToPosition(&scoutPosition, CMD_FROM_AI);
+	}
+}
+
+void SlavedUpdate::setRepairState(RepairStates repairState)
+{
+	Object *obj = getObject();
+	Drawable *draw = obj->getDrawable();
+	const SlavedUpdateModuleData *data = getSlavedUpdateModuleData();
+
+	if (repairState == m_repairState)
+		return;
+
+	switch (repairState)
+	{
+		case REPAIRSTATE_UNPACKING:
+			setRepairModelConditionStates(MODELCONDITION_UNPACKING);
+			m_framesToWait = 15;
+			break;
+		case REPAIRSTATE_PACKING:
+			setRepairModelConditionStates(MODELCONDITION_PACKING);
+			m_framesToWait = 15;
+			break;
+		case REPAIRSTATE_READY:
+		{
+			switch (m_repairState)
+			{
+				case REPAIRSTATE_NONE:
+					setRepairModelConditionStates(MODELCONDITION_UNPACKING);
+					m_repairState = REPAIRSTATE_UNPACKING;
+					m_framesToWait = 15;
+					break;
+				case REPAIRSTATE_WELDING:
+					m_repairState = REPAIRSTATE_RETRACTING;
+					m_framesToWait = 5;
+					setRepairModelConditionStates(MODELCONDITION_FIRING_C);
+					moveToNewRepairSpot();
+					break;
+				default:
+					m_repairState = REPAIRSTATE_READY;
+					m_framesToWait = GameLogicRandomValue(data->m_minReadyFrames, data->m_maxReadyFrames, 750);
+					break;
+			}
+			break;
+		}
+		case REPAIRSTATE_WELDING:
+		{
+			if (m_repairState == REPAIRSTATE_READY)
+			{
+				m_repairState = REPAIRSTATE_EXTENDING;
+				m_framesToWait = 5;
+				setRepairModelConditionStates(MODELCONDITION_FIRING_B);
+				break;
+			}
+			m_repairState = REPAIRSTATE_WELDING;
+			m_framesToWait = GameLogicRandomValue(data->m_minWeldFrames, data->m_maxWeldFrames, 767);
+
+			if (!data->m_weldingSysName.isEmpty())
+			{
+				const ParticleSystemTemplate *tmp = TheParticleSystemManager->findTemplate(data->m_weldingSysName);
+				if (tmp)
+				{
+					BfmeParticleSystemHandle weldingSys = TheParticleSystemManager->createParticleSystem(tmp, true);
+					if (weldingSys)
+					{
+						Coord3D pos;
+						if (draw->getPristineBonePositions(data->m_weldingFXBone.str(), 0, &pos, 0, 1, 0))
+						{
+							pos.x = obj->getPosition()->x + pos.x;
+							pos.y = obj->getPosition()->y + pos.y;
+							pos.z = obj->getPosition()->z + pos.z;
+						}
+						else
+							pos.set(obj->getPosition());
+
+						weldingSys->setPosition(&pos);
+						Real time = (Real)(m_framesToWait * LOGICFRAMES_PER_SECOND);
+						weldingSys->setLifetimeRange(time, time);
+
+						BfmeAudioEventPrefix136 soundToPlay(TheAudio->getMiscAudio()->m_repairSparks, 0);
+						((Rva002D9508 *)&soundToPlay)->rva002D9508(&pos);
+						TheAudio->addAudioEvent(&soundToPlay);
+					}
+				}
+			}
+
+			if (!m_repairing)
+			{
+				m_repairing = true;
+			}
+			break;
+		}
 	}
 }
