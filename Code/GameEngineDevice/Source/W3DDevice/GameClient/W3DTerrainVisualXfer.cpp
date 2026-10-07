@@ -389,3 +389,38 @@ void W3DTerrainVisual::xfer( Xfer *xfer )
 	*xfer == *terrainSnapshot;
 
 }  // end xfer
+
+// Retail 0x00072988..0x000729CC, RET8; called by 0x00073FFB.
+// The two-byte grid cell supplies its low four bits, scaled by the retail
+// 17.0f literal at 0x00BC653C. Only observed fields are modeled; the original
+// class and method names remain unresolved. This terrain unit already uses
+// the verified x87 /O1 /G7 configuration required by the native conversion.
+struct Rva00072988Cell
+{
+	unsigned short level : 4;
+	unsigned short rest : 12;
+};
+
+class Rva00072988
+{
+public:
+	unsigned char rva00072988(int x, int y);
+private:
+	int width;
+	int height;
+	unsigned char pad[16];
+	Rva00072988Cell *data;
+};
+
+unsigned char Rva00072988::rva00072988(int x, int y)
+{
+	if (!data)
+		return 0;
+	if (x >= width || y >= height)
+		return 0;
+	int value = y * width + x;
+	value = data[value].level;
+	float scaled = (float)value;
+	scaled *= 17.0f;
+	return (unsigned char)(int)scaled;
+}
