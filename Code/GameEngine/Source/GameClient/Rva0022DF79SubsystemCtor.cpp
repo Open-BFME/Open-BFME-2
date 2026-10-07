@@ -1,7 +1,7 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva0022A9DDSubsystem@@QAE@XZ @0x0022DF79 55B
-// Evidence: GameEngine::init caller 0x0022EE7B names TheLivingWorldAutoResolveWeaponStore; callees baseConstruct 0x001B4E63 and hash_map 0x0022D95A.
+// Evidence: GameEngine::init caller registers TheLivingWorldAutoResolveLeadershipStore; callees baseConstruct 0x001B4E63 and hash_map 0x0022D95A.
 #include <hash_map>
 #include "ascii_string.h"
 
