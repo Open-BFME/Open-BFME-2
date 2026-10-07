@@ -192,7 +192,9 @@ public:
 #undef V
 };
 
-class Rva0043283C
+// Native calls at the documented setter sites target the already rowed
+// Rva00432AEB provider (same thiscall int(int) ABI); use its linker identity.
+class Rva00432AEB
 {
 public:
 	Int rva00432AEB(Int value);
@@ -246,7 +248,7 @@ WindowMsgHandledType GadgetTextEntryInput(GameWindow *window, UnsignedInt msg,
 				TheWindowManager->winSendSystemMsg(window->winGetOwner(),
 					GBM_MOUSE_ENTERING, (WindowMsgData)window, 0);
 			}
-			((Rva0043283C *)g_Va00E032C8)->rva00432AEB(0x2C);
+			((Rva00432AEB *)g_Va00E032C8)->rva00432AEB(0x2C);
 			if (e)
 				e->systemFlag = true;
 			break;
@@ -295,7 +297,7 @@ WindowMsgHandledType GadgetTextEntryInput(GameWindow *window, UnsignedInt msg,
 				TheWindowManager->winSendSystemMsg(window->winGetOwner(),
 					GBM_MOUSE_LEAVING, (WindowMsgData)window, 0);
 			}
-			((Rva0043283C *)g_Va00E032C8)->rva00432AEB(2);
+			((Rva00432AEB *)g_Va00E032C8)->rva00432AEB(2);
 			if (e)
 				e->systemFlag = false;
 			break;

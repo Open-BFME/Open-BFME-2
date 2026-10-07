@@ -140,7 +140,9 @@ public:
 #undef V
 };
 
-class Rva0043283C
+// Native calls at the documented setter sites target the already rowed
+// Rva00432AEB provider (same thiscall int(int) ABI); use its linker identity.
+class Rva00432AEB
 {
 public:
 	Int rva00432AEB(Int value);
@@ -209,7 +211,7 @@ WindowMsgHandledType GadgetTextEntrySystem(GameWindow *window, UnsignedInt msg,
 
 		case GWM_DESTROY:
 			if (e && e->systemFlag)
-				((Rva0043283C *)g_Va00E032C8)->rva00432AEB(2);
+				((Rva00432AEB *)g_Va00E032C8)->rva00432AEB(2);
 
 			// delete the edit display strings
 			TheDisplayStringManager->freeDisplayString(e->text);
