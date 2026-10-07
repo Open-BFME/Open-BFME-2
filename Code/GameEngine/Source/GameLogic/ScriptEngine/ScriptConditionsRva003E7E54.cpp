@@ -17,7 +17,14 @@ public:
     AsciiString text;
 };
 class Team {public: float rva003A3736(float value);};
-class ScriptEngine {public: Team *getTeamNamed(AsciiString name,bool create);};
+class PolygonTrigger;
+class ScriptEngine {
+public:
+    Team *getTeamNamed(AsciiString name,bool create);
+    PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
+    char unknown00[0x1A15C];
+    unsigned int expiry;
+};
 extern ScriptEngine *TheScriptEngine;
 bool __stdcall Rva003E7E54Get(Parameter *teamName,Parameter *comparison,Parameter *threshold,Parameter *input)
 {
@@ -34,5 +41,40 @@ bool __stdcall Rva003E7E54Get(Parameter *teamName,Parameter *comparison,Paramete
     case 4: return value>threshold->value;
     case 5: return value!=threshold->value;
     }
+    return false;
+}
+
+// Native3E63CD..3E64A6 RET16. Source guide: ZH ScriptConditions' area
+// lookup and six comparisons. Target adds cached tri-state44/expiry48,
+// TerrainLogic stamp1910 and ScriptEngine expiry1A15C. Qualified-area and
+// measured TerrainLogic-receiver metric27F171 callees are independently rowed.
+// The metric's BfmeThingCME spelling is its existing borrowed view; this
+// cast describes the native receiver and does not identify TerrainLogic as it.
+// Cache owner, original condition name and metric meaning remain unknown.
+class BfmeThingCME {public: int rva0027F171(PolygonTrigger *area);};
+class TerrainLogic {public: char unknown00[0x1910]; unsigned int stamp;};
+extern TerrainLogic *TheTerrainLogic;
+struct Rva003E63CDState {char unknown00[0x44];int cached;unsigned int until;};
+bool __stdcall Rva003E63CDGet(Rva003E63CDState *state,Parameter *comparison,Parameter *threshold,Parameter *areaName)
+{
+    PolygonTrigger *area=TheScriptEngine->getQualifiedTriggerAreaByName(areaName->text);
+    if (!area) return false;
+    if (TheTerrainLogic->stamp<=state->until) {
+        if (state->cached==-1) return false;
+        if (state->cached==1) return true;
+    }
+    int value=((BfmeThingCME *)TheTerrainLogic)->rva0027F171(area);
+    bool match=false;
+    switch(comparison->mode) {
+    case 0: match=value<threshold->mode; break;
+    case 1: match=value<=threshold->mode; break;
+    case 2: match=value==threshold->mode; break;
+    case 3: match=value>=threshold->mode; break;
+    case 4: match=value>threshold->mode; break;
+    case 5: match=value!=threshold->mode; break;
+    }
+    state->until=TheScriptEngine->expiry;
+    if(match) {state->cached=1; return true;}
+    state->cached=-1;
     return false;
 }
