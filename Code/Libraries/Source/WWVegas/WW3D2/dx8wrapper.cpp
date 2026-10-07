@@ -264,85 +264,6 @@ void Non_Fatal_Log_DX8_ErrorCode(unsigned res,const char * file,int line)
 
 
 
-// ?Init@DX8Wrapper@@ present-unmatched
-bool DX8Wrapper::Init(void * hwnd, bool lite)
-{
-	WWASSERT(!IsInitted);
-
-	// zero memory
-	memset(Textures,0,sizeof(IDirect3DBaseTexture8*)*MAX_TEXTURE_STAGES);
-	memset(RenderStates,0,sizeof(unsigned)*256);
-	memset(TextureStageStates,0,sizeof(unsigned)*32*MAX_TEXTURE_STAGES);
-	memset(Vertex_Shader_Constants,0,sizeof(Vector4)*MAX_VERTEX_SHADER_CONSTANTS);
-	memset(Pixel_Shader_Constants,0,sizeof(Vector4)*MAX_PIXEL_SHADER_CONSTANTS);
-	memset(&render_state,0,sizeof(RenderStateStruct));
-	memset(Shadow_Map,0,sizeof(ZTextureClass*)*MAX_SHADOW_MAPS);
-
-	/*
-	** Initialize all variables!
-	*/
-	_Hwnd = (HWND)hwnd;
-	_MainThreadID=ThreadClass::_Get_Current_Thread_ID();
-	WWDEBUG_SAY(("DX8Wrapper main thread: 0x%x\n",_MainThreadID));
-	CurRenderDevice = -1;
-	ResolutionWidth = DEFAULT_RESOLUTION_WIDTH;
-	ResolutionHeight = DEFAULT_RESOLUTION_HEIGHT;
-	// Initialize Render2DClass Screen Resolution
-	Render2DClass::Set_Screen_Resolution( RectClass( 0, 0, ResolutionWidth, ResolutionHeight ) );
-	BitDepth = DEFAULT_BIT_DEPTH;
-	IsWindowed = false;	
-	DX8Wrapper_IsWindowed = false;
-
-	for (int light=0;light<4;++light) CurrentDX8LightEnables[light]=false;
-
-	::ZeroMemory(&old_world, sizeof(D3DMATRIX));
-	::ZeroMemory(&old_view, sizeof(D3DMATRIX));
-	::ZeroMemory(&old_prj, sizeof(D3DMATRIX));
-
-	//old_vertex_shader; TODO
-	//old_sr_shader;
-	//current_shader;
-
-	//world_identity;
-	//CurrentFogColor;
-
-	D3DInterface = NULL;
-	D3DDevice = NULL;
-
-	WWDEBUG_SAY(("Reset DX8Wrapper statistics\n"));
-	Reset_Statistics();
-
-	Invalidate_Cached_Render_States();
-
-	if (!lite) {
-		D3D8Lib = LoadLibrary("D3D8.DLL");
-
-		if (D3D8Lib == NULL) return false;	// Return false at this point if init failed
-
-		Direct3DCreate8Ptr = (Direct3DCreate8Type) GetProcAddress(D3D8Lib, "Direct3DCreate8");
-		if (Direct3DCreate8Ptr == NULL) return false;
-
-		/*
-		** Create the D3D interface object
-		*/
-		WWDEBUG_SAY(("Create Direct3D8\n"));
-		D3DInterface = Direct3DCreate8Ptr(D3D_SDK_VERSION);		// TODO: handle failure cases...
-		if (D3DInterface == NULL) {
-			return(false);
-		}
-		IsInitted = true;
-
-		/*
-		** Enumerate the available devices
-		*/
-		WWDEBUG_SAY(("Enumerate devices\n"));
-		Enumerate_Devices();
-		WWDEBUG_SAY(("DX8Wrapper Init completed\n"));
-	}
-
-	return(true);
-}
-
 // ?Do_Onetime_Device_Dependent_Inits@DX8Wrapper@@ present-unmatched
 void DX8Wrapper::Do_Onetime_Device_Dependent_Inits(void)
 {
@@ -720,20 +641,22 @@ public:
 	virtual void reserved4()=0;
 	virtual void reserved5()=0;
 	virtual void reserved6()=0;
-	virtual void reserved7()=0;
-	virtual void reserved8()=0;
-	virtual void reserved9()=0;
-	virtual void reserved10()=0;
-	virtual void reserved11()=0;
-	virtual void reserved12()=0;
-	virtual void reserved13()=0;
+	// VC7.1 lays an overload group out at its first slot in reverse
+	// declaration order: double at 0x1C through const char * at 0x38.
 	virtual BfmeResetDebug &operator<<(const char *)=0;
+	virtual BfmeResetDebug &operator<<(int)=0;
+	virtual BfmeResetDebug &operator<<(unsigned)=0;
+	virtual BfmeResetDebug &operator<<(long)=0;
+	virtual BfmeResetDebug &operator<<(unsigned long)=0;
+	virtual BfmeResetDebug &operator<<(bool)=0;
+	virtual BfmeResetDebug &operator<<(float)=0;
+	virtual BfmeResetDebug &operator<<(double)=0;
 	virtual void reserved15()=0;
 	virtual void reserved16()=0;
 	virtual void reserved17()=0;
 	virtual void reserved18()=0;
 	virtual void CrashDone(bool)=0;
-	virtual void reserved20()=0;
+	virtual void SetPrefixAndRadix(const char *,int)=0;
 	virtual void reserved21()=0;
 	virtual void reserved22()=0;
 	virtual void SetCrashAddress(void *,bool)=0;
@@ -741,7 +664,16 @@ public:
 	virtual void reserved25()=0;
 	virtual void reserved26()=0;
 	virtual BfmeResetDebug &CrashBegin(const char *,int,const char *)=0;
+	virtual void reserved28()=0;
+	virtual void reserved29()=0;
+	typedef bool (*HResultTranslator)(BfmeResetDebug &,long,void *);
+	virtual void AddHResultTranslator(unsigned,HResultTranslator,void *)=0;
 	static bool SkipNext(bool);
+
+	class Hex {};
+	class Dec {};
+	BfmeResetDebug &operator<<(const Hex &) { SetPrefixAndRadix("0x",16); return *this; }
+	BfmeResetDebug &operator<<(const Dec &) { SetPrefixAndRadix("",10); return *this; }
 };
 extern BfmeResetDebug *BfmeResetDebugInstance;
 
@@ -2075,6 +2007,139 @@ void DX8Wrapper::Reset_Statistics()
 	last_frame_texture_stage_state_changes = 0;
 	last_frame_number_of_DX8_calls = 0;
 	last_frame_draw_calls =0;
+}
+
+// BFME 2's device mutex (BfmeDX8ThreadLock.cpp owns the lock half and the
+// bookkeeping).  The release half lives in this unit at 0x00120F50: Init
+// inlines it on its success exit.
+extern void *bfmeDX8DeviceMutex;					// 0x00DEC598
+extern unsigned char bfmeDX8DeviceSection[24];		// 0x00DEC540
+extern volatile unsigned long bfmeDX8DeviceOwner;	// 0x00DEDA88
+extern volatile int bfmeDX8DeviceRecursion;		// 0x00DEDA8C
+void BFME_DX8_Thread_Lock();
+
+// Undoes one take: when the recursion count reaches zero the owner is
+// cleared, then the mutex is released.  Reports whether this was the last
+// unlock.
+bool BFME_DX8_Thread_Assert(void)
+{
+	unsigned long threadId = ThreadClass::_Get_Current_Thread_ID();
+	if (threadId == bfmeDX8DeviceOwner)
+		threadId = bfmeDX8DeviceRecursion;
+	EnterCriticalSection((LPCRITICAL_SECTION)bfmeDX8DeviceSection);
+	bool lastUnlock = --bfmeDX8DeviceRecursion == 0;
+	if (lastUnlock)
+		bfmeDX8DeviceOwner = 0;
+	LeaveCriticalSection((LPCRITICAL_SECTION)bfmeDX8DeviceSection);
+	ReleaseMutex(bfmeDX8DeviceMutex);
+	return lastUnlock;
+}
+
+// Existing reconstructed guard contract from reference/shims/indexbuffercount/dx8indexbuffer.h.
+class BFMEDX8DeviceLock {
+public:
+ BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
+ ~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
+};
+
+// 0x0011FC20: the HRESULT translator Init registers with the debug library
+// (priority 100): hex value, then the DirectX error name.  Role name;
+// the original spelling is unknown.
+extern "C" const char * __stdcall DXGetErrorString9A(long hr);
+bool bfmeDX8HResultTranslator(BfmeResetDebug &dbg,long hresult,void *)
+{
+	StringClass name(DXGetErrorString9A(hresult),false,StringClass::COPY_NATIVE);
+	dbg << "0x" << BfmeResetDebug::Hex() << hresult << BfmeResetDebug::Dec() << " (" << name << ")";
+	return true;
+}
+
+// D3D9's PIX hooks, resolved when D3DPERF_GetStatus reports a profiler.
+typedef void (__stdcall *BfmeWideTextHook)(void *,const unsigned short *);
+typedef void (*BfmeVoidHook)(void);
+typedef unsigned long (__stdcall *BfmeD3DPerfGetStatus)(void);
+extern BfmeD3DPerfGetStatus bfmeD3DPerfGetStatus;
+extern BfmeWideTextHook bfmeData00DEDBDC;
+extern BfmeVoidHook bfmeData00DEDBE0;
+extern void *bfmeData00DEDBE4;
+extern void *bfmeData00DEDBE8;
+
+// BFME 2's Init follows ZH's with D3D9 in place of D3D8: the debug library
+// gets the HRESULT translator first, the device mutex is created and held
+// for the rest of the body, and the PIX entry points are looked up.  ZH's
+// Render2DClass resolution and shadow-map clearing are gone.
+bool DX8Wrapper::Init(void * hwnd, bool lite)
+{
+	BfmeResetDebugInstance->AddHResultTranslator(100,bfmeDX8HResultTranslator,0);
+
+	// zero memory
+	memset(Textures,0,sizeof(IDirect3DBaseTexture8*)*MAX_TEXTURE_STAGES);
+	memset(RenderStates,0,sizeof(unsigned)*256);
+	memset(TextureStageStates,0,sizeof(unsigned)*32*MAX_TEXTURE_STAGES);
+	memset(Vertex_Shader_Constants,0,sizeof(Vertex_Shader_Constants));
+	memset(Pixel_Shader_Constants,0,sizeof(Pixel_Shader_Constants));
+	memset(&render_state,0,sizeof(RenderStateStruct));
+
+	/*
+	** Initialize all variables!
+	*/
+	_Hwnd = (HWND)hwnd;
+	_MainThreadID=ThreadClass::_Get_Current_Thread_ID();
+	InitializeCriticalSection((LPCRITICAL_SECTION)bfmeDX8DeviceSection);
+	bfmeDX8DeviceMutex=CreateMutexA(NULL,FALSE,NULL);
+	BFMEDX8DeviceLock lock;
+
+	CurRenderDevice = -1;
+	ResolutionWidth = DEFAULT_RESOLUTION_WIDTH;
+	ResolutionHeight = DEFAULT_RESOLUTION_HEIGHT;
+	BitDepth = DEFAULT_BIT_DEPTH;
+	IsWindowed = false;
+	DX8Wrapper_IsWindowed = false;
+
+	for (int light=0;light<4;++light) CurrentDX8LightEnables[light]=false;
+
+	::ZeroMemory(&old_world, sizeof(D3DMATRIX));
+	::ZeroMemory(&old_view, sizeof(D3DMATRIX));
+	::ZeroMemory(&old_prj, sizeof(D3DMATRIX));
+
+	D3DInterface = NULL;
+	D3DDevice = NULL;
+
+	Reset_Statistics();
+
+	Invalidate_Cached_Render_States();
+
+	if (!lite) {
+		D3D8Lib = LoadLibrary("D3D9.DLL");
+
+		if (D3D8Lib == NULL) return false;	// Return false at this point if init failed
+
+		Direct3DCreate8Ptr = (Direct3DCreate8Type) GetProcAddress(D3D8Lib, "Direct3DCreate9");
+		if (Direct3DCreate8Ptr == NULL) return false;
+
+		bfmeD3DPerfGetStatus = (BfmeD3DPerfGetStatus) GetProcAddress(D3D8Lib, "D3DPERF_GetStatus");
+		if (bfmeD3DPerfGetStatus != NULL && bfmeD3DPerfGetStatus()) {
+			bfmeData00DEDBDC = (BfmeWideTextHook) GetProcAddress(D3D8Lib, "D3DPERF_BeginEvent");
+			bfmeData00DEDBE0 = (BfmeVoidHook) GetProcAddress(D3D8Lib, "D3DPERF_EndEvent");
+			bfmeData00DEDBE4 = GetProcAddress(D3D8Lib, "D3DPERF_SetMarker");
+			bfmeData00DEDBE8 = GetProcAddress(D3D8Lib, "D3DPERF_SetOptions");
+		}
+
+		/*
+		** Create the D3D interface object (D3D9's D3D_SDK_VERSION is 32)
+		*/
+		D3DInterface = Direct3DCreate8Ptr(32);
+		if (D3DInterface == NULL) {
+			return(false);
+		}
+		IsInitted = true;
+
+		/*
+		** Enumerate the available devices
+		*/
+		Enumerate_Devices();
+	}
+
+	return(true);
 }
 
 void DX8Wrapper::Begin_Statistics()
@@ -4673,13 +4738,6 @@ void BfmeDrawOps::Draw(unsigned primitive_type,unsigned start_index,unsigned pol
 
 // Buffer ownership and complete EH proof: docs/reconstruction/dx8wrapper-sorting-draw.md.
 // Existing reconstructed guard contract from reference/shims/indexbuffercount/dx8indexbuffer.h.
-extern void BFME_DX8_Thread_Lock();
-extern void BFME_DX8_Thread_Assert();
-class BFMEDX8DeviceLock {
-public:
- BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
- ~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
 struct BfmeSortingVBAccess {
  const BfmeApplyFVFPrefix *format; unsigned type,formatIndex,extra;
  unsigned short vertexCount,vertexOffset; BfmeApplyVertexBuffer *buffer;
@@ -4823,8 +4881,7 @@ float bfmeProjectionBias;
 // Retail clears these writable callback slots when unloading D3D8Lib.
 // DC/E0 call signatures come from the already rowed BfmeDX8Callbacks.cpp.
 // E4/E8 are opaque pointer slots; this body only resets them.
-typedef void (__stdcall *BfmeWideTextHook)(void *,const unsigned short *);
-typedef void (*BfmeVoidHook)(void);
+BfmeD3DPerfGetStatus bfmeD3DPerfGetStatus = 0;
 BfmeWideTextHook bfmeData00DEDBDC = 0;
 BfmeVoidHook bfmeData00DEDBE0 = 0;
 void *bfmeData00DEDBE4 = 0;

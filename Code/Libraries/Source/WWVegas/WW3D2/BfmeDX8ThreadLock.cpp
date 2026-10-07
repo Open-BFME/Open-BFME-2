@@ -6,7 +6,7 @@
 // crashes through the Debug singleton if another thread held it that long,
 // then records the owning thread and bumps the recursion count at
 // 0x00DEDA88/0x00DEDA8C under the critical section at 0x00DEC540.  The
-// release half is BFME_DX8_Thread_Assert at 0x00120F50.
+// release half is BFME_DX8_Thread_Assert at 0x00120F50, in dx8wrapper.cpp.
 //
 // The imports are declared by hand: WaitForSingleObject and the critical
 // section pair go through the import table, while GetCurrentThreadId is called
@@ -122,22 +122,9 @@ int bfmeRva0011F600()
 	return 0;
 }
 
-// 0x00120F50: the release half of the device mutex.  Undoes one take: when
-// the recursion count reaches zero the owner is cleared, then the mutex is
-// released.  Reports whether this was the last unlock.
-bool BFME_DX8_Thread_Assert(void)
-{
-	unsigned long threadId = GetCurrentThreadId();
-	if (threadId == bfmeDX8DeviceOwner)
-		threadId = bfmeDX8DeviceRecursion;
-	EnterCriticalSection(bfmeDX8DeviceSection);
-	bool lastUnlock = --bfmeDX8DeviceRecursion == 0;
-	if (lastUnlock)
-		bfmeDX8DeviceOwner = 0;
-	LeaveCriticalSection(bfmeDX8DeviceSection);
-	ReleaseMutex(bfmeDX8DeviceMutex);
-	return lastUnlock;
-}
+// The release half, BFME_DX8_Thread_Assert at 0x00120F50, is defined in
+// dx8wrapper.cpp: DX8Wrapper::Init inlines it on its success exit.
+bool BFME_DX8_Thread_Assert(void);
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
