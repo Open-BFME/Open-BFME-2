@@ -15,14 +15,21 @@ class Rva00148F5ECache
 {
 public:
 	NameKeyType get();
-private:
+public:
 	NameKeyType m_key;
 	const char *m_name;
 };
 
-extern Rva00148F5ECache g_00DBDC84;
-extern Rva00148F5ECache g_00DBDC8C;
-extern Rva00148F5ECache g_00DBDC74;
+// Four adjacent8B target caches at RVAs9BDC74/7C/84/8C have
+// zero keys and the exact strings below; define existing extern-only siblings
+// here so their getters and the GenericAIObjectType setter can link.
+// Target static cache at RVA9BDC7C is {0, "GenericAIObjectID"}.
+// Its name is descriptive; no original global spelling is inferred.
+Rva00148F5ECache MapGenericAIObjectIDCache = { NAMEKEY_INVALID, "GenericAIObjectID" };
+
+Rva00148F5ECache g_00DBDC84 = { NAMEKEY_INVALID, "GenericAIObjectType" };
+Rva00148F5ECache g_00DBDC8C = { NAMEKEY_INVALID, "GenericAIObjectWallHubNumber" };
+Rva00148F5ECache g_00DBDC74 = { NAMEKEY_INVALID, "waypointID" };
 
 class Dict
 {
@@ -38,6 +45,7 @@ public:
 	int rva0030D4F2();
 	int rva0030D50C();
 	int rva0030D428();
+	int rva0030D4D8();
 private:
 	char m_pad0[0x24];
 	Dict m_dict;
@@ -60,4 +68,11 @@ int Rva0030D4F2::rva0030D50C()
 int Rva0030D4F2::rva0030D428()
 {
 	return m_dict.getInt(g_00DBDC74.get(), 0);
+}
+
+// Native30D4D8..30D4F2 RET: same receiver Dict24 and rowed cache/getInt
+// as its three siblings. Retail cache string independently proves the key.
+int Rva0030D4F2::rva0030D4D8()
+{
+    return m_dict.getInt(MapGenericAIObjectIDCache.get(), 0);
 }
