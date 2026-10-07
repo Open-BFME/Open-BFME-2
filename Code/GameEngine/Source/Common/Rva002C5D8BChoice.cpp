@@ -16,14 +16,73 @@ public:
 	int m_74;
 };
 
+// Native 3ED0C4..3ED191 copies seventeen dwords into its hidden result
+// pointer and returns that pointer in EAX (RET16). Only its first scalar is
+// consumed here; the original result type remains unresolved.
+struct Rva003ED0C4Result
+{
+    float values[17];
+};
+class Rva003ED0C4
+{
+public:
+    Rva003ED0C4Result rva003ED0C4(void *owner, int mode, int player);
+    char m_pad00[0x554];
+    Coord3D m_position;
+    float m_radius;
+};
+class Rva003ECB0BDwordClearer
+{
+public:
+    void clear();
+};
+class Rva002C589B
+{
+public:
+    void rva002C58B3();
+};
+#include "GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+
 class AITarget
 {
 public:
 	void rva002C5CF7(const struct Coord3D *pos, float radius, int id);
 	void setTarget(Object *obj, float value);
+private:
+    void *m_owner;
+    unsigned int m_04;
+    unsigned int m_frame;
+    Coord3D m_position;
+    char m_pad18[0x24 - 0x18];
+    Rva003ED0C4 *m_table;
+    float m_value;
+    char m_pad2C[0x34 - 0x2C];
+    int m_id;
 };
 
 void AITarget::setTarget(Object *obj, float value)
 {
 	rva002C5CF7(&obj->m_38, value, obj->m_74);
+}
+
+// Existing setTarget and the rowed heuristic caller identify this AITarget
+// setter and its position/radius/id ABI. Native 2C5CF7..2C5D8B RET12 proves
+// the offsets, helper calls, three-component snapshot and 68-byte result.
+void AITarget::rva002C5CF7(const Coord3D *pos, float radius, int id)
+{
+    reinterpret_cast<Rva002C589B *>(this)->rva002C58B3();
+    m_position = *pos;
+    Rva003ED0C4 *table = m_table;
+    m_id = id;
+    m_frame = TheGameLogic->getFrame();
+    Coord3D point;
+    point.x = pos->x;
+    point.y = pos->y;
+    point.z = pos->z;
+    table->m_position = point;
+    m_table->m_radius = radius;
+    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
+    Rva003ED0C4Result result = m_table->rva003ED0C4(m_owner, 0, 0);
+    m_value = result.values[0];
 }
