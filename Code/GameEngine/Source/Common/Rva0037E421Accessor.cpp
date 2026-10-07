@@ -135,3 +135,22 @@ int Rva0037E6E8::rva0037E6E8(void *extra, void *object)
     }
     return ((UnitRevivalEntry *)entry)->revivalEntryCalcTimeToBuild(m_10, obj);
 }
+// ?rva0037E787@Rva0037E787@@QAEHPAX0@Z @0x0037E787 30B
+// Gap body between 0x0037E6E8 and 0x0037E7A5 in the same TU.
+// Entry lookup via Rva0037E421::rva0037E421 then direct time via UnitRevivalEntry::
+// revivalEntryCalcTimeToBuild with this+0x10 player. Called at 0x005DAFA4 with
+// ecx = AIBuildableUnit+0x738 member. Same +0x10 player layout as Rva0037E6E8.
+// Honest-address name: owner unknown so Rva0037E787 class, void* void* args (PAX0 compression).
+class Rva0037E787 : public Rva0037E421
+{
+public:
+    Player *m_10;
+    int rva0037E787(void *extra, void *object);
+};
+int Rva0037E787::rva0037E787(void *extra, void *object)
+{
+    void *entry = rva0037E421((int)extra);
+    if (!entry)
+        return 0;
+    return ((UnitRevivalEntry *)entry)->revivalEntryCalcTimeToBuild(m_10, (Object *)object);
+}
