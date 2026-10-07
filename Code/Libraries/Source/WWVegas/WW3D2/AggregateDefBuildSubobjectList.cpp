@@ -18,6 +18,8 @@
 // an array will not match, try it without this block.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
+// Share the retail size context with the RefCountClass release declaration.
+#include "refcount.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard

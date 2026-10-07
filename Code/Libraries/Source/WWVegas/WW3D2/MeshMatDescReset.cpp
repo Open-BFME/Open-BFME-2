@@ -9,6 +9,9 @@
 // +B8/+108 and the state at+C retain descriptive names, not donor identities.
 // Texture slots hold four-byte owning handles. Their Reset method preserves
 // the target release-before-null operation; other buffers use RefCountClass.
+// Match the retail RefCountClass release helper at 0x5D1A7D.
+// Its declaration uses the verified provider's size context; callers retain theirs.
+#pragma optimize("gsy", on)
 class RefCountClass {
 public:
     void Release_Ref() { --NumRefs; if (NumRefs == 0) Delete_This(); }
@@ -16,6 +19,7 @@ public:
 private:
     int NumRefs;
 };
+#pragma optimize("", on)
 class TextureClass;
 template <class T> class RefCountPtr {
 public:
