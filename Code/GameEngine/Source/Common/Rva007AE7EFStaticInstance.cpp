@@ -1,4 +1,7 @@
-// cl: /O2 /MD
+// cl: /O2 /Os /MD
+// /Os makes the emitted constructor the rowed 13-byte copy while /O2
+// retains constant initialization. Constructor, destructor and deleting
+// destructor copies all match their existing retail owners.
 // Dynamic initializer and cleanup of a file-scope Rva0030D346 object. Its
 // inline constructor (vptr plus a zeroed word at +4) is folded into the
 // object's static data, so the initializer only registers the cleanup, and
