@@ -15634,3 +15634,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva001F8437@Rva001F8437@@QAEPAXABVAsciiString@@@Z,0x001F8437,Target call at 0x0005B1C2 sets ECX to MilesAudioManager+0xB0 and passes the AsciiString key at [ebp+0x0C]. Ghidra callee boundary is 78B and the matched tree-find worker is at this RVA. Address-derived callable signature; concrete map type remains unresolved.
 ?SetEnabled@Impl@AptScrollBar@@QAEX_N@Z,0x005D4949,callee of ?SetEnabled@Rva005D49CD@@QAEX_N@Z
 ?rva00158BA0@Rva00158BA0@@QAEXPAMPBG@Z,0x00158BA0,callee of ?rva00105CF6@Rva00105CF6@@QAEXPAPBGPAH1@Z
+?rva00112AD1@Rva00112AD1@@QAE_NHHHM@Z,0x00112AD1,retail REL32 at 0x00113191 targets 0x00112AD1; caller supplies 0; 0; this+0x58; float arg2 and callee ret 0x10 confirms four stack slots; address-derived dependency only; body unrecovered
