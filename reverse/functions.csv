@@ -38159,7 +38159,6 @@ _vp6_drawc,,0x001BB580,109,Code/Libraries/Source/VP6/debug.cpp,matched,Target CR
 ?Rva00222834Get@@YA?AVAsciiString@@H@Z,,0x00222834,90,Code/GameEngine/Source/Common/System/Rva00222834Get.cpp,matched,twin of intAsStr format pct-d RVO via rowed format and pinned copy
 ?Rva003ECA13Get@@YAKABVAsciiString@@@Z,,0x003ECA13,28,Code/Libraries/Source/WWVegas/WWLib/realcrc_one_arg.cpp,matched,free AsciiString CRC wrapper over rowed CRC_String via inlined str with empty at 0xBBAC1C proven by 26 callers
 ?rva003ECAE0@Rva003ECA69Element@@QAEXPAVXfer@@@Z,,0x003ECAE0,43,Code/GameEngine/Source/GameLogic/Object/Update/Rva003ECA69ElementClear.cpp,matched,element 17-float xfer via float slot 0x70 proven by 20x0x44 caller 0x3ECBF8
-?rva0028BB9E@BfmeSubBEC@@QAEPAXPAX@Z,,0x0028BB9E,67,Code/GameEngine/Source/Common/BfmeSubBECFilteredFind.cpp,matched,BfmeSubBEC filtered find via sibling layout and callers
 ?rva0028B78A@Object@@QAEXH@Z,,0x0028B78A,18,Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp,matched,Object body forwarder via 0x254 slot 0x30 callers 6 and 9
 ?rva0028B79C@Object@@QAEXH@Z,,0x0028B79C,18,Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp,matched,Object body forwarder via 0x254 slot 0x34 callers 6 and 9
 ?rva0028B95F@Object@@QAEXXZ,,0x0028B95F,22,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,matched,Object flag and frame setter via TheGameLogic
