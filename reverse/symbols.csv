@@ -15754,3 +15754,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?Rva004118B4@@YAPAXPBD0@Z,0x004118B4,callee of ?Rva004120B3@@YAXPBVCoord2D@@0PBD1@Z
 ?rva002CCED3@Weapon@@QAE_NPBVObject@@0@Z,0x002CCED3,callee of ?Rva0041BAD2@@YG_NPBVObject@@0W4CommandSourceType@@W4WeaponSlotType@@@Z
 ?rva00431C9D@WaitForSecondButtonDownStateHandler@FormationTranslator@@QAEHPAVGameMessage@@@Z,0x00431C9D,callee of ?rva00432038@WaitForSecondButtonDownStateHandler@FormationTranslator@@QAEHPAVGameMessage@@@Z
+?rva0043B864@Rva0043B2E2@@QAEAAVRva0043B196@@ABH@Z,0x0043B864,callee of ?rva0043B8C0@DOTManager@@QAEXHPBVRva0043B163@@@Z
+?rva0043B278@DOTManager@@QAEXHH@Z,0x0043B278,callee of ?rva0043B8C0@DOTManager@@QAEXHPBVRva0043B163@@@Z
