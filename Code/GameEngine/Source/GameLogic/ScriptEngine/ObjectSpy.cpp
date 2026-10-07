@@ -52,7 +52,10 @@ unsigned Rva00990030Lookup(Rva00990030Range *range, int index);	// 0x00747190
 extern "C" const char *lua_tostring(lua_State *state, int index);	// 0x007473B0
 extern "C" int io_debug(lua_State *state);	// 0x00333E42
 
-typedef unsigned NameKeyType;
+enum NameKeyType
+{
+	NAMEKEY_UNKNOWN = 0
+};
 class NameKeyGenerator
 {
 public:
@@ -86,10 +89,17 @@ public:
 	Rva002628C3 *m_module258;	// +0x258
 };
 
+// Native lookup 0x00049DC5 takes the same 32-bit ObjectID enum as its
+// verified provider; only the declaration changes, not the ID representation.
+enum ObjectID
+{
+	INVALID_OBJECT_ID = 0
+};
+
 class GameLogic
 {
 public:
-	Object *findObjectByID(int id);	// 0x00049DC5
+	Object *findObjectByID(ObjectID id);	// 0x00049DC5
 };
 extern GameLogic *TheGameLogic;
 
@@ -101,7 +111,7 @@ int ObjectSpy(lua_State *state)
 		io_debug(state);
 		return 0;
 	}
-	Object *object = TheGameLogic->findObjectByID((int)objectID);
+	Object *object = TheGameLogic->findObjectByID((ObjectID)objectID);
 	if (object == 0)
 		return 0;
 	unsigned targetID = Rva00990030Lookup((Rva00990030Range *)state, 2);
@@ -109,7 +119,7 @@ int ObjectSpy(lua_State *state)
 		io_debug(state);
 		return 0;
 	}
-	Object *target = TheGameLogic->findObjectByID((int)targetID);
+	Object *target = TheGameLogic->findObjectByID((ObjectID)targetID);
 	if (target == 0)
 		return 0;
 	const char *eventName = lua_tostring(state, 3);

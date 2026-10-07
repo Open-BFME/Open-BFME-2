@@ -92,10 +92,17 @@ public:
 	SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType type) const;
 };
 
+// Native lookup 0x00049DC5 takes the same 32-bit ObjectID enum as its
+// verified provider; only the declaration changes, not the ID representation.
+enum ObjectID
+{
+	INVALID_OBJECT_ID = 0
+};
+
 class GameLogic
 {
 public:
-	Object *findObjectByID(int id);	// 0x00049DC5
+	Object *findObjectByID(ObjectID id);	// 0x00049DC5
 };
 extern GameLogic *TheGameLogic;
 
@@ -121,7 +128,7 @@ int ObjectDoSpecialPower(lua_State *state)
 	unsigned id = Rva00990030Lookup((Rva00990030Range *)state, 1);
 	if (!id && lua_type(state, 1) != 1)
 		return 0;
-	Object *object = TheGameLogic->findObjectByID((int)id);
+	Object *object = TheGameLogic->findObjectByID((ObjectID)id);
 	if (!object)
 		return 0;
 	const SpecialPowerTemplate *power =
