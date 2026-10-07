@@ -15651,7 +15651,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??1Rva00248558Scope@@QAE@XZ,0x000B3FD0,empty out-of-line dtor of the scope object GameLogic 0x00248558 builds at [ebp-0x14] (call at 0x0024874E and EH state 2 funclet); the shared empty body 0x000B3FD0
 ?rva0023D6D5@Rva0023D6D5@@QAEX_N@Z,0x0023D6D5,bool view of the rowed ?rva0023D6D5@Rva0023D6D5@@QAEXH@Z: the body tests only the low byte (cmp byte [esp+4] 0) and GameLogic 0x00248558 forwards its bool param (push edi at 0x00248670)
 ?rva0023F88C@Rva0023E7D9@@QAEX_N@Z,0x0023F88C,bool view of the rowed ?rva0023F88C@Rva0023E7D9@@QAEXH@Z (ret 4 with the argument unused); GameLogic 0x00248558 forwards its bool param (push edi at 0x00248678)
-?rva0023F52C@GameLogic@@QAEX_N@Z,0x0023F52C,GameLogic member (FUN_0063f52c 864B) called by 0x00248558 at 0x00248645 with its bool param after Profile::StopRange newgame
 ?rva0024004D@GameLogic@@QAEX_N@Z,0x0024004D,GameLogic member (push ebp frame after the 0x00240000 tail jump) called by 0x00248558 at 0x00248656 with its bool param; tests this+0x72 and this+0x78
 ?rva002469A5@GameLogic@@QAEX_NPAH@Z,0x002469A5,GameLogic member (FUN_006469a5 1484B) called by 0x00248558 at 0x00248606 with its bool param and the address of the progress int (set to 3 before)
 ?rva00205358@ScriptEngine@@QAEXPAVAssetList@@PAUAssetLoadMode@@@Z,0x00205358,TheScriptEngine (0x009FE16C) member called by GameLogic 0x00248278 at 0x00248521 with a fresh AssetList and its load-mode flag (ret 8); walks the sides list and forwards both to 0x003B3836
@@ -15662,3 +15661,8 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003A262C@TeamFactory@@QAEXXZ,0x003A262C,TheTeamFactory (0x00A028BC) member called with no arguments by GameLogic 0x00248278 at 0x0024843C (plain ret at 0x003A2658)
 ?rva0043D467@@YAXXZ,0x0043D467,free function called with no arguments by GameLogic 0x00248278 at 0x002482B8 between the ControlBar calls and the 0x009FF080 slot 0x14 call
 ?rva00241C75@@YAXHPBVGameSlot@@PAVPlayer@@PBVPlayerTemplate@@@Z,0x00241C75,static player-slot placer (BFME1 placeNetworkBuildingsForPlayer analogue; cdecl slot number + slot + player + template) called from 0x002423A8 in the network-slot pass 0x002421F5; identity unproven so it keeps the address token
+?rva0023D494@Rva0023D494@@QAEXXZ,0x0023D494,thiscall on the 408-byte global at 0x009FE7A8 (first byte tested as a flag before the call) from the shell/replay tail 0x0023F52C at 0x0023F704; identity unproven so it keeps the address token
+?rva002D55EF@RadarWindowOverrideSource@@QAEXXZ,0x002D55EF,thiscall on theRadarWindowOverrideSource 0x009FF028 from 0x0023F77B in the new-game tail 0x0023F52C (new games only); method identity unproven
+?rva0031BAC3@ControlBar@@QAEXPAVPlayer@@@Z,0x0031BAC3,TheControlBar member taking the local player from 0x0023F76B in 0x0023F52C (BFME1 initSpecialPowershortcutBar position); address name
+?rva0031C40E@ControlBar@@QAEXPAVPlayer@@@Z,0x0031C40E,TheControlBar member taking the local player from 0x0023F695 and 0x0023F6C7 in 0x0023F52C (BFME1 setControlBarSchemeByPlayer position); address name
+?rva00437DF8@StatsCollector@@QAEXXZ,0x00437DF8,StatsCollector member called on 0x00E032F8 after the optional new StatsCollector (0x68 bytes; ctor 0x004376FA) from 0x0023F608 (BFME1 StatsCollector::reset position); address name

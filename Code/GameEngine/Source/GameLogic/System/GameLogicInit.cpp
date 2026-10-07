@@ -22,6 +22,7 @@
 #include <list>
 #include <map>
 #include <set>
+#include <string>
 #include <vector>
 #include <math.h>
 #include "ascii_string.h"
@@ -301,7 +302,9 @@ public:
 	bool m_af5;
 	char m_padAF6[0xbd0 - 0xaf6];
 	int m_bd0;
-	char m_padBD4[0xddc - 0xbd4];
+	char m_padBD4[0xc30 - 0xbd4];
+	int m_c30;
+	char m_padC34[0xddc - 0xc34];
 	bool m_ddc;
 	char m_padDDD[0xe94 - 0xddd];
 	int m_e94;
@@ -363,6 +366,7 @@ public:
 		const KindOfType *requireKind, bool dontCreate);
 	void rva00244CB0(bool loadingSaveGame, GameInfo *game);
 	bool isInMultiplayerGame(void);
+	bool rva00085124(void);
 	void formatPlayerStartWaypointName(AsciiString *name);
 
 	Object *getFirstObject(void) const { return m_objList; }
@@ -1244,6 +1248,7 @@ class Player
 public:
 	Team *getDefaultTeam(void) const { return m_defaultTeam; }
 	PlayerType getPlayerType(void) const { return m_playerType; }
+	int iterateObjects(int (*func)(Object *obj, void *userData), void *userData) const;
 
 	char m_pad00[0x8];
 	Rva003805BB m_skillPoints;
@@ -1266,11 +1271,15 @@ public:
 	virtual void newMap(void);                                           // +0x3C
 
 	Player *getNeutralPlayer(void) const { return m_neutralPlayer; }
+	Player *getLocalPlayer(void) const { return m_local; }
 	Player *getNthPlayer(int index);
 	Player *findPlayerWithNameKey(NameKeyType key);
+	void setLocalPlayer(Player *player);
 
 private:
-	char m_pad0C[0x18 - 0x0c];
+	char m_pad0C[0x10 - 0x0c];
+	Player *m_local;
+	char m_pad14[0x18 - 0x14];
 	Player *m_neutralPlayer;
 };
 
@@ -1657,6 +1666,11 @@ class ControlBar
 public:
 	void rva0031D64F(void);
 	void rva0031AD48(bool flag);
+	void rva0031C40E(Player *player);
+	void rva0031BAC3(Player *player);
+
+	char m_pad000[0x210];
+	Player *m_210;
 };
 
 class G00DFF080Obj
@@ -1695,6 +1709,19 @@ public:
 	virtual void v4a(); virtual void v4b(); virtual void v4c(); virtual void v4d();
 	virtual void v4e();
 	virtual void setZoomToDefault(void);                                 // +0x13C
+	virtual void v50();
+	virtual void setOkToAdjustHeight(bool ok);                           // +0x144
+	virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55();
+	virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59();
+	virtual void v5a(); virtual void v5b(); virtual void v5c(); virtual void v5d();
+	virtual void v5e(); virtual void v5f(); virtual void v60(); virtual void v61();
+	virtual void v62(); virtual void v63(); virtual void v64(); virtual void v65();
+	virtual void v66(); virtual void v67(); virtual void v68(); virtual void v69();
+	virtual void v6a(); virtual void v6b(); virtual void v6c(); virtual void v6d();
+	virtual void v6e(); virtual void v6f(); virtual void v70(); virtual void v71();
+	virtual void v72();
+	virtual bool v73(void);                                              // +0x1CC
+	virtual void v74(void *a, int b, int c, bool d);                     // +0x1D0
 };
 
 // 0x00A02290 is TheRecorder. Its member 0x0037BD81 is rowed as
@@ -2119,5 +2146,252 @@ void GameLogic::rva002421F5(bool loadingSaveGame, int *progress)
 			}
 			((Rva0023C7D2 *)this)->rva0023C7BB((*progress)++);
 		}
+	}
+}
+
+// ?rva0023F52C@GameLogic@@QAEX_N@Z @0x0023F52C 864B (EH frame, ret 4; next
+// body 0x0023F88C). Called from the new-game pass 0x00248558.
+// Target evidence: mode 4 (+0x110) pushes "MainMenu.apt" on TheShell when
+// its +0x4C screen count is zero, else shows and raises the top layout
+// (virtuals +0x10/+0x14), then HideControlBar(true); mode 7 does the same
+// minus the push. Otherwise the stats collector at 0x00E032F8 is reset (and
+// first new'd, 0x68 bytes, when GlobalData +0xC30 > 0); mode 3 makes
+// "ReplayObserver" the local player, stores the recorder's +0xE6C player in
+// TheControlBar +0x210, sets TheRadar +0x11 and refreshes the shroud, while
+// other modes re-set the local player around the neutral one and clear
+// +0x210; both hand the local player to TheControlBar 0x0031C40E. Then
+// TheTacticalView +0x144 (true), the 0x009FE7A8 flag pass, the
+// command-centre selection for every active player in a multiplayer
+// recording (iterateObjects 0x0023D6FA), TheControlBar 0x0031BAC3,
+// theRadarWindowOverrideSource 0x002D55EF for a new game, the control bar
+// shown or hidden by 0x00085124, the GameSpy buddy status 5 with the
+// staging room's name in mode 5, each drawable's level start for a new
+// game, TheTacticalView +0x1CC/+0x1D0 and the wait for 0x0061F090 to reach
+// 100 with Sleep(1).
+// Donor: BFME 1 GameLogic.cpp startNewGame's shell/replay tail (shell push
+// or top hide/bringForward, StatsCollector reset or NEW, ReplayObserver,
+// radar forceOn, refreshShroudForLocalPlayer, setControlBarSchemeByPlayer,
+// setOkToAdjustHeight, findAndSelectCommandCenter, initSpecialPowershortcutBar,
+// Hide/ShowControlBar, updateBuddyStatus, Drawable onLevelStart). Field and
+// method names stay offset names where only the donor knows them.
+class WindowLayout
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void hide(bool hide);                                        // +0x10
+	virtual void bringForward(void);                                     // +0x14
+};
+
+class Shell
+{
+public:
+	void push(AsciiString filename, bool shutdownImmediate = false);
+	WindowLayout *top(void);
+	int getScreenCount(void) const { return m_screenCount; }
+
+private:
+	char m_pad00[0x4c];
+	int m_screenCount;                                                   // +0x4C
+};
+
+class StatsCollector
+{
+public:
+	StatsCollector(void);
+	void rva00437DF8(void);
+
+private:
+	char m_pad00[0x68];
+};
+
+class RecorderClass
+{
+public:
+	bool isMultiplayer(void);
+
+	char m_pad000[0xe6c];
+	int m_e6c;
+};
+
+class Radar
+{
+public:
+	void forceOn(bool force) { m_11 = force; }
+
+private:
+	char m_pad00[0x11];
+	bool m_11;
+};
+
+class Rva007397D0
+{
+public:
+	void rva007397D0(void);
+};
+
+class Rva006C0820
+{
+public:
+	void rva006C0820(void);
+};
+
+class Rva0023D494
+{
+public:
+	void rva0023D494(void);
+};
+
+class BfmeMemberRV
+{
+public:
+	bool bfmeAskRV(void);
+};
+
+class RadarWindowOverrideSource
+{
+public:
+	void rva002D55EF(void);
+};
+
+class Rva0022C4DF
+{
+public:
+	UnicodeString rva0022C4DF(void) const;
+};
+
+class GameSpyStagingRoom;
+
+class Drawable
+{
+public:
+	void rva00278C6B(void);
+	Drawable *getNextDrawable(void) const { return m_next; }
+
+private:
+	char m_pad000[0x104];
+	Drawable *m_next;                                                    // +0x104
+};
+
+class ClientFrameSubsystem
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v0a(); virtual void v0b();
+	virtual void v0c(); virtual void v0d(); virtual void v0e(); virtual void v0f();
+	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13();
+	virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17();
+	virtual void v18(); virtual void v19(); virtual void v1a(); virtual void v1b();
+	virtual void v1c(); virtual void v1d(); virtual void v1e(); virtual void v1f();
+	virtual void v20(); virtual void v21(); virtual void v22();
+	virtual Drawable *getDrawableList(void);                             // +0x8C
+};
+
+enum GameSpyBuddyStatus
+{
+	GAMESPY_BUDDY_STATUS_5 = 5
+};
+
+extern Shell *TheShell;
+extern Radar *TheRadar;
+extern unsigned int g_Va00DFE7A8;
+extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
+extern GameSpyStagingRoom *TheGameSpyGame;
+extern ClientFrameSubsystem *TheGameClient;
+
+void HideControlBar(bool immediate);
+void ShowControlBar(bool immediate);
+int rva0023D6FA(Object *obj);
+int rva0061F090(void);
+_STL::string WideCharStringToMultiByte(const unsigned short *orig);
+void updateBuddyStatus(GameSpyBuddyStatus status, int sleepTime, _STL::string mapName);
+
+void GameLogic::rva0023F52C(bool loadingSaveGame)
+{
+	if (m_110 == 4) {
+		if (TheShell->getScreenCount() == 0)
+			TheShell->push(AsciiString("MainMenu.apt"));
+		else if (TheShell->top()) {
+			TheShell->top()->hide(false);
+			TheShell->top()->bringForward();
+		}
+		HideControlBar(true);
+	} else if (m_110 == 7) {
+		if (TheShell->top()) {
+			TheShell->top()->hide(false);
+			TheShell->top()->bringForward();
+		}
+		HideControlBar(true);
+	} else {
+		if (g_00E032F8)
+			g_00E032F8->rva00437DF8();
+		else if (TheWritableGlobalData->m_c30 > 0) {
+			g_00E032F8 = new StatsCollector;
+			g_00E032F8->rva00437DF8();
+		}
+
+		if (m_110 == 3) {
+			ThePlayerList->setLocalPlayer(ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey("ReplayObserver")));
+			TheControlBar->m_210 = ThePlayerList->getNthPlayer(TheRecorder->m_e6c);
+			TheRadar->forceOn(true);
+			((Rva007397D0 *)TheShroudManager)->rva007397D0();
+			if (g_Va00DFE750)
+				((Rva006C0820 *)g_Va00DFE750)->rva006C0820();
+			TheControlBar->rva0031C40E(ThePlayerList->getLocalPlayer());
+		} else {
+			Player *localPlayer = ThePlayerList->getLocalPlayer();
+			ThePlayerList->setLocalPlayer(ThePlayerList->getNeutralPlayer());
+			ThePlayerList->setLocalPlayer(localPlayer);
+			TheControlBar->rva0031C40E(ThePlayerList->getLocalPlayer());
+			TheControlBar->m_210 = 0;
+		}
+	}
+	TheTacticalView->setOkToAdjustHeight(true);
+
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	if (*(unsigned char *)&g_Va00DFE7A8)
+		((Rva0023D494 *)&g_Va00DFE7A8)->rva0023D494();
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+
+	if (TheRecorder->isMultiplayer()) {
+		for (int i = 0; i < 20; ++i) {
+			Player *player = ThePlayerList->getNthPlayer(i);
+			if (player && ((BfmeMemberRV *)player)->bfmeAskRV())
+				player->iterateObjects((int (*)(Object *, void *))rva0023D6FA, 0);
+		}
+	}
+	TheControlBar->rva0031BAC3(ThePlayerList->getLocalPlayer());
+
+	if (!loadingSaveGame)
+		theRadarWindowOverrideSource->rva002D55EF();
+
+	if (rva00085124())
+		HideControlBar(true);
+	else
+		ShowControlBar(false);
+
+	if (TheGameSpyGame && m_110 == 5)
+		updateBuddyStatus(GAMESPY_BUDDY_STATUS_5, 0,
+			WideCharStringToMultiByte(((Rva0022C4DF *)TheGameSpyGame)->rva0022C4DF().str()));
+
+	if (!loadingSaveGame) {
+		Drawable *drawable = TheGameClient->getDrawableList();
+		while (drawable) {
+			Rva0134FAA0->slot28();
+			bfmeReleaseQueuedDeviceInterfaces();
+			drawable->rva00278C6B();
+			drawable = drawable->getNextDrawable();
+		}
+	}
+
+	if (TheTacticalView && TheTacticalView->v73())
+		TheTacticalView->v74(0, 0, 0, true);
+
+	while ((unsigned)rva0061F090() < 100) {
+		Rva0134FAA0->slot28();
+		bfmeReleaseQueuedDeviceInterfaces();
+		Sleep(1);
 	}
 }
