@@ -540,35 +540,6 @@ void PeerThreadClass::getStatsFromRoom(PEER peer, RoomType roomType)
 }
 #endif // USE_BROADCAST_KEYS
 
-// BFME keeps m_nextStagingServer at PeerThreadClass+0x208 and the staging map
-// straight after it at +0x20c, where this tree lands them at +0x1f8 and
-// +0x1fc. Per-site, so removeServerFromMap below keeps its own spelling.
-#define BFME_PEER_NEXTSTAGING(p) (*(Int *)((char *)(p) + 0x208))
-#define BFME_PEER_STAGINGMAP(p)  (*(std::map<Int, SBServer> *)((char *)(p) + 0x20c))
-// ?addServerToMap@PeerThreadClass@@QAEHPAU_SBServer@@@Z present-unmatched
-Int PeerThreadClass::addServerToMap( SBServer server )
-{
-	Int val = BFME_PEER_NEXTSTAGING(this)++;
-	BFME_PEER_STAGINGMAP(this)[val] = server;
-	return val;
-}
-
-// ?removeServerFromMap@PeerThreadClass@@ present-unmatched
-Int PeerThreadClass::removeServerFromMap( SBServer server )
-{
-	for (std::map<Int, SBServer>::iterator it = m_stagingServers.begin(); it != m_stagingServers.end(); ++it)
-	{
-		if (it->second == server)
-		{
-			Int val = it->first;
-			m_stagingServers.erase(it);
-			return val;
-		}
-	}
-
-	return 0;
-}
-
 // ?clearServers@PeerThreadClass@@ present-unmatched
 void PeerThreadClass::clearServers( void )
 {
@@ -590,54 +561,6 @@ SBServer PeerThreadClass::findServerByID( Int id )
 		return it->second;
 	}
 	return 0;
-}
-
-// ?findServer@PeerThreadClass@@ present-unmatched
-Int PeerThreadClass::findServer( SBServer server )
-{
-	char tmp[10] = "";
-	const char *newName = SBServerGetStringValue(server, "gamename", tmp);
-	UnsignedInt newPrivateIP = SBServerGetPrivateInetAddress(server);
-	UnsignedShort newPrivatePort = SBServerGetPrivateQueryPort(server);
-	UnsignedInt newPublicIP = SBServerGetPublicInetAddress(server);
-
-	SBServer serverToRemove = NULL;
-
-	for (std::map<Int, SBServer>::iterator it = m_stagingServers.begin(); it != m_stagingServers.end(); ++it)
-	{
-		if (it->second == server)
-		{
-			return it->first;
-		}
-		else
-		{
-			const char *oldName = SBServerGetStringValue(it->second, "gamename", tmp);
-			UnsignedInt oldPrivateIP = SBServerGetPrivateInetAddress(it->second);
-			UnsignedShort oldPrivatePort = SBServerGetPrivateQueryPort(it->second);
-			UnsignedInt oldPublicIP = SBServerGetPublicInetAddress(it->second);
-			if (!strcmp(oldName, newName) &&
-				oldPrivateIP == newPrivateIP &&
-				oldPublicIP == newPublicIP &&
-				oldPrivatePort == newPrivatePort)
-			{
-				serverToRemove = it->second;
-			}
-		}
-	}
-
-	if (serverToRemove)
-	{
-		// this is the same as another game - it has just migrated to another port.  Remove the old and replace it.
-		PeerResponse resp;
-		resp.peerResponseType = PeerResponse::PEERRESPONSE_STAGINGROOM;
-		resp.stagingRoom.id = removeServerFromMap( serverToRemove );
-		resp.stagingRoom.action = PEER_REMOVE;
-		resp.stagingRoom.isStaging = TRUE;
-		resp.stagingRoom.percentComplete = -1;
-		TheGameSpyPeerMessageQueue->addResponse(resp);
-	}
-
-	return addServerToMap(server);
 }
 
 static enum CallbackType
@@ -1598,6 +1521,7 @@ class Rva00388EAE
 {
 public:
 	void rva00389129();
+	unsigned int rva00389913(const int &key);
 };
 
 class DualIndexedDispatchThunk
@@ -1652,7 +1576,7 @@ struct BfmePeerThreadView
 	Int numObservers;
 	Int value248[10];
 	Int value270;
-	unsigned char unknown274[4];
+	Int nextStagingServer;
 	Rva00388EAE stagingServers;
 	unsigned char unknown279[0x284 - 0x279];
 	std::wstring localStagingServerName;
@@ -1745,6 +1669,114 @@ std::string PeerThreadClass::pingStr( void )
 std::string PeerThreadClass::getQMBotName( void )
 {
 	return reinterpret_cast<BfmePeerThreadView *>(this)->qmBotName;
+}
+
+// BFME 2 keeps the next staging id at +0x274 and the staging map at +0x278.
+// Retail folds the map onto the map<int,int> bodies (operator[] 0x0028932C).
+typedef std::map<Int, Int> BfmeStagingServerMap;
+
+// Retail folds the 4-byte deques onto one set of bodies. The ledger spells the
+// shared base ctor (0x00605464) only as deque<BfmeWordValue4> and push_back,
+// pop_front and the base dtor as deque<void *>, so the queues below are built
+// as the first and used as the second.
+struct BfmeWordValue4
+{
+	unsigned int bits;
+};
+_STLP_BEGIN_NAMESPACE
+_STLP_TEMPLATE_NULL struct __type_traits<BfmeWordValue4> : __type_traits_aux<1> {};
+_STLP_END_NAMESPACE
+typedef std::deque<BfmeWordValue4, std::allocator<BfmeWordValue4> > BfmeWordDeque;
+typedef std::deque<void *, std::allocator<void *> > BfmePointerDeque;
+
+Int PeerThreadClass::addServerToMap( SBServer server )
+{
+	BfmePeerThreadView *self = reinterpret_cast<BfmePeerThreadView *>(this);
+	Int val = self->nextStagingServer++;
+	reinterpret_cast<BfmeStagingServerMap &>(self->stagingServers)[val] = (Int)server;
+	return val;
+}
+
+// BFME 2 collects every id mapped to the server and erases them by key.
+Int PeerThreadClass::removeServerFromMap( SBServer server )
+{
+	BfmeWordDeque idStore;
+	BfmePointerDeque &ids = reinterpret_cast<BfmePointerDeque &>(idStore);
+	Rva00388EAE &stagingServers = reinterpret_cast<BfmePeerThreadView *>(this)->stagingServers;
+	BfmeStagingServerMap &servers = reinterpret_cast<BfmeStagingServerMap &>(stagingServers);
+	for (BfmeStagingServerMap::iterator it = servers.begin(); it != servers.end(); ++it)
+	{
+		if (it->second == (Int)server)
+			ids.push_back(reinterpret_cast<void *const &>(it->first));
+	}
+
+	void *val = 0;
+	while (!ids.empty())
+	{
+		val = ids.front();
+		stagingServers.rva00389913((Int)val);
+		ids.pop_front();
+	}
+	return (Int)val;
+}
+
+extern "C" const char *SBServerGetStringValueA(SBServer server, const char *keyname, const char *def);
+
+// BFME 2 matches on the host name and also drops servers without basic keys.
+Int PeerThreadClass::findServer( SBServer server )
+{
+	char tmp[10] = "";
+	const char *newName = SBServerGetStringValueA(server, "hostname", tmp);
+	UnsignedInt newPrivateIP = SBServerGetPrivateInetAddress(server);
+	UnsignedShort newPrivatePort = SBServerGetPrivateQueryPort(server);
+	UnsignedInt newPublicIP = SBServerGetPublicInetAddress(server);
+
+	BfmeWordDeque removeStore;
+	BfmePointerDeque &serversToRemove = reinterpret_cast<BfmePointerDeque &>(removeStore);
+	BfmeStagingServerMap &servers = reinterpret_cast<BfmeStagingServerMap &>(
+		reinterpret_cast<BfmePeerThreadView *>(this)->stagingServers);
+	for (BfmeStagingServerMap::iterator it = servers.begin(); it != servers.end(); ++it)
+	{
+		if ((SBServer)it->second == server)
+		{
+			return it->first;
+		}
+		else if (!SBServerHasBasicKeys((SBServer)it->second))
+		{
+			serversToRemove.push_back(reinterpret_cast<void *const &>(it->second));
+		}
+		else
+		{
+			const char *oldName = SBServerGetStringValueA((SBServer)it->second, "hostname", tmp);
+			UnsignedInt oldPrivateIP = SBServerGetPrivateInetAddress((SBServer)it->second);
+			UnsignedShort oldPrivatePort = SBServerGetPrivateQueryPort((SBServer)it->second);
+			UnsignedInt oldPublicIP = SBServerGetPublicInetAddress((SBServer)it->second);
+			if (!strcmp(oldName, newName) &&
+				oldPrivateIP == newPrivateIP &&
+				oldPublicIP == newPublicIP &&
+				oldPrivatePort == newPrivatePort)
+			{
+				serversToRemove.push_back(reinterpret_cast<void *const &>(it->second));
+			}
+		}
+	}
+
+	while (!serversToRemove.empty())
+	{
+		SBServer serverToRemove = (SBServer)serversToRemove.front();
+		serversToRemove.pop_front();
+		// this is the same as another game - it has just migrated to another port.  Remove the old and replace it.
+		PeerResponse resp;
+		BfmeStagingResponseView &staging = reinterpret_cast<BfmeStagingResponseView &>(resp);
+		resp.peerResponseType = PeerResponse::PEERRESPONSE_STAGINGROOM;
+		staging.id = removeServerFromMap( serverToRemove );
+		staging.action = PEER_REMOVE;
+		staging.isStaging = TRUE;
+		staging.percentComplete = -1;
+		TheGameSpyPeerMessageQueue->addResponse(resp);
+	}
+
+	return addServerToMap(server);
 }
 
 // The +0xC4 string getter (0x389E4B); only the gamemode key reads it.
@@ -3535,3 +3567,10 @@ void Rva00517EA2::rva00517EA2()
 
 #pragma comment(linker, "/alternatename:??0PeerRequest@@QAE@XZ=??0BfmeOpaqueOwnedRecord492@@QAE@XZ")
 #pragma comment(linker, "/alternatename:??1PeerRequest@@QAE@XZ=??1BfmeOpaqueOwnedRecord492@@QAE@XZ")
+
+// This unit also owns the map<int, SBServer> tree inserts at 0x005E4415 and
+// 0x005E449D, which no body above instantiates.
+typedef _STL::pair<const Int, SBServer> BfmeServerPair;
+typedef _STL::_Rb_tree<Int, BfmeServerPair, _STL::_Select1st<BfmeServerPair>,
+	_STL::less<Int>, _STL::allocator<BfmeServerPair> > BfmeServerTree;
+template _STL::pair<BfmeServerTree::iterator, bool> BfmeServerTree::insert_unique(const BfmeServerPair &);
