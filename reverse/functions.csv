@@ -67834,3 +67834,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005EB7FE@Rva005EB7FE@@QAEXXZ,,0x005EB7FE,39,Code/GameEngine/Source/Common/Rva005EB7FETwins.cpp,matched,39B Apt slot clear plus forward plus clear
 ?rva005EA4FC@Rva005EA4FC@@QAEXXZ,,0x005EA4FC,61,Code/GameEngine/Source/Common/Rva005EA4FCMethod.cpp,matched,
 ?rva005E7C56@Rva005E7C56@@QAEXXZ,,0x005E7C56,84,Code/GameEngine/Source/Common/Rva005E7C56Chain.cpp,matched,
+?rva005E7CAA@Rva005E7CAA@@QAEXH@Z,,0x005E7CAA,86,Code/GameEngine/Source/Common/Rva005E7CAASwitch.cpp,matched,
