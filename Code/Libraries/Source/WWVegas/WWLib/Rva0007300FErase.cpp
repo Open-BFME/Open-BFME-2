@@ -7,6 +7,14 @@
 // Same 68B shape as rowed range erase 0x004ABC85 in stlport_map_int_ptr_o1.cpp modulo clear callee
 // Contiguous with clear 0x00072FE6 and set insert 0x00073053 and unblocks caller 0x000733D8
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 struct Rva00072F7CNode {
   unsigned _M_color;
   Rva00072F7CNode *parent04;

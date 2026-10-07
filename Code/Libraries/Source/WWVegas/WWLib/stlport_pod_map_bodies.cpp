@@ -9,6 +9,14 @@
 // COMDAT copies. _M_create_node/_M_copy are declared only; their rowed
 // bodies live in the sibling pod-map units.
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 struct BfmePod8 { int a[2]; };
 typedef _STL::pair<const int, BfmePod8> PodMapValue;
 typedef _STL::_Rb_tree<int, PodMapValue, _STL::_Select1st<PodMapValue>, _STL::less<int>, _STL::allocator<PodMapValue> > PodMapTree;

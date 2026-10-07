@@ -4,6 +4,14 @@
 // Evidence: equal_range row at 0x004FCD6D plus _M_increment row at 0x00024250 plus ret 8 plus this+0x13c; neighbours are stlport WWLib TUs.
 #include <map>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 struct Rva002B86AAKey
 {
 	unsigned char m_pad[0x4c];

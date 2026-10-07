@@ -3,6 +3,14 @@
 // ?Rva00473FD4Xfer@@YAPAVXfer@@PAV1@PAV?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@@Z 0x00473FD4 217B evidence: map<int bool> Xfer twin of rowed map<int int> Rva00470222Xfer 0x00470222; version {1,1} via slot 0x28 typename std::map via slot 0x2c count via slot 0x78 isSaving via slot 8; save loop via rowed _M_increment 0x00024250 with per-item Rva00469103Xfer 0x00469103; load throws Map must be empty on load via bfmeFormatText 0x0060C36E then per-item operator[] 0x00470353; caller 0x00474EA8
 #include <map>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 typedef unsigned char UnsignedByte;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;

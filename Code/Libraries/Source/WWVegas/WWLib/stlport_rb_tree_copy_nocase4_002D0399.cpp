@@ -7,6 +7,14 @@
 // an external call resolved by its ledger row. Callers at 0x002D03C2
 // 0x002D03EF (self) and 0x002D089E unblocks 0x002D0867.
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 struct NoCaseTreeValue4 { public: unsigned char m_data[4]; };
 class AsciiString { public: void *m_data; };
 struct BfmeStringNoCaseLess
