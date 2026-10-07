@@ -28,29 +28,28 @@ struct Global003EF728V6
 
 extern Global003EF728V6 *g_00A02340;
 
-// The online shell owning the screen (+0x58); its unrowed 0x00516F08 is
-// pinned by address.
-class Rva00516F08
+// Native Cancel forwards through the screen's +0x58 owner to the verified
+// AptOnline::rva00516F08 body. Represent its named nested screen as a nested
+// class so the owner uses that same AptOnline identity; no owner layout is
+// accessed here. The registered callback names and screen layout are retained.
+class AptOnline
 {
 public:
-	void rva00516F08();
-};
+    void rva00516F08();
 
-namespace AptOnline
-{
-class OnlineQuickMatch
-{
-public:
-	void WidenSearch(const char *unused);
-	void Cancel(const char *unused);
+    class OnlineQuickMatch
+    {
+    public:
+        void WidenSearch(const char *unused);
+        void Cancel(const char *unused);
 
-private:
-	unsigned char m_pad00[0x58];
-	Rva00516F08 *m_owner; // +0x58
-	unsigned char m_pad5c[0x60 - 0x5C];
-	int m_state; // +0x60
+    private:
+        unsigned char m_pad00[0x58];
+        AptOnline *m_owner; // +0x58
+        unsigned char m_pad5c[0x60 - 0x5C];
+        int m_state; // +0x60
+    };
 };
-}
 
 // Retail 0x005BAA2B, 88 bytes: "AptOnline::OnlineQuickMatch::WidenSearch"
 // posts request 0x11.
