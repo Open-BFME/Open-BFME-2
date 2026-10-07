@@ -13,6 +13,12 @@ public:
 	void swap(ScriptList *other);
 };
 
+class Rva003B3ECBOwner
+{
+public:
+	void rva003B3ECB();
+};
+
 class BfmeThingGE
 {
 public:
@@ -24,6 +30,9 @@ public:
 	int m_bfmeA;
 	int m_bfmeB;
 	int m_bfmeC;
+	Rva003B3ECBOwner m_sub0C;
+	char m_pad10[0x20 - sizeof(Rva003B3ECBOwner)];
+	Rva003B3ECBOwner m_sub2C;
 };
 
 void BfmeThingGE::bfmeGoGE(BfmeSubGE *d)
@@ -32,10 +41,17 @@ void BfmeThingGE::bfmeGoGE(BfmeSubGE *d)
 	bfmeTwoGE(d, &d->m_bfmeC, &m_bfmeC);
 }
 
+void BfmeThingGE::rva003B40CB()
+{
+	m_sub0C.rva003B3ECB();
+	m_sub2C.rva003B3ECB();
+}
+
 void BfmeThingGE::rva003B89A7(BfmeSubGE *d)
 {
 	reinterpret_cast<ScriptList *>(this)->swap(reinterpret_cast<ScriptList *>(d));
 	rva003B40CB();
 	bfmeGoGE(d);
 }
+
 
