@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // ?Rva0028867DCheck@@YA_NPBX@Z, retail 0x0028867D, 37 bytes.
 // Multiplayer-gated zero-check on bytes at +0x101/+0x102 via TheBfmeGlob 0x00DFE78C gate (rowed bfmeCall939D 0x0023C6FD).
 // Evidence: 5 callers home object into ESI for post-call reads (0x00288937 0x0028895A 0x00288DCD 0x00288E59 0x002897E6);
@@ -48,4 +48,86 @@ bool __stdcall Rva0028891FCheck(const void *const *p1, const void *p2)
 	if (p2 == *p1)
 		return false;
 	return Rva0028867DCheck((const char *)p2 + 8);
+}
+
+// Native00288D88..00288E21, 153B, RET12: existing store pin carries the
+// two-word handle result ABI. Native query00288C68 takes one object word
+// and returns the list; its original parameter spelling remains unknown.
+// Handle/list/node/override layout copied from the verified ExperienceLevelSystem.cpp.
+class Overridable
+{
+public:
+    Overridable *friend_getFinalOverride();
+    Overridable *getFinalOverride()
+    {
+        if (next) return next->friend_getFinalOverride();
+        return this;
+    }
+private:
+    void *vptr;
+    Overridable *next;
+};
+class ExperienceLevel : public Overridable
+{
+public:
+    char unknown08[0x18-8];
+    int required;
+};
+struct ExperienceLevelNode
+{
+    ExperienceLevelNode *next, *prev;
+    ExperienceLevel data;
+};
+class ExperienceLevelIterator
+{
+public:
+    ExperienceLevelIterator() {}
+    ExperienceLevelIterator(const ExperienceLevelIterator &other) : node(other.node) {}
+    ExperienceLevelNode *node;
+};
+class ExperienceLevelList
+{
+public:
+    ExperienceLevelNode *sentinel;
+};
+struct ExperienceLevelHandle
+{
+    ExperienceLevelHandle() {}
+    ExperienceLevelHandle(ExperienceLevelList *value) : list(value) {}
+    ExperienceLevelHandle(ExperienceLevelList *value, const ExperienceLevelIterator &where)
+        : list(value), iter(where) {}
+    ExperienceLevelHandle(const ExperienceLevelHandle &other) : list(other.list), iter(other.iter) {}
+    ExperienceLevelList *list;
+    ExperienceLevelIterator iter;
+};
+extern "C" bool rva0007E394CursorEqual(const ExperienceLevelHandle &a, const ExperienceLevelHandle &b);
+class ExperienceLevelStore
+{
+public:
+    ExperienceLevelHandle rva00288D88(int object, int limit);
+    ExperienceLevelList *rva00288C68(int object);
+};
+ExperienceLevelHandle ExperienceLevelStore::rva00288D88(int object, int limit)
+{
+    ExperienceLevelList *list = rva00288C68(object);
+    if (!list) return ExperienceLevelHandle(0);
+    ExperienceLevelHandle best(0);
+    int greatest = -1;
+    ExperienceLevelNode *end = list->sentinel;
+    for (ExperienceLevelNode *node=end->next; node!=end; node=node->next)
+    {
+        ExperienceLevel *level = static_cast<ExperienceLevel *>(node->data.getFinalOverride());
+        if (level && Rva0028867DCheck(level))
+        {
+            int required = level->required;
+            if (required <= limit && (rva0007E394CursorEqual(best, ExperienceLevelHandle(0)) || required > greatest))
+            {
+                ExperienceLevelIterator iter;
+                iter.node = node;
+                best = ExperienceLevelHandle(list, iter);
+                greatest = required;
+            }
+        }
+    }
+    return best;
 }
