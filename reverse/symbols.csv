@@ -15510,3 +15510,13 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00286926@Rva00286926Host@@QAEXHHHHH@Z,0x00286926,thiscall with 5 ints from 0x287519 nested loops
 ?rva00278341@Rva00278341Host@@QAEXHH@Z,0x00278341,thiscall with 2 ints from 0x2783F6
 ?rva00270276@Rva00270276Host@@QAE_NPAX000HH@Z,0x00270276,thiscall bool with 6 args from 0x276B32
+?rva0027601B@Rva0027601BHost@@QAEXXZ,0x0027601B,thiscall no args from switch 0x2796D9 case 0
+?rva00277C42@Rva00277C42Host@@QAEXXZ,0x00277C42,thiscall no args from switch 0x2796D9 case 0
+?rva002779CE@Rva002779CEHost@@QAEXXZ,0x002779CE,thiscall no args from switch 0x2796D9 case 0
+?rva00273F74@Rva00273F74Host@@QAEXXZ,0x00273F74,thiscall no args from switch 0x2796D9 case 1
+?rva00275F3F@Rva00275F3FHost@@QAEXXZ,0x00275F3F,thiscall no args from switch 0x2796D9 case 1
+?rva00273808@Rva00273808Host@@QAEXXZ,0x00273808,thiscall no args from switch 0x2796D9 case 1
+?rva00277669@Rva00277669Host@@QAEXXZ,0x00277669,thiscall no args from switch 0x2796D9 case 1
+?rva00279074@Rva00279074Host@@QAEXXZ,0x00279074,thiscall no args from switch 0x2796D9 case 2
+?rva00273C47@Rva00273C47Host@@QAEXXZ,0x00273C47,thiscall no args from switch 0x2796D9 case 3
+?rva002778E1@@YAXXZ,0x002778E1,global no args from switch 0x2796D9 case 5
