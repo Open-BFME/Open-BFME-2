@@ -875,3 +875,9 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?Rva00559F78Get@@YAHXZ,0x00559F78,Retail internal JE case arm within complete Ghidra27 selector0x00559F63; no independent entry. Earlier Frag verdict already refused this arm. Retract leaf overclaim; full selector requires named pointer table data.
 ?Rva004318C3Get@@YAHXZ,0x004318C3,Three-byte false tail of complete mouse predicate4318A8..4318C6; both internal JNEs target4318C3. Whole image has zero absolute refs to this address and text has no REL32 call/jmp entry candidates. Retire overclaim before verified whole-body recovery.
 ?Rva003E46B1Get@@YAHXZ,0x003E46B1,Three-byte false tail of complete two-vslot predicate3E468F..3E46B4; internal JE/JNE both target3E46B1. Whole image has zero absolute refs to the tail and text no REL32 call/jmp entry candidates. Retire overclaim before verified whole-body recovery.
+?d_002a44d5@@YAXXZ,0x002A44D5,Converted to verified C++ in codex2 506-byte batch; keep orphan PROC and prevent union-merge resurrection
+?d_002baf01@@YAXXZ,0x002BAF01,Converted to verified C++ in codex2 506-byte batch; keep orphan PROC and prevent union-merge resurrection
+?d_00306703@@YAXXZ,0x00306703,Converted to verified C++ in codex2 506-byte batch; keep orphan PROC and prevent union-merge resurrection
+?d_0031adae@@YAXXZ,0x0031ADAE,Converted to verified C++ in codex2 506-byte batch; keep orphan PROC and prevent union-merge resurrection
+?d_0047ba10@@YAXXZ,0x0047BA10,Converted to verified C++ in codex2 506-byte batch; keep orphan PROC and prevent union-merge resurrection
+?d_005e9687@@YAXXZ,0x005E9687,Converted to verified C++ in codex2 506-byte batch; keep orphan PROC and prevent union-merge resurrection
