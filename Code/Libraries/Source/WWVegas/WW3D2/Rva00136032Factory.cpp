@@ -104,3 +104,33 @@ Rva00180BE0 Rva00180C11_MakeOwner(const char *name)
  if(name==0){ Rva00180BE0 empty; return empty; }
  return Rva00180BE0(Rva0061F230_GetPrototype(name));
 }
+
+// Native18067A..1806D8 cdecl94B, hidden return plus nullable name.
+// The rowed49B constructor180649 consumes a one-pointer BfmeResetAnyRef;
+// this wrapper obtains that pointer from the independently rowed211B
+// registry lookup61F230. The returned temporary is released through the
+// independently rowed36B resource release61ED10. No original owner name
+// is inferred from the sibling136032 factory used as a lifetime guide.
+// AsResetRef is an inline ABI view of that proven single pointer; it adds
+// no ownership operation. The result's null branch writes its pointer0.
+struct BfmeResetTagged;
+struct BfmeResetAnyRef { BfmeResetTagged *pointer; };
+class Rva00180649Base
+{
+public:
+ void *pointer;
+ Rva00180649Base() : pointer(0) {}
+ ~Rva00180649Base() { if (pointer) ((TextureClass *)pointer)->Release_Ref(); }
+};
+struct BfmeResetTextureRef : Rva00180649Base
+{
+ BfmeResetTextureRef() {}
+ BfmeResetTextureRef(const BfmeResetAnyRef &rhs);
+};
+static __forceinline const BfmeResetAnyRef &AsResetRef(const HierarchyPrototypeRef &source)
+{ return reinterpret_cast<const BfmeResetAnyRef &>(source); }
+BfmeResetTextureRef Rva0018067A_MakeOwner(const char *name)
+{
+ if (!name) { BfmeResetTextureRef empty; return empty; }
+ return BfmeResetTextureRef(AsResetRef(Rva0061F230_GetPrototype(name)));
+}
