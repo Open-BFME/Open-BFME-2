@@ -1,17 +1,20 @@
-// ?onDie@SpawnBehavior@@UAEXPBVDamageInfo@@@Z
-// partial score=0.9 date=2026-09-21
 // cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 //
-// ?onDie@SpawnBehavior@@UAEXPBVDamageInfo@@@Z,
-// retail 0x0045F7B5, 199 bytes. Dedicated TU.
+// ?onDie@SpawnBehavior@@UAEXPBVDamageInfo@@@Z retail 0x0045F7B5, 199 bytes.
+// Identity: SpawnBehavior's DieModuleInterface vftable slot 0x008425A8.
 // BFME1 donor (reference/open-bfme-1/Code/GameEngine/Source/GameLogic/Object/
 // Behavior/SpawnBehavior.cpp:110) with BFME2 layout repairs, modeled on the
 // landed SpawnBehavior_onSpawnDeath shard. Deltas: kill takes (8,0) args,
 // isEffectivelyDead inlines to a bit test at Object+0x438, getBehaviorModules
 // is a direct member at Object+0x244, setProducer stores the producer ID.
+//
+// GameLogic::findObjectByID is declared as the header inline over the object
+// hash map at +0xB4; MSVC calls the out-of-line copy 0x00049DC5, and only the
+// inline declaration gives retail's register assignment (this in EBX).
 
 #define _STLP_NO_EXCEPTIONS 1
+#include <hash_map>
 #include <list>
 
 typedef bool Bool;
@@ -118,10 +121,24 @@ public:
 	DieMuxData m_dieMuxData;
 };
 
+typedef _STL::hash_map<ObjectID, Object *, _STL::hash<int>, _STL::equal_to<ObjectID> > ObjectPtrHash;
+
 class GameLogic
 {
 public:
-	Object *findObjectByID(ObjectID id);
+	Object *findObjectByID(ObjectID id)
+	{
+		if (id == INVALID_ID)
+			return 0;
+		ObjectPtrHash::iterator it = m_objHash.find(id);
+		if (it == m_objHash.end())
+			return 0;
+		return (*it).second;
+	}
+
+private:
+	char m_pad000[0xB4];
+	ObjectPtrHash m_objHash;
 };
 
 extern GameLogic *TheGameLogic;
