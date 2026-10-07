@@ -67870,3 +67870,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0031AB1E@Rva0031AB1EOwner@@QAEPAVRva0031AB1ENode@@PBVAsciiString@@@Z,,0x0031AB1E,89,Code/GameEngine/Source/Common/System/Rva0031AB1EPrepend.cpp,matched,dump-lane range 14: list prepend via throwing new-expression 0x2CC node; w3c-r14
 ?rva003F8478@Rva003F8052@@QAEEXZ,,0x003F8478,31,Code/GameEngine/Source/Common/Rva003F8478.cpp,matched,dump range 19; 802B-guarded negate of 8052 (pinned)
 ?rva003F8536@Rva003F8090@@QAEEXZ,,0x003F8536,39,Code/GameEngine/Source/Common/Rva003F8509.cpp,matched,dump range 19; bounds check + 80C3 + tail 8478; 8509 parked present-unmatched (partial 0.85)
+?rva003F936E@@YGXPAVRva003F936EHost@@PAM@Z,,0x003F936E,63,Code/GameEngine/Source/Common/Rva003FB793.cpp,matched,dump range 19; fill Vec3 + slot-7 forward; B793 pinned+parked
