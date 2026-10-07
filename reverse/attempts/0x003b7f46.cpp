@@ -1,3 +1,5 @@
+// ?rva003B7F46@Rva003B573E@@QAEHHABV?$StringBase@D@@@Z
+// partial score=0.86 date=2026-10-07
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
@@ -46,7 +48,7 @@ public:
 	int rva003B6633(const StringBase<char> &key);
 	void rva003B66D8(int index);
 	int rva003B7C47(const StringBase<char> &key);
-	int rva003B7F8E(Rva003B573E *other, int index);
+	int rva003B7F46(int index, const StringBase<char> &key);
 	void rva003B7096(int index);
 	void rva003B71B4(int index);
 private:
@@ -110,21 +112,21 @@ void Rva003B573E::rva003B7096(int index)
 	rva003B66D8(index);
 }
 
-// Native 0x003B7F8E..0x003B7FE0: transfer the first linked node from another
-// instance's indexed 0x14-byte record to the local record with the same key.
-// The key is at +8 and the node head at +0x10, as independently established
-// by rva003B66D8. Method spelling is address-derived; identity unknown.
-int Rva003B573E::rva003B7F8E(Rva003B573E *other, int index)
+// Native 0x003B7F46..0x003B7F8E: move the first node to the named record,
+// then drop its old record reference. Both record indices use the verified
+// 0x14-byte layout above; 0x003B7C47 receives the same StringBase key as
+// 0x003B573E and compares it against record +8. Original method name unknown.
+int Rva003B573E::rva003B7F46(int index, const StringBase<char> &key)
 {
-	Rva003B675BRecord *source = &other->m_records[index];
-	int destination = rva003B7C47(*(const StringBase<char> *)&source->m_name);
-	if (destination == -1)
-		return -1;
-	BfmeNodeZ *node = (BfmeNodeZ *)source->m_nodes;
-	Rva003B675BRecord *target = &m_records[destination];
-	source->m_nodes = node->m_next;
-	node->m_next = (BfmeNodeZ *)target->m_nodes;
-	target->m_nodes = node;
-	other->rva003B66D8(index);
+	int destination = rva003B7C47(key);
+	if (destination != -1) {
+		Rva003B675BRecord *source = &m_records[index];
+		BfmeNodeZ *node = (BfmeNodeZ *)source->m_nodes;
+		source->m_nodes = node->m_next;
+		Rva003B675BRecord *target = &m_records[destination];
+		node->m_next = (BfmeNodeZ *)target->m_nodes;
+		target->m_nodes = node;
+		rva003B66D8(index);
+	}
 	return destination;
 }
