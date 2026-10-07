@@ -714,6 +714,7 @@ public:
 	int getTeamNumber() const { return m_1c; }
 	int getColor() const { return m_c; }
 	void setColor(int color) { m_c = color; }
+	void setPlayerTemplate(int playerTemplate);
 
 	char m_pad00[0xc];
 	int m_c;
@@ -721,6 +722,8 @@ public:
 	int m_14;
 	int m_18;
 	int m_1c;
+	char m_pad20[0x34 - 0x20];
+	AsciiString m_34;
 };
 
 class GameInfo
@@ -1250,6 +1253,11 @@ public:
 	Team *m_defaultTeam;
 };
 
+enum NameKeyType
+{
+	NAMEKEY_INVALID
+};
+
 class PlayerList : public SubsystemInterface
 {
 public:
@@ -1259,6 +1267,7 @@ public:
 
 	Player *getNeutralPlayer(void) const { return m_neutralPlayer; }
 	Player *getNthPlayer(int index);
+	Player *findPlayerWithNameKey(NameKeyType key);
 
 private:
 	char m_pad0C[0x18 - 0x0c];
@@ -1701,11 +1710,6 @@ protected:
 	void createReplayControl(void);
 };
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID
-};
-
 // A lazily resolved name key: 0x00148F5E fills m_key from m_name.
 class StaticNameKey
 {
@@ -1729,6 +1733,8 @@ class NameKeyGenerator
 {
 public:
 	const AsciiString &keyToName(NameKeyType key);
+	NameKeyType nameToKey(const AsciiString &name);
+	NameKeyType nameToKey(const char *name);
 };
 
 class Waypoint
@@ -2015,4 +2021,103 @@ void GameLogic::rva00241230(bool loadingSaveGame)
 	bfmeReleaseQueuedDeviceInterfaces();
 
 	checkForDuplicateColors(TheGameInfo);
+}
+
+// ?rva002421F5@GameLogic@@QAEX_NPAH@Z @0x002421F5 494B (EH frame, ret 8;
+// next body 0x002423E1). Called from the new-game pass 0x00248558 with the
+// load-progress counter.
+// Target evidence: progress 0x28 first; for a new game with TheGameInfo set,
+// the eight "Player_%d_Start" waypoints (Rva00506CC3FindWaypoint) are summed
+// into a zeroed local whose result nothing reads, then each slot is fetched
+// (device interfaces flushed per slot) and, when occupied, its player is
+// found by the slot's +0x34 name key. An observer slot (template -2) gets
+// template 0 and then the index of "FactionObserver" in
+// ThePlayerTemplateStore (0x1DC-byte templates between +0x0C and +0x10,
+// flushing per index); any other slot goes to 0x00241C75 with its slot
+// number, player and nth template. Progress advances once per occupied slot.
+// Donor: BFME 1 GameLogic.cpp startNewGame's "place initial network
+// buildings/units" loop (observer template fix-up, placeNetworkBuildingsForPlayer);
+// BFME 2 keys players by the slot's name rather than "player%d" and drops
+// the locked-general check. Field names stay offset names.
+class PlayerTemplate;
+
+class PlayerTemplateBody
+{
+	char m_bytes[0x1dc];
+};
+
+class PlayerTemplateStore
+{
+public:
+	int getPlayerTemplateCount() { return m_finish - m_start; }
+	const PlayerTemplate *getNthPlayerTemplate(int index) const;
+	const PlayerTemplate *findPlayerTemplate(NameKeyType key) const;
+
+private:
+	char m_pad00[0x0c];
+	PlayerTemplateBody *m_start;                                         // +0x0C
+	PlayerTemplateBody *m_finish;                                        // +0x10
+};
+
+extern PlayerTemplateStore *ThePlayerTemplateStore;
+
+void rva00241C75(int slotNum, const GameSlot *slot, Player *player, const PlayerTemplate *pt);
+
+static inline void zeroCoord(Coord3D *c)
+{
+	c->x = 0.0f;
+	c->y = 0.0f;
+	c->z = 0.0f;
+}
+
+static inline void addCoord(Coord3D *dst, const Coord3D *src)
+{
+	dst->x += src->x;
+	dst->y += src->y;
+	dst->z += src->z;
+}
+
+void GameLogic::rva002421F5(bool loadingSaveGame, int *progress)
+{
+	((Rva0023C7D2 *)this)->rva0023C7BB(0x28);
+	if (TheGameInfo && !loadingSaveGame) {
+		Coord3D center;
+		zeroCoord(&center);
+		for (int i = 0; i < 8; ++i) {
+			AsciiString waypointName;
+			waypointName.format("Player_%d_Start", i + 1);
+			Waypoint *waypoint = Rva00506CC3FindWaypoint(waypointName);
+			if (waypoint)
+				addCoord(&center, waypoint->getLocation());
+		}
+
+		for (int i = 0; i < 8; ++i) {
+			GameSlot *slot = TheGameInfo->getSlot(i);
+			Rva0134FAA0->slot28();
+			bfmeReleaseQueuedDeviceInterfaces();
+			if (!slot || !slot->isOccupied())
+				continue;
+
+			Player *player = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(slot->m_34));
+			if (player) {
+				if (slot->getPlayerTemplate() == -2) {
+					slot->setPlayerTemplate(0);
+					const PlayerTemplate *pt = ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey("FactionObserver"));
+					if (pt) {
+						for (int j = 0; j < ThePlayerTemplateStore->getPlayerTemplateCount(); ++j) {
+							Rva0134FAA0->slot28();
+							bfmeReleaseQueuedDeviceInterfaces();
+							if (pt == ThePlayerTemplateStore->getNthPlayerTemplate(j)) {
+								slot->setPlayerTemplate(j);
+								break;
+							}
+						}
+					}
+				} else {
+					rva00241C75(i, slot, player, ThePlayerTemplateStore->getNthPlayerTemplate(slot->getPlayerTemplate()));
+				}
+			}
+			((Rva0023C7D2 *)this)->rva0023C7BB((*progress)++);
+		}
+	}
 }
