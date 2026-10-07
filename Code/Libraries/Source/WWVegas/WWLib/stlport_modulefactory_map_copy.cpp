@@ -97,6 +97,7 @@ struct _Rb_tree_node : public _Rb_tree_node_base
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
 class _Rb_tree
 {
+    template<class K2,class V2,class KV2,class C2,class A2> friend class _Rb_tree;
 public:
 	typedef _Rb_tree_node<Value> Node;
 	_Rb_tree &operator=(const _Rb_tree &other);
@@ -317,4 +318,24 @@ Rva0029FBC9Iterator Rva0029FBC9Tree::insert(_STL::_Rb_tree_node_base *x,
     _STL::_Rb_global<bool>::_Rebalance(node, m_header->m_parent);
     ++m_nodeCount;
     return Rva0029FBC9Iterator(node);
+}
+
+// STLport _tree.c copy for the existing opaque eight-byte stats-map view.
+// Native 3875DB and the assignment caller387568 establish operation/receiver.
+// Both creator calls target38766B; copy38768D establishes a byte and dword,
+// without proving the application's scalar type or key semantics.
+struct Rva00387568Element { char bytes[8]; };
+namespace _STL {
+template<class T> struct _Identity {};
+typedef _Rb_tree<Rva00387568Element,Rva00387568Element,
+ _Identity<Rva00387568Element>,less<Rva00387568Element>,
+ allocator<Rva00387568Element> > OpaqueStatsTree;
+template <> __forceinline OpaqueStatsTree::Node *OpaqueStatsTree::_M_clone_node(Node *x) {
+ Node *top=(Node*)((ByteDwordTree*)this)->_M_create_node((const ByteDwordValue&)x->m_value);
+ top->m_color=x->m_color;
+ top->m_left=0;
+ top->m_right=0;
+ return top;
+}
+template OpaqueStatsTree::Node *OpaqueStatsTree::_M_copy(Node*,Node*);
 }
