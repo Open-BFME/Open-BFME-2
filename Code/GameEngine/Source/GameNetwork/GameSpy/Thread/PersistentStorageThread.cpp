@@ -183,16 +183,21 @@ void Rva00553E47StatsCore::reset() {
 }
 
 
-class Rva003844D7	// open-play stats block
-{
+// Native open-play vtable86B100 extends the core with prefix merge555845.
+class Rva003844D7 : public Rva00553E47StatsCore {
 public:
-	~Rva003844D7();						// 0x003844D7
-	Rva003844D7 &operator=(const Rva003844D7 &that);	// 0x003874F9
-
-	unsigned char m_pad00[0x150];
-	Int m_id;						// +0x150
-	unsigned char m_pad154[0x190 - 0x154];
+    Rva003844D7(int);
+    Rva003844D7(const Rva003844D7 &);
+    virtual void reset();
+    virtual void rva00555109(XferStub *);
+    virtual void rva00555845(const Rva003844D7 *);
+    ~Rva003844D7();
+    Rva003844D7 &operator=(const Rva003844D7 &);
+    StatsIntMap m_map154;
+    StatsShortMap m_map160, m_map16c;
+    StatsFloatMap m_map178, m_map184;
 };
+typedef char OpenPlaySizeCheck[sizeof(Rva003844D7)==0x190?1:-1];
 
 class Rva0038454E : public Rva00553E47StatsCore	// strategic stats block
 {
@@ -223,19 +228,14 @@ public:
 
 };
 
-class Rva00385333	// tournament stats block
+class Rva00385333 : public Rva003844D7	// tournament stats block
 {
 public:
-	void rva00553FDD();
-    void rva00555988(XferStub *);
     void rva00555DDC(XferStub *);
 	void rva00555F68();
 	~Rva00385333();						// 0x00385333
 	Rva00385333 &operator=(const Rva00385333 &that);	// 0x00387A68
 
-	unsigned char m_pad00[0x150];
-	Int m_id;						// +0x150
-	unsigned char m_pad154[0x190 - 0x154];
 	unsigned short m_190;
 	unsigned short m_192;
 	Int m_194;
@@ -308,7 +308,7 @@ void PSPlayerAllStats::setTournamentStats(Rva00385333 stats)
 // The original method name remains unresolved.
 void Rva00385333::rva00555F68()
 {
-	rva00553FDD();
+	Rva003844D7::reset();
 	m_190 &= 0;
 	m_192 &= 0;
 	m_194 |= -1;
@@ -316,13 +316,13 @@ void Rva00385333::rva00555F68()
 	((Rva00385333String *)m_pad19C)->operator=(g_Rva0107301CEmptyString);
 }
 
-void Rva00385333::rva00553FDD() {
+void Rva003844D7::reset() {
     ((Rva00553E47StatsCore *)this)->Rva00553E47StatsCore::reset();
-    ((Rva00382077 *)(m_pad154))->rva00382908();
-    ((Rva0038201D *)(m_pad154 + 12))->rva003828B6();
-    ((Rva0038201D *)(m_pad154 + 24))->rva003828B6();
-    ((Rva0038204A *)(m_pad154 + 36))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 48))->rva003828DF();
+    ((Rva00382077 *)((char *)&m_map154))->rva00382908();
+    ((Rva0038201D *)((char *)&m_map160))->rva003828B6();
+    ((Rva0038201D *)((char *)&m_map16c))->rva003828B6();
+    ((Rva0038204A *)((char *)&m_map178))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map184))->rva003828DF();
 }
 
 // [553F2F,553FDD),174B clears the same fifteen 12-byte map slots that
@@ -418,18 +418,18 @@ void Rva0038454E::rva00555109(XferStub *xfer) {
 }
 
 // Native rva00555988: core transfer then version1 and the same map groups as its reset.
-void Rva00385333::rva00555988(XferStub *xfer) {
+void Rva003844D7::rva00555109(XferStub *xfer) {
     ((Rva00553E47StatsCore *)this)->Rva00553E47StatsCore::rva00555109(xfer);
     // Retail keeps the two version bytes in a reusable four-byte stack slot.
     union { StatsXferVersion version; unsigned versionStorage; };
     version.first=1;
     version.second=1;
     xfer->_slot28(version);
-    ((PSPlayerStats *)this)->rva00554A4A((MapIntHolder *)(m_pad154 + 0), xfer);
-    ((PSPlayerStats *)this)->XferMap((MapHolder *)(m_pad154 + 12), xfer);
-    ((PSPlayerStats *)this)->XferMap((MapHolder *)(m_pad154 + 24), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 36), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 48), xfer);
+    ((PSPlayerStats *)this)->rva00554A4A((MapIntHolder *)((char *)&m_map154), xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)((char *)&m_map160), xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)((char *)&m_map16c), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map178), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map184), xfer);
 }
 
 // Native [555DDC,555EB4),216B bridges the stored STL narrow string at19C
@@ -542,7 +542,6 @@ class Rva00555D74
 {
 public:
     void rva00555D74(const Rva00555D74 *source);
-    void rva00555845(const Rva00555D74 *source);
 private:
     unsigned char pad00[0x190];
     unsigned short word190;
@@ -554,7 +553,7 @@ private:
 
 void Rva00555D74::rva00555D74(const Rva00555D74 *source)
 {
-    rva00555845(source);
+    ((Rva003844D7 *)this)->Rva003844D7::rva00555845((const Rva003844D7 *)source);
     word190 = source->word190;
     word192 = source->word192;
     if (source->value194 > 0)
@@ -567,7 +566,7 @@ void Rva00555D74::rva00555D74(const Rva00555D74 *source)
 
 // Native [555845,555988),323B merges five12-byte maps in the common prefix.
 // Layout and signedness follow its own node tests; core merge is554AF2.
-void Rva00555D74::rva00555845(const Rva00555D74 *source) {
+void Rva003844D7::rva00555845(const Rva003844D7 *source) {
     ((Rva00553E47StatsCore *)this)->Rva00553E47StatsCore::rva00554AF2((const Rva00553E47StatsCore *)source);
     for (StatsIntMap::const_iterator it=((const StatsIntMap *)((const char *)source+0x154))->begin(); it._M_node!=((const StatsIntMap *)((const char *)source+0x154))->end()._M_node; ++it) {
         if ((unsigned int)it->second > 0)
@@ -687,4 +686,13 @@ Rva0038454E::Rva0038454E(int id) : Rva00553E47StatsCore(0) {
 Rva0038454E::Rva0038454E(const Rva0038454E &source) : Rva00553E47StatsCore(0) {
     reset();
     rva0055524B(&source);
+}
+
+Rva003844D7::Rva003844D7(int id) : Rva00553E47StatsCore(0) {
+    reset();
+    m_id=id;
+}
+Rva003844D7::Rva003844D7(const Rva003844D7 &source) : Rva00553E47StatsCore(0) {
+    reset();
+    rva00555845(&source);
 }
