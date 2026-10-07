@@ -604,8 +604,8 @@ int Rva00814770( struct Rva00814700Comm *comm, unsigned int tick )
 	int iTotal;
 	struct Rva00814770Record *record;
 	char *payload;
-	unsigned char address[ 16 ];
-	int addressLength;
+	unsigned char addr[ 16 ];
+	int addrlen;
 	void *newSocket;
 
 	iTotal = 0;
@@ -620,9 +620,9 @@ int Rva00814770( struct Rva00814700Comm *comm, unsigned int tick )
 
 	if ( comm->m_state == 3 )
 	{
-		addressLength = 0x10;
+		addrlen = 0x10;
 		newSocket = 0;
-		newSocket = Rva007FD7D0( comm->m_socket, address, &addressLength );
+		newSocket = Rva007FD7D0( comm->m_socket, addr, &addrlen );
 		if ( newSocket != 0 )
 		{
 			Rva007FD3F0( comm->m_socket );

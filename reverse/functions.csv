@@ -6998,7 +6998,6 @@ _Rva00813890,,0x0067F790,267,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,ma
 _Rva00813A50,,0x0067F950,659,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; callees pinned
 _Rva00813D00,,0x0067FC00,295,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
 _Rva008140D0,,0x0067FFD0,475,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; upgrades pin to row
-_Rva00814770,,0x00680670,1466,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; upgrades pin to row
 _Rva00814D60,,0x00680C60,317,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit; upgrades pin to row
 _Rva00814FE0,,0x00680EE0,396,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; ret-truncated unique hit
 _Rva00815DA0,,0x00681CA0,500,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,BFME1 DirtySock exact placement for 457-byte code through RET; target /GZ+EH tail adds 43 matching bytes with RTC names sin/sinlen; identity remains address-derived
@@ -66731,3 +66730,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005F1D47@Rva005F1D06@@QAE?AVAsciiString@@XZ,,0x005F1D47,105,Code/GameEngine/Source/Common/Rva005F1D06Write.cpp,matched,same file as write calls write returns AsciiString caller unclaimed
 ??0Rva005DAA48@@QAE@PAX@Z,,0x005DAA48,18,Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp,matched,address-named pointer-holder constructor distinct vtable
 ?rva0028F6BC@Rva0028F6BC@@QAE_NPBD@Z,,0x0028F6BC,47,Code/GameEngine/Source/Common/System/Rva0028F6BCBitSet.cpp,matched,sibling Rva0028F733 shape with BitFlags11 callee
+_Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,bfme1 DirtySock small-unit exact placement; extent raised to cover the /GZ RTC frame-var descriptor (locals addr/addrlen named by retail's descriptor strings)
