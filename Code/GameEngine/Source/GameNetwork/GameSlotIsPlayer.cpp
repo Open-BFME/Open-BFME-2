@@ -46,13 +46,15 @@ private:
 	Header *m_data;
 };
 
+class GameSlot;
+class Rva004481A7;
+
 class UnicodeString : public StringBase<unsigned short>
 {
-public:
-	void releaseBuffer()
-	{
-		((StringBase<unsigned short> *)this)->releaseBuffer();
-	}
+protected:
+	friend class GameSlot;
+	friend class Rva004481A7;
+	void releaseBuffer();
 };
 
 class GameSlot
