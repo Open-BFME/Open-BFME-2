@@ -84,7 +84,9 @@ class StringBase<unsigned short>
 
 public:
 	StringBase() : m_data(0) {}
+	StringBase(const StringBase<unsigned short> &source);
 	~StringBase() { releaseBuffer(); }
+	unsigned short *getBufferForRead(int length);
 
 private:
 	void *m_data;
@@ -126,11 +128,18 @@ struct AsciiStringRefWithChar : AsciiStringRef
 };
 
 // "string + text"
+class Rva002DCD9A
+{
+public:
+	int rva002dcd9a(unsigned short *dst);
+};
+
 struct AsciiStringPlusText : AsciiStringRef
 {
 	int length() const;
 	int write(char *dst);
 	operator AsciiString();
+	operator StringBase<unsigned short>();
 
 	Rva000B3F84Pair m_right;
 };
@@ -229,6 +238,15 @@ AsciiStringPlusText::operator AsciiString()
 {
 	AsciiString tmp;
 	write(tmp.getBufferForRead(length()));
+	return tmp;
+}
+
+// ??BAsciiStringPlusText@@QAE?AV?$StringBase@G@@XZ @0x002DD111
+AsciiStringPlusText::operator StringBase<unsigned short>()
+{
+	StringBase<unsigned short> tmp;
+	Rva002DCD9A *pair = (Rva002DCD9A *)this;
+	pair->rva002dcd9a(tmp.getBufferForRead(length()));
 	return tmp;
 }
 
