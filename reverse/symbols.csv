@@ -15623,3 +15623,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0040A99A@Rva0040A99AElem@@QAE_NH@Z,0x0040A99A,thiscall bool(int) predicate called by dump range 19 0x0040AA27 loop (REL32 decode); body unclaimed (blocked 141B attempt used a pointer spelling)
 ?rva0040AAF8@Rva0040BAD0@@QAEHH@Z,0x0040AAF8,thiscall int(int) member called by dump range 19 0x0040BAD0 (REL32 decode); body unclaimed
 ?rva0023D3AF@Object@@QAEXPAX@Z,0x0023D3AF,Object thiscall (opaque ptr; ret 4) via 0x29660C call sites on the TheGameLogic +0x40 pointer; identity not recovered
+??0Rva005D4EA8@@QAE@HH@Z,0x005D4EA8,product ctor for factory 0x005D4FBA: REL32 in the member body; 0x10-byte product
+??0Rva005EC64E@@QAE@PAVRva005EC832Owner@@H@Z,0x005EC64E,product ctor for factory 0x005EC832: REL32 in the member body; 0x2C-byte product
