@@ -1,6 +1,4 @@
-// ?d_0006b804@@YAXXZ
-// partial score=0.9 date=2026-10-07
-// cl: /O1 /Oy- /G7 /arch:SSE /Ireference/shims/bfme2_ascii /MD /EHs-c-
+// cl: /O1 /Oy- /G7 /arch:SSE /Ireference/shims/bfme2_ascii /MD /EHsc
 // Target 0x0006B804..0x0006B895, RET0. Same-this call to the
 // established terrain texture method at 0x0006ACBD identifies the receiver.
 // The second surface guard deliberately reloads the first pointer, as retail does.
