@@ -3768,35 +3768,267 @@ return;
 **
 ** Returns -1 if any file error occurred, otherwise 0.
 **/
+/*
+** BFME local delta (EA): the game carries NNET.DAT inside the executable,
+** split across two string literals (each under MSVC's 2048-byte literal
+** limit), and read_data_file parses it from memory with sscanf instead of
+** fopen/fscanf.  BFME 2 retail 0x006B5940 (752 bytes); the two pointers are the
+** globals at 0x009DBFB8 and 0x009DBFBC, their text byte-identical to
+** BFME 1's (compared against retail).
+** Error paths return -1 without the diagnostic printf and without freeing
+** the buffer, as retail does.
+*/
+extern "C" void * __cdecl memcpy(void *, const void *, size_t);
+
+char *bfme_nnet_data_part1 =
+	"5  7  8\t\n"
+	" 26\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  1  0  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  1  1  1  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  0  0  0  0  0  1\t\n"
+	" 1  1  1  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1 \n"
+	" 1  1  1  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  1  1  1  0\t\n"
+	" 0  1  0  0  0  0  1  0\t\n"
+	" 0  1  1  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  1  1  0\t\n"
+	" 0  1  0  0  0  0  1  1\t\n"
+	" 1  1  1  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  1  1  1  0\t\n"
+	" 0  1  0  0  0  1  0  0\t\n"
+	" 1  1  1  1  1\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  1  1  0  0 \n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  1  1  1  1\t\n"
+	" 0  1  0  0  0  1  0  1\t\n"
+	" 1  1  1  1  1\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  1  1  0  0 \n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 0  1  0  0  0  1  1  0\t\n"
+	" 0  1  1  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  0 \n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  1  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  1  1  0\t\n"
+	" 0  1  0  0  0  1  1  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  1  1  1  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  0  0  1  0  0  0\t\n"
+	" 0  1  1  1  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  1  1  1  0\t\n"
+	" 0  1  0  0  1  0  0  1\t\n"
+	" 0  0  0  0  1\t\n"
+	" 0  0  0  0  1\t\n"
+	" 0  0  0  0  1\t\n"
+	" 0  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  1  1  0\t\n"
+	" 0  1  0  0  1  0  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  1  0\t\n"
+	" 1  0  1  0  0\t\n"
+	" 1  1  0  0  0\t\n"
+	" 1  0  1  0  0\t\n"
+	" 1  0  0  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  0  0  1  0  1  1\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  1  1  1  1\t\n"
+	" 0  1  0  0  1  1  0  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  1  0  1  1 \n"
+	" 1  0  1  0  1\t\n"
+	" 1  0  1  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  0  0  1  1  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  1  0  0  1\t\n"
+	" 1  0  1  0  1\t\n"
+	" 1  0  1  0  1\t\n"
+	" 1  0  1  0  1\t\n"
+	" 1  0  0  1  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  0  0  1  1  1  0\t\n"
+	" 0  1  1  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  1  1  0\t\n";
+char *bfme_nnet_data_part2 =
+	"0  1  0  0  1  1  1  1\t\n"
+	" 1  1  1  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  1  1  1  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 0  1  0  1  0  0  0  0\t\n"
+	" 0  1  1  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  1  0  1\t\n"
+	" 1  0  0  1  1\t\n"
+	" 0  1  1  1  1\t\n"
+	" 0  1  0  1  0  0  0  1\t\n"
+	" 1  1  1  1  0\t\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  1  1  1  0\t\n"
+	" 1  0  1  0  0\t\n"
+	" 1  0  0  1  0\t\n"
+	" 1  0  0  0  1 \n"
+	" 0  1  0  1  0  0  1  0\t\n"
+	" 0  1  1  1  1\t\n"
+	" 1  0  0  0  0\t\n"
+	" 1  0  0  0  0\t\n"
+	" 0  1  1  1  0\t\n"
+	" 0  0  0  0  1\t\n"
+	" 0  0  0  0  1\t\n"
+	" 1  1  1  1  0\t\n"
+	" 0  1  0  1  0  0  1  1\t\n"
+	" 1  1  1  1  1\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  1  0  1  0  1  0  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  1  1  0\t\n"
+	" 0  1  0  1  0  1  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  0  1  0\t\n"
+	" 0  1  0  1  0\t\n"
+	" 0  1  0  1  0\t\n"
+	" 0  1  0  1  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  1  0  1  0  1  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 1  0  1  0  1\t\n"
+	" 1  0  1  0  1\t\n"
+	" 1  0  1  0  1\t\n"
+	" 0  1  0  1  0\t\n"
+	" 0  1  0  1  0  1  1  1\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  0  1  0\t\n"
+	" 0  1  0  1  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  1  0  1  0\t\n"
+	" 0  1  0  1  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  0  1  1  0  0  0\t\n"
+	" 1  0  0  0  1\t\n"
+	" 0  1  0  1  0\t\n"
+	" 0  1  0  1  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  1  0  1  1  0  0  1\t\n"
+	" 1  1  1  1  1\t\n"
+	" 0  0  0  1  0\t\n"
+	" 0  0  0  1  0\t\n"
+	" 0  0  1  0  0\t\n"
+	" 0  1  0  0  0\t\n"
+	" 0  1  0  0  0\t\n"
+	" 1  1  1  1  1\t\n"
+	" 0  1  0  1  1  0  1  0";
+
+/* Advance past the current line of the in-memory data file. */
+static char *bfme_skip_line(char *data)
+{
+while (*data != '\n' && *data)
+	data++;
+if (*data == '\n')
+	data++;
+return data;
+}
+
 static int read_data_file()
 {
-FILE *infile;
+char *buffer;
+char *data;
+int len1, len2;
 
 int xinsize,yinsize,youtsize;
 int patt, element, i, row;
 int vals_read;
 int val1,val2,val3,val4,val5,val6,val7,val8;
 
-/* printf("\n Opening and retrieving data from file."); */
+len1 = strlen(bfme_nnet_data_part1);
+len2 = strlen(bfme_nnet_data_part2);
+buffer = (char *)malloc(len1 + len2 + 1);
+memcpy(buffer, bfme_nnet_data_part1, len1);
+memcpy(buffer + len1, bfme_nnet_data_part2, len2);
+buffer[len1 + len2] = 0;
 
-infile = fopen(inpath, "r");
-if (infile == NULL)
-{
-	printf("\n CPU:NNET--error in opening file!");
-	return -1 ;
-}
-vals_read =fscanf(infile,"%d  %d  %d",&xinsize,&yinsize,&youtsize);
+vals_read = sscanf(buffer,"%d  %d  %d",&xinsize,&yinsize,&youtsize);
+data = bfme_skip_line(buffer);
 if (vals_read != 3)
-{
-	printf("\n CPU:NNET -- Should read 3 items in line one; did read %d",vals_read);
 	return -1;
-}
-vals_read=fscanf(infile,"%d",&numpats);
-if (vals_read !=1)
-{
-	printf("\n CPU:NNET -- Should read 1 item in line 2; did read %d",vals_read);
+vals_read = sscanf(data,"%d",&numpats);
+data = bfme_skip_line(data);
+if (vals_read != 1)
 	return -1;
-}
 if (numpats > MAXPATS)
 	numpats = MAXPATS;
 
@@ -3805,13 +4037,11 @@ for (patt=0; patt<numpats; patt++)
 	element = 0;
 	for (row = 0; row<yinsize; row++)
 	{
-		vals_read = fscanf(infile,"%d  %d  %d  %d  %d",
+		vals_read = sscanf(data,"%d  %d  %d  %d  %d",
 			&val1, &val2, &val3, &val4, &val5);
+		data = bfme_skip_line(data);
 		if (vals_read != 5)
-		{
-			printf ("\n CPU:NNET -- failure in reading input!");
 			return -1;
-		}
 		element=row*xinsize;
 
 		in_pats[patt][element] = (double) val1; element++;
@@ -3828,8 +4058,9 @@ for (patt=0; patt<numpats; patt++)
 			in_pats[patt][i] = 0.1;
 	}
 	element = 0;
-	vals_read = fscanf(infile,"%d  %d  %d  %d  %d  %d  %d  %d",
+	vals_read = sscanf(data,"%d  %d  %d  %d  %d  %d  %d  %d",
 		&val1, &val2, &val3, &val4, &val5, &val6, &val7, &val8);
+	data = bfme_skip_line(data);
 
 	out_pats[patt][element] = (double) val1; element++;
 	out_pats[patt][element] = (double) val2; element++;
@@ -3841,9 +4072,7 @@ for (patt=0; patt<numpats; patt++)
 	out_pats[patt][element] = (double) val8; element++;
 }
 
-/* printf("\n Closing the input file now. "); */
-
-fclose(infile);
+free(buffer);
 return(0);
 }
 
