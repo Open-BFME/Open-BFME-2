@@ -404,26 +404,3 @@ bool Rva001EC9AC::rva001EC9AC(Int a0, Int a1, Int a2)
 		return m_member->rva001EC8C0(a0, a1, a2);
 	return false;
 }
-
-class Rva002C589B;
-class AITargetChooser
-{
-public:
-	Rva002C589B *rva00505408(Int a0);
-};
-
-class Rva002C5FBA
-{
-public:
-	void *rva002C5FBA(Int a0);
-private:
-	char m_lead[0xc];
-	AITargetChooser *m_member;
-};
-
-void *Rva002C5FBA::rva002C5FBA(Int a0)
-{
-	if (m_member)
-		return m_member->rva00505408(a0);
-	return 0;
-}

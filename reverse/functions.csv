@@ -67713,7 +67713,6 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva00583794@Rva00583794@@QAEXPAVObject@@@Z,,0x00583794,92,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeHoldGround.cpp,matched,Address-derived list walk; Object helpers rowed except direct target 0x00295F05; table context suggests Horde family
 ?rva001EC99B@Rva001EC99B@@QAEPAXHH@Z,,0x001EC99B,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,wide-scan null-checked forwarder; identity remains address-derived
 ?rva001EC9AC@Rva001EC9AC@@QAE_NHHH@Z,,0x001EC9AC,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,wide-scan null-checked bool forwarder; identity remains address-derived
-?rva002C5FBA@Rva002C5FBA@@QAEPAXH@Z,,0x002C5FBA,17,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,null-checked forwarder to matched AITargetChooser method
 ?Rva003BB29D@@YGXABVAsciiString@@@Z,,0x003BB29D,66,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB31D.cpp,matched,player-mask loop shares rowed resolver and iterator; identity address-derived
 ?Rva003BB35B@@YGXABVAsciiString@@H@Z,,0x003BB35B,67,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB31D.cpp,matched,player-mask mode-zero action; identity address-derived
 ?Rva003BB41A@@YGXABVAsciiString@@H@Z,,0x003BB41A,67,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BB31D.cpp,matched,player-mask mode-one action; identity address-derived
