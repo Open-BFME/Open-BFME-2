@@ -7272,11 +7272,28 @@ void __cdecl rva007B9298()
 	return p->~Rva0052B7B3Dtor();
 }
 
-class Rva00207F08Dtor
+namespace _STL
+{
+template <class T, class A>
+class _List_base
+{
+public:
+	~_List_base();
+
+private:
+	void *m_header;
+};
+}
+
+class Rva00207F08Dtor : public _STL::_List_base<AsciiString, _STL::allocator<AsciiString> >
 {
 public:
 	~Rva00207F08Dtor();
 };
+
+Rva00207F08Dtor::~Rva00207F08Dtor()
+{
+}
 
 extern unsigned g_Va00E065E4;
 unsigned int g_Va00E065E4;
