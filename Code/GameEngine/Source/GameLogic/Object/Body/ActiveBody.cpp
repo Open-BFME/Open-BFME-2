@@ -11,12 +11,14 @@
 // +0x24/+0x28. The health change is interface slot 32 (+0x80); the final
 // call is slot 21 (+0x54) of the primary vtable with a zero argument.
 
+#include <string.h>
 #include "ascii_string.h"
 
 typedef float Real;
 typedef int Int;
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
+typedef unsigned short UnsignedShort;
 
 enum BodyDamageType { BODY_PRISTINE, BODY_DAMAGED, BODY_REALLYDAMAGED, BODY_RUBBLE };
 
@@ -37,6 +39,109 @@ class Matrix3D;
 class ParticleSystemTemplate;
 
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID = 0 };
+
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+// Xfer as the matched BFME 2 xfer bodies view it (BodyModuleXfer.cpp,
+// ProductionUpdateQueue.cpp): MSVC groups the operator== overloads in reverse,
+// so Version is +0x28, AsciiString +0x6C, float +0x70, unsigned int +0x78,
+// int +0x7C, unsigned short +0x80 and bool +0x90.
+class Xfer
+{
+public:
+	class Version;
+
+	Xfer();
+	virtual ~Xfer();
+
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3DBase &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+
+	virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+
+protected:
+	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+class XferException
+{
+public:
+	XferException(int tag, const char *format, ...);	// 0x0060C36E
+	XferException(const XferException &that);
+	~XferException();
+
+	char *text;
+	int tag;
+};
+
+// The cdecl enum and ID transfers, rowed at 0x00305E12, 0x00305E2A,
+// 0x00305EBA, 0x0030600A and 0x003060B2.
+void XferBodyDamageType(Xfer *xfer, Int *value);
+void XferBodySideDestroyedType(Xfer *xfer, Int *value);
+void XferDamageFXType(Xfer *xfer, Int *value);
+void XferParticleSystemID(Xfer *xfer, Int *value);
+void XferObjectID(Xfer *xfer, ObjectID *value);
 
 // The particle system's setters, rowed under placeholder names: position copy
 // 0x001F3899 and attached object 0x001F3C43.
@@ -149,14 +254,17 @@ public:
 	Int m_creationType;			// +0x28
 };
 
+// DamageInfo is 0x7C bytes (constructor 0x00263895); its vtable 0x00BF9200
+// holds one slot, the xfer rowed at 0x004D6F86.
 class DamageInfo
 {
 public:
-	void *m_vptr;
+	virtual void xfer(Xfer *xfer);		// slot 0
 	DamageInfoInput in;			// +0x04
 	unsigned char m_pad30[0x70 - 0x30];
 	Real m_actualDamageDealt;		// +0x70
 	Real m_actualDamageClipped;		// +0x74
+	unsigned char m_pad78[4];
 };
 
 class DamageModuleInterface
@@ -332,10 +440,51 @@ public:
 	Bool m_byte51;				// +0x51
 };
 
-class ActiveBodyModuleBase
+// The armor-set flags are BitFlags<21> in BFME 2: its setBitByName is rowed
+// at 0x004BE0F1; the set-bit count (0x0028F528), the name of a set bit
+// (0x004BE0C7) and the CRC transfer of the raw bits (0x004BE722) are rowed
+// under address names.
+class Rva0028F528
 {
 public:
-	virtual void m00(); virtual void m01(); virtual void m02(); virtual void m03();
+	Int rva0028F528();
+};
+class Rva004BE0C7
+{
+public:
+	void *rva004BE0C7(UnsignedInt i);
+};
+class Rva004BE722
+{
+public:
+	void rva004BE722(void *xfer);
+};
+
+template <int NUMBITS> class BitFlags
+{
+public:
+	enum { NUMWORDS = (NUMBITS + 31) / 32 };
+
+	Int count() { return ((Rva0028F528 *)this)->rva0028F528(); }
+	const char *getBitNameIfSet(Int i) { return (const char *)((Rva004BE0C7 *)this)->rva004BE0C7(i); }
+	Bool setBitByName(const char *token);
+	void clear() { memset(m_bits, 0, sizeof(m_bits)); }
+	void xfer(Xfer *xfer);
+
+private:
+	UnsignedInt m_bits[NUMWORDS];
+};
+typedef BitFlags<21> ArmorSetFlags;
+
+// BodyModule: the primary base (BehaviorModule then the damage scalar at
+// +0x14); its xfer is primary slot 3, rowed at 0x0058B043.
+class BodyModule
+{
+public:
+	virtual void m00(); virtual void m01(); virtual void m02();
+protected:
+	virtual void xfer(Xfer *xfer);				// +0x0C
+public:
 	virtual void m04(); virtual void m05(); virtual void m06(); virtual void m07();
 	virtual void m08(); virtual void m09(); virtual void m10(); virtual void m11();
 	virtual void m12();
@@ -379,7 +528,7 @@ public:
 	virtual void rvaSlot40(Real health, Bool healing);	// +0xA0
 };
 
-class ActiveBody : public ActiveBodyModuleBase, public BodyModuleInterface
+class ActiveBody : public BodyModule, public BodyModuleInterface
 {
 public:
 	virtual void attemptHealing(DamageInfo *damageInfo);
@@ -389,6 +538,7 @@ public:
 	virtual void rva004BE69C();
 
 protected:
+	virtual void xfer(Xfer *xfer);
 	static Bool shouldRetaliate(Object *obj);
 	virtual void doDamageFX(const DamageInfo *damageInfo);
 	virtual void createParticleSystems(const AsciiString &boneBaseName,
@@ -404,22 +554,27 @@ private:
 	Real m_maxHealth;			// +0x20
 	Real m_damagedRatio;			// +0x24
 	Real m_reallyDamagedRatio;		// +0x28
-	unsigned char m_pad2C[4];
+	Real m_initialHealth;			// +0x2C
 	BodyDamageType m_curDamageState;	// +0x30
 	Int m_field34;				// +0x34
 	UnsignedInt m_nextDamageFXTime;		// +0x38
 	Int m_lastDamageFXDone;			// +0x3C
-	unsigned char m_pad40[0xC0 - 0x40];
+	DamageInfo m_lastDamageInfo;		// +0x40
+	UnsignedInt m_lastDamageTimestamp;	// +0xBC
 	UnsignedInt m_lastHealingTimestamp;	// +0xC0
-	unsigned char m_padC4[4];
+	Bool m_frontCrushed;			// +0xC4
+	Bool m_backCrushed;			// +0xC5
+	Bool m_lastDamageCleared;		// +0xC6
+	Bool m_indestructible;			// +0xC7
 	BodyParticleSystem *m_particleSystems;	// +0xC8
 	Real m_damageStateValues[4];		// +0xCC
-	unsigned char m_padDC[4];
+	Bool m_damageStateFlags[4];		// +0xDC
 	DamageCreation *m_damageCreationBegin;	// +0xE0
 	DamageCreation *m_damageCreationEnd;	// +0xE4
 	unsigned char m_padE8[4];
 	ObjectID m_linkedObjectID;		// +0xEC
-	unsigned char m_padF0[0xF8 - 0xF0];
+	ArmorSetFlags m_curArmorSetFlags;	// +0xF0
+	const void *m_curArmorSet;		// +0xF4
 	Armor m_curArmor;			// +0xF8
 	DamageFX *m_curDamageFX;		// +0xFC
 };
@@ -741,4 +896,123 @@ void ActiveBody::rva004BE69C()
 	}
 	if (!((const StringBase<char> &)md->m_reallyDamagedAttributeModifier).isEmpty())
 		getObject()->removeAttributeModifierFromPool(md->m_reallyDamagedAttributeModifier);
+}
+
+// BitFlags<21>::xfer, retail 0x004BE781 (315B), the armor-set flags' transfer
+// called from ActiveBody::xfer. Zero Hour's BitFlags::xfer (count and the
+// names of the set bits on save; clear and set by name on load, throwing on an
+// unknown name) with BFME 2's test order: the +0x10 Xfer test sends the raw
+// bits through 0x004BE722 first, then save, and every other mode loads.
+template <int NUMBITS>
+void BitFlags<NUMBITS>::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+
+	if (xfer->IsLightCRC())
+	{
+		((Rva004BE722 *)this)->rva004BE722(xfer);
+	}
+	else if (xfer->IsStoring())
+	{
+		Int c = count();
+		*xfer == c;
+		for (Int i = 0; i < NUMBITS; ++i)
+		{
+			const char *bitName = getBitNameIfSet(i);
+			if (bitName == 0)
+				continue;
+			AsciiString bitNameA = bitName;
+			*xfer == bitNameA;
+			--c;
+		}
+	}
+	else
+	{
+		clear();
+		Int c;
+		*xfer == c;
+		AsciiString string;
+		for (Int i = 0; i < c; ++i)
+		{
+			*xfer == string;
+			Bool ok = setBitByName(string.str());
+			if (ok == false)
+				throw XferException(0, 0);
+		}
+	}
+}
+
+// ActiveBody::xfer, retail 0x004BF1E8 (551B): primary slot 3. Zero Hour's
+// field order with BFME 2's changes: the base class goes first and the +0x10
+// Xfer test ends the transfer there; the damaged ratios, the side-destroyed
+// state (+0x34) and the damage state values and flags (+0xCC/+0xDC) are new;
+// the enums go through their cdecl transfers; the last damage info is its own
+// vtable's slot 0; the particle systems are skipped under the +0x0C test and
+// their load throws XferException 5 on a non-empty list; the linked object
+// (+0xEC) follows the armor-set flags.
+void ActiveBody::xfer(Xfer *xfer)
+{
+	BodyModule::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+
+	Xfer::Version version(1, 1);
+	*xfer == version;
+
+	*xfer == m_currentHealth;
+	*xfer == m_prevHealth;
+	*xfer == m_maxHealth;
+	*xfer == m_damagedRatio;
+	*xfer == m_reallyDamagedRatio;
+	*xfer == m_initialHealth;
+	XferBodyDamageType(xfer, (Int *)&m_curDamageState);
+	XferBodySideDestroyedType(xfer, &m_field34);
+	*xfer == m_nextDamageFXTime;
+	XferDamageFXType(xfer, &m_lastDamageFXDone);
+	DamageInfo *lastDamageInfo = &m_lastDamageInfo;
+	lastDamageInfo->xfer(xfer);
+	*xfer == m_lastDamageTimestamp;
+	*xfer == m_lastHealingTimestamp;
+	*xfer == m_frontCrushed;
+	*xfer == m_backCrushed;
+	*xfer == m_lastDamageCleared;
+	*xfer == m_indestructible;
+
+	if (!xfer->IsCRC())
+	{
+		BodyParticleSystem *system;
+		UnsignedShort particleSystemCount = 0;
+		for (system = m_particleSystems; system; system = system->m_next)
+			particleSystemCount++;
+		*xfer == particleSystemCount;
+
+		if (xfer->IsStoring())
+		{
+			for (system = m_particleSystems; system; system = system->m_next)
+				XferParticleSystemID(xfer, (Int *)&system->m_particleSystemID);
+		}
+		else
+		{
+			ParticleSystemID particleSystemID;
+			if (m_particleSystems != 0)
+				throw XferException(5, 0);
+			for (UnsignedShort i = 0; i < particleSystemCount; ++i)
+			{
+				XferParticleSystemID(xfer, (Int *)&particleSystemID);
+				BodyParticleSystem *newEntry = new BodyParticleSystem;
+				newEntry->m_particleSystemID = particleSystemID;
+				newEntry->m_next = m_particleSystems;
+				m_particleSystems = newEntry;
+			}
+		}
+	}
+
+	for (Int i = 0; i < 4; ++i)
+	{
+		*xfer == m_damageStateValues[i];
+		*xfer == m_damageStateFlags[i];
+	}
+	m_curArmorSetFlags.xfer(xfer);
+	XferObjectID(xfer, &m_linkedObjectID);
 }
