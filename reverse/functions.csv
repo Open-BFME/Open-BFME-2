@@ -67046,3 +67046,4 @@ _getinfo,,0x00747E00,679,Code/Libraries/Source/Lua/ldblib.c,matched,Lua 4.0.1 st
 ?rva000D19F9@Rva000D19F9@@QAEXXZ,,0x000D19F9,129,Code/GameEngine/Source/Common/Rva000D19F9.cpp,matched,129B tint forwarder: getPosition then 1.5f RGBColor
 ?rva000EC9C6@Rva000EC9C6@@QAEXH@Z,,0x000EC9C6,135,Code/GameEngine/Source/Common/Rva000EC9C6.cpp,matched,135B flag forwarder: four thiscall callees
 ?rva000E15D1@Rva000E15D1@@QAEXXZ,,0x000E15D1,134,Code/GameEngine/Source/Common/Rva000E15D1.cpp,matched,134B stride walk: 0xD4 records and a 16-byte count record
+?renderBibs@W3DBibBuffer@@QAEXXZ,,0x000D4228,139,Code/GameEngine/Source/Common/Rva000D4228.cpp,matched,139B bib draw: index vertex shader then two triangle ranges
