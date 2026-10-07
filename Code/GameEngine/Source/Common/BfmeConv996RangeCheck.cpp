@@ -99,6 +99,70 @@ bool BfmeB996Range::rva0010694B( void **firstOut, int *first, unsigned int *seco
 }
 #pragma optimize("y", on)
 
+// Target evidence: RVA 0x00106970 is a 150-byte two-int bool method, as shown
+// by its caller at 0x00106C79 and the ret 8 boundary. It scans checked range
+// values, steps the device cursor, and calls 0x0010694B after matching the
+// requested value. Offsets +4 and +0xC follow the neighboring parser methods;
+// the owner name remains the address-derived caller view.
+class Rva00106C79Holder
+{
+public:
+	bool rva00106C79(int a1, int a2);
+	bool rva00106970(int a1, int a2);
+private:
+	char m_pad00[8];
+	int m_08;
+};
+
+struct Rva00106970RangeView
+{
+	char m_pad00[4];
+	BfmeDev996Range *m_dev;
+	int m_kind;
+	int m_limit;
+};
+
+bool Rva00106C79Holder::rva00106970(int a1, int target)
+{
+	if (m_08 == 6) {
+		Rva00106970RangeView *range = (Rva00106970RangeView *)this;
+		char stop = 0;
+		int first;
+		unsigned int second;
+		goto read_range;
+
+scan_range:
+		if (stop != 0) {
+			return false;
+		}
+		if (first == target) {
+			goto found;
+		}
+		{
+			int skip = (int)second - 8;
+			if (skip + range->m_dev->cursor() > range->m_limit) {
+				return false;
+			}
+			range->m_dev->v5(skip, 1);
+		}
+
+read_range:
+		if (((BfmeB996Range *)this)->checkRange((int)&first, &second, &stop)) {
+			goto scan_range;
+		}
+		if (stop != 0 || first != target) {
+			return false;
+		}
+
+found:
+		range->m_dev->v5(-8, 1);
+		if (((BfmeB996Range *)this)->rva0010694B((void **)a1, &first, &second)) {
+			return true;
+		}
+	}
+	return false;
+}
+
 class Rva007E3410Object
 {
 public:
