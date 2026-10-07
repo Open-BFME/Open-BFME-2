@@ -155,6 +155,25 @@ struct Coord3D
 		z = that.z;
 	}
 	void normalize();
+	void sub(const Coord3D *a)
+	{
+		x -= a->x;
+		y -= a->y;
+		z -= a->z;
+	}
+	// by value: retail reads all three of the addend before summing
+	void add(Coord3D a)
+	{
+		x += a.x;
+		y += a.y;
+		z += a.z;
+	}
+	void scale(float scale)
+	{
+		x *= scale;
+		y *= scale;
+		z *= scale;
+	}
 
 	float x;
 	float y;
@@ -203,6 +222,8 @@ class Thing;
 class ModuleData;
 class Object;
 class Drawable;
+class Player;
+class ThingTemplate;
 
 enum StateReturnType
 {
@@ -302,6 +323,14 @@ enum DozerTask
 	DOZER_TASK_BUILD = DOZER_TASK_FIRST,
 	DOZER_TASK_REPAIR,
 	DOZER_TASK_FORTIFY
+};
+
+enum DozerDockPoint
+{
+	DOZER_DOCK_POINT_START = 0,
+	DOZER_DOCK_POINT_ACTION = 1,
+	DOZER_DOCK_POINT_END = 2,
+	DOZER_NUM_DOCK_POINTS
 };
 
 enum
@@ -405,7 +434,7 @@ public:
 	virtual void slot1() = 0;
 	virtual void slot2() = 0;
 	virtual void slot3() = 0;
-	virtual void slot4() = 0;
+	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags) = 0; // vslot 4
 	virtual DozerTask getMostRecentCommand() = 0; // vslot 5
 	virtual Bool isTaskPending(DozerTask task) = 0; // vslot 6
 	virtual ObjectID getTaskTarget(DozerTask task) = 0; // vslot 7
@@ -415,19 +444,22 @@ public:
 	virtual void newTask(DozerTask task, Object *target) = 0; // vslot 12
 	virtual void cancelTask(DozerTask task) = 0; // vslot 13
 	virtual void internalTaskComplete(DozerTask task) = 0; // vslot 14
-	virtual void slot15() = 0; virtual void slot16() = 0;
-	virtual const Coord3D *getDockPoint(DozerTask task, Int point) = 0; // vslot 17
+	virtual void internalCancelTask(DozerTask task) = 0; // vslot 15
+	virtual void internalTaskCompleteOrCancelled(DozerTask task) = 0; // vslot 16
+	virtual const Coord3D *getDockPoint(DozerTask task, DozerDockPoint point) = 0; // vslot 17
 	virtual void slot18() = 0; virtual void slot19() = 0;
 	virtual void slot20() = 0; virtual void slot21() = 0; virtual void slot22() = 0;
 	virtual void slot23() = 0;
 	virtual void finishBuildingSound() = 0; // vslot 24
-	// BFME 2's own slots. 26 (0x0048A15A) and 29 (0x00489DD1, the ICF twin
-	// of 28) both work on the object whose id is at DozerAIUpdate +0x4A4.
+	// BFME 2's own slots. 26 (0x0048A15A) and 29 (0x00489DD1, which slot 28
+	// shares) both work on the object whose id is at DozerAIUpdate +0x4A4.
 	virtual void slot25() = 0;
 	virtual void vslot26() = 0;
 	virtual void rva00489D09() = 0; // vslot 27
-	virtual void slot28() = 0;
-	virtual Object *vslot29() = 0;
+	virtual Object *slot28() = 0;
+	virtual Object *rva00489DD1() = 0; // vslot 29
+	virtual void slot30() = 0;
+	virtual void rva00488CC4() = 0; // vslot 31
 };
 
 class AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24
@@ -453,7 +485,9 @@ public:
 	virtual void v101(); virtual void v102(); virtual void v103(); virtual void v104(); virtual void v105(); virtual void v106(); virtual void v107(); virtual void v108(); virtual void v109();
 	virtual Bool isIdle() const; // vslot 110 (+0x1B8)
 	virtual void v111(); virtual void v112(); virtual void v113(); virtual void v114(); virtual void v115(); virtual void v116(); virtual void v117(); virtual void v118(); virtual void v119(); virtual void v120();
-	virtual void v121(); virtual void v122(); virtual void v123(); virtual void v124(); virtual void v125(); virtual void v126(); virtual void v127(); virtual void v128(); virtual void v129(); virtual void v130();
+	virtual void v121(); virtual void v122(); virtual void v123(); virtual void v124(); virtual void v125();
+	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags); // vslot 126 (+0x1F8)
+	virtual void v127(); virtual void v128(); virtual void v129(); virtual void v130();
 	virtual void v131(); virtual void v132(); virtual void v133(); virtual void v134(); virtual void v135(); virtual void v136(); virtual void v137(); virtual void v138(); virtual void v139(); virtual void v140();
 	virtual void v141(); virtual void v142(); virtual void v143(); virtual void v144(); virtual void v145(); virtual void v146(); virtual void v147();
 	virtual Bool isAllowedToRespondToAiCommands(const AICommandParms *parms) const; // vslot 148 (+0x250)
@@ -576,6 +610,8 @@ public:
 	void rva0028CFB2(const int *clear, const int *set);
 	void rva0028CDEB(const Rva00346BC0 &mask, bool set);
 	Bool get454() const { return m_454; }
+	Player *getControllingPlayer() const;
+	void rva0028DCC4();
 	void rva0028AE6D();
 	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
 	{
@@ -709,14 +745,18 @@ class DozerAIUpdate : public AIUpdateInterface, public DozerAIInterface
 public:
 	DozerAIUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual void onDelete();
+	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags);
 	virtual void finishBuildingSound();
 	virtual void rva00489D09();
+	virtual Object *rva00489DD1();
+	virtual void rva00488CC4();
 	virtual void newTask(DozerTask task, Object *target);
+	virtual void cancelTask(DozerTask task);
+	virtual void internalTaskCompleteOrCancelled(DozerTask task);
+	virtual const Coord3D *getDockPoint(DozerTask task, DozerDockPoint point);
 	virtual void aiDoCommand(const AICommandParms *parms);
 private:
 	enum { DOZER_NUM_TASKS = 3 };
-	enum { DOZER_NUM_DOCK_POINTS = 3 };
-	enum { DOZER_DOCK_POINT_START = 0, DOZER_DOCK_POINT_ACTION, DOZER_DOCK_POINT_END };
 	enum { DOZER_SELECT_BUILD_DOCK_LOCATION = 0 };
 
 	struct DozerTaskInfo
@@ -1142,6 +1182,7 @@ class Drawable
 {
 public:
 	void rva00274176(Bool flag);
+	void fadeIn(UnsignedInt frames);
 };
 
 class InGameUI
@@ -1215,7 +1256,7 @@ StateReturnType DozerActionMoveToActionPosState::update()
 	if (goalObject == 0)
 	{
 		DozerAIInterface *dozerAI = dozer->getAIUpdateInterface()->getDozerAIInterface();
-		if (dozerAI == 0 || (goalObject = dozerAI->vslot29()) == 0)
+		if (dozerAI == 0 || (goalObject = dozerAI->rva00489DD1()) == 0)
 			return STATE_FAILURE;
 	}
 
@@ -1249,7 +1290,7 @@ StateReturnType DozerActionMoveToActionPosState::update()
 			DozerAIInterface *dozerAI = ai->getDozerAIInterface();
 			if (dozerAI)
 			{
-				Object *other = dozerAI->vslot29();
+				Object *other = dozerAI->rva00489DD1();
 				if (other)
 				{
 					Rva00489256Do(dozer);
@@ -1299,7 +1340,7 @@ StateReturnType DozerActionPickActionPosState::update()
 	Object *goalObject = TheGameLogic->findObjectByID(dozerAI->getTaskTarget(m_task));
 	if (goalObject == 0)
 	{
-		goalObject = dozerAI->vslot29();
+		goalObject = dozerAI->rva00489DD1();
 		if (goalObject == 0)
 		{
 			getMachine()->setGoalObject(goalObject);
@@ -1309,7 +1350,7 @@ StateReturnType DozerActionPickActionPosState::update()
 	}
 
 	Coord3D goalPos;
-	const Coord3D *pos = dozerAI->getDockPoint(m_task, 0 /* DOZER_DOCK_POINT_START */);
+	const Coord3D *pos = dozerAI->getDockPoint(m_task, DOZER_DOCK_POINT_START);
 	if (pos)
 		goalPos = *pos;
 	else
@@ -1434,4 +1475,123 @@ DozerAIUpdate::~DozerAIUpdate()
 
 	if (m_4A4 != 0)
 		rva00489D09();
+}
+
+void DozerAIUpdate::internalTaskCompleteOrCancelled(DozerTask task)
+{
+	switch (task)
+	{
+		case DOZER_TASK_INVALID:
+			break; // do nothing, this is really no task
+
+		case DOZER_TASK_BUILD:
+			// the builder is no longer actively building something
+			getObject()->clearModelConditionState(MODELCONDITION_ACTIVELY_CONSTRUCTING);
+			break;
+
+		case DOZER_TASK_REPAIR:
+			// the builder is no longer actively repairing something
+			getObject()->clearModelConditionState(MODELCONDITION_ACTIVELY_CONSTRUCTING);
+			break;
+
+		case DOZER_TASK_FORTIFY:
+			break;
+
+		default:
+			break;
+	}
+}
+
+const Coord3D *DozerAIUpdate::getDockPoint(DozerTask task, DozerDockPoint point)
+{
+	if (task < 0 || task >= DOZER_NUM_TASKS)
+		return 0;
+	if (point < 0 || point >= DOZER_NUM_DOCK_POINTS)
+		return 0;
+
+	if (m_dockPoint[task][point].valid)
+		return &m_dockPoint[task][point].location;
+
+	return 0;
+}
+
+Object *DozerAIUpdate::rva00489DD1()
+{
+	return TheGameLogic->findObjectByID((ObjectID)m_4A4);
+}
+
+// TheSkirmishAIManager's per-player record (0x002A8AB1), and the AI builder
+// call (0x004EC2D4) that takes this dozer's id.
+struct Rva002A8AB1Record;
+
+class Rva002A8F24
+{
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *owner);
+};
+
+extern Rva002A8F24 *g_00DFEEF8;
+
+class AIBuilder
+{
+public:
+	void rva004EC2D4(int value);
+};
+
+void DozerAIUpdate::rva00488CC4()
+{
+	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(getObject()->getControllingPlayer());
+	if (record)
+		reinterpret_cast<AIBuilder *>(record)->rva004EC2D4(getObject()->getID());
+}
+
+class GlobalData
+{
+public:
+	unsigned char m_pad0000[0x11E0];
+	UnsignedInt m_11E0; // +0x11E0, the frames a dozer takes to fade back in
+	Real m_11E4; // +0x11E4, how far it steps away from the structure it leaves
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+// The dozer comes back out of a structure it was working in: it steps away
+// from the target (when asked and one is given), fades back in and drops the
+// model conditions Rva00489256Do set. Callers: DozerActionDoActionState::update
+// (target, TRUE) and cancelTask (none, FALSE).
+static __declspec(noinline) void Rva0048A3B9Do(Object *obj, Object *target, Bool moveAway)
+{
+	if (rva004884B7(obj))
+		return;
+
+	if (moveAway && target && TheWritableGlobalData->m_11E4 > 0.0f)
+	{
+		Coord3D dir = *obj->getPosition();
+		dir.sub(target->getPosition());
+		dir.normalize();
+		dir.scale(TheWritableGlobalData->m_11E4);
+		dir.add(*obj->getPosition());
+		obj->getAIUpdateInterface()->aiMoveToPosition(&dir, CMD_FROM_PLAYER);
+	}
+
+	if (!obj->get454())
+		obj->rva0028DCC4();
+	obj->getDrawable()->fadeIn(TheWritableGlobalData->m_11E0);
+
+	Rva00346BC0 mask(0, 0x3c, 3, 0x4f, 0x63);
+	obj->rva0028CDEB(mask, false);
+}
+
+void DozerAIUpdate::cancelTask(DozerTask task)
+{
+	// clear the order
+	internalCancelTask(task);
+
+	// reset the machine to we can re-evaluate what we want to do
+	m_dozerMachine->resetToDefaultState();
+
+	if (rva00489DD1())
+		rva00489D09();
+
+	Rva0048A3B9Do(getObject(), 0, FALSE);
 }
