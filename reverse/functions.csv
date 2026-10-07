@@ -67170,3 +67170,4 @@ _gpSetInfoCacheFilenameA,,0x0072D2C0,5,Code/GameEngine/Source/GameNetwork/GameSp
 ?rva002B2F71@Rva002B2F71@@QAEPAXHHHHH@Z,,0x002B2F71,38,Code/GameEngine/Source/Common/Rva002B2F71.cpp,matched,Target stores five stack dwords at this offsets 0 through 0x10 and preserves this in EAX
 ?rva0037F26D@UnitRevivalTracker@@QAEXXZ,,0x0037F26D,14,Code/GameEngine/Source/Common/Rva0037F26D.cpp,matched,adjacent tracker unit and retail full vector range erase call
 ?Rva0021B37AFind@@YAPAVGameSlot@@PBVPlayer@@@Z,,0x0021B37A,128,Code/GameEngine/Source/GameLogic/Object/CreateAHeroSlotFind.cpp,matched,slot search via TheGameInfo and NameKeyGenerator matches CreateAHeroManager pattern
+?rva0021B3FA@Rva0021B3FA@@QAEXXZ,,0x0021B3FA,122,Code/GameEngine/Source/GameLogic/Object/Rva0021B3FAGrant.cpp,matched,chain from Find grants upgrade to slot players via PlayerList
