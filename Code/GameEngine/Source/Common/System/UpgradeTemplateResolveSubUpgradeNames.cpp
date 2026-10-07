@@ -1,7 +1,6 @@
-// ?friend_resolveSubUpgradeNames@UpgradeTemplate@@QAEXXZ
-// partial score=0.99 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
+// ?friend_resolveSubUpgradeNames@UpgradeTemplate@@QAEXXZ
 //
 // UpgradeTemplate::friend_resolveSubUpgradeNames, retail 0x0026F8D6 (102 bytes).
 // Identity (target): WorldBuilder debug Upgrade.cpp line 338 names it
@@ -16,6 +15,7 @@
 #include "ascii_string.h"
 #include <vector>
 
+class ModuleData;
 class UpgradeTemplate;
 
 class UpgradeCenter
@@ -42,12 +42,12 @@ void UpgradeTemplate::friend_resolveSubUpgradeNames()
 	if (!m_subUpgradeNames.empty())
 	{
 		unsigned int count = m_subUpgradeNames.size();
-		m_subUpgrades.reserve(count);
+		reinterpret_cast<_STL::vector<const ModuleData *> *>(&m_subUpgrades)->reserve(count);
 		for (unsigned int i = 0; i < count; ++i)
 		{
 			const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(m_subUpgradeNames[i]);
 			if (upgrade)
-				m_subUpgrades.push_back(upgrade);
+				reinterpret_cast<_STL::vector<const ModuleData *> *>(&m_subUpgrades)->push_back(*reinterpret_cast<const ModuleData * const *>(&upgrade));
 		}
 		m_subUpgradeNames.clear();
 	}
