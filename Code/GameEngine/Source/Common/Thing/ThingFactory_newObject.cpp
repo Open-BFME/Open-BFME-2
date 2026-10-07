@@ -82,6 +82,7 @@ struct CreateMask;
 class Object
 {
 public:
+	Object(const ThingTemplate *tmplate, const CreateMask *mask, Team *team, bool flag, bool);
 	ObjectID getID() const { return m_id; }
 	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
 	void initObject();
@@ -91,6 +92,7 @@ private:
 	ObjectID m_id; // +0x74
 	char m_pad78[0x244 - 0x78];
 	BehaviorModule **m_behaviors; // +0x244
+	char m_pad248[0x4D8 - 0x248]; // target allocation size at 0x0023CAE7
 };
 
 class GameLogic
@@ -106,6 +108,17 @@ public:
 	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, bool flag);
 	const ThingTemplate *findTemplate(const AsciiString &name);
 };
+
+// ?friend_createObject@GameLogic@@QAEPAVObject@@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@_N@Z
+// @0x0023CAE7, 69B. Its matched caller at 0x002D0A23 supplies TheGameLogic
+// and (template, mask, team, flag). Target allocates 0x4D8 bytes via scalar
+// operator new 0x0002FDA0, then calls the Object constructor at 0x00298EA9
+// with those four values followed by true. The helper's purpose beyond
+// constructing an Object remains inferred from the caller and target calls.
+Object *GameLogic::friend_createObject(const ThingTemplate *tmplate, const CreateMask *mask, Team *team, bool flag)
+{
+	return new Object(tmplate, mask, team, flag, true);
+}
 
 Object *ThingFactory::newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, bool flag)
 {

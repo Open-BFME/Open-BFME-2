@@ -2,7 +2,7 @@
 //
 // Object overrides of its +0x64 and +0x70 interface subobjects. Identity: the
 // vtables 0x00BFC2D8 (+0x64) and 0x00BFC290 (+0x70) are stored by 0x00298EA9,
-// the constructor the object factory at 0x0023CAD2 calls right after new(0x4D8),
+// the constructor the object factory at 0x0023CAE7 calls right after new(0x4D8),
 // and by its destructor 0x00299CE4; the bodies read Object fields through the
 // subobject this (template +0x04, position +0x38, GeometryInfo +0xA8) and sit
 // in the retail Object.cpp range. Slot names are not established, hence
