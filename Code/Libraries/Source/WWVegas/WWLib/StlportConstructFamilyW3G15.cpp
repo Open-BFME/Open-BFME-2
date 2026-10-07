@@ -117,3 +117,54 @@ template void _STL::_Construct<Rva00502C53Element, Rva00502C53Element>(Rva00502C
 template void _STL::_Construct<Rva00557C90Element, Rva00557C90Element>(Rva00557C90Element *, const Rva00557C90Element &);
 template void _STL::_Construct<Rva002BAE2AElement, Rva002BAE2AElement>(Rva002BAE2AElement *, const Rva002BAE2AElement &);
 template void _STL::_Construct<Rva00600F9CElement, Rva00600F9CElement>(Rva00600F9CElement *, const Rva00600F9CElement &);
+
+#include <deque>
+
+struct BfmeOpaqueOwnedRecord1432
+{
+	~BfmeOpaqueOwnedRecord1432();
+};
+
+struct BfmeOpaqueOwnedRecord1408
+{
+	~BfmeOpaqueOwnedRecord1408();
+};
+
+class Rva00557CBD
+{
+public:
+	void rva00557CBD();
+};
+
+void Rva00557CBD::rva00557CBD()
+{
+	((_STL::deque<BfmeOpaqueOwnedRecord1432> *)this)->~deque();
+}
+
+class Rva00557CC2
+{
+public:
+	void rva00557CC2();
+};
+
+void Rva00557CC2::rva00557CC2()
+{
+	((_STL::deque<BfmeOpaqueOwnedRecord1408> *)this)->~deque();
+}
+
+class Rva005562DD
+{
+public:
+	~Rva005562DD();
+};
+
+class Rva00557CC7
+{
+public:
+	void rva00557CC7();
+};
+
+void Rva00557CC7::rva00557CC7()
+{
+	((Rva005562DD *)this)->~Rva005562DD();
+}
