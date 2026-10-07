@@ -2567,6 +2567,88 @@ Bool NetPacket::addChatCommand(NetCommandRef *msg)
 	return false;
 }
 
+// ?rva005936DB@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x005936DB, 787 bytes:
+// addCommand's type-30 arm, a BFME2 wide-string message: T/S/F/R/P/C/D,
+// then the +0x24 text's length and characters and the +0x1C/+0x20 dwords.
+// Not in the BFME1 donor, so it keeps its address name.
+Bool NetPacket::rva005936DB(NetCommandRef *msg)
+{
+	Bool needNewCommandID = false;
+	if (rva00591A65(msg)) {
+		NetType30CommandMsg *cmdMsg = (NetType30CommandMsg *)msg->getCommand();
+		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+			m_packet[m_packetLen] = 'T';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getNetCommandType();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastCommandType = cmdMsg->getNetCommandType();
+		}
+		if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+			m_packet[m_packetLen] = 'S';
+			++m_packetLen;
+			UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+			memcpy(m_packet + m_packetLen, &newTimestamp, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastTimestamp = newTimestamp;
+		}
+		if (m_lastFrame != cmdMsg->getExecutionFrame()) {
+			m_packet[m_packetLen] = 'F';
+			++m_packetLen;
+			UnsignedInt newframe = cmdMsg->getExecutionFrame();
+			memcpy(m_packet + m_packetLen, &newframe, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastFrame = newframe;
+		}
+		if (m_lastRelay != msg->getRelay()) {
+			m_packet[m_packetLen] = 'R';
+			++m_packetLen;
+			UnsignedByte newRelay = msg->getRelay();
+			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastRelay = newRelay;
+		}
+		if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+			m_packet[m_packetLen] = 'P';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getPlayerID();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastPlayerID = cmdMsg->getPlayerID();
+			needNewCommandID = true;
+		}
+		if (((m_lastCommandID + 1) != (UnsignedShort)(cmdMsg->getID())) || (needNewCommandID == true)) {
+			m_packet[m_packetLen] = 'C';
+			++m_packetLen;
+			UnsignedShort newID = cmdMsg->getID();
+			memcpy(m_packet + m_packetLen, &newID, sizeof(UnsignedShort));
+			m_packetLen += sizeof(UnsignedShort);
+		}
+		m_lastCommandID = cmdMsg->getID();
+		m_packet[m_packetLen] = 'D';
+		++m_packetLen;
+		UnicodeString unitext = ((Rva0023E928 *)cmdMsg)->rva0023E928();
+		UnsignedByte length = unitext.getLength();
+		UnsignedInt value1C = cmdMsg->get1c();
+		memcpy(m_packet + m_packetLen, &length, sizeof(UnsignedByte));
+		m_packetLen += sizeof(UnsignedByte);
+		memcpy(m_packet + m_packetLen, unitext.str(), length * sizeof(unsigned short));
+		m_packetLen += length * sizeof(unsigned short);
+		memcpy(m_packet + m_packetLen, &value1C, sizeof(UnsignedInt));
+		m_packetLen += sizeof(UnsignedInt);
+		UnsignedInt value20 = cmdMsg->get20();
+		memcpy(m_packet + m_packetLen, &value20, sizeof(UnsignedInt));
+		m_packetLen += sizeof(UnsignedInt);
+		++m_numCommands;
+		if (m_lastCommand != 0) {
+			delete m_lastCommand;
+			m_lastCommand = 0;
+		}
+		m_lastCommand = new NetCommandRef(msg->getCommand());
+		m_lastCommand->setRelay(msg->getRelay());
+		return true;
+	}
+	return false;
+}
+
 // ?addFileAnnounceCommand@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x00592F2B, 678 bytes:
 // addCommand's type-21 arm, BFME1's FILEANNOUNCE shifted by the inserted
 // type: T/R/S/P/C/D, then the NUL-terminated file name, file ID word and
