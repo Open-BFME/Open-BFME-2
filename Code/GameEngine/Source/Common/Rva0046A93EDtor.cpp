@@ -360,3 +360,91 @@ Rva00500D30::~Rva00500D30()
 {
 	((Rva005007CF *)this)->rva00500AA6();
 }
+
+class Rva0022CA31
+{
+public:
+	void rva0022CA31();
+};
+
+void Rva0022CA31::rva0022CA31()
+{
+	((Rva00226829 *)this)->~Rva00226829();
+}
+
+class Rva003591EF
+{
+public:
+	void rva003591EF();
+};
+
+void Rva003591EF::rva003591EF()
+{
+	((Rva00358D62 *)this)->~Rva00358D62();
+}
+
+class Rva0035928B
+{
+public:
+	void rva0035928B();
+};
+
+void Rva0035928B::rva0035928B()
+{
+	((Rva00358E6A *)this)->~Rva00358E6A();
+}
+
+class Rva0038465B
+{
+public:
+	void rva0038465B();
+};
+
+void Rva0038465B::rva0038465B()
+{
+	((Rva00383A28 *)this)->~Rva00383A28();
+}
+
+class Rva0046AD86
+{
+public:
+	void rva0046AD86();
+};
+
+void Rva0046AD86::rva0046AD86()
+{
+	((Rva0046A915 *)this)->~Rva0046A915();
+}
+
+class Rva004D9F75
+{
+public:
+	void rva004D9F75();
+};
+
+void Rva004D9F75::rva004D9F75()
+{
+	((Rva004D9A62 *)this)->~Rva004D9A62();
+}
+
+class Rva005011AA
+{
+public:
+	void rva005011AA();
+};
+
+void Rva005011AA::rva005011AA()
+{
+	((Rva002BBBE7 *)this)->~Rva002BBBE7();
+}
+
+class Rva00553D5E
+{
+public:
+	void rva00553D5E();
+};
+
+void Rva00553D5E::rva00553D5E()
+{
+	((Rva005532D6 *)this)->~Rva005532D6();
+}
