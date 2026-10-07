@@ -9,8 +9,9 @@
 // roll). The owner's TheSkirmishAIManager record keeps
 // AIFarmKillSquad_IsRunning and AIFarmKillSquad_FrameNextRun.
 //
-//   0x005ACCEF  slot 1 (not here yet): farming or the record's +0x16C positive; not
-//               running, the next run is due and 0x002C6ACB answers
+//   0x005ACCEF  slot 1 canRun (the slot the sibling tactics' rowed canRun bodies
+//               fill): farming or the record's +0x16C positive; not running,
+//               the next run is due and 0x002C6ACB answers
 //   0x005ACD51  slot 2: clear the running key and schedule the next run a
 //               random 30..120 seconds on
 //   0x005ACEC8  slot 5: xfer, version 1: the AITactic's, then both ids
@@ -262,6 +263,7 @@ class AITactic
 {
 public:
 	virtual ~AITactic();
+	virtual bool canRun(void *unit);
 	virtual void cleanUp();
 	virtual bool initializeTeamTemplate(void *unit, int count);
 	virtual void v4();
@@ -286,6 +288,7 @@ class AIFarmKillSquad : public AITacticOffensive
 {
 public:
 	virtual ~AIFarmKillSquad();
+	virtual bool canRun(void *unit);
 	virtual void cleanUp();
 	virtual bool initializeTeamTemplate(void *unit, int count);
 	virtual void xfer(Xfer *xfer);
@@ -298,6 +301,19 @@ private:
 	ObjectID m_5C;		// +0x5C
 	bool m_farm;		// +0x60
 };
+
+bool AIFarmKillSquad::canRun(void *)
+{
+	void *owner = m_owner;
+	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(owner);
+	if (!m_farm && record->m_16C <= 0)
+		return false;
+	int running = record->rva002C7196(AIFarmKillSquad_IsRunning);
+	unsigned int next = record->rva002C7196(AIFarmKillSquad_FrameNextRun);
+	if (!running && next <= TheGameLogic->getFrame() && record->rva002C6ACB())
+		return true;
+	return false;
+}
 
 void AIFarmKillSquad::cleanUp()
 {
