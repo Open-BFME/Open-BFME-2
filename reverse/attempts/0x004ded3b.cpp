@@ -1,12 +1,12 @@
+// ?update@FiringTracker@@UAE?AW4UpdateSleepTime@@XZ
+// partial score=0.96 date=2026-10-07
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 //
 // FiringTracker (Zero Hour GameLogic/Object/FiringTracker.cpp) in BFME 2:
 //   0x004DEBC1 199B xfer
 //   0x004DEC88 179B coolDown(Bool forceReset)
-//   0x004DED3B 151B update (UpdateModuleInterface entry, this at +0x10):
-//     banked in reverse/attempts, exact apart from the register choice for
-//     the object/last-shot-position operands of the moved test
+//   0x004DED3B 151B update (UpdateModuleInterface entry, this at +0x10)
 //   0x004DEDD2 249B speedUp
 //   0x004DEECB 662B shotFired(weapon, victimID, victimPosition, forceReset)
 //   0x004DEAB0  27B calcTimeToSleep
@@ -24,9 +24,7 @@
 // FiringTrackerShotFired001B3510 at Open-BFME-1 6d943426). BFME 2 renumbers
 // the continuous-fire model conditions (slow 115, mean 116, fast 117, in a
 // 19-word flag set), reads the logic frame rate from a global, and builds the
-// fire sound from the template's event reference. The flag set is an STLport
-// bitset as in BFME 1's donor: its two locals take retail's stack slots only
-// with the bitset base, and its sets are inlined unchecked.
+// fire sound from the template's event reference.
 //
 // ?xfer@FiringTracker@@MAEXPAVXfer@@@Z retail 0x004DEBC1 199 bytes.
 // Virtual slot 3 (offset 0x0C) of vtable 0x00861530 (class of rowed dtor
@@ -636,6 +634,37 @@ void FiringTracker::shotFired(const Weapon *weaponFired, ObjectID victimID, cons
 	}
 
 	setWakeFrame(getObject(), calcTimeToSleep());
+}
+
+//-------------------------------------------------------------------------------------------------
+UpdateSleepTime FiringTracker::update()
+{
+	UnsignedInt now = TheGameLogic->getFrame();
+
+	if (!(*getObject()->getPosition() == m_lastShotPosition))
+		coolDown(true);
+
+	if (m_frameToForceReload != 0 && now >= m_frameToForceReload)
+	{
+		getObject()->reloadAllAmmo(false);
+		m_frameToForceReload = 0;
+	}
+
+	if (m_frameToStopLoopingSound != 0 && now >= m_frameToStopLoopingSound)
+	{
+		TheAudio->removeAudioEvent(m_audioHandle);
+		m_audioHandle = AHSV_NoSound;
+		m_frameToStopLoopingSound = 0;
+	}
+
+	if (m_frameToStartCooldown != 0 && now > m_frameToStartCooldown)
+	{
+		m_frameToStartCooldown = now + g_00DBA4E4;
+		coolDown(false);
+		return UPDATE_SLEEP(g_00DBA4E4);
+	}
+
+	return calcTimeToSleep();
 }
 
 //-------------------------------------------------------------------------------------------------
