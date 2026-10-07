@@ -88,3 +88,56 @@ template void _STL::_Construct<BfmeNarrowRecord0054FEF1,BfmeNarrowRecord0054FEF1
 // below, with the same calling convention and stack arguments; bind them.
 #pragma comment(linker, "/alternatename:??0Pivot24@@QAE@ABU0@@Z=??0BfmeNarrowRecord00427F75@@QAE@ABU0@@Z")
 #pragma comment(linker, "/alternatename:??0VersionBlockEntry@@QAE@ABU0@@Z=??0BfmeNarrowRecord00427F75@@QAE@ABU0@@Z")
+
+#include <deque>
+
+struct BfmePod16
+{
+	BfmePod16(const BfmePod16 &);
+	~BfmePod16();
+};
+
+class Rva0041A63A
+{
+public:
+	void rva0041A63A();
+};
+
+void Rva0041A63A::rva0041A63A()
+{
+	((_STL::deque<BfmeNarrowRecord0041A5D2> *)this)->~deque();
+}
+
+class Rva0041A63F
+{
+public:
+	void rva0041A63F();
+};
+
+void Rva0041A63F::rva0041A63F()
+{
+	((_STL::deque<BfmeNarrowRecord0041A617> *)this)->~deque();
+}
+
+class Rva0054FF9B
+{
+public:
+	void rva0054FF9B();
+};
+
+void Rva0054FF9B::rva0054FF9B()
+{
+	((_STL::deque<BfmePod16> *)this)->~deque();
+}
+
+class Rva0054FFA0
+{
+public:
+	void rva0054FFA0();
+};
+
+void Rva0054FFA0::rva0054FFA0()
+{
+	((_STL::deque<BfmePod16> *)this)->~deque();
+}
+
