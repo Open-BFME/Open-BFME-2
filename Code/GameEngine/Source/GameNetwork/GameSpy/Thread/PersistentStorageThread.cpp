@@ -7,6 +7,8 @@
 #include "ascii_string.h"
 // stlport
 #include <cstdlib>
+#include <cstring>
+#include <ctime>
 void Rva00030830FreeAllocation(void *);
 // Retail map teardown uses the independently rowed game allocator, whose
 // C++ call route retains the native unwind-state transition.
@@ -855,4 +857,65 @@ PSPlayerAllStats Rva00555BD5StatsQueue::rva00556674(int id) {
     PSPlayerAllStats empty(0);
     empty.setID(0);
     return empty;
+}
+
+// The 0x580-byte response record the stats thread posts through the queue's
+// addResponse (E05FC8 slot6). Its implicit destructor 0x00555ADF destroys only
+// the +8 PSPlayerAllStats; BFME1's PSResponse is the donor lead for the type at
+// +0 and the preorder flag at +0x57C.
+struct BfmeOpaqueOwnedRecord1408
+{
+	BfmeOpaqueOwnedRecord1408() : player(0) {}
+	Int responseType;
+	Int m_04;
+	PSPlayerAllStats player;
+	unsigned int m_550[11];
+	bool preorder;
+	bool m_57D;
+};
+typedef char ResponseRecordSizeCheck[sizeof(BfmeOpaqueOwnedRecord1408) == 0x580 ? 1 : -1];
+
+class GameSpyPSMessageQueueInterface
+{
+public:
+	virtual ~GameSpyPSMessageQueueInterface();
+	virtual void startThread() = 0;
+	virtual void endThread() = 0;
+	virtual bool isThreadRunning() = 0;
+	virtual void addRequest(const BfmeOpaqueOwnedRecord1432 &req) = 0;
+	virtual bool getRequest(BfmeOpaqueOwnedRecord1432 &req) = 0;
+	virtual void addResponse(const BfmeOpaqueOwnedRecord1408 &resp) = 0;
+};
+extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;	// 0x00E05FC8
+
+// The stats thread keeps its outstanding GameSpy operation count at +0x54.
+class PSThreadClass
+{
+public:
+	void decrOpCount() { --m_opCount; }
+private:
+	unsigned char m_pad00[0x54];
+	Int m_opCount;
+};
+
+typedef enum { pd_private_ro, pd_private_rw, pd_public_ro, pd_public_rw } persisttype_t;
+
+// Native [5567E2,55686A),136B: ZH getPreorderCallback with the newer SDK's
+// modified-time argument; response type 2 is PSRESPONSE_PREORDER.
+void getPreorderCallback(int localid, int profileid, persisttype_t type, int index, int success, time_t modified, char *data, int len, void *instance)
+{
+	PSThreadClass *t = (PSThreadClass *)instance;
+	if (!t)
+		return;
+
+	t->decrOpCount();
+
+	BfmeOpaqueOwnedRecord1408 resp;
+
+	if (!success)
+		return;
+
+	resp.responseType = 2;
+	resp.preorder = (data && strcmp(data, "\\preorder\\1") == 0);
+	TheGameSpyPSMessageQueue->addResponse(resp);
 }
