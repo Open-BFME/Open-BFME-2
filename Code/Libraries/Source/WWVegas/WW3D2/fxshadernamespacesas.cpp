@@ -35,8 +35,11 @@ struct ID3DXEffect
 	FX_SLOT(16) FX_SLOT(17) FX_SLOT(18) FX_SLOT(19) FX_SLOT(20) FX_SLOT(21) FX_SLOT(22) FX_SLOT(23)
 	FX_SLOT(24) FX_SLOT(25)
 	virtual HRESULT __stdcall SetInt(D3DXHANDLE parameter, int value);	// +0x68
-	FX_SLOT(27) FX_SLOT(28) FX_SLOT(29) FX_SLOT(30) FX_SLOT(31)
-	FX_SLOT(32) FX_SLOT(33) FX_SLOT(34) FX_SLOT(35) FX_SLOT(36) FX_SLOT(37)
+	FX_SLOT(27) FX_SLOT(28) FX_SLOT(29)
+	virtual HRESULT __stdcall SetFloat(D3DXHANDLE parameter, float value);	// +0x78
+	FX_SLOT(31) FX_SLOT(32) FX_SLOT(33)
+	virtual HRESULT __stdcall SetVector(D3DXHANDLE parameter, const float *vector);	// +0x88
+	FX_SLOT(35) FX_SLOT(36) FX_SLOT(37)
 	virtual HRESULT __stdcall SetMatrix(D3DXHANDLE parameter, const void *matrix);	// +0x98
 	FX_SLOT(39) FX_SLOT(40) FX_SLOT(41) FX_SLOT(42) FX_SLOT(43)
 	virtual HRESULT __stdcall SetMatrixTranspose(D3DXHANDLE parameter, const void *matrix);	// +0xB0
@@ -75,13 +78,60 @@ private:
 
 class LightEnvironmentClass;
 
-// The rowed point/non-point light counters 0x0013F6F0/0x0013F750
-// (Rva0013F6F0Cluster.cpp) run on DX8Wrapper's light environment.
+// DX8Wrapper's light environment (LightEnvironmentClass, BFME 2 layout of
+// reference/shims/bfme2lightenv), under the placeholder name its rowed
+// point/non-point light counters and finders 0x0013F6F0/20/50/80 carry
+// (Rva0013F6F0Cluster.cpp).
 class Rva0013F6F0LightEnv
 {
 public:
 	int countNonPoint() const;
+	int findNonPoint(int index) const;
 	int countPoint() const;
+	int findPoint(int index) const;
+
+	struct Vector3
+	{
+		Vector3(const Vector3 &v) : X(v.X), Y(v.Y), Z(v.Z) {}
+		float X, Y, Z;
+	};
+	const Vector3 &Get_Equivalent_Ambient() const { return OutputAmbient; }
+	const float *Get_Light_Direction(int i) const { return InputLights[i].Direction; }
+	const float *Get_Light_Diffuse(int i) const { return InputLights[i].Diffuse; }
+	float getPointOrad(int i) const { return InputLights[i].m_outerRadius; }
+	const float *getPointDiffuse(int i) const { return InputLights[i].m_diffuse; }
+	const float *getPointCenter(int i) const { return InputLights[i].m_center; }
+
+private:
+	struct InputLightStruct
+	{
+		float Direction[3];
+		float Ambient[3];
+		float Diffuse[3];
+		bool DiffuseRejected;
+		bool m_point;
+		float m_center[3];
+		float m_innerRadius;
+		float m_outerRadius;
+		float m_ambient[3];
+		float m_diffuse[3];
+	};
+
+	void *m_vtable;
+	int LightCount;
+	float ObjectCenter[3];
+	InputLightStruct InputLights[4];
+	Vector3 OutputAmbient;
+};
+
+extern bool ShaderOverbrightEnabled;
+
+class WW3D
+{
+public:
+	static unsigned int Get_Sync_Time() { return SyncTime; }
+private:
+	static unsigned int SyncTime;
 };
 
 class DX8Wrapper
@@ -100,6 +150,28 @@ public:
 	virtual ~FXShaderParameterSourceNamespace();
 	virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder) = 0;
 };
+
+// The default source (WorldBuilder's fxshaderparameterbinder.cpp), whose
+// rowed ResolveBindings 0x00153664 binds a struct parameter member by member;
+// every leaf namespace runs it before its own names.
+class FXShaderParameterSourceNamespace_Struct : public FXShaderParameterSourceNamespace
+{
+public:
+	virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
+};
+
+// Effect setters rowed under placeholder names in their own units; the
+// namespaces below bind them by address.
+class Rva0014D722Outer;
+class Rva0014D7D4Outer;
+class Rva0014D887Outer;
+class Rva0014D9F3Outer;
+void __cdecl rva0014D522(void *effect, void *parameter);
+class Rva0014D722This { public: void rva0014D722(Rva0014D722Outer *effect, void *parameter); };
+class Rva0014D7D4This { public: void rva0014D7D4(Rva0014D7D4Outer *effect, void *parameter); };
+class Rva0014D887This { public: void rva0014D887(Rva0014D887Outer *effect, void *parameter); };
+class Rva0014D982This { public: void rva0014D982(ID3DXEffect *effect, D3DXHANDLE parameter); };
+class Rva0014D9F3This { public: void rva0014D9F3(Rva0014D9F3Outer *effect, void *parameter); };
 
 // An array source ("AmbientLight[0].Color", "Shadow[*]..."): the elements
 // and the source used for an index out of range. Its dispatchers
@@ -135,49 +207,67 @@ public:
 		void SetInverseTranspose(ID3DXEffect *effect, D3DXHANDLE parameter);
 	};
 
-	// vtable 0x00BD3898, dispatcher 0x0014FCC6; two matrix sources follow.
-	struct SourceNamespace_Camera : public FXShaderParameterSourceNamespace
+	// vtable 0x00BD3898, dispatcher 0x0014FCC6; the two matrix sources'
+	// slot 2 (0x0014DCC8, 0x0014DE5C) build the camera matrices. Their type
+	// names follow the arm strings.
+	struct SourceNamespace_Camera : public FXShaderParameterSourceNamespace_Struct
 	{
+		struct Matrix_WorldToView : public SourceNamespace_Matrix
+		{
+			virtual void slot02(Rva0007671F &matrix);
+		};
+		struct Matrix_Projection : public SourceNamespace_Matrix
+		{
+			virtual void slot02(Rva0007671F &matrix);
+		};
+
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
-		void *m_matrices[2];
+
+		Matrix_WorldToView m_WorldToView;	// +0x04
+		Matrix_Projection m_Projection;		// +0x08
 	};
 
 	// vtable 0x00BD3834, dispatcher 0x0014FD69.
-	struct SourceNamespace_Time : public FXShaderParameterSourceNamespace
+	struct SourceNamespace_Time : public FXShaderParameterSourceNamespace_Struct
 	{
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 	};
 
 	// Array elements: vtables 0x00BD3854/5C/64 (dispatchers 0x0014FDCA,
-	// 0x0014FE33, 0x0014FEB8), each carrying its index.
-	struct SourceNamespace_AmbientLight : public FXShaderParameterSourceNamespace
+	// 0x0014FE33, 0x0014FEB8), each carrying its light index.
+	struct SourceNamespace_AmbientLight : public FXShaderParameterSourceNamespace_Struct
 	{
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
+		void rva0014D5B0(ID3DXEffect *effect, D3DXHANDLE parameter);
 		int m_index;
 	};
-	struct SourceNamespace_DirectionalLight : public FXShaderParameterSourceNamespace
+	struct SourceNamespace_DirectionalLight : public FXShaderParameterSourceNamespace_Struct
 	{
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
+		void rva0014D66F(ID3DXEffect *effect, D3DXHANDLE parameter);
 		int m_index;
 	};
-	struct SourceNamespace_PointLight : public FXShaderParameterSourceNamespace
+	struct SourceNamespace_PointLight : public FXShaderParameterSourceNamespace_Struct
 	{
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
+		void rva0014D90E(ID3DXEffect *effect, D3DXHANDLE parameter);
 		int m_index;
 	};
 
 	// vtable 0x00BD386C, dispatcher 0x0014FF57; WorldBuilder tests the handle
 	// at +0x48 through an inline accessor (name not in either binary).
-	struct SourceNamespace_Shadow : public FXShaderParameterSourceNamespace
+	struct SourceNamespace_Shadow : public FXShaderParameterSourceNamespace_Struct
 	{
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
+		void rva0014D96A(ID3DXEffect *effect, D3DXHANDLE parameter);
 		bool hasShadowMap() const { return m_shadowMap != 0; }
-		char m_pad04[0x48 - 0x04];
-		void *m_shadowMap;
+		int m_index;
+		Rva0007671F m_WorldToShadow;	// +0x08
+		void *m_shadowMap;		// +0x48
 	};
 
 	// vtable 0x00BD38A0, dispatcher 0x0014FFF6.
-	struct SourceNamespace_Skeleton : public FXShaderParameterSourceNamespace
+	struct SourceNamespace_Skeleton : public FXShaderParameterSourceNamespace_Struct
 	{
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 	};
@@ -206,8 +296,8 @@ struct DelegateDesc
 {
 	typedef void (DelegateTarget::*Method)(ID3DXEffect *, D3DXHANDLE);
 
-	template <class T>
-	DelegateDesc(T *object, void (T::*method)(ID3DXEffect *, D3DXHANDLE))
+	template <class T, class M>
+	DelegateDesc(T *object, M method)
 		: m_object(object), m_method(reinterpret_cast<Method>(method)) {}
 
 	void *m_object;
@@ -376,4 +466,146 @@ void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Matrix::SetInverseTran
 	if (D3DXMatrixInverse(&inverse, 0, (const D3DXMATRIX *)&m) == 0)
 		D3DXMatrixTranspose(&inverse, (const D3DXMATRIX *)&m);
 	effect->SetMatrix(parameter, &inverse);
+}
+
+// Retail 0x0014FCC6, 163 bytes.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Camera::ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder)
+{
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, parameter, binder);
+	if (name != 0)
+	{
+		Rva001530E9Path t;
+		Rva001530E9Parse(name, &t);
+		if (_strcmpi(t.m_name, "WorldToView") == 0)
+			m_WorldToView.ResolveBindings(t.m_rest, parameter, binder);
+		else if (_strcmpi(t.m_name, "Projection") == 0)
+			m_Projection.ResolveBindings(t.m_rest, parameter, binder);
+		else if (_strcmpi(t.m_name, "NearFarClipping") == 0)
+			binder->AddBinding(TreeHintRef00217D4C((FXShaderParameterCallback)rva0014D522), parameter);
+	}
+}
+
+// Retail 0x0014D564, 49 bytes: the sync time in seconds.
+void Rva0014D564Now(ID3DXEffect *effect, D3DXHANDLE parameter)
+{
+	effect->SetFloat(parameter, WW3D::Get_Sync_Time() * 0.001f);
+}
+
+// Retail 0x0014FD69, 97 bytes.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Time::ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder)
+{
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, parameter, binder);
+	if (name != 0)
+	{
+		Rva001530E9Path t;
+		Rva001530E9Parse(name, &t);
+		if (_strcmpi(t.m_name, "Now") == 0)
+			binder->AddBinding(TreeHintRef00217D4C(Rva0014D564Now), parameter);
+	}
+}
+
+// Retail 0x0014FDCA, 105 bytes.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_AmbientLight::ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder)
+{
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, parameter, binder);
+	if (name != 0)
+	{
+		Rva001530E9Path t;
+		Rva001530E9Parse(name, &t);
+		if (_strcmpi(t.m_name, "Color") == 0)
+			binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &SourceNamespace_AmbientLight::rva0014D5B0)), parameter);
+	}
+}
+
+// Retail 0x0014D66F, 179 bytes: the indexed directional light's diffuse.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_DirectionalLight::rva0014D66F(ID3DXEffect *effect, D3DXHANDLE parameter)
+{
+	float color[4];
+	Rva0013F6F0LightEnv *env = (Rva0013F6F0LightEnv *)DX8Wrapper::Get_Light_Environment();
+	if (env != 0 && m_index >= 0 && m_index < env->countNonPoint())
+	{
+		const float *diffuse = env->Get_Light_Diffuse(env->findNonPoint(m_index));
+		color[0] = diffuse[0];
+		color[1] = diffuse[1];
+		color[2] = diffuse[2];
+		if (ShaderOverbrightEnabled)
+		{
+			color[0] *= 2.0f;
+			color[1] *= 2.0f;
+			color[2] *= 2.0f;
+		}
+		color[3] = 0.0f;
+		effect->SetVector(parameter, color);
+		return;
+	}
+	color[0] = 0.0f;
+	color[1] = 0.0f;
+	color[2] = 0.0f;
+	color[3] = 0.0f;
+	effect->SetVector(parameter, color);
+}
+
+// Retail 0x0014FE33, 133 bytes.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_DirectionalLight::ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder)
+{
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, parameter, binder);
+	if (name != 0)
+	{
+		Rva001530E9Path t;
+		Rva001530E9Parse(name, &t);
+		if (_strcmpi(t.m_name, "Color") == 0)
+			binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &SourceNamespace_DirectionalLight::rva0014D66F)), parameter);
+		else if (_strcmpi(t.m_name, "Direction") == 0)
+			binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &Rva0014D722This::rva0014D722)), parameter);
+	}
+}
+
+// Retail 0x0014D90E, 92 bytes: the indexed point light's outer radius.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_PointLight::rva0014D90E(ID3DXEffect *effect, D3DXHANDLE parameter)
+{
+	Rva0013F6F0LightEnv *env = (Rva0013F6F0LightEnv *)DX8Wrapper::Get_Light_Environment();
+	if (env != 0 && m_index >= 0 && m_index < env->countPoint())
+		effect->SetFloat(parameter, env->getPointOrad(env->findPoint(m_index)));
+	else
+		effect->SetFloat(parameter, 0.0f);
+}
+
+// Retail 0x0014FEB8, 159 bytes.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_PointLight::ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder)
+{
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, parameter, binder);
+	if (name != 0)
+	{
+		Rva001530E9Path t;
+		Rva001530E9Parse(name, &t);
+		if (_strcmpi(t.m_name, "Position") == 0)
+			binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &Rva0014D887This::rva0014D887)), parameter);
+		else if (_strcmpi(t.m_name, "Color") == 0)
+			binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &Rva0014D7D4This::rva0014D7D4)), parameter);
+		else if (_strcmpi(t.m_name, "Range") == 0)
+			binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &SourceNamespace_PointLight::rva0014D90E)), parameter);
+	}
+}
+
+// Retail 0x0014D96A, 24 bytes.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow::rva0014D96A(ID3DXEffect *effect, D3DXHANDLE parameter)
+{
+	effect->SetMatrixTranspose(parameter, &m_WorldToShadow);
+}
+
+// Retail 0x0014FF57, 159 bytes.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow::ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder)
+{
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, parameter, binder);
+	if (name != 0)
+	{
+		Rva001530E9Path t;
+		Rva001530E9Parse(name, &t);
+		if (_strcmpi(t.m_name, "WorldToShadow") == 0)
+			binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &SourceNamespace_Shadow::rva0014D96A)), parameter);
+		else if (_strcmpi(t.m_name, "ShadowMap") == 0)
+			binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &Rva0014D982This::rva0014D982)), parameter);
+		else if (_strcmpi(t.m_name, "Zero_Zero_OneOverMapSize_OneOverMapSize") == 0)
+			binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &Rva0014D9F3This::rva0014D9F3)), parameter);
+	}
 }
