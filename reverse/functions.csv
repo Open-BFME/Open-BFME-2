@@ -67252,3 +67252,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ??0Rva000AB910@@QAE@ABVAsciiString@@@Z,,0x000AB910,70,Code/GameEngine/Source/Common/Rva000AB910Ctor.cpp,matched,target offsets support string integer and two maps
 ??0Rva0022A9DDSubsystem@@QAE@XZ,,0x0022DF79,55,Code/GameEngine/Source/GameClient/Rva0022DF79SubsystemCtor.cpp,matched,GameEngine init caller names subsystem; matching sibling constructor recipe
 ?Rva00529DA9@Holder00529E19@@QAEXH@Z,,0x00529DA9,112,Code/GameEngine/Source/Common/Rva00529E19Reset.cpp,matched,address-derived holder update; call-site and target field evidence documented in source
+?rva00517EA2@Rva00517EA2@@QAEXXZ,,0x00517EA2,137,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,response pump loop; 840-byte queue record and direct helper call sites from retail bytes; address-derived identity
