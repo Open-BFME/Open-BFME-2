@@ -176,6 +176,21 @@ void Rva0047A040Base9E0::rva00588BA8(Object *obj, bool flag)
 		}
 	}
 }
+// ?rva00588BF3 @0x00588BF3 91B (pinned under its caller's void return name).
+// Walks the contain's slot-0x118 list view without copying it (the list
+// pointer is re-read from the view each step) and returns the first member
+// 0x00588B8A hands out whose slot 0x18 accepts the object.
+Rva00588E44Contain *Rva0047A040Base9E0::rva00588BF3(void *contain, Object *obj)
+{
+	Rva0036AE51ListView view = ((Rva00588E44Contain *)((char *)contain + 0x20))->slot118();
+	for (IntList::iterator it = view.b->begin(); it != view.b->end(); ++it) {
+		Rva00588E44Contain *member = (Rva00588E44Contain *)rva00588B8A((void *)*it);
+		if (member != 0 && member->slot18(obj) == true)
+			return member;
+	}
+	return 0;
+}
+
 void Rva0047A040Base9E0::rva00588E44(void *contain)
 {
 	Rva00588E44Contain *c = (Rva00588E44Contain *)((char *)contain + 0x20);
