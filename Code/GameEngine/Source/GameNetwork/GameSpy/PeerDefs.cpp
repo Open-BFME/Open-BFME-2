@@ -870,7 +870,6 @@ void GameSpyInfo::joinPreferredGroupRoom(Bool unusedFlag, Int roomType)
 // ?joinBestGroupRoom@GameSpyInfo@@UAEXH@Z @0x00385678 371B
 // ZH's joinBestGroupRoom, filtered to rooms of the requested type; the bail-out
 // tests the per-type current room (+0x64 for type 2, else +0x68).
-// ?joinBestGroupRoom@GameSpyInfo@@UAEXH@Z present-unmatched
 void GameSpyInfo::joinBestGroupRoom(Int roomType)
 {
 	if ((roomType == 2 ? m_unk0064 : m_unk0068) != 0)
