@@ -8,6 +8,26 @@ struct Region2D
     float y_max;
 };
 
+struct RGBColor
+{
+    void setFromInt(int color);
+    float red, green, blue;
+};
+
+class GameClientRandomVariable
+{
+public:
+    enum DistributionType
+    {
+        CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS
+    };
+
+    void setRange(float low, float high, DistributionType type);
+
+    DistributionType m_type;
+    float m_low, m_high;
+};
+
 // Placement new, used only to force generated copy constructors out; nothing in
 // retail allocates through it.
 inline void *operator new(unsigned int, void *storage)
@@ -1173,15 +1193,39 @@ class DefaultColorModuleInfo : public Snapshot
 public:
     virtual ~DefaultColorModuleInfo();
     virtual void v1();
+    void tintAllColors(int tint);
 
     FXKeyframe m_keys[8];
-    FXCoord3D m_unknown84;
+    GameClientRandomVariable m_colorScale;
     virtual const char *GetSnapshotName();
 };
 
 const char *DefaultColorModuleInfo::GetSnapshotName()
 {
     return "DefaultColorModuleInfo";
+}
+
+// BFME 1 semantic lead: DefaultColorModuleInfo::tintAllColors, donor revision
+// 968ca36c3265b295297e6aed45a6bd89ffe59c40, game/GameEngine/Source/GameClient/
+// System/FXParticleSystem/fx_particle_system_bulk.cpp. Target 0x0055B863..55B8CD
+// calls rowed RGBColor::setFromInt (0x4EDF), scales seven 16-byte keyframes
+// beginning at +0x14, then calls rowed GameClientRandomVariable::setRange
+// (0x2341E7) on +0x84. The adjacent rowed DoXfer at 0x55B8CD independently
+// establishes eight RGB keys at +4 and the random variable at +0x84; the
+// class name is carried from the donor and the existing snapshot-name body.
+// Unlike the old ParticleSystemInfo donor, this module also resets color scale.
+void DefaultColorModuleInfo::tintAllColors(int tint)
+{
+    RGBColor rgb;
+    rgb.setFromInt(tint);
+
+    for (int key = 1; key < 8; ++key) {
+        m_keys[key].m_value.x *= rgb.red;
+        m_keys[key].m_value.y *= rgb.green;
+        m_keys[key].m_value.z *= rgb.blue;
+    }
+
+    m_colorScale.setRange(0.0f, 0.0f, GameClientRandomVariable::UNIFORM);
 }
 
 
