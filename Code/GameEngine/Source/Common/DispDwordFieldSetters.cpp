@@ -78,6 +78,25 @@ BFME_DISP_DWORD_SETTER(Rva002AA257DwordSlot, 0x750)
 BFME_DISP_DWORD_SETTER(Rva002B23AFDwordSlot, 0x2B4)
 BFME_DISP_DWORD_SETTER(Rva002B23C3DwordSlot, 0x2B8)
 BFME_DISP_DWORD_SETTER(Rva002B23D7DwordSlot, 0x2C0)
+
+// ?rva002B2405@Rva002B2405@@QAE_NXZ @ 0x002B2405, 20 B. The packet's
+// callers do not prove a target class name; the adjacent setter identifies
+// the field at 0x2C4, and retail reads another dword at 0x44.
+class Rva002B2405
+{
+public:
+	bool rva002B2405();
+	char m_lead[0x44];
+	int m_field44;
+	char m_padding[0x2C4 - 0x48];
+	int m_field2C4;
+};
+
+bool Rva002B2405::rva002B2405()
+{
+	return m_field2C4 != 0 || m_field44 == 2;
+}
+
 BFME_DISP_DWORD_SETTER(Rva002C8EC2DwordSlot, 0x174)
 BFME_DISP_DWORD_SETTER(Rva002CEF8EDwordSlot, 0x484)
 BFME_DISP_DWORD_SETTER(Rva002D75D8DwordSlot, 0x260)
