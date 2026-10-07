@@ -5,6 +5,8 @@
 // Native: ScienceStore vector+C/+10, ScienceInfo key+10, override pointer+4;
 // keyToName148C95 returns a reference, so BFME2 constructs no string temporary.
 // Return vector copyBC07E and cleanup2CC70 are existing verified providers.
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 #include <vector>
 #include "ascii_string.h"
 
@@ -54,11 +56,18 @@ public:
 	bool m_isOverride;
 };
 
+class Rva0043D3A8 {
+public:
+    virtual bool v00(ScienceType science) const;
+};
+
 class ScienceInfo : public Rva001E35DFView
 {
 public:
 	Int m_unmodelled0c;
 	ScienceType m_science;
+	char m_nameAndDescription[8];
+	std::vector<std::vector<ScienceType> > m_prereqGroups;
 };
 
 typedef std::vector<ScienceInfo *> ScienceInfoVec;
@@ -67,6 +76,7 @@ class ScienceStore
 {
 public:
 	std::vector<AsciiString> friend_getScienceNames() const;
+	bool playerHasPrereqsForScience(const Rva0043D3A8 *holder, ScienceType st) const;
 private:
 	const ScienceInfo *findScienceInfo(ScienceType st) const;
 
@@ -100,4 +110,28 @@ const ScienceInfo *ScienceStore::findScienceInfo(ScienceType st) const
             return si;
     }
     return 0;
+}
+
+// BFME1 Science.cpp nested prerequisite groups guide; retail1FF47D..1FF4D3
+// tests each group through the holder's virtual slot0 and accepts any full group.
+bool ScienceStore::playerHasPrereqsForScience(const Rva0043D3A8 *holder, ScienceType st) const
+{
+    const ScienceInfo *si = findScienceInfo(st);
+    if (si) {
+        if (si->m_prereqGroups.size() == 0)
+            return true;
+        for (std::vector<std::vector<ScienceType> >::const_iterator g = si->m_prereqGroups.begin(); g != si->m_prereqGroups.end(); ++g) {
+            for (std::vector<ScienceType>::const_iterator p = g->begin();; ++p) {
+                if (p == g->end())
+                    return true;
+                // Native captures the science key before reading the holder vtable.
+                // Keep that evaluation order without runtime instructions.
+                ScienceType key = *p;
+                _ReadWriteBarrier();
+                if (!holder->v00(key))
+                    break;
+            }
+        }
+    }
+    return false;
 }
