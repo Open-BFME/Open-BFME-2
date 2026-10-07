@@ -546,13 +546,30 @@ private:
 };
 extern PlayerList *ThePlayerList;
 
+class PartitionData;
+
 // The CDE provider interface of BfmeOwnerCDEUpdate.cpp: a leading vptr whose
 // vbptr follows it. Object carries one at +0x64 (its constructor 0x00298EA9)
-// and GhostObject one at +0x04 (W3DGhostObject's constructor 0x00063912).
-class CDEProvider
+// and GhostObject one at +0x04 (GhostObject's constructor 0x00305A8F). Its
+// four slots are pure in the provider table 0x00C4EF80; the virtual base's
+// five are pure in 0x00C078DC.
+class CDEVirtualBase
 {
 public:
-	virtual void f0();
+	virtual const void *vslot00( void ) const = 0;
+	virtual const void *vslot04( void ) const = 0;
+	virtual Real vslot08( void ) const = 0;
+	virtual void vslot0C( PartitionData *pd ) = 0;
+	virtual PartitionData *vslot10( void ) const = 0;
+};
+
+class CDEProvider : public virtual CDEVirtualBase
+{
+public:
+	virtual void slot00( void ) = 0;
+	virtual void slot04( void ) = 0;
+	virtual void slot08( Int playerIndex ) = 0;
+	virtual void freeSnapShot( Int playerIndex ) = 0;
 };
 
 // Thing: the vptr at +0x00 and the rest of the 0x64 bytes Object's
@@ -571,7 +588,7 @@ public:
 	Drawable *getDrawable( void ) const;
 	ObjectID getID( void ) const { return m_id; }
 private:
-	char m_unrecovered68[ 0x74 - 0x68 ];
+	char m_unrecovered6C[ 0x74 - 0x6C ];
 	ObjectID m_id;																							///< 0x74
 };
 
@@ -627,15 +644,23 @@ protected:
 };
 extern GhostObjectManager *TheGhostObjectManager;
 
+// GhostObject (constructor 0x00305A8F): the provider's vbptr is +0x08 and
+// the non-virtual part 0x80 bytes, so it overrides the virtual base's slots.
 class GhostObject : public Snapshot, public CDEProvider
 {
 	friend class W3DGhostObjectManager;
+public:
+	GhostObject();
+
+	virtual const void *vslot00( void ) const;
+	virtual const void *vslot04( void ) const;
+	virtual Real vslot08( void ) const;
+	virtual void vslot0C( PartitionData *pd );
+	virtual PartitionData *vslot10( void ) const;
 protected:
 	virtual void crc( Xfer *xfer );
 	virtual void xfer( Xfer *xfer );
-	virtual void loadPostProcess( void );
 
-	char m_unrecovered08[ 0x0C - 0x08 ];
 	Object *m_parentObject;																			///< 0x0C
 	char m_unrecovered10[ 0x7C - 0x10 ];
 	PartitionData *m_partitionData;															///< 0x7C
@@ -643,6 +668,8 @@ protected:
 
 struct DrawableInfo
 {
+	DrawableInfo( void ) : m_shroudStatusObjectID( INVALID_OBJECT_ID ), m_drawable( 0 ), m_ghostObject( 0 ), m_flags( 0 ) {}
+
 	ObjectID m_shroudStatusObjectID;														///< 0xD0 in W3DGhostObject
 	Drawable *m_drawable;																				///< 0xD4
 	GhostObject *m_ghostObject;																	///< 0xD8
@@ -858,6 +885,13 @@ W3DRenderObjectSnapshot::~W3DRenderObjectSnapshot()
 class W3DGhostObject : public GhostObject
 {
 	friend class W3DGhostObjectManager;
+public:
+	W3DGhostObject();
+
+	virtual void slot00( void );
+	virtual void slot04( void );
+	virtual void slot08( Int playerIndex );
+	virtual void freeSnapShot( Int playerIndex );
 protected:
 	virtual void crc( Xfer *xfer );
 	virtual void xfer( Xfer *xfer );
@@ -888,6 +922,24 @@ protected:
 	W3DGhostObject *m_freeModules;															///< 0x0C
 	W3DGhostObject *m_usedModules;															///< 0x10
 };
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+W3DGhostObject::W3DGhostObject()
+{
+
+	for (Int i=0; i< MAX_PLAYER_COUNT; i++)
+		m_parentSnapshots[i]=0;
+
+	m_drawableInfo.m_drawable = 0;
+	m_drawableInfo.m_flags = 0;
+	m_drawableInfo.m_ghostObject = 0;
+	m_drawableInfo.m_shroudStatusObjectID = INVALID_OBJECT_ID;
+
+	m_nextSystem = 0;
+	m_prevSystem = 0;
+
+}
 
 // ------------------------------------------------------------------------------------------------
 /** Remove the original object from our 3D scene*/
