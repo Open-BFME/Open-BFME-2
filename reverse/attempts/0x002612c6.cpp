@@ -1,4 +1,6 @@
 // ?rva002612C6@Rva002612C6@@QAE_NPAVObject@@@Z
+// partial score=0.96 date=2026-10-07
+// ?rva002612C6@Rva002612C6@@QAE_NPAVObject@@@Z
 // partial score=0.94 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
 // Native 002612C6..00261353, 141B, RET4. Object readers and callback are
@@ -73,7 +75,6 @@ bool Rva002612C6::rva002612C6(Object *candidate)
         return true;
     Rva002612C6State state;
     state.owner = owner;
-    state.bad = false;
-    contain->iterate(iterRel001DCF20, &state, 1);
-    return !state.bad;
+    contain->iterate(iterRel001DCF20, (state.bad = 0, &state), 1);
+    return state.bad ? false : true;
 }
