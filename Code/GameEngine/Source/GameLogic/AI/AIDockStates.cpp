@@ -86,7 +86,7 @@ public:
 class Player
 {
 public:
-	void iterateObjects(void (*func)(Object *, void *), void *userData) const;
+	int iterateObjects(int (*func)(Object *, void *), void *userData) const;
 };
 class Object
 {
@@ -272,7 +272,7 @@ Object* AIDockProcessDockState::findMyDrone()
 	//Iterate the objects in search for a drone with a producer ID of me.
 	if( player )
 	{
-		player->iterateObjects( (void (*)(Object *, void *))Rva00544B13Callback, (void*)&dInfo );
+		player->iterateObjects( (int (*)(Object *, void *))Rva00544B13Callback, (void*)&dInfo );
 		if( dInfo.drone )
 		{
 			m_droneID = dInfo.drone->getID();
