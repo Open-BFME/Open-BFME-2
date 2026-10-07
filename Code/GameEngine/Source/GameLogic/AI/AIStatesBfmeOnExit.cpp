@@ -75,6 +75,14 @@
 //    a successful move it continues while an airborne goal is above a
 //    grounded owner, else forces the unit into the contain (slot 39) when
 //    within the goal's +0xB8 radius.
+//  - AIEnterAndAttackState::onEnter, retail 0x0034FD0D (259 bytes): slot 4
+//    of 0x00C12F40. Shape of the BFME 1 / Zero Hour AIEnterState::onEnter:
+//    clears +0x4C, records the owner AI's pinned getCurrentVictim id at
+//    +0x50 (the rowed xfer saves both ObjectIDs), fails without a goal or
+//    when canEnterObject refuses, announces the unit to the goal's contain
+//    (slot 17, Zero Hour onObjectWantsToEnterOrExit) and records the goal
+//    id, then ignores the goal as an obstacle, allows invalid locomotor
+//    positions and logs critter desync 59 before the base onEnter.
 //  - AIMoveToPositionAndEnterState::onExit, retail 0x0034C035 (99 bytes):
 //    slot 5 of 0x00C136A0. When the owner has object status 0x4E, clears it
 //    and status 3, and for a template with kind byte +0x115 mask 0x20 also
@@ -270,6 +278,13 @@ public:
 		else
 			m_flags &= ~(1 << PRECISE_Z_POS);
 	}
+	void setAllowInvalidPosition(Bool b)
+	{
+		if (b)
+			m_flags |= (1 << ALLOW_INVALID_POSITION);
+		else
+			m_flags &= ~(1 << ALLOW_INVALID_POSITION);
+	}
 private:
 	unsigned char m_pad00[0x44];
 	unsigned int m_flags; // +0x44
@@ -382,6 +397,7 @@ public:
 	virtual CommandSourceType getLastCommandSource() const = 0;
 	void rva00263EA2(ObjectID id);
 	void ignoreObstacle(const Object *obj);
+	Object *getCurrentVictim() const;
 	unsigned int getMoodMatrixActionAdjustment(MoodMatrixAction action) const;
 	void setCanPathThroughUnits(Bool b) { m_canPathThroughUnits = b; }
 	Locomotor *getCurLocomotor() { return m_curLocomotor; }
@@ -463,8 +479,19 @@ struct Coord3D
 // is the contain count with one zero argument (as in
 // ScriptConditions_evaluateIsBuildingEmpty.cpp); slot 32 takes a command
 // source and has no evidenced name; slot 39 is the Zero Hour addToContain
-// that AIEnterState::update forces an arrived unit into.
-class ContainModuleSlot32 : public AIStateAISlots<32>
+// that AIEnterState::update forces an arrived unit into; slot 17 is the Zero
+// Hour onObjectWantsToEnterOrExit that AIEnterAndAttackState::onEnter
+// announces the entering unit with.
+enum ObjectEnterExitType
+{
+	WANTS_TO_ENTER = 0
+};
+class ContainModuleSlot17 : public AIStateAISlots<17>
+{
+public:
+	virtual void onObjectWantsToEnterOrExit(Object *obj, ObjectEnterExitType wants) = 0;
+};
+class ContainModuleSlot32 : public AIStateSlotFill<ContainModuleSlot17, 17, 31>
 {
 public:
 	virtual void slot32(CommandSourceType cmdSource) = 0;
@@ -1014,8 +1041,54 @@ StateReturnType AIEnterState::update()
 class AIEnterAndAttackState : public AIInternalMoveToState
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
+private:
+	ObjectID m_entryToClear; // +0x4C
+	ObjectID m_victimID; // +0x50
 };
+
+StateReturnType AIEnterAndAttackState::onEnter()
+{
+	m_entryToClear = INVALID_OBJECT_ID;
+	Object *obj = getMachineOwner();
+	Object *goal = getMachine()->getGoalObject();
+	AIUpdateInterface *ai = obj->getAI();
+	Object *victim = ai->getCurrentVictim();
+	if (victim)
+		m_victimID = victim->getID();
+	else
+		m_victimID = INVALID_OBJECT_ID;
+	if (goal)
+	{
+		if (!TheActionManager->canEnterObject(obj, goal, obj->getAI()->getLastCommandSource(),
+				CHECK_CAPACITY, 0, 0))
+			return (StateReturnType)STATE_FAILURE;
+
+		ContainModuleInterface *contain = goal->getContain();
+		if (contain)
+		{
+			m_goalPosition = *contain->getContainedObjectPosition();
+			contain->onObjectWantsToEnterOrExit(obj, WANTS_TO_ENTER);
+			m_entryToClear = goal->getID();
+		}
+		else
+		{
+			m_goalPosition = *goal->getPosition();
+		}
+	}
+	else
+	{
+		return (StateReturnType)STATE_FAILURE;
+	}
+
+	ai->ignoreObstacle(getMachine()->getGoalObject());
+	if (ai->getCurLocomotor())
+		ai->getCurLocomotor()->setAllowInvalidPosition(true);
+	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 59");
+	setAdjustsDestination(false);
+	return AIInternalMoveToState::onEnter();
+}
 
 StateReturnType AIEnterAndAttackState::update()
 {
