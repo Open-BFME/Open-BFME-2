@@ -66730,3 +66730,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??1Rva005E35DA@@QAE@XZ,,0x005E35DA,26,Code/GameEngine/Source/Common/Rva005E35DADtor.cpp,matched,owning-pointer dtor via pointee 0x005E3585 plus delete
 ?rva005F1D47@Rva005F1D06@@QAE?AVAsciiString@@XZ,,0x005F1D47,105,Code/GameEngine/Source/Common/Rva005F1D06Write.cpp,matched,same file as write calls write returns AsciiString caller unclaimed
 ??0Rva005DAA48@@QAE@PAX@Z,,0x005DAA48,18,Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp,matched,address-named pointer-holder constructor distinct vtable
+?rva0028F6BC@Rva0028F6BC@@QAE_NPBD@Z,,0x0028F6BC,47,Code/GameEngine/Source/Common/System/Rva0028F6BCBitSet.cpp,matched,sibling Rva0028F733 shape with BitFlags11 callee
