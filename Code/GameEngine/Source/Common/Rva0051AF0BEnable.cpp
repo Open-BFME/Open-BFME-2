@@ -102,6 +102,8 @@ struct UnknownE03138
 	virtual void u16();
 	virtual void u17();
 	virtual bool u18();
+	virtual bool u19(); // native slot4C
+	virtual bool u20(); // native slot50
 };
 // g_00E03138: matched references place it at VA 0xe03138 (retail .data initial value 0).
 UnknownE03138 * g_00E03138 = 0;
@@ -131,3 +133,13 @@ void __cdecl Rva0051B09BEnable(void)
 }
 // ?g_Va00A04910@@3PAUGlobalA04910@@A: the global at VA 0xe04910 is ?g_Va00E04910@@3HA.
 #pragma comment(linker, "/alternatename:?g_Va00A04910@@3PAUGlobalA04910@@A=?g_Va00E04910@@3HA")
+
+// Complete native37 boundary3E468F..3E46B4; same existing global provider.
+// Two bool vslots at 50 and 4C, short-circuited in that order; no arguments
+// or receiver are read. Original subsystem/method semantics remain unproved.
+int Rva003E468FCheck()
+{
+ if (g_00E03138->u20() && !g_00E03138->u19())
+  return 1;
+ return 0;
+}
