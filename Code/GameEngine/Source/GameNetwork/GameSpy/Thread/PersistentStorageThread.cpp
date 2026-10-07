@@ -1128,15 +1128,27 @@ void rva00556C54(char *data, int len, PSPlayerAllStats *stats)
 	file->close();
 }
 
-class GameSpyMiscPreferences
+// UserPreferences is an STLport map of AsciiString pairs plus the file name
+// (0x14 bytes with the vptr); this TU only constructs it on the stack and
+// calls write directly, so the map is left opaque.
+class UserPreferences
+{
+public:
+	virtual ~UserPreferences();
+	virtual bool write(void);
+private:
+	unsigned char m_pad04[0x10];
+};
+
+class GameSpyMiscPreferences : public UserPreferences
 {
 public:
 	GameSpyMiscPreferences();
 	virtual ~GameSpyMiscPreferences();
+	void rva0055986F(AsciiString val);
+	void rva00559924(AsciiString val);
 	AsciiString rva00559813();
 	AsciiString rva005598C8();
-private:
-	unsigned char m_pad04[0x10];
 };
 
 // Retail 0x55325C (122 bytes): decodes a lowercase hex string, two digits
@@ -1207,4 +1219,70 @@ PSPlayerAllStats rva00556DFF()
 		}
 	}
 	return stats;
+}
+
+// Retail 0x0086B080 (.rdata): exactly these 16 bytes, no terminator; the
+// Rva00552C0FBase vtable follows at 0x0086B090.
+extern const char g_cachedStatsHexDigits[16] = {
+	'0', '1', '2', '3', '4', '5', '6', '7',
+	'8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
+};
+
+// Retail 0x552EC0 (110 bytes): formats len bytes as lowercase hex into out.
+// The byte count arrives in ebx (static, TU-local).
+static bool rva00552EC0(const unsigned char *data, AsciiString &out, unsigned int len)
+{
+	unsigned int size = len * 2 + 1;
+	char *buf = new char[size];
+	if (buf)
+	{
+		memset(buf, ' ', size);
+		buf[size - 1] = 0;
+		for (unsigned int i = 0; i < len; ++i)
+		{
+			unsigned char b = data[i];
+			char lo = g_cachedStatsHexDigits[b & 0xf];
+			char hi = g_cachedStatsHexDigits[b >> 4];
+			buf[i * 2] = hi;
+			buf[i * 2 + 1] = lo;
+		}
+		out.format(buf);
+		delete[] buf;
+		return true;
+	}
+	return false;
+}
+
+// Retail 0x556FB8 (243 bytes): the inverse of 0x556DFF, called from
+// TearDownGameSpy. Each half of the stats goes through its Xfer serializer,
+// is hex-encoded and saved as ToolTipCachedStats / AllOtherCachedStats.
+// PeerDefs.cpp names the stats class Gen_uw_00385371; this TU calls it
+// PSPlayerAllStats.
+struct Gen_uw_00385371;
+void Rva00556FB8(const Gen_uw_00385371 &statsRef)
+{
+	GameSpyMiscPreferences prefs;
+	AsciiString first;
+	AsciiString second;
+	int len;
+	char *data = rva0055686A((const PSPlayerAllStats *)&statsRef, &len);
+	if (data)
+	{
+		if (rva00552EC0((const unsigned char *)data, first, len))
+		{
+			prefs.rva0055986F(first);
+			prefs.write();
+		}
+		delete data;
+	}
+	data = rva00556B3C((const PSPlayerAllStats *)&statsRef, &len);
+	if (data)
+	{
+		if (rva00552EC0((const unsigned char *)data, second, len))
+		{
+			prefs.rva00559924(second);
+			prefs.write();
+		}
+		delete data;
+	}
 }

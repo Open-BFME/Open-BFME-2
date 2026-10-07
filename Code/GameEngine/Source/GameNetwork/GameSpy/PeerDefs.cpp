@@ -467,8 +467,9 @@ extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;	// 0x00E0
 extern PingerInterface *ThePinger;		// 0x00E05FB8
 extern Rva0054D974 *TheLadderList;		// 0x00E05FB0
 
-// Unrowed 0x00556FB8: writes the stats' key/value pairs into
-// GameSpyMiscPreferences' cached stats (ZH inlines this in TearDownGameSpy).
+// 0x00556FB8 (rowed in GameSpy/Thread/PersistentStorageThread.cpp): writes
+// the stats into GameSpyMiscPreferences' cached stats as two hex strings (ZH
+// inlines a key/value version of this in TearDownGameSpy).
 void Rva00556FB8(const PSPlayerStats &stats);
 void Rva003B3371Call(Int hook);		// SignalUIInteraction
 void Rva00415EF8Close(void);		// deleteNotificationBox
