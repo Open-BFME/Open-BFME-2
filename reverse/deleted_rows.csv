@@ -858,3 +858,9 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?d_00412b94@@YAXXZ,0x00412B94,Converted to verified Apt image lookup and float-coordinate draw wrapper
 ?d_0030b7c2@@YAXXZ,0x0030B7C2,Rebase cleanup: upstream byte-verified C++ point query supersedes this generated placeholder at the same address.
 ?d_004ebeb7@@YAXXZ,0x004EBEB7,retracted gen-dump wave 5601afe3d3
+?d_002beb6f@@YAXXZ,0x002BEB6F,Generated placeholder superseded by the upstream byte-verified C++ recovery at this address.
+?rva002F70E5@Rva002F70E5Info@@QAE_NHH@Z,0x002F70E5,Concurrent upstream byte-verified owner retained at Code/GameEngine/Source/GameLogic/AI/Rva002F70E5QueryCallback.cpp
+?cellCallback@Rva002F600CInfo@@QAEHPAVPathfindCell@@0HH@Z,0x002F600C,Concurrent upstream byte-verified owner retained at Code/GameEngine/Source/GameLogic/AI/Rva002F600CQueryCallback.cpp
+?rva0030BEA2@Rva0030BEA2@@QAE?AURva0030BEA2Point@@H@Z,0x0030BEA2,Concurrent upstream byte-verified owner retained at Code/GameEngine/Source/Common/Rva0030BEA2Point.cpp
+?rva00375B7A@Rva00375AF7@@QAEMMM@Z,0x00375B7A,Concurrent upstream byte-verified owner retained at Code/GameEngine/Source/GameLogic/Map/Rva00375B7AHeightQuery.cpp
+?Rva00375A73@@YG_NPAVRva00375A73Query@@MPAURva00375A73Position@@@Z,0x00375A73,Concurrent upstream byte-verified owner retained at Code/GameEngine/Source/Common/System/Rva00375A73SplineQuery.cpp
