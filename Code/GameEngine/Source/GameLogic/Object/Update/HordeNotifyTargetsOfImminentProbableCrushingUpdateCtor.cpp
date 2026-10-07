@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
 //
 // ??0HordeNotifyTargetsOfImminentProbableCrushingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00253D88, 40 bytes. Behavior-side ctor completing the
@@ -44,4 +44,38 @@ HordeNotifyTargetsOfImminentProbableCrushingUpdate::HordeNotifyTargetsOfImminent
 	*(unsigned int *)this = ((unsigned int)vtbl_00BF17F8);
 	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)vtbl_00BEFF90);
 	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)vtbl_00BF17EC);
+}
+
+// Native4CEB14..4CEB76. STLport4.5.3 _S_merge algorithm, from BFME1
+// ba7dd inputs/vendor/stlport/stl/_list.c, using the verified distance helper.
+// Nodes carry pointer-sized payloads at8; original list/owner names unknown.
+// This helper's comparator home is the neighboring non-Horde constructor TU.
+// Keep its declaration out of line: seeing the body changes register allocation.
+class Rva004CEAB7 {
+public: bool rva004CEAB7(void *,void *);
+float x,y,z;
+};
+namespace _STL {
+struct _List_node_base { _List_node_base *next,*prev; };
+template <class Dummy> struct _List_global {
+ static void _Transfer(_List_node_base *,_List_node_base *,_List_node_base *);
+};
+}
+struct Rva004CEB14Node : _STL::_List_node_base { void *value; };
+struct Rva004CEB14List { Rva004CEB14Node *head; };
+void Rva004CEB14(Rva004CEB14List &dst, Rva004CEB14List &src, Rva004CEAB7 comp)
+{
+ Rva004CEB14Node *first1=(Rva004CEB14Node *)dst.head->next;
+ Rva004CEB14Node *last1=dst.head;
+ Rva004CEB14Node *first2=(Rva004CEB14Node *)src.head->next;
+ Rva004CEB14Node *last2=src.head;
+ while (first1!=last1 && first2!=last2) {
+  if (comp.rva004CEAB7(first2->value, first1->value)) {
+   Rva004CEB14Node *next=(Rva004CEB14Node *)first2->next;
+   _STL::_List_global<bool>::_Transfer(first1,first2,next);
+   first2=next;
+  } else first1=(Rva004CEB14Node *)first1->next;
+ }
+ if (first2!=last2)
+  _STL::_List_global<bool>::_Transfer(last1,first2,last2);
 }
