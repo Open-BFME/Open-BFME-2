@@ -26,12 +26,21 @@ public:
 
 	unsigned char m_pad000[0x40];
 	unsigned int m_40; // +0x40
-	unsigned char m_pad044[0x110 - 0x44];
+	unsigned char m_pad044[0x6D - 0x44];
+	bool m_6d; // +0x6D
+	unsigned char m_pad06e[0x110 - 0x6E];
 	int m_110; // +0x110
 	int m_114; // +0x114
 };
 
 extern GameLogic *TheGameLogic;
+
+// The rowed check 0x0023C902 on the same object.
+class Rva0023C902
+{
+public:
+	int rva0023C902();
+};
 
 // The rowed bool field reader 0x00210C66 on the same object.
 class Rva00210C66CmpBoolField
@@ -75,6 +84,13 @@ class Mouse
 	friend class AptQuitMenu;
 
 public:
+#define MOUSE_SLOT(N) virtual void slot##N();
+	MOUSE_SLOT(00) MOUSE_SLOT(01) MOUSE_SLOT(02) MOUSE_SLOT(03) MOUSE_SLOT(04)
+	MOUSE_SLOT(05) MOUSE_SLOT(06) MOUSE_SLOT(07) MOUSE_SLOT(08) MOUSE_SLOT(09)
+	MOUSE_SLOT(10) MOUSE_SLOT(11) MOUSE_SLOT(12) MOUSE_SLOT(13) MOUSE_SLOT(14)
+	MOUSE_SLOT(15) MOUSE_SLOT(16) MOUSE_SLOT(17) MOUSE_SLOT(18)
+#undef MOUSE_SLOT
+	virtual void setCursor(int cursor);
 	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
 
 private:
@@ -82,6 +98,13 @@ private:
 };
 
 extern Mouse *TheMouse;
+
+// The rowed 0x001EDDC6 on TheMouse (BFME1's bfmeSetYR).
+class Rva001EDDC6
+{
+public:
+	void rva001EDDC6(unsigned char value);
+};
 
 // TheLivingWorldLogic (the ledger's g_009FEF10); its rowed
 // isSelectionLocked 0x0004253A tells a war of the ring game apart.
@@ -104,6 +127,17 @@ struct LivingWorldLocal
 {
 	unsigned char m_pad000[0x98];
 	LivingWorldPlayer *m_98; // +0x98
+	unsigned char m_pad09c[0xB4 - 0x9C];
+	bool m_b4; // +0xB4
+	unsigned char m_pad0b5[0x168 - 0xB5];
+	bool m_168; // +0x168
+};
+
+// The rowed two-flag predicate 0x0051AEEF on the same object.
+class Rva0051AEEF
+{
+public:
+	bool rva0051AEEF() const;
 };
 
 class Rva002B2B66
@@ -112,7 +146,18 @@ public:
 	int rva002B2B66();
 };
 
-// TheInGameUI (0x00DFEDF0): vslot 94 hides the quit menu (BFME1's slot 84).
+// The +0x10 view TheInGameUI's 0x000CF155 returns and the folded forwarder
+// to its vslot 3 (0x005CB265), both pinned.
+class Rva005CB260;
+
+class Rva005CB265
+{
+public:
+	virtual int rva005CB265();
+};
+
+// TheInGameUI (0x00DFEDF0): vslot 94 shows or hides the quit menu (BFME1's
+// slot 84) and vslot 95 tells whether it is up.
 class InGameUI
 {
 public:
@@ -138,6 +183,9 @@ public:
 	IGUI_SLOT(90) IGUI_SLOT(91) IGUI_SLOT(92) IGUI_SLOT(93)
 #undef IGUI_SLOT
 	virtual void slot94(bool visible);
+	virtual bool slot95();
+
+	Rva005CB260 *rva000CF155();
 };
 
 extern InGameUI *TheInGameUI;
@@ -147,6 +195,8 @@ class Shell
 {
 public:
 	void rva0035BF4C(bool flag);
+	void rva0035C7CF(bool flag);
+	void push(AsciiString name, bool flag);
 };
 
 extern Shell *TheShell;
@@ -194,6 +244,66 @@ extern MessageStream *MessageStreamSubsystem;
 
 // The network quit's frame limit (.rdata 0x007ED97C).
 extern unsigned int g_007ED97C;
+
+// TheScriptEngine (0x009FE16C): +0x1A104 is negative unless the game is ending.
+class ScriptEngine
+{
+public:
+	unsigned char m_pad00000[0x1A104];
+	int m_1a104; // +0x1A104
+};
+
+extern ScriptEngine *TheScriptEngine;
+
+class GameWindowTransitionsHandler
+{
+public:
+	bool isFinished();
+};
+
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+
+// TheDisplay (0x009FE9D8): vslots 87 and 88 hold the quit menu back.
+class Display
+{
+public:
+#define DISPLAY_SLOT(N) virtual void slot##N();
+	DISPLAY_SLOT(00) DISPLAY_SLOT(01) DISPLAY_SLOT(02) DISPLAY_SLOT(03) DISPLAY_SLOT(04)
+	DISPLAY_SLOT(05) DISPLAY_SLOT(06) DISPLAY_SLOT(07) DISPLAY_SLOT(08) DISPLAY_SLOT(09)
+	DISPLAY_SLOT(10) DISPLAY_SLOT(11) DISPLAY_SLOT(12) DISPLAY_SLOT(13) DISPLAY_SLOT(14)
+	DISPLAY_SLOT(15) DISPLAY_SLOT(16) DISPLAY_SLOT(17) DISPLAY_SLOT(18) DISPLAY_SLOT(19)
+	DISPLAY_SLOT(20) DISPLAY_SLOT(21) DISPLAY_SLOT(22) DISPLAY_SLOT(23) DISPLAY_SLOT(24)
+	DISPLAY_SLOT(25) DISPLAY_SLOT(26) DISPLAY_SLOT(27) DISPLAY_SLOT(28) DISPLAY_SLOT(29)
+	DISPLAY_SLOT(30) DISPLAY_SLOT(31) DISPLAY_SLOT(32) DISPLAY_SLOT(33) DISPLAY_SLOT(34)
+	DISPLAY_SLOT(35) DISPLAY_SLOT(36) DISPLAY_SLOT(37) DISPLAY_SLOT(38) DISPLAY_SLOT(39)
+	DISPLAY_SLOT(40) DISPLAY_SLOT(41) DISPLAY_SLOT(42) DISPLAY_SLOT(43) DISPLAY_SLOT(44)
+	DISPLAY_SLOT(45) DISPLAY_SLOT(46) DISPLAY_SLOT(47) DISPLAY_SLOT(48) DISPLAY_SLOT(49)
+	DISPLAY_SLOT(50) DISPLAY_SLOT(51) DISPLAY_SLOT(52) DISPLAY_SLOT(53) DISPLAY_SLOT(54)
+	DISPLAY_SLOT(55) DISPLAY_SLOT(56) DISPLAY_SLOT(57) DISPLAY_SLOT(58) DISPLAY_SLOT(59)
+	DISPLAY_SLOT(60) DISPLAY_SLOT(61) DISPLAY_SLOT(62) DISPLAY_SLOT(63) DISPLAY_SLOT(64)
+	DISPLAY_SLOT(65) DISPLAY_SLOT(66) DISPLAY_SLOT(67) DISPLAY_SLOT(68) DISPLAY_SLOT(69)
+	DISPLAY_SLOT(70) DISPLAY_SLOT(71) DISPLAY_SLOT(72) DISPLAY_SLOT(73) DISPLAY_SLOT(74)
+	DISPLAY_SLOT(75) DISPLAY_SLOT(76) DISPLAY_SLOT(77) DISPLAY_SLOT(78) DISPLAY_SLOT(79)
+	DISPLAY_SLOT(80) DISPLAY_SLOT(81) DISPLAY_SLOT(82) DISPLAY_SLOT(83) DISPLAY_SLOT(84)
+	DISPLAY_SLOT(85) DISPLAY_SLOT(86)
+#undef DISPLAY_SLOT
+	virtual bool slot87();
+	virtual bool slot88();
+};
+
+extern Display *TheDisplay;
+
+// Further screens that keep the quit menu closed while up
+// (ColdGlobalDwordGetters.cpp).
+extern int g_Va00E0492C;
+extern int g_Va00E0330C;
+extern int g_Va00E048D0;
+
+// The panels the quit menu closes (all rowed).
+void __cdecl Rva0043C96FEnable(void);
+void __cdecl Rva004E855CClose(void);
+void __cdecl Rva004E400DEnable(void);
+void __cdecl Rva0050E9D3Enable(void);
 
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // MpGameSetupSlots.cpp): a binding of an object and an eight-byte
@@ -540,6 +650,74 @@ AptQuitMenu::~AptQuitMenu()
 	g_bfmeAptWindowManager->bfmeSetText(key, TheGameText->fetch("APT:Pause"), false);
 }
 
+// Retail 0x0051B369, 398 bytes: opens the quit menu, as BFME1's
+// showQuitMenu (ShowQuitMenu.cpp there; Zero Hour QuitMenu.cpp's
+// ToggleQuitMenu show arm). Nothing happens while a quit menu exists, the
+// menu is up, another screen holds it back, the game is loading or ending
+// (0x0023C902, +0x6D, the script engine), a war of the ring battle is
+// resolving or a transition is running. Otherwise the side panels close,
+// a single player game pauses, and the shell pushes "QuitMenu.apt".
+// Name inferred from the donors.
+void ShowQuitMenu()
+{
+	if (TheAptQuitMenu)
+		return;
+	if (TheInGameUI->slot95())
+		return;
+	if (g_Va00E0492C)
+		return;
+	if (g_Va00E0330C)
+		return;
+	if ((unsigned char)((Rva0023C902 *)TheGameLogic)->rva0023C902())
+		return;
+	if (TheGameLogic->m_6d)
+		return;
+	if (TheScriptEngine->m_1a104 >= 0)
+		return;
+	if (g_009FEF10 && ((LivingWorldLocal *)g_009FEF10)->m_b4 && ((LivingWorldLocal *)g_009FEF10)->m_168)
+		return;
+	if (!TheTransitionHandler->isFinished())
+		return;
+	if (g_Va00E048D0)
+		return;
+	if (TheDisplay)
+	{
+		if (TheDisplay->slot88())
+			return;
+		if (TheDisplay->slot87())
+			return;
+	}
+	if (g_009FEF10 && ((Rva0051AEEF *)g_009FEF10)->rva0051AEEF())
+		return;
+
+	Rva0043C96FEnable();
+	Rva004E855CClose();
+	Rva004E400DEnable();
+	Rva0050E9D3Enable();
+	((Rva005CB265 *)TheInGameUI->rva000CF155())->Rva005CB265::rva005CB265();
+	((Rva001EDDC6 *)TheMouse)->rva001EDDC6(1);
+
+	GameLogic *logic = TheGameLogic;
+	if (!logic->isInMultiplayerGame())
+		logic->rva0023CD9E(true, 0, true);
+	TheMouse->setCursor(2);
+	TheShell->rva0035C7CF(false);
+	TheShell->push(AsciiString("QuitMenu.apt"), false);
+	TheInGameUI->slot94(true);
+}
+
+// Retail 0x0051B4F7, 23 bytes: closes the open quit menu (as its
+// ReturnToGame does) or opens one; Zero Hour QuitMenu.cpp's name.
+void ToggleQuitMenu()
+{
+	if (TheAptQuitMenu)
+	{
+		Rva0051AF0BEnable(0);
+		return;
+	}
+	ShowQuitMenu();
+}
+
 // Retail 0x0051B50E, 167 bytes. Name unknown. Shows the restart button's
 // tooltip: restart in a campaign (mode 3) or without a game, else forfeit,
 // or surrender in a war of the ring game.
@@ -559,6 +737,13 @@ void AptQuitMenu::HandleOverRestartButton(const char *unused)
 	UnicodeString tooltip = TheGameText->fetch(label, &exists);
 	if (exists)
 		TheMouse->rva001EEA6D(tooltip, -1, 0, 1.0f);
+}
+
+// Retail 0x0051B8EA, 5 bytes: the toggle as AptPalantir::OnBttnOptions
+// (0x002D30C7) reaches it, a tail jump. Name unknown.
+void Rva0051B8EA()
+{
+	ToggleQuitMenu();
 }
 
 // The extern handlers' names, by query (0x00C66BF8).

@@ -6453,7 +6453,6 @@ name,address,notes
 ?Rva005116C2@@YAXXZ,0x005116C2,unrowed 110B free function (Ghidra FUN_009116c2) directly before rowed Rva00511730; no ECX use and no arguments; caller 0x00445267 calls it when g_Va00E046B8 is null; address name
 ?Rva005117DF@@YAXPBD@Z,0x005117DF,unrowed 23B cdecl (Ghidra FUN_009117df; plain ret; the argument unused) opening or closing the messenger; REL32 read at AptPalantir::OnBttnMessenger 0x002D311C which passes its own argument; address name
 ?Rva00513866Free@@YAXXZ,0x00513866,free-function spelling for the 0x5B5B0C tail callee (no ecx or stack setup at the site); target REL32 from retail call at 0x005B5B30
-?Rva0051B8EA@@YAXXZ,0x0051B8EA,unrowed 5B jump to 0x0051B4F7 (Ghidra thunk_FUN_0091b4f7); REL32 read at AptPalantir::OnBttnOptions 0x002D30C7 (no arguments and no ECX setup); address name
 ?Rva0051ED7ETail@@YAXXZ,0x0051ED7E,tail jmp from 0x0051BF47 free no this same address as AptTimeLine pin
 ?Rva00523EC8@C00524477@@QAEXH@Z,0x00523EC8,thiscall int sink of range dispatch 0x00524477 on this+0xC (REL32 at 0x005244D0); body unrecovered; address name
 ?Rva0052408B@@YAXHHHPAD@Z,0x0052408B,free callee of forwarder 0x005243FA (REL32 at 0x0052440B); Ghidra 179B body unrecovered; address name
