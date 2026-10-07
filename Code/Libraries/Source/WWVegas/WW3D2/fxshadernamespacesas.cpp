@@ -496,6 +496,7 @@ public:
 	// and skeleton's matrices (vtables 0x00BD383C/48/74/80/8C) override slot 2.
 	struct SourceNamespace_Matrix : public FXShaderParameterSourceNamespace
 	{
+		SourceNamespace_Matrix() {}
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 		virtual void slot02(Rva0007671F &matrix) = 0;
 
@@ -511,10 +512,12 @@ public:
 	{
 		struct Matrix_WorldToView : public SourceNamespace_Matrix
 		{
+			Matrix_WorldToView() {}
 			virtual void slot02(Rva0007671F &matrix);
 		};
 		struct Matrix_Projection : public SourceNamespace_Matrix
 		{
+			Matrix_Projection() {}
 			virtual void slot02(Rva0007671F &matrix);
 		};
 
@@ -528,6 +531,7 @@ public:
 	// vtable 0x00BD3834, dispatcher 0x0014FD69.
 	struct SourceNamespace_Time : public FXShaderParameterSourceNamespace_Struct
 	{
+		SourceNamespace_Time() {}
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 	};
 
@@ -535,6 +539,7 @@ public:
 	// 0x0014FE33, 0x0014FEB8), each carrying its light index.
 	struct SourceNamespace_AmbientLight : public FXShaderParameterSourceNamespace_Struct
 	{
+		SourceNamespace_AmbientLight() {}
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 		void rva0014D5B0(ID3DXEffect *effect, D3DXHANDLE parameter);
 		void SetIndex(int index) { m_index = index; }
@@ -542,6 +547,7 @@ public:
 	};
 	struct SourceNamespace_DirectionalLight : public FXShaderParameterSourceNamespace_Struct
 	{
+		SourceNamespace_DirectionalLight() {}
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 		void rva0014D66F(ID3DXEffect *effect, D3DXHANDLE parameter);
 		void SetIndex(int index) { m_index = index; }
@@ -549,6 +555,7 @@ public:
 	};
 	struct SourceNamespace_PointLight : public FXShaderParameterSourceNamespace_Struct
 	{
+		SourceNamespace_PointLight() {}
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
 		void rva0014D90E(ID3DXEffect *effect, D3DXHANDLE parameter);
 		void SetIndex(int index) { m_index = index; }
@@ -586,14 +593,17 @@ public:
 
 		struct Matrix_MeshToJointToWorld : public SourceNamespace_Matrix
 		{
+			Matrix_MeshToJointToWorld() {}
 			virtual void slot02(Rva0007671F &matrix);
 		};
 		struct Matrix_MeshToJointToView : public SourceNamespace_Matrix
 		{
+			Matrix_MeshToJointToView() {}
 			virtual void slot02(Rva0007671F &matrix);
 		};
 		struct Matrix_MeshToJointToProjection : public SourceNamespace_Matrix
 		{
+			Matrix_MeshToJointToProjection() {}
 			virtual void slot02(Rva0007671F &matrix);
 		};
 
