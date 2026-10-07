@@ -68208,7 +68208,6 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?d_00041403@@YAXXZ,,0x00041403,84,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_000443ba@@YAXXZ,,0x000443BA,132,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00044ff2@@YAXXZ,,0x00044FF2,148,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
-?d_00046827@@YAXXZ,,0x00046827,72,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_0004a3c4@@YAXXZ,,0x0004A3C4,158,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00084c05@@YAXXZ,,0x00084C05,160,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00283033@@YAXXZ,,0x00283033,78,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
@@ -68344,3 +68343,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ??_GStructureBodyModuleData@@UAEPAXI@Z,,0x0025706B,28,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp,matched,slot0 vtable 0x7F4028 calls rowed 0x57087; rehomed from FamilyDeletingDtors_muse-2768.cpp: ModuleFactory.cpp emits this deleting dtor itself (the famgen stand-in dtor was a duplicate definition)
 ??_GRva003AEEB3@@UAEPAXI@Z,,0x003AEEFC,28,Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleBaseCopyCtors.cpp,matched,deleting dtor calls rowed 0x003A5817 plus delete 0x0002FD60; rehomed from FamilyDeletingDtors_Rva003AEEB3.cpp: DefaultModuleBaseCopyCtors.cpp emits this deleting dtor itself (the famgen stand-in dtor was a duplicate definition)
 ?rva002B2DAD@@YA_NPAVGameMessage@@PAPAXH@Z,,0x002B2DAD,65,Code/GameEngine/Source/GameLogic/LivingWorld/Rva002B2DAD.cpp,matched,Native 002B2DAD..002B2DEE RET0; compiler-private ECX message plus stack output/index; GameMessage getArgument 0030F4EA; region-manager lookup 0020E5BB RET4; singleton VA DFEF10 +B0; precise helper identity remains open
+?rva00046827@Rva00046827@@QAEHXZ,,0x00046827,72,Code/GameEngine/Source/Common/System/Rva00046827Popcount.cpp,matched,Native 00046827..0004686F RET0; 32-dword SWAR popcount; verified sibling 002AACDB compiler shape with independent loop bound; owner unresolved
