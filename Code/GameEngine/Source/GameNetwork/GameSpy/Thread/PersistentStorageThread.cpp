@@ -6,6 +6,7 @@
 // Canonical one-pointer AsciiString temporary used by the native wire adapter.
 #include "ascii_string.h"
 // stlport
+#include <cctype>
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
@@ -865,6 +866,7 @@ PSPlayerAllStats Rva00555BD5StatsQueue::rva00556674(int id) {
 // addResponse (E05FC8 slot6). Its implicit destructor 0x00555ADF destroys only
 // the +8 PSPlayerAllStats; BFME1's PSResponse is the donor lead for the type at
 // +0 and the preorder flag at +0x57C.
+struct Rva00552F2E;
 struct BfmeOpaqueOwnedRecord1408
 {
 	BfmeOpaqueOwnedRecord1408() : player(0) {}
@@ -876,7 +878,7 @@ struct BfmeOpaqueOwnedRecord1408
 	Int m_558;
 	Int m_55C;
 	Int m_560;
-	unsigned int m_564[6];
+	Rva00552F2E *m_564[6];
 	bool preorder;
 	bool m_57D;
 };
@@ -1367,6 +1369,122 @@ int Rva00557304::rva00557304(int request, int result, int buffer, int, int)
 		resp.m_57D = value == 1;
 		if (TheGameSpyPSMessageQueue)
 			TheGameSpyPSMessageQueue->addResponse(resp);
+	}
+	bfmeErase((void *)request);
+	return 1;
+}
+
+// The 0x20-byte table a ladder reply fills per faction: one value pair per
+// period, the first value of each in a[] and the second in b[]; its rowed
+// ctor 0x00552F2E (Rva00552F2EHelpers.cpp) zeroes both halves. Retail's six
+// allocations carry no delete-on-throw unwind state, so the ctor is nothrow.
+struct Rva00552F2E
+{
+	int a[4];
+	int b[4];
+	Rva00552F2E() throw();
+};
+
+// Retail 0x005573FA (1288 bytes), reached through adapter 0x0055794C: parses a
+// successful line-based ladder reply. A period line ("today", "yesterday",
+// "all time", "last week") selects the column; once a period is known a
+// faction line selects one of six fresh tables, and the next three lines are
+// stripped to their leading digits, the second and third stored in that
+// column. Response type 5 hands the six tables to the queue, which owns them
+// from then on; without a queue they are freed. The request is erased on every
+// path.
+class Rva005573FA : public Gen_00654130
+{
+public:
+	int rva005573FA(int a1, int a2, int a3, int a4, int a5);
+};
+int Rva005573FA::rva005573FA(int request, int result, int buffer, int, int)
+{
+	_STL::map<void *, void *>::iterator it = m_values.find(*(void *const *)&request);
+	if (result != 0 || it._M_node == m_values.end()._M_node || it->second == 0)
+	{
+		bfmeErase((void *)request);
+		return 1;
+	}
+	Rva00552F2E *men = new Rva00552F2E;
+	Rva00552F2E *elves = new Rva00552F2E;
+	Rva00552F2E *dwarves = new Rva00552F2E;
+	Rva00552F2E *isengard = new Rva00552F2E;
+	Rva00552F2E *mordor = new Rva00552F2E;
+	Rva00552F2E *goblins = new Rva00552F2E;
+	AsciiString text((const char *)buffer);
+	int period = 4;
+	AsciiString line;
+	Rva00552F2E *table = NULL;
+	while (text.nextToken(&line, "\n"))
+	{
+		line.trim();
+		line.toLower();
+		if (strstr(line.str(), "today"))
+			period = 0;
+		else if (strstr(line.str(), "yesterday"))
+			period = 1;
+		else if (strstr(line.str(), "all time"))
+			period = 2;
+		else if (strstr(line.str(), "last week"))
+			period = 3;
+		else if (period != 4)
+		{
+			if (strstr(line.str(), "men"))
+				table = men;
+			else if (strstr(line.str(), "elves"))
+				table = elves;
+			else if (strstr(line.str(), "dwarves"))
+				table = dwarves;
+			else if (strstr(line.str(), "isengard"))
+				table = isengard;
+			else if (strstr(line.str(), "mordor"))
+				table = mordor;
+			else if (strstr(line.str(), "goblins"))
+				table = goblins;
+		}
+		if (table)
+		{
+			AsciiString field1;
+			AsciiString field2;
+			AsciiString field3;
+			text.nextToken(&field1, "\n");
+			text.nextToken(&field2, "\n");
+			text.nextToken(&field3, "\n");
+			while (!field1.isEmpty() && !isdigit(field1.str()[0]))
+				field1.set(field1.str() + 1);
+			while (!field2.isEmpty() && !isdigit(field2.str()[0]))
+				field2.set(field2.str() + 1);
+			while (!field3.isEmpty() && !isdigit(field3.str()[0]))
+				field3.set(field3.str() + 1);
+			if (!field1.isEmpty() && !field2.isEmpty() && !field3.isEmpty())
+			{
+				table->a[period] = atoi(field2.str());
+				table->b[period] = atoi(field3.str());
+			}
+			table = NULL;
+		}
+	}
+	BfmeOpaqueOwnedRecord1408 resp;
+	resp.responseType = 5;
+	resp.m_564[0] = men;
+	resp.m_564[1] = elves;
+	resp.m_564[2] = dwarves;
+	resp.m_564[3] = isengard;
+	resp.m_564[4] = mordor;
+	resp.m_564[5] = goblins;
+	if (TheGameSpyPSMessageQueue)
+	{
+		TheGameSpyPSMessageQueue->addResponse(resp);
+	}
+	else
+	{
+		delete men;
+		delete elves;
+		delete dwarves;
+		delete isengard;
+		delete mordor;
+		delete goblins;
 	}
 	bfmeErase((void *)request);
 	return 1;
