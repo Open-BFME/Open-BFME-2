@@ -94,6 +94,21 @@ public:
 	UnsignedInt m_20;
 };
 
+// Its ctor (rowed under the dtor's class name) and the +0x24 text setter.
+class Rva004D67D0
+{
+public:
+	Rva004D67D0();
+private:
+	char m_pad[0x28];
+};
+
+class Rva004D05D7
+{
+public:
+	void rva004D05D7(UnicodeString text);
+};
+
 // The +0x1C AsciiString getter is rowed as CDDrive::getPath (retail folds the
 // same-offset getters); it is called qualified, as the tree's other callers do.
 class CDDrive
@@ -321,6 +336,7 @@ public:
 	static NetCommandMsg *rva0058DF29(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0059205C(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva00592123(UnsignedByte *data, Int &readOffset);
+	static NetCommandMsg *rva00592208(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DFB8(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E047(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E0B0(UnsignedByte *data, Int &readOffset);
@@ -1477,6 +1493,34 @@ NetCommandMsg *NetPacket::rva00592123(UnsignedByte *data, Int &readOffset)
 	((Rva004D60CA *)msg)->rva004D6187(unitext);
 	((BFMENetInformPlayerLeaveFrameCommandMsg *)msg)->setLeavingPlayerID(playerMask);
 	return (NetCommandMsg *)msg;
+}
+
+// ?rva00592208@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z, retail 0x00592208, 243 bytes:
+// the type-30 reader, the inverse of rva005936DB: the chat readers' text,
+// then the +0x1C and +0x20 dwords, stored after the text is set.
+NetCommandMsg *NetPacket::rva00592208(UnsignedByte *data, Int &readOffset)
+{
+	NetType30CommandMsg *msg = (NetType30CommandMsg *)new Rva004D67D0();
+	UnsignedShort text[256];
+	UnsignedByte length;
+	UnsignedInt field1c;
+	UnsignedInt field20;
+	memcpy(&length, data + readOffset, sizeof(UnsignedByte));
+	++readOffset;
+	memcpy(text, data + readOffset, length * sizeof(UnsignedShort));
+	readOffset += length * sizeof(UnsignedShort);
+	text[length] = 0;
+	memcpy(&field1c, data + readOffset, sizeof(UnsignedInt));
+	readOffset += sizeof(UnsignedInt);
+	memcpy(&field20, data + readOffset, sizeof(UnsignedInt));
+	readOffset += sizeof(UnsignedInt);
+
+	UnicodeString unitext;
+	unitext.set(text);
+	((Rva004D05D7 *)msg)->rva004D05D7(unitext);
+	msg->m_1c = field1c;
+	msg->m_20 = field20;
+	return msg;
 }
 
 // ?rva0058DFB8@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058DFB8 143B.
