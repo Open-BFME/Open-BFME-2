@@ -1,6 +1,4 @@
-// ??0Rva001408C0Target@@QAE@ABU0@@Z
-// partial score=0.95 date=2026-10-07
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /O1 /arch:SSE /G7
 //
 // ??0Rva001408C0Target@@QAE@ABU0@@Z @0x004ABCE6 24B: copy constructor of the
 // registry key base (caller 0x004ABF5D in Rva004ABFD9 copy). Calls the rowed
