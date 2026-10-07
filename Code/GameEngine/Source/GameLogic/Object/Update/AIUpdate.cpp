@@ -1109,20 +1109,8 @@ UpdateSleepTime AIUpdateInterface::update( void )
 
 
 
-//-------------------------------------------------------------------------------------------------
-/**
- * Append waypoint to queue for later movement
- */
-// ?queueWaypoint@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::queueWaypoint( const Coord3D *pos )
-{
-	if (m_waypointCount < MAX_WAYPOINTS)
-	{
-		m_waypointQueue[ m_waypointCount++ ] = *pos;
-		return TRUE;
-	}
-	return FALSE;
-}
+// queueWaypoint is defined in AIUpdateInterfaceQueueWaypoint.cpp using the
+// verified BFME 2 queue layout; this reference unit calls that provider.
 
 //-------------------------------------------------------------------------------------------------
 /**
