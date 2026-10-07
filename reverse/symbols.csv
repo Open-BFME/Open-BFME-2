@@ -15415,6 +15415,3 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva005BDAC1@@YAXXZ,0x005BDAC1,address-derived no-argument callee from retail call at 0x00517EC1; body identity remains unknown
 ?rva005AF12F@@YAXPAX@Z,0x005AF12F,address-derived one-pointer callee from retail call at 0x00517F05; body identity remains unknown
 ?rva0053E783@ControlBar@@QAEXPAXH@Z,0x0053E783,Direct thiscall call from ControlBar rva0053EB81 at 0x0053EB81 pushes an opaque object pointer and 1. Two-argument ABI follows the call site. Address-derived name; callee identity and argument meanings unresolved
-?SetEnabled@Impl@AptScrollBar@@QAEX_N@Z,0x005D4949,callee of ?SetEnabled@Rva005D49CD@@QAEX_N@Z
-?rva00158BA0@Rva00158BA0@@QAEXPAMPBG@Z,0x00158BA0,callee of ?rva00105CF6@Rva00105CF6@@QAEXPAPBGPAH1@Z
-?rva00112AD1@Rva00112AD1@@QAE_NHHHM@Z,0x00112AD1,retail REL32 at 0x00113191 targets 0x00112AD1; caller supplies 0; 0; this+0x58; float arg2 and callee ret 0x10 confirms four stack slots; address-derived dependency only; body unrecovered
