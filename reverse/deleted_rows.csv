@@ -852,3 +852,4 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?d_003a38e9@@YAXXZ,0x003A38E9,Replaced by verified Team::rva003A38E9 mapped-state setter
 ?d_0030bea2@@YAXXZ,0x0030BEA2,Replaced by verified reflected point-pair walker Rva0030BEA2::rva0030BEA2
 ?d_00375b7a@@YAXXZ,0x00375B7A,Converted to real C++ terrain and polygon height query
+?d_0035a292@@YAXXZ,0x0035A292,Converted to real C++ ID-list erase and native helper dispatch
