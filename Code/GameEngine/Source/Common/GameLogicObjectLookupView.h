@@ -10,6 +10,7 @@ enum ObjectID
 };
 
 class Object;
+class Rva00439E0C;
 
 struct ObjectIdNode
 {
@@ -25,6 +26,8 @@ public:
 
 // The network code reads the command timestamp at +0x38 and Zero Hour's
 // frame counter at +0x40 (ConnectionManager::update 0x004D342A, among others).
+// StealthUpdate::disguiseAsObject (0x00373DF0) reads the manager at +0x178
+// whose call 0x00439E0C takes the disguised object.
 class GameLogic
 {
 	char pad[0x38];
@@ -33,6 +36,8 @@ class GameLogic
 	unsigned int m_frame;
 	char pad44[0xB4 - 0x44];
 	ObjectIdMap m_map;
+	char padB5[0x178 - 0xB5];
+	Rva00439E0C *m_manager178;
 
 public:
 	Object *findObjectByID(ObjectID id);
@@ -40,4 +45,5 @@ public:
 	void destroyObject(Object *obj);	// 0x00242C09
 	unsigned int getTimestamp() const { return m_timestamp; }
 	unsigned int getFrame() const { return m_frame; }
+	Rva00439E0C *getManager178() const { return m_manager178; }
 };
