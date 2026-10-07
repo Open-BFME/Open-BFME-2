@@ -58,7 +58,7 @@ int __cdecl rva0053123A(void *item);
 class Rva002E99F9Sub460
 {
 public:
-	unsigned short rva0053241F(void *s, unsigned short w);
+	__declspec(noinline) unsigned short rva0053241F(void *s, unsigned short w);
 	unsigned short rva00531FD4(void *s, unsigned short w);
 	unsigned short rva00531FE6(bool force, void *item, unsigned short value);
 };
@@ -140,4 +140,15 @@ unsigned short Rva002E99F9Sub460::rva00531FE6(bool force, void *item, unsigned s
 	unsigned int slot = count * 7 + index + 0x15E1;
 	Rva00531A44 *entry = (Rva00531A44 *)((char *)this + slot * 0x14);
 	return entry->rva00531B20(value);
+}
+
+// ?rva0053241F@Rva002E99F9Sub460@@QAEGPAXG@Z @0x0053241F 18B
+// Forwarder pushing (true, s, w) to rowed 0x00531FE6 ret 8. Evidence: pin
+// ?rva0053241F@Rva002E99F9Sub460@@QAEGPAXG@Z; callers in FindBrokenBridge
+// 0x002E9A6C 0x002E9A7F 0x002E9AAC 0x002E9ABE plus 0x002E7C4E; sibling
+// 0x00531FD4 forwards false. noinline keeps FindBrokenBridge calling the
+// thunk as retail does instead of inlining the push-1.
+__declspec(noinline) unsigned short Rva002E99F9Sub460::rva0053241F(void *s, unsigned short w)
+{
+	return rva00531FE6(true, s, w);
 }
