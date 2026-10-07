@@ -67709,3 +67709,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva005757A5@Rva005757A5@@QAEXH@Z,,0x005757A5,84,Code/GameEngine/Source/Common/Rva005757A5Method.cpp,matched,Ghidra 84B body; raw fields and meanings unresolved; rowed local constructor getter and helper calls
 ??0Rva00575D45@@QAE@PAXH@Z,,0x005763ED,89,Code/GameEngine/Source/Common/Rva005763EDCtor.cpp,matched,Vtable and rowed base ctor identify Rva00575D45; raw args and nested constructor type remain address-derived
 ??0Rva00576B5E@@QAE@PAXH@Z,,0x00576ED9,89,Code/GameEngine/Source/Common/Rva00576ED9Ctor.cpp,matched,Vtable and rowed base ctor tie this to Rva00576B5E; raw args and nested constructor identity remain address-derived
+??0Rva005772BF@@QAE@PAXH@Z,,0x00577747,89,Code/GameEngine/Source/Common/Rva00577747Ctor.cpp,matched,Vtable and rowed base ctor tie this to Rva005772BF; raw args and nested constructor identity remain address-derived
