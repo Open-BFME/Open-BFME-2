@@ -1,6 +1,8 @@
 // ?GadgetImageComboBoxSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
+// partial score=0.995 date=2026-10-07
+// ?GadgetImageComboBoxSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
 // partial score=0.99 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
 // ?GadgetImageComboBoxInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
 // @0x0032386A 497B (Ghidra boundary, EH frame): the image combo box input
 // callback, slot 0x54 of the input table 0x9BCAD8. Reference semantics:
@@ -409,11 +411,12 @@ WindowMsgHandledType GadgetImageComboBoxInput(GameWindow *window, UnsignedInt ms
 WindowMsgHandledType GadgetImageComboBoxSystem(GameWindow *window, UnsignedInt msg,
 	WindowMsgData mData1, WindowMsgData mData2)
 {
+	const UnsignedInt message = msg;
 	GameWindow *combo = window;
 	WinInstanceData *instData = window->winGetInstanceData();
 	ImageComboBoxData *comboData = (ImageComboBoxData *)window->winGetUserData();
 
-	switch (msg)
+	switch (message)
 	{
 		case GWM_CREATE:
 		{
@@ -447,8 +450,10 @@ WindowMsgHandledType GadgetImageComboBoxSystem(GameWindow *window, UnsignedInt m
 			break;
 
 		case GGM_SET_LABEL:
+		{
 			instData->setText(*(UnicodeString *)mData1);
 			break;
+		}
 
 		case GGM_RESIZED:
 		{

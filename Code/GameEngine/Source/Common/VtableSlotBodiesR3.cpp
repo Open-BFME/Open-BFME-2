@@ -811,3 +811,44 @@ int Rva00345F76::rva00345F76()
 {
 	return (m_top18->m_mid14->m_leaf04->m_flags114 & 0x2000) ? 0 : -2;
 }
+struct IDirect3DSurface8;
+class Vector3
+{
+public:
+	float X;
+	float Y;
+	float Z;
+};
+class DX8Wrapper
+{
+public:
+	static void Set_Render_Target(IDirect3DSurface8 *surface, bool flag);
+	static void Clear(bool clear_color, bool clear_z_stencil, bool clear_stencil, const Vector3 &color, float dest_alpha, float z, unsigned int stencil);
+};
+class Rva000F6D56Filter
+{
+public:
+	virtual bool preRender(bool &skip, int &mode);
+
+private:
+	char m_pad00[0x18];
+	IDirect3DSurface8 *m_surface; // +0x1C
+};
+
+#ifndef NULL
+#define NULL 0
+#endif
+
+bool Rva000F6D56Filter::preRender(bool &skip, int &mode)
+{
+	skip = false;
+	DX8Wrapper::Set_Render_Target(m_surface, true);
+	float one = 1.0f;
+	Vector3 black;
+	black.X = 0.0f;
+	black.Y = 0.0f;
+	black.Z = 0.0f;
+	DX8Wrapper::Clear(true, false, false, black, 0.0f, one, 0);
+	mode = 6;
+	return true;
+}
