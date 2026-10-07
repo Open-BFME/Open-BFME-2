@@ -31,7 +31,7 @@ public:
 
 struct BfmeWorldRV;
 extern struct BfmeWorldRV *g_bfmeWorldRV;
-extern const char g_00C39070[];
+extern const char g_00C39070[] = "Unknown command '%s' found in command set. File: %s Line: %d\n";
 
 class INIException
 {
