@@ -67338,3 +67338,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva000DF745@W3DBridgeBuffer@@QAEXHH@Z,,0x000DF745,49,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferRva000DF745.cpp,matched,W3DBridgeBuffer forwards first arg to 0x000DD878 then second when +0xD7B6 is set or +0xC is zero and clears +0xD7B5
 ??_ERva00112291@@UAEPAXI@Z,,0x000E1072,78,Code/GameEngine/Source/Common/Rva000E1072.cpp,matched,vector deleting destructor stride 0xD4 calling pinned element dtor 0x00112291
 ?rva000E585F@Rva006F8700Owner@@QAEXPAX0PAH1@Z,,0x000E585F,95,Code/GameEngine/Source/Common/Rva000E585F.cpp,matched,folds rowed 0x000E569A into arg4 and +0x40 and 0x000E56AF into arg3 with quotient 3 at +0x48
+?rva000C3886@Rva000C3886@@QAEXPAXMPAURva000C3886Range@@PAURva000C3886Obj@@0@Z,,0x000C3886,114,Code/GameEngine/Source/Common/Rva000C3886.cpp,matched,114B forwarder: flag 0x10 at +0xF4 then three callees
