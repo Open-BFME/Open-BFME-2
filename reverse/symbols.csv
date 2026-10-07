@@ -2836,7 +2836,6 @@ name,address,notes
 ??0TransportAIUpdateModuleData@@QAE@XZ,0x0026E5D7,EH ctor installing vtable 0x00BFA288 size 0x64; called by own ModuleData factory 0x24BDF2 (news 0x64) and as base by WanderAIUpdateModuleData ctor 0x24F1CD (the expected factory-plus-derived pair); proc 0x2638FF single table 0xBF9378 Turret-led
 ??0TransportContain@@QAE@PAVThing@@PBVModuleData@@@Z,0x00468559,(Thing*;ModuleData*) ctor called by TransportContain::friend_newModuleInstance (0x0024B861); class from the ModuleFactory registration literal
 ??0TransportContainModuleData@@QAE@XZ,0x00468301,ctor call in the byte-true TransportContain data factory (ModuleFactory registers it under "TransportContain")
-??0TreeHintOpaque002A484A@@QAE@ABU0@@Z,0x002A1383,BFME2 mapped-value tree 0x2a5895; directly verified comparator/iterator or insert-node-construct-copy chain; type and ownership limits documented in source.
 ??0TreeHintOpaque00304573@@QAE@ABU0@@Z,0x003039E8,BFME2 mapped-value tree 0x304bef; directly verified comparator/iterator or insert-node-construct-copy chain; type and ownership limits documented in source.
 ??0TreeHintOpaque0043671B@@QAE@ABU0@@Z,0x0022D106,BFME2 mapped-value tree 0x436e3b; directly verified comparator/iterator or insert-node-construct-copy chain; type and ownership limits documented in source.
 ??0TreeHintOpaque0043671B@@QAE@XZ,0x00229811,twin of rowed Rva default ctor at 0x00229811 same UnicodeString plus subobject layout destroyed as TreeHintOpaque 0x00229840 for subscript 0x00437380
