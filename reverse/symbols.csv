@@ -15643,3 +15643,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??0Rva0057525FCall@@QAE@PAVRva00574A8A@@II@Z,0x0057525F,callee of ??0Rva00574A8A@@QAE@II@Z
 ?rva002192C0@CreateAHeroManager@@QAEHXZ,0x002192C0,Direct calls from 0x0021A4E6 and 0x0021A54A; thiscall with no stack args and int result inferred from both callers. Address-derived method name; semantics unresolved.
 ?rva004099CA@Rva004099CAHelper@@QAE_NPAXH@Z,0x004099CA,Direct call from 0x0021A492 uses ECX=this+0xC and two stack args (local AsciiString address and 0); caller performs no stack cleanup and consumes AL. Thiscall bool ABI and argument shape from target; helper name and owner identity unresolved.
+??0Rva007FA6B4Target@@QAE@PAURva002130CFOwner@@@Z,0x003FA6B4,Direct constructor call from 0x00210D1D after allocating 0x14 bytes; callee stores a vtable at object start and returns this. Address-derived target class; owner semantics unresolved.

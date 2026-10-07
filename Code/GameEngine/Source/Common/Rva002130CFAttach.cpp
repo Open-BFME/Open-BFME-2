@@ -39,6 +39,31 @@ public:
 	void rva002130CF(Rva002130CFOwner *owner);
 };
 
+class Rva007FA6B4Target
+{
+	char m_storage[0x14];
+public:
+	Rva007FA6B4Target(Rva002130CFOwner *owner);
+};
+
+struct Rva00210D1DStateView
+{
+	char m_pad00[0x264];
+	Rva007FA6B4Target *m_264;
+};
+
+// ?rva00210D1D@Rva00210D1D@@QAEXPAURva002130CFOwner@@@Z @ 0x00210D1D 75B.
+// Target clears +0x264, allocates a 0x14-byte object and calls its
+// address-derived constructor 0x003FA6B4 with the owner pointer; then stores
+// the returned object pointer at +0x264. The class layout beyond this field
+// remains unproven.
+void Rva00210D1D::rva00210D1D(Rva002130CFOwner *owner)
+{
+	Rva00210D1DStateView *state = (Rva00210D1DStateView *)this;
+	state->m_264 = 0;
+	state->m_264 = new Rva007FA6B4Target(owner);
+}
+
 void Rva002130CF::rva002130CF(Rva002130CFOwner *owner)
 {
 	Rva00210D1D::rva00210D1D(owner);
