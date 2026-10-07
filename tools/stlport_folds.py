@@ -1,24 +1,33 @@
-"""Prove emitted empty-vector constructors against existing retail owners.
+"""Prove emitted STLport storage members against existing retail owners.
 
 This is deliberately narrower than a pin or an arbitrary ICF alias. Only the
-two STLport storage-constructor families are eligible; the complete emitted
-callee must reproduce an existing, non-alias owner, including every call's
-resolved target. A missing body, interior address, changed extent or conflicting
-known binding refuses the proof. Nothing is admitted from a name alone.
+listed STLport storage families are eligible: the empty-vector and
+allocator-proxy constructors, and the list base destructor with the clear it
+calls. The complete emitted callee must reproduce an existing, non-alias owner
+of the same family, including every call's resolved target. A missing body,
+interior address, changed extent or conflicting known binding refuses the
+proof. Nothing is admitted from a name alone.
 """
 import bisect
 import struct
 
 
+# (name prefix, required signature text, exact body size). The owner row must
+# carry the same prefix and size; the signature text keeps each family to the
+# one member it names.
 FAMILIES = (
-    ("??0?$_Vector_base@", 29),
-    ("??0?$_STLP_alloc_proxy@", 11),
+    ("??0?$_Vector_base@", "@_STL@@QAE@ABV?$allocator@", 29),
+    ("??0?$_STLP_alloc_proxy@", "@_STL@@QAE@ABV?$allocator@", 11),
+    # _List_base<T*>::~_List_base and clear fold onto list<int>'s (0x004EC395,
+    # 0x0023DAA5): clear frees every node, the dtor clears and frees the head.
+    ("??1?$_List_base@", "@_STL@@QAE@XZ", 23),
+    ("?clear@?$_List_base@", "@_STL@@QAEXXZ", 39),
 )
 
 
 def family(name):
-    for prefix, size in FAMILIES:
-        if name.startswith(prefix) and "@_STL@@QAE@ABV?$allocator@" in name:
+    for prefix, signature, size in FAMILIES:
+        if name.startswith(prefix) and signature in name:
             return prefix, size
     return None
 
@@ -59,7 +68,7 @@ def prove(build, name, address, output, symbol_map, active=()):
     for offset, rtype, callee in relocs:
         if offset >= size:
             continue
-        # These constructors contain only direct calls; no data relocation is
+        # These members contain only direct calls; no data relocation is
         # copied from retail and no nonzero COFF addend is silently discarded.
         if (rtype != 0x14 or offset < 1 or offset + 4 > size
                 or body[offset - 1] not in (0xe8, 0xe9)

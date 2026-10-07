@@ -105,3 +105,78 @@ def test_missing_owner_fails(gate):
     fixture(gate)
     gate.rows = [row for row in gate.rows if row['name'] != VECTOR_OWNER]
     assert not gate.gate()
+
+
+LIST_DTOR = ('??1?$_List_base@PAVWidget@@V?$allocator@PAVWidget@@@_STL@@'
+             '@_STL@@QAE@XZ')
+LIST_CLEAR = ('?clear@?$_List_base@PAVWidget@@V?$allocator@PAVWidget@@@_STL@@'
+              '@_STL@@QAEXXZ')
+LIST_DTOR_OWNER = '??1?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@XZ'
+LIST_CLEAR_OWNER = '?clear@?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAEXXZ'
+# Retail 0x004EC395 and 0x0023DAA5 with their call displacements zeroed.
+LIST_DTOR_BODY = bytes.fromhex('568bf1e8000000008b3685f6740756e800000000595ec3')
+LIST_CLEAR_BODY = bytes.fromhex(
+    '56578bf98b078b303bf0740f8bc68b3650e8000000003b375975f18b0789008b3f897f045f5ec3')
+
+
+def list_fixture(gate, *, dtor_body=LIST_DTOR_BODY, clear_body=LIST_CLEAR_BODY,
+                 nested=LIST_CLEAR, free_called=0x2200, clear_called=0x2100):
+    gate.obj.write_bytes(coff(
+        [('.text', TEXT, b'\xe8\0\0\0\0\xc3', [(1, 1, 20)]),
+         ('.text$d', TEXT, dtor_body, [(4, 2, 20), (16, 3, 20)]),
+         ('.text$c', TEXT, clear_body, [(18, 3, 20)])],
+        [('_f', 0, 1, 0x20, 2, 0),
+         (LIST_DTOR, 0, 2, 0x20, 2, 0),
+         (nested, 0, 3, 0x20, 2, 0),
+         ('_free', 0, 0, 0x20, 2, 0)]))
+    gate.memory[0x1000] = b'\xe8' + struct.pack('<i', 0x2000 - 0x1005) + b'\xc3'
+    dtor = bytearray(LIST_DTOR_BODY)
+    dtor[4:8] = struct.pack('<i', clear_called - 0x2008)
+    dtor[16:20] = struct.pack('<i', free_called - 0x2014)
+    gate.memory[0x2000] = bytes(dtor)
+    clear = bytearray(LIST_CLEAR_BODY)
+    clear[18:22] = struct.pack('<i', 0x2200 - 0x2116)
+    gate.memory[0x2100] = bytes(clear)
+    gate.memory[0x2200] = b'\xc3'
+    gate.pins.append(('_free', '0x00002200', 'crt free'))
+    gate.row('_f', 0x1000, 6)
+    gate.row(LIST_DTOR_OWNER, 0x2000, 23, source='Code/owner.cpp')
+    gate.row(LIST_CLEAR_OWNER, 0x2100, 39, source='Code/owner.cpp')
+
+
+def test_list_dtor_and_nested_clear_fold_pass(gate):
+    list_fixture(gate)
+    assert gate.gate()
+
+
+def test_changed_list_dtor_byte_fails(gate):
+    list_fixture(gate, dtor_body=b'\x57' + LIST_DTOR_BODY[1:])
+    assert not gate.gate()
+
+
+def test_changed_list_clear_byte_fails(gate):
+    list_fixture(gate, clear_body=LIST_CLEAR_BODY[:-2] + b'\x5f\xc3')
+    assert not gate.gate()
+
+
+def test_list_dtor_free_must_reach_the_bound_free(gate):
+    list_fixture(gate, free_called=0x2300)
+    gate.memory[0x2300] = b'\xc3'
+    assert not gate.gate()
+
+
+def test_list_clear_must_reach_its_owner(gate):
+    list_fixture(gate, clear_called=0x2101)
+    assert not gate.gate()
+
+
+def test_list_member_outside_the_families_is_not_admitted(gate):
+    list_fixture(gate, nested=('?_M_create_node@?$list@PAVWidget@@V?$allocator@'
+                               'PAVWidget@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVWidget@@@2@ABQAVWidget@@@Z'))
+    assert not gate.gate()
+
+
+def test_missing_list_clear_owner_fails(gate):
+    list_fixture(gate)
+    gate.rows = [row for row in gate.rows if row['name'] != LIST_CLEAR_OWNER]
+    assert not gate.gate()
