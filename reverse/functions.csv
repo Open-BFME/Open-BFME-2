@@ -5337,7 +5337,7 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?wouldIgnite@FlammableUpdate@@QAE_NXZ,,0x0048C57A,8,Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??$sqr@H@@YAHH@Z,,0x000E13CA,8,Code/GameEngine/Source/GameLogic/Object/Update/MobMemberSlavedUpdate.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?d_00889760@@YAHPAX00@Z,,0x00038830,26,Code/GameEngine/Source/Common/Bfme/Rva00889760.cpp,matched,
-?Rva008143A0Set@@YAXPAVRva008143A0Obj@@H@Z,,0x006802A0,38,Code/GameEngine/Source/Common/Rva008143A0Set.cpp,matched,
+_Rva008143A0,,0x006802A0,38,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,comm op-table slot 8 (callback setter); TickIdle constructor stores 0xA802A0; replaces the invented C++ duplicate ?Rva008143A0Set as BFME 1 did
 ?Rva00815730Set@@YAXPAVRva00815730Obj@@H@Z,,0x00681630,38,Code/GameEngine/Source/Common/Rva00815730Set.cpp,matched,
 ?get@Rva007F7160@@QAEPAXH@Z,,0x00663850,25,Code/GameEngine/Source/Common/Rva007F7160Get.cpp,matched,
 ?get@Rva004781A0@@QAEHPAH0@Z,,0x00313B1D,31,Code/GameEngine/Source/Common/Rva004781A0Get.cpp,matched,
@@ -7035,18 +7035,18 @@ _Rva00816DF0,,0x00682CF0,23,Code/Libraries/Source/DirtySock/Y4CommTransportLife.
 _Rva00811CE0,,0x0067DBE0,144,Code/Libraries/Source/DirtySock/Y4CommTable.c,matched,C++ alias; case-insensitive compare; unclaimed_scan exact abuts ret-terminated
 ?Rva00804890StrCaseCmp@@YAHPBD0@Z,,0x006708D0,144,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,matched,C++ alias; case-insensitive compare twin; unclaimed_scan exact
 ??$__uninitialized_copy_copy@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@2@U12@@_STL@@YA?AU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@U10@0U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@0@10U__false_type@0@@Z,,0x005851CD,115,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_new_elements.cpp,matched,stlport 4.5.3 deque BfmeE12; pins uninitialized_copy callees
-?dup_006803C0@@YAXXZ,,0x006803C0,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva008144C0;C++ alias
-?dup_00683240@@YAXXZ,,0x00683240,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva008144C0;C++ alias
+_Rva008144C0,,0x006803C0,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,comm op-table slot 9 (status); TickIdle constructor stores 0xA803C0; byte twin of 0x00683240 which is commudp's own copy
+_Rva00817340,,0x00683240,91,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,commudp op-table slot 9 (status); constructor stores 0xA83240; byte twin of 0x006803C0
 ?dup_0067d7d0@@YAXXZ,,0x0067D7D0,8,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,gen-alias;object-symbol=_Rva008118D0;C++ alias
 ?dup_0067d7f0@@YAXXZ,,0x0067D7F0,8,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,gen-alias;object-symbol=_Rva008118D0;C++ alias
 ?dup_0066a3b0@@YAXXZ,,0x0066A3B0,267,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,matched,gen-alias;object-symbol=?Rva00804440LocalAddr@@YAIXZ;C++ alias
 _ProtoMangleCreate,,0x00670190,245,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,matched,gen-alias;object-symbol=_ProtoMangleCreate;C++ alias
 _Rva00814070,,0x0067FF70,39,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva00814070;C++ alias
 _Rva008140A0,,0x0067FFA0,39,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva008140A0;C++ alias
-?dup_00680300@@YAXXZ,,0x00680300,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva00814400;C++ alias
-?dup_00680360@@YAXXZ,,0x00680360,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva00814400;C++ alias
-?dup_00683140@@YAXXZ,,0x00683140,120,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,gen-alias;object-symbol=_Rva00817240;C++ alias
-?dup_006831c0@@YAXXZ,,0x006831C0,120,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,gen-alias;object-symbol=_Rva00817240;C++ alias
+_Rva00814400,,0x00680300,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,comm op-table slot 5 (disconnect); TickIdle constructor stores 0xA80300; byte twin of 0x00680360
+_Rva00814460,,0x00680360,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,comm op-table slot 7 (second disconnect copy); TickIdle constructor stores 0xA80360
+_Rva00817240,,0x00683140,120,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,commudp op-table slot 5 (disconnect); constructor stores 0xA83140; byte twin of 0x006831C0
+_Rva008172C0,,0x006831C0,120,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,commudp op-table slot 7 (second disconnect copy); constructor stores 0xA831C0
 ?dup_006728e0@@YAXXZ,,0x006728E0,89,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,gen-alias;object-symbol=?Rva008068B0@@YAHPAURva00806580Record@@@Z;C++ alias
 ?dup_00672a40@@YAXXZ,,0x00672A40,89,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,gen-alias;object-symbol=?Rva008068B0@@YAHPAURva00806580Record@@@Z;C++ alias
 ?dup_00681690@@YAXXZ,,0x00681690,65,Code/Libraries/Source/DirtySock/Y4CommRingIdle.c,matched,gen-alias;object-symbol=_Rva00815790;C++ alias
@@ -36328,7 +36328,7 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ??1SymbioticStructuresBodyModuleData@@UAE@XZ,,0x002570F9,53,Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBodyModuleDataDtor.cpp,matched,String at 64 via 36410 plus base 256CB0; ctor 256D0D vtable BF3EE0 plus slot0 2570DD
 ??_GDX8RigidFVFCategoryContainer@@UAEPAXI@Z,,0x00146930,30,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,slot0 vtable 7D3528 calls rowed dtor plus delete
 ??_GSymbioticStructuresBodyModuleData@@UAEPAXI@Z,,0x002570DD,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-2335.cpp,matched,Deleting dtor slot 0 of vtable 7F3EE0; calls rowed 2570F9 plus rowed delete 2FD60
-_Rva00680420,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,Tick wrapper returning Rva007FEA00; gap between 6803C0 and 680440 in same TU
+_Rva00814520,,0x00680420,17,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,comm op-table slot 10 (tick); TickIdle constructor stores 0xA80420; returns Rva007FEA00
 ??_GActiveBodyModuleData@@UAEPAXI@Z,,0x004BF9B5,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-2335.cpp,matched,Deleting dtor slot 0 of vtable 85AFB8; calls rowed 256CB0 plus rowed delete 2FD60
 ?clearWinList@@YAXAAV?$list@PAVAnimateWindow@@V?$allocator@PAVAnimateWindow@@@_STL@@@_STL@@@Z,,0x0053B520,48,Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp,matched,gap clearWinList between resetToRestPosition and ctor; ZH donor; edi list callers; int pop_front 0x37BCF9 twin; slot-0 virtual 0 plus operator delete
 ?init@AnimateWindowManager@@UAEXXZ,,0x0053B7E4,31,Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp,matched,vslot 1 init clears both win lists; ZH donor; callees now rowed clearWinList 0x53B520

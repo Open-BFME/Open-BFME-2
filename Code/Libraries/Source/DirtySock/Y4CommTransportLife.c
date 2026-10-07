@@ -38,11 +38,8 @@ void Rva007FEAA0( void *lock );
 void Rva00817210Op( void );
 void Rva00817230Op( void );
 void Rva00818D90Op( void );
-void Rva00817240Op( void );
 void Rva00819300Op( void );
-void Rva008172C0Op( void );
 void Rva008171C0Op( void );
-void Rva00817340Op( void );
 void Rva008173A0Op( void );
 void Rva008173C0Op( void );
 void Rva00818BF0Op( void );
@@ -152,6 +149,12 @@ extern char g_Rva012C4F88Name[];
 // g_Rva0130B188List: matched references place it at VA 0xe0aba0 (retail .data initial value 0).
 struct Rva00816BF0Comm *g_Rva0130B188List = 0;
 
+/* The disconnect pair and the status body sit after the constructor; it
+ * stores their addresses into slots 5, 7 and 9. */
+int Rva00817240( struct Rva00816BF0Comm *comm );
+int Rva008172C0( struct Rva00816BF0Comm *comm );
+int Rva00817340( struct Rva00816BF0Comm *comm );
+
 struct Rva00816BF0Comm *Rva00816BF0( int maxPacket, int recvCount,
 	int sendCount );
 void Rva00816E70( struct Rva00816BF0Comm *comm );
@@ -191,11 +194,11 @@ struct Rva00816BF0Comm *Rva00816BF0( int maxPacket, int recvCount,
 	comm->m_op[  2 ] = (void *)Rva00817210Op;
 	comm->m_op[  3 ] = (void *)Rva00817230Op;
 	comm->m_op[  4 ] = (void *)Rva00818D90Op;
-	comm->m_op[  5 ] = (void *)Rva00817240Op;
+	comm->m_op[  5 ] = (void *)Rva00817240;
 	comm->m_op[  6 ] = (void *)Rva00819300Op;
-	comm->m_op[  7 ] = (void *)Rva008172C0Op;
+	comm->m_op[  7 ] = (void *)Rva008172C0;
 	comm->m_op[  8 ] = (void *)Rva008171C0Op;
-	comm->m_op[  9 ] = (void *)Rva00817340Op;
+	comm->m_op[  9 ] = (void *)Rva00817340;
 	comm->m_op[ 10 ] = (void *)Rva008173A0Op;
 	comm->m_op[ 11 ] = (void *)Rva008173C0Op;
 	comm->m_op[ 12 ] = (void *)Rva00818BF0Op;
@@ -1388,7 +1391,5 @@ int Rva008187E0( struct Rva00816BF0Comm *comm,
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:_Rva008171C0Op=_Rva008171C0")
-#pragma comment(linker, "/alternatename:_Rva00817240Op=_Rva00817240")
-#pragma comment(linker, "/alternatename:_Rva008172C0Op=_Rva00817240")
 #pragma comment(linker, "/alternatename:_Rva00818BF0Op=_Rva00818BF0")
 #pragma comment(linker, "/alternatename:_Rva00818D20Op=_Rva00818D20")
