@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
 // STLport 4.5.3 vector growth paths and their fill/copy helpers for BFME2
@@ -27,6 +27,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
+#include "ascii_string.h"
 
 // 32-byte element; layout owner stlport_bfmeassignrecord32_destroy.cpp.
 struct BfmeAssignRecord32 { char m_pad[32]; public: BfmeAssignRecord32(const BfmeAssignRecord32 &); ~BfmeAssignRecord32(); };
@@ -36,8 +37,27 @@ class Rva002390CB { char m_pad[8]; public: Rva002390CB(const Rva002390CB &); ~Rv
 class Rva003371B1 { char m_pad[20]; public: Rva003371B1(const Rva003371B1 &); ~Rva003371B1(); };
 // 20-byte element; layout owner stlport_vector_stringrecord_5ed5f3_allocate_copy.cpp.
 struct BfmeStringRecord005ED5F3 { char m_pad[20]; public: BfmeStringRecord005ED5F3(const BfmeStringRecord005ED5F3 &); ~BfmeStringRecord005ED5F3(); };
-// 36-byte element; layout owner stlport_vector_rva0007bb16_destroy.cpp.
-struct Rva0007BB16Record { char m_pad[36]; public: Rva0007BB16Record(const Rva0007BB16Record &); ~Rva0007BB16Record(); };
+// 36-byte element; the first and second fields are AsciiString. The copy
+// constructor's retail body initializes those two fields before calling the
+// matched BfmeAssignRecord36 assignment worker.
+struct Rva0007BB16Record
+{
+    AsciiString m_00;
+    int m_04;
+    AsciiString m_08;
+    int m_tail0C[6];
+    Rva0007BB16Record(const Rva0007BB16Record &);
+    ~Rva0007BB16Record();
+};
+struct BfmeAssignRecord36
+{
+    char m_pad[36];
+    BfmeAssignRecord36 &operator=(const BfmeAssignRecord36 &);
+};
+Rva0007BB16Record::Rva0007BB16Record(const Rva0007BB16Record &that)
+{
+    ((BfmeAssignRecord36 *)this)->operator=(*(const BfmeAssignRecord36 *)&that);
+}
 // 36-byte element; layout owner StringContainerRecordCopyBFME2.cpp.
 struct BfmeRecord001ECAF9 { char m_pad[36]; public: BfmeRecord001ECAF9(const BfmeRecord001ECAF9 &); ~BfmeRecord001ECAF9(); };
 // 36-byte element; layout owner StringVectorRecordCopyBFME2.cpp.
