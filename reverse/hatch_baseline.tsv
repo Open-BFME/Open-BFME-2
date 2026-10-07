@@ -35240,9 +35240,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva0054107F.cpp	"t"
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva005C847B.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva005C847B.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva005C847B.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva00119D80.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva00119D80.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva00119D80.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva00162800.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva00162800.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva00162800.cpp	"t",on	1
@@ -36716,7 +36713,6 @@ present_unmatched	Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp	ModuleFa
 present_unmatched	Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp	ModuleFactory::xfer	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp	ModuleFactory::~ModuleFactory	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ModuleInfoNuggetAssign.cpp	bfmeEmitModuleInfoNuggetAssign@@YAXPAUNugget@ModuleInfo@@ABU12@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/Thing/ModuleInfoNuggetCopyCtor.cpp	bfmeEmitModuleInfoNuggetCopyCtor@@YAXPAUNugget@ModuleInfo@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ModuleInfoNuggetErase.cpp	bfmeEmitModuleInfoNuggetErase@@YAXPAV?$vector@UNugget@ModuleInfo@@V?$allocator@UNugget@ModuleInfo@@@_STL@@@_STL@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp	bfmeEmitProductionPrerequisiteCopyCtor@@YAXPAVProductionPrerequisite@@ABV1@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCtor.cpp	bfmeEmitProductionPrerequisiteInlines@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@@Z	1
@@ -39903,9 +39899,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/PendingSurfaceStructResize
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/RayCollisionConstructor.cpp	bfmeEmitRayCollisionConstructor@@YAXPAVRayCollisionTestClass@@ABVLineSegClass@@PAUCastResultStruct@@H_N3@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/RayCollisionCopyCtor.cpp	bfmeEmitRayCollisionCopyCtor@@YAXPAVRayCollisionTestClass@@ABV1@ABVMatrix3D@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Render2DClassConstructor.cpp	0Render2DClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Render2DClassReset.cpp	0ProxyClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Render2DClassReset.cpp	Initialize@ProxyClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/Render2DClassReset.cpp	Reset@Render2DClass@@QAEXXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/RenderObjAccessors.cpp	bfmeEmitRenderObjAccessors@@YAXPAVRenderObjClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/RenderObjSceneAndCost.cpp	bfmeEmitRenderObjSceneAndCost@@YAXPAVRenderObjClass@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/RenderObjSetForceVisible.cpp	bfmeEmitRenderObjSetForceVisible@@YAXPAVRenderObjClass@@@Z	1

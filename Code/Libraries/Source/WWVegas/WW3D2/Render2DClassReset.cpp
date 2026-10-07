@@ -1,11 +1,21 @@
-// cl: /G7 /arch:SSE /Ireference/shims/bfmecamera /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2
+// cl: /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
 // BFME2 retail's Render2D layout uses an STLport vector of 0x74-byte ProxyClass
 // records. The live 1.06.2429.30210 snapshot has the same .text as the audited
 // image; Ghidra shows Reset clearing Batches at +0x34, appending one initialized
 // ProxyClass, then selecting CurrentBatch from Texture at +0x40.
 //
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// Reset (0x00119F00) and the vector<ProxyClass> machinery it instantiates sit
+// together at 0x00118E00..0x0011A040, and every caller of them is in this
+// Render2D unit (0x00118800..0x0011C1C0): push_back 0x00119EC0 and its
+// _M_insert_overflow 0x00119D80, clear 0x00119D70 / _M_clear 0x00119CC0,
+// operator[] 0x00119A60, the member-wise copy constructor 0x00119A80 (handle
+// AddRef, one rep movsd per range) and its _Construct / uninitialized_copy /
+// uninitialized_fill_n / allocate helpers. None is folded with another type's.
+// The STLport allocator is BFME 2's (bytes, hint) pair (bfmealloc shim), whose
+// tag arguments are by value, as __copy_ptrs 0x00119BB0 is mangled.
+// Reset writes the init loops itself: a forceinline helper spends the inline
+// budget and leaves push_back's copy constructor out of line, unlike retail.
 
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
 // flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
@@ -19,6 +29,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include <vector>
+#include <string.h>
 
 class TextureBaseClass
 {
@@ -42,120 +53,63 @@ public:
 	int GrowthStep;
 };
 
+// BFME 2's owning texture handle: copy adds a reference, destruction and
+// reassignment release the old one (16-bit count at +4, release 0x0061ED10).
+template<class T>
+class RefCountPtr
+{
+public:
+	RefCountPtr() : Referent(0) {}
+	RefCountPtr(const RefCountPtr &rhs) : Referent(rhs.Referent)
+	{
+		if (Referent)
+			Referent->Add_Ref();
+	}
+	~RefCountPtr()
+	{
+		if (Referent)
+			Referent->Release_Ref();
+	}
+	RefCountPtr &operator=(const RefCountPtr &rhs)
+	{
+		if (rhs.Referent)
+			rhs.Referent->Add_Ref();
+		if (Referent)
+			Referent->Release_Ref();
+		Referent = rhs.Referent;
+		return *this;
+	}
+
+	T *Referent;
+};
+
+// One 0x74-byte texture batch: the texture handle and four seven-entry
+// ranges. Retail copy-constructs it member by member (0x00119A80: the handle,
+// then one rep movsd per range).
 class ProxyClass
 {
 public:
-	__forceinline ProxyClass();
-	__forceinline void Initialize();
-	~ProxyClass();
+	ProxyClass() {}
 	ProxyClass &operator=(ProxyClass const &other);
 
-	TextureBaseClass *Texture;
-	int Field04;
-	int Field08;
-	int Field0C;
-	int Field10;
-	int Field14;
-	int Field18;
-	int Field1C;
-	int Field20;
-	int Field24;
-	int Field28;
-	int Field2C;
-	int Field30;
-	int Field34;
-	int Field38;
-	int Field3C;
-	int Field40;
-	int Field44;
-	int Field48;
-	int Field4C;
-	int Field50;
-	int Field54;
-	int Field58;
-	int Field5C;
-	int Field60;
-	int Field64;
-	int Field68;
-	int Field6C;
-	int Field70;
+	RefCountPtr<TextureBaseClass> Texture;
+	int RangeA[7];
+	int RangeB[7];
+	int RangeC[7];
+	int RangeD[7];
 };
-
-// ??0ProxyClass@@ present-unmatched
-__forceinline ProxyClass::ProxyClass()
-{
-	Texture = 0;
-}
-
-// ?Initialize@ProxyClass@@ present-unmatched
-__forceinline void ProxyClass::Initialize()
-{
-	Field20 = -1;
-	Field3C = -1;
-	Field04 = -1;
-	Field24 = -1;
-	Field40 = -1;
-	Field08 = -1;
-	Field28 = -1;
-	Field44 = -1;
-	Field0C = -1;
-	Field2C = -1;
-	Field48 = -1;
-	Field10 = -1;
-	Field30 = -1;
-	Field4C = -1;
-	Field14 = -1;
-	Field34 = -1;
-	Field50 = -1;
-	Field18 = -1;
-	Field38 = -1;
-	Field54 = -1;
-	Field1C = -1;
-	Field58 = 0;
-	Field5C = 0;
-	Field60 = 0;
-	Field64 = 0;
-	Field68 = 0;
-	Field6C = 0;
-	Field70 = 0;
-}
 
 inline ProxyClass &ProxyClass::operator=(ProxyClass const &other)
 {
-	if (other.Texture)
-		other.Texture->Add_Ref();
-	if (Texture)
-		Texture->Release_Ref();
-
 	Texture = other.Texture;
-	Field04 = other.Field04;
-	Field08 = other.Field08;
-	Field0C = other.Field0C;
-	Field10 = other.Field10;
-	Field14 = other.Field14;
-	Field18 = other.Field18;
-	Field1C = other.Field1C;
-	Field20 = other.Field20;
-	Field24 = other.Field24;
-	Field28 = other.Field28;
-	Field2C = other.Field2C;
-	Field30 = other.Field30;
-	Field34 = other.Field34;
-	Field38 = other.Field38;
-	Field3C = other.Field3C;
-	Field40 = other.Field40;
-	Field44 = other.Field44;
-	Field48 = other.Field48;
-	Field4C = other.Field4C;
-	Field50 = other.Field50;
-	Field54 = other.Field54;
-	Field58 = other.Field58;
-	Field5C = other.Field5C;
-	Field60 = other.Field60;
-	Field64 = other.Field64;
-	Field68 = other.Field68;
-	Field6C = other.Field6C;
-	Field70 = other.Field70;
+	for (int i = 0; i < 7; ++i)
+		RangeA[i] = other.RangeA[i];
+	for (int j = 0; j < 7; ++j)
+		RangeB[j] = other.RangeB[j];
+	for (int k = 0; k < 7; ++k)
+		RangeC[k] = other.RangeC[k];
+	for (int l = 0; l < 7; ++l)
+		RangeD[l] = other.RangeD[l];
 	return *this;
 }
 
@@ -237,19 +191,30 @@ private:
 	unsigned char Tail[3];
 };
 
-// ?Reset@Render2DClass@@QAEXXZ present-unmatched
 void Render2DClass::Reset()
 {
 	ArrayA.Reset_Active();
 	ArrayB.Reset_Active();
 	Batches.clear();
 	ProxyClass batch;
-	batch.Initialize();
+	for (int i = 0; i < 7; ++i) {
+		batch.RangeB[i] = -1;
+		batch.RangeC[i] = -1;
+		batch.RangeA[i] = -1;
+	}
+	for (int j = 0; j < 7; ++j)
+		batch.RangeD[j] = 0;
 	Batches.push_back(batch);
 	CurrentBatch = Texture ? -1 : 0;
 }
 
 template void std::_Destroy<ProxyClass *>(ProxyClass *, ProxyClass *);
+template void std::vector<ProxyClass>::push_back(const ProxyClass &);
+template void std::vector<ProxyClass>::clear();
+template ProxyClass &std::vector<ProxyClass>::operator[](unsigned int);
+template ProxyClass *std::__uninitialized_fill_n(ProxyClass *, unsigned int, const ProxyClass &, const std::__false_type &);
+template ProxyClass *std::__uninitialized_copy(ProxyClass *, ProxyClass *, ProxyClass *, const std::__false_type &);
+template class std::allocator<ProxyClass>;
 
 // ProxyClass's assignment operator is a header inline in copier units. This
 // anchor retains its matched row body here, but the anchor is not retail code.
