@@ -96,7 +96,11 @@ RVA = {
     "GameEngine::update": 0x225DA9,  # GameEngine vtable slot 10, called once per engine frame by execute()
     "GameState::autoSave": 0x2DD7E6,
     "GameLogic::getCRC": 0x23CB2C,  # thiscall getCRC(int mode), ret 4; GameLogic::update calls it with 0
-    "crcInProgress": 0xA02D87,    # byte GameLogic::update sets around its own getCRC(0) call  # thiscall, no arguments; saveGame(<__AUTO#SAVE__ name>, ...) -> SaveCode
+    "crcInProgress": 0xA02D87,
+    # GameLogic::getCRC's blocks; with crcInProgress clear, a set byte skips its block
+    "crcSkip:objects": 0xA02D7C, "crcSkip:partition": 0xA02D7D, "crcSkip:dfe754": 0xA02D7E,
+    "crcSkip:shroud": 0xA02D7F, "crcSkip:dfe750": 0xA02D80, "crcSkip:dfeef8": 0xA02D81,
+    "crcSkip:players": 0xA02D83, "crcSkip:ai": 0xA02D84, "crcSkip:livingworld": 0xA02D88,    # byte GameLogic::update sets around its own getCRC(0) call  # thiscall, no arguments; saveGame(<__AUTO#SAVE__ name>, ...) -> SaveCode
     "Debug::AssertDone/exit": 0x3AAA3,  # `push 1; call exit` after an assertion report (ebx = Debug)
     "Debug::CrashDone/exit": 0x3B0DC,   # the same after a crash report
 }
@@ -150,6 +154,18 @@ def judge_playback(crc, recorded_last=None, played_last=None, min_pairs=3, crash
     return "pass"
 
 
+def block_diff(a, b):
+    """{block: first logic frame whose per-block CRC differs} between two runs'
+    FrameHook.blocks lists (only frames both sampled)."""
+    bb = dict((f, x) for f, x in b)
+    out = {}
+    for f, x in a:
+        for k, v in x.items():
+            if f in bb and k in bb[f] and bb[f][k] != v and k not in out:
+                out[k] = f
+    return out
+
+
 def judge_record(outcome, crcs, min_crcs=3):
     """A reference run is usable only if its skirmish passed, it has enough CRCs,
     and they change: a constant CRC means a world where nothing happens (no
@@ -180,9 +196,12 @@ def judge_skirmish(samples, want_mode, min_frames, crash=None, shot=None):
 def stub_code(calls, results):
     """x86 for a run of thiscalls: per call, optionally `mov byte [flag], 1`,
     push the args (right to left), `mov ecx, this; mov eax, fn; call eax`,
-    `mov [results + 4*i], eax`, clear the flag; then int3."""
+    `mov [results + 4*i], eax`, clear the flag; then int3. A call's "pre" and
+    "post" [(byte va, value)] are stored before and after it."""
     code = b""
     for i, c in enumerate(calls):
+        for va, v in c.get("pre", ()):
+            code += b"\xC6\x05" + struct.pack("<I", va) + bytes([v & 0xFF])
         if c.get("flag"):
             code += b"\xC6\x05" + struct.pack("<I", c["flag"]) + b"\x01"
         for arg in reversed(c.get("args", [])):
@@ -191,6 +210,8 @@ def stub_code(calls, results):
         code += b"\xA3" + struct.pack("<I", results + 4 * i)
         if c.get("flag"):
             code += b"\xC6\x05" + struct.pack("<I", c["flag"]) + b"\x00"
+        for va, v in c.get("post", ()):
+            code += b"\xC6\x05" + struct.pack("<I", va) + bytes([v & 0xFF])
     return code + b"\xCC"
 
 
@@ -205,6 +226,7 @@ class FrameHook:
         self.every, self.at_first, self.modes = every, at_first, set(modes)
         self.crcs = []                # (logic frame, crc)
         self.rng = []                 # (logic frame, logic RNG state hex, base seed) beside each CRC
+        self.blocks = []              # (logic frame, {block: CRC of that block + the RNG seed alone})
         self.save_requested, self.save = False, {}
 
     def due(self, frame, mode):
@@ -231,7 +253,18 @@ class FrameHook:
         if what == "crc":
             self.rng.append((frame, (game.read(game.va("theGameLogicSeed"), 24) or b"").hex(),
                              game.u32(game.va("theGameLogicBaseSeed"))))
-            return {"calls": [crc], "keep": True, "done": lambda g, r: self.crcs.append((frame, r[0]))}
+            skips = {n.split(":", 1)[1]: game.va(n) for n in RVA if n.startswith("crcSkip:")}
+            orig = {b: (game.read(va, 1) or bytes(1))[0] for b, va in skips.items()}
+            calls = [crc]
+            for b in skips:                          # each block alone: crcInProgress clear, the others skipped
+                calls.append({"call": crc["call"], "ecx": crc["ecx"], "args": [0],
+                              "pre": [(va, 0 if o == b else 1) for o, va in skips.items()],
+                              "post": [(va, orig[o]) for o, va in skips.items()]})
+
+            def done(g, r):
+                self.crcs.append((frame, r[0]))
+                self.blocks.append((frame, dict(zip(skips, r[1:]))))
+            return {"calls": calls, "keep": True, "done": done}
         self.save["requested_frame"] = frame
         save = {"call": game.va("GameState::autoSave"), "ecx": game.global_ptr("TheGameState")}
 
@@ -268,6 +301,7 @@ class Game:
         self.stub = None
         self.procs = {}
         self.pid = self.hproc = self.base = None
+        self.size = 0xC00000
         self.res = {"first_chance": [], "processes": [], "lies": {}}
         self.t0 = None
 
@@ -363,10 +397,12 @@ class Game:
         full.flags = 0x1003F                       # WOW64_CONTEXT_ALL (FPU and SSE state too)
         self.k.Wow64GetThreadContext(wt.HANDLE(h), ctypes.byref(full))
         if self.stub is None:
-            self.stub = self.k.VirtualAllocEx(self.hproc, None, 0x1000, 0x3000, 0x40)
+            self.stub = self.k.VirtualAllocEx(self.hproc, None, 0x4000, 0x3000, 0x40)
         calls = req.get("calls") or [req]
-        results = self.stub + 0x800
+        results = self.stub + 0x3000                  # code before, one dword per call here
         code = stub_code(calls, results)
+        if len(code) > 0x3000:
+            raise RuntimeError(f"remote-call stub of {len(code)} bytes does not fit")
         self.write(self.stub, code, code=True)
         self.calls[self.stub + len(code) - 1] = (full, va, req.get("keep", False), req.get("done"), results, len(calls))
         ctx = WOW64_CONTEXT()
@@ -437,6 +473,7 @@ class Game:
                     if Path(buf.value).name.lower() == "game.dat":
                         self.pid, self.hproc = pid, h
                         self.base = int.from_bytes(ev.raw[40:48], "little")
+                        self.size = image_size(buf.value)
                         self.exe = buf.value
                         res.update(image_base=hex(self.base), started=self.seconds())
                 elif code == LOAD_DLL:
@@ -507,7 +544,7 @@ class Game:
 
     def where(self, va):
         """'module+offset' (or 'image+rva') of an address."""
-        if self.base and self.base <= va < self.base + 0xC00000:
+        if self.base and self.base <= va < self.base + self.size:
             return f"image+{va - self.base:#x}"
         below = [(b, n) for b, n in self.dlls if b <= va]
         if below:
@@ -523,7 +560,7 @@ class Game:
         self.k.CloseHandle(h)
         stack = self.read(ctx.esp, 0x1000) or b""
         words = [struct.unpack_from("<I", stack, i)[0] for i in range(0, len(stack) - 3, 4)]
-        return [self.where(w) for w in words if self.base <= w < self.base + 0xC00000][:n]
+        return [self.where(w) for w in words if self.base <= w < self.base + self.size][:n]
 
     def _seeding(self, tid, ctx):
         """Log every RNG seeding: (seconds, which, seed argument, GlobalData fixed
@@ -544,7 +581,7 @@ class Game:
                        key=len, reverse=True)[:8]
         stack = self.read(ctx.esp, 0x800) or b""
         words = [struct.unpack_from("<I", stack, i)[0] for i in range(0, len(stack) - 3, 4)]
-        size = 0xC00000
+        size = self.size
         msg = self.read(self.u32(ctx.ebp - 8) or 0, 0x800) or b""      # the report AssertDone/CrashDone built
         self.res["debug_exit"] = {"at": hex(ctx.eip - self.base), "texts": texts,
                                   "report": msg.split(b"\0")[0].decode("latin1"),
@@ -628,6 +665,15 @@ class Game:
         return True
 
 
+def image_size(exe):
+    """SizeOfImage of `exe` (relayout images are larger than retail's)."""
+    import pefile
+    pe = pefile.PE(str(exe), fast_load=True)
+    size = pe.OPTIONAL_HEADER.SizeOfImage
+    pe.close()
+    return size
+
+
 def capture(pid, path):
     """Client-area screenshot of pid's largest window (PrintWindow, so a covered
     window is still seen); {"path", "mean", "stddev"} or None."""
@@ -675,13 +721,19 @@ def sandbox_profile(appdata):
     return Path(appdata) / boot_smoke.PROFILE_LEAF
 
 
-def skirmish_setup(ai, seed=None):
+def skirmish_setup(ai, seed=None, player=False):
     """At GameEngine::init's -file branch, after slot 0 became "Test", finish
     what the skirmish menu would have done: TheGameInfo = TheSkirmishGameInfo
     (retail's -file path leaves it null and GameLogic::update's CRC step then
     faults at 0x24578B), and with `ai` slot 1 becomes an easy AI (state 2,
     accepted and has-map set as GameSlot::setState does). A `seed` replaces the
-    time(0) seed, so two runs of one image simulate the same game."""
+    time(0) seed, so two runs of one image simulate the same game.
+
+    By default slot 0 (the local player) stays an observer and slots 1 and 2 are
+    easy AIs with random factions: nothing typed or clicked into the window can
+    issue a command, so outside input cannot change the game (seen live: a run
+    with focus changes desynced from frame 25 while its RNG still matched).
+    `player` gives slot 0 a random faction instead (and only slot 1 an AI)."""
     def handler(game, tid, ctx):
         info = game.global_ptr("TheSkirmishGameInfo")
         if not info:
@@ -698,17 +750,19 @@ def skirmish_setup(ai, seed=None):
             if glob:
                 game.res["setup"]["fixed_seed_before"] = game.u32(glob + FIXED_SEED_OFF)
                 game.write(glob + FIXED_SEED_OFF, struct.pack("<I", seed & 0xFFFFFFFF))
-        slots = [game.u32(info + SLOTS_OFF + 4 * i) for i in (0, 1)]
+        slots = [game.u32(info + SLOTS_OFF + 4 * i) for i in (0, 1, 2)]
         game.res["setup"]["templates_before"] = [game.u32(sl + SLOT_TEMPLATE) if sl else None for sl in slots]
-        for sl in slots[:2 if ai else 1]:
-            if sl:
-                game.write(sl + SLOT_TEMPLATE, struct.pack("<i", TEMPLATE_RANDOM))
-        slot = slots[1]
-        if ai and slot:
-            game.res["setup"]["slot1_state_before"] = game.u32(slot + SLOT_STATE)
-            game.write(slot + SLOT_STATE, struct.pack("<I", SLOT_EASY_AI))
-            game.write(slot + 8, b"\x01\x01")
-            game.res["setup"]["ai"] = "slot 1 easy AI"
+        ais = ([1] if player else [1, 2]) if ai else []
+        for i in ([0] if player else []) + ais:
+            if slots[i]:
+                game.write(slots[i] + SLOT_TEMPLATE, struct.pack("<i", TEMPLATE_RANDOM))
+        for i in ais:
+            if slots[i]:
+                game.res["setup"][f"slot{i}_state_before"] = game.u32(slots[i] + SLOT_STATE)
+                game.write(slots[i] + SLOT_STATE, struct.pack("<I", SLOT_EASY_AI))
+                game.write(slots[i] + 8, b"\x01\x01")
+        game.res["setup"]["players"] = ("slot 0 player, " if player else "slot 0 observer, ") + \
+            ", ".join(f"slot {i} easy AI" for i in ais)
         if seed is not None:
             # The logic RNG is seeded once, by GameEngine::init's start-up
             # InitRandom(time(0)) (0x23424C), before GlobalData exists, and a -file
@@ -735,14 +789,54 @@ def skirmish_tick(a, samples, want_mode):
     return tick
 
 
+OURS = (".text$r", ".ordata", ".odata")     # boot_relayout: moved units, our own read-only / writable data
+
+
 def piece_mover(pieces):
-    """Retail RVA -> RVA in a boot image, from boot_image's pieces map."""
+    """Retail RVA -> RVA in a boot image, from boot_image's pieces map
+    [[name, retail start, new start, size]]. A relayout image lists a moved unit
+    twice: the int3 filler left at its retail range (scaffold name) and the moved
+    copy (`.text$r...`); --own-data's `.ordata`/`.odata` copies likewise stand for
+    retail's data. The moved/owned copy wins, the filler never does; an address
+    in no piece, or in two of one kind, raises KeyError. There is no fall-back
+    to the retail RVA."""
+    import bisect
+    kinds = {True: [], False: []}
+    for name, rs, ns, size in pieces:
+        kinds[name.startswith(OURS)].append((rs, rs + size, ns, name))
+    for v in kinds.values():
+        v.sort()
+    starts = {k: [x[0] for x in v] for k, v in kinds.items()}
+
+    def find(ours, r):
+        v = kinds[ours]
+        i = bisect.bisect_right(starts[ours], r) - 1
+        hit = [x for x in v[max(0, i - 1):i + 1] if x[0] <= r < x[1]]
+        if len(hit) > 1:
+            raise KeyError(f"{r:#x} lies in {len(hit)} pieces ({', '.join(h[3] for h in hit)})")
+        return hit[0] if hit else None
+
     def move(r):
-        for _, rstart, nstart, size in pieces:
-            if rstart <= r < rstart + size:
-                return nstart + r - rstart
-        raise KeyError(hex(r))
+        x = find(True, r) or find(False, r)
+        if x is None:
+            raise KeyError(f"{r:#x} lies in no piece")
+        return x[2] + r - x[0]
+    move.ours = lambda r: find(True, r) is not None
     return move
+
+
+def map_addresses(rva_map, names=None):
+    """{name: (new RVA, moved-or-owned?)} for every RVA the harness uses, or
+    SystemExit naming the ones the image cannot place (never retail's RVA)."""
+    out, bad = {}, []
+    for name in names or RVA:
+        try:
+            out[name] = (rva_map(RVA[name]), bool(getattr(rva_map, "ours", lambda r: False)(RVA[name])))
+        except KeyError as e:
+            bad.append(f"{name} ({RVA[name]:#x}): {e}")
+    if bad:
+        raise SystemExit("game_smoke: the image cannot place " + "; ".join(bad))
+    return out
 
 
 def other_games():
@@ -778,6 +872,9 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
         if not boot_smoke.boot_image.image_ok(rep):
             raise SystemExit(f"game_smoke: build/boot/{a.image} did not link and check clean")
         exe, rva_map = boot_smoke.OUT / f"{a.image}.exe", piece_mover(rep["pieces_map"])
+        placed = map_addresses(rva_map)               # refuse before launching if anything is unplaceable
+        a.address_map = {n: [hex(v), ours] for n, (v, ours) in placed.items()}
+        a.relayout = rep.get("relayout")
     boot_smoke.prepare_sandbox_profile(a.appdata)       # refuses an appdata inside the real AppData
     shutil.copyfile(exe, gd / "game.dat")
     before = {"guard": {str(g): boot_smoke.snapshot(g) for g in a.guard}}
@@ -793,6 +890,8 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
     t0 = time.time()
     res = game.run(timeout or a.timeout, tick)
     out = {"args": game.args, "retail": a.retail, "wall_seconds": round(time.time() - t0, 1), "run": res}
+    if not a.retail:
+        out["addresses"], out["relayout"] = a.address_map, a.relayout
     out["profile_guard"], out["profile_touched"] = profile_guard.check()
     out["sandbox_profile"] = sorted(str(Path(p).relative_to(a.appdata))
                                     for p in boot_smoke.snapshot(Path(a.appdata)))[:40]
@@ -828,14 +927,14 @@ def finish(a, name, out):
 
 def cmd_skirmish(a, keep_replay=None):
     samples = []
-    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed))]
+    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player))]
     hook = FrameHook(every=a.crc_every, modes=(a.mode,)) if keep_replay else None
     if hook:
         handlers.append(("GameEngine::update", hook))
     game, out = launch(a, f'-file "{a.map}"', handlers, skirmish_tick(a, samples, a.mode))
     out["samples"] = samples
     if hook:
-        out["crcs"], out["rng"] = hook.crcs, hook.rng
+        out["crcs"], out["rng"], out["blocks"] = hook.crcs, hook.rng, hook.blocks
     res = out["run"]
     out["outcome"] = judge_skirmish(samples, a.mode, a.min_frames, crash_outcome(res), res.get("screenshot"))
     if keep_replay:
@@ -865,7 +964,7 @@ def cmd_save(a):
         if started and not hook.save_requested and samples[-1][0] - started[0] >= a.save_after:
             hook.save_requested = True
         return why
-    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed)), ("GameEngine::update", hook)]
+    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player)), ("GameEngine::update", hook)]
     game, out = launch(a, f'-file "{a.map}"', handlers, tick)
     res = out["run"]
     new = [q for q in find_saves(a.appdata) if q.name not in before]
@@ -940,10 +1039,11 @@ def cmd_determinism(a):
     def tick(game):
         perturb_tick(a, game, samples[-1][1] if samples else None, perturbed)
         return base_tick(game)
-    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed)), ("GameEngine::update", hook)]
+    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player)), ("GameEngine::update", hook)]
     game, out = launch(a, f'-file "{a.map}"', handlers, tick)
     crc = pair_crcs([(f, c, False) for f, c in record.get("crcs", [])] + [(f, c, True) for f, c in hook.crcs])
-    out.update(samples=samples[::5], crcs=hook.crcs, rng=hook.rng, perturbed=perturbed or None, record_seed=record["run"].get(
+    out["blocks_differ"] = block_diff(record.get("blocks", []), hook.blocks)
+    out.update(samples=samples[::5], crcs=hook.crcs, rng=hook.rng, blocks=hook.blocks, perturbed=perturbed or None, record_seed=record["run"].get(
         "setup", {}).get("seed"), crc=dict(crc, mismatches=crc["mismatches"][:10],
                                            unpaired_recorded=crc["unpaired_recorded"][:10],
                                            unpaired_computed=crc["unpaired_computed"][:10]))
@@ -952,6 +1052,95 @@ def cmd_determinism(a):
     if out["outcome"] == "pass" and out["record_seed"] != a.seed:
         out["outcome"] = "seed-differs"
     return finish(a, "determinism_perturbed" if a.perturb_frame is not None else "determinism", out)
+
+
+def desync_items(guilty, outcome, image_args):
+    """repair_queue items for rows whose authored code makes the game diverge
+    from retail's record (check `desync`; pass test: determinism with the row
+    alone)."""
+    alone = len({r["target_rva"] for r in guilty}) == 1
+    return [{"target_rva": r["target_rva"], "name": r["name"], "source": r["source"],
+             "size": int(r["target_size"] or 0), "outcome": outcome, "check": "desync",
+             "why": (f"game_smoke determinism {outcome} with this row's authored code alone ({image_args})"
+                     if alone else f"game_smoke determinism {outcome}: {len(guilty)} rows together, no half alone "
+                                   f"({image_args})"),
+             "pass_test": f"python3 tools/boot_image.py link --tag one --overlay rva:{r['target_rva']} {image_args} && "
+                          "python3 tools/game_smoke.py determinism --image one --game-dir SANDBOX "
+                          "(exit 0: every CRC equals retail's record)"} for r in guilty]
+
+
+def halve(cand, fails):
+    """Deterministic halving: `cand` sorted unit RVAs, `fails(subset) -> bool`.
+    Each step tests the lower half alone, then the upper; the first failing half
+    is kept. Stops at one unit, or when neither half fails alone (an interaction:
+    the remaining set is returned). Returns (guilty, steps)."""
+    steps = []
+    while len(cand) > 1:
+        nxt = None
+        for h in (cand[:len(cand) // 2], cand[len(cand) // 2:]):
+            bad = fails(h)
+            steps.append({"units": len(h), "first": hex(h[0]), "last": hex(h[-1]), "fails": bad})
+            if bad:
+                nxt = h
+                break
+        if nxt is None:
+            break
+        cand = nxt
+    return cand, steps
+
+
+def cmd_bisect(a):
+    """Halve a desyncing relayout image's units to the ones that desync alone.
+    Each half is linked (`boot_relayout.build_image`, same seed and modes, tag
+    `bisect`) outside the game lock; each run goes through --lock (game_lock.py)
+    as its own process. Writes build/game/desync_queue.json (repair_queue)."""
+    import subprocess
+    import boot_relayout
+    bi = boot_smoke.boot_image
+    if not a.lock or not Path(a.lock).exists():
+        raise SystemExit("game_smoke: bisect needs --lock (game_lock.py): every run must hold the game lock")
+    rep = json.loads((boot_smoke.OUT / f"{a.image}.json").read_text())
+    specs = rep["overlay"]["specs"]
+    own = "own-data" in rep.get("relayout", {}).get("mode", "")
+    with open(boot_smoke.OUT / f"{a.image}.overlay.csv", newline="", encoding="utf-8") as f:
+        import csv
+        kept = {(int(x["retail_rva"], 16), x["name"]) for x in csv.DictReader(f) if x["overlay"] == "overlaid"}
+    rows = [r for r in bi.overlay_rows(specs, a.status) if (int(r["target_rva"], 16), r["name"]) in kept]
+    by_rva = {}
+    for r in rows:
+        by_rva.setdefault(int(r["target_rva"], 16), []).append(r)
+    record = Path(a.record_json or OUT / "record_retail.json").resolve()
+    log = []
+
+    def fails(units):
+        sub = [r for u in units for r in by_rva[u]]
+        built = boot_relayout.build_image(a.base, boot_smoke.OUT, "bisect", specs, a.status, rows=sub,
+                                          relayout=True, own_data=own, seed=rep["relayout"].get("seed", 0))
+        if not bi.image_ok(built) or built.get("check", {}).get("reloc-bad"):
+            log.append({"units": len(units), "outcome": "link-error"})
+            return False
+        cmd = [sys.executable, str(a.lock), sys.executable, str(Path(__file__).resolve()), "determinism",
+               "--image", "bisect", "--game-dir", str(a.game_dir), "--appdata", str(a.appdata),
+               "--record-json", str(record), "--seconds", str(a.seconds), "--timeout", str(a.timeout)] + \
+            [x for g in a.guard for x in ("--guard", str(g))]
+        subprocess.run(cmd, stdout=subprocess.DEVNULL)
+        out = json.loads((OUT / "determinism_bisect.json").read_text())
+        log.append({"units": len(units), "first": hex(units[0]), "outcome": out["outcome"],
+                    "first_mismatch": (out.get("crc", {}).get("mismatches") or [[None]])[0][0]})
+        print(f"game_smoke: bisect {len(units)} unit(s) {units[0]:#x}..: {out['outcome']}", file=sys.stderr, flush=True)
+        if out["outcome"] in ("profile-changed", "guard-violation"):
+            raise SystemExit(f"game_smoke: bisect stopped: {out['outcome']}")
+        return out["outcome"] == "desync"
+    guilty, steps = halve(sorted(by_rva), fails)
+    items = desync_items([r for u in guilty for r in by_rva[u]], "desync",
+                         " ".join(f"--overlay {s}" for s in specs) + " --relayout" + (" --own-data" if own else ""))
+    path = OUT / "desync_queue.json"
+    path.write_text(json.dumps({"tool": "game_smoke", "items": items}, indent=1), encoding="utf-8")
+    out = {"image": a.image, "units": len(by_rva), "steps": steps, "runs": log, "guilty": [
+        [r["target_rva"], r["name"], r["source"]] for u in guilty for r in by_rva[u]][:50], "queue": str(path)}
+    (OUT / f"bisect_{a.image}.json").write_text(json.dumps(out, indent=1))
+    print(json.dumps(out, indent=1))
+    return 0
 
 
 def cmd_playback(a):
@@ -998,7 +1187,7 @@ def cmd_playback(a):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("scenario", choices=["skirmish", "record", "determinism", "playback", "save", "load"])
+    ap.add_argument("scenario", choices=["skirmish", "record", "determinism", "playback", "save", "load", "bisect"])
     ap.add_argument("--game-dir", type=Path, required=True)
     ap.add_argument("--appdata", type=Path, help="sandbox user-data root (default GAME_DIR/../appdata)")
     ap.add_argument("--retail", action="store_true", help="control: retail's own game.dat")
@@ -1008,6 +1197,8 @@ def main(argv=None):
     ap.add_argument("--map", default=SKIRMISH_MAP)
     ap.add_argument("--mode", type=int, default=2, help="GameLogic game mode of a skirmish")
     ap.add_argument("--no-ai", action="store_true")
+    ap.add_argument("--player", action="store_true",
+                    help="slot 0 plays (random faction) against one AI, instead of observing two AIs")
     ap.add_argument("--seed", type=lambda v: int(v, 0), default=1, help="-randomSeed and the skirmish seed (GameInfo+0x50)")
     ap.add_argument("--seconds", type=float, default=60, help="skirmish seconds to simulate")
     ap.add_argument("--min-frames", type=int, default=100)
@@ -1027,6 +1218,9 @@ def main(argv=None):
     ap.add_argument("--saved-frame", type=int, help="load: frame the save was taken at (default: save run's)")
     ap.add_argument("--guard", type=Path, action="append", default=[])
     ap.add_argument("--no-focus-lie", action="store_true")
+    ap.add_argument("--lock", type=Path, help="bisect: game_lock.py, which every bisection run goes through")
+    ap.add_argument("--status", type=Path, default=boot_smoke.boot_image.LINK_STATUS)
+    ap.add_argument("--base", type=lambda v: int(v, 0), default=0x10000000)
     a = ap.parse_args(argv)
     a.appdata = (a.appdata or a.game_dir.resolve().parent / "appdata").resolve()
     try:
@@ -1043,6 +1237,8 @@ def main(argv=None):
         return cmd_skirmish(a, keep_replay=a.replay)
     if a.scenario == "determinism":
         return cmd_determinism(a)
+    if a.scenario == "bisect":
+        return cmd_bisect(a)
     if a.scenario == "save":
         return cmd_save(a)
     if a.scenario == "load":

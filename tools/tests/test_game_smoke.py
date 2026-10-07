@@ -92,9 +92,63 @@ class PieceMover(unittest.TestCase):
         self.assertEqual(move(0x1010), 0x5010)
         self.assertEqual(move(0x9FE78C), 0xA0678C)
 
+    def test_relayout_moved_copy_wins_over_its_int3_filler(self):
+        pieces = [[".text", 0x1000, 0x1000, 0x400000],                 # scaffold, retail order
+                  [".text", 0x22D290, 0x22D290, 0x200],                 # filler left at a moved unit
+                  [".text$r000017", 0x22D290, 0xE41230, 0x200],         # the moved unit
+                  [".data", 0x9F0000, 0x9F0000, 0x20000],
+                  [".odata", 0x9FE780, 0xF00000, 0x10]]                # our own copy of a datum
+        move = gs.piece_mover([p for p in pieces if p[2] != 0x22D290 or p[0] != ".text"] + [pieces[1]])
+        self.assertEqual(move(0x22D2A0), 0xE41240)                     # never the filler
+        self.assertTrue(move.ours(0x22D2A0))
+        self.assertEqual(move(0x9FE78C), 0xF0000C)                     # owned data
+        self.assertEqual(move(0x9FE758), 0x9FE758)                     # retail data left in place
+        self.assertFalse(move.ours(0x9FE758))
+
+    def test_two_moved_copies_are_ambiguous(self):
+        move = gs.piece_mover([[".text$r000001", 0x1000, 0x5000, 0x10], [".text$r000002", 0x1008, 0x6000, 0x10]])
+        with self.assertRaises(KeyError):
+            move(0x100C)
+
+    def test_unplaceable_harness_address_refuses_the_run(self):
+        move = gs.piece_mover([[".text", 0x1000, 0x1000, 0x100]])
+        with self.assertRaises(SystemExit) as e:
+            gs.map_addresses(move, ["GameLogic::getCRC"])
+        self.assertIn("GameLogic::getCRC", str(e.exception))
+
     def test_rva_outside_every_piece_is_refused(self):
         with self.assertRaises(KeyError):
             gs.piece_mover([[".text", 0x1000, 0x5000, 0x10]])(0x2000)
+
+
+class BlockDiff(unittest.TestCase):
+    def test_first_differing_frame_per_block(self):
+        a = [(25, {"objects": 1, "shroud": 7}), (50, {"objects": 2, "shroud": 8})]
+        b = [(25, {"objects": 1, "shroud": 9}), (50, {"objects": 3, "shroud": 9})]
+        self.assertEqual(gs.block_diff(a, b), {"shroud": 25, "objects": 50})
+        self.assertEqual(gs.block_diff(a, a), {})
+
+    def test_pre_and_post_byte_stores_wrap_the_call(self):
+        code = gs.stub_code([{"call": 1, "ecx": 2, "pre": [(0xA02D7C, 1)], "post": [(0xA02D7C, 0)]}], 0x100)
+        self.assertTrue(code.startswith(bytes.fromhex("C6057C2DA00001")))
+        self.assertTrue(code.endswith(bytes.fromhex("C6057C2DA00000 CC")))
+
+
+class Halving(unittest.TestCase):
+    def test_finds_the_one_guilty_unit(self):
+        guilty, steps = gs.halve(list(range(0, 160, 10)), lambda h: 70 in h)
+        self.assertEqual(guilty, [70])
+        self.assertLessEqual(len(steps), 8)                            # at most two runs per level
+
+    def test_interaction_returns_the_remaining_set(self):
+        guilty, _ = gs.halve([1, 2, 3, 4], lambda h: 1 in h and 4 in h)
+        self.assertEqual(guilty, [1, 2, 3, 4])
+
+    def test_queue_items_are_desync_repairs(self):
+        rows = [{"target_rva": "0x00401000", "name": "f", "source": "Code/a.cpp", "target_size": "16"}]
+        item = gs.desync_items(rows, "desync", "--overlay closed --relayout")[0]
+        self.assertEqual((item["check"], item["size"]), ("desync", 16))
+        self.assertIn("rva:0x00401000 --overlay closed --relayout", item["pass_test"])
 
 
 class StubCode(unittest.TestCase):
@@ -200,16 +254,30 @@ class SkirmishSetup(unittest.TestCase):
         gs.skirmish_setup(True)(g2, 1, None)                            # no seed: left alone
         self.assertEqual(g2.u32(self.INFO + gs.SEED_OFF), 1791300000)
 
-    def test_players_get_random_factions_not_observer(self):
+    def slots3(self):
         g = self.game()
-        slot0 = 0x6200000
+        slot0, slot2 = 0x6200000, 0x6300000
         g.mem[self.INFO + gs.SLOTS_OFF] = slot0
-        g.mem[slot0 + gs.SLOT_TEMPLATE] = 0xFFFFFFFE                    # -2, observer
-        g.mem[self.SLOT1 + gs.SLOT_TEMPLATE] = 0xFFFFFFFE
+        g.mem[self.INFO + gs.SLOTS_OFF + 8] = slot2
+        for sl in (slot0, self.SLOT1, slot2):
+            g.mem[sl + gs.SLOT_TEMPLATE] = 0xFFFFFFFE                   # -2, observer
+        g.mem[slot2 + gs.SLOT_STATE] = 1
+        return g, slot0, slot2
+
+    def test_default_is_an_observer_watching_two_random_ais(self):
+        g, slot0, slot2 = self.slots3()
         gs.skirmish_setup(True)(g, 1, None)
-        self.assertEqual(g.res["setup"]["templates_before"], [0xFFFFFFFE, 0xFFFFFFFE])
-        self.assertEqual([g.u32(slot0 + gs.SLOT_TEMPLATE), g.u32(self.SLOT1 + gs.SLOT_TEMPLATE)],
-                         [0xFFFFFFFF, 0xFFFFFFFF])
+        self.assertEqual(g.res["setup"]["templates_before"], [0xFFFFFFFE] * 3)
+        self.assertEqual([g.u32(x + gs.SLOT_TEMPLATE) for x in (slot0, self.SLOT1, slot2)],
+                         [0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF])       # local player cannot command
+        self.assertEqual([g.u32(x + gs.SLOT_STATE) for x in (self.SLOT1, slot2)], [gs.SLOT_EASY_AI] * 2)
+
+    def test_player_mode_gives_slot_zero_a_faction_and_one_ai(self):
+        g, slot0, slot2 = self.slots3()
+        gs.skirmish_setup(True, player=True)(g, 1, None)
+        self.assertEqual([g.u32(x + gs.SLOT_TEMPLATE) for x in (slot0, self.SLOT1, slot2)],
+                         [0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFE])
+        self.assertEqual(g.u32(slot2 + gs.SLOT_STATE), 1)
 
     def test_no_ai_leaves_slot_one_closed(self):
         g = self.game()
