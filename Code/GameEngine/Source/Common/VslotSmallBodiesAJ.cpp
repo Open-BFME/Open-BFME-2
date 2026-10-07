@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /EHsc
 //
 // Vtable-slot bodies with no ledger owner and no Ghidra entry, batch AJ:
 // each is a single tail jump to a rowed or pinned function on the same
@@ -1219,6 +1219,39 @@ public:
 void Rva00286351::rva00286351()
 {
 	rva002862C9();
+}
+
+// Target boundary at 0x00286356 is 29 bytes: it calls the adjacent pinned
+// accessor at 0x002862C9, copies the returned object through the rowed
+// Rva003ED658 copy constructor at 0x003ED658, and returns that object. The
+// address-derived class and accessor result view preserve the target behavior;
+// no named identity or broader layout is inferred.
+class Rva003ED658
+{
+public:
+	Rva003ED658(Rva003ED658 const &src);
+	~Rva003ED658();
+private:
+	char m_storage[12];
+};
+
+class Rva00286356 : public Rva002862C9
+{
+public:
+	Rva003ED658 rva00286356();
+};
+
+union Rva002862C9ResultCall
+{
+	void (Rva002862C9::*voidCall)();
+	Rva003ED658 const *(Rva002862C9::*resultCall)();
+};
+
+Rva003ED658 Rva00286356::rva00286356()
+{
+	Rva002862C9ResultCall call;
+	call.voidCall = &Rva002862C9::rva002862C9;
+	return *(this->*call.resultCall)();
 }
 
 class Rva00286CC4
