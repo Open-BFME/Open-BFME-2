@@ -31,6 +31,7 @@
 // float-coordinate Display members, and the clock reset goes back through
 // winSetUserData.
 
+#include "ascii_string.h"
 #include "unicode_string.h"
 
 typedef int Int;
@@ -55,14 +56,22 @@ struct IRegion2D
 	ICoord2D hi;
 };
 
-// Only the image width is read here, at +0x24.
+// Only the image size is read here, at +0x24 and +0x28.
 class Image
 {
 public:
 	Int getImageWidth( void ) const { return m_width; }
+	Int getImageHeight( void ) const { return m_height; }
 
 	unsigned char m_unreconstructed00[ 0x24 ];
 	Int m_width;                                           // +0x24
+	Int m_height;                                          // +0x28
+};
+
+class ImageCollection
+{
+public:
+	const Image *findImageByName( const AsciiString &name );
 };
 
 // BFME DisplayString slots: setText +0x04, getTextLength +0x0C, setFont +0x18,
@@ -212,6 +221,50 @@ public:
 		Real percent, Int color );
 	void rva000A4875( Real startX, Real startY, Real width, Real height,
 		Real percent, Int color );
+	void rva000A47DE( Real startX, Real startY, Real width, Real height,
+		Int color );
+	void rva000A48C4( Int image, Real startX, Real startY, Real endX, Real endY,
+		Real percent, Int color );
+};
+
+// Render-state helpers bracketing the radial (masked) cameo draw.
+void Rva00118AC0( void );
+void Rva00118BA0( void );
+void Rva00118C20( void );
+void Rva00118B50( void );
+
+// PushButtonData +0x34 flag (GadgetButtonFlag34Get.cpp).
+bool Rva00327E0EGet( GameWindow *window );
+
+// The local player's +0x34 object decides which of the two global radial
+// clock colours is used.
+struct LocalPlayerInfo
+{
+	unsigned char m_unreconstructed00[ 0x1BC ];
+	Bool m_flag1BC;                                        // +0x1BC
+};
+
+class Player
+{
+public:
+	unsigned char m_unreconstructed00[ 0x34 ];
+	LocalPlayerInfo *m_info;                               // +0x34
+};
+
+class PlayerList
+{
+public:
+	Player *getLocalPlayer( void ) { return m_local; }
+
+	unsigned char m_unreconstructed00[ 0x10 ];
+	Player *m_local;                                       // +0x10
+};
+
+struct GlobalData
+{
+	unsigned char m_unreconstructed00[ 0x1160 ];
+	Color m_radialClockColor;                              // +0x1160
+	Color m_radialClockColorFlagged;                       // +0x1164
 };
 
 // The standard button data prefix followed by BFME-only fields.
@@ -234,6 +287,13 @@ enum
 {
 	WIN_STATUS_ENABLED = 0x00000008,
 	WIN_STATUS_WRAP_CENTERED = 0x00040000,
+	WIN_STATUS_USE_OVERLAY_STATES = 0x00200000,
+	WIN_STATUS_NOT_READY = 0x00400000,
+	WIN_STATUS_FLASHING = 0x00800000,
+	WIN_STATUS_ALWAYS_COLOR = 0x01000000,
+	WIN_STATUS_RADIAL = 0x04000000,                        // ZH's SHORTCUT_BUTTON bit
+	WIN_STATUS_NO_STATE_IMAGES = 0x40000000,
+	WIN_STATUS_GRAY_OVERLAY = 0x80000000,
 	WIN_STATE_HILITED = 0x00000002,
 	WIN_STATE_SELECTED = 0x00000004,
 	WIN_COLOR_UNDEFINED = 0x00FFFFFF,
@@ -242,17 +302,34 @@ enum
 	INVERSE_CLOCK = 2
 };
 
+enum DrawImageMode
+{
+	DRAW_IMAGE_SOLID = 0,
+	DRAW_IMAGE_GRAYSCALE = 1,
+	DRAW_IMAGE_ALPHA = 2,
+	DRAW_IMAGE_RADIAL_GRAYSCALE = 4
+};
+
+inline Color GameMakeColor( UnsignedByte red, UnsignedByte green, UnsignedByte blue, UnsignedByte alpha )
+{
+	return ( alpha << 24 ) | ( red << 16 ) | ( green << 8 ) | blue;
+}
+
 inline Int BitTest( UnsignedInt bits, UnsignedInt mask )
 {
 	return ( bits & mask ) != 0;
 }
 
 #define WIN_DRAW_LINE_WIDTH 1.0f
+#define RADIAL_CLOCK_SCALE ( 46.0f / 48.0f )
 #define FALSE 0
 #define NULL 0
 
 extern GameWindowManager *TheWindowManager;
 extern Display *TheDisplay;
+extern ImageCollection *TheMappedImageCollection;
+extern PlayerList *ThePlayerList;
+extern GlobalData *TheGlobalData;
 
 // Coordinates with an empty default constructor; see W3DCheckBox.cpp.
 struct CtorCoord : ICoord2D
@@ -326,6 +403,24 @@ static void drawButtonText( GameWindow *window, WinInstanceData *instData )
 	text->draw( textPos.x, textPos.y, 1, 1 );
 
 }  // end drawButtonText
+
+// drawRadialOverlay ==========================================================
+/** Draw a radial overlay image centred on the button, scaled to its size */
+//=============================================================================
+static void drawRadialOverlay( const Image *image, ICoord2D *start, ICoord2D *size,
+															 Color color )
+{
+	Real radiusX = size->x * 0.5f;
+	Real radiusY = size->y * 0.5f;
+	Real centerX = start->x + radiusX;
+	Real centerY = start->y + radiusY;
+	radiusX = radiusX * image->getImageWidth() / 48.0f;
+	radiusY = radiusY * image->getImageHeight() / 48.0f;
+
+	((W3DDisplay *)TheDisplay)->rva0004D6B3( (Image *)image, centerX - radiusX, centerY - radiusY,
+		centerX + radiusX, centerY + radiusY, color, DRAW_IMAGE_ALPHA );
+
+}  // end drawRadialOverlay
 
 // W3DGadgetPushButtonImageDrawThree ==========================================
 /** Draw a horizontal button from left, repeating center and right images */
@@ -700,3 +795,231 @@ void W3DGadgetPushButtonDraw( GameWindow *window, WinInstanceData *instData )
 	}
 
 }  // end W3DGadgetPushButtonDraw
+
+// W3DGadgetPushButtonImageDrawOne ============================================
+/** Draw pushbutton using a single image */
+//=============================================================================
+void W3DGadgetPushButtonImageDrawOne( GameWindow *window, WinInstanceData *instData )
+{
+	static const Image *pushedOverlayIcon = TheMappedImageCollection->findImageByName( "Cameo_push" );
+	static const Image *hilitedOverlayIcon = TheMappedImageCollection->findImageByName( "Cameo_hilited" );
+	static const Image *radialPushedIcon = TheMappedImageCollection->findImageByName( "RadialPush" );
+	static const Image *radialHilitedIcon = TheMappedImageCollection->findImageByName( "RadialOver" );
+	static const Image *radialBorderIcon = TheMappedImageCollection->findImageByName( "RadialBorder" );
+	static const Image *radialClockOverlay1 = TheMappedImageCollection->findImageByName( "RadialClockOverlay1" );
+	static const Image *radialClockOverlay2 = TheMappedImageCollection->findImageByName( "RadialClockOverlay2" );
+
+	// the drawing locals live in their own scope below the statics; that scope
+	// is what lets the last lookup temporary share the others' frame slot
+	{
+		const Image *image;
+		CtorCoord size, start, end;
+
+		//
+		// get pointer to image we want to draw depending on our state,
+		// see GadgetPushButton.h for info
+		//
+		image = window->m_enabledDrawData[ 0 ].image;
+
+		if( !BitTest( window->winGetStatus(), WIN_STATUS_USE_OVERLAY_STATES ) &&
+				!BitTest( window->winGetStatus(), WIN_STATUS_NO_STATE_IMAGES ) )
+		{
+			if( BitTest( window->winGetStatus(), WIN_STATUS_ENABLED ) == FALSE )
+			{
+
+				if( BitTest( instData->getState(), WIN_STATE_SELECTED ) )
+					image			= window->m_disabledDrawData[ 1 ].image;
+				else
+					image			= window->m_disabledDrawData[ 0 ].image;
+
+			}  // end if, disabled
+			else if( BitTest( instData->getState(), WIN_STATE_HILITED ) )
+			{
+
+				if( BitTest( instData->getState(), WIN_STATE_SELECTED ) )
+					image			= window->m_hiliteDrawData[ 1 ].image;
+				else
+					image			= window->m_hiliteDrawData[ 0 ].image;
+
+			}  // end else if, hilited and enabled
+			else
+			{
+
+				if( BitTest( instData->getState(), WIN_STATE_SELECTED ) )
+					image			= window->m_hiliteDrawData[ 1 ].image;
+
+			}  // end else, enabled only
+		}
+
+		Bool radial = BitTest( window->winGetStatus(), WIN_STATUS_RADIAL );
+
+		// draw the image
+		if( image )
+		{
+
+			// get window position
+			window->winGetScreenPosition( &start.x, &start.y );
+			window->winGetSize( &size.x, &size.y );
+
+			// offset position by image offset
+			start.x += instData->m_imageOffset.x;
+			start.y += instData->m_imageOffset.y;
+
+			// find end point
+			end.x = start.x + size.x;
+			end.y = start.y + size.y;
+
+			Int drawMode = DRAW_IMAGE_ALPHA;
+			Int colorMultiplier = 0xffffffff;
+
+			if( BitTest( window->winGetStatus(), WIN_STATUS_USE_OVERLAY_STATES ) &&
+					!BitTest( window->winGetStatus(), WIN_STATUS_NO_STATE_IMAGES ) )
+			{
+				if( !BitTest( window->winGetStatus(), WIN_STATUS_ENABLED ) )
+				{
+					if( !BitTest( window->winGetStatus(), WIN_STATUS_NOT_READY ) )
+					{
+						if( !BitTest( window->winGetStatus(), WIN_STATUS_ALWAYS_COLOR ) )
+						{
+							drawMode = DRAW_IMAGE_GRAYSCALE;
+							if( Rva00327E0EGet( window ) )
+								colorMultiplier = 0xff808080;
+						}
+						else
+						{
+							colorMultiplier = 0xff909090;
+						}
+					}
+				}
+			}
+
+			if( radial )
+			{
+				drawMode = ( drawMode == DRAW_IMAGE_GRAYSCALE ) ? DRAW_IMAGE_RADIAL_GRAYSCALE : DRAW_IMAGE_SOLID;
+				Rva00118AC0();
+				Rva00118BA0();
+				((Rva000A4826 *)TheDisplay)->rva000A47DE( start.x, start.y, end.x - start.x, end.y - start.y, -1 );
+				Rva00118C20();
+			}
+
+			((W3DDisplay *)TheDisplay)->rva0004D6B3( (Image *)image, start.x, start.y, end.x, end.y, colorMultiplier, drawMode );
+
+			if( radial )
+				Rva00118B50();
+
+		}  // end if
+
+		// draw the button text
+		if( instData->getTextLength() )
+			drawButtonText( window, instData );
+
+		// get window position
+		window->winGetScreenPosition( &start.x, &start.y );
+		window->winGetSize( &size.x, &size.y );
+
+		// if we have a video buffer, draw the video buffer
+		if ( instData->m_videoBuffer )
+		{
+			TheDisplay->drawVideoBuffer( instData->m_videoBuffer, start.x, start.y, start.x + size.x, start.y + size.y );
+		}
+
+		PushButtonData *pData = (PushButtonData *)window->winGetUserData();
+		if( pData )
+		{
+			if( pData->overlayImage )
+			{
+				//Render the overlay image now.
+				((W3DDisplay *)TheDisplay)->rva0004D6B3( pData->overlayImage, start.x, start.y, start.x + size.x, start.y + size.y, -1, DRAW_IMAGE_ALPHA );
+			}
+
+			if( pData->drawClock )
+			{
+				if( pData->drawClock == NORMAL_CLOCK && pData->percentClock > 0 )
+				{
+					((Rva000A4826 *)TheDisplay)->rva000A4826( start.x, start.y, size.x, size.y, pData->percentClock, pData->colorClock );
+				}
+				else if( pData->drawClock == INVERSE_CLOCK && pData->percentClock < 100 )
+				{
+					Color clockColor = 0;
+					if( ThePlayerList && ThePlayerList->getLocalPlayer() )
+					{
+						LocalPlayerInfo *info = ThePlayerList->getLocalPlayer()->m_info;
+						if( info && info->m_flag1BC )
+							clockColor = TheGlobalData->m_radialClockColorFlagged;
+						else
+							clockColor = TheGlobalData->m_radialClockColor;
+					}
+
+					Real radiusX = size.x * 0.5f;
+					Real radiusY = size.y * 0.5f;
+					Real centerX = start.x + radiusX;
+					Real centerY = start.y + radiusY;
+					radiusX *= RADIAL_CLOCK_SCALE;
+					radiusY *= RADIAL_CLOCK_SCALE;
+
+					// the image pointers travel through the helper's Int parameter
+					((Rva000A4826 *)TheDisplay)->rva000A48C4( (Int)radialClockOverlay1, centerX - radiusX, centerY - radiusY,
+						centerX + radiusX, centerY + radiusY, pData->percentClock, pData->colorClock );
+					((Rva000A4826 *)TheDisplay)->rva000A48C4( (Int)radialClockOverlay2, centerX - radiusX, centerY - radiusY,
+						centerX + radiusX, centerY + radiusY, pData->percentClock, clockColor );
+				}
+				pData->drawClock = NO_CLOCK;
+				window->winSetUserData( pData );
+			}
+
+			if( !radial && pData->drawBorder && pData->colorBorder != WIN_COLOR_UNDEFINED )
+			{
+				((W3DDisplay *)TheDisplay)->rva0008EEF0( start.x - 1, start.y - 1, size.x + 2, size.y + 2, 1, pData->colorBorder );
+			}
+
+			if( pData->drawNumber == 1 )
+				Rva000A52AEDrawNumber( window, instData, pData );
+		}
+
+		//Handle cameo flashing
+		if( BitTest( window->winGetStatus(), WIN_STATUS_FLASHING ) && !radial )
+		{
+			((W3DDisplay *)TheDisplay)->rva0004D6B3( (Image *)hilitedOverlayIcon, start.x, start.y, start.x + size.x, start.y + size.y, -1, DRAW_IMAGE_ALPHA );
+		}
+
+		//Now render overlays that pertain to the correct state.
+		static Color overlayColor = GameMakeColor( 255, 255, 255, 255 );
+		static Color grayOverlayColor = GameMakeColor( 144, 144, 144, 255 );
+		Color color = BitTest( window->winGetStatus(), WIN_STATUS_GRAY_OVERLAY ) ? grayOverlayColor : overlayColor;
+
+		if( BitTest( window->winGetStatus(), WIN_STATUS_USE_OVERLAY_STATES ) &&
+				BitTest( window->winGetStatus(), WIN_STATUS_ENABLED ) )
+		{
+			if( BitTest( instData->getState(), WIN_STATE_HILITED ) )
+			{
+				if( BitTest( instData->getState(), WIN_STATE_SELECTED ) )
+				{
+					//The button is hilited and pushed
+					if( radial )
+						drawRadialOverlay( radialPushedIcon, &start, &size, color );
+					else
+						((W3DDisplay *)TheDisplay)->rva0004D6B3( (Image *)pushedOverlayIcon, start.x, start.y, start.x + size.x, start.y + size.y, color, DRAW_IMAGE_ALPHA );
+				}
+				else
+				{
+					//The button is hilited
+					if( radial )
+						drawRadialOverlay( radialHilitedIcon, &start, &size, color );
+					else
+						((W3DDisplay *)TheDisplay)->rva0004D6B3( (Image *)hilitedOverlayIcon, start.x, start.y, start.x + size.x, start.y + size.y, color, DRAW_IMAGE_ALPHA );
+				}
+				return;
+			}
+			else if( !radial && BitTest( instData->getState(), WIN_STATE_SELECTED ) )
+			{
+				//The button appears to be pushed -- CHECK_LIKE buttons that are on.
+				((W3DDisplay *)TheDisplay)->rva0004D6B3( (Image *)pushedOverlayIcon, start.x, start.y, start.x + size.x, start.y + size.y, color, DRAW_IMAGE_ALPHA );
+			}
+		}
+
+		if( radial )
+			drawRadialOverlay( radialBorderIcon, &start, &size, color );
+
+	}
+
+}  // end W3DGadgetPushButtonImageDrawOne
