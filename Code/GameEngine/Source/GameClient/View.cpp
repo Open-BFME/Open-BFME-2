@@ -287,29 +287,7 @@ void View::getScreenCornerWorldPointsAtZ( Coord3D *topLeft, Coord3D *topRight,
 // ------------------------------------------------------------------------------------------------
 /** Xfer method for a view */
 // ------------------------------------------------------------------------------------------------
-// ?View::xfer present-unmatched
-void View::xfer( Xfer *xfer )
-{
-
-	// version
-	XferVersion currentVersion = 1;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
-
-	// camera angle
-	Real angle = getAngle();
-	xfer->xferReal( &angle );
-	setAngle( angle );
-
-	// view position
-	Coord3D viewPos;
-	getPosition( &viewPos );
-	xfer->xferReal( &viewPos.x );
-	xfer->xferReal( &viewPos.y );
-	xfer->xferReal( &viewPos.z );
-	lookAt( &viewPos );
-
-}  // end xfer
+// View::xfer is defined with its retail-matched body in Code/GameEngine/Source/GameClient/ViewXferBfme.cpp (0x0025F020).
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
