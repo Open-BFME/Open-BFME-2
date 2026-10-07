@@ -67938,3 +67938,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva002A7818@Rva002AE5EB@@UAEXPAVXfer@@@Z,,0x002A7818,393,Code/GameEngine/Source/Common/Rva002AE5EBXfer.cpp,matched,slot 3 vtable 0x007FDDB4 via ctor 0x002AE5EB plus Version 1 7 plus rowed callees
 ?rva00112197@Rva0011216CSlotQuartet@@QAEXXZ,,0x00112197,50,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00112197SlotQuartetReset.cpp,matched,adjacent slot quartet methods and target field stores
 ?rva001F465E@ParticleSystem@@QAEXPAX@Z,,0x001F465E,56,Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F465E.cpp,matched,gap ParticleSystem slave chain like rva001F45F4
+?getBuildFacilityTemplate@ThingTemplate@@QBEPBV1@PBVPlayer@@@Z,,0x0033A97F,38,Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp,matched,ThingTemplate prereq vector 0x324 tailcalls getExistingBuildFacilityTemplate donor ThingTemplate
