@@ -734,7 +734,7 @@ public:
 	Bool processIncomingCommand(void *ref);
 	void init();
 	void broadcastRouterFallbackPlan();
-	int isPlayerInGame(int slot);
+	Bool isPlayerInGame(int slot);
 	int isPlayerSlotActive(int slot);
 	void processRequestPlayerLeaveCommand(void *msg);
 	void relayCommand(void *ref);

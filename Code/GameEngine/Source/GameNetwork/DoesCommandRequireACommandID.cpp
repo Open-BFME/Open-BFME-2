@@ -83,45 +83,49 @@ Int IsCommandSynchronized(NetCommandType type)
 	return 0;
 }
 
-// ?Rva00581229Get@@YAHPAURva00581229Msg@@@Z, retail 0x00581229, 119 bytes.
-// Predicate over NetCommandMsg m_commandType at +0x14, same Int xor/inc shape
-// as siblings above. Retail order read off the chain: 4,5,6,3,10,8,9,7,11,14,
-// 27,26,16,17,18,20,19,21,22,28,30 (26 early vs DoesCommandRequireACommandID).
-// Callers at 0x004D31C3 0x0058BC59 0x005DA634; honest-address free function.
-struct Rva00581229Msg
+// ?CommandRequiresAck@@YA_NPAVNetCommandMsg@@@Z, retail 0x00581229, 119 bytes.
+// Zero Hour's CommandRequiresAck (NetworkUtil.cpp): the same test over
+// NetCommandMsg m_commandType at +0x14. Callers: the relay loop 0x004D316A
+// (0x004D31C3, which then acks the command as Zero Hour's doRelay does),
+// Connection::doSend 0x0058BC59 and FrameData's ack count 0x005DA634; each
+// tests al, so the return is Bool, and returning the || chain gives the
+// whole-register xor/inc tail. Retail order read off the chain: 4,5,6,3,10,8,
+// 9,7,11,14,27,26,16,17,18,20,19,21,22,28,30 (26 early vs
+// DoesCommandRequireACommandID). Rowed before as the address-named
+// ?Rva00581229Get@@YAHPAURva00581229Msg@@@Z.
+class NetCommandMsg
 {
+public:
+	NetCommandType getNetCommandType() const { return m_commandType; }
+
+private:
 	char m_pad[0x14];
-	NetCommandType m_type;
+	NetCommandType m_commandType;
 };
 
-Int Rva00581229Get(Rva00581229Msg *msg)
+bool CommandRequiresAck(NetCommandMsg *msg)
 {
-	NetCommandType type = msg->m_type;
-	if ((type == NETCOMMANDTYPE_GAMECOMMAND) ||
-		(type == NETCOMMANDTYPE_REQUEST_GAMESPY_STATS_AUTHKEY) ||
-		(type == NETCOMMANDTYPE_GAMESPY_STATS_AUTHKEY) ||
-		(type == NETCOMMANDTYPE_FRAMEINFO) ||
-		(type == NETCOMMANDTYPE_PLAYERLEAVE) ||
-		(type == NETCOMMANDTYPE_INFORMPLAYERLEAVEFRAME) ||
-		(type == NETCOMMANDTYPE_REQUESTFRAMEDATA) ||
-		(type == NETCOMMANDTYPE_REQUESTPLAYERLEAVE) ||
-		(type == NETCOMMANDTYPE_DESTROYPLAYER) ||
-		(type == NETCOMMANDTYPE_CHAT) ||
-		(type == NETCOMMANDTYPE_DISCONNECTFRAME) ||
-		(type == NETCOMMANDTYPE_DISCONNECTVOTE) ||
-		(type == NETCOMMANDTYPE_LOADCOMPLETE) ||
-		(type == NETCOMMANDTYPE_TIMEOUTSTART) ||
-		(type == NETCOMMANDTYPE_WRAPPER) ||
-		(type == NETCOMMANDTYPE_FILEANNOUNCE) ||
-		(type == NETCOMMANDTYPE_FILE) ||
-		(type == NETCOMMANDTYPE_FILEPROGRESS) ||
-		(type == (NetCommandType)22) ||
-		(type == NETCOMMANDTYPE_DISCONNECTSCREENOFF) ||
-		(type == (NetCommandType)30))
-	{
-		return 1;
-	}
-	return 0;
+	return ((msg->getNetCommandType() == NETCOMMANDTYPE_GAMECOMMAND) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_REQUEST_GAMESPY_STATS_AUTHKEY) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_GAMESPY_STATS_AUTHKEY) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_FRAMEINFO) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_PLAYERLEAVE) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_INFORMPLAYERLEAVEFRAME) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_REQUESTFRAMEDATA) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_REQUESTPLAYERLEAVE) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_DESTROYPLAYER) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_CHAT) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_DISCONNECTFRAME) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_DISCONNECTVOTE) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_LOADCOMPLETE) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_TIMEOUTSTART) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_WRAPPER) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_FILEANNOUNCE) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_FILE) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_FILEPROGRESS) ||
+		(msg->getNetCommandType() == (NetCommandType)22) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_DISCONNECTSCREENOFF) ||
+		(msg->getNetCommandType() == (NetCommandType)30));
 }
 
 // ?CommandRequiresDirectSend@@YA_NPAVNetCommandMsg@@@Z, retail 0x005812C4, 84 bytes.
@@ -135,15 +139,6 @@ Int Rva00581229Get(Rva00581229Msg *msg)
 // DISCONNECTFRAME order with BFME 2's renumbered types, hero data (20) and the
 // GameSpy-key, leave-frame, frame-data and player-leave requests added.
 // Rowed before as the address-named ?Rva005812C4Get@@YAHPAURva005812C4Msg@@@Z.
-class NetCommandMsg
-{
-public:
-	NetCommandType getNetCommandType() const { return m_commandType; }
-
-private:
-	char m_pad[0x14];
-	NetCommandType m_commandType;
-};
 
 bool CommandRequiresDirectSend(NetCommandMsg *msg)
 {
@@ -163,29 +158,21 @@ bool CommandRequiresDirectSend(NetCommandMsg *msg)
 		(msg->getNetCommandType() == NETCOMMANDTYPE_REQUESTPLAYERLEAVE));
 }
 
-// ?Rva00581318Get@@YAHPAURva00581318Msg@@@Z, retail 0x00581318, 33 bytes.
-// Predicate over NetCommandMsg m_commandType at +0x14, same Int xor/inc shape
-// as siblings above. Retail order read off the chain: 7,0,1,2. Caller at
-// 0x004D31E5; honest-address free function.
-struct Rva00581318Msg
+// ?Rva00581318Get@@YA_NPAVNetCommandMsg@@@Z, retail 0x00581318, 33 bytes.
+// The same test over NetCommandMsg m_commandType at +0x14 for the request
+// player leave (7) and the three acks (0, 1, 2). Its one caller, the relay loop
+// 0x004D316A (0x004D31E5), tests al and lets a command stamped before the
+// current logic timestamp through only when this accepts its type; Bool return
+// of the || chain, as above. No reference names it; honest-address name.
+// Rowed before as ?Rva00581318Get@@YAHPAURva00581318Msg@@@Z.
+bool Rva00581318Get(NetCommandMsg *msg)
 {
-	char m_pad[0x14];
-	NetCommandType m_type;
-};
-
-Int Rva00581318Get(Rva00581318Msg *msg)
-{
-	NetCommandType type = msg->m_type;
-	if ((type == NETCOMMANDTYPE_REQUESTPLAYERLEAVE) ||
-		(type == (NetCommandType)0) ||
-		(type == (NetCommandType)1) ||
-		(type == (NetCommandType)2))
-	{
-		return 1;
-	}
-	return 0;
+	return ((msg->getNetCommandType() == NETCOMMANDTYPE_REQUESTPLAYERLEAVE) ||
+		(msg->getNetCommandType() == (NetCommandType)0) ||
+		(msg->getNetCommandType() == (NetCommandType)1) ||
+		(msg->getNetCommandType() == (NetCommandType)2));
 }
 
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:?CommandRequiresAck@@YAHPAVNetCommandMsg@@@Z=?Rva00581229Get@@YAHPAURva00581229Msg@@@Z")
+#pragma comment(linker, "/alternatename:?CommandRequiresAck@@YAHPAVNetCommandMsg@@@Z=?CommandRequiresAck@@YA_NPAVNetCommandMsg@@@Z")

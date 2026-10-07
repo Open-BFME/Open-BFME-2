@@ -15689,3 +15689,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00564DF2@Rva00564DF2NameView@@QBE?AVAsciiString@@XZ,0x00564DF2,callee of ?rva003B8D06@LivingWorldCampaignManager@@QAE?AVAsciiString@@XZ
 ?rva0052C7A2@Rva0052BFE1@@QAEPAVRva00564DF2NameView@@ABVAsciiString@@@Z,0x0052C7A2,callee of ?rva003B8D4D@LivingWorldCampaignManager@@QAEPAVRva00564DF2NameView@@ABVAsciiString@@@Z
 ??0CountUpTransition@@QAE@XZ,0x0035F64A,callee of ?Rva0035F6E2Parse@@YAXPAVINI@@PAVRva003600D6Holder@@@Z
+?ackCommand@ConnectionManager@@AAEXPAVNetCommandRef@@PBUBfmeNetAddress@@@Z,0x004CF40E,callee of the relay loop 0x004D316A at 0x004D31D4 (after CommandRequiresAck as in ZH doRelay); unrowed body banked as reverse/attempts/0x004cf40e.cpp
+?relayCommand@BFMEConnectionManager@@QAEXPAX@Z,0x004CF578,callee of the relay loop 0x004D316A at 0x004D320B when processNetCommand returns true (BFME1 runRelayPass relayCommand); unrowed body banked as reverse/attempts/0x004cf578.cpp

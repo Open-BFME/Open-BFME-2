@@ -34,7 +34,7 @@ class BFMEConnectionManager
 {
 public:
 	bool isPlayerConnected(int slot);
-	int isPlayerInGame(int slot);
+	bool isPlayerInGame(int slot);
 	int isPlayerSlotActive(int slot);
 	bool hasPacketRouterFrameStall(void);
 
@@ -56,12 +56,12 @@ bool BFMEConnectionManager::isPlayerConnected(int slot)
 		(m_connections[slot] != 0 && m_connections[slot]->m_openState == -1);
 }
 
-int BFMEConnectionManager::isPlayerInGame(int slot)
+// Bool: its callers (doRelay 0x004D325F, the disconnect manager's slot loops)
+// test al; returning the && chain gives the whole-register xor/inc tail.
+bool BFMEConnectionManager::isPlayerInGame(int slot)
 {
-	if ((unsigned int)slot >= 8 || m_playerState[slot] != 1 ||
-		!isPlayerConnected(slot))
-		return 0;
-	return 1;
+	return (unsigned int)slot < 8 && m_playerState[slot] == 1 &&
+		isPlayerConnected(slot);
 }
 
 int BFMEConnectionManager::isPlayerSlotActive(int slot)

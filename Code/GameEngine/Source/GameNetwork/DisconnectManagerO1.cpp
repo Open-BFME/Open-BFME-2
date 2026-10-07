@@ -123,7 +123,7 @@ protected:
 class BFMEConnectionManager : public ConnectionManager
 {
 public:
-	Int isPlayerInGame(Int slot);
+	Bool isPlayerInGame(Int slot);
 	Int isPlayerSlotActive(Int slot);
 	void sendDisconnectFrameCommand();
 	void resendFrameRangeToPlayer(Int playerID, UnsignedInt startFrame, UnsignedInt endFrame);
@@ -441,7 +441,7 @@ Int BFMEDisconnectManager::rva004D3E5D(ConnectionManager *conMgr) {
 	for (Int slot = 0; slot < MAX_SLOTS; ++slot) {
 		if (hasPlayerConnectionTimedOut(slot, conMgr))
 			continue;
-		if ((unsigned char)bfmeMgr->isPlayerInGame(slot) != 0)
+		if (bfmeMgr->isPlayerInGame(slot))
 			continue;
 		++count;
 	}
@@ -456,7 +456,7 @@ Int BFMEDisconnectManager::rva004D3E93(Int excludedSlot, ConnectionManager *conM
 			continue;
 		if (hasPlayerConnectionTimedOut(slot, conMgr))
 			continue;
-		if ((unsigned char)bfmeMgr->isPlayerInGame(slot) != 0)
+		if (bfmeMgr->isPlayerInGame(slot))
 			continue;
 		++count;
 	}
