@@ -67846,3 +67846,5 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004FB582@Rva004FB582Owner@@QAEXXZ,,0x004FB582,126,Code/GameEngine/Source/Common/Rva004FB582Init.cpp,matched,channel-driven init: one-time init of the 0x00E04508 channel object plus three target+0x14 queries into +0x0C/+0x10/+0x14 plus by-value slot calls on +0x68/+0x74/+0x80; seven pinned callees
 ?rva004FC21A@Rva004FC21AOwner@@QAEXXZ,,0x004FC21A,36,Code/GameEngine/Source/Common/Rva004FC21ADecay.cpp,matched,flag-gated countdown decay tail-jumping to pinned 0x004E0CA3 on expiry; identities unproven
 ?Rva004FF33D@@YGMPAH0@Z,,0x004FF33D,38,Code/GameEngine/Source/Common/Rva004FF33DFloat.cpp,matched,float select: 0.0 when *a==*b else 1.0f; stdcall; SSE xorps/movss plus x87 fld return
+?rva00504DF8@Rva00504DF8Owner@@QAEPAV1@PBV1@@Z,,0x00504DF8,64,Code/GameEngine/Source/Common/Rva00504DF8Copy.cpp,matched,cursor-copy plus float clear with pinned +0x08 call; SSE movss stores; returns this
+?rva00504E38@Rva00504E38Owner@@QAEPAV1@PBVRva00504DF8Owner@@@Z,,0x00504E38,53,Code/GameEngine/Source/Common/Rva00504DF8Copy.cpp,matched,temp init plus conditional free; returns this

@@ -48,3 +48,75 @@ Rva00504E6DResult Rva00504DF8::rva00504E6D(const void *value)
 
 	return Rva00504E6DResult(position, !notInserted);
 }
+
+//
+// 0x00504DF8 (64B): cursor-copy plus float clear. Copies +0x00/+0x04 from
+// the source, advances the source cursor by 8 into the +0x08 subobject
+// call (pinned 0x005048B5), copies +0x0C to +0x18, zeroes the four floats
+// at +0x1C/+0x20/+0x24/+0x28 via one xorps, returns this. /arch:SSE for
+// the movss stores (float TU precedent). Identities unproven.
+
+class Rva005048B5
+{
+public:
+	void rva005048B5(const void *p);
+};
+
+class Rva00504DF8Owner
+{
+public:
+	Rva00504DF8Owner *rva00504DF8(const Rva00504DF8Owner *src);
+
+private:
+	int m_00;			// +0x00
+	int m_04;			// +0x04
+	Rva005048B5 m_08;		// +0x08
+	char m_pad09[3];		// +0x09..0x0B
+	int m_0C;			// +0x0C
+	char m_pad10[8];		// +0x10..0x17
+	int m_18;			// +0x18
+	float m_1C;			// +0x1C
+	float m_20;			// +0x20
+	float m_24;			// +0x24
+	float m_28;			// +0x28
+};
+
+Rva00504DF8Owner *Rva00504DF8Owner::rva00504DF8(const Rva00504DF8Owner *src)
+{
+	m_00 = src->m_00;
+	m_04 = src->m_04;
+	src = (const Rva00504DF8Owner *)((const char *)src + 8);
+	m_08.rva005048B5(src);
+	m_18 = m_0C;
+	m_1C = m_20 = m_24 = m_28 = 0.0f;
+	return this;
+}
+
+// ---- 0x00504E38 (53B): temp init plus conditional free, returning this.
+// Builds an Rva00504DF8Owner temp from the source, runs the pinned
+// 0x0050492F on this with the temp address, frees the dword at temp+8
+// through rowed _free when nonzero. Outer identity unproven.
+extern "C" void __cdecl free(void *block);
+
+class Rva0050492F
+{
+public:
+	void rva0050492F(Rva00504DF8Owner *tmp);
+};
+
+class Rva00504E38Owner
+{
+public:
+	Rva00504E38Owner *rva00504E38(const Rva00504DF8Owner *src);
+};
+
+Rva00504E38Owner *Rva00504E38Owner::rva00504E38(const Rva00504DF8Owner *src)
+{
+	Rva00504DF8Owner tmp;
+	tmp.rva00504DF8(src);
+	((Rva0050492F *)this)->rva0050492F(&tmp);
+	void *p = *(void **)((char *)&tmp + 8);
+	if (p)
+		free(p);
+	return this;
+}
