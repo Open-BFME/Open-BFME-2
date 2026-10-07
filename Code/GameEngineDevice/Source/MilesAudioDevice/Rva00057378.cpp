@@ -24,6 +24,8 @@ class MilesAudioManager
 public:
     void rva00057378(unsigned int key, const void *value);
     void rva000562A2(int key, const void *value);
+    void rva00057530(unsigned int key, float value, int mode);
+    void rva0005634C(int key, float value, int mode);
 private:
     char at00[0x104];
     MilesKeyAliases aliases;
@@ -40,6 +42,23 @@ void MilesAudioManager::rva00057378(unsigned int key, const void *value)
     } else {
         do {
             rva000562A2(it->second, value);
+            ++it;
+        } while (it != aliases.end() && it->first == key);
+    }
+}
+
+// Native 00057530..000575CE, RET12. Each call forwards a four-byte key,
+// x87-copied float, and integer mode. Ghidra's complete 178-byte provider
+// at 0005634C independently reads those three slots and compares mode to 1.
+void MilesAudioManager::rva00057530(unsigned int key, float value, int mode)
+{
+    MilesMutexGuard guard(&mutex, 0);
+    MilesKeyAliases::iterator it = aliases.find(key);
+    if (it == aliases.end()) {
+        rva0005634C(key, value, mode);
+    } else {
+        do {
+            rva0005634C(it->second, value, mode);
             ++it;
         } while (it != aliases.end() && it->first == key);
     }
