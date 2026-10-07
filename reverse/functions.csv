@@ -67415,3 +67415,4 @@ _Rva00177F34,,0x00177F34,78,Code/GameEngine/Source/Common/Rva00177F34.cpp,matche
 ??1Rva003ED1FC@@UAE@XZ,,0x003ED1FC,77,Code/GameEngine/Source/GameLogic/Object/Rva003ED1FCDtor.cpp,matched,threatfindermanager dtor vtable 0xC36100 calls clear dup base
 ??0Rva0022BE0FSubsystem@@QAE@XZ,,0x003ED340,55,Code/GameEngine/Source/GameLogic/Object/Rva0022BE0FSubsystemCtor.cpp,matched,threatfinder ctor baseConstruct vtable 0xC36100 map 0x3ED321
 ?rva0020EE5C@Rva0020EE5C@@QAEXXZ,,0x0020EE5C,51,Code/Libraries/Source/WWVegas/WWLib/Rva0020EE5CClear.cpp,matched,clear vector at inner+0x2c via rowed 0x003F20B0 per EE29 shape
+?Rva0014D078_LoadAnim@Rva0014CD63_Prototype@@QAEXXZ,,0x0014D078,310,Code/Libraries/Source/WWVegas/WW3D2/Rva0014D078LoadAnim.cpp,matched,slot 2 of prototype vtable 0x00BD37EC; strchr split of the +0x18 name plus .w3d via GetGameFilePart; chunk 0x200 raw and 0x280 compressed anim into +0x14; release on load failure; /O1

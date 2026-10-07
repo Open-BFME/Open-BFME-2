@@ -15397,3 +15397,5 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?push_back@?$list@UObjectTOCEntry@@V?$Rva00245F79Allocator@UObjectTOCEntry@@@@@_STL@@QAEXABUObjectTOCEntry@@@Z,0x00242EE7,ObjectTOC list push_back read from the REL32 at addTOCEntry 0x00245F4D; placeholder allocator because the body folds with other list push_backs
 ?clear@?$_List_base@UObjectTOCEntry@@V?$Rva00245F79Allocator@UObjectTOCEntry@@@@@_STL@@QAEXXZ,0x00239D49,ObjectTOC list clear read from the REL32 at xferObjectTOC 0x00245F9E and GameLogic::reset; folded list clear with a placeholder allocator
 ?findTOCEntryByName@GameLogic@@QAEPAUObjectTOCEntry@@VAsciiString@@@Z,0x00240167,ZH GameLogic::findTOCEntryByName: circular search of the TOC list at this+0x1C0 by name; read from the REL32 at xferObjectTOC 0x00245FE5
+??0HRawAnimClass@@QAE@XZ,0x0018D2A0,callee of ?Rva0014D078_LoadAnim@Rva0014CD63_Prototype@@QAEXXZ
+?Load_W3D@HCompressedAnimClass@@QAEHAAVChunkLoadClass@@@Z,0x0018FE90,callee of ?Rva0014D078_LoadAnim@Rva0014CD63_Prototype@@QAEXXZ
