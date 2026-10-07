@@ -1,11 +1,14 @@
-// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
+// stlport
 //
-// SlowDeathBehaviorModuleData FieldParse proc: Zero Hour's
-// SlowDeathBehavior.cpp file static parseWeapon (class-scoped here for a
-// unique ledger name) on the BFME 2 layout. Target evidence: the table at VA
-// 0x00C42290 (read by buildFieldParse 0x0045E93F) maps Weapon (0x00C42330)
-// -> 0x0045E618 (FX 0x0045E533 / OCL 0x0045E5A4 keep ini in a register and
-// are not reproduced here yet). The BFME 2 Sound row (0x00C42340) ->
+// SlowDeathBehaviorModuleData FieldParse procs: Zero Hour's
+// SlowDeathBehavior.cpp file statics parseFX, parseOCL and parseWeapon
+// (class-scoped here for unique ledger names) on the BFME 2 layout. Target
+// evidence: the table at VA 0x00C42290 (read by buildFieldParse 0x0045E93F)
+// maps FX -> 0x0045E533, OCL -> 0x0045E5A4 and Weapon (0x00C42330) ->
+// 0x0045E618. The phase vectors are real STLport vectors: their push_back
+// stays out of line (the ICF-folded 0x004DFCB0) but its visible body is what
+// lets cl keep ini in ebx for FX and OCL as retail does. The BFME 2 Sound row (0x00C42340) ->
 // 0x0045E8A9 parses each token through the pinned audio token parser
 // 0x00339184 into a ref-counted handle appended to the per-phase vectors at
 // +0xE8 (rowed push_back 0x0005A084), setting mask bit 8 when the handle
@@ -27,6 +30,7 @@
 // states 1 and 2 nest inside it with no code and no action.
 
 #include "ascii_string.h"
+#include <vector>
 
 #define NULL 0
 
@@ -136,58 +140,18 @@ public:
 
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-template <class T, class A> class vector;
 template <unsigned N> struct _Base_bitset;
 template <> struct _Base_bitset<4>
 {
 	unsigned long _M_w[4];
 	void _M_do_and(const _Base_bitset<4> &x);
 };
-template <> class vector<const FXList *, allocator<const FXList *> >
-{
-public:
-	void push_back(const FXList *const &x);
-private:
-	const FXList **m_start;
-	const FXList **m_finish;
-	const FXList **m_endOfStorage;
-};
-template <> class vector<const ObjectCreationList *, allocator<const ObjectCreationList *> >
-{
-public:
-	void push_back(const ObjectCreationList *const &x);
-private:
-	const ObjectCreationList **m_start;
-	const ObjectCreationList **m_finish;
-	const ObjectCreationList **m_endOfStorage;
-};
-template <> class vector<Rva0005A084Element, allocator<Rva0005A084Element> >
-{
-public:
-	void push_back(const Rva0005A084Element &x);
-private:
-	Rva0005A084Element *m_start;
-	Rva0005A084Element *m_finish;
-	Rva0005A084Element *m_endOfStorage;
-};
-template <> class vector<const WeaponTemplate *, allocator<const WeaponTemplate *> >
-{
-public:
-	void push_back(const WeaponTemplate *const &x);
-private:
-	const WeaponTemplate **m_start;
-	const WeaponTemplate **m_finish;
-	const WeaponTemplate **m_endOfStorage;
-};
 }
 
-typedef _STL::vector<const FXList *, _STL::allocator<const FXList *> > FXListVec;
-typedef _STL::vector<const ObjectCreationList *, _STL::allocator<const ObjectCreationList *> > OCLVec;
-typedef _STL::vector<const WeaponTemplate *, _STL::allocator<const WeaponTemplate *> > WeaponTemplateVec;
-typedef _STL::vector<Rva0005A084Element, _STL::allocator<Rva0005A084Element> > SoundVec;
+typedef _STL::vector<const FXList *> FXListVec;
+typedef _STL::vector<const ObjectCreationList *> OCLVec;
+typedef _STL::vector<const WeaponTemplate *> WeaponTemplateVec;
+typedef _STL::vector<Rva0005A084Element> SoundVec;
 
 enum SlowDeathPhaseType
 {
@@ -208,6 +172,8 @@ public:
 		HAS_SOUND = 0x08
 	};
 
+	static void parseFX(INI *ini, void *instance, void *store, const void *userData);
+	static void parseOCL(INI *ini, void *instance, void *store, const void *userData);
 	static void parseWeapon(INI *ini, void *instance, void *store, const void *userData);
 	static void rva0045E8A9(INI *ini, void *instance, void *store, const void *userData);
 	static void parseDeathFlags(INI *ini, void *instance, void *store, const void *userData);
@@ -223,6 +189,34 @@ public:
 	unsigned char m_unreconstructed_184[0x18C - 0x184];
 	unsigned char m_maskOfLoadedEffects;			// +0x18C
 };
+
+// ?parseFX@SlowDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z
+void SlowDeathBehaviorModuleData::parseFX(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
+{
+	SlowDeathBehaviorModuleData *self = (SlowDeathBehaviorModuleData *)instance;
+	SlowDeathPhaseType sdphase = (SlowDeathPhaseType)ini->scanIndexList(ini->getNextToken(), TheSlowDeathPhaseNames);
+	for (const char *token = ini->getNextToken(); token != NULL; token = ini->getNextTokenOrNull())
+	{
+		const FXList *fxl = TheFXListStore->findFXList(token);	// could be null! this is OK!
+		self->m_fx[sdphase].push_back(fxl);
+		if (fxl)
+			self->m_maskOfLoadedEffects |= HAS_FX;
+	}
+}
+
+// ?parseOCL@SlowDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z
+void SlowDeathBehaviorModuleData::parseOCL(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
+{
+	SlowDeathBehaviorModuleData *self = (SlowDeathBehaviorModuleData *)instance;
+	SlowDeathPhaseType sdphase = (SlowDeathPhaseType)ini->scanIndexList(ini->getNextToken(), TheSlowDeathPhaseNames);
+	for (const char *token = ini->getNextToken(); token != NULL; token = ini->getNextTokenOrNull())
+	{
+		const ObjectCreationList *ocl = TheObjectCreationListStore->findObjectCreationList(token);	// could be null! this is OK!
+		self->m_ocls[sdphase].push_back(ocl);
+		if (ocl)
+			self->m_maskOfLoadedEffects |= HAS_OCL;
+	}
+}
 
 // ?parseWeapon@SlowDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z
 void SlowDeathBehaviorModuleData::parseWeapon(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
