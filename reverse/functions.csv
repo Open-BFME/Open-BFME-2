@@ -67761,3 +67761,4 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ??0Rva00221635@@QAE@H@Z,,0x00221635,71,Code/GameEngine/Source/Common/Rva0022161BClear.cpp,matched,gap between 0x0022161B and 0x0022167C vtable g_00BE6BA8 LINK BONUS
 ?preRender@Rva000F6D56Filter@@UAE_NAA_NAAH@Z,,0x000F6D56,90,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,matched,vtable slot 2 and target boundary identify filter preRender address-derived class layout inferred from member offset and donor shape
 _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleCodePageQueries.c,matched,BFME1 donor twin of Rva00850560 via locale 0x1f
+?rva005F882E@Rva005F882E@@QAEXXZ,,0x005F882E,23,Code/GameEngine/Source/Common/Rva005F882EClear.cpp,matched,chain clear via base rva00577EAA and vector erase begin end
