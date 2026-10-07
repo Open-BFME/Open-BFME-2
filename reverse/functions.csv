@@ -68743,3 +68743,4 @@ uw_007aa040,,0x007AA040,11,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp,matc
 ?set_identity@MotionChannelClass@@ABEXPAM@Z,,0x0015FFD0,64,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,matched,Inlined motion channel set_identity on unpooled layout
 ?Get_Vector@MotionChannelClass@@QBEXHPAM@Z,,0x00160010,130,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,matched,Inlined motion channel vector read on unpooled layout
 ??0OpaqueRefBuffer@@QAE@ABV0@@Z,,0x0015B390,58,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescOpaqueBuffer.cpp,matched,OpaqueRefBuffer copy constructor cloning elements with Add_Ref
+?d_003f99dc@@YAXXZ,,0x003F99DC,79,Code/gen_asm/d_003f99dc.asm,matched,gen-dump;bounds=ghidra-inventory
