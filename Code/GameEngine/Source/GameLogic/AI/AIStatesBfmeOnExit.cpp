@@ -46,6 +46,18 @@
 //    Pathfinder::adjustDestination for goal templates with kind byte +0x11F
 //    mask 0x80. After the base onEnter, an owner with a +0x410 group pointer
 //    moves at its AIGroup's speed (rowed AIUpdateInterface::rva002630F5).
+//  - AIMoveToPositionAndEnterState::update, retail 0x00354945 (369
+//    bytes): slot 6 of 0x00C136A0; the base call is the pinned
+//    AIMoveToState::update 0x00353A65, so the class derives from
+//    AIMoveToState. Donor: Open-BFME-1 AIStates.cpp (canEnterObject
+//    refusal, then aiEnter on success, rowed here as
+//    AICommandInterface::rva0026C347). BFME 2 additions: a goal controlled
+//    by another player that holds occupants (contain slot 69) and lies
+//    within 200 of an owner with status 0x5D gets contain slot 32 with the
+//    owner's command source, and keeps the state running; a goal whose
+//    template has kind byte +0x11F bit 0x80 continues in AI states
+//    0x46/0x47 and otherwise fails unless it is in state 0 and the pinned
+//    Pathfinder::getClosestPointOnLand finds land.
 //  - AIMoveToPositionAndEnterState::onExit, retail 0x0034C035 (99 bytes):
 //    slot 5 of 0x00C136A0. When the owner has object status 0x4E, clears it
 //    and status 3, and for a template with kind byte +0x115 mask 0x20 also
@@ -265,6 +277,14 @@ public:
 template <class Base> class AIStateGapSlots<Base, 0> : public Base
 {
 };
+template <class Base, int N> class AIStateGapSlots2 : public AIStateGapSlots2<Base, N - 1>
+{
+public:
+	virtual void tailGap2(char (*)[N]) = 0;
+};
+template <class Base> class AIStateGapSlots2<Base, 0> : public Base
+{
+};
 
 // The interface Object::rva0028C197 returns (opaque): slot 24 and the bool
 // slot 136 are the two AICombineState::onEnter calls.
@@ -283,9 +303,24 @@ class AICommandInterface
 {
 public:
 	void aiIdle(CommandSourceType cmdSource);
+	void rva0026C347(Object *obj, CommandSourceType cmdSource);
 };
 
+enum CanEnterType
+{
+	CHECK_CAPACITY = 0
+};
+
+class BFMEActionManager
+{
+public:
+	Bool canEnterObject(const Object *obj, const Object *objectToEnter, CommandSourceType commandSource,
+		CanEnterType mode, int passThrough, Bool *outFlag);
+};
+extern BFMEActionManager *TheActionManager;
+
 class RadarObject;
+class Player;
 class AIGroup
 {
 public:
@@ -313,6 +348,7 @@ public:
 	void setDesiredSpeed(Real speed);
 	void requestPath(Coord3D *destination, Bool isFinalGoal);
 	RadarObject *rva002630F5();
+	int rva00260DED() const;
 	const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)m_locomotorSet; }
 	void *getPath() const { return m_path; }
 	Bool getBfmeFlag3B1() const { return m_bfmeFlag3B1; }
@@ -375,11 +411,25 @@ struct Coord3D
 	Real Normalize();
 	void scale(Real scale) { x *= scale; y *= scale; z *= scale; }
 	void add(const Coord3D *a) { x += a->x; y += a->y; z += a->z; }
+	Real length() const;
 };
 
 // The contain module's slot 87 hands back the position an entering unit
-// walks to (BFME 1 donor: slot 82, its GetContainedObjectPosition).
-class ContainModuleInterface : public AIStateAISlots<87>
+// walks to (BFME 1 donor: slot 82, its GetContainedObjectPosition). Slot 69
+// is the contain count with one zero argument (as in
+// ScriptConditions_evaluateIsBuildingEmpty.cpp); slot 32 takes a command
+// source and has no evidenced name.
+class ContainModuleSlot32 : public AIStateAISlots<32>
+{
+public:
+	virtual void slot32(CommandSourceType cmdSource) = 0;
+};
+class ContainModuleSlot69 : public AIStateGapSlots<ContainModuleSlot32, 36>
+{
+public:
+	virtual int getContainCount(int extra) const = 0;
+};
+class ContainModuleInterface : public AIStateGapSlots2<ContainModuleSlot69, 17>
 {
 public:
 	virtual const Coord3D *getEnterPosition() = 0;
@@ -411,6 +461,7 @@ public:
 	Bool testBfmeFlag94() const { return (m_bfmeFlags94 & 1) != 0; }
 	void setBfmeAngle1C0(Real angle) { m_bfmeAngle1C0 = angle; }
 	Bool testStatus(ObjectStatusTypes status) const;
+	Player *getControllingPlayer() const;
 	void setStatus(ObjectStatusTypes status, Bool set);
 	void rva00346C53(ObjectStatusTypes status, Bool set);
 	void releaseWeaponLock(WeaponLockType lockType);
@@ -695,11 +746,18 @@ void AIAttackMeleeHordeApproachTargetState::onExit(StateExitType status)
 	}
 }
 
-class AIMoveToPositionAndEnterState : public AIInternalMoveToState
+class AIMoveToState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType update();
+};
+
+class AIMoveToPositionAndEnterState : public AIMoveToState
 {
 public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 };
 
 StateReturnType AIMoveToPositionAndEnterState::onEnter()
@@ -720,6 +778,48 @@ StateReturnType AIMoveToPositionAndEnterState::onEnter()
 		if (group)
 			ai->setDesiredSpeed(group->getSpeed());
 	}
+	return ret;
+}
+
+StateReturnType AIMoveToPositionAndEnterState::update()
+{
+	Object *owner = getMachineOwner();
+	Object *goal = getMachine()->getGoalObject();
+	if (owner->getAI() && !TheActionManager->canEnterObject(owner, goal,
+			owner->getAI()->getLastCommandSource(), CHECK_CAPACITY, 1, 0))
+		return (StateReturnType)STATE_FAILURE;
+
+	AIUpdateInterface *ai = owner->getAI();
+	int count = goal->getContain()->getContainCount(0);
+	Bool otherPlayer = goal->getControllingPlayer() != owner->getControllingPlayer();
+	if (otherPlayer && owner->testStatus(OBJECT_STATUS_BFME_5D) && count > 0)
+	{
+		Coord3D delta;
+		delta.x = goal->getPosition()->x;
+		delta.y = goal->getPosition()->y;
+		delta.z = goal->getPosition()->z;
+		delta.x -= owner->getPosition()->x;
+		delta.y -= owner->getPosition()->y;
+		delta.z -= owner->getPosition()->z;
+		if (delta.length() < 200.0f)
+			goal->getContain()->slot32(ai->getLastCommandSource());
+	}
+
+	StateReturnType ret = AIMoveToState::update();
+	if (goal->getTemplate()->testKindByte11F())
+	{
+		int state = goal->getAI()->rva00260DED();
+		if (state == 0x46 || state == 0x47)
+			return STATE_CONTINUE;
+		Coord3D landPos;
+		Bool onLand = TheAI->pathfinder()->getClosestPointOnLand(goal->getPosition(), goal, &landPos);
+		if (state != 0 || !onLand)
+			return (StateReturnType)STATE_FAILURE;
+	}
+	if (otherPlayer && count > 0)
+		return STATE_CONTINUE;
+	if (ret == STATE_SUCCESS)
+		ai->m_commands.rva0026C347(goal, ai->getLastCommandSource());
 	return ret;
 }
 
