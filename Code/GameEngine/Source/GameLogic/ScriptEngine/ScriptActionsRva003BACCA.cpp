@@ -2,6 +2,11 @@
 // ?Rva003BACCA@@YGXPAVParameter@@@Z @0x003BACCA 75B: free stdcall Parameter* (unused) doing two TacticalView slot 0x5c calls with 2-float structs from g_00BBB9B0/g_00BBB9B4.
 // Evidence: ret 4 unused arg; movss xmm0 [0xBBB9B0]/[0xBBB9B4]; mov ecx [0xDFEA3C TheTacticalView]; lea edx [ebp-8]; movss [ebp-8]/[ebp-4] xmm0; mov eax [ecx]; push edx; call [eax+0x5c] twice; caller 0x003CAD58 in ScriptActions dispatch.
 
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+
+class AsciiString;
+struct CameraMarker;
+
 extern float g_00BBB9B0;
 extern float g_00BBB9B4;
 
@@ -38,7 +43,8 @@ public:
 	virtual void s21();
 	virtual void s22();
 	virtual void s023(const Rva003BACCAPoint &p);
-	virtual void s24();
+	virtual void s24(const Coord3D *position, CameraMarker *marker,
+		int milliseconds, int enabled, float a, float b);
 	virtual void s25(void *record, int milliseconds, int enabled,
 		float a, float b, float c, int mode);
 	virtual void s26();
@@ -92,6 +98,7 @@ struct Rva003BB0C7Record
 	int type;
 };
 
+template <class Arg>
 class Rva003BB05FTerrain
 {
 public:
@@ -129,7 +136,7 @@ public:
 	virtual void s31() = 0;
 	virtual void s32() = 0;
 	virtual void s33() = 0;
-	virtual char *s34(int index) = 0;
+	virtual char *s34(Arg argument) = 0;
 	virtual void s35() = 0;
 	virtual void s36() = 0;
 	virtual Rva003BB0C7Record *s37(int index) = 0;
@@ -144,6 +151,26 @@ public:
 	Object *getUnitNamed(Parameter *);
 };
 extern ScriptEngine *TheScriptEngine;
+
+// Existing descriptive owner of the rowed 0x0025F385 lookup. Its original
+// EA class name is unresolved; the emitted ABI uses struct CameraMarker.
+class CameraMarkerList
+{
+public:
+	CameraMarker *find(const AsciiString &name) const;
+};
+
+struct Rva003BAAE4TerrainPosition
+{
+	unsigned char pad[12];
+	Coord3D position;
+};
+
+struct Rva003BAAE4MarkerPosition
+{
+	unsigned char pad[8];
+	Coord3D position;
+};
 
 // Only the ObjectID word read by the native caller is needed here.
 struct Rva003BAFE8Object
@@ -233,7 +260,7 @@ void __stdcall Rva003BAFE8(Parameter *p, float a1, float a2,
 // the final integer unchanged. The scale literal is retail 1000.0f.
 void __stdcall Rva003BB05FSet(int a1, float a2, float a3, float a4, int a5)
 {
-	char *record = reinterpret_cast<Rva003BB05FTerrain *>(TheTerrainLogic)->s34(a1);
+	char *record = reinterpret_cast<Rva003BB05FTerrain<int> *>(TheTerrainLogic)->s34(a1);
 	if (record)
 	{
 		reinterpret_cast<TacticalView *>(TheTacticalView)->s53(
@@ -250,11 +277,34 @@ void __stdcall Rva003BB0C7Set(int a1, float a2, int a3,
 	float a4, float a5, float a6, int a7)
 {
 	Rva003BB0C7Record *record =
-		reinterpret_cast<Rva003BB05FTerrain *>(TheTerrainLogic)->s37(a1);
+		reinterpret_cast<Rva003BB05FTerrain<int> *>(TheTerrainLogic)->s37(a1);
 	if (record && record->type == 6)
 	{
 		reinterpret_cast<TacticalView *>(TheTacticalView)->s25(
 			record, (int)(a2 * 1000.0f), 1,
 			a4 * 1000.0f, a5 * 1000.0f, a6 * 1000.0f, a7);
 	}
+}
+
+// Retail 0x003BAAE4..0x003BAB7A, RET20. Caller 0x003CAB7A passes the
+// Parameter's string at +0x10. Terrain slot 34 and the rowed marker lookup
+// resolve that same name. A marker's +8 position overrides terrain's +12
+// position; View slot 24 takes the copy, marker and scaled arguments.
+// Argument a2 is unused. Original action and virtual-method names unknown.
+void __stdcall Rva003BAAE4(const AsciiString &name,
+	float a1, float a2, float a3, float a4)
+{
+	char *terrain =
+		reinterpret_cast<Rva003BB05FTerrain<const AsciiString &> *>(TheTerrainLogic)->s34(name);
+	CameraMarker *marker = reinterpret_cast<CameraMarkerList *>(TheTacticalView)->find(name);
+	if (!terrain && !marker)
+		return;
+	Coord3D position;
+	if (terrain)
+		position = reinterpret_cast<Rva003BAAE4TerrainPosition *>(terrain)->position;
+	if (marker)
+		position = reinterpret_cast<Rva003BAAE4MarkerPosition *>(marker)->position;
+	reinterpret_cast<TacticalView *>(TheTacticalView)->s24(
+		&position, marker, (int)(a1 * 1000.0f), 1,
+		a3 * 1000.0f, a4 * 1000.0f);
 }
