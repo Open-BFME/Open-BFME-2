@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
 // stlport
 //
 // Two STLport sorts over 4-byte values compared through a function pointer:
@@ -62,4 +62,21 @@ Rva002195E6::Rva002195E6()
 	  group48(0.3f, 0.2f, 50.0f, 30.0f),
 	  value60(0.5f), value64(0.0f), word68(0)
 {
+}
+
+// Native 21BBDC..21BBF2 and 21BBF2..21BC08 are complete cdecl22B
+// equality predicates. Each passes the record's +8 one-pointer string to
+// the rowed StringBase<char>::compare at69D6 and returns comparison==0.
+// The mirrored argument order is independently read from each body.
+// Record identity and its other fields remain unknown; this view consumes
+// only the independently typed string. Callers test the result in AL.
+#include "ascii_string.h"
+bool Rva0021BBDCEqual(const void *record, const AsciiString &key)
+{
+    return ((const AsciiString *)((const char *)record + 8))->compare(key) == 0;
+}
+
+bool Rva0021BBF2Equal(const AsciiString &key, const void *record)
+{
+    return ((const AsciiString *)((const char *)record + 8))->compare(key) == 0;
 }
