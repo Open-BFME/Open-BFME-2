@@ -22,12 +22,17 @@ public:
 	void rva003BBAD3();
 };
 
-class W3DTerrainVisual
+class TerrainVisual
 {
 public:
 	virtual void removeAllBibs();
 };
-extern W3DTerrainVisual *TheTerrainVisual;
+class W3DTerrainVisual : public TerrainVisual
+{
+public:
+	virtual void removeAllBibs();
+};
+extern TerrainVisual *TheTerrainVisual;	// defined in GameClient.cpp
 
 class Rva00E02D6C
 {
@@ -66,7 +71,7 @@ void Rva003BD598::rva003BD598()
 	TheGameLogic->rva00376D49();
 	((Rva003BBAD3 *)this)->rva003BBAD3();
 	if (TheTerrainVisual != 0)
-		TheTerrainVisual->W3DTerrainVisual::removeAllBibs();
+		static_cast<W3DTerrainVisual *>(TheTerrainVisual)->W3DTerrainVisual::removeAllBibs();
 	TheCampaignManager->m_flag2D = true;
 	TheImmSetter->apply();
 	TheHeroManager->rva0021A54A();

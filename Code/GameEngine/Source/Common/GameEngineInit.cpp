@@ -231,7 +231,7 @@ extern class Rva003EF328 *g_00E02E60;
 extern class LivingWorldManager *TheLivingWorldManager;
 extern class LivingWorldLogic *TheLivingWorldLogic;
 extern class ClientFrameSubsystem *TheGameClient;
-extern class W3DTerrainVisual *TheTerrainVisual;
+extern class TerrainVisual *TheTerrainVisual;	// defined in GameClient.cpp
 extern AI *TheAI;
 extern AerialPathfinder *TheAerialPathfinder;
 extern Rva0022B3F6Subsystem *TheSplineService;

@@ -256,8 +256,8 @@ class Rva001EB0B1Holder
 public:
 	void rva001EB0B1();
 };
-class W3DTerrainVisual;
-extern W3DTerrainVisual *TheTerrainVisual;
+class TerrainVisual;
+extern TerrainVisual *TheTerrainVisual;	// defined in GameClient.cpp
 
 // The living-world host (0x009FEF18): a war of the ring game.
 class Rva002D3627Host;
