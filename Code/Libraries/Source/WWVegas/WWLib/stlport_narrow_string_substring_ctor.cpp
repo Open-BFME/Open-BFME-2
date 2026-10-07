@@ -49,3 +49,11 @@ void bfmeEmitSubstringCtor(void *storage, const _STL::string &source,
 {
     new (storage) _STL::string(source, pos, count, allocator);
 }
+
+// STLport 4.5.3 _string.h template const-pointer range constructor.
+// Target 0x0002A590..0x0002A60D: three zeroed string pointers,
+// integer-dispatch tag, const-char initializer 0x000078C0, RET12.
+// Shares the substring constructor's verified range-helper adaptation.
+namespace _STL {
+template string::basic_string(const char *, const char *, const allocator<char> &);
+}
