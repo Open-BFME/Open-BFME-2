@@ -130,18 +130,7 @@ private:
 	AsciiString m_side;
 };
 
-class ControlBarSchemeManager
-{
-public:
-	void setControlBarSchemeByPlayerTemplate(const PlayerTemplate *pt, bool useSmall);
-	void setControlBarSchemeByPlayer(Player *p);
-	ControlBarScheme *findControlBarScheme(AsciiString name);
-private:
-	ControlBarScheme *m_currentScheme;
-	Coord2D m_multiplyer;
-	typedef std::list<ControlBarScheme *> ControlBarSchemeList;
-	ControlBarSchemeList m_schemeList;
-};
+#include "ControlBarSchemeManagerView.h"
 
 void ControlBarSchemeManager::setControlBarSchemeByPlayerTemplate(const PlayerTemplate *pt, bool useSmall)
 {

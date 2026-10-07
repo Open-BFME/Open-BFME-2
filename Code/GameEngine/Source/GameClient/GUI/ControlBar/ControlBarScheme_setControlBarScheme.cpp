@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // stlport
-// ?setControlBarScheme@ControlBarSchemeManager@@QAEXVAsciiString@@@Z @0x0031FC6A 163B
-// Evidence: BFME1 donor ControlBarScheme.cpp ControlBarSchemeManager::setControlBarScheme(AsciiString) (find + Display w/h over res + store + init, no assert in retail); caller at 0x0031BA80 passes ControlBar+0x44; callee findControlBarScheme AsciiString pin 7520 at 0x0031FC08 (ICF alias onto StringBase row) + init row 0x0031ED2C + TheDisplay; layout m_currentScheme+0 m_multiplyer+4 list+0xC from setControlBarSchemeByPlayerTemplate TU; shape-lever AsciiString inline forwarder fixes mov-ecx-esp transposition.
+// ?setControlBarScheme@ControlBarSchemeManager@@QAEXVAsciiString@@@Z @0x0031FC6A 162B
+// Evidence: BFME1 donor ControlBarScheme.cpp ControlBarSchemeManager::setControlBarScheme(AsciiString) (find + Display w/h over res + store + init, no assert in retail); caller at 0x0031BA80 passes ControlBar+0x44; callee findControlBarScheme typed AsciiString lookup at 0x0031FC08 + init row 0x0031ED2C + TheDisplay; layout m_currentScheme+0 m_multiplyer+4 list+0xC from setControlBarSchemeByPlayerTemplate TU; shape-lever AsciiString inline forwarder fixes mov-ecx-esp transposition.
 #include <list>
 #include "ascii_string.h"
 
@@ -47,17 +47,7 @@ public:
 
 extern Display *TheDisplay;
 
-class ControlBarSchemeManager
-{
-public:
-	void setControlBarScheme(AsciiString schemeName);
-	ControlBarScheme *findControlBarScheme(AsciiString name);
-private:
-	ControlBarScheme *m_currentScheme;
-	Coord2D m_multiplyer;
-	typedef std::list<ControlBarScheme *> ControlBarSchemeList;
-	ControlBarSchemeList m_schemeList;
-};
+#include "ControlBarSchemeManagerView.h"
 
 void ControlBarSchemeManager::setControlBarScheme(AsciiString schemeName)
 {
