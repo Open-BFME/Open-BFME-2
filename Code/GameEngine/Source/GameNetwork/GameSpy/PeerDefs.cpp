@@ -52,7 +52,26 @@ class Rva00072FE6 { public: void rva00072FE6(void); };
 class PSPlayerAllStats { public: void rva00552CB8(void); };
 
 class GameWindow;
-class GameSpyGroupRoom;
+
+// Retail spells the 0x20-byte group-room record's out-of-line copy ctor
+// (0x00382444) and dtor (0x0038240F) as AsciiUnicodePair; ZH's
+// GameSpyGroupRoom fields plus BFME 2's trailing room type.
+struct AsciiUnicodePair
+{
+	AsciiString m_name;
+	UnicodeString m_translatedName;
+	Int m_groupID;
+	Int m_numWaiting;
+	Int m_maxWaiting;
+	Int m_numGames;
+	Int m_numPlaying;
+	Int m_roomType;
+	AsciiUnicodePair(const AsciiUnicodePair &other);
+};
+
+class GameSpyGroupRoom : public AsciiUnicodePair
+{
+};
 class BuddyInfo {};
 
 struct BfmeOpaqueOwnedRecord492
@@ -243,6 +262,72 @@ public:
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
+class GameTextInterface
+{
+public:
+	virtual void slot00(void) = 0;
+	virtual void slot01(void) = 0;
+	virtual void slot02(void) = 0;
+	virtual void slot03(void) = 0;
+	virtual void slot04(void) = 0;
+	virtual void slot05(void) = 0;
+	virtual void slot06(void) = 0;
+	virtual void slot07(void) = 0;
+	virtual void slot08(void) = 0;
+	virtual void slot09(void) = 0;
+	virtual void slot10(void) = 0;
+	virtual void slot11(void) = 0;
+	virtual void slot12(void) = 0;
+	virtual void slot13(void) = 0;
+	virtual void slot14(void) = 0;
+	virtual UnicodeString fetch(const char *label, Bool *exists = 0) = 0;
+};
+
+extern GameTextInterface *TheGameText;
+
+class GameSpyConfigInterface
+{
+public:
+	virtual void slot00(void) = 0;
+	virtual void slot01(void) = 0;
+	virtual void slot02(void) = 0;
+	virtual void slot03(void) = 0;
+	virtual void slot04(void) = 0;
+	virtual void slot05(void) = 0;
+	virtual void slot06(void) = 0;
+	virtual void slot07(void) = 0;
+	virtual Int getQMChannel(void) = 0;
+};
+
+extern GameSpyConfigInterface *TheGameSpyConfig;
+
+// CustomPref<id>.ini preferences for a game mode (0 Rts, 1 Strat); the lobby
+// room getter is spelled on its GameModePreferences base.
+class Rva0054F508
+{
+public:
+	Rva0054F508(Int mode);
+	virtual ~Rva0054F508();
+private:
+	unsigned char m_body[0x18];
+};
+
+class GameModePreferences
+{
+public:
+	Int rva0054F5A4(void);
+};
+
+// Lobby room IDs recorded by addGroupRoom from the GUI:LobbyRoom<n> labels.
+extern Int g_lobbyRoom2ID;		// 0x00E02328
+extern Int g_lobbyRoom9ID;		// 0x00E0232C
+extern Int g_lobbyRoom1ID;		// 0x00E02330
+extern Int g_lobbyRoom6ID;		// 0x00E02334
+extern Int g_lobbyRoom1IDAlt;	// 0x00E02338
+
+typedef void (*GameWinMsgBoxFunc)(void);
+void GSMessageBoxOk(UnicodeString title, UnicodeString message, GameWinMsgBoxFunc okFunc = 0);
+
 class GameSpyInfo
 {
 public:
@@ -257,8 +342,8 @@ public:
 	virtual void joinGroupRoom(Int groupID);
 	virtual void leaveGroupRoom(void);
 	virtual void rva003854C5(void);
-	virtual void slot09(void);
-	virtual void slot10(void);
+	virtual void joinBestGroupRoom(Int roomType);
+	virtual void joinPreferredGroupRoom(Bool unusedFlag, Int roomType);
 	virtual void setCurrentGroupRoom(Int groupID);
 	virtual Int getCurrentGroupRoom(void);
 	virtual void rva00386139(AsciiString value);
@@ -728,6 +813,106 @@ void GameSpyInfo::rva003854C5(void)
 	TheGameSpyPeerMessageQueue->addRequest(req);
 	setCurrentGroupRoom(0);
 	m_playerInfoMap.clear();
+}
+
+// ?joinPreferredGroupRoom@GameSpyInfo@@UAEX_NH@Z @0x0038553D 315B
+// Joins the lobby room for a room type: types 1 and 2 use the room saved in
+// that mode's custom-match preferences, falling back to a GUI:LobbyRoom ID.
+// The flag (1 from the caller at 0x00516F08) is never read.
+void GameSpyInfo::joinPreferredGroupRoom(Bool unusedFlag, Int roomType)
+{
+	Int groupID;
+	switch (roomType)
+	{
+	case 1:
+		{
+			Rva0054F508 pref(0);
+			groupID = ((GameModePreferences *)&pref)->rva0054F5A4();
+			if (groupID <= 0)
+				groupID = g_lobbyRoom2ID;
+		}
+		break;
+	case 2:
+		{
+			Rva0054F508 pref(1);
+			groupID = ((GameModePreferences *)&pref)->rva0054F5A4();
+			if (groupID <= 0)
+				groupID = g_lobbyRoom9ID;
+		}
+		break;
+	case 3:
+		groupID = g_lobbyRoom6ID;
+		break;
+	case 4:
+		groupID = g_lobbyRoom1ID;
+		break;
+	case 5:
+		groupID = g_lobbyRoom1IDAlt;
+		break;
+	default:
+		return;
+	}
+
+	if (groupID > 0)
+	{
+		BfmeOpaqueOwnedRecord492 req;
+		*(Int *)req.bytes = 4;
+		*(Int *)(req.bytes + 0x118) = groupID;
+		TheGameSpyPeerMessageQueue->addRequest(req);
+		m_playerInfoMap.clear();
+	}
+	else
+	{
+		GSMessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("GUI:GSGroupRoomJoinFail"), 0);
+	}
+}
+
+// ?joinBestGroupRoom@GameSpyInfo@@UAEXH@Z @0x00385678 371B
+// ZH's joinBestGroupRoom, filtered to rooms of the requested type; the bail-out
+// tests the per-type current room (+0x64 for type 2, else +0x68).
+// ?joinBestGroupRoom@GameSpyInfo@@UAEXH@Z present-unmatched
+void GameSpyInfo::joinBestGroupRoom(Int roomType)
+{
+	if ((roomType == 2 ? m_unk0064 : m_unk0068) != 0)
+	{
+		m_currentGroupRoomID = 0;
+		return;
+	}
+
+	if (m_groupRooms.size())
+	{
+		Int minID = -1;
+		Int minPlayers = 1000;
+		GroupRoomMap::iterator iter = m_groupRooms.begin();
+		while (iter != m_groupRooms.end())
+		{
+			AsciiUnicodePair room = iter->second;
+			if (TheGameSpyConfig->getQMChannel() != room.m_groupID && minPlayers > 25
+				&& room.m_numWaiting < minPlayers && room.m_roomType == roomType)
+			{
+				minID = room.m_groupID;
+				minPlayers = room.m_numWaiting;
+			}
+			++iter;
+		}
+
+		if (minID > 0)
+		{
+			BfmeOpaqueOwnedRecord492 req;
+			*(Int *)req.bytes = 4;
+			*(Int *)(req.bytes + 0x118) = minID;
+			TheGameSpyPeerMessageQueue->addRequest(req);
+			m_playerInfoMap.clear();
+		}
+		else
+		{
+			GSMessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("GUI:GSGroupRoomJoinFail"), 0);
+		}
+	}
+	else
+	{
+		GSMessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("GUI:GSGroupRoomJoinFail"), 0);
+	}
 }
 
 // ?leaveStagingRoom@GameSpyInfo@@UAEXXZ @0x003858DF 119B
