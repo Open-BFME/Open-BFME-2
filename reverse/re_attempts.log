@@ -17061,3 +17061,6 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?rva002ED484@Rva002ED484@@QAEPAV1@HPAVObject@@HPBUCoord3D@@1MH@Z	0x002ED484	177	partial	store order and movss plus setne remain t=15 model=muse-12 score=0.93 stash=reverse/attempts/0x002ed484.cpp
 ?rva002ED484@Rva002ED484@@QAEPAV1@HPAVObject@@HPBUCoord3D@@1MH@Z	0x002ED484	177	partial	store order and movss plus inner setne remain t=25 model=muse-12 score=0.95 stash=reverse/attempts/0x002ed484.cpp
 ?rva00180274@Gen_dtor_00970f60@@UAEXXZ	0x00180274	248	blocked	EH __EH_prolog cookie vs EHsc frame plus 0x10 stack layout delta and size plus35 t=10 model=muse-12
+?addSkillPointsForDamage@Player@@QAE_NPAVObject@@PBV2@M@Z	0x002AA5E1	253	blocked	false-reject find_declared_unmatched: ledger row present in index and disk and obj defines same mangled and align_diff exact with only relocs t=12 model=muse-03
+?rva000B3348@Rva000B3348@@QAEXPAX@Z	0x000B3348	326	blocked	EH prolog with unclaimed handler 0x761516 and 124-slot vtable 0x1EC and unknown class with unclaimed callers and pin ambiguity int vs Matrix3D t=8 model=muse-03
+?read_Rva0018AF70@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z	0x0018AF70	269	partial	ebp holds context not cload prologue ecx-early vector-Add exact t=25 model=muse-03 score=0.93 stash=reverse/attempts/0x0018af70.cpp

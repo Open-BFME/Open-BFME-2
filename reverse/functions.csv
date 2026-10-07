@@ -67556,3 +67556,4 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva00365304@Rva00365304@@QAEXXZ,,0x00365304,5,Code/GameEngine/Source/GameLogic/AI/PathDtor.cpp,matched,
 ?rva0037314E@Rva0037314E@@QAEXXZ,,0x0037314E,5,Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourPoolKey.cpp,matched,
 ?rva00373153@Rva00373153@@QAEXXZ,,0x00373153,5,Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourPoolKey.cpp,matched,
+?rva000E58BE@Rva000E58BE@@QAEXXZ,,0x000E58BE,205,Code/GameEngine/Source/Common/Rva000E58BE.cpp,matched,caller 0x000E5AAD unclaimed neighbor Rva000E585F locks rowed list at plus0x18
