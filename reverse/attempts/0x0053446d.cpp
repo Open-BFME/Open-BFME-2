@@ -1,6 +1,8 @@
 // ?rva0053446D@Rva0053446D@@QAEPAHPAH@Z
+// partial score=0.93 date=2026-10-07
+// ?rva0053446D@Rva0053446D@@QAEPAHPAH@Z
 // partial score=0.9 date=2026-10-07
-// cl: /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /O1 /arch:SSE /G7 /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 #include <map>
 
@@ -20,7 +22,6 @@ private:
 	_STL::map<int, void *> m_map04;
 };
 
-// ?rva0053446D@Rva0053446D@@QAEPAHPAH@Z present-unmatched
 int *Rva0053446D::rva0053446D(int *coordinates)
 {
 	struct Tile
@@ -32,14 +33,19 @@ int *Rva0053446D::rva0053446D(int *coordinates)
 
 	*(int *)(void *)&coordinates = tile.x;
 	_STL::map<int, void *>::iterator outer = m_map04.find(*(int *)(void *)&coordinates);
-	if (outer == m_map04.end())
-		return (int *)-1;
-
-	register int y = tile.y;
-	_STL::map<int, void *> &inner = *(_STL::map<int, void *> *)&outer->second;
-	*(int *)(void *)&coordinates = y;
-	_STL::map<int, void *>::iterator value = inner.find(*(int *)(void *)&coordinates);
-	if (value == inner.end())
-		return (int *)-1;
-	return (int *)value->second;
+	switch (outer == m_map04.end()) {
+	case false:
+	{
+		int y = tile.y;
+		_STL::map<int, void *> &inner = *(_STL::map<int, void *> *)&outer->second;
+		*(int *)(void *)&coordinates = y;
+		_STL::map<int, void *>::iterator value = inner.find(*(int *)(void *)&coordinates);
+		if (value != inner.end())
+			return (int *)value->second;
+		break;
+	}
+	default:
+		break;
+	}
+	return (int *)-1;
 }
