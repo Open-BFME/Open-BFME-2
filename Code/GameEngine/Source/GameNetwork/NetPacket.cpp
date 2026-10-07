@@ -390,6 +390,7 @@ protected:
 	static UnsignedInt GetBufferSizeNeededForCommand(NetCommandMsg *msg);
 	static void FillBufferWithGameCommand(UnsignedByte *buffer, NetCommandRef *ref);
 	static void FillBufferWithAckCommand(UnsignedByte *buffer, NetCommandRef *msg);
+	static void FillBufferWithKeepAliveCommand(UnsignedByte *buffer, NetCommandRef *msg);
 	// Fixed-size arms of GetBufferSizeNeededForCommand, by command type; the
 	// constants are the ones retail's jump table returns.
 	static UnsignedInt GetType0CommandSize(NetCommandMsg *msg) { return 0x10; }
@@ -1481,6 +1482,41 @@ void NetPacket::FillBufferWithAckCommand(UnsignedByte *buffer, NetCommandRef *ms
 	offset += sizeof(UnsignedInt);
 	memcpy(buffer + offset, &ackValue24, sizeof(UnsignedInt));
 	offset += sizeof(UnsignedInt);
+}
+
+// ?FillBufferWithKeepAliveCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058CACA, 93 bytes:
+// the BFME1 donor's FillBufferWithKeepAliveCommand (NetPacket.cpp) plus BFME's
+// 'S' timestamp field after the relay. FillBufferWithCommand reaches it from
+// its type-12 arm; the type-25 arm calls the same (ICF-folded) body.
+void NetPacket::FillBufferWithKeepAliveCommand(UnsignedByte *buffer, NetCommandRef *msg)
+{
+	NetCommandMsg *cmdMsg = msg->getCommand();
+	UnsignedShort offset = 0;
+
+	buffer[offset] = 'T';
+	++offset;
+	buffer[offset] = cmdMsg->getNetCommandType();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'R';
+	++offset;
+	UnsignedByte newRelay = msg->getRelay();
+	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'S';
+	++offset;
+	UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+	memcpy(buffer + offset, &newTimestamp, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'P';
+	++offset;
+	buffer[offset] = cmdMsg->getPlayerID();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'D';
+	++offset;
 }
 
 // ?FillBufferWithGameCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058C488, 696 bytes:
