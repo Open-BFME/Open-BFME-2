@@ -15567,3 +15567,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva002ACD09@Player@@QAEXPAVRva004B5A65Owner@@H@Z,0x002ACD09,Player worker called by secondary remove 0x004B5B4C (and primary 0x004B5AC0); remove path with owner and target int
 ?rva006291AE@@YAXHHH@Z,0x006291AE,cdecl void(int;int;int) for 0x004BD97A first call (&tmp;0;4); caller-cleans
 ?helper@Rva004BD97AArg@@QAEXH@Z,0x002CF0F0,thiscall void(int) for 0x004BD97A second call (this=arg; &tmp); callee-cleans
+?rva002B3325@Rva002B3325@@QAE_NPAUArg54@@0@Z,0x002B3325,bool check on the 0x00DFEF10 global taking sub-view plus element field; same 2-arg shape as rowed 0x002B2672; called from 0x004FAE34 per 0x58-stride element
