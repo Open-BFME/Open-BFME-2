@@ -55,6 +55,7 @@ public:
 	void set(const StringBase<T> &other);
 	void trim(void);
 	Bool nextToken(StringBase *token, const char *seps);
+	void concat(const StringBase<T> &other);
 
 protected:
 	BfmeStringData<T> *m_data;
@@ -224,13 +225,23 @@ public:
 };
 
 // TheSkirmishGameInfo (0x00E02EF0) and its rowed getMap.
+class GameSlot
+{
+public:
+	char m_pad[0x5C];
+	int m_heroIndex5C;
+};
+
 class GameInfo
 {
 public:
 	AsciiString getMap() const;
+	GameSlot *getSlot(int index);
 };
 
 extern GameInfo *TheSkirmishGameInfo;
+
+AsciiString GameInfoToAsciiString(const GameInfo *info, bool flag);
 
 class SkirmishPreferences : public UserPreferences
 {
@@ -459,4 +470,32 @@ void SkirmishPreferences::rva0043BE7C(void)
 		return;
 	Rva0043BE36(TheSkirmishGameInfo->getMap());
 	rva0043BD36();
+}
+
+// ?rva0043BD36@SkirmishPreferences@@QAEXXZ @0x0043BD36 256B.
+// Keeps the skirmish map plus 8 hero indexes in the preferences: writes the
+// GameInfo string under the GameInfo profile key, then accumulates "%d:"
+// slot values and writes them under HeroIndexes. Evidence: pin
+// ?rva0043BD36@SkirmishPreferences@@QAEXXZ; caller 0x0043BEB7 in
+// rva0043BE7C; rowed GameInfoToAsciiString 0x00400AF8 plus buildProfileKey
+// 0x0043BB6A plus setAsciiString slot 0x30 plus getSlot 0x003FF29F plus
+// format 0x00038150 plus concat 0x00006987 plus releaseBuffer 0x00036410;
+// TheSkirmishGameInfo 0x00A02EF0; strings GameInfo HeroIndexes %d:.
+void SkirmishPreferences::rva0043BD36(void)
+{
+	if (!TheSkirmishGameInfo)
+		return;
+	AsciiString gameInfoValue = GameInfoToAsciiString(TheSkirmishGameInfo, true);
+	setAsciiString(buildProfileKey("GameInfo"), gameInfoValue);
+	gameInfoValue.set(":");
+	AsciiString num;
+	for (unsigned int i = 0; i < 8; ++i) {
+		GameSlot *slot = TheSkirmishGameInfo->getSlot(i);
+		int v = -1;
+		if (slot)
+			v = slot->m_heroIndex5C;
+		num.format("%d:", v);
+		((StringBase<char> *)&gameInfoValue)->concat(*(StringBase<char> *)&num);
+	}
+	setAsciiString(buildProfileKey("HeroIndexes"), gameInfoValue);
 }
