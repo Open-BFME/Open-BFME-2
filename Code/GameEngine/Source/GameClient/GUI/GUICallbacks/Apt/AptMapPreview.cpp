@@ -254,6 +254,7 @@ struct Rva0057D4F3CampaignInfo
 {
 	int m_00;
 	AsciiString m_label;		// +0x04, passed to TheGameText->fetch
+	AsciiString m_description;	// +0x08, likewise
 };
 
 struct Rva0057D4F3Campaign
@@ -269,6 +270,7 @@ class Rva003B8BAA
 {
 public:
 	void rva003B92B9(_STL::vector<const ModuleData *> *out);
+	void *rva003B8BF9(int index);	// the campaign at an index
 };
 
 class Image;
@@ -301,6 +303,10 @@ void GadgetListBoxReset(GameWindow *listbox);
 int Rva00326CF0AddLines(GameWindow *listbox, UnicodeString text, int color, int row, int column, bool overwrite);
 void GadgetListBoxSetTopVisibleEntry(GameWindow *window, int newPos);
 void GadgetButtonSetText(GameWindow *button, UnicodeString text);
+int GadgetListBoxGetNumEntries(GameWindow *listbox);
+UnicodeString GadgetListBoxGetText(GameWindow *listbox, int row, int column);
+int GadgetListBoxAddEntryText(GameWindow *listbox, UnicodeString text, int color, int row, int column, bool overwrite);
+void GadgetListBoxJustifyEntry(GameWindow *listbox, int row, int column, int justification);
 
 
 // The map picture; the preview deletes one it owns through the virtual
@@ -433,6 +439,9 @@ struct Rva0057DA21Waypoint
 class MapMetaData
 {
 public:
+	UnicodeString getDescription();		// 0x003009CD
+	UnicodeString bfme_getBaseDisplayName();	// 0x00300AEA
+
 	UnicodeString m_displayName;	// +0x00
 	unsigned char m_pad04[0x20 - 0x4];
 	Int m_numPlayers;	// +0x20
@@ -1168,4 +1177,64 @@ MapMetaData *AptMapPreview::rva0057D922(const AsciiString &map)
 	m_defaultMap->m_f8 = name;
 	m_defaultMap->m_fileName = map;
 	return m_defaultMap;
+}
+
+// AptMapPreview::rva0057D19A, retail 0x0057D19A (852 bytes). Name unknown.
+// Fills the map info list box unless it already shows this map's
+// description: a campaign's name and description (strategic mode) or the
+// map's base display name and description, then "Free For All" as the
+// lobby game type; no map blanks both texts.
+// retail stores no EH state around the comparison: string_base.cpp's
+// specialization is nonthrowing, as AsciiString's compare is.
+template <>
+int StringBase<unsigned short>::compare(const StringBase<unsigned short> &str) const throw();
+
+void AptMapPreview::rva0057D19A(MapMetaData *map)
+{
+	if (m_mapInfo == 0)
+		return;
+	if (map != 0 && GadgetListBoxGetNumEntries(m_mapInfo) > 0 && map->getDescription().compare(GadgetListBoxGetText(m_mapInfo, 0, 0)) == 0)
+		return;
+	GadgetListBoxReset(m_mapInfo);
+	if (map != 0)
+	{
+		m_mapInfo->winEnable(true);
+		Int index = -1;
+		if (m_mode == 1)
+		{
+			GameInfo *info = (GameInfo *)m_18->rva0043DA65();
+			if (info == 0)
+				return;
+			Int campaignIndex = info->m_campaign;
+			if (campaignIndex >= 0)
+			{
+				Rva0057D4F3CampaignInfo *campaign = ((Rva0057D4F3Campaign *)((Rva003B8BAA *)TheCampaignManager)->rva003B8BF9(campaignIndex))->m_info;
+				UnicodeString name;
+				UnicodeString description;
+				if (campaign != 0)
+				{
+					name = TheGameText->fetch(campaign->m_label);
+					description = TheGameText->fetch(campaign->m_description);
+				}
+				g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:CurrentMapName"), name, false);
+				index = GadgetListBoxAddEntryText(m_mapInfo, description, -1, -1, -1, true);
+			}
+		}
+		else
+		{
+			{
+				AsciiString key("APT:CurrentMapName");
+				g_bfmeAptWindowManager->bfmeSetText(key, map->bfme_getBaseDisplayName(), false);
+			}
+			index = GadgetListBoxAddEntryText(m_mapInfo, map->getDescription(), -1, -1, -1, true);
+		}
+		if (index >= 0)
+			GadgetListBoxJustifyEntry(m_mapInfo, index, 0, 2);
+		g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:LobbyGameType"), UnicodeString(L"Free For All"), false);
+	}
+	else
+	{
+		g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:CurrentMapName"), UnicodeString(L" "), false);
+		g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:LobbyGameType"), UnicodeString(L" "), false);
+	}
 }
