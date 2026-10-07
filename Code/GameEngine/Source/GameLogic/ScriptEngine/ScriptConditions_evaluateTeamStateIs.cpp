@@ -101,6 +101,15 @@
 // tests each listed template, found with findTemplate on the pinned
 // getNthInList 0x002041AC result, against ThingTemplate+0x618 (the cost the
 // rowed 0x002A7557 adds to the points in use).
+//
+// ?evaluatePlayerHasKilledTypeUnits@ScriptConditions@@IAE_NPAVParameter@@00@Z @ 0x003E82E2 205B
+// BFME 1 donor: ScriptConditionsPlayerHasKilledTypeUnits.cpp, same name and
+// shape. Target evidence: jump-table case 129 calls 0x003E82E2, which
+// initConditionTemplates names PLAYER_HAS_KILLED_TYPE_UNITS. The first
+// player of the mask supplies the kill records at Player+0x3BC; a named
+// ObjectTypes list (rowed ScriptEngine::getObjectTypes 0x00357651) sums the
+// rowed 0x0039C0F4 count over getNthInList, otherwise the raw type name is
+// counted, and the total is compared with the count parameter's getInt.
 #include <vector>
 #include "ascii_string.h"
 
@@ -261,6 +270,17 @@ class Rva002A7461
 {
 public:
 	int rva002A7548(int);
+private:
+	unsigned char m_pad00[0x08];
+	int m_used; // +0x08
+};
+
+// Player+0x3BC; 0x0039C0F4 sums its per-type kill records whose name
+// matches (the rowed Rva0039C0F4Sum unit).
+class Rva0039C0F4
+{
+public:
+	int rva0039C0F4(const AsciiString &objectType);
 };
 
 class Player
@@ -268,12 +288,15 @@ class Player
 public:
 	int getPlayerIndex() const { return m_playerIndex; }
 	Rva002A7461 *getCommandPoints() { return &m_commandPoints; }
+	Rva0039C0F4 *getKills() { return &m_kills; }
 	void countObjectsByThingTemplate(int numThingTemplates, const ThingTemplate *const *things, bool ignoreDead, int *counts, bool ignoreUnderConstruction) const;
 private:
 	unsigned char m_pad00[0x54];
 	int m_playerIndex; // +0x54
 	unsigned char m_pad58[0x60 - 0x58];
 	Rva002A7461 m_commandPoints; // +0x60
+	unsigned char m_pad6C[0x3BC - 0x6C];
+	Rva0039C0F4 m_kills; // +0x3BC
 };
 
 class ThingFactory
@@ -355,6 +378,7 @@ public:
 	Team *getTeamNamed(AsciiString, bool);
 	Object *getUnitNamed(Parameter *pUnitParm);
 	int rva00357B82(Parameter *pPlayerParm);
+	ObjectTypes *getObjectTypes(const AsciiString &objectTypeList);
 	unsigned int getFrameObjectCountChanged() const { return m_frameObjectCountChanged; }
 	int getObjectCount(int playerIndex, const AsciiString &objectTypeName) const;
 	void setObjectCount(int playerIndex, const AsciiString &objectTypeName, int newCount);
@@ -380,6 +404,7 @@ protected:
 	bool evaluatePlayerLostObjectType(Parameter *, Parameter *);
 	bool evaluateNamedDestroyedByType(Parameter *, Parameter *);
 	bool evaluateHasCommandPointsToBuildUnit(Parameter *, Parameter *);
+	bool evaluatePlayerHasKilledTypeUnits(Parameter *, Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -703,6 +728,28 @@ bool ScriptConditions::evaluateHasCommandPointsToBuildUnit(Parameter *pPlayerPar
 		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(types.m_types->getNthInList(i));
 		if (thingTemplate && available <= thingTemplate->getCommandPoints()) {
 			return true;
+		}
+	}
+	return false;
+}
+bool ScriptConditions::evaluatePlayerHasKilledTypeUnits(Parameter *pPlayerParm, Parameter *pCountParm, Parameter *pTypeParm)
+{
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	Player *thePlayer = ThePlayerList->getEachPlayerFromMask(mask);
+	if (thePlayer) {
+		Rva0039C0F4 *kills = thePlayer->getKills();
+		if (kills) {
+			ObjectTypes *types = TheScriptEngine->getObjectTypes(pTypeParm->getString());
+			int total = 0;
+			if (types) {
+				for (unsigned int typeIndex = 0; typeIndex < types->getListSize(); ++typeIndex) {
+					AsciiString typeName = types->getNthInList(typeIndex);
+					total += kills->rva0039C0F4(typeName);
+				}
+			} else {
+				total = kills->rva0039C0F4(pTypeParm->getString());
+			}
+			return total >= pCountParm->getInt();
 		}
 	}
 	return false;
