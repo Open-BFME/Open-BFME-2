@@ -6,6 +6,7 @@ class Rva0037F4EA
 public:
 	Rva0037F4EA *rva0037F4EA(int v);
 private:
+	friend class Rva0037F8AC;
 	int m_00;
 	float m_04;
 	float m_08;
@@ -14,6 +15,27 @@ private:
 	float m_14;
 	float m_18;
 	bool m_1c;
+};
+
+// Target-only view: the initializer at 0x0037F90F reads the identifier
+// from +0x12c of each input. Its original type and name are unknown.
+struct Rva0037F90FInput
+{
+	unsigned char opaque_00[0x12c];
+	int field_12c;
+};
+
+class Rva0037F8AC
+{
+public:
+	void rva0037F8AC(void *context);
+	Rva0037F8AC *rva0037F90F(void *context, Rva0037F90FInput *first,
+		Rva0037F90FInput *second);
+private:
+	Rva0037F4EA m_00;
+	Rva0037F4EA m_20;
+	float m_40;
+	bool m_44;
 };
 
 Rva0037F4EA *Rva0037F4EA::rva0037F4EA(int v)
@@ -26,5 +48,19 @@ Rva0037F4EA *Rva0037F4EA::rva0037F4EA(int v)
 	m_14 = 0.0f;
 	m_18 = 0.0f;
 	m_1c = false;
+	return this;
+}
+
+// ?rva0037F90F@Rva0037F8AC@@QAEPAV1@PAXPAURva0037F90FInput@@1@Z
+// Native Ghidra extent 0x0037F90F..0x0037F950; RET 12. Two rowed
+// initializers use +0x12c, followed by a same-receiver call to 0x0037F8AC.
+Rva0037F8AC *Rva0037F8AC::rva0037F90F(void *context,
+	Rva0037F90FInput *first, Rva0037F90FInput *second)
+{
+	m_00.rva0037F4EA(first->field_12c);
+	m_20.rva0037F4EA(second->field_12c);
+	m_40 = 0.0f;
+	m_44 = false;
+	rva0037F8AC(context);
 	return this;
 }
