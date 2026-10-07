@@ -884,3 +884,4 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?d_00375af7@@YAXXZ,0x00375AF7,Converted to verified C++ height query; keep orphan PROC
 ?d_002ee49b@@YAXXZ,0x002EE49B,Converted to verified C++ world-cell equality; keep orphan PROC
 ?d_003682f1@@YAXXZ,0x003682F1,Converted to verified C++ waypoint-state wrapper; keep orphan PROC
+?d_00108895@@YAXXZ,0x00108895,Generated placeholder superseded by byte-verified 97-byte resource-owner reset in Rva00108895Reset.cpp; tombstone prevents resurrection by the union merge driver.
