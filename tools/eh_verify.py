@@ -148,22 +148,10 @@ def _signed(value):
     return struct.unpack("<i", struct.pack("<I", value))[0]
 
 
-def verify_row(image, obj, name, rva):
-    """(verdict, detail) for one row, or None when neither side has EH data."""
-    symbol = obj.by_name.get(name)
-    if symbol is None:
-        return None
+def section_placements(image, obj, symbol, eh):
+    """Placement evidence from the parent's relocation graph; no byte guesses."""
     function = obj.sections[symbol["section"] - 1]
-    eh = obj.eh_sections(function["index"])
-    has_obj = any(s["name"].startswith(".xdata") for s in eh)
-    retail = image.frame_funcinfo(rva)
-    if not has_obj and not retail:
-        return None
-    if not has_obj:
-        return "retail_only", "retail sets up an EH frame; the object emits no .xdata$x"
-    if not retail:
-        return "obj_only", "the object emits .xdata$x; retail's function has no EH frame"
-
+    rva = symbol["retail_rva"]
     eh_index = {s["index"] for s in eh}
     base = {function["index"]: rva - symbol["value"]}
     work, conflicts = [function["index"]], []
@@ -196,6 +184,27 @@ def verify_row(image, obj, name, rva):
             base[target["section"]] = want
             work.append(target["section"])
 
+    return base, conflicts
+
+
+def verify_row(image, obj, name, rva):
+    """(verdict, detail) for one row, or None when neither side has EH data."""
+    symbol = obj.by_name.get(name)
+    if symbol is None:
+        return None
+    function = obj.sections[symbol["section"] - 1]
+    eh = obj.eh_sections(function["index"])
+    has_obj = any(s["name"].startswith(".xdata") for s in eh)
+    retail = image.frame_funcinfo(rva)
+    if not has_obj and not retail:
+        return None
+    if not has_obj:
+        return "retail_only", "retail sets up an EH frame; the object emits no .xdata$x"
+    if not retail:
+        return "obj_only", "the object emits .xdata$x; retail's function has no EH frame"
+
+    base, conflicts = section_placements(image, obj, dict(symbol, retail_rva=rva), eh)
+
     unmapped = [s["name"] for s in eh if s["index"] not in base]
     if unmapped:
         return "unmapped", "never reached from the function: " + ", ".join(sorted(set(unmapped)))
@@ -224,6 +233,26 @@ def verify_row(image, obj, name, rva):
                for s in eh):
         return "fi_not_at_retail", f"retail's handler thunk names FuncInfo 0x{funcinfo:X}"
     return "EXACT", ""
+
+
+def verified_funclet_locations(image, obj, name, rva):
+    """Compiler-local labels at proven retail locations, only for exact EH data.
+
+    Equivalent cleanup bytes alone cannot identify a state. The parent graph
+    binds each associative EH section to a retail address, so each symbol's
+    offset determines its own address even when several bodies are identical.
+    """
+    if verify_row(image, obj, name, rva) != ("EXACT", ""):
+        return {}
+    symbol = obj.by_name[name]
+    eh = obj.eh_sections(symbol["section"])
+    base, conflicts = section_placements(image, obj, dict(symbol, retail_rva=rva), eh)
+    if conflicts:
+        return {}
+    code = {s["index"] for s in eh if s["name"].startswith(".text$x")}
+    return {s["name"]: base[s["section"]] + s["value"]
+            for s in obj.symbols.values()
+            if s["section"] in code and s["name"].startswith("$L")}
 
 
 def row_rows(sources):

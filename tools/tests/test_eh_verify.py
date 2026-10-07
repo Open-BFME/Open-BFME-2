@@ -127,3 +127,20 @@ def test_frame_whose_fs_load_precedes_the_thunk_push(tmp_path):
     image[FUNC + 9:FUNC + 13] = struct.pack("<I", BASE + GUARD)    # not a handler thunk
     retail.bytes = bytes(image)
     assert retail.frame_funcinfo(FUNC) is None
+
+
+def test_verified_eh_graph_locates_local_funclet_symbols(tmp_path):
+    compiled = obj(tmp_path, OURS)
+    compiled.symbols[99] = {"name": "$L123", "section": 2, "value": 10, "storage": 3}
+    assert eh_verify.verified_funclet_locations(Retail(OURS), compiled, "_f", FUNC) == {
+        "$L123": THUNK + 10}
+
+
+def test_nonmatching_eh_graph_supplies_no_funclet_identity(tmp_path):
+    compiled = obj(tmp_path, OURS)
+    compiled.symbols[99] = {"name": "$L123", "section": 2, "value": 10, "storage": 3}
+    assert eh_verify.verified_funclet_locations(Retail(G7), compiled, "_f", FUNC) == {}
+
+
+def test_missing_parent_supplies_no_funclet_identity(tmp_path):
+    assert eh_verify.verified_funclet_locations(Retail(OURS), obj(tmp_path, OURS), "absent", FUNC) == {}

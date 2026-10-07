@@ -1718,14 +1718,90 @@ def funclet_candidates(path, row, target):
     return hits
 
 
+@functools.lru_cache(maxsize=2)
+def funclet_parent_rows(path, mtime, size):
+    """Keep only parents of ledgered funclets; do not rescan per unwind row."""
+    with Path(path).open(newline="", encoding="utf-8") as handle:
+        parents = set()
+        for row in csv.DictReader(handle):
+            match = re.search(r"(?:^|;)parent=([^;]+)", row.get("notes", ""))
+            if match and "gen-funclet" in notes_tokens(row):
+                parents.add(match.group(1))
+    found = {}
+    with Path(path).open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            if row["name"] in parents and row["status"] == "matched":
+                found.setdefault(row["name"], []).append(row)
+    return found
+
+
+@functools.lru_cache(maxsize=1)
+def funclet_retail_image():
+    import eh_verify
+    return eh_verify.Image()
+
+
+@functools.lru_cache(maxsize=4)
+def funclet_eh_object(path, mtime, size):
+    import eh_verify
+    return eh_verify.Obj(Path(path))
+
+
+@functools.lru_cache(maxsize=256)
+def funclet_eh_locations(path, mtime, size, parent, ledger_path, ledger_mtime, ledger_size):
+    """Only a byte-verified ledger parent and its exact EH graph supply identity."""
+    import eh_verify
+    parents = funclet_parent_rows(ledger_path, ledger_mtime, ledger_size).get(parent, [])
+    if len(parents) != 1 or is_funclet_row(parents[0], ledger_object_symbol(parents[0])):
+        return {}
+    obj = funclet_eh_object(path, mtime, size)
+    if parent not in obj.by_name:
+        return {}
+    patch = compile_function(parents[0], load_symbol_map(), Path(path))
+    if patch["unresolved"] or patch["bytes"] != patch["target"]:
+        return {}
+    return eh_verify.verified_funclet_locations(
+        funclet_retail_image(), obj, parent, int(parents[0]["target_rva"], 16))
+
+
+def located_funclet(row, output, target):
+    """Return a local label only when exact parent EH data places it at this RVA."""
+    parent = re.search(r"(?:^|;)parent=([^;]+)", row.get("notes", ""))
+    if not parent:
+        return None
+    stat = output.stat()
+    ledger = ROOT / "reverse" / "functions.csv"
+    if not ledger.is_file():
+        return None
+    ledger_stat = ledger.stat()
+    locations = funclet_eh_locations(str(output), stat.st_mtime_ns, stat.st_size,
+                                    parent.group(1), str(ledger),
+                                    ledger_stat.st_mtime_ns, ledger_stat.st_size)
+    rva = int(row["target_rva"], 16)
+    hits = [name for name, address in locations.items()
+            if address == rva and re.fullmatch(r"\$L\d+", name)]
+    if len(hits) != 1:
+        return None
+    body, relocs = read_object_symbol_bytes(output, hits[0], len(target), code_only=True)
+    return hits[0] if holds_funclet(body, relocs, target) else None
+
+
 def read_funclet(row, object_symbol, output, target):
     """The bytes of a gen-funclet row's body, and a note when the pin was stale.
 
     Returns (bytes, relocs, note). The $L pin is a hint that has to earn its
     keep: the moment it does not hold this funclet, the body is re-identified
     from the parent's group (see funclet_candidates) or the row goes red with
-    what it actually compiled. Nothing is ever picked from a field of two.
+    what it actually compiled. Identical bodies require a verified parent EH
+    location; byte ties alone never choose an identity.
     """
+    located = located_funclet(row, output, target)
+    if located is not None:
+        compiled, relocs = read_object_symbol_bytes(output, located, len(target), code_only=True)
+        note = None if located == object_symbol else (
+            f"{object_symbol} was renumbered; verified parent EH data places {located} "
+            f"at {row['target_rva']}")
+        return compiled, relocs, note
     try:
         compiled, relocs = read_object_symbol_bytes(output, object_symbol, len(target), code_only=True)
     except ValueError as missing:

@@ -190,3 +190,63 @@ def test_dir32_gate_uses_reidentified_funclet_instead_of_stale_pin(tmp_path, mon
     # Both retail rows reference the same guard. Reading the stale longer
     # body pairs the guard with instruction bytes and invents a second base.
     build.verify_dir32_consistency([make_row("$L47543"), make_row("$L47551")])
+
+
+def test_identical_funclets_are_identified_by_verified_parent_eh_location(tmp_path, monkeypatch):
+    obj = write_object(tmp_path / "located-twins.obj",
+                       {"$L47543": BIT0, "$L47547": BIT0, "$L47551": BIT16})
+    rva = int(make_row("$L47551")["target_rva"], 16)
+    monkeypatch.setattr(build, "funclet_eh_locations", lambda *_: {
+        "$L47543": rva + 18, "$L47547": rva})
+    patch = compile_row(obj, "$L47551")
+    assert patch["bytes"] == patch["target"]
+    assert "$L47547" in patch["note"] and "verified parent EH" in patch["note"]
+
+
+def test_matching_ordinal_still_uses_the_proven_eh_location(tmp_path, monkeypatch):
+    obj = write_object(tmp_path / "current-looking-twins.obj", {"$L47543": BIT0, "$L47551": BIT0})
+    rva = int(make_row("$L47551")["target_rva"], 16)
+    monkeypatch.setattr(build, "funclet_eh_locations", lambda *_: {
+        "$L47543": rva, "$L47551": rva + 18})
+    patch = compile_row(obj, "$L47551")
+    assert "$L47543" in patch["note"]
+
+
+def test_eh_location_does_not_admit_wrong_funclet_bytes(tmp_path, monkeypatch):
+    obj = write_object(tmp_path / "located-wrong.obj", {"$L47543": BIT1, "$L47551": BIT16})
+    rva = int(make_row("$L47551")["target_rva"], 16)
+    monkeypatch.setattr(build, "funclet_eh_locations", lambda *_: {"$L47543": rva})
+    patch = compile_row(obj, "$L47551")
+    assert patch["bytes"] != patch["target"]
+
+
+def test_missing_or_duplicate_parent_ledger_cannot_supply_identity(tmp_path, monkeypatch):
+    (tmp_path / "reverse").mkdir()
+    ledger = tmp_path / "reverse/functions.csv"
+    ledger.write_text("name,target_rva,status,notes\n" +
+                      f"uw_fixture,0x2000,matched,gen-funclet;parent={PARENT}\n" +
+                      f"{PARENT},0x1000,matched,\n" * 2)
+    monkeypatch.setattr(build, "ROOT", tmp_path)
+    assert build.funclet_eh_locations("absent.obj", 1, 1, PARENT, str(ledger), 1, 1) == {}
+
+
+def test_wrong_parent_body_cannot_supply_eh_identity(monkeypatch):
+    from types import SimpleNamespace
+    parent = {"name": PARENT, "target_rva": "0x1000", "status": "matched", "notes": ""}
+    monkeypatch.setattr(build, "funclet_parent_rows", lambda *_: {PARENT: [parent]})
+    monkeypatch.setattr(build, "funclet_eh_object", lambda *_: SimpleNamespace(by_name={PARENT: {}}))
+    monkeypatch.setattr(build, "load_symbol_map", lambda: {})
+    monkeypatch.setattr(build, "compile_function", lambda *_: {
+        "bytes": b"\xc3", "target": b"\xc2", "unresolved": []})
+    assert build.funclet_eh_locations("wrong-parent.obj", 1, 1, PARENT, "ledger", 1, 1) == {}
+
+
+def test_unresolved_parent_call_cannot_supply_eh_identity(monkeypatch):
+    from types import SimpleNamespace
+    parent = {"name": PARENT, "target_rva": "0x1000", "status": "matched", "notes": ""}
+    monkeypatch.setattr(build, "funclet_parent_rows", lambda *_: {PARENT: [parent]})
+    monkeypatch.setattr(build, "funclet_eh_object", lambda *_: SimpleNamespace(by_name={PARENT: {}}))
+    monkeypatch.setattr(build, "load_symbol_map", lambda: {})
+    monkeypatch.setattr(build, "compile_function", lambda *_: {
+        "bytes": b"\xc3", "target": b"\xc3", "unresolved": ["unproved"]})
+    assert build.funclet_eh_locations("unresolved-parent.obj", 1, 1, PARENT, "ledger", 1, 1) == {}
