@@ -7035,7 +7035,6 @@ _Rva00816DF0,,0x00682CF0,23,Code/Libraries/Source/DirtySock/Y4CommTransportLife.
 _Rva00811CE0,,0x0067DBE0,144,Code/Libraries/Source/DirtySock/Y4CommTable.c,matched,C++ alias; case-insensitive compare; unclaimed_scan exact abuts ret-terminated
 ?Rva00804890StrCaseCmp@@YAHPBD0@Z,,0x006708D0,144,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,matched,C++ alias; case-insensitive compare twin; unclaimed_scan exact
 ??$__uninitialized_copy_copy@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@2@U12@@_STL@@YA?AU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@U10@0U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@0@10U__false_type@0@@Z,,0x005851CD,115,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_new_elements.cpp,matched,stlport 4.5.3 deque BfmeE12; pins uninitialized_copy callees
-?dup_006803C0@@YAXXZ,,0x006803C0,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva008144C0;C++ alias
 ?dup_00683240@@YAXXZ,,0x00683240,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva008144C0;C++ alias
 ?dup_0067d7d0@@YAXXZ,,0x0067D7D0,8,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,gen-alias;object-symbol=_Rva008118D0;C++ alias
 ?dup_0067d7f0@@YAXXZ,,0x0067D7F0,8,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,gen-alias;object-symbol=_Rva008118D0;C++ alias
@@ -7043,8 +7042,6 @@ _Rva00811CE0,,0x0067DBE0,144,Code/Libraries/Source/DirtySock/Y4CommTable.c,match
 _ProtoMangleCreate,,0x00670190,245,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,matched,gen-alias;object-symbol=_ProtoMangleCreate;C++ alias
 _Rva00814070,,0x0067FF70,39,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva00814070;C++ alias
 _Rva008140A0,,0x0067FFA0,39,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva008140A0;C++ alias
-?dup_00680300@@YAXXZ,,0x00680300,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva00814400;C++ alias
-?dup_00680360@@YAXXZ,,0x00680360,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,gen-alias;object-symbol=_Rva00814400;C++ alias
 ?dup_00683140@@YAXXZ,,0x00683140,120,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,gen-alias;object-symbol=_Rva00817240;C++ alias
 ?dup_006831c0@@YAXXZ,,0x006831C0,120,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,matched,gen-alias;object-symbol=_Rva00817240;C++ alias
 ?dup_006728e0@@YAXXZ,,0x006728E0,89,Code/Libraries/Source/DirtySock/Y2Rva00806580Module.cpp,matched,gen-alias;object-symbol=?Rva008068B0@@YAHPAURva00806580Record@@@Z;C++ alias
@@ -66807,3 +66804,6 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ??1?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAE@XZ,,0x002D922A,56,Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp,matched,STLport4.5.3 map<unsigned Image*> tree dtor; sole caller ImageCollection dtor at 0x2D92D7 after deleting node+0x14 Image values; clear callee 0x2D9186 (41B; emitted Image clear is its twin modulo _M_erase reloc) pinned; replaces gen-alias object-symbol row; full byte gate
 ?Resize@?$SimpleDynVecClass@VVector4@@@@UAE_NH@Z,,0x001AC6C0,40,Code/Libraries/Source/WWVegas/WW3D2/StreakLineCtor.cpp,matched,vftable 0x7D71D4 slot1 (0x7D71D8) between SimpleDynVecClass<Vector4> deleting dtor 0x1A7FF0 and Uninitialised_Grow 0x1A7D60; body calls rowed SimpleVecClass<Vector4>::Resize 0x1A7C80; replaces float-named gen-alias
 ?Rva001D5470_CpuFeatureProbe@@YAHXZ,,0x001D5470,208,Code/GameEngine/Source/Common/CpuFeatureProbe.cpp,matched,extent raised 160 to 208 to include SEH filter and handler funclets; handler reads GetExceptionCode like retail
+_Rva00814400,,0x00680300,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,operation-table slot 5 of Rva008140D0 stored at +0x72; replaces gen-alias dup_00680300
+_Rva00814460,,0x00680360,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,operation-table slot 7 of Rva008140D0 stored at +0x86; replaces gen-alias dup_00680360
+_Rva008144C0,,0x006803C0,91,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,operation-table slot 9 of Rva008140D0 stored at +0x9a; replaces gen-alias dup_006803C0

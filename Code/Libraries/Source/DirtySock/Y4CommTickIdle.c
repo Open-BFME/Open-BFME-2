@@ -121,11 +121,9 @@ void Rva008142D0( struct Rva00814700Comm *comm )
 	Rva007F0030( comm );
 }
 
-void Rva008143A0( struct Rva00814700Comm *comm, void *value )
-{
-	comm->m_value = value;
-	comm->m_flags |= 2;
-}
+/* Slot 8 is the row at 0x006802A0, defined in Rva008143A0Set.cpp. */
+void Rva008143A0( struct Rva00814700Comm *comm, void *value );
+#pragma comment(linker, "/alternatename:_Rva008143A0=?Rva008143A0Set@@YAXPAVRva008143A0Obj@@H@Z")
 
 __declspec(dllimport) void __stdcall Sleep( int interval );
 __declspec(dllimport) int __stdcall SetCommMask( void *handle, unsigned int mask );
