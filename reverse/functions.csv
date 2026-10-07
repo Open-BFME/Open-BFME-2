@@ -67481,3 +67481,7 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva005F2273@Rva005F2273@@QAEXXZ,,0x005F2273,5,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x005F21F8; wrapper identity remains address-derived.
 ?rva00502CF9@Rva00502CF9@@QAEXXZ,,0x00502CF9,5,Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x005029CA; wrapper identity remains address-derived.
 ?rva00502CFE@Rva00502CFE@@QAEXXZ,,0x00502CFE,5,Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x0050298D; wrapper identity remains address-derived.
+?rva00526F80@Rva00526F80@@QAEXXZ,,0x00526F80,5,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,Unadjusted thiscall tail jump to rowed method 0x00526F2C; wrapper identity remains address-derived.
+??1Rva00527FA2@@QAE@XZ,,0x00527FA2,5,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,tail jump to clear 0x00527F88; unpins ??1Rva00527FA2@@QAE@XZ
+?rva005288B8@Rva005288B8@@QAEXXZ,,0x005288B8,5,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,Unadjusted thiscall tail jump to rowed method 0x005287D0; wrapper identity remains address-derived.
+??1Rva005D4FFC@@QAE@XZ,,0x005D4FFC,5,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,tail jump to clear 0x005D4FA0; unpins ??1Rva005D4FFC@@QAE@XZ

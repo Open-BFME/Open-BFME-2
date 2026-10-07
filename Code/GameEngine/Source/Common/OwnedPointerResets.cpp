@@ -1640,3 +1640,37 @@ void Rva0042C1BC::reset(Rva0057417E *p)
 		}
 	}
 }
+
+class Rva00526F80
+{
+public:
+	void rva00526F80();
+};
+
+void Rva00526F80::rva00526F80()
+{
+	((Rva00526F2C *)this)->clear();
+}
+
+Rva00527FA2::~Rva00527FA2()
+{
+	((Rva00527F88 *)this)->clear();
+}
+
+class Rva005288B8
+{
+public:
+	void rva005288B8();
+};
+
+void Rva005288B8::rva005288B8()
+{
+	((Rva005287D0 *)this)->clear();
+}
+
+Rva005D4FFC::~Rva005D4FFC()
+{
+	((Rva005D4FA0 *)this)->clear();
+}
+
+
