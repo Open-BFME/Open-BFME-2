@@ -288,6 +288,8 @@ class Rva0054D2DDTarget
 {
 public:
 	__declspec(noinline) void method(int type, const UnicodeString &text, const UnicodeString &title);
+	void method(int type, const UnicodeString &text, const UnicodeString &title,
+		TreeHintRef00217D4C callback, TreeHintRef00217D4C callback2);
 	unsigned char m_unknown00[4];
 	Rva0054CFB8Target *m_child04;
 };
@@ -690,6 +692,13 @@ void Rva0054D2DDTarget::method(int type, const UnicodeString &text,
 {
 	m_child04->method(type, text, title, TreeHintRef00217D4C(),
 		TreeHintRef00217D4C());
+}
+
+void Rva0054D2DDTarget::method(int type, const UnicodeString &text,
+	const UnicodeString &title, TreeHintRef00217D4C callback,
+	TreeHintRef00217D4C callback2)
+{
+	m_child04->method(type, text, title, callback, callback2);
 }
 
 // Same target-proven forwarder shape; the callee's identity remains its RVA.
