@@ -53,3 +53,37 @@ Path::~Path()
 		node = next;
 	} while (next != NULL);
 }
+
+class Rva00364A37
+{
+public:
+	~Rva00364A37();
+};
+
+class Rva003652FF
+{
+public:
+	void rva003652FF();
+};
+
+void Rva003652FF::rva003652FF()
+{
+	((Rva00364A37 *)this)->~Rva00364A37();
+}
+
+class Rva00364A60
+{
+public:
+	~Rva00364A60();
+};
+
+class Rva00365304
+{
+public:
+	void rva00365304();
+};
+
+void Rva00365304::rva00365304()
+{
+	((Rva00364A60 *)this)->~Rva00364A60();
+}
