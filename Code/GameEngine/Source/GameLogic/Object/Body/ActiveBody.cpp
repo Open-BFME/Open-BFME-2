@@ -23,9 +23,16 @@ typedef unsigned short UnsignedShort;
 enum BodyDamageType { BODY_PRISTINE, BODY_DAMAGED, BODY_REALLYDAMAGED, BODY_RUBBLE };
 
 enum DamageType { DAMAGE_HEALING = 7 };
-enum KindOfType { KINDOF_220 = 0x220 };
+enum KindOfType { KINDOF_4 = 4, KINDOF_220 = 0x220 };
 enum ObjectID { INVALID_ID = 0 };
-enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2, OBJECT_STATUS_24 = 24 };
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_UNDER_CONSTRUCTION = 2,
+	OBJECT_STATUS_4 = 4,
+	OBJECT_STATUS_24 = 24,
+	OBJECT_STATUS_77 = 0x4D,
+	OBJECT_STATUS_83 = 0x53
+};
 
 // class-gate: allow Coord3D the bone-position array is built and torn down through BFME 2's out-of-line empty Coord3D constructor and destructor (the eh vector iterators push 0x0047A6A9 and 0x000B3FD0); the canonical data-only header cannot declare them; same three floats
 struct Coord3D
@@ -289,14 +296,53 @@ public:
 	BehaviorModuleInterface m_iface;	// +0x0C
 };
 
+class GeometryInfo
+{
+public:
+	Real getMaxHeightAbovePosition() const;	// 0x006BD7C0
+};
+
+// The Object's geometry (+0xA8) as the rowed BFME 1 donor helpers view it:
+// the shape at an index (0x006BD980) over 0x24-byte shapes named at +0x1C,
+// and the named-shape flag update (0x006BF450).
+struct BfmeShapeE15
+{
+	unsigned char m_pad00[0x1C];
+	AsciiString m_name;			// +0x1C
+	unsigned char m_pad20[4];
+};
+class BfmeObjE15
+{
+public:
+	BfmeShapeE15 *bfmeAtE15(int i);
+	Int getNumShapes() const { return m_finish - m_start; }
+
+	unsigned char m_pad00[0x2C];
+	BfmeShapeE15 *m_start;			// +0x2C
+	BfmeShapeE15 *m_finish;			// +0x30
+};
+class BfmeStrF9;
+class BfmeObjF9
+{
+public:
+	void rva0087FA50(const BfmeStrF9 &name, char flag);
+};
+struct BfmeCopyElementA;
+
 class ThingTemplate
 {
 public:
 	UnsignedInt testKindOf(Int k) const { return m_kindOf[k >> 5] & (1U << (k & 31)); }
+	const GeometryInfo &getTemplateGeometryInfo() const { return m_geometryInfo; }
+	Real getStructureRubbleHeight() const { return (Real)m_structureRubbleHeight; }
 
-	unsigned char m_pad000[0x108];
+	unsigned char m_pad000[0xA0];
+	GeometryInfo m_geometryInfo;		// +0xA0
+	unsigned char m_pad0A1[0x108 - 0xA1];
 	UnsignedInt m_kindOf[0x10];		// +0x108
-	unsigned char m_pad148[0x632 - 0x148];
+	unsigned char m_pad148[0x5F7 - 0x148];
+	signed char m_structureRubbleHeight;	// +0x5F7
+	unsigned char m_pad5F8[0x632 - 0x5F8];
 	Bool m_byte632;				// +0x632
 };
 
@@ -346,6 +392,10 @@ public:
 	Bool testStatus(ObjectStatusTypes bit) const;	// 0x0004E536
 	void setEffectivelyDead(Bool dead);		// 0x0028D2FB
 	Bool rva0028F518();				// 0x0028F518
+	void setStatus(ObjectStatusTypes bit, Bool set);	// 0x0023DB0E
+	void rva0028AB75(Bool flag);			// 0x0028AB75
+	void rva0028ABFC(Real z);			// 0x0028ABFC: the geometry's height
+	void rva0029895A(BfmeCopyElementA *geom);	// 0x0029895A: copy in a geometry
 	Bool addAttributeModifierToPool(const AsciiString &name, Int duration);	// 0x0028EA91
 	void removeAttributeModifierFromPool(const AsciiString &name);		// 0x0028EB42
 	AIUpdateInterface *getAI() const { return m_ai; }
@@ -364,7 +414,9 @@ public:
 	Int m_id;			// +0x74
 	unsigned char m_pad78[0x94 - 0x78];
 	UnsignedInt m_status;			// +0x94
-	unsigned char m_pad98[0x244 - 0x98];
+	unsigned char m_pad98[0xA8 - 0x98];
+	BfmeObjE15 m_geometry;			// +0xA8
+	unsigned char m_padDC[0x244 - 0xDC];
 	BehaviorModule **m_behaviors;		// +0x244
 	unsigned char m_pad248[0x254 - 0x248];
 	BodyModuleInterface *m_body;		// +0x254
@@ -394,6 +446,58 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
+class Pathfinder
+{
+public:
+	void AddObjectToPathfindMap(Object *obj);	// 0x002E7178
+	void RemoveObjectFromPathfindMap(Object *obj);	// 0x002E718A
+};
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+
+	unsigned char m_pad00[0x10];
+	Pathfinder *m_pathfinder;		// +0x10
+};
+extern AI *TheAI;
+
+class GlobalData
+{
+public:
+	unsigned char m_pad000[0xAE4];
+	Real m_defaultStructureRubbleHeight;	// +0xAE4
+};
+extern GlobalData *TheWritableGlobalData;
+
+// The damage state for the current health, rowed at 0x004BDA29 under an
+// address name: Zero Hour's calcDamageState order (rubble at zero health,
+// then the really-damaged and damaged ratios of max health) on the body's own
+// fields, without the division. Its only caller is setCorrectDamageState
+// below, which keeps ecx across the call: MSVC does that only for a callee
+// already compiled in the same unit, so the calc is defined here.
+class Rva004BDA29
+{
+public:
+	Int rva004BDA29() const;
+
+private:
+	void *m_vptr;
+	unsigned char m_pad04[0x14];
+	Real m_health;				// +0x18
+	unsigned char m_pad1C[4];
+	Real m_maxHealth;			// +0x20
+	Real m_damagedThresh;			// +0x24
+	Real m_reallyDamagedThresh;		// +0x28
+};
+
+// The rubble-state object reset (0x004BDA67), rowed under an address name.
+class Rva004BDA67
+{
+public:
+	void rva004BDA67();
+};
+
 class DamageFX
 {
 public:
@@ -416,7 +520,7 @@ struct DamageCreation
 {
 	ObjectCreationList *m_ocl;		// +0x00
 	Int m_type;				// +0x04
-	Int m_field08;				// +0x08
+	Int m_stage;				// +0x08: 0, or the damage stage 1-4
 };
 
 class Armor
@@ -536,6 +640,7 @@ public:
 	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);
 
 	virtual void rva004BE69C();
+	void setCorrectDamageState(Bool arg);
 
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -709,7 +814,7 @@ void ActiveBody::doDamageFX(const DamageInfo *damageInfo)
 	for (DamageCreation *it = m_damageCreationBegin; it != m_damageCreationEnd; ++it)
 	{
 		DamageCreation c = *it;
-		if (c.m_type == damageInfo->in.m_creationType && c.m_field08 == 0 && c.m_ocl)
+		if (c.m_type == damageInfo->in.m_creationType && c.m_stage == 0 && c.m_ocl)
 			c.m_ocl->create(getObject(), 0, 0);
 	}
 }
@@ -1015,4 +1120,165 @@ void ActiveBody::xfer(Xfer *xfer)
 	}
 	m_curArmorSetFlags.xfer(xfer);
 	XferObjectID(xfer, &m_linkedObjectID);
+}
+
+// ActiveBody::setCorrectDamageState, retail 0x004BE8BD (1189B): primary slot
+// 21 under the pinned name. The BFME 1 donor (ActiveBody_setCorrectDamageState
+// at its 0x00210BF0) with BFME 2's offsets: the state comes from 0x004BDA29
+// and a change runs slot 13; the two template kinds are bits 60 and 7, the
+// status bits 77 and 83 (BFME 1's 76 and 82); the rubble arm's experience and
+// upgrade reset is 0x004BDA67; the damage-stage test is Object::isKindOf 4.
+// Rva004BDA29::rva004BDA29, retail 0x004BDA29 (62B); see the class above.
+Int Rva004BDA29::rva004BDA29() const
+{
+	if (m_health == 0.0f)
+		return 3;
+	else if (m_reallyDamagedThresh * m_maxHealth >= m_health)
+		return 2;
+	else if (m_damagedThresh * m_maxHealth >= m_health)
+		return 1;
+	else
+		return 0;
+}
+
+void ActiveBody::setCorrectDamageState(Bool arg)
+{
+	BodyDamageType oldState = m_curDamageState;
+	m_curDamageState = (BodyDamageType)((const Rva004BDA29 *)this)->rva004BDA29();
+	if (m_curDamageState != oldState)
+		rva004BE69C();
+
+	Object *obj = getObject();
+	if (obj->getTemplate()->testKindOf(60))
+	{
+		if (m_curDamageState < BODY_RUBBLE)
+		{
+			if (oldState == BODY_RUBBLE)
+				obj->rva0029895A((BfmeCopyElementA *)&obj->getTemplate()->getTemplateGeometryInfo());
+		}
+		else
+		{
+			obj->rva0028ABFC(TheWritableGlobalData->m_defaultStructureRubbleHeight);
+		}
+
+		if (m_curDamageState > oldState && m_curDamageState == BODY_RUBBLE)
+		{
+			TheAI->pathfinder()->RemoveObjectFromPathfindMap(getObject());
+			getObject()->setStatus(OBJECT_STATUS_4, true);
+			getObject()->setStatus(OBJECT_STATUS_77, true);
+			BfmeObjE15 &geom = getObject()->m_geometry;
+			Int count = geom.getNumShapes();
+			for (Int i = 0; i < count; ++i)
+			{
+				BfmeShapeE15 *shape = geom.bfmeAtE15(i);
+				if (((const StringBase<char> &)shape->m_name).compare("Bookend") == 0)
+				{
+					((BfmeObjF9 &)geom).rva0087FA50((const BfmeStrF9 &)AsciiString("Bookend"), 0);
+					m_curDamageState = BODY_PRISTINE;
+					getObject()->rva0028AB75(true);
+					m_curDamageState = BODY_RUBBLE;
+					getObject()->setStatus(OBJECT_STATUS_83, true);
+					break;
+				}
+			}
+		}
+		else if (m_curDamageState < oldState && m_curDamageState == BODY_PRISTINE)
+		{
+			TheAI->pathfinder()->RemoveObjectFromPathfindMap(getObject());
+			getObject()->setStatus(OBJECT_STATUS_77, false);
+			getObject()->setStatus(OBJECT_STATUS_83, false);
+			TheAI->pathfinder()->AddObjectToPathfindMap(getObject());
+		}
+		else if (m_curDamageState < oldState && oldState == BODY_RUBBLE)
+		{
+			getObject()->setStatus(OBJECT_STATUS_77, true);
+			getObject()->setStatus(OBJECT_STATUS_83, false);
+			TheAI->pathfinder()->RemoveObjectFromPathfindMap(getObject());
+			BfmeObjE15 &geom = getObject()->m_geometry;
+			((BfmeObjF9 &)geom).rva0087FA50((const BfmeStrF9 &)AsciiString("Bookend"), 1);
+			getObject()->rva0028AB75(true);
+			getObject()->setStatus(OBJECT_STATUS_4, false);
+		}
+		m_field34 = 0;
+	}
+	else if (getObject()->getTemplate()->testKindOf(7))
+	{
+		if (m_curDamageState > oldState && m_curDamageState == BODY_RUBBLE)
+		{
+			BfmeObjE15 &geom = obj->m_geometry;
+			Int count = geom.getNumShapes();
+			for (Int i = 0; i < count; ++i)
+			{
+				BfmeShapeE15 *shape = geom.bfmeAtE15(i);
+				if (((const StringBase<char> &)shape->m_name).compare("Bookend") == 0)
+				{
+					((BfmeObjF9 &)geom).rva0087FA50((const BfmeStrF9 &)AsciiString("Bookend"), 0);
+					m_curDamageState = BODY_PRISTINE;
+					getObject()->rva0028AB75(true);
+					m_curDamageState = BODY_RUBBLE;
+					getObject()->setStatus(OBJECT_STATUS_83, true);
+					break;
+				}
+			}
+		}
+		if (m_curDamageState < BODY_RUBBLE && oldState == BODY_RUBBLE)
+		{
+			obj->rva0028ABFC(getObject()->getTemplate()->getTemplateGeometryInfo().getMaxHeightAbovePosition());
+			TheAI->pathfinder()->AddObjectToPathfindMap(obj);
+			obj->setStatus(OBJECT_STATUS_4, false);
+		}
+		else if (m_curDamageState == BODY_RUBBLE)
+		{
+			Real rubbleHeight = getObject()->getTemplate()->getStructureRubbleHeight();
+			if (rubbleHeight <= 0.0f)
+				rubbleHeight = TheWritableGlobalData->m_defaultStructureRubbleHeight;
+			obj->rva0028ABFC(rubbleHeight);
+			TheAI->pathfinder()->RemoveObjectFromPathfindMap(obj);
+			TheAI->pathfinder()->AddObjectToPathfindMap(obj);
+			((Rva004BDA67 *)this)->rva004BDA67();
+			obj->setStatus(OBJECT_STATUS_4, true);
+			m_field34 = 0;
+			return;
+		}
+	}
+
+	if (!getObject()->isKindOf(KINDOF_4))
+		return;
+	if (oldState != m_curDamageState && !arg)
+		return;
+
+	Real threshold = 0.75f * (getMaxHealth() * 0.25f);
+	if (!m_damageStateFlags[0] && m_damageStateValues[0] >= threshold)
+	{
+		m_field34 = 1;
+		m_damageStateFlags[0] = true;
+	}
+	else if (!m_damageStateFlags[1] && m_damageStateValues[1] >= threshold)
+	{
+		m_field34 = 2;
+		m_damageStateFlags[1] = true;
+	}
+	else if (!m_damageStateFlags[2] && m_damageStateValues[2] >= threshold)
+	{
+		m_field34 = 3;
+		m_damageStateFlags[2] = true;
+	}
+	else if (!m_damageStateFlags[3] && m_damageStateValues[3] >= threshold)
+	{
+		m_field34 = 4;
+		m_damageStateFlags[3] = true;
+	}
+	else
+	{
+		return;
+	}
+	if (!arg)
+	{
+		for (DamageCreation *it = m_damageCreationBegin; it != m_damageCreationEnd; ++it)
+		{
+			DamageCreation c = *it;
+			if (c.m_stage == m_field34 && c.m_ocl)
+				c.m_ocl->create(getObject(), 0, 0);
+		}
+	}
 }
