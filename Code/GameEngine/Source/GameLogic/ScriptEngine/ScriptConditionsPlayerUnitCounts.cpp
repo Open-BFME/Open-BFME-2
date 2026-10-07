@@ -18,6 +18,14 @@
 // evaluateNamedUnitRankLevel (0x003E92DF). BFME2-only condition with no donor
 // method name, so the method keeps an address name; reading bit 90 as the
 // hero KindOf is an inference from the template name.
+//
+// ?rva003E8AA9@ScriptConditions@@IAE_NPAVParameter@@@Z @ 0x003E8AA9 158B
+// Target evidence: jump-table index 176 sends condition 181 here; the
+// template is named ANY_UNITS_USING_BLOODTHIRSTY. True when any member of the
+// player's teams has Object status 0x41 (rowed testStatus 0x0004E536). The
+// BFME1 donor ScriptConditionsAnyUnitsUsingBloodthirsty.cpp has the same walk;
+// its status bit name is not carried over.
+//
 // Donor shape (Zero Hour): the DLINK_ITERATOR with the checked advance and
 // the null-team / null-member skips, as in PlayerRva002AD93A.cpp.
 
@@ -110,9 +118,15 @@ private:
 	Int m_rank; // +0x24
 };
 
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_COUNT = 0x80
+};
+
 class Object
 {
 public:
+	Bool testStatus(ObjectStatusTypes bit) const;
 	const ThingTemplate *getTemplate() const { return m_template; }
 	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
 private:
@@ -175,6 +189,7 @@ class ScriptConditions
 {
 protected:
 	Bool rva003E85E0(Parameter *playerParm, Parameter *countParm, Parameter *rankParm);
+	Bool rva003E8AA9(Parameter *playerParm);
 };
 
 Bool ScriptConditions::rva003E85E0(Parameter *playerParm, Parameter *countParm, Parameter *rankParm)
@@ -204,5 +219,31 @@ Bool ScriptConditions::rva003E85E0(Parameter *playerParm, Parameter *countParm, 
 	}
 	if (count >= countParm->getInt())
 		return true;
+	return false;
+}
+
+Bool ScriptConditions::rva003E8AA9(Parameter *playerParm)
+{
+	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
+	if (!player)
+		return false;
+	PlayerTeamNode *head = player->getPlayerTeams();
+	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	{
+		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
+		{
+			Team *team = iter.cur();
+			if (!team)
+				continue;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
+			{
+				Object *obj = iter2.cur();
+				if (!obj)
+					continue;
+				if (obj->testStatus((ObjectStatusTypes)0x41))
+					return true;
+			}
+		}
+	}
 	return false;
 }
