@@ -4,7 +4,7 @@
 // (+0x730, the Squad view rowed upstream as Rva0018BB10Roster/Gen_0018BC70), rebuild
 // its object cache through rowed 0x004D6CAC and hand each object's id
 // (Object +0x74) to the AiOrdersManager snapshot at VA 0x00E01E18
-// (GameStateInit's g_Va00E01E18) via rowed rva003551EA. Called from the
+// (GameStateInit's TheAiOrdersManager) via rowed rva003551EA. Called from the
 // unclaimed 0x00377613. Names are address-derived.
 #include <vector>
 
@@ -35,7 +35,10 @@ public:
 	void rva003551EA(NameKeyType key) const;
 };
 
-extern void *g_Va00E01E18;
+// Bind the native VA 0x00E01E18 slot to its existing subsystem owner;
+// casts below retain this unit's independently verified local view.
+class AiOrdersManager;
+extern AiOrdersManager *TheAiOrdersManager;
 
 class Player
 {
@@ -53,6 +56,6 @@ void Player::rva002AABBC()
 	{
 		const VecObjectPtr &objects = m_currentSelection->rva004D6CAC();
 		for (VecObjectPtr::const_iterator it = objects.begin(); it != objects.end(); ++it)
-			((Rva0035516C *)g_Va00E01E18)->rva003551EA((NameKeyType)(*it)->m_id);
+			((Rva0035516C *)TheAiOrdersManager)->rva003551EA((NameKeyType)(*it)->m_id);
 	}
 }

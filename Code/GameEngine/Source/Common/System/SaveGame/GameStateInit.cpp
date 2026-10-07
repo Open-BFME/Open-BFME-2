@@ -10,7 +10,8 @@
 // casts claim only the Snapshot relationship observed here, not those types'
 // complete layouts. Five pointers lacked defined current ledger providers:
 // target reads their slots at VA E030D8/E02F3C/DFE750/E01EDC/E01E18 and their
-// initial image dwords are zero. Address-derived names retain that uncertainty.
+// initial image dwords are zero. The AI-order slot also has an independently
+// proven registration name; the other address-derived names retain uncertainty.
 // Singleton getters retain their rowed address-derived identities; calls in
 // this initializer reach their proven thunks43CCC2 and4E4312. Both five-byte jumps are pinned to their rowed bodies.
 #include "ascii_string.h"
@@ -52,7 +53,10 @@ void *g_Va00DFE750 = 0;
 class GlobalWeatherSystem; extern GlobalWeatherSystem *TheGlobalWeatherSystem;
 class Rva002A8F24; extern Rva002A8F24 *g_00DFEEF8;
 void *g_Va00E01EDC = 0;
-void *g_Va00E01E18 = 0;
+// Target initialization registers "TheAiOrdersManager" at VA 0x00E01E18.
+// Reuse this existing zero slot under that proven subsystem name.
+class AiOrdersManager;
+AiOrdersManager *TheAiOrdersManager = 0;
 struct Rva0039B95FHolder; extern Rva0039B95FHolder *g_00E031E8;
 class Rva00285D34; extern Rva00285D34 *g_00DFEC68;
 void GameState::init()
@@ -84,7 +88,7 @@ void GameState::init()
     addSnapshotBlock("CHUNK_WeatherSystem", (Snapshot *)(SnapshotSubsystemView *)TheGlobalWeatherSystem, (SnapshotType)0);
     addSnapshotBlock("CHUNK_SkirmishAISystem", (Snapshot *)(SnapshotSubsystemView *)g_00DFEEF8, (SnapshotType)0);
     addSnapshotBlock("CHUNK_MineshaftPortalNetworkManager", (Snapshot *)(SnapshotSubsystemView *)g_Va00E01EDC, (SnapshotType)0);
-    addSnapshotBlock("CHUNK_AiOrdersManager", (Snapshot *)(SnapshotSubsystemView *)g_Va00E01E18, (SnapshotType)0);
+    addSnapshotBlock("CHUNK_AiOrdersManager", (Snapshot *)(SnapshotSubsystemView *)TheAiOrdersManager, (SnapshotType)0);
     addSnapshotBlock("CHUNK_SpellStore", (Snapshot *)Rva0043CCC2GetRoute(), (SnapshotType)0);
     addSnapshotBlock("CHUNK_ObjectivesMenu", (Snapshot *)Rva004E4312GetRoute(), (SnapshotType)0);
     addSnapshotBlock("CHUNK_MissionObjectives", (Snapshot *)(SnapshotSubsystemView *)g_00E031E8, (SnapshotType)0);

@@ -30,7 +30,10 @@ class Rva0035516C
 public:
 	const ArmorTemplate *rva0035516C(NameKeyType key) const;
 };
-extern Rva0035516C *g_00E01E18;
+// Bind the native VA 0x00E01E18 slot to its existing subsystem owner;
+// casts below retain this unit's independently verified local view.
+class AiOrdersManager;
+extern AiOrdersManager *TheAiOrdersManager;
 class Rva00355B61
 {
 public:
@@ -39,7 +42,7 @@ public:
 };
 bool Rva00355B61::rva003552C2(NameKeyType key)
 {
-	const ArmorTemplate *t1 = g_00E01E18->rva0035516C(key);
+	const ArmorTemplate *t1 = reinterpret_cast<Rva0035516C *>(TheAiOrdersManager)->rva0035516C(key);
 	if (!t1)
 		return false;
 	if (((unsigned char)((ArmorTemplate *)t1)->rva00355290()) == 0)
