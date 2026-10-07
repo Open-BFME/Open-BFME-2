@@ -95,11 +95,11 @@ struct TempIndexStruct
 	float z;
 };
 
-bool operator <(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z < r.z; }
-bool operator <=(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z <= r.z; }
-bool operator >(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z > r.z; }
-bool operator >=(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z >= r.z; }
-bool operator ==(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z == r.z; }
+bool operator <(const TempIndexStruct &l, const TempIndexStruct &r);
+bool operator <=(const TempIndexStruct &l, const TempIndexStruct &r);
+bool operator >(const TempIndexStruct &l, const TempIndexStruct &r);
+bool operator >=(const TempIndexStruct &l, const TempIndexStruct &r);
+bool operator ==(const TempIndexStruct &l, const TempIndexStruct &r);
 // ----------------------------------------------------------------------------
 static
 void InsertionSort(TempIndexStruct *begin, TempIndexStruct *end)
@@ -116,81 +116,11 @@ void InsertionSort(TempIndexStruct *begin, TempIndexStruct *end)
 }
 
 // ----------------------------------------------------------------------------
-// ?Sort@@YAXPAUTempIndexStruct@@0@Z
-void Sort(TempIndexStruct *begin, TempIndexStruct *end)
-{
-	if (begin >= end)
-		return;
-
-	TempIndexStruct *ranges[64];
-	TempIndexStruct **next_range = ranges;
-	for (;;) {
-		const int diff = end - begin;
-		if (diff <= 16) {
-			for (TempIndexStruct *iter = begin + 1; iter < end; ++iter) {
-				TempIndexStruct val = iter[0];
-				TempIndexStruct *insert = iter;
-				while (insert != begin && insert[-1] > val) {
-					insert[0] = insert[-1];
-					insert -= 1;
-				}
-				insert[0] = val;
-			}
-
-			if (next_range == ranges)
-				return;
-			begin = *(--next_range);
-			end = *(--next_range);
-			continue;
-		}
-
-		// Choose the median of begin, mid, and (end - 1) as the partitioning element.
-		// Rearrange so that *(begin + 1) <= *begin <= *(end - 1).  These will be guard
-		// elements.
-		TempIndexStruct *mid = begin + diff/2;
-		std::swap(mid[0], begin[1]);
-		if (begin[1] > end[-1]) {
-			std::swap(begin[1], end[-1]);
-		}
-		if (begin[0] > end[-1]) {
-			std::swap(begin[0], end[-1]);
-		}																// end[-1] has the largest element
-		if (begin[1] > begin[0]) {
-			std::swap(begin[1], begin[0]);
-		}																// begin[0] has the middle element and begin[1] has the smallest element
-
-		// *begin is now the partitioning element
-		TempIndexStruct *begin1 = begin + 1;	// TODO: Temp fix until I find out who is passing me NaN
-		TempIndexStruct *end1 = end - 1;			// TODO: Temp fix until I find out who is passing me NaN
-		TempIndexStruct *left = begin + 1;
-		TempIndexStruct *right = end - 1;
-		for (;;) {
-#if 0		// TODO: Temp fix until I find out who is passing me NaN.
-			do ++left; while (left[0] < begin[0]);		// Scan up to find element >= than partition
-			do --right; while (right[0] > begin[0]);	// Scan down to find element <= than partition
-#else
-			do ++left; while (left < end1 && left[0] < begin[0]);		// Scan up to find element >= than partition
-			do --right; while (right > begin1 && right[0] > begin[0]);	// Scan down to find element <= than partition
-#endif
-			if (right < left) break;									// Pointers crossed.  Partitioning completed.
-// ?swap@std@@ present-unmatched
-			std::swap(left[0], right[0]);							// Exchange elements.
-		}
-// ?swap@std@@ present-unmatched
-		std::swap(begin[0], right[0]);							// Insert partition element
-
-		// Sort the smaller subarray first then the larger
-		if (right - begin > end - (right + 1)) {
-			*next_range++ = right;
-			*next_range++ = begin;
-			begin = right + 1;
-		} else {
-			*next_range++ = end;
-			*next_range++ = right + 1;
-			end = right;
-		}
-	}
-}
+// Sort (0x0012DCF0) and the comparison operators are defined in
+// SortingRendererBFME1.cpp, retail's unit for Flush_Sorting_Pool: it keeps
+// overlapping_polygon_count in a register across the Sort call, which VC7 does
+// only when Sort and its callees are compiled in the same unit.
+void Sort(TempIndexStruct *begin, TempIndexStruct *end);
 
 // ----------------------------------------------------------------------------
 

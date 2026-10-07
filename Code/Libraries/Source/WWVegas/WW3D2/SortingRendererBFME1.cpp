@@ -91,8 +91,63 @@ public:
 	static bool _Is_Triangle_Draw_Enabled() { return _EnableTriangleDraw; }
 };
 #include "sortingrenderer.h"
+// The Zero Hour DynamicVBAccessClass is not BFME2's: retail Flush_Sorting_Pool
+// builds the 24-byte record of bfmedynamicvertexbuffer.cpp (format record,
+// type, format index, declaration, count, offset, buffer) with its four-argument
+// constructor (0x0013B040) and nested WriteLock (0x0013AA00 / 0x0013AB00).
+#define DynamicVBAccessClass ZHDynamicVBAccessClass
 #include "dx8vertexbuffer.h"
+#undef DynamicVBAccessClass
+class DynamicVBAccessClass
+{
+public:
+	const void *format;
+	unsigned type, formatIndex, declaration;
+	unsigned short vertexCount, vertexOffset;
+	VertexBufferClass *buffer;
+	DynamicVBAccessClass(unsigned type, unsigned format_index, unsigned short vertex_count, unsigned declaration);
+	~DynamicVBAccessClass();
+	static void _Reset(bool frame_changed);
+	static unsigned short Get_Default_Vertex_Count(void);
+	struct WriteLock {
+		DynamicVBAccessClass *owner;
+		VertexFormatXYZNDUV2 *data;
+		unsigned char guard;	// the empty BFMEDX8DeviceLock member
+		WriteLock(DynamicVBAccessClass *vb_access);
+		~WriteLock();
+	};
+};
+// BFME2's index write lock holds the DX8 device mutex as a third member
+// (DynamicIBAccessWriteLock.cpp), so the Zero Hour header's two-member lock
+// is too small for retail's frame.
+#define DynamicIBAccessClass ZHDynamicIBAccessClass
 #include "dx8indexbuffer.h"
+#undef DynamicIBAccessClass
+class DynamicIBAccessClass
+{
+	unsigned Type;
+	unsigned short IndexCount;
+	unsigned short IndexBufferOffset;
+	IndexBufferClass *IndexBuffer;
+
+public:
+	DynamicIBAccessClass(unsigned short type, unsigned short index_count);
+	~DynamicIBAccessClass();
+	static void _Reset(bool frame_changed);
+	static unsigned short Get_Default_Index_Count(void);
+
+	class WriteLockClass
+	{
+		DynamicIBAccessClass *DynamicIBAccess;
+		unsigned short *Indices;
+		unsigned char device_lock;	// the empty BFMEDX8DeviceLock member
+
+	public:
+		WriteLockClass(DynamicIBAccessClass *ib_access);
+		~WriteLockClass();
+		unsigned short *Get_Index_Array() { return Indices; }
+	};
+};
 #include "dx8wrapper.h"
 #include "vertmaterial.h"
 #include "texture.h"
@@ -190,35 +245,44 @@ struct TempIndexStruct
 	float z;
 };
 
-bool operator <(const TempIndexStruct &l, const TempIndexStruct &r);
-bool operator <=(const TempIndexStruct &l, const TempIndexStruct &r);
-bool operator >(const TempIndexStruct &l, const TempIndexStruct &r);
-bool operator >=(const TempIndexStruct &l, const TempIndexStruct &r);
-bool operator ==(const TempIndexStruct &l, const TempIndexStruct &r);
+// Sort and its comparison operators belong to this unit: retail's
+// Flush_Sorting_Pool keeps overlapping_polygon_count in ESI across the Sort
+// call, which VC7 does only when Sort and everything it calls are compiled
+// here (an external Sort forces a reload of the static).
+bool operator <(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z < r.z; }
+bool operator <=(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z <= r.z; }
+bool operator >(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z > r.z; }
+bool operator >=(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z >= r.z; }
+bool operator ==(const TempIndexStruct &l, const TempIndexStruct &r) { return l.z == r.z; }
 // ----------------------------------------------------------------------------
-static
-void InsertionSort(TempIndexStruct *begin, TempIndexStruct *end)
-{
-	for (TempIndexStruct *iter = begin + 1; iter < end; ++iter) {
-		TempIndexStruct val = iter[0];
-		TempIndexStruct *insert = iter;
-		while (insert != begin && insert[-1] > val) {
-			insert[0] = insert[-1];
-			insert -= 1;
-		}
-		insert[0] = val;
-	}
-}
-
-// ----------------------------------------------------------------------------
-static
+// ?Sort@@YAXPAUTempIndexStruct@@0@Z
 void Sort(TempIndexStruct *begin, TempIndexStruct *end)
 {
-	const int diff = end - begin;
-	if (diff <= 16) {
-		// Insertion sort has less overhead for small arrays
-		InsertionSort(begin, end);
-	} else {
+	if (begin >= end)
+		return;
+
+	TempIndexStruct *ranges[64];
+	TempIndexStruct **next_range = ranges;
+	for (;;) {
+		const int diff = end - begin;
+		if (diff <= 16) {
+			for (TempIndexStruct *iter = begin + 1; iter < end; ++iter) {
+				TempIndexStruct val = iter[0];
+				TempIndexStruct *insert = iter;
+				while (insert != begin && insert[-1] > val) {
+					insert[0] = insert[-1];
+					insert -= 1;
+				}
+				insert[0] = val;
+			}
+
+			if (next_range == ranges)
+				return;
+			begin = *(--next_range);
+			end = *(--next_range);
+			continue;
+		}
+
 		// Choose the median of begin, mid, and (end - 1) as the partitioning element.
 		// Rearrange so that *(begin + 1) <= *begin <= *(end - 1).  These will be guard
 		// elements.
@@ -256,11 +320,13 @@ void Sort(TempIndexStruct *begin, TempIndexStruct *end)
 
 		// Sort the smaller subarray first then the larger
 		if (right - begin > end - (right + 1)) {
-			Sort(right + 1, end);
-			Sort(begin, right);
+			*next_range++ = right;
+			*next_range++ = begin;
+			begin = right + 1;
 		} else {
-			Sort(begin, right);
-			Sort(right + 1, end);
+			*next_range++ = end;
+			*next_range++ = right + 1;
+			end = right;
 		}
 	}
 }
@@ -585,7 +651,7 @@ void Rva0012D4D0Apply(RenderStateStruct &render_state)
 // The constant read at the top of the texture loop is BfmeCurrentCaps+0x2b0;
 // the 0x278 in the first version of this body was the one byte the drift report
 // still scored as different.
-static bool RenderStatesDifferRva0012D660(RenderStateStruct& a, RenderStateStruct& b)
+static __forceinline bool RenderStatesDifferRva0012D660(RenderStateStruct& a, RenderStateStruct& b)
 {
 	if (a.shader != b.shader) return true;
 	if (a.material != b.material) return true;
@@ -602,7 +668,6 @@ static bool RenderStatesDifferRva0012D660(RenderStateStruct& a, RenderStateStruc
 	return false;
 }
 
-// ?Flush_Sorting_Pool@SortingRendererClass@@CAXXZ present-unmatched
 void SortingRendererClass::Flush_Sorting_Pool()
 {
 	if (!overlapping_node_count) return;
@@ -618,13 +683,13 @@ void SortingRendererClass::Flush_Sorting_Pool()
 	if (overlapping_vertex_count > vertexAllocCount)
 		vertexAllocCount = overlapping_vertex_count;
 	WWASSERT(DEFAULT_SORTING_VERTEX_COUNT == 1 || vertexAllocCount <= DEFAULT_SORTING_VERTEX_COUNT);
-	DynamicVBAccessClass dyn_vb_access(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,vertexAllocCount/*overlapping_vertex_count*/);
+	DynamicVBAccessClass dyn_vb_access(BUFFER_TYPE_DYNAMIC_DX8,5,vertexAllocCount,0);
+	unsigned vertex_array_offset=0;
 	{
-		DynamicVBAccessClass::WriteLockClass lock(&dyn_vb_access);
-		VertexFormatXYZNDUV2* dest_verts=(VertexFormatXYZNDUV2 *)lock.Get_Formatted_Vertex_Array();
+		DynamicVBAccessClass::WriteLock lock(&dyn_vb_access);
+		VertexFormatXYZNDUV2* dest_verts=lock.data;
 
 		unsigned polygon_array_offset=0;
-		unsigned vertex_array_offset=0;
 		for (unsigned node_id=0;node_id<overlapping_node_count;++node_id) {
 			SortingNodeStruct* state=overlapping_nodes[node_id];
 			VertexFormatXYZNDUV2* src_verts=NULL;
@@ -642,8 +707,13 @@ void SortingRendererClass::Flush_Sorting_Pool()
 			memcpy(dest_verts, src_verts, sizeof(VertexFormatXYZNDUV2)*state->vertex_count);
 			dest_verts += state->vertex_count;
 
-			D3DXMATRIX d3d_mtx=(D3DXMATRIX&)state->sorting_state.world*(D3DXMATRIX&)state->sorting_state.view;
-			const Matrix4x4& mtx=(const Matrix4x4&)d3d_mtx;
+			// Each term reads the node's matrices directly: through a Matrix4x4
+			// reference, world[0][0] is a bare dereference and VC7 orders it after
+			// world[0][3], where retail sums it before.
+			float mtx02 = state->sorting_state.world[0][2]*state->sorting_state.view[2][2] + state->sorting_state.world[0][1]*state->sorting_state.view[1][2] + state->sorting_state.world[0][0]*state->sorting_state.view[0][2] + state->sorting_state.world[0][3]*state->sorting_state.view[3][2];
+			float mtx12 = state->sorting_state.world[1][2]*state->sorting_state.view[2][2] + state->sorting_state.world[1][1]*state->sorting_state.view[1][2] + state->sorting_state.world[1][0]*state->sorting_state.view[0][2] + state->sorting_state.world[1][3]*state->sorting_state.view[3][2];
+			float mtx22 = state->sorting_state.world[2][2]*state->sorting_state.view[2][2] + state->sorting_state.world[2][1]*state->sorting_state.view[1][2] + state->sorting_state.world[2][0]*state->sorting_state.view[0][2] + state->sorting_state.world[2][3]*state->sorting_state.view[3][2];
+			float mtx32 = state->sorting_state.world[3][2]*state->sorting_state.view[2][2] + state->sorting_state.world[3][1]*state->sorting_state.view[1][2] + state->sorting_state.world[3][0]*state->sorting_state.view[0][2] + state->sorting_state.world[3][3]*state->sorting_state.view[3][2];
 
 			unsigned short* indices=NULL;
 			SortingIndexBufferClass* index_buffer=static_cast<SortingIndexBufferClass*>(state->sorting_state.index_buffer);
@@ -653,7 +723,7 @@ void SortingRendererClass::Flush_Sorting_Pool()
 			indices+=state->start_index;
 			indices+=state->sorting_state.iba_offset;
 
-			if (mtx[0][2] == 0.0f && mtx[1][2] == 0.0f && mtx[3][2] == 0.0f && mtx[2][2] == 1.0f) {
+			if (mtx02 == 0.0f && mtx12 == 0.0f && mtx32 == 0.0f && mtx22 == 1.0f) {
 				// The common case for particle systems.
 				for (int i=0;i<state->polygon_count;++i) {
 					unsigned short idx1=indices[i*3]-state->min_vertex_index;
@@ -693,9 +763,9 @@ void SortingRendererClass::Flush_Sorting_Pool()
 					tis_ptr->tri.j = idx2 + vertex_array_offset;
 					tis_ptr->tri.k = idx3 + vertex_array_offset;
 					tis_ptr->idx = node_id;
-					tis_ptr->z = (mtx[0][2]*(v1->x + v2->x + v3->x) +
-												mtx[1][2]*(v1->y + v2->y + v3->y) +
-												mtx[2][2]*(v1->z + v2->z + v3->z))/3.0f + mtx[3][2];
+					tis_ptr->z = (mtx02*(v1->x + v2->x + v3->x) +
+												mtx12*(v1->y + v2->y + v3->y) +
+												mtx22*(v1->z + v2->z + v3->z))/3.0f + mtx32;
 					DEBUG_ASSERTCRASH((! _isnan(tis_ptr->z) && _finite(tis_ptr->z)), ("Triangle has invalid center"));
 				}
 			}
@@ -707,11 +777,12 @@ void SortingRendererClass::Flush_Sorting_Pool()
 		}
 	}
 
-	Sort(tis, tis + overlapping_polygon_count);
+	TempIndexStruct* end = tis + overlapping_polygon_count;
+	Sort(tis, end);
 
-/*	///@todo: Add code to break up rendering into multiple index buffer fills to allow more than 65536/3 triangles.  -MW
 	int total_overlapping_polygon_count = overlapping_polygon_count;
-	while (  > 0)
+
+	while (total_overlapping_polygon_count > 0)
 	{
 		if ((total_overlapping_polygon_count*3) > 65535)
 		{	//overflowed the index buffer, must break into multiple batches
@@ -720,11 +791,6 @@ void SortingRendererClass::Flush_Sorting_Pool()
 		else
 			overlapping_polygon_count = total_overlapping_polygon_count;
 
-		//insert rendering code here!!
-
-		total_overlapping_polygon_count -= overlapping_polygon_count;
-	}
-*/
 	unsigned polygonAllocCount = overlapping_polygon_count;
 	if ((unsigned)(DynamicIBAccessClass::Get_Default_Index_Count()/3) < DEFAULT_SORTING_POLY_COUNT)
 		polygonAllocCount = DEFAULT_SORTING_POLY_COUNT;	//make sure that we force the DX8 index buffer to maximum size
@@ -737,23 +803,14 @@ void SortingRendererClass::Flush_Sorting_Pool()
 		DynamicIBAccessClass::WriteLockClass lock(&dyn_ib_access);
 		ShortVectorIStruct* sorted_polygon_index_array=(ShortVectorIStruct*)lock.Get_Index_Array();
 
-		try {
 		for (unsigned a=0;a<overlapping_polygon_count;++a) {
 			sorted_polygon_index_array[a]=tis[a].tri;
-		}
-		IndexBufferExceptionFunc();
-		} catch(...) {
-			IndexBufferExceptionFunc();
 		}
 	}
 
 	// Set index buffer and render!
 
-// byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp
-// ?Set_Index_Buffer@DX8Wrapper@@ present-unmatched
 	DX8Wrapper::Set_Index_Buffer(dyn_ib_access,0); // Override with this buffer (do something to prevent need for this!)
-// byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp
-// ?Set_Vertex_Buffer@DX8Wrapper@@ present-unmatched
 	DX8Wrapper::Set_Vertex_Buffer(dyn_vb_access); // Override with this buffer (do something to prevent need for this!)
 
 	DX8Wrapper::Apply_Render_State_Changes();
@@ -763,18 +820,17 @@ void SortingRendererClass::Flush_Sorting_Pool()
 	unsigned node_id=tis[0].idx;
 	for (unsigned i=1;i<overlapping_polygon_count;++i) {
 		if (node_id!=tis[i].idx) {
-			if (RenderStatesDifferRva0012D660(
-				reinterpret_cast<RenderStateStruct &>(overlapping_nodes[node_id]->sorting_state),
-				reinterpret_cast<RenderStateStruct &>(overlapping_nodes[tis[i].idx]->sorting_state))) {
+			RenderStateStruct& b = reinterpret_cast<RenderStateStruct &>(overlapping_nodes[tis[i].idx]->sorting_state);
+			RenderStateStruct& a = reinterpret_cast<RenderStateStruct &>(overlapping_nodes[node_id]->sorting_state);
+			if (RenderStatesDifferRva0012D660(a,b)) {
 				SortingNodeStruct* state=overlapping_nodes[node_id];
-				Apply_Render_State(reinterpret_cast<RenderStateStruct &>(state->sorting_state));
+				Rva0012D4D0Apply(reinterpret_cast<RenderStateStruct &>(state->sorting_state));
 
-// ?Draw_Triangles@DX8Wrapper@@ present-unmatched
 				DX8Wrapper::Draw_Triangles(
-					static_cast<unsigned short>(start_index*3),
-					static_cast<unsigned short>(count_to_render),
-					state->min_vertex_index,
-					state->vertex_count);
+					start_index*3,
+					count_to_render,
+					0u,
+					vertex_array_offset);
 
 				count_to_render=0;
 				start_index=i;
@@ -787,25 +843,26 @@ void SortingRendererClass::Flush_Sorting_Pool()
 	// Render any remaining polygons...
 	if (count_to_render) {
 		SortingNodeStruct* state=overlapping_nodes[node_id];
-		Apply_Render_State(reinterpret_cast<RenderStateStruct &>(state->sorting_state));
+		Rva0012D4D0Apply(reinterpret_cast<RenderStateStruct &>(state->sorting_state));
 
-// ?Draw_Triangles@DX8Wrapper@@ present-unmatched
 		DX8Wrapper::Draw_Triangles(
-			static_cast<unsigned short>(start_index*3),
-			static_cast<unsigned short>(count_to_render),
-			state->min_vertex_index,
-			state->vertex_count);
+			start_index*3,
+			count_to_render,
+			0u,
+			vertex_array_offset);
 	}
 
 	// Release all references and return nodes back to the clean list for the frame...
-	for (node_id=0;node_id<overlapping_node_count;++node_id) {
+	for (unsigned node_id=0;node_id<overlapping_node_count;++node_id) {
 		SortingNodeStruct* state=overlapping_nodes[node_id];
 		Release_Refs(state);
 		clean_list.Add_Head(state);
 	}
+	total_overlapping_polygon_count -= overlapping_polygon_count;
 	overlapping_node_count=0;
 	overlapping_polygon_count=0;
 	overlapping_vertex_count=0;
+	}
 
 	SNAPSHOT_SAY(("SortingSystem - Done flushing\n"));
 

@@ -4,6 +4,11 @@
 // 0x0091D9E0, 79 bytes. The body carried only a machine byte-dump row;
 // reverse/reloc_names.csv holds the name with identity=real.
 //
+// In BFME2 (0x0013A780) it is DynamicVBAccessClass::~DynamicVBAccessClass:
+// Flush_Sorting_Pool (0x0012E8C0) constructs [esp+38h] with
+// DynamicVBAccessClass::DynamicVBAccessClass (0x0013B040) and destroys the same
+// object here, and the body sits with that class's _Deinit, WriteLock and _Reset.
+//
 // It is WW3D's dynamic vertex-buffer release, with one BFME change: the
 // dynamic-DX8 arm indexes a pair of globals by the slot at +8 rather than
 // using single variables, so this build keeps several dynamic buffers rather
@@ -54,10 +59,10 @@ bool BfmeDynamicSortingVertexArrayInUse;
 
 enum { BFME_BUFFER_TYPE_DYNAMIC_DX8 = 2 };
 
-class BoxDynamicVBAccessClass
+class DynamicVBAccessClass
 {
 public:
-	~BoxDynamicVBAccessClass(void);
+	~DynamicVBAccessClass(void);
 
 private:
 	int m_bfmeField00;					// +0x00
@@ -69,8 +74,8 @@ private:
 	BfmeDynamicVertexBuffer *m_bfmeVertexBuffer;		// +0x14
 };
 
-// ??1BoxDynamicVBAccessClass@@QAE@XZ
-BoxDynamicVBAccessClass::~BoxDynamicVBAccessClass(void)
+// ??1DynamicVBAccessClass@@QAE@XZ
+DynamicVBAccessClass::~DynamicVBAccessClass(void)
 {
 	if (m_bfmeType == BFME_BUFFER_TYPE_DYNAMIC_DX8)
 	{
@@ -94,4 +99,4 @@ BoxDynamicVBAccessClass::~BoxDynamicVBAccessClass(void)
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??1BfmeSortingVBAccess@@QAE@XZ=??1BoxDynamicVBAccessClass@@QAE@XZ")
+#pragma comment(linker, "/alternatename:??1BfmeSortingVBAccess@@QAE@XZ=??1DynamicVBAccessClass@@QAE@XZ")

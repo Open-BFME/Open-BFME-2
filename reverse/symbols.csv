@@ -15683,3 +15683,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?push_back@?$vector@W4Rva002444BEFaction@@V?$allocator@W4Rva002444BEFaction@@@_STL@@@_STL@@QAEXABW4Rva002444BEFaction@@@Z,0x002E01C6,ICF twin of the rowed 4-byte enum vector push_back; REL32 in populateRandomSideAndColor template-value vector
 ?swap@?$vector@HV?$Rva002444BEAllocator@H@@@_STL@@QAEXAAV12@@Z,0x00567ECD,rowed E12 vector swap fold; REL32s in populateRandomSideAndColor narrowing the pool in place
 ?Flush_Sorting_Pool@SortingRendererClass@@CAXXZ,0x0012E8C0,Sole callee of SortingRendererClass::Flush (0x0012F190) at 0x0012FA50 between the DX8 triangle-draw flag swap, where the ZH/BFME1 Flush calls Flush_Sorting_Pool
+?Get_Default_Vertex_Count@DynamicVBAccessClass@@SAGXZ,0x0013ABB0,callee of ?Flush_Sorting_Pool@SortingRendererClass@@CAXXZ
+?Get_Default_Index_Count@DynamicIBAccessClass@@SAGXZ,0x00139090,callee of ?Flush_Sorting_Pool@SortingRendererClass@@CAXXZ
