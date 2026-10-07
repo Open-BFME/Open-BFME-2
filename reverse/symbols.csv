@@ -15494,3 +15494,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva000DF52C@W3DBridgeBuffer@@QAEXH@Z,0x000DF52C,callee of ?rva000DF745@W3DBridgeBuffer@@QAEXHH@Z
 ?rva000E7A40@Rva000E7B04@@QAEXH@Z,0x000E7A40,callee of ?rva000E7B04@Rva000E7B04@@QAEXXZ
 ?rva000EB2EF@Rva000EB3D1@@QAEXH@Z,0x000EB2EF,callee of ?rva000EB3D1@Rva000EB3D1@@QAEXXZ
+?GetVertices@RoadSegment@@QAEHPAUVertexFormatXYZDUV1@@H@Z,0x000D45A3,callee of ?loadRoadSegment@W3DRoadBuffer@@QAEXPAGPAUVertexFormatXYZDUV1@@PAVRoadSegment@@@Z
