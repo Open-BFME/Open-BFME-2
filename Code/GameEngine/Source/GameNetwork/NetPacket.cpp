@@ -318,6 +318,7 @@ public:
 	static NetCommandMsg *rva0058DE5B(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DEC5(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DEF7(UnsignedByte *data, Int &readOffset);
+	static NetCommandMsg *rva0058DF29(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DFB8(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E047(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E0B0(UnsignedByte *data, Int &readOffset);
@@ -485,6 +486,21 @@ public:
 	Rva004D580E();
 private:
 	char m_pad[0x24];
+};
+
+class Rva004D57F1
+{
+public:
+	Rva004D57F1();
+private:
+	char m_pad[0x28];
+};
+
+class NetDisconnectPlayerCommandMsg
+{
+public:
+	void setDisconnectSlot(UnsignedByte slot);
+	void setDisconnectFrame(UnsignedInt frame);
 };
 
 class Rva004D582B
@@ -1376,6 +1392,24 @@ NetCommandMsg *NetPacket::rva0058DEF7(unsigned char *data, int &readOffset)
 	(void)data;
 	(void)readOffset;
 	NetDisconnectKeepAliveCommandMsg *msg = new NetDisconnectKeepAliveCommandMsg();
+	return (NetCommandMsg *)msg;
+}
+
+// ?rva0058DF29@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z, retail 0x0058DF29, 143 bytes:
+// ZH's readDisconnectPlayerMessage (slot byte, then disconnect frame) on the
+// rowed type-26 ctor Rva004D57F1; both setters are the folded 10-byte bodies
+// sendDisconnectCommand's pins name. Same shape as rva0058DFB8 below.
+NetCommandMsg *NetPacket::rva0058DF29(UnsignedByte *data, Int &readOffset)
+{
+	Rva004D57F1 *msg = new Rva004D57F1();
+	UnsignedByte slot = 0;
+	memcpy(&slot, data + readOffset, sizeof(slot));
+	readOffset += sizeof(slot);
+	((NetDisconnectPlayerCommandMsg *)msg)->setDisconnectSlot(slot);
+	UnsignedInt disconnectFrame = 0;
+	memcpy(&disconnectFrame, data + readOffset, sizeof(disconnectFrame));
+	readOffset += sizeof(disconnectFrame);
+	((NetDisconnectPlayerCommandMsg *)msg)->setDisconnectFrame(disconnectFrame);
 	return (NetCommandMsg *)msg;
 }
 
