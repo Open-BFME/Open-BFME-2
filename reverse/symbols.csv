@@ -15364,9 +15364,7 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva0028D680@Rva0028D680@@QAEXXZ,0x0028D680,REL32 at 0x0023D6C2 targets this body; caller passes the current linked node in ECX with no stack arguments after a getDrawable check; address-derived helper name and operation remain unresolved.
 ??0Rva0023FC98@@QAE@PBVAsciiString@@@Z,0x0023FC98,caller at 0x00240D8C allocates 0x10 bytes and passes a const AsciiString pointer in the constructor slot; target initializes a vtable-like word at +0 and the string subobject at +8; address-derived object identity remains unresolved.
 ?moveTeamTo@Team@@QAEXUCoord3D@@@Z,0x0039E7F2,"candidate alias: Open-BFME-1 Team.cpp identifies TeamPrototype::moveTeamTo(Coord3D) forwarding to Team::moveTeamTo(Coord3D); BFME2 target caller 0x0039F03A builds a 12-byte Coord3D argument block and calls 0x0039E7F2, whose matched body is currently address-derived with a three-float ABI. The alias and ABI equivalence are structural inferences, not an independent target symbol fact."
-
 ?push_back@?$list@PAURva0048BDF8Entry@@V?$allocator@PAURva0048BDF8Entry@@@_STL@@@_STL@@QAEXABQAURva0048BDF8Entry@@@Z,0x0005548F,pointer-element list push_back folded with the rowed list<int> body; retail rel32 at 0x0048BEC4 in FireWeaponUpdate::Rva0048BDF8Helper on +0x24
-
 ?_M_lower_bound@?$_Rb_tree@URva000F4003Element@@U1@U?$_Identity@URva000F4003Element@@@_STL@@U?$less@URva000F4003Element@@@3@V?$allocator@URva000F4003Element@@@3@@_STL@@ABEPAU?$_Rb_tree_node@URva000F4003Element@@@2@ABURva000F4003Element@@@Z,0x000F2F5A,
 ?rva000AC2F6@Rva000AC2F6@@QAEXHPAM000_N@Z,0x000AC2F6,address-derived helper read from the placed-target call at 0x000AE4E8; Ghidra boundary 0x000AC2F6 is an in-image function body; not a thunk; name and float-layout semantics remain provisional
 ?rva002122D4@Rva002122D4@@QAEHH@Z,0x002122D4,Direct REL32 target at 0x00212313 from fresh 0x002122FD; target body remains separately blocked
@@ -15401,7 +15399,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?push_back@?$list@PAVRva0048E16C@@V?$allocator@PAVRva0048E16C@@@_STL@@@_STL@@QAEXABQAVRva0048E16C@@@Z,0x0005548F,ICF twin of the four-byte list push_back; REL32 at 0x0048E312 in FloodUpdate member creation 0x0048E189 on +0x20
 ?rva002803F9@TerrainLogic@@QAE?AW4PathfindLayerEnum@@PBUCoord3D@@_N@Z,0x002803F9,ZH getHighestLayerForDestination(pos; onlyHealthyBridges=false): REL32 at 0x0048FDBB in HeightDieUpdate::update 0x0048FD1B on the TargetHeightIncludesStructures path; the body starts with getGroundHeight(pos->x; pos->y; 0)
 ?rva001F5BBE@ParticleSystemManager@@QAEXPAVObject@@@Z,0x001F5BBE,ZH destroyAttachedSystems(Object*) on TheParticleSystemManager (0x00DFDD04): REL32 at 0x0048FF56 in HeightDieUpdate::update 0x0048FD1B; the rowed body destroys every system whose +0xB4 attached ID is the object's +0x74 ID
-
 ?rva00416C69@@YAXXZ,0x00416C69,address-derived no-argument callee from retail call at 0x00517EBC; body identity remains unknown
 ?rva005BDAC1@@YAXXZ,0x005BDAC1,address-derived no-argument callee from retail call at 0x00517EC1; body identity remains unknown
 ?rva005AF12F@@YAXPAX@Z,0x005AF12F,address-derived one-pointer callee from retail call at 0x00517F05; body identity remains unknown
@@ -15409,7 +15406,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003FACB4@Rva003FAC83@@QAEXXZ,0x003FACB4,Direct call at 0x00213AA1 on the map node's +8 payload; thiscall with no stack args. Shares target fields +0x18/+0x30..+0x32 and common tail with adjacent 0x003FAD4A/0x003FADA3 methods; operation and concrete type unresolved.
 ?rva003FAD4A@Rva003FAC83@@QAEXPAX@Z,0x003FAD4A,Direct call at 0x00213BA7 on the map node's +8 payload after forwarding one pointer argument; callee cleans 4 bytes. Target shares fields +0x18/+0x31 with adjacent Rva003FAC83-addressed state methods; payload meaning unresolved.
 ?rva003FADA3@Rva003FAC83@@QAEXXZ,0x003FADA3,Direct call at 0x00213C4C on the map node's +8 payload; thiscall with no stack args. Target updates the same +0x32 field and common helper path as adjacent 0x003FACB4/0x003FAD4A methods; operation and concrete type unresolved.
-
 ?Set_Lighting_Environment@MeshClass@@QAEXPAVLightEnvironmentClass@@@Z,0x0014BB20,REL32 callee of retail MeshClass::Render 0x0014BB90; body offsets agree with Render's use (LightEnvironment +0xC8 with copy +0xCC; method vector +0x13C/+0x140; task takes a RefCountPtr by value and the method stack by const reference)
 ?Add_Rendering_Task@Rva00DF6F94GapFillerContext@@QAEXV?$RefCountPtr@VMeshClass@@@@ABV?$vector@V?$RefCountPtr@VRenderingMethod@FXShader@@@@V?$allocator@V?$RefCountPtr@VRenderingMethod@FXShader@@@@@_STL@@@_STL@@@Z,0x00174AAD,REL32 callee of retail MeshClass::Render 0x0014BB90; body offsets agree with Render's use (LightEnvironment +0xC8 with copy +0xCC; method vector +0x13C/+0x140; task takes a RefCountPtr by value and the method stack by const reference)
 ??0Rva0074104C@@QAE@XZ,0x00740FD9,callee of ?makeRva0074104C@@YAPAVRva0074104C@@XZ
@@ -15422,7 +15418,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003EEDD6@Rva003EEDD6@@QAEXH@Z,0x003EEDD6,REL32 at 0x003EF02B targets Ghidra function start 0x003EEDD6 (142B); address-derived call target only; semantics unresolved
 ?rva003F2A8C@Rva003F2A8C@@QAEXH@Z,0x003F2A8C,Direct REL32 callee of target body 0x003F300A; Ghidra start/extent 127 bytes; address-derived symbol; method ABI from caller.
 ?rva002796D9@Rva002796D9@@QAEXH@Z,0x002796D9,callee of ?rva0023998E@Drawable@@QAEXH@Z
-
 ?sendVoteCommand@DisconnectManager@@IAEXHPAVConnectionManager@@@Z,0x004D3A1B,callee of ?voteForPlayerDisconnect@DisconnectManager@@QAEXHPAVConnectionManager@@@Z
 ?applyDisconnectVote@DisconnectManager@@IAEXHIHPAVConnectionManager@@@Z,0x004D3CD8,callee of ?voteForPlayerDisconnect@DisconnectManager@@QAEXHPAVConnectionManager@@@Z
 ?rva005697F7@Rva005697F7@@QAEXPAX@Z,0x005697F7,address-derived callback used by the fresh 0x003EDF69/0x003EDFD8 workers; target callsite loads the list element into ECX and pushes the incoming object pointer; both helper bodies remain unclaimed
@@ -15458,14 +15453,12 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00531FE6@Rva002E99F9Sub460@@QAEGHHG@Z,0x00531FE6,callee of ?rva00532041@Rva002E99F9Sub460@@QAEGHHHPAPAURva00532041Record@@@Z
 ?rva0059DD3F@Rva0059DD3F@@QAEXPAX000HPAHH@Z,0x0059DD3F,Native REL32 at RVA 004FB2B3 in the 67B wrapper; callee Ghidra entry 0059DD3F has RET 28 and clears the sixth output-count argument at EBP+1C; address-derived receiver and method.
 ?rva0059D2DA@Rva0059D2DA@@QAEXPAX000HHHPAH@Z,0x0059D2DA,Native REL32 at RVA 004FB2F5 in the 66B wrapper; Ghidra helper entry 0059D2DA ends in RET32; wrapper supplies eight stack arguments and uses the last argument as output count; address-derived identity.
-
 ?rva003B7C47@Rva003B573E@@QAEHABV?$StringBase@D@@@Z,0x003B7C47,callee of ?rva003B7F8E@Rva003B573E@@QAEHPAV1@H@Z
 ?rva0028D4C4@Object@@QBE_NXZ,0x0028D4C4,Target call from 0x00261246; Ghidra boundary 0x0028D4C4; address-derived Object owner from neighboring matched Object helpers; body overlaps matched return stub at 0x0028D4DD
 ?rva0015288F@Rva0015288F@@QAE_NHHHH@Z,0x0015288F,844B target body returns its status in AL immediately before ret 0x10; factory caller at 0x00152C47 tests AL. Address-derived owner name; ABI verified from call sites.
 ?rva000CF20C@W3DFloorDraw@@QAEXPAVAsciiString@@@Z,0x000CF20C,Target caller 0x000CF2CF supplies ECX=this and one AsciiString out pointer; W3DFloorDraw owner is corroborated by its rowed ctor dtor and flag setters
 ?rva00068395@BaseHeightMapRenderObjClass@@QAEXHPAVAsciiString@@0_N1@Z,0x00068395,Target caller 0x000CF2CF supplies ECX=TheTerrainRenderObject and ID string pointer string pointer byte byte; wrapper epilogue ret 20 forwards this+0x3860
-
-?rva0037F8AC@Rva0037F8AC@@QAEXPAX@Z,0x0037F8AC,callee of ?rva0037F90F@Rva0037F8AC@@QAEPAV1@PAXPAURva0037F90FInput@@1@Z
+?rva0037F8AC@Rva0037F8AC@@QAEXPAX@Z,0x0037F8AC,callee of ?rva0037F90F@Rva0037F8AC@@QAEPAV1@PAXPBURva0037F90FRecord@@1@Z
 ?rva0037F87A@Rva0037F4EA@@QAEXPAX@Z,0x0037F87A,callee of ?rva0037F8AC@Rva0037F8AC@@QAEXPAX@Z
 ?rva00283D70@TerrainLogic@@QAEPAVObject@@PAX@Z,0x00283D70,FireSpreadUpdate::update callees: TerrainLogic object resolver 0x283D70 (EH prolog; arg [ebp+8]; returns Object*) and calcNextSpreadDelay 0x48B7D9 (row Rva0048B7D9Calc.cpp; FireSpreadUpdate.cpp file literal)
 ?rva0048B7D9@FireSpreadUpdate@@QAEIXZ,0x0048B7D9,FireSpreadUpdate::update callees: TerrainLogic object resolver 0x283D70 (EH prolog; arg [ebp+8]; returns Object*) and calcNextSpreadDelay 0x48B7D9 (row Rva0048B7D9Calc.cpp; FireSpreadUpdate.cpp file literal)
@@ -15496,3 +15489,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00512EDD@AptDisconnectScreen@@QAEXHVUnicodeString@@@Z,0x00512EDD,placeholder for the disconnect screen's per-slot name reset (BFME 1 DisconnectMenu::removePlayer shape; unrowed); called with ecx=this and the slot plus an empty UnicodeString by the constructor 0x00513558
 ?rva000D1407@AptCampaignReview@@QAEXPBDPAXPAVGameWindow@@@Z,0x000D1407,callee of ??0AptCampaignReview@@QAE@PAX@Z
 ?rva00524D01@Rva005C96A9@@QAEXABVAsciiString@@H@Z,0x00524D01,callee of ?rva005C976F@Rva005C976F@@QAEXXZ
+?Add_Tri@Render2DClass@@QAEXABVVector2@@00000K@Z,0x00045708,callee of ?Rva001049C7AddTriangle@@YAXPAVRender2DClass@@PBVCoord2D@@11111@Z
