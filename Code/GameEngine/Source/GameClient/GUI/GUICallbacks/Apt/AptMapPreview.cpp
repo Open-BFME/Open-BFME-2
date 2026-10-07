@@ -27,12 +27,14 @@
 typedef int Int;
 typedef bool Bool;
 
+class Rva0020E89C;
+
 class Rva004FD8A8Set
 {
 public:
 	Bool rva004FD8A8(Int region);		// 0x004FD8A8
 	Bool rva004FCA90();			// 0x004FCA90
-	void rva004FD699(Int region, _STL::vector<void *> *regions);	// 0x004FD699
+	void rva004FD699(Int region, _STL::vector<Rva0020E89C *> *regions);	// 0x004FD699
 
 	unsigned char m_pad00[8];
 	AsciiString m_descKey;		// +0x08, passed to TheGameText->fetch
@@ -229,13 +231,40 @@ public:
 	GameSlot *rva0057C688(Int slot);
 };
 
+// The preview's ref-counted members (+0x18, +0x6C) release their referent
+// through 0x0007DEEF; every instance of the dtor folds to 0x005F8F96.
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+
+template <class T> class RefCountPtr
+{
+public:
+	RefCountPtr() : m_p(0) {}
+	RefCountPtr(T *p) : m_p(p) { if (p) ++p->m_refs; }
+	~RefCountPtr() { if (m_p) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_p); }
+	T *operator->() const { return m_p; }
+	T *get() const { return m_p; }
+
+private:
+	T *m_p;
+};
+
+// The callback the +0x6C reference holds.
+class Rva0057CC15Op
+{
+public:
+	virtual void v00();
+
+	int m_refs;	// +0x04
+};
+
 // The preview's +0x6C callback (rowed invoke 0x0057CC15 throws when unset).
 class Rva0057CC15Ref
 {
 public:
 	void invoke(int a);
 
-	void *m_op;
+	RefCountPtr<Rva0057CC15Op> m_op;
 };
 
 // The campaign manager (0x00E02D6C): the index of a campaign in its +0x14
@@ -425,7 +454,7 @@ public:
 	int rva0043DA65();
 
 	int m_00;
-	int m_04;
+	int m_refs;	// +0x04, the reference count
 	int m_08;
 };
 
@@ -436,22 +465,35 @@ struct Rva0057DA21Waypoint
 	Coord3D pos;
 };
 
+// ZH Region3D: the map extent.
+struct Region3D
+{
+	Coord3D lo;
+	Coord3D hi;
+};
+
 class MapMetaData
 {
 public:
 	UnicodeString getDescription();		// 0x003009CD
 	UnicodeString bfme_getBaseDisplayName();	// 0x00300AEA
 
+	MapMetaData();	// 0x003031D3
+
 	UnicodeString m_displayName;	// +0x00
-	unsigned char m_pad04[0x20 - 0x4];
+	UnicodeString m_04;	// +0x04
+	Region3D m_extent;	// +0x08
 	Int m_numPlayers;	// +0x20
 	Bool m_isMultiplayer;	// +0x24
-	unsigned char m_pad25[0x38 - 0x25];
+	Bool m_25;	// +0x25
+	Bool m_isOfficial;	// +0x26
+	unsigned char m_pad27[0x38 - 0x27];
 	_STL::map<AsciiString, Rva0057DA21Waypoint> m_waypoints;	// +0x38
 	unsigned char m_pad44[0x50 - 0x44];
 	AsciiString m_fileName;	// +0x50
 	unsigned char m_pad54[0xf8 - 0x54];
 	UnicodeString m_f8;	// +0xF8, a second display name
+	UnicodeString m_fc;	// +0xFC, getDescription's cached text
 };
 
 // ZH MapCache: the map records by lower-case file name.
@@ -506,9 +548,42 @@ public:
 	int m_c8;		// +0xC8
 };
 
-class AptMapPreview
+// The preview's living world region listener base (vtable 0x0086E350, its
+// four slots empty; 0x0057428C is its dtor's folded copy).
+class Rva0086E350Listener
 {
 public:
+	virtual void v00(void *a) {}
+	virtual void v04(void *a, void *b) {}
+	virtual void v08(void *a, void *b, void *c) {}
+	virtual void v0C(void *a, void *b, void *c) {}
+	~Rva0086E350Listener() {}
+};
+
+// The interface the +0x04 callback implements (vtable 0x008363B8: its
+// deleting dtor 0x003EE711 and a pure slot).
+class Rva003EE711
+{
+public:
+	virtual ~Rva003EE711() {}
+	virtual void *v04(void *color, void *arg) = 0;
+};
+
+// The preview's +0x04 callback (vtable 0x0086F31C, ctor 0x0057C50C, dtor
+// 0x0057C51E): calls back into its owner.
+class Rva0057C50C : public Rva003EE711
+{
+public:
+	Rva0057C50C(void *owner) : m_owner(owner) {}
+	virtual void *v04(void *color, void *arg);
+
+	void *m_owner;
+};
+
+class AptMapPreview : public Rva0086E350Listener
+{
+public:
+	AptMapPreview(Rva0043DA65 *game);
 	Bool AllowsStartInRegion(Int region);
 	void SelectCampaign(Int campaign);
 	void UpdateStrategicScenarioDesc();	// 0x0057C99E
@@ -526,7 +601,7 @@ public:
 	void rva0057D19A(MapMetaData *map);
 	void bfmeSetMapDescription(MapMetaData *map);	// 0x0057C892
 	void rva0057D10F(MapMetaData *map);	// the map picture
-	void rva0057D709(Int region, _STL::vector<void *> *regions);
+	void rva0057D709(Int region, _STL::vector<Rva0020E89C *> *regions);
 	void rva0057D746(Rva0020E89C *previous, Rva0020E89C *current);
 	void rva0057D85D(Rva0020E89C *region);
 	void rva0057D5E5();
@@ -534,10 +609,9 @@ public:
 	void rva0057DB97();
 
 private:
-	unsigned char m_pad00[0x4];
-	unsigned char m_field04[0xc - 0x4];	// +0x04, handed to the campaign owner
-	_STL::vector<void *> m_regions;	// +0x0C, Rva0020E89C pointers
-	Rva0043DA65 *m_18;	// +0x18
+	Rva0057C50C m_field04;	// +0x04, handed to the campaign owner
+	_STL::vector<Rva0020E89C *> m_regions;	// +0x0C, a region group
+	RefCountPtr<Rva0043DA65> m_18;	// +0x18
 	int m_mode;	// +0x1C (OpenPlay 0, Strategic 1)
 	GameWindow *m_currentMap;	// +0x20
 	GameWindow *m_mapPicture;	// +0x24
@@ -581,7 +655,7 @@ void AptMapPreview::SelectCampaign(Int campaign)
 		owner->m_field44 = 1;
 		if (m_livingWorldWindow->m_info)
 		{
-			owner->m_field48 = m_field04;
+			owner->m_field48 = &m_field04;
 			owner->rva003EF008();
 		}
 	}
@@ -727,7 +801,7 @@ void AptMapPreview::rva0057D5E5()
 
 // Retail 0x0057D709, 61 bytes. Name unknown. Refills the list with the
 // regions the campaign's start-region set groups with the given one.
-void AptMapPreview::rva0057D709(Int region, _STL::vector<void *> *regions)
+void AptMapPreview::rva0057D709(Int region, _STL::vector<Rva0020E89C *> *regions)
 {
 	regions->clear();
 	if (m_livingWorldWindow != 0 && m_livingWorldWindow->m_info != 0 && m_livingWorldWindow->m_info->m_startRegions != 0)
@@ -778,15 +852,15 @@ void AptMapPreview::rva0057D85D(Rva0020E89C *region)
 		return;
 	if (!AllowsStartInRegion((Int)region))
 		return;
-	if (m_regionPicked.m_op == 0)
+	if (m_regionPicked.m_op.get() == 0)
 		return;
 	Rva0020E89C *picked = region;
 	rva0057D709((Int)region, &m_regions);
 	for (unsigned int i = 0; i < m_regions.size(); ++i)
 	{
-		if (((Rva0057C688 *)this)->rva0057C688(((Rva0020E89C *)m_regions[i])->getId()) != 0)
+		if (((Rva0057C688 *)this)->rva0057C688(m_regions[i]->getId()) != 0)
 		{
-			picked = (Rva0020E89C *)m_regions[i];
+			picked = m_regions[i];
 			break;
 		}
 	}
@@ -1124,9 +1198,9 @@ void AptMapPreview::rva0057DB97()
 		((Rva003EFE3E *)start)->rva003EFE3E(i);
 		if (owner != 0)
 			((Rva003EE8D8 *)owner)->rva003EE8D8((int)start);
-		for (_STL::vector<void *>::iterator it = m_regions.begin(); it != m_regions.end(); ++it)
+		for (_STL::vector<Rva0020E89C *>::iterator it = m_regions.begin(); it != m_regions.end(); ++it)
 		{
-			Rva0020E89C *other = (Rva0020E89C *)*it;
+			Rva0020E89C *other = *it;
 			if (other == start)
 				continue;
 			claimed[other->getId()] = (Rva0057DB97Slot)i;
@@ -1237,4 +1311,31 @@ void AptMapPreview::rva0057D19A(MapMetaData *map)
 		g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:CurrentMapName"), UnicodeString(L" "), false);
 		g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:LobbyGameType"), UnicodeString(L" "), false);
 	}
+}
+
+// Its two owners (0x0043AE44, 0x00441ECE) build the preview in place at
+// their +0x18 around a new game holder. The default map is the 8-player
+// placeholder rva0057D922 fills for maps the cache lacks; both lobby texts
+// start blank.
+AptMapPreview::AptMapPreview(Rva0043DA65 *game)
+	: m_field04(this), m_18(game), m_mode(-1), m_currentMap(0), m_mapPicture(0), m_mapInfo(0), m_mapDescription(0),
+	  m_strategicScenarioComboBox(0), m_strategicScenarioDesc(0), m_strategicTerritoryDesc(0), m_picture(0),
+	  m_ownsPicture(false), m_enableStartSpots(false), m_defaultMap(0), m_livingWorldWindow(0)
+{
+	memset(m_currentMapChildren, 0, sizeof(m_currentMapChildren));
+	m_defaultMap = new MapMetaData;
+	m_defaultMap->m_04 = L"";
+	m_defaultMap->m_displayName = L"";
+	m_defaultMap->m_isOfficial = false;
+	m_defaultMap->m_fileName = "";
+	m_defaultMap->m_numPlayers = 8;
+	m_defaultMap->m_isMultiplayer = true;
+	m_defaultMap->m_extent.lo.x = 0.0f;
+	m_defaultMap->m_extent.lo.y = 0.0f;
+	m_defaultMap->m_extent.lo.z = 0.0f;
+	m_defaultMap->m_extent.hi.x = 1.0f;
+	m_defaultMap->m_extent.hi.y = 1.0f;
+	m_defaultMap->m_extent.hi.z = 0.0f;
+	g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:CurrentMapName"), UnicodeString(L" "), false);
+	g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:LobbyGameType"), UnicodeString(L" "), false);
 }
