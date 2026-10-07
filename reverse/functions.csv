@@ -67256,3 +67256,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ??4BfmeAssignRecord28@@QAEAAU0@ABU0@@Z,,0x003F6388,43,Code/Libraries/Source/WWVegas/WWLib/StlSweepBfmeAssignRecord28.cpp,matched,assignment body and callers establish the two vector copies; element layouts remain structural inference
 ?onBodyDamageStateChange@SpawnBehavior@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z,,0x004604D5,177,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorRva004604D5.cpp,matched,VTABLE slot 2 of 0x0084259C and slot 21 of 0x00842550 class SpawnBehavior
 ?rva003EE083@Rva003EE083@@QAEPAXABVAsciiString@@@Z,,0x003EE083,76,Code/GameEngine/Source/Common/Rva003EE083Lookup.cpp,matched,caller and rowed BitRange string getter
+??1Rva004D759C@@UAE@XZ,,0x004D759C,139,Code/GameEngine/Source/Common/Rva004D759CDtor.cpp,matched,ctor vtable and donor state cleanup semantics with target layout
