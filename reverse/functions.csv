@@ -68705,3 +68705,4 @@ uw_007aa040,,0x007AA040,11,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp,matc
 ?d_004ff207@@YAXXZ,,0x004FF207,135,Code/gen_asm/d_004ff207.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_003fda19@@YAXXZ,,0x003FDA19,119,Code/gen_asm/d_003fda19.asm,matched,gen-dump;bounds=ghidra-inventory
 ?groundHeight@Rva00062FFFTerrainPrefix@@QBEMMMPAUCoord3D@@@Z,,0x00062C45,80,Code/GameEngineDevice/Source/W3DDevice/GameLogic/Rva00062FFFTerrainMaximumExtent.cpp,matched,ZH ground-height reference and ba7ddda7 declaration-only renderer slice with native ordering actual owned global and verified slot244
+?find@Rva002FE76BListPrefix@@QAEPAVRva001DB09DDwordField@@H@Z,,0x002FE76B,46,Code/GameEngine/Source/GameLogic/AI/AIRva002FE712.cpp,matched,borrowed-prefix; ZH AI.cpp findGroup lead; native ring and key getter; complete internal-jump boundary

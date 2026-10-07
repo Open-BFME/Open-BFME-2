@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?destroyGroup@AI@@QAEXPAVAIGroup@@@Z @ 0x002FE712 89B
@@ -49,4 +49,43 @@ void AI::destroyGroup(AIGroup *group)
 	if (group)
 		mem = group->deleteInstance(0);
 	::operator delete(mem);
+}
+
+// ?find@Rva002FE76BListPrefix@@QAEPAVRva001DB09DDwordField@@H@Z
+// Retail 0x002FE76B..0x002FE799 (46 bytes): sentinel at receiver+0x14;
+// nodes have next at +0 and a payload pointer at +8. The rowed 0x001DB09D
+// getter reads the comparison key at payload+0x10. The success path jumps
+// back to the shared pop/ret 4 within this proven boundary.
+// Primary source lead: GeneralsMD AI.cpp AI::findGroup's list/key search;
+// neighbouring AI::destroyGroup confirms the subsystem's +0x14 list.
+// Original receiver/payload names and full layouts remain unproven.
+class Rva001DB09DDwordField
+{
+public:
+    int get() const;
+};
+
+struct Rva002FE76BNode
+{
+    Rva002FE76BNode *next;
+    void *unmodelled04;
+    Rva001DB09DDwordField *value;
+};
+
+class Rva002FE76BListPrefix
+{
+public:
+    Rva001DB09DDwordField *find(int key);
+
+private:
+    char prefix00[0x14];
+    Rva002FE76BNode *head;
+};
+
+Rva001DB09DDwordField *Rva002FE76BListPrefix::find(int key)
+{
+    for (Rva002FE76BNode *node = head->next; node != head; node = node->next)
+        if (node->value->get() == key)
+            return node->value;
+    return 0;
 }
