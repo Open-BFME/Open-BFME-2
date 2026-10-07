@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva00598B2A@Rva00598B2A@@QAEXXZ @0x00598B2A 78B via tree-list-vector clear with virtual delete
 // Evidence: thiscall ret0; tree clear 0x00598120 at +8; list walk with virtual slot0 int0 plus rowed delete 0x0002FD60; rowed List_base<int> clear 0x0023DAA5 at +0x14; rowed vector<AsciiString> erase 0x0002CCFC at +0x4C; caller unclaimed 0x00598CFD

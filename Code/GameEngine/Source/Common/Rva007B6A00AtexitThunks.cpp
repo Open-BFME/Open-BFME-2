@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD
 //
 // More 10-byte atexit cleanup thunks from the 0x007B68xx..0x007B9xxx strip, the
 // companions of Rva007B6880Thunks.cpp (kept in a separate unit so concurrent

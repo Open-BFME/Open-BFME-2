@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva00524436@@QAE@XZ @0x00524436 65B evidence: dtor via rowed clear 0x00523F8C plus vector CameraMarker at +0xc via dup 0x005243BB plus vector AsciiString at +0 via 0x0002CC70; precedent Rva00524265Dtor single-vector shape; callers 0x005248D0 0x0052634F 0x0052936C 0x005C7954
 #include <vector>

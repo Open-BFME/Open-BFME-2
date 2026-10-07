@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva00598B2A@@UAE@XZ @0x00598CFD 125B via clear plus members plus virtual base
 // Evidence: virtual dtor vtable 0x00870D2C; rowed clear 0x00598B2A; vector dtor 0x0002CC70 at +0x4C; holder free at +0x3C via rowed _free 0x00030830; rowed hashtable dtor 0x005982AC at +0x18; rowed List_base dtor 0x004EC395 at +0x14; rowed tree dtor 0x005981CA at +8; base dtor pinned at 0x00506B28

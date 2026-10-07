@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 //
 // ??1RemoveUpgradeUpgradeModuleData@@UAE@XZ, retail 0x004B8050, 69 bytes.

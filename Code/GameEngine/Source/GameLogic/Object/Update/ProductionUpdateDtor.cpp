@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // ??1ProductionUpdate@@UAE@XZ @0x0049E1BF 181B
 // ProductionUpdate dtor via BFME1 donor ProductionUpdateDestructor.cpp:113 plus

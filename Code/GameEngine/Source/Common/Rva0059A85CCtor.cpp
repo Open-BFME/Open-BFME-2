@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // Fix over the banked 0.97 attempt, from the retail unwind map: state 0
 // destroys the Rva00506B1B base through its 7-byte vptr setter 0x00506B28, so
 // the base declares a virtual destructor; that restores the missing state-0

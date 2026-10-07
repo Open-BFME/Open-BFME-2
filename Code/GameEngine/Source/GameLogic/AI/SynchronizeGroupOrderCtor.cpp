@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0SynchronizeGroupOrder@@QAE@XZ @0x00546982 59B evidence: stores vtable 0x0086A314; base GroupOrder default rowed 0x005488C5; set<AsciiString> at +0x18 via rowed 0x000D3A71; bool at +0x24 false; caller 0x00355060.
 // Honest-address ctor via vtable store (naming rule).

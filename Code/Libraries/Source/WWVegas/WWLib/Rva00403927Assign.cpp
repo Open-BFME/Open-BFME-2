@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // Copy assignment (35B) of the stride-0x14 element served by the __copy loop at
 // 0x004039E0 (count via idiv 0x14, per-element call) and its 29B forwarding wrapper

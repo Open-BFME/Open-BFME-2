@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva001ED03C@@QAE@ABV0@@Z, retail 0x001ED03C, 109 bytes.
 // Evidence: unlock lane copy ctor; callees rowed StringBase 0x000365F0 vector 0x000BC07E Rva001ECF66 0x001ECF66; caller 0x001ED20D.

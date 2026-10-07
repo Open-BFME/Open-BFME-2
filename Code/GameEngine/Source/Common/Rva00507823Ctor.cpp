@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG
 // stlport
 //
 // ??0Rva00507823@@QAE@XZ retail 0x0050775B 172B

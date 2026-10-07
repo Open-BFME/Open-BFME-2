@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?reserve@?$vector@UBfmeVectorRecord00319C84@@...@QAEXI@Z, retail 0x00319C84, 105 bytes.
 // Evidence: the body is byte-identical to vector<BfmeVectorRecord0002154F3>::reserve

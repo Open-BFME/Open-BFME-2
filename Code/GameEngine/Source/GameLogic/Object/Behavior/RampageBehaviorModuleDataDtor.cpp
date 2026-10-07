@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
 // stlport
 // ??1RampageBehaviorModuleData@@UAE@XZ, RVA 0x00458C9B, size 48.
 // Virtual dtor destroying RequiredUpgrade vector at +8 then restoring

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // parseAllowedFactions, retail 0x00534FFB (140 bytes). Built from the banked
 // attempt reverse/attempts/0x00534ffb.cpp, which was already byte-exact; its
 // set<AsciiString> swap callee is the ICF-folded tree swap at 0x0032AC92,

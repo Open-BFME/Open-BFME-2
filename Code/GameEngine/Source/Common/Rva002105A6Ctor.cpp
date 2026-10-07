@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_STLP_USE_STATIC_LIB
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /EHs /MD /D_STLP_USE_STATIC_LIB
 // Fix over the banked 0.93 attempt, from the retail unwind map: state 0
 // destroys the member at +4 through the folded 7-byte virtual dtor 0x0049B47C,
 // so Rva000D1930 has a virtual destructor; state 1 destroys +0x20 through the

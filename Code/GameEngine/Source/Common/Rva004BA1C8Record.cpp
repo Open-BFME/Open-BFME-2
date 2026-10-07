@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva004BA1C8@@QAE@XZ, retail 0x004BA1C8 8B: add ecx,4 then jmp to vector<AsciiString> dtor at 0x0002CC70.
 // Evidence: callees all rowed; callers at 0x004BA2D0 and 0x004BA34A plus jmp at 0x004BA31F; shares 0x2C layout

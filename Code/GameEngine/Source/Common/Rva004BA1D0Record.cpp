@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva004BA1D0@@QAE@ABV0@@Z, retail 0x004BA1D0 73B: copy ctor for the 0x2C record with vector<AsciiString> at +4.
 // Evidence: callees all rowed (vector copy ctor at 0x000BC07E); callers at 0x004BA235 and 0x004BAAC3; shares layout

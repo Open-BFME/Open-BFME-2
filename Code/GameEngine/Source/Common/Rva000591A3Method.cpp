@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Oi /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /Oi /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ?rva000591A3@Rva000591A3@@QAEXABVAsciiString@@@Z @ 0x000591A3 76B: thiscall
 // inserts AsciiString into set at +0xA0 via row 0x0005897D then if inserted

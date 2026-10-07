@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva005F2381@@QAE@XZ, retail 0x005F2381, 49 bytes.
 // Evidence: unlock lane; member Rva00330757Member ctor rowed 0x00330757 at +0 plus set<AsciiString> ctor rowed 0x000D3A71 at +0x10; callers at 0x005E6285 0x005E633A 0x005E6589 0x005F52FA 0x005F536B 0x005FB029.
