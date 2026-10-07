@@ -17,12 +17,17 @@ private:
 
 class Gen0002857E;
 
-class Gen0002857EOwner
+// Retail 0x10ED1F passes the owner at entry+4 and the complete entry pointer
+// to the verified manager helper at 0xA8127. Both owner views put the mutex
+// at +0x50; the helper's entry view reads +0x30/+0x38/+0x44.
+struct Rva000A80A8Item;
+
+class Rva000A7E9E
 {
 public:
 	char m_pad[0x50];
 	void *m_mutex;
-	void rva000A8127(void *entry);
+	void rva000A8127(Rva000A80A8Item *entry);
 };
 
 class Gen0002857E
@@ -32,7 +37,7 @@ public:
 	void release();
 private:
 	char m_pad0[4];
-	Gen0002857EOwner *m_owner;
+	Rva000A7E9E *m_owner;
 	char m_pad1[0x34 - 8];
 	// volatile so the read-modify-write is not strength-reduced to `inc`.
 	volatile int m_count;
@@ -55,6 +60,6 @@ void Gen0002857E::release()
 	if (m_count == 0)
 	{
 		m_lastReleaseTime = AIL_ms_count();
-		m_owner->rva000A8127(this);
+		m_owner->rva000A8127(reinterpret_cast<Rva000A80A8Item *>(this));
 	}
 }
