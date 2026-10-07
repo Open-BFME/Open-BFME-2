@@ -12,12 +12,13 @@
 // LivingWorldManager callee and +0x268 same as rowed 0x00210D68.
 #include "ascii_string.h"
 
-// The target body reads the pointer at 0x00DFEF10, then offsets +0xB0 and +8.
-// Keep the pointee opaque here; only the offsets and direct call targets are
-// established by retail bytes. The +0x2C value is passed to 0x003EEDD6 with
-// this as ECX. Its name remains address-derived and its semantics unresolved.
-class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
+// The target body reads the data-ledger global at 0x00DFEF10, then offsets
+// +0xB0 and +8. Keep its pointee opaque here; only the offsets and direct call
+// targets are established by retail bytes. The +0x2C value is passed to
+// 0x003EEDD6 with this as ECX. Its name remains address-derived and its
+// semantics unresolved.
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 extern AsciiString g_Rva00E02E84;
 
 class Rva003EEDD6
@@ -52,7 +53,7 @@ public:
 
 void Rva003EF008::rva003EF008()
 {
-	void *entry = *(void **)((char *)g_009FEF10 + 0xB0);
+	void *entry = *(void **)((char *)TheLivingWorldLogic + 0xB0);
 	entry = *(void **)((char *)entry + 8);
 	void *argument;
 	if (entry)
