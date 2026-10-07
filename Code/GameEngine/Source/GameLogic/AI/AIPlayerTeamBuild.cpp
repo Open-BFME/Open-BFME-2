@@ -23,6 +23,13 @@
 //    unit counts can be met from units already on the field (default team,
 //    prototype flag +0x210 or team flags +0x110/+0x111) and the player's
 //    money; its only callers are isAGoodIdeaToBuildTeam's paths.
+//  - isAGoodIdeaToBuildTeam 0x004F1566 (237 bytes): ZH's production
+//    condition (TeamPrototype 0x003A0E6E), instance limit (+0x218 against
+//    countTeamInstances 0x0039D954) and build-queue duplicate checks, then
+//    BFME 2's on-field shortcut (rva004F13D8) before isPossibleToBuildTeam and
+//    ZH's two debug-AI messages (GlobalData +0x9B8). The queue walk calls
+//    dlink_next_TeamBuildQueue, which retail folded into the shared
+//    mov eax,[ecx+8] getter at 0x0030F45F.
 // GameLogic comes from the canonical GameLogicObjectLookupView.h.
 #include "ascii_string.h"
 typedef bool Bool;
@@ -367,6 +374,10 @@ struct TCreateUnitsInfo
 class TeamPrototype
 {
 public:
+	Bool evaluateProductionCondition();
+	Int countTeamInstances();
+	const AsciiString &getName() const { return m_name; }
+
 	char m_pad000[0x14];
 	AsciiString m_name;			// +0x14
 	char m_pad018[0x130 - 0x18];
@@ -374,6 +385,8 @@ public:
 	Int m_numUnitsInfo;			// +0x1D8
 	char m_pad1DC[0x210 - 0x1DC];
 	Bool m_bfme210;				// +0x210
+	char m_pad211[0x218 - 0x211];
+	Int m_maxInstances;			// +0x218
 };
 
 class Team
@@ -388,7 +401,44 @@ public:
 	Bool m_bfme111;				// +0x111
 };
 
-class TeamInQueue;
+template <class OBJCLASS> class DLINK_ITERATOR
+{
+public:
+	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
+	DLINK_ITERATOR(OBJCLASS *cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc) {}
+	void advance() { if (m_cur) m_cur = (m_cur->*m_getNextFunc)(); }
+	Bool done() const { return m_cur == 0; }
+	OBJCLASS *cur() const { return m_cur; }
+private:
+	OBJCLASS *m_cur;
+	GetNextFunc m_getNextFunc;
+};
+
+class TeamInQueue
+{
+public:
+	TeamInQueue *dlink_next_TeamBuildQueue() const { return m_next; }
+	void *m_vtbl;
+	TeamInQueue *m_prev;			// +0x04
+	TeamInQueue *m_next;			// +0x08
+	char m_pad0C[0x1C - 0x0C];
+	Team *m_team;				// +0x1C
+};
+
+class GlobalData
+{
+public:
+	char m_pad000[0x9B8];
+	Int m_debugAI;				// +0x9B8
+};
+extern GlobalData *TheWritableGlobalData;
+
+class ScriptEngine
+{
+public:
+	void AppendDebugMessage(const AsciiString &message, Bool forcePause);
+};
+extern ScriptEngine *TheScriptEngine;
 
 class AIPlayer
 {
@@ -419,6 +469,11 @@ protected:
 	Object *findFactory(const ThingTemplate *thing, Bool busyOK, Int *buildIndex);
 	Bool isPossibleToBuildTeam(TeamPrototype *proto, Bool requireIdleFactory, Bool &notEnoughMoney);
 	Bool rva004F13D8(TeamPrototype *proto);
+	Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);
+	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
+	{
+		return DLINK_ITERATOR<TeamInQueue>(m_teamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
+	}
 
 private:
 	TeamInQueue *m_teamBuildQueue;	// +0x04
@@ -659,4 +714,39 @@ Bool AIPlayer::rva004F13D8(TeamPrototype *proto)
 		}
 	}
 	return result;
+}
+
+Bool AIPlayer::isAGoodIdeaToBuildTeam(TeamPrototype *proto)
+{
+	if (!proto->evaluateProductionCondition())
+		return false;
+
+	if (proto->countTeamInstances() >= proto->m_maxInstances)
+		return false;
+
+	for (DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamBuildQueue(); !iter.done(); iter.advance())
+	{
+		TeamInQueue *team = iter.cur();
+		if (team->m_team->m_proto == proto)
+			return false;
+	}
+
+	if (rva004F13D8(proto))
+		return true;
+
+	Bool needMoney;
+	if (!isPossibleToBuildTeam(proto, true, needMoney))
+	{
+		if (TheWritableGlobalData->m_debugAI)
+		{
+			AsciiString str;
+			if (needMoney)
+				str.format("Team %s not chosen - Not enough money.", proto->getName().str());
+			else
+				str.format("Team %s not chosen - Factory/tech missing or busy.", proto->getName().str());
+			TheScriptEngine->AppendDebugMessage(str, false);
+		}
+		return false;
+	}
+	return true;
 }

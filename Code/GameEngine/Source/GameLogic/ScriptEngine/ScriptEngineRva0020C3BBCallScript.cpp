@@ -141,7 +141,20 @@ public:
 	void AppendDebugMessage(const AsciiString &message, bool forcePause);
 	void rva0020C3BB(ScriptAction *action);
 	void rva0020C140(const AsciiString &scopeName, const AsciiString &scriptName, Team *pThisTeam);
+	bool evaluateConditions(Script *pScript, Team *thisTeam, Player *player);
+	bool rva0020A1D0(const AsciiString &scope, Script *pScript, Team *thisTeam, Player *player);
 };
+
+// ?rva0020A1D0@ScriptEngine@@QAE_NABVAsciiString@@PAVScript@@PAVTeam@@PAVPlayer@@@Z
+// @0x0020A1D0 87B: evaluateConditions (0x00209748) run under the current-scope
+// latch (+0x1A10C). TeamPrototype::evaluateProductionCondition (0x003A0E6E)
+// passes the scope string its script lookup returned, the script, no team and
+// the owning player.
+bool ScriptEngine::rva0020A1D0(const AsciiString &scope, Script *pScript, Team *thisTeam, Player *player)
+{
+	Rva002048A2 latch((AsciiString *)((char *)this + 0x1A10C), scope);
+	return evaluateConditions(pScript, thisTeam, player);
+}
 
 #define RVA0020C3BB_REPORT(NAME, HEADLINE) \
 	do { \

@@ -412,6 +412,47 @@ public:
 };
 extern Rva002A8F24 *g_00DFEEF8;
 
+class Script
+{
+public:
+	Script *duplicate() const;
+	Bool isEasy() const { return m_easy; }
+	Bool isNormal() const { return m_normal; }
+	Bool isHard() const { return m_hard; }
+	int getDelayEvalSeconds() const { return m_delayEvaluationSeconds; }
+	unsigned int getFrameToEvaluate() const { return m_frameToEvaluate; }
+	void setFrameToEvaluate(unsigned int frame) { m_frameToEvaluate = frame; }
+
+private:
+	unsigned char m_pad00[0x20];
+	int m_delayEvaluationSeconds; // +0x20
+	unsigned char m_pad24[0x2B - 0x24];
+	Bool m_easy; // +0x2B
+	Bool m_normal; // +0x2C
+	Bool m_hard; // +0x2D
+	unsigned char m_pad2E[0x3C - 0x2E];
+	unsigned int m_frameToEvaluate; // +0x3C
+};
+
+class ScriptEngine
+{
+public:
+	Script *rva003573C4(const AsciiString &owner, const AsciiString &name, AsciiString *outName);
+	Bool rva0020A1D0(const AsciiString &scope, Script *pScript, Team *thisTeam, Player *player);
+};
+
+extern ScriptEngine *TheScriptEngine;
+extern int g_Va00DBA4E4;	// logic frames per second
+extern unsigned g_Va00E028C4;	// static AsciiString "<!TRUE!>"
+
+enum GameDifficulty
+{
+	DIFFICULTY_EASY,
+	DIFFICULTY_NORMAL,
+	DIFFICULTY_HARD,
+	DIFFICULTY_BRUTAL
+};
+
 class TeamPrototype
 {
 public:
@@ -425,16 +466,24 @@ public:
 	void updateState();
 	void teamAboutToBeDeleted(Team *team);
 	void rva003A0CD1();
+	Bool evaluateProductionCondition();
 
 private:
 	unsigned char m_pad00[0x04];
 	TeamFactory *m_factory; // +0x04
 	Player *m_owningPlayer; // +0x08
-	unsigned char m_pad0C[0x18 - 0x0C];
+	unsigned char m_pad0C[0x10 - 0x0C];
+	AsciiString m_owner; // +0x10
+	unsigned char m_pad14[0x18 - 0x14];
 	int m_flags; // +0x18
-	unsigned char m_pad1C[0x1E8 - 0x1C];
+	Bool m_productionConditionAlwaysFalse; // +0x1C
+	AsciiString m_productionConditionScope; // +0x20
+	Script *m_productionConditionScript; // +0x24
+	unsigned char m_pad28[0x1E8 - 0x28];
 	TeamTemplateInfo m_teamTemplate; // +0x1E8
-	unsigned char m_pad220[0x334 - 0x220];
+	unsigned char m_pad220[0x23C - 0x220];
+	AsciiString m_productionCondition; // +0x23C
+	unsigned char m_pad240[0x334 - 0x240];
 	Team *m_dlinkhead_TeamInstanceList; // +0x334
 };
 
@@ -579,6 +628,73 @@ void TeamPrototype::rva003A0CD1()
 	}
 	if (m_factory)
 		m_factory->removeTeamPrototypeFromList(this);
+}
+
+// ?evaluateProductionCondition@TeamPrototype@@QAE_NXZ, retail 0x003A0E6E
+// (244 bytes). Identity (target): AIPlayer::isAGoodIdeaToBuildTeam
+// (0x004F1566) calls it first on the prototype, where Zero Hour's
+// AIPlayer.cpp calls TeamPrototype::evaluateProductionCondition.
+// Donor (Zero Hour Team.cpp): always-false latch, periodic re-evaluation
+// gated on the script's frame, script lookup by name with the difficulty
+// filter, then a private duplicate. BFME 2 deltas (target): a condition
+// equal to the static "<!TRUE!>" string (0x00E028C4) is always true; the
+// lookup takes the owner name and returns a scope string (+0x20) that the
+// evaluation (0x0020A1D0) installs around ScriptEngine's condition test;
+// the frames-per-second factor is the global at 0x00DBA4E4; the fourth
+// difficulty shares the hard flag.
+Bool TeamPrototype::evaluateProductionCondition()
+{
+	if (m_productionConditionAlwaysFalse)
+		return false;
+	if (m_productionCondition.compare(*(const AsciiString *)&g_Va00E028C4) == 0)
+		return true;
+	if (m_productionConditionScript)
+	{
+		if (TheGameLogic->getFrame() < m_productionConditionScript->getFrameToEvaluate())
+			return false;
+		int delaySeconds = m_productionConditionScript->getDelayEvalSeconds();
+		if (delaySeconds > 0)
+			m_productionConditionScript->setFrameToEvaluate(TheGameLogic->getFrame() + delaySeconds * g_Va00DBA4E4);
+		return TheScriptEngine->rva0020A1D0(m_productionConditionScope, m_productionConditionScript, 0, getControllingPlayer());
+	}
+	if (((const StringBase<char> *)&m_productionCondition)->isEmpty())
+	{
+		m_productionConditionAlwaysFalse = true;
+		return false;
+	}
+	Script *pScript = TheScriptEngine->rva003573C4(m_owner, m_productionCondition, &m_productionConditionScope);
+	if (pScript)
+	{
+		switch ((int)((Rva002A9BF2 *)getControllingPlayer())->rva002A9BF2())
+		{
+		case DIFFICULTY_EASY:
+			if (!pScript->isEasy())
+			{
+				m_productionConditionAlwaysFalse = true;
+				return false;
+			}
+			break;
+		case DIFFICULTY_NORMAL:
+			if (!pScript->isNormal())
+			{
+				m_productionConditionAlwaysFalse = true;
+				return false;
+			}
+			break;
+		case DIFFICULTY_HARD:
+		case DIFFICULTY_BRUTAL:
+			if (!pScript->isHard())
+			{
+				m_productionConditionAlwaysFalse = true;
+				return false;
+			}
+			break;
+		}
+		m_productionConditionScript = pScript->duplicate();
+		return TheScriptEngine->rva0020A1D0(m_productionConditionScope, m_productionConditionScript, 0, getControllingPlayer());
+	}
+	m_productionConditionAlwaysFalse = true;
+	return false;
 }
 
 static Bool isInBuildVariations(const ThingTemplate* ttWithVariations, const ThingTemplate* b)
