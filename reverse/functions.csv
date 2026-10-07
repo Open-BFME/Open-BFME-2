@@ -66798,3 +66798,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva005F6B12@Rva005F6B12@@QBEHH@Z,,0x005F6B12,14,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp,matched,Address named getter reads indexed dword at pointer offset 4 with retail byte evidence for base displacement 0x3c
 ?Rva00203BB1ForceAppContinue@@YAXXZ,,0x00203BB1,28,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appGate.cpp,matched,debug DLL export thunk verified by caller string and retail disassembly
 ?rva00203BE9@@YAXXZ,,0x00203BE9,56,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setSides.cpp,matched,address-derived message dispatch from packet globals and callees; no donor identity claimed
+?Rva004CB047Parse@@YAXPAVINI@@PAX1PBX@Z,,0x004CB047,172,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004CB047Parse.cpp,matched,callback storage use and target vector from packet plus parser size from sibling TU
