@@ -9,6 +9,14 @@
 // verified AsciiString set node/value layout independently constrain the type.
 // Xbox correspondence identified the parser family; it supplies no PC bytes.
 #include <set>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator==(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node == b._M_node; }
+}
 #include <algorithm>
 #include <iterator>
 
