@@ -190,9 +190,8 @@ private:
 class PlayerList
 {
 public:
-	Player *getLocalPlayer() { return m_localPlayer; }
-
-private:
+	// Matched callers read the local player at +0x10 directly; do not emit
+	// a shared getter from this partial target layout.
 	unsigned char m_pad00[ 0x10 ];
 	Player *m_localPlayer;              // +0x10
 };
@@ -355,7 +354,7 @@ void StatsCollector::collectUnitCountStats()
 // +0x10 and player index at +0x14).
 void StatsCollector::collectMsgStats(const GameMessage *msg)
 {
-	if( ThePlayerList->getLocalPlayer()->getPlayerIndex() != msg->getPlayerIndex() )
+	if( ThePlayerList->m_localPlayer->getPlayerIndex() != msg->getPlayerIndex() )
 		return;
 
 	switch( msg->getType() )
@@ -396,7 +395,7 @@ void StatsCollector::endScrollTime()
 // 0x0039B73F (buildings, +0x78).
 void StatsCollector::collectScoreKeeperStats()
 {
-	Player *player = ThePlayerList->getLocalPlayer();
+	Player *player = ThePlayerList->m_localPlayer;
 	if( player )
 	{
 		ScoreKeeper *scoreKeeper = player->getScoreKeeper();
@@ -496,7 +495,7 @@ void StatsCollector::writeStatInfo()
 	if( !f )
 		return;
 
-	Player *player = ThePlayerList->getLocalPlayer();
+	Player *player = ThePlayerList->m_localPlayer;
 	fprintf( f, "%d\t", m_timeCount );
 	fprintf( f, "%.1f\t", TheDisplay ? TheDisplay->getAverageFPS() : 0.0f );
 	fprintf( f, "%.1f\t", TheGameEngine ? TheGameEngine->getInstantFPS() : 0.0f );
@@ -515,7 +514,7 @@ void StatsCollector::writeStatInfo()
 	fprintf( f, "%d\t", m_enemiesKilled );
 	fprintf( f, "%d\t", m_neutralsKilled );
 
-	player = ThePlayerList->getLocalPlayer();
+	player = ThePlayerList->m_localPlayer;
 	if( player )
 	{
 		ScoreKeeper *scoreKeeper = player->getScoreKeeper();

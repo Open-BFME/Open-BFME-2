@@ -105,9 +105,8 @@ private:
 class PlayerList
 {
 public:
-	Player *getLocalPlayer() { return m_local; }
-
-private:
+	// Matched callers read the local player at +0x10 directly; do not emit
+	// a shared getter from this partial target layout.
 	unsigned char m_pad00[0x10];
 	Player *m_local;
 };
@@ -295,7 +294,7 @@ Bool SpawnBehavior::createSpawn()
 
 	if (newSpawn->getDrawable())
 	{
-		if (parent->getShroudStatusForPlayer(ThePlayerList->getLocalPlayer()->getPlayerIndex()) >= OBJECTSHROUD_FOGGED)
+		if (parent->getShroudStatusForPlayer(ThePlayerList->m_local->getPlayerIndex()) >= OBJECTSHROUD_FOGGED)
 			newSpawn->getDrawable()->setFullyObscuredByShroud(true);
 		newSpawn->getDrawable()->fadeIn(md->m_fadeInTime * 0.03f);
 	}

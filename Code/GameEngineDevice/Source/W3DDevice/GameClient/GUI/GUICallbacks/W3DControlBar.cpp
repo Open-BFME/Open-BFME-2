@@ -207,9 +207,8 @@ struct GlobalData
 class PlayerList
 {
 public:
-	Player *getLocalPlayer(void) { return m_local; }
-
-private:
+	// Matched callers read the local player at +0x10 directly; do not emit
+	// a shared getter from this partial target layout.
 	char m_pad00[0x10];
 	Player *m_local;   // +0x10
 };
@@ -396,7 +395,7 @@ float Rva0009DE01Get(float value, float base);   // ZH logN
 
 void W3DLeftHUDDraw(GameWindow *window, WinInstanceData *instData)
 {
-	Player *player = ThePlayerList->getLocalPlayer();
+	Player *player = ThePlayerList->m_local;
 	VideoBuffer *video = TheInGameUI->videoBuffer();
 	if (video)
 	{
@@ -775,7 +774,7 @@ void W3DPowerDrawA( GameWindow *window, WinInstanceData *instData )
 
 void W3DCommandBarGenExpDraw( GameWindow *window, WinInstanceData *instData )
 {
-	Player *player = ThePlayerList->getLocalPlayer();
+	Player *player = ThePlayerList->m_local;
 	if(!player->isPlayerActive())
 		return;
 	static const Image *endBar = TheMappedImageCollection->findImageByName("GenExpBarTop1");

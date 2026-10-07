@@ -148,9 +148,10 @@ public:
 class PlayerList
 {
 public:
+	// Matched callers read the local player at +0x10 directly; do not emit
+	// a shared getter from this partial target layout.
 	char m_pad00[0x10];
 	Player *m_local;	// +0x10
-	Player *getLocalPlayer() { return m_local; }
 };
 extern PlayerList *ThePlayerList;	// VA 0x00DFEEE8
 
@@ -281,7 +282,7 @@ bool Rva00BCF670CameraSettings::isPositionAllowed(const Coord3D *pos)
 {
 	if (m_trigger1C == 0)
 		return true;
-	if (TheShroudManager->getShroudStatusForPlayer(ThePlayerList->getLocalPlayer()->getPlayerIndex(), pos) == CELLSHROUD_SHROUDED)
+	if (TheShroudManager->getShroudStatusForPlayer(ThePlayerList->m_local->getPlayerIndex(), pos) == CELLSHROUD_SHROUDED)
 		return false;
 	return m_trigger1C->rva002E3A39(*pos) ? true : false;
 }
@@ -359,8 +360,8 @@ void Rva00BCF670CameraSettings::constrainPosition(Coord3D *pos)
 				return;
 		}
 	}
-	bool lastVisible = TheShroudManager->getShroudStatusForPlayer(ThePlayerList->getLocalPlayer()->getPlayerIndex(), &m_lastPos20) != CELLSHROUD_SHROUDED;
-	bool posVisible = TheShroudManager->getShroudStatusForPlayer(ThePlayerList->getLocalPlayer()->getPlayerIndex(), pos) != CELLSHROUD_SHROUDED;
+	bool lastVisible = TheShroudManager->getShroudStatusForPlayer(ThePlayerList->m_local->getPlayerIndex(), &m_lastPos20) != CELLSHROUD_SHROUDED;
+	bool posVisible = TheShroudManager->getShroudStatusForPlayer(ThePlayerList->m_local->getPlayerIndex(), pos) != CELLSHROUD_SHROUDED;
 	if (lastVisible && !posVisible)
 	{
 		*pos = m_lastPos20;

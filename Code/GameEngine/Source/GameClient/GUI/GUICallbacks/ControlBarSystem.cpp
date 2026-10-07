@@ -85,9 +85,10 @@ public:
 class PlayerList
 {
 public:
+	// Matched callers read the local player at +0x10 directly; do not emit
+	// a shared getter from this partial target layout.
 	char m_pad00[0x10];
 	Player *m_local;                // +0x10
-	Player *getLocalPlayer() { return m_local; }
 };
 extern PlayerList *ThePlayerList;
 
@@ -242,7 +243,7 @@ WindowMsgHandledType ControlBarSystem( GameWindow *window, UnsignedInt msg,
 			{
 			}
 			else if( controlID == beaconPlacementButtonID && TheGameLogic->isInMultiplayerGame() &&
-				ThePlayerList->getLocalPlayer()->isPlayerActive())
+				ThePlayerList->m_local->isPlayerActive())
 			{
 				const CommandButton *commandButton = TheControlBar->findCommandButton( "Command_PlaceBeacon" );
 				TheInGameUI->setGUICommand( commandButton );

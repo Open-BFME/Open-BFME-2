@@ -40,12 +40,11 @@ private:
 class PlayerList
 {
 public:
-	Player *getLocalPlayer() { return m_local; }
+	// Matched callers read the local player at +0x10 directly; do not emit
+	// a shared getter from this partial target layout.
 	Player *findPlayerWithNameKey(NameKeyType key);
 	int getPlayersWithRelationship(int srcPlayerIndex, unsigned int allowedRelationships, bool reverse);
 	int rva002A7D30();
-
-private:
 	unsigned char m_pad00[0x10];
 	Player *m_local; // +0x10
 };
@@ -70,7 +69,7 @@ int ScriptEngine::rva00357475(const AsciiString &name, Bool *matchedSpecialName)
 
 	int mask = 0;
 	int thisIndex = TheScriptEngine->getCurrentPlayer()->getPlayerIndex();
-	int localIndex = ThePlayerList->getLocalPlayer()->getPlayerIndex();
+	int localIndex = ThePlayerList->m_local->getPlayerIndex();
 	if (name.compare("<This Player's Enemies>") == 0)
 		mask = ThePlayerList->getPlayersWithRelationship(thisIndex, 4, false);
 	else if (name.compare("<This Player's Allies incl Self>") == 0)
@@ -82,7 +81,7 @@ int ScriptEngine::rva00357475(const AsciiString &name, Bool *matchedSpecialName)
 	else if (name.compare("<This Player's Enemy>") == 0)
 		mask = getSkirmishEnemyPlayer()->getPlayerMask();
 	else if (name.compare("<Local Player>") == 0)
-		mask = ThePlayerList->getLocalPlayer()->getPlayerMask();
+		mask = ThePlayerList->m_local->getPlayerMask();
 	else if (name.compare("<Local Player's Enemies>") == 0)
 		mask = ThePlayerList->getPlayersWithRelationship(localIndex, 4, false);
 	else if (name.compare("<Local Player's Allies incl Self>") == 0)

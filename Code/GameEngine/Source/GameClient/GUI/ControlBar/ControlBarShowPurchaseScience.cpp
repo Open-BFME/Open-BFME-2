@@ -19,9 +19,8 @@ public:
 class PlayerList
 {
 public:
-	Player *getLocalPlayer() { return m_local; }
-
-private:
+	// Matched callers read the local player at +0x10 directly; do not emit
+	// a shared getter from this partial target layout.
 	unsigned char m_pad00[0x10];
 	Player *m_local; // +0x10
 };
@@ -56,7 +55,7 @@ void ControlBar::showPurchaseScience()
 {
 	if (TheScriptEngine->getValue1A104() >= 0)
 		return;
-	Player *player = ThePlayerList->getLocalPlayer();
+	Player *player = ThePlayerList->m_local;
 	if (!player || !player->isPlayerActive())
 		return;
 	m_flag278 = false;

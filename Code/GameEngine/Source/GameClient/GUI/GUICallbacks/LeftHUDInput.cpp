@@ -106,9 +106,10 @@ public:
 class PlayerList
 {
 public:
+	// Matched callers read the local player at +0x10 directly; do not emit
+	// a shared getter from this partial target layout.
 	char m_pad00[0x10];
 	Player *m_local;                // +0x10
-	Player *getLocalPlayer() { return m_local; }
 };
 
 class Radar
@@ -218,7 +219,7 @@ extern GlobalData *TheGlobalData;
 WindowMsgHandledType LeftHUDInput( GameWindow *window, UnsignedInt msg,
 																	 WindowMsgData mData1, WindowMsgData mData2 )
 {
-	Player *player = ThePlayerList->getLocalPlayer();
+	Player *player = ThePlayerList->m_local;
 
 	if( !TheRadar->isRadarForced() && (TheRadar->isRadarHidden() || !player->hasRadar()) )
 		return MSG_HANDLED;
