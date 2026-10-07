@@ -67857,3 +67857,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004FF28E@Rva004FF28EOwner@@QAEHHHHHH@Z,,0x004FF28E,50,Code/GameEngine/Source/Common/Rva004FF28ECtor.cpp,matched,
 ??1Rva00502D03@@QAE@XZ,,0x00502D03,69,Code/GameEngine/Source/Common/Rva001EB63CDtorFamily.cpp,matched,EH dtor: +0x1C via pinned 0x004FF630 then +0x10 via pinned 0x0050298D then +0x04 via pinned 0x005029CA
 ?rva00538661@Rva0053863EShape@@QBEMXZ,,0x00538661,19,Code/GameEngine/Source/Common/Rva0053863EShape.cpp,matched,Guarded float return: refresh while dirty then m_value1C
+?rva0058A5C7@@YAHPBD@Z,,0x0058A5C7,80,Code/GameEngine/Source/Common/Rva0058A5C7.cpp,matched,
