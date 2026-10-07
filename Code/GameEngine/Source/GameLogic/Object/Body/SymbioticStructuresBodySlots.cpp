@@ -274,6 +274,42 @@ void SymbioticStructuresBody::rva004C0B60(Rva004C0B60Arg)
 {
 }
 
+// ?rva004C0B63@SymbioticStructuresBody@@QAEXXZ, retail 0x004C0B63, 239 bytes:
+// with the host (ID at +0x104) and an owning Object, the Object takes on the
+// host's +0x10C condition bits (0x001E431E), is effectively dead when the
+// primary slot 24 figure is not above 0, and gets its height from the
+// template's geometry -- or, as rubble (body slot 8 damage state 3), from
+// the template's signed +0x5F7 byte, TheGlobalData +0xAE4 when that is not
+// positive -- with status 4 set only as rubble; then the pathfinder re-maps it.
+void SymbioticStructuresBody::rva004C0B63()
+{
+	Object *host = TheGameLogic->findObjectByID(m_104);
+	if (!host)
+		return;
+	Object *obj = m_object;
+	if (!obj)
+		return;
+	obj->rva001E431E(host->m_10C);
+	obj->setEffectivelyDead(rva004C0D9C() <= 0.0f);
+	if (getDamageState() != BODY_RUBBLE)
+	{
+		Object *o = m_object;
+		o->rva0028ABFC(o->getTemplate()->getGeometryInfo().getMaxHeightAbovePosition());
+		m_object->setStatus((ObjectStatusTypes)4, false);
+	}
+	else
+	{
+		Object *o = m_object;
+		Real height = (Real)o->getTemplate()->m_5F7;
+		if (height <= 0.0f)
+			height = TheGlobalData->m_AE4;
+		o->rva0028ABFC(height);
+		m_object->setStatus((ObjectStatusTypes)4, true);
+	}
+	TheAI->pathfinder()->RemoveObjectFromPathfindMap(m_object);
+	TheAI->pathfinder()->AddObjectToPathfindMap(m_object);
+}
+
 // ?rva004C0C52@SymbioticStructuresBody@@QAEXXZ, retail 0x004C0C52, 193 bytes:
 // with the host and an owning Object both controlled, the pinned Drawable
 // member 0x00275DCE runs (0.2, 0.7, 2.0) on both drawables, mode 5 for the
