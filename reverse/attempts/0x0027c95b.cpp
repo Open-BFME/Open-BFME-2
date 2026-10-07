@@ -1,23 +1,19 @@
 // ?isCellOnSide@Bridge@@QAE_NPBURegion2D@@@Z
-// partial score=0.94 date=2026-10-05
-// cl: /O1 /Ireference/shims/meshgeom /Ireference/shims/bfmerendobj /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
-// ?isCellOnSide@Bridge@@QAE_NPBURegion2D@@@Z @0x0027C95B 548B
-// Evidence: ZH donor GeneralsMD TerrainLogic.cpp Bridge::isCellOnSide verbatim; retail 4x LineInRegion calls plus caller 0x00366FB0 passing Region2D with ecx=[ebx+0x34] Bridge; corners at +0x28/+0x34/+0x40/+0x4c match BridgeIsPointOnBridge layout.
-
-#define PATHFIND_CELL_SIZE 10
+// partial score=0.96 date=2026-10-07
+// cl: /O1 /arch:SSE /G7 /ICode/Libraries/Include/Lib /Ireference/shims/meshgeom /Ireference/shims/bfmerendobj /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// ?isPointOnBridge@Bridge@@QAE_NPBUCoord3D@@@Z @0x0027EEAD 348B
+// Evidence: BFME1 donor BridgeIsPointOnBridge.cpp and TerrainLogic.cpp Bridge::isPointOnBridge plus Bridge::pickBridge caller 0x0027FBFE; bounds at +0xB4 extra at +0xC8; unblocks 8 callers.
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-	void normalize();
-};
+#include "Coord3D.h"
+#include "Coord2D.h"
 
-struct Coord2D
+class Vector3
 {
-	float x, y;
+public:
+	float X;
+	float Y;
+	float Z;
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
@@ -29,89 +25,199 @@ struct Region2D
 	float hiY;
 };
 
-bool LineInRegion(const Coord2D *p1, const Coord2D *p2, const Region2D *clipRegion);
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
+class ICoord3D
+{
+public:
+	int x;
+	int y;
+	int z;
+};
 
-class PolygonTrigger;
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/PolygonTrigger.h
+class PolygonTrigger
+{
+public:
+	bool pointInTrigger(const ICoord3D &point);
+};
+
+bool Point_In_Triangle_2D(const Vector3 &tri_point0, const Vector3 &tri_point1,
+	const Vector3 &tri_point2, const Vector3 &test_point, int axis_1, int axis_2,
+	unsigned char &flags);
+
+static inline unsigned char Point_In_Triangle_2D_byte(const Vector3 &tri_point0,
+	const Vector3 &tri_point1, const Vector3 &tri_point2, const Vector3 &test_point,
+	int axis_1, int axis_2, unsigned char &flags)
+{
+	return Point_In_Triangle_2D(tri_point0, tri_point1, tri_point2, test_point,
+		axis_1, axis_2, flags) ? 1 : 0;
+}
+
+#include <math.h>
+inline void Coord3D::normalize()
+{
+    float len = length();
+    if (len != 0.0f) {
+        float scale = 1.0f / len;
+        x *= scale; y *= scale; z *= scale;
+    }
+}
+
+struct BridgeSideVector
+{
+	float x;
+	float y;
+	float z;
+
+	BridgeSideVector(void) {}
+	BridgeSideVector(const BridgeSideVector &that) : x(that.x), y(that.y) {}
+	__forceinline void normalize() { reinterpret_cast<Coord3D *>(this)->normalize(); }
+
+
+};
 
 class Bridge
 {
 public:
+	bool isPointOnBridge(const Coord3D *point);
 	bool isCellOnSide(const Region2D *cell);
 
 private:
 	char m_pad00[0x28];
-	Coord3D m_fromLeft;
-	Coord3D m_fromRight;
-	Coord3D m_toLeft;
-	Coord3D m_toRight;
+	BridgeSideVector m_fromLeft;
+	BridgeSideVector m_fromRight;
+	BridgeSideVector m_toLeft;
+	BridgeSideVector m_toRight;
 	char m_pad58[0xB4 - 0x58];
 	Region2D m_bounds;
 	int m_layer;
 	PolygonTrigger *m_extra;
 };
 
-// ?isCellOnSide@Bridge@@QAE_NPBURegion2D@@@Z present-unmatched
+bool Bridge::isPointOnBridge(const Coord3D *point)
+{
+	if (point->x < m_bounds.loX)
+		return false;
+	if (point->x > m_bounds.hiX)
+		return false;
+	if (point->y < m_bounds.loY)
+		return false;
+	if (point->y > m_bounds.hiY)
+		return false;
+
+	PolygonTrigger *extra = m_extra;
+	if (extra)
+	{
+		ICoord3D ic;
+		ic.x = (int)point->x;
+		ic.y = (int)point->y;
+		ic.z = (int)point->z;
+		return extra->pointInTrigger(ic);
+	}
+	else
+	{
+		Vector3 testPt;
+		testPt.X = point->x;
+		testPt.Y = point->y;
+		testPt.Z = point->z;
+		Vector3 fromLeft;
+		fromLeft.X = m_fromLeft.x;
+		fromLeft.Y = m_fromLeft.y;
+		fromLeft.Z = m_fromLeft.z;
+		Vector3 fromRight;
+		fromRight.X = m_fromRight.x;
+		fromRight.Y = m_fromRight.y;
+		fromRight.Z = m_fromRight.z;
+		Vector3 toLeft;
+		toLeft.X = m_toLeft.x;
+		toLeft.Y = m_toLeft.y;
+		toLeft.Z = m_toLeft.z;
+		Vector3 toRight;
+		toRight.X = m_toRight.x;
+		toRight.Y = m_toRight.y;
+		toRight.Z = m_toRight.z;
+
+		unsigned char flags;
+		if (Point_In_Triangle_2D(fromLeft, fromRight, toLeft, testPt, 0, 1, flags))
+			return true;
+		return Point_In_Triangle_2D_byte(fromRight, toLeft, toRight, testPt, 0, 1, flags);
+	}
+}
+
+// Donor: Open-BFME-1 1399ad37d42ea52a63829e417c46a1ba9ed2cd20,
+// game/GameEngine/Source/GameLogic/Map/Bridge_isCellOnSide_Thunk.cpp.
+// Target layout is independently supported by the existing isPointOnBridge:
+// four endpoints +0x28/+0x34/+0x40/+0x4c. Native side checks call the rowed
+// LineInRegion at 0x27C4F4. This local temporary copies only x/y, as consumed
+// by the side segments; endVector explicitly initializes x/y/z before length.
+// Canonical coordinate headers retain their native layouts. The helper's
+// non-POD temporary shape is local and does not redefine the canonical type.
+#include <math.h>
+typedef float Real;
+bool LineInRegion(const Coord2D *, const Coord2D *, const Region2D *);
 bool Bridge::isCellOnSide(const Region2D *cell)
 {
-	Coord3D endVector;
+	BridgeSideVector endVector;
 	endVector.x = m_fromRight.x - m_fromLeft.x;
 	endVector.y = m_fromRight.y - m_fromLeft.y;
 	endVector.z = m_fromRight.z - m_fromLeft.z;
 	endVector.normalize();
-	// Offset by 1 pathfind cell.
-	endVector.y *= PATHFIND_CELL_SIZE*0.51f;
-	endVector.x *= PATHFIND_CELL_SIZE*0.51f;
+	endVector.x *= 5.1f;
+	endVector.y *= 5.1f;
 
-	Coord3D fromLeft, fromRight, toLeft, toRight;
-	fromLeft.x = m_fromLeft.x - endVector.x;
-	fromLeft.y = m_fromLeft.y - endVector.y;
-	fromRight.x = m_fromRight.x + endVector.x;
-	fromRight.y = m_fromRight.y + endVector.y;
-	toLeft.x = m_toLeft.x - endVector.x;
-	toLeft.y = m_toLeft.y - endVector.y;
-	toRight.x = m_toRight.x + endVector.x;
-	toRight.y = m_toRight.y + endVector.y;
-
-	Coord2D line1, line2;
-	line1.x = fromLeft.x;
-	line1.y = fromLeft.y;
-	line2.x = toLeft.x;
-	line2.y = toLeft.y;
-	if (LineInRegion(&line1, &line2, cell)) {
-		return true;
-	}
-	line1.x = fromRight.x;
-	line1.y = fromRight.y;
-	line2.x = toRight.x;
-	line2.y = toRight.y;
-	if (LineInRegion(&line1, &line2, cell)) {
-		return true;
-	}
+	BridgeSideVector fromLeft = m_fromLeft;
 	fromLeft.x -= endVector.x;
 	fromLeft.y -= endVector.y;
 
+	BridgeSideVector fromRight = m_fromRight;
 	fromRight.x += endVector.x;
 	fromRight.y += endVector.y;
 
+	BridgeSideVector toLeft = m_toLeft;
 	toLeft.x -= endVector.x;
 	toLeft.y -= endVector.y;
 
+	BridgeSideVector toRight = m_toRight;
 	toRight.x += endVector.x;
 	toRight.y += endVector.y;
 
-	line1.x = fromLeft.x;
-	line1.y = fromLeft.y;
-	line2.x = toLeft.x;
-	line2.y = toLeft.y;
-	if (LineInRegion(&line1, &line2, cell)) {
+	Coord2D sideStart, sideEnd;
+	sideStart.x = fromLeft.x;
+	sideStart.y = fromLeft.y;
+	sideEnd.x = toLeft.x;
+	sideEnd.y = toLeft.y;
+	if (LineInRegion(&sideStart, &sideEnd, cell))
 		return true;
-	}
-	line1.x = fromRight.x;
-	line1.y = fromRight.y;
-	line2.x = toRight.x;
-	line2.y = toRight.y;
-	if (LineInRegion(&line1, &line2, cell)) {
+
+	sideStart.x = fromRight.x;
+	sideStart.y = fromRight.y;
+	sideEnd.x = toRight.x;
+	sideEnd.y = toRight.y;
+	if (LineInRegion(&sideStart, &sideEnd, cell))
 		return true;
-	}
-	return(false);
+
+	fromLeft.x -= endVector.x;
+	fromLeft.y -= endVector.y;
+	fromRight.x += endVector.x;
+	fromRight.y += endVector.y;
+	toLeft.x -= endVector.x;
+	toLeft.y -= endVector.y;
+	toRight.x += endVector.x;
+	toRight.y += endVector.y;
+
+	sideStart.x = fromLeft.x;
+	sideStart.y = fromLeft.y;
+	sideEnd.x = toLeft.x;
+	sideEnd.y = toLeft.y;
+	if (LineInRegion(&sideStart, &sideEnd, cell))
+		return true;
+
+	sideStart.x = fromRight.x;
+	sideStart.y = fromRight.y;
+	sideEnd.x = toRight.x;
+	sideEnd.y = toRight.y;
+	if (LineInRegion(&sideStart, &sideEnd, cell))
+		return true;
+
+	return false;
 }
