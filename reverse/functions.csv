@@ -67901,3 +67901,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??0Rva001408C0Target@@QAE@ABU0@@Z,,0x004ABCE6,24,Code/GameEngine/Source/Common/Rva004ABCE6CopyCtor.cpp,matched,finish stash plus rowed base plus vtable plus caller
 ?Rva002E2612Parse@@YAXPAVINI@@PAX1PBX@Z,,0x002E2612,125,Code/GameEngine/Source/Common/Rva002E2612Parse.cpp,matched,REF AvailableTo Sides find push getNextToken
 ?rva0059B14E@Rva0059B14E@@QAEHH@Z,,0x0059B14E,76,Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp,matched,Native full76 RET4; unknown receiver award accumulation at+4 with two-word ExperienceLevelHandle; full EAX success1; target helper ABI and level award query
+?rva005CC23B@Rva005CC23B@@QAE_NXZ,,0x005CC23B,17,Code/GameEngine/Source/Common/VslotSmallBodiesAQ.cpp,matched,Retail returns AL on both paths at +0xA and +0xE; address-derived field is +0xC; bool declarations keep both callers linked

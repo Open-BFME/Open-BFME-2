@@ -57,16 +57,30 @@ void Rva005E19BF::rva005E19BF(Int)
 }
 
 // 0x005CC24C: the pinned 0x005CC23B of this object.
+// The target writes AL on both branches; keep its return type bool despite
+// the existing void pin. Only the byte at +0x0C is established by this body.
+extern void ToggleQuitMenu();
 class Rva005CC23B
 {
 public:
-	void rva005CC23B();
+	bool rva005CC23B();
+private:
+	char m_pad[0xC];
+	unsigned char m_enabled;
 };
 class Rva005CC24C : public Rva005CC23B
 {
 public:
 	void rva005CC24C(Int unused);
 };
+bool Rva005CC23B::rva005CC23B()
+{
+	if (m_enabled) {
+		ToggleQuitMenu();
+		return true;
+	}
+	return false;
+}
 void Rva005CC24C::rva005CC24C(Int)
 {
 	rva005CC23B();

@@ -3,7 +3,7 @@
 class Rva005CC23B
 {
 public:
-	void rva005CC23B();
+	bool rva005CC23B();
 };
 class Rva005CC26E
 {
