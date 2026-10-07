@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /MD /EHsc
 // stlport
 // ?rva0006ACBD@BaseHeightMapRenderObjClass@@QAEXVAsciiString@@@Z @0x0006ACBD 173B
 // BaseHeightMapRenderObjClass texture reload via rowed StringBase set at
@@ -43,6 +43,7 @@ namespace _STL
 class ShroudFilter : public _STL::ios_base
 {
 	friend class BaseHeightMapRenderObjClass;
+	friend class Rva0006D470;
 };
 
 class ShroudTexture
@@ -56,13 +57,12 @@ class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
 {
 };
 
-extern const char g_Rva0107301CEmptyString[];
 BFME2ParticleTextureHandle BFME2LoadParticleTexture(const char *name, int a, int b);
 
 __forceinline const char *GetStr0006ACBD(const AsciiString &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 class BaseHeightMapRenderObjClass
@@ -84,4 +84,29 @@ void BaseHeightMapRenderObjClass::rva0006ACBD(AsciiString name)
 	const char *s = GetStr0006ACBD(m_3820);
 	m_381C.m_tex = BFME2LoadParticleTexture(s, 0, 0);
 	m_381C.getFilter()->_M_clear_nothrow(1);
+}
+
+// Target 0x0006D470..0x0006D52A RET4, 186B; body is a texture-name
+// change guard around the same verified loaders as rva0006ACBD.
+// Native accesses establish texture +3844, current name +3848, default +384C.
+// Those offsets do not prove it is the existing terrain owner: keep this
+// receiver address-derived. The texture/refcount/filter views carry existing
+// callee identities, and their original names remain donor inferences.
+class Rva0006D470 {
+    char m_pad[0x3844];
+    ShroudTexture m_3844;
+    AsciiString m_3848;
+    AsciiString m_384C;
+public:
+    void rva0006D470(AsciiString name);
+};
+void Rva0006D470::rva0006D470(AsciiString name)
+{
+    if(name.isEmpty())
+        ((StringBase<char>&)name).set((StringBase<char>&)m_384C);
+    if(name.compare(m_3848)!=0) {
+        ((StringBase<char>&)m_3848).set((StringBase<char>&)name);
+        m_3844.m_tex=BFME2LoadParticleTexture(GetStr0006ACBD(m_3848),0,0);
+        m_3844.getFilter()->_M_clear_nothrow(1);
+    }
 }
