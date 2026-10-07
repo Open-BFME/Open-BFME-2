@@ -1,7 +1,10 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
 // PersistentStorageThread.cpp -- GameSpy persistent-stats members recovered
 // from WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names
 // each function; retail supplies the bytes.
+
+// Canonical one-pointer AsciiString temporary used by the native wire adapter.
+#include "ascii_string.h"
 
 namespace _STL
 {
@@ -54,7 +57,7 @@ class XferStub {
 public:
     virtual ~XferStub();
     virtual void _unused1();
-    virtual void _unused2();
+    virtual bool _isWriting();
     virtual void _unused3();
     virtual void _unused4();
     virtual void _unused5();
@@ -79,11 +82,11 @@ public:
     virtual void _unused24();
     virtual void _unused25();
     virtual void _unused26();
-    virtual void _unused27();
+    virtual void _slot6c(AsciiString &);
     virtual void _unused28();
     virtual void _unused29();
     virtual void _slot78(int &);
-    virtual void _unused31();
+    virtual void _slot7c(int &);
     virtual void _slot80(short &);
 };
 class MapHolder;
@@ -172,6 +175,7 @@ class Rva00385333	// tournament stats block
 public:
 	void rva00553FDD();
     void rva00555988(XferStub *);
+    void rva00555DDC(XferStub *);
 	void rva00555F68();
 	~Rva00385333();						// 0x00385333
 	Rva00385333 &operator=(const Rva00385333 &that);	// 0x00387A68
@@ -373,4 +377,27 @@ void Rva00385333::rva00555988(XferStub *xfer) {
     ((PSPlayerStats *)this)->XferMap((MapHolder *)(m_pad154 + 24), xfer);
     ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 36), xfer);
     ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 48), xfer);
+}
+
+// Native [555DDC,555EB4),216B bridges the stored STL narrow string at19C
+// through an AsciiString wire temporary; scalars agree with reset555F68.
+void Rva00385333::rva00555DDC(XferStub *xfer) {
+    ((Rva00553E47StatsCore *)this)->rva005550A0(xfer);
+    // Version bytes occupy a distinct aligned stack slot beside the wire string.
+    union { StatsXferVersion version; unsigned versionStorage; };
+    version.first=1;
+    version.second=1;
+    xfer->_slot28(version);
+    xfer->_slot80((short &)m_190);
+    xfer->_slot80((short &)m_192);
+    xfer->_slot7c(m_194);
+    xfer->_slot7c(m_198);
+    AsciiString wireText;
+    if (xfer->_isWriting()) {
+        ((StringBase<char> *)&wireText)->set(*(const char **)m_pad19C);
+        xfer->_slot6c(wireText);
+    } else {
+        xfer->_slot6c(wireText);
+        ((Rva00385333String *)m_pad19C)->operator=(wireText.str());
+    }
 }

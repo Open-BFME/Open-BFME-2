@@ -17714,3 +17714,4 @@ FUN_006c5e40	0x002C5E40	79	blocked	Native full79B FieldParse proc uses rowed233B
 ?rva00555109@Rva00553E47StatsCore@@QAEXPAVXferStub@@@Z	0x00555109	322	solved	Native boundary555109-55524B; fullbytes; 12-byte map stride and groups corroborated reset553E47; version2 and shorts; unit LINKS1241 t=3 model=gpt-6-sol
 ?rva0055573B@Rva0038454E@@QAEXPAVXferStub@@@Z	0x0055573B	266	solved	Full native bytes; strategic15 maps agree reset assignment destructor; aligned version stack storage; unit LINKS1622 t=4 model=gpt-6-sol
 ?rva00555988@Rva00385333@@QAEXPAVXferStub@@@Z	0x00555988	116	solved	Full native bytes; common five-map prefix agrees reset553FDD and tournament190 prefix; aligned version stack storage; unit LINKS1622 t=4 model=gpt-6-sol
+?rva00555DDC@Rva00385333@@QAEXPAVXferStub@@@Z	0x00555DDC	216	solved	Full216B retail and EH; canonical AsciiString wire temporary; stored STL string12B; native scalar190/192/194/198; unit LINKS1838 t=4 model=gpt-6-sol
