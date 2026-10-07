@@ -368,6 +368,11 @@ public:
 			Int preorder;
 			UnsignedInt internalIP; // for us, on connection
 			UnsignedInt externalIP; // for us, on connection
+			// connectCallback38B9F8 copies two 256-byte global buffers to +0x138
+			// and +0x238 and sets +0x338 (cleared on the failure path).
+			char loginTextA[256];
+			char loginTextB[256];
+			Bool loginComplete;
 		} player;
 
 		struct

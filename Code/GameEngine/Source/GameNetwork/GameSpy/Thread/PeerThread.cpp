@@ -2591,49 +2591,88 @@ static void listGroupRoomsCallback(PEER peer, PEERBool success,
 	}
 }
 
-// ?connectCallback@PeerThreadClass@@ present-unmatched
+// connectCallback38B9F8 copies these two 256-byte buffers into the login
+// response; no other retail code references either address.
+static char s_loginTextA[256];
+static char s_loginTextB[256];
+
+// BFME2's persistent-storage request is the 0x598-byte record rowed in
+// PersistentStorageThread.cpp (ctor556523, dtor38A1F2): request type,
+// a dword the ctor sets to 3, the 0x548-byte stats block whose setID552CDE
+// stamps every sub-block, then the cdkey/nick/password/email strings.
+class PSPlayerAllStats
+{
+public:
+	void setID(Int id);
+private:
+	char m_data[0x548];
+};
+
+struct BfmeOpaqueOwnedRecord1432
+{
+	BfmeOpaqueOwnedRecord1432();
+	~BfmeOpaqueOwnedRecord1432();
+	Int requestType;
+	Int m_04;
+	PSPlayerAllStats player;
+	std::string cdkey;
+	std::string nick;
+	std::string password;
+	std::string email;
+	char m_580[0x18];
+};
+
+// Retail swaps the fallback IP through the second wsock32!htonl IAT slot
+// (0xBBA998; the later two swaps load 0xBBA9A4), as udp.cpp's Bind does.
+// The undecorated COFF spelling keeps the import loads distinct.
+extern "C" unsigned long (__stdcall * const _imp__htonl)(unsigned long);
+#pragma comment(linker, "/alternatename:__imp__htonl=__imp__htonl@4")
+
+// Native [38B9F8,38BBF0),504B. Unlike Zero Hour, BFME2 falls back to the
+// preferred online IP when the chat connection address cannot be read,
+// fills the two login text buffers and asks for "\\roomType" group rooms.
 void PeerThreadClass::connectCallback( PEER peer, PEERBool success )
 {
 	PeerResponse resp;
 	if(!success)
 	{
-		//updateBuddyStatus( BUDDY_OFFLINE );
 		resp.peerResponseType = PeerResponse::PEERRESPONSE_DISCONNECT;
 		resp.discon.reason = DISCONNECT_COULDNOTCONNECT;
+		resp.player.loginComplete = FALSE;
 		TheGameSpyPeerMessageQueue->addResponse(resp);
 		return;
 	}
 
-	updateBuddyStatus( BUDDY_ONLINE );
-
-	m_isConnected = true;
-	DEBUG_LOG(("Connected as profile %d (%s)\n", m_profileID, m_loginName.c_str()));
+	BfmePeerThreadView *self = reinterpret_cast<BfmePeerThreadView *>(this);
+	self->isConnected = true;
 	resp.peerResponseType = PeerResponse::PEERRESPONSE_LOGIN;
-	resp.player.profileID = m_profileID;
-	resp.nick = m_loginName;
-	GetLocalChatConnectionAddress("peerchat.gamespy.com", 6667, localIP);
+	resp.player.profileID = self->profileID;
+	resp.nick = self->loginName;
+	Bool gotAddress = GetLocalChatConnectionAddress("peerchat.gamespy.com", 6667, localIP);
 	chatSetLocalIP(localIP);
-	resp.player.internalIP = ntohl(localIP);
-	resp.player.externalIP = ntohl(peerGetLocalIP(peer));
+	if (!gotAddress)
+	{
+		OptionPreferences pref;
+		localIP = _imp__htonl(pref.getOnlineIPAddress());
+	}
+	UnsignedInt externalIP = peerGetLocalIP(peer);
+	resp.player.internalIP = htonl(localIP);
+	resp.player.externalIP = htonl(externalIP);
+	strcpy(resp.player.loginTextA, s_loginTextB);
+	strcpy(resp.player.loginTextB, s_loginTextA);
+	resp.player.loginComplete = TRUE;
 	TheGameSpyPeerMessageQueue->addResponse(resp);
 
-	PSRequest psReq;
-	psReq.requestType = PSRequest::PSREQUEST_READPLAYERSTATS;
-	psReq.player.id = m_profileID;
-	psReq.nick = m_originalName;
-	psReq.email = m_email;
-	psReq.password = m_password;
-	TheGameSpyPSMessageQueue->addRequest(psReq);
+	BfmeOpaqueOwnedRecord1432 psReq;
+	psReq.requestType = 0;
+	psReq.m_04 = 3;
+	psReq.player.setID(self->profileID);
+	psReq.nick = self->originalName;
+	psReq.email = self->email;
+	psReq.password = self->password;
+	TheGameSpyPSMessageQueue->addRequest(reinterpret_cast<const PSRequest &>(psReq));
 
-#ifdef SERVER_DEBUGGING
-	DEBUG_LOG(("Before peerListGroupRooms()\n"));
-	CheckServers(peer);
-#endif // SERVER_DEBUGGING
-	peerListGroupRooms( peer, NULL, listGroupRoomsCallback, this, PEERTrue );
-#ifdef SERVER_DEBUGGING
-	DEBUG_LOG(("After peerListGroupRooms()\n"));
-	CheckServers(peer);
-#endif // SERVER_DEBUGGING
+	peerListGroupRooms( peer, "\\roomType", Rva0038B91FList, this, PEERTrue );
 }
 
 // Nickname retry callback is recovered in PeerThreadNickError.cpp.
