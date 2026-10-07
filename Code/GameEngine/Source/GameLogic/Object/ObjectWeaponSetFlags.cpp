@@ -110,7 +110,7 @@ private:
 class ObjectSMCHelper
 {
 public:
-	void rva004DE85F(ModelConditionFlagType mc, unsigned int frames);
+	void setModelConditionState(ModelConditionFlagType mc, unsigned int frames);
 };
 template <int N> class Rva00290B24Slots : public Rva00290B24Slots<N - 1>
 {
@@ -163,11 +163,11 @@ void Object::setWeaponSetFlag(WeaponSetType wst)
 		}
 	}
 	if (mc == 0x12D)
-		m_smcHelper->rva004DE85F((ModelConditionFlagType)0x1BD, g_Va00DBA4E4);
+		m_smcHelper->setModelConditionState((ModelConditionFlagType)0x1BD, g_Va00DBA4E4);
 	else if (mc == 0x12E)
-		m_smcHelper->rva004DE85F((ModelConditionFlagType)0x1BE, g_Va00DBA4E4);
+		m_smcHelper->setModelConditionState((ModelConditionFlagType)0x1BE, g_Va00DBA4E4);
 	else if (mc == 0x12F)
-		m_smcHelper->rva004DE85F((ModelConditionFlagType)0x1BF, g_Va00DBA4E4);
+		m_smcHelper->setModelConditionState((ModelConditionFlagType)0x1BF, g_Va00DBA4E4);
 }
 void Object::clearWeaponSetFlag(WeaponSetType wst)
 {
@@ -183,11 +183,11 @@ void Object::clearWeaponSetFlag(WeaponSetType wst)
 		}
 	}
 	if (mc == 0x12D)
-		m_smcHelper->rva004DE85F((ModelConditionFlagType)0x1BD, g_Va00DBA4E4);
+		m_smcHelper->setModelConditionState((ModelConditionFlagType)0x1BD, g_Va00DBA4E4);
 	else if (mc == 0x12E)
-		m_smcHelper->rva004DE85F((ModelConditionFlagType)0x1BE, g_Va00DBA4E4);
+		m_smcHelper->setModelConditionState((ModelConditionFlagType)0x1BE, g_Va00DBA4E4);
 	else if (mc == 0x12F)
-		m_smcHelper->rva004DE85F((ModelConditionFlagType)0x1BF, g_Va00DBA4E4);
+		m_smcHelper->setModelConditionState((ModelConditionFlagType)0x1BF, g_Va00DBA4E4);
 }
 void Object::rva00290AC1(const WeaponSetFlags &flags)
 {
@@ -226,5 +226,5 @@ void _bfmeObjectSetWeaponLockInlineAnchor()
 // has it on the Object; BFME2 forwards it to the ObjectSMCHelper (tail jump).
 void Object::setSpecialModelConditionState(ModelConditionFlagType mc, unsigned int frames)
 {
-	m_smcHelper->rva004DE85F(mc, frames);
+	m_smcHelper->setModelConditionState(mc, frames);
 }

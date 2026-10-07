@@ -5,8 +5,8 @@
 // Evidence: neighbours ?healCompletely@Object (0x0028FF9E) and
 // ?rva0029004B@Object (0x0029004B) prove Object TU and /O1 flags; callees
 // 0x004BDA67 rowed ?rva004BDA67@Rva004BDA67, 0x0023DB0E rowed
-// ?setStatus@Object, 0x0028AE6D rowed ?rva0028AE6D@Object, 0x004DE85F pinned
-// ?rva004DE85F@ObjectSMCHelper; offsets +0x114 cond word 2, +0x230 smcHelper,
+// ?setStatus@Object, 0x0028AE6D rowed ?rva0028AE6D@Object, 0x004DE85F rowed
+// ObjectSMCHelper::setModelConditionState; offsets +0x114 cond word 2, +0x230 smcHelper,
 // +0x254 body with vtable slots 9 (+0x24) and 41 (+0xA4); global g_Va00DBA4E4.
 
 enum ObjectStatusTypes
@@ -94,7 +94,7 @@ public:
 class ObjectSMCHelper
 {
 public:
-	void rva004DE85F(ModelConditionFlagType mc, unsigned int frames);
+	void setModelConditionState(ModelConditionFlagType mc, unsigned int frames);
 };
 
 extern int g_Va00DBA4E4;
@@ -138,5 +138,5 @@ void Object::WallUpgradeSell()
 		m_dw114 |= 0x400;
 		rva0028AE6D();
 	}
-	m_smcHelper->rva004DE85F((ModelConditionFlagType)0x68, (unsigned int)(3 * g_Va00DBA4E4));
+	m_smcHelper->setModelConditionState((ModelConditionFlagType)0x68, (unsigned int)(3 * g_Va00DBA4E4));
 }
