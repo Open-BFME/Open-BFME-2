@@ -97,6 +97,10 @@ def _gen_asm_diff_offences(old, new):
     path = None
     dump_rows, other_code_edits = [], set()
     for line in diff_lines(old, new, "Code/", LEDGER):
+        if line.startswith("--- a/"):
+            # Deleted sources have +++ /dev/null, so retain their old path.
+            path = line[6:]
+            continue
         if line.startswith("+++ b/"):
             path = line[6:]
             continue

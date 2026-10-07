@@ -101,6 +101,15 @@ def test_staged_dump_only_wave_is_allowed(repo):
     assert gate.gen_asm_offences(base, ":") == []
 
 
+def test_wave_cannot_delete_a_cpp_source(repo):
+    git, write, commit, base = repo
+    wave(write)
+    git("rm", "Code/Old.cpp")
+    tip = commit()
+    assert any(offence.startswith("C3 ") and "Code/Old.cpp" in offence
+               for offence in gate.gen_asm_offences(base, tip))
+
+
 @pytest.mark.parametrize("rule,row,dump", [
     ("C1", DUMP_ROW, DUMP + "named_function PROC\n"),
     ("C2", DUMP_ROW.replace("?d_00002000@@YAXXZ", "?named@@YAXXZ"), DUMP),
