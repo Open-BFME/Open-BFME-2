@@ -1,7 +1,9 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Os
 //
 // ?rva0020C3BB@ScriptEngine@@QAEXPAVScriptAction@@@Z @0x0020C3BB 524B: the
-// script-call action. Takes the name from the action's first parameter, looks
+// script-call action; ?rva0020C140@ScriptEngine@@QAEXABVAsciiString@@0PAVTeam@@@Z
+// @0x0020C140 635B: its scoped sibling taking explicit scope name, script name
+// and calling team (below the first body). Takes the name from the action's first parameter, looks
 // it up as a script group and, failing that, as a single script, and runs a
 // subroutine under the "current scope" latch (ScriptEngine +0x1A10C); a
 // non-subroutine or missing name is reported through AppendDebugMessage.
@@ -20,6 +22,13 @@
 class Rva00355950Arr;
 struct Rva003412E0Node;
 class ScriptList;
+class Player;
+
+class Team
+{
+public:
+	Player *getControllingPlayer() const;
+};
 
 class Parameter
 {
@@ -75,6 +84,31 @@ struct Rva002048A2
 	Rva002048A2(AsciiString *a1, const AsciiString &a2);
 };
 
+// Calling-team latch (vtable g_00BE39EC): saves *alias at +4, installs the new
+// team, restores on destruction. The destructor body is the 15-byte row at
+// 0x00203CC7 (Rva00203CC7Dtor.cpp); retail inlines it at the normal exit and
+// calls the row from the unwind funclet, which a definition here reproduces.
+extern const void *const g_00BE39EC[];
+struct Rva00203CC7
+{
+	void *m00;
+	void *m04;
+	void *m08;
+	Rva00203CC7(Team **alias, Team *value)
+	{
+		m00 = (void *)g_00BE39EC;
+		m04 = *alias;
+		m08 = alias;
+		*alias = value;
+	}
+	~Rva00203CC7()
+	{
+		void *next = m08;
+		m00 = (void *)g_00BE39EC;
+		*(void **)next = m04;
+	}
+};
+
 class BfmeRoomZC
 {
 public:
@@ -106,6 +140,7 @@ public:
 	void rva0020A586(void *object, void *slot);
 	void AppendDebugMessage(const AsciiString &message, bool forcePause);
 	void rva0020C3BB(ScriptAction *action);
+	void rva0020C140(const AsciiString &scopeName, const AsciiString &scriptName, Team *pThisTeam);
 };
 
 #define RVA0020C3BB_REPORT(NAME, HEADLINE) \
@@ -162,4 +197,70 @@ void ScriptEngine::rva0020C3BB(ScriptAction *action)
 			RVA0020C3BB_REPORT(name, "***Script not defined:***");
 		}
 	}
+}
+
+#define RVA0020C140_REPORT(HEADLINE) 	do { 		AppendDebugMessage(AsciiString(HEADLINE), false); 		AppendDebugMessage(Rva0032B389Join(canonical, scriptName), false); 	} while (0)
+
+// ?rva0020C140@ScriptEngine@@QAEXABVAsciiString@@0PAVTeam@@@Z
+void ScriptEngine::rva0020C140(const AsciiString &scopeName, const AsciiString &scriptName, Team *pThisTeam)
+{
+	if (((const StringBase<char> &)scriptName).isEmpty())
+		return;
+	if (((const StringBase<char> &)scriptName).compare("<none>") == 0)
+		return;
+
+	BfmeOwnZC *lookup = (BfmeOwnZC *)this;
+	Player *savedPlayer = *(Player **)((char *)this + 0x1A130);
+	Team **callingTeam = (Team **)((char *)this + 0x1A110);
+	Rva00203CC7 callingTeamLatch(callingTeam, pThisTeam);
+	Rva002048A2 scope((AsciiString *)((char *)this + 0x1A10C), scopeName);
+	Team *activeTeam = *callingTeam;
+	*(Team **)((char *)this + 0x1A118) = 0;
+	*(Player **)((char *)this + 0x1A130) = 0;
+	if (activeTeam)
+		*(Player **)((char *)this + 0x1A130) = activeTeam->getControllingPlayer();
+
+	AsciiString canonical;
+	ScriptGroup *group = (ScriptGroup *)lookup->rva00204EBB(*(BfmeRoomZC *)&scriptName, &canonical);
+	if (group)
+	{
+		if (group->isSubroutine())
+		{
+			if (group->isActive())
+			{
+				Rva00355950Arr *array = (Rva00355950Arr *)lookup->rva00204E64(canonical);
+				if (array)
+				{
+					Rva002048A2 restore((AsciiString *)((char *)this + 0x1A10C), canonical);
+					walkNamed(array, group->getScript(), false);
+				}
+			}
+		}
+		else
+		{
+			RVA0020C140_REPORT("***Attempting to call script that is not a subroutine:***");
+		}
+	}
+	else
+	{
+		Script *script = (Script *)lookup->bfmeRunZC(*(BfmeRoomZC *)&scriptName, &canonical);
+		if (script)
+		{
+			if (script->isSubroutine())
+			{
+				Rva002048A2 restore((AsciiString *)((char *)this + 0x1A10C), canonical);
+				rva0020A586(script, (void *)&scriptName);
+			}
+			else
+			{
+				RVA0020C140_REPORT("***Attempting to call script that is not a subroutine:***");
+			}
+		}
+		else
+		{
+			RVA0020C140_REPORT("***Script not defined:***");
+		}
+	}
+
+	*(Player **)((char *)this + 0x1A130) = savedPlayer;
 }
