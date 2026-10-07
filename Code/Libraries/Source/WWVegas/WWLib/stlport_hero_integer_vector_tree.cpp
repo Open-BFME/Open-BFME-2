@@ -15,6 +15,11 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 }
 #include <vector>
 typedef _STL::vector<unsigned int> HeroVector;
+// Scalar-vector copy is supplied by the complete retail 0x002CFAB9 provider.
+namespace _STL {
+template <> vector<unsigned int>::vector(const vector<unsigned int> &);
+}
+
 typedef _STL::pair<const int, HeroVector> HeroValue;
 typedef _STL::_Rb_tree<int, HeroValue, _STL::_Select1st<HeroValue>, _STL::less<int>, _STL::allocator<HeroValue> > HeroTree;
 template HeroTree::_Rb_tree(const HeroTree &);

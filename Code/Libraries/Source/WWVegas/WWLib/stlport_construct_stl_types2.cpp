@@ -41,15 +41,27 @@ struct TreeHintPayload003012F0
 	char m_body[12];
 };
 
+struct TargetRef00217D4C;
 struct TreeHintRef00217D4C
 {
-	char m_body[8];
+    TargetRef00217D4C *m_ptr;
 };
 
 typedef _STL::vector<BfmePod88> ConstructPodVec;
 typedef _STL::pair<const int, MultiplayerColorDefinition> ConstructPairMP;
 typedef _STL::pair<const AsciiString, TreeHintPayload003012F0> ConstructPairHP;
 typedef _STL::pair<const AsciiString, TreeHintRef00217D4C> ConstructPairHR;
+
+// The placement-copy helpers call external complete copy constructors.
+// Their providers already own the target bodies; instantiating the generic
+// copies here emitted competing definitions. The mapped handle is four bytes,
+// proven by the canonical 358B43 copy's +4 pointer and pointee +4 AddRef.
+namespace _STL {
+template <> ConstructPodVec::vector(const ConstructPodVec &);
+template <> ConstructPairHP::pair(const ConstructPairHP &);
+template <> ConstructPairHR::pair(const ConstructPairHR &);
+}
+
 
 template void _STL::_Construct<ConstructPodVec, ConstructPodVec>(ConstructPodVec *, const ConstructPodVec &);
 template void _STL::_Construct<ConstructPairMP, ConstructPairMP>(ConstructPairMP *, const ConstructPairMP &);

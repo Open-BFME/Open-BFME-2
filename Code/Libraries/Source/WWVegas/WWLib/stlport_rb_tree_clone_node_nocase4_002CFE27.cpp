@@ -16,6 +16,13 @@ struct BfmeStringNoCaseLess
 	bool operator()(const AsciiString &left, const AsciiString &right) const;
 };
 
+// Use the complete value-copy provider at retail 0x00466EA7.
+// A trivial local AsciiString view must not supply the selected pair copy.
+typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NoCasePairCopy;
+namespace _STL {
+template <> NoCasePairCopy::pair(const NoCasePairCopy &);
+}
+
 typedef _STL::_Rb_tree<AsciiString, _STL::pair<const AsciiString, NoCaseTreeValue4>, _STL::_Select1st<_STL::pair<const AsciiString, NoCaseTreeValue4> >, BfmeStringNoCaseLess, _STL::allocator<_STL::pair<const AsciiString, NoCaseTreeValue4> > > NoCaseTree4CF550;
 
 template NoCaseTree4CF550::_Link_type NoCaseTree4CF550::_M_clone_node(NoCaseTree4CF550::_Link_type);

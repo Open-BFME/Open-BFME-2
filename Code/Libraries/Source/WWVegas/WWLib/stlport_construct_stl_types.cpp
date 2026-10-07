@@ -8,8 +8,8 @@
 // to T's own rowed copy ctor, and __EH_prolog resolves via its matched row.
 // Unlike the opaque-struct batches, these T's come from the real STLport
 // headers (<vector>, and _STL::pair over a minimal AsciiString declaration):
-// the headers declare but do not define the copy ctors, so the calls stay
-// out-of-line and resolve through their rows.
+// declaration-only copy specializations below keep the calls out-of-line
+// and resolve through the complete provider rows.
 
 #include <memory>
 #include <vector>
@@ -38,10 +38,7 @@ struct NoCaseTreeValue4
 	char m_body[4];
 };
 
-struct Coord3D
-{
-	int m_pad;
-};
+#include "../../../Include/Lib/Coord3D.h"
 
 enum ScienceType
 {
@@ -54,6 +51,20 @@ typedef _STL::pair<const int, _STL::vector<unsigned int> > ConstructProbePairIV;
 typedef _STL::vector<ScienceType> ConstructProbeSciVec;
 typedef _STL::list<Coord3D> ConstructProbeCoordList;
 typedef _STL::pair<const AsciiString, char> ConstructProbePairC;
+
+// These helpers delegate to complete copy constructors already rowed in
+// their provider units. Declaration-only specializations suppress incorrect
+// local copies and their allocator/container machinery, preserving the
+// actual out-of-line placement-copy calls.
+namespace _STL {
+template <> ConstructProbeVec::vector(const ConstructProbeVec &);
+template <> ConstructProbePair::pair(const ConstructProbePair &);
+template <> ConstructProbePairIV::pair(const ConstructProbePairIV &);
+template <> ConstructProbeSciVec::vector(const ConstructProbeSciVec &);
+template <> ConstructProbeCoordList::list(const ConstructProbeCoordList &);
+template <> ConstructProbePairC::pair(const ConstructProbePairC &);
+}
+
 
 template void _STL::_Construct<ConstructProbeVec, ConstructProbeVec>(ConstructProbeVec *, const ConstructProbeVec &);
 template void _STL::_Construct<ConstructProbePair, ConstructProbePair>(ConstructProbePair *, const ConstructProbePair &);

@@ -16,6 +16,12 @@ struct NoCaseTreeValue4
 	char m_body[4];
 };
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NocasePair;
+// Use the complete 466EA7 pair-copy provider rather than emitting a
+// competing constructor from this allocation helper's flags.
+namespace _STL {
+template <> NocasePair::pair(const NocasePair &);
+}
+
 void *__stdcall Rva001DD8C9Alloc(const NocasePair &src)
 {
 	char *p = _STL::allocator<char>::allocate(0x0c, 0);

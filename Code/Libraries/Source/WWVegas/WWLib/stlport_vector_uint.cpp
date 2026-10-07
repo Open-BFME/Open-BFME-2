@@ -23,4 +23,9 @@ template <> inline unsigned int *__copy_ptrs<unsigned int *, unsigned int *>(
 }
 }
 
+// The complete scalar copy is rowed in stlport_vector_scalar_copy.cpp at
+// 2CFAB9. This /Od unit owns other members and must not emit a competing copy.
+namespace _STL {
+template <> vector<unsigned int>::vector(const vector<unsigned int> &);
+}
 template class _STL::vector<unsigned int, _STL::allocator<unsigned int> >;

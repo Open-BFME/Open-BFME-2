@@ -24,6 +24,11 @@ protected:
 };
 struct TreeHintPayload001F8ACB { unsigned int value; };
 bool operator<(const AsciiString &, const AsciiString &);
+// Scalar-vector copy is supplied by the complete retail 0x002CFAB9 provider.
+namespace _STL {
+template <> vector<unsigned int>::vector(const vector<unsigned int> &);
+}
+
 typedef _STL::map<int,int> IntegerMap;
 typedef _STL::map<AsciiString,TreeHintPayload001F8ACB> StringPayloadMap;
 typedef _STL::map<int,_STL::vector<unsigned int> > IntegerVectorMap;
