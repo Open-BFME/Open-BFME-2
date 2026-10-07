@@ -59,6 +59,17 @@
 // int, divided by the body module's (Object +0x254) slot 6 max health,
 // scaled by ModuleData +0x40 and added to the ModuleData +0x3C modifier,
 // floored at 1 through reference temporaries in ZH max's argument order.
+//
+// ?onDie@SlowDeathBehavior@@UAEXPBVDamageInfo@@@Z @0x0045E6B8 469B
+// Identity: slot 0 of the single-slot DieModuleInterface table at VA
+// 0x00C42020 (this is the +0x20 subobject), ZH onDie statement for
+// statement: the AI dead-state check and markAsDead, TheGameLogic deselect,
+// the template's selectable-when-dead check, the weighted pick over every
+// behavior module's SlowDeathBehaviorInterface (line 811 is the retail
+// random-value call site) and the swap-with-back removal. BFME2 delta read
+// from retail: a pick only begins when the interface's slot 3 (0x0050B5C6)
+// also agrees. Both vectors append through the ICF-folded STLport push_back
+// 0x004DFCB0, called here under its ledger element type.
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
@@ -539,6 +550,7 @@ public:
 	virtual UpdateSleepTime update();
 	virtual void beginSlowDeath(const DamageInfo *damageInfo);
 	virtual Int getProbabilityModifier(const DamageInfo *damageInfo) const;
+	virtual void onDie(const DamageInfo *damageInfo);
 	const SlowDeathBehaviorModuleData *getSlowDeathBehaviorModuleData() const
 	{
 		return (const SlowDeathBehaviorModuleData *)m_moduleData;
@@ -845,4 +857,84 @@ Int SlowDeathBehavior::getProbabilityModifier(const DamageInfo *damageInfo) cons
 	Int overkillModifier = overkillPercent * getSlowDeathBehaviorModuleData()->m_modifierBonusPerOverkillPercent;
 
 	return sdbMax(getSlowDeathBehaviorModuleData()->m_probabilityModifier + overkillModifier, 1);
+}
+
+// Retail appends both onDie vectors through the ICF-folded 4-byte STLport
+// push_back 0x004DFCB0, rowed under an address-derived element type.
+struct Rva004DFCB0Element
+{
+	unsigned word0;
+	Rva004DFCB0Element &operator=(const Rva004DFCB0Element &b)
+	{
+		if (this != &b)
+			word0 = b.word0;
+		return *this;
+	}
+	bool operator<(const Rva004DFCB0Element &) const;
+	bool operator==(const Rva004DFCB0Element &) const;
+};
+template <class T> inline void sdbPushBack(std::vector<T> &v, const T &x)
+{
+	((std::vector<Rva004DFCB0Element> &)v).push_back((const Rva004DFCB0Element &)x);
+}
+
+void SlowDeathBehavior::onDie(const DamageInfo *damageInfo)
+{
+	if (!isDieApplicable(damageInfo))
+		return;
+
+	AIUpdateInterface *ai = getObject()->getAIUpdateInterface();
+	if (ai)
+	{
+		if (ai->isAiInDeadState())
+			return;
+		ai->markAsDead();
+	}
+
+	TheGameLogic->deselectObject(getObject(), 0xFFFFF, true);
+
+	const ThingTemplate *tmpl = getObject()->getTemplate();
+	if (tmpl && !tmpl->isSelectableWhenDead())
+		getObject()->setSelectable(false);
+
+	Int total = 0;
+	std::vector<Int> probabilities;
+	std::vector<SlowDeathBehaviorInterface *> behaviors;
+	for (BehaviorModule **update = getObject()->getBehaviorModules(); *update; ++update)
+	{
+		SlowDeathBehaviorInterface *sdu = (*update)->getSlowDeathBehaviorInterface();
+		if (sdu != 0 && sdu->isDieApplicable(damageInfo))
+		{
+			Int probability = sdu->getProbabilityModifier(damageInfo);
+			total += probability;
+			sdbPushBack(probabilities, probability);
+			sdbPushBack(behaviors, sdu);
+		}
+	}
+
+	while (!behaviors.empty())
+	{
+		Int roll = GameLogicRandomValue(0, total - 1, 811);
+		std::vector<Int>::iterator it = probabilities.begin();
+		for (; it != probabilities.end(); ++it)
+		{
+			if (roll < *it)
+				break;
+			roll -= *it;
+		}
+		total -= *it;
+		Int index = it - probabilities.begin();
+
+		SlowDeathBehaviorInterface *sdu = behaviors[index];
+		if (sdu && sdu->isDieApplicable(damageInfo) && sdu->rva0050B5C6())
+		{
+			sdu->beginSlowDeath(damageInfo);
+			return;
+		}
+
+		behaviors[index] = behaviors.back();
+		behaviors.pop_back();
+		probabilities[index] = probabilities.back();
+		probabilities.pop_back();
+	}
 }
