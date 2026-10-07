@@ -33,3 +33,19 @@ public:
  Rva005FEA62Value copyVirtualValue();
 };
 Rva005FEA62Value Rva005FEA62::copyVirtualValue(){Rva005FEA62VirtualValue tmp=virtualValue();return tmp;}
+
+// Complete native 0x60052C..0x600579 RET4 repeats the same measured
+// virtual-slot-1 return ABI, one-word handle, signed32-bit pointee count
+// at +4, and matched fastcall release 0x7DEEF. The original owner and
+// concrete pointee remain unknown; these value types describe that ABI.
+class Rva0060052C {
+public:
+ virtual void unknownSlot0();
+ virtual Rva005FEA62VirtualValue virtualValue();
+ Rva005FEA62Value copyVirtualValue();
+};
+Rva005FEA62Value Rva0060052C::copyVirtualValue()
+{
+ Rva005FEA62VirtualValue tmp = virtualValue();
+ return tmp;
+}
