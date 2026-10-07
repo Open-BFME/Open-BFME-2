@@ -14210,7 +14210,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?resize@?$vector@UBfmeStringRecord000B94D2@@V?$allocator@UBfmeStringRecord000B94D2@@@_STL@@@_STL@@QAEXIUBfmeStringRecord000B94D2@@@Z,0x000C4733,callee of ?resize@?$vector@UBfmeStringRecord000B94D2@@V?$allocator@UBfmeStringRecord000B94D2@@@_STL@@@_STL@@QAEXI@Z
 ??0Rva005ECFE4@@QAE@PAX00@Z,0x005ECE81,callee of ?rva005ED15D@Rva005ECFE4@@SAPAXPAX00@Z
 ?rva004AA4FE@Rva004AABB4@@QAE_NPAVObject@@0PAUCoord3D@@@Z,0x004AA4FE,callee of ?rva004AABB4@Rva004AABB4@@QAEPAVObject@@PAV2@0PAUCoord3D@@@Z
-?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
-?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
-?onContaining@HordeContain@@UAEXPAVObject@@_N@Z,0x0046FA46,callee of ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z
 ?onContaining@TransportContain@@UAEXPAVObject@@_N@Z,0x00463191,callee of ?rva0047BEF8@Rva0047BEF8@@UAEXPAVObject@@_N@Z
