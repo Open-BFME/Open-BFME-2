@@ -11235,6 +11235,7 @@ name,address,notes
 ?rva001B2599@BFME2Encoding2MotionChannel@@QAEXPAIIIPAM1@Z,0x001B2599,"REL32 at +0x3C and +0x87 of the byte-true BFME2Encoding2MotionChannel::UnknownSlot3 0x001B2B5F (thiscall decoder twin of 0x001B2210 for the 17-byte-block encoding); unrowed"
 ?rva001B267B@BFME2Encoding2MotionChannel@@QAEXPAIIIPAVVector3@@1@Z,0x001B267B,"REL32 at +0x3E and +0xC2 of the byte-true BFME2Encoding2MotionChannel::UnknownSlot4 0x001B2C0B (thiscall Vector3 decoder twin of 0x001B230A); unrowed"
 ?rva001B27AB@BFME2Encoding2MotionChannel@@QAEXPAIIIPAVQuaternion@@1@Z,0x001B27AB,"REL32 at +0x3A and +0x7D of the byte-true BFME2Encoding2MotionChannel::UnknownSlot5 0x001B2D23 (thiscall quaternion decoder twin of 0x001B2450); unrowed"
+?rva001B2DC4@Rva001B2DC4@@QAEII@Z,0x001B2DC4,"Ghidra 104-byte boundary; target reads the count at +0x0C and a 16-bit value table at +0x14, clears bit 15, and searches for the greatest value not above the key; owner and callers remain unknown"
 ?rva001B4C7A@Rva001B4C7ATarget@@QAEXXZ,0x001B4C7A,"method a vtable-slot forwarder tail-jumps to (ret 0); opaque address name"
 ?rva001B4FE9@SubsystemInterfaceList@@QAEXXZ,0x001B4FE9,"member of the global at VA 0x00DFD940 (ledger TheSubsystemList) GameEngine slot 17 calls before answering; REL32 at 0x00225B41; identity not recovered"
 ?rva001B505F@SubsystemInterfaceList@@QAEEXZ,0x001B505F,"member of the global at VA 0x00DFD940 (ledger TheSubsystemList) returning a byte its caller normalises (test al; setne al); REL32 in GameEngine slot 16 0x00225AF4; identity not recovered"
