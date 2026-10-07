@@ -104,12 +104,4 @@ void AIPlayer::removeFrom_TeamReadyQueue(TeamInQueue *o)
 		o->dlink_removeFrom_TeamReadyQueue(&m_dlinkhead_TeamReadyQueue);
 }
 
-void AIPlayer::removeAll_TeamReadyQueue(RemoveAllProc_TeamReadyQueue p)
-{
-	while (m_dlinkhead_TeamReadyQueue)
-	{
-		TeamInQueue *tmp = m_dlinkhead_TeamReadyQueue;
-		removeFrom_TeamReadyQueue(tmp);
-		if (p) (*p)(tmp);
-	}
-}
+// AIPlayer::removeAll_TeamReadyQueue is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/AIPlayer_Rva004F0499.cpp (0x004F0499).

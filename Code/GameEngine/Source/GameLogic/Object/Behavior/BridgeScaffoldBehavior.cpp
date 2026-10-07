@@ -138,30 +138,7 @@ void BridgeScaffoldBehavior::reverseMotion( void )
 /** STATIC MEMBER:
 	* Helper function to retrieve a bridge scaffold interface from an object if one is present */
 // ------------------------------------------------------------------------------------------------
-// ?getBridgeScaffoldBehaviorInterfaceFromObject@BridgeScaffoldBehavior@@SAPAVBridgeScaffoldBehaviorInterface@@PAVObject@@@Z present-unmatched
-BridgeScaffoldBehaviorInterface *BridgeScaffoldBehavior::getBridgeScaffoldBehaviorInterfaceFromObject( Object *obj )
-{
-
-	// santiy
-	if( obj == NULL )
-		return NULL;
-
-	// get the bridge tower behavior interface
-	BridgeScaffoldBehaviorInterface *bridgeScaffoldInterface = NULL;
-	BehaviorModule **bmi;
-	for( bmi = obj->getBehaviorModules(); *bmi; ++bmi )
-	{
-
-		bridgeScaffoldInterface = (*bmi)->getBridgeScaffoldBehaviorInterface();
-		if( bridgeScaffoldInterface )
-			return bridgeScaffoldInterface;
-
-	}  // end for bmi
-
-	// interface not found
-	return NULL;
-
-}  // end getBridgeScaffoldBehaviorInterfaceFromObject
+// BridgeScaffoldBehavior::getBridgeScaffoldBehaviorInterfaceFromObject is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004582F3Finish.cpp (0x004582F3).
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */

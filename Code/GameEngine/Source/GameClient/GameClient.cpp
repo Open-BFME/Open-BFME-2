@@ -881,37 +881,7 @@ void GameClient::updateFakeDrawables(void)
 /** -----------------------------------------------------------------------------------------------
  * Destroy the drawable immediately.
  */
-// ?GameClient::destroyDrawable present-unmatched
-void GameClient::destroyDrawable( Drawable *draw )
-{
-
-	// remove any notion of the Drawable in the in-game user interface
-	TheInGameUI->disregardDrawable( draw );
-
-	// remove from the master list
-	draw->removeFromList(&m_drawableList);
-
-	//
-	// because drawables and objects are tightly coupled, not only MUST we maintain
-	// our links in all instances, but it is NECESSARY for the client to actually
-	// modify data in the logic, that is the pointer in an object to *this* drawable
-	//
-	Object *obj = draw->getObject();
-	if( obj )
-	{
-
-		DEBUG_ASSERTCRASH( obj->getDrawable() == draw, ("Object/Drawable pointer mismatch!\n") );
-		obj->friend_bindToDrawable( NULL );
-
-	}  // end if
-
-	// remove the drawable from our hash of drawables
-	removeDrawableFromLookupTable( draw );
-
-	// free storage
-	draw->deleteInstance();
-
-}
+// GameClient::destroyDrawable is defined with its retail-matched body in Code/GameEngine/Source/GameClient/GameClientDestroyDrawable.cpp (0x00239F40).
 
 // ------------------------------------------------------------------------------------------------
 /** Add drawable to lookup table for fast id searching */
@@ -953,19 +923,7 @@ void GameClient::removeDrawableFromLookupTable( Drawable *draw )
 
 //-------------------------------------------------------------------------------------------------
 /** Load a map into the game interface */
-// ?GameClient::loadMap present-unmatched
-Bool GameClient::loadMap( AsciiString mapName )
-{
-
-	// sanity
-	if( mapName.isEmpty() )
-		return false;
-
-	assert( 0 );  // who calls this?
-
-	return TRUE;
-
-}  // end loadMap
+// GameClient::loadMap is defined with its retail-matched body in Code/GameEngine/Source/Common/Rva0042F0D0.cpp (0x00239949).
 
 //-------------------------------------------------------------------------------------------------
 /** Unload a map from the game interface */

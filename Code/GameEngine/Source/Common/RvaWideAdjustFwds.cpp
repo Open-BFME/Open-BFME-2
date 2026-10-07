@@ -147,10 +147,7 @@ int GameLogic::rva0023D0AC(int value)
 	return ((Rva0040D3E8Sub *)((char *)this + 0x184))->method(value);
 }
 
-int GameLogic::rva0023D0B7()
-{
-	return ((Rva0040D3FFSub *)((char *)this + 0x184))->method();
-}
+// GameLogic::rva0023D0B7 is defined with its retail-matched body in Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp (0x0023D0B7).
 
 void GameLogic::rva0023D0C2(Object *obj, int value)
 {

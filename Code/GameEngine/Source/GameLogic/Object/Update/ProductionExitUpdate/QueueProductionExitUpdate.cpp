@@ -175,34 +175,7 @@ void QueueProductionExitUpdate::crc( Xfer *xfer )
 	* Version Info:
 	* 1: Initial version */
 // ------------------------------------------------------------------------------------------------
-// ?xfer@QueueProductionExitUpdate@@MAEXPAVXfer@@@Z present-unmatched
-void QueueProductionExitUpdate::xfer( Xfer *xfer )
-{
-
-	// version
-	XferVersion currentVersion = 1;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
-
-	// extend base class
-	UpdateModule::xfer( xfer );
-
-	// current delay
-	xfer->xferUnsignedInt( &m_currentDelay );
-
-	// rally point
-	xfer->xferCoord3D( &m_rallyPoint );
-
-	// rally point exists
-	xfer->xferBool( &m_rallyPointExists );
-
-	// creation clear distance
-	xfer->xferReal( &m_creationClearDistance );
-
-	// current burst count
-	xfer->xferUnsignedInt( &m_currentBurstCount );
-
-}  // end xfer
+// QueueProductionExitUpdate::xfer is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/QueueProductionExitUpdateXfer.cpp (0x004A0057).
 
 // ------------------------------------------------------------------------------------------------
 /** Load post process */

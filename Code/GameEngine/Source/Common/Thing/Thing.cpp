@@ -320,33 +320,7 @@ void Thing::convertBonePosToWorldPos(const Coord3D* bonePos, const Matrix3D* bon
 // ------------------------------------------------------------------------------------------------
 /** Push the 'in' parameter through our transformation matrix and store in 'out' */
 // ------------------------------------------------------------------------------------------------
-// ?transformPoint@Thing@@ present-unmatched
-void Thing::transformPoint( const Coord3D *in, Coord3D *out )
-{
-
-	// santiy
-	if( in == NULL || out == NULL )
-		return;
-
-	// for conversion
-	Vector3 vectorIn;
-	Vector3 vectorOut;
-
-	///@ todo this is dumb and we should not have to convert types
-	// convert to Vector3 datatypes
-	vectorIn.X = in->x;
-	vectorIn.Y = in->y;
-	vectorIn.Z = in->z;
-
-	// do the transform
-	m_transform.Transform_Vector( m_transform, vectorIn, &vectorOut );
-
-	// store converted vector in 'out'
-	out->x = vectorOut.X;
-	out->y = vectorOut.Y;
-	out->z = vectorOut.Z;
-
-}  // end transformPoint
+// Thing::transformPoint is defined with its retail-matched body in Code/GameEngine/Source/Common/Thing/ThingTransformPointFinish.cpp (0x0030A812).
 
 // Carrier to keep emitting the 10B Matrix3D::Set_Y_Translation alias rowed from
 // this TU after Thing::setPosition moved to ThingSetPosition.cpp.

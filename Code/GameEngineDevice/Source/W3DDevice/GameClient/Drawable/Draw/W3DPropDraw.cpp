@@ -94,28 +94,7 @@ W3DPropDraw::~W3DPropDraw( void )
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?reactToTransformChange@W3DPropDraw@@ present-unmatched
-void W3DPropDraw::reactToTransformChange( const Matrix3D *oldMtx, 
-																							 const Coord3D *oldPos, 
-																							 Real oldAngle )
-{
-	Drawable *draw = getDrawable();
-	if (m_propAdded) {
-		return;
-	}
-	if (draw->getPosition()->x==0.0f && draw->getPosition()->y == 0.0f) {
-		return;
-	}
-	m_propAdded = true;
-	const W3DPropDrawModuleData *moduleData = getW3DPropDrawModuleData();
-	if (!moduleData) {
-		return;
-	}
-	Real scale = draw->getScale();
-	TheTerrainRenderObject->addProp((Int)draw->getID(), *draw->getPosition(),
-		draw->getOrientation(), scale, moduleData->m_modelName);
-	
-}
+// W3DPropDraw::reactToTransformChange is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDrawReact.cpp (0x000CEF9F).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------

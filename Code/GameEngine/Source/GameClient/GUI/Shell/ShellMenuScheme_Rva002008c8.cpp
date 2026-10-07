@@ -140,14 +140,7 @@ void ShellMenuScheme::addLine( ShellMenuSchemeLine* schemeLine )
 }
 
 
-// ?addImage@ShellMenuScheme@@QAEXPAVShellMenuSchemeImage@@@Z present-unmatched
-void ShellMenuScheme::addImage( ShellMenuSchemeImage* schemeImage )
-{
-	if(!schemeImage)
-		return;
-
-	m_imageList.push_back( schemeImage );
-}
+// ShellMenuScheme::addImage is defined with its retail-matched body in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_addImage.cpp (0x002007BE).
 
 // Display as ShellMenuScheme::draw reaches it: slot +0xB0 opens and +0xDC
 // closes a precise-draw bracket around the Real-coordinate image (+0xD4) and

@@ -32,11 +32,7 @@ public:
 private:
 	void helper00109D64();
 };
-void Rva0010BA61::rva0010BA61()
-{
-	helper00109D64();
-	Rva0010BA2COwner::rva00108895();
-}
+// Rva0010BA61::rva0010BA61 is defined with its retail-matched body in Code/GameEngine/Source/Common/Rva0010BA61.cpp (0x0010BA61).
 
 class Rva004E52DCForwarder
 {

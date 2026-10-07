@@ -1035,11 +1035,7 @@ void RingRenderObjClass::Decrement_LOD(void)
 	if (CurrentLOD > 0) CurrentLOD--;
 }
 
-// ?RingRenderObjClass::Get_Cost present-unmatched
-float RingRenderObjClass::Get_Cost(void) const
-{
-	return Get_Num_Polys();	// Currently cost == polys
-}
+// RingRenderObjClass::Get_Cost is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/ringobj_Get_Cost_RingRenderObjClass_UBEMXZ.cpp (0x00167F48).
 
 // byte-exact reconstruction: Code/Libraries/Source/WWVegas/WW3D2/RingRenderObjPrepareLOD.cpp
 // ?Get_Value@RingRenderObjClass@@UBEMXZ present-unmatched

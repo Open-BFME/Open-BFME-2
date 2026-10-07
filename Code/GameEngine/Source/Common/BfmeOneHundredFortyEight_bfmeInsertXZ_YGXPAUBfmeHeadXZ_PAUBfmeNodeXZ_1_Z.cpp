@@ -71,17 +71,7 @@ private:
 	BfmeLinkXX *m_bfmeBack;			// 0x14
 };
 
-void BfmeLinkXX::bfmeDropXX(void)
-{
-	if (m_bfmeOn != 0)
-	{
-		if (m_bfmeBack != 0)
-			m_bfmeBack->m_bfmeOn = m_bfmeOn;
-
-		m_bfmeOn->m_bfmeBack = m_bfmeBack;
-		m_bfmeOn = 0;
-	}
-}
+// BfmeLinkXX::bfmeDropXX is defined with its retail-matched body in Code/GameEngine/Source/Common/BfmeOneHundredFortyEight.cpp (0x00758490).
 
 struct BfmeNodeXZ
 {

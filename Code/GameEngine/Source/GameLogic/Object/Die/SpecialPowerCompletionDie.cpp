@@ -67,17 +67,7 @@ void SpecialPowerCompletionDie::onDie( const DamageInfo *damageInfo )
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?notifyScriptEngine@SpecialPowerCompletionDie@@ present-unmatched
-void SpecialPowerCompletionDie::notifyScriptEngine( void )
-{
-	if (m_creatorID != INVALID_ID)
-	{
-		TheScriptEngine->notifyOfCompletedSpecialPower(
-			getObject()->getControllingPlayer()->getPlayerIndex(),
-			getSpecialPowerCompletionDieModuleData()->m_specialPowerTemplate->getName(),
-			m_creatorID);
-	}
-}  
+// SpecialPowerCompletionDie::notifyScriptEngine is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDieNotify.cpp (0x00486B01).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------

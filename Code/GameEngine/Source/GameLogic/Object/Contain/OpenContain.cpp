@@ -369,20 +369,7 @@ void OpenContain::removeFromContain( Object *rider, Bool exposeStealthUnits )
 //-------------------------------------------------------------------------------------------------
 /** Remove all contained objects from the contained list */
 //-------------------------------------------------------------------------------------------------
-// ?OpenContain::removeAllContained present-unmatched
-void OpenContain::removeAllContained( Bool exposeStealthUnits )
-{
-	ContainedItemsList::iterator it;
-
- 	while ((it = m_containList.begin()) != m_containList.end())
-	{
-
- 		// note that this invalidates the iterator!
- 		removeFromContainViaIterator( it, exposeStealthUnits );
-
-	}  // end while
-
-}  // end removeAllContained
+// OpenContain::removeAllContained is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_removeAllContained_Rva004635C0.cpp (0x004635C0).
 
 //-------------------------------------------------------------------------------------------------
 /** Kill all contained objects in the contained list */

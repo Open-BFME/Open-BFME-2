@@ -31,11 +31,7 @@ public:
 	void rva003A37DC(VideoPair pair);
 };
 
-void Rva000427195::rva003A37DC(VideoPair pair)
-{
-	VideoPair tmp = pair;
-	Rva002ADCE1Worker(&tmp);
-}
+// Rva000427195::rva003A37DC is defined with its retail-matched body in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarVideoMapErase.cpp (0x003A37DC).
 
 void __stdcall Rva005258F8(VideoPair pair)
 {
