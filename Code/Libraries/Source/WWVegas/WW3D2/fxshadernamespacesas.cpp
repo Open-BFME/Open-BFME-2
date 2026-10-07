@@ -74,13 +74,15 @@ extern "C" D3DXMATRIX *__stdcall D3DXMatrixInverse(D3DXMATRIX *out, float *deter
 extern "C" D3DXMATRIX *__stdcall D3DXMatrixTranspose(D3DXMATRIX *out, const D3DXMATRIX *matrix);
 
 // Output of the rowed path parser 0x001530E9: the leading component, its
-// "[*]" and "[n]" flags and index, then the remainder after the first '.'.
+// "[*]" and "[n]" flags and index (WorldBuilder's asserts name these three
+// t.m_IsArray, t.m_IsArrayElement and t.m_ArrayIndex), then the remainder
+// after the first '.'.
 struct Rva001530E9Path
 {
 	char m_name[0x40];
-	bool m_hasStar;
-	bool m_hasBracket;
-	int m_index;
+	bool m_IsArray;
+	bool m_IsArrayElement;
+	int m_ArrayIndex;
 	const char *m_rest;
 };
 void __cdecl Rva001530E9Parse(const char *name, void *volatile path);
@@ -161,6 +163,19 @@ protected:
 };
 
 class FXShaderParameterBinder;
+
+// The rowed second PushDynamicSetStack 0x0015354E takes its argument under
+// this placeholder enum; the skeleton source passes 1.
+enum ScienceType
+{
+	SCIENCE_INVALID = 0
+};
+
+// The 0x30-byte transform the skeleton's instancing vector holds.
+struct Matrix3D
+{
+	float Row[3][4];
+};
 
 class FXShaderParameterSourceNamespace
 {
@@ -284,10 +299,40 @@ public:
 		void *m_shadowMap;		// +0x48
 	};
 
-	// vtable 0x00BD38A0, dispatcher 0x0014FFF6.
+	// vtable 0x00BD38A0, dispatcher 0x0014FFF6. Member names after the
+	// WorldBuilder asserts of the SetArray_MeshToJointToWorld_* setters; the
+	// matrix sources follow their arm strings.
 	struct SourceNamespace_Skeleton : public FXShaderParameterSourceNamespace_Struct
 	{
+		SourceNamespace_Skeleton();
 		virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
+
+		void rva0014DF88(ID3DXEffect *effect, D3DXHANDLE parameter);
+		void rva0014DB2C(ID3DXEffect *effect, D3DXHANDLE parameter);
+		void SetArray_MeshToJointToWorld_BoneTransform(ID3DXEffect *effect, D3DXHANDLE parameter);
+		void SetArray_MeshToJointToWorld_Matrix3D(ID3DXEffect *effect, D3DXHANDLE parameter);
+		void SetArray_MeshToJointToWorld_Matrix4x4(ID3DXEffect *effect, D3DXHANDLE parameter);
+
+		struct Matrix_MeshToJointToWorld : public SourceNamespace_Matrix
+		{
+			virtual void slot02(Rva0007671F &matrix);
+		};
+		struct Matrix_MeshToJointToView : public SourceNamespace_Matrix
+		{
+			virtual void slot02(Rva0007671F &matrix);
+		};
+		struct Matrix_MeshToJointToProjection : public SourceNamespace_Matrix
+		{
+			virtual void slot02(Rva0007671F &matrix);
+		};
+
+		Matrix_MeshToJointToWorld m_MeshToJointToWorld;			// +0x04
+		Matrix_MeshToJointToView m_MeshToJointToView;			// +0x08
+		Matrix_MeshToJointToProjection m_MeshToJointToProjection;	// +0x0C
+		const void *m_SkinInfo;						// +0x10
+		const std::vector<unsigned short> *m_BoneMappingTable;		// +0x14
+		int m_NumJointsPerVertex;					// +0x18
+		const std::vector<Matrix3D> *m_InstancingInfo;			// +0x1C
 	};
 
 	virtual void ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder);
@@ -366,8 +411,9 @@ struct TreeHintRef00217D4C : public Rva00579E47
 class FXShaderParameterBinder
 {
 public:
-	ID3DXEffect *GetEffect() const { return m_effect; }
+	ID3DXEffect *PeekEffect() const { return m_effect; }
 	void PushDynamicSetStack(const char *name);
+	void PushDynamicSetStack(ScienceType type);
 	void PopDynamicSetStack();
 	void AddBinding(TreeHintRef00217D4C callback, D3DXHANDLE parameter);
 private:
@@ -644,8 +690,8 @@ void FXShaderParameterSourceNamespace_Array<T>::ResolveBindings(const char *name
 	Rva001530E9Path t;
 	Rva001530E9Parse(name, &t);
 	binder->PushDynamicSetStack(parameter);
-	ID3DXEffect *effect = binder->GetEffect();
-	if (t.m_hasStar)
+	ID3DXEffect *effect = binder->PeekEffect();
+	if (t.m_IsArray)
 	{
 		D3DXPARAMETER_DESC desc;
 		effect->GetParameterDesc(parameter, &desc);
@@ -658,10 +704,10 @@ void FXShaderParameterSourceNamespace_Array<T>::ResolveBindings(const char *name
 				m_Default.ResolveBindings(t.m_rest, element, binder);
 		}
 	}
-	else if (t.m_hasBracket)
+	else if (t.m_IsArrayElement)
 	{
-		if (t.m_index >= 0 && t.m_index < m_Elements.size())
-			m_Elements[t.m_index].ResolveBindings(t.m_rest, parameter, binder);
+		if (t.m_ArrayIndex >= 0 && t.m_ArrayIndex < m_Elements.size())
+			m_Elements[t.m_ArrayIndex].ResolveBindings(t.m_rest, parameter, binder);
 		else
 			m_Default.ResolveBindings(t.m_rest, parameter, binder);
 	}
@@ -670,3 +716,91 @@ void FXShaderParameterSourceNamespace_Array<T>::ResolveBindings(const char *name
 
 template void FXShaderParameterSourceNamespace_Array<FXShaderParameterSourceNamespaceSAS::SourceNamespace_AmbientLight>::ResolveBindings(const char *, D3DXHANDLE, FXShaderParameterBinder *);
 template void FXShaderParameterSourceNamespace_Array<FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow>::ResolveBindings(const char *, D3DXHANDLE, FXShaderParameterBinder *);
+
+// Retail 0x0014F40C, 44 bytes: the SAS ctor builds its +0xB8 member here.
+FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::SourceNamespace_Skeleton()
+	: m_SkinInfo(0), m_BoneMappingTable(0), m_NumJointsPerVertex(0), m_InstancingInfo(0)
+{
+}
+
+// Retail 0x0014DF88, 93 bytes: the instancing transforms, else the skinned
+// mesh's bone mapping, else one joint.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::rva0014DF88(ID3DXEffect *effect, D3DXHANDLE parameter)
+{
+	if (m_InstancingInfo)
+		effect->SetInt(parameter, m_InstancingInfo->size());
+	else if (m_SkinInfo && m_BoneMappingTable)
+		effect->SetInt(parameter, m_BoneMappingTable->size());
+	else
+		effect->SetInt(parameter, 1);
+}
+
+// Retail 0x0014DB2C, 20 bytes.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::rva0014DB2C(ID3DXEffect *effect, D3DXHANDLE parameter)
+{
+	effect->SetInt(parameter, m_NumJointsPerVertex);
+}
+
+// Retail 0x0014FFF6, 468 bytes. WorldBuilder asserts the array checks; the
+// release build returns there, and after a failed GetParameterDesc pops the
+// set stack first.
+void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Skeleton::ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder)
+{
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, parameter, binder);
+	if (name == 0)
+		return;
+	Rva001530E9Path t;
+	Rva001530E9Parse(name, &t);
+	if (_strcmpi(t.m_name, "NumJoints") == 0)
+	{
+		binder->PushDynamicSetStack((ScienceType)1);
+		binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &SourceNamespace_Skeleton::rva0014DF88)), parameter);
+		binder->PopDynamicSetStack();
+	}
+	else if (_strcmpi(t.m_name, "NumJointsPerVertex") == 0)
+	{
+		binder->PushDynamicSetStack((ScienceType)1);
+		binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &SourceNamespace_Skeleton::rva0014DB2C)), parameter);
+		binder->PopDynamicSetStack();
+	}
+	else if (_strcmpi(t.m_name, "MeshToJointToWorld") == 0)
+	{
+		if (!t.m_IsArray && !t.m_IsArrayElement || (t.m_IsArrayElement && t.m_ArrayIndex != 0))
+			return;
+		binder->PushDynamicSetStack((ScienceType)1);
+		if (t.m_IsArray)
+		{
+			D3DXPARAMETER_DESC desc;
+			if (binder->PeekEffect()->GetParameterDesc(parameter, &desc) < 0)
+			{
+				binder->PopDynamicSetStack();
+				return;
+			}
+			if (desc.Class == 2 && desc.Type == 3 && desc.Rows == 4 && desc.Columns == 4 && desc.Elements > 0)
+				binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &SourceNamespace_Skeleton::SetArray_MeshToJointToWorld_Matrix4x4)), parameter);
+			else if (desc.Class == 5 && desc.Bytes == desc.Elements * 0x30)
+				binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &SourceNamespace_Skeleton::SetArray_MeshToJointToWorld_Matrix3D)), parameter);
+			else if (desc.Class == 5 && desc.Bytes == desc.Elements * 0x20)
+				binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &SourceNamespace_Skeleton::SetArray_MeshToJointToWorld_BoneTransform)), parameter);
+		}
+		else
+			m_MeshToJointToWorld.ResolveBindings(t.m_rest, parameter, binder);
+		binder->PopDynamicSetStack();
+	}
+	else if (_strcmpi(t.m_name, "MeshToJointToView") == 0)
+	{
+		if (!t.m_IsArrayElement || t.m_ArrayIndex != 0)
+			return;
+		binder->PushDynamicSetStack((ScienceType)1);
+		m_MeshToJointToView.ResolveBindings(t.m_rest, parameter, binder);
+		binder->PopDynamicSetStack();
+	}
+	else if (_strcmpi(t.m_name, "MeshToJointToProjection") == 0)
+	{
+		if (!t.m_IsArrayElement || t.m_ArrayIndex != 0)
+			return;
+		binder->PushDynamicSetStack((ScienceType)1);
+		m_MeshToJointToProjection.ResolveBindings(t.m_rest, parameter, binder);
+		binder->PopDynamicSetStack();
+	}
+}
