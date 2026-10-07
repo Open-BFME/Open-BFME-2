@@ -338,6 +338,26 @@ char *Rva00850560(LocaleCodePageObject_0084EED0 *object)
     }
 }
 
+// Rva008504C0 (retail 0x00023650, 159B): locale long-date/time formatter,
+// twin of Rva00850560 above. Same BFME1 donor operation order
+// (game/stlport/LocaleCodePageQueries.c Rva008504C0); retail proves locale
+// type 0x1f, input buffer locale_buffer_0084ECA0 and output FndLCID storage.
+// Caller 0x000195A6 in stlport_X4TimeFacets _Init_timeinfo. LINK leaf.
+extern char __FndLCID[];
+char *Rva008504C0(LocaleCodePageObject_0084EED0 *object)
+{
+    LCID locale = object->locale;
+    GetLocaleInfoA(locale, 0x1f, locale_buffer_0084ECA0, 0x104);
+    {
+        char *buffer = locale_buffer_0084ECA0;
+        __ConvertFromACP(buffer, 0x50, object->codePage);
+        strcpy(__FndLCID, Rva0084DE40Tail(buffer));
+        strcat(__FndLCID, " ");
+        strcat(__FndLCID, Rva0084ED20Tail(object));
+        return __FndLCID;
+    }
+}
+
 /* BFME1 donor: game/stlport/LocaleCodePageQueries.c at 10af19f44a.
  * BFME2 evidence: unique 420-byte placement at RVA 0x00021EB0; the return
  * ends the 308-byte instruction stream and switch tables fill the rest.
