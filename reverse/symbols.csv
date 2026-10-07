@@ -15815,3 +15815,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva005A684F@Rva005A6D47@@QAEGH@Z,0x005A684F,callee of ?rva004FE126@GameSpyStagingRoom@@QAEXXZ
 ?rva005A6A4C@Rva005A6D47@@QAEXXZ,0x005A6A4C,callee of ?rva004FE126@GameSpyStagingRoom@@QAEXXZ
 ?rva005801F2@Rva005A6D47@@QAEPAVTransport@@XZ,0x005801F2,callee of ?rva004FE126@GameSpyStagingRoom@@QAEXXZ
+?rva004FED35@GameSpyStagingRoom@@QAEXXZ,0x004FED35,callee of ?startGame@GameSpyStagingRoom@@UAEXH@Z

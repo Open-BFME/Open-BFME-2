@@ -624,7 +624,6 @@ void GameSpyStagingRoom::rva004FE126(void)
 // g_bfmeEmptyF9 there to keep the two constants distinct, as in retail.
 extern char g_bfmeEmptyF9[];
 
-// ?startGame@GameSpyStagingRoom@@UAEXH@Z present-unmatched
 void GameSpyStagingRoom::startGame(Int gameID)
 {
 	Int numHumans = 0;
