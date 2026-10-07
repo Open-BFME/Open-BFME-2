@@ -19,7 +19,7 @@ public:
 class ControlBar
 {
 public:
-    void rva00405D77();
+    __declspec(noinline) void rva00405D77();
 };
 extern ControlBar *TheControlBar;
 class GameWindowManager
@@ -105,4 +105,17 @@ void Rva005C33DD::rva005C33DD()
     TheWindowManager->slot58(owner, 0x4008,
                             window,
                             window->winGetWindowId());
+}
+
+// The native 405D77 wrapper tail-jumps to the already verified 34-byte
+// cleanup at 405AA7 with the same receiver. Supply that provider rather
+// than leaving the notification bound only through a pin.
+class Rva00405AA7
+{
+public:
+    void rva00405AA7();
+};
+void ControlBar::rva00405D77()
+{
+    reinterpret_cast<Rva00405AA7 *>(this)->rva00405AA7();
 }
