@@ -67947,3 +67947,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?bfmeGo76A0@@YAXHPAHPAXHHH1@Z,,0x001B8100,177,Code/GameEngine/Source/Common/BfmeGo7760.cpp,matched,BFME1 donor 1399ad37d42ea52a63829e417c46a1ba9ed2cd20 native 0x009A76A0; BFME2 matched caller bfmeGo7820 0x001B8280 and filter sibling 0x001B81C0; /O2 x87 /G6; address-derived donor name retained
 ?rva003FDB90@Rva003FDB90@@QAEXXZ,,0x003FDB90,65,Code/GameEngine/Source/Common/Rva003FDB90.cpp,matched,chain via 0x3FDC46 pins 0x3FB7DB 0x3FDAEB Random_Float 0.7f offsets 0x38 0x40 0x44 0x48
 ?rva002D790A@Radar@@QAEXPAM0@Z,,0x002D790A,146,Code/GameEngine/Source/Common/System/Radar_findDrawPositions.cpp,matched,extent ratio outputs and width height comparison from retail body
+?rva001F4A22@Rva001F4A22@@QAEXXZ,,0x001F4A22,21,Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4A22.cpp,matched,handle at 0x78 via rowed dtor plus clear
