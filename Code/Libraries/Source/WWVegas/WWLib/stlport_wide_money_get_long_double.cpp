@@ -56,6 +56,9 @@ template <> __forceinline void allocator<unsigned short>::deallocate(unsigned sh
 #pragma optimize("", on)
 }
 
+#include <string>
+// The canonical default constructor is verified at retail7850.
+namespace _STL { template <> basic_string<char>::basic_string(); }
 #include <locale>
 
 // Keep the vendor _M_getc body visible for MSVC's side-effect analysis while

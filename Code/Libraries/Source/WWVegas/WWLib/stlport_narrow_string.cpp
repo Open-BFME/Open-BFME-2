@@ -2,6 +2,9 @@
 // stlport
 
 #include <string>
+// The canonical default constructor is verified at retail7850.
+namespace _STL { template <> basic_string<char>::basic_string(); }
+
 
 namespace _STL
 {

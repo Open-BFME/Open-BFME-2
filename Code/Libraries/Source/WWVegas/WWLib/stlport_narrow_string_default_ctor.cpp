@@ -50,7 +50,7 @@ public:
 	{
 	}
 
-	__declspec(dllimport) __forceinline ~_String_base()
+	__forceinline ~_String_base()
 	{
 		_M_deallocate_block();
 	}
