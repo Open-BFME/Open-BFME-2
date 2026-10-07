@@ -18,6 +18,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 #include <set>
+#include <vector>
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -71,6 +72,9 @@ struct AsciiUnicodePair
 
 class GameSpyGroupRoom : public AsciiUnicodePair
 {
+public:
+	GameSpyGroupRoom();		// 0x0038226B
+	GameSpyGroupRoom &operator=(const GameSpyGroupRoom &other);	// 0x00381E56
 };
 class BuddyInfo {};
 
@@ -196,7 +200,7 @@ public:
 	virtual ~GameSpyInfoInterface();
 	virtual void s01(void);
 	virtual void s02(void);
-	virtual void s03(void);
+	virtual GroupRoomMap *getGroupRoomList(void);
 	virtual void s04(void);
 	virtual void s05(void);
 	virtual void s06(void);
@@ -300,8 +304,10 @@ public:
 	virtual void slot11(void) = 0;
 	virtual void slot12(void) = 0;
 	virtual void slot13(void) = 0;
-	virtual void slot14(void) = 0;
+	// MSVC assigns same-name virtual overloads in reverse declaration order:
+	// fetch(const AsciiString &) lands at 0x38, fetch(const char *) at 0x3C.
 	virtual UnicodeString fetch(const char *label, Bool *exists = 0) = 0;
+	virtual UnicodeString fetch(const AsciiString &label, Bool *exists = 0) = 0;
 };
 
 extern GameTextInterface *TheGameText;
@@ -318,6 +324,7 @@ public:
 	virtual void slot06(void) = 0;
 	virtual void slot07(void) = 0;
 	virtual Int getQMChannel(void) = 0;
+	virtual void setQMChannel(Int channel) = 0;
 };
 
 extern GameSpyConfigInterface *TheGameSpyConfig;
@@ -338,6 +345,10 @@ class GameModePreferences
 public:
 	Int rva0054F5A4(void);
 };
+
+// Retail calls _strcmpi through its msvcr71 import slot (0x00BBA518); the
+// CRT headers here declare it without dllimport.
+extern "C" int (__cdecl * const _imp___strcmpi)(const char *, const char *);
 
 // Lobby room IDs recorded by addGroupRoom from the GUI:LobbyRoom<n> labels.
 extern Int g_lobbyRoom2ID;		// 0x00E02328
@@ -415,8 +426,8 @@ public:
 	virtual ~GameSpyInfo();
 	virtual void reset(void);
 	virtual void clearGroupRoomList(void);
-	virtual void slot03(void);
-	virtual void slot04(void);
+	virtual GroupRoomMap *getGroupRoomList(void);
+	virtual void addGroupRoom(GameSpyGroupRoom room);
 	virtual void slot05(void);
 	virtual void joinGroupRoom(Int groupID);
 	virtual void leaveGroupRoom(void);
@@ -737,6 +748,100 @@ void GameSpyInfo::clearStagingRoomList(void)
 	}
 	if (numRoomsRemoved > 0)
 	{
+	}
+}
+
+// ?addGroupRoom@GameSpyInfo@@UAEXVGameSpyGroupRoom@@@Z @0x00386B7B 893B
+// ZH's addGroupRoom. BFME 2 falls back to the translated raw room name when a
+// GUI:<name> label is missing and records the lobby room IDs by label.
+void GameSpyInfo::addGroupRoom(GameSpyGroupRoom room)
+{
+	if (room.m_groupID == 0)
+	{
+		m_gotGroupRoomList = true;
+
+		GroupRoomMap::iterator iter;
+
+		// figure out how many good strings we've got
+		_STL::vector<UnicodeString> names;
+		Int numRooms = 0;
+		for (iter = getGroupRoomList()->begin(); iter != getGroupRoomList()->end(); ++iter)
+		{
+			GameSpyGroupRoom room = iter->second;
+			if (room.m_groupID != TheGameSpyConfig->getQMChannel())
+			{
+				++numRooms;
+
+				AsciiString groupLabel;
+				groupLabel.format("GUI:%s", room.m_name.str());
+
+				Bool exists = false;
+				UnicodeString groupName = TheGameText->fetch(groupLabel, &exists);
+				if (exists)
+				{
+					names.push_back(groupName);
+					if (groupLabel.compare("GUI:LobbyRoom1") == 0)
+					{
+						g_lobbyRoom1ID = room.m_groupID;
+						g_lobbyRoom1IDAlt = room.m_groupID;
+					}
+					else if (groupLabel.compare("GUI:LobbyRoom2") == 0)
+					{
+						g_lobbyRoom2ID = room.m_groupID;
+					}
+					else if (groupLabel.compare("GUI:LobbyRoom6") == 0)
+					{
+						g_lobbyRoom6ID = room.m_groupID;
+					}
+					else if (groupLabel.compare("GUI:LobbyRoom9") == 0)
+					{
+						g_lobbyRoom9ID = room.m_groupID;
+					}
+				}
+				else
+				{
+					UnicodeString rawName;
+					rawName.translate(room.m_name);
+					names.push_back(rawName);
+				}
+			}
+		}
+
+		if (!names.empty() && names.size() != numRooms)
+		{
+			// didn't get all names.  fix up
+			Int nameIndex = 0;
+			Int timesThrough = 1; // start with USA Lobby 1
+			for (iter = TheGameSpyInfo->getGroupRoomList()->begin(); iter != TheGameSpyInfo->getGroupRoomList()->end(); ++iter)
+			{
+				GameSpyGroupRoom room = iter->second;
+				if (room.m_groupID != TheGameSpyConfig->getQMChannel())
+				{
+					room.m_translatedName.format(L"%ls %d", names[nameIndex].str(), timesThrough);
+					nameIndex = (nameIndex+1)%names.size();
+					m_groupRooms[room.m_groupID] = room;
+					if (!nameIndex)
+					{
+						// we've looped through the name list already.  increment the timesThrough counter
+						++timesThrough;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		AsciiString groupLabel;
+		groupLabel.format("GUI:%s", room.m_name.str());
+		Bool exists = false;
+		room.m_translatedName = TheGameText->fetch(groupLabel, &exists);
+		if (!exists)
+			room.m_translatedName.translate(room.m_name);
+		m_groupRooms[room.m_groupID] = room;
+		if ( !_imp___strcmpi("quickmatch", room.m_name.str()) )
+		{
+			TheGameSpyConfig->setQMChannel(room.m_groupID);
+		}
 	}
 }
 
