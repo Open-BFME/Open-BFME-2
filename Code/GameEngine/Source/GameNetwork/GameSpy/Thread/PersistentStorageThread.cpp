@@ -87,14 +87,19 @@ public:
     virtual void _slot80(short &);
 };
 class MapHolder;
+class MapFloatHolder;
+class MapIntHolder;
 class PSPlayerStats {
 public:
     void XferMap(MapHolder *, XferStub *);
+    void rva0055499A(MapFloatHolder *, XferStub *);
+    void rva00554A4A(MapIntHolder *, XferStub *);
 };
 class Rva00553E47StatsCore {
 public:
     void reset();
     void rva005550A0(XferStub *);
+    void rva00555109(XferStub *);
 private:
     unsigned m_unmodelled00;
     Rva0038201D m_maps04[6];
@@ -296,4 +301,34 @@ void Rva00553E47StatsCore::rva005550A0(XferStub *xfer) {
     xfer->_slot78((int &)m_13c);
     xfer->_slot78((int &)m_140);
     xfer->_slot80((short &)m_144);
+}
+
+// Native [555109,55524B),322B continues the core transfer: four short maps,
+// six paired short-map groups, eight float maps (last since version2), four shorts.
+void Rva00553E47StatsCore::rva00555109(XferStub *xfer) {
+    StatsXferVersion version;
+    version.first=1;
+    version.second=2;
+    xfer->_slot28(version);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)&m_maps04[2], xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)&m_maps04[3], xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)&m_maps04[4], xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)&m_maps04[5], xfer);
+    for (int i=0;i<6;++i) {
+        ((PSPlayerStats *)this)->XferMap((MapHolder *)&m_maps4c[i], xfer);
+        ((PSPlayerStats *)this)->XferMap((MapHolder *)&m_maps94[i], xfer);
+    }
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)&m_mapsdc[0], xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)&m_mapsdc[1], xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)&m_mapsdc[2], xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)&m_mapsdc[3], xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)&m_mapsdc[4], xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)&m_mapsdc[5], xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)&m_mapsdc[6], xfer);
+    if (version.second >= 2)
+        ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)&m_mapsdc[7], xfer);
+    xfer->_slot80((short &)m_146);
+    xfer->_slot80((short &)m_148);
+    xfer->_slot80((short &)m_14a);
+    xfer->_slot80((short &)m_14c);
 }
