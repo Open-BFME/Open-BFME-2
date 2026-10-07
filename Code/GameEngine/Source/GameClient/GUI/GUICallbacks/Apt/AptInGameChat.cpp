@@ -482,7 +482,6 @@ static inline bool isEmptyText(const UnicodeString &text)
 // starting with '/' is a command and is not sent; "/tribute <amount>
 // <player>" appends message 0x466 (from, to, amount) when the amount is
 // positive and the name is a slot's player.
-// ?AptInGameChat::rva004E8670 present-unmatched
 bool AptInGameChat::rva004E8670(UnicodeString text)
 {
 	AsciiString message;
