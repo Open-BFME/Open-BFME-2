@@ -23,6 +23,7 @@ public:
  vector(const vector&);
  ~vector() {if(m_start) ::free(m_start);}
  void _M_fill_insert(T *position,unsigned int n,const T& value);
+ void resize(unsigned int n,T value);
 protected:
  template<class U,class B> friend class vector;
  void _M_insert_overflow(T*,const T&,const __false_type&,unsigned int,bool);
@@ -71,3 +72,24 @@ typedef _STL::vector<SciVec,_STL::allocator<SciVec> > SciVecVec;
 template void SciVecVec::_M_fill_insert(SciVec*,unsigned int,const SciVec&);
 
 template SciVec *_STL::__uninitialized_copy(SciVec *,SciVec *,SciVec *,const _STL::__false_type &);
+
+// Retail resize passes its 12B value by value (RET16) and destroys it at exit.
+// Existing erase provider has the established owned-pointer + two-word ABI.
+struct DynamicPortalLink;
+class Rva00339E80 {
+public:
+ DynamicPortalLink *rva00339E80(DynamicPortalLink*,DynamicPortalLink*);
+};
+namespace _STL {
+template <class T,class A>
+void vector<T,A>::resize(unsigned int n,T value) {
+ unsigned int count=(unsigned int)(m_finish-m_start);
+ if(n<count) {
+  ((Rva00339E80*)this)->rva00339E80((DynamicPortalLink*)(m_start+n),(DynamicPortalLink*)m_finish);
+ } else {
+  unsigned int added=n-(unsigned int)(m_finish-m_start);
+  _M_fill_insert(m_finish,added,value);
+ }
+}
+}
+template void SciVecVec::resize(unsigned int,SciVec);
