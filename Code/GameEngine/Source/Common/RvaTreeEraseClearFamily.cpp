@@ -1336,3 +1336,168 @@ void Rva005ACF0B::rva005AD085()
 	((RvaTreeFamilyHead *)m_00Head)->m_child = (RvaTreeFamilyHead *)m_00Head;
 	m_04Flag = 0;
 }
+
+class Rva000589F6
+{
+public:
+	void rva000589F6();
+};
+
+void Rva000589F6::rva000589F6()
+{
+	((Rva00056CF8 *)this)->rva00057B74();
+}
+
+class Rva0006FB4B
+{
+public:
+	void rva0006FB4B();
+};
+
+void Rva0006FB4B::rva0006FB4B()
+{
+	((Rva0006F318 *)this)->rva0006FA70();
+}
+
+class Rva000D3940
+{
+public:
+	void rva000D3940();
+};
+
+void Rva000D3940::rva000D3940()
+{
+	((Rva000D20A9 *)this)->rva000D2294();
+}
+
+class Rva001DD9B6
+{
+public:
+	void rva001DD9B6();
+};
+
+void Rva001DD9B6::rva001DD9B6()
+{
+	((Rva001DD70F *)this)->rva001DD846();
+}
+
+class Rva00211F00
+{
+public:
+	void rva00211F00();
+};
+
+void Rva00211F00::rva00211F00()
+{
+	((Rva0021119B *)this)->rva00211DD2();
+}
+
+class Rva002819C9
+{
+public:
+	void rva002819C9();
+};
+
+void Rva002819C9::rva002819C9()
+{
+	((Rva0027F4CB *)this)->rva00280AB6();
+}
+
+class Rva002A8CCB
+{
+public:
+	void rva002A8CCB();
+};
+
+void Rva002A8CCB::rva002A8CCB()
+{
+	((Rva002A8B8C *)this)->rva002A8BEE();
+}
+
+class Rva002D50A8
+{
+public:
+	void rva002D50A8();
+};
+
+void Rva002D50A8::rva002D50A8()
+{
+	((Rva002D394B *)this)->rva002D43C6();
+}
+
+class Rva0038934F
+{
+public:
+	void rva0038934F();
+};
+
+void Rva0038934F::rva0038934F()
+{
+	((Rva00388EAE *)this)->rva00389129();
+}
+
+class Rva003968CE
+{
+public:
+	void rva003968CE();
+};
+
+void Rva003968CE::rva003968CE()
+{
+	((Rva00395CEB *)this)->rva0039611E();
+}
+
+class Rva004D1ABE
+{
+public:
+	void rva004D1ABE();
+};
+
+void Rva004D1ABE::rva004D1ABE()
+{
+	((Rva004D0545 *)this)->rva004D0F82();
+}
+
+class Rva004D1AFB
+{
+public:
+	void rva004D1AFB();
+};
+
+void Rva004D1AFB::rva004D1AFB()
+{
+	((Rva004D0572 *)this)->rva004D0FAB();
+}
+
+class Rva004E9592
+{
+public:
+	void rva004E9592();
+};
+
+void Rva004E9592::rva004E9592()
+{
+	((Rva004E9419 *)this)->rva004E94A1();
+}
+
+class Rva004FF62B
+{
+public:
+	void rva004FF62B();
+};
+
+void Rva004FF62B::rva004FF62B()
+{
+	((Rva004FF408 *)this)->rva004FF4C8();
+}
+
+class Rva005981C5
+{
+public:
+	void rva005981C5();
+};
+
+void Rva005981C5::rva005981C5()
+{
+	((Rva005980F3 *)this)->rva00598120();
+}
