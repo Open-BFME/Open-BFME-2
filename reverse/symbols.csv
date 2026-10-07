@@ -15607,3 +15607,9 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003FB793@Rva003F936EHost@@QAEXPAUVec3@@@Z,0x003FB793,callee of 0x003F936E in same TU; body banked near-miss (partial 0.7)
 ?rva003F2F24@Rva003F3F03@@QAEXXZ,0x003F2F24,no-arg member called by 0x003F3F03 after initFromINI; body unclaimed
 ?rva003F3B4F@Rva003F3F03@@QAEXXZ,0x003F3B4F,dump range 19 target called by 0x003F3F03; 176B body unclaimed
+?rva003F20B0@Rva003F3F27@@QAEXXZ,0x003F20B0,ICF alias onto the rowed ScienceType-vector clear at this address; called by 0x003F3F27
+?rva003F1AFF@Rva003F3F27@@QAEXH@Z,0x003F1AFF,one-arg member called by 0x003F3F27 with -1; body unclaimed
+?rva003FEFDF5@Rva003F3F27@@QAEXH@Z,0x003EFDF5,one-arg member called by 0x003F3F27 with 1; body unclaimed
+?rva003F2106@Rva003F3F27@@QAEXXZ,0x003F2106,no-arg member called by 0x003F3F27; body unclaimed
+?rva003F318C@Rva003F3F27Sub1A8@@QAEXPAX@Z,0x003F318C,subobject member called by 0x003F3F27 with the +0x60 block; body unclaimed
+?rva003F3B4F@Rva003F3F27@@QAEXXZ,0x003F3B4F,dump range 19 target called by 0x003F3F27; 176B body unclaimed
