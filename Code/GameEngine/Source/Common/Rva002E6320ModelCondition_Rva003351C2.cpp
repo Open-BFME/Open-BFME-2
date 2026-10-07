@@ -28,14 +28,10 @@ unsigned Rva00990030Lookup(Rva00990030Range *range, int index);
 class Object
 {
 public:
-	void rva0028EC68(int condition, void *value, int enabled);
+	void rva0028EC68(int index, void *source, int delay);
 };
 
-class GameLogic
-{
-public:
-	Object *findObjectByID(int value);
-};
+#include "GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -48,7 +44,7 @@ int bfmeHelper6320(lua_State *state)
 			return 0;
 	}
 
-	Object *record = TheGameLogic->findObjectByID((int)value);
+	Object *record = TheGameLogic->findObjectByID((ObjectID)(int)value);
 	if (!record)
 		return 0;
 
@@ -59,7 +55,7 @@ int bfmeHelper6320(lua_State *state)
 			return 0;
 	}
 
-	Object *source = TheGameLogic->findObjectByID((int)value);
+	Object *source = TheGameLogic->findObjectByID((ObjectID)(int)value);
 	if (!source)
 		return 0;
 

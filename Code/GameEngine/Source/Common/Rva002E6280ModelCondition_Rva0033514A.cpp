@@ -1,8 +1,8 @@
 // cl: -MD -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
-// 125B twin of bfmeHelper6320 (Rva002E6320ModelCondition.cpp, retail
-// 0x002E6320): byte-identical two-lua-arg object lookup shape, only the
-// applied special-model-condition constant differs (6 here, not 4).
+// 120B sibling of bfmeHelper6320 (BFME2 retail 0x003351C2):
+// the same two-lua-argument lookup shape; only the
+// pulsed emotion index differs (6 here, not 4).
 // Address-derived name pending the real Lua-bound function name.
 
 struct Rva00990030Value
@@ -33,14 +33,10 @@ unsigned Rva00990030Lookup(Rva00990030Range *range, int index);
 class Object
 {
 public:
-	void rva0028EC68(int condition, void *value, int enabled);
+	void rva0028EC68(int index, void *source, int delay);
 };
 
-class GameLogic
-{
-public:
-	Object *findObjectByID(int value);
-};
+#include "GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -53,7 +49,7 @@ int bfmeHelper6280(lua_State *state)
 			return 0;
 	}
 
-	Object *record = TheGameLogic->findObjectByID((int)value);
+	Object *record = TheGameLogic->findObjectByID((ObjectID)(int)value);
 	if (!record)
 		return 0;
 
@@ -64,7 +60,7 @@ int bfmeHelper6280(lua_State *state)
 			return 0;
 	}
 
-	Object *source = TheGameLogic->findObjectByID((int)value);
+	Object *source = TheGameLogic->findObjectByID((ObjectID)(int)value);
 	if (!source)
 		return 0;
 

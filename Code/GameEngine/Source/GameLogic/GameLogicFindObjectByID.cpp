@@ -4,33 +4,7 @@
 // Dedicated TU. Null ObjectID returns null; otherwise hashtable find at
 // this+0xB4 and the Object* lives at the node +8.
 
-enum ObjectID
-{
-	INVALID_OBJECT_ID = 0
-};
-
-class Object;
-
-struct ObjectIdNode
-{
-	char pad[8];
-	Object *object;
-};
-
-class ObjectIdMap
-{
-public:
-	ObjectIdNode *find(const ObjectID &id);
-};
-
-class GameLogic
-{
-	char pad[0xB4];
-	ObjectIdMap m_map;
-
-public:
-	Object *findObjectByID(ObjectID id);
-};
+#include "../Common/GameLogicObjectLookupView.h"
 
 inline Object *GameLogic::findObjectByID(ObjectID id)
 {

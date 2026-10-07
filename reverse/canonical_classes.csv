@@ -46,3 +46,6 @@ BFMEPoolCriticalSection,Code/Libraries/Source/WWVegas/WWLib/bfme_pool_critical_s
 Rva000CBA20,Code/GameEngine/Source/Common/RTS/XYDistanceCallView.h,address-derived pointer-only distance call view; native floats at +0x38/+0x3C; complete owner and extent unresolved; argument record extents preserved
 PartitionManager,Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h,native query call view; implementation pointer at +0x10; full manager extent unresolved
 BfmeWideResult,Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h,native one-word partition query result; existing copy and destruction ABI preserved
+GameLogic,Code/GameEngine/Source/Common/GameLogicObjectLookupView.h,native lookup call view; map receiver at +0xB4; full class extent unresolved
+ObjectIdMap,Code/GameEngine/Source/Common/GameLogicObjectLookupView.h,existing pointer-only native hash lookup view; complete map extent unknown
+ObjectIdNode,Code/GameEngine/Source/Common/GameLogicObjectLookupView.h,existing accessed node prefix; returned Object pointer at +0x8

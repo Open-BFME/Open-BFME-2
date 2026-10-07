@@ -2,9 +2,8 @@
 // stlport
 // Open-BFME5 conversions.
 
-// The lookup below is GameLogic::findObjectByID; GameLogicObjectLookup.h holds
-// the declaration (its body stays in Thing/GameLogicFindObjectByID.cpp).
-#include "Thing/GameLogicObjectLookup.h"
+// The lookup uses the verified BFME 2 ObjectID enum and native map view.
+#include "GameLogicObjectLookupView.h"
 
 struct BfmeX987
 {
@@ -27,7 +26,7 @@ public:
 // calls the found Object's own kill (its REL32 at +27 lands on
 // ?kill@Object@@QAEXW4DamageType@@W4DeathType@@@Z, matched at 0x002984D4), so
 // this is Object itself: its clear is kill, and no new pin is warranted.
-// GameLogicObjectLookup.h forward-declares Object; declare the one member this
+// GameLogicObjectLookupView.h forward-declares Object; declare the one member this
 // body calls rather than pulling in GameLogic/Object.h, whose sweep shim is
 // not this TU's shape. Only the two enumerators the body pushes are named;
 // GameLogic/Damage.h is not on this donor's include path.
@@ -50,7 +49,7 @@ public:
 void BfmeC987::bfmeGo987C()
 {
 	BfmeDrop987 *x = reinterpret_cast<BfmeDrop987 *>(
-		TheGameLogic->findObjectByID(m_bfmeId));
+		TheGameLogic->findObjectByID((ObjectID)m_bfmeId));
 
 	if (x) {
 		// Retail pushes 8 then 0 (see 0x00499C5B/0x00499C5D): DamageType 8 is
