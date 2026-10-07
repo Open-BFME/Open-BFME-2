@@ -13,7 +13,18 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
-class LivingWorldBuilding;
+class CreateAHeroData;
+struct Rva003F0614BuildingLink
+{
+    unsigned char prefix[0x2C];
+    CreateAHeroData *field2C;
+};
+class LivingWorldBuilding
+{
+public:
+    unsigned char prefix[0x28];
+    Rva003F0614BuildingLink *field28;
+};
 
 struct LivingWorldBuildPlot
 {
@@ -60,7 +71,8 @@ public:
 	Rva002E2903Player *find(Int id, UnsignedInt *outIndex);	// 0x002B51F8
 };
 
-extern Rva002BA8F1Logic *g_00DFEF10;	// TheLivingWorldLogic
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 
 class LivingWorldRegion
 {
@@ -68,6 +80,7 @@ public:
 	Bool IsOwnedByTeam(Int teamID) const;
 	Bool CanSpawnUnitWithinCPLimit(Rva00319CED *unit) const;
 	LivingWorldBuilding *GetBuildingByIndex(Int index) const;
+	Int rva003F0614(CreateAHeroData *key) const;
 
 private:
 	Int rva003EFDB3(Rva002E2903Player *owner) const;	// 0x003EFDB3, command points in use
@@ -85,7 +98,7 @@ Bool LivingWorldRegion::IsOwnedByTeam(Int teamID) const
 {
 	if (m_ownerPlayerID == -1)
 		return false;
-	Rva002E2903Player *owner = g_00DFEF10->find(m_ownerPlayerID, 0);
+	Rva002E2903Player *owner = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->find(m_ownerPlayerID, 0);
 	return owner ? owner->m_teamID == teamID : false;
 }
 
@@ -113,10 +126,25 @@ Bool LivingWorldRegion::CanSpawnUnitWithinCPLimit(Rva00319CED *unit) const
 {
 	if (m_ownerPlayerID == -1)
 		return true;
-	Rva002E2903Player *owner = g_00DFEF10->find(m_ownerPlayerID, 0);
+	Rva002E2903Player *owner = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->find(m_ownerPlayerID, 0);
 	if (owner == 0)
 		return false;
 	if (m_ownerPlayerID == owner->m_playerID)
 		return rva003EFDB3(owner) + unit->rva004E1755() <= rva003EFD6F(owner);
 	return usedCommandPoints(owner) <= rva003EFD6F(owner);
+}
+
+// Complete native 3F0614..3F066B RET4. Same +170 plot vector and +20/+34
+// building filter as GetBuildingByIndex; the nested +28/+2C pointer is
+// compared with the argument. Its identity beyond this relation is unresolved.
+Int LivingWorldRegion::rva003F0614(CreateAHeroData *key) const
+{
+    Int count = 0;
+    for (UnsignedInt i = 0; i < m_buildPlots.size(); ++i)
+    {
+        if (m_buildPlots[i]->HasBuilding() &&
+            m_buildPlots[i]->m_building->field28->field2C == key)
+            ++count;
+    }
+    return count;
 }
