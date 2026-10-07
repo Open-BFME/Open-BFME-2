@@ -1,5 +1,3 @@
-// ?rva002AC4D4@Player@@QAE_NPAH@Z
-// partial score=0.97 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ?rva002AC4D4@Player@@QAE_NPAH@Z @0x002AC4D4 (216B): find the skirmish side
 // whose faction names this player's template. Copies the AsciiString at
@@ -102,7 +100,8 @@ bool Player::rva002AC4D4(int *index)
 	AsciiString side = m_58;
 	for (int i = 0; i < count; i++) {
 		SidesInfo *info = TheSidesList->getSkirmishSideInfo(i);
-		Dict *dict = info->getDict();
+		Dict *dict = (Dict *)info;
+		dict = (Dict *)((char *)dict + 4);
 		AsciiString faction = dict->getAsciiString(g_00DBDE44.get());
 		NameKeyType key = TheNameKeyGenerator->nameToKey(faction);
 		const PlayerTemplate *pt = ThePlayerTemplateStore->findPlayerTemplate(key);
