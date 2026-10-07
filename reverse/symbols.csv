@@ -15502,3 +15502,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0021DAA8@Rva0021DE75Table@@QAEPAXPAX0@Z,0x0021DAA8,address-derived member callee of dump-range-7 0x0021DE75 with this+0x54 passthrough and two void* args; body unrowed; Ghidra FUN_0061daa8 141B
 ?init@Rva00224C95Table@@QAEXXZ,0x00224C76,TU-local thiscall table init pinned to 0x224C76 for 0x224C95
 ?handleKind@Keyboard@@IAEXG@Z,0x00232763,TU-local thiscall kind handler pinned to 0x232763 for Keyboard 0x232A42
+?Rva00629512ConstructN@@YGXPAXHH00@Z,0x00629512,stdcall vector-construct helper (ghidra eh_vector_constructor_iterator): constructs count objects of stride at ptr via pushed thiscall ctor with EH rollback via pushed dtor; retail pushes (this+0xC
