@@ -15685,3 +15685,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?Get_Default_Vertex_Count@DynamicVBAccessClass@@SAGXZ,0x0013ABB0,callee of ?Flush_Sorting_Pool@SortingRendererClass@@CAXXZ
 ?Get_Default_Index_Count@DynamicIBAccessClass@@SAGXZ,0x00139090,callee of ?Flush_Sorting_Pool@SortingRendererClass@@CAXXZ
 ?findClosestFreeGarrisonPointIndex@GarrisonContain@@IAEHHPBUCoord3D@@@Z,0x00478445,callee of ?calcBestGarrisonPosition@GarrisonContain@@UAE_NPAUCoord3D@@PBU2@@Z
+?rva00555845@Rva00555D74@@QAEXPBV1@@Z,0x00555845,callee of ?rva00555D74@Rva00555D74@@QAEXPBV1@@Z
