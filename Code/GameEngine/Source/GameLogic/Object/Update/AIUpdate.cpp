@@ -217,11 +217,7 @@ const LocomotorTemplateVector* AIUpdateModuleData::findLocomotorTemplateVector(L
 
 //-------------------------------------------------------------------------------------------------
 // subclasses may want to override this, to use a subclass of AIStateMachine.
-// ?makeStateMachine@AIUpdateInterface@@ present-unmatched
-AIStateMachine* AIUpdateInterface::makeStateMachine()
-{
-	return newInstance(AIStateMachine)( getObject(), "AIUpdateInterfaceMachine");
-}
+// AIUpdateInterface::makeStateMachine is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x00262513).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -503,119 +499,17 @@ void AIUpdateInterface::doPathfind( PathfindServicesInterface *pathfinder )
 pathfinder (air units just move point to point) it generates the path immediately.  Otherwise the path
 will be processed when we get to the front of the pathfind queue. jba */
 //-------------------------------------------------------------------------------------------------
-// ?requestPath@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::requestPath( Coord3D *destination, Bool isFinalGoal ) 
-{
-
-	if (m_locomotorSet.getValidSurfaces() == 0) {
-		DEBUG_CRASH(("Attempting to path immobile unit."));
-	}
-
-	//DEBUG_LOG(("Request Frame %d, obj %s %x\n", TheGameLogic->getFrame(), getObject()->getTemplate()->getName().str(), getObject()));
-	m_requestedDestination = *destination;
-	m_isFinalGoal = isFinalGoal;
-	CRCDEBUG_LOG(("AIUpdateInterface::requestPath() - m_isAttackPath = FALSE for object %d\n", getObject()->getID()));
-	m_isAttackPath = FALSE;	
-	m_requestedVictimID = INVALID_ID;	
-	m_isApproachPath = FALSE;
-	m_isSafePath = FALSE;
-	if (canComputeQuickPath()) {
-		computeQuickPath(destination);
-		return;
-	}
-	m_waitingForPath = TRUE;
-	if (m_pathTimestamp > TheGameLogic->getFrame()-3) {
-		/* Requesting path very quickly.  Can cause a spin. */
-		//DEBUG_LOG(("%d Pathfind - repathing in less than 3 frames.  Waiting 1 second\n",
-			//TheGameLogic->getFrame()));
-		setQueueForPathTime(LOGICFRAMES_PER_SECOND);
-		// See if it has been too soon.
-		// jba intense debug
-		//DEBUG_LOG(("Info - RePathing very quickly %d, %d.\n", m_pathTimestamp, TheGameLogic->getFrame()));
-		if (m_path && m_isBlockedAndStuck) {
-			setIgnoreCollisionTime(2*LOGICFRAMES_PER_SECOND);
-			m_blockedFrames = 0;
-			m_isBlocked = FALSE;
-			m_isBlockedAndStuck = FALSE;
-		}
-		return;
-	}
-	TheAI->pathfinder()->queueForPath(getObject()->getID());
-
-}
+// AIUpdateInterface::requestPath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestPath_Rva0026893F.cpp (0x0026893F).
 
 //-------------------------------------------------------------------------------------------------
-// ?requestAttackPath@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::requestAttackPath( ObjectID victimID, const Coord3D* victimPos ) 
-{
-	if (m_locomotorSet.getValidSurfaces() == 0) {
-		DEBUG_CRASH(("Attempting to path immobile unit."));
-	}
-	CRCDEBUG_LOG(("AIUpdateInterface::requestAttackPath() - m_isAttackPath = TRUE for object %d\n", getObject()->getID()));
-	m_requestedDestination = *victimPos;
-	m_requestedVictimID = victimID;	
-	m_isAttackPath = TRUE;
-	m_isApproachPath = FALSE;
-	m_isSafePath = FALSE;
-	m_waitingForPath = TRUE;
-	if (m_pathTimestamp > TheGameLogic->getFrame()-3) {
-		/* Requesting path very quickly.  Can cause a spin. */
-		//DEBUG_LOG(("%d Pathfind - repathing in less than 3 frames.  Waiting 2 second\n",TheGameLogic->getFrame()));
-		setQueueForPathTime(2*LOGICFRAMES_PER_SECOND);
-		setLocomotorGoalNone();
-		return;
-	}
-	TheAI->pathfinder()->queueForPath(getObject()->getID());
-}
+// AIUpdateInterface::requestAttackPath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestAttackPath.cpp (0x00263A39).
 
 //-------------------------------------------------------------------------------------------------
-// ?requestApproachPath@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::requestApproachPath( Coord3D *destination ) 
-{
-	if (m_locomotorSet.getValidSurfaces() == 0) {
-		DEBUG_CRASH(("Attempting to path immobile unit."));
-	}
-	m_requestedDestination = *destination;
-	m_isFinalGoal = TRUE;
-	CRCDEBUG_LOG(("AIUpdateInterface::requestApproachPath() - m_isAttackPath = FALSE for object %d\n", getObject()->getID()));
-	m_isAttackPath = FALSE;	
-	m_requestedVictimID = INVALID_ID;	
-	m_isApproachPath = TRUE;
-	m_isSafePath = FALSE;
-	m_waitingForPath = TRUE;
-	if (m_pathTimestamp > TheGameLogic->getFrame()-3) {
-		/* Requesting path very quickly.  Can cause a spin. */
-		//DEBUG_LOG(("%d Pathfind - repathing in less than 3 frames.  Waiting 2 second\n",TheGameLogic->getFrame()));
-		setQueueForPathTime(2*LOGICFRAMES_PER_SECOND);
-		return;
-	}
-	TheAI->pathfinder()->queueForPath(getObject()->getID());
-}
+// AIUpdateInterface::requestApproachPath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestApproachPath.cpp (0x00263B33).
 
 //-------------------------------------------------------------------------------------------------
 // Requests a safe path away from the repulsor.
-// ?requestSafePath@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::requestSafePath( ObjectID repulsor ) 
-{
-	if (repulsor != m_repulsor1) {
-		m_repulsor2 = m_repulsor1; // save the prior repulsor.
-	}
-	m_repulsor1 = repulsor;	
-	m_isFinalGoal = FALSE;
-	CRCDEBUG_LOG(("AIUpdateInterface::requestSafePath() - m_isAttackPath = FALSE for object %d\n", getObject()->getID()));
-	m_isAttackPath = FALSE;	
-	m_requestedVictimID = INVALID_ID;	
-	m_isApproachPath = FALSE;
-	m_isSafePath = TRUE;
-	m_waitingForPath = TRUE;
-	if (m_pathTimestamp > TheGameLogic->getFrame()-3) {
-		/* Requesting path very quickly.  Can cause a spin. */
-		//DEBUG_LOG(("%d Pathfind - repathing in less than 3 frames.  Waiting 2 second\n",TheGameLogic->getFrame()));
-		setQueueForPathTime(2*LOGICFRAMES_PER_SECOND);
-		return;
-	}
-	TheAI->pathfinder()->queueForPath(getObject()->getID());
-}
+// AIUpdateInterface::requestSafePath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestSafePath.cpp (0x00263EA2).
 
 enum {WAYPOINT_PATH_LIMIT=1024};
 //-------------------------------------------------------------------------------------------------
@@ -650,18 +544,7 @@ void AIUpdateInterface::setPathFromWaypoint(const Waypoint *way, const Coord2D *
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?onObjectCreated@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::onObjectCreated()
-{
-	// create the behavior state machine.
-	// can't do this in the ctor because makeStateMachine is a protected virtual func,
-	// and overrides to virtual funcs don't exist in our ctor. (look it up.)
-	if (m_stateMachine == NULL)
-	{
-		m_stateMachine = makeStateMachine();
-		m_stateMachine->initDefaultState();
-	}
-}
+// AIUpdateInterface::onObjectCreated is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x002625C8).
 
 //-------------------------------------------------------------------------------------------------
 // ??1AIUpdateInterface@@ present-unmatched
@@ -712,14 +595,7 @@ Object* AIUpdateInterface::getTurretTargetObject( WhichTurretType tur, Bool clea
 //=============================================================================
 // AIUpdateInterface::recenterTurret: defined in AIUpdateInterface_recenterTurret.cpp (its row's unit).
 //=============================================================================
-Bool AIUpdateInterface::isTurretEnabled( WhichTurretType tur ) const
-{
-	if( m_turretAI[ tur ] )
-	{
-		return m_turretAI[ tur ]->isTurretEnabled();
-	}
-	return FALSE;
-}
+// AIUpdateInterface::isTurretEnabled is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_isTurretEnabled.cpp (0x00262683).
 
 //=============================================================================
 // AIUpdateInterface::isTurretInNaturalPosition: defined in AIUpdateInterface_isTurretInNaturalPosition.cpp (its row's unit).
@@ -728,32 +604,12 @@ Bool AIUpdateInterface::isTurretEnabled( WhichTurretType tur ) const
 //=============================================================================
 // AIUpdateInterface::getTurretRotAndPitch: defined in AIUpdateInterface_getTurretRotAndPitch.cpp (its row's unit).
 //=============================================================================
-Real AIUpdateInterface::getTurretTurnRate(WhichTurretType tur) const
-{
-	return (tur != TURRET_INVALID && m_turretAI[tur] != NULL) ?
-					m_turretAI[tur]->getTurnRate() :
-					0.0f;
-}
+// AIUpdateInterface::getTurretTurnRate is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getTurretTurnRate.cpp (0x00262730).
 
 //=============================================================================
 // AIUpdateInterface::getWhichTurretForCurWeapon: defined in AIUpdateInterface_getWhichTurretForCurWeapon.cpp (its row's unit).
 //=============================================================================
-WhichTurretType AIUpdateInterface::getWhichTurretForWeaponSlot(WeaponSlotType wslot, Real* turretAngle, Real* turretPitch) const
-{
-	for (int i = 0; i < MAX_TURRETS; ++i)
-	{
-		if (m_turretAI[i] && m_turretAI[i]->isWeaponSlotOnTurret(wslot))
-		{
-			if (turretAngle)
-				*turretAngle = m_turretAI[i]->getTurretAngle();
-			if (turretPitch)
-				*turretPitch = m_turretAI[i]->getTurretPitch();
-
-			return (WhichTurretType)i;
-		}
-	}
-	return TURRET_INVALID;
-}
+// AIUpdateInterface::getWhichTurretForWeaponSlot is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getWhichTurretForWeaponSlot.cpp (0x0026278A).
 
 //=============================================================================
 // ?getCurLocomotorSpeed@AIUpdateInterface@@ present-unmatched
@@ -863,30 +719,7 @@ void AIUpdateInterface::chooseGoodLocomotorFromCurrentSet( void )
 }
 
 //----------------------------------------------------------------------------------------------------------
-// ?checkForCrateToPickup@AIUpdateInterface@@ present-unmatched
-Object* AIUpdateInterface::checkForCrateToPickup()
-{
-	if (m_crateCreated != INVALID_ID) 
-	{
-		m_crateCreated = INVALID_ID; // we have processed it, so clear it.
-		Object* crate = TheGameLogic->findObjectByID(m_crateCreated);
-		if (crate) 
-		{
-			for (BehaviorModule** m = crate->getBehaviorModules(); *m; ++m)
-			{
-				CollideModuleInterface* collide = (*m)->getCollide();
-				if (!collide)
-					continue;
-
-				if( collide->wouldLikeToCollideWith(getObject()))
-				{
-					return crate;
-				}
-			}
-		}
-	}
-	return NULL;
-}
+// AIUpdateInterface::checkForCrateToPickup is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_checkForCrateToPickup_Rva00268B79.cpp (0x00268B79).
 
 #ifdef ALLOW_SURRENDER
 //-------------------------------------------------------------------------------------------------
@@ -925,24 +758,7 @@ void AIUpdateInterface::doSurrenderUpdateStuff()
 #endif
 
 //-------------------------------------------------------------------------------------------------
-void AIUpdateInterface::setQueueForPathTime(Int frames)
-{
-#ifdef SLEEPY_AI
-	if (frames >= UPDATE_SLEEP_NONE && getWakeFrame() > UPDATE_SLEEP(frames))
-	{
-		if (m_isInUpdate)
-		{
-			// we're changing this while in our own update (probably via a move state).
-			// just do nothing, since update will calculate the correct sleep behavior at the end.
-		}
-		else
-		{
-			setWakeFrame(getObject(), UPDATE_SLEEP(frames));
-		}
-	}
-#endif
-	m_queueForPathFrame = frames ? (TheGameLogic->getFrame() + frames) : 0;
-}
+// AIUpdateInterface::setQueueForPathTime is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_setQueueForPathTime.cpp (0x0026282A).
 
 //-------------------------------------------------------------------------------------------------
 // AIUpdateInterface::wakeUpNow: defined in AIUpdateInterface_wakeUpNow.cpp (its row's unit).
@@ -1141,13 +957,7 @@ void AIUpdateInterface::clearWaypointQueue( void )
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?markAsDead@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::markAsDead()
-{
-	m_isAiDead = TRUE;
-	getObject()->setEffectivelyDead(TRUE);
-	wakeUpNow();	// wake us up immediately so that our anim plays promptly!
-}
+// AIUpdateInterface::markAsDead is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_wakeUpNow.cpp (0x0026296D).
 
 //-------------------------------------------------------------------------------------------------
 /* Returns TRUE if this ai has a higher path priority than the other one.
@@ -1542,29 +1352,7 @@ Bool AIUpdateInterface::processCollision(PhysicsBehavior *physics, Object *other
 /**
  * See if we can do a quick path without pathfinding.
  */
-// ?canComputeQuickPath@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::canComputeQuickPath( void )
-{
-	/* Basically, if a unit is moving through the air, we can quick path.  jba. */
-	Bool landBound = FALSE;
-	// Note - if a truck happens to pop into the air and gets a move to command, it still
-	// needs to pathfind.  So only skip pathfinding for airborne things that can fly... jba.
-	if (!(m_locomotorSet.getValidSurfaces() & LOCOMOTORSURFACE_AIR))
-  {
-		landBound = TRUE;
-	}
-
-	Bool unitIsFlyingThroughTheAir = FALSE;
-	if (landBound) {
-		unitIsFlyingThroughTheAir = FALSE; // Land bound units never fly.
-	}	else {
-		if (!isDoingGroundMovement()) {
-			// If it can fly, and it isn't moving on the ground, we're flying.
-			unitIsFlyingThroughTheAir = TRUE;
-		}
-	}
-	return unitIsFlyingThroughTheAir;
-}
+// AIUpdateInterface::canComputeQuickPath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestPath_Rva0026893F.cpp (0x00262A64).
 
 //-------------------------------------------------------------------------------------------------
 /**
@@ -2254,50 +2042,7 @@ void AIUpdateInterface::setLocomotorGoalNone()
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?isDoingGroundMovement@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::isDoingGroundMovement(void) const
-{
-  
-  if (getObject()->isDisabledByType( DISABLED_UNMANNED ) 
-   && getObject()->isKindOf( KINDOF_PRODUCED_AT_HELIPAD ) )
-  {
-    return TRUE; // an unmanned helicopter gets grounded, eventually.
-  }
-
-	if (m_locomotorSet.getValidSurfaces() == LOCOMOTORSURFACE_AIR) 
-	{
-		return FALSE;  // air only loco.
-	}
-
-	if (m_curLocomotor == NULL) 
-	{
-		return FALSE;	// No loco, so we aren't moving.
-	}
-
-	// Cur loco is air, so not ground.
-	if (m_curLocomotor->getLegalSurfaces() & LOCOMOTORSURFACE_AIR) 
-	{
-		return FALSE; 
-	}
-
-	// We are held, so not moving on ground.
-	if( getObject()->isDisabledByType( DISABLED_HELD ) ) 
-	{
-		return FALSE;
-	}
-
-	// if we're airborne and "allowed to fall", we are probably deliberately in midair
-	// due to rappel or accident...
-	const PhysicsBehavior* physics = getObject()->getPhysics();
-	if (getObject()->isAboveTerrain() && physics != NULL && physics->getAllowToFall())
-	{
-		return FALSE;
-	}
-
-	// After all exceptions, we must be doing ground movement.
-	//DEBUG_ASSERTLOG(getObject()->isSignificantlyAboveTerrain(), ("Object %s is significantly airborne but also doing ground movement. What?\n",getObject()->getTemplate()->getName().str()));
-	return TRUE;
-}
+// AIUpdateInterface::isDoingGroundMovement is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026731C).
 
 //-------------------------------------------------------------------------------------------------
 /** Some aircraft (comanche in particular, which hover) shouldn't stack destinations.
@@ -2802,83 +2547,17 @@ void AIUpdateInterface::privateMoveToPosition( const Coord3D *pos, CommandSource
 /**
  * Move to given object
  */
-// ?privateMoveToObject@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateMoveToObject( Object *obj, CommandSourceType cmdSource ) 
-{
-	// the dead don't listen very well
-	if (m_isAiDead)
-		return;
-
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-	
-	getStateMachine()->clear();
-	getStateMachine()->setGoalObject( obj );
-	m_blockedFrames = 0;
-	m_isBlocked = FALSE;
-	m_isBlockedAndStuck = FALSE;
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_MOVE_TO );
-
-}
+// AIUpdateInterface::privateMoveToObject is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026472F).
 
 //----------------------------------------------------------------------------------------
 // Face a specified object -- succeed when facing
 //----------------------------------------------------------------------------------------
-// ?privateFaceObject@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateFaceObject( Object *obj, CommandSourceType cmdSource )
-{
-	if( !getObject()->isMobile() )
-	{
-		return;
-	}
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	getStateMachine()->setGoalObject( obj );
-	m_blockedFrames = 0;
-	m_isBlocked = FALSE;
-	m_isBlockedAndStuck = FALSE;
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_FACE_OBJECT );
-}
+// AIUpdateInterface::privateFaceObject is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x002645B9).
 
 //----------------------------------------------------------------------------------------
 // Face a specified position -- succeed when facing
 //----------------------------------------------------------------------------------------
-// ?privateFacePosition@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateFacePosition( const Coord3D *pos, CommandSourceType cmdSource )
-{
-	if( !getObject()->isMobile() )
-	{
-		return;
-	}
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	setGoalPositionClipped(pos, cmdSource);
-	m_blockedFrames = 0;
-	m_isBlocked = FALSE;
-	m_isBlockedAndStuck = FALSE;
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_FACE_POSITION );
-}
+// AIUpdateInterface::privateFacePosition is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x00267D65).
 
 //----------------------------------------------------------------------------------------
 // Rappel into target and devastate contents (if not empty).
@@ -2973,33 +2652,7 @@ void AIUpdateInterface::privateMoveToAndEvacuateAndExit( const Coord3D *pos, Com
 /**
  * Enter idle state.
  */
-// ?privateIdle@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateIdle(CommandSourceType cmdSource)
-{
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	getStateMachine()->clear();
-	getStateMachine()->setState( AI_IDLE );
-	setLastCommandSource( cmdSource );
-
-	ContainModuleInterface *contain = getObject()->getContain();
-	if (contain)
-	{
-		const ContainedItemsList* items = contain->getContainedItemsList();
-		if (items)
-		{
-			for (ContainedItemsList::const_iterator it = items->begin(); it != items->end(); ++it)
-			{
-				Object* obj = *it;
-				AIUpdateInterface* ai = obj ? obj->getAI() : NULL;
-				if (ai)
-					ai->aiIdle(cmdSource);
-			}
-		}
-	}
-
-}
+// AIUpdateInterface::privateIdle is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026D5FB).
 
 //----------------------------------------------------------------------------------------
 // ?isIdle@AIUpdateInterface@@ present-unmatched
@@ -3023,31 +2676,10 @@ Bool AIUpdateInterface::isAttacking() const
 //----------------------------------------------------------------------------------------
 //Definition of busy -- when explicitly in the busy state. Moving or attacking is not considered busy!
 //----------------------------------------------------------------------------------------
-// ?isBusy@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::isBusy() const
-{
-	return getStateMachine()->isInBusyState();
-}
+// AIUpdateInterface::isBusy is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00262BEC.cpp (0x00262B39).
 
 //----------------------------------------------------------------------------------------
-// ?isClearingMines@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::isClearingMines() const
-{
-	// if we are attacking with an anti-mine weapon, we are clearing mines, regardless
-	// of our target.
-
-	if (!getObject()->testStatus(OBJECT_STATUS_IS_ATTACKING))
-		return FALSE;
-
-	const Weapon* weapon = getObject()->getCurrentWeapon();
-	if (!weapon)
-		return FALSE;
-
-	if ((weapon->getAntiMask() & WEAPON_ANTI_MINE) == 0)
-		return FALSE;
-
-	return TRUE;
-}
+// AIUpdateInterface::isClearingMines is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x00264656).
 
 //----------------------------------------------------------------------------------------
 /**
@@ -3082,20 +2714,7 @@ Bool AIUpdateInterface::isMovingAwayFrom(Object *obj)	 const
 /**
  * Is this moving out of the way of another unit.
  */
-// ?isMoving@AIUpdateInterface@@ present-unmatched
-Bool AIUpdateInterface::isMoving() const
-{
-	if (isIdle()) {
-		return false;
-	}
-	if (m_locomotorGoalType != NONE) {
-		return TRUE;
-	}
-	if (m_isMoving) {
-		return TRUE;
-	}
-	return FALSE;
-}
+// AIUpdateInterface::isMoving is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceIsMoving.cpp (0x00264688).
 
 //----------------------------------------------------------------------------------------
 /**
@@ -3161,119 +2780,28 @@ void AIUpdateInterface::privateMoveAwayFromUnit( Object *unit, CommandSourceType
 /**
  * Start following the path from the given point
  */
-// ?privateFollowWaypointPath@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateFollowWaypointPath( const Waypoint *way, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	getStateMachine()->setGoalWaypoint( way );
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_FOLLOW_WAYPOINT_PATH_AS_INDIVIDUALS );
-}
+// AIUpdateInterface::privateFollowWaypointPath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026B8E5).
 
 //----------------------------------------------------------------------------------------
 /**
  * Start following the path from the given point
  */
-// ?privateFollowWaypointPathExact@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateFollowWaypointPathExact( const Waypoint *way, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	getStateMachine()->setGoalWaypoint( way );
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_FOLLOW_WAYPOINT_PATH_AS_INDIVIDUALS_EXACT );
-}
+// AIUpdateInterface::privateFollowWaypointPathExact is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeamExact.cpp (0x0026B987).
 
 //----------------------------------------------------------------------------------------
 /**
  * Start following the path from the given point
  */
-// ?privateFollowWaypointPathAsTeam@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateFollowWaypointPathAsTeam( const Waypoint *way, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	getStateMachine()->setGoalWaypoint( way );
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_FOLLOW_WAYPOINT_PATH_AS_TEAM );
-}
+// AIUpdateInterface::privateFollowWaypointPathAsTeam is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeam.cpp (0x0026B9E2).
 
 //----------------------------------------------------------------------------------------
 /**
  * Start following the path from the given point
  */
-// ?privateFollowWaypointPathAsTeamExact@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateFollowWaypointPathAsTeamExact( const Waypoint *way, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	getStateMachine()->setGoalWaypoint( way );
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_FOLLOW_WAYPOINT_PATH_AS_TEAM_EXACT );
-}
+// AIUpdateInterface::privateFollowWaypointPathAsTeamExact is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeamExact.cpp (0x0026BA33).
 
 //----------------------------------------------------------------------------------------
-// ?privateFollowPathAppend@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateFollowPathAppend( const Coord3D *pos, CommandSourceType cmdSource )
-{
-	// We're adding a dynamic waypoint!
-	Bool effectivelyMoving = isMoving() || isWaitingForPath();
-
-	if (getAIStateType() == AI_FOLLOW_PATH && getStateMachine()->getGoalPathSize() > 0 && effectivelyMoving)
-	{
-		//We already have a path, so simply add the point to the end of it!
-		getStateMachine()->addToGoalPath(pos);
-	}
-	else if (effectivelyMoving)
-	{
-		//Our unit is moving to a point already so simply add our waypoint after that point
-		//and convert it to a waypoint command!
-		std::vector<Coord3D> path;
-		path.push_back( *getGoalPosition() );
-		path.push_back( *pos );
-		privateFollowPath( &path, NULL, cmdSource, false );
-	}
-	else
-	{
-		//Hopefully we're idle or doing something that doesn't require movement.
-		std::vector<Coord3D> path;
-		path.push_back( *pos );
-		privateFollowPath( &path, NULL, cmdSource, false );
-	}
-}
+// AIUpdateInterface::privateFollowPathAppend is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026E074).
 
 //----------------------------------------------------------------------------------------
 /**
@@ -3368,25 +2896,7 @@ void AIUpdateInterface::privateForceAttackObject( Object *victim, Int maxShotsTo
 /**
  * Attack the given team
  */
-// ?privateAttackTeam@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateAttackTeam( const Team *team, Int maxShotsToFire, CommandSourceType cmdSource )
-{
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	getStateMachine()->setGoalTeam( team );
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_ATTACK_SQUAD );
-
-	// do this after setting it as the current state, as the max-shots-to-fire is reset in AttackState::onEnter()
-	Weapon* weapon = getObject()->getCurrentWeapon();
-	if (weapon)
-		weapon->setMaxShotCount(maxShotsToFire);
-}
+// AIUpdateInterface::privateAttackTeam is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026BFD9).
 
 //----------------------------------------------------------------------------------------
 /**
@@ -3494,79 +3004,20 @@ void AIUpdateInterface::privateAttackMoveToPosition( const Coord3D *pos, Int max
 /**
  * Attack move down a given waypoint path. If asTeam is TRUE, do so as a team.
  */
-// ?privateAttackFollowWaypointPath@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateAttackFollowWaypointPath( const Waypoint *way, Int maxShotsToFire, Bool asTeam, CommandSourceType cmdSource )
-{
-	if (m_isAiDead || getObject()->isMobile() == FALSE)
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	getStateMachine()->setGoalWaypoint( way );
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( (asTeam ? AI_ATTACKFOLLOW_WAYPOINT_PATH_AS_TEAM : AI_ATTACKFOLLOW_WAYPOINT_PATH_AS_INDIVIDUALS) );
-
-	// do this after setting it as the current state, as the max-shots-to-fire is reset in AttackState::onEnter()
-	Weapon* weapon = getObject()->getCurrentWeapon();
-	if (weapon)
-		weapon->setMaxShotCount(maxShotsToFire);
-}
+// AIUpdateInterface::privateAttackFollowWaypointPath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026C150).
 
 
 //----------------------------------------------------------------------------------------
 /**
  * Begin "seek and destroy"
  */
-// ?privateHunt@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateHunt( CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_HUNT );
-}
+// AIUpdateInterface::privateHunt is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x002646E9).
 
 //----------------------------------------------------------------------------------------
 /**
  * Begin "seek and destroy"
  */
-// ?privateAttackArea@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateAttackArea( const PolygonTrigger *areaToGuard, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	m_areaToGuard = areaToGuard;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	getStateMachine()->clear();
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_ATTACK_AREA);
-}
+// AIUpdateInterface::privateAttackArea is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026C1CE).
 
 //----------------------------------------------------------------------------------------
 /**
@@ -3628,77 +3079,25 @@ void AIUpdateInterface::privateResumeConstruction( Object *obj, CommandSourceTyp
 /**
  * Get healed at the heal depot
  */
-// ?privateGetHealed@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateGetHealed( Object *healDepot, CommandSourceType cmdSource )
-{
-
-  // sanity, if we can't get healed from here get outta here
-	if( TheActionManager->canGetHealedAt( getObject(), healDepot, cmdSource ) == FALSE )
-		return;
-
-	// enter the heal dest for healing
-	aiEnter( healDepot, cmdSource );
-
-}
+// AIUpdateInterface::privateGetHealed is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026DD89).
 
 //----------------------------------------------------------------------------------------
 /**
  * Get repaired at the repair depot
  */
-// ?privateGetRepaired@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateGetRepaired( Object *repairDepot, CommandSourceType cmdSource )
-{
-
-	// sanity, if we can't get repaired from here get out of here
-	if( TheActionManager->canGetRepairedAt( getObject(), repairDepot, cmdSource ) == FALSE )
-		return;
-
-	// dock with the repair depot
-	aiDock( repairDepot, cmdSource );
-
-}
+// AIUpdateInterface::privateGetRepaired is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026DDBB).
 
 //----------------------------------------------------------------------------------------
 /**
  * Enter the given object
  */
-// ?privateEnter@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateEnter( Object *obj, CommandSourceType cmdSource )
-{
-	Object *me = getObject();
-	if( me->isMobile() == FALSE )
-		return;
-
-	//Resetting the locomotor here was initially added for scripting purposes. It has been moved
-	//to the responsibility of the script to reset the locomotor before moving. This is needed because
-	//other systems (like the battle drone) change the locomotor based on what it's trying to do, and
-	//doesn't want to get reset when ordered to move.
-	//chooseLocomotorSet(LOCOMOTORSET_NORMAL);
-
-	if( TheActionManager->canEnterObject( me, obj, cmdSource, DONT_CHECK_CAPACITY ) )
-	{
-		getStateMachine()->clear();
-		getStateMachine()->setGoalObject( obj );
-		setLastCommandSource( cmdSource );
-		getStateMachine()->setState( AI_ENTER );
-	}
-}
+// AIUpdateInterface::privateEnter is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x00264775).
 
 //----------------------------------------------------------------------------------------
 /**
  * Dock with the given object
  */
-// ?privateDock@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateDock( Object *obj, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	getStateMachine()->clear();
-	getStateMachine()->setGoalObject( obj );
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_DOCK );
-}
+// AIUpdateInterface::privateDock is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateDock.cpp (0x0026481B).
 
 //----------------------------------------------------------------------------------------
 // ?privateCombatDrop@AIUpdateInterface@@ present-unmatched
@@ -3745,51 +3144,14 @@ void AIUpdateInterface::privateExit( Object *objectToExit, CommandSourceType cmd
 /**
  * Get out of whatever it is inside of this frame
  */
-// ?privateExitInstantly@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateExitInstantly( Object *objectToExit, CommandSourceType cmdSource )
-{
-	Object *us = getObject();
-	if (!objectToExit)
-	{
-		objectToExit = us->getContainedBy();
-	}
-
-	if (!objectToExit)
-		return;
-
-  if ( objectToExit->isDisabledByType( DISABLED_SUBDUED ) )
-    return;
-
-	// we must go thru this state (rather than calling exitObjectViaDoor directly!), 
-	// because a few containers might need to delay to allow
-	// us to exit (eg, Chinooks must land), meaning we might have to wait a bit, and coordinate
-	// with the container by actually NOTIFYING it that we want to exit...
-	getStateMachine()->clear();
-	getStateMachine()->setGoalObject( objectToExit );
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_EXIT_INSTANTLY );
-}
+// AIUpdateInterface::privateExitInstantly is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026488B).
 
 
 //----------------------------------------------------------------------------------------
 /**
  * Get out of whatever it is inside of
  */
-// ?doQuickExit@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::doQuickExit( const std::vector<Coord3D>* path )
-{
-
-	Bool locked = getStateMachine()->isLocked();
-	getStateMachine()->unlock();
-
-	// set path info
-	getStateMachine()->setGoalPath( path );
-
-	getStateMachine()->setTemporaryState( AI_FOLLOW_EXITPRODUCTION_PATH, 10*LOGICFRAMES_PER_SECOND);
-	if (locked) {
-		getStateMachine()->lock("Relocking in doQuickExit.");
-	}
-}
+// AIUpdateInterface::doQuickExit is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x00262F19).
 
 //----------------------------------------------------------------------------------------
 /**
@@ -3948,35 +3310,7 @@ void AIUpdateInterface::privateBusy( CommandSourceType cmdSource )
 /**
  * Guard the given spot
  */
-// ?privateGuardPosition@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateGuardPosition( const Coord3D *pos, GuardMode guardMode, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	if (m_guardTargetType[1] == GUARDTARGET_NONE) {
-		m_guardTargetType[1] = GUARDTARGET_LOCATION;
-	} else {
-		m_guardTargetType[0] = GUARDTARGET_LOCATION;
-	}
-	Coord3D adjPos = *pos;
-	if (cmdSource==CMD_FROM_PLAYER) {
-		// Clip to playable area.
-		Region3D r;
-		TheTerrainLogic->getExtent(&r);
-		if (!r.isInRegionNoZ(&adjPos))
-			adjPos = TheTerrainLogic->findClosestEdgePoint(&adjPos);
-	}
-	m_locationToGuard = adjPos;
-	m_guardMode = guardMode;
-
-	getStateMachine()->clear();
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_GUARD );
-}
+// AIUpdateInterface::privateGuardPosition is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardPosition.cpp (0x00264BC2).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -4004,27 +3338,7 @@ void AIUpdateInterface::privateGuardTunnelNetwork( GuardMode guardMode, CommandS
 /**
  * Guard the given spot
  */
-// ?privateGuardObject@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateGuardObject( Object *objectToGuard, GuardMode guardMode, CommandSourceType cmdSource )
-{
-	if (getObject()->isMobile() == FALSE)
-		return;
-
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	if (m_guardTargetType[1] == GUARDTARGET_NONE) {
-		m_guardTargetType[1] = GUARDTARGET_OBJECT;
-	} else {
-		m_guardTargetType[0] = GUARDTARGET_OBJECT;
-	}
-	m_guardMode = guardMode;
-	m_objectToGuard = objectToGuard->getID();
-
-	getStateMachine()->clear();
-	setLastCommandSource( cmdSource );
-	getStateMachine()->setState( AI_GUARD );
-}
+// AIUpdateInterface::privateGuardObject is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardObject.cpp (0x00264D0E).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -4081,29 +3395,7 @@ void AIUpdateInterface::privateHackInternet( CommandSourceType cmdSource )
 }
 
 /// if we are attacking "fromID", stop that and attack "toID" instead
-// ?transferAttack@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::transferAttack(ObjectID fromID, ObjectID toID)
-{
-	Object *newTarget = TheGameLogic->findObjectByID( toID );
-
-	if (m_currentVictimID == fromID)
-		m_currentVictimID = toID;
-
-	Object* goalObj = getStateMachine()->getGoalObject();
-	if (goalObj && goalObj->getID() == fromID)
-		getStateMachine()->setGoalObject( newTarget );
-
-	//Transfer the turrets too this frame.
-	for( Int i = 0; i < MAX_TURRETS; i++ )
-	{
-		goalObj = getTurretTargetObject( (WhichTurretType)i, FALSE );
-		if( goalObj && goalObj->getID() == fromID )
-		{
-			setTurretTargetObject( (WhichTurretType)i, newTarget, TRUE );
-		}
-	}
-
-}
+// AIUpdateInterface::transferAttack is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_transferAttack.cpp (0x00268CDC).
 
 //----------------------------------------------------------------------------------------------------------
 /**
@@ -4174,18 +3466,7 @@ ObjectID AIUpdateInterface::getIgnoredObstacleID( void ) const
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?getEnterTarget@AIUpdateInterface@@ present-unmatched
-Object* AIUpdateInterface::getEnterTarget()
-{
-	AIStateType stateType = getAIStateType();
-
-	if( stateType != AI_ENTER && 
-			stateType != AI_GUARD_TUNNEL_NETWORK &&
-			stateType != AI_GET_REPAIRED )
-		return NULL;
-
-	return getStateMachine()->getGoalObject();
-}
+// AIUpdateInterface::getEnterTarget is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x00264EF2).
 
 //-------------------------------------------------------------------------------------------------
 void AIUpdateInterface::setLastCommandSource( CommandSourceType source )
@@ -4194,147 +3475,10 @@ void AIUpdateInterface::setLastCommandSource( CommandSourceType source )
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?getMoodMatrixValue@AIUpdateInterface@@ present-unmatched
-UnsignedInt AIUpdateInterface::getMoodMatrixValue( void ) const
-{
-	UnsignedInt returnVal = 0;
-	// seems like a weird way to get my controlling object, but I don't see another
-	if (!getStateMachine()) 
-	{
-		return returnVal;
-	}
-	
-	const Object *owner = getObject();
-	Player *player = owner->getControllingPlayer();
-
-	if (!player) 
-	{
-		return returnVal;
-	}
-	
-	if (player->getPlayerType() == PLAYER_HUMAN) 
-	{
-		returnVal |= MM_Controller_Player;
-		// Human units don't have a mood.
-
-	} 
-	else 
-	{
-		returnVal |= MM_Controller_AI;
-		switch (getAttitude())
-		{
-			case AI_SLEEP:			returnVal |= MM_Mood_Sleep; break;
-			case AI_PASSIVE:		returnVal |= MM_Mood_Passive; break;
-			case AI_NORMAL:			returnVal |= MM_Mood_Normal; break;
-			case AI_ALERT:			returnVal |= MM_Mood_Alert; break;
-			case AI_AGGRESSIVE:	returnVal |= MM_Mood_Aggressive; break;
-			default: 
-				DEBUG_CRASH(("Unknown mood '%d' in getMoodMatrixValue. (Team '%s'). Using normal. (jkmcd)", getAttitude(), getObject()->getTeam()->getName().str() ));
-				returnVal |= MM_Mood_Normal;
-				break;
-		}
-	}
-
-	if (getLocomotorSet().getValidSurfaces() & LOCOMOTORSURFACE_AIR) 
-	{
-		returnVal |= MM_UnitType_Air;
-	} 
-	else 
-	{
-		if (m_turretAI[0] != NULL) 
-		{
-			returnVal |= MM_UnitType_Turreted;
-		} 
-		else 
-		{
-			returnVal |= MM_UnitType_NonTurreted;
-		}
-	}
-
-	return returnVal;
-}
+// AIUpdateInterface::getMoodMatrixValue is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getMoodMatrixActionAdjustment.cpp (0x00264F5E).
 
 //-------------------------------------------------------------------------------------------------
-// ?getMoodMatrixActionAdjustment@AIUpdateInterface@@ present-unmatched
-UnsignedInt AIUpdateInterface::getMoodMatrixActionAdjustment( MoodMatrixAction action ) const
-{
-	// Angry Mob Members (but not Nexi) are never subject to moods. In particular,
-	// they must never, ever, ever convert a move into an attack move, or Bad Things
-	// will happend, since MobMemberSlavedUpdate expects a moveto to remain a moveto.
-	// Mark L sez that members do not, in fact, need any mood adjustment whatsoever,
-	// since the mood of the nexus wants to control all this anyway. Unfortunately, there
-	// is no KINDOF_MOB_MEMBER, and we don't want to add one at the eleventh hour...
-	// this, however, is a unique and safe combination that applies only to mob members. (srj)
-	if (getObject()->isKindOf(KINDOF_INFANTRY) && getObject()->isKindOf(KINDOF_IGNORED_IN_GUI))
-	{
-		return MAA_Action_Ok;
-	}
-
-	UnsignedInt moodMatrix = getMoodMatrixValue();
-	UnsignedInt returnVal = 0;
-
-	if (moodMatrix & MM_Controller_Player) 
-	{
-		// Player-controlled units can always do actions (from a mood perspective, at any rate)
-		returnVal = MAA_Action_Ok;
-		return returnVal;
-	}
-
-	returnVal = MAA_Action_Ok;
-	switch (action)
-	{
-		case MM_Action_Idle: 
-		{
-			switch( moodMatrix & MM_Mood_Bitmask )
-			{
-				case MM_Mood_Sleep:				returnVal = MAA_Action_Ok | MAA_Affect_Range_IgnoreAll; break;
-				case MM_Mood_Passive:			returnVal = MAA_Action_Ok | MAA_Affect_Range_WaitForAttack; break;
-				case MM_Mood_Normal:			returnVal = MAA_Action_Ok; break;
-				case MM_Mood_Alert:				returnVal = MAA_Action_Ok | MAA_Affect_Range_Alert; break;
-				case MM_Mood_Aggressive:	returnVal = MAA_Action_Ok | MAA_Affect_Range_Aggressive; break;
-			}
-			break;
-		}
-		case MM_Action_Move:
-		{
-			switch( moodMatrix & MM_Mood_Bitmask )
-			{
-				case MM_Mood_Sleep:				returnVal = MAA_Action_To_Idle | MAA_Affect_Range_IgnoreAll; break;
-				case MM_Mood_Passive:			returnVal = MAA_Action_Ok | MAA_Affect_Range_WaitForAttack; break;
-				case MM_Mood_Normal:			returnVal = MAA_Action_Ok; break;
-				case MM_Mood_Alert:				returnVal = MAA_Action_To_AttackMove | MAA_Affect_Range_Alert; break;
-				case MM_Mood_Aggressive:	returnVal = MAA_Action_To_AttackMove | MAA_Affect_Range_Aggressive; break;
-			}
-			break;
-		}
-		case MM_Action_Attack:
-		{
-			switch( moodMatrix & MM_Mood_Bitmask )
-			{
-				case MM_Mood_Sleep:				returnVal = MAA_Action_To_Idle | MAA_Affect_Range_IgnoreAll; break;
-				case MM_Mood_Passive:			returnVal = MAA_Action_Ok; break;
-				case MM_Mood_Normal:			returnVal = MAA_Action_Ok; break;
-				case MM_Mood_Alert:				returnVal = MAA_Action_Ok; break;
-				case MM_Mood_Aggressive:	returnVal = MAA_Action_Ok; break;
-			}
-			break;
-		}
-		case MM_Action_AttackMove:
-		{
-			switch( moodMatrix & MM_Mood_Bitmask )
-			{
-				case MM_Mood_Sleep:				returnVal = MAA_Action_To_Idle | MAA_Affect_Range_IgnoreAll; break;
-				case MM_Mood_Passive:			returnVal = MAA_Action_Ok; break;
-				case MM_Mood_Normal:			returnVal = MAA_Action_Ok; break;
-				case MM_Mood_Alert:				returnVal = MAA_Action_Ok | MAA_Affect_Range_Alert; break;
-				case MM_Mood_Aggressive:	returnVal = MAA_Action_Ok | MAA_Affect_Range_Aggressive; break;
-			}
-			break;
-		}
-	};
-
-	return returnVal;
-}
+// AIUpdateInterface::getMoodMatrixActionAdjustment is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getMoodMatrixActionAdjustment.cpp (0x00264FF8).
 
 //----------------------------------------------------------------------------------------------
 // ?wakeUpAndAttemptToTarget@AIUpdateInterface@@ present-unmatched
@@ -4711,114 +3855,11 @@ void AIUpdateInterface::setDemoralized( UnsignedInt durationInFrames )
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?privateCommandButton@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateCommandButton( const CommandButton *commandButton, CommandSourceType cmdSource )
-{
-	if( !commandButton )
-	{
-		return;
-	}
-
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	//First of all, it's quite possible to get this far with an object incapable of performing such a task. Scripts will have
-	//entire teams of multiple unit types and want to order units to do something... if they can, great.. if not, ignore.
-	Object *owner = getObject();
-	if( owner )
-	{
-		AIUpdateInterface *ai = owner->getAI();
-		if( ai )
-		{
-			//Make sure the owner has the same command button.
-			const CommandSet *commandSet = TheControlBar->findCommandSet( owner->getCommandSetString() );
-			if( commandSet )
-			{
-				for( int i = 0; i < MAX_COMMANDS_PER_SET; i++ )
-				{
-					const CommandButton *aCommandButton = commandSet->getCommandButton(i);
-					if( commandButton == aCommandButton )
-					{
-						//We found the matching command button so now order the unit to do what the button wants.
-						switch( commandButton->getCommandType() )
-						{
-							//ONLY NO TARGET VIA AI BUTTONS NEED BE IMPLEMENTED HERE!
-							case GUI_COMMAND_STOP:
-								ai->aiIdle( cmdSource );
-								break;
-							default:
-								if( owner->getName().isNotEmpty() )
-								{
-									DEBUG_ASSERTCRASH( 0, ("AIUpdate::privateCommandButton() -- unit %s ('%s'), command %s not implemented.",
-										owner->getTemplate()->getName().str(), owner->getName().str(), commandButton->getTextLabel().str() ) );
-								}
-								else
-								{
-									DEBUG_ASSERTCRASH( 0, ("AIUpdate::privateCommandButton() -- unit %s, command %s not implemented.",
-										owner->getTemplate()->getName().str(), commandButton->getTextLabel().str() ) );
-								}
-						}
-					}
-				}
-			}
-		}
-	}
-}
+// AIUpdateInterface::privateCommandButton is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x0026DE77).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?privateCommandButtonPosition@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::privateCommandButtonPosition( const CommandButton *commandButton, const Coord3D *pos, CommandSourceType cmdSource )
-{
-	if( !commandButton )
-	{
-		return;
-	}
-
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	//First of all, it's quite possible to get this far with an object incapable of performing such a task. Scripts will have
-	//entire teams of multiple unit types and want to order units to do something... if they can, great.. if not, ignore.
-	Object *owner = getObject();
-	if( owner )
-	{
-		AIUpdateInterface *ai = owner->getAI();
-		if( ai )
-		{
-			//Make sure the owner has the same command button.
-			const CommandSet *commandSet = TheControlBar->findCommandSet( owner->getCommandSetString() );
-			if( commandSet )
-			{
-				for( int i = 0; i < MAX_COMMANDS_PER_SET; i++ )
-				{
-					const CommandButton *aCommandButton = commandSet->getCommandButton(i);
-					if( commandButton == aCommandButton )
-					{
-						//We found the matching command button so now order the unit to do what the button wants.
-						switch( commandButton->getCommandType() )
-						{
-							//LOCATION BASED COMMANDS ONLY VIA AI
-							case GUI_COMMAND_NONE:
-							default:
-								if( owner->getName().isNotEmpty() )
-								{
-									DEBUG_ASSERTCRASH( 0, ("AIUpdate::privateCommandButtonPosition() -- unit %s ('%s'), command %s not implemented.",
-										owner->getTemplate()->getName().str(), owner->getName().str(), commandButton->getTextLabel().str() ) );
-								}
-								else
-								{
-									DEBUG_ASSERTCRASH( 0, ("AIUpdate::privateCommandButtonPosition() -- unit %s, command %s not implemented.",
-										owner->getTemplate()->getName().str(), commandButton->getTextLabel().str() ) );
-								}
-								break;
-						}
-					}
-				}
-			}
-		}
-	}
-}
+// AIUpdateInterface::privateCommandButtonPosition is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x00267E8E).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -5139,40 +4180,7 @@ void AIUpdateInterface::xfer( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::loadPostProcess( void )
-{
-	UpdateModule::loadPostProcess();
-
-	if (m_fixLocoInPostProcess && m_curLocomotorSet!=LOCOMOTORSET_INVALID) 
-	{
-		m_fixLocoInPostProcess = FALSE;
-
-		LocomotorSetType lst = m_curLocomotorSet;
-		// Set the current to invalid, because chooseLocomotorSet aborts if it is already set to the desired value.
-		m_curLocomotorSet = LOCOMOTORSET_INVALID;
-		chooseLocomotorSet(lst);
-	}
-
-	if (!isMoving()) {
-		m_pathfindGoalCell.x = -1;
-		m_pathfindGoalCell.y = -1;
-		TheAI->pathfinder()->updateGoal(getObject(), getObject()->getPosition(), getObject()->getLayer());
-		m_pathfindCurCell.x = -1;
-		m_pathfindCurCell.y = -1;
-		TheAI->pathfinder()->updatePos(getObject(), getObject()->getPosition());
-	}	else {
-		if (m_pathfindGoalCell.x >= 0 && m_pathfindGoalCell.y >= 0) {
-			Coord3D goalPos;
-			goalPos.x = m_pathfindGoalCell.x * PATHFIND_CELL_SIZE_F + PATHFIND_CELL_SIZE_F*0.5f;
-			goalPos.y = m_pathfindGoalCell.y * PATHFIND_CELL_SIZE_F + PATHFIND_CELL_SIZE_F*0.5f;
-			m_pathfindGoalCell.x = -1;
-			m_pathfindGoalCell.y = -1;
-			TheAI->pathfinder()->updateGoal(getObject(), &goalPos, getObject()->getLayer());
-		}
-	}
-
-}  // end loadPostProcess
+// AIUpdateInterface::loadPostProcess is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x002686A4).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
