@@ -44,6 +44,14 @@
 //    skirmish clearTeamFlags; the 60-second timeout scales the frame-rate
 //    global at VA 0x00DBA4E4. The ready-queue next getter (+0x10) is retail's
 //    shared mov eax,[ecx+0x10] at 0x001DB09D.
+//  - TeamInQueue::includesADozer 0x004F10C2 (36 bytes), dozerInQueue
+//    0x004F19D3 (35 bytes) and queueDozer 0x004F288C (349 bytes, vtable
+//    +0x54): ZH's bodies over the dozer KindOf bit (template +0x109 & 0x40).
+//    queueDozer walks TheThingFactory's template list (+0xC, next +0x484),
+//    keeps ZH's priority WorkOrder team and debug message and calls
+//    startTraining (+0x60) with the team's name. The WorkOrder and
+//    TeamInQueue constructors are declared throw() because retail's
+//    new-expressions carry no EH cleanup states.
 // GameLogic comes from the canonical GameLogicObjectLookupView.h.
 #include "ascii_string.h"
 typedef bool Bool;
@@ -79,13 +87,19 @@ class ThingTemplate
 public:
 	Bool isEquivalentTo(const ThingTemplate *other) const;
 	Int rva0033A69A(const Player *player, Int a, Int b) const;
-	unsigned char m_pad000[0x109];
+	const AsciiString &getName() const { return m_name; }
+	ThingTemplate *friend_getNextTemplate() const { return m_nextThingTemplate; }
+	unsigned char m_pad000[0x64];
+	AsciiString m_name;				// +0x64
+	unsigned char m_pad068[0x109 - 0x68];
 	unsigned char m_kindOf109;			// +0x109, bit 0x40 = KINDOF_DOZER
 	unsigned char m_pad10A[0x10F - 0x10A];
 	unsigned char m_kindOf10F;			// +0x10F, bit 0x80 = factory
 	unsigned char m_pad110[0x11B - 0x110];
 	unsigned char m_bfme11B;			// +0x11B, bit 0x20 = free to build
-	unsigned char m_pad11C[0x633 - 0x11C];
+	unsigned char m_pad11C[0x484 - 0x11C];
+	ThingTemplate *m_nextThingTemplate;		// +0x484
+	unsigned char m_pad488[0x633 - 0x488];
 	unsigned char m_bfme633;			// +0x633
 };
 
@@ -108,7 +122,11 @@ public:
 	unsigned int m_money;				// +0x94
 	unsigned char m_pad098[0x2EC - 0x98];
 	Team *m_defaultTeam;			// +0x2EC
-	unsigned char m_pad2F0[0x735 - 0x2F0];
+	unsigned char m_pad2F0[0x338 - 0x2F0];
+	Bool m_canBuildUnits;			// +0x338
+	Bool getCanBuildUnits() const { return m_canBuildUnits; }
+	void setCanBuildUnits(Bool canBuild) { m_canBuildUnits = canBuild; }
+	unsigned char m_pad339[0x735 - 0x339];
 	Bool m_bfme735;					// +0x735
 	unsigned char m_pad736[0x738 - 0x736];
 	union
@@ -366,6 +384,10 @@ class Rva002D06CA
 {
 public:
 	void *rva002D06CA(const AsciiString *name);
+	ThingTemplate *firstTemplate() const { return m_firstTemplate; }
+private:
+	char m_pad00[0x0C];
+	ThingTemplate *m_firstTemplate;		// +0x0C
 };
 extern Rva002D06CA *TheThingFactory;
 
@@ -472,12 +494,35 @@ public:
 	void setActive() { if (!m_active) { m_created = true; m_active = true; } }
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 	const AsciiString &getOwnerName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getOwnerName(); }
+	const AsciiString &getName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getName(); }
 	TeamPrototype *getPrototype() const { return m_proto; }
+};
+
+class WorkOrder
+{
+public:
+	WorkOrder() throw();
+	virtual void v00();
+
+	const ThingTemplate *m_thing;		// +0x04
+	ObjectID m_factoryID;			// +0x08
+	WorkOrder *m_next;			// +0x0C
+	Int m_numCompleted;			// +0x10
+	Int m_numRequired;			// +0x14
+	Bool m_required;			// +0x18
+	Bool m_isResourceGatherer;		// +0x19
+	Int m_bfmeInt1C;			// +0x1C
+	AsciiString m_bfmeString20;		// +0x20
+	unsigned int m_bfmeUnsigned24;		// +0x24
+	Bool m_bfmeFlag28;			// +0x28
+	Bool m_bfmeFlag29;			// +0x29
+	Int m_bfmeInt2C;			// +0x2C
 };
 
 class TeamInQueue
 {
 public:
+	TeamInQueue() throw();
 	virtual ~TeamInQueue();
 	TeamInQueue *dlink_next_TeamBuildQueue() const { return m_next; }
 	TeamInQueue *dlink_next_TeamReadyQueue() const { return m_nextReady; }
@@ -485,6 +530,7 @@ public:
 	Bool isMinimumBuilt();
 	Bool areBuildsComplete();
 	Bool isAllBuilt();
+	Bool includesADozer();
 	void disband() { if (m_team) m_team->disband(); }
 	__forceinline void deleteInstance() { ::delete this; }
 
@@ -492,7 +538,9 @@ public:
 	TeamInQueue *m_next;			// +0x08
 	TeamInQueue *m_prevReady;		// +0x0C
 	TeamInQueue *m_nextReady;		// +0x10
-	char m_pad14[0x1C - 0x14];
+	WorkOrder *m_workOrders;		// +0x14
+	Bool m_priorityBuild;			// +0x18
+	char m_pad19[0x1C - 0x19];
 	Team *m_team;				// +0x1C
 	char m_pad20[0x24 - 0x20];
 	unsigned int m_frameStarted;		// +0x24
@@ -558,12 +606,13 @@ protected:
 	virtual void queueDozer();					// +0x54
 	virtual void slot22();
 	virtual void slot23();
-	virtual void slot24();
+	virtual Bool startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName);	// +0x60
 	virtual Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);	// +0x64
 
 	Object *findFactory(const ThingTemplate *thing, Bool busyOK, Int *buildIndex);
 	Bool isPossibleToBuildTeam(TeamPrototype *proto, Bool requireIdleFactory, Bool &notEnoughMoney);
 	Bool rva004F13D8(TeamPrototype *proto);
+	Bool dozerInQueue();
 	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
 	{
 		return DLINK_ITERATOR<TeamInQueue>(m_teamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
@@ -577,12 +626,15 @@ public:
 	void removeFrom_TeamBuildQueue(TeamInQueue *team);
 	void prependTo_TeamReadyQueue(TeamInQueue *team);
 	void removeFrom_TeamReadyQueue(TeamInQueue *team);
+	void prependTo_TeamBuildQueue(TeamInQueue *team);
 
 private:
 	TeamInQueue *m_teamBuildQueue;	// +0x04
 	TeamInQueue *m_teamReadyQueue;	// +0x08
 	Player *m_player;		// +0x0C
-	unsigned char m_pad10[0x50 - 0x10];
+	unsigned char m_pad10[0x24 - 0x10];
+	Int m_teamDelay;		// +0x24
+	unsigned char m_pad28[0x50 - 0x28];
 	ObjectID m_repairDozer;		// +0x50
 };
 
@@ -758,6 +810,17 @@ Object *AIPlayer::findDozer(const Coord3D *searchPosition)
 	return fallbackDozer;
 }
 
+Bool TeamInQueue::includesADozer()
+{
+	WorkOrder *order;
+	for (order = m_workOrders; order; order = order->m_next)
+	{
+		if ((order->m_thing->m_kindOf109 & 0x40) && !order->m_isResourceGatherer)
+			return true;
+	}
+	return false;
+}
+
 Bool AIPlayer::rva004F13D8(TeamPrototype *proto)
 {
 	const TCreateUnitsInfo *unitInfo = &proto->m_unitsInfo[0];
@@ -915,6 +978,60 @@ void AIPlayer::checkQueuedTeams()
 			}
 		}
 	}
+}
+
+Bool AIPlayer::dozerInQueue()
+{
+	{
+		for (DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamBuildQueue(); !iter.done(); iter.advance())
+		{
+			TeamInQueue *team = iter.cur();
+			if (team && team->includesADozer())
+				return true;
+		}
+	}
+	return false;
+}
+
+void AIPlayer::queueDozer()
+{
+	if (dozerInQueue())
+		return;
+
+	Bool canBuildUnits = m_player->getCanBuildUnits();
+	m_player->setCanBuildUnits(true);
+	const ThingTemplate *tTemplate = TheThingFactory->firstTemplate();
+	while (tTemplate)
+	{
+		if (tTemplate->m_kindOf109 & 0x40)
+		{
+			Object *factory = findFactory(tTemplate, true, NULL);
+			if (factory)
+			{
+				WorkOrder *order = new WorkOrder;
+				order->m_thing = tTemplate;
+				order->m_factoryID = INVALID_OBJECT_ID;
+				order->m_numRequired = 1;
+				order->m_required = true;
+				order->m_isResourceGatherer = false;
+				order->m_next = NULL;
+				TeamInQueue *team = new TeamInQueue;
+				prependTo_TeamBuildQueue(team);
+				team->m_priorityBuild = true;
+				team->m_workOrders = order;
+				team->m_frameStarted = TheGameLogic->getFrame();
+				team->m_team = m_player->m_defaultTeam;
+				AsciiString teamName = "DOZER - building one at the ";
+				teamName.concat(factory->m_template->getName());
+				TheScriptEngine->AppendDebugMessage(teamName, false);
+				m_teamDelay = 0;
+				startTraining(order, team->m_priorityBuild, team->m_team->getName());
+				break;
+			}
+		}
+		tTemplate = tTemplate->friend_getNextTemplate();
+	}
+	m_player->setCanBuildUnits(canBuildUnits);
 }
 
 void AIPlayer::checkReadyTeams()
