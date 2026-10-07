@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/wwstring_dtor_bfme1 -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: /DBFME_WWSTRING_NATIVE_CSTR_CONSTRUCTOR /Ireference/shims/wwstring_dtor_bfme1 -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // ?bfmeBaseSJ@BfmeThingSJ@@QAEXH@Z is the donor's name for this ctor
 // ??0BfmeThingSJ@@QAE@H@Z
 // retail 0x001320D0, 89 bytes. Dedicated TU ported from the Open-BFME-1 donor

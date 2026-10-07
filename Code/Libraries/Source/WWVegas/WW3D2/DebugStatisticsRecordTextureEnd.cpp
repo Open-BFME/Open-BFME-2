@@ -27,7 +27,9 @@ StringClass(int initial_len = 0, bool hint_temporary = false);
 
 	// Both literal constructors expand inline in retail's Record_Texture_End.
 	// Keep that expansion while ordinary C-string assignment uses its owner.
-	__forceinline StringClass(const char *string, bool hint_temporary = false)
+	StringClass(const char *string, bool hint_temporary = false);
+	enum InlineCopy { COPY_INLINE };
+	__forceinline StringClass(const char *string, bool hint_temporary, InlineCopy)
 		: m_Buffer(m_EmptyString)
 	{
 		int len = string ? (int)strlen(string) : 0;
@@ -249,13 +251,13 @@ void Record_Texture_End()
 			StringClass workingString;
 			RefCountPtr<TextureClass> texture = texture_statistics[index].tex;
 			int id = 0;
-			StringClass flash = "  ";
+			StringClass flash("  ", false, StringClass::COPY_INLINE);
 			workingString.Format("%4.4d  %3.3d   %3.3d     %s ", id,
 				texture_statistics[index].usage_count,
 				texture_statistics[index].change_count, flash.Peek_Buffer());
 			textureStatisticsString += workingString;
 
-			StringClass error = "";
+			StringClass error("", false, StringClass::COPY_INLINE);
 			if (texture.Peek() != 0)
 			{
 				unsigned bytes = texture.Get_Texture_Memory_Usage();

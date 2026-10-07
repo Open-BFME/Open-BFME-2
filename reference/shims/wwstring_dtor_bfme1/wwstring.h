@@ -175,6 +175,8 @@ StringClass::operator= (const TCHAR *string)
 ///////////////////////////////////////////////////////////////////
 //	StringClass
 ///////////////////////////////////////////////////////////////////
+// Public construction uses the verified 72-byte worker at RVA 0x000F0ED1.
+#if !defined(BFME_WWSTRING_NATIVE_CSTR_CONSTRUCTOR)
 inline
 StringClass::StringClass (const TCHAR *string, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
@@ -187,6 +189,7 @@ StringClass::StringClass (const TCHAR *string, bool hint_temporary)
 	(*this) = string;
 	return ;
 }
+#endif // BFME_WWSTRING_NATIVE_CSTR_CONSTRUCTOR
 
 ///////////////////////////////////////////////////////////////////
 //	~StringClass

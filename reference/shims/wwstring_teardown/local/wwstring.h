@@ -95,6 +95,8 @@ public:
 	__forceinline const StringClass &bfmeAssignInline(const TCHAR *string);
 	enum InlineCopy { COPY_INLINE };
 	__forceinline StringClass(const TCHAR *string, bool hint_temporary, InlineCopy);
+	enum InlineNativeCopy { COPY_NATIVE };
+	__forceinline StringClass(const TCHAR *string, bool hint_temporary, InlineNativeCopy);
 #endif
 
 	const StringClass &operator+= (const StringClass &string);
@@ -221,8 +223,21 @@ StringClass::StringClass (const TCHAR *string, bool hint_temporary, InlineCopy)
 	bfmeAssignInline(string);
 	return ;
 }
+// Retail also inlines the constructor around an out-of-line assignment.
+__forceinline
+StringClass::StringClass(const TCHAR *string, bool hint_temporary, InlineNativeCopy)
+    : m_Buffer(m_EmptyString)
+{
+    int len=string ? _tcsclen(string) : 0;
+    if (hint_temporary || len>0) {
+        Get_String(len+1, hint_temporary);
+    }
+    (*this) = string;
+}
 #endif
 
+// Public construction uses the verified 72-byte worker at RVA 0x000F0ED1.
+#if !defined(BFME_WWSTRING_NATIVE_CSTR_CONSTRUCTOR)
 inline
 StringClass::StringClass (const TCHAR *string, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
@@ -239,6 +254,7 @@ StringClass::StringClass (const TCHAR *string, bool hint_temporary)
 #endif
 	return ;
 }
+#endif // BFME_WWSTRING_NATIVE_CSTR_CONSTRUCTOR
 
 ///////////////////////////////////////////////////////////////////
 //	~StringClass
@@ -602,7 +618,11 @@ operator+ (const StringClass &string1, const StringClass &string2)
 inline StringClass
 operator+ (const TCHAR *string1, const StringClass &string2)
 {
+#if defined(BFME_WWSTRING_NATIVE_CSTR_CONSTRUCTOR) && defined(BFME_WWSTRING_INLINE_CSTR_ASSIGN)
+	StringClass new_string(string1, true, StringClass::COPY_NATIVE);
+#else
 	StringClass new_string(string1, true);
+#endif
 	new_string += string2;
 	return new_string;
 }

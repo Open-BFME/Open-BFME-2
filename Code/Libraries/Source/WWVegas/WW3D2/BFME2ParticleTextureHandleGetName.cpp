@@ -21,6 +21,8 @@ class StringClass
 	friend class BFME2ParticleTextureHandle;
 public:
 	StringClass(const char *name, bool flag);
+	enum InlineNativeCopy { COPY_NATIVE };
+	__forceinline StringClass(const char *name, bool flag, InlineNativeCopy);
 	StringClass(const StringClass &that, bool hint_temporary = false);
 	~StringClass(void);
 	const StringClass &operator=(const char *string);
@@ -36,8 +38,9 @@ private:
 
 // StringClass::m_EmptyString: defined in wwstring.cpp (= &m_NullChar).
 
-// ??0StringClass@@QAE@PBD_N@Z
-inline StringClass::StringClass(const char *name, bool flag)
+// Preserve the donor initializer expansion in Get_Texture_Name; ordinary
+// construction calls the existing public constructor.
+__forceinline StringClass::StringClass(const char *name, bool flag, InlineNativeCopy)
 {
 	int len;
 
@@ -75,7 +78,7 @@ StringClass BFME2ParticleTextureHandle::Get_Texture_Name(void) const
 	else
 		name = NULL;
 
-	StringClass result(name, false);
+	StringClass result(name, false, StringClass::COPY_NATIVE);
 	return result;
 }
 
