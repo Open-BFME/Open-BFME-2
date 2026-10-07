@@ -67262,3 +67262,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva000EA1F3@Rva000E6FC8@@QAEXXZ,,0x000EA1F3,39,Code/GameEngine/Source/Common/Rva000EA1F3.cpp,matched,GlobalData +0xD45 selects 0x14 else byte +0x62 selects 7 or 4 then thiscall 0x000E6D94
 ?rva000E07F4@@YAHPAVRva000E07F4Obj@@PAVRva000E07F4Host@@@Z,,0x000E07F4,34,Code/GameEngine/Source/Common/Rva000E07F4.cpp,matched,cdecl returns 1; kind bit 0x80 or null skips thiscall 0x000E0584
 ??_ERva00112291@@UAEPAXI@Z,,0x000E1072,78,Code/GameEngine/Source/Common/Rva000E1072.cpp,matched,vector deleting destructor stride 0xD4 calling pinned element dtor 0x00112291
+?rva000E585F@Rva006F8700Owner@@QAEXPAX0PAH1@Z,,0x000E585F,95,Code/GameEngine/Source/Common/Rva000E585F.cpp,matched,folds rowed 0x000E569A into arg4 and +0x40 and 0x000E56AF into arg3 with quotient 3 at +0x48
