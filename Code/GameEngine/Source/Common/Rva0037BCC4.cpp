@@ -23,14 +23,22 @@ public:
     int m_pad08;
 };
 
+class Rva0037D097CRCView
+{
+public:
+    void rva0037D097(unsigned int crc);
+    unsigned int rva0037BD64();
+};
+
 class Rva0037BBED : public GameEngineDeletingBase
 {
 public:
     Rva0037BBED();
     virtual ~Rva0037BBED();
     virtual void rva0037B326();
+    void rva0037D0A7(unsigned int crc, int player, bool fromPlayback, unsigned int frame);
 private:
-    int m_0c;
+    Rva0037D097CRCView *m_0c;
     void *m_10;
     UnicodeString m_14;
     int m_18;
@@ -107,4 +115,36 @@ void Rva0037BBED::rva0037B326()
 	m_e68 = 0;
 	m_e6c = -1;
 	m_e70 = 0;
+}
+
+class GameLogic;
+extern GameLogic *TheGameLogic;
+class Rva00241529CRCView
+{
+public:
+    void rva00241529(unsigned int crc, int player, unsigned int frame,
+        void *message, bool forced, void *stream);
+    char opaque00[0x71];
+    bool crcProcessing71;
+};
+
+// Native Ghidra 0x0037D0A7..0x0037D0EF; 72 bytes; thiscall RET 16.
+// Reference: BFME 1 1399ad37d42ea52a63829e417c46a1ba9ed2cd20,
+// game/GameEngine/Source/Common/System/RecorderHandleCRCMessage.cpp.
+// The four argument roles and processing sequence follow that readable donor;
+// retail proves +0xC receiver storage, +0x71 flag and all three call targets.
+// Native rva0037BD64 already checks the queue before removing its front value.
+// Its folded list wrappers are named opaquely here: the FXList ledger spelling
+// at those addresses does not establish a recorder's CRC storage as FXList.
+void Rva0037BBED::rva0037D0A7(unsigned int crc, int player, bool fromPlayback, unsigned int frame)
+{
+    if (fromPlayback)
+        m_0c->rva0037D097(crc);
+    m_0c->rva0037BD64();
+    if (frame > 0)
+    {
+        Rva00241529CRCView *logic = reinterpret_cast<Rva00241529CRCView *>(TheGameLogic);
+        if (!logic->crcProcessing71)
+            logic->rva00241529(crc, player, frame, 0, false, 0);
+    }
 }
