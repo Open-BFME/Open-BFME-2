@@ -756,22 +756,7 @@ bool WW3D::Registry_Load_Render_Device( const char * sub_key, char *device, int 
 
 // WW3D::_Invalidate_Mesh_Cache: defined in bfmedynamicvertexbuffer.cpp (its row's unit).
 
-// ?_Invalidate_Textures@WW3D@@ present-unmatched
-void WW3D::_Invalidate_Textures()
-{
-	if (!WW3DAssetManager::Get_Instance()) return;
-
-	TextureLoader::Flush_Pending_Load_Tasks();
-
-	HashTemplateIterator<StringClass,TextureClass*> ite(WW3DAssetManager::Get_Instance()->Texture_Hash());
-
-	// Loop through all the textures in the manager
-	for (ite.First();!ite.Is_Done();ite.Next()) {
-		// Get the current texture
-		TextureClass* tex=ite.Peek_Value();
-		tex->Invalidate();
-	}
-}
+// WW3D::_Invalidate_Textures is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/Rva001171B0Cluster.cpp (0x001171B0).
 
 void WW3D::Set_Texture_Filter(int texture_filter)
 {

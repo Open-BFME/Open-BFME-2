@@ -217,105 +217,9 @@ void MapObject::validate(void)
 	verifyValidUniqueID();
 }
 
-// ?verifyValidTeam@MapObject@@ present-unmatched
-void MapObject::verifyValidTeam(void)
-{
-	// if this map object has a valid team, then do nothing.
-	// if it has an invalid team, the place it on the default neutral team, (by clearing the 
-	// existing team name.)
-	Bool exists;
-	AsciiString teamName = getProperties()->getAsciiString(TheKey_originalOwner, &exists);
-	if (exists) {
-		Bool valid = false;
+// MapObject::verifyValidTeam is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_verifyValidTeamMethodThunk_Rva0030D6C7.cpp (0x0030D6C7).
 
-		int numSides = TheSidesList->getNumTeams();
-
-		for (int i = 0; i < numSides; ++i) {
-			TeamsInfo *teamInfo = TheSidesList->getTeamInfo(i);
-			if (!teamInfo) {
-				continue;
-			}
-			
-			Bool itBetter;
-			AsciiString testAgainstTeamName = teamInfo->getDict()->getAsciiString(TheKey_teamName, &itBetter);
-			if (itBetter) {
-				if (testAgainstTeamName.compare(teamName) == 0) {
-					valid = true;
-				}
-			}
-		}
-
-		if (!valid) {
-			getProperties()->remove(TheKey_originalOwner);
-		}
-	}
-}
-
-// ?verifyValidUniqueID@MapObject@@ present-unmatched
-void MapObject::verifyValidUniqueID(void)
-{
-	Bool exists;
-	AsciiString uniqueID = getProperties()->getAsciiString(TheKey_uniqueID, &exists);
-	MapObject *obj = MapObject::getFirstMapObject();
-
-	// -1 is the sentinel
-	int highestIndex = -1;
-
-	while (obj) {
-		if (obj == this) {
-			// the first object is THIS OBJECT, cause we've already been added. 
-			obj = obj->getNext();
-			continue;
-		}
-
-		if (obj->isWaypoint()) {
-			// waypoints throw this off. Sad but true. :-(
-			obj = obj->getNext();
-			continue;
-		}
-
-		Bool iterateExists;
-		AsciiString tempStr = obj->getProperties()->getAsciiString(TheKey_uniqueID, &iterateExists);
-		const char* lastSpace = tempStr.reverseFind(' ');
-
-		int testIndex = -1; 
-		if (lastSpace) {
-			testIndex = atoi(lastSpace);
-		}
-
-		if (testIndex > highestIndex) {
-			highestIndex = testIndex;
-		}
-		break;
-	}
-
-	int indexOfThisObject = highestIndex + 1;
-	
-	const char* thingName;
-	if (getThingTemplate()) {
-		thingName = getThingTemplate()->getName().str();
-	} else if (isWaypoint()) {
-		thingName = getWaypointName().str();
-	} else {
-		thingName = getName().str();
-	}
-	const char* pName = thingName;
-
-	while (*thingName) {
-		if ((*thingName) == '/') {
-			pName = thingName + 1;
-		}
-		++thingName;
-	}
-
-	AsciiString newID;
-	if (isWaypoint()) {
-		newID.format("%s", pName);
-	} else {
-		newID.format("%s %d", pName, indexOfThisObject);
-	}
-	getProperties()->setAsciiString(TheKey_uniqueID, newID);
-}
+// MapObject::verifyValidUniqueID is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_verifyValidUniqueIDMethodThunk_Rva0030E0AA.cpp (0x0030E0AA).
 
 // ?fastAssignAllUniqueIDs@MapObject@@ present-unmatched
 void MapObject::fastAssignAllUniqueIDs(void)
@@ -1085,55 +989,10 @@ Bool WorldHeightMap::ParseSizeOnly(DataChunkInput &file, DataChunkInfo *info, vo
 *	Input: DataChunkInput 
 *		
 */
-// ?ParseBlendTileDataChunk@WorldHeightMap@@ present-unmatched
-Bool WorldHeightMap::ParseBlendTileDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData)
-{
-	WorldHeightMap *pThis = (WorldHeightMap *)userData;
-	return pThis->ParseBlendTileData(file, info, userData);
-}
+// WorldHeightMap::ParseBlendTileDataChunk is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap_Map_KA_NAAVDataChunkInput_PAUDataChunkInfo_PAX_Z.cpp (0x002811CA).
 
 /** Function to read in the tiles for a texture class. */
-// ?readTexClass@WorldHeightMap@@ present-unmatched
-void WorldHeightMap::readTexClass(TXTextureClass *texClass, TileData **tileData) 
-{
-	char path[_MAX_PATH];
-	path[0] = 0;
-	File *theFile = NULL;
-
-	// get the file from the description in TheTerrainTypes
-	TerrainType *terrain = TheTerrainTypes->findTerrain( texClass->name );
-	char texturePath[ _MAX_PATH ];
-	if (terrain==NULL) 
-	{
-#ifdef LOAD_TEST_ASSETS
-		theFile = TheFileSystem->openFile( texClass->name.str(), File::READ|File::BINARY);
-#endif
-	} 
-	else 
-	{
-		sprintf( texturePath, "%s%s", TERRAIN_TGA_DIR_PATH, terrain->getTexture().str() );
-		theFile = TheFileSystem->openFile( texturePath, File::READ|File::BINARY);
-	}
-
-	if (theFile != NULL) {
-		GDIFileStream theStream(theFile);
-		InputStream *pStr = &theStream;
-		Int numTiles = WorldHeightMap::countTiles(pStr);
-		theFile->seek(0, File::START);
-		if (numTiles >= texClass->numTiles) { 
-			numTiles = texClass->numTiles;
-			Int width;
-			for (width = 10; width >= 1; width--) {
-				if (numTiles >= width*width) {
-					numTiles = width*width;
-					break;
-				}
-			}
-			WorldHeightMap::readTiles(pStr, tileData+texClass->firstTile, width);						
-		}
-		theFile->close();
-	}
-}
+// WorldHeightMap::readTexClass is defined with its retail-matched body in Code/GameEngine/Source/Common/Rva000AF917Finish.cpp (0x000AF917).
 
 /**
 * WorldHeightMap::ParseBlendTileData - read a blend tile info chunk.

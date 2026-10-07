@@ -99,50 +99,7 @@ FireSpreadUpdate::~FireSpreadUpdate( void )
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?FireSpreadUpdate::update present-unmatched
-UpdateSleepTime FireSpreadUpdate::update( void )
-{
-	const FireSpreadUpdateModuleData* d = getFireSpreadUpdateModuleData();
-	Object* me = getObject();
-
-	if( !me->getStatusBits().test( OBJECT_STATUS_AFLAME ) )
-		return UPDATE_SLEEP_FOREVER;		// not on fire -- sleep forever
-	{
-		ObjectCreationList::create( d->m_oclEmbers, getObject(), NULL );
-
-		if( d->m_spreadTryRange != 0 )
-		{
-			// This will spread fire explicitly
-			PartitionFilterFlammable fFilter;
-			PartitionFilter *filters[] = { &fFilter, NULL };
-
-//			SimpleObjectIterator *iter = NULL;
-//			iter = ThePartitionManager->iterateObjectsInRange(getObject(), 
-//																									d->m_spreadTryRange, 
-//																									FROM_CENTER_3D, 
-//																									filters, 
-//																									ITER_SORTED_NEAR_TO_FAR
-//																									);
-//			MemoryPoolObjectHolder hold(iter);
-//			Object *objectToLight = iter->first();
-//
-// srj sez: the above code is stupid and slow. since we only want the closest object,
-// just ask for that; the above has to find ALL objects in range, but we ignore all 
-// but the first (closest).
-//
-			Object* objectToLight = ThePartitionManager->getClosestObject(getObject(), d->m_spreadTryRange, FROM_CENTER_3D, filters);
-			if( objectToLight )
-			{
-				static NameKeyType key_FlammableUpdate = NAMEKEY("FlammableUpdate");
-				FlammableUpdate* fu = (FlammableUpdate*)objectToLight->findUpdateModule(key_FlammableUpdate);
-				if( fu )
-					fu->tryToIgnite();
-			}
-		}
-
-		return UPDATE_SLEEP(calcNextSpreadDelay());
-	}
-}
+// FireSpreadUpdate::update is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdateUpdate.cpp (0x0048B7FD).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------

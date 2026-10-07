@@ -1838,27 +1838,7 @@ void W3DModelDraw::doStartOrStopParticleSys()
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?setHidden@W3DModelDraw@@ present-unmatched
-void W3DModelDraw::setHidden(Bool hidden)
-{
-	if (m_renderObject)
-		m_renderObject->Set_Hidden(hidden);
-
-	if (m_shadow)
-		m_shadow->enableShadowRender(!hidden);
-
-	m_shadowEnabled = hidden;
-
-	if (m_terrainDecal)
-		m_terrainDecal->enableShadowRender(!hidden);
-	
-	if (m_trackRenderObject && hidden)
-	{	const Coord3D* pos = getDrawable()->getPosition();
-		m_trackRenderObject->addCapEdgeToTrack(pos->x,pos->y);
-	}
-	
-	doStartOrStopParticleSys();
-}
+// W3DModelDraw::setHidden is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw_setHidden_Rva000B6F6D.cpp (0x000B6F6D).
 
 /**Free all data used by this model's shadow.  This is used to dynamically enable/disable shadows by the options screen*/
 // releaseShadows lives in W3DModelDrawShadows.cpp (retail builds it /O1 on the BFME 2 layout).

@@ -314,40 +314,7 @@ struct BFMEReAcquireBufferManagerView
 	W3DBufferManager::W3DIndexBuffer *m_indexBuffers;
 };
 
-// ?ReAcquireResources@W3DBufferManager@@QAE_NXZ present-unmatched
-Bool W3DBufferManager::ReAcquireResources(void)
-{
-	BFMEReAcquireBufferManagerView *self =
-		(BFMEReAcquireBufferManagerView *)this;
-
-	for (Int i = 0; i < MAX_FVF; ++i)
-	{
-		W3DVertexBuffer *vb = self->m_vertexBuffers[i];
-		while (vb)
-		{
-			vb->m_DX8VertexBuffer = (DX8VertexBufferClass *)
-				::new BfmeDX8VertexBuffer(
-					FVFTypeIndexList[vb->m_format], vb->m_size,
-					BfmeDX8VertexBuffer::USAGE_DEFAULT, 0);
-			if (!vb->m_DX8VertexBuffer)
-				return FALSE;
-			vb = vb->m_nextVB;
-		}
-	}
-
-	W3DIndexBuffer *ib = self->m_indexBuffers;
-	while (ib)
-	{
-		ib->m_DX8IndexBuffer = (DX8IndexBufferClass *)
-			::new BfmeDX8IndexBuffer(
-				(unsigned)ib->m_size, BfmeDX8IndexBuffer::USAGE_DEFAULT);
-		if (!ib->m_DX8IndexBuffer)
-			return FALSE;
-		ib = ib->m_nextIB;
-	}
-
-	return TRUE;
-}
+// W3DBufferManager::ReAcquireResources is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManagerRva0011604D.cpp (0x0011604D).
 
 // Defined in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager_Slots.cpp: getSlot(VBM_FVF_TYPES, Int).
 // Defined in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager_Slots.cpp: releaseSlot(W3DVertexBufferSlot *).

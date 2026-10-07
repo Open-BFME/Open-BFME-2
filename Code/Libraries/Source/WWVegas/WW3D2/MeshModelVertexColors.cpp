@@ -142,22 +142,4 @@ bool MeshModelClass::read_per_face_texcoord_ids(ChunkLoadClass &cload,MeshLoadCo
     return false;
 }
 
-// ?read_vertex_colors@MeshModelClass@@ present-unmatched
-bool MeshModelClass::read_vertex_colors(ChunkLoadClass &cload,MeshLoadContextClass *context)
-{
-	if (CurMatDesc->Has_Color_Array(0) == 0) {
-		W3dRGBStruct color;
-		unsigned *dcg = Get_Color_Array(0,true);
-		for (int i=0; i<VertexCount; i++) {
-			if (cload.Read(&color,sizeof(W3dRGBStruct)) != sizeof(W3dRGBStruct)) {
-				return false;
-			}
-
-			Vector4 col;
-			col.Set((float)color.R / 255.0f,(float)color.G / 255.0f,(float)color.B / 255.0f,1.0f);
-			dcg[i] = DX8Wrapper::Convert_Color(col);
-		}
-	}
-	CurMatDesc->Set_DCG_Source(context->CurPass,VertexMaterialClass::COLOR1);
-	return true;
-}
+// MeshModelClass::read_vertex_colors is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadVertexColors.cpp (0x00188760).

@@ -1616,23 +1616,7 @@ void WeaponStore::setDelayedDamage(const WeaponTemplate *weapon, const Coord3D* 
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?postProcessLoad@WeaponStore@@ present-unmatched
-void WeaponStore::postProcessLoad()
-{
-	if (!TheThingFactory)
-	{
-		DEBUG_CRASH(("you must call this after TheThingFactory is inited"));
-		return;
-	}
-
-	for (Int i = 0; i < m_weaponTemplateVector.size(); i++)
-	{
-		WeaponTemplate* wt = m_weaponTemplateVector[i];
-		if (wt)
-			wt->postProcessLoad();
-	}
-
-}  // end postProcessLoad
+// WeaponStore::postProcessLoad is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp (0x002CADFA).
 
 //-------------------------------------------------------------------------------------------------
 /*static*/ void WeaponStore::parseWeaponTemplateDefinition(INI* ini)
@@ -2151,67 +2135,10 @@ Bool Weapon::isGoalPosWithinAttackRange(const Object *source, const Coord3D* goa
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?getPercentReadyToFire@Weapon@@ present-unmatched
-Real Weapon::getPercentReadyToFire() const
-{
-	switch (getStatus())
-	{
-		case OUT_OF_AMMO:
-		case PRE_ATTACK:
-			return 0.0f;
-
-		case READY_TO_FIRE:
-			return 1.0f;
-
-		case BETWEEN_FIRING_SHOTS:
-		case RELOADING_CLIP:
-		{
-			UnsignedInt now = TheGameLogic->getFrame();
-			UnsignedInt nextShot = getPossibleNextShotFrame();
-			DEBUG_ASSERTCRASH(now >= m_whenLastReloadStarted, ("now >= m_whenLastReloadStarted"));
-			if (now >= nextShot)
-				return 1.0f;
-
-			DEBUG_ASSERTCRASH(nextShot >= m_whenLastReloadStarted, ("nextShot >= m_whenLastReloadStarted"));
-			UnsignedInt totalTime = nextShot - m_whenLastReloadStarted;
-			if (totalTime == 0)
-			{
-				return 1.0f;
-			}
-
-			UnsignedInt timeLeft = nextShot - now;
-			DEBUG_ASSERTCRASH(timeLeft <= totalTime, ("timeLeft <= totalTime"));
-			UnsignedInt timeSoFar = totalTime - timeLeft;
-			if (timeSoFar >= totalTime)
-			{
-				return 1.0f;
-			}
-			else
-			{
-				return (Real)timeSoFar / (Real)totalTime;
-			}
-		}
-	}
-	DEBUG_CRASH(("should not get here"));
-	return 0.0f;
-}
+// Weapon::getPercentReadyToFire is defined with its retail-matched body in Code/GameEngine/Source/Common/Rva002CCE53Finish.cpp (0x002CCE53).
 
 //-------------------------------------------------------------------------------------------------
-// ?getAttackRange@Weapon@@ present-unmatched
-Real Weapon::getAttackRange(const Object *source) const
-{ 
-	WeaponBonus bonus;
-	computeBonus(source, 0, bonus);
-	return m_template->getAttackRange(bonus); 
-
-	//Contained objects have longer ranges.
-	//const Object *container = source->getContainedBy();
-	//if( container )
-	//{
-	//	attackRange += container->getGeometryInfo().getBoundingCircleRadius();
-	//}
-	//return attackRange;
-}
+// Weapon::getAttackRange is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Weapon_Weapon_getAttackRange.cpp (0x002C9BF8).
 
 //-------------------------------------------------------------------------------------------------
 // ?getAttackDistance@Weapon@@ present-unmatched

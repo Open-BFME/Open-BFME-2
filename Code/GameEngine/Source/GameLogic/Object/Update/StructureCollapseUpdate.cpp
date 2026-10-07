@@ -100,43 +100,11 @@ static void parseOCL( INI* ini, void *instance, void * /*store*/, const void* /*
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?StructureCollapseUpdate::beginStructureCollapse present-unmatched
-void StructureCollapseUpdate::beginStructureCollapse(const DamageInfo *damageInfo)
-{
-	const StructureCollapseUpdateModuleData *d = getStructureCollapseUpdateModuleData();
-
-
-	Object *building = getObject();
-	UnsignedInt now = TheGameLogic->getFrame();
-	// This has to use a game logic random value since the bursts can spawn debris, and debris is sync'd.
-	m_collapseFrame = now + GameLogicRandomValue(d->m_minCollapseDelay, d->m_maxCollapseDelay);
-
-	doPhaseStuff(SCPHASE_INITIAL, building->getPosition());
-
-	m_collapseState = COLLAPSESTATE_WAITINGFORCOLLAPSESTART;
-	m_currentHeight = 0.0f;
-
-	setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
-}
+// StructureCollapseUpdate::beginStructureCollapse is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateUpdate.cpp (0x004A459B).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?StructureCollapseUpdate::onDie present-unmatched
-void StructureCollapseUpdate::onDie( const DamageInfo *damageInfo )
-{
-	const StructureCollapseUpdateModuleData* d = getStructureCollapseUpdateModuleData();
-	if (!d->m_dieMuxData.isDieApplicable(getObject(), damageInfo))
-		return;
-
-	AIUpdateInterface *ai = getObject()->getAIUpdateInterface();
-	if (ai)
-		ai->markAsDead();
-
-	// deselect this object for all players.
-	TheGameLogic->deselectObject(getObject(), PLAYERMASK_ALL, TRUE);
-
-	beginStructureCollapse(damageInfo);
-}
+// StructureCollapseUpdate::onDie is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/Rva004A466EFinish.cpp (0x004A466E).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
