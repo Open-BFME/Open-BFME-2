@@ -1,16 +1,16 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
 // BfmeVec60::erase (retail 0x006BF590, 77 bytes), BFME1
 // Rva0087FB90Erase.cpp donor verbatim in shape: copy the tail forward,
 // destroy the removed tail, store the new finish, return first.
 //
-// The destroyed tail element releases its string at +0x1C through the folded
-// teardown at 0x36410, so the element models its +0x1C member as BfmeTail60
-// (same member the placed 2-arg resize at 0x6BFCB0 uses) whose release()
-// resolves through the existing pin. The bulk copy resolves through the
-// worker pinned at 0x6BE2E0 under this TU's spelling.
+// Element layout from siblings Rva006BE2E0Copy/Rva0087EAA0Fill: 7 ints,
+// single-pointer string at +0x1C (set at 0x366F0) plus trailing bytes at
+// +0x20/+0x21. The explicit operator= makes the STL bulk copy emit retail's
+// element-wise worker at 0x6BE2E0; the tail teardown calls releaseBuffer.
 #include <vector>
+#include "ascii_string.h"
 
 // BfmeTail60 stores the same single data pointer as StringBase<char>; retail
 // folds this zero-argument thiscall teardown to the matched releaseBuffer.
@@ -22,15 +22,41 @@ struct BfmeTail60
 	void release();
 };
 
+struct BfmeCoord60
+{
+	int m_x;
+	int m_y;
+	int m_z;
+};
+
 struct BfmeElem60
 {
-	char m_head[0x1C];
-	BfmeTail60 m_tail;
-	char m_extra[0x04];
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0C;
+	BfmeCoord60 m_10;
+	BfmeTail60 m_1C;
+	unsigned char m_20;
+	unsigned char m_21;
+	unsigned char m_pad[2];
 
 	~BfmeElem60()
 	{
-		m_tail.release();
+		m_1C.release();
+	}
+
+	BfmeElem60 &operator=(const BfmeElem60 &o)
+	{
+		m_00 = o.m_00;
+		m_04 = o.m_04;
+		m_08 = o.m_08;
+		m_0C = o.m_0C;
+		m_10 = o.m_10;
+		((StringBase<char> &)m_1C).set((const StringBase<char> &)o.m_1C);
+		m_20 = o.m_20;
+		m_21 = o.m_21;
+		return *this;
 	}
 };
 
