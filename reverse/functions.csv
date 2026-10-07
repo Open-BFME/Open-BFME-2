@@ -67268,3 +67268,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva001E7C2B@Rva001E7C2B@@QAEXHHMM@Z,,0x001E7C2B,33,Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp,matched,
 ?rva001E9045@Rva001E9045@@QAEXHHMM@Z,,0x001E9045,33,Code/GameEngine/Source/Common/Rva001E7C2BTwins.cpp,matched,
 ?rva0018C6D5@Rva0018C6D5@@QAEXPBG0@Z,,0x0018C6D5,48,Code/GameEngine/Source/Common/Rva0018C6D5Loop.cpp,matched,
+?Run@Rva005B4CC6@@QAEXXZ,,0x005B4CC6,90,Code/GameEngine/Source/Common/Rva005B4CC6Box.cpp,matched,IME-gated 27C prep; rowed 0x407020/0x407BC3/0x5B4C3C/0x5B034A; 0x27C rides edi
