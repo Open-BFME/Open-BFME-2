@@ -14,13 +14,15 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_0D = 0xD
 };
 
+struct Coord3D;
 class Weapon;
 class Object
 {
 public:
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-	void setStatus(ObjectStatusTypes status, int value);
-	void rva00291916(void *arg);
+	void setStatus(ObjectStatusTypes status, bool value);
+	// Native 0x00291916, the verified position overload in ObjectFireCurrentWeapon.cpp.
+	void fireCurrentWeapon(const Coord3D *position);
 };
 
 void __stdcall rva0034BFFF(Object *o)
@@ -29,6 +31,6 @@ void __stdcall rva0034BFFF(Object *o)
 	const Weapon *w = o->getCurrentWeapon(&st);
 	if (w == 0)
 		return;
-	o->setStatus(OBJECT_STATUS_0D, 1);
-	o->rva00291916((void *)((char *)o + 0x38));
+	o->setStatus(OBJECT_STATUS_0D, true);
+	o->fireCurrentWeapon(reinterpret_cast<const Coord3D *>((char *)o + 0x38));
 }

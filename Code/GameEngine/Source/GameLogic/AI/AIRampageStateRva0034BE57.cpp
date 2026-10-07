@@ -39,7 +39,8 @@ class Object
 public:
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	void rva0028FC8F();
-	void rva00291916(void *pos);
+	// Native 0x00291916, the verified position overload in ObjectFireCurrentWeapon.cpp.
+	void fireCurrentWeapon(const Coord3D *position);
 	void setStatus(ObjectStatusTypes status, bool set);
 private:
 	unsigned char m_pad00[0x38];
@@ -70,7 +71,7 @@ void AIRampageState::rva0034BE57(Object *obj)
 		if (status == READY_TO_FIRE)
 		{
 			obj->rva0028FC8F();
-			obj->rva00291916(&obj->m_pos);
+			obj->fireCurrentWeapon(&obj->m_pos);
 			return;
 		}
 		if (status != WEAPON_STATUS_5)
