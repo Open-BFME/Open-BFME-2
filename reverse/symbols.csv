@@ -15327,3 +15327,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva00274CD8@Drawable@@QAE?AVRva002390CB@@ABVAsciiString@@@Z,0x00274CD8,callee of ?update@DozerActionDoActionState@@UAE?AW4StateReturnType@@XZ
 ?onStructureConstructionComplete@Player@@QAEXPAVObject@@0_N@Z,0x002A9D02,callee of ?update@DozerActionDoActionState@@UAE?AW4StateReturnType@@XZ
 ??0Rva000CF475FireFX@@QAE@ABU0@@Z,0x000CF475,callee of ?tryToIgnite@FlammableUpdate@@QAEXXZ
+?rva004FD699@Rva004FD8A8Set@@QAEXHPAV?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@@Z,0x004FD699,callee of ?rva0057D709@AptMapPreview@@QAEXHPAV?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@@Z (REL32 at 0x0057D73C on the living-world info's +0x1C start-region set with the region and the cleared list); Ghidra FUN_008fd699 96B; address name

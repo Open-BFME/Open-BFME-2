@@ -20,6 +20,7 @@ class Rva004FD8A8Set
 {
 public:
 	Bool rva004FD8A8(Int region);		// 0x004FD8A8
+	void rva004FD699(Int region, _STL::vector<void *> *regions);	// 0x004FD699
 
 	unsigned char m_pad00[8];
 	AsciiString m_descKey;		// +0x08, passed to TheGameText->fetch
@@ -106,6 +107,50 @@ struct Rva00DFE1C8Host
 };
 
 extern Rva00DFE1C8Host *g_00DFE1C8;
+
+// The same object marks a region list (0x003EEF38) and unmarks it
+// (0x003EEFA0); both are rowed under address-named views taking the
+// vector's address.
+class Rva003EEFA0
+{
+public:
+	void rva003EEFA0(Int regions);
+};
+
+class Rva003EEF38
+{
+public:
+	void rva003EEF38(Int regions);
+};
+
+// A living-world region as the preview reads it.
+class Rva0020E89C
+{
+public:
+	UnicodeString rva0020E89C();	// 0x0020E89C, the translated name
+	UnicodeString rva003F15D1();	// 0x003F15D1, the description
+
+	unsigned char m_pad000[0x12c];
+	Int m_slot;		// +0x12C, the slot of the player holding it
+};
+
+// AptMapPreviewSetMapDescription.cpp's view of the preview: the player
+// slot of the given index, 0 for -1 or an empty game.
+class GameSlot;
+class Rva0057C688
+{
+public:
+	GameSlot *rva0057C688(Int slot);
+};
+
+// The preview's +0x6C callback (rowed invoke 0x0057CC15 throws when unset).
+class Rva0057CC15Ref
+{
+public:
+	void invoke(int a);
+
+	void *m_op;
+};
 
 // The campaign manager (0x00E02D6C): the index of a campaign in its +0x14
 // vector, -1 when absent (0x003B8BC8, unrowed).
@@ -243,7 +288,9 @@ public:
 	bool m_selectStartPoint;	// +0x10
 	unsigned char m_pad11[0x58 - 0x11];
 	int m_campaign;		// +0x58, a campaign manager index
-	unsigned char m_pad5c[0xc8 - 0x5c];
+	unsigned char m_pad5c[0x8c - 0x5c];
+	bool m_8c;		// +0x8C, no region picks while set
+	unsigned char m_pad8d[0xc8 - 0x8d];
 	int m_c8;		// +0xC8
 };
 
@@ -267,10 +314,14 @@ public:
 	void rva0057D19A(MapMetaData *map);
 	void bfmeSetMapDescription(MapMetaData *map);	// 0x0057C892
 	void rva0057D10F(MapMetaData *map);	// the map picture
+	void rva0057D709(Int region, _STL::vector<void *> *regions);
+	void rva0057D746(Rva0020E89C *previous, Rva0020E89C *current);
+	void rva0057D85D(Rva0020E89C *region);
 
 private:
 	unsigned char m_pad00[0x4];
-	unsigned char m_field04[0x18 - 0x4];	// +0x04, handed to the campaign owner
+	unsigned char m_field04[0xc - 0x4];	// +0x04, handed to the campaign owner
+	_STL::vector<void *> m_regions;	// +0x0C, Rva0020E89C pointers
 	Rva0043DA65 *m_18;	// +0x18
 	int m_mode;	// +0x1C (OpenPlay 0, Strategic 1)
 	GameWindow *m_currentMap;	// +0x20
@@ -284,6 +335,7 @@ private:
 	Image *m_picture;	// +0x5C
 	unsigned char m_pad60[0x68 - 0x60];
 	AptLivingWorldWindow *m_livingWorldWindow;	// +0x68
+	Rva0057CC15Ref m_regionPicked;	// +0x6C
 };
 
 // AptMapPreview::AllowsStartInRegion, retail 0x0057C525.
@@ -407,6 +459,15 @@ void AptMapPreview::rva0057D4F3()
 	}
 	GadgetComboBoxSetSelectedPos(m_strategicScenarioComboBox, 0, false);
 	UpdateStrategicScenarioDesc();
+}
+
+// Retail 0x0057D709, 61 bytes. Name unknown. Refills the list with the
+// regions the campaign's start-region set groups with the given one.
+void AptMapPreview::rva0057D709(Int region, _STL::vector<void *> *regions)
+{
+	regions->clear();
+	if (m_livingWorldWindow != 0 && m_livingWorldWindow->m_info != 0 && m_livingWorldWindow->m_info->m_startRegions != 0)
+		m_livingWorldWindow->m_info->m_startRegions->rva004FD699(region, regions);
 }
 
 // Retail 0x0057E058, 499 bytes. Name unknown. Refreshes the preview from
