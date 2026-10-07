@@ -303,3 +303,94 @@ void AIIdleState::doInitIdleState()
 	ai->setLocomotorGoalNone();
 	ai->setCurrentVictim(0);
 }
+
+StateReturnType AIIdleState::update()
+{
+	Object *obj = getMachineOwner();
+	Weapon *weapon = obj->getCurrentWeapon();
+	if (weapon && weapon->rva002C9586())
+		return STATE_CONTINUE;
+
+	doInitIdleState();
+
+	if (!obj->testStatus(OBJECT_STATUS_BFME_3A) && obj->getAI()->getBfme34() == 0)
+	{
+		if (--m_stancesCountdown <= 0)
+		{
+			m_stancesCountdown = 5;
+			if (obj->findModule(Rva0045EE2CGet()) && getMachine()->hasState(AI_BFME_STATE_4E))
+				return STATE_FAILURE;
+		}
+	}
+
+	int oldSleepOffset = m_initialSleepOffset;
+	UnsignedInt timeToSleep = g_00E01E04 + oldSleepOffset;
+	m_initialSleepOffset = 0;
+
+	if (m_shouldLookForTargets && !getMachine()->isLocked())
+	{
+		AIUpdateInterface *ai = obj->getAI();
+
+		if (obj->testStatus(OBJECT_STATUS_BFME_49))
+		{
+			ai->aiHunt(CMD_FROM_AI);
+			return STATE_CONTINUE;
+		}
+
+		if (obj->testStatus(OBJECT_STATUS_BFME_26) && weapon && weapon->getTemplate()->get())
+			return STATE_CONTINUE;
+
+		// do repulsor logic
+		if (obj->getTemplate()->testBfmeKind10D() && ai->isIdle())
+		{
+			Object *enemy = TheAI->findClosestRepulsor(obj, obj->getVisionRange());
+			if (enemy)
+			{
+				getMachine()->setState(AI_MOVE_AWAY_FROM_REPULSORS);
+				return STATE_CONTINUE;
+			}
+		}
+
+		// Check to see if we have created a crate we need to pick up.
+		Object *crate = ai->checkForCrateToPickup();
+		if (crate)
+		{
+			ai->aiMoveToObject(crate, CMD_FROM_AI);
+			return STATE_CONTINUE;
+		}
+
+		if (!obj->isDisabledByType(DISABLED_BFME_2) &&
+				!obj->isDisabledByType(DISABLED_BFME_4) &&
+				!obj->isDisabledByType(DISABLED_BFME_8))
+		{
+			// mood targeting
+			UnsignedInt moodAdjust = ai->getMoodMatrixActionAdjustment(MM_Action_Idle);
+			if ((moodAdjust & MAA_Affect_Range_IgnoreAll) == 0)
+			{
+				Object *enemy = ai->getNextMoodTarget(true, true);
+				if (enemy)
+				{
+					ai->aiAttackObject(enemy, NO_MAX_SHOTS_LIMIT, CMD_FROM_AI);
+					ai->setBfmeFlag3C7(true);
+					return STATE_CONTINUE;
+				}
+			}
+		}
+
+		UnsignedInt now = TheGameLogic->getFrame();
+		UnsignedInt nextMoodCheckTime = ai->getNextMoodCheckTime();
+		if (nextMoodCheckTime > now)
+		{
+			// if we need to look for targets, might need to sleep less.
+			UnsignedInt moodSleep = nextMoodCheckTime - now;
+			if (moodSleep < timeToSleep)
+			{
+				timeToSleep = moodSleep;
+				// if we do this, save the random sleep offset for next time.
+				m_initialSleepOffset = oldSleepOffset;
+			}
+		}
+	}
+
+	return (StateReturnType)timeToSleep;
+}
