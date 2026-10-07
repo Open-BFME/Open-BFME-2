@@ -741,6 +741,7 @@ class StealthUpdate : public UpdateModule
 {
 public:
 	UnsignedInt getStealthLevel() const;
+	void rva00373D23();
 	StealthUpdate *rva00373D28(Object *obj);
 	void rva00373D5E();
 	Bool rva00373F59(const Coord3D *pos, const Coord3D *ownerPos);
@@ -755,9 +756,10 @@ public:
 	Bool isDisguised() const { return m_disguiseAsTemplate != NULL; }
 	Int getDisguisedPlayerIndex() const { return m_disguiseAsPlayerIndex; }
 	const ThingTemplate *getDisguisedTemplate() { return m_disguiseAsTemplate; }
+protected:
+	UpdateSleepTime calcSleepTime() const;
 private:
 	const StealthUpdateModuleData *getStealthUpdateModuleData() const { return (const StealthUpdateModuleData *)m_moduleData; }
-	UpdateSleepTime calcSleepTime() const { return m_enabled ? UPDATE_SLEEP_NONE : UPDATE_SLEEP_FOREVER; }
 
 	UnsignedInt m_stealthAllowedFrame; // +0x20
 	UnsignedInt m_detectionExpiresFrame; // +0x24
@@ -787,6 +789,14 @@ UnsignedInt StealthUpdate::getStealthLevel() const
 	return m_2c >= 0 ? m_2c : getStealthUpdateModuleData()->m_stealthLevel;
 }
 
+// ?rva00373D23@StealthUpdate@@QAEXXZ @0x00373D23
+// Clears the +0x2C stealth level override; BroadcastStealthUpdate
+// (0x004A33EE) calls it on each object it was broadcasting to.
+void StealthUpdate::rva00373D23()
+{
+	m_2c = -1;
+}
+
 // ?rva00373D28@StealthUpdate@@QAEPAV1@PAVObject@@@Z @0x00373D28
 StealthUpdate *StealthUpdate::rva00373D28(Object *obj)
 {
@@ -794,6 +804,12 @@ StealthUpdate *StealthUpdate::rva00373D28(Object *obj)
 	if (rider != NULL)
 		return rider->getStealth();
 	return NULL;
+}
+
+// ?calcSleepTime@StealthUpdate@@IBE?AW4UpdateSleepTime@@XZ @0x00373D4C
+UpdateSleepTime StealthUpdate::calcSleepTime() const
+{
+	return m_enabled ? UPDATE_SLEEP_NONE : UPDATE_SLEEP_FOREVER;
 }
 
 // ?rva00373D5E@StealthUpdate@@QAEXXZ @0x00373D5E
