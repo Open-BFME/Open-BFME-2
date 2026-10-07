@@ -15372,3 +15372,5 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva0032D554@SidesList@@QAEXXZ,0x0032D554,GameLogic::init 0x243EE7 callee
 ?rva0032F84F@SidesList@@QAEXXZ,0x0032F84F,GameLogic::init 0x243EE7 callee
 ?rva0035AA3E@Rva00359E13@@QAEXXZ,0x0035AA3E,GameLogic::init 0x243EE7 callee
+??0Rva0004224C@@QAE@XZ,0x0004224C,GameLogic::reset 0x2442A4 callee (FP-mode guard ctor / StatsCollector dtor folded with AsciiString release)
+??1Rva0048BA39StatsCollector@@QAE@XZ,0x0048BA39,GameLogic::reset 0x2442A4 callee (FP-mode guard ctor / StatsCollector dtor folded with AsciiString release)
