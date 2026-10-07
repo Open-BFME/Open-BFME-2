@@ -28,6 +28,95 @@ public:
 	Rva000421C8 *m_next;
 };
 
+// Opaque target view: allow 0x00261246 dispatches through slots +0x10 and
+// +0x114 of the object stored at Object+0x250. The slot meanings remain
+// address-derived; this declaration only fixes the observed ABI.
+class Rva00261246SubobjectView
+{
+public:
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual bool slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void slot14() = 0;
+	virtual void slot15() = 0;
+	virtual void slot16() = 0;
+	virtual void slot17() = 0;
+	virtual void slot18() = 0;
+	virtual void slot19() = 0;
+	virtual void slot20() = 0;
+	virtual void slot21() = 0;
+	virtual void slot22() = 0;
+	virtual void slot23() = 0;
+	virtual void slot24() = 0;
+	virtual void slot25() = 0;
+	virtual void slot26() = 0;
+	virtual void slot27() = 0;
+	virtual void slot28() = 0;
+	virtual void slot29() = 0;
+	virtual void slot30() = 0;
+	virtual void slot31() = 0;
+	virtual void slot32() = 0;
+	virtual void slot33() = 0;
+	virtual void slot34() = 0;
+	virtual void slot35() = 0;
+	virtual void slot36() = 0;
+	virtual void slot37() = 0;
+	virtual void slot38() = 0;
+	virtual void slot39() = 0;
+	virtual void slot40() = 0;
+	virtual void slot41() = 0;
+	virtual void slot42() = 0;
+	virtual void slot43() = 0;
+	virtual void slot44() = 0;
+	virtual void slot45() = 0;
+	virtual void slot46() = 0;
+	virtual void slot47() = 0;
+	virtual void slot48() = 0;
+	virtual void slot49() = 0;
+	virtual void slot50() = 0;
+	virtual void slot51() = 0;
+	virtual void slot52() = 0;
+	virtual void slot53() = 0;
+	virtual void slot54() = 0;
+	virtual void slot55() = 0;
+	virtual void slot56() = 0;
+	virtual void slot57() = 0;
+	virtual void slot58() = 0;
+	virtual void slot59() = 0;
+	virtual void slot60() = 0;
+	virtual void slot61() = 0;
+	virtual void slot62() = 0;
+	virtual void slot63() = 0;
+	virtual void slot64() = 0;
+	virtual void slot65() = 0;
+	virtual void slot66() = 0;
+	virtual void slot67() = 0;
+	virtual void slot68() = 0;
+	virtual int slot69(int arg) = 0;
+};
+
+class Object
+{
+public:
+	int rva0028D481() const;
+	bool rva0028D4C4() const;
+	char m_pad000[0x250];
+	Rva00261246SubobjectView *m_250;
+	char m_pad254[4];
+	int m_258;
+};
+
 // A KindOfMaskType as the mask filters copy it (0x0004543D).
 class BfmeFixedStorage0004543D
 {
@@ -101,9 +190,39 @@ class Rva00261246Filter : public Rva000421C8
 public:
 	Rva00261246Filter(bool a, bool b) : m_a(a), m_b(b) {}
 	virtual bool allow(Object *obj);
-	bool m_a;
-	bool m_b;
+	unsigned char m_a;
+	unsigned char m_b;
 };
+
+// Target identity: slot 1 of the pinned 0x00807160 filter vtable, also
+// constructed inline by AIPlayer::isLocationSafe at 0x004F08A8. Object
+// offsets and the +0x10/+0x114 dispatches below come from this retail body.
+// The Zero Hour PartitionFilterInsignificantBuildings name is donor evidence.
+bool Rva00261246Filter::allow(Object *obj)
+{
+	if ((unsigned char)obj->rva0028D481() != 0) {
+		if (!obj->rva0028D4C4())
+			goto ret_true;
+		if (m_b)
+			goto ret_true;
+		if (obj->m_258 != 0)
+			goto ret_true;
+		Rva00261246SubobjectView *subobject = obj->m_250;
+		if (subobject != 0) {
+			if (subobject->slot04()) {
+				if (subobject->slot69(0) != 0)
+					goto ret_true;
+			}
+			goto ret_false;
+		}
+		goto ret_true;
+	ret_false:
+		return false;
+	ret_true:
+		return true;
+	}
+	return m_a;
+}
 
 struct Coord3D
 {
