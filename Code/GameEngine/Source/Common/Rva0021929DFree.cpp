@@ -1,17 +1,30 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
-// ?Rva0021929DFree@@YGXPAPAX@Z @0x0021929D 35B
-// Honest-address free function: virtual slot 0 with 0 then operator delete and clear.
-// Evidence: retail mov eax,[ecx]; push 0; call [eax] plus direct call to rowed
-// ??3@YAXPAX@Z 0x0002FD60; caller 0x0040A1AC passes slot pointer with no stack
-// cleanup (stdcall ret 4); and [esi],0 clearing matches /O1.
-struct IRva0021929D
+// ?rva0021929D@Rva00219251@@QAEXPAPAVCreateAHeroData@@@Z @0x0021929D 35B
+// TheHeroManager's release for the CreateAHeroData its allocator 0x00219251
+// returns: global delete through the virtual destructor (slot 0 called with
+// 0, then the rowed ??3@YAXPAX@Z 0x0002FD60), then clear the caller's pointer.
+// Evidence: all seven callers (0x0037CB31, 0x0037CF61, 0x0037CFA0,
+// 0x0040A166, 0x0040A1C4, 0x004CF296, 0x004CF2DA) load ECX with
+// TheHeroManager (0x009FE344) before pushing the pointer's address, so this is
+// a thiscall member that ignores this. It was rowed before as the __stdcall
+// ?Rva0021929DFree@@YGXPAPAX@Z, which compiles to the same bytes; the old
+// name cannot be called with ECX set. Honest-address name, on the class the
+// allocator's row uses.
+
+class CreateAHeroData
 {
-	virtual void *Get(int x) = 0;
+public:
+	virtual ~CreateAHeroData();
 };
 
-void __stdcall Rva0021929DFree(void **slot)
+class Rva00219251
 {
-	void *toFree = *slot ? ((IRva0021929D *)*slot)->Get(0) : 0;
-	::operator delete(toFree);
-	*slot = 0;
+public:
+	void rva0021929D(CreateAHeroData **data);
+};
+
+void Rva00219251::rva0021929D(CreateAHeroData **data)
+{
+	::delete *data;
+	*data = 0;
 }
