@@ -20,6 +20,15 @@ struct EyeTowerPair {
   float first;
   float second;
 };
+// Donor type and interface from BFME1 LivingWorldEyeTowerState.cpp.
+struct Gen0060CBB0Pair { float first; float second; };
+class BfmeStateDF {
+public:
+  void interpolate(Gen0060CBB0Pair *from, Gen0060CBB0Pair *to,
+                   Gen0060CBB0Pair *current, float progress);
+};
+class Rva002D3627Host;
+extern Rva002D3627Host *g_00DFEF18;
 class LivingWorldEyeTower {
   char m_head[0x3C];
   EyeTowerPair *m_begin;
@@ -27,6 +36,7 @@ class LivingWorldEyeTower {
   EyeTowerPair *m_capacity;
   void *getPair();
   void processItems();
+  void beginState();
 public:
   void rva003F9B5A();
   unsigned int m_state;
@@ -62,4 +72,26 @@ void LivingWorldEyeTower::rva003F9B5A()
     return;
   }
   processItems();
+}
+
+// ?beginState@LivingWorldEyeTower@@AAEXXZ @0x003F9B93 90B
+// BFME1 donor: game/GameEngine/Source/GameClient/LivingWorldEyeTowerState.cpp
+// at 6583b3c1ff21db4a561285717028fdafc780b7db. Target bytes prove the +0x64/
+// +0x68 rate and progress fields, singleton load at VA 0x00DFEF18, pair pointers
+// at +0x54/+0x4c/+0x5c, and call at 0x003F9BD0. The BfmeStateDF name/signature
+// follows the donor declaration; target body semantics and call ABI agree.
+void LivingWorldEyeTower::beginState()
+{
+  m_progress68 = m_rate64 + m_progress68;
+  if (m_progress68 >= 1.0f)
+    m_progress68 = 1.0f;
+
+  ((BfmeStateDF *)g_00DFEF18)->interpolate(
+      (Gen0060CBB0Pair *)&m_from,
+      (Gen0060CBB0Pair *)&m_to,
+      (Gen0060CBB0Pair *)&m_current,
+      m_progress68);
+
+  if (m_progress68 >= 1.0f)
+    processItems();
 }
