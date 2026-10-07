@@ -64,3 +64,13 @@ Rva0072AEDRef Rva0072AED::rva00072AC3()
 Rva0072AED::~Rva0072AED()
 {
 }
+
+class __declspec(novtable) Rva00072FE1 : public Rva0072AED
+{
+public:
+	virtual ~Rva00072FE1();
+};
+
+Rva00072FE1::~Rva00072FE1()
+{
+}
