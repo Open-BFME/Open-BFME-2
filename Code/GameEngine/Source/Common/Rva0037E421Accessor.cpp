@@ -13,7 +13,7 @@ static __forceinline Elem216 &VecAt(Vec216 *v, int i) { return v->m_start[i]; }
 class Player;
 class Object;
 class Image;
-class UnitRevivalEntry { public: void *getThingTemplate(); int revivalEntryCalcTimeToBuild(const Player *player, Object *producer); const Image *calcButtonImage(int value); };
+class UnitRevivalEntry { public: void *getThingTemplate(); int revivalEntryCalcTimeToBuild(const Player *player, Object *producer); int revivalEntryCalcCostToBuild(const Player *player, Object *producer); const Image *calcButtonImage(int value); };
 class Rva0037E421 {
     int m_00;
     Vec216 m_vec;
@@ -117,6 +117,7 @@ class Rva0037E6E8 : public Rva0037E421
 public:
     Player *m_10;
     int rva0037E6E8(void *extra, void *object);
+    int rva0037E649(int index, Object *object);
 };
 int Rva0037E6E8::rva0037E6E8(void *extra, void *object)
 {
@@ -175,4 +176,27 @@ const Image *Rva0037EDC6::rva0037EDC6(int index)
     if (!entry)
         return 0;
     return ((UnitRevivalEntry *)entry)->calcButtonImage(m_10);
+}
+
+// Native 37E649..37E6E8 RET8; index-based cost twin of the full rowed
+// key-based time body above. Both consume the same 216-byte entry and
+// owner +10 Player slot. This body uses the rowed index accessor37E421,
+// rowed cost helper37E18A, and the native PlayerList discount field+850.
+// Original owner and public method names remain unproven.
+int Rva0037E6E8::rva0037E649(int index, Object *object)
+{
+    void *entry = rva0037E421(index);
+    if (!entry)
+        return 0;
+    void *p1 = object->getControllingPlayer();
+    if ((int)((Rva002A9BF2 *)p1)->rva002A9BF2() == 3) {
+        void *p2 = object->getControllingPlayer();
+        if (g_00DFEEF8->rva002A8AB1((Rva003A2BD4M08 *)p2)) {
+            float *limitPtr = (float *)((char *)g_00DFEEF8 + 0x850);
+            float scale = (1.0f > *limitPtr) ? *limitPtr : 1.0f;
+            int cost = ((UnitRevivalEntry *)entry)->revivalEntryCalcCostToBuild(m_10, object);
+            return (int)((float)cost * (1.0f - scale));
+        }
+    }
+    return ((UnitRevivalEntry *)entry)->revivalEntryCalcCostToBuild(m_10, object);
 }
