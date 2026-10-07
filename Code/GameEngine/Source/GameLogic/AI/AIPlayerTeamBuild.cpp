@@ -60,6 +60,14 @@
 //    list at +4 (0x0055B156) and sets the flag. The factory path passes
 //    findFactory's build index to queueCreateUnit (+0x20) and
 //    requestUniqueUnitID (+0x08) takes BFME 2's four arguments.
+//  - repairStructure 0x004F2F66 (94 bytes, vtable +0x38): ZH's two-entry
+//    repair queue (+0x48, count +0x60) over the body module at +0x254.
+//  - doUpgradesAndSkills 0x004F31B6 (519 bytes, vtable +0x4C): ZH's skillset
+//    pick and science purchases. AISideInfo's five 0x54-byte skillsets start
+//    at +0x14 and its next link is +0x1BC; the random pick passes
+//    AIPlayer.cpp line 2961. Reading the side list through an inline
+//    getAiData() gives retail's edi/esi assignment, and the one-character
+//    appends inline StringBase<char>::concat(&c, 1) on the argument slot.
 // GameLogic comes from the canonical GameLogicObjectLookupView.h.
 #include "ascii_string.h"
 typedef bool Bool;
@@ -112,6 +120,7 @@ public:
 };
 
 class Object;
+enum BodyDamageType { BODY_PRISTINE = 0 };
 class Rva0037EE4C
 {
 public:
@@ -123,10 +132,25 @@ public:
 	Int rva0037E649(Int index, Object *obj);
 };
 
+enum ScienceType { SCIENCE_INVALID = -1 };
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+
 class Player
 {
 public:
-	unsigned char m_pad000[0x94];
+	Int getSciencePurchasePoints() const { return m_sciencePurchasePoints; }
+	NameKeyType getPlayerNameKey() const { return m_playerNameKey; }
+	const AsciiString &getSide() const { return m_side; }
+	Bool isCapableOfPurchasingScience(ScienceType science) const;
+	Bool attemptToPurchaseScience(ScienceType science);
+
+	unsigned char m_pad000[0x24];
+	Int m_sciencePurchasePoints;		// +0x24
+	unsigned char m_pad028[0x50 - 0x28];
+	NameKeyType m_playerNameKey;		// +0x50
+	unsigned char m_pad054[0x58 - 0x54];
+	AsciiString m_side;			// +0x58
+	unsigned char m_pad05C[0x94 - 0x5C];
 	unsigned int m_money;				// +0x94
 	unsigned char m_pad098[0x2EC - 0x98];
 	Team *m_defaultTeam;			// +0x2EC
@@ -295,10 +319,26 @@ public:
 	Bool m_bfme3BE;					// +0x3BE
 };
 
+class BodyModuleInterface
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual BodyDamageType getDamageState() const;	// +0x20
+};
+
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+	ObjectID getID() const { return m_id; }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	void *rva0028BC58(Int which);
 	AIUpdateInterface *getAI() const { return m_ai; }
@@ -313,7 +353,8 @@ public:
 	Object *m_next;					// +0x8C
 	unsigned char m_pad090[0x1C8 - 0x90];
 	BitFlags<11> m_disabledMask;			// +0x1C8
-	unsigned char m_pad1CC[0x258 - 0x1CC];
+	unsigned char m_pad1CC[0x254 - 0x1CC];
+	BodyModuleInterface *m_body;			// +0x254
 	AIUpdateInterface *m_ai;			// +0x258
 	unsigned char m_pad25C[0x304 - 0x25C];
 	Team *m_team;					// +0x304
@@ -417,17 +458,62 @@ public:
 };
 extern TeamFactory *TheTeamFactory;
 
+enum { MAX_KEY_SKILLS = 20 };
+struct TSkillSet
+{
+	Int m_numSkills;
+	ScienceType m_skills[MAX_KEY_SKILLS];
+};
+
+class AISideInfo
+{
+public:
+	void *m_vtable;
+	AsciiString m_side;			// +0x04
+	Int m_easy;				// +0x08
+	Int m_normal;				// +0x0C
+	Int m_hard;				// +0x10
+	TSkillSet m_skillSet1;			// +0x14
+	TSkillSet m_skillSet2;			// +0x68
+	TSkillSet m_skillSet3;			// +0xBC
+	TSkillSet m_skillSet4;			// +0x110
+	TSkillSet m_skillSet5;			// +0x164
+	AsciiString m_baseDefenseStructure1;	// +0x1B8
+	AISideInfo *m_next;			// +0x1BC
+};
+
 struct TAiData
 {
 	char m_pad000[0x28];
 	float m_teamResourcesToBuild;	// +0x28
+	char m_pad02C[0xF4 - 0x2C];
+	AISideInfo *m_sideInfo;		// +0xF4
 };
+
+class NameKeyGenerator
+{
+public:
+	const AsciiString &keyToName(NameKeyType key);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// The rowed body at 0x001FF5F2 under its pinned address spelling
+// (Zero Hour's getInternalNameForScience).
+class ScienceStore
+{
+public:
+	AsciiString rva001FF5F2(ScienceType science) const;
+};
+extern ScienceStore *TheScienceStore;
+
+int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
 class AI
 {
 public:
 	char m_pad00[0x18];
 	TAiData *m_aiData;		// +0x18
+	const TAiData *getAiData() const { return m_aiData; }
 };
 extern AI *TheAI;
 
@@ -605,6 +691,8 @@ public:
 };
 extern ScriptEngine *TheScriptEngine;
 
+enum { MAX_STRUCTURES_TO_REPAIR = 2 };
+
 class AIPlayer
 {
 protected:
@@ -619,15 +707,19 @@ protected:
 	virtual void slot08();
 	virtual void slot09();
 	virtual void slot10();
-	virtual void slot11();
+public:
+	virtual Bool isSkirmishAI();					// +0x2C
+protected:
 	virtual void slot12();
 	virtual void slot13();
-	virtual void slot14();
+public:
+	virtual void repairStructure(ObjectID structure);		// +0x38
+protected:
 	virtual void slot15();
 	virtual void checkReadyTeams();					// +0x40
 	virtual void checkQueuedTeams();				// +0x44
 	virtual void slot18();
-	virtual void slot19();
+	virtual void doUpgradesAndSkills();				// +0x4C
 	virtual Object *findDozer(const Coord3D *searchPosition);	// +0x50
 	virtual void queueDozer();					// +0x54
 	virtual void slot22();
@@ -660,8 +752,13 @@ private:
 	Player *m_player;		// +0x0C
 	unsigned char m_pad10[0x24 - 0x10];
 	Int m_teamDelay;		// +0x24
-	unsigned char m_pad28[0x50 - 0x28];
+	unsigned char m_pad28[0x30 - 0x28];
+	Int m_skillsetSelector;		// +0x30
+	unsigned char m_pad34[0x48 - 0x34];
+	ObjectID m_structuresToRepair[MAX_STRUCTURES_TO_REPAIR];	// +0x48
 	ObjectID m_repairDozer;		// +0x50
+	Coord3D m_repairDozerOrigin;	// +0x54
+	Int m_structuresInQueue;	// +0x60
 };
 
 enum { DOZER_TASK_BUILD = 0 };
@@ -1103,6 +1200,109 @@ void AIPlayer::queueDozer()
 		tTemplate = tTemplate->friend_getNextTemplate();
 	}
 	m_player->setCanBuildUnits(canBuildUnits);
+}
+
+void AIPlayer::repairStructure(ObjectID structure)
+{
+	Object *structureObj = TheGameLogic->findObjectByID(structure);
+	if (structureObj == NULL)
+		return;
+	if (structureObj->getBodyModule() == NULL)
+		return;
+	if (structureObj->getBodyModule()->getDamageState() == BODY_PRISTINE)
+		return;
+	Int i;
+	for (i = 0; i < m_structuresInQueue; i++)
+	{
+		if (m_structuresToRepair[i] == structureObj->getID())
+			return;
+	}
+	if (m_structuresInQueue == MAX_STRUCTURES_TO_REPAIR)
+		return;
+	m_structuresToRepair[m_structuresInQueue] = structureObj->getID();
+	m_structuresInQueue++;
+}
+
+enum { INVALID_SKILLSET_SELECTION = -1 };
+
+// Retail inlines the one-character append as StringBase<char>::concat(&c, 1).
+static __forceinline void concatChar(AsciiString &s, char c)
+{
+	((StringBase<char> *)&s)->concat(&c, 1);
+}
+
+void AIPlayer::doUpgradesAndSkills()
+{
+	if (TheGameLogic->getFrame() < 2)
+		return;
+
+	Bool checkScience = m_player->getSciencePurchasePoints() > 0;
+	if (!checkScience)
+		return;
+	const AISideInfo *sideInfo = TheAI->getAiData()->m_sideInfo;
+	while (sideInfo)
+	{
+		if (sideInfo->m_side == m_player->getSide())
+			break;
+		sideInfo = sideInfo->m_next;
+	}
+	if (sideInfo == NULL)
+		return;
+
+	if (m_skillsetSelector == INVALID_SKILLSET_SELECTION)
+	{
+		Int limit = 0;
+		if (sideInfo->m_skillSet2.m_numSkills > 0)
+		{
+			limit = 1;
+			if (sideInfo->m_skillSet3.m_numSkills > 0)
+			{
+				limit = 2;
+				if (sideInfo->m_skillSet4.m_numSkills > 0)
+				{
+					limit = 3;
+					if (sideInfo->m_skillSet5.m_numSkills > 0)
+						limit = 4;
+				}
+			}
+		}
+		if (isSkirmishAI())
+			m_skillsetSelector = GetGameLogicRandomValue(0, limit, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIPlayer.cpp", 2961);
+		else
+			m_skillsetSelector = 0;
+	}
+
+	if (m_player->getSciencePurchasePoints() > 0)
+	{
+		const TSkillSet *skillset;
+		switch (m_skillsetSelector)
+		{
+		default:
+		case 0: skillset = &sideInfo->m_skillSet1; break;
+		case 1: skillset = &sideInfo->m_skillSet2; break;
+		case 2: skillset = &sideInfo->m_skillSet3; break;
+		case 3: skillset = &sideInfo->m_skillSet4; break;
+		case 4: skillset = &sideInfo->m_skillSet5; break;
+		}
+		Int i;
+		for (i = 0; i < skillset->m_numSkills; i++)
+		{
+			ScienceType science = skillset->m_skills[i];
+			if (m_player->isCapableOfPurchasingScience(science))
+			{
+				if (m_player->attemptToPurchaseScience(science))
+				{
+					AsciiString msg = TheNameKeyGenerator->keyToName(m_player->getPlayerNameKey());
+					msg.concat(" purchases from SkillSet");
+					concatChar(msg, (char)('1' + m_skillsetSelector));
+					concatChar(msg, ' ');
+					msg.concat(TheScienceStore->rva001FF5F2(science));
+					msg.concat(".");
+					TheScriptEngine->AppendDebugMessage(msg, false);
+				}
+			}
+		}
+	}
 }
 
 void AIPlayer::checkReadyTeams()
