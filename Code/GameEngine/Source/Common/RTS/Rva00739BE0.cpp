@@ -43,8 +43,10 @@ class Rva00739BE0;
 class ShroudManagerImpl
 {
 	friend class Rva00739BE0;
+ friend class Rva00739A30;
 private:
 	void rva0073CCC0(int x1, int x2, void *arr, int zero, int mask);
+ void rva0073CAF0(int x1, int x2, void *arr, float rotation, int mask);
 public:
 	float m_pad00;
 	float m_originX;
@@ -72,4 +74,36 @@ void Rva00739BE0::rva00739BE0(Pair00739BE0 *p, float f, int mask)
 	int iy = fast_round(fast_floor((p->y - m_gen10->m_originY) * m_gen10->m_scale));
 	int ix = fast_round(fast_floor((p->x - m_gen10->m_originX) * m_gen10->m_scale));
 	m_gen10->rva0073CCC0(ix, iy, arr, 0, mask);
+}
+
+// Native739A30..739AE3 thiscall179B RET0C. The rowed
+// ScriptEngine::doNamedMapReveal3577DA calls this with a waypoint location
+// and radius through TheShroudManager; undo calls the existing739BE0.
+// Both wrappers independently consume impl+4/+8 origins and +20 scale.
+// Native callee73CAF0 is a complete362B RET14 routine: it consumes two
+// cell coordinates, three integer radii, a float rotation and player mask.
+// It is called with zero rotation here; its original method name remains
+// unknown. Unlike the undo sibling it dispatches the native reveal walker.
+// BFME1 donor1399ad37 Common/RTS/ShroudManagerImpl008FBA40.cpp supplies
+// a related world-to-cell semantic guide; target receiver+10 comes from
+// retail, not BFME1's different manager layout. The existing FISTP helper
+// preserves the native x87 conversion instead of introducing CRT _ftol.
+class Rva00739A30
+{
+public:
+ void rva00739A30(Pair00739BE0 *p, float f, int mask);
+private:
+ char m_pad00[16];
+ ShroudManagerImpl *m_gen10;
+};
+void Rva00739A30::rva00739A30(Pair00739BE0 *p, float f, int mask)
+{
+	int ic = fast_round(fast_ceil(f * m_gen10->m_scale));
+	int arr[3];
+	arr[2] = ic;
+	arr[1] = ic;
+	arr[0] = ic;
+	int iy = fast_round(fast_floor((p->y - m_gen10->m_originY) * m_gen10->m_scale));
+	int ix = fast_round(fast_floor((p->x - m_gen10->m_originX) * m_gen10->m_scale));
+	m_gen10->rva0073CAF0(ix, iy, arr, 0.0f, mask);
 }
