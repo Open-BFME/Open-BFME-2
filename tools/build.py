@@ -1747,8 +1747,16 @@ def funclet_eh_object(path, mtime, size):
     return eh_verify.Obj(Path(path))
 
 
+@functools.lru_cache(maxsize=2)
+def funclet_parent_symbol_map(ledger_path, ledger_mtime, ledger_size,
+                              pin_path, pin_mtime, pin_size):
+    """One call-resolution map for each unchanged ledger/pin input snapshot."""
+    return load_symbol_map()
+
+
 @functools.lru_cache(maxsize=256)
-def funclet_eh_locations(path, mtime, size, parent, ledger_path, ledger_mtime, ledger_size):
+def funclet_eh_locations(path, mtime, size, parent, ledger_path, ledger_mtime, ledger_size,
+                         pin_path, pin_mtime, pin_size):
     """Only a byte-verified ledger parent and its exact EH graph supply identity."""
     import eh_verify
     parents = funclet_parent_rows(ledger_path, ledger_mtime, ledger_size).get(parent, [])
@@ -1757,7 +1765,9 @@ def funclet_eh_locations(path, mtime, size, parent, ledger_path, ledger_mtime, l
     obj = funclet_eh_object(path, mtime, size)
     if parent not in obj.by_name:
         return {}
-    patch = compile_function(parents[0], load_symbol_map(), Path(path))
+    symbol_map = funclet_parent_symbol_map(ledger_path, ledger_mtime, ledger_size,
+                                           pin_path, pin_mtime, pin_size)
+    patch = compile_function(parents[0], symbol_map, Path(path))
     if patch["unresolved"] or patch["bytes"] != patch["target"]:
         return {}
     return eh_verify.verified_funclet_locations(
@@ -1774,9 +1784,13 @@ def located_funclet(row, output, target):
     if not ledger.is_file():
         return None
     ledger_stat = ledger.stat()
+    pins = ROOT / "reverse" / "symbols.csv"
+    pin_stat = pins.stat() if pins.is_file() else None
     locations = funclet_eh_locations(str(output), stat.st_mtime_ns, stat.st_size,
                                     parent.group(1), str(ledger),
-                                    ledger_stat.st_mtime_ns, ledger_stat.st_size)
+                                    ledger_stat.st_mtime_ns, ledger_stat.st_size,
+                                    str(pins), pin_stat.st_mtime_ns if pin_stat else 0,
+                                    pin_stat.st_size if pin_stat else 0)
     rva = int(row["target_rva"], 16)
     hits = [name for name, address in locations.items()
             if address == rva and re.fullmatch(r"\$L\d+", name)]

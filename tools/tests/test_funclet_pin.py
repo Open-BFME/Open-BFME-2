@@ -227,7 +227,7 @@ def test_missing_or_duplicate_parent_ledger_cannot_supply_identity(tmp_path, mon
                       f"uw_fixture,0x2000,matched,gen-funclet;parent={PARENT}\n" +
                       f"{PARENT},0x1000,matched,\n" * 2)
     monkeypatch.setattr(build, "ROOT", tmp_path)
-    assert build.funclet_eh_locations("absent.obj", 1, 1, PARENT, str(ledger), 1, 1) == {}
+    assert build.funclet_eh_locations("absent.obj", 1, 1, PARENT, str(ledger), 1, 1, "pins", 1, 1) == {}
 
 
 def test_wrong_parent_body_cannot_supply_eh_identity(monkeypatch):
@@ -238,7 +238,7 @@ def test_wrong_parent_body_cannot_supply_eh_identity(monkeypatch):
     monkeypatch.setattr(build, "load_symbol_map", lambda: {})
     monkeypatch.setattr(build, "compile_function", lambda *_: {
         "bytes": b"\xc3", "target": b"\xc2", "unresolved": []})
-    assert build.funclet_eh_locations("wrong-parent.obj", 1, 1, PARENT, "ledger", 1, 1) == {}
+    assert build.funclet_eh_locations("wrong-parent.obj", 1, 1, PARENT, "ledger", 1, 1, "pins", 1, 1) == {}
 
 
 def test_unresolved_parent_call_cannot_supply_eh_identity(monkeypatch):
@@ -249,4 +249,18 @@ def test_unresolved_parent_call_cannot_supply_eh_identity(monkeypatch):
     monkeypatch.setattr(build, "load_symbol_map", lambda: {})
     monkeypatch.setattr(build, "compile_function", lambda *_: {
         "bytes": b"\xc3", "target": b"\xc3", "unresolved": ["unproved"]})
-    assert build.funclet_eh_locations("unresolved-parent.obj", 1, 1, PARENT, "ledger", 1, 1) == {}
+    assert build.funclet_eh_locations("unresolved-parent.obj", 1, 1, PARENT, "ledger", 1, 1, "pins", 1, 1) == {}
+
+
+def test_parent_call_map_is_cached_and_invalidated_by_both_inputs(monkeypatch):
+    calls = []
+    def load():
+        calls.append(1)
+        return {"callee": [len(calls)]}
+    monkeypatch.setattr(build, "load_symbol_map", load)
+    build.funclet_parent_symbol_map.cache_clear()
+    one = build.funclet_parent_symbol_map("ledger", 1, 10, "pins", 2, 20)
+    assert build.funclet_parent_symbol_map("ledger", 1, 10, "pins", 2, 20) is one
+    assert len(calls) == 1
+    assert build.funclet_parent_symbol_map("ledger", 3, 10, "pins", 2, 20) != one
+    assert build.funclet_parent_symbol_map("ledger", 3, 10, "pins", 4, 20)["callee"] == [3]
