@@ -4121,162 +4121,10 @@ void DX8Wrapper::Set_Gamma(float gamma,float bright,float contrast,bool calibrat
 	}
 }
 
-//**********************************************************************************************
-//! Resets render device to default state
-/*!
-*/
-// ?Apply_Default_State@DX8Wrapper@@ present-unmatched
-void DX8Wrapper::Apply_Default_State()
-{
-	SNAPSHOT_SAY(("DX8Wrapper::Apply_Default_State()\n"));
-	
-	// only set states used in game
-	Set_DX8_Render_State(D3DRS_ZENABLE, TRUE);
-//	Set_DX8_Render_State(D3DRS_FILLMODE, D3DFILL_SOLID);
-	Set_DX8_Render_State(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
-	//Set_DX8_Render_State(D3DRS_LINEPATTERN, 0);
-	Set_DX8_Render_State(D3DRS_ZWRITEENABLE, TRUE);
-	Set_DX8_Render_State(D3DRS_ALPHATESTENABLE, FALSE);
-	//Set_DX8_Render_State(D3DRS_LASTPIXEL, FALSE);
-	Set_DX8_Render_State(D3DRS_SRCBLEND, D3DBLEND_ONE);
-	Set_DX8_Render_State(D3DRS_DESTBLEND, D3DBLEND_ZERO);
-	Set_DX8_Render_State(D3DRS_CULLMODE, D3DCULL_CW);
-	Set_DX8_Render_State(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
-	Set_DX8_Render_State(D3DRS_ALPHAREF, 0);
-	Set_DX8_Render_State(D3DRS_ALPHAFUNC, D3DCMP_LESSEQUAL);
-	Set_DX8_Render_State(D3DRS_DITHERENABLE, FALSE);
-	Set_DX8_Render_State(D3DRS_ALPHABLENDENABLE, FALSE);
-	Set_DX8_Render_State(D3DRS_FOGENABLE, FALSE);
-	Set_DX8_Render_State(D3DRS_SPECULARENABLE, FALSE);
-//	Set_DX8_Render_State(D3DRS_ZVISIBLE, FALSE);
-//	Set_DX8_Render_State(D3DRS_FOGCOLOR, 0);
-//	Set_DX8_Render_State(D3DRS_FOGTABLEMODE, D3DFOG_NONE);
-//	Set_DX8_Render_State(D3DRS_FOGSTART, 0);
-
-//	Set_DX8_Render_State(D3DRS_FOGEND, WWMath::Float_As_Int(1.0f));
-//	Set_DX8_Render_State(D3DRS_FOGDENSITY, WWMath::Float_As_Int(1.0f));
-
-	//Set_DX8_Render_State(D3DRS_EDGEANTIALIAS, FALSE);
-	Set_DX8_Render_State(D3DRS_ZBIAS, 0);
-//	Set_DX8_Render_State(D3DRS_RANGEFOGENABLE, FALSE);
-	Set_DX8_Render_State(D3DRS_STENCILENABLE, FALSE);
-	Set_DX8_Render_State(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP);
-	Set_DX8_Render_State(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);
-	Set_DX8_Render_State(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
-	Set_DX8_Render_State(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);
-	Set_DX8_Render_State(D3DRS_STENCILREF, 0);
-	Set_DX8_Render_State(D3DRS_STENCILMASK, 0xffffffff);
-	Set_DX8_Render_State(D3DRS_STENCILWRITEMASK, 0xffffffff);
-	Set_DX8_Render_State(D3DRS_TEXTUREFACTOR, 0);
-/*	Set_DX8_Render_State(D3DRS_WRAP0, D3DWRAP_U| D3DWRAP_V);
-	Set_DX8_Render_State(D3DRS_WRAP1, D3DWRAP_U| D3DWRAP_V);
-	Set_DX8_Render_State(D3DRS_WRAP2, D3DWRAP_U| D3DWRAP_V);
-	Set_DX8_Render_State(D3DRS_WRAP3, D3DWRAP_U| D3DWRAP_V);
-	Set_DX8_Render_State(D3DRS_WRAP4, D3DWRAP_U| D3DWRAP_V);
-	Set_DX8_Render_State(D3DRS_WRAP5, D3DWRAP_U| D3DWRAP_V);
-	Set_DX8_Render_State(D3DRS_WRAP6, D3DWRAP_U| D3DWRAP_V);
-	Set_DX8_Render_State(D3DRS_WRAP7, D3DWRAP_U| D3DWRAP_V);*/
-	Set_DX8_Render_State(D3DRS_CLIPPING, TRUE);
-	Set_DX8_Render_State(D3DRS_LIGHTING, FALSE);
-	//Set_DX8_Render_State(D3DRS_AMBIENT, 0);
-//	Set_DX8_Render_State(D3DRS_FOGVERTEXMODE, D3DFOG_NONE);
-	Set_DX8_Render_State(D3DRS_COLORVERTEX, TRUE);
-/*	Set_DX8_Render_State(D3DRS_LOCALVIEWER, TRUE);
-	Set_DX8_Render_State(D3DRS_NORMALIZENORMALS, FALSE);
-	Set_DX8_Render_State(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_COLOR1);
-	Set_DX8_Render_State(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_COLOR2);
-	Set_DX8_Render_State(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_MATERIAL);
-	Set_DX8_Render_State(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
-	Set_DX8_Render_State(D3DRS_VERTEXBLEND, D3DVBF_DISABLE);*/
-	//Set_DX8_Render_State(D3DRS_CLIPPLANEENABLE, 0);
-	Set_DX8_Render_State(D3DRS_SOFTWAREVERTEXPROCESSING, FALSE);
-	//Set_DX8_Render_State(D3DRS_POINTSIZE, 0x3f800000);
-	//Set_DX8_Render_State(D3DRS_POINTSIZE_MIN, 0);
-	//Set_DX8_Render_State(D3DRS_POINTSPRITEENABLE, FALSE);
-	//Set_DX8_Render_State(D3DRS_POINTSCALEENABLE, FALSE);
-	//Set_DX8_Render_State(D3DRS_POINTSCALE_A, 0);
-	//Set_DX8_Render_State(D3DRS_POINTSCALE_B, 0);
-	//Set_DX8_Render_State(D3DRS_POINTSCALE_C, 0);
-	//Set_DX8_Render_State(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
-	//Set_DX8_Render_State(D3DRS_MULTISAMPLEMASK, 0xffffffff);
-	//Set_DX8_Render_State(D3DRS_PATCHEDGESTYLE, D3DPATCHEDGE_DISCRETE);
-	//Set_DX8_Render_State(D3DRS_PATCHSEGMENTS, 0x3f800000);
-	//Set_DX8_Render_State(D3DRS_DEBUGMONITORTOKEN, D3DDMT_ENABLE);
-	//Set_DX8_Render_State(D3DRS_POINTSIZE_MAX, Float_At_Int(64.0f));
-	//Set_DX8_Render_State(D3DRS_INDEXEDVERTEXBLENDENABLE, FALSE);
-	Set_DX8_Render_State(D3DRS_COLORWRITEENABLE, 0x0000000f);
-	//Set_DX8_Render_State(D3DRS_TWEENFACTOR, 0);
-	Set_DX8_Render_State(D3DRS_BLENDOP, D3DBLENDOP_ADD);
-	//Set_DX8_Render_State(D3DRS_POSITIONORDER, D3DORDER_CUBIC);
-	//Set_DX8_Render_State(D3DRS_NORMALORDER, D3DORDER_LINEAR);
-
-	// disable TSS stages
-	int i;
-	for (i=0; i<CurrentCaps->Get_Max_Textures_Per_Pass(); i++)
-	{
-		Set_DX8_Texture_Stage_State(i, D3DTSS_COLOROP, D3DTOP_DISABLE);
-		Set_DX8_Texture_Stage_State(i, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-		Set_DX8_Texture_Stage_State(i, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
-
-		Set_DX8_Texture_Stage_State(i, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
-		Set_DX8_Texture_Stage_State(i, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-		Set_DX8_Texture_Stage_State(i, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
-	
-		/*Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVMAT00, 0);
-		Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVMAT01, 0);
-		Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVMAT10, 0);
-		Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVMAT11, 0);
-		Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVLSCALE, 0);
-		Set_DX8_Texture_Stage_State(i, D3DTSS_BUMPENVLOFFSET, 0);*/
-
-		Set_DX8_Texture_Stage_State(i, D3DTSS_TEXCOORDINDEX, i);
-		
-
-		Set_DX8_Texture_Stage_State(i, D3DTSS_ADDRESSU, D3DTADDRESS_WRAP);
-		Set_DX8_Texture_Stage_State(i, D3DTSS_ADDRESSV, D3DTADDRESS_WRAP);
-		Set_DX8_Texture_Stage_State(i, D3DTSS_BORDERCOLOR, 0);
-//		Set_DX8_Texture_Stage_State(i, D3DTSS_MAGFILTER, D3DTEXF_LINEAR);
-//		Set_DX8_Texture_Stage_State(i, D3DTSS_MINFILTER, D3DTEXF_LINEAR);
-//		Set_DX8_Texture_Stage_State(i, D3DTSS_MIPFILTER, D3DTEXF_LINEAR);
-//		Set_DX8_Texture_Stage_State(i, D3DTSS_MIPMAPLODBIAS, 0);
-//		Set_DX8_Texture_Stage_State(i, D3DTSS_MAXMIPLEVEL, 0);
-//		Set_DX8_Texture_Stage_State(i, D3DTSS_MAXANISOTROPY, 1);
-		//Set_DX8_Texture_Stage_State(i, D3DTSS_ADDRESSW, D3DTADDRESS_WRAP);
-		//Set_DX8_Texture_Stage_State(i, D3DTSS_COLORARG0, D3DTA_CURRENT);
-		//Set_DX8_Texture_Stage_State(i, D3DTSS_ALPHAARG0, D3DTA_CURRENT);
-		//Set_DX8_Texture_Stage_State(i, D3DTSS_RESULTARG, D3DTA_CURRENT);
-
-		Set_DX8_Texture_Stage_State(i, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
-		Set_Texture(i,NULL);
-	}
-
-//	DX8Wrapper::Set_Material(NULL);
-	VertexMaterialClass::Apply_Null();
-
-	for (unsigned index=0;index<4;++index) {
-		SNAPSHOT_SAY(("Clearing light %d to NULL\n",index));
-		Set_DX8_Light(index,NULL);
-	}
-
-	// set up simple default TSS 
-	Vector4 vconst[MAX_VERTEX_SHADER_CONSTANTS];
-	memset(vconst,0,sizeof(Vector4)*MAX_VERTEX_SHADER_CONSTANTS);
-	Set_Vertex_Shader_Constant(0, vconst, MAX_VERTEX_SHADER_CONSTANTS);
-
-	Vector4 pconst[MAX_PIXEL_SHADER_CONSTANTS];
-	memset(pconst,0,sizeof(Vector4)*MAX_PIXEL_SHADER_CONSTANTS);
-	Set_Pixel_Shader_Constant(0, pconst, MAX_PIXEL_SHADER_CONSTANTS);
-
-	Set_Vertex_Shader(DX8_FVF_XYZNDUV2);
-	Set_Pixel_Shader(0);
-
-	ShaderClass::Invalidate();
-}
-
-// DX8Wrapper::Get_DX8_Render_State_Name: defined in dx8wrapper_names.cpp (its row's unit).
-// DX8Wrapper::Get_DX8_Texture_Stage_State_Name: defined in dx8wrapper_names.cpp (its row's unit).
 // ?Get_DX8_Render_State_Value_Name@DX8Wrapper@@ present-unmatched
-void DX8Wrapper::Get_DX8_Render_State_Value_Name(StringClass& name, D3DRENDERSTATETYPE state, unsigned value)
+// Defined ahead of Apply_Default_State and forced inline, so each literal
+// render state there folds this switch down to its one case.
+__forceinline void DX8Wrapper::Get_DX8_Render_State_Value_Name(StringClass& name, D3DRENDERSTATETYPE state, unsigned value)
 {
 	switch (state) {
 	case D3DRS_ZENABLE:
@@ -4423,6 +4271,153 @@ void DX8Wrapper::Get_DX8_Render_State_Value_Name(StringClass& name, D3DRENDERSTA
 		break;
 	}
 }
+
+// The cached state setters in dx8wrapper.h own a snapshot StringClass, and
+// VC7.1 will not inline an exception-owning __forceinline body; BFME 2's
+// Apply_Default_State nevertheless carries each of them inline (one unwind
+// state per snapshot string), so the blocks are expanded here on the D3D9
+// device: SetRenderState 0xE4, SetTextureStageState 0x10C, SetSamplerState
+// 0x114.
+#define BFME_APPLY_RENDER_STATE(input_state,input_value) do { \
+	D3DRENDERSTATETYPE state=input_state; unsigned value=input_value; \
+	if (RenderStates[state]!=value) { \
+		if (WW3D::Is_Snapshot_Activated()) { \
+			StringClass value_name(0,true); \
+			Get_DX8_Render_State_Value_Name(value_name,state,value); \
+		} \
+		RenderStates[state]=value; \
+		BfmeApplyOps::Device()->SetRenderState(state,value); \
+		number_of_DX8_calls++; \
+		DX8_RECORD_RENDER_STATE_CHANGE(); \
+	} \
+} while (0)
+
+#define BFME_APPLY_TEXTURE_STAGE_STATE(input_stage,input_state,input_value) do { \
+	D3DTEXTURESTAGESTATETYPE state=input_state; unsigned value=input_value; \
+	const unsigned stage=input_stage; \
+	if (stage>=MAX_TEXTURE_STAGES) { \
+		BfmeApplyOps::Device()->SetTextureStageState(stage,state,value); \
+		number_of_DX8_calls++; \
+		break; \
+	} \
+	if (TextureStageStates[stage][state]==value) break; \
+	if (WW3D::Is_Snapshot_Activated()) { \
+		StringClass value_name(0,true); \
+		Get_DX8_Texture_Stage_State_Value_Name(value_name,state,value); \
+	} \
+	TextureStageStates[stage][state]=value; \
+	BfmeApplyOps::Device()->SetTextureStageState(stage,state,value); \
+	number_of_DX8_calls++; \
+	DX8_RECORD_TEXTURE_STAGE_STATE_CHANGE(); \
+} while (0)
+
+// D3D9 moved addressing and border colour to sampler state, uncached.
+#define BFME_APPLY_SAMPLER_STATE(stage,state,value) do { \
+	BfmeApplyOps::Device()->SetSamplerState(stage,state,value); \
+	number_of_DX8_calls++; \
+	DX8_RECORD_TEXTURE_STAGE_STATE_CHANGE(); \
+} while (0)
+
+//**********************************************************************************************
+//! Resets render device to default state
+/*!
+*/
+// BFME 2 (retail 0x00123170): Zero Hour's body without the stencil and
+// software-vertex-processing states, with COLORWRITEENABLE 7, the float depth
+// bias call for D3DRS_ZBIAS, three sampler states per stage and the holder
+// Set_Texture; the shader constants and shaders go straight to the device.
+void DX8Wrapper::Apply_Default_State()
+{
+	SNAPSHOT_SAY(("DX8Wrapper::Apply_Default_State()\n"));
+
+	// only set states used in game
+	unsigned zbuffer_enable=TRUE;
+	BFME_APPLY_RENDER_STATE(D3DRS_ZENABLE, zbuffer_enable);
+	unsigned shade_mode=D3DSHADE_GOURAUD;
+	BFME_APPLY_RENDER_STATE(D3DRS_SHADEMODE, shade_mode);
+	BFME_APPLY_RENDER_STATE(D3DRS_ZWRITEENABLE, TRUE);
+	BFME_APPLY_RENDER_STATE(D3DRS_ALPHATESTENABLE, FALSE);
+	BFME_APPLY_RENDER_STATE(D3DRS_SRCBLEND, D3DBLEND_ONE);
+	BFME_APPLY_RENDER_STATE(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+	BFME_APPLY_RENDER_STATE(D3DRS_CULLMODE, D3DCULL_CW);
+	BFME_APPLY_RENDER_STATE(D3DRS_ZFUNC, D3DCMP_LESSEQUAL);
+	BFME_APPLY_RENDER_STATE(D3DRS_ALPHAREF, 0);
+	BFME_APPLY_RENDER_STATE(D3DRS_ALPHAFUNC, D3DCMP_LESSEQUAL);
+	BFME_APPLY_RENDER_STATE(D3DRS_DITHERENABLE, FALSE);
+	BFME_APPLY_RENDER_STATE(D3DRS_ALPHABLENDENABLE, FALSE);
+	BFME_APPLY_RENDER_STATE(D3DRS_FOGENABLE, FALSE);
+	BFME_APPLY_RENDER_STATE(D3DRS_SPECULARENABLE, FALSE);
+
+	bfmeSetProjectionDepthBias(0.0f);
+	BFME_APPLY_RENDER_STATE(D3DRS_TEXTUREFACTOR, 0);
+
+	BFME_APPLY_RENDER_STATE(D3DRS_CLIPPING, TRUE);
+	BFME_APPLY_RENDER_STATE(D3DRS_LIGHTING, FALSE);
+	BFME_APPLY_RENDER_STATE(D3DRS_COLORVERTEX, TRUE);
+
+	BFME_APPLY_RENDER_STATE(D3DRS_COLORWRITEENABLE, D3DCOLORWRITEENABLE_RED|D3DCOLORWRITEENABLE_GREEN|D3DCOLORWRITEENABLE_BLUE);
+	BFME_APPLY_RENDER_STATE(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+
+	// disable TSS stages
+	int i;
+	for (i=0; i<reinterpret_cast<BfmeEnumerationCaps *>(CurrentCaps)->GetMaxTextures(); i++)
+	{
+		BFME_APPLY_TEXTURE_STAGE_STATE(i, D3DTSS_COLOROP, D3DTOP_DISABLE);
+		BFME_APPLY_TEXTURE_STAGE_STATE(i, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+		BFME_APPLY_TEXTURE_STAGE_STATE(i, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+
+		BFME_APPLY_TEXTURE_STAGE_STATE(i, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
+		BFME_APPLY_TEXTURE_STAGE_STATE(i, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+		BFME_APPLY_TEXTURE_STAGE_STATE(i, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+
+		BFME_APPLY_TEXTURE_STAGE_STATE(i, D3DTSS_TEXCOORDINDEX, i);
+
+		// D3DSAMP_ADDRESSU, D3DSAMP_ADDRESSV and D3DSAMP_BORDERCOLOR.
+		BFME_APPLY_SAMPLER_STATE(i, 1, D3DTADDRESS_WRAP);
+		BFME_APPLY_SAMPLER_STATE(i, 2, D3DTADDRESS_WRAP);
+		BFME_APPLY_SAMPLER_STATE(i, 4, 1);
+
+		BFME_APPLY_TEXTURE_STAGE_STATE(i, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
+		bfmeEndSceneSetTexture(reinterpret_cast<BfmeEndSceneTextureResource **>(render_state.Textures),i,NULL,render_state_changed,TEXTURE0_CHANGED);
+	}
+
+//	DX8Wrapper::Set_Material(NULL);
+	VertexMaterialClass::Apply_Null();
+
+	for (unsigned index=0;index<4;++index) {
+		SNAPSHOT_SAY(("Clearing light %d to NULL\n",index));
+		BfmeApplyOps::Light(index,NULL);
+	}
+
+	// set up simple default TSS 
+	Vector4 vconst[MAX_VERTEX_SHADER_CONSTANTS];
+	memset(vconst,0,sizeof(Vector4)*MAX_VERTEX_SHADER_CONSTANTS);
+	if (memcmp(vconst,Vertex_Shader_Constants,sizeof(vconst))!=0) {
+		memcpy(Vertex_Shader_Constants,vconst,sizeof(vconst));
+		BfmeApplyOps::Device()->SetVertexShaderConstantF(0,reinterpret_cast<const float *>(vconst),MAX_VERTEX_SHADER_CONSTANTS);
+		number_of_DX8_calls++;
+	}
+
+	Vector4 pconst[MAX_PIXEL_SHADER_CONSTANTS];
+	memset(pconst,0,sizeof(Vector4)*MAX_PIXEL_SHADER_CONSTANTS);
+	if (memcmp(pconst,Pixel_Shader_Constants,sizeof(pconst))!=0) {
+		memcpy(Pixel_Shader_Constants,pconst,sizeof(pconst));
+		BfmeApplyOps::Device()->SetPixelShaderConstantF(0,reinterpret_cast<const float *>(pconst),MAX_PIXEL_SHADER_CONSTANTS);
+		number_of_DX8_calls++;
+	}
+
+	BfmeApplyOps::Device()->SetVertexShader(NULL);
+	number_of_DX8_calls++;
+	BfmeApplyOps::Device()->SetFVF(DX8_FVF_XYZNDUV2);
+	number_of_DX8_calls++;
+	BfmeApplyOps::Device()->SetPixelShader(NULL);
+	number_of_DX8_calls++;
+
+	ShaderClass::Invalidate();
+}
+
+// DX8Wrapper::Get_DX8_Render_State_Name: defined in dx8wrapper_names.cpp (its row's unit).
+// DX8Wrapper::Get_DX8_Texture_Stage_State_Name: defined in dx8wrapper_names.cpp (its row's unit).
 
 // ?Get_DX8_Texture_Stage_State_Value_Name@DX8Wrapper@@ present-unmatched
 void DX8Wrapper::Get_DX8_Texture_Stage_State_Value_Name(StringClass& name, D3DTEXTURESTAGESTATETYPE state, unsigned value)
