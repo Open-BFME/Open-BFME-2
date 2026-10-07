@@ -20,6 +20,7 @@ struct BfmeStringRecord000331962 {
     AsciiString text;
     unsigned char flag;
     BfmeStringRecord000331962();
+    ~BfmeStringRecord000331962();
     BfmeStringRecord000331962(const BfmeStringRecord000331962 &o) : word(o.word), text(o.text), flag(o.flag) {}
 };
 #include <memory>

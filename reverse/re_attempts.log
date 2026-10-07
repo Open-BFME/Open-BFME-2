@@ -15083,3 +15083,4 @@ Rva00521B16	0x00521B16	50	blocked	Ghidra boundary 0x00521B16/50; body copies a U
 ?run@Rva00548527Runner@@QAEXXZ	0x00548527	267	blocked	267B list find erase plus Armor virtual needs layout donor t=15 model=muse-spark
 ?rva005482E9@Rva0054840A@@QAEXH@Z	0x005482E9	221	blocked	same list find erase layout donor as 0x00548527 t=5 model=muse-spark
 ?rva003F7260@Rva003F7260@@QAEXPAH@Z	0x003F7260	495	blocked	large vtable ref needs subsystem donor sweep t=15 model=muse-spark
+?Rva0050EC24@@YAXXZ	0x0050EC24	251	blocked	ADDRESS-NAMED g_Va00A046B4 g_Va00E048D0 no real name yet t=2 model=muse-17
