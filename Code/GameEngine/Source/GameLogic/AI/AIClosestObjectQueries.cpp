@@ -24,6 +24,12 @@
 //               target, counted 1 when the chain accepts it; otherwise the
 //               number of hits within range from the 2D centre. Called by
 //               0x00458BE1 with 0x20.
+//   0x002FFFA3  AI::findClosestEnemy (Zero Hour's name; AIHuntState::update
+//               0x003464D1 calls it as Zero Hour does, with 9999.9 and the
+//               attack qualifiers): BFME 2 adds a trailing int and forwards
+//               everything with the owner's +0x38 position to the 2146-byte
+//               worker 0x002FF07B, pinned under the name of its 0x002FFFCA
+//               caller's receiver.
 //
 // BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
 // a vptr, the +0x04 link to the next filter of a chain (PartitionFilter::link
@@ -34,6 +40,8 @@
 // drops when nothing follows.
 class Object;
 class Player;
+class AttackPriorityInfo;
+class PartitionFilter;
 
 class Rva000421C8
 {
@@ -290,6 +298,8 @@ public:
 	Object *rva002FDBC4(const Object *me, float range, unsigned int flags);
 	Object *findClosestRepulsor(const Object *me, float range);
 	int rva002FEEAD(Object *me, float range, unsigned int qualifiers);
+	Object *findClosestEnemy(const Object *me, float range, unsigned int qualifiers,
+		const AttackPriorityInfo *info, PartitionFilter *optionalFilter, int bfmeArg);
 
 private:
 	char m_pad00[0x18];
@@ -360,4 +370,18 @@ int AI::rva002FEEAD(Object *me, float range, unsigned int qualifiers)
 	}
 	return ThePartitionManager->iterateObjectsInRange(&me->m_pos, range, FROM_CENTER_2D,
 		&filterObvious, 0).size();
+}
+
+class Rva002FFFCA
+{
+public:
+	void *rva002FF07B(Object *me, const Coord3D *pos, float range, unsigned int qualifiers,
+		int info, int optionalFilter, int bfmeArg);
+};
+
+Object *AI::findClosestEnemy(const Object *me, float range, unsigned int qualifiers,
+	const AttackPriorityInfo *info, PartitionFilter *optionalFilter, int bfmeArg)
+{
+	return (Object *)((Rva002FFFCA *)this)->rva002FF07B((Object *)me, &me->m_pos, range,
+		qualifiers, (int)info, (int)optionalFilter, bfmeArg);
 }
