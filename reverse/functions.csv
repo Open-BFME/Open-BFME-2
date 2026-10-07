@@ -67861,3 +67861,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0031979C@Rva0031979COwner@@QAEXH@Z,,0x0031979C,27,Code/GameEngine/Source/Common/Rva0031979CForward.cpp,matched,helper resolve then sibling forward; w3-g26
 ?rva00319A12@Rva00319A12Owner@@QAEXXZ,,0x00319A12,64,Code/GameEngine/Source/Common/Rva00319A12Loop.cpp,matched,indexed string-mismatch loop reusing rowed get/compare; w3-g26
 ?rva003189AD@Rva003189ADOwner@@QAEXPAVXfer@@@Z,,0x003189AD,218,Code/GameEngine/Source/Common/System/Rva003189ADXfer.cpp,matched,dump-lane range 14: version-gated xfer {earliest 1 current 4} through rowed XferEnum helpers plus slots 27/30 and global slot 88; w3c-r14
+?rva00318ABB@@YAXPAVINI@@@Z,,0x00318ABB,78,Code/GameEngine/Source/Common/System/Rva00318ABBFieldParse.cpp,matched,dump-lane range 14: frameless SunbeamObject field-parse dispatcher with global string mirror and slot-14 tail jump; w3c-r14
