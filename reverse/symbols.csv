@@ -15825,3 +15825,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva000344A0@GeneralAllocator@Allocator@EA@@QAEPAXIIIH@Z,0x000344A0,callee of ?rva00035100@GeneralAllocator@Allocator@EA@@QAEPAXIIIH@Z
 ?rva00034B30@GeneralAllocator@Allocator@EA@@QAEPAXIIPBIPAPAXH@Z,0x00034B30,callee of ?rva00035100@GeneralAllocator@Allocator@EA@@QAEPAXIIIH@Z
 ?rva002ADDD9@Rva002AE71D@@QAEXPAVXfer@@@Z,0x002ADDD9,callee of ?rva002AE71D@Rva002AE71D@@QAEXPAVXfer@@@Z
+?rva00405D77@ControlBar@@QAEXXZ,0x00405D77,Native5B JMP405AA7 RET0 wrapper; caller5C33DD passes canonical TheControlBar; tail target is byte-verified Rva00405AA7 34B; exact same-this ABI and original method name unresolved

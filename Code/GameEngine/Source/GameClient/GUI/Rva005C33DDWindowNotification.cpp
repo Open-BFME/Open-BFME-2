@@ -1,8 +1,4 @@
-// ?rva005C33DD@Rva005C33DD@@QAEXXZ
-// partial score=0.95 date=2026-10-07
-// ?d_005c33dd@@YAXXZ
-// partial score=0.95 date=2026-10-07
-// cl: /DNDEBUG /MD
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
 // Native 5C33DD..5C3427 RET0; matched5C3586 tail-calls this method on
 // its +08 child. Original owner/method identity unresolved. Window+0C,
 // rowed instance getter314046 and id getter5C4AE9, instance owner+14 and
@@ -20,8 +16,11 @@ public:
     WinInstanceData *winGetInstanceData();
     int winGetWindowId();
 };
-class ControlBar;
-class Rva00405AA7 { public: void rva00405AA7(); };
+class ControlBar
+{
+public:
+    void rva00405D77();
+};
 extern ControlBar *TheControlBar;
 class GameWindowManager
 {
@@ -101,7 +100,7 @@ void Rva005C33DD::rva005C33DD()
     WinInstanceData *instance = window->winGetInstanceData();
     if (instance == 0)
         return;
-    reinterpret_cast<Rva00405AA7 *>(TheControlBar)->rva00405AA7();
+    TheControlBar->rva00405D77();
     GameWindow *owner = instance->owner;
     TheWindowManager->slot58(owner, 0x4008,
                             window,
