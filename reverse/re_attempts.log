@@ -17389,3 +17389,8 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?relayCommand@BFMEConnectionManager@@QAEXPAX@Z	0x004CF578	236	partial	register wall: param eax vs edx and mask memory vs ebx and loop index ebx vs memory and test eax vs al and GameLogic ecx vs eax t=28 model=muse-03 score=0.93 stash=reverse/attempts/0x004cf578.cpp
 ?rva004CF40E@Rva004CF40E@@QAEHPAUH@Z	0x004CF40E	362	blocked	362B EH ackCommand needs substantial ZH to BFME2 repair openState -1 vs isQuitting plus address param plus new EH t=10 model=muse-03
 ??0Rva005FF912Child@@QAE@PAVRva005FF912@@HH@Z	0x005FF675	643	blocked	5 delegate targets unlanded 007A66B2 005F68FE 005C790D 005FF161 005FF1A2 need rows first t=12 model=muse-01
+?M54ed@Rva005B57C6Box@@QAEXHPADH@Z	0x005B54ED	382	blocked	complex 382B EH AsciiString plus UnicodeString with 2 pin-only callees and vtable GameText needs donor investigation t=12 model=muse-15
+?Rva00415D33Parse@@YAXPAVINI@@@Z	0x00415D33	314	partial	306B vs 314B frame 0x1c vs 0x20 with ebp offsets shifted by 4 plus third throw inline before allow vs retail out-of-line after ret t=25 model=muse-15 score=0.95 stash=reverse/attempts/0x00415d33.cpp
+?Rva00415D33Parse@@YAXPAVINI@@@Z	0x00415D33	314	partial	314B vs 314B same 106 insns only add ecx 0xc vs push eax order swapped at insert call t=30 model=muse-15 score=0.99 stash=reverse/attempts/0x00415d33.cpp
+?rva003FB793@Rva003FB793@@QAEXPAURva003FB793Vec@@@Z	0x003FB793	52	blocked	x87 fld plus int mov vs 6 movss under O1-SSE same as prior blocked t=5 model=muse-15
+?rva003F92DA@Rva003F92DA@@QAEXXZ	0x003F92DA	113	blocked	needs ICF twin method name for 0x003F92BB to get mov ecx esi before 2nd-4th calls t=15 model=muse-15

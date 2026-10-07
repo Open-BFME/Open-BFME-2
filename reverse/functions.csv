@@ -67907,3 +67907,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?cellCallback@Rva002E7D6DInfo@@QAEHPAVPathfindCell@@0HH@Z,,0x002E7D6D,136,Code/GameEngine/Source/Common/Rva002E7ED6InfoCellCallback.cpp,matched,Native RET16 callback ABI and PathfindCell flagsC cross-check rowed sibling2E7ED6; context provider0 Coord3D output4 layer8 queryC check1C from target; rowed2E6DC4 and2E6E8A; original context identity unknown
 ?rva001FD19E@Rva001FD19E@@QAEPBDH@Z,,0x001FD19E,25,Code/GameEngine/Source/Common/Rva001FD19EGetter.cpp,matched,bounds-checked slot getter stride 4 offset 0x48 OOB empty string caller 0x00241ECC
 ?Rva00211142Clone@@YGPAVRva00210F3D@@PAV1@@Z,,0x00211142,89,Code/GameEngine/Source/Common/Rva00211142Clone.cpp,matched,clone via new ctor assign link flag caller 0x002137F1
+?Rva0038072AClear@@YAXXZ,,0x0038072A,67,Code/GameEngine/Source/Common/Rva0038072AClear.cpp,matched,tooltip manager owner free messagebox tail
