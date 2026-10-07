@@ -453,7 +453,7 @@ public:
 	virtual void finishBuildingSound() = 0; // vslot 24
 	// BFME 2's own slots. 26 (0x0048A15A) and 29 (0x00489DD1, which slot 28
 	// shares) both work on the object whose id is at DozerAIUpdate +0x4A4.
-	virtual void slot25() = 0;
+	virtual void rva00489F7D(const ThingTemplate *what, Player *owningPlayer, const Coord3D *pos, Real angle) = 0; // vslot 25
 	virtual void vslot26() = 0;
 	virtual void rva00489D09() = 0; // vslot 27
 	virtual Object *slot28() = 0;
@@ -506,7 +506,8 @@ enum ModelConditionFlagType
 	MODELCONDITION_AWAITING_CONSTRUCTION = 67,
 	MODELCONDITION_PARTIALLY_CONSTRUCTED = 68,
 	MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED = 69, // +0x114 bit 5
-	MODELCONDITION_ACTIVELY_CONSTRUCTING = 73 // +0x114 bit 9
+	MODELCONDITION_ACTIVELY_CONSTRUCTING = 73, // +0x114 bit 9
+	MODELCONDITION_PHANTOM_STRUCTURE = 109 // +0x118 bit 13
 };
 
 class ModelConditionFlags
@@ -515,6 +516,10 @@ public:
 	unsigned int test(unsigned int bit) const
 	{
 		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void set(unsigned int bit)
+	{
+		m_words[bit >> 5] |= 1U << (bit & 0x1f);
 	}
 	void clear(unsigned int bit)
 	{
@@ -575,6 +580,7 @@ class ThingTemplate
 public:
 	const AsciiString &getName() const { return m_name; }
 	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 31)); }
+	Int rva0033A69A(const Player *player, Int builder, Int a3) const;
 private:
 	unsigned char m_pad000[0x64];
 	AsciiString m_name; // +0x64
@@ -589,6 +595,8 @@ public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	const Coord3D *getPosition() const { return &m_position; }
 	Drawable *getDrawable() const;
+	void setPosition(const Coord3D *pos);
+	void setOrientation(Real angle);
 private:
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad08[0x38 - 0x08];
@@ -621,6 +629,17 @@ public:
 			rva0028AE6D();
 		}
 	}
+	__forceinline void setModelConditionState(ModelConditionFlagType mc)
+	{
+		if (m_modelConditionFlags.test(mc) == 0)
+		{
+			m_modelConditionFlags.set(mc);
+			rva0028AE6D();
+		}
+	}
+	void setProducer(Object *obj);
+	void setConstructionPercent(Real percent) { m_constructionPercent = percent; }
+	Int get45C() const { return m_45C; }
 private:
 	unsigned char m_pad044[0x74 - 0x44];
 	ObjectID m_id; // +0x74
@@ -630,8 +649,16 @@ private:
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai; // +0x258
-	unsigned char m_pad25C[0x454 - 0x25C];
+	unsigned char m_pad25C[0x280 - 0x25C];
+	Real m_constructionPercent; // +0x280
+	unsigned char m_pad284[0x324 - 0x284];
+public:
+	Real m_buildCost; // +0x324
+private:
+	unsigned char m_pad328[0x454 - 0x328];
 	Bool m_454; // +0x454
+	unsigned char m_pad455[0x45C - 0x455];
+	Int m_45C; // +0x45C
 };
 
 class GameLogic
@@ -639,6 +666,7 @@ class GameLogic
 public:
 	Object *findObjectByID(ObjectID id);
 	UnsignedInt getFrame() const { return m_frame; }
+	void rva0023D0C2(Object *obj, Int handle);
 private:
 	unsigned char m_pad00[0x40];
 	UnsignedInt m_frame; // +0x40
@@ -747,6 +775,7 @@ public:
 	virtual void onDelete();
 	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags);
 	virtual void finishBuildingSound();
+	virtual void rva00489F7D(const ThingTemplate *what, Player *owningPlayer, const Coord3D *pos, Real angle);
 	virtual void rva00489D09();
 	virtual Object *rva00489DD1();
 	virtual void rva00488CC4();
@@ -755,6 +784,7 @@ public:
 	virtual void internalTaskCompleteOrCancelled(DozerTask task);
 	virtual const Coord3D *getDockPoint(DozerTask task, DozerDockPoint point);
 	virtual void aiDoCommand(const AICommandParms *parms);
+	void makePhantomStructureInert();
 private:
 	enum { DOZER_NUM_TASKS = 3 };
 	enum { DOZER_SELECT_BUILD_DOCK_LOCATION = 0 };
@@ -1183,6 +1213,11 @@ class Drawable
 public:
 	void rva00274176(Bool flag);
 	void fadeIn(UnsignedInt frames);
+	void setDrawableHidden(Bool hide);
+	void setDrawableOpacity(Real value) { m_explicitOpacity = value; }
+private:
+	unsigned char m_pad00[0xB0];
+	Real m_explicitOpacity; // +0xB0
 };
 
 class InGameUI
@@ -1594,4 +1629,164 @@ void DozerAIUpdate::cancelTask(DozerTask task)
 		rva00489D09();
 
 	Rva0048A3B9Do(getObject(), 0, FALSE);
+}
+
+extern "C" void *memset(void *dst, int val, unsigned size);
+
+namespace _STL
+{
+template<unsigned N> struct _Base_bitset;
+template<> struct _Base_bitset<4>
+{
+	_Base_bitset() { memset(_M_w, 0, sizeof(_M_w)); }
+	void _M_do_or(const _Base_bitset<4> &other);
+	unsigned long _M_w[4];
+};
+}
+
+// BFME 2's object status bit names (the name table at .rdata 0x009A5F30).
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_PENDING_CONSTRUCTION = 87,
+	OBJECT_STATUS_PHANTOM_STRUCTURE = 88
+};
+
+// The rowed two-bit status mask builder.
+struct Rva00391F4E : public _STL::_Base_bitset<4>
+{
+	Rva00391F4E(int unused, int b1, int b2);
+};
+
+// What ThingFactory::newObject takes: the initial status bits.
+struct CreateMask : public _STL::_Base_bitset<4>
+{
+};
+
+class Team;
+
+class ThingFactory
+{
+public:
+	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *statusBits, Bool flag);
+};
+
+extern ThingFactory *TheThingFactory;
+
+class Rva0039B795;
+
+struct Rva0039BAD2Input;
+
+// The player's +0x3BC member, under its two rowed spellings.
+class Rva0039BAD2
+{
+public:
+	void rva0039BAD2(Rva0039BAD2Input *what, Int cost);
+};
+
+class Rva0039B795 : public Rva0039BAD2
+{
+};
+
+// The player's money (+0x90).
+class Rva003B0D7C
+{
+public:
+	UnsignedInt rva003B0CB3(UnsignedInt amount, Rva0039B795 *stats, Bool flag);
+};
+
+class Player
+{
+public:
+	Rva003B0D7C *getMoney() { return &m_money; }
+	Team *getDefaultTeam() const { return m_defaultTeam; }
+	Rva0039B795 *getStats() { return &m_stats; }
+	Bool isLocalPlayer() const;
+	// The flag after ZH's m_canBuildUnits/m_canBuildBase (+0x338/+0x339),
+	// where ZH keeps m_observer.
+	Bool rva002AA223() const;
+	void onStructureCreated(Object *builder, Object *structure);
+private:
+	unsigned char m_pad000[0x90];
+	Rva003B0D7C m_money; // +0x90
+	unsigned char m_pad091[0x2EC - 0x91];
+	Team *m_defaultTeam; // +0x2EC
+	unsigned char m_pad2F0[0x3BC - 0x2F0];
+	Rva0039B795 m_stats; // +0x3BC
+};
+
+// The rowed add-if-missing object id lists: TheInGameUI's at +0x9C4 and the
+// player's at +0x754.
+class Rva002A1111
+{
+public:
+	void rva002A1111(ObjectID id);
+};
+
+class Rva002AE3F4
+{
+public:
+	void rva002AE3F4(ObjectID id);
+};
+
+// Dozer interface vslot 25: BFME 2 places a phantom of the structure first.
+// ZH construct's creation steps (newObject, producer and builder, the cost,
+// position, orientation, onStructureCreated, zero percent) with the status
+// bits PENDING_CONSTRUCTION and PHANTOM_STRUCTURE and model condition
+// PHANTOM_STRUCTURE (retail's name tables). Its id goes to +0x4A4, which
+// vslots 27 and 29 work on, and the phantom is made inert at once.
+void DozerAIUpdate::rva00489F7D(const ThingTemplate *what, Player *owningPlayer, const Coord3D *pos, Real angle)
+{
+	if (m_4A4 != 0)
+		rva00489D09();
+
+	CreateMask statusBits;
+	statusBits._M_do_or(Rva00391F4E(0, OBJECT_STATUS_PENDING_CONSTRUCTION, OBJECT_STATUS_PHANTOM_STRUCTURE));
+
+	Object *obj = TheThingFactory->newObject(what, owningPlayer->getDefaultTeam(), &statusBits, false);
+	if (obj == 0)
+		return;
+
+	obj->setModelConditionState(MODELCONDITION_PHANTOM_STRUCTURE);
+
+	obj->setProducer(getObject());
+	obj->rva0028AFE7(getObject());
+
+	if (m_isRebuild == FALSE)
+	{
+		UnsignedInt cost = what->rva0033A69A(owningPlayer, (Int)getObject(), -1);
+		owningPlayer->getMoney()->rva003B0CB3(cost, owningPlayer->getStats(), true);
+		owningPlayer->getStats()->rva0039BAD2((Rva0039BAD2Input *)what, cost);
+		obj->m_buildCost = (Real)cost;
+	}
+
+	obj->setPosition(pos);
+	obj->setOrientation(angle);
+
+	owningPlayer->onStructureCreated(getObject(), obj);
+
+	obj->setConstructionPercent(0.0f);
+
+	// only the builder's own side (or, where ZH keeps it, an observer) sees
+	// the phantom; everyone else gets it hidden
+	Object *me = getObject();
+	if (!me->getControllingPlayer()->isLocalPlayer() && !me->getControllingPlayer()->rva002AA223())
+		obj->getDrawable()->setDrawableHidden(true);
+	else
+		((Rva002A1111 *)TheInGameUI)->rva002A1111(obj->getID());
+
+	obj->getDrawable()->setDrawableOpacity(0.4f);
+
+	me = getObject();
+	m_4A4 = obj->getID();
+	if (me && me->get45C())
+		TheGameLogic->rva0023D0C2(obj, me->get45C());
+
+	makePhantomStructureInert();
+
+	if (me)
+	{
+		Player *player = me->getControllingPlayer();
+		if (player)
+			((Rva002AE3F4 *)player)->rva002AE3F4((ObjectID)m_4A4);
+	}
 }

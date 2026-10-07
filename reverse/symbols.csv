@@ -15240,3 +15240,4 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva005FA3B1Inner@@QAE@PAX000@Z,0x005FA3B1,Address-derived inner constructor; target boundary and four pointer-sized stack arguments are supported by the 77B outer constructor callsites; inner identity and layout remain unresolved.
 ?clear@?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAEXXZ,0x002D9186,callee of ??1?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAE@XZ
 ?rva00489D09@DozerAIUpdate@@UAEXXZ,0x00489D09,callee of ??1DozerAIUpdate@@MAE@XZ
+?rva002AA223@Player@@QBE_NXZ,0x002AA223,callee of ?rva00489F7D@DozerAIUpdate@@UAEXPBVThingTemplate@@PAVPlayer@@PBUCoord3D@@M@Z
