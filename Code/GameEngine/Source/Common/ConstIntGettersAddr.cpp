@@ -469,12 +469,6 @@ int Rva0022D537Get(void)
 	return 0x0062D53D;
 }
 
-// ?Rva00282C9BGet@@YAHXZ @ 0x00282C9B (6B): returns 0x00682CA1.
-int Rva00282C9BGet(void)
-{
-	return 0x00682CA1;
-}
-
 // ?Rva002DF1EBGet@@YAHXZ @ 0x002DF1EB (6B): returns 0x006DF116.
 int Rva002DF1EBGet(void)
 {

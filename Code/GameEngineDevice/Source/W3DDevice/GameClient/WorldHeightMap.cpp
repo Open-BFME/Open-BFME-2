@@ -997,7 +997,9 @@ Bool WorldHeightMap::ParseSizeOnly(DataChunkInput &file, DataChunkInfo *info, vo
 *	Input: DataChunkInput 
 *		
 */
-// WorldHeightMap::ParseBlendTileDataChunk is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap_Map_KA_NAAVDataChunkInput_PAUDataChunkInfo_PAX_Z.cpp (0x002811CA).
+// WorldHeightMap::ParseBlendTileDataChunk has no located retail body: BFME 2 registers
+// "BlendTileData" through a parser object (0x000AEFC8). The 19-byte forwarder at
+// 0x002811CA once credited to it is TerrainLogic::parseWaypointDataChunk.
 
 /** Function to read in the tiles for a texture class. */
 // WorldHeightMap::readTexClass is defined with its retail-matched body in Code/GameEngine/Source/Common/Rva000AF917Finish.cpp (0x000AF917).

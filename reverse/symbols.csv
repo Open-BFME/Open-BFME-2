@@ -6150,7 +6150,6 @@ name,address,notes
 ?Open_W3D_File@@YAPAXPAX0PBD@Z,0x0007882F,callee of ?Load_HLOD@Rva00970880Proto@@UAEXXZ at retail 0x0018012A read from its REL32 displacement; ICF alias onto ?Rva0007882FGet@@YAPAVFile@@PBDHH@Z (matched)
 ?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z,0x00719A70,address read from the retail REL32 in ?Collect_Objects at 0x0071BFB0
 ?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVAABoxClass@@@Z,0x00724800,address read from the retail REL32 in ?Collect_Objects at 0x0071BBC0
-?ParseBlendTileData@WorldHeightMap@@IAE_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z,0x0027FFF3,"callee of ?ParseBlendTileDataChunk@WorldHeightMap@@KA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z at retail 0x002811D7 read from its REL32 displacement; body unrowed"
 ?ParseSizeOnly@@YA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z,0x00302E87,BFME1 MapUtil.cpp ParseSizeOnly body: reads m_width/m_height/m_borderSize/m_boundaries globals and DataChunkInput::readInt; REL32 callee of the placed ParseSizeOnlyInChunk 0x00302F1B
 ?Parse_Mapping_Args@VertexMaterialClass@@QAEXABUW3dVertexMaterialStruct@@PAD1@Z,0x0013DD10,retail REL32 from VertexMaterial Load_W3D at 0x0013E99F with vmat struct and both mapping buffers; BFME1 vertmaterial row 653 attests mangling
 ?Parse_W3dVertexMaterialStruct@VertexMaterialClass@@QAEXABUW3dVertexMaterialStruct@@@Z,0x0013D030,retail REL32 from VertexMaterial Load_W3D at 0x0013E98F with vmat struct local; BFME1 vertmaterial row 625 attests mangling
