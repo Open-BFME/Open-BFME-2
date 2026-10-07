@@ -15341,3 +15341,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 
 
 ?rva00283114@Rva00283114@@QAEXPAX@Z,0x00283114,Ghidra boundary 306B; direct same-this calls at 0x002834E6 and 0x00283505 push one pointer and ignore return; thiscall void one pointer; address-derived identity only
+?rva0004DB76@Radar@@QAEXPBVCoord2D@@PAV2@HHHH@Z,0x0004DB76,Target Ghidra boundary 0x44DB76 length 95B. Call at 0x4F557 passes same Radar ECX and two Coord2D pointers plus four integers; callee cleans 24 bytes. Address-derived helper identity retained; earlier body attempt remains unlanded.
