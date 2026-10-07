@@ -67360,3 +67360,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?addAckCommand@NetPacket@@IAE_NPAVNetCommandRef@@GEII@Z,,0x00591B1B,498,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,ZH addAckCommand shape (isAckRepeat Z path; room check rva0058D70B; T/P/D; commandID word; original player byte) plus two dwords; sole caller the ack arm 0x005939EE
 ?gameStartedCallback@@YAXPAXIPBD0@Z,,0x0038A407,127,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,REF gameStarted via PeerCallbacks.gameStarted and Peer.h typedef
 ?Rva003BD108SetGamePaused@@YAXXZ,,0x003BD108,14,Code/GameEngine/Source/GameLogic/Object/Rva003BD108SetGamePaused.cpp,matched,address name wrapper invokes rowed GameLogic setter true packet call target
+?rva004FCA90@Rva004FD8A8Set@@QAE_NXZ,,0x004FCA90,12,Code/GameEngine/Source/Common/Rva004FD8A8SetEmpty.cpp,matched,caller 0x0057DD3C empty check begin==end at +0x38 +0x3c

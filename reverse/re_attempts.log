@@ -16710,3 +16710,8 @@ uw_00769058	0x00769058	11	blocked	false-reject functions: retail FuncInfo 0x0090
 ?rva004972A9@Rva004972A9@@QAEXPAVINI@@PAXPAX@Z	0x004972A9	293	blocked	callback identity and argument types remain unproven from the ExpLevelDraw table slot t=4 model=gpt-6.1-sol
 ?rva0049714F@Rva0049714F@@QAEXPAVINI@@PAXPAX@Z	0x0049714F	345	blocked	field callback identity and parameter types remain unproven from the MorphCondition table slot t=2 model=gpt-6.1-sol
 ?Rva004DCAE4Parse@@YAXPAVINI@@PAX1PBX@Z	0x004DCAE4	341	blocked	required Common/INI.h unavailable in worker checkout after include-path trials t=10 model=gpt-6.1-sol
+?rva00318FC6@Rva00318FC6@@QAEHHH@Z	0x00318FC6	98	blocked	loop count/test shape mismatch plus stack spills: ours 125B vs retail 98B, extra push ecx and esp+10 counter vs retail ebx/edi regs, per-iter size reload vs cached, jle structure differs t=25 model=muse-spark
+?rva0046BA56@Rva0046BA56@@QAEXPAVObject@@H@Z	0x0046BA56	119	blocked	ebx-edi swap this-vs-addr plus extra mov eax ebp-4 persists after 6 variants same 0.92 banked t=20 model=muse-12
+?rva0046BA56@Rva0046BA56@@QAEXPAVObject@@H@Z	0x0046BA56	119	blocked	ebx-edi swap this-vs-addr plus extra mov eax ebp-4 t=20 model=muse-12 (stash 0.92 kept)
+?rva0051D009@Rva0051D009@@QAE?AVAsciiString@@H@Z	0x0051D009	107	partial	missing this-preservation push edi mov edi ecx mov ecx edi pop edi ours 101B/34ins retail 107B/38ins 0 reg 0 mem diffs t=10 model=muse-12 score=0.94 stash=reverse/attempts/0x0051d009.cpp
+?Rva00525CC5@Holder00526309@@QAEXPAUObj00526309@@@Z	0x00525CC5	213	blocked	structural mismatch 13 regions +24B, list-insert vs rank-sorted logic diverged t=20 model=muse-spark
