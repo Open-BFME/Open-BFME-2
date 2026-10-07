@@ -67540,3 +67540,6 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva0041EC0B@Rva0041EC0B@@QAEXXZ,,0x0041EC0B,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
 ?rva002A9216@Rva002A9216@@QAEXXZ,,0x002A9216,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
 ?rva002BFB28@Rva002BFB28@@QAEXXZ,,0x002BFB28,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
+?rva004FFE34@Rva004FFE34@@QAEXXZ,,0x004FFE34,5,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp,matched,
+?rva002A4636@Rva002A4636@@QAEXXZ,,0x002A4636,5,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp,matched,
+?rva002A4631@Rva002A4631@@QAEXXZ,,0x002A4631,5,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp,matched,

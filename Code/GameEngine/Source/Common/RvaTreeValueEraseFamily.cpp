@@ -980,3 +980,56 @@ void Rva00500804::rva00500ACF()
 	((RvaTreeValueHead *)m_00Head)->m_child = (RvaTreeValueHead *)m_00Head;
 	m_04Flag = 0;
 }
+
+class Rva004FFE34
+{
+public:
+	void rva004FFE34();
+};
+
+void Rva004FFE34::rva004FFE34()
+{
+	((Rva004FF582 *)this)->~Rva004FF582();
+}
+
+class Rva002A1D02
+{
+public:
+	~Rva002A1D02();
+};
+
+class Rva002A4636
+{
+public:
+	void rva002A4636();
+};
+
+void Rva002A4636::rva002A4636()
+{
+	((Rva002A1D02 *)this)->~Rva002A1D02();
+}
+
+struct Rva002A3F5BRecord;
+namespace _STL
+{
+template <class T> struct _Select1st;
+template <class T> struct less;
+template <class _Key, class _Value, class _KeyOfValue, class _Compare, class _Alloc>
+class _Rb_tree
+{
+public:
+	~_Rb_tree();
+};
+typedef _Rb_tree<int, pair<const int, Rva002A3F5BRecord>, _Select1st<pair<const int, Rva002A3F5BRecord> >, less<int>, allocator<pair<const int, Rva002A3F5BRecord> > > Rva002A3F5BTree;
+}
+
+class Rva002A4631
+{
+public:
+	void rva002A4631();
+};
+
+void Rva002A4631::rva002A4631()
+{
+	((_STL::Rva002A3F5BTree *)this)->~_Rb_tree();
+}
