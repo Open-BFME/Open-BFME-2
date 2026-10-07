@@ -460,7 +460,7 @@ void LevelGrantSpecialPower::rva004C2D2B(Object *obj, std::vector<ObjectID> &see
 
 void LevelGrantSpecialPower::rva0045108D()
 {
-	SpecialAbilityUpdate::rva0045108D();
+	SpecialAbilityUpdate::triggerAbilityEffect();
 	Object *obj = m_object;
 	const LevelGrantSpecialPowerModuleData *data = getLevelGrantSpecialPowerModuleData();
 	std::vector<ObjectID> seen;
