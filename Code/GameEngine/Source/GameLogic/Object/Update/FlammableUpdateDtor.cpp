@@ -439,13 +439,16 @@ struct BfmeDelayedLuaEventList
 	BfmeDelayedLuaEvent m_events[3];
 };
 
+// The object-event dispatch at 0x003360D2 is rowed as a method of an
+// address-level view of TheLuaScriptEngine's object.
 class BfmeObjectEventDispatch
 {
 public:
 	void rva003360D2(int index, void *object, BfmeDelayedLuaEventList *eventList);
 };
 
-extern BfmeObjectEventDispatch *g_00E01DBC;
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
 
 class Rva002918E0Object
 {
@@ -632,7 +635,7 @@ void FlammableUpdate::rva0048C8F9()
 		me->getDrawable()->rva00274176(true);
 
 	BfmeDelayedLuaEventList list;
-	g_00E01DBC->rva003360D2(OBJECT_STATUS_BURNED, me, &list);
+	((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(OBJECT_STATUS_BURNED, me, &list);
 
 	stopBurningSound();
 	me->setStatus(OBJECT_STATUS_AFLAME, false);
@@ -648,6 +651,69 @@ void FlammableUpdate::rva0048C8F9()
 		}
 	}
 	me->m_body->updateAflame();
+}
+
+// ?onDamage@FlammableUpdate@@UAEXPAVDamageInfo@@@Z @0x0048CE3E 453B (Ghidra
+// boundary; vftable entry 0x0084C3BC, this = the DamageModuleInterface base
+// at +0x20). Donor: Zero Hour FlammableUpdate::onDamage -- remember the
+// igniter, refresh the flame damage limit after the expiration delay, and
+// ignite once the limit is used up. Target-only parts read from retail: an
+// underwater test (TheTerrainLogic slot 19 unless kind bit 0x11C:31 is set)
+// and a module-data damage-type filter in place of ZH's DAMAGE_FLAME test;
+// on ignition, with module-data +0x39 set, the contained objects (contain
+// slot 70, list helper 0x0036AE51) each take a FLAME/BURNED DamageInfo of
+// max(damage amount / 2, 1) via attemptDamage 0x0029848E, else contain slot
+// 34 runs with 2.
+void FlammableUpdate::onDamage(DamageInfo *damageInfo)
+{
+	if (damageInfo->m_actualDamageClipped > 0.0f)
+		m_lastIgniterID = damageInfo->m_sourceID;
+
+	Object *me = getObject();
+	Bool underwater = !(me->m_template->m_kindOf11C & 0x80000000)
+		&& TheTerrainLogic->isUnderwater(me->m_pos.x, me->m_pos.y);
+
+	const FlammableUpdateModuleData *data = getFlammableUpdateModuleData();
+	if ((data->m_damageType == 0 || data->m_damageType == damageInfo->m_damageType) && !underwater)
+	{
+		Int now = TheGameLogic->getFrame();
+		Int since = now - data->m_flameDamageExpirationDelay;
+		if (since > m_lastFlameDamageDealt)
+			m_flameDamageLimit = data->m_flameDamageLimitData;
+		m_lastFlameDamageDealt = now;
+
+		if (!me->testStatus(OBJECT_STATUS_AFLAME) && !me->testStatus(OBJECT_STATUS_BURNED))
+		{
+			m_flameDamageLimit -= damageInfo->m_actualDamageDealt;
+			if (m_flameDamageLimit <= 0.0f)
+			{
+				m_flameDamageLimit = 0.0f;
+				tryToIgnite();
+				if (data->m_damageContained && me->m_contain)
+				{
+					DamageInfo info;
+					info.m_amount = (Real)_STL::max(data->m_aflameDamageAmount / 2, 1);
+					info.m_sourceID = me->m_id;
+					info.m_damageType = DAMAGE_FLAME;
+					info.m_deathType = DEATH_BURNED;
+					_STL::list<int> contained = me->m_contain->rva70().rva0036AE51();
+					for (_STL::list<int>::iterator it = contained.begin(); it != contained.end(); )
+					{
+						Object *obj = (Object *)*it;
+						++it;
+						if (obj)
+							obj->attemptDamage(&info);
+					}
+				}
+				else
+				{
+					ContainModuleInterface *contain = me->m_contain;
+					if (contain)
+						contain->rva34(2);
+				}
+			}
+		}
+	}
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
