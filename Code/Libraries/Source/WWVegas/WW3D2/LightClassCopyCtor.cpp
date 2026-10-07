@@ -1,6 +1,7 @@
 // cl: /MD /EHsc
 //
-// LightClass's copy constructor (retail 0x00130C00, 307 bytes), destructor
+// LightClass's copy constructor (retail 0x00130C00, 307 bytes), assignment
+// (0x00130D40), destructor
 // (0x00130E80), Clone (0x00130EA0), object-space bounding sphere and box
 // (0x00130F40 and 0x00130F70, vtable 0x00BD23C0 slots 67 and 68) and scalar
 // deleting destructor (0x00130FB0), in a dedicated TU: light.cpp builds against Zero Hour's
@@ -34,6 +35,7 @@ class RenderObjClass : public RefCountClass, public PersistClass
 public:
 	RenderObjClass();
 	virtual ~RenderObjClass();
+	RenderObjClass &operator=(const RenderObjClass &);
 	virtual RenderObjClass *Clone() const = 0;
 	unsigned char Pad[0xC4 - 12];
 };
@@ -71,6 +73,7 @@ class LightClass : public RenderObjClass
 {
 public:
 	LightClass(const LightClass &src);
+	LightClass &operator=(const LightClass &that);
 	virtual ~LightClass();
 	virtual RenderObjClass *Clone() const;
 	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const;
@@ -113,6 +116,32 @@ LightClass::LightClass(const LightClass &src) :
 	SpotExponent(src.SpotExponent),
 	SpotDirection(src.SpotDirection)
 {
+}
+
+// Zero Hour's light.cpp assignment (retail 0x00130D40): the self-check
+// guards the call to the matched RenderObjClass::operator= at 0x0013B5F0.
+LightClass &LightClass::operator=(const LightClass &that)
+{
+	if (this != &that) {
+		RenderObjClass::operator=(that);
+
+		Type = that.Type;
+		Flags = that.Flags;
+		CastShadows = that.CastShadows;
+		Intensity = that.Intensity;
+		Ambient = that.Ambient;
+		Diffuse = that.Diffuse;
+		Specular = that.Specular;
+		NearAttenStart = that.NearAttenStart;
+		NearAttenEnd = that.NearAttenEnd;
+		FarAttenStart = that.FarAttenStart;
+		FarAttenEnd = that.FarAttenEnd;
+		SpotAngle = that.SpotAngle;
+		SpotAngleCos = that.SpotAngleCos;
+		SpotExponent = that.SpotExponent;
+		SpotDirection = that.SpotDirection;
+	}
+	return *this;
 }
 
 // Empty: the compiler reinstalls the vptrs and tail-jumps to the matched
