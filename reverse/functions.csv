@@ -68316,3 +68316,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva004D9F75@Rva004D9F75@@QAEXXZ,,0x004D9F75,5,Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp,matched,
 ?rva005011AA@Rva005011AA@@QAEXXZ,,0x005011AA,5,Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp,matched,
 ?rva00553D5E@Rva00553D5E@@QAEXXZ,,0x00553D5E,5,Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp,matched,
+?createOwnedObject@CastleBehavior@@QAEPAVObject@@PAX@Z,,0x0039947A,75,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorCreateOwnedObject.cpp,matched,BFME1 1399ad37 CastleBehaviorCreateOwnedObject source lead; target +0x44 float orientation and owner +8; factory +0x20 slot 4; getControllingPlayer rowed; registration 0x3986EF independently anchors CastleMemberBehavior literal; opaque definition and factory type
