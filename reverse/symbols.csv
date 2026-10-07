@@ -15584,3 +15584,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva004F9D6A@Rva004F9D6A@@QAEXXZ,0x004F9D6A,callee of 0x004FA10F read from REL32 at 0x004FA152; no-arg thiscall after the ready loop; identity unproven
 ?rva004F61B1@Rva004F61B1@@QAEXXZ,0x004F61B1,callee of 0x004FA10F read from REL32 at 0x004FA160; no-arg thiscall tail; identity unproven
 ?rva001F34BA@Rva001F34BA@@QAEXXZ,0x001F34BA,callee of 0x004FDA42 read from REL32 at 0x004FDA45; no-arg thiscall; identity unproven
+?find@Rva00388F63Map@@QAEPAXPAH@Z,0x00388F63,placeholder pin for 0x004FF997 find; address read from REL32 at 0x004FF9A2; identity unproven
