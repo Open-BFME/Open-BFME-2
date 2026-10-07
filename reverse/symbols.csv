@@ -12100,7 +12100,6 @@ name,address,notes
 ?rva00517F31@Rva005B8EBB@@QAEXXZ,0x00517F31,callees of 0x005B8EBB from retail REL32; names unknown
 ?rva00518B05@AptOptions@@QAEXABVAsciiString@@H@Z,0x00518B05,unrowed 264B thiscall (Ghidra; EH; ret 8) on the options screen: a warning prompt taking a label (const AsciiString &) and a kind (the +0x288 vector<bool> is indexed by it); REL32 at 0x00518C58 in the MasterOption0Template handler 0x00518C0D with "APT:WarnHighGraphicDetail" and 3; address name
 ?rva0051B09B@Rva0051BED7@@QAEXXZ,0x0051B09B,this-shaped call site in the 0x0051BED7 poll (mov ecx,esi with no stack args); rowed free fn Rva0051B09BEnable lives here; address from retail REL32
-?rva0051B90B@@YAXXZ,0x0051B90B,callee of the 0x0051BED7 poll with no ecx setup; true start verified by ret-4 fall-through at 0x0051B90A; 468B EH body unrecovered so arity is the call-site reading
 ?rva0051DE3D@State0051E262@@QAEXXZ,0x0051DE3D,thiscall tail of 0x0051E262 score-screen init (REL32 at 0x0051E2AE); Ghidra 1061B EH body unrecovered; address name
 ?rva0051ED7E@AptTimeLine@@QAEXXZ,0x0051ED7E,unrowed 345B thiscall (Ghidra FUN_0091ed7e) on the time line screen; REL32 read at AptTimeLine::OnButtonContinue 0x0051F6D7 with ECX=this; address name
 ?rva00521B56@Rva00522A91@@QAEXH@Z,0x00521B56,unrowed thiscall (Ghidra FUN_00921b56; 260B) on the profile panel; callee of ?rva00522A91@Rva00522A91@@QAEXXZ at retail 0x00522AF4 read from its REL32 displacement; body unrowed

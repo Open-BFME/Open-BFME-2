@@ -3,8 +3,8 @@
 // Retail 0x0051BED7, 80 bytes: polled one-shot flag at this+0x27E. When
 // set, clears it and, unless a multiplayer game with mode fields +0x114==3
 // and +0x110==2 is up (setting this+0x27D then), runs the rowed free
-// enabler at 0x0051B09B through a this-shaped call (aliased below) or the
-// pinned 0x0051B90B otherwise. Always returns 1, built xor eax,eax /
+// enabler at 0x0051B09B through a this-shaped call (aliased below) or
+// restartMissionMenu (0x0051B90B) otherwise. Always returns 1, built xor eax,eax /
 // inc eax, so the result is int-sized (a bool true would be mov al,1); the
 // body is reached only through the vtable slot at rva 0x00866C6C (no direct
 // callers), so no caller fixes the type further.
@@ -24,7 +24,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-void rva0051B90B();
+void restartMissionMenu();
 
 class Rva0051BED7
 {
@@ -52,7 +52,7 @@ int Rva0051BED7::rva0051BED7()
 		{
 			if (gameLogic->m_110 == 2)
 				m_27d = true;
-			rva0051B90B();
+			restartMissionMenu();
 		}
 		else
 			rva0051B09B();

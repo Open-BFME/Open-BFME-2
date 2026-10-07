@@ -8,6 +8,10 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
+// restartMissionMenu's replay test expands isNotEmpty in place (test the
+// buffer, then cmp word [eax+4]); the shared header keeps it out of line.
+template <> inline bool StringBase<unsigned short>::isNotEmpty() const { return m_data && m_data->length != 0; }
+
 extern "C" char *__cdecl strcpy(char *destination, const char *source);
 
 void __cdecl Rva00434160Init(int a, int b, bool c);
@@ -23,12 +27,18 @@ public:
 	bool isInMultiplayerGame();
 	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);
 	void rva0023D0E3(bool selfDestruct);
+	// Zero Hour calls clearGameData at the same point; the name is unproven here.
+	void rva00376E92(bool showScoreScreen, bool flag);
 
 	unsigned char m_pad000[0x40];
 	unsigned int m_40; // +0x40
 	unsigned char m_pad044[0x6D - 0x44];
 	bool m_6d; // +0x6D
-	unsigned char m_pad06e[0x110 - 0x6E];
+	unsigned char m_pad06e[0x94 - 0x6E];
+	int m_94; // +0x94, the rank points a restart passes on
+	unsigned char m_pad098[0xA4 - 0x98];
+	int m_a4; // +0xA4, the difficulty a restart passes on
+	unsigned char m_pad0a8[0x110 - 0xA8];
 	int m_110; // +0x110
 	int m_114; // +0x114
 };
@@ -186,6 +196,9 @@ public:
 	virtual bool slot95();
 
 	Rva005CB260 *rva000CF155();
+
+	unsigned char m_pad004[0x8C5 - 4];
+	bool m_clientQuiet; // +0x8C5
 };
 
 extern InGameUI *TheInGameUI;
@@ -298,6 +311,95 @@ extern Display *TheDisplay;
 extern int g_Va00E0492C;
 extern int g_Va00E0330C;
 extern int g_Va00E048D0;
+
+// TheLinearCampaignManager-like holder at 0x009FDC8C: a running campaign
+// restarts through its +0x10 member (the rowed 0x001ECEF6).
+struct Rva0023D607Holder
+{
+	unsigned char m_pad000[0x10];
+	void *m_10; // +0x10
+	void rva001ECEF6();
+};
+
+extern Rva0023D607Holder *g_Rva0023D607Holder;
+
+// TheWritableGlobalData (0x009FE758): the map name and the pending file.
+class GlobalData
+{
+public:
+	unsigned char m_pad000[0x0C];
+	AsciiString m_mapName; // +0x0C
+	unsigned char m_pad010[0xAC0 - 0x10];
+	AsciiString m_pendingFile; // +0xAC0
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+// TheGameState (0x009FF08C): the rowed save-directory test 0x002DC7C1 and
+// the folded AsciiString +0x2C copy getter 0x0004F833 (rowed under
+// Player::getBaseSide) that hands back the pristine map name.
+class GameState;
+extern GameState *TheGameState;
+
+class Rva002DC7C1
+{
+public:
+	bool rva002DC7C1(const UnicodeString &name) const;
+};
+
+class Player
+{
+public:
+	AsciiString getBaseSide() const;
+};
+
+// TheRecorder (0x00A02290).
+enum RecorderModeType
+{
+	RECORDERMODETYPE_RECORD
+};
+
+class RecorderClass
+{
+public:
+	RecorderModeType getMode();
+	void stopRecording();
+	bool playbackFile(UnicodeString filename);
+};
+
+extern RecorderClass *TheRecorder;
+
+// The rowed replay file name getter 0x0037B5A0 on TheRecorder.
+class Rva0037B5A0
+{
+public:
+	UnicodeString rva0037B5A0();
+};
+
+// TheGameEngine (0x009FE710): vslots 19 and 20.
+class GameEngine
+{
+public:
+#define ENGINE_SLOT(N) virtual void slot##N();
+	ENGINE_SLOT(00) ENGINE_SLOT(01) ENGINE_SLOT(02) ENGINE_SLOT(03) ENGINE_SLOT(04)
+	ENGINE_SLOT(05) ENGINE_SLOT(06) ENGINE_SLOT(07) ENGINE_SLOT(08) ENGINE_SLOT(09)
+	ENGINE_SLOT(10) ENGINE_SLOT(11) ENGINE_SLOT(12) ENGINE_SLOT(13) ENGINE_SLOT(14)
+	ENGINE_SLOT(15) ENGINE_SLOT(16) ENGINE_SLOT(17) ENGINE_SLOT(18)
+#undef ENGINE_SLOT
+	virtual int getFramesPerSecondLimit();
+	virtual void setQuitting(bool quitting);
+};
+
+extern GameEngine *TheGameEngine;
+
+// The living-world logic's rowed 0x002B36F3.
+class Rva002BA8F1Logic
+{
+public:
+	void rva002B36F3();
+};
+
+void InitRandom(unsigned int seed);
 
 // The panels the quit menu closes (all rowed).
 void __cdecl Rva0043C96FEnable(void);
@@ -716,6 +818,56 @@ void ToggleQuitMenu()
 		return;
 	}
 	ShowQuitMenu();
+}
+
+// Retail 0x0051B90B, 468 bytes: Zero Hour QuitMenu.cpp's
+// restartMissionMenu, run by the quit menu's update once RestartMission
+// set +0x27E. Closes the menu; a running campaign restarts itself.
+// Otherwise the game is cleared and either the replay plays again or a
+// new game (0x1E) starts on the pristine map in the same mode,
+// difficulty, rank points and frame limit.
+void restartMissionMenu()
+{
+	Rva0051AF0BEnable(2);
+	if (g_Rva0023D607Holder && g_Rva0023D607Holder->m_10)
+	{
+		g_Rva0023D607Holder->rva001ECEF6();
+		return;
+	}
+	int gameMode = TheGameLogic->m_110;
+	AsciiString mapName = TheWritableGlobalData->m_mapName;
+	if (((Rva002DC7C1 *)TheGameState)->rva002DC7C1(UnicodeString(mapName)))
+		mapName = ((Player *)TheGameState)->getBaseSide();
+
+	UnicodeString replayFile = ((Rva0037B5A0 *)TheRecorder)->rva0037B5A0();
+	if (TheRecorder->getMode() == RECORDERMODETYPE_RECORD)
+		TheRecorder->stopRecording();
+
+	int rankPointsStartedWith = TheGameLogic->m_94;
+	int diff = TheGameLogic->m_a4;
+	int fps = TheGameEngine->getFramesPerSecondLimit();
+
+	TheGameLogic->rva00376E92(false, false);
+	TheGameEngine->setQuitting(false);
+	if (g_009FEF10)
+		((Rva002BA8F1Logic *)g_009FEF10)->rva002B36F3();
+
+	if (replayFile.isNotEmpty())
+	{
+		TheRecorder->playbackFile(replayFile);
+	}
+	else
+	{
+		TheWritableGlobalData->m_pendingFile = mapName;
+		GameMessage *msg = MessageStreamSubsystem->appendMessage(0x1E);
+		msg->appendIntegerArgument(gameMode);
+		msg->appendIntegerArgument(diff);
+		msg->appendIntegerArgument(rankPointsStartedWith);
+		msg->appendIntegerArgument(fps);
+		if (gameMode != 2)
+			InitRandom(0);
+	}
+	TheInGameUI->m_clientQuiet = true;
 }
 
 // Retail 0x0051B50E, 167 bytes. Name unknown. Shows the restart button's
