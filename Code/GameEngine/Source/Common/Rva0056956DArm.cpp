@@ -7,10 +7,13 @@
 // this (as ModuleData) via rowed 0x00569543, store the record at +0xC and
 // clear +0x10. If +0x10 is clear, +0xC non-null, and both the record and this
 // pass rowed Rva00568920::rva00568920, fan the record plus the +0x8 float out
-// the +0x2C slots via alias-pinned (void*,float) 0x005C836F and set +0x10.
+// the +0x2C slots via the verified HostClass005C815B::method_005C836F(int,float) at 0x005C836F and set +0x10.
 // The resolve guard is goto-spelled: a null key jumps forward to the arm
 // guard while a null lookup result jumps forward to the latch, an
 // irreducible two-target flow no &&-chain reproduces (both its falses join).
+// Native calls at 0x005695D6 and 0x0056897C target the same 44-byte
+// vector worker; preserve the key word and float argument order. The
+// pointer-valued record key is explicitly passed as its original 32-bit word.
 // Honest address-derived names.
 class ModuleData;
 
@@ -26,10 +29,10 @@ public:
 	bool rva00568920() const;
 };
 
-class Rva005C836F
+class HostClass005C815B
 {
 public:
-	void rva005C836F(void *key, float value);
+	void method_005C836F(int key, float value);
 };
 
 struct Rva0056956DElem
@@ -51,7 +54,7 @@ private:
 	Rva0056956DElem *m_begin;	// +0x14
 	Rva0056956DElem *m_end;	// +0x18
 	char m_pad2[0x10];
-	Rva005C836F *m_slots[4];	// +0x2C
+	HostClass005C815B *m_slots[4];	// +0x2C
 };
 
 void LargeGroupAudioSoundKeyPair::setupAllDuckingTargets()
@@ -69,11 +72,11 @@ void LargeGroupAudioSoundKeyPair::setupAllDuckingTargets()
 		if (e->m_active == 0 && e->m_key != 0
 			&& ((const Rva00568920 *)e->m_key)->rva00568920()
 			&& ((const Rva00568920 *)this)->rva00568920()) {
-			Rva005C836F **slot = m_slots;
+			HostClass005C815B **slot = m_slots;
 			int left = 4;
 			do {
 				if (*slot != 0)
-					(*slot)->rva005C836F(e->m_key, e->m_f08);
+					(*slot)->method_005C836F(reinterpret_cast<int>(e->m_key), e->m_f08);
 				++slot;
 			} while (--left != 0);
 			e->m_active = 1;

@@ -8,12 +8,12 @@
 // check above first (same TU: the call keeps this in ecx across it, which
 // MSVC only emits for a visible callee); then scan +0x14/+0x18 elements
 // stride 0x14 for key at +0xC; on a found element with clear +0x10, run every
-// non-null +0x2C slot through alias-pinned (void*,float) 0x005C836F and set
+// non-null +0x2C slot through the verified HostClass005C815B::method_005C836F(int,float) at 0x005C836F and set
 // the flag. The union keeps the rowed check's int view beside the slots.
-class Rva005C836F
+class HostClass005C815B
 {
 public:
-	void rva005C836F(void *key, float value);
+	void method_005C836F(int key, float value);
 };
 
 struct Rva00568939Elem
@@ -38,7 +38,7 @@ private:
 	union
 	{
 		int m_vals[4];
-		Rva005C836F *m_slots[4];
+		HostClass005C815B *m_slots[4];
 	};
 };
 bool Rva00568920::rva00568920() const
@@ -58,11 +58,11 @@ void Rva00568920::rva00568939(int key)
 			continue;
 		if (e->m_10)
 			return;
-		Rva005C836F **slot = m_slots;
+		HostClass005C815B **slot = m_slots;
 		for (int left = 4; left != 0; --left, ++slot) {
 			if (*slot != 0) {
 				float f = e->m_08;
-				(*slot)->rva005C836F((void *)key, f);
+				(*slot)->method_005C836F(key, f);
 			}
 		}
 		e->m_10 = true;
