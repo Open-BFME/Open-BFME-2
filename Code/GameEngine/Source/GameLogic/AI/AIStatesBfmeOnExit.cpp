@@ -39,6 +39,13 @@
 //    the owner's +0x94 flag is set, clears status 0x4B, restores full speed,
 //    drops the ignored obstacle and, for ground movement (AI slot 137),
 //    snaps the owner onto the +0x20 goal position when within sqrt(12.5).
+//  - AIMoveToPositionAndEnterState::onEnter, retail 0x00350020 (198
+//    bytes): slot 4 of 0x00C136A0. Donor: Open-BFME-1
+//    AIMoveToPositionAndEnterState_onEnter.cpp. Takes the goal's contain
+//    slot-87 enter position as the +0x20 goal; BFME 2 adds the pinned
+//    Pathfinder::adjustDestination for goal templates with kind byte +0x11F
+//    mask 0x80. After the base onEnter, an owner with a +0x410 group pointer
+//    moves at its AIGroup's speed (rowed AIUpdateInterface::rva002630F5).
 //  - AIMoveToPositionAndEnterState::onExit, retail 0x0034C035 (99 bytes):
 //    slot 5 of 0x00C136A0. When the owner has object status 0x4E, clears it
 //    and status 3, and for a template with kind byte +0x115 mask 0x20 also
@@ -131,9 +138,12 @@ enum
 struct Coord3D;
 class Object;
 
+class LocomotorSet;
 class Pathfinder
 {
 public:
+	Bool adjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest,
+		const Coord3D *groupDest);
 	Bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *dest);
 	Bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int flag);
 };
@@ -275,6 +285,13 @@ public:
 	void aiIdle(CommandSourceType cmdSource);
 };
 
+class RadarObject;
+class AIGroup
+{
+public:
+	Real getSpeed();
+};
+
 class AIUpdateInterface : public AIStateAISlots<135>
 {
 public:
@@ -295,6 +312,8 @@ public:
 	void friend_setCurrentGoalPathIndex(int index) { m_currentGoalPathIndex = index; }
 	void setDesiredSpeed(Real speed);
 	void requestPath(Coord3D *destination, Bool isFinalGoal);
+	RadarObject *rva002630F5();
+	const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)m_locomotorSet; }
 	void *getPath() const { return m_path; }
 	Bool getBfmeFlag3B1() const { return m_bfmeFlag3B1; }
 private:
@@ -306,7 +325,8 @@ private:
 	void *m_path; // +0x140
 	unsigned char m_pad144[0x194 - 0x144];
 	int m_currentGoalPathIndex; // +0x194
-	unsigned char m_pad198[0x1F0 - 0x198];
+	unsigned char m_pad198[0x1CC - 0x198];
+	unsigned char m_locomotorSet[0x1F0 - 0x1CC]; // +0x1CC
 	Locomotor *m_curLocomotor; // +0x1F0
 	unsigned char m_pad1F4[0x3B1 - 0x1F4];
 	Bool m_bfmeFlag3B1; // +0x3B1
@@ -337,11 +357,12 @@ class ThingTemplate
 {
 public:
 	Bool testKindByte115() const { return (m_kindOf[1] & 0x20) != 0; }
+	Bool testKindByte11F() const { return (m_kindOf[11] & 0x80) != 0; }
 	Real getBfmeReal53C() const { return m_bfmeReal53C; }
 private:
 	unsigned char m_pad00[0x114];
-	unsigned char m_kindOf[4]; // +0x114
-	unsigned char m_pad118[0x53C - 0x118];
+	unsigned char m_kindOf[12]; // +0x114
+	unsigned char m_pad120[0x53C - 0x120];
 	Real m_bfmeReal53C; // +0x53C
 };
 
@@ -354,6 +375,14 @@ struct Coord3D
 	Real Normalize();
 	void scale(Real scale) { x *= scale; y *= scale; z *= scale; }
 	void add(const Coord3D *a) { x += a->x; y += a->y; z += a->z; }
+};
+
+// The contain module's slot 87 hands back the position an entering unit
+// walks to (BFME 1 donor: slot 82, its GetContainedObjectPosition).
+class ContainModuleInterface : public AIStateAISlots<87>
+{
+public:
+	virtual const Coord3D *getEnterPosition() = 0;
 };
 
 class Thing
@@ -377,6 +406,8 @@ class Object : public Thing
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	ObjectID getID() const { return m_id; }
+	ContainModuleInterface *getContain() const { return m_contain; }
+	void *getBfme410() const { return m_bfme410; }
 	Bool testBfmeFlag94() const { return (m_bfmeFlags94 & 1) != 0; }
 	void setBfmeAngle1C0(Real angle) { m_bfmeAngle1C0 = angle; }
 	Bool testStatus(ObjectStatusTypes status) const;
@@ -415,8 +446,12 @@ private:
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x1C0 - (0x10C + sizeof(Rva0010CBits))];
 	Real m_bfmeAngle1C0; // +0x1C0
-	unsigned char m_pad1C4[0x258 - 0x1C4];
+	unsigned char m_pad1C4[0x250 - 0x1C4];
+	ContainModuleInterface *m_contain; // +0x250
+	unsigned char m_pad254[0x258 - 0x254];
 	AIUpdateInterface *m_ai; // +0x258
+	unsigned char m_pad25C[0x410 - 0x25C];
+	void *m_bfme410; // +0x410
 };
 
 class StateMachine
@@ -663,8 +698,30 @@ void AIAttackMeleeHordeApproachTargetState::onExit(StateExitType status)
 class AIMoveToPositionAndEnterState : public AIInternalMoveToState
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 };
+
+StateReturnType AIMoveToPositionAndEnterState::onEnter()
+{
+	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 61");
+	setAdjustsDestination(false);
+	Object *owner = getMachineOwner();
+	AIUpdateInterface *ai = owner->getAI();
+	Object *goal = getMachine()->getGoalObject();
+	m_goalPosition = *goal->getContain()->getEnterPosition();
+	if (goal->getTemplate()->testKindByte11F())
+		TheAI->pathfinder()->adjustDestination(owner, ai->getLocomotorSet(), &m_goalPosition, 0);
+
+	StateReturnType ret = AIInternalMoveToState::onEnter();
+	if (owner->getBfme410())
+	{
+		AIGroup *group = (AIGroup *)ai->rva002630F5();
+		if (group)
+			ai->setDesiredSpeed(group->getSpeed());
+	}
+	return ret;
+}
 
 void AIMoveToPositionAndEnterState::onExit(StateExitType status)
 {
