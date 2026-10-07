@@ -9,10 +9,14 @@
 // Slot/owner identities unproven; names are address-derived.
 // One ledger row per thunk.
 
+// Native caller42C879 forwards GameMessage* and tests the full int result.
+// Correct the existing thunk owner ABI; its seven target bytes stay unchanged.
+class GameMessage;
+
 class Rva005E6817Outer
 {
 public:
-	virtual void slot0();
+	virtual int slot0(GameMessage *message);
 };
 
 class Rva005E681EOuter
@@ -75,7 +79,7 @@ public:
 class Rva005E6817Mid
 {
 public:
-	void fwd();
+	int fwd(GameMessage *message);
 
 private:
 	unsigned m_00;
@@ -138,9 +142,9 @@ public:
 	void fwd();
 };
 
-void Rva005E6817Mid::fwd()
+int Rva005E6817Mid::fwd(GameMessage *message)
 {
-	m_outer->slot0();
+	return m_outer->slot0(message);
 }
 
 void Rva005E681EMid::fwd()

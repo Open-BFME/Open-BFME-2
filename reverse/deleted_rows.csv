@@ -865,3 +865,6 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?rva00375B7A@Rva00375AF7@@QAEMMM@Z,0x00375B7A,Concurrent upstream byte-verified owner retained at Code/GameEngine/Source/GameLogic/Map/Rva00375B7AHeightQuery.cpp
 ?Rva00375A73@@YG_NPAVRva00375A73Query@@MPAURva00375A73Position@@@Z,0x00375A73,Concurrent upstream byte-verified owner retained at Code/GameEngine/Source/Common/System/Rva00375A73SplineQuery.cpp
 ?rva005503B1@Rva005503B1@@QAEPAVRva0055011A@@XZ,0x005503B1,"Retracted for restatement as a static member: its one caller, SetUpGameSpy (0x00386F7F), calls it with no ECX setup and stores the result in ThePinger (0x00E05FB8); the body never reads ECX and its push ecx only reserves the EH new slot. The same source re-lands it as ?rva005503B1@Rva005503B1@@SAPAVRva0055011A@@XZ."
+?d_00373373@@YAXXZ,0x00373373,Replaced by verified Rva003733B5Base::Init; prevent stale union-merge resurrection
+?d_0042c879@@YAXXZ,0x0042C879,Replaced by verified Rva0042C833::rva0042C879; prevent stale union-merge resurrection
+?fwd@Rva005E6817Mid@@QAEXXZ,0x005E6817,ABI repaired in the existing owner to int(GameMessage*) as independently proved by native caller0042C879
