@@ -389,6 +389,7 @@ protected:
 	static UnsignedInt GetGameCommandSize(NetCommandMsg *msg);
 	static UnsignedInt GetBufferSizeNeededForCommand(NetCommandMsg *msg);
 	static void FillBufferWithGameCommand(UnsignedByte *buffer, NetCommandRef *ref);
+	static void FillBufferWithAckCommand(UnsignedByte *buffer, NetCommandRef *msg);
 	// Fixed-size arms of GetBufferSizeNeededForCommand, by command type; the
 	// constants are the ones retail's jump table returns.
 	static UnsignedInt GetType0CommandSize(NetCommandMsg *msg) { return 0x10; }
@@ -493,6 +494,8 @@ class NetAckStage1CommandMsg
 {
 public:
 	NetAckStage1CommandMsg();
+	UnsignedShort getCommandID();
+	UnsignedByte getOriginalPlayerID();
 private:
 	char m_pad[0x1C];
 public:
@@ -507,6 +510,8 @@ class NetAckStage2CommandMsg
 {
 public:
 	NetAckStage2CommandMsg();
+	UnsignedShort getCommandID();
+	UnsignedByte getOriginalPlayerID();
 private:
 	char m_pad[0x1C];
 public:
@@ -1418,6 +1423,64 @@ UnsignedInt NetPacket::GetBufferSizeNeededForCommand(NetCommandMsg *msg)
 	}
 
 	return 0;
+}
+
+// ?FillBufferWithAckCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058C740, 207 bytes:
+// the BFME1 donor's FillBufferWithAckCommand (NetPacket.cpp) plus BFME's two
+// ack dwords at +0x20/+0x24. As in the donor, each arm reads the ack fields
+// through the command reference itself, not its message. The three classes'
+// getters are the pinned ICF copies at 0x004D5767/0x004543C6, which is what
+// keeps retail's three call blocks apart.
+void NetPacket::FillBufferWithAckCommand(UnsignedByte *buffer, NetCommandRef *msg)
+{
+	NetCommandMsg *cmdMsg = msg->getCommand();
+	UnsignedShort offset = 0;
+
+	UnsignedShort commandID = 0;
+	UnsignedByte originalPlayerID = 0;
+	UnsignedInt ackValue20 = 0;
+	UnsignedInt ackValue24 = 0;
+
+	if (cmdMsg->getNetCommandType() == 0) {
+		NetAckBothCommandMsg *ackmsg = (NetAckBothCommandMsg *)msg;
+		commandID = ackmsg->getCommandID();
+		originalPlayerID = ackmsg->getOriginalPlayerID();
+		ackValue20 = ackmsg->m_20;
+		ackValue24 = ackmsg->m_24;
+	} else if (cmdMsg->getNetCommandType() == 1) {
+		NetAckStage1CommandMsg *ackmsg = (NetAckStage1CommandMsg *)msg;
+		commandID = ackmsg->getCommandID();
+		originalPlayerID = ackmsg->getOriginalPlayerID();
+		ackValue20 = ackmsg->m_20;
+		ackValue24 = ackmsg->m_24;
+	} else if (cmdMsg->getNetCommandType() == 2) {
+		NetAckStage2CommandMsg *ackmsg = (NetAckStage2CommandMsg *)msg;
+		commandID = ackmsg->getCommandID();
+		originalPlayerID = ackmsg->getOriginalPlayerID();
+		ackValue20 = ackmsg->m_20;
+		ackValue24 = ackmsg->m_24;
+	}
+
+	buffer[offset] = 'T';
+	++offset;
+	buffer[offset] = cmdMsg->getNetCommandType();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'P';
+	++offset;
+	buffer[offset] = cmdMsg->getPlayerID();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'D';
+	++offset;
+	memcpy(buffer + offset, &commandID, sizeof(UnsignedShort));
+	offset += sizeof(UnsignedShort);
+	memcpy(buffer + offset, &originalPlayerID, sizeof(UnsignedByte));
+	offset += sizeof(UnsignedByte);
+	memcpy(buffer + offset, &ackValue20, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+	memcpy(buffer + offset, &ackValue24, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
 }
 
 // ?FillBufferWithGameCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058C488, 696 bytes:
