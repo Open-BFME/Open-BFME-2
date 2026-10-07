@@ -28,6 +28,32 @@ AsciiString Rva0032A9D3Split(AsciiString &name, const AsciiString &defaultPrefix
 	return defaultPrefix;
 }
 
+unsigned long Rva003ECA13Get(const AsciiString &name);
+unsigned long Rva003EC991(const char *text, int length, unsigned long crc);
+
+// Native 0032AA60..0032AAEE, 142B, cdecl RET0. Like the rowed string
+// splitter above, the first slash separates prefix and name. This variant
+// returns CRC keys, with the supplied default prefix for unqualified names.
+// Callee identities and the string header are independently rowed. Retail
+// retains the initial buffer for the prefix and reloads it for the suffix.
+// The original function name remains unknown.
+unsigned long Rva0032AA60Split(unsigned long &nameKey, const AsciiString &name,
+	unsigned long defaultPrefix)
+{
+	const char *data = *reinterpret_cast<const char *const *>(&name);
+	int length = data ? *reinterpret_cast<const unsigned short *>(data + 4) : 0;
+	for (int i = 0; i < length; ++i) {
+		if (name.getCharAt(i) == '/') {
+			unsigned long prefix = Rva003EC991(data ? data + 8 : "", i, 0);
+			++i;
+			nameKey = Rva003EC991(name.str() + i, length - i, 0);
+			return prefix;
+		}
+	}
+	nameKey = Rva003ECA13Get(name);
+	return defaultPrefix;
+}
+
 class Rva002046C0Owner
 {
 public:
