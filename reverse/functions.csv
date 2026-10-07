@@ -67614,3 +67614,4 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva002238E1@Rva002238E1@@QAEXXZ,,0x002238E1,5,Code/GameEngine/Source/Common/System/INIMacroTableDtorO1.cpp,matched,
 ?rva002239AD@Rva002239AD@@QAEXXZ,,0x002239AD,5,Code/GameEngine/Source/Common/System/INIMacroTableDtorO1.cpp,matched,
 ?Rva00529DA9@Holder00529E19@@QAEXH@Z,,0x00529DA9,112,Code/GameEngine/Source/Common/Rva00529E19Reset.cpp,matched,address-derived holder update; call-site and target field evidence documented in source
+?rva00517EA2@Rva00517EA2@@QAEXXZ,,0x00517EA2,137,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,response pump loop; 840-byte queue record and direct helper call sites from retail bytes; address-derived identity
