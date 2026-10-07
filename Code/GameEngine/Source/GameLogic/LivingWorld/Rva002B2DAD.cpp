@@ -12,7 +12,16 @@ public:
 struct Rva002B2DADMessageView { char pad[0x18]; unsigned char count; };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva0020E5BB { public: void *rva0020E5BB(int key); };
+class Rva0020E5BB
+{
+public:
+ void *rva0020E5BB(int key);
+ void rva0020E63F(int key, int field3c);
+private:
+ char pad[0x0c];
+ int currentKey;
+ int lastNonzeroKey;
+};
 struct Rva002B2DADLogicView { char pad[0xB0]; Rva0020E5BB *manager; };
 
 static __declspec(noinline) bool rva002B2DAD(GameMessage *message, void **out, int index)
@@ -34,4 +43,38 @@ static __declspec(noinline) bool rva002B2DAD(GameMessage *message, void **out, i
 bool rva002B2DADCaller(GameMessage *message, void **out, int index)
 {
  return rva002B2DAD(message, out, index);
+}
+
+// Native 0020E63F..0020E6AD, RET8. This is the same manager passed to
+// the message lookup above. Native establishes key words0c/10, entry word3c,
+// player range8c/90 and the two already rowed notification calls.
+// The word3c setter is folded with AnimateWindow::setAnimType at003B23B9:
+// the cast reuses that verified provider ABI; it does not identify the entry
+// as an AnimateWindow or give its word an animation meaning.
+class Rva002E2903Player;
+class Rva002E0BEB { public: void rva002E0BEB(void *); };
+struct Rva0020E63FPlayerRange {
+ Rva002E2903Player **first, **last;
+ int size() const { return (int)(last - first); }
+};
+class Rva002BA8F1Logic {
+public:
+ Rva002E2903Player *rva002B52A8(int);
+ char pad[0x8c]; Rva0020E63FPlayerRange players;
+};
+enum AnimTypes;
+class AnimateWindow { public: void setAnimType(AnimTypes); };
+
+void Rva0020E5BB::rva0020E63F(int key, int field3c)
+{
+ currentKey = key;
+ if (key) lastNonzeroKey = key;
+ void *entry = rva0020E5BB(key);
+ if (entry) {
+  ((AnimateWindow *)entry)->setAnimType((AnimTypes)field3c);
+  for (int index = 0; index < ((Rva002BA8F1Logic *)TheLivingWorldLogic)->players.size(); ++index) {
+   Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(index);
+   ((Rva002E0BEB *)player)->rva002E0BEB(entry);
+  }
+ }
 }
