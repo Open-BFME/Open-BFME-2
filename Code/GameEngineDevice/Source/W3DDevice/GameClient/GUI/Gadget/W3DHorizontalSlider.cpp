@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /O1 /arch:SSE /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_ascii_common /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
 // W3DGadgetHorizontalSliderDraw 0x000A166A (221B) and
 // W3DGadgetHorizontalSliderImageDraw 0x000A1747 (603B): Zero Hour's
 // W3DHorizontalSlider.cpp through BFME1's donor of the same name (Open-BFME-1
@@ -20,6 +20,12 @@
 // it, so the name is carried from the donor, not proven. The disabled branch
 // clears the center images (Zero Hour leaves them unset), and the clip calls
 // go through the BFME Display slots.
+//
+// W3DGadgetHorizontalSliderImageDrawB 0x000A1D1F (997B), the tooltip debug
+// draw, is likewise uncalled and carries the donor's name. BFME1's donor body
+// already holds the 0x08000000 unscaled test; its UnicodeString is BFME2's
+// shared one (bfme2_ascii_common), whose StringBase copy constructor builds
+// the by-value tooltip argument.
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
@@ -445,3 +451,101 @@ void W3DGadgetHorizontalSliderImageDrawA( GameWindow *window,
 
 	((BFMESliderDisplay *)TheDisplay)->enableClipping(FALSE);
 }  // end W3DGadgetHorizontalSliderImageDrawA
+
+// W3DGadgetHorizontalSliderImageDraw =========================================
+/** Draw horizontal slider with user supplied images */
+//=============================================================================
+void W3DGadgetHorizontalSliderImageDrawB( GameWindow *window, 
+																				 WinInstanceData *instData )
+{
+	const Image *fillSquare, *blankSquare, *highlightSquare;//, *progressArrow;
+	CtorCoord origin, size, start, end;
+	Int xOffset, yOffset;
+
+	// get screen position and size
+	window->winGetScreenPosition( &origin.x, &origin.y );
+	window->winGetSize( &size.x, &size.y );
+
+	SliderData *s = (SliderData *)window->winGetUserData();
+	
+	Real xMulti = 1.0f;
+	Real yMulti = 1.0f;
+	if( BitTest( window->winGetStatus(), WIN_STATUS_BFME_UNSCALED ) == FALSE )
+	{
+		xMulti = INT_TO_REAL(((BFMESliderDisplay *)TheDisplay)->getWidth()) / 800;
+		yMulti = INT_TO_REAL(((BFMESliderDisplay *)TheDisplay)->getHeight()) / 600;
+	}
+	// get image offset
+	xOffset = instData->m_imageOffset.x;
+	yOffset = instData->m_imageOffset.y;
+
+	UnicodeString tooltip, tmp;
+	tooltip.format(L"mult:%g/%g, img offset:%d,%d", xMulti, yMulti, xOffset, yOffset);
+
+	tmp.format(L"\norigin: %d,%d size:%d,%d", origin.x, origin.y, size.x, size.y);
+	tooltip.concat(tmp);
+
+	tmp.format(L"\ns= %d <--> %d, numTicks=%g, pos = %d", s->minVal, s->maxVal, s->numTicks, s->position);
+	tooltip.concat(tmp);
+
+	if( BitTest( instData->getState(), WIN_STATE_HILITED ) )
+	{
+		highlightSquare					= GadgetSliderGetHiliteImageLeft( window );
+		CtorCoord backgroundStart, backgroundEnd;
+		backgroundStart.x = origin.x - (highlightSquare->getImageWidth() * xMulti)/2;
+		backgroundStart.y = origin.y + (highlightSquare->getImageHeight() *yMulti)/3;
+		backgroundEnd.y = backgroundStart.y + highlightSquare->getImageHeight()* yMulti;
+		backgroundEnd.x = backgroundStart.x + highlightSquare->getImageWidth() * xMulti;
+
+		tmp.format(L"\nHighlighted: (%d,%d) -> (%d,%d), step %d/%g, full %d/%d", backgroundStart.x, backgroundStart.y,
+			backgroundEnd.x, backgroundEnd.y, highlightSquare->getImageWidth(), highlightSquare->getImageWidth() * xMulti,
+			origin.x, size.x);
+		tooltip.concat(tmp);
+
+		while(backgroundStart.x < origin.x + size.x)
+		{
+			TheWindowManager->winDrawImage( highlightSquare, 
+																		backgroundStart.x, backgroundStart.y,
+																		backgroundEnd.x, backgroundEnd.y );
+			backgroundStart.x = backgroundEnd.x;
+			backgroundEnd.x = backgroundStart.x + highlightSquare->getImageWidth() * xMulti;
+		}		
+		tmp.format(L"\n  bsX = %d, beX = %d (%d < %d+%d or %d?)", backgroundStart.x, backgroundEnd.x,
+			backgroundStart.x, origin.x, size.x, origin.x + size.x);
+		tooltip.concat(tmp);
+	}
+
+	fillSquare = GadgetSliderGetDisabledImageLeft( window );
+	start.x = origin.x;
+	start.y = origin.y;
+	end.y = start.y + fillSquare->getImageHeight() * yMulti;
+	end.x	= start.x + fillSquare->getImageWidth()* xMulti;
+
+	tmp.format(L"\ntop: start=%d,%d, end=%d,%d", start.x, start.y, end.x, end.y);
+	tooltip.concat(tmp);
+
+	while(start.x <= origin.x + (s->numTicks * (s->position - s->minVal)) && end.x < origin.x + size.x && s->position != s->minVal)
+	{
+		TheWindowManager->winDrawImage( fillSquare, 
+																		start.x, start.y,
+																		end.x, end.y );
+		start.x = end.x + 2;
+		end.x	= start.x + fillSquare->getImageWidth()* xMulti;
+
+	}
+
+	blankSquare	= GadgetSliderGetDisabledImageRight( window );
+	end.x	= start.x + blankSquare->getImageWidth()* xMulti;
+
+	while(end.x < origin.x + size.x )
+	{
+		TheWindowManager->winDrawImage( blankSquare, 
+																		start.x, start.y,
+																		end.x, end.y );
+		start.x = end.x + 2;
+		end.x	= start.x + blankSquare->getImageWidth()* xMulti;
+	}
+
+	instData->setTooltipText(tooltip);
+
+}  // end W3DGadgetHorizontalSliderImageDrawB
