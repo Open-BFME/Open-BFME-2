@@ -158,6 +158,7 @@ class Rva0038454E	// strategic stats block
 {
 public:
     void rva00553F2F();
+    void rva0055573B(XferStub *);
 	~Rva0038454E();						// 0x0038454E
 	Rva0038454E &operator=(const Rva0038454E &that);	// 0x00387945
 
@@ -170,6 +171,7 @@ class Rva00385333	// tournament stats block
 {
 public:
 	void rva00553FDD();
+    void rva00555988(XferStub *);
 	void rva00555F68();
 	~Rva00385333();						// 0x00385333
 	Rva00385333 &operator=(const Rva00385333 &that);	// 0x00387A68
@@ -331,4 +333,44 @@ void Rva00553E47StatsCore::rva00555109(XferStub *xfer) {
     xfer->_slot80((short &)m_148);
     xfer->_slot80((short &)m_14a);
     xfer->_slot80((short &)m_14c);
+}
+
+// Native rva0055573B: core transfer then version1 and the same map groups as its reset.
+void Rva0038454E::rva0055573B(XferStub *xfer) {
+    ((Rva00553E47StatsCore *)this)->rva00555109(xfer);
+    // Retail keeps the two version bytes in a reusable four-byte stack slot.
+    union { StatsXferVersion version; unsigned versionStorage; };
+    version.first=1;
+    version.second=1;
+    xfer->_slot28(version);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 0), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 12), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 24), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 36), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 48), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 60), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 72), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 84), xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)(m_pad154 + 96), xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)(m_pad154 + 108), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 120), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 132), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 144), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 156), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 168), xfer);
+}
+
+// Native rva00555988: core transfer then version1 and the same map groups as its reset.
+void Rva00385333::rva00555988(XferStub *xfer) {
+    ((Rva00553E47StatsCore *)this)->rva00555109(xfer);
+    // Retail keeps the two version bytes in a reusable four-byte stack slot.
+    union { StatsXferVersion version; unsigned versionStorage; };
+    version.first=1;
+    version.second=1;
+    xfer->_slot28(version);
+    ((PSPlayerStats *)this)->rva00554A4A((MapIntHolder *)(m_pad154 + 0), xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)(m_pad154 + 12), xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)(m_pad154 + 24), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 36), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 48), xfer);
 }
