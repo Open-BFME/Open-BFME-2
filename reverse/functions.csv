@@ -21418,23 +21418,23 @@ uw_00773914,,0x00773914,8,Code/gen_small/uw_gen_003.cpp,matched,gen-funclet;obje
 uw_00773976,,0x00773976,8,Code/gen_small/uw_gen_009.cpp,matched,gen-funclet;object-symbol=$L2235
 uw_00773988,,0x00773988,8,Code/gen_small/uw_gen_002.cpp,matched,gen-funclet;object-symbol=$L293
 uw_0077399a,,0x0077399A,8,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L4261
-uw_007739ac,,0x007739AC,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L312
-uw_007739b4,,0x007739B4,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L315
-uw_007739bc,,0x007739BC,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L316
-uw_007739c4,,0x007739C4,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L317
-uw_007739cc,,0x007739CC,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L319
-uw_007739d4,,0x007739D4,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L544
-uw_007739df,,0x007739DF,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L562
-uw_007739ea,,0x007739EA,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L563
-uw_007739f5,,0x007739F5,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L564
-uw_00773a00,,0x00773A00,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L567
-uw_00773a0b,,0x00773A0B,14,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L7422
-uw_00773a23,,0x00773A23,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L544
-uw_00773a2e,,0x00773A2E,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L562
-uw_00773a39,,0x00773A39,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L563
-uw_00773a44,,0x00773A44,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L564
-uw_00773a4f,,0x00773A4F,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L567
-uw_00773a5a,,0x00773A5A,14,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L7422
+uw_007739ac,,0x007739AC,8,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1343;parent=??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z;unwind state 0 of FuncInfo 0x0091A8F0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007739b4,,0x007739B4,8,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1344;parent=??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z;unwind state 1 of FuncInfo 0x0091A8F0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007739bc,,0x007739BC,8,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1345;parent=??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z;unwind state 2 of FuncInfo 0x0091A8F0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007739c4,,0x007739C4,8,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1346;parent=??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z;unwind state 3 of FuncInfo 0x0091A8F0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007739cc,,0x007739CC,8,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1347;parent=??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z;unwind state 4 of FuncInfo 0x0091A8F0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007739d4,,0x007739D4,11,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1348;parent=??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z;unwind state 5 of FuncInfo 0x0091A8F0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007739df,,0x007739DF,11,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1349;parent=??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z;unwind state 6 of FuncInfo 0x0091A8F0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007739ea,,0x007739EA,11,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1350;parent=??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z;unwind state 7 of FuncInfo 0x0091A8F0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007739f5,,0x007739F5,11,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1351;parent=??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z;unwind state 8 of FuncInfo 0x0091A8F0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00773a00,,0x00773A00,11,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1352;parent=??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z;unwind state 9 of FuncInfo 0x0091A8F0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00773a0b,,0x00773A0B,14,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1353;parent=??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z;unwind state 10 of FuncInfo 0x0091A8F0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00773a23,,0x00773A23,11,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1463;parent=??1Waypoint@@UAE@XZ;unwind state 0 of FuncInfo 0x0091A93C read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00773a2e,,0x00773A2E,11,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1464;parent=??1Waypoint@@UAE@XZ;unwind state 1 of FuncInfo 0x0091A93C read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00773a39,,0x00773A39,11,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1465;parent=??1Waypoint@@UAE@XZ;unwind state 2 of FuncInfo 0x0091A93C read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00773a44,,0x00773A44,11,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1466;parent=??1Waypoint@@UAE@XZ;unwind state 3 of FuncInfo 0x0091A93C read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00773a4f,,0x00773A4F,11,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1467;parent=??1Waypoint@@UAE@XZ;unwind state 4 of FuncInfo 0x0091A93C read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00773a5a,,0x00773A5A,14,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,gen-funclet;object-symbol=$L1468;parent=??1Waypoint@@UAE@XZ;unwind state 5 of FuncInfo 0x0091A93C read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_00773a72,,0x00773A72,8,Code/gen_small/uw_gen_003.cpp,matched,gen-funclet;object-symbol=$L320
 uw_00773a7a,,0x00773A7A,8,Code/gen_small/uw_gen_003.cpp,matched,gen-funclet;object-symbol=$L305
 uw_00773a82,,0x00773A82,8,Code/gen_small/uw_gen_002.cpp,matched,gen-funclet;object-symbol=$L293
@@ -68757,3 +68757,5 @@ uw_00773953,,0x00773953,25,Code/GameEngine/Source/GameLogic/Map/TerrainLogicWayp
 ?groupEvacuate@AIGroup@@QAEXW4CommandSourceType@@@Z,,0x003702B9,224,Code/GameEngine/Source/GameLogic/AI/AIGroupFollowWaypointPathExact.cpp,matched,
 ?setWaterHeight@TerrainLogic@@UAEXPBVWaterHandle@@MM_N@Z,,0x00282E20,448,Code/GameEngine/Source/GameLogic/Map/TerrainLogicWater.cpp,matched,
 uw_00773b7a,,0x00773B7A,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicWater.cpp,matched,gen-funclet;object-symbol=$L1643;parent=?setWaterHeight@TerrainLogic@@UAEXPBVWaterHandle@@MM_N@Z;unwind state 0 of FuncInfo 0x0091AAF4 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+??0Waypoint@@QAE@IVAsciiString@@PBUCoord3D@@000_NH0@Z,,0x00282212,447,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,
+??0Waypoint@@QAE@XZ,,0x002823D1,303,Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp,matched,
