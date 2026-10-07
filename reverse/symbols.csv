@@ -15285,3 +15285,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00158BA0@Rva00158BA0@@QAEXPAMPBG@Z,0x00158BA0,callee of ?rva00105CF6@Rva00105CF6@@QAEXPAPBGPAH1@Z
 ?rva00112AD1@Rva00112AD1@@QAE_NHHHM@Z,0x00112AD1,retail REL32 at 0x00113191 targets 0x00112AD1; caller supplies 0; 0; this+0x58; float arg2 and callee ret 0x10 confirms four stack slots; address-derived dependency only; body unrecovered
 ?rva0010F70A@Rva0010F70A@@QAEXPAX@Z,0x0010F70A,retail REL32 at 0x00116517 targets 0x0010F70A; caller ECX is [this+8] and passes this as one stack argument; 86-byte Ghidra body returns with ret 4. Address-derived dependency only; body not recovered here.
+?Rva0012C889@@YA_NPBG@Z,0x0012C889,Retail REL32 calls at 0x0012CB1C and 0x0012CB52 target 0x0012C889; both callers pop one wide-string argument and accumulate AL as a boolean; 126-byte Ghidra interval. Address-derived dependency only; body identity remains unproven and unrecovered.

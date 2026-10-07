@@ -13,12 +13,22 @@
 // g_00DEE93C: matched references place it at VA 0xdee93c (zero-filled; a plain-data view).
 AsciiString g_00DEE93C;
 bool __cdecl Rva0012C907Run(const unsigned short *currentDirectory);
+bool __cdecl Rva0012C889(const unsigned short *currentDirectory);
 
 bool __cdecl Rva0012CAC3Run()
 {
 	bool ok = Rva0012C907Run(0);
 	if (!g_00DEE93C.isEmpty()) {
 		ok |= Rva0012C907Run(UnicodeString(g_00DEE93C).str());
+	}
+	return ok;
+}
+
+bool __cdecl Rva0012CB15Run()
+{
+	bool ok = Rva0012C889(0);
+	if (!g_00DEE93C.isEmpty()) {
+		ok |= Rva0012C889(UnicodeString(g_00DEE93C).str());
 	}
 	return ok;
 }
