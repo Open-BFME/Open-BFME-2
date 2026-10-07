@@ -260,7 +260,7 @@ public:
 	virtual void rva00507877();
 };
 
-class Rva005126F5
+class _bfme_AptGameWindow
 {
 public:
 	int rva0051274F(int a, unsigned int b, unsigned int c);
@@ -907,15 +907,15 @@ void Rva0050B928::rva0050B928()
 	Rva00507823::rva00507877();
 }
 
-// 0x00521111: tail jump to Rva005126F5::rva0051274F.
-class Rva00521111 : public Rva005126F5
+// 0x00521111: tail jump to _bfme_AptGameWindow::rva0051274F.
+class Rva00521111 : public _bfme_AptGameWindow
 {
 public:
 	int rva00521111(int a, unsigned int b, unsigned int c);
 };
 int Rva00521111::rva00521111(int a, unsigned int b, unsigned int c)
 {
-	return Rva005126F5::rva0051274F(a, b, c);
+	return _bfme_AptGameWindow::rva0051274F(a, b, c);
 }
 
 // 0x00524AE2: tail jump to Rva00524A4C::clear.

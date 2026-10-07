@@ -212,7 +212,7 @@ public:
 
 // The screen's base class (destroyed by 0x005126F5); its message handler
 // 0x0051274F (136 bytes, vftable 0x00C659E8 slot 2) is unrowed and pinned.
-class Rva005126F5
+class _bfme_AptGameWindow
 {
 public:
 	int rva0051274F(int msg, unsigned int data1, unsigned int data2);
@@ -755,7 +755,7 @@ int AptLanLobby::rva00444826(int msg, unsigned int data1, unsigned int data2)
 	if (m_6c0)
 		return 0;
 
-	int result = reinterpret_cast<Rva005126F5 *>(this)->rva0051274F(msg, data1, data2);
+	int result = reinterpret_cast<_bfme_AptGameWindow *>(this)->rva0051274F(msg, data1, data2);
 	int panelResult = m_panel.rva00442CB3(msg, data1, data2);
 	if (!result)
 		result = panelResult;

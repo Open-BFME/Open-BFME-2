@@ -1,8 +1,8 @@
 // cl: /O1 /MD
 // ?rva00516FE5@Rva00516FE5@@QAEHHII@Z at 0x00516FE5 size 66
-// Evidence: vtable slot 2 neighbours GameWindow draw; calls pinned base Rva005126F5 0x0051274F then child virtual +0x14 over +0x280 array.
+// Evidence: vtable slot 2 neighbours GameWindow draw; calls pinned base _bfme_AptGameWindow 0x0051274F then child virtual +0x14 over +0x280 array.
 
-class Rva005126F5
+class _bfme_AptGameWindow
 {
 public:
     int rva0051274F(int a, unsigned b, unsigned c);
@@ -33,7 +33,7 @@ private:
 
 int Rva00516FE5::rva00516FE5(int a, unsigned b, unsigned c)
 {
-    ((Rva005126F5 *)this)->rva0051274F(a, b, c);
+    ((_bfme_AptGameWindow *)this)->rva0051274F(a, b, c);
     for (Rva00516FE5Child **p = m_begin; p != m_end; ++p)
         (*p)->handler(this, a, b, c);
     return 1;

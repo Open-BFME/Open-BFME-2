@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
-// ?rva0056D9C1@Rva0056D9C1@@QAEHHII@Z @0x0056D9C1 78B evidence: REF table slot RVA 0x0086DB48 neighbours deleting dtor; tail-jmp to pinned base 0x0051274F Rva005126F5 slot2; global g_00DFEF18 VA 0x00DFEF18; msg 0x1b dispatcher returning 1
-class Rva005126F5
+// ?rva0056D9C1@Rva0056D9C1@@QAEHHII@Z @0x0056D9C1 78B evidence: REF table slot RVA 0x0086DB48 neighbours deleting dtor; tail-jmp to pinned base 0x0051274F _bfme_AptGameWindow slot2; global g_00DFEF18 VA 0x00DFEF18; msg 0x1b dispatcher returning 1
+class _bfme_AptGameWindow
 {
 public:
 	int rva0051274F(int a, unsigned int b, unsigned int c);
@@ -47,7 +47,7 @@ public:
 int Rva0056D9C1::rva0056D9C1(int a, unsigned int b, unsigned int c)
 {
 	if (a != 0x1b)
-		return ((Rva005126F5 *)this)->rva0051274F(a, b, c);
+		return ((_bfme_AptGameWindow *)this)->rva0051274F(a, b, c);
 	HostView *h = (HostView *)g_00DFEF18;
 	if (b != 0) {
 		if (h->m_19 != 0 && h->m_18 != 0)

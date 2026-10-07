@@ -7,7 +7,7 @@
 class GameWindow;
 class UnicodeString;
 
-class Rva005126F5
+class _bfme_AptGameWindow
 {
 public:
 	int rva0051274F(int message, unsigned int wParam, unsigned int lParam);
@@ -38,7 +38,7 @@ private:
 // target message points at the +0x280 chat entry and has zero lParam.
 int AptDisconnectScreen::rva00513449(int message, unsigned int wParam, unsigned int lParam)
 {
-	int result = ((Rva005126F5 *)this)->rva0051274F(message, wParam, lParam);
+	int result = ((_bfme_AptGameWindow *)this)->rva0051274F(message, wParam, lParam);
 	if (result == 1)
 		return 1;
 	switch (message)

@@ -222,8 +222,10 @@ private:
 	unsigned char m_pad004[0x24 - 0x4];
 };
 
-// The screen base class's message handler, unrowed 0x0051274F (pinned).
-class Rva005126F5
+// The native Apt screen base handler is rowed at 0x0051274F.
+// This call-only view preserves the complete-this pointer; its full layout
+// remains in BfmeAptGameWindowMessages.cpp, alongside the native vftable evidence.
+class _bfme_AptGameWindow
 {
 public:
 	int rva0051274F(int message, unsigned int wParam, unsigned int lParam);
@@ -447,7 +449,7 @@ void AptMessenger::rva00511AD4(int query, char *value, bool set)
 // message marks the screen for a refresh.
 int AptMessenger::rva00511990(int message, unsigned int wParam, unsigned int lParam)
 {
-	int result = ((Rva005126F5 *)this)->rva0051274F(message, wParam, lParam);
+	int result = ((_bfme_AptGameWindow *)this)->rva0051274F(message, wParam, lParam);
 	for (int i = 0; i < 2; ++i)
 	{
 		if (m_entries[i] && m_entries[i]->rva005B00C8(message, wParam, lParam))

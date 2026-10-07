@@ -132,12 +132,12 @@ Int Rva005117B7::rva005117B7(Int msg, unsigned char b, Int c)
 
 // 0x005127F3: messages 0x4014 and 0x4031 answer 1; the rest go to the pinned
 // base handler.
-class Rva005126F5
+class _bfme_AptGameWindow
 {
 public:
 	Int rva0051274F(Int msg, UnsignedInt a, UnsignedInt b);
 };
-class Rva005127F3 : public Rva005126F5
+class Rva005127F3 : public _bfme_AptGameWindow
 {
 public:
 	Int rva005127F3(Int msg, UnsignedInt a, UnsignedInt b);
