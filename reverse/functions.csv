@@ -68462,3 +68462,5 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva005503B1@Rva005503B1@@SAPAVRva0055011A@@XZ,,0x005503B1,53,Code/Libraries/Source/WWVegas/WWLib/Rva005503B1Factory.cpp,matched,new plus ctor shape proves factory; caller SetUpGameSpy 0x00386F7F sets no ECX and stores it in ThePinger so static
 ?SetUpGameSpy@@YAXPBD0@Z,,0x00386F7F,576,Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefs.cpp,matched,ZH SetUpGameSpy without rank points; BFME2 builds ladder dir and starts buddy/peer/PS threads and pinger; text filters from CustomMatchPreferences
 ?d_0042c879@@YAXXZ,,0x0042C879,88,Code/gen_asm/d_0042c879.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_003f1b7c@@YAXXZ,,0x003F1B7C,87,Code/gen_asm/d_003f1b7c.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_003f1c56@@YAXXZ,,0x003F1C56,76,Code/gen_asm/d_003f1b7c.asm,matched,gen-dump;bounds=ghidra-inventory
