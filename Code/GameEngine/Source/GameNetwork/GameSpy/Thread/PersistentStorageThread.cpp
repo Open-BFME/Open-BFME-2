@@ -142,12 +142,13 @@ private:
     unsigned m_13c, m_140;
     unsigned short m_144, m_146, m_148, m_14a, m_14c;
     unsigned short m_unmodelled14e;
-    unsigned m_id150;
+public:
+    int m_id;
 };
 typedef char StatsMapStrideCheck[sizeof(Rva0038201D) == 12 ? 1 : -1];
 typedef char StatsCoreSizeCheck[sizeof(Rva00553E47StatsCore) == 0x154 ? 1 : -1];
 void Rva00553E47StatsCore::reset() {
-    m_id150 = 0;
+    m_id = 0;
     ((Rva0038201D *)&m_maps04_0)->rva003828B6();
     ((Rva0038201D *)&m_maps04_1)->rva003828B6();
     ((Rva0038201D *)&m_maps04_2)->rva003828B6();
@@ -187,16 +188,15 @@ public:
 	unsigned char m_pad154[0x190 - 0x154];
 };
 
-class Rva0038454E	// strategic stats block
+class Rva0038454E : public Rva00553E47StatsCore	// strategic stats block
 {
 public:
-    void rva00553F2F();
-    void rva0055573B(XferStub *);
+    virtual void reset();
+    virtual void rva00555109(XferStub *);
+    virtual void rva0055524B(const Rva0038454E *);
 	~Rva0038454E();						// 0x0038454E
 	Rva0038454E &operator=(const Rva0038454E &that);	// 0x00387945
 
-	unsigned char m_pad00[0x150];
-	Int m_id;						// +0x150
 	unsigned char m_pad154[0x208 - 0x154];
 };
 
@@ -305,7 +305,7 @@ void Rva00385333::rva00553FDD() {
 // [553F2F,553FDD),174B clears the same fifteen 12-byte map slots that
 // the verified strategic-block assignment387945 and destructor38454E use.
 // Eight maps, two of the other map ABI, then five maps; core reset is553E47.
-void Rva0038454E::rva00553F2F() {
+void Rva0038454E::reset() {
     ((Rva00553E47StatsCore *)this)->Rva00553E47StatsCore::reset();
     ((Rva0038204A *)(m_pad154 + 0x0))->rva003828DF();
     ((Rva0038204A *)(m_pad154 + 0xc))->rva003828DF();
@@ -370,7 +370,7 @@ void Rva00553E47StatsCore::rva00555109(XferStub *xfer) {
 }
 
 // Native rva0055573B: core transfer then version1 and the same map groups as its reset.
-void Rva0038454E::rva0055573B(XferStub *xfer) {
+void Rva0038454E::rva00555109(XferStub *xfer) {
     ((Rva00553E47StatsCore *)this)->Rva00553E47StatsCore::rva00555109(xfer);
     // Retail keeps the two version bytes in a reusable four-byte stack slot.
     union { StatsXferVersion version; unsigned versionStorage; };
@@ -437,7 +437,7 @@ void Rva00385333::rva00555DDC(XferStub *xfer) {
 // Original field identities remain unresolved, so offsets retain neutral names.
 void Rva00553E47StatsCore::rva00554AF2(const Rva00553E47StatsCore *other) {
     int i;
-    if ((int)other->m_id150 > 0) m_id150=other->m_id150;
+    if ((int)other->m_id > 0) m_id=other->m_id;
     for (StatsShortMap::const_iterator it=((const StatsShortMap *)&other->m_maps04_0)->begin(); it._M_node!=((const StatsShortMap *)&other->m_maps04_0)->end()._M_node; ++it) {
         if ((unsigned short)it->second > 0)
             (*(StatsShortMap *)&m_maps04_0)[it->first]=it->second;
@@ -583,7 +583,74 @@ extern "C" __declspec(dllimport) void __stdcall GetLocalTime(StatsSystemTime *);
 // the copy constructor, resets, sets the id at150, and queries local time.
 Rva00553E47StatsCore::Rva00553E47StatsCore(int id) {
     reset();
-    m_id150=id;
+    m_id=id;
     StatsSystemTime localTime;
     GetLocalTime(&localTime);
 }
+
+// Native strategic vtable86B0EC has core slots0..3 and this fifth slot55524B.
+// Its15 maps agree with reset553F2F and xfer55573B, each with its own tests.
+void Rva0038454E::rva0055524B(const Rva0038454E *source) {
+    Rva00553E47StatsCore::rva00554AF2(source);
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+0))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+0))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+0))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+12))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+12))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+12))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+24))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+24))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+24))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+36))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+36))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+36))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+48))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+48))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+48))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+60))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+60))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+60))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+72))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+72))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+72))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+84))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+84))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+84))[it->first]=it->second;
+    }
+    for (StatsShortMap::const_iterator it=((const StatsShortMap *)(source->m_pad154+96))->begin(); it._M_node!=((const StatsShortMap *)(source->m_pad154+96))->end()._M_node; ++it) {
+        if ((unsigned short)it->second > 0)
+            (*(StatsShortMap *)(m_pad154+96))[it->first]=it->second;
+    }
+    for (StatsShortMap::const_iterator it=((const StatsShortMap *)(source->m_pad154+108))->begin(); it._M_node!=((const StatsShortMap *)(source->m_pad154+108))->end()._M_node; ++it) {
+        if ((unsigned short)it->second > 0)
+            (*(StatsShortMap *)(m_pad154+108))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+120))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+120))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+120))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+132))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+132))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+132))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+144))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+144))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+144))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+156))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+156))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+156))[it->first]=it->second;
+    }
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+168))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+168))->end()._M_node; ++it) {
+        if (it->second > 0.0f)
+            (*(StatsFloatMap *)(m_pad154+168))[it->first]=it->second;
+    }
+}
+typedef char StrategicStatsSizeCheck[sizeof(Rva0038454E)==0x208?1:-1];
