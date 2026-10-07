@@ -1,5 +1,5 @@
 // ?TrimRight@EAStringC@@QAEAAV1@PBD@Z
-// partial score=0.9886 date=2026-10-06
+// partial score=0.99 date=2026-10-07
 // cl: /O2 /DNDEBUG /MD
 // ?FreeData@EAStringC@@SAXPAVStringDataC@1@@Z, retail 0x006D2EB0 (118B).
 // EA refcounted-string release worker: asserts the data refcount is live,
@@ -17,10 +17,13 @@ void __debugbreak();
 extern "C" int __cdecl memcmp(const void *left, const void *right, unsigned int count);
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
 extern "C" unsigned int __cdecl strlen(const char *str);
+extern "C" void *__cdecl memset(void *dst, int value, unsigned int count);
 extern "C" int __cdecl strcmp(const char *left, const char *right);
 extern "C" int __cdecl _strcmpi(const char *left, const char *right);
+extern "C" char *__cdecl strchr(const char *text, int character);
 #pragma intrinsic(memcpy)
 #pragma intrinsic(strlen)
+#pragma intrinsic(memset)
 #pragma intrinsic(strcmp)
 
 unsigned short __cdecl hashLower(const char *text);
@@ -74,9 +77,10 @@ public:
 	EAStringC(const EAStringC &other);
 	EAStringC();
 	EAStringC Left(int count) const;
- EAStringC &TrimRight(const char *text);
+	EAStringC &TrimRight(const char *text);
 	EAStringC(const char *text);
 	EAStringC(unsigned int nSize);
+	EAStringC(unsigned int nSize, unsigned int fillChar);
 	EAStringC &operator=(const EAStringC &other);
 	~EAStringC();
 	EAStringC &clear();
@@ -233,6 +237,26 @@ EAStringC::EAStringC(unsigned int nSize)
 		SetSize(0);
 		m_pData->m_uHash = 0;
 		reinterpret_cast<char *>(m_pData)[sizeof(StringDataC)] = 0;
+	} else {
+		m_pData = &g_eaEmptyStringData;
+		++g_eaEmptyStringData.m_uRefCount;
+	}
+}
+
+// ??0EAStringC@@QAE@II@Z, retail 0x006D4640 (114B). Fill constructor:
+// reserve nSize bytes, repeat the low byte of fillChar, then set the logical
+// size, clear the cached hash, and append the terminator. Target calls the
+// rowed Reserve and SetSize methods; its two-argument ctor pin proves identity.
+EAStringC::EAStringC(unsigned int fillChar, unsigned int nSize)
+{
+	m_pData = 0;
+	if (nSize) {
+		Reserve(nSize);
+		memset(reinterpret_cast<char *>(m_pData) + sizeof(StringDataC),
+			(int)fillChar, nSize);
+		SetSize((int)nSize);
+		m_pData->m_uHash = 0;
+		reinterpret_cast<char *>(m_pData)[sizeof(StringDataC) + nSize] = 0;
 	} else {
 		m_pData = &g_eaEmptyStringData;
 		++g_eaEmptyStringData.m_uRefCount;
@@ -625,7 +649,7 @@ inline EAStringC::EAStringC()
 // EAString.cpp donor Left semantics; native 0x006D55B0 independently proves
 // signed count, hidden value-result argument, shared copies and ChangeBuffer.
 // The donor name is supported by that complete operation and sibling usage.
-__declspec(noinline) EAStringC EAStringC::Left(int count) const
+EAStringC EAStringC::Left(int count) const
 {
 	if (count <= 0) return EAStringC();
 	if ((unsigned)count >= m_pData->m_uSize) return *this;
@@ -634,15 +658,23 @@ __declspec(noinline) EAStringC EAStringC::Left(int count) const
 	return text;
 }
 
-extern "C" char *__cdecl strchr(const char *, int);
-EAStringC &EAStringC::TrimRight(const char *text) {
- if(!text) {g_bfmeAptAssertAtE17734("pStrText != NULL", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\string\\EAString.cpp",0x59A); if(g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();}
- unsigned i,size=m_pData->m_uSize;
- const char *buffer=(const char *)(m_pData+1)+size-1;
- for(i=0;i<size;++i) {char c=*buffer--; if(strchr(text,c)==0) break;}
- EAStringC result;
- result=Left(size-i);
- *this=result;
- return *this;
+// ?TrimRight@EAStringC@@QAEAAV1@PBD@Z, retail 0x006D5B50 (352B).
+// EAString donor semantics and retail call graph: trim trailing characters
+// found in the supplied set; callers at 0x006D5CC1 and 0x00708A77.
+EAStringC &EAStringC::TrimRight(const char *text)
+{
+	if (!text) {
+		g_bfmeAptAssertAtE17734("pStrText != NULL", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\string\\EAString.cpp", 0x59A);
+		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+	}
+	unsigned i, size = m_pData->m_uSize;
+	const char *buffer = (const char *)(m_pData + 1) + size - 1;
+	for (i = 0; i < size; ++i) {
+		char c = *buffer--;
+		if (strchr(text, c) == 0) break;
+	}
+	EAStringC result;
+	result = Left(size - i);
+	*this = result;
+	return *this;
 }
-

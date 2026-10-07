@@ -158,6 +158,7 @@ class Image;
 class Rva005F08C4
 {
 public:
+	void rva005F08C4(const Image *image);
 	void rva005F0940(const Image *image);
 };
 struct Rva005F09EF
@@ -170,6 +171,39 @@ struct Rva005F09EF
 void Rva005F09EF::rva005F09EF(const Image *image)
 {
 	return m_target->rva005F0940(image);
+}
+
+// Forwarders at 0x005F09DF and 0x005F09E7 load their target from +4 and
+// tail-jump. The wrapper owners are address-named; only the target method
+// identities are established by the respective jump destinations.
+class Rva005F086E
+{
+public:
+	void rva005F086E(bool flag);
+};
+
+struct Rva005F09DF
+{
+	char m_pad[4];
+	Rva005F086E *m_target;
+	void rva005F09DF(bool flag);
+};
+
+void Rva005F09DF::rva005F09DF(bool flag)
+{
+	return m_target->rva005F086E(flag);
+}
+
+struct Rva005F09E7
+{
+	char m_pad[4];
+	Rva005F08C4 *m_target;
+	void rva005F09E7(const Image *image);
+};
+
+void Rva005F09E7::rva005F09E7(const Image *image)
+{
+	return m_target->rva005F08C4(image);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

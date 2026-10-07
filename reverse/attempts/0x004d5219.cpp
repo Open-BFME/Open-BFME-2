@@ -1,6 +1,8 @@
 // ?init@Transport@@QAE_NPBUTransportAddress@@@Z
+// partial score=0.99 date=2026-10-07
+// ?init@Transport@@QAE_NPBUTransportAddress@@@Z
 // partial score=0.98 date=2026-10-05
-// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -40,7 +42,7 @@ struct WSAData40E
 {
 	unsigned char m_versionLow;
 	unsigned char m_versionHigh;
-	char m_pad[0x190 - 2];
+	char m_pad[0x18c - 2];
 };
 
 class UDP {
