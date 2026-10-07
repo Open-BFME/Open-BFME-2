@@ -15616,3 +15616,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??0Rva003FD14DBase@@QAE@H@Z,0x003FC58C,base init called by the 0x003FD14D derived ctor; body unclaimed
 ?rva003FB7DB@Rva003FDCEB@@QAEXXZ,0x003FB7DB,no-arg member called by 0x003FDCEB; body unclaimed
 ?rva003FDC46@Rva003FDCEB@@QAEHXZ,0x003FDC46,int-returning tail called by 0x003FDCEB; body unclaimed
+?rva00388E63@Rva004079D5Sub74@@QAEHPAH@Z,0x00388F63,int-returning outptr helper called by 0x004079D5; body unclaimed
