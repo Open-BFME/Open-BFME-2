@@ -83,6 +83,14 @@
 //    (slot 17, Zero Hour onObjectWantsToEnterOrExit) and records the goal
 //    id, then ignores the goal as an obstacle, allows invalid locomotor
 //    positions and logs critter desync 59 before the base onEnter.
+//  - AIMoveToPositionAndDieState::update, retail 0x003513C9 (214 bytes):
+//    slot 6 of 0x00C12CE8. Zero Hour AIMoveAndDeleteState::update: fails
+//    for an effectively dead owner (+0x438 bit 0), allows invalid locomotor
+//    positions and appends the ground-snapped goal once (+0x4C) to an
+//    existing path when not waiting for one (AI +0x3B1), through the rowed
+//    Path append with BFME 2's extra 0x7fffffff. When the move ends, BFME 2
+//    kills the owner (rowed Object::kill(8, 0)) instead of destroying it,
+//    first reporting it to the last damage source (pinned 0x00294D61).
 //  - AIMoveToPositionAndEnterState::onExit, retail 0x0034C035 (99 bytes):
 //    slot 5 of 0x00C136A0. When the owner has object status 0x4E, clears it
 //    and status 3, and for a template with kind byte +0x115 mask 0x20 also
@@ -317,6 +325,45 @@ template <class Base, int From> class AIStateSlotFill<Base, From, From> : public
 {
 };
 
+enum PathfindLayerEnum
+{
+	LAYER_GROUND = 1
+};
+class Path
+{
+public:
+	// Rowed tail append; BFME 2 adds a trailing int to Zero Hour's appendNode.
+	void rva002655E3(const Coord3D *pos, PathfindLayerEnum layer, int bfmeLimit);
+};
+class TerrainLogic : public AIStateAISlots<6>
+{
+public:
+	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal) const = 0;
+};
+extern TerrainLogic *TheTerrainLogic;
+struct DamageInfoInput
+{
+	unsigned char m_pad00[0x08];
+	ObjectID m_sourceID; // +0x08
+};
+struct DamageInfo
+{
+	DamageInfoInput in;
+};
+class BodyModuleInterface : public AIStateAISlots<15>
+{
+public:
+	virtual const DamageInfo *getLastDamageInfo() const = 0;
+};
+enum DamageType
+{
+	DAMAGE_BFME_8 = 8
+};
+enum DeathType
+{
+	DEATH_NORMAL = 0
+};
+
 // The interface Object::rva0028C197 returns (opaque): slot 24 and the bool
 // slot 136 are the two AICombineState::onEnter calls.
 class Rva0028C197ResultHead : public AIStateAISlots<24>
@@ -408,7 +455,7 @@ public:
 	int rva00260DED() const;
 	void friend_setGoalObject(Object *obj);
 	const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)m_locomotorSet; }
-	void *getPath() const { return m_path; }
+	Path *getPath() const { return m_path; }
 	Bool getBfmeFlag3B1() const { return m_bfmeFlag3B1; }
 private:
 	unsigned char m_pad004[0x20 - 0x04];
@@ -416,7 +463,7 @@ public:
 	AICommandInterface m_commands; // +0x20 (rowed aiIdle's this)
 private:
 	unsigned char m_pad021[0x140 - 0x21];
-	void *m_path; // +0x140
+	Path *m_path; // +0x140
 	unsigned char m_pad144[0x194 - 0x144];
 	int m_currentGoalPathIndex; // +0x194
 	unsigned char m_pad198[0x1CC - 0x198];
@@ -555,6 +602,9 @@ public:
 	void rva0028AE6D();
 	void *rva0028C197() const;
 	Bool chooseBestWeaponForTarget(const Object *target, WeaponChoiceCriteria criteria, CommandSourceType cmdSource);
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+	Bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
+	void kill(DamageType damageType, DeathType deathType);
 	__forceinline void setModelConditionBit(int bit)
 	{
 		if (m_conditionBits.test(bit) == 0)
@@ -586,12 +636,14 @@ private:
 	unsigned char m_disabledMask; // +0x1C8 (bit 3: DISABLED_HELD)
 	unsigned char m_pad1C9[0x250 - 0x1C9];
 	ContainModuleInterface *m_contain; // +0x250
-	unsigned char m_pad254[0x258 - 0x254];
+	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
 	unsigned char m_pad25C[0x274 - 0x25C];
 	Object *m_containedBy; // +0x274
 	unsigned char m_pad278[0x410 - 0x278];
 	void *m_bfme410; // +0x410
+	unsigned char m_pad414[0x438 - 0x414];
+	unsigned char m_privateStatus; // +0x438 (bit 0: effectively dead)
 };
 
 class StateMachine
@@ -1142,6 +1194,54 @@ StateReturnType AIEnterAndAttackState::update()
 		}
 	}
 	return code;
+}
+
+// The pinned killer notification SpawnBehavior::onSpawnDeath also makes
+// (BFME 1 donor: killer->report(owner, 1)); its identity is unproven.
+class Rva00294D61
+{
+public:
+	void report(Object *victim, int count);
+};
+
+class AIMoveToPositionAndDieState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType update();
+private:
+	Bool m_appendGoalPosition; // +0x4C
+};
+
+StateReturnType AIMoveToPositionAndDieState::update()
+{
+	Object *obj = getMachine()->getOwner();
+	if (obj->isEffectivelyDead())
+		return (StateReturnType)STATE_FAILURE;
+
+	AIUpdateInterface *ai = obj->getAI();
+	if (ai->getCurLocomotor())
+		ai->getCurLocomotor()->setAllowInvalidPosition(true);
+	if (m_appendGoalPosition)
+	{
+		Path *thePath = ai->getPath();
+		if (!ai->getBfmeFlag3B1() && ai->getPath())
+		{
+			m_goalPosition.z = TheTerrainLogic->getGroundHeight(m_goalPosition.x, m_goalPosition.y, 0);
+			thePath->rva002655E3(&m_goalPosition, LAYER_GROUND, 0x7fffffff);
+			m_appendGoalPosition = false;
+		}
+	}
+	StateReturnType status = AIInternalMoveToState::update();
+	if (status != STATE_CONTINUE)
+	{
+		Object *obj = getMachineOwner();
+		Object *killer = TheGameLogic->findObjectByID(obj->getBodyModule()->getLastDamageInfo()
+			? obj->getBodyModule()->getLastDamageInfo()->in.m_sourceID : INVALID_OBJECT_ID);
+		if (killer)
+			((Rva00294D61 *)killer)->report(obj, 1);
+		obj->kill(DAMAGE_BFME_8, DEATH_NORMAL);
+	}
+	return status;
 }
 
 class AIMoveAwayAndCowerState : public AIInternalMoveToState
