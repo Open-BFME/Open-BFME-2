@@ -22,6 +22,7 @@ class Rva004FD8A8Set
 {
 public:
 	Bool rva004FD8A8(Int region);		// 0x004FD8A8
+	Bool rva004FCA90();			// 0x004FCA90
 	void rva004FD699(Int region, _STL::vector<void *> *regions);	// 0x004FD699
 
 	unsigned char m_pad00[8];
@@ -97,7 +98,10 @@ class Rva003EF008
 public:
 	void rva003EF008();			// 0x003EF008
 
-	unsigned char m_pad00[0x44];
+	void rva003EEBEF(Int value);		// 0x003EEBEF
+
+	unsigned char m_pad00[0x38];
+	unsigned char m_field38[0x44 - 0x38];	// +0x38
 	Int m_field44;				// +0x44
 	void *m_field48;			// +0x48
 };
@@ -132,13 +136,84 @@ public:
 	UnicodeString rva0020E89C();	// 0x0020E89C, the translated name
 	UnicodeString rva003F15D1();	// 0x003F15D1, the description
 
+	Int getId() const { return m_id; }
+
 	unsigned char m_pad000[0x12c];
-	Int m_slot;		// +0x12C, the slot of the player holding it
+	Int m_id;		// +0x12C, the region id
+	unsigned char m_pad130[0x1a2 - 0x130];
+	Bool m_1a2;		// +0x1A2
+};
+
+// The region marks rowed under address-named views: the holding slot
+// (0x003EFE3E) and the +0x268 object's region updates (0x003EE8D8,
+// 0x003EE89E); the start region set's region for a start (0x004FC9CE).
+class Rva003EFE3E
+{
+public:
+	void rva003EFE3E(int slot);
+};
+
+class Rva003EE8D8
+{
+public:
+	void rva003EE8D8(int region);
+};
+
+class Rva003EE89E
+{
+public:
+	void rva003EE89E(int region, int list);
+};
+
+class Rva0059E2FD;
+class Rva004FC9CE
+{
+public:
+	void *rva004FC9CE(const Rva0059E2FD &start);
+};
+
+// The living-world region manager (TheLivingWorldLogic +0xB0): regions by
+// id (0x0020EAF6) and, at +0x08, the group holding every region.
+class Rva0057DB97Group
+{
+public:
+	unsigned char m_pad00[0x2c];
+	_STL::vector<Rva0020E89C *> m_regions;	// +0x2C
+};
+
+class Rva0020EAF6View
+{
+public:
+	Rva0020E89C *rva0020EAF6(int id);
+
+	unsigned char m_pad00[0x8];
+	Rva0057DB97Group *m_08;	// +0x08
+};
+
+class LivingWorldLogic
+{
+public:
+	unsigned char m_pad00[0xb0];
+	Rva0020EAF6View *m_regionManager;	// +0xB0
+};
+
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+// The holding slot each claimed region id gets (the value type is not
+// retail's int map: the destructor 0x0057CF0B is this unit's own).
+enum Rva0057DB97Slot
+{
 };
 
 // AptMapPreviewSetMapDescription.cpp's view of the preview: the player
 // slot of the given index, 0 for -1 or an empty game.
-class GameSlot;
+class GameSlot
+{
+public:
+	unsigned char m_pad00[0x10];
+	Int m_startPos;		// +0x10, the start region id, -1 for none
+};
+
 class Rva0057C688
 {
 public:
@@ -391,6 +466,7 @@ public:
 	virtual void v11() = 0;
 	virtual bool amIHost() const = 0;	// +0x30
 	AsciiString getMap() const;		// 0x0023E943
+	GameSlot *getSlot(Int index);		// 0x003FF29F
 
 	unsigned char m_pad04[0x10 - 0x4];
 	bool m_selectStartPoint;	// +0x10
@@ -427,6 +503,7 @@ public:
 	void rva0057D85D(Rva0020E89C *region);
 	void rva0057D5E5();
 	void rva0057DA21(MapMetaData *map);
+	void rva0057DB97();
 
 private:
 	unsigned char m_pad00[0x4];
@@ -679,7 +756,7 @@ void AptMapPreview::rva0057D85D(Rva0020E89C *region)
 	rva0057D709((Int)region, &m_regions);
 	for (unsigned int i = 0; i < m_regions.size(); ++i)
 	{
-		if (((Rva0057C688 *)this)->rva0057C688(((Rva0020E89C *)m_regions[i])->m_slot) != 0)
+		if (((Rva0057C688 *)this)->rva0057C688(((Rva0020E89C *)m_regions[i])->getId()) != 0)
 		{
 			picked = (Rva0020E89C *)m_regions[i];
 			break;
@@ -981,4 +1058,69 @@ void AptMapPreview::rva0057DDAE(MapMetaData *map)
 		}
 	}
 	rva0057DA21(map);
+}
+
+// AptMapPreview::rva0057DB97, retail 0x0057DB97 (535 bytes). Name unknown.
+// Strategic mode: hands each player's start region, and the regions the
+// start set groups with it, to that player's slot; every other region
+// loses its holder (and, when start-eligible, goes back to the +0x268
+// object's +0x38 list). Sole caller 0x0057DFFB.
+void AptMapPreview::rva0057DB97()
+{
+	if (m_mode != 1)
+		return;
+	if (m_livingWorldWindow == 0)
+		return;
+	GameInfo *info = (GameInfo *)m_18->rva0043DA65();
+	if (info == 0 || m_livingWorldWindow == 0 || TheLivingWorldLogic == 0)
+		return;
+	Rva0020EAF6View *manager = TheLivingWorldLogic->m_regionManager;
+	if (manager == 0 || m_livingWorldWindow->m_info == 0)
+		return;
+	Rva004FD8A8Set *startRegions = m_livingWorldWindow->m_info->m_startRegions;
+	if (startRegions == 0)
+		return;
+	Rva003EF008 *owner = g_00DFE1C8->m_field268;
+	_STL::map<Int, Rva0057DB97Slot> claimed;
+	for (Int i = 0; i < 8; ++i)
+	{
+		Int startPos = info->getSlot(i)->m_startPos;
+		if (startPos == -1)
+			continue;
+		Rva0020E89C *region = manager->rva0020EAF6(startPos);
+		if (region == 0)
+			continue;
+		rva0057D709((Int)region, &m_regions);
+		Rva0020E89C *start = (Rva0020E89C *)((Rva004FC9CE *)startRegions)->rva004FC9CE(*(Rva0059E2FD *)region);
+		claimed[start->getId()] = (Rva0057DB97Slot)i;
+		((Rva003EFE3E *)start)->rva003EFE3E(i);
+		if (owner != 0)
+			((Rva003EE8D8 *)owner)->rva003EE8D8((int)start);
+		for (_STL::vector<void *>::iterator it = m_regions.begin(); it != m_regions.end(); ++it)
+		{
+			Rva0020E89C *other = (Rva0020E89C *)*it;
+			if (other == start)
+				continue;
+			claimed[other->getId()] = (Rva0057DB97Slot)i;
+			((Rva003EFE3E *)other)->rva003EFE3E(i);
+			if (owner != 0)
+				((Rva003EE8D8 *)owner)->rva003EE8D8((int)region);
+		}
+	}
+	Rva0057DB97Group *group = manager->m_08;
+	if (group != 0)
+	{
+		for (_STL::vector<Rva0020E89C *>::iterator it = group->m_regions.begin(); it != group->m_regions.end(); ++it)
+		{
+			Rva0020E89C *region = *it;
+			if (claimed.find(region->getId()) == claimed.end())
+			{
+				((Rva003EFE3E *)region)->rva003EFE3E(-1);
+				if (owner != 0 && region->m_1a2 && !startRegions->rva004FCA90() && startRegions->rva004FD8A8((Int)region))
+					((Rva003EE89E *)owner)->rva003EE89E((int)region, (int)owner->m_field38);
+			}
+		}
+		if (info->m_8c && g_00DFE1C8 != 0 && info->m_c8 != 0 && owner != 0)
+			owner->rva003EEBEF(info->m_c8);
+	}
 }
