@@ -160,6 +160,11 @@ public:
 
 	void addObjectCreationNugget(ObjectCreationNugget* nugget);
 
+#ifdef BFME2_RETAIL_STRUCTURE_COLLAPSE_API
+	// BFME2 retail dispatcher at 0x001F0878; this API is not in the ZH header.
+	void create(void *a1, void *a2, void *a3, int a4);
+#endif
+
 	// Kris: August 23, 2003
 	// All OCLs return the first object that is created (or NULL if not applicable).
 	inline static Object* create( const ObjectCreationList* ocl, const Object* primaryObj, const Coord3D *primary, const Coord3D *secondary, Bool createOwner, UnsignedInt lifetimeFrames = 0 )

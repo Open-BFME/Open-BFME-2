@@ -147,10 +147,22 @@ public:
 	}
 
 	/// inline convenience method to avoid having to check for null.
+#ifdef BFME2_RETAIL_STRUCTURE_COLLAPSE_API
+	// BFME2 retail static wrapper at 0x00094C29; defined by its ledger owner.
+	static void doFXPos(const FXList* fx, const Coord3D *primary, const Matrix3D* primaryMtx, const Real primarySpeed, const Coord3D *secondary);
+
+	// Keep the Zero Hour six-argument convenience overload available only with
+	// all arguments explicit in this TU, so the five-argument retail overload wins.
+	inline static void doFXPos(const FXList* fx, const Coord3D *primary, const Matrix3D* primaryMtx, const Real primarySpeed, const Coord3D *secondary, const Real overrideRadius)
+	{
+		if (fx) fx->doFXPos(primary, primaryMtx, primarySpeed, secondary, overrideRadius);
+	}
+#else
 	inline static void doFXPos(const FXList* fx, const Coord3D *primary, const Matrix3D* primaryMtx = NULL, const Real primarySpeed = 0.0f, const Coord3D *secondary = NULL, const Real overrideRadius = 0.0f)
 	{
 		if (fx) fx->doFXPos(primary, primaryMtx, primarySpeed, secondary, overrideRadius);
 	}
+#endif
 
 	/// inline convenience method to avoid having to check for null.
 	static void doFXObj(const FXList* fx, const Object* primary, const Object* secondary = NULL);	// OUT OF LINE
