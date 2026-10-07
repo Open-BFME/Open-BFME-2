@@ -14,6 +14,7 @@ class GameEngineDeletingBase
 {
 public:
 	virtual ~GameEngineDeletingBase();
+	GameEngineDeletingBase(struct EmitVtableTag *);
 };
 
 // GameEngineDeletingBase::~GameEngineDeletingBase: defined in GameEngineDeletingBaseDtor.cpp (its row's unit).
@@ -22,14 +23,20 @@ class GameEngine : public GameEngineDeletingBase
 {
 public:
 	virtual ~GameEngine();
+	GameEngine(struct EmitVtableTag *);
 };
 
 // GameEngine::~GameEngine: defined in GameEngineCompleteDestructor.cpp (its row's unit).
 
-// A construction use makes MSVC emit GameEngine's scalar deleting wrapper in
-// this translation unit.  The helper itself is intentionally not a ledger
-// claim; it only keeps the compiler's COMDAT alive for byte verification.
-GameEngine *bfme_emitGameEngineDeletingDestructor(void)
+// Dummy tag constructors only make this TU emit the vtables (whose slot 0 is
+// the scalar deleting wrapper). They carry no retail identity and emit no
+// retail-named ctor COMDATs; the wrappers call the rowed complete dtors.
+// ?<GameEngineDeletingBase::GameEngineDeletingBase> absent-from-retail
+GameEngineDeletingBase::GameEngineDeletingBase(struct EmitVtableTag *)
 {
-	return new GameEngine;
+}
+
+// ?<GameEngine::GameEngine> absent-from-retail
+GameEngine::GameEngine(struct EmitVtableTag *) : GameEngineDeletingBase((struct EmitVtableTag *)0)
+{
 }

@@ -17047,3 +17047,5 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ??1Rva005FD5D4@@QAE@XZ	0x005FD5D4	84	blocked	missing or dword ptr [ebp-4],-1 EH state clear, empty dtor emits 80B vs retail 84B t=15 model=muse-06
 ?setCursorDirection@W3DMouse@@AAEXW4MouseCursor@Mouse@@@Z	0x0009910E	245	blocked	retail loads both getScrollAmount words before storing offset.x, ours interleaves xorps/store; 245B 76insns size delta 0, only scheduling left t=5 model=muse-06 (stash 0.98 kept)
 ?Rva0021C12FGet@@YA?AVAsciiString@@PBV1@@Z	0x0021C12F	236	blocked	stack-reuse wall hides operator hidden in dead arg slot plus extra StringBase copy per stage t=22 model=muse-spark
+?rva005DE9F5@Rva005DE9F5@@QAEXH@Z	0x005DE9F5	515	blocked	ADDRESS-NAMED g_00C76DD4 has no real name in data_ledger; 515B EH GameStats table init with 20 strings needs hatch global t=8 model=muse-17
+?bfmeVal1038@BfmeY1038@@QAEHXZ	0x0040CF91	54	blocked	index sum over 8B entries 58B vs 54B begin-first plus test-not-sar plus cached-begin across 6 variants t=30 model=muse-17
