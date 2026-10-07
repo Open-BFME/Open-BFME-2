@@ -15,6 +15,7 @@ private:
 	StringBase(const StringBase<T> &);
 	friend class AsciiString;
 	friend struct BfmeStringRecord00404BF3;
+	friend struct S4Name;
 	void *m_data;
 };
 class AsciiString
@@ -302,3 +303,57 @@ void bfmeEmitBfmeStringRecord00426A5BAssign(BfmeStringRecord00426A5B *p, const B
 	p->operator=(o);
 }
 #pragma inline_depth()
+
+
+// BFME 1 donor compiled with BFME 2 /O1 settings from revision 968ca36c3265b295297e6aed45a6bd89ffe59c40.
+// The retail insertion-sort caller at 0x00331BD7 names this specialization; donor_sweep placed its 75-byte body at 0x00331A46.
+struct S4Name
+{
+    S4Name(const S4Name &other) : m_base(other.m_base) {}
+    ~S4Name(void) {}
+    S4Name &operator=(const S4Name &other)
+    {
+        m_base.set(other.m_base);
+        return *this;
+    }
+    StringBase<char> m_base;
+};
+
+struct S4SortElem12
+{
+    int m_bfmeA;
+    S4Name m_bfmeName;
+    char m_bfmeC;
+    S4SortElem12 &operator=(const S4SortElem12 &);
+};
+
+struct S4Cmp002E1690
+{
+    int m_bfmeSlot;
+    bool operator()(const S4SortElem12 &left, const S4SortElem12 &right) const
+    {
+        return left.m_bfmeA < right.m_bfmeA;
+    }
+};
+
+namespace _STL
+{
+
+template <class RandomAccessIter, class Tp, class Compare>
+void __unguarded_linear_insert(RandomAccessIter last, Tp val, Compare comp)
+{
+    RandomAccessIter next = last;
+    --next;
+    while (comp(val, *next))
+    {
+        *last = *next;
+        last = next;
+        --next;
+    }
+    *last = val;
+}
+
+template void __unguarded_linear_insert<S4SortElem12 *, S4SortElem12, S4Cmp002E1690>(
+    S4SortElem12 *, S4SortElem12, S4Cmp002E1690);
+
+}
