@@ -250,3 +250,6 @@ _io_writeto
 
 # w6-sol: 0x003642C8 refused; see re_attempts.log and build/w6_gate_0x003642C8.log
 ??_GRva003642C8Element@@QAEPAXI@Z
+
+# Root5CC5E5 vbase vftable C74E68 points to5CC7E4; unique masked5E3E60 hit is another owner.
+??_GRva005CC5E5@@UAEPAXI@Z
