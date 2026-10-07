@@ -82,6 +82,8 @@ public:
 	virtual void update(void);                                           // +0x28
 	void setRegion(const Region3D *extent, float cellSize);
 	void rva00625310(int value);
+	void rva00625300(const Region3D *extent);
+	void revealMapForPlayerPermanently(int playerIndex);
 
 private:
 	int m_impl[2];
@@ -133,9 +135,16 @@ class Object;
 class ThingTemplate;
 class Matrix3D;
 
+class Rva00240000;
+
 class TerrainLogic : public Snapshot, public SubsystemInterface
 {
 public:
+	virtual bool loadMap(const AsciiString &filename, Rva00240000 *stream, bool query,
+		bool newGame);                                                   // +0x10
+	virtual void newMap(bool loadingSaveGame);                           // +0x14
+	virtual void t06(void); virtual void t07(void);
+	virtual void getExtent(Region3D *extent) const;                      // +0x20
 	void rva00283642(const ThingTemplate *tt, const Coord3D *pos, const Matrix3D *mtx, float scale);
 	void rva00280176(const ThingTemplate *tt, const Coord3D *pos, const Matrix3D *mtx, float scale);
 };
@@ -150,10 +159,23 @@ public:
 	virtual ~GhostObjectManager(void);
 	virtual void g01(void); virtual void g02(void); virtual void g03(void);
 	virtual void reset(void);                                            // +0x10
+	virtual void setLocalPlayerIndex(int playerIndex);                   // +0x14
+};
+
+class Pathfinder
+{
+public:
+	void rva002E8DAA(void);
 };
 
 class AI : public SubsystemInterface
 {
+public:
+	Pathfinder *pathfinder(void) { return m_pathfinder; }
+
+private:
+	int m_0c;
+	Pathfinder *m_pathfinder;                                            // +0x10
 };
 
 class AssetList;
@@ -163,6 +185,7 @@ class ScriptEngine : public SubsystemInterface
 {
 public:
 	void rva00205358(AssetList *assets, AssetLoadMode *mode);
+	void rva00207C02(void);
 };
 
 class Overridable
@@ -281,11 +304,45 @@ private:
 	int m_body[6];
 };
 
+// One 16-byte record of the indexed team list at SidesList+0xF44: +0 links
+// the live list (record 0 heads it), +6 is the per-key chain link that
+// TeamsInfoRec::bfmeRelease (0x0032C26D) repairs.
+struct TeamsInfoNode
+{
+	short m_previous;
+	short m_next;
+	short m_chainNext;
+	short m_chainPrevious;
+	int m_entry;
+	int m_extra;
+};
+
+class TeamsInfoRec
+{
+public:
+	void bfmeRelease(int index);
+	TeamsInfoNode *getNode(int index) { return &m_nodes[index]; }
+
+private:
+	char m_tree[0xc];
+	TeamsInfoNode *m_nodes;                                              // +0x0C
+	char m_pad10[0x1c - 0x10];
+};
+
 class SidesList
 {
 public:
 	void rva0032D554(void);
 	void rva0032F84F(void);
+	void rva0032C991(void);
+	void rva0032FF91(void);
+	void rva0032FD8E(void);
+	TeamsInfoRec *getTeamInfo(void) { return &m_teams; }
+
+	char m_pad000[0xf44];
+	TeamsInfoRec m_teams;                                                // +0xF44
+	char m_padF60[0xf7c - 0xf60];
+	bool m_f7c;
 };
 
 class GlobalData
@@ -298,7 +355,9 @@ public:
 	char m_pad027[0xd4 - 0x27];
 	float m_d4;
 	float m_d8;
-	char m_pad0DC[0xaf5 - 0xdc];
+	char m_pad0DC[0x9c1 - 0xdc];
+	bool m_9c1;
+	char m_pad9C2[0xaf5 - 0x9c2];
 	bool m_af5;
 	char m_padAF6[0xbd0 - 0xaf6];
 	int m_bd0;
@@ -360,6 +419,15 @@ public:
 	void rva00248278(bool loadingSaveGame);
 	void rva0023F52C(bool loadingSaveGame);
 	void rva0024004D(bool loadingSaveGame);
+	void rva0023E3CE(AsciiString mapName);
+	void rva0023E628(AsciiString mapName);
+	void rva0023EE5B(bool isSkirmish, int progress);
+	void rva0023FED9(void);
+	void rva0023E0C7(void);
+	bool rva001DCD1C(void);
+	void rva0024622F(bool loadingSaveGame);
+	void setWidth(float width) { m_width = width; }
+	void setHeight(float height) { m_height = height; }
 	bool rva0023C8DA(unsigned char loadingSaveGame);
 	Object *findObjectByID(ObjectID id);
 	void rva00244D56(_STL::vector<Rva0024622FEntry> *created, const KindOfType *excludeKind,
@@ -381,7 +449,10 @@ public:
 
 	char m_pad00C[0x10 - 0x0c];
 	char m_10[0x24 - 0x10];
-	char m_24[0x40 - 0x24];
+	char m_24[0x30 - 0x24];
+	float m_width;
+	float m_height;
+	char m_pad038[0x40 - 0x38];
 	int m_40;
 	bool m_44;
 	char m_pad045[0x48 - 0x45];
@@ -711,6 +782,7 @@ class GameSlot
 {
 public:
 	bool isOccupied() const;
+	bool isAI() const;
 	void saveOffOriginalInfo();
 	int getStartPos() const { return m_10; }
 	void setStartPos(int startPos) { m_10 = startPos; }
@@ -733,6 +805,7 @@ public:
 class GameInfo
 {
 public:
+	virtual ~GameInfo(void);
 	GameSlot *getSlot(int index);
 	const GameSlot *getConstSlot(int index) const;
 	AsciiString getMap() const;
@@ -1248,11 +1321,14 @@ class Player
 public:
 	Team *getDefaultTeam(void) const { return m_defaultTeam; }
 	PlayerType getPlayerType(void) const { return m_playerType; }
+	int getPlayerIndex(void) const { return m_playerIndex; }
 	int iterateObjects(int (*func)(Object *obj, void *userData), void *userData) const;
 
 	char m_pad00[0x8];
 	Rva003805BB m_skillPoints;
-	char m_pad24[0x5c - 0x24];
+	char m_pad24[0x54 - 0x24];
+	int m_playerIndex;                                                   // +0x54
+	char m_pad58[0x5c - 0x58];
 	PlayerType m_playerType;
 	char m_pad60[0x2ec - 0x60];
 	Team *m_defaultTeam;
@@ -1733,8 +1809,15 @@ class InGameUI
 {
 	friend class GameLogic;
 
+public:
+	void setClientQuiet(bool quiet) { m_clientQuiet = quiet; }
+
 protected:
 	void createReplayControl(void);
+
+private:
+	char m_pad000[0x8c5];
+	bool m_clientQuiet;                                                  // +0x8C5
 };
 
 // A lazily resolved name key: 0x00148F5E fills m_key from m_name.
@@ -1792,7 +1875,7 @@ public:
 	void rva002A95F9(void);
 };
 
-class TeamFactory
+class TeamFactory : public SubsystemInterface
 {
 public:
 	void rva003A262C(void);
@@ -1979,8 +2062,11 @@ public:
 			m_numColors = m_colorCount;
 		return m_numColors;
 	}
+	bool isShroudInMultiplayer() const { return m_shroudInMultiplayer; }
 private:
-	char m_pad00[0x38];
+	char m_pad00[0x1c];
+	bool m_shroudInMultiplayer;                                          // +0x1C
+	char m_pad1D[0x38 - 0x1d];
 	int m_colorCount;                                                    // +0x38
 	int m_3c;
 	int m_numColors;                                                     // +0x40
@@ -2216,10 +2302,14 @@ public:
 class Radar
 {
 public:
+	virtual void r00(); virtual void r01(); virtual void r02(); virtual void r03();
+	virtual void refreshTerrain(TerrainLogic *terrain);                  // +0x10
+	virtual void r05();
+	virtual void newMap(TerrainLogic *terrain);                          // +0x18
 	void forceOn(bool force) { m_11 = force; }
 
 private:
-	char m_pad00[0x11];
+	char m_pad04[0x11 - 4];
 	bool m_11;
 };
 
@@ -2393,5 +2483,310 @@ void GameLogic::rva0023F52C(bool loadingSaveGame)
 		Rva0134FAA0->slot28();
 		bfmeReleaseQueuedDeviceInterfaces();
 		Sleep(1);
+	}
+}
+
+// ?rva002469A5@GameLogic@@QAEX_NPAH@Z @0x002469A5 1484B (EH frame, ret 8;
+// next body 0x00246F71). Called from the new-game pass 0x00248558 under the
+// FP-mode guard with the address of its progress int.
+// Target evidence: with GlobalData +0x9C1 set, the "NewMap" export of the
+// module at 0x009FE158 is called when present; TheGameInfo's slots mark an
+// AI slot (0x003FF127), else modes 0 and 6 drop TheSkirmishGameInfo through
+// its virtual destructor and the global operator delete. Progress 1 follows
+// with +0xA8 cleared and the frame +0x40 zeroed; the map name goes by value
+// to 0x0023E3CE, by reference to TheLuaScriptEngine 0x003387DC, an
+// AssetList to bfmeStepReceiverRecord, and to the 0x00240000 stream's
+// opener 0x00308050, whose success hands the stream to TheTerrainLogic
+// virtual +0x10 (with false and !loadingSaveGame) inside a 1..2 progress
+// range (0x00355C8E/0x00355CD8). TheSidesList 0x0032C991 and the by-value
+// 0x0023E628 come before progress 2. With TheGameInfo, the live records of
+// the indexed team list at TheSidesList+0xF44 whose chain link is set are
+// released (0x0032C26D), TheSidesList 0x0032FF91 runs for a multiplayer
+// session (TheGameEngine +0x58) or an AI slot, 0x0023EE5B takes the AI flag
+// and the progress value and 0x00E03138's reset follows; without it
+// 0x00200084 gates 0x0023FED9. Then 0x0023E0C7, TheSidesList 0x0032FD8E
+// unless 0x001DCD1C (when +0xF7C is set), TheTeamFactory reset,
+// ThePlayerList +0x38, TheScriptEngine 0x00207C02, TheRadar +0x18 and
+// TheInGameUI +0x8C5, 0x00E03138 +0x44, and the extent from TheTerrainLogic
+// +0x20 sets TheGameLogic's +0x30/+0x34 and is handed to TheShroudManager
+// (setRegion, 0x007397D0), ThePartitionManager 0x00625300, 0x009FE750,
+// TheDisplay +0x180 and +0x170's 0x0035A2DC (with GlobalData +0xD8);
+// TheGhostObjectManager gets the local player index and a reset,
+// TheTerrainLogic +0x14 the flag, TheLargeGroupAudio 0x0020D7F9, TheAI's
+// +0x10 0x002E8DAA, TheTriggerManager 0x00287015; the bridge pass
+// 0x0024622F, TheRadar +0x10, and the map revealed for "ReplayObserver"
+// and, per occupied slot, for observers (template -2) permanently or for
+// everyone else (0x00739780) unless TheMultiplayerSettings +0x1C.
+// Donor: BFME 1 GameLogic.cpp startNewGame (the NewMap debug hook, the
+// isSkirmishOrSkirmishReplay scan, TheSkirmishGameInfo cleanup,
+// m_startNewGame/m_frame resets, loadMapINI, loadMap, prepareForMP_or_Skirmish,
+// TheRadar->newMap, setClientQuiet, the world extent, ghost-manager reset,
+// TheTerrainLogic->newMap, the bridge pass and ReplayObserver/observer
+// reveals). Callee and field names stay offset names where only the donor
+// knows them.
+extern "C" __declspec(dllimport) void *__stdcall GetProcAddress(void *module, const char *name);
+
+typedef void (*NewMapProc)(void);
+
+class LuaScriptEngine
+{
+public:
+	void rva003387DC(const AsciiString &mapName);
+};
+
+// The map file stream: 0x00240000 builds it, 0x00308050 opens a path and
+// 0x0023F4F0 tears it down.
+class Rva00240000
+{
+public:
+	Rva00240000(void);
+	~Rva00240000(void);
+	bool rva00308050(AsciiString path);
+
+private:
+	char m_body[0x20];
+};
+
+// Progress range (BFME 1 donor Rva00490350ProgressRange): 0x00355C8E builds it
+// over the two endpoints, 0x00355CD8 ends it.
+class Rva00355CD8
+{
+public:
+	Rva00355CD8(int lo, int hi);
+	virtual ~Rva00355CD8(void);
+
+private:
+	int m_body[3];
+};
+
+class GameEngine
+{
+public:
+	virtual void e00(); virtual void e01(); virtual void e02(); virtual void e03();
+	virtual void e04(); virtual void e05(); virtual void e06(); virtual void e07();
+	virtual void e08(); virtual void e09(); virtual void e0a(); virtual void e0b();
+	virtual void e0c(); virtual void e0d(); virtual void e0e(); virtual void e0f();
+	virtual void e10(); virtual void e11(); virtual void e12(); virtual void e13();
+	virtual void e14(); virtual void e15();
+	virtual bool isMultiplayerSession(void);                             // +0x58
+};
+
+class Rva00E03138 : public SubsystemInterface
+{
+public:
+	virtual void c0a(); virtual void c0b(); virtual void c0c(); virtual void c0d();
+	virtual void c0e(); virtual void c0f(); virtual void c10();
+	virtual void slot44(void);                                           // +0x44
+};
+
+class Display
+{
+public:
+	virtual void d00(); virtual void d01(); virtual void d02(); virtual void d03();
+	virtual void d04(); virtual void d05(); virtual void d06(); virtual void d07();
+	virtual void d08(); virtual void d09(); virtual void d0a(); virtual void d0b();
+	virtual void d0c(); virtual void d0d(); virtual void d0e(); virtual void d0f();
+	virtual void d10(); virtual void d11(); virtual void d12(); virtual void d13();
+	virtual void d14(); virtual void d15(); virtual void d16(); virtual void d17();
+	virtual void d18(); virtual void d19(); virtual void d1a(); virtual void d1b();
+	virtual void d1c(); virtual void d1d(); virtual void d1e(); virtual void d1f();
+	virtual void d20(); virtual void d21(); virtual void d22(); virtual void d23();
+	virtual void d24(); virtual void d25(); virtual void d26(); virtual void d27();
+	virtual void d28(); virtual void d29(); virtual void d2a(); virtual void d2b();
+	virtual void d2c(); virtual void d2d(); virtual void d2e(); virtual void d2f();
+	virtual void d30(); virtual void d31(); virtual void d32(); virtual void d33();
+	virtual void d34(); virtual void d35(); virtual void d36(); virtual void d37();
+	virtual void d38(); virtual void d39(); virtual void d3a(); virtual void d3b();
+	virtual void d3c(); virtual void d3d(); virtual void d3e(); virtual void d3f();
+	virtual void d40(); virtual void d41(); virtual void d42(); virtual void d43();
+	virtual void d44(); virtual void d45(); virtual void d46(); virtual void d47();
+	virtual void d48(); virtual void d49(); virtual void d4a(); virtual void d4b();
+	virtual void d4c(); virtual void d4d(); virtual void d4e(); virtual void d4f();
+	virtual void d50(); virtual void d51(); virtual void d52(); virtual void d53();
+	virtual void d54(); virtual void d55(); virtual void d56(); virtual void d57();
+	virtual void d58(); virtual void d59(); virtual void d5a(); virtual void d5b();
+	virtual void d5c(); virtual void d5d(); virtual void d5e(); virtual void d5f();
+	virtual void slot180(const Region3D *extent);                        // +0x180
+};
+
+class Rva0023C6A4
+{
+public:
+	bool rva00200084(void);
+};
+
+class Rva0020DXXX
+{
+public:
+	void rva0020D7F9(void);
+};
+
+class Rva002872BA
+{
+public:
+	void rva00287015(void);
+};
+
+class Rva00739780
+{
+public:
+	void rva00739780(int playerIndex);
+};
+
+extern int g_00DFE158;
+extern GameInfo *TheSkirmishGameInfo;
+extern LuaScriptEngine *TheLuaScriptEngine;
+extern GameEngine *TheGameEngine;
+extern Rva00E03138 *g_00E03138;
+extern InGameUI *TheInGameUI;
+extern Display *TheDisplay;
+extern Rva002872BA *TheTriggerManager;
+
+void bfmeStepReceiverRecord(int source);
+
+void GameLogic::rva002469A5(bool loadingSaveGame, int *progress)
+{
+	if (TheWritableGlobalData->m_9c1) {
+		NewMapProc proc = (NewMapProc)GetProcAddress((void *)g_00DFE158, "NewMap");
+		if (proc)
+			proc();
+	}
+
+	bool isSkirmish = false;
+	if (TheGameInfo) {
+		for (int i = 0; i < 8; ++i) {
+			Rva0134FAA0->slot28();
+			bfmeReleaseQueuedDeviceInterfaces();
+			if (TheGameInfo->getSlot(i)->isAI())
+				isSkirmish = true;
+		}
+	} else if (m_110 == 0 || m_110 == 6) {
+		if (TheSkirmishGameInfo) {
+			::delete TheSkirmishGameInfo;
+			TheSkirmishGameInfo = 0;
+		}
+	}
+
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	m_a8 = false;
+	((Rva0023C7D2 *)this)->rva0023C7BB(1);
+	m_40 = 0;
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	rva0023E3CE(TheWritableGlobalData->m_mapName);
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	TheLuaScriptEngine->rva003387DC(TheWritableGlobalData->m_mapName);
+	{
+		AssetList assets;
+		bfmeStepReceiverRecord((int)&assets);
+	}
+	{
+		Rva00240000 stream;
+		if (stream.rva00308050(TheWritableGlobalData->m_mapName)) {
+			Rva00355CD8 range(1, 2);
+			TheTerrainLogic->loadMap(TheWritableGlobalData->m_mapName, &stream, false, !loadingSaveGame);
+		}
+	}
+	TheSidesList->rva0032C991();
+	rva0023E628(TheWritableGlobalData->m_mapName);
+	((Rva0023C7D2 *)this)->rva0023C7BB(2);
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+
+	if (TheGameInfo) {
+		int index = TheSidesList->getTeamInfo()->getNode(0)->m_previous;
+		while (index) {
+			int next = TheSidesList->getTeamInfo()->getNode(index)->m_previous;
+			if (TheSidesList->getTeamInfo()->getNode(index)->m_chainPrevious)
+				TheSidesList->getTeamInfo()->bfmeRelease(index);
+			index = next;
+		}
+		if (TheGameEngine->isMultiplayerSession() || isSkirmish)
+			TheSidesList->rva0032FF91();
+		rva0023EE5B(isSkirmish, *progress);
+		g_00E03138->reset();
+	} else if (((Rva0023C6A4 *)this)->rva00200084()) {
+		rva0023FED9();
+	}
+
+	rva0023E0C7();
+	if (!rva001DCD1C() && TheSidesList && TheSidesList->m_f7c)
+		TheSidesList->rva0032FD8E();
+	((Rva0023C7D2 *)this)->rva0023C7BB(0xc);
+	TheTeamFactory->reset();
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	ThePlayerList->p0e();
+	((Rva0023C7D2 *)this)->rva0023C7BB(0xd);
+	TheScriptEngine->rva00207C02();
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	((Rva0023C7D2 *)this)->rva0023C7BB(0xe);
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	((Rva0023C7D2 *)this)->rva0023C7BB(0x10);
+	TheRadar->newMap(TheTerrainLogic);
+	TheInGameUI->setClientQuiet(false);
+	g_00E03138->slot44();
+	((Rva0023C7D2 *)this)->rva0023C7BB(0x11);
+
+	Region3D extent;
+	TheTerrainLogic->getExtent(&extent);
+	TheGameLogic->setWidth(extent.hi.x - extent.lo.x);
+	TheGameLogic->setHeight(extent.hi.y - extent.lo.y);
+	TheShroudManager->setRegion(&extent, 0.0f);
+	((Rva007397D0 *)TheShroudManager)->rva007397D0();
+	ThePartitionManager->rva00625300(&extent);
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	if (g_Va00DFE750) {
+		((Rva006C0810 *)g_Va00DFE750)->rva006C0810(&extent, 0.0f);
+		((Rva006C0820 *)g_Va00DFE750)->rva006C0820();
+	}
+	TheDisplay->slot180(&extent);
+	TheGhostObjectManager->setLocalPlayerIndex(ThePlayerList->getLocalPlayer()->getPlayerIndex());
+	TheGhostObjectManager->reset();
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	((Rva0023C7D2 *)this)->rva0023C7BB(0x12);
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	TheTerrainLogic->newMap(loadingSaveGame);
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	((Rva0023C7D2 *)this)->rva0023C7BB(0x13);
+	((Rva0020DXXX *)TheLargeGroupAudio)->rva0020D7F9();
+	((Rva0023C7D2 *)this)->rva0023C7BB(0x14);
+	TheAI->pathfinder()->rva002E8DAA();
+	TheTriggerManager->rva00287015();
+	((Rva0035A2DC *)m_170)->rva0035A2DC(&extent, TheWritableGlobalData->m_d8);
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	rva0024622F(loadingSaveGame);
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	((Rva0023C7D2 *)this)->rva0023C7BB(0x1e);
+	TheRadar->refreshTerrain(TheTerrainLogic);
+
+	TheShroudManager->revealMapForPlayerPermanently(ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey("ReplayObserver"))->getPlayerIndex());
+	if (TheGameInfo) {
+		for (int i = 0; i < 8; ++i) {
+			GameSlot *slot = TheGameInfo->getSlot(i);
+			Rva0134FAA0->slot28();
+			bfmeReleaseQueuedDeviceInterfaces();
+			if (!slot || !slot->isOccupied())
+				continue;
+
+			Player *player = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(slot->m_34));
+			if (!player)
+				continue;
+
+			if (slot->getPlayerTemplate() == -2)
+				TheShroudManager->revealMapForPlayerPermanently(player->getPlayerIndex());
+			else if (!TheMultiplayerSettings->isShroudInMultiplayer())
+				((Rva00739780 *)TheShroudManager)->rva00739780(player->getPlayerIndex());
+		}
 	}
 }
