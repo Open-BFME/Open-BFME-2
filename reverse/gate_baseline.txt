@@ -9,8 +9,6 @@
 # alias-row  object-symbol= alias row still trusted for callee resolution
 # Seeded 2026-10-05 from a full-ledger shadow run at 7e13084dfc.
 ltable 0x00670960 ?Rva00804920Update@@YAPBDPAURva008042B0Http@@@Z
-ltable 0x00682560 _CommSRPListen
-ltable 0x00682870 _CommSRPConnect
 ltable 0x00686F10 _Rva0081B010
 tail 0x00670960 ?Rva00804920Update@@YAPBDPAURva008042B0Http@@@Z
 tail 0x00686F10 _Rva0081B010
