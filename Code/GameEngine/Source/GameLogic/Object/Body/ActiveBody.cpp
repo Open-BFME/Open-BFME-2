@@ -23,6 +23,7 @@ enum BodyDamageType { BODY_PRISTINE, BODY_DAMAGED, BODY_REALLYDAMAGED, BODY_RUBB
 enum DamageType { DAMAGE_HEALING = 7 };
 enum KindOfType { KINDOF_220 = 0x220 };
 enum ObjectID { INVALID_ID = 0 };
+enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2 };
 
 // class-gate: allow Coord3D the bone-position array is built and torn down through BFME 2's out-of-line empty Coord3D constructor and destructor (the eh vector iterators push 0x0047A6A9 and 0x000B3FD0); the canonical data-only header cannot declare them; same three floats
 struct Coord3D
@@ -197,6 +198,8 @@ class Object
 {
 public:
 	Bool isKindOf(KindOfType kindOf) const;	// 0x0006F039
+	Bool testStatus(ObjectStatusTypes bit) const;	// 0x0004E536
+	void setEffectivelyDead(Bool dead);		// 0x0028D2FB
 	Int getMultiLogicalBonePosition(const char *boneNamePrefix, Int maxBones, Coord3D *positions,
 		Matrix3D *transforms, Bool convertToWorld, Int extra) const;	// 0x0028BF81
 	const ThingTemplate *getTemplate() const { return m_template; }
@@ -215,7 +218,9 @@ public:
 	BehaviorModule **m_behaviors;		// +0x244
 	unsigned char m_pad248[0x254 - 0x248];
 	BodyModuleInterface *m_body;		// +0x254
-	unsigned char m_pad258[0x438 - 0x258];
+	unsigned char m_pad258[0x280 - 0x258];
+	Int m_field280;				// +0x280
+	unsigned char m_pad284[0x438 - 0x284];
 	UnsignedInt m_flags438;			// +0x438
 };
 
@@ -306,7 +311,10 @@ public:
 	virtual void attemptDamage(DamageInfo *damageInfo);	// +0x00
 	virtual void attemptHealing(DamageInfo *damageInfo);	// +0x04
 	virtual void i02(); virtual void i03();
-	virtual void i04(); virtual void i05(); virtual void i06(); virtual void i07();
+	virtual Real getHealth() const;				// +0x10
+	virtual Real getHealthRatio() const;			// +0x14
+	virtual Real getMaxHealth() const;			// +0x18
+	virtual void i07();
 	virtual void i08();
 	virtual void setDamageState(BodyDamageType newState);	// +0x24
 	virtual void i10(); virtual void i11();
@@ -316,9 +324,11 @@ public:
 	virtual void i24(); virtual void i25(); virtual void i26(); virtual void i27();
 	virtual void i28(); virtual void i29(); virtual void i30(); virtual void i31();
 	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);	// +0x80
-	virtual void i33(); virtual void i34(); virtual void i35(); virtual void i36();
+	virtual void i33(); virtual void i34(); virtual void i35();
+	virtual void rvaSlot36();				// +0x90
 	virtual void i37(); virtual void i38();
 	virtual void rvaSlot39(BodyDamageType state);		// +0x9C
+	virtual void rvaSlot40(Real health, Bool healing);	// +0xA0
 };
 
 class ActiveBody : public ActiveBodyModuleBase, public BodyModuleInterface
@@ -326,6 +336,7 @@ class ActiveBody : public ActiveBodyModuleBase, public BodyModuleInterface
 public:
 	virtual void attemptHealing(DamageInfo *damageInfo);
 	virtual void setDamageState(BodyDamageType newState);
+	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);
 
 protected:
 	virtual void doDamageFX(const DamageInfo *damageInfo);
@@ -344,14 +355,15 @@ private:
 	Real m_reallyDamagedRatio;		// +0x28
 	unsigned char m_pad2C[4];
 	BodyDamageType m_curDamageState;	// +0x30
-	unsigned char m_pad34[4];
+	Int m_field34;				// +0x34
 	UnsignedInt m_nextDamageFXTime;		// +0x38
 	Int m_lastDamageFXDone;			// +0x3C
 	unsigned char m_pad40[0xC0 - 0x40];
 	UnsignedInt m_lastHealingTimestamp;	// +0xC0
 	unsigned char m_padC4[4];
 	BodyParticleSystem *m_particleSystems;	// +0xC8
-	unsigned char m_padCC[0xE0 - 0xCC];
+	Real m_damageStateValues[4];		// +0xCC
+	unsigned char m_padDC[4];
 	DamageCreation *m_damageCreationBegin;	// +0xE0
 	DamageCreation *m_damageCreationEnd;	// +0xE4
 	unsigned char m_padE8[4];
@@ -544,6 +556,79 @@ void ActiveBody::createParticleSystems(const AsciiString &boneBaseName,
 				break;
 			}
 			boneIndex = (boneIndex + 1) % numBones;
+		}
+	}
+}
+
+static inline const Real &healthMax(const Real &a, const Real &b)
+{
+	return a > b ? a : b;
+}
+
+// ActiveBody::internalChangeHealth, retail 0x004BF005 (385B): BodyModuleInterface
+// slot 32. Zero Hour's clamp-and-reevaluate with the BFME 2 additions the BFME 1
+// donor shares: the four per-state values at +0xCC (cleared at full health,
+// reset from the max health when recovering from zero, worn down by healing),
+// a second state word at +0x34 that also triggers the visual re-evaluation
+// (interface slot 36), and the linked object at +0xEC that receives the new
+// health (its body's slot 40) and this object's +0x280.
+void ActiveBody::internalChangeHealth(Real delta, DamageInfo *damageInfo)
+{
+	m_prevHealth = m_currentHealth;
+	m_currentHealth += delta;
+
+	Real maxHealth = m_maxHealth;
+	if (m_currentHealth > maxHealth)
+	{
+		m_currentHealth = maxHealth;
+		for (Int i = 0; i < 4; ++i)
+			m_damageStateValues[i] = 0.0f;
+	}
+	else if (m_prevHealth == 0.0f)
+	{
+		Real v = getMaxHealth() * 0.25f;
+		v = v * 0.75f - 1.0f;
+		for (Int i = 0; i < 4; ++i)
+			m_damageStateValues[i] = v;
+	}
+	else if (delta > 0.0f)
+	{
+		Real reduce = delta * 0.25f;
+		reduce *= 0.75f;
+		for (Int i = 0; i < 4; ++i)
+		{
+			m_damageStateValues[i] -= reduce;
+			m_damageStateValues[i] = healthMax(0.0f, m_damageStateValues[i]);
+		}
+	}
+
+	if (m_currentHealth < 0.0f)
+		m_currentHealth = 0.0f;
+
+	BodyDamageType oldState = m_curDamageState;
+	Int oldField34 = m_field34;
+	rvaSlot21(0);
+
+	Object *us = getObject();
+	if (m_curDamageState != oldState || m_field34 != oldField34)
+	{
+		if (m_currentHealth <= 0.0f || !us->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
+			rvaSlot36();
+	}
+
+	us->setEffectivelyDead(m_currentHealth <= 0.0f);
+
+	if (m_linkedObjectID)
+	{
+		Object *other = TheGameLogic->findObjectByID(m_linkedObjectID);
+		if (other)
+		{
+			BodyModuleInterface *body = other->getBodyModule();
+			if (body)
+			{
+				body->rvaSlot40(m_currentHealth, delta > 0.0f);
+				other->m_field280 = getObject()->m_field280;
+			}
 		}
 	}
 }
