@@ -174,41 +174,9 @@ public:
 	AICommandInterface m_commands; // +0x20
 };
 
-void Rva00547245Xfer(Xfer *xfer, ObjectCoord3DPair *pair)
-{
-	XferObjectID(xfer, &pair->first).xferCoord3D(&pair->second);
-}
+// Rva00547245Xfer is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp (0x00547245).
 
-Xfer *Rva0054755BXfer(Xfer *xfer, ObjectCoord3DMap *map)
-{
-	XferVersion version;
-	version.m_version = 1;
-	version.m_currentVersion = 1;
-	xfer->xferVersion(&version);
-
-	UnsignedInt count = map->size();
-	xfer->xferTypeName("std::hash_map").xferUnsignedInt(&count);
-
-	if (xfer->isSaving()) {
-		for (ObjectCoord3DMap::iterator it = map->begin(); it != map->end(); ++it) {
-			ObjectCoord3DPair item(*it);
-			Rva00547245Xfer(xfer, &item);
-		}
-	} else {
-		if (map->size() != 0) {
-			XferException error;
-			bfmeFormatText(&error, 4, "Map must be empty on load");
-			_CxxThrowException(&error, &g_guardTargetTypeThrowInfo);
-		}
-		ObjectCoord3DPair item;
-		while (count != 0) {
-			--count;
-			Rva00547245Xfer(xfer, &item);
-			(*map)[item.first] = item.second;
-		}
-	}
-	return xfer;
-}
+// Rva0054755BXfer is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp (0x0054755B).
 
 class GroupOrder
 {
@@ -251,36 +219,9 @@ private:
 	Bool m_flag44;                     // +0x44
 };
 
-void MoveToGroupOrder::xfer(Xfer *xfer)
-{
-	XferVersion version;
-	version.m_version = 1;
-	version.m_currentVersion = 2;
-	GroupOrder::xfer(xfer);
-	xfer->xferVersion(&version);
-	xfer->xferCoord3D(&m_destination);
-	xfer->xferBool(&m_flag24);
-	Rva0054755BXfer(xfer, &m_positions);
-	if (version.m_currentVersion >= 2)
-		xfer->xferBool(&m_flag25);
-	else if (xfer->isLoading())
-		m_flag25 = false;
-}
+// MoveToGroupOrder::xfer is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp (0x00547805).
 
-void MoveToFormationGroupOrder::xfer(Xfer *xfer)
-{
-	XferVersion version;
-	version.m_version = 1;
-	version.m_currentVersion = 1;
-	GroupOrder::xfer(xfer);
-	xfer->xferVersion(&version);
-	xfer->xferInt(&m_value18);
-	xfer->xferCoord3D(&m_destination);
-	xfer->xferReal(&m_angle);
-	xfer->xferBool(&m_flag2C);
-	Rva0054755BXfer(xfer, &m_positions);
-	xfer->xferBool(&m_flag44);
-}
+// MoveToFormationGroupOrder::xfer is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp (0x00547DE9).
 
 // ?rva0054764C@MoveToGroupOrder@@QAEXPAVObject@@PAVAIUpdateInterface@@PAUCoord3D@@@Z, retail 0x0054764C 124B.
 // Chain from 0x00547188: if destination check passes copy x/y to obj+0x31C and

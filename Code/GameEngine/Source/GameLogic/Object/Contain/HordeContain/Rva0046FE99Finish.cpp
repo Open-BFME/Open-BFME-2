@@ -680,472 +680,135 @@ private:
 	Coord3D m_2F8; // +0x2F8
 	bool m_304; // +0x304
 };
-bool HordeContain::rva0046BB38(Object *other)
-{
-	if (other->m_274 == m_object)
-		return true;
-	if (m_170.find(other->getID()) != m_170.end())
-		return true;
-	return false;
-}
-AsciiString HordeContain::rva0046D1AC()
-{
-	const HordeContainModuleData *data = (const HordeContainModuleData *)m_moduleData;
-	return data->m_A4.size() == 1 ? data->m_A4.front() : AsciiString::TheEmptyString;
-}
+// HordeContain::rva0046BB38 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046BB38).
+// HordeContain::rva0046D1AC is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046D1AC).
 
 // ?rva0046F7C9@HordeContain@@UAEXPAVObject@@@Z @0x0046F7C9: slot 8, forwards to
 // the primary vtable's slot 38.
-void HordeContain::rva0046F7C9(Object *obj)
-{
-	rva004725D5(obj);
-}
+// HordeContain::rva0046F7C9 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046F7C9).
 
 // ?rva00472C8E@HordeContain@@UAEXPAVObject@@W4CommandSourceType@@@Z @0x00472C8E:
 // slot 33, forwards both arguments to the rowed AICommandInterface 0x0037379B
 // of the owner's AI.
-void HordeContain::rva00472C8E(Object *obj, CommandSourceType cmdSource)
-{
-	AIUpdateInterface *ai = m_object->m_ai;
-	if (ai)
-		ai->m_command.rva0037379B(obj, cmdSource);
-}
+// HordeContain::rva00472C8E is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x00472C8E).
 
 // ?rva0046D372@HordeContain@@UAEPAVObject@@XZ @0x0046D372: slot 70, the Object
 // whose ID is at +0x26C.
-Object *HordeContain::rva0046D372()
-{
-	return TheGameLogic->findObjectByID(m_26C);
-}
+// HordeContain::rva0046D372 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046D372).
 
 // ?rva004690A9@HordeContain@@UAEXPBUCoord3D@@@Z @0x004690A9: slot 132, stores the
 // position at +0x2B8 and raises +0x2C4 and +0x120.
-void HordeContain::rva004690A9(const Coord3D *pos)
-{
-	m_2B8 = *pos;
-	m_2C4 = true;
-	m_120 = true;
-}
+// HordeContain::rva004690A9 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x004690A9).
 
 // ?rva00468C60@HordeContain@@UAEXPBUCoord3D@@@Z @0x00468C60: slot 145, stores the
 // position at +0x2F8 and raises +0x304.
-void HordeContain::rva00468C60(const Coord3D *pos)
-{
-	m_2F8 = *pos;
-	m_304 = true;
-}
+// HordeContain::rva00468C60 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x00468C60).
 
 // ?rva00468C7B@HordeContain@@UAE_NPAUCoord3D@@@Z @0x00468C7B: slot 146, hands out
 // and drops the position slot 145 stored.
-bool HordeContain::rva00468C7B(Coord3D *pos)
-{
-	if (m_304)
-	{
-		m_304 = false;
-		*pos = m_2F8;
-		return true;
-	}
-	return false;
-}
+// HordeContain::rva00468C7B is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x00468C7B).
 
 // ?canEngageInMelee@HordeContain@@UAE_NPAVObject@@H@Z @0x0047306E: slot 84, for the
 // argument's AI: idles it (CMD_FROM_AI) and answers true when its slot 113
 // does, else answers its slot 110; false without an AI. The second argument
 // is not read.
-bool HordeContain::canEngageInMelee(Object *obj, int)
-{
-	AIUpdateInterface *ai = obj->m_ai;
-	if (!ai)
-		return false;
-	if (ai->rva0047306ESlot113())
-	{
-		ai->aiIdle(CMD_FROM_AI);
-		return true;
-	}
-	return ai->rva0047306ESlot110() ? true : false;
-}
+// HordeContain::canEngageInMelee is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0047306E).
 
 // ?rva00468DCD@HordeContain@@UAE_NPAVObject@@@Z @0x00468DCD: slot 85, true while
 // the argument (or the Object its rowed rva002931F5(false) hands back) is the
 // one recorded at +0x288 and the frame is before +0x28C; otherwise the +0x2C8
 // helper's slot 14.
-bool HordeContain::rva00468DCD(Object *obj)
-{
-	if (!obj)
-		return false;
-	int id = obj->m_74;
-	Object *other = obj->rva002931F5(false);
-	if (other)
-		id = other->m_74;
-	if ((obj->m_74 == m_288 || id == m_288) && TheGameLogic->m_frame < m_28C)
-		return true;
-	return m_2C8->rva00468DCDSlot14(obj);
-}
+// HordeContain::rva00468DCD is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x00468DCD).
 
 // ?rva00468BDC@HordeContain@@UAEXH@Z @0x00468BDC: slot 143, for an owner with an
 // AI: setting sets model condition 0x1BA unless +0x2F0 was already set,
 // clearing clears 0x1BA and 0x1BB (rowed Object rva00293A05/rva00293955);
 // then stores the argument at +0x2F0.
-void HordeContain::rva00468BDC(int on)
-{
-	Object *obj = m_object;
-	if (!obj || !obj->m_ai)
-		return;
-	if (on)
-	{
-		if (!m_2F0)
-			obj->rva00293A05((ModelConditionFlagType)0x1BA);
-	}
-	else
-	{
-		obj->rva00293955((ModelConditionFlagType)0x1BA);
-		obj->rva00293955((ModelConditionFlagType)0x1BB);
-	}
-	m_2F0 = on;
-}
+// HordeContain::rva00468BDC is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x00468BDC).
 
 // ?rva0046D27A@HordeContain@@UAEPAVObject@@XZ @0x0046D27A: slot 68; the first
 // contained Object (contain interface slot 70), else the Object of the first
 // key of the +0x170 tree, else null.
-Object *HordeContain::rva0046D27A()
-{
-	Rva0046247DPair p;
-	rva0046D27ASlot70(p);
-	if (!p.m04->empty())
-		return p.m04->front();
-	_STL::map<int, int>::iterator it = m_170.begin();
-	if (it != m_170.end())
-		return TheGameLogic->findObjectByID((ObjectID)it->first);
-	return 0;
-}
+// HordeContain::rva0046D27A is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046D27A).
 
 // ?rva0046D7AF@HordeContain@@UAEXH@Z @0x0046D7AF: slot 108; for each contained
 // Object not keyed in the +0x170 tree, the pinned bfmeTwoTFB(argument, 0).
-void HordeContain::rva0046D7AF(int a1)
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (m_170.find(obj->getID()) == m_170.end())
-			((BfmeThingTFB *)obj)->bfmeTwoTFB(a1, 0);
-	}
-}
+// HordeContain::rva0046D7AF is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046D7AF).
 
 // ?rva0046DDC5@HordeContain@@UAEXHH@Z @0x0046DDC5: slot 117; for each contained
 // Object not keyed in the +0x170 tree, its AI's slot 134 with both arguments.
-void HordeContain::rva0046DDC5(int a1, int a2)
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); )
-	{
-		Object *obj = *it;
-		ObjectID id = (ObjectID)obj->getID();
-		++it;
-		if (m_170.find(id) == m_170.end())
-		{
-			AIUpdateInterface *ai = obj->m_ai;
-			if (ai)
-				ai->rva0046DDC5Slot134(a1, a2);
-		}
-	}
-}
+// HordeContain::rva0046DDC5 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046DDC5).
 
 // ?rva0046D384@HordeContain@@UAEXPAVTeam@@@Z @0x0046D384: slot 92; the pinned
 // Object::rva00298AE4(team) on every contained Object (contain interface slot
 // 70) and on the live Object of every +0x170 key.
-void HordeContain::rva0046D384(Team *team)
-{
-	Rva0046247DPair p;
-	rva0046D27ASlot70(p);
-	for (_STL::list<Object *>::const_iterator it = p.m04->begin(); it != p.m04->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj)
-			obj->rva00298AE4(team);
-	}
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (obj)
-			obj->rva00298AE4(team);
-	}
-}
+// HordeContain::rva0046D384 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046D384).
 
 // ?rva0046B9DC@HordeContain@@UAE_NH@Z @0x0046B9DC: slot 43; whether the pinned
 // bfmeHas985C(argument) holds for a contained Object or for the Object of a
 // +0x170 key.
-bool HordeContain::rva0046B9DC(int a1)
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		if (((BfmeArg985 *)*it)->bfmeHas985C(a1))
-			return true;
-	}
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (((BfmeArg985 *)obj)->bfmeHas985C(a1))
-			return true;
-	}
-	return false;
-}
+// HordeContain::rva0046B9DC is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046B9DC).
 
 // ?rva0046B95E@HordeContain@@UAE_NH@Z @0x0046B95E: slot 44; whether the rowed
 // Object::rva0028D9E5(argument) holds for a contained Object or for the live
 // Object of a +0x170 key.
-bool HordeContain::rva0046B95E(int a1)
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		if ((*it)->rva0028D9E5(a1))
-			return true;
-	}
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (obj && obj->rva0028D9E5(a1))
-			return true;
-	}
-	return false;
-}
+// HordeContain::rva0046B95E is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046B95E).
 
 // ?rva004730B0@HordeContain@@UAEXPAVObject@@@Z @0x004730B0: slot 86; when the
 // owner has status 0x4B, every contained Object whose AI's slot 111 does not
 // hold gets the rowed AICommandInterface rva0026C2D9(target, 0x7FFFFFFF,
 // CMD_FROM_AI).
-void HordeContain::rva004730B0(Object *target)
-{
-	if (!target)
-		return;
-	if (!m_object->testStatus((ObjectStatusTypes)0x4B))
-		return;
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		AIUpdateInterface *ai = (*it)->m_ai;
-		if (ai && !ai->rva0046A46FSlot111())
-			ai->m_command.rva0026C2D9(target, 0x7FFFFFFF, CMD_FROM_AI);
-	}
-}
+// HordeContain::rva004730B0 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x004730B0).
 
 // ?rva0046DE2D@HordeContain@@UAEXPBVFXList@@@Z @0x0046DE2D: slot 123; plays the
 // FXList on every contained Object, then on the Object of every +0x170 key.
-void HordeContain::rva0046DE2D(const FXList *fx)
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-		FXList::doFXObj(fx, *it, 0);
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-		FXList::doFXObj(fx, TheGameLogic->findObjectByID((ObjectID)k->first), 0);
-}
+// HordeContain::rva0046DE2D is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046DE2D).
 
 // ?rva0046A712@HordeContain@@UAEXH@Z @0x0046A712: slot 110 (argument unread);
 // runs slot 16, then moves every contained Object to the position and angle
 // slot 7 gives for it (the pinned 0x0029660C, then Thing::setOrientation).
-void HordeContain::rva0046A712(int)
-{
-	slot16();
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		float angle;
-		Coord3D pos;
-		pos = slot7(obj, &angle);
-		((BfmeThingTFB *)obj)->bfmeTwoTFB((int)&pos, 0);
-		((Thing *)obj)->setOrientation(angle);
-	}
-}
+// HordeContain::rva0046A712 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046A712).
 
 // ?rva0046C5D7@HordeContain@@UAE_NH@Z @0x0046C5D7: slot 58; whether a contained
 // Object, or the live Object of a +0x170 key, has +0x44C equal to the
 // (non-zero) argument.
-bool HordeContain::rva0046C5D7(int value)
-{
-	if (!value)
-		return false;
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj && obj->m_44C == value)
-			return true;
-	}
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (obj && obj->m_44C == value)
-			return true;
-	}
-	return false;
-}
+// HordeContain::rva0046C5D7 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046C5D7).
 
 // ?rva0046A2EC@HordeContain@@UAE_NPAVObject@@@Z @0x0046A2EC: slot 82; whether
 // every live contained Object with an AI is attacking the target: its slot
 // 111 holds and its current victim is the target, and when the target has
 // KindOf bit 13 the target's +0x250 module's slot 58 accepts that victim.
-bool HordeContain::rva0046A2EC(Object *target)
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj && !obj->isEffectivelyDead())
-		{
-			AIUpdateInterface *ai = obj->m_ai;
-			if (ai)
-			{
-				if (!ai->rva0046A46FSlot111())
-					return false;
-				Object *victim = ai->getCurrentVictim();
-				if (!victim)
-					return false;
-				if (victim->getID() != target->getID())
-					return false;
-				if (target->isKindOf(13) && !target->m_250->slot58(victim))
-					return false;
-			}
-		}
-	}
-	return true;
-}
+// HordeContain::rva0046A2EC is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046A2EC).
 
 // ?rva0046A381@HordeContain@@UAE_NPAVObject@@@Z @0x0046A381: slot 80; whether
 // some live contained Object with an AI whose slot 111 holds has the target as
 // its current victim, or (target KindOf bit 13) a victim the target's +0x250
 // module's slot 58 accepts.
-bool HordeContain::rva0046A381(Object *target)
-{
-	const _STL::list<Object *> *items = containedItems();
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj && !obj->isEffectivelyDead())
-		{
-			AIUpdateInterface *ai = obj->m_ai;
-			if (ai && ai->rva0046A46FSlot111())
-			{
-				Object *victim = ai->getCurrentVictim();
-				if (victim)
-				{
-					if (victim->getID() == target->getID())
-						return true;
-					if (target->isKindOf(13) && target->m_250->slot58(victim))
-						return true;
-				}
-			}
-		}
-	}
-	return false;
-}
+// HordeContain::rva0046A381 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046A381).
 
 // ?rva0046CB2C@HordeContain@@UAEPAVObject@@XZ @0x0046CB2C: slot 19; a random
 // contained Object (taken through the +0x20 contain interface's slot 70), else
 // the live Object of a random +0x170 key, else null. The random calls carry
 // HordeContain.cpp lines 5383 and 5377.
-Object *HordeContain::rva0046CB2C()
-{
-	Rva0046247DPair p;
-	rva0046D27ASlot70(p);
-	if (p.m04->empty())
-	{
-		if (m_170.size() == 0)
-			return 0;
-		_STL::map<int, int>::iterator k = m_170.begin();
-		for (int n = GetGameLogicRandomValue(0, m_170.size() - 1, HORDECONTAIN_SOURCE_FILE, 5377); n != 0; --n)
-			++k;
-		return TheGameLogic->findObjectByID((ObjectID)k->first);
-	}
-	_STL::list<Object *>::const_iterator it = p.m04->begin();
-	for (int n = GetGameLogicRandomValue(0, p.m04->size() - 1, HORDECONTAIN_SOURCE_FILE, 5383); n != 0; --n)
-		++it;
-	return *it;
-}
+// HordeContain::rva0046CB2C is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046CB2C).
 
 // ?rva0046D80B@HordeContain@@UAE_NXZ @0x0046D80B: slot 113; whether every
 // contained Object that is not a +0x170 key lies within 10 (squared 2D
 // distance 100) of our Object.
-bool HordeContain::rva0046D80B()
-{
-	const _STL::list<Object *> *items = containedItems();
-	const Coord3D *src = m_object->getPosition();
-	Coord3D pos;
-	pos.x = src->x;
-	pos.y = src->y;
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		Object *obj = *it;
-		if (m_170.find(obj->getID()) == m_170.end())
-		{
-			float dx = pos.x - obj->getPosition()->x;
-			float dy = pos.y - obj->getPosition()->y;
-			if (dy * dy + dx * dx > 100.0f)
-				return false;
-		}
-	}
-	return true;
-}
+// HordeContain::rva0046D80B is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046D80B).
 
 // ?rva0046BB6F@HordeContain@@UAE_NPAHI@Z @0x0046BB6F: slot 36; clears *out and,
 // for a frame before the current one, answers +0x29C when +0x298 (unless -1)
 // plus the frame reaches the current frame, else asks the rowed Object
 // rva0028C264(out, 4) of every contained Object (through the +0x20 contain
 // interface's slot 70) and of the live Object of every +0x170 key.
-bool HordeContain::rva0046BB6F(int *out, unsigned int frame)
-{
-	*out = 0;
-	unsigned int now = TheGameLogic->m_frame;
-	if (frame >= now)
-		return false;
-	if (m_298 != (unsigned int)-1 && m_298 + frame >= now)
-	{
-		*out = m_29C;
-		return true;
-	}
-	Rva0046247DPair p;
-	rva0046D27ASlot70(p);
-	for (_STL::list<Object *>::const_iterator it = p.m04->begin(); it != p.m04->end(); ++it)
-	{
-		Object *obj = *it;
-		if (obj && obj->rva0028C264(out, 4))
-			return true;
-	}
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (obj && obj->rva0028C264(out, 4))
-			return true;
-	}
-	return false;
-}
+// HordeContain::rva0046BB6F is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046BB6F).
 
 // ?rva0046D3FC@HordeContain@@UAEHPAVRva2225E0Filter@@@Z @0x0046D3FC: slot 96;
 // without a filter, the +0x170 key count plus the +0x20 contain interface's
 // slot 69 (0); with one, how many contained Objects and live Objects of +0x170
 // keys the rowed filter accepts for our Object's controlling player.
-int HordeContain::rva0046D3FC(Rva2225E0Filter *filter)
-{
-	if (!filter)
-		return m_170.size() + slot69(0);
-	int count = 0;
-	const _STL::list<Object *> *items = containedItems();
-	Object *self = m_object;
-	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
-	{
-		if (filter->accepts(*it, self->getControllingPlayer()))
-			++count;
-	}
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (obj && filter->accepts(obj, self->getControllingPlayer()))
-			++count;
-	}
-	return count;
-}
+// HordeContain::rva0046D3FC is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046D3FC).
 
 // The callback slot 125 hands the +0x20 contain interface's slot 68: records
 // the +0x5D8 value of the first template seen (KindOf bit 68 templates are
@@ -1157,22 +820,7 @@ struct Rva004698EEData
 };
 
 // ?rva004698EE@@YAXPAVObject@@PAX@Z @0x004698EE
-void rva004698EE(Object *obj, void *userData)
-{
-	if (!obj)
-		return;
-	const ThingTemplate *tmpl = obj->m_template;
-	if (!tmpl || tmpl->isKindOf(68))
-		return;
-	Rva004698EEData *data = (Rva004698EEData *)userData;
-	if (data->m_value == 0)
-	{
-		data->m_value = tmpl->m_5D8;
-		return;
-	}
-	if (tmpl->m_5D8 != data->m_value)
-		data->m_differs = true;
-}
+// rva004698EE is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x004698EE).
 
 // The callback slot 21 hands the +0x20 contain interface's slot 68: keeps the
 // ID of the Object whose +0x264 module has the largest +0x10 value (KindOf
@@ -1184,92 +832,28 @@ struct Rva00469689Data
 };
 
 // ?rva00469689@@YAXPAVObject@@PAX@Z @0x00469689
-void rva00469689(Object *obj, void *userData)
-{
-	if (!obj)
-		return;
-	const ThingTemplate *tmpl = obj->m_template;
-	if (!tmpl || tmpl->isKindOf(68))
-		return;
-	Rva00469689Data *data = (Rva00469689Data *)userData;
-	if (data->m_id != INVALID_ID && !(obj->m_264->m_10 > data->m_best))
-		return;
-	data->m_best = obj->m_264->m_10;
-	data->m_id = (ObjectID)obj->getID();
-}
+// rva00469689 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x00469689).
 
 // ?rva0046CBCA@HordeContain@@UAEPAVObject@@XZ @0x0046CBCA: slot 21; the
 // contained Object whose +0x264 module's +0x10 value is largest.
-Object *HordeContain::rva0046CBCA()
-{
-	Rva00469689Data data;
-	data.m_best = -1.0f;
-	data.m_id = INVALID_ID;
-	iterateContained(rva00469689, &data, 1);
-	return TheGameLogic->findObjectByID(data.m_id);
-}
+// HordeContain::rva0046CBCA is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046CBCA).
 
 // ?slot38@HordeContain@@UAE_NPAVObject@@HH@Z @0x00469647: slot 38 of the +0x20
 // contain interface (vtable 0x00C44EC8, compiled with that subobject this);
 // refuses an Object whose template has KindOf bit 13, else TransportContain's
 // own slot 38 (0x00466EDE).
-bool HordeContain::slot38(Object *obj, int a2, int a3)
-{
-	if (obj->m_template->isKindOf(13))
-		return false;
-	return TransportContain::slot38(obj, a2, a3);
-}
+// HordeContain::slot38 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x00469647).
 
 // ?rva0046D1F7@HordeContain@@UAEXAAV?$list@PBVObject@@V?$allocator@PBVObject@@@_STL@@@_STL@@@Z @0x0046D1F7:
 // slot 67; refills the list with the contained Objects (through the +0x20
 // contain interface's slot 70) and the live Objects of the +0x170 keys. The
 // element type is inferred: its STLport members fold onto the list<int>
 // bodies retail calls (0x0023DAA5 clear, 0x0005548F push_back).
-void HordeContain::rva0046D1F7(_STL::list<const Object *> &out)
-{
-	out.clear();
-	Rva0046247DPair p;
-	rva0046D27ASlot70(p);
-	for (_STL::list<Object *>::const_iterator it = p.m04->begin(); it != p.m04->end(); ++it)
-		out.push_back(*it);
-	for (_STL::map<int, int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
-	{
-		const Object *obj = TheGameLogic->findObjectByID((ObjectID)k->first);
-		if (obj)
-			out.push_back(obj);
-	}
-}
+// HordeContain::rva0046D1F7 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046D1F7).
 
 // ?rva0046CCEF@HordeContain@@UAE_NPBVThingTemplate@@@Z @0x0046CCEF: slot 25;
 // slot 23's test, false as well unless the argument is that template.
-bool HordeContain::rva0046CCEF(const ThingTemplate *want)
-{
-	_STL::list<const Object *> objects;
-	rva0046D1F7(objects);
-	unsigned int count = objects.size();
-	if (count < 1)
-		return false;
-	const ThingTemplate *tmpl = (const ThingTemplate *)TheThingFactory->rva002D06CA(&fields()->m_1B0);
-	if (!tmpl || want != tmpl)
-		return false;
-	const ModuleInfo *info = &tmpl->m_moduleInfo;
-	int n = info->getCount();
-	for (int i = 0; i < n; ++i)
-	{
-		const ModuleData *data = info->getNthData(i);
-		if (data)
-		{
-			const HordeContainModuleDataFields *horde = data->slot21();
-			if (horde)
-			{
-				if (!horde->m_1D8 && count < horde->m_268)
-					return false;
-				return true;
-			}
-		}
-	}
-	return true;
-}
+// HordeContain::rva0046CCEF is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp (0x0046CCEF).
 
 // ?rva0046FE99@HordeContain@@UAEXAAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@@Z @0x0046FE99:
 // slot 17; appends the contained Objects (through the +0x20 contain

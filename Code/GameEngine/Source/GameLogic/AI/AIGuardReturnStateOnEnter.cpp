@@ -500,79 +500,8 @@ StateReturnType AIGuardReturnState::onEnter( void )
 	return STATE_SUCCESS;
 }
 
-StateReturnType AIGuardReturnState::update( void )
-{
-	Object *obj = getMachineOwner();
-	AIUpdateInterface *ai = obj->getAI();
-	if (ai && ai->getLocomotorDistanceToGoal() < AIGuardMachine::getStdGuardRange(obj))
-	{
-		UnsignedInt now = TheGameLogic->getFrame();
-		if (now >= m_nextReturnScanTime)
-		{
-			m_nextReturnScanTime = now + TheAI->getAiData()->m_guardEnemyReturnScanRate;
-			if (getGuardMachine()->lookForInnerTarget())
-				return STATE_FAILURE; // early termination because we found a target.
-		}
-	}
+// AIGuardReturnState::update is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (0x00543DF1).
 
-	// Just let the return movement finish.
-	return AIInternalMoveToState::update();
-}
+// AIGuardIdleState::onEnter is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (0x00542D88).
 
-StateReturnType AIGuardIdleState::onEnter( void )
-{
-	// first time thru, use a random amount so that everyone doesn't scan on the same frame,
-	// to avoid "spikes".
-	UnsignedInt now = TheGameLogic->getFrame();
-	m_nextEnemyScanTime = now + GetGameLogicRandomValue(0, TheAI->getAiData()->m_guardEnemyScanRate, AIGUARD_FILE, 1013);
-
-	return STATE_CONTINUE;
-}
-
-StateReturnType AIGuardIdleState::update( void )
-{
-	UnsignedInt now = TheGameLogic->getFrame();
-	if (now < m_nextEnemyScanTime)
-		return STATE_SLEEP(m_nextEnemyScanTime - now);
-
-	m_nextEnemyScanTime = now + TheAI->getAiData()->m_guardEnemyScanRate;
-
-	AIGuardMachine *guard = getGuardMachine();
-	Object *owner = guard->getOwner();
-	AIUpdateInterface *ai = owner->getAI();
-	// Check to see if we have created a crate we need to pick up.
-	if (ai->getCrateID() != INVALID_ID)
-	{
-		guard->setState(AI_GUARD_GET_CRATE);
-		return STATE_SLEEP(m_nextEnemyScanTime - now);
-	}
-
-	// if anyone is in the inner area, return success.
-	if (guard->lookForInnerTarget())
-	{
-		return STATE_SUCCESS;	// Transitions to AIGuardInnerState.
-	}
-
-	// See if the object (or team) we are guarding moved.
-	Object* targetToGuard = guard->findTargetToGuardByID();
-	Team* teamToGuard = guard->findTeamToGuardByID();
-	if (targetToGuard || teamToGuard)
-	{
-		Coord3D pos;
-		if (targetToGuard)
-			pos = *targetToGuard->getPosition();
-		else
-			teamToGuard->rva0039E5B9(&pos);
-		Real delta = m_guardeePos.x-pos.x;
-		if (delta*delta > 4*PATHFIND_CELL_SIZE_F*PATHFIND_CELL_SIZE_F) {
-			m_guardeePos = pos;
-			return STATE_FAILURE; // goes to AIGuardReturnState.
-		}
-		delta = m_guardeePos.y-pos.y;
-		if (delta*delta > 4*PATHFIND_CELL_SIZE_F*PATHFIND_CELL_SIZE_F) {
-			m_guardeePos = pos;
-			return STATE_FAILURE; // goes to AIGuardReturnState.
-		}
-	}
-	return STATE_SLEEP(m_nextEnemyScanTime - now);
-}
+// AIGuardIdleState::update is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (0x00543E5D).

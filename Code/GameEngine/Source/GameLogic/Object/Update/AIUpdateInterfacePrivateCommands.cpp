@@ -1511,27 +1511,7 @@ void AIUpdateInterface::privateGetRepaired(Object *repairDepot, CommandSourceTyp
 // Command 0x1F, slot 64, retail 0x00264D0E: BFME1's privateGuardObject
 // (guard target type OBJECT in the free slot, mode at +0x4C, the guarded
 // object's id at +0x64, AI_GUARD) behind BFME2's status-bit guard.
-void AIUpdateInterface::privateGuardObject(Object *objectToGuard, GuardMode guardMode, CommandSourceType commandSource)
-{
-	Object *obj = getObject();
-	if (obj->testStatus(BFME_OBJECT_STATUS_26))
-		return;
-	if (!obj->isMobile())
-		return;
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	if (m_guardTargetType[1] == GUARDTARGET_NONE)
-		m_guardTargetType[1] = GUARDTARGET_OBJECT;
-	else
-		m_guardTargetType[0] = GUARDTARGET_OBJECT;
-	m_guardMode = guardMode;
-	m_objectToGuard = objectToGuard->m_id;
-
-	m_stateMachine->clear();
-	m_lastCommandSource = commandSource;
-	m_stateMachine->setState(BFME_AI_GUARD);
-}
+// AIUpdateInterface::privateGuardObject is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardObject.cpp (0x00264D0E).
 
 // Command 0x27, slot 70, retail 0x00267D65. aiFacePosition (0x003C7782)
 // issues AICMD 0x27; ZH's privateFacePosition with BFME2's state 0x25 and
@@ -1796,37 +1776,7 @@ void AIUpdateInterface::bfmePrivateCommand31(Int value, CommandSourceType comman
 // Command 0x1E, slot 63, retail 0x00264BC2: Zero Hour's privateGuardPosition
 // behind BFME2's status-bit, mobility and projectile guards. A player's order
 // outside the map extent guards the closest edge point instead.
-void AIUpdateInterface::privateGuardPosition(const Coord3D *position, GuardMode guardMode, CommandSourceType commandSource)
-{
-	Object *obj = getObject();
-	if (obj->testStatus(BFME_OBJECT_STATUS_26))
-		return;
-	if (!obj->isMobile())
-		return;
-	if (getObject()->isKindOf(KINDOF_PROJECTILE))
-		return;
-
-	if (m_guardTargetType[1] == GUARDTARGET_NONE)
-		m_guardTargetType[1] = (GuardTargetType)0;
-	else
-		m_guardTargetType[0] = (GuardTargetType)0;
-
-	Coord3D pos;
-	pos.set(position);
-	if (commandSource == CMD_FROM_PLAYER)
-	{
-		Region3D extent;
-		TheTerrainLogic->getExtent(&extent);
-		if (!extent.isInRegionNoZ(&pos))
-			pos = TheTerrainLogic->findClosestEdgePoint(&pos);
-	}
-
-	m_locationToGuard = pos;
-	m_guardMode = guardMode;
-	m_stateMachine->clear();
-	m_lastCommandSource = commandSource;
-	m_stateMachine->setState(BFME_AI_GUARD);
-}
+// AIUpdateInterface::privateGuardPosition is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardPosition.cpp (0x00264BC2).
 
 // The end of the path that starts at w.
 static __forceinline const Waypoint *lastWaypoint(const Waypoint *w)

@@ -208,37 +208,7 @@ Real WorkerAIUpdate::getBoredRange( void ) const
 }
 
 // ------------------------------------------------------------------------------------------------
-// ?createMachines@WorkerAIUpdate@@AAEXXZ present-unmatched
-void WorkerAIUpdate::createMachines( void )
-{
-
-	if( m_workerMachine == NULL )
-	{
-		m_workerMachine = newInstance(WorkerStateMachine)( getObject() );
-
-		if( m_dozerMachine == NULL )
-		{
-			m_dozerMachine = newInstance(DozerPrimaryStateMachine)( getObject() );
-			m_dozerMachine->initDefaultState();
-		}
-
-		if( m_supplyTruckStateMachine == NULL )
-		{
-			m_supplyTruckStateMachine = newInstance(SupplyTruckStateMachine)( getObject() );
-			m_supplyTruckStateMachine->initDefaultState();
-		}
-
-		m_workerMachine->initDefaultState();// this has to wait until all three are in place since
-		// an immediate transition check will ask questions of the machines.
-
-//#ifdef _DEBUG
-//		m_workerMachine->setDebugOutput(TRUE);
-//		m_dozerMachine->setDebugOutput(TRUE);
-//		m_supplyTruckStateMachine->setDebugOutput(TRUE);
-//#endif
-	}
-
-}
+// WorkerAIUpdate::createMachines is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (0x004A9ED5).
 
 //-------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
@@ -656,82 +626,7 @@ void WorkerAIUpdate::privateResumeConstruction( Object *obj, CommandSourceType c
 //-------------------------------------------------------------------------------------------------
 /** Issue and order to the dozer */
 //-------------------------------------------------------------------------------------------------
-// ?newTask@WorkerAIUpdate@@UAEXW4DozerTask@@PAVObject@@@Z present-unmatched
-void WorkerAIUpdate::newTask( DozerTask task, Object* target )
-{
-
-	// sanity
-	DEBUG_ASSERTCRASH( task >= 0 && task < DOZER_NUM_TASKS, ("Illegal dozer task '%d'\n", task) );
-
-	// sanity
-	if( target == NULL )
-		return;
-
-	m_preferredDock = INVALID_ID; // If we are dozing, we don't want any supply truck stuff going on. jba.
-
-	//
-	// special check for the build task, we should never be given more than one of them ...
-	// for the other tasks we just forget what we were doing and the new target takes
-	// precedence for the task
-	//
-	if( task == DOZER_TASK_BUILD || task == DOZER_TASK_REPAIR )
-	{
-
-		// handle getting two tasks
-		if( isTaskPending( task ) == TRUE )
-			cancelTask( task );
-
-		// get our object
-		Object *me = getObject();
-
-		Coord3D position;
-		target = DozerAIUpdate::findGoodBuildOrRepairPositionAndTarget(me, target, position);
-		if (target == NULL)
-			return;	// could happen for some bridges
-
-		//
-		// for building, we say that even "thinking" about building or rebuilding an object
-		// sets us as the current builder of that object.  this allows any dozers that are 
-		// ordered later to resume construction on something to see that somebody is already taking
-		// care of it and then they won't be even try to resume a build since we don't allow
-		// multiple dozers/workers to double up on construction efforts
-		//
-		if( task == DOZER_TASK_BUILD )
-			target->setBuilder( me );
-
-		m_dockPoint[ task ][ DOZER_DOCK_POINT_START ].valid			= TRUE;
-		m_dockPoint[ task ][ DOZER_DOCK_POINT_START ].location	= position;
-		m_dockPoint[ task ][ DOZER_DOCK_POINT_ACTION ].valid		= TRUE;
-		m_dockPoint[ task ][ DOZER_DOCK_POINT_ACTION ].location = position;
-		m_dockPoint[ task ][ DOZER_DOCK_POINT_END ].valid				= TRUE;
-		m_dockPoint[ task ][ DOZER_DOCK_POINT_END ].location		= position;
-
-	}  // end if, build task
-
-	// set the new task target and the frame in which we got this order
-	m_task[ task ].m_targetObjectID = target->getID();
-	m_task[ task ].m_taskOrderFrame = TheGameLogic->getFrame();
-
-	// reset the dozer behavior so that it can re-evluate which task to continue working on
-	m_dozerMachine->resetToDefaultState();
-
-	// reset the workermachine, if we've been acting like a supply truck
-	if( m_workerMachine->getCurrentStateID() == AS_SUPPLY_TRUCK )
-	{
-		// We've been given a Dozer specific order that the Supply Truck machine doesn't recognize
-		// as BUSY (because this command also recognizes its own busy and is likewise waiting).
-		// Explicitly slap it upside the head.
-		if( getObject()->getAIUpdateInterface() )
-		{
-			getObject()->getAIUpdateInterface()->aiIdle(CMD_FROM_AI);
-		}
-		m_workerMachine->setState( AS_DOZER );
-		// To clarify, I leave supply truck mode when I notice I am doing something not supply
-		// truck related.  When given a construct command, I wait to do anything until I notice
-		// I'm not busy.  Both states are being polite, so I must force the switch.
-	}
-
-} 
+// WorkerAIUpdate::newTask is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (0x004AADB1).
 
 //-------------------------------------------------------------------------------------------------
 /** Cancel a task and reset the dozer behavior state machine so that it can 
@@ -932,29 +827,7 @@ void WorkerAIUpdate::internalTaskCompleteOrCancelled( DozerTask task )
 //-------------------------------------------------------------------------------------------------
 /** If we were building something, kill the active-construction flag on it */
 //-------------------------------------------------------------------------------------------------
-// ?onDelete@WorkerAIUpdate@@ present-unmatched
-void WorkerAIUpdate::onDelete( void )
-{
-	Int i;
-
-	// cancel any of the tasks we had queued up
-	for( i = DOZER_TASK_FIRST; i < DOZER_NUM_TASKS; ++i )
-	{
-		
-		if( isTaskPending( (DozerTask)i ) )
-			cancelTask( (DozerTask)i );
-			
-	}  // end for i
-
-	for( i = 0; i < DOZER_NUM_TASKS; i++ )
-	{
-		Object* goalObject = TheGameLogic->findObjectByID(m_task[i].m_targetObjectID);
-		if (goalObject != NULL)
-		{
-			goalObject->clearModelConditionState(MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED);
-		}
-	}
-}
+// WorkerAIUpdate::onDelete is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (0x004AAB0B).
 
 //-------------------------------------------------------------------------------------------------
 /** Get the most recently issued task */
@@ -1164,12 +1037,7 @@ Bool WorkerAIUpdate::gainOneBox( Int remainingStock )
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?isSupplyTruckBrainActiveAndBusy@WorkerAIUpdate@@QAE_NXZ present-unmatched
-Bool WorkerAIUpdate::isSupplyTruckBrainActiveAndBusy()
-{
-	return (m_workerMachine->getCurrentStateID() == AS_SUPPLY_TRUCK)
-				&& (m_supplyTruckStateMachine->getCurrentStateID() == ST_BUSY);
-}
+// WorkerAIUpdate::isSupplyTruckBrainActiveAndBusy is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp (0x004A98D6).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -1480,58 +1348,7 @@ void WorkerAIUpdate::crc( Xfer *xfer )
 	* Version Info:
 	* 1: Initial version */
 // ------------------------------------------------------------------------------------------------
-// ?xfer@WorkerAIUpdate@@MAEXPAVXfer@@@Z present-unmatched
-void WorkerAIUpdate::xfer( Xfer *xfer )
-{
-  XferVersion currentVersion = 1;
-  XferVersion version = currentVersion;
-  xfer->xferVersion( &version, currentVersion );
- 
- // extend base class
-	AIUpdateInterface::xfer(xfer);
-
-
-	//------------------------- xfer Dozer info
-
-	Int numTasks = DOZER_NUM_TASKS;
-	xfer->xferInt(&numTasks);
-	if (numTasks != DOZER_NUM_TASKS) {
-		DEBUG_CRASH(("DOZER_NUM_TASKS changed unexpectedly."));
-		throw SC_INVALID_DATA;
-	}
-	Int i, j;
-	for (i=0; i<DOZER_NUM_TASKS; i++) {
-		xfer->xferObjectID(&m_task[i].m_targetObjectID);
-		xfer->xferUnsignedInt(&m_task[i].m_taskOrderFrame);
-	}
-	xfer->xferSnapshot(m_dozerMachine);
-	xfer->xferUser(&m_currentTask, sizeof(m_currentTask));
-
-	Int dockPoints = DOZER_NUM_DOCK_POINTS;
-	xfer->xferInt(&dockPoints);
-	if (dockPoints!=DOZER_NUM_DOCK_POINTS) {
-		DEBUG_CRASH(("DOZER_NUM_DOCK_POINTS changed unexpectedly."));
-		throw SC_INVALID_DATA;
-	}
-	for (i=0; i<DOZER_NUM_TASKS; i++) {
-		for (j=0; j<DOZER_NUM_DOCK_POINTS; j++) {
-			xfer->xferBool(&m_dockPoint[i][j].valid);
-			xfer->xferCoord3D(&m_dockPoint[i][j].location);
-		}
-	}
-	xfer->xferUser(&m_buildSubTask, sizeof(m_buildSubTask));
-
-
-	//------------------------- xfer Supply Truck info
-	xfer->xferSnapshot(m_supplyTruckStateMachine);
-	xfer->xferObjectID(&m_preferredDock);
-	xfer->xferInt(&m_numberBoxes);
-	xfer->xferBool(&m_forcePending);
-
-	//-------------------------- xfer Worker info
-	xfer->xferSnapshot(m_workerMachine);
-
-}  // end xfer
+// WorkerAIUpdate::xfer is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateXfer.cpp (0x004AA1DB).
 
 // ------------------------------------------------------------------------------------------------
 /** Load post process */

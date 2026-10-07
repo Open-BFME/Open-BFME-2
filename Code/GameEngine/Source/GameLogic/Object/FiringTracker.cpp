@@ -231,90 +231,10 @@ UpdateSleepTime FiringTracker::update()
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?FiringTracker::calcTimeToSleep present-unmatched
-UpdateSleepTime FiringTracker::calcTimeToSleep()
-{
- 	// Figure out the longest amount of time we can sleep as unneeded
- 
- 	// If all the timers are off, then we aren't needed at all
- 	if (m_frameToStopLoopingSound == 0 && m_frameToStartCooldown == 0 && m_frameToForceReload == 0)
-   		return UPDATE_SLEEP_FOREVER;
-   
- 	// Otherwise, we need to wake up to service the shortest timer
-   	UnsignedInt now = TheGameLogic->getFrame();
- 	UnsignedInt sleepTime = UPDATE_SLEEP_FOREVER;
- 	if( m_frameToStopLoopingSound != 0 )
- 	{
- 		if( m_frameToStopLoopingSound <= now )
- 			sleepTime = UPDATE_SLEEP_NONE;
- 		else if( (m_frameToStopLoopingSound - now) < sleepTime )
- 			sleepTime = m_frameToStopLoopingSound - now;
- 	}
- 	if( m_frameToStartCooldown != 0 )
- 	{
- 		if( m_frameToStartCooldown <= now )
- 			sleepTime = UPDATE_SLEEP_NONE;
- 		else if( (m_frameToStartCooldown - now) < sleepTime )
- 			sleepTime = m_frameToStartCooldown - now;
- 	}
- 	if( m_frameToForceReload != 0 )
- 	{
- 		if( m_frameToForceReload <= now )
- 			sleepTime = UPDATE_SLEEP_NONE;
- 		else if( (m_frameToForceReload - now) < sleepTime )
- 			sleepTime = m_frameToForceReload - now;
- 	}
- 
- 	return UPDATE_SLEEP(sleepTime);
-}
+// FiringTracker::calcTimeToSleep is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/FiringTrackerXfer.cpp (0x004DEAB0).
 
 //-------------------------------------------------------------------------------------------------
-// ?FiringTracker::speedUp present-unmatched
-void FiringTracker::speedUp()
-{
-	ModelConditionFlags clr, set;
-	Object *self = getObject();
-	
-	if( self->testWeaponBonusCondition( WEAPONBONUSCONDITION_CONTINUOUS_FIRE_FAST ) )
-	{
-		//self->clearWeaponBonusCondition( WEAPONBONUSCONDITION_CONTINUOUS_FIRE_MEAN );
-		//self->clearModelConditionState( MODELCONDITION_CONTINUOUS_FIRE_MEAN );
-		//self->clearModelConditionState( MODELCONDITION_CONTINUOUS_FIRE_SLOW );
-	}
-	else if(self->testWeaponBonusCondition( WEAPONBONUSCONDITION_CONTINUOUS_FIRE_MEAN ) )
-	{
-		const AudioEventRTS *soundToPlayPtr = self->getTemplate()->getPerUnitSound( "VoiceRapidFire" );
-		AudioEventRTS soundToPlay = *soundToPlayPtr;
-		soundToPlay.setObjectID( self->getID() );
-		TheAudio->addAudioEvent( &soundToPlay );
-
-		// These flags are exclusive, not cumulative
-		self->setWeaponBonusCondition( WEAPONBONUSCONDITION_CONTINUOUS_FIRE_FAST );
-		set.set(MODELCONDITION_CONTINUOUS_FIRE_FAST);
-
-		// These flags are exclusive, not cumulative
-		self->clearWeaponBonusCondition( WEAPONBONUSCONDITION_CONTINUOUS_FIRE_MEAN );
-		clr.set(MODELCONDITION_CONTINUOUS_FIRE_MEAN);
-		clr.set(MODELCONDITION_CONTINUOUS_FIRE_SLOW);
-
-
-	}
-	else 
-	{
-
-		self->setWeaponBonusCondition( WEAPONBONUSCONDITION_CONTINUOUS_FIRE_MEAN );
-		set.set(MODELCONDITION_CONTINUOUS_FIRE_MEAN);
-
-		// These flags are exclusive, not cumulative
-		self->clearWeaponBonusCondition( WEAPONBONUSCONDITION_CONTINUOUS_FIRE_FAST );
-		clr.set(MODELCONDITION_CONTINUOUS_FIRE_FAST);
-		clr.set(MODELCONDITION_CONTINUOUS_FIRE_SLOW);
-
-	}
-
-	self->clearAndSetModelConditionFlags(clr, set);
-
-}
+// FiringTracker::speedUp is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/FiringTrackerXfer.cpp (0x004DEDD2).
 
 //-------------------------------------------------------------------------------------------------
 // ?FiringTracker::coolDown present-unmatched

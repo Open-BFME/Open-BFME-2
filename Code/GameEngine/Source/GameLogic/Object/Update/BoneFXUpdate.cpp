@@ -161,35 +161,7 @@ static void parseGameLogicRandomDelay( INI *ini, void *instance, GameLogicRandom
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: Code/GameEngine/Source/Common/BoneFXUpdate_update_Thunk.cpp
-// ?update@BoneFXUpdate@@UAE?AW4UpdateSleepTime@@XZ present-unmatched
-UpdateSleepTime BoneFXUpdate::update( void )
-{
-/// @todo srj use SLEEPY_UPDATE here
-	const BoneFXUpdateModuleData *d = getBoneFXUpdateModuleData();
-	Int now = TheGameLogic->getFrame();
-
-	if (m_active == FALSE) {
-		initTimes();
-		m_active = TRUE;
-	}
-
-	for (Int i = 0; i < BONE_FX_MAX_BONES; ++i) {
-		//Check to see if its time to fire off any cool stuff.
-		if ((m_nextFXFrame[m_curBodyState][i] != -1) && (m_nextFXFrame[m_curBodyState][i] <= now)) {
-			doFXListAtBone(d->m_fxList[m_curBodyState][i].fx, &(m_FXBonePositions[m_curBodyState][i]));
-			computeNextLogicFXTime(&(d->m_fxList[m_curBodyState][i]), m_nextFXFrame[m_curBodyState][i]);
-		}
-		if ((m_nextOCLFrame[m_curBodyState][i] != -1) && (m_nextOCLFrame[m_curBodyState][i] <= now)) {
-			doOCLAtBone(d->m_OCL[m_curBodyState][i].ocl, &(m_OCLBonePositions[m_curBodyState][i]));
-			computeNextLogicFXTime(&(d->m_OCL[m_curBodyState][i]), m_nextOCLFrame[m_curBodyState][i]);
-		}
-		if ((m_nextParticleSystemFrame[m_curBodyState][i] != -1) && (m_nextParticleSystemFrame[m_curBodyState][i] <= now)) {
-			doParticleSystemAtBone(d->m_particleSystem[m_curBodyState][i].particleSysTemplate, &(m_PSBonePositions[m_curBodyState][i]));
-			computeNextClientFXTime(&(d->m_particleSystem[m_curBodyState][i]), m_nextParticleSystemFrame[m_curBodyState][i]);
-		}
-	}
-	return UPDATE_SLEEP_NONE;
-}
+// BoneFXUpdate::update is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (0x00487DEE).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -235,88 +207,15 @@ void BoneFXUpdate::changeBodyDamageState(BodyDamageType oldState, BodyDamageType
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?doFXListAtBone@BoneFXUpdate@@IAEXPBVFXList@@PBUCoord3D@@@Z present-unmatched
-void BoneFXUpdate::doFXListAtBone(const FXList *fxList, const Coord3D *bonePosition)
-{
-	if (m_bonesResolved[m_curBodyState] == FALSE) {
-		resolveBoneLocations();
-	}
-
-	// if we are restricted by the damage type executing effect, bail out of here
-	const BoneFXUpdateModuleData *d = getBoneFXUpdateModuleData();
-	const DamageInfo *lastDamageInfo = getObject()->getBodyModule()->getLastDamageInfo();
-	if( lastDamageInfo && getDamageTypeFlag( d->m_damageFXTypes, lastDamageInfo->in.m_damageType ) == FALSE )
-		return;
-
-	// the bonePosition variable will have been made right by the call to
-	// resolveBoneLocations.  Either that or it was correct to begin with.
-	Object *building = getObject();
-
-	// Convert the bone's position relative to the origin of the building to the current
-	// bone position in the world.
-	Coord3D newPos;
-	building->convertBonePosToWorldPos(bonePosition, NULL, &newPos, NULL);
-
-	// execute the fx list at the calculated bone position.
-	FXList::doFXPos(fxList, &newPos, NULL);
-}
+// BoneFXUpdate::doFXListAtBone is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (0x0048740D).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?doOCLAtBone@BoneFXUpdate@@IAEXPBVObjectCreationList@@PBUCoord3D@@@Z present-unmatched
-void BoneFXUpdate::doOCLAtBone(const ObjectCreationList *ocl, const Coord3D *bonePosition)
-{
-	if (m_bonesResolved[m_curBodyState] == FALSE) {
-		resolveBoneLocations();
-	}
-
-	// if we are restricted by the damage type executing effect, bail out of here
-	const BoneFXUpdateModuleData *d = getBoneFXUpdateModuleData();
-	const DamageInfo *lastDamageInfo = getObject()->getBodyModule()->getLastDamageInfo();
-	if( lastDamageInfo && getDamageTypeFlag( d->m_damageOCLTypes, lastDamageInfo->in.m_damageType ) == FALSE )
-		return;
-
-	// the bonePosition variable will have been made right by the call to
-	// resolveBoneLocations.  Either that or it was correct to begin with.
-	Object *building = getObject();
-
-	Coord3D newPos;
-	building->convertBonePosToWorldPos(bonePosition, NULL, &newPos, NULL);
-
-	ObjectCreationList::create( ocl, building, &newPos, NULL, INVALID_ANGLE );
-
-}
+// BoneFXUpdate::doOCLAtBone is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (0x00487480).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?doParticleSystemAtBone@BoneFXUpdate@@IAEXPBVParticleSystemTemplate@@PBUCoord3D@@@Z present-unmatched
-void BoneFXUpdate::doParticleSystemAtBone(const ParticleSystemTemplate *particleSystemTemplate, const Coord3D *bonePosition)
-{
-	if (m_bonesResolved[m_curBodyState] == FALSE) {
-		resolveBoneLocations();
-	}
-
-	// if we are restricted by the damage type executing effect, bail out of here
-	const BoneFXUpdateModuleData *d = getBoneFXUpdateModuleData();
-	const DamageInfo *lastDamageInfo = getObject()->getBodyModule()->getLastDamageInfo();
-	if( lastDamageInfo && getDamageTypeFlag( d->m_damageParticleTypes, lastDamageInfo->in.m_damageType ) == FALSE )
-		return;
-
-	Object *building = getObject();
-
-	ParticleSystem *psys = TheParticleSystemManager->createParticleSystem(particleSystemTemplate);
-	if (psys != NULL) 
-	{
-		m_particleSystemIDs.push_back(psys->getSystemID());
-		psys->setPosition(bonePosition);
-		psys->attachToObject(building);
-		Drawable *drawable = building->getDrawable();
-		if (drawable && drawable->isDrawableEffectivelyHidden()) 
-		{
-			psys->stop();
-		}
-	}
-}
+// BoneFXUpdate::doParticleSystemAtBone is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (0x00487B7D).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------

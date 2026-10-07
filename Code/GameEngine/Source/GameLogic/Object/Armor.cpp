@@ -72,13 +72,7 @@ ArmorTemplate::ArmorTemplate()
 }
 
 //-------------------------------------------------------------------------------------------------
-void ArmorTemplate::clear()
-{
-	for (int i = 0; i < DAMAGE_NUM_TYPES; i++)
-	{
-		m_damageCoefficient[i] = 1.0f;
-	}
-}
+// ArmorTemplate::clear is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/ArmorTemplateParse.cpp (0x001D8F1F).
 
 //-------------------------------------------------------------------------------------------------
 // ?ArmorTemplate::adjustDamage present-unmatched
@@ -134,19 +128,7 @@ ArmorStore::~ArmorStore()
 }
 
 //-------------------------------------------------------------------------------------------------
-const ArmorTemplate* ArmorStore::findArmorTemplate(AsciiString name) const
-{
-	NameKeyType namekey = TheNameKeyGenerator->nameToKey(name);
-  ArmorTemplateMap::const_iterator it = m_armorTemplates.find(namekey);
-  if (it == m_armorTemplates.end()) 
-	{
-		return NULL;
-	}
-	else
-	{
-		return &(*it).second;
-	}
-}
+// ArmorStore::findArmorTemplate is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/ArmorStoreCtor.cpp (0x00360966).
 
 //-------------------------------------------------------------------------------------------------
 /*static */ void ArmorStore::parseArmorDefinition(INI *ini)

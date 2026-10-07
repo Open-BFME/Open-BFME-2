@@ -862,18 +862,7 @@ void Player::setPlayerType(PlayerType t, Bool skirmish)
 //=============================================================================
 // This is called from PlayerList->newGame()
 //
-// ?setDefaultTeam@Player@@QAEXXZ present-unmatched
-void Player::setDefaultTeam(void) {
-	AsciiString tname;
-	tname.set("team");
-	((StringBase<char> *)&tname)->concat(*(const StringBase<char> *)&m_playerName);
-	Team *dt = TheTeamFactory->findTeam(tname);
-	DEBUG_ASSERTCRASH(dt, ("no team"));
-	if (dt) {
-		m_defaultTeam = dt;
-		dt->setActive();
-	}
-}
+// Player::setDefaultTeam is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerSetDefaultTeam.cpp (0x002ABC7E).
 
 //=============================================================================
 // This is called from PlayerList->newGame()
@@ -1158,54 +1147,7 @@ void Player::initFromDict(const Dict* d)
 // KINDOF_DOZER. That +0xc8 is the same mask Object.cpp's getShroudedStatus reads
 // at +0xcc -- +0xcc is its SECOND dword, so the flag that body calls bit 20 is
 // bit 52 of the whole 192-bit mask.
-void Player::becomingTeamMember(Object *obj, Bool yes) 
-{ 
-	if (!obj)
-		return;	
-
-	// energy production/consumption hooks, note we ignore things that are UNDER_CONSTRUCTION
-	if( !obj->getStatusBits().test( OBJECT_STATUS_UNDER_CONSTRUCTION ) )
-	{
-		obj->friend_adjustPowerForPlayer(yes);
-	}  // end if
-		
-	// when we capture a building, we need to see if there's an AutoDepositUpdate hooked to it,
-	// if so, award the cash bonus
-	if(this != ThePlayerList->getNeutralPlayer() && yes)
-	{
-		NameKeyType key_AutoDepositUpdate = NAMEKEY("AutoDepositUpdate");
-		AutoDepositUpdate *adu = (AutoDepositUpdate *)obj->findUpdateModule(key_AutoDepositUpdate);
-		if (adu != NULL) {
-			adu->awardInitialCaptureBonus( this );
-		}
-	}
-
-	if( getNumBattlePlansActive() > 0 && obj->areModulesReady() )
-	{
-		if( yes )
-		{
-			//We are entering a team with active battle plans so add it's bonuses now
-			applyBattlePlanBonusesForObject( obj );
-		}
-		else
-		{
-			//We are leaving a team with active battle plans so remove them now.
-			removeBattlePlanBonusesForObject( obj ); 
-		}
-	}
-	
-
-	if (obj->isKindOf(KINDOF_DOZER) 
-			&& obj->getAIUpdateInterface() 
-			&& obj->getAIUpdateInterface()->isIdle())
-	{
-		// Need to remove it from the pick a peasant button
-		if (yes)
-			TheInGameUI->addIdleWorker(obj);
-		else
-			TheInGameUI->removeIdleWorker(obj, getPlayerIndex());
-	}
-}
+// Player::becomingTeamMember is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerBecomingTeamMember.cpp (0x002AD4EC).
 
 //=============================================================================
 // ?Player::becomingLocalPlayer present-unmatched
@@ -1287,11 +1229,7 @@ void Player::becomingLocalPlayer(Bool yes)
 //-------------------------------------------------------------------------------------------------
 /** Is this player a skirmish ai player? */
 //-------------------------------------------------------------------------------------------------
-// ?isSkirmishAIPlayer@Player@@QAE_NXZ present-unmatched
-Bool Player::isSkirmishAIPlayer( void )
-{
-	return m_ai ? m_ai->isSkirmishAI() : false; 
-}
+// Player::isSkirmishAIPlayer is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerAiQueries.cpp (0x002A9B7B).
 
 
 //----------------------------------------------------------------------------------------------------------
@@ -1850,44 +1788,13 @@ void Player::onStructureUndone(Object *structure)
 } // end onStructureUndone
 
 //=============================================================================
-// ?addTeamToList@Player@@QAEXPAVTeamPrototype@@@Z present-unmatched
-void Player::addTeamToList(TeamPrototype* team)
-{
-	for( PlayerTeamList::const_iterator it = m_playerTeamPrototypes.begin(); 
-			 it != m_playerTeamPrototypes.end(); ++it )
-	{
-		if (team == *it)
-			return;	// already present
-	}
-
-	m_playerTeamPrototypes.push_back(team);
-}
+// Player::addTeamToList is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerAddTeamToList.cpp (0x002AE228).
 
 //=============================================================================
-// ?removeTeamFromList@Player@@QAEXPAVTeamPrototype@@@Z present-unmatched
-void Player::removeTeamFromList(TeamPrototype* team)
-{
-	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); 
-			it != m_playerTeamPrototypes.end(); ++it)
-	{
-		if (team == *it)
-		{
-			m_playerTeamPrototypes.erase(it);
-			return;
-		}
-	}
-}
+// Player::removeTeamFromList is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerRemoveTeamFromList.cpp (0x002ABD48).
 
 //=============================================================================
-// ?healAllObjects@Player@@QAEXXZ present-unmatched
-void Player::healAllObjects()
-{
-	for (PlayerTeamList::const_iterator it = m_playerTeamPrototypes.begin(); 
-			 it != m_playerTeamPrototypes.end(); ++it)
-	{	
-		(*it)->healAllObjects();
-	}
-}
+// Player::healAllObjects is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp (0x002AB06A).
 
 //=============================================================================
 // ?iterateObjects@Player@@QBEXP6AXPAVObject@@PAX@Z1@Z present-unmatched
@@ -1910,74 +1817,17 @@ struct BfmePlayerTeamFields
 
 //=============================================================================
 // ?countObjectsByThingTemplate@Player@@QBEXHPBQBVThingTemplate@@_NPAH1@Z
-// ?Player::countObjectsByThingTemplate present-unmatched
-void Player::countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const * things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction ) const
-{
-	Int i;
-
-	for (i = 0; i < numTmplates; ++i)
-		counts[i] = 0;
-
-	const BfmePlayerTeamFields *self = (const BfmePlayerTeamFields *)this;
-	for (PlayerTeamList::const_iterator it = self->m_playerTeamPrototypes.begin(); 
-			 it != self->m_playerTeamPrototypes.end(); 
-			 ++it)
-	{	
-		(*it)->countObjectsByThingTemplate(numTmplates, things, ignoreDead, counts, ignoreUnderConstruction);
-	}
-}
+// Player::countObjectsByThingTemplate is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp (0x002AB0C5).
 
 //=============================================================================
 // BFME m_playerTeamPrototypes at +0x288 (ZH header places it earlier).
-// ?Player::countBuildings present-unmatched
-Int Player::countBuildings(void)
-{
-	struct BFMEPlayerTeamListField {
-		unsigned char pad[0x288];
-		PlayerTeamList playerTeamPrototypes;
-	};
-	BFMEPlayerTeamListField *self = reinterpret_cast<BFMEPlayerTeamListField *>(this);
-	int retVal = 0;
-
-	for (PlayerTeamList::const_iterator it = self->playerTeamPrototypes.begin();
-			 it != self->playerTeamPrototypes.end(); ++it)
-	{
-		retVal += (*it)->countBuildings();
-	}
-	return retVal;
-}
+// Player::countBuildings is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp (0x002AB10F).
 
 //=============================================================================
-// ?countObjects@Player@@QAEHV?$BitFlags@$0HE@@@0@Z present-unmatched
-Int Player::countObjects(KindOfMaskType setMask, KindOfMaskType clearMask)
-{
-	int retVal = 0;
-
-	for (PlayerTeamList::const_iterator it = m_playerTeamPrototypes.begin(); 
-			 it != m_playerTeamPrototypes.end(); ++it)
-	{	
-		retVal += (*it)->countObjects(setMask, clearMask);
-	}
-	return retVal;
-}
+// Player::countObjects is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp (0x002AB138).
 
 //=============================================================================
-// ?findClosestByKindOf@Player@@QAEPAVObject@@PAV2@V?$BitFlags@$0HE@@@1@Z present-unmatched
-Object *Player::findClosestByKindOf( Object *queryObject, KindOfMaskType setMask, KindOfMaskType clearMask )
-{
-	if( queryObject == NULL )
-		return NULL; 
-
-	ClosestKindOfData data;
-	data.m_setKindOf = setMask;
-	data.m_clearKindOf = clearMask;
-	data.m_source = queryObject;
-
-	// Magic presto!  data ends up with the answer in it!
-	iterateObjects( findClosestKindOf, &data );
-
-	return data.m_closest;
-}
+// Player::findClosestByKindOf is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp (0x002AB185).
 
 //=============================================================================
 // ?hasAnyBuildings@Player@@ present-unmatched
@@ -2059,16 +1909,7 @@ Bool Player::hasAnyBuildFacility(void) const
 
 //=============================================================================
 // ?updateTeamStates@Player@@QAEXXZ
-// ?Player::updateTeamStates present-unmatched
-void Player::updateTeamStates(void) 
-{
-	const BfmePlayerTeamFields *self = (const BfmePlayerTeamFields *)this;
-	for (PlayerTeamList::const_iterator it = self->m_playerTeamPrototypes.begin(); 
-			 it != self->m_playerTeamPrototypes.end(); ++it)
-	{	
-		(*it)->updateState();
-	}
-}
+// Player::updateTeamStates is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp (0x002AB429).
 
 //=============================================================================
 // Player::isLocalPlayer: defined in PlayerIsLocalPlayer.cpp (its row's unit).
@@ -2462,19 +2303,7 @@ void Player::sellEverythingUnderTheSun()
 
 
 //=============================================================================
-// ?allowedToBuild@Player@@QBE_NPBVThingTemplate@@@Z present-unmatched
-Bool Player::allowedToBuild(const ThingTemplate *tmplate) const
-{
-	if (!m_canBuildBase && tmplate->isKindOf(KINDOF_STRUCTURE)) {
-		return false;
-	}
-
-	if (!m_canBuildUnits && !tmplate->isKindOf(KINDOF_STRUCTURE)) {
-		return false;
-	}
-
-	return true;
-}
+// Player::allowedToBuild is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp (0x002ABE24).
 
 //=============================================================================
 // ?buildSpecificTeam@Player@@QAEXPAVTeamPrototype@@@Z present-unmatched
@@ -2609,11 +2438,7 @@ void Player::doBountyForKill(const Object* killer, const Object* victim)
 }
 
 //=============================================================================
-// ?Player::hasPrereqsForScience present-unmatched
-Bool Player::hasPrereqsForScience(ScienceType t) const
-{
-	return TheScienceStore->playerHasPrereqsForScience(this, t);
-}
+// Player::hasPrereqsForScience is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/Player_hasPrereqsForScience_Rva002A9EAC.cpp (0x002A9EAC).
 
 //=============================================================================
 /// returns TRUE if the player gained/lost levels as a result.
@@ -2643,21 +2468,7 @@ Bool Player::addSkillPoints(Int delta)
 
 //=============================================================================
 /// returns TRUE if the player gained/lost levels as a result.
-// ?addSkillPointsForKill@Player@@QAE_NPBVObject@@0@Z present-unmatched
-Bool Player::addSkillPointsForKill(const Object* killer, const Object* victim)
-{
-	if (!killer || !victim)
-		return false;
-
-	// srj sez: per dustin, no experience (et al) for killing things under construction.
-	if (victim->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
-		return false;
-	
-	Int victimLevel = victim->getVeterancyLevel();
-	Int skillValue = victim->getTemplate()->getSkillPointValue(victimLevel);
-	
-	return addSkillPoints(skillValue);
-}
+// Player::addSkillPointsForKill is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerAddSkillPointsForKill.cpp (0x002AA6DE).
 
 //=============================================================================
 // ?resetSciences@Player@@QAEXXZ present-unmatched
@@ -2808,20 +2619,7 @@ __declspec(noinline) void Player::addSciencePurchasePoints(Int delta)
 
 //=============================================================================
 // BFME: no AcademyStats / markUIDirty tail (ZH-only); body @ 0xD55B0 size 60
-// ?Player::attemptToPurchaseScience present-unmatched
-Bool Player::attemptToPurchaseScience(ScienceType science)
-{
-	if (!isCapableOfPurchasingScience(science))
-	{
-		return false;
-	}
-
-	Int cost = TheScienceStore->getSciencePurchaseCost(science);
-	addSciencePurchasePoints(-cost);
-	addScience(science);
-
-	return true;
-}
+// Player::attemptToPurchaseScience is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerRva002AD826.cpp (0x002AD826).
 
 //=============================================================================
 // Player::grantScience: defined in PlayerO1Shard.cpp (its row's unit).
@@ -2831,33 +2629,7 @@ Bool Player::attemptToPurchaseScience(ScienceType science)
 // BFME does not consult the disabled or hidden lists here; retail goes straight
 // from the inlined hasScience find to the prereq call.
 // ?isCapableOfPurchasingScience@Player@@QBE_NW4ScienceType@@@Z
-// ?Player::isCapableOfPurchasingScience present-unmatched
-Bool Player::isCapableOfPurchasingScience(ScienceType science) const
-{
-	if (science == SCIENCE_INVALID)
-	{
-		return false;
-	}
-
-	if (hasScience(science))
-	{
-		return false;
-	}
-
-	if (!hasPrereqsForScience(science))
-	{
-		return false;
-	}
-
-	Int cost = TheScienceStore->getSciencePurchaseCost(science);
-	// purchase cost of zero means "not purchasable!"
-	if (cost == 0 || cost > ((const BfmePlayerScienceFields *)this)->m_sciencePurchasePoints)
-	{
-		return false;
-	}
-
-	return true;
-}
+// Player::isCapableOfPurchasingScience is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerIsCapableOfPurchasingScience.cpp (0x002ABE86).
 
 //=============================================================================
 // ?resetRank@Player@@QAEXXZ
@@ -2975,52 +2747,7 @@ Bool Player::canBuildMoreOfType( const ThingTemplate *whatToBuild ) const
 }
 
 //=============================================================================
-// ?canBuild@Player@@QBE_NPBVThingTemplate@@@Z present-unmatched
-Bool Player::canBuild(const ThingTemplate *tmplate) const
-{
-	if (!tmplate)
-		return false;
-
-	if (!allowedToBuild(tmplate))
-		return false;
-
-	if (tmplate->getBuildable() == BSTATUS_NO)
-		return false;
-
-	if (tmplate->getBuildable() == BSTATUS_IGNORE_PREREQUISITES)
-		return true;
-	
-	if (tmplate->getBuildable() == BSTATUS_ONLY_BY_AI && getPlayerType() != PLAYER_COMPUTER)
-		return false;
-	
-	// else BSTATUS tmplate->getBuildable() == BSTATUS_YES
-	{
-
-		// we must satisfy all of the prereqs
-		Bool prereqsOK = true;
-		for (Int i = 0; i < tmplate->getPrereqCount(); i++)
-		{
-			const ProductionPrerequisite *pre = tmplate->getNthPrereq(i);
-			if (pre->isSatisfied(this) == false )
-				prereqsOK = false;
-		}
-
-#if defined(_DEBUG) || defined(_INTERNAL)
-		if (ignoresPrereqs())
-			prereqsOK = true;
-#endif
-
-		if (!prereqsOK)
-			return false;
-
-	}
-
-  if ( !canBuildMoreOfType( tmplate ) )
-    return false;
-  
-
-	return true;
-}
+// Player::canBuild is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerCanBuild.cpp (0x002ABEF1).
 
 //=================================================================================================
 // ?canAffordBuild@Player@@QBE_NPBVThingTemplate@@@Z present-unmatched
@@ -3679,32 +3406,12 @@ static void localApplyBattlePlanBonusesToObject( Object *obj, void *userData )
 //New object or converted object gaining our current battle plan bonuses.
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Player_becomingTeamMember_Thunk.cpp
-// ?applyBattlePlanBonusesForObject@Player@@QBEXPAVObject@@@Z present-unmatched
-void Player::applyBattlePlanBonusesForObject( Object *obj ) const
-{
-	localApplyBattlePlanBonusesToObject( obj, m_battlePlanBonuses );
-}
+// Player::applyBattlePlanBonusesForObject is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (0x002AC917).
 
 //-------------------------------------------------------------------------------------------------
 //Object has just left our team, so remove it's bonuses!
 //-------------------------------------------------------------------------------------------------
-// ?removeBattlePlanBonusesForObject@Player@@QBEXPAVObject@@@Z present-unmatched
-void Player::removeBattlePlanBonusesForObject( Object *obj ) const
-{
-	//Copy bonuses, and invert them.
-	BattlePlanBonuses* bonus = newInstance(BattlePlanBonuses);
-	*bonus = *m_battlePlanBonuses;
-	bonus->m_armorScalar					= 1.0f / __max( bonus->m_armorScalar, 0.01f );
-	bonus->m_sightRangeScalar			= 1.0f / __max( bonus->m_sightRangeScalar, 0.01f );
-	bonus->m_bombardment					= -ALL_PLANS; //Safe to remove as it clears the weapon bonus flag
-	bonus->m_searchAndDestroy			= -ALL_PLANS; //Safe to remove as it clears the weapon bonus flag
-	bonus->m_holdTheLine					= -ALL_PLANS; //Safe to remove as it clears the weapon bonus flag
-
-	DUMPBATTLEPLANBONUSES(bonus, this, obj);
-	localApplyBattlePlanBonusesToObject( obj, bonus );
-
-	bonus->deleteInstance();
-}
+// Player::removeBattlePlanBonusesForObject is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (0x002AC92B).
 
 //-------------------------------------------------------------------------------------------------
 //Battle plan bonuses changing, so apply to all of our objects!
@@ -3773,85 +3480,22 @@ void Player::processCreateTeamGameMessage(Int hotkeyNum, GameMessage *msg) {
 //-------------------------------------------------------------------------------------------------
 /** Select a hotkey team based on this GameMessage */
 //-------------------------------------------------------------------------------------------------
-// ?processSelectTeamGameMessage@Player@@QAEXHPAVGameMessage@@@Z present-unmatched
-void Player::processSelectTeamGameMessage(Int hotkeyNum, GameMessage *msg) {
-	if ((hotkeyNum < 0) || (hotkeyNum >= NUM_HOTKEY_SQUADS)) {
-		DEBUG_CRASH(("processSelectTeamGameMessage got an invalid hotkey number"));
-		return;
-	}
-
-	if (m_squads[hotkeyNum] == NULL) {
-		return;
-	}
-
-	m_currentSelection->clearSquad();
-
-	VecObjectPtr objectList = m_squads[hotkeyNum]->getLiveObjects();
-	Int numObjs = objectList.size();
-	
-	for (Int i = 0; i < numObjs; ++i) 
-	{
-		m_currentSelection->addObject(objectList[i]);
-	}
-
-	if( numObjs > 0 )
-	{
-		getAcademyStats()->recordControlGroupsUsed();
-	}
-
-}
+// Player::processSelectTeamGameMessage is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerHotkeySquads.cpp (0x002ACAFB).
 
 //-------------------------------------------------------------------------------------------------
 /** Select a hotkey team based on this GameMessage */
 //-------------------------------------------------------------------------------------------------
-// ?processAddTeamGameMessage@Player@@QAEXHPAVGameMessage@@@Z present-unmatched
-void Player::processAddTeamGameMessage(Int hotkeyNum, GameMessage *msg) {
-	if ((hotkeyNum < 0) || (hotkeyNum >= NUM_HOTKEY_SQUADS)) {
-		DEBUG_CRASH(("processAddTeamGameMessage got an invalid hotkey number"));
-		return;
-	}
-
-	if (m_squads[hotkeyNum] == NULL) {
-		return;
-	}
-
-	if (m_currentSelection == NULL) {
-		m_currentSelection = newInstance( Squad );
-	}
-
-	VecObjectPtr objectList = m_squads[hotkeyNum]->getLiveObjects();
-	Int numObjs = objectList.size();
-
-	for (Int i = 0; i < numObjs; ++i) {
-		m_currentSelection->addObject(objectList[i]);
-	}
-}
+// Player::processAddTeamGameMessage is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerHotkeySquads.cpp (0x002ACBA8).
 
 //-------------------------------------------------------------------------------------------------
 /** Select a hotkey team based on this GameMessage */
 //-------------------------------------------------------------------------------------------------
-// ?getCurrentSelectionAsAIGroup@Player@@QAEXPAVAIGroup@@@Z present-unmatched
-void Player::getCurrentSelectionAsAIGroup(AIGroup *group) {
-	if (m_currentSelection != NULL) {
-		m_currentSelection->aiGroupFromSquad(group);
-	}
-}
+// Player::getCurrentSelectionAsAIGroup is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerGetCurrentSelectionAsAIGroup.cpp (0x002AA164).
 
 //-------------------------------------------------------------------------------------------------
 /** Select a hotkey team based on this GameMessage */
 //-------------------------------------------------------------------------------------------------
-// ?setCurrentlySelectedAIGroup@Player@@QAEXPAVAIGroup@@@Z present-unmatched
-void Player::setCurrentlySelectedAIGroup(AIGroup *group) {
-	if (m_currentSelection == NULL) {
-		m_currentSelection = newInstance( Squad );
-	}
-
-	m_currentSelection->clearSquad();
-
-	if (group != NULL) {
-		m_currentSelection->squadFromAIGroup(group, true);
-	}
-}
+// Player::setCurrentlySelectedAIGroup is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerSetCurrentlySelectedAIGroup.cpp (0x002ACC53).
 
 //-------------------------------------------------------------------------------------------------
 /** Select a hotkey team based on this GameMessage */
