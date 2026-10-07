@@ -187,10 +187,7 @@ SceneClass::~SceneClass(void)
  * HISTORY:                                                                                    *
  *   2/25/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-void SceneClass::Add_Render_Object(RenderObjClass * obj)
-{
-	obj->Notify_Added(this);
-}
+// SceneClass::Add_Render_Object is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp (0x00140CD0).
 
 
 /***********************************************************************************************
@@ -209,10 +206,7 @@ void SceneClass::Add_Render_Object(RenderObjClass * obj)
  * HISTORY:                                                                                    *
  *   2/25/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-void SceneClass::Remove_Render_Object(RenderObjClass * obj)
-{
-	obj->Notify_Removed(this);
-}
+// SceneClass::Remove_Render_Object is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp (0x00140CE0).
 
 
 /***********************************************************************************************
@@ -401,11 +395,7 @@ void SimpleSceneClass::Remove_All_Render_Objects(void)
  *   3/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
 // byte-exact reconstruction: Code/GameEngine/Source/Common/SimpleSceneClass_Add_Render_Object_Thunk.cpp
-void SimpleSceneClass::Add_Render_Object(RenderObjClass * obj)
-{
-	SceneClass::Add_Render_Object(obj);
-	RenderList.Add(obj);
-}
+// SimpleSceneClass::Add_Render_Object is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp (0x001413A0).
 
 
 /***********************************************************************************************
@@ -421,46 +411,13 @@ void SimpleSceneClass::Add_Render_Object(RenderObjClass * obj)
  *   3/24/98    GTH : Created.                                                                 *
  *=============================================================================================*/
 // byte-exact reconstruction: Code/GameEngine/Source/Common/SimpleSceneClass_Remove_Render_Object_Thunk.cpp
-void SimpleSceneClass::Remove_Render_Object(RenderObjClass * obj)
-{
-	SceneClass::Remove_Render_Object(obj);
-	// HY
-	// this line must come last because otherwise it might cause
-	// a premature release ref and cause a crash
-	RenderList.Remove(obj);
-}
+// SimpleSceneClass::Remove_Render_Object is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp (0x00141860).
 
 // byte-exact reconstruction: Code/GameEngine/Source/Common/SimpleSceneClass_Register_Thunk.cpp
-void SimpleSceneClass::Register(RenderObjClass * obj,RegType for_what)
-{
-	switch (for_what) {
-		case ON_FRAME_UPDATE:	
-			UpdateList.Add(obj);			
-			break;
-		case LIGHT:	
-			LightList.Add_Tail(obj);	
-			break;
-		case RELEASE:				
-			ReleaseList.Add(obj);		
-			break;
-	};
-}
+// SimpleSceneClass::Register is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp (0x00141400).
 
 // byte-exact reconstruction: Code/GameEngine/Source/Common/SimpleSceneClass_Unregister_Thunk.cpp
-void SimpleSceneClass::Unregister(RenderObjClass * obj,RegType for_what)
-{
-	switch (for_what) {
-		case ON_FRAME_UPDATE:	
-			UpdateList.Remove(obj);			
-			break;
-		case LIGHT:	
-			LightList.Remove(obj);	
-			break;
-		case RELEASE:				
-			ReleaseList.Remove(obj);		
-			break;
-	}
-}
+// SimpleSceneClass::Unregister is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/SceneOwnership.cpp (0x001414D0).
 
 
 
@@ -643,27 +600,7 @@ void SimpleSceneClass::Customized_Render(RenderInfoClass & rinfo)
 	}
 }
 
-// ?Post_Render_Processing@SimpleSceneClass@@MAEXAAVRenderInfoClass@@@Z present-unmatched
-void SimpleSceneClass::Post_Render_Processing(RenderInfoClass& rinfo)
-{
-	// process the 'Release' list.  These are objects that have notified us that they
-	// want to be released.  We have to walk this list twice, first un-linking the
-	// object from the scene or its container.  And then removing them all from 
-	// the list.  (this last removal will destroy any auto-created objects)
-	RefRenderObjListIterator it(&ReleaseList);
-	for (it.First(&ReleaseList); !it.Is_Done(); it.Next()) {
-		RenderObjClass * robj = it.Peek_Obj();
-		if (robj->Get_Container()) {
-			robj->Get_Container()->Remove_Sub_Object(robj);
-		} else {
-			robj->Remove();
-		}
-	}
-
-	while(!ReleaseList.Is_Empty()) {
-		ReleaseList.Release_Head();
-	}
-}
+// SimpleSceneClass::Post_Render_Processing is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClass_Post_Render_Processing.cpp (0x00141BB0).
 
 /***********************************************************************************************
  * SimpleSceneClass::Create_Iterator -- create an iterator for this scene                      *

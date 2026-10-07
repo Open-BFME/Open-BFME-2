@@ -199,41 +199,11 @@ private:
 	bool m_farm;		// +0x60
 };
 
-bool AIFarmKillSquad::canRun(void *)
-{
-	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
-	if (!m_farm && record->m_16C <= 0)
-		return false;
-	int running = record->rva002C7196(AIFarmKillSquad_IsRunning);
-	unsigned int next = record->rva002C7196(AIFarmKillSquad_FrameNextRun);
-	if (running || next > TheGameLogic->getFrame())
-		return false;
-	if (record->rva002C6ACB())
-		return true;
-	return false;
-}
+// AIFarmKillSquad::canRun is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIFarmKillSquad.cpp (0x005ACCEF).
 
-void AIFarmKillSquad::cleanUp()
-{
-	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
-	record->rva002C717E(AIFarmKillSquad_IsRunning, 0);
-	record->rva002C717E(AIFarmKillSquad_FrameNextRun, TheGameLogic->getFrame()
-		+ GetGameLogicRandomValue(g_00E06438, g_00E0643C,
-			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\TargetlessTactics\\AIFarmKillSquad.cpp",
-			337));
-}
+// AIFarmKillSquad::cleanUp is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIFarmKillSquad.cpp (0x005ACD51).
 
-float AIFarmKillSquad::rva005ACDD2(const Coord3D *a, const Coord3D *b)
-{
-	Coord3D d;
-	d.x = a->x;
-	d.y = a->y;
-	d.z = a->z;
-	d.x -= b->x;
-	d.y -= b->y;
-	d.z -= b->z;
-	return d.length();
-}
+// AIFarmKillSquad::rva005ACDD2 is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIFarmKillSquad.cpp (0x005ACDD2).
 
 float AIFarmKillSquad::rva005ACE15(const Coord3D *point, const Coord3D *from, const Coord3D *to)
 {
@@ -252,11 +222,4 @@ float AIFarmKillSquad::rva005ACE15(const Coord3D *point, const Coord3D *from, co
 	return rva005ACDD2(point, &foot);
 }
 
-void AIFarmKillSquad::xfer(Xfer *xfer)
-{
-	Xfer::Version version(1, 1);
-	*xfer == version;
-	AITactic::xfer(xfer);
-	XferObjectID(xfer, &m_58);
-	XferObjectID(xfer, &m_5C);
-}
+// AIFarmKillSquad::xfer is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIFarmKillSquad.cpp (0x005ACEC8).

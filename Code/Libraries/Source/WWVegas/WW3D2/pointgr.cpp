@@ -782,13 +782,7 @@ int PointGroupClass::Get_Polygon_Count(void)
  *   02/08/2001 HY  : Upgraded to DX8                                     *
  *========================================================================*/
 static SimpleVecClass<unsigned long> remap;
-// ?PointGroupClass::Render present-unmatched
-void PointGroupClass::Render(RenderInfoClass &rinfo, int unknown)
-{
-	// BFME match note: Render is the DX8/Direct3D render path — not reproducible
-	// with the byte-match toolchain, so its body is stubbed to let the other
-	// PointGroupClass methods compile and locate.
-}
+// PointGroupClass::Render is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassRender.cpp (0x0017F400).
 
 
 

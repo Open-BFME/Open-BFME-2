@@ -84,77 +84,11 @@ FlammableUpdateModuleData::FlammableUpdateModuleData()
 //-------------------------------------------------------------------------------------------------
 /** Damage has been dealt, this is an opportunity to reach to that damage */
 //-------------------------------------------------------------------------------------------------
-// ?onDamage@FlammableUpdate@@UAEXPAVDamageInfo@@@Z present-unmatched
-void FlammableUpdate::onDamage( DamageInfo *damageInfo )
-{
-	if( damageInfo->in.m_damageType == DAMAGE_FLAME || damageInfo->in.m_damageType == DAMAGE_PARTICLE_BEAM )
-	{
-		UnsignedInt now = TheGameLogic->getFrame();
-		if( now - getFlammableUpdateModuleData()->m_flameDamageExpirationDelay > m_lastFlameDamageDealt )
-		{
-			// If it has been a long time since our last flame damage, reset the threshold
-			m_flameDamageLimit = getFlammableUpdateModuleData()->m_flameDamageLimitData;
-		}
-		m_lastFlameDamageDealt = now;
-		
-		Object *me = getObject();
-		if( !me->getStatusBits().test( OBJECT_STATUS_AFLAME ) && !me->getStatusBits().test( OBJECT_STATUS_BURNED ) )
-		{
-			// If I'm not on fire, and I haven't burned up, see if I should try to catch fire.
-			m_flameDamageLimit -= damageInfo->out.m_actualDamageDealt;
-			if( m_flameDamageLimit <= 0 )
-			{
-				tryToIgnite();
-			}
-		}
-	}
-}
+// FlammableUpdate::onDamage is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp (0x0048CE3E).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ present-unmatched
-UpdateSleepTime FlammableUpdate::update( void )
-{
-	Object *me = getObject();
-	DEBUG_ASSERTCRASH(m_status == FS_AFLAME, ("hmm, should be aflame"));
-
-	UnsignedInt now = TheGameLogic->getFrame();
-	const FlammableUpdateModuleData *data = getFlammableUpdateModuleData();
-
-	if( m_damageEndFrame != 0 && now >= m_damageEndFrame )
-	{
-		m_damageEndFrame = now + data->m_aflameDamageDelay;
-		doAflameDamage();
-	}
-
-	if( m_burnedEndFrame != 0 && now >= m_burnedEndFrame )
-	{
-		// So this status is set, but I am still aflame on an independent timer.
-		me->setStatus( MAKE_OBJECT_STATUS_MASK( OBJECT_STATUS_BURNED ) );
-		me->setModelConditionState( MODELCONDITION_SMOLDERING );
-	}
-
-	if( m_aflameEndFrame != 0 && now >= m_aflameEndFrame )
-	{
-		// This is the important one.  I am no longer on fire.
-		if( me->getStatusBits().test( OBJECT_STATUS_BURNED ) )
-		{
-			// If I am burned, then I will never catch fire again.
-			m_status = FS_BURNED;
-		}
-		else
-		{
-			// otherwise I am free to burn again
-			m_status = FS_NORMAL;
-		}
-		stopBurningSound();
-		me->clearStatus( MAKE_OBJECT_STATUS_MASK( OBJECT_STATUS_AFLAME ) );
-		me->getBodyModule()->setAflame( FALSE );
-		me->clearModelConditionState( MODELCONDITION_AFLAME );
-	}
-
-	return calcSleepTime();
-}
+// FlammableUpdate::update is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp (0x0048D0BE).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -189,36 +123,7 @@ UpdateSleepTime FlammableUpdate::calcSleepTime()
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?tryToIgnite@FlammableUpdate@@QAEXXZ present-unmatched
-void FlammableUpdate::tryToIgnite()
-{
-	if( m_status == FS_NORMAL )
-	{
-		Object *me = getObject();
-		me->setStatus( MAKE_OBJECT_STATUS_MASK( OBJECT_STATUS_AFLAME ) );
-		me->getBodyModule()->setAflame( TRUE );
-		me->setModelConditionState( MODELCONDITION_AFLAME );
-		startBurningSound();
-
-		// bleah. this sucks. (srj)
-		static const NameKeyType key_FireSpreadUpdate = NAMEKEY("FireSpreadUpdate");
-		FireSpreadUpdate* fu = (FireSpreadUpdate*)getObject()->findUpdateModule(key_FireSpreadUpdate);
-		if (fu != NULL)
-		{
-			fu->startFireSpreading();
-		}
-
-		m_status = FS_AFLAME;
-
-		const FlammableUpdateModuleData *data = getFlammableUpdateModuleData();
-		UnsignedInt now = TheGameLogic->getFrame();
-		m_aflameEndFrame = now + data->m_aflameDuration;
-		m_burnedEndFrame = data->m_burnedDelay ? now + data->m_burnedDelay : 0;
-		m_damageEndFrame = data->m_aflameDamageDelay ? now + data->m_aflameDamageDelay : 0;
-
-		setWakeFrame(getObject(), calcSleepTime());
-	}
-}
+// FlammableUpdate::tryToIgnite is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp (0x0048CB18).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------

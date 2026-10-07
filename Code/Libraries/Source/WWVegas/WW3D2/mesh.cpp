@@ -600,11 +600,7 @@ void MeshClass::Delete_Decal(uint32 decal_id)
  * HISTORY:                                                                                    *
  *   12/10/98   GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshClass::Render present-unmatched
-void MeshClass::Render(RenderInfoClass & rinfo)
-{
-	// BFME: DX8 render path stubbed to compile the rest of the TU.
-}
+// MeshClass::Render is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/MeshClassRender.cpp (0x0014BB90).
 
 
 /***********************************************************************************************
