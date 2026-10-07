@@ -319,6 +319,7 @@ public:
 	static NetCommandMsg *rva0058DEC5(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DEF7(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DF29(UnsignedByte *data, Int &readOffset);
+	static NetCommandMsg *rva0059205C(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DFB8(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E047(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E0B0(UnsignedByte *data, Int &readOffset);
@@ -501,6 +502,26 @@ class NetDisconnectPlayerCommandMsg
 public:
 	void setDisconnectSlot(UnsignedByte slot);
 	void setDisconnectFrame(UnsignedInt frame);
+};
+
+// Type-13 and type-14 messages (ZH's NetDisconnectChatCommandMsg and
+// NetChatCommandMsg). rva004D6187 is ZH's setText(UnicodeString), rowed with a
+// StringBase<unsigned short> parameter whose copy ctor is private here.
+class Rva004D60CA
+{
+public:
+	Rva004D60CA();
+	void rva004D6187(UnicodeString text);
+private:
+	char m_pad[0x20];
+};
+
+class Rva004D6134
+{
+public:
+	Rva004D6134();
+private:
+	char m_pad[0x24];
 };
 
 class Rva004D582B
@@ -1410,6 +1431,26 @@ NetCommandMsg *NetPacket::rva0058DF29(UnsignedByte *data, Int &readOffset)
 	memcpy(&disconnectFrame, data + readOffset, sizeof(disconnectFrame));
 	readOffset += sizeof(disconnectFrame);
 	((NetDisconnectPlayerCommandMsg *)msg)->setDisconnectFrame(disconnectFrame);
+	return (NetCommandMsg *)msg;
+}
+
+// ?rva0059205C@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z, retail 0x0059205C, 199 bytes:
+// ZH's readDisconnectChatMessage on the rowed type-13 ctor Rva004D60CA: a
+// length byte, that many UTF-16 characters, then setText.
+NetCommandMsg *NetPacket::rva0059205C(UnsignedByte *data, Int &readOffset)
+{
+	Rva004D60CA *msg = new Rva004D60CA();
+	UnsignedShort text[256];
+	UnsignedByte length;
+	memcpy(&length, data + readOffset, sizeof(UnsignedByte));
+	++readOffset;
+	memcpy(text, data + readOffset, length * sizeof(UnsignedShort));
+	readOffset += length * sizeof(UnsignedShort);
+	text[length] = 0;
+
+	UnicodeString unitext;
+	unitext.set(text);
+	msg->rva004D6187(unitext);
 	return (NetCommandMsg *)msg;
 }
 
