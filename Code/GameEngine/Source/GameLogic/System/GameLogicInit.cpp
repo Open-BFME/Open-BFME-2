@@ -2123,7 +2123,8 @@ void GameLogic::rva00248278(bool loadingSaveGame)
 // Donor: BFME 1 GameLogic.cpp startNewGame (setPristineMapName,
 // isInSaveDirectory sanity check, m_rankLevelLimit = 1000, setDefaults,
 // m_loadScreenRender, the marker/icon/LOD flags and hulk override -1) and
-// its static checkForDuplicateColors, which retail inlines verbatim. BFME 2
+// its static checkForDuplicateColors, which retail inlines verbatim (and also
+// keeps out of line, with no callers, at 0x0023E064). BFME 2
 // splits the rest of startNewGame into the stages 0x0024004D onwards; field
 // names stay offset names.
 class GameWindowManager : public SubsystemInterface
