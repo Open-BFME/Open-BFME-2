@@ -1,16 +1,10 @@
 // cl: /DBFME_SORTING_DWORD_DRAW /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/zhmd /G7 /arch:SSE /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
 // stlport
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it. Retail links one
-// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
-// copy that same body, so it no longer loses to retail's at link time.
-// It can also change how later array constructions here compile; checked to
-// change nothing else in this unit, but if a function added later that builds
-// an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
-static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
+// No /O1 vector-constructor-iterator anchor here: Flush (0x0012F190) is the
+// first function to need ??_H, and retail calls it out of line for Flush's
+// last Set_Transform. With the /O1 body first, VC7 inlines that call too and
+// reallocates Flush's zero register, so this unit emits the /O2 ??_H copy
+// that retail's linker discarded for the /O1 one at 0x00001423.
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -108,6 +102,9 @@ public:
 #include "statistics.h"
 #include <wwprofile.h>
 #include <algorithm>
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
 extern unsigned char *BfmeCurrentCaps;
 
@@ -816,8 +813,84 @@ void SortingRendererClass::Flush_Sorting_Pool()
 
 // ----------------------------------------------------------------------------
 
+// Retail 0x0012F190..0x0012FC98, 2824 bytes: Open-BFME-1's Flush (its
+// 0x0093A810) with the pooled-node cap read from DEFAULT_SORTING_POLY_COUNT
+// (data ledger 0x009B61F8), BFME2's inline render-state copy and an inlined
+// Insert_To_Sorting_Pool. Flush_Sorting_Pool (0x0012E8C0) is its only call
+// into the pool.
+// Release_Render_State with each pointer cleared inside its own test, as
+// retail stores the null only after a release.
+class BfmeSortingStateRelease : DX8Wrapper {
+public:
+	static __forceinline void release()
+	{
+		if (render_state.index_buffer)
+			render_state.index_buffer->Release_Engine_Ref();
+		for (int i = 0; i < MAX_VERTEX_STREAMS; ++i)
+			if (render_state.vertex_buffers[i])
+				render_state.vertex_buffers[i]->Release_Engine_Ref();
+		for (int i = 0; i < MAX_VERTEX_STREAMS; ++i)
+			if (render_state.vertex_buffers[i]) {
+				render_state.vertex_buffers[i]->Release_Ref();
+				render_state.vertex_buffers[i] = 0;
+			}
+		if (render_state.index_buffer) {
+			render_state.index_buffer->Release_Ref();
+			render_state.index_buffer = 0;
+		}
+		_ReadWriteBarrier();
+		if (render_state.material) {
+			render_state.material->Release_Ref();
+			render_state.material = 0;
+		}
+		for (int i = 0; i < MAX_TEXTURE_STAGES; ++i)
+			if (render_state.Textures[i]) {
+				render_state.Textures[i]->Release_Ref();
+				render_state.Textures[i] = 0;
+			}
+	}
+};
+
 // ?Flush@SortingRendererClass@@SAXXZ
-// Body in sortingrenderer_Flush.asm (exact 2531B retail).
+void SortingRendererClass::Flush()
+{
+	Matrix4x4 old_view;
+	Matrix4x4 old_world;
+	DX8Wrapper::Get_Transform(D3DTS_VIEW,old_view);
+	DX8Wrapper::Get_Transform(D3DTS_WORLD,old_world);
+
+	while (SortingNodeStruct* state=sorted_list.Head()) {
+		state->Remove();
+
+		if ((state->sorting_state.index_buffer_type==BUFFER_TYPE_SORTING || state->sorting_state.index_buffer_type==BUFFER_TYPE_DYNAMIC_SORTING) &&
+			(state->sorting_state.vertex_buffer_types[0]==BUFFER_TYPE_SORTING || state->sorting_state.vertex_buffer_types[0]==BUFFER_TYPE_DYNAMIC_SORTING)) {
+			if (state->polygon_count + overlapping_polygon_count >= DEFAULT_SORTING_POLY_COUNT) continue;
+			Insert_To_Sorting_Pool(state);
+		}
+		else {
+			DX8Wrapper::Set_Render_State(reinterpret_cast<const RenderStateStruct &>(state->sorting_state));
+			DX8Wrapper::Draw_Triangles((unsigned)state->start_index,(unsigned)state->polygon_count,(unsigned)state->min_vertex_index,(unsigned)state->vertex_count);
+			BfmeSortingStateRelease::release();
+			Release_Refs(state);
+			clean_list.Add_Head(state);
+		}
+	}
+
+	bool old_enable=DX8Wrapper::_Is_Triangle_Draw_Enabled();
+	DX8Wrapper::_Enable_Triangle_Draw(_EnableTriangleDraw);
+	Flush_Sorting_Pool();
+	DX8Wrapper::_Enable_Triangle_Draw(old_enable);
+
+	DX8Wrapper::Set_Index_Buffer(0,0);
+	DX8Wrapper::Set_Vertex_Buffer(0,0);
+	total_sorting_vertices=0;
+
+	DynamicIBAccessClass::_Reset(false);
+	DynamicVBAccessClass::_Reset(false);
+
+	DX8Wrapper::Set_Transform(D3DTS_VIEW,old_view);
+	DX8Wrapper::Set_Transform(D3DTS_WORLD,old_world);
+}
 
 // ----------------------------------------------------------------------------
 
