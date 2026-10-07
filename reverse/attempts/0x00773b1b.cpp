@@ -1,3 +1,5 @@
+// Unwind@00b73b1b
+// partial score=1.0 date=2026-10-07
 // cl: /DNDEBUG /MD /EHsc /O1 /G7
 // Native boundaries: removal-by-index 0x0028292B..0x002829BD (146B),
 // pointer-key search 0x00283033..0x00283081 (78B), and adjacent callers
