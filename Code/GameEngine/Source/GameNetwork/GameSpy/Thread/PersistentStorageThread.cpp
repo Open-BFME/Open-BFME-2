@@ -47,9 +47,54 @@ class Rva00382077 {
 public:
     void rva00382908();
 };
+// Physical ABI used by the already recovered177-byte XferMap provider.
+// Native slot28 receives two adjacent version bytes, both initialized to1.
+struct StatsXferVersion { unsigned char first, second; };
+class XferStub {
+public:
+    virtual ~XferStub();
+    virtual void _unused1();
+    virtual void _unused2();
+    virtual void _unused3();
+    virtual void _unused4();
+    virtual void _unused5();
+    virtual void _unused6();
+    virtual void _unused7();
+    virtual void _unused8();
+    virtual void _unused9();
+    virtual void _slot28(StatsXferVersion &);
+    virtual void _unused11();
+    virtual void _unused12();
+    virtual void _unused13();
+    virtual void _unused14();
+    virtual void _unused15();
+    virtual void _unused16();
+    virtual void _unused17();
+    virtual void _unused18();
+    virtual void _unused19();
+    virtual void _unused20();
+    virtual void _unused21();
+    virtual void _unused22();
+    virtual void _unused23();
+    virtual void _unused24();
+    virtual void _unused25();
+    virtual void _unused26();
+    virtual void _unused27();
+    virtual void _unused28();
+    virtual void _unused29();
+    virtual void _slot78(int &);
+    virtual void _unused31();
+    virtual void _slot80(short &);
+};
+class MapHolder;
+class PSPlayerStats {
+public:
+    void XferMap(MapHolder *, XferStub *);
+};
 class Rva00553E47StatsCore {
 public:
     void reset();
+    void rva005550A0(XferStub *);
 private:
     unsigned m_unmodelled00;
     Rva0038201D m_maps04[6];
@@ -236,4 +281,19 @@ void Rva0038454E::rva00553F2F() {
     ((Rva0038204A *)(m_pad154 + 0x90))->rva003828DF();
     ((Rva0038204A *)(m_pad154 + 0x9c))->rva003828DF();
     ((Rva0038204A *)(m_pad154 + 0xa8))->rva003828DF();
+}
+
+// Native [5550A0,555109),105B transfers two maps and three scalars from
+// the same core reset at553E47. Every call is an existing provider or a
+// native Xfer vtable slot; the original method name remains unresolved.
+void Rva00553E47StatsCore::rva005550A0(XferStub *xfer) {
+    StatsXferVersion version;
+    version.first = 1;
+    version.second = 1;
+    xfer->_slot28(version);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)&m_maps04[0], xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)&m_maps04[1], xfer);
+    xfer->_slot78((int &)m_13c);
+    xfer->_slot78((int &)m_140);
+    xfer->_slot80((short &)m_144);
 }
