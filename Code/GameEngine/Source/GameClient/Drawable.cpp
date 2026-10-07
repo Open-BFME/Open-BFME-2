@@ -152,6 +152,74 @@ public:
 #define VERY_TRANSPARENT_MATERIAL_PASS_OPACITY (0.001f)
 #define MATERIAL_PASS_OPACITY_FADE_SCALAR (0.8f)
 
+// Drawable::draw, 0x0027C157..0x0027C1F2. The reference's fade and draw-module
+// loop survive; BFME2 prepares the full matrix in the native 0x0027BED0 helper.
+// BFME1 donor: 1399ad37d42ea52a63829e417c46a1ba9ed2cd20, Drawable.cpp draw.
+struct BfmeDrawableDrawObject
+{
+	unsigned char pad000[0x438];
+	unsigned char status438;
+};
+// Retail dispatches doDrawModule through vtable +0x2c; the donor DrawModule
+// header has a shorter base vtable, so use only the slot this body proves.
+class Rva0027C157DrawModuleView
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0c();
+	virtual void slot10();
+	virtual void slot14();
+	virtual void slot18();
+	virtual void slot1c();
+	virtual void slot20();
+	virtual void slot24();
+	virtual void slot28();
+	virtual void doDrawModule(const Matrix3D *matrix);
+};
+struct BfmeDrawableDrawFields
+{
+	unsigned char pad000[0xfc];
+	BfmeDrawableDrawObject *object;
+	unsigned char pad100[0x118 - 0x100];
+	unsigned char tintStatus;
+	unsigned char pad119[0x14c - 0x119];
+	Rva0027C157DrawModuleView **drawModules;
+	unsigned char pad150[0x358 - 0x150];
+	float secondMaterialPassOpacity;
+	unsigned char pad35c[0x43d - 0x35c];
+	bool hidden;
+	bool hiddenByStealth;
+	unsigned char pad43f;
+	bool fullyObscuredByShroud;
+};
+class BfmeDrawableDrawTransform
+{
+public:
+	void rva0027BED0(Matrix3D *matrix);
+};
+
+void Drawable::draw(View *view)
+{
+	BfmeDrawableDrawFields *self = (BfmeDrawableDrawFields *)this;
+	if (!(self->tintStatus & 8))
+	{
+		if (self->object && (self->object->status438 & 1))
+			self->secondMaterialPassOpacity = 0.0f;
+		else if (self->secondMaterialPassOpacity > VERY_TRANSPARENT_MATERIAL_PASS_OPACITY)
+			self->secondMaterialPassOpacity *= MATERIAL_PASS_OPACITY_FADE_SCALAR;
+		else
+			self->secondMaterialPassOpacity = 0.0f;
+	}
+	if (self->hidden || self->hiddenByStealth || self->fullyObscuredByShroud)
+		return;
+	Matrix3D transformMtx;
+	((BfmeDrawableDrawTransform *)this)->rva0027BED0(&transformMtx);
+	for (Rva0027C157DrawModuleView **dm = self->drawModules; *dm; ++dm)
+		(*dm)->doDrawModule(&transformMtx);
+}
+
 static const char *TheDrawableIconNames[] = 
 {
 	"DefaultHeal",
@@ -297,4 +365,3 @@ void TintEnvelope::setAttackFrames(UnsignedInt frames)
 	Vector3 rateScale; rateScale.Set(recipFrames, recipFrames, recipFrames);
 	self->m_attackRate.Scale(rateScale);
 }
-
