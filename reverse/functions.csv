@@ -67172,3 +67172,4 @@ _gpSetInfoCacheFilenameA,,0x0072D2C0,5,Code/GameEngine/Source/GameNetwork/GameSp
 ?Rva0021B37AFind@@YAPAVGameSlot@@PBVPlayer@@@Z,,0x0021B37A,128,Code/GameEngine/Source/GameLogic/Object/CreateAHeroSlotFind.cpp,matched,slot search via TheGameInfo and NameKeyGenerator matches CreateAHeroManager pattern
 ?rva0021B3FA@Rva0021B3FA@@QAEXXZ,,0x0021B3FA,122,Code/GameEngine/Source/GameLogic/Object/Rva0021B3FAGrant.cpp,matched,chain from Find grants upgrade to slot players via PlayerList
 ?rva00359811@Rva00359811@@QAEIABURva003597C3Element@@_N@Z,,0x00359811,27,Code/GameEngine/Source/Common/Rva00359811.cpp,matched,retail branch selects one of two adjacent tree objects class identity remains address named
+?rva004AFB01@Rva004AFB01@@QAEHXZ,,0x004AFB01,21,Code/GameEngine/Source/Common/Rva004AFB01.cpp,matched,target offsets call the rowed lookup identity unproven
