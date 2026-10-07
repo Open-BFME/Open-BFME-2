@@ -126,6 +126,7 @@ public:
 	Bool isPlayerInGame(Int slot);
 	Int isPlayerSlotActive(Int slot);
 	UnsignedByte rva004CEF58(Int slot);
+	UnsignedInt getNextPacketRouterSlot(UnsignedInt slot);
 	void sendDisconnectFrameCommand();
 	void resendFrameRangeToPlayer(Int playerID, UnsignedInt startFrame, UnsignedInt endFrame);
 };
@@ -620,4 +621,30 @@ void DisconnectManager::processDisconnectVote(NetCommandMsg *msg, ConnectionMana
 
 	applyDisconnectVote(((NetProgressCommandMsg *)msg)->getPercentage(),
 		((NetWrapperCommandMsg *)msg)->getDataLength(), msg->getPlayerID(), conMgr);
+}
+
+// Open-BFME-1's isLocalPlayerNextPacketRouter: walk the router order past
+// players who left the game or whose slot is still active; BFME 2 takes the
+// next slot from BFMEConnectionManager::getNextPacketRouterSlot.
+Bool DisconnectManager::isLocalPlayerNextPacketRouter(ConnectionManager *conMgr) {
+	BFMEConnectionManager *bfmeMgr = (BFMEConnectionManager *)conMgr;
+	UnsignedInt localSlot = conMgr->getLocalPlayerID();
+	UnsignedInt packetRouterSlot = conMgr->getPacketRouterSlot();
+	Int transSlot = Rva004D39DEGet(packetRouterSlot, localSlot);
+
+	while ((transSlot != -1)
+		&& ((isPlayerInGame(transSlot, conMgr) == FALSE)
+			|| (UnsignedByte)bfmeMgr->isPlayerSlotActive(packetRouterSlot))) {
+		packetRouterSlot = bfmeMgr->getNextPacketRouterSlot(packetRouterSlot);
+		if (packetRouterSlot >= MAX_SLOTS) {
+			return FALSE;
+		}
+		transSlot = Rva004D39DEGet(packetRouterSlot, localSlot);
+	}
+
+	if (packetRouterSlot == localSlot) {
+		return TRUE;
+	}
+
+	return FALSE;
 }
