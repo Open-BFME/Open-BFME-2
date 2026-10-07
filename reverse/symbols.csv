@@ -11090,7 +11090,6 @@ name,address,notes
 ?rva00072FE6@Rva00072FE6@@QAEXXZ,0x00072FE6,Address-derived tree-clear receiver; Ghidra41B boundary reads header/count at0/4 and resets links after72F7C; target4E21C1 passes record+8 from20-byte-stride loop
 ?rva00073CC0@Rva000729CC@@QAEXHHHH@Z,0x00073CC0,"4-argument method (ret 0x10) on the TheTerrainRenderObject+0x387C helper that W3DDisplay slot 0x000450A3 calls with (a,b,c,0) and 0x000450CE with (x,y,taint,1); callee body remains unclaimed; opaque address name"
 ?rva0007671F@Rva0007671F@@QAEXXZ,0x0007671F,"retail REL32 at 0x0014D44C in 0x0014D440 targets 0x0007671F (ecx=ebp-0x40 local thiscall no args; 22B Ghidra FUN); opaque candidate not identity"
-?rva00078AE3@Rva00078AE3@@QAEXH@Z,0x00078AE3,address-derived callee of matched slot 0x00078ADB; retail jmp rel32 targets 0x00078AE3; Ghidra FUN bounds 72 bytes; thiscall on the +0x1C member 1 arg(s) ret 4; callee body remains unclaimed; no named identity inferred
 ?rva00078c0@Rva00029F80@@AAEXPBD0PAX@Z,0x000078C0,"TU-local private-member spelling of the rowed 0x000078C0 _M_range_initialize; called by Rva00029F80::rva00029f80 at 0x00029F98"
 ?rva00079167@Rva00079167Target@@QAEXXZ,0x00079167,"method a vtable-slot forwarder tail-jumps to (ret 0); opaque address name"
 ?rva00079186@Rva00079186Target@@QAEXH@Z,0x00079186,"method a vtable-slot forwarder tail-jumps to (ret 4); opaque address name"
