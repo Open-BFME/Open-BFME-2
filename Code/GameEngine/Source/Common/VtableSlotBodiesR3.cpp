@@ -812,7 +812,7 @@ int Rva00345F76::rva00345F76()
 	return (m_top18->m_mid14->m_leaf04->m_flags114 & 0x2000) ? 0 : -2;
 }
 struct IDirect3DSurface8;
-class Vector3
+struct Vector3
 {
 public:
 	float X;
