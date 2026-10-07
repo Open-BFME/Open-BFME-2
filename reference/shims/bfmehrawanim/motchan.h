@@ -118,16 +118,20 @@ private:
 
 WWINLINE void MotionChannelClass::set_identity(float * setvec) const
 {
-	if (Type == ANIM_CHANNEL_Q) {
+	// BFME: the fade channel (type 15, BFME1 ANIM_CHANNEL_FADE) rests at 1.0;
+	// retail tests it ahead of the quaternion arm (0x0018DFEC, 0x0018D647).
+	if (Type == 15) {
 
-		setvec[0] = 0.0f;
-		setvec[1] = 0.0f;
-		setvec[2] = 0.0f;
-		setvec[3] = 1.0f;
+		setvec[0] = 1.0f;
 
 	} else {
 
 		setvec[0] = 0.0f;
+		if (Type == ANIM_CHANNEL_Q) {
+			setvec[1] = 0.0f;
+			setvec[2] = 0.0f;
+			setvec[3] = 1.0f;
+		}
 
 	}
 }

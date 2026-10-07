@@ -350,6 +350,43 @@ void HRawAnimClass::add_bit_channel(BitChannelClass * newchan)
 	}
 }
 
+// BFME per-pivot fade (vtable 0x007D5D24 slot 11, retail 0x0018D540): the
+// fade channel at NodeMotion[pividx].Fade blended like Get_Translation's
+// components, 1.0 when the pivot has none. BFME1 hrawanim.cpp donor.
+float HRawAnimClass::_bfme_hanim_fade(int pividx,float frame)
+{
+	struct NodeMotionStruct * node = Get_Node_Motion_Array() + pividx;
+	float value0;
+	float value1;
+	if (node->Fade == NULL) {
+		return 1.0f;
+	}
+
+	int frame0 = WWMath::Float_To_Long(frame-0.499999f);
+	int frame1 = frame0 + 1;
+	float ratio = frame - (float)frame0;
+
+	if (frame1 >= NumFrames) {
+		frame1 = 0;
+	}
+
+	value0 = 1.0f;
+	if (node->Fade != NULL) {
+		node->Fade->Get_Vector(frame0,&value0);
+	}
+
+	if (ratio == 0.0f) {
+		return value0;
+	}
+
+	value1 = 1.0f;
+	if (node->Fade != NULL) {
+		node->Fade->Get_Vector(frame1,&value1);
+	}
+
+	return value0 + (value1 - value0) * ratio;
+}
+
 /*********************************************************************************************** 
  * HRawAnimClass::Get_Translation -- returns the translation vector for the given fr              * 
  *                                                                                             * 
@@ -362,7 +399,6 @@ void HRawAnimClass::add_bit_channel(BitChannelClass * newchan)
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?Get_Translation@HRawAnimClass@@UBEXAAVVector3@@HM@Z present-unmatched
 void HRawAnimClass::Get_Translation(Vector3& trans, int pividx, float frame ) const
 {
 	struct NodeMotionStruct * motion = &NodeMotion[pividx];
