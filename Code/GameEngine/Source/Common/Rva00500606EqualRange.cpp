@@ -60,3 +60,22 @@ Rva00500606Range __cdecl rva00500606(int key)
 	const Rva00500606NativeRange &nativeRange = ((Rva00500606IntTree *)&temporary)->equal_range(1);
 	return *(const Rva00500606Range *)&nativeRange;
 }
+
+// Ghidra boundary 0x0050059A/108. Target evidence: cdecl two-int inputs;
+// searches both keys in the int-key map at 0x00E04544 and returns 9999 when
+// either is absent. On a hit it copies 24 bytes from the first mapped value
+// through rowed 0x0050055D, reads the second mapped dword, then destroys the
+// temporary through rowed 0x002B82D5. Map ownership and key meaning are not
+// established, so the function name stays address-derived.
+int __cdecl rva0050059A(int firstKey, int secondKey)
+{
+	Rva00500606IntMap *map = (Rva00500606IntMap *)&g_Va00E04544;
+	if (map->find(firstKey) == map->end() || map->find(secondKey) == map->end())
+		return 9999;
+
+	Rva0050055D temporary(*(const Rva0050055D *)&map->find(firstKey)->second);
+	Rva00500606IntMap *innerMap = (Rva00500606IntMap *)((char *)&temporary + 0x0C);
+	int result = innerMap->find(secondKey)->second;
+	((Rva002B82D5 *)&temporary)->~Rva002B82D5();
+	return result;
+}
