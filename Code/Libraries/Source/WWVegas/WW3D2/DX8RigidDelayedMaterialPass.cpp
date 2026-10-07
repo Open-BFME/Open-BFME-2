@@ -47,37 +47,38 @@ struct MatPassTaskClass
     }
 };
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.h
-class DX8RigidFVFCategoryContainer
+// upstream layout: reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/dx8renderer.h
+// This is the base class's non-virtual Add_Visible_Material_Pass, not the
+// rigid container's delayed override: the base ctor 0x00144E90 clears the
+// list head and tail at +0xC8 and +0xCC and the flag bytes +0xE4..+0xE6, the
+// rigid ctor 0x00145420 clears its own delayed list at +0xF0 and +0xF4, and
+// retail MeshClass::Render calls this body directly while it reaches the
+// delayed append through vtable slot +0x14 (0x00144D70).
+class DX8FVFCategoryContainer
 {
-    // Eight bytes shorter than the Zero Hour layout puts it.  Retail stores
-    // the list head and tail at [esi+0xC8] and [esi+0xCC] and sets the flag
-    // byte at [esi+0xE5], where this overlay had them at 0xD0, 0xD4 and 0xED
-    // -- three members, two dwords and a byte fifteen bytes further on, all
-    // eight low, so it is the prefix that is wrong and not the spacing after
-    // it.
-    unsigned char prefix[0xc4];
-    MatPassTaskClass *delayed_matpass_head;
-    MatPassTaskClass *delayed_matpass_tail;
+    // vptr, MultiListObjectClass base and the texture category lists
+    unsigned char prefix[0xc8];
+    MatPassTaskClass *visible_matpass_head;
+    MatPassTaskClass *visible_matpass_tail;
     unsigned char middle[0x15];
-    bool AnyDelayedPassesToRender;
+    bool AnythingToRender;
 
 public:
-    virtual void Add_Delayed_Visible_Material_Pass(MaterialPassClass *pass, MeshClass *mesh);
+    void Add_Visible_Material_Pass(MaterialPassClass *pass, MeshClass *mesh);
 };
 
-void DX8RigidFVFCategoryContainer::Add_Delayed_Visible_Material_Pass(MaterialPassClass *pass, MeshClass *mesh)
+void DX8FVFCategoryContainer::Add_Visible_Material_Pass(MaterialPassClass *pass, MeshClass *mesh)
 {
-    MatPassTaskClass *task = new MatPassTaskClass(pass, mesh);
+    MatPassTaskClass *new_mpr = new MatPassTaskClass(pass, mesh);
 
-    if (delayed_matpass_head == 0) {
-        delayed_matpass_head = task;
-        delayed_matpass_tail = task;
+    if (visible_matpass_head == 0) {
+        visible_matpass_head = new_mpr;
     } else {
-        delayed_matpass_tail->next = task;
-        delayed_matpass_tail = task;
+        visible_matpass_tail->next = new_mpr;
     }
-    AnyDelayedPassesToRender = true;
+
+    visible_matpass_tail = new_mpr;
+    AnythingToRender = true;
 }
 // ?MatPassTaskPool@@3VMatPassTaskPoolClass@@A: the global at VA 0xdf3690 is ?Allocator@?$AutoPoolClass@VMatPassTaskClass@@$0BAA@@@0V?$ObjectPoolClass@VMatPassTaskClass@@$0BAA@@@A.
 #pragma comment(linker, "/alternatename:?MatPassTaskPool@@3VMatPassTaskPoolClass@@A=?Allocator@?$AutoPoolClass@VMatPassTaskClass@@$0BAA@@@0V?$ObjectPoolClass@VMatPassTaskClass@@$0BAA@@@A")
