@@ -1,3 +1,5 @@
+// ?update@AIAttackMeleeHordeApproachTargetState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.99 date=2026-10-07
 // cl: /DNDEBUG /MD
 //
 // onEnter/onExit/update overrides of BFME 2 states, each named by its
@@ -32,13 +34,6 @@
 //    Coord3D::Normalize, result unused), after clearing the machine's goal
 //    object (slot 14) and Object::rva0028AD32. The ZH Coord3D scale/add
 //    inlines give retail's batched multiplies.
-//  - AIAttackMeleeHordeApproachTargetState::onExit, retail 0x0034921C (161
-//    bytes): slot 5 of 0x00C126C0, whose slot-2 getter names the class.
-//    Donor: Open-BFME-1 AIAttackMeleeHordeApproachTargetState_onExit.cpp.
-//    Clears the +0x5D initial-approach flag after the base onExit; unless
-//    the owner's +0x94 flag is set, clears status 0x4B, restores full speed,
-//    drops the ignored obstacle and, for ground movement (AI slot 137),
-//    snaps the owner onto the +0x20 goal position when within sqrt(12.5).
 //  - AIMoveToPositionAndEnterState::onExit, retail 0x0034C035 (99 bytes):
 //    slot 5 of 0x00C136A0. When the owner has object status 0x4E, clears it
 //    and status 3, and for a template with kind byte +0x115 mask 0x20 also
@@ -115,6 +110,8 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_BFME_3 = 3,
 	OBJECT_STATUS_BFME_19 = 0x19,
 	OBJECT_STATUS_BFME_26 = 0x26,
+	OBJECT_STATUS_BFME_33 = 0x33,
+	OBJECT_STATUS_BFME_44 = 0x44,
 	OBJECT_STATUS_BFME_4B = 0x4B,
 	OBJECT_STATUS_BFME_4E = 0x4E,
 	OBJECT_STATUS_BFME_5D = 0x5D
@@ -140,12 +137,17 @@ public:
 class AI
 {
 public:
+	static Bool rva002FE193(Object *source, Object *victim);
 	Pathfinder *pathfinder() { return m_pathfinder; }
 private:
 	unsigned char m_pad00[0x10];
 	Pathfinder *m_pathfinder; // +0x10
 };
 extern AI *TheAI;
+
+extern int g_Va00DBA4E4; // logic frames per second
+#define LOGICFRAMES_PER_SECOND g_Va00DBA4E4
+extern "C" double __cdecl sqrt(double);
 
 extern unsigned char g_00E03745;
 extern void *g_00DFEFF0;
@@ -287,8 +289,11 @@ public:
 	virtual void slot141() = 0;
 	virtual void rva0034BEF9Slot142(int value) = 0;
 	virtual CommandSourceType getLastCommandSource() const = 0;
+	virtual void notifyVictimIsDead() = 0;
 	void rva00263EA2(ObjectID id);
+	void setCurrentVictim(const Object *victim);
 	void ignoreObstacle(const Object *obj);
+	Bool getBfmeFlag3CC() const { return m_bfmeFlag3CC; }
 	unsigned int getMoodMatrixActionAdjustment(MoodMatrixAction action) const;
 	void setCanPathThroughUnits(Bool b) { m_canPathThroughUnits = b; }
 	Locomotor *getCurLocomotor() { return m_curLocomotor; }
@@ -312,6 +317,60 @@ private:
 	Bool m_bfmeFlag3B1; // +0x3B1
 	unsigned char m_pad3B2[0x3BA - 0x3B2];
 	Bool m_canPathThroughUnits; // +0x3BA
+	unsigned char m_pad3BB[0x3CC - 0x3BB];
+	Bool m_bfmeFlag3CC; // +0x3CC
+};
+
+// The horde contain behind the contain module's slot 31 (as in BFME 1's
+// AIAttackMeleeHordeApproachTargetState sources, BFME 2 slot numbers).
+class HordeContainInterfaceHead : public AIStateAISlots<85>
+{
+public:
+	virtual Bool isMeleeTargetReady(Object *target) = 0;
+	virtual void slot86(Object *target) = 0;
+};
+class HordeContainInterface : public AIStateGapSlots<HordeContainInterfaceHead, 3>
+{
+public:
+	virtual void setMeleeFormation(ObjectID id) = 0;
+};
+class ContainModuleInterface : public AIStateAISlots<31>
+{
+public:
+	virtual HordeContainInterface *getHordeContainInterface() = 0;
+};
+
+enum PlayerType
+{
+	PLAYER_HUMAN,
+	PLAYER_COMPUTER
+};
+class Player
+{
+public:
+	PlayerType getPlayerType() const { return m_playerType; }
+private:
+	unsigned char m_pad00[0x5C];
+	PlayerType m_playerType; // +0x5C
+};
+
+// Object +0xA8 and its rowed element accessor 0x006BD980; the element's
+// +0x08 real is the BFME 1 donor's m_height.
+struct BfmeShapeE15
+{
+	unsigned char m_pad00[0x08];
+	Real m_height; // +0x08
+};
+class BfmeObjE15
+{
+public:
+	BfmeShapeE15 *bfmeAtE15(int index);
+};
+struct Rva0028AC4EEntry;
+class Rva001E46E1
+{
+public:
+	Real rva001E46E1(Object *obj);
 };
 
 class Rva0010CBits
@@ -390,6 +449,14 @@ public:
 	void rva0028AE6D();
 	void *rva0028C197() const;
 	Bool chooseBestWeaponForTarget(const Object *target, WeaponChoiceCriteria criteria, CommandSourceType cmdSource);
+	Player *getControllingPlayer() const;
+	Bool rva002943B2(const Player *player);
+	Real rva002615E3(const Coord3D *pos) const;
+	Real rva0028AC7D() const;
+	const Rva0028AC4EEntry *rva0028AC4E() const;
+	Object *rva002931F5(Bool b);
+	BfmeObjE15 *getShapes() { return &m_shapes; }
+	ContainModuleInterface *getContain() const { return m_contain; }
 	__forceinline void setModelConditionBit(int bit)
 	{
 		if (m_conditionBits.test(bit) == 0)
@@ -411,11 +478,15 @@ private:
 	ObjectID m_id; // +0x74
 	unsigned char m_pad078[0x94 - 0x78];
 	unsigned char m_bfmeFlags94; // +0x94
-	unsigned char m_pad095[0x10C - 0x95];
+	unsigned char m_pad095[0xA8 - 0x95];
+	BfmeObjE15 m_shapes; // +0xA8
+	unsigned char m_padA9[0x10C - 0xA9];
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x1C0 - (0x10C + sizeof(Rva0010CBits))];
 	Real m_bfmeAngle1C0; // +0x1C0
-	unsigned char m_pad1C4[0x258 - 0x1C4];
+	unsigned char m_pad1C4[0x250 - 0x1C4];
+	ContainModuleInterface *m_contain; // +0x250
+	unsigned char m_pad254[0x258 - 0x254];
 	AIUpdateInterface *m_ai; // +0x258
 };
 
@@ -432,6 +503,7 @@ public:
 	virtual void setGoalObject(const Object *obj);
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
+	Bool isGoalObjectDestroyed() const;
 	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
 	void rva0034BF11ClearByte3A() { m_bfmeFlag3A = false; }
 private:
@@ -465,6 +537,11 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
+	virtual void slot07(); virtual void slot08(); virtual void slot09();
+	virtual void slot10(); virtual void slot11(); virtual void slot12();
+	virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot16();
+	virtual Bool computePath();
 	StateReturnType rva0034612C();
 protected:
 	void setAdjustsDestination(Bool b) { m_adjustDestination = b; }
@@ -635,6 +712,55 @@ private:
 	Bool m_isInitialApproach; // +0x5D
 };
 
+Bool rva00344EB2Gate(Object *source, Thing *target);
+
+StateReturnType AIAttackMeleeHordeApproachTargetState::onEnter()
+{
+	Object *owner = getMachineOwner();
+	if (owner->getControllingPlayer()->getPlayerType() == PLAYER_COMPUTER)
+		m_isInitialApproach = false;
+
+	Object *goal = getMachine()->getGoalObject();
+	if (!goal || goal->rva002943B2(owner->getControllingPlayer()))
+		return (StateReturnType)STATE_FAILURE;
+	if (getMachine()->isGoalObjectDestroyed())
+		return (StateReturnType)STATE_SUCCESS;
+
+	if (owner->getContain() && !rva00344EB2Gate(owner, goal))
+	{
+		HordeContainInterface *horde = owner->getContain()->getHordeContainInterface();
+		if (horde && horde->isMeleeTargetReady(goal))
+			return (StateReturnType)STATE_SUCCESS;
+	}
+
+	if (owner->testStatus(OBJECT_STATUS_BFME_44) || owner->getAI()->getBfmeFlag3CC())
+	{
+		if (!AI::rva002FE193(owner, goal))
+		{
+			getMachine()->setGoalObject(0);
+			return (StateReturnType)STATE_FAILURE;
+		}
+		return (StateReturnType)STATE_SUCCESS;
+	}
+
+	m_bfmeReal4C = 0.0f;
+	m_bfmeReal50 = 0.0f;
+	m_bfmeReal54 = 0.0f;
+	m_bfmeFrame58 = -LOGICFRAMES_PER_SECOND;
+
+	critterDesyncLog("CritterDesync: ComputePath11");
+	if (!computePath())
+		return (StateReturnType)(m_successOnPathFailure ? STATE_SUCCESS : STATE_FAILURE);
+
+	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 24");
+	setAdjustsDestination(false);
+	StateReturnType ret = AIInternalMoveToState::onEnter();
+	critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 25");
+	setAdjustsDestination(m_isInitialApproach);
+	return ret;
+}
+
+
 void AIAttackMeleeHordeApproachTargetState::onExit(StateExitType status)
 {
 	AIInternalMoveToState::onExit(status);
@@ -657,6 +783,82 @@ void AIAttackMeleeHordeApproachTargetState::onExit(StateExitType status)
 			if (dx * dx + dy * dy < 12.5f)
 				owner->setPosition(&m_goalPosition);
 		}
+	}
+}
+
+StateReturnType AIAttackMeleeHordeApproachTargetState::update()
+{
+	Object *source = getMachineOwner();
+	AIUpdateInterface *ai = source->getAI();
+
+	if (getMachine()->isGoalObjectDestroyed())
+	{
+		ai->notifyVictimIsDead();
+		ai->setCurrentVictim(0);
+		return (StateReturnType)STATE_FAILURE;
+	}
+
+	{
+	Object *target = getMachine()->getGoalObject();
+	if (!target)
+		return (StateReturnType)STATE_FAILURE;
+
+	Bool specialTarget = false;
+	if (rva00344EB2Gate(source, target))
+	{
+		specialTarget = true;
+		Real distance = (Real)sqrt(source->rva002615E3(target->getPosition()));
+		Real sourceHeight = source->getShapes()->bfmeAtE15(0)->m_height;
+		Real gap = distance - (sourceHeight + target->getShapes()->bfmeAtE15(0)->m_height);
+		Real range = target->rva0028AC7D() + gap;
+		if (range < 0.0f)
+			range = 0.0f;
+
+		Real speed = FAST_AS_POSSIBLE;
+		if (source->rva0028AC4E())
+			speed = ((Rva001E46E1 *)source->rva0028AC4E())->rva001E46E1(source);
+		ai->setDesiredSpeed(range);
+		Bool closeEnough = (range < speed) ? true : false;
+		source->rva00346C53(OBJECT_STATUS_BFME_4B, closeEnough);
+	}
+	else if (source->testStatus(OBJECT_STATUS_BFME_4B))
+		source->rva00346C53(OBJECT_STATUS_BFME_4B, false);
+
+	ContainModuleInterface *contain = source->getContain();
+	if (contain)
+	{
+		HordeContainInterface *horde = contain->getHordeContainInterface();
+		if (horde)
+		{
+			ObjectID formation = target->getID();
+			if (target->testStatus(OBJECT_STATUS_BFME_26))
+			{
+				Object *resolved = target->rva002931F5(false);
+				if (resolved)
+					formation = resolved->getID();
+			}
+			horde->setMeleeFormation(formation);
+			if (specialTarget)
+				horde->slot86(target);
+			else if (horde->isMeleeTargetReady(target))
+			{
+				ai->rva0034A82DSlot136();
+				return (StateReturnType)STATE_SUCCESS;
+			}
+		}
+	}
+
+	if (target->testStatus(OBJECT_STATUS_BFME_33))
+		return (StateReturnType)STATE_FAILURE;
+	if (target->rva002943B2(source->getControllingPlayer()))
+		return (StateReturnType)STATE_FAILURE;
+
+	ai->setCurrentVictim(target);
+	if (!computePath())
+		return (StateReturnType)STATE_SUCCESS;
+	if (AIInternalMoveToState::update() != STATE_CONTINUE)
+		return (StateReturnType)STATE_SUCCESS;
+	return STATE_CONTINUE;
 	}
 }
 
