@@ -67055,3 +67055,5 @@ _getinfo,,0x00747E00,679,Code/Libraries/Source/Lua/ldblib.c,matched,Lua 4.0.1 st
 ?set@Rva0065ECC0DwordSlot@@QAEXH@Z,,0x0065ECC0,10,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp,matched,Disp8 dword setter
 ?set@Rva00050CCEByteSlot@@QAEXE@Z,,0x00050CCE,10,Code/GameEngine/Source/Common/Disp8ByteFieldSetters.cpp,matched,Disp8 byte setter
 ?get@Rva0065ECD0LeaField@@QBEPAXXZ,,0x0065ECD0,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter
+?get@Rva0020359DByteField@@QBEEXZ,,0x0020359D,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
+?get@Rva00318B13FloatField@@QBEMXZ,,0x00318B13,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter
