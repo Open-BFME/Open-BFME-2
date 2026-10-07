@@ -24,7 +24,10 @@ public:
 	~_bstr_t() throw()
 	{
 		if (m_data)
+		{
 			m_data->bfmeGoVGP();
+			m_data = 0;
+		}
 	}
 };
 
