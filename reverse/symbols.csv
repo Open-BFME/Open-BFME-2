@@ -16354,3 +16354,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva001EC8C0@Rva001EC8C0@@QAE_NHHH@Z,0x001EC8C0,Address-derived direct callees read from retail REL32 displacements; semantic identity unresolved.
 ?rva002AE9B8@Rva002AE9B8@@QAEXHH@Z,0x002AE9B8,Address-derived direct callees of player-mask actions at 0x003BB29D; 0x003BB35B; and 0x003BB41A; target identity unresolved.
 ?rva002ABD93@Rva002ABD93@@QAEXHH@Z,0x002ABD93,Address-derived direct callees of player-mask actions at 0x003BB29D; 0x003BB35B; and 0x003BB41A; target identity unresolved.
+??0Rva005E328AInner@@QAE@PAX000@Z,0x005E328A,Address-derived inner constructor; target boundary and four pointer-sized stack arguments are supported by the 77B outer constructor callsites; inner identity and layout remain unresolved.
+??0Rva005EB481Inner@@QAE@PAX000@Z,0x005EB481,Address-derived inner constructor; target boundary and four pointer-sized stack arguments are supported by the 77B outer constructor callsites; inner identity and layout remain unresolved.
+??0Rva005FA3B1Inner@@QAE@PAX000@Z,0x005FA3B1,Address-derived inner constructor; target boundary and four pointer-sized stack arguments are supported by the 77B outer constructor callsites; inner identity and layout remain unresolved.
