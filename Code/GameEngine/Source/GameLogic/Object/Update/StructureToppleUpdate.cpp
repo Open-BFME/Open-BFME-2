@@ -51,6 +51,10 @@
 #include "GameClient/Drawable.h"
 #include "GameClient/InGameUI.h"
 
+// Keep the retail AngleFXInfo vector providers emitted in this /O2 TU after
+// parseAngleFX moved to the O1/SSE phase-parser unit.
+template void _STL::vector<AngleFXInfo, _STL::allocator<AngleFXInfo> >::push_back(const AngleFXInfo &);
+
 
 #ifdef _INTERNAL
 // for occasional debugging...
@@ -105,15 +109,7 @@ static void parseOCL( INI* ini, void *instance, void * /*store*/, const void* /*
 }
 
 //-------------------------------------------------------------------------------------------------
-static void parseAngleFX(INI* ini, void *instance, void * /* store */, const void * /*userData*/)
-{
-	StructureToppleUpdateModuleData* self = (StructureToppleUpdateModuleData*)instance;
-	AngleFXInfo info;
-	INI::parseReal(ini, instance, &(info.angle), NULL);
-	info.angle = info.angle * PI / 180.0f; // convert from degrees to radians.
-	INI::parseFXList(ini, instance, &(info.fxList), NULL);
-	self->angleFX.push_back(info);
-}
+void parseAngleFX(INI* ini, void *instance, void *store, const void *userData);
 
 //-------------------------------------------------------------------------------------------------
 /*static*/ void StructureToppleUpdateModuleData::buildFieldParse(MultiIniFieldParse& p) 

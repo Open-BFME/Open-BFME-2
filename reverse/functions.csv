@@ -67928,3 +67928,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva0007E0EA@Rva0007E0EA@@QAEHXZ,,0x0007E0EA,7,Code/GameEngine/Source/Common/Rva0007E0EAGetter.cpp,matched,unlock 7B disp8 int-add getter via 3 callers in 0x00100A0B
 ?rva003F85C6@Rva003F81FDProxy@@QAEEXZ,,0x003F85C6,19,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,Proxy forwards the selected inner result to its byte-returning method
 ?Get_Transform@DX8Wrapper@@SAXW4D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z,,0x000768FE,790,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp,matched,BFME2 transform helper; target nonstandard case reaches Matrix4 identity stores; exact C++ bytes verified
+?parseAngleFX@@YAXPAVINI@@PAX1PBX@Z,,0x004A64CD,78,Code/GameEngine/Source/GameLogic/Object/Update/StructurePhaseListParsers.cpp,matched,ZH parser body; confirmed parseReal and parseFXList with 8-byte append; exact 78B

@@ -28,10 +28,32 @@ public:
 	const char *getNextToken(const char *seps = 0);
 	const char *getNextTokenOrNull(const char *seps = 0);
 	int scanIndexList(const char *token, const char *const *names);
+	static void parseReal(INI *ini, void *instance, void *value, const void *userData);
+	static void parseFXList(INI *ini, void *instance, void *value, const void *userData);
 };
 
 class FXList;
 class ObjectCreationList;
+
+struct AngleFXInfo
+{
+	float angle;
+	FXList *fxList;
+};
+
+typedef _STL::vector<AngleFXInfo> AngleFXInfoVector;
+
+// The retail 8-byte vector append is rowed under this established ABI spelling.
+struct BfmeE8
+{
+	int a;
+	int b;
+};
+
+namespace _STL
+{
+template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &);
+}
 
 class FXListStore
 {
@@ -82,8 +104,22 @@ public:
 	static void rva004A646B(INI *ini, void *instance, void *store, const void *userData);
 
 	unsigned char m_unreconstructed_00[0x70];
-	OCLVec m_ocls[1];		// +0x70, indexed by phase
+	OCLVec m_ocls[3];		// +0x70, indexed by phase
+	unsigned int m_oclCount[3];	// +0x94
+	unsigned char fxbones[0x0C];	// +0xA0
+	AngleFXInfoVector angleFX;	// +0xAC
 };
+
+// ?parseAngleFX@@YAXPAVINI@@PAX1PBX@Z
+void parseAngleFX(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
+{
+	StructureToppleUpdateModuleData *self = (StructureToppleUpdateModuleData *)instance;
+	AngleFXInfo info;
+	INI::parseReal(ini, instance, &(info.angle), NULL);
+	info.angle = info.angle * 3.14159265359f / 180.0f; // convert from degrees to radians.
+	INI::parseFXList(ini, instance, &(info.fxList), NULL);
+	((_STL::vector<BfmeE8> *)&self->angleFX)->push_back(*(const BfmeE8 *)&info);
+}
 
 // ?parseFXList@StructureCollapseUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z
 void StructureCollapseUpdateModuleData::parseFXList(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
