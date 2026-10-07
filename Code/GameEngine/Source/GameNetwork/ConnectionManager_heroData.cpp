@@ -17,13 +17,31 @@
 // Xfer's destructor 0x000053E7. The hero data is allocated by 0x00219251
 // with the CreateAHeroData constructor's default arguments, and released by
 // 0x0021929D. The slot setter is 0x0037AD8D.
+//
+// The sender, retail 0x004D01D5, 289 bytes including its catch-all funclet
+// 0x004D02F0, reached from Network's vtable 0x00BF6040 slot 34 through the
+// tail jump at 0x0025DC59. It builds the type-20 command (operator new 0x2C,
+// constructor 0x004D58DE), stamps the local slot and a command id as Zero
+// Hour's senders do, and stores the seed and slot. The hero data is written
+// by XferSave (0x0060D1F7, opened by 0x0060D10A inside a catch-all that only
+// returns) into the memory stream 0x006023C1 names "heroString"; its buffer
+// (0x006021A4) becomes the command's data block (0x004D5925) and is freed. The
+// command is handed to the receiver above first, then sent with the relay
+// mask (1 << local slot) ^ the caller's mask and detached.
 
 #include "unicode_string.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
+typedef unsigned char UnsignedByte;
 typedef bool Bool;
+
+#define TRUE 1
+
+// Declared so delete[] calls the array form 0x0002FD80, as retail does; MSVC
+// 7.1 otherwise lowers it to the scalar operator delete.
+void operator delete[](void *p);
 
 class Xfer
 {
@@ -111,8 +129,18 @@ public:
 extern GameInfo *TheGameInfo;
 extern Rva00219251 *TheHeroManager;
 
+enum NetCommandType
+{
+};
+
 class NetCommandMsg
 {
+public:
+	void setPlayerID(UnsignedInt playerID) { m_playerID = playerID; }
+	void setID(UnsignedShort id) { m_id = id; }
+	NetCommandType getNetCommandType() { return (NetCommandType)m_commandType; }
+	void detach();
+
 protected:
 	void *m_vptr;
 	UnsignedInt m_timestamp;
@@ -124,13 +152,17 @@ protected:
 };
 
 // The type-20 command's payload.
-class Rva004CF1ADCommandMsg : public NetCommandMsg
+class Rva004D58DE : public NetCommandMsg
 {
 public:
+	Rva004D58DE();
 	Int getSeed() const { return m_seed; }
+	void setSeed(Int seed) { m_seed = seed; }
 	UnsignedShort getSlot() const { return m_slot; }
+	void setSlot(UnsignedShort slot) { m_slot = slot; }
 	char *getData() { return m_data; }
 	Int getDataLength() const { return m_dataLength; }
+	void rva004D5925(unsigned char *data, unsigned int length);
 
 private:
 	Int m_seed;
@@ -139,15 +171,47 @@ private:
 	Int m_dataLength;
 };
 
+// The memory stream 0x006023C1 builds; 0x006021A4 hands back its buffer.
+class BfmeThingEC
+{
+public:
+	int bfmeTakeEC(int *size);
+};
+
+class BfmeMade_009CB5F0;
+BfmeMade_009CB5F0 *bfmeMake_009CB5F0(void *text);
+
+class XferSave
+{
+public:
+	XferSave(void);
+	virtual ~XferSave(void);
+	unsigned char Open(Xfer *file, int mode, bool flag);
+	void close(void);
+
+private:
+	char m_body[0x3c];
+};
+
+Bool DoesCommandRequireACommandID(NetCommandType type);
+UnsignedShort GenerateNextCommandID();
+
 class ConnectionManager
 {
 public:
 	void rva004CF1AD(NetCommandMsg *command);
+	void rva004D01D5(CreateAHeroData *hero, Int seed, UnsignedShort slot,
+		UnsignedByte playerMask);
+	void sendLocalCommand(NetCommandMsg *msg, UnsignedByte relay);
+
+private:
+	char m_pad00[0x12028];
+	Int m_localSlot;
 };
 
 void ConnectionManager::rva004CF1AD(NetCommandMsg *command)
 {
-	Rva004CF1ADCommandMsg *msg = (Rva004CF1ADCommandMsg *)command;
+	Rva004D58DE *msg = (Rva004D58DE *)command;
 	if (msg == 0 || TheGameInfo == 0)
 		return;
 	if (msg->getSeed() != TheGameInfo->getSeed())
@@ -184,4 +248,38 @@ void ConnectionManager::rva004CF1AD(NetCommandMsg *command)
 	}
 	((Rva0060C45E *)&xfer)->clear();
 	file->close();
+}
+
+void ConnectionManager::rva004D01D5(CreateAHeroData *hero, Int seed,
+	UnsignedShort slot, UnsignedByte playerMask)
+{
+	if (hero == 0)
+		return;
+	Int relay = (1 << m_localSlot) ^ playerMask;
+	Rva004D58DE *msg = new Rva004D58DE;
+	msg->setPlayerID(m_localSlot);
+	if (DoesCommandRequireACommandID(msg->getNetCommandType()) == TRUE)
+		msg->setID(GenerateNextCommandID());
+	msg->setSeed(seed);
+	msg->setSlot(slot);
+
+	BfmeThingEC *stream = (BfmeThingEC *)bfmeMake_009CB5F0((void *)"heroString");
+	XferSave xfer;
+	try
+	{
+		xfer.Open((Xfer *)stream, 1, false);
+	}
+	catch (...)
+	{
+		return;
+	}
+	hero->xfer((Xfer *)&xfer);
+	xfer.close();
+	int size;
+	unsigned char *data = (unsigned char *)stream->bfmeTakeEC(&size);
+	msg->rva004D5925(data, size);
+	delete[] data;
+	rva004CF1AD(msg);
+	sendLocalCommand(msg, relay);
+	msg->detach();
 }
