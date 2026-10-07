@@ -49,6 +49,7 @@ public:
  	void rva00538768(int index);
  	void rva00538931();
  	void rva005389ED(int index, const W3DAnimationInfo &x);
+ 	void rva00538383(float scale);
 private:
 	_STL::vector<BfmePod16, _STL::allocator<BfmePod16> > m_vec;
 	Region2D m_region;
@@ -103,4 +104,29 @@ void QuadStrip2D::rva005389ED(int index, const W3DAnimationInfo &x)
 {
 	((_STL::vector<W3DAnimationInfo, _STL::allocator<W3DAnimationInfo> > *)&m_vec)->insert(((_STL::vector<W3DAnimationInfo, _STL::allocator<W3DAnimationInfo> > *)&m_vec)->begin() + index, x);
 	m_20 = 1;
+}
+
+// ?rva00538383@QuadStrip2D@@QAEXM@Z @0x00538383 153B (true end; ghidra 392B runs into 0x0053841C).
+// Scales every stored Float4 by scale, then the region and m_1c unless m_20 is set.
+// Evidence: caller 0x0030BC84 lea ecx QuadStrip2D at +0x68 same as siblings, skips when scale==1.0f;
+// layout m_vec/m_region/m_1c/m_20 matches this TU; loop and flag shape as the disassembly.
+void QuadStrip2D::rva00538383(float scale)
+{
+	_STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> > &floats =
+		*(_STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> > *)&m_vec;
+	BfmeFloat4Record00469C61 *start = floats.begin();
+	BfmeFloat4Record00469C61 *finish = floats.end();
+	for (BfmeFloat4Record00469C61 *p = start; p != finish; ++p) {
+		p->x *= scale;
+		p->y *= scale;
+		p->z *= scale;
+		p->w *= scale;
+	}
+	if (m_20 != 0)
+		return;
+	m_region.x_min *= scale;
+	m_region.y_min *= scale;
+	m_region.x_max *= scale;
+	m_region.y_max *= scale;
+	m_1c *= scale;
 }
