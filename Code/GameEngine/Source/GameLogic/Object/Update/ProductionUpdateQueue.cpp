@@ -177,16 +177,72 @@ public:
 	Rva0039B795 m_tracker; // +0x3BC
 };
 
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+enum ExitDoorType
+{
+	DOOR_1 = 0
+};
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+#define NAMEKEY(x) (TheNameKeyGenerator->nameToKey(x))
+
+class GameLogic
+{
+public:
+	Object *findObjectByID(ObjectID id);
+};
+extern GameLogic *TheGameLogic;
+
+class Module;
+
+// ZH ExitInterface slots 0..10 (BFME 1 UpdateModule.h); BFME 2 adds slot 11.
+class ExitInterface
+{
+public:
+	virtual Bool isExitBusy() const = 0;
+	virtual ExitDoorType reserveDoorForExit(const ThingTemplate *objType, Object *specificObject) = 0;
+	virtual void exitObjectViaDoor(Object *newObj, ExitDoorType exitDoor) = 0;
+	virtual void exitObjectByBudding(Object *newObj, Object *budHost) = 0;
+	virtual void unreserveDoorForExit(ExitDoorType exitDoor) = 0;
+	virtual void exitObjectInAHurry(Object *newObj) = 0;
+	virtual void setRallyPoint(const void *pos) = 0;
+	virtual const void *getRallyPoint() const = 0;
+	virtual Bool useSpawnRallyPoint() const = 0;
+	virtual Bool getNaturalRallyPoint(void *rallyPoint, Bool offset) const = 0;
+	virtual Bool getExitPosition(void *exitPosition) const = 0;
+	virtual void exitSlot11() = 0;
+};
+
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	ExitInterface *getObjectExitInterface() const;
+	Module *findUpdateModule(NameKeyType key) const { return findModule(key); }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Bool rva00290D2B(const UpgradeTemplate *upgrade) const; // hasUpgrade
 	Bool rva002940B9(const UpgradeTemplate *upgrade); // affectedByUpgrade
 
 	char m_unknown00[0x324];
 	Real m_bfme324; // +0x324
+
+protected:
+	Module *findModule(NameKeyType key) const;
 };
 
 struct Rva00395708Data
@@ -304,7 +360,9 @@ public:
 	virtual void i12();
 	virtual void rva0049F8A9(const ThingTemplate *unitType, Bool cancel);
 	virtual void rva0049CC15(ProductionID productionID, Int value);
-	virtual void i15(); virtual void i16(); virtual void i17();
+	virtual void cancelAndRefundAllProduction();
+	virtual void rva0049DEC8();
+	virtual void i17();
 	virtual UnsignedInt rva0049CEAE(const ThingTemplate *unitType) const;
 	virtual UnsignedInt rva0049CEE1(Int value) const;
 	virtual UnsignedInt rva0049D0DE(const Rva0049D0DEMask *mask) const;
@@ -340,6 +398,8 @@ public:
 	virtual void rva0049CC61(const ThingTemplate *unitType);
 	virtual void rva0049F8A9(const ThingTemplate *unitType, Bool cancel);
 	virtual void rva0049CC15(ProductionID productionID, Int value);
+	virtual void cancelAndRefundAllProduction();
+	virtual void rva0049DEC8();
 	virtual UnsignedInt rva0049CEAE(const ThingTemplate *unitType) const;
 	virtual UnsignedInt rva0049CEE1(Int value) const;
 	virtual UnsignedInt rva0049D0DE(const Rva0049D0DEMask *mask) const;
@@ -363,7 +423,9 @@ protected:
 	Rva0049D1B1 *m_productionQueueTail; // +0x2C
 	ProductionID m_uniqueID; // +0x30
 	UnsignedInt m_productionCount; // +0x34
-	char m_unknown38[0x130 - 0x38];
+	char m_unknown38[0x120 - 0x38];
+	ObjectID m_bfme120; // +0x120
+	char m_unknown124[0x130 - 0x124];
 	_STL::vector<AsciiString> m_bfme130; // +0x130
 	Bool m_bfme13C; // +0x13C
 };
@@ -670,4 +732,27 @@ UnsignedInt ProductionUpdate::rva0049D0DE( const Rva0049D0DEMask *mask ) const
 const Rva0049D1B1 *ProductionUpdate::nextProduction( const Rva0049D1B1 *p ) const
 {
 	return p ? p->m_next : NULL;
+}
+
+// ?rva0049DEC8@ProductionUpdate@@UAEXXZ @0x0049DEC8 154B
+// Slot 16: cancels and refunds the queue, then sends the object held at
+// +0x120 out through door 1 unless it has a RespawnUpdate, and finally
+// calls the exit interface's slot 11.
+void ProductionUpdate::rva0049DEC8()
+{
+	cancelAndRefundAllProduction();
+	ExitInterface *exitInterface = getObject()->getObjectExitInterface();
+	ObjectID id = m_bfme120;
+	if( id != INVALID_ID )
+	{
+		Object *obj = TheGameLogic->findObjectByID( id );
+		if( obj )
+		{
+			static NameKeyType key_RespawnUpdate = NAMEKEY( "RespawnUpdate" );
+			if( obj->findUpdateModule( key_RespawnUpdate ) == NULL )
+				exitInterface->exitObjectViaDoor( obj, DOOR_1 );
+		}
+	}
+	if( exitInterface )
+		exitInterface->exitSlot11();
 }
