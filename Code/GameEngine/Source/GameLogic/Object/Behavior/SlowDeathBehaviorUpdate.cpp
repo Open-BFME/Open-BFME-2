@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
+// stlport
 //
 // ?update@SlowDeathBehavior@@UAE?AW4UpdateSleepTime@@XZ @0x0045DB0B 858B
 // Identity: SlowDeathBehavior::update, the UpdateModuleInterface override
@@ -19,14 +20,94 @@
 // clear and it is not significantly above terrain, then sets status 0x38;
 // BFME 1's shadow and module notifications are gone. Model condition flags
 // are the 19-word mask at Object +0x10C (bits 5, 120, 121, 153).
+//
+// ?doPhaseStuff@SlowDeathBehavior@@IAEXW4SlowDeathPhaseType@@@Z @0x0045D97A 401B
+// Identity: the phase helper update calls above, ZH doPhaseStuff plus BFME 1's
+// per-phase sound (SlowDeathBehavior_doPhaseStuff_Thunk.cpp, 0x002080B0):
+// four 12-byte STLport vectors per phase at ModuleData +0x58 (FX, client
+// random), +0x88 (OCL, logic random), +0xB8 (weapons, logic random) and
+// +0xE8 (sound handles, client random), gated by the loaded-effects mask at
+// +0x18C. Lines 531/541/551/564 are the retail random-value call sites. The
+// sound plays through the rowed native audio event ctor 0x002DA461 with the
+// object ID (+0x74) and TheAudio slot 25. Real STLport vectors give retail's
+// register choice for the weapon and sound picks.
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 typedef bool Bool;
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Common/BfmeAudioEventPrefix136.h"
+#include <vector>
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
+int GetGameClientRandomValue(int lo, int hi, char *file, int line);
+// Retail source line numbers are passed explicitly.
+#define GameLogicRandomValue(lo, hi, line) GetGameLogicRandomValue(lo, hi, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Behavior\\SlowDeathBehavior.cpp", line)
+#define GameClientRandomValue(lo, hi, line) GetGameClientRandomValue(lo, hi, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Behavior\\SlowDeathBehavior.cpp", line)
 
 class ModuleData;
+class Object;
+
+class FXList
+{
+public:
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
+};
+
+class ObjectCreationList
+{
+public:
+	void create(void *primary, void *secondary, void *lifetime);
+	static void create(const ObjectCreationList *ocl, Object *primary, Object *secondary)
+	{
+		if (ocl)
+			((ObjectCreationList *)ocl)->create(primary, secondary, 0);
+	}
+};
+
+class WeaponTemplate;
+class WeaponStore
+{
+public:
+	void createAndFireTempWeapon(const WeaponTemplate *wt, const Object *source, const Coord3D *pos);
+};
+extern WeaponStore *TheWeaponStore;
+
+class AudioManager
+{
+public:
+#define AUDIO_SLOT(n) virtual void audioSlot##n();
+	AUDIO_SLOT(00) AUDIO_SLOT(01) AUDIO_SLOT(02) AUDIO_SLOT(03)
+	AUDIO_SLOT(04) AUDIO_SLOT(05) AUDIO_SLOT(06) AUDIO_SLOT(07)
+	AUDIO_SLOT(08) AUDIO_SLOT(09) AUDIO_SLOT(10) AUDIO_SLOT(11)
+	AUDIO_SLOT(12) AUDIO_SLOT(13) AUDIO_SLOT(14) AUDIO_SLOT(15)
+	AUDIO_SLOT(16) AUDIO_SLOT(17) AUDIO_SLOT(18) AUDIO_SLOT(19)
+	AUDIO_SLOT(20) AUDIO_SLOT(21) AUDIO_SLOT(22) AUDIO_SLOT(23)
+	AUDIO_SLOT(24)
+#undef AUDIO_SLOT
+	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *event);
+};
+extern AudioManager *TheAudio;
+
+// One refcounted audio-event-info handle; the copy is the rowed 0x000A8C7C.
+class Rva0036CA00Str
+{
+public:
+	Rva0036CA00Str(const Rva0036CA00Str &other);
+	~Rva0036CA00Str()
+	{
+		if (m_item)
+			m_item->Release_Ref();
+	}
+	OpaqueRefCounted *m_item;
+};
+
 class Drawable
 {
 public:
@@ -95,6 +176,7 @@ class Object : public Thing
 {
 public:
 	const Coord3D *getPosition() const { return &m_position; }
+	ObjectID getID() const { return m_id; }
 	PhysicsBehavior *getPhysics() const { return m_physics; }
 	Bool isSignificantlyAboveTerrain() const;
 	void setDisabled(DisabledType type);
@@ -124,7 +206,9 @@ private:
 	void *m_vtable;
 	unsigned char m_pad04[0x38 - 0x04];
 	Coord3D m_position; // +0x38
-	unsigned char m_pad44[0x10C - 0x44];
+	unsigned char m_pad44[0x74 - 0x44];
+	ObjectID m_id; // +0x74
+	unsigned char m_pad78[0x10C - 0x78];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x1C8 - 0x158];
 	UnsignedInt m_status; // +0x1C8
@@ -187,7 +271,12 @@ public:
 
 	unsigned char m_pad00[0x38];
 	Real m_sinkRate; // +0x38
-	unsigned char m_pad3C[0x184 - 0x3C];
+	unsigned char m_pad3C[0x58 - 0x3C];
+	std::vector<const FXList *> m_fx[4]; // +0x58
+	std::vector<const ObjectCreationList *> m_ocls[4]; // +0x88
+	std::vector<const WeaponTemplate *> m_weapons[4]; // +0xB8
+	std::vector<Rva0036CA00Str> m_sounds[4]; // +0xE8
+	unsigned char m_pad118[0x184 - 0x118];
 	UnsignedInt m_fadeTime; // +0x184
 	UnsignedInt m_fadeDelay; // +0x188
 	unsigned char m_maskOfLoadedEffects; // +0x18C
@@ -267,6 +356,52 @@ private:
 	Bool m_fadeStarted; // +0x48
 	UnsignedInt m_fadeFrame; // +0x4C
 };
+
+void SlowDeathBehavior::doPhaseStuff(SlowDeathPhaseType sdphase)
+{
+	const SlowDeathBehaviorModuleData *d = getSlowDeathBehaviorModuleData();
+	Int idx, listSize;
+
+	if (!d->m_maskOfLoadedEffects)
+		return;
+
+	listSize = d->m_fx[sdphase].size();
+	if (listSize > 0)
+	{
+		idx = GameClientRandomValue(0, listSize - 1, 531);
+		const FXList *fxl = d->m_fx[sdphase][idx];
+		FXList::doFXObj(fxl, getObject(), 0);
+	}
+
+	listSize = d->m_ocls[sdphase].size();
+	if (listSize > 0)
+	{
+		idx = GameLogicRandomValue(0, listSize - 1, 541);
+		const ObjectCreationList *ocl = d->m_ocls[sdphase][idx];
+		ObjectCreationList::create(ocl, getObject(), 0);
+	}
+
+	listSize = d->m_weapons[sdphase].size();
+	if (listSize > 0)
+	{
+		idx = GameLogicRandomValue(0, listSize - 1, 551);
+		const WeaponTemplate *wt = d->m_weapons[sdphase][idx];
+		if (wt)
+			TheWeaponStore->createAndFireTempWeapon(wt, getObject(), getObject()->getPosition());
+	}
+
+	listSize = d->m_sounds[sdphase].size();
+	if (listSize > 0)
+	{
+		idx = GameClientRandomValue(0, listSize - 1, 564);
+		Rva0036CA00Str sound = d->m_sounds[sdphase][idx];
+		if (sound.m_item && TheAudio)
+		{
+			BfmeAudioEventPrefix136 event((const OpaqueRefElement4 &)sound, getObject()->getID());
+			TheAudio->addAudioEvent(&event);
+		}
+	}
+}
 
 UpdateSleepTime SlowDeathBehavior::update()
 {
