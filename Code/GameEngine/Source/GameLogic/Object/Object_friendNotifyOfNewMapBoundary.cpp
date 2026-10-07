@@ -5,8 +5,8 @@
 //
 // Battle for Middle-earth reference
 // (reference/open-bfme-1/Code/GameEngine/Source/GameLogic/Object/Object.cpp,
-// Object::friend_notifyOfNewMapBoundary): re-registers with the partition
-// manager (via TheRadar), adds to the pathfind map, refreshes the map extent,
+// Object::friend_notifyOfNewMapBoundary): re-adds itself to the radar
+// (Radar::addObject), adds to the pathfind map, refreshes the map extent,
 // then sets or clears OFF_MAP from the in-region test. Retail keeps the world
 // position at +0x38 and the private status byte at +0x438; the in-region test
 // inlines to four SSE compares.
@@ -39,10 +39,10 @@ struct Region3D
 
 class Object;
 
-class PartitionManager
+class Radar
 {
 public:
-	void registerObject(Object *object);
+	void addObject(Object *obj);
 };
 
 class Pathfinder
@@ -75,7 +75,7 @@ public:
 	virtual void getExtent(Region3D *extent) const = 0;
 };
 
-extern PartitionManager *TheRadar;
+extern Radar *TheRadar;
 extern AI *TheAI;
 extern TerrainLogic *TheTerrainLogic;
 
@@ -100,7 +100,7 @@ enum ObjectPrivateStatus
 // ?friend_notifyOfNewMapBoundary@Object@@QAEXXZ
 void Object::friend_notifyOfNewMapBoundary()
 {
-	reinterpret_cast<PartitionManager *>(TheRadar)->registerObject(this);
+	TheRadar->addObject(this);
 	TheAI->pathfinder()->AddObjectToPathfindMap(this);
 
 	Region3D mapExtent;
@@ -110,5 +110,3 @@ void Object::friend_notifyOfNewMapBoundary()
 	else
 		m_privateStatus |= OFF_MAP;
 }
-// ?TheRadar@@3PAVPartitionManager@@A: the global at VA 0xdff070 is ?TheRadar@@3PAVRadar@@A.
-#pragma comment(linker, "/alternatename:?TheRadar@@3PAVPartitionManager@@A=?TheRadar@@3PAVRadar@@A")

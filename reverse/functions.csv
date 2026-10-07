@@ -68546,3 +68546,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva00373F59@StealthUpdate@@QAE_NPBUCoord3D@@0@Z,,0x00373F59,856,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,ZH allowedToStealth rule chain reshaped for BFME 2 flags; SSE
 ?rva003742B1@StealthUpdate@@QAE_NXZ,,0x003742B1,50,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,rva00373F59 on the container position or own
 ?markAsDetected@StealthUpdate@@QAEXIHPAVObject@@_N@Z,,0x0037446E,935,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,ZH markAsDetected plus BFME 2 feedback radar eva and container recursion
+?changeVisualDisguise@StealthUpdate@@QAEXXZ,,0x00374BC8,1032,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,ZH changeVisualDisguise; BFME 2 object-held model condition set and create-a-hero refresh

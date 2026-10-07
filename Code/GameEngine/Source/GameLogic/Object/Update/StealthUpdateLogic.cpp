@@ -49,18 +49,6 @@ enum StealthLookType
 	STEALTHLOOK_INVISIBLE
 };
 
-class Drawable
-{
-public:
-	Bool isSelected() const { return m_selected; }
-private:
-	char m_pad00[0x43C];
-	Bool m_selected; // +0x43C
-	char m_pad43D[0x440 - 0x43D];
-public:
-	Bool m_440;
-};
-
 class ControlBar
 {
 public:
@@ -95,12 +83,19 @@ public:
 	Relationship getRelationship(const Team *that) const;
 	Relationship getRelationship(const Object *that) const;
 	Int iterateObjects(Int (*func)(Object *, void *), void *userData) const;
+	Int getPlayerColor() const { return m_color; }
+	Int getPlayerNightColor() const { return m_nightColor; }
 private:
 	char m_pad00[0x54];
 	Int m_playerIndex; // +0x54
-	char m_pad58[0x2EC - 0x58];
+	char m_pad58[0x280 - 0x58];
+	Int m_color; // +0x280
+	Int m_nightColor; // +0x284
+	char m_pad288[0x2EC - 0x288];
 	Team *m_defaultTeam; // +0x2EC
 };
+
+class Drawable;
 
 class Thing
 {
@@ -108,11 +103,46 @@ public:
 	Drawable *getDrawable() const;
 	const ThingTemplate *getTemplate() const { return m_template; }
 	const Coord3D *getPosition() const { return &m_pos; }
+	Real getOrientation() const { return m_angle; }
+	void setOrientation(Real angle);
 private:
 	void *m_vtable;
 	const ThingTemplate *m_template; // +0x04
 	char m_pad08[0x38 - 0x08];
 	Coord3D m_pos; // +0x38
+	Real m_angle; // +0x44
+};
+
+class AsciiString;
+
+// The per-unit sound record Drawable::rva00274CD8 returns: an id (-1 when
+// default-constructed, 0x004CEE6E) and a counted reference; assignment is
+// 0x002C99FB.
+class Rva002390CB
+{
+public:
+	Rva002390CB();
+	~Rva002390CB() { if (m_04.referent != 0) m_04.referent->Release_Ref(); }
+	Rva002390CB &operator=(const Rva002390CB &other);
+	Int m_00;
+	OpaqueRefElement4 m_04;
+};
+
+class Drawable : public Thing
+{
+public:
+	Bool isSelected() const { return m_selected != 0; }
+	void setPosition(const Coord3D *pos);
+	void updateDrawable();
+	void setIndicatorColor(Int color);
+	// The per-unit sound lookup (Zero Hour's ThingTemplate::getPerUnitSound).
+	Rva002390CB rva00274CD8(const AsciiString &name);
+private:
+	char m_pad48[0x43C - 0x48];
+	unsigned char m_selected; // +0x43C
+	char m_pad43D[0x440 - 0x43D];
+public:
+	Bool m_440;
 };
 
 enum NameKeyType
@@ -208,7 +238,17 @@ public:
 enum KindOfType
 {
 	KINDOF_TREE = 0x5E,
+	KINDOF_CREATE_A_HERO = 0xBE,
 	KINDOF_CAN_SHOOT_OVER_WALLS = 0xD6
+};
+
+class ThingTemplate
+{
+public:
+	__forceinline Bool isKindOf(KindOfType t) const { return (m_kindof[t >> 3] & (1 << (t & 7))) != 0; }
+private:
+	char m_pad00[0x108];
+	unsigned char m_kindof[32]; // +0x108
 };
 
 enum ObjectScriptStatusBit
@@ -299,6 +339,7 @@ class AIUpdateInterface
 {
 public:
 	void rva00262FFF();
+	Object *getCurrentVictim() const;
 };
 
 // The range test 0x0028F326, pinned under an address-derived class.
@@ -327,9 +368,13 @@ enum RadarEventType
 	RADAR_EVENT_STEALTH_NEUTRALIZED = 9
 };
 
+struct Rva002D76C6Owner;
+
 class Radar
 {
 public:
+	void addObject(Object *obj);
+	void removeObject(Rva002D76C6Owner *obj);
 	void createEvent(const Coord3D *pos, RadarEventType type, Real secondsToLive = 4.0f);
 };
 extern Radar *TheRadar;
@@ -388,12 +433,113 @@ public:
 };
 extern GameTextInterface *TheGameText;
 
-class InGameUI : public StealthUpdateSlots<16>
+class InGameUIMessage : public StealthUpdateSlots<16>
 {
 public:
 	virtual void message(UnicodeString format, ...); // slot 16
 };
+
+template <int N> class InGameUISlots : public InGameUISlots<N - 1>
+{
+public:
+	virtual void gapUI(char (*)[N]) = 0;
+};
+template <> class InGameUISlots<0> : public InGameUIMessage
+{
+};
+
+class InGameUI : public InGameUISlots<49>
+{
+public:
+	virtual void selectDrawable(Drawable *draw); // slot 66
+};
 extern InGameUI *TheInGameUI;
+
+class GameClient : public StealthUpdateSlots<29>
+{
+public:
+	virtual void destroyDrawable(Drawable *draw); // slot 29
+};
+extern GameClient *TheGameClient;
+
+enum DrawableStatus
+{
+	DRAWABLE_STATUS_NONE = 0
+};
+
+class BFMEThingFactory
+{
+public:
+	Drawable *newDrawable(const ThingTemplate *tmplate, DrawableStatus statusBits, Int a);
+};
+extern BFMEThingFactory *TheThingFactory;
+
+enum TimeOfDay
+{
+	TIME_OF_DAY_NIGHT = 4
+};
+
+class GlobalData
+{
+public:
+	char m_pad00[0x134];
+	TimeOfDay m_timeOfDay; // +0x134
+};
+extern GlobalData *TheGlobalData;
+
+class Matrix3D;
+
+class FXList
+{
+public:
+	static void doFXPos(const FXList *fx, const Coord3D *primary, const Matrix3D *primaryMtx = NULL,
+		Real primarySpeed = 0.0f, const Coord3D *secondary = NULL);
+};
+
+// AudioEventRTS::setObjectID, rowed under an address-derived name.
+class Rva002D9531
+{
+public:
+	void rva002D9531(int value);
+};
+
+struct BfmeDelayedLuaEventList
+{
+	BfmeDelayedLuaEventList();
+	~BfmeDelayedLuaEventList();
+	void *m_vtable;
+	char m_events[0x48];
+};
+
+// TheLuaScriptEngine's object event dispatch, rowed under an address-derived
+// name.
+class BfmeObjectEventDispatch
+{
+public:
+	void rva003360D2(int index, void *object, BfmeDelayedLuaEventList *eventList);
+};
+class LuaScriptEngine;
+extern LuaScriptEngine *TheLuaScriptEngine;
+
+class Xfer;
+
+// vftable 0x00C38D88; slot 4 is 0x004083FF.
+class CreateAHeroData
+{
+public:
+	virtual ~CreateAHeroData();
+	virtual void crc(Xfer *xfer);
+	virtual const char *typeName() const;
+	virtual void xfer(Xfer *xfer);
+	virtual void rva004083FF(Int a);
+};
+
+class CreateAHeroManager
+{
+public:
+	CreateAHeroData *rva002197A6(Int objectID);
+};
+extern CreateAHeroManager *TheCreateAHeroManager;
 
 // The status setter 0x003743CF, rowed under an address-derived name.
 class Rva003743CF
@@ -427,6 +573,16 @@ struct ContainedItemsView
 	ObjectList *m_list;
 };
 
+// The 0x4C-byte model condition set. Its out-of-line copy constructor
+// 0x00045455 is rowed as WeaponTemplateSetHead's (an identical memcpy).
+class WeaponTemplateSetHead
+{
+	char m_bits[0x4C];
+public:
+	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
+};
+typedef WeaponTemplateSetHead ModelConditionFlags;
+
 class StealthUpdate;
 // Object::getStealth (0x0028F4BC), rowed under an address-derived name.
 class Rva00373EC6;
@@ -452,10 +608,22 @@ public:
 	Bool testScriptStatusBit(ObjectScriptStatusBit bit) const { return (m_scriptStatus & bit) != 0; }
 	ObjectID getID() const { return m_id; }
 	AIUpdateInterface *getAI() const { return m_ai; }
+	const ModelConditionFlags &getModelConditionFlags() const { return m_modelConditionFlags; }
+	// Apply a model condition set to the drawable (0x001E431E) and the
+	// variant 0x0028CFF5 the reveal path uses; both take the flag words.
+	void rva001E431E(const Int *flags);
+	void rva0028CFF5(const Int *flags, Bool b);
+	// Zero Hour's forceRefreshSubObjectUpgradeStatus position in
+	// changeVisualDisguise.
+	void rva0028B3D7() const;
+	Int getIndicatorColor() const;
+	Int getNightIndicatorColor() const;
 private:
-	char m_pad44[0x74 - 0x44];
+	char m_pad48[0x74 - 0x48];
 	ObjectID m_id; // +0x74
-	char m_pad78[0x254 - 0x78];
+	char m_pad78[0x10C - 0x78];
+	ModelConditionFlags m_modelConditionFlags; // +0x10C
+	char m_pad158[0x254 - 0x158];
 	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
 	char m_pad25C[0x304 - 0x25C];
@@ -532,7 +700,9 @@ public:
 	Bool m_teamDisguised; // +0x30 DisguisesAsTeam
 	char m_pad31[0x38 - 0x31];
 	Bool m_orderIdleEnemiesToAttackMeUponReveal; // +0x38 OrderIdleEnemiesToAttackMeUponReveal
-	char m_pad39[0x55 - 0x39];
+	const FXList *m_disguiseRevealFX; // +0x3C DisguiseRevealFX
+	const FXList *m_disguiseFX; // +0x40 DisguiseFX
+	char m_pad44[0x55 - 0x44];
 	Bool m_innateStealth; // +0x55 InnateStealth
 	Bool m_detectedByFriendliesOnly; // +0x56 DetectedByFriendliesOnly
 	char m_pad57;
@@ -557,6 +727,7 @@ public:
 	void markAsDetected(UnsignedInt numFrames, Int feedback, Object *detector, Bool throughContainer);
 	StealthLookType calcStealthedStatusForPlayer(const Object *obj, const Player *player);
 	void disguiseAsObject(const Object *target);
+	void changeVisualDisguise();
 	Bool canDisguise() const { return getStealthUpdateModuleData()->m_teamDisguised; }
 	Bool isDisguised() const { return m_disguiseAsTemplate != NULL; }
 	Int getDisguisedPlayerIndex() const { return m_disguiseAsPlayerIndex; }
@@ -579,7 +750,7 @@ private:
 	Bool m_disguiseHalfpointReached; // +0x44
 	Bool m_transitioningToDisguise; // +0x45
 	Bool m_disguised; // +0x46
-	Bool m_47;
+	Bool m_xferRestoreDisguise; // +0x47
 };
 
 // ?getStealthLevel@StealthUpdate@@QBEIXZ @0x00373D15
@@ -946,4 +1117,135 @@ void StealthUpdate::markAsDetected(UnsignedInt numFrames, Int feedback, Object *
 	}
 
 	((Rva00373EEC *)this)->rva00373EEC(numFrames);
+}
+
+// ?changeVisualDisguise@StealthUpdate@@QAEXXZ @0x00374BC8
+// Zero Hour's body: BFME 2 keeps the model condition set on the object
+// (+0x10C), always shows the disguise player's colours, assigns the new
+// drawable on reveal and fires the create-a-hero refresh there; status,
+// model condition and academy bookkeeping are gone.
+void StealthUpdate::changeVisualDisguise()
+{
+	Object *self = getObject();
+	const StealthUpdateModuleData *data = getStealthUpdateModuleData();
+
+	Drawable *draw = self->getDrawable();
+	// We need to maintain our selection across the un/disguise, so pull selected out here.
+	Bool selected = draw->isSelected();
+
+	if (m_disguiseAsTemplate)
+	{
+		Player *player = ThePlayerList->getNthPlayer(m_disguiseAsPlayerIndex);
+
+		ModelConditionFlags flags = self->getModelConditionFlags();
+
+		//Get rid of the old instance!
+		TheGameClient->destroyDrawable(draw);
+
+		draw = TheThingFactory->newDrawable(m_disguiseAsTemplate, DRAWABLE_STATUS_NONE, -1);
+		if (draw)
+		{
+			TheGameLogic->bindObjectAndDrawable(self, draw);
+			draw->setPosition(self->getPosition());
+			draw->setOrientation(self->getOrientation());
+			self->rva001E431E((const Int *)&flags);
+			draw->updateDrawable();
+			if (selected)
+			{
+				TheInGameUI->selectDrawable(draw);
+			}
+			if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
+				draw->setIndicatorColor(player->getPlayerNightColor());
+			else
+				draw->setIndicatorColor(player->getPlayerColor());
+
+			//Play a disguise sound!
+			Rva002390CB sound = draw->rva00274CD8(AsciiString("DisguiseStarted"));
+			if (sound.m_04.referent)
+			{
+				BfmeAudioEventPrefix136 event(sound.m_04, 0);
+				((Rva002D9531 *)&event)->rva002D9531(self->getID());
+				TheAudio->addAudioEvent(&event);
+			}
+		}
+
+		FXList::doFXPos(data->m_disguiseFX, self->getPosition());
+
+		m_disguised = true;
+	}
+	else if (m_disguiseAsPlayerIndex != -1)
+	{
+		m_disguiseAsPlayerIndex = -1;
+		ModelConditionFlags flags = self->getModelConditionFlags();
+
+		//Get rid of the old instance!
+		TheGameClient->destroyDrawable(draw);
+
+		draw = TheThingFactory->newDrawable(self->getTemplate(), DRAWABLE_STATUS_NONE, -1);
+		if (draw)
+		{
+			TheGameLogic->bindObjectAndDrawable(self, draw);
+			draw->setPosition(self->getPosition());
+			draw->setOrientation(self->getOrientation());
+			self->rva0028CFF5((const Int *)&flags, true);
+			if (TheGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
+				draw->setIndicatorColor(self->getNightIndicatorColor());
+			else
+				draw->setIndicatorColor(self->getIndicatorColor());
+			if (selected)
+			{
+				TheInGameUI->selectDrawable(draw);
+			}
+			if (self->getTemplate()->isKindOf(KINDOF_CREATE_A_HERO))
+			{
+				BfmeDelayedLuaEventList eventList;
+				((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(15, self, &eventList);
+				CreateAHeroData *hero = TheCreateAHeroManager->rva002197A6(self->getID());
+				if (hero)
+					hero->rva004083FF(7);
+			}
+			self->rva0028B3D7();
+		}
+
+		Bool successfulReveal = false;
+		AIUpdateInterface *ai = self->getAI();
+		if (ai)
+		{
+			Object *currTarget = ai->getCurrentVictim();
+			if (currTarget)
+			{
+				successfulReveal = true;
+			}
+		}
+
+		if (draw)
+		{
+			//Play a reveal sound!
+			Rva002390CB sound;
+			if (successfulReveal)
+			{
+				sound = draw->rva00274CD8(AsciiString("DisguiseRevealedSuccess"));
+			}
+			else
+			{
+				sound = draw->rva00274CD8(AsciiString("DisguiseRevealedFailure"));
+			}
+			if (sound.m_04.referent)
+			{
+				BfmeAudioEventPrefix136 event(sound.m_04, 0);
+				((Rva002D9531 *)&event)->rva002D9531(self->getID());
+				TheAudio->addAudioEvent(&event);
+			}
+		}
+
+		FXList::doFXPos(data->m_disguiseRevealFX, self->getPosition());
+		m_disguised = false;
+	}
+
+	//Reset the radar (determines color on add)
+	TheRadar->removeObject((Rva002D76C6Owner *)self);
+	TheRadar->addObject(self);
+
+	// couldn't possibly need to restore a disguise now :)
+	m_xferRestoreDisguise = FALSE;
 }

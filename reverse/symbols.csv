@@ -10806,7 +10806,7 @@ name,address,notes
 ?regainFocus@AudioManager@@QAEXXZ,0x001DBC0B,address read from the REL32 in WndProc's WM_ACTIVATE arm at 0x000018D7; the call site encodes this jump thunk, not the body
 ?registerNewCave@CaveSystem@@QAEXH@Z,0x004276B6,donor CaveSystem::registerNewCave(Int); target calls from CaveContain registration paths support this role; donor name is carried rather than independently proven
 ?registerObj@BfmeMgrF1D@@QAEPAXPAX@Z,0x002D06CA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?registerObject@PartitionManager@@QAEXPAVObject@@@Z,0x002D7FEC,first call in Object::friend_notifyOfNewMapBoundary 0x28B5EE with ecx=TheRadar global and Object* arg; B1 casts TheRadar to PartitionManager for this call
+?addObject@Radar@@QAEXPAVObject@@@Z,0x002D7FEC,"Radar::addObject: ecx=TheRadar (0x00DFF070) at every caller (Object::friend_notifyOfNewMapBoundary 0x28B5EE, KeepObjectDie, StealthUpdate::changeVisualDisguise 0x00374FB8 right after Radar::removeObject 0x002D7714 as in ZH); body tests the radar priority visibility like ZH addObject; was pinned as PartitionManager::registerObject"
 ?registerParser@DataChunkInput@@QAEXABVAsciiString@@PAUDataChunkInfo@@P6A_NAAV1@1PAX@ZH@Z,0x00307779,callee of ?ParseObjectsDataChunk@@YA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z at retail 0x00302B39 read from its REL32 displacement; BFME 4-arg ABI view of the matched registerParser body at this address (retail pushes info and a trailing zero where ZH pushes info->label and stops at three)
 ?release003BBC20@RefThing003BBC20@@QAEXXZ,0x00050ED3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?release@BfmeTail60@@QAEXXZ,0x00036410,folds with StringBase/AsciiString teardown at this address; read from REL32 at placed resize 0x6BFCB0
@@ -15785,3 +15785,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0028641F@Rva002872BA@@QAEXIPAVRva0027D098@@@Z,0x0028641F,callee of ?rva00283CE7@TerrainLogic@@QAEXI@Z
 ?rva00283CB3@Rva00283CB3@@QAEXPAVRva0027D098@@@Z,0x00283CB3,callee of ?rva00283CE7@TerrainLogic@@QAEXI@Z
 ?rva00288C68@ExperienceLevelStore@@QAEPAVExperienceLevelList@@H@Z,0x00288C68,callee of ?rva00288D88@ExperienceLevelStore@@QAE?AUExperienceLevelHandle@@HH@Z
+?updateDrawable@Drawable@@QAEXXZ,0x0027566B,"ZH Drawable::updateDrawable: StealthUpdate::changeVisualDisguise 0x00374C7F calls it on the new drawable right after the model condition set is applied, ZH's order; the body is the per-frame updater (fade state, DrawableFade.cpp)"
+??4Rva002390CB@@QAEAAV0@ABV0@@Z,0x002C99FB,"assignment of the per-unit sound record Drawable::rva00274CD8 returns (id then OpaqueRefElement4 operator=); REL32 at 0x00374EDA and 0x00374F0A in StealthUpdate::changeVisualDisguise"

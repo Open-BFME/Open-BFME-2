@@ -10,6 +10,7 @@ enum ObjectID
 };
 
 class Object;
+class Drawable;
 class Rva00439E0C;
 
 struct ObjectIdNode
@@ -43,6 +44,7 @@ public:
 	Object *findObjectByID(ObjectID id);
 	Object *getFirstObject();	// 0x0023CAD2
 	void destroyObject(Object *obj);	// 0x00242C09
+	void bindObjectAndDrawable(Object *obj, Drawable *draw);	// 0x0023CD4A
 	unsigned int getTimestamp() const { return m_timestamp; }
 	unsigned int getFrame() const { return m_frame; }
 	Rva00439E0C *getManager178() const { return m_manager178; }
