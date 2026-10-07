@@ -55,12 +55,20 @@ private:
 	unsigned short *m_p10;
 };
 int __cdecl rva0053123A(void *item);
+class Rva00531720
+{
+public:
+	unsigned char rva00531720(unsigned int count, unsigned int value);
+};
 class Rva002E99F9Sub460
 {
 public:
 	__declspec(noinline) unsigned short rva0053241F(void *s, unsigned short w);
 	unsigned short rva00531FD4(void *s, unsigned short w);
 	unsigned short rva00531FE6(bool force, void *item, unsigned short value);
+	bool rva005318DB(void *item, void *first, void *second);
+	bool rva00531757(unsigned int count, unsigned int value);
+	bool rva005317D7(unsigned int index, unsigned int first, unsigned int second);
 };
 struct Rva002E99F9Arg1
 {
@@ -151,4 +159,32 @@ unsigned short Rva002E99F9Sub460::rva00531FE6(bool force, void *item, unsigned s
 __declspec(noinline) unsigned short Rva002E99F9Sub460::rva0053241F(void *s, unsigned short w)
 {
 	return rva00531FE6(true, s, w);
+}
+
+// ?rva005318DB@Rva002E99F9Sub460@@QAE_NPAX00@Z @0x005318DB 157B. The item
+// bit 3 returns true; otherwise rowed 0x005310E3 supplies a count and the
+// address-derived 0x0053123A helper supplies an index. Two input records each
+// contribute their word at +8 to the two rowed 0x00531720 checks, then the
+// address-derived 0x00531757 checks and 0x005317D7 final check. The receiver
+// association with Rva002E99F9Sub460 is structural; item and record types
+// remain unknown.
+bool Rva002E99F9Sub460::rva005318DB(void *item, void *first, void *second)
+{
+	if (*((unsigned char *)item) & 0x08)
+		return true;
+
+	unsigned int count = ((Rva005310E3 *)item)->rva005310E3();
+	int index = rva0053123A(item);
+	if (index < 0)
+		return index == -1;
+
+	unsigned int firstValue = *(unsigned short *)((char *)first + 8);
+	unsigned int secondValue = *(unsigned short *)((char *)second + 8);
+	Rva00531720 *slot = (Rva00531720 *)this;
+	if (slot->rva00531720(count, firstValue) &&
+		slot->rva00531720(count, secondValue) &&
+		rva00531757(index, firstValue) &&
+		rva00531757(index, secondValue))
+		return rva005317D7(index, firstValue, secondValue);
+	return 0;
 }
