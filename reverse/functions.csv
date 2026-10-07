@@ -67859,3 +67859,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva00538661@Rva0053863EShape@@QBEMXZ,,0x00538661,19,Code/GameEngine/Source/Common/Rva0053863EShape.cpp,matched,Guarded float return: refresh while dirty then m_value1C
 ?rva0058A5C7@@YAHPBD@Z,,0x0058A5C7,80,Code/GameEngine/Source/Common/Rva0058A5C7.cpp,matched,
 ?rva0031979C@Rva0031979COwner@@QAEXH@Z,,0x0031979C,27,Code/GameEngine/Source/Common/Rva0031979CForward.cpp,matched,helper resolve then sibling forward; w3-g26
+?rva00319A12@Rva00319A12Owner@@QAEXXZ,,0x00319A12,64,Code/GameEngine/Source/Common/Rva00319A12Loop.cpp,matched,indexed string-mismatch loop reusing rowed get/compare; w3-g26
