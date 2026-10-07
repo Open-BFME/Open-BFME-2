@@ -15433,3 +15433,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?sendVoteCommand@DisconnectManager@@IAEXHPAVConnectionManager@@@Z,0x004D3A1B,callee of ?voteForPlayerDisconnect@DisconnectManager@@QAEXHPAVConnectionManager@@@Z
 ?applyDisconnectVote@DisconnectManager@@IAEXHIHPAVConnectionManager@@@Z,0x004D3CD8,callee of ?voteForPlayerDisconnect@DisconnectManager@@QAEXHPAVConnectionManager@@@Z
 ?SetEnabled@Impl@AptScrollBar@@QAEX_N@Z,0x005D4949,callee of ?SetEnabled@Rva005D49CD@@QAEX_N@Z
+?rva00158BA0@Rva00158BA0@@QAEXPAMPBG@Z,0x00158BA0,callee of ?rva00105CF6@Rva00105CF6@@QAEXPAPBGPAH1@Z
