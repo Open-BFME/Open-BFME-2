@@ -224,7 +224,7 @@ void Rva00588A9D::rva00588A9D(UnsignedInt count)
 
 // 0x0006EE46 (interface at +0x108): the pinned cdecl 0x00118660 with the
 // complete object and the +0x10 interface member, when that is set.
-void Rva00118660Call(void *owner, void *value);
+bool Rva00118660Call(void *owner, void *value);
 class Rva0006EE46Primary
 {
 public:
