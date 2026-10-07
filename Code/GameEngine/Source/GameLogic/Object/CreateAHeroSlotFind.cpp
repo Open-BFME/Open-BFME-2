@@ -1,5 +1,3 @@
-// ?Rva0021B37AFind@@YAPAVGameSlot@@PBVPlayer@@@Z
-// partial score=0.92 date=2026-10-07
 // cl: /O1 /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /arch:SSE /G7
 // ?Rva0021B37AFind@@YAPAVGameSlot@@PBVPlayer@@@Z @0x0021B37A 128B.
 // Free GameSlot search over 8 slots via TheGameInfo and TheNameKeyGenerator.
@@ -9,6 +7,7 @@
 #include "ascii_string.h"
 
 typedef int Int;
+typedef unsigned int UnsignedInt;
 
 enum NameKeyType
 {
@@ -51,7 +50,7 @@ GameSlot *Rva0021B37AFind(const Player *player)
 	GameSlot *found = 0;
 	if (TheGameInfo != 0)
 	{
-		for (Int i = 0; i < 8; ++i)
+		for (UnsignedInt i = 0; found == 0 && i < 8; ++i)
 		{
 			{
 				AsciiString s(TheGameInfo->getSlot(i)->m_name34);
@@ -59,8 +58,6 @@ GameSlot *Rva0021B37AFind(const Player *player)
 				if (player->m_key50 == (Int)key)
 					found = TheGameInfo->getSlot(i);
 			}
-			if (found != 0)
-				break;
 		}
 	}
 	return found;
