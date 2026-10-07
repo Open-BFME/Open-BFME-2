@@ -252,9 +252,9 @@ private:
 // ---- owner method 0x004FA9B1 (208B): indexed notify with a LivingWorld
 // player find, a guarded ModuleData refresh, vector erase and the hardcoded
 // channel broadcast to 0x004FA992.
-extern Rva002B2672 *g_Va00DFEF10;
-Rva002B2672 *g_Va00DFEF10;
-
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva004E3184
 {
 	friend class Rva004FAA81Owner;
@@ -340,7 +340,7 @@ void Rva004FA992Owner::rva004FA9B1(int index)
 		return;
 	if ((unsigned int)index >= m_ids.size())
 		return;
-	if (!g_Va00DFEF10->rva002B2672((Arg54 *)((char *)this - 12), (Arg54 *)index))
+	if (!((Rva002B2672 *)TheLivingWorldLogic)->rva002B2672((Arg54 *)((char *)this - 12), (Arg54 *)index))
 		return;
 	if (!index)
 		m_20 &= index;
