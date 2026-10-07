@@ -238,34 +238,8 @@ TheInGameUI->message( msg );
 //The weapon system would like to perform a range check assuming the object is placed in the
 //best possible available garrison position. If found, we change sourcePos to that position.
 //-------------------------------------------------------------------------------------------------
-// ?GarrisonContain::calcBestGarrisonPosition present-unmatched
-Bool GarrisonContain::calcBestGarrisonPosition( Coord3D *sourcePos, const Coord3D *targetPos )
-{
-	// sanity
-	if( !sourcePos || !targetPos )
-		return FALSE;
-
-#if defined __DEBUG || defined _INTERNAL
-  const GarrisonContainModuleData *modData = getGarrisonContainModuleData();
-  DEBUG_ASSERTCRASH(modData->m_isEnclosingContainer, ("calcBestGarrisonPosition... SHOULD NOT GET HERE, since this container is non-enclosing") );
-#endif
-
-
-
-	// find which garrison point position array we will used based on body condition
-	Int conditionIndex = findConditionIndex();
-
-	// get the index of the garrison point that is closest to the target position
-	Int placeIndex = findClosestFreeGarrisonPointIndex( conditionIndex, targetPos );
-	if( placeIndex == GARRISON_INDEX_INVALID )
-	{
-		DEBUG_CRASH( ("GarrisonContain::calcBestGarrisonPosition - Unable to find suitable garrison point.\n") );
-		return FALSE;
-	}
-
-	sourcePos->set( &(m_garrisonPoint[ conditionIndex ][ placeIndex ]) );
-	return TRUE;
-}
+// GarrisonContain::calcBestGarrisonPosition: defined and byte-verified in
+// GarrisonContainCalcBestGarrisonPosition.cpp.
 
 //-------------------------------------------------------------------------------------------------
 //The AI is entering the aim state and would like to move the unit to the best position, perform
