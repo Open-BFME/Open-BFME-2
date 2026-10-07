@@ -15,27 +15,46 @@ private:
 	bool m_flag;
 };
 
+class Gen0002857E;
+
 class Gen0002857EOwner
 {
 public:
 	char m_pad[0x50];
 	void *m_mutex;
+	void rva000A8127(void *entry);
 };
 
 class Gen0002857E
 {
 public:
 	void handle();
+	void release();
 private:
 	char m_pad0[4];
 	Gen0002857EOwner *m_owner;
 	char m_pad1[0x34 - 8];
 	// volatile so the read-modify-write is not strength-reduced to `inc`.
 	volatile int m_count;
+	unsigned int m_lastReleaseTime;
 };
 
 void Gen0002857E::handle()
 {
 	MilesMutexGuard guard(m_owner->m_mutex, 0);
 	m_count = m_count + 1;
+}
+
+extern "C" __declspec(dllimport) unsigned int __stdcall AIL_ms_count(void);
+
+void Gen0002857E::release()
+{
+	void *mutex = m_owner->m_mutex;
+	MilesMutexGuard guard(mutex, 0);
+	m_count -= 1;
+	if (m_count == 0)
+	{
+		m_lastReleaseTime = AIL_ms_count();
+		m_owner->rva000A8127(this);
+	}
 }
