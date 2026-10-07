@@ -14,15 +14,6 @@ public:
 	BfmeWideResult bfmeMakeWideResult(int a, int b, int c, int d, int e, int f);
 };
 
-class BfmeWideForwardA
-{
-	char m_pad[0x10];
-	BfmeWideResultSource *m_source;
-
-public:
-	BfmeWideResult bfmeForwardWideA(int a, int b, int c, int d);
-};
-
 class BfmeWideForwardB
 {
 	char m_pad[0x10];
@@ -77,11 +68,6 @@ class BfmeWideForward009F29A0
 public:
 	BfmeWideResult forward009F29A0(int a, int b, int c);
 };
-
-BfmeWideResult BfmeWideForwardA::bfmeForwardWideA(int a, int b, int c, int d)
-{
-	return m_source->bfmeMakeWideResult(a, b, 0, c, 0, d);
-}
 
 BfmeWideResult PartitionManager::iterateObjectsInRange(const Coord3D *pos, float radius,
 	int distType, Rva000421C8 *filters, int order)
