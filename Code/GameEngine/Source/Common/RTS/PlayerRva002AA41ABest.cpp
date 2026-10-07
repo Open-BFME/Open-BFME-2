@@ -23,11 +23,8 @@ public:
 	float z;
 };
 
-class Rva000CBA20
-{
-public:
-	float distSq(const Rva000CBA20Point *point);
-};
+#include "XYDistanceCallView.h"
+
 
 struct Rva002A996FData
 {

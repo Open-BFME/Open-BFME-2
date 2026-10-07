@@ -17,11 +17,8 @@ public:
 	float x;
 	float y;
 };
-class Rva000CBA20
-{
-public:
-	float distSq(const Rva000CBA20Point *p);
-};
+#include "RTS/XYDistanceCallView.h"
+
 class Rva003468F5
 {
 public:

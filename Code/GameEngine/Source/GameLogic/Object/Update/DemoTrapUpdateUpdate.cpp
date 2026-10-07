@@ -64,14 +64,8 @@ public:
 	float x;
 	float y;
 };
-class Rva000CBA20
-{
-public:
-	float distSq(const Rva000CBA20Point *p);
-	char m_pad00[0x38];
-	float m_x;
-	float m_y;
-};
+#include "../../../Common/RTS/XYDistanceCallView.h"
+
 struct BfmeWideResult
 {
 	void *m_value;

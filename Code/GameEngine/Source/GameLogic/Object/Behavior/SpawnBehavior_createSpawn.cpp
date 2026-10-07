@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii
+#include "../../../Common/RTS/XYDistanceCallView.h"
 // stlport
 //
 // ?createSpawn@SpawnBehavior@@AAE_NXZ, retail 0x0045FA57, 676 bytes.
@@ -186,7 +187,6 @@ public:
 	Drawable *getDrawable() const;
 	CellShroudStatus getShroudStatusForPlayer(Int playerIndex) const;
 	void setProducer(Object *obj);
-	Real rva002615E3(const Coord3D *pos) const;
 
 private:
 	void *m_vptr;
@@ -354,7 +354,7 @@ Bool SpawnBehavior::createSpawn()
 					if (curSpawn == newSpawn)
 						continue;
 
-					tapeMeasure = curSpawn->rva002615E3(parent->getPosition());
+					tapeMeasure = reinterpret_cast<Rva000CBA20 *>(curSpawn)->distSq(reinterpret_cast<const Rva000CBA20Point *>(parent->getPosition()));
 					if (tapeMeasure < closest)
 					{
 						closest = tapeMeasure;

@@ -7,15 +7,8 @@ public:
 	float y;
 };
 
-class Rva000CBA20
-{
-	char m_pad[0x38];
-	float m_x;
-	float m_y;
+#include "RTS/XYDistanceCallView.h"
 
-public:
-	float distSq(const Rva000CBA20Point *p);
-};
 
 float Rva000CBA20::distSq(const Rva000CBA20Point *p)
 {

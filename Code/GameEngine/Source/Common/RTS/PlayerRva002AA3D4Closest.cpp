@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+#include "XYDistanceCallView.h"
 // ?Rva002AA3D4Closest@@YAHPAVObject@@PAX@Z @0x002AA3D4 70B
 // Object-iteration callback: keeps the nearest object that passes a
 // must-be-set / must-be-clear KindOf test. Its user data is the 0x4C-byte
@@ -26,7 +27,6 @@ public:
 class Object : public Thing
 {
 public:
-	float rva002615E3(const Coord3D *pos) const;
 };
 struct Rva002AA3D4Search
 {
@@ -40,7 +40,7 @@ int __cdecl Rva002AA3D4Closest(Object *obj, void *userData)
 {
 	Rva002AA3D4Search *search = (Rva002AA3D4Search *)userData;
 	if (obj->isKindOfMulti(search->m_mustBeSet, search->m_mustBeClear)) {
-		float distSq = obj->rva002615E3(&search->m_pos);
+		float distSq = reinterpret_cast<Rva000CBA20 *>(obj)->distSq(reinterpret_cast<const Rva000CBA20Point *>(&search->m_pos));
 		if (search->m_closestDistSq > distSq) {
 			search->m_closest = obj;
 			search->m_closestDistSq = distSq;

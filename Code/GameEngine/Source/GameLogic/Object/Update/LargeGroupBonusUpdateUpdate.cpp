@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
+#include "../../../Common/RTS/XYDistanceCallView.h"
 //
 // ?update@LargeGroupBonusUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail
 // 0x00490225, 589 bytes: slot 0 of the UpdateModuleInterface vtable
@@ -109,7 +110,6 @@ class Object
 public:
 	Player *getControllingPlayer() const;				// 0x0028AFA9
 	void *rva0028C197() const;				// 0x0028C197
-	Real rva002615E3(const Coord3D *pos) const;			// 0x002615E3
 	Bool addAttributeModifierToPool(const AsciiString &name, int duration);
 	void removeAttributeModifierFromPool(const AsciiString &name);
 	const Coord3D *getPosition() const { return &m_pos; }
@@ -314,7 +314,7 @@ UpdateSleepTime LargeGroupBonusUpdate::update()
 			while ((other = hits.next()) != 0) {
 				Rva00490225Member *member = other->findMember();
 				if (member && member->isActive()) {
-					Real distSqr = m_object->rva002615E3(other->getPosition());
+					Real distSqr = reinterpret_cast<Rva000CBA20 *>(m_object)->distSq(reinterpret_cast<const Rva000CBA20Point *>(other->getPosition()));
 					if (distSqr <= nearSqr) {
 						m_active = true;
 						break;

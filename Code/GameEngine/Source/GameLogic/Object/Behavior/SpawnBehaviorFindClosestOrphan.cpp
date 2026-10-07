@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+#include "../../../Common/RTS/XYDistanceCallView.h"
 //
 // findClosestOrphan, retail 0x0045F39B (93 bytes): Zero Hour's SpawnBehavior
 // iteration callback, placed between SpawnBehavior::loadPostProcess and
@@ -37,7 +38,6 @@ public:
 	const Coord3D *getPosition() const { return &m_pos; }
 	ObjectID getProducerID() const { return m_producerID; }
 	bool isKindOf(KindOfType kindOf) const;
-	float rva002615E3(const Coord3D *pos) const;	// squared 2D distance
 private:
 	unsigned char m_pad00[4];
 	const ThingTemplate *m_template;	// +0x04
@@ -59,7 +59,7 @@ int findClosestOrphan(Object *obj, void *userData)
 {
 	OrphanData *orphanData = (OrphanData *)userData;
 	if (obj->getTemplate()->isEquivalentTo(orphanData->m_matchTemplate) && obj->getProducerID() == INVALID_ID && !obj->isKindOf(KINDOF_220)) {
-		float distSq = obj->rva002615E3(orphanData->m_source->getPosition());
+		float distSq = reinterpret_cast<Rva000CBA20 *>(obj)->distSq(reinterpret_cast<const Rva000CBA20Point *>(orphanData->m_source->getPosition()));
 		if (orphanData->m_closestDistSq > distSq) {
 			orphanData->m_closest = obj;
 			orphanData->m_closestDistSq = distSq;
