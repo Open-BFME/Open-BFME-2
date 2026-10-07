@@ -3,6 +3,12 @@
 
 #include <deque>
 
+// Use the complete native map-growth provider recovered with the asset worker.
+// The generic vendor version uses a different allocation path in retail.
+namespace _STL {
+template <> void deque<int>::_M_reallocate_map(unsigned int, bool);
+}
+
 template class _STL::deque<int, _STL::allocator<int> >;
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

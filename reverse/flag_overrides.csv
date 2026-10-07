@@ -723,6 +723,7 @@ Code/Libraries/Source/WWVegas/WWMath/tri.cpp,-G7 -arch:SSE2,3,3,region default l
 Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp,,4,3,region default loses rows
 Code/Libraries/Source/WWVegas/WWMath/vp.cpp,-arch:SSE -G7,26,21,region default loses rows
 Code/Libraries/Source/WWVegas/wwshade/ShdDefFactoryClassDelete.cpp,,1,1,region default loses rows
+Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp,-O2 -G6,3,1,region default loses rows
 Code/Libraries/Source/assetmanager/Rva0061FFD0Cluster.cpp,,1,1,region default loses rows
 Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,,17,6,region default loses rows
 Code/Libraries/Source/profile/profile.cpp,,12,1,region default loses rows

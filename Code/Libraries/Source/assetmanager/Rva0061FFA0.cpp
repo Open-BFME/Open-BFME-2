@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /O2 /G6 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/sweep
+// stlport
 // ?rva0061FFA0@Rva0061FFA0@@QAEXIH@Z
 // 0x0061FFA0 42B: small thiscall setter with clamp to 1 0. Stores args at +0x28 +0x2C then keeps them only when second arg positive or first arg nonzero with second zero. Evidence: callers unclaimed 26B. Callees none. Neighbours BfmeThingXS and Rva0061FFD0 in assetmanager.
 class Rva0061FFA0
@@ -34,4 +35,205 @@ extern Gen_009EBA60Target*TheInvokeRegistry;
 void forwardRegistrySettingRva0061F1A0(unsigned value,int second) {
  if(TheInvokeRegistry)
   ((Rva0061FFA0*)TheInvokeRegistry)->rva0061FFA0(value,second);
+}
+
+// Asset worker reference: Open-BFME-1 1399ad37d42ea52a63829e417c46a1ba9ed2cd20,
+// game/Libraries/Source/assetmanager/AssetRegistryWorkerThread009EFA30.cpp.
+// Target 00622480..00622670 adds TLS heap scope tag 0x61737374 and the
+// established registry +8 delta: lock68, seven 40-byte queues80, enable1F4.
+// Native deque frees through the static CRT; /G6 and malloc storage preserve
+// its complete code shape. The int deque is a four-byte pointer-storage ABI
+// view of the existing aux provider621620, not a claim about source elements.
+#define _STLP_USE_STATIC_LIB 1
+
+// Retail mixes direct static free with imported memmove.
+#include <stdlib.h>
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#undef _CRTIMP
+#define _CRTIMP
+#include <deque>
+// Native deque auxiliaries use the established byte allocator and map provider.
+namespace _STL {
+template <> class allocator<char> {
+public:
+    static char *allocate(unsigned bytes, const void *hint);
+};
+// Copies overlap when the map is recentered; use the retail memmove paths.
+// ?copyAssetDequeNodes absent-from-retail
+static __forceinline int **copyAssetDequeNodes(int **first, int **last, int **result) {
+    return last == first ? result : (int **)((char *)memmove(result, first,
+        (char *)last - (char *)first) + ((char *)last - (char *)first));
+}
+// ?copyAssetDequeNodesBackward absent-from-retail
+static __forceinline int **copyAssetDequeNodesBackward(int **first, int **last, int **result) {
+    int bytes = (char *)last - (char *)first;
+    return bytes > 0 ? (int **)memmove((char *)result - bytes, first, bytes) : result;
+}
+// Adapted STLport map growth: native uses the byte allocator and static free.
+template <> inline void deque<int>::_M_reallocate_map(unsigned nodesToAdd, bool addAtFront) {
+    unsigned oldNumNodes = _M_finish._M_node - _M_start._M_node + 1;
+    unsigned newNumNodes = oldNumNodes + nodesToAdd;
+    int **newStart;
+    if (_M_map_size._M_data > 2 * newNumNodes) {
+        newStart = _M_map._M_data + (_M_map_size._M_data - newNumNodes) / 2
+            + (addAtFront ? nodesToAdd : 0);
+        if (newStart < _M_start._M_node)
+            copyAssetDequeNodes(_M_start._M_node, _M_finish._M_node + 1, newStart);
+        else
+            copyAssetDequeNodesBackward(_M_start._M_node, _M_finish._M_node + 1, newStart + oldNumNodes);
+    } else {
+        unsigned newMapSize = _M_map_size._M_data + (max)(_M_map_size._M_data, nodesToAdd) + 2;
+        int **newMap = newMapSize ? (int **)allocator<char>::allocate(newMapSize * 4, 0) : 0;
+        newStart = newMap + (newMapSize - newNumNodes) / 2 + (addAtFront ? nodesToAdd : 0);
+        copyAssetDequeNodes(_M_start._M_node, _M_finish._M_node + 1, newStart);
+        if (_M_map._M_data) free(_M_map._M_data);
+        _M_map._M_data = newMap;
+        _M_map_size._M_data = newMapSize;
+    }
+    _M_start._M_set_node(newStart);
+    _M_finish._M_set_node(newStart + oldNumNodes - 1);
+}
+
+template <> inline void deque<int>::_M_push_back_aux_v(const int &value) {
+    int copy = value;
+    if (2 > _M_map_size._M_data - (unsigned)(_M_finish._M_node - _M_map._M_data))
+        _M_reallocate_map(1, false);
+    *(_M_finish._M_node + 1) = (int *)allocator<char>::allocate(0x80, 0);
+    if (_M_finish._M_cur) *_M_finish._M_cur = copy;
+    _M_finish._M_set_node(_M_finish._M_node + 1);
+    _M_finish._M_cur = _M_finish._M_first;
+}
+template <> inline void deque<int>::_M_pop_front_aux() {
+    if (_M_start._M_first) free(_M_start._M_first);
+    _M_start._M_set_node(_M_start._M_node + 1);
+    _M_start._M_cur = _M_start._M_first;
+}
+}
+#include <windows.h>
+
+class Rva009EF0D0Element
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual void slot18();
+
+	union
+	{
+		volatile unsigned int m_word;
+		struct
+		{
+			volatile unsigned int m_refCount : 16;
+			volatile unsigned int m_state : 8;
+			volatile unsigned int m_bits : 8;
+		};
+		struct
+		{
+			unsigned short m_refCountBytes;
+			unsigned char m_stateByte;
+			unsigned char m_bitsByte;
+		};
+	};
+};
+
+typedef _STL::deque<int> AssetQueue;
+
+volatile bool g_q1Flag0134FAA8 = false;
+void setFPMode();
+
+// TLS operations are existing complete providers at 30980/309B0. The
+// adapter only scopes their swap/restore lifetime around the worker loop.
+class Rva000309B0 {
+    void *m_previous;
+public:
+    Rva000309B0 *rva00030980(void *value);
+    void rva000309B0();
+};
+class AssetWorkerHeapScope {
+    Rva000309B0 m_scope;
+public:
+    // ?AssetWorkerHeapScope::AssetWorkerHeapScope absent-from-retail
+    __forceinline AssetWorkerHeapScope(unsigned tag) { m_scope.rva00030980((void *)tag); }
+    // ?AssetWorkerHeapScope::~AssetWorkerHeapScope absent-from-retail
+    __forceinline ~AssetWorkerHeapScope() { m_scope.rva000309B0(); }
+};
+
+class AssetRegistry
+{
+public:
+	void Worker_Thread_00622480();
+
+private:
+	unsigned int m_thread;
+	unsigned int m_threadId;
+	bool m_flag08;
+	unsigned char m_unmodelled_009[0x5f];
+	CRITICAL_SECTION m_lock68;
+	AssetQueue m_deques80[7];
+	unsigned char m_unmodelled_198[0x5c];
+	bool m_flag1f4;
+};
+
+typedef char AssetRegistryWorkerLayoutCheck[
+	sizeof(AssetRegistry) == 0x1f8 ? 1 : -1];
+
+void AssetRegistry::Worker_Thread_00622480()
+{
+	m_threadId = GetCurrentThreadId();
+	AssetWorkerHeapScope heapScope(0x61737374);
+	while (!m_flag08)
+	{
+		bool enabled = m_flag1f4;
+		g_q1Flag0134FAA8 = true;
+		if (!enabled)
+		{
+			Sleep(100);
+			continue;
+		}
+
+		bool worked = false;
+		for (int state = 1; state <= 5; state += 4)
+		{
+			if (m_deques80[state].empty())
+				continue;
+
+			EnterCriticalSection(&m_lock68);
+			if (m_deques80[state].empty())
+			{
+				LeaveCriticalSection(&m_lock68);
+				continue;
+			}
+			Rva009EF0D0Element *asset = (Rva009EF0D0Element *)m_deques80[state].front();
+			asset->m_state = 8;
+			LeaveCriticalSection(&m_lock68);
+
+			worked = true;
+			setFPMode();
+			switch (state)
+			{
+			case 1:
+				asset->slot08();
+				break;
+			case 5:
+				asset->slot18();
+				break;
+			}
+
+			EnterCriticalSection(&m_lock68);
+			asset->m_state = state;
+			m_deques80[state].pop_front();
+			++asset->m_state;
+			m_deques80[asset->m_stateByte].push_back(*(const int *)&asset);
+			LeaveCriticalSection(&m_lock68);
+		}
+
+		if (!worked)
+			Sleep(1);
+	}
 }
