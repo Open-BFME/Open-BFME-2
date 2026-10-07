@@ -1,11 +1,41 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
-// Range-27 string reset plus notify.
+// Range-27 string reset and command-set update.
 // ?Rva00529E19@Holder00529E19@@QAEXXZ @0x00529E19 34B
-// Thiscall stashes m_30, clears it, releases the m_34 string through
-// the inlined StringBase clear (rowed releaseBuffer 0x00036410), zeroes
-// the m_2C byte, and runs the pinned 0x00529DA9 member on the stashed
-// value. Views TU-local.
+// ?Rva00529DA9@Holder00529E19@@QAEXH@Z @0x00529DA9 112B
+// The 34B reset stashes m_30, clears it, releases m_34, clears m_2C, and
+// calls the 112B method with the stashed ID. The latter resolves that ID
+// through TheGameLogic, selects Object::rva00290E67's AsciiString (or the
+// observed fallback VA 0x00DE0878), avoids a repeat when flag/ID/name match,
+// then resets the holder, copies the name, sets the flag and clears six slots.
+// Target evidence: this+0x2C/+0x30/+0x34, direct calls and the six-iteration
+// loop. The address-derived holder identity is supported by the 0x00529E19
+// call site; helper class views remain address-derived.
 #include "ascii_string.h"
+
+class Object;
+class GameLogic
+{
+public:
+	Object *findObjectByID(int id);
+};
+extern GameLogic *TheGameLogic;
+
+class Object
+{
+public:
+	const AsciiString *rva00290E67() const;
+};
+
+class Rva00528F30Target
+{
+public:
+	void reset();
+};
+class Rva0052936C
+{
+public:
+	void rva005294FC(int index);
+};
 
 struct Holder00529E19
 {
@@ -25,4 +55,20 @@ void Holder00529E19::Rva00529E19()
 	m_34.clear();
 	m_2C = 0;
 	Rva00529DA9(tmp);
+}
+
+void Holder00529E19::Rva00529DA9(int value)
+{
+	Object *object = TheGameLogic->findObjectByID(value);
+	const AsciiString *name = object != NULL
+		? object->rva00290E67()
+		: &AsciiString::TheEmptyString;
+	if (m_2C != 0 && value == m_30 && name->compare((const AsciiString &)m_34) == 0)
+		return;
+	((Rva00528F30Target *)this)->reset();
+	m_30 = value;
+	m_34.set(*(const StringBase<char> *)name);
+	m_2C = 1;
+	for (int i = 0; i < 6; ++i)
+		((Rva0052936C *)this)->rva005294FC(i);
 }
