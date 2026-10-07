@@ -1,4 +1,4 @@
-// cl: /MD /DNDEBUG /Ireference/shims/moduledata
+// cl: /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -32,15 +32,118 @@
 // m_localPlayer +0x04, the lock flags +0x08/+0x09, m_freeModules +0x0C and
 // m_usedModules +0x10. In BFME 2 removeGhostObject is no longer virtual: the
 // manager vftable (0x00BC59B8) has no slot for it and reset calls it directly.
+//
+// W3DRenderObjectSnapshot::xfer (0x00063CE9) reads RenderObjClass slots the
+// primary table 0x00BD2F68 confirms by name: Get_Sub_Object_By_Name (32),
+// Is_Not_Hidden_At_All (97) and Set_Hidden (101); slot 6 is the name getter.
+// It clears the sub-object transforms-dirty bit (0x00200000 of the word at
+// +0x10) and sets the HLod hierarchy-valid byte +0xF4 on a CLASSID_HLOD
+// sub-object. Donor-carried: the names and the Zero Hour body.
 
+#include "ascii_string.h"
 #include "Common/Snapshot.h"
 
 typedef int Int;
 typedef bool Bool;
 
 class HAnimClass;
-class Matrix3D;
 struct DrawableInfo;
+
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+
+// BFME 2 Xfer surface (the TeamInQueueXfer.cpp view): overloads of operator==
+// fill the table in reverse declaration order.
+class Xfer
+{
+public:
+	class Version;
+
+	Xfer();
+	virtual ~Xfer();
+
+	void Version1();
+
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3DBase &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+
+	virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+
+protected:
+	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
+};
+
+// The rowed 0x003062FE (Zero Hour xferMatrix3D) sends the three rows of four floats.
+void Rva003062FEXfer(Xfer *xfer, float *vals);
+
+class Vector4
+{
+public:
+	__forceinline Vector4 &operator=(const Vector4 &v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }
+
+	float X;
+	float Y;
+	float Z;
+	float W;
+};
+
+class Matrix3D
+{
+public:
+	Matrix3D( void ) {}
+	__forceinline Matrix3D &operator=(const Matrix3D &m) { Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2]; return *this; }
+
+	Vector4 Row[3];
+};
 
 // The BFME 2 TextureMapperClass, VertexMaterialClass and MaterialInfoClass
 // members disableUVAnimations reads: Mapper_ID is slot 2, the stage-0 mapper
@@ -102,7 +205,7 @@ public:
 	virtual int Class_ID( void ) const;																				///< slot 3
 	virtual void v04();
 	virtual void v05();
-	virtual void v06();
+	virtual const char *Get_Name( void ) const;																///< slot 6
 	virtual void v07();
 	virtual void v08();
 	virtual void v09();
@@ -128,7 +231,7 @@ public:
 	virtual void v29();
 	virtual RenderObjClass *Get_Sub_Object( int index ) const;								///< slot 30
 	virtual void v31();
-	virtual void v32();
+	virtual RenderObjClass *Get_Sub_Object_By_Name( const char *name, int *index = 0 ) const;	///< slot 32
 	virtual void v33();
 	virtual void v34();
 	virtual void v35();
@@ -183,18 +286,6 @@ public:
 	virtual void v84();
 	virtual MaterialInfoClass *Get_Material_Info( void );											///< slot 85
 	virtual void Set_User_Data( void *value, bool recursive = false );				///< slot 86
-
-	const Matrix3D &Get_Transform( void ) const { Validate_Transform(); return *(const Matrix3D *)&Transform; }
-private:
-	char m_unrecovered08[ 0x18 - 0x08 ];
-	float Transform[ 12 ];																										///< 0x18
-};
-
-// BFME 2 HLodClass (Animatable3DObjClass) appends Peek_Animation_And_Info as a
-// virtual at slot 130 of its table.
-class HLodClass : public RenderObjClass
-{
-public:
 	virtual void v87();
 	virtual void v88();
 	virtual void v89();
@@ -205,11 +296,32 @@ public:
 	virtual void v94();
 	virtual void v95();
 	virtual void v96();
-	virtual void v97();
+	virtual int Is_Not_Hidden_At_All( void );																	///< slot 97
 	virtual void v98();
 	virtual void v99();
 	virtual void v100();
-	virtual void v101();
+	virtual void Set_Hidden( int onoff );																			///< slot 101
+
+	enum { SUBOBJ_TRANSFORMS_DIRTY = 0x00200000 };
+	void Set_Sub_Object_Transforms_Dirty( bool onoff )
+	{
+		if (onoff) { Bits |= SUBOBJ_TRANSFORMS_DIRTY; } else { Bits &= ~SUBOBJ_TRANSFORMS_DIRTY; }
+	}
+
+	const Matrix3D &Get_Transform( void ) const { Validate_Transform(); return Transform; }
+private:
+	char m_unrecovered08[ 0x10 - 0x08 ];
+	unsigned int Bits;																												///< 0x10
+	char m_unrecovered14[ 0x18 - 0x14 ];
+	Matrix3D Transform;																												///< 0x18
+};
+
+// BFME 2 HLodClass (Animatable3DObjClass) appends Peek_Animation_And_Info as a
+// virtual at slot 130 of its table. W3DRenderObjectSnapshot::xfer marks a
+// sub-object's hierarchy valid through the byte at +0xF4.
+class HLodClass : public RenderObjClass
+{
+public:
 	virtual void v102();
 	virtual void v103();
 	virtual void v104();
@@ -239,6 +351,11 @@ public:
 	virtual void v128();
 	virtual void v129();
 	virtual HAnimClass *Peek_Animation_And_Info( float &frame, int &numFrames, int &mode, float &mult );	///< slot 130
+
+	void Friend_Set_Hierarchy_Valid( bool onoff ) const { IsTreeValid = onoff; }
+private:
+	char m_unrecovered48[ 0xF4 - 0x48 ];
+	mutable bool IsTreeValid;																									///< 0xF4
 };
 
 class RTS3DScene
@@ -443,6 +560,97 @@ void W3DRenderObjectSnapshot::update(RenderObjClass *robj, DrawableInfo *drawInf
 	m_robj->Set_User_Data(drawInfo);
 
 }
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version
+	* BFME 2 versions through Xfer::Version1 and sends the transforms through
+	* the rowed xferMatrix3D helper (0x003062FE) where Zero Hour used xferUser. */
+// ------------------------------------------------------------------------------------------------
+void W3DRenderObjectSnapshot::xfer( Xfer *xfer )
+{
+
+	// version
+	xfer->Version1();
+
+	// transform on the main render object
+	Matrix3D transform;
+	transform = m_robj->Get_Transform();
+	Rva003062FEXfer( xfer, (float *)&transform );
+	if( xfer->IsLoading() )
+		m_robj->Set_Transform( transform );
+
+	// how many sub objects of data will follow
+	Int subObjectCount = m_robj->Get_Num_Sub_Objects();
+	*xfer == subObjectCount;
+
+	Bool visible;
+	RenderObjClass *subObject;
+	AsciiString subObjectName;
+	for( Int i = 0; i < subObjectCount; ++i )
+	{
+
+		//
+		// when saving we get sub objects by index and xfer their name, when loading
+		// we read the name and find that sub object
+		//
+		if( xfer->IsStoring() )
+		{
+
+			// get sub object
+			subObject = m_robj->Get_Sub_Object( i );
+
+			// xfer sub object name which is unique among those in this render object
+			subObjectName.set( subObject->Get_Name() );
+			*xfer == subObjectName;
+
+		}  // end if, save
+		else
+		{
+
+			// read sub object name
+			*xfer == subObjectName;
+
+			// find this sub object on the object
+			subObject = m_robj->Get_Sub_Object_By_Name( subObjectName.str() );
+
+		}  // end else load
+
+		// visible/hidden status of this sub object
+		if( subObject )
+			visible = subObject->Is_Not_Hidden_At_All();
+		*xfer == visible;
+		if( subObject && xfer->IsLoading() )
+			subObject->Set_Hidden( !visible );
+
+		// transform of this sub object
+		if( subObject )
+			transform = subObject->Get_Transform();
+		Rva003062FEXfer( xfer, (float *)&transform );
+		if( subObject && xfer->IsLoading() )
+			subObject->Set_Transform( transform );
+
+		// need to tell W3D that this sub object transforms are ok
+		if( subObject )
+		{
+
+			// need to cast to HLod if we can to validate the hierarchy
+			if( subObject->Class_ID() == RenderObjClass::CLASSID_HLOD )
+				((HLodClass *)subObject)->Friend_Set_Hierarchy_Valid( true );
+
+		}  // end if
+
+		// release reference to sub object
+		if( subObject )
+			REF_PTR_RELEASE( subObject );
+
+	}  // end for, i
+
+	// tell W3D that the transforms for our sub objects are all OK cause we've done them ourselves
+	m_robj->Set_Sub_Object_Transforms_Dirty( false );
+
+}  // end xfer
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
