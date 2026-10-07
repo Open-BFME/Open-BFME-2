@@ -15324,6 +15324,3 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?updateVolumes@W3DVolumetricShadow@@IAEXM@Z,0x000F3D23,callee of ?Update@W3DVolumetricShadow@@QAEX_N@Z
 ?updateOptimalExtrusionPadding@W3DVolumetricShadow@@IAEXXZ,0x000F1212,callee of ?Update@W3DVolumetricShadow@@QAEX_N@Z
 ?rva002BED69@Rva002D3627Host@@QAEHXZ,0x002BED69,caller 0x00539411 and target callee bytes show increment and return of host+0x88 dword
-?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
-?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
-?onContaining@HordeContain@@UAEXPAVObject@@_N@Z,0x0046FA46,callee of ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z
