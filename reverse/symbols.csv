@@ -15303,3 +15303,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?Rva006CDF60@@YAXXZ,0x006CDF60,Address-derived call views supported by direct retail calls or tail call at 0x0022274A; semantic names and unobserved ABI details unresolved
 ?Rva00411E80@@YAXH@Z,0x00411E80,Address-derived cdecl call views from retail direct calls in 0x00222481; semantic names and unobserved ABI details unresolved
 ?Rva006CC600@@YAXPBDPAD@Z,0x006CC600,Address-derived cdecl call view from retail direct call in 0x00222481; first arg is const literal and second is stack buffer
+?rva0021E9D8Call@Rva0021E9D8Call@@QAEHIABVAsciiString@@00@Z,0x0021E9D8,Direct call from 0x0021EA59; thiscall return and stack argument shape inferred from the call site. Address-derived helper name; semantic identity unresolved.
