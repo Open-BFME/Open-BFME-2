@@ -33,3 +33,33 @@ typedef bool (*IntValueLess)(int, int);
 
 template void _STL::sort<void **, VoidPtrValueLess>(void **, void **, VoidPtrValueLess);
 template void _STL::sort<int *, IntValueLess>(int *, int *, IntValueLess);
+
+// Native 002195E6..00219695 is a 175-byte constructor returning this.
+// Float values below are read from retail's literal slots, independently of
+// donor names. The four unwritten dwords and original class remain unknown.
+struct Rva002195E6Group
+{
+	__forceinline Rva002195E6Group(float a, float b, float c, float d)
+		: value00(a), value04(b), value08(c), value0C(d), value10(0.0f) {}
+	float value00, value04, value08, value0C, value10;
+	unsigned int untouched14;
+};
+
+class Rva002195E6
+{
+public:
+	Rva002195E6();
+private:
+	Rva002195E6Group group00, group18, group30, group48;
+	float value60, value64;
+	unsigned int word68;
+};
+
+Rva002195E6::Rva002195E6()
+	: group00(0.3f, 0.2f, 50.0f, 30.0f),
+	  group18(0.4f, 0.3f, 70.0f, 50.0f),
+	  group30(0.3f, 0.2f, 50.0f, 30.0f),
+	  group48(0.3f, 0.2f, 50.0f, 30.0f),
+	  value60(0.5f), value64(0.0f), word68(0)
+{
+}
