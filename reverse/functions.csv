@@ -6356,8 +6356,6 @@ __Locale_time_destroy,,0x000205A0,122,Code/stlport/LocaleTimeDestroy.c,matched,b
 ?Update@Debug@@QAEXXZ,,0x0003B700,228,Code/Libraries/Source/WWVegas/WWDebug/Debug_Update_0088C3F0.cpp,matched,bfme1 WWDebug sweep exact placement; allocator call pinned to existing _realloc address
 ?GetInput@Debug@@QAEHPADHPA_N@Z,,0x00038EE0,266,Code/Libraries/Source/WWVegas/WWDebug/Debug_GetInput_00889E10.cpp,matched,bfme1 WWDebug sweep exact placement; allocator call pinned to existing _realloc address
 ?ConnectToServer@Cftp@@QAEJPBD@Z,,0x006CA660,562,Code/Libraries/Source/WWVegas/WWDownload/CftpConnectToServer.cpp,matched,bfme1 WWDownload sweep exact placement; relocation-pinned FTP helper imports
-?SendCommand@Cftp@@AAEJPBDH@Z,,0x006CA040,59,Code/Libraries/Source/WWVegas/WWDownload/CftpLoginToServer.cpp,matched,bfme1 WWDownload sweep exact placement; folded SendCommand helper
-?LoginToServer@Cftp@@QAEJPBD0@Z,,0x006CA8A0,464,Code/Libraries/Source/WWVegas/WWDownload/CftpLoginToServer.cpp,matched,bfme1 WWDownload sweep exact placement; relocation-pinned FTP helper imports
 ?Set_Render_Target@DX8Wrapper@@SAXPAUIDirect3DSwapChain8@@@Z,,0x00120940,64,Code/Libraries/Source/WWVegas/WW3D2/DX8Wrapper_Set_Render_Target_SwapChain_Thunk.cpp,matched,bfme1 WW3D2 D sweep exact placement
 ?Create_Rva00972880_Prototype@@YAXXZ,,0x00181130,101,Code/Libraries/Source/WWVegas/WW3D2/Rva00972A30AddPrototype.cpp,matched,bfme1 WW3D2 R sweep exact placement
 ?Check@Rva0093C870Owner@@QAEPAVRva0093C4A0Target@@PBGPAGH@Z,,0x00154940,74,Code/Libraries/Source/WWVegas/WW3D2/Rva0093C870ChildCheck.cpp,matched,bfme1 WW3D2 R sweep exact placement; relocation-pinned child check
@@ -67175,3 +67173,6 @@ _gpSetInfoCacheFilenameA,,0x0072D2C0,5,Code/GameEngine/Source/GameNetwork/GameSp
 ?rva004AFB01@Rva004AFB01@@QAEHXZ,,0x004AFB01,21,Code/GameEngine/Source/Common/Rva004AFB01.cpp,matched,target offsets call the rowed lookup identity unproven
 ?rva005003C7@Rva005003C7@@QBE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBURva004FCD6DElement@@H@_STL@@U?$_Const_traits@U?$pair@$$CBURva004FCD6DElement@@H@_STL@@@2@@_STL@@U12@@_STL@@URva004FCD6DElement@@@Z,,0x005003C7,24,Code/GameEngine/Source/GameLogic/Object/Rva005003C7EqualRange.cpp,matched,calls _Rb_tree equal_range 0x004FCD6D callers 0x0059D2DA 0x0059DD3F this+0x10
 ?parseLodOptions@W3DModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z,,0x00079305,223,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParseLodOptions.cpp,matched,retail parser strings and callback adjacency establish LOD choices
+?SendCommand@Cftp@@AAEJPBDH@Z,,0x006CA040,59,Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP,matched,Zero Hour FTP.CPP Cftp::SendCommand; out-of-line copy the compiler keeps beside the inlined sends
+?LoginToServer@Cftp@@QAEJPBD0@Z,,0x006CA8A0,464,Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP,matched,Zero Hour FTP.CPP Cftp::LoginToServer; both USER/PASS sends inline SendCommand as retail does
+?FindFile@Cftp@@QAEJPBDPAH@Z,,0x006CAB30,1276,Code/Libraries/Source/WWVegas/WWDownload/FTP.CPP,matched,Zero Hour FTP.CPP Cftp::FindFile; CWD and LIST sends inlined while the SIZE send calls SendCommand 0x006CA040

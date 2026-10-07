@@ -1,14 +1,23 @@
 // cl: /DNDEBUG /MD /EHs-c- /O2 /Ob2
 // FTP.CPP: Cftp members retail links from this TU (tu_map approved, Zero Hour
-// places them in WWDownload/FTP.CPP), folded from three split units with these
-// exact flags, plus GetNextFileBlock. One Cftp view carries every offset they
-// were verified against: vptr +0x00, command socket +0x04, data socket +0x08,
-// data sockaddr +0x1C, local file +0x3B8, status +0x3BC, SendNewPort state
-// +0x3C0, find start +0x3C4. GetNextFileBlock precedes SendNewPort, which it
-// calls, so the call stays a call.
+// places them in WWDownload/FTP.CPP), folded from the split units with these
+// exact flags. One Cftp view carries every offset they were verified against:
+// vptr +0x00, command socket +0x04, data socket +0x08, data sockaddr +0x1C,
+// remote path +0x38, remote name +0xB8, local file +0x3B8, status +0x3BC,
+// SendNewPort state +0x3C0, find start +0x3C4.
+//
+// SendCommand is Zero Hour's plain member and the compiler decides where it
+// inlines, exactly as retail shows: both LoginToServer sends, the FindFile
+// CWD/LIST sends, the GetNextFileBlock TYPE send and the LogoffFromServer QUIT
+// send are inlined; the FindFile SIZE send, the later GetNextFileBlock sends
+// and SendNewPort's PORT send call the out-of-line copy at 0x006CA040.
+// GetNextFileBlock precedes SendNewPort, which it calls, so the call stays a
+// call.
 
 #include <cstdio>
 #include <cstring>
+#include <cstdlib>
+#include <ctime>
 
 typedef long HRESULT;
 typedef const char *LPCSTR;
@@ -62,7 +71,26 @@ enum
 	FTPSTAT_FILEDATACLOSED = 270,
 	FTPSTAT_TRANSFERREPLY = 280,
 	FTPSTAT_INIT = 0,
-	FTPSTAT_LOGGEDIN = 60
+	FTPSTAT_CONNECTED = 20,
+	FTPSTAT_SENDINGUSER = 30,
+	FTPSTAT_SENTUSER = 40,
+	FTPSTAT_SENDINGPASS = 50,
+	FTPSTAT_LOGGEDIN = 60,
+	FTPSTAT_SENDINGCWD = 110,
+	FTPSTAT_SENTCWD = 120,
+	FTPSTAT_SENTPORT = 130,
+	FTPSTAT_SENDINGLIST = 140,
+	FTPSTAT_SENTLIST = 150,
+	FTPSTAT_LISTDATAOPEN = 160,
+	FTPSTAT_LISTDATARECVD = 170,
+	FTPSTAT_SENDINGSIZE = 171,
+	FTPSTAT_SENTSIZE = 172,
+	FTPREPLY_LOGGEDIN = 230,
+	FTPREPLY_CWDOK = 250,
+	FTPREPLY_PASSWORD = 331,
+	FTPREPLY_OPENASCII = 150,
+	FTPREPLY_COMPLETE = 226,
+	FTPREPLY_FILESTATUS = 213
 };
 
 class Rva00885390Class
@@ -99,7 +127,9 @@ public:
 	HRESULT DisconnectFromServer();
 	int SendNewPort(void);
 	HRESULT GetNextFileBlock(LPCSTR, int *);
+	HRESULT LoginToServer(LPCSTR szUserName, LPCSTR szPassword);
 	HRESULT LogoffFromServer(void);
+	HRESULT FindFile(LPCSTR szRemoteFileName, int *piSize);
 	void ZeroStuff(void);
 
 private:
@@ -113,8 +143,8 @@ private:
 	int m_iFilePos;
 	int m_iBytesRead;
 	int m_iFileSize;
-	char m_szRemoteFilePath[128];
-	char m_szRemoteFileName[128];
+	char m_szRemoteFilePath[128];		// +0x38
+	char m_szRemoteFileName[128];		// +0xB8
 	char m_szLocalFilePath[128];
 	char m_szLocalFileName[128];
 	char m_szServerName[128];
@@ -128,15 +158,331 @@ private:
 
 #pragma intrinsic(strlen)
 
+// Cftp::LoginToServer, retail 0x006CA8A0 (464 bytes). Zero Hour's body
+// verbatim; both SendCommand calls inline.
+HRESULT Cftp::LoginToServer(LPCSTR szUserName, LPCSTR szPassword)
+{
+	char command[256];
+	int iReply;
+
+	strncpy(m_szUserName, szUserName, 128);
+	strncpy(m_szPassword, szPassword, 128);
+
+	memset(command, 0, 256);
+
+	if (m_iStatus == FTPSTAT_CONNECTED)
+	{
+		sprintf(command, "USER %s\r\n", m_szUserName);
+
+		if (SendCommand(command, 7 + strlen(m_szUserName)) < 0)
+		{
+			return FTP_TRYING;
+		}
+
+		m_iStatus = FTPSTAT_SENDINGUSER;
+	}
+
+	if (m_iStatus == FTPSTAT_SENDINGUSER)
+	{
+		if (RecvReply(command, 256, &iReply) != FTP_SUCCEEDED)
+			return FTP_TRYING;
+
+		if (iReply != FTPREPLY_PASSWORD)
+			return FTP_FAILED;
+
+		m_iStatus = FTPSTAT_SENTUSER;
+	}
+
+	if (m_iStatus == FTPSTAT_SENTUSER)
+	{
+		sprintf(command, "PASS %s\r\n", m_szPassword);
+
+		if (SendCommand(command, 7 + strlen(m_szPassword)) < 0)
+		{
+			return FTP_TRYING;
+		}
+
+		m_iStatus = FTPSTAT_SENDINGPASS;
+	}
+
+	if (m_iStatus == FTPSTAT_SENDINGPASS)
+	{
+		if (RecvReply(command, 256, &iReply) != FTP_SUCCEEDED)
+		{
+			return FTP_TRYING;
+		}
+
+		if (iReply != FTPREPLY_LOGGEDIN)
+		{
+			if (iReply == FTPREPLY_CONTROLCLOSED)
+			{
+				return FTP_FAILED;
+			}
+
+			return FTP_TRYING;
+		}
+
+		m_iStatus = FTPSTAT_LOGGEDIN;
+		return FTP_SUCCEEDED;
+	}
+
+	return FTP_FAILED;
+}
+
+// The size the server reported for the file FindFile last located, -1 when
+// the SIZE request failed (.data 0x00DDC014, initialised -1).
+static int s_iRemoteFileSize = -1;
+
+// Cftp::FindFile, retail 0x006CAB30 (1273 bytes). Zero Hour's state machine
+// (CWD, PORT, LIST, list data, transfer reply) with BFME2's additions read from
+// the retail bytes: once the listing is complete the data connection is closed
+// and a SIZE request (states 171/172, "SIZE %s\r\n" at 0x00CE8A64) asks for
+// the exact size; a 213 reply parsed by "%d %ld " is preferred over the size
+// column of the listing line. The listing line is the function-local static
+// at 0x00E0C798. iCode holds the listing length and then the SIZE reply's
+// leading code; sharing one address-taken slot is why retail stores the
+// length to the stack.
+HRESULT Cftp::FindFile(LPCSTR szRemoteFileName, int *piSize)
+{
+	char command[256];
+	static char listline[256];
+	int i, iReply, iCode;
+	char ext[10];
+
+	if (m_findStart == 0)
+		m_findStart = time(NULL);
+
+	if ((time(NULL) - m_findStart) > 30)  // try for 30 seconds
+	{
+		m_findStart = 0;
+		return FTP_FAILED;
+	}
+
+	_splitpath(szRemoteFileName, NULL, m_szRemoteFilePath + strlen(m_szRemoteFilePath),
+		m_szRemoteFileName, ext);
+
+	strcat(m_szRemoteFileName, ext);
+
+	for (i = 0; i < (int)strlen(m_szRemoteFilePath); i++)
+	{
+		if (m_szRemoteFilePath[i] == '\\')
+		{
+			m_szRemoteFilePath[i] = '/';
+		}
+	}
+
+	memset(command, 0, 256);
+
+	/* Change directory */
+
+	if ((m_iStatus == FTPSTAT_LOGGEDIN) || (m_iStatus == FTPSTAT_FILEFOUND))
+	{
+		sprintf(command, "CWD %s\r\n", m_szRemoteFilePath);
+
+		if (SendCommand(command, 6 + strlen(m_szRemoteFilePath)) < 0)
+		{
+			return FTP_TRYING;
+		}
+
+		m_iStatus = FTPSTAT_SENDINGCWD;
+	}
+
+	/* Get reply */
+
+	if (m_iStatus == FTPSTAT_SENDINGCWD)
+	{
+		HRESULT reply = RecvReply(command, 256, &iReply);
+
+		if ((reply == FTP_SUCCEEDED) && (iReply == 550))
+		{
+			m_findStart = 0;
+			return FTP_FAILED;
+		}
+
+		if ((reply != FTP_SUCCEEDED) || (iReply != FTPREPLY_CWDOK))
+		{
+			return FTP_TRYING;
+		}
+
+		m_iStatus = FTPSTAT_SENTCWD;
+	}
+
+	/* Set up data connection port */
+
+	if (m_iStatus == FTPSTAT_SENTCWD)
+	{
+		i = 0;
+		while (SendNewPort() == FTP_TRYING)
+		{
+			i++;
+
+			if (i == 1000)
+			{
+				return FTP_TRYING;
+			}
+		}
+
+		m_iStatus = FTPSTAT_SENTPORT;
+	}
+
+	/* Get directory listing for file. */
+
+	if (m_iStatus == FTPSTAT_SENTPORT)
+	{
+		sprintf(command, "LIST %s\r\n", m_szRemoteFileName);
+
+		if (SendCommand(command, 7 + strlen(m_szRemoteFileName)) < 0)
+		{
+			return FTP_TRYING;
+		}
+
+		m_iStatus = FTPSTAT_SENDINGLIST;
+	}
+
+	/* Get reply */
+
+	if (m_iStatus == FTPSTAT_SENDINGLIST)
+	{
+		if ((RecvReply(command, 256, &iReply) != FTP_SUCCEEDED) ||
+			(iReply != FTPREPLY_OPENASCII))
+		{
+			return FTP_TRYING;
+		}
+
+		m_iStatus = FTPSTAT_SENTLIST;
+	}
+
+	/* Open data connection */
+
+	if (m_iStatus == FTPSTAT_SENTLIST)
+	{
+		i = ((Rva00885920Class *)this)->d_00885920();
+		if (i != FTP_SUCCEEDED)
+		{
+			m_findStart = 0;
+			return i;
+		}
+		m_iStatus = FTPSTAT_LISTDATAOPEN;
+		memset(listline, 0, 256);
+	}
+
+	/* Get data */
+
+	if (m_iStatus == FTPSTAT_LISTDATAOPEN)
+	{
+		recv(m_iDataSocket, listline, 256, 0);
+
+		iCode = strlen(listline);
+		if (iCode == 0)
+		{
+			return FTP_TRYING;
+		}
+		m_iStatus = FTPSTAT_LISTDATARECVD;
+	}
+
+	/* Wait for confirmation of end of data stream */
+
+	if (m_iStatus == FTPSTAT_LISTDATARECVD)
+	{
+		if ((RecvReply(command, 256, &iReply) != FTP_SUCCEEDED) ||
+			(iReply != FTPREPLY_COMPLETE))
+		{
+			return FTP_TRYING;
+		}
+
+		m_iStatus = FTPSTAT_SENDINGSIZE;
+		((Rva00885980Class *)this)->d_00885960();
+	}
+
+	/* Ask for the exact size */
+
+	if (m_iStatus == FTPSTAT_SENDINGSIZE)
+	{
+		sprintf(command, "SIZE %s\r\n", m_szRemoteFileName);
+
+		if (SendCommand(command, 7 + strlen(m_szRemoteFileName)) < 0)
+		{
+			return FTP_TRYING;
+		}
+
+		m_iStatus = FTPSTAT_SENTSIZE;
+	}
+
+	if (m_iStatus == FTPSTAT_SENTSIZE)
+	{
+		if (RecvReply(command, 256, &iReply) == FTP_SUCCEEDED)
+		{
+			s_iRemoteFileSize = -1;
+			if (iReply == FTPREPLY_FILESTATUS)
+			{
+				if (sscanf(command, "%d %ld ", &iCode, &s_iRemoteFileSize) != 2)
+					s_iRemoteFileSize = -1;
+			}
+		}
+		m_iStatus = FTPSTAT_FILEFOUND;
+	}
+
+	m_findStart = 0;
+
+	/* Is the file there? */
+
+	if (strncmp(listline, m_szRemoteFileName, sizeof(m_szRemoteFileName)) == 0)
+	{
+		/* No */
+		return FTP_FAILED;
+	}
+
+	/* Yes - find out the size, in bytes */
+
+	if (s_iRemoteFileSize >= 0)
+	{
+		if (piSize != NULL)
+		{
+			*piSize = s_iRemoteFileSize;
+			m_iFileSize = s_iRemoteFileSize;
+		}
+		return FTP_SUCCEEDED;
+	}
+
+	if (sscanf(&listline[32], " %d ", &i) == 1)
+	{
+		if (piSize != NULL)
+		{
+			*piSize = i;
+			m_iFileSize = i;
+		}
+		return FTP_SUCCEEDED;
+	}
+
+	return FTP_FAILED;
+}
+
+// Cftp::SendCommand, retail 0x006CA040 (59 bytes). Zero Hour's body with the
+// debug-output pair compiled in: OutputDebugStringA "-->" (0x00CE89FC) then
+// the command.
+HRESULT Cftp::SendCommand(const char *pCommand, int iSize)
+{
+	int i;
+
+	i = send(m_iCommandSocket, pCommand, iSize, 0);
+	if (i > 0)
+	{
+		OutputDebugStringA("-->");
+		OutputDebugStringA(pCommand);
+		return FTP_SUCCEEDED;
+	}
+	else
+	{
+		return FTP_FAILED;
+	}
+}
+
 // Cftp::GetNextFileBlock, retail 0x006CB030 (1267 bytes).
 // BFME1 donor Code/Libraries/Source/WWVegas/WWDownload/CftpGetNextFileBlock.cpp
 // with BFME2 repairs: send/recv/WSAGetLastError ride the ILT (plain extern,
-// retail calls them direct), and the BFME1 function-pointer callback triple is
-// the unconditional OutputDebugStringA "-->" + command pair in retail
-// (same pattern as CftpRecvReply.cpp; "-->" verified at 0xCE89FC).
-// SendCommand is the private Cftp member rowed at 0x006CA040
-// (CftpLoginToServer.cpp); every other member callee is rowed under the
-// spelling declared here.
+// retail calls them direct). The TYPE send goes through SendCommand as in
+// Zero Hour; retail inlines that one and calls the rest. Every other member
+// callee is rowed under the spelling declared here.
 // ?GetNextFileBlock@Cftp@@QAEJPBDPAH@Z
 HRESULT Cftp::GetNextFileBlock(LPCSTR szLocalFileName, int *piTotalRead)
 {
@@ -176,10 +522,8 @@ HRESULT Cftp::GetNextFileBlock(LPCSTR szLocalFileName, int *piTotalRead)
 	if (m_iStatus == FTPSTAT_SENTFILEPORT)
 	{
 		sprintf(command, "TYPE I\r\n");
-		if (send(m_iCommandSocket, command, strlen(command), 0) <= 0)
+		if (SendCommand(command, strlen(command)) < 0)
 			return FTP_TRYING;
-		OutputDebugStringA("-->");
-		OutputDebugStringA(command);
 		m_iStatus = FTPSTAT_SENDINGTYPE;
 	}
 
@@ -327,8 +671,8 @@ HRESULT Cftp::GetNextFileBlock(LPCSTR szLocalFileName, int *piTotalRead)
 // BFME1 donor (same file) with BFME2 repairs: self-contained TU in the
 // CftpRecvReply.cpp style (no PreRTS.h, no vptr: retail's Cftp lays
 // m_iCommandSocket at +4); the PORT format is retail's own .rdata string;
-// SendCommand is the private Cftp member rowed at 0x6CA040
-// (CftpLoginToServer.cpp); socket-family imports ride the ILT
+// SendCommand is the private Cftp member defined above (0x006CA040);
+// socket-family imports ride the ILT
 // (plain extern) while sprintf goes through the IAT.
 int Cftp::SendNewPort(void)
 {
@@ -441,10 +785,10 @@ HRESULT Cftp::DisconnectFromServer()
 // (reference/open-bfme-1/Code/GameEngine/Source/GameNetwork/CftpLogoffFromServer.cpp):
 // verbatim except the debug-output pair. BFME1 reads a callback cell out of
 // a data global (0x01358EA8) and invokes it with two string addresses;
-// retail calls kernel32!OutputDebugStringA (IAT 0xBBA19C) with "-->" then
-// "QUIT\r\n" instead (CftpRecvReply.cpp precedent: with /O2 the two calls
-// share one IAT load in edi). send rides the ILT (plain extern, pin
-// _send@16 at 0x0065568E); RecvReply/d_00885390/ZeroStuff resolve by row.
+// retail's QUIT goes through Zero Hour's SendCommand, inlined here, whose
+// kernel32!OutputDebugStringA (IAT 0xBBA19C) pair prints "-->" then the
+// command. send rides the ILT (plain extern, pin _send@16 at 0x0065568E);
+// RecvReply/d_00885390/ZeroStuff resolve by row.
 HRESULT Cftp::LogoffFromServer(void)
 {
 	char reply[50];
@@ -453,10 +797,8 @@ HRESULT Cftp::LogoffFromServer(void)
 	switch (m_iStatus)
 	{
 	case 70:
-		if (send(m_iCommandSocket, "QUIT\r\n", 6, 0) > 0)
+		if (SendCommand("QUIT\r\n", 6) == FTP_SUCCEEDED)
 		{
-			OutputDebugStringA("-->");
-			OutputDebugStringA("QUIT\r\n");
 			m_iStatus = 80;
 		}
 		else
