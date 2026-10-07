@@ -1,6 +1,4 @@
-// ?setDisplayMode@Display@@UAE_NIII_N@Z
-// partial score=0.93 date=2026-10-07
-// cl: /DNDEBUG /MD /Oy-
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /Oy-
 // ?setDisplayMode@Display@@UAE_NIII_N@Z, retail 0x0025C262, 278 bytes.
 // Display::setDisplayMode donor from Zero Hour GeneralsMD
 // Code/GameEngine/Source/GameClient/Display.cpp (Bool Display::setDisplayMode
