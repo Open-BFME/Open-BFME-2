@@ -23,7 +23,7 @@ enum BodyDamageType { BODY_PRISTINE, BODY_DAMAGED, BODY_REALLYDAMAGED, BODY_RUBB
 enum DamageType { DAMAGE_HEALING = 7 };
 enum KindOfType { KINDOF_220 = 0x220 };
 enum ObjectID { INVALID_ID = 0 };
-enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2 };
+enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2, OBJECT_STATUS_24 = 24 };
 
 // class-gate: allow Coord3D the bone-position array is built and torn down through BFME 2's out-of-line empty Coord3D constructor and destructor (the eh vector iterators push 0x0047A6A9 and 0x000B3FD0); the canonical data-only header cannot declare them; same three floats
 struct Coord3D
@@ -194,12 +194,54 @@ public:
 
 class BodyModuleInterface;
 
+class AIUpdateInterface
+{
+public:
+	virtual void a000(); virtual void a001(); virtual void a002(); virtual void a003();
+	virtual void a004(); virtual void a005(); virtual void a006(); virtual void a007();
+	virtual void a008(); virtual void a009(); virtual void a010(); virtual void a011();
+	virtual void a012(); virtual void a013(); virtual void a014(); virtual void a015();
+	virtual void a016(); virtual void a017(); virtual void a018(); virtual void a019();
+	virtual void a020(); virtual void a021(); virtual void a022(); virtual void a023();
+	virtual void a024(); virtual void a025(); virtual void a026(); virtual void a027();
+	virtual void a028(); virtual void a029(); virtual void a030(); virtual void a031();
+	virtual void a032(); virtual void a033(); virtual void a034(); virtual void a035();
+	virtual void a036(); virtual void a037(); virtual void a038(); virtual void a039();
+	virtual void a040(); virtual void a041(); virtual void a042(); virtual void a043();
+	virtual void a044(); virtual void a045(); virtual void a046(); virtual void a047();
+	virtual void a048(); virtual void a049(); virtual void a050(); virtual void a051();
+	virtual void a052(); virtual void a053(); virtual void a054(); virtual void a055();
+	virtual void a056(); virtual void a057(); virtual void a058(); virtual void a059();
+	virtual void a060(); virtual void a061(); virtual void a062(); virtual void a063();
+	virtual void a064(); virtual void a065(); virtual void a066(); virtual void a067();
+	virtual void a068(); virtual void a069(); virtual void a070(); virtual void a071();
+	virtual void a072(); virtual void a073(); virtual void a074(); virtual void a075();
+	virtual void a076(); virtual void a077(); virtual void a078(); virtual void a079();
+	virtual void a080(); virtual void a081(); virtual void a082(); virtual void a083();
+	virtual void a084(); virtual void a085(); virtual void a086(); virtual void a087();
+	virtual void a088(); virtual void a089(); virtual void a090(); virtual void a091();
+	virtual void a092(); virtual void a093(); virtual void a094(); virtual void a095();
+	virtual void a096(); virtual void a097(); virtual void a098(); virtual void a099();
+	virtual void a100(); virtual void a101(); virtual void a102(); virtual void a103();
+	virtual void a104(); virtual void a105(); virtual void a106(); virtual void a107();
+	virtual void a108(); virtual void a109();
+	virtual Bool isIdle() const;			// +0x1B8
+
+	unsigned char m_pad04[0x34 - 0x04];
+	Int m_field34;				// +0x34
+};
+
 class Object
 {
 public:
 	Bool isKindOf(KindOfType kindOf) const;	// 0x0006F039
 	Bool testStatus(ObjectStatusTypes bit) const;	// 0x0004E536
 	void setEffectivelyDead(Bool dead);		// 0x0028D2FB
+	Bool rva0028F518();				// 0x0028F518
+	Bool addAttributeModifierToPool(const AsciiString &name, Int duration);	// 0x0028EA91
+	void removeAttributeModifierFromPool(const AsciiString &name);		// 0x0028EB42
+	AIUpdateInterface *getAI() const { return m_ai; }
+	Bool testStatusBit(Int bit) const { return (m_status >> bit) & 1; }
 	Int getMultiLogicalBonePosition(const char *boneNamePrefix, Int maxBones, Coord3D *positions,
 		Matrix3D *transforms, Bool convertToWorld, Int extra) const;	// 0x0028BF81
 	const ThingTemplate *getTemplate() const { return m_template; }
@@ -218,7 +260,8 @@ public:
 	BehaviorModule **m_behaviors;		// +0x244
 	unsigned char m_pad248[0x254 - 0x248];
 	BodyModuleInterface *m_body;		// +0x254
-	unsigned char m_pad258[0x280 - 0x258];
+	AIUpdateInterface *m_ai;		// +0x258
+	unsigned char m_pad25C[0x280 - 0x25C];
 	Int m_field280;				// +0x280
 	unsigned char m_pad284[0x438 - 0x284];
 	UnsignedInt m_flags438;			// +0x438
@@ -280,7 +323,10 @@ private:
 class ActiveBodyModuleData
 {
 public:
-	unsigned char m_pad00[0x48];
+	unsigned char m_pad00[0x30];
+	AsciiString m_damagedAttributeModifier;		// +0x30
+	AsciiString m_reallyDamagedAttributeModifier;	// +0x34
+	unsigned char m_pad38[0x48 - 0x38];
 	const FXList *m_healingFX;		// +0x48
 	unsigned char m_pad4C[0x51 - 0x4C];
 	Bool m_byte51;				// +0x51
@@ -292,7 +338,9 @@ public:
 	virtual void m00(); virtual void m01(); virtual void m02(); virtual void m03();
 	virtual void m04(); virtual void m05(); virtual void m06(); virtual void m07();
 	virtual void m08(); virtual void m09(); virtual void m10(); virtual void m11();
-	virtual void m12(); virtual void m13(); virtual void m14(); virtual void m15();
+	virtual void m12();
+	virtual void rva004BE69C();				// +0x34
+	virtual void m14(); virtual void m15();
 	virtual void m16();
 	virtual void validateArmorAndDamageFX();		// +0x44
 	virtual void doDamageFX(const DamageInfo *damageInfo) = 0;	// +0x48
@@ -338,7 +386,10 @@ public:
 	virtual void setDamageState(BodyDamageType newState);
 	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);
 
+	virtual void rva004BE69C();
+
 protected:
+	static Bool shouldRetaliate(Object *obj);
 	virtual void doDamageFX(const DamageInfo *damageInfo);
 	virtual void createParticleSystems(const AsciiString &boneBaseName,
 		const ParticleSystemTemplate *systemTemplate, Int maxSystems);
@@ -631,4 +682,63 @@ void ActiveBody::internalChangeHealth(Real delta, DamageInfo *damageInfo)
 			}
 		}
 	}
+}
+
+// ActiveBody::shouldRetaliate, retail 0x004BE056 (113B). Zero Hour's
+// retaliation predicate in BFME 2 form: two template kind early-outs (173
+// and 2), the AI must exist with nothing at its +0x34 and be idle, Object
+// 0x0028F518 must say no, a stealthed object (status bit 15) must be
+// detected (bit 17), and the object must not have status 24.
+Bool ActiveBody::shouldRetaliate(Object *obj)
+{
+	const ThingTemplate *tmpl = obj->getTemplate();
+	if (tmpl->testKindOf(173))
+		return false;
+	if (tmpl->testKindOf(2))
+		return false;
+
+	AIUpdateInterface *ai = obj->getAI();
+	if (ai != 0 && ai->m_field34 != 0)
+		return false;
+	AIUpdateInterface *aiForIdle = obj->getAI();
+	if (aiForIdle == 0 || !aiForIdle->isIdle())
+		return false;
+
+	if (obj->rva0028F518())
+		return false;
+
+	if (obj->testStatusBit(15) && !obj->testStatusBit(17))
+		return false;
+
+	if (obj->testStatus(OBJECT_STATUS_24))
+		return false;
+	return true;
+}
+
+// ActiveBody primary vtable slot 13, retail 0x004BE69C (134B): apply the
+// module data's damaged (+0x30) or really-damaged (+0x34) attribute modifier
+// for the current damage state and remove the other; the BFME 1 donor at its
+// 0x0020EB40 has the same switch.
+void ActiveBody::rva004BE69C()
+{
+	const ActiveBodyModuleData *md = getActiveBodyModuleData();
+	switch (m_curDamageState)
+	{
+	case BODY_DAMAGED:
+		if (!((const StringBase<char> &)md->m_damagedAttributeModifier).isEmpty())
+			getObject()->addAttributeModifierToPool(md->m_damagedAttributeModifier, -1);
+		break;
+	case BODY_REALLYDAMAGED:
+		if (!((const StringBase<char> &)md->m_damagedAttributeModifier).isEmpty())
+			getObject()->removeAttributeModifierFromPool(md->m_damagedAttributeModifier);
+		if (!((const StringBase<char> &)md->m_reallyDamagedAttributeModifier).isEmpty())
+			getObject()->addAttributeModifierToPool(md->m_reallyDamagedAttributeModifier, -1);
+		return;
+	default:
+		if (!((const StringBase<char> &)md->m_damagedAttributeModifier).isEmpty())
+			getObject()->removeAttributeModifierFromPool(md->m_damagedAttributeModifier);
+		break;
+	}
+	if (!((const StringBase<char> &)md->m_reallyDamagedAttributeModifier).isEmpty())
+		getObject()->removeAttributeModifierFromPool(md->m_reallyDamagedAttributeModifier);
 }
