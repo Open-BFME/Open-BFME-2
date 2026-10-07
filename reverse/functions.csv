@@ -67260,3 +67260,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva0021F797@CreateAHeroManager@@QAEPAVRva0040A3F9@@XZ,,0x0021F797,16,Code/GameEngine/Source/Common/CreateAHeroManagerList.cpp,matched,same-this CRC call and returned manager offset 0x174
 ?Rva003BB898@@YGX_N0@Z,,0x003BB898,85,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BBE91.cpp,matched,adjacent TacticalView table calls and byte argument use address identity retained
 ??1Rva0056D915@@UAE@XZ,,0x0056D915,110,Code/GameEngine/Source/Common/Rva0056D915Dtor.cpp,matched,deleting dtor 0x0056DC2A vtable 0x00C6DB40 slot0 base 0x005126F5 member 0x005C9B9C callee 0x002BED10 global g_00DFEF18
+?Rva0056B668Parse@@YAXPAVINI@@PAX1PBX@Z,,0x0056B668,255,Code/GameEngine/Source/Common/Rva0056B668Parse.cpp,matched,stored Object callback with ArmyIcon parser strings matching BF1F sibling
