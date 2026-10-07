@@ -64,6 +64,11 @@
 // virtual base, behind the vtordisp at +0xE8) and is otherwise Zero Hour's.
 // addGhostObject (0x00063B1E, slot 7 of 0x00BC59B8) allocates 0xF0 bytes for
 // it, takes the object alone and pops only the free-list head.
+//
+// The provider table 0x00BC5984 holds W3DGhostObject's overrides of the
+// provider's four slots, called with the provider at +0x04; slot 3 is Zero
+// Hour's freeSnapShot (0x00063A1D), which deletes snapshots with ::delete like
+// freeAllSnapShots.
 
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
@@ -1036,6 +1041,40 @@ void W3DGhostObject::getShroudStatus(int playerIndex)
 	// BFME 2 tolerates a ghost object with no partition data
 	if (m_partitionData)
 		m_partitionData->getShroudedStatus(playerIndex);
+}
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+void W3DGhostObject::freeSnapShot(int playerIndex)
+{
+	if (playerIndex != TheGhostObjectManager->getLocalPlayerIndex())
+		return;	//we only snapshot things for the local player
+
+	if (m_parentSnapshots[playerIndex])
+	{	//if we have a snapshot for this object, remove it from
+		//scene and put back the original object if it still exists.
+		if (playerIndex == TheGhostObjectManager->getLocalPlayerIndex())
+		{
+			//Adding and removing render objects to the scene is expensive
+			//so only do it for the real player watching the screen.  There is
+			//also no point in displaying the other player's objects to
+			//the current player.
+			removeFromScene(playerIndex);
+
+			//Restore actual objects assuming they are still alive.
+			if (m_parentObject)
+				restoreParentObject();
+		}
+
+		W3DRenderObjectSnapshot *snap=m_parentSnapshots[playerIndex];
+		W3DRenderObjectSnapshot *nextSnap;
+		while (snap)
+		{	nextSnap = snap->m_next;
+			::delete snap;
+			snap = nextSnap;
+		}
+		m_parentSnapshots[playerIndex]=0;
+	}
 }
 
 // ------------------------------------------------------------------------------------------------
