@@ -315,4 +315,13 @@ int __stdcall GetStringTypeExWThunk(unsigned long lcid, unsigned long infoType,
         GetStringTypeExWFake, ::GetStringTypeExW);
     return _strthunks.pfnGetStringTypeExW(lcid, infoType, source, length, charType);
 }
+
+_AtlStringThunks _strthunks = {
+    CompareStringWThunk,
+    GetStringTypeExWThunk,
+    lstrcmpiWThunk,
+    CharLowerWThunk,
+    CharUpperWThunk,
+    GetEnvironmentVariableWThunk
+};
 }
