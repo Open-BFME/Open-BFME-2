@@ -16280,3 +16280,9 @@ Unwind@00b7c4ac	0x0077C4AC	25	blocked	state-bit 0x1 guard clears [ebp-0x10] then
 ?rva00211505@Rva00211505@@QAEXXZ	0x00211505	60	void	Withdraw the earlier partial because the fleet instruction prohibits banked near misses; the 69B shape did not match the 60B body
 ?rva00211505@Rva00211505@@QAEXXZ	0x00211505	60	blocked	Loop body differs in index setup and branch scheduling at 69B vs 60B; no viable shape found in t=12min model=gpt-6-luna; no stash retained per fleet instruction
 ?rva0020A586@ScriptEngine@@QAEXPAX0@Z	0x0020A586	121	blocked	Exact control flow and callees reached 121B, but every source variant retained reversed EBX/EDI allocation after the vector append; t=5 model=gpt-6-luna. No bank retained.
+?Rva004CC371Parse@@YAXPAVINI@@PAX1PBX@Z	0x004CC371	529	blocked	temporary placement and cleanup control flow still differ after 3 variants; record extent and ctor layout supported by target constructor row t=6 model=gpt-6
+?Rva00007AF3Dispatch@@YAXXZ	0x00007AF3	13	blocked	call-site-relative tail trampoline has no evidence-backed C++ identity or source-level body t=2 model=gpt-6
+?Rva00007C63Dispatch@@YAXXZ	0x00007C63	13	blocked	same call-site-relative tail trampoline shape as 0x00007AF3; identity and target semantics unproven t=1 model=gpt-6
+?newWeaponTemplate@WeaponStore@@IAEPAVWeaponTemplate@@VAsciiString@@@Z	0x002CD5FC	128	blocked	BFME1 WeaponStore::newWeaponTemplate identity is supported, but target layout and inlining still differ by 21B after six variants; placement allocation conflicts with WeaponTemplate class operator new t=18 model=gpt-6
+?Rva00513CDFInit@@YAXI@Z	0x00513CDF	118	blocked	CreateAHero initialization behavior is evident but caller argument semantics and function identity remain unproven; no applicable donor source found t=8 model=gpt-6
+FUN_00776a1f	0x00376A1F	67	blocked	size 39B after six variants with wrong EH prolog and constructor call shape t=18 model=gpt-6
