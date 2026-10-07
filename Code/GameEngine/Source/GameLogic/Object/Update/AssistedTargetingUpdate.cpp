@@ -95,23 +95,45 @@ Bool AssistedTargetingUpdate::isFreeToAssist() const
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?AssistedTargetingUpdate::assistAttack present-unmatched
+// Existing 0026C2D9 command-provider spelling; native receiver is
+// the AI update at Object+0x258 plus its command-interface subobject +0x20.
+class Rva0026C2D9Commands
+{
+public:
+    void Rva0026C2D9Command(void *victim, int shots, int source);
+};
+
+// BFME2 FieldParse table VA C4AFE8 uses the rowed ThingFactory parser
+// 33940F for LaserFromAssisted / LaserToTarget at +10 / +14. These are
+// template pointers in module data, unlike ZH's names and instance caches.
+struct BfmeAssistedLaserTemplates
+{
+    char prefix[0x10];
+    const ThingTemplate *fromAssisted;
+    const ThingTemplate *toTarget;
+};
+
 void AssistedTargetingUpdate::assistAttack( const Object *requestingObject, Object *victimObject )
 {
 	const AssistedTargetingUpdateModuleData *md = getAssistedTargetingUpdateModuleData();
 	Object *me = getObject();
-	if( !me->getAI() )
+	if (*reinterpret_cast<void **>(reinterpret_cast<char *>(me) + 0x258) == 0)
 		return;
 
 	// lock it just till the weapon is empty or the attack is "done"
 	me->setWeaponLock( md->m_weaponSlot, LOCKED_TEMPORARILY );
-	me->getAI()->aiAttackObject( victimObject, md->m_clipSize, CMD_FROM_AI );
+	reinterpret_cast<Rva0026C2D9Commands *>(
+        reinterpret_cast<char *>(*reinterpret_cast<void **>(
+            reinterpret_cast<char *>(me) + 0x258)) + 0x20)->
+        Rva0026C2D9Command(victimObject, md->m_clipSize, CMD_FROM_AI);
 
 
-	if( m_laserFromAssisted )
-		makeFeedbackLaser( m_laserFromAssisted, requestingObject, me );
-	if( m_laserToTarget )
-		makeFeedbackLaser( m_laserToTarget, me, victimObject );
+	const BfmeAssistedLaserTemplates *lasers =
+        reinterpret_cast<const BfmeAssistedLaserTemplates *>(md);
+    if (lasers->fromAssisted)
+        makeFeedbackLaser(lasers->fromAssisted, requestingObject, me);
+    if (lasers->toTarget)
+        makeFeedbackLaser(lasers->toTarget, me, victimObject);
 }
 
 //-------------------------------------------------------------------------------------------------

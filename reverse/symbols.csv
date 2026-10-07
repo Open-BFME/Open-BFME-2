@@ -15808,3 +15808,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?Rva004166DB@@YA_NABVUnicodeString@@PAVGameWindow@@@Z,0x004166DB,callee of ?Rva00381458@@YA_NHABVUnicodeString@@PAVGameWindow@@@Z
 ?rva002C58B3@Rva002C589B@@QAEXXZ,0x002C58B3,callee of ?rva002C5CF7@AITarget@@QAEXPBUCoord3D@@MH@Z
 ?rva003ED0C4@Rva003ED0C4@@QAE?AURva003ED0C4Result@@PAXHH@Z,0x003ED0C4,callee of ?rva002C5CF7@AITarget@@QAEXPBUCoord3D@@MH@Z
+?makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z,0x00486F35,callee of ?assistAttack@AssistedTargetingUpdate@@QAEXPBVObject@@PAV2@@Z
