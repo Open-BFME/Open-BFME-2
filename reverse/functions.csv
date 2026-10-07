@@ -40753,7 +40753,6 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?rva00239057@OpaqueRefElement4@@QAEAAU1@PBU1@@Z,,0x00239057,46,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp,matched,opaque ref assign from pointer via AddRef Release caller 0x23B431
 ?rva00239FE4@Rva00239FE4@@QAEXPBVModuleData@@@Z,,0x00239FE4,48,Code/GameEngine/Source/Common/Rva00239FE4Dedup.cpp,matched,vector dedup via push_back 0x4DFCB0 caller 0x362E00
 ?rva0023A014@Rva0023A014@@QAEXPBUBfmeStringRecord00239B46@@@Z,,0x0023A014,26,Code/GameEngine/Source/Common/Rva0023A014Insert.cpp,matched,list insert end via rowed insert 0x00239E80 caller 0x0023ABB1 same record 0x00239B46
-?rva0023AB78@Rva0023AB78@@QAEXVAsciiString@@G@Z,,0x0023AB78,101,Code/GameEngine/Source/Common/Rva0023AB78Insert.cpp,matched,build record text plus short then list insert via rowed 0x0023A014 callers 0x0023ACD6 0x0023AD69
 ?Rva005964ECGet@@YGHPAX@Z,,0x005964EC,92,Code/GameEngine/Source/Common/Rva00596095Bits.cpp,matched,bit predicate inner plus 0x10c mask chain
 ?Rva00596446Get@@YGHPAX@Z,,0x00596446,44,Code/GameEngine/Source/Common/Rva00596095Bits.cpp,matched,bit predicate inner triple mask
 ?rva00596472@Rva0025C061@@QAE_NPAX@Z,,0x00596472,31,Code/GameEngine/Source/Common/Rva00596095Bits.cpp,matched,thiscall predicate plus base Science push via visible callee
