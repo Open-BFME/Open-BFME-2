@@ -13,9 +13,11 @@
 // the rowed Rva00382398 ctor/dtor, and the four strings the rowed
 // ~GameSpyStagingRoom 0x00382C4A releases (+0xFDC/+0xFE8/+0xFFC/+0x1000).
 // Carried from Zero Hour: m_transport (+0xFE4), m_localName (+0xFE8),
-// m_ladderIP (+0xFFC) and the 16-bit m_ladderPort (+0x1008). The other
-// trailing fields are BFME 2's, their meanings not established. The slot
-// class keeps its address name (unproven as GameSpyGameSlot).
+// m_ladderIP (+0xFFC) and the 16-bit m_ladderPort (+0x1008). The byte at
+// +0xFF4 is Zero Hour's m_isQM (startGame below picks its quick-match branch
+// on it); the other trailing fields are BFME 2's, their meanings not
+// established. The slot class keeps its address name (unproven as
+// GameSpyGameSlot).
 //
 // PopBackToLobby @ 0x004FDA72 (85 bytes): Zero Hour's PopBackToLobby (there
 // in WOLGameSetupMenu.cpp; BFME 2 places it in this unit, between the rowed
@@ -59,7 +61,23 @@
 // check (failing with GUI:Error/GUI:CouldNotTransferHero and PopBackToLobby),
 // the living-world reset, 0x00DFEF18 vslot 10 and message 0x1F carrying +0x58
 // and 2. The callee methods keep address names on the object's address class.
+//
+// GameSpyStagingRoom::reset @ 0x004FDC73 (5 bytes): vtable 0x00C19440 slot 10,
+// a tail jump to the rowed GameInfo::reset, as Zero Hour's override (which
+// only adds a debug-build NAT check).
+//
+// GameSpyStagingRoom::startGame @ 0x004FF09F (360 bytes): vtable 0x00C19440
+// slot 11, Zero Hour's slot loop without the NAT setup. For each human slot
+// it counts the human, sets the login name from the translated slot name
+// (+0x30) and looks the player up by that name (TheGameSpyInfo vslot 22).
+// In quick match (+0xFF4) only the local slot gets its profile ID (vslot 31),
+// and BFME 2 clears two further slot strings. Otherwise the player-info map
+// (vslot 21) entry found through the looked-up info gives the profile ID,
+// the clan string (Zero Hour's locale setter in that place), rank points and
+// favorite side. Zero Hour's numHumans < 2 launch becomes one call to
+// 0x004FED35 on the room.
 #include <string>
+#include <map>
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../Common/GameLogicObjectLookupView.h"
@@ -109,7 +127,9 @@ public:
 	virtual ~GameSlot();
 	Bool isHuman(void) const;
 
-	UnsignedByte m_pre4C[0x4C - 4];
+	UnsignedByte m_pre30[0x30 - 4];
+	UnicodeString m_name;				// +0x30
+	UnsignedByte m_pre4C[0x4C - 0x34];
 	Int m_bfme4C;					// +0x4C, the living-world battle's index
 	UnsignedByte m_pre1A4[0x1A4 - 0x50];
 	Bool m_bfme1A4;					// +0x1A4
@@ -120,8 +140,42 @@ class GameSpyGameSlot : public GameSlot
 {
 public:
 	Int getProfileID(void) const { return m_profileID; }
+	void setProfileID(Int id) { m_profileID = id; }
+	void setSlotRankPoints(Int val) { m_rankPoints = val; }
+	void setFavoriteSide(Int val) { m_favoriteSide = val; }
 private:
 	Int m_profileID;				// +0x1AC
+	AsciiString m_gameSpyLogin;			// +0x1B0
+	AsciiString m_gameSpyLocale;			// +0x1B4
+	AsciiString m_pingStr;				// +0x1B8
+	Int m_pingInt;					// +0x1BC
+	Int m_wins;					// +0x1C0
+	Int m_losses;					// +0x1C4
+	Int m_rankPoints;				// +0x1C8
+	Int m_favoriteSide;				// +0x1CC
+};
+
+// The slot's out-of-line AsciiString setters, rowed on address classes:
+// +0x1B0 (Zero Hour's setLoginName), +0x1B4 (setLocale), +0x1D8 and +0x1DC.
+class Rva004FDCE1AsciiField
+{
+public:
+	void rva004FDCFF(AsciiString value);
+};
+class Rva004FDD36AsciiField
+{
+public:
+	void rva004FDD36(AsciiString value);
+};
+class Rva004CFB6DAsciiField
+{
+public:
+	void rva004CFB8B(AsciiString value);
+};
+class Rva004CFBC2AsciiField
+{
+public:
+	void rva004CFBC2(AsciiString value);
 };
 
 class GameInfo
@@ -134,7 +188,7 @@ public:
 	virtual void v7() = 0; virtual void v8() = 0; virtual void v9() = 0;
 	virtual void reset(void);			// slot 10 (+0x28)
 	virtual void startGame(Int gameID) = 0;		// slot 11
-	virtual void endGame(void) = 0;			// slot 12
+	virtual Bool amIHost(void) const = 0;		// slot 12
 	virtual Int getLocalSlotNum(void) const = 0;	// slot 13 (+0x34)
 	void setSlotPointer(Int index, GameSlot *slot);
 	GameSlot *getSlot(Int slotNum);
@@ -193,7 +247,10 @@ class GameSpyStagingRoom : public GameInfo
 public:
 	GameSpyStagingRoom();
 	virtual ~GameSpyStagingRoom();
+	virtual void reset(void);
+	virtual void startGame(Int gameID);
 	void cleanUpSlotPointers(void);
+	void rva004FED35(void);
 	void rva004FDEFF(LivingWorldBattle *battle);
 	void rva004FE126(void);
 private:
@@ -205,7 +262,7 @@ private:
 	Bool m_bfmeFEC;             // +0xFEC
 	Bool m_bfmeFED;             // +0xFED
 	UnsignedInt m_bfmeFF0;      // +0xFF0
-	Bool m_bfmeFF4;             // +0xFF4
+	Bool m_isQM;                // +0xFF4
 	Int m_bfmeFF8;              // +0xFF8
 	AsciiString m_ladderIP;     // +0xFFC
 	AsciiString m_bfme1000;     // +0x1000
@@ -224,9 +281,51 @@ void GameSpyStagingRoom::cleanUpSlotPointers(void)
 		setSlotPointer(i, (GameSlot *)&m_GameSpySlot[i]);
 }
 
+void GameSpyStagingRoom::reset(void)
+{
+	GameInfo::reset();
+}
+
 class GameSpyStagingRoom;
 
-class GameSpyInfoSlot47 : public VSlots<47>
+// BFME 2's PlayerInfo as PeerDefs.cpp lays it out (0x34 bytes).
+class PlayerInfo
+{
+public:
+	AsciiString m_name;
+	AsciiString m_locale;
+	AsciiString m_clan;
+	Int m_wins;
+	Int m_losses;
+	Int m_profileID;
+	Int m_flags;
+	Int m_rankPoints;
+	Int m_side;
+	Int m_unk24;
+	Int m_dc;
+	Int m_desync;
+	Int m_preorder;
+};
+
+struct AsciiComparator
+{
+	bool operator()(AsciiString s1, AsciiString s2) const;
+};
+
+typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
+
+class GameSpyInfoSlot22 : public VSlots<21>
+{
+public:
+	virtual PlayerInfoMap *getPlayerInfoMap(void) = 0;		// slot 21 (+0x54)
+	virtual PlayerInfo *rva00382CCE(const char *key) = 0;		// slot 22 (+0x58)
+};
+class GameSpyInfoSlot31 : public VPad<GameSpyInfoSlot22, 8>
+{
+public:
+	virtual Int getLocalProfileID(void) = 0;			// slot 31 (+0x7C)
+};
+class GameSpyInfoSlot47 : public VPad<GameSpyInfoSlot31, 15>
 {
 public:
 	virtual void leaveStagingRoom(void) = 0;			// slot 47 (+0xBC)
@@ -517,4 +616,53 @@ void GameSpyStagingRoom::rva004FE126(void)
 		::delete g_Va00E063F8;
 		g_Va00E063F8 = 0;
 	}
+}
+
+// Retail's str() falls back to its function-local TheNullChr, which the
+// linker folded with the "" literal at 0x00BBAC1C. This TU's shim str()
+// returns "" itself, so the empty quick-match strings below name the pinned
+// g_bfmeEmptyF9 there to keep the two constants distinct, as in retail.
+extern char g_bfmeEmptyF9[];
+
+// ?startGame@GameSpyStagingRoom@@UAEXH@Z present-unmatched
+void GameSpyStagingRoom::startGame(Int gameID)
+{
+	Int numHumans = 0;
+	for (Int i = 0; i < MAX_SLOTS; ++i)
+	{
+		GameSpyGameSlot *slot = (GameSpyGameSlot *)&m_GameSpySlot[i];
+		if (slot->isHuman())
+		{
+			++numHumans;
+			AsciiString gsName;
+			gsName.translate(slot->m_name);
+			((Rva004FDCE1AsciiField *)slot)->rva004FDCFF(gsName);
+			PlayerInfo *info = TheGameSpyInfo->rva00382CCE(gsName.str());
+
+			if (m_isQM)
+			{
+				if (getLocalSlotNum() == i)
+					slot->setProfileID(TheGameSpyInfo->getLocalProfileID());
+				((Rva004CFB6DAsciiField *)slot)->rva004CFB8B(g_bfmeEmptyF9);
+				((Rva004CFBC2AsciiField *)slot)->rva004CFBC2(g_bfmeEmptyF9);
+			}
+			else
+			{
+				PlayerInfoMap *pInfoMap = TheGameSpyInfo->getPlayerInfoMap();
+				PlayerInfoMap::iterator it = pInfoMap->end();
+				if (info)
+					it = pInfoMap->find(info->m_name);
+				if (it != pInfoMap->end())
+				{
+					slot->setProfileID(it->second.m_profileID);
+					((Rva004FDD36AsciiField *)slot)->rva004FDD36(it->second.m_clan);
+					slot->setSlotRankPoints(it->second.m_rankPoints);
+					slot->setFavoriteSide(it->second.m_desync);
+				}
+			}
+		}
+	}
+
+	if (numHumans < 2)
+		rva004FED35();
 }
