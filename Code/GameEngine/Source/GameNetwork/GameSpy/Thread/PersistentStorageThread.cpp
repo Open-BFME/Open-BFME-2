@@ -1340,3 +1340,34 @@ int Rva005571FC::rva005571FC(int request, int result, int buffer, int, int)
 	bfmeErase((void *)request);
 	return 1;
 }
+
+// Retail 0x00557304 (246 bytes), reached through adapter 0x00557971: a
+// successful reply of 0 or 1 posts response type 6 with the +0x57D flag set
+// for 1; the request is erased on every path.
+class Rva00557304 : public Gen_00654130
+{
+public:
+	int rva00557304(int a1, int a2, int a3, int a4, int a5);
+};
+int Rva00557304::rva00557304(int request, int result, int buffer, int, int)
+{
+	_STL::map<void *, void *>::iterator it = m_values.find(*(void *const *)&request);
+	if (result != 0 || it._M_node == m_values.end()._M_node || it->second == 0)
+	{
+		bfmeErase((void *)request);
+		return 1;
+	}
+	AsciiString text((const char *)buffer);
+	text.trim();
+	int value = atoi(text.str());
+	if (value >= 0 && value <= 1)
+	{
+		BfmeOpaqueOwnedRecord1408 resp;
+		resp.responseType = 6;
+		resp.m_57D = value == 1;
+		if (TheGameSpyPSMessageQueue)
+			TheGameSpyPSMessageQueue->addResponse(resp);
+	}
+	bfmeErase((void *)request);
+	return 1;
+}
