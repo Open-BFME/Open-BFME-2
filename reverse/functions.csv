@@ -66769,3 +66769,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva00272709@Drawable@@QAEHXZ,,0x00272709,34,Code/GameEngine/Source/GameClient/Drawable_rva00272709.cpp,matched,Drawable module scan at vtable offset CC
 ?rva005F64C8@Rva005F64C0@@QAEXM@Z,,0x005F64C8,19,Code/GameEngine/Source/Common/Rva005F6220Apt.cpp,matched,Wrapper at neighboring 0x005F64C0 forwards float through its +8 impl pointer to rowed ShowLeaderRankProgress
 ?rva005F62F6@Rva005F62EE@@QAEXPBVImage@@@Z,,0x005F62F6,8,Code/GameEngine/Source/Common/Rva005F62EEForward.cpp,matched,Adjacent wrapper transfers Image to its +8 helper through the rowed 0x005F6112 method
+?rva005F6306@Rva005F6306@@QAEXXZ,,0x005F6306,8,Code/GameEngine/Source/Common/Rva005F6220Apt.cpp,matched,Address named wrapper forwards through the observed +8 implementation pointer to rowed HideLeaderRankProgress
