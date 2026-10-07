@@ -303,8 +303,11 @@ public:
 class Rva0054CFB8Target
 {
 public:
+	Rva0054CFB8Target(int id, const AsciiString &screenName);
 	void method(int type, const UnicodeString &text, const UnicodeString &title,
 		TreeHintRef00217D4C callback, TreeHintRef00217D4C callback2);
+private:
+	char m_pad[0x2c];
 };
 
 class Rva0054D3D9Target
@@ -316,11 +319,12 @@ public:
 class Rva0054D2CF
 {
 public:
+	Rva0054D2CF(int id, const AsciiString &screenName);
+	virtual ~Rva0054D2CF();
 	__declspec(noinline) void Rva0054D308(int type, const UnicodeString &text, const UnicodeString &title,
 		Rva0023E8D8 callback);
 
 private:
-	unsigned char m_unknown00[4];
 	Rva0054CFB8Target *m_child04;
 };
 
@@ -709,6 +713,11 @@ void Rva0054D2DDTarget::method(int type, const UnicodeString &text,
 {
 	m_child04->method(type, text, title, TreeHintRef00217D4C(),
 		TreeHintRef00217D4C());
+}
+
+Rva0054D2CF::Rva0054D2CF(int id, const AsciiString &screenName)
+	: m_child04(new Rva0054CFB8Target(id, screenName))
+{
 }
 
 void Rva0054D2CF::Rva0054D308(int type, const UnicodeString &text,

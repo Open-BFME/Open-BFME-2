@@ -15722,3 +15722,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva000438CB@W3DDisplay@@QAEXXZ,0x000438CB,callee of ?drawCurrentDebugDisplay@W3DDisplay@@IAEXXZ
 ?rva0030B5AF@@YA_NPBURva0030B7C2Point@@PAVRva0030B719Shape@@@Z,0x0030B5AF,callee of ?rva0030B7C2@@YA_NPBURva0030B7C2Point@@PAVRva0030B719Shape@@@Z
 ?rva000E8C2D@W3DShrubBuffer@@QAEXHH@Z,0x000E8C2D,callee of ?rva000E90DB@W3DShrubBuffer@@QAE_NIH@Z
+??0Rva0054CFB8Target@@QAE@HABVAsciiString@@@Z,0x0054CC35,callee of ??0Rva0054D2CF@@QAE@HABVAsciiString@@@Z
