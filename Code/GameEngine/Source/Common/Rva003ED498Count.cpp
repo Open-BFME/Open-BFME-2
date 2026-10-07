@@ -6,6 +6,7 @@
 // Neighbour StringRecordCopyBFME2.cpp shares /O1 /EHsc STLport flags and vector idioms.
 
 #include "ascii_string.h"
+#include <algorithm>
 
 namespace _STL
 {
@@ -26,12 +27,13 @@ public:
 
 struct BitRange
 {
-	unsigned const *m_begin;
+	unsigned *m_begin;
 	unsigned const *m_end;
 	unsigned char m_pad08[8];
 	AsciiString m_str10;
 	AsciiString rva003ED4E5();
 	AsciiString rva00568BE2();
+	void rva003ED411(const BitRange &other);
 };
 struct TreeNode
 {
@@ -118,4 +120,34 @@ AsciiString BitRange::rva00568BE2()
 	if (m_str10.isEmpty())
 		return rva003ED4E5();
 	return m_str10;
+}
+
+// BFME1 semantic/source lead: LargeGroupAudioKeyMapRva003D36E0ClearIntersection.cpp
+// at donor968ca36c3265b295297e6aed45a6bd89ffe59c40. Native target extent
+// 0x003ED411..0x003ED498 RET4 additionally limits traversal to the smaller
+// of the two unsigned vector sizes, then tests signed word indexes.
+// The existing retain/string walkers prove the same global tree and layout;
+// the target method name remains unknown.
+void BitRange::rva003ED411(const BitRange &other)
+{
+	unsigned int ownSize = m_end - m_begin;
+	unsigned int otherSize = other.m_end - other.m_begin;
+	int wordCount = _STL::min(ownSize, otherSize);
+	TreeNode *record = (TreeNode *)g_00A02E50->_M_left;
+	TreeNode *sentinel = (TreeNode *)g_00A02E50;
+	while (record != sentinel)
+	{
+		unsigned int bit = record->m_14;
+		int word = bit >> 5;
+		unsigned int mask = 1 << (bit & 31);
+		if (wordCount > word &&
+			(other.m_begin[word] & mask) &&
+			(m_begin[word] & mask))
+		{
+			--record->m_18;
+			m_begin[word] &= ~mask;
+		}
+		record = (TreeNode *)
+			_STL::_Rb_global<bool>::_M_increment(&record->m_base);
+	}
 }
