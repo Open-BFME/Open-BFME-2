@@ -448,6 +448,8 @@ StringClass::Allocate_Buffer (int length)
 ///////////////////////////////////////////////////////////////////
 //	operator=
 ///////////////////////////////////////////////////////////////////
+// Opted-in callers use the verified 105-byte copy-assignment worker.
+#if !defined(BFME_WWSTRING_NATIVE_COPY_ASSIGN)
 inline const StringClass &
 StringClass::operator= (const StringClass &string)
 {
@@ -458,6 +460,7 @@ StringClass::operator= (const StringClass &string)
 	::memcpy (m_Buffer, string.m_Buffer, (len+1) * sizeof (TCHAR));
 	return (*this);
 }
+#endif // BFME_WWSTRING_NATIVE_COPY_ASSIGN
 
 ///////////////////////////////////////////////////////////////////
 //	StringClass
@@ -492,6 +495,8 @@ StringClass::StringClass (int initial_len, bool hint_temporary)
 ///////////////////////////////////////////////////////////////////
 //	StringClass
 ///////////////////////////////////////////////////////////////////
+// Opted-in callers use the verified 139-byte copy constructor.
+#if !defined(BFME_WWSTRING_NATIVE_COPY_CTOR)
 inline
 StringClass::StringClass (const StringClass &string, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
@@ -503,6 +508,7 @@ StringClass::StringClass (const StringClass &string, bool hint_temporary)
 	(*this) = string;
 	return ;
 }
+#endif // BFME_WWSTRING_NATIVE_COPY_CTOR
 
 ///////////////////////////////////////////////////////////////////
 //	Is_Empty
