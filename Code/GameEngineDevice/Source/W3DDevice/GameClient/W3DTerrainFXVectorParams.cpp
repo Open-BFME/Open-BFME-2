@@ -327,3 +327,88 @@ void Rva000E2F5EHeightScale(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	effect->SetFloat(handle, 0.0390625f);
 }
+
+// ?rva000E2DFD@Rva000E2DFD@@QAEXPBD0PAVFXShaderParameterBinder@@@Z @0x000E2DFD 186B
+// Terrain FX four-name ResolveBindings dispatcher (Size, CellSize,
+// HeightScale, BorderWidth), same WaterDraw member pattern as the rowed
+// particle dispatcher Rva001F69B1 and the Rva000E236D terrain twin: base call,
+// Rva001530E9Parse split, comparator calls, selected callback wrapped for
+// AddBinding. Retail loads the comparator address once and reuses the name
+// slot for the selected callback, so the source models both explicitly.
+// Identity is address-derived: no vtable slot evidence yet.
+void __cdecl Rva001530E9Parse(const char *name, void *volatile path);
+
+struct Rva001530E9Path
+{
+	char m_name[0x40];
+	bool m_hasStar;
+	bool m_hasBracket;
+	int m_index;
+	const char *m_rest;
+};
+
+extern int (__cdecl *g_TerrainBinderCompare)(const char *, const char *);
+
+class Rva00080221
+{
+public:
+	Rva00080221(const int *arg);
+	void *m_ptr;
+};
+
+struct TreeHintRef00217D4C : public Rva00080221
+{
+	TreeHintRef00217D4C(const void *callback) : Rva00080221((const int *)&callback) {}
+	~TreeHintRef00217D4C();
+};
+
+class FXShaderParameterBinder
+{
+public:
+	void AddBinding(TreeHintRef00217D4C callback, const char *handle);
+};
+
+class Base
+{
+public:
+	virtual ~Base() {}
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry) = 0;
+};
+
+class FXShaderParameterSourceNamespace_Struct : public Base
+{
+public:
+	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
+};
+
+typedef void (*Rva000E2DFDCallback)(ID3DXEffect *effect, D3DXHANDLE handle);
+
+class Rva000E2DFD : public FXShaderParameterSourceNamespace_Struct
+{
+public:
+	void rva000E2DFD(const char *name, const char *handle, FXShaderParameterBinder *registry);
+};
+
+void Rva000E2EB7(ID3DXEffect *effect, const char *name);
+void Rva000E2F24(ID3DXEffect *effect, const char *name);
+void Rva000E2F5EHeightScale(ID3DXEffect *effect, const char *name);
+void Rva000E2F77(ID3DXEffect *effect, const char *name);
+
+void Rva000E2DFD::rva000E2DFD(const char *name, const char *handle, FXShaderParameterBinder *registry)
+{
+	FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, handle, registry);
+	if (name)
+	{
+		Rva001530E9Path path;
+		Rva001530E9Parse(name, &path);
+		int (__cdecl *compare)(const char *, const char *) = g_TerrainBinderCompare;
+		if (compare(path.m_name, "Size") == 0)
+			registry->AddBinding(Rva000E2EB7, handle);
+		else if (compare(path.m_name, "CellSize") == 0)
+			registry->AddBinding(Rva000E2F24, handle);
+		else if (compare(path.m_name, "HeightScale") == 0)
+			registry->AddBinding(Rva000E2F5EHeightScale, handle);
+		else if (compare(path.m_name, "BorderWidth") == 0)
+			registry->AddBinding(Rva000E2F77, handle);
+	}
+}
