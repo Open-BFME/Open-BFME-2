@@ -48,7 +48,8 @@ void W3DTankTruckDraw::updateTreadPositions(Real uvDelta)
 		else
 		if (pTread->m_type == TREAD_RIGHT)
 			offset_u = pTread->m_materialSettings.customUVOffset.X - uvDelta;
-		offset_u = offset_u - floorf(offset_u);
+		double f = floor((double)offset_u);
+		offset_u = offset_u - (float)f;
 		pTread->m_materialSettings.customUVOffset.Set(offset_u, 0);
 		pTread++;
 	}
