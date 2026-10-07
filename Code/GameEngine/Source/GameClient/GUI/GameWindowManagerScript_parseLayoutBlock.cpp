@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/sweep /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme_namekey /Ireference/shims/functionlexicon_bfme2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/functionlexicon /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// stlport
 //
 // ?parseLayoutBlock@@YA_NPAVFile@@PADIPAVWindowLayoutInfo@@@Z, retail
 // 0x0031732D, 255 bytes. Dedicated TU.
@@ -6,7 +7,7 @@
 // Battle for Middle-earth reference
 // (reference/open-bfme-1/Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp,
 // parseLayoutBlock): read the opening STARTLAYOUTBLOCK string, then walk
-// LAYOUTINIT/UPDATE/SHUTDOWN entries from layoutScriptTable until
+// LAYOUTINIT/UPDATE/SHUTDOWN/CLASS entries from layoutScriptTable until
 // ENDLAYOUTBLOCK, dispatching each through the table's parse pointer.
 // BFME2 facts (all retail-measured):
 // - File's own vtable has scanString at slot 9 (offset 0x24); the sweep shim's
@@ -19,7 +20,7 @@
 //   char *) row at 0x000069B1; releaseBuffer is the row at 0x00036410.
 // - __EH_prolog is pinned at 0x00629188.
 // - readUntilSemicolon is the file-static at 0x00314DE8 (defined here verbatim
-//   so MSVC keeps its register convention; its own bytes are not compared).
+//   so MSVC keeps its register convention; its 90-byte body is also rowed).
 // - layoutScriptTable lives at 0x00DBE318 (DIR32, masked by the byte gate).
 
 typedef int Int;
@@ -52,8 +53,7 @@ struct LayoutScriptParse
 	Bool (*parse)(char *token, char *buffer, UnsignedInt version, WindowLayoutInfo *info);
 };
 
-// layoutScriptTable lives in GameWindowManagerScript.cpp; its address is a
-// DIR32 site the byte gate masks.
+// Native table at RVA 0x009BE318: four named callbacks and a null entry.
 extern LayoutScriptParse layoutScriptTable[];
 
 class File
@@ -81,6 +81,8 @@ public:
 };
 
 #include "ascii_string.h"
+#include "PreRTS.h"
+#include "Common/FunctionLexicon.h"
 
 
 extern "C" __declspec(dllimport) int __cdecl isspace(int c);
@@ -179,3 +181,67 @@ Bool parseLayoutBlock(File *inFile, char *buffer, UnsignedInt version, WindowLay
 }
 
 static const void *s_parseLayoutBlockAnchor = (const void *)parseLayoutBlock;
+
+// Donor parseInit/Update/Shutdown: Open-BFME-1 968ca36c32,
+// game/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp.
+// Retail's four 68-byte callbacks prove the observed info prefix: function
+// pointers +4/+8/+C/+10 and AsciiString names +14/+18/+1C/+20. The fourth
+// LAYOUTCLASS callback uses lexicon table 11; its function signature is unknown.
+struct BfmeLayoutInfoPrefix
+{
+    unsigned int unknown00;
+    WindowLayoutInitFunc init;
+    WindowLayoutUpdateFunc update;
+    WindowLayoutShutdownFunc shutdown;
+    void *classCallback;
+    AsciiString initName;
+    AsciiString updateName;
+    AsciiString shutdownName;
+    AsciiString className;
+};
+class Rva00DFF024Registry;
+extern Rva00DFF024Registry *TheRva00DFF024Registry;
+
+Bool parseInit(char *, char *buffer, UnsignedInt, WindowLayoutInfo *info)
+{
+    BfmeLayoutInfoPrefix *layout = reinterpret_cast<BfmeLayoutInfoPrefix *>(info);
+    layout->initName = strtok(buffer, " \n\r\t");
+    layout->init = reinterpret_cast<FunctionLexicon *>(TheRva00DFF024Registry)->winLayoutInitFunc(
+        TheNameKeyGenerator->nameToKey(layout->initName));
+    return TRUE;
+}
+Bool parseUpdate(char *, char *buffer, UnsignedInt, WindowLayoutInfo *info)
+{
+    BfmeLayoutInfoPrefix *layout = reinterpret_cast<BfmeLayoutInfoPrefix *>(info);
+    layout->updateName = strtok(buffer, " \n\r\t");
+    layout->update = reinterpret_cast<FunctionLexicon *>(TheRva00DFF024Registry)->winLayoutUpdateFunc(
+        TheNameKeyGenerator->nameToKey(layout->updateName));
+    return TRUE;
+}
+Bool parseShutdown(char *, char *buffer, UnsignedInt, WindowLayoutInfo *info)
+{
+    BfmeLayoutInfoPrefix *layout = reinterpret_cast<BfmeLayoutInfoPrefix *>(info);
+    layout->shutdownName = strtok(buffer, " \n\r\t");
+    layout->shutdown = reinterpret_cast<FunctionLexicon *>(TheRva00DFF024Registry)->winLayoutShutdownFunc(
+        TheNameKeyGenerator->nameToKey(layout->shutdownName));
+    return TRUE;
+}
+Bool parseLayoutClassRva003172E9(char *, char *buffer, UnsignedInt, WindowLayoutInfo *info)
+{
+    BfmeLayoutInfoPrefix *layout = reinterpret_cast<BfmeLayoutInfoPrefix *>(info);
+    layout->className = strtok(buffer, " \n\r\t");
+    // The shared inline getter only forwards to findFunction. Explicit slot
+    // 11 preserves this lookup while the returned callback's type is unknown.
+    layout->classCallback = reinterpret_cast<void *>(
+        reinterpret_cast<FunctionLexicon *>(TheRva00DFF024Registry)->winLayoutShutdownFunc(
+            TheNameKeyGenerator->nameToKey(layout->className), FunctionLexicon::TABLE_BFME_UNIDENTIFIED_11));
+    return TRUE;
+}
+
+LayoutScriptParse layoutScriptTable[] = {
+    {"LAYOUTINIT", parseInit},
+    {"LAYOUTUPDATE", parseUpdate},
+    {"LAYOUTSHUTDOWN", parseShutdown},
+    {"LAYOUTCLASS", parseLayoutClassRva003172E9},
+    {NULL, NULL}
+};

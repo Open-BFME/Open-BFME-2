@@ -2543,59 +2543,20 @@ cleanupAndExit:
 //-------------------------------------------------------------------------------------------------
 /** Parse init for layout file */
 //-------------------------------------------------------------------------------------------------
-Bool parseInit( char *token, char *buffer, UnsignedInt version, WindowLayoutInfo *info )
-{
-	char *c;
-	char *seps = " \n\r\t";
-
-	// get string
-	c = strtok( buffer, seps );
-
-	// translate string to function address
-	info->initNameString = c;
-	info->init = TheFunctionLexicon->winLayoutInitFunc( TheNameKeyGenerator->nameToKey( info->initNameString ) );
-
-	return TRUE;  // success
-
-}  // end parseInit
+// Defined with the native layout table in GameWindowManagerScript_parseLayoutBlock.cpp.
+Bool parseInit(char *, char *, UnsignedInt, WindowLayoutInfo *);
 
 //-------------------------------------------------------------------------------------------------
 /** Parse update for layout file */
 //-------------------------------------------------------------------------------------------------
-Bool parseUpdate( char *token, char *buffer, UnsignedInt version, WindowLayoutInfo *info )
-{
-	char *c;
-	char *seps = " \n\r\t";
-
-	// get string
-	c = strtok( buffer, seps );
-
-	// translate string to function address
-	info->updateNameString = c;
-	info->update = TheFunctionLexicon->winLayoutUpdateFunc( TheNameKeyGenerator->nameToKey( info->updateNameString ) );
-
-	return TRUE;  // success
-
-}  // end parseUpdate
+// Defined with the native layout table in GameWindowManagerScript_parseLayoutBlock.cpp.
+Bool parseUpdate(char *, char *, UnsignedInt, WindowLayoutInfo *);
 
 //-------------------------------------------------------------------------------------------------
 /** Parse shutdown for layout file */
 //-------------------------------------------------------------------------------------------------
-Bool parseShutdown( char *token, char *buffer, UnsignedInt version, WindowLayoutInfo *info )
-{
-	char *c;
-	char *seps = " \n\r\t";
-
-	// get string
-	c = strtok( buffer, seps );
-
-	// translate string to function address
-	info->shutdownNameString = c;
-	info->shutdown = TheFunctionLexicon->winLayoutShutdownFunc( TheNameKeyGenerator->nameToKey( info->shutdownNameString ) );
-
-	return TRUE;  // success
-
-}  // end parseShutdown
+// Defined with the native layout table in GameWindowManagerScript_parseLayoutBlock.cpp.
+Bool parseShutdown(char *, char *, UnsignedInt, WindowLayoutInfo *);
 
 static LayoutScriptParse layoutScriptTable[] =
 {
