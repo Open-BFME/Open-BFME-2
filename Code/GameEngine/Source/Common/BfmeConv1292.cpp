@@ -42,6 +42,27 @@ namespace rts
 typedef _STL::hash_map<AsciiString, Rva00460A70Mapped *, rts::hash<AsciiString>,
 	_STL::equal_to<AsciiString> > BfmeSJAHash;
 
+// The following native providers have the same thiscall argument/return ABI
+// as these specializations: bucket-index 0x223149 (31B), node release 0x1FD9EF
+// (28B), and iterator bucket advance 0x3F7925 (47B). Retail's key at node+4,
+// bucket vector at table+4, and two-word iterator establish the layout.
+// Declare them externally: the donor header's 22/32/50B definitions differ.
+// The emitted 68B begin, 22B ++, 30B erase wrapper and 80B erase worker are
+// independently exact twins including the native REL32 dependency graph.
+typedef BfmeSJAHash::value_type PointerSJAValue;
+typedef _STL::hashtable<PointerSJAValue, AsciiString, rts::hash<AsciiString>,
+    _STL::_Select1st<PointerSJAValue>, _STL::equal_to<AsciiString>,
+    _STL::allocator<PointerSJAValue> > PointerSJATable;
+typedef _STL::_Hashtable_iterator<PointerSJAValue, AsciiString, rts::hash<AsciiString>,
+    _STL::_Select1st<PointerSJAValue>, _STL::equal_to<AsciiString>,
+    _STL::allocator<PointerSJAValue> > PointerSJAIteratorCore;
+namespace _STL
+{
+    template <> unsigned int PointerSJATable::_M_bkt_num_key(const AsciiString &key) const;
+    template <> void PointerSJATable::_M_delete_node(_Hashtable_node<PointerSJAValue> *node);
+    template <> _Hashtable_node<PointerSJAValue> *PointerSJAIteratorCore::_M_skip_to_next();
+}
+
 extern char g_bfmeOneSJA[];
 extern char g_bfmeTwoSJA[];
 extern char g_bfmeDoneSJA;
@@ -114,4 +135,36 @@ void Rva00411E80(int value)
     Rva00411336(&g_Va00E02FF8, owner, &v);
     bfmeLoadSJA(&g_Va00E02FE4, owner, &v);
     g_rva00E02FC0Bits &= ~1;
+}
+
+class Rva004FC957Delete
+{
+public:
+    void rva004FC957(Rva00460A70Mapped *value) const;
+};
+
+// Native Ghidra 0x00411336..0x00411395; 95 bytes; cdecl three words.
+// BFME1 1399ad37 game/GameEngine/Source/Common/BfmeConv1292.cpp bfmeReadSJA
+// supplies the owner-filtered erase loop. Retail proves mapped pointer at
+// node+8 and its owner at +4; the original mapped class identity stays opaque.
+// The target delegates deletion to 0x4FC957, which ignores its receiver,
+// invokes a non-deleting virtual destructor and frees the returned pointer.
+void Rva00411336(void *slot, void *owner, char *out)
+{
+    BfmeSJAHash *table = static_cast<BfmeSJAHash *>(slot);
+    BfmeSJAHash::iterator eraseIt;
+    BfmeSJAHash::iterator it = table->begin();
+    while (it != table->end())
+    {
+        if (it->second->m_owner == owner)
+        {
+            eraseIt = it++;
+            BfmeSJAHash::value_type *entry = &*eraseIt;
+            Rva00460A70Mapped *mapped = entry->second;
+            reinterpret_cast<Rva004FC957Delete *>(out)->rva004FC957(mapped);
+            table->erase(eraseIt);
+        }
+        else
+            ++it;
+    }
 }
