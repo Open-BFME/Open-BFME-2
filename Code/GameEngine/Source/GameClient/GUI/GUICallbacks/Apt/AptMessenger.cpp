@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /EHs /EHc- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
+// cl: /O1 /arch:SSE /G7 /EHs /EHc- /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // AptMessenger.cpp -- AptMessenger members recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv): WB's debug build names the function; retail
@@ -6,6 +6,7 @@
 // pointers at +0x280; each answers through 0x005AFEF7 (unnamed).
 
 #include <vector>
+#include "ascii_string.h"
 class GameSpyInfoInterface {public:
  virtual void _M_slot_00();
  virtual void _M_slot_04();
@@ -94,12 +95,35 @@ public:
 	void rva005AFEF7(Int a, Int b);		// 0x005AFEF7
 };
 
+// The rowed 0x00416088 destructor establishes two strings at record+8/+12.
+// The 192-byte caller supplies the two -1 scalar defaults.
+struct Rva00416088 {
+    unsigned int m_00;
+    unsigned int m_04;
+    AsciiString m_08;
+    AsciiString m_0C;
+    Rva00416088() : m_00(-1), m_04(-1) {}
+    ~Rva00416088();
+};
+// Native local occupies 24 bytes: profile / 16-byte string record / tail.
+// Field meanings other than the iterated profile remain unknown.
+struct Rva005AE7C6Info {
+    int profile;
+    Rva00416088 record;
+    int tail;
+    Rva005AE7C6Info() : profile(-1), tail(-1) {}
+};
+class Rva0059FB4F {public: bool rva0059FB4F(void *info);};
+extern int g_Va00E063EC;
+void __cdecl Rva0041647A(void *info);
+
 class AptMessenger
 {
 public:
 	__declspec(noinline) void GetSelectedPlayers(Int listIndex, Int a, Int b);
 	void rva005AE90F();
 	void rva005AE886();
+	void rva005AE7C6();
 
 private:
 	unsigned char m_pad000[0x280];
@@ -151,5 +175,30 @@ void AptMessenger::rva005AE886()
         int profile = *entry;
         if (profile != TheGameSpyInfo->getLocalProfileID())
             TheGameSpyInfo->_M_slot_128(profile);
+    }
+}
+
+// Native 0x005AE7C6..0x005AE886 RET0; rowed OnBttn_1 selects this
+// screen method. The global query writes the 24-byte local; a failed query
+// returns immediately. For each selected nonlocal profile, the cdecl helper
+// receives that local with its first field replaced. Query/helper names and
+// the remaining scalar meanings are retained as address-derived views.
+void AptMessenger::rva005AE7C6()
+{
+    Rva0059FB4F *query = (Rva0059FB4F *)g_Va00E063EC;
+    if (query) {
+        Rva005AE7C6Info info;
+        if (!query->rva0059FB4F(&info))
+            return;
+        _STL::vector<int> selected;
+        GetSelectedPlayers(0, (int)&selected, 0);
+        for (_STL::vector<int>::iterator it = selected.begin();
+                it != selected.end(); ++it) {
+            int profile = *it;
+            if (profile != TheGameSpyInfo->getLocalProfileID()) {
+                info.profile = profile;
+                Rva0041647A(&info);
+            }
+        }
     }
 }
