@@ -6062,7 +6062,6 @@ name,address,notes
 ?Init@Rva003733B5Base@@QAEXXZ,0x00373373,address-derived thiscall no-arg method; RETAIL REL32 in back-adjusted wrapper 0x003733B5 targets this Ghidra body; identity unproven
 ?Init@Rva004FFE72Part@@QAEXXZ,0x0033C432,address-derived thiscall no-arg method; RETAIL REL32 in return-this wrapper 0x004FFE72 targets this 25B Ghidra body; identity unproven
 ?InitRandom@@YAXXZ,0x0023424C,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
-?Init_Alternate@MeshMatDescClass@@QAEXAAV1@0@Z,0x0015A1B0,install_alternate_material_desc 0x188290 +0x68 E8 decodes here; alternate-desc initializer; meshmatdesc.cpp
 ?Init_Compact_Log@CPUDetectClass@@CAXXZ,0x00612ED0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Init_Default@HTreeClass@@QAEXXZ,0x001666D0,HTreeClass::Init_Default: Animatable3DObjClass(const char *) at 0x001A4900 calls it on each freshly built default HTreeClass (Zero Hour HTree = W3DNEW HTreeClass; HTree->Init_Default())
 ?Init_Memory@CPUDetectClass@@CAXXZ,0x00611810,address read from the REL32 displacement at a placed body; stlport 4.5.3

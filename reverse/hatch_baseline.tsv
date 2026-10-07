@@ -40523,7 +40523,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Get_Elemen
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Get_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@HH@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Get_Single_Texture@MeshMatDescClass@@QBEPAVTextureClass@@HH@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Get_Texture@MeshMatDescClass@@QBEPAVTextureClass@@HHH@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Init_Alternate@MeshMatDescClass@@QAEXAAV1@0@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Is_Equal_To@UVBufferClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	NullShader@MeshMatDescClass@@2VShaderClass@@A	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Peek_Element@TexBufferClass@@	1

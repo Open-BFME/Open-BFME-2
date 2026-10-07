@@ -60,7 +60,14 @@ public:
 protected:
     int NumRefs;
 };
-class VertexMaterialClass : public RefCountClass {};
+// Init_Alternate (0x15A1B0) allocates 0x6C bytes and copies a material with
+// the out-of-line copy constructor at 0x13DAE0.
+class VertexMaterialClass : public RefCountClass {
+public:
+    VertexMaterialClass(const VertexMaterialClass &that);
+private:
+    unsigned char Unmodelled[0x6C - 8];
+};
 
 // The buffer copies operator= makes: the ShareBufferClass copy constructors
 // are out of line (0x15AE10, 0x15AB50, 0x15CE00, 0x15ACB0); the derived ones
@@ -81,6 +88,14 @@ class TexBufferClass : public ShareBufferClass<TextureClass *> {
 public:
     TexBufferClass(const TexBufferClass &that) : ShareBufferClass<TextureClass *>(that) {}
     virtual ~TexBufferClass();
+};
+// Init_Alternate compares uv arrays by the CRC at +0x18.
+class Vector2;
+class UVBufferClass : public ShareBufferClass<Vector2> {
+public:
+    unsigned Get_CRC() const { return CRC; }
+private:
+    unsigned CRC;
 };
 class MatBufferClass : public ShareBufferClass<VertexMaterialClass *> {
 public:
@@ -164,6 +179,14 @@ public:
     ShaderClass Get_Single_Shader(int pass = 0) const { return Shader[pass]; }
     VertexMaterialClass *Peek_Single_Material(int pass = 0) const { return Material[pass]; }
     void Store_Pass0_State(bool store);
+    void Init_Alternate(MeshMatDescClass &default_materials, MeshMatDescClass &alternate_materials);
+    int Get_UV_Array_Count() {
+        int count = 0;
+        while ((UV[count] != 0) && (count < MAX_UV_ARRAYS)) {
+            count++;
+        }
+        return count;
+    }
     friend void ::Set_Single_Material(MeshMatDescClass &desc, VertexMaterialClass *vmat, int pass);
     friend void ::Set_Single_Texture(MeshMatDescClass &desc, const RefCountPtr<TextureClass> &tex, int pass, int stage);
     friend void ::Set_Single_Shader(MeshMatDescClass &desc, ShaderClass shader, int pass);
@@ -171,7 +194,7 @@ private:
     enum { MAX_PASSES = 4, MAX_TEX_STAGES = 2, MAX_UV_ARRAYS = 8 };
     int PassCount, VertexCount, PolyCount;
     MeshMatDescRendererState *RendererState; // +0x0C; neutral lifecycle view, original name unknown
-    RefCountClass *UV[MAX_UV_ARRAYS];     // +0x10
+    UVBufferClass *UV[MAX_UV_ARRAYS];     // +0x10
     int UVSource[MAX_PASSES][2];          // +0x30
     RefCountClass *ColorArray[2];         // +0x50
     int DCGSource[MAX_PASSES];            // +0x58
@@ -344,6 +367,129 @@ MeshMatDescClass &MeshMatDescClass::operator=(const MeshMatDescClass &that) {
         }
     }
     return *this;
+}
+
+// BFME1 meshmatdesc.cpp Init_Alternate with the BFME2 members: the +0xB8
+// and +0x108 pass references follow the vertex materials and are taken from
+// the alternate set when it has either, else from the default set.
+void MeshMatDescClass::Init_Alternate(MeshMatDescClass &default_materials, MeshMatDescClass &alternate_materials)
+{
+    // just copy the counts
+    PassCount = default_materials.PassCount;
+    VertexCount = default_materials.VertexCount;
+    PolyCount = default_materials.PolyCount;
+
+    // Color arrays
+    for (int array=0; array<2; array++) {
+        if (alternate_materials.ColorArray[array] != 0) {
+            if (alternate_materials.ColorArray[array]) alternate_materials.ColorArray[array]->Add_Ref();
+            if (ColorArray[array]) ColorArray[array]->Release_Ref();
+            ColorArray[array] = alternate_materials.ColorArray[array];
+        } else {
+            if (default_materials.ColorArray[array]) default_materials.ColorArray[array]->Add_Ref();
+            if (ColorArray[array]) ColorArray[array]->Release_Ref();
+            ColorArray[array] = default_materials.ColorArray[array];
+        }
+    }
+
+    // Copy the uv-arrays from the alternate materials to start.  Needed uv arrays from
+    // the default material set will be brought over as encountered below
+    for (int i=0; i<alternate_materials.Get_UV_Array_Count(); i++) {
+        if (alternate_materials.UV[i]) alternate_materials.UV[i]->Add_Ref();
+        if (UV[i]) UV[i]->Release_Ref();
+        UV[i] = alternate_materials.UV[i];
+    }
+
+    for (int pass = 0; pass < MAX_PASSES; pass++) {
+        for (int stage = 0; stage < MAX_TEX_STAGES; stage++) {
+
+            if (alternate_materials.UVSource[pass][stage] == -1) {
+                if (default_materials.UVSource[pass][stage] != -1) {
+
+                    // Look up the uv array in default_materials that we need to bring over.
+                    int default_uv_source = default_materials.UVSource[pass][stage];
+                    UVBufferClass *uvarray = default_materials.UV[default_uv_source];
+                    int found_index = -1;
+
+                    // Check if we already have it.
+                    for (int i=0; i<Get_UV_Array_Count(); i++) {
+                        if (uvarray->Get_CRC() == UV[i]->Get_CRC()) {
+                            found_index = i;
+                            break;
+                        }
+                    }
+
+                    if (found_index != -1) {
+                        UVSource[pass][stage] = found_index;
+                    } else {
+                        int new_index = Get_UV_Array_Count();
+                        if (default_materials.UV[default_uv_source]) default_materials.UV[default_uv_source]->Add_Ref();
+                        if (UV[new_index]) UV[new_index]->Release_Ref();
+                        UV[new_index] = default_materials.UV[default_uv_source];
+                        UVSource[pass][stage] = new_index;
+                    }
+                }
+            } else {
+                UVSource[pass][stage] = alternate_materials.UVSource[pass][stage];
+            }
+
+            if ((alternate_materials.Texture[pass][stage].Get() != 0) || (alternate_materials.TextureArray[pass][stage])) {
+                Texture[pass][stage] = alternate_materials.Texture[pass][stage];
+                if (alternate_materials.TextureArray[pass][stage]) alternate_materials.TextureArray[pass][stage]->Add_Ref();
+                if (TextureArray[pass][stage]) TextureArray[pass][stage]->Release_Ref();
+                TextureArray[pass][stage] = alternate_materials.TextureArray[pass][stage];
+            } else {
+                Texture[pass][stage] = default_materials.Texture[pass][stage];
+                if (default_materials.TextureArray[pass][stage]) default_materials.TextureArray[pass][stage]->Add_Ref();
+                if (TextureArray[pass][stage]) TextureArray[pass][stage]->Release_Ref();
+                TextureArray[pass][stage] = default_materials.TextureArray[pass][stage];
+            }
+        }
+
+        // Vertex color configuration
+        if (alternate_materials.DCGSource[pass] == 0) {
+            DCGSource[pass] = default_materials.DCGSource[pass];
+        } else {
+            DCGSource[pass] = alternate_materials.DCGSource[pass];
+        }
+
+        Shader[pass] = default_materials.Shader[pass];
+        if (default_materials.ShaderArray[pass]) default_materials.ShaderArray[pass]->Add_Ref();
+        if (ShaderArray[pass]) ShaderArray[pass]->Release_Ref();
+        ShaderArray[pass] = default_materials.ShaderArray[pass];
+
+        if ((alternate_materials.Material[pass] != 0) || (alternate_materials.MaterialArray[pass] != 0)) {
+            if (alternate_materials.Material[pass]) alternate_materials.Material[pass]->Add_Ref();
+            if (Material[pass]) Material[pass]->Release_Ref();
+            Material[pass] = alternate_materials.Material[pass];
+            if (alternate_materials.MaterialArray[pass]) alternate_materials.MaterialArray[pass]->Add_Ref();
+            if (MaterialArray[pass]) MaterialArray[pass]->Release_Ref();
+            MaterialArray[pass] = alternate_materials.MaterialArray[pass];
+        } else {
+            // Dont share vertex materials! (because the UVSources can be different!)
+            if (default_materials.Material[pass]) {
+                Material[pass] = new VertexMaterialClass(*(default_materials.Material[pass]));
+            } else {
+                Material[pass] = 0;
+            }
+        }
+
+        if ((alternate_materials.UnknownPassBufferB8[pass] != 0) || (alternate_materials.UnknownPassBuffer108[pass] != 0)) {
+            if (alternate_materials.UnknownPassBufferB8[pass]) alternate_materials.UnknownPassBufferB8[pass]->Add_Ref();
+            if (UnknownPassBufferB8[pass]) UnknownPassBufferB8[pass]->Release_Ref();
+            UnknownPassBufferB8[pass] = alternate_materials.UnknownPassBufferB8[pass];
+            if (alternate_materials.UnknownPassBuffer108[pass]) alternate_materials.UnknownPassBuffer108[pass]->Add_Ref();
+            if (UnknownPassBuffer108[pass]) UnknownPassBuffer108[pass]->Release_Ref();
+            UnknownPassBuffer108[pass] = alternate_materials.UnknownPassBuffer108[pass];
+        } else {
+            if (default_materials.UnknownPassBufferB8[pass]) default_materials.UnknownPassBufferB8[pass]->Add_Ref();
+            if (UnknownPassBufferB8[pass]) UnknownPassBufferB8[pass]->Release_Ref();
+            UnknownPassBufferB8[pass] = default_materials.UnknownPassBufferB8[pass];
+            if (default_materials.UnknownPassBuffer108[pass]) default_materials.UnknownPassBuffer108[pass]->Add_Ref();
+            if (UnknownPassBuffer108[pass]) UnknownPassBuffer108[pass]->Release_Ref();
+            UnknownPassBuffer108[pass] = default_materials.UnknownPassBuffer108[pass];
+        }
+    }
 }
 
 bool MeshMatDescClass::Is_Empty() {

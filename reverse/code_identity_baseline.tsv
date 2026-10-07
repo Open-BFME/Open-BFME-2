@@ -5998,7 +5998,6 @@ Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescUniqueArrays.cpp	uw_00767310	??1R
 Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDtor.cpp	??1MeshModelClass@@UAE@XZ	??1MeshMatDescClass@@QAE@XZ	0x0015DC40	wrong
 Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDtor.cpp	??1MeshModelClass@@UAE@XZ	?Rva00199FA5TeardownMeshMatDescRenderers@@YA_NPAVMeshMatDescClass@@@Z	0x00199FA5	unowned
 Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDtor.cpp	?rva001716E0UnregisterMeshModel@MeshModelClass@@QAEXXZ	?Rva00199FA5TeardownMeshMatDescRenderers@@YA_NPAVMeshMatDescClass@@@Z	0x00199FA5	unowned
-Code/Libraries/Source/WWVegas/WW3D2/MeshModelInstallAlternate.cpp	?install_alternate_material_desc@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z	?Init_Alternate@MeshMatDescClass@@QAEXAAV1@0@Z	0x0015A1B0	unowned
 Code/Libraries/Source/WWVegas/WW3D2/MeshModelLoadW3D.cpp	?Load_W3D@MeshModelClass@@UAE_NAAVChunkLoadClass@@@Z	?install_materials@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z	0x0018A070	unowned
 Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadChunks.cpp	?read_chunks@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z	?read_Rva0018AF70@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z	0x0018AF70	unowned
 Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadChunks.cpp	?read_chunks@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z	?read_v3_materials@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z	0x0018A750	unowned
