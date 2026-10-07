@@ -87,3 +87,37 @@ Rva002B5522::~Rva002B5522()
 {
 	rva002B5522();
 }
+
+class Rva002B64B8
+{
+public:
+	void rva002B64B8();
+};
+
+void Rva002B64B8::rva002B64B8()
+{
+	((Rva002B5558 *)this)->~Rva002B5558();
+}
+
+class Rva002B64BD
+{
+public:
+	void rva002B64BD();
+};
+
+void Rva002B64BD::rva002B64BD()
+{
+	((Rva002B54F9 *)this)->~Rva002B54F9();
+}
+
+class Rva002B64C2
+{
+public:
+	void rva002B64C2();
+};
+
+void Rva002B64C2::rva002B64C2()
+{
+	((Rva002B5522 *)this)->~Rva002B5522();
+}
+

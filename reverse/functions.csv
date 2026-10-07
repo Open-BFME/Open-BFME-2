@@ -67445,3 +67445,6 @@ _Rva00177F34,,0x00177F34,78,Code/GameEngine/Source/Common/Rva00177F34.cpp,matche
 ?rva00224243@Rva00224243@@QAEXXZ,,0x00224243,5,Code/GameEngine/Source/Common/System/ArchiveDirInfoO1.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x00223FF1; wrapper identity remains address-derived.
 ?rva00224248@Rva00224248@@QAEXXZ,,0x00224248,5,Code/GameEngine/Source/Common/System/ArchiveDirInfoO1.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x00223FF1; wrapper identity remains address-derived.
 ?rva0022424D@Rva0022424D@@QAEXXZ,,0x0022424D,5,Code/GameEngine/Source/Common/System/ArchiveDirInfoO1.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x00223FF1; wrapper identity remains address-derived.
+?rva002B64B8@Rva002B64B8@@QAEXXZ,,0x002B64B8,5,Code/GameEngine/Source/Common/Rva002B5558Dtor.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x002B609F; wrapper identity remains address-derived.
+?rva002B64BD@Rva002B64BD@@QAEXXZ,,0x002B64BD,5,Code/GameEngine/Source/Common/Rva002B5558Dtor.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x002B5FF1; wrapper identity remains address-derived.
+?rva002B64C2@Rva002B64C2@@QAEXXZ,,0x002B64C2,5,Code/GameEngine/Source/Common/Rva002B5558Dtor.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x002B602E; wrapper identity remains address-derived.
