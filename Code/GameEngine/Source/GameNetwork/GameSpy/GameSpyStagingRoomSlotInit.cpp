@@ -141,10 +141,16 @@ class GameSlot
 public:
 	virtual ~GameSlot();
 	Bool isHuman(void) const;
+	Bool isAI(void) const;
+	Bool disconnected(void) const;
+	Int getTeamNumber(void) const { return m_teamNumber; }
 
-	UnsignedByte m_pre30[0x30 - 4];
+	UnsignedByte m_pre1C[0x1C - 4];
+	Int m_teamNumber;				// +0x1C
+	UnsignedByte m_pre30[0x30 - 0x20];
 	UnicodeString m_name;				// +0x30
-	UnsignedByte m_pre4C[0x4C - 0x34];
+	AsciiString m_bfme34;				// +0x34, the player's name-key string
+	UnsignedByte m_pre4C[0x4C - 0x38];
 	Int m_bfme4C;					// +0x4C, the living-world battle's index
 	UnsignedByte m_pre1A4[0x1A4 - 0x50];
 	Bool m_bfme1A4;					// +0x1A4
@@ -170,12 +176,24 @@ private:
 	Int m_favoriteSide;				// +0x1CC
 };
 
-// The slot's out-of-line AsciiString setters, rowed on address classes:
-// +0x1B0 (Zero Hour's setLoginName), +0x1B4 (setLocale), +0x1D8 and +0x1DC.
+// The slot's out-of-line AsciiString setters and getters, rowed on address
+// classes: +0x1B0 (Zero Hour's setLoginName/getLoginName), +0x1B4
+// (setLocale), +0x1D8, +0x1DC and +0x1A8.
 class Rva004FDCE1AsciiField
 {
 public:
+	AsciiString get(void) const;
 	void rva004FDCFF(AsciiString value);
+};
+class Rva004FDD6DAsciiField
+{
+public:
+	AsciiString get(void) const;
+};
+class Rva003821B9AsciiField
+{
+public:
+	AsciiString get(void) const;
 };
 class Rva004FDD36AsciiField
 {
@@ -185,6 +203,7 @@ public:
 class Rva004CFB6DAsciiField
 {
 public:
+	AsciiString get(void) const;
 	void rva004CFB8B(AsciiString value);
 };
 class Rva004CFBC2AsciiField
@@ -225,7 +244,20 @@ private:
 protected:
 	Int m_bfme58;					// +0x58
 private:
-	char m_pad5C[0xDC - 0x5C];
+	char m_pad5C[0x60 - 0x5C];
+public:
+	Int m_bfme60;					// +0x60, zero when heroes are allowed
+private:
+	char m_pad64[0x6C - 0x64];
+public:
+	// Inline reads: retail 0x4FE5CA loads both into registers before pushing
+	// them, where a plain member access is pushed from memory.
+	Int getCmdPointFactor(void) const { return m_bfme6C; }
+	Int getIniResource(void) const { return m_bfme70; }
+	Int m_bfme6C;					// +0x6C, the command point factor
+	Int m_bfme70;					// +0x70, the initial resources
+private:
+	char m_pad74[0xDC - 0x74];
 };
 
 class Rva00382398
@@ -268,6 +300,8 @@ public:
 	void launchGame(void);
 	void rva004FDEFF(LivingWorldBattle *battle);
 	void rva004FE126(void);
+	AsciiString generateGameSpyGameResultsPacket(Bool sawCRCMismatch, Bool playerQuit);
+	Bool isQMGame(void) { return m_isQM; }
 private:
 	Rva00382398 m_GameSpySlot[MAX_SLOTS]; // +0xDC
 	AsciiString m_gameName;     // +0xFDC
@@ -799,4 +833,207 @@ void GameSpyStagingRoom::startGame(Int gameID)
 
 	if (numHumans < 2)
 		launchGame();
+}
+
+class PlayerTemplate
+{
+public:
+	const AsciiString &getSide(void) const { return m_side; }
+private:
+	UnsignedByte m_pre18[0x18];
+	AsciiString m_side;				// +0x18
+};
+
+class Player
+{
+public:
+	const PlayerTemplate *getPlayerTemplate(void) const { return m_playerTemplate; }
+private:
+	UnsignedByte m_pre34[0x34];
+	const PlayerTemplate *m_playerTemplate;		// +0x34
+};
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const AsciiString &name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class PlayerList
+{
+public:
+	Player *findPlayerWithNameKey(NameKeyType key);
+};
+extern PlayerList *ThePlayerList;
+
+extern GameInfo *TheGameInfo;
+
+// The victory conditions at 0x00E03138, kept under its address name: slot 14
+// as Zero Hour's hasAchievedVictory, 16 as hasSinglePlayerBeenDefeated and 22
+// as getEndFrame (Zero Hour's six-slot gap between the first and the last).
+class Rva00E03138Slot14 : public VSlots<14>
+{
+public:
+	virtual Bool hasAchievedVictory(Player *player) = 0;		// slot 14 (+0x38)
+};
+class Rva00E03138Slot16 : public VPad<Rva00E03138Slot14, 1>
+{
+public:
+	virtual Bool hasSinglePlayerBeenDefeated(Player *player) = 0;	// slot 16 (+0x40)
+};
+class Rva00E03138 : public VPad<Rva00E03138Slot16, 5>
+{
+public:
+	virtual UnsignedInt getEndFrame(void) = 0;			// slot 22 (+0x58)
+};
+extern Rva00E03138 *g_00E03138;
+
+// The donor's StringBase<char>::concat(char) form (as GameInfoSetMap.cpp): the
+// character goes through its own one-byte slot into concat(text, 1).
+static inline void concatChar(AsciiString &s, char c)
+{
+	((StringBase<char> *)&s)->concat(&c, 1);
+}
+
+AsciiString GameSpyStagingRoom::generateGameSpyGameResultsPacket(Bool sawCRCMismatch, Bool playerQuit)
+{
+	Int i;
+	Int endFrame = g_00E03138->getEndFrame();
+	Int localSlotNum = getLocalSlotNum();
+	Int winningTeam = -1;
+	Int numHumans = 0;
+	Int numPlayers = 0;
+	Int numAIs = 0;
+	Int numTeamsAtGameEnd = 0;
+	Int lastTeamAtGameEnd = -1;
+	for (i = 0; i < MAX_SLOTS; ++i)
+	{
+		AsciiString playerName;
+		playerName = TheGameInfo->getSlot(i)->m_bfme34;
+		Player *p;
+		if (!playerName.isEmpty() &&
+			(p = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(playerName))) != 0)
+		{
+			++numHumans;
+			if (g_00E03138->hasAchievedVictory(p))
+				winningTeam = getSlot(i)->getTeamNumber();
+
+			// check if he lasted
+			GameSlot *slot = getSlot(i);
+			if (!slot->disconnected())
+			{
+				if (slot->getTeamNumber() != lastTeamAtGameEnd || numTeamsAtGameEnd == 0)
+				{
+					lastTeamAtGameEnd = slot->getTeamNumber();
+					++numTeamsAtGameEnd;
+				}
+			}
+		}
+		else if (((GameSlot *)&m_GameSpySlot[i])->isAI())
+		{
+			++numAIs;
+		}
+	}
+	numPlayers = numHumans + numAIs;
+
+	AsciiString mapName;
+	for (i = 0; i < getMap().getLength(); ++i)
+	{
+		char c = getMap().getCharAt(i);
+		if (c == '\\')
+			c = '/';
+		concatChar(mapName, c);
+	}
+
+	AsciiString ladder;
+	if (isQMGame())
+	{
+		if (m_bfmeFF8 == 1)
+			ladder = "1v1";
+		else if (m_bfmeFF8 == 2)
+			ladder = "2v2";
+		else if (m_bfmeFF8 == 3)
+			ladder = "clan";
+	}
+	else
+	{
+		ladder = "none";
+	}
+
+	AsciiString results;
+	results.format("\\hostname\\%s\\mapname\\%s\\numplayers\\%d\\duration\\%d\\localplayer\\%d\\ladder\\%s",
+		((Rva004FDCE1AsciiField *)&m_GameSpySlot[0])->get().str(), mapName.str(), numPlayers, endFrame,
+		localSlotNum, ladder.str());
+
+	if (ladder.compare("clan") == 0 && TheGameInfo)
+	{
+		AsciiString clanRule;
+		clanRule.format("\\clanRule\\allowHero=%s:cmdPointFactor=%d:iniResource=%d",
+			TheGameInfo->m_bfme60 == 0 ? "yes" : "no", TheGameInfo->getCmdPointFactor(), TheGameInfo->getIniResource());
+		results += clanRule;
+	}
+
+	Int playerID = 0;
+	for (i = 0; i < MAX_SLOTS; ++i)
+	{
+		AsciiString playerName;
+		playerName = TheGameInfo->getSlot(i)->m_bfme34;
+		Player *p;
+		if (!playerName.isEmpty() &&
+			(p = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(playerName))) != 0)
+		{
+			GameSpyGameSlot *slot = (GameSpyGameSlot *)&m_GameSpySlot[i];
+			AsciiString authName = ((Rva004CFB6DAsciiField *)slot)->get();
+			AsciiString authToken = ((Rva004FDD6DAsciiField *)slot)->get();
+			AsciiString clanID = (m_isQM && m_bfmeFF8 == 3) ?
+				((Rva003821B9AsciiField *)slot)->get() : AsciiString::TheEmptyString;
+			clanID.trim();
+			AsciiString playerName = (slot->isHuman()) ? ((Rva004FDCE1AsciiField *)slot)->get() : "AIPlayer";
+			Int gsPlayerID = slot->getProfileID();
+			Bool disconnected = slot->disconnected();
+
+			AsciiString result, side = "unknown";
+			if (sawCRCMismatch)
+			{
+				if (!g_00E03138->hasSinglePlayerBeenDefeated(p))
+					result = "desync";
+				else
+					result = "quit";
+			}
+			else if (disconnected)
+			{
+				result = "discon";
+			}
+			else if (g_00E03138->hasSinglePlayerBeenDefeated(p) && playerQuit)
+			{
+				result = "quit";
+			}
+			else if (g_00E03138->hasAchievedVictory(p))
+			{
+				result = "win";
+			}
+			else
+			{
+				result = "loss";
+			}
+
+			side = p->getPlayerTemplate()->getSide();
+
+			AsciiString playerStr;
+			playerStr.format("\\player_%d\\%s\\pid_%d\\%d\\team_%d\\%d\\result_%d\\%s\\side_%d\\%s\\clanID_%d\\%s\\auth_%d\\%s\\authtoken_%d\\%s",
+				playerID, playerName.str(), playerID, gsPlayerID, playerID, slot->getTeamNumber(),
+				playerID, result.str(), playerID, side.str(), playerID, clanID.str(),
+				playerID, authName.str(), playerID, authToken.str());
+			results += playerStr;
+			++playerID;
+		}
+	}
+
+	return results;
 }

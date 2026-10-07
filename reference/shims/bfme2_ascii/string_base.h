@@ -44,7 +44,10 @@ public:
         return m_data ? peek() : &TheNullChr;
     }
     const T *find(T c) const;
-    T getCharAt(int index) const;
+    // Retail compiles calls to this body (0x00035720) as non-throwing: at
+    // 0x004FE4B8 a getMap() temporary is live across the call with no EH
+    // state of its own, which only a throw() declaration reproduces.
+    T getCharAt(int index) const throw();
     StringBase<T> &operator=(const StringBase<T> &src);
     int compare(const StringBase<T> &str) const;
     int compare(const T *str) const;
