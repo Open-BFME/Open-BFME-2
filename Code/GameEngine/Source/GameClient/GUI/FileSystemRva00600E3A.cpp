@@ -42,7 +42,7 @@ extern bool BFME2PreferLocalFiles;
 extern ArchiveFileSystem *TheArchiveFileSystem;
 extern char TheLangDir[];
 extern Rva0060061AHelper *G00A06E54;
-extern char g_00DD509C[];
+char g_00DD509C[188] = "English";
 
 bool __stdcall Rva00600E3AGet(const char *a, const char *b)
 {
