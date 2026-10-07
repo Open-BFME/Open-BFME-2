@@ -295,6 +295,7 @@ public:
 	NetPacket(TransportMessage *msg);
 	void init();
 	void reset();
+	Bool addCommand(NetCommandRef *msg);
 	Bool rva0058D18C(NetCommandRef *msg);
 	Bool rva0058D211(NetCommandRef *msg);
 	UnsignedByte rva0059192A(NetCommandRef *msg);
@@ -363,6 +364,13 @@ protected:
 	Bool addRequestGameSpyStatsAuthKeyCommand(NetCommandRef *msg);
 	Bool addGameSpyStatsAuthKeyCommand(NetCommandRef *msg);
 	Bool rva005939EE(NetCommandRef *msg);
+	// ICF twins: retail gives these types their own call blocks to the
+	// folded bodies above, so they are distinct symbols pinned to them.
+	Bool rva005939EEAckStage1(NetCommandRef *msg);
+	Bool rva005939EEAckStage2(NetCommandRef *msg);
+	Bool rva0058FE15DisconnectKeepAlive(NetCommandRef *msg);
+	Bool rva0058F5E3TimeOutStart(NetCommandRef *msg);
+	Bool rva0058E8EARequestFrameData(NetCommandRef *msg);
 	Bool addAckCommand(NetCommandRef *msg, UnsignedShort commandID, UnsignedByte originalPlayerID, UnsignedInt ackValue20, UnsignedInt ackValue24);
 
 public:
@@ -3271,4 +3279,82 @@ Bool NetPacket::addGameCommand(NetCommandRef *msg)
 	}
 	::delete gmsg;
 	return retval;
+}
+
+// ?addCommand@NetPacket@@QAE_NPAVNetCommandRef@@@Z, retail 0x005944D8, 433 bytes
+// including its jump table at 0x0059460D: the BFME1 donor's dispatcher
+// (NetPacket_addCommand.cpp). Arms are laid out in source order, read back
+// out of the image; types 24 and 29 and a null reference return true.
+// Retail's linker folded the ack arms (types 0/1/2), the keep-alive arms
+// (12/25), load-complete/time-out-start (16/17) and request-player-leave/
+// request-frame-data (7/9), yet each type keeps its own call block, so each
+// calls a distinct symbol pinned to the folded body.
+Bool NetPacket::addCommand(NetCommandRef *msg)
+{
+	if (msg == 0) {
+		return true;
+	}
+
+	switch (msg->getCommand()->getNetCommandType()) {
+	case 4:
+		return addGameCommand(msg);
+	case 1:
+		return rva005939EEAckStage1(msg);
+	case 2:
+		return rva005939EEAckStage2(msg);
+	case 0:
+		return rva005939EE(msg);
+	case 3:
+		return addFrameCommand(msg);
+	case 23:
+		return addRouterFallbackCommand(msg);
+	case 10:
+		return addPlayerLeaveCommand(msg);
+	case 11:
+		return addDestroyPlayerCommand(msg);
+	case 12:
+		return rva0058FE15(msg);
+	case 25:
+		return rva0058FE15DisconnectKeepAlive(msg);
+	case 26:
+		return addDisconnectPlayerCommand(msg);
+	case 13:
+		return addDisconnectChatCommand(msg);
+	case 27:
+		return addDisconnectVoteCommand(msg);
+	case 14:
+		return addChatCommand(msg);
+	case 15:
+		return addProgressMessage(msg);
+	case 16:
+		return rva0058F5E3(msg);
+	case 17:
+		return rva0058F5E3TimeOutStart(msg);
+	case 18:
+		return addWrapperCommand(msg);
+	case 19:
+		return addFileCommand(msg);
+	case 20:
+		return rva0058EDEF(msg);
+	case 21:
+		return addFileAnnounceCommand(msg);
+	case 22:
+		return addFileProgressCommand(msg);
+	case 8:
+		return addInformPlayerLeaveFrameCommand(msg);
+	case 7:
+		return rva0058E8EA(msg);
+	case 9:
+		return rva0058E8EARequestFrameData(msg);
+	case 28:
+		return addDisconnectFrameCommand(msg);
+	case 5:
+		return addRequestGameSpyStatsAuthKeyCommand(msg);
+	case 6:
+		return addGameSpyStatsAuthKeyCommand(msg);
+	case 30:
+		return rva005936DB(msg);
+	}
+
+	return true;
 }
