@@ -157,3 +157,37 @@ int Rva0052B7F8Owner::fwd(int a, int b)
 	((Rva0052B737Sub *)this)->run(a, b);
 	return a;
 }
+
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
+// Native Ghidra 0x0052B894..0x0052B8ED: 89B RET4 constructor.
+// It writes the base vptr, copies the input AsciiString into an 8B
+// (name, this) entry, inserts it through the registry, then destroys the
+// temporary. Result storage is the observed 12B iterator/result area.
+// The owner and registry identities remain unknown; names describe their
+// measured addresses and operations. The base vtable is already provided
+// as vtbl_00C686BC by Disp0DwordImmSettersAddr.cpp's canonical alias.
+#include "ascii_string.h"
+extern "C" const void *const vtbl_00C686BC[];
+extern Rva0052B7F8Owner *rva0052B84F();
+class Rva0052B894Registration
+{
+public:
+    Rva0052B894Registration(const AsciiString &name);
+private:
+    const void *const *m_vtable;
+};
+struct Rva0052B894Entry
+{
+    AsciiString name;
+    Rva0052B894Registration *registration;
+    Rva0052B894Entry(const AsciiString &key, Rva0052B894Registration *value)
+        : name(key), registration(value) {}
+};
+Rva0052B894Registration::Rva0052B894Registration(const AsciiString &name)
+{
+    m_vtable = vtbl_00C686BC;
+    Rva0052B894Entry entry(name, this);
+    int result[3];
+    Rva0052B7F8Owner *registry = rva0052B84F();
+    registry->fwd((int)result, (int)&entry);
+}
