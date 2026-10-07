@@ -66908,3 +66908,4 @@ _rva0062AF56D3DXVec3Transform@12,,0x0062AF56,6,Code/GameEngine/Source/Common/Rva
 ?rva0054C877@Rva0054C88A@@QAEXM@Z,,0x0054C877,19,Code/GameEngine/Source/Common/Rva0054C88APtrChase.cpp,matched,forward float to inner method at 0x0054C805
 ?Rva00437EC4Set@@YAXM@Z,,0x00437EC4,24,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,matched,null-check g_Va00E032FC then forward float to rva0054C877
 ?rva002AC4D4@Player@@QAE_NPAH@Z,,0x002AC4D4,216,Code/GameEngine/Source/Common/RTS/PlayerSkirmishSideFind.cpp,matched,skirmish-side faction finder via SidesList and template store
+??0Rva005D242F@@QAE@PAURva005D242FLinked@@HPAX1@Z,,0x005D2405,42,Code/GameEngine/Source/Common/Rva005D2405Ctor.cpp,matched,ctor Rva005D242F vtable 0x008757D8 base Rva005C3F02 caller 0x005D28AE
