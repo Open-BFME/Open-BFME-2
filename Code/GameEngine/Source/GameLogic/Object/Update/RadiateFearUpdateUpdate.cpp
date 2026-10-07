@@ -80,8 +80,8 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;	// 0x0028AFA9
-	void bfmeApplySpecialModelCondition(int a, const void *b, int c);	// 0x0028EC68
-	void applyFrom(int a, Object *source, const int &c) { bfmeApplySpecialModelCondition(a, source, c); }
+	void rva0028EC68(int a, void *b, int c);	// 0x0028EC68
+	void applyFrom(int a, Object *source, const int &c) { rva0028EC68(a, source, c); }
 	bool isEffectivelyDead() const { return (m_438 & 1) != 0; }
 	const Coord3D *getPosition() const { return &m_pos; }
 	int getID() const { return m_74; }

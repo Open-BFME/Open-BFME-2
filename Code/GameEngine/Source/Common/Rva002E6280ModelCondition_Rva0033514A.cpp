@@ -33,7 +33,7 @@ unsigned Rva00990030Lookup(Rva00990030Range *range, int index);
 class Object
 {
 public:
-	void bfmeApplySpecialModelCondition(int condition, const void *value, int enabled);
+	void rva0028EC68(int condition, void *value, int enabled);
 };
 
 class GameLogic
@@ -68,6 +68,6 @@ int bfmeHelper6280(lua_State *state)
 	if (!source)
 		return 0;
 
-	record->bfmeApplySpecialModelCondition(6, source, 1);
+	record->rva0028EC68(6, source, 1);
 	return 0;
 }

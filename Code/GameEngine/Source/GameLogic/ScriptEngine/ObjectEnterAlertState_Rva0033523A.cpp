@@ -12,7 +12,7 @@ unsigned Rva00990030Lookup(lua_State *range, int index);
 class Object
 {
 public:
-	void bfmeApplySpecialModelCondition(int condition, const void *value,
+	void rva0028EC68(int condition, void *value,
 		int enabled);
 };
 
@@ -35,6 +35,6 @@ int ObjectEnterAlertState(lua_State *state)
 
 	Object *object = TheGameLogic->findObjectByID((int)value);
 	if (object)
-		object->bfmeApplySpecialModelCondition(9, 0, 1);
+		object->rva0028EC68(9, 0, 1);
 	return 0;
 }

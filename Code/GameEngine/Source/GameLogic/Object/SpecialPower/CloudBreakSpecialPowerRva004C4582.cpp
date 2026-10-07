@@ -18,7 +18,7 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;
-	void bfmeApplySpecialModelCondition(int a, const void *b, int c);
+	void rva0028EC68(int a, void *b, int c);
 };
 
 class GameLogic
@@ -56,6 +56,6 @@ void CloudBreakSpecialPower::rva004C4582()
 	{
 		Rva004C4582TabHolder *holder = m_04;
 		if (holder->m_tab.bfmeHas1026((int)cur, (int)cached08->getControllingPlayer()))
-			cur->bfmeApplySpecialModelCondition(5, cached08, 1);
+			cur->rva0028EC68(5, cached08, 1);
 	}
 }

@@ -113,7 +113,7 @@ public:
 class Object
 {
 public:
-	void bfmeApplySpecialModelCondition(int what, const void *source, int value);	// 0x0028EC68
+	void rva0028EC68(int what, void *source, int value);	// 0x0028EC68
 	void kill(DamageType damageType, DeathType deathType);	// 0x002984D4
 	Drawable *getDrawable() const;	// 0x005508E2
 	void setStatus(ObjectStatusTypes bit, bool flag);	// 0x0023DB0E
@@ -196,7 +196,7 @@ void BezierProjectileBehavior::rva0045C026()
 			while ((other = hits.next()) != 0) {
 				if (other == launcher)
 					continue;
-				other->bfmeApplySpecialModelCondition(d->m_BC, launcher, d->m_B8);
+				other->rva0028EC68(d->m_BC, launcher, d->m_B8);
 			}
 		}
 	}

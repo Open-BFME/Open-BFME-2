@@ -66,7 +66,7 @@ class Object
 {
 public:
 	const Coord3D *getPosition() const { return &m_pos; }
-	void bfmeApplySpecialModelCondition(int a, const void *b, int c);	// 0x0028EC68
+	void rva0028EC68(int a, void *b, int c);	// 0x0028EC68
 	char m_pad000[0x38];
 	Coord3D m_pos;		// +0x38
 };
@@ -166,6 +166,6 @@ void ActiveBody::rva004BF9ED()
 			Rva00260EB1Filter(obj, 1, false).link(Rva0026119DFilter().link(&Rva002611BFFilter(obj))), 0);
 		Object *other;
 		while ((other = hits.next()) != 0)
-			other->bfmeApplySpecialModelCondition(1, obj, 10);
+			other->rva0028EC68(1, obj, 10);
 	}
 }

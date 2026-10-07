@@ -120,8 +120,8 @@ class Object
 public:
 	void rva0028AE6D();
 	Player *getControllingPlayer() const;	// 0x0028AFA9
-	void bfmeApplySpecialModelCondition(int a, const void *b, int c);	// 0x0028EC68
-	void applyFrom(int a, Object *source) { bfmeApplySpecialModelCondition(a, source, 1); }
+	void rva0028EC68(int a, void *b, int c);	// 0x0028EC68
+	void applyFrom(int a, Object *source) { rva0028EC68(a, source, 1); }
 	const Coord3D *getPosition() const { return &m_pos; }
 	unsigned char m_pad000[0x38];
 	Coord3D m_pos;	// +0x38
