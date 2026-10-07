@@ -2721,9 +2721,13 @@ void roomMessageCallback(PEER peer, RoomType roomType, const char * nick, const 
 
 void gameStartedCallback( PEER peer, UnsignedInt IP, const char *message, void *param )
 {
+	Int gameId = atoi(message);
 	PeerResponse resp;
 	resp.peerResponseType = PeerResponse::PEERRESPONSE_GAMESTART;
+	resp.unknown_payload[0] = gameId;
 	TheGameSpyPeerMessageQueue->addResponse(resp);
+	peerSetQuietMode(peer, PEERTrue);
+	peerStopListingGames(peer);
 }
 
 // Retail callback lives in PeerThreadPlayerMessage.cpp.
