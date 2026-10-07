@@ -6,8 +6,15 @@
 // (Code/GameEngine/Source/Common/Rva009C4B70CpuFeatureProbe.cpp).
 // CPUID is inline because MSVC 7.1 has no intrinsic for it; the
 // surrounding vendor test and SEH remain ordinary C++.
+// The row covers the SEH filter and handler funclets retail places after the
+// body (0x001D5510..0x001D553F, 208 bytes in all). The filter saves the
+// exception code, which only happens when the handler reads it, and retail
+// reads it then returns the constant 0 (result is still 0 on that path).
 
 #include <excpt.h>
+extern "C" unsigned long __cdecl _exception_code(void);
+#define GetExceptionCode _exception_code
+
 
 extern "C" __declspec(dllimport) int __cdecl strncmp(
 	const char *, const char *, unsigned int);
@@ -15,7 +22,7 @@ extern "C" __declspec(dllimport) int __cdecl strncmp(
 // ?Rva001D5470_CpuFeatureProbe@@YAHXZ
 int __cdecl Rva001D5470_CpuFeatureProbe(void)
 {
-	char vendor[13];
+	char vendor[12];
 	int result;
 
 	result = 0;
@@ -33,6 +40,9 @@ int __cdecl Rva001D5470_CpuFeatureProbe(void)
 	}
 	__except (EXCEPTION_EXECUTE_HANDLER)
 	{
+		unsigned long code = GetExceptionCode();
+		if (code)
+			return result;
 		return result;
 	}
 
