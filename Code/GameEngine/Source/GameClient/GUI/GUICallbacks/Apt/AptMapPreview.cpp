@@ -112,6 +112,38 @@ public:
 };
 
 extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void *address, unsigned int size);
+extern "C" char *__cdecl strcpy(char *destination, const char *source);
+
+// AptCallbackAdders.cpp's by-value callback reference (defined below).
+template <class T> class AptRef;
+
+class AptCustomRender;
+class AptExternHandler;
+
+// The Apt player (0x00DFE4CC): both adders are pinned by address.
+class AptPlayer
+{
+public:
+	void AddExternHandler(const AsciiString &name, Int arg, AptRef<AptExternHandler> handler);	// 0x0022445D
+	void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);		// 0x0022464C
+};
+
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+#define TheAptPlayer ((AptPlayer *)g_bfmeAptWindowManager)
+
+// 0x00411458 (pinned; see MpGameSetupSlots.cpp) stores the screen
+// reference under the name.
+class AptScreenInitGadgets;
+void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
+
+// The preview's +0x18 object; the registration clears its +0x08.
+struct Rva0057E45COwner
+{
+	int m_00;
+	int m_04;
+	int m_08;
+};
 
 class AptMapPreview
 {
@@ -121,10 +153,16 @@ public:
 	void UpdateStrategicScenarioDesc();	// 0x0057C99E
 	Int rva0057C621();
 	void rva0057C5B9(const Coord2D *pos, const Coord2D *size, void *unused3, void *unused4);
+	void GameMapType(int query, char *result, bool skip);
+	void MapGadgetInit(const char *name, void *argument, GameWindow *window);
+	void rva0057E45C();
 
 private:
 	unsigned char m_pad00[0x4];
-	unsigned char m_field04[0x50 - 0x4];	// +0x04, handed to the campaign owner
+	unsigned char m_field04[0x18 - 0x4];	// +0x04, handed to the campaign owner
+	Rva0057E45COwner *m_18;	// +0x18
+	int m_mode;	// +0x1C (OpenPlay 0, Strategic 1)
+	unsigned char m_pad20[0x50 - 0x20];
 	GameWindow *m_strategicScenarioComboBox;	// +0x50
 	GameWindow *m_strategicScenarioDesc;	// +0x54
 	unsigned char m_pad58[0x5c - 0x58];
@@ -211,4 +249,81 @@ void AptMapPreview::rva0057C5B9(const Coord2D *pos, const Coord2D *size, void *u
 		return;
 	}
 	((W3DDisplay *)TheDisplay)->rva0004D6B3(m_picture, pos->x, pos->y, pos->x + size->x, pos->y + size->y, -1, 2);
+}
+
+// Retail 0x0057C549, 50 bytes: bound as "AptMapPreview::GameMapType" by
+// 0x0057E45C, an Apt query answering the map type of the +0x1C mode.
+void AptMapPreview::GameMapType(int query, char *result, bool skip)
+{
+	if (query == 0 && !skip)
+	{
+		switch (m_mode)
+		{
+		case 0:
+			strcpy(result, "OpenPlay");
+			break;
+		case 1:
+			strcpy(result, "Strategic");
+			break;
+		}
+	}
+}
+
+// The handlers are bound as {object, method} pairs, built in place by the
+// rowed constructor 0x00579E47 (Rva00579E47Delegate.cpp; the user-declared
+// copy constructor makes cl build it in the argument slot); the callee
+// releases the reference.
+typedef void (AptMapPreview::*AptMapPreviewHandler)(void);
+
+struct DelegateDesc
+{
+	DelegateDesc(AptMapPreview *object, AptMapPreviewHandler method) : m_object(object), m_method(method) {}
+
+	AptMapPreview *m_object;
+	AptMapPreviewHandler m_method;
+};
+
+class Rva00579E47
+{
+public:
+	Rva00579E47(const DelegateDesc &desc);
+	Rva00579E47(const Rva00579E47 &other);
+	~Rva00579E47();
+
+private:
+	void *m_ptr;
+};
+
+template <class T> class AptRef : public Rva00579E47
+{
+public:
+	AptRef(DelegateDesc desc) : Rva00579E47(desc) {}
+};
+
+// Retail 0x0057E45C, 250 bytes. Name unknown. The preview's Apt
+// registration (called by AptMpGameSetup::rva0044303D on its +0x60
+// member): binds "AptMapPreview::MapGadgetInit" as the screen reference,
+// "AptMapPreview::Picture" as a custom render and
+// "AptMapPreview::GameMapType" as extern handler 0. Retail packs the last
+// block's AsciiString fresh but keeps its pair in the shared slot
+// (sub esp,0x14), which needs the trailing scope.
+void AptMapPreview::rva0057E45C()
+{
+	m_18->m_08 = 0;
+	{
+		AsciiString name("AptMapPreview::MapGadgetInit");
+		_bfme_setAptScreenRef(name, AptRef<AptScreenInitGadgets>(DelegateDesc(this, reinterpret_cast<AptMapPreviewHandler>(&AptMapPreview::MapGadgetInit))));
+	}
+	{
+		AsciiString name("AptMapPreview::Picture");
+		TheAptPlayer->AddCustomRender(name, AptRef<AptCustomRender>(DelegateDesc(this, reinterpret_cast<AptMapPreviewHandler>(&AptMapPreview::rva0057C5B9))));
+	}
+	{
+		AsciiString name("AptMapPreview::GameMapType");
+		TheAptPlayer->AddExternHandler(name, 0, AptRef<AptExternHandler>(DelegateDesc(this, reinterpret_cast<AptMapPreviewHandler>(&AptMapPreview::GameMapType))));
+		{
+			DelegateDesc unused(0, 0);
+			(void)unused;
+		}
+	}
 }

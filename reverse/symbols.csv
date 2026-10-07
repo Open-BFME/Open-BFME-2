@@ -15291,3 +15291,4 @@ rva009C7380WeightPairs,0x009B84E0
 _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva00115044@Rva00115044@@QAEXPAHHHE@Z,0x00115044,callee of ?rva001159F1@Rva001159F1@@QAEXPAX@Z
 ?rva0057ABD0@ChecklistUIImpl@StrategicHUD@@QBEMXZ,0x0057ABD0,unrowed 60B const thiscall returning float: the checklist item list height (last item +0x38 plus its +8 0x004987FE plus 0x0057A24A on g_Va00E06360; that alone when the +0x30 list is empty); the scroll listener 0x0057AC8F calls it with this-8 (REL32 at 0x0057AC9A)
+?MapGadgetInit@AptMapPreview@@QAEXPBDPAXPAVGameWindow@@@Z,0x0057E25D,callee of ?rva0057E45C@AptMapPreview@@QAEXXZ: bound as the "AptMapPreview::MapGadgetInit" screen reference (member pointer immediate 0x0097E25D at 0x0057E484); Ghidra FUN_0097e25d 382B ret 0xC; files the MapInfo/MapDescription/MapPicture/CurrentMap/StrategicScenario*/LivingWorld windows
