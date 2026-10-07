@@ -391,6 +391,7 @@ protected:
 	static void FillBufferWithGameCommand(UnsignedByte *buffer, NetCommandRef *ref);
 	static void FillBufferWithAckCommand(UnsignedByte *buffer, NetCommandRef *msg);
 	static void FillBufferWithKeepAliveCommand(UnsignedByte *buffer, NetCommandRef *msg);
+	static void FillBufferWithProgressMessage(UnsignedByte *buffer, NetCommandRef *msg);
 	// Fixed-size arms of GetBufferSizeNeededForCommand, by command type; the
 	// constants are the ones retail's jump table returns.
 	static UnsignedInt GetType0CommandSize(NetCommandMsg *msg) { return 0x10; }
@@ -1516,6 +1517,43 @@ void NetPacket::FillBufferWithKeepAliveCommand(UnsignedByte *buffer, NetCommandR
 	offset += sizeof(UnsignedByte);
 
 	buffer[offset] = 'D';
+	++offset;
+}
+
+// ?FillBufferWithProgressMessage@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058CC8B, 103 bytes:
+// the BFME1 donor's FillBufferWithProgressMessage (NetPacket.cpp) plus BFME's
+// 'S' timestamp field; FillBufferWithCommand's type-15 arm.
+void NetPacket::FillBufferWithProgressMessage(UnsignedByte *buffer, NetCommandRef *msg)
+{
+	NetProgressCommandMsg *cmdMsg = (NetProgressCommandMsg *)(msg->getCommand());
+	UnsignedShort offset = 0;
+
+	buffer[offset] = 'T';
+	++offset;
+	buffer[offset] = cmdMsg->getNetCommandType();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'R';
+	++offset;
+	UnsignedByte newRelay = msg->getRelay();
+	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'S';
+	++offset;
+	UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+	memcpy(buffer + offset, &newTimestamp, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'P';
+	++offset;
+	buffer[offset] = cmdMsg->getPlayerID();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'D';
+	++offset;
+
+	buffer[offset] = cmdMsg->getPercentage();
 	++offset;
 }
 
