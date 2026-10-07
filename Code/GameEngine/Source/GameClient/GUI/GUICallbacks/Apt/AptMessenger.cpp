@@ -7,6 +7,10 @@
 
 #include <vector>
 #include "ascii_string.h"
+
+// The second-tab name vector calls the existing out-of-line destructor.
+namespace _STL { template <> vector<AsciiString>::~vector(); }
+void __cdecl Rva004178C1(int profile, const AsciiString &name);
 class GameSpyInfoInterface {public:
  virtual void _M_slot_00();
  virtual void _M_slot_04();
@@ -124,6 +128,7 @@ public:
 	void rva005AE90F();
 	void rva005AE886();
 	void rva005AE7C6();
+	void rva005AE990();
 
 private:
 	unsigned char m_pad000[0x280];
@@ -200,5 +205,26 @@ void AptMessenger::rva005AE7C6()
                 Rva0041647A(&info);
             }
         }
+    }
+}
+
+// Native 0x005AE990..0x005AEA3E RET0; rowed OnBttn_0 selects this
+// second-tab action. GetSelectedPlayers supplies parallel profile/name
+// vectors. The rowed AsciiString-vector destructor at 0x0002CC70 fixes
+// the second container's element identity and cleanup; the existing
+// 0x004178C1 call used by AptSaveLoadCallbacks takes profile/name by reference.
+void AptMessenger::rva005AE990()
+{
+    if (!TheGameSpyInfo)
+        return;
+    _STL::vector<int> profiles;
+    _STL::vector<AsciiString> names;
+    GetSelectedPlayers(1, (int)&profiles, (int)&names);
+    _STL::vector<AsciiString>::iterator name = names.begin();
+    for (_STL::vector<int>::iterator it = profiles.begin();
+            it != profiles.end(); ++it, ++name) {
+        int profile = *it;
+        if (profile != TheGameSpyInfo->getLocalProfileID())
+            Rva004178C1(profile, *name);
     }
 }
