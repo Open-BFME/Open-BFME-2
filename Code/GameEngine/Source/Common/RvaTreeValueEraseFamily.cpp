@@ -814,11 +814,15 @@ Rva005344C0::~Rva005344C0()
 }
 
 // owner Rva00534641: erase 0x00534641, clear 0x00534693
+class Image;
+class ImageSubscriptMap;
+
 class Rva00534641
 {
 public:
 	void rva00534641(void *node);
 	void rva00534693();
+	ImageSubscriptMap *rva00534A2A(const unsigned int &key);
 private:
 	void *m_00Head; // +0x00
 	int m_04Flag; // +0x04
@@ -846,6 +850,47 @@ void Rva00534641::rva00534693()
 	((RvaTreeValueHead *)m_00Head)->m_first = 0;
 	((RvaTreeValueHead *)m_00Head)->m_child = (RvaTreeValueHead *)m_00Head;
 	m_04Flag = 0;
+}
+
+class ImageSubscriptMap
+{
+public:
+	Image *&operator[](const unsigned int &key);
+};
+
+struct Rva00534AAENode
+{
+	Rva00534AAENode *m_next;
+	Rva00534AAENode *m_previous;
+	unsigned int m_outerKey;
+	unsigned int m_innerKey;
+};
+
+class Rva00534AAE
+{
+public:
+	void rva00534AAE();
+
+private:
+	Rva00534AAENode *m_head;
+	Rva00534641 m_map;
+	unsigned int m_0C;
+	bool m_needsRebuild;
+};
+
+void Rva00534AAE::rva00534AAE()
+{
+	if (!m_needsRebuild)
+		return;
+
+	m_map.rva00534693();
+	unsigned int index = 0;
+	for (Rva00534AAENode *node = m_head->m_next; node != m_head; node = node->m_next) {
+		unsigned int innerKey = node->m_innerKey;
+		unsigned int outerKey = node->m_outerKey;
+		m_map.rva00534A2A(outerKey)->operator[](innerKey) = reinterpret_cast<Image *>(index++);
+	}
+	m_needsRebuild = false;
 }
 
 class Rva006007A5 { public: ~Rva006007A5(); };
