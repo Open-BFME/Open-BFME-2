@@ -3,11 +3,13 @@
 //
 // BFME2's in-game player status / objectives screen (PlayerStatus.apt and
 // Objectives.apt share it): its constructor, which binds the callbacks of
-// AptPlayerStatusCallbacks.cpp by name, and its extern query. BFME 1's
-// AptScreenFactories.cpp (0x0052C660) is the donor.
+// AptPlayerStatusCallbacks.cpp by name, its extern query and its player
+// table refresh. BFME 1's AptScreenFactories.cpp (0x0052C660) and
+// AptObjectivesMenu.cpp (0x0052C220) are the donors.
 
 #include <vector>
 #include "ascii_string.h"
+#include "unicode_string.h"
 
 extern "C" void *__cdecl memset(void *destination, int value, unsigned int count);
 
@@ -134,6 +136,12 @@ private:
 	char m_278;
 };
 
+// The colors' element: a 4-byte value whose push_back is the folded copy
+// at 0x002E01C6, not vector<int>'s (0x00688940); its type is unknown.
+enum Rva004E476CColor
+{
+};
+
 // The open player status screen (VA 0x00E04450).
 struct GlobalA04450;
 extern GlobalA04450 *g_Va00A04450;
@@ -160,9 +168,14 @@ public:
 	// "Objective%d", the row's objective text
 	// (AptPlayerStatusObjectiveText.cpp).
 	void rva004E4553(int row, char *result, bool set);
+	// Unrowed 0x004E476C: fills the player table from the game slots.
+	void rva004E476C();
+	// "PlayerTable:<row>:<column>" (rowed as the stdcall
+	// Rva004E44FBSet; it ignores this), pinned by address.
+	void rva004E44FB(int row, int column, const UnicodeString &text);
 
 private:
-	_STL::vector<int> m_colors; // +0x27C
+	_STL::vector<Rva004E476CColor> m_colors; // +0x27C
 	int m_state; // +0x288
 	GameWindow *m_mute[8]; // +0x28C
 	signed char m_slot[8]; // +0x2AC
@@ -294,6 +307,179 @@ void AptPlayerStatus::rva004E434C(int query, char *result, bool set)
 			strcpy(result, TheGameLogic->m_gameMode != 6 || TheInGameUI->m_16 ? "1" : "0");
 		break;
 	}
+}
+
+enum NameKeyType
+{
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const AsciiString &name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class Player
+{
+public:
+	// The pinned 7-byte flag getter (BFME 1's isPlayerObserver).
+	bool rva002AA223() const;
+};
+
+class PlayerList
+{
+public:
+	Player *findPlayerWithNameKey(NameKeyType key);
+};
+
+extern PlayerList *ThePlayerList;
+
+class GameSlot
+{
+public:
+	bool isOccupied() const;
+	bool isHuman() const;
+	bool isAI() const;
+	UnicodeString getApparentPlayerTemplateDisplayName() const;
+	int getApparentColor() const;
+	const UnicodeString &getName() const { return m_name; }
+
+	unsigned char m_pad00[0x1C];
+	int m_teamNumber; // +0x1C
+	unsigned char m_pad20[0x30 - 0x20];
+	UnicodeString m_name; // +0x30
+	AsciiString m_playerName; // +0x34
+};
+
+class GameInfo
+{
+public:
+	GameSlot *getSlot(int index);
+	const GameSlot *getConstSlot(int index) const;
+};
+
+extern GameInfo *TheGameInfo;
+
+// TheNetwork's isPlayerConnected (vslot 51).
+class NetworkInterface
+{
+public:
+#define NET_SLOT(N) virtual void slot##N();
+	NET_SLOT(00) NET_SLOT(01) NET_SLOT(02) NET_SLOT(03) NET_SLOT(04) NET_SLOT(05) NET_SLOT(06) NET_SLOT(07)
+	NET_SLOT(08) NET_SLOT(09) NET_SLOT(10) NET_SLOT(11) NET_SLOT(12) NET_SLOT(13) NET_SLOT(14) NET_SLOT(15)
+	NET_SLOT(16) NET_SLOT(17) NET_SLOT(18) NET_SLOT(19) NET_SLOT(20) NET_SLOT(21) NET_SLOT(22) NET_SLOT(23)
+	NET_SLOT(24) NET_SLOT(25) NET_SLOT(26) NET_SLOT(27) NET_SLOT(28) NET_SLOT(29) NET_SLOT(30) NET_SLOT(31)
+	NET_SLOT(32) NET_SLOT(33) NET_SLOT(34) NET_SLOT(35) NET_SLOT(36) NET_SLOT(37) NET_SLOT(38) NET_SLOT(39)
+	NET_SLOT(40) NET_SLOT(41) NET_SLOT(42) NET_SLOT(43) NET_SLOT(44) NET_SLOT(45) NET_SLOT(46) NET_SLOT(47)
+	NET_SLOT(48) NET_SLOT(49) NET_SLOT(50)
+#undef NET_SLOT
+	virtual bool isPlayerConnected(int slot);
+};
+
+extern NetworkInterface *TheNetwork;
+
+// The victory conditions (VA 0x00E03138): vslot 16 asks whether a player
+// has been defeated.
+struct UnknownE03138
+{
+#define VICTORY_SLOT(N) virtual void slot##N();
+	VICTORY_SLOT(00) VICTORY_SLOT(01) VICTORY_SLOT(02) VICTORY_SLOT(03) VICTORY_SLOT(04) VICTORY_SLOT(05)
+	VICTORY_SLOT(06) VICTORY_SLOT(07) VICTORY_SLOT(08) VICTORY_SLOT(09) VICTORY_SLOT(10) VICTORY_SLOT(11)
+	VICTORY_SLOT(12) VICTORY_SLOT(13) VICTORY_SLOT(14) VICTORY_SLOT(15)
+#undef VICTORY_SLOT
+	virtual bool hasBeenDefeated(Player *player);
+};
+
+extern UnknownE03138 *g_00E03138;
+
+// TheGameText's fetch by label (vslot 14).
+class GameTextInterface
+{
+public:
+#define TEXT_SLOT(N) virtual void slot##N();
+	TEXT_SLOT(00) TEXT_SLOT(01) TEXT_SLOT(02) TEXT_SLOT(03) TEXT_SLOT(04) TEXT_SLOT(05) TEXT_SLOT(06)
+	TEXT_SLOT(07) TEXT_SLOT(08) TEXT_SLOT(09) TEXT_SLOT(10) TEXT_SLOT(11) TEXT_SLOT(12) TEXT_SLOT(13)
+#undef TEXT_SLOT
+	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
+};
+
+extern GameTextInterface *TheGameText;
+
+class MultiplayerColorDefinition
+{
+public:
+	unsigned char m_pad00[0x10];
+	int m_color; // +0x10
+};
+
+class MultiplayerSettings
+{
+public:
+	MultiplayerColorDefinition *getColor(int index);
+};
+
+extern MultiplayerSettings *TheMultiplayerSettings;
+
+// Retail 0x004E476C, 712 bytes: on the PlayerStatus screen (+0x288 == 1),
+// one table row per occupied slot whose player exists: name, faction, team
+// and state, the player's color, and the slot behind the row (-1 for the
+// unused rows). BFME 1's AptObjectivesMenu.cpp (0x0052C220) is the donor.
+void AptPlayerStatus::rva004E476C()
+{
+	if (m_state != 1)
+		return;
+	int row = 0;
+	for (int i = 0; i < 8; ++i)
+	{
+		const GameSlot *slot = TheGameInfo->getConstSlot(i);
+		if (!slot || !slot->isOccupied())
+			continue;
+		AsciiString name = TheGameInfo->getSlot(i)->m_playerName;
+		if (name.isEmpty())
+			continue;
+		Player *player = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(name));
+		if (!player)
+			continue;
+		bool connected = false;
+		if ((TheNetwork && TheNetwork->isPlayerConnected(i)) || (!TheNetwork && slot->isHuman()))
+			connected = true;
+		if (slot->isAI())
+			connected = true;
+		bool alive = !g_00E03138->hasBeenDefeated(player);
+		bool observer = player->rva002AA223();
+		rva004E44FB(row, 0, slot->getName());
+		rva004E44FB(row, 1, slot->getApparentPlayerTemplateDisplayName());
+		AsciiString team;
+		team.format("Team:%d", slot->m_teamNumber + 1);
+		if (slot->isAI() && slot->m_teamNumber == -1)
+			team = "Team:AI";
+		rva004E44FB(row, 2, TheGameText->fetch(team));
+		team = "";
+		if (connected)
+		{
+			if (alive)
+				team = "GUI:PlayerAlive";
+			else if (observer)
+				team = "GUI:PlayerObserver";
+			else
+				team = "GUI:PlayerDead";
+		}
+		else
+		{
+			if (observer)
+				team = "GUI:PlayerObserverGone";
+			else
+				team = "GUI:PlayerGone";
+		}
+		rva004E44FB(row, 3, TheGameText->fetch(team));
+		m_colors.push_back((Rva004E476CColor)TheMultiplayerSettings->getColor(slot->getApparentColor())->m_color);
+		m_slot[row] = (signed char)i;
+		++row;
+	}
+	for (; row < 8; ++row)
+		m_slot[row] = -1;
 }
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
