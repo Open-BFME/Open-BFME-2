@@ -17,6 +17,8 @@
 // bytes). Honest address names: hashes 0xC17A0A70 and 0xDF4D3EB3, vtables
 // 0x00860668 and 0x008606B0, callers 0x00343A39 / 0x00346F79.
 
+#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+
 class StateMachine;
 
 class AsciiString
@@ -28,7 +30,7 @@ public:
 // State_vftable: matched references place it at VA 0xc605d8 (retail .rdata value -3).
 extern "C" char State_vftable = -3;
 
-class __declspec(novtable) State
+class __declspec(novtable) State : public Snapshot
 {
 public:
 	State(StateMachine *machine, AsciiString name);
@@ -43,6 +45,13 @@ public:
 	StateMachine *m_machine; // +0x18
 	bool m_tail1C; // +0x1C
 };
+
+// The State ctor installs VA 0x00C605D8. Its first native slot is the
+// deleting destructor at RVA 0x004A10FD, which calls 0x0049B47C before
+// testing the delete flag. That complete body resets the shared Snapshot
+// vptr to VA 0x00BBB554. The released base has no additional owned fields;
+// use the canonical Snapshot definition so both bytes and binding agree.
+State::~State() {}
 
 State::State(StateMachine *machine, AsciiString name)
 {
