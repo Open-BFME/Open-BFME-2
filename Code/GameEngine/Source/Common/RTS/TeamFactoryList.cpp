@@ -23,6 +23,14 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 //
 #define __PLACEMENT_VEC_NEW_INLINE
 #include <map>		// before PreRTS.h so STLport node_alloc is used (not NEWALLOC)
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #include "PreRTS.h"
 #include "Common/Team.h"
 #include "Common/NameKeyGenerator.h"

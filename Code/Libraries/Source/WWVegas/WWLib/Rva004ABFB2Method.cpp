@@ -4,6 +4,14 @@
 // evidence: unlock caller 0x004ABFD9 dtor passes global 0x00A03CE0 as this plus int key; callees rowed tree-erase 0x004ABE65 plus Rva0020DAE0 0x0020DAE0; registry-remove pattern from Rva00E03CE0RegistryInsert
 #include <map>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 typedef _STL::pair<const int, void *> PairIntPtr004ABFB2;
 typedef _STL::_Rb_tree<int, PairIntPtr004ABFB2, _STL::_Select1st<PairIntPtr004ABFB2>, _STL::less<int>, _STL::allocator<PairIntPtr004ABFB2> > TreeIntPtr004ABFB2;
 

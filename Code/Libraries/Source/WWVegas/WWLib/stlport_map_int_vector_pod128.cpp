@@ -9,6 +9,14 @@
 // stlport_map_int_int_os.cpp lands for map<int, int>, with its flags.
 
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #include <vector>
 
 struct BfmePod128 { int a[32]; };

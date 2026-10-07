@@ -5,6 +5,14 @@
 // via _free 0x00030830, decrement count. Same models as
 // stlport_string_list_pair_cleanup.cpp; caller 0x005CA7A9.
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #include <list>
 
 #include "ascii_string.h"

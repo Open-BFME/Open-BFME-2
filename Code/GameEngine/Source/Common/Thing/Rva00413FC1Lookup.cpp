@@ -4,6 +4,14 @@
 // was ?rva00413FC1@Rva00413FC1@@QAEPAHH@Z @0x00413FC1 54B: floor lookup in map<int,int> at +0xC via lower_bound.
 // Evidence: unlock lane, rowed _M_lower_bound 0x00382A92 and rowed _M_decrement 0x000242C0, add eax+0x14 returns mapped value, callers at 0x002BCB4C and 0x004F68E5.
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 class LivingWorldAutoResolveResourceBonusSchedule
 {
 public:

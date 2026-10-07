@@ -7,6 +7,14 @@
 // Same 68B shape as rowed range erase 0x0007300F in Rva0007300FErase.cpp and 0x004ABC85 modulo clear callee
 // Owner Rva0043B2E2 header at +0x00 per RvaTreeEraseClearFamily.cpp; unblocks 0x0043B4EC
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 struct Rva0043B2E2Node {
   unsigned _M_color;
   Rva0043B2E2Node *parent04;
