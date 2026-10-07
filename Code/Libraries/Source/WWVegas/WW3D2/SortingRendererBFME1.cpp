@@ -52,6 +52,50 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+// BFME2's SortingRendererClass takes its index ranges as unsigned ints: both
+// sphere inserts reject a value above 65535 before narrowing it into the
+// node. This unit declares the class itself in place of the Zero Hour header.
+#include "always.h"
+#define SORTING_RENDERER_H
+class SortingNodeStruct;
+class SphereClass;
+class SortingRendererClass
+{
+	static bool _EnableTriangleDraw;
+
+	static void Flush_Sorting_Pool();
+	static void Insert_To_Sorting_Pool(SortingNodeStruct* state);
+
+public:
+	static void Insert_Triangles(
+		const SphereClass& bounding_sphere,
+		unsigned short start_index,
+		unsigned short polygon_count,
+		unsigned short min_vertex_index,
+		unsigned short vertex_count);
+
+	static void Insert_Triangles(
+		unsigned short start_index,
+		unsigned short polygon_count,
+		unsigned short min_vertex_index,
+		unsigned short vertex_count);
+
+	static void Insert_VolumeParticle(
+		const SphereClass& bounding_sphere,
+		unsigned start_index,
+		unsigned polygon_count,
+		unsigned min_vertex_index,
+		unsigned vertex_count,
+		unsigned layerCount);
+
+	static void Flush();
+	static void Deinit();
+
+	static void SetMinVertexBufferSize( unsigned val );
+
+	static void _Enable_Triangle_Draw(bool enable) { _EnableTriangleDraw=enable; }
+	static bool _Is_Triangle_Draw_Enabled() { return _EnableTriangleDraw; }
+};
 #include "sortingrenderer.h"
 #include "dx8vertexbuffer.h"
 #include "dx8indexbuffer.h"
@@ -786,19 +830,27 @@ void SortingRendererClass::Flush_Sorting_Pool()
 //
 // ----------------------------------------------------------------------------
 
-// ?Insert_VolumeParticle@SortingRendererClass@@SAXABVSphereClass@@GGGGG@Z present-unmatched
+// Retail 0x00130410..0x00130A1E, 1550 bytes. Target evidence: the body is
+// the 0x0012FE00 insert (same range checks, inlined Get_Render_State, depth
+// formula and sorted insertion) except that both recorded counts and the
+// node's polygon and vertex counts are multiplied by a sixth argument, which
+// is Zero Hour's Insert_VolumeParticle layerCount. Like that sibling, BFME2
+// takes the ranges as unsigned ints and rejects any above 65535.
+// ?Insert_VolumeParticle@SortingRendererClass@@SAXABVSphereClass@@IIIII@Z
 void SortingRendererClass::Insert_VolumeParticle(
 	const SphereClass& bounding_sphere,
-	unsigned short start_index, 
-	unsigned short polygon_count,
-	unsigned short min_vertex_index,
-	unsigned short vertex_count,
-	unsigned short layerCount)
+	unsigned start_index,
+	unsigned polygon_count,
+	unsigned min_vertex_index,
+	unsigned vertex_count,
+	unsigned layerCount)
 {
 	if (!WW3D::Is_Sorting_Enabled()) {
 		DX8Wrapper::Draw_Triangles(start_index,polygon_count,min_vertex_index,vertex_count);
 		return;
 	}
+	if (polygon_count > 65535 || vertex_count > 65535 ||
+		start_index > 65535 || min_vertex_index > 65535) return;
 
 	//FOR VOLUME_PARTICLE LOGIC:
 	// WE MUST MULTIPLY THE VERTCOUNT AND POLYCOUNT BY THE VOLUME_PARTICLE DEPTH
@@ -807,36 +859,19 @@ void SortingRendererClass::Insert_VolumeParticle(
 	SortingNodeStruct* state=Get_Sorting_Struct();
 	DX8Wrapper::Get_Render_State(reinterpret_cast<RenderStateStruct &>(state->sorting_state));
 
- 	WWASSERT(
-		((state->sorting_state.index_buffer_type==BUFFER_TYPE_SORTING || state->sorting_state.index_buffer_type==BUFFER_TYPE_DYNAMIC_SORTING) &&
-		(state->sorting_state.vertex_buffer_types[0]==BUFFER_TYPE_SORTING || state->sorting_state.vertex_buffer_types[0]==BUFFER_TYPE_DYNAMIC_SORTING)));
-
 	state->start_index=start_index;
 	state->min_vertex_index=min_vertex_index;
 	state->polygon_count=polygon_count * layerCount;//THIS IS VOLUME_PARTICLE SPECIFIC
 	state->vertex_count=vertex_count * layerCount;//THIS IS VOLUME_PARTICLE SPECIFIC
 
-	SortingVertexBufferClass* vertex_buffer=static_cast<SortingVertexBufferClass*>(state->sorting_state.vertex_buffers[0]);
-	WWASSERT(vertex_buffer);
-	WWASSERT(state->vertex_count<=vertex_buffer->Get_Vertex_Count());
-
-	// Transform the center point to view space for sorting
-
-	D3DXMATRIX mtx=(D3DXMATRIX&)state->sorting_state.world*(D3DXMATRIX&)state->sorting_state.view;
-	D3DXVECTOR3 vec=(D3DXVECTOR3&)bounding_sphere.Center;
-	D3DXVECTOR4 transformed_vec;
-	D3DXVec3Transform(
-		&transformed_vec,
-		&vec,
-		&mtx); 
-	state->transformed_center=transformed_vec[2];
-
-
-	// BUT WHAT IS THE DEAL WITH THE VERTCOUNT AND POLYCOUNT BEING N BUT TRANSFORMED CENTER COUNT == 1
-
-	//THE TRANSFORMED CENTER[2] IS THE ZBUFFER DEPTH
-	
-	/// @todo lorenzen sez use a bucket sort here... and stop copying so much data so many times
+	const Matrix4& a = state->sorting_state.world;
+	const Matrix4& b = state->sorting_state.view;
+	const Vector3& v = bounding_sphere.Center;
+	state->transformed_center =
+		(((float)(a[2][2]*b[2][2]) + (float)(a[2][1]*b[1][2]) + a[2][0]*b[0][2]) + a[2][3]*b[3][2])*v.Z +
+		(((float)(a[1][2]*b[2][2]) + (float)(a[1][1]*b[1][2]) + a[1][0]*b[0][2]) + a[1][3]*b[3][2])*v.Y +
+		(((float)(a[0][2]*b[2][2]) + (float)(a[0][1]*b[1][2]) + ((const volatile float&)a[0][0])*b[0][2]) + a[0][3]*b[3][2])*v.X +
+		(((float)(a[3][2]*b[2][2]) + (float)(a[3][1]*b[1][2]) + a[3][0]*b[0][2]) + a[3][3]*b[3][2]);
 
 	SortingNodeStruct* node=sorted_list.Head();
 	while (node) {
