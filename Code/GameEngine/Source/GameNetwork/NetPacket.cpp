@@ -1897,6 +1897,61 @@ void NetPacket::FillBufferWithRequestGameSpyStatsAuthKeyCommand(UnsignedByte *bu
 	buffer[offset] = 0;
 }
 
+// ?FillBufferWithGameSpyStatsAuthKeyCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x00591691, 330 bytes:
+// FillBufferWithCommand's type-6 arm: the BFME1 donor's writer of the same name
+// with BFME's 'S' timestamp; the key and login are the +0x1C and +0x20 strings
+// addGameSpyStatsAuthKeyCommand writes, each copied only when non-empty.
+void NetPacket::FillBufferWithGameSpyStatsAuthKeyCommand(UnsignedByte *buffer, NetCommandRef *msg)
+{
+	NetCommandMsg *cmdMsg = msg->getCommand();
+	UnsignedInt offset = 0;
+
+	buffer[offset] = 'T';
+	++offset;
+	buffer[offset] = cmdMsg->getNetCommandType();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'R';
+	++offset;
+	buffer[offset] = msg->getRelay();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'S';
+	++offset;
+	UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+	memcpy(buffer + offset, &newTimestamp, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'P';
+	++offset;
+	buffer[offset] = cmdMsg->getPlayerID();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'C';
+	++offset;
+	UnsignedShort newID = cmdMsg->getID();
+	memcpy(buffer + offset, &newID, sizeof(UnsignedShort));
+	offset += sizeof(UnsignedShort);
+
+	buffer[offset] = 'D';
+	++offset;
+
+	AsciiString key = ((CDDrive *)cmdMsg)->CDDrive::getPath();
+	if (key.getLength() != 0) {
+		memcpy(buffer + offset, key.str(), key.getLength());
+	}
+	offset += key.getLength();
+	buffer[offset] = 0;
+	++offset;
+
+	AsciiString login = ((Rva002D9BC1AsciiField *)cmdMsg)->get();
+	if (login.getLength() != 0) {
+		memcpy(buffer + offset, login.str(), login.getLength());
+	}
+	offset += login.getLength();
+	buffer[offset] = 0;
+}
+
 // ?FillBufferWithGameCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058C488, 696 bytes:
 // the BFME1 donor's FillBufferWithGameCommand
 // (NetPacket_FillBufferWithGameCommand.cpp) with BFME's 'S' timestamp field
