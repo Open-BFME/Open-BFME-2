@@ -155,7 +155,7 @@ def store_receipt(src, allow_nonauthoritative=False):
     keep = ("tool", "rules", "commit", "dirty", "date_utc", "retail_sha256", "toolchain_sha256",
             "tool_digest", "objects_digest", "objects", "inputs", "iterations", "scaffold", "series",
             "seconds", "commit_inputs", "provenance_note", "core_sha256", "authoritative", "measure_env",
-            "compile_failed")
+            "compile_failed", "canon_rules", "objects_canon_digest", "core_canon_sha256")
     out = ROOT / RECEIPT
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps({k: receipt[k] for k in keep if k in receipt}, indent=1, sort_keys=True) + "\n",

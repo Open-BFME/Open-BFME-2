@@ -63,7 +63,10 @@ fixes of research 29, 31 and the round-2 review:
      `core_sha256` digests the reproducible part: a cold and a cached run of
      the same inputs must give the same core (nothing in it may follow a
      process's string hash seed; text inputs are digested with LF line ends;
-     the interpreter and decoder versions are bound). Warm-start caches
+     the interpreter and decoder versions are bound). `core_canon_sha256` is
+     that core with the objects bound by canonical_identity (no anonymous-
+     namespace hash, section or symbol numbering): two builders of one commit
+     compare it, as their compilers differ in those. Warm-start caches
      (quarantine, stubs) are reused only for the objects they were computed
      from, and only a loop that reached its fixed point (no drift, no new
      unresolved name) is authoritative.
@@ -1427,6 +1430,106 @@ def object_identity(o):
     return h.hexdigest()
 
 
+CANON_RULES = "coff-canon-1"
+ANON_NS = re.compile(rb"\?A0x[0-9a-f]{8}")
+ANON_CANON = b"?A0x########"
+ASSOCIATIVE = 5
+
+
+def canonical_identity(o):
+    """object_identity up to what two compiles of one TU in two trees may vary in
+    (VC7.1: research lc-repro-bfme2), and nothing else:
+      - the anonymous namespace's hash `?A0x<8 hex>` (it follows the path or the
+        compile). Renamed only when the object holds exactly one such hash, in
+        names and section bytes alike; an object holding two keeps them raw;
+      - section numbering: a section is named by what the linker binds it by: a
+        COMDAT by its leader symbol (adjustor thunks come out permuted), an
+        associative COMDAT by its parent, any other by its name and its rank
+        among same-named sections (their relative order is kept: it is link order);
+      - symbol table order: a relocation names its target (a section by that key,
+        a symbol by name, class and definition), not its table index, and the
+        relocations of a section are sorted by site.
+    Everything else is bound: every section's flags, size, bytes and relocation
+    (site, type, target), the COMDAT selection and parent, and every symbol's
+    name, value, section, type and class, a weak external's default. The time
+    stamp and debug records stay out, as in object_identity."""
+    secs, syms, raw = o
+    symptr = struct.unpack_from("<I", raw, 8)[0]
+    live = [s for s in secs if not s.name.startswith(".debug$")]
+    found = set(ANON_NS.findall("\0".join(y.name for y in syms.values()).encode("latin-1")))
+    for s in live:
+        if s.ptr:
+            found.update(ANON_NS.findall(raw[s.ptr:s.ptr + s.size]))
+    anon = found.pop() if len(found) == 1 else None
+
+    def rn(name):
+        return name.replace(anon.decode(), ANON_CANON.decode()) if anon else name
+
+    def aux(i):
+        o = symptr + 18 * i
+        return raw[o + 18:o + 18 + 18 * raw[o + 17]]
+    secdef, leader, sel, parent = set(), {}, {}, {}
+    for i in sorted(syms):
+        y = syms[i]
+        if not 0 < y.sec <= len(secs):
+            continue
+        s = secs[y.sec - 1]
+        a = aux(i)
+        if y.cls == STATIC and y.value == 0 and y.name == s.name and len(a) >= 18 and y.sec not in sel:
+            secdef.add(i)
+            sel[y.sec] = a[14]
+            parent[y.sec] = struct.unpack_from("<H", a, 12)[0] if a[14] == ASSOCIATIVE else 0
+        elif s.flags & COMDAT and y.sec not in leader:
+            leader[y.sec] = rn(y.name)
+    base, keys = {}, {}
+
+    def stem(k, seen=()):
+        if k not in base:
+            s = secs[k - 1]
+            if not s.flags & COMDAT:
+                base[k] = ("sec", s.name)
+            elif sel.get(k) == ASSOCIATIVE and 0 < parent[k] <= len(secs) and k not in seen:
+                base[k] = ("assoc", stem(parent[k], seen + (k,)), s.name)
+            else:
+                base[k] = ("comdat", leader.get(k), s.name)
+        return base[k]
+    rank = collections.Counter()
+    for s in secs:
+        b = stem(s.idx)
+        keys[s.idx] = b + (rank[b],)
+        rank[b] += 1
+
+    def where(sec):
+        return keys[sec] if 0 < sec <= len(secs) else sec
+
+    def ref(i):
+        y = syms.get(i)
+        if y is None:
+            return ("raw", i)
+        if i in secdef:
+            return ("S", keys[y.sec])
+        return ("D", rn(y.name), y.cls, where(y.sec), y.value)
+    srecs = []
+    for s in live:
+        body = raw[s.ptr:s.ptr + s.size] if s.ptr else b""
+        if anon:
+            body = body.replace(anon, ANON_CANON)
+        srecs.append(repr((keys[s.idx], s.flags, s.size, hashlib.sha256(body).hexdigest(), sel.get(s.idx),
+                           where(parent[s.idx]) if parent.get(s.idx) else None,
+                           sorted(((va, ty, ref(si)) for va, si, ty in s.relocs), key=repr))))
+    yrecs = []
+    for i, y in syms.items():
+        typ = struct.unpack_from("<H", raw, symptr + 18 * i + 14)[0]
+        a = aux(i)
+        weak = (ref(struct.unpack_from("<I", a, 0)[0]), struct.unpack_from("<I", a, 4)[0]) \
+            if y.cls == WEAK and len(a) >= 8 else None
+        yrecs.append(repr((rn(y.name), y.value, where(y.sec), typ, y.cls, i in secdef, weak)))
+    h = hashlib.sha256(CANON_RULES.encode())
+    for r in sorted(srecs) + ["--"] + sorted(yrecs):
+        h.update(r.encode("latin-1", "backslashreplace") + b"\n")
+    return h.hexdigest()
+
+
 def objects_digest(objs, paths):
     """One digest of every link input object's identity, by path under ROOT."""
     h = hashlib.sha256()
@@ -1587,7 +1690,7 @@ def provenance(rows, present, objs, out):
     for p in present:
         rel = Path(p).relative_to(ROOT).as_posix()
         o = objs.get(p)
-        rec = {"object": object_identity(o) if o else None}
+        rec = {"object": object_identity(o) if o else None, "object_canon": canonical_identity(o) if o else None}
         src = sources.get(p)
         if src is not None and Path(src).suffix.lower() != build.LIB_SUFFIX:
             if build.compile_is_current(src, p, strict=True, inventory_cache=inventory):
@@ -1613,7 +1716,20 @@ def provenance(rows, present, objs, out):
         raise SystemExit(f"link_cycle: {len(tampered)} object(s) changed with no compile behind the change, "
                          f"e.g. {tampered[:5]}; delete them (and their .deps.json) and run with --build")
     path.write_text(json.dumps(prov, indent=0, sort_keys=True), encoding="utf-8")
-    return sha256(path), dict(sorted(collections.Counter(r.get("proof", "no source") for r in prov.values()).items()))
+    proofs = dict(sorted(collections.Counter(r.get("proof", "no source") for r in prov.values()).items()))
+    return sha256(path), proofs, canonical_digests(prov)
+
+
+def canonical_digests(prov):
+    """The objects' and the provenance's digests by canonical_identity: what two
+    builders of one tree agree on (object_identity also binds the compile's
+    anonymous-namespace hash and section and symbol numbering)."""
+    h = hashlib.sha256(CANON_RULES.encode())
+    for rel in sorted(prov):
+        h.update(f"{rel}\0{prov[rel].get('object_canon') or '-'}".encode())
+    canon = {rel: {k: v for k, v in rec.items() if k != "object"} for rel, rec in prov.items()}
+    return {"canon_rules": CANON_RULES, "objects_canon_digest": h.hexdigest(),
+            "provenance_canon_sha256": digest_of(canon)}
 
 
 def cache_file(path, stamp, allow_stale):
@@ -1647,6 +1763,27 @@ def receipt_core(receipt):
             "not_ordered", "not_ordered_bytes", "analyze",
             "scaffold", "final_link", "series")
     return {k: receipt[k] for k in keep if k in receipt}
+
+
+def receipt_canon_core(receipt):
+    """receipt_core with the objects and the provenance bound by canonical_identity
+    (canonical_digests) in place of object_identity: two builders of one commit
+    compare `core_canon_sha256`; `core_sha256` stays the same-builder identity.
+    None for a receipt written before the canonical digests existed."""
+    if "objects_canon_digest" not in receipt:
+        return None
+    core = receipt_core(receipt)
+    core.pop("objects_digest", None)
+    core.pop("provenance_sha256", None)
+    core.update({k: receipt[k] for k in ("canon_rules", "objects_canon_digest", "provenance_canon_sha256")})
+    return core
+
+
+def stamp_cores(receipt):
+    receipt["core_sha256"] = digest_of(receipt_core(receipt))
+    canon = receipt_canon_core(receipt)
+    if canon is not None:
+        receipt["core_canon_sha256"] = digest_of(canon)
 
 
 def digest_of(value):
@@ -1724,7 +1861,7 @@ def cycle(args):
     objs = Objects(present)
     units, astat = analyze(rows, objs)
     obj_digest = objects_digest(objs, present)
-    prov_digest, proofs = provenance(rows, present, objs, out)
+    prov_digest, proofs, canon = provenance(rows, present, objs, out)
     times["provenance"] = round(time.time() - t)
     pe_r, R, rsecs, rimp = pe_view(build.EXE)
     text0, textsz = rsecs[".text"]
@@ -1815,7 +1952,7 @@ def cycle(args):
     times["measure"] = round(time.time() - t)
     receipt = dict(start, tool="link_cycle", rules="link-cycle-2",
                    date_utc=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
-                   objects_digest=obj_digest, provenance_sha256=prov_digest, objects=len(present),
+                   objects_digest=obj_digest, provenance_sha256=prov_digest, objects=len(present), **canon,
                    objects_missing=len(missing), compile_failed=compile_failed, currency_proofs=proofs,
                    warm_start=warm,
                    quarantine_sha256=digest_of(sorted(quarantine)), stubs_sha256=digest_of(sorted(stubs)),
@@ -1843,14 +1980,15 @@ def cycle(args):
                                 and not compile_failed and converged)
     times["total"] = round(time.time() - t_all)
     receipt["seconds"] = times
-    receipt["core_sha256"] = digest_of(receipt_core(receipt))
+    stamp_cores(receipt)
     if moved:
         receipt["moved_during_run"] = moved
         (out / "receipt.rejected.json").write_text(json.dumps(receipt, indent=1), encoding="utf-8")
         raise SystemExit(f"link_cycle: inputs moved during the run ({', '.join(moved)}); no receipt recorded")
     (out / "receipt.json").write_text(json.dumps(receipt, indent=1), encoding="utf-8")
     print(json.dumps(res, indent=1))
-    print(f"link_cycle: receipt {out / 'receipt.json'} core {receipt['core_sha256'][:16]}; wall {times}")
+    print(f"link_cycle: receipt {out / 'receipt.json'} core {receipt['core_sha256'][:16]} "
+          f"canon {receipt.get('core_canon_sha256', '-')[:16]}; wall {times}")
     return receipt
 
 
@@ -2133,7 +2271,7 @@ def remeasure(args):
         receipt.update(series=res, tool_digest=tool_digest(), rules="link-cycle-2", authoritative=False,
                        remeasured_utc=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()))
         receipt.setdefault("seconds", {})["measure"] = round(time.time() - t)
-        receipt["core_sha256"] = digest_of(receipt_core(receipt))
+        stamp_cores(receipt)
         path.write_text(json.dumps(receipt, indent=1), encoding="utf-8")
     return 0
 

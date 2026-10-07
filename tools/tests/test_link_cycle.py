@@ -605,6 +605,195 @@ def test_object_identity_ignores_time_stamp_and_debug_records(tmp_path):
     assert ident(b) != ident(a)
 
 
+TEXT, RDATA, ANON = 0x60500020, 0x40300040, "?A0x{}"
+
+
+def emit(secs, syms, order=None, stamp=0, anon="218df5bc", shuffle=False):
+    """A COFF object as cl writes one: a section definition (with its aux: COMDAT
+    selection and parent) for each section in file `order`, its own symbols after
+    it (a COMDAT's leader first), then the undefined names (reversed if `shuffle`,
+    which also reverses each section's relocation records). secs: dicts name,
+    flags, body, sel, assoc (logical index), relocs [(site, target, type)], target
+    a symbol name or ("sec", logical index); syms: dicts name, sec (logical index,
+    or 0 undefined), value, cls, weak (default's name). "{}" in names and bodies
+    takes the anonymous namespace's hash."""
+    order = list(range(len(secs))) if order is None else order
+    fileno = {k: n + 1 for n, k in enumerate(order)}
+    A = ANON.format(anon)
+    strings = bytearray()
+
+    def field(n):
+        raw = n.replace("{}", A).encode("latin-1")
+        if len(raw) <= 8:
+            return raw.ljust(8, b"\0")
+        strings.extend(raw + b"\0")
+        return struct.pack("<II", 0, 4 + len(strings) - len(raw) - 1)
+    table, index = [], {}                     # [(name, secno, value, cls, aux: bytes / weak default / None)]
+    for k in order:
+        s = secs[k]
+        index[("sec", k)] = len(table)
+        table.append((s["name"], fileno[k], 0, lc.STATIC,
+                      struct.pack("<IHHIHBBH", len(s["body"]), len(s.get("relocs", ())), 0, 0,
+                                  fileno[s["assoc"]] if s.get("assoc") is not None else 0, s.get("sel", 0), 0, 0)))
+        for y in syms:
+            if y.get("sec") == k:
+                index[y["name"]] = len(table)
+                table.append((y["name"], fileno[k], y.get("value", 0), y.get("cls", lc.EXTERNAL), None))
+    rest = [y for y in syms if y.get("sec") is None]
+    for y in reversed(rest) if shuffle else rest:
+        index[y["name"]] = len(table)
+        table.append((y["name"], 0, 0, y.get("cls", lc.EXTERNAL), y.get("weak")))
+    raw_index, at = [], 0
+    for t in table:
+        raw_index.append(at)
+        at += 2 if t[4] else 1
+    real = {key: raw_index[v] for key, v in index.items()}
+    symtab = bytearray()
+    for name, sec, val, cls, aux in table:
+        if isinstance(aux, str):
+            aux = struct.pack("<II", real[aux], 3).ljust(18, b"\0")
+        symtab += field(name) + struct.pack("<IhHBB", val, sec, 0x20 if sec > 0 else 0, cls, 1 if aux else 0)
+        symtab += aux or b""
+    hdr_end = 20 + 40 * len(order)
+    shdr, bodies = bytearray(), bytearray()
+    for k in order:
+        s = secs[k]
+        body = s["body"].replace(b"{}", A.encode()) if isinstance(s["body"], bytes) else s["body"]
+        ptr = hdr_end + len(bodies)
+        bodies += body
+        relocs = list(s.get("relocs", ()))
+        relocs = relocs[::-1] if shuffle else relocs
+        rptr = hdr_end + len(bodies) if relocs else 0
+        for va, target, ty in relocs:
+            bodies += struct.pack("<IIH", va, real[target], ty)
+        shdr += field(s["name"]) + struct.pack("<IIIIIIHHI", 0, 0, len(body), ptr if body else 0, rptr, 0,
+                                               len(relocs), 0, s["flags"])
+    return (struct.pack("<HHIIIHH", 0x14C, len(order), stamp, hdr_end + len(bodies), len(symtab) // 18, 0, 0)
+            + shdr + bodies + symtab + struct.pack("<I", 4 + len(strings)) + strings)
+
+
+def canon(raw):
+    return lc.canonical_identity(lc.parse_coff(raw) + (raw,))
+
+
+def ident(raw):
+    return lc.object_identity(lc.parse_coff(raw) + (raw,))
+
+
+def thunk_object():
+    """Two adjustor thunks (COMDATs cl permutes), each with an associative .rdata,
+    a .text holding a call through an anonymous-namespace function, RTTI-like
+    bytes naming it, and a weak external."""
+    C = lc.COMDAT
+    secs = [dict(name=".drectve", flags=0x100A00, body=b"/DEFAULTLIB:LIBC "),
+            dict(name=".text", flags=TEXT, body=b"\xe8\0\0\0\0\xc3", relocs=[(1, "?f@{}@@YAXXZ", lc.REL32)]),
+            dict(name=".text", flags=TEXT | C, sel=2, body=b"\x83\xe9\x04\xe9\0\0\0\0",
+                 relocs=[(4, "??_GA@@UAEPAXI@Z", lc.REL32)]),
+            dict(name=".text", flags=TEXT | C, sel=2, body=b"\x83\xe9\x08\xe9\0\0\0\0",
+                 relocs=[(4, "??_GB@@UAEPAXI@Z", lc.REL32)]),
+            dict(name=".rdata", flags=RDATA | C, sel=5, assoc=2, body=b"\0\0\0\0", relocs=[(0, ("sec", 2), 6)]),
+            dict(name=".rdata", flags=RDATA | C, sel=5, assoc=3, body=b"\0\0\0\0", relocs=[(0, ("sec", 3), 6)]),
+            dict(name=".data", flags=0xC0300040, body=b".?AVV@{}@@\0\0\0\0\0\0",
+                 relocs=[(12, "?f@{}@@YAXXZ", 6), (16, "_weak", 6)]),
+            dict(name=".text", flags=TEXT | C, sel=2, body=b"\xc3")]
+    syms = [dict(name="_main", sec=1), dict(name="$L1", sec=1, value=5, cls=lc.STATIC),
+            dict(name="??_EA@@W3AEPAXI@Z", sec=2), dict(name="??_EB@@W7AEPAXI@Z", sec=3),
+            dict(name="_vt", sec=6), dict(name="?f@{}@@YAXXZ", sec=7, cls=lc.STATIC),
+            dict(name="??_GA@@UAEPAXI@Z"), dict(name="??_GB@@UAEPAXI@Z"), dict(name="_dflt"),
+            dict(name="_weak", cls=lc.WEAK, weak="_dflt")]
+    return secs, syms
+
+
+def test_canonical_identity_drops_what_two_compiles_of_one_tu_vary_in():
+    """Research lc-repro-bfme2: 20 of 18,301 objects of two exports of one tree
+    differed by anonymous-namespace hash (4), relocation symbol indices (6) and
+    permuted adjustor-thunk COMDATs (10). Each, and all together, compare equal."""
+    secs, syms = thunk_object()
+    base = emit(secs, syms)
+    variants = {"time stamp": emit(secs, syms, stamp=0x5F00AA11),
+                "anonymous-namespace hash": emit(secs, syms, anon="6a92f4f5"),
+                "symbol and relocation order": emit(secs, syms, shuffle=True),
+                "COMDAT numbering": emit(secs, syms, order=[0, 1, 3, 2, 5, 4, 6, 7]),
+                "all of them": emit(secs, syms, order=[0, 1, 7, 3, 2, 6, 5, 4], anon="c4c9395d", shuffle=True,
+                                    stamp=7)}
+    for why, raw in variants.items():
+        assert canon(raw) == canon(base), why
+        if why != "time stamp":
+            assert ident(raw) != ident(base), why          # what object_identity (core_sha256) refuses
+
+
+def test_canonical_identity_binds_code_relocations_and_bindings():
+    """No over-acceptance: every change the linker or the image would see moves
+    the canonical identity."""
+    import copy
+    secs, syms = thunk_object()
+    base = canon(emit(secs, syms))
+
+    def mutated(f, **kw):
+        s, y = copy.deepcopy(secs), copy.deepcopy(syms)
+        f(s, y)
+        return canon(emit(s, y, **kw))
+
+    def sym(y, name):
+        return next(x for x in y if x["name"] == name)
+    mutations = {
+        "code byte": lambda s, y: s[2].update(body=b"\x83\xe9\x08\xe9\0\0\0\0"),
+        "thunk bodies swapped between leaders": lambda s, y: (
+            s[2].update(body=secs[3]["body"], relocs=secs[3]["relocs"]),
+            s[3].update(body=secs[2]["body"], relocs=secs[2]["relocs"])),
+        "data byte": lambda s, y: s[6].update(body=b".?AVW@{}@@\0\0\0\0\0\0"),
+        "relocation target (another symbol)": lambda s, y: s[2].update(relocs=[(4, "??_GB@@UAEPAXI@Z", lc.REL32)]),
+        "relocation target (another section)": lambda s, y: s[4].update(relocs=[(0, ("sec", 3), 6)]),
+        "relocation site": lambda s, y: s[1].update(relocs=[(0, "?f@{}@@YAXXZ", lc.REL32)]),
+        "relocation type": lambda s, y: s[1].update(relocs=[(1, "?f@{}@@YAXXZ", 6)]),
+        "relocation dropped": lambda s, y: s[6].update(relocs=s[6]["relocs"][:1]),
+        "binding external -> static": lambda s, y: sym(y, "_main").update(cls=lc.STATIC),
+        "binding static -> external": lambda s, y: sym(y, "?f@{}@@YAXXZ").update(cls=lc.EXTERNAL),
+        "symbol value": lambda s, y: sym(y, "$L1").update(value=4),
+        "symbol section": lambda s, y: sym(y, "_vt").update(sec=1),
+        "symbol renamed": lambda s, y: sym(y, "??_EA@@W3AEPAXI@Z").update(name="??_EA@@W7AEPAXI@Z"),
+        "COMDAT selection": lambda s, y: s[2].update(sel=1),
+        "associative parent": lambda s, y: s[4].update(assoc=3),
+        "weak external default": lambda s, y: sym(y, "_weak").update(weak="??_GA@@UAEPAXI@Z"),
+        "section flags": lambda s, y: s[1].update(flags=TEXT | 0x2000),
+        "directive": lambda s, y: s[0].update(body=b"/DEFAULTLIB:LIBCMT "),
+    }
+    for why, f in mutations.items():
+        assert mutated(f) != base, why
+        assert mutated(f, order=[0, 1, 3, 2, 5, 4, 6, 7], shuffle=True, anon="6a92f4f5") != base, why
+
+
+def test_canonical_identity_keeps_plain_section_order_and_mixed_anonymous_hashes():
+    secs = [dict(name=".text", flags=TEXT, body=b"\x90\xc3"), dict(name=".text", flags=TEXT, body=b"\xcc\xc3")]
+    syms = [dict(name="_a", sec=0), dict(name="_b", sec=1)]
+    # two non-COMDAT .text sections link in object order: swapping them is a different object
+    assert canon(emit(secs, syms)) != canon(emit(secs, syms, order=[1, 0]))
+    # one hash is renamed; two different ones in one object are not taken for one
+    one = [dict(name=".text", flags=TEXT, body=b"?A0x218df5bc\0")]
+    two = [dict(name=".text", flags=TEXT, body=b"?A0x6a92f4f5\0")]
+    named = [dict(name="?f@?A0x218df5bc@@YAXXZ", sec=0)]
+    assert canon(emit(one, named)) != canon(emit(two, named))
+    assert canon(emit(one, named)) == canon(emit(two, [dict(name="?f@?A0x6a92f4f5@@YAXXZ", sec=0)]))
+
+
+def test_receipt_canon_core_replaces_the_object_digests_only():
+    r = {"rules": "link-cycle-2", "commit": "c", "series": {"credit_unique_bytes": 5}, "objects_digest": "o1",
+         "provenance_sha256": "p1", "canon_rules": lc.CANON_RULES, "objects_canon_digest": "k",
+         "provenance_canon_sha256": "q"}
+    other_builder = dict(r, objects_digest="o2", provenance_sha256="p2")
+    lc.stamp_cores(r)
+    lc.stamp_cores(other_builder)
+    assert r["core_sha256"] != other_builder["core_sha256"]
+    assert r["core_canon_sha256"] == other_builder["core_canon_sha256"]
+    for k, v in (("objects_canon_digest", "k2"), ("provenance_canon_sha256", "q2"), ("series", {})):
+        moved = dict(r, **{k: v})
+        lc.stamp_cores(moved)
+        assert moved["core_canon_sha256"] != r["core_canon_sha256"], k
+    old = {"rules": "link-cycle-2", "objects_digest": "o1"}            # a receipt from before: no canon core
+    lc.stamp_cores(old)
+    assert "core_canon_sha256" not in old
+
+
 def test_warm_start_caches_are_bound_to_their_objects(tmp_path):
     q = tmp_path / "quarantine.json"
     lc.save_cache(q, "digest-A", ["?x@@YAXXZ"])
