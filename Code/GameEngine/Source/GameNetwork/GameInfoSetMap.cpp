@@ -66,6 +66,8 @@ public:
 	virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2C();
 	virtual bool amIHost() const;
 	void setMap(AsciiString mapName);
+	void setMapCRC(unsigned int mapCRC);
+	void setMapSize(unsigned int mapSize);
 
 private:
 	char m_unrecovered04[0x0C];
@@ -76,6 +78,8 @@ private:
 	unsigned int m_mapSize;
 	int m_mapMask;
 };
+
+extern GameInfo *TheSkirmishGameInfo;
 
 void GameInfo::setMap(AsciiString mapName)
 {
@@ -190,4 +194,19 @@ void GameInfo::setMap(AsciiString mapName)
 			m_mapMask = 0;
 		}
 	}
+}
+
+// Retail call sequence at 0x00521C5A: set the skirmish map name, look it up,
+// then copy metadata offsets +0x2c and +0x28 into GameInfo when found. The
+// callback's original identity is unproven; this address-derived name records
+// only the behavior and direct target evidence.
+bool __stdcall rva00521C5A(const AsciiString &mapName)
+{
+	TheSkirmishGameInfo->setMap(mapName);
+	const MapMetaData *mapData = TheMapCache->findMap(mapName);
+	if (mapData) {
+		TheSkirmishGameInfo->setMapCRC(*(const unsigned int *)((const char *)mapData + 0x2C));
+		TheSkirmishGameInfo->setMapSize(*(const unsigned int *)((const char *)mapData + 0x28));
+	}
+	return true;
 }

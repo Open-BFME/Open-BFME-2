@@ -66922,3 +66922,4 @@ _rva0062AF56D3DXVec3Transform@12,,0x0062AF56,6,Code/GameEngine/Source/Common/Rva
 ?rva0053BA87@@YGHPAX0@Z,,0x0053BA87,90,Code/GameEngine/Source/Common/Rva0053BA87Predicate.cpp,matched,address-derived stdcall predicate over two supported flag views and two rowed helpers
 ?rva00531FE6@Rva002E99F9Sub460@@QAEG_NPAXG@Z,,0x00531FE6,91,Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E99F9.cpp,matched,address-derived slot decision method selected by the 0053241F forwarding thunk
 ??1Rva0052B3B2@@UAE@XZ,,0x0052B3B2,93,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp,matched,Destructor call order and member offsets from retail; base 0x0053947D is rowed; helper identity remains address-derived
+?rva00521C5A@@YG_NABVAsciiString@@@Z,,0x00521C5A,96,Code/GameEngine/Source/GameNetwork/GameInfoSetMap.cpp,matched,Retail callback calls rowed setMap and findMap then copies metadata at +0x2c and +0x28; identity address-derived
