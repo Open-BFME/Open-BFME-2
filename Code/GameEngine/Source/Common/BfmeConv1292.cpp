@@ -76,3 +76,16 @@ void bfmeLoadSJA(void *slot, void *p, char *out)
 	}
 }
 
+class Rva00410C42 { public: ~Rva00410C42(); };
+class Rva0041090E { public: ~Rva0041090E(); };
+void __cdecl dup_00410c7b();
+
+class Rva004110B4Tree { public: ~Rva004110B4Tree(); };
+Rva004110B4Tree::~Rva004110B4Tree() { ((Rva00410C42 *)this)->~Rva00410C42(); }
+
+class Rva004110B9Tree { public: ~Rva004110B9Tree(); };
+Rva004110B9Tree::~Rva004110B9Tree() { dup_00410c7b(); }
+
+class Rva004110BETree { public: ~Rva004110BETree(); };
+Rva004110BETree::~Rva004110BETree() { ((Rva0041090E *)this)->~Rva0041090E(); }
+

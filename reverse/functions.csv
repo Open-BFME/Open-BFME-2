@@ -67546,3 +67546,6 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva00557CBD@Rva00557CBD@@QAEXXZ,,0x00557CBD,5,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp,matched,
 ?rva00557CC2@Rva00557CC2@@QAEXXZ,,0x00557CC2,5,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp,matched,
 ?rva00557CC7@Rva00557CC7@@QAEXXZ,,0x00557CC7,5,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp,matched,
+??1Rva004110B4Tree@@QAE@XZ,,0x004110B4,5,Code/GameEngine/Source/Common/BfmeConv1292.cpp,matched,
+??1Rva004110B9Tree@@QAE@XZ,,0x004110B9,5,Code/GameEngine/Source/Common/BfmeConv1292.cpp,matched,
+??1Rva004110BETree@@QAE@XZ,,0x004110BE,5,Code/GameEngine/Source/Common/BfmeConv1292.cpp,matched,
