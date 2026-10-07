@@ -68669,3 +68669,7 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?getMaximumPathfindExtent@Rva00062FFFTerrainPrefix@@QBEXPAURegion3D@@@Z,,0x00062FFF,131,Code/GameEngineDevice/Source/W3DDevice/GameLogic/Rva00062FFFTerrainMaximumExtent.cpp,matched,ba7ddda7 clean maximum-extent donor with native offsets constant complete RET4 boundary and accepted dispatch evidence
 ?activeBoundaryExtent@Rva00062FFFTerrainPrefix@@QBEXPAURegion3D@@@Z,,0x00062EF8,108,Code/GameEngineDevice/Source/W3DDevice/GameLogic/Rva00062FFFTerrainMaximumExtent.cpp,matched,clean terrain reference body with independently native complete extent target offsets and table-slot evidence
 ?largestBoundaryExtent@Rva00062FFFTerrainPrefix@@QBEXPAURegion3D@@@Z,,0x00062F64,155,Code/GameEngineDevice/Source/W3DDevice/GameLogic/Rva00062FFFTerrainMaximumExtent.cpp,matched,clean terrain reference body with independently native complete extent target offsets and table-slot evidence
+?d_0005bb52@@YAXXZ,,0x0005BB52,144,Code/gen_asm/d_0005bb52.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_0006b804@@YAXXZ,,0x0006B804,145,Code/gen_asm/d_0005bb52.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00174ba6@@YAXXZ,,0x00174BA6,113,Code/gen_asm/d_0005bb52.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00211fa8@@YAXXZ,,0x00211FA8,111,Code/gen_asm/d_0005bb52.asm,matched,gen-dump;bounds=ghidra-inventory
