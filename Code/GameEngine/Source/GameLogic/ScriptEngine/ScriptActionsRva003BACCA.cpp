@@ -67,7 +67,7 @@ public:
 	virtual void s50();
 	virtual void s51(float value, int milliseconds, int mode, float a, float b);
 	virtual void s52(unsigned int objectID, int a, int b, float c, float d, float e);
-	virtual void s53();
+	virtual void s53(void *position, int milliseconds, float a, float b, int mode);
 	virtual void s54();
 	virtual void s55();
 	virtual void s56();
@@ -80,6 +80,50 @@ public:
 };
 
 extern class View *TheTacticalView;
+extern class TerrainLogic *TheTerrainLogic;
+
+// A call-only view of the retail terrain interface: slot 34 returns the
+// record whose embedded position starts at +0x0C. Its real method name
+// and the complete record layout remain unresolved.
+class Rva003BB05FTerrain
+{
+public:
+	virtual void s00() = 0;
+	virtual void s01() = 0;
+	virtual void s02() = 0;
+	virtual void s03() = 0;
+	virtual void s04() = 0;
+	virtual void s05() = 0;
+	virtual void s06() = 0;
+	virtual void s07() = 0;
+	virtual void s08() = 0;
+	virtual void s09() = 0;
+	virtual void s10() = 0;
+	virtual void s11() = 0;
+	virtual void s12() = 0;
+	virtual void s13() = 0;
+	virtual void s14() = 0;
+	virtual void s15() = 0;
+	virtual void s16() = 0;
+	virtual void s17() = 0;
+	virtual void s18() = 0;
+	virtual void s19() = 0;
+	virtual void s20() = 0;
+	virtual void s21() = 0;
+	virtual void s22() = 0;
+	virtual void s23() = 0;
+	virtual void s24() = 0;
+	virtual void s25() = 0;
+	virtual void s26() = 0;
+	virtual void s27() = 0;
+	virtual void s28() = 0;
+	virtual void s29() = 0;
+	virtual void s30() = 0;
+	virtual void s31() = 0;
+	virtual void s32() = 0;
+	virtual void s33() = 0;
+	virtual char *s34(int index) = 0;
+};
 
 class Parameter;
 class Object;
@@ -169,6 +213,21 @@ void __stdcall Rva003BAFE8(Parameter *p, float a1, float a2,
 		reinterpret_cast<TacticalView *>(TheTacticalView)->s52(
 			reinterpret_cast<Rva003BAFE8Object *>(object)->objectID,
 			(int)(a1 * 1000.0f), (int)(a2 * 1000.0f),
+			a3 * 1000.0f, a4 * 1000.0f, a5);
+	}
+}
+
+// Retail 0x003BB05F..0x003BB0C7, RET20; dispatcher caller 0x003CAFAB.
+// Slot 34 of the rowed TerrainLogic global supplies the record. View
+// slot 53 receives record+12, scaled/truncated a2, two scaled floats and
+// the final integer unchanged. The scale literal is retail 1000.0f.
+void __stdcall Rva003BB05FSet(int a1, float a2, float a3, float a4, int a5)
+{
+	char *record = reinterpret_cast<Rva003BB05FTerrain *>(TheTerrainLogic)->s34(a1);
+	if (record)
+	{
+		reinterpret_cast<TacticalView *>(TheTacticalView)->s53(
+			record + 12, (int)(a2 * 1000.0f),
 			a3 * 1000.0f, a4 * 1000.0f, a5);
 	}
 }

@@ -67771,3 +67771,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?deselectDrawable@InGameUI@@UAEXPAVDrawable@@@Z,,0x0029F34F,136,Code/GameEngine/Source/Common/InGameUIDeselectDrawable.cpp,matched,InGameUI deselect slot57 via donor plus rowed helpers
 ?rva0030BCB2@Rva0030BCB2@@QAEMXZ,,0x0030BCB2,8,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,adjustor tail-jmp this-0x28 to Rva0053863ESub rva00538661 same as 0x0030BEE6 caller 0x0030C4B9
 ?Rva003FEC05FadeScreenRegionToMapBlack@@YAHH_N@Z,,0x003FEC05,197,Code/GameEngine/Source/GameClient/GUI/Rva003FEC05.cpp,matched,fade step via rva00565170 family with reverse and tooltip
+?Rva003BB05FSet@@YGXHMMMH@Z,,0x003BB05F,104,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BACCA.cpp,matched,Native RET20 caller3CAFAB; TerrainLogic slot34 record+12 to View slot53; retail1000 literal; original method and action names unresolved
