@@ -69,7 +69,12 @@ private:
 
 void __stdcall rva003F936E(Rva003F936EHost *o, float *f);
 
-// ?rva003FB793@Rva003F936EHost@@QAEXPAUVec3@@@Z present-unmatched
+// BFME1 1399ad37 BfmeConv1318.cpp supplies the snapshot-before-write
+// shape. Native three MOVSS loads precede all stores, so an aliased output
+// cannot overwrite another source component before it is sampled. The first
+// scalar read is retained before the other loads as in that proven donor.
+// Rowed caller0x3F936E and next row0x3FB7C7 establish this52B RET4 extent.
+// Original owner/method remain unproven; preserve the existing native ABI view.
 void Rva003F936EHost::rva003FB793(Vec3 *out)
 {
 	Rva003FB793Inner *p = m_p08;
@@ -77,9 +82,12 @@ void Rva003F936EHost::rva003FB793(Vec3 *out)
 		return;
 	p->vfunc20();
 	Rva003FB793Elem *e = (Rva003FB793Elem *)p;
-	out->x = e->m_24;
-	out->y = e->m_34;
-	out->z = e->m_44;
+	float x = *(volatile float *)&e->m_24;
+	float y = e->m_34;
+	float z = e->m_44;
+	out->x = x;
+	out->y = y;
+	out->z = z;
 }
 
 void __stdcall rva003F936E(Rva003F936EHost *o, float *f)
