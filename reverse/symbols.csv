@@ -3146,7 +3146,6 @@ name,address,notes
 ??1BfmeRva00166110@@QAE@XZ,0x00142D70,TU-private view (HTreeClassCopyConstructor.cpp) of a buffer holder whose destructor frees its first pointer when non-null - the free-first-member body ICF folds onto this address; the HTreeClass copy-constructor unwind funclet destroys it by jumping here; original class name unknown
 ??1BfmeSceneBase@@UAE@XZ,0x00724510,TU-private view (SimpleSceneClass_dtor.cpp) of the scene base whose destructor reduces to the RefCountClass vptr store folded at this address; the SimpleSceneClass destructor unwind funclet destroys that base by jumping here; original class name unknown
 ??1BfmeShadowBufferOwnerBase@@UAE@XZ,0x00108B4D,Native EFAD2 deleting destructor calls108B4D vtable reset; complete7-byte body already rowed under address-derived setter; generated destructor same full bytes and BCEFA0 reference
-??1BfmeShadowGeometry@@QAE@XZ,0x000EFC45,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1BfmeSortingIBAccess@@QAE@XZ,0x00138BE0,Recovered dynamic index-access view; same 12-byte layout and already verified 72-byte DynamicIBAccessClass destructor
 ??1BfmeSortingVBAccess@@QAE@XZ,0x0013A780,Recovered dynamic vertex-access view; same 24-byte layout and already verified 80-byte BoxDynamicVBAccessClass destructor
 ??1BfmeStringHeadRecord148@@QAE@XZ,0x00360FDB,address read from the REL32 displacement at a placed body

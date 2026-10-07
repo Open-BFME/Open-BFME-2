@@ -6,7 +6,7 @@
 // that way each body below places uniquely on unclaimed game.dat .text by
 // masked whole-.text search, and ./build.sh reproduces it byte for byte:
 // W3DVolumetricShadow::~W3DVolumetricShadow 0x000F26DC (179B),
-// BfmeShadowGeometry::~BfmeShadowGeometry 0x000EFC45 (53B). Callee addresses
+// Geometry::~Geometry 0x000EFC45 (53B). Callee addresses
 // are read off retail's call sites (reverse/symbols.csv). Only the placed
 // bodies are carried; the donor's other definitions are omitted.
 
@@ -27,7 +27,7 @@ public:
 	}
 };
 
-struct BfmeShadowGeometry
+struct Geometry
 {
 	void *m_verts;
 	void *m_indices;
@@ -36,7 +36,7 @@ struct BfmeShadowGeometry
 	int m_numActivePolygon;
 	int m_numActiveVertex;
 
-	~BfmeShadowGeometry(void)
+	~Geometry(void)
 	{
 		if (m_verts)
 		{
@@ -99,7 +99,7 @@ class W3DVolumetricShadow : public Rva007B12F0Base
 	float m_robjExtent;
 	float m_extraExtrusionPadding;
 
-	BfmeShadowGeometry *m_shadowVolume[160];
+	Geometry *m_shadowVolume[160];
 	W3DBufferManager::W3DVertexBufferSlot *m_shadowVolumeVB[160];
 	W3DBufferManager::W3DIndexBufferSlot *m_shadowVolumeIB[160];
 	char m_unreconstructed_0800[0x3980];
