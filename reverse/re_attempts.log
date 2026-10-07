@@ -16574,3 +16574,7 @@ FUN_0045e1bf	0x0005E1BF	143	blocked	Ghidra boundary 0x0005E1BF through 0x0005E24
 ?Rva00200AEAP​​arse@@YA...	0x00200AEA	202	blocked	WaterTextureList registration is known but TheSpecialPowerStore call into Rva003B1820 lacks a proven type/layout relation and callback signature t=10 model=gpt-6.1-sol
 ?Rva004B2087AddEmotion@@YAXPAVINI@@HPAVEmotionTrackerUpdateModuleData@@@Z	0x004B2087	306	blocked	AddEmotion is the table label but entry/store relationships and debug/mode branches remain unresolved; first shape is 21B short t=12 model=gpt-6.1-sol
 ?rva004726DD@HordeContain@@UAEXH@Z	0x004726DD	179	blocked	HordeContain identity and one stack argument are proven but nested list/interface and helper relationships lack a compatible donor source t=7 model=gpt-6.1-sol
+?rva0021386C@Rva00056F61@@QAEPAXPBVAsciiString@@@Z	0x0021386C	121	blocked	finish 3 variants frame plus regalloc no improvement t=10 model=muse-spark
+?rva0047CB89@HordeSiegeEngineContain@@QAEXXZ	0x0047CB89	388	blocked	ADDRESS-NAMED g_Va00DBA4E4 needs hatch t=2 model=muse-spark
+?rva0047CF67@HordeSiegeEngineContain@@UAEXPAVObject@@_N@Z	0x0047CF67	75	partial	bool push ebx with setne vs push 0 with branch plus ebx save restore t=15 model=muse-spark score=0.93 stash=reverse/attempts/0x0047cf67.cpp
+?Rva00405B0AFormat@@YA_NPAVUnicodeString@@PBVPlayer@@PAX@Z	0x00405B0A	86	blocked	EBP frame plus AsciiString empty-string branch and extra push-pop 90B vs 86B t=15 model=muse-spark
