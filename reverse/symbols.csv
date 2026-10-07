@@ -15557,3 +15557,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva005EA136@Rva005EA4FCM08@@QAEXXZ,0x005EA136,member tail target: REL32 read at the jump site in 0x005EA4FC; identity unproven
 ?tail005E789A@Rva005E7C56@@QAEXXZ,0x005E789A,
 ?rva005E7B28@Rva005E7CAA@@QAEXH@Z,0x005E7B28,
+??0Rva003AF8C7@@QAE@ABV0@@Z,0x003AF8C7,intermediate copy ctor for derived copy 0x003AF89A: REL32 at 0x003AF8A1

@@ -67835,3 +67835,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005EA4FC@Rva005EA4FC@@QAEXXZ,,0x005EA4FC,61,Code/GameEngine/Source/Common/Rva005EA4FCMethod.cpp,matched,
 ?rva005E7C56@Rva005E7C56@@QAEXXZ,,0x005E7C56,84,Code/GameEngine/Source/Common/Rva005E7C56Chain.cpp,matched,
 ?rva005E7CAA@Rva005E7CAA@@QAEXH@Z,,0x005E7CAA,86,Code/GameEngine/Source/Common/Rva005E7CAASwitch.cpp,matched,
+??0Rva003AF89A@@QAE@ABV0@@Z,,0x003AF89A,45,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleInfoDerivedCopies.cpp,matched,derived copy calling intermediate 0x003AF8C7 then own 4 vptrs at +0/+0x14/+0x18/+0x1c
