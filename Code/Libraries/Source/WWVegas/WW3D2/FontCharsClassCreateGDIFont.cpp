@@ -1,12 +1,17 @@
-// ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
-// partial score=0.9458 date=2026-10-06
-// ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
-// partial score=0.9269 date=2026-10-05
-// ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
-// partial score=0.9 date=2026-09-21
-// ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z
 // cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/shims/sweep
 // stlport
+// Retail 0x00154630, 488 bytes: FontCharsClass::Create_GDI_Font(font_name), a
+// GDI-font variant of Zero Hour's FontCharsClass::Create_GDI_Font for BFME 2:
+// "Generals" maps to Arial with a 0.4 width scale, PixelOverlap is the clamped
+// 0.125 of the point size, CreateFontA builds the font, and the font metrics
+// (read from the cached screen DC at 0x00DF6F24 +0x10, no GetDC pair) fill the
+// +0x2C/+0x30/+0x34 divisors.
+// Frame evidence: retail keeps the previously selected font in its own stack
+// slot (it does not reuse the dead font_name argument home as a plain local
+// would). A small struct that remembers the DC and the old font, with a
+// restore() member, reproduces that slot; a bare HFONT local, a volatile local
+// and declaration reordering do not. The struct name is ours; retail names are
+// not recovered.
 #include <math.h>
 #include <string.h>
 #include "windows.h"
@@ -22,6 +27,13 @@ struct FontScreenDCGlobals
 };
 extern FontScreenDCGlobals *FontScreenDCGlobalsPtr;
 
+struct Rva00154630SelectFont
+{
+	HDC dc;
+	HFONT old;
+	Rva00154630SelectFont(HDC d, HFONT f) : dc(d) { old = (HFONT)::SelectObject(d, f); }
+	void restore() { ::SelectObject(dc, old); }
+};
 class FontCharsClass
 {
 	void Create_GDI_Font(const char *font_name);
@@ -74,7 +86,7 @@ void FontCharsClass::Create_GDI_Font(const char *font_name)
 		CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, 0, font_name);
 
 	HDC screen_dc = FontScreenDCGlobalsPtr->screen_dc;
-	HFONT old_font = (HFONT)::SelectObject(screen_dc, GDIFont);
+	Rva00154630SelectFont sel(screen_dc, GDIFont);
 
 	TEXTMETRIC text_metric = { 0 };
 	::GetTextMetricsA(FontScreenDCGlobalsPtr->screen_dc, &text_metric);
@@ -83,17 +95,5 @@ void FontCharsClass::Create_GDI_Font(const char *font_name)
 	charExtLeadDiv = text_metric.tmExternalLeading / extra_setting;
 	charOverhangDiv = (extra_setting + text_metric.tmOverhang - 1) / extra_setting;
 
-	::SelectObject(screen_dc, old_font);
+	sel.restore();
 }
-//
-// 2026-10-05 seat-4 trials (no Code/ residue; bank above unchanged):
-// - Baseline reproduced under real build flags (/arch:SSE /G7 /DNDEBUG /MD
-//   /EHsc): frame 0x40 vs retail 0x44; old_font coalesced into the dead
-//   font_name param home, retail keeps it in a fresh slot; ~50 disp diffs.
-// - Split declaration/assignment of screen_dc/old_font: identical homes.
-// - Dropping /EHsc (family convention in FontCharsClassLoadCharacterData):
-//   identical output; the slot wall is not EH-driven.
-// - /O2 /Oy- NOT tried here (wrong direction: retail is frameless with ebp
-//   as GPR, confirmed from prologue 83 EC 44 without 8B EC).
-// Single-slot allocator wall stands: one extra dword home in retail with no
-// identified owner; volatile/HGDIOBJ-typed old_font not yet tried.
