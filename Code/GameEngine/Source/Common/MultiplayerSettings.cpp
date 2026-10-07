@@ -165,21 +165,12 @@ done:
 }
 #pragma optimize("s", off)
 
-// ?MultiplayerSettings::findMultiplayerColorDefinitionByName present-unmatched
-MultiplayerColorDefinition * MultiplayerSettings::findMultiplayerColorDefinitionByName(AsciiString name)
-{
-	MultiplayerColorIter iter = m_colorList.begin();
-
-	while (iter != m_colorList.end())
-	{
-		if (iter->second.getTooltipName() == name)
-			return &(iter->second);
-
-		++iter;
-	}
-
-	return NULL;
-}
+// findMultiplayerColorDefinitionByName and addStartingMoneyChoice are ZH-shaped
+// bodies in this shared TU that do not match retail; they are declared via
+// Common/MultiplayerSettings.h and will be recovered in dedicated TUs.
+// This TU keeps only its matched rows so it no longer emits their wrong
+// COMDAT copies (getTooltipName, vector<Money> push_back/_M_insert_overflow,
+// Money copy ctor, Snapshot vtable, Rb_tree iterator).
 
 // MultiplayerColorDefinition *newMultiplayerColorDefinition lives in
 // MultiplayerSettingsNewColor.cpp (dedicated TU: retail 0x003813B7 lowers the
@@ -187,17 +178,7 @@ MultiplayerColorDefinition * MultiplayerSettings::findMultiplayerColorDefinition
 // inline numColors refills; a same-TU definition would capture those REL32
 // locally). Declared via the shim header.
 
-// ?MultiplayerSettings::addStartingMoneyChoice present-unmatched
-void MultiplayerSettings::addStartingMoneyChoice( const Money & money, Bool isDefault )
-{
-  m_startingMoneyList.push_back( money );
-  if ( isDefault )
-  {
-    DEBUG_ASSERTCRASH( !m_gotDefaultStartingMoney, ("Cannot have more than one default MultiplayerStartingMoneyChoice") );
-    m_defaultStartingMoney = money;
-    m_gotDefaultStartingMoney = true;
-  }
-}
+// (addStartingMoneyChoice body removed for link: see note above)
 
 void MultiplayerColorDefinition::setColor( RGBColor rgb )
 {

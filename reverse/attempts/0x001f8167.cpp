@@ -1,49 +1,38 @@
 // ??1Rva005C67C0@@QAE@XZ
-// partial score=0.84 date=2026-10-05
-// cl: /O1 /MD
-// Native 001F8167..001F81BF: destroy four-byte owning-pointer elements,
-// then free the allocation. 001F9025 passes its second base at +4;
-// the existing BigChainBaseDtors donor establishes Rva005C67C0's role.
-// SGI/STLport vector teardown is the structural guide (three-pointer storage
-// and reverse base cleanup). Original container and element names are unknown.
+// partial score=0.95 date=2026-10-07
+// cl: /O1 /arch:SSE /G7 /MD /EHsc
+// ??1Rva005C67C0@@QAE@XZ retail 0x001F8167 88B. Second-base dtor called from
+// 0x001F9025 at 0x001F9043 and chain root 0x001F8BE8 at 0x001F8C06. Owning
+// pointer range destroyed through virtual slot0 with 0 plus operator delete
+// then the buffer freed. No donor.
 void __cdecl operator delete(void *);
-void __cdecl free(void *);
-struct BigChainVectorVictim
+extern "C" void __cdecl free(void *);
+struct Rva005C67C0Element
 {
-    virtual ~BigChainVectorVictim();
+	virtual void *virt0(unsigned int);
 };
-struct BigChainVectorElement
-{
-    BigChainVectorVictim *m_pointer;
-
-};
-class BigChainVectorStorage
+class Rva005C67C0Base
 {
 public:
-    BigChainVectorElement *m_begin;
-    BigChainVectorElement *m_end;
-    BigChainVectorElement *m_capacity;
-    ~BigChainVectorStorage();
+	Rva005C67C0Element **m_begin;
+	Rva005C67C0Element **m_end;
+	Rva005C67C0Element **m_endOfStorage;
+	~Rva005C67C0Base()
+	{
+		if (m_begin)
+			free(m_begin);
+	}
 };
-// ?BigChainVectorStorage::~BigChainVectorStorage present-unmatched
-inline BigChainVectorStorage::~BigChainVectorStorage()
-{
-    if (m_begin)
-        free(m_begin);
-}
-__forceinline void destroyChainRange(BigChainVectorElement *first, BigChainVectorElement *const &last)
-{
-    for (; first != last; ++first)
-        ::delete first->m_pointer;
-}
-// ?destroyChainRange present-unmatched
-class Rva005C67C0 : public BigChainVectorStorage
+class Rva005C67C0 : public Rva005C67C0Base
 {
 public:
-    ~Rva005C67C0();
+	~Rva005C67C0();
 };
-// ??1Rva005C67C0@@QAE@XZ present-unmatched
 Rva005C67C0::~Rva005C67C0()
 {
-    destroyChainRange(m_begin, m_end);
+	Rva005C67C0Base *self = this;
+	for (Rva005C67C0Element **it = self->m_begin; it != self->m_end; ++it) {
+		Rva005C67C0Element *p = *it;
+		::operator delete(p ? p->virt0(0) : 0);
+	}
 }
