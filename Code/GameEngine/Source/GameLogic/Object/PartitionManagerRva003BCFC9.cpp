@@ -56,6 +56,7 @@ class ScriptActions
 {
 protected:
 	void doFlashObjectivesButton(int value);
+	void rva003BD42F(int value);
 	void doFlashPlanningModeButton(int value);
 };
 
@@ -81,4 +82,13 @@ void ScriptActions::doFlashPlanningModeButton(int value)
 {
 	if (value >= 0)
 		TheRva002D383F->rva002D383F(value);
+}
+
+// Native3BD42F..3BD444 RET4. Index0 sibling of the two independently
+// established ScriptActions button forwarders above. Original button name
+// remains unknown; target2D381D and singleton slot DFF028 are proven.
+class Rva002D381D {public:void rva002D381D(int seconds);};
+void ScriptActions::rva003BD42F(int value)
+{
+ if(value>=0) ((Rva002D381D*)TheRva002D3627Host)->rva002D381D(value);
 }
