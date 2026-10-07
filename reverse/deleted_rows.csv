@@ -843,3 +843,4 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?d_00283033@@YAXXZ,0x00283033,Generated dump placeholder replaced by the verified 78-byte pointer-key removal in Rva002833A3C5.cpp; retired again after the union merge.
 ?d_00375b7a@@YAXXZ,0x00375B7A,"gen-dump placeholder superseded by the real identity of these bytes: ?rva00375B7A@Rva00375AF7HeightQuery@@QAEMMM@Z, byte-verified from Code/GameEngine/Source/GameLogic/Map/Rva00375B7AHeightQuery.cpp over the same 133-byte range. The Code/gen_asm/d_00375af7.asm dump reproduces those bytes but carries no identity."
 ?d_002beecd@@YAXXZ,0x002BEECD,Generated placeholder replaced by the byte-verified 92-byte category and context C++ predicate in Rva002BEECD.cpp.
+?d_0020f1f3@@YAXXZ,0x0020F1F3,Generated placeholder replaced by the byte-verified 139-byte string selection and child reset C++ body in Rva0020F1F3.cpp.
