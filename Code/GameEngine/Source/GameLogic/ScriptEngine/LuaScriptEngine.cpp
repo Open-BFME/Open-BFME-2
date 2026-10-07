@@ -112,7 +112,9 @@ public:
 	char m_pad00[0x9C];
 	LuaDrawableLink *m_drawable;	// +0x9C
 };
-extern LuaScriptEngine *TheLuaScriptEngine;
+// Retail VA 0x00E01DBC starts with four zero-filled bytes; the verified
+// initSubsystem<LuaScriptEngine> caller registers the subsystem here.
+LuaScriptEngine *TheLuaScriptEngine = 0;
 
 // ?GetClientRandomNumberReal@@YAHPAUlua_State@@@Z
 int GetClientRandomNumberReal(lua_State *state)
