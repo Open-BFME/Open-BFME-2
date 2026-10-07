@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmerendobj /G7 /arch:SSE2 /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /Ireference/shims/bfme2_aabtreebuilder /Ireference/shims/bfme2_vector3 /Ireference/shims/bfmerendobj /G7 /arch:SSE2 /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // AABTreeBuilderClass, verbatim from Generals Zero Hour reference.
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one
@@ -51,6 +51,10 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  *   AABTreeBuilderClass::Export -- Saves this AABTree into a W3D chunk                        *
  *   AABTreeBuilderClass::Build_W3D_AABTree_Recursive -- Build array of indices and W3dMeshAAB *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+#include <string.h>
+#pragma intrinsic(memcpy)
+#include "vector3.h" // use the verified BFME2 three-word constructor
 
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "aabtreebuilder.h"
@@ -466,8 +470,8 @@ AABTreeBuilderClass::Compute_Plane_Score(int polycount,int * polyindices,const A
 	** Inflate the box a tiny amount so that we never
 	** get volumes of zero!
 	*/
-	sc.BMin -= Vector3(WWMATH_EPSILON,WWMATH_EPSILON,WWMATH_EPSILON);
-	sc.BMax += Vector3(WWMATH_EPSILON,WWMATH_EPSILON,WWMATH_EPSILON);
+	sc.BMin -= BfmeAabTreeVector(WWMATH_EPSILON,WWMATH_EPSILON,WWMATH_EPSILON);
+	sc.BMax += BfmeAabTreeVector(WWMATH_EPSILON,WWMATH_EPSILON,WWMATH_EPSILON);
 	
 	/*
 	** Compute the cost.
