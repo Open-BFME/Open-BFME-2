@@ -36,3 +36,50 @@ void Rva006F8700Owner::rva000E585F(void *arg1, void *arg2, int *arg3, int *arg4)
 	m_40 += first;
 	m_48 += second / 3;
 }
+
+// Semantic and structural donor: BFME1 game/GameEngineDevice/Source/
+// W3DDevice/GameClient/Rva006F8720GetModelIndices.cpp at 1399ad37d42ea52a.
+// The target pin/caller establish the address-derived owner and four-argument
+// ABI independently. Native E56AF..E5725 (RET16) proves the model pointer at
+// mesh+C4, polygon count at model+24, and the shared triangle buffer at +2C.
+// Only the accessed prefixes are modelled here; no target class names inferred.
+struct Rva000E56AFTriangle
+{
+    unsigned short i, j, k;
+};
+struct Rva000E56AFTriangleBuffer
+{
+    unsigned char prefix[0x0C];
+    const Rva000E56AFTriangle *values;
+};
+struct Rva000E56AFModelView
+{
+    unsigned char prefix[0x24];
+    int polygonCount;
+    unsigned char gap[4];
+    Rva000E56AFTriangleBuffer *polygons;
+};
+struct Rva000E56AFMeshView
+{
+    unsigned char prefix[0xC4];
+    Rva000E56AFModelView *model;
+};
+
+int Rva006F8700Owner::rva000E56AF(void *a, int b, int c, void *p)
+{
+    if (!p)
+        return 0;
+    Rva000E56AFModelView *model = static_cast<Rva000E56AFMeshView *>(p)->model;
+    int count = model->polygonCount;
+    const Rva000E56AFTriangle *triangles = model->polygons->values;
+    if (b + 3 * count + 6 >= 30000)
+        return 0;
+    unsigned short *destination = static_cast<unsigned short *>(a) + b;
+    for (int index = 0; index < count; ++index)
+    {
+        *destination++ = c + triangles[index].i;
+        *destination++ = c + triangles[index].j;
+        *destination++ = c + triangles[index].k;
+    }
+    return count * 3;
+}
