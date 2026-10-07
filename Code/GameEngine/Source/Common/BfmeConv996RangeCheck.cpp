@@ -22,10 +22,12 @@ public:
 class BfmeB996Range
 {
 public:
- 	char checkRange( int first, unsigned int *second, char *stop );
- 	bool rva001068D1( int first, unsigned int *second, char *third );
- 	void rva0010690D();
- 	int rva00106BC9( int target, int *maximum );
+	char checkRange( int first, unsigned int *second, char *stop );
+	bool rva001068D1( int first, unsigned int *second, char *third );
+	void rva0010690D();
+	bool rva00106781( void **firstOut, int *first, unsigned int *second, char *stop, bool mode );
+	bool rva0010694B( void **firstOut, int *first, unsigned int *second );
+	int rva00106BC9( int target, int *maximum );
 private:
 	char m_pad[ 4 ];
 	BfmeDev996Range *m_dev;
@@ -80,6 +82,22 @@ void BfmeB996Range::rva0010690D()
 		}
 	}
 }
+
+// 0x0010694B (37B): target checks this+8 against 6, then forwards the three
+// arguments, a byte at the high end of the third argument's stack slot, and
+// true to 0x00106781. The callee initializes that output byte before reading
+// it. The boundary abuts rva0010690D; the callee body remains blocked and
+// unrecovered. The new callee name stays address-derived.
+// Retail's EBP prologue and EBP+0x13 stack-byte address require frame pointers.
+#pragma optimize("y", off)
+bool BfmeB996Range::rva0010694B( void **firstOut, int *first, unsigned int *second )
+{
+	if ( m_kind == 6 ) {
+		return rva00106781( firstOut, first, second, ((char *)&second) + 3, true );
+	}
+	return false;
+}
+#pragma optimize("y", on)
 
 class Rva007E3410Object
 {
