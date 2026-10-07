@@ -125,6 +125,7 @@ class BFMEConnectionManager : public ConnectionManager
 public:
 	Bool isPlayerInGame(Int slot);
 	Int isPlayerSlotActive(Int slot);
+	UnsignedByte rva004CEF58(Int slot);
 	void sendDisconnectFrameCommand();
 	void resendFrameRangeToPlayer(Int playerID, UnsignedInt startFrame, UnsignedInt endFrame);
 };
@@ -537,4 +538,30 @@ Bool DisconnectManager::isPlayerInGame(Int slot, ConnectionManager *conMgr) {
 	}
 
 	return TRUE;
+}
+
+// Open-BFME-1's allOnSameFrame. BFME 2 skips slots the connection manager
+// reports active through isPlayerSlotActive and requires its 0x004CEF58
+// test to pass before a slot's disconnect frame is compared.
+Bool DisconnectManager::allOnSameFrame(ConnectionManager *conMgr) {
+	BfmeDisconnectFrameFields *self = (BfmeDisconnectFrameFields *)this;
+	BFMEConnectionManager *bfmeMgr = (BFMEConnectionManager *)conMgr;
+	Bool retval = TRUE;
+	for (Int i = 0; (i < MAX_SLOTS) && (retval == TRUE); ++i) {
+		Int transSlot = Rva004D39DEGet(i, conMgr->getLocalPlayerID());
+		if (transSlot == -1) {
+			continue;
+		}
+		if ((conMgr->isPlayerConnected(i) == TRUE) && (isPlayerInGame(transSlot, conMgr) == TRUE)
+			&& ((UnsignedByte)bfmeMgr->isPlayerSlotActive(i) == FALSE) && bfmeMgr->rva004CEF58(i)) {
+			if (self->m_disconnectFramesReceived[i] == FALSE) {
+				retval = FALSE;
+			}
+			if ((self->m_disconnectFramesReceived[i] == TRUE)
+				&& (self->m_disconnectFrames[conMgr->getLocalPlayerID()] != self->m_disconnectFrames[i])) {
+				retval = FALSE;
+			}
+		}
+	}
+	return retval;
 }
