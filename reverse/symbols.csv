@@ -15628,3 +15628,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0059BB50@Rva0059BB50@@QAEXHHHH@Z,0x0059BB50,four-int thiscall callee of guarded forwarder 0x004FB303 (subobject at +0x120); identity unproven; return ignored
 ?rva0059C93C@Rva0059C93C@@QAEXHHHHH@Z,0x0059C93C,five-int thiscall callee of guarded forwarder 0x004FB328 (subobject at +0xFC); identity unproven; return ignored
 ?rva00502FE9@Rva00502FE9@@QAEXH@Z,0x00502FE9,callee of 0x004FB222 read from its REL32 displacement at 0x004FB232; one-int thiscall into the +0x18 subobject
+?rva004FFFF9@Rva004FFFF9@@QAEXPBX@Z,0x004FFFF9,address-arg thiscall callee of 0x005007AA (+0x04 subobject) read from REL32 at 0x005007BD
