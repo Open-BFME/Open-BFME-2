@@ -66777,28 +66777,3 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva004BBA15@GeometryInfo@@QAEXM@Z,,0x004BBA15,40,Code/GameEngine/Source/Common/System/GeometryInfoRva004BBA3D.cpp,matched,GeometryInfo caller and adjacent shape method prove vector stride and helper
 ?rva005FBBFC@Rva005FBBFC@@QAEXABVUnicodeString@@@Z,,0x005FBBFC,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,member forwarder to rowed Impl method target instruction and signature evidence
 ??0Rva00420977@@QAE@XZ,,0x00420977,52,Code/GameEngine/Source/Common/Rva00420977Ctor.cpp,matched,address-derived ctor empty string and offset initializers inferred from target bytes
-?rva004A78B8@Rva004A78B8@@QAE_NH@Z,,0x004A78B8,41,Code/GameEngine/Source/Common/Rva004A78B8Gate.cpp,matched,virtual slot 1 then status 4 on the owner at this-0x18
-?rva004A33EE@BroadcastStealthUpdate@@QAEXXZ,,0x004A33EE,64,Code/GameEngine/Source/Common/Rva004A33EEWalk.cpp,matched,walk the id list at +0x28 then reset it
-?rva0049CCF0@Rva0049CCF0@@QAEXH@Z,,0x0049CCF0,52,Code/GameEngine/Source/Common/Rva0049CCF0Forward.cpp,matched,controlling-player lookup into virtual slot 0x2C
-?fromGate@Rva002A9BF2@@QAE_NPAV1@@Z,,0x0058AF47,108,Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp,matched,ICF twin of the stdcall chance test; thiscall shape at caller 0x004B332D
-?rva004B327F@Rva004B327F@@QAEHXZ,,0x004B327F,211,Code/GameEngine/Source/GameLogic/Object/Update/AISpecialPowerRva004B327F.cpp,matched,AISpecialPowerUpdate+0x10 arms the power object and tail-calls virtual slot 3 or returns 0x3fffffff
-?rva004ABB4B@Rva004ABB4B@@QAEHXZ,,0x004ABB4B,273,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioRva004ABB4B.cpp,matched,LargeGroupAudioUpdate+0x10 refreshes the slot when the object state changes and returns the module delay
-?rva000E6FC8@Rva000E6FC8@@QAEXXZ,,0x000E6FC8,27,Code/GameEngine/Source/Common/Rva000E6FC8.cpp,matched,GlobalData +0xD45 selects 0x14 or 2 then thiscall 0x000E6D94
-?rva000EA1F3@Rva000E6FC8@@QAEXXZ,,0x000EA1F3,39,Code/GameEngine/Source/Common/Rva000EA1F3.cpp,matched,GlobalData +0xD45 selects 0x14 else byte +0x62 selects 7 or 4 then thiscall 0x000E6D94
-?rva000E07F4@@YAHPAVRva000E07F4Obj@@PAVRva000E07F4Host@@@Z,,0x000E07F4,34,Code/GameEngine/Source/Common/Rva000E07F4.cpp,matched,cdecl returns 1; kind bit 0x80 or null skips thiscall 0x000E0584
-??_ERva00112291@@UAEPAXI@Z,,0x000E1072,78,Code/GameEngine/Source/Common/Rva000E1072.cpp,matched,vector deleting destructor stride 0xD4 calling pinned element dtor 0x00112291
-?rva000E585F@Rva006F8700Owner@@QAEXPAX0PAH1@Z,,0x000E585F,95,Code/GameEngine/Source/Common/Rva000E585F.cpp,matched,folds rowed 0x000E569A into arg4 and +0x40 and 0x000E56AF into arg3 with quotient 3 at +0x48
-?rva000B0298@Rva000B0298@@QAEXXZ,,0x000B0298,30,Code/GameEngine/Source/GameClient/Rva000B0298Clear.cpp,matched,dump range 2 vector destroy-free frameless twin honest address-derived name
-?rva000B34D8@Rva000B34D8@@QAE_NPAVVector3@@PAMPAURva000B34D8Out30@@@Z,,0x000B34D8,151,Code/GameEngine/Source/Common/Rva000B34D8Fetch.cpp,matched,dump range 2 guarded fetch via Get_Position honest names
-?rva0008F32C@@YAXXZ,,0x0008F32C,69,Code/GameEngine/Source/Common/Rva0008F32CFactory.cpp,matched,dump range 2 EH factory via new honest names
-?rva00086BC5@Rva00086BC5@@QAEXH@Z,,0x00086BC5,133,Code/GameEngine/Source/Common/Rva00086BC5Init.cpp,matched,dump range 2 EH reinit via new honest names
-?rva00109D64@Rva007B1380@@QAEXXZ,,0x00109D64,40,Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,matched,float reset abutting ctor via rowed base initialize plus 20.0f literal
-?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
-?rva0014FA47@@YAPAXPAXI0@Z,,0x0014FA47,27,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,forward via rowed stride loop
-?rva0014D522@@YAXPAX0@Z,,0x0014D522,66,Code/GameEngine/Source/Common/Rva0014D522Init.cpp,matched,
-?rva0014D564@@YAXPAX0@Z,,0x0014D564,49,Code/GameEngine/Source/Common/Rva0014D564Init.cpp,matched,
-?rva0014D722@Rva0014D722This@@QAEXPAVRva0014D722Outer@@PAX@Z,,0x0014D722,143,Code/GameEngine/Source/Common/Rva0014D722Init.cpp,matched,
-?rva0020E9F2@Rva0020E9F2Outer@@QAEXXZ,,0x0020E9F2,48,Code/Libraries/Source/WWVegas/WWLib/Rva0020E9A1Loops.cpp,matched,Outer vector clear via inner at plus8 calling rowed-pending 0x003F300A; bounds idiom gives retail add esi 0x2C
-?rva0020EA22@Rva0020EA22Outer@@QAEXH@Z,,0x0020EA22,54,Code/Libraries/Source/WWVegas/WWLib/Rva0020E9A1Loops.cpp,matched,Outer vector clear via inner at plus8 calling rowed-pending 0x003F3708 with outer arg; bounds idiom
-?rva001F4A90@Rva001F4A90Host@@QAEXPBDHH@Z,,0x001F4A90,113,Code/Libraries/Source/WWVegas/WWLib/Rva001F4A90Select.cpp,matched,Draw Physics Update dispatch via rowed 0x1530E9 plus import strcmp; lea selects embedded members; slot1 with ext-a2-a3
-?rva0020EEF4@Rva0020EEF4Outer@@QAEHH@Z,,0x0020EEF4,74,Code/Libraries/Source/WWVegas/WWLib/Rva0020EEF4Search.cpp,matched,Predicate search via inner plus8 vector calling pinned 0x3F08D7; int preserves eax; reload count idiom
