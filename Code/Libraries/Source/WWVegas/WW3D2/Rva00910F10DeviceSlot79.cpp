@@ -2,6 +2,14 @@
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WW3D2/Rva00910F10DeviceSlot79.cpp at 6583b3c1ff; include paths repointed at the
 // reference checkout and built the BFME2 way (/arch:SSE /G7), where its body places
 // exactly once in game.dat by masked byte search.
+// Compiler-generated vector construction uses one shared retail helper.
+// Give its first emission the verified /O1 frame and loop shape at RVA 0x1423;
+// the unemitted anchor needs no implementation, and the unit flags resume below.
+struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#pragma optimize("gsy", on)
+static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
+#pragma optimize("", on)
+
 #include "dx8wrapper.h"
 
 

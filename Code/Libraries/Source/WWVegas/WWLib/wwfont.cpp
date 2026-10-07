@@ -48,6 +48,14 @@
  *   Set_Font_Data -- Allow font data to be set after construction.                            * 
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+// Compiler-generated vector construction uses one shared retail helper.
+// Give its first emission the verified /O1 frame and loop shape at RVA 0x1423;
+// the unemitted anchor needs no implementation, and the unit flags resume below.
+struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#pragma optimize("gsy", on)
+static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
+#pragma optimize("", on)
+
 #include	"always.h"
 #include	"point.h"
 #include	"trect.h"

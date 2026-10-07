@@ -8,6 +8,14 @@
 // pointgr.h omits the split BFME methods; this view uses the existing renderer
 // layout through PointMode. See identity_evidence/00912880-pointgroup-color.md.
 
+// Compiler-generated vector construction uses one shared retail helper.
+// Give its first emission the verified /O1 frame and loop shape at RVA 0x1423;
+// the unemitted anchor needs no implementation, and the unit flags resume below.
+struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#pragma optimize("gsy", on)
+static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
+#pragma optimize("", on)
+
 #include "sharebuf.h"
 #include "vector.h"
 #include "vector3.h"
