@@ -1,12 +1,21 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003C4003Apply@@YGXPAVParameter@@ABVAsciiString@@PAX@Z @0x003C4003 109B.
 // Sibling of 0x003C41BA: resolve unit via ScriptEngine then SpecialPowerTemplate
-// by name, filter via BfmeSubBEC, then apply via TerrainLogic helper and slot
+// by name, query Object special-power module, then apply via TerrainLogic helper and slot
 // 0x30 virtual. Evidence: rowed getUnitNamed 0x003588E7 via g_Va009FE16C,
 // rowed findSpecialPowerTemplate 0x0029B6EB via TheSpecialPowerStore, rowed
-// BfmeSubBEC 0x0028BB9E, TerrainLogic virtual +0x88, StringBase copy 0x000365F0;
+// Object::getSpecialPowerModule 0x0028BB9E, TerrainLogic virtual +0x88, StringBase copy 0x000365F0;
 // prev/next share // cl: /O1; caller 0x003CC71D.
 #include "ascii_string.h"
+
+class SpecialPowerTemplate;
+class SpecialPowerModuleInterface;
+
+class Object
+{
+public:
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
+};
 
 class Parameter;
 class Object;
@@ -69,12 +78,6 @@ public:
 
 extern SpecialPowerStore *TheSpecialPowerStore;
 
-class BfmeSubBEC
-{
-public:
-	void *rva0028BB9E(void *found);
-};
-
 class Rva003C4003Target
 {
 public:
@@ -99,7 +102,7 @@ void __stdcall Rva003C4003Apply(Parameter *p, const AsciiString &name, void *arg
 	const SpecialPowerTemplate *found = TheSpecialPowerStore->findSpecialPowerTemplate(name);
 	if (obj != 0 && found != 0)
 	{
-		void *sub = ((BfmeSubBEC *)obj)->rva0028BB9E((void *)found);
+		void *sub = obj->getSpecialPowerModule(found);
 		if (sub != 0)
 		{
 			void *helper = TheTerrainLogic->v34(arg3);

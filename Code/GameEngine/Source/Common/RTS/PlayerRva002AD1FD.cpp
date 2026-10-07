@@ -3,9 +3,12 @@
 // ?rva002AD1FD@Player@@QAEXXZ @0x002AD1FD 94B: Player helper scanning 32 command buttons.
 // For the Player's Object (via rva002AC629) with template name (via Object rva00290E67),
 // looks up CommandSet via g_bfmeWorldRV Rva0031D5F8, then for each of 32 buttons checks +0x44
-// pointer via BfmeSubBEC filtered find and calls virtual slot 22 (0x58) on the hit.
+// pointer via Object special-power query and calls virtual slot 22 (0x58) on the hit.
 // Evidence: ecx passthrough to Player rva002AC629 proves Player this; callees all rowed;
 // global g_bfmeWorldRV used by 1 TU; caller 0x002AE8A1 unclaimed; neighbours share RTS shard flags.
+class SpecialPowerTemplate;
+class SpecialPowerModuleInterface;
+
 class AsciiString;
 struct BfmeWorldRV;
 extern BfmeWorldRV *g_bfmeWorldRV;
@@ -26,11 +29,7 @@ class Rva0031D5F8
 public:
 	void *rva0031D5F8(const AsciiString *s);
 };
-class BfmeSubBEC
-{
-public:
-	void *rva0028BB9E(void *arg);
-};
+
 struct Iface22
 {
 	virtual void pad00() = 0;
@@ -66,6 +65,7 @@ public:
 class Object
 {
 public:
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
 	const AsciiString *rva00290E67() const;
 };
 
@@ -86,7 +86,7 @@ void Player::rva002AD1FD()
 		void *p = btn->m_44;
 		if (p == 0)
 			continue;
-		void *found = ((BfmeSubBEC *)obj)->rva0028BB9E(p);
+		void *found = obj->getSpecialPowerModule(reinterpret_cast<const SpecialPowerTemplate *>(p));
 		if (found == 0)
 			continue;
 		((Iface22 *)found)->slot22();

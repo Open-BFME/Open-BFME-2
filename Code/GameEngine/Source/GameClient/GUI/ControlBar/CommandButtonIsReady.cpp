@@ -12,6 +12,9 @@
 typedef bool Bool;
 typedef float Real;
 
+class SpecialPowerTemplate;
+class SpecialPowerModuleInterface;
+
 class UpgradeTemplate;
 class SpecialPowerTemplate;
 
@@ -21,12 +24,6 @@ public:
 	virtual void v0();
 	virtual void v1();
 	virtual Real getPercentReady() const = 0; // vslot 2
-};
-
-class BfmeSubBEC
-{
-public:
-	void *rva0028BB9E(void *specialPower); // Object::getSpecialPowerModule
 };
 
 class BfmeArg985
@@ -48,6 +45,7 @@ extern GameLogic *TheGameLogic;
 class Object
 {
 public:
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
 	Bool rva00290D2B(const UpgradeTemplate *upgrade) const; // Object::hasUpgrade
 	Bool bfmeReadyFrameReached() const { Bool ready = m_readyFrame <= TheGameLogic->getFrame(); return ready; }
 private:
@@ -60,7 +58,7 @@ private:
 // no copy of the shared inline names).
 static inline SpecialPowerModuleInterface *getSpecialPowerModule(const Object *obj, const SpecialPowerTemplate *sp)
 {
-	return (SpecialPowerModuleInterface *)((BfmeSubBEC *)obj)->rva0028BB9E((void *)sp);
+	return (SpecialPowerModuleInterface *)obj->getSpecialPowerModule(sp);
 }
 static inline Bool affectedByUpgrade(const Object *obj, const UpgradeTemplate *upgrade)
 {

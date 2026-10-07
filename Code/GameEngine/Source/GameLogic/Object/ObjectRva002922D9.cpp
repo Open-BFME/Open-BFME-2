@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?rva002922D9@Object@@QAE_NPBVCommandButton@@@Z @0x002922D9 87B
 // Evidence: pin Object::rva002922D9; 5 matched callers pass a CommandButton;
-// +0x44 slot via rowed BfmeSubBEC::rva0028BB9E 0x0028BB9E; name via rowed
+// +0x44 slot via rowed Object::getSpecialPowerModule 0x0028BB9E; name via rowed
 // Object::rva00290E67 0x00290E67; set lookup via g_bfmeWorldRV and rowed
 // Rva0031D5F8::rva0031D5F8 0x0031D5F8; 0x20 slots via rowed
 // CommandSet::getCommandButton 0x00409EE8.
@@ -10,11 +10,8 @@
 struct BfmeWorldRV;
 extern struct BfmeWorldRV *g_bfmeWorldRV;
 
-class BfmeSubBEC
-{
-public:
-	void *rva0028BB9E(void *what);
-};
+class SpecialPowerTemplate;
+class SpecialPowerModuleInterface;
 
 class Rva0031D5F8
 {
@@ -38,6 +35,7 @@ public:
 class Object
 {
 public:
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
 	const AsciiString *rva00290E67() const;
 	bool rva002922D9(const CommandButton *btn);
 };
@@ -46,7 +44,7 @@ bool Object::rva002922D9(const CommandButton *btn)
 {
 	void *special = btn->m_special44;
 	if (special) {
-		if (((BfmeSubBEC *)this)->rva0028BB9E(special) == 0)
+		if (this->getSpecialPowerModule(reinterpret_cast<const SpecialPowerTemplate *>(special)) == 0)
 			return false;
 	}
 	const AsciiString *name = rva00290E67();

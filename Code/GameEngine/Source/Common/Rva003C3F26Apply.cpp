@@ -1,8 +1,17 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?doPlayerSetSpecialPowerCountdown@ScriptActions@@IAEXABVAsciiString@@0H@Z @0x003C3F26 120B: player object via NameKeyGenerator PlayerList then SpecialPowerTemplate by name filter via BfmeSubBEC then slot 0x20 with scaled GameLogic frame. Evidence: sibling Rva003C3EC5Apply same findSpecialPowerTemplate 0x29B6EB via g_00E02D4C BfmeSubBEC 0x28BB9E StringBase copy 0x365F0 plus rowed nameToKey 0x9FA65 findPlayerWithNameKey 0x2A7A41 rva002AC629 0x2AC629; caller 0x003CC6EE; ret 0xC stdcall.
+// ?doPlayerSetSpecialPowerCountdown@ScriptActions@@IAEXABVAsciiString@@0H@Z @0x003C3F26 120B: player object via NameKeyGenerator PlayerList then SpecialPowerTemplate by name query Object special-power module then slot 0x20 with scaled GameLogic frame. Evidence: sibling Rva003C3EC5Apply same findSpecialPowerTemplate 0x29B6EB via g_00E02D4C Object::getSpecialPowerModule 0x28BB9E StringBase copy 0x365F0 plus rowed nameToKey 0x9FA65 findPlayerWithNameKey 0x2A7A41 rva002AC629 0x2AC629; caller 0x003CC6EE; ret 0xC stdcall.
 #include "ascii_string.h"
 
 enum NameKeyType { NK_NONE = 0 };
+
+class SpecialPowerTemplate;
+class SpecialPowerModuleInterface;
+
+class Object
+{
+public:
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
+};
 
 class Object;
 class Player;
@@ -36,12 +45,6 @@ public:
 };
 
 extern SpecialPowerStore *TheSpecialPowerStore;
-
-class BfmeSubBEC
-{
-public:
-	void *rva0028BB9E(void *found);
-};
 
 extern int g_Va00DBA4E4;
 
@@ -85,7 +88,7 @@ void ScriptActions::doPlayerSetSpecialPowerCountdown(const AsciiString &playerNa
 	const SpecialPowerTemplate *found = TheSpecialPowerStore->findSpecialPowerTemplate((AsciiString &)powerName);
 	if (found == 0)
 		return;
-	void *sub = ((BfmeSubBEC *)obj)->rva0028BB9E((void *)found);
+	void *sub = obj->getSpecialPowerModule(found);
 	if (sub == 0)
 		return;
 	((Rva003C3F26Target *)sub)->w08(g_Va00DBA4E4 * arg3 + TheGameLogic->m_40);

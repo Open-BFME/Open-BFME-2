@@ -1,7 +1,16 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Retail 0x003C4245 (RVA 0x003C4245) size 116: script apply power to named target.
-// Evidence: ScriptEngine 0xDFE16C getUnitNamed then lookupUnitByValue then SpecialPowerStore 0xE02D4C findSpecialPowerTemplate then BfmeSubBEC rva0028BB9E then vtable+0x2c with 0x40000.
+// Evidence: ScriptEngine 0xDFE16C getUnitNamed then lookupUnitByValue then SpecialPowerStore 0xE02D4C findSpecialPowerTemplate then Object::getSpecialPowerModule then vtable+0x2c with 0x40000.
 #include "ascii_string.h"
+
+class SpecialPowerTemplate;
+class SpecialPowerModuleInterface;
+
+class Object
+{
+public:
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
+};
 
 class Parameter;
 class Object;
@@ -31,12 +40,6 @@ public:
 	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString s);
 };
 
-class BfmeSubBEC
-{
-public:
-	void *rva0028BB9E(void *p);
-};
-
 class BecSlot
 {
 public:
@@ -61,7 +64,7 @@ void __stdcall Rva003C4245Do(Parameter *param, const AsciiString &a, const Ascii
 	const SpecialPowerTemplate *tmpl = TheSpecialPowerStore->findSpecialPowerTemplate(a);
 	if (src == 0 || tmpl == 0 || target == 0)
 		return;
-	void *bec = ((BfmeSubBEC *)src)->rva0028BB9E((void *)tmpl);
+	void *bec = src->getSpecialPowerModule(tmpl);
 	if (bec == 0)
 		return;
 	((BecSlot *)bec)->v11(target, 0x40000);

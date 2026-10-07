@@ -24,17 +24,15 @@ enum WeaponLockType
 	WLT_1 = 1
 };
 
-class BfmeSubBEC
-{
-public:
-	void *rva0028BB9E(void *p);
-};
+class SpecialPowerTemplate;
+class SpecialPowerModuleInterface;
 
 class AIUpdateInterface;
 
 class Object
 {
 public:
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
 	void setWeaponSetFlag(WeaponSetType type);
 	bool setWeaponLock(WeaponSlotType slot, WeaponLockType lock);
 	AIUpdateInterface *getAI() { return m_ai; }
@@ -113,7 +111,7 @@ void BattlePlanUpdate::onObjectCreated()
 	}
 	else
 	{
-		m_38 = ((BfmeSubBEC *)obj)->rva0028BB9E(key);
+		m_38 = obj->getSpecialPowerModule(reinterpret_cast<const SpecialPowerTemplate *>(key));
 		m_48 = payload->m_1c;
 		m_58 = payload->m_20;
 		m_68 = payload->m_28;
