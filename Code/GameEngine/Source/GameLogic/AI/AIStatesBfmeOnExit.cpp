@@ -26,6 +26,12 @@
 //    weapon's range (template getter 0x0049CB57) and the relative angle to
 //    it is under the template's +0x2C aim delta, floored at 0.035 (.rdata
 //    0x00C13B5C).
+//  - AIChargeTargetState::rva00346925, retail 0x00346925 (208 bytes): the
+//    donor's rva0016F4F0 (BFME 1 kept it a dump). Paths to a point 50.0
+//    past the victim along the source-to-victim direction (rowed
+//    Coord3D::Normalize, result unused), after clearing the machine's goal
+//    object (slot 14) and Object::rva0028AD32. The ZH Coord3D scale/add
+//    inlines give retail's batched multiplies.
 //  - AIMoveToPositionAndEnterState::onExit, retail 0x0034C035 (99 bytes):
 //    slot 5 of 0x00C136A0. When the owner has object status 0x4E, clears it
 //    and status 3, and for a template with kind byte +0x115 mask 0x20 also
@@ -337,6 +343,9 @@ extern "C" float __cdecl fabs(double); // CRT fabs; x87 result compared as float
 struct Coord3D
 {
 	Real x, y, z;
+	Real Normalize();
+	void scale(Real scale) { x *= scale; y *= scale; z *= scale; }
+	void add(const Coord3D *a) { x += a->x; y += a->y; z += a->z; }
 };
 
 class Thing
@@ -579,6 +588,27 @@ Bool AIChargeTargetState::rva0034BF20()
 			return true;
 	}
 	return false;
+}
+
+void AIChargeTargetState::rva00346925(Object *source, Object *victim, AIUpdateInterface *ai)
+{
+	if (!victim)
+		return;
+	Coord3D dir;
+	dir.x = victim->getPosition()->x;
+	dir.y = victim->getPosition()->y;
+	dir.z = victim->getPosition()->z;
+	dir.x -= source->getPosition()->x;
+	dir.y -= source->getPosition()->y;
+	dir.z -= source->getPosition()->z;
+	dir.Normalize();
+	dir.scale(50.0f);
+	dir.add(victim->getPosition());
+	getMachine()->setGoalObject(0);
+	source->rva0028AD32();
+	setAdjustsDestination(false);
+	m_goalPosition = dir;
+	ai->requestPath(&dir, true);
 }
 
 class AIMoveToPositionAndEnterState : public AIInternalMoveToState

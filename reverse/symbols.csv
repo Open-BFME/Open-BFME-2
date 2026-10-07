@@ -15725,7 +15725,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?GetLocalChatConnectionAddress@@YA_NVAsciiString@@GAAI@Z,0x004FE987,callee of ?connectCallback@PeerThreadClass@@QAEXPAXH@Z at retail 0x0038BA8F read from its REL32 displacement; takes the peerchat.gamespy.com string temp + port 6667 + &localIP exactly as the Zero Hour call site and its body calls gethostbyname on the AsciiString text
 ?rva003A2DBB@Team@@QAEXM@Z,0x003A2DBB,callee of ?rva003A3736@Team@@QAEMM@Z
 ?rva003468F5@AIChargeTargetState@@AAE_NXZ,0x003468F5,AIChargeTargetState::update 0x0034FE6E calls it with this in ecx (goal moved past 50 from the +0x20 goal position)
-?rva00346925@AIChargeTargetState@@AAEXPAVObject@@0PAVAIUpdateInterface@@@Z,0x00346925,AIChargeTargetState::update 0x0034FE6E calls it with this in ecx (source victim ai; ret 0xC)
 ?rva0034BFFF@AIChargeTargetState@@AAEXPAVObject@@@Z,0x0034BFFF,AIChargeTargetState::update 0x0034FE6E calls it with this in ecx; rowed stdcall body ignores ecx
 ??0Rva0030B9DD@@QAE@H@Z,0x0030B9DD,callee of ??0Rva00330C50@@QAE@XZ
 ??0Rva005E87E0@@QAE@PAX0PAURva005CE172Context@@@Z,0x005E87E0,callee of ??0Rva005CE172@@QAE@PAX0PAURva005CE172Context@@@Z
