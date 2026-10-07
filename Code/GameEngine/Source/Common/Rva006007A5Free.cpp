@@ -1,5 +1,6 @@
-// cl: /MD
+// cl: /EHsc /MD /Ireference/shims/bfme2_ascii
 //
+#include "unicode_string.h"
 // ?rva006007A5@Rva006007A5@@QAEXPAX@Z @0x006007A5 45B. Recursive list/tree
 // free helper: if node null return else loop over siblings at +8 recursing
 // on child at +0x0C with the same this then freeing via rowed _free
@@ -45,4 +46,26 @@ void Rva006007A5::rva0060082B()
 	*(unsigned *)((char *)m_header + 4) = 0;
 	*(void **)((char *)m_header + 0x0C) = m_header;
 	m_count = 0;
+}
+
+class ArchiveFileSystem
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual void *openFile(const UnicodeString &s, void *a, void *b, void *c, void *d);
+};
+
+extern ArchiveFileSystem *TheArchiveFileSystem;
+
+// ?Rva006007DAOpen@@YGXPAX000@Z @0x006007DA 81B. Archive open with empty UnicodeString plus four args via slot 0x1c; prev 0x006007A5 next 0x0060082B same TU; callees strlen? no, StringBase ctor 0x00037E30 releaseBuffer 0x00036E70 EH_prolog; callers 0x0021F32E etc.; address-derived honest free name.
+void __stdcall Rva006007DAOpen(void *a, void *b, void *c, void *d)
+{
+	UnicodeString empty(L"");
+	TheArchiveFileSystem->openFile(empty, a, b, c, d);
 }
