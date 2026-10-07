@@ -418,7 +418,9 @@ public:
 	bool m_af5;
 	char m_padAF6[0xbd0 - 0xaf6];
 	int m_bd0;
-	char m_padBD4[0xc30 - 0xbd4];
+	char m_padBD4[0xc18 - 0xbd4];
+	unsigned int m_c18;
+	char m_padC1C[0xc30 - 0xc1c];
 	int m_c30;
 	char m_padC34[0xddc - 0xc34];
 	bool m_ddc;
@@ -442,6 +444,10 @@ struct Rva0024622FEntry
 	Object *obj;
 	MapObject *mapObj;
 };
+
+class GameMessage;
+class BfmeThingEC;
+struct Rva00241529Record;
 
 enum KindOfType
 {
@@ -494,6 +500,10 @@ public:
 	bool isInMultiplayerGame(void);
 	bool rva00085124(void);
 	void formatPlayerStartWaypointName(AsciiString *name);
+	void rva00241529(unsigned int crc, int player, unsigned int frame, GameMessage *message,
+		bool forced, BfmeThingEC *stream);
+	void rva0023F8DA(void);
+	void rva002401DD(BfmeThingEC *stream, unsigned int frame, int player);
 
 	Object *getFirstObject(void) const { return m_objList; }
 	ObjectTOCEntry *findTOCEntryByName(AsciiString name);
@@ -510,12 +520,13 @@ public:
 	char m_24[0x30 - 0x24];
 	float m_width;
 	float m_height;
-	char m_pad038[0x40 - 0x38];
+	unsigned int m_38;
+	char m_pad03C[0x40 - 0x3c];
 	int m_40;
 	bool m_44;
 	char m_pad045[0x48 - 0x45];
-	int m_48;
-	int m_4c;
+	Rva00241529Record *m_48;
+	IntList::iterator m_4c;
 	IntList m_50;
 	char m_pad054[0x6d - 0x54];
 	bool m_6d;
@@ -2006,6 +2017,12 @@ public:
 	virtual void v1c(); virtual void v1d(); virtual void v1e(); virtual void v1f();
 	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
 	virtual void slot90(void);                                           // +0x90
+	virtual void slot94(void);                                           // +0x94
+	virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29();
+	virtual void v2a();
+	virtual bool slotAC(void);                                           // +0xAC
+	virtual void v2c();
+	virtual int slotB4(void);                                            // +0xB4
 };
 
 extern ParticleSystemManager *TheParticleSystemManager;
@@ -2391,12 +2408,21 @@ private:
 	char m_pad00[0x68];
 };
 
+enum RecorderModeType
+{
+	RECORDERMODETYPE_RECORD,
+	RECORDERMODETYPE_PLAYBACK,
+	RECORDERMODETYPE_NONE
+};
+
 class RecorderClass
 {
 public:
 	bool isMultiplayer(void);
+	RecorderModeType getMode(void);
 
-	char m_pad000[0xe6c];
+	char m_pad000[0xe68];
+	int m_e68;
 	int m_e6c;
 };
 
@@ -3558,5 +3584,199 @@ void populateRandomSideAndColor(GameInfo *game)
 			}
 			slot->setColor(colorIdx);
 		}
+	}
+}
+
+// ?rva00241529@GameLogic@@QAEXIHIPAVGameMessage@@_NPAVBfmeThingEC@@@Z
+// @0x00241529 948B (Ghidra FUN_00641529, ret 0x18 at 0x002418DA). Callers:
+// 0x002458E3, 0x0037AA44 and 0x0037D0E4; all six argument slots are read.
+// Donor: BFME 1 game/GameEngine/Source/GameLogic/System/GameLogicPeerCRC.cpp
+// (bfme_processLogicCRC, BFME 1 0x0038B430 1078B): per-frame CRC reports kept
+// as a frame-sorted singly linked list of 0x18-byte records at this+0x48, a
+// player bitmask and count per record, and a window of diagnostic streams
+// (list at this+0x50, cursor at this+0x4C) trimmed to the GlobalData field at
+// +0xC18 plus three. Target deltas from the donor: the record list, cursor and
+// stream list sit 4 bytes later, the desync message is 0x44A and carries two
+// timestamps (this+0x38 and this+0x40), and the Network slots are +0x3C,
+// +0x94, +0xAC and +0xB4. Record field names come from the donor.
+class GameMessage
+{
+public:
+	void appendIntegerArgument(int arg);
+	void appendTimestampArgument(unsigned int arg);
+	void appendBooleanArgument(bool arg);
+};
+
+// MessageStreamSubsystem (0x00A00950); appendMessage is vslot 18.
+class MessageStream
+{
+public:
+	virtual void m00(); virtual void m01(); virtual void m02(); virtual void m03();
+	virtual void m04(); virtual void m05(); virtual void m06(); virtual void m07();
+	virtual void m08(); virtual void m09(); virtual void m10(); virtual void m11();
+	virtual void m12(); virtual void m13(); virtual void m14(); virtual void m15();
+	virtual void m16(); virtual void m17();
+	virtual GameMessage *appendMessage(int type);                        // +0x48
+	void propagateMessages(void);
+};
+extern MessageStream *MessageStreamSubsystem;
+
+// The diagnostic stream: 0x006021A4 hands back its buffer and its size.
+class BfmeThingEC
+{
+public:
+	int bfmeTakeEC(int *size);
+};
+
+struct Rva00241529Record
+{
+	unsigned int frame;
+	unsigned int crc;
+	int count;
+	unsigned int mask;
+	BfmeThingEC *stream;
+	Rva00241529Record *next;
+};
+
+// 0x009C116C: -1 unless a desync frame was forced from the command line.
+extern int g_value12A6F38;
+// 0x00A02D8A: keep playing after a CRC mismatch was logged.
+extern bool ignoreCRCMismatches;
+
+void GameLogic::rva00241529(unsigned int crc, int player, unsigned int frame, GameMessage *message,
+	bool forced, BfmeThingEC *stream)
+{
+	Rva00241529Record *entry = m_48;
+	Rva00241529Record *previous = 0;
+	while (entry && frame > entry->frame)
+	{
+		previous = entry;
+		entry = entry->next;
+	}
+	if (!forced && g_value12A6F38 != m_40 && (!entry || frame != entry->frame))
+	{
+		if (message)
+			message->appendBooleanArgument(false);
+		entry = new Rva00241529Record;
+		if (!entry)
+			return;
+		entry->frame = frame;
+		entry->crc = crc;
+		entry->stream = 0;
+		if (stream)
+		{
+			entry->stream = stream;
+			entry->count = 0;
+			entry->mask = 0;
+			m_50.push_back((const int &)entry->stream);
+			if (m_50.size() > TheWritableGlobalData->m_c18 + 3)
+			{
+				m_4c = m_50.begin();
+				BfmeThingEC *oldStream = (BfmeThingEC *)*m_4c;
+				if (oldStream)
+				{
+					int size;
+					free((void *)oldStream->bfmeTakeEC(&size));
+				}
+				m_50.pop_front();
+			}
+		}
+		else
+		{
+			entry->count = 1;
+			entry->mask = 1 << player;
+		}
+		if (!previous)
+		{
+			entry->next = m_48;
+			m_48 = entry;
+		}
+		else
+		{
+			entry->next = previous->next;
+			previous->next = entry;
+		}
+		return;
+	}
+	bool fake = g_value12A6F38 != -1 && g_value12A6F38 != m_40;
+	if (forced || g_value12A6F38 == m_40 || (!fake && crc != entry->crc && !TheGameLogic->m_71))
+	{
+		rva0023F8DA();
+		if (!ignoreCRCMismatches || g_value12A6F38 == m_40)
+		{
+			m_4c = m_50.begin();
+			if (m_4c != m_50.end())
+			{
+				if (TheNetwork)
+				{
+					if (!m_71 && (!forced || TheNetwork->slotAC()))
+					{
+						if (TheNetwork->slotAC() && forced)
+						{
+							GameMessage *out = MessageStreamSubsystem->appendMessage(0x44a);
+							out->appendIntegerArgument(crc);
+							out->appendTimestampArgument(m_38);
+							out->appendTimestampArgument(m_40);
+							out->appendBooleanArgument(TheRecorder->getMode() == RECORDERMODETYPE_PLAYBACK);
+							out->appendBooleanArgument(true);
+						}
+						else if (message && !forced)
+							message->appendBooleanArgument(true);
+					}
+					MessageStreamSubsystem->propagateMessages();
+					if (TheNetwork)
+						TheNetwork->slot3C(0);
+				}
+				for (; m_4c != m_50.end(); ++m_4c)
+				{
+					rva002401DD((BfmeThingEC *)*m_4c, frame, player);
+					if (!TheRecorder || TheRecorder->getMode() != RECORDERMODETYPE_PLAYBACK)
+					{
+						GameMessage *out = MessageStreamSubsystem->appendMessage(0x44a);
+						out->appendIntegerArgument(crc);
+						out->appendTimestampArgument(m_38);
+						out->appendTimestampArgument(m_40);
+						out->appendBooleanArgument(TheRecorder->getMode() == RECORDERMODETYPE_PLAYBACK);
+						out->appendBooleanArgument(true);
+						MessageStreamSubsystem->propagateMessages();
+						if (TheNetwork)
+							TheNetwork->slot3C(0);
+					}
+				}
+				m_50.clear();
+				if (!TheRecorder || TheRecorder->getMode() != RECORDERMODETYPE_PLAYBACK)
+					if (TheNetwork)
+						TheNetwork->slot94();
+			}
+			else
+				rva002401DD(entry->stream, 0, player);
+			return;
+		}
+	}
+	if (message && !forced)
+		message->appendBooleanArgument(false);
+	if (!(entry->mask & (1 << player)))
+	{
+		++entry->count;
+		entry->mask |= (1 << player);
+	}
+	if (TheRecorder && TheRecorder->getMode() == RECORDERMODETYPE_PLAYBACK)
+	{
+		if (entry->count == TheRecorder->m_e68)
+		{
+			if (previous)
+				previous->next = entry->next;
+			else
+				m_48 = entry->next;
+			delete entry;
+		}
+	}
+	else if (entry->count == TheNetwork->slotB4())
+	{
+		if (previous)
+			previous->next = entry->next;
+		else
+			m_48 = entry->next;
+		delete entry;
 	}
 }
