@@ -67768,3 +67768,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005F884D@Rva005F884D@@QAEXXZ,,0x005F884D,8,Code/GameEngine/Source/Common/Rva005F882EClear.cpp,matched,chain thunk via plus4 ptr to rowed 0x005F882E clear
 ?friend_resolveSubUpgradeNames@UpgradeTemplate@@QAEXXZ,,0x0026F8D6,102,Code/GameEngine/Source/Common/System/UpgradeTemplateResolveSubUpgradeNames.cpp,matched,WB Upgrade.cpp 338 friend_resolveSubUpgradeNames target layout plus0x10 plus0x1C
 ?rva005F842F@Rva005F842F@@QAEPAU1@ABURva004F6986Member@@@Z,,0x005F842F,24,Code/GameEngine/Source/Common/Rva004F6986Dtor.cpp,matched,init holder via caller 0x005F888C plus dtor 0x005F8447
+?deselectDrawable@InGameUI@@UAEXPAVDrawable@@@Z,,0x0029F34F,136,Code/GameEngine/Source/Common/InGameUIDeselectDrawable.cpp,matched,InGameUI deselect slot57 via donor plus rowed helpers
