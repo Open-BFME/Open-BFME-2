@@ -68621,3 +68621,5 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?retreat@Rva00585277Step@@QAEAAU1@XZ,,0x00585277,12,Code/Libraries/Source/WWVegas/WWLib/Rva0030DE86IteratorSteps.cpp,matched,native-unchanged-receiver-to-rowed-STLport-step; original-specialization-unknown
 ?text@Rva003B3989ConditionPrefix@@QBE?AVAsciiString@@XZ,,0x003B3989,41,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B3989TemplateText.cpp,matched,native-template-selection-ID4-and-string4; canonical-string-copy; original-getter-owner-name-unknown
 ?text@Rva003B3AB9ActionPrefix@@QBE?AVAsciiString@@XZ,,0x003B3AB9,41,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B3989TemplateText.cpp,matched,native-template-selection-ID4-and-string4; canonical-string-copy; original-getter-owner-name-unknown
+?activateHover@Rva005FA8CDHoverPrefix@@QAEXXZ,,0x005FA8CD,20,Code/GameEngine/Source/Common/Rva005FF4D5Forward.cpp,matched,native-validate-then-mouseover-true; consumed-prefix-only
+?clearHover@Rva005FA8CDHoverPrefix@@QAEXXZ,,0x005FA8E1,20,Code/GameEngine/Source/Common/Rva005FF4D5Forward.cpp,matched,native-validate-then-mouseover-false; restored-provider-unblocks-prior-attempt
