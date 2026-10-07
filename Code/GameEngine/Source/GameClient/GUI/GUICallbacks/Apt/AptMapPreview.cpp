@@ -499,6 +499,8 @@ public:
 // ZH MapCache: the map records by lower-case file name.
 class MapCache : public _STL::map<AsciiString, MapMetaData>
 {
+public:
+	const MapMetaData *findMap(AsciiString mapName);	// 0x003024BC
 };
 
 extern MapCache *TheMapCache;
@@ -592,6 +594,7 @@ class AptMapPreview : public Rva0086E350Listener
 {
 public:
 	AptMapPreview(Rva0043DA65 *game);
+	Bool rva0057CB7D(Int index);	// may a player start at this index
 	virtual void v04(void *a, void *b);
 	virtual void v0C(void *a, void *b, void *c);
 	Bool AllowsStartInRegion(Int region);
@@ -1363,4 +1366,40 @@ void AptMapPreview::v0C(void *a, void *b, void *c)
 {
 	if (b != 0 && c == 0)
 		rva0057D85D((Rva0020E89C *)b);
+}
+
+// Retail 0x0057CB7D, 152 bytes. Name unknown. Whether the index is a usable
+// start position: below the cached map's player count (at most 8) in open
+// play, or a living world region the campaign allows a start in and whose
+// +0x1A2 flag is set in strategic mode.
+Bool AptMapPreview::rva0057CB7D(Int index)
+{
+	GameInfo *info = (GameInfo *)m_18->rva0043DA65();
+	if (info == 0)
+		return false;
+	switch (m_mode)
+	{
+	case 0:
+		if ((unsigned int)index > 8)
+			return false;
+		{
+			const MapMetaData *md = TheMapCache->findMap(info->getMap());
+			if (md == 0)
+				return false;
+			return index < md->m_numPlayers;
+		}
+	case 1:
+		if (index == -1)
+			return false;
+		{
+			Rva0020EAF6View *view = TheLivingWorldLogic->m_regionManager;
+			if (view == 0)
+				return false;
+			Rva0020E89C *region = view->rva0020EAF6(index);
+			if (region == 0)
+				return false;
+			return AllowsStartInRegion((Int)region) && region->m_1a2;
+		}
+	}
+	return false;
 }
