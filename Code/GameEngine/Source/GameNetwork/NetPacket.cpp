@@ -19,11 +19,18 @@ typedef bool Bool;
 enum { MAX_PACKET_SIZE = 0x1DC };
 
 #include "string_base.h"
-// Inline in BFME: the file serializer 0x005913CB reads each file-name character
-// as m_data ? m_data->data[i] : 0, with no call.
-template<> inline char StringBase<char>::getCharAt(int i) const { return m_data ? m_data->data[i] : 0; }
 #include "ascii_string.h"
 #include "unicode_string.h"
+// Inline in BFME: the file serializers 0x005913CB/0x005914D4 read each file-name
+// character as m_data ? m_data->data[i] : 0, with no call. A TU-local helper, not a
+// StringBase<char>::getCharAt specialization: that specialization's COMDAT copy is
+// not retail's out-of-line getCharAt and stopped this unit linking. AsciiString
+// holds one pointer to its buffer header; the characters start at +8.
+static inline char npCharAt(const AsciiString &s, int i)
+{
+	const char *data = *(const char *const *)&s;
+	return data ? data[8 + i] : 0;
+}
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
 extern "C" void *__cdecl memcpy(void *dest, const void *src, unsigned int count);
@@ -296,15 +303,21 @@ class NetCommandRef
 public:
 	NetCommandRef(NetCommandMsg *msg);
 	~NetCommandRef();
-	NetCommandMsg *getCommand() { return m_msg; }
-	UnsignedByte getRelay() const { return m_relay; }
-	void setRelay(UnsignedByte relay) { m_relay = relay; }
 	NetCommandMsg *m_msg;
 	NetCommandRef *m_next;
 	NetCommandRef *m_prev;
 	UnsignedByte m_relay;
 	UnsignedInt m_timeLastSent;
 };
+
+// NetCommandRef's accessors, as TU-local helpers: member inlines would emit
+// NetCommandRef::getCommand/getRelay/setRelay COMDAT copies, and the first copy in
+// link order (ConnectionManager.cpp, from the ZH header whose vtable puts m_msg at
+// +4) differs, so these copies lost and stopped this unit linking. Same inlined
+// code; internal linkage, so nothing to lose.
+static inline NetCommandMsg *ncrCommand(NetCommandRef *ref) { return ref->m_msg; }
+static inline UnsignedByte ncrRelay(const NetCommandRef *ref) { return ref->m_relay; }
+static inline void ncrSetRelay(NetCommandRef *ref, UnsignedByte relay) { ref->m_relay = relay; }
 
 struct NetPacketAddress
 {
@@ -1213,12 +1226,12 @@ Bool NetPacket::isRoomForGameSpyStatsAuthKeyMessage(NetCommandRef *msg)
 {
 	Int len = 0;
 	Bool needNewCommandID = false;
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = ncrCommand(msg);
 	if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 		++len;
 		len += sizeof(UnsignedByte);
 	}
-	if (m_lastRelay != msg->getRelay()) {
+	if (m_lastRelay != ncrRelay(msg)) {
 		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
 	}
 	if (m_lastTimestamp != cmdMsg->getTimestamp()) {
@@ -1248,11 +1261,11 @@ Bool NetPacket::isRoomForFileMessage(NetCommandRef *msg)
 {
 	Int len = 0;
 	Bool needNewCommandID = false;
-	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 	if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
 	}
-	if (m_lastRelay != msg->getRelay()) {
+	if (m_lastRelay != ncrRelay(msg)) {
 		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
 	}
 	if (m_lastTimestamp != cmdMsg->getTimestamp()) {
@@ -1284,7 +1297,7 @@ Bool NetPacket::isRoomForFileMessage(NetCommandRef *msg)
 Bool NetPacket::isRoomForGameMessage(NetCommandRef *msg, GameMessage *gmsg)
 {
 	Int msglen = 0;
-	NetGameCommandMsg *cmdMsg = (NetGameCommandMsg *)(msg->getCommand());
+	NetGameCommandMsg *cmdMsg = (NetGameCommandMsg *)(ncrCommand(msg));
 	Bool needNewCommandID = false;
 	if (m_lastTimestamp != cmdMsg->getTimestamp()) {
 		msglen += sizeof(UnsignedInt) + sizeof(UnsignedByte);
@@ -1296,7 +1309,7 @@ Bool NetPacket::isRoomForGameMessage(NetCommandRef *msg, GameMessage *gmsg)
 		msglen += sizeof(UnsignedByte) + sizeof(UnsignedByte);
 		needNewCommandID = true;
 	}
-	if (m_lastRelay != msg->getRelay()) {
+	if (m_lastRelay != ncrRelay(msg)) {
 		msglen += sizeof(UnsignedByte) + sizeof(UnsignedByte);
 	}
 	if (m_lastCommandType != cmdMsg->getNetCommandType()) {
@@ -1486,7 +1499,7 @@ UnsignedInt NetPacket::GetBufferSizeNeededForCommand(NetCommandMsg *msg)
 // keeps retail's three call blocks apart.
 void NetPacket::FillBufferWithAckCommand(UnsignedByte *buffer, NetCommandRef *msg)
 {
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = ncrCommand(msg);
 	UnsignedShort offset = 0;
 
 	UnsignedShort commandID = 0;
@@ -1542,7 +1555,7 @@ void NetPacket::FillBufferWithAckCommand(UnsignedByte *buffer, NetCommandRef *ms
 // its type-12 arm; the type-25 arm calls the same (ICF-folded) body.
 void NetPacket::FillBufferWithKeepAliveCommand(UnsignedByte *buffer, NetCommandRef *msg)
 {
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = ncrCommand(msg);
 	UnsignedShort offset = 0;
 
 	buffer[offset] = 'T';
@@ -1552,7 +1565,7 @@ void NetPacket::FillBufferWithKeepAliveCommand(UnsignedByte *buffer, NetCommandR
 
 	buffer[offset] = 'R';
 	++offset;
-	UnsignedByte newRelay = msg->getRelay();
+	UnsignedByte newRelay = ncrRelay(msg);
 	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
 	offset += sizeof(UnsignedByte);
 
@@ -1571,12 +1584,12 @@ void NetPacket::FillBufferWithKeepAliveCommand(UnsignedByte *buffer, NetCommandR
 	++offset;
 }
 
-// ?FillBufferWithProgressMessage@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058CC8B, 103 bytes:
-// the BFME1 donor's FillBufferWithProgressMessage (NetPacket.cpp) plus BFME's
-// 'S' timestamp field; FillBufferWithCommand's type-15 arm.
-void NetPacket::FillBufferWithProgressMessage(UnsignedByte *buffer, NetCommandRef *msg)
+// ?rva0058CACAType25@NetPacket@@KAXPAEPAVNetCommandRef@@@Z: FillBufferWithCommand's type-25 arm.
+// Its own body is FillBufferWithKeepAliveCommand's, which the retail linker
+// folded (ICF) onto 0x0058CACA; defined so the link resolves the arm's call.
+void NetPacket::rva0058CACAType25(UnsignedByte *buffer, NetCommandRef *msg)
 {
-	NetProgressCommandMsg *cmdMsg = (NetProgressCommandMsg *)(msg->getCommand());
+	NetCommandMsg *cmdMsg = ncrCommand(msg);
 	UnsignedShort offset = 0;
 
 	buffer[offset] = 'T';
@@ -1586,7 +1599,136 @@ void NetPacket::FillBufferWithProgressMessage(UnsignedByte *buffer, NetCommandRe
 
 	buffer[offset] = 'R';
 	++offset;
-	UnsignedByte newRelay = msg->getRelay();
+	UnsignedByte newRelay = ncrRelay(msg);
+	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'S';
+	++offset;
+	UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+	memcpy(buffer + offset, &newTimestamp, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'P';
+	++offset;
+	buffer[offset] = cmdMsg->getPlayerID();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'D';
+	++offset;
+}
+
+// ?rva0058CCF2Type17@NetPacket@@KAXPAEPAVNetCommandRef@@@Z: FillBufferWithCommand's
+// type-17 arm. Retail's linker folded its body (ICF) onto 0x0058CCF2, rowed as the
+// free serializer Rva0058CCF2Write: T/R/S/P/C/D with no payload. Defined here with
+// the same body so the arm's call resolves in the link.
+void NetPacket::rva0058CCF2Type17(UnsignedByte *buffer, NetCommandRef *msg)
+{
+	NetCommandMsg *cmdMsg = ncrCommand(msg);
+	UnsignedShort offset = 0;
+
+	buffer[offset] = 'T';
+	++offset;
+	buffer[offset] = cmdMsg->getNetCommandType();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'R';
+	++offset;
+	UnsignedByte newRelay = ncrRelay(msg);
+	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'S';
+	++offset;
+	UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+	memcpy(buffer + offset, &newTimestamp, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'P';
+	++offset;
+	buffer[offset] = cmdMsg->getPlayerID();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'C';
+	++offset;
+	UnsignedShort newID = cmdMsg->getID();
+	memcpy(buffer + offset, &newID, sizeof(UnsignedShort));
+	offset += sizeof(UnsignedShort);
+
+	buffer[offset] = 'D';
+	++offset;
+}
+
+// ?rva0058CF83Type9@NetPacket@@KAXPAEPAVNetCommandRef@@@Z: FillBufferWithCommand's
+// type-9 arm. Retail's linker folded its body (ICF) onto 0x0058CF83, rowed as the
+// free serializer Rva0058CF83Write: T/S/F/R/P/C/D, then the data pointer value and
+// the data length, as retail copies them. Defined here with the same body so the
+// arm's call resolves in the link.
+void NetPacket::rva0058CF83Type9(UnsignedByte *buffer, NetCommandRef *msg)
+{
+	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
+	UnsignedShort offset = 0;
+
+	buffer[offset] = 'T';
+	++offset;
+	buffer[offset] = cmdMsg->getNetCommandType();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'S';
+	++offset;
+	UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+	memcpy(buffer + offset, &newTimestamp, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'F';
+	++offset;
+	UnsignedInt newframe = cmdMsg->getExecutionFrame();
+	memcpy(buffer + offset, &newframe, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'R';
+	++offset;
+	buffer[offset] = ncrRelay(msg);
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'P';
+	++offset;
+	buffer[offset] = cmdMsg->getPlayerID();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'C';
+	++offset;
+	UnsignedShort newID = cmdMsg->getID();
+	memcpy(buffer + offset, &newID, sizeof(UnsignedShort));
+	offset += sizeof(UnsignedShort);
+
+	buffer[offset] = 'D';
+	++offset;
+	// retail walks the buffer pointer for the two payload words
+	UnsignedByte *data = cmdMsg->getData();
+	buffer += offset;
+	memcpy(buffer, &data, sizeof(UnsignedByte *));
+	UnsignedInt dataLength = cmdMsg->getDataLength();
+	buffer += sizeof(UnsignedByte *);
+	memcpy(buffer, &dataLength, sizeof(UnsignedInt));
+}
+
+// ?FillBufferWithProgressMessage@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058CC8B, 103 bytes:
+// the BFME1 donor's FillBufferWithProgressMessage (NetPacket.cpp) plus BFME's
+// 'S' timestamp field; FillBufferWithCommand's type-15 arm.
+void NetPacket::FillBufferWithProgressMessage(UnsignedByte *buffer, NetCommandRef *msg)
+{
+	NetProgressCommandMsg *cmdMsg = (NetProgressCommandMsg *)(ncrCommand(msg));
+	UnsignedShort offset = 0;
+
+	buffer[offset] = 'T';
+	++offset;
+	buffer[offset] = cmdMsg->getNetCommandType();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'R';
+	++offset;
+	UnsignedByte newRelay = ncrRelay(msg);
 	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
 	offset += sizeof(UnsignedByte);
 
@@ -1617,7 +1759,7 @@ void NetPacket::FillBufferWithProgressMessage(UnsignedByte *buffer, NetCommandRe
 // type-23 arm.
 void NetPacket::FillBufferWithRouterFallbackCommand(UnsignedByte *buffer, NetCommandRef *msg)
 {
-	BFMENetRouterFallbackCommandMsg *cmdMsg = (BFMENetRouterFallbackCommandMsg *)msg->getCommand();
+	BFMENetRouterFallbackCommandMsg *cmdMsg = (BFMENetRouterFallbackCommandMsg *)ncrCommand(msg);
 	UnsignedShort offset = 0;
 
 	buffer[offset] = 'T';
@@ -1627,7 +1769,7 @@ void NetPacket::FillBufferWithRouterFallbackCommand(UnsignedByte *buffer, NetCom
 
 	buffer[offset] = 'R';
 	++offset;
-	UnsignedByte newRelay = msg->getRelay();
+	UnsignedByte newRelay = ncrRelay(msg);
 	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
 	offset += sizeof(UnsignedByte);
 
@@ -1662,7 +1804,7 @@ void NetPacket::FillBufferWithRouterFallbackCommand(UnsignedByte *buffer, NetCom
 // addChatCommand reads them. FillBufferWithCommand's type-14 arm.
 void NetPacket::FillBufferWithChatCommand(UnsignedByte *buffer, NetCommandRef *msg)
 {
-	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 	UnsignedShort offset = 0;
 
 	buffer[offset] = 'T';
@@ -1684,7 +1826,7 @@ void NetPacket::FillBufferWithChatCommand(UnsignedByte *buffer, NetCommandRef *m
 
 	buffer[offset] = 'R';
 	++offset;
-	UnsignedByte newRelay = msg->getRelay();
+	UnsignedByte newRelay = ncrRelay(msg);
 	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
 	offset += sizeof(UnsignedByte);
 
@@ -1721,7 +1863,7 @@ void NetPacket::FillBufferWithChatCommand(UnsignedByte *buffer, NetCommandRef *m
 // dwords. No identity beyond its address.
 void NetPacket::rva0059129F(UnsignedByte *buffer, NetCommandRef *msg)
 {
-	NetType30CommandMsg *cmdMsg = (NetType30CommandMsg *)msg->getCommand();
+	NetType30CommandMsg *cmdMsg = (NetType30CommandMsg *)ncrCommand(msg);
 	UnsignedShort offset = 0;
 
 	buffer[offset] = 'T';
@@ -1743,7 +1885,7 @@ void NetPacket::rva0059129F(UnsignedByte *buffer, NetCommandRef *msg)
 
 	buffer[offset] = 'R';
 	++offset;
-	UnsignedByte newRelay = msg->getRelay();
+	UnsignedByte newRelay = ncrRelay(msg);
 	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
 	offset += sizeof(UnsignedByte);
 
@@ -1785,7 +1927,7 @@ void NetPacket::rva0059129F(UnsignedByte *buffer, NetCommandRef *msg)
 // second length call for the dead final offset bump.
 void NetPacket::FillBufferWithFileCommand(UnsignedByte *buffer, NetCommandRef *msg)
 {
-	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 	UnsignedInt offset = 0;
 
 	buffer[offset] = 'T';
@@ -1795,7 +1937,7 @@ void NetPacket::FillBufferWithFileCommand(UnsignedByte *buffer, NetCommandRef *m
 
 	buffer[offset] = 'R';
 	++offset;
-	buffer[offset] = msg->getRelay();
+	buffer[offset] = ncrRelay(msg);
 	offset += sizeof(UnsignedByte);
 
 	buffer[offset] = 'S';
@@ -1820,7 +1962,7 @@ void NetPacket::FillBufferWithFileCommand(UnsignedByte *buffer, NetCommandRef *m
 
 	AsciiString filename = ((CDDrive *)cmdMsg)->CDDrive::getPath();
 	for (Int i = 0; i < filename.getLength(); ++i) {
-		buffer[offset] = filename.getCharAt(i);
+		buffer[offset] = npCharAt(filename, i);
 		++offset;
 	}
 	buffer[offset] = 0;
@@ -1841,7 +1983,7 @@ void NetPacket::FillBufferWithFileCommand(UnsignedByte *buffer, NetCommandRef *m
 // getters addFileAnnounceCommand uses.
 void NetPacket::FillBufferWithFileAnnounceCommand(UnsignedByte *buffer, NetCommandRef *msg)
 {
-	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 	UnsignedInt offset = 0;
 
 	buffer[offset] = 'T';
@@ -1851,7 +1993,7 @@ void NetPacket::FillBufferWithFileAnnounceCommand(UnsignedByte *buffer, NetComma
 
 	buffer[offset] = 'R';
 	++offset;
-	buffer[offset] = msg->getRelay();
+	buffer[offset] = ncrRelay(msg);
 	offset += sizeof(UnsignedByte);
 
 	buffer[offset] = 'S';
@@ -1876,7 +2018,7 @@ void NetPacket::FillBufferWithFileAnnounceCommand(UnsignedByte *buffer, NetComma
 
 	AsciiString filename = ((CDDrive *)cmdMsg)->CDDrive::getPath();
 	for (Int i = 0; i < filename.getLength(); ++i) {
-		buffer[offset] = filename.getCharAt(i);
+		buffer[offset] = npCharAt(filename, i);
 		++offset;
 	}
 	buffer[offset] = 0;
@@ -1898,7 +2040,7 @@ void NetPacket::FillBufferWithFileAnnounceCommand(UnsignedByte *buffer, NetComma
 // through CDDrive::getPath, copied unguarded through str().
 void NetPacket::FillBufferWithRequestGameSpyStatsAuthKeyCommand(UnsignedByte *buffer, NetCommandRef *msg)
 {
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = ncrCommand(msg);
 	UnsignedInt offset = 0;
 
 	buffer[offset] = 'T';
@@ -1908,7 +2050,7 @@ void NetPacket::FillBufferWithRequestGameSpyStatsAuthKeyCommand(UnsignedByte *bu
 
 	buffer[offset] = 'R';
 	++offset;
-	buffer[offset] = msg->getRelay();
+	buffer[offset] = ncrRelay(msg);
 	offset += sizeof(UnsignedByte);
 
 	buffer[offset] = 'S';
@@ -1943,7 +2085,7 @@ void NetPacket::FillBufferWithRequestGameSpyStatsAuthKeyCommand(UnsignedByte *bu
 // addGameSpyStatsAuthKeyCommand writes, each copied only when non-empty.
 void NetPacket::FillBufferWithGameSpyStatsAuthKeyCommand(UnsignedByte *buffer, NetCommandRef *msg)
 {
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = ncrCommand(msg);
 	UnsignedInt offset = 0;
 
 	buffer[offset] = 'T';
@@ -1953,7 +2095,7 @@ void NetPacket::FillBufferWithGameSpyStatsAuthKeyCommand(UnsignedByte *buffer, N
 
 	buffer[offset] = 'R';
 	++offset;
-	buffer[offset] = msg->getRelay();
+	buffer[offset] = ncrRelay(msg);
 	offset += sizeof(UnsignedByte);
 
 	buffer[offset] = 'S';
@@ -2000,7 +2142,7 @@ void NetPacket::FillBufferWithGameSpyStatsAuthKeyCommand(UnsignedByte *buffer, N
 // ConstructBigCommandPacketList.
 void NetPacket::FillBufferWithCommand(UnsignedByte *buffer, NetCommandRef *msg)
 {
-	NetCommandMsg *cmdMsg = msg->getCommand();
+	NetCommandMsg *cmdMsg = ncrCommand(msg);
 	switch (cmdMsg->getNetCommandType()) {
 	case 4:
 		FillBufferWithGameCommand(buffer, msg);
@@ -2203,7 +2345,7 @@ NetCommandRef *NetPacket::ConstructNetCommandMsgFromRawData(UnsignedByte *data, 
 			msg->setNetCommandType(commandType);
 
 			ref = new NetCommandRef(msg);
-			ref->setRelay(relay);
+			ncrSetRelay(ref, relay);
 
 			msg->detach();
 			msg = 0;
@@ -2222,7 +2364,7 @@ NetCommandRef *NetPacket::ConstructNetCommandMsgFromRawData(UnsignedByte *data, 
 // after the command type. FillBufferWithCommand reaches it from its type-4 arm.
 void NetPacket::FillBufferWithGameCommand(UnsignedByte *buffer, NetCommandRef *ref)
 {
-	NetGameCommandMsg *cmdMsg = (NetGameCommandMsg *)(ref->getCommand());
+	NetGameCommandMsg *cmdMsg = (NetGameCommandMsg *)(ncrCommand(ref));
 	UnsignedShort offset = 0;
 	GameMessage *gmsg = cmdMsg->constructGameMessage();
 
@@ -2245,7 +2387,7 @@ void NetPacket::FillBufferWithGameCommand(UnsignedByte *buffer, NetCommandRef *r
 
 	buffer[offset] = 'R';
 	++offset;
-	UnsignedByte newRelay = ref->getRelay();
+	UnsignedByte newRelay = ncrRelay(ref);
 	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
 	offset += sizeof(UnsignedByte);
 
@@ -2736,6 +2878,14 @@ NetCommandMsg *NetPacket::rva0058E0B0(unsigned char *data, int &readOffset)
 	return new NetCommandMsg();
 }
 
+// ?rva0058E0B0Type17@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z: the type-17 reader,
+// identical to rva0058E0B0 and folded onto 0x0058E0B0 by the retail linker (ICF);
+// defined so ConstructNetCommandMsgFromRawData's call resolves in the link.
+NetCommandMsg *NetPacket::rva0058E0B0Type17(unsigned char *data, int &readOffset)
+{
+	return new NetCommandMsg();
+}
+
 // ?rva0058E20D@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058E20D 202B.
 // Static NetPacket factory for Rva004D58DE (0x2C): new via rowed ctor 0x004D58DE,
 // dword at +0x1C via 4B memcpy, word at +0x20 via 2B memcpy, dword len via 4B
@@ -2896,7 +3046,7 @@ Bool NetPacket::addInformPlayerLeaveFrameCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D18C(msg)) {
-		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -2920,10 +3070,10 @@ Bool NetPacket::addInformPlayerLeaveFrameCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedInt);
 			m_lastFrame = newframe;
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -2957,8 +3107,8 @@ Bool NetPacket::addInformPlayerLeaveFrameCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -2972,7 +3122,7 @@ Bool NetPacket::rva0058E8EA(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D18C(msg)) {
-		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -2996,10 +3146,10 @@ Bool NetPacket::rva0058E8EA(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedInt);
 			m_lastFrame = newframe;
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3033,22 +3183,21 @@ Bool NetPacket::rva0058E8EA(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
 }
 
-// ?addDisconnectFrameCommand@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x0058EB82, 621 bytes:
-// addCommand's type-28 arm. BFME2's enum inserts one type after FILE (the
-// enum gap moves from 23 to 24 and router fallback from 22 to 23), so this is
-// BFME1's DISCONNECTFRAME: ZH's T/F/R/P/C/D plus S, then one dword.
-Bool NetPacket::addDisconnectFrameCommand(NetCommandRef *msg)
+// ?rva0058E8EARequestFrameData@NetPacket@@IAE_NPAVNetCommandRef@@@Z: addCommand's
+// RequestFrameData arm, identical to rva0058E8EA and ICF-folded onto 0x0058E8EA;
+// defined so the arm's call resolves in the link.
+Bool NetPacket::rva0058E8EARequestFrameData(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
-	if (rva0058D211(msg)) {
-		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+	if (rva0058D18C(msg)) {
+		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3072,10 +3221,86 @@ Bool NetPacket::addDisconnectFrameCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedInt);
 			m_lastFrame = newframe;
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
+			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastRelay = newRelay;
+		}
+		if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+			m_packet[m_packetLen] = 'P';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getPlayerID();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastPlayerID = cmdMsg->getPlayerID();
+			needNewCommandID = true;
+		}
+		if (((m_lastCommandID + 1) != (UnsignedShort)(cmdMsg->getID())) || (needNewCommandID == true)) {
+			m_packet[m_packetLen] = 'C';
+			++m_packetLen;
+			UnsignedShort newID = cmdMsg->getID();
+			memcpy(m_packet + m_packetLen, &newID, sizeof(UnsignedShort));
+			m_packetLen += sizeof(UnsignedShort);
+		}
+		m_lastCommandID = cmdMsg->getID();
+		m_packet[m_packetLen] = 'D';
+		++m_packetLen;
+		UnsignedByte * data = cmdMsg->getData();
+		memcpy(m_packet + m_packetLen, &data, sizeof(UnsignedByte *));
+		m_packetLen += sizeof(UnsignedByte *);
+		UnsignedInt dataLength = cmdMsg->getDataLength();
+		memcpy(m_packet + m_packetLen, &dataLength, sizeof(UnsignedInt));
+		m_packetLen += sizeof(UnsignedInt);
+		++m_numCommands;
+		if (m_lastCommand != 0) {
+			delete m_lastCommand;
+			m_lastCommand = 0;
+		}
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
+		return true;
+	}
+	return false;
+}
+
+// ?addDisconnectFrameCommand@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x0058EB82, 621 bytes:
+// addCommand's type-28 arm. BFME2's enum inserts one type after FILE (the
+// enum gap moves from 23 to 24 and router fallback from 22 to 23), so this is
+// BFME1's DISCONNECTFRAME: ZH's T/F/R/P/C/D plus S, then one dword.
+Bool NetPacket::addDisconnectFrameCommand(NetCommandRef *msg)
+{
+	Bool needNewCommandID = false;
+	if (rva0058D211(msg)) {
+		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
+		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+			m_packet[m_packetLen] = 'T';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getNetCommandType();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastCommandType = cmdMsg->getNetCommandType();
+		}
+		if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+			m_packet[m_packetLen] = 'S';
+			++m_packetLen;
+			UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+			memcpy(m_packet + m_packetLen, &newTimestamp, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastTimestamp = newTimestamp;
+		}
+		if (m_lastFrame != cmdMsg->getExecutionFrame()) {
+			m_packet[m_packetLen] = 'F';
+			++m_packetLen;
+			UnsignedInt newframe = cmdMsg->getExecutionFrame();
+			memcpy(m_packet + m_packetLen, &newframe, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastFrame = newframe;
+		}
+		if (m_lastRelay != ncrRelay(msg)) {
+			m_packet[m_packetLen] = 'R';
+			++m_packetLen;
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3106,8 +3331,8 @@ Bool NetPacket::addDisconnectFrameCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -3121,7 +3346,7 @@ Bool NetPacket::rva0058EDEF(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D296(msg)) {
-		Rva004D58DE *cmdMsg = (Rva004D58DE *)msg->getCommand();
+		Rva004D58DE *cmdMsg = (Rva004D58DE *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3129,10 +3354,10 @@ Bool NetPacket::rva0058EDEF(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3179,8 +3404,8 @@ Bool NetPacket::rva0058EDEF(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -3193,7 +3418,7 @@ Bool NetPacket::addFileProgressCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D310(msg)) {
-		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3201,10 +3426,10 @@ Bool NetPacket::addFileProgressCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3246,8 +3471,8 @@ Bool NetPacket::addFileProgressCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -3261,7 +3486,7 @@ Bool NetPacket::addWrapperCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (isRoomForWrapperMessage(msg)) {
-		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3269,10 +3494,10 @@ Bool NetPacket::addWrapperCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3329,8 +3554,8 @@ Bool NetPacket::addWrapperCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -3344,7 +3569,7 @@ Bool NetPacket::rva0058F5E3(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D461(msg)) {
-		NetCommandMsg *cmdMsg = (NetCommandMsg *)msg->getCommand();
+		NetCommandMsg *cmdMsg = (NetCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3352,10 +3577,10 @@ Bool NetPacket::rva0058F5E3(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3391,8 +3616,69 @@ Bool NetPacket::rva0058F5E3(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
+		return true;
+	}
+	return false;
+}
+
+// ?rva0058F5E3TimeOutStart@NetPacket@@IAE_NPAVNetCommandRef@@@Z: addCommand's
+// TimeOutGameStart arm, identical to rva0058F5E3 and ICF-folded onto 0x0058F5E3;
+// defined so the arm's call resolves in the link.
+Bool NetPacket::rva0058F5E3TimeOutStart(NetCommandRef *msg)
+{
+	Bool needNewCommandID = false;
+	if (rva0058D461(msg)) {
+		NetCommandMsg *cmdMsg = (NetCommandMsg *)ncrCommand(msg);
+		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+			m_packet[m_packetLen] = 'T';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getNetCommandType();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastCommandType = cmdMsg->getNetCommandType();
+		}
+		if (m_lastRelay != ncrRelay(msg)) {
+			m_packet[m_packetLen] = 'R';
+			++m_packetLen;
+			UnsignedByte newRelay = ncrRelay(msg);
+			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastRelay = newRelay;
+		}
+		if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+			m_packet[m_packetLen] = 'S';
+			++m_packetLen;
+			UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+			memcpy(m_packet + m_packetLen, &newTimestamp, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastTimestamp = newTimestamp;
+		}
+		if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+			m_packet[m_packetLen] = 'P';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getPlayerID();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastPlayerID = cmdMsg->getPlayerID();
+			needNewCommandID = true;
+		}
+		if (((m_lastCommandID + 1) != (UnsignedShort)(cmdMsg->getID())) || (needNewCommandID == true)) {
+			m_packet[m_packetLen] = 'C';
+			++m_packetLen;
+			UnsignedShort newID = cmdMsg->getID();
+			memcpy(m_packet + m_packetLen, &newID, sizeof(UnsignedShort));
+			m_packetLen += sizeof(UnsignedShort);
+		}
+		m_lastCommandID = cmdMsg->getID();
+		m_packet[m_packetLen] = 'D';
+		++m_packetLen;
+		++m_numCommands;
+		if (m_lastCommand != 0) {
+			delete m_lastCommand;
+			m_lastCommand = 0;
+		}
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -3404,7 +3690,7 @@ Bool NetPacket::addProgressMessage(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D4BA(msg)) {
-		NetProgressCommandMsg *cmdMsg = (NetProgressCommandMsg *)msg->getCommand();
+		NetProgressCommandMsg *cmdMsg = (NetProgressCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3412,10 +3698,10 @@ Bool NetPacket::addProgressMessage(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3445,8 +3731,8 @@ Bool NetPacket::addProgressMessage(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -3459,7 +3745,7 @@ Bool NetPacket::addDisconnectVoteCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D513(msg)) {
-		NetProgressCommandMsg *cmdMsg = (NetProgressCommandMsg *)msg->getCommand();
+		NetProgressCommandMsg *cmdMsg = (NetProgressCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3467,10 +3753,10 @@ Bool NetPacket::addDisconnectVoteCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3512,8 +3798,8 @@ Bool NetPacket::addDisconnectVoteCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -3526,7 +3812,7 @@ Bool NetPacket::addDisconnectPlayerCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D513(msg)) {
-		NetProgressCommandMsg *cmdMsg = (NetProgressCommandMsg *)msg->getCommand();
+		NetProgressCommandMsg *cmdMsg = (NetProgressCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3534,10 +3820,10 @@ Bool NetPacket::addDisconnectPlayerCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3579,8 +3865,8 @@ Bool NetPacket::addDisconnectPlayerCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -3594,7 +3880,7 @@ Bool NetPacket::rva0058FE15(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D461(msg)) {
-		NetCommandMsg *cmdMsg = (NetCommandMsg *)msg->getCommand();
+		NetCommandMsg *cmdMsg = (NetCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3602,10 +3888,10 @@ Bool NetPacket::rva0058FE15(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3633,8 +3919,61 @@ Bool NetPacket::rva0058FE15(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
+		return true;
+	}
+	return false;
+}
+
+// ?rva0058FE15DisconnectKeepAlive@NetPacket@@IAE_NPAVNetCommandRef@@@Z: addCommand's
+// DisconnectKeepAlive arm, identical to rva0058FE15 and ICF-folded onto 0x0058FE15;
+// defined so the arm's call resolves in the link.
+Bool NetPacket::rva0058FE15DisconnectKeepAlive(NetCommandRef *msg)
+{
+	Bool needNewCommandID = false;
+	if (rva0058D461(msg)) {
+		NetCommandMsg *cmdMsg = (NetCommandMsg *)ncrCommand(msg);
+		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+			m_packet[m_packetLen] = 'T';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getNetCommandType();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastCommandType = cmdMsg->getNetCommandType();
+		}
+		if (m_lastRelay != ncrRelay(msg)) {
+			m_packet[m_packetLen] = 'R';
+			++m_packetLen;
+			UnsignedByte newRelay = ncrRelay(msg);
+			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastRelay = newRelay;
+		}
+		if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+			m_packet[m_packetLen] = 'S';
+			++m_packetLen;
+			UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+			memcpy(m_packet + m_packetLen, &newTimestamp, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastTimestamp = newTimestamp;
+		}
+		if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+			m_packet[m_packetLen] = 'P';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getPlayerID();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastPlayerID = cmdMsg->getPlayerID();
+			needNewCommandID = true;
+		}
+		m_packet[m_packetLen] = 'D';
+		++m_packetLen;
+		++m_numCommands;
+		if (m_lastCommand != 0) {
+			delete m_lastCommand;
+			m_lastCommand = 0;
+		}
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -3646,7 +3985,7 @@ Bool NetPacket::addDestroyPlayerCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D211(msg)) {
-		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3654,10 +3993,10 @@ Bool NetPacket::addDestroyPlayerCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3704,8 +4043,8 @@ Bool NetPacket::addDestroyPlayerCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -3719,7 +4058,7 @@ Bool NetPacket::addRouterFallbackCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D58A(msg)) {
-		BFMENetRouterFallbackCommandMsg *cmdMsg = (BFMENetRouterFallbackCommandMsg *)msg->getCommand();
+		BFMENetRouterFallbackCommandMsg *cmdMsg = (BFMENetRouterFallbackCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3727,10 +4066,10 @@ Bool NetPacket::addRouterFallbackCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3770,8 +4109,8 @@ Bool NetPacket::addRouterFallbackCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -3784,7 +4123,7 @@ Bool NetPacket::addPlayerLeaveCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0058D601(msg)) {
-		NetProgressCommandMsg *cmdMsg = (NetProgressCommandMsg *)msg->getCommand();
+		NetProgressCommandMsg *cmdMsg = (NetProgressCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3792,10 +4131,10 @@ Bool NetPacket::addPlayerLeaveCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3841,8 +4180,8 @@ Bool NetPacket::addPlayerLeaveCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		++m_numCommands;
 		return true;
 	}
@@ -3856,7 +4195,7 @@ Bool NetPacket::addPlayerLeaveCommand(NetCommandRef *msg)
 Bool NetPacket::addFrameCommand(NetCommandRef *msg)
 {
 	if (isRoomForFrameMessage(msg)) {
-		NetFrameCommandMsg *cmdMsg = (NetFrameCommandMsg *)msg->getCommand();
+		NetFrameCommandMsg *cmdMsg = (NetFrameCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3864,10 +4203,10 @@ Bool NetPacket::addFrameCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -3916,8 +4255,8 @@ Bool NetPacket::addFrameCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		++m_numCommands;
 		return true;
 	}
@@ -3943,12 +4282,12 @@ Bool NetPacket::addAckCommand(NetCommandRef *msg, UnsignedShort commandID, Unsig
 			delete m_lastCommand;
 		}
 		m_lastCommand = 0;
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	if (rva0058D70B(msg)) {
-		NetCommandMsg *cmdMsg = msg->getCommand();
+		NetCommandMsg *cmdMsg = ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -3977,8 +4316,8 @@ Bool NetPacket::addAckCommand(NetCommandRef *msg, UnsignedShort commandID, Unsig
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		++m_numCommands;
 		return true;
 	}
@@ -3994,7 +4333,23 @@ Bool NetPacket::addAckCommand(NetCommandRef *msg, UnsignedShort commandID, Unsig
 // address name.
 Bool NetPacket::rva005939EE(NetCommandRef *msg)
 {
-	NetAckBothCommandMsg *ackmsg = (NetAckBothCommandMsg *)msg->getCommand();
+	NetAckBothCommandMsg *ackmsg = (NetAckBothCommandMsg *)ncrCommand(msg);
+	return addAckCommand(msg, ackmsg->getCommandID(), ackmsg->getOriginalPlayerID(), ackmsg->get20(), ackmsg->get24());
+}
+
+// ?rva005939EEAckStage1@NetPacket@@IAE_NPAVNetCommandRef@@@Z: addCommand's ACKSTAGE1
+// arm, identical to rva005939EE and ICF-folded onto 0x005939EE.
+Bool NetPacket::rva005939EEAckStage1(NetCommandRef *msg)
+{
+	NetAckBothCommandMsg *ackmsg = (NetAckBothCommandMsg *)ncrCommand(msg);
+	return addAckCommand(msg, ackmsg->getCommandID(), ackmsg->getOriginalPlayerID(), ackmsg->get20(), ackmsg->get24());
+}
+
+// ?rva005939EEAckStage2@NetPacket@@IAE_NPAVNetCommandRef@@@Z: addCommand's ACKSTAGE2
+// arm, identical to rva005939EE and ICF-folded onto 0x005939EE.
+Bool NetPacket::rva005939EEAckStage2(NetCommandRef *msg)
+{
+	NetAckBothCommandMsg *ackmsg = (NetAckBothCommandMsg *)ncrCommand(msg);
 	return addAckCommand(msg, ackmsg->getCommandID(), ackmsg->getOriginalPlayerID(), ackmsg->get20(), ackmsg->get24());
 }
 
@@ -4004,7 +4359,7 @@ Bool NetPacket::rva005939EE(NetCommandRef *msg)
 Bool NetPacket::addDisconnectChatCommand(NetCommandRef *msg)
 {
 	if (rva0059192A(msg)) {
-		NetCommandMsg *cmdMsg = msg->getCommand();
+		NetCommandMsg *cmdMsg = ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -4012,10 +4367,10 @@ Bool NetPacket::addDisconnectChatCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -4048,8 +4403,8 @@ Bool NetPacket::addDisconnectChatCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -4062,7 +4417,7 @@ Bool NetPacket::addChatCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva005919AF(msg)) {
-		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -4086,10 +4441,10 @@ Bool NetPacket::addChatCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedInt);
 			m_lastFrame = newframe;
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -4126,8 +4481,8 @@ Bool NetPacket::addChatCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -4141,7 +4496,7 @@ Bool NetPacket::rva005936DB(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva00591A65(msg)) {
-		NetType30CommandMsg *cmdMsg = (NetType30CommandMsg *)msg->getCommand();
+		NetType30CommandMsg *cmdMsg = (NetType30CommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -4165,10 +4520,10 @@ Bool NetPacket::rva005936DB(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedInt);
 			m_lastFrame = newframe;
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -4208,8 +4563,8 @@ Bool NetPacket::rva005936DB(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -4223,7 +4578,7 @@ Bool NetPacket::addFileAnnounceCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva0059188C(msg)) {
-		NetCommandMsg *cmdMsg = msg->getCommand();
+		NetCommandMsg *cmdMsg = ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -4231,10 +4586,10 @@ Bool NetPacket::addFileAnnounceCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -4279,8 +4634,8 @@ Bool NetPacket::addFileAnnounceCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -4293,7 +4648,7 @@ Bool NetPacket::addRequestGameSpyStatsAuthKeyCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (rva00591D0D(msg)) {
-		NetCommandMsg *cmdMsg = msg->getCommand();
+		NetCommandMsg *cmdMsg = ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -4301,10 +4656,10 @@ Bool NetPacket::addRequestGameSpyStatsAuthKeyCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -4343,8 +4698,8 @@ Bool NetPacket::addRequestGameSpyStatsAuthKeyCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -4358,7 +4713,7 @@ Bool NetPacket::addGameSpyStatsAuthKeyCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (isRoomForGameSpyStatsAuthKeyMessage(msg)) {
-		NetCommandMsg *cmdMsg = msg->getCommand();
+		NetCommandMsg *cmdMsg = ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -4366,10 +4721,10 @@ Bool NetPacket::addGameSpyStatsAuthKeyCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -4411,8 +4766,8 @@ Bool NetPacket::addGameSpyStatsAuthKeyCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -4427,7 +4782,7 @@ Bool NetPacket::addFileCommand(NetCommandRef *msg)
 {
 	Bool needNewCommandID = false;
 	if (isRoomForFileMessage(msg)) {
-		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+		NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)ncrCommand(msg);
 		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
 			m_packet[m_packetLen] = 'T';
 			++m_packetLen;
@@ -4435,10 +4790,10 @@ Bool NetPacket::addFileCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastCommandType = cmdMsg->getNetCommandType();
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -4482,8 +4837,8 @@ Bool NetPacket::addFileCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		return true;
 	}
 	return false;
@@ -4498,7 +4853,7 @@ Bool NetPacket::addFileCommand(NetCommandRef *msg)
 Bool NetPacket::addGameCommand(NetCommandRef *msg)
 {
 	Bool retval = false;
-	NetGameCommandMsg *cmdMsg = (NetGameCommandMsg *)(msg->getCommand());
+	NetGameCommandMsg *cmdMsg = (NetGameCommandMsg *)(ncrCommand(msg));
 	GameMessage *gmsg = cmdMsg->constructGameMessage();
 	if (gmsg == 0) {
 		return true;
@@ -4528,10 +4883,10 @@ Bool NetPacket::addGameCommand(NetCommandRef *msg)
 			m_packetLen += sizeof(UnsignedInt);
 			m_lastFrame = newframe;
 		}
-		if (m_lastRelay != msg->getRelay()) {
+		if (m_lastRelay != ncrRelay(msg)) {
 			m_packet[m_packetLen] = 'R';
 			++m_packetLen;
-			UnsignedByte newRelay = msg->getRelay();
+			UnsignedByte newRelay = ncrRelay(msg);
 			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
 			m_packetLen += sizeof(UnsignedByte);
 			m_lastRelay = newRelay;
@@ -4584,8 +4939,8 @@ Bool NetPacket::addGameCommand(NetCommandRef *msg)
 			delete m_lastCommand;
 			m_lastCommand = 0;
 		}
-		m_lastCommand = new NetCommandRef(msg->getCommand());
-		m_lastCommand->setRelay(msg->getRelay());
+		m_lastCommand = new NetCommandRef(ncrCommand(msg));
+		ncrSetRelay(m_lastCommand, ncrRelay(msg));
 		retval = true;
 	}
 	::delete gmsg;
@@ -4606,7 +4961,7 @@ Bool NetPacket::addCommand(NetCommandRef *msg)
 		return true;
 	}
 
-	switch (msg->getCommand()->getNetCommandType()) {
+	switch (ncrCommand(msg)->getNetCommandType()) {
 	case 4:
 		return addGameCommand(msg);
 	case 1:

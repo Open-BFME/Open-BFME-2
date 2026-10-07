@@ -1,6 +1,9 @@
 // cl: /MD /GX- /Oi-
-// ?Rva00590D19Add@@YAXHPAVNetGameCommandMsg@@PBXPAH@Z @0x00590D19 506B leaf: if-chain on type 0-10 memcpy from base+*off then addArgument
+// ?Rva00590D19Add@@YAXHPAVNetGameCommandMsg@@PBXPAHH@Z @0x00590D19 506B leaf: if-chain on type 0-10 memcpy from base+*off then addArgument
 // evidence: calls rowed memcpy thunk @0x006291A8 with sizes 4 4 1 4 4 4 12 8 16 4 2 plus rowed addArgument @0x004D5A7A; caller 0x00591FF5; prev/next /O1 flags
+// The caller (NetPacket.cpp) pushes a fifth argument, the message type, which the
+// body never reads ([ebp+0x18] is untouched); declaring it keeps both sides on one
+// name, so the link resolves the call.
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int n);
 
 enum GameMessageArgumentDataType
@@ -39,7 +42,7 @@ public:
 	void addArgument(GameMessageArgumentDataType type, GameMessageArgumentType arg);
 };
 
-void __cdecl Rva00590D19Add(int type, NetGameCommandMsg *msg, const void *base, int *off)
+void __cdecl Rva00590D19Add(int type, NetGameCommandMsg *msg, const void *base, int *off, int /*msgType*/)
 {
 	GameMessageArgumentType arg;
 	if (type == 0)

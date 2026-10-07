@@ -203,8 +203,14 @@ void NetDisconnectPlayerCommandMsg::setDisconnectSlot(UnsignedByte slot) {
 }
 
 // ?setDisconnectFrame@NetDisconnectPlayerCommandMsg@@QAEXI@Z present-unmatched
+// BFME 2 keeps the frame at +0x24: retail's body (0x005739F6, the folded 10-byte
+// dword setter its callers reach) is mov eax,[esp+4]; mov [ecx+0x24],eax; ret 4,
+// and the slot setter it pairs with writes +0x1C, so a dword BFME 2 added sits
+// at +0x20. The ZH header this unit compiles against puts m_disconnectFrame at
+// +0x20, which the link census proved wrong (wrong_selected for NetPacket.cpp's
+// call); the store names BFME 2's offset until the class gets a BFME 2 header.
 void NetDisconnectPlayerCommandMsg::setDisconnectFrame(UnsignedInt frame) {
-	m_disconnectFrame = frame;
+	*(UnsignedInt *)((char *)this + 0x24) = frame;
 }
 
 // ?setSlot@NetDisconnectVoteCommandMsg@@QAEXE@Z present-unmatched
