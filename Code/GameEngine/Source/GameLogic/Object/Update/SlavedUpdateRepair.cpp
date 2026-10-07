@@ -44,6 +44,13 @@
 // live system (its out-of-line copy is 0x002115C5, the unwind action), so the
 // unlink 0x0004CBC0 is declared not to throw, as retail sets no state before it.
 // Retail adds the bone offset with the object's coordinate loaded first.
+//
+// doRepairLogic (0x004A24D3, 395 bytes, line 636) is Zero Hour's: the 12-unit
+// closeness test reads the rowed Object distance helper 0x00263763, the heal
+// is the rowed DamageInfo 0x00263895 sent to body slot 1, and the precise-Z
+// toggle calls Locomotor::setFlag out of line. That is the 31-byte COMDAT at
+// 0x001E3459 (formerly a placeholder): mask 1 << flag at Locomotor +0x44, set
+// or cleared by the bool, which this unit emits byte for byte.
 
 #include "Common/BfmeAudioEventPrefix136.h"
 
@@ -744,6 +751,88 @@ void SlavedUpdate::doScoutLogic(const Coord3D *mastersDestination)
 	if (ai)
 	{
 		ai->aiMoveToPosition(&scoutPosition, CMD_FROM_AI);
+	}
+}
+
+// We are ordered to repair our master
+void SlavedUpdate::doRepairLogic()
+{
+	Object *me = getObject();
+	Object *master = TheGameLogic->findObjectByID(m_slaver);
+	const SlavedUpdateModuleData *data = getSlavedUpdateModuleData();
+	AIUpdateInterface *ai = me->getAIUpdateInterface();
+	if (!ai)
+	{
+		return;
+	}
+
+	// There are two major things... either move closer or repair.
+	Real distSqr = getObject()->rva00263763(master);
+	Bool closeEnough = distSqr < 12.0f * 12.0f;
+
+	if (closeEnough)
+	{
+		switch (m_repairState)
+		{
+			case REPAIRSTATE_NONE:
+				setRepairState(REPAIRSTATE_READY);
+				break;
+			case REPAIRSTATE_READY:
+			case REPAIRSTATE_EXTENDING:
+				if (m_framesToWait == 0)
+				{
+					setRepairState(REPAIRSTATE_WELDING);
+				}
+				break;
+			case REPAIRSTATE_UNPACKING:
+			case REPAIRSTATE_WELDING:
+			case REPAIRSTATE_RETRACTING:
+				if (m_framesToWait == 0)
+				{
+					setRepairState(REPAIRSTATE_READY);
+				}
+				break;
+		}
+	}
+	else
+	{
+		m_repairing = false;
+
+		Bool closeEnoughForZPrecision = distSqr < sqr(master->getBoundingSphereRadius() * 2);
+
+		// We're too far away to repair, so get closer.
+		Locomotor *locomotor = ai->getCurLocomotor();
+		if (locomotor)
+		{
+			locomotor->setUsePreciseZPos(closeEnoughForZPrecision);
+		}
+		Coord3D pos;
+		pos.set(master->getPosition());
+		Real altitude = GameLogicRandomValueReal(data->m_repairMinAltitude, data->m_repairMaxAltitude, 636);
+		pos.z += altitude;
+		ai->aiMoveToPosition(&pos, CMD_FROM_AI);
+
+		// Also speed things up by retracting the repair arm.
+		if (m_framesToWait == 0)
+		{
+			setRepairState(REPAIRSTATE_READY);
+		}
+	}
+
+	if (closeEnough && m_repairing)
+	{
+		// We're close enough to repair.
+		BodyModuleInterface *body = master->getBodyModule();
+		if (body)
+		{
+			Real repairAmount = data->m_repairRatePerSecond / LOGICFRAMES_PER_SECOND;
+
+			DamageInfo healingInfo;
+			healingInfo.m_mem.m_1C = repairAmount;
+			healingInfo.m_mem.m_0C = DAMAGE_HEALING;
+			healingInfo.m_mem.m_18 = DEATH_NORMAL;
+			body->attemptHealing(&healingInfo);
+		}
 	}
 }
 
