@@ -3,9 +3,10 @@
 //
 // BFME2's in-game player status / objectives screen (PlayerStatus.apt and
 // Objectives.apt share it): its constructor, which binds the callbacks of
-// AptPlayerStatusCallbacks.cpp by name, its extern query and its player
-// table refresh. BFME 1's AptScreenFactories.cpp (0x0052C660) and
-// AptObjectivesMenu.cpp (0x0052C220) are the donors.
+// AptPlayerStatusCallbacks.cpp by name, its extern query, its player
+// table refresh and the opener that pushes it. BFME 1's
+// AptScreenFactories.cpp (0x0052C660), AptObjectivesMenu.cpp (0x0052C220)
+// and Rva0052B2A0Step.cpp are the donors.
 
 #include <vector>
 #include "ascii_string.h"
@@ -175,6 +176,8 @@ public:
 	void rva004E44FB(int row, int column, const UnicodeString &text);
 
 private:
+	friend void Rva004E41AB();
+
 	_STL::vector<Rva004E476CColor> m_colors; // +0x27C
 	int m_state; // +0x288
 	GameWindow *m_mute[8]; // +0x28C
@@ -188,16 +191,61 @@ extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *f
 class GameLogic
 {
 public:
-	unsigned char m_pad000[0x110];
+	bool isInMultiplayerGame();
+	// The pinned pause setter (paused, reason, pause music).
+	void rva0023CD9E(bool paused, int reason, bool music);
+	// The pinned multiplayer-or-skirmish predicate.
+	char rva0023C6FD();
+
+	unsigned char m_pad000[0x6D];
+	bool m_6d; // +0x6D
+	unsigned char m_pad06e[0x110 - 0x6E];
 	int m_gameMode; // +0x110
 };
 
 extern GameLogic *TheGameLogic;
 
+class Rva0023C902
+{
+public:
+	int rva0023C902();
+};
+
+// The +0x10 view TheInGameUI's 0x000CF155 returns and the folded forwarder
+// to its vslot 3 (0x005CB265), both pinned (as in AptQuitMenuCallbacks.cpp).
+class Rva005CB260;
+
+class Rva005CB265
+{
+public:
+	virtual int rva005CB265();
+};
+
+// TheInGameUI (0x00DFEDF0): vslot 94 shows or hides the menu, vslot 95
+// reports one already up.
 class InGameUI
 {
 public:
-	unsigned char m_pad00[0x16];
+#define UI_SLOT(N) virtual void slot##N();
+	UI_SLOT(00) UI_SLOT(01) UI_SLOT(02) UI_SLOT(03) UI_SLOT(04) UI_SLOT(05) UI_SLOT(06) UI_SLOT(07)
+	UI_SLOT(08) UI_SLOT(09) UI_SLOT(10) UI_SLOT(11) UI_SLOT(12) UI_SLOT(13) UI_SLOT(14) UI_SLOT(15)
+	UI_SLOT(16) UI_SLOT(17) UI_SLOT(18) UI_SLOT(19) UI_SLOT(20) UI_SLOT(21) UI_SLOT(22) UI_SLOT(23)
+	UI_SLOT(24) UI_SLOT(25) UI_SLOT(26) UI_SLOT(27) UI_SLOT(28) UI_SLOT(29) UI_SLOT(30) UI_SLOT(31)
+	UI_SLOT(32) UI_SLOT(33) UI_SLOT(34) UI_SLOT(35) UI_SLOT(36) UI_SLOT(37) UI_SLOT(38) UI_SLOT(39)
+	UI_SLOT(40) UI_SLOT(41) UI_SLOT(42) UI_SLOT(43) UI_SLOT(44) UI_SLOT(45) UI_SLOT(46) UI_SLOT(47)
+	UI_SLOT(48) UI_SLOT(49) UI_SLOT(50) UI_SLOT(51) UI_SLOT(52) UI_SLOT(53) UI_SLOT(54) UI_SLOT(55)
+	UI_SLOT(56) UI_SLOT(57) UI_SLOT(58) UI_SLOT(59) UI_SLOT(60) UI_SLOT(61) UI_SLOT(62) UI_SLOT(63)
+	UI_SLOT(64) UI_SLOT(65) UI_SLOT(66) UI_SLOT(67) UI_SLOT(68) UI_SLOT(69) UI_SLOT(70) UI_SLOT(71)
+	UI_SLOT(72) UI_SLOT(73) UI_SLOT(74) UI_SLOT(75) UI_SLOT(76) UI_SLOT(77) UI_SLOT(78) UI_SLOT(79)
+	UI_SLOT(80) UI_SLOT(81) UI_SLOT(82) UI_SLOT(83) UI_SLOT(84) UI_SLOT(85) UI_SLOT(86) UI_SLOT(87)
+	UI_SLOT(88) UI_SLOT(89) UI_SLOT(90) UI_SLOT(91) UI_SLOT(92) UI_SLOT(93)
+#undef UI_SLOT
+	virtual void slot94(bool visible);
+	virtual bool slot95();
+
+	Rva005CB260 *rva000CF155();
+
+	unsigned char m_pad04[0x16 - 4];
 	bool m_16; // +0x16
 };
 
@@ -480,6 +528,143 @@ void AptPlayerStatus::rva004E476C()
 	}
 	for (; row < 8; ++row)
 		m_slot[row] = -1;
+}
+
+// The objectives gate singleton (Rva0050E9D3Enable.cpp): its +4 flag
+// allows the screen.
+void *Rva004E4179Get();
+
+struct Rva004E4179Gate
+{
+	int m_0;
+	bool m_enabled; // +0x04
+};
+
+// The in-game chat close (BFME 1's HideInGameChat).
+void Rva004E855CClose();
+
+class ScriptEngine
+{
+public:
+	unsigned char m_pad00000[0x1A104];
+	int m_1a104; // +0x1A104, negative when no script holds the screen
+};
+
+extern ScriptEngine *TheScriptEngine;
+
+class GameWindowTransitionsHandler
+{
+public:
+	bool isFinished();
+};
+
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+
+// TheDisplay's vslots 87 and 88 (a movie or a letterbox up).
+class Display
+{
+public:
+#define DISPLAY_SLOT(N) virtual void slot##N();
+	DISPLAY_SLOT(00) DISPLAY_SLOT(01) DISPLAY_SLOT(02) DISPLAY_SLOT(03) DISPLAY_SLOT(04) DISPLAY_SLOT(05)
+	DISPLAY_SLOT(06) DISPLAY_SLOT(07) DISPLAY_SLOT(08) DISPLAY_SLOT(09) DISPLAY_SLOT(10) DISPLAY_SLOT(11)
+	DISPLAY_SLOT(12) DISPLAY_SLOT(13) DISPLAY_SLOT(14) DISPLAY_SLOT(15) DISPLAY_SLOT(16) DISPLAY_SLOT(17)
+	DISPLAY_SLOT(18) DISPLAY_SLOT(19) DISPLAY_SLOT(20) DISPLAY_SLOT(21) DISPLAY_SLOT(22) DISPLAY_SLOT(23)
+	DISPLAY_SLOT(24) DISPLAY_SLOT(25) DISPLAY_SLOT(26) DISPLAY_SLOT(27) DISPLAY_SLOT(28) DISPLAY_SLOT(29)
+	DISPLAY_SLOT(30) DISPLAY_SLOT(31) DISPLAY_SLOT(32) DISPLAY_SLOT(33) DISPLAY_SLOT(34) DISPLAY_SLOT(35)
+	DISPLAY_SLOT(36) DISPLAY_SLOT(37) DISPLAY_SLOT(38) DISPLAY_SLOT(39) DISPLAY_SLOT(40) DISPLAY_SLOT(41)
+	DISPLAY_SLOT(42) DISPLAY_SLOT(43) DISPLAY_SLOT(44) DISPLAY_SLOT(45) DISPLAY_SLOT(46) DISPLAY_SLOT(47)
+	DISPLAY_SLOT(48) DISPLAY_SLOT(49) DISPLAY_SLOT(50) DISPLAY_SLOT(51) DISPLAY_SLOT(52) DISPLAY_SLOT(53)
+	DISPLAY_SLOT(54) DISPLAY_SLOT(55) DISPLAY_SLOT(56) DISPLAY_SLOT(57) DISPLAY_SLOT(58) DISPLAY_SLOT(59)
+	DISPLAY_SLOT(60) DISPLAY_SLOT(61) DISPLAY_SLOT(62) DISPLAY_SLOT(63) DISPLAY_SLOT(64) DISPLAY_SLOT(65)
+	DISPLAY_SLOT(66) DISPLAY_SLOT(67) DISPLAY_SLOT(68) DISPLAY_SLOT(69) DISPLAY_SLOT(70) DISPLAY_SLOT(71)
+	DISPLAY_SLOT(72) DISPLAY_SLOT(73) DISPLAY_SLOT(74) DISPLAY_SLOT(75) DISPLAY_SLOT(76) DISPLAY_SLOT(77)
+	DISPLAY_SLOT(78) DISPLAY_SLOT(79) DISPLAY_SLOT(80) DISPLAY_SLOT(81) DISPLAY_SLOT(82) DISPLAY_SLOT(83)
+	DISPLAY_SLOT(84) DISPLAY_SLOT(85) DISPLAY_SLOT(86)
+#undef DISPLAY_SLOT
+	virtual bool slot87();
+	virtual bool slot88();
+};
+
+extern Display *TheDisplay;
+
+// TheMouse's vslot 19 (the cursor).
+class Mouse
+{
+public:
+#define MOUSE_SLOT(N) virtual void slot##N();
+	MOUSE_SLOT(00) MOUSE_SLOT(01) MOUSE_SLOT(02) MOUSE_SLOT(03) MOUSE_SLOT(04) MOUSE_SLOT(05) MOUSE_SLOT(06)
+	MOUSE_SLOT(07) MOUSE_SLOT(08) MOUSE_SLOT(09) MOUSE_SLOT(10) MOUSE_SLOT(11) MOUSE_SLOT(12) MOUSE_SLOT(13)
+	MOUSE_SLOT(14) MOUSE_SLOT(15) MOUSE_SLOT(16) MOUSE_SLOT(17) MOUSE_SLOT(18)
+#undef MOUSE_SLOT
+	virtual void slot19(int cursor);
+};
+
+extern Mouse *TheMouse;
+
+class Shell
+{
+public:
+	// The pinned shell show/hide.
+	void rva0035C7CF(bool show);
+	void push(AsciiString filename, bool shutdownImmediately);
+};
+
+extern Shell *TheShell;
+
+// The disconnect menu (VA 0x00E048D0).
+extern int g_Va00E048D0;
+
+// Retail 0x004E41AB, 359 bytes: opens the in-game objectives (or, in
+// multiplayer and skirmish, player status) screen unless one is up or
+// the game is busy, pausing a single player game. Called by
+// AptPalantir::OnBttnObjectives. BFME 1's Rva0052B2A0Step.cpp is the
+// donor.
+void Rva004E41AB()
+{
+	if (g_Va00A04450 != 0)
+		return;
+	if (!((Rva004E4179Gate *)Rva004E4179Get())->m_enabled)
+		return;
+	if (TheInGameUI->slot95())
+		return;
+	if ((unsigned char)((Rva0023C902 *)TheGameLogic)->rva0023C902())
+		return;
+	if (TheGameLogic->m_6d)
+		return;
+	if (TheScriptEngine->m_1a104 >= 0)
+		return;
+	if (!TheTransitionHandler->isFinished())
+		return;
+	if (TheDisplay != 0)
+	{
+		if (TheDisplay->slot88())
+			return;
+		if (TheDisplay->slot87())
+			return;
+	}
+	GameLogic *logic = TheGameLogic;
+	if (!logic->isInMultiplayerGame() && logic->m_gameMode != 6)
+		logic->rva0023CD9E(true, 0, true);
+	if (g_Va00E048D0 != 0)
+		return;
+	Rva004E855CClose();
+	((Rva005CB265 *)TheInGameUI->rva000CF155())->Rva005CB265::rva005CB265();
+	TheMouse->slot19(2);
+	TheShell->rva0035C7CF(false);
+	int mode;
+	if (TheGameLogic->rva0023C6FD())
+	{
+		mode = 1;
+		TheShell->push(AsciiString("PlayerStatus.apt"), false);
+	}
+	else
+	{
+		mode = 0;
+		TheShell->push(AsciiString("Objectives.apt"), false);
+	}
+	if (g_Va00A04450 != 0)
+		((AptPlayerStatus *)g_Va00A04450)->m_state = mode;
+	TheInGameUI->slot94(true);
 }
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
