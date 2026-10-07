@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?putObjectAtGarrisonPoint@GarrisonContain@@IAEXPAVObject@@HHH@Z @0x00477DA1 175B.
+// ?putObjectAtGarrisonPoint@GarrisonContain@@IAEXPAVObject@@W4ObjectID@@HH@Z @0x00477DA1 175B.
 // GarrisonContain placement sibling of removeObjectFromGarrisonPoint 0x00477E82.
 // Evidence: BFME1 donor GarrisonContain.cpp putObjectAtGarrisonPoint same
 // null plus 0x28 plus 3 bounds plus occupied check plus points[cond][point]
@@ -16,7 +16,7 @@ class Object : public Thing
 public:
     int getID() const { return *(const int *)((const char *)this + 0x74); }
 };
-typedef int ObjectID;
+enum ObjectID { GarrisonContainObjectIDZero = 0 };
 struct GarrisonPointData
 {
     ObjectID objectID;
@@ -76,7 +76,7 @@ void GarrisonContain::putObjectAtGarrisonPoint(Object *obj, ObjectID targetID, i
     pos.y = pt.y;
     pos.z = pt.z;
     obj->setPosition(&pos);
-    m_garrisonPointData[pointIndex].objectID = obj->getID();
+    m_garrisonPointData[pointIndex].objectID = (ObjectID)obj->getID();
     m_garrisonPointData[pointIndex].targetID = targetID;
     m_garrisonPointData[pointIndex].placeFrame = ((GameLogicFrameView *)TheGameLogic)->m_frame;
     ++m_garrisonPointsInUse;

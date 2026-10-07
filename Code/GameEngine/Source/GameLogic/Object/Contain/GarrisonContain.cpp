@@ -547,107 +547,84 @@ void GarrisonContain::addValidObjectsToGarrisonPoints( void )
 }  // end addValidObjectsToGarrisonPoints
 
 // ------------------------------------------------------------------------------------------------
-/** Every frame this method is called.  It keeps any of the attacking units at any of the
-	* fire points closest to their active target and shuffles them around to any open garrison
-	* points that are available if they are closer.  We will also track our targets position
-	* and orient any effect stuff we need to (gun barrel / muzzle flash) */
+/** Track attacking occupants and move them to a closer open garrison point for their active target. */
 // ------------------------------------------------------------------------------------------------
-// ?GarrisonContain::trackTargets present-unmatched
+// Measured target helpers used by retail trackTargets at 0x00478ADB.
+struct Rva0046247DPair { void *first; void *second; };
+class Rva0046247D { public: void rva0046247D(Rva0046247DPair &result); };
+class Rva00264E93 { public: void *rva00264E93(); };
+
+// Retail dispatches the object-ID lookup through primary-vtable slot +0x6C.
+// The prefix records only that call slot; it does not name the implementation.
+class GarrisonContainIndexSlotView
+{
+public:
+    virtual void slot00() = 0; virtual void slot04() = 0; virtual void slot08() = 0;
+    virtual void slot0C() = 0; virtual void slot10() = 0; virtual void slot14() = 0;
+    virtual void slot18() = 0; virtual void slot1C() = 0; virtual void slot20() = 0;
+    virtual void slot24() = 0; virtual void slot28() = 0; virtual void slot2C() = 0;
+    virtual void slot30() = 0; virtual void slot34() = 0; virtual void slot38() = 0;
+    virtual void slot3C() = 0; virtual void slot40() = 0; virtual void slot44() = 0;
+    virtual void slot48() = 0; virtual void slot4C() = 0; virtual void slot50() = 0;
+    virtual void slot54() = 0; virtual void slot58() = 0; virtual void slot5C() = 0;
+    virtual void slot60() = 0; virtual void slot64() = 0; virtual void slot68() = 0;
+    virtual int objectIndex(int objectID) = 0;
+};
+
 void GarrisonContain::trackTargets( void )
 {
+    int conditionIndex = findConditionIndex();
+    Rva0046247DPair listView;
+    reinterpret_cast<Rva0046247D *>(this)->rva0046247D(listView);
 
+    struct GarrisonContainTrackNode
+    {
+        GarrisonContainTrackNode *next;
+        GarrisonContainTrackNode *prev;
+        Object *object;
+    };
+    for (GarrisonContainTrackNode *node =
+             (*reinterpret_cast<GarrisonContainTrackNode **>(listView.second))->next;
+         node != *reinterpret_cast<GarrisonContainTrackNode **>(listView.second);
+         node = node->next)
+    {
+        Object *obj = *reinterpret_cast<Object **>(
+            reinterpret_cast<char *>(node) + 8);
+        int ourIndex = reinterpret_cast<GarrisonContainIndexSlotView *>(this)->objectIndex(obj->getID());
+        if (ourIndex == GARRISON_INDEX_INVALID)
+            continue;
 
-  if ( ! isEnclosingContainerFor( 0 ) )
-    return; // since ina non-enclosing container, objects fire from their station points, instead of being juggled around between garrison firepoints
+        AIUpdateInterface *ai = *reinterpret_cast<AIUpdateInterface **>(
+            reinterpret_cast<char *>(obj) + 0x258);
+        if (!ai)
+            continue;
 
+        Object *victim = ai->getCurrentVictim();
+        const Coord3D *victimPos = reinterpret_cast<const Coord3D *>(
+            reinterpret_cast<Rva00264E93 *>(ai)->rva00264E93());
+        if (!victim && !victimPos)
+            continue;
+        if (victim)
+            victimPos = victim->getPosition();
 
+        const Coord3D *ourPos = obj->getPosition();
+        int newIndex = findClosestFreeGarrisonPointIndex(conditionIndex, victimPos);
+        if (newIndex == GARRISON_INDEX_INVALID)
+            continue;
 
-	Int conditionIndex = findConditionIndex();
-	const ContainedItemsList& containList = getContainList();
-	AIUpdateInterface *ai;
-	Object *obj;
-
-	for( ContainedItemsList::const_iterator it = containList.begin(); it != containList.end(); ++it )
-	{
-
-		DEBUG_ASSERTCRASH(m_garrisonPointsInitialized, ("garrisonPoints are not inited"));
-
-		// get the object
-		obj = *it;
-
-		// only consider objects that are actually at garrison points for re-shuffling
-		Int ourIndex = getObjectGarrisonPointIndex( obj );
-		if( ourIndex != GARRISON_INDEX_INVALID )
-		{
-
-			// does this object have a target?
-			ai = obj->getAIUpdateInterface();
-			if( ai )
-			{
-				Object *victim = ai->getCurrentVictim();
-				// even though the target position can't change in some cases, still must do this code at least once.
-				const Coord3D *victimPos = ai->getCurrentVictimPos();
-
-				if( victim || victimPos )
-				{
-					if (victim)
-						victimPos = victim->getPosition();
-					const Coord3D *ourPos = obj->getPosition();
-
-					// find the closest free (of all remaining) garrison points to our target
-					Int newIndex = findClosestFreeGarrisonPointIndex( conditionIndex, 
-																														victimPos );
-
-					// if unable to find another garrison point, don't bother
-					if( newIndex != GARRISON_INDEX_INVALID )
-					{
-
-						// get the distance from our current index to the target
-						Real currentDistSq = calcDistSqr(*victimPos, *ourPos );
-
-						// get the distance from the newly chosen index
-						Real newDistSq = calcDistSqr(*victimPos, m_garrisonPoint[ conditionIndex ][ newIndex ] );
-
-						// if the newly chosen index is closer than our current index, switch
-						if( newDistSq < currentDistSq )
-						{
-
-							// remove from the old index
-							removeObjectFromGarrisonPoint( obj, ourIndex );
-
-							// place at the new index
-							putObjectAtGarrisonPoint( obj, victim ? victim->getID() : INVALID_ID, conditionIndex, newIndex );
-
-						}  // end if, new index is closer
-
-					}  // end if, possible closer index was found
-
-					//
-					// we are now either at a new garrison fire point, or we have remained at our
-					// existing point still tracking our target.  Orient the effect drawable which
-					// shows the gun barrel and muzzle flash towards our target position
-					//
-					if( m_garrisonPointData[ ourIndex ].effect )
-					{
-						Coord2D v;
-						v.x = victimPos->x - ourPos->x;
-						v.y = victimPos->y - ourPos->y;
-//					v.z = victomPos->z - ourPos.z;
-
-						// orient the effect object towards the victim position
-						m_garrisonPointData[ ourIndex ].effect->setOrientation( v.toAngle() );
-
-					}  // end if
-
-				}  // end if, victim present
-
-			}  // end if, ai
-
-		}  // end if, we're at a garrison point
-
-	}  // end for it
-
-}  // end trackTargets
+        const Coord3D *points = reinterpret_cast<const Coord3D *>(
+            reinterpret_cast<const char *>(this) + 0x424);
+        const Coord3D *newPos = points + conditionIndex * 40 + newIndex;
+        Real newDistSq = calcDistSqr(*victimPos, *newPos);
+        Real currentDistSq = calcDistSqr(*victimPos, *ourPos);
+        if (newDistSq < currentDistSq)
+        {
+            removeObjectFromGarrisonPoint(obj, ourIndex);
+            ObjectID targetID = victim ? victim->getID() : INVALID_ID;
+            putObjectAtGarrisonPoint(obj, targetID, conditionIndex, newIndex);
+        }
+    }
+}
 
 // ------------------------------------------------------------------------------------------------
 /** Remove all the objects at garrison points back to the center and redeploy them among the
