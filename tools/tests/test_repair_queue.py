@@ -189,3 +189,59 @@ def test_boot_smoke_bisection_feeds_the_repair_queue(tmp_path):
     assert "boot_smoke.py --game-dir SANDBOX --overlay rva:0x00001080" in items[1]["pass_test"]
     rq.BOOT_QUEUE = str(tmp_path / "missing.json")
     assert rq.boot_items() == []
+
+
+def test_game_smoke_desync_and_static_findings_feed_the_repair_queue(tmp_path):
+    import json
+    rq, rev, src = load(tmp_path, "bfme2", LEDGER, [("reverse/gate_baseline.txt", "tail 0x00001000 ?a@Loco@@QAEXXZ\n")])
+    (tmp_path / "build" / "game").mkdir(parents=True)
+    (tmp_path / "build" / "boot").mkdir(parents=True)
+    # the default paths: what game_smoke.py bisect and boot_relayout.py findings write
+    desync = {"tool": "game_smoke", "items": [
+        {"target_rva": "0x00001080", "name": "?b@Loco@@QAEXXZ", "source": "Code/GameEngine/Loco.cpp", "size": 64,
+         "outcome": "desync", "check": "desync", "why": "game_smoke determinism desync with this row alone",
+         "pass_test": "python3 tools/game_smoke.py determinism --image one"}]}
+    static = {"tool": "boot_relayout findings", "items": [
+        {"target_rva": "0x00001080", "name": "?b@Loco@@QAEXXZ", "source": "Code/GameEngine/Loco.cpp", "size": 64,
+         "check": "inline-data", "why": "dup of the desync row", "pass_test": "x"},
+        {"target_rva": "0x00002000", "name": "?c@Body@@QAEXXZ", "source": "Code/GameEngine/Body.cpp", "size": 32,
+         "check": "truncated-table", "why": "its object defines ??_7Body@@6B@ as 4 byte(s)",
+         "pass_test": "python3 tools/boot_relayout.py findings --overlay rva:0x00002000 --only truncated-table"},
+        {"target_rva": "0x00003000", "name": "?d_00003000@@YAXXZ", "source": "Code/GameEngine/Rva00003000Noop.cpp",
+         "size": 8, "check": "inline-data", "why": "reads retail .text past its extent"}]}
+    boot = {"tool": "boot_smoke", "items": [
+        {"target_rva": "0x00003100", "name": "?g@@YAXXZ", "source": "Code/gen_small/uw.cpp", "size": 8,
+         "outcome": "crash-at-x", "why": "boot smoke crash"}]}
+    (tmp_path / "build/game/desync_queue.json").write_text(json.dumps(desync))
+    (tmp_path / "build/boot/static_queue.json").write_text(json.dumps(static))
+    (tmp_path / "build/boot/boot_queue.json").write_text(json.dumps(boot))
+    items = rq.all_repair_items()
+    # static findings come after run failures, whatever their size; a row once (the desync wins)
+    assert [(i["check"], i["target_rva"]) for i in items] == [
+        ("tail", "0x00001000"), ("desync", "0x00001080"), ("boot-crash", "0x00003100"),
+        ("truncated-table", "0x00002000"), ("inline-data", "0x00003000")]
+    assert items[1]["pass_test"].startswith("python3 tools/game_smoke.py determinism")
+    assert "--only truncated-table" in items[3]["pass_test"]
+    assert "boot_smoke.py --game-dir SANDBOX --overlay rva:0x00003100" in items[2]["pass_test"]
+    assert items[1]["queue"].endswith("desync_queue.json")
+    # one path: that queue alone
+    assert [i["check"] for i in rq.boot_items(tmp_path / "build/game/desync_queue.json")] == ["desync"]
+
+
+def test_game_smoke_queue_items_round_trip(tmp_path):
+    """What game_smoke.desync_items writes is what repair_queue serves."""
+    import json
+    pytest.importorskip("capstone")
+    try:
+        import game_smoke
+    except (ImportError, SystemExit) as e:
+        pytest.skip(f"game_smoke not importable: {e}")
+    rq, rev, src = load(tmp_path, "bfme2", LEDGER)
+    rows = [{"target_rva": "0x00001080", "name": "?b@Loco@@QAEXXZ", "source": "Code/GameEngine/Loco.cpp",
+             "target_size": "64"}]
+    path = tmp_path / "desync_queue.json"
+    path.write_text(json.dumps({"tool": "game_smoke", "items": game_smoke.desync_items(rows, "desync", "--overlay closed --relayout")}))
+    rq.DESYNC_QUEUE = str(path)
+    (item,) = rq.boot_items()
+    assert (item["check"], item["function"], item["size"]) == ("desync", "?b@Loco@@QAEXXZ", 64)
+    assert "game_smoke.py determinism --image one" in item["pass_test"]

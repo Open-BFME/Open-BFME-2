@@ -16,7 +16,11 @@ tools/next_work.py serves these as tiers; this module builds them.
           pass: `tools/diffexec.py --row RVA` exits 0). Twin-body findings are left out.
           And boot-smoke crashes: rows `tools/boot_smoke.py --bisect` found break start-up
           when their authored code is overlaid (build/boot/boot_queue.json or REPAIR_BOOT;
-          pass: `boot_smoke.py --overlay rva:RVA` reaches the menu).
+          pass: `boot_smoke.py --overlay rva:RVA` reaches the menu); game-smoke desyncs
+          (`tools/game_smoke.py bisect`: build/game/desync_queue.json or REPAIR_DESYNC;
+          pass: determinism with the row alone); static relayout findings, `inline-data`
+          and `truncated-table` (`tools/boot_relayout.py findings`: build/boot/
+          static_queue.json or REPAIR_STATIC; pass: the row is no longer flagged).
   link    BFME2: rows the last link cycle did not place at their retail RVA, or
           placed but not self-strict, with the reason (build/link_cycle/
           link_status.csv, or REPAIR_LINK_STATUS). PASS TEST: the next cycle reports
@@ -187,25 +191,35 @@ def diffexec_items(path=None):
 
 
 BOOT_QUEUE = os.environ.get("REPAIR_BOOT") or str(ROOT / "build" / "boot" / "boot_queue.json")
+DESYNC_QUEUE = os.environ.get("REPAIR_DESYNC") or str(ROOT / "build" / "game" / "desync_queue.json")
+STATIC_QUEUE = os.environ.get("REPAIR_STATIC") or str(ROOT / "build" / "boot" / "static_queue.json")
+STATIC_CHECKS = ("inline-data", "truncated-table")
 
 
 def boot_items(path=None):
-    """Rows whose authored code breaks start-up when overlaid in the boot image:
-    `tools/boot_smoke.py --bisect` halves a failing overlay down to them."""
+    """Rows whose authored code breaks the game when overlaid: `tools/boot_smoke.py
+    --bisect` (start-up; build/boot/boot_queue.json or REPAIR_BOOT), `tools/game_smoke.py
+    bisect` (a skirmish desyncs or crashes; build/game/desync_queue.json or REPAIR_DESYNC),
+    and `tools/boot_relayout.py findings` (static: data past the row's extent, a truncated
+    code-pointer table; build/boot/static_queue.json or REPAIR_STATIC). An item's own
+    `check` and `pass_test` win; boot_smoke's items have neither (boot-crash). One path:
+    that queue alone."""
     import json
-    path = Path(path or BOOT_QUEUE)
-    if not path.exists():
-        return []
-    data = json.loads(path.read_text(encoding="utf-8"))
     items = []
-    for r in data.get("items", []):
-        items.append({
-            "tier": "repair", "check": "boot-crash", "target_rva": r["target_rva"], "function": r["name"],
-            "source": r["source"], "size": int(r.get("size") or 0), "credit": int(r.get("size") or 0),
-            "why": str(r.get("why", r.get("outcome", "")))[:300], "baseline": "", "baseline_line": "",
-            "pass_test": f"python3 tools/boot_smoke.py --game-dir SANDBOX --overlay rva:{r['target_rva']} "
-                         "--timeout 150  (exit 0: reached-menu with the row overlaid)",
-        })
+    for p in ([path] if path else [BOOT_QUEUE, DESYNC_QUEUE, STATIC_QUEUE]):
+        p = Path(p)
+        if not p.exists():
+            continue
+        for r in json.loads(p.read_text(encoding="utf-8")).get("items", []):
+            items.append({
+                "tier": "repair", "check": r.get("check") or "boot-crash", "target_rva": r["target_rva"],
+                "function": r["name"], "source": r["source"], "size": int(r.get("size") or 0),
+                "credit": int(r.get("size") or 0), "why": str(r.get("why", r.get("outcome", "")))[:300],
+                "baseline": "", "baseline_line": "", "queue": str(p),
+                "pass_test": r.get("pass_test") or f"python3 tools/boot_smoke.py --game-dir SANDBOX --overlay "
+                                                   f"rva:{r['target_rva']} --timeout 150  (exit 0: reached-menu "
+                                                   "with the row overlaid)",
+            })
     return items
 
 
@@ -226,14 +240,19 @@ def tier_c_items(seen=()):
 
 
 def all_repair_items():
-    """Gate debt, then match_tiers tier C, diffexec divergences and boot-smoke
-    crashes not already listed."""
+    """Gate debt, then match_tiers tier C, diffexec divergences, boot/game-smoke
+    failures and static relayout findings not already listed (a row once, first wins)."""
     items = repair_items()
     seen = {(i["target_rva"].upper(), i["function"]) for i in items}
-    extra = [i for i in diffexec_items() + boot_items() if (i["target_rva"].upper(), i["function"]) not in seen]
-    seen |= {(i["target_rva"].upper(), i["function"]) for i in extra}
+    extra = []
+    for i in diffexec_items() + boot_items():
+        key = (i["target_rva"].upper(), i["function"])
+        if key not in seen:
+            seen.add(key)
+            extra.append(i)
     extra += tier_c_items(seen)
-    return items + sorted(extra, key=lambda i: -i["size"])
+    # static relayout findings after the failures a run or the emulator showed
+    return items + sorted(extra, key=lambda i: (i["check"] in STATIC_CHECKS, -i["size"]))
 
 
 def shell_quote(text):
@@ -458,7 +477,7 @@ def main(argv=None):
         ok, message = pass_test(args.line)
         print(message)
         return 0 if ok else 1
-    items, note = (all_repair_items(), f"{len(parse_debt())} baseline line(s), plus tier C / diffexec") if args.cmd == "repair" else link_items()
+    items, note = (all_repair_items(), f"{len(parse_debt())} baseline line(s), plus tier C / diffexec / boot, game and static queues") if args.cmd == "repair" else link_items()
     print(note)
     for item in items[:args.limit]:
         print(f"  {item['size']:>6}B {item.get('check', '')} {item['target_rva']} {item['function'][:80]}")
