@@ -474,30 +474,8 @@ std::vector<AsciiString> UpgradeCenter::getUpgradeNames( void ) const
 //-------------------------------------------------------------------------------------------------
 /** Parse an upgrade definition */
 //-------------------------------------------------------------------------------------------------
-// ?parseUpgradeDefinition@UpgradeCenter@@ present-unmatched
-void UpgradeCenter::parseUpgradeDefinition( INI *ini )
-{
-	// read the name
-	const char* c = ini->getNextToken();
-	AsciiString name = c;	
+// parseUpgradeDefinition is recovered in UpgradeCenterFindUpgradeByKey.cpp.
 
-	// find existing item if present
-	UpgradeTemplate* upgrade = TheUpgradeCenter->findNonConstUpgradeByKey( NAMEKEY(name) );
-	if( upgrade == NULL )
-	{
-
-		// allocate a new item
-		upgrade = TheUpgradeCenter->newUpgrade( name );
-
-	}  // end if
-
-	// sanity
-	DEBUG_ASSERTCRASH( upgrade, ("parseUpgradeDefinition: Unable to allocate upgrade '%s'\n", name.str()) );
-
-	// parse the ini definition
-	ini->initFromINI( upgrade, upgrade->getFieldParse() );
-
-}
 
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

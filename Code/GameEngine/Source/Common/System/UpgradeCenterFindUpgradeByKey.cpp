@@ -1,9 +1,9 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?findUpgradeByKey@UpgradeCenter@@QBEPBVUpgradeTemplate@@W4NameKeyType@@@Z,
-// retail 0x0026EEB8, 22 bytes. Dedicated TU (Upgrade.cpp itself is
-// unstageable: ~20 unmarked defs trip find_declared_unmatched, same wall as
-// marker-less meshmdlio.cpp/meshmatdesc.cpp; drain it via new TUs).
+// retail 0x0026EEB8, 24 bytes. This unit supplies the BFME 2 list layout
+// used by the lookup, link/unlink helpers and definition parser.
 //
 // Zero Hour reference
 // (reference/open-bfme-1/reference/CnC_Generals_Zero_Hour/Generals/Code/GameEngine/Source/Common/System/Upgrade.cpp,
@@ -11,6 +11,9 @@
 // list. BFME2 layout measured from retail: list head at UpgradeCenter+0x0C
 // (ZH +0x08), name key at UpgradeTemplate+0x0C (same as ZH), next link at
 // +0x64 (ZH +0x108). Leaf: no calls, no pins.
+
+#include "ascii_string.h"
+#include <vector>
 
 typedef int Int;
 
@@ -24,6 +27,7 @@ class UpgradeTemplate
 public:
 	NameKeyType getUpgradeNameKey() const { return m_nameKey; }
 	int getMaskIndex() const { return m_maskIndex; }
+	void setMaskIndex(int index) { m_maskIndex = index; }
 	const UpgradeTemplate *friend_getNext() const { return m_next; }
 	UpgradeTemplate *friend_getNext() { return m_next; }
 	const UpgradeTemplate *friend_getPrev() const { return m_prev; }
@@ -44,7 +48,9 @@ private:
 class UpgradeCenter
 {
 public:
-	const UpgradeTemplate *findUpgradeByKey(NameKeyType key) const;
+	__declspec(noinline) const UpgradeTemplate *findUpgradeByKey(NameKeyType key) const;
+	UpgradeTemplate *newUpgrade(const AsciiString &name, bool assignMaskBit);
+	static void parseUpgradeDefinition(class INI *ini);
 	const UpgradeTemplate *rva0026EEA0(int key) const;
 	void linkUpgrade(UpgradeTemplate *upgrade);
 
@@ -117,4 +123,104 @@ void UpgradeCenter::linkUpgrade(UpgradeTemplate *upgrade)
 	if (m_upgradeList)
 		m_upgradeList->friend_setPrev(upgrade);
 	m_upgradeList = upgrade;
+}
+
+// parseUpgradeDefinition, 0x0026FA05..0x0026FAFE (249 bytes).
+// ZH Upgrade.cpp via BFME1 1399ad37d42ea52a63829e417c46a1ba9ed2cd20
+// supplies name lookup and INI parsing. Retail's Upgrade block entry at
+// VA 0x00DB94F8 establishes the parser identity; load type 5 replaces an
+// existing definition, parks the old template in the +0x18 vector, and
+// preserves its mask index. Other duplicate definitions parse into a
+// temporary 0x9C-byte template. These are target-specific adaptations.
+// Keep the matched lookup visible: it preserves EDX across the lookup,
+// reproducing the parser's cached-centre register without a duplicate TU.
+struct FieldParse;
+
+enum INILoadType
+{
+	INI_LOAD_INVALID = 0,
+	INI_LOAD_OVERWRITE = 1,
+	INI_LOAD_CREATE_OVERRIDES = 2
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const AsciiString &name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// Four-byte slot ABI shared with the verified push_back fold; original
+// element spelling is unresolved. Retail stores UpgradeTemplate pointers.
+struct Rva004DFCB0Element
+{
+	unsigned word0;
+	Rva004DFCB0Element &operator=(const Rva004DFCB0Element &other)
+	{
+		if (this != &other)
+			word0 = other.word0;
+		return *this;
+	}
+	bool operator<(const Rva004DFCB0Element &) const;
+	bool operator==(const Rva004DFCB0Element &) const;
+};
+
+class Rva0026F684
+{
+public:
+	Rva0026F684();
+	virtual ~Rva0026F684();
+
+private:
+	char m_pad[0x9C - 4];
+};
+
+class INI
+{
+public:
+	const char *getNextToken(const char *seps);
+	void initFromINI(void *what, const FieldParse *parseTable);
+	INILoadType getLoadType() const { return m_loadType; }
+
+private:
+	char m_pad00[0x08];
+	INILoadType m_loadType; // +0x08
+};
+
+extern UpgradeCenter *TheUpgradeCenter;
+extern const FieldParse g_00BFA6E8[];
+
+static const INILoadType INI_LOAD_BFME_TYPE_5 = (INILoadType)5;
+
+void UpgradeCenter::parseUpgradeDefinition(INI *ini)
+{
+	const char *token = ini->getNextToken(0);
+	AsciiString name(token);
+	NameKeyType key = TheNameKeyGenerator->nameToKey(name);
+	UpgradeCenter * const center = TheUpgradeCenter;
+	UpgradeTemplate *upgrade = const_cast<UpgradeTemplate *>(center->findUpgradeByKey(key));
+	if (upgrade == 0)
+	{
+		upgrade = center->newUpgrade(name, true);
+	}
+	else if (ini->getLoadType() == INI_LOAD_BFME_TYPE_5)
+	{
+		int savedMask = upgrade->getMaskIndex();
+		center->unlinkUpgrade(upgrade);
+		// 4-byte ABI view to reuse the rowed push_back body; identity unresolved.
+		reinterpret_cast<_STL::vector<Rva004DFCB0Element> *>(
+			reinterpret_cast<char *>(TheUpgradeCenter) + 0x18)->push_back(
+				*(const Rva004DFCB0Element *)&upgrade);
+		*reinterpret_cast<unsigned char *>(reinterpret_cast<char *>(upgrade) + 0x94) = 1;
+		upgrade = TheUpgradeCenter->newUpgrade(name, false);
+		upgrade->setMaskIndex(savedMask);
+	}
+	else
+	{
+		Rva0026F684 tmp;
+		ini->initFromINI(&tmp, g_00BFA6E8);
+		return;
+	}
+	ini->initFromINI(upgrade, g_00BFA6E8);
 }
