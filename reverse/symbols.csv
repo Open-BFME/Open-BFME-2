@@ -15759,3 +15759,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??0Rva005EB8D6@@QAE@PAVRva005EBC74@@@Z,0x005EB9F2,callee of ??0Rva005EBC74@@QAE@XZ
 ?rva005EC017@Rva005EBC74@@QAE_NPAX@Z,0x005EC017,callee of ??0Rva005CFEDF@@QAE@PAX@Z
 ?GSMessageBoxOk@@YAXVUnicodeString@@0P6AXXZ@Z,0x00548C59,GSMessageBoxOk(title message okFunc) cdecl: Ghidra FUN_00948c59 126B copies both UnicodeStrings by value into 0x0044C0A8 with callback 0x00548B08; called after two TheGameText slot-15 fetches (GUI:Error then GUI:GSGroupRoomJoinFail) by 0x00385678; body unrowed
+??0GameSpyStagingRoom@@QAE@XZ,0x004FDE4D,GameSpyStagingRoom default ctor: Ghidra FUN_008fde4d 178B runs ??0GameInfo then installs vtable ??_7GameSpyStagingRoom@@6B@ 0x00C19440 and builds 8 0x1E0 slots at +0xDC; called after operator new(0x1020) in addStagingRoom 0x003857EB; body unrowed

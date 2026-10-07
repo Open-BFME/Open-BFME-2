@@ -84,9 +84,13 @@ struct BfmeOpaqueOwnedRecord492
 	~BfmeOpaqueOwnedRecord492();
 };
 
+// 0x1020-byte staging-room record (GameInfo base at +0; ctor 0x004FDE4D,
+// copy ctor 0x003835F4, dtor 0x00382C4A).
 class GameSpyStagingRoom
 {
 public:
+	GameSpyStagingRoom();
+	GameSpyStagingRoom(const GameSpyStagingRoom &other);
 	virtual ~GameSpyStagingRoom();
 	virtual void s01(void);
 	virtual void s02(void);
@@ -99,7 +103,22 @@ public:
 	virtual void s09(void);
 	virtual void reset(void);
 	static void operator delete(void *p) { ::operator delete(p); }
+	Int getID(void) const { return m_id; }
+	unsigned char m_pad0004[0xC8];		// +0x04..+0xCB
+	unsigned char m_digest[16];			// +0xCC..+0xDB
+	unsigned char m_pad00DC[0xF04];		// +0xDC..+0xFDF
+	Int m_id;							// +0xFE0
+	unsigned char m_pad0FE4[0x3C];		// +0xFE4..+0x101F
 };
+
+// GameInfo assignment (0x00382E73) and cleanUpSlotPointers (0x004FDA17),
+// rowed under their address names.
+class Rva00382E73 { public: Rva00382E73 &operator=(const Rva00382E73 &other); };
+class Rva004FDA17 { public: void rva004FDA17(void); };
+
+struct TreeHintOpaque0043671B;
+extern "C" void MD5Print(unsigned char digest[16], char output[33]);
+TreeHintOpaque0043671B *Rva004360B3(AsciiString key);
 
 class PlayerInfo
 {
@@ -376,9 +395,9 @@ public:
 	virtual void clearStagingRoomList(void);
 	virtual void slot41(void);
 	virtual GameSpyStagingRoom *findStagingRoomByID(Int id);
-	virtual void slot43(void);
-	virtual void slot44(void);
-	virtual void slot45(void);
+	virtual void addStagingRoom(GameSpyStagingRoom room);
+	virtual void updateStagingRoom(GameSpyStagingRoom room);
+	virtual void removeStagingRoom(GameSpyStagingRoom room);
 	virtual Bool hasStagingRoomListChanged(void);
 	virtual void leaveStagingRoom(void);
 	virtual void slot48(void);
@@ -912,6 +931,27 @@ void GameSpyInfo::joinBestGroupRoom(Int roomType)
 	{
 		GSMessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("GUI:GSGroupRoomJoinFail"), 0);
 	}
+}
+
+// ?addStagingRoom@GameSpyInfo@@UAEXVGameSpyStagingRoom@@@Z @0x003857EB 244B
+// ZH's addStagingRoom, but a room advertising a non-zero map digest is only
+// listed when that digest names a known map.
+void GameSpyInfo::addStagingRoom(GameSpyStagingRoom room)
+{
+	removeStagingRoom(room);
+	unsigned char digest[16];
+	memcpy(digest, room.m_digest, 16);
+	char printedDigest[33];
+	MD5Print(digest, printedDigest);
+	if (strcmp("00000000000000000000000000000000", printedDigest) != 0 &&
+		!Rva004360B3(AsciiString(printedDigest)))
+		return;
+	GameSpyStagingRoom *newRoom = new GameSpyStagingRoom;
+	*(Rva00382E73 *)newRoom = *(Rva00382E73 *)&room;
+	((Rva004FDA17 *)newRoom)->rva004FDA17();
+	// Retail calls the identical-code-folded map<int,int>::operator[] (0x0028932C).
+	((_STL::map<Int, Int> &)m_stagingRooms)[room.getID()] = (Int)newRoom;
+	m_stagingRoomsDirty = m_sawFullGameList;
 }
 
 // ?leaveStagingRoom@GameSpyInfo@@UAEXXZ @0x003858DF 119B
