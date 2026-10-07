@@ -49,3 +49,67 @@ Rva0043FC20 Rva0029F8B8::rva0029F8B8()
 }
 // ?TheGlobalLanguageData@@3PAUGlobalLanguage@@A: the global at VA 0xdfdc84 is ?TheGlobalLanguageData@@3PAVGlobalLanguage@@A.
 #pragma comment(linker, "/alternatename:?TheGlobalLanguageData@@3PAUGlobalLanguage@@A=?TheGlobalLanguageData@@3PAVGlobalLanguage@@A")
+
+// Native29D844..29D8C6,29D8C6..29D948,29D948..29D9CA:
+// three complete130B RET4 getters using the same rowed39B copy ctor29D81D.
+// Their local records start at receiver+7BC/+7CC/+7DC. The language
+// overrides independently start at global+110/+11C/+128. Those globals
+// supply only the string/int/byte prefix; they do not supply the local
+// record's final dword at+C. The copy ctor preserves that fourth field.
+// The target130B getter29F8B8 above is the control-flow guide. No original
+// owner or method names are asserted by this consumed-layout view.
+struct Rva0029D844Override
+{
+ AsciiString m_00;
+ int m_04;
+ unsigned char m_08;
+};
+class Rva0029D844
+{
+public:
+ Rva0043FC20 rva0029D844();
+ Rva0043FC20 rva0029D8C6();
+ Rva0043FC20 rva0029D948();
+private:
+ char m_pad00[0x7BC];
+ Rva0043FC20 m_7BC, m_7CC, m_7DC;
+};
+
+Rva0043FC20 Rva0029D844::rva0029D844()
+{
+ Rva0043FC20 tmp(m_7BC);
+ Rva0029D844Override *e = (Rva0029D844Override *)((char *)TheGlobalLanguageData + 0x110);
+ if (!e->m_00.isEmpty())
+ {
+  ((StringBase<char> *)&tmp.m_00)->set(*(const StringBase<char> *)&e->m_00);
+  tmp.m_04 = e->m_04;
+  tmp.m_08 = e->m_08;
+ }
+ return tmp;
+}
+
+Rva0043FC20 Rva0029D844::rva0029D8C6()
+{
+ Rva0043FC20 tmp(m_7CC);
+ Rva0029D844Override *e = (Rva0029D844Override *)((char *)TheGlobalLanguageData + 0x11C);
+ if (!e->m_00.isEmpty())
+ {
+  ((StringBase<char> *)&tmp.m_00)->set(*(const StringBase<char> *)&e->m_00);
+  tmp.m_04 = e->m_04;
+  tmp.m_08 = e->m_08;
+ }
+ return tmp;
+}
+
+Rva0043FC20 Rva0029D844::rva0029D948()
+{
+ Rva0043FC20 tmp(m_7DC);
+ Rva0029D844Override *e = (Rva0029D844Override *)((char *)TheGlobalLanguageData + 0x128);
+ if (!e->m_00.isEmpty())
+ {
+  ((StringBase<char> *)&tmp.m_00)->set(*(const StringBase<char> *)&e->m_00);
+  tmp.m_04 = e->m_04;
+  tmp.m_08 = e->m_08;
+ }
+ return tmp;
+}
