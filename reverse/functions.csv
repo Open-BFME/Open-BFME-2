@@ -68739,3 +68739,4 @@ uw_007aa040,,0x007AA040,11,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp,matc
 ?rva0028DAB9@Object@@QAEXXZ,,0x0028DAB9,86,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DA67.cpp,matched,One-shot team-player refresh gating on +0x480 flag
 ?rva0028DB0F@Object@@QBE_N_N@Z,,0x0028DB0F,45,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DA67.cpp,matched,Template health threshold and flag check
 ??E?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@_STL@@QAEAAU01@XZ,,0x00388CF0,12,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_noexc_bodies.cpp,matched,STLport bit-iterator operator++ placed from pod-noexc TU
+?rva003591F4@Rva00E01E28Owner@@QAEXURva003591F4Arg@@@Z,,0x003591F4,36,Code/GameEngine/Source/Common/Thing/IntFloatMapSubscript.cpp,matched,Tree iterator erase dispatch based on flag

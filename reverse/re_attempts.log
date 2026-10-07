@@ -18360,3 +18360,4 @@ _Rva007FE310	0x0066A7E0	491	blocked	false-reject tail check (evidence clarificat
 ?rva0028DB0F@Object@@QBE_N_N@Z	0x0028DB0F	45	converted	Template health threshold and flag check t=15min
 ?d_0032a587@@YAXXZ	0x0032A587	117	abandoned	MSVC CSE / register allocation mismatch with STLport vector
 ??E?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@_STL@@QAEAAU01@XZ	0x00388CF0	12	converted	STLport bit-iterator operator++ placed from pod-noexc TU
+?rva003591F4@Rva00E01E28Owner@@QAEXURva003591F4Arg@@@Z	0x003591F4	36	converted	tree iterator erase dispatch based on flag
