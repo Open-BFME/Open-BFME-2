@@ -49,6 +49,12 @@
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
+// The four-word OR has a byte-verified provider in Module.cpp at 0x28C53E.
+// Keep this TU from emitting an unrolled copy that defeats that provider.
+namespace _STL {
+template <> void _Base_bitset<4>::_M_do_or(const _Base_bitset<4> &);
+}
+
 #define DEFINE_SCIENCE_AVAILABILITY_NAMES
 
 #include "Common/ActionManager.h"
