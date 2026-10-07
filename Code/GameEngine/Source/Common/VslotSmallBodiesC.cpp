@@ -123,6 +123,24 @@ private:
 };
 void Rva00080256::rva00080256(Int a0, Int a1) { m_function08(a0, a1); }
 
+class Rva0007E971
+{
+public:
+	~Rva0007E971();
+};
+
+class Rva00080266
+{
+public:
+	void rva00080266();
+};
+
+void Rva00080266::rva00080266()
+{
+	((Rva0007E971 *)this)->~Rva0007E971();
+}
+
+
 // vtable 0x00BE82B8#18: 1 when +0x14 is set and +0x1C is not.
 class Rva00232E2F
 {

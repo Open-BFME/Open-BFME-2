@@ -123,3 +123,20 @@ void Rva006AD590Owner::bfmeAdjustPriorityAndVolume(AudioEventRTS *event)
 		event->setVolume(event->m_eventInfo->m_defaultVolume);
 	}
 }
+
+class Rva000588DA
+{
+public:
+	~Rva000588DA();
+};
+
+class Rva00059259
+{
+public:
+	void rva00059259();
+};
+
+void Rva00059259::rva00059259()
+{
+	((Rva000588DA *)this)->~Rva000588DA();
+}

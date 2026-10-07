@@ -56,3 +56,21 @@ void _STL::vector<Rva005C84D3Element>::_M_clear()
 	if (start)
 		free(start);
 }
+
+class Rva0008B470
+{
+public:
+	~Rva0008B470();
+};
+
+class Rva0008B4CD
+{
+public:
+	void rva0008B4CD();
+};
+
+void Rva0008B4CD::rva0008B4CD()
+{
+	((Rva0008B470 *)this)->~Rva0008B470();
+}
+

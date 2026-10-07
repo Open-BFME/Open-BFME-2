@@ -92,3 +92,21 @@ void _bfme_closeAptScreen(const AsciiString &name)
     _STL::for_each(g_windowTable->begin(), g_windowTable->end(), NameClearFunctor00462540(name));
     g_theAptScreenRefMap->erase(name);
 }
+
+class Rva00053DC5
+{
+public:
+	~Rva00053DC5();
+};
+
+class Rva000559CB
+{
+public:
+	void rva000559CB();
+};
+
+void Rva000559CB::rva000559CB()
+{
+	((Rva00053DC5 *)this)->~Rva00053DC5();
+}
+

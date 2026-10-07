@@ -64,6 +64,18 @@ Rva00072FE6::~Rva00072FE6()
 	rva00072FE6();
 }
 
+class Rva00073116
+{
+public:
+	void rva00073116();
+};
+
+void Rva00073116::rva00073116()
+{
+	((Rva00072FE6 *)this)->~Rva00072FE6();
+}
+
+
 // ??1Rva0007E971@@QAE@XZ @0x0007FE1B 56B -> Rva0007E971::rva0007FAC1
 class Rva0007E971
 {

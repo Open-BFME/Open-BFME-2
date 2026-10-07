@@ -43,3 +43,21 @@ AsciiString getNameOfRequestType(int type)
 		}
 	}
 }
+
+class Rva0073F4F3
+{
+public:
+	~Rva0073F4F3();
+};
+
+class Rva000A87DC
+{
+public:
+	void rva000A87DC();
+};
+
+void Rva000A87DC::rva000A87DC()
+{
+	((Rva0073F4F3 *)this)->~Rva0073F4F3();
+}
+

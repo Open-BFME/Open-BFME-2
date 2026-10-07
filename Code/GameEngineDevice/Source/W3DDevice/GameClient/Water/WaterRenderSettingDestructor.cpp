@@ -46,3 +46,25 @@ public:
 WaterRenderObjClass::Setting::~Setting()
 {
 }
+
+template <class T>
+class SimpleDynVecClass
+{
+public:
+	virtual ~SimpleDynVecClass();
+};
+
+class Vector3;
+
+class Rva0007E7DD
+{
+public:
+	void rva0007E7DD();
+};
+
+void Rva0007E7DD::rva0007E7DD()
+{
+	((SimpleDynVecClass<Vector3> *)this)->SimpleDynVecClass<Vector3>::~SimpleDynVecClass();
+}
+
+
