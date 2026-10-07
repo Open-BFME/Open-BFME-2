@@ -28,12 +28,23 @@
 
 typedef _STL::list<int, _STL::allocator<int> > IntList;
 
-struct Rva00239D49Element { Rva00239D49Element();Rva00239D49Element(const Rva00239D49Element&);~Rva00239D49Element();Rva00239D49Element&operator=(const Rva00239D49Element&);char bytes[1]; bool operator<(const Rva00239D49Element&)const; bool operator==(const Rva00239D49Element&)const; };
-typedef _STL::list<Rva00239D49Element, _STL::allocator<Rva00239D49Element> > TocList;
+// ZH GameLogic.h ObjectTOCEntry: a thing template name and the 16-bit id
+// save games store in its place. Retail list node: name at +8, id at +0xC
+// (read by xferObjectTOC below). The allocator is a placeholder class: the
+// list's out-of-line members fold onto addresses other lists already name.
+struct ObjectTOCEntry
+{
+	AsciiString name;
+	unsigned short id;
+};
+template <class T> class Rva00245F79Allocator : public _STL::allocator<T>
+{
+};
+typedef _STL::list<ObjectTOCEntry, Rva00245F79Allocator<ObjectTOCEntry> > ObjectTOCList;
 
 namespace _STL
 {
-template<> void _List_base<Rva00239D49Element, allocator<Rva00239D49Element> >::clear();
+template<> void _List_base<ObjectTOCEntry, Rva00245F79Allocator<ObjectTOCEntry> >::clear();
 }
 
 struct Region3D
@@ -270,6 +281,7 @@ public:
 
 class GameInfo;
 class LoadScreen;
+class Object;
 
 class GameLogic : public SubsystemInterface
 {
@@ -287,6 +299,11 @@ public:
 	void destroyAllObjectsImmediate(void);
 	void rva00376D49(void);
 	void rva00244CB0(bool loadingSaveGame, GameInfo *game);
+
+	Object *getFirstObject(void) const { return m_objList; }
+	ObjectTOCEntry *findTOCEntryByName(AsciiString name);
+	void addTOCEntry(AsciiString name, unsigned short id);
+	void xferObjectTOC(Xfer *xfer);
 
 private:
 	LoadScreen *getLoadScreen(bool saveGame);
@@ -316,7 +333,9 @@ public:
 	bool m_9f;
 	int m_a0;
 	int m_a4;
-	char m_pad0A8[0xb4 - 0xa8];
+	char m_pad0A8[0xac - 0xa8];
+	Object *m_objList;
+	char m_pad0B0[0xb4 - 0xb0];
 	char m_b4[0x10c - 0xb4];
 	int m_10c;
 	char m_pad110[0x11d - 0x110];
@@ -345,7 +364,7 @@ public:
 	int m_1b0;
 	int m_1b4;
 	char m_pad1B8[0x1c0 - 0x1b8];
-	TocList m_1c0;
+	ObjectTOCList m_objectTOC;
 	char m_pad1C4[0x2a4 - 0x1c4];
 	int m_2a4;
 };
@@ -532,7 +551,7 @@ void GameLogic::reset(void)
 		g_00E032F8 = 0;
 	}
 
-	m_1c0.clear();
+	m_objectTOC.clear();
 
 	rva00240E18(false);
 
@@ -850,4 +869,151 @@ void GameLogic::rva00244CB0(bool loadingSaveGame, GameInfo *game)
 	Rva0134FAA0->slot28();
 	bfmeReleaseQueuedDeviceInterfaces();
 	setFPMode();
+}
+
+// ?addTOCEntry@GameLogic@@QAEXVAsciiString@@G@Z @0x00245F14 101B and
+// ?xferObjectTOC@GameLogic@@QAEXPAVXfer@@@Z @0x00245F79 330B.
+// Target evidence: xferObjectTOC clears the list at this+0x1C0 (0x00239D49),
+// walks the object list at this+0xAC (next at +0x8C, template at +4, template
+// name at +0x64) and adds a template name through addTOCEntry (0x00245F14)
+// only when the name search at 0x00240167 misses (passing the template's own
+// name, not the local copy); the store path then
+// xfers the count (Xfer slot 30) and each node's name (slot 27) and id
+// (slot 32), the load path reads them back into addTOCEntry. Caller 0x00247BC6.
+// addTOCEntry copies its by-value name and id into a local entry and appends it
+// through the list push_back at 0x00242EE7.
+// Donor: ZH GameLogic.cpp xferObjectTOC/addTOCEntry, same control flow;
+// BFME 2 opens with the out-of-line Xfer::Version1 (0x000053EE) instead of
+// xferVersion and keeps the store path's name local inside its branch.
+class Xfer;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+
+class Xfer
+{
+public:
+	class Version;
+
+	Xfer();
+	virtual ~Xfer();
+
+	void Version1();
+
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3DBase &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+
+	virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+
+protected:
+	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
+};
+
+class ThingTemplate
+{
+public:
+	const AsciiString &getName(void) const { return m_name; }
+
+private:
+	char m_pad00[0x64];
+	AsciiString m_name;
+};
+
+class Object
+{
+public:
+	const ThingTemplate *getTemplate(void) const { return m_template; }
+	Object *getNextObject(void) const { return m_next; }
+
+private:
+	void *m_vtbl;
+	const ThingTemplate *m_template;
+	char m_pad08[0x8c - 0x08];
+	Object *m_next;
+};
+
+void GameLogic::addTOCEntry(AsciiString name, unsigned short id)
+{
+	ObjectTOCEntry tocEntry;
+	tocEntry.name = name;
+	tocEntry.id = id;
+	m_objectTOC.push_back(tocEntry);
+}
+
+void GameLogic::xferObjectTOC(Xfer *xfer)
+{
+	xfer->Version1();
+	m_objectTOC.clear();
+
+	unsigned int tocCount = 0;
+	if (xfer->IsStoring()) {
+		AsciiString templateName;
+		for (Object *obj = getFirstObject(); obj; obj = obj->getNextObject()) {
+			templateName = obj->getTemplate()->getName();
+			if (findTOCEntryByName(templateName) == 0)
+				addTOCEntry(obj->getTemplate()->getName(), ++tocCount);
+		}
+		*xfer == tocCount;
+		for (ObjectTOCList::iterator it = m_objectTOC.begin(); it != m_objectTOC.end(); ++it) {
+			ObjectTOCEntry *tocEntry = &(*it);
+			*xfer == tocEntry->name;
+			*xfer == tocEntry->id;
+		}
+	} else {
+		AsciiString templateName;
+		unsigned short id;
+		*xfer == tocCount;
+		for (unsigned int i = 0; i < tocCount; ++i) {
+			*xfer == templateName;
+			*xfer == id;
+			addTOCEntry(templateName, id);
+		}
+	}
 }
