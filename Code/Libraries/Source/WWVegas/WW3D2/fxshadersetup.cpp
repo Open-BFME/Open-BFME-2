@@ -395,7 +395,6 @@ private:
 };
 
 // Rva000B6AA9Rec::operator AsciiString, retail 0x001520B4.
-// ??BRva000B6AA9Rec@@QAE?AVAsciiString@@XZ present-unmatched
 Rva000B6AA9Rec::operator AsciiString()
 {
 	AsciiString result;
@@ -507,7 +506,6 @@ bool FXShaderSetup::UpdateParameterList(const FXShaderParameterVector &parameter
 
 // FXShaderSetup::InitializeShader, retail 0x0015288F: binds the named
 // shader and the technique closest to the requested LOD.
-// ?InitializeShader@FXShaderSetup@@QAE_NPBD0PB?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@H@Z present-unmatched
 bool FXShaderSetup::InitializeShader(const char *shaderName, const char *techniqueName,
 	const FXShaderParameterVector *parameters, int lod)
 {
@@ -583,7 +581,7 @@ FXShaderSetup::FXShaderSetup() : m_LOD(4), m_Technique(0), m_ParameterBlock(0)
 }
 
 // FXShaderSetup::Create, retail 0x00152C47.
-// ?Create@FXShaderSetup@@SA?AV?$RefCountPtr@VFXShaderSetup@@@@PBD0PB?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@H@Z present-unmatched
+// ?Create@FXShaderSetup@@SA?AV?$RefCountPtr@VFXShaderSetup@@@@PBD0PBV?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@H@Z present-unmatched
 RefCountPtr<FXShaderSetup> FXShaderSetup::Create(const char *shaderName, const char *techniqueName,
 	const FXShaderParameterVector *parameters, int lod)
 {
@@ -603,7 +601,6 @@ FXShaderSetup::FXShaderSetup(const FXShaderSetup &that) : m_Technique(0), m_Para
 
 // FXShaderSetup::operator=, retail 0x00152CDA: re-initialises from the
 // other setup's shader, technique and parameters at the default LOD.
-// ??4FXShaderSetup@@QAEAAV0@ABV0@@Z present-unmatched
 FXShaderSetup &FXShaderSetup::operator=(const FXShaderSetup &that)
 {
 	if (this != &that)

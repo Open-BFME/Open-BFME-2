@@ -14188,7 +14188,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??1Rva001DF88CEntry@@QAE@XZ,0x001DDEC3,native REL32 from by-value resize 001DF88C or default wrapper 001DF8F8; opaque48B ABI
 ??0Rva001DF88CEntry@@QAE@XZ,0x001DE6E1,native REL32 from by-value resize 001DF88C or default wrapper 001DF8F8; opaque48B ABI
 ??0Rva0017480CRecord@@QAE@XZ,0x001736D6,native ctor call from default wrapper174A8A; canonical 32B provider alias
-?apply@Rva00152CDA@@QAEXPAXPBDPBXI@Z,0x0015288F,Native four-argument thiscall REL32 from assignment152CDA; semantic identity unknown
 ??0?$vector@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAE@ABV01@@Z,0x0015350A,native ABS32 callback in record copy15375A; aliases rowed vector copy constructor provider
 ??$_M_allocate_and_copy@PBURva000BC20DWords@@@?$vector@URva000BC20DWords@@V?$allocator@URva000BC20DWords@@@_STL@@@_STL@@IAEPAURva000BC20DWords@@IPBU2@0@Z,0x0047A6C0,native REL32 from verified STLport scalar-word container 000BC20D
 ??$__copy_ptrs@PBURva000BC20DWords@@PAU1@@_STL@@YAPAURva000BC20DWords@@PBU1@0PAU1@ABU__false_type@0@@Z,0x000B6782,native REL32 from verified STLport scalar-word container 000BC20D
@@ -15404,3 +15403,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 _D3DXCreateEffect@36,0x0062AFB0,callee of ?Load@Impl@FXShaderAsset@@QAEXPBD@Z
 _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAEXPBD@Z
 ??0Rva00082EB8@@QAE@XZ,0x001F81BF,callee of ??0FXShaderSetup@@QAE@XZ
+?erase@?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@QAEPAURva0007BB16Record@@PAU3@0@Z,0x0015229C,callee of ?InitializeShader@FXShaderSetup@@QAE_NPBD0PBV?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@H@Z
