@@ -228,3 +228,80 @@ unsigned int Rva00362AB5::rva00362B89(const int &x)
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
 #pragma comment(linker, "/alternatename:?erase@Rva006DF050Slot@@QAEIABH@Z=?rva000D3BFD@Rva000D20A9@@QAEIABH@Z")
+
+class Rva00082BE1
+{
+public:
+	unsigned int rva00082BE1(const int &x);
+};
+
+unsigned int Rva00082BE1::rva00082BE1(const int &x)
+{
+	return reinterpret_cast<Rva0007E971 *>(this)->rva00082536(x);
+}
+
+class Rva000D3C46
+{
+public:
+	unsigned int rva000D3C46(const int &x);
+};
+
+unsigned int Rva000D3C46::rva000D3C46(const int &x)
+{
+	return reinterpret_cast<Rva000D20A9 *>(this)->rva000D3BFD(x);
+}
+
+class Rva001E7E78
+{
+public:
+	unsigned int rva001E7E78(const int &x);
+};
+
+unsigned int Rva001E7E78::rva001E7E78(const int &x)
+{
+	return reinterpret_cast<Rva001E6731 *>(this)->rva001E71FA(x);
+}
+
+class Rva00362C9A
+{
+public:
+	unsigned int rva00362C9A(const int &x);
+};
+
+unsigned int Rva00362C9A::rva00362C9A(const int &x)
+{
+	return reinterpret_cast<Rva00362AB5 *>(this)->rva00362B89(x);
+}
+
+class Rva003899C4
+{
+public:
+	unsigned int rva003899C4(const int &x);
+};
+
+unsigned int Rva003899C4::rva003899C4(const int &x)
+{
+	return reinterpret_cast<Rva00388EAE *>(this)->rva00389913(x);
+}
+
+class Rva0047003C
+{
+public:
+	unsigned int rva0047003C(const int &x);
+};
+
+unsigned int Rva0047003C::rva0047003C(const int &x)
+{
+	return reinterpret_cast<Rva002EE9B7 *>(this)->rva0046EDEF(x);
+}
+
+class Rva004E7E19
+{
+public:
+	unsigned int rva004E7E19(const int &x);
+};
+
+unsigned int Rva004E7E19::rva004E7E19(const int &x)
+{
+	return reinterpret_cast<Rva004E7B13 *>(this)->rva004E7D29(x);
+}
