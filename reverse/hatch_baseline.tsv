@@ -5888,7 +5888,6 @@ alternatename	Code/Libraries/Source/Theora/CopyBlock.c	?Rva009A74D0@@YAXXZ	1
 alternatename	Code/Libraries/Source/Theora/IDct1.c	?Rva009C6360@@YAXXZ	1
 alternatename	Code/Libraries/Source/VP6/quantize.cpp	?vp6DequantIndex@@3PAIA	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/BFME2Encoding0MotionChannelCtor.cpp	??1BFME2MotionChannel@@UAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/BFME2ParticleTextureHandleGetName.cpp	??1StringClass@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/BfmeApplyTextureRef_Apply.cpp	?D3DDevice@DX8Wrapper@@2PAVBfmeApplyDevice9@@A	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/BfmeApplyTextureRef_Apply.cpp	?Textures@DX8Wrapper@@2PAPAVIDirect3DBaseTexture8@@A	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/BfmeApplyTextureRef_Apply.cpp	?number_of_DX8_calls@DX8Wrapper@@2IA	1

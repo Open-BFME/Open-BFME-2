@@ -5912,7 +5912,6 @@ Code/Libraries/Source/VP6/decodembs.cpp	_VP6_DecodeFrameMbs	_VP6_ConfigureMvEntr
 Code/Libraries/Source/WWVegas/WW3D2/AggregateDefBuildSubobjectList.cpp	uw_00768e30	??1?$DynamicVectorClass@PAVRenderObjClass@@@@UAE@XZ	0x001A3AB0	wrong
 Code/Libraries/Source/WWVegas/WW3D2/AggregateDefBuildSubobjectList.cpp	uw_00768e38	??1?$DynamicVectorClass@PAVRenderObjClass@@@@UAE@XZ	0x001A3AB0	wrong
 Code/Libraries/Source/WWVegas/WW3D2/BFME2MotionChannelFactory.cpp	?Load@BFME2Encoding0MotionChannel@@UAE_NAAVChunkLoadClass@@@Z	?Seek@ChunkLoadClass@@QAEKK@Z	0x006150C0	unowned
-Code/Libraries/Source/WWVegas/WW3D2/BFME2ParticleTextureHandleGetName.cpp	?Get_Texture_Name@BFME2ParticleTextureHandle@@QBE?AVStringClass@@XZ	??1StringClass@@QAE@XZ	0x00610A40	wrong
 Code/Libraries/Source/WWVegas/WW3D2/BFME2ScopedRenderEventDtor.cpp	??1BFME2ScopedRenderEvent@@QAE@XZ	?bfmeRva0011F3C0@@YAXXZ	0x0011F3C0	unowned
 Code/Libraries/Source/WWVegas/WW3D2/BFME2StreamMotionChannelEvaluate.cpp	?UnknownSlot3@BFME2Encoding1MotionChannel@@UAEXMPAMPAPAE@Z	?rva001B2210@BFME2Encoding1MotionChannel@@QAEXPAIIIPAM1@Z	0x001B2210	unowned
 Code/Libraries/Source/WWVegas/WW3D2/BFME2StreamMotionChannelEvaluate.cpp	?UnknownSlot3@BFME2Encoding2MotionChannel@@UAEXMPAMPAPAE@Z	?rva001B2599@BFME2Encoding2MotionChannel@@QAEXPAIIIPAM1@Z	0x001B2599	unowned
