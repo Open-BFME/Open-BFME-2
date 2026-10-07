@@ -16174,3 +16174,5 @@ FUN_0045e0a4	0x0005E0A4	152	blocked	Target function is a guarded OpaqueRefElemen
 FUN_004c6c54	0x000C6C54	240	blocked	resume source emits unrelated InGameUI callback and differs by 49 B from BfmePod248 assignment packet t=2 model=gpt-6
 ?rva001F21E8@Rva001F21E8@@QAEXPAUCoord3D@@@Z	0x001F21E8	187	blocked	entry layout and owning class are unproven from available target evidence t=12 model=gpt-6.1-sol
 ?rva005317D7@Rva00531720@@QAE_NIII@Z	0x005317D7	260	blocked	bitfield logic is supported by the adjacent helper but 4 compiler shapes remain 17B short with register and branch deltas t=15 model=gpt-6.1-sol
+??0Eva@@QAE@XZ	0x001DF91B	301	blocked	needs STL map hash_map vector list StringBase layouts plus EH plus 2 unowned globals for 301B Eva ctor t=5 model=muse-19
+?calcButtonImage@UnitRevivalEntry@@QAEPBVImage@@H@Z	0x0037EBEA	476	blocked	needs ADDRESS-NAMED hatch g_Va00E022B0 which publisher refuses per packet t=2 model=muse-19
