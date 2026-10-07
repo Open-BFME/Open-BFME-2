@@ -14,6 +14,12 @@
 // one pixel, the highlight row starts 0.8 box heights down, and the integer
 // conversions truncate rather than round. The ICoord2D locals carry an empty
 // default constructor (it fixes the operand order).
+//
+// W3DGadgetHorizontalSliderImageDrawA 0x000A19A2 (857B) is Zero Hour's body of
+// that name; it follows the image draw in retail and nothing in BFME2 calls
+// it, so the name is carried from the donor, not proven. The disabled branch
+// clears the center images (Zero Hour leaves them unset), and the clip calls
+// go through the BFME Display slots.
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
@@ -94,7 +100,8 @@
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 #endif
 
-// BFME's Display vtable returns the screen size from +0x40/+0x44.
+// BFME's Display vtable returns the screen size from +0x40/+0x44 and places
+// setClipRegion at +0xA8 and enableClipping at +0xB0.
 class BFMESliderDisplay
 {
 public:
@@ -108,6 +115,21 @@ public:
 	virtual void unused14(); virtual void unused15();
 	virtual UnsignedInt getWidth( void );
 	virtual UnsignedInt getHeight( void );
+	virtual void unused18(); virtual void unused19();
+	virtual void unused20(); virtual void unused21();
+	virtual void unused22(); virtual void unused23();
+	virtual void unused24(); virtual void unused25();
+	virtual void unused26(); virtual void unused27();
+	virtual void unused28(); virtual void unused29();
+	virtual void unused30(); virtual void unused31();
+	virtual void unused32(); virtual void unused33();
+	virtual void unused34(); virtual void unused35();
+	virtual void unused36(); virtual void unused37();
+	virtual void unused38(); virtual void unused39();
+	virtual void unused40(); virtual void unused41();
+	virtual void setClipRegion( IRegion2D *region );
+	virtual void unused43();
+	virtual void enableClipping( Bool onoff );
 };
 
 // BFME status bit that keeps the slider at its authored 800x600 size.
@@ -270,3 +292,156 @@ void W3DGadgetHorizontalSliderImageDraw( GameWindow *window,
 	}
 }
 
+
+// W3DGadgetHorizontalSliderImageDraw =========================================
+/** Draw horizontal slider with user supplied images */
+//=============================================================================
+void W3DGadgetHorizontalSliderImageDrawA( GameWindow *window, 
+																				 WinInstanceData *instData )
+{
+	const Image *leftImageLeft, *rightImageLeft, *centerImageLeft, *smallCenterImageLeft;
+	const Image *leftImageRight, *rightImageRight, *centerImageRight, *smallCenterImageRight;
+	CtorCoord origin, size, start, end;
+	Int xOffset, yOffset;
+	Int i;
+
+	// get screen position and size
+	window->winGetScreenPosition( &origin.x, &origin.y );
+	window->winGetSize( &size.x, &size.y );
+
+	SliderData *s = (SliderData *)window->winGetUserData();
+	Int transPos = (s->numTicks * (s->position - s->minVal)) + HORIZONTAL_SLIDER_THUMB_WIDTH/2;
+	IRegion2D clipLeft, clipRight;
+
+	// get image offset
+	xOffset = instData->m_imageOffset.x;
+	yOffset = instData->m_imageOffset.y;
+
+	// get the right images
+	if( BitTest( window->winGetStatus(), WIN_STATUS_ENABLED ) == FALSE )
+	{
+
+		leftImageRight = leftImageLeft					= GadgetSliderGetDisabledImageLeft( window );
+		rightImageRight = rightImageLeft				= GadgetSliderGetDisabledImageRight( window );
+		centerImageRight = centerImageLeft				= NULL;
+		smallCenterImageRight = smallCenterImageLeft	= NULL;
+
+	}  // end if, disabled
+	else
+	{
+
+		leftImageLeft					= GadgetSliderGetHiliteImageLeft( window );
+		rightImageLeft				= GadgetSliderGetHiliteImageRight( window );
+		centerImageLeft				= GadgetSliderGetHiliteImageCenter( window );
+		smallCenterImageLeft	= GadgetSliderGetHiliteImageSmallCenter( window );
+
+		leftImageRight					= GadgetSliderGetEnabledImageLeft( window );
+		rightImageRight				= GadgetSliderGetEnabledImageRight( window );
+		centerImageRight				= GadgetSliderGetEnabledImageCenter( window );
+		smallCenterImageRight	= GadgetSliderGetEnabledImageSmallCenter( window );
+
+	}  // end else, enabled
+
+	// sanity, we need to have these images to make it look right
+	if( leftImageLeft == NULL || rightImageLeft == NULL || 
+			centerImageLeft == NULL || smallCenterImageLeft == NULL ||
+			leftImageRight == NULL || rightImageRight == NULL || 
+			centerImageRight == NULL || smallCenterImageRight == NULL )
+		return;
+
+	// get image sizes for the ends
+	CtorCoord leftSize, rightSize;
+	leftSize.x = leftImageLeft->getImageWidth();
+	leftSize.y = leftImageLeft->getImageHeight();
+	rightSize.x = rightImageLeft->getImageWidth();
+	rightSize.y = rightImageLeft->getImageHeight();
+
+	// get two key points used in the end drawing
+	CtorCoord leftEnd, rightStart;
+	leftEnd.x = origin.x + leftSize.x + xOffset;
+	leftEnd.y = origin.y + size.y + yOffset;
+	rightStart.x = origin.x + size.x - rightSize.x + xOffset;
+	rightStart.y = origin.y  + size.y - leftSize.y + yOffset;
+
+	// draw the center repeating bar
+	Int centerWidth, pieces;
+
+	// get width we have to draw our repeating center in
+	centerWidth = rightStart.x - leftEnd.x;
+
+	// how many whole repeating pieces will fit in that width
+	pieces = centerWidth / centerImageLeft->getImageWidth();
+
+	// draw the pieces
+	start.x = leftEnd.x;
+	start.y = origin.y + size.y - leftSize.y + yOffset;
+	end.y =origin.y + size.y + yOffset;
+	
+	clipLeft.lo.x = origin.x;
+	clipLeft.lo.y = rightStart.y;
+	clipLeft.hi.y = leftEnd.y;
+	clipLeft.hi.x = origin.x + transPos;
+	clipRight.lo.x = origin.x + transPos;
+	clipRight.lo.y = rightStart.y;
+	clipRight.hi.y = leftEnd.y;
+	clipRight.hi.x = origin.x + size.x;
+
+	for( i = 0; i < pieces; i++ )
+	{
+
+		end.x = start.x + centerImageLeft->getImageWidth();
+		((BFMESliderDisplay *)TheDisplay)->setClipRegion(&clipLeft);
+		TheWindowManager->winDrawImage( centerImageLeft, 
+																		start.x, start.y,
+																		end.x, end.y );
+		((BFMESliderDisplay *)TheDisplay)->setClipRegion(&clipRight);
+		TheWindowManager->winDrawImage( centerImageRight, 
+																		start.x, start.y,
+																		end.x, end.y );
+		start.x += centerImageLeft->getImageWidth();
+
+	}  // end for i
+	
+	//
+	// how many small repeating pieces will fit in the gap from where the
+	// center repeating bar stopped and the right image, draw them
+	// and overlapping underneath where the right end will go
+	//
+	centerWidth = rightStart.x - start.x;
+	pieces = centerWidth / smallCenterImageLeft->getImageWidth() + 1;
+	end.y = leftEnd.y;
+	for( i = 0; i < pieces; i++ )
+	{
+
+		end.x = start.x + smallCenterImageLeft->getImageWidth();
+		((BFMESliderDisplay *)TheDisplay)->setClipRegion(&clipLeft);
+		TheWindowManager->winDrawImage( smallCenterImageLeft,
+																		start.x, start.y,
+																		end.x, end.y );
+		((BFMESliderDisplay *)TheDisplay)->setClipRegion(&clipRight);
+		TheWindowManager->winDrawImage( smallCenterImageRight,
+																		start.x, start.y,
+																		end.x, end.y );
+		start.x += smallCenterImageLeft->getImageWidth();
+
+	}  // end for i
+	
+	// draw left end
+	start.x = origin.x + xOffset;
+	start.y = rightStart.y;
+	end = leftEnd;
+	((BFMESliderDisplay *)TheDisplay)->setClipRegion(&clipLeft);
+	TheWindowManager->winDrawImage(leftImageLeft, start.x, start.y, end.x, end.y);
+	((BFMESliderDisplay *)TheDisplay)->setClipRegion(&clipRight);
+	TheWindowManager->winDrawImage(leftImageRight, start.x, start.y, end.x, end.y);
+	// draw right end
+	start = rightStart;
+	end.x = start.x + rightSize.x;
+	end.y = leftEnd.y;
+	((BFMESliderDisplay *)TheDisplay)->setClipRegion(&clipLeft);
+	TheWindowManager->winDrawImage(rightImageLeft, start.x, start.y, end.x, end.y);
+	((BFMESliderDisplay *)TheDisplay)->setClipRegion(&clipRight);
+	TheWindowManager->winDrawImage(rightImageRight, start.x, start.y, end.x, end.y);
+
+	((BFMESliderDisplay *)TheDisplay)->enableClipping(FALSE);
+}  // end W3DGadgetHorizontalSliderImageDrawA
