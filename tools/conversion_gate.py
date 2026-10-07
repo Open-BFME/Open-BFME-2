@@ -83,13 +83,16 @@ GEN_ASM_LINE_RE = re.compile(
 
 
 def diff_lines(old, new, *paths):
+    if old is None:
+        return run("git", "diff-tree", "--root", "-p", "--unified=0", new,
+                   "--", *paths).splitlines()
     cmd = ["git", "diff", "--unified=0"]
     cmd += ["--cached", old] if new == ":" else [old, new]
     return run(*cmd, "--", *paths).splitlines()
 
 
-def gen_asm_offences(old, new):
-    """Rule C. Returns a list of human-readable offences, empty when clean."""
+def _gen_asm_diff_offences(old, new):
+    """Rule C for one commit or the staged index."""
     offences = []
     path = None
     dump_rows, other_code_edits = [], set()
@@ -131,6 +134,30 @@ def gen_asm_offences(old, new):
                         "so a deleted C++ body cannot ride inside an unreadable "
                         "diff" % ", ".join(sorted(other_code_edits)))
     return offences
+
+
+def gen_asm_offences(old, new):
+    """Check wave atomicity per commit, including when verifying a push range.
+
+    A dump-only commit followed by a C++ recovery is a legal publication batch.
+    Its aggregate diff must still satisfy C1/C2, but it is not one wave commit.
+    Inspect every outgoing commit so a later edit or revert cannot hide an
+    invalid wave. Merge commits use their first-parent delta, while commits
+    brought in by the merge are also inspected individually.
+    """
+    if new == ":":
+        return _gen_asm_diff_offences(old, new)
+    offences = [offence for offence in _gen_asm_diff_offences(old, new)
+                if not offence.startswith("C3 ")]
+    commits = run("git", "rev-list", "--reverse", "--topo-order", "--parents",
+                  new, "^" + old).splitlines()
+    for entry in commits:
+        commit, *parents = entry.split()
+        for offence in _gen_asm_diff_offences(parents[0] if parents else None, commit):
+            if offence.startswith("C3 "):
+                offence += " (commit %s)" % commit
+            offences.append(offence)
+    return list(dict.fromkeys(offences))
 
 
 def show(rev, path):
