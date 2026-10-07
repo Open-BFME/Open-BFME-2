@@ -1,6 +1,8 @@
-// ?cellCallback@Rva002E7ED6Info@@QAEHPAVPathfindCell@@0HH@Z
-// partial score=0.99 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
+// ?cellCallback@Rva002E7ED6Info@@QAEHPAVPathfindCell@@0HH@Z @0x002E7ED6 72B
+// Banked attempt reverse/attempts/0x002e7ed6.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 //
 // ?cellCallback@Rva002E7ED6Info@@QAEHPAVPathfindCell@@0HH@Z @0x002E7ED6 72B
 // Evidence: pin cellCallback; rowed Rva002E6E8AGet 0x002E6E8A; pinned rva002E79A8 0x002E79A8 returns pointer in eax per retail mov esi eax but pin types it void; probe uses int return to reproduce mov; caller Pathfinder::iterateCellsAlongLine 0x002E8B0C.

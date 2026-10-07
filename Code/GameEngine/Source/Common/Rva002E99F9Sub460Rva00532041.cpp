@@ -1,5 +1,8 @@
-// ?rva00532041@Rva002E99F9Sub460@@QAEGHHHPAPAURva00532041Record@@@Z
-// partial score=0.8 date=2026-10-06
+// cl: /O1 /arch:SSE /G7 /Os
+// ?rva00532041@Rva002E99F9Sub460@@QAEGHHHPAPAURva00532041Record@@@Z @0x00532041 40B
+// Banked attempt reverse/attempts/0x00532041.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 // Target evidence: 0x00532041 indexes a pointer table and a 16-byte record,
@@ -25,7 +28,6 @@ public:
 		Rva00532041Record **records);
 };
 
-// ?rva00532041@Rva002E99F9Sub460@@QAEGHHHPAPAURva00532041Record@@@Z
 unsigned short Rva002E99F9Sub460::rva00532041(
 	int context, int tableIndex, int recordIndex, Rva00532041Record **records)
 {

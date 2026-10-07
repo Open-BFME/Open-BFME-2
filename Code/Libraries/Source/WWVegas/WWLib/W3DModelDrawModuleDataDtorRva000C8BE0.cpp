@@ -1,5 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG /Ireference/shims/moduledata
-// partial score=0.92 date=2026-10-05
+// ??1W3DModelDrawModuleData@@UAE@XZ @0x000C8BE0 292B
+// Banked attempt reverse/attempts/0x000c8be0.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 //
 // ??1W3DModelDrawModuleData@@UAE@XZ, retail 0x000C8BE0, 292 bytes (Ghidra FUN_004c8be0).
 // W3DModelDraw ModuleData base dtor: reinstalls vtable 0xBCADE8, tears down

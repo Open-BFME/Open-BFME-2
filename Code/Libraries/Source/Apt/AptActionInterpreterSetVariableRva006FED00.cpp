@@ -1,6 +1,8 @@
-// ?setVariable@AptActionInterpreter@@QAE_NPAVAptValue@@0PBVEAStringC@@0HHH@Z
-// partial score=0.99 date=2026-10-06
 // cl: /O2 /MD /EHsc
+// ?setVariable@AptActionInterpreter@@QAE_NPAVAptValue@@0PBVEAStringC@@0HHH@Z @0x006FED00 739B
+// Banked attempt reverse/attempts/0x006fed00.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 // Target evidence: Ghidra gives 0x006FED00 a 739-byte extent. The 0x006CCA50
 // caller loads g_aptDateInterpreter in ECX and supplies the seven stack args;
 // retail calls 0x006FEC00, 0x006FBE60, AptNativeHash::Set at 0x0070B410,

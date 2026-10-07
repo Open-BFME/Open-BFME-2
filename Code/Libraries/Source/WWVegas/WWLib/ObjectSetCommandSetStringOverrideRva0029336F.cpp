@@ -1,6 +1,8 @@
-// ?setCommandSetStringOverride@Object@@QAEXABVAsciiString@@@Z
-// partial score=0.97 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7
+// ?setCommandSetStringOverride@Object@@QAEXABVAsciiString@@@Z @0x0029336F 94B
+// Banked attempt reverse/attempts/0x0029336f.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 // ?setCommandSetStringOverride@Object@@QAEXABVAsciiString@@@Z, retail 0x0029336F (94B).
 // Object::setCommandSetStringOverride copies arg into AsciiString at +0x420 via
 // rowed StringBase::set, fetches controlling player via rowed 0x0028AFA9, requires
