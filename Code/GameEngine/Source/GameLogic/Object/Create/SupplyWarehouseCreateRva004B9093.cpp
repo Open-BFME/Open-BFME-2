@@ -11,6 +11,8 @@
 // Rva004B8CDEDerived.cpp, next GrantUpgradeCreateModuleData.
 #include "ascii_string.h"
 
+#include "../../../Common/RTS/PlayerUpgradeStatus.h"
+
 class UpgradeTemplate
 {
 public:
@@ -38,7 +40,7 @@ extern "C" UpgradeCenter *TheUpgradeCenter;
 class Player
 {
 public:
-	void rva002AE329(const UpgradeTemplate *tmpl, int a, int b);
+	Upgrade *rva002AE329(const UpgradeTemplate *tmpl, UpgradeStatusType a, int b);
 };
 
 class Rva004B8CDEBase
@@ -95,7 +97,7 @@ void SupplyWarehouseCreate::rva004B9093()
 	if (tmpl->m_04 == 0)
 	{
 		Player *player = obj->getControllingPlayer();
-		player->rva002AE329(tmpl, 2, 0);
+		player->rva002AE329(tmpl, UPGRADE_STATUS_COMPLETE, 0);
 	}
 	else
 		obj->rva00293077(tmpl);

@@ -3,6 +3,8 @@
 // Grant upgrade to players matching name mask.
 // Evidence: leaf lane; callees ScriptEngine rva00357475 getEachPlayerFromMask findUpgrade Player rva002AE329; caller 0x003CA957.
 #include "ascii_string.h"
+#include "../../Common/RTS/PlayerUpgradeStatus.h"
+
 class ScriptEngine
 {
 public:
@@ -31,7 +33,7 @@ extern "C" UpgradeCenter *TheUpgradeCenter;
 class Player
 {
 public:
-	void rva002AE329(const UpgradeTemplate *tpl, int a2, int a3);
+	Upgrade *rva002AE329(const UpgradeTemplate *tpl, UpgradeStatusType a2, int a3);
 };
 void __stdcall Rva003BB1A4Grant(const AsciiString &playerName, const AsciiString &upgradeName)
 {
@@ -43,7 +45,7 @@ void __stdcall Rva003BB1A4Grant(const AsciiString &playerName, const AsciiString
 		if (p != 0) {
 			const UpgradeTemplate *tpl = TheUpgradeCenter->findUpgrade(upgradeName);
 			if (tpl->m_val04 == 0)
-				p->rva002AE329(tpl, 2, 0);
+				p->rva002AE329(tpl, UPGRADE_STATUS_COMPLETE, 0);
 		}
 	}
 }

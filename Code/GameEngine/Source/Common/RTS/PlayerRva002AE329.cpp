@@ -15,6 +15,8 @@
 // which the retail eax result refutes. Callers include 0x0033557F
 // (status 2, 0) and 0x001EC745 / 0x0021979C / 0x002AEDF8.
 
+#include "PlayerUpgradeStatus.h"
+
 typedef int Int;
 
 class UpgradeTemplate
@@ -25,13 +27,6 @@ public:
 private:
 	char m_pad[0x38];
 	unsigned int m_bit;							// +0x38
-};
-
-enum UpgradeStatusType
-{
-	UPGRADE_STATUS_INVALID = 0,
-	UPGRADE_STATUS_IN_PRODUCTION,
-	UPGRADE_STATUS_COMPLETE
 };
 
 class Upgrade

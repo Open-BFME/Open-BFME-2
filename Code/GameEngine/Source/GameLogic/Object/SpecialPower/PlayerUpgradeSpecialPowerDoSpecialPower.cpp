@@ -13,6 +13,8 @@
 // then the rowed SpecialPowerModule::triggerSpecialPower with no location.
 #include <vector>
 
+#include "../../../Common/RTS/PlayerUpgradeStatus.h"
+
 template <typename T> struct BfmeStringData;
 
 #include "ascii_string.h"
@@ -44,7 +46,7 @@ extern UpgradeCenter *TheUpgradeCenter;
 class Player
 {
 public:
-	void rva002AE329(const UpgradeTemplate *upgrade, int status, int flag);
+	Upgrade *rva002AE329(const UpgradeTemplate *upgrade, UpgradeStatusType status, int flag);
 };
 
 class Object
@@ -126,7 +128,7 @@ void PlayerUpgradeSpecialPower::doSpecialPower(unsigned int)
 		if (upgrade->m_type == 0)
 		{
 			Player *player = m_object->getControllingPlayer();
-			player->rva002AE329(upgrade, 2, 0);
+			player->rva002AE329(upgrade, UPGRADE_STATUS_COMPLETE, 0);
 		}
 	}
 	triggerSpecialPower(0);

@@ -8,6 +8,8 @@
 // Evidence: rowed getControllingPlayer 0x0028AFA9 and findUpgrade 0x0026F26D
 // plus pin Player::rva002AE329 and callers at 0x0029856F.
 
+#include "RTS/PlayerUpgradeStatus.h"
+
 class UpgradeTemplate;
 class Player;
 class GameInfo;
@@ -39,7 +41,7 @@ public:
 class Player
 {
 public:
-	void rva002AE329(const UpgradeTemplate *upgrade, int a, int b);
+	Upgrade *rva002AE329(const UpgradeTemplate *upgrade, UpgradeStatusType a, int b);
 };
 
 class CreateAHeroManager
@@ -63,5 +65,5 @@ void CreateAHeroManager::UnbindHeroFromObjectAndUpdate(Object *obj)
 	if (!player)
 		return;
 	const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(m_upgrade);
-	player->rva002AE329(upgrade, 2, 1);
+	player->rva002AE329(upgrade, UPGRADE_STATUS_COMPLETE, 1);
 }
