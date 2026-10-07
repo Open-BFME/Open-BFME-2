@@ -275,7 +275,7 @@ def check_object(obj, index, truth, source=None):
                                        common_names=common)}
 
 
-def new_variants(obj, index, truth):
+def new_variants(obj, index, truth, previous=None):
     """COMDAT copies `obj` adds that can only hurt the link: a body no census
     object has yet that either splits a name every census object shares one
     copy of, or is proven not retail's (the ledger owns that name elsewhere).
@@ -283,10 +283,16 @@ def new_variants(obj, index, truth):
     without its link position; three donor ports each adding a wrong
     AsciiString::compare(const AsciiString&) re-blocked 56 linking units."""
     copies, _, _, _ = link_census.object_facts(obj, truth)
+    # Admission checks growth, not unchanged debt. `previous` must come from
+    # the census BEFORE refreshing this object; a refreshed self copy would
+    # incorrectly exempt every newly introduced body.
+    previous = previous or {}
     found = []
     for name, digest, _, verdict in copies:
         if verdict == "retail":
             continue
+        if digest in previous.get(name, ()):
+            continue  # this object's existing debt has not grown
         existing = {d for i, d, _ in index["comdat"].get(name, ()) if index["objects"][i] != obj.name}
         if digest in existing:
             continue  # an identical copy is already linked: nothing new
@@ -445,13 +451,20 @@ def main(argv=None):
         # judged by their current objects: a body moved from one staged unit
         # to another is then one copy, not a split against the census's stale
         # copy of the unit it left. Nothing else changes in the index.
+        previous = {}
+        for _, obj in resolved:
+            previous[obj.name] = {
+                name: {digest for position, digest, _ in copies
+                       if index["objects"][position] == obj.name}
+                for name, copies in index["comdat"].items()
+            }
         given = {obj for _, obj in resolved}
         others = [resolve(path, index) for path in staged() if path not in paths] if args.staged_peers else []
         known = [obj for obj in given | {obj for _, obj in others} if obj.name in index["objects"]]
         if known and index.get("common_schema") == COMMON_SCHEMA and isinstance(index.get("alternates"), dict):
             refresh(index, known, truth)
         for source, obj in resolved:
-            for name in new_variants(obj, index, truth):
+            for name in new_variants(obj, index, truth, previous[obj.name]):
                 print(f"  {source}: emits its own body for {name}, which every census object shares "
                       "one copy of: include the shared header (or keep it out of line)", file=sys.stderr)
                 bad = 1
