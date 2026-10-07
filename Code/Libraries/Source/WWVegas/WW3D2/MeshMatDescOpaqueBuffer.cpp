@@ -23,9 +23,18 @@ ShareBufferClass<RefCountClass *>::~ShareBufferClass()
 class OpaqueRefBuffer : public ShareBufferClass<RefCountClass *> {
 public:
     OpaqueRefBuffer(int count, const char *msg) : ShareBufferClass<RefCountClass *>(count, msg) { Clear(); }
+    OpaqueRefBuffer(const OpaqueRefBuffer &that);
     virtual ~OpaqueRefBuffer();
     RefCountClass **Raw_Elements() { return RawBuffer; }
 };
+OpaqueRefBuffer::OpaqueRefBuffer(const OpaqueRefBuffer &that) : ShareBufferClass<RefCountClass *>(that)
+{
+    for (int i = 0; i < Count; ++i) {
+        if (RawBuffer[i])
+            RawBuffer[i]->Add_Ref();
+    }
+}
+
 OpaqueRefBuffer::~OpaqueRefBuffer()
 {
     for (int i = 0; i < Count; ++i) {
