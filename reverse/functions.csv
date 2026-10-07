@@ -68796,3 +68796,7 @@ uw_00773b7a,,0x00773B7A,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicWater
 ?rva00057378@MilesAudioManager@@QAEXIPBX@Z,,0x00057378,144,Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp,matched,Native144B RET8; rowed Miles receiver/mutex9D4; target hash table104 uses unsigned32-bit key and iterates equal-key mappings through rowed562A2 or forwards original key; three emitted STL helpers independently verified against existing ICF owners; original method identity unknown
 ?rva00057530@MilesAudioManager@@QAEXIMH@Z,,0x00057530,158,Code/GameEngineDevice/Source/MilesAudioDevice/Rva00057378.cpp,matched,Native158B RET12; equal-key unsigned hash aliases104 and mutex9D4 verified in57378; forwards float and mode to independently decoded complete178B provider5634C; original method identity unresolved
 ?store@Rva00481FAFFloatSlot@@QAEXM@Z,,0x00481FAF,14,Code/GameEngineDevice/Source/MilesAudioDevice/Rva00481FAFFloatSlot.cpp,matched,ICF twin; neutral float store at offset2C required by native5634C borrowed result; complete14-byte setter verified against Matrix3D owner; separate unit preserves external-call ABI without asserting matrix identity
+?d_00029350@@YAXXZ,,0x00029350,38,Code/gen_asm/d_00023b30.asm,matched,gen-dump;ghidra=FUN_00429350
+?d_0005109d@@YAXXZ,,0x0005109D,22,Code/gen_asm/d_00023b30.asm,matched,gen-dump;ghidra=FUN_0045109d
+?d_00051d93@@YAXXZ,,0x00051D93,29,Code/gen_asm/d_00023b30.asm,matched,gen-dump;ghidra=FUN_00451d93
+?d_00052751@@YAXXZ,,0x00052751,27,Code/gen_asm/d_00023b30.asm,matched,gen-dump;ghidra=FUN_00452751
