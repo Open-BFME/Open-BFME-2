@@ -109,3 +109,38 @@ template _STL::multimap<int, Rva00501130Mapped>::iterator _STL::multimap<int, Rv
 // map::insert(hint) @0x004F9ED6 and multimap::insert(hint) @0x0050364E (29B each).
 template _STL::map<int, Rva004F90FFMapped>::iterator _STL::map<int, Rva004F90FFMapped>::insert(_STL::map<int, Rva004F90FFMapped>::iterator, const _STL::map<int, Rva004F90FFMapped>::value_type &);
 template _STL::multimap<int, Rva00502FAEMapped>::iterator _STL::multimap<int, Rva00502FAEMapped>::insert(_STL::multimap<int, Rva00502FAEMapped>::iterator, const _STL::multimap<int, Rva00502FAEMapped>::value_type &);
+
+struct Rva00501776 { int a; };
+typedef _STL::_Rb_tree<int, _STL::pair<const int, Rva00501776>,
+
+	_STL::_Select1st<_STL::pair<const int, Rva00501776> >,
+	_STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00501776> > > Rva00501776Tree;
+
+class Rva00502CF9
+{
+public:
+	void rva00502CF9();
+};
+
+void Rva00502CF9::rva00502CF9()
+{
+	((Rva00501776Tree *)this)->Rva00501776Tree::~_Rb_tree();
+}
+
+class Rva0050298D
+{
+public:
+	~Rva0050298D();
+};
+
+class Rva00502CFE
+{
+public:
+	void rva00502CFE();
+};
+
+void Rva00502CFE::rva00502CFE()
+{
+	((Rva0050298D *)this)->~Rva0050298D();
+}
+

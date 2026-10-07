@@ -67479,3 +67479,5 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ?rva0059BE1A@Rva0059BE1A@@QAEXXZ,,0x0059BE1A,5,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x0059BDE2; wrapper identity remains address-derived.
 ?rva005C8D66@Rva005C8D66@@QAEXXZ,,0x005C8D66,5,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x005C8D2E; wrapper identity remains address-derived.
 ?rva005F2273@Rva005F2273@@QAEXXZ,,0x005F2273,5,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x005F21F8; wrapper identity remains address-derived.
+?rva00502CF9@Rva00502CF9@@QAEXXZ,,0x00502CF9,5,Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x005029CA; wrapper identity remains address-derived.
+?rva00502CFE@Rva00502CFE@@QAEXXZ,,0x00502CFE,5,Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x0050298D; wrapper identity remains address-derived.
