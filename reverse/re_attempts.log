@@ -17552,3 +17552,5 @@ FUN_007b7951	0x003B7951	160	blocked	Whole Scripts.cpp queued siblings reviewed. 
 ?rva0021246D@Rva0021237E@@QAEXPAVGameMessage@@@Z	0x0021246D	488	blocked	triple-view global g_bfme939Helper as NetWrapper plus Recorder plus ledger Bfme plus EH scope 488B needs triangulation t=15 model=muse-spark
 ??0Rva001F4B01@@QAE@XZ	0x001F4A40	80	blocked	vtable wall honest ctor stores 0 for unnamed vtables 0xBE171C 0xBE16E8 0xBE16F0 0xBE16F8 need names for EH stores t=12 model=muse-02
 ?rva0052E3E6@Rva0052E3E6@@QAEXPAX0@Z	0x0052E3E6	220	blocked	register wall plus bool normalization needs push not setne and loop homes differ t=15 model=muse-02
+?lookAt@View@@UAEXPBUCoord3D@@@Z	0x0025EA7C	89	converted	Ghidra89 25EA7C..25EAD5 RET4; ZH View::lookAt existing TU; retain only z before half-dimension subtraction; exact89 and all8 source rows verified t=4 model=gpt-6.1-sol
+?Rva0030F099@@YAI_N@Z	0x0030F099	73	converted	Ghidra73 30F099..30F0E2 RET0 cdecl bool; canonical TheInGameUI slot48 and flags1C from native; fallback117B 30EFD5 inspected direct call and unused arg; exact73 and existing20 verified t=3 model=gpt-6.1-sol
