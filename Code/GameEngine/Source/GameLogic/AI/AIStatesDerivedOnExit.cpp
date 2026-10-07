@@ -45,6 +45,18 @@
 // waypoint ids, +0x1CC locomotor set, +0x3B1 waiting-for-path, slot 137
 // isDoingGroundMovement) are read from this body; the skirmish fudge factor is
 // TAiData +0x58.
+// AIAttackMoveToState::update, retail 0x00353C8B (648 bytes): slot 6 of
+// vtable 0x00C13548. Zero Hour's update without the jet reload check and
+// without the locomotor/MOVING reset: an active attack-move machine first
+// adopts the state machine's goal object (and a null machine continues),
+// and an idle one picks up crates or a mood target (setting the AI's
+// +0x3C7 flag). BFME 2 then re-reads the goal object id (+0x6C) or position
+// (+0x60) recorded by onEnter (AIStatesMoreExits.cpp): a vanished goal
+// object succeeds, and a goal that moved more than 5 (GetLengthEstimate)
+// from the machine's goal is handed back to the machine and forces a repath.
+// The retry tail is Zero Hour's (80-unit close enough, sleep three
+// LOGICFRAMES_PER_SECOND, the BFME 2 int global g_00DBA4E4); forceRepath
+// writes the path goal (+0x34) and the path timestamp (+0x44).
 enum StateExitType
 {
 	EXIT_NORMAL = 0
@@ -88,11 +100,11 @@ public:
 template <> class AIDeadStateAISlots<0>
 {
 };
-class Object;
+#include "../../Common/GameLogicObjectLookupView.h"
 typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
-// class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line length (rowed 0x00003571) that AIFollowWaypointPathState::update calls; same three floats
+// class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line length (rowed 0x00003571) and GetLengthEstimate (rowed 0x00003ACE) that the updates below call; same three floats
 struct Coord3D
 {
 	Real x;
@@ -100,7 +112,11 @@ struct Coord3D
 	Real z;
 
 	Real length() const;
+	Real GetLengthEstimate() const;
 };
+extern GameLogic *TheGameLogic;
+extern int g_00DBA4E4; // LOGICFRAMES_PER_SECOND
+#define LOGICFRAMES_PER_SECOND g_00DBA4E4
 enum PathfindLayerEnum
 {
 	LAYER_GROUND = 1
@@ -116,6 +132,11 @@ enum
 enum CommandSourceType
 {
 	CMD_FROM_AI = 2
+};
+enum
+{
+	AI_ATTACK_OBJECT = 0x0A,
+	AI_PICK_UP_CRATE = 0x27
 };
 enum
 {
@@ -234,14 +255,18 @@ public:
 	void setPriorWaypointID(UnsignedInt id) { m_priorWaypointID = id; }
 	void setCurrentWaypointID(UnsignedInt id) { m_currentWaypointID = id; }
 	void setCompletedWaypoint(const Waypoint *way);
-	// Zero Hour's friend_startingMove.
+	// Zero Hour's friend_startingMove and friend_endingMove.
 	void rva00262ACE();
+	void rva00262AEA();
+	void friend_setLastCommandSource(CommandSourceType source) { m_lastCommandSource = source; }
 private:
 	unsigned char m_pad004[0x20 - 4];
 	unsigned char m_commandInterface[0x28 - 0x20]; // +0x20
 	UnsignedInt m_priorWaypointID; // +0x28
 	UnsignedInt m_currentWaypointID; // +0x2C
-	unsigned char m_pad030[0x140 - 0x30];
+	unsigned char m_pad030[0x48 - 0x30];
+	CommandSourceType m_lastCommandSource; // +0x48
+	unsigned char m_pad04C[0x140 - 0x4C];
 	Path *m_path; // +0x140
 	unsigned char m_pad144[0x1CC - 0x144];
 	unsigned char m_locomotorSet[0x1F0 - 0x1CC]; // +0x1CC
@@ -276,7 +301,10 @@ public:
 	// Zero Hour's Pathfinder::updateGoal for this object (goal, layer).
 	void rva0028ACEE(int goalPos, int layer);
 	float getBfmeRealB8() const { return m_bfmeRealB8; }
-	unsigned char m_pad000[0xB8];
+	const Coord3D *getPosition() const { return &m_position; }
+	unsigned char m_pad000[0x38];
+	Coord3D m_position; // +0x38
+	unsigned char m_pad044[0xB8 - 0x44];
 	float m_bfmeRealB8; // +0xB8
 	unsigned char m_pad0BC[0x10C - 0xBC];
 	Rva0010CBits m_conditionBits; // +0x10C
@@ -314,12 +342,16 @@ public:
 	virtual void slot12(); virtual void slot13();
 	virtual void setGoalObject(Object *object);
 	Object *getOwner() const { return m_owner; }
+	Object *getGoalObject();
+	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
 	void setGoalPosition(const Coord3D *pos);
 	Bool isInIdleState() const;
 private:
 	State *m_currentState; // +0x4
 	unsigned char m_pad08[0x14 - 8];
 	Object *m_owner; // +0x14
+	unsigned char m_pad18[0x24 - 0x18];
+	Coord3D m_goalPosition; // +0x24
 };
 class State
 {
@@ -355,16 +387,26 @@ public:
 	virtual StateReturnType update();
 protected:
 	Bool getAdjustsDestination() const;
+	void forceRepath()
+	{
+		m_pathGoalPosition.x = m_pathGoalPosition.y = m_pathGoalPosition.z = -100.0f;
+		m_pathTimestamp = -LOGICFRAMES_PER_SECOND;
+	}
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x30 - 0x2C];
 	Int m_goalLayer; // +0x30 (PathfindLayerEnum)
-	unsigned char m_pad34[0x4C - 0x34];
+	Coord3D m_pathGoalPosition; // +0x34
+	unsigned char m_pad40[0x44 - 0x40];
+	UnsignedInt m_pathTimestamp; // +0x44
+	unsigned char m_pad48[0x4C - 0x48];
 };
 class AIMoveToState : public AIInternalMoveToState
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 };
 void AIMoveToState::onExit(StateExitType status)
 {
@@ -374,9 +416,15 @@ class AIAttackMoveToState : public AIMoveToState
 {
 public:
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 private:
-	unsigned char m_pad4C[0x54 - 0x4C];
+	unsigned char m_pad4C[0x50 - 0x4C];
+	CommandSourceType m_commandSrc; // +0x50
 	StateMachine *m_attackMoveMachine; // +0x54
+	UnsignedInt m_frameToSleepUntil; // +0x58
+	Int m_retryCount; // +0x5C
+	Coord3D m_bfmeGoalPosition60; // +0x60
+	ObjectID m_bfmeGoalObjectID6C; // +0x6C
 };
 void AIAttackMoveToState::onExit(StateExitType status)
 {
@@ -646,4 +694,104 @@ StateReturnType AIFollowWaypointPathState::update()
 		return STATE_CONTINUE;
 	}
 	return status;
+}
+
+StateReturnType AIAttackMoveToState::update()
+{
+	Object *owner = getMachineOwner();
+	AIUpdateInterface *ai = owner->getAI();
+
+	Bool forceRetargetThisFrame = false;
+	Bool shouldRepathThisFrame = false;
+
+	if (!m_attackMoveMachine->isInIdleState())
+	{
+		Object *goalObj = getMachine()->getGoalObject();
+		if (goalObj && goalObj != m_attackMoveMachine->getGoalObject())
+			m_attackMoveMachine->setGoalObject(goalObj);
+		m_attackMoveMachine->updateStateMachine();
+
+		if (m_attackMoveMachine == 0 || !m_attackMoveMachine->isInIdleState())
+			return STATE_CONTINUE;
+		forceRetargetThisFrame = true;
+		shouldRepathThisFrame = true;
+		ai->friend_setLastCommandSource(m_commandSrc);
+	}
+
+	if (m_attackMoveMachine->isInIdleState())
+	{
+		Object *crate = ai->checkForCrateToPickup();
+		if (crate)
+		{
+			m_attackMoveMachine->setGoalObject(crate);
+			m_attackMoveMachine->setState(AI_PICK_UP_CRATE);
+			return STATE_CONTINUE;
+		}
+
+		Object *nextObjectToAttack = ai->getNextMoodTarget(!forceRetargetThisFrame, false);
+		if (nextObjectToAttack != 0)
+		{
+			ai->rva00262AEA();
+			m_attackMoveMachine->setGoalObject(nextObjectToAttack);
+			m_attackMoveMachine->setState(AI_ATTACK_OBJECT);
+			ai->friend_setLastCommandSource(CMD_FROM_AI);
+			ai->m_flag3C7 = true;
+			return STATE_CONTINUE;
+		}
+	}
+
+	const Coord3D *machinePos = getMachine()->getGoalPosition();
+	Coord3D machineGoal;
+	machineGoal.x = machinePos->x;
+	machineGoal.y = machinePos->y;
+	machineGoal.z = machinePos->z;
+	ObjectID goalID = m_bfmeGoalObjectID6C;
+	Object *goalObj = TheGameLogic->findObjectByID(goalID);
+	const Coord3D *goalPos;
+	if (goalObj)
+		goalPos = goalObj->getPosition();
+	else if (goalID != INVALID_OBJECT_ID)
+		return STATE_SUCCESS;
+	else
+		goalPos = &m_bfmeGoalPosition60;
+	Coord3D delta = *goalPos;
+	delta.x -= machineGoal.x;
+	delta.y -= machineGoal.y;
+	delta.z -= machineGoal.z;
+	if (delta.GetLengthEstimate() > 5.0f)
+	{
+		if (goalObj)
+			getMachine()->setGoalObject(goalObj);
+		else
+			getMachine()->setGoalPosition(&m_bfmeGoalPosition60);
+		shouldRepathThisFrame = true;
+	}
+
+	if (m_frameToSleepUntil > TheGameLogic->getFrame())
+		return STATE_CONTINUE;
+	else if (m_frameToSleepUntil == TheGameLogic->getFrame())
+		shouldRepathThisFrame = true;
+
+	if (shouldRepathThisFrame)
+	{
+		AIMoveToState::onEnter();
+		forceRepath();
+	}
+
+	StateReturnType ret = AIMoveToState::update();
+	if (ret != STATE_CONTINUE)
+	{
+		if (m_retryCount < 1)
+			return ret;
+		Real dx = owner->getPosition()->x - m_pathGoalPosition.x;
+		Real dy = owner->getPosition()->y - m_pathGoalPosition.y;
+		Real distSqr = dx * dx + dy * dy;
+		if (distSqr < 80.0f * 80.0f)
+			return ret;
+
+		ret = STATE_CONTINUE;
+		m_retryCount--;
+		m_frameToSleepUntil = TheGameLogic->getFrame() + 3 * LOGICFRAMES_PER_SECOND;
+	}
+	return ret;
 }
