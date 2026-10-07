@@ -67830,3 +67830,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??0Rva005E663C@@QAE@PAXHHHHHH@Z,,0x005E663C,104,Code/GameEngine/Source/Common/Rva005E663CConstructor.cpp,matched,104B ctor: holder base plus new-placed 0x005E62F1 member; vtable 0x00C77E04
 ?rva005E7322@@YAPAXH@Z,,0x005E7322,59,Code/GameEngine/Source/Common/Rva005E7322Wrapper.cpp,matched,
 ?setRva005E7DD6@Rva005E7DD6@@QAEXH@Z,,0x005E7DD6,33,Code/GameEngine/Source/Common/Rva005E7DD6Setter.cpp,matched,
+?rva005E9601@Rva005E9601@@QAEXXZ,,0x005E9601,36,Code/GameEngine/Source/Common/Rva005E9601Method.cpp,matched,
