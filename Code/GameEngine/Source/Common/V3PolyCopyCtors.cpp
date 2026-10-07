@@ -601,6 +601,26 @@ Rva005DAA36::Rva005DAA36(void *held)
 	m_field04 = held;
 }
 
+// Retail RVA 0x005DAA48 (18B). Address name: only the pointer-hold
+// constructor shape and its distinct vtable are established by the target.
+struct Rva005DAA48Base
+{
+	Rva005DAA48Base(void *held) { m_field04 = held; }
+	void *m_field04;
+};
+
+class Rva005DAA48 : public Rva005DAA48Base
+{
+public:
+	Rva005DAA48(void *held);
+	virtual ~Rva005DAA48();
+};
+
+Rva005DAA48::Rva005DAA48(void *held)
+	: Rva005DAA48Base(held)
+{
+}
+
 // ------------------------- vptr + held pointer (retail 0x005E67FE)
 // B2 body-address name: same holder shape with a different vtable so a
 // different class. Four retail E8 callers.

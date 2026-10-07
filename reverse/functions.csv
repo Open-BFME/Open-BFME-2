@@ -66729,3 +66729,4 @@ _Rva00850560,,0x000236F0,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?aiDoCommand@DozerAIUpdate@@UAEXPBUAICommandParms@@@Z,,0x0048AF0B,307,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp,matched,ZH DozerAIUpdate::aiDoCommand; slot 0 of the +0x20 AICommandInterface vtable 0x0084B838; base delegate AIUpdateInterface::aiDoCommand pinned 0x002673F6
 ??1Rva005E35DA@@QAE@XZ,,0x005E35DA,26,Code/GameEngine/Source/Common/Rva005E35DADtor.cpp,matched,owning-pointer dtor via pointee 0x005E3585 plus delete
 ?rva005F1D47@Rva005F1D06@@QAE?AVAsciiString@@XZ,,0x005F1D47,105,Code/GameEngine/Source/Common/Rva005F1D06Write.cpp,matched,same file as write calls write returns AsciiString caller unclaimed
+??0Rva005DAA48@@QAE@PAX@Z,,0x005DAA48,18,Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp,matched,address-named pointer-holder constructor distinct vtable
