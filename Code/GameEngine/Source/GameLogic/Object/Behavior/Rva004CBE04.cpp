@@ -7,6 +7,14 @@
 // operator= 0x002C99FB into out and true. Stride and +0x14 from retail.
 // Evidence: callees rowed 0x001F8437 plus 0x002C99FB; caller at 0x004CBE5C.
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #include "ascii_string.h"
 
 bool operator<(const AsciiString &left, const AsciiString &right);

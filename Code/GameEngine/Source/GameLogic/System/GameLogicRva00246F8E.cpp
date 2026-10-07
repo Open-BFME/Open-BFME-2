@@ -4,6 +4,14 @@
 // Evidence: leaf called by CommandSet::getCommandButton 0x00409F05 with LINK BONUS 51B; pin name matches caller TU; prev GameLogic+0x10 BuildableMap and next Rva00246FD7; rowed releaseBuffer 0x36410 plus pinned Rva0023FC23 0x23FC23 plus rowed _M_find 0x241BD2; +0x24 map and node+0x18 mapped button from retail.
 #include "ascii_string.h"
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 struct TreeKey00242F5E { int m_id; AsciiString m_name; };
 struct TreeOpaqueMapped242F5E { unsigned int m_bits; };
 struct Out00524477 { int m_0; AsciiString m_4; };

@@ -2,6 +2,14 @@
 // stlport
 // ?rva002AD5ED@Rva002AD5ED@@QAEMABVAsciiString@@@Z @0x002AD5ED 60B. Float lookup by name key in map at +0x288, miss returns BfmeZeroRange. Evidence: unlock lane, callees nameToKey 0x0009FA65 and _M_find 0x00388F63 rowed, data TheNameKeyGenerator and BfmeZeroRange, caller 0x0033A69A, neighbours Rva002AD19EArmor and PlayerO1Shard share RTS shard flags.
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #include "ascii_string.h"
 
 enum NameKeyType

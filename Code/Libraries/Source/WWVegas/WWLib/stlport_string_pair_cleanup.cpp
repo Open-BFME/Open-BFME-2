@@ -6,6 +6,14 @@
 // Pair copy2C574 constructs temporary ebp-2C at2D4D6; dtor2C0C0
 // destroys exactly that temporary at2D4F8. No width-only type inference.
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #include "ascii_string.h"
 bool operator<(const AsciiString &, const AsciiString &);
 typedef _STL::pair<const AsciiString,AsciiString> StringPair;

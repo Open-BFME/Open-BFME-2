@@ -7,6 +7,14 @@
 // the layout the matched Rva004E962ACtor.cpp fixes. Caller 0x002A8B24.
 #include <map>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 class Rva004E9600
 {
 public:
