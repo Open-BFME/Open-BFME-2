@@ -846,3 +846,38 @@ void XferArmySummaryEntryID(Xfer *xfer, void *value)
 {
 	xfer->XferEnum("ArmySummaryEntryID", value, 4);
 }
+
+// ZH Xfer::xferKindOf (reference ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f)
+// guides the save/name and load/name->single-bit branches. Target306419
+// uses a free cdecl return, LightCRC enum dispatch, and no version prefix.
+// These declarations use the existing 26-byte and 54-byte providers only.
+enum KindOfType { KINDOF_INVALID = -1 };
+class KindOfMaskType
+{
+public:
+ static const char *getNameFromSingleBit(int bit);
+};
+template<int Bits> class BitFlags
+{
+public:
+ static int getSingleBitFromName(const char *name);
+};
+Xfer *Rva00306419XferKindOf(Xfer *xfer, KindOfType *kind)
+{
+ if (xfer->IsLightCRC())
+  xfer->XferEnum("KindOfType", kind, 4);
+ else if (xfer->IsStoring())
+ {
+  AsciiString name(KindOfMaskType::getNameFromSingleBit((int)*kind));
+  (*xfer) == name;
+ }
+ else
+ {
+  AsciiString name;
+  (*xfer) == name;
+  int bit = BitFlags<218>::getSingleBitFromName(name.str());
+  if (bit != -1)
+   *kind = (KindOfType)bit;
+ }
+ return xfer;
+}
