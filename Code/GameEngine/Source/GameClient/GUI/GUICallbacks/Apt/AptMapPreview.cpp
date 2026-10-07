@@ -470,6 +470,39 @@ void AptMapPreview::rva0057D709(Int region, _STL::vector<void *> *regions)
 		m_livingWorldWindow->m_info->m_startRegions->rva004FD699(region, regions);
 }
 
+// Retail 0x0057D746, 279 bytes. Name unknown. Moves the region highlight:
+// unmarks the previous region's group, marks the current one's when the
+// campaign allows a start there, and lists the current region's name and
+// description in StrategicTerritoryDescription (+0x58).
+void AptMapPreview::rva0057D746(Rva0020E89C *previous, Rva0020E89C *current)
+{
+	if (m_strategicTerritoryDesc != 0)
+		GadgetListBoxReset(m_strategicTerritoryDesc);
+	Rva003EF008 *owner = g_00DFE1C8->m_field268;
+	if (owner != 0)
+	{
+		if (previous != 0)
+		{
+			m_regions.clear();
+			rva0057D709((Int)previous, &m_regions);
+			((Rva003EEFA0 *)owner)->rva003EEFA0((Int)&m_regions);
+		}
+		if (current != 0)
+		{
+			if (AllowsStartInRegion((Int)current))
+			{
+				m_regions.clear();
+				rva0057D709((Int)current, &m_regions);
+				((Rva003EEF38 *)owner)->rva003EEF38((Int)&m_regions);
+			}
+			UnicodeString text = current->rva0020E89C();
+			text.concat(L"\n");
+			text.concat(current->rva003F15D1());
+			Rva00326CF0AddLines(m_strategicTerritoryDesc, text, -1, 0, -1, true);
+		}
+	}
+}
+
 // Retail 0x0057E058, 499 bytes. Name unknown. Refreshes the preview from
 // the game's map: title, the three map panels, description and picture;
 // then points the strategic scenario combo box at the game's campaign
