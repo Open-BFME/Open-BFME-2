@@ -22,7 +22,7 @@ class Rva005E9FC1 : public Rva005E9FC1Base
 {
 public:
 	Rva005E9FC1(void *p);
-	virtual ~Rva005E9FC1() {}
+	virtual ~Rva005E9FC1(); // defined and verified at5EA224 in Rva005E9FC1Dtor.cpp
 private:
 	Rva0057416B m_08;
 };

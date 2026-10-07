@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /O1 /MD /EHsc
 // Range-34 dump lane: 61B plain method at 0x005EA4FC (ret).
 // Runs virtual slot 0x1C on the +8 member's +0x14 subobject; on true,
 // creates message 0x6BE through ((GlobalHolder*)MessageStreamSubsystem) slot 0x48, appends the +0xC
@@ -69,3 +69,24 @@ void Rva005EA4FC::rva005EA4FC()
 
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
+
+// Target 5EA136..5EA183 is the complete 77-byte factory tail called by
+// 5EA4FC. Native allocation size16 and rowed constructor5E9FC1 establish
+// the temporary's extent; constructor's member8 explains the remaining8.
+// The receiver pointer is passed to that constructor, then installed in
+// the existing member14 through the rowed pooled setter575674, followed
+// by member14 virtual slot4. The pointer field is the setter's one-word
+// access view; original subsystem and method identity remain unproven.
+class Object;
+class Rva00575674 {public:void rva00575674(Object *);};
+class Rva005E9FC1 {
+public:
+Rva005E9FC1(void *);
+virtual ~Rva005E9FC1();
+private:char m_rest[12];
+};
+void Rva005EA4FCM08::rva005EA136() {
+Rva005E9FC1 *replacement=new Rva005E9FC1(this);
+((Rva00575674*)&m14)->rva00575674((Object*)replacement);
+m14->v01();
+}
