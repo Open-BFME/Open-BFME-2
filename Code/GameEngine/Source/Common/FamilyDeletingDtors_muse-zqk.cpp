@@ -3,22 +3,10 @@
 class CivilianSpawnCollideModuleData { public: __declspec(noinline) virtual ~CivilianSpawnCollideModuleData(); private: int m_famgen; };
 CivilianSpawnCollideModuleData::~CivilianSpawnCollideModuleData() { m_famgen = 0; }
 void famgenDelete(CivilianSpawnCollideModuleData *p) { delete p; }
-// ??_GHeroModeSpecialAbilityUpdateModuleData@@UAEPAXI@Z @0x004922D5
-class HeroModeSpecialAbilityUpdateModuleData { public: __declspec(noinline) virtual ~HeroModeSpecialAbilityUpdateModuleData(); private: int m_famgen; };
-HeroModeSpecialAbilityUpdateModuleData::~HeroModeSpecialAbilityUpdateModuleData() { m_famgen = 0; }
-void famgenDelete(HeroModeSpecialAbilityUpdateModuleData *p) { delete p; }
 // ??_GRankInfo@@UAEPAXI@Z @0x0020021A
 class RankInfo { public: __declspec(noinline) virtual ~RankInfo(); private: int m_famgen; };
 RankInfo::~RankInfo() { m_famgen = 0; }
 void famgenDelete(RankInfo *p) { delete p; }
-// ??_GModelConditionSoundSelectorClientBehaviorModuleData@@UAEPAXI@Z @0x004CAFC1
-class ModelConditionSoundSelectorClientBehaviorModuleData { public: __declspec(noinline) virtual ~ModelConditionSoundSelectorClientBehaviorModuleData(); private: int m_famgen; };
-ModelConditionSoundSelectorClientBehaviorModuleData::~ModelConditionSoundSelectorClientBehaviorModuleData() { m_famgen = 0; }
-void famgenDelete(ModelConditionSoundSelectorClientBehaviorModuleData *p) { delete p; }
-// ??_GRemoveUpgradeUpgradeModuleData@@UAEPAXI@Z @0x004B8034
-class RemoveUpgradeUpgradeModuleData { public: __declspec(noinline) virtual ~RemoveUpgradeUpgradeModuleData(); private: int m_famgen; };
-RemoveUpgradeUpgradeModuleData::~RemoveUpgradeUpgradeModuleData() { m_famgen = 0; }
-void famgenDelete(RemoveUpgradeUpgradeModuleData *p) { delete p; }
 // ??_GSpecialDisguiseUpdateModuleData@@UAEPAXI@Z @0x004B044C
 class SpecialDisguiseUpdateModuleData { public: __declspec(noinline) virtual ~SpecialDisguiseUpdateModuleData(); private: int m_famgen; };
 SpecialDisguiseUpdateModuleData::~SpecialDisguiseUpdateModuleData() { m_famgen = 0; }

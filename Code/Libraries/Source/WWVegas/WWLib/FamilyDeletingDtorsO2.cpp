@@ -17,28 +17,14 @@ class SortingIndexBufferClass { public: __declspec(noinline) virtual ~SortingInd
 SortingIndexBufferClass::~SortingIndexBufferClass() { m_famgen = 0; }
 void famgenDelete(SortingIndexBufferClass *p) { delete p; }
 
-// ??_GRva00145610@@UAEPAXI@Z @0x146ec0
-class Rva00145610 { public: __declspec(noinline) virtual ~Rva00145610(); private: int m_famgen; };
-Rva00145610::~Rva00145610() { m_famgen = 0; }
-void famgenDelete(Rva00145610 *p) { delete p; }
-
 // ??_GBfmeOwnVVE@@QAEPAXI@Z @0x15d020
 class BfmeOwnVVE { public: ~BfmeOwnVVE(); };
 void famgenDelete(BfmeOwnVVE *p) { delete p; }
-
-// ??_GRva0015D0E0@@UAEPAXI@Z @0x15d7e0
-class Rva0015D0E0 { public: __declspec(noinline) virtual ~Rva0015D0E0(); private: int m_famgen; };
-Rva0015D0E0::~Rva0015D0E0() { m_famgen = 0; }
-void famgenDelete(Rva0015D0E0 *p) { delete p; }
 
 // ??_GRva00180EA0@@UAEPAXI@Z @0x180e80
 class Rva00180EA0 { public: __declspec(noinline) virtual ~Rva00180EA0(); private: int m_famgen; };
 Rva00180EA0::~Rva00180EA0() { m_famgen = 0; }
 void famgenDelete(Rva00180EA0 *p) { delete p; }
-
-// ??_GGen_dtor_00625040@@QAEPAXI@Z @0x61ef60
-class Gen_dtor_00625040 { public: ~Gen_dtor_00625040(); };
-void famgenDelete(Gen_dtor_00625040 *p) { delete p; }
 
 // ??_GGen_dtor_009f2600@@UAEPAXI@Z @0x6252d0
 class Gen_dtor_009f2600 { public: __declspec(noinline) virtual ~Gen_dtor_009f2600(); private: int m_famgen; };
@@ -50,19 +36,6 @@ class Rva00666BA0 { public: __declspec(noinline) virtual ~Rva00666BA0(); private
 Rva00666BA0::~Rva00666BA0() { m_famgen = 0; }
 void famgenDelete(Rva00666BA0 *p) { delete p; }
 
-// ??_GRva001D28F0Element@@QAEPAXI@Z @0x6896d0
-class Rva001D28F0Element { public: ~Rva001D28F0Element(); };
-void famgenDelete(Rva001D28F0Element *p) { delete p; }
-
-// ??_GGen_008812D0@@QAEPAXI@Z @0x6c07d0
-class Gen_008812D0 { public: ~Gen_008812D0(); };
-void famgenDelete(Gen_008812D0 *p) { delete p; }
-
 // ??_GGen_008AC620@@QAEPAXI@Z @0x6efb70
 class Gen_008AC620 { public: ~Gen_008AC620(); };
 void famgenDelete(Gen_008AC620 *p) { delete p; }
-
-// ??_GStreakLineClass@@UAEPAXI@Z @0x742570
-class StreakLineClass { public: __declspec(noinline) virtual ~StreakLineClass(); private: int m_famgen; };
-StreakLineClass::~StreakLineClass() { m_famgen = 0; }
-void famgenDelete(StreakLineClass *p) { delete p; }

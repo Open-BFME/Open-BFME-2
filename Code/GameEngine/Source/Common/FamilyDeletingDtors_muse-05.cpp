@@ -1,22 +1,4 @@
 // cl: /MD
-// ??_GRva00329D0E@@QAEPAXI@Z @0x00329D98
-// Deleting dtor for Rva00329D0E whose ??1 is rowed at 0x00329D0E.
-// Evidence: retail push esi mov esi ecx call ??1 test flag delete ret 4;
-// chain lane after landing ??1Rva00329D0E.
-class Rva00329D0E { public: ~Rva00329D0E(); };
-void famgenDelete(Rva00329D0E *p) { delete p; }
-// ??_GRenderObjectDrawModuleInfo@FXParticleSystem@@UAEPAXI@Z @0x003A9B7B 28B
-// Deleting dtor calls rowed ??1RenderObjectDrawModuleInfo@FXParticleSystem@@UAE@XZ at 0x003A9A8B then rowed operator delete at 0x0002FD60.
-// Evidence: chain lane after landing 0x003A9A8B; retail push esi call ??1 test flag delete ret 4.
-namespace FXParticleSystem { class RenderObjectDrawModuleInfo { public: __declspec(noinline) virtual ~RenderObjectDrawModuleInfo(); private: int m_famgen; }; }
-FXParticleSystem::RenderObjectDrawModuleInfo::~RenderObjectDrawModuleInfo() { m_famgen = 0; }
-void famgenDelete(FXParticleSystem::RenderObjectDrawModuleInfo *p) { delete p; }
-// ??_GLifeEventModuleInfo@FXParticleSystem@@UAEPAXI@Z @0x003AA011 28B
-// Deleting dtor calls rowed ??1LifeEventModuleInfo@FXParticleSystem@@UAE@XZ at 0x003A9F8A then rowed operator delete at 0x0002FD60.
-// Evidence: chain lane after landing 0x003A9F8A; retail push esi call ??1 test flag delete ret 4.
-namespace FXParticleSystem { class LifeEventModuleInfo { public: __declspec(noinline) virtual ~LifeEventModuleInfo(); private: int m_famgen; }; }
-FXParticleSystem::LifeEventModuleInfo::~LifeEventModuleInfo() { m_famgen = 0; }
-void famgenDelete(FXParticleSystem::LifeEventModuleInfo *p) { delete p; }
 // ??_GRva003ABC58@@UAEPAXI@Z @0x003AF929 28B
 // Deleting dtor calls rowed ??1Rva003ABC58@@UAE@XZ at 0x003ABC58 then rowed operator delete at 0x0002FD60.
 // Evidence: chain lane after landing 0x003ABC58; retail push esi call ??1 test flag delete ret 4.
@@ -40,8 +22,3 @@ class Rva003ABA36 : public Rva003ABA36Base0, public Rva003ABA36Base18 { public: 
   friend void famgenDelete(Rva003ABA36 *p); };
 Rva003ABA36::~Rva003ABA36() { m_famgen = 0; }
 void famgenDelete(Rva003ABA36 *p) { delete p; }
-// ??_GRva001DC0EC@@QAEPAXI@Z @0x001DC1E1 28B
-// Deleting dtor calls rowed ??1Rva001DC0EC@@QAE@XZ at 0x001DC0EC then rowed operator delete at 0x0002FD60.
-// Evidence: chain lane after landing 0x001DC0EC; retail push esi call ??1 test flag delete ret 4.
-class Rva001DC0EC { public: ~Rva001DC0EC(); };
-void famgenDelete(Rva001DC0EC *p) { delete p; }
