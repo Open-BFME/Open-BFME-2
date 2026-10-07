@@ -68431,3 +68431,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva000ECF2A@W3DTreeBuffer@@QAE_NIH@Z,,0x000ECF2A,79,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferRecordLookup.cpp,matched,native key lookup over 1200 records of stride 0xE8; tree vtable name and adjacent type array establish receiver; method names unknown; indexed update native ECX/index/mode ret8 ABI
 ?rva002B2DEE@@YA_NPAVGameMessage@@PAHHPAVRva003F468D@@H@Z,,0x002B2DEE,67,Code/GameEngine/Source/GameLogic/LivingWorld/Rva002B2DAD.cpp,matched,native GameMessage integer output plus battle participant range check; compiler-private ECX message and four caller-cleaned stack words; existing 30F4EA and 3F4DAE providers; original helper name unknown
 ?d_0032a587@@YAXXZ,,0x0032A587,117,Code/gen_asm/d_0032a587.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_003980bf@@YAXXZ,,0x003980BF,156,Code/gen_asm/d_003980bf.asm,matched,gen-dump;bounds=ghidra-inventory
