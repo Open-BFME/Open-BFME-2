@@ -23,6 +23,7 @@ class Rva00041078
 {
 public:
     Rva00041078(const Rva00041389Objects &objects, int nonBlocking);
+    Rva00041078(Rva00041118Obj **objects, int count, int nonBlocking);
     bool rva00041078(unsigned long timeout, int single, int *out);
     bool rva00041118();
     void rva0004123B(int count);
@@ -52,6 +53,18 @@ Rva00041078::Rva00041078(const Rva00041389Objects &objects, int nonBlocking)
     rva0004123B(objects.last - objects.first);
     for (int i = 0; i < m_count; ++i)
         ((Rva00041118Obj **)m_objs)[i] = objects.first[i];
+    rva0004128E();
+    if (nonBlocking == 0)
+        rva00041078((unsigned long)-1, 0, 0);
+}
+
+// Native 0x000412D6..0x00041344: sibling taking an explicit object array
+// and signed count, with the same three owners and optional blocking wait.
+Rva00041078::Rva00041078(Rva00041118Obj **objects, int count, int nonBlocking)
+{
+    rva0004123B(count);
+    for (int i = 0; i < count; ++i)
+        ((Rva00041118Obj **)m_objs)[i] = objects[i];
     rva0004128E();
     if (nonBlocking == 0)
         rva00041078((unsigned long)-1, 0, 0);
