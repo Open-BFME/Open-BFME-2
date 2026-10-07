@@ -42,3 +42,25 @@ Rva00402BE3::Rva00402BE3(const AsciiString &name)
 	, m_18(0)
 {
 }
+
+// Build-plot icon sibling: native 0x00402EFA..0x00402F23 (41 bytes).
+// Factory 0x00214156 allocates 0x18 bytes and passes its name by const reference;
+// the 0x00402E30 registered LivingWorldBuildPlotIcon parser uses fields +0x10/+0x14.
+
+class Rva00402EFA
+{
+public:
+	Rva00402EFA(const AsciiString &name);
+private:
+	AsciiString m_name;
+	_STL::vector<BfmeE16, _STL::allocator<BfmeE16> > m_vec;
+	int m_10;
+	int m_14;
+};
+Rva00402EFA::Rva00402EFA(const AsciiString &name)
+	: m_name(name)
+	, m_vec()
+	, m_10(0)
+	, m_14(0)
+{
+}
