@@ -60,8 +60,26 @@ class AptLivingWorldWindow
 public:
 	void SelectCampaign(Int campaign);	// 0x0056DB19
 
-	unsigned char m_pad000[0x29c];
+	unsigned char m_pad000[0x280];
+	unsigned char m_listeners[0x29c - 0x280];	// +0x280, see below
 	AptMapPreviewMapInfo *m_info;		// +0x29C
+};
+
+// The living-world window's +0x280 listener vector, erased through
+// 0x002B7250 and appended through 0x005A0B4C (both rowed under address
+// names, with their own views of the vector).
+class CreateAHeroData;
+class Rva002B7250
+{
+public:
+	void rva002B7250(CreateAHeroData *listener);
+};
+
+struct Rva002BA8F1Listener;
+class Rva005A0B4CList
+{
+public:
+	void append(Rva002BA8F1Listener *listener);
 };
 
 // The singleton at 0x00DFE1C8 owns, at +0x268, the object that is told the
@@ -94,7 +112,18 @@ public:
 
 extern Rva00E02D6C *TheCampaignManager;
 
-class GameWindow;
+class GameWindow
+{
+public:
+	int winHide(bool hide);
+	unsigned int winSetStatus(unsigned int status);
+	GameWindow *winGetChild();
+	GameWindow *winGetNext();
+};
+
+class BfmeObjENK;
+void bfmeGoENK(BfmeObjENK *o, char v);
+void BfmeGadgetListBoxSetAudioFeedback(GameWindow *listbox, bool enable);
 
 void GadgetListBoxReset(GameWindow *listbox);
 int Rva00326CF0AddLines(GameWindow *listbox, UnicodeString text, int color, int row, int column, bool overwrite);
@@ -113,6 +142,7 @@ public:
 
 extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void *address, unsigned int size);
 extern "C" char *__cdecl strcpy(char *destination, const char *source);
+extern "C" int __cdecl strcmp(const char *a, const char *b);
 
 // AptCallbackAdders.cpp's by-value callback reference (defined below).
 template <class T> class AptRef;
@@ -156,16 +186,22 @@ public:
 	void GameMapType(int query, char *result, bool skip);
 	void MapGadgetInit(const char *name, void *argument, GameWindow *window);
 	void rva0057E45C();
+	void rva0057D4F3();	// fills the strategic scenario combo box
+	void rva0057E058();	// refreshes the preview
 
 private:
 	unsigned char m_pad00[0x4];
 	unsigned char m_field04[0x18 - 0x4];	// +0x04, handed to the campaign owner
 	Rva0057E45COwner *m_18;	// +0x18
 	int m_mode;	// +0x1C (OpenPlay 0, Strategic 1)
-	unsigned char m_pad20[0x50 - 0x20];
+	GameWindow *m_currentMap;	// +0x20
+	GameWindow *m_mapPicture;	// +0x24
+	GameWindow *m_mapInfo;	// +0x28
+	GameWindow *m_mapDescription;	// +0x2C
+	GameWindow *m_currentMapChildren[8];	// +0x30
 	GameWindow *m_strategicScenarioComboBox;	// +0x50
 	GameWindow *m_strategicScenarioDesc;	// +0x54
-	unsigned char m_pad58[0x5c - 0x58];
+	GameWindow *m_strategicTerritoryDesc;	// +0x58
 	Image *m_picture;	// +0x5C
 	unsigned char m_pad60[0x68 - 0x60];
 	AptLivingWorldWindow *m_livingWorldWindow;	// +0x68
@@ -267,6 +303,69 @@ void AptMapPreview::GameMapType(int query, char *result, bool skip)
 			break;
 		}
 	}
+}
+
+// Retail 0x0057E25D, 382 bytes: "AptMapPreview::MapGadgetInit", the screen
+// reference bound by 0x0057E45C. Files each named gadget in its member,
+// hides the first eight children of "CurrentMap", moves the preview's
+// listener to a new "LivingWorld" window, then refreshes the preview
+// (0x0057E058).
+void AptMapPreview::MapGadgetInit(const char *name, void *argument, GameWindow *window)
+{
+	if (window == 0)
+		return;
+	if (strcmp(name, "MapInfo") == 0)
+	{
+		m_mapInfo = window;
+		bfmeGoENK((BfmeObjENK *)window, 1);
+		BfmeGadgetListBoxSetAudioFeedback(m_mapInfo, true);
+	}
+	else if (strcmp(name, "MapDescription") == 0)
+	{
+		m_mapDescription = window;
+		bfmeGoENK((BfmeObjENK *)window, 1);
+		BfmeGadgetListBoxSetAudioFeedback(m_mapDescription, true);
+	}
+	else if (strcmp(name, "MapPicture") == 0)
+	{
+		m_mapPicture = window;
+	}
+	else if (strcmp(name, "CurrentMap") == 0)
+	{
+		int count = 0;
+		m_currentMap = window;
+		GameWindow *child = window->winGetChild();
+		while (child != 0 && count < 8)
+		{
+			m_currentMapChildren[count++] = child;
+			child->winHide(true);
+			child->winSetStatus(0x20000);
+			child = child->winGetNext();
+		}
+	}
+	else if (strcmp(name, "StrategicScenarioType") == 0)
+	{
+		m_strategicScenarioComboBox = window;
+		rva0057D4F3();
+	}
+	else if (strcmp(name, "StrategicScenarioDescription") == 0)
+	{
+		m_strategicScenarioDesc = window;
+		UpdateStrategicScenarioDesc();
+	}
+	else if (strcmp(name, "StrategicTerritoryDescription") == 0)
+	{
+		m_strategicTerritoryDesc = window;
+	}
+	else if (strcmp(name, "LivingWorld") == 0)
+	{
+		if (m_livingWorldWindow != 0)
+			((Rva002B7250 *)m_livingWorldWindow->m_listeners)->rva002B7250((CreateAHeroData *)this);
+		m_livingWorldWindow = (AptLivingWorldWindow *)window;
+		((Rva005A0B4CList *)m_livingWorldWindow->m_listeners)->append((Rva002BA8F1Listener *)this);
+		SelectCampaign(0);
+	}
+	rva0057E058();
 }
 
 // The handlers are bound as {object, method} pairs, built in place by the
