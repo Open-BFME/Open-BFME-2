@@ -172,7 +172,8 @@ public:
 	Int getModifierFlags() { return m_modifiers; }
 
 	unsigned char m_pad00[0xC];
-	Int m_modifiers;
+	// Retail mouse callers read the modifier word at +0x0c.
+	unsigned short m_modifiers;
 };
 
 extern Keyboard *TheKeyboard;
