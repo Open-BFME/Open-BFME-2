@@ -66919,3 +66919,4 @@ _rva0062AF56D3DXVec3Transform@12,,0x0062AF56,6,Code/GameEngine/Source/Common/Rva
 ?rva0052F294@Rva002E713FOwner@@QAEXXZ,,0x0052F294,88,Code/GameEngine/Source/Common/Rva002E713FGuard.cpp,matched,address-derived 15-slot cleanup and linked-list drain; offsets and direct calls documented in source
 ??1Rva0053476A@@QAE@XZ,,0x0053476A,53,Code/GameEngine/Source/Common/FamilyDeletingDtors11.cpp,matched,address-derived destructor with +4 dtor and rowed list-base call under compiler EH frame; target evidence and layout inference are separated in source
 ?rva0052B5C6@@YGPAXPBX@Z,,0x0052B5C6,55,Code/GameEngine/Source/Common/Rva0052B5C6Factory.cpp,matched,address-derived stdcall factory allocates and copy-constructs 28B object under target EH frame
+?rva0053BA87@@YGHPAX0@Z,,0x0053BA87,90,Code/GameEngine/Source/Common/Rva0053BA87Predicate.cpp,matched,address-derived stdcall predicate over two supported flag views and two rowed helpers
