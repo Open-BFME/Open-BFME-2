@@ -15429,3 +15429,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003F1CA2@@YGXPAVCreateAHeroData@@H@Z,0x003F1CA2,Direct REL32 callee of 0x003F1CFE; Ghidra 92-byte start; target entry consumes ECX left by 0x003F083A and pops two stack arguments; address-derived name and owner relation remain inferred.
 ?rva003EEDD6@Rva003EEDD6@@QAEXH@Z,0x003EEDD6,REL32 at 0x003EF02B targets Ghidra function start 0x003EEDD6 (142B); address-derived call target only; semantics unresolved
 ?rva003F2A8C@Rva003F2A8C@@QAEXH@Z,0x003F2A8C,Direct REL32 callee of target body 0x003F300A; Ghidra start/extent 127 bytes; address-derived symbol; method ABI from caller.
+?rva002796D9@Rva002796D9@@QAEXH@Z,0x002796D9,callee of ?rva0023998E@Drawable@@QAEXH@Z
