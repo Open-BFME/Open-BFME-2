@@ -68404,3 +68404,10 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?d_00044ff2@@YAXXZ,,0x00044FF2,148,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00046827@@YAXXZ,,0x00046827,72,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_0004a3c4@@YAXXZ,,0x0004A3C4,158,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00084c05@@YAXXZ,,0x00084C05,160,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_0027c157@@YAXXZ,,0x0027C157,155,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00282b26@@YAXXZ,,0x00282B26,121,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00283033@@YAXXZ,,0x00283033,78,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00297612@@YAXXZ,,0x00297612,89,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_002b2a0a@@YAXXZ,,0x002B2A0A,139,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_002b2dad@@YAXXZ,,0x002B2DAD,65,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
