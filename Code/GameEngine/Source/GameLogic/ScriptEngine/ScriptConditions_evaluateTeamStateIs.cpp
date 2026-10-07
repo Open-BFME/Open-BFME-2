@@ -88,6 +88,19 @@
 // with ZH's Object::isEffectivelyDead test (m_privateStatus +0x438 bit 0, as
 // the rowed Object::fireCurrentWeapon unit lays it out) after the damage-info
 // check.
+//
+// ?evaluateHasCommandPointsToBuildUnit@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E81E8 250B
+// No donor body (BFME 1 leaves its case-126 body address-named). Target
+// evidence: jump-table case 126 calls 0x003E81E8, which
+// initConditionTemplates names HAS_COMMAND_POINTS_TO_BUILD_UNIT; the name
+// follows that template as BFME 1's evaluateHasCommandPointsToBuildTeam
+// follows case 125's (structural inference, not a recovered symbol). The
+// body sizes the parsed ObjectTypes list inline (vector +0x08/+0x0C), takes
+// the mask's single player (rowed getPlayerFromMask 0x002A7B91), queries
+// that player's command points at +0x60 (rowed 0x002A7548 with 1), and
+// tests each listed template, found with findTemplate on the pinned
+// getNthInList 0x002041AC result, against ThingTemplate+0x618 (the cost the
+// rowed 0x002A7557 adds to the points in use).
 #include <vector>
 #include "ascii_string.h"
 
@@ -181,9 +194,12 @@ class ThingTemplate
 {
 public:
 	const AsciiString &getName() const { return m_name; }
+	int getCommandPoints() const { return m_commandPoints; }
 private:
 	unsigned char m_pad00[0x64];
 	AsciiString m_name; // +0x64
+	unsigned char m_pad68[0x618 - 0x68];
+	int m_commandPoints; // +0x618
 };
 
 class Object
@@ -211,10 +227,12 @@ public:
 	ObjectTypes();
 	virtual ~ObjectTypes();
 	bool isInSet(const AsciiString &name) const;
+	unsigned int getListSize() const { return m_objectTypes.size(); }
+	AsciiString getNthInList(unsigned int index) const;
 	int prepForPlayerCounting(_STL::vector<const ThingTemplate *> &templates, _STL::vector<int> &counts);
 private:
 	AsciiString m_listName; // +0x04
-	void *m_objectTypes[3]; // +0x08 vector<AsciiString>
+	_STL::vector<AsciiString> m_objectTypes; // +0x08
 };
 
 class ObjectTypesTemp
@@ -237,14 +255,25 @@ ObjectTypesTemp::ObjectTypesTemp() : m_types(0)
 
 void Script_objectTypesFromParam(Parameter *pTypeParm, ObjectTypes *outObjectTypes);
 
+// Player+0x60's command-point tracker; its "available" query 0x002A7548
+// returns the cap (0x002A7461) less the points in use (+0x08).
+class Rva002A7461
+{
+public:
+	int rva002A7548(int);
+};
+
 class Player
 {
 public:
 	int getPlayerIndex() const { return m_playerIndex; }
+	Rva002A7461 *getCommandPoints() { return &m_commandPoints; }
 	void countObjectsByThingTemplate(int numThingTemplates, const ThingTemplate *const *things, bool ignoreDead, int *counts, bool ignoreUnderConstruction) const;
 private:
 	unsigned char m_pad00[0x54];
 	int m_playerIndex; // +0x54
+	unsigned char m_pad58[0x60 - 0x58];
+	Rva002A7461 m_commandPoints; // +0x60
 };
 
 class ThingFactory
@@ -273,6 +302,7 @@ class PlayerList
 {
 public:
 	Player *getEachPlayerFromMask(int &mask);
+	Player *getPlayerFromMask(int mask);
 };
 extern PlayerList *ThePlayerList;
 
@@ -349,6 +379,7 @@ protected:
 	bool evaluatePlayerUnitCondition(Condition *, Parameter *, Parameter *, Parameter *, Parameter *);
 	bool evaluatePlayerLostObjectType(Parameter *, Parameter *);
 	bool evaluateNamedDestroyedByType(Parameter *, Parameter *);
+	bool evaluateHasCommandPointsToBuildUnit(Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -646,4 +677,33 @@ bool ScriptConditions::evaluateNamedDestroyedByType(Parameter *pUnitParm, Parame
 	ObjectTypesTemp types;
 	Script_objectTypesFromParam(pTypeParm, types.m_types);
 	return types.m_types->isInSet(pAttacker->getTemplate()->getName());
+}
+bool ScriptConditions::evaluateHasCommandPointsToBuildUnit(Parameter *pPlayerParm, Parameter *pTypeParm)
+{
+	ObjectTypesTemp types;
+	Script_objectTypesFromParam(pTypeParm, types.m_types);
+
+	unsigned int numTypes = types.m_types->getListSize();
+	if (numTypes == 0) {
+		return false;
+	}
+
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	if (!mask) {
+		return false;
+	}
+
+	Player *player = ThePlayerList->getPlayerFromMask(mask);
+	if (!player) {
+		return false;
+	}
+
+	int available = player->getCommandPoints()->rva002A7548(1);
+	for (unsigned int i = 0; i < numTypes; ++i) {
+		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(types.m_types->getNthInList(i));
+		if (thingTemplate && available <= thingTemplate->getCommandPoints()) {
+			return true;
+		}
+	}
+	return false;
 }
