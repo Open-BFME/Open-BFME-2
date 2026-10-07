@@ -15348,8 +15348,3 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva004099CA@Rva004099CAHelper@@QAE_NPAXH@Z,0x004099CA,Direct call from 0x0021A492 uses ECX=this+0xC and two stack args (local AsciiString address and 0); caller performs no stack cleanup and consumes AL. Thiscall bool ABI and argument shape from target; helper name and owner identity unresolved.
 ??0Rva007FA6B4Target@@QAE@PAURva002130CFOwner@@@Z,0x003FA6B4,Direct constructor call from 0x00210D1D after allocating 0x14 bytes; callee stores a vtable at object start and returns this. Address-derived target class; owner semantics unresolved.
 ?rva0020A586@ScriptEngine@@QAEXPAX0@Z,0x0020A586,Caller walkNamed at 0x0020A775 passes the ECX this pointer plus record and array-entry pointers; callee pops eight bytes and its result is ignored. ScriptEngine owner follows the pinned caller; helper semantics remain unresolved.
-?rva005C9BE3@Rva005C9BE3Call@@QAEHPAX@Z,0x005C9BE3,callee of ?rva00574910@Rva00574910@@QAEHPAX@Z
-?rva005CBC95@Rva005CBC95Call@@QAEHPAX@Z,0x005CBC95,callee of ?rva00574910@Rva00574910@@QAEHPAX@Z
-?rva005CD8F7@Rva005CD8F7Call@@QAEHPAX@Z,0x005CD8F7,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
-?rva005CD690@Rva005CD690Call@@QAEHPAX@Z,0x005CD690,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
-??0Rva0057525FCall@@QAE@PAVRva00574A8A@@II@Z,0x0057525F,callee of ??0Rva00574A8A@@QAE@II@Z
