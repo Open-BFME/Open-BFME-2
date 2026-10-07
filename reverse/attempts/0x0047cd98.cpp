@@ -1,7 +1,9 @@
-// ?removeAllContained@GarrisonContain@@UAEX_N@Z
+// ?removeAllContained@Rva0047CD98@@UAEX_N@Z
+// partial score=0.82 date=2026-10-08
+// ?removeAllContained@Rva0047CD98@@UAEX_N@Z
 // partial score=0.35 date=2026-10-06
 // cl: /O1 /G7 /DNDEBUG /MD /EHsc
-// ?removeAllContained@GarrisonContain@@UAEX_N@Z @ 0x0047CD98 (54B)
+// ?removeAllContained@Rva0047CD98@@UAEX_N@Z @ 0x0047CD98 (54B)
 // Retail walks the sentinel at this+0x108, calls the OpenContain slot at vtable
 // +0xA4 for each non-null item, then calls OpenContain::removeAllContained.
 // The vtable word at +0xA4 is 0x00463509, immediately before the matched base
@@ -16,7 +18,7 @@ struct OpenContain
 	virtual void removeAllContained(Bool exposeStealthUnits) = 0;
 };
 
-struct GarrisonContain : OpenContain
+struct Rva0047CD98 : OpenContain
 {
 	virtual void removeAllContained(Bool exposeStealthUnits) = 0;
 };
@@ -81,19 +83,18 @@ struct RetailContainNode
 };
 }
 
-void GarrisonContain::removeAllContained(Bool exposeStealthUnits)
+void Rva0047CD98::removeAllContained(Bool exposeStealthUnits)
 {
-	RetailContainNode *head;
-	RetailContainNode *node;
-	head = *(RetailContainNode **)((char *)this + 0x108);
-	node = head->next;
-	while (node != head)
-	{
-		Object *obj = node->object;
-		if (obj)
-			((RetailContainVtableView *)this)->removeFromContain(obj, exposeStealthUnits);
-		head = *(RetailContainNode **)((char *)this + 0x108);
-		node = head->next;
-	}
-	OpenContain::removeAllContained(exposeStealthUnits);
+    for (;;)
+    {
+        RetailContainNode *head = *(RetailContainNode *volatile *)((char *)this + 0x108);
+        RetailContainNode *node = head->next;
+        if (node == head)
+        {
+            OpenContain::removeAllContained(exposeStealthUnits);
+            return;
+        }
+        Object *obj = node->object;
+        if (obj) ((RetailContainVtableView *)this)->removeFromContain(obj, exposeStealthUnits);
+    }
 }
