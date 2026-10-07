@@ -9,6 +9,56 @@
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
+// Native 0x0059B14E..0x0059B19A (RET 4): a nonzero input selects an
+// experience-level handle with the receiver's +0x08 value; a valid handle
+// adds its award to +0x04. The receiver's original identity is unknown.
+// The two-word handle and award query agree with ExperienceLevelSystem.cpp.
+class ExperienceLevelList;
+struct ExperienceLevelNode;
+class ExperienceLevelIterator
+{
+public:
+	ExperienceLevelIterator() {}
+	ExperienceLevelIterator(const ExperienceLevelIterator &that)
+		: m_node(that.m_node) {}
+	ExperienceLevelNode *m_node;
+};
+struct ExperienceLevelHandle
+{
+	ExperienceLevelHandle() {}
+	ExperienceLevelHandle(const ExperienceLevelHandle &that)
+		: m_list(that.m_list), m_iter(that.m_iter) {}
+	ExperienceLevelList *m_list;
+	ExperienceLevelIterator m_iter;
+};
+class ExperienceLevelStore
+{
+public:
+	ExperienceLevelHandle rva00288D88(int value, int experience);
+	int GetExperienceAwardForLevel(ExperienceLevelHandle level) const;
+};
+extern ExperienceLevelStore *TheExperienceLevelStore;
+class Rva0059B14E
+{
+public:
+	int rva0059B14E(int value);
+private:
+	char m_unknown00[4];
+	int m_award;
+	int m_experience;
+};
+int Rva0059B14E::rva0059B14E(int value)
+{
+	if (value != 0)
+	{
+		ExperienceLevelHandle level =
+			TheExperienceLevelStore->rva00288D88(value, m_experience);
+		if (level.m_list != 0)
+			m_award += TheExperienceLevelStore->GetExperienceAwardForLevel(level);
+	}
+	return 1;
+}
+
 // Virtual slot N of a member object.
 template <int N>
 class Rva004888F8Slots : public Rva004888F8Slots<N - 1>
