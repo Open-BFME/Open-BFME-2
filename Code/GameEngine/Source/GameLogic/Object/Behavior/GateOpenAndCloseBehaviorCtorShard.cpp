@@ -14,7 +14,7 @@
 // or-minus-one); their immediates are the retail-measured secondary slots.
 // The new behavior registers itself into the global gate list at
 // [0xDFEEF8]+0x940 through the rowed appendOnce helper; the list owner itself
-// is unidentified so the access is a documented absolute. Row supersedes the
+// is unidentified, so it is reached through its data-ledger name g_00DFEEF8. Row supersedes the
 // same-name pin; the instance factory (0x24E28B, news 0x4C) stays green via
 // the row, as does the appendOnce home TU.
 //
@@ -109,14 +109,13 @@ private:
 	void **m_end;
 };
 
-struct GameLogicFrameLocal
-{
-	char m_pad[0x40];
-	int m_gateObject; // +0x40
-};
+#include "../../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
 
-#define TheGameLogic (*(GameLogicFrameLocal *const *)0x00DFE78C)
-#define GateListOwnerBlock (*(void *const *)0x00DFEEF8)
+// The list owner at 0x00DFEEF8 (data ledger name g_00DFEEF8); its class is
+// unidentified, so the +0x940 list is reached by offset.
+class Rva002A8F24;
+extern Rva002A8F24 *g_00DFEEF8;
 
 class GateOpenAndCloseBehavior : public GatePrimary, public UpdateModule
 {
@@ -150,9 +149,9 @@ GateOpenAndCloseBehavior::GateOpenAndCloseBehavior(Thing *thing, const ModuleDat
 	m_30 = true;
 	m_38 = 100.0f / data->m_resetTimeInMilliseconds;
 	m_34 = 100.0f;
-	m_3C = TheGameLogic->m_gateObject;
+	m_3C = TheGameLogic->getFrame();
 	m_2C = 0;
 	m_24 = 0;
-	GateOpenBehaviorList *list = *(GateOpenBehaviorList **)((char *)GateListOwnerBlock + 0x940);
+	GateOpenBehaviorList *list = *(GateOpenBehaviorList **)((char *)g_00DFEEF8 + 0x940);
 	list->appendOnce(this);
 }
