@@ -103,6 +103,7 @@ protected:
 class BFMEConnectionManager : public ConnectionManager
 {
 public:
+	Bool isPlayerConnected(Int slot);
 	Bool isPlayerInGame(Int slot);
 	Int isPlayerSlotActive(Int slot);
 	UnsignedByte rva004CEF58(Int slot);
@@ -132,7 +133,9 @@ public:
 	UnsignedInt m_packetRouterFallback[MAX_SLOTS];
 };
 
-// BFME's NetworkInterface puts voteForPlayerDisconnect at vtable slot 31.
+// BFME 2's Network puts voteForPlayerDisconnect at vtable slot 38: table
+// 0x00BF6040#38 is 0x0025E20F, which forwards through ConnectionManager
+// 0x004CF90D to DisconnectManager::voteForPlayerDisconnect 0x004D3DF4.
 class BFMENetworkVoteFacade
 {
 public:
@@ -143,7 +146,9 @@ public:
 	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
 	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
 	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
-	virtual void slot28(); virtual void slot29(); virtual void slot30();
+	virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
+	virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
+	virtual void slot36(); virtual void slot37();
 	virtual void voteForPlayerDisconnect(Int slot);
 };
 
@@ -713,6 +718,8 @@ struct BfmeGameSlotFields
 {
 	char m_unreconstructed_00[0x48];
 	Bool m_disconnected;						///< retail this+0x48
+	char m_unreconstructed_49[3];
+	Int m_unknown4C;						///< retail this+0x4c, sent with message 0x6b8
 };
 
 // Open-BFME-1's disconnectPlayer. BFME null-checks TheDisconnectMenu before the
@@ -759,6 +766,130 @@ void DisconnectManager::populateDisconnectScreen(ConnectionManager *conMgr) {
 
 			Int numVotes = countVotesForPlayer(i, conMgr);
 			TheDisconnectMenu->updateVotes(slot, numVotes);
+		}
+	}
+}
+
+// BFME's ping-ratio predicate (the donor's hasPingSuccessRatioAtLeast) is
+// rowed at 0x004D38D8 under a placeholder class.
+class Rva004D38D8
+{
+public:
+	Bool rva004D38D8(Real ratio);
+};
+
+// GameLogic's +0x114 mode test (1 or 2), rowed at 0x00210C66.
+class Rva00210C66CmpBoolField
+{
+public:
+	Bool get() const;
+};
+
+// BFME's MessageStream appends a typed message through vtable slot 18.
+class BfmeMessageStreamFacade
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot16(); virtual void slot17();
+	virtual GameMessage *appendMessage(Int type);
+};
+
+// The disconnect screen's timeout display (the donor's setPlayerTimeoutTime)
+// and per-slot control visibility, rowed under placeholder classes.
+class Rva00513040
+{
+public:
+	void rva00513040(Int slot, Int percent);
+};
+
+class Rva00512CE9
+{
+public:
+	void rva00512CE9(Int slot, Bool show);
+	Bool rva00512D47(Int slot);
+};
+
+// Open-BFME-1's updateDisconnectStatus. BFME 2 reads the timeout at
+// GlobalData+0xc24, keeps its GameLogic flag at +0x2a4, sends the player
+// destruct before disconnecting the player and then posts message 0x6b8 with
+// the slot's +0x4c value when GameLogic's mode test passes.
+void DisconnectManager::updateDisconnectStatus(ConnectionManager *conMgr) {
+	Int i = 0;
+	UnsignedShort *playerState = (UnsignedShort *)((char *)this + 0x272);
+	for (; i < MAX_SLOTS; ++i, ++playerState) {
+		if (((BFMEConnectionManager *)conMgr)->isPlayerConnected(i)) {
+			Int slot = Rva004D39DEGet(i, conMgr->getLocalPlayerID());
+			if (slot != -1) {
+				time_t curTime = timeGetTime();
+				time_t newTime = ((const BfmeDisconnectTimeoutGlobals *)TheGlobalData)->m_networkDisconnectScreenNotifyTime
+					- (curTime - m_playerTimeouts[slot]);
+
+				if ((newTime < ((const BfmeDisconnectTimeoutGlobals *)TheGlobalData)->m_networkDisconnectScreenNotifyTime / 3)
+					|| (isPlayerVotedOut(slot, conMgr) == TRUE)) {
+					if (reinterpret_cast<GameLogic *>(reinterpret_cast<char *>(TheGameLogic) + 4)->getFrame()
+						!= *(UnsignedInt *)((char *)this + 0x258)) {
+						((BFMEConnectionManager *)conMgr)->sendDisconnectFrameCommand();
+						*(UnsignedInt *)((char *)this + 0x258) =
+							reinterpret_cast<GameLogic *>(reinterpret_cast<char *>(TheGameLogic) + 4)->getFrame();
+					}
+				}
+
+				if ((newTime < 0) || (isPlayerVotedOut(slot, conMgr) == TRUE)
+					|| ((BFMEConnectionManager *)conMgr)->isPlayerInGame(i)
+					|| (*playerState >= 5)) {
+					newTime = 0;
+					if ((allOnSameFrame(conMgr) == TRUE)
+						&& (isLocalPlayerNextPacketRouter(conMgr) == TRUE)
+						&& (!(UnsignedByte)((BFMEConnectionManager *)conMgr)->isPlayerSlotActive(i)
+							|| (i == conMgr->getPacketRouterSlot()))) {
+						if (!((Rva004D38D8 *)this)->rva004D38D8(0.1f)) {
+							if (g_bfmeDisconnectPingResult != 1)
+								g_bfmeDisconnectPingResult = 1;
+						} else {
+							if (!((Rva004D38D8 *)this)->rva004D38D8(0.25f)
+								&& ((Rva004D38D8 *)this)->rva004D38D8(0.1f)) {
+								*(Int *)((char *)TheGameLogic + 0x2a4) = 0;
+							} else if (*(Int *)((char *)TheGameLogic + 0x2a4) == 0) {
+								*(Int *)((char *)TheGameLogic + 0x2a4) = 2;
+							}
+
+							((BFMEConnectionManager *)conMgr)->sendDisconnectFrameCommand();
+							sendDisconnectCommand(i, conMgr);
+							sendPlayerDestruct(i, conMgr);
+							disconnectPlayer(i, conMgr);
+
+							if (((const Rva00210C66CmpBoolField *)TheGameLogic)->get()) {
+								GameMessage *msg = ((BfmeMessageStreamFacade *)TheMessageStream)->appendMessage(0x6b8);
+								msg->appendIntegerArgument(((BfmeGameSlotFields *)TheGameInfo->getSlot(i))->m_unknown4C);
+							}
+						}
+					}
+				}
+
+				if (TheDisconnectMenu) {
+					UnsignedInt timeout = ((const BfmeDisconnectTimeoutGlobals *)TheGlobalData)->m_networkDisconnectScreenNotifyTime;
+					if (timeout != 0)
+						newTime = newTime * 100 / timeout;
+					else
+						newTime = 0;
+					((Rva00513040 *)TheDisconnectMenu)->rva00513040(slot, (Int)newTime);
+
+					if ((UnsignedInt)newTime < 90) {
+						if (((Rva00512CE9 *)TheDisconnectMenu)->rva00512D47(slot) == FALSE)
+							((Rva00512CE9 *)TheDisconnectMenu)->rva00512CE9(slot, TRUE);
+					} else if ((UnsignedInt)newTime > 95) {
+						if (((Rva00512CE9 *)TheDisconnectMenu)->rva00512D47(slot))
+							((Rva00512CE9 *)TheDisconnectMenu)->rva00512CE9(slot, FALSE);
+					}
+
+					if ((newTime == 0) && (isPlayerVotedOut(slot, conMgr) == FALSE)) {
+						((BFMENetworkVoteFacade *)TheNetwork)->voteForPlayerDisconnect(i);
+					}
+				}
+			}
 		}
 	}
 }
