@@ -140,3 +140,34 @@ void Rva002BFB28::rva002BFB28()
 {
     ((Rva002BF75A *)this)->~Rva002BF75A();
 }
+
+class Rva000581F5
+{
+public:
+    void rva000581F5();
+};
+void Rva000581F5::rva000581F5()
+{
+    ((Rva00056DA2 *)this)->~Rva00056DA2();
+}
+
+class Rva00216BF0
+{
+public:
+    void rva00216BF0();
+};
+void Rva00216BF0::rva00216BF0()
+{
+    ((Rva00216AF6 *)this)->~Rva00216AF6();
+}
+
+class Rva00289706
+{
+public:
+    void rva00289706();
+};
+void Rva00289706::rva00289706()
+{
+    ((Rva00289371HashTable *)this)->~Rva00289371HashTable();
+}
+

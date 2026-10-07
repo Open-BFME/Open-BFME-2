@@ -68231,3 +68231,6 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva005550A0@Rva00553E47StatsCore@@QAEXPAVXferStub@@@Z,,0x005550A0,105,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp,matched,Native105 boundary5550A0-555109; same persistent-stats core offsets maps04/10 scalars13C/140/144 as reset553E47; two adjacent version bytes initialized1 passed by pointer to vslot28; typed map transfer through rowed177-byte PSPlayerStats::XferMap5548E9 then vslots78/80; physical version ABI stated without original method-name claim; /O1 /G7 /arch:SSE
 ?rva000BBF4B@Rva000BBF4B@@QAEXXZ,,0x000BBF4B,5,Code/GameEngine/Source/Common/Rva000BB694Dtor.cpp,matched,
 ?rva000BBF50@Rva000BBF50@@QAEXXZ,,0x000BBF50,5,Code/GameEngine/Source/Common/Rva000BB694Dtor.cpp,matched,
+?rva000581F5@Rva000581F5@@QAEXXZ,,0x000581F5,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
+?rva00216BF0@Rva00216BF0@@QAEXXZ,,0x00216BF0,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
+?rva00289706@Rva00289706@@QAEXXZ,,0x00289706,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
