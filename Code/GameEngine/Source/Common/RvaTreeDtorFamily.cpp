@@ -1203,3 +1203,114 @@ Rva0060126D::~Rva0060126D()
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??1Rva00256461Member@@QAE@XZ=??1Rva00255CD1@@QAE@XZ")
+
+class Rva0008AACF
+{
+public:
+	void rva0008AACF();
+};
+
+void Rva0008AACF::rva0008AACF()
+{
+	((Rva0006F318 *)this)->~Rva0006F318();
+}
+
+class Rva002A8E76
+{
+public:
+	void rva002A8E76();
+};
+
+void Rva002A8E76::rva002A8E76()
+{
+	((Rva002A8B8C *)this)->~Rva002A8B8C();
+}
+
+class Rva0032EC5E
+{
+public:
+	void rva0032EC5E();
+};
+
+void Rva0032EC5E::rva0032EC5E()
+{
+	((Rva0032EAA1 *)this)->~Rva0032EAA1();
+}
+
+class Rva00396994
+{
+public:
+	void rva00396994();
+};
+
+void Rva00396994::rva00396994()
+{
+	((Rva00395CEB *)this)->~Rva00395CEB();
+}
+
+class Rva004491A9
+{
+public:
+	void rva004491A9();
+};
+
+void Rva004491A9::rva004491A9()
+{
+	((Rva00448E3B *)this)->~Rva00448E3B();
+}
+
+class Rva00598202
+{
+public:
+	void rva00598202();
+};
+
+void Rva00598202::rva00598202()
+{
+	((Rva005980F3 *)this)->~Rva005980F3();
+}
+
+class Rva0059A2B9
+{
+public:
+	void rva0059A2B9();
+};
+
+void Rva0059A2B9::rva0059A2B9()
+{
+	((Rva00599FAA *)this)->~Rva00599FAA();
+}
+
+class Rva0059BE1A
+{
+public:
+	void rva0059BE1A();
+};
+
+void Rva0059BE1A::rva0059BE1A()
+{
+	((Rva0059BD58 *)this)->~Rva0059BD58();
+}
+
+class Rva005C8D66
+{
+public:
+	void rva005C8D66();
+};
+
+void Rva005C8D66::rva005C8D66()
+{
+	((Rva005C8C73 *)this)->~Rva005C8C73();
+}
+
+class Rva005F2273
+{
+public:
+	void rva005F2273();
+};
+
+void Rva005F2273::rva005F2273()
+{
+	((Rva005F20C5 *)this)->~Rva005F20C5();
+}
+
