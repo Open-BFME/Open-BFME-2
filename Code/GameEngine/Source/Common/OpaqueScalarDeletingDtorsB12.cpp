@@ -150,19 +150,6 @@ Rva00524BB4::Rva00524BB4(EmitVtableTag *)
 {
 }
 
-class Rva0052B3B2
-{
-public:
-	Rva0052B3B2(EmitVtableTag *);
-public:
-	virtual ~Rva0052B3B2();
-};
-
-// ?<Rva0052B3B2::Rva0052B3B2> absent-from-retail
-Rva0052B3B2::Rva0052B3B2(EmitVtableTag *)
-{
-}
-
 class Rva0052B497
 {
 public:
@@ -182,11 +169,78 @@ public:
 	Rva0053947D(EmitVtableTag *);
 public:
 	virtual ~Rva0053947D();
+	unsigned char m_list_storage[0x14];
 };
 
 // ?<Rva0053947D::Rva0053947D> absent-from-retail
 Rva0053947D::Rva0053947D(EmitVtableTag *)
 {
+}
+
+// The 0x0052B3B2 dtor calls this address on the complete object before it
+// releases the ref at +0x40 and the pointer array at +0x2c. Its exact body is
+// blocked separately; the call site and its 59-byte boundary establish the
+// callee address, not the helper's identity.
+class Rva0052B23D
+{
+public:
+	void rva0052B23D();
+};
+
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
+
+namespace _STL
+{
+	void __cdecl free(void *p);
+}
+
+class Rva0052B3B2Buffer
+{
+public:
+	~Rva0052B3B2Buffer()
+	{
+		if (m_begin)
+			_STL::free(m_begin);
+	}
+
+	void **m_begin;
+	void **m_end;
+	void **m_capacity;
+};
+
+class Rva0052B3B2Ref
+{
+public:
+	~Rva0052B3B2Ref()
+	{
+		if (m_ref)
+			ReleaseTreeHintRef00217D4C(m_ref);
+	}
+
+	TargetRef00217D4C *m_ref;
+};
+
+class Rva0052B3B2 : public Rva0053947D
+{
+public:
+	Rva0052B3B2(EmitVtableTag *);
+	virtual ~Rva0052B3B2();
+
+	unsigned char m_gap_18_2B[0x14];
+	Rva0052B3B2Buffer m_buffer;
+	unsigned char m_gap_38_3F[8];
+	Rva0052B3B2Ref m_ref;
+};
+
+// ?<Rva0052B3B2::Rva0052B3B2> absent-from-retail
+Rva0052B3B2::Rva0052B3B2(EmitVtableTag *tag) : Rva0053947D(tag)
+{
+}
+
+Rva0052B3B2::~Rva0052B3B2()
+{
+	((Rva0052B23D *)this)->rva0052B23D();
 }
 
 class Rva00567A69
