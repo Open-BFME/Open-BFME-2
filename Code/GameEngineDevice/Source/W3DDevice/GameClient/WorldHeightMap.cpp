@@ -74,6 +74,14 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "Common/ThingTemplate.h"
 #include "Common/WellKnownKeys.h"
 
+// BFME2-only caches used by 30DA25/30D773. Retail .data contains a zero
+// key plus each exact name pointer at DBDC84, DBDD84 and DBDD8C. Keep
+// them beside the existing StaticNameKey owners instead of address aliases.
+extern const StaticNameKey TheKey_GenericAIObjectType("GenericAIObjectType");
+extern const StaticNameKey TheKey_objectBasePriority("objectBasePriority");
+extern const StaticNameKey TheKey_objectBasePhase("objectBasePhase");
+
+
 #include "GameLogic/PolygonTrigger.h"
 #include "GameLogic/SidesList.h"
 
