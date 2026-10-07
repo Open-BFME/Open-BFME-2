@@ -17,7 +17,9 @@ public:
 	void *rva002130F6(const AsciiString *key);
 };
 
-extern Rva002130F6 *TheRva0031934BTable;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class LivingWorldManager;
+extern LivingWorldManager *TheLivingWorldManager;
 
 class Rva0031934BHelper
 {
@@ -47,7 +49,7 @@ private:
 
 void Rva0031934BOwner::rva0031934B(const AsciiString *key)
 {
-	void *payload = TheRva0031934BTable->rva002130F6(key);
+	void *payload = ((Rva002130F6 *)TheLivingWorldManager)->rva002130F6(key);
 	Rva0031934BHelper *helper = m_88;
 	operator delete(helper != 0 ? helper->slot0(0) : 0);
 	if (payload == 0)
