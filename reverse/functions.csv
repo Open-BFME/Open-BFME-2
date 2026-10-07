@@ -67925,3 +67925,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??0Rva00BCF670CameraSettings@@QAE@XZ,,0x00101C92,14,Code/GameEngine/Source/GameClient/Rva00BCF670CameraSettings.cpp,matched,camera settings vtable then reset
 ?rva003806D4@Rva003806D4@@QAEXXZ,,0x003806D4,49,Code/GameEngine/Source/Common/Rva003806D4.cpp,matched,bare new Rva00437E72 with EH
 ?Rva00219453Validate@@YA_NHPBD@Z,,0x00219453,90,Code/GameEngine/Source/Common/INI/Rva00219453Validate.cpp,matched,CreateAHero stat validator throws INIException 3 callers 0x00220484
+?rva0007E0EA@Rva0007E0EA@@QAEHXZ,,0x0007E0EA,7,Code/GameEngine/Source/Common/Rva0007E0EAGetter.cpp,matched,unlock 7B disp8 int-add getter via 3 callers in 0x00100A0B
