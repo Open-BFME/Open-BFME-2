@@ -50,14 +50,24 @@
 // W3DDisplay::m_3DScene. The render object's scale is the float at +0x48;
 // ThePlayerList's local player is +0x10 and its index +0x54. Both refusals
 // throw XferException tag 4. Donor-carried: the names and the Zero Hour body.
+//
+// W3DGhostObjectManager::xfer (0x000642F1, slot 3 of 0x00BC59B8) extends
+// GhostObjectManager::xfer (0x0030594D, slot 3 of the base table 0x008078F0)
+// and counts the used list through m_nextSystem. On load it clears the save
+// lock (+0x09 of TheGhostObjectManager), finds each object through the rowed
+// GameLogic::findObjectByID, creates the ghost through slot 7 with the object
+// alone and links the two CDE providers (Object +0x64, ghost +0x04) through
+// TheShroudManager's 0x00739760; Zero Hour's partition registration is gone.
 
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
+#include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
 typedef int Int;
 typedef bool Bool;
 typedef float Real;
 typedef unsigned char UnsignedByte;
+typedef unsigned short UnsignedShort;
 typedef unsigned int UnsignedInt;
 
 enum { MAX_PLAYER_COUNT = 20 };
@@ -140,11 +150,6 @@ protected:
 
 // The rowed 0x003062FE (Zero Hour xferMatrix3D) sends the three rows of four floats.
 void Rva003062FEXfer(Xfer *xfer, float *vals);
-
-enum ObjectID
-{
-	INVALID_ID = 0
-};
 
 enum DrawableID
 {
@@ -541,10 +546,46 @@ private:
 };
 extern PlayerList *ThePlayerList;
 
-class Object
+// The CDE provider interface of BfmeOwnerCDEUpdate.cpp: a leading vptr whose
+// vbptr follows it. Object carries one at +0x64 (its constructor 0x00298EA9)
+// and GhostObject one at +0x04 (W3DGhostObject's constructor 0x00063912).
+class CDEProvider
+{
+public:
+	virtual void f0();
+};
+
+// Thing: the vptr at +0x00 and the rest of the 0x64 bytes Object's
+// constructor builds ahead of the provider.
+class Thing
+{
+public:
+	virtual void v00();
+private:
+	char m_unrecovered04[ 0x64 - 0x04 ];
+};
+
+class Object : public Thing, public CDEProvider
 {
 public:
 	Drawable *getDrawable( void ) const;
+	ObjectID getID( void ) const { return m_id; }
+private:
+	char m_unrecovered68[ 0x74 - 0x68 ];
+	ObjectID m_id;																							///< 0x74
+};
+
+extern GameLogic *TheGameLogic;
+
+// TheShroudManager's provider link: the rowed address-named 0x00739760
+// forwards to ShroudManagerImpl, which binds the second provider to the first.
+class PartitionManager;
+extern PartitionManager *TheShroudManager;
+
+class Rva00739760
+{
+public:
+	void rva00739760( CDEProvider *first, CDEProvider *second );
 };
 
 enum ObjectShroudStatus
@@ -558,11 +599,27 @@ public:
 	ObjectShroudStatus getShroudedStatus( Int playerIndex );
 };
 
+class GhostObject;
+
+// BFME 2 GhostObjectManager table (0x008078F0; W3D's is 0x00BC59B8): the
+// Snapshot entries are the destructor, crc, the name getter, xfer and
+// loadPostProcess; setLocalPlayerIndex is slot 5 and addGhostObject, which
+// takes only the object, slot 7.
 class GhostObjectManager
 {
 public:
-	virtual ~GhostObjectManager();
+	virtual ~GhostObjectManager();																			///< slot 0
+protected:
+	virtual void crc( Xfer *xfer );																			///< slot 1
+	virtual const char *v02( void ) const;																///< slot 2
+	virtual void xfer( Xfer *xfer );																		///< slot 3
+	virtual void loadPostProcess( void );																///< slot 4
+public:
+	virtual void setLocalPlayerIndex( int index );												///< slot 5
+	virtual void v06();																									///< slot 6
+	virtual GhostObject *addGhostObject( Object *object );								///< slot 7
 	inline Int getLocalPlayerIndex( void ) { return m_localPlayer; }
+	void saveLockGhostObjects( Bool enableLock ) { m_saveLockGhostObjects = enableLock; }
 protected:
 	Int m_localPlayer;																					///< 0x04
 	Bool m_lockGhostObjects;																		///< 0x08
@@ -570,14 +627,15 @@ protected:
 };
 extern GhostObjectManager *TheGhostObjectManager;
 
-class GhostObject : public Snapshot
+class GhostObject : public Snapshot, public CDEProvider
 {
+	friend class W3DGhostObjectManager;
 protected:
 	virtual void crc( Xfer *xfer );
 	virtual void xfer( Xfer *xfer );
 	virtual void loadPostProcess( void );
 
-	char m_unrecovered04[ 0x0C - 0x04 ];
+	char m_unrecovered08[ 0x0C - 0x08 ];
 	Object *m_parentObject;																			///< 0x0C
 	char m_unrecovered10[ 0x7C - 0x10 ];
 	PartitionData *m_partitionData;															///< 0x7C
@@ -822,8 +880,11 @@ class W3DGhostObjectManager : public GhostObjectManager
 {
 public:
 	virtual void setLocalPlayerIndex( int index );
+	virtual GhostObject *addGhostObject( Object *object );
 	void removeGhostObject( GhostObject *object );
 protected:
+	virtual void xfer( Xfer *xfer );
+
 	W3DGhostObject *m_freeModules;															///< 0x0C
 	W3DGhostObject *m_usedModules;															///< 0x10
 };
@@ -1099,6 +1160,103 @@ void W3DGhostObject::xfer( Xfer *xfer )
 			m_parentSnapshots[ ThePlayerList->getLocalPlayer()->getPlayerIndex() ] != 0 &&
 			xfer->IsLoading() )
 		removeParentObject();
+
+}  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version
+	* BFME 2 extends the base class first and stops there on a light CRC. A
+	* loaded ghost object is linked to its object through TheShroudManager's
+	* provider binding instead of the partition data. */
+// ------------------------------------------------------------------------------------------------
+void W3DGhostObjectManager::xfer( Xfer *xfer )
+{
+
+	// extend base class
+	GhostObjectManager::xfer( xfer );
+
+	if( xfer->IsLightCRC() )
+		return;
+
+	// version
+	xfer->Version1();
+
+	// count the number of used modules we have
+	UnsignedShort count = 0;
+	W3DGhostObject *w3dGhostObject;
+	for( w3dGhostObject = m_usedModules; w3dGhostObject; w3dGhostObject = w3dGhostObject->m_nextSystem )
+		count++;
+
+	// xfer count
+	*xfer == count;
+
+	// ghost object themselves
+	ObjectID objectID;
+	if( xfer->IsStoring() )
+	{
+
+		// iterate all ghost objects
+		for( w3dGhostObject = m_usedModules; w3dGhostObject; w3dGhostObject = w3dGhostObject->m_nextSystem )
+		{
+
+			// write out object ID
+			if( w3dGhostObject->m_parentObject )
+				objectID = w3dGhostObject->m_parentObject->getID();
+			else
+				objectID = INVALID_OBJECT_ID;
+			XferObjectID( xfer, &objectID );
+
+			// write out ghost object data
+			*xfer == *w3dGhostObject;
+
+		}  // end for, ghostObject
+
+	}  // end if, saving
+	else
+	{
+
+		// now it's time to unlock the ghost objects for loading
+		TheGhostObjectManager->saveLockGhostObjects( false );
+
+		// read all ghost objects
+		GhostObject *ghostObject;
+		Object *object;
+		for( UnsignedShort i = 0; i < count; ++i )
+		{
+
+			// read object id
+			XferObjectID( xfer, &objectID );
+
+			// get object from id
+			object = TheGameLogic->findObjectByID( objectID );
+
+			// create ghost object data
+			if( object )
+			{
+
+				// create ghost object
+				ghostObject = addGhostObject( object );
+
+				// link the ghost object and logical object together
+				((Rva00739760 *)TheShroudManager)->rva00739760( object, ghostObject );
+
+			}  // end if
+			else
+			{
+
+				// create object with no object
+				ghostObject = addGhostObject( 0 );
+
+			}  // end else
+
+			// read ghost object data
+			*xfer == *ghostObject;
+
+		}  // end for, i
+
+	}  // end else, loading
 
 }  // end xfer
 

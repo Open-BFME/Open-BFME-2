@@ -1,6 +1,13 @@
 // cl: /MD
-// ?rva0030594D@Rva0030594D@@QAEXPAVXfer@@@Z @0x0030594D 31B via Xfer Version1 plus int operator== slot 0x7c
+// ?xfer@GhostObjectManager@@MAEXPAVXfer@@@Z @0x0030594D 31B via Xfer Version1 plus int operator== slot 0x7c
 // Retail Version1 then Xfer virtual at +0x7c with this+4; reverse-overload layout puts int at 0x7c.
+//
+// Identity: slot 3 of ??_7GhostObjectManager@@6B@ (0x008078F0, the base
+// table whose manager slots 6-8 are pure), and the rowed
+// W3DGhostObjectManager::xfer (0x000642F1) calls it first as its base class
+// transfer. Zero Hour's GhostObjectManager::xfer (GameLogic/Object/
+// GhostObject.cpp) sends m_localPlayer, the int at +0x04 that
+// getLocalPlayerIndex reads. Donor-carried: the names.
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -69,15 +76,22 @@ public:
 protected:
 	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
 };
-class Rva0030594D
+// BFME 2 GhostObjectManager table (0x008078F0): the Snapshot entries are the
+// destructor, crc, the name getter 0x00305947, xfer and loadPostProcess.
+class GhostObjectManager
 {
 public:
-	void rva0030594D(Xfer *xfer);
-	int m_00;
-	int m_04;
+	virtual ~GhostObjectManager();
+protected:
+	virtual void crc(Xfer *xfer);
+	virtual const char *v02() const;
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess();
+
+	int m_localPlayer; // +0x04
 };
-void Rva0030594D::rva0030594D(Xfer *xfer)
+void GhostObjectManager::xfer(Xfer *xfer)
 {
 	xfer->Version1();
-	*xfer == m_04;
+	*xfer == m_localPlayer;
 }
