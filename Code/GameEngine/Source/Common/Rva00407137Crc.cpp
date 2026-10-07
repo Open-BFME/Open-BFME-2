@@ -61,10 +61,19 @@ public:
 	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
 	virtual void v24(); virtual void v25();
 	virtual void v26(const UnicodeString &u);
+	virtual void v27(const AsciiString &s);
 };
 void Rva004071AAForward(Rva004071AAVirt *p, const UnicodeString &u, int dummy, Rva00407137 *r)
 {
 	p->v26(u);
 	r->rva00407137(u);
 	AsciiString tmp(u);
+}
+
+// ?Rva0040718FForward@@YAXPAXABVAsciiString@@HPAVRva00407137@@@Z @0x0040718F, 27 bytes.
+// Target evidence: this dispatches virtual slot 0x6C then calls the landed ASCII CRC overload.
+void Rva0040718FForward(void *v, const AsciiString &s, int dummy, Rva00407137 *r)
+{
+	((Rva004071AAVirt *)v)->v27(s);
+	r->rva0040710C(s);
 }
