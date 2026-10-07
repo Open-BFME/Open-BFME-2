@@ -33,3 +33,31 @@ void Rva00566527::rva00566527(const FXList &x)
 {
     m_vec.push_back(x);
 }
+
+struct BfmePod40
+{
+    int a[10];
+};
+
+namespace _STL
+{
+template <> class vector<BfmePod40, allocator<BfmePod40> >
+{
+public:
+    void push_back(const BfmePod40 &x);
+};
+}
+
+class Rva0056652FOwner
+{
+public:
+    void rva0056652F(const BfmePod40 &x);
+private:
+    char m_pad[0x14];
+    _STL::vector<BfmePod40, _STL::allocator<BfmePod40> > m_vec;
+};
+
+void Rva0056652FOwner::rva0056652F(const BfmePod40 &x)
+{
+    m_vec.push_back(x);
+}
