@@ -50,11 +50,13 @@ public:
 };
 
 class Rva00402BE3;
+class Rva003F9FA9;
 
 class LivingWorldManager
 {
 public:
 	Rva00402BE3 *rva002140DB(const AsciiString &name);
+	Rva003F9FA9 *rva00214060(const AsciiString &name);
 };
 
 extern LivingWorldManager *TheLivingWorldManager;
@@ -73,4 +75,26 @@ void Rva00402B19Parse(INI *ini)
 	parse.add((const FieldParse *)Rva0056B767Get(), 0);
 	parse.add(g_00C38380, 0);
 	ini->initFromINIMulti(icon, parse);
+}
+
+// Native 3F9EDF..3F9FA9, cdecl202B. The rowed initializer7AFC56
+// binds this callback to the LivingWorldArmyIcon token. Both guards and
+// the complete MultiIniFieldParse sequence match the building-icon sibling;
+// retail supplies its own rapid-iteration literal, manager factory214060,
+// and field tableC37788. The adjacent rowed constructor3F9FA9 is called by
+// that factory. BFME1 donor968ca36c Common/INI/INIArmyIcon.cpp confirms the
+// subsystem relationship but has different guards and a single-table parse.
+// No donor layout or original callback method name is asserted here.
+extern const FieldParse LivingWorldArmyIconFields[];
+void Rva003F9EDFParse(INI *ini)
+{
+    if (ini->m_type == 2)
+        throw INIException(8, "Cannot override Living World objects in map.ini");
+    if (ini->m_type == 5)
+        throw INIException(8, "LivingWorldArmyIconTemplate does not support rapid iteration");
+    Rva003F9FA9 *icon = TheLivingWorldManager->rva00214060(AsciiString(ini->getNextToken(0)));
+    MultiIniFieldParse parse;
+    parse.add((const FieldParse *)Rva0056B767Get(), 0);
+    parse.add(LivingWorldArmyIconFields, 0);
+    ini->initFromINIMulti(icon, parse);
 }
