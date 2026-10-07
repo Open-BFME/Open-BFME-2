@@ -22,6 +22,38 @@
 
 #include <string.h>
 
+// Native [0x00030E20,0x00030E88): cdecl byte predicate used by allocator
+// guard checks. The existing address-derived callee spelling is retained;
+// retail reads the buffer and never writes a fill. Aligned spans compare
+// four repeated bytes at a time, then compare the remaining bytes.
+unsigned char rva00030E20Fill(void *memory, unsigned int size, unsigned char value)
+{
+	unsigned char *p = (unsigned char *)memory;
+	unsigned char *end = p + size;
+	unsigned char *wordEnd = p + (size / 4) * 4;
+	if (size >= 4 && ((unsigned int)p & 3) == 0)
+	{
+		unsigned int pattern = value;
+		pattern = (pattern << 8) | value;
+		pattern = (pattern << 8) | value;
+		pattern = (pattern << 8) | value;
+		while (p < wordEnd)
+		{
+			unsigned int word = *(unsigned int *)p;
+			p += 4;
+			if (word != pattern)
+				return 0;
+		}
+	}
+	while (p < end)
+	{
+		unsigned char byte = *p++;
+		if (byte != value)
+			return 0;
+	}
+	return 1;
+}
+
 extern "C" __declspec(dllimport) void *__stdcall TlsGetValue(unsigned long index);
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *section);
