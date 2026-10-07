@@ -79,6 +79,15 @@
 // setObjectCount 0x00207DF4 (both index the per-player CRC maps at
 // ScriptEngine+0x1A164 by Player::getPlayerIndex, +0x54); a drop returns
 // true at once.
+//
+// ?evaluateNamedDestroyedByType@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003EA076 180B
+// BFME 1 donor: ScriptConditionsNamedByType.cpp's evaluateNamedDestroyedByType
+// (its name for template NAMED_DESTROYED_BY_OBJECTTYPE). Target evidence:
+// jump-table case 130 calls 0x003EA076, which initConditionTemplates names
+// NAMED_DESTROYED_BY_OBJECTTYPE. It is evaluateNamedAttackedByType's chain
+// with ZH's Object::isEffectivelyDead test (m_privateStatus +0x438 bit 0, as
+// the rowed Object::fireCurrentWeapon unit lays it out) after the damage-info
+// check.
 #include <vector>
 #include "ascii_string.h"
 
@@ -183,11 +192,15 @@ public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	Player *getControllingPlayer() const;
+	bool isEffectivelyDead() const { return (m_privateStatus & EFFECTIVELY_DEAD) != 0; }
 private:
+	enum { EFFECTIVELY_DEAD = 0x01 };
 	void *m_vtbl;
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad08[0x254 - 0x08];
 	BodyModuleInterface *m_body; // +0x254
+	unsigned char m_pad258[0x438 - 0x258];
+	unsigned char m_privateStatus; // +0x438
 };
 
 extern GameLogic *TheGameLogic;
@@ -335,6 +348,7 @@ protected:
 	bool evaluateBuiltByPlayer(Condition *, Parameter *, Parameter *);
 	bool evaluatePlayerUnitCondition(Condition *, Parameter *, Parameter *, Parameter *, Parameter *);
 	bool evaluatePlayerLostObjectType(Parameter *, Parameter *);
+	bool evaluateNamedDestroyedByType(Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -600,4 +614,36 @@ bool ScriptConditions::evaluatePlayerLostObjectType(Parameter *pPlayerParm, Para
 		}
 	}
 	return false;
+}
+bool ScriptConditions::evaluateNamedDestroyedByType(Parameter *pUnitParm, Parameter *pTypeParm)
+{
+	Object *theObj = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!theObj) {
+		return false;
+	}
+
+	BodyModuleInterface *theBodyModule = theObj->getBodyModule();
+	if (!theBodyModule) {
+		return false;
+	}
+
+	const DamageInfo *lastDamageInfo = theBodyModule->getLastDamageInfo();
+
+	if (!lastDamageInfo) {
+		return false;
+	}
+
+	if (!theObj->isEffectivelyDead()) {
+		return false;
+	}
+
+	ObjectID id = lastDamageInfo->in.m_sourceID;
+	Object *pAttacker = TheGameLogic->findObjectByID(id);
+	if (!pAttacker || !pAttacker->getTemplate()) {
+		return false;
+	}
+
+	ObjectTypesTemp types;
+	Script_objectTypesFromParam(pTypeParm, types.m_types);
+	return types.m_types->isInSet(pAttacker->getTemplate()->getName());
 }
