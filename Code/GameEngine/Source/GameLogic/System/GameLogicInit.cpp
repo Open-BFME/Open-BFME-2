@@ -448,6 +448,8 @@ struct Rva0024622FEntry
 class GameMessage;
 class BfmeThingEC;
 struct Rva00241529Record;
+struct PlayerLeaveStatus;
+class PlayerTemplate;
 
 enum KindOfType
 {
@@ -503,6 +505,7 @@ public:
 	void rva00241529(unsigned int crc, int player, unsigned int frame, GameMessage *message,
 		bool forced, BfmeThingEC *stream);
 	void rva0023F8DA(void);
+	PlayerLeaveStatus *getPlayerLeaveStatus(int playerIndex);
 	void rva002401DD(BfmeThingEC *stream, unsigned int frame, int player);
 
 	Object *getFirstObject(void) const { return m_objList; }
@@ -528,7 +531,10 @@ public:
 	Rva00241529Record *m_48;
 	IntList::iterator m_4c;
 	IntList m_50;
-	char m_pad054[0x6d - 0x54];
+	char m_pad054[0x58 - 0x54];
+	_STL::vector<AsciiString> m_58;
+	char m_pad064[0x6c - 0x64];
+	bool m_6c;
 	bool m_6d;
 	char m_pad06E[0x70 - 0x6e];
 	bool m_70;
@@ -1436,12 +1442,18 @@ public:
 
 	char m_pad00[0x8];
 	Rva003805BB m_skillPoints;
-	char m_pad24[0x54 - 0x24];
+	char m_pad24[0x34 - 0x24];
+	PlayerTemplate *m_34;
+	char m_pad38[0x54 - 0x38];
 	int m_playerIndex;                                                   // +0x54
 	char m_pad58[0x5c - 0x58];
 	PlayerType m_playerType;
 	char m_pad60[0x2ec - 0x60];
 	Team *m_defaultTeam;
+	char m_pad2F0[0x3bc - 0x2f0];
+	int m_3bc;
+	char m_pad3C0[0x4ac - 0x3c0];
+	int m_4ac;
 };
 
 enum NameKeyType
@@ -3778,5 +3790,74 @@ void GameLogic::rva00241529(unsigned int crc, int player, unsigned int frame, Ga
 		else
 			m_48 = entry->next;
 		delete entry;
+	}
+}
+
+// ?rva0023F8DA@GameLogic@@QAEXXZ @0x0023F8DA 484B (Ghidra FUN_0063f8da, ret at
+// 0x0023FABD). Called by the CRC vote above (0x00241671) and 0x00377A14.
+// Donor: BFME 1 bfme_appendGameOverDetails (b1 0x00387A50, banked 0.99 in
+// Open-BFME-1 attempt history): once per game, append a "Game Over Details"
+// block to the last line of the string vector at this+0x58, one line per
+// slot from its PlayerLeaveStatus. Target deltas: the vector and its done flag
+// (+0x6C) sit 4 bytes later, the leave-status accessor is out of line
+// (0x0023D1E3), the player template pointer is Player+0x34, the address check
+// is Player+0x3BC and the quit frame is stored at Player+0x4AC.
+struct PlayerLeaveStatus
+{
+	int m_status;
+	int m_quitFrame;
+	int m_defeatFrame;
+	int m_victoryFrame;
+	bool m_notPresent;
+	unsigned char m_unknown11[3];
+	int m_isHuman;
+	AsciiString m_playerName;
+};
+
+// Inside the 0x009FE7A8 data block: the last formatted player template name.
+extern char g_Va00DFE840[];
+extern "C" __declspec(dllimport) __declspec(nothrow) int __cdecl sprintf(char *buffer, const char *format, ...);
+
+void GameLogic::rva0023F8DA(void)
+{
+	if (m_6c || m_58.size() == 0)
+		return;
+	AsciiString *last = &m_58[m_58.size() - 1];
+	if (!last)
+		return;
+	m_6c = true;
+	AsciiString line;
+	*last += "    Game Over Details:\n";
+	for (int i = 0; i < 8; ++i)
+	{
+		PlayerLeaveStatus *info = getPlayerLeaveStatus(i);
+		if (info)
+		{
+			Player *player = ThePlayerList->getNthPlayer(i);
+			if (player && &player->m_3bc && player->m_34)
+			{
+				sprintf(g_Va00DFE840, "%s", player->m_34->getName().str());
+				player->m_4ac = info->m_quitFrame;
+			}
+			AsciiString reason;
+			switch (info->m_status)
+			{
+				case 0: reason.format("n/a"); break;
+				case 1: reason.format("graceful"); break;
+				case 2: reason.format("voted out"); break;
+				default: reason.format("unknown"); break;
+			}
+			if (info->m_victoryFrame)
+				line.format("      Slot %d: Victory frame: %d, Quit frame: %d(%s)\n", i, info->m_victoryFrame, info->m_quitFrame, reason.str());
+			else if (info->m_defeatFrame)
+				line.format("      Slot %d: Defeat frame: %d, Quit frame: %d(%s)\n", i, info->m_defeatFrame, info->m_quitFrame, reason.str());
+			else if (info->m_notPresent)
+				line.format("      Slot %d: n/a\n", i);
+			else
+				line.format("      Slot %d: Present at final frame\n", i);
+		}
+		else
+			line.format("      Slot %d: PlayerLeaveStatus does not exist.\n", i);
+		*last += line;
 	}
 }
