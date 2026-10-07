@@ -67,3 +67,37 @@ template class _STL::list<AsciiString, _STL::allocator<AsciiString> >;
 
 // Retail comparison spelling names the verified worker at RVA 0x69D6.
 #pragma comment(linker, "/alternatename:?compare@AsciiString@@QBEHABV1@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z")
+
+class Rva001FD42B
+{
+public:
+	~Rva001FD42B();
+};
+
+class Rva001FD85E
+{
+public:
+	void rva001FD85E();
+};
+
+void Rva001FD85E::rva001FD85E()
+{
+	((Rva001FD42B *)this)->~Rva001FD42B();
+}
+
+class Rva001FD458
+{
+public:
+	~Rva001FD458();
+};
+
+class Rva001FD863
+{
+public:
+	void rva001FD863();
+};
+
+void Rva001FD863::rva001FD863()
+{
+	((Rva001FD458 *)this)->~Rva001FD458();
+}
