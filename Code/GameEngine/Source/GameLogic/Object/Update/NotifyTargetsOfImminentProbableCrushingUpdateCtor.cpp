@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
 //
 // ??0NotifyTargetsOfImminentProbableCrushingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00253E64, 40 bytes. Behavior-side ctor completing the
@@ -44,4 +44,33 @@ NotifyTargetsOfImminentProbableCrushingUpdate::NotifyTargetsOfImminentProbableCr
 	*(unsigned int *)this = ((unsigned int)vtbl_00BF186C);
 	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)vtbl_00BEFF90);
 	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)vtbl_00BF1860);
+}
+
+// Native list merge4CEB14 calls this comparator; sort4CEB76 calls that
+// merge, and wrapper4CED15 calls the sort. The wrapper's caller4CEDB8 is
+// adjacent to the module update4CEE1A, which suggests this subsystem home.
+// Native origin0/4 and input positions38/3C prove squared-distance ordering;
+// the original comparator class name and module association remain uncertain.
+struct Rva004CEAB7Position { char pad[0x38]; float x,y; };
+class Rva004CEAB7 {
+public:
+ bool rva004CEAB7(void *,void *);
+ float x,y,z;
+};
+bool Rva004CEAB7::rva004CEAB7(void *a,void *b)
+{
+ const Rva004CEAB7Position *left=(const Rva004CEAB7Position *)a;
+ const Rva004CEAB7Position *right=(const Rva004CEAB7Position *)b;
+ float centerX=x;
+ float centerY=y;
+ float otherX=centerX;
+ float otherY=centerY;
+ centerY-=left->y;
+ centerX-=left->x;
+ otherX-=right->x;
+ otherY-=right->y;
+ float len1=centerY*centerY+centerX*centerX;
+ float len2=otherY*otherY+otherX*otherX;
+ if (len1<len2) return true;
+ return false;
 }
