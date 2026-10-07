@@ -43,6 +43,7 @@ class Radar
 public:
 	void findDrawPositions(Int startX, Int startY, Int width, Int height,
 		ICoord2D *ul, ICoord2D *lr);
+	void rva002D790A(Real *widthRatio, Real *heightRatio);
 
 private:
 	char m_pad[0x1430];
@@ -83,4 +84,23 @@ void Radar::findDrawPositions(Int startX, Int startY, Int width, Int height,
 	ul->y += startY;
 	lr->x += startX;
 	lr->y += startY;
+}
+
+// ?rva002D790A@Radar@@QAEXPAM0@Z @0x002D790A 146B
+// Target evidence: reads Radar extent fields at +0x1434..+0x1444, compares
+// width and height, and writes two output ratios. Radar identity is inferred
+// from the shared extent layout in this TU and neighboring Radar methods.
+void Radar::rva002D790A(Real *widthRatio, Real *heightRatio)
+{
+	Real width = m_extent.maxX - m_extent.minX;
+	Real height = m_extent.maxY - m_extent.minY;
+	if (width > height) {
+		*widthRatio = 1.0f;
+		*heightRatio = (m_extent.maxY - m_extent.minY) /
+			(m_extent.maxX - m_extent.minX);
+	} else {
+		*heightRatio = 1.0f;
+		*widthRatio = (m_extent.maxX - m_extent.minX) /
+			(m_extent.maxY - m_extent.minY);
+	}
 }
