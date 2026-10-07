@@ -1,33 +1,36 @@
 // cl: /O1 /DNDEBUG /MD /DWIN32 /D_WINDOWS
 //
 // ?rva002B3D81@@YAHXZ @0x002B3D81 35B. Global int query: gate on
-// pinned rva002B2BAA then on g_Rva00E02EEC (pinned LANGameInfo*),
+// pinned rva002B2BAA then on ((LANGameInfo *)TheGameInfo) (pinned LANGameInfo*),
 // returning 0x7FFFFFFF on either miss, else +0x78 times
-// g_00DBA4E8 (FramesPerSecond, signed imul).
+// g_Va00DBA4E4 (FramesPerSecond, signed imul).
 //
 // Target evidence (game.dat, read-only, capstone): frameless global
 // (no this); the two misses share one mov-eax-ret tail; pinned names
 // supply the callee and the globals. Identities unproven: honest
 // address-derived names.
 bool rva002B2BAA();
-extern int g_00DBA4E8;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+extern int g_Va00DBA4E4;
 
 struct LANGameInfo
 {
 	unsigned char m_pad00[0x78];
 	int m_78;
 };
-extern LANGameInfo *g_Rva00E02EEC;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class GameInfo;
+extern GameInfo *TheGameInfo;
 
 // ?rva002B3D81@@YAHXZ
 int rva002B3D81()
 {
 	if (!rva002B2BAA())
 		return 0x7FFFFFFF;
-	LANGameInfo *p = g_Rva00E02EEC;
+	LANGameInfo *p = ((LANGameInfo *)TheGameInfo);
 	if (p == 0)
 		return 0x7FFFFFFF;
-	return p->m_78 * g_00DBA4E8;
+	return p->m_78 * g_Va00DBA4E4;
 }
 
 class Rva002B3DB2
