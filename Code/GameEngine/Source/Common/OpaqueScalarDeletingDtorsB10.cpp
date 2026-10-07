@@ -8,7 +8,10 @@
 // Each destructor is declared, not defined, so the call resolves to its pin
 // in reverse/symbols.csv; the dummy tag constructors (no retail counterpart)
 // only make this TU emit each vtable and with it the deleting destructor.
-// Owner identities are not recovered, and these declarations model no layout
+// Rva0043B660 is the exception: its default constructor at 0x0043B6D7 is now
+// recovered in this TU and initializes the +4 tree member.
+// Other than the explicitly evidenced Rva0043B660 member view below, owner
+// identities remain unresolved and these declarations carry no layout claim
 // (docs/reconstruction/deleting-destructor-identity-audit.md).
 //
 //   wrapper     dtor        vtable#slot
@@ -34,6 +37,22 @@
 //   0x00488D1F  0x00488D3B  0x00C4B510#0
 
 #include "Common/Snapshot.h"
+
+namespace _STL
+{
+template <class T> struct less;
+template <class T> class allocator;
+template <class T, class Compare = less<T>, class Alloc = allocator<T> >
+class set
+{
+public:
+	set();
+
+private:
+	void *m_header;
+	unsigned int m_count;
+};
+}
 
 struct EmitVtableTag;
 
@@ -252,28 +271,41 @@ Rva0043A396::Rva0043A396(EmitVtableTag *)
 {
 }
 
-// The member's semantic identity is unresolved; its direct destructor call
-// and +4 placement are the only facts used here.
+// Target facts: Rva0043B660 constructs a member at +4 through the rowed
+// set constructor 0x0043B69C and destroys it through
+// 0x0043B4B4. The set element spelling/layout is carried from the verified
+// STLport transfer and remains donor inference.
+struct Rva0043B69CElement {
+	Rva0043B69CElement();
+	Rva0043B69CElement(const Rva0043B69CElement &);
+	~Rva0043B69CElement();
+	Rva0043B69CElement &operator=(const Rva0043B69CElement &);
+	char bytes[8];
+};
+bool operator<(const Rva0043B69CElement &, const Rva0043B69CElement &);
+
 class Rva0043B4B4
 {
 public:
 	~Rva0043B4B4();
 private:
-	void *m_payload;
+	_STL::set<Rva0043B69CElement> m_tree;
 };
 
 class Rva0043B660 : public Snapshot
 {
 public:
-	Rva0043B660(EmitVtableTag *);
+	Rva0043B660();
 public:
 	virtual ~Rva0043B660();
 private:
 	Rva0043B4B4 m_member04;
 };
 
-// ?<Rva0043B660::Rva0043B660> absent-from-retail
-Rva0043B660::Rva0043B660(EmitVtableTag *)
+// Target evidence: this vptr is the same one used by the rowed deleting
+// destructor at 0x0043B709; the direct +4 constructor call and matching +4
+// destructor call place this set member in Rva0043B660.
+Rva0043B660::Rva0043B660()
 {
 }
 
