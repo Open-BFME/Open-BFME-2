@@ -67893,3 +67893,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva005ED859@Rva005ED976@@QAEXHH@Z,,0x005ED859,8,Code/GameEngine/Source/GameClient/GUI/Rva005ED859.cpp,matched,offset four delegate thunk to landed unit count method
 ?rva005ED861@Rva005ED976@@QAEXH@Z,,0x005ED861,8,Code/GameEngine/Source/GameClient/GUI/Rva005ED859.cpp,matched,offset four delegate thunk to rowed player selection method
 ?rva005ED986@Rva005ED976@@QAEXHABVUnicodeString@@@Z,,0x005ED986,8,Code/GameEngine/Source/GameClient/GUI/Rva005ED859.cpp,matched,offset four delegate thunk to rowed player name method
+?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z,,0x0037EDC6,26,Code/GameEngine/Source/Common/Rva0037E421Accessor.cpp,matched,gap leaf plus rowed 0x0037E421 plus pin 0x0037EBEA plus 0x10

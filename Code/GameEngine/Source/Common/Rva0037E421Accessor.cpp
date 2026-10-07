@@ -12,7 +12,8 @@ static __forceinline unsigned VecSize(Vec216 *v) { return v->m_finish - v->m_sta
 static __forceinline Elem216 &VecAt(Vec216 *v, int i) { return v->m_start[i]; }
 class Player;
 class Object;
-class UnitRevivalEntry { public: void *getThingTemplate(); int revivalEntryCalcTimeToBuild(const Player *player, Object *producer); };
+class Image;
+class UnitRevivalEntry { public: void *getThingTemplate(); int revivalEntryCalcTimeToBuild(const Player *player, Object *producer); const Image *calcButtonImage(int value); };
 class Rva0037E421 {
     int m_00;
     Vec216 m_vec;
@@ -153,4 +154,25 @@ int Rva0037E787::rva0037E787(void *extra, void *object)
     if (!entry)
         return 0;
     return ((UnitRevivalEntry *)entry)->revivalEntryCalcTimeToBuild(m_10, (Object *)object);
+}
+// ?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z @0x0037EDC6 26B
+// Leaf body between 0x0037EBEA calcButtonImage and 0x0037EDE0 productionSystem.
+// Entry lookup via Rva0037E421::rva0037E421 then UnitRevivalEntry::
+// calcButtonImage with this+0x10 value. Same +0x10 Int layout as
+// UnitRevivalTracker::productionSystemQueueCreateUnit in UnitRevivalTracker.cpp
+// which passes m_10 to calcButtonImage. Callees rowed 0x0037E421 plus pin
+// 0x0037EBEA. Honest-address name: owner unknown so Rva0037EDC6 class,
+// const Image* return, int index.
+class Rva0037EDC6 : public Rva0037E421
+{
+public:
+    int m_10;
+    const Image *rva0037EDC6(int index);
+};
+const Image *Rva0037EDC6::rva0037EDC6(int index)
+{
+    void *entry = rva0037E421(index);
+    if (!entry)
+        return 0;
+    return ((UnitRevivalEntry *)entry)->calcButtonImage(m_10);
 }
