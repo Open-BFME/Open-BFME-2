@@ -11201,7 +11201,6 @@ name,address,notes
 ?rva001538A8@Rva001538A8@@QAEPAXXZ,0x001538A8,"builder: zeroes +0, inits +4 via import 0xA29512, returns this; inits 0x153EE5 scratch"
 ?rva00153E6F@Rva00153E6F@@QAEXHURva00153EE5Tmp@@@Z,0x00153E6F,"118B EH grower true signature (int plus by-value 84B scratch); 0x153EE5 passes it in place"
 ?rva00154FD0@Rva00154FD0@@QAEXXZ,0x00154FD0,"thiscall setup, no args; first call of 0x155AD0 with ecx=this"
-?rva0015D5B0@MeshMatDescClass@@QAEXH@Z,0x0015D5B0,thiscall (int); called from 0x199FA5 with (0)
 ?rva0016801A@Rva0016801A@@QAEPAXH@Z,0x0016801A,"init builder (vtab BD41AC, conditional 0x167F88); called from 0x1683A7 with (this,n), reads second slot in place"
 ?rva00170B4E@Rva00170BFF@@QAEPAXABVRva00170999@@@Z,0x00170B4E,"member spelling of the 34B node buy already rowed at this address as free ?Rva00170B4EBuynode@@YGPAXABVRva00170999@@@Z; both buy call sites in insert 0x00170BFF at 0x00170C27 and 0x00170C40 load ecx from edi first, and the 0x00170E6B caller passes ecx too, so the member shape is what retail emits; the callee own ret 4 shows it consumes no ECX parameter so the body is identical either way"
 ?rva00170BFF@Rva00170BFF@@QAE?AURva00170EFEIter@@PAURva00170EFENode@@0ABVRva00170999@@0@Z,0x00170BFF,Direct calls from 0x00170EFE pass the hidden iterator result slot plus x y value and w to this 136-byte insertion worker; its observed ret 0x14 agrees with that ABI. Address-derived class view; original type identity unknown

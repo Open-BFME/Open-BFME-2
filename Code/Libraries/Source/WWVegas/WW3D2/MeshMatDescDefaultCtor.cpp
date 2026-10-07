@@ -36,6 +36,7 @@ public:
 template <class T> class RefCountPtr {
 public:
     RefCountPtr() : Referent(0) {}
+    RefCountPtr(T *p) : Referent(p) { if (Referent) Referent->Add_Ref(); }
     RefCountPtr &operator=(const RefCountPtr &that) {
         if (that.Referent) that.Referent->Add_Ref();
         if (Referent) Referent->Release_Ref();
@@ -43,7 +44,7 @@ public:
         return *this;
     }
     T *Get() const { return Referent; }
-    ~RefCountPtr() { if (Referent) { Referent->Release_Ref(); Referent = 0; } }
+    ~RefCountPtr() { if (Referent) Referent->Release_Ref(); }
     void Clear() { if (Referent) { Referent->Release_Ref(); Referent = 0; } }
 private:
     T *Referent;
@@ -110,9 +111,15 @@ public:
     ~MeshMatDescRendererState();
     MeshMatDescRendererState &operator=(const MeshMatDescRendererState &that);
 private:
+    friend class MeshMatDescClass;
+    void Set_Material(VertexMaterialClass *material) {
+        if (material) material->Add_Ref();
+        if (OwnedRef0C) OwnedRef0C->Release_Ref();
+        OwnedRef0C = material;
+    }
     RefCountPtr<TextureClass> Textures[2];
-    unsigned Unknown08;
-    RefCountClass *OwnedRef0C;
+    ShaderClass Unknown08;
+    VertexMaterialClass *OwnedRef0C;
 };
 typedef char RendererStateSize16[(sizeof(MeshMatDescRendererState) == 16) ? 1 : -1];
 
@@ -142,12 +149,24 @@ MeshMatDescRendererState::~MeshMatDescRendererState()
     }
 }
 
+class MeshMatDescClass;
+static void Set_Single_Material(MeshMatDescClass &desc, VertexMaterialClass *vmat, int pass);
+static void Set_Single_Texture(MeshMatDescClass &desc, const RefCountPtr<TextureClass> &tex, int pass, int stage);
+static void Set_Single_Shader(MeshMatDescClass &desc, ShaderClass shader, int pass);
+
 class MeshMatDescClass {
 public:
     MeshMatDescClass();
     bool Is_Empty();
     MeshMatDescClass(const MeshMatDescClass &that);
     MeshMatDescClass &operator=(const MeshMatDescClass &that);
+    RefCountPtr<TextureClass> Get_Single_Texture(int pass, int stage) const;
+    ShaderClass Get_Single_Shader(int pass = 0) const { return Shader[pass]; }
+    VertexMaterialClass *Peek_Single_Material(int pass = 0) const { return Material[pass]; }
+    void Store_Pass0_State(bool store);
+    friend void ::Set_Single_Material(MeshMatDescClass &desc, VertexMaterialClass *vmat, int pass);
+    friend void ::Set_Single_Texture(MeshMatDescClass &desc, const RefCountPtr<TextureClass> &tex, int pass, int stage);
+    friend void ::Set_Single_Shader(MeshMatDescClass &desc, ShaderClass shader, int pass);
 private:
     enum { MAX_PASSES = 4, MAX_TEX_STAGES = 2, MAX_UV_ARRAYS = 8 };
     int PassCount, VertexCount, PolyCount;
@@ -211,6 +230,55 @@ MeshMatDescClass::MeshMatDescClass(const MeshMatDescClass &that) : PassCount(1),
     }
     // copy
     *this = that;
+}
+
+extern ShaderClass NullShader;
+
+// meshmatdesc.cpp defines Set_Single_Material, Set_Single_Shader and
+// Set_Single_Texture ahead of this body and retail inlines all three here.
+// These TU-local copies keep their bodies without a second external
+// definition of the names meshmatdesc.cpp and MeshMatDescTextureSetters.cpp own.
+static inline void Set_Single_Material(MeshMatDescClass &desc, VertexMaterialClass *vmat, int pass)
+{
+    if (vmat) vmat->Add_Ref();
+    if (desc.Material[pass]) desc.Material[pass]->Release_Ref();
+    desc.Material[pass] = vmat;
+}
+static inline void Set_Single_Texture(MeshMatDescClass &desc, const RefCountPtr<TextureClass> &tex, int pass, int stage)
+{
+    desc.Texture[pass][stage] = tex;
+}
+static inline void Set_Single_Shader(MeshMatDescClass &desc, ShaderClass shader, int pass)
+{
+    desc.Shader[pass] = shader;
+}
+
+
+// Neutral name; no reference source has this body. True moves the pass-0
+// material, shader and both stage textures into a fresh state at +0x0C and
+// leaves the pass with NullShader; false puts them back and frees the state.
+// 0x199FA5 restores with false after clearing the +0xB8 pass reference.
+void MeshMatDescClass::Store_Pass0_State(bool store) {
+    if (store == (RendererState != 0)) return;
+    if (store) {
+        RendererState = new MeshMatDescRendererState;
+        RendererState->Set_Material(Peek_Single_Material());
+        Set_Single_Material(*this, 0, 0);
+        RendererState->Unknown08 = Get_Single_Shader(0);
+        Set_Single_Shader(*this, NullShader, 0);
+        for (int stage = 0; stage < MAX_TEX_STAGES; ++stage) {
+            RendererState->Textures[stage] = Get_Single_Texture(0, stage);
+            Set_Single_Texture(*this, 0, 0, stage);
+        }
+    } else {
+        Set_Single_Material(*this, RendererState->OwnedRef0C, 0);
+        Set_Single_Shader(*this, RendererState->Unknown08, 0);
+        for (int stage = 0; stage < MAX_TEX_STAGES; ++stage) {
+            Set_Single_Texture(*this, RendererState->Textures[stage], 0, stage);
+        }
+        delete RendererState;
+        RendererState = 0;
+    }
 }
 
 // BFME1 meshmatdesc.cpp operator= with the BFME2 members: the +0xB8 single

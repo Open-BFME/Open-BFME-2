@@ -201,6 +201,7 @@ void MaterialRemapperClass::Remap_Mesh(const MeshMatDescClass *src, MeshMatDescC
 
 // Existing providers use the RefCountPtr spelling for the same one-pointer
 // owning return ABI. Native calls at 0x16F35C and in the single-texture arm
-// bind these operations to those byte-verified providers.
+// bind these operations to those byte-verified providers. ZH's single-texture
+// arm calls Peek_Single_Texture, the header inline whose /O1 copy is D2026.
 #pragma comment(linker, "/alternatename:?Get_Texture@MeshMatDescClass@@QBE?AVBfmeHandleCX@@HHH@Z=?Get_Texture@MeshMatDescClass@@QBE?AV?$RefCountPtr@VTextureClass@@@@HHH@Z")
-#pragma comment(linker, "/alternatename:?Get_Single_Texture@MeshMatDescClass@@QBE?AVBfmeHandleCX@@HH@Z=?Get_Single_Texture@MeshMatDescClass@@QBE?AV?$RefCountPtr@VTextureClass@@@@HH@Z")
+#pragma comment(linker, "/alternatename:?Get_Single_Texture@MeshMatDescClass@@QBE?AVBfmeHandleCX@@HH@Z=?Peek_Single_Texture@MeshMatDescClass@@QBE?AV?$RefCountPtr@VTextureClass@@@@HH@Z")
