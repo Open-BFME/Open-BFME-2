@@ -1,5 +1,3 @@
-// ?rva00368C7A@Rva00368C7A@@QAEXMPBUCoord3D@@H@Z
-// partial score=0.96 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /Oy- /DNDEBUG /MD /ICode/Libraries/Include/Lib
 // Native 00368C7A..00368D12, 152B, RET12. The receiver's object at +08
 // supplies its position Z at +40, matching the rowed Thing height setter.
@@ -24,7 +22,7 @@ class Rva00368C7A
 {
 public:
 	void rva00368C7A(float amount, const Coord3D *position, int argument);
-	int rva00368B51(float amount, int argument);
+	int rva00368B51(float amount, bool argument);
 	void rva003681F2(const Coord3D *position, const unsigned char *mask, int a, int b);
 private:
 	char unknown00[8];
@@ -38,7 +36,10 @@ void Rva00368C7A::rva00368C7A(float amount, const Coord3D *position, int argumen
 	int state = rva00368B51(amount, 0);
 	if (state != 0) {
 		Coord3D point;
-		point = *(position ? position : &previous);
+		if (position)
+			point = *position;
+		else
+			point = previous;
 		if (state == 1) {
 			reinterpret_cast<Rva0030A92C *>(object)->rva0030A92C(object->position.z + 5.0f);
 			rva003681F2(&point, g_00E01EC4, 0, argument);
