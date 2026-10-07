@@ -9,9 +9,8 @@
 //   trailing argument, which this call passes as 0 (see the
 //   FlammableUpdateDtor.cpp view).
 // - GameLogic's frame counter is at +0x40.
-// - Drawable's instance matrix is at +0x1A0. The ZH setInstanceMatrix call
-//   goes to 0x002711C6 (ret 8: a trailing byte flag, passed as 0), which saves
-//   that matrix to +0x170 before taking the new one.
+// - Drawable's instance matrix is at +0x1A0. setInstanceMatrix is the rowed
+//   two-argument 0x002711C6; preservePrevious is false here.
 // update is slot 0 of FloatUpdate's UpdateModuleInterface vftable; m_enabled
 // is at +0x20 (the rowed ctor 0x0048D7C4 copies it from the module data).
 #include <math.h>
@@ -150,8 +149,8 @@ class Drawable
 {
 public:
 	const Matrix3D *getInstanceMatrix() const { return &m_instance; }
-	// ZH setInstanceMatrix; BFME 2 adds a byte flag (0 here).
-	void rva002711C6(const Matrix3D *instance, Bool flag = false);
+	// BFME 2's setInstanceMatrix (0x002711C6) adds preservePrevious.
+	void setInstanceMatrix(const Matrix3D *instance, Bool preservePrevious);
 
 private:
 	char m_unknown000[0x1A0];
@@ -282,7 +281,7 @@ UpdateSleepTime FloatUpdate::update( void )
 		mx.Rotate_Y(yaw);
 		mx.Rotate_X(pitch);
 
-		draw->rva002711C6(&mx);
+		draw->setInstanceMatrix(&mx, false);
 	}
 
 	return UPDATE_SLEEP_NONE;
