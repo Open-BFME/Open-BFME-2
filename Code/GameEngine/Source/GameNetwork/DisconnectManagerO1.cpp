@@ -201,6 +201,26 @@ void DisconnectManager::init() {
 	*(UnsignedByte *)((char *)this + 0x270) = 0;
 }
 
+// Zero Hour's translatedSlotPosition / untranslatedSlotPosition. BFME 2 calls
+// both with no `this` and cleans their two stack arguments itself (cdecl), so
+// they are free functions here under their ledger names. They must be DEFINED
+// in this unit: MSVC 7.1 /O1 cleans a call to a cdecl function it has only
+// declared with `pop ecx` twice, but with `add esp,8` once it has seen the
+// body, and every retail call to 0x004D39DE / 0x004D39F0 uses `add esp,8`.
+int Rva004D39DEGet(int a, int b)
+{
+	return (a < b) ? a : ((a == b) ? -1 : a - 1);
+}
+
+int rva0066b3e0(int a, int b)
+{
+	if (a == -1)
+		return b;
+	if (a >= b)
+		a++;
+	return a;
+}
+
 
 // BFME does NOT translate the slot here: it votes, sends and applies against the
 // slot it was handed, where the reference copy first maps it through
@@ -461,4 +481,21 @@ Int BFMEDisconnectManager::rva004D3E93(Int excludedSlot, ConnectionManager *conM
 		++count;
 	}
 	return count;
+}
+
+// Open-BFME-1's isPlayerVotedOut: a slot of -1 is never voted out; otherwise
+// the untranslated slot's vote count (0x004D3BD7) is compared against the
+// count rva004D3E93 returns for it, which stands where the donor asks
+// getVotesNeededToKick. Retail isPlayerInGame (0x004D3F1B) calls this between
+// its connection and timeout tests, the donor's order.
+Bool DisconnectManager::isPlayerVotedOut(Int slot, ConnectionManager *conMgr) {
+	if (slot == -1) {
+		return FALSE;
+	}
+	Int transSlot = rva0066b3e0(slot, conMgr->getLocalPlayerID());
+	Int numVotes = countVotesForPlayer(transSlot, conMgr);
+	if (numVotes >= ((BFMEDisconnectManager *)this)->rva004D3E93(transSlot, conMgr)) {
+		return TRUE;
+	}
+	return FALSE;
 }

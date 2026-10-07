@@ -9533,7 +9533,6 @@ _Rva009BD470Vp6FilterSse,,0x001CDD70,253,Code/GameEngine/Source/Common/BfmeConv9
 ?set@Rva007F0210@@QAEAAV1@HH@Z,,0x0065D090,25,Code/GameEngine/Source/Common/Rva007F0210Set.cpp,matched,BFME1 donor b1 0x007F0210; table addr differs so modeled as pointer to TU-local dummy
 ?set@Rva00160620@@QAEXPAPAV1@@Z,,0x004EF35C,23,Code/GameEngine/Source/Common/Rva00160620Set.cpp,matched,BFME1 byte-identical donor; b1 0x00160620
 ?isReady@Rva007F57C0ThresholdPredicate@@QBEHXZ,,0x00661F70,22,Code/GameEngine/Source/Common/Rva007F57C0ThresholdPredicate.cpp,matched,BFME1 byte-identical donor; b1 0x007F57C0
-?rva0066b3e0@@YAHHH@Z,,0x004D39F0,22,Code/GameEngine/Source/Common/Rva0066B3E0Adj.cpp,matched,BFME1 byte-identical donor; b1 0x0066B3E0
 ?set@Rva0026E4A0@@QAEAAV1@PAV1@@Z,,0x00262161,21,Code/GameEngine/Source/Common/Rva0026E4A0Set.cpp,matched,BFME1 byte-identical donor; b1 0x0026E4A0
 ?assign@Rva00427A70@@QAEPAXPAPAX@Z,,0x005E7184,20,Code/GameEngine/Source/Common/Bfme/Rva00427A70_assign.cpp,matched,BFME1 byte-identical donor; b1 0x00427A70
 ?get@Rva007E9CE0@@QAEPAURva007E9CE0Cached@@XZ,,0x00656C90,56,Code/GameEngine/Source/Common/Q3LazyCachedAccessor.cpp,matched,BFME1 byte-identical donor; b1 0x007E9CE0
@@ -39082,7 +39081,6 @@ _atan2f,,0x000422CD,25,Code/GameEngine/Source/Common/Rva000422A0.cpp,matched,cha
 ?rva00357D52@ScriptEngine@@QAEXABVAsciiString@@@Z,,0x00357D52,52,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357D52.cpp,matched,ScriptEngine CRC-keyed BfmeStringRecord vector removal
 ?Rva00405337Clear@@YAXPAX0@Z,,0x00405337,25,Code/GameEngine/Source/Common/Rva00405337Clear.cpp,matched,range clear 0x18 records via StringBase clear callers 0x40536A 0xC04EE
 ?Rva00438144Update@@YAXPBVObject@@PAE@Z,,0x00438144,34,Code/GameEngine/Source/Common/Rva00438144Update.cpp,matched,cached Object predicate via rowed rva0028C1CC no callers
-?Rva004D39DEGet@@YAHHH@Z,,0x004D39DE,18,Code/GameEngine/Source/Common/Rva004D39DEGet.cpp,matched,signed cmp helper 12 callers 11 unblocks
 ?rva004D3CA8@DisconnectManager@@QAEXPAXPAVConnectionManager@@@Z,,0x004D3CA8,48,Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp,matched,DisconnectManager helper via Get plus reset plus localID
 ?Rva000518E0Thunk@@YGXPAX@Z,,0x000518E0,12,Code/GameEngine/Source/Common/Rva000518E0Thunk.cpp,matched,thunk to vtable slot 2 5 callers pin handle not used
 ?rva000514EB@Rva000514EB@@QAEXXZ,,0x000514EB,16,Code/GameEngine/Source/Common/Rva000514EBDec.cpp,matched,guarded dec 0x684 3 callers 3 unblocks
@@ -68388,3 +68386,6 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva00556730@Rva00555BD5StatsQueue@@QAE?AVRva00385333@@H@Z,,0x00556730,161,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp,matched,tournament stats query method of Rva00555BD5StatsQueue; sibling of rva00555BD5 and rva00555C76
 ?rva004D01D5@ConnectionManager@@QAEXPAVCreateAHeroData@@HGE@Z,,0x004D01D5,289,Code/GameEngine/Source/GameNetwork/ConnectionManager_heroData.cpp,matched,BFME2 hero-data sender (type-20 command) reached from Network vtable 0xBF6040 slot 34 via jmp 0x25DC59; XferSave over the heroString memory stream inside catch-all; includes funclet 0x4D02F0 formerly rowed as a const-int getter
 ?sendDisconnectChat@ConnectionManager@@QAEXVUnicodeString@@@Z,,0x004D187B,172,Code/GameEngine/Source/GameNetwork/ConnectionManager_sendChat.cpp,matched,ZH ConnectionManager::sendDisconnectChat as written; type-13 command ctor 0x4D60CA; called from Network::sendDisconnectChat 0x25E2E3; echoed through processDisconnectChat 0x4D1023
+?Rva004D39DEGet@@YAHHH@Z,,0x004D39DE,18,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp,matched,ZH translatedSlotPosition as a cdecl free function; rehomed into the DisconnectManagerO1 unit so its callers see the body and clean with add esp 8 as retail does
+?rva0066b3e0@@YAHHH@Z,,0x004D39F0,22,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp,matched,ZH untranslatedSlotPosition as a cdecl free function (BFME1 byte-identical donor b1 0x0066B3E0); rehomed into the DisconnectManagerO1 unit so its callers clean with add esp 8 as retail does
+?isPlayerVotedOut@DisconnectManager@@IAE_NHPAVConnectionManager@@@Z,,0x004D3ECF,76,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp,matched,Open-BFME-1 isPlayerVotedOut (donor 6d94342) with rva004D3E93 in the getVotesNeededToKick call; identity from donor shape and its call between isPlayerConnected and the timeout test in retail 0x004D3F1B
