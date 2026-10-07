@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD
 //
 // ??0UntamedAllegianceSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C7B06, 42 bytes.
-// UntamedAllegianceSpecialPower behavior ctor over the pinned Rva00493C5A
+// UntamedAllegianceSpecialPower behavior ctor over the pinned SpecialPowerModule
 // intermediate base (0x493C5A, thing plus data): re-stores the primary
 // vtable slot and the +0x0C/+0x10 secondary slots (address-of TU-local
 // dummies, DIR32-masked). The rowed name getter at 0x4C7B4F proves the
@@ -15,12 +15,14 @@ static int s_vtable;
 static int s_secondary0C;
 static int s_secondary10;
 
-// Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class Rva00493C5A
+// Constructor-only view of the verified SpecialPowerModule base at RVA
+// 0x00493C5A (SpecialPowerModuleCtor.cpp). Retail calls pass this unchanged,
+// followed by Thing* and ModuleData*. Keep the already verified field view;
+// the explicit vptr member preserves the native store order.
+class SpecialPowerModule
 {
 public:
-	Rva00493C5A(Thing *thing, const ModuleData *moduleData);
+	SpecialPowerModule(Thing *thing, const ModuleData *moduleData);
 
 protected:
 	const void *m_vtable;
@@ -29,7 +31,7 @@ protected:
 	const void *m_p10;
 };
 
-class UntamedAllegianceSpecialPower : public Rva00493C5A
+class UntamedAllegianceSpecialPower : public SpecialPowerModule
 {
 public:
 	UntamedAllegianceSpecialPower(Thing *thing, const ModuleData *moduleData);
@@ -37,7 +39,7 @@ public:
 
 // ??0UntamedAllegianceSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z @0x4C7B06
 UntamedAllegianceSpecialPower::UntamedAllegianceSpecialPower(Thing *thing, const ModuleData *moduleData)
-	: Rva00493C5A(thing, moduleData)
+	: SpecialPowerModule(thing, moduleData)
 {
 	m_vtable = &s_vtable;
 	m_p0C = &s_secondary0C;

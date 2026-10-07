@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD
 //
 // ??0ScavengerSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C4353, 46 bytes.
-// ScavengerSpecialPower behavior ctor over the pinned Rva00493C5A
+// ScavengerSpecialPower behavior ctor over the pinned SpecialPowerModule
 // intermediate base (0x493C5A, thing plus data): re-stores the primary
 // vtable slot and the +0x0C/+0x10 secondary slots, then zeroes the byte at
 // +0x34 (address-of TU-local dummies, DIR32-masked). The rowed name getter
@@ -15,12 +15,14 @@ static int s_vtable;
 static int s_secondary0C;
 static int s_secondary10;
 
-// Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class Rva00493C5A
+// Constructor-only view of the verified SpecialPowerModule base at RVA
+// 0x00493C5A (SpecialPowerModuleCtor.cpp). Retail calls pass this unchanged,
+// followed by Thing* and ModuleData*. Keep the already verified field view;
+// the explicit vptr member preserves the native store order.
+class SpecialPowerModule
 {
 public:
-	Rva00493C5A(Thing *thing, const ModuleData *moduleData);
+	SpecialPowerModule(Thing *thing, const ModuleData *moduleData);
 
 protected:
 	const void *m_vtable;
@@ -30,7 +32,7 @@ protected:
 	unsigned char m_pad14[0x34 - 0x14];
 };
 
-class ScavengerSpecialPower : public Rva00493C5A
+class ScavengerSpecialPower : public SpecialPowerModule
 {
 public:
 	ScavengerSpecialPower(Thing *thing, const ModuleData *moduleData);
@@ -41,7 +43,7 @@ private:
 
 // ??0ScavengerSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z @0x4C4353
 ScavengerSpecialPower::ScavengerSpecialPower(Thing *thing, const ModuleData *moduleData)
-	: Rva00493C5A(thing, moduleData)
+	: SpecialPowerModule(thing, moduleData)
 {
 	m_vtable = &s_vtable;
 	m_p0C = &s_secondary0C;

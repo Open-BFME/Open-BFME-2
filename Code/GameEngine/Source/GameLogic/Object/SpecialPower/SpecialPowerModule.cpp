@@ -72,54 +72,10 @@
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ??0SpecialPowerModule@@QAE@PAVThing@@PBVModuleData@@@Z present-unmatched
-SpecialPowerModule::SpecialPowerModule( Thing *thing, const ModuleData *moduleData )
-									: BehaviorModule( thing, moduleData )
-{
-
-	m_availableOnFrame = 0;
-	m_pausedCount = 0;
-	m_pausedOnFrame = 0;
-	m_pausedPercent = 0.0f;
-
-	// we won't be able to use the power for X number of frames now
-
-	// if we're pre-built, start counting down
-	if( !getObject()->getStatusBits().test( OBJECT_STATUS_UNDER_CONSTRUCTION ) )
-	{
-		//A sharedNSync special only startPowerRecharges when first scienced or when executed,
-		//Since a new modue with same SPTemplates may construct at any time.
-		if ( getSpecialPowerTemplate()->isSharedNSync() == FALSE )
-			startPowerRecharge();
-	}
-	// WE USED TO DO THE POLL-EVERYBODY-AND-VOTE-ON-WHO-TO-SYNC-TO THING HERE,
-	// BUT NO MORE, NOW IT IS HANDLED IN PLAYER
-
-	// Some Special powers need to be activated by an Upgrade, so prevent the timer from going until then
-	const SpecialPowerModuleData *md = (const SpecialPowerModuleData *)moduleData;
-	if( md->m_startsPaused )
-		pauseCountdown( TRUE );
-	
-	resolveSpecialPower();
-
-	// Now, if we find that we have just come into being, 
-	// but there is already a science granted for our shared superweapon,
-	// lets make sure TheIngameUI knows about our public timer
-	// add this weapon to the UI if it has a public timer for all to see
-	if( m_pausedCount == 0 &&
-			getSpecialPowerTemplate()->isSharedNSync() == TRUE &&
-			getSpecialPowerTemplate()->hasPublicTimer() == TRUE &&
-			getObject()->getControllingPlayer() &&
-			getObject()->isKindOf( KINDOF_STRUCTURE ) )
-	{
-		TheInGameUI->addSuperweapon( getObject()->getControllingPlayer()->getPlayerIndex(), 
-																 getPowerName(), 
-																 getObject()->getID(), 
-																 getSpecialPowerModuleData()->m_specialPowerTemplate );
-	}
-
-
-}  // end SpecialPowerModule
+// The BFME2 constructor is defined and byte-verified in
+// SpecialPowerModuleCtor.cpp at RVA 0x00493C5A. The former Zero Hour
+// implementation here called resolveSpecialPower and omitted BFME2 fields;
+// its duplicate definition displaced the native provider at link time.
 
 //-------------------------------------------------------------------------------------------------
 // ?getInitiateSound@SpecialPowerModule@@UBEABVAudioEventRTS@@XZ present-unmatched
