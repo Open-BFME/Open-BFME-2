@@ -67816,3 +67816,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva002B3DB2@Rva002B3DB2@@QAEHXZ,,0x002B3DB2,30,Code/GameEngine/Source/Common/Rva002B3D81.cpp,matched,30B saturating remainder of rowed 0x2B3D81 limit over window
 ?rva00295FA9@Object@@QAEXPAV1@@Z,,0x00295FA9,188,Code/GameEngine/Source/GameLogic/Object/ObjectRva00295FA9.cpp,matched,Object containedBy-gated holder-entry float pair via rowed 0x28AC4E 0x1E48CF 0x1E415F plus pinned getRelationship 0x28D156 getCurrentWeapon 0x28AEBD Weapon 0x2CB933 plus banked 0x295A84; LogicFrames 0xDBA4E4; x87 float/dbl stack shapes
 ?rva002A9F35@Rva002A9F17@@QAEXPBX@Z,,0x002A9F35,30,Code/GameEngine/Source/Common/Rva002A9F17Fwd.cpp,matched,Sibling forwarder to 0x421292 via holder +0x318 when global 0xE03158 present; opaque second arg
+?rva002B26D0@Rva002B26D0@@QAEXPAVRva00318C79Owner@@PAXURvaFloatPair@@1@Z,,0x002B26D0,50,Code/GameEngine/Source/Common/Rva002B26D0.cpp,matched,
