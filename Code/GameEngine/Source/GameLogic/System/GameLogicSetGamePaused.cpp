@@ -18,9 +18,12 @@ public:
 	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);
 	bool rva0023CEE5();
 	void rva0023CF3F();
+	void rva0023D0E3(bool selfDestruct);
 
 private:
-	char m_pad[0x124];
+	char m_pad[0x110];
+	int m_gameMode; // +0x110
+	char m_pad114[0x124 - 0x114];
 	bool m_gamePaused; // +0x124
 	char m_pad125; // +0x125
 	bool m_inputEnabledMemory; // +0x126
@@ -49,6 +52,8 @@ public:
 	char m_pad[0x15];
 	bool m_inputEnabled; // +0x15
 	bool m_inputAllowed; // +0x16
+	char m_pad017[0x8C5 - 0x17];
+	bool m_clientQuiet; // +0x8C5
 };
 extern InGameUI *TheInGameUI;
 
@@ -182,4 +187,101 @@ void GameLogic::rva0023CF3F()
 			return;
 	}
 	m_150 = true;
+}
+
+class GameMessage
+{
+public:
+	void appendIntegerArgument(int arg);
+	void appendBooleanArgument(bool arg);
+};
+
+// MessageStreamSubsystem (0x00A00950); appendMessage is vslot 18.
+class MessageStream
+{
+public:
+	virtual void m00();
+	virtual void m01();
+	virtual void m02();
+	virtual void m03();
+	virtual void m04();
+	virtual void m05();
+	virtual void m06();
+	virtual void m07();
+	virtual void m08();
+	virtual void m09();
+	virtual void m10();
+	virtual void m11();
+	virtual void m12();
+	virtual void m13();
+	virtual void m14();
+	virtual void m15();
+	virtual void m16();
+	virtual void m17();
+	virtual GameMessage *appendMessage(int type);
+};
+extern MessageStream *MessageStreamSubsystem;
+
+// TheGameInfo (0x00A02EEC); vslot 20 is Zero Hour's isSandbox.
+class GameInfo
+{
+public:
+	virtual void g00();
+	virtual void g01();
+	virtual void g02();
+	virtual void g03();
+	virtual void g04();
+	virtual void g05();
+	virtual void g06();
+	virtual void g07();
+	virtual void g08();
+	virtual void g09();
+	virtual void g10();
+	virtual void g11();
+	virtual void g12();
+	virtual void g13();
+	virtual void g14();
+	virtual void g15();
+	virtual void g16();
+	virtual void g17();
+	virtual void g18();
+	virtual void g19();
+	virtual bool isSandbox();
+};
+extern GameInfo *TheGameInfo;
+
+// TheTerrainVisual (0x009FDC8C) and its rowed 0x001EB0B1.
+class Rva001EB0B1Holder
+{
+public:
+	void rva001EB0B1();
+};
+class W3DTerrainVisual;
+extern W3DTerrainVisual *TheTerrainVisual;
+
+// The living-world host (0x009FEF18): a war of the ring game.
+class Rva002D3627Host;
+extern Rva002D3627Host *g_00DFEF18;
+
+// Target 0x0023D0E3: Zero Hour QuitMenu.cpp's exitQuitMenu tail moved
+// onto GameLogic, as the quit menu's destructor (0x0051B15E) and restart
+// path call it on TheGameLogic. A self-destruct request (0x448) in a
+// multiplayer non-skirmish non-sandbox game, then the 0x001EB0B1 reset,
+// MSG_CLEAR_GAME_DATA (0x1D, argument 2 in a war of the ring game), the
+// unpause outside multiplayer and InGameUI's client-quiet byte. Name
+// unknown; the bool's purpose is inferred from the guarded message.
+void GameLogic::rva0023D0E3(bool selfDestruct)
+{
+	if (selfDestruct && isInMultiplayerGame() && m_gameMode != 2 && TheGameInfo && !TheGameInfo->isSandbox())
+	{
+		GameMessage *msg = MessageStreamSubsystem->appendMessage(0x448);
+		msg->appendBooleanArgument(true);
+	}
+	((Rva001EB0B1Holder *)TheTerrainVisual)->rva001EB0B1();
+	GameMessage *msg = MessageStreamSubsystem->appendMessage(0x1D);
+	if (g_00DFEF18)
+		msg->appendIntegerArgument(2);
+	if (!isInMultiplayerGame())
+		rva0023CD9E(false, 0, true);
+	TheInGameUI->m_clientQuiet = true;
 }
