@@ -540,15 +540,6 @@ void	Render2DClass::Add_Quad( const Vector2 & v0, const Vector2 & v1, const Vect
 	Internal_Add_Quad_Colors( color );
 }
 
-// ?Add_Quad@Render2DClass@@ present-unmatched
-void	Render2DClass::Add_Quad( const RectClass & screen, unsigned long color )
-{
-	Internal_Add_Quad_Indicies( Vertices.Count() );
-	Internal_Add_Quad_Vertices( screen );
-	Internal_Add_Quad_UVs( RectClass( 0,0,1,1 ) );
-	Internal_Add_Quad_Colors( color );
-}
-
 /*
 ** Add Tri
 */
@@ -938,4 +929,3 @@ Vector2	Render2DTextClass::Get_Text_Extents( const WCHAR * text )
 
 	return extent;
 }
-
