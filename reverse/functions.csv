@@ -66931,3 +66931,4 @@ _rva0062AF56D3DXVec3Transform@12,,0x0062AF56,6,Code/GameEngine/Source/Common/Rva
 ?buildDescription@?$BitFlags@$0GF@@@QBEXPAVAsciiString@@H@Z,,0x0045D908,114,Code/GameEngine/Source/Common/BitFlags101BodyStateGetSingleBitFromName.cpp,matched,101 BodyStateNames formatter; rowed 0x0028C753 lookup; BFME1 buildDescription family
 ??0Rva0043B660@@QAE@XZ,,0x0043B6D7,50,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp,matched,address-derived default ctor; vtable 0x00C3D5F0 and rowed +4 set constructor support ownership
 ?Rva006007DAOpen@@YGXPAX000@Z,,0x006007DA,81,Code/GameEngine/Source/Common/Rva006007A5Free.cpp,matched,archive open empty wide string plus four args slot 0x1c
+?rva0060005A@Rva0060005A@@QAEXH_N@Z,,0x0060005A,8,Code/GameEngine/Source/Common/Rva005FFF62Family.cpp,matched,plus4 tail to rowed Set via caller 0x005FB121

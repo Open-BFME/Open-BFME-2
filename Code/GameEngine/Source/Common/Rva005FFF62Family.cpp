@@ -56,3 +56,19 @@ void Rva005FBB9E::rva005FBB9E(int idx)
 {
   return m_member->Set2(idx);
 }
+
+// ?rva0060005A@Rva0060005A@@QAEXH_N@Z @0x0060005A 8B member forwarder to rowed
+// ?Set@Rva005FFF62@@QAEXH_N@Z (0x005FFF62; int bool args pass through shared
+// stack slots). Caller 0x005FB121. Honest address name.
+class Rva0060005A
+{
+public:
+  void rva0060005A(int idx, bool flag);
+private:
+  char m_pad[4];
+  Rva005FFF62 *m_member;
+};
+void Rva0060005A::rva0060005A(int idx, bool flag)
+{
+  return m_member->Set(idx, flag);
+}
