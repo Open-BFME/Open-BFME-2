@@ -58,6 +58,12 @@
 // GameLogic::findObjectByID, creates the ghost through slot 7 with the object
 // alone and links the two CDE providers (Object +0x64, ghost +0x04) through
 // TheShroudManager's 0x00739760; Zero Hour's partition registration is gone.
+//
+// The W3DGhostObject constructor (0x00063912) runs GhostObject's 0x00305A8F,
+// installs 0x00BC5994 (Snapshot), 0x00BC5984 (provider) and 0x00BC5970 (the
+// virtual base, behind the vtordisp at +0xE8) and is otherwise Zero Hour's.
+// addGhostObject (0x00063B1E, slot 7 of 0x00BC59B8) allocates 0xF0 bytes for
+// it, takes the object alone and pops only the free-list head.
 
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
@@ -1311,6 +1317,42 @@ void W3DGhostObjectManager::xfer( Xfer *xfer )
 	}  // end else, loading
 
 }  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** BFME 2 takes the object alone and pops only the free-list head. */
+// ------------------------------------------------------------------------------------------------
+GhostObject *W3DGhostObjectManager::addGhostObject(Object *object)
+{
+
+	// we disabled adding new ghost objects - used during map border resizing and loading
+	if (m_lockGhostObjects || m_saveLockGhostObjects )
+		return 0;
+
+	W3DGhostObject *mod = m_freeModules;
+	if( mod )
+	{
+		// take module off the free list
+		m_freeModules = mod->m_nextSystem;
+	}
+	else
+	{
+		mod = new W3DGhostObject;
+	}
+
+	mod->m_prevSystem = 0;
+	mod->m_nextSystem = m_usedModules;
+	if( m_usedModules )
+		m_usedModules->m_prevSystem = mod;
+	m_usedModules = mod;
+
+	//Copy settings from parent object
+	mod->m_parentObject = object;
+
+	mod->m_drawableInfo.m_drawable = 0;
+	mod->m_drawableInfo.m_ghostObject = mod;
+
+	return mod;
+}
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
