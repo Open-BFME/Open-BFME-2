@@ -2,6 +2,8 @@
 // stlport
 // ?rva003F5A06@Rva003F5A06@@QAEXIVRva0040E3EE@@@Z @0x003F5A06 108B
 // Evidence: caller 0x003F5C4F builds Rva0040E3EE temp and int; callees erase 0x003B908A and _M_fill_insert 0x003F53DA; dtor 0x0040E499; resize shape (erase vs fill_insert).
+// ?rva003F5C4F@Rva003F5A06@@QAEXH@Z @0x003F5C4F 35B
+// Evidence: calls 0x003F5A06 with same this and int plus default Rva0040E3EE temp; ctor 0x0040E3EE; caller 0x003F5D79.
 
 struct BfmeAssignRecord104
 {
@@ -67,6 +69,7 @@ public:
 	Rva0040E3EE *end() { return _M_finish; }
 	unsigned int size() { return (unsigned int)(_M_finish - _M_start); }
 	void rva003F5A06(unsigned int n, Rva0040E3EE val);
+	void rva003F5C4F(int n);
 };
 
 void Rva003F5A06::rva003F5A06(unsigned int n, Rva0040E3EE val)
@@ -90,4 +93,9 @@ void Rva003F5A06::rva003F5A06(unsigned int n, Rva0040E3EE val)
 		unsigned int count = n - cur;
 		self->_M_fill_insert(fresh, count, (const Rva003F53DAElement &)val);
 	}
+}
+
+void Rva003F5A06::rva003F5C4F(int n)
+{
+	rva003F5A06((unsigned int)n, Rva0040E3EE());
 }
