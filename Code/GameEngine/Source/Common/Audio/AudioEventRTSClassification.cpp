@@ -78,16 +78,24 @@ struct WeightedSoundRange
 // Shared lea-field getters the event info's members are read through
 // (+0x0C filename, +0x50 sounds, +0x60 attack sounds, +0x70 decay sounds).
 class Rva001DBA69LeaField { public: void *get() const; };
-class Rva001D96ECLeaField { public: void *get() const; };
-class Rva001D96F0LeaField { public: void *get() const; };
-class Rva001D96F4LeaField { public: void *get() const; };
+
+// Match the already verified AudioEventInfo.cpp accessor signatures. These
+// return a reference to the native three-pointer vector at +0x50/60/70.
+// WeightedSoundRange is the existing read-only view of that same storage;
+// no vector body or competing accessor is instantiated by these declarations.
+namespace _STL { template<class T> class allocator; template<class T, class A> class vector; }
+struct RvaPair001D9F62;
 
 struct AudioEventInfo
 {
+    typedef _STL::vector<RvaPair001D9F62, _STL::allocator<RvaPair001D9F62> > SoundsList;
+    const SoundsList &getSoundsVector() const;
+    const SoundsList &getAttackSoundsVector() const;
+    const SoundsList &getDecaySoundsVector() const;
 	const AsciiString *getFilename() const { return (const AsciiString *)((const Rva001DBA69LeaField *)this)->get(); }
-	const WeightedSoundRange *getSounds() const { return (const WeightedSoundRange *)((const Rva001D96ECLeaField *)this)->get(); }
-	const WeightedSoundRange *getAttackSounds() const { return (const WeightedSoundRange *)((const Rva001D96F0LeaField *)this)->get(); }
-	const WeightedSoundRange *getDecaySounds() const { return (const WeightedSoundRange *)((const Rva001D96F4LeaField *)this)->get(); }
+	const WeightedSoundRange *getSounds() const { return (const WeightedSoundRange *)&getSoundsVector(); }
+	const WeightedSoundRange *getAttackSounds() const { return (const WeightedSoundRange *)&getAttackSoundsVector(); }
+	const WeightedSoundRange *getDecaySounds() const { return (const WeightedSoundRange *)&getDecaySoundsVector(); }
 
 	unsigned char m_pad00[0x14];
 	float m_volumeShift;			// +0x14
