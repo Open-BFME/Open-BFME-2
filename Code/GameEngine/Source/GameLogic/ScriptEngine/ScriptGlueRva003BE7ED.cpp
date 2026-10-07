@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /EHsc /MD /DNDEBUG
+// stlport
 //
 // ?rva003BE7ED@Rva003BE7ED@@QAEXXZ @0x003BE7ED 239B (dump range 18).
 // Defeat-screen emit, mirror of the landed 0x003BE5C9 victory-screen emit:
@@ -16,6 +17,7 @@
 // unproven so kept distinct. Cross-class rowed callees are called through
 // their rowed views (zero-byte casts).
 #include "ascii_string.h"
+#include <algorithm>
 
 class GameLogic
 {
@@ -75,12 +77,41 @@ public:
 };
 extern Rva00E03138 *g_00E03138;
 
+class CreateAHeroData;
+
+// Both range-7 bodies use the registry at VA 0x00DFE358 through the already
+// matched _STL::find specialization at 0x0020E873. Their direct callees and
+// member offsets are target evidence; the CreateAHeroData* spelling is only
+// the existing registry specialization's ABI view of the value at +0x1E0.
+extern unsigned int g_00DFE358;
+
+class Rva0021937DTarget
+{
+public:
+	void rva004089C7(int, int);
+	void rva004074CF();
+};
+
 class CreateAHeroManager
 {
 public:
 	void rva0021A4E6();
+	int rva002192C0();
+	char m_pad000[0x1A4];
+	unsigned int m_1A4;
+	unsigned int m_1A8;
+	unsigned int m_1AC;
+	unsigned int m_1B0;
+	char m_pad1B4[0x2C];
+	CreateAHeroData *m_1E0;
 };
 extern CreateAHeroManager *TheCreateAHeroManager;
+
+class Rva0021A54A : public CreateAHeroManager
+{
+public:
+	void rva0021A54A();
+};
 
 struct Rva00E02D6CDefeatView
 {
@@ -130,4 +161,56 @@ void Rva003BE7ED::rva003BE7ED()
 	if (g_00DFDC8C != 0)
 		g_00DFDC8C->rva001EB0CA();
 	((Rva002036C0GlobalCopier *)TheScriptEngine)->apply();
+}
+
+// ?rva0021A4E6@CreateAHeroManager@@QAEXXZ @ 0x0021A4E6 100B. Direct
+// registry membership check, state helper 0x002192C0, calls through the
+// target's +0x1E0 member, and clears that member; the owner/type names for the
+// two direct helper views remain address-derived where their ledger pins say so.
+void CreateAHeroManager::rva0021A4E6()
+{
+	CreateAHeroData **slot = &m_1E0;
+	CreateAHeroData *hero = *slot;
+	CreateAHeroManager *manager = this;
+	if (hero != 0) {
+		CreateAHeroData **end = (CreateAHeroData **)*(unsigned int *)((char *)&g_00DFE358 + 4);
+		if (_STL::find((CreateAHeroData **)g_00DFE358, end, *slot) != end) {
+			int state = manager->rva002192C0();
+			if (state != 0) {
+				if (state != 3)
+					goto clear;
+				((Rva0021937DTarget *)hero)->rva004089C7(manager->m_1A4, 1);
+			} else {
+				((Rva0021937DTarget *)hero)->rva004089C7(manager->m_1AC, 1);
+			}
+			((Rva0021937DTarget *)*slot)->rva004074CF();
+		}
+	clear:
+		*slot = 0;
+	}
+}
+
+// ?rva0021A54A@Rva0021A54A@@QAEXXZ @ 0x0021A54A 100B. Same call and
+// registry pattern as 0x0021A4E6, with its target fields at +0x1A8/+0x1B0.
+void Rva0021A54A::rva0021A54A()
+{
+	CreateAHeroData **slot = &m_1E0;
+	CreateAHeroData *hero = *slot;
+	CreateAHeroManager *manager = this;
+	if (hero != 0) {
+		CreateAHeroData **end = (CreateAHeroData **)*(unsigned int *)((char *)&g_00DFE358 + 4);
+		if (_STL::find((CreateAHeroData **)g_00DFE358, end, *slot) != end) {
+			int state = manager->rva002192C0();
+			if (state != 0) {
+				if (state != 3)
+					goto clear;
+				((Rva0021937DTarget *)hero)->rva004089C7(manager->m_1A8, 1);
+			} else {
+				((Rva0021937DTarget *)hero)->rva004089C7(manager->m_1B0, 1);
+			}
+			((Rva0021937DTarget *)*slot)->rva004074CF();
+		}
+	clear:
+		*slot = 0;
+	}
 }

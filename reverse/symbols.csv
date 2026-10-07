@@ -15641,3 +15641,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva005CD8F7@Rva005CD8F7Call@@QAEHPAX@Z,0x005CD8F7,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
 ?rva005CD690@Rva005CD690Call@@QAEHPAX@Z,0x005CD690,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
 ??0Rva0057525FCall@@QAE@PAVRva00574A8A@@II@Z,0x0057525F,callee of ??0Rva00574A8A@@QAE@II@Z
+?rva002192C0@CreateAHeroManager@@QAEHXZ,0x002192C0,Direct calls from 0x0021A4E6 and 0x0021A54A; thiscall with no stack args and int result inferred from both callers. Address-derived method name; semantics unresolved.
