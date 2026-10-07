@@ -41,6 +41,7 @@ class Pathfinder
 public:
 	PathfindCell *getCell(PathfindLayerEnum layer, Int cellX, Int cellY);
 	PathfindCell *Rva002EDF44(ObjWithPos *obj);
+	PathfindCell *Rva002EDF7C(ObjWithPos *obj, ICoord2D *out);
 };
 
 ICoord2D *__cdecl rva002EBC14(ICoord2D *out, void *obj, const Coord3D *pos);
@@ -50,4 +51,12 @@ PathfindCell *Pathfinder::Rva002EDF44(ObjWithPos *obj)
 	ICoord2D tmp;
 	rva002EBC14(&tmp, obj, &obj->pos);
 	return getCell((PathfindLayerEnum)((Object *)obj)->rva0028B511(), tmp.x, tmp.y);
+}
+
+PathfindCell *Pathfinder::Rva002EDF7C(ObjWithPos *obj, ICoord2D *out)
+{
+	ICoord2D tmp;
+	ICoord2D *cell = rva002EBC14(&tmp, obj, &obj->pos);
+	out->x = cell->x;
+	return getCell((PathfindLayerEnum)((Object *)obj)->rva0028B511(), out->x, out->y = cell->y);
 }
