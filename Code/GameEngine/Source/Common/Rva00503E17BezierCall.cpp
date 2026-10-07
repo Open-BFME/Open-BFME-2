@@ -76,3 +76,12 @@ void Rva00503E76::rva00503E76(Rva00503E76Arg1 *a1)
 	a1->_slot28(&m_14);
 	a1->_slot30(&m_18);
 }
+
+// ?Rva00503EB7Call@@YAPAURva00503E76Arg1@@PAU1@PAVRva00503E76@@@Z @0x00503EB7 18B
+// Wrapper call relationship is target evidence; the address-derived name is
+// used because the stored callback has no independent semantic name.
+Rva00503E76Arg1 *__cdecl Rva00503EB7Call(Rva00503E76Arg1 *a1, Rva00503E76 *self)
+{
+	self->rva00503E76(a1);
+	return a1;
+}
