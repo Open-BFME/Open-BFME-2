@@ -510,3 +510,41 @@ Gen005EDB10::Gen005EDB10(Host005EDA90 *owner)
 	: Rva003AF672(*(const Rva003AF672 *)owner)
 {
 }
+
+struct Rva003AFA0BVector
+{
+	Rva003AFA0BVector() {}
+	__forceinline Rva003AFA0BVector(const Rva003AFA0BVector &that)
+	{
+		x = that.x;
+		y = that.y;
+		z = that.z;
+	}
+	float x, y, z;
+};
+
+class Rva003AFA0B
+{
+public:
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual Rva003AFA0BVector slot10(void *a, void *b) = 0;
+	Rva003AFA0BVector rva003AFA0B(void *a, const Rva003AFA0BVector *source,
+	                            float scale, void *b);
+};
+
+// Native 3AFA0B..3AFA64 returns the componentwise product of the input,
+// a three-float virtual result at slot 0x10, and scale. RET 20 includes
+// the hidden return pointer; owner, method and pointer-argument types unknown.
+Rva003AFA0BVector Rva003AFA0B::rva003AFA0B(
+	void *a, const Rva003AFA0BVector *source, float scale, void *b)
+{
+	Rva003AFA0BVector basis = slot10(a, b);
+	Rva003AFA0BVector result;
+	result.x = source->x * basis.x * scale;
+	result.y = source->y * basis.y * scale;
+	result.z = source->z * basis.z * scale;
+	return result;
+}
