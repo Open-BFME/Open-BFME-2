@@ -31,6 +31,13 @@
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../Libraries/Source/profile/profile.h"
 
+// STLport's __copy_trivial is a memmove wrapper the shipped header defined
+// inline; retail calls it out of line at 0x000179B0 but the compiler still saw
+// it could not throw: the vector copy at 0x002CFAB9 has no EH frame, and
+// populateRandomSideAndColor frees its copied vector through the _M_start it
+// already holds in a register (the copy never spills `this`).
+namespace _STL { void *__copy_trivial(const void *__first, const void *__last, void *__result) throw(); }
+
 typedef _STL::list<int, _STL::allocator<int> > IntList;
 
 // ZH GameLogic.h ObjectTOCEntry: a thing template name and the 16-bit id
@@ -815,13 +822,16 @@ public:
 };
 
 // One 0x14-byte start-position record of the map metadata (array at +0x54);
-// rva0023EE5B tests only the byte at +2.
+// rva0023EE5B tests only the byte at +2, populateRandomSideAndColor reads the
+// set of faction names allowed at the position (+8, node count at +0xC).
 struct MapStartPosition
 {
 	char m_pad00[2];
 	bool m_2;
-	char m_pad03[0x14 - 3];
+	char m_pad03[8 - 3];
+	_STL::set<AsciiString> m_factions;                                   // +0x08
 };
+typedef char MapStartPositionSizeCheck[sizeof(MapStartPosition) == 0x14 ? 1 : -1];
 
 class MapMetaData
 {
@@ -840,6 +850,15 @@ public:
 	const MapMetaData *findMap(AsciiString mapName);
 };
 
+// Create-a-hero record of a slot (+0x64, valid when the byte at +0x60 is
+// set): class and subclass indices passed to GetFactionMaskType.
+struct GameSlotHeroInfo
+{
+	char m_pad00[0x0c];
+	unsigned int m_classIndex;                                           // +0x0C
+	unsigned int m_subClassIndex;                                        // +0x10
+};
+
 class GameSlot
 {
 public:
@@ -855,6 +874,7 @@ public:
 	void setPlayerTemplate(int playerTemplate);
 	bool isHuman() const;
 	const unsigned short *getNameStr() const { return m_name.str(); }
+	const GameSlotHeroInfo *getHero() const { return m_hasHero ? &m_hero : 0; }
 
 	char m_pad00[0x4];
 	int m_state;                                                         // +0x04
@@ -870,6 +890,9 @@ public:
 	AsciiString m_34;
 	char m_pad38[0x4c - 0x38];
 	int m_livingWorldPlayerID;                                           // +0x4C
+	char m_pad50[0x60 - 0x50];
+	bool m_hasHero;                                                      // +0x60
+	GameSlotHeroInfo m_hero;                                             // +0x64
 };
 
 class GameInfo
@@ -3144,10 +3167,15 @@ class PlayerTemplate
 {
 public:
 	NameKeyType getNameKey(void) const { return m_nameKey; }
+	int rva001FD234() const;
+	AsciiString getName() const;
+	bool isPlayableSide() const { return m_playableSide; }
 
 private:
 	char m_pad00[0x10];
 	NameKeyType m_nameKey;                                               // +0x10
+	char m_pad14[0x151 - 0x14];
+	bool m_playableSide;                                                 // +0x151
 };
 
 class MultiplayerColorDefinition
@@ -3406,5 +3434,128 @@ void GameLogic::rva0023EE5B(bool isSkirmish, int progressCount)
 		SidesInfo *creeps = TheSidesList->findSideInfo(creepsName);
 		creeps->getDict()->setAsciiString(TheKey_playerAllies.get(), AsciiString(""));
 		creeps->getDict()->setAsciiString(TheKey_playerEnemies.get(), creepsEnemies);
+	}
+}
+
+// ---------------------------------------------------------------------------
+// populateRandomSideAndColor @0x002444BE 926B (ret at 0x0024485B; next body
+// populateRandomStartPosition). Target evidence: the GameLogic.cpp __FILE__
+// literal with lines 1923/1988/2011, GetGameLogicRandomSeed() % 7 discards,
+// GameInfo::getSlot/isOccupied/setPlayerTemplate/isColorTaken and
+// MapCache::findMap(getMap()). Donor: BFME 1 GameLogic.cpp
+// populateRandomSideAndColor (same slot walk, the start position's faction
+// set, the color pick). BFME 2 differs: the playable byte is
+// PlayerTemplate+0x151, a second vector keeps each template's 0x001FD234
+// value (7 without a template), the side pool is a copy narrowed in place
+// (swap) by the faction set and then by the slot's hero faction mask
+// (CreateAHeroManager::GetFactionMaskType on the hero record when it is set),
+// and the observer/out-of-range fallback is gone. The vector helpers are ICF
+// folds shared with other element types; the address-named allocator and
+// the enum below only give those folded instantiations a placeholder name.
+// ---------------------------------------------------------------------------
+template <class T> class Rva002444BEAllocator : public _STL::allocator<T>
+{
+};
+typedef _STL::vector<int, Rva002444BEAllocator<int> > Rva002444BEIndexVector;
+
+enum Rva002444BEFaction
+{
+	RVA002444BE_FACTION_NONE = 7
+};
+
+unsigned int GetGameLogicRandomSeed(void);
+
+class CreateAHeroManager
+{
+public:
+	void *GetFactionMaskType(unsigned int classIndex, unsigned int subClassIndex);
+};
+
+void populateRandomSideAndColor(GameInfo *game)
+{
+	if (!game)
+		return;
+	int i;
+
+	Rva002444BEIndexVector startSlots;
+	_STL::vector<Rva002444BEFaction> templateFactions;
+	for (i = 0; i < ThePlayerTemplateStore->getPlayerTemplateCount(); ++i)
+	{
+		const PlayerTemplate *pt = ThePlayerTemplateStore->getNthPlayerTemplate(i);
+		templateFactions.push_back((Rva002444BEFaction)(pt ? pt->rva001FD234() : RVA002444BE_FACTION_NONE));
+		if (pt && pt->isPlayableSide())
+			startSlots.push_back(i);
+	}
+
+	for (i = 0; i < 8; ++i)
+	{
+		GameSlot *slot = game->getSlot(i);
+		if (!slot || !slot->isOccupied())
+			continue;
+
+		int playerTemplateIdx = slot->getPlayerTemplate();
+		while (playerTemplateIdx != -2 && (playerTemplateIdx < 0 || playerTemplateIdx >= ThePlayerTemplateStore->getPlayerTemplateCount()))
+		{
+			unsigned int silly = GetGameLogicRandomSeed() % 7;
+			for (int poo = 0; poo < silly; ++poo)
+				GetGameLogicRandomValue(0, 1, GAMELOGIC_SOURCE_FILE, 1923);
+
+			Rva002444BEIndexVector candidates(startSlots);
+			const MapMetaData *md = TheMapCache->findMap(game->getMap());
+			if (md)
+			{
+				const MapStartPosition &position = md->m_startPositions[slot->getStartPos()];
+				const _STL::set<AsciiString> &factions = position.m_factions;
+				if (factions.size() != 0)
+				{
+					Rva002444BEIndexVector possible;
+					for (Rva002444BEIndexVector::iterator it = candidates.begin(); it != candidates.end(); ++it)
+					{
+						int idx = *it;
+						AsciiString name = ThePlayerTemplateStore->getNthPlayerTemplate(idx)->getName();
+						if (factions.find(name) != factions.end())
+							possible.push_back(idx);
+					}
+					candidates.swap(possible);
+				}
+			}
+
+			const GameSlotHeroInfo *hero = slot->getHero();
+			if (hero)
+			{
+				unsigned int classIndex = hero->m_classIndex;
+				const unsigned int *mask = (const unsigned int *)((CreateAHeroManager *)TheHeroManager)->GetFactionMaskType(classIndex, hero->m_subClassIndex);
+				Rva002444BEIndexVector allowed;
+				for (Rva002444BEIndexVector::iterator it = candidates.begin(); it != candidates.end(); ++it)
+				{
+					int idx = *it;
+					unsigned int faction = templateFactions[idx];
+					if (mask[faction >> 5] & (1 << (faction & 31)))
+						allowed.push_back(idx);
+				}
+				candidates.swap(allowed);
+			}
+
+			unsigned int count = candidates.size();
+			int *pool = candidates.begin();
+			playerTemplateIdx = pool[GetGameLogicRandomValue(0, 1000, GAMELOGIC_SOURCE_FILE, 1988) % count];
+			const PlayerTemplate *pt = ThePlayerTemplateStore->getNthPlayerTemplate(playerTemplateIdx);
+			if (pt && pt->isPlayableSide())
+				slot->setPlayerTemplate(playerTemplateIdx);
+			else
+				playerTemplateIdx = -1;
+		}
+
+		int colorIdx = slot->getColor();
+		if (colorIdx < 0 || colorIdx >= TheMultiplayerSettings->getNumColors())
+		{
+			while (colorIdx == -1)
+			{
+				colorIdx = GetGameLogicRandomValue(0, TheMultiplayerSettings->getNumColors() - 1, GAMELOGIC_SOURCE_FILE, 2011);
+				if (game->isColorTaken(colorIdx))
+					colorIdx = -1;
+			}
+			slot->setColor(colorIdx);
+		}
 	}
 }
