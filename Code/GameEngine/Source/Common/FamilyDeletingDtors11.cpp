@@ -1,4 +1,15 @@
-// cl: /MD
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// stlport
+
+#include <list>
+
+template <> _STL::_List_base<int, _STL::allocator<int> >::~_List_base();
+
+class Rva0053470B
+{
+public:
+	~Rva0053470B();
+};
 // Scalar deleting destructors that retail keeps but never references: no
 // vtable slot, call or jmp reaches them. Each is the 28B shape that calls
 // the complete destructor, tests bit 0 of the flags, frees through
@@ -41,8 +52,25 @@ class Rva001EB63C { public: ~Rva001EB63C(); };
 void famgenDelete(Rva001EB63C *p) { delete p; }
 
 // ??_GRva0053476A@@QAEPAXI@Z @0x002E7FAB 28B: calls ~Rva0053476A 0x0053476A
-class Rva0053476A { public: ~Rva0053476A(); };
+class Rva0053476A
+{
+public:
+	~Rva0053476A();
+
+private:
+	_STL::list<int> m_list;
+	Rva0053470B m_member;
+};
 void famgenDelete(Rva0053476A *p) { delete p; }
+
+// ??1Rva0053476A@@QAE@XZ @0x0053476A 53B
+// Target evidence: EH prolog 0x00629188; calls 0x0053470B on this+4, then the rowed
+// _List_base<int> destructor at 0x004EC395 on this; then restores the SEH frame.
+// Structural inference: model the +0 subobject as list<int> and the +4 subobject by its
+// address-derived destructor. Owner identity and remaining object layout are unknown.
+Rva0053476A::~Rva0053476A()
+{
+}
 
 // ??_GRva0056A061@@QAEPAXI@Z @0x003EDBFA 28B: calls ~Rva0056A061 0x0056A061
 class Rva0056A061 { public: ~Rva0056A061(); };
