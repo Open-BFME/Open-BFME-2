@@ -934,12 +934,15 @@ class PSThreadClass : public ThreadClass
 {
 public:
 	virtual ~PSThreadClass();
+	void persAuthCallback(bool val) { m_loginOK = val; m_doneTryingToLogin = true; }
 	void decrOpCount() { --m_opCount; }
 	Int getOpCount() const { return m_opCount; }
 	bool sawLocalPlayerData() const { return m_sawLocalPlayerData; }
 protected:
 	virtual void Thread_Function();
 private:
+	bool tryConnect();
+	bool tryLogin(Int id, Rva00385333String nick, Rva00385333String password, Rva00385333String email);
 	bool m_loginOK;
 	bool m_doneTryingToLogin;
 	Int m_opCount;
@@ -1703,4 +1706,98 @@ PSThreadClass::~PSThreadClass()
 	}
 	m_requests.clear();
 	ghttpCleanup();
+}
+
+extern "C" int IsStatsConnected();
+extern "C" int InitStatsConnection(int gameport);
+extern "C" void PersistThink();
+extern "C" char *GetChallenge(void *game);
+extern "C" char *GenerateAuthA(char *challenge, char *password, char *response);
+typedef void (*PersAuthCallbackFn)(int localid, int profileid, int authenticated, char *errmsg, void *instance);
+extern "C" void PreAuthenticatePlayerPartner(int localid, const char *authtoken, const char *challengeresponse, PersAuthCallbackFn callback, void *instance);
+
+// Retail 0x00552C5F (27 bytes): ZH tryConnect; callers pass the thread in ECX.
+bool PSThreadClass::tryConnect()
+{
+	if (IsStatsConnected())
+		return true;
+
+	int result = InitStatsConnection(0);
+	if (result != 0)
+		return false;
+
+	return true;
+}
+
+// Retail 0x00552C7A (24 bytes): ZH persAuthCallback, passed by tryLogin.
+void persAuthCallback(int localid, int profileid, int authenticated, char *errmsg, void *instance)
+{
+	PSThreadClass *t = (PSThreadClass *)instance;
+	if (t)
+		t->persAuthCallback(authenticated != 0);
+}
+
+// Retail 0x00552C92 (12 bytes): ZH setPersistentDataLocaleCallback with the
+// newer SDK's modified-time argument; Thread_Function passes it with the
+// player-locale update (0x005584B2).
+void setPersistentDataLocaleCallback(int localid, int profileid, persisttype_t type, int index, int success, time_t modified, void *instance)
+{
+	PSThreadClass *t = (PSThreadClass *)instance;
+	if (!t)
+		return;
+
+	t->decrOpCount();
+}
+
+struct CDAuthInfo
+{
+	bool success;
+	bool done;
+	Int id;
+};
+
+// Retail 0x00552C9E (26 bytes): ZH preAuthCDCallback, passed by Thread_Function
+// (0x00558C0B).
+void preAuthCDCallback(int localid, int profileid, int authenticated, char *errmsg, void *instance)
+{
+	CDAuthInfo *authInfo = (CDAuthInfo *)instance;
+	authInfo->success = authenticated != 0;
+	authInfo->done = true;
+	authInfo->id = profileid;
+}
+
+// The buddy queue's two login strings (vftable +0x2C and +0x30): the GP
+// authentication token and the partner password that signs the stats challenge.
+class GameSpyBuddyMessageQueueInterface
+{
+public:
+	virtual ~GameSpyBuddyMessageQueueInterface();
+	virtual void unknown04(); virtual void unknown08(); virtual void unknown0C();
+	virtual void unknown10(); virtual void unknown14(); virtual void unknown18();
+	virtual void unknown1C(); virtual void unknown20(); virtual void unknown24();
+	virtual void unknown28();
+	virtual const char *getReplyIdentityText();
+	virtual const char *getAuthSecretText();
+};
+
+extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
+extern "C" char *strdup(const char *text);
+
+// Retail 0x00553D63 (228 bytes): ZH tryLogin, but BFME 2 authenticates through
+// the buddy queue's GP token with PreAuthenticatePlayerPartner instead of the
+// profile password with PreAuthenticatePlayerPM; the three strings are unused.
+bool PSThreadClass::tryLogin(Int id, Rva00385333String nick, Rva00385333String password, Rva00385333String email)
+{
+	char validate[33];
+	m_loginOK = false;
+	m_doneTryingToLogin = false;
+	char *authToken = strdup(TheGameSpyBuddyMessageQueue->getReplyIdentityText());
+	char *secret = strdup(TheGameSpyBuddyMessageQueue->getAuthSecretText());
+	GenerateAuthA(GetChallenge(NULL), secret, validate);
+	PreAuthenticatePlayerPartner(id, authToken, validate, ::persAuthCallback, this);
+	Rva00030830FreeAllocation(authToken);
+	Rva00030830FreeAllocation(secret);
+	while (!m_doneTryingToLogin && IsStatsConnected())
+		PersistThink();
+	return m_loginOK;
 }
