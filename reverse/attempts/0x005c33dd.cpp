@@ -1,3 +1,5 @@
+// ?rva005C33DD@Rva005C33DD@@QAEXXZ
+// partial score=0.95 date=2026-10-07
 // ?d_005c33dd@@YAXXZ
 // partial score=0.95 date=2026-10-07
 // cl: /DNDEBUG /MD
@@ -18,11 +20,8 @@ public:
     WinInstanceData *winGetInstanceData();
     int winGetWindowId();
 };
-class ControlBar
-{
-public:
-    void rva00405D77();
-};
+class ControlBar;
+class Rva00405AA7 { public: void rva00405AA7(); };
 extern ControlBar *TheControlBar;
 class GameWindowManager
 {
@@ -102,7 +101,7 @@ void Rva005C33DD::rva005C33DD()
     WinInstanceData *instance = window->winGetInstanceData();
     if (instance == 0)
         return;
-    TheControlBar->rva00405D77();
+    reinterpret_cast<Rva00405AA7 *>(TheControlBar)->rva00405AA7();
     GameWindow *owner = instance->owner;
     TheWindowManager->slot58(owner, 0x4008,
                             window,
