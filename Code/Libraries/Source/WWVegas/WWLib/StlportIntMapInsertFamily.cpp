@@ -36,6 +36,19 @@ enum ScienceType
 	SCIENCE_INVALID = -1
 };
 
+// Concrete Science memo providers are already owned by verified units.
+// Keep these operations out of line instead of emitting conflicting copies.
+typedef _STL::pair<const ScienceType, bool> ScienceMemoValue;
+typedef _STL::_Rb_tree_base<ScienceMemoValue, _STL::allocator<ScienceMemoValue> > ScienceMemoBase;
+typedef _STL::_Rb_tree<ScienceType, ScienceMemoValue, _STL::_Select1st<ScienceMemoValue>, _STL::less<ScienceType>, _STL::allocator<ScienceMemoValue> > ScienceMemoTree;
+namespace _STL {
+template <> ScienceMemoBase::_Rb_tree_base(const allocator<ScienceMemoValue> &);
+template <> ScienceMemoBase::~_Rb_tree_base();
+template <> ScienceMemoTree::~_Rb_tree();
+template <> void ScienceMemoTree::clear();
+}
+
+
 struct Rva0032EB87Mapped { int a; };
 // The matched _M_create_node target allocates a 0x24-byte tree node. With a
 // 0x10-byte node header and the int key this leaves 0x10 bytes for this mapped

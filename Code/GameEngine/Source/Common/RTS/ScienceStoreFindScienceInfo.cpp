@@ -34,6 +34,13 @@ enum ScienceType
 typedef _STL::pair<const ScienceType, bool> ScienceMemoValue;
 typedef _STL::_Rb_tree<ScienceType, ScienceMemoValue, _STL::_Select1st<ScienceMemoValue>, _STL::less<ScienceType>, _STL::allocator<ScienceMemoValue> > ScienceMemoTree;
 namespace _STL {
+template <> map<ScienceType, bool>::map();
+template <> void ScienceMemoTree::clear();
+template <> _Rb_tree_base<ScienceMemoValue, allocator<ScienceMemoValue> >::~_Rb_tree_base();
+template <> ScienceType *vector<ScienceType, allocator<ScienceType> >::erase(ScienceType *, ScienceType *);
+template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
+// Canonical emitted cleanup and existing map ctor must stay out of line.
+template <> ScienceMemoTree::~_Rb_tree();
 // The concrete memo insertion provider is already byte-verified at1FF875.
 template <> pair<ScienceMemoTree::iterator, bool> ScienceMemoTree::insert_unique(const ScienceMemoValue &);
 }
@@ -88,6 +95,8 @@ class ScienceStore
 public:
 	std::vector<AsciiString> friend_getScienceNames() const;
 	bool playerHasPrereqsForScience(const Rva0043D3A8 *holder, ScienceType st) const;
+	int getSciencePurchaseCost(ScienceType) const;
+	void getPurchasableSciences(const Player *, std::vector<ScienceType> &, std::vector<ScienceType> &) const;
 private:
 	const ScienceInfo *findScienceInfo(ScienceType st) const;
 	bool rva000E7C20SciencePrereqMemo(const Player *opaqueQuery, ScienceType st, void *memo) const;
@@ -196,4 +205,58 @@ next_group:
 
 	values->insert(std::make_pair(st, result));
 	return result;
+}
+
+void ScienceStore::getPurchasableSciences(const Player *player, std::vector<ScienceType> &purchasable,
+    std::vector<ScienceType> &potentiallyPurchasable) const
+{
+    std::map<ScienceType, bool> memo;
+    purchasable.erase(purchasable.begin(), purchasable.end());
+    potentiallyPurchasable.erase(potentiallyPurchasable.begin(), potentiallyPurchasable.end());
+    const Rva0043D3A8 *holder = reinterpret_cast<const Rva0043D3A8 *>(player);
+    for (ScienceInfoVec::const_iterator it = m_sciences.begin(); it != m_sciences.end(); ++it) {
+        const ScienceInfo *si = (const ScienceInfo *)(*it)->getFinalOverride();
+        if (!getSciencePurchaseCost(si->m_science))
+            continue;
+        ScienceType key = si->m_science;
+        _ReadWriteBarrier();
+        if (holder->v00(key))
+            continue;
+        if (playerHasPrereqsForScience(holder, si->m_science))
+            purchasable.push_back(si->m_science);
+        else if (rva000E7C20SciencePrereqMemo(player, si->m_science, &memo))
+            potentiallyPurchasable.push_back(si->m_science);
+    }
+}
+
+// Native pooled teardown1FF55F uses only node links. Reuse that verified
+// operation; its address-derived view does not assert an original class name.
+struct Rva001FF6D7Node;
+class Rva001FF6D7 {
+public:
+    void rva001FF55F(Rva001FF6D7Node *);
+};
+// Existing pool freelist owner; native base cleanup pushes the header here.
+extern void *Global_009B9448;
+namespace _STL {
+template <> void ScienceMemoTree::clear() {
+    if (_M_node_count != 0) {
+        reinterpret_cast<Rva001FF6D7 *>(this)->rva001FF55F(reinterpret_cast<Rva001FF6D7Node *>(_M_root()));
+        _M_leftmost() = _M_header._M_data;
+        _M_root() = 0;
+        _M_rightmost() = _M_header._M_data;
+        _M_node_count = 0;
+    }
+}
+template <> _Rb_tree_base<ScienceMemoValue, allocator<ScienceMemoValue> >::~_Rb_tree_base() {
+    void *node = _M_header._M_data;
+    if (node) {
+        *reinterpret_cast<void **>(node) = Global_009B9448;
+        Global_009B9448 = node;
+    }
+}
+}
+
+namespace _STL {
+template <> ScienceMemoTree::~_Rb_tree() { clear(); }
 }
