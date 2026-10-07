@@ -87,8 +87,9 @@ void ThreadClass::Switch_Thread()
 	#endif
 }
 
-// Return calling thread's unique thread id
-// ?_Get_Current_Thread_ID@ThreadClass@@ present-unmatched
+// Return calling thread's unique thread id. At 0x006105D0 it compiles to a
+// lone tail jump through the GetCurrentThreadId import, between Stop and
+// Is_Running as in ZH's thread.cpp order.
 unsigned ThreadClass::_Get_Current_Thread_ID()
 {
 	#ifdef _UNIX
