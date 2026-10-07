@@ -7,6 +7,7 @@ class Rva005F6096
 {
 public:
 	void rva005F6096(const Image *img);
+	void rva005F6112(const Image *img);
 };
 class Rva005F62EE
 {
@@ -14,8 +15,14 @@ class Rva005F62EE
 	Rva005F6096 *m_08;
 public:
 	void rva005F62EE(const Image *img);
+	void rva005F62F6(const Image *img);
 };
 void Rva005F62EE::rva005F62EE(const Image *img)
 {
 	m_08->rva005F6096(img);
+}
+
+void Rva005F62EE::rva005F62F6(const Image *img)
+{
+	m_08->rva005F6112(img);
 }
