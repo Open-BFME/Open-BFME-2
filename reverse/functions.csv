@@ -34727,7 +34727,6 @@ _WinMain@16,,0x00002C39,1382,Code/GameEngine/Source/Main/WinMain.cpp,matched,BFM
 ?set@Rva002620B6IntFloatField@@QAEXH@Z,,0x002620B6,17,Code/GameEngine/Source/Common/Disp32IntToFloatFieldSetters.cpp,matched,Disp32 int-to-float setter; pairs with getter 0x2620AD at +0x11
 ?apply@Rva002620FADwordOrSetter@@QAEXXZ,,0x002620FA,4,Code/GameEngine/Source/Common/Disp0DwordOrSetters.cpp,matched,Disp0 OR-imm flag setter; or [ecx] with -1 under /O1; sibling of the 0x2620xx accessor cluster
 _Rva001CA000Vp6WideAccum,,0x001CA000,4240,Code/GameEngine/Source/Common/Rva001CA000Vp6WideAccum.cpp,matched,VP6 wide accumulator; identity inferred from target structure and BFME1 donor correspondence; byte-identical after relocation resolution
-?ji_006105d0@@YAXXZ,,0x006105D0,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBA220;dll=kernel32.dll;import=GetCurrentThreadId;target=GetCurrentThreadId
 ?ji_00628f20@@YAXXZ,,0x00628F20,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBAA74;dll=gdiplus.dll;import=GdipDeleteGraphics;target=GdipDeleteGraphics
 ?ji_00628f26@@YAXXZ,,0x00628F26,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBAA34;dll=gdiplus.dll;import=GdipDisposeImage;target=GdipDisposeImage
 ?ji_00628f2c@@YAXXZ,,0x00628F2C,6,Code/gen_small/imports_000.cpp,matched,gen-import;slot=0x00BBAA38;dll=gdiplus.dll;import=GdipGetImageWidth;target=GdipGetImageWidth
