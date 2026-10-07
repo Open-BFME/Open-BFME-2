@@ -1,0 +1,403 @@
+// ?update@StructureCollapseUpdate@@UAE?AW4UpdateSleepTime@@XZ
+// partial score=0.9 date=2026-10-07
+// cl: /Ireference/shims/ocls /Ireference/shims/dockupdate /Ireference/shims/zh_outofline /DBFME2_RETAIL_STRUCTURE_COLLAPSE_API /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfmefrustum
+// stlport
+// Ported verbatim from the Generals Zero Hour reference
+// (GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdate.cpp); this unit had no counterpart under Code/.
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// FILE: StructureCollapseUpdate.cpp ///////////////////////////////////////////////////////////////////////
+// Author:
+// Desc:  
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+
+#include "Common/Thing.h"
+#include "Common/ThingTemplate.h"
+#include "Common/INI.h"
+#include "Common/RandomValue.h"
+#include "Common/GlobalData.h"
+#include "Common/Xfer.h"
+#include "GameClient/FXList.h"
+#include "GameLogic/GameLogic.h"
+#include "GameLogic/Module/BoneFXUpdate.h"
+#include "GameLogic/Module/StructureCollapseUpdate.h"
+#include "GameLogic/Module/AIUpdate.h"
+#include "GameLogic/Object.h"
+#include "GameLogic/ObjectCreationList.h"
+#include "GameClient/Drawable.h"
+#include "GameClient/InGameUI.h"
+
+const Int MAX_IDX = 32;
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+static const char *TheStructureCollapsePhaseNames[] = 
+{
+	"INITIAL",
+	"DELAY",
+	"BURST",
+	"FINAL",
+
+	NULL
+};
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+// ?StructureCollapseUpdate::~StructureCollapseUpdate present-unmatched
+StructureCollapseUpdate::~StructureCollapseUpdate( void )
+{
+}
+
+//-------------------------------------------------------------------------------------------------
+static void parseFX( INI* ini, void *instance, void * /*store*/, const void* /*userData*/ )
+{
+	StructureCollapseUpdateModuleData* self = (StructureCollapseUpdateModuleData*)instance;
+	StructureCollapsePhaseType scphase = (StructureCollapsePhaseType)INI::scanIndexList(ini->getNextToken(), TheStructureCollapsePhaseNames);
+	for (const char* token = ini->getNextToken(); token != NULL; token = ini->getNextTokenOrNull())
+	{
+		const FXList *fxl = TheFXListStore->findFXList((token));	// could be null! this is OK!
+		self->m_fxs[scphase].push_back(fxl);
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+static void parseOCL( INI* ini, void *instance, void * /*store*/, const void* /*userData*/ )
+{
+	StructureCollapseUpdateModuleData* self = (StructureCollapseUpdateModuleData*)instance;
+	StructureCollapsePhaseType stphase = (StructureCollapsePhaseType)INI::scanIndexList(ini->getNextToken(), TheStructureCollapsePhaseNames);
+	for (const char* token = ini->getNextToken(); token != NULL; token = ini->getNextTokenOrNull())
+	{
+		const ObjectCreationList *ocl = TheObjectCreationListStore->findObjectCreationList(token);	// could be null! this is OK!
+		self->m_ocls[stphase].push_back(ocl);
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+// StructureCollapseUpdateModuleData::buildFieldParse: defined in StructureCollapseUpdateModuleDataParse.cpp (its row's unit).
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+// ?StructureCollapseUpdate::beginStructureCollapse present-unmatched
+void StructureCollapseUpdate::beginStructureCollapse(const DamageInfo *damageInfo)
+{
+	const StructureCollapseUpdateModuleData *d = getStructureCollapseUpdateModuleData();
+
+
+	Object *building = getObject();
+	UnsignedInt now = TheGameLogic->getFrame();
+	// This has to use a game logic random value since the bursts can spawn debris, and debris is sync'd.
+	m_collapseFrame = now + GameLogicRandomValue(d->m_minCollapseDelay, d->m_maxCollapseDelay);
+
+	doPhaseStuff(SCPHASE_INITIAL, building->getPosition());
+
+	m_collapseState = COLLAPSESTATE_WAITINGFORCOLLAPSESTART;
+	m_currentHeight = 0.0f;
+
+	setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+}
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+// ?StructureCollapseUpdate::onDie present-unmatched
+void StructureCollapseUpdate::onDie( const DamageInfo *damageInfo )
+{
+	const StructureCollapseUpdateModuleData* d = getStructureCollapseUpdateModuleData();
+	if (!d->m_dieMuxData.isDieApplicable(getObject(), damageInfo))
+		return;
+
+	AIUpdateInterface *ai = getObject()->getAIUpdateInterface();
+	if (ai)
+		ai->markAsDead();
+
+	// deselect this object for all players.
+	TheGameLogic->deselectObject(getObject(), PLAYERMASK_ALL, TRUE);
+
+	beginStructureCollapse(damageInfo);
+}
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+// ?StructureCollapseUpdate::update present-unmatched
+UpdateSleepTime StructureCollapseUpdate::update( void )
+{
+	static const Real COLLAPSE_ACCELERATION_FACTOR = 0.02f;
+	struct GameLogicRetailFrameView
+	{
+		unsigned char pad00[0x40];
+		UnsignedInt m_frame;
+	};
+	struct GlobalDataRetailGravityView
+	{
+		unsigned char pad00[0xC4];
+		Real m_gravity;
+	};
+	struct DrawableRetailMatrixView
+	{
+		unsigned char pad00[0x1A0];
+		Matrix3D m_instanceMatrix;
+	};
+	struct StructureCollapseUpdateModuleDataRetailView
+	{
+		unsigned char pad00[0x38];
+		Int m_minCollapseDelay;
+		Int m_maxCollapseDelay;
+		Int m_minBurstDelay;
+		Int m_maxBurstDelay;
+		Int m_bigBurstFrequency;
+		Real m_collapseDamping;
+		Real m_maxShudder;
+	};
+	const StructureCollapseUpdateModuleDataRetailView *d = (const StructureCollapseUpdateModuleDataRetailView *)getStructureCollapseUpdateModuleData();
+
+	if (m_collapseState == COLLAPSESTATE_STANDING)
+	{
+		DEBUG_CRASH(("hmm, what?"));
+		return UPDATE_SLEEP_FOREVER;
+	}
+
+	// We are in the dramatic pause between when the building has lost all its hit points and
+	// when it starts toppling over.
+	if (m_collapseState == COLLAPSESTATE_WAITINGFORCOLLAPSESTART) 
+	{
+		UnsignedInt now = ((const GameLogicRetailFrameView *)TheGameLogic)->m_frame;
+		Object *building = getObject();
+
+		const Coord3D *currentPosition = building->getPosition();
+		Vector3 shudder;
+#line 202 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureCollapseUpdate.cpp"
+		shudder.Set(GameClientRandomValueReal(-(d->m_maxShudder), d->m_maxShudder), GameClientRandomValueReal(-(d->m_maxShudder), d->m_maxShudder), 0);
+
+		const Matrix3D *instMatrix = &((const DrawableRetailMatrixView *)building->getDrawable())->m_instanceMatrix;
+		Matrix3D newInstMatrix;
+		newInstMatrix = *instMatrix;
+		newInstMatrix.Set_Translation(shudder);
+
+		building->getDrawable()->setInstanceMatrix(&newInstMatrix);
+
+		if (now >= m_collapseFrame) 
+		{
+			m_collapseState = COLLAPSESTATE_COLLAPSING;
+			doPhaseStuff(SCPHASE_BURST, currentPosition);
+			// This has to use a game logic random value since the bursts can spawn debris, and debris is sync'd.
+#line 216 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureCollapseUpdate.cpp"
+			m_burstFrame = now + GameLogicRandomValue(d->m_minBurstDelay, d->m_maxBurstDelay);
+		}
+	}
+
+	// The building is in the process of falling over.
+	if (m_collapseState == COLLAPSESTATE_COLLAPSING) 
+	{
+		Object *building = getObject();
+		UnsignedInt now = ((const GameLogicRetailFrameView *)TheGameLogic)->m_frame;
+		m_currentHeight -= m_collapseVelocity;
+		m_collapseVelocity -= ((const GlobalDataRetailGravityView *)TheGlobalData)->m_gravity * (1.0 - d->m_collapseDamping);
+
+		const Coord3D *currentPosition = building->getPosition();
+		Vector3 shudder;
+#line 238 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureCollapseUpdate.cpp"
+		shudder.Set(GameClientRandomValueReal(-(d->m_maxShudder), d->m_maxShudder), GameClientRandomValueReal(-(d->m_maxShudder), d->m_maxShudder), m_currentHeight);
+		const Matrix3D *instMatrix = &((const DrawableRetailMatrixView *)building->getDrawable())->m_instanceMatrix;
+		Matrix3D newInstMatrix;
+		newInstMatrix = *instMatrix;
+		newInstMatrix.Set_Translation(shudder);
+
+		building->getDrawable()->setInstanceMatrix(&newInstMatrix);
+
+		if (now >= m_burstFrame) 
+		{
+#line 247 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureCollapseUpdate.cpp"
+			if (GameLogicRandomValue(1, d->m_bigBurstFrequency) == 1) 
+			{
+				doPhaseStuff(SCPHASE_BURST, currentPosition);
+			} 
+			else 
+			{
+				doPhaseStuff(SCPHASE_DELAY, currentPosition);
+			}
+			// This has to use a game logic random value since the bursts can spawn debris, and debris is sync'd.
+#line 256 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureCollapseUpdate.cpp"
+			m_burstFrame += GameLogicRandomValue(d->m_minBurstDelay, d->m_maxBurstDelay);
+		}
+
+//		if ((m_currentHeight + building->getGeometryInfo().getMaxHeightAbovePosition()) <= 0) 
+		if ((m_currentHeight + building->getGeometryInfo().getMaxHeightAbovePosition()) <= 0)
+		{
+			m_collapseState = COLLAPSESTATE_DONE;
+			doPhaseStuff(SCPHASE_FINAL, building->getPosition());
+			Drawable *drawable = building->getDrawable();
+
+			doCollapseDoneStuff();
+
+			drawable->clearModelConditionState(MODELCONDITION_RUBBLE);
+			drawable->setModelConditionState(MODELCONDITION_POST_COLLAPSE);
+			building->setOrientation(building->getOrientation());
+
+			
+			// Need to update body particle systems, now
+			BodyModuleInterface *body = building->getBodyModule();
+			body->updateBodyParticleSystems();
+
+
+			Vector3 shudder;
+			shudder.Set(0, 0, 0);
+			const Matrix3D *instMatrix = &((const DrawableRetailMatrixView *)building->getDrawable())->m_instanceMatrix;
+			Matrix3D newInstMatrix;
+			newInstMatrix = *instMatrix;
+			newInstMatrix.Set_Translation(shudder);
+			building->getDrawable()->setInstanceMatrix(&newInstMatrix);
+
+			return UPDATE_SLEEP_FOREVER;
+		}
+	}
+
+	return UPDATE_SLEEP_NONE;
+}
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+inline Bool inList(Int value, Int count, const Int idxList[])
+{
+	for (Int j = 0; j < count; ++j)
+	{
+		if (idxList[j] == value)
+			return true;
+	}
+	return false;
+}
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+static void buildNonDupRandomIndexList(Int range, Int count, Int idxList[])
+{
+	for (Int i = 0; i < count; ++i)
+	{
+		Int idx;
+		do
+		{
+		// Retain the retail call-site line used by GetGameLogicRandomValue.
+#line 325 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureCollapseUpdate.cpp"
+			idx = GameLogicRandomValue(0, range-1);
+		} 
+		while (inList(idx, i, idxList));
+		idxList[i] = idx;
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+// ?StructureCollapseUpdate::doPhaseStuff present-unmatched
+void StructureCollapseUpdate::doPhaseStuff(StructureCollapsePhaseType scphase, const Coord3D *target)
+{
+	DEBUG_LOG(("Firing phase %d on frame %d\n", scphase, TheGameLogic->getFrame()));
+
+	struct StructureCollapseUpdateModuleDataBFME2View
+	{
+		unsigned char m_pad00[0x54];
+		OCLVec m_ocls[5];
+		FXVec m_fxs[5];
+		Int m_oclCount[5];
+		Int m_fxCount[5];
+	};
+	const StructureCollapseUpdateModuleDataBFME2View* d = (const StructureCollapseUpdateModuleDataBFME2View*)getStructureCollapseUpdateModuleData();
+	Int i, idx, count, listSize;
+	Int idxList[MAX_IDX];
+
+	listSize = d->m_fxs[scphase].size();
+	if (listSize > 0)
+	{
+		count = d->m_fxCount[scphase];
+		buildNonDupRandomIndexList(listSize, count, idxList);
+		for (i = 0; i < count; ++i)
+		{
+			idx = idxList[i];
+			const FXVec& v = d->m_fxs[scphase];
+			DEBUG_ASSERTCRASH(idx>=0&&idx<v.size(),("bad idx"));
+			const FXList* fxl = v[idx];
+			FXList::doFXPos(fxl, target, NULL, 0.0f, NULL);
+		}
+	}
+
+	listSize = d->m_ocls[scphase].size();
+	if (listSize > 0)
+	{
+		count = d->m_oclCount[scphase];
+		buildNonDupRandomIndexList(listSize, count, idxList);
+		for (i = 0; i < count; ++i)
+		{
+			idx = idxList[i];
+			const OCLVec& v = d->m_ocls[scphase];
+			DEBUG_ASSERTCRASH(idx>=0&&idx<v.size(),("bad idx"));
+			const ObjectCreationList* ocl = v[idx];
+			if (ocl != NULL)
+				((ObjectCreationList*)ocl)->create(getObject(), (void*)target, NULL, 0);
+		}
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+void StructureCollapseUpdate::doCollapseDoneStuff() 
+{
+	static NameKeyType key_BoneFXUpdate = NAMEKEY("BoneFXUpdate");
+	BoneFXUpdate *bfxu = (BoneFXUpdate *)getObject()->findUpdateModule(key_BoneFXUpdate);
+	if (bfxu != NULL) 
+	{
+		bfxu->stopAllBoneFX();
+	}
+}
+
+// ------------------------------------------------------------------------------------------------
+/** CRC */
+// ------------------------------------------------------------------------------------------------
+// ?StructureCollapseUpdate::crc present-unmatched
+void StructureCollapseUpdate::crc( Xfer *xfer )
+{
+
+	// extend base class
+	UpdateModule::crc( xfer );
+
+}  // end crc
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version */
+// ------------------------------------------------------------------------------------------------
+// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateXfer.cpp
+
+// ------------------------------------------------------------------------------------------------
+/** Load post process */
+// ------------------------------------------------------------------------------------------------
+// ?StructureCollapseUpdate::loadPostProcess present-unmatched
+void StructureCollapseUpdate::loadPostProcess( void )
+{
+
+	// extend base class
+	UpdateModule::loadPostProcess();
+
+}  // end loadPostProcess
