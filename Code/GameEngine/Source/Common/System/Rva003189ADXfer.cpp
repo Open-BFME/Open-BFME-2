@@ -98,7 +98,9 @@ public:
 	virtual void slot88(Xfer *xfer, int *value) = 0;	// 88
 };
 
-extern Rva003189ADGlobal *TheRva003189ADGlobal;
+// Bind to the existing data-ledger owner; keep the retail access view local.
+class AudioManager;
+extern AudioManager *TheAudio;
 
 class Rva003189ADSub10
 {
@@ -137,7 +139,7 @@ void Rva003189ADOwner::rva003189AD(Xfer *xfer)
 	Xfer::Version version(1, 4);
 	*xfer == version;
 	XferGlobalWeatherType(xfer, &m_04);
-	TheRva003189ADGlobal->slot88(xfer, &m_08);
+	((Rva003189ADGlobal *)TheAudio)->slot88(xfer, &m_08);
 	XferGlobalWeatherAffectsType(xfer, &m_0c);
 	m_10.rva00362255(xfer);
 	xfer->slot27(m_10.m_04);
