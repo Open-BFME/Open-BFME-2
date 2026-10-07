@@ -136,3 +136,28 @@ public:
 Rva00541006::Rva00541006(int v, const Region2D &r) : m_00(v), m_04(r)
 {
 }
+
+// ?rva00540EBD@@YA?AVRva00540E9D@@MPAXPAXPAVRva005C71ADView@@PAXPAXPAXPAXPAX@Z,
+// retail 0x00540EBD. Target evidence: its only caller at 0x00541BB7 passes a
+// float, eight pointers and a context; the body transforms a 12-byte record
+// through 0x005C71AD and constructs the rowed Rva00540E9D from that result
+// and the context's first dword. Original function name remains unresolved.
+class Rva005C71ADView
+{
+public:
+	void *rva005C71AD(void *out, float value, void *a, void *b, void *c,
+		void *d, void *e, void *f, void *g, void *h);
+};
+
+Rva00540E9D rva00540EBD(float value, void *arg10, void *arg14,
+	Rva005C71ADView *context, void *arg1c, void *arg20, void *arg24,
+	void *arg28, void *arg2c)
+{
+	Rva00540E9DSrc transformed;
+	return Rva00540E9D(
+		*(Rva00540E9DSrc *)context->rva005C71AD(
+			&transformed, value, (char *)arg10 + 4, arg14,
+			(char *)context + 4, arg1c, (char *)arg20 + 4, arg24,
+			(char *)arg28 + 4, arg2c),
+		*(int *)context);
+}
