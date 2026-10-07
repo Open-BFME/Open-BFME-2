@@ -27,11 +27,29 @@
 typedef long HRESULT;
 typedef const char *D3DXHANDLE;
 
+struct D3DXPARAMETER_DESC
+{
+	const char *Name;
+	const char *Semantic;
+	int Class;
+	int Type;
+	unsigned int Rows;
+	unsigned int Columns;
+	unsigned int Elements;
+	unsigned int Annotations;
+	unsigned int StructMembers;
+	unsigned int Flags;
+	unsigned int Bytes;
+};
+
 #define FX_SLOT(n) virtual HRESULT __stdcall slot##n();
 struct ID3DXEffect
 {
-	FX_SLOT(00) FX_SLOT(01) FX_SLOT(02) FX_SLOT(03) FX_SLOT(04) FX_SLOT(05) FX_SLOT(06) FX_SLOT(07)
-	FX_SLOT(08) FX_SLOT(09) FX_SLOT(10) FX_SLOT(11) FX_SLOT(12) FX_SLOT(13) FX_SLOT(14) FX_SLOT(15)
+	FX_SLOT(00) FX_SLOT(01) FX_SLOT(02) FX_SLOT(03)
+	virtual HRESULT __stdcall GetParameterDesc(D3DXHANDLE parameter, D3DXPARAMETER_DESC *desc);	// +0x10
+	FX_SLOT(05) FX_SLOT(06) FX_SLOT(07) FX_SLOT(08) FX_SLOT(09) FX_SLOT(10)
+	virtual D3DXHANDLE __stdcall GetParameterElement(D3DXHANDLE parameter, unsigned int index);	// +0x2C
+	FX_SLOT(12) FX_SLOT(13) FX_SLOT(14) FX_SLOT(15)
 	FX_SLOT(16) FX_SLOT(17) FX_SLOT(18) FX_SLOT(19) FX_SLOT(20) FX_SLOT(21) FX_SLOT(22) FX_SLOT(23)
 	FX_SLOT(24) FX_SLOT(25)
 	virtual HRESULT __stdcall SetInt(D3DXHANDLE parameter, int value);	// +0x68
@@ -348,7 +366,12 @@ struct TreeHintRef00217D4C : public Rva00579E47
 class FXShaderParameterBinder
 {
 public:
+	ID3DXEffect *GetEffect() const { return m_effect; }
+	void PushDynamicSetStack(const char *name);
+	void PopDynamicSetStack();
 	void AddBinding(TreeHintRef00217D4C callback, D3DXHANDLE parameter);
+private:
+	ID3DXEffect *m_effect;
 };
 
 // Retail 0x0014D595, 27 bytes: 1 while DX8Wrapper has a light environment.
@@ -400,7 +423,7 @@ void FXShaderParameterSourceNamespaceSAS::ResolveBindings(const char *name, D3DX
 		m_SourceNamespace_Skeleton.ResolveBindings(t.m_rest, parameter, binder);
 }
 
-// Retail 0x0014F86C, 66 bytes: the leading run of shadows with a map.
+// Retail 0x0014F86C, 47 bytes: the leading run of shadows with a map.
 void FXShaderParameterSourceNamespaceSAS::NumShadows(ID3DXEffect *effect, D3DXHANDLE parameter)
 {
 	int i;
@@ -609,3 +632,41 @@ void FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow::ResolveBinding
 			binder->AddBinding(TreeHintRef00217D4C(DelegateDesc(this, &Rva0014D9F3This::rva0014D9F3)), parameter);
 	}
 }
+
+// Retail 0x00150E54 (197 bytes; the three light arrays' copies are folded
+// there) and 0x00150FCC (218 bytes, shadows): "[*]" binds every element of
+// the parameter array, "[n]" the one element; past the configured elements
+// the default source answers. WorldBuilder's fxshaderparameterbinder.h
+// asserts "Array shader parameter used without array notation" otherwise.
+template <class T>
+void FXShaderParameterSourceNamespace_Array<T>::ResolveBindings(const char *name, D3DXHANDLE parameter, FXShaderParameterBinder *binder)
+{
+	Rva001530E9Path t;
+	Rva001530E9Parse(name, &t);
+	binder->PushDynamicSetStack(parameter);
+	ID3DXEffect *effect = binder->GetEffect();
+	if (t.m_hasStar)
+	{
+		D3DXPARAMETER_DESC desc;
+		effect->GetParameterDesc(parameter, &desc);
+		for (unsigned int i = 0; i < desc.Elements; i++)
+		{
+			D3DXHANDLE element = effect->GetParameterElement(parameter, i);
+			if (i < m_Elements.size())
+				m_Elements[i].ResolveBindings(t.m_rest, element, binder);
+			else
+				m_Default.ResolveBindings(t.m_rest, element, binder);
+		}
+	}
+	else if (t.m_hasBracket)
+	{
+		if (t.m_index >= 0 && t.m_index < m_Elements.size())
+			m_Elements[t.m_index].ResolveBindings(t.m_rest, parameter, binder);
+		else
+			m_Default.ResolveBindings(t.m_rest, parameter, binder);
+	}
+	binder->PopDynamicSetStack();
+}
+
+template void FXShaderParameterSourceNamespace_Array<FXShaderParameterSourceNamespaceSAS::SourceNamespace_AmbientLight>::ResolveBindings(const char *, D3DXHANDLE, FXShaderParameterBinder *);
+template void FXShaderParameterSourceNamespace_Array<FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow>::ResolveBindings(const char *, D3DXHANDLE, FXShaderParameterBinder *);
