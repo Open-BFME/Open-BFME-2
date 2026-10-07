@@ -37893,7 +37893,7 @@ _vp6_drawc,,0x001BB580,109,Code/Libraries/Source/VP6/debug.cpp,matched,Target CR
 ?q4Notify002CCB04@@YAXPAXPAVMade002CCB04@@HH@Z,,0x0050B42C,77,Code/GameEngine/Source/GameLogic/Object/Made002CCB04Parse.cpp,matched,Emotion parser same two-add shape
 ?write@Rva0050F23E@@QAEHPAD@Z,,0x0050F23E,37,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,two-ref plus char plus text write base PlusStringChar
 ??BRva0050F23E@@QAE?AVAsciiString@@XZ,,0x0050F7B4,107,Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp,matched,narrow concat to AsciiString sized write base fold plus text plus char
-?rva002BECCD@Rva002BECCD@@QAEXMMM@Z,,0x002BECCD,67,Code/GameEngine/Source/Common/Rva002BECCDCalls.cpp,matched,three-float dual-virtual local zero third callers 0x002B2A0A 0x003FD584 singleton DFEF18
+?rva002BECCD@Rva002BECCD@@QAEXURvaFloatPair@@M@Z,,0x002BECCD,67,Code/GameEngine/Source/Common/Rva002BECCDCalls.cpp,matched,nontrivial float-pair plus independent scalar; native caller 0x002B2A0A constructs pair and scalar separately; dual virtual slots 0x58 and 0x7c; singleton DFEF18
 ?Rva00412845AfterLevel@@YAPBDPBD@Z,,0x00412845,68,Code/GameEngine/Source/Common/BfmePathLeafAfterMarker.cpp,matched,honest address name via level string and abutting leaf marker TU
 ?Rva004128BBGetLevel@@YAHPBD@Z,,0x004128BB,45,Code/GameEngine/Source/Common/BfmePathLeafAfterMarker.cpp,matched,honest address name via leveld format and abutting leaf TU
 ??0Rva0004584D@@QAE@ABVBfmeFixedStorage0004543D@@0@Z,,0x0004584D,43,Code/GameEngine/Source/Common/Rva0004584DCtor.cpp,matched,vtable 0x00BC2908 at +0 int zero at +4 two FixedStorage at +8/+0x24 via 0x4543D callers 0x4AFC6/0x10CE97 share DFEFA4 slot

@@ -1,20 +1,20 @@
 // cl: /MD
-//
-// ?rva002BECCD@Rva002BECCD@@QAEXMMM@Z, RVA 0x002BECCD, 67 bytes.
-// Three-float method: builds a 12-byte local {a, b, 0.0f} then calls virtual
-// slot 0x58 with &local and virtual slot 0x7c with c. SSE movss/xorps for the
-// local plus x87 fld/fstp for the float arg under /arch:SSE.
-// Evidence: caller 0x002B2A0A builds {x, y, 0.0} via sub+movss+fldz on the
-// stack and calls with this from 0x00DFEF18; caller 0x003FD584 calls with the
-// same singleton as this; ret 0xc for three floats.
+// Native 0x002BECCD..0x002BED10. Caller 0x002B2A0A constructs a
+// nontrivial eight-byte float pair in the first two argument words, then
+// supplies a separate scalar in the third word. A three-scalar declaration
+// reproduced this callee but could not reproduce that caller's copy ABI.
+// The pair copy constructor and destructor recover the observed argument
+// construction. The callee builds {pair.x, pair.y, 0} for virtual slot 0x58
+// and passes the independent height to virtual slot 0x7c; ret 0x0c.
+// Application-level names remain unknown; the pair is a partial value view.
 
-struct Rva002BECCDVec
-{
-    float x;
-    float y;
-    float z;
+struct RvaFloatPair {
+ float x,y;
+ RvaFloatPair(){}
+ RvaFloatPair(const RvaFloatPair&a){x=a.x;y=a.y;}
+ ~RvaFloatPair(){}
 };
-
+struct Rva002BECCDVec {float x,y,z;};
 class Rva002BECCD
 {
 public:
@@ -27,15 +27,15 @@ public:
     virtual void q23(); virtual void q24(); virtual void q25(); virtual void q26();
     virtual void q27(); virtual void q28(); virtual void q29(); virtual void q30();
     virtual void virt7c(float f);
-    void rva002BECCD(float a, float b, float c);
+    void rva002BECCD(RvaFloatPair pair, float height);
 };
 
-void Rva002BECCD::rva002BECCD(float a, float b, float c)
+void Rva002BECCD::rva002BECCD(RvaFloatPair pair, float height)
 {
     Rva002BECCDVec local;
-    local.x = a;
-    local.y = b;
+    local.x = pair.x;
+    local.y = pair.y;
     local.z = 0.0f;
     virt58(&local);
-    virt7c(c);
+    virt7c(height);
 }
