@@ -847,3 +847,4 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?d_002206f9@@YAXXZ,0x002206F9,Generated placeholder replaced by the byte-verified 82-byte bulk or per-entry dispatch C++ body in Rva002206F9.cpp.
 ?d_003fa781@@YAXXZ,0x003FA781,Replaced by verified low-byte state toggle Rva003FA835::rva003FA781
 ?d_002f70e5@@YAXXZ,0x002F70E5,Replaced by verified Rva002F70E5Info query callback
+?d_002f600c@@YAXXZ,0x002F600C,Replaced by verified Rva002F600CInfo::cellCallback
