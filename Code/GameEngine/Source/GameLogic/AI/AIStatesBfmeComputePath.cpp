@@ -26,6 +26,15 @@
 //  - AIBackAwayState::onExit 0x00347FFE (80 bytes): base onExit, then
 //    model-condition bit 65 cleared (notifying through the rowed
 //    Object::rva0028AE6D), AI slot 142 with 0 and the AI byte +0x3C8 cleared.
+//  - AIBackAwayState::onEnter 0x0034CC00 (314 bytes; slot 4 of 0x00C13050):
+//    "setAdjustDestination(FALSE) 16", fails without a goal or an AI, calls
+//    AI slot 142 with 9. Without the AI byte +0x3C8 the state is done at
+//    once (+0x54); otherwise it allows one repath, arms the path-end retarget
+//    (+0x50) that AIBackAwayState::update consumes, calls the rowed
+//    Object::rva0028AD32 and requests a path 40 units from the goal along
+//    the normalized goal-to-owner offset (rowed Coord3D::normalize,
+//    AIUpdateInterface::requestPath), then the pinned base onEnter. The
+//    scaled offset is a member-wise copy so /arch:SSE batches its stores.
 //
 //  - AIWaitUntilFinishedFiringState::update 0x0034133E (83 bytes): fails
 //    without a current weapon (rowed Object::getCurrentWeapon); continues
@@ -76,6 +85,7 @@ enum WeaponStatus
 struct Coord3D
 {
 	Real x, y, z;
+	void normalize();
 };
 
 class GameLogic
@@ -167,6 +177,7 @@ public:
 	virtual void rva00347F6BSlot142(int value) = 0;
 	ObjectID getIgnoredObstacleID() const;
 	Bool isMoving() const;
+	void requestPath(Coord3D *destination, Bool isFinalGoal);
 	unsigned char m_pad004[0x3C8 - 0x04];
 	Bool m_bfmeFlag3C8; // +0x3C8
 };
@@ -199,6 +210,7 @@ public:
 	void setStatus(ObjectStatusTypes status, Bool set);
 	void releaseWeaponLock(WeaponLockType lockType);
 	void rva0028AE6D();
+	void rva0028AD32();
 	__forceinline void clearModelConditionBit(int bit)
 	{
 		if (m_conditionBits.test(bit) != 0)
@@ -313,12 +325,64 @@ void AIMoveAwayAndCowerState::onExit(StateExitType status)
 class AIBackAwayState : public AIInternalMoveToState
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 protected:
 	virtual Bool computePath();
 private:
 	int m_okToRepathTimes; // +0x4C
+	Bool m_retargetToPathEnd; // +0x50
+	unsigned char m_pad51[0x54 - 0x51];
+	Bool m_done; // +0x54
 };
+
+StateReturnType AIBackAwayState::onEnter()
+{
+	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 16");
+	setAdjustsDestination(false);
+	Object *owner = getMachineOwner();
+	Object *goal = getMachine()->getGoalObject();
+	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	if (goal == 0 || ai == 0)
+		return STATE_FAILURE;
+	ai->rva00347F6BSlot142(9);
+	if (ai->m_bfmeFlag3C8)
+	{
+		m_okToRepathTimes = 1;
+		m_retargetToPathEnd = true;
+		m_done = false;
+		owner->rva0028AD32();
+
+		// Back away 40 units from the goal along the goal-to-owner direction.
+		Coord3D dest;
+		Coord3D dir;
+		Real ox = owner->getPosition()->x;
+		Real oy = owner->getPosition()->y;
+		Real oz = owner->getPosition()->z;
+		dest.x = ox;
+		dest.y = oy;
+		dest.z = oz;
+		dir.x = ox - goal->getPosition()->x;
+		dir.y = oy - goal->getPosition()->y;
+		dir.z = oz - goal->getPosition()->z;
+		dir.normalize();
+		Coord3D offset;
+		offset.x = dir.x;
+		offset.y = dir.y;
+		offset.z = dir.z;
+		offset.x *= 40.0f;
+		offset.y *= 40.0f;
+		offset.z *= 40.0f;
+		dest.x += offset.x;
+		dest.y += offset.y;
+		dest.z += offset.z;
+		ai->requestPath(&dest, true);
+		return AIInternalMoveToState::onEnter();
+	}
+	m_retargetToPathEnd = false;
+	m_done = true;
+	return STATE_CONTINUE;
+}
 
 Bool AIBackAwayState::computePath()
 {
