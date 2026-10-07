@@ -62453,7 +62453,6 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?setUnitsVisionSpied@Player@@QAEX_NH@Z,,0x002ABA3D,94,Code/GameEngine/Source/Common/RTS/PlayerSetUnitsVisionSpied.cpp,matched,Generals donor setUnitsVisionSpied
 ?callHandleShroud@@YAHPAVObject@@PAX@Z,,0x002AA20F,13,Code/GameEngine/Source/Common/RTS/PlayerSetUnitsVisionSpied.cpp,matched,Generals donor callHandleShroud (BFME makeDirty)
 ?rva001E3647Pos@Pathfinder@@QAEPAXHPBUCoord3D@@@Z,,0x001E3647,50,Code/GameEngine/Source/Common/PathfinderRva001E3647.cpp,matched,Pathfinder pos-to-cell via WorldToCell 0x002E7964 then getCell 0x002E6D62
-?rva00346C53@Rva00346C53@@QAEXW4ObjectStatusTypes@@_N@Z,,0x00346C53,38,Code/GameEngine/Source/GameLogic/AI/Rva00346C53Mask.cpp,matched,Void status-mask applier via rowed 0x23DA79 builder plus pinned 0x293D3B hook; struct-not-class Mask for PAU mangling
 ?rva00346B6D@Rva00346B6D@@QAEXH@Z,,0x00346B6D,83,Code/GameEngine/Source/GameLogic/AI/Rva00346B6DSetup.cpp,matched,Damage setup via pinned member init plus field stores plus slot virtual double plus BBB8D8 global plus rowed attemptDamage; pins BBB8D8
 ?rva0034BFFF@@YGXPAVObject@@@Z,,0x0034BFFF,54,Code/GameEngine/Source/GameLogic/AI/Rva0034BFFFGate.cpp,matched,Stdcall weapon-state applier via rowed getCurrentWeapon plus setStatus plus pinned 0x291916 hook; pins 0x291916
 ??1Rva00359290@@UAE@XZ,,0x00359290,86,Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp,matched,Virtual scalar dtor via implicit vptr store plus member dtors plus base; vtable pin; no new member pins
