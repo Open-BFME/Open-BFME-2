@@ -52,16 +52,7 @@ public:
  bool rva002E6DC4(void *query, void *cell);
 };
 
-struct Rva002E7D6DInfo
-{
- Rva002E6DC4 *m_provider;
- Coord3D *m_result;
- int m_layer;
- char m_query[0x10];
- bool m_check;
- int cellCallback(PathfindCell *previousCell, PathfindCell *currentCell,
-                  int cellX, int cellY);
-};
+#include "Rva002E7D6DInfo.h"
 
 int Rva002E7D6DInfo::cellCallback(PathfindCell *previousCell,
                                PathfindCell *currentCell, int cellX, int cellY)
@@ -70,7 +61,7 @@ int Rva002E7D6DInfo::cellCallback(PathfindCell *previousCell,
  unsigned int kind=flags&0xF;
  if (kind==5 || kind==2 || kind==4)
   return 1;
- if (m_check && !m_provider->rva002E6DC4(m_query,currentCell))
+ if (m_check && !m_provider->rva002E6DC4(&m_query,currentCell))
   return 1;
  if (m_layer==1 && (unsigned char)Rva002E6E8AGet((flags>>4)&0x3F))
   return 1;
