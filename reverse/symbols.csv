@@ -15634,3 +15634,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0052D84C@PathfindCell@@QAEXPAVXfer@@@Z,0x0052D84C,callee of ?rva003666FD@PathfindLayer@@QAEXPAVXfer@@@Z
 ?rva0027E248@Rva0027E248@@QAEXPAUCoord3D@@MPAVRva0027D30D@@_NH@Z,0x0027E248,callee of ?rva0027F171@BfmeThingCME@@QAEHPAVPolygonTrigger@@@Z
 ?rva0027E79E@Rva0027E79E@@QAEXPAUCoord3D@@MPAVRva0027D35F@@_NH@Z,0x0027E79E,callee of ?rva0027F2B2@BfmeThingCME@@QAEXPAUCoord3D@@ME@Z
+?rva002E7749@Pathfinder@@QAEHPAXHHHH_N@Z,0x002E7749,callee of ?cellCallback@Rva002E7B29Info@@QAEHPAVPathfindCell@@0HH@Z

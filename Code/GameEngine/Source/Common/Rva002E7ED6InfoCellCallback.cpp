@@ -79,3 +79,40 @@ int Rva002E7D6DInfo::cellCallback(PathfindCell *previousCell,
  m_result->y=(float)(cellY*10);
  return 0;
 }
+
+// Native 2E7B29..2E7BB8 RET16; matched line walk8448 proves callback ABI.
+// Native context: Pathfinder pointer +0, requested footprint +4, Coord3D +8.
+// The rowed 2EDFBD caller initializes this via 2E7B02(this,4,*position),
+// passes it to the rowed 2EB3D7/2E8448 line walk and copies the output back.
+// 2E7749 has a native RET24 contract and returns an achieved footprint;
+// its purpose is inferred from its square-cell checks, not a recovered name.
+// 2E79A8 returns the coordinate temporary through EAX, as the rowed sibling
+// above already establishes. Original callback/context names remain unknown.
+class Pathfinder
+{
+public:
+ int rva002E7749(void *object, int x, int y, int layer, int clearance, bool exact);
+};
+bool Rva001E3679(int value);
+struct Rva002E7B29Info
+{
+ Pathfinder *provider;
+ int clearance;
+ Coord3D result;
+ int cellCallback(PathfindCell *previousCell, PathfindCell *currentCell, int cellX, int cellY);
+};
+int Rva002E7B29Info::cellCallback(PathfindCell *previousCell, PathfindCell *currentCell, int cellX, int cellY)
+{
+ if (previousCell) {
+  int layer=(currentCell->m_0C>>4)&0x3F;
+  if (Rva001E3679(layer) && ((previousCell->m_0C>>4)&0x3F)==layer)
+   return 0;
+ }
+ if (provider->rva002E7749(0,cellX,cellY,(currentCell->m_0C>>4)&0x3F,clearance,true)==clearance) {
+  Coord3D temporary;
+  Coord3D *point=(Coord3D *)rva002E79A8_ret((int)&temporary,1,cellX,cellY,(currentCell->m_0C>>4)&0x3F);
+  result=*point;
+  return 0;
+ }
+ return 1;
+}
