@@ -15300,6 +15300,3 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?Rva006CC600@@YAXPBDPAD@Z,0x006CC600,Address-derived cdecl call view from retail direct call in 0x00222481; first arg is const literal and second is stack buffer
 ?rva0021E9D8Call@Rva0021E9D8Call@@QAEHIABVAsciiString@@00@Z,0x0021E9D8,Direct call from 0x0021EA59; thiscall return and stack argument shape inferred from the call site. Address-derived helper name; semantic identity unresolved.
 ?rva0028F326@Rva0028F326Owner@@QAEEIM@Z,0x0028F326,Address-derived helper name. Retail call at 0x00261524 targets Ghidra entry 0x0028F326 (294B); caller sets ECX to this+8 and passes one 4-byte value and one float. Helper identity and semantics unproven.
-?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
-?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
-?onContaining@HordeContain@@UAEXPAVObject@@_N@Z,0x0046FA46,callee of ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z
