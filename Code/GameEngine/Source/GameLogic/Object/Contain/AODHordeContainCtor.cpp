@@ -124,6 +124,7 @@ class AODHordeContain : public HordeContain
 {
 public:
 	AODHordeContain(Thing *thing, const ModuleData *moduleData);
+	void rva0047A729(const Float3 *position);
 	virtual void f00();
 	virtual void f20();
 	virtual void f11C();
@@ -175,3 +176,37 @@ AODHordeContain::AODHordeContain(Thing *thing, const ModuleData *moduleData)
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 #pragma comment(linker, "/alternatename:?f2C@Iface2C@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
+
+// Target 0x0047A729..0x0047A77E (RET 4). The adjacent constructor proves
+// the sixty 16-byte entries at +0x338 and count at +0x6F8. Each entry holds
+// a three-float position followed by a copy of the owner's field at +0x44.
+// The field and method keep address-derived spellings until named evidence
+// identifies them. No donor method identity is asserted.
+struct AODHistoryOwnerView
+{
+    unsigned char m_prefix[0x44];
+    float m_field44;
+};
+
+void AODHordeContain::rva0047A729(const Float3 *position)
+{
+    int count;
+    if (m_6F8 == 60)
+        count = 59;
+    else if ((count = m_6F8++) <= 0)
+        goto insertPosition;
+    Element16 *destination = m_arrayA + count;
+    do
+    {
+        --count;
+        Element16 *source = destination - 1;
+        *destination = *source;
+        destination = source;
+    }
+    while (count);
+insertPosition:
+    *reinterpret_cast<Float3 *>(&m_arrayA[0]) = *position;
+    AODHistoryOwnerView *owner = *reinterpret_cast<AODHistoryOwnerView **>(
+        reinterpret_cast<unsigned char *>(this) + 8);
+    m_arrayA[0].m_f[3] = owner->m_field44;
+}
