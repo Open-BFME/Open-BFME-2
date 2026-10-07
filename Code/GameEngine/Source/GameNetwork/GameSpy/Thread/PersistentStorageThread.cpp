@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
 // PersistentStorageThread.cpp -- GameSpy persistent-stats members recovered
 // from WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names
 // each function; retail supplies the bytes.
@@ -13,6 +13,12 @@ void Rva00030830FreeAllocation(void *);
 #define free Rva00030830FreeAllocation
 #include <map>
 #undef free
+// STLport has already supplied the placement-new operators.
+#define _OPERATOR_NEW_DEFINED_
+#include <mutex.h>
+// Inline the stock integer comparison without emitting an /O1 COMDAT
+// that competes with the independently rowed /Od less<int> provider.
+template <> __declspec(dllimport) __forceinline bool _STL::less<int>::operator()(const int &left, const int &right) const { return left < right; }
 typedef _STL::map<unsigned char, short> StatsShortMap;
 typedef _STL::map<unsigned char, int> StatsIntMap;
 template <> int &StatsIntMap::operator[](const unsigned char &);
@@ -246,6 +252,8 @@ public:
 class PSPlayerAllStats
 {
 public:
+    Rva003844D7 rva00389DF1() const;
+    Rva0038454E rva00389E0F() const;
 	PSPlayerAllStats &operator=(const PSPlayerAllStats &that);
 	void setOpenPlayStats(Rva003844D7 stats);
 	void setStrategicStats(Rva0038454E stats);
@@ -695,4 +703,37 @@ Rva003844D7::Rva003844D7(int id) : Rva00553E47StatsCore(0) {
 Rva003844D7::Rva003844D7(const Rva003844D7 &source) : Rva00553E47StatsCore(0) {
     reset();
     rva00555845(&source);
+}
+
+// These return the same concrete members as the native RVO getters389DF1/389E0F.
+Rva003844D7 PSPlayerAllStats::rva00389DF1() const { return m_openPlayStats; }
+Rva0038454E PSPlayerAllStats::rva00389E0F() const { return m_strategicStats; }
+
+// Native queue methods555BD5/555C76 lock mutex04 and query the int-key map90.
+// BFME1 findPlayerStatsByID is the semantic guide; receiver name is unproved.
+class Rva00555BD5StatsQueue {
+public:
+    Rva003844D7 rva00555BD5(int id);
+    Rva0038454E rva00555C76(int id);
+private:
+    unsigned m_00;
+    MutexClass m_mutex04;
+    unsigned char m_pad0c[0x90-0x0c];
+    _STL::map<int, PSPlayerAllStats> m_playerStats;
+};
+Rva003844D7 Rva00555BD5StatsQueue::rva00555BD5(int id) {
+    MutexClass::LockClass lock(m_mutex04);
+    _STL::map<int, PSPlayerAllStats>::iterator it=m_playerStats.find(id);
+    if (it._M_node != m_playerStats.end()._M_node)
+        return it->second.rva00389DF1();
+    Rva003844D7 empty(0);
+    return empty;
+}
+Rva0038454E Rva00555BD5StatsQueue::rva00555C76(int id) {
+    MutexClass::LockClass lock(m_mutex04);
+    _STL::map<int, PSPlayerAllStats>::iterator it=m_playerStats.find(id);
+    if (it._M_node != m_playerStats.end()._M_node)
+        return it->second.rva00389E0F();
+    Rva0038454E empty(0);
+    return empty;
 }
