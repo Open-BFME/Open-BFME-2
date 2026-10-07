@@ -23,6 +23,27 @@
 // one-argument TeamFactory::findTeamPrototype: it splits the qualified name
 // and forwards to the two-argument findTeamPrototype 0x0039FE6C. The instance
 // walk loads the member pointer 0x009C4AF5 (DLINK_ITERATOR<Team>).
+//
+// ?evaluateNamedAttackedByType@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E9556 169B
+// ?evaluateTeamAttackedByType@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E95FF 246B
+// ?evaluateNamedAttackedByPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E96F5 137B
+// ZH donors: the same-name GeneralsMD ScriptConditions.cpp bodies. Target
+// evidence: jump-table cases 19, 20 and 21 call these addresses, and
+// initConditionTemplates names them NAMED_ATTACKED_BY_OBJECTTYPE,
+// TEAM_ATTACKED_BY_OBJECTTYPE and NAMED_ATTACKED_BY_PLAYER. BFME2 keeps the
+// attacker lookup by m_sourceID (DamageInfo+0x08, rowed findObjectByID
+// 0x00049DC5) without ZH's later m_sourceTemplate branch; the type test is
+// the pinned ObjectTypes::isInSet 0x00376A62 on the attacker template's name
+// (+0x64) through an ObjectTypesTemp (rowed ctor 0x003BA7FF) filled by the
+// cdecl objectTypesFromParam 0x00566E6C. The player test walks every player
+// of the parameter's mask (rowed rva00357B82 plus getEachPlayerFromMask)
+// against the rowed getControllingPlayer 0x0028AFA9. The body module is
+// Object+0x254 and getLastDamageInfo its vslot +0x3C, as in the rowed
+// evaluateTeamAttackedByPlayer.
+//
+// ??0ObjectTypesTemp@@QAE@XZ @ 0x003BA7FF 64B (rehomed from
+// ObjectTypesTempCtor.cpp): m_types(0) then new ObjectTypes (0x14 bytes,
+// rowed ctor 0x003769F9), as Zero Hour's ScriptConditions.cpp helper.
 #include "ascii_string.h"
 
 class Parameter
@@ -60,6 +81,22 @@ public:
 	}
 };
 
+class Object;
+
+// The member iterator BFME2 returns by value from Team::iterate_TeamMemberList
+// (24 bytes, out-of-line advance; see TeamRva0039DDC2.cpp).
+template <>
+class DLINK_ITERATOR<Object>
+{
+private:
+	Object *m_cur;
+	unsigned char m_targetAbiState[20];
+public:
+	void advance();
+	bool done() const { return m_cur == 0; }
+	Object *cur() const { return m_cur; }
+};
+
 class MemoryPoolObject
 {
 public:
@@ -69,6 +106,92 @@ public:
 #include "Common/Snapshot.h"
 
 class Team;
+class Player;
+
+#include "../../Common/GameLogicObjectLookupView.h"
+
+struct DamageInfoInput
+{
+	unsigned char m_pad00[0x08];
+	ObjectID m_sourceID; // +0x08
+};
+
+struct DamageInfo
+{
+	DamageInfoInput in;
+};
+
+class BodyModuleInterface
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14();
+	virtual const DamageInfo *getLastDamageInfo() const; // +0x3C
+};
+
+class ThingTemplate
+{
+public:
+	const AsciiString &getName() const { return m_name; }
+private:
+	unsigned char m_pad00[0x64];
+	AsciiString m_name; // +0x64
+};
+
+class Object
+{
+public:
+	const ThingTemplate *getTemplate() const { return m_template; }
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+	Player *getControllingPlayer() const;
+private:
+	void *m_vtbl;
+	const ThingTemplate *m_template; // +0x04
+	unsigned char m_pad08[0x254 - 0x08];
+	BodyModuleInterface *m_body; // +0x254
+};
+
+extern GameLogic *TheGameLogic;
+
+class ObjectTypes
+{
+public:
+	ObjectTypes();
+	virtual ~ObjectTypes();
+	bool isInSet(const AsciiString &name) const;
+private:
+	AsciiString m_listName; // +0x04
+	void *m_objectTypes[3]; // +0x08 vector<AsciiString>
+};
+
+class ObjectTypesTemp
+{
+public:
+	ObjectTypesTemp();
+	~ObjectTypesTemp() { ::delete m_types; }
+	ObjectTypes *m_types;
+};
+
+// Zero Hour defines ObjectTypesTemp in ScriptConditions.cpp, and retail's
+// out-of-line copy of its ctor (0x003BA7FF) belongs to that unit: the
+// callers keep types.m_types in a register across the parse and isInSet
+// calls (and into the destructor), which VC7.1 only does when the ctor's
+// body is compiled in the same unit and so is known not to keep `this`.
+ObjectTypesTemp::ObjectTypesTemp() : m_types(0)
+{
+	m_types = new ObjectTypes;
+}
+
+void Script_objectTypesFromParam(Parameter *pTypeParm, ObjectTypes *outObjectTypes);
+
+class PlayerList
+{
+public:
+	Player *getEachPlayerFromMask(int &mask);
+};
+extern PlayerList *ThePlayerList;
 
 class TeamPrototype
 {
@@ -93,6 +216,7 @@ public:
 	// Zero Hour's Team::hasAnyUnits; the ledger keeps the address name.
 	bool rva0039DEC4();
 	Team *dlink_next_TeamInstanceList() const;
+	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 private:
 	unsigned char m_pad08[0x30 - 0x08];
 	TeamPrototype *m_proto; // +0x30
@@ -116,6 +240,8 @@ class ScriptEngine
 {
 public:
 	Team *getTeamNamed(AsciiString, bool);
+	Object *getUnitNamed(Parameter *pUnitParm);
+	int rva00357B82(Parameter *pPlayerParm);
 };
 extern ScriptEngine *TheScriptEngine;
 
@@ -125,6 +251,9 @@ class ScriptConditions
 {
 protected:
 	bool evaluateHasUnits(Parameter *);
+	bool evaluateNamedAttackedByType(Parameter *, Parameter *);
+	bool evaluateTeamAttackedByType(Parameter *, Parameter *);
+	bool evaluateNamedAttackedByPlayer(Parameter *, Parameter *);
 	bool evaluateTeamStateIs(Parameter *, Parameter *);
 	bool evaluateTeamStateIsNot(Parameter *, Parameter *);
 };
@@ -171,6 +300,100 @@ bool ScriptConditions::evaluateTeamStateIsNot(Parameter *pTeamParm, Parameter *p
 	AsciiString stateName = pStateParm->getString();
 	if (theTeam) {
 		return (!(theTeam->getState() == stateName));
+	}
+	return false;
+}
+bool ScriptConditions::evaluateNamedAttackedByType(Parameter *pUnitParm, Parameter *pTypeParm)
+{
+	Object *theObj = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!theObj) {
+		return false;
+	}
+
+	BodyModuleInterface *theBodyModule = theObj->getBodyModule();
+	if (!theBodyModule) {
+		return false;
+	}
+
+	const DamageInfo *lastDamageInfo = theBodyModule->getLastDamageInfo();
+
+	if (!lastDamageInfo) {
+		return false;
+	}
+
+	ObjectID id = lastDamageInfo->in.m_sourceID;
+	Object *pAttacker = TheGameLogic->findObjectByID(id);
+	if (!pAttacker || !pAttacker->getTemplate()) {
+		return false;
+	}
+
+	ObjectTypesTemp types;
+	Script_objectTypesFromParam(pTypeParm, types.m_types);
+	return types.m_types->isInSet(pAttacker->getTemplate()->getName());
+}
+bool ScriptConditions::evaluateTeamAttackedByType(Parameter *pTeamParm, Parameter *pTypeParm)
+{
+	Team *theTeam = TheScriptEngine->getTeamNamed(pTeamParm->getString(), false);
+	if (!theTeam) {
+		return false;
+	}
+
+	ObjectTypesTemp types;
+	Script_objectTypesFromParam(pTypeParm, types.m_types);
+
+	for (DLINK_ITERATOR<Object> iter = theTeam->iterate_TeamMemberList(); !iter.done(); iter.advance()) {
+		BodyModuleInterface *theBodyModule = iter.cur()->getBodyModule();
+		if (!theBodyModule) {
+			continue;
+		}
+
+		const DamageInfo *lastDamageInfo = theBodyModule->getLastDamageInfo();
+
+		if (!lastDamageInfo) {
+			continue;
+		}
+
+		ObjectID id = lastDamageInfo->in.m_sourceID;
+		Object *pAttacker = TheGameLogic->findObjectByID(id);
+		if (!pAttacker || !pAttacker->getTemplate()) {
+			continue;
+		}
+		if (types.m_types->isInSet(pAttacker->getTemplate()->getName())) {
+			return true;
+		}
+	}
+
+	return false;
+}
+bool ScriptConditions::evaluateNamedAttackedByPlayer(Parameter *pUnitParm, Parameter *pPlayerParm)
+{
+	Object *theObj = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!theObj) {
+		return false;
+	}
+
+	BodyModuleInterface *theBodyModule = theObj->getBodyModule();
+	if (!theBodyModule) {
+		return false;
+	}
+
+	const DamageInfo *lastDamageInfo = theBodyModule->getLastDamageInfo();
+
+	if (!lastDamageInfo) {
+		return false;
+	}
+
+	ObjectID id = lastDamageInfo->in.m_sourceID;
+	Object *pAttacker = TheGameLogic->findObjectByID(id);
+	if (!pAttacker) {
+		return false;
+	}
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	while (mask) {
+		Player *victimPlayer = ThePlayerList->getEachPlayerFromMask(mask);
+		if (pAttacker->getControllingPlayer() == victimPlayer) {
+			return true;
+		}
 	}
 	return false;
 }
