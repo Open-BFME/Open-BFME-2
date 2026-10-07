@@ -11,6 +11,7 @@ template <typename T> class StringBase
 public:
 	~StringBase();
 	void set(const StringBase<T> &that);
+	int compare(const StringBase<T> &that) const;
 private:
 	StringBase(const StringBase<T> &);
 	friend class AsciiString;
@@ -203,6 +204,46 @@ struct BfmeStringRecord00466E64 {
     BfmeStringRecord00466E64(const BfmeStringRecord00466E64 &o) : text0(o.text0), text1(o.text1), word(o.word) {}
 };
 template void _STL::_Construct<BfmeStringRecord00466E64,BfmeStringRecord00466E64>(BfmeStringRecord00466E64*,const BfmeStringRecord00466E64&);
+
+// Native lookup 0x00467799 consumes the existing 12-byte string record
+// view: the first string is compared through verified worker 0x000069D6.
+// Only the owner pointer at +4 and its vector at +0x180 are established;
+// the original owner and lookup names remain unknown.
+struct Rva00467799Vector
+{
+    BfmeStringRecord00466E64 *begin;
+    BfmeStringRecord00466E64 *end;
+    BfmeStringRecord00466E64 *capacity;
+    unsigned int size() const { return (unsigned int)(end - begin); }
+};
+struct Rva00467799Owner
+{
+    unsigned char opaque_00[0x180];
+    Rva00467799Vector records;
+};
+class Rva00467799
+{
+public:
+    BfmeStringRecord00466E64 *rva00467799(const StringBase<char> &key);
+private:
+    unsigned char opaque_00[4];
+    Rva00467799Owner *owner;
+};
+
+// ?rva00467799@Rva00467799@@QAEPAUBfmeStringRecord00466E64@@ABV?$StringBase@D@@@Z
+// Ghidra extent 0x00467799..0x004677FD; RET 4. The IDIV 12 and record
+// compare establish the stride and consumed string; each iteration
+// rechecks the vector size after the call.
+BfmeStringRecord00466E64 *Rva00467799::rva00467799(const StringBase<char> &key)
+{
+    Rva00467799Vector *records = &owner->records;
+    for (unsigned int i = 0; i < records->size(); ++i)
+    {
+        if (key.compare(*(const StringBase<char> *)&records->begin[i].text0) == 0)
+            return &records->begin[i];
+    }
+    return 0;
+}
 
 // Retail copy 0x00239B46: observed scalar fields and string member.
 // Original application type and scalar meanings are unknown.
