@@ -24367,7 +24367,7 @@ pin	reverse/symbols.csv	0x0007A54B	1
 pin	reverse/symbols.csv	0x0007A706	1
 pin	reverse/symbols.csv	0x0007A7AA	2
 pin	reverse/symbols.csv	0x0007B5C8	1
-pin	reverse/symbols.csv	0x0007B719	2
+pin	reverse/symbols.csv	0x0007B719	3	allow=a3c6d22a90f54234bca913f0bbff929776e2388a
 pin	reverse/symbols.csv	0x0007B724	3
 pin	reverse/symbols.csv	0x0007B789	1
 pin	reverse/symbols.csv	0x0007BB16	2
@@ -24605,7 +24605,7 @@ pin	reverse/symbols.csv	0x000B2F38	1
 pin	reverse/symbols.csv	0x000B3A2D	1
 pin	reverse/symbols.csv	0x000B3EB3	1
 pin	reverse/symbols.csv	0x000B3F84	1
-pin	reverse/symbols.csv	0x000B3FD0	24
+pin	reverse/symbols.csv	0x000B3FD0	27	allow=a3c6d22a90f54234bca913f0bbff929776e2388a
 pin	reverse/symbols.csv	0x000B4039	3
 pin	reverse/symbols.csv	0x000B407F	2
 pin	reverse/symbols.csv	0x000B40EA	4

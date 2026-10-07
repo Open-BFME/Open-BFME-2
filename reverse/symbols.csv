@@ -15258,3 +15258,5 @@ rva009C7380WeightPairs,0x009B84E0
 ?_bfme_setAptScreenRef@@YAXABVAsciiString@@V?$AptRef@VAptScreenInitGadgets@@@@@Z,0x00411458,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ; stores the by-value reference under the name in the screen table 0x00E02FD0 (operator[] 0x0041112B then assign 0x002174A4) and releases it via 0x0007DEEF; BFME1 _bfme_setAptScreenRef analogue
 ?rva0030A8EE@Thing@@QBEXPAUCoord3D@@@Z,0x0030A8EE,callee of ?exitObjectViaDoor@QueueProductionExitUpdate@@UAEXPAVObject@@W4ExitDoorType@@@Z
 ?rva0054C805@Rva0054C88AInner@@QAEXM@Z,0x0054C805,callee of ?rva0054C877@Rva0054C88A@@QAEXM@Z
+??0Rva00323674@@QAE@PAVGameWindow@@@Z,0x0007B719,callee of ?W3DGadgetImageComboBoxDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
+??1Rva00323674@@QAE@XZ,0x000B3FD0,callee of ?W3DGadgetImageComboBoxDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
