@@ -26,7 +26,8 @@
 //
 // BFME 2 order: the UpdateModule base (0x0044DF9F) first, then the light-CRC
 // gate and Version1, then ZH's fields. The two kind-of masks go through the
-// 7-dword BitFlags xfer 0x002AC06A, viewed here as KindOfMaskType::xfer. After
+// 7-dword BitFlags<218> xfer 0x002AC06A. KindOfMaskType is the donor's
+// typedef, with the target's 218-bit extent proven by the provider. After
 // ZH's vision object id, BFME 2 hands Xfer and the +0x84 member to TheAudio's
 // slot 88 (+0x160).
 
@@ -145,13 +146,15 @@ enum TransitionStatus
 	TRANSITIONSTATUS_IDLE
 };
 
-class KindOfMaskType
+template <int NUMBITS>
+class BitFlags
 {
 public:
 	void xfer( Xfer *xfer );
 private:
-	UnsignedInt m_bits[ 7 ];
+	UnsignedInt m_bits[ (NUMBITS + 31) / 32 ];
 };
+typedef BitFlags<218> KindOfMaskType;
 
 struct BattlePlanBonuses
 {

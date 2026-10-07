@@ -73,13 +73,17 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
-class KindOfMaskType
+// KindOfMaskType is the donor's BitFlags typedef. Target 0x2AC06A's loop
+// bound 218 and seven-word payload establish this target specialization.
+template <int NUMBITS>
+class BitFlags
 {
 public:
 	void xfer(Xfer *xfer);
 private:
-	unsigned int m_bits[7];
+	unsigned int m_bits[(NUMBITS + 31) / 32];
 };
+typedef BitFlags<218> KindOfMaskType;
 class Rva002ABBBE
 {
 public:
