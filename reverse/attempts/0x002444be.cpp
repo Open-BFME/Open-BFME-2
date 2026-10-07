@@ -1,3 +1,5 @@
+// ?populateRandomSideAndColor@@YAXPAVGameInfo@@@Z
+// partial score=0.97 date=2026-10-07
 // cl: /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 //
@@ -20,8 +22,8 @@
 // (0x0023D17D through TheGameLogic) and moved field offsets. Field names
 // stay offset names: only the donor knows their meaning.
 #include <list>
-#include <map>
-#include <math.h>
+#include <set>
+#include <vector>
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
@@ -544,42 +546,72 @@ void GameLogic::reset(void)
 	m_2a4 = 2;
 }
 
-// populateRandomStartPosition @0x0024485C 1108B (Ghidra FUN_0064485c, ret at
-// 0x00244CAF; next body 0x00244CB0). Target evidence: the GameLogic.cpp
-// __FILE__ literal with lines 2166/2203, "Player_%d_Start" formatted twice per
-// pair and looked up in the MapMetaData+0x38 waypoint map (find worker
-// 0x001F8437), MapCache::findMap(getMap()) with the player count at +0x20,
-// sqrt (0x0062921C), GameInfo::getSlot/getConstSlot/isOccupied/
-// isStartPositionTaken and TheGameInfo (0x00A02EEC). Donor: Zero Hour
-// GameLogic.cpp populateRandomStartPosition (distance table, taken flags,
-// first-pick random loop, observer pass). BFME 2 differs: the distance table is
-// built only with a map, a start spot already in range now counts as picked
-// (ZH's `>= 0 ||` test), a per-spot slot index replaces ZH's per-team position
-// table, and a later spot scores by the closest same-team neighbour (team from
-// TheGameInfo's slots, GameSlot+0x1C) while no teammate was met, else by the
-// summed distance. Slot fields: +0x10 start position, +0x18 template (-2 is
-// the observer), as in the ZH accessors.
+// populateRandomSideAndColor @0x002444BE 926B (Ghidra FUN_006444be, ret at
+// 0x0024485B; next body 0x0024485C). Target evidence: the GameLogic.cpp
+// __FILE__ literal with lines 1923/1988/2011, GetGameLogicRandomSeed() % 7
+// discards, GameInfo::getSlot/isOccupied/setPlayerTemplate/isColorTaken and
+// MapCache::findMap(getMap()). Donor: BFME 1 GameLogicPopulateRandomSideAndColor
+// (same slot walk, start-position faction set at MapMetaData+0x54 + pos*0x14 + 8,
+// color pick). BFME 2 differs: the playable byte is PlayerTemplate+0x151, a
+// second vector keeps each template's 0x001FD234 value (7 without a template),
+// the side pool is a copy narrowed in place (swap) by the faction set and then
+// by the slot's hero faction mask (CreateAHeroManager::GetFactionMaskType on
+// the GameSlot+0x64 record when +0x60 is set), and the observer/out-of-range
+// fallback is gone. The vector helpers are ICF folds shared with other
+// element types; the address-named allocator and element type below only
+// give those folded instantiations a placeholder name.
 #define GAMELOGIC_SOURCE_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\System\\GameLogic.cpp"
 
-int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
-
-template <class T> class Rva0024485CAllocator : public _STL::allocator<T>
+template <class T> class Rva002444BEAllocator : public _STL::allocator<T>
 {
 };
+typedef _STL::vector<int, Rva002444BEAllocator<int> > Rva002444BEIndexVector;
 
-class WaypointMap : public _STL::map<AsciiString, Coord3D, _STL::less<AsciiString>, Rva0024485CAllocator<_STL::pair<const AsciiString, Coord3D> > >
+enum Rva002444BEFaction
+{
+	RVA002444BE_FACTION_NONE = 7
+};
+
+unsigned int GetGameLogicRandomSeed(void);
+int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
+
+class PlayerTemplate
 {
 public:
-	int m_numStartSpots;
+	int rva001FD234() const;
+	AsciiString getName() const;
+
+	char m_pad00[0x151];
+	bool m_151;
+};
+
+struct Rva002444BETemplateSlot
+{
+	char m_bytes[0x1dc];
+};
+
+class PlayerTemplateStore
+{
+public:
+	const PlayerTemplate *getNthPlayerTemplate(int index) const;
+	int getPlayerTemplateCount() const { return m_10 - m_0c; }
+
+	char m_pad00[0x0c];
+	Rva002444BETemplateSlot *m_0c;
+	Rva002444BETemplateSlot *m_10;
+};
+
+struct Rva002444BEStartPosition
+{
+	char m_pad00[8];
+	_STL::set<AsciiString> m_factions;
 };
 
 class MapMetaData
 {
 public:
-	char m_pad00[0x20];
-	int m_numPlayers;
-	char m_pad24[0x38 - 0x24];
-	WaypointMap m_waypoints;
+	char m_pad00[0x54];
+	Rva002444BEStartPosition m_positions[8];
 };
 
 class MapCache
@@ -588,173 +620,152 @@ public:
 	const MapMetaData *findMap(AsciiString mapName);
 };
 
+struct Rva002444BEHero
+{
+	char m_pad00[0x0c];
+	unsigned int m_0c;
+	unsigned int m_10;
+};
+
 class GameSlot
 {
 public:
 	bool isOccupied() const;
-	int getStartPos() const { return m_10; }
-	void setStartPos(int startPos) { m_10 = startPos; }
-	int getPlayerTemplate() const { return m_18; }
-	int getTeamNumber() const { return m_1c; }
+	void setPlayerTemplate(int playerTemplate);
+	const Rva002444BEHero *getHero() const { return m_60 ? &m_64 : 0; }
 
-	char m_pad00[0x10];
+	char m_pad00[0x0c];
+	int m_0c;
 	int m_10;
 	int m_14;
 	int m_18;
-	int m_1c;
+	char m_pad1C[0x60 - 0x1c];
+	bool m_60;
+	Rva002444BEHero m_64;
 };
 
 class GameInfo
 {
 public:
 	GameSlot *getSlot(int index);
-	const GameSlot *getConstSlot(int index) const;
 	AsciiString getMap() const;
-	bool isStartPositionTaken(int positionIdx, int slotToIgnore = -1) const;
+	bool isColorTaken(int colorIdx, int slotToIgnore = -1) const;
 };
 
-extern MapCache *TheMapCache;
-extern GameInfo *TheGameInfo;
-
-static inline float sqr(float x)
+class MultiplayerSettings
 {
-	return x * x;
-}
+public:
+	int getNumColors()
+	{
+		if (m_40 == 0)
+			m_40 = m_38;
+		return m_40;
+	}
 
-void populateRandomStartPosition(GameInfo *game)
+	char m_pad00[0x38];
+	int m_38;
+	int m_3c;
+	int m_40;
+};
+
+class CreateAHeroManager
+{
+public:
+	void *GetFactionMaskType(unsigned int classIndex, unsigned int subClassIndex);
+};
+
+class Rva0021A54A;
+
+extern PlayerTemplateStore *ThePlayerTemplateStore;
+extern MapCache *TheMapCache;
+extern Rva0021A54A *TheHeroManager;
+extern MultiplayerSettings *TheMultiplayerSettings;
+
+void populateRandomSideAndColor(GameInfo *game)
 {
 	if (!game)
 		return;
-
 	int i;
-	int numPlayers = 8;
-	const MapMetaData *md = TheMapCache->findMap(game->getMap());
-	if (md)
-		numPlayers = md->m_numPlayers;
 
-	float startSpotDistance[8][8];
-	for (i = 0; i < 8; ++i) {
-		for (int j = 0; j < 8; ++j) {
-			if (md && i != j && i < numPlayers && j < numPlayers) {
-				AsciiString w1, w2;
-				w1.format("Player_%d_Start", i + 1);
-				w2.format("Player_%d_Start", j + 1);
-				WaypointMap::const_iterator c1 = md->m_waypoints.find(w1);
-				WaypointMap::const_iterator c2 = md->m_waypoints.find(w2);
-				if (c1 == md->m_waypoints.end() || c2 == md->m_waypoints.end()) {
-					startSpotDistance[i][j] = 1000000.0f;
-				} else {
-					float x1 = c1->second.x;
-					float y1 = c1->second.y;
-					float x2 = c2->second.x;
-					float y2 = c2->second.y;
-					startSpotDistance[i][j] = sqrt(sqr(x1 - x2) + sqr(y1 - y2));
-				}
-			} else {
-				startSpotDistance[i][j] = 0.0f;
-			}
-		}
+	Rva002444BEIndexVector startSlots;
+	_STL::vector<Rva002444BEFaction> templateFactions;
+	for (i = 0; i < ThePlayerTemplateStore->getPlayerTemplateCount(); ++i)
+	{
+		const PlayerTemplate *pt = ThePlayerTemplateStore->getNthPlayerTemplate(i);
+		templateFactions.push_back((Rva002444BEFaction)(pt ? pt->rva001FD234() : RVA002444BE_FACTION_NONE));
+		if (pt && pt->m_151)
+			startSlots.push_back(i);
 	}
 
-	bool hasStartSpotBeenPicked = false;
-	bool taken[8];
-	int slotForPos[8];
-	for (i = 0; i < 8; ++i) {
-		slotForPos[i] = -1;
-		taken[i] = (i < numPlayers) ? false : true;
-	}
-
-	for (i = 0; i < 8; ++i) {
-		GameSlot *slot = game->getSlot(i);
-		if (!slot || !slot->isOccupied() || slot->getPlayerTemplate() == -2)
-			continue;
-		int posIdx = slot->getStartPos();
-		if (posIdx >= 0 && posIdx < numPlayers) {
-			hasStartSpotBeenPicked = true;
-			taken[posIdx] = true;
-			slotForPos[posIdx] = i;
-		}
-	}
-
-	for (i = 0; i < 8; ++i) {
-		bool teammateFound = false;
-		GameSlot *slot = game->getSlot(i);
-		if (!slot || !slot->isOccupied() || slot->getPlayerTemplate() == -2)
-			continue;
-		int posIdx = slot->getStartPos();
-		if (posIdx >= 0 && posIdx < numPlayers)
-			continue;
-
-		if (hasStartSpotBeenPicked) {
-			float farthestDistance = 0.0f;
-			int farthestIndex = -1;
-			for (posIdx = 0; posIdx < numPlayers; ++posIdx) {
-				if (taken[posIdx])
-					continue;
-				if (farthestIndex < 0) {
-					farthestIndex = posIdx;
-					for (int n = 0; n < numPlayers; ++n) {
-						if (taken[n] && n != posIdx)
-							farthestDistance += startSpotDistance[posIdx][n];
-					}
-				} else {
-					float dist = 0.0f;
-					for (int n = 0; n < numPlayers; ++n) {
-						if (!taken[n] || n == posIdx)
-							continue;
-						if (TheGameInfo->getSlot(i)->getTeamNumber() > -1 &&
-							TheGameInfo->getSlot(slotForPos[n])->getTeamNumber() == TheGameInfo->getSlot(i)->getTeamNumber()) {
-							teammateFound = true;
-							if (farthestDistance > startSpotDistance[posIdx][n]) {
-								farthestDistance = startSpotDistance[posIdx][n];
-								farthestIndex = posIdx;
-							}
-						} else if (!teammateFound) {
-							dist += startSpotDistance[posIdx][n];
-							if (dist > farthestDistance) {
-								farthestDistance = dist;
-								farthestIndex = posIdx;
-							}
-						}
-					}
-				}
-			}
-			slot->setStartPos(farthestIndex);
-			taken[farthestIndex] = true;
-			slotForPos[farthestIndex] = i;
-		} else {
-			while (posIdx == -1) {
-				posIdx = GetGameLogicRandomValue(0, numPlayers - 1, GAMELOGIC_SOURCE_FILE, 2166);
-				if (game->isStartPositionTaken(posIdx))
-					posIdx = -1;
-			}
-			slot->setStartPos(posIdx);
-			taken[posIdx] = true;
-			slotForPos[posIdx] = i;
-			hasStartSpotBeenPicked = true;
-		}
-	}
-
-	int numPlayersInGame = 0;
-	for (i = 0; i < 8; ++i) {
-		const GameSlot *slot = game->getConstSlot(i);
-		if (slot->isOccupied() && slot->getPlayerTemplate() != -2)
-			++numPlayersInGame;
-	}
-	for (i = 0; i < 8; ++i) {
+	for (i = 0; i < 8; ++i)
+	{
 		GameSlot *slot = game->getSlot(i);
 		if (!slot || !slot->isOccupied())
 			continue;
-		if (slot->getPlayerTemplate() != -2)
-			continue;
-		int posIdx = -1;
-		if (numPlayersInGame == 0)
-			posIdx = 0;
-		while (posIdx == -1) {
-			posIdx = GetGameLogicRandomValue(0, numPlayers - 1, GAMELOGIC_SOURCE_FILE, 2203);
-			if (!game->isStartPositionTaken(posIdx))
-				posIdx = -1;
+
+		int playerTemplateIdx = slot->m_18;
+		while (playerTemplateIdx != -2 && (playerTemplateIdx < 0 || playerTemplateIdx >= ThePlayerTemplateStore->getPlayerTemplateCount()))
+		{
+			unsigned int silly = GetGameLogicRandomSeed() % 7;
+			for (int poo = 0; poo < silly; ++poo)
+				GetGameLogicRandomValue(0, 1, GAMELOGIC_SOURCE_FILE, 1923);
+
+			Rva002444BEIndexVector candidates(startSlots);
+			const MapMetaData *md = TheMapCache->findMap(game->getMap());
+			if (md)
+			{
+				const Rva002444BEStartPosition &position = md->m_positions[slot->m_10];
+				const _STL::set<AsciiString> &factions = position.m_factions;
+				if (factions.size() != 0)
+				{
+					Rva002444BEIndexVector possible;
+					for (Rva002444BEIndexVector::iterator it = candidates.begin(); it != candidates.end(); ++it)
+					{
+						int idx = *it;
+						AsciiString name = ThePlayerTemplateStore->getNthPlayerTemplate(idx)->getName();
+						if (factions.find(name) != factions.end())
+							possible.push_back(idx);
+					}
+					candidates.swap(possible);
+				}
+			}
+
+			const Rva002444BEHero *hero = slot->getHero();
+			if (hero)
+			{
+				unsigned int classIndex = hero->m_0c;
+				const unsigned int *mask = (const unsigned int *)((CreateAHeroManager *)TheHeroManager)->GetFactionMaskType(classIndex, hero->m_10);
+				Rva002444BEIndexVector allowed;
+				for (Rva002444BEIndexVector::iterator it = candidates.begin(); it != candidates.end(); ++it)
+				{
+					int idx = *it;
+					unsigned int faction = templateFactions[idx];
+					if (mask[faction >> 5] & (1 << (faction & 31)))
+						allowed.push_back(idx);
+				}
+				candidates.swap(allowed);
+			}
+
+			unsigned int count = candidates.size();
+			int *pool = candidates.begin();
+			playerTemplateIdx = pool[GetGameLogicRandomValue(0, 1000, GAMELOGIC_SOURCE_FILE, 1988) % count];
+			const PlayerTemplate *pt = ThePlayerTemplateStore->getNthPlayerTemplate(playerTemplateIdx);
+			if (pt && pt->m_151)
+				slot->setPlayerTemplate(playerTemplateIdx);
+			else
+				playerTemplateIdx = -1;
 		}
-		slot->setStartPos(posIdx);
+
+		int colorIdx = slot->m_0c;
+		if (colorIdx < 0 || colorIdx >= TheMultiplayerSettings->getNumColors())
+		{
+			while (colorIdx == -1)
+			{
+				colorIdx = GetGameLogicRandomValue(0, TheMultiplayerSettings->getNumColors() - 1, GAMELOGIC_SOURCE_FILE, 2011);
+				if (game->isColorTaken(colorIdx))
+					colorIdx = -1;
+			}
+			slot->m_0c = colorIdx;
+		}
 	}
 }
