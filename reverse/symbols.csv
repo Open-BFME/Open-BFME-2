@@ -15498,3 +15498,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003EF1B8@Rva003EF1B8Host@@QAEXXZ,0x003EF1B8,singleton-gated notify used by 0x0020F795; this from [0x00DFE1C8]+0x268 with no args
 ?rva003F0DC6@Rva00210D6DElem@@QAEXXZ,0x003F0DC6,element runner used by 0x00210D6D over the +0x2c vector with no args
 ?rva003F3F27@Rva0020F795Elem2@@QAEXXZ,0x003F3F27,inner-vector entry runner used by the second loop of 0x0020F795; this=entry with no args
+?rva002191FE@Rva002191FEHost@@QAEPAXXZ,0x002191FE,address-derived member callee of dump-range-7 0x0021DE75 with result passthrough and no args; body unrowed; Ghidra FUN_006191fe 59B; matched ??4 row at same address is different signature
+?rva0021DAA8@Rva0021DE75Table@@QAEPAXPAX0@Z,0x0021DAA8,address-derived member callee of dump-range-7 0x0021DE75 with this+0x54 passthrough and two void* args; body unrowed; Ghidra FUN_0061daa8 141B
