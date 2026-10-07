@@ -68,7 +68,8 @@ struct Rva00E04508Channel
 	unsigned char m_initialized;	// +0x00 done flag
 };
 
-Rva00E04508Channel g_Va00E04508;
+// The data ledger owns this address in Rva007B6880Thunks.cpp.
+extern unsigned int g_Va00E04508;
 
 struct Rva004FB582Target
 {
@@ -97,7 +98,7 @@ private:
 
 void Rva004FB582Owner::rva004FB582()
 {
-	Rva00E04508Channel *channel = &g_Va00E04508;
+	Rva00E04508Channel *channel = (Rva00E04508Channel *)&g_Va00E04508;
 	if (!channel->m_initialized)
 	{
 		((Rva0050366B *)channel)->rva0050366B();
