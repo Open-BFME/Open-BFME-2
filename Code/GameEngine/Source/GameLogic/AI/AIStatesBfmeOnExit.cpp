@@ -15,6 +15,12 @@
 //    Object::rva0028AE6D), calls AI slot 142 with 0, releases the weapon
 //    lock (pinned Object::releaseWeaponLock, LOCKED_TEMPORARILY), clears the
 //    machine byte +0x3A and runs the base onExit.
+//  - AIChargeTargetState::update, retail 0x0034FE6E (336 bytes): slot 6 of
+//    0x00C130A8, BFME 1's AIChargeTargetState_update.cpp with BFME 2
+//    offsets. Kind 0x84 (the pinned isKindOf) replaces the donor's
+//    condition tests and Object::rva0028AD32 its pathfinder removeGoal;
+//    a hit sets condition bit 132 (the bit onExit clears). The four
+//    helpers it calls with this in ECX are pinned by address.
 //  - AIMoveToPositionAndEnterState::onExit, retail 0x0034C035 (99 bytes):
 //    slot 5 of 0x00C136A0. When the owner has object status 0x4E, clears it
 //    and status 3, and for a template with kind byte +0x115 mask 0x20 also
@@ -159,6 +165,24 @@ enum WeaponLockType
 	NOT_LOCKED,
 	LOCKED_TEMPORARILY
 };
+enum WeaponSlotType
+{
+	PRIMARY_WEAPON = 0
+};
+enum WeaponStatus
+{
+	READY_TO_FIRE = 0
+};
+enum KindOfType
+{
+	KINDOF_BFME_84 = 0x84
+};
+
+class Weapon
+{
+public:
+	WeaponStatus computeStatus(Bool *valid) const;
+};
 #define FAST_AS_POSSIBLE 999999.0f
 
 class Locomotor
@@ -237,6 +261,7 @@ public:
 	Locomotor *getCurLocomotor() { return m_curLocomotor; }
 	void friend_setCurrentGoalPathIndex(int index) { m_currentGoalPathIndex = index; }
 	void setDesiredSpeed(Real speed);
+	void requestPath(Coord3D *destination, Bool isFinalGoal);
 	void *getPath() const { return m_path; }
 	Bool getBfmeFlag3B1() const { return m_bfmeFlag3B1; }
 private:
@@ -262,6 +287,10 @@ public:
 	unsigned int test(int bit) const
 	{
 		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void set(int bit)
+	{
+		m_words[bit >> 5] |= (1U << (bit & 0x1f));
 	}
 	void clear(int bit)
 	{
@@ -317,9 +346,20 @@ public:
 	void setStatus(ObjectStatusTypes status, Bool set);
 	void rva00346C53(ObjectStatusTypes status, Bool set);
 	void releaseWeaponLock(WeaponLockType lockType);
+	Bool isKindOf(KindOfType t) const;
+	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
+	void rva0028AD32();
 	void rva0028AE6D();
 	void *rva0028C197() const;
 	Bool chooseBestWeaponForTarget(const Object *target, WeaponChoiceCriteria criteria, CommandSourceType cmdSource);
+	__forceinline void setModelConditionBit(int bit)
+	{
+		if (m_conditionBits.test(bit) == 0)
+		{
+			m_conditionBits.set(bit);
+			rva0028AE6D();
+		}
+	}
 	__forceinline void clearModelConditionBit(int bit)
 	{
 		if (m_conditionBits.test(bit) != 0)
@@ -390,7 +430,9 @@ public:
 	StateReturnType rva0034612C();
 protected:
 	void setAdjustsDestination(Bool b) { m_adjustDestination = b; }
-	unsigned char m_pad1C[0x48 - 0x1C];
+	unsigned char m_pad1C[0x20 - 0x1C];
+	Coord3D m_goalPosition; // +0x20
+	unsigned char m_pad2C[0x48 - 0x2C];
 	Bool m_adjustDestination; // +0x48
 	unsigned char m_pad49[0x4C - 0x49];
 };
@@ -425,6 +467,14 @@ class AIChargeTargetState : public AIInternalMoveToState
 {
 public:
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
+private:
+	Bool rva003468F5();
+	Bool rva0034BF20();
+	void rva00346925(Object *source, Object *victim, AIUpdateInterface *ai);
+	void rva0034BFFF(Object *source);
+	Bool m_bfmeFlag4C; // +0x4C
+	int m_bfmeValue50; // +0x50
 };
 
 void AIChargeTargetState::onExit(StateExitType status)
@@ -440,6 +490,44 @@ void AIChargeTargetState::onExit(StateExitType status)
 	owner->releaseWeaponLock(LOCKED_TEMPORARILY);
 	getMachine()->rva0034BF11ClearByte3A();
 	AIInternalMoveToState::onExit(status);
+}
+
+StateReturnType AIChargeTargetState::update()
+{
+	Object *source = getMachineOwner();
+	Object *victim = getMachine()->getGoalObject();
+	AIUpdateInterface *ai = source->getAI();
+	if (ai && (victim || source->isKindOf(KINDOF_BFME_84)) && m_bfmeValue50 > 0)
+	{
+		if (victim && rva003468F5() && !source->isKindOf(KINDOF_BFME_84))
+		{
+			source->rva0028AD32();
+			Coord3D goalPosition;
+			goalPosition.x = victim->getPosition()->x;
+			goalPosition.y = victim->getPosition()->y;
+			goalPosition.z = victim->getPosition()->z;
+			m_goalPosition = goalPosition;
+			setAdjustsDestination(false);
+			ai->requestPath(&goalPosition, true);
+		}
+		WeaponSlotType slot = PRIMARY_WEAPON;
+		const Weapon *weapon = source->getCurrentWeapon(&slot);
+		if (weapon)
+		{
+			if (victim && rva0034BF20() && !source->isKindOf(KINDOF_BFME_84)
+				&& weapon->computeStatus(0) == READY_TO_FIRE)
+			{
+				rva00346925(source, victim, ai);
+				source->setModelConditionBit(132);
+				ai->rva0034BEF9Slot142(4);
+				rva0034BFFF(source);
+			}
+			if (m_bfmeFlag4C)
+				return (StateReturnType)STATE_SUCCESS;
+			return AIInternalMoveToState::update();
+		}
+	}
+	return (StateReturnType)STATE_FAILURE;
 }
 
 class AIMoveToPositionAndEnterState : public AIInternalMoveToState
