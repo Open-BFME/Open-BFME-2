@@ -1438,7 +1438,6 @@ Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDie.cpp	wrong-name	
 Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDieFind.cpp	wrong-name	?$S1@?1??Rva00486687Find@@YAPAXPAX@Z@4IA	0x00A03878
 Code/GameEngine/Source/GameLogic/Object/Die/ReflectDamagePoolKey.cpp	wrong-name	?$S1@?1??rva0004BAB55@ReflectDamage@@SA?AW4NameKeyType@@XZ@4IA	0x00A03FDC
 Code/GameEngine/Source/GameLogic/Object/Die/RefundDiePoolKey.cpp	wrong-name	?$S1@?1??rva00048521D@RefundDie@@SA?AW4NameKeyType@@XZ@4IA	0x00A0381C
-Code/GameEngine/Source/GameLogic/Object/Die/Rva00485536Test.cpp	wrong-name	?g_defaultStorage009FEFA4@@3VBfmeFixedStorage0004543D@@B	0x009FEFA4
 Code/GameEngine/Source/GameLogic/Object/Die/Rva00485C86Finish.cpp	wrong-name	_TheUpgradeCenter	0x009FEB60
 Code/GameEngine/Source/GameLogic/Object/Die/Rva004bb3a7Finish.cpp	wrong-name	?g_009BA4E4@@3HB	0x009BA4E4
 Code/GameEngine/Source/GameLogic/Object/Die/Rva004bb3a7Finish.cpp	wrong-name	?g_009FEFA4@@3VBfmeFixedStorage0004543D@@B	0x009FEFA4

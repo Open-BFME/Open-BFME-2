@@ -37437,8 +37437,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamageFriendNew.cpp	bfmeEmitBoneFXDamageFriendNew@@YAXPAVThing@@PBVModuleData@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Damage/DamageModuleCtor.cpp	bfmeEmitDamageModuleCtor@@YAXPAVDamageModule@@PAVThing@@PBVModuleData@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Damage/DamageModuleDeletingDtors.cpp	1CallHelpOnDamage@@UAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp	createCrate@CreateCrateDie@@AAEPAVObject@@PBVCrateTemplate@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp	testKillerType@CreateCrateDie@@AAE_NPBVCrateTemplate@@PAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp	1CreateObjectDie@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp	crc@CreateObjectDie@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp	loadPostProcess@CreateObjectDie@@	1
