@@ -67228,3 +67228,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva005FF4D5@Rva005FF4D5@@QAEX_N@Z,,0x005FF4D5,8,Code/GameEngine/Source/Common/Rva005FF4D5Forward.cpp,matched,callers 0x005FA8DA 0x005FA8EE prev 0x005FF4BD forwarder to rowed 0x005FF38D
 ?rva004CF3E1@ConnectionManager@@QAE_NXZ,,0x004CF3E1,37,Code/GameEngine/Source/GameNetwork/ConnectionManager_areAllQueuesEmptyTwin_Rva004CF3B9.cpp,matched,abuts prev 0x004CF3B9 caller 0x0025E8B0 IAT timeGetTime honest address method
 ?update@FireWeaponWhenDamagedBehavior@@UAE?AW4UpdateSleepTime@@XZ,,0x00482B24,149,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorUpdate.cpp,matched,slot 0 vtable 0x00849594 ZH donor update continuous weapons
+?rva004CF0FB@Rva004CF0FB@@QAEHH@Z,,0x004CF0FB,24,Code/GameEngine/Source/Common/Rva004CF0FBSlot.cpp,matched,abuts 0x004CF0CD and 0x004CF113 caller 0x0025E900 offset 0x120A0 matches m_120a0 honest address method
