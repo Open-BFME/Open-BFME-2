@@ -37,6 +37,7 @@ public:
 	virtual ~RenderObjClass();
 	RenderObjClass &operator=(const RenderObjClass &);
 	virtual RenderObjClass *Clone() const = 0;
+	virtual void Set_Force_Visible(int onoff);
 	unsigned char Pad[0xC4 - 12];
 };
 
@@ -46,6 +47,7 @@ class Vector3
 public:
 	void Set(float x, float y, float z) { X = x; Y = y; Z = z; }
 	Vector3() {}
+	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
 	Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
 	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
 
@@ -72,6 +74,14 @@ public:
 class LightClass : public RenderObjClass
 {
 public:
+	enum LightType
+	{
+		POINT = 0,
+		DIRECTIONAL,
+		SPOT
+	};
+
+	LightClass(LightType type = POINT);
 	LightClass(const LightClass &src);
 	LightClass &operator=(const LightClass &that);
 	virtual ~LightClass();
@@ -96,6 +106,33 @@ public:
 	float SpotExponent;
 	Vector3 SpotDirection;						// ends at +0x120
 };
+
+// upstream: reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/wwmath.h
+#define WWMATH_PI			3.141592654f
+#define DEG_TO_RADF(x)	(((float)x)*WWMATH_PI/180.0f)
+
+// Zero Hour's light.cpp constructor (retail 0x00130AC0, 311 bytes).
+LightClass::LightClass(LightType type) :
+	Type(type),
+	Flags(0),
+	CastShadows(false),
+	Intensity(1.0f),
+	Ambient(1,1,1),
+	Diffuse(1,1,1),
+	Specular(1,1,1),
+	NearAttenStart(0.0f),
+	NearAttenEnd(0.0f),
+	FarAttenStart(50.0f),
+	FarAttenEnd(100.0f),
+	SpotAngle(DEG_TO_RADF(45.0f)),
+	SpotAngleCos(0.707f),
+	SpotExponent(1.0f),
+	SpotDirection(0,0,1)
+{
+	if (type == DIRECTIONAL) {
+		Set_Force_Visible(true);	// The light has no position so culling cant work.
+	}
+}
 
 // Zero Hour's light.cpp copy constructor; RenderObjClass is default-
 // constructed, not copied.
