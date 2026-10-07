@@ -46,17 +46,66 @@ struct BfmeOpaqueOwnedRecord840 {
 struct BfmeOpaqueOwnedRecord1408Member {
 	union {
 		unsigned int alignmentWitness;
-		unsigned char bytes[1400];
+		unsigned char bytes[0x548];
 	};
 	~BfmeOpaqueOwnedRecord1408Member();
+};
+
+// Only the assignment ABI and complete 0x548-byte extent are consumed here.
+// The provider's WorldBuilder-backed name and three-block layout are recorded
+// in GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp (0x003874B0).
+class PSPlayerAllStats {
+public:
+	PSPlayerAllStats &operator=(const PSPlayerAllStats &);
+private:
+	union {
+		unsigned int alignmentWitness;
+		unsigned char bytes[0x548];
+	};
+};
+
+struct BfmeOwnedRecord1408Tail5 {
+	unsigned int values[5];
 };
 
 struct BfmeOpaqueOwnedRecord1408 {
 	unsigned int head[2];
 	BfmeOpaqueOwnedRecord1408Member member;
+	BfmeOwnedRecord1408Tail5 tail550;
+	unsigned int value564;
+	unsigned int value568;
+	unsigned int value56C;
+	unsigned int value570;
+	unsigned int value574;
+	unsigned int value578;
+	unsigned char value57C;
+	unsigned char value57D;
 	BfmeOpaqueOwnedRecord1408();
 	BfmeOpaqueOwnedRecord1408(const BfmeOpaqueOwnedRecord1408 &);
+	BfmeOpaqueOwnedRecord1408 &operator=(const BfmeOpaqueOwnedRecord1408 &);
 };
+
+// Ghidra [0x00556132,0x005561CD), 155 bytes, RET 4. Copies the two head
+// words, assigns the +8 stats subobject through complete rowed 0x003874B0,
+// copies five words at +0x550 as a subobject, then six loose words and two
+// flags. The record's original name and tail meanings remain unknown.
+BfmeOpaqueOwnedRecord1408 &BfmeOpaqueOwnedRecord1408::operator=(
+	const BfmeOpaqueOwnedRecord1408 &other)
+{
+	head[0] = other.head[0];
+	head[1] = other.head[1];
+	*(PSPlayerAllStats *)&member = *(const PSPlayerAllStats *)&other.member;
+	tail550 = other.tail550;
+	value564 = other.value564;
+	value568 = other.value568;
+	value56C = other.value56C;
+	value570 = other.value570;
+	value574 = other.value574;
+	value578 = other.value578;
+	value57C = other.value57C;
+	value57D = other.value57D;
+	return *this;
+}
 
 // A sibling deque at RVA 0x005530d7 advances its node pointer by 0x598.
 struct BfmeOpaqueOwnedRecord1432 {
