@@ -3775,7 +3775,6 @@ alternatename	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?crc@Geometr
 alternatename	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?loadPostProcess@GeometryInfo@@MAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?xfer@GeometryInfo@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Thing/ThingTemplateScanScience.cpp	?g_scienceStoreLoaded@@3HA	1
-alternatename	Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorAssign.cpp	?bfmeCopyOneCDF@BfmePartCDF@@QAEXPAU1@@Z	1
 alternatename	Code/GameEngine/Source/Common/Thing/UpgradeMuxData_getUpgradeActivationMasks.cpp	?_CxxThrowException@@YGXPAX0@Z	1
 alternatename	Code/GameEngine/Source/Common/Thing/VectorAsciiStringErase.cpp	?erase@SidesInfoStringVector@@QAEPAVAsciiString@@PAV2@0@Z	1
 alternatename	Code/GameEngine/Source/Common/TooltipMove_muse-f8cb.cpp	?TheGuiScale@@3PAVGuiScale@@A	1
@@ -6218,6 +6217,7 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/STL_node_alloc_refillThunk.cpp
 alternatename	Code/Libraries/Source/WWVegas/WWLib/STL_node_alloc_refill_single.cpp	?bfmeSmallRefillPR@@YAPAXI@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/STL_node_alloc_refill_single.cpp	?g_bfmeFreeList1149@@3PAPADA	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/SpecialPowerTimerList.cpp	??$_Construct@UBfmeSpecialPowerTimer8@@U1@@_STL@@YAXPAUBfmeSpecialPowerTimer8@@ABU1@@Z	1
+alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0021C21B.cpp	?bfmeCopyOneCDF@BfmePartCDF@@QAEXPAU1@@Z	1	allow=9ecd3d4a2be430111e9cfe112329ef070e495f2b
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportAsciiStringVectorDtor.cpp	??1RvaVecAscii@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportAsciiStringVectorDtor.cpp	??1SidesInfoStringVector@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlportAsciiStringVectorDtor.cpp	??1TransitionDamageFXSlotD@@QAE@XZ	1
@@ -25730,7 +25730,7 @@ pin	reverse/symbols.csv	0x001DC42C	1
 pin	reverse/symbols.csv	0x001DC4D2	2
 pin	reverse/symbols.csv	0x001DC6E4	1
 pin	reverse/symbols.csv	0x001DD0A0	1
-pin	reverse/symbols.csv	0x001DD10D	3
+pin	reverse/symbols.csv	0x001DD10D	5	allow=060c6451ddc1307e7c151d6701a0561afb635f67
 pin	reverse/symbols.csv	0x001DD1FF	1
 pin	reverse/symbols.csv	0x001DD2DC	1
 pin	reverse/symbols.csv	0x001DD2EE	1
@@ -26491,7 +26491,7 @@ pin	reverse/symbols.csv	0x0025797E	1
 pin	reverse/symbols.csv	0x00257A05	2
 pin	reverse/symbols.csv	0x00257A5E	1
 pin	reverse/symbols.csv	0x00257B7A	1
-pin	reverse/symbols.csv	0x0025BF40	4
+pin	reverse/symbols.csv	0x0025BF40	5	allow=060c6451ddc1307e7c151d6701a0561afb635f67
 pin	reverse/symbols.csv	0x0025BF5D	3
 pin	reverse/symbols.csv	0x0025BFE3	1
 pin	reverse/symbols.csv	0x0025C010	1
@@ -26559,7 +26559,7 @@ pin	reverse/symbols.csv	0x00265C5B	1
 pin	reverse/symbols.csv	0x0026734C	1
 pin	reverse/symbols.csv	0x002673F6	1
 pin	reverse/symbols.csv	0x00267EDD	1
-pin	reverse/symbols.csv	0x0026872B	1	allow=8db8ad4000bff295e9cd6a91b7ed350f4ccb031c
+pin	reverse/symbols.csv	0x0026872B	1
 pin	reverse/symbols.csv	0x00268902	3
 pin	reverse/symbols.csv	0x0026893F	1
 pin	reverse/symbols.csv	0x00268A37	1
@@ -27610,7 +27610,7 @@ pin	reverse/symbols.csv	0x0031AD8F	1
 pin	reverse/symbols.csv	0x0031AE01	1
 pin	reverse/symbols.csv	0x0031B0CE	1
 pin	reverse/symbols.csv	0x0031B134	1
-pin	reverse/symbols.csv	0x0031B9EB	2
+pin	reverse/symbols.csv	0x0031B9EB	3	allow=060c6451ddc1307e7c151d6701a0561afb635f67
 pin	reverse/symbols.csv	0x0031BA18	1
 pin	reverse/symbols.csv	0x0031BD55	21
 pin	reverse/symbols.csv	0x0031BD77	1
@@ -28361,7 +28361,7 @@ pin	reverse/symbols.csv	0x0039EAED	1
 pin	reverse/symbols.csv	0x0039F0E3	1
 pin	reverse/symbols.csv	0x0039F597	1
 pin	reverse/symbols.csv	0x0039F5DC	2
-pin	reverse/symbols.csv	0x0039F5FE	1	allow=1d26a6ffae4ecef95ed65676b6c632f0231b3462
+pin	reverse/symbols.csv	0x0039F5FE	1
 pin	reverse/symbols.csv	0x0039F692	1
 pin	reverse/symbols.csv	0x0039F761	2
 pin	reverse/symbols.csv	0x0039FE11	1
@@ -29284,7 +29284,7 @@ pin	reverse/symbols.csv	0x0043B144	2
 pin	reverse/symbols.csv	0x0043B2A4	1
 pin	reverse/symbols.csv	0x0043B30F	1
 pin	reverse/symbols.csv	0x0043B3A1	1
-pin	reverse/symbols.csv	0x0043B4B4	1	allow=97ff5a42a334a75fd885c4c4bc66c5f3b234b56d
+pin	reverse/symbols.csv	0x0043B4B4	1
 pin	reverse/symbols.csv	0x0043B660	1
 pin	reverse/symbols.csv	0x0043BB6A	1
 pin	reverse/symbols.csv	0x0043BD36	1
@@ -29445,7 +29445,7 @@ pin	reverse/symbols.csv	0x00461FED	1
 pin	reverse/symbols.csv	0x0046247D	1
 pin	reverse/symbols.csv	0x00462F75	1
 pin	reverse/symbols.csv	0x00462FB3	1
-pin	reverse/symbols.csv	0x00463191	1	allow=6cdf8f9b523e09f4535924cba27fee31de659afb
+pin	reverse/symbols.csv	0x00463191	1
 pin	reverse/symbols.csv	0x004634BA	1
 pin	reverse/symbols.csv	0x004635C0	1
 pin	reverse/symbols.csv	0x004636FE	1
@@ -30592,7 +30592,7 @@ pin	reverse/symbols.csv	0x0052AF77	1
 pin	reverse/symbols.csv	0x0052B003	1
 pin	reverse/symbols.csv	0x0052B045	1
 pin	reverse/symbols.csv	0x0052B10F	1
-pin	reverse/symbols.csv	0x0052B17F	1	allow=0f4d6de1a9384bf30a43176c5792fd16f5724432
+pin	reverse/symbols.csv	0x0052B17F	1
 pin	reverse/symbols.csv	0x0052B1EF	1
 pin	reverse/symbols.csv	0x0052B278	1
 pin	reverse/symbols.csv	0x0052B3B2	1
@@ -36508,7 +36508,6 @@ present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTem
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::resolveNames	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::validateAudio	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::~ThingTemplate	1
-present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplateScienceVectorAssign.cpp	_bfmeThingTemplateScienceVectorAssignAnchor@@YAXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/VectorAsciiStringErase.cpp	bfmeEmitVectorAsciiStringErase@@YAXPAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/WeaponTemplateSetUninitializedCopy.cpp	_STL::__uninitialized_copy	1
 present_unmatched	Code/GameEngine/Source/Common/VectorClassBfmeThingFTResize.cpp	0VectorClassBfmeThingFT@@	1
