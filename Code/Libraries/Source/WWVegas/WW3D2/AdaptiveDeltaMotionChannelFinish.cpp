@@ -1,7 +1,7 @@
 // ??0AdaptiveDeltaMotionChannelClass@@QAE@XZ @0x00195F60 133B.
 //
 // Constructor for the 0x1C-byte channel read_channel allocates at 0x0018F230
-// (a sibling body already matched in HCompressedAdaptiveDeltaReadChannel.cpp).
+// (a sibling body matched in hcanim.cpp).
 // The address is pinned in reverse/symbols.csv from the retail REL32 at
 // 0x0018F261, and this body confirms the 0x1C layout the matched loader
 // (AdaptiveDeltaLoadW3D.cpp) already reads: the seven fields zeroed through

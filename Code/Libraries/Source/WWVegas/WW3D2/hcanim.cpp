@@ -594,7 +594,6 @@ struct NodeCompressedMotionStruct
  *                                                                                             *
  * HISTORY:                                                                                    *
  *=============================================================================================*/
-// ?NodeCompressedMotionStruct::NodeCompressedMotionStruct present-unmatched
 NodeCompressedMotionStruct::NodeCompressedMotionStruct() : 
 	Vis(NULL)
 {
@@ -619,7 +618,6 @@ NodeCompressedMotionStruct::NodeCompressedMotionStruct() :
  *   10/23/98   GTH : Created.                                                                 *
  *   02/02/00   JGA : Compressed                                                               *
  *=============================================================================================*/
-// ?NodeCompressedMotionStruct::~NodeCompressedMotionStruct present-unmatched
 NodeCompressedMotionStruct::~NodeCompressedMotionStruct()
 {
 	// Needs to be changed to call the correct destructors
@@ -686,7 +684,6 @@ int NodeCompressedMotionStruct::Get_Channel_Memory_Usage(void)
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?HCompressedAnimClass::HCompressedAnimClass present-unmatched
 HCompressedAnimClass::HCompressedAnimClass(void) :
 	NumFrames(0),
 	NumNodes(0),
@@ -713,7 +710,6 @@ HCompressedAnimClass::HCompressedAnimClass(void) :
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?HCompressedAnimClass::~HCompressedAnimClass present-unmatched
 HCompressedAnimClass::~HCompressedAnimClass(void)
 {
 	Free();
@@ -943,7 +939,6 @@ Error:
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?HCompressedAnimClass::read_channel present-unmatched
 bool HCompressedAnimClass::read_channel(ChunkLoadClass & cload,TimeCodedMotionChannelClass * * newchan)
 {
 	*newchan = W3DNEW TimeCodedMotionChannelClass;
@@ -953,7 +948,6 @@ bool HCompressedAnimClass::read_channel(ChunkLoadClass & cload,TimeCodedMotionCh
   
 }	// read_channel
 
-// ?HCompressedAnimClass::read_channel present-unmatched
 bool HCompressedAnimClass::read_channel(ChunkLoadClass & cload,AdaptiveDeltaMotionChannelClass * * newchan)
 {
 	*newchan = W3DNEW AdaptiveDeltaMotionChannelClass;
@@ -976,7 +970,6 @@ bool HCompressedAnimClass::read_channel(ChunkLoadClass & cload,AdaptiveDeltaMoti
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?HCompressedAnimClass::add_channel present-unmatched
 void HCompressedAnimClass::add_channel(TimeCodedMotionChannelClass * newchan)
 {
 	int idx = newchan->Get_Pivot();
@@ -1006,7 +999,6 @@ void HCompressedAnimClass::add_channel(TimeCodedMotionChannelClass * newchan)
 
 }	// add_channel
 
-// ?HCompressedAnimClass::add_channel present-unmatched
 void HCompressedAnimClass::add_channel(AdaptiveDeltaMotionChannelClass * newchan)
 {
 	int idx = newchan->Get_Pivot();
@@ -1051,7 +1043,6 @@ void HCompressedAnimClass::add_channel(AdaptiveDeltaMotionChannelClass * newchan
  * HISTORY:                                                                                    *
  *   1/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?HCompressedAnimClass::read_bit_channel present-unmatched
 bool HCompressedAnimClass::read_bit_channel(ChunkLoadClass & cload,TimeCodedBitChannelClass * * newchan)
 {
 	*newchan = W3DNEW TimeCodedBitChannelClass;
@@ -1074,7 +1065,6 @@ bool HCompressedAnimClass::read_bit_channel(ChunkLoadClass & cload,TimeCodedBitC
  * HISTORY:                                                                                    *
  *   1/19/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?HCompressedAnimClass::add_bit_channel present-unmatched
 void HCompressedAnimClass::add_bit_channel(TimeCodedBitChannelClass * newchan)
 {
 	int idx = newchan->Get_Pivot();
