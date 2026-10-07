@@ -143,3 +143,26 @@ FontLibrary::~FontLibrary()
 {
 	deleteAllFonts();
 }
+
+class Rva0021840B
+{
+public:
+	void rva0021840B();
+};
+
+void Rva0021840B::rva0021840B()
+{
+	((Rva00217A02 *)this)->~Rva00217A02();
+}
+
+class Rva00218410
+{
+public:
+	void rva00218410();
+};
+
+void Rva00218410::rva00218410()
+{
+	((Rva00217A37 *)this)->~Rva00217A37();
+}
+

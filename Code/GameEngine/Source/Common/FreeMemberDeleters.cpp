@@ -112,3 +112,55 @@ Rva005D639A::~Rva005D639A()
 	if (m_ptr04)
 		free(m_ptr04);
 }
+
+class Rva004FCA9C
+{
+public:
+	~Rva004FCA9C();
+};
+
+class Rva004FCAC9
+{
+public:
+	~Rva004FCAC9();
+};
+
+class Rva004FCAF6
+{
+public:
+	~Rva004FCAF6();
+};
+
+class Rva004FCD5E
+{
+public:
+	void rva004FCD5E();
+};
+
+void Rva004FCD5E::rva004FCD5E()
+{
+	((Rva004FCA9C *)this)->~Rva004FCA9C();
+}
+
+class Rva004FCD63
+{
+public:
+	void rva004FCD63();
+};
+
+void Rva004FCD63::rva004FCD63()
+{
+	((Rva004FCAC9 *)this)->~Rva004FCAC9();
+}
+
+class Rva004FCD68
+{
+public:
+	void rva004FCD68();
+};
+
+void Rva004FCD68::rva004FCD68()
+{
+	((Rva004FCAF6 *)this)->~Rva004FCAF6();
+}
+

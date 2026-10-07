@@ -42,3 +42,28 @@ template Rva002B3049Record *_STL::copy_backward<Rva002B3049Record *, Rva002B3049
 template SidesInfo *_STL::copy<SidesInfo *, SidesInfo *>(SidesInfo *, SidesInfo *, SidesInfo *);
 template BfmeAssignRecord172 *_STL::copy<BfmeAssignRecord172 *, BfmeAssignRecord172 *>(BfmeAssignRecord172 *, BfmeAssignRecord172 *, BfmeAssignRecord172 *);
 template FXBoneInfo *_STL::copy<FXBoneInfo *, FXBoneInfo *>(FXBoneInfo *, FXBoneInfo *, FXBoneInfo *);
+
+class Rva0032D3D3
+{
+public:
+	~Rva0032D3D3();
+};
+
+class SidesList
+{
+public:
+	void clear();
+};
+
+class Rva0032E538
+{
+public:
+	void rva0032E538();
+};
+
+void Rva0032E538::rva0032E538()
+{
+	((Rva0032D3D3 *)this)->~Rva0032D3D3();
+}
+
+

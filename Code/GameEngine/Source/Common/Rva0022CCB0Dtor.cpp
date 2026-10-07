@@ -28,3 +28,38 @@ private:
 Rva0022CCB0::~Rva0022CCB0()
 {
 }
+
+class Rva002294A3
+{
+public:
+	~Rva002294A3();
+};
+
+class Rva002294D0
+{
+public:
+	~Rva002294D0();
+};
+
+class Rva0022CCE5
+{
+public:
+	void rva0022CCE5();
+};
+
+void Rva0022CCE5::rva0022CCE5()
+{
+	((Rva002294A3 *)this)->~Rva002294A3();
+}
+
+class Rva0022CCEA
+{
+public:
+	void rva0022CCEA();
+};
+
+void Rva0022CCEA::rva0022CCEA()
+{
+	((Rva002294D0 *)this)->~Rva002294D0();
+}
+
