@@ -96,3 +96,36 @@ Int LivingWorldCampaignManager::rva003B8E2B(const AsciiString &campaignName)
 	}
 	return -1;
 }
+
+// The target's adjacent record lookup uses a separate structural view.
+// Callers 0x004E1755 and 0x004E23C1 already use this address-derived
+// receiver/key ABI; its original class relationship remains unknown.
+struct Rva003B8E89Record
+{
+	unsigned char opaque_00[0x18];
+	AsciiString name_18;
+	unsigned char opaque_1c[0x4c];
+};
+
+class Rva003B8E89
+{
+public:
+	void *rva003B8E89(void *key);
+private:
+	unsigned char opaque_00[0x20];
+	CampaignVectorView<Rva003B8E89Record> m_records;
+};
+
+// ?rva003B8E89@Rva003B8E89@@QAEPAXPAX@Z
+// Native Ghidra extent 0x003B8E89..0x003B8EDC; RET 4. Pointer difference
+// divided by 0x68 proves the record stride, and the rowed compare worker
+// at 0x000069D6 establishes the string view at each record's +0x18.
+void *Rva003B8E89::rva003B8E89(void *key)
+{
+	for (UnsignedInt i = 0; i < m_records.size(); ++i)
+	{
+		if (m_records[i].name_18.compare(*(const AsciiString *)key) == 0)
+			return &m_records[i];
+	}
+	return 0;
+}
