@@ -43,14 +43,15 @@ HashTableClass::HashTableClass( int size ) :
 	Reset();
 }
 
-// ??1HashTableClass@@ present-unmatched
+// Retail 0x613B90..0x613B9B (11B): release the array pointer at +4
+// through scalar operator delete. The constructor at 0x613C20 and Reset at
+// 0x613BA0 prove size at +0 and table at +4, with no vtable prefix. Native
+// has no null branch or trailing pointer store; the reference's destructor
+// previously emitted 28B and was left unrowed. This replaces the virtual
+// Rva00613B90 owner with HashTableClass's established nonvirtual identity.
 HashTableClass::~HashTableClass( void )
 {
-	// If we need to, free the hash table
-	if ( HashTable != NULL) {
-		delete [] HashTable;
-		HashTable = NULL;
-	}
+    ::operator delete(HashTable);
 }
 
 void	HashTableClass::Reset( void )

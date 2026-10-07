@@ -10,6 +10,10 @@ public:
 class HashTableClass {
 public:
  void Reset();
+ __declspec(noinline) ~HashTableClass();
+private:
+ int HashTableSize;
+ HashableClass **HashTable;
 };
 struct IterBase {
  const HashTableClass *m_table;
@@ -60,6 +64,7 @@ class BfmeSub928F
 {
 public:
     void bfmeTail928F();
+    __declspec(noinline) ~BfmeSub928F();
     HashTableClass *m_texturePtrTable;
     HashTableClass *m_missingTextureTable;
 };
@@ -77,4 +82,27 @@ void BfmeSub928F::bfmeTail928F()
         it.Next();
     }
     m_texturePtrTable->Reset();
+}
+
+// BFME1 1399ad37 W3DProjectedShadowManagerDestructor.cpp supplies this
+// nonvirtual texture-manager destructor. Retail 0x109BEB..0x109C27 (60B)
+// clears textures at 0x108A79, deletes the two HashTableClass pointers at
+// +0 and +4 through their rowed destructor 0x613B90, then clears the fields.
+// The scalar wrappers at 0x109DB3 and 0xF0B65 are both 28B (ret 4). Their
+// call sites and the constructor's size/table fields establish nonvirtual
+// ownership; the withdrawn Rva virtual declarations were emission scaffolds.
+BfmeSub928F::~BfmeSub928F()
+{
+    bfmeTail928F();
+    delete m_texturePtrTable;
+    m_texturePtrTable = 0;
+    delete m_missingTextureTable;
+    m_missingTextureTable = 0;
+}
+
+// ?Rva00109DB3EmissionPattern absent-from-retail
+void Rva00109DB3EmissionPattern(BfmeSub928F *p, HashTableClass *q)
+{
+    delete p;
+    delete q;
 }
