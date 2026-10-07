@@ -12,7 +12,9 @@
 // pinned UpgradeMuxData::performUpgradeFX on that block (named as the rowed
 // AutoHealBehavior slot 12); AudioLoopUpgrade's slot 13 reads a module-data
 // flag (address name). The UpgradeMuxData block sits at module data +0x28,
-// +0x20, +0x30 and +0x14 respectively.
+// +0x20, +0x30 and +0x14 respectively. AudioLoopUpgrade's slot 11 does not copy
+// the masks inline: it tail-jumps to the shared out-of-line copy 0x0045F2D5
+// (SpawnBehavior_getUpgradeActivationMasks.cpp), as SpawnBehavior's does.
 
 class Object;
 class ModuleData;
@@ -26,6 +28,7 @@ class UpgradeMuxData
 {
 public:
 	void performUpgradeFX(Object *obj) const;
+	void rva0045F2D5(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const;
 	UpgradeMaskType m_activation; // +0x00
 	UpgradeMaskType m_conflicting; // +0x80
 };
@@ -157,11 +160,18 @@ struct AudioLoopUpgradeModuleData
 class AudioLoopUpgrade : public UpdateModuleView, public UpgradeMux
 {
 protected:
+	virtual void getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const;
 	virtual bool rva004B7E19() const;
 	virtual void performUpgradeFX();
 private:
 	const AudioLoopUpgradeModuleData *data() const { return (const AudioLoopUpgradeModuleData *)m_moduleData; }
 };
+
+// ?getUpgradeActivationMasks@AudioLoopUpgrade@@MBEXAAUUpgradeMaskType@@0@Z @0x004B7E0E
+void AudioLoopUpgrade::getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const
+{
+	data()->m_upgradeMuxData.rva0045F2D5(activation, conflicting);
+}
 
 // ?rva004B7E19@AudioLoopUpgrade@@MBE_NXZ @0x004B7E19
 bool AudioLoopUpgrade::rva004B7E19() const
