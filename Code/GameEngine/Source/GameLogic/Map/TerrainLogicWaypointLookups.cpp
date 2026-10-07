@@ -1,8 +1,10 @@
-// cl: /O1 /arch:SSE /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // TerrainLogic's waypoint and trigger-area lookups, slots 34..39 of the
-// TerrainLogic vftable (0x007FB2C8): getWaypointByName, getClosestWaypointOnPath,
-// getWaypointByPath, isPurposeOfPath and getTriggerAreaByName. All but
+// TerrainLogic vftable (0x007FB2C8): getWaypointByName, getWaypointByID,
+// getClosestWaypointOnPath, getWaypointByPath, isPurposeOfPath and
+// getTriggerAreaByName. All but
 // getWaypointByPath are Zero Hour's (GameLogic/Map/TerrainLogic.cpp); that
 // one has no Zero Hour body and carries Open-BFME-1's name for the same slot
 // (its TerrainLogicNameLookups.cpp), which getClosestWaypointOnPath calls for
@@ -15,7 +17,8 @@
 // the next waypoint at +0x1C and the waypoint linking to it at +0x40 (as
 // WaypointLinks.cpp lays it out); its three path labels come back by value
 // from the rowed getters 0x0027F5A6, 0x0027F5C1 and 0x0027F5DC (+0x50, +0x54,
-// +0x58). BFME 2 adds an empty-name test to getWaypointByName. The polygon
+// +0x58). BFME 2 adds an empty-name test to getWaypointByName and caches
+// getWaypointByID's answers in a map at TerrainLogic+0x56C. The polygon
 // trigger list head sits behind the holder pointer at VA 0x00DBD0F4; a
 // trigger keeps its next link at +0x3C and its name at +0x40.
 //
@@ -24,6 +27,8 @@
 // to throw (as AptSkirmishCallbacks.cpp does for the wide string).
 #include "ascii_string.h"
 #include "Coord3D.h"
+
+#include <map>
 
 typedef bool Bool;
 typedef int Int;
@@ -93,6 +98,18 @@ private:
 	AsciiString m_triggerName; // +0x40
 };
 
+typedef _STL::map<unsigned int, void *, _STL::less<unsigned int>, _STL::allocator<_STL::pair<const unsigned int, void *> > > WaypointIDMap;
+
+class Image;
+
+// The shared unsigned-key pointer-map operator[] (0x002077D6) that retail
+// calls for every such map; the id cache is subscripted through it.
+class ImageSubscriptMap
+{
+public:
+	Image *&operator[](const unsigned int &key);
+};
+
 template <int N> class TerrainLogicSlots : public TerrainLogicSlots<N - 1>
 {
 public:
@@ -114,6 +131,11 @@ public:
 	virtual Waypoint *getWaypointByPath(const AsciiString &label); // +0x94
 	virtual Bool isPurposeOfPath(Waypoint *pWay, const AsciiString &label); // +0x98
 	virtual PolygonTrigger *getTriggerAreaByName(const AsciiString &name); // +0x9C
+private:
+	Image *&cachedWaypoint(const UnsignedInt &id) { return (*(ImageSubscriptMap *)&m_waypointsByID)[id]; }
+
+	char m_pad04[0x56C - 0x04];
+	WaypointIDMap m_waypointsByID; // +0x56C
 };
 
 // ?getWaypointByName@TerrainLogic@@UAEPAVWaypoint@@ABVAsciiString@@@Z @0x00281D4C
@@ -126,6 +148,25 @@ Waypoint *TerrainLogic::getWaypointByName( const AsciiString &name )
 		if (way->getName() == name)
 			return way;
 
+	return NULL;
+}
+
+// ?getWaypointByID@TerrainLogic@@UAEPAVWaypoint@@I@Z @0x0028333F
+// Zero Hour's walk behind a cache: BFME 2 remembers each id it was asked for,
+// a miss included.
+Waypoint *TerrainLogic::getWaypointByID( UnsignedInt id )
+{
+	WaypointIDMap::iterator it = m_waypointsByID.find(id);
+	if (it != m_waypointsByID.end())
+		return (Waypoint *)(*it).second;
+
+	for( Waypoint *way = g_waypointListHead; way; way = way->getNext() )
+		if (way->getID() == id) {
+			cachedWaypoint(id) = (Image *)way;
+			return way;
+		}
+
+	cachedWaypoint(id) = NULL;
 	return NULL;
 }
 
