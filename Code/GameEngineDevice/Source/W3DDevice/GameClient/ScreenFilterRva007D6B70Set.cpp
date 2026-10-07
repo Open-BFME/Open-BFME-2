@@ -12,7 +12,7 @@ public:
  StringClass(int n=0,bool temp=false):m_Buffer(m_EmptyString) { Get_String(n,temp); m_Buffer[0]=m_NullChar; }
 #pragma optimize("", on)
 
- ~StringClass(void);
+ __forceinline ~StringClass(void) { Free_String(); }
 };
 class VertexMaterialClass {
 public:
@@ -70,5 +70,4 @@ int Rva007D6B70::set(FilterModes mode) {
 
 
 
-// Native public teardown and Free_String share0x00610A40 (DX8Wrapper call proof).
-#pragma comment(linker, "/alternatename:??1StringClass@@QAE@XZ=?Free_String@StringClass@@AAEXXZ")
+// Inline public teardown calls Free_String directly; the standalone destructor is 0x00065F5B.

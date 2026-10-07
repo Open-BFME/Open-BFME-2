@@ -1,5 +1,5 @@
 // BFME shim (TU-scoped): Zero Hour's Libraries/Source/WWVegas/WWLib/wwstring.h (via Open-BFME-1's
-// inputs/reference), verbatim except that the inline ~StringClass definition is removed.
+// inputs/reference), with the original inline StringClass destructor restored.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -346,9 +346,11 @@ StringClass::StringClass (const WCHAR *string, bool hint_temporary)
 
 ///////////////////////////////////////////////////////////////////
 //	~StringClass
+// Restore the donor's inline cleanup. Arrays use the separate five-byte
+// StringClass destructor at 0x00065F5B; direct cleanup calls Free_String.
+inline StringClass::~StringClass(void) { Free_String(); }
+
 ///////////////////////////////////////////////////////////////////
-// OUT OF LINE: StringClass::~StringClass is Free_String's body in retail (0x00610A40, pin;
-// /alternatename in several units). The inline copy compiled to a jmp stub the link could keep.
 
 
 ///////////////////////////////////////////////////////////////////

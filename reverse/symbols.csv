@@ -5109,7 +5109,6 @@ name,address,notes
 ??1Str12@@QAE@XZ,0x00142D70,TU-private view (Rva006C8FE0.cpp) of a by-value string argument whose destructor frees its buffer when non-null - the free-first-member body ICF folds onto this address; both unwind funclets of Rva006C8FE0Get destroy their by-value arguments by jumping here; original class name unknown
 ??1StrategicStatsPreferences@@UAE@XZ,0x00535776,ICF twin of rowed Rva00535776 dtor via Strategic construction at 0x0043C612
 ??1StringBase@@QAE@XZ,0x00036410
-??1StringClass@@QAE@XZ,0x00610A40,StringClass dtor; cleans the snapshot-name temp in Set_DX8_Render_State 0x6615F and Set_DX8_Texture_Stage_State 0x661DD
 ??1StructureCollapseUpdateModuleData@@UAE@XZ,0x00257B7A,109B dtor (frees +0xAC buffer via 0x30830, destroys +0xA0 via 0x257544, ehvec-destroys +0x70 array, destroys +0x64 string via 0x36410, resets vptr to base 0xBBB554); called by deleting dtor 0x257B5E
 ??1SubObjectsUpgradeModuleData@@UAE@XZ,0x004B5214,dtor called by audited wrapper RVA 0x002577F0; retail registration SubObjectsUpgrade -> data factory RVA 0x0025780C -> ctor RVA 0x00257768; primary vptr store RVA 0x0025777E
 ??1SubsystemInterface@@UAE@XZ,0x001B4E74

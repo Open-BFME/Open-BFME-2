@@ -15,7 +15,7 @@ class Rva00131BE5;
 class StringClass
 {
 public:
-    ~StringClass(void);
+    __forceinline ~StringClass(void) { Free_String(); }
     char *m_Buffer;
 private:
     void Free_String();
@@ -50,5 +50,4 @@ Rva00131BE5::~Rva00131BE5()
     ::operator delete(p);
 }
 
-// Native public teardown and Free_String share0x00610A40 (DX8Wrapper call proof).
-#pragma comment(linker, "/alternatename:??1StringClass@@QAE@XZ=?Free_String@StringClass@@AAEXXZ")
+// Inline public teardown calls Free_String directly; the standalone destructor is 0x00065F5B.

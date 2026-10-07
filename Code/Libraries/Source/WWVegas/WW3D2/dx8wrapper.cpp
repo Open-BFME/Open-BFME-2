@@ -4797,18 +4797,9 @@ extern DX8MeshRendererClass *ShutdownMeshRenderer;
 class Rva00DF6F94GapFillerContext { public: ~Rva00DF6F94GapFillerContext(); };
 extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
 #pragma comment(linker, "/alternatename:?ShutdownMeshRenderer@@3PAVDX8MeshRendererClass@@A=?TheDX8MeshRenderer@@3PAVDX8MeshRendererClass@@A")
-// Retail's string-array destruction callback is the five-byte tail body at
-// 65F5B, not the directly called Free_String worker at610A40. The tables
-// hold four-byte string entries; this address-qualified view preserves that
-// callback identity without claiming the original destructor spelling.
-struct Rva00065F5BDeviceNameEntry {
-    StringClass value;
-    ~Rva00065F5BDeviceNameEntry();
-    bool operator ==(const Rva00065F5BDeviceNameEntry &other) const { return value == other.value; }
-    bool operator !=(const Rva00065F5BDeviceNameEntry &other) const { return value != other.value; }
-};
-// ?Rva00065F5BDeviceNameEntry::~Rva00065F5BDeviceNameEntry present-unmatched
-Rva00065F5BDeviceNameEntry::~Rva00065F5BDeviceNameEntry() {}
+// Registry's verified StringClass vector-deleting destructor takes this same
+// four-byte-entry callback at RVA 0x00065F5B. Use the real inline destructor
+// for both tables; ordinary cleanup still calls Free_String directly.
 void DX8Wrapper::Shutdown(void)
 {
 	if (D3DDevice) {
@@ -4851,8 +4842,8 @@ void DX8Wrapper::Shutdown(void)
         bfmeData00DEDBE8 = 0;
 	}
 
-	_RenderDeviceNameTable.Reset_Active(); reinterpret_cast<VectorClass<Rva00065F5BDeviceNameEntry> &>(_RenderDeviceNameTable).VectorClass<Rva00065F5BDeviceNameEntry>::Clear();		 // note - Delete_All() resizes the vector, causing a reallocation.  Clear is better. jba.
-	_RenderDeviceShortNameTable.Reset_Active(); reinterpret_cast<VectorClass<Rva00065F5BDeviceNameEntry> &>(_RenderDeviceShortNameTable).VectorClass<Rva00065F5BDeviceNameEntry>::Clear();
+	_RenderDeviceNameTable.Reset_Active(); _RenderDeviceNameTable.VectorClass<StringClass>::Clear();		 // note - Delete_All() resizes the vector, causing a reallocation.  Clear is better. jba.
+	_RenderDeviceShortNameTable.Reset_Active(); _RenderDeviceShortNameTable.VectorClass<StringClass>::Clear();
 // Native DEE5B8 is ActiveCount +0x10 from the table at DEE5A8.
 	_RenderDeviceDescriptionTable.Reset_Active(); reinterpret_cast<VectorClass<BfmeEnumerationDesc> &>(_RenderDeviceDescriptionTable).VectorClass<BfmeEnumerationDesc>::Clear();	
 

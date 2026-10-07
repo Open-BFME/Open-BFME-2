@@ -37,7 +37,7 @@ StringClass(int initial_len = 0, bool hint_temporary = false);
 			Get_String(len + 1, hint_temporary);
 		bfmeAssignInline(string);
 	}
-	~StringClass(void);
+	__forceinline ~StringClass(void) { Free_String(); }
 	const StringClass &operator=(const char *string);
 	__forceinline const StringClass &bfmeAssignInline(const char *string)
 	{
@@ -295,5 +295,4 @@ void Record_Texture_End()
 	}
 }
 
-// Native public teardown and Free_String share0x00610A40 (DX8Wrapper call proof).
-#pragma comment(linker, "/alternatename:??1StringClass@@QAE@XZ=?Free_String@StringClass@@AAEXXZ")
+// Inline public teardown calls Free_String directly; the standalone destructor is 0x00065F5B.

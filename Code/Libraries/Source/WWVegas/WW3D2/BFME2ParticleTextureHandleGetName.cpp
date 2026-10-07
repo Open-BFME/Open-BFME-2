@@ -24,7 +24,7 @@ public:
 	enum InlineNativeCopy { COPY_NATIVE };
 	__forceinline StringClass(const char *name, bool flag, InlineNativeCopy);
 	StringClass(const StringClass &that, bool hint_temporary = false);
-	~StringClass(void);
+	__forceinline ~StringClass(void) { Free_String(); }
 	const StringClass &operator=(const char *string);
 
 
@@ -82,5 +82,4 @@ StringClass BFME2ParticleTextureHandle::Get_Texture_Name(void) const
 	return result;
 }
 
-// Native public teardown and Free_String share0x00610A40 (DX8Wrapper call proof).
-#pragma comment(linker, "/alternatename:??1StringClass@@QAE@XZ=?Free_String@StringClass@@AAEXXZ")
+// Inline public teardown calls Free_String directly; the standalone destructor is 0x00065F5B.

@@ -425,9 +425,9 @@ StringClass::StringClass (const WCHAR *string, bool hint_temporary)
 ///////////////////////////////////////////////////////////////////
 //	~StringClass
 ///////////////////////////////////////////////////////////////////
-// Retail DX8Wrapper call at0x0006615F targets0x00610A40,
-// the existing111-byte Free_String worker; same thiscall receiver and no args.
-#pragma comment(linker, "/alternatename:??1StringClass@@QAE@XZ=?Free_String@StringClass@@AAEXXZ")
+// Retail arrays take the five-byte forwarding destructor at 0x00065F5B;
+// ordinary inline cleanup calls Free_String at 0x00610A40 directly.
+inline StringClass::~StringClass(void) { Free_String(); }
 
 
 
