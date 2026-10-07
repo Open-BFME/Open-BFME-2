@@ -14,6 +14,7 @@
 // The 28B wrapper at 0x001F097A (dtor call plus flag-gated operator delete
 // 0x0002FD60) is not claimed here.
 #include "ascii_string.h"
+#include <vector>
 
 extern "C" void __cdecl free(void *block);
 
@@ -40,4 +41,37 @@ struct Rva001F077D
 void _bfmeRva001F077DDtorAnchor()
 {
 	static_cast<Rva001F077D *>(0)->Rva001F077D::~Rva001F077D();
+}
+
+// ?rva001F073A@Rva001F073AHolder@@QAEPAXPAVAsciiString@@@Z retail 0x001F073A 62B.
+// Init for ObjectCreationList entry via caller 0x001F0CBA plus map plus
+// initFromINI. Constructs vector<PlayerAITypeEntry> at +0 via rowed
+// Vector_base 0x00211E58 then flag at +0xC then AsciiString at +0x10 via rowed
+// StringBase copy 0x000365F0 then returns this. Same 0x14 layout as
+// Rva001F077D above. No donor.
+// Actually a ctor (no null checks for placement): retail has no test/je
+// around either member construction, only the single and [ebp-4] EH pair.
+// A normal method with placement new emits two test/je null guards (+16B).
+// Land as the honest ctor for the same 0x14 layout; the pin's method spelling
+// is the same bytes via this-return.
+struct PlayerAITypeEntry
+{
+	AsciiString name;
+	char unknown[12];
+};
+
+struct Rva001F073ACtor
+{
+	Rva001F073ACtor(AsciiString *name);
+	_STL::vector<PlayerAITypeEntry> m_vec;
+	unsigned char m_flag;
+	char m_pad0D[3];
+	AsciiString m_str;
+};
+
+Rva001F073ACtor::Rva001F073ACtor(AsciiString *name)
+	: m_vec()
+	, m_flag(0)
+	, m_str(*name)
+{
 }
