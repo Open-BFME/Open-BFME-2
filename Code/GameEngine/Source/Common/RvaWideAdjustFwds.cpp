@@ -79,9 +79,17 @@ public:
 	void method(void *arg);
 };
 
+struct Rva0040E6D6Arg;
+class Rva0040E6D6Host
+{
+public:
+	void __fastcall forwardFrom(int unused, Rva0040E6D6Arg *arg);
+};
+
 class GameLogic
 {
 public:
+	void __fastcall rva0023CFFC(int unused, Rva0040E6D6Arg *arg);
 	int rva0023D075(int value);
 	int rva0023D080(int value);
 	int rva0023D08B(int value);
@@ -108,6 +116,11 @@ class Rva004EC072Owner
 public:
 	void fwd(void *arg);
 };
+
+void __fastcall GameLogic::rva0023CFFC(int unused, Rva0040E6D6Arg *arg)
+{
+	((Rva0040E6D6Host *)((char *)this + 0x184))->forwardFrom(unused, arg);
+}
 
 int GameLogic::rva0023D075(int value)
 {
