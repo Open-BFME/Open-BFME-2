@@ -470,6 +470,17 @@ AsciiStringCharPlusText operator+(const AsciiStringRefWithChar &left, const char
 	return result;
 }
 
+// ??H@YA?AUAsciiStringPlusStringChar@@ABUAsciiStringPlusString@@D@Z @0x50EDD5
+// "string + string + char"; the StatusPage constructor 0x005103A3 builds
+// its "<level><name>_<query>" names with it.
+AsciiStringPlusStringChar operator+(const AsciiStringPlusString &left, char c)
+{
+	AsciiStringPlusStringChar result;
+	static_cast<AsciiStringPlusString &>(result) = left;
+	result.m_char = c;
+	return result;
+}
+
 inline AsciiStringRefWithChar operator+(const AsciiString &left, char c)
 {
 	AsciiStringRefWithChar result;
