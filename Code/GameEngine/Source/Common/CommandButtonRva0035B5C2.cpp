@@ -1,8 +1,8 @@
-// ?rva0035B5C2@CommandButton@@QAEXPAVObject@@_N@Z
-// partial score=0.96 date=2026-10-07
-// ?rva0035B5C2@CommandButton@@QAEXPAVObject@@_N@Z
-// partial score=0.93 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /MD /EHsc
+// ?rva0035B5C2@CommandButton@@QAEXPAVObject@@_N@Z @0x0035B5C2 246B
+// Banked attempt reverse/attempts/0x0035b5c2.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 // 0x0035B5C2 / 246 bytes. CommandButton ownership is inferred from adjacent
 // getStance and the callers' shared this pointer. Field roles and render-data
 // virtual slot are inferred from retail accesses; the method keeps an address name.

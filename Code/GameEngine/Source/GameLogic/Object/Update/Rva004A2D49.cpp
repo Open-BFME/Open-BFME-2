@@ -1,6 +1,8 @@
-// ?rva004A2D49@Rva004A2D49@@QAEX_N@Z
-// partial score=0.9 date=2026-10-07
-// cl: /MD
+// cl: /MD /Os
+// ?rva004A2D49@Rva004A2D49@@QAEX_N@Z @0x004A2D49 30B
+// Banked attempt reverse/attempts/0x004a2d49.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 // ?rva004A2D49@Rva004A2D49@@QAEX_N@Z @0x004A2D49 30B
 // Evidence: target reads one boolean argument and the Object* at this+8, then calls rowed UpdateModule::setWakeFrame; class and field ownership remain address-based.
 class Object;

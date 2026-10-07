@@ -1,6 +1,8 @@
-// ?rva0040A3D2@Rva0040A3D2@@QAEHPBD0@Z
-// partial score=0.95 date=2026-10-07
-// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Os
+// ?rva0040A3D2@Rva0040A3D2@@QAEHPBD0@Z @0x0040A3D2 39B
+// Banked attempt reverse/attempts/0x0040a3d2.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 // stlport
 // ?rva0040A3D2@Rva0040A3D2@@QAEHPBD0@Z @0x0040A3D2 39B: vector-like +0/+4 of
 // bytes searched via rowed _STL::find_if 0x40A366 with Not_within excluded

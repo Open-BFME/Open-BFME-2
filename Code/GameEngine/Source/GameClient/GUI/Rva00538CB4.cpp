@@ -1,6 +1,8 @@
-// ?rva00538CB4@Rva00538CB4@@QAEXPAURva00538CB4Input@@@Z
-// partial score=0.9 date=2026-10-07
-// cl: /MD /Oy-
+// cl: /MD /Oy- /Os
+// ?rva00538CB4@Rva00538CB4@@QAEXPAURva00538CB4Input@@@Z @0x00538CB4 59B
+// Banked attempt reverse/attempts/0x00538cb4.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 // ?rva00538CB4@Rva00538CB4@@QAEXPAURva00538CB4Input@@@Z, retail 0x00538CB4, 59 bytes.
 // Target-evidence ABI view: calls input vtable slots +0x28 and +0x50, then the
 // rowed 0x003EFE82 getter with the input and this+0x0C. The interface identity

@@ -1,6 +1,8 @@
-// ?Rva003ECB3DIsAlly@@YAHPBVPlayer@@0@Z
-// partial score=0.91 date=2026-10-06
-// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS /Os
+// ?Rva003ECB3DIsAlly@@YAHPBVPlayer@@0@Z @0x003ECB3D 21B
+// Banked attempt reverse/attempts/0x003ecb3d.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 // ?Rva003ECB3DIsAlly@@YAHPBVPlayer@@0@Z @0x003ECB3D 21B via Ally-check twin
 // Evidence: push arg2/mov ecx arg1/call rowed ?getRelationship@Player@@QBE?AW4Relationship@@PBV1@@Z 0x2AC3E0
 // then dec/dec/neg/sbb/inc for ==ALLIES (2); Relationship ENEMIES=0 NEUTRAL=1 ALLIES=2 per PlayerGetRelationship;

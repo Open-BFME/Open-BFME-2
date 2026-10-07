@@ -1,6 +1,8 @@
-// ?rva0031AD94@ControlBar@@QAEXXZ
-// partial score=0.97 date=2026-10-06
 // cl: /GX- /O1 /arch:SSE /G7
+// ?rva0031AD94@ControlBar@@QAEXXZ @0x0031AD94 26B
+// Banked attempt reverse/attempts/0x0031ad94.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 // ?rva0031AD94@ControlBar@@QAEXXZ, retail 0x0031AD94 (26 bytes).
 // Target evidence: the body conditionally calls the matched
 // ControlBar::showPurchaseScience row at 0x0031AD5A and the matched free
