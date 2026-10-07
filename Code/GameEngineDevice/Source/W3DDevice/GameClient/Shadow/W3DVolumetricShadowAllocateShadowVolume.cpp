@@ -84,7 +84,7 @@ struct Geometry
 	};
 
 	Geometry(void) : m_verts(NULL),m_indices(NULL),m_numPolygon(0),m_numVertex(0),m_numActivePolygon(0),m_numActiveVertex(0),m_flags(0),m_visibleState(STATE_UNKNOWN) {}
-	~Geometry(void) { Release();}
+	~Geometry(void);
 
 	Int Create( Int numVertices, Int numPolygons )
 	{
@@ -140,6 +140,7 @@ class W3DVolumetricShadow
 {
 protected:
 	Bool allocateShadowVolume( Int volumeIndex, Int meshIndex, Int flags );
+	void deleteShadowVolume(Int volumeIndex);
 
 	char m_pad0[0x80];
 	Geometry *m_shadowVolume[MAX_SHADOW_LIGHTS][MAX_SHADOW_CASTER_MESHES];
@@ -189,4 +190,27 @@ Bool W3DVolumetricShadow::allocateShadowVolume( Int volumeIndex, Int meshIndex, 
 	}
 
 	return TRUE;
+}
+
+// Additional BFME 1 donor bodies at revision 1399ad37d42ea52a63829e417c46a1ba9ed2cd20:
+// W3DVolumetricShadow.cpp, /O1 /arch:SSE /G7. Retail's adjacent methods
+// establish the same Geometry and one-light / 160-mesh volume layout above.
+// deleteShadowVolume follows allocateShadowVolume's verified extent exactly:
+// 0xF18FD..0xF194F, ret 4. Native offsets +0x80 and +0xF80 are the volume
+// pointers and counts; the native loop visits 160 meshes. Its calls use the
+// already rowed Geometry destructor at 0xEFC45 and operator delete at 0x2FD60.
+// Keep the destructor out of line, as retail does in this method.
+void W3DVolumetricShadow::deleteShadowVolume(Int volumeIndex)
+{
+    if (volumeIndex < 0 || volumeIndex >= MAX_SHADOW_LIGHTS)
+        return;
+    for (Int meshIndex = 0; meshIndex < MAX_SHADOW_CASTER_MESHES; ++meshIndex)
+    {
+        if (m_shadowVolume[volumeIndex][meshIndex])
+        {
+            delete m_shadowVolume[volumeIndex][meshIndex];
+            m_shadowVolume[volumeIndex][meshIndex] = NULL;
+            --m_shadowVolumeCount[meshIndex];
+        }
+    }
 }
