@@ -61,6 +61,10 @@ public:
 	Bool isPlayer(AsciiString userName) const;
 };
 
+class GameSpyGameSlot : public GameSlot
+{
+};
+
 class GameInfo
 {
 public:
@@ -73,6 +77,7 @@ public:
 	virtual Bool amIHost(void) const;
 	virtual Int getLocalSlotNum(void) const;
 	virtual void resetAccepted(void);
+	GameSlot *getSlot(Int slotNum);
 	const GameSlot *getConstSlot(Int slotNum) const;
 protected:
 	unsigned char m_pad04[0x10 - 0x04];
@@ -86,12 +91,22 @@ public:
 	virtual Int getLocalSlotNum(void) const;
 	virtual void resetAccepted(void);
 	virtual const Image *rva00401015(Int column);
+	GameSpyGameSlot *getGameSpySlot(Int index);
 	Bool getBfmeFEC(void) const { return m_bfmeFEC; }
 private:
 	unsigned char m_pad14[0xFE8 - 0x14];
 	AsciiString m_localName; // +0xFE8
 	Bool m_bfmeFEC; // +0xFEC
 };
+
+// GameSpyStagingRoom::getGameSpySlot, retail 0x004FDA3D (5 bytes): Zero Hour's
+// body (its DEBUG_ASSERTCRASH compiles out), a tail jump to the rowed
+// GameInfo::getSlot 0x003FF29F. Callers reach it as a direct call.
+GameSpyGameSlot * GameSpyStagingRoom::getGameSpySlot( Int index )
+{
+	GameSlot *slot = getSlot(index);
+	return (GameSpyGameSlot *)slot;
+}
 
 Bool GameSpyStagingRoom::amIHost( void ) const
 {
