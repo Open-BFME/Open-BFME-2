@@ -3,6 +3,8 @@
 // forwards through the implementation pointer at +0x18 to the matched Impl
 // method; the wrapper class and member offset are structural inferences.
 
+class Image;
+
 namespace StrategicHUD
 {
 class ArmyMemberIconMovieClip
@@ -12,6 +14,7 @@ public:
 	{
 	public:
 		void rva005FC85A(int value);
+		void SetTypeImage(const Image *image);
 	};
 };
 }
@@ -20,6 +23,7 @@ class Rva005FC9F0
 {
 public:
 	void rva005FC9F0(int value);
+	void rva005FC9E8(const Image *image);
 
 private:
 	unsigned char m_pad00[0x18];
@@ -29,4 +33,9 @@ private:
 void Rva005FC9F0::rva005FC9F0(int value)
 {
 	m_impl->rva005FC85A(value);
+}
+
+void Rva005FC9F0::rva005FC9E8(const Image *image)
+{
+	m_impl->SetTypeImage(image);
 }
