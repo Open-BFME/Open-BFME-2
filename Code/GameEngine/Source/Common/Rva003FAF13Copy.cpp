@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /EHsc /MD /DNDEBUG
 // ??0Rva003FAFB9@@QAE@ABV0@@Z @0x003FAF13 166B
-// Copy ctor of the 0x00837A08 class (dtor 0x003FAFB9 methods 0x003FAB93 and 0x003FAC3F).
-// Evidence: vtable store 0x00837A08 StringBase copy 0x365F0 at +4 pos movs +8/+C/+10
+// Copy ctor of the 0x00C37A08 class (dtor 0x003FAFB9 methods 0x003FAB93 and 0x003FAC3F).
+// Evidence: vtable store 0x00C37A08 StringBase copy 0x365F0 at +4 pos movs +8/+C/+10
 // Rva0036CA00Str copy 0xA8C7C at +14 FixedStorage copy 0x2CF0F0 at +18 Region2D copy
 // 0x4254E at +1C m_2c=1 plus bytes +30/+31/+32 src m_2c>=5 with new referent gating rva003FAB93.
 #include "ascii_string.h"

@@ -13017,6 +13017,7 @@ name,address,notes
 ?xfer@Rva000BB710@@QAEXPAVXfer@@@Z,0x000BB710,non-virtual thiscall member transfer (EH; Version first) that LargeGroupAudioUpdate::xfer 0x004AB9EA runs on its +0x30 member; class identity not recovered
 ?xfer@Rva0015334F@@QAEXPAVXfer@@@Z,0x005AA4C1,FlankAttack route xfer (rowed under the address name Rva005AA4C1); REL32 at 0x005AA623 in the FlankAttack slot 5
 ?xfer@Rva00292550@@QAEXPAVXfer@@@Z,0x00292550,non-virtual thiscall member transfer (EH; Version first) that LargeGroupAudioUpdate::xfer 0x004AB9EA runs on its +0x7C member; class identity not recovered
+?xfer@Rva003FAFB9@@MAEXPAVXfer@@@Z,0x003FADB5,slot 3 of the matched Rva003FAFB9 vtable at 0x00C37A08; its constructor and destructor establish the owner, the body transfers fields at +0x2c..+0x32 through Xfer, and its rowed helper call at 0x003FAC3F preserves the object's event index
 ?xfer@Rva004DD489@@QAEXPAVXfer@@@Z,0x004DD489,non-virtual thiscall xfer (Version(1;1) then XferObjectID at +8 ...) of the elements of the pointer vector at +0x90 that EmotionTrackerUpdate::xfer 0x004B1ECB walks; class identity not recovered
 ?xfer@Rva004ECECD@@UAEXPAVXfer@@@Z,0x004EDA8C,AITactic xfer (slot 5 of the tactic vtables that do not override it); REL32 at 0x005AA617 in the FlankAttack slot 5
 ?xfer@Rva005DC87B@@UAEXPAVXfer@@@Z,0x005DC903,Rva005DC87B tactic base xfer (version 1 then the AITactic xfer 0x004EDA8C and the +0x58 ObjectID); REL32 at 0x005A9C14 in the SiegeGates slot 5
