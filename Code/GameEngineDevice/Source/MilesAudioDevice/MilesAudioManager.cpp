@@ -49,6 +49,11 @@ typedef _STL::deque<OpaqueRefElement4, _STL::allocator<OpaqueRefElement4> > Musi
 enum MusicSystem { MUSIC_SYSTEM_0, MUSIC_SYSTEM_1 };
 inline MusicSystem &operator--(MusicSystem &ms, int) { ms = (MusicSystem)(ms - 1); return ms; }
 
+enum ObjectID
+{
+    ObjectID_Zero = 0
+};
+
 // AudioEventInfo view: +0x44 is the priority the lowest-priority scan ranks by.
 struct AudioEventInfo {
     char at00[0x08];
@@ -248,10 +253,7 @@ public:
     bool rva00055426(int objectID);
     void rva000562CF(int key);
     void rva000562A2(int key, const void *value);
-    void rva000567C5(int argument);
     void rva0005A92A(int key, Rva0005A084Vector *output);
-    void rva0005774F(int viewType, MusicSystem newMusicSystem, int arg);
-    void rva0005876E(int viewType, int newMusicSystem, int arg, int resume);
     void rva00057297(Rva00051107AudioRequest &request);
     bool rva000570C8(AudioEventRTS *event);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
@@ -346,16 +348,6 @@ void MilesAudioManager::rva000562A2(int key, const void *value)
     void *result = 0;
     if (rva00055FCA(key, &result, 0) && result)
         reinterpret_cast<Rva002D9508 *>(result)->rva002D9508(value);
-}
-
-// Address-derived queue method; target writes request+0x08 and +0, then appends
-// the new request to the list at this+0x98.
-void MilesAudioManager::rva000567C5(int argument)
-{
-    Rva00051107AudioRequest *request = rva00051107();
-    request->m_at08 = argument;
-    request->m_request = 1;
-    m_audioRequests.push_back(request);
 }
 
 // Address-derived lookup wrapper; target appends the found record's +8 dword
@@ -552,32 +544,6 @@ AudioEventRTS *MilesAudioManager::findLowestPrioritySound(AudioEventRTS *event)
     return lowestEvent;
 }
 
-// Address-derived music-stack operation. The target checks +0xB3C and clears
-// the selected deque at +0xA4C using its matched clear helper.
-void MilesAudioManager::rva0005774F(int viewType, MusicSystem newMusicSystem, int arg)
-{
-    if (m_activeMusicSystem[viewType] == newMusicSystem)
-        removeCurrentlyPlayingMusic(viewType, arg);
-    m_musicStack[viewType][newMusicSystem].clear();
-}
-
-// Address-derived dispatcher. The target compares the active system at +0xB3C,
-// scans lower +0xA4C deque entries while they are empty, then calls the matched
-// move-down or stack-clear helper. No higher-level identity is established.
-// ?MilesAudioManager::rva0005876E present-unmatched
-void MilesAudioManager::rva0005876E(int viewType, int newMusicSystem, int arg, int resume)
-{
-    if (m_activeMusicSystem[viewType] == newMusicSystem && newMusicSystem != 0) {
-        int lowerMusicSystem = newMusicSystem - 1;
-        while (lowerMusicSystem > 0 && m_musicStack[viewType][lowerMusicSystem].empty())
-            --lowerMusicSystem;
-        moveDownMusicSystems(viewType, (MusicSystem)lowerMusicSystem, arg, resume);
-    } else {
-        rva0005774F(viewType, (MusicSystem)newMusicSystem, arg);
-    }
-}
-
-// ?MilesAudioManager::rva00057297 present-unmatched
 void MilesAudioManager::rva00057297(Rva00051107AudioRequest &request)
 {
     AudioEventRTS *event = request.m_pendingEvent.operator->();
@@ -592,7 +558,6 @@ void MilesAudioManager::rva00057297(Rva00051107AudioRequest &request)
     }
 }
 
-// ?MilesAudioManager::rva000570C8 present-unmatched
 bool MilesAudioManager::rva000570C8(AudioEventRTS *event)
 {
     if (event->m_info->m_type & 0x10)
@@ -601,7 +566,6 @@ bool MilesAudioManager::rva000570C8(AudioEventRTS *event)
     return false;
 }
 
-// ?MilesAudioManager::rva00057948 present-unmatched
 void MilesAudioManager::rva00057948(const void *input)
 {
     MilesMutexGuard guard(&m_mutex, 0);
