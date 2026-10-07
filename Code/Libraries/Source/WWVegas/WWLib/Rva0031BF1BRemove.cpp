@@ -9,6 +9,12 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 
+// Reuse the verified unsigned max body at 0x00013740; this unit
+// must not supply a conflicting out-of-line copy.
+namespace _STL {
+template <> const unsigned int& max<unsigned int>(const unsigned int&, const unsigned int&);
+}
+
 class ModuleData
 {
 public:

@@ -4,5 +4,11 @@
 // stlport
 #include <vector>
 
+// Reuse the verified unsigned max body at 0x00013740; this unit
+// must not supply a conflicting out-of-line copy.
+namespace _STL {
+template <> const unsigned int& max<unsigned int>(const unsigned int&, const unsigned int&);
+}
+
 struct Rva004E1D4EElement { char bytes[12]; bool operator<(const Rva004E1D4EElement&)const; bool operator==(const Rva004E1D4EElement&)const; };
 template class _STL::vector<Rva004E1D4EElement>;

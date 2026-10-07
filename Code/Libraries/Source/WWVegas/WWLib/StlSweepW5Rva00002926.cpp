@@ -5,6 +5,12 @@
 #include <list>
 #include <deque>
 
+// The verified unsigned max provider is at 0x00013740. This /Ob0 unit
+// must call that body rather than offer its own conflicting COMDAT.
+namespace _STL {
+template <> const unsigned int& max<unsigned int>(const unsigned int&, const unsigned int&);
+}
+
 
 
 

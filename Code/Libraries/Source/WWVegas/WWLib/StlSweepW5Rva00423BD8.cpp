@@ -4,6 +4,12 @@
 // stlport
 #include <deque>
 
+// Reuse the verified unsigned max body at 0x00013740; this unit
+// must not supply a conflicting out-of-line copy.
+namespace _STL {
+template <> const unsigned int& max<unsigned int>(const unsigned int&, const unsigned int&);
+}
+
 struct Rva00423BD8Element { int word0; bool operator<(const Rva00423BD8Element&)const; bool operator==(const Rva00423BD8Element&)const; };
 
 // Instantiate the recovered operation and its required template dependencies.
