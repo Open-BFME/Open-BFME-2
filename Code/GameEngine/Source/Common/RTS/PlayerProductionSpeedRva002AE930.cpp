@@ -1,5 +1,3 @@
-// ?rva002AE930@Player@@QAEXPBVAsciiString@@@Z
-// partial score=0.94 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /MD /Oy-
 // Native Ghidra 002AE930..002AE98B, 91B, RET4. Shares the receiver
 // and three maps with rowed Player::rva002AE8CF, whose matched
@@ -30,10 +28,11 @@ struct VideoPair
         s.first = first;
         s.second = second;
     }
+    // Retail constructs the argument table word before the node word.
     VideoPair(const VideoPair &other)
     {
-        s.first = other.s.first;
         s.second = other.s.second;
+        s.first = other.s.first;
     }
 };
 class Rva000427195
