@@ -86,9 +86,17 @@ enum DisabledType
 	DISABLED_HELD = 3
 };
 
+#define PATHFIND_CELL_SIZE_F 10.0f
+
 enum KindOfType
 {
 	KINDOF_HORDE = 109
+};
+
+class WWMath
+{
+public:
+	static float __fastcall Inv_Sqrt(float val);
 };
 
 struct Vector3
@@ -100,7 +108,21 @@ struct Vector3
 	Vector3() {}
 	Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
 	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
+	Vector3 &operator+=(const Vector3 &v) { X += v.X; Y += v.Y; Z += v.Z; return *this; }
+	Vector3 &operator*=(float k) { X = X*k; Y = Y*k; Z = Z*k; return *this; }
 	void Set(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
+	float Length2() const { return X*X + Y*Y + Z*Z; }
+	__forceinline void Normalize()
+	{
+		float len2 = Length2();
+		if (len2 != 0.0f)
+		{
+			float oolen = WWMath::Inv_Sqrt(len2);
+			X *= oolen;
+			Y *= oolen;
+			Z *= oolen;
+		}
+	}
 };
 
 class Matrix3D
@@ -372,6 +394,7 @@ class QueueProductionExitUpdate : public UpdateModule, public ExitInterface
 {
 public:
 	virtual void exitObjectViaDoor( Object *newObj, ExitDoorType exitDoor );
+	virtual Bool getNaturalRallyPoint( Coord3D& rallyPoint, Bool offset = true ) const;
 protected:
 	const QueueProductionExitUpdateModuleData *getQueueProductionExitUpdateModuleData() const
 	{
@@ -535,4 +558,32 @@ void QueueProductionExitUpdate::exitObjectViaDoor( Object *newObj, ExitDoorType 
 		if (m_currentBurstCount)
 			m_currentBurstCount--; // fewer and fewer units to burst
 	}
+}
+
+//-------------------------------------------------------------------------------------------------
+Bool QueueProductionExitUpdate::getNaturalRallyPoint( Coord3D& rallyPoint, Bool offset ) const
+{
+	const QueueProductionExitUpdateModuleData *data = getQueueProductionExitUpdateModuleData();
+	Vector3 p;
+
+	//
+	// get the natural rally point from the INI definition, this coord is in model space relative
+	// to the model (0,0,0)
+	//
+	const Coord3D *nrp = &data->m_naturalRallyPoint;
+	p.Set( nrp->x, nrp->y, nrp->z );
+
+	if ( offset )
+	{
+		Vector3 offset = p;
+		offset.Normalize();
+		offset *= (2*PATHFIND_CELL_SIZE_F);
+		p+=offset;
+	}
+
+	// transform the point into world space
+	const Matrix3D *transform = getObject()->getTransformMatrix();
+	transform->Transform_Vector( *transform, p, &p );
+	rallyPoint = *(const Coord3D *)&p;
+	return true;
 }
