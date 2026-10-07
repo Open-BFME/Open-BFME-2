@@ -1560,3 +1560,15 @@ void W3DRadar::refreshTerrain( TerrainLogic *terrain )
  */
 // ?TheW3DRadarFormatCaps@@3PAVW3DRadarFormatCaps@@A: the global at VA 0xdeda7c is ?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A.
 #pragma comment(linker, "/alternatename:?TheW3DRadarFormatCaps@@3PAVW3DRadarFormatCaps@@A=?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A")
+
+// Native 0x0004DB76..0x0004DBD5: float-coordinate counterpart of radarToPixel.
+// The six stack arguments and RET 24 establish the stdcall ABI; its original
+// name is unknown. Retail constants are 1/128 at VA BC4DB8 and 127 at BC4DBC.
+void __stdcall Rva0004DB76(const Coord2D *radar, Coord2D *pixel,
+                          Int upperLeftX, Int upperLeftY, Int width, Int height)
+{
+	if (radar == NULL || pixel == NULL)
+		return;
+	pixel->x = (radar->x * width / 128.0f) + upperLeftX;
+	pixel->y = ((127.0f - radar->y) * height / 128.0f) + upperLeftY;
+}
