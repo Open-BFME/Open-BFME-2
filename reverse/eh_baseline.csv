@@ -51,8 +51,6 @@ name,target_rva,verdict
 ??0GateOpenAndCloseBehaviorModuleData@@QAE@XZ,0x00498E2E,bytes_differ
 ??0AODCrushCollideModuleData@@QAE@XZ,0x004BBF89,bytes_differ
 ??1BfmeObject544@@QAE@XZ,0x004CACB8,bytes_differ
-?sendPlayerDestruct@DisconnectManager@@IAEXHPAVConnectionManager@@@Z,0x004D3AE2,bytes_differ
-?sendDisconnectCommand@DisconnectManager@@IAEXHPAVConnectionManager@@@Z,0x004D3D5C,bytes_differ
 ??1Rva005248D0@@UAE@XZ,0x005248D0,bytes_differ
 ??1Rva0053FB33@@UAE@XZ,0x0053FB33,bytes_differ
 ??0Rva0055011A@@QAE@XZ,0x0055011A,bytes_differ

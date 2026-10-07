@@ -42,34 +42,6 @@
 #define NetDisconnectPlayerCommandMsg NetDisconnectPlayerCommandMsgZH
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
-// BFME de-pooled this glue: retail's per-class `operator delete(void*, MagicEnum)`
-// is one 12-byte body (0x007EFFF0) that calls the CRT free IMPORT THUNK -- a
-// `call rel32` into `jmp [__imp__free]` -- where ::operator delete (0x00881EB0)
-// is a different function. <stdlib.h> declares free __declspec(dllimport) under
-// /MD, which compiles to the `ff 15` indirect form instead, so the C-linkage
-// redeclaration below is what names `_free` for the linker's thunk; it is
-// namespaced so every other free() call in this TU keeps the indirect form
-// retail also uses. Same TU-scoped override Team.cpp already carries.
-namespace BfmePoolGlue { extern "C" void __cdecl free(void *); }
-#undef MEMORY_POOL_GLUE_WITHOUT_GCMP
-#define MEMORY_POOL_GLUE_WITHOUT_GCMP(ARGCLASS) \
-protected: \
-	virtual ~ARGCLASS(); \
-public: \
-	enum ARGCLASS##MagicEnum { ARGCLASS##_GLUE_NOT_IMPLEMENTED = 0 }; \
-public: \
-	inline void *operator new(size_t s, ARGCLASS##MagicEnum e DECLARE_LITERALSTRING_ARG2) \
-	{ return MP_GLUE_ALLOCATE(ARGCLASS); } \
-public: \
-	inline void operator delete(void *p, ARGCLASS##MagicEnum e DECLARE_LITERALSTRING_ARG2) \
-	{ BfmePoolGlue::free(p); } \
-protected: \
-	inline void *operator new(size_t s) { return ::operator new(s); } \
-	inline void operator delete(void *p) { ::operator delete(p); } \
-private: \
-	virtual MemoryPool *getObjectMemoryPool() { return ARGCLASS::getClassMemoryPool(); } \
-public:
-
 // BFME's vote helpers take the live connection manager, overloads absent from the published ZH header.
 #define countVotesForPlayer(slot) countVotesForPlayer(slot); \
 	Int countVotesForPlayer(Int, ConnectionManager *); \
@@ -92,6 +64,14 @@ public:
 #include "GameNetwork/GameSpy/GSConfig.h"
 
 #undef NetDisconnectPlayerCommandMsg
+
+// The network messages built below come from the global heap: retail calls
+// ::operator new (0x0002FDA0) for them, and the one unwind funclet that
+// sendPlayerDestruct, sendDisconnectCommand and sendVoteCommand share (handler
+// 0x00790F9A) frees a half-built message with ::operator delete (0x0002FD60),
+// with no class-specific or placement delete in between.
+#undef newInstance
+#define newInstance(ARGCLASS) ::new ARGCLASS
 
 // BFME 2 layout of NetDisconnectPlayerCommandMsg. Target facts:
 // sendDisconnectCommand (0x004D3D5C) allocates it with `push 0x28`; its
@@ -647,4 +627,26 @@ Bool DisconnectManager::isLocalPlayerNextPacketRouter(ConnectionManager *conMgr)
 	}
 
 	return FALSE;
+}
+
+// Open-BFME-1's sendVoteCommand: broadcast the local vote against slot to
+// every other player. The 0x24-byte message is built by the type-27
+// constructor 0x004D580E; retail's linker folded setSlot (+0x1c byte) and
+// setVoteFrame (+0x20 dword) into the identical setters 0x0006EDE3 and
+// 0x00317B9B, which carry the names called here. The frame is read from
+// GameLogic+0x40 as voteForPlayerDisconnect does.
+void DisconnectManager::sendVoteCommand(Int slot, ConnectionManager *conMgr) {
+	NetDisconnectVoteCommandMsg *msg = newInstance(NetDisconnectVoteCommandMsg);
+
+	msg->setPlayerID(conMgr->getLocalPlayerID());
+	((NetDisconnectPlayerCommandMsg *)msg)->setDisconnectSlot(slot);
+	((NetFileProgressCommandMsg *)msg)->setProgress(
+		reinterpret_cast<GameLogic *>(reinterpret_cast<char *>(TheGameLogic) + 4)->getFrame());
+	if (DoesCommandRequireACommandID(msg->getNetCommandType()) == TRUE) {
+		msg->setID(GenerateNextCommandID());
+	}
+
+	conMgr->sendLocalCommandDirect(msg, 0xff & ~(1 << conMgr->getLocalPlayerID()));
+
+	msg->detach();
 }
