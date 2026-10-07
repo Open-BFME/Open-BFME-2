@@ -594,3 +594,14 @@ void DisconnectManager::resetPlayersVotes(Int playerID, UnsignedInt frame, Conne
 		TheDisconnectMenu->updateVotes(transSlot, numVotes);
 	}
 }
+
+// Open-BFME-1's resetPlayerTimeouts: restart the timeout of every slot that
+// translates to a remote player.
+void DisconnectManager::resetPlayerTimeouts(ConnectionManager *conMgr) {
+	for (Int i = 0; i < MAX_SLOTS; ++i) {
+		Int slot = Rva004D39DEGet(i, conMgr->getLocalPlayerID());
+		if (slot != -1) {
+			resetPlayerTimeout(slot);
+		}
+	}
+}
