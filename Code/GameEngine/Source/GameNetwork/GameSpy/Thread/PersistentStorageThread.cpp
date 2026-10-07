@@ -27,6 +27,71 @@ extern const char g_Rva0107301CEmptyString[];
 // placeholder class names used here.
 
 typedef int Int;
+// Native stats reset [553E47,553F2F),232B and tournament clear
+// [553FDD,55401D),64B. GameSpy persistent-storage reference family, with
+// BFME2's proven 12-byte map stride and target-specific field groups.
+// The ZH/BFME1 PSPlayerStats reset is a semantic lead; this target's precise
+// base record name and map key/value identities remain unproved.
+class Rva0038201D {
+    unsigned m_words[3];
+public:
+    void rva003828B6();
+};
+class Rva0038204A {
+    unsigned m_words[3];
+public:
+    void rva003828DF();
+};
+class Rva00382077 {
+    unsigned m_words[3];
+public:
+    void rva00382908();
+};
+class Rva00553E47StatsCore {
+public:
+    void reset();
+private:
+    unsigned m_unmodelled00;
+    Rva0038201D m_maps04[6];
+    Rva0038201D m_maps4c[6];
+    Rva0038201D m_maps94[6];
+    Rva0038204A m_mapsdc[8];
+    unsigned m_13c, m_140;
+    unsigned short m_144, m_146, m_148, m_14a, m_14c;
+    unsigned short m_unmodelled14e;
+    unsigned m_id150;
+};
+typedef char StatsMapStrideCheck[sizeof(Rva0038201D) == 12 ? 1 : -1];
+typedef char StatsCoreSizeCheck[sizeof(Rva00553E47StatsCore) == 0x154 ? 1 : -1];
+void Rva00553E47StatsCore::reset() {
+    m_id150 = 0;
+    m_maps04[0].rva003828B6();
+    m_maps04[1].rva003828B6();
+    m_maps04[2].rva003828B6();
+    m_maps04[3].rva003828B6();
+    m_maps04[4].rva003828B6();
+    m_maps04[5].rva003828B6();
+    for (int i = 0; i < 6; ++i) {
+        m_maps4c[i].rva003828B6();
+        m_maps94[i].rva003828B6();
+    }
+    m_mapsdc[0].rva003828DF();
+    m_mapsdc[1].rva003828DF();
+    m_mapsdc[2].rva003828DF();
+    m_mapsdc[3].rva003828DF();
+    m_mapsdc[4].rva003828DF();
+    m_mapsdc[5].rva003828DF();
+    m_mapsdc[6].rva003828DF();
+    m_mapsdc[7].rva003828DF();
+    m_13c = 0;
+    m_140 = 0;
+    m_144 = 0;
+    m_146 = 0;
+    m_148 = 0;
+    m_14a = 0;
+    m_14c = 0;
+}
+
 
 class Rva003844D7	// open-play stats block
 {
@@ -139,4 +204,13 @@ void Rva00385333::rva00555F68()
 	m_194 |= -1;
 	m_198 |= -1;
 	((Rva00385333String *)m_pad19C)->operator=(g_Rva0107301CEmptyString);
+}
+
+void Rva00385333::rva00553FDD() {
+    ((Rva00553E47StatsCore *)this)->reset();
+    ((Rva00382077 *)(m_pad154))->rva00382908();
+    ((Rva0038201D *)(m_pad154 + 12))->rva003828B6();
+    ((Rva0038201D *)(m_pad154 + 24))->rva003828B6();
+    ((Rva0038204A *)(m_pad154 + 36))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 48))->rva003828DF();
 }
