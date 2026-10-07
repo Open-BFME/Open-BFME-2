@@ -235,7 +235,6 @@ void BFMEConnectionManager::sendFrameInfo(Bool nextFrame)
 	msg->detach();
 }
 
-// ?rva004D0BE5@BFMEConnectionManager@@QAEXXZ present-unmatched
 void BFMEConnectionManager::rva004D0BE5()
 {
 	NetFrameCommandMsg *msg = new NetFrameCommandMsg;
