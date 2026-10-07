@@ -256,6 +256,7 @@ public:
 	virtual void s09(void);
 	virtual void reset(void);
 	static void operator delete(void *p) { ::operator delete(p); }
+	void cleanUpSlotPointers(void);
 	Int getID(void) const { return m_id; }
 	GameSpyGameSlot *getGameSpySlot(Int index);
 	unsigned char m_pad0004[0xC8];		// +0x04..+0xCB
@@ -270,7 +271,6 @@ extern GameSpyStagingRoom *TheGameSpyGame;
 // GameInfo assignment (0x00382E73) and cleanUpSlotPointers (0x004FDA17),
 // rowed under their address names.
 class Rva00382E73 { public: Rva00382E73 &operator=(const Rva00382E73 &other); };
-class Rva004FDA17 { public: void rva004FDA17(void); };
 
 struct TreeHintOpaque0043671B;
 extern "C" void MD5Print(unsigned char digest[16], char output[33]);
@@ -1276,7 +1276,7 @@ void GameSpyInfo::addStagingRoom(GameSpyStagingRoom room)
 		return;
 	GameSpyStagingRoom *newRoom = new GameSpyStagingRoom;
 	*(Rva00382E73 *)newRoom = *(Rva00382E73 *)&room;
-	((Rva004FDA17 *)newRoom)->rva004FDA17();
+	newRoom->cleanUpSlotPointers();
 	// Retail calls the identical-code-folded map<int,int>::operator[] (0x0028932C).
 	((_STL::map<Int, Int> &)m_stagingRooms)[room.getID()] = (Int)newRoom;
 	m_stagingRoomsDirty = m_sawFullGameList;
