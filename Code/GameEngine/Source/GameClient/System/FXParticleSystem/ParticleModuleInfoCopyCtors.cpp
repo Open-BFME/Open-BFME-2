@@ -548,3 +548,44 @@ Rva003AFA0BVector Rva003AFA0B::rva003AFA0B(
 	result.z = source->z * basis.z * scale;
 	return result;
 }
+
+// Native 0x003AF8C7..0x003AF927 RET4; the rowed derived constructor
+// 0x003AF89A calls this intermediate copy. Like the Line/Sphere/TerrainFire
+// siblings above, it calls the common 0x003AF50D base and adjusts the source
+// reference to the +0x1C emission-info base. The direct callee is the existing
+// LightningEmissionInfo copy pin at 0x003A6AF5; its rowed assignment establishes
+// the one-byte flag followed by eleven float triples (FXParticleSystem.cpp).
+namespace FXParticleSystem
+{
+class Snapshot8C7
+{
+public:
+    virtual ~Snapshot8C7();
+};
+class EmissionVolumeInfo8C7 : public Snapshot8C7
+{
+public:
+    virtual ~EmissionVolumeInfo8C7();
+    bool m_flag;
+};
+class LightningEmissionInfo : public EmissionVolumeInfo8C7
+{
+public:
+    LightningEmissionInfo(const LightningEmissionInfo &other) throw();
+    virtual ~LightningEmissionInfo();
+private:
+    float m_coordinates[33];
+};
+}
+class Rva003AF8C7 : public Intermediate3AFC6FC,
+    public FXParticleSystem::LightningEmissionInfo
+{
+public:
+    Rva003AF8C7(const Rva003AF8C7 &other);
+    virtual ~Rva003AF8C7();
+};
+Rva003AF8C7::Rva003AF8C7(const Rva003AF8C7 &other)
+    : Intermediate3AFC6FC(other)
+    , FXParticleSystem::LightningEmissionInfo((const FXParticleSystem::LightningEmissionInfo &)other)
+{
+}
