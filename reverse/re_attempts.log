@@ -16181,3 +16181,8 @@ FUN_004c6c54	0x000C6C54	240	blocked	resume source emits unrelated InGameUI callb
 ?rva003B0E5D@Rva003B0E5D@@QAEXXZ	0x003B0E5D	24	partial	same stores and extent but this pointer remains ecx instead of retail eax copy t=6 model=GPT-6 score=0.9 stash=reverse/attempts/0x003b0e5d.cpp
 ?rva003B0E5D@Rva003B0E5D@@QAEXXZ	0x003B0E5D	24	blocked	six clean source variants preserve stores but cannot reproduce retail mov eax ecx scheduling; shape_levers lookup had no matching lever t=12 model=GPT-6
 ?didAllEnter@Team@@QAE_NPAVPolygonTrigger@@I@Z	0x0039E15D	176	partial	register wall cur in eax vs esi plus mask in edi vs edx plus extra push edi plus end cmp al vs 0 t=20 model=muse-14 score=0.92 stash=reverse/attempts/0x0039e15d.cpp
+?Rva003E8AA9Condition@@YA_NPAVParameter@@@Z	0x003E8AA9	158	blocked	outer team chain and indirect dword getter relationship unresolved; current scan structure differs materially t=11 model=gpt-6
+?Rva003E8B47Condition@@YG_NPAVParameter@@0@Z	0x003E8B47	221	blocked	retail member loop and linked-team traversal remain structurally mismatched after six compiler variants; target uses indirect getter call and current iterator lowering differs t=9 model=gpt-6
+?Rva003E8C24Condition@@YG_NPAVParameter@@0@Z	0x003E8C24	221	blocked	target stores a code pointer for the team dword getter and uses it indirectly; direct clean member-call model remains 16 bytes short with loop-shape differences t=7 model=gpt-6
+FUN_007e8d01	0x003E8D01	290	blocked	control-flow and iterator model still diverge after 6 variants t=17 model=gpt-6.1
+??0Rva00501656@@QAE@XZ	0x00501656	109	partial	five Vector_base receiver LEAs schedule after allocator argument pushes t=5 model=gpt-6.1-sol score=0.93 stash=reverse/attempts/0x00501656.cpp
