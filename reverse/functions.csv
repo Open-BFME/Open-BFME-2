@@ -66881,3 +66881,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ??1Rva003561BE@@UAE@XZ,,0x003561BE,198,Code/GameEngine/Source/Common/Rva003561BEDtor.cpp,matched,vtable anchor and adjacent constructor establish cleanup fields
 ??0Rva00367518@@QAE@PAVStateMachine@@@Z,,0x00367518,33,Code/GameEngine/Source/Common/Rva00367518Ctor.cpp,matched,stores vtable 0x008172B8 zeroes +0x58 base AIFollowPathState hash 0x5d5fa789 caller 0x00367C6E
 ?Rva003BCE69Do@@YGXABVAsciiString@@0H@Z,,0x003BCE69,146,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BCE69.cpp,matched,best-object select over player mask then cache via rva002ABCF0 and Compare
+?rva006E4480@Rva006E34D0@@QAEXHHEH@Z,,0x006E4480,98,Code/Libraries/Source/Apt/Rva006E4480AptCommand.cpp,matched,same receiver calls rowed packer and record fields match retail offsets
