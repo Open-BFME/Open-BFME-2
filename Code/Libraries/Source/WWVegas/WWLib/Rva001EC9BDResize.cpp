@@ -7,8 +7,6 @@
 // The one-argument wrapper at 0x001ECCF3 constructs a 0xAC temporary through
 // 0x0037DF2C before forwarding. Resize semantics and element size are target
 // evidence; original vector and record identities remain unresolved.
-#include <vector>
-
 struct BfmeAssignRecord172 { unsigned char bytes[172]; };
 struct Rva001EBEABElement {
 	unsigned char bytes[172];
@@ -19,6 +17,17 @@ struct Rva001EBEABElement {
 	bool operator<(const Rva001EBEABElement &) const;
 	bool operator==(const Rva001EBEABElement &) const;
 };
+
+namespace _STL {
+template <class T> class allocator {};
+template <class T, class A = allocator<T> > class vector
+{
+public:
+	typedef T *iterator;
+	iterator erase(iterator first, iterator last);
+	void _M_fill_insert(iterator position, unsigned int count, const T &value);
+};
+}
 
 struct Rva0037DF2C {
 	Rva0037DF2C();
