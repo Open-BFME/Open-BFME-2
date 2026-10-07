@@ -34,6 +34,8 @@
 //   0x002F6C22  0x002F4D8B
 //   0x002F6D22  0x002F600C
 
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+
 extern "C" int __cdecl abs( int n );
 
 typedef int Int;
@@ -48,6 +50,8 @@ enum PathfindLayerEnum
 {
 	LAYER_INVALID = 0
 };
+
+ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
 
 class PathfindCell
 {
@@ -94,6 +98,7 @@ class Pathfinder
 {
 public:
 	PathfindCell *getCell( PathfindLayerEnum layer, Int cellX, Int cellY );
+	Int rva002F9578(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F4D8BInfo *info);
 
 private:
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002E7261Info )
@@ -294,3 +299,13 @@ PATHFINDER_CELL_LINE_WALK( Rva002F4491Info )
 PATHFINDER_CELL_LINE_WALK( Rva002F5925Info )
 PATHFINDER_CELL_LINE_WALK( Rva002F4D8BInfo )
 PATHFINDER_CELL_LINE_WALK( Rva002F600CInfo )
+
+// ?rva002F9578@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F4D8BInfo@@@Z @0x002F9578 63B.
+// The caller and adjacent Pathfinder helpers establish the class; both world-to-cell
+// conversions and the Rva002F4D8BInfo line-walk overload are rowed.
+Int Pathfinder::rva002F9578(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F4D8BInfo *info)
+{
+	ICoord2D tmpDest;
+	ICoord2D tmpStart;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
+}
