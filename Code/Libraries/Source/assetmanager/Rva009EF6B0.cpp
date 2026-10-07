@@ -10,22 +10,39 @@
 // 30-byte result constructor at 0x006216F0. Its owning type, the getter names,
 // application meaning of the tree elements and trailing fields remain unknown.
 // The address-qualified names retain that uncertainty. The tree declaration
-// below is the existing STLport provider's 12-byte ABI, with external lifetime
-// operations; it does not generate competing template definitions.
+// below is the existing STLport provider's 12-byte ABI. Copy/destruction are
+// external; empty initialization reproduces the native 20-byte header.
+// The sibling wrappers at 0x0061F4E0/0x0061F540 construct this empty result
+// when the canonical registry global is null, otherwise forwarding to the
+// corresponding getter. This is the donor 009EBF90/009EBFF0 behavior.
 
 #include <windows.h>
+#include <string.h>
 extern "C" void __cdecl _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 namespace _STL {
 template<class T> struct _Identity {};
 template<class T> struct less {};
-template<class T> class allocator {};
+template<class T> class allocator { public: static T *allocate(unsigned, const void *); };
+struct _Rb_tree_node_base { char color; char pad[3]; _Rb_tree_node_base *parent, *left, *right; };
+template<class V> struct _Rb_tree_node : _Rb_tree_node_base { V value; };
 template<class K, class V, class I, class C, class A> class _Rb_tree {
 public:
+    __forceinline _Rb_tree() : m_header(0) {
+        m_header = reinterpret_cast<Node *>(allocator<char>::allocate(sizeof(Node),0));
+        m_count = 0;
+        m_header->color = 0;
+        m_header->parent = 0;
+        m_header->left = m_header;
+        m_header->right = m_header;
+    }
     _Rb_tree(const _Rb_tree &);
     ~_Rb_tree();
 private:
-    unsigned int m_storage[3];
+    typedef _Rb_tree_node<V> Node;
+    Node *m_header;
+    unsigned m_count;
+    C m_compare;
 };
 }
 typedef _STL::_Rb_tree<int, int, _STL::_Identity<int>, _STL::less<int>, _STL::allocator<int> > IntSetTree;
@@ -44,6 +61,7 @@ public:
     CRITICAL_SECTION *m_lock;
 };
 struct Rva00622190Output {
+    __forceinline Rva00622190Output() { memset(&m_value, 0, sizeof(m_value)); m_active = true; }
     Rva00622190Output(const IntSetTree &source) : m_tree(source) {
         m_value = 0;
         _ReadWriteBarrier();
@@ -76,3 +94,14 @@ Rva00622190Output Rva00622190Owner::Rva00622210() {
 typedef char TreeSize[sizeof(IntSetTree) == 12 ? 1 : -1];
 typedef char OutputSize[sizeof(Rva00622190Output) == 20 ? 1 : -1];
 typedef char LockSize[sizeof(CRITICAL_SECTION) == 24 ? 1 : -1];
+
+class Q1Receiver0134FAAC;
+extern Q1Receiver0134FAAC *TheQ1Receiver;
+Rva00622190Output Rva0061F4E0() {
+    if (TheQ1Receiver == 0) return Rva00622190Output();
+    return reinterpret_cast<Rva00622190Owner *>(TheQ1Receiver)->Rva00622190();
+}
+Rva00622190Output Rva0061F540() {
+    if (TheQ1Receiver == 0) return Rva00622190Output();
+    return reinterpret_cast<Rva00622190Owner *>(TheQ1Receiver)->Rva00622210();
+}
