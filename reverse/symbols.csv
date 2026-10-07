@@ -15798,3 +15798,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?startMoveSound@AIInternalMoveToState@@AAEXXZ,0x00347225,REL32 at 0x0034C6E3 in AIInternalMoveToState::onEnter 0x0034C146 on this when the goal is more than 2.5 away; Zero Hour AIStates.cpp onEnter tail and BFME 1 row of the same name
 ?Rva001182A0@@YA_NPAXAAVRenderInfoClass@@@Z,0x001182A0,callee of ?Rva00118660Call@@YA_NPAX0@Z
 ?rva003F4FD4@LivingWorldBattle@@QAEHXZ,0x003F4FD4,callee of ?rva005E9687@Rva005E9687@@QAEXXZ
+?rva002B9B42@Rva002BAF01@@QAEXPAURva002BAF01Region@@PAVCreateAHeroData@@H@Z,0x002B9B42,callee of ?rva002BAF01@Rva002BAF01@@QAEXPAURva002BAF01Region@@PAVCreateAHeroData@@@Z
