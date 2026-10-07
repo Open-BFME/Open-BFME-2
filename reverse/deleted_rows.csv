@@ -868,3 +868,4 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?d_00373373@@YAXXZ,0x00373373,Replaced by verified Rva003733B5Base::Init; prevent stale union-merge resurrection
 ?d_0042c879@@YAXXZ,0x0042C879,Replaced by verified Rva0042C833::rva0042C879; prevent stale union-merge resurrection
 ?fwd@Rva005E6817Mid@@QAEXXZ,0x005E6817,ABI repaired in the existing owner to int(GameMessage*) as independently proved by native caller0042C879
+?rva006E3BA0@AptBasePtrStack@@QAEXXZ,0x006E3BA0,Timer destructor6E4F60 FuncInfoD62AF8 unwind BA9140 passes embedded params this+14 and jumps to6E3BA0; release PDB cleanParams identifies AptValuePtrStack<AptValue>; full74 exact template destructor and _AptValuePtrStack.h asserts prove owner. Retire address-derived AptBasePtrStack method before verified template ownership correction.

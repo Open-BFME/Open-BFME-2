@@ -21,20 +21,12 @@ public:
     void Push(BfmeAptValue006DCD20 *pValue);
     void rva006FE7B0(BfmeAptValue006DCD20 *pValue);
     void rva006E3AA0(int nItems);
-    void rva006E3BA0();
 
     int m_nElements;
     int m_nCapacity;
     BfmeAptValue006DCD20 **m_aElements;
 };
 
-class Rva006DB270
-{
-public:
-    void freeBlock(void *block, int blockSize);
-};
-extern Rva006DB270 *g_pChainBlockAllocator;
-extern void (__cdecl *g_bfmeAptFreeSizeAtE17730)(void *, unsigned int);
 
 void AptBasePtrStack::Push(BfmeAptValue006DCD20 *pValue)
 {
@@ -123,22 +115,4 @@ void AptBasePtrStack::rva006E3AA0(int nItems)
         m_aElements[m_nElements - i]->Release();
     }
     m_nElements -= nItems;
-}
-
-// ?rva006E3BA0@AptBasePtrStack@@QAEXXZ, retail 0x006E3BA0 (74B).
-// Backing-store free: returns when empty, asserts the sized-free hook,
-// then frees the array through the rowed freeBlock with capacity*4.
-// Evidence: own immediates "gAptFuncs.pfnMemFreeSize" + file
-// "c:\projects\bfme2patch103\bfme2\code\libraries\source\apt\_AptValuePtrStack.h" line 0x52;
-// callers are EH unwinds; neighbours Push/rva006E3AA0 share /O2 /MD.
-void AptBasePtrStack::rva006E3BA0()
-{
-    if (!m_aElements)
-        return;
-    if (!g_bfmeAptFreeSizeAtE17730) {
-        g_bfmeAptAssertAtE17734("gAptFuncs.pfnMemFreeSize", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h", 0x52);
-        if (g_bfmeAptBreakOnAssertAtDDC01C)
-            __debugbreak();
-    }
-    g_pChainBlockAllocator->freeBlock(m_aElements, m_nCapacity * 4);
 }
