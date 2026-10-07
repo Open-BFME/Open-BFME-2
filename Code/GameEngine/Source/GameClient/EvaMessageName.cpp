@@ -16,6 +16,32 @@ class AsciiString;
 
 #include "ascii_string.h"
 
+namespace _STL
+{
+template <class Type>
+class allocator
+{
+};
+
+template <class Type, class Allocator = allocator<Type> >
+class vector
+{
+public:
+    typedef Type *iterator;
+
+    iterator begin() { return m_start; }
+    iterator end() { return m_finish; }
+    iterator erase(iterator first, iterator last);
+    void reserve(unsigned int size);
+    void push_back(const Type &value);
+
+private:
+    iterator m_start;
+    iterator m_finish;
+    iterator m_endOfStorage;
+};
+}
+
 // Inline throughout: retail reaches StringBase's private constructors directly
 // from the caller rather than through a wrapper, which is what an inlined
 // AsciiString constructor looks like.
@@ -36,6 +62,10 @@ class Rva000427195
 {
 public:
     void *first(Rva000411084 *iter);
+
+    // The table at Eva+0x34 occupies sixteen bytes in the target object;
+    // later methods read the reserve count at Eva+0x44.
+    unsigned char m_tableStorage[0x10];
 };
 
 // One entry of the dynamic event-name table: the name handed out on a hit at
@@ -77,12 +107,14 @@ class Eva
 {
 public:
     AsciiString messageToName(int message);
+    void rva001debf6(_STL::vector<AsciiString> *out);
 
 private:
     // Only the event-name table at +0x34 is known; the preceding members are
     // whatever the rest of Eva lays out and do not participate here.
     char m_unknown[0x34];
     Rva000427195 m_eventNameTable;
+    unsigned int m_eventNameCount;
 };
 
 AsciiString Eva::messageToName(int message)
@@ -105,6 +137,24 @@ AsciiString Eva::messageToName(int message)
     }
 
     return AsciiString("<Unknown>");
+}
+
+// The Ghidra-bounded body at 0x001DEBF6 is adjacent to messageToName at
+// 0x001DEB8A and uses the same event-name table at Eva+0x34. It clears and
+// reserves the caller's AsciiString vector using the dword at Eva+0x44, then
+// copies each dynamic node's name at +4 while advancing the table iterator.
+// The function's public name remains address-derived.
+void Eva::rva001debf6(_STL::vector<AsciiString> *out)
+{
+    Rva000411084 iter;
+    out->erase(out->begin(), out->end());
+    out->reserve(m_eventNameCount);
+    m_eventNameTable.first(&iter);
+    while (iter.m_current != 0) {
+        EvaMessageNameNode *node = (EvaMessageNameNode *)iter.m_current;
+        out->push_back(node->m_name);
+        iter.next();
+    }
 }
 
 
