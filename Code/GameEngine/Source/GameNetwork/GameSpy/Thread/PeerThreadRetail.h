@@ -258,6 +258,23 @@ enum QMStatus
 	QM_STOPPED,
 };
 
+// BFME 2's "exeCRC" staging key: four dotted values, parsed by
+// BfmeStagingCreationCRCs::parse (retail 0x003892DF) in PeerThread.cpp.
+struct BfmeStagingCreationCRCs
+{
+	UnsignedInt value[4];
+	Bool parse(AsciiString text);
+	__forceinline Bool isZero() const
+	{
+		for (Int i = 0; i < 4; ++i)
+		{
+			if (value[i])
+				return FALSE;
+		}
+		return TRUE;
+	}
+};
+
 // this class encapsulates an action the peer thread wants from the UI
 class PeerResponse
 {
@@ -375,6 +392,9 @@ public:
 			Bool loginComplete;
 		} player;
 
+		// BFME 2's layout, as listingGamesCallback (retail 0x0038CBBA) fills
+		// it: the four-value exeCRC, cmdCRC, a 16-byte ladder hash, handicaps,
+		// the game type, ten ladder-port values and the scenario.
 		struct
 		{
 			Int id;
@@ -382,20 +402,26 @@ public:
 			Bool isStaging;
 			Bool requiresPassword;
 			Bool allowObservers;
-      Bool useStats;
+			Bool useStats;
 			UnsignedInt version;
-			UnsignedInt exeCRC;
+			BfmeStagingCreationCRCs exeCRC;
 			UnsignedInt iniCRC;
+			UnsignedInt cmdCRC;
+			unsigned char ladderHash[16];
 			UnsignedShort ladderPort;
 			Int wins[MAX_SLOTS];
 			Int losses[MAX_SLOTS];
 			Int profileID[MAX_SLOTS];
 			Int faction[MAX_SLOTS];
 			Int color[MAX_SLOTS];
+			Int handicap[MAX_SLOTS];
 			Int numPlayers;
 			Int numObservers;
 			Int maxPlayers;
 			Int percentComplete;
+			Int gameType;
+			Int ladPortValues[10];
+			Int scenario;
 		} stagingRoom;
 
 		struct

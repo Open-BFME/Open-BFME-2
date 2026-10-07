@@ -32,12 +32,15 @@
 // the game.
 // Author: Matthew D. Campbell, June 2002
 
-// Retail also calls _snprintf through msvcrt's import slot; stdio.h is read
-// here under /D_CRTIMP= and only that one function is declared as the import.
+// Retail also calls _snprintf and sscanf through msvcrt's import slots; stdio.h
+// is read here under /D_CRTIMP= and only those functions are declared as imports.
 #define _snprintf _snprintf_unimported
+#define sscanf sscanf_unimported
 #include <stdio.h>
 #undef _snprintf
+#undef sscanf
 extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, size_t count, const char *format, ...);
+extern "C" __declspec(dllimport) int __cdecl sscanf(const char *buffer, const char *format, ...);
 // Retail imports character tests and string comparisons but uses game free
 // for STL storage. Load those CRT declarations with imports before the local
 // allocator headers inherit /D_CRTIMP=.
@@ -48,9 +51,12 @@ extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, size_t coun
 #undef _CRTIMP
 #define _CRTIMP
 #define atoi atoi_unimported
+#define strtoul strtoul_unimported
 #include <stdlib.h>
 #undef atoi
+#undef strtoul
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *string);
+extern "C" __declspec(dllimport) unsigned long __cdecl strtoul(const char *string, char **end, int base);
 // STLport frees through the C++-linkage free retail's containers call, which
 // keeps the unwind-state stores around their inlined destructors.
 namespace _STL { void __cdecl free(void *block); }
@@ -1441,11 +1447,6 @@ void PeerThreadClass::doQuickMatch( PEER peer )
 // BFME request handlers (see PeerThreadRetail.h for the request numbering).
 // BFME 2 offsets are read through the views below; the class above keeps
 // Zero Hour's layout.
-struct BfmeStagingCreationCRCs
-{
-	UnsignedInt value[4];
-};
-
 struct BfmeRequestPayload
 {
 	union
@@ -1495,8 +1496,29 @@ struct BfmeStagingResponseView
 	Int id;
 	Int action;
 	Bool isStaging;
-	unsigned char pad115[0x214 - 0x115];
+	Bool requiresPassword;
+	Bool allowObservers;
+	unsigned char pad117;
+	UnsignedInt version;
+	BfmeStagingCreationCRCs exeCRC;
+	UnsignedInt iniCRC;
+	UnsignedInt cmdCRC;
+	unsigned char ladderHash[16];
+	UnsignedShort ladderPort;
+	unsigned char pad146[2];
+	Int wins[MAX_SLOTS];
+	Int losses[MAX_SLOTS];
+	Int profileID[MAX_SLOTS];
+	Int faction[MAX_SLOTS];
+	Int color[MAX_SLOTS];
+	Int handicap[MAX_SLOTS];
+	Int numPlayers;
+	Int numObservers;
+	Int maxPlayers;
 	Int percentComplete;
+	Int gameType;
+	Int ladPortValues[10];
+	Int scenario;
 };
 
 class GameModePreferences
@@ -3235,69 +3257,123 @@ static void enumFunc(char *key, char *val, void *param)
 */
 #endif
 
+// BfmeStagingCreationCRCs::parse, retail 0x003892DF: the exeCRC key is a
+// dotted quad, cleared when it does not hold four fields.
+Bool BfmeStagingCreationCRCs::parse(AsciiString text)
+{
+	if (sscanf(text.str(), "%d.%d.%d.%d", &value[0], &value[1], &value[2], &value[3]) == 4)
+		return TRUE;
+	memset(value, 0, sizeof(value));
+	return FALSE;
+}
+
+extern "C" const char *SBServerGetPlayerStringValueA(SBServer server, int player, const char *key, const char *sdefault);
+extern "C" int SBServerGetPlayerIntValueA(SBServer server, int player, const char *key, int idefault);
+void Rva00559F11Parse(const char *text, Int *values);
+
+// GameClient's frame counter is slot 31 (0x7C) of the BFME 2 vtable; the
+// earlier slots carry no identity claim in this TU.
+class ClientFrameSubsystem;
+extern ClientFrameSubsystem *TheGameClient;
+class BfmeClientFrameView
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot0A(); virtual void slot0B();
+	virtual void slot0C(); virtual void slot0D(); virtual void slot0E(); virtual void slot0F();
+	virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13();
+	virtual void slot14(); virtual void slot15(); virtual void slot16(); virtual void slot17();
+	virtual void slot18(); virtual void slot19(); virtual void slot1A(); virtual void slot1B();
+	virtual void slot1C(); virtual void slot1D(); virtual void slot1E(); virtual UnsignedInt getFrame(void);
+};
+
+// The ServerBrowsing SDK's _SBServer as serverbrowsing/sb_server.c lays it out;
+// the sweep Peer.h view puts keyvals first, retail reads it at +0x18.
+struct BfmeSBServerFields
+{
+	unsigned int publicip;
+	unsigned short publicport;
+	unsigned int privateip;
+	unsigned short privateport;
+	unsigned int icmpip;
+	unsigned char state;
+	unsigned char flags;
+	void *keyvals;
+	unsigned int updatetime;
+	struct _SBServer *next;
+};
+
+// BFME 2 throttles the extended-info refresh for one server to every 15 frames.
+static Int s_lastExtendedInfoID = -1;
+static UnsignedInt s_lastExtendedInfoFrame = 0;
+
+// The linker folds every empty string literal to 0x00BBAC1C (RVA 0x007BAC1C).
+// Retail pushes that address as the ladport default while a separate "" lives
+// in a register across the player loop; an in-TU "" would be CSE'd into that
+// register, so the default names the folded location directly.
+extern char g_bfmeEmptyF9[];
+
 static void listingGamesCallback(PEER peer, PEERBool success, const char * name, SBServer server, PEERBool staging, int msg, Int percentListed, void * param)
 {
 	PeerThreadClass *t = (PeerThreadClass *)param;
-	if (!t || !success)
-		return;
-
-#ifdef DEBUG_LOGGING
-	AsciiString cmdStr = "<Unknown>";
-	switch(msg)
-	{
-		case PEER_ADD:
-			cmdStr = "PEER_ADD";
-			break;
-		case PEER_UPDATE:
-			cmdStr = "PEER_UPDATE";
-			break;
-		case PEER_REMOVE:
-			cmdStr = "PEER_REMOVE";
-			break;
-		case PEER_CLEAR:
-			cmdStr = "PEER_CLEAR";
-			break;
-		case PEER_COMPLETE:
-			cmdStr = "PEER_COMPLETE";
-			break;
-	}
-	DEBUG_LOG(("listingGamesCallback() - doing command %s on server %X\n", cmdStr.str(), server));
-#endif // DEBUG_LOGGING
-
-//	PeerThreadClass *t = (PeerThreadClass *)param;
-	DEBUG_ASSERTCRASH(name || msg==PEER_CLEAR || msg==PEER_COMPLETE, ("Game has no name!\n"));
 	if (!t || !success || (!name && (msg == PEER_ADD || msg == PEER_UPDATE)))
-	{
-		DEBUG_LOG(("Bailing from listingGamesCallback() - success=%d, name=%X, server=%X, msg=%X\n", success, name, server, msg));
 		return;
+
+	// ZH's DEBUG_LOGGING command trace. Retail keeps only its lifetime, as
+	// FuncInfo state 0 with no action and no store; a block the optimizer
+	// removes models it.
+	if (false)
+	{
+		AsciiString cmdStr = "<Unknown>";
+		switch(msg)
+		{
+			case PEER_ADD:
+				cmdStr = "PEER_ADD";
+				break;
+			case PEER_UPDATE:
+				cmdStr = "PEER_UPDATE";
+				break;
+			case PEER_REMOVE:
+				cmdStr = "PEER_REMOVE";
+				break;
+			case PEER_CLEAR:
+				cmdStr = "PEER_CLEAR";
+				break;
+		}
 	}
+
 	if (!name)
 		name = "bogus";
 
 	if (server && (msg == PEER_ADD || msg == PEER_UPDATE))
 	{
-		DEBUG_ASSERTCRASH(server->keyvals, ("Looking at an already-freed server for msg type %d!", msg));
-		if (!server->keyvals)
+		if (!reinterpret_cast<BfmeSBServerFields *>(server)->keyvals)
 		{
 			msg = PEER_REMOVE;
+		}
+		else
+		{
+			std::string gameMode;
+			gameMode = SBServerGetStringValueA(server, "gamemode", "");
+			if (gameMode == "closedplaying")
+				msg = PEER_REMOVE;
 		}
 	}
 
 	if (server && success && (msg == PEER_ADD || msg == PEER_UPDATE))
 	{
-		DEBUG_LOG(("Game name is '%s'\n", name));
-		const char *newname = SBServerGetStringValue(server, "gamename", (char *)name);
-		if (strcmp(newname, "ccgenzh"))
+		const char *newname = SBServerGetStringValueA(server, "gamename", name);
+		if (strcmp(newname, "lotrbme2r"))
 			name = newname;
-		DEBUG_LOG(("Game name is now '%s'\n", name));
 	}
 
-	DEBUG_LOG(("listingGamesCallback - got percent complete %d\n", percentListed));
 	if (percentListed == 100)
 	{
-		if (!t->getSawCompleteGameList())
+		BfmePeerThreadView *self = reinterpret_cast<BfmePeerThreadView *>(t);
+		if (!self->sawCompleteGameList)
 		{
-			t->setSawCompleteGameList(TRUE);
+			self->sawCompleteGameList = TRUE;
 			PeerResponse completeResp;
 			completeResp.peerResponseType = PeerResponse::PEERRESPONSE_STAGINGROOMLISTCOMPLETE;
 			TheGameSpyPeerMessageQueue->addResponse(completeResp);
@@ -3312,8 +3388,6 @@ static void listingGamesCallback(PEER peer, PEERBool success, const char * name,
 	if(firstSpace)
 	{
 		gameName.set(firstSpace + 1);
-		//gameName.trim();
-		DEBUG_LOG(("Hostname/Gamename split leaves '%s' hosting '%s'\n", hostName.str(), gameName.str()));
 	}
 	PeerResponse resp;
 	resp.peerResponseType = PeerResponse::PEERRESPONSE_STAGINGROOM;
@@ -3323,80 +3397,85 @@ static void listingGamesCallback(PEER peer, PEERBool success, const char * name,
 
 	if (server && (msg == PEER_ADD || msg == PEER_UPDATE))
 	{
-		Bool hasPassword = (Bool)SBServerGetIntValue(server, PW_STR, FALSE);
-		Bool allowObservers = (Bool)SBServerGetIntValue(server, OBS_STR, FALSE);
-    Bool usesStats = (Bool)SBServerGetIntValue(server, USE_STATS_STR, TRUE);
-		const char *verStr = SBServerGetStringValue(server, "gamever", "000000");
-		const char *exeStr = SBServerGetStringValue(server, EXECRC_STR, "000000");
-		const char *iniStr = SBServerGetStringValue(server, INICRC_STR, "000000");
-		const char *ladIPStr = SBServerGetStringValue(server, LADIP_STR, "000000");
-		const char *pingStr = SBServerGetStringValue(server, PINGSTR_STR, "FFFFFFFFFFFFFFFF");
-		UnsignedShort ladPort = (UnsignedShort)SBServerGetIntValue(server, LADPORT_STR, 0);
+		Bool hasPassword = (Bool)SBServerGetIntValueA(server, PW_STR, FALSE);
+		Bool allowObservers = (Bool)SBServerGetIntValueA(server, OBS_STR, FALSE);
+		const char *verStr = SBServerGetStringValueA(server, "gamever", "000000");
+		const char *exeStr = SBServerGetStringValueA(server, EXECRC_STR, "0.0.0.0");
+		const char *iniStr = SBServerGetStringValueA(server, INICRC_STR, "000000");
+		const char *cmdStr = SBServerGetStringValueA(server, "cmdCRC", "000000");
+		const char *ladIPStr = SBServerGetStringValueA(server, LADIP_STR, "000000");
+		const char *pingStr = SBServerGetStringValueA(server, PINGSTR_STR, "FFFFFFFFFFFFFFFF");
+		SBServerGetStringValueA(server, "gCRC", "00000000000000000000000000000000");
 		UnsignedInt verVal = strtoul(verStr, NULL, 10);
-		UnsignedInt exeVal = strtoul(exeStr, NULL, 10);
+		BfmeStagingCreationCRCs exeVal;
+		exeVal.parse(exeStr);
 		UnsignedInt iniVal = strtoul(iniStr, NULL, 10);
+		UnsignedInt cmdVal = strtoul(cmdStr, NULL, 10);
 		resp.stagingRoom.requiresPassword = hasPassword;
 		resp.stagingRoom.allowObservers = allowObservers;
-    resp.stagingRoom.useStats = usesStats;
 		resp.stagingRoom.version = verVal;
 		resp.stagingRoom.exeCRC = exeVal;
 		resp.stagingRoom.iniCRC = iniVal;
+		resp.stagingRoom.cmdCRC = cmdVal;
+		const char *hashStr = ladIPStr;
+		if (strlen(hashStr) != 32)
+			hashStr = "00000000000000000000000000000000";
+		for (Int h = 0; h < 16; ++h, hashStr += 2)
+		{
+			sscanf(hashStr, "%02x", &resp.stagingRoom.ladderHash[h]);
+		}
 		resp.stagingServerLadderIP = ladIPStr;
 		resp.stagingServerPingString = pingStr;
-		resp.stagingRoom.ladderPort = ladPort;
-		resp.stagingRoom.numPlayers = SBServerGetIntValue(server, NUMPLAYER_STR, 0);
-		resp.stagingRoom.numObservers = SBServerGetIntValue(server, NUMOBS_STR, 0);
-		resp.stagingRoom.maxPlayers = SBServerGetIntValue(server, MAXPLAYER_STR, 8);
-		resp.stagingRoomMapName = SBServerGetStringValue(server, "mapname", "");
+		resp.stagingRoom.ladderPort = 0;
+		Int numPlayers = SBServerGetIntValueA(server, NUMPLAYER_STR, 0);
+		if (numPlayers <= 0 || numPlayers > MAX_SLOTS)
+			numPlayers = 1;
+		resp.stagingRoom.numPlayers = numPlayers;
+		resp.stagingRoom.numObservers = SBServerGetIntValueA(server, NUMOBS_STR, 0);
+		Int maxPlayers = SBServerGetIntValueA(server, MAXPLAYER_STR, 8);
+		if (maxPlayers <= 0)
+			maxPlayers = 8;
+		resp.stagingRoom.maxPlayers = maxPlayers;
+		resp.stagingRoomMapName = SBServerGetStringValueA(server, "mapname", "");
+		resp.stagingRoom.gameType = SBServerGetIntValueA(server, "gametype", 0);
+		resp.unknown_7c = SBServerGetStringValueA(server, "hostname", "");
 		for (Int i=0; i<MAX_SLOTS; ++i)
 		{
-			resp.stagingRoomPlayerNames[i] = SBServerGetPlayerStringValue(server, i, NAME__STR, "");
-			resp.stagingRoom.wins[i] = SBServerGetPlayerIntValue(server, i, WINS__STR, 0);
-			resp.stagingRoom.losses[i] = SBServerGetPlayerIntValue(server, i, LOSSES__STR, 0);
-			resp.stagingRoom.profileID[i] = SBServerGetPlayerIntValue(server, i, "pid", 0);
-			resp.stagingRoom.color[i] = SBServerGetPlayerIntValue(server, i, COLOR__STR, 0);
-			resp.stagingRoom.faction[i] = SBServerGetPlayerIntValue(server, i, FACTION__STR, 0);
-#ifdef DEBUG_LOGGING
-			if (resp.stagingRoomPlayerNames[i].length())
-			{
-				DEBUG_LOG(("Player %d raw stuff: [%s] [%d] [%d] [%d]\n", i, resp.stagingRoomPlayerNames[i].c_str(), resp.stagingRoom.wins[i], resp.stagingRoom.losses[i], resp.stagingRoom.profileID[i]));
-			}
-#endif
+			resp.stagingRoomPlayerNames[i] = SBServerGetPlayerStringValueA(server, i, NAME__STR, "");
+			resp.stagingRoom.wins[i] = SBServerGetPlayerIntValueA(server, i, WINS__STR, 0);
+			resp.stagingRoom.losses[i] = SBServerGetPlayerIntValueA(server, i, LOSSES__STR, 0);
+			resp.stagingRoom.profileID[i] = SBServerGetPlayerIntValueA(server, i, "pid", 0);
+			resp.stagingRoom.color[i] = SBServerGetPlayerIntValueA(server, i, COLOR__STR, 0);
+			resp.stagingRoom.handicap[i] = SBServerGetPlayerIntValueA(server, i, "handicap", 0);
+			resp.stagingRoom.faction[i] = SBServerGetPlayerIntValueA(server, i, FACTION__STR, 0);
 		}
 		if (resp.stagingRoomPlayerNames[0].empty())
 		{
 			resp.stagingRoomPlayerNames[0] = hostName.str();
 		}
-		DEBUG_ASSERTCRASH(resp.stagingRoomPlayerNames[0].empty() == false, ("No host!"));
-		DEBUG_LOG(("Raw stuff: [%s] [%s] [%s] [%d] [%d] [%d]\n", verStr, exeStr, iniStr, hasPassword, allowObservers, usesStats));
-		DEBUG_LOG(("Raw stuff: [%s] [%s] [%d]\n", pingStr, ladIPStr, ladPort));
-		DEBUG_LOG(("Saw game with stuff %s %d %X %X %X %s\n", resp.stagingRoomMapName.c_str(), hasPassword, verVal, exeVal, iniVal, SBServerGetStringValue(server, "password", "missing")));
-#ifdef PING_TEST
-	PING_LOG(("%s\n", pingStr));
-#endif
+		{
+			std::string ladPortStr = SBServerGetStringValueA(server, LADPORT_STR, g_bfmeEmptyF9);
+			Rva00559F11Parse(ladPortStr.c_str(), resp.stagingRoom.ladPortValues);
+		}
+		resp.stagingRoom.scenario = SBServerGetIntValueA(server, "scen", -1);
 	}
 
 	if (msg == PEER_ADD || msg == PEER_UPDATE)
 	{
-		if (!resp.stagingRoom.exeCRC || !resp.stagingRoom.iniCRC)
+		if (resp.stagingRoom.exeCRC.isZero() || !resp.stagingRoom.iniCRC)
 		{
-			if (SBServerHasBasicKeys(server))
-			{
-				DEBUG_LOG(("Server %x does not have basic keys\n", server));
+			if (!SBServerHasBasicKeys(server))
 				return;
-			}
-			else
-			{
-				DEBUG_LOG(("Server %x has basic keys, yet has no info\n", server));
-			}
 			if (msg == PEER_UPDATE)
 			{
 				PeerRequest req;
+				UnsignedInt now = reinterpret_cast<BfmeClientFrameView *>(TheGameClient)->getFrame();
 				req.peerRequestType = PeerRequest::PEERREQUEST_GETEXTENDEDSTAGINGROOMINFO;
 				req.stagingRoom.id = t->findServer( server );
-				DEBUG_LOG(("Add/update a 0/0 server %X (%d, %s) - requesting full update to see if that helps.\n",
-					server, resp.stagingRoom.id, gameName.str()));
-				TheGameSpyPeerMessageQueue->addRequest(req);
+				if (s_lastExtendedInfoID != req.stagingRoom.id || now > s_lastExtendedInfoFrame + 15)
+					TheGameSpyPeerMessageQueue->addRequest(req);
+				s_lastExtendedInfoID = req.stagingRoom.id;
+				s_lastExtendedInfoFrame = now;
 			}
 			return; // don't actually try to list it.
 		}
@@ -3405,20 +3484,14 @@ static void listingGamesCallback(PEER peer, PEERBool success, const char * name,
 	switch (msg)
 	{
 		case PEER_CLEAR:
-			t->clearServers();
+			reinterpret_cast<BfmePeerThreadView *>(t)->stagingServers.rva00389129();
 			break;
 		case PEER_ADD:
 		case PEER_UPDATE:
 			resp.stagingRoom.id = t->findServer( server );
-			DEBUG_LOG(("Add/update on server %X (%d, %s)\n", server, resp.stagingRoom.id, gameName.str()));
 			resp.stagingServerName = MultiByteToWideCharSingleLine( gameName.str() );
-			DEBUG_LOG(("Server had basic=%d, full=%d\n", SBServerHasBasicKeys(server), SBServerHasFullKeys(server)));
-#ifdef DEBUG_LOGGING
-			//SBServerEnumKeys(server, enumFunc, NULL);
-#endif
 			break;
 		case PEER_REMOVE:
-			DEBUG_LOG(("Removing server %X (%d)\n", server, resp.stagingRoom.id));
 			resp.stagingRoom.id = t->removeServerFromMap( server );
 			break;
 	}
