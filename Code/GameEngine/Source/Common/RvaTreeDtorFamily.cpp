@@ -1120,6 +1120,36 @@ Rva003ED68D::~Rva003ED68D()
 	rva003ED6E4();
 }
 
+// ??1Rva003ED94FDtor@@QAE@XZ @0x003ED94F 58B.
+// Target and caller evidence establishes a pointer range at +0/+4, cleanup
+// through the pinned 0x003ED7A2 call target, then _free 0x00030830 on +0.
+// The private holder view below models the observed cleanup order; its exact
+// source ownership is inferred. The helper spelling is only a call binding.
+struct Rva003ED94FStorage
+{
+	void **m_begin;
+	void **m_end;
+	~Rva003ED94FStorage()
+	{
+		if (m_begin)
+			free(m_begin);
+	}
+};
+
+class LGA_MemberObj;
+void bfmeClearMembers(LGA_MemberObj *map);
+
+class Rva003ED94FDtor : private Rva003ED94FStorage
+{
+public:
+	~Rva003ED94FDtor();
+};
+
+Rva003ED94FDtor::~Rva003ED94FDtor()
+{
+	bfmeClearMembers((LGA_MemberObj *)this);
+}
+
 // ??1Rva0041090E@@QAE@XZ @0x00410CB9 56B -> Rva0041090E::rva00410A14
 class Rva0041090E
 {
