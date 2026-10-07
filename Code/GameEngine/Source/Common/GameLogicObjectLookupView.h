@@ -45,6 +45,7 @@ public:
 	Object *getFirstObject();	// 0x0023CAD2
 	void destroyObject(Object *obj);	// 0x00242C09
 	void bindObjectAndDrawable(Object *obj, Drawable *draw);	// 0x0023CD4A
+	void rva00376E92(bool first, bool second);	// 0x00376E92
 	unsigned int getTimestamp() const { return m_timestamp; }
 	unsigned int getFrame() const { return m_frame; }
 	Rva00439E0C *getManager178() const { return m_manager178; }

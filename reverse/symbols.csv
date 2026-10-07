@@ -15812,3 +15812,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva001748B3@Rva00DF6F94GapFillerContext@@QAEXXZ,0x001748B3,callee of ?rva174ba6@Rva00DF6F94GapFillerContext@@QAEXXZ
 ?rva001748E8@Rva00DF6F94GapFillerContext@@QAEXXZ,0x001748E8,callee of ?rva174ba6@Rva00DF6F94GapFillerContext@@QAEXXZ
 ?sendDisconnectFrameCommand@BFMEConnectionManager@@QAEXXZ,0x004CF9DF,"Open-BFME-1 BFMEConnectionManager::sendDisconnectFrameCommand shape: allocates a 0x20-byte command (ctor 0x004D59B8) stamped with the local slot +0x12028 and GameLogic+0x40 frame then sends it to the other slots (0x004CF6E4) and processes it through the disconnect manager +0x12100 (0x004D46AF); called twice by updateDisconnectStatus 0x004D4395"
+?rva005A684F@Rva005A6D47@@QAEGH@Z,0x005A684F,callee of ?rva004FE126@GameSpyStagingRoom@@QAEXXZ
+?rva005A6A4C@Rva005A6D47@@QAEXXZ,0x005A6A4C,callee of ?rva004FE126@GameSpyStagingRoom@@QAEXXZ
+?rva005801F2@Rva005A6D47@@QAEPAVTransport@@XZ,0x005801F2,callee of ?rva004FE126@GameSpyStagingRoom@@QAEXXZ

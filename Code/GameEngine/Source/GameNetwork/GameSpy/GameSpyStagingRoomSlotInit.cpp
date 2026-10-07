@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7 /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 //
 // GameSpyStagingRoom::cleanUpSlotPointers @ 0x004FDA17 (38 bytes), from Zero
 // Hour's GameNetwork/GameSpy/StagingRoomGameInfo.cpp (GeneralsMD tree under
@@ -41,8 +42,27 @@
 // its battle data as in the LAN twin, TheGameSpyGame's map becomes
 // TheWritableGlobalData's pending file and the logic random is seeded from
 // the seed at +0x50.
+//
+// GameSpyStagingRoom::rva004FE126 @ 0x004FE126 (569 bytes), named by
+// address: the GameSpy twin of the rowed LANAPI::rva0024900D (its only caller
+// is 0x005A63E3) and shaped like Zero Hour's GameSpyStagingRoom::launchGame.
+// Carried from Zero Hour: game in progress and preorder marks, a new network
+// whose local address is the room's (+0x38) with, while the global in TheNAT's
+// place exists, its port replaced by that object's slot port for the local
+// slot (GameInfo vslot 13; 0x005A684F reads the slot's node +0x90C and its
+// 16-bit port, else 0) and its transport attached (0x005801F2, a folded +4
+// getter, into TheNetwork vslot 19) instead of initTransport, then
+// parseUserList, the buddy status 4 with the room name (the rowed 0x0022C4DF
+// on TheGameSpyGame) and the global ::deleted and nulled last. BFME 2 adds the
+// call 0x005A6A4C (copies each slot address to +0x38/+0x3C) before attaching,
+// and, as in the LAN twin, TheGameLogic's 0x00376E92 twice, the hero transfer
+// check (failing with GUI:Error/GUI:CouldNotTransferHero and PopBackToLobby),
+// the living-world reset, 0x00DFEF18 vslot 10 and message 0x1F carrying +0x58
+// and 2. The callee methods keep address names on the object's address class.
+#include <string>
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 
 typedef int Int;
 typedef bool Bool;
@@ -55,6 +75,14 @@ enum
 };
 
 class NAT;
+class Transport;
+
+// An address as BFME 2's NetworkInterface::setLocalAddress takes it.
+struct BfmeNetAddress
+{
+	UnsignedInt m_ip;
+	UnsignedShort m_port;
+};
 
 // Vtable gaps: VSlots<N> declares slots 0..N-1 and VPad<B, N> the N slots
 // after B's.
@@ -105,6 +133,9 @@ public:
 	virtual void v4() = 0; virtual void v5() = 0; virtual void v6() = 0;
 	virtual void v7() = 0; virtual void v8() = 0; virtual void v9() = 0;
 	virtual void reset(void);			// slot 10 (+0x28)
+	virtual void startGame(Int gameID) = 0;		// slot 11
+	virtual void endGame(void) = 0;			// slot 12
+	virtual Int getLocalSlotNum(void) const = 0;	// slot 13 (+0x34)
 	void setSlotPointer(Int index, GameSlot *slot);
 	GameSlot *getSlot(Int slotNum);
 	void setMap(AsciiString mapName);
@@ -115,9 +146,17 @@ public:
 private:
 	char m_pad04[0x11 - 4];
 	Bool m_inProgress;				// +0x11
-	char m_pad12[0x50 - 0x12];
+	char m_pad12[0x38 - 0x12];
+protected:
+	BfmeNetAddress m_localAddress;			// +0x38
+private:
+	char m_pad40[0x50 - 0x40];
 	UnsignedInt m_seed;				// +0x50
-	char m_pad54[0xDC - 0x54];
+	char m_pad54[0x58 - 0x54];
+protected:
+	Int m_bfme58;					// +0x58
+private:
+	char m_pad5C[0xDC - 0x5C];
 };
 
 class Rva00382398
@@ -156,6 +195,7 @@ public:
 	virtual ~GameSpyStagingRoom();
 	void cleanUpSlotPointers(void);
 	void rva004FDEFF(LivingWorldBattle *battle);
+	void rva004FE126(void);
 private:
 	Rva00382398 m_GameSpySlot[MAX_SLOTS]; // +0xDC
 	AsciiString m_gameName;     // +0xFDC
@@ -209,6 +249,9 @@ class Rva005A6D47
 {
 public:
 	virtual ~Rva005A6D47();
+	UnsignedShort rva005A684F(Int slot);
+	void rva005A6A4C(void);
+	Transport *rva005801F2(void);
 };
 extern Rva005A6D47 *g_Va00E063F8;
 
@@ -271,6 +314,14 @@ class NetworkInterface
 {
 public:
 	virtual ~NetworkInterface();
+	virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
+	virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8();
+	virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12();
+	virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16();
+	virtual void parseUserList(const GameInfo *game);		// slot 17 (+0x44)
+	virtual void setLocalAddress(const BfmeNetAddress *address);	// slot 18 (+0x48)
+	virtual void attachTransport(Transport *transport);		// slot 19 (+0x4C)
+	virtual void initTransport(void);				// slot 20 (+0x50)
 };
 extern NetworkInterface *TheNetwork;
 
@@ -338,4 +389,132 @@ void GameSpyStagingRoom::rva004FDEFF(LivingWorldBattle *battle)
 
 	TheWritableGlobalData->m_pendingFile = TheGameSpyGame->getMap();
 	InitGameLogicRandom(getSeed());
+}
+
+void CreateTheNetwork(void);
+
+extern GameLogic *TheGameLogic;
+
+class LivingWorldManager
+{
+public:
+	void rva0021427A(void);
+};
+extern LivingWorldManager *TheLivingWorldManager;
+
+class LivingWorldLogic
+{
+public:
+	UnsignedByte m_preEC[0xEC];
+	Int m_bfmeEC;					// +0xEC
+};
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+class Rva002D3627Host
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+	virtual void v8(); virtual void v9();
+	virtual void rva10(Int value);			// slot 10 (+0x28)
+};
+extern Rva002D3627Host *g_00DFEF18;
+
+class GameMessage
+{
+public:
+	void appendIntegerArgument(Int arg);
+};
+
+class MessageStream
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void v16(); virtual void v17();
+	virtual GameMessage *appendMessage(Int type);	// slot 18 (+0x48)
+};
+extern MessageStream *MessageStreamSubsystem;
+
+enum GameSpyBuddyStatus
+{
+	GAMESPY_BUDDY_STATUS_4 = 4
+};
+_STL::string WideCharStringToMultiByte(const unsigned short *orig);
+void updateBuddyStatus(GameSpyBuddyStatus status, int sleepTime, _STL::string mapName);
+
+// The rowed name getter 0x0022C4DF, called on TheGameSpyGame.
+class Rva0022C4DF
+{
+public:
+	UnicodeString rva0022C4DF(void) const;
+};
+
+void GameSpyStagingRoom::rva004FE126(void)
+{
+	setGameInProgress(true);
+	for (Int i = 0; i < MAX_SLOTS; ++i)
+	{
+		GameSpyGameSlot *slot = (GameSpyGameSlot *)getSlot(i);
+		if (slot->isHuman())
+		{
+			if (TheGameSpyInfo->didPlayerPreorder(slot->getProfileID()))
+				markPlayerAsPreorder(i);
+		}
+	}
+
+	CreateTheNetwork();
+	BfmeNetAddress localAddress = m_localAddress;
+	if (g_Va00E063F8)
+		localAddress.m_port = g_Va00E063F8->rva005A684F(getLocalSlotNum());
+	TheNetwork->setLocalAddress(&localAddress);
+	if (g_Va00E063F8)
+	{
+		g_Va00E063F8->rva005A6A4C();
+		TheNetwork->attachTransport(g_Va00E063F8->rva005801F2());
+	}
+	else
+	{
+		TheNetwork->initTransport();
+	}
+	TheNetwork->parseUserList(this);
+	TheGameLogic->rva00376E92(false, false);
+
+	Bool heroesOk = Rva0044C3D4();
+	if (!heroesOk)
+	{
+		if (TheNetwork)
+		{
+			::delete TheNetwork;
+			TheNetwork = 0;
+		}
+		GSMessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("GUI:CouldNotTransferHero"), 0);
+		PopBackToLobby();
+		return;
+	}
+
+	if (TheLivingWorldManager)
+		TheLivingWorldManager->rva0021427A();
+	TheLivingWorldLogic->m_bfmeEC = 0;
+	TheGameLogic->rva00376E92(false, false);
+	g_00DFEF18->rva10(1);
+
+	GameMessage *msg = MessageStreamSubsystem->appendMessage(0x1F);
+	if (msg)
+	{
+		msg->appendIntegerArgument(m_bfme58);
+		msg->appendIntegerArgument(2);
+	}
+
+	InitGameLogicRandom(getSeed());
+	updateBuddyStatus(GAMESPY_BUDDY_STATUS_4, 0,
+		WideCharStringToMultiByte(((Rva0022C4DF *)TheGameSpyGame)->rva0022C4DF().str()));
+
+	if (g_Va00E063F8)
+	{
+		::delete g_Va00E063F8;
+		g_Va00E063F8 = 0;
+	}
 }
