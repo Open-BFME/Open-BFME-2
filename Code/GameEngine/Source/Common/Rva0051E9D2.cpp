@@ -54,11 +54,11 @@ float Rva0051E9D2::rva0051E9D2(int index)
 	if (index >= 0)
 	{
 		Rva0051E9D2Array *array = m_array;
-		char *&beginRef = array->begin;
-		int count = (array->end - beginRef) / 12;
+		char *beginRef = array->begin;
+		int count = (array->end - array->begin) / 12;
 		if ((unsigned)index < (unsigned)count)
 		{
-			Rva0051E437 *record = (Rva0051E437 *)(beginRef + index * 12);
+			Rva0051E437 *record = (Rva0051E437 *)(array->begin + index * 12);
 			int selector = m_selector;
 			switch (selector)
 			{
