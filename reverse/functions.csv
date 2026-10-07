@@ -67452,3 +67452,4 @@ _Rva00177F34,,0x00177F34,78,Code/GameEngine/Source/Common/Rva00177F34.cpp,matche
 ?rva0041A63F@Rva0041A63F@@QAEXXZ,,0x0041A63F,5,Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x0041A57B; wrapper identity remains address-derived.
 ?rva0054FF9B@Rva0054FF9B@@QAEXXZ,,0x0054FF9B,5,Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x0054FF17; wrapper identity remains address-derived.
 ?rva0054FFA0@Rva0054FFA0@@QAEXXZ,,0x0054FFA0,5,Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp,matched,Unadjusted thiscall tail jump to rowed destructor 0x0054FF17; wrapper identity remains address-derived.
+??0Rva005388AB@@QAE@XZ,,0x005388AB,23,Code/GameEngine/Source/Common/Rva005388ABCtor.cpp,matched,leaf vector-base ctor flag 0x20 via row 0x00211E58
