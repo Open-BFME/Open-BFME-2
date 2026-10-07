@@ -1,0 +1,76 @@
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// Native group-order serialization family: 0x00355770 invokes two 225-byte
+// map serializers at 0x0035552A and 0x0035568F. Their own call sites reach
+// the rowed GroupOrder factory-pair serializer 0x00355100 and the rowed
+// ObjectID/pointer-pair serializer 0x0035511B, respectively. Owner and method
+// names remain unknown; only the consumed ABI and target offsets are claimed.
+
+struct XferVersion
+{
+	unsigned char current;
+	unsigned char minimum;
+};
+
+// Same primitive ABI as the verified GroupOrderXfer.cpp provider view.
+class Xfer
+{
+public:
+	virtual ~Xfer();
+	virtual bool isLoading();
+	virtual bool isSaving();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual Xfer &xferVersion(XferVersion &version);
+	virtual Xfer &xferTypeName(const char *const &name);
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual Xfer &xferUnsignedInt(unsigned int &value);
+};
+
+// Existing counter provider: GroupOrderCopyCtor.cpp owns this data symbol.
+extern int g_Va00E05F74;
+
+Xfer *Rva0035552AXfer(Xfer *xfer, void *map);
+Xfer *Rva0035568FXfer(Xfer *xfer, void *map);
+
+class Rva00355770
+{
+public:
+	void rva00355770(Xfer *xfer);
+private:
+	unsigned char m_unknown00[4];
+	unsigned char m_firstMap[0x14];
+	unsigned char m_secondMap[0x14];
+};
+
+// Native 0x00355770..0x003557B7, RET 4; Xfer slots 10 and 30, then
+// cdecl map serializers using receiver +4 and +0x18, respectively.
+void Rva00355770::rva00355770(Xfer *xfer)
+{
+	XferVersion version = { 1, 1 };
+	xfer->xferVersion(version);
+	xfer->xferUnsignedInt(reinterpret_cast<unsigned int &>(g_Va00E05F74));
+	Rva0035552AXfer(xfer, m_firstMap);
+	Rva0035568FXfer(xfer, m_secondMap);
+}
