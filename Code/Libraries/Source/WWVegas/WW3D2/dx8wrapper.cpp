@@ -4040,37 +4040,8 @@ void DX8Wrapper::Create_Render_Target
 	);
 }
 
-/*!
- * Set render target
- * KM Added optional custom z target
- */
-void DX8Wrapper::Set_Render_Target_With_Z
-(
-	TextureClass* texture,
-	ZTextureClass* ztexture
-)
-{
-	WWASSERT(texture!=NULL);
-	IDirect3DSurface8 * d3d_surf = texture->Get_D3D_Surface_Level();
-	WWASSERT(d3d_surf != NULL);
-
-	IDirect3DSurface8* d3d_zbuf=NULL;
-	if (ztexture!=NULL)
-	{
-
-		d3d_zbuf=ztexture->Get_D3D_Surface_Level();
-		WWASSERT(d3d_zbuf!=NULL);
-		Set_Render_Target(d3d_surf,d3d_zbuf);
-		d3d_zbuf->Release();
-	}
-	else
-	{
-		Set_Render_Target(d3d_surf,true);
-	}
-	d3d_surf->Release();
-
-	IsRenderToTexture = true;
-}
+// Set_Render_Target_With_Z (retail 0x00120850) keeps both surfaces in
+// W3DRadarResetSurface holders in BFME 2: DX8Wrapper_Set_Render_Target_With_Z.cpp.
 
 void
 DX8Wrapper::Set_Render_Target(IDirect3DSwapChain8 *swap_chain)
