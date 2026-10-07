@@ -223,3 +223,30 @@ _io_writeto
 
 # w6-sol: 0x0053FCD7 refused; see re_attempts.log and build/w6_gate_0x0053FCD7.log
 ??$distance@PAURva0053FCD7Element@@@_STL@@YAHABQAURva0053FCD7Element@@0@Z
+
+# w6-sol: 0x005007AA refused; see re_attempts.log and build/w6_gate_0x005007AA.log
+??4Rva005007AAElement@@QAEAAU0@ABU0@@Z
+
+# w6-sol: 0x00054ED9 refused; see re_attempts.log and build/w6_gate_0x00054ED9.log
+??$distance@PAURva00054ED9Element@@@_STL@@YAHABQAURva00054ED9Element@@0@Z
+
+# w6-sol: 0x0008B632 refused; see re_attempts.log and build/w6_gate_0x0008B632.log
+??$distance@PAURva0008B632Element@@@_STL@@YAHABQAURva0008B632Element@@0@Z
+
+# w6-sol: 0x000C4DEF refused; see re_attempts.log and build/w6_gate_0x000C4DEF.log
+??$distance@PAURva000C4DEFElement@@@_STL@@YAHABQAURva000C4DEFElement@@0@Z
+
+# w6-sol: 0x00257469 refused; see re_attempts.log and build/w6_gate_0x00257469.log
+??$distance@PAURva00257469Element@@@_STL@@YAHABQAURva00257469Element@@0@Z
+
+# w6-sol: 0x0043B1F0 refused; see re_attempts.log and build/w6_gate_0x0043B1F0.log
+??$distance@PAURva0043B1F0Element@@@_STL@@YAHABQAURva0043B1F0Element@@0@Z
+
+# w6-sol: 0x004CC195 refused; see re_attempts.log and build/w6_gate_0x004CC195.log
+??$distance@PAURva004CC195Element@@@_STL@@YAHABQAURva004CC195Element@@0@Z
+
+# w6-sol: 0x003642C8 refused; see re_attempts.log and build/w6_gate_0x003642C8.log
+??_GRva003642C8Element@@QAEPAXI@Z
+
+# w6-sol: 0x003642C8 refused; see re_attempts.log and build/w6_gate_0x003642C8.log
+??_GRva003642C8Element@@QAEPAXI@Z
