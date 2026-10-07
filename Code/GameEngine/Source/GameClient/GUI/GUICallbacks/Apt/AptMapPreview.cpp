@@ -210,7 +210,13 @@ int Rva00326CF0AddLines(GameWindow *listbox, UnicodeString text, int color, int 
 void GadgetListBoxSetTopVisibleEntry(GameWindow *window, int newPos);
 
 
-class Image;
+// The map picture; the preview deletes one it owns through the virtual
+// destructor.
+class Image
+{
+public:
+	virtual ~Image();
+};
 class Display;
 extern Display *TheDisplay;
 
@@ -223,6 +229,7 @@ public:
 extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void *address, unsigned int size);
 extern "C" char *__cdecl strcpy(char *destination, const char *source);
 extern "C" int __cdecl strcmp(const char *a, const char *b);
+extern "C" void *__cdecl memset(void *destination, int value, unsigned int count);
 
 // AptCallbackAdders.cpp's by-value callback reference (defined below).
 template <class T> class AptRef;
@@ -247,9 +254,58 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #define TheAptPlayer ((AptPlayer *)g_bfmeAptWindowManager)
 
 // 0x00411458 (pinned; see MpGameSetupSlots.cpp) stores the screen
-// reference under the name.
+// reference under the name; 0x0041149A drops it.
 class AptScreenInitGadgets;
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
+void _bfme_closeAptScreen(const AsciiString &name);
+
+// The player's custom render (0x002246B1) and extern handler (0x002244CA)
+// removals, rowed under address-named views.
+class Rva002246B1
+{
+public:
+	int rva002246B1(const AsciiString *name);
+};
+
+class Rva002244CA
+{
+public:
+	int rva002244CA(const AsciiString *name);
+};
+
+// The 0x00DFEF18 singleton (address-named view): the living-world map
+// view, reset through 0x002BED10 and two virtuals when +0x19 says it is up.
+class Rva002D3627Host
+{
+public:
+	virtual void v00() = 0;
+	virtual void v04() = 0;
+	virtual void v08() = 0;
+	virtual void v0C() = 0;
+	virtual void v10() = 0;
+	virtual void v14() = 0;
+	virtual void v18() = 0;
+	virtual void v1C() = 0;
+	virtual void v20() = 0;
+	virtual void v24() = 0;
+	virtual void v28(int value) = 0;
+	virtual void v2C() = 0;
+	virtual void v30() = 0;
+	virtual void v34() = 0;
+	virtual void v38() = 0;
+	virtual void v3C() = 0;
+	virtual void v40() = 0;
+	virtual void v44() = 0;
+	virtual void v48() = 0;
+	virtual void v4C() = 0;
+	virtual void v50(int value) = 0;
+	void rva002BED10();
+
+	unsigned char m_pad04[0x19 - 0x4];
+	bool m_19;		// +0x19
+};
+
+extern Rva002D3627Host *g_00DFEF18;
 
 // The preview's +0x18 holder of the game (GameInfo): 0x0043DA65 returns
 // its validated +0x08 value; the registration clears that directly.
@@ -317,6 +373,7 @@ public:
 	void rva0057D709(Int region, _STL::vector<void *> *regions);
 	void rva0057D746(Rva0020E89C *previous, Rva0020E89C *current);
 	void rva0057D85D(Rva0020E89C *region);
+	void rva0057D5E5();
 
 private:
 	unsigned char m_pad00[0x4];
@@ -333,7 +390,8 @@ private:
 	GameWindow *m_strategicScenarioDesc;	// +0x54
 	GameWindow *m_strategicTerritoryDesc;	// +0x58
 	Image *m_picture;	// +0x5C
-	unsigned char m_pad60[0x68 - 0x60];
+	bool m_ownsPicture;	// +0x60
+	unsigned char m_pad61[0x68 - 0x61];
 	AptLivingWorldWindow *m_livingWorldWindow;	// +0x68
 	Rva0057CC15Ref m_regionPicked;	// +0x6C
 };
@@ -459,6 +517,52 @@ void AptMapPreview::rva0057D4F3()
 	}
 	GadgetComboBoxSetSelectedPos(m_strategicScenarioComboBox, 0, false);
 	UpdateStrategicScenarioDesc();
+}
+
+// Retail 0x0057D5E5, 292 bytes. Name unknown. Undoes the registration
+// (0x0057E45C) and MapGadgetInit: drops the three Apt bindings, forgets
+// the gadgets, leaves the living-world window (resetting the map view
+// when it is up), deletes an owned picture and clears the CurrentMap
+// children. Retail gives the last binding's name a fresh slot.
+void AptMapPreview::rva0057D5E5()
+{
+	{
+		AsciiString name("AptMapPreview::Picture");
+		((Rva002246B1 *)g_bfmeAptWindowManager)->rva002246B1(&name);
+	}
+	{
+		AsciiString name("AptMapPreview::MapGadgetInit");
+		_bfme_closeAptScreen(name);
+	}
+	{
+		AsciiString name("AptMapPreview::GameMapType");
+		((Rva002244CA *)g_bfmeAptWindowManager)->rva002244CA(&name);
+	}
+	m_currentMap = 0;
+	m_mapPicture = 0;
+	m_mapInfo = 0;
+	m_mapDescription = 0;
+	m_strategicScenarioComboBox = 0;
+	m_strategicScenarioDesc = 0;
+	m_strategicTerritoryDesc = 0;
+	if (m_livingWorldWindow != 0)
+	{
+		((Rva002B7250 *)m_livingWorldWindow->m_listeners)->rva002B7250((CreateAHeroData *)this);
+		m_livingWorldWindow = 0;
+		if (g_00DFEF18->m_19)
+		{
+			g_00DFEF18->rva002BED10();
+			g_00DFEF18->v50(0);
+			g_00DFEF18->v28(0);
+		}
+	}
+	if (m_ownsPicture && m_picture != 0)
+	{
+		::delete m_picture;
+		m_picture = 0;
+		m_ownsPicture = false;
+	}
+	memset(m_currentMapChildren, 0, sizeof(m_currentMapChildren));
 }
 
 // Retail 0x0057D709, 61 bytes. Name unknown. Refills the list with the
