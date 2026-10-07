@@ -1,6 +1,8 @@
-// ?rva00534557@Rva00534557@@QAEXPBH@Z
-// partial score=0.82 date=2026-10-07
-// cl: /MD /EHsc /Oy-
+// cl: /MD /EHsc /Oy- /Os
+// ?rva00534557@Rva00534557@@QAEXPBH@Z @0x00534557 42B
+// Banked attempt reverse/attempts/0x00534557.cpp, re-verified exact against the current ledger
+// (its callees have since been rowed or pinned); landed unchanged by the
+// banked-attempt sweep. Identity and evidence: see reverse/re_attempts.log.
 // ?rva00534557@Rva00534557@@QAEXPBH@Z, retail 0x00534557, 42 bytes.
 // Converts the two input dwords through helper 0x0053442A, inserts the
 // resulting 8-byte pair at the front through rowed 0x00357DF8, then sets byte

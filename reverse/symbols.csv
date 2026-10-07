@@ -15437,3 +15437,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00569863@Rva00569863@@QAEXPAX@Z,0x00569863,address-derived callback used by the fresh 0x003EDF69/0x003EDFD8 workers; target callsite loads the list element into ECX and pushes the incoming object pointer; both helper bodies remain unclaimed
 ?rva00204EBB@BfmeOwnZC@@QAEPAXVBfmeRoomZC@@PAX@Z,0x00204EBB,callee of ?rva0020C3BB@ScriptEngine@@QAEXPAVScriptAction@@@Z
 ?rva005E52FD@Rva005E39AE@@QAEXXZ,0x005E52FD,callee of ?rva005E5424@Rva005E39AE@@QAEXXZ
+?rva0053442A@@YA?AURva00534557Record@@PBH@Z,0x0053442A,callee of ?rva00534557@Rva00534557@@QAEXPBH@Z
+?rva005EA125@Rva005EA125@@QAEXXZ,0x005EA125,callee of ?update@Rva005EA454@@QAEXXZ
