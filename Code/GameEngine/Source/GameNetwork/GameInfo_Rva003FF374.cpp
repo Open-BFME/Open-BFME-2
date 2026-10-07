@@ -97,36 +97,9 @@ GameSlot::GameSlot()
 	reset();
 }
 
-// ?reset@GameSlot@@UAEXXZ present-unmatched
-void GameSlot::reset()
-{
-	m_state = SLOT_CLOSED; // decent default
-	m_isAccepted = false;
-	m_hasMap = true;
-	m_color = -1;
-	m_startPos = -1;
-	m_playerTemplate = -1;
-	m_teamNumber = -1;
-	m_connectInfo.m_nat = FirewallHelperClass::FIREWALL_TYPE_SIMPLE;
-	m_lastFrameInGame = 0;
-	m_disconnected = FALSE;
-	m_connectInfo.m_port = 0;
-	m_isMuted = FALSE;
-	m_origPlayerTemplate = -1;
-	m_origStartPos = -1;
-	m_origColor = -1;
-}
+// GameSlot::reset is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (0x003FF50C).
 
-void GameSlot::saveOffOriginalInfo( void )
-{
-	DEBUG_LOG(("GameSlot::saveOffOriginalInfo() - orig was color=%d, pos=%d, house=%d\n",
-		m_origColor, m_origStartPos, m_origPlayerTemplate));
-	m_origPlayerTemplate = m_playerTemplate;
-	m_origStartPos = m_startPos;
-	m_origColor = m_color;
-	DEBUG_LOG(("GameSlot::saveOffOriginalInfo() - color=%d, pos=%d, house=%d\n",
-		m_color, m_startPos, m_playerTemplate));
-}
+// GameSlot::saveOffOriginalInfo is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotHumanSaveoff.cpp (0x003FF0D4).
 
 static Int getSlotIndex(const GameSlot *slot)
 {
@@ -164,140 +137,26 @@ static Bool isSlotLocalAlly(const GameSlot *slot)
 	return FALSE;
 }
 
-UnicodeString GameSlot::getApparentPlayerTemplateDisplayName( void ) const
-{
-	if (TheMultiplayerSettings && TheMultiplayerSettings->showRandomPlayerTemplate() &&
-		m_origPlayerTemplate == PLAYERTEMPLATE_RANDOM && !isSlotLocalAlly(this))
-	{
-		return TheGameText->fetch("GUI:Random");
-	}
-	else if (m_origPlayerTemplate == PLAYERTEMPLATE_OBSERVER)
-	{
-		return TheGameText->fetch("GUI:Observer");
-	}
-	DEBUG_LOG(("Fetching player template display name for player template %d (orig is %d)\n",
-		m_playerTemplate, m_origPlayerTemplate));
-	if (m_playerTemplate < 0)
-	{
-		return TheGameText->fetch("GUI:Random");
-	}
-	return ThePlayerTemplateStore->getNthPlayerTemplate(m_playerTemplate)->getDisplayName();
-}
+// GameSlot::getApparentPlayerTemplateDisplayName is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (0x003FFBB4).
 
-Int GameSlot::getApparentPlayerTemplate( void ) const
-{
-	if (TheMultiplayerSettings && TheMultiplayerSettings->showRandomPlayerTemplate() &&
-		!isSlotLocalAlly(this))
-	{
-		return m_origPlayerTemplate;
-	}
-	return m_playerTemplate;
-}
+// GameSlot::getApparentPlayerTemplate is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (0x003FF813).
 
-Int GameSlot::getApparentColor( void ) const
-{
-	if (TheMultiplayerSettings && m_origPlayerTemplate == PLAYERTEMPLATE_OBSERVER)
-		return TheMultiplayerSettings->getColor(PLAYERTEMPLATE_OBSERVER)->getColor();
+// GameSlot::getApparentColor is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (0x003FF838).
 
-	if (TheMultiplayerSettings && TheMultiplayerSettings->showRandomColor() &&
-		!isSlotLocalAlly(this))
-	{
-		return m_origColor;
-	}
-	return m_color;
-}
-
-Int GameSlot::getApparentStartPos( void ) const
-{
-	if (TheMultiplayerSettings && TheMultiplayerSettings->showRandomStartPos() &&
-		!isSlotLocalAlly(this))
-	{
-		return m_origStartPos;
-	}
-	return m_startPos;
-}
+// GameSlot::getApparentStartPos is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (0x003FF870).
 
 
-void GameSlot::unAccept( void )
-{
-	if (isHuman())
-	{
-		m_isAccepted = false;
-	}
-}
+// GameSlot::unAccept is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (0x003FF895).
 
-void GameSlot::setMapAvailability( Bool hasMap )
-{
-	if (isHuman())
-	{
-		m_hasMap = hasMap;
-	}
-}
+// GameSlot::setMapAvailability is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (0x003FF8A0).
 
-void GameSlot::setState( SlotState state, UnicodeString name, const GameSlotConnectInfo *connectInfo )
-{
-	if (!(isAI() &&  (state == SLOT_EASY_AI || state == SLOT_MED_AI || state == SLOT_BRUTAL_AI)))
-	{
-		m_color = -1;
-		m_startPos = -1;
-		m_playerTemplate = -1;
-		m_teamNumber = -1;
+// GameSlot::setState is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotSetState.cpp (0x003FFC28).
 
-		if (state == SLOT_OPEN && TheGameSpyGame && TheGameSpyGame->getConstSlot(0) == this)
-		{
-			DEBUG_CRASH(("Game Is Hosed!\n"));
-		}
-	}
-	if (state == SLOT_PLAYER)
-	{
-		reset();
-		m_state = state;
-		m_name = name;
-	}// state == SLOT_PLAYER
-	else
-	{
-		m_state = state;
-		m_isAccepted = true;
-		m_hasMap = true;
-		switch(state)
-		{
-		case SLOT_OPEN:
-			m_name = TheGameText->fetch("GUI:Open");
-			break;
-		case SLOT_EASY_AI:
-			m_name = TheGameText->fetch("GUI:EasyAI");
-			break;
-		case SLOT_MED_AI:
-			m_name = TheGameText->fetch("GUI:MediumAI");
-			break;
-		case SLOT_BRUTAL_AI:
-			m_name = TheGameText->fetch("GUI:HardAI");
-			break;
-		case SLOT_CLOSED:
-		default:
-			m_name = TheGameText->fetch("GUI:Closed");
-			break;
-		}
-	}
+// GameSlot::isHuman is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotHumanSaveoff.cpp (0x003FF0F1).
 
-	m_connectInfo = *connectInfo;
-}
+// GameSlot::isOccupied is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoPlayerCounts.cpp (0x003FF0FB).
 
-// Various tests
-Bool GameSlot::isHuman( void ) const
-{
-	return m_state == SLOT_PLAYER;
-}
-
-Bool GameSlot::isOccupied( void ) const
-{
-	return m_state == SLOT_PLAYER || m_state == SLOT_EASY_AI || m_state == SLOT_MED_AI || m_state == SLOT_BRUTAL_AI;
-}
-
-Bool GameSlot::isAI( void ) const
-{
-	return m_state == SLOT_EASY_AI || m_state == SLOT_MED_AI || m_state == SLOT_BRUTAL_AI;
-}
+// GameSlot::isAI is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoPlayerCounts.cpp (0x003FF127).
 // ?isPlayer@GameSlot@@ present-unmatched
 // Implemented in GameSlotIsPlayerAsciiThunk.cpp to avoid an MSVC 7.1
 // overload interaction between naked by-value string methods.
@@ -331,86 +190,18 @@ GameInfo::GameInfo()
 // donor body here used BFME1 GameInfo/GameSlot layouts.
 
 
-// byte-exact reconstruction: game/GameEngine/Source/Common/GameInfo_resetMethodThunk.cpp
-// ?reset@GameInfo@@UAEXXZ present-unmatched
-void GameInfo::reset( void )
-{
-	m_crcInterval = NET_CRC_INTERVAL;
-	m_inGame = false;
-	m_inProgress = false;
-	m_gameID = 0;
-	m_mapName = AsciiString("NOMAP");
-	m_mapMask = 0;
-	m_seed = GetTickCount(); //GameClientRandomValue(0, INT_MAX - 1);
-	m_useStats = TRUE;
-	m_surrendered = FALSE;
-  m_oldFactionsOnly = FALSE;
-	// Added By Sadullah Nader
-	// Initializations missing and needed
-//	m_localIP = 0; // BGC - actually we don't want this to be reset since the m_localIP is 
-										// set properly in the constructor of LANGameInfo which uses this as a base class.
-	m_mapCRC = 0;
-	m_mapSize = 0;
-  m_superweaponRestriction = 0; 
-  m_startingCash = TheGlobalData->m_defaultStartingCash;
-  
-	//
+// GameInfo::reset is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoReset.cpp (0x003FFF8F).
 
-	for (Int i=0; i<MAX_SLOTS; ++i)
-	{
-		if (m_slot[i])
-			m_slot[i]->reset();
-	}
+// GameInfo::isPlayerPreorder is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoMarkPreorder.cpp (0x003FF1DA).
 
-	m_preorderMask = 0;
-}
-
-Bool GameInfo::isPlayerPreorder(Int index)
-{
-	if (index >= 0 && index < MAX_SLOTS)
-		return ((m_preorderMask & (1 << index)) != 0);
-	return FALSE;
-}
-
-void GameInfo::markPlayerAsPreorder(Int index)
-{
-	if (index >= 0 && index < MAX_SLOTS)
-		m_preorderMask |= 1 << index;
-}
+// GameInfo::markPlayerAsPreorder is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoMarkPreorder.cpp (0x003FF1FE).
 
 
-// byte-exact reconstruction: game/GameEngine/Source/GameNetwork/GameInfo_clearSlotList_Thunk.cpp
-// ?clearSlotList@GameInfo@@QAEXXZ present-unmatched
-void GameInfo::clearSlotList( void )
-{
-	for (int i=0; i<MAX_SLOTS; ++i)
-	{
-		if (m_slot[i])
-			m_slot[i]->setState(SLOT_CLOSED);
-	}
-}
+// GameInfo::clearSlotList is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoClearSlotList.cpp (0x003FFDB7).
 
-Int GameInfo::getNumPlayers( void ) const
-{
-	Int numPlayers = 0;
-	for (int i=0; i<MAX_SLOTS; ++i)
-	{
-		if (m_slot[i] && m_slot[i]->isOccupied())
-			numPlayers++;
-	}
-	return numPlayers;
-}
+// GameInfo::getNumPlayers is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoPlayerCounts.cpp (0x003FF218).
 
-Int GameInfo::getNumNonObserverPlayers( void ) const
-{
-	Int numPlayers = 0;
-	for (int i=0; i<MAX_SLOTS; ++i)
-	{
-		if (m_slot[i] && m_slot[i]->isOccupied() && m_slot[i]->getPlayerTemplate() != PLAYERTEMPLATE_OBSERVER)
-			numPlayers++;
-	}
-	return numPlayers;
-}
+// GameInfo::getNumNonObserverPlayers is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoPlayerCounts.cpp (0x003FF23D).
 
 // ?getMaxPlayers@GameInfo@@QBEHXZ present-unmatched
 Int GameInfo::getMaxPlayers( void ) const
@@ -452,12 +243,7 @@ void GameInfo::startGame( Int gameID )
 	m_inProgress = true;
 }
 
-void GameInfo::endGame( void )
-{
-	DEBUG_ASSERTCRASH(m_inGame && m_inProgress, ("Ending game without playing one!"));
-	m_inGame = false;
-	m_inProgress = false;
-}
+// GameInfo::endGame is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoEndGame.cpp (0x003FF296).
 
 // setSlot is owned by the BFME2 init recovery; the former unrowed
 // donor body here used BFME1 GameInfo/GameSlot layouts.
@@ -490,43 +276,9 @@ const GameSlot* GameInfo::getConstSlot( Int slotNum ) const
 	return m_slot[slotNum];
 }
 
-// ?getLocalSlotNum@GameInfo@@UBEHXZ present-unmatched
-Int GameInfo::getLocalSlotNum( void ) const
-{
-	DEBUG_ASSERTCRASH(m_inGame, ("Looking for local game slot while not in game"));
-	if (!m_inGame)
-		return -1;
+// GameInfo::getLocalSlotNum is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (0x003FF2D6).
 
-	for (Int i=0; i<MAX_SLOTS; ++i)
-	{
-		const GameSlot *slot = getConstSlot(i);
-		if (slot == NULL) {
-			continue;
-		}
-		if (slot->isPlayer(m_localIP))
-			return i;
-	}
-	return -1;
-}
-
-// byte-exact reconstruction: game/GameEngine/Source/Common/GameInfo_getSlotNum_Thunk.cpp
-// ?getSlotNum@GameInfo@@QBEHVAsciiString@@@Z present-unmatched
-Int GameInfo::getSlotNum( AsciiString userName ) const
-{
-	DEBUG_ASSERTCRASH(m_inGame, ("Looking for game slot while not in game"));
-	if (!m_inGame)
-		return -1;
-
-	UnicodeString uName;
-	uName.translate(userName);
-	for (Int i=0; i<MAX_SLOTS; ++i)
-	{
-		const GameSlot *slot = getConstSlot(i);
-		if (slot->isPlayer( uName ))
-			return i;
-	}
-	return -1;
-}
+// GameInfo::getSlotNum is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoGetSlotNum.cpp (0x0040009A).
 
 // ?amIHost@GameInfo@@UBE_NXZ present-unmatched
 Bool GameInfo::amIHost( void ) const
@@ -538,107 +290,7 @@ Bool GameInfo::amIHost( void ) const
 	return getConstSlot(0)->isPlayer(m_localIP);
 }
 
-// byte-exact reconstruction: game/GameEngine/Source/GameNetwork/GameInfoSetMapThunk.cpp
-// ?setMap@GameInfo@@QAEXVAsciiString@@@Z present-unmatched
-void GameInfo::setMap( AsciiString mapName )
-{
-	m_mapName = mapName;
-	if (m_inGame && amIHost())
-	{
-		const MapMetaData *mapData = TheMapCache->findMap( mapName );
-		if (mapData)
-		{
-			m_mapMask = 1;
-			AsciiString path = mapName;
-			path.removeLastChar();
-			path.removeLastChar();
-			path.removeLastChar();
-			path.concat("tga");
-			DEBUG_LOG(("GameInfo::setMap() - Looking for '%s'\n", path.str()));
-			File *fp = TheFileSystem->openFile(path.str());
-			if (fp)
-			{
-				m_mapMask |= 2;
-				fp->close();
-				fp = NULL;
-			}
-
-			AsciiString newMapName;
-			if (mapName.getLength() > 0)
-			{
-				AsciiString token;
-				mapName.nextToken(&token, "\\/");
-				// add all the tokens except the last one.
-				// that way we don't add the filename, just the
-				// directory name, we can do this since the filename
-				// is just the directory name with the file extention
-				// added onto it.
-				while (mapName.find('\\') != NULL)
-				{
-					if (newMapName.getLength() > 0)
-					{
-						newMapName.concat('/');
-					}
-					((StringBase<char> *)&newMapName)->concat(*(const StringBase<char> *)&token);
-					mapName.nextToken(&token, "\\/");
-				}
-			}
-			newMapName.concat("/map.ini");
-			DEBUG_LOG(("GameInfo::setMap() - Looking for '%s'\n", newMapName.str()));
-			fp = TheFileSystem->openFile(newMapName.str());
-			if (fp)
-			{
-				m_mapMask |= 4;
-				fp->close();
-				fp = NULL;
-			}
-
-			path = GetStrFileFromMap(m_mapName);
-			DEBUG_LOG(("GameInfo::setMap() - Looking for '%s'\n", path.str()));
-			fp = TheFileSystem->openFile(path.str());
-			if (fp)
-			{
-				m_mapMask |= 8;
-				fp->close();
-				fp = NULL;
-			}
-
-			path = GetSoloINIFromMap(m_mapName);
-			DEBUG_LOG(("GameInfo::setMap() - Looking for '%s'\n", path.str()));
-			fp = TheFileSystem->openFile(path.str());
-			if (fp)
-			{
-				m_mapMask |= 16;
-				fp->close();
-				fp = NULL;
-			}
-
-			path = GetAssetUsageFromMap(m_mapName);
-			DEBUG_LOG(("GameInfo::setMap() - Looking for '%s'\n", path.str()));
-			fp = TheFileSystem->openFile(path.str());
-			if (fp)
-			{
-				m_mapMask |= 32;
-				fp->close();
-				fp = NULL;
-			}
-
-			path = GetReadmeFromMap(m_mapName);
-			DEBUG_LOG(("GameInfo::setMap() - Looking for '%s'\n", path.str()));
-			fp = TheFileSystem->openFile(path.str());
-			if (fp)
-			{
-				m_mapMask |= 64;
-				fp->close();
-				fp = NULL;
-			}
-		}
-		else
-		{
-			m_mapMask = 0;
-		}
-	}
-}
+// GameInfo::setMap is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoSetMap.cpp (0x00400126).
 
 // ?setMapContentsMask@GameInfo@@UAEXH@Z present-unmatched
 void GameInfo::setMapContentsMask( Int mask )
@@ -646,91 +298,15 @@ void GameInfo::setMapContentsMask( Int mask )
 	m_mapMask = mask;
 }
 
-// ?setMapCRC@GameInfo@@QAEXI@Z present-unmatched
-void GameInfo::setMapCRC( UnsignedInt mapCRC )
-{
-	m_mapCRC = mapCRC;
-	if (!TheMapCache)
-		return;
+// GameInfo::setMapCRC is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoSetMapCRC.cpp (0x00400E9F).
 
-	// check the map cache
-	if (m_inGame && getLocalSlotNum() >= 0)
-	{
-		//TheMapCache->updateCache();
-		AsciiString lowerMap = m_mapName;
-		lowerMap.toLower();
-		//DEBUG_LOG(("GameInfo::setMapCRC - looking for map file \"%s\" in the map cache\n", lowerMap.str()));
-		std::map<AsciiString, MapMetaData>::iterator it = TheMapCache->find(lowerMap);
-		if (it == TheMapCache->end())
-		{
-			/*
-			DEBUG_LOG(("GameInfo::setMapCRC - could not find map file.\n"));
-			it = TheMapCache->begin();
-			while (it != TheMapCache->end())
-			{
-				DEBUG_LOG(("\t\"%s\"\n", it->first.str()));
-				++it;
-			}
-			*/
-			getSlot(getLocalSlotNum())->setMapAvailability(false);
-		}
-		else if (m_mapCRC != it->second.m_CRC)
-		{
-			DEBUG_LOG(("GameInfo::setMapCRC - map CRC's do not match (%X/%X).\n", m_mapCRC, it->second.m_CRC));
-			getSlot(getLocalSlotNum())->setMapAvailability(false);
-		}
-		else
-		{
-			//DEBUG_LOG(("GameInfo::setMapCRC - map CRC's match.\n"));
-			getSlot(getLocalSlotNum())->setMapAvailability(true);
-		}
-	}
-}
-
-// ?setMapSize@GameInfo@@QAEXI@Z present-unmatched
-void GameInfo::setMapSize( UnsignedInt mapSize )
-{
-	m_mapSize = mapSize;
-	if (!TheMapCache)
-		return;
-
-	// check the map cache
-	if (m_inGame && getLocalSlotNum() >= 0)
-	{
-		//TheMapCache->updateCache();
-		AsciiString lowerMap = m_mapName;
-		lowerMap.toLower();
-		std::map<AsciiString, MapMetaData>::iterator it = TheMapCache->find(lowerMap);
-		if (it == TheMapCache->end())
-		{
-			DEBUG_LOG(("GameInfo::setMapSize - could not find map file.\n"));
-			getSlot(getLocalSlotNum())->setMapAvailability(false);
-		}
-		else if (m_mapCRC != it->second.m_CRC)
-		{
-			DEBUG_LOG(("GameInfo::setMapSize - map CRC's do not match.\n"));
-			getSlot(getLocalSlotNum())->setMapAvailability(false);
-		}
-		else
-		{
-			//DEBUG_LOG(("GameInfo::setMapSize - map CRC's match.\n"));
-			getSlot(getLocalSlotNum())->setMapAvailability(true);
-		}
-	}
-}
+// GameInfo::setMapSize is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameInfoSetMapSize.cpp (0x00400F5A).
 
 // setSeed is owned by the BFME2 init recovery; the former unrowed
 // donor body here used BFME1 GameInfo/GameSlot layouts.
 
 
-// ?setSlotPointer@GameInfo@@UAEXHPAVGameSlot@@@Z present-unmatched
-void GameInfo::setSlotPointer( Int index, GameSlot *slot )
-{
-	if (index < 0 || index >= MAX_SLOTS)
-		return;
-
-	m_slot[index] = slot;
-}
+// GameInfo::setSlotPointer is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (0x003FF332).
 
 // ?setSuperweaponRestriction@GameInfo@@QAEXG@Z present-unmatched
 void GameInfo::setSuperweaponRestriction( UnsignedShort restriction )
@@ -744,16 +320,7 @@ void GameInfo::setStartingCash( const Money & startingCash )
   m_startingCash = startingCash;
 }
 
-Bool GameInfo::isColorTaken(Int colorIdx, Int slotToIgnore ) const
-{
-	for (Int i=0; i<MAX_SLOTS; ++i)
-	{
-		const GameSlot *slot = getConstSlot(i);
-		if (slot && slot->getColor() == colorIdx && i != slotToIgnore)
-			return true;
-	}
-	return false;
-}
+// GameInfo::isColorTaken is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp (0x003FF34A).
 
 Bool GameInfo::isStartPositionTaken(Int positionIdx, Int slotToIgnore ) const
 {
