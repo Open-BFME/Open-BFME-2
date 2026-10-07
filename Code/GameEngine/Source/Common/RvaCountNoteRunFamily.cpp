@@ -62,10 +62,28 @@ public:
 	void run(int a, int b);
 };
 
+struct InsertRet0052B737
+{
+    void *node;
+    void *owner;
+    unsigned char inserted;
+    InsertRet0052B737 *set(void *n, void *o, unsigned char i)
+    {
+        node = n;
+        owner = o;
+        inserted = i;
+        return this;
+    }
+};
 class Rva0052B737Sub
 {
 public:
-	void run(int a, int b);
+    InsertRet0052B737 *run(int resultAddress, int keyAddress);
+    void *unused;
+    void **buckets;
+    void **bucketEnd;
+    void **storageEnd;
+    unsigned count;
 };
 
 class Rva00057B27Owner
@@ -235,4 +253,49 @@ Rva0052B7F8Owner *rva0052B84F()
 {
     static Rva0052B84FRegistry registry;
     return reinterpret_cast<Rva0052B7F8Owner *>(&registry);
+}
+
+// Native 0x0052B737..0x0052B7B3: 124B RET8 unique insertion. The caller
+// at 0x0052B7F8 supplies a 12B result area and an 8B entry. Registration
+// construction at 0x0052B894 establishes (AsciiString, registration pointer).
+// Compare 0x000069D6 and bucketIndex 0x00223149 prove the string key; node
+// allocation at 0x0052B6D9 proves next at +0 and the copied entry at +4.
+// Reuse the already rowed node provider's nominal STLport ABI view below.
+// Its int/element spelling is an inference; this routine treats that view
+// only as the 8B entry passed to its externally defined copy operation.
+// The control flow also agrees with the independently recovered 124B
+// sibling at 0x00212A5A and STLport 4.5.3 insert_unique_noresize.
+struct Rva0052B6D9Element { char bytes[1]; bool operator<(const Rva0052B6D9Element&) const; bool operator==(const Rva0052B6D9Element&) const; };
+namespace _STL {
+template<> struct hash<Rva0052B6D9Element> { unsigned operator()(const Rva0052B6D9Element&) const; };
+typedef pair<int const, Rva0052B6D9Element> Rva0052B6D9Pair;
+template<> class hashtable<Rva0052B6D9Pair, int, hash<int>, _Select1st<Rva0052B6D9Pair>, equal_to<int>, allocator<Rva0052B6D9Pair> >
+{
+friend class ::Rva0052B737Sub;
+    _Hashtable_node<Rva0052B6D9Pair> *_M_new_node(const Rva0052B6D9Pair &value);
+};
+typedef hashtable<Rva0052B6D9Pair, int, hash<int>, _Select1st<Rva0052B6D9Pair>, equal_to<int>, allocator<Rva0052B6D9Pair> > Rva0052B6D9Provider;
+}
+class Rva000427195 { public: int bucketIndex(const AsciiString *key); };
+InsertRet0052B737 *Rva0052B737Sub::run(int resultAddress, int keyAddress)
+{
+    InsertRet0052B737 *result=(InsertRet0052B737*)resultAddress;
+    const void *key=(const void*)keyAddress;
+    int bucket=((Rva000427195*)this)->bucketIndex((const AsciiString*)key);
+    void *head=buckets[bucket];
+    void *cur=head;
+    if(cur!=0)
+    {
+        do
+        {
+            if(((const StringBase<char>*)((const char*)cur+4))->compare(*(const StringBase<char>*)key)==0)
+                return result->set(cur,this,0);
+            cur=*(void**)cur;
+        } while(cur!=0);
+    }
+    void *node=((_STL::Rva0052B6D9Provider*)this)->_M_new_node(*(const _STL::Rva0052B6D9Pair*)key);
+    *(void**)node=head;
+    buckets[bucket]=node;
+    ++count;
+    return result->set(node,this,1);
 }
