@@ -15291,3 +15291,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva000A8127@Gen0002857EOwner@@QAEXPAX@Z,0x000A8127,Retail call at 0x0010ED1F loads ECX from [this+4] and passes this as one stack pointer; target FUN_004A8127 is a 151-byte body; address-derived owner operation and meaning remain unproven
 ?rva0016E450@Rva0016E450Source@@QAEPAXPAH@Z,0x0016E450,Retail call at 0x00106D0B sets ECX from the first field owner +0xC4 and passes a local count out-pointer; target FUN_0056E450 has Ghidra extent 1692 bytes; address-derived operation only
 _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
+?rva00115044@Rva00115044@@QAEXPAHHHE@Z,0x00115044,callee of ?rva001159F1@Rva001159F1@@QAEXPAX@Z
