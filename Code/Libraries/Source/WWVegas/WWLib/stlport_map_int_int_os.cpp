@@ -45,11 +45,16 @@ IntIntNode * __stdcall Rva003834CDCreate(const IntIntValue &value)
 	return node;
 }
 
-// Map<int,int> node clone at 0x003834EF (30B): YG free spelling of the tree
-// _M_clone_node body (thiscall with unused receiver); the address-scoped
-// _M_copy_00383C34 in stlport_map_int_int_copy_os.cpp calls the member form
-// through the symbols.csv pin, which reproduces retail's dead ecx reload.
-IntIntNode * __stdcall Rva003834EFClone(IntIntNode *src)
+// Map<int,int> node clone at 0x003834EF (30B). Retail's 0x383C34 caller
+// reloads the unused receiver. Keep this create-node variant distinct from
+// the ordinary tree clone at 0x53444F, which calls create-node 0x382B7F.
+class Rva003834EFClone
+{
+public:
+	IntIntNode *clone(IntIntNode *src);
+};
+
+IntIntNode *Rva003834EFClone::clone(IntIntNode *src)
 {
 	IntIntNode *node = Rva003834CDCreate(src->_M_value_field);
 	node->_M_color = src->_M_color;
