@@ -40518,7 +40518,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeome
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::read_vertices	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	1MeshMatDescClass@@UAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	1TexBufferClass@@UAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	4MeshMatDescClass@@QAEAAV0@ABV0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Get_Element@MatBufferClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Get_Element@TexBufferClass@@QAEPAVTextureClass@@H@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Get_Material@MeshMatDescClass@@QBEPAVVertexMaterialClass@@HH@Z	1

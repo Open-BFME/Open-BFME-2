@@ -207,59 +207,7 @@ ShaderClass MeshMatDescClass::NullShader(0);	// Used to mark no shader data
 
 // MeshMatDescClass copy constructor is recovered in MeshMatDescDefaultCtor.cpp.
 
-MeshMatDescClass &
-// ??4MeshMatDescClass@@QAEAAV0@ABV0@@Z present-unmatched
-MeshMatDescClass::operator = (const MeshMatDescClass & that)
-{
-	if (this != &that) {
-
-		PassCount = that.PassCount;
-		VertexCount = that.VertexCount;
-		PolyCount = that.PolyCount;
-
-		for (int array=0; array<MAX_COLOR_ARRAYS; array++) {
-			REF_PTR_SET(ColorArray[array],that.ColorArray[array]);
-		}
-
-		for (int uvarray=0; uvarray<MAX_UV_ARRAYS; uvarray++) {
-			REF_PTR_SET(UV[uvarray],that.UV[uvarray]);
-		}
-
-		for (int pass=0; pass<MAX_PASSES; pass++) {
-			for (int stage=0; stage < MAX_TEX_STAGES; stage++) {
-				UVSource[pass][stage] = that.UVSource[pass][stage];
-				REF_PTR_SET(Texture[pass][stage],that.Texture[pass][stage]);
-
-				// make our own array of texture pointers.
-				REF_PTR_RELEASE(TextureArray[pass][stage]);
-				if (that.TextureArray[pass][stage]) {
-					TextureArray[pass][stage] = NEW_REF(TexBufferClass,(*that.TextureArray[pass][stage]));
-				}
-			}
-
-			DCGSource[pass] = that.DCGSource[pass];
-			DIGSource[pass] = that.DIGSource[pass];
-
-			Shader[pass] = that.Shader[pass];
-			REF_PTR_SET(Material[pass],that.Material[pass]);
-
-			// make our own arrays of shaders and vertex material pointers
-			// NOTE: We don't just add-ref these arrays, we make our own copies.
-			// The only time we add-ref these arrays are when we make alternate material
-			// representations within this mesh... Then we re-use the same arrays in different
-			// passes...
-			REF_PTR_RELEASE(MaterialArray[pass]);
-			if (that.MaterialArray[pass]) {
-				MaterialArray[pass] = NEW_REF(MatBufferClass,(*that.MaterialArray[pass]));
-			}
-			REF_PTR_RELEASE(ShaderArray[pass]);
-			if (that.ShaderArray[pass]) {
-				ShaderArray[pass] = NEW_REF(ShareBufferClass<ShaderClass>,(*that.ShaderArray[pass]));
-			}
-		}
-	}
-	return *this;
-}
+// MeshMatDescClass::operator = is recovered in MeshMatDescDefaultCtor.cpp.
 
 // ??1MeshMatDescClass@@UAE@XZ present-unmatched
 MeshMatDescClass::~MeshMatDescClass(void)

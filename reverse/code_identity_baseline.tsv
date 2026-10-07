@@ -5993,9 +5993,7 @@ Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp	uw_00768734	??1MeshM
 Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp	uw_007687a6	??1MeshMdlTextureVector@@UAE@XZ	0x0016FDB0	wrong
 Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp	uw_007687b4	??1MeshMatDescClass@@QAE@XZ	0x0015DC40	wrong
 Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaultCtor.cpp	??0MeshMatDescClass@@QAE@ABV0@@Z	??0?$RefCountPtr@VTextureClass@@@@QAE@XZ	0x00326BE6	divergent
-Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaultCtor.cpp	??0MeshMatDescClass@@QAE@ABV0@@Z	??4MeshMatDescClass@@QAEAAV0@ABV0@@Z	0x0015D800	unowned
 Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaultCtor.cpp	??0MeshMatDescClass@@QAE@XZ	??0?$RefCountPtr@VTextureClass@@@@QAE@XZ	0x00326BE6	divergent
-Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescRendererState.cpp	??0MeshMatDescRendererState@@QAE@XZ	??0?$RefCountPtr@VTextureClass@@@@QAE@XZ	0x00326BE6	divergent
 Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescUniqueArrays.cpp	uw_00767310	??1RefPtr@@QAE@XZ	0x0007B724	divergent
 Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDtor.cpp	??1MeshModelClass@@UAE@XZ	??1MeshMatDescClass@@QAE@XZ	0x0015DC40	wrong
 Code/Libraries/Source/WWVegas/WW3D2/MeshModelClassDtor.cpp	??1MeshModelClass@@UAE@XZ	?Rva00199FA5TeardownMeshMatDescRenderers@@YA_NPAVMeshMatDescClass@@@Z	0x00199FA5	unowned
