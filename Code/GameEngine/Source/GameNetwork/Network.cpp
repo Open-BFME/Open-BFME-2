@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
 // Network.cpp -- Network members recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv): WB's debug build names the function (vtable
 // pairing) and the member m_pConMgr at +0x0C (assert at Network.cpp:69);
@@ -6,6 +6,11 @@
 // +0x12050/+0x12054 (Zero Hour's m_localAddr and m_localPort).
 
 typedef unsigned int UnsignedInt;
+typedef unsigned char UnsignedByte;
+typedef unsigned short UnsignedShort;
+
+#include "ascii_string.h"
+#include "unicode_string.h"
 
 struct NetLocalAddress
 {
@@ -19,6 +24,8 @@ public:
 	virtual void slot00(void);
 	virtual void slot01(void);
 	virtual void slot02(void);
+	void sendDisconnectChat(UnicodeString text);
+	void sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID);
 
 	void SetLocalAddr(const NetLocalAddress &addr)
 	{
@@ -50,6 +57,8 @@ class Network
 {
 public:
 	virtual void SetLocalAddr(const NetLocalAddress &addr);
+	virtual void sendDisconnectChat(UnicodeString text);
+	virtual void sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID);
 	void startNewSession(void);
 
 private:
@@ -92,4 +101,23 @@ void Network::startNewSession(void)
 	m_lastValue = -1;
 	if (m_pConMgr != 0)
 		m_pConMgr->slot02();
+}
+
+// Target evidence at 0x0025E2E3: the receiver's connection-manager pointer is
+// at +0x0C; the body copies a UnicodeString by value, forwards it, releases the
+// temporary, and returns with one stack argument. The Network name and
+// forwarding operation follow Open-BFME-1's Network::sendDisconnectChat; the
+// donor supplies identity, while the target body supplies the layout and ABI.
+void Network::sendDisconnectChat(UnicodeString text)
+{
+	m_pConMgr->sendDisconnectChat(text);
+}
+
+// Target evidence at 0x0025E327: an AsciiString copy plus byte and word
+// arguments is forwarded through the connection-manager pointer at +0x0C.
+// Open-BFME-1's Network::sendFile supplies the operation name and semantics;
+// the BFME2 target bytes establish this body's signature and receiver layout.
+void Network::sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID)
+{
+	m_pConMgr->sendFile(path, playerMask, commandID);
 }
