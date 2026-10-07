@@ -1,3 +1,5 @@
+// ?rva00489D09@DozerAIUpdate@@UAEXXZ
+// partial score=0.94 date=2026-10-07
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // Zero Hour's DozerAIUpdate (GeneralsMD GameLogic/Object/Update/AIUpdate/
@@ -203,6 +205,7 @@ class Thing;
 class ModuleData;
 class Object;
 class Drawable;
+class Player;
 
 enum StateReturnType
 {
@@ -576,6 +579,8 @@ public:
 	void rva0028CFB2(const int *clear, const int *set);
 	void rva0028CDEB(const Rva00346BC0 &mask, bool set);
 	Bool get454() const { return m_454; }
+	Player *getControllingPlayer() const;
+	Real get324() const { return m_324; }
 	void rva0028AE6D();
 	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
 	{
@@ -594,7 +599,9 @@ private:
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai; // +0x258
-	unsigned char m_pad25C[0x454 - 0x25C];
+	unsigned char m_pad25C[0x324 - 0x25C];
+	Real m_324; // +0x324, the refund slot 27 pays back
+	unsigned char m_pad328[0x454 - 0x328];
 	Bool m_454; // +0x454
 };
 
@@ -602,6 +609,7 @@ class GameLogic
 {
 public:
 	Object *findObjectByID(ObjectID id);
+	void destroyObject(Object *obj);
 	UnsignedInt getFrame() const { return m_frame; }
 private:
 	unsigned char m_pad00[0x40];
@@ -1412,13 +1420,85 @@ public:
 
 extern AudioManager *TheAudio;
 
-// Folded into FoundationAIUpdate's identical body at 0x004550DE.
 void DozerAIUpdate::finishBuildingSound()
 {
 	TheAudio->removeAudioEvent(m_408);
 	m_408 = 1;
 }
 
+// The player's money (+0x90) and score keeper (+0x3BC), viewed through their
+// rowed address-named methods.
+class Rva0039B7AD;
+struct Rva0039BAD2Input;
+
+class Rva003B0D7C
+{
+public:
+	void rva003B0D7C(Int amount, Rva0039B7AD *scoreKeeper, Bool flag);
+};
+
+class Rva0039BAD2
+{
+public:
+	void rva0039BAD2(Rva0039BAD2Input *what, Int amount);
+};
+
+class Rva0039CBCE
+{
+public:
+	void rva0039CBCE(Object *obj, Int count);
+};
+
+class Player
+{
+public:
+	Rva003B0D7C *getMoney() { return &m_money; }
+	Rva0039B7AD *getScoreKeeper() { return reinterpret_cast<Rva0039B7AD *>(m_scoreKeeper); }
+	void rva002ACECC(ObjectID id);
+private:
+	unsigned char m_pad00[0x90];
+	Rva003B0D7C m_money; // +0x90
+	unsigned char m_pad91[0x3BC - 0x91];
+	unsigned char m_scoreKeeper[4]; // +0x3BC
+};
+
+class Rva0029F93A
+{
+public:
+	void rva0029F93A(Int id);
+};
+
+void DozerAIUpdate::rva00489D09()
+{
+	if (m_4A4 == 0)
+		return;
+
+	Object *obj = TheGameLogic->findObjectByID((ObjectID)m_4A4);
+	if (obj)
+	{
+		Player *player = obj->getControllingPlayer();
+		Rva0039B7AD *scoreKeeper = player->getScoreKeeper();
+		if (!m_isRebuild)
+		{
+			UnsignedInt amount = (UnsignedInt)obj->get324();
+			Rva003B0D7C *money = player->getMoney();
+			money->rva003B0D7C(amount, scoreKeeper, true);
+			reinterpret_cast<Rva0039BAD2 *>(scoreKeeper)->rva0039BAD2((Rva0039BAD2Input *)obj->getTemplate(), -amount);
+			reinterpret_cast<Rva0039CBCE *>(scoreKeeper)->rva0039CBCE(obj, -1);
+		}
+		TheGameLogic->destroyObject(obj);
+		reinterpret_cast<Rva0029F93A *>(TheInGameUI)->rva0029F93A(m_4A4);
+		if (getObject())
+		{
+			Player *owner = getObject()->getControllingPlayer();
+			if (owner)
+				owner->rva002ACECC((ObjectID)m_4A4);
+		}
+	}
+	m_4A4 = 0;
+}
+
+// FoundationAIUpdate's (0x004550DE), into which DozerAIUpdate::finishBuildingSound folded.
 DozerAIUpdate::~DozerAIUpdate()
 {
 	finishBuildingSound();

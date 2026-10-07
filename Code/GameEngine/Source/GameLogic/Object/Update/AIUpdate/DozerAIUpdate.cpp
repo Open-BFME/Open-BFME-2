@@ -4592,6 +4592,9 @@ void DozerAIUpdate::startBuildingSound( const AudioEventRTS *sound, ObjectID con
 }
 
 //------------------------------------------------------------------------------------------------
+// BFME 2's body is the 26-byte fold at 0x004550DE (rowed from DozerAIUpdateCtor.cpp:
+// the dtor 0x00489EB7 calls it directly); this +0x2E4 copy is WorkerAIUpdate's 0x004A99F6.
+// ?finishBuildingSound@DozerAIUpdate@@UAEXXZ present-unmatched
 void DozerAIUpdate::finishBuildingSound()
 {
 	AudioHandle *handle = (AudioHandle *)((char *)this + 0x2E4);
