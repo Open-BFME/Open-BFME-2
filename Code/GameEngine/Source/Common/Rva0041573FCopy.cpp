@@ -52,3 +52,36 @@ Rva0041579E::Rva0041579E(const Rva0041579E &src)
 Rva0041579E::~Rva0041579E()
 {
 }
+
+// ??0Rva0022A809Subsystem@@QAE@XZ, retail 0x00415704, 59 bytes.
+// Gap between ??1Rva0041579E 0x004156FC and ??0Rva0041573F 0x0041573F; called by matched GameEngine::init 0x0022ED66;
+// calls rowed BFME2NativeNetwork::baseConstruct 0x001B4E63 and rowed hash_map ctor 0x00415643; vtable 0x0083A288; byte at +0x20.
+#include <hash_map>
+struct Rva00415643Element { char bytes[1]; };
+class BFME2NativeNetwork
+{
+public:
+	BFME2NativeNetwork *baseConstruct();
+};
+class __declspec(novtable) Rva0022A809SubsystemBase
+{
+public:
+	Rva0022A809SubsystemBase() { ((BFME2NativeNetwork *)this)->baseConstruct(); }
+	virtual ~Rva0022A809SubsystemBase();
+private:
+	unsigned char m_04;
+	int m_08;
+};
+class Rva0022A809Subsystem : public Rva0022A809SubsystemBase
+{
+public:
+	Rva0022A809Subsystem();
+	virtual ~Rva0022A809Subsystem();
+private:
+	_STL::hash_map<int, Rva00415643Element> m_map0C; // +0x0C
+	unsigned char m_20; // +0x20
+};
+Rva0022A809Subsystem::Rva0022A809Subsystem()
+	: m_20(0)
+{
+}
