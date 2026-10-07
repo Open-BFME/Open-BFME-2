@@ -33,3 +33,21 @@ int Rva00023A50(void)
 {
 	return 0x10;
 }
+
+int Rva00023A60(void)
+{
+	return 8;
+}
+
+// Target bytes at 0x00023990: framed cdecl/free bool return of false (xor al, al).
+bool Rva00023990(void)
+{
+	return false;
+}
+
+// Target bytes at 0x00023A30: round up to multiple of 8 ((n + 7) & ~7).
+unsigned int Rva00023A30(unsigned int n)
+{
+	return (n + 7) & ~7;
+}
+

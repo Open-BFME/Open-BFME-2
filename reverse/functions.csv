@@ -67459,3 +67459,6 @@ _Rva00177F34,,0x00177F34,78,Code/GameEngine/Source/Common/Rva00177F34.cpp,matche
 _Rva008118E0,,0x0067D7E0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matched,empty Gamespy table stub shared with BFME1
 _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,empty CommUDP stub shared with BFME1
 ?Rva008062C0@@YAXXZ,,0x00672300,5,Code/Libraries/Source/DirtySock/Y2ProtoMangleHelpers.cpp,matched,empty ProtoMangle stub shared with BFME1
+?Rva00023A60@@YAHXZ,,0x00023A60,10,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,matched,address-derived name; framed cdecl int return of 8
+?Rva00023990@@YA_NXZ,,0x00023990,7,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,matched,address-derived name; framed cdecl bool return of false
+?Rva00023A30@@YAII@Z,,0x00023A30,14,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr.cpp,matched,address-derived name; round up to multiple of 8
