@@ -68215,7 +68215,6 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?d_00046827@@YAXXZ,,0x00046827,72,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_0004a3c4@@YAXXZ,,0x0004A3C4,158,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00084c05@@YAXXZ,,0x00084C05,160,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
-?d_00282b26@@YAXXZ,,0x00282B26,121,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00283033@@YAXXZ,,0x00283033,78,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_002b2a0a@@YAXXZ,,0x002B2A0A,139,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_002b2dad@@YAXXZ,,0x002B2DAD,65,Code/gen_asm/d_00084c05.asm,matched,gen-dump;bounds=ghidra-inventory
@@ -68329,3 +68328,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva00555C76@Rva00555BD5StatsQueue@@QAE?AVRva0038454E@@H@Z,,0x00555C76,161,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp,matched,Native 161-byte boundary; mutex04 and int-key PSPlayerAllStats map90 proved by target accesses; hit returns concrete member getter; miss constructs id0 stats; BFME1 findPlayerStatsByID semantic guide at donor1399ad37; target receiver identity unproved
 ??1?$vector@VProxyClass@@V?$allocator@VProxyClass@@@_STL@@@_STL@@QAE@XZ,,0x00119C00,107,Code/Libraries/Source/WWVegas/WW3D2/Render2DClassReset.cpp,matched,STLport ~vector<ProxyClass>: inlined _Destroy releasing each element's texture (0x61ED10) at stride 0x74 then EH state -1 and the game free 0x30830; called only by ~Render2DClass 0x119D3A; /GX keeps the state store
 ??1Render2DClass@@QAE@XZ,,0x00119D00,101,Code/Libraries/Source/WWVegas/WW3D2/Render2DClassDestructor.cpp,matched,member dtors in reverse: texture handle Release_Ref 0x61ED10 under EH state 2 then ~vector<ProxyClass> 0x119C00 under state 1 then both raw arrays free through the msvcr71 import; /EHsc drops the state stores before the extern C frees
+?rva00282B26@Rva00282B26@@QAEHPAX@Z,,0x00282B26,121,Code/GameEngine/Source/Common/Rva00282B26.cpp,matched,Native282B26-282B9F RET4; cached outer10/14 and inner1C/20 vector ends; candidate predicate sets group flag and counts; first matched group invokes callback; opaque identity and pointer-word ABI views
