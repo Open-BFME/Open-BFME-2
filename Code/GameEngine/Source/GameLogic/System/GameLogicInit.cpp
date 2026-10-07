@@ -330,6 +330,22 @@ private:
 	char m_pad10[0x1c - 0x10];
 };
 
+class Dict
+{
+public:
+	AsciiString getAsciiString(int key, bool *exists = 0) const;
+	void setInt(int key, int value);
+};
+
+struct SidesInfo
+{
+	Dict *getDict(void) { return &m_dict; }
+
+	void *m_pBuildList;
+	Dict m_dict;                                                         // +0x04
+	char m_pad05[0x60 - 5];
+};
+
 class SidesList
 {
 public:
@@ -339,8 +355,22 @@ public:
 	void rva0032FF91(void);
 	void rva0032FD8E(void);
 	TeamsInfoRec *getTeamInfo(void) { return &m_teams; }
+	int getNumSides(void) const { return m_numSides; }
+	// The header body the compiler sees but does not inline (retail calls the
+	// 0x002035BA copy): knowing it stores nothing, SetUpCampaignPlayers keeps
+	// TheSidesList in esi across the call. The copy emitted here is
+	// byte-identical to retail's.
+	__declspec(noinline) SidesInfo *getSideInfo(int side)
+	{
+		if (side >= 0 && side < m_numSides)
+			return &m_sides[side];
+		return 0;
+	}
 
-	char m_pad000[0xf44];
+	char m_pad000[0x3c];
+	int m_numSides;                                                      // +0x3C
+	SidesInfo m_sides[(0xf44 - 0x40) / 0x60];                            // +0x40
+	char m_padSides[(0xf44 - 0x40) % 0x60];
 	TeamsInfoRec m_teams;                                                // +0xF44
 	char m_padF60[0xf7c - 0xf60];
 	bool m_f7c;
@@ -423,7 +453,7 @@ public:
 	void rva0023E3CE(AsciiString mapName);
 	void rva0023E628(AsciiString mapName);
 	void rva0023EE5B(bool isSkirmish, int progress);
-	void rva0023FED9(void);
+	void SetUpCampaignPlayers(void);
 	void rva0023E0C7(void);
 	bool rva001DCD1C(void);
 	void rva0024622F(bool loadingSaveGame);
@@ -1259,9 +1289,6 @@ struct AssetLoadMode
 
 void bfmeMergeReceiverKeys(int value);
 
-class Dict
-{
-};
 
 class MapObject
 {
@@ -2709,7 +2736,7 @@ void GameLogic::rva002469A5(bool loadingSaveGame, int *progress)
 		rva0023EE5B(isSkirmish, *progress);
 		g_00E03138->reset();
 	} else if (((Rva0023C6A4 *)this)->rva00200084()) {
-		rva0023FED9();
+		SetUpCampaignPlayers();
 	}
 
 	rva0023E0C7();
@@ -2944,4 +2971,112 @@ void GameLogic::rva0023E628(AsciiString mapName)
 		TheTerrainLogic->rva002817F2(fullFledgeFilename);
 	else
 		((Rva0062AF7 *)TheTerrainLogic)->Rva0027DA58();
+}
+
+// ---------------------------------------------------------------------------
+// GameLogic::SetUpCampaignPlayers (0x0023FED9, 295B; WorldBuilder name and
+// statement order). Outside a linear campaign, for the living world's current
+// battle (TheLivingWorldLogic +0xB0 region manager, 0x0020E6B7), each map
+// side whose playerName matches a battle entry's +4 name gets that entry's
+// living-world player id (0x002B6AEC lookup by the entry's +0 name, id at
+// +0x14) as livingWorldPlayerID. The entry and list types are not established
+// and keep address-derived names.
+// ---------------------------------------------------------------------------
+
+class LinearCampaignManager
+{
+public:
+	bool hasCampaign(void) const { return m_campaign != 0; }
+
+private:
+	char m_pad00[0x10];
+	void *m_campaign;                                                    // +0x10
+};
+
+extern LinearCampaignManager *TheLinearCampaignManager;
+
+struct Rva0023FED9Entry
+{
+	AsciiString m_playerName;
+	AsciiString m_sideName;
+};
+
+struct Rva0023FED9List
+{
+	char m_pad00[0x1c];
+	Rva0023FED9Entry **m_begin;                                          // +0x1C
+	Rva0023FED9Entry **m_end;                                            // +0x20
+};
+
+class Rva003F468D
+{
+public:
+	char m_pad00[0x24];
+	Rva0023FED9List *m_entries;                                          // +0x24
+};
+
+class Rva0020E6B7RegionManager
+{
+public:
+	Rva003F468D *rva0020E6B7(void);
+};
+
+class Rva002E2903Player
+{
+public:
+	char m_pad00[0x14];
+	int m_id;                                                            // +0x14
+};
+
+class Rva002BA8F1Logic
+{
+public:
+	Rva002E2903Player *find(const AsciiString &name, unsigned int *outIndex);
+	Rva0020E6B7RegionManager *getRegionManager(void) const { return m_regionManager; }
+
+private:
+	char m_pad00[0xb0];
+	Rva0020E6B7RegionManager *m_regionManager;                           // +0xB0
+};
+
+extern Rva002BA8F1Logic *TheLivingWorldLogic;
+extern const StaticNameKey TheKey_playerName;
+extern const StaticNameKey TheKey_livingWorldPlayerID;
+
+void GameLogic::SetUpCampaignPlayers(void)
+{
+	if (TheLinearCampaignManager->hasCampaign())
+		return;
+	if (TheLivingWorldLogic == 0)
+		return;
+	Rva0020E6B7RegionManager *regions = TheLivingWorldLogic->getRegionManager();
+	if (regions == 0)
+		return;
+	Rva003F468D *battle = regions->rva0020E6B7();
+	if (battle == 0)
+		return;
+	Rva0023FED9List *entries = battle->m_entries;
+	if (entries->m_begin == entries->m_end)
+		return;
+	if (TheSidesList == 0)
+		return;
+	for (int i = 0; i < TheSidesList->getNumSides(); ++i) {
+		SidesInfo *info = TheSidesList->getSideInfo(i);
+		if (info) {
+			Dict *dict = info->getDict();
+			if (dict) {
+				AsciiString name = dict->getAsciiString(staticKey(TheKey_playerName));
+				Rva0023FED9Entry **it = entries->m_begin;
+				Rva0023FED9Entry **end = entries->m_end;
+				for (; it != end; ++it) {
+					if ((*it)->m_sideName == name) {
+						Rva002E2903Player *player = TheLivingWorldLogic->find((*it)->m_playerName, 0);
+						if (player)
+							dict->setInt(((Rva00148F5ECache *)&TheKey_livingWorldPlayerID)->get(), player->m_id);
+						break;
+					}
+				}
+			}
+		}
+	}
 }
