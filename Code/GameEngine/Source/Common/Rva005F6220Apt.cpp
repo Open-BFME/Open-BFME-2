@@ -39,6 +39,7 @@ public:
 	void SetLeaderQuantityString(const UnicodeString &text);
 	void SetLeaderRankString(const UnicodeString &text);
 	void rva005F63EC(int rank);
+	void ShowLeaderRankProgress(float value);
 private:
 	char m_pad00[4];
 	unsigned int m_level04;
@@ -75,6 +76,7 @@ class Rva005F64C0
 {
 public:
 	void rva005F64C0(int rank);
+	void rva005F64C8(float progress);
 private:
 	char m_pad00[8];
 	StrategicHUD::HeroArmyDetailsMovieClip::Impl *m_ptr08;
@@ -83,4 +85,9 @@ private:
 void Rva005F64C0::rva005F64C0(int rank)
 {
 	return m_ptr08->rva005F63EC(rank);
+}
+
+void Rva005F64C0::rva005F64C8(float progress)
+{
+	m_ptr08->ShowLeaderRankProgress(progress);
 }

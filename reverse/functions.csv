@@ -66767,3 +66767,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva005FC9F0@Rva005FC9F0@@QAEXH@Z,,0x005FC9F0,8,Code/GameEngine/Source/Common/Rva005FC9F0.cpp,matched,int forwarded to matched ArmyMemberIconMovieClip Impl through inferred offset 18
 ??4Rva003877A7@@QAEAAV0@ABV0@@Z,,0x003877A7,414,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva003877A7OpAssign.cpp,matched,stats-block operator= via pinned callers 0x003874F9 0x00387945
 ?rva00272709@Drawable@@QAEHXZ,,0x00272709,34,Code/GameEngine/Source/GameClient/Drawable_rva00272709.cpp,matched,Drawable module scan at vtable offset CC
+?rva005F64C8@Rva005F64C0@@QAEXM@Z,,0x005F64C8,19,Code/GameEngine/Source/Common/Rva005F6220Apt.cpp,matched,Wrapper at neighboring 0x005F64C0 forwards float through its +8 impl pointer to rowed ShowLeaderRankProgress
