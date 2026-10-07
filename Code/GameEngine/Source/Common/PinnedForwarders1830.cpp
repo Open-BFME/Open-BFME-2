@@ -609,3 +609,54 @@ void Rva002B3B66::rva002B3B66()
             range.begin[j]->rva00319E7C();
     }
 }
+
+// Native [0x002B3D0E,0x002B3D81), 115B, no stack arguments. Independently
+// read array links at receiver+8C/90 and group+1B8/1BC. Each element takes
+// the complete rowed 61B 319610 method, then receiver+B0 tail-forwards to
+// native 775B 20FDDF (full Ghidra extent, RET0, result unconsumed). The
+// receiver/group names and the completion helper's purpose remain unknown.
+class Rva00319610
+{
+public:
+    void rva00319610();
+};
+class Rva0020FDDFHost
+{
+public:
+    void rva0020FDDF();
+};
+struct Rva002B3D0ERange
+{
+    Rva00319610 **begin, **end;
+    unsigned size() const { return static_cast<unsigned>(end - begin); }
+};
+struct Rva002B3D0EGroup
+{
+    unsigned char pad[0x1B8];
+    Rva002B3D0ERange items;
+};
+struct Rva002B3D0EGroups
+{
+    Rva002B3D0EGroup **begin, **end;
+    unsigned size() const { return static_cast<unsigned>(end - begin); }
+    Rva002B3D0EGroup *operator[](unsigned i) const { return begin[i]; }
+};
+class Rva002B3D0E
+{
+public:
+    void rva002B3D0E();
+private:
+    unsigned char pad[0x8C];
+    Rva002B3D0EGroups groups;
+    unsigned char pad94[0x1C];
+    Rva0020FDDFHost *m_b0;
+};
+void Rva002B3D0E::rva002B3D0E()
+{
+    for (unsigned i = 0; i < groups.size(); ++i) {
+        Rva002B3D0ERange &range = groups[i]->items;
+        for (unsigned j = 0; j < range.size(); ++j)
+            range.begin[j]->rva00319610();
+    }
+    m_b0->rva0020FDDF();
+}
