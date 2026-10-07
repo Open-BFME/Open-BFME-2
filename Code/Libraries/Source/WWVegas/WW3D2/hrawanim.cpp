@@ -548,15 +548,13 @@ void HRawAnimClass::Get_Translation(Vector3& trans, int pividx, float frame ) co
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?Get_Transform@HRawAnimClass@@UBEXAAVMatrix3D@@HM@Z present-unmatched
 void HRawAnimClass::Get_Transform(Matrix3D& mtx, int pividx, float frame ) const
 {
+	// BFME: retail 0x0018DF20 (vtable 0x007D5D24 slot 9) never builds a matrix.
+	// Like HCompressedAnimClass::Get_Transform (0x0018F3F0) it stores the
+	// orientation quaternion at mtx+0 and the translation at mtx+0x10, and it
+	// blends with the normalized lerp at 0x00717550.
 	struct NodeMotionStruct * motion = &NodeMotion[pividx];
-
-//	if ( (motion->X == NULL) && (motion->Y == NULL) && (motion->Z == NULL) ) {
-//		 trans.Set(0.0f,0.0f,0.0f);
-//		return;
-//	}
 
 	int frame0=WWMath::Float_To_Long(frame-0.499999f);
 
@@ -577,10 +575,10 @@ void HRawAnimClass::Get_Transform(Matrix3D& mtx, int pividx, float frame ) const
 	}
 
 	if ( ratio == 0.0f ) {
-		::Build_Matrix3D(q0,mtx);
-		if (motion->X != NULL) motion->X->Get_Vector((int)frame0,&(mtx[0][3]));
-		if (motion->Y != NULL) motion->Y->Get_Vector((int)frame0,&(mtx[1][3]));
-		if (motion->Z != NULL) motion->Z->Get_Vector((int)frame0,&(mtx[2][3]));
+		(Quaternion &)mtx = q0;
+		if (motion->X != NULL) motion->X->Get_Vector((int)frame0,(float *)&mtx + 4);
+		if (motion->Y != NULL) motion->Y->Get_Vector((int)frame0,(float *)&mtx + 5);
+		if (motion->Z != NULL) motion->Z->Get_Vector((int)frame0,(float *)&mtx + 6);
 		return;
 	}
 
@@ -590,9 +588,7 @@ void HRawAnimClass::Get_Transform(Matrix3D& mtx, int pividx, float frame ) const
 		q1.Set(vals[0],vals[1],vals[2],vals[3]);
 	}
 
-	Quaternion q;
-	Fast_Slerp(q, q0, q1, ratio );
-	::Build_Matrix3D(q,mtx);
+	BFME2_Nlerp((Quaternion &)mtx, q0, q1, ratio );
 
 	Vector3 trans0(0.0f,0.0f,0.0f);
 	if (motion->X != NULL) motion->X->Get_Vector((int)frame0,&(trans0[0]));
@@ -604,10 +600,7 @@ void HRawAnimClass::Get_Transform(Matrix3D& mtx, int pividx, float frame ) const
 	if (motion->Y != NULL) motion->Y->Get_Vector((int)frame1,&(trans1[1]));
 	if (motion->Z != NULL) motion->Z->Get_Vector((int)frame1,&(trans1[2]));
 
-	Vector3 trans;
-	Vector3::Lerp( trans0, trans1, ratio, &trans );
-
-	mtx.Set_Translation(trans);
+	Vector3::Lerp( trans0, trans1, ratio, (Vector3 *)((char *)&mtx + 16) );
 }
 
 /***********************************************************************************************
