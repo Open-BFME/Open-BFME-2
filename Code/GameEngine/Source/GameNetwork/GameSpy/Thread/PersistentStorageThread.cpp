@@ -160,6 +160,7 @@ private:
     unsigned short m_unmodelled14e;
 public:
     int m_id;
+    unsigned short getField144() const { return m_144; }
 };
 typedef char StatsMapStrideCheck[sizeof(Rva0038201D) == 12 ? 1 : -1];
 typedef char StatsCoreSizeCheck[sizeof(Rva00553E47StatsCore) == 0x154 ? 1 : -1];
@@ -260,6 +261,7 @@ class PSPlayerAllStats
 public:
     PSPlayerAllStats(Int id);
     void rva00552CB8();
+    void rva00552E9E(Int v);
     Rva003844D7 rva00389DF1() const;
     Rva0038454E rva00389E0F() const;
     Rva00385333 rva00556508() const;
@@ -973,4 +975,83 @@ char *rva0055686A(const PSPlayerAllStats *stats, int *len)
 	stats->rva00389E0F().rva005550A0(&xfer);
 	xfer.close();
 	return (char *)((BfmeThingEC *)stream)->bfmeTakeEC(len);
+}
+
+// The load-side Xfer: built from three null pointers by 0x0060C5FA, opened
+// on a stream by 0x0060C3C3, cleared by 0x0060C45E and torn down through the
+// base destructor 0x004053E7; 0x20 bytes on the frame.
+class Xfer : public XferStub
+{
+public:
+	virtual ~Xfer();
+};
+class Rva0060C5FA : public Xfer
+{
+public:
+	Rva0060C5FA(void *a1, void *a2, void *a3);
+private:
+	unsigned char m_pad04[0x20 - 4];
+};
+struct Rva0060C3C3Stream;
+class XferLoad
+{
+public:
+	bool Open(Rva0060C3C3Stream *stream, Int *version);
+};
+class Rva0060C45E
+{
+public:
+	void clear();
+};
+class File
+{
+public:
+	virtual ~File();
+	virtual bool open(const char *filename, Int access);
+	virtual void close();
+};
+File *createMemoryReadFile(char *data, Int size);
+
+// Native [556982,556B3C),442B with its catch funclet at 0x556B1E. Reads the
+// tournament, open-play and strategic blocks back from a persist-data buffer
+// into the player's stats, then copies the open-play +0x144 short into every
+// block; an empty buffer, a failed open or a throw resets the stats instead.
+void rva00556982(char *data, int len, PSPlayerAllStats *stats)
+{
+	File *file = createMemoryReadFile(data, len);
+	if (!file)
+	{
+		stats->rva00552CB8();
+		return;
+	}
+
+	Rva0060C5FA xfer(0, 0, 0);
+	Int version = 1;
+	try
+	{
+		if (((XferLoad *)&xfer)->Open((Rva0060C3C3Stream *)file, &version))
+		{
+			Rva00385333 tournament = stats->rva00556508();
+			Rva003844D7 openPlay = stats->rva00389DF1();
+			Rva0038454E strategic = stats->rva00389E0F();
+			tournament.rva00555DDC(&xfer);
+			openPlay.rva005550A0(&xfer);
+			strategic.rva005550A0(&xfer);
+			stats->setTournamentStats(tournament);
+			stats->setOpenPlayStats(openPlay);
+			stats->setStrategicStats(strategic);
+			stats->rva00552E9E(openPlay.getField144());
+		}
+		else
+			stats->rva00552CB8();
+	}
+	catch (...)
+	{
+		((Rva0060C45E *)&xfer)->clear();
+		file->close();
+		stats->rva00552CB8();
+		return;
+	}
+	((Rva0060C45E *)&xfer)->clear();
+	file->close();
 }
