@@ -14,6 +14,7 @@ class Rva0040A3F9
 public:
     int findIndex(CreateAHeroData *value) const;
     bool rva0040A441(CreateAHeroData *value);
+    CreateAHeroData *rva0040A32F(int index);
 private:
     CreateAHeroData **m_begin;
     CreateAHeroData **m_end;
@@ -24,6 +25,19 @@ int Rva0040A3F9::findIndex(CreateAHeroData *value) const
     if (value == 0)
         return m_end - m_begin;
     return _STL::find(m_begin, m_end, value) - m_begin;
+}
+
+// ?rva0040A32F@Rva0040A3F9@@QAEPAVCreateAHeroData@@H@Z @0x0040A32F 28B
+// Evidence: leaf lane; +0/+4 CreateAHeroData* vector bounds-checked index;
+// null when index out of range else the slot; callers include 6 matched rows.
+CreateAHeroData *Rva0040A3F9::rva0040A32F(int index)
+{
+	CreateAHeroData *result;
+	if ((unsigned)index >= (unsigned)(m_end - m_begin))
+		result = 0;
+	else
+		result = m_begin[index];
+	return result;
 }
 
 // ?rva0040A441@Rva0040A3F9@@QAE_NPAVCreateAHeroData@@@Z @0x0040A441 46B
