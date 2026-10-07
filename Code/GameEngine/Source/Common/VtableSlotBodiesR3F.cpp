@@ -413,3 +413,16 @@ float Rva00101CA0::rva00101CA0()
 {
 	return (float)m_value18;
 }
+
+// Native 858EE..85947: two three-float values and return storage (RET 28).
+// Component accesses and the 0.0625 literal at VA BC747C establish the lerp;
+// the original method name and owner are unknown.
+Rva00SlotFloat3Copy __stdcall Rva000858EE(Rva00SlotFloat3Copy a,
+                                        Rva00SlotFloat3Copy b)
+{
+	Rva00SlotFloat3Copy result;
+	result.x = a.x + (b.x - a.x) * 0.0625f;
+	result.y = a.y + (b.y - a.y) * 0.0625f;
+	result.z = a.z + (b.z - a.z) * 0.0625f;
+	return result;
+}
