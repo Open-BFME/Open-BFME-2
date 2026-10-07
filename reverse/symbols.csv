@@ -15355,3 +15355,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva005CD8F7@Rva005CD8F7Call@@QAEHPAX@Z,0x005CD8F7,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
 ?rva005CD690@Rva005CD690Call@@QAEHPAX@Z,0x005CD690,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
 ??0Rva0057525FCall@@QAE@PAVRva00574A8A@@II@Z,0x0057525F,callee of ??0Rva00574A8A@@QAE@II@Z
+?rva002235F3@Rva002235F3@@QAEPAXPBX@Z,0x002235F3,REL32 destination observed at 0x002239B2 and 0x002239E2; thiscall with one pointer argument and writable pointer result inferred from both callers; body is not claimed
