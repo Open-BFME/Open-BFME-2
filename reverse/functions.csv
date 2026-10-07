@@ -68224,3 +68224,4 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?fwd@Rva005E6817Mid@@QAEXXZ,,0x005E6817,7,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,
 ?fwd@Rva005E682EMid@@QAEXXZ,,0x005E682E,8,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp,matched,
 ?rva005F8408@Rva005F8427@@QBEHXZ,,0x005F8408,15,Code/GameEngine/Source/Common/Rva005F83B9Notify.cpp,matched,
+?rva00330C05@Rva00330C05@@QBEHXZ,,0x00330C05,10,Code/GameEngine/Source/Common/VtableSlotBodiesR4.cpp,matched,

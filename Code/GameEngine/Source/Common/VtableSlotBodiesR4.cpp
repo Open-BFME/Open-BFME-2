@@ -92,3 +92,16 @@ void Rva00330ABE::rva00330BEB(const Rva00330B50 &other)
 	((Rva00330B50 *)m_container08)->rva00330B50(other);
 	changed();
 }
+
+class Rva00330C05
+{
+public:
+	int rva00330C05() const;
+};
+
+int Rva00330C05::rva00330C05() const
+{
+	BfmeE8 *const *start = (BfmeE8 *const *)((const char *)this - 0x34);
+	BfmeE8 *const *finish = (BfmeE8 *const *)((const char *)this - 0x30);
+	return *finish - *start;
+}
