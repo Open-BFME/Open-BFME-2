@@ -23,6 +23,7 @@ typedef char HeaderTemplateSizeCheck[(sizeof(HeaderTemplate) == 20) ? 1 : -1];
 class HeaderTemplateManager
 {
 public:
+	~HeaderTemplateManager();
 	HeaderTemplate *findHeaderTemplate(AsciiString name);
 	HeaderTemplate *newHeaderTemplate(AsciiString name);
 	GameFont *getFontFromTemplate(AsciiString name);

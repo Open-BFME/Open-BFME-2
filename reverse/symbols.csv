@@ -16096,3 +16096,7 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?queueSupplyTruck@AIPlayer@@IAEXXZ,0x004F37B0,callee of ?queueUnits@AIPlayer@@IAEXXZ
 ?push_back@?$list@UDrawableTOCEntry@GameClient@@V?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@_STL@@QAEXABUDrawableTOCEntry@GameClient@@@Z,0x0023A014,callee of ?addTOCEntry@GameClient@@QAEXVAsciiString@@G@Z
 ?clear@?$_List_base@UDrawableTOCEntry@GameClient@@V?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@_STL@@QAEXXZ,0x00239D49,callee of ?xferDrawableTOC@GameClient@@QAEXPAVXfer@@@Z
+?rva0023ABDD@GameClient@@QAEXXZ,0x0023ABDD,callee of ??1GameClient@@UAE@XZ
+??1HeaderTemplateManager@@QAE@XZ,0x00201B64,callee of ??1GameClient@@UAE@XZ
+??1?$_List_base@UDrawableTOCEntry@GameClient@@V?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@_STL@@QAE@XZ,0x002FECBC,callee of ??1GameClient@@UAE@XZ
+??1Rva00239CC9DrawableHash@@QAE@XZ,0x00239CC9,callee of ??1GameClient@@UAE@XZ
