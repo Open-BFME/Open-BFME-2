@@ -3053,7 +3053,7 @@ _XMP_Is_Prime,,0x0061DA50,75,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matc
 ??0PlaneClass@@QAE@XZ,,0x000F0E6C,33,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked byte-scan; single hit
 ??0ViewportClass@@QAE@XZ,,0x00133820,33,Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,matched,placed by masked byte-scan; single hit
 ??8@YA_NABUTempIndexStruct@@0@Z,,0x0012D370,32,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp,matched,placed by masked byte-scan; single hit
-?Make_Identity@Quaternion@@QAEXXZ,,0x0015F5C0,31,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,placed by masked byte-scan; single hit
+?Make_Identity@Quaternion@@QAEXXZ,,0x0015F5C0,31,Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimTransform.cpp,matched,placed by masked byte-scan; single hit; rehomed from hcanim.cpp whose BFME2 Get_Orientation no longer emits it
 ?Set_LOD_Max_Screen_Size@ParticleBufferClass@@SAXHM@Z,,0x001A78B0,29,Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp,matched,placed by masked byte-scan; single hit
 ?Get_Obj_Space_Bounding_Sphere@ParticleEmitterClass@@UBEXAAVSphereClass@@@Z,,0x001A1400,29,Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp,matched,placed by masked byte-scan; single hit
 ??M@YA_NABUTempIndexStruct@@0@Z,,0x0012D2F0,28,Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp,matched,placed by masked byte-scan; single hit
@@ -68050,3 +68050,4 @@ uw_007992a3,,0x007992A3,14,Code/Libraries/Source/WWVegas/WWLib/StlportOwnedRecor
 ?End_Scene@DX8Wrapper@@SAX_N@Z,,0x00122BE0,521,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,BFME2 End_Scene: stat counters + D3D9 EndScene/Present + browser hook + nested ref-assign Set_Texture inline
 ?Apply_Default_State@DX8Wrapper@@SAXXZ,,0x00123170,4600,Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp,matched,BFME2 Apply_Default_State: BFME1 donor 0x009095A0 macro-expanded snapshot setters on the D3D9 device; holder Set_Texture; no stencil/SWVP states
 ?Get_Translation@HCompressedAnimClass@@UBEXAAVVector3@@HM@Z,,0x00190610,1605,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,BFME2 shape: VectorMotion channel slot 3 path then inlined TC Get_Vector and AD getframe<1> t-first lerp
+?Get_Orientation@HCompressedAnimClass@@UBE_NAAVQuaternion@@HM@Z,,0x00190C60,677,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matched,BFME2 shape: VectorMotion channel slot 5 then inlined TC Get_QuatVector or AD getframe<4> t-first BFME2_Nlerp; false when the pivot has no rotation channel

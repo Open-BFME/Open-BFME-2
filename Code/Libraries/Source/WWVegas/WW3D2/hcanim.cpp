@@ -245,7 +245,7 @@ WWINLINE void	TimeCodedMotionChannelClass::Get_Vector(float32 frame, float * set
  * BFME2 (retail 0x0018EEF0): writes through the caller's quaternion and blends with the      *
  * normalized lerp at 0x00717550 instead of returning a Fast_Slerp result.                    *
  *=============================================================================================*/
-void TimeCodedMotionChannelClass::Get_QuatVector(float32 frame, Quaternion & q, uint32 & cachedIdx)
+WWINLINE void TimeCodedMotionChannelClass::Get_QuatVector(float32 frame, Quaternion & q, uint32 & cachedIdx)
 {
 	float32 * packets = (float32 *) Data;
 	uint32 tc0 = frame;
@@ -1114,24 +1114,39 @@ void HCompressedAnimClass::Get_Translation( Vector3& trans, int pividx, float fr
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ?HCompressedAnimClass::Get_Orientation present-unmatched
 bool HCompressedAnimClass::Get_Orientation(Quaternion& q, int pividx,float frame) const
 {		
+	if (VectorMotion) {
+		BFME2MotionChannel * chan = VectorMotion[pividx].Channels[3];
+		if (chan) {
+			chan->UnknownSlot5(frame, &q, NULL);
+			return true;
+		}
+		return false;
+	}
+
 	switch(Flavor) {
 		case ANIM_FLAVOR_TIMECODED:
-			if (NodeMotion[pividx].tc.Q) q = NodeMotion[pividx].tc.Q->Get_QuatVector(frame);
-			else q.Make_Identity();
+			if (NodeMotion[pividx].tc.Q) {
+				uint32 cache = 0x0FFFFFFF;
+				NodeMotion[pividx].tc.Q->Get_QuatVector(frame, q, cache);
+			} else {
+				return false;
+			}
 			break;
 		case ANIM_FLAVOR_ADAPTIVE_DELTA:
-			if (NodeMotion[pividx].ad.Q) q = NodeMotion[pividx].ad.Q->Get_QuatVector(frame);
-			else q.Make_Identity();
-			break;
-		default:
-			WWASSERT(0); // unknown flavor
+			if (NodeMotion[pividx].ad.Q) {
+				AdaptiveDeltaCacheStruct<4> cache;
+				cache.Frame = 0x0FFFFFFF;
+				int frame1 = frame;
+				NodeMotion[pividx].ad.Q->getframe(frame1, cache);
+				float t = frame - frame1;
+				BFME2_Nlerp(q, *(Quaternion *)&cache.Value[0], *(Quaternion *)&cache.Value[4], t);
+			} else {
+				return false;
+			}
 			break;
 	}
-	// BFME reports whether the pivot actually has rotation; these bodies are not
-	// matched yet, so true is a placeholder that preserves Zero Hour behaviour.
 	return true;
 } // Get_Orientation
 
