@@ -18361,3 +18361,5 @@ _Rva007FE310	0x0066A7E0	491	blocked	false-reject tail check (evidence clarificat
 ?d_0032a587@@YAXXZ	0x0032A587	117	abandoned	MSVC CSE / register allocation mismatch with STLport vector
 ??E?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@_STL@@QAEAAU01@XZ	0x00388CF0	12	converted	STLport bit-iterator operator++ placed from pod-noexc TU
 ?rva003591F4@Rva00E01E28Owner@@QAEXURva003591F4Arg@@@Z	0x003591F4	36	converted	tree iterator erase dispatch based on flag
+?set_identity@MotionChannelClass@@ABEXPAM@Z	0x0015FFD0	64	converted	inlined motion channel set_identity on unpooled layout
+?Get_Vector@MotionChannelClass@@QBEXHPAM@Z	0x00160010	130	converted	inlined motion channel vector read on unpooled layout
