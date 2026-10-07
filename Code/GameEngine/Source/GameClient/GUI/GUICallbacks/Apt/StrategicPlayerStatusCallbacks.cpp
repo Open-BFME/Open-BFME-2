@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // BFME2's strategic (War of the Ring) player status screen Apt callbacks,
 // "StrategicPlayerStatus::OnCloseWindow" (0x00523481) and two Apt queries,
@@ -8,6 +8,257 @@
 
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *format, ...);
+
+#include "ascii_string.h"
+
+class GameLogic
+{
+public:
+	unsigned char m_pad[0x6d];
+	unsigned char m_6d;
+};
+extern GameLogic *TheGameLogic;
+class Rva0023C902 { public: int rva0023C902(); };
+class ScriptEngine
+{
+public:
+	unsigned char m_pad[0x1a104];
+	int m_1A104;
+};
+extern ScriptEngine *TheScriptEngine;
+class GameWindowTransitionsHandler { public: bool isFinished(); };
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+class Display
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void slot38();
+	virtual void slot39();
+	virtual void slot40();
+	virtual void slot41();
+	virtual void slot42();
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual void slot52();
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
+	virtual void slot57();
+	virtual void slot58();
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67();
+	virtual void slot68();
+	virtual void slot69();
+	virtual void slot70();
+	virtual void slot71();
+	virtual void slot72();
+	virtual void slot73();
+	virtual void slot74();
+	virtual void slot75();
+	virtual void slot76();
+	virtual void slot77();
+	virtual void slot78();
+	virtual void slot79();
+	virtual void slot80();
+	virtual void slot81();
+	virtual void slot82();
+	virtual void slot83();
+	virtual void slot84();
+	virtual void slot85();
+	virtual void slot86();
+	virtual bool vslot87();
+	virtual bool vslot88();
+};
+extern Display *TheDisplay;
+class Mouse
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void vslot19(int);
+};
+extern Mouse *TheMouse;
+class InGameUI
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void slot38();
+	virtual void slot39();
+	virtual void slot40();
+	virtual void slot41();
+	virtual void slot42();
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual void slot52();
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
+	virtual void slot57();
+	virtual void slot58();
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67();
+	virtual void slot68();
+	virtual void slot69();
+	virtual void slot70();
+	virtual void slot71();
+	virtual void slot72();
+	virtual void slot73();
+	virtual void slot74();
+	virtual void slot75();
+	virtual void slot76();
+	virtual void slot77();
+	virtual void slot78();
+	virtual void slot79();
+	virtual void slot80();
+	virtual void slot81();
+	virtual void slot82();
+	virtual void slot83();
+	virtual void slot84();
+	virtual void slot85();
+	virtual void slot86();
+	virtual void slot87();
+	virtual void slot88();
+	virtual void slot89();
+	virtual void slot90();
+	virtual void slot91();
+	virtual void slot92();
+	virtual void slot93();
+	virtual void vslot94(int);
+	virtual bool vslot95();
+};
+extern InGameUI *TheInGameUI;
+class Shell
+{
+public:
+	void rva0035C7CF(bool);
+	void push(AsciiString filename, bool shutdownImmediate);
+};
+extern Shell *TheShell;
+struct GlobalA04934;
+extern GlobalA04934 *g_Va00A04934;
+extern int g_Va00E048D0;
+void Rva004E855CClose();
 
 // Rva0052340DEnable.cpp's 0x0052340D.
 void Rva0052340DEnable();
@@ -26,6 +277,7 @@ class StrategicPlayerStatus
 {
 public:
 	void OnCloseWindow(const char *unused);
+	void rva005234AD();
 	// Bound as "StrategicPlayerStatus::PlayerIndex" (query 0),
 	// "...::NumAlliedPlayers" (1) and "...::NumEnemyPlayers" (2), so it
 	// keeps its address.
@@ -78,6 +330,36 @@ void StrategicPlayerStatus::rva0052373A(int query, char *result, bool skip)
 void StrategicPlayerStatus::OnCloseWindow(const char *unused)
 {
 	Rva0052340DEnable();
+}
+
+// ?rva005234AD @0x005234AD 229B: guarded StrategicPlayerStatus screen push.
+void StrategicPlayerStatus::rva005234AD()
+{
+	if (g_Va00A04934)
+		return;
+	if (TheInGameUI->vslot95())
+		return;
+	if ((unsigned char)((Rva0023C902 *)TheGameLogic)->rva0023C902())
+		return;
+	if (TheGameLogic->m_6d)
+		return;
+	if (TheScriptEngine->m_1A104 >= 0)
+		return;
+	if (!TheTransitionHandler->isFinished())
+		return;
+	if (TheDisplay) {
+		if (TheDisplay->vslot88())
+			return;
+		if (TheDisplay->vslot87())
+			return;
+	}
+	if (g_Va00E048D0)
+		return;
+	Rva004E855CClose();
+	TheMouse->vslot19(2);
+	TheShell->rva0035C7CF(false);
+	TheShell->push("StrategicPlayerStatus.apt", false);
+	TheInGameUI->vslot94(1);
 }
 
 #pragma optimize("y", off)
