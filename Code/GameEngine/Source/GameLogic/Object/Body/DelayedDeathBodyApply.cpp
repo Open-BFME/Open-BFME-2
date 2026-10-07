@@ -7,7 +7,9 @@
 // damage flag and zeroes the amount according to module flag70.
 class UpgradeTemplate; class Module; struct DamageInfo { unsigned char before24[0x24]; unsigned char flag24; };
 enum NameKeyType;
-class Player { public: bool hasUpgradeComplete(const UpgradeTemplate*); };
+// Native Player predicate 0x2AB87D is the rowed const UpgradeTemplate bit test.
+// NameKeyGenerator 0x148E1A returns the same 32-bit NameKeyType enum.
+class Player { public: bool rva002AB87D(const UpgradeTemplate*) const; };
 class Object { public:
  Player *getControllingPlayer() const;
  bool rva00290D2B(const UpgradeTemplate*) const;
@@ -17,7 +19,7 @@ protected:
  Module *findModule(NameKeyType) const;
  friend class DelayedDeathBody;
 };
-class NameKeyGenerator { public: unsigned int nameToKey(const char*); };
+class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
 extern NameKeyGenerator *TheNameKeyGenerator;
 class LifetimeUpdate { public: void setLifetimeRange(unsigned int,unsigned int); };
 class FXList { public: static void doFXObj(const FXList*,const Object*,const Object*); };
@@ -50,7 +52,7 @@ void DelayedDeathBody::internalChangeHealth(float amount,DamageInfo *info)
    if(!(health()+amount<=0.0f)) goto finish;
   }
   if(module->upgrade7C) {
-   bool playerComplete=player && player->hasUpgradeComplete(module->upgrade7C);
+   bool playerComplete=player && player->rva002AB87D(module->upgrade7C);
    bool objectComplete=obj->rva00290D2B(module->upgrade7C);
    if(!playerComplete && !objectComplete) goto finish;
   }
