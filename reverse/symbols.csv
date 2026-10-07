@@ -15364,3 +15364,5 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva0005230D@Rva0005230D@@QAEXMMMMM@Z,0x0005230D,callee of ?rva000537F4@MilesAudioManager@@QAEXMMMMMH@Z
 
 ?rva004D41B3@DisconnectManager@@QAEXHPAVConnectionManager@@@Z,0x004D41B3,callee of ?rva004D4637@DisconnectManager@@QAEXPAVNetCommandMsg@@PAVConnectionManager@@@Z
+?rva004D3F74@DisconnectManager@@QAEXPAVNetCommandMsg@@PAVConnectionManager@@@Z,0x004D3F74,callee of ?rva004D46AF@DisconnectManager@@QAEXPAXPAVConnectionManager@@@Z
+?rva004D3FCB@DisconnectManager@@QAEXPAVNetCommandMsg@@PAVConnectionManager@@@Z,0x004D3FCB,callee of ?rva004D46AF@DisconnectManager@@QAEXPAXPAVConnectionManager@@@Z
