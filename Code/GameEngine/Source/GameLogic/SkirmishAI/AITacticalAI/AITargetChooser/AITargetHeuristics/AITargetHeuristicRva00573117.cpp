@@ -239,3 +239,17 @@ void Rva00573117::rva0057327E(AITarget *choice, Player *player, int unused)
 	if (bestDist > 0.0f)
 		choice->rva002C5CF7(&best, g_00DFEEF8->getData()->m_874, 0);
 }
+
+// ?rva0057322B@@YAPAVWaypoint@@VAsciiString@@@Z retail 0x0057322B 83B
+// Retail loads TheTerrainLogic and walks from getFirstWaypoint (vslot +0x84),
+// compares each waypoint's +0x08 AsciiString through rowed compare 0x000069D6,
+// and follows +0x1C until a match or null. The by-value string is released by
+// rowed 0x00036410. The same lookup shape is inline in the matched slot-1 body
+// above; this body's standalone owner and exact semantic name remain unknown.
+Waypoint *rva0057322B(AsciiString name)
+{
+	for (Waypoint *way = TheTerrainLogic->getFirstWaypoint(); way; way = way->getNext())
+		if (way->getName() == name)
+			return way;
+	return 0;
+}
