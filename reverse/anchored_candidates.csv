@@ -3,10 +3,10 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x003B5EA5,1818,Scripts.h,0,high,FUN_007b5ea5,BUILD_BASE_BUILDING_PER_TACTICAL_MARKER
 0x0007846F,712,FileSystem.h,0,high,FUN_0047846f,Art/CompiledTextures/
 0x003C4C07,341,Scripts.cpp,0,high,FUN_007c4c07,Player Targetable
-0x0044A9E6,158,NetworkUtil.cpp,0,high,FUN_0084a9e6,127.0.0.1
 0x002DD6D2,147,GameState.cpp,0,high,Catch@006dd6d2,GUI:ErrorSavingGame
 0x0022D53F,67,GameEngine.cpp,0,high,FUN_0062d53f,Uncaught Exception in GameEngine::update
 0x000AD112,1494,WHeightMapEdit.cpp,1,medium,FUN_004ad112,GlobalLighting
+0x0047414D,739,ControlBarScheme.cpp,1,medium,FUN_0087414d,"Invalid leader index '%s' specified, only 0..%i allowed"
 0x0039A7E2,556,GameLogic.cpp,2,medium,FUN_0079a7e2,CAMP: Frame %d: Castle %s(%d) Packed(aka:DIE) called by %s
 0x00376D49,329,GameLogicDispatch.cpp,2,medium,FUN_00776d49,OptionsMenu.wnd:OptionsMenuParent
 0x003B5994,307,Scripts.cpp,1,medium,FUN_007b5994,ScriptActionFalse

@@ -1,4 +1,6 @@
 // ?rva003F0E8A@Rva003F0E8A@@QAE_NHPAUPair8@@@Z
+// partial score=0.985 date=2026-10-07
+// ?rva003F0E8A@Rva003F0E8A@@QAE_NHPAUPair8@@@Z
 // partial score=0.9 date=2026-10-07
 // cl: /O1 /EHsc /MD /arch:SSE
 // LivingWorldRegion.cpp -- LivingWorldRegion queries recovered from
@@ -129,6 +131,7 @@ Bool LivingWorldRegion::CanSpawnUnitWithinCPLimit(Rva00319CED *unit) const
 // uncertain, so retain an address-derived class and method name.
 struct Pair8
 {
+	Pair8 &operator+=(const Pair8 &other) { x += other.x; y += other.y; return *this; }
 	float x;
 	float y;
 };
@@ -151,21 +154,31 @@ struct Rva003F0E8ALogicView
 	LivingWorldRegionManager *regions;
 };
 
+class Pair8Vector
+{
+public:
+	unsigned int size() const { return end - begin; }
+	Pair8 &operator[](unsigned int i) { return begin[i]; }
+private:
+	Pair8 *begin;
+	Pair8 *end;
+	Pair8 *endOfStorage;
+};
+
 class Rva003F0E8A
 {
 public:
 	bool rva003F0E8A(int index, Pair8 *out);
 private:
 	unsigned char pad00[0x74];
-	Pair8 *begin;
-	Pair8 *end;
+	Pair8Vector positions;
 };
 
 bool Rva003F0E8A::rva003F0E8A(int index, Pair8 *out)
 {
-	if (index >= 0 && (unsigned)index < (unsigned)(((char *)end - (char *)begin) >> 3))
+	if (index >= 0 && (unsigned)index < positions.size())
 	{
-		*out = begin[index];
+		*out = positions[index];
 		return true;
 	}
 	LivingWorldRegionManager *regions = ((Rva003F0E8ALogicView *)g_00DFEF10)->regions;
@@ -173,8 +186,7 @@ bool Rva003F0E8A::rva003F0E8A(int index, Pair8 *out)
 	{
 		Pair8 offset;
 		((Rva002B2702B0 *)regions)->rva0020EA58(this, &offset.x);
-		out->x += offset.x;
-		out->y = offset.y + out->y;
+		*out += offset;
 		return true;
 	}
 	return false;
