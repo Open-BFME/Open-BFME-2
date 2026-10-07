@@ -62,3 +62,27 @@ Coord3D *__cdecl Rva00601797Copy(const Coord3D *first, const Coord3D *last, Coor
     }
     return result;
 }
+
+// Native 0x0020E47C..0x0020E493: eight-byte floating-pair return from +0x80.
+// Its caller 0x0020EA58 supplies a hidden result slot and copies both words
+// to a float-pair output when the receiver's +0x89 flag is set. The explicit
+// memberwise copy constructor reproduces retail's x87 first-component copy
+// and integer second-component copy. Application identity remains unknown;
+// this is a partial address-derived receiver view, not a complete class.
+struct Rva0020E47CVal
+{
+    float x, y;
+    Rva0020E47CVal(const Rva0020E47CVal &other) : x(other.x), y(other.y) {}
+};
+class Rva0020E47C
+{
+public:
+    Rva0020E47CVal rva0020E47C();
+private:
+    char prefix[0x80];
+    Rva0020E47CVal value;
+};
+Rva0020E47CVal Rva0020E47C::rva0020E47C()
+{
+    return value;
+}
