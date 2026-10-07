@@ -67852,3 +67852,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004FA10F@Rva004FA10FOwner@@QAEXXZ,,0x004FA10F,89,Code/GameEngine/Source/Common/Rva004FA10FInit.cpp,matched,
 ?rva00513888@Rva00513888Owner@@QAEXHHH@Z,,0x00513888,48,Code/GameEngine/Source/Common/Rva00513888Twins.cpp,matched,
 ?rva005138B8@Rva00513888Owner@@QAEXHHH@Z,,0x005138B8,48,Code/GameEngine/Source/Common/Rva00513888Twins.cpp,matched,
+?rva004FDA42@Rva004FDA42Owner@@QAEXXZ,,0x004FDA42,32,Code/GameEngine/Source/Common/Rva004FDA42Clear.cpp,matched,
