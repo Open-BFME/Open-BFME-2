@@ -1,5 +1,5 @@
-// ?_M_insert_overflow@?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEXPAPAVObject@@ABQAV3@ABU__true_type@2@I_N@Z
-// partial score=0.93 date=2026-10-07
+// ?push_back@?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXABQAVObject@@@Z
+// partial score=0.931 date=2026-10-07
 // cl: /O1 /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
@@ -57,25 +57,3 @@ class Object;
 template <> void _STL::vector<Object *>::_M_insert_overflow(Object **, Object * const &, const _STL::__true_type &, unsigned, bool);
 template void _STL::vector<Object *>::push_back(Object * const &);
 
-
-namespace _STL {
-template <> void vector<Object *>::_M_clear();
-template <> void vector<Object *>::_M_insert_overflow(Object **pos, Object * const &val, const __true_type &, unsigned n, bool at_end) {
- const unsigned old_size=this->_M_finish-this->_M_start;
- unsigned tmp=old_size;
- const unsigned *pmax=&n;
- if(old_size>=n)pmax=&tmp;
- const unsigned new_len=old_size+*pmax;
- Object **new_start;
- if(new_len) new_start=(Object **)allocator<char>::allocate(new_len*sizeof(Object *),0);
- else new_start=0;
- Object **new_finish=(Object **)__copy_trivial(this->_M_start,pos,new_start);
- unsigned c=n;
- if(c)do { *new_finish++=val; }while(--c);
- if(!at_end)new_finish=(Object **)__copy_trivial(pos,this->_M_finish,new_finish);
- _M_clear();
- this->_M_finish=new_finish;
- this->_M_start=new_start;
- this->_M_end_of_storage._M_data=new_start+new_len;
-}
-}
