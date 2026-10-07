@@ -16046,3 +16046,4 @@ FUN_0045e0a4	0x0005E0A4	152	blocked	Target function is a guarded OpaqueRefElemen
 ?DoRefresh@Rva005A5B38Box@@QAEXHPAX@Z	0x005A51B9	325	blocked	EH __EH_prolog large frame unwindables same wall as 0x004D00BB 0x004FAC99 plus GameSpy virtuals t=8 model=muse-05
 ?rva000C3D00@Rva000C3D00@@QAEHH@Z	0x000C3D00	218	blocked	EH __EH_prolog same wall as 0x004D00BB 0x004FAC99 0x005A51B9 fourth instance shared delta t=3 model=muse-05
 ?action@MonsterDockUpdate@@UAE_NPAVObject@@0@Z	0x004A1659	360	blocked	needs Coord3D Matrix3D pin decls plus FPU shape deferring for smaller ref t=10 model=muse-05
+?rva005B4CC6@Rva005B4BDB@@QAEXXZ	0x005B4CC6	90	blocked	outer triple-type at +0x27c needs three classes plus +0x414 vs existing Rva005B4BDBOuter too small; clean triple without casts unproven t=10 model=muse-spark

@@ -66987,3 +66987,4 @@ _getinfo,,0x00747E00,679,Code/Libraries/Source/Lua/ldblib.c,matched,Lua 4.0.1 st
 ?doRepairLogic@SlavedUpdate@@QAEXXZ,,0x004A24D3,395,Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp,matched,ZH doRepairLogic line 636; update call site 0x004A28DC
 ?stopSlavedEffects@SlavedUpdate@@QAEXXZ,,0x004A1B17,61,Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdateRepair.cpp,matched,
 ?rva000524D6@@YAXXZ,,0x000524D6,12,Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp,matched,pin plus caller 0x0005CB14 plus LINK BONUS plus abut
+?rva001EB8D7@Rva001EB8D7@@QAEHABV?$StringBase@D@@@Z,,0x001EB8D7,53,Code/Libraries/Source/WWVegas/WWLib/Rva001EB8D7Find.cpp,matched,linkbody; callee compareNoCase 0x00006A00; 0x24 stride with idiv; unblocks 0x001EB90C
