@@ -16117,3 +16117,8 @@ FUN_0083a351	0x0043A351	69	no-boundary	Ghidra boundary falls in the 32-bit immed
 ?rva005CCC74@Rva005CCC74@@QAEXPAURva005CCC74Arg@@PAX@Z	0x005CCC74	27	partial	missing mov eax ecx save of this 2B t=20 model=muse-18 score=0.93 stash=reverse/attempts/0x005ccc74.cpp
 ?rva0057723C@Rva0057723C@@QAEHH@Z	0x0057723C	131	blocked	VTABLE slot 18 class unknown plus pin-only callee 0x005CBB4A plus no callers plus stack slot reuse for two classes t=5 model=muse-18
 ?rva001EBB73@Rva001EBB73@@QAEXPAVXfer@@@Z	0x001EBB73	339	blocked	complex xfer 339B EH many virtuals needs full Xfer and host class model t=15 model=muse-spark
+?rva002DF1F1@Rva002DF1F1@@QAEXHHH@Z	0x002DF1F1	233	blocked	complex EH STL FileSystem walker with reused arg slot and ecx TheFileSystem before stdcall 0x6007DA needs donor layout t=10 model=muse-spark-1.3-contributor-free
+?Rva0041B603Get@@YAXXZ	0x0041B603	397	blocked	ADDRESS-NAMED g_Va00E030E0 new use refused plus g_00C3AE54 g_00E030E4 g_00C3AE50 g_00C3AE44 t=2 model=muse-spark-1.3-contributor-free
+?rva0039792B@Rva0039792B@@QAEXXZ	0x0039792B	203	blocked	6 variants best plus2 size end-first vs begin-first order plus mask ebx vs ebp needs layout donor t=25 model=muse-spark-1.3-contributor-free
+?Rva004E73B9Get@@YAHXZ	0x004E73B9	231	blocked	uses esi plus 0x264 without init or save suggests thiscall but naming says free plus 8B by-value Experience handles plus g_00DFECC4 t=8 model=muse-spark-1.3-contributor-free
+?rva000B0565@Rva000B0565@@QAEXII@Z	0x000B0565	54	blocked	same this calls voidptr erase and uchar fill_insert needs shared STL delta t=8 model=muse-spark-1.3-contributor-free
