@@ -38,6 +38,7 @@ public:
     Rva0037BBED();
     virtual ~Rva0037BBED();
     virtual void rva0037B326();
+    AsciiString rva0037B70A();
     bool rva0037CBB6(Rva0037B5DF &header);
     bool rva0037D0EF(UnicodeString filename);
     void rva0037D0A7(unsigned int crc, int player, bool fromPlayback, unsigned int frame);
@@ -215,4 +216,37 @@ bool Rva0037BBED::rva0037D0EF(UnicodeString filename)
     if (exeDifferent || iniDifferent)
         return true;
     return false;
+}
+
+struct _iobuf;
+extern "C" __declspec(dllimport) int __cdecl fgetc(_iobuf *file);
+
+// Native Ghidra 0x0037B70A..0x0037B7C7; 189 bytes; hidden return buffer/RET 4.
+// ZH GeneralsMD Code/GameEngine/Source/Common/Recorder.cpp readAsciiString
+// (via BFME1 reference 1399ad37) supplies the zeroed 1024-byte buffer and loop.
+// Retail proves FILE* storage at +0x10, fgetc IAT, terminal byte at 1023,
+// and StringBase<char> text/copy/release workers. Shared AsciiString preserves
+// the observed local temporary, copied return value, and unwind cleanup.
+AsciiString Rva0037BBED::rva0037B70A()
+{
+    char str[1024] = "";
+    int index = 0;
+    int c = fgetc(reinterpret_cast<_iobuf *>(m_10));
+    if (c == -1)
+        str[index] = 0;
+    str[index] = c;
+    while (index < 1024 && str[index] != 0)
+    {
+        ++index;
+        int c = fgetc(reinterpret_cast<_iobuf *>(m_10));
+        if (c == -1)
+        {
+            str[index] = 0;
+            break;
+        }
+        str[index] = c;
+    }
+    str[1023] = 0;
+    AsciiString retval(str);
+    return retval;
 }
