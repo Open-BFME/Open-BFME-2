@@ -850,3 +850,4 @@ AllocProxyIntCtor_dupB,0x0014F3C4,Replaced by independently verified PlayerAITyp
 ?d_002f600c@@YAXXZ,0x002F600C,Replaced by verified Rva002F600CInfo::cellCallback
 ?d_003bcb7a@@YAXXZ,0x003BCB7A,Replaced by verified command-bar slot action Rva003BCB7A
 ?d_003a38e9@@YAXXZ,0x003A38E9,Replaced by verified Team::rva003A38E9 mapped-state setter
+?d_0030bea2@@YAXXZ,0x0030BEA2,Replaced by verified reflected point-pair walker Rva0030BEA2::rva0030BEA2
