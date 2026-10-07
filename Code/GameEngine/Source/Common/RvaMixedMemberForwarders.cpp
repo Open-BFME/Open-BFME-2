@@ -13,6 +13,11 @@
 //   0x0028BC4D Object +0x330 -> rowed ?rva002C7474@Rva002C7474@@QAEXXZ (pinned spelling)
 //   0x004EC072 +0x90 -> rowed ?rva0059A71C@Rva0059A71C@@QAEXPAUArg@@@Z
 //   0x004EC07D +0x90 -> 0x0059A153 (pinned Rva002A8AB1Record spelling)
+// Rva002A8AB1Record::rva004EC088 (0x004EC088, 49 bytes) picks a member by
+// kind: 0 asks the builder at +4 (rowed AIBaseBuilder 0x00506BF7), 1 the
+// member at +0x38 (rowed 0x005748B2), others return null. Its caller
+// AIPlayer::startTraining 0x004F20C2 passes kind 1, a team's member list and
+// the template name, and pushes a non-null result onto that list.
 //   0x0023D0B7 GameLogic +0x184 -> 0x0040D3FF (pinned GameLogic spelling)
 // Unrowed jump targets arrive as address-derived pins.
 
@@ -90,10 +95,24 @@ public:
 	void rva0059A153(TeamPrototype *proto);
 };
 
+class Rva005AD9C0Hit;
+class AIBaseBuilder
+{
+public:
+	Rva005AD9C0Hit *rva00506BF7(void *arg);
+};
+
+class Rva005748B2
+{
+public:
+	int rva005748B2(int a, int b);
+};
+
 class Rva002A8AB1Record
 {
 public:
 	void rva004EC07D(TeamPrototype *proto);
+	void *rva004EC088(Int kind, void *list, const void *name);
 private:
 	char m_lead[0x90];
 	Rva0059A153 m_member;
@@ -102,6 +121,18 @@ private:
 void Rva002A8AB1Record::rva004EC07D(TeamPrototype *proto)
 {
 	m_member.rva0059A153(proto);
+}
+
+void *Rva002A8AB1Record::rva004EC088(Int kind, void *list, const void *name)
+{
+	switch (kind)
+	{
+	case 0:
+		return ((AIBaseBuilder *)(m_lead + 4))->rva00506BF7(list);
+	case 1:
+		return (void *)((Rva005748B2 *)(m_lead + 0x38))->rva005748B2((int)list, (int)name);
+	}
+	return 0;
 }
 
 class Rva0040D3FF

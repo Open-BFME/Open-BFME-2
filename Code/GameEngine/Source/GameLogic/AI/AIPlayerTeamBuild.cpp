@@ -52,6 +52,14 @@
 //    startTraining (+0x60) with the team's name. The WorkOrder and
 //    TeamInQueue constructors are declared throw() because retail's
 //    new-expressions carry no EH cleanup states.
+//  - startTraining 0x004F2063 (370 bytes, vtable +0x60): ZH's factory
+//    queueing and "Queuing ... for ..." message. BFME 2 refuses an order
+//    whose flag +0x28 is set; when 0x002A8AB1 finds a record for the player
+//    it instead asks the record (0x004EC088, kind 1) for each missing unit
+//    of the team found by the order's id (+0x24), adds it to the team's
+//    list at +4 (0x0055B156) and sets the flag. The factory path passes
+//    findFactory's build index to queueCreateUnit (+0x20) and
+//    requestUniqueUnitID (+0x08) takes BFME 2's four arguments.
 // GameLogic comes from the canonical GameLogicObjectLookupView.h.
 #include "ascii_string.h"
 typedef bool Bool;
@@ -358,13 +366,13 @@ class ProductionUpdateInterface
 public:
 	virtual void slot00();
 	virtual void slot01();
-	virtual void slot02();
+	virtual Int requestUniqueUnitID(Int a, Int b, const AsciiString &name, Int d);	// +0x08
 	virtual void slot03();
 	virtual void slot04();
 	virtual void slot05();
 	virtual void slot06();
 	virtual void slot07();
-	virtual void slot08();
+	virtual Bool queueCreateUnit(const ThingTemplate *unitType, Int quantity, Int productionID);	// +0x20
 	virtual void slot09();
 	virtual void slot10();
 	virtual void slot11();
@@ -391,13 +399,23 @@ private:
 };
 extern Rva002D06CA *TheThingFactory;
 
-struct Rva002A8AB1Record;
+struct Rva002A8AB1Record
+{
+	void *rva004EC088(Int kind, void *list, const void *name);
+};
 class Rva002A8F24
 {
 public:
 	Rva002A8AB1Record *rva002A8AB1(void *player);
 };
 extern Rva002A8F24 *g_00DFEEF8;
+
+class TeamFactory
+{
+public:
+	Team *findTeamByID(unsigned int id);
+};
+extern TeamFactory *TheTeamFactory;
 
 struct TAiData
 {
@@ -476,10 +494,18 @@ private:
 	unsigned char m_state[20];
 };
 
+class Rva0055B156
+{
+public:
+	void rva0055B156(int val);
+};
+
 class Team
 {
 public:
-	char m_pad000[0x30];
+	char m_pad000[0x04];
+	Rva0055B156 m_bfme04;			// +0x04
+	char m_pad005[0x30 - 0x05];
 	TeamPrototype *m_proto;			// +0x30
 	char m_pad034[0x5D - 0x34];
 	Bool m_active;				// +0x5D
@@ -988,6 +1014,51 @@ Bool AIPlayer::dozerInQueue()
 			TeamInQueue *team = iter.cur();
 			if (team && team->includesADozer())
 				return true;
+		}
+	}
+	return false;
+}
+
+Bool AIPlayer::startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName)
+{
+	if (order->m_bfmeFlag28)
+		return false;
+	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_player);
+	if (record)
+	{
+		Team *team = TheTeamFactory->findTeamByID(order->m_bfmeUnsigned24);
+		if (team)
+		{
+			for (Int i = order->m_numCompleted; i < order->m_numRequired; i++)
+			{
+				void *unit = record->rva004EC088(1, &team->m_bfme04, &order->m_thing->getName());
+				if (unit)
+					team->m_bfme04.rva0055B156((int)unit);
+			}
+		}
+		order->m_bfmeFlag28 = true;
+		return true;
+	}
+	Int buildIndex;
+	Object *factory = findFactory(order->m_thing, busyOK, &buildIndex);
+	if (factory)
+	{
+		ProductionUpdateInterface *pu = (ProductionUpdateInterface *)factory->rva0028BC58(0);
+		if (pu && pu->getProductionCount() == 0)
+		{
+			if (pu->queueCreateUnit(order->m_thing, buildIndex, pu->requestUniqueUnitID(-1, 0, AsciiString::TheEmptyString, 0)))
+			{
+				order->m_factoryID = factory->m_id;
+				if (TheWritableGlobalData->m_debugAI)
+				{
+					AsciiString teamStr = "Queuing ";
+					teamStr.concat(order->m_thing->getName());
+					teamStr.concat(" for ");
+					teamStr.concat(teamName);
+					TheScriptEngine->AppendDebugMessage(teamStr, false);
+				}
+				return true;
+			}
 		}
 	}
 	return false;
