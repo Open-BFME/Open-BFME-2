@@ -13,6 +13,14 @@
 // 0x00C7A678 and _strcmpi is called through its import slot. The method name
 // is the existing pin's (unproven); the member names are descriptive.
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #include <string.h>
 
 struct Rva00603A00Mapped

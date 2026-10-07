@@ -7,6 +7,14 @@
 // unblocks 0x004640BE; same shape as Rva0025C010 vector prune but map erase-void.
 #pragma optimize("t", on)
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #pragma optimize("", on)
 
 enum ObjectID

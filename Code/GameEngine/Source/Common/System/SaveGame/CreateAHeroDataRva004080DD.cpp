@@ -3,6 +3,14 @@
 // ?rva004080DD@CreateAHeroData@@QAE_NABVAsciiString@@PAI@Z @0x004080DD 44B. Identity: CreateAHeroData try-get via StringPayloadMap at +0x50; copies second.value at node+0x14 to out and returns true else false.
 // Evidence: map50 at +0x50 in CreateAHeroDataDtor layout; callers 0x408109/0x40A99A pass key and out int and test al; callee _M_find rowed.
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #include "ascii_string.h"
 
 bool operator<(const AsciiString &left, const AsciiString &right);
