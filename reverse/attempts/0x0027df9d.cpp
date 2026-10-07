@@ -1,6 +1,8 @@
 // ?rva0027DF9D@Rva0027DF9D@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z
+// partial score=0.97 date=2026-10-07
+// ?rva0027DF9D@Rva0027DF9D@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z
 // partial score=0.93 date=2026-10-06
-// cl: /O1 /MD /arch:SSE /G7
+// cl: /MD /O1 /arch:SSE /G7
 // ?rva0027DF9D@Rva0027DF9D@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z, retail 0x0027DF9D, 683 bytes.
 // Grid query over 50-wide short grid at +0x588 with object array +0x578/+0x57C.
 // Bounds from slot 0x28 are Region3D loX loY loZ hiX hiY hiZ (Z unused for 2D
@@ -45,8 +47,6 @@ public:
 	void rva0027D276(Rva0027D244 *a, Rva0027D244 *b);
 };
 
-extern float g_00BCEAFC;
-extern float g_00BCEAF8;
 extern "C" __declspec(dllimport) double __cdecl floor(double x);
 extern "C" __declspec(dllimport) double __cdecl ceil(double x);
 
@@ -90,21 +90,21 @@ void Rva0027DF9D::rva0027DF9D(Coord3D *center, float radius, Rva0027D244 *out, b
 	int count = (int)(m_end - m_base);
 	if (count == 0)
 		return;
-	radius = radius + g_00BCEAFC;
+	radius = 7.0f + radius;
 	Region3D b;
 	getBounds(&b);
 	float minY = center->y - radius;
 	float minX = center->x - radius;
-	if (b.loX > minX)
-		minX = b.loX;
 	if (b.loY > minY)
 		minY = b.loY;
-	if (minX > b.hiX)
-		minX = b.hiX;
+	if (b.loX > minX)
+		minX = b.loX;
 	if (minY > b.hiY)
 		minY = b.hiY;
-	int xmin = fast_float2long_round((float)floor((double)((minX - b.loX) / (b.hiX - b.loX) * g_00BCEAF8)));
-	int ymin = fast_float2long_round((float)floor((double)((minY - b.loY) / (b.hiY - b.loY) * g_00BCEAF8)));
+	if (minX > b.hiX)
+		minX = b.hiX;
+	int xmin = fast_float2long_round((float)floor((double)((minX - b.loX) / (b.hiX - b.loX) * 49.9f)));
+	int ymin = fast_float2long_round((float)floor((double)((minY - b.loY) / (b.hiY - b.loY) * 49.9f)));
 	float maxX = center->x + radius;
 	float maxY = center->y + radius;
 	if (b.loX > maxX)
@@ -115,9 +115,9 @@ void Rva0027DF9D::rva0027DF9D(Coord3D *center, float radius, Rva0027D244 *out, b
 		maxX = b.hiX;
 	if (maxY > b.hiY)
 		maxY = b.hiY;
-	maxX = (float)ceil((double)((maxX - b.loX) / (b.hiX - b.loX) * g_00BCEAF8));
+	maxX = (float)ceil((double)((maxX - b.loX) / (b.hiX - b.loX) * 49.9f));
 	int xmax = fast_float2long_round(maxX);
-	maxY = (float)ceil((double)((maxY - b.loY) / (b.hiY - b.loY) * g_00BCEAF8));
+	maxY = (float)ceil((double)((maxY - b.loY) / (b.hiY - b.loY) * 49.9f));
 	int ymax = fast_float2long_round(maxY);
 	for (int x = xmin; x < xmax; ++x) {
 		if (ymin >= ymax)

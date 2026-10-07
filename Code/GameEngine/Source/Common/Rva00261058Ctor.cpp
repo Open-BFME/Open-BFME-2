@@ -7,6 +7,8 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	bool rva00294471(void *player, int flag);
+	bool rva0028C1CC() const;
 };
 class Rva00261058Base
 {
@@ -20,7 +22,7 @@ class Rva00261058 : public Rva00261058Base
 {
 public:
 	Rva00261058(Object *obj, bool flag);
-	virtual void dummy();
+	virtual bool rva0026109D(Object *obj);
 private:
 	Player *m_player;
 	bool m_flag;
@@ -33,5 +35,12 @@ Rva00261058::Rva00261058(Object *obj, bool flag) : Rva00261058Base()
 		m_player = obj->getControllingPlayer();
 	m_flag = flag;
 }
-// ?dummy@Rva00261058@@UAEXXZ present-unmatched
-void Rva00261058::dummy() {}
+// ?rva0026109D@Rva00261058@@UAE_NPAVObject@@@Z @ 0x0026109D (65B):
+// Vtable 0x007F8FE4 and fields from the constructor; calls and branches from target.
+bool Rva00261058::rva0026109D(Object *obj)
+{
+	bool result = obj->rva00294471(m_player, 0);
+	if (!result && m_player != 0 && *(int *)((char *)m_player + 0x5c) == 1 && obj->rva0028C1CC())
+		++result;
+	return m_flag != result;
+}
