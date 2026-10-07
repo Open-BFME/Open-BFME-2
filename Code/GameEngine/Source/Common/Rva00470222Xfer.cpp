@@ -6,6 +6,14 @@
 // 0x0060C36E then per-item operator[] 0x0028932C; caller 0x00473F81.
 #include <map>
 
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 typedef unsigned char UnsignedByte;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;

@@ -5,6 +5,14 @@
 // for value matching path; return FileProgressMap[pid][key] at +0x12150 (map<ushort int>[8]) or 0.
 // Evidence: donor ConnectionManager.cpp getFileTransferProgress same logic; callees rowed StringBase compare 0x69D6 increment 0x24250 releaseBuffer 0x36410 map operator[] 0x4DD277; caller 0x25E3E2 in 0x25E3BB.
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #include "ascii_string.h"
 
 struct Gen_lt_00940b40 : public _STL::less<unsigned short> {};

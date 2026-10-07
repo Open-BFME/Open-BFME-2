@@ -5,6 +5,14 @@
 // allocates32 bytes; value copy0x795C1 copies the int key then the established
 // vector<unsigned int> copy0x2CFAB9. These calls anchor the complete family.
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #include <vector>
 typedef _STL::vector<unsigned int> HeroVector;
 typedef _STL::pair<const int, HeroVector> HeroValue;
