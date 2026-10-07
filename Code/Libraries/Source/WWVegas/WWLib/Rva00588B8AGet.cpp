@@ -1,7 +1,10 @@
 // cl: /EHsc /MD /D_CRTIMP=
-// ?Rva00588B8AGet@@YGHPAX@Z @0x00588B8A 30B null-safe virtual-slot caller.
+// ?rva00588B8A@Rva0047A040Base9E0@@QAEPAXPAX@Z @0x00588B8A 30B null-safe virtual-slot caller.
 // Evidence: 11 callers in 0x477xxx plus 0x588BF3/0x588E44; arg+0x250 null-checked
 // twice then vtable slot 0x7C called; callees none direct (virtual only).
+// Every call site loads ecx (lea ecx,[outer+0x11D] / [outer+0x9E0], or the
+// 0x00588BF3/0x00588E44 this) before the call, so it is a thiscall member of
+// the Rva0047A040Base9E0 helper that never reads this, not a stdcall helper.
 // Prev 0x58814C flags copied; TU-local vtable shim follows Mouse slot precedent.
 
 class Rva00588B8AVtbl
@@ -38,7 +41,7 @@ public:
 	virtual void s70() = 0;
 	virtual void s74() = 0;
 	virtual void s78() = 0;
-	virtual int s7c() = 0;
+	virtual void *s7c() = 0;
 };
 
 struct Rva00588B8AHolder
@@ -47,7 +50,13 @@ struct Rva00588B8AHolder
 	Rva00588B8AVtbl *m_ptr;
 };
 
-int __stdcall Rva00588B8AGet(void *p)
+class Rva0047A040Base9E0
+{
+public:
+	void *rva00588B8A(void *p);
+};
+
+void *Rva0047A040Base9E0::rva00588B8A(void *p)
 {
 	if (!p)
 		return 0;
