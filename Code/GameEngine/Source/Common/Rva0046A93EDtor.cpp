@@ -339,3 +339,24 @@ Rva005532D6::~Rva005532D6()
 {
 	rva005532D6();
 }
+
+// ??1Rva00500D30@@QAE@XZ @0x00500D30 56B -> Rva005007CF::rva00500AA6
+// Clear-then-free like siblings but clear lives in RvaTreeValueEraseFamily (rowed 0x00500AA6). Holder layout matches Rva005007CF head+flag so cross-class call is address-safe. Evidence: pin ??1Rva00500D30@@QAE@XZ; caller Rva0050292BDestructor m_tree44 size 8; rowed clear 0x00500AA6 and free 0x00030830.
+class Rva005007CF
+{
+public:
+	void rva00500AA6();
+};
+
+class Rva00500D30
+{
+public:
+	Rva0046A93EHolder m_header;
+	int m_flag;
+	~Rva00500D30();
+};
+
+Rva00500D30::~Rva00500D30()
+{
+	((Rva005007CF *)this)->rva00500AA6();
+}
