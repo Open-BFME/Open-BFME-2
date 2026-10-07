@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // BFME2's score screen Apt callbacks, 0x0051BF75 onward, bound by these
@@ -79,13 +79,118 @@ public:
 // TheLivingWorldLogic (VA 0x00DFEF10, the ledger's g_009FEF10); its
 // unrowed 0x002B3740 returns a byte of its current entry, pinned by
 // address.
+class Rva002104B6
+{
+public:
+	void *rva002104B6(void *name);
+};
+
 class Rva002BA8F1Logic
 {
 public:
 	bool rva002B3740();
+
+	unsigned char m_pad000[0xB0];
+	Rva002104B6 *m_B0; // +0xB0, its regions by name
 };
 
 extern class Rva002BA8F1Logic *g_009FEF10;
+
+// The persistent-unit list box (BFME 1's ScoreScreenRva005778E0.cpp):
+// Zero Hour's list box gadget API, the living world's armies of
+// persistent units from GameLogic and their thing templates.
+class Image;
+void GadgetListBoxReset(GameWindow *listbox);
+int GadgetListBoxGetNumColumns(GameWindow *listbox);
+void GadgetListBoxSetColumnWidths(GameWindow *listbox, int numColumns, int *widths);
+int GadgetListBoxAddEntryText(GameWindow *listbox, UnicodeString text, int color, int row, int column, bool overwrite);
+int GadgetListBoxAddEntryImage(GameWindow *listbox, const Image *image, int row, int column, int height, int width, bool overwrite, int color);
+// GadgetListBoxSetItemData(listbox, data, row, column).
+void Rva00325388Send(GameWindow *listbox, int data, int row, int column);
+void GadgetListBoxSetTopVisibleEntry(GameWindow *listbox, int top);
+
+extern int g_00DD16C4;
+
+struct AptScorePersistentUnit
+{
+	unsigned char m_pad00[4];
+	AsciiString m_templateName; // +0x04
+	unsigned char m_pad08[4];
+	int m_0C;
+	unsigned char m_pad10[0x94 - 0x10];
+	int m_94;
+	int m_98;
+	int m_9C;
+	UnicodeString m_name; // +0xA0
+	AsciiString m_regionName; // +0xA4
+};
+
+struct Rva0040CC0EEntry
+{
+	int first;
+	int second;
+};
+
+class Rva0040CB2CIndexedField
+{
+public:
+	int get(int index) const;
+
+	unsigned char m_pad[0x40];
+	_STL::vector<Rva0040CC0EEntry> m_entries; // +0x40
+};
+
+class GameLogic
+{
+public:
+	_STL::vector<Rva0040CB2CIndexedField *> rva002401C0();
+};
+
+extern GameLogic *TheGameLogic;
+
+class ThingTemplate
+{
+public:
+	const Image *getButtonImage();
+
+	unsigned char m_pad00[0x30];
+	UnicodeString m_displayName; // +0x30
+};
+
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
+};
+
+extern ThingFactory *TheThingFactory;
+
+class Rva0020E89C
+{
+public:
+	UnicodeString rva0020E89C();
+};
+
+class Rva0051D009
+{
+public:
+	AsciiString rva0051D009(int value);
+};
+
+// One list row, sorted by its operator< (0x005EC52E) before display.
+struct Rva0051DA24Row
+{
+	Rva0051DA24Row(AptScorePersistentUnit *u, ThingTemplate *t) : unit(u), thing(t) {}
+	AptScorePersistentUnit *unit;
+	ThingTemplate *thing;
+
+	bool operator<(const Rva0051DA24Row &other) const;
+};
+
+namespace _STL
+{
+template <class RandomAccessIter> void sort(RandomAccessIter first, RandomAccessIter last);
+}
 
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // AptQuitMenuCallbacks.cpp): a binding of an object and an eight-byte
@@ -242,6 +347,8 @@ public:
 	// Unrowed 0x0051CE72: the Apt queries "ShowSaveReplay" ...
 	// "NumberFormatter" by index.
 	void Externs(int query, char *value, bool set);
+	// Retail 0x0051DA24: fills the persistent-unit list box.
+	bool rva0051DA24();
 
 private:
 	int m_state; // +0x27C
@@ -447,3 +554,71 @@ AptScoreScreen::AptScoreScreen(void *context)
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
 #pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
+
+// Retail 0x0051DA24, 1049 bytes: BFME 1's 0x005778E0 on BFME 2's armies.
+// Each living-world army's persistent units with a known template become
+// a row (name, button image, region, four counters, the unit as item
+// data) of the +0x2A0 list box, sorted first.
+bool AptScoreScreen::rva0051DA24()
+{
+	if (!TheGameLogic || !TheThingFactory || !m_units)
+		return false;
+	_STL::vector<Rva0051DA24Row> rows;
+	_STL::vector<Rva0040CB2CIndexedField *> armies = TheGameLogic->rva002401C0();
+	for (unsigned int i = 0; i < armies.size(); ++i)
+	{
+		Rva0040CB2CIndexedField *army = armies[i];
+		if (!army)
+			return false;
+		int count = army->m_entries.size();
+		for (int j = 0; j < count; ++j)
+		{
+			AptScorePersistentUnit *unit = (AptScorePersistentUnit *)army->get(j);
+			ThingTemplate *thing = (ThingTemplate *)TheThingFactory->findTemplate(unit->m_templateName);
+			if (thing)
+			{
+				Rva0051DA24Row row(unit, thing);
+				rows.push_back(row);
+			}
+		}
+	}
+	if (rows.size() == 0)
+		return false;
+	_STL::sort(rows.begin(), rows.end());
+	GadgetListBoxReset(m_units);
+	if (GadgetListBoxGetNumColumns(m_units) < 7)
+	{
+		int widths[7] = { 10, 25, 17, 13, 13, 12, 8 };
+		GadgetListBoxSetColumnWidths(m_units, 7, widths);
+	}
+	const int color = g_00DD16C4;
+	for (_STL::vector<Rva0051DA24Row>::iterator it = rows.begin(); it != rows.end(); ++it)
+	{
+		AptScorePersistentUnit *unit = it->unit;
+		ThingTemplate *thing = it->thing;
+		UnicodeString text;
+		if (!unit->m_name.isEmpty())
+			text = unit->m_name;
+		else
+			text = thing->m_displayName;
+		int row = GadgetListBoxAddEntryText(m_units, text, color, -1, 1, true);
+		const Image *image = thing->getButtonImage();
+		if (image)
+			GadgetListBoxAddEntryImage(m_units, image, row, 0, 40, 40, true, -1);
+		Rva002104B6 *regions = g_009FEF10->m_B0;
+		Rva0020E89C *region = (Rva0020E89C *)regions->rva002104B6(&unit->m_regionName);
+		if (region)
+			GadgetListBoxAddEntryText(m_units, region->rva0020E89C(), color, row, 2, true);
+		text.translate(((Rva0051D009 *)this)->rva0051D009(unit->m_0C));
+		GadgetListBoxAddEntryText(m_units, text, color, row, 3, true);
+		text.translate(((Rva0051D009 *)this)->rva0051D009(unit->m_94));
+		GadgetListBoxAddEntryText(m_units, text, color, row, 4, true);
+		text.translate(((Rva0051D009 *)this)->rva0051D009(unit->m_98));
+		GadgetListBoxAddEntryText(m_units, text, color, row, 5, true);
+		text.translate(((Rva0051D009 *)this)->rva0051D009(unit->m_9C));
+		GadgetListBoxAddEntryText(m_units, text, color, row, 6, true);
+		Rva00325388Send(m_units, (int)unit, row, 0);
+	}
+	GadgetListBoxSetTopVisibleEntry(m_units, 0);
+	return true;
+}
