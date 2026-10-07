@@ -20,8 +20,15 @@ struct Rva005B5C02Mgr
 };
 
 extern Rva005B5C02Mgr *TheHeroManager;
-struct UnicodeString;
+class UnicodeString;
 extern UnicodeString TheEmptyString;
+class CreateAHeroData;
+
+class Rva00219251
+{
+public:
+	CreateAHeroData *rva00219251(int a1, int a2, int a3, const UnicodeString &a4, int a5, int a6, int a7);
+};
 
 struct Rva005B5C02Entry
 {
@@ -40,7 +47,6 @@ struct Rva005B2725
 	char pad[4];
 	void *m_4;
 
-	void *rva00219251(int a1, int a2, int a3, void *a4, int a5, int a6, int a7);
 	void Run(int unused);
 };
 
@@ -53,7 +59,7 @@ void Rva005B2725::Run(int unused)
 		return;
 	}
 	Rva005B5C02List *list = TheHeroManager->List();
-	void *built = ((Rva005B2725 *)TheHeroManager)->rva00219251(0, 0, 0, (void *)&TheEmptyString, -1, (int)0xFF707070, -1);
+	CreateAHeroData *built = ((Rva00219251 *)TheHeroManager)->rva00219251(0, 0, 0, TheEmptyString, -1, (int)0xFF707070, -1);
 	((Rva005B5C02Entry *)built)->Use((char *)m_4 + 0x27C);
 	((Rva00423A68 *)list)->rva00423A68((const class ModuleData *)built);
 }
