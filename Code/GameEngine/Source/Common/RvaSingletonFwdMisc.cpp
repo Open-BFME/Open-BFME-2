@@ -14,12 +14,63 @@
 //   Signature/role follow the peer pin (cdecl forwarder, caller passes 1).
 // Callee/global identities otherwise unproven; new names address-derived.
 // One ledger row per body.
+class AsciiString;
+
+class Rva000427195
+{
+public:
+	int rva00223429(const AsciiString *key);
+};
+
+class Rva00062908Host
+{
+public:
+	bool rva00222481(int index);
+};
+
+class Rva0022494F
+{
+public:
+	void rva0022494F();
+	char m_a[4];
+	char m_b[4];
+	int m_8;
+	int m_c;
+	char m_table[0x14];
+	unsigned char m_24;
+};
 
 class Rva00224B7DTarget
 {
+private:
+	char m_pad_00_5C[0x5C];
+	Rva000427195 m_map_view;
+	char m_pad_5D_CC[0x6F];
+	Rva0022494F m_entries[14];
+
 public:
 	bool method(int index);
 };
+
+// ?method@Rva00224B7DTarget@@QAE_NH@Z @ 0x00224B7D (76B):
+// The direct wrapper 0x00224BC9 supplies the Apt global and a slot index.
+// Target bounds the index to 14; uses records at this+0xCC with stride 0x28;
+// rejects the +0x0C sentinel -1; on +0x24 bit 1 calls 0x00222481; then erases
+// the record's AsciiString through the +0x5C map view and resets the record via
+// 0x0022494F. Owner and slot meaning remain address-derived.
+bool Rva00224B7DTarget::method(int index)
+{
+	if ((unsigned int)index >= 14)
+		return false;
+	Rva0022494F &entry = m_entries[index];
+	if (entry.m_c == -1)
+		return false;
+	if ((entry.m_24 & 2) != 0)
+		((Rva00062908Host *)this)->rva00222481(index);
+	m_map_view.rva00223429((const AsciiString *)&entry.m_a);
+	entry.rva0022494F();
+	return true;
+}
 
 extern Rva00224B7DTarget *g_pRva00224BC9;
 
