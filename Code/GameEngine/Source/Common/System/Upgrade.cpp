@@ -457,8 +457,14 @@ Bool UpgradeCenter::canAffordUpgrade( Player *player, const UpgradeTemplate *upg
 std::vector<AsciiString> UpgradeCenter::getUpgradeNames( void ) const
 {
 	std::vector<AsciiString> upgradeNames;
-
-	for( UpgradeTemplate *upgrade = m_upgradeList; upgrade; upgrade = upgrade->friend_getNext() )
+	// BFME 2's list head and next link are at +0x0C and +0x64, as in
+	// the matched findUpgradeByKey/linkUpgrade bodies. Keep the ZH header
+	// unchanged for this TU's other, still-unmatched definitions.
+	UpgradeTemplate *head = *reinterpret_cast<UpgradeTemplate *const *>(
+		reinterpret_cast<const char *>(this) + 0x0C);
+	for( UpgradeTemplate *upgrade = head; upgrade;
+		upgrade = *reinterpret_cast<UpgradeTemplate **>(
+			reinterpret_cast<char *>(upgrade) + 0x64) )
 		upgradeNames.push_back(upgrade->getUpgradeName());
 
 	return upgradeNames;
