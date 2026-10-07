@@ -400,6 +400,7 @@ protected:
 	static void FillBufferWithChatCommand(UnsignedByte *buffer, NetCommandRef *msg);
 	static void rva0059129F(UnsignedByte *buffer, NetCommandRef *msg);
 	static void FillBufferWithFileCommand(UnsignedByte *buffer, NetCommandRef *msg);
+	static void FillBufferWithFileAnnounceCommand(UnsignedByte *buffer, NetCommandRef *msg);
 	// Fixed-size arms of GetBufferSizeNeededForCommand, by command type; the
 	// constants are the ones retail's jump table returns.
 	static UnsignedInt GetType0CommandSize(NetCommandMsg *msg) { return 0x10; }
@@ -1789,6 +1790,63 @@ void NetPacket::FillBufferWithFileCommand(UnsignedByte *buffer, NetCommandRef *m
 
 	memcpy(buffer + offset, (UnsignedByte *)cmdMsg->getDataLength(), cmdMsg->getDataOffset());
 	offset += cmdMsg->getDataOffset();
+}
+
+// ?FillBufferWithFileAnnounceCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x005914D4, 258 bytes:
+// FillBufferWithCommand's type-21 (FILE ANNOUNCE) arm: the BFME1 donor's
+// FillBufferWithFileAnnounceMessage (NetPacket_fill.cpp) with BFME's 'S'
+// timestamp after the relay; the file ID and player mask come through the
+// getters addFileAnnounceCommand uses.
+void NetPacket::FillBufferWithFileAnnounceCommand(UnsignedByte *buffer, NetCommandRef *msg)
+{
+	NetWrapperCommandMsg *cmdMsg = (NetWrapperCommandMsg *)msg->getCommand();
+	UnsignedInt offset = 0;
+
+	buffer[offset] = 'T';
+	++offset;
+	buffer[offset] = cmdMsg->getNetCommandType();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'R';
+	++offset;
+	buffer[offset] = msg->getRelay();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'S';
+	++offset;
+	UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+	memcpy(buffer + offset, &newTimestamp, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'P';
+	++offset;
+	buffer[offset] = cmdMsg->getPlayerID();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'C';
+	++offset;
+	UnsignedShort newID = cmdMsg->getID();
+	memcpy(buffer + offset, &newID, sizeof(UnsignedShort));
+	offset += sizeof(UnsignedShort);
+
+	buffer[offset] = 'D';
+	++offset;
+
+	AsciiString filename = ((CDDrive *)cmdMsg)->CDDrive::getPath();
+	for (Int i = 0; i < filename.getLength(); ++i) {
+		buffer[offset] = filename.getCharAt(i);
+		++offset;
+	}
+	buffer[offset] = 0;
+	++offset;
+
+	UnsignedShort fileID = ((Rva004D5973WordField *)cmdMsg)->get();
+	memcpy(buffer + offset, &fileID, sizeof(fileID));
+	offset += sizeof(fileID);
+
+	UnsignedByte playerMask = ((Rva001DCD01ByteField *)cmdMsg)->get();
+	memcpy(buffer + offset, &playerMask, sizeof(playerMask));
+	offset += sizeof(playerMask);
 }
 
 // ?FillBufferWithGameCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058C488, 696 bytes:
