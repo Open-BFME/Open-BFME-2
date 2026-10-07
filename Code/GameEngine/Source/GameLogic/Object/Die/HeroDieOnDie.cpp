@@ -8,8 +8,9 @@
 // special-power template: each Object that has a module for that power
 // (the pinned Object::getSpecialPowerModule) gets its ready frame set to the
 // current frame (interface slot 8, setReadyFrame in the Zero Hour order;
-// TheGameLogic +0x40 is the frame). The callback returns 1, so it is cast to
-// the pinned iterateObjects callback type.
+// TheGameLogic +0x40 is the frame). The callback returns 1 to continue
+// iteration, matching the native int callback and int result proved by
+// PlayerTeamPrototypeQueries.cpp at RVA 0x002AB08B.
 class Object;
 class DamageInfo;
 class SpecialPowerTemplate;
@@ -32,7 +33,7 @@ public:
 class Player
 {
 public:
-	void iterateObjects(void (*func)(Object *, void *), void *userData) const;	// 0x002AB08B
+	int iterateObjects(int (*func)(Object *, void *), void *userData) const;	// 0x002AB08B
 };
 
 class Object
@@ -107,6 +108,6 @@ void HeroDie::onDie(const DamageInfo *damageInfo)
 {
 	const HeroDieModuleData *data = (const HeroDieModuleData *)m_moduleData;
 	Player *player = m_object->getControllingPlayer();
-	player->iterateObjects((void (*)(Object *, void *))rva004C2299,
+	player->iterateObjects(rva004C2299,
 		(void *)data->m_specialPowerTemplate);
 }
