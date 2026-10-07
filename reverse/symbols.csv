@@ -14027,7 +14027,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00531757@Rva002E99F9Sub460@@QAE_NII@Z,0x00531757,128-byte Ghidra helper; direct 0x005318DB calls preserve ECX and pass count or index plus a 16-bit record word; class association is structural and helper identity remains unknown
 ?rva005317D7@Rva002E99F9Sub460@@QAE_NIII@Z,0x005317D7,260-byte Ghidra helper; direct 0x005318DB call preserves ECX and passes index plus two 16-bit record words; class association is structural and helper identity remains unknown
 ?rva005318DB@Rva002E99F9Sub460@@QAE_NPAX00@Z,0x005318DB,157-byte Ghidra body; bool result and three pointer arguments follow caller-side ABI; receiver relation to Rva002E99F9Sub460 is structural and payload types remain unknown
-??0Rva005560DF@@QAE@ABV0@@Z,0x005560DF,Address-derived callee for fresh body 0x00556508: retail call at 0x00556517 resolves to 0x005560DF; passes destination in ECX and source pointer this+8 on stack; callee boundary 83B at Ghidra start 0x005560DF. Copy-ctor signature inferred from call ABI; class identity unresolved.
 ?DoXfer@DefaultPhysicsModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z,0x0055EECB,callee of ?xfer@Rva0055EF39@@UAEXPAVXfer@@@Z
 ?rva00548984@Rva00548984@@QAEXPAXH@Z,0x00548984,callee of ?rva005480E8@@YAXPAXW4NameKeyType@@H@Z
 ?rva005571FC@Rva005571FC@@QAEHHHHHH@Z,0x005571FC,Ghidra extent and direct callback-adapter call target; context stays in ECX and five stack arguments are passed; address-derived method identity unresolved
