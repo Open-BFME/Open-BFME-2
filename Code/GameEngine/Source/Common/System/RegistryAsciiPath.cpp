@@ -189,6 +189,9 @@ struct AsciiStringPlusStringText : AsciiStringPlusString
 struct Rva005EF5CA : AsciiStringPlusStringText
 {
 	int write(char *dst);
+	int length() const;
+	operator AsciiString();
+	AsciiStringRef m_fourth;
 };
 
 int Rva005EF5CA::write(char *dst)
@@ -746,4 +749,26 @@ Rva00238C34::operator AsciiString()
 	int extra = m_text2.m_len;
 	write(tmp.getBufferForRead(extra + Rva0020F58E::length()));
 	return tmp;
+}
+
+// Complete native 0x5EF449..0x5EF46B and 0x5EF607..0x5EF669 bodies.
+// The existing writer proves two string refs, a text span, then the string
+// ref at +0x10; the length body reads span length +0x0C and string +0x10,
+// calls the matched two-string length at 0x2198C8, and adds both lengths.
+// Materialization calls that length and the existing writer 0x5EF5CA,
+// then returns an owning AsciiString through the established copy/release ABI.
+// Source guide: the other verified concatenation nodes in this unit.
+// The original expression-template name remains unknown.
+int Rva005EF5CA::length() const
+{
+ int text = m_text.m_len;
+ int fourth = m_fourth.m_string->getLength();
+ int base = AsciiStringPlusString::length();
+ return base + fourth + text;
+}
+Rva005EF5CA::operator AsciiString()
+{
+ AsciiString tmp;
+ write(tmp.getBufferForRead(length()));
+ return tmp;
 }
