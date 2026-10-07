@@ -44294,7 +44294,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?rva0053620F@UserPreferences@@QAE?AVAsciiString@@XZ,,0x0053620F,92,Code/GameEngine/Source/Common/UserPreferencesRva00535CE4.cpp,matched,FavoriteSide getAsciiString slot 0x20 TheEmptyString gap same TU unlock
 ?rva0035B010@Rva0035AFE4@@QAE_NPAVPlayer@@PAVObject@@@Z,,0x0035B010,46,Code/GameEngine/Source/Common/Rva0035B010.cpp,matched,chain via OR-null plus Team 0x304 and mask pred
 ?rva0035B513@Rva0035B513@@QAEPAUBfmeFixedStorage128@@PAU2@@Z,,0x0035B513,93,Code/GameEngine/Source/Common/Rva0035B513.cpp,matched,unlock via clear80 plus upgrade bitset plus copy
-?Rva005812C4Get@@YAHPAURva005812C4Msg@@@Z,,0x005812C4,84,Code/GameEngine/Source/GameNetwork/DoesCommandRequireACommandID.cpp,matched,msg type at +0x14 same Int xor-inc shape as siblings callers 0x004CF4A8 0x004CFF2D
+?CommandRequiresDirectSend@@YA_NPAVNetCommandMsg@@@Z,,0x005812C4,84,Code/GameEngine/Source/GameNetwork/DoesCommandRequireACommandID.cpp,matched,ZH CommandRequiresDirectSend; callers ackCommand 0x004CF4A8 and sendLocalCommand 0x004CFF2D test al; Bool return of the || chain
 ?rva000869CF@Rva000869CF@@QAEPAMXZ,,0x000869CF,79,Code/GameEngine/Source/GameClient/Rva000869CFReset.cpp,matched,zero-init returning vec pointer callers 0x00088D0A 0x00086F56
 ?Rva002B2275Get@@YAHPAURva002B2275Obj@@PAX@Z,,0x002B2275,24,Code/GameEngine/Source/Common/Rva002B2275Get.cpp,matched,slot 0x94 forward DelayedEventType callers 0x002BB4EF 0x002BB5B4
 ?Rva002B2435Get@@YAHPAURva002B2435Obj@@PAX@Z,,0x002B2435,24,Code/GameEngine/Source/Common/Rva002B2435Get.cpp,matched,slot 0x94 forward LivingWorldTurnPhase callers 0x002BB444 0x002BB451

@@ -124,37 +124,43 @@ Int Rva00581229Get(Rva00581229Msg *msg)
 	return 0;
 }
 
-// ?Rva005812C4Get@@YAHPAURva005812C4Msg@@@Z, retail 0x005812C4, 84 bytes.
-// Predicate over NetCommandMsg m_commandType at +0x14, same Int xor/inc shape
-// as siblings above. Retail order read off the chain: 27,26,16,17,20,19,21,
-// 22,28,5,6,8,9,7. Callers at 0x004CF4A8 0x004CFF2D; honest-address free function.
-struct Rva005812C4Msg
+// ?CommandRequiresDirectSend@@YA_NPAVNetCommandMsg@@@Z, retail 0x005812C4, 84 bytes.
+// Zero Hour's CommandRequiresDirectSend (NetworkUtil.cpp): the same test over
+// NetCommandMsg m_commandType at +0x14, called at ConnectionManager::ackCommand's
+// direct-send test (0x004CF4A8) and at sendLocalCommand's (0x004CFF2D), Zero
+// Hour's two call sites. Both callers test al: the return is Bool, and returning
+// the || chain (not TRUE/FALSE) gives the whole-register xor/inc tail. Retail
+// order read off the chain: 27,26,16,17,20,19,21,22,28,5,6,8,9,7 -- Zero Hour's
+// DISCONNECTVOTE, DISCONNECTPLAYER, LOADCOMPLETE, TIMEOUTSTART, FILE...,
+// DISCONNECTFRAME order with BFME 2's renumbered types, hero data (20) and the
+// GameSpy-key, leave-frame, frame-data and player-leave requests added.
+// Rowed before as the address-named ?Rva005812C4Get@@YAHPAURva005812C4Msg@@@Z.
+class NetCommandMsg
 {
+public:
+	NetCommandType getNetCommandType() const { return m_commandType; }
+
+private:
 	char m_pad[0x14];
-	NetCommandType m_type;
+	NetCommandType m_commandType;
 };
 
-Int Rva005812C4Get(Rva005812C4Msg *msg)
+bool CommandRequiresDirectSend(NetCommandMsg *msg)
 {
-	NetCommandType type = msg->m_type;
-	if ((type == NETCOMMANDTYPE_DISCONNECTFRAME) ||
-		(type == NETCOMMANDTYPE_DISCONNECTVOTE) ||
-		(type == NETCOMMANDTYPE_LOADCOMPLETE) ||
-		(type == NETCOMMANDTYPE_TIMEOUTSTART) ||
-		(type == NETCOMMANDTYPE_FILEANNOUNCE) ||
-		(type == NETCOMMANDTYPE_FILE) ||
-		(type == NETCOMMANDTYPE_FILEPROGRESS) ||
-		(type == (NetCommandType)22) ||
-		(type == NETCOMMANDTYPE_DISCONNECTSCREENOFF) ||
-		(type == NETCOMMANDTYPE_REQUEST_GAMESPY_STATS_AUTHKEY) ||
-		(type == NETCOMMANDTYPE_GAMESPY_STATS_AUTHKEY) ||
-		(type == NETCOMMANDTYPE_INFORMPLAYERLEAVEFRAME) ||
-		(type == NETCOMMANDTYPE_REQUESTFRAMEDATA) ||
-		(type == NETCOMMANDTYPE_REQUESTPLAYERLEAVE))
-	{
-		return 1;
-	}
-	return 0;
+	return ((msg->getNetCommandType() == NETCOMMANDTYPE_DISCONNECTFRAME) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_DISCONNECTVOTE) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_LOADCOMPLETE) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_TIMEOUTSTART) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_FILEANNOUNCE) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_FILE) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_FILEPROGRESS) ||
+		(msg->getNetCommandType() == (NetCommandType)22) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_DISCONNECTSCREENOFF) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_REQUEST_GAMESPY_STATS_AUTHKEY) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_GAMESPY_STATS_AUTHKEY) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_INFORMPLAYERLEAVEFRAME) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_REQUESTFRAMEDATA) ||
+		(msg->getNetCommandType() == NETCOMMANDTYPE_REQUESTPLAYERLEAVE));
 }
 
 // ?Rva00581318Get@@YAHPAURva00581318Msg@@@Z, retail 0x00581318, 33 bytes.
