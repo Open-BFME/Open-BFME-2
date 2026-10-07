@@ -219,3 +219,90 @@ void Rva006E3E20Object::rva006E3E20(void *unused, void *argument)
 
     (void)unused;
 }
+
+// BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f provides the cleanup order in
+// game/Libraries/Source/Apt/Rva008A1460AptCleanup.cpp. Target replaces fixed
+// arrays with word-counted sets, uses the rowed AptIntervalTimer::cleanParams,
+// and adds the nIntervalTimers assertion. Retail independently proves every
+// accessed offset/count, the32-byte timer stride and28-byte BIL entry stride.
+// Full348-byte body6E3FF0..6E414C ends in a tail jump to6F8190; queued342
+// stops before the final pop/tail jump. No guessed cleanup name is promoted
+// to the donor's receiver identity; unused fields and ownership remain opaque.
+// The existing display-list provider carries other unresolved definitions;
+// this caller uses its rowed, correctly selected AptDisplayList body only.
+class AptValue { public: virtual void AddRef(); virtual void Release(); };
+class Rva006E0DE0 {
+public:
+    unsigned short count;
+    unsigned short capacity;
+    AptValue** entries;
+    int rva006E0DE0(AptValue*);
+};
+struct AptIntervalTimer {
+    void* owner;
+    AptValue* value;
+    char pad08[12];
+    int count;
+    int unused;
+    AptValue** values;
+    void cleanParams();
+};
+struct AptDisplayList {
+    void* value;
+    AptIntervalTimer* buckets;
+    int count;
+    void rva006F8190();
+};
+struct Rva006E3FF0VectorEntry { AptValue* value; char pad04[24]; };
+class Rva006E34D0;
+extern Rva006E34D0* g_bfmeAptPtrAtE176D0;
+struct Rva006E3FF0Owner {
+    char pad00[8];
+    Rva006E0DE0 set;
+    int vectorCount;
+    Rva006E3FF0VectorEntry* vector;
+    unsigned short valueCount;
+    unsigned short valueCapacity;
+    AptValue** values;
+    unsigned short moreCount;
+    unsigned short moreCapacity;
+    AptValue** moreValues;
+    char pad28[8];
+    AptDisplayList display;
+    void cleanup();
+};
+void Rva006E3FF0Owner::cleanup()
+{
+    int remaining=set.count;
+    for(int i=0; i<set.capacity; ++i) {
+        if(set.entries[i]) {
+            set.rva006E0DE0(set.entries[i]);
+            --remaining;
+            if(remaining==0) break;
+        }
+    }
+    int i=0;
+    for(; i<reinterpret_cast<int*>(g_bfmeAptPtrAtE176D0)[0xA8/4];++i) {
+        int bucketOffset=i*0x20;
+        if(reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(display.buckets)+bucketOffset)->owner) {
+            reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(display.buckets)+bucketOffset)->value->Release();
+            for(int j=0; j<reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(display.buckets)+bucketOffset)->count; ++j)
+                reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(display.buckets)+bucketOffset)->cleanParams();
+            reinterpret_cast<AptIntervalTimer*>(reinterpret_cast<char*>(display.buckets)+bucketOffset)->owner=0;
+            --display.count;
+        }
+    }
+    if(display.count!=0) {
+        g_bfmeAptAssertAtE17734("nIntervalTimers == 0","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp",0x2ED);
+        if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm { int 3 } }
+    }
+    for(int i=0; i<valueCapacity; ++i) {
+        if(values[i]) { values[i]->Release(); values[i]=0; }
+    }
+    for(int i=0; i<moreCapacity; ++i) {
+        if(moreValues[i]) { moreValues[i]->Release(); moreValues[i]=0; }
+    }
+    for(int i=0; i<vectorCount; ++i) vector[i].value->Release();
+    vectorCount=0;
+    display.rva006F8190();
+}
