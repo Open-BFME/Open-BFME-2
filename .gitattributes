@@ -3,6 +3,12 @@
 # submodule, which carries its own attributes.)
 baselines/** -text
 
+# Banked attempts are evidence that check_csv measures byte for byte (one
+# function body, at most 65,536 bytes). A Windows checkout with autocrlf turned
+# a 64,870-byte stash into 66,866 bytes and failed CI's ledger check; checking
+# them out exactly as stored keeps the measure the same on every host.
+reverse/attempts/*.cpp -text
+
 # Git for Windows executes these through bash; CRLF corrupts the shebang and
 # can make the verification policy disappear before it runs.
 .githooks/* text eol=lf
