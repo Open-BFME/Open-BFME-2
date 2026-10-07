@@ -49,3 +49,63 @@ void rva00203C21()
 	proc(Rva00E01D58, Rva00DFE16C, Rva00DFE6E8, Rva00DFE758, Rva00DF36A4, 0, 0,
 		Rva00DFEA3C, Rva00DFEC50, Rva00DFF000, Rva00DFE78C);
 }
+
+// ?Rva00203BE9@@YAXXZ @0x00203BE9 56B. Identity is address-derived: packet
+// proves the calls, globals, and MessageStream vtable slot; the caller boundary
+// is Ghidra's extra-function record. No donor identity is established.
+class Rva002034E9Host
+{
+public:
+	bool rva002034E9();
+};
+
+class GameLogic : public Rva002034E9Host
+{
+};
+
+class MessageStream
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual void v7();
+	virtual void v8();
+	virtual void v9();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void appendType(int type);
+};
+
+extern class GameLogic *TheGameLogic;
+extern MessageStream *MessageStreamSubsystem;
+extern void *g_00E02D6C;
+
+struct Rva00203BE9Mode
+{
+	char pad[0x2D];
+	unsigned char enabled;
+};
+
+void rva00203BE9()
+{
+	if (TheGameLogic->rva002034E9())
+	{
+		if (((Rva00203BE9Mode *)g_00E02D6C)->enabled)
+			MessageStreamSubsystem->appendType(0x7D9);
+		else
+			MessageStreamSubsystem->appendType(0x7ED);
+	}
+	else
+		MessageStreamSubsystem->appendType(0x1D);
+}
