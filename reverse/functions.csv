@@ -67561,3 +67561,6 @@ _Rva00817230,,0x00683130,5,Code/Libraries/Source/DirtySock/commudp.cpp,matched,e
 ??0Rva002195E6@@QAE@XZ,,0x002195E6,175,Code/Libraries/Source/WWVegas/WWLib/stlport_funptr_value_sort.cpp,matched,Native175 boundary2195E6-219695 returns receiver; literal values read from retail; repeated24B groups preserve gaps14 2C44 5C; original identity and group semantics unknown
 ?rva00078AE3@Rva00078AE3@@QAEAAV1@PBV1@@Z,,0x00078AE3,72,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,matched,Native72 boundary78AE3-78B2B RET4 returns this; guarded fieldwise copy of bits0-2 3-29 30 and dwords4 8 C preserves bit31; original identity unknown; verified caller78ADB
 ?voteForPlayerDisconnect@DisconnectManager@@QAEXHPAVConnectionManager@@@Z,,0x004D3DF4,105,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp,matched,BFME2 direct slot vote; target caller 0x004CF90D and +0x30 vote table support identity; +0x40 frame read uses adjusted BFME2 GameLogic view; donor supplies purpose and call order
+?rva0041EC0B@Rva0041EC0B@@QAEXXZ,,0x0041EC0B,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
+?rva002A9216@Rva002A9216@@QAEXXZ,,0x002A9216,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
+?rva002BFB28@Rva002BFB28@@QAEXXZ,,0x002BFB28,5,Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp,matched,
