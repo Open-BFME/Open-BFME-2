@@ -31,6 +31,26 @@
 // sound plays through the rowed native audio event ctor 0x002DA461 with the
 // object ID (+0x74) and TheAudio slot 25. Real STLport vectors give retail's
 // register choice for the weapon and sound picks.
+//
+// ?beginSlowDeath@SlowDeathBehavior@@UAEXPBVDamageInfo@@@Z @0x0045DE65 1070B
+// Identity: slot 0 of the SlowDeathBehaviorInterface vtable 0xC42020 (this
+// is the +0x24 subobject; moduleData -0x20, object -0x1C), ends in the
+// rowed doPhaseStuff(SDPHASE_INITIAL) and follows ZH beginSlowDeath with the
+// BFME 1 additions from SlowDeathBehavior_beginSlowDeath.cpp (retail
+// 0x00209BB0): clear condition 37, store the rowed 0x0028B875 result at
+// +0x44, apply the ModuleData status mask (+0x174, rowed _M_is_any) and
+// condition mask (+0x128, rowed 0x000B3EB3 and pinned 0x001E431E, then set
+// condition 62), drop shadows unless +0x18D, the drawable 0.0f/-0.2f fade
+// target, the dying frame (+0x54 delay) and fade frame (+0x188 delay,
+// sentinel 0xFACADE00), and the landing wake. BFME2 deltas read from retail:
+// the hulk override is TheGameLogic +0xA0 with frames from the logic frame
+// rate int 0x009BA4E4; KINDOF bit 82 of the template mask at +0x108; the
+// fling path feeds the force to the physics consumer 0x003909FA, faces the
+// object with atan2f and Thing::setOrientation and sets condition 120 on the
+// object. Lines 420/421/423 are the retail random-value call sites. EH:
+// FuncInfo states 0 and 1 have no action and no code, state 2 guards the
+// SlavedUpdate key; the two empty states are modelled as in the BFME 1
+// donor by two lifetimes in a branch the optimizer removes.
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
@@ -112,6 +132,65 @@ class Drawable
 {
 public:
 	void fadeOut(UnsignedInt frames);
+	void rva00272A02(Bool enable);
+};
+
+// The two-float drawable setter the slow death starts with (0.0f, -0.2f).
+class Rva00270644
+{
+public:
+	void rva00270644(Real a, Real b);
+};
+
+class PhysicsBehavior;
+// The +0x25C physics consumer that takes the fling force.
+class Rva003909FAObj
+{
+public:
+	void consume(void *force, int a, int b);
+};
+
+namespace _STL
+{
+template <unsigned N> struct _Base_bitset;
+template <> struct _Base_bitset<4>
+{
+	unsigned long _M_w[4];
+	bool _M_is_any() const;
+};
+}
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+extern "C" float __cdecl atan2f(float y, float x);
+void calcRandomForceRva0045D636(Real minMag, Real maxMag, Real minPitch, Real maxPitch, Coord3D *force);
+// Logic frames per second.
+extern int g_Va00DBA4E4;
+
+enum KindOfType
+{
+	KINDOF_HULK = 82
+};
+class ThingTemplate
+{
+public:
+	unsigned int isKindOf(KindOfType t) const
+	{
+		return m_kindOf[t >> 5] & (1U << (t & 0x1f));
+	}
+
+private:
+	unsigned char m_pad00[0x108];
+	unsigned int m_kindOf[4]; // +0x108
 };
 
 class PhysicsBehavior
@@ -139,6 +218,8 @@ struct Rva0028F59A
 enum ModelConditionFlagType
 {
 	MODELCONDITION_SLOW_DEATH_FALLING = 5,
+	MODELCONDITION_BIT37 = 37,
+	MODELCONDITION_BIT62 = 62,
 	MODELCONDITION_EXPLODED_FLAILING = 120,
 	MODELCONDITION_EXPLODED_BOUNCING = 121,
 	MODELCONDITION_DYING = 153
@@ -158,6 +239,7 @@ public:
 	{
 		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
 	}
+	Bool rva000B3EB3() const;
 
 private:
 	unsigned int m_words[19];
@@ -169,8 +251,11 @@ public:
 	Bool isAboveTerrain() const;
 	Real getHeightAboveTerrain() const;
 	void setPosition(const Coord3D *pos);
+	void setOrientation(Real angle);
 	Drawable *getDrawable() const;
 };
+
+class Module;
 
 class Object : public Thing
 {
@@ -178,12 +263,16 @@ public:
 	const Coord3D *getPosition() const { return &m_position; }
 	ObjectID getID() const { return m_id; }
 	PhysicsBehavior *getPhysics() const { return m_physics; }
+	unsigned int isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
 	Bool isSignificantlyAboveTerrain() const;
 	void setDisabled(DisabledType type);
 	void setStatus(ObjectStatusTypes status, Bool set);
 	Int rva0028B511() const;
 	void rva0028CFB2(const int *clr, const int *set);
 	void rva0028AE6D();
+	Int rva0028B875() const;
+	void rva0028CDEB(const _STL::_Base_bitset<4> *mask, Bool set);
+	void rva001E431E(const int *mask);
 	__forceinline void clearModelConditionState(ModelConditionFlagType flag)
 	{
 		if (m_modelConditionFlags.test(flag) != 0)
@@ -202,9 +291,14 @@ public:
 	}
 	UnsignedInt getStatusBits() const { return m_status; }
 
+protected:
+	friend class SlowDeathBehavior;
+	Module *findModule(NameKeyType key) const;
+
 private:
 	void *m_vtable;
-	unsigned char m_pad04[0x38 - 0x04];
+	const ThingTemplate *m_template; // +0x04
+	unsigned char m_pad08[0x38 - 0x08];
 	Coord3D m_position; // +0x38
 	unsigned char m_pad44[0x74 - 0x44];
 	ObjectID m_id; // +0x74
@@ -221,10 +315,13 @@ class GameLogic
 public:
 	void destroyObject(Object *obj);
 	UnsignedInt getFrame() const { return m_frame; }
+	Int getHulkMaxLifetimeOverride() const { return m_hulkMaxLifetimeOverride; }
 
 private:
 	unsigned char m_pad00[0x40];
 	UnsignedInt m_frame; // +0x40
+	unsigned char m_pad44[0xA0 - 0x44];
+	Int m_hulkMaxLifetimeOverride; // +0xA0
 };
 extern GameLogic *TheGameLogic;
 
@@ -271,15 +368,26 @@ public:
 
 	unsigned char m_pad00[0x38];
 	Real m_sinkRate; // +0x38
-	unsigned char m_pad3C[0x58 - 0x3C];
+	unsigned char m_pad3C[0x44 - 0x3C];
+	UnsignedInt m_sinkDelay; // +0x44
+	UnsignedInt m_sinkDelayVariance; // +0x48
+	UnsignedInt m_destructionDelay; // +0x4C
+	UnsignedInt m_destructionDelayVariance; // +0x50
+	UnsignedInt m_dyingDelay; // +0x54
 	std::vector<const FXList *> m_fx[4]; // +0x58
 	std::vector<const ObjectCreationList *> m_ocls[4]; // +0x88
 	std::vector<const WeaponTemplate *> m_weapons[4]; // +0xB8
 	std::vector<Rva0036CA00Str> m_sounds[4]; // +0xE8
-	unsigned char m_pad118[0x184 - 0x118];
+	Real m_flingForce; // +0x118
+	Real m_flingForceVariance; // +0x11C
+	Real m_flingPitch; // +0x120
+	Real m_flingPitchVariance; // +0x124
+	ModelConditionFlags m_modelConditionMask; // +0x128
+	_STL::_Base_bitset<4> m_statusMask; // +0x174
 	UnsignedInt m_fadeTime; // +0x184
 	UnsignedInt m_fadeDelay; // +0x188
 	unsigned char m_maskOfLoadedEffects; // +0x18C
+	Bool m_keepShadows; // +0x18D
 };
 
 class ObjectModule
@@ -312,9 +420,46 @@ public:
 };
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
+protected:
+	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
+
 private:
 	unsigned char m_pad14[0x20 - 0x14];
 };
+
+class DamageInfo;
+class DieModuleInterface
+{
+public:
+	virtual void onDie(const DamageInfo *damageInfo) = 0;
+};
+class SlowDeathBehaviorInterface
+{
+public:
+	virtual void beginSlowDeath(const DamageInfo *damageInfo) = 0;
+	virtual Int getProbabilityModifier(const DamageInfo *damageInfo) const = 0;
+	virtual Bool isDieApplicable(const DamageInfo *damageInfo) const = 0;
+};
+
+class SlavedUpdateInterface
+{
+public:
+	virtual ObjectID getSlaverID() const = 0;
+	virtual void onEnslave(const Object *slaver) = 0;
+	virtual void onSlaverDie(const DamageInfo *info) = 0;
+};
+class SlavedUpdate : public UpdateModule, public SlavedUpdateInterface
+{
+};
+
+// Retail unwind states 0 and 1 of beginSlowDeath are two class-typed
+// lifetimes in a scope the optimizer deleted (no code, no cleanup action);
+// only their count is recoverable.
+struct Rva0045DE65EliminatedLifetime
+{
+	~Rva0045DE65EliminatedLifetime();
+};
+void rva0045de65EliminatedSink(const void *, const void *);
 
 enum SlowDeathPhaseType
 {
@@ -324,10 +469,11 @@ enum SlowDeathPhaseType
 	SDPHASE_LANDED = 3
 };
 
-class SlowDeathBehavior : public UpdateModule
+class SlowDeathBehavior : public UpdateModule, public DieModuleInterface, public SlowDeathBehaviorInterface
 {
 public:
 	virtual UpdateSleepTime update();
+	virtual void beginSlowDeath(const DamageInfo *damageInfo);
 	const SlowDeathBehaviorModuleData *getSlowDeathBehaviorModuleData() const
 	{
 		return (const SlowDeathBehaviorModuleData *)m_moduleData;
@@ -339,12 +485,11 @@ protected:
 private:
 	enum
 	{
+		SLOW_DEATH_ACTIVATED = 0,
 		MIDPOINT_EXECUTED = 1,
 		FLUNG_INTO_AIR = 2,
 		BOUNCED = 3
 	};
-	void *m_dieInterface; // +0x20
-	void *m_slowDeathInterface; // +0x24
 	UnsignedInt m_sinkFrame; // +0x28
 	UnsignedInt m_midpointFrame; // +0x2C
 	UnsignedInt m_destructionFrame; // +0x30
@@ -495,4 +640,132 @@ UpdateSleepTime SlowDeathBehavior::update()
 		obj->setModelConditionState(MODELCONDITION_DYING);
 
 	return UPDATE_SLEEP_NONE;
+}
+
+void SlowDeathBehavior::beginSlowDeath(const DamageInfo *damageInfo)
+{
+	if ((m_flags & (1 << SLOW_DEATH_ACTIVATED)) == 0)
+	{
+		const SlowDeathBehaviorModuleData *d = getSlowDeathBehaviorModuleData();
+		Object *obj = getObject();
+		if (!obj)
+			return;
+
+		obj->clearModelConditionState(MODELCONDITION_BIT37);
+		m_44 = obj->rva0028B875();
+		if (d->m_statusMask._M_is_any())
+			obj->rva0028CDEB(&d->m_statusMask, true);
+
+		Drawable *draw = obj->getDrawable();
+		if (d->m_modelConditionMask.rva000B3EB3())
+		{
+			obj->rva001E431E((const int *)&d->m_modelConditionMask);
+			obj->setModelConditionState(MODELCONDITION_BIT62);
+		}
+		if (draw)
+		{
+			if (!d->m_keepShadows)
+				obj->getDrawable()->rva00272A02(false);
+			((Rva00270644 *)draw)->rva00270644(0.0f, -0.2f);
+		}
+
+		Real timeScale = TheGameLODManager->getSlowDeathScale();
+		m_acceleratedTimeScale = 1.0f;
+
+		if (timeScale == 0.0f && !d->hasNonLodEffects())
+		{
+			TheGameLogic->destroyObject(obj);
+			return;
+		}
+
+		if (getObject()->isKindOf(KINDOF_HULK) && TheGameLogic->getHulkMaxLifetimeOverride() != -1)
+		{
+			m_sinkFrame = 1;
+			m_midpointFrame = (g_Va00DBA4E4 / 2) + 1;
+			m_destructionFrame = g_Va00DBA4E4 + 1;
+			m_acceleratedTimeScale = 1.0f;
+		}
+		else
+		{
+			m_sinkFrame = timeScale * (d->m_sinkDelay + GameLogicRandomValue(0, d->m_sinkDelayVariance, 420));
+			m_destructionFrame = timeScale * (d->m_destructionDelay + GameLogicRandomValue(0, d->m_destructionDelayVariance, 421));
+			m_dyingFrame = timeScale * d->m_dyingDelay;
+			m_midpointFrame = GameLogicRandomValue(0.35f * m_destructionFrame, 0.65f * m_destructionFrame, 423);
+			m_acceleratedTimeScale = timeScale;
+		}
+
+		if (d->m_fadeDelay != 0xFACADE00)
+			m_fadeFrame = timeScale * d->m_fadeDelay;
+
+		UnsignedInt now = TheGameLogic->getFrame();
+
+		if (d->m_flingForce > 0)
+		{
+			if (0)
+			{
+				Rva0045DE65EliminatedLifetime eliminated0;
+				Rva0045DE65EliminatedLifetime eliminated1;
+				rva0045de65EliminatedSink(&eliminated0, &eliminated1);
+			}
+
+			if (obj->getStatusBits() & 8)
+			{
+				static NameKeyType key_SlavedUpdate = TheNameKeyGenerator->nameToKey("SlavedUpdate");
+				SlavedUpdate *slave = (SlavedUpdate *)obj->findModule(key_SlavedUpdate);
+				if (slave)
+					slave->onSlaverDie(0);
+			}
+
+			PhysicsBehavior *physics = obj->getPhysics();
+			if (physics)
+			{
+				const Real MIN_ALTITUDE = 1.0f;
+				if (obj->getHeightAboveTerrain() < MIN_ALTITUDE)
+				{
+					Coord3D pos;
+					pos.x = obj->getPosition()->x;
+					pos.y = obj->getPosition()->y;
+					pos.z = obj->getPosition()->z;
+					pos.z += MIN_ALTITUDE;
+					obj->setPosition(&pos);
+				}
+
+				Coord3D force;
+				calcRandomForceRva0045D636(d->m_flingForce, d->m_flingForce + d->m_flingForceVariance,
+					d->m_flingPitch, d->m_flingPitch + d->m_flingPitchVariance, &force);
+				((Rva003909FAObj *)physics)->consume(&force, 0, 0);
+				Real orientation = atan2f(force.y, force.x);
+				obj->setOrientation(orientation);
+				obj->setModelConditionState(MODELCONDITION_EXPLODED_FLAILING);
+				m_flags |= (1 << FLUNG_INTO_AIR);
+			}
+			setWakeFrame(obj, UPDATE_SLEEP_NONE);
+		}
+		else if (m_needsLanding)
+		{
+			setWakeFrame(obj, UPDATE_SLEEP_NONE);
+		}
+		else
+		{
+			UnsignedInt whenToWakeTime = m_sinkFrame;
+			if (whenToWakeTime > m_destructionFrame)
+				whenToWakeTime = m_destructionFrame;
+			if (whenToWakeTime > m_midpointFrame)
+				whenToWakeTime = m_midpointFrame;
+			if (m_dyingFrame && whenToWakeTime > m_dyingFrame)
+				whenToWakeTime = m_dyingFrame;
+			setWakeFrame(obj, (UpdateSleepTime)whenToWakeTime);
+		}
+
+		m_sinkFrame += now;
+		m_destructionFrame += now;
+		m_midpointFrame += now;
+		if (m_dyingFrame)
+			m_dyingFrame += now;
+		m_fadeFrame += now;
+
+		m_flags |= (1 << SLOW_DEATH_ACTIVATED);
+
+		doPhaseStuff(SDPHASE_INITIAL);
+	}
 }
