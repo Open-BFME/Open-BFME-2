@@ -67876,3 +67876,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ??0Rva003FD14D@@QAE@H@Z,,0x003FD14D,31,Code/GameEngine/Source/Common/Rva003FD14D.cpp,matched,dump range 19; derived ctor via base init 0x3FC58C then shared vtable 0xC37C68 and +0xAC byte; base carries vptr so no lea
 ?rva003FDCEB@Rva003FDCEB@@QAEHXZ,,0x003FDCEB,26,Code/GameEngine/Source/Common/Rva003FDCEB.cpp,matched,dump range 19; guarded tail via unsigned compare with int tail-return to 0x3FDC46
 ?rva004079D5@Rva004079D5@@QAEDHPAH@Z,,0x004079D5,31,Code/GameEngine/Source/Common/Rva004079D5.cpp,matched,dump range 19; outptr helper reusing dead arg slot with char compare result
+?rva00405315@Rva00405315@@QAEXXZ,,0x00405315,34,Code/GameEngine/Source/Common/Rva00405315.cpp,matched,dump range 19; flag-gated chain with void tail-merge jmp to 0x404A29
