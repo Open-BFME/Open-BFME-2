@@ -66776,3 +66776,4 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva0056652F@Rva0056652FOwner@@QAEXABUBfmePod40@@@Z,,0x0056652F,8,Code/GameEngine/Source/Common/Rva00566527Thunk.cpp,matched,tail-jump append plus 0x14 via Pod40 pushback
 ?rva004BBA15@GeometryInfo@@QAEXM@Z,,0x004BBA15,40,Code/GameEngine/Source/Common/System/GeometryInfoRva004BBA3D.cpp,matched,GeometryInfo caller and adjacent shape method prove vector stride and helper
 ?rva005FBBFC@Rva005FBBFC@@QAEXABVUnicodeString@@@Z,,0x005FBBFC,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,member forwarder to rowed Impl method target instruction and signature evidence
+??0Rva00420977@@QAE@XZ,,0x00420977,52,Code/GameEngine/Source/Common/Rva00420977Ctor.cpp,matched,address-derived ctor empty string and offset initializers inferred from target bytes
