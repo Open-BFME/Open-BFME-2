@@ -8,6 +8,7 @@
 // ?doAngleFX@StructureToppleUpdate@@IAEXMM@Z, retail 0x004A57DB, 112 bytes.
 // ?doToppleDelayBurstFX@StructureToppleUpdate@@IAEXXZ, retail 0x004A5B61, 299 bytes.
 // ?doToppleDoneStuff@StructureToppleUpdate@@IAEXXZ, retail 0x004A5628, 435 bytes.
+// ?update@StructureToppleUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail 0x004A6042, 1065 bytes.
 //
 // Donor: Zero Hour's StructureToppleUpdate.cpp through BFME 1's matched
 // bodies (reference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/
@@ -50,6 +51,15 @@
 //   Object::findModule (0x0028B6D6), BoneFXUpdate::stopAllBoneFX
 //   (0x00487A95), Thing::setOrientation (0x0030AB9D) and the Object
 //   setTransformMatrix override pinned at 0x0028D412.
+// - update is Zero Hour's with BFME 2's changes: no crash on the standing
+//   state, the burst delay re-roll is a logic random (file string 0x00C52A60,
+//   lines 230 and 279) and the topple acceleration factor is module data
+//   +0x48 instead of a constant. While toppling it calls Thing's
+//   setTransformMatrix (0x0030A2B7) directly, not the Object override.
+//   Once flat it clears model-condition bit 5 and sets bit 60 through
+//   Object's notifier 0x0028AE6D (Zero Hour's RUBBLE and POST_COLLAPSE on
+//   the drawable) and calls the body module's slot 0x28, Zero Hour's
+//   updateBodyParticleSystems.
 
 #include "matrix3d.h"
 #include "ascii_string.h"
@@ -104,7 +114,8 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 enum UpdateSleepTime
 {
-	UPDATE_SLEEP_NONE = 1
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
 enum StructureTopplePhaseType
@@ -114,6 +125,15 @@ enum StructureTopplePhaseType
 	STPHASE_FINAL,
 
 	ST_PHASE_COUNT
+};
+
+enum StructureToppleStateType
+{
+	TOPPLESTATE_STANDING = 0,
+	TOPPLESTATE_WAITINGFORTOPPLESTART,
+	TOPPLESTATE_TOPPLING,
+	TOPPLESTATE_WAITINGFORDONE,
+	TOPPLESTATE_DONE
 };
 
 enum
@@ -209,7 +229,7 @@ public:
 	virtual void slot1c();
 	virtual void slot20();
 	virtual void slot24();
-	virtual void slot28();
+	virtual void updateBodyParticleSystems();
 	virtual void slot2c();
 	virtual void slot30();
 	virtual void slot34();
@@ -229,6 +249,33 @@ private:
 };
 
 class Module;
+
+// Zero Hour clears RUBBLE and sets POST_COLLAPSE once the building lies flat;
+// BFME 2's bits for them are 5 and 60.
+enum ModelConditionFlagType
+{
+	MODELCONDITION_RUBBLE = 5,
+	MODELCONDITION_POST_COLLAPSE = 60
+};
+
+class ModelConditionFlags
+{
+public:
+	unsigned int test(unsigned int bit) const
+	{
+		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void set(unsigned int bit)
+	{
+		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+	}
+	void clear(unsigned int bit)
+	{
+		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
+	}
+private:
+	unsigned int m_words[19];
+};
 
 class Thing
 {
@@ -254,6 +301,23 @@ public:
 	Drawable *getDrawable() const;
 	Module *findUpdateModule(NameKeyType key) const { return findModule(key); }
 	void setTransformMatrix(const Matrix3D *mx);
+	void rva0028AE6D();
+	__forceinline void setModelConditionState(ModelConditionFlagType flag)
+	{
+		if (m_modelConditionFlags.test(flag) == 0)
+		{
+			m_modelConditionFlags.set(flag);
+			rva0028AE6D();
+		}
+	}
+	__forceinline void clearModelConditionState(ModelConditionFlagType flag)
+	{
+		if (m_modelConditionFlags.test(flag) != 0)
+		{
+			m_modelConditionFlags.clear(flag);
+			rva0028AE6D();
+		}
+	}
 
 protected:
 	Module *findModule(NameKeyType key) const;
@@ -261,7 +325,9 @@ protected:
 private:
 	unsigned char m_pad048[0xCC - 0x48];
 	GeometryInfo m_geometryInfo; // +0xCC
-	unsigned char m_pad0d4[0x254 - 0xD4];
+	unsigned char m_pad0d4[0x10C - 0xD4];
+	ModelConditionFlags m_modelConditionFlags; // +0x10C
+	unsigned char m_pad158[0x254 - 0x158];
 	BodyModuleInterface *m_body; // +0x254
 };
 
@@ -348,6 +414,18 @@ public:
 	void stopAllBoneFX();
 };
 
+class GameLogic
+{
+public:
+	UnsignedInt getFrame() { return m_frame; }
+
+private:
+	unsigned char m_pad00[0x40];
+	UnsignedInt m_frame; // +0x40
+};
+
+extern GameLogic *TheGameLogic;
+
 class TerrainLogic
 {
 public:
@@ -381,14 +459,19 @@ class ModuleData;
 class StructureToppleUpdateModuleData
 {
 public:
-	unsigned char m_pad000[0x4C];
+	unsigned char m_pad000[0x40];
+	Real m_structuralIntegrity; // +0x40
+	Real m_structuralDecay; // +0x44
+	Real m_toppleAccelerationFactor; // +0x48, a constant in Zero Hour
 	UnsignedInt m_damageFXTypes; // +0x4C
 	const FXList *m_toppleStartFXList; // +0x50
 	const FXList *m_toppleDelayFXList; // +0x54
-	unsigned char m_pad058[0x60 - 0x58];
+	unsigned char m_pad058[0x5C - 0x58];
+	const FXList *m_toppleDoneFXList; // +0x5C
 	const FXList *m_crushingFXList; // +0x60
 	AsciiString m_crushingWeaponName; // +0x64
-	unsigned char m_pad068[0x70 - 0x68];
+	Int m_minToppleBurstDelay; // +0x68
+	Int m_maxToppleBurstDelay; // +0x6C
 	OCLVec m_ocls[ST_PHASE_COUNT]; // +0x70
 	Int m_oclCount[ST_PHASE_COUNT]; // +0x94
 	ConstVector<FXBoneInfo> fxbones; // +0xA0
@@ -456,12 +539,12 @@ protected:
 
 	UnsignedInt m_toppleFrame; // +0x24
 	Coord2D m_toppleDirection; // +0x28
-	Int m_toppleState; // +0x30
+	StructureToppleStateType m_toppleState; // +0x30
 	Real m_toppleVelocity; // +0x34
 	Real m_accumulatedAngle; // +0x38
 	Real m_structuralIntegrity; // +0x3C
 	Real m_lastCrushedLocation; // +0x40
-	Int m_nextBurstFrame; // +0x44
+	UnsignedInt m_nextBurstFrame; // +0x44
 	Coord3D m_delayBurstLocation; // +0x48
 	Real m_buildingHeight; // +0x54
 };
@@ -694,4 +777,104 @@ void StructureToppleUpdate::doToppleDoneStuff()
 	Matrix3D xfrm = *building->getTransformMatrix();
 	xfrm.In_Place_Pre_Rotate_Z(toppleAngle-origAngle);
 	building->setTransformMatrix(&xfrm);
+}
+
+// ?update@StructureToppleUpdate@@UAE?AW4UpdateSleepTime@@XZ
+UpdateSleepTime StructureToppleUpdate::update( void )
+{
+	const StructureToppleUpdateModuleData *d = getStructureToppleUpdateModuleData();
+
+	if (m_toppleState == TOPPLESTATE_STANDING)
+	{
+		return UPDATE_SLEEP_FOREVER;
+	}
+
+	// get last damage info
+	const DamageInfo *lastDamageInfo = getObject()->getBodyModule()->getLastDamageInfo();
+
+	// We are in the dramatic pause between when the building has lost all its hit points and
+	// when it starts toppling over.
+	if (m_toppleState == TOPPLESTATE_WAITINGFORTOPPLESTART) {
+		UnsignedInt now = TheGameLogic->getFrame();
+		if (now >= m_nextBurstFrame) {
+			doToppleDelayBurstFX();
+#line 230 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureToppleUpdate.cpp"
+			m_nextBurstFrame = now + GameLogicRandomValue(d->m_minToppleBurstDelay, d->m_maxToppleBurstDelay);
+		}
+
+		if (now >= m_toppleFrame) {
+			m_toppleState = TOPPLESTATE_TOPPLING;
+			m_structuralIntegrity = d->m_structuralIntegrity;
+		}
+	}
+
+	// The building is in the process of falling over.
+	if (m_toppleState == TOPPLESTATE_TOPPLING) {
+		UnsignedInt now = TheGameLogic->getFrame();
+		Real toppleAcceleration = d->m_toppleAccelerationFactor * (Sin(m_accumulatedAngle) * (1.0 - m_structuralIntegrity));
+		m_toppleVelocity += toppleAcceleration;
+
+		// doesn't make sense to have a structural integrity less than zero.
+		if (m_structuralIntegrity > 0.0f) {
+			m_structuralIntegrity *= d->m_structuralDecay;
+			if (m_structuralIntegrity < 0.0f) {
+				m_structuralIntegrity = 0.0f;
+			}
+		}
+
+		doAngleFX(m_accumulatedAngle, m_accumulatedAngle + m_toppleVelocity);
+
+		m_accumulatedAngle += m_toppleVelocity;
+
+		applyCrushingDamage(PI/2 - m_accumulatedAngle);
+
+		if (m_accumulatedAngle >= PI/2) {
+			m_toppleVelocity -= m_accumulatedAngle - PI/2;
+			m_accumulatedAngle = PI/2;
+			m_toppleState = TOPPLESTATE_WAITINGFORDONE;
+
+			applyCrushingDamage(0.0f);
+			doPhaseStuff(STPHASE_FINAL, getObject()->getPosition());
+
+			if( lastDamageInfo == 0 || getDamageTypeFlag( d->m_damageFXTypes, lastDamageInfo->in.m_damageType ) )
+				FXList::doFXObj(d->m_toppleDoneFXList, getObject());
+
+			m_toppleFrame = TheGameLogic->getFrame();
+		}
+
+		if (now >= m_nextBurstFrame) {
+			doToppleDelayBurstFX();
+#line 279 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\StructureToppleUpdate.cpp"
+			m_nextBurstFrame = now + GameLogicRandomValue(d->m_minToppleBurstDelay, d->m_maxToppleBurstDelay);
+		}
+
+		Object *building = getObject();
+		Matrix3D xfrm = *building->getTransformMatrix();
+		xfrm.In_Place_Pre_Rotate_X(-m_toppleVelocity * m_toppleDirection.y);
+		xfrm.In_Place_Pre_Rotate_Y(m_toppleVelocity * m_toppleDirection.x);
+		building->Thing::setTransformMatrix(&xfrm);
+	}
+
+	// The building is now flat on the ground and done with all the crushing and all that.
+	if (m_toppleState == TOPPLESTATE_WAITINGFORDONE)
+	{
+		if (m_toppleFrame <= TheGameLogic->getFrame())
+		{
+			Object *building = getObject();
+			building->clearModelConditionState(MODELCONDITION_RUBBLE);
+			building->setModelConditionState(MODELCONDITION_POST_COLLAPSE);
+
+			// Need to update body particle systems, now
+			BodyModuleInterface *body = building->getBodyModule();
+			body->updateBodyParticleSystems();
+
+			doToppleDoneStuff();
+
+			m_toppleState = TOPPLESTATE_DONE;
+
+			return UPDATE_SLEEP_FOREVER;
+		}
+	}
+
+	return UPDATE_SLEEP_NONE;
 }
