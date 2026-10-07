@@ -25,6 +25,7 @@ class Rva00407137
 {
 public:
 	void rva00407137(const UnicodeString &u);
+	void rva0040710C(const AsciiString &s);
 private:
 	unsigned long m_crc;
 	bool m_flag;
@@ -36,6 +37,15 @@ void Rva00407137::rva00407137(const UnicodeString &u)
 	AsciiString s(u);
 	const char *str = s.str();
 	m_crc = CRC::String(str, m_crc);
+}
+
+// ?rva0040710C@Rva00407137@@QAEXABVAsciiString@@@Z @0x0040710C, 43 bytes.
+// Target evidence: body sets the same flag and CRC field as the Unicode overload;
+// packet identifies the AsciiString parameter and CRC::String callee.
+void Rva00407137::rva0040710C(const AsciiString &s)
+{
+	m_flag = true;
+	m_crc = CRC::String(s.str(), m_crc);
 }
 
 // ?Rva004071AAForward@@YAXPAVRva004071AAVirt@@ABVUnicodeString@@HPAVRva00407137@@@Z retail 0x004071AA 45B
