@@ -6,7 +6,13 @@
 // Canonical one-pointer AsciiString temporary used by the native wire adapter.
 #include "ascii_string.h"
 // stlport
+#include <cstdlib>
+void Rva00030830FreeAllocation(void *);
+// Retail map teardown uses the independently rowed game allocator, whose
+// C++ call route retains the native unwind-state transition.
+#define free Rva00030830FreeAllocation
 #include <map>
+#undef free
 typedef _STL::map<unsigned char, short> StatsShortMap;
 typedef _STL::map<unsigned char, int> StatsIntMap;
 template <> int &StatsIntMap::operator[](const unsigned char &);
@@ -191,13 +197,30 @@ public:
 class Rva0038454E : public Rva00553E47StatsCore	// strategic stats block
 {
 public:
+    Rva0038454E(int);
+    Rva0038454E(const Rva0038454E &);
     virtual void reset();
     virtual void rva00555109(XferStub *);
     virtual void rva0055524B(const Rva0038454E *);
 	~Rva0038454E();						// 0x0038454E
 	Rva0038454E &operator=(const Rva0038454E &that);	// 0x00387945
 
-	unsigned char m_pad154[0x208 - 0x154];
+    StatsFloatMap m_map154;
+    StatsFloatMap m_map160;
+    StatsFloatMap m_map16c;
+    StatsFloatMap m_map178;
+    StatsFloatMap m_map184;
+    StatsFloatMap m_map190;
+    StatsFloatMap m_map19c;
+    StatsFloatMap m_map1a8;
+    StatsShortMap m_map1b4;
+    StatsShortMap m_map1c0;
+    StatsFloatMap m_map1cc;
+    StatsFloatMap m_map1d8;
+    StatsFloatMap m_map1e4;
+    StatsFloatMap m_map1f0;
+    StatsFloatMap m_map1fc;
+
 };
 
 class Rva00385333	// tournament stats block
@@ -307,21 +330,21 @@ void Rva00385333::rva00553FDD() {
 // Eight maps, two of the other map ABI, then five maps; core reset is553E47.
 void Rva0038454E::reset() {
     ((Rva00553E47StatsCore *)this)->Rva00553E47StatsCore::reset();
-    ((Rva0038204A *)(m_pad154 + 0x0))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 0xc))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 0x18))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 0x24))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 0x30))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 0x3c))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 0x48))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 0x54))->rva003828DF();
-    ((Rva0038201D *)(m_pad154 + 0x60))->rva003828B6();
-    ((Rva0038201D *)(m_pad154 + 0x6c))->rva003828B6();
-    ((Rva0038204A *)(m_pad154 + 0x78))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 0x84))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 0x90))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 0x9c))->rva003828DF();
-    ((Rva0038204A *)(m_pad154 + 0xa8))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map154))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map160))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map16c))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map178))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map184))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map190))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map19c))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map1a8))->rva003828DF();
+    ((Rva0038201D *)((char *)&m_map1b4))->rva003828B6();
+    ((Rva0038201D *)((char *)&m_map1c0))->rva003828B6();
+    ((Rva0038204A *)((char *)&m_map1cc))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map1d8))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map1e4))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map1f0))->rva003828DF();
+    ((Rva0038204A *)((char *)&m_map1fc))->rva003828DF();
 }
 
 // Native [5550A0,555109),105B transfers two maps and three scalars from
@@ -377,21 +400,21 @@ void Rva0038454E::rva00555109(XferStub *xfer) {
     version.first=1;
     version.second=1;
     xfer->_slot28(version);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 0), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 12), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 24), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 36), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 48), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 60), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 72), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 84), xfer);
-    ((PSPlayerStats *)this)->XferMap((MapHolder *)(m_pad154 + 96), xfer);
-    ((PSPlayerStats *)this)->XferMap((MapHolder *)(m_pad154 + 108), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 120), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 132), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 144), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 156), xfer);
-    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)(m_pad154 + 168), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map154), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map160), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map16c), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map178), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map184), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map190), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map19c), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map1a8), xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)((char *)&m_map1b4), xfer);
+    ((PSPlayerStats *)this)->XferMap((MapHolder *)((char *)&m_map1c0), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map1cc), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map1d8), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map1e4), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map1f0), xfer);
+    ((PSPlayerStats *)this)->rva0055499A((MapFloatHolder *)((char *)&m_map1fc), xfer);
 }
 
 // Native rva00555988: core transfer then version1 and the same map groups as its reset.
@@ -592,65 +615,76 @@ Rva00553E47StatsCore::Rva00553E47StatsCore(int id) {
 // Its15 maps agree with reset553F2F and xfer55573B, each with its own tests.
 void Rva0038454E::rva0055524B(const Rva0038454E *source) {
     Rva00553E47StatsCore::rva00554AF2(source);
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+0))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+0))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map154))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map154))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+0))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map154))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+12))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+12))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map160))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map160))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+12))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map160))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+24))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+24))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map16c))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map16c))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+24))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map16c))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+36))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+36))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map178))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map178))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+36))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map178))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+48))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+48))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map184))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map184))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+48))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map184))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+60))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+60))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map190))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map190))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+60))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map190))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+72))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+72))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map19c))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map19c))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+72))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map19c))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+84))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+84))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map1a8))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map1a8))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+84))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map1a8))[it->first]=it->second;
     }
-    for (StatsShortMap::const_iterator it=((const StatsShortMap *)(source->m_pad154+96))->begin(); it._M_node!=((const StatsShortMap *)(source->m_pad154+96))->end()._M_node; ++it) {
+    for (StatsShortMap::const_iterator it=((const StatsShortMap *)((const char *)&source->m_map1b4))->begin(); it._M_node!=((const StatsShortMap *)((const char *)&source->m_map1b4))->end()._M_node; ++it) {
         if ((unsigned short)it->second > 0)
-            (*(StatsShortMap *)(m_pad154+96))[it->first]=it->second;
+            (*(StatsShortMap *)((char *)&m_map1b4))[it->first]=it->second;
     }
-    for (StatsShortMap::const_iterator it=((const StatsShortMap *)(source->m_pad154+108))->begin(); it._M_node!=((const StatsShortMap *)(source->m_pad154+108))->end()._M_node; ++it) {
+    for (StatsShortMap::const_iterator it=((const StatsShortMap *)((const char *)&source->m_map1c0))->begin(); it._M_node!=((const StatsShortMap *)((const char *)&source->m_map1c0))->end()._M_node; ++it) {
         if ((unsigned short)it->second > 0)
-            (*(StatsShortMap *)(m_pad154+108))[it->first]=it->second;
+            (*(StatsShortMap *)((char *)&m_map1c0))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+120))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+120))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map1cc))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map1cc))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+120))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map1cc))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+132))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+132))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map1d8))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map1d8))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+132))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map1d8))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+144))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+144))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map1e4))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map1e4))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+144))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map1e4))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+156))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+156))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map1f0))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map1f0))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+156))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map1f0))[it->first]=it->second;
     }
-    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)(source->m_pad154+168))->begin(); it._M_node!=((const StatsFloatMap *)(source->m_pad154+168))->end()._M_node; ++it) {
+    for (StatsFloatMap::const_iterator it=((const StatsFloatMap *)((const char *)&source->m_map1fc))->begin(); it._M_node!=((const StatsFloatMap *)((const char *)&source->m_map1fc))->end()._M_node; ++it) {
         if (it->second > 0.0f)
-            (*(StatsFloatMap *)(m_pad154+168))[it->first]=it->second;
+            (*(StatsFloatMap *)((char *)&m_map1fc))[it->first]=it->second;
     }
 }
 typedef char StrategicStatsSizeCheck[sizeof(Rva0038454E)==0x208?1:-1];
+
+// Strategic constructors use the same15 map members as reset/xfer/merge,
+// both starting from the base id0 constructor.
+Rva0038454E::Rva0038454E(int id) : Rva00553E47StatsCore(0) {
+    reset();
+    m_id=id;
+}
+Rva0038454E::Rva0038454E(const Rva0038454E &source) : Rva00553E47StatsCore(0) {
+    reset();
+    rva0055524B(&source);
+}
