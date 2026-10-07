@@ -7,23 +7,7 @@
 
 #include "ascii_string.h"
 #include <algorithm>
-
-namespace _STL
-{
-typedef bool _Rb_tree_Color_type;
-struct _Rb_tree_node_base
-{
-	_Rb_tree_Color_type _M_color;
-	_Rb_tree_node_base *_M_parent;
-	_Rb_tree_node_base *_M_left;
-	_Rb_tree_node_base *_M_right;
-};
-template <class Dummy> class _Rb_global
-{
-public:
-	static _Rb_tree_node_base *__cdecl _M_increment(_Rb_tree_node_base *);
-};
-}
+#include <stl/_tree.h>
 
 class Rva003ED5A5Xfer;
 struct BitRange
@@ -43,7 +27,7 @@ struct TreeNode
 	_STL::_Rb_tree_node_base m_base;
 	AsciiString m_10;
 	unsigned m_14;
-	unsigned m_18;
+	int m_18;
 };
 extern _STL::_Rb_tree_node_base *g_00A02E50;
 // g_00A02E50: matched references place it at VA 0xe02e50 (zero-filled .bss).
@@ -250,4 +234,74 @@ void BitRange::rva003EDAEB(Rva003ED5A5Xfer *xfer)
 	AsciiString name;
 	while (value.nextToken(&name, 0))
 		reinterpret_cast<LargeGroupAudioKeyMap *>(this)->bfmeAddKey(name);
+}
+
+// Only the exact header/node-erasure ABI of the existing provider56BC3
+// is used below. Its node destruction touches the AsciiString at +0x10;
+// the observed key/use-count words have trivial destruction. This does
+// not identify the actual table as an AsciiString-only set.
+typedef _STL::_Rb_tree<AsciiString, AsciiString, _STL::_Identity<AsciiString>,
+	_STL::less<AsciiString>, _STL::allocator<AsciiString> > Rva003ED7A2EraseTree;
+namespace _STL
+{
+template <> void Rva003ED7A2EraseTree::erase(Rva003ED7A2EraseTree::iterator);
+}
+
+extern unsigned int g_lgaNextKey;
+class LGA_MemberObj
+{
+public:
+	unsigned int *m_wordsBegin;
+	unsigned int *m_wordsEnd;
+};
+
+// Donor968ca36c LargeGroupAudioKeyList.cpp supplies this release walk and
+// its existing bfmeClearMembers call spelling. Native3ED7A2..3ED861 RET0
+// proves signed use-count/next-key comparisons and the erase/increment
+// call order. The shared native tree, bitmap prefix and string lifetime
+// are also established by the other six verified bodies in this unit.
+void bfmeClearMembers(LGA_MemberObj *self)
+{
+	Rva003ED7A2EraseTree::iterator record(
+		reinterpret_cast<_STL::_Rb_tree_node<AsciiString> *>(g_00A02E50->_M_left));
+	bool rebuildNextKey = false;
+	while (record._M_node != g_00A02E50)
+	{
+		TreeNode *node = (TreeNode *)record._M_node;
+		unsigned int *words = self->m_wordsBegin;
+		unsigned int count = self->m_wordsEnd - words;
+		unsigned int key = node->m_14;
+		unsigned int word = key >> 5;
+		if (count > word)
+		{
+			unsigned int mask = 1 << (key & 31);
+			if (words[word] & mask)
+			{
+				--node->m_18;
+				if (node->m_18 <= 0)
+				{
+					if (key == g_lgaNextKey)
+						rebuildNextKey = true;
+					Rva003ED7A2EraseTree::iterator next = record;
+					++record;
+					reinterpret_cast<Rva003ED7A2EraseTree *>(&g_00A02E50)->erase(next);
+					continue;
+				}
+			}
+		}
+		++record;
+	}
+	if (rebuildNextKey)
+	{
+		g_lgaNextKey = 0;
+		record = Rva003ED7A2EraseTree::iterator(
+			reinterpret_cast<_STL::_Rb_tree_node<AsciiString> *>(g_00A02E50->_M_left));
+		while (record._M_node != g_00A02E50)
+		{
+			TreeNode *node = (TreeNode *)record._M_node;
+			if ((int)node->m_14 >= (int)g_lgaNextKey)
+				g_lgaNextKey = node->m_14 + 1;
+			++record;
+		}
+	}
 }
