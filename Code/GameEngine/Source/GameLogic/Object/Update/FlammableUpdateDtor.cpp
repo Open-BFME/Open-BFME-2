@@ -174,7 +174,11 @@ public:
 	virtual Rva0036AE51ListView rva70(); // vslot 70
 };
 
-class Rva0048C8F9Module258
+// The AIUpdateInterface at Object+0x258 (isMoving row 0x00264688): slot 142
+// of its primary table takes a mode (0 when a burn ends, 4 when the flee
+// starts), its AICommandInterface base sits at +0x20 (aiMoveToPosition row
+// 0x0026C26D) and both bodies write the flag at +0x3C9.
+class AIUpdatePrimaryView
 {
 public:
 	virtual void v000();
@@ -319,8 +323,22 @@ public:
 	virtual void v139();
 	virtual void v140();
 	virtual void v141();
-	virtual void rva142(Bool set); // vslot 142 (+0x238)
-	char m_unknown004[0x3C9 - 4];
+	virtual void rva142(Int mode); // vslot 142 (+0x238)
+	char m_unknown004[0x20 - 4];
+};
+
+class AICommandInterface
+{
+public:
+	virtual void aiDoCommand(const void *parms);
+	void aiMoveToPosition(const Coord3D *pos, Int cmdSource);
+};
+
+class AIUpdateInterface : public AIUpdatePrimaryView, public AICommandInterface
+{
+public:
+	Bool isMoving() const;
+	char m_unknown024[0x3C9 - 0x24];
 	Bool m_flag3C9;
 };
 
@@ -365,7 +383,7 @@ public:
 	char m_unknown158[0x250 - 0x158];
 	ContainModuleInterface *m_contain; // +0x250
 	BodyModuleInterface *m_body; // +0x254
-	Rva0048C8F9Module258 *m_module258; // +0x258
+	AIUpdateInterface *m_ai; // +0x258
 };
 
 class TerrainLogic
@@ -391,14 +409,43 @@ public:
 	virtual void v17();
 	virtual void v18();
 	virtual Bool isUnderwater(Real x, Real y, Real *waterZ = 0, Real *terrainZ = 0, Int unused = 0);
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void v24();
+	// Water depth at (x, y): waterZ - terrainZ when isUnderwater, else 0
+	// (W3DTerrainLogic slot 25, row 0x0027D815).
+	virtual Real Rva0027D815(Real x, Real y);
 };
 
 extern TerrainLogic *TheTerrainLogic;
+
+class Pathfinder
+{
+public:
+	Bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, Int zero);
+};
+
+class AI
+{
+public:
+	char m_unknown00[0x10];
+	Pathfinder *m_pathfinder; // +0x10
+
+	Pathfinder *pathfinder() { return m_pathfinder; }
+};
+
+extern AI *TheAI;
+
+// BFME 2 keeps the logic frame rate in a global (0x009BA4E4).
+extern int g_Va00DBA4E4;
 
 class GameLogic
 {
 public:
 	UnsignedInt getFrame() const { return m_frame; }
+	void deselectObject(Object *obj, UnsignedInt playerMask, Bool affectClient);
 private:
 	char m_unknown00[0x40];
 	UnsignedInt m_frame;
@@ -497,7 +544,10 @@ public:
 	Bool m_flag37;
 	Bool m_flag38;
 	Bool m_damageContained; // +0x39
-	char m_unknown3A[0x48 - 0x3A];
+	Bool m_fleeToWater; // +0x3A
+	Real m_minWaterDepth; // +0x3C
+	Real m_fleeSearchRadius; // +0x40
+	Real m_fleeSearchStep; // +0x44
 	Bool m_flag48;
 	ModelConditionFlagType m_specialCondition; // +0x4C
 	UnsignedInt m_specialConditionFrames; // +0x50
@@ -527,7 +577,7 @@ public:
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update();
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -562,6 +612,8 @@ public:
 	void tryToIgnite();
 	void rva0048C8F9();
 	void rva0048C7BF();
+	void rva0048C771();
+	virtual UpdateSleepTime update();
 
 protected:
 	UpdateSleepTime calcSleepTime();
@@ -579,7 +631,7 @@ private:
 	void *m_audioHandle;
 	Real m_flameDamageLimit; // +0x38
 	Int m_lastFlameDamageDealt; // +0x3C
-	Int m_unknown40;
+	Bool m_fleeing; // +0x40
 	UnsignedInt m_specialConditionEndFrame; // +0x44
 	UnsignedInt m_lastIgniterID; // +0x48
 	Bool m_flag4C;
@@ -642,11 +694,11 @@ void FlammableUpdate::rva0048C8F9()
 	me->clearModelConditionState(MODELCONDITION_AFLAME);
 	if (data->m_flag48 && m_flag4C)
 	{
-		Rva0048C8F9Module258 *module = me->m_module258;
-		if (module)
+		AIUpdateInterface *ai = me->m_ai;
+		if (ai)
 		{
-			module->m_flag3C9 = false;
-			me->m_module258->rva142(false);
+			ai->m_flag3C9 = false;
+			me->m_ai->rva142(0);
 			m_flag4C = false;
 		}
 	}
@@ -799,6 +851,121 @@ void FlammableUpdate::onDamage(DamageInfo *damageInfo)
 			}
 		}
 	}
+}
+
+// ?update@FlammableUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x0048D0BE 977B
+// (Ghidra boundary; slot 0 of the UpdateModuleInterface vftable, this = the
+// +0x10 base). Donor: Zero Hour FlammableUpdate::update -- expire the damage,
+// burned and aflame timers, then sleep via calcSleepTime. Target-only parts
+// read from retail: when the special-condition timer expires and module data
+// +0x3A asks to flee to water, scan a grid of +0x40 radius in +0x44 steps
+// around the object for the closest cell deeper than +0x3C (TheTerrainLogic
+// slot 25) that TheAI's pathfinder can reach, then order the move, deselect,
+// set status bits 3 and 5 and notify an EntEnragedUpdate module; while
+// underwater and not moving, the aflame end is clamped to three seconds.
+UpdateSleepTime FlammableUpdate::update()
+{
+	Object *me = getObject();
+	UnsignedInt now = TheGameLogic->getFrame();
+	const FlammableUpdateModuleData *data = getFlammableUpdateModuleData();
+
+	if (m_specialConditionEndFrame > 0)
+	{
+		if (now >= m_specialConditionEndFrame)
+		{
+			m_specialConditionEndFrame = 0;
+			if (data->m_fleeToWater)
+			{
+				const Coord3D *pos = &me->m_pos;
+				Coord3D best;
+				best.x = 10000000.0f;
+				best.y = 10000000.0f;
+				best.z = 10000000.0f;
+				AIUpdateInterface *ai = me->m_ai;
+				if (ai)
+				{
+					Real radius = data->m_fleeSearchRadius;
+					Real step = data->m_fleeSearchStep;
+					for (Real x = (Real)(Int)(pos->x - radius); pos->x + radius >= x; x = (Real)(Int)(x + step))
+					{
+						// A second pointer for the row bounds: retail loads row->y before
+						// adding the radius, which the shared pos pointer does not give.
+						const Coord3D *row = pos;
+						for (Real y = (Real)(Int)(row->y - radius); row->y + radius >= y; y = (Real)(Int)(y + step))
+						{
+							if (TheTerrainLogic->Rva0027D815(x, y) > getFlammableUpdateModuleData()->m_minWaterDepth)
+							{
+								Coord3D cand;
+								cand.z = pos->z;
+								cand.x = x;
+								cand.y = y;
+								Real candDX = pos->x - cand.x;
+								Real candDY = pos->y - cand.y;
+								Real bestDX = pos->x - best.x;
+								Real bestDY = pos->y - best.y;
+								if (candDX * candDX + candDY * candDY < bestDX * bestDX + bestDY * bestDY
+									&& TheAI->pathfinder()->QuickDoesPathExist(me, pos, &cand, 0))
+									best = cand;
+							}
+						}
+					}
+
+					static const NameKeyType key_EntEnragedUpdate = TheNameKeyGenerator->nameToKey("EntEnragedUpdate");
+					Module *enraged = me->findModule(key_EntEnragedUpdate);
+					if (TheTerrainLogic->isUnderwater(best.x, best.y))
+					{
+						if (data->m_flag48)
+						{
+							AIUpdateInterface *ai2 = me->m_ai;
+							if (ai2)
+							{
+								ai2->rva142(4);
+								me->m_ai->m_flag3C9 = true;
+								m_flag4C = true;
+							}
+						}
+						ai->aiMoveToPosition(&best, 1);
+						m_fleeing = true;
+						TheGameLogic->deselectObject(me, 0xFFFFF, true);
+						me->setStatus(OBJECT_STATUS_STATUS_3, true);
+						me->setStatus(OBJECT_STATUS_STATUS_5, true);
+						if (enraged)
+							((Rva002918E0Object *)enraged)->set(1);
+					}
+					else if (enraged)
+					{
+						((Rva002918E0Object *)enraged)->rva004B239A(1, 0);
+					}
+				}
+			}
+		}
+		return UPDATE_SLEEP_NONE;
+	}
+
+	if (!(me->m_template->m_kindOf11C & 0x80000000)
+		&& TheTerrainLogic->isUnderwater(me->m_pos.x, me->m_pos.y))
+	{
+		AIUpdateInterface *ai = me->m_ai;
+		if (ai && !ai->isMoving())
+		{
+			m_aflameEndFrame = _STL::min((UnsignedInt)(g_Va00DBA4E4 * 3 + TheGameLogic->getFrame()), m_aflameEndFrame);
+			m_fleeing = false;
+		}
+	}
+
+	if (m_damageEndFrame != 0 && now >= m_damageEndFrame)
+	{
+		m_damageEndFrame = now + data->m_aflameDamageDelay;
+		rva0048C771();
+	}
+	if (m_burnedEndFrame != 0 && now >= m_burnedEndFrame && data->m_flag34)
+	{
+		me->setStatus(OBJECT_STATUS_BURNED, true);
+		me->setModelConditionState(MODELCONDITION_SMOLDERING);
+	}
+	if (m_aflameEndFrame != 0 && now >= m_aflameEndFrame)
+		rva0048C8F9();
+	return calcSleepTime();
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
