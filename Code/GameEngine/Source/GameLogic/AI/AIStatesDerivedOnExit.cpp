@@ -57,6 +57,16 @@
 // The retry tail is Zero Hour's (80-unit close enough, sleep three
 // LOGICFRAMES_PER_SECOND, the BFME 2 int global g_00DBA4E4); forceRepath
 // writes the path goal (+0x34) and the path timestamp (+0x44).
+// AIMoveToState::update, retail 0x00353A65 (450 bytes): slot 6 of vtable
+// 0x00C11EB8, the base update AIAttackMoveToState::update calls. Zero Hour's
+// body without the RIDER8 debug hook and without the physics test: a
+// move-to state (+0x4C) whose mood adjusts to attack-move issues the
+// pinned attack-move command (0x00295A0F) on the AI's command interface;
+// a goal object's position (raised for projectiles by half its geometry's
+// pinned max height, Object +0xA8) is led by the rowed speed accessor
+// Object::rva0028AC7D and the pinned direction getter 0x0030A8EE unless the
+// goal is immobile. KindOf bits are the template's (+4) dword at +0x108
+// (PROJECTILE bit 25, IMMOBILE bit 2).
 enum StateExitType
 {
 	EXIT_NORMAL = 0
@@ -132,6 +142,11 @@ enum
 enum CommandSourceType
 {
 	CMD_FROM_AI = 2
+};
+enum KindOfType
+{
+	KINDOF_IMMOBILE = 2,
+	KINDOF_PROJECTILE = 25
 };
 enum
 {
@@ -227,6 +242,11 @@ class Rva00352F9D
 public:
 	void rva00352F9D(const void *way, int maxShots, CommandSourceType cmdSource);
 };
+class AICommandInterface
+{
+public:
+	void rva00295A0F(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource);
+};
 class Rva00352F2FOpaque
 {
 public:
@@ -242,6 +262,10 @@ public:
 	Object *getNextMoodTarget(Bool calm, Bool alwaysAttack);
 	Path *getPath() const { return m_path; }
 	UnsignedInt getMoodMatrixActionAdjustment(MoodMatrixAction action) const;
+	void aiAttackMoveToPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource)
+	{
+		((AICommandInterface *)m_commandInterface)->rva00295A0F(pos, maxShotsToFire, cmdSource);
+	}
 	void aiAttackFollowWaypointPath(const Waypoint *way, Int maxShotsToFire, CommandSourceType cmdSource)
 	{
 		((Rva00352F2FOpaque *)m_commandInterface)->invoke(way, maxShotsToFire, cmdSource);
@@ -291,9 +315,31 @@ public:
 private:
 	unsigned int m_words[19];
 };
+class ThingTemplate
+{
+public:
+	__forceinline unsigned int isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 0x1f)); }
+private:
+	unsigned char m_pad00[0x108];
+	unsigned int m_kindOf[1]; // +0x108
+};
+class GeometryInfo
+{
+public:
+	Real getMaxHeightAbovePosition() const;
+};
+class Thing
+{
+public:
+	void rva0030A8EE(Coord3D *dir) const;
+};
 class Object
 {
 public:
+	__forceinline unsigned int isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	const GeometryInfo &getGeometryInfo() const { return *(const GeometryInfo *)m_geometryInfo; }
+	Real rva0028AC7D() const;
+	void getUnitDirectionVector3D(Coord3D &dir) const { ((const Thing *)this)->rva0030A8EE(&dir); }
 	AIUpdateInterface *getAI() { return m_ai; }
 	Team *getTeam() { return m_team; }
 	Player *getControllingPlayer() const;
@@ -302,9 +348,12 @@ public:
 	void rva0028ACEE(int goalPos, int layer);
 	float getBfmeRealB8() const { return m_bfmeRealB8; }
 	const Coord3D *getPosition() const { return &m_position; }
-	unsigned char m_pad000[0x38];
+	unsigned char m_pad000[0x04];
+	const ThingTemplate *m_template; // +0x04
+	unsigned char m_pad008[0x38 - 0x08];
 	Coord3D m_position; // +0x38
-	unsigned char m_pad044[0xB8 - 0x44];
+	unsigned char m_pad044[0xA8 - 0x44];
+	unsigned char m_geometryInfo[0xB8 - 0xA8]; // +0xA8
 	float m_bfmeRealB8; // +0xB8
 	unsigned char m_pad0BC[0x10C - 0xBC];
 	Rva0010CBits m_conditionBits; // +0x10C
@@ -407,6 +456,8 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
+protected:
+	Bool m_isMoveTo; // +0x4C
 };
 void AIMoveToState::onExit(StateExitType status)
 {
@@ -418,7 +469,6 @@ public:
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad4C[0x50 - 0x4C];
 	CommandSourceType m_commandSrc; // +0x50
 	StateMachine *m_attackMoveMachine; // +0x54
 	UnsignedInt m_frameToSleepUntil; // +0x58
@@ -794,4 +844,63 @@ StateReturnType AIAttackMoveToState::update()
 		m_frameToSleepUntil = TheGameLogic->getFrame() + 3 * LOGICFRAMES_PER_SECOND;
 	}
 	return ret;
+}
+
+StateReturnType AIMoveToState::update()
+{
+	AIUpdateInterface *ai = getMachineOwner()->getAI();
+
+	UnsignedInt adjustment = ai->getMoodMatrixActionAdjustment(MM_Action_Move);
+	if (m_isMoveTo && (adjustment & MAA_Action_To_AttackMove))
+		ai->aiAttackMoveToPosition(&m_goalPosition, NO_MAX_SHOTS_LIMIT, CMD_FROM_AI);
+
+	Object *goalObj = getMachine()->getGoalObject();
+	Object *obj = getMachineOwner();
+	if (goalObj)
+	{
+		m_goalPosition = *goalObj->getPosition();
+		Bool isMissile = obj->isKindOf(KINDOF_PROJECTILE);
+		if (isMissile)
+		{
+			Real halfHeight = getMachine()->getGoalObject()->getGeometryInfo().getMaxHeightAbovePosition() / 2.0f;
+			m_goalPosition.z += halfHeight;
+			Real zDelta = m_goalPosition.z - obj->getPosition()->z;
+			if (zDelta > 0)
+				m_goalPosition.z += zDelta;
+		}
+		if (isMissile && !goalObj->isKindOf(KINDOF_IMMOBILE))
+		{
+			const Coord3D *objPos = obj->getPosition();
+			Coord3D ourPos;
+			ourPos.x = objPos->x;
+			ourPos.y = objPos->y;
+			ourPos.z = objPos->z;
+			Coord3D delta;
+			delta.x = m_goalPosition.x - ourPos.x;
+			delta.y = m_goalPosition.y - ourPos.y;
+			delta.z = m_goalPosition.z - ourPos.z;
+			Real mySpeed = obj->rva0028AC7D();
+			Real goalSpeed = goalObj->rva0028AC7D();
+			if (mySpeed < 5.0f)
+				mySpeed = 5.0f;
+			Real leadDistance = (0.5 * delta.length()) * goalSpeed / mySpeed;
+			Coord3D dir;
+			goalObj->getUnitDirectionVector3D(dir);
+			m_goalPosition.x += dir.x * leadDistance;
+			m_goalPosition.y += dir.y * leadDistance;
+			m_goalPosition.z += dir.z * leadDistance;
+		}
+	}
+	else
+	{
+		if (obj->isKindOf(KINDOF_PROJECTILE))
+		{
+			m_goalPosition = *getMachine()->getGoalPosition();
+			Real zDelta = m_goalPosition.z - obj->getPosition()->z;
+			if (zDelta > 0)
+				m_goalPosition.z += zDelta;
+		}
+	}
+
+	return AIInternalMoveToState::update();
 }
