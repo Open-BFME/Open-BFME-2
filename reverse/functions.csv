@@ -67334,3 +67334,5 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva000E6FC8@Rva000E6FC8@@QAEXXZ,,0x000E6FC8,27,Code/GameEngine/Source/Common/Rva000E6FC8.cpp,matched,GlobalData +0xD45 selects 0x14 or 2 then thiscall 0x000E6D94
 ?rva000EA1F3@Rva000E6FC8@@QAEXXZ,,0x000EA1F3,39,Code/GameEngine/Source/Common/Rva000EA1F3.cpp,matched,GlobalData +0xD45 selects 0x14 else byte +0x62 selects 7 or 4 then thiscall 0x000E6D94
 ?rva000E07F4@@YAHPAVRva000E07F4Obj@@PAVRva000E07F4Host@@@Z,,0x000E07F4,34,Code/GameEngine/Source/Common/Rva000E07F4.cpp,matched,cdecl returns 1; kind bit 0x80 or null skips thiscall 0x000E0584
+?rva000E57FF@Rva000E57FF@@QAEXPAVRva000E488F@@@Z,,0x000E57FF,63,Code/GameEngine/Source/Common/Rva000E57FF.cpp,matched,copy byte +0x21 to +0x22 then sentinel list sets +0x22 when 0x000E48BC accepts and dword +0x98 is set
+?rva000DF745@W3DBridgeBuffer@@QAEXHH@Z,,0x000DF745,49,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferRva000DF745.cpp,matched,W3DBridgeBuffer forwards first arg to 0x000DD878 then second when +0xD7B6 is set or +0xC is zero and clears +0xD7B5
