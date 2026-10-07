@@ -25,10 +25,12 @@ public:
 	int rva002B2B66();
 };
 
-class Rva002E0BC0Helper
+// The native provider normalizes its bool result with movzx eax,al at
+// 0x002E0BE0. Keep each caller's byte-sized test while naming its int ABI.
+class Rva002E071E
 {
 public:
-	unsigned char rva002E0BC0(int v);
+	int rva002E0BC0(int v);
 };
 
 struct Rva004E0705Inner
@@ -54,7 +56,7 @@ bool Rva004E0705::rva004E08A9(bool check)
 	if ((check == 0 || m_1C < ((Rva004E08A9World *)g_009FEF10)->m_FC)
 		&& (p = rva004E0705()) != 0
 		&& p != ((Rva004E08A9World *)g_009FEF10)->m_98
-		&& ((Rva002E0BC0Helper *)p)->rva002E0BC0(((Rva002B2B66 *)(Rva004E08A9World *)g_009FEF10)->rva002B2B66()) == 0)
+		&& (unsigned char)((Rva002E071E *)p)->rva002E0BC0(((Rva002B2B66 *)(Rva004E08A9World *)g_009FEF10)->rva002B2B66()) == 0)
 		return true;
 	return false;
 }

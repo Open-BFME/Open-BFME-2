@@ -5,10 +5,12 @@
 // global g_009FEF10 mangled ?g_009FEF10@@3PAVRva002BA8F1Logic@@A.
 class Rva002E2903Player;
 
-class Rva002E0BC0Helper
+// The native provider normalizes its bool result with movzx eax,al at
+// 0x002E0BE0. Keep each caller's byte-sized test while naming its int ABI.
+class Rva002E071E
 {
 public:
-	unsigned char rva002E0BC0(int val);
+	int rva002E0BC0(int val);
 };
 
 class Rva002BA8F1Logic
@@ -71,7 +73,7 @@ void Rva003F1AFF::rva003F1AFF(int arg)
 	Rva002E2903Player *found = g_009FEF10->find(old, 0);
 	if (found != 0)
 	{
-		if (((Rva002E0BC0Helper *)found)->rva002E0BC0(arg))
+		if ((unsigned char)((Rva002E071E *)found)->rva002E0BC0(arg))
 			goto broadcast;
 	}
 	m_134 = g_009FEF10->m_FC;

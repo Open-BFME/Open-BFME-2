@@ -25,19 +25,21 @@ struct Rva003FE38
     char m_pad00[0x54];
     int m_54;
 };
-class Rva002E0BC0Helper
+// The native provider normalizes its bool result with movzx eax,al at
+// 0x002E0BE0. Keep each caller's byte-sized test while naming its int ABI.
+class Rva002E071E
 {
 public:
     char m_pad00[0x14];
     int m_14;
 public:
-    unsigned char rva002E0BC0(int v);
+    int rva002E0BC0(int v);
 };
 class Rva002BA8F1Logic
 {
 public:
     char m_pad00[0x98];
-    Rva002E0BC0Helper *m_98;
+    Rva002E071E *m_98;
     char m_pad9C[0xF4 - 0x9C];
     int m_F4;
 };
@@ -59,12 +61,12 @@ TreeHintRef00217D4C Rva003FE05E::rva003FE0EB()
         int v = m_38->m_54;
         Rva002BA8F1Logic *logic = g_009FEF10;
         int f4 = logic->m_F4;
-        Rva002E0BC0Helper *helper = logic->m_98;
+        Rva002E071E *helper = logic->m_98;
         if (f4 != 0)
             rva003FE05E();
         else if (helper->m_14 == v)
             rva003FE05E();
-        else if (helper->rva002E0BC0(v))
+        else if ((unsigned char)helper->rva002E0BC0(v))
             rva003FE05E();
     }
     return m_hint;
