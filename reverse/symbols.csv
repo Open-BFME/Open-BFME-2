@@ -15352,6 +15352,3 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?sendFile@ConnectionManager@@QAEXVAsciiString@@EG@Z,0x004D1927,REL32 target read from byte-exact wrapper 0x0025E327; target callee consumes path plus byte mask and word command ID for file transfer; name/signature are donor-derived and match the local helper declaration.
 ?rva002235F3@Rva002235F3@@QAEPAXPBX@Z,0x002235F3,REL32 destination observed at 0x002239B2 and 0x002239E2; thiscall with one pointer argument and writable pointer result inferred from both callers; body is not claimed
 ?rva004D0E8B@ConnectionManager@@QAEXXZ,0x004D0E8B,REL32 target read at 0x0025E23D; target Ghidra boundary is 8B; body pushes zero and calls existing pinned 0x004D00BB then returns; ECX is Network+0x0C; ConnectionManager ownership follows target TU map and caller layout; helper operation remains unresolved.
-?rva00416C69@@YAXXZ,0x00416C69,address-derived no-argument callee from retail call at 0x00517EBC; body identity remains unknown
-?rva005BDAC1@@YAXXZ,0x005BDAC1,address-derived no-argument callee from retail call at 0x00517EC1; body identity remains unknown
-?rva005AF12F@@YAXPAX@Z,0x005AF12F,address-derived one-pointer callee from retail call at 0x00517F05; body identity remains unknown
