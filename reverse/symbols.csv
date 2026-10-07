@@ -15323,3 +15323,4 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?getNextVertexBuffer@W3DBufferManager@@QAEPAUW3DVertexBuffer@1@PAU21@W4VBM_FVF_TYPES@1@@Z,0x000EFB14,callee of ?renderShadows@W3DVolumetricShadowManager@@QAEXAAVRenderInfoClass@@@Z
 ?updateVolumes@W3DVolumetricShadow@@IAEXM@Z,0x000F3D23,callee of ?Update@W3DVolumetricShadow@@QAEX_N@Z
 ?updateOptimalExtrusionPadding@W3DVolumetricShadow@@IAEXXZ,0x000F1212,callee of ?Update@W3DVolumetricShadow@@QAEX_N@Z
+?rva002BED69@Rva002D3627Host@@QAEHXZ,0x002BED69,caller 0x00539411 and target callee bytes show increment and return of host+0x88 dword

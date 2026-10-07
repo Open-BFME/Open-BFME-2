@@ -67057,3 +67057,5 @@ _getinfo,,0x00747E00,679,Code/Libraries/Source/Lua/ldblib.c,matched,Lua 4.0.1 st
 ?get@Rva0065ECD0LeaField@@QBEPAXXZ,,0x0065ECD0,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter
 ?get@Rva0020359DByteField@@QBEEXZ,,0x0020359D,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
 ?get@Rva00318B13FloatField@@QBEMXZ,,0x00318B13,4,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp,matched,Disp8 float getter
+?rva002BED69@Rva002D3627Host@@QAEHXZ,,0x002BED69,11,Code/GameEngine/Source/GameClient/Rva002BFA12.cpp,matched,increments and returns host dword at +0x88; callee bytes and caller 0x00539411 support address-derived name
+??0Rva00539411@@QAE@PAXPBH@Z,,0x00539411,108,Code/GameEngine/Source/GameClient/Rva002BFA12.cpp,matched,address-derived constructor; calls rowed 0x00330757 and 0x002BFA12; increments and reads the 0x00DFEF18 host field at +0x88 via 0x002BED69; vtable and offsets from retail
