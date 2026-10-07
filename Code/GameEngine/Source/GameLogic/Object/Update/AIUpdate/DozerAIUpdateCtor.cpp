@@ -218,8 +218,21 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
+extern "C" void *memset(void *dst, int val, unsigned size);
+
+namespace _STL
+{
+template<unsigned N> struct _Base_bitset;
+template<> struct _Base_bitset<4>
+{
+	void _M_do_or(const _Base_bitset<4> &other);
+	unsigned long _M_w[4];
+};
+}
+
 class Thing;
 class ModuleData;
+class BodyModuleInterface;
 class Object;
 class Drawable;
 class Player;
@@ -454,7 +467,7 @@ public:
 	// BFME 2's own slots. 26 (0x0048A15A) and 29 (0x00489DD1, which slot 28
 	// shares) both work on the object whose id is at DozerAIUpdate +0x4A4.
 	virtual void rva00489F7D(const ThingTemplate *what, Player *owningPlayer, const Coord3D *pos, Real angle) = 0; // vslot 25
-	virtual void vslot26() = 0;
+	virtual void rva0048A15A() = 0; // vslot 26
 	virtual void rva00489D09() = 0; // vslot 27
 	virtual Object *slot28() = 0;
 	virtual Object *rva00489DD1() = 0; // vslot 29
@@ -572,7 +585,9 @@ enum KindOfType
 {
 	KINDOF_DOZER = 14,
 	KINDOF_SWARM_DOZER = 15,
-	KINDOF_BRIDGE = 22
+	KINDOF_BRIDGE = 22,
+	KINDOF_NO_COLLIDE = 30,
+	KINDOF_DO_NOT_CLASSIFY = 149
 };
 
 class ThingTemplate
@@ -585,7 +600,7 @@ private:
 	unsigned char m_pad000[0x64];
 	AsciiString m_name; // +0x64
 	unsigned char m_pad068[0x108 - 0x68];
-	UnsignedInt m_kindOf[4]; // +0x108
+	UnsignedInt m_kindOf[7]; // +0x108 (218 kind-of bits)
 };
 
 class Thing
@@ -594,6 +609,7 @@ public:
 	virtual ~Thing();
 	const ThingTemplate *getTemplate() const { return m_template; }
 	const Coord3D *getPosition() const { return &m_position; }
+	Real getOrientation() const { return m_orientation; }
 	Drawable *getDrawable() const;
 	void setPosition(const Coord3D *pos);
 	void setOrientation(Real angle);
@@ -601,6 +617,7 @@ private:
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad08[0x38 - 0x08];
 	Coord3D m_position; // +0x38
+	Real m_orientation; // +0x44
 };
 
 class Object : public Thing
@@ -612,11 +629,13 @@ public:
 	Bool isUsingAirborneLocomotor() const;
 	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
+	BodyModuleInterface *getBodyModule() const { return m_body; }
 	ObjectID getSoleHealingBenefactor() const;
 	Real rva002C97E8(const Coord3D *a, const Coord3D *b) const;
 	void rva0028AB4E() const;
 	void rva0028CFB2(const int *clear, const int *set);
 	void rva0028CDEB(const Rva00346BC0 &mask, bool set);
+	void rva0028CDEB(const _STL::_Base_bitset<4> *mask, Bool set);
 	Bool get454() const { return m_454; }
 	Player *getControllingPlayer() const;
 	void rva0028DCC4();
@@ -641,13 +660,14 @@ public:
 	void setConstructionPercent(Real percent) { m_constructionPercent = percent; }
 	Int get45C() const { return m_45C; }
 private:
-	unsigned char m_pad044[0x74 - 0x44];
+	unsigned char m_pad048[0x74 - 0x48];
 	ObjectID m_id; // +0x74
 	unsigned char m_pad078[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo; // +0xA8
 	unsigned char m_pad104[0x10C - 0x104];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
-	unsigned char m_pad158[0x258 - 0x158];
+	unsigned char m_pad158[0x254 - 0x158];
+	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
 	unsigned char m_pad25C[0x280 - 0x25C];
 	Real m_constructionPercent; // +0x280
@@ -776,6 +796,7 @@ public:
 	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags);
 	virtual void finishBuildingSound();
 	virtual void rva00489F7D(const ThingTemplate *what, Player *owningPlayer, const Coord3D *pos, Real angle);
+	virtual void rva0048A15A();
 	virtual void rva00489D09();
 	virtual Object *rva00489DD1();
 	virtual void rva00488CC4();
@@ -785,6 +806,7 @@ public:
 	virtual const Coord3D *getDockPoint(DozerTask task, DozerDockPoint point);
 	virtual void aiDoCommand(const AICommandParms *parms);
 	void makePhantomStructureInert();
+	void makePhantomStructureNotInert();
 private:
 	enum { DOZER_NUM_TASKS = 3 };
 	enum { DOZER_SELECT_BUILD_DOCK_LOCATION = 0 };
@@ -1329,7 +1351,7 @@ StateReturnType DozerActionMoveToActionPosState::update()
 				if (other)
 				{
 					Rva00489256Do(dozer);
-					dozerAI->vslot26();
+					dozerAI->rva0048A15A();
 					other->rva0028AB4E();
 					TheAiOrdersManager->rva00355183(3, dozer->getID());
 				}
@@ -1631,22 +1653,11 @@ void DozerAIUpdate::cancelTask(DozerTask task)
 	Rva0048A3B9Do(getObject(), 0, FALSE);
 }
 
-extern "C" void *memset(void *dst, int val, unsigned size);
-
-namespace _STL
-{
-template<unsigned N> struct _Base_bitset;
-template<> struct _Base_bitset<4>
-{
-	_Base_bitset() { memset(_M_w, 0, sizeof(_M_w)); }
-	void _M_do_or(const _Base_bitset<4> &other);
-	unsigned long _M_w[4];
-};
-}
-
 // BFME 2's object status bit names (the name table at .rdata 0x009A5F30).
 enum ObjectStatusTypes
 {
+	OBJECT_STATUS_UNDER_CONSTRUCTION = 2,
+	OBJECT_STATUS_RECONSTRUCTING = 21,
 	OBJECT_STATUS_PENDING_CONSTRUCTION = 87,
 	OBJECT_STATUS_PHANTOM_STRUCTURE = 88
 };
@@ -1660,6 +1671,7 @@ struct Rva00391F4E : public _STL::_Base_bitset<4>
 // What ThingFactory::newObject takes: the initial status bits.
 struct CreateMask : public _STL::_Base_bitset<4>
 {
+	CreateMask() { memset(_M_w, 0, sizeof(_M_w)); }
 };
 
 class Team;
@@ -1694,9 +1706,16 @@ public:
 	UnsignedInt rva003B0CB3(UnsignedInt amount, Rva0039B795 *stats, Bool flag);
 };
 
+enum PlayerType
+{
+	PLAYER_HUMAN,
+	PLAYER_COMPUTER
+};
+
 class Player
 {
 public:
+	PlayerType getPlayerType() const { return m_playerType; }
 	Rva003B0D7C *getMoney() { return &m_money; }
 	Team *getDefaultTeam() const { return m_defaultTeam; }
 	Rva0039B795 *getStats() { return &m_stats; }
@@ -1706,7 +1725,9 @@ public:
 	Bool rva002AA223() const;
 	void onStructureCreated(Object *builder, Object *structure);
 private:
-	unsigned char m_pad000[0x90];
+	unsigned char m_pad000[0x5C];
+	PlayerType m_playerType; // +0x5C
+	unsigned char m_pad060[0x90 - 0x60];
 	Rva003B0D7C m_money; // +0x90
 	unsigned char m_pad091[0x2EC - 0x91];
 	Team *m_defaultTeam; // +0x2EC
@@ -1789,4 +1810,164 @@ void DozerAIUpdate::rva00489F7D(const ThingTemplate *what, Player *owningPlayer,
 		if (player)
 			((Rva002AE3F4 *)player)->rva002AE3F4((ObjectID)m_4A4);
 	}
+}
+
+// The status mask builder's pinned spelling (memset, then one bit).
+struct ObjectStatusMask : public _STL::_Base_bitset<4>
+{
+	ObjectStatusMask *Rva0023DA79(int reserved, ObjectStatusTypes bit);
+	void set(ObjectStatusTypes bit) { _M_w[bit >> 5] |= 1U << (bit & 31); }
+};
+
+class BodyModuleInterface
+{
+public:
+	virtual void i00(); virtual void i01(); virtual void i02(); virtual void i03();
+	virtual Real getHealth() const; // +0x10
+	virtual void i05(); virtual void i06(); virtual void i07();
+	virtual void i08(); virtual void i09(); virtual void i10(); virtual void i11();
+	virtual void i12(); virtual void i13(); virtual void i14(); virtual void i15();
+	virtual void i16(); virtual void i17(); virtual void i18(); virtual void i19();
+	virtual void i20(); virtual void i21(); virtual void i22(); virtual void i23();
+	virtual void i24(); virtual void i25(); virtual void i26(); virtual void i27();
+	virtual void i28(); virtual void i29(); virtual void i30(); virtual void i31();
+	virtual void internalChangeHealth(Real delta, Int flag); // +0x80
+};
+
+enum { LBC_OK = 0 };
+
+class BuildAssistant
+{
+public:
+	enum
+	{
+		TERRAIN_RESTRICTIONS = 0x01,
+		NO_OBJECT_OVERLAP = 0x04,
+		SHROUD_REVEALED = 0x10
+	};
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+	virtual Int isLocationLegalToBuild(const Coord3D *worldPos, const ThingTemplate *build, Real angle,
+		UnsignedInt options, Object *builderObject, Player *player); // +0x40
+	void clearRemovableForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle);
+	Bool moveObjectsForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle, Player *playerToBuild);
+};
+
+extern BuildAssistant *TheBuildAssistant;
+
+class GeometryInfo;
+
+class TerrainLogic
+{
+public:
+	virtual void t00(); virtual void t01(); virtual void t02(); virtual void t03();
+	virtual void t04(); virtual void t05();
+	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const; // +0x18
+	// BFME 2's: it destroys what intersects the footprint, then has the
+	// terrain visual (vslot 18) remove trees and props for construction.
+	void rva0028449F(const Coord3D *pos, const GeometryInfo &geom, Real angle);
+	void flattenTerrain(Object *obj);
+};
+
+extern TerrainLogic *TheTerrainLogic;
+
+class Pathfinder
+{
+public:
+	void AddObjectToPathfindMap(Object *object);
+};
+
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+private:
+	unsigned char m_pad00[0x10];
+	Pathfinder *m_pathfinder; // +0x10
+};
+
+extern AI *TheAI;
+
+// The rowed guarded remove from TheInGameUI's id list at +0x9C4.
+class Rva0029F93A
+{
+public:
+	void rva0029F93A(Int id);
+};
+
+// Dozer interface vslot 26: the phantom becomes the real structure under
+// construction. Unless rebuilding, a human player's (or a skirmish AI's)
+// site must still be legal to build, else the phantom is dropped (vslot 27).
+// Then the rest of ZH construct: clear and move what is in the way, flatten
+// the terrain and settle on it, one hit point, the under-construction status
+// bits, the pathfind map; the phantom bits, hiding and opacity come off.
+void DozerAIUpdate::rva0048A15A()
+{
+	if (m_4A4 == 0)
+		return;
+
+	Object *obj = TheGameLogic->findObjectByID((ObjectID)m_4A4);
+	if (obj == 0)
+	{
+		m_4A4 = 0;
+		return;
+	}
+
+	if (m_isRebuild == FALSE)
+	{
+		if (getObject()->getControllingPlayer()->getPlayerType() != PLAYER_COMPUTER ||
+			g_00DFEEF8->rva002A8AB1(getObject()->getControllingPlayer()) != 0)
+		{
+			if (TheBuildAssistant->isLocationLegalToBuild(obj->getPosition(), obj->getTemplate(), obj->getOrientation(),
+					BuildAssistant::TERRAIN_RESTRICTIONS |
+					BuildAssistant::NO_OBJECT_OVERLAP |
+					BuildAssistant::SHROUD_REVEALED,
+					getObject(), 0) != LBC_OK)
+			{
+				rva00489D09();
+				return;
+			}
+		}
+	}
+
+	makePhantomStructureNotInert();
+
+	if (!obj->isKindOf(KINDOF_NO_COLLIDE) && !obj->isKindOf(KINDOF_DO_NOT_CLASSIFY))
+	{
+		TheBuildAssistant->clearRemovableForConstruction(obj->getTemplate(), obj->getPosition(), obj->getOrientation());
+		TheBuildAssistant->moveObjectsForConstruction(obj->getTemplate(), obj->getPosition(), obj->getOrientation(), obj->getControllingPlayer());
+		TheTerrainLogic->rva0028449F(obj->getPosition(), obj->getGeometryInfo(), obj->getOrientation());
+	}
+
+	obj->clearModelConditionState(MODELCONDITION_PHANTOM_STRUCTURE);
+
+	// newly constructed objects start at one hit point
+	BodyModuleInterface *body = obj->getBodyModule();
+	body->internalChangeHealth(-body->getHealth() + 1.0f, 0);
+
+	// Flatten the terrain underneath the object, then adjust to the flattened height. jba.
+	TheTerrainLogic->flattenTerrain(obj);
+	Coord3D adjustedPos = *obj->getPosition();
+	adjustedPos.z = TheTerrainLogic->getGroundHeight(obj->getPosition()->x, obj->getPosition()->y);
+	obj->setPosition(&adjustedPos);
+
+	ObjectStatusMask statusBits;
+	statusBits.Rva0023DA79(0, OBJECT_STATUS_UNDER_CONSTRUCTION);
+	if (m_isRebuild)
+		statusBits.set(OBJECT_STATUS_RECONSTRUCTING);
+	obj->rva0028CDEB(&statusBits, true);
+
+	static_cast<_STL::_Base_bitset<4> &>(statusBits) = Rva00391F4E(0, OBJECT_STATUS_PENDING_CONSTRUCTION, OBJECT_STATUS_PHANTOM_STRUCTURE);
+	obj->rva0028CDEB(&statusBits, false);
+
+	// Note - very important that we add to map AFTER we flatten terrain. jba.
+	TheAI->pathfinder()->AddObjectToPathfindMap(obj);
+
+	obj->getDrawable()->setDrawableHidden(false);
+	obj->getDrawable()->setDrawableOpacity(1.0f);
+
+	((Rva0029F93A *)TheInGameUI)->rva0029F93A(m_4A4);
+	m_4A4 = 0;
 }

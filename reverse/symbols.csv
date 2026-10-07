@@ -15241,3 +15241,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?clear@?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAEXXZ,0x002D9186,callee of ??1?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAE@XZ
 ?rva00489D09@DozerAIUpdate@@UAEXXZ,0x00489D09,callee of ??1DozerAIUpdate@@MAE@XZ
 ?rva002AA223@Player@@QBE_NXZ,0x002AA223,callee of ?rva00489F7D@DozerAIUpdate@@UAEXPBVThingTemplate@@PAVPlayer@@PBUCoord3D@@M@Z
+?clearRemovableForConstruction@BuildAssistant@@QAEXPBVThingTemplate@@PBUCoord3D@@M@Z,0x003940B8,callee of ?rva0048A15A@DozerAIUpdate@@UAEXXZ
+?moveObjectsForConstruction@BuildAssistant@@QAE_NPBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z,0x00394FA7,callee of ?rva0048A15A@DozerAIUpdate@@UAEXXZ
+?rva0028449F@TerrainLogic@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z,0x0028449F,callee of ?rva0048A15A@DozerAIUpdate@@UAEXXZ
