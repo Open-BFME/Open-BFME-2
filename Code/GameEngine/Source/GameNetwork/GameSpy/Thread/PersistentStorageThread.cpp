@@ -107,6 +107,7 @@ public:
 class Rva0038454E	// strategic stats block
 {
 public:
+    void rva00553F2F();
 	~Rva0038454E();						// 0x0038454E
 	Rva0038454E &operator=(const Rva0038454E &that);	// 0x00387945
 
@@ -213,4 +214,26 @@ void Rva00385333::rva00553FDD() {
     ((Rva0038201D *)(m_pad154 + 24))->rva003828B6();
     ((Rva0038204A *)(m_pad154 + 36))->rva003828DF();
     ((Rva0038204A *)(m_pad154 + 48))->rva003828DF();
+}
+
+// [553F2F,553FDD),174B clears the same fifteen 12-byte map slots that
+// the verified strategic-block assignment387945 and destructor38454E use.
+// Eight maps, two of the other map ABI, then five maps; core reset is553E47.
+void Rva0038454E::rva00553F2F() {
+    ((Rva00553E47StatsCore *)this)->reset();
+    ((Rva0038204A *)(m_pad154 + 0x0))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 0xc))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 0x18))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 0x24))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 0x30))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 0x3c))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 0x48))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 0x54))->rva003828DF();
+    ((Rva0038201D *)(m_pad154 + 0x60))->rva003828B6();
+    ((Rva0038201D *)(m_pad154 + 0x6c))->rva003828B6();
+    ((Rva0038204A *)(m_pad154 + 0x78))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 0x84))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 0x90))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 0x9c))->rva003828DF();
+    ((Rva0038204A *)(m_pad154 + 0xa8))->rva003828DF();
 }
