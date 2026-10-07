@@ -12416,7 +12416,7 @@ name,address,notes
 ?rva005FF0F6@@YIXPAVRva005FF0F6Obj@@HHHH@Z,0x005FF0F6,fastcall chained init called from 0x005FA89C with fwd-passthrough edx; identity unproven
 ?rva006000AE@@YIHPAVRva006000AENew@@HPAVRva00600305@@HHH@Z,0x006000AE,fastcall newobj-init called from 0x00600305 with fwd untouched in edx; identity unproven
 ?rva00600305@@YIXPAVRva00600305Obj@@HHHH@Z,0x00600305,fastcall chained init called from 0x00600352 with fwd untouched in edx; identity unproven
-?rva00600991@Rva00600991@@QAEXPAX0@Z,0x00600991,thiscall-2 helper for 0x00600BC6 wrapper; forwards this plus tmp out and arg; identity unproven
+?rva00600991@Rva00600991@@QAE?AURva00600991Pair@@ABURva00600991Element@@@Z,0x00600991,Retail strcmp-key unique insertion; pointer/bool sret reconciled with matched 0x600BC6 consumer; native calls allocator4ABCC9 helper600854 comparator6038D4 and decrement242C0
 ?rva006012ED@Rva0060126D@@QAEPAPAXPAPAXPAX1PBX1@Z,0x006012ED,twin of rowed void 0x006012ED returning result ptr in eax per caller 0x006013B7 byte-exact
 ?rva00601A8D@Rva00601BBCHelper@@QAEXXZ,0x00601A8D,"address read from the retail REL32 at 0x00601C11 in the INI helper destructor 0x00601BF3; clears the member at +4 and deletes the pointers held in the +0x28 vector"
 ?rva00601C53@@YAXPAXH000@Z,0x00601C53,retail REL32 at 0x00602084; native five-argument cdecl worker; address-derived identity
@@ -14570,7 +14570,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?equal_range@?$_Rb_tree@URva00463D9BElement@@U1@U?$_Identity@URva00463D9BElement@@@_STL@@U?$less@URva00463D9BElement@@@3@V?$allocator@URva00463D9BElement@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@URva00463D9BElement@@U?$_Nonconst_traits@URva00463D9BElement@@@_STL@@@_STL@@U12@@2@ABURva00463D9BElement@@@Z,0x002F1C89,
 ??$__distance@U?$_Rb_tree_iterator@URva00463D9BElement@@U?$_Nonconst_traits@URva00463D9BElement@@@_STL@@@_STL@@@_STL@@YAHABU?$_Rb_tree_iterator@URva00463D9BElement@@U?$_Nonconst_traits@URva00463D9BElement@@@_STL@@@0@0ABUinput_iterator_tag@0@@Z,0x000D20DB,
 ?erase@?$_Rb_tree@URva00463D9BElement@@U1@U?$_Identity@URva00463D9BElement@@@_STL@@U?$less@URva00463D9BElement@@@3@V?$allocator@URva00463D9BElement@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@URva00463D9BElement@@U?$_Nonconst_traits@URva00463D9BElement@@@_STL@@@2@0@Z,0x00463425,
-?insert_unique@?$_Rb_tree@URva00600BC6Element@@U1@U?$_Identity@URva00600BC6Element@@@_STL@@U?$less@URva00600BC6Element@@@3@V?$allocator@URva00600BC6Element@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@URva00600BC6Element@@U?$_Nonconst_traits@URva00600BC6Element@@@_STL@@@_STL@@_N@2@ABURva00600BC6Element@@@Z,0x00600991,
 ??0?$_Rb_tree@URva002F307AElement@@U1@U?$_Identity@URva002F307AElement@@@_STL@@U?$less@URva002F307AElement@@@3@V?$allocator@URva002F307AElement@@@3@@_STL@@QAE@ABU?$less@URva002F307AElement@@@1@ABV?$allocator@URva002F307AElement@@@1@@Z,0x002F1CB3,
 ??0?$_Rb_tree@URva00415B15Element@@U1@U?$_Identity@URva00415B15Element@@@_STL@@U?$less@URva00415B15Element@@@3@V?$allocator@URva00415B15Element@@@3@@_STL@@QAE@ABU?$less@URva00415B15Element@@@1@ABV?$allocator@URva00415B15Element@@@1@@Z,0x004152BC,
 ??0?$_Rb_tree@URva0043B69CElement@@U1@U?$_Identity@URva0043B69CElement@@@_STL@@U?$less@URva0043B69CElement@@@3@V?$allocator@URva0043B69CElement@@@3@@_STL@@QAE@ABU?$less@URva0043B69CElement@@@1@ABV?$allocator@URva0043B69CElement@@@1@@Z,0x0043B214,
