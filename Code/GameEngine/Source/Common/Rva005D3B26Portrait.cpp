@@ -9,10 +9,17 @@ class AsciiString;
 
 class Image;
 
+// Native image-store calls use the same manager pointer and target 0x2239E2.
+// The verified provider takes a string name and an image pointer.
+class Rva002239B2
+{
+public:
+	void rva002239E2(const AsciiString &key, const Image *image);
+};
+
 class Rva00222A8BTarget
 {
 public:
-	void rva002239E2(const AsciiString &name, const Image *image);
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
@@ -63,7 +70,7 @@ void StrategicHUD::SelectionUIImpl::rva005D3B26()
 	AsciiString tmp;
 	const char *name = m_inner ? m_inner->m_name : "";
 	tmp.format("_level%u.%s_Portrait", m_level, name);
-	TheRva00222A8BTarget->rva002239E2(tmp, m_image20);
+	reinterpret_cast<Rva002239B2 *>(TheRva00222A8BTarget)->rva002239E2(tmp, m_image20);
 }
 // ?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A: the global at VA 0xdfe4cc is ?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A.
 #pragma comment(linker, "/alternatename:?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")

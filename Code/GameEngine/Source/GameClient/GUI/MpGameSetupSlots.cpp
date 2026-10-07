@@ -264,12 +264,18 @@ public:
 
 extern ImageCollection *TheMappedImageCollection;
 
+// Native image-store calls use the same manager pointer and target 0x2239E2.
+// The verified provider takes a string name and an image pointer.
+class Rva002239B2
+{
+public:
+	void rva002239E2(const AsciiString &key, const Image *image);
+};
+
 class Rva00222A8BTarget
 {
 public:
 	int invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-	// Unrowed 0x002239E2 (sets a named Apt image), pinned by address.
-	void rva002239E2(const AsciiString &name, const Image *image);
 };
 
 // The owning screen's interface at +0x58, by vslot.
@@ -1288,7 +1294,7 @@ void AptMpGameSetup::rva0043E5C1(int slot, int kind, int value)
 
 	char name[128];
 	sprintf(name, "ConnectionIcon~%d", slot);
-	TheRva00222A8BTarget->rva002239E2(AsciiString(name), image);
+	reinterpret_cast<Rva002239B2 *>(TheRva00222A8BTarget)->rva002239E2(AsciiString(name), image);
 }
 
 // Retail 0x0043DC75, 0x0043DC7F and 0x0043DC89, 10 bytes each: the Apt

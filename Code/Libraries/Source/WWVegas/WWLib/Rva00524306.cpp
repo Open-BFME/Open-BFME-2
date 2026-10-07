@@ -37,10 +37,17 @@ public:
 
 class Image;
 
-class Rva00222A8BTarget : public Rva00223A94
+// Native image-store calls use the same manager pointer and target 0x2239E2.
+// The verified provider takes a string name and an image pointer.
+class Rva002239B2
 {
 public:
 	void rva002239E2(const AsciiString &key, const Image *image);
+};
+
+class Rva00222A8BTarget : public Rva00223A94
+{
+public:
 	void rva002239FA(const AsciiString &key, const AsciiString &imageName);
 };
 
@@ -69,14 +76,14 @@ void Rva00524306::rva00524306(const StringBase<char> &val)
 
 // ?rva00524725@Rva00524306@@QAEXABVAsciiString@@PBVImage@@@Z @0x00524725 66B.
 // Set counterpart of the clear above: hand key and image to the guarded
-// target's rva002239E2 (pinned), then record the key once. The eight setters
+// verified rva002239E2 worker, then record the key once. The eight setters
 // in AptImageKeySetters.cpp call it; push_back is the rowed
 // vector<AsciiString> body at 0x0042DBE6.
 void Rva00524306::rva00524725(const AsciiString &key, const Image *image)
 {
 	if (TheRva00222A8BTarget == 0)
 		return;
-	TheRva00222A8BTarget->rva002239E2(key, image);
+	reinterpret_cast<Rva002239B2 *>(TheRva00222A8BTarget)->rva002239E2(key, image);
 	if (Rva000BD22FFind((StringBase<char> *)m_vec.begin(), (StringBase<char> *)m_vec.end(), *(const StringBase<char> *)&key) == (StringBase<char> *)m_vec.end())
 		((_STL::vector<AsciiString, _STL::allocator<AsciiString> > *)&m_vec)->push_back(key);
 }
