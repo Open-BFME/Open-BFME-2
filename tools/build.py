@@ -903,11 +903,11 @@ def _include_search_roots(source, command, env):
     return sorted(roots, key=str)
 
 
-# build/ and .git/ change on every compile, verify and commit; no TU includes
-# from them through a root that contains them (_write_deps_sidecar refuses
-# one that does), so a walk of the checkout or of the Open-BFME-1 submodule
-# skips them.
-_UNWATCHED_ROOT_DIRS = ("build", ".git")
+# Build outputs, Git state and unrelated nested worktrees change independently
+# of compiler inputs. Skip them only when walking a whole checkout. A header
+# that could resolve through a skipped directory refuses a reusable receipt;
+# explicitly searched directories still get their own complete inventory.
+_UNWATCHED_ROOT_DIRS = ("build", ".git", ".claude")
 
 
 def _unwatched_tops():
@@ -1046,6 +1046,9 @@ def _include_escapes_search_roots(path, stlport, roots=None, anchored=None):
     text = _directive_text(path)
     if text is None:
         return True
+    skipped = [Path(root).resolve() / name for root in (roots or [])
+               if Path(root).resolve() in _unwatched_tops()
+               for name in _UNWATCHED_ROOT_DIRS]
     for match in _INCLUDE_DIRECTIVE.finditer(text):
         operand = match.group(1).strip()
         native = _STLPORT_NATIVE_INCLUDE.fullmatch(operand)
@@ -1060,6 +1063,18 @@ def _include_escapes_search_roots(path, stlport, roots=None, anchored=None):
         if end < 0 or operand[1:end].lower().endswith(".cpp"):
             return True
         include = operand[1:end].replace("\\", "/")
+        if skipped:
+            candidates = [Path(root) / include for root in roots]
+            if operand[0] == '"':
+                candidates.insert(0, Path(path).parent / include)
+            try:
+                if any(candidate.resolve().is_relative_to(directory)
+                       for candidate in candidates for directory in skipped):
+                    # Refuse even an absent earlier candidate: it could later
+                    # shadow an unchanged dependency found in another root.
+                    return True
+            except (OSError, RuntimeError):
+                return True
         if operand[0] == '"' and anchored is not None:
             try:
                 local = (Path(path).parent / include).resolve(strict=True)
@@ -1124,7 +1139,7 @@ def _inventory_problems(source, command, env, dep_paths, inventory_before):
             if not target.is_relative_to(root):
                 continue
             if top and any(target.is_relative_to(root / name) for name in _UNWATCHED_ROOT_DIRS):
-                continue  # this root's walk skips build/ and .git/
+                continue  # this whole-checkout root skips generated/state trees
             return True
         return False
 

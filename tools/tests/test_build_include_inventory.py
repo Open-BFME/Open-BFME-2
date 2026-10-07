@@ -78,6 +78,14 @@ def test_parent_include_uses_wine_casing_and_keeps_shadow_invalidation(tmp_path,
     # A newly created exact-spelling directory can change Wine's choice even
     # though the previously opened header's contents have not changed.
     shadow = original.parent.parent / "common" / original.name
+    if os.name == "nt":
+        # Native Windows cannot create case-distinct sibling directories.
+        # It reaches the same anchored header, whose content still invalidates
+        # the receipt when changed. Wine's separate-spelling case is below.
+        assert shadow.samefile(original)
+        shadow.write_text("#define PACKET_RANGE 7\n")
+        assert not build.compile_is_current(source, output, strict=True)
+        return
     shadow.parent.mkdir()
     shadow.write_text("#define PACKET_RANGE 7\n")
     assert original.read_text() == "#define PACKET_RANGE 6\n"
@@ -95,6 +103,15 @@ def test_case_insensitive_parent_include_outside_inventory_still_refuses(tmp_pat
                               "Note: including file: " + str(original) + "\n"
                               "Note: including file: " + str(outside), True,
                               command, env, inventory, [])
+    if os.name == "nt":
+        # Windows resolves the literal quoted path directly, so this header is
+        # anchored rather than reached through an unknown case spelling. Its
+        # content hash must still prevent reuse after an actual change.
+        assert _census_grade(output)
+        assert build.compile_is_current(source, output, strict=True)
+        outside.write_text("#define OUTSIDE 2\n")
+        assert not build.compile_is_current(source, output, strict=True)
+        return
     assert not _census_grade(output)
     assert not build.compile_is_current(source, output, strict=True)
 
@@ -207,6 +224,52 @@ def test_batch_inventory_detects_edit_after_memoized_check(tmp_path, monkeypatch
     assert build._inventory_cache_still_current(cache)
     (early / "Common" / "New.h").write_text("#define NEW 1\n")
     assert not build._inventory_cache_still_current(cache)
+
+
+def test_root_inventory_ignores_unrelated_nested_worktrees(tmp_path, monkeypatch):
+    source, output, _, original, command, env = _fixture(tmp_path, monkeypatch)
+    root = build.ROOT
+    command.insert(1, "-I" + str(root))
+    build._write_deps_sidecar(source, output, "command",
+                              "Note: including file: " + str(original), True,
+                              command, env, build.search_inventory(source, command, env), [])
+    assert build.compile_is_current(source, output, strict=True)
+    cache = {}
+    build.search_inventory(source, command, env, inventory_cache=cache)
+    other = root / ".claude" / "worktrees" / "independent" / "Code"
+    other.mkdir(parents=True)
+    (other / "Header.h").write_text("// not a compiler input\n")
+    assert build.compile_is_current(source, output, strict=True)
+    assert build._inventory_cache_still_current(cache)
+    (source.parent / "RealNewHeader.h").write_text("// still watched\n")
+    assert not build.compile_is_current(source, output, strict=True)
+
+
+def test_excluded_root_candidate_cannot_shadow_a_later_header(tmp_path, monkeypatch):
+    source, output, _, original, command, env = _fixture(tmp_path, monkeypatch)
+    command.insert(1, "-I" + str(build.ROOT))
+    for excluded in ("build", ".git", ".claude"):
+        later = original.parents[1] / excluded / "Header.h"
+        later.parent.mkdir(exist_ok=True)
+        later.write_text("#define VALUE 1\n")
+        source.write_text('#include <' + excluded + '/Header.h>\n')
+        build._write_deps_sidecar(source, output, "command",
+                                  "Note: including file: " + str(later), True,
+                                  command, env, build.search_inventory(source, command, env), [])
+        # An earlier candidate lies in a skipped directory. Even before it
+        # exists, a reusable receipt cannot prove search precedence here.
+        assert not _census_grade(output)
+        assert not build.compile_is_current(source, output, strict=True)
+
+
+def test_explicit_nested_worktree_search_root_is_still_watched(tmp_path, monkeypatch):
+    monkeypatch.setattr(build, "ROOT", tmp_path)
+    nested = tmp_path / ".claude" / "worktrees" / "independent"
+    nested.mkdir(parents=True)
+    (nested / "Existing.h").write_text("// explicit compiler input\n")
+    before = build._directory_inventory(nested)
+    (nested / "New.h").write_text("// can shadow a later include\n")
+    assert build._directory_inventory(nested) != before
 
 
 def test_search_change_during_compile_refuses_sidecar(tmp_path, monkeypatch, capsys):
