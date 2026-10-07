@@ -15637,3 +15637,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva002E7749@Pathfinder@@QAEHPAXHHHH_N@Z,0x002E7749,callee of ?cellCallback@Rva002E7B29Info@@QAEHPAVPathfindCell@@0HH@Z
 ?rva00214060@LivingWorldManager@@QAEPAVRva003F9FA9@@ABVAsciiString@@@Z,0x00214060,callee of ?Rva003F9EDFParse@@YAXPAVINI@@@Z
 ?rva001FF5F2@ScienceStore@@QBE?AVAsciiString@@W4ScienceType@@@Z,0x001FF5F2,callee of ?Rva00306232XferScience@@YAPAVXfer@@PAV1@PAW4ScienceType@@@Z
+?rva00214156@LivingWorldManager@@QAEPAVRva00402EFA@@ABVAsciiString@@@Z,0x00214156,callee of ?Rva00402E30Parse@@YAXPAVINI@@@Z

@@ -51,12 +51,14 @@ public:
 
 class Rva00402BE3;
 class Rva003F9FA9;
+class Rva00402EFA;
 
 class LivingWorldManager
 {
 public:
 	Rva00402BE3 *rva002140DB(const AsciiString &name);
 	Rva003F9FA9 *rva00214060(const AsciiString &name);
+	Rva00402EFA *rva00214156(const AsciiString &name);
 };
 
 extern LivingWorldManager *TheLivingWorldManager;
@@ -96,5 +98,23 @@ void Rva003F9EDFParse(INI *ini)
     MultiIniFieldParse parse;
     parse.add((const FieldParse *)Rva0056B767Get(), 0);
     parse.add(LivingWorldArmyIconFields, 0);
+    ini->initFromINIMulti(icon, parse);
+}
+
+// Native 402E30..402EFA, cdecl202B. Rowed initializer7AFD61 binds
+// LivingWorldBuildPlotIcon. Factory214156 has RET4, allocates24 bytes,
+// calls constructor402EFA with the name, and inserts into manager+294.
+// Target literalC38488 and field tableC38448 distinguish this sibling.
+extern const FieldParse LivingWorldBuildPlotIconFields[];
+void Rva00402E30Parse(INI *ini)
+{
+    if (ini->m_type == 2)
+        throw INIException(8, "Cannot override Living World objects in map.ini");
+    if (ini->m_type == 5)
+        throw INIException(8, "LivingWorldBuildPlotIconTemplate does not support rapid iteration");
+    Rva00402EFA *icon = TheLivingWorldManager->rva00214156(AsciiString(ini->getNextToken(0)));
+    MultiIniFieldParse parse;
+    parse.add((const FieldParse *)Rva0056B767Get(), 0);
+    parse.add(LivingWorldBuildPlotIconFields, 0);
     ini->initFromINIMulti(icon, parse);
 }
