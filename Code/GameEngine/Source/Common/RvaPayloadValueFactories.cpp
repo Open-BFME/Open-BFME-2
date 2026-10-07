@@ -21,6 +21,8 @@ private:
  T *pointer;
 };
 
+struct RvaPayloadInput16 {int words[4];};
+
 // Native factory 0x00574BA5 calls constructor 0x00574ABB;
 // its allocation is 16 bytes, with a 8-byte payload at +8.
 class Rva00574ABB
@@ -43,7 +45,7 @@ RvaCloneResult<Rva00574ABB> Rva00574BA5Create(const Rva00574ABB::Payload *src)
 class Rva005CDB8F
 {
 public:
- struct Payload { int v[5]; };
+ struct Payload {RvaPayloadInput16 first;int value;};
  Rva005CDB8F(const Payload *src) throw();
  virtual ~Rva005CDB8F();
  int m_ref; // +4
@@ -60,7 +62,7 @@ RvaCloneResult<Rva005CDB8F> Rva005CDC18Create(const Rva005CDB8F::Payload *src)
 class Rva005CDF6C
 {
 public:
- struct Payload { int v[5]; };
+ struct Payload {RvaPayloadInput16 first;int value;};
  Rva005CDF6C(const Payload *src) throw();
  virtual ~Rva005CDF6C();
  int m_ref; // +4
@@ -208,3 +210,33 @@ RvaCloneResult<Rva005E982C> Rva005E9961Create(const Rva005E982C::Payload *src)
  return RvaCloneResult<Rva005E982C>(new Rva005E982C(src));
 }
 
+
+// Native 005CDC8F..005CDCC2 and 005CE06C..005CE09F, each RET8.
+// Hidden nontrivial result plus one four-word input reference. Each body
+// copies the input's 16 bytes, appends the receiver word at +4, and passes
+// this 20-byte payload to its independently matched value factory above.
+// Constructor/factory owners are already verified; receiver ownership and
+// the original operation names remain unknown. The receiver views expose
+// only the consumed prefix and are not allocated.
+class Rva005CDC8FReceiver {
+public: char unknown00[4];int value;
+ RvaCloneResult<Rva005CDB8F> create(const RvaPayloadInput16 &input);
+};
+class Rva005CE06CReceiver {
+public: char unknown00[4];int value;
+ RvaCloneResult<Rva005CDF6C> create(const RvaPayloadInput16 &input);
+};
+RvaCloneResult<Rva005CDB8F> Rva005CDC8FReceiver::create(const RvaPayloadInput16 &input)
+{
+ Rva005CDB8F::Payload payload;
+ payload.first=input;
+ payload.value=value;
+ return Rva005CDC18Create(&payload);
+}
+RvaCloneResult<Rva005CDF6C> Rva005CE06CReceiver::create(const RvaPayloadInput16 &input)
+{
+ Rva005CDF6C::Payload payload;
+ payload.first=input;
+ payload.value=value;
+ return Rva005CDFF5Create(&payload);
+}
