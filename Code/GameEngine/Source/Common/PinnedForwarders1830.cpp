@@ -30,12 +30,24 @@ struct Region2D
 	float y_max;
 };
 
+struct Rva0030B72CPoint
+{
+	Rva0030B72CPoint() {}
+	__forceinline Rva0030B72CPoint(const Rva0030B72CPoint &that)
+	{
+		x = that.x;
+		y = that.y;
+	}
+	float x, y;
+};
+
 class Rva0030B719Shape
 {
 public:
 	Real getRadius() const;
 	Region2D rva0030B6E3();
 	Real rva0030B706() const;
+	Rva0030B72CPoint rva0030B72C() const;
 	void rva0030B3D1();
 private:
 	unsigned char m_pad00[0x0C];
@@ -64,6 +76,19 @@ Region2D Rva0030B719Shape::rva0030B6E3()
 	if (m_dirty)
 		rva0030B3D1();
 	return m_region;
+}
+
+// Native 30B72C..30B76F returns the midpoint of the measured bounds.
+// ZH PolygonTrigger::getCenterPoint supports the role; BFME2's shape owner
+// and original value-type identity remain unknown.
+Rva0030B72CPoint Rva0030B719Shape::rva0030B72C() const
+{
+	if (m_dirty)
+		const_cast<Rva0030B719Shape *>(this)->rva0030B3D1();
+	Rva0030B72CPoint result;
+	result.x = (m_region.x_max + m_region.x_min) * 0.5f;
+	result.y = (m_region.y_max + m_region.y_min) * 0.5f;
+	return result;
 }
 
 struct Rva002B3740Item
