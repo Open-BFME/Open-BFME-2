@@ -12,6 +12,8 @@ extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 extern "C" __declspec(dllimport) double __cdecl floor(double);
 
 extern float g_00BBE358;
+// g_00BBE358: matched references place it at VA 0xbbe358 (retail .rdata value 1000.0f).
+float g_00BBE358 = 1000.0f;
 
 extern const char g_Rva0107301CEmptyString[];
 
