@@ -751,6 +751,7 @@ struct BfmeOpaqueOwnedRecord1432
 {
 	BfmeOpaqueOwnedRecord1432();
 	~BfmeOpaqueOwnedRecord1432();
+	BfmeOpaqueOwnedRecord1432 &operator=(const BfmeOpaqueOwnedRecord1432 &that);
 	Int requestType;
 	Int m_04;
 	PSPlayerAllStats player;
@@ -774,6 +775,26 @@ BfmeOpaqueOwnedRecord1432::BfmeOpaqueOwnedRecord1432() : player(0)
 	addDiscon = addDesync = false;
 	lastHouse = -1;
 	m_04 = 3;
+}
+
+// ??4BfmeOpaqueOwnedRecord1432@@QAEAAU0@ABU0@@Z @0x005565C5 175B: memberwise
+// copy in declaration order; the queue's request pop (0x00557D98) is its only
+// caller, as ZH's getRequest assigns the front PSRequest.
+BfmeOpaqueOwnedRecord1432 &BfmeOpaqueOwnedRecord1432::operator=(const BfmeOpaqueOwnedRecord1432 &that)
+{
+	requestType = that.requestType;
+	m_04 = that.m_04;
+	player = that.player;
+	cdkey.assign(that.cdkey);
+	nick.assign(that.nick);
+	password.assign(that.password);
+	email.assign(that.email);
+	addDiscon = that.addDiscon;
+	addDesync = that.addDesync;
+	lastHouse = that.lastHouse;
+	m_588 = that.m_588;
+	results.assign(that.results);
+	return *this;
 }
 
 // Native queue methods555BD5/555C76 lock mutex04 and query the int-key map90.
