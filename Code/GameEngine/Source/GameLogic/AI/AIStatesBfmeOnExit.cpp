@@ -68,6 +68,13 @@
 //    succeeds. After a finished move it forces the unit into the contain
 //    (slot 39, Zero Hour addToContain) when within the goal's +0xB8
 //    radius or past the +0x50 frame.
+//  - AIEnterAndAttackState::update, retail 0x003546FD (385 bytes): slot 6
+//    of 0x00C12F40 (slot-2 name getter AIEnterAndAttackState). Donor:
+//    Open-BFME-1 AIStates.cpp AIEnterAndAttackState::update. Same callees
+//    as AIEnterState::update, but it always tracks the goal position; after
+//    a successful move it continues while an airborne goal is above a
+//    grounded owner, else forces the unit into the contain (slot 39) when
+//    within the goal's +0xB8 radius.
 //  - AIMoveToPositionAndEnterState::onExit, retail 0x0034C035 (99 bytes):
 //    slot 5 of 0x00C136A0. When the owner has object status 0x4E, clears it
 //    and status 3, and for a template with kind byte +0x115 mask 0x20 also
@@ -999,6 +1006,66 @@ StateReturnType AIEnterState::update()
 				contain->addToContain(obj);
 				code = (StateReturnType)STATE_SUCCESS;
 			}
+		}
+	}
+	return code;
+}
+
+class AIEnterAndAttackState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType update();
+};
+
+StateReturnType AIEnterAndAttackState::update()
+{
+	Object *obj = getMachineOwner();
+	Object *goal = getMachine()->getGoalObject();
+	if (goal)
+	{
+		if (goal->getContainedBy() != 0 && goal->isAboveTerrain() && !obj->isAboveTerrain())
+			return (StateReturnType)STATE_FAILURE;
+
+		m_goalPosition = *goal->getPosition();
+		obj->getAI()->friend_setGoalObject(goal);
+		if (!TheActionManager->canEnterObject(obj, goal, obj->getAI()->getLastCommandSource(),
+				CHECK_CAPACITY, 0, 0))
+		{
+			if (obj->getRelationship(goal) == ENEMIES && obj->getAI())
+			{
+				CanAttackResult result = TheActionManager->getCanAttackObject(obj, goal,
+					obj->getAI()->getLastCommandSource(), ATTACK_NEW_TARGET);
+				if (result == ATTACKRESULT_POSSIBLE || result == ATTACKRESULT_POSSIBLE_AFTER_MOVING)
+				{
+					AIUpdateInterface *ai = obj->getAI();
+					ai->m_commands.rva0026C2D9(goal, 0x7fffffff, ai->getLastCommandSource());
+					return STATE_CONTINUE;
+				}
+			}
+			return (StateReturnType)STATE_FAILURE;
+		}
+
+		if (getMachineOwner()->isDisabledHeld())
+			return (StateReturnType)STATE_SUCCESS;
+	}
+	else
+	{
+		return (StateReturnType)STATE_FAILURE;
+	}
+
+	StateReturnType code = AIInternalMoveToState::update();
+	if (code == STATE_SUCCESS && goal->isAboveTerrain() && !obj->isAboveTerrain())
+		code = STATE_CONTINUE;
+	if (code == STATE_SUCCESS)
+	{
+		Real dx = obj->getPosition()->x - goal->getPosition()->x;
+		Real dy = obj->getPosition()->y - goal->getPosition()->y;
+		Real radius = goal->getBoundingCircleRadius();
+		if (dx * dx + dy * dy < radius * radius)
+		{
+			ContainModuleInterface *contain = goal->getContain();
+			if (contain)
+				contain->addToContain(obj);
 		}
 	}
 	return code;
