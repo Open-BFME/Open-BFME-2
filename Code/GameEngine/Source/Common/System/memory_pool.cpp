@@ -57,6 +57,7 @@ unsigned char rva00030E20Fill(void *memory, unsigned int size, unsigned char val
 extern "C" __declspec(dllimport) void *__stdcall TlsGetValue(unsigned long index);
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *section);
+extern "C" __declspec(dllimport) int __stdcall VirtualFree(void *address, unsigned int size, unsigned int type);
 
 class MemoryPoolFactory;
 // placement unverified: no rowed DIR32 site yet; ZH initial value is null.
@@ -118,6 +119,7 @@ public:
 	unsigned int rva00032A20(const void *block);		// GetUsableSize-like
 	unsigned int rva006C1D10(const void *block);		// fast usable-size with tail call to 0x32A20 caller 0x6C36FD
 	void *rva00031680(const void *block);	// intrusive-list search unblocking 0x31BB0 0x31D00 0x32920
+	bool rva000316B0(void *block, bool release);	// conditional core-release callback / VirtualFree
 	bool rva00031BB0(const void *block);	// small-block fencepost check via 0x31680 caller 0x3324E
 	void rva000338F0(void *block);				// Free-like
 	void *rva00035080(unsigned int size, int flags);	// Malloc-like
@@ -136,7 +138,15 @@ private:
 	{
 		unsigned int m_unk0;
 		unsigned int m_size;
-		unsigned char m_pad[16];
+		// 0x316B0 independently consumes these fields. Names describe their
+		// observed use; the original field names and flag meanings are unknown.
+		unsigned int m_releaseSize;
+		unsigned char m_unknownC;
+		bool m_releaseDirect;
+		bool m_releaseAllowed;
+		unsigned char m_unknownF;
+		void (__cdecl *m_releaseCallback)(GeneralAllocator *, void *, unsigned int, void *);
+		void *m_releaseContext;
 		ListNode *m_next;
 		ListNode *m_prev;
 	};
@@ -214,6 +224,25 @@ unsigned int GeneralAllocator::GetLargeBinIndexFromChunkSize(unsigned int size)
 		return index + 0x7C;
 
 	return 0x7E;
+}
+
+// Native [0x316B0,0x31701), RET8. GeneralAllocator's teardown calls it at
+// 0x33E13 with the same receiver and a node unlinked by 0x31660. This proves
+// the node ABI independently of the descriptive release-field labels.
+// Success means that a release was attempted; VirtualFree's result is ignored.
+bool GeneralAllocator::rva000316B0(void *block, bool release)
+{
+	ListNode *core = (ListNode *)block;
+	bool result = false;
+	if (core->m_releaseDirect || (release && core->m_releaseAllowed))
+	{
+		if (core->m_releaseCallback)
+			core->m_releaseCallback(this, block, core->m_releaseSize, core->m_releaseContext);
+		else
+			VirtualFree(block, core->m_releaseSize, 0x8000);
+		result = true;
+	}
+	return result;
 }
 
 // ?rva00031680@GeneralAllocator@Allocator@EA@@QAEPAXPBX@Z @ 0x00031680 (47B):
