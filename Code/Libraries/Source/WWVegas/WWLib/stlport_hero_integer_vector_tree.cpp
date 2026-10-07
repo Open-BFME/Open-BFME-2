@@ -26,3 +26,56 @@ template HeroTree &HeroTree::operator=(const HeroTree &);
 // and the hinted insert_unique (retail 0x0021D6A9)
 // byte for byte; their calls read the tree's matched STL helpers.
 template class _STL::_Rb_tree<int,_STL::pair<int const ,_STL::vector<unsigned int,_STL::allocator<unsigned int> > >,_STL::_Select1st<_STL::pair<int const ,_STL::vector<unsigned int,_STL::allocator<unsigned int> > > >,_STL::less<int>,_STL::allocator<_STL::pair<int const ,_STL::vector<unsigned int,_STL::allocator<unsigned int> > > > >;
+
+// Native21C5BE..21C671 cdecl179B: four-at-a-time linear find over
+// 16-byte records, followed by a three/two/one remainder. All seven calls
+// target the independently recovered22B predicate21BBDC: it compares the
+// record's +8 AsciiString through rowed StringBase compare69D6.
+// Rva0040ABA5Find is the target sibling used as the control-flow guide;
+// its payload types are not transferred. Only the measured stride is
+// represented here; the other record fields and original type are unknown.
+class AsciiString;
+bool Rva0021BBDCEqual(const void *record, const AsciiString &key);
+struct Rva0021C5BEItem
+{
+    unsigned int word00, word04, word08, word0C;
+};
+
+const Rva0021C5BEItem *Rva0021C5BEFind(const Rva0021C5BEItem *first, const Rva0021C5BEItem *last, const AsciiString *val, int tag)
+{
+	(void)tag;
+	const Rva0021C5BEItem *f = first;
+	const char *e = (const char *)last;
+	int n = (int)((const char *)last - (const char *)first) >> 6;
+	while (n > 0) {
+		if (Rva0021BBDCEqual((const void *)f, *val))
+			return f;
+		++f;
+		if (Rva0021BBDCEqual((const void *)f, *val))
+			return f;
+		++f;
+		if (Rva0021BBDCEqual((const void *)f, *val))
+			return f;
+		++f;
+		if (Rva0021BBDCEqual((const void *)f, *val))
+			return f;
+		++f;
+		--n;
+	}
+	switch ((int)(e - (const char *)f) >> 4) {
+	case 3:
+		if (Rva0021BBDCEqual((const void *)f, *val))
+			return f;
+		++f;
+	case 2:
+		if (Rva0021BBDCEqual((const void *)f, *val) == false) {
+			++f;
+		} else {
+			return f;
+		}
+	case 1:
+		if (Rva0021BBDCEqual((const void *)f, *val))
+			return f;
+	}
+	return last;
+}
