@@ -1,5 +1,3 @@
-// ?rva003F5A06@Rva003F5A06@@QAEXIVRva0040E3EE@@@Z
-// partial score=0.97 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva003F5A06@Rva003F5A06@@QAEXIVRva0040E3EE@@@Z @0x003F5A06 108B
@@ -14,6 +12,9 @@ struct Rva003F53DAElement
 {
 	char bytes[104];
 };
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
 class Rva0040E3EE
 {
@@ -83,6 +84,7 @@ void Rva003F5A06::rva003F5A06(unsigned int n, Rva0040E3EE val)
 	{
 		typedef _STL::vector<Rva003F53DAElement, _STL::allocator<Rva003F53DAElement> > VecB;
 		VecB *self = (VecB *)this;
+		_ReadWriteBarrier();
 		Rva003F53DAElement *fresh = self->_M_finish;
 		unsigned int cur = (unsigned int)((Rva0040E3EE *)fresh - begin);
 		unsigned int count = n - cur;
