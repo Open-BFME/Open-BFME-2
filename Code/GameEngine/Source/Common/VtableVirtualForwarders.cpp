@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD /Ob0
 //
 // Unnamed vtable slot targets that are pure virtual forwarders: each loads its
 // own vptr and TAIL-JUMPS to another slot on the same object. Found with
@@ -68,3 +68,23 @@ void Rva000D20D6::rva000D20D6()
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?rva001FF3A9@Rva001FF3A9@@QAEXABUTreeHintRef00217D4C@@@Z=?rva001FF3A9@Rva001FF3A9@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?rva005CC208@Rva005CC208@@UAE_NXZ=?rva005CC208@Rva005CC208@@UAEXXZ")
+
+// /Ob0 preserves the native direct call to the existing tiny forwarder.
+// Complete target5CCA98..5CCAB3 RET leaf: when byte22 is set, invoke
+// the rowed slot-9 forwarderD20D6 on a nonnull word4, then clear byte22.
+// The qualified call is deliberately direct: retail calls the forwarder,
+// which performs virtual dispatch. No new virtual-table shape is inferred.
+// Only accessed prefixes are modeled; original owner and full size unknown.
+struct Rva005CCA98Guard {
+    unsigned char prefix00[4];
+    Rva000D20D6 *target;
+    unsigned char prefix08[0x1A];
+    bool active;
+    void invokeAndClear();
+};
+void Rva005CCA98Guard::invokeAndClear() {
+    if (active) {
+        if (target) target->Rva000D20D6::rva000D20D6();
+        active=false;
+    }
+}
