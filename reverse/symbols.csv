@@ -15745,3 +15745,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva002F52A7@Pathfinder@@QAE_NPAX0_NHHHH1PAURva002F600CPosition@@0MPAHI@Z,0x002F52A7,callee of ?cellCallback@Rva002F600CInfo@@QAEHPAVPathfindCell@@0HH@Z
 ?rva0024792F@Rva0024792FHelper@@QAEXABVAsciiString@@HPBVCommandButton@@@Z,0x0024792F,callee of ?Rva003BCB7A@@YGXABVAsciiString@@0H@Z
 ?rva003A3763@Rva00056F61@@QAEPA_NPBVAsciiString@@@Z,0x003A3763,callee of ?rva003A38E9@Team@@QAEXHH@Z
+?rva00375AF7@Rva00375AF7@@QAEMMM@Z,0x00375AF7,callee of ?rva00375B7A@Rva00375AF7@@QAEMMM@Z
