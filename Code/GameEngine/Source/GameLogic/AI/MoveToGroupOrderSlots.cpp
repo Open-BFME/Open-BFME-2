@@ -24,11 +24,18 @@ struct Coord3D
 	float z;
 };
 
-class Object
+// The three native calls target the rowed predicate in Rva0028ECDB.cpp
+// at 0x0028ECDB, passing the complete Object as this and the unchanged
+// destination pointer. Its byte-verified view reads the template at +4
+// and the containment word at +0x250. Keep that provider ABI; the body
+// name and the position test remain unnamed.
+class Rva0028ECDBHost
 {
 public:
-	bool rva0028ECDB(const Coord3D *pos) const;
+	bool rva0028ECDB(void *position);
 };
+
+class Object;
 
 struct GroupOrderCommand
 {
@@ -132,11 +139,11 @@ GroupOrder *MoveToGroupOrder::clone()
 
 // ?rva00547188@MoveToGroupOrder@@QAE_NPAVObject@@H@Z, retail 0x00547188 21B.
 // MoveTo destination check used by 0x0054764C: passes &m_destination (+0x18)
-// to rowed Object::rva0028ECDB and normalises to bool. Evidence: this+0x18
+// to the rowed predicate at 0x0028ECDB and normalises to bool. Evidence: this+0x18
 // Coord3D plus caller 0x0054764C layout (+0x18/+0x24) matches MoveToGroupOrder.
 bool MoveToGroupOrder::rva00547188(Object *obj, int)
 {
-	unsigned char tmp = obj->rva0028ECDB(&m_destination);
+	unsigned char tmp = reinterpret_cast<Rva0028ECDBHost *>(obj)->rva0028ECDB(&m_destination);
 	return tmp;
 }
 

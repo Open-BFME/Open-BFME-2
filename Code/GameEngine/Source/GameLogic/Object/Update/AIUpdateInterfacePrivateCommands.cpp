@@ -175,6 +175,17 @@ struct Region3D
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/TerrainLogic.h
+// The three native calls target the rowed predicate in Rva0028ECDB.cpp
+// at 0x0028ECDB, passing the complete Object as this and the unchanged
+// destination pointer. Its byte-verified view reads the template at +4
+// and the containment word at +0x250. Keep that provider ABI; the body
+// name and the position test remain unnamed.
+class Rva0028ECDBHost
+{
+public:
+	bool rva0028ECDB(void *position);
+};
+
 // Only the two virtuals privateGuardPosition dispatches are placed: getExtent
 // at vtable+0x20 and findClosestEdgePoint at +0x34 (BFME2 slots, read from
 // retail 0x00264C45 and 0x00264C82).
@@ -574,9 +585,6 @@ public:
 	const Coord3D *getPosition() const { return &m_cachedPos; }
 	const WeaponSetFlags &getWeaponSetFlags() const;
 	Weapon *getCurrentWeapon(WeaponSlotType *wslot);
-	// 0x0028ECDB: true for a BFME_KINDOF_BF container object when the
-	// position passes a test on the global at 0x00DFF0F8; unnamed.
-	Bool rva0028ECDB(const Coord3D *pos) const;
 	const AsciiString &getCommandSetString() const;	///< pinned 0x00290E67
 	UnsignedInt isDisabledByType(Int type) const { return m_disabledMask & (1U << type); }
 	ObjectID getID() const { return m_id; }
@@ -1846,7 +1854,7 @@ void AIUpdateInterface::privateFollowWaypointPath(const Waypoint *way, CommandSo
 
 	const Waypoint *last;
 	if (obj->isKindOf(BFME_KINDOF_BF) && obj->m_contain && way
-		&& (last = lastWaypoint(way)) != 0 && obj->rva0028ECDB(last->getLocation()))
+		&& (last = lastWaypoint(way)) != 0 && reinterpret_cast<Rva0028ECDBHost *>(obj)->rva0028ECDB(const_cast<Coord3D *>(last->getLocation())))
 		m_stateMachine->setState((StateID)0x49);
 	else
 		m_stateMachine->setState((StateID)3);
@@ -2121,7 +2129,7 @@ void AIUpdateInterface::privateFollowPath(const Rva0035149F *path, Object *ignor
 	m_lastCommandSource = commandSource;
 	ignoreObstacle(ignoreObject);
 
-	if (obj->rva0028ECDB(obj->getPosition()))
+	if (reinterpret_cast<Rva0028ECDBHost *>(obj)->rva0028ECDB(const_cast<Coord3D *>(obj->getPosition())))
 		m_stateMachine->setState((StateID)0x43);
 	else if (exitProduction)
 		m_stateMachine->setState((StateID)7);
