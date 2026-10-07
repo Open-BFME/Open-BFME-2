@@ -109,6 +109,8 @@ public:
 	bool							Get_Orientation(Quaternion& orientation, int pividx,float frame) const;
 	void							Get_Transform(Matrix3D& transform, int pividx,float frame) const;
 	bool							Get_Visibility(int pividx,float frame);
+	// BFME's per-pivot fade (vftable slot after Get_Visibility, retail 0x001903C0).
+	float							_bfme_hanim_fade(int pividx,float frame);
 
 	bool							Is_Node_Motion_Present(int pividx);
 	int							Get_Num_Pivots(void)	const	{ return NumNodes; }

@@ -205,9 +205,9 @@ WWINLINE uint32 TimeCodedMotionChannelClass::get_index(uint32 timecode, uint32 &
  * TimeCodedMotionChannelClass::Get_Vector -- returns the value for the specified frame #     *
  *                                                                                             *
  * BFME2 (retail 0x0018ED50): one float per packet, and the search cache comes from the      *
- * caller.                                                                                     *
+ * caller. Retail inlines it into every caller (nothing calls the copy at 0x0018ED50).         *
  *=============================================================================================*/
-void	TimeCodedMotionChannelClass::Get_Vector(float32 frame, float * setvec, uint32 & cachedIdx)
+WWINLINE void	TimeCodedMotionChannelClass::Get_Vector(float32 frame, float * setvec, uint32 & cachedIdx)
 {
 	uint32 tc0 = frame;
 
@@ -458,6 +458,28 @@ void AdaptiveDeltaMotionChannelClass::Get_QuatVector(float32 frame, Quaternion &
 
 	BFME2_Nlerp(q, *(Quaternion *)&cache.Value[0], *(Quaternion *)&cache.Value[4], frame - frame1);
 }
+
+/*
+** BFME2's newer per-pivot channels (VectorMotion). The type names are the
+** descriptive ones of BFME2MotionChannelFactory.cpp; slot 3 samples one float.
+*/
+class BFME2MotionChannel
+{
+public:
+	virtual bool Load(ChunkLoadClass &);
+	virtual ~BFME2MotionChannel();
+	virtual int UnknownSlot2();
+	virtual void UnknownSlot3(float frame, float *value, unsigned char **cursor);
+	virtual void UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor);
+	virtual void UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor);
+	virtual int UnknownSlot6();
+};
+
+struct BFME2CompressedMotionChannels
+{
+	BFME2MotionChannel *			Channels[5];		// X, Y, Z, Q, fade
+	TimeCodedBitChannelClass *	Visibility;
+};
 
 struct NodeCompressedMotionStruct
 {
@@ -962,6 +984,47 @@ void HCompressedAnimClass::add_bit_channel(TimeCodedBitChannelClass * newchan)
 			NodeMotion[idx].Vis = newchan;
 			break;
 	}
+}
+
+/***********************************************************************************************
+ * HCompressedAnimClass::_bfme_hanim_fade -- returns the fade of a pivot at a frame            *
+ *                                                                                             *
+ * BFME2 (retail 0x001903C0). Pivots without a fade channel are fully opaque. Every call       *
+ * starts with a cold search cache.                                                            *
+ *=============================================================================================*/
+float HCompressedAnimClass::_bfme_hanim_fade(int pividx,float frame)
+{
+	float fade = 1.0f;
+
+	if (VectorMotion) {
+		BFME2MotionChannel * chan = VectorMotion[pividx].Channels[4];
+		if (chan) chan->UnknownSlot3(frame, &fade, NULL);
+		return fade;
+	}
+
+	struct NodeCompressedMotionStruct * motion = &NodeMotion[pividx];
+
+	switch(Flavor) {
+		case ANIM_FLAVOR_TIMECODED:
+			if (motion->tc.Fade) {
+				uint32 cache = 0x0FFFFFFF;
+				motion->tc.Fade->Get_Vector(frame, &fade, cache);
+			}
+			break;
+		case ANIM_FLAVOR_ADAPTIVE_DELTA:
+			if (motion->ad.Fade) {
+				// Not Get_Vector: retail takes the frame fraction before the delta.
+				AdaptiveDeltaCacheStruct<1> cache;
+				cache.Frame = 0x0FFFFFFF;
+				int frame1 = frame;
+				motion->ad.Fade->getframe(frame1, cache);
+				float t = frame - frame1;
+				fade = WWMath::Lerp(cache.Value[0], cache.Value[1], t);
+			}
+			break;
+	}
+
+	return fade;
 }
 
 /*********************************************************************************************** 
