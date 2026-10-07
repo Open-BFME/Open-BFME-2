@@ -15363,6 +15363,3 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@_N3@Z,0x00298EA9,Target call from 0x0023CAE7 passes ECX as a fresh 0x4D8-byte allocation and arguments (template; mask; team; flag; true); matched Object interface bodies and their vtable evidence place subobjects at +0x64/+0x70. Constructor identity and the final flag meaning are structural inferences; the address and argument order come from the target call.
 ?rva0005230D@Rva0005230D@@QAEXMMMMM@Z,0x0005230D,callee of ?rva000537F4@MilesAudioManager@@QAEXMMMMMH@Z
 
-?SetEnabled@Impl@AptScrollBar@@QAEX_N@Z,0x005D4949,callee of ?SetEnabled@Rva005D49CD@@QAEX_N@Z
-?rva00158BA0@Rva00158BA0@@QAEXPAMPBG@Z,0x00158BA0,callee of ?rva00105CF6@Rva00105CF6@@QAEXPAPBGPAH1@Z
-?rva00112AD1@Rva00112AD1@@QAE_NHHHM@Z,0x00112AD1,retail REL32 at 0x00113191 targets 0x00112AD1; caller supplies 0; 0; this+0x58; float arg2 and callee ret 0x10 confirms four stack slots; address-derived dependency only; body unrecovered
