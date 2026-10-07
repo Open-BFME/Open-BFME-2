@@ -28,7 +28,45 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_NONE = 0
 };
 
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+enum BodyDamageType
+{
+	BODY_PRISTINE,
+	BODY_DAMAGED,
+	BODY_REALLYDAMAGED,
+	BODY_RUBBLE
+};
+
 class Matrix3D;
+class Player;
+
+typedef float Real;
+
+class GeometryInfo
+{
+public:
+	Real getMaxHeightAbovePosition() const;
+};
+
+class ThingTemplate
+{
+public:
+	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
+	unsigned char m_pad000[0xA0];
+	GeometryInfo m_geometryInfo; // +0xA0
+	unsigned char m_padA1[0x5F7 - 0xA1];
+	signed char m_5F7; // +0x5F7
+};
+
+class Drawable
+{
+public:
+	void rva00275DCE(int mode, Real a, Real b, Real c);
+};
 
 class Thing
 {
@@ -39,17 +77,62 @@ public:
 class Object : public Thing
 {
 public:
-	const Matrix3D *rva004C1170Transform() const { return (const Matrix3D *)m_pad00; }
-	unsigned char m_pad00[8];
+	unsigned char m_pad00[4];
+	const ThingTemplate *m_template; // +0x04
+	const ThingTemplate *getTemplate() const { return m_template; }
 	unsigned char m_transform[0x74 - 8]; // +0x08
-	int m_74; // +0x74 (ID)
-	int getID() const { return m_74; }
+	ObjectID m_74; // +0x74 (ID)
+	ObjectID getID() const { return m_74; }
 	unsigned char m_pad78[0x88 - 0x78];
 	AsciiString m_88; // +0x88
 	Object *m_8C; // +0x8C (next)
+	unsigned char m_pad90[0x10C - 0x90];
+	int m_10C[19]; // +0x10C (a 0x4C-byte condition bit set)
 	void rva001E42F2(const Rva00265254 &bits);
+	void rva001E431E(const int *bits);
 	void setStatus(ObjectStatusTypes bit, bool set);
+	void setEffectivelyDead(bool dead);
+	void rva0028ABFC(Real height);
+	Player *getControllingPlayer() const;
+	Drawable *getDrawable() const;
 };
+
+class PlayerList
+{
+public:
+	Player *getLocalPlayer() { return m_local; }
+private:
+	unsigned char m_pad00[0x10];
+	Player *m_local; // +0x10
+};
+
+extern PlayerList *ThePlayerList;
+
+class Pathfinder
+{
+public:
+	void RemoveObjectFromPathfindMap(Object *obj);
+	void AddObjectToPathfindMap(Object *obj);
+};
+
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+private:
+	unsigned char m_pad00[0x10];
+	Pathfinder *m_pathfinder; // +0x10
+};
+
+extern AI *TheAI;
+
+struct GlobalData
+{
+	unsigned char m_pad000[0xAE4];
+	Real m_AE4; // +0xAE4
+};
+
+extern GlobalData *TheGlobalData;
 
 class FXList
 {
@@ -69,6 +152,7 @@ class GameLogic
 {
 public:
 	Object *getFirstObject();
+	Object *findObjectByID(ObjectID id);
 };
 
 extern GameLogic *TheGameLogic;
@@ -82,12 +166,6 @@ template <> class Rva004C0D13Slots<1>
 {
 public:
 	virtual void gap(char (*)[1]) = 0;
-};
-
-class BfmeOwnFCB
-{
-public:
-	void bfmeAfterFCB();
 };
 
 class Rva004C0D4F
@@ -109,7 +187,7 @@ public:
 	virtual float rva004C0D13() = 0;
 	virtual float rva004C105A() = 0;
 	virtual float rva004C108B() = 0;
-	virtual void gap8() = 0; virtual void gap9() = 0; virtual void gap10() = 0; virtual void gap11() = 0;
+	virtual BodyDamageType getDamageState() const = 0; virtual void gap9() = 0; virtual void gap10() = 0; virtual void gap11() = 0;
 	virtual void gap12() = 0; virtual void gap13() = 0; virtual void gap14() = 0; virtual void gap15() = 0;
 	virtual void gap16() = 0; virtual void gap17() = 0; virtual void gap18() = 0; virtual void gap19() = 0;
 	virtual void gap20() = 0; virtual void gap21() = 0; virtual void gap22() = 0; virtual void gap23() = 0;
@@ -181,13 +259,13 @@ public:
 	virtual void rva004C121B(void *a1);
 	virtual void rva004C123C(void *a1, bool doFX);
 	void rva004C0B63();
+	void rva004C0C52();
 protected:
 	virtual void loadPostProcess();
 private:
-	BfmeOwnFCB *refresher() { return (BfmeOwnFCB *)(BehaviorModule *)this; }
 	Rva004C0D4F *checker() { return (Rva004C0D4F *)(BehaviorModule *)this; }
 	HostBodyModule *m_host; // +0x100
-	int m_104; // +0x104 (the host's ID)
+	ObjectID m_104; // +0x104 (the host's ID)
 };
 
 // ?rva004C0B60@SymbioticStructuresBody@@UAEXURva004C0B60Arg@@@Z, retail 0x004C0B60,
@@ -196,11 +274,46 @@ void SymbioticStructuresBody::rva004C0B60(Rva004C0B60Arg)
 {
 }
 
+// ?rva004C0C52@SymbioticStructuresBody@@QAEXXZ, retail 0x004C0C52, 193 bytes:
+// with the host and an owning Object both controlled, the pinned Drawable
+// member 0x00275DCE runs (0.2, 0.7, 2.0) on both drawables, mode 5 for the
+// host's when the Object belongs to the local player (else the Object's) and
+// mode 0 for the other.
+void SymbioticStructuresBody::rva004C0C52()
+{
+	Object *host = TheGameLogic->findObjectByID(m_104);
+	if (!host)
+		return;
+	Object *obj = m_object;
+	if (!obj)
+		return;
+	Player *local = ThePlayerList->getLocalPlayer();
+	Player *owner = obj->getControllingPlayer();
+	if (!local || !owner)
+		return;
+	Drawable *first;
+	Drawable *second;
+	if (local == owner)
+	{
+		first = host->getDrawable();
+		second = obj->getDrawable();
+	}
+	else
+	{
+		first = obj->getDrawable();
+		second = host->getDrawable();
+	}
+	if (first)
+		first->rva00275DCE(5, 0.2f, 0.7f, 2.0f);
+	if (second)
+		second->rva00275DCE(0, 0.2f, 0.7f, 2.0f);
+}
+
 // ?rva004C0D9C@SymbioticStructuresBody@@UAEMXZ, retail 0x004C0D9C, 53 bytes:
 // primary slot 24.
 float SymbioticStructuresBody::rva004C0D9C()
 {
-	refresher()->bfmeAfterFCB();
+	rva004C0C52();
 	return checker()->rva004C0D4F() ? m_host->rva004C0D9CSlot4() : 0.0f;
 }
 
@@ -208,7 +321,7 @@ float SymbioticStructuresBody::rva004C0D9C()
 // interface slot 5.
 float SymbioticStructuresBody::rva004C0D13()
 {
-	refresher()->bfmeAfterFCB();
+	rva004C0C52();
 	return checker()->rva004C0D4F() ? m_host->rva004C0D13() : 0.0f;
 }
 
@@ -242,7 +355,7 @@ void SymbioticStructuresBody::rva004C121B(void *a1)
 	if (obj)
 	{
 		((BfmeSubFCB *)obj)->bfmeCallFCB(a1, 0);
-		refresher()->bfmeAfterFCB();
+		rva004C0C52();
 	}
 }
 
@@ -262,7 +375,7 @@ AsciiString SymbioticStructuresBody::rva004C0ECE()
 // then, asked to, plays the module data's +0x48 FX on the Object.
 void SymbioticStructuresBody::rva004C123C(void *a1, bool doFX)
 {
-	refresher()->bfmeAfterFCB();
+	rva004C0C52();
 	rva004C0B63();
 	float before = rva004C0D9C();
 	if (before == rva004C105A())
@@ -301,10 +414,10 @@ void SymbioticStructuresBody::loadPostProcess()
 		{
 			obj->setTransformMatrix((const Matrix3D *)o->m_transform);
 			m_104 = o->getID();
-			refresher()->bfmeAfterFCB();
+			rva004C0C52();
 			break;
 		}
 	}
 	rva004C0B63();
-	refresher()->bfmeAfterFCB();
+	rva004C0C52();
 }
