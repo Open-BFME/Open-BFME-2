@@ -266,6 +266,9 @@ public:
 		case D3DTS_PROJECTION:
 			m = DeviceProjectionMatrix.Transpose();
 			break;
+		default:
+			m.Make_Identity();
+			break;
 		}
 	}
 protected:
