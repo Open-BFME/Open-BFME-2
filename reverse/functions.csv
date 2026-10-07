@@ -45565,7 +45565,6 @@ _peerAuthenticateCDKey,,0x00699BB0,146,Code/GameEngine/Source/GameNetwork/GameSp
 ?rva0021887C@Rva0021887C@@QAEXXZ,,0x0021887C,30,Code/GameEngine/Source/Common/System/Rva0021887CDestroyFree.cpp,matched,destroy GeometryRecord range then free via rowed callees
 ??0Rva00558D56@@QAE@XZ,,0x00558D56,21,Code/Libraries/Source/WWVegas/WWLib/Rva00558D56.cpp,matched,unlock lane wraps rowed DequeBase 0x0055334A caller 0x00558F07
 ?rva000EFB68@Rva000EFB68@@QAEXHHPAX@Z,,0x000EFB68,49,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva000EFB68.cpp,matched,linkbody abuts prev 0x000EFB5A caller 0x000F093D imul-lea-imul-add slot copy
-?rva000EFDBB@Rva000EFDBB@@QAEXHGG@Z,,0x000EFDBB,59,Code/GameEngine/Source/Common/Rva000EFDBB.cpp,matched,unlock sibling Rva000F26DCAlloc plus4180 plus4400 2 callers append pair
 ??1Rva0041579E@@QAE@XZ,,0x004156FC,8,Code/GameEngine/Source/Common/Rva0041573FCopy.cpp,matched,tail jmp to rowed Rva0041573F dtor
 ?rva004C861E@SplitHordeSpecialPower@@UAEXI@Z,,0x004C861E,123,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPowerRva004C861E.cpp,matched,slot 10 of the matched ctor vtable 0x00C5E598 at +0x10: disabled check then contain slots 125/126 into a local vector<BfmeE16>
 ?rva0028C037@Object@@UAE?AUCoord3D@@XZ,,0x0028C037,86,Code/GameEngine/Source/GameLogic/Object/ObjectInterfaceSlots.cpp,matched,Object +0x70 interface slot 0: bounding box min corner from the position and the GeometryInfo radius and height below
@@ -62783,7 +62782,6 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva00094DD3@Rva00094DD3@@QAEXPAURva00094DD3Val@@@Z,,0x00094DD3,18,Code/GameEngine/Source/Common/Rva00094DD3.cpp,matched,leaf 2 callers in FUN_00495821 no callees float at +0x50 int at +0x54
 ?rva005E508F@Rva005E508F@@QAEXH@Z,,0x005E508F,8,Code/GameEngine/Source/Common/Rva005E508FForwarder.cpp,matched,forwarder via +0x10 to rowed rva005E4DE5 with callers at 0x005CDB23 and 0x005E691C
 ?rva005E5097@Rva005E508F@@QAEXH@Z,,0x005E5097,8,Code/GameEngine/Source/Common/Rva005E508FForwarder.cpp,matched,twin forwarder via +0x10 to rowed rva005E4DAF with caller at 0x005E6997
-?addSilhouetteEdge@W3DVolumetricShadow@@QAEXHPAUPolyNeighbor@@0@Z,,0x000F1735,149,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowAddEdge.cpp,matched,BFME1 donor W3DVolumetricShadow via row 0x000EFDBB and pin 0x000F0FCD
 ??0Rva005DB271@@QAE@PAXPAUArg1Host005DB271@@@Z,,0x005DB271,168,Code/GameEngine/Source/Common/Rva005DB271Ctor.cpp,matched,ctor via Rva005C4230 precedent vtable 0x00C766B8 plus 0x38 chase
 ??1Rva005DB221@@UAE@XZ,,0x005DB221,80,Code/GameEngine/Source/Common/Rva005DB221Dtor.cpp,matched,dtor via Rva0056B9A2 precedent vtable 0x00C766B8 plus empty global
 ??0Rva003B770B@@QAE@PAH@Z,,0x003B770B,21,Code/GameEngine/Source/Common/Rva003B76EFCtor.cpp,matched,ctor forwards arg to embedded 0x003B7448 same file
@@ -67183,3 +67181,6 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva0056FCDB@Rva0056FCDB@@QAEXF@Z,,0x0056FCDB,24,Code/GameEngine/Source/Common/Rva0056FCDB.cpp,matched,address-derived class from packet and byte shape
 ?rva00406D67@Rva00406D67@@QAEPAV1@III@Z,,0x00406D67,39,Code/GameEngine/Source/Common/Rva00406D67Set.cpp,matched,unlock lane ret 0xC three args return this via Rva00547223 precedent same shape as Rva00135E00
 ??0Rva002BB7AA@@QAE@HH@Z,,0x002BB7AA,44,Code/GameEngine/Source/Common/Rva002BB7AACtor.cpp,matched,two-int ctor with hash_map and vector members via rows
+?addSilhouetteIndices@W3DVolumetricShadow@@IAEXHFF@Z,,0x000EFDBB,59,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowSilhouette.cpp,matched,ZH addSilhouetteIndices; appends the edge pair to m_silhouetteIndex[mesh] (+0x4180) at count +0x4400; was placeholder Rva000EFDBB
+?addSilhouetteEdge@W3DVolumetricShadow@@IAEXHPAUPolyNeighbor@@0@Z,,0x000F1735,149,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowSilhouette.cpp,matched,ZH addSilhouetteEdge with out-of-line GetPolygonIndex 0x000F0FCD; protected per ZH header (was public-mangled row in W3DVolumetricShadowAddEdge.cpp)
+?buildSilhouette@W3DVolumetricShadow@@IAEXHPAVVector3@@@Z,,0x000F2D25,422,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowSilhouette.cpp,matched,ZH buildSilhouette; facing test assigns POLY_VISIBLE; calls buildPolygonNormals GetPolyNeighbor GetPolygonIndex addSilhouetteEdge and addNeighborlessEdges 0x000F17CA (pin)

@@ -7559,7 +7559,6 @@ name,address,notes
 ?addRoom@Rva000E5930Owner@@QAEXURva000E5930Room@@_N@Z,0x004F52CB,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?addScience@Player@@AAE_NW4ScienceType@@@Z,0x002AD661,address read from the REL32 displacement at a byte-verified placed body (0x2AD85E)
 ?addScorch@BaseHeightMapRenderObjClass@@QAEXVVector3@@MW4Scorches@@@Z,0x00067EA3,read from the REL32 at 0x0004C7E9 in the placed W3DGameClient::addScorch (0x0004C7A8) - Zero Hour forwards to TheTerrainRenderObject->addScorch; Ghidra function start 0x00067EA3 298B
-?addSilhouetteEdge@W3DVolumetricShadow@@QAEXHPAUPolyNeighbor@@0@Z,0x000F1735,retail REL32 at 0x000F2E7F in 0x000F2D25 targets 0x000F1735 (thiscall 3 stack args meshIndex plus 2 poly ptrs; donor W3DVolumetricShadow::addSilhouetteEdge identity; pin candidate-not-proof)
 ?addState@Rva004AC135RainOfFireSecondary20@@QAEXM@Z,0x004AC135,second name for the body rowed as ?rva004AC135@RainOfFireUpdate@@UAEXM@Z; both landed independently and this TU was dropped when the solo fork was squashed onto upstream
 ?addString@BfmeC994@@QAEXPBD0@Z,0x00655AA0
 ?addString@FeslEchoMessage@@QAEXPBD0@Z,0x00655AA0
