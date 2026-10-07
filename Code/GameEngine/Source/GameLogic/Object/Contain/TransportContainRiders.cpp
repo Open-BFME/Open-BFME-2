@@ -19,6 +19,7 @@
 // 0x00464286 does).
 typedef bool Bool;
 typedef int Int;
+typedef unsigned int UnsignedInt;
 typedef float Real;
 #define NULL 0
 #define TRUE true
@@ -103,6 +104,45 @@ public:
 	void *get() const;
 };
 
+class Matrix3D
+{
+public:
+	Real Row[3][4];
+};
+
+class Vector3
+{
+public:
+	Vector3() {}
+	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
+	Vector3 &operator-=(const Vector3 &v) { X -= v.X; Y -= v.Y; Z -= v.Z; return *this; }
+	Real X;
+	Real Y;
+	Real Z;
+};
+
+// WWMath's Matrix3D * Vector3 and Get_Translation.
+static inline Vector3 operator*(const Matrix3D &A, const Vector3 &a)
+{
+	return Vector3(
+		(A.Row[0][0] * a.X + A.Row[0][1] * a.Y + A.Row[0][2] * a.Z + A.Row[0][3]),
+		(A.Row[1][0] * a.X + A.Row[1][1] * a.Y + A.Row[1][2] * a.Z + A.Row[1][3]),
+		(A.Row[2][0] * a.X + A.Row[2][1] * a.Y + A.Row[2][2] * a.Z + A.Row[2][3]));
+}
+
+static inline Vector3 getTranslation(const Matrix3D &A)
+{
+	return Vector3(A.Row[0][3], A.Row[1][3], A.Row[2][3]);
+}
+
+// Coord3D::set; its arguments are evaluated right to left.
+static inline void setCoord(Coord3D *c, Real x, Real y, Real z)
+{
+	c->x = x;
+	c->y = y;
+	c->z = z;
+}
+
 class Thing
 {
 public:
@@ -110,12 +150,43 @@ public:
 	__forceinline Bool isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
 	Bool isKindOfMulti(const KindOfMaskType &mustBeSet, const KindOfMaskType &mustBeClear) const;
 	const Coord3D *getPosition() const { return &m_pos; }
+	const Matrix3D *getTransformMatrix() const { return &m_transform; }
 private:
 	void *m_vtable;
 	const ThingTemplate *m_template; // +0x04
-	char m_pad08[0x38 - 0x08];
+	Matrix3D m_transform; // +0x08
 	Coord3D m_pos; // +0x38
 	char m_pad44[0x48 - 0x44];
+};
+
+// Object's model-condition words at +0x10C.
+class ModelConditionFlags
+{
+public:
+	unsigned int test(int bit) const { return m_words[bit >> 5] & (1U << (bit & 0x1f)); }
+	void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 0x1f); }
+private:
+	unsigned int m_words[4];
+};
+
+enum ModelConditionFlagType
+{
+	// Word 3 bit 31 of the Object's condition words; set on a thrown-out
+	// passenger. Unnamed.
+	BFME_MODELCONDITION_7F = 0x7F
+};
+
+class PhysicsBehavior
+{
+public:
+	void rva00390629(Bool value); // Zero Hour's setAllowToFall
+};
+
+// PhysicsBehavior 0x003909FA keeps its address-derived pin name.
+class Rva003909FAObj
+{
+public:
+	void consume(void *force, int a, int b);
 };
 
 class Object : public Thing
@@ -129,9 +200,22 @@ public:
 	Bool testWeaponSetFlag(WeaponSetType wst) const { return ((*getWeaponSetFlags() >> wst) & 1) != 0; }
 	void setWeaponSetFlag(WeaponSetType wst);
 	void clearWeaponSetFlag(WeaponSetType wst);
+	PhysicsBehavior *getPhysics() const { return m_physics; }
+	void rva0028AE6D(); // the model-condition change notifier
+	__forceinline void setModelConditionState(ModelConditionFlagType c)
+	{
+		if (!m_conditionFlags.test(c))
+		{
+			m_conditionFlags.set(c);
+			rva0028AE6D();
+		}
+	}
 private:
-	char m_pad48[0x258 - 0x48];
+	char m_pad48[0x10C - 0x48];
+	ModelConditionFlags m_conditionFlags; // +0x10C
+	char m_pad11C[0x258 - 0x11C];
 	AIUpdateInterface *m_ai; // +0x258
+	PhysicsBehavior *m_physics; // +0x25C
 };
 
 template <int N> class RiderSlots : public RiderSlots<N - 1>
@@ -200,13 +284,52 @@ class TransportContainModuleData
 {
 public:
 	char m_pad00[0xB0];
-	KindOfMaskType m_upgradeKindOfA; // +0xB0, grants weapon set 4
-	KindOfMaskType m_upgradeKindOfB; // +0xCC, grants weapon set 5
+	KindOfMaskType m_typeOneForWeaponSet; // +0xB0 TypeOneForWeaponSet
+	KindOfMaskType m_typeTwoForWeaponSet; // +0xCC TypeTwoForWeaponSet
 	char m_padE8[0x142 - 0xE8];
 	Bool m_destroyRidersWhoAreNotFreeToExit; // +0x142
+	char m_pad143[0x158 - 0x143];
+	Coord3D m_throwOutPassengersVelocity; // +0x158 ThrowOutPassengersVelocity
+	const void *m_throwOutPassengersLandingWarhead; // +0x164 ThrowOutPassengersLandingWarhead
 };
 
-class TransportContain : public RiderSlots<25>
+template <int N> class ContainSlots : public ContainSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]);
+};
+template <> class ContainSlots<1>
+{
+public:
+	virtual void gap(char (*)[1]);
+};
+
+// OpenContain's ContainModuleInterface at +0x20.
+class ContainModuleInterface : public ContainSlots<69>
+{
+public:
+	virtual unsigned int getContainCount(Int unused) const; // +0x114
+	virtual void gap70();
+	virtual void gap71();
+	virtual void gap72();
+	virtual void gap73();
+	virtual void gap74();
+	virtual void gap75();
+	virtual void gap76();
+	virtual void gap77();
+	virtual void gap78();
+	virtual Object *rvaSlot79(Int unused); // +0x13C, hands out the next rider
+};
+
+class TransportContainBase : public RiderSlots<25>
+{
+protected:
+	const TransportContainModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+	char m_pad0C[0x20 - 0x0C];
+};
+
+class TransportContain : public TransportContainBase, public ContainModuleInterface
 {
 public:
 	Object *getObject() const { return m_object; }
@@ -216,11 +339,8 @@ protected:
 	virtual void rvaSlot26();
 	virtual Bool isSpecificRiderFreeToExit(Object *obj); // +0x6C
 	virtual void createPayload(); // +0x70
-	virtual void rvaSlot29();
+	virtual void rva0046740C(); // +0x74
 	virtual void letRidersUpgradeWeaponSet(); // +0x78
-private:
-	const TransportContainModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
 };
 
 // ?killRidersWhoAreNotFreeToExit@TransportContain@@MAEXXZ @0x00467F3B
@@ -302,9 +422,9 @@ void TransportContain::letRidersUpgradeWeaponSet()
 	for (IntList::iterator it = ((IntList *)riders.source)->begin(); it != ((IntList *)riders.source)->end(); ++it)
 	{
 		Object *rider = (Object *)*it;
-		if (rider->isKindOfMulti(d->m_upgradeKindOfA, KINDOFMASK_NONE))
+		if (rider->isKindOfMulti(d->m_typeOneForWeaponSet, KINDOFMASK_NONE))
 			anyRiderA = TRUE;
-		else if (rider->isKindOfMulti(d->m_upgradeKindOfB, KINDOFMASK_NONE))
+		else if (rider->isKindOfMulti(d->m_typeTwoForWeaponSet, KINDOFMASK_NONE))
 			anyRiderB = TRUE;
 	}
 
@@ -323,4 +443,37 @@ void TransportContain::letRidersUpgradeWeaponSet()
 	}
 	else if (self->testWeaponSetFlag(BFME_WEAPONSET_5))
 		self->clearWeaponSetFlag(BFME_WEAPONSET_5);
+}
+
+// ?rva0046740C@TransportContain@@MAEXXZ @0x0046740C
+// Throws every passenger out at ThrowOutPassengersVelocity (taken into the
+// transport's frame) with ThrowOutPassengersLandingWarhead.
+void TransportContain::rva0046740C()
+{
+	UnsignedInt count = getContainCount(0);
+	if (count > 0)
+	{
+		const TransportContainModuleData *d = getTransportContainModuleData();
+		Object *me = getObject();
+		const Matrix3D *mtx = me->getTransformMatrix();
+		Coord3D velocity;
+		velocity.x = 0.0f;
+		velocity.y = 0.0f;
+		velocity.z = 0.0f;
+		Vector3 in(d->m_throwOutPassengersVelocity.x, d->m_throwOutPassengersVelocity.y, d->m_throwOutPassengersVelocity.z);
+		Vector3 v = *mtx * in;
+		v -= getTranslation(*mtx);
+		setCoord(&velocity, v.X, v.Y, v.Z);
+		for (UnsignedInt i = 0; i < count; ++i)
+		{
+			Object *rider = rvaSlot79(0);
+			PhysicsBehavior *physics = rider->getPhysics();
+			if (physics)
+			{
+				((Rva003909FAObj *)physics)->consume(&velocity, (int)me, (int)d->m_throwOutPassengersLandingWarhead);
+				physics->rva00390629(TRUE);
+				rider->setModelConditionState(BFME_MODELCONDITION_7F);
+			}
+		}
+	}
 }
