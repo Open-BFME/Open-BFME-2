@@ -11738,7 +11738,7 @@ name,address,notes
 ?rva003B7167@Rva003B761E@@QAEXXZ,0x003B7167,temp cleanup on the 0x20-byte Rva003B761E slot; read from REL32 at 0x003B7663 in rva003B7647 0x003B7647; likely the dtor; identity unproven
 ?rva003B7448@Rva003B7448@@QAEXH@Z,0x003B7448,member method on +4 taking arg+4; read from REL32 at 0x003B7700 in rva003B76EF 0x003B76EF; int arg assumed
 ?rva003B8E89@Rva003B8E89@@QAEPAXPAX@Z,0x003B8E89,thiscall lookup callee of 0x004E1755 and 0x004E23C1 read from REL32 (host plus key); body unrowed
-?rva003BA83F@@YAXPAXH@Z,0x003BA83F,cdecl (obj,0);-team-wiring callee of dump-range-18 0x003BD884 with caller-pop pair; body opens on the passed pointer
+?rva003BA83F@@YAHPAXH@Z,0x003BA83F,complete91 native cdecl returns int1; team color and upgrade refresh; corrected sole void caller inference; donor BF1 ba7ddda7 BfmeHelper760 semantic guide
 ?rva003BB860Scale@@YAII@Z,0x00503E4F,callee of ?bfmeInitVN@BfmeBaseVN@@QAEPAV1@ID@Z at retail 0x003FD199 read from its REL32 displacement; donor static scale body (unsigned * 0.03f clamp) at this unrowed address
 ?rva003BBAD3@Rva003BBAD3@@QAEXXZ,0x003BBAD3,thiscall spelling of the body rowed as free ?Rva003BBAD3Set@@YAXXZ; retail mov ecx,esi proves this-pass although the callee only reads globals
 ?rva003BD4C3@@YAXPAX00@Z,0x003BD4C3,cdecl-3 call-site spelling of the banked-blocked heap insert; only spells the 0x003C4B2D else-arm call

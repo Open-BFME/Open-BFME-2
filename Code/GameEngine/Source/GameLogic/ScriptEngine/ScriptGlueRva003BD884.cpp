@@ -54,7 +54,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-void __cdecl rva003BA83F(void *p, int v);
+int __cdecl rva003BA83F(void *p, int v);
 
 void __stdcall Rva003BD884Set(Parameter *p1, const AsciiString *name)
 {
