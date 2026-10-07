@@ -15603,3 +15603,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003197B7@Rva003195C9Owner@@QAEXXZ,0x003197B7,banked dense-wheel copier reused by handoff 0x00319AA0; address from its REL32 displacement
 ?rva002BF5B0@Rva002BF5B0Maker@@QAEXPAX0@Z,0x002BF5B0,unrowed float-record maker on the 0x009FEF18 global in handoff 0x00319AA0 (as referenced by MSVC mangling); callee read from its REL32 displacement; address name
 ??0Rva0031AB1ENode@@QAE@XZ,0x0035B8AA,unrowed ctor on the 0x2CC list node in prepend gate 0x0031AB1E; callee read from its REL32 displacement; address name
+?rva003F8052@Rva003F8052@@QAEEXZ,0x003F8052,pinned for 0x003F8478 caller; body banked near-miss (partial 0.95)
