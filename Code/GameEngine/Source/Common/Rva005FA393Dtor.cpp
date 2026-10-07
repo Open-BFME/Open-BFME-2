@@ -36,13 +36,21 @@ Rva005FA7EB::Rva005FA7EB(void *a, void *b, void *c)
 	m_member04 = new Rva005FA3B1Inner(this, a, b, c);
 }
 
+class Rva005F9877
+{
+public:
+	~Rva005F9877();
+};
+
+void __cdecl operator delete(void *);
+
 class Rva005FA146
 {
 public:
 	void clear();
 
 private:
-	void *m_ptr;
+	Rva005F9877 *m_ptr;
 };
 
 class Rva005FA393
@@ -57,4 +65,19 @@ private:
 Rva005FA393::~Rva005FA393()
 {
 	m_member04.clear();
+}
+
+// ?clear@Rva005FA146@@QAEXXZ @0x005FA146 26B: guarded-delete helper for
+// Rva005FA393 member at +4. Nulls its pointer, runs element dtor at
+// 0x005F9877 (??1Rva005F9877@@QAE@XZ pin), then operator delete
+// (??3@YAXPAX@Z row mem_ops.cpp). Caller jmp at 0x005FA39C in
+// ??1Rva005FA393@@UAE@XZ. LINK BONUS names this exact mangling.
+void Rva005FA146::clear()
+{
+	Rva005F9877 *p = m_ptr;
+	m_ptr = 0;
+	if (p) {
+		p->~Rva005F9877();
+		operator delete(p);
+	}
 }
