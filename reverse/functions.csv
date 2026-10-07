@@ -67253,3 +67253,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ??0Rva0022A9DDSubsystem@@QAE@XZ,,0x0022DF79,55,Code/GameEngine/Source/GameClient/Rva0022DF79SubsystemCtor.cpp,matched,GameEngine init caller names subsystem; matching sibling constructor recipe
 ?rva00211570@Rva00211570@@QAEXXZ,,0x00211570,25,Code/GameEngine/Source/GameClient/Rva00211570.cpp,matched,Observed helper call and conditional direct tail jump; field purpose unresolved
 ??0Rva0022A968Subsystem@@QAE@XZ,,0x0022DFEC,55,Code/GameEngine/Source/GameClient/Rva0022DFECSubsystemCtor.cpp,matched,GameEngine init caller names body store; sibling map constructor recipe
+??4BfmeAssignRecord28@@QAEAAU0@ABU0@@Z,,0x003F6388,43,Code/Libraries/Source/WWVegas/WWLib/StlSweepBfmeAssignRecord28.cpp,matched,assignment body and callers establish the two vector copies; element layouts remain structural inference
