@@ -337,7 +337,8 @@ protected:
 	Bool isRoomForGameSpyStatsAuthKeyMessage(NetCommandRef *msg);
 	Bool isRoomForFileMessage(NetCommandRef *msg);
 	Bool isRoomForGameMessage(NetCommandRef *msg, GameMessage *gmsg);
-	void rva0058D826(Int a, Int b, Int c, Int d, Int e);
+	Bool addGameCommand(NetCommandRef *msg);
+	void writeGameMessageArgumentToPacket(GameMessageArgumentDataType type, GameMessageArgumentType arg);
 	Bool addInformPlayerLeaveFrameCommand(NetCommandRef *msg);
 	Bool rva0058E8EA(NetCommandRef *msg);
 	Bool addDisconnectFrameCommand(NetCommandRef *msg);
@@ -1170,44 +1171,45 @@ Bool NetPacket::isRoomForGameMessage(NetCommandRef *msg, GameMessage *gmsg)
 	return true;
 }
 
-// ?rva0058D826@NetPacket@@IAEXHHHHH@Z @0x0058D826 265B.
-// NetPacket packet append by kind copying raw stack args via memcpy.
-// Evidence: unlock lane plus sibling TU layout plus caller 0x00590C71.
-void NetPacket::rva0058D826(Int a, Int b, Int c, Int d, Int e)
+// ?writeGameMessageArgumentToPacket@NetPacket@@IAEXW4GameMessageArgumentDataType@@TGameMessageArgumentType@@@Z, retail 0x0058D826, 265 bytes:
+// ZH's writeGameMessageArgumentToPacket: copy the argument's member for its
+// type. addGameCommand passes the 16-byte argument union by value, which is
+// how retail's caller builds the call (four movsd into the outgoing slot).
+void NetPacket::writeGameMessageArgumentToPacket(GameMessageArgumentDataType type, GameMessageArgumentType arg)
 {
-	if (a == 0) {
-		memcpy(m_packet + m_packetLen, &b, 4);
-		m_packetLen += 4;
-	} else if (a == 1) {
-		memcpy(m_packet + m_packetLen, &b, 4);
-		m_packetLen += 4;
-	} else if (a == 2) {
-		memcpy(m_packet + m_packetLen, &b, 1);
-		m_packetLen += 1;
-	} else if (a == 3) {
-		memcpy(m_packet + m_packetLen, &b, 4);
-		m_packetLen += 4;
-	} else if (a == 4) {
-		memcpy(m_packet + m_packetLen, &b, 4);
-		m_packetLen += 4;
-	} else if (a == 5) {
-		memcpy(m_packet + m_packetLen, &b, 4);
-		m_packetLen += 4;
-	} else if (a == 6) {
-		memcpy(m_packet + m_packetLen, &b, 12);
-		m_packetLen += 12;
-	} else if (a == 7) {
-		memcpy(m_packet + m_packetLen, &b, 8);
-		m_packetLen += 8;
-	} else if (a == 8) {
-		memcpy(m_packet + m_packetLen, &b, 16);
-		m_packetLen += 16;
-	} else if (a == 9) {
-		memcpy(m_packet + m_packetLen, &b, 4);
-		m_packetLen += 4;
-	} else if (a == 10) {
-		memcpy(m_packet + m_packetLen, &b, 2);
-		m_packetLen += 2;
+	if (type == ARGUMENTDATATYPE_INTEGER) {
+		memcpy(m_packet + m_packetLen, &(arg.integer), sizeof(arg.integer));
+		m_packetLen += sizeof(arg.integer);
+	} else if (type == ARGUMENTDATATYPE_REAL) {
+		memcpy(m_packet + m_packetLen, &(arg.real), sizeof(arg.real));
+		m_packetLen += sizeof(arg.real);
+	} else if (type == ARGUMENTDATATYPE_BOOLEAN) {
+		memcpy(m_packet + m_packetLen, &(arg.boolean), sizeof(arg.boolean));
+		m_packetLen += sizeof(arg.boolean);
+	} else if (type == ARGUMENTDATATYPE_OBJECTID) {
+		memcpy(m_packet + m_packetLen, &(arg.objectID), sizeof(arg.objectID));
+		m_packetLen += sizeof(arg.objectID);
+	} else if (type == ARGUMENTDATATYPE_DRAWABLEID) {
+		memcpy(m_packet + m_packetLen, &(arg.drawableID), sizeof(arg.drawableID));
+		m_packetLen += sizeof(arg.drawableID);
+	} else if (type == ARGUMENTDATATYPE_TEAMID) {
+		memcpy(m_packet + m_packetLen, &(arg.teamID), sizeof(arg.teamID));
+		m_packetLen += sizeof(arg.teamID);
+	} else if (type == ARGUMENTDATATYPE_LOCATION) {
+		memcpy(m_packet + m_packetLen, &(arg.location), sizeof(arg.location));
+		m_packetLen += sizeof(arg.location);
+	} else if (type == ARGUMENTDATATYPE_PIXEL) {
+		memcpy(m_packet + m_packetLen, &(arg.pixel), sizeof(arg.pixel));
+		m_packetLen += sizeof(arg.pixel);
+	} else if (type == ARGUMENTDATATYPE_PIXELREGION) {
+		memcpy(m_packet + m_packetLen, &(arg.pixelRegion), sizeof(arg.pixelRegion));
+		m_packetLen += sizeof(arg.pixelRegion);
+	} else if (type == ARGUMENTDATATYPE_TIMESTAMP) {
+		memcpy(m_packet + m_packetLen, &(arg.timestamp), sizeof(arg.timestamp));
+		m_packetLen += sizeof(arg.timestamp);
+	} else if (type == ARGUMENTDATATYPE_WIDECHAR) {
+		memcpy(m_packet + m_packetLen, &(arg.wChar), sizeof(arg.wChar));
+		m_packetLen += sizeof(arg.wChar);
 	}
 }
 
@@ -3166,4 +3168,107 @@ Bool NetPacket::addFileCommand(NetCommandRef *msg)
 		return true;
 	}
 	return false;
+}
+
+// ?addGameCommand@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x0059096F, 938 bytes:
+// addCommand's type-4 arm, the BFME1 donor's addGameCommand
+// (NetPacket_addGameCommand.cpp) with BFME's S block: the null-message early
+// return, T/S/F/R/P/C/D behind isRoomForGameMessage, then the message type,
+// the parser's runs and each argument. Parser and message are freed with
+// ::delete, as in the room check.
+Bool NetPacket::addGameCommand(NetCommandRef *msg)
+{
+	Bool retval = false;
+	NetGameCommandMsg *cmdMsg = (NetGameCommandMsg *)(msg->getCommand());
+	GameMessage *gmsg = cmdMsg->constructGameMessage();
+	if (gmsg == 0) {
+		return true;
+	}
+	if (isRoomForGameMessage(msg, gmsg)) {
+		Bool needNewCommandID = false;
+		if (m_lastCommandType != cmdMsg->getNetCommandType()) {
+			m_packet[m_packetLen] = 'T';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getNetCommandType();
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastCommandType = cmdMsg->getNetCommandType();
+		}
+		if (m_lastTimestamp != cmdMsg->getTimestamp()) {
+			m_packet[m_packetLen] = 'S';
+			++m_packetLen;
+			UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+			memcpy(m_packet + m_packetLen, &newTimestamp, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastTimestamp = newTimestamp;
+		}
+		if (m_lastFrame != cmdMsg->getExecutionFrame()) {
+			m_packet[m_packetLen] = 'F';
+			++m_packetLen;
+			UnsignedInt newframe = cmdMsg->getExecutionFrame();
+			memcpy(m_packet + m_packetLen, &newframe, sizeof(UnsignedInt));
+			m_packetLen += sizeof(UnsignedInt);
+			m_lastFrame = newframe;
+		}
+		if (m_lastRelay != msg->getRelay()) {
+			m_packet[m_packetLen] = 'R';
+			++m_packetLen;
+			UnsignedByte newRelay = msg->getRelay();
+			memcpy(m_packet + m_packetLen, &newRelay, sizeof(UnsignedByte));
+			m_packetLen += sizeof(UnsignedByte);
+			m_lastRelay = newRelay;
+		}
+		if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+			m_packet[m_packetLen] = 'P';
+			++m_packetLen;
+			m_packet[m_packetLen] = cmdMsg->getPlayerID();
+			m_packetLen += sizeof(UnsignedByte);
+			needNewCommandID = true;
+			m_lastPlayerID = cmdMsg->getPlayerID();
+		}
+		if (((m_lastCommandID + 1) != (UnsignedShort)(cmdMsg->getID())) || (needNewCommandID == true)) {
+			m_packet[m_packetLen] = 'C';
+			++m_packetLen;
+			UnsignedShort newID = cmdMsg->getID();
+			memcpy(m_packet + m_packetLen, &newID, sizeof(UnsignedShort));
+			m_packetLen += sizeof(UnsignedShort);
+		}
+		m_lastCommandID = cmdMsg->getID();
+		m_packet[m_packetLen] = 'D';
+		++m_packetLen;
+		Int newType = gmsg->getType();
+		memcpy(m_packet + m_packetLen, &newType, sizeof(Int));
+		m_packetLen += sizeof(Int);
+		Rva0054D54A *parser = new Rva0054D54A(gmsg);
+		UnsignedByte numTypes = parser->getNumTypes();
+		memcpy(m_packet + m_packetLen, &numTypes, sizeof(numTypes));
+		m_packetLen += sizeof(numTypes);
+		Rva0054D593 *argType = parser->getFirstArgumentType();
+		while (argType != 0) {
+			UnsignedByte type = (UnsignedByte)(argType->getType());
+			memcpy(m_packet + m_packetLen, &type, sizeof(type));
+			m_packetLen += sizeof(type);
+			UnsignedByte argTypeCount = argType->getArgCount();
+			memcpy(m_packet + m_packetLen, &argTypeCount, sizeof(argTypeCount));
+			m_packetLen += sizeof(argTypeCount);
+			argType = argType->getNext();
+		}
+		Int numArgs = gmsg->getArgumentCount();
+		for (Int i = 0; i < numArgs; ++i) {
+			GameMessageArgumentDataType type = gmsg->getArgumentDataType(i);
+			GameMessageArgumentType arg = *(gmsg->getArgument(i));
+			writeGameMessageArgumentToPacket(type, arg);
+		}
+		::delete parser;
+		parser = 0;
+		++m_numCommands;
+		if (m_lastCommand != 0) {
+			delete m_lastCommand;
+			m_lastCommand = 0;
+		}
+		m_lastCommand = new NetCommandRef(msg->getCommand());
+		m_lastCommand->setRelay(msg->getRelay());
+		retval = true;
+	}
+	::delete gmsg;
+	return retval;
 }
