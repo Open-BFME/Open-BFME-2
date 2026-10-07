@@ -4,6 +4,8 @@
 // ?doPhaseStuff@StructureToppleUpdate@@IAEXW4StructureTopplePhaseType@@PBUCoord3D@@@Z, retail 0x004A584B, 114 bytes.
 // ?doDamageLine@StructureToppleUpdate@@IAEXPAVObject@@PBVWeaponTemplate@@MMMM@Z, retail 0x004A5947, 450 bytes.
 // ?applyCrushingDamage@StructureToppleUpdate@@IAEXM@Z, retail 0x004A5EAC, 406 bytes.
+// ?doToppleStartFX@StructureToppleUpdate@@IAEXPAVObject@@PBVDamageInfo@@@Z, retail 0x004A5B09, 88 bytes.
+// ?doAngleFX@StructureToppleUpdate@@IAEXMM@Z, retail 0x004A57DB, 112 bytes.
 //
 // Donor: Zero Hour's StructureToppleUpdate.cpp through BFME 1's matched
 // bodies (reference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/
@@ -27,6 +29,11 @@
 //   data +0x64, m_toppleDirection at +0x28, m_lastCrushedLocation at +0x40 and
 //   m_buildingHeight at +0x54. Coord2D::toAngle (0x00005923) and
 //   Coord3D::length (0x00003571) are the rowed out-of-line bodies.
+// - doToppleStartFX and doAngleFX were rowed under address names
+//   (Rva004A5B09, Rva004A54A8). They are Zero Hour's bodies unchanged: the
+//   start FX list at module data +0x50, and the AngleFXInfo vector (angle,
+//   FX list) at +0xAC, whose FX fire for each angle the update's step
+//   (0x004A613B) passes.
 
 #include "ascii_string.h"
 
@@ -85,10 +92,13 @@ enum
 class Matrix3D;
 class WeaponTemplate;
 
+class Object;
+
 class FXList
 {
 public:
 	static void doFXPos(const FXList *fx, const Coord3D *primary, const Matrix3D *primaryMtx = 0, Real primarySpeed = 0.0f, const Coord3D *secondary = 0);
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary = 0);
 };
 
 class Object;
@@ -112,6 +122,25 @@ private:
 };
 
 typedef PhaseList<ObjectCreationList> OCLVec;
+
+struct AngleFXInfo
+{
+	Real angle;
+	const FXList *fxList;
+};
+
+template <class T> class ConstVector
+{
+public:
+	typedef const T *const_iterator;
+	const_iterator begin() const { return m_start; }
+	const_iterator end() const { return m_finish; }
+
+private:
+	T *m_start;
+	T *m_finish;
+	T *m_endOfStorage;
+};
 
 Bool inList(Int value, Int count, const Int idxList[]);
 
@@ -213,12 +242,15 @@ class StructureToppleUpdateModuleData
 public:
 	unsigned char m_pad000[0x4C];
 	UnsignedInt m_damageFXTypes; // +0x4C
-	unsigned char m_pad050[0x60 - 0x50];
+	const FXList *m_toppleStartFXList; // +0x50
+	unsigned char m_pad054[0x60 - 0x54];
 	const FXList *m_crushingFXList; // +0x60
 	AsciiString m_crushingWeaponName; // +0x64
 	unsigned char m_pad068[0x70 - 0x68];
 	OCLVec m_ocls[ST_PHASE_COUNT]; // +0x70
 	Int m_oclCount[ST_PHASE_COUNT]; // +0x94
+	unsigned char m_pad0a0[0xAC - 0xA0];
+	ConstVector<AngleFXInfo> angleFX; // +0xAC
 };
 
 class ObjectModule
@@ -268,6 +300,8 @@ public:
 
 protected:
 	void applyCrushingDamage(Real theta);
+	void doToppleStartFX(Object *building, const DamageInfo *damageInfo);
+	void doAngleFX(Real curAngle, Real newAngle);
 	void doDamageLine(Object *building, const WeaponTemplate *wt, Real jcos, Real jsin, Real facingWidth, Real toppleAngle);
 	void doPhaseStuff(StructureTopplePhaseType stphase, const Coord3D *target);
 
@@ -429,4 +463,33 @@ void StructureToppleUpdate::doPhaseStuff(StructureTopplePhaseType stphase, const
 				((ObjectCreationList *)ocl)->create(getObject(), (void *)target, 0, 0);
 		}
 	}
+}
+
+// ?doToppleStartFX@StructureToppleUpdate@@IAEXPAVObject@@PBVDamageInfo@@@Z
+void StructureToppleUpdate::doToppleStartFX(Object *building, const DamageInfo *damageInfo)
+{
+	const StructureToppleUpdateModuleData *d = getStructureToppleUpdateModuleData();
+	const DamageInfo *lastDamageInfo = getObject()->getBodyModule()->getLastDamageInfo();
+
+	if( lastDamageInfo == 0 || getDamageTypeFlag( d->m_damageFXTypes, lastDamageInfo->in.m_damageType ) )
+		FXList::doFXPos(d->m_toppleStartFXList, building->getPosition());
+
+	doPhaseStuff(STPHASE_INITIAL, building->getPosition());
+}
+
+// ?doAngleFX@StructureToppleUpdate@@IAEXMM@Z
+void StructureToppleUpdate::doAngleFX(Real curAngle, Real newAngle)
+{
+	const StructureToppleUpdateModuleData *d = getStructureToppleUpdateModuleData();
+	const DamageInfo *lastDamageInfo = getObject()->getBodyModule()->getLastDamageInfo();
+
+	for (ConstVector<AngleFXInfo>::const_iterator it = d->angleFX.begin(); it != d->angleFX.end(); ++it)
+	{
+		if ((it->angle > curAngle) && (it->angle <= newAngle))
+		{
+			if( lastDamageInfo == 0 || getDamageTypeFlag( d->m_damageFXTypes, lastDamageInfo->in.m_damageType ) )
+				FXList::doFXObj(it->fxList, getObject());
+		}
+	}
+
 }
