@@ -12,9 +12,15 @@ typedef unsigned int UnsignedInt;
 
 // A campaign of m_campaignVector: its spawn-army lookup (0x0052BFE1, unnamed
 // in WB, unrowed) scans 0xB8-byte entries and returns the match or NULL.
+// Address-only view of the receiver returned by the native active-entry lookup.
+// Its 27-byte folded getter copies the +4 AsciiString through the hidden result.
+// Neither the record class nor the getter's original identity is established.
+class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
+
 class Rva0052BFE1
 {
 public:
+	Rva00564DF2NameView *rva0052C119();
 	void *rva0052BFE1(Int a, Int b);				// 0x0052BFE1
 	unsigned char opaque_00[4];
 	AsciiString m_name04;
@@ -36,6 +42,7 @@ private:
 class LivingWorldCampaignManager
 {
 public:
+	AsciiString rva003B8D06();
 	void StartNewCampaign(const AsciiString &campaignName);
 	void StartNewCampaign(Int campaignIndex);			// 0x003B8C06
 	void *UseGenericSpawnArmyForPlayer(Int a, Int b);
@@ -128,4 +135,19 @@ void *Rva003B8E89::rva003B8E89(void *key)
 			return &m_records[i];
 	}
 	return 0;
+}
+
+// Native Ghidra extent 0x003B8D06..0x003B8D4D, 71 bytes, RET 4 hidden result.
+// The existing index/vector layout gates access to the active campaign. Calls
+// at 0x003B8D28 and 0x003B8D32 prove the no-argument entry lookup and AsciiString
+// return ABI; invalid indices return the named AsciiString::TheEmptyString.
+// Separate entry and return expressions preserve the native call ordering.
+AsciiString LivingWorldCampaignManager::rva003B8D06()
+{
+    if (m_campaignIndex >= 0 && (UnsignedInt)m_campaignIndex < m_campaignVector.size())
+        {
+        Rva00564DF2NameView *entry = m_campaignVector[m_campaignIndex]->rva0052C119();
+        return entry->rva00564DF2();
+    }
+    return AsciiString::TheEmptyString;
 }
