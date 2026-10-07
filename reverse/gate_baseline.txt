@@ -8,4 +8,3 @@
 # genalias   a gen-alias row's masked call is not a twin of its named callee
 # alias-row  object-symbol= alias row still trusted for callee resolution
 # Seeded 2026-10-05 from a full-ledger shadow run at 7e13084dfc.
-tail 0x001D5470 ?Rva001D5470_CpuFeatureProbe@@YAHXZ
