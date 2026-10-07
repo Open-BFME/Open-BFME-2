@@ -46,6 +46,7 @@ class HordeContain
 public:
 	HordeContain(Thing *thing, const ModuleData *moduleData);
 	~HordeContain();
+	void rva00470DC1();
 };
 
 struct BfmeE16
@@ -125,6 +126,8 @@ class AODHordeContain : public HordeContain
 public:
 	AODHordeContain(Thing *thing, const ModuleData *moduleData);
 	void rva0047A729(const Float3 *position);
+	void rva0047A77E();
+	void rva0047A413();
 	virtual void f00();
 	virtual void f20();
 	virtual void f11C();
@@ -209,4 +212,68 @@ insertPosition:
     AODHistoryOwnerView *owner = *reinterpret_cast<AODHistoryOwnerView **>(
         reinterpret_cast<unsigned char *>(this) + 8);
     m_arrayA[0].m_f[3] = owner->m_field44;
+}
+
+// BFME1 semantic donor: AODHordeContainUpdateFormation.cpp at1399ad37.
+// Native247B47A77E..47A875 has dynamic frame-rate defaults, out-of-line
+// Coord3D length and a KindOf215 query instead of the donor's condition bit.
+// The receiver/callee spellings retain unresolved target method identities.
+class Object;
+struct Rva0028AC4EEntry;
+class Rva001E46E1
+{
+public:
+    float rva001E46E1(Object *object);
+    float rva001E4845(Object *object);
+};
+class Object
+{
+public:
+    const Rva0028AC4EEntry *rva0028AC4E() const;
+    bool rva0006F039(int kind) const;
+};
+class Rva0055A627Difference
+{
+public:
+    float x, y, z;
+    float length() const;
+};
+extern int g_Va00DBA4E4;
+
+void AODHordeContain::rva0047A77E()
+{
+    float scale = 1.0f / g_Va00DBA4E4;
+    float movementSpeed = scale * 100.0f;
+    float movementStep = scale * 10.0f;
+    Object *object = *reinterpret_cast<Object **>(
+        reinterpret_cast<unsigned char *>(this) + 8);
+    Rva001E46E1 *ai = reinterpret_cast<Rva001E46E1 *>(
+        const_cast<Rva0028AC4EEntry *>(object->rva0028AC4E()));
+    if (ai)
+    {
+        movementSpeed = ai->rva001E46E1(object);
+        movementStep = ai->rva001E4845(object);
+    }
+    const Float3 *current = reinterpret_cast<const Float3 *>(
+        reinterpret_cast<const unsigned char *>(object) + 0x38);
+    Float3 position;
+    position.m_f[0] = current->m_f[0];
+    position.m_f[1] = current->m_f[1];
+    position.m_f[2] = current->m_f[2];
+    const Float3 *previous = reinterpret_cast<const Float3 *>(
+        reinterpret_cast<const unsigned char *>(this) + 0x704);
+    Rva0055A627Difference difference;
+    difference.x = position.m_f[0] - previous->m_f[0];
+    difference.y = position.m_f[1] - previous->m_f[1];
+    difference.z = position.m_f[2] - previous->m_f[2];
+    if (difference.length() > movementStep)
+        rva0047A729(&position);
+    rva0047A413();
+    const float &speed = movementSpeed;
+    if (object->rva0006F039(215))
+    {
+        float &tail = m_334;
+        tail = tail + speed;
+    }
+    HordeContain::rva00470DC1();
 }

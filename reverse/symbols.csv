@@ -15709,3 +15709,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??0Rva005D0AD5@@QAE@PAURva005CF9C9Mid@@H@Z,0x005D0AD5,Constructor at Ghidra 0x5D0AD5/137; RET8 and EAX=this; 28-byte allocation and (owner pointer then method int) arguments independently read at callbacks 0x5D0DBB and 0x5D0E10; stores owner at +4 and method at +0x14. Original class name unresolved; address-derived ABI view.
 ?rva0052B84F@@YAPAVRva0052B7F8Owner@@XZ,0x0052B84F,callee of ??0Rva0052B894Registration@@QAE@ABVAsciiString@@@Z
 ?rva00334860@LuaScriptEngine@@QAEXPAXPAVObject@@00@Z,0x00334860,callee of ?rva00331ED1@Rva00331ED1@@QAEXHPAX0@Z
+?rva0047A413@AODHordeContain@@QAEXXZ,0x0047A413,callee of ?rva0047A77E@AODHordeContain@@QAEXXZ
+?rva00470DC1@HordeContain@@QAEXXZ,0x00470DC1,callee of ?rva0047A77E@AODHordeContain@@QAEXXZ
