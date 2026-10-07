@@ -613,7 +613,6 @@ name,address,notes
 ??$__copy_ptrs@PBUGeometryRecord@@PAU1@@_STL@@YAPAUGeometryRecord@@PBU1@0PAU1@ABU__false_type@0@@Z,0x0040B350
 ??$__copy_ptrs@PBURva000C4657Elem@@PAU1@@_STL@@YAPAURva000C4657Elem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x0007A401,struct spelling for erase 0x000C4657
 ??$__copy_ptrs@PBURva002606AFElem@@PAU1@@_STL@@YAPAURva002606AFElem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00260647,erase copy
-??$__copy_ptrs@PBURva002821CFElem@@PAU1@@_STL@@YAPAURva002821CFElem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00281AB7,erase copy
 ??$__copy_ptrs@PBVRva000C4657Elem@@PAV1@@_STL@@YAPAVRva000C4657Elem@@PBV1@0PAV1@ABU__false_type@0@@Z,0x0007A401,erase 0x000C4657 copy
 ??$__copy_ptrs@PBW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PBW41@0PAW41@ABU__false_type@0@@Z,0x0025BF40,by-reference tag call target read from the retail REL32s at 0x0021C283 and 0x0021C298 in the vector assign body; by-value twin rowed
 ??$__copy_trivial@_STL@@YAPAXPBX0PAX@Z,0x000179B0,already rowed
@@ -4248,7 +4247,6 @@ name,address,notes
 ??1Rva0026E9BDBase@@UAE@XZ,0x0026E836,DeployStyle dtor TU spelling for the opaque SEH base dtor; same body as pinned ??1Rva0026E836@@UAE@XZ
 ??1Rva0026F445@@UAE@XZ,0x0026F445,"destructor the scalar deleting destructor 0x0026F597 calls (REL32 at 0x0026F59A; vtable 0x00BFABB8#0); opaque address name"
 ??1Rva002793F0@@UAE@XZ,0x002793F0,"destructor the scalar deleting destructor 0x00279FFC calls (REL32 at 0x00279FFF; vtable 0x00BFB0B4#7); opaque address name"
-??1Rva002821CFDtor@@QAE@XZ,0x0027EA49,dtor for erase 0x002821CF
 ??1Rva002827F3@@QAE@XZ,0x0028279F,"destructor for Rva002827F3 called from Rva002833E7Holder dtor at 0x002833E7"
 ??1Rva0028418A@@UAE@XZ,0x0028418A,opaque SEH dtor (mov-eax-cookie prologue); tail-called by 4-vptr dtor at 0x62AF7; identity unproven, address-derived name
 ??1Rva002859EADtor@@QAE@XZ,0x002859EA,dtor at 0x002859EA (target of thunks 0x007B6B73 0x007B781A 0x007B7824 0x007B7CD7 0x007B92A2)
@@ -5286,7 +5284,6 @@ name,address,notes
 ??4OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x003A71B3,BFME2 export; the module template assignment the ConcreteModuleTemplate wrapper forwards to
 ??4Overridable@@QAEAAV0@ABV0@@Z,0x001FD28E,ICF-folded trivial base copy (5B return-this like matched FX rows); RankInfo assign base call
 ??4ParticleSystemTemplateTail@FXParticleSystem@@QAEAAV01@ABV01@@Z,0x001FC404,PC exported template assignment1FCED1 calls tail+A4 here after verified base and string assignments; original member identity unasserted
-??4Payload@DeliverPayloadNugget@@QAEAAU01@ABU01@@Z,0x0027F589,callee REL32 read by locate.py from a unique masked-byte placement emitted by ObjectCreationList.cpp
 ??4PeerRequest@@QAEAAV0@ABV0@@Z,0x0038B248,callee of getRequest (0x0038D4C4) at the site its BFME1 donor calls it; may be an ICF alias
 ??4PeerResponse@@QAEAAV0@ABV0@@Z,0x0038B383,sole direct call is from vtable-confirmed GameSpyPeerMessageQueue::getResponse at 0x38DFCA site 0x38E000; Ghidra boundary 0x38B383/340 has thiscall copy ABI; target copies PeerResponse string fields at the donor header offsets and its 8-string array at +0x88; target getResponse and matched addResponse identify the same response queue
 ??4PingRequest@@QAEAAV0@ABV0@@Z,0x005501D3,callee of ?getRequest@Pinger@@UAE_NAAVPingRequest@@@Z at retail 0x005503E6 read from its REL32 displacement; ICF alias onto ??4BfmeNarrowRecord0054FEF1@@QAEAAU0@ABU0@@Z (matched)
