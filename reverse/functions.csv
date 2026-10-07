@@ -67225,3 +67225,5 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?grow@?$Rva00584A7DVector@URva00587057Entry@@@@QAEXI@Z,,0x0058702C,35,Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp,matched,pinned vector grow and rowed default element constructor
 ?Rva002B3ED6Get@@YAHPAVRva002B3ED6Object@@H@Z,,0x002B3ED6,36,Code/GameEngine/Source/Common/Rva002B3ED6.cpp,matched,address query from caller pushes and rowed indexed-field accessor plus pinned check
 ?rva0041430D@Rva0041430D@@QAEXPAVINI@@@Z,,0x0041430D,18,Code/GameEngine/Source/Common/Rva0041430DInitFromINI.cpp,matched,address-derived member inferred from caller ECX and retail forwarding to INI initFromINI
+?rva005FF4D5@Rva005FF4D5@@QAEX_N@Z,,0x005FF4D5,8,Code/GameEngine/Source/Common/Rva005FF4D5Forward.cpp,matched,callers 0x005FA8DA 0x005FA8EE prev 0x005FF4BD forwarder to rowed 0x005FF38D
+?rva004CF3E1@ConnectionManager@@QAE_NXZ,,0x004CF3E1,37,Code/GameEngine/Source/GameNetwork/ConnectionManager_areAllQueuesEmptyTwin_Rva004CF3B9.cpp,matched,abuts prev 0x004CF3B9 caller 0x0025E8B0 IAT timeGetTime honest address method
