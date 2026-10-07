@@ -120,6 +120,15 @@
 // frame, otherwise the rowed TerrainLogic query 0x0027F171 counts inside the
 // trigger and Zero Hour's six-way comparison sets the cache. BFME 2-only
 // condition with no donor body, so the method keeps an address name.
+//
+// ?rva003E5267@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E5267 132B
+// Target evidence: jump-table case 193 calls 0x003E5267, which
+// initConditionTemplates names UNIT_USING_STANCE (unit, stance). The named
+// unit (rowed getUnitNamed 0x003588E7) is searched with findModule
+// 0x0028B6D6 for a static NameKeyGenerator key of the string
+// "StancesBehavior" (guard bit 0x00E02E28, key 0x00E02E24), and the module's
+// rowed 0x0045ED4B stance is compared with the parameter's int. BFME 2-only
+// condition with no donor body, so the method keeps an address name.
 #include <vector>
 #include "ascii_string.h"
 
@@ -221,9 +230,32 @@ private:
 	int m_commandPoints; // +0x618
 };
 
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class Module;
+
+// The module findModule returns for the "StancesBehavior" key; the rowed
+// 0x0045ED4B reads its current stance.
+class StancesBehavior
+{
+public:
+	int rva0045ED4B() const;
+};
+
 class Object
 {
 public:
+	Module *findModule(NameKeyType key) const;
 	const ThingTemplate *getTemplate() const { return m_template; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	Player *getControllingPlayer() const;
@@ -439,6 +471,7 @@ protected:
 	bool evaluateHasCommandPointsToBuildUnit(Parameter *, Parameter *);
 	bool evaluatePlayerHasKilledTypeUnits(Parameter *, Parameter *, Parameter *);
 	bool rva003E63CD(Condition *, Parameter *, Parameter *, Parameter *);
+	bool rva003E5267(Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -816,5 +849,19 @@ bool ScriptConditions::rva003E63CD(Condition *pCondition, Parameter *pComparison
 		return true;
 	}
 	pCondition->setCustomData(-1);
+	return false;
+}
+
+bool ScriptConditions::rva003E5267(Parameter *pUnitParm, Parameter *pStanceParm)
+{
+	Object *theObj = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!theObj)
+		return false;
+	static const NameKeyType key_StancesBehavior = TheNameKeyGenerator->nameToKey("StancesBehavior");
+	StancesBehavior *stances = (StancesBehavior *)theObj->findModule(key_StancesBehavior);
+	if (stances) {
+		int stance = pStanceParm->getInt();
+		return stances->rva0045ED4B() == stance;
+	}
 	return false;
 }
