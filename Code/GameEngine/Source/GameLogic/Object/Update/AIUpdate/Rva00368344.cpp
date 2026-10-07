@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD
 // ?rva00368344@Rva00368344@@QAEXPBUCoord3D@@H@Z @0x00368344 83B
 // Evidence: leaf called from 0x0036BDCB plus sibling Rva003683EA layout (+0x30 machine +0x528 done) plus rowed callees.
-struct Coord3D { float x; float y; float z; };
+#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 class Object { public: bool rva002907A1(); };
 class Waypoint;
 class AIStateMachine { public: void setGoalWaypoint(const Waypoint *p); };
@@ -15,6 +15,7 @@ public:
 class Rva00263910 { public: void rva00265667(const Coord3D *pos, int flag); };
 class Rva00368344 {
 public:
+	void rva003682F1(const Waypoint *goal, bool extra, const Waypoint *next);
 	void rva00368344(const Coord3D *pos, int flag);
 	void rva00368397(const Coord3D *pos, int flag);
 	void rva00368433(const Coord3D *pos, int flag);
@@ -27,6 +28,24 @@ private:
 	char m_pad34[0x528-0x34];
 	int m_done; // +0x528
 };
+// Native Ghidra 003682F1..00368344, 83B, RET12. The +8 Object and +30
+// machine accesses agree with these independently rowed siblings. Object+438
+// bit0 gates the rowed mobile predicate; slots14/20 and both +48 waypoint
+// setter calls are explicit in native bytes. Original member name unknown.
+struct Rva003682F1ObjectView {
+	char unknown00[0x438];
+	unsigned char flags;
+};
+void Rva00368344::rva003682F1(const Waypoint *goal, bool extra, const Waypoint *next)
+{
+	if (!(reinterpret_cast<Rva003682F1ObjectView *>(m_gate08)->flags & 1)
+		&& m_gate08->rva002907A1()) {
+		m_machine->s5();
+		reinterpret_cast<AIStateMachine *>(m_machine)->setGoalWaypoint(goal);
+		reinterpret_cast<AIStateMachine *>(this)->setGoalWaypoint(next);
+		m_machine->s8(0x3F9 + (extra ? 1 : 0));
+	}
+}
 void Rva00368344::rva00368344(const Coord3D *pos, int flag)
 {
 	if (pos == 0)
