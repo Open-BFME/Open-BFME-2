@@ -627,24 +627,34 @@ public:
 	ObjectShroudStatus getShroudedStatus( Int playerIndex );
 };
 
+// The ghost's partition data release reset uses: the rowed address-named
+// 0x0073B220, which releases the data or destroys and frees it.
+class BfmeThingCDE
+{
+public:
+	void bfmeGoCDE( void );
+};
+
 class GhostObject;
 
 // BFME 2 GhostObjectManager table (0x008078F0; W3D's is 0x00BC59B8): the
-// Snapshot entries are the destructor, crc, the name getter, xfer and
-// loadPostProcess; setLocalPlayerIndex is slot 5 and addGhostObject, which
-// takes only the object, slot 7.
+// Snapshot entries are the destructor, a bare-ret slot 1 (0x000B3FD0 in both
+// tables), the name getter and xfer. The manager's own slots follow: reset 4
+// (empty 0x000B3FD0 in the base, W3D's 0x00063C48), setLocalPlayerIndex 5,
+// updateOrphanedObjects 6 (W3D's 0x000635AB) and addGhostObject 7, which
+// takes only the object.
 class GhostObjectManager
 {
 public:
 	virtual ~GhostObjectManager();																			///< slot 0
 protected:
-	virtual void crc( Xfer *xfer );																			///< slot 1
+	virtual void v01( void );																						///< slot 1
 	virtual const char *v02( void ) const;																///< slot 2
 	virtual void xfer( Xfer *xfer );																		///< slot 3
-	virtual void loadPostProcess( void );																///< slot 4
 public:
+	virtual void reset( void );																					///< slot 4
 	virtual void setLocalPlayerIndex( int index );												///< slot 5
-	virtual void v06();																									///< slot 6
+	virtual void updateOrphanedObjects( int *playerIndexList, int numNonLocalPlayers );	///< slot 6
 	virtual GhostObject *addGhostObject( Object *object );								///< slot 7
 	inline Int getLocalPlayerIndex( void ) { return m_localPlayer; }
 	void saveLockGhostObjects( Bool enableLock ) { m_saveLockGhostObjects = enableLock; }
@@ -926,6 +936,8 @@ protected:
 class W3DGhostObjectManager : public GhostObjectManager
 {
 public:
+	virtual ~W3DGhostObjectManager();
+	virtual void reset( void );
 	virtual void setLocalPlayerIndex( int index );
 	virtual GhostObject *addGhostObject( Object *object );
 	void removeGhostObject( GhostObject *object );
@@ -1399,6 +1411,42 @@ GhostObject *W3DGhostObjectManager::addGhostObject(Object *object)
 	mod->m_drawableInfo.m_ghostObject = mod;
 
 	return mod;
+}
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+W3DGhostObjectManager::~W3DGhostObjectManager()
+{
+	reset();	//make sure it's empty
+
+	W3DGhostObject *mod = m_freeModules;
+	W3DGhostObject *nextmod;
+
+	while (mod)
+	{
+		nextmod=mod->m_nextSystem;
+		::delete mod;
+		mod=nextmod;
+	}
+}
+
+// ------------------------------------------------------------------------------------------------
+/** BFME 2 drains the used list from its head: an orphan with partition data
+	* releases that data (which removes the ghost), anything else is removed
+	* directly. */
+// ------------------------------------------------------------------------------------------------
+void W3DGhostObjectManager::reset(void)
+{
+	W3DGhostObject *mod = m_usedModules;
+
+	while (mod)
+	{
+		if (!mod->m_parentObject && mod->m_partitionData)
+			reinterpret_cast<BfmeThingCDE *>(mod->m_partitionData)->bfmeGoCDE();
+		else
+			removeGhostObject(mod);
+		mod = m_usedModules;
+	}
 }
 
 // ------------------------------------------------------------------------------------------------

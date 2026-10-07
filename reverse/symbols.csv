@@ -4892,7 +4892,6 @@ name,address,notes
 ??1Rva006162B0Dtor@@UAE@XZ,0x006162B0,address-derived class dtor called by the 30B scalar deleting destructor at 0x00616490; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva0061ED80@@UAE@XZ,0x0061ED80,opaque vector-destroying dtor (17B: member+0xC via ehvec 0x42FD80 + vptr); tail-called by single-inheritance dtor at 0x180EA0; identity unproven, address-derived name
 ??1Rva00625800Dtor@@UAE@XZ,0x00625800,address-derived class dtor called by the 30B scalar deleting destructor at 0x00626D90; address read from that body REL32; class identity unproven so the model is named for the call target
-??1Rva006422F@@UAE@XZ,0x006422F,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC59B8); called by scalar-deleting-dtor at 0x642D5; identity unproven, address-derived name
 ??1Rva0064C290Tree@@QAE@XZ,0x0038A48B,callee of ??1Rva006609D0@@UAE@XZ at retail 0x0054FFA5 read from its REL32 displacement; ICF alias onto the matched STLport string-pair Rb_tree destructor body at this address
 ??1Rva0065288@@UAE@XZ,0x0065288,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x6526C; identity unproven, address-derived name
 ??1Rva0065CA4@@UAE@XZ,0x0065CA4,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC5C78); called by scalar-deleting-dtor at 0x65CE8; identity unproven, address-derived name
@@ -10042,7 +10041,6 @@ name,address,notes
 ?handle@Gen0089C880@@QAEXXZ,0x0070A8B0
 ?handle@Rva008091C0Owner@@QAEXPAVBfmeC994@@HPAD@Z,0x006750C0
 ?handleBuildPlacements@InGameUI@@IAEXXZ,0x002A21E1,address read from the REL32 displacement at a placed body
-?handleNode@Rva006BDB00@@AAEXPAVRva006BDB00Node@@@Z,0x00063A77,callee of ?drain@Rva006BDB00@@QAEXXZ at retail 0x00063C48 read from its REL32 displacement; body unrowed
 ?handleNode@Rva006BDB00@@QAEXPAVRva006BDB00Node@@@Z,0x00063A77,callee of ?detach@Rva006BD6C0@@QAEXXZ at retail 0x00063C33 read from its REL32 displacement; address already carries the matched ?removeGhostObject@W3DGhostObjectManager row
 ?handleRadiusCursor@InGameUI@@IAEXXZ,0x0029A661,address read from the REL32 displacement at a placed body
 ?hasAnyObjects@Team@@QAE_N_N@Z,0x0039E042,target direct call from evaluateIsDestroyed 0x003E5DE9 with Team this and false; body walks members and applies object-state masks; identity corroborated by BFME1 Team::hasAnyObjects
