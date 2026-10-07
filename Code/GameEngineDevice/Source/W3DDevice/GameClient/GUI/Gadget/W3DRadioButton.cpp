@@ -67,6 +67,8 @@
 #include <stdlib.h>
 
 // USER INCLUDES //////////////////////////////////////////////////////////////
+// Use the verified checkbox donor view: getTextLength is virtual slot 3.
+#include "../../../../../../../reference/open-bfme-1/inputs/reference/shims/w3ddisplaystring/GameClient/DisplayString.h"
 #include "GameClient/GameWindowGlobal.h"
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GadgetRadioButton.h"
@@ -83,9 +85,9 @@
 
 // PRIVATE PROTOTYPES /////////////////////////////////////////////////////////
 
-// BFME's DisplayString interface predates the Zero Hour header used to build
-// this pristine TU: it has no virtual destructor slot and carries a separate
-// text-color setter.  Keep that ABI difference local to the one BFME body.
+// This body also uses BFME's separate text-color setter and four-argument
+// draw overload. Keep those measured virtual slots local; length and font
+// agree with the shared donor DisplayString view included above.
 class BFMEDisplayString
 {
 public:
