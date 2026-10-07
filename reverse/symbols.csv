@@ -15250,3 +15250,4 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00553CDE@Rva00553CDE@@QAEGE@Z,0x00553CDE,callee of ?rva00553D26@Rva00553D26@@QAEEXZ
 ?rva00553FDD@Rva00385333@@QAEXXZ,0x00553FDD,callee of ?rva00555F68@Rva00385333@@QAEXXZ
 ?rva005C71AD@Rva005C71ADView@@QAEPAXPAXM00000000@Z,0x005C71AD,Ghidra boundary 0x005C71AD/654; callers 0x00540E6C and 0x00540EBD load context into ECX and pass 40 stack bytes with callee cleanup; address-derived helper view
+?rva0040F87E@ArmySummarySystem@@QAE_NXZ,0x0040F87E,address-derived ArmySummarySystem callee: Ghidra function boundary at 0x0040F87E; called through GameLogic+0x184 at 0x0023C8F9; semantic name unproven
