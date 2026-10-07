@@ -392,6 +392,7 @@ protected:
 	static void FillBufferWithAckCommand(UnsignedByte *buffer, NetCommandRef *msg);
 	static void FillBufferWithKeepAliveCommand(UnsignedByte *buffer, NetCommandRef *msg);
 	static void FillBufferWithProgressMessage(UnsignedByte *buffer, NetCommandRef *msg);
+	static void FillBufferWithRouterFallbackCommand(UnsignedByte *buffer, NetCommandRef *msg);
 	// Fixed-size arms of GetBufferSizeNeededForCommand, by command type; the
 	// constants are the ones retail's jump table returns.
 	static UnsignedInt GetType0CommandSize(NetCommandMsg *msg) { return 0x10; }
@@ -1555,6 +1556,54 @@ void NetPacket::FillBufferWithProgressMessage(UnsignedByte *buffer, NetCommandRe
 
 	buffer[offset] = cmdMsg->getPercentage();
 	++offset;
+}
+
+// ?FillBufferWithRouterFallbackCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058C8E4, 136 bytes:
+// the BFME1 donor's FillBufferWithRouterFallbackCommand
+// (NetPacketCommandBodies.cpp) with BFME's 'S' timestamp field and the relay
+// and command ID copied as the other serializers copy them; one byte per
+// player-order slot, read through a local pointer (which keeps retail's
+// indexed loop, as in addRouterFallbackCommand). FillBufferWithCommand's
+// type-23 arm.
+void NetPacket::FillBufferWithRouterFallbackCommand(UnsignedByte *buffer, NetCommandRef *msg)
+{
+	BFMENetRouterFallbackCommandMsg *cmdMsg = (BFMENetRouterFallbackCommandMsg *)msg->getCommand();
+	UnsignedShort offset = 0;
+
+	buffer[offset] = 'T';
+	++offset;
+	buffer[offset] = cmdMsg->getNetCommandType();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'R';
+	++offset;
+	UnsignedByte newRelay = msg->getRelay();
+	memcpy(buffer + offset, &newRelay, sizeof(UnsignedByte));
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'S';
+	++offset;
+	UnsignedInt newTimestamp = cmdMsg->getTimestamp();
+	memcpy(buffer + offset, &newTimestamp, sizeof(UnsignedInt));
+	offset += sizeof(UnsignedInt);
+
+	buffer[offset] = 'P';
+	++offset;
+	buffer[offset] = cmdMsg->getPlayerID();
+	offset += sizeof(UnsignedByte);
+
+	buffer[offset] = 'C';
+	++offset;
+	UnsignedShort newID = cmdMsg->getID();
+	memcpy(buffer + offset, &newID, sizeof(UnsignedShort));
+	offset += sizeof(UnsignedShort);
+
+	buffer[offset] = 'D';
+	++offset;
+	const Int *playerOrder = cmdMsg->m_playerOrder;
+	for (Int i = 0; i < 8; ++i) {
+		buffer[offset + i] = (UnsignedByte)playerOrder[i];
+	}
 }
 
 // ?FillBufferWithGameCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058C488, 696 bytes:
