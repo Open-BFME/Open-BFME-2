@@ -32,6 +32,7 @@ class Rva0053863ESub
 public:
 	int run(int value);
 	void rva0053856F();
+	float rva00538661();
 
 private:
 	typedef _STL::pair<const ObjectID, Coord3D> CachedValue;
@@ -140,6 +141,21 @@ int Rva00330C22Owner::fwd(int value)
 {
 	((Rva002E3876Sub *)((char *)this - 0x3C))->run(value);
 	return value;
+}
+
+// Target evidence: 0x00538661 is a 19B Ghidra function. It checks the byte at
+// this+0x20, calls 0x0053856F with the same this when set, then returns the
+// float at this+0x1C (fld, ST0 return). The same-this helper call and the
+// +0x1C/+0x20 accesses match Rva0053863ESub's m_cachedScale/m_refresh layout.
+// The adjustor thunk at 0x0030BCB2 does add ecx,-0x28 then jmp here, the same
+// -0x28 adjustment the filed fwd at 0x0030BEE6 uses to reach Rva0053863ESub.
+// Contiguous with Rva0053863ESub::run (0x0053863E+35 = here, here+19 = next).
+// ?rva00538661@Rva0053863ESub@@QAEMXZ
+float Rva0053863ESub::rva00538661()
+{
+	if (m_refresh)
+		rva0053856F();
+	return m_cachedScale;
 }
 
 // Target evidence: 0x0053863E is a 35B Ghidra function. It checks the byte at
