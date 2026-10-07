@@ -68393,3 +68393,14 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva001087FD@Rva00108660ResourceManager@@QAEXXZ,,0x001087FD,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp,matched,BFME1 1399ad37 S3GuardedGlobalTriples lead; native globals and callees; three-head detach and boolean walk; closed native extent; original names unknown
 ?rva0009A4A4@@YAXXZ,,0x0009A4A4,46,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp,matched,BFME1 1399ad37 S3GuardedGlobalTriples lead; native globals and callees; three-head detach and boolean walk; closed native extent; original names unknown
 ?rva0009A4D2@@YAXXZ,,0x0009A4D2,46,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp,matched,BFME1 1399ad37 S3GuardedGlobalTriples lead; native globals and callees; three-head detach and boolean walk; closed native extent; original names unknown
+?d_0002dfe2@@YAXXZ,,0x0002DFE2,91,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_000306b0@@YAXXZ,,0x000306B0,128,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00032050@@YAXXZ,,0x00032050,140,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00032160@@YAXXZ,,0x00032160,137,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00032ec0@@YAXXZ,,0x00032EC0,151,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00037af0@@YAXXZ,,0x00037AF0,66,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00041403@@YAXXZ,,0x00041403,84,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_000443ba@@YAXXZ,,0x000443BA,132,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00044ff2@@YAXXZ,,0x00044FF2,148,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_00046827@@YAXXZ,,0x00046827,72,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?d_0004a3c4@@YAXXZ,,0x0004A3C4,158,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
