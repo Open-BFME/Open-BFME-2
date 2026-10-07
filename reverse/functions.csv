@@ -67296,3 +67296,4 @@ _RunBenchmark,,0x006B3640,673,Code/Libraries/Source/Benchmark/nbench0.cpp,matche
 ?rva00538768@QuadStrip2D@@QAEXH@Z,,0x00538768,26,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp,matched,gap erase m_start+index plus m_20 flag via rowed erase
 ?rva005CFB9E@Rva005CFB9E@@QAEXPAX00@Z,,0x005CFB9E,36,Code/GameEngine/Source/Common/Rva005CFB9EAnimation.cpp,matched,vtable slot evidence and rowed lazy helper relationship
 ?Rva00529DA9@Holder00529E19@@QAEXH@Z,,0x00529DA9,112,Code/GameEngine/Source/Common/Rva00529E19Reset.cpp,matched,address-derived holder update; call-site and target field evidence documented in source
+?rva00517EA2@Rva00517EA2@@QAEXXZ,,0x00517EA2,137,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,response pump loop; 840-byte queue record and direct helper call sites from retail bytes; address-derived identity
