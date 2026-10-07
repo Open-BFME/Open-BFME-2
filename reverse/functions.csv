@@ -68540,3 +68540,9 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva00373D5E@StealthUpdate@@QAEXXZ,,0x00373D5E,96,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,
 ?disguiseAsObject@StealthUpdate@@QAEXPBVObject@@@Z,,0x00373DF0,198,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,
 ?calcStealthedStatusForPlayer@StealthUpdate@@QAE?AW4StealthLookType@@PBVObject@@PBVPlayer@@@Z,,0x003742E3,166,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,
+?getStealthLevel@StealthUpdate@@QBEIXZ,,0x00373D15,14,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,stealth-level override at +0x2C else module data +0x0C; out of line
+?rva00373D28@StealthUpdate@@QAEPAV1@PAVObject@@@Z,,0x00373D28,29,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,stealth module of the object's rva002931F5(false) container or null
+?setWakeupIfInRange@@YAHPAVObject@@PAX@Z,,0x00373DBE,50,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,iterateObjects callback from markAsDetected 0x0037446E; wakes an idle AI within range
+?rva00373F59@StealthUpdate@@QAE_NPBUCoord3D@@0@Z,,0x00373F59,856,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,ZH allowedToStealth rule chain reshaped for BFME 2 flags; SSE
+?rva003742B1@StealthUpdate@@QAE_NXZ,,0x003742B1,50,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,rva00373F59 on the container position or own
+?markAsDetected@StealthUpdate@@QAEXIHPAVObject@@_N@Z,,0x0037446E,935,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,matched,ZH markAsDetected plus BFME 2 feedback radar eva and container recursion
