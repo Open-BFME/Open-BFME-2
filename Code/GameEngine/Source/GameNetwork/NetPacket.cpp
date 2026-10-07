@@ -333,6 +333,19 @@ int Rva0059100AGet(CDDrive *p);
 int Rva00591036Get(CDDrive *p);
 int Rva00591062Get(Rva00591062Host *p);
 int Rva00590FA5Get(const Rva0023E928 *obj);
+// FillBufferWithCommand's serializers rowed in their own units under address names.
+void Rva0058C80FWrite(char *buffer, NetCommandRef *msg);
+void Rva0058C96CWrite(char *buffer, NetCommandRef *msg);
+void Rva0058CA1BWrite(char *buffer, NetCommandRef *msg);
+void Rva0058CB27Write(char *buffer, NetCommandRef *msg);
+void Rva005910B4Write(char *buffer, NetCommandRef *msg);
+void Rva0058CBD9Write(char *buffer, NetCommandRef *msg);
+void Rva0058CCF2Write(char *buffer, NetCommandRef *msg);
+void Rva0058CD6AWrite(char *buffer, NetCommandRef *msg);
+void Rva0058CE23Write(char *buffer, NetCommandRef *msg);
+void Rva0058D041Write(UnsignedByte *buffer, NetCommandRef *msg);
+void Rva0058CEC5Write(char *buffer, NetCommandRef *msg);
+void Rva0058CF83Write(char *buffer, NetCommandRef *msg);
 
 class NetPacket
 {
@@ -403,6 +416,13 @@ protected:
 	static void FillBufferWithFileAnnounceCommand(UnsignedByte *buffer, NetCommandRef *msg);
 	static void FillBufferWithRequestGameSpyStatsAuthKeyCommand(UnsignedByte *buffer, NetCommandRef *msg);
 	static void FillBufferWithGameSpyStatsAuthKeyCommand(UnsignedByte *buffer, NetCommandRef *msg);
+	static void FillBufferWithCommand(UnsignedByte *buffer, NetCommandRef *msg);
+	// Arms whose serializers the linker folded into a sibling's bytes; each
+	// needs its own symbol or the compiler would merge the arms. In BFME1's case
+	// order these are DisconnectKeepAlive, TimeOutGameStart and RequestFrameData.
+	static void rva0058CACAType25(UnsignedByte *buffer, NetCommandRef *msg);
+	static void rva0058CCF2Type17(UnsignedByte *buffer, NetCommandRef *msg);
+	static void rva0058CF83Type9(UnsignedByte *buffer, NetCommandRef *msg);
 	// Fixed-size arms of GetBufferSizeNeededForCommand, by command type; the
 	// constants are the ones retail's jump table returns.
 	static UnsignedInt GetType0CommandSize(NetCommandMsg *msg) { return 0x10; }
@@ -1950,6 +1970,99 @@ void NetPacket::FillBufferWithGameSpyStatsAuthKeyCommand(UnsignedByte *buffer, N
 	}
 	offset += login.getLength();
 	buffer[offset] = 0;
+}
+
+// ?FillBufferWithCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x00592AAB, 357 bytes
+// with its 31-entry jump table: the BFME1 donor's per-type serializer
+// dispatcher (NetPacket_FillBufferWithCommand.cpp) in the donor's case order,
+// with type 20 ahead of FILE as in GetBufferSizeNeededForCommand, no
+// DisconnectScreenOff arm and BFME's type-30 arm last. Its caller is
+// ConstructBigCommandPacketList.
+void NetPacket::FillBufferWithCommand(UnsignedByte *buffer, NetCommandRef *msg)
+{
+	NetCommandMsg *cmdMsg = msg->getCommand();
+	switch (cmdMsg->getNetCommandType()) {
+	case 4:
+		FillBufferWithGameCommand(buffer, msg);
+		break;
+	case 1:
+	case 2:
+	case 0:
+		FillBufferWithAckCommand(buffer, msg);
+		break;
+	case 3:
+		Rva0058C80FWrite((char *)buffer, msg);
+		break;
+	case 23:
+		FillBufferWithRouterFallbackCommand(buffer, msg);
+		break;
+	case 10:
+		Rva0058C96CWrite((char *)buffer, msg);
+		break;
+	case 11:
+		Rva0058CA1BWrite((char *)buffer, msg);
+		break;
+	case 12:
+		FillBufferWithKeepAliveCommand(buffer, msg);
+		break;
+	case 25:
+		rva0058CACAType25(buffer, msg);
+		break;
+	case 26:
+		Rva0058CB27Write((char *)buffer, msg);
+		break;
+	case 13:
+		Rva005910B4Write((char *)buffer, msg);
+		break;
+	case 27:
+		Rva0058CBD9Write((char *)buffer, msg);
+		break;
+	case 14:
+		FillBufferWithChatCommand(buffer, msg);
+		break;
+	case 15:
+		FillBufferWithProgressMessage(buffer, msg);
+		break;
+	case 16:
+		Rva0058CCF2Write((char *)buffer, msg);
+		break;
+	case 17:
+		rva0058CCF2Type17(buffer, msg);
+		break;
+	case 20:
+		Rva0058CD6AWrite((char *)buffer, msg);
+		break;
+	case 19:
+		FillBufferWithFileCommand(buffer, msg);
+		break;
+	case 21:
+		FillBufferWithFileAnnounceCommand(buffer, msg);
+		break;
+	case 22:
+		Rva0058CE23Write((char *)buffer, msg);
+		break;
+	case 28:
+		Rva0058D041Write(buffer, msg);
+		break;
+	case 8:
+		Rva0058CEC5Write((char *)buffer, msg);
+		break;
+	case 7:
+		Rva0058CF83Write((char *)buffer, msg);
+		break;
+	case 9:
+		rva0058CF83Type9(buffer, msg);
+		break;
+	case 5:
+		FillBufferWithRequestGameSpyStatsAuthKeyCommand(buffer, msg);
+		break;
+	case 6:
+		FillBufferWithGameSpyStatsAuthKeyCommand(buffer, msg);
+		break;
+	case 30:
+		rva0059129F(buffer, msg);
+		break;
+	}
 }
 
 // ?FillBufferWithGameCommand@NetPacket@@KAXPAEPAVNetCommandRef@@@Z, retail 0x0058C488, 696 bytes:

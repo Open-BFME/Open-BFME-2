@@ -15485,3 +15485,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0058E8EARequestFrameData@NetPacket@@IAE_NPAVNetCommandRef@@@Z,0x0058E8EA,ICF twin arm of NetPacket::addCommand 0x005944D8: retail jump table 0x0059460D gives this type its own call block to the folded body (BFME1 enum name in the label)
 ?rva004D6187@Rva004D60CA@@QAEXVUnicodeString@@@Z,0x004D6187,ZH setText(UnicodeString) spelling of the rowed rva004D6187 (StringBase<unsigned short> parameter); called by NetPacket chat readers 0x0059205C and 0x00592123
 ?Rva00590D19Add@@YAXHPAVNetGameCommandMsg@@PBXPAHH@Z,0x00590D19,readGameMessageArgumentFromPacket as NetPacket's reader 0x00591EA6 calls it: five cdecl arguments (trailing message type unread by the rowed four-parameter body)
+?rva0058CACAType25@NetPacket@@KAXPAEPAVNetCommandRef@@@Z,0x0058CACA,ICF twin of FillBufferWithKeepAliveCommand: FillBufferWithCommand type-25 arm call at 0x00592B2C
+?rva0058CCF2Type17@NetPacket@@KAXPAEPAVNetCommandRef@@@Z,0x0058CCF2,ICF twin of Rva0058CCF2Write: FillBufferWithCommand type-17 arm call at 0x00592B8E
+?rva0058CF83Type9@NetPacket@@KAXPAEPAVNetCommandRef@@@Z,0x0058CF83,ICF twin of Rva0058CF83Write: FillBufferWithCommand type-9 arm call at 0x00592BE6
