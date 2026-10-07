@@ -15656,4 +15656,10 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00241230@GameLogic@@QAEX_N@Z,0x00241230,GameLogic member (FUN_00641230 431B) called first by the new-game pass 0x00248558 at 0x002485E0 with its bool param
 ?rva002421F5@GameLogic@@QAEX_NPAH@Z,0x002421F5,GameLogic member (FUN_006421f5 494B) called by 0x00248558 at 0x00248621 with its bool param and the address of the progress int (set to 0x29 just before)
 ?rva002469A5@GameLogic@@QAEX_NPAH@Z,0x002469A5,GameLogic member (FUN_006469a5 1484B) called by 0x00248558 at 0x00248606 with its bool param and the address of the progress int (set to 3 before)
-?rva00248278@GameLogic@@QAEX_N@Z,0x00248278,GameLogic member (FUN_00648278 736B) called by 0x00248558 at 0x00248632 with its bool param just before Profile::StopRange newgame
+?rva00205358@ScriptEngine@@QAEXPAVAssetList@@PAUAssetLoadMode@@@Z,0x00205358,TheScriptEngine (0x009FE16C) member called by GameLogic 0x00248278 at 0x00248521 with a fresh AssetList and its load-mode flag (ret 8); walks the sides list and forwards both to 0x003B3836
+?rva0023C666@Rva0023C666@@QAE_NXZ,0x0023C666,bool view of the rowed ?rva0023C666@Rva0023C666@@QAEHXZ: returns 0 or 1 in eax and GameLogic 0x00248278 tests only al after the call at 0x00248448
+?rva002A95F9@Rva002A8F24@@QAEXXZ,0x002A95F9,member of the 0x009FEEF8 object (g_00DFEEF8) called with no arguments by GameLogic 0x00248278 at 0x00248431 after ThePlayerList newMap
+?rva002E6A93@Rva003805BB@@QAEXH@Z,0x002E6A93,setter view of the folded 10-byte store [ecx+0x18] (also pinned as GameSlot::setTeamNumber): GameLogic 0x00248278 calls it at 0x0024849D on a human players +0x08 member with that members +0x14
+?rva0031D64F@ControlBar@@QAEXXZ,0x0031D64F,TheControlBar (0x00A01CFC) member called with no arguments by GameLogic 0x00248278 at 0x002482A5 before the 0x0031AD48(false) call
+?rva003A262C@TeamFactory@@QAEXXZ,0x003A262C,TheTeamFactory (0x00A028BC) member called with no arguments by GameLogic 0x00248278 at 0x0024843C (plain ret at 0x003A2658)
+?rva0043D467@@YAXXZ,0x0043D467,free function called with no arguments by GameLogic 0x00248278 at 0x002482B8 between the ControlBar calls and the 0x009FF080 slot 0x14 call

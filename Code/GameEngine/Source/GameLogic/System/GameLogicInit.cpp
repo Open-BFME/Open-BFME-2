@@ -77,6 +77,7 @@ private:
 class PartitionManager : public SubsystemInterface
 {
 public:
+	virtual void update(void);                                           // +0x28
 	void setRegion(const Region3D *extent, float cellSize);
 	void rva00625310(int value);
 
@@ -153,8 +154,13 @@ class AI : public SubsystemInterface
 {
 };
 
+class AssetList;
+struct AssetLoadMode;
+
 class ScriptEngine : public SubsystemInterface
 {
+public:
+	void rva00205358(AssetList *assets, AssetLoadMode *mode);
 };
 
 class Overridable
@@ -290,7 +296,9 @@ public:
 	float m_d8;
 	char m_pad0DC[0xbd0 - 0xdc];
 	int m_bd0;
-	char m_padBD4[0x1110 - 0xbd4];
+	char m_padBD4[0xe94 - 0xbd4];
+	int m_e94;
+	char m_padE98[0x1110 - 0xe98];
 	bool m_1110;
 	char m_pad1111[0x123d - 0x1111];
 	bool m_123d;
@@ -347,6 +355,8 @@ public:
 	void rva00244D56(_STL::vector<Rva0024622FEntry> *created, const KindOfType *excludeKind,
 		const KindOfType *requireKind, bool dontCreate);
 	void rva00244CB0(bool loadingSaveGame, GameInfo *game);
+	bool isInMultiplayerGame(void);
+	void formatPlayerStartWaypointName(AsciiString *name);
 
 	Object *getFirstObject(void) const { return m_objList; }
 	ObjectTOCEntry *findTOCEntryByName(AsciiString name);
@@ -391,7 +401,9 @@ public:
 	char m_b4[0x10c - 0xb4];
 	int m_10c;
 	int m_110;
-	char m_pad114[0x11d - 0x114];
+	char m_pad114[0x118 - 0x114];
+	int m_118;
+	char m_pad11C[0x11d - 0x11c];
 	bool m_11d;
 	char m_pad11E[0x120 - 0x11e];
 	LoadScreen *m_120;
@@ -1193,23 +1205,50 @@ struct CreateMask
 
 class Team;
 
+// The +0x08 member of Player: 0x003805BB takes a point value and a flag
+// (Player::addSkillPointsForKill passes true), 0x002E6A93 stores its +0x18.
+class Rva003805BB
+{
+public:
+	bool rva003805BB(float value, bool flag);
+	void rva002E6A93(int value);
+
+	char m_pad00[0x14];
+	int m_14;
+	int m_18;
+};
+
+enum PlayerType
+{
+	PLAYER_HUMAN
+};
+
 class Player
 {
 public:
 	Team *getDefaultTeam(void) const { return m_defaultTeam; }
+	PlayerType getPlayerType(void) const { return m_playerType; }
 
-private:
-	char m_pad00[0x2ec];
+	char m_pad00[0x8];
+	Rva003805BB m_skillPoints;
+	char m_pad24[0x5c - 0x24];
+	PlayerType m_playerType;
+	char m_pad60[0x2ec - 0x60];
 	Team *m_defaultTeam;
 };
 
-class PlayerList
+class PlayerList : public SubsystemInterface
 {
 public:
+	virtual void p0a(void); virtual void p0b(void); virtual void p0c(void);
+	virtual void p0d(void); virtual void p0e(void);
+	virtual void newMap(void);                                           // +0x3C
+
 	Player *getNeutralPlayer(void) const { return m_neutralPlayer; }
+	Player *getNthPlayer(int index);
 
 private:
-	char m_pad00[0x18];
+	char m_pad0C[0x18 - 0x0c];
 	Player *m_neutralPlayer;
 };
 
@@ -1556,5 +1595,285 @@ void GameLogic::rva00248558(bool loadingSaveGame)
 		}
 		strcat(g_00E09B08, ".csv");
 		g_00E09A00 = 0;
+	}
+}
+
+// ?rva00248278@GameLogic@@QAEX_N@Z
+// @0x00248278 736B (ret 4 at 0x00248555; sole caller 0x00248632, the
+// new-game pass). The tail of BFME 1's startNewGame from the asset preload
+// on (GameLogic.cpp: hideCommunicator, progress, default camera angle and
+// zoom, TheRecorder's controls, the InitialCameraPosition waypoint or a
+// 50/50/0 fallback, the partition update, ThePlayerList->newMap unless
+// loading, the skill-point pass for human players). Target facts: each of
+// the first steps is followed by Sleep(1); progress 0x5F/0x60/0x61 goes
+// through 0x0023C7BB; the waypoint name is a StringBase copy formatted by
+// formatPlayerStartWaypointName; the skill pass runs only when 0x0023C666
+// says so and hands (float)this+0x94 with false to the player's +0x08
+// member, then stores that member's +0x14 into its +0x18 (0x002E6A93);
+// 0x0023C6FD gates this+0x118 = TheGlobalData+0xE94; in a network game
+// TheNetwork slots 0x90 and 0x3C(0) run; unless TheGlobalData+0x1110 the
+// script engine (0x00205358) fills a fresh AssetList that 0x0061F010
+// merges. Slot meanings past the donor's are unknown. Shape: the waypoint
+// location is copied member by member (retail moves each float through
+// xmm0); a whole-struct copy becomes rep movsd and shifts the register
+// assignment of the whole body.
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
+
+class ParticleSystemManager
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v0a(); virtual void v0b();
+	virtual void v0c(); virtual void v0d(); virtual void v0e(); virtual void v0f();
+	virtual void v10(); virtual void v11(); virtual void v12();
+	virtual void preloadAssets(void);                                    // +0x4C
+};
+
+class ControlBar
+{
+public:
+	void rva0031D64F(void);
+	void rva0031AD48(bool flag);
+};
+
+class G00DFF080Obj
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04();
+	virtual void slot14(void);                                           // +0x14
+};
+
+class View
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v0a(); virtual void v0b();
+	virtual void v0c(); virtual void v0d(); virtual void v0e(); virtual void v0f();
+	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13();
+	virtual void v14(); virtual void v15();
+	virtual void initHeightForMap(void);                                 // +0x58
+	virtual void v17(); virtual void v18(); virtual void v19(); virtual void v1a();
+	virtual void v1b(); virtual void v1c(); virtual void v1d(); virtual void v1e();
+	virtual void v1f(); virtual void v20(); virtual void v21(); virtual void v22();
+	virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26();
+	virtual void v27(); virtual void v28(); virtual void v29(); virtual void v2a();
+	virtual void v2b(); virtual void v2c(); virtual void v2d(); virtual void v2e();
+	virtual void v2f(); virtual void v30(); virtual void v31();
+	virtual void lookAtPosition(const Coord3D *pos, int frames, float easeIn, float easeOut); // +0xC8
+	virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36();
+	virtual void v37(); virtual void v38(); virtual void v39(); virtual void v3a();
+	virtual void v3b(); virtual void v3c(); virtual void v3d(); virtual void v3e();
+	virtual void v3f(); virtual void v40(); virtual void v41(); virtual void v42();
+	virtual void v43(); virtual void v44();
+	virtual void setAngleAndPitchToDefault(void);                        // +0x114
+	virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49();
+	virtual void v4a(); virtual void v4b(); virtual void v4c(); virtual void v4d();
+	virtual void v4e();
+	virtual void setZoomToDefault(void);                                 // +0x13C
+};
+
+// 0x00A02290 is TheRecorder. Its member 0x0037BD81 is rowed as
+// InGameUI::createReplayControl; the body is ZH's RecorderClass::initControls
+// (hide ReplayControl.wnd unless the +0x1C mode is playback).
+class RecorderClass;
+
+class InGameUI
+{
+	friend class GameLogic;
+
+protected:
+	void createReplayControl(void);
+};
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID
+};
+
+// A lazily resolved name key: 0x00148F5E fills m_key from m_name.
+class StaticNameKey
+{
+public:
+	mutable int m_key;
+	const char *m_name;
+};
+
+class Rva00148F5ECache
+{
+public:
+	NameKeyType get(void);
+};
+
+static __forceinline NameKeyType staticKey(const StaticNameKey &key)
+{
+	return ((Rva00148F5ECache *)&key)->get();
+}
+
+class NameKeyGenerator
+{
+public:
+	const AsciiString &keyToName(NameKeyType key);
+};
+
+class Waypoint
+{
+public:
+	const Coord3D *getLocation(void) const { return &m_location; }
+
+private:
+	char m_pad00[0xc];
+	Coord3D m_location;
+};
+
+Waypoint *Rva00506CC3FindWaypoint(const AsciiString &name);
+
+class Rva00E02F3CObj
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v0a(); virtual void v0b();
+	virtual void v0c(); virtual void v0d();
+	virtual void slot38(void);                                           // +0x38
+};
+
+class Rva002A8F24
+{
+public:
+	void rva002A95F9(void);
+};
+
+class TeamFactory
+{
+public:
+	void rva003A262C(void);
+};
+
+class Rva0023C666
+{
+public:
+	bool rva0023C666(void);
+};
+
+class BfmeGlob939D
+{
+public:
+	char bfmeCall939D(void);
+};
+
+class NetworkInterface
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v0a(); virtual void v0b();
+	virtual void v0c(); virtual void v0d(); virtual void v0e();
+	virtual void slot3C(int arg);                                        // +0x3C
+	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13();
+	virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17();
+	virtual void v18(); virtual void v19(); virtual void v1a(); virtual void v1b();
+	virtual void v1c(); virtual void v1d(); virtual void v1e(); virtual void v1f();
+	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
+	virtual void slot90(void);                                           // +0x90
+};
+
+extern ParticleSystemManager *TheParticleSystemManager;
+extern ControlBar *TheControlBar;
+extern G00DFF080Obj *g_00DFF080;
+extern View *TheTacticalView;
+extern RecorderClass *TheRecorder;
+extern NameKeyGenerator *TheNameKeyGenerator;
+extern const StaticNameKey TheKey_InitialCameraPosition;
+extern void *g_Va00E02F3C;
+extern Rva002A8F24 *g_00DFEEF8;
+extern TeamFactory *TheTeamFactory;
+extern NetworkInterface *TheNetwork;
+
+void rva0043D467(void);
+
+void GameLogic::rva00248278(bool loadingSaveGame)
+{
+	TheParticleSystemManager->preloadAssets();
+	Sleep(1);
+	TheControlBar->rva0031D64F();
+	TheControlBar->rva0031AD48(false);
+	rva0043D467();
+	g_00DFF080->slot14();
+	Sleep(1);
+	((Rva0023C7D2 *)this)->rva0023C7BB(0x5f);
+	Sleep(1);
+	TheTacticalView->setAngleAndPitchToDefault();
+	Sleep(1);
+	TheTacticalView->setZoomToDefault();
+	Sleep(1);
+	if (TheRecorder)
+		((InGameUI *)TheRecorder)->createReplayControl();
+
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+	AsciiString startingCamName = TheNameKeyGenerator->keyToName(staticKey(TheKey_InitialCameraPosition));
+	formatPlayerStartWaypointName(&startingCamName);
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+
+	((Rva0023C7D2 *)this)->rva0023C7BB(0x60);
+	TheTacticalView->initHeightForMap();
+	TheTacticalView->setAngleAndPitchToDefault();
+	TheTacticalView->setZoomToDefault();
+
+	Waypoint *way = Rva00506CC3FindWaypoint(startingCamName);
+	if (way) {
+		Coord3D pos;
+		pos.x = way->getLocation()->x;
+		pos.y = way->getLocation()->y;
+		pos.z = way->getLocation()->z;
+		TheTacticalView->lookAtPosition(&pos, 0, 0.0f, 0.0f);
+	} else {
+		Coord3D pos;
+		pos.x = 50.0f;
+		pos.y = 50.0f;
+		pos.z = 0.0f;
+		TheTacticalView->lookAtPosition(&pos, 0, 0.0f, 0.0f);
+	}
+
+	((Rva0023C7D2 *)this)->rva0023C7BB(0x61);
+	ThePartitionManager->update();
+	Rva0134FAA0->slot28();
+	bfmeReleaseQueuedDeviceInterfaces();
+
+	if (!loadingSaveGame)
+		ThePlayerList->newMap();
+	((Rva00E02F3CObj *)g_Va00E02F3C)->slot38();
+	g_00DFEEF8->rva002A95F9();
+	TheTeamFactory->rva003A262C();
+
+	if (!loadingSaveGame && ((Rva0023C666 *)this)->rva0023C666()) {
+		Rva0134FAA0->slot28();
+		bfmeReleaseQueuedDeviceInterfaces();
+		for (int i = 0; i < 20; ++i) {
+			Player *player = ThePlayerList->getNthPlayer(i);
+			if (player && player->getPlayerType() == PLAYER_HUMAN) {
+				player->m_skillPoints.rva003805BB((float)m_94, false);
+				player->m_skillPoints.rva002E6A93(player->m_skillPoints.m_14);
+			}
+		}
+	}
+
+	if (((BfmeGlob939D *)this)->bfmeCall939D())
+		m_118 = TheWritableGlobalData->m_e94;
+
+	if (isInMultiplayerGame() && TheNetwork) {
+		TheNetwork->slot90();
+		TheNetwork->slot3C(0);
+	}
+
+	if (!TheWritableGlobalData->m_1110) {
+		AssetLoadMode mode;
+		AssetList assets;
+		TheScriptEngine->rva00205358(&assets, &mode);
+		bfmeMergeReceiverKeys((int)&assets);
 	}
 }
