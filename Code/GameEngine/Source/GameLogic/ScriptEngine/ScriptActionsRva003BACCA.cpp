@@ -66,7 +66,7 @@ public:
 	virtual void s49();
 	virtual void s50();
 	virtual void s51(float value, int milliseconds, int mode, float a, float b);
-	virtual void s52();
+	virtual void s52(unsigned int objectID, int a, int b, float c, float d, float e);
 	virtual void s53();
 	virtual void s54();
 	virtual void s55();
@@ -82,6 +82,21 @@ public:
 extern class View *TheTacticalView;
 
 class Parameter;
+class Object;
+
+class ScriptEngine
+{
+public:
+	Object *getUnitNamed(Parameter *);
+};
+extern ScriptEngine *TheScriptEngine;
+
+// Only the ObjectID word read by the native caller is needed here.
+struct Rva003BAFE8Object
+{
+	unsigned char pad[0x74];
+	unsigned int objectID;
+};
 
 void __stdcall Rva003BACCA(Parameter *p)
 {
@@ -139,4 +154,21 @@ void __stdcall Rva003BAF95(float a0, float a1, float a2, float a3)
 {
 	reinterpret_cast<TacticalView *>(TheTacticalView)->s51(
 		a0, (int)(a1 * 1000.0f), 1, a2 * 1000.0f, a3 * 1000.0f);
+}
+
+// Retail 0x003BAFE8..0x003BB05F, RET24; script caller 0x003CAF53.
+// The rowed Parameter lookup is 0x003588E7. A missing object returns;
+// otherwise slot 52 receives Object+0x74, two truncated scaled floats,
+// two scaled floats and the last input unchanged. Original names unknown.
+void __stdcall Rva003BAFE8(Parameter *p, float a1, float a2,
+	float a3, float a4, float a5)
+{
+	Object *object = TheScriptEngine->getUnitNamed(p);
+	if (object)
+	{
+		reinterpret_cast<TacticalView *>(TheTacticalView)->s52(
+			reinterpret_cast<Rva003BAFE8Object *>(object)->objectID,
+			(int)(a1 * 1000.0f), (int)(a2 * 1000.0f),
+			a3 * 1000.0f, a4 * 1000.0f, a5);
+	}
 }
