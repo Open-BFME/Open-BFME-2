@@ -20,13 +20,6 @@ struct DynamicPortalLink
 	~DynamicPortalLink();
 };
 
-// ??1DynamicPortalLink@@QAE@XZ present-unmatched
-DynamicPortalLink::~DynamicPortalLink()
-{
-	if (m_owned != 0)
-		_free(m_owned);
-}
-
 template _STL::vector<DynamicPortalLink>::~vector();
 
 // ?rva0032E7E2@Rva0032E7E2@@QAEXXZ — RVA 0x0032E7E2, 30B.
