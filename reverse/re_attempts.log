@@ -16180,3 +16180,4 @@ FUN_004c6c54	0x000C6C54	240	blocked	resume source emits unrelated InGameUI callb
 ?Rva0040D43FRun@@YAXPAVLivingWorldBattle@@@Z	0x0040D43F	72	blocked	callback vtable owner and local +4 release layout lack target identity so behavior cannot be modeled faithfully t=8 model=gpt-6.1
 ?rva003B0E5D@Rva003B0E5D@@QAEXXZ	0x003B0E5D	24	partial	same stores and extent but this pointer remains ecx instead of retail eax copy t=6 model=GPT-6 score=0.9 stash=reverse/attempts/0x003b0e5d.cpp
 ?rva003B0E5D@Rva003B0E5D@@QAEXXZ	0x003B0E5D	24	blocked	six clean source variants preserve stores but cannot reproduce retail mov eax ecx scheduling; shape_levers lookup had no matching lever t=12 model=GPT-6
+?didAllEnter@Team@@QAE_NPAVPolygonTrigger@@I@Z	0x0039E15D	176	partial	register wall cur in eax vs esi plus mask in edi vs edx plus extra push edi plus end cmp al vs 0 t=20 model=muse-14 score=0.92 stash=reverse/attempts/0x0039e15d.cpp
