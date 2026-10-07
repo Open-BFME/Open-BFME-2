@@ -28,19 +28,35 @@ public:
 // The network code reads the command timestamp at +0x38 and Zero Hour's
 // frame counter at +0x40 (ConnectionManager::update 0x004D342A, among others).
 // StealthUpdate::disguiseAsObject (0x00373DF0) reads the manager at +0x178
-// whose call 0x00439E0C takes the disguised object.
+// whose call 0x00439E0C takes the disguised object. The spell store's show
+// (finishShowPurchaseScience 0x0043CB48) reads the end flag at +0x6D and
+// the game mode at +0x110.
 class GameLogic
 {
 	char pad[0x38];
 	unsigned int m_timestamp;
 	char pad3C[0x40 - 0x3C];
 	unsigned int m_frame;
-	char pad44[0xB4 - 0x44];
+	char pad44[0x6D - 0x44];
+
+public:
+	bool m_6d; // +0x6D
+
+private:
+	char pad6E[0xB4 - 0x6E];
 	ObjectIdMap m_map;
-	char padB5[0x178 - 0xB5];
+	char padB5[0x110 - 0xB5];
+
+public:
+	int m_110; // +0x110
+
+private:
+	char pad114[0x178 - 0x114];
 	Rva00439E0C *m_manager178;
 
 public:
+	bool isInMultiplayerGame();	// 0x00042235
+	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);	// 0x0023CD9E
 	Object *findObjectByID(ObjectID id);
 	Object *getFirstObject();	// 0x0023CAD2
 	void destroyObject(Object *obj);	// 0x00242C09
