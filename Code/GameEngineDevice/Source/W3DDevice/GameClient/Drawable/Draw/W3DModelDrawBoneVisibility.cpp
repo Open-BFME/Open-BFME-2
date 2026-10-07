@@ -79,3 +79,45 @@ static void doHideShowBoneSubObjs(Bool state, Int numSubObjects, Int boneIdx, Re
 
 // ?invokeBoneVisibility absent-from-retail
 void invokeBoneVisibility(Bool state, Int count, Int bone, RenderObjClass *obj, const HTreeClass *tree) { doHideShowBoneSubObjs(state, count, bone, obj, tree); }
+
+// Target body at 0x000B3885. Retail evidence shows a hide flag at +4 in the
+// first argument, a RenderObjClass pointer in the second, a subobject index
+// in the third, and a render-object pointer at this+0x50. It sets the chosen
+// subobject's hidden state, checks the HTree and bone bounds through retail
+// vtable slots, then calls the byte-matched doHideShowBoneSubObjs body at
+// 0x000B3094. W3DModelDraw's updateSubObjects path in the donor has the same
+// behavior; the exact target method name remains address-derived.
+struct Rva000B3885HideShowInfo
+{
+	char m_name[4];
+	Bool m_hide;
+};
+
+class Rva000B3885
+{
+public:
+	char m_pad[0x50];
+	RenderObjClass *m_renderObject;
+	void rva000B3885(Rva000B3885HideShowInfo *info, RenderObjClass *subObject, Int subObjectIndex);
+};
+
+typedef const HTreeClass *(BfmeBoneRenderDispatch::*BoneGetTree)() const;
+typedef Int (BfmeBoneRenderDispatch::*BoneGetObjectIndex)(Int, Int) const;
+typedef Int (BfmeBoneRenderDispatch::*BoneGetSubObjectCount)() const;
+
+void Rva000B3885::rva000B3885(Rva000B3885HideShowInfo *info, RenderObjClass *subObject, Int subObjectIndex)
+{
+	nativeSetHidden(subObject, info->m_hide);
+
+	const HTreeClass *tree = (((BfmeBoneRenderDispatch *)m_renderObject)->*(*(BoneGetTree *)&(*(void ***)m_renderObject)[58]))();
+	if (tree == NULL)
+		return;
+
+	Int boneIndex = (((BfmeBoneRenderDispatch *)m_renderObject)->*(*(BoneGetObjectIndex *)&(*(void ***)m_renderObject)[35]))(0, subObjectIndex);
+	if (boneIndex <= 0 || boneIndex >= nativeBoneCount(m_renderObject))
+		return;
+
+	doHideShowBoneSubObjs(info->m_hide,
+		(((BfmeBoneRenderDispatch *)m_renderObject)->*(*(BoneGetSubObjectCount *)&(*(void ***)m_renderObject)[28]))(),
+		boneIndex, m_renderObject, tree);
+}
