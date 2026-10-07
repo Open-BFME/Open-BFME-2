@@ -16058,3 +16058,4 @@ FUN_0045e0a4	0x0005E0A4	152	blocked	Target function is a guarded OpaqueRefElemen
 ?rva00211505@Rva00211505@@QAEXXZ	0x00211505	60	partial	Target iterates pointer slots at this+0x24C/+0x250 and calls RVA 0x003FD849; current vector-based C++ reaches the same loop but emits SAR/index-init/test ordering plus a 7-byte alignment nop, 69B vs 60B. No viable shape change found; t=12 model=gpt-6-luna score=0.8 stash=reverse/attempts/0x00211505.cpp
 ?rva00211505@Rva00211505@@QAEXXZ	0x00211505	60	void	Withdraw the earlier partial because the fleet instruction prohibits banked near misses; the 69B shape did not match the 60B body
 ?rva00211505@Rva00211505@@QAEXXZ	0x00211505	60	blocked	Loop body differs in index setup and branch scheduling at 69B vs 60B; no viable shape found in t=12min model=gpt-6-luna; no stash retained per fleet instruction
+??0Rva00367EE1@@QAE@PAVStateMachine@@@Z	0x00367EE1	50	blocked	and-xorps scheduling swap only t=18 model=muse-03 (stash 0.93 kept)
