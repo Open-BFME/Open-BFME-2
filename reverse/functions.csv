@@ -67874,3 +67874,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva003F3F03@Rva003F3F03@@QAEXPAVINI@@@Z,,0x003F3F03,36,Code/GameEngine/Source/Common/Rva003F3F03.cpp,matched,dump range 19; INI-load tail via rowed initFromINI plus TU table 0xC36560 then unclaimed members 0x3F2F24 and 0x3F3B4F
 ?rva003F3F27@Rva003F3F27@@QAEXXZ,,0x003F3F27,85,Code/GameEngine/Source/Common/Rva003F3F27.cpp,matched,dump range 19; multi-clear tail via rowed 0x3F20B0 plus pinned members; zeroes +0x17c/+0x134/+0x138 and +0x1A3 byte around the +0x1A8 subobject call
 ??0Rva003FD14D@@QAE@H@Z,,0x003FD14D,31,Code/GameEngine/Source/Common/Rva003FD14D.cpp,matched,dump range 19; derived ctor via base init 0x3FC58C then shared vtable 0xC37C68 and +0xAC byte; base carries vptr so no lea
+?rva003FDCEB@Rva003FDCEB@@QAEHXZ,,0x003FDCEB,26,Code/GameEngine/Source/Common/Rva003FDCEB.cpp,matched,dump range 19; guarded tail via unsigned compare with int tail-return to 0x3FDC46
