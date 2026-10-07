@@ -72,10 +72,17 @@ public:
 	virtual ~BfmeGateModuleBase();
 };
 
+enum ObjectID { OBJECTID_INVALID = 0 };
+
+class Player;
+
 class Rva00498CB1Owner : public BfmeGateModuleBase, public Module
 {
 public:
 	bool invoke();
+
+	unsigned char m_pad008[0x1C];
+	ObjectID m_objectID; // +0x24
 };
 
 class Rva0029ACA0 { public: void rva0029ACC7(int); };
@@ -89,6 +96,7 @@ class Object
 protected:
 	Module *findModule( NameKeyType key ) const;
 public:
+	Player *getControllingPlayer() const;
 	void *m_vtable;
 	const BfmeSelectTemplateView *m_template;
 };
@@ -121,6 +129,7 @@ class GameLogic
 {
 public:
 	unsigned int getFrame() { return m_frame; }
+	Object *findObjectByID(ObjectID id);
 
 private:
 	unsigned char m_unmodelled000[0x40];
@@ -243,4 +252,162 @@ void Drawable::rva002796B8()
         rva002754E3();
     }
     rva00278C7C(0);
+}
+
+// ?invoke@Rva00498CB1Owner@@QAE_NXZ @0x00498CB1 149B: gate select probe.
+// Evidence: caller 0x002A38A6 InGameUI::selectDrawable; ObjectID at +0x24;
+// rowed findObjectByID 0x00049DC5 getControllingPlayer 0x0028AFA9
+// appendBoolean 0x0030F963 appendObjectID 0x0030F979 getDrawable 0x005508E2;
+// globals TheGameLogic ThePlayerList TheInGameUI MessageStreamSubsystem;
+// InGameUI slots 0x110/0x108 MessageStream slot 0x48 type 0x3EA per
+// ControlBarToggle0031AFDE precedent.
+class Player
+{
+public:
+	unsigned char m_pad[1];
+};
+
+class PlayerList
+{
+public:
+	unsigned char m_pad000[0x10];
+	Player *m_local; // +0x10
+};
+
+class Thing
+{
+public:
+	Drawable *getDrawable() const;
+};
+
+class GameMessage
+{
+public:
+	void appendBooleanArgument(bool arg);
+	void appendObjectIDArgument(ObjectID arg);
+};
+
+class MessageStream
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual GameMessage *appendType(int type);
+};
+
+class InGameUI167View
+{
+public:
+	virtual void w00();
+	virtual void w01();
+	virtual void w02();
+	virtual void w03();
+	virtual void w04();
+	virtual void w05();
+	virtual void w06();
+	virtual void w07();
+	virtual void w08();
+	virtual void w09();
+	virtual void w10();
+	virtual void w11();
+	virtual void w12();
+	virtual void w13();
+	virtual void w14();
+	virtual void w15();
+	virtual void w16();
+	virtual void w17();
+	virtual void w18();
+	virtual void w19();
+	virtual void w20();
+	virtual void w21();
+	virtual void w22();
+	virtual void w23();
+	virtual void w24();
+	virtual void w25();
+	virtual void w26();
+	virtual void w27();
+	virtual void w28();
+	virtual void w29();
+	virtual void w30();
+	virtual void w31();
+	virtual void w32();
+	virtual void w33();
+	virtual void w34();
+	virtual void w35();
+	virtual void w36();
+	virtual void w37();
+	virtual void w38();
+	virtual void w39();
+	virtual void w40();
+	virtual void w41();
+	virtual void w42();
+	virtual void w43();
+	virtual void w44();
+	virtual void w45();
+	virtual void w46();
+	virtual void w47();
+	virtual void w48();
+	virtual void w49();
+	virtual void w50();
+	virtual void w51();
+	virtual void w52();
+	virtual void w53();
+	virtual void w54();
+	virtual void w55();
+	virtual void w56();
+	virtual void w57();
+	virtual void w58();
+	virtual void w59();
+	virtual void w60();
+	virtual void w61();
+	virtual void w62();
+	virtual void w63();
+	virtual void w64();
+	virtual void w65();
+	virtual void w66(Drawable *draw);
+	virtual void w67();
+	virtual void w68();
+};
+
+extern PlayerList *ThePlayerList;
+extern InGameUI *TheInGameUI;
+extern MessageStream *MessageStreamSubsystem;
+
+bool Rva00498CB1Owner::invoke()
+{
+	if (m_objectID == OBJECTID_INVALID)
+		return false;
+	Object *obj = TheGameLogic->findObjectByID(m_objectID);
+	if (!obj)
+		return false;
+	Player *player = obj->getControllingPlayer();
+	Player *local = ThePlayerList->m_local;
+	if (player && local && player == local)
+	{
+		((InGameUI167View *)TheInGameUI)->w68();
+		GameMessage *msg = MessageStreamSubsystem->appendType(0x3EA);
+		msg->appendBooleanArgument(true);
+		msg->appendObjectIDArgument(m_objectID);
+		Drawable *draw = ((Thing *)obj)->getDrawable();
+		if (draw)
+			((InGameUI167View *)TheInGameUI)->w66(draw);
+		return true;
+	}
+	return false;
 }
