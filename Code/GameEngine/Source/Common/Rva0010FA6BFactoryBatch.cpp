@@ -137,3 +137,34 @@ void Rva000A8AEETarget::rva0010FCDB(float value)
 		reinterpret_cast<AudioEventInfo *>(this)), value),
 		((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
 }
+
+// Ghidra boundary at 0x0010FDE9 is 132 bytes. Its caller at 0x000A8B23
+// forwards one integer; retail stores that value at this+0x1C, allocates a
+// 16-byte event, constructs the rowed 0x0010EF42 subtype from an
+// AudioEventInfoRef and the integer, then passes the object or null to the
+// rowed helper at 0x0010F8D0. The method owner remains address-derived.
+class Rva0010EF42 : public Rva001164D3
+{
+	int m_value0C;
+
+public:
+	Rva0010EF42(const Rva0036CA00Str &s, int value);
+};
+
+class Rva0010FDE9
+{
+	char m_pad00[0x1c];
+	int m_value1c;
+
+public:
+	void rva0010FDE9(int value);
+};
+
+void Rva0010FDE9::rva0010FDE9(int value)
+{
+	m_value1c = value;
+	Rva0010EF42 *eventInfo;
+	(eventInfo = new Rva0010EF42(AudioEventInfoRef(
+		reinterpret_cast<AudioEventInfo *>(this)), value),
+		((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
+}
