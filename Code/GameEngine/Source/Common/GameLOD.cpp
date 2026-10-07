@@ -196,56 +196,36 @@ void INI::parseBenchProfile( INI* ini)
 
 /**Parse a description of all the LOD settings for a given detail level*/
 // ?parseLODPreset@INI@@SAXPAV1@@Z
+// Retail 0x00202E23 226B. INI block-parse node for token LODPreset.
+// Calls rowed getNextToken set copy-ctor rva00202B6C rva0020202B parse helpers.
+class Rva00202B6C
+{
+public:
+	Int rva00202B6C(AsciiString name);
+};
 
-// ?parseLODPreset@INI@@SAXPAV1@@Z present-unmatched
+class Rva0020202B
+{
+public:
+	void *rva0020202B(int index);
+};
+
 void INI::parseLODPreset(INI *ini)
 {
-	struct RetailLODPresetInfo
-	{
-		char bytes[0x20];
-	};
-	struct RetailGameLODManager
-	{
-		char padding0[0x160];
-		RetailLODPresetInfo presets[5][32];
-		char padding1[0x190];
-		Int counts[5];
-
-		RetailLODPresetInfo *newLODPreset(Int index)
-		{
-			if (counts[index] < 0x20)
-			{
-				counts[index] = counts[index] + 1;
-				return &presets[index][counts[index]];
-			}
-			return NULL;
-		}
-	};
-
 	AsciiString name;
-	const char *const c = ini->getNextToken();
-
-	Int length;
-	if (c != NULL)
-	{
-		length = (Int)strlen(c);
-	}
-	else
-		length = 0;
-	((StringBase<char> *)&name)->set(c, length);
+	name.set(ini->getNextToken());
 
 	if (TheGameLODManager)
 	{
-		Int index = TheGameLODManager->getStaticGameLODIndex(name);
-		if (index != STATIC_GAME_LOD_UNKNOWN)
+		Int index = reinterpret_cast<Rva00202B6C *>(TheGameLODManager)->rva00202B6C(name);
+		if (index != -1)
 		{
-			RetailLODPresetInfo *preset =
-				((RetailGameLODManager *)TheGameLODManager)->newLODPreset(index);
+			void *preset = reinterpret_cast<Rva0020202B *>(TheGameLODManager)->rva0020202B(index);
 			if (preset)
 			{
-				INI::parseIndexList(ini, NULL, preset, (const void *)0x012a7418);
+				INI::parseIndexList(ini, NULL, preset, CPUNames);
 				INI::parseInt(ini, NULL, (char *)preset + 4, NULL);
-				INI::parseIndexList(ini, NULL, (char *)preset + 0x0c, (const void *)0x012a742c);
+				INI::parseIndexList(ini, NULL, (char *)preset + 0x0c, CPUNames + 6);
 				INI::parseInt(ini, NULL, (char *)preset + 0x14, NULL);
 				INI::parseInt(ini, NULL, (char *)preset + 0x10, NULL);
 				INI::parseInt(ini, NULL, (char *)preset + 0x18, NULL);
