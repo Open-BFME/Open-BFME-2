@@ -6,33 +6,57 @@
 class CountUpBuffer
 {
 public:
+	CountUpBuffer() : m_word(0) {}
 	~CountUpBuffer();
 private:
-	unsigned char m_pad[4];
+	unsigned int m_word;
 };
 
-class CountUpTransitionBase
+class Rva001DBAA4
 {
 public:
-	virtual ~CountUpTransitionBase();
+	Rva001DBAA4();
+	virtual ~Rva001DBAA4();
+	int m_frameLength;
+	bool m_isFinished;
+	bool m_isForward;
+	bool m_isReversed;
+	unsigned int m_zero;
+};
+
+struct CountUpIntPair
+{
+	CountUpIntPair() : x(0), y(0) {}
+	int x;
+	int y;
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindowTransitions.h
-class CountUpTransition : public CountUpTransitionBase
+class CountUpTransition : public Rva001DBAA4
 {
 public:
 	CountUpTransition();
 	virtual ~CountUpTransition();
-	int m_frameLength; // +0x04
-	unsigned char m_gap[4]; // +0x08 .. +0x0b
-	unsigned int m_zero; // +0x0c
 	int m_startFrame; // +0x10
 	int m_endFrame; // +0x14
-	unsigned char m_gap2[0x14]; // +0x18 .. +0x2b
+	CountUpIntPair m_pos; // +0x18
+	CountUpIntPair m_size; // +0x20
+	int m_drawState; // +0x28
 	CountUpBuffer m_fullText; // +0x2c
 	CountUpBuffer m_b; // +0x30
-	unsigned char m_tail[0x0c]; // +0x34 .. +0x3f
+	int m_intValue; // +0x34
+	int m_currentValue; // +0x38
+	int m_countState; // +0x3c
 };
+
+CountUpTransition::CountUpTransition()
+	: m_startFrame(0), m_endFrame(30), m_drawState(-1),
+	  m_intValue(0), m_currentValue(0), m_countState(0)
+{
+	m_frameLength = m_endFrame;
+	m_zero = 0;
+	m_isForward = true;
+}
 
 // ??1CountUpTransition@@UAE@XZ
 CountUpTransition::~CountUpTransition()
