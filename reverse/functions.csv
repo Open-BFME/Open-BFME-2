@@ -67878,3 +67878,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004079D5@Rva004079D5@@QAEDHPAH@Z,,0x004079D5,31,Code/GameEngine/Source/Common/Rva004079D5.cpp,matched,dump range 19; outptr helper reusing dead arg slot with char compare result
 ?rva00405315@Rva00405315@@QAEXXZ,,0x00405315,34,Code/GameEngine/Source/Common/Rva00405315.cpp,matched,dump range 19; flag-gated chain with void tail-merge jmp to 0x404A29
 ?rva0040AA27@Rva0040AA27@@QAEHH@Z,,0x0040AA27,76,Code/GameEngine/Source/Common/Rva0040AA27.cpp,matched,dump range 19; all-quantifier over 0x10-stride array via 0x40A99A (pinned); goto back-edge; int 0/1 for xor/inc epilogue
+?rva0040BAD0@Rva0040BAD0@@QAE_NPAVRva0040AF66@@@Z,,0x0040BAD0,39,Code/GameEngine/Source/Common/Rva0040BAD0.cpp,matched,dump range 19; zero-gated push_back via rowed 0x40BA6A; 0x40AAF8 pinned

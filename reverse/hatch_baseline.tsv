@@ -29073,7 +29073,8 @@ pin	reverse/symbols.csv	0x0040A384	1
 pin	reverse/symbols.csv	0x0040A673	2
 pin	reverse/symbols.csv	0x0040A79A	1
 pin	reverse/symbols.csv	0x0040A8C7	1
-pin	reverse/symbols.csv	0x0040A99A	1	allow=ca5796d30761cd617381944eed617dd37fb9b8b6
+pin	reverse/symbols.csv	0x0040A99A	1
+pin	reverse/symbols.csv	0x0040AAF8	1	allow=64d3d6511689aa8a99f74be6a27ecccbde8504bc
 pin	reverse/symbols.csv	0x0040ACC0	1
 pin	reverse/symbols.csv	0x0040ACD7	1
 pin	reverse/symbols.csv	0x0040AD3C	1
