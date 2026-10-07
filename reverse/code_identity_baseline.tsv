@@ -160,7 +160,6 @@ Code/GameEngine/Source/Common/BfmeConv991.cpp	?bfmeGo991B@@YAXH@Z	?bfmeSet991@Bf
 Code/GameEngine/Source/Common/BfmeDropVGO.cpp	?bfmeDropVGO@@YAXPAX@Z	?teardown@Rva006D0280@@QAEXXZ	0x006D0280	unowned
 Code/GameEngine/Source/Common/BfmeDualVtableReleaseDtorCtor.cpp	??0BfmeDualVtableReleaseDtor@@QAE@H@Z	__CxxThrowException@8	0x00629094	unowned
 Code/GameEngine/Source/Common/BfmeGo7820.cpp	?bfmeGo7820@@YAXPAX0000@Z	?bfmeGo76A0@@YAXHPAHPAXHHH1@Z	0x001B8100	unowned
-Code/GameEngine/Source/Common/BfmeGridRasterCircle.cpp	??RBfmeRangeUpdaterFC@@QAEXHHH@Z	?bfmeUpdate@BfmeCellFC@@QAEXH_NH@Z	0x006C15E0	unowned
 Code/GameEngine/Source/Common/BfmeGrokGrid.cpp	?walk@BfmeGridWM@@QAEXXZ	?cell@BfmeGridWM@@QAEXHH@Z	0x000ADCE3	unowned
 Code/GameEngine/Source/Common/BfmeImageFilter.cpp	?bfmeProbeSse2@@YAHXZ	__except_handler3	0x00628FF0	unowned
 Code/GameEngine/Source/Common/BfmeInstallSpreadTable.cpp	?bfmeInstallSpreadTable@@YAXXZ	?Rva009A8110@@YAXXZ	0x001B8B70	unowned

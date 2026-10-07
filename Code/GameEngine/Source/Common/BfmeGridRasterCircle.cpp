@@ -87,8 +87,8 @@ public:
 	int m_bfmeExtra;					// +0x08
 
 	// BFME2 paints through a three-argument helper (retail 0x006C15E0);
-	// declared here so the range updater below resolves it.
-	void bfmeUpdate(int amount, bool absolute, int mode);
+	// defined below, kept out of line because retail calls it.
+	__declspec(noinline) void bfmeUpdate(int amount, bool absolute, int mode);
 };
 
 typedef void (__cdecl *BfmeCellVisitorFC)(int x, int y,
@@ -111,6 +111,7 @@ public:
 	BfmeCellFC *bfmeCellAtWorld(Real worldX, Real worldY) const;
 	int rva006C0E40(const BfmePointFC *point, int *extra);
 	int rva006C0E70(int x, int y);
+	int rva006C0EB0(const BfmePointFC *point) const;
 	int rva006C0860(Real worldX) const;
 	int rva006C0890(Real worldY) const;
 	int rva006C08C0(Real distance) const;
@@ -241,6 +242,36 @@ BfmeCellFC::BfmeCellFC()
 {
 }
 
+// ?bfmeUpdate@BfmeCellFC@@QAEXH_NH@Z @ 0x006C15E0 101B
+// The three-argument paint the range updater calls (BFME 1 inlines a two-
+// argument form). Target evidence: the updater's call site, ret 0xC, and the
+// +0/+4/+8 cell fields the constructor above initialises. A neutral (0x80)
+// paint only clears a cell its own mode owns; the kind is added unless the
+// paint is absolute, clamped to a byte, and a non-neutral kind records which
+// side of neutral it sits on (1 above, 2 below) and the painting mode.
+void BfmeCellFC::bfmeUpdate(int amount, bool absolute, int mode)
+{
+	if (mode != -1 && amount == 0x80 && mode != m_bfmeExtra)
+		return;
+
+	if (!absolute)
+		amount += m_bfmeKind;
+	if (amount < 0)
+		amount = 0;
+	else if (amount > 0xFF)
+		amount = 0xFF;
+
+	m_bfmeKind = (unsigned char)amount;
+	if (m_bfmeKind == 0x80)
+	{
+		mode = -1;
+		m_bfmeValue = 0;
+	}
+	else
+		m_bfmeValue = m_bfmeKind > 0x80 ? 1 : 2;
+	m_bfmeExtra = mode;
+}
+
 // Transferred from BFME 1's taintmanager_impl.cpp; only the cell size differs.
 // ?bfmeConfigure@Gen_008812D0@@QAEXURegion3D@@M@Z
 void Gen_008812D0::bfmeConfigure(Region3D region, Real cellSize)
@@ -358,6 +389,19 @@ int Gen_008812D0::rva006C0E70(int x, int y)
 	if (cell == 0)
 		return 0x80;
 	return cell->m_bfmeKind;
+}
+
+// ?rva006C0EB0@Gen_008812D0@@QBEHPBUBfmePointFC@@@Z @ 0x006C0EB0 34B
+// Transferred from Open-BFME-1's taintmanager_impl.cpp (submodule 968ca36c:
+// rva00881500, BFME 1 0x00881500), whose compiled body masks to exactly one
+// hit in this image, free ground between rowed 0x006C0E70 and the range
+// updater at 0x006C0EE0. The m_bfmeKind twin of rva006C0E40: the same
+// thiscall to the rowed bfmeCellAtWorld, and 0x80 (BfmeCellFC's default
+// kind) when the point is outside the grid. The name is this image's address.
+int Gen_008812D0::rva006C0EB0(const BfmePointFC *point) const
+{
+	BfmeCellFC *cell = bfmeCellAtWorld(point->x, point->y);
+	return cell ? cell->m_bfmeKind : 0x80;
 }
 
 // Three world-to-cell helpers from Open-BFME-1's taintmanager_impl.cpp
