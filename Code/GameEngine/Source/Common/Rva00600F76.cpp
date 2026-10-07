@@ -1,25 +1,23 @@
-// cl: /DNDEBUG /MD
-// ?rva00600F76Init@@YIPAVRva00600F76@@PAV1@HPAH@Z @0x00600F76 29B evidence:
-// fastcall init (this, fwd-dead-forwarded, a): m_00 = *a; sub-object at +4
-// takes pinned fastcall ?rva00200A40@@YIXPAURva00200A40Sub@@HH@Z
-// @0x00200A40(sub, fwd, a+1 as address); returns this; ret 4. Sibling of
-// 0x00600BFB (different arg plumbing). TU-local view only.
-struct Rva00200A40Sub
-{
-	char m_pad[4];
-};
-
-void __fastcall rva00200A40(Rva00200A40Sub *sub, int fwd, int x);
-
-class Rva00600F76
-{
+// cl: /O1 /MD
+// Native constructors copy a four-byte key then construct the twelve-byte
+// tree at +4. Their call is to the full tree-copy entry 0x00600A40;
+// EDX is unused. The prior fastcall/mid-entry interpretation was incorrect.
+namespace _STL {
+template<class T> struct _Identity {};
+template<class T> struct less {};
+template<class T> class allocator {};
+template<class K,class V,class KeyOfValue,class Compare,class Alloc> class _Rb_tree {
 public:
-	int m_00;
+ _Rb_tree(const _Rb_tree &);
+ void *header; int count; char comparator; char pad[3];
 };
-
-Rva00600F76 *__fastcall rva00600F76Init(Rva00600F76 *o, int fwd, int *a)
-{
-	o->m_00 = *a;
-	rva00200A40((Rva00200A40Sub *)((char *)o + 4), fwd, (int)(a + 1));
-	return o;
 }
+struct Rva00600A40Element;
+typedef _STL::_Rb_tree<Rva00600A40Element,Rva00600A40Element,_STL::_Identity<Rva00600A40Element>,_STL::less<Rva00600A40Element>,_STL::allocator<Rva00600A40Element> > NativeNestedTree;
+struct Rva00600F9CElement {
+ const char *key;
+ NativeNestedTree tree;
+ Rva00600F9CElement(const Rva00600F9CElement &);
+ Rva00600F9CElement(const char *const &,const NativeNestedTree &);
+};
+Rva00600F9CElement::Rva00600F9CElement(const Rva00600F9CElement &v) : key(v.key),tree(v.tree) {}
