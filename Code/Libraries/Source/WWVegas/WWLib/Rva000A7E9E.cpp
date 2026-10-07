@@ -6,6 +6,11 @@
 // +0x30 from this+0x3C. The const-reference spelling models the observed
 // single stack pointer ABI; target bytes do not resolve pointer versus
 // reference or the owning class and input identities.
+// Retail 0x000A8127, 151B. Target evidence: constructs the rowed mutex guard
+// over this+0x50, tests the slot at item+0x44, inserts a rowed TreeKey made
+// from item+0x38 and its AsciiString through 0x000A7DCE, then adds item+0x30
+// to this+0x3C. The false branch calls rowed 0x000A80A8(item, 1). Manager and
+// item identities remain address-derived.
 
 #include <set>
 #include <list>
@@ -31,6 +36,14 @@ typedef _STL::_Rb_tree<Rva000A7E31Key, Rva000A7E31Key,
 	_STL::_Identity<Rva000A7E31Key>, _STL::less<Rva000A7E31Key>,
 	_STL::allocator<Rva000A7E31Key> > Rva000A7E9ETree;
 
+struct Rva000A7AA7Less
+{
+	bool operator()(const TreeKey00242F5E &a, const TreeKey00242F5E &b) const;
+};
+
+typedef _STL::set<TreeKey00242F5E, Rva000A7AA7Less,
+	_STL::allocator<TreeKey00242F5E> > TreeKey00242F5ESet;
+
 struct Rva000A7E9EInput
 {
 	AsciiString m_at00;
@@ -45,6 +58,7 @@ class Rva000A7E9E
 public:
 	void rva000A7E9E(const Rva000A7E9EInput &input);
 	void rva000A80A8(struct Rva000A80A8Item *item, int treeDetached);
+	void rva000A8127(struct Rva000A80A8Item *item);
 
 private:
 	unsigned char m_pad00[0x20];
@@ -76,6 +90,23 @@ struct Rva000A80A8Item
 	unsigned int m_listIndex;
 	unsigned int m_pad40;
 	Rva000A80A8Slot m_slot;
+};
+
+class Rva00041037Mutex
+{
+public:
+	virtual bool vf0(int x);
+};
+
+class MilesMutexGuard
+{
+public:
+	MilesMutexGuard(void *mutex, int flags);
+	~MilesMutexGuard();
+
+private:
+	Rva00041037Mutex *m_mutex;
+	bool m_flag;
 };
 
 class Rva0049B47C
@@ -143,4 +174,17 @@ void Rva000A7E9E::rva000A80A8(Rva000A80A8Item *item, int treeDetached)
 	((Rva000427195 *)this)->rva00223429(&entry->m_name);
 	((Rva0010EDC2 *)entry)->Rva0010EDC2::~Rva0010EDC2();
 	::operator delete(entry);
+}
+
+void Rva000A7E9E::rva000A8127(Rva000A80A8Item *item)
+{
+	MilesMutexGuard guard(*(void **)((char *)this + 0x50), 0);
+	if (item->m_slot.shouldRemove(0)) {
+		TreeKey00242F5E key(item->m_id, item->m_name);
+		((TreeKey00242F5ESet *)((char *)this + 0x20))->insert(key);
+		register unsigned int amount = item->m_amount;
+		m_count += amount;
+	} else {
+		rva000A80A8(item, 1);
+	}
 }
