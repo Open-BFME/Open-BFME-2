@@ -53,13 +53,24 @@ public:
 }
 
 // The +0x288 member (Rva0043D3DAClear.cpp's Rva0043D3A8): vslot 0 tells
-// whether a science is already chosen; the rowed 0x0043D5CB adds one.
-class Player;
+// whether a science is already chosen, vslot 1 the points left to spend;
+// the rowed 0x0043D5CB adds one.
+class CreateAHeroData;
+
+// The player's rowed science checks 0x002AB82D and 0x002AB855 (BFME 1's
+// isScienceDisabled and isScienceHidden), named by their rows' views.
+class Player
+{
+public:
+	bool rva002AB82D(CreateAHeroData *science) const;
+	bool rva002AB855(CreateAHeroData *science) const;
+};
 
 class Rva0043D3A8
 {
 public:
 	virtual bool v00(ScienceType science);
+	virtual int v04();
 	void rva0043D5CB(ScienceType science);
 
 	Player *m_player; // +0x04, the local player the store buys for
@@ -73,6 +84,8 @@ public:
 	// getSciencePurchaseCost; pinned by address.
 	bool rva001FF4D3(Rva0043D3A8 *holder, ScienceType science) const;
 	int getSciencePurchaseCost(ScienceType science) const;
+	// Rowed 0x001FFC55; BFME 2 passes the science holder for the player.
+	bool playerHasRootPrereqsForScience(const Player *player, ScienceType science) const;
 };
 
 extern ScienceStore *TheScienceStore;
@@ -149,16 +162,21 @@ struct SpellStoreEntry
 
 class Image;
 
-// The spell book's buttons: unrowed 0x0035B19E (37 bytes) returns the
-// image its +0xFC index picks from the list at +0xEC, or null; pinned by
-// address. The sciences start at +0xA4 as in SpellStoreEntry.
+// The spell book's buttons (CommandButtonIsReady.cpp): 0x0035B19E returns
+// the image its +0xFC index picks from the list at +0xEC, 0x0035B1E9 and
+// 0x0035B26F its label and description. The sciences span +0xA4..+0xA8 as
+// in SpellStoreEntry.
 class CommandButton
 {
 public:
 	const Image *rva0035B19E() const;
+	const AsciiString &rva0035B1E9() const;
+	const AsciiString &rva0035B26F() const;
+	unsigned int scienceCount() const { return m_sciencesEnd - m_sciences; }
 
 	unsigned char m_pad000[0xA4];
 	ScienceType *m_sciences; // +0xA4
+	ScienceType *m_sciencesEnd; // +0xA8
 };
 
 class CommandSet
@@ -223,6 +241,7 @@ public:
 	void OnClosed(const char *unused);
 	void OnBttnSpell(const char *name);
 	void rva0043C9FD();
+	void rva0043CD3C();
 
 private:
 	unsigned char m_pad000[0x27C];
@@ -513,4 +532,165 @@ void finishShowPurchaseScience(void)
 	TheShell->rva0035C7CF(false);
 	TheShell->push(AsciiString("SpellStore.apt"), false);
 	TheInGameUI->slot94(true);
+}
+
+// TheGameText (0x009FF0BC), as in Drawable_rva00276641.cpp: vslot 14
+// fetches by AsciiString label.
+class GameTextInterface
+{
+public:
+	virtual ~GameTextInterface() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0c() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1c() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2c() = 0;
+	virtual void slot30() = 0;
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
+};
+
+extern GameTextInterface *TheGameText;
+
+// The screen's rowed OnBttnClose 0x0043C7C9, layout query 0x0043C933,
+// science check 0x0043C6EA (on the +0x288 holder) and button state setter
+// 0x0043C8E4, named by their rows' views.
+class Rva0043D3DA
+{
+public:
+	void rva0043C7C9(int unused);
+};
+
+int Rva0043C933Get(void);
+
+class Rva0043C6EA
+{
+public:
+	bool rva0043C6EA(int science);
+};
+
+class Rva0043C8E4
+{
+public:
+	void rva0043C8E4(int slot, int state);
+};
+
+// The screen's Apt movie (rowed 0x00222547) and the window manager's
+// ActionScript call 0x00222A8B.
+class GameWindow;
+GameWindow *Rva00222547Get(GameWindow *window);
+
+class Rva00222A8BTarget
+{
+public:
+	int invoke(void *window, const char *function, int argc, const char *arg,
+		void *arg1, void *arg2, void *arg3, void *arg4);
+};
+
+// Retail 0x0043CD3C, 1059 bytes: the store's frame update; BFME 1's
+// Rva005999B0Screen::frameUpdate (Palantir/SpellStore005999B0.cpp) is the
+// donor. Without the palantir's override window the store closes. Once
+// initialized it switches the "SetLayout" to the game's mode, toggles the
+// help text with the hovered button, fills the help and description of a
+// newly hovered button (with the disabled tooltip when its first unchosen
+// science cannot be bought), publishes the points left and refreshes each
+// slot's state. BFME 2 reads the buttons' own label and description
+// getters, asks the science holder instead of the player and adds the
+// chosen and buyable states.
+void AptSpellStore::rva0043CD3C()
+{
+	if (!theRadarWindowOverrideSource || !theRadarWindowOverrideSource->hasOverrideWindow())
+	{
+		((Rva0043D3DA *)this)->rva0043C7C9(0);
+		return;
+	}
+	if (!m_2a0)
+		return;
+	int mode = Rva0043C933Get();
+	if (mode != m_2a4)
+	{
+		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(Rva00222547Get((GameWindow *)this), "SetLayout", 1,
+			mode == 2 ? "_multiplayer" : mode == 0 ? "_campaignGood" : "_campaignEvil", 0, 0, 0, 0);
+		m_2a4 = mode;
+		return;
+	}
+	Player *player = ThePlayerList->getLocalPlayer();
+	bool selected = m_hovered >= 0;
+	if (selected != m_358)
+	{
+		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(Rva00222547Get((GameWindow *)this), "ShowSpellHelpText", 1,
+			selected ? "_on" : "_off", 0, 0, 0, 0);
+		m_358 = selected;
+	}
+	if (selected && !m_359)
+	{
+		const CommandButton *button = (const CommandButton *)m_slots[m_hovered].m_entry;
+		if (button)
+		{
+			static AsciiString help("APT:SpellHelpText");
+			g_bfmeAptWindowManager->bfmeSetText(help, TheGameText->fetch(button->rva0035B1E9()), false);
+			static AsciiString desc("APT:SpellDescription");
+			static AsciiString disabled("TOOLTIP:ScienceDisabled");
+			{
+				UnicodeString text = TheGameText->fetch(button->rva0035B26F());
+				for (unsigned int i = 0; i < button->scienceCount(); ++i)
+				{
+					ScienceType science = button->m_sciences[i];
+					if (!m_sciences.v00(science))
+					{
+						if (science != (ScienceType)-1
+							&& (player->rva002AB82D((CreateAHeroData *)science)
+								|| player->rva002AB855((CreateAHeroData *)science)
+								|| !TheScienceStore->playerHasRootPrereqsForScience((const Player *)&m_sciences, science)))
+						{
+							text += (unsigned short)10;
+							text += TheGameText->fetch(disabled);
+						}
+						break;
+					}
+				}
+				g_bfmeAptWindowManager->bfmeSetText(desc, text, false);
+			}
+			m_359 = true;
+		}
+	}
+	int points = m_sciences.v04();
+	if (points != m_350)
+	{
+		static AsciiString pointsKey("APT:SpellStoreSpellPoints");
+		UnicodeString text;
+		text.format(L"%d", points);
+		g_bfmeAptWindowManager->bfmeSetText(pointsKey, text, false);
+		m_350 = points;
+	}
+	for (int i = 0; i < 20; ++i)
+	{
+		int state = 0;
+		const CommandButton *button = (const CommandButton *)m_slots[i].m_entry;
+		if (button)
+		{
+			ScienceType science = *button->m_sciences;
+			if (science != (ScienceType)-1)
+			{
+				if (((Rva0043C6EA *)&m_sciences)->rva0043C6EA(science))
+					state = 2;
+				else if (!m_sciences.v00(science))
+					state = TheScienceStore->rva001FF4D3(&m_sciences, science) ? 5 : 1;
+				else
+					state = m_slots[i].m_04 == 5 ? 4 : 3;
+			}
+		}
+		if (state != m_slots[i].m_04)
+		{
+			((Rva0043C8E4 *)this)->rva0043C8E4(i, state);
+			m_slots[i].m_04 = state;
+		}
+	}
 }
