@@ -47,6 +47,7 @@ public:
 	void rva003B66D8(int index);
 	int rva003B7C47(const StringBase<char> &key);
 	int rva003B7F8E(Rva003B573E *other, int index);
+	int rva003B820D(Rva003B573E *other, int index);
 	void rva003B7096(int index);
 	void rva003B71B4(int index);
 private:
@@ -115,6 +116,25 @@ void Rva003B573E::rva003B7096(int index)
 // The key is at +8 and the node head at +0x10, as independently established
 // by rva003B66D8. Method spelling is address-derived; identity unknown.
 int Rva003B573E::rva003B7F8E(Rva003B573E *other, int index)
+{
+	Rva003B675BRecord *source = &other->m_records[index];
+	int destination = rva003B7C47(*(const StringBase<char> *)&source->m_name);
+	if (destination == -1)
+		return -1;
+	BfmeNodeZ *node = (BfmeNodeZ *)source->m_nodes;
+	Rva003B675BRecord *target = &m_records[destination];
+	source->m_nodes = node->m_next;
+	node->m_next = (BfmeNodeZ *)target->m_nodes;
+	target->m_nodes = node;
+	other->rva003B66D8(index);
+	return destination;
+}
+
+// Native 0x003B820D..0x003B825F: a separate transfer entry, called from
+// 0x003B847B on the ScriptList subobject at +0x2C. Its native key, indexed
+// record, node-link and removal operations independently agree with the
+// +0x0C subobject entry above. Original class/method identities are unknown.
+int Rva003B573E::rva003B820D(Rva003B573E *other, int index)
 {
 	Rva003B675BRecord *source = &other->m_records[index];
 	int destination = rva003B7C47(*(const StringBase<char> *)&source->m_name);
