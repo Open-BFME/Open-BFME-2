@@ -604,10 +604,12 @@ EMPTY_DTOR(DeliverPayloadNugget)
 //-------------------------------------------------------------------------------------------------
 static void calcRandomForce(Real minMag, Real maxMag, Real minPitch, Real maxPitch, Coord3D* force)
 {
+#line 581 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\ObjectCreationList.cpp"
 	Real angle = GameLogicRandomValueReal(0, 2*PI);
 	Real pitch = GameLogicRandomValueReal(minPitch, maxPitch);
 	Real mag = GameLogicRandomValueReal(minMag, maxMag);
 
+#line 611 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\ObjectCreationList.cpp"
 	Matrix3D mtx(1);
 	mtx.Scale(mag);
 	mtx.Rotate_Z(angle);
@@ -615,12 +617,15 @@ static void calcRandomForce(Real minMag, Real maxMag, Real minPitch, Real maxPit
 
 	Vector3 v = mtx.Get_X_Vector();
 
-	force->x = v.X;
-	force->y = v.Y;
-	force->z = v.Z;
+	Coord3D result;
+	result.x = v.X;
+	result.y = v.Y;
+	result.z = v.Z;
+	*force = result;
 }
 
 
+#line 624 "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\ObjectCreationList.cpp"
 //-------------------------------------------------------------------------------------------------
 class ApplyRandomForceNugget : public ObjectCreationNugget
 {
