@@ -2790,3 +2790,115 @@ void GameLogic::rva002469A5(bool loadingSaveGame, int *progress)
 		}
 	}
 }
+
+// ---------------------------------------------------------------------------
+// GameLogic::loadMapINI (0x0023E3CE, 602B). BFME 1 donor GameLogic.cpp: copy the
+// map name (or, when TheGameState 0x002DC7C1 places it in the save directory,
+// the pristine name at TheGameState +0x2C), strip the file part and load the
+// folder's map.ini and solo.ini as overrides and its map.str string file.
+// BFME 2 drops the donor's AssetUsage.txt preload.
+// ---------------------------------------------------------------------------
+class GameState
+{
+	char m_pad00[0x2c];
+public:
+	AsciiString m_pristineMapName;                                       // +0x2C
+};
+
+class FileSystem
+{
+public:
+	bool doesFileExist(const char *filename) const;
+};
+
+extern FileSystem *TheFileSystem;
+
+class GameTextInterface
+{
+public:
+	virtual void g00(void) = 0;
+	virtual void g01(void) = 0;
+	virtual void g02(void) = 0;
+	virtual void g03(void) = 0;
+	virtual void g04(void) = 0;
+	virtual void g05(void) = 0;
+	virtual void g06(void) = 0;
+	virtual void g07(void) = 0;
+	virtual void g08(void) = 0;
+	virtual void g09(void) = 0;
+	virtual void g10(void) = 0;
+	virtual void g11(void) = 0;
+	virtual void g12(void) = 0;
+	virtual void g13(void) = 0;
+	virtual void g14(void) = 0;
+	virtual void g15(void) = 0;
+	virtual void g16(void) = 0;
+	virtual void g17(void) = 0;
+	virtual void g18(void) = 0;
+	virtual void initMapStringFile(const AsciiString &filename) = 0;  // +0x4C
+};
+
+extern GameTextInterface *TheGameText;
+
+enum INILoadType
+{
+	INI_LOAD_INVALID,
+	INI_LOAD_OVERWRITE,
+	INI_LOAD_CREATE_OVERRIDES,
+	INI_LOAD_MULTIFILE
+};
+
+class INI
+{
+public:
+	INI();
+	~INI();
+	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *pXfer);
+
+private:
+	char m_body[0x87c];
+};
+
+extern "C" int (__cdecl * const _imp__sprintf)(char *buffer, const char *format, ...);
+
+void GameLogic::rva0023E3CE(AsciiString mapName)
+{
+	if (!TheMapCache)
+		return;
+
+	char filename[260];
+	char fullFledgeFilename[260];
+
+	memset(filename, 0, 260);
+	strcpy(filename, mapName.str());
+
+	if (((Rva002DC7C1 *)TheGameState)->rva002DC7C1(UnicodeString(AsciiString(filename))))
+		strcpy(filename, TheGameState->m_pristineMapName.str());
+
+	int length = strlen(filename);
+	if (length < 4)
+		return;
+
+	char *extension = filename + length - 4;
+	while (extension > filename && *extension != '\\' && *extension != '/')
+		--extension;
+	*extension = 0;
+
+	// One load of the msvcrt sprintf import slot serves all three formats.
+	int (__cdecl *format)(char *, const char *, ...) = _imp__sprintf;
+	format(fullFledgeFilename, "%s\\map.ini", filename);
+	if (TheFileSystem->doesFileExist(fullFledgeFilename)) {
+		INI ini;
+		ini.loadFile(AsciiString(fullFledgeFilename), INI_LOAD_CREATE_OVERRIDES, 0);
+	}
+
+	format(fullFledgeFilename, "%s\\solo.ini", filename);
+	if (TheFileSystem->doesFileExist(fullFledgeFilename)) {
+		INI ini;
+		ini.loadFile(AsciiString(fullFledgeFilename), INI_LOAD_CREATE_OVERRIDES, 0);
+	}
+
+	format(fullFledgeFilename, "%s\\map.str", filename);
+	if (TheFileSystem->doesFileExist(fullFledgeFilename))
+		TheGameText->initMapStringFile(fullFledgeFilename);
+}
