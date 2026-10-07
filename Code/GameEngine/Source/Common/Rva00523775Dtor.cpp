@@ -1,18 +1,22 @@
 // cl: /O1 /MD /EHs
 // ??1Rva00523775@@UAE@XZ @0x00523775 137B: Apt-screen dtor with UI hide and free.
-// Evidence: callers 0x0052380C; callees rowed _free 0x00030830 plus pin Shell hide 0x0035BF4C plus pin AptGameWindow 0x005126F5; members +0x218 second vptr +0x288 free; globals g_Va00A04934 TheInGameUI g_Va00A01E48; vtables 0x00867C34 0x00867C30; neighbours ConstIntGetters.
-class _bfme_AptGameWindow
+// Evidence: callers 0x0052380C; callees rowed _free 0x00030830 plus pin Shell hide 0x0035BF4C plus pin AptGameWindow 0x005126F5; base secondary vptr +0x218 and member +0x288 free; globals g_Va00A04934 TheInGameUI g_Va00A01E48; vtables 0x00867C34 0x00867C30; neighbours ConstIntGetters.
+// The base's real two-base prefix: GameWindow218 + secondary58 + tailC.
+// The constructor51268C and factory2D1E55 prove its complete27C extent.
+class GameWindow
 {
-public:
-	virtual ~_bfme_AptGameWindow();
-private:
-	char m_pad[0x218 - 4];
+public: virtual ~GameWindow();
+private: unsigned char unknown[0x218-4];
 };
-
-class BfmeAptFunctorMarker
+class Rva005248D0
 {
-public:
-	virtual void marker() = 0;
+public: virtual ~Rva005248D0();
+private: unsigned char unknown[0x58-4];
+};
+class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
+{
+public: virtual ~_bfme_AptGameWindow();
+private: unsigned char tail270[0xC];
 };
 
 struct GlobalA04934;
@@ -68,12 +72,12 @@ struct AutoFreePtr
 };
 
 class __multiple_inheritance Rva00523775
-	: public _bfme_AptGameWindow, public BfmeAptFunctorMarker
+	: public _bfme_AptGameWindow
 {
 public:
 	virtual ~Rva00523775();
 private:
-	char m_pad21C[0x288 - 0x21C];
+	char m_pad27C[0x288 - 0x27C];
 	AutoFreePtr m_288;
 };
 
@@ -86,4 +90,28 @@ Rva00523775::~Rva00523775()
 		if (g_Va00A01E48)
 			((Shell *)g_Va00A01E48)->hide(false);
 	}
+}
+
+// Existing address-derived destructor owner from scalar-delete51265C and
+// tableC659A0. Native111 consumes singletonE046B8, vector28C and free280.
+// Primary/secondary table stores remain at0/218 through the real base view.
+class Rva0051211C
+{
+public: ~Rva0051211C();
+private: unsigned char consumed[12];
+};
+extern int g_Va00E046B8;
+class Rva005125ED : public _bfme_AptGameWindow
+{
+public: virtual ~Rva005125ED();
+private:
+ unsigned char unknown27C[4];
+ AutoFreePtr m_280;
+ unsigned char unknown284[8];
+ Rva0051211C m_28C;
+};
+Rva005125ED::~Rva005125ED()
+{
+ if ((int)this == g_Va00E046B8)
+  g_Va00E046B8 = 0;
 }
