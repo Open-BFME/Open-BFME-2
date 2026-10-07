@@ -131,11 +131,6 @@ Rva00538674Point *Rva00538674Sub::run(Rva00538674Point *output)
 	return output;
 }
 
-int Rva00330C0FOwner::fwd(int value)
-{
-	((Rva0007E03ASub *)((char *)this - 0x3C))->run(value);
-	return value;
-}
 
 int Rva00330C22Owner::fwd(int value)
 {

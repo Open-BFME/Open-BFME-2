@@ -44,11 +44,6 @@ private:
 	Rva0033B1CDMbr m_04; // +4
 };
 
-void Rva0033B1CD::method()
-{
-	first();
-	m_04.second();
-}
 
 class Rva005CDDF0Mbr
 {

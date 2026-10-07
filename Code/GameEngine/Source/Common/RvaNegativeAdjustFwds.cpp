@@ -30,10 +30,6 @@ public:
 	void cleanup();
 };
 
-void Rva00330BDBMid::cleanup()
-{
-	((Rva0030B706Obj *)((char *)this - 0x34))->~Rva0030B706Obj();
-}
 
 void Rva005CEC55Mid::cleanup()
 {

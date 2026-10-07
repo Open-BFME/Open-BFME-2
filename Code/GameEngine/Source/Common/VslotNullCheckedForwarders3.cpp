@@ -286,11 +286,6 @@ private:
 	Rva000EDB47NullTarget *m_member;
 };
 
-void Rva00068D43NullForwarder::rva00068D43()
-{
-	if (m_member)
-		m_member->rva000EDB47();
-}
 
 class Rva0010004DNullTarget
 {
@@ -351,11 +346,6 @@ private:
 	Rva004E0D19NullTarget *m_member;
 };
 
-void Rva004FC176NullForwarder::rva004FC176(Int a0)
-{
-	if (m_member)
-		m_member->rva004E0D19(a0);
-}
 
 // Three more null-checked direct forwarders from the wide family scan. The
 // wrapper identities and the two unrowed callees remain address-derived; the

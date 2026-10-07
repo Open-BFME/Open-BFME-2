@@ -8,12 +8,18 @@ struct BfmePod20
 	int a[5];
 };
 
+// Call the single retained erase owner at 0x005B129F. Record identity is
+// address-derived; only the pointer ABI is needed in this caller.
+struct Rva005B09D8Record;
+class Rva005B129FVector {
+public:
+    Rva005B09D8Record *erase(Rva005B09D8Record *, Rva005B09D8Record *);
+};
 class Rva005B129FClass
 {
 public:
 	int m_0;
 	int m_4;
-	int rva005B129F(int a1, int a2);
 };
 
 namespace _STL
@@ -44,7 +50,7 @@ void Rva005B1A07::rva005B1A07(unsigned int index, BfmePod20 val)
 	int c = (e - b) / 20;
 	if (index < (unsigned int)c) {
 		int elem = b + (int)(index * 20);
-		((Rva005B129FClass *)this)->rva005B129F(elem, e);
+		((Rva005B129FVector *)this)->erase((Rva005B09D8Record *)elem, (Rva005B09D8Record *)e);
 		return;
 	}
 	int e2 = *(volatile int *)&m_4;

@@ -60463,11 +60463,9 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva000E04CE@Rva000E04CE@@QAEXPAVSegmentedLineClass@@@Z,,0x000E04CE,104,Code/GameEngine/Source/GameLogic/Object/Rva000E04CEUpdate.cpp,matched,rowed callees SegmentedLine virtual slot plus g_00BC2918
 ?rva00275490@Drawable@@QAEXPBURGBColor@@@Z,,0x00275490,83,Code/GameEngine/Source/GameClient/Drawable_rva0027541E.cpp,matched,chain of 27541E null-peak reset plus envelope state
 ?rva0057E24B@Rva0057E3DB@@QAEXH@Z,,0x0057E24B,18,Code/GameEngine/Source/Common/Rva0057E3DBDtor.cpp,matched,setter via caller 0x0043A0D9 and pinned callee 0x0057E058
-?Rva0052D71AFillN@@YAPAVRva0056616B@@PAV1@IABV1@@Z,,0x0052D71A,40,Code/GameEngine/Source/Common/System/Rva0052D71A.cpp,matched,chain fill_n via rowed 0x0052D6BE stride 0xB8
 ??1Rva00577010@@QAE@XZ,,0x00577010,30,Code/GameEngine/Source/Common/Rva00577010Dtor.cpp,matched,holder clear plus virtual slot1 with 0 plus delete via 3 callers
 ?_M_clear@?$vector@URva002B9062Element@@V?$allocator@URva002B9062Element@@@_STL@@@_STL@@IAEXXZ,,0x00577EF1,30,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearRva00577EF1.cpp,matched,Destroy plus free via overflow caller 0x002B820A plus rowed Destroy 0x005F97BC
 ?rva0029EAFA@Rva0029EAFA@@QAEXPBVGameMessage@@@Z,,0x0029EAFA,232,Code/GameEngine/Source/Common/Rva0029EAFA.cpp,matched,chain from 0x0029DE76 rowed shroud plus path test
-?Rva0052D6EBCopy@@YAPAVRva0056616B@@PAV1@00@Z,,0x0052D6EB,47,Code/GameEngine/Source/Common/System/Rva0052D6EB.cpp,matched,chain copy via rowed 0x0052D6BE stride 0xB8
 ?rva0057EF87@Rva0057EE5C@@QAEXXZ,,0x0057EF87,123,Code/GameEngine/Source/Common/Rva0057EF87.cpp,matched,shutdown via caller 0x0043DE41 and rowed resize erase close
 ?rva00283262@TerrainLogic@@QAEXPBUCoord3D@@M@Z,,0x00283262,221,Code/GameEngine/Source/Common/TerrainLogicRva00283262.cpp,matched,TerrainLogic same-this rva00282CFB plus PartitionManager iterateObjectsInRange with float radius plus BitSet and holder plus GameLogic destroyObject
 ?rva0032C84F@Rva0032C84F@@QAEXXZ,,0x0032C84F,64,Code/GameEngine/Source/GameLogic/Map/Rva0032C84FMethod.cpp,matched,unlock caller 0x0032D554 rowed nameToKey plus erase
@@ -60583,7 +60581,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva00239105@Rva00239105@@QAEXXZ,,0x00239105,29,Code/GameEngine/Source/Common/Rva00239105.cpp,matched,two-member dispatcher via pinned 7B thunks; first call second tail-jmp; address-derived
 ?rva0023D6D5@Rva0023D6D5@@QAEXH@Z,,0x0023D6D5,27,Code/GameEngine/Source/Common/Rva0023D6D5Guard.cpp,matched,global-guarded call via pinned 0x1EC98E; address-derived
 ?rva002698E6@Rva002698E6@@QAEPAV1@I@Z,,0x002698E6,28,Code/GameEngine/Source/Common/Rva002698E6Deleting.cpp,matched,scalar deleting shape via pinned dtor 0x268B04 plus rowed delete; address-derived
-?rva00254008@Rva00254008@@QAEPAV1@I@Z,,0x00254008,28,Code/GameEngine/Source/Common/Rva00254008Deleting.cpp,matched,scalar deleting shape via pinned thunk dtor 0x254024 plus rowed delete; address-derived
 ?rva002710EC@Rva002710EC@@QAEXXZ,,0x002710EC,28,Code/GameEngine/Source/Common/Rva002710ECLoop.cpp,matched,pointer-array loop calling vslot 39; goto-check shape; address-derived
 ?rva0025DFE8@Rva0025DFE8@@QAE_NH@Z,,0x0025DFE8,44,Code/GameEngine/Source/Common/Rva0025DFE8Predicate.cpp,matched,bool predicate v46 plus rowed isPlayerConnected; cmp order plus dword; address-derived
 ?rva0023DA79@Rva0023DA79@@QAEPAV1@HH@Z,,0x0023DA79,44,Code/GameEngine/Source/Common/Rva0023DA79Bitset.cpp,matched,memset-16 plus bit-set; int-index with unsigned cast for shr; gate-safe HH
@@ -60613,11 +60610,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ??$_Construct@URva00502C53Element@@U1@@_STL@@YAXPAURva00502C53Element@@ABU1@@Z,,0x00502C53,45,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp,matched,45B EH _Construct placement copy; calls pinned copy ctor 0x00502909; caller 0x00502EB8; element identity unproven
 ??$_Construct@URva00557C90Element@@U1@@_STL@@YAXPAURva00557C90Element@@ABU1@@Z,,0x00557C90,45,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp,matched,45B EH _Construct placement copy; calls pinned copy ctor 0x005564EB; caller 0x00558EB3; element identity unproven
 ??$_Construct@URva00600F9CElement@@U1@@_STL@@YAXPAURva00600F9CElement@@ABU1@@Z,,0x00600F9C,45,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp,matched,45B EH _Construct placement copy; calls pinned copy ctor 0x00600F76; caller 0x006012B6; element identity unproven
-?rva00057B27@Rva00057B27@@QAEHII@Z,,0x00057B27,36,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,36B reserve-then-set returning first arg; pinned growers/setters; owner identity unproven
-?rva00057D38@Rva00057D38@@QAEHII@Z,,0x00057D38,36,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,36B reserve-then-set returning first arg; pinned growers/setters; owner identity unproven
-?rva000E0536@Rva000E0536@@QAEHII@Z,,0x000E0536,36,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,36B reserve-then-set returning first arg; pinned growers/setters; owner identity unproven
-?rva003EF34A@Rva003EF34A@@QAEHII@Z,,0x003EF34A,36,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,36B reserve-then-set returning first arg; shares grower 0x00212858 with 0x0052B7F8; owner identity unproven
-?rva0052B7F8@Rva0052B7F8@@QAEHII@Z,,0x0052B7F8,36,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,36B reserve-then-set returning first arg; shares grower 0x00212858 with 0x003EF34A; owner identity unproven
 ?rva0021937D@Rva0021937D@@QAEXPAVRva0021937DTarget@@@Z,,0x0021937D,46,Code/GameEngine/Source/Common/Rva0021937DTriple.cpp,matched,46B null-guarded triple forward using member +0x198; callees pinned; identities unproven
 ?rva002193AB@Rva0021937D@@QAEXPAVRva0021937DTarget@@@Z,,0x002193AB,46,Code/GameEngine/Source/Common/Rva0021937DTriple.cpp,matched,46B null-guarded triple forward using member +0x194; twin of 0x0021937D
 ?rva002193D9@Rva0021937D@@QAEXPAVRva0021937DTarget@@@Z,,0x002193D9,46,Code/GameEngine/Source/Common/Rva0021937DTriple.cpp,matched,46B null-guarded triple forward using member +0x1A0; twin of 0x0021937D
@@ -60632,11 +60624,7 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ??0Rva00502667Element@@QAE@ABU0@@Z,,0x005020AF,29,Code/Libraries/Source/WWVegas/WWLib/StlportElementCopyCtorsW3G15.cpp,matched,29B element copy ctor: int plus subobject via pinned 0x00501B33; called by rowed _Construct 0x00502667
 ??0Rva00502C53Element@@QAE@ABU0@@Z,,0x00502909,29,Code/Libraries/Source/WWVegas/WWLib/StlportElementCopyCtorsW3G15.cpp,matched,29B element copy ctor: int plus subobject via pinned 0x005026EE; called by rowed _Construct 0x00502C53
 ??0Rva00557C90Element@@QAE@ABU0@@Z,,0x005564EB,29,Code/Libraries/Source/WWVegas/WWLib/StlportElementCopyCtorsW3G15.cpp,matched,29B element copy ctor: int plus subobject via pinned 0x0038630B; called by rowed _Construct 0x00557C90
-?Rva000A9DF8FireA@@YAXPAVRva000A9DF8ObjA@@H@Z,,0x000A9DF8,18,Code/GameEngine/Source/Common/Rva000A9DF8Fire.cpp,matched,null-guarded single-arg method forwarder; identity unresolved
-?Rva000A9DF8FireB@@YAXPAVRva000A9DF8ObjB@@H@Z,,0x000A9E0A,18,Code/GameEngine/Source/Common/Rva000A9DF8Fire.cpp,matched,null-guarded single-arg method forwarder; identity unresolved
-?Rva000A9DF8FireC@@YAXPAVRva000A9DF8ObjC@@H@Z,,0x004D9ACE,18,Code/GameEngine/Source/Common/Rva000A9DF8Fire.cpp,matched,null-guarded single-arg method forwarder; identity unresolved
 ?_M_clear@?$vector@URva0008B4AFElement@@V?$allocator@URva0008B4AFElement@@@_STL@@@_STL@@IAEXXZ,,0x0008B4AF,30,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp,matched,STLport vector _M_clear sibling of rowed 0x004758D6 via _Destroy 0x0008AFDC plus free row 0x00030830
-?_M_clear@?$vector@URva00577EF1Element@@V?$allocator@URva00577EF1Element@@@_STL@@@_STL@@IAEXXZ,,0x00577EF1,30,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp,matched,STLport vector _M_clear sibling of rowed 0x004758D6 via matched TreeHintRef _Destroy 0x005F97BC plus free row 0x00030830
 ?_M_clear@?$vector@URva005C84D3Element@@V?$allocator@URva005C84D3Element@@@_STL@@@_STL@@IAEXXZ,,0x005C84D3,30,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearF6Family.cpp,matched,STLport vector _M_clear sibling of rowed 0x004758D6 via _Destroy 0x005C847B plus free row 0x00030830
 ?Reset@Rva000BB3D7Obj@@QAEPAV1@XZ,,0x000BB3D7,15,Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp,matched,subobject-init return-this wrapper; identity unresolved
 ?Reset@Rva004FFE72Obj@@QAEPAV1@XZ,,0x004FFE72,15,Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp,matched,subobject-init return-this wrapper; identity unresolved
@@ -60690,7 +60678,6 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?reserve@?$vector@URva0037FEA3Record@@V?$allocator@URva0037FEA3Record@@@_STL@@@_STL@@QAEXI@Z,,0x0037FEA3,125,Code/Libraries/Source/WWVegas/WWLib/StlContainerRva0037FEA3.cpp,matched,STLport4.5.3 reference; target boundary and pointer arithmetic establish container operation and element storage width; address-derived records carry no game class claim; byte signedness is donor inference; decoded native calls; full byte gate
 ?_M_fill_insert@?$vector@EV?$allocator@E@_STL@@@_STL@@QAEXPAEIABE@Z,,0x000AFE9F,179,Code/Libraries/Source/WWVegas/WWLib/StlContainerRva000AFE9F.cpp,matched,STLport4.5.3 reference; target boundary and pointer arithmetic establish container operation and element storage width; address-derived records carry no game class claim; byte signedness is donor inference; decoded native calls; full byte gate
 ??$__uninitialized_fill_n@PAEIE@_STL@@YAPAEPAEIABEABU__true_type@0@@Z,,0x000AD882,21,Code/Libraries/Source/WWVegas/WWLib/StlContainerRva000AD882.cpp,matched,STLport4.5.3 reference; target boundary and pointer arithmetic establish container operation and element storage width; address-derived records carry no game class claim; byte signedness is donor inference; decoded native calls; full byte gate
-??$__copy_backward_ptrs@PAEPAE@_STL@@YAPAEPAE00ABU__true_type@0@@Z,,0x002C17D6,21,Code/Libraries/Source/WWVegas/WWLib/StlContainerRva000AFE9F.cpp,matched,STLport4.5.3 helper; identity cross-checked by matched vector caller and target loop or byte memmove semantics; full byte gate
 ??0Rva00495C22@@QAE@XZ,,0x00495C22,33,Code/GameEngine/Source/Common/Rva00495C22Ctor.cpp,matched,4-byte member ctor then 0.0f and pooled 1.0f
 ?rva004A4580@Rva004A4580@@QAEPAXPAX@Z,,0x004A4580,27,Code/GameEngine/Source/Common/Rva004A4580Mark.cpp,matched,memset 4 bytes then set bit 1
 ?rva0049CD24@Rva0049CD24@@QAEXPAVObject@@@Z,,0x0049CD24,43,Code/GameEngine/Source/Common/Rva0049CD24Apply.cpp,matched,forward nonzero holder handle through GameLogic
@@ -60902,7 +60889,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva000E214DBaseTexture@Rva000E19A3@@QAEXPAUID3DXEffect@@PBD@Z,,0x000E214D,113,Code/GameEngine/Source/Common/Rva000E19A3Dtor.cpp,matched,terrain FX SetTexture member callback stored by dispatcher 0x000E1F42 for BaseTexture; +0x20 handle else black texture 0x00132F30
 ?Rva000E21BENormalTexture@Rva000E19A3@@QAEXPAUID3DXEffect@@PBD@Z,,0x000E21BE,113,Code/GameEngine/Source/Common/Rva000E19A3Dtor.cpp,matched,terrain FX SetTexture member callback stored by dispatcher 0x000E1F42 for NormalTexture; +0x24 handle else black texture 0x00132F30
 ?Rva000E2EB7@@YAXPAUID3DXEffect@@PBD@Z,,0x000E2EB7,109,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,matched,Terrain FX SetVector callback stored by dispatcher 0x000E2DFD for Size; TheTerrainRenderObject->m_37C0 +0x08/+0x0C scaled by BC2428 else zero
-??$__uninitialized_fill_n@PAURva002BAE2AElement@@IU1@@_STL@@YAPAURva002BAE2AElement@@PAU1@IABU1@ABU__false_type@0@@Z,,0x002BB785,37,Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_fill_n_rva002bb785.cpp,matched,stride-12 masked twin of rowed fill_n 0x005F949D; _Construct 0x002BAE2A rowed
 ?pop@?$priority_queue@URva003B02F4Entry@@V?$vector@URva003B02F4Entry@@V?$allocator@URva003B02F4Entry@@@_STL@@@_STL@@URva003B02F4Greater@@@_STL@@QAEXXZ,,0x003B02F4,26,Code/Libraries/Source/WWVegas/WWLib/stlport_priority_queue_rva003b02f4.cpp,matched,12B-entry priority_queue pop; masked twin of rowed int greater pop 0x003B032A
 ??$pop_heap@PAURva003B02F4Entry@@URva003B02F4Greater@@@_STL@@YAXPAURva003B02F4Entry@@0URva003B02F4Greater@@@Z,,0x003B02A1,23,Code/Libraries/Source/WWVegas/WWLib/stlport_priority_queue_rva003b02f4.cpp,matched,STLport pop_heap 12B entry with float-key greater
 ??$__pop_heap_aux@PAURva003B02F4Entry@@U1@URva003B02F4Greater@@@_STL@@YAXPAURva003B02F4Entry@@00URva003B02F4Greater@@@Z,,0x003B0176,42,Code/Libraries/Source/WWVegas/WWLib/stlport_priority_queue_rva003b02f4.cpp,matched,STLport __pop_heap_aux 12B entry
@@ -61247,9 +61233,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?erase@?$vector@URegion2D@@V?$allocator@URegion2D@@@_STL@@@_STL@@QAEPAURegion2D@@PAU3@0@Z,,0x0007C2F0,38,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp,matched,STLport trivially destructible range erase via __copy_ptrs forwarder byte-equal by REL32 graph
 ?erase@?$vector@UBfmeStringRecord000B9534@@V?$allocator@UBfmeStringRecord000B9534@@@_STL@@@_STL@@QAEPAUBfmeStringRecord000B9534@@PAU3@0@Z,,0x0008B4D2,38,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp,matched,STLport trivially destructible range erase via __copy_ptrs forwarder byte-equal by REL32 graph
 ??$__copy_ptrs@PAURva00173DF8Element@@PAU1@@_STL@@YAPAURva00173DF8Element@@PAU1@00ABU__false_type@0@@Z,,0x00173714,29,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp,matched,STLport trivially destructible range erase via __copy_ptrs forwarder byte-equal by REL32 graph
-?erase@?$vector@URva00173DF8Element@@V?$allocator@URva00173DF8Element@@@_STL@@@_STL@@QAEPAURva00173DF8Element@@PAU3@0@Z,,0x00173DF8,38,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp,matched,STLport trivially destructible range erase via __copy_ptrs forwarder byte-equal by REL32 graph
 ??$__copy_ptrs@PAURva00335C62Element@@PAU1@@_STL@@YAPAURva00335C62Element@@PAU1@00ABU__false_type@0@@Z,,0x003332FE,29,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp,matched,STLport trivially destructible range erase via __copy_ptrs forwarder byte-equal by REL32 graph
-?erase@?$vector@URva00335C62Element@@V?$allocator@URva00335C62Element@@@_STL@@@_STL@@QAEPAURva00335C62Element@@PAU3@0@Z,,0x00335C62,38,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseNoDestroyFamily.cpp,matched,STLport trivially destructible range erase via __copy_ptrs forwarder byte-equal by REL32 graph
 ?isPositionalAudio@AudioEventRTS@@QBE_NXZ,,0x002D9C37,67,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp,matched,target Ghidra 0x2D9C37/67 called from pinned getSoundClass case 2; identity carried from BFME1 6583b3c1 AudioEventRTSClassification donor
 ?getSoundClass@AudioEventRTS@@QBEIXZ,,0x002D9D39,67,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp,matched,target pin from stopAudio event+0x1C call; BFME1 6583b3c1 donor switch shape; case 5 own return
 ?hasMoreLoops@AudioEventRTS@@QBE_NXZ,,0x002D9C07,40,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp,matched,target Ghidra 0x2D9C07/40 called by advanceNextPlayPortion PP_Sound; BFME1 6583b3c1 AudioEventRTS.cpp hasMoreLoops body with BFME2 offsets +0x4C/+0xB0
@@ -61258,7 +61242,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva002D9ADC@AudioEventRTS@@QAEXXZ,,0x002D9ADC,202,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp,matched,opaque AudioEventRTS member; donor shape BFME1 bfmeGenerateFilename (int max/min delay locals); target: delay lines 413/415/418 into +0x64/+0x58/+0x60 then regenerate flag +0x50 sets dirty +0x4D; caller 0x2DAAD5
 ?generateFilename@AudioEventRTS@@QAEXXZ,,0x002DA6CF,361,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp,matched,ZH/BFME1 donor AudioEventRTS::generateFilename; target: dirty/eventInfo guard then bare flag bit 6 of +0x4C picks prefix 0x2D9622 or clear; non-SFX concat filename 0x1DBA69; weighted random pick 0x2D9686 vs sequential; ext 0x2DA398; retainAudioType/peekEventInfo inline boundaries from BFME1 AudioEventRTSWeightedChoice.cpp
 ?getFilename@AudioEventRTS@@QAE?AVAsciiString@@XZ,,0x002DA838,47,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp,matched,ZH/BFME1 donor AudioEventRTS::getFilename; target: dirty +0x4D and eventInfo guard calls generateFilename 0x2DA6CF then copies +0x04
-?rva004E08A9@Rva004E08A9@@QAE_N_N@Z,,0x004E08A9,77,Code/GameEngine/Source/Common/Rva004E08A9.cpp,matched,rowed find plus get plus pin helper and callers
 ??0Rva005765D1@@QAE@PAXHH@Z,,0x005765D1,90,Code/GameEngine/Source/Common/Rva005765D1Ctor.cpp,matched,ctor over base Rva005D19F8 with ptr-chase getters and direct virtual call
 ?reserve@?$vector@URva0008DE1CElement@@V?$allocator@URva0008DE1CElement@@@_STL@@@_STL@@QAEXI@Z,,0x0008B5B5,125,Code/Libraries/Source/WWVegas/WWLib/StlportVectorReserve0008B5B5.cpp,matched,unlock lane 24B reserve via G7 and copy-only element
 ??$copy_backward@PAURva002B3049Record@@PAU1@@_STL@@YAPAURva002B3049Record@@PAU1@00@Z,,0x002B5944,27,Code/Libraries/Source/WWVegas/WWLib/StlportCopyWrapperPairsFamily.cpp,matched,STLport copy_backward wrapper over rowed __copy_backward_ptrs 0x2B4623
@@ -61558,7 +61541,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva005200C5Add@@YAXPAXW4ScienceType@@@Z,,0x005200C5,47,Code/Libraries/Source/WWVegas/WWLib/Rva005200C5.cpp,matched,caller 0x00407FA0 pod 0x0040AAD5 isEmpty 0x00001E2F pushback 0x002E01C6
 ?Rva005809DBLinearInsert@@YAXPAPAX0PAXVRva000795C1Record@@@Z,,0x005809DB,121,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp,matched,guarded linear insert with copy backward and 16B record teardown
 ?rva00271BCC@Rva00271BCC@@QAEXHH@Z,,0x00271BCC,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
-?rva002A9DEC@Rva002A9BF2@@QAEXH@Z,,0x002A9DEC,18,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
 ?rva0028BC4D@Object@@QAEXXZ,,0x0028BC4D,11,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
 ?rva004EC07D@Rva002A8AB1Record@@QAEXPAVTeamPrototype@@@Z,,0x004EC07D,11,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
 ?rva0023D0B7@GameLogic@@QAEHXZ,,0x0023D0B7,11,Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp,matched,Member forwarder tail jmp by REL32
@@ -61583,7 +61565,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva0040D3D5Get@@YGHH@Z,,0x0040D3D5,19,Code/GameEngine/Source/Common/Rva0040D3D5Get.cpp,matched,dword member at +0x30 with 0 fallback
 ?rva0040F7E5@BfmeY1038@@QAEXXZ,,0x0040F7E5,24,Code/GameEngine/Source/Common/Rva0040F7E5Advance.cpp,matched,state advance 3 to 4 through the 3-zero helper 0x0040F497
 ?setFrom@Rva0040D82FHost@@QAIXHPAURva0040D82FArg@@@Z,,0x0040D82F,57,Code/GameEngine/Source/Common/Rva0040D82FSet.cpp,matched,change-detecting setter via cdecl helper and thiscall set
-?init@Rva004152BCHost@@QAEHHH@Z,,0x004152BC,42,Code/GameEngine/Source/Common/Rva004152BCInit.cpp,matched,test3 no p
 ?outer@Rva00418A8EHost@@QAEHHH@Z,,0x00418A8E,36,Code/GameEngine/Source/Common/Rva00418A8EOuter.cpp,matched,outer via reserve 0x00212858 and applier 0x00418A12
 ?guard@Rva0040FC79Host@@QAEXH@Z,,0x0040FC79,71,Code/GameEngine/Source/Common/Rva0040FC79Guard.cpp,matched,guard with v49 arg
 ?rva0044D774@GameModePreferences@@QAE_NPAVGameSlot@@@Z,,0x0044D774,194,Code/GameEngine/Source/Common/GameModePreferences.cpp,matched,
@@ -61618,9 +61599,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??$__adjust_heap@PAUS4SortElem12@@HU1@US4Cmp002E0CD0@@@_STL@@YAXPAUS4SortElem12@@HHU1@US4Cmp002E0CD0@@@Z,,0x00331C05,165,Code/Libraries/Source/WWVegas/WWLib/stlport_adjust_heap_s4sortelem12_00331c05.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??$__push_heap@PAUS4SortElem12@@HU1@US4Cmp002E0CD0@@@_STL@@YAXPAUS4SortElem12@@HHU1@US4Cmp002E0CD0@@@Z,,0x00331A91,116,Code/Libraries/Source/WWVegas/WWLib/stlport_adjust_heap_s4sortelem12_00331c05.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??$__uninitialized_fill_n@PAV?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@IV12@@_STL@@YAPAV?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@0@PAV10@IABV10@ABU__false_type@0@@Z,,0x002BB785,37,Code/Libraries/Source/WWVegas/WWLib/stlport_nested_vector_uninitialized_fill_n_002bb785.cpp,matched,STLport no-exception fill worker; 12-byte inner vector stride and pinned _Construct call read from target
-??$__pop_heap@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@H@_STL@@YAXPAUS4SortElem20@@00U1@US4Cmp002EB8E0@@PAH@Z,,0x003376EA,95,Code/Libraries/Source/WWVegas/WWLib/stlport_pop_heap_s4sortelem20.cpp,matched,BFME1 donor algorithm adapted to target 20-byte stride; retail caller and helper edges fix identity
-??$__adjust_heap@PAUS4SortElem20@@HU1@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@HHU1@US4Cmp002EB8E0@@@Z,,0x0033758C,172,Code/Libraries/Source/WWVegas/WWLib/stlport_adjust_heap_s4sortelem20.cpp,matched,STLport sift-down over 20-byte S4 records; target compare assignment and push-helper edges
-??$__push_heap@PAUS4SortElem20@@HU1@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@HHU1@US4Cmp002EB8E0@@@Z,,0x00337479,136,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_s4sortelem20.cpp,matched,STLport sift-up over 20-byte S4 records; target compare and assignment edges fix the record view
 ?bfmeMakePairEL@@YA?AUBfmePairEL@@ABVBfmeWordEL@@0@Z,,0x0002C621,27,Code/GameEngine/Source/Common/Bfme5TwoWordPairFactory_Rva0002C621.cpp,matched,BFME1 reference-guided two-word factory; target hidden return buffer ABI and shared pair ctor2C4FD verified; donor6583b3c1
 ?rva00035080@GeneralAllocator@Allocator@EA@@QAEPAXIH@Z,,0x00035080,120,Code/GameEngine/Source/Common/System/Rva00035080Finish.cpp,matched,Target-proven 120B counted lock wrapper at this+0x4E4; existing allocator class spelling remains uncertain; imports are nonthrowing and allocation call retains SEH; no new pins
 ?onDie@UpgradeDie@@UAEXPBVDamageInfo@@@Z,,0x00486C00,118,Code/GameEngine/Source/GameLogic/Object/Die/UpgradeDieOnDie.cpp,matched,ZH-guided upgrade death cleanup; BFME2 player vs producer branches and layouts independently supported; terminal ret4 proves full118B extent; address-named Player callee ABI verified separately
@@ -61652,7 +61630,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005CE9F7@Rva005CE9F7NullForwarder@@QAEXXZ,,0x005CE9F7,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva005CEA04@Rva005CEA04NullForwarder@@QAEXXZ,,0x005CEA04,13,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva00068385@Rva00068385NullForwarder@@QAEXXZ,,0x00068385,16,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
-?rva00068D43@Rva00068D43NullForwarder@@QAEXXZ,,0x00068D43,16,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva0007E17B@Rva0007E17BNullForwarder@@QAEXH@Z,,0x0007E17B,18,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?rva003EE91A@Rva003EE91A@@QAEXH@Z,,0x003EE91A,76,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,chain via 0x003EE7CA owner+8 three-call forward
 ??$__linear_insert@PAUS4SortElem12@@U1@US4Cmp002E1690@@@_STL@@YAXPAUS4SortElem12@@0U1@US4Cmp002E1690@@@Z,,0x00332028,111,Code/Libraries/Source/WWVegas/WWLib/stlport_linear_insert_s4sortelem12.cpp,matched,pin name LINK BONUS via 0x0033215E caller insertion_sort 0x00332183 callees rowed Rva loop plus ctor plus Bfme copy plus releaseBuffer plus pinned unguarded
@@ -61678,14 +61655,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00248D6C@Rva00248D6C@@QAEXXZ,,0x00248D6C,11,Code/GameEngine/Source/Common/RvaEmbeddedMemberForwarders.cpp,matched,Embedded member void forwarder tail jmp by REL32
 ?rva002BFC4E@Rva002BFC4E@@QAEXXZ,,0x002BFC4E,11,Code/GameEngine/Source/Common/RvaEmbeddedMemberForwarders.cpp,matched,Embedded member void forwarder tail jmp by REL32
 ?setValue@Rva0028AA0BOpaqueOwner@@QAEXH@Z,,0x0028AA0B,10,Code/GameEngine/Source/Common/VirtualSlot5CallThunk_Rva0028AA0B.cpp,matched,Address-derived opaque setter from BFME1 VirtualSlot5CallThunk donor lead; target bytes prove one dword store at ECX+0x70 and ret 4; class identity unresolved
-?Rva0021D2B6@@YAHHHH@Z,,0x0021D2B6,23,Code/GameEngine/Source/Common/RvaRangeApplyConstZeroFamily.cpp,matched,Address-derived 3-to-4 forwarder: callee(a;b;0;c); 23B push/call/add-esp shape; callee identity unproven (opaque pin)
-?Rva002B6351@@YAHHHH@Z,,0x002B6351,23,Code/GameEngine/Source/Common/RvaRangeApplyConstZeroFamily.cpp,matched,Address-derived 3-to-4 forwarder: callee(a;b;0;c); 23B shape; callee identity unproven (opaque pin)
-?Rva002B7485@@YAHHHH@Z,,0x002B7485,23,Code/GameEngine/Source/Common/RvaRangeApplyConstZeroFamily.cpp,matched,Address-derived 3-to-4 forwarder: callee(a;b;0;c); 23B shape; callee identity unproven (opaque pin)
-?Rva00331D67@@YAHHHH@Z,,0x00331D67,23,Code/GameEngine/Source/Common/RvaRangeApplyConstZeroFamily.cpp,matched,Address-derived 3-to-4 forwarder: callee(a;b;0;c); 23B shape; callee identity unproven (opaque pin)
-?Rva003B02A1@@YAHHHH@Z,,0x003B02A1,23,Code/GameEngine/Source/Common/RvaRangeApplyConstZeroFamily.cpp,matched,Address-derived 3-to-4 forwarder: callee(a;b;0;c); 23B shape; callee identity unproven (opaque pin)
-?Rva003C3AB0@@YAHHHH@Z,,0x003C3AB0,23,Code/GameEngine/Source/Common/RvaRangeApplyConstZeroFamily.cpp,matched,Address-derived 3-to-4 forwarder: callee(a;b;0;c); 23B shape; callee identity unproven (opaque pin)
-?Rva004F786C@@YAHHHH@Z,,0x004F786C,23,Code/GameEngine/Source/Common/RvaRangeApplyConstZeroFamily.cpp,matched,Address-derived 3-to-4 forwarder: callee(a;b;0;c); 23B shape; callee identity unproven (opaque pin)
-?Rva004F7E61@@YAHHHH@Z,,0x004F7E61,23,Code/GameEngine/Source/Common/RvaRangeApplyConstZeroFamily.cpp,matched,Address-derived 3-to-4 forwarder: callee(a;b;0;c); 23B shape; callee identity unproven (opaque pin)
 ?check@Rva0023D487Owner@@QAE_NPBX@Z,,0x0023D487,13,Code/GameEngine/Source/Common/RvaTestForwardTrio.cpp,matched,Address-derived member forwarder passing this as mask to matched BitFlags<11>::test at 0x0023C59F; 13B push/mov/call/ret4 shape
 ?check@Rva0026197BOwner@@QAE_NPBX@Z,,0x0026197B,13,Code/GameEngine/Source/Common/RvaTestForwardTrio.cpp,matched,Address-derived member forwarder passing this as mask to matched BitFlags<239>::test at 0x002615C0; 13B push/mov/call/ret4 shape
 ?check@Rva0035B449Owner@@QAE_NPBX@Z,,0x0035B449,13,Code/GameEngine/Source/Common/RvaTestForwardTrio.cpp,matched,Address-derived member forwarder passing this as mask to matched Rva00331682Holder::test at 0x00331682; 13B push/mov/call/ret4 shape
@@ -61713,93 +61682,36 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1Rva005C8565@@QAE@XZ,,0x005C8565,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; 8B shape
 ??1Rva00603C57@@QAE@XZ,,0x00603C57,8,Code/GameEngine/Source/Common/RvaAdjustorDtorFamily.cpp,matched,Address-derived empty adjustor dtor: peer pin name; 8B shape
 ??1Rva004E58ED@@QAE@XZ,,0x004E58ED,8,Code/GameEngine/Source/Common/Rva004E58EDStrRelease.cpp,matched,Address-derived string-release dtor: +0x10 member into releaseBuffer alias; 8B shape
-?cleanup@Rva00330BDBMid@@QAEXXZ,,0x00330BDB,8,Code/GameEngine/Source/Common/RvaNegativeAdjustFwds.cpp,matched,Address-derived negative-adjust explicit-dtor forward; 8B shape
 ?cleanup@Rva005CEC55Mid@@QAEXXZ,,0x005CEC55,8,Code/GameEngine/Source/Common/RvaNegativeAdjustFwds.cpp,matched,Address-derived negative-adjust explicit-dtor forward; 8B shape
 ?rva0023D075@GameLogic@@QAEHH@Z,,0x0023D075,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x184 int(int); 11B shape
 ?rva0023D080@GameLogic@@QAEHH@Z,,0x0023D080,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x184 int(int); 11B shape
 ?rva0023D08B@GameLogic@@QAEHH@Z,,0x0023D08B,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x184 int(int); 11B shape
 ?rva0023D0AC@GameLogic@@QAEHH@Z,,0x0023D0AC,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x184 int(int); 11B shape
 ?rva0023D0C2@GameLogic@@QAEXPAVObject@@H@Z,,0x0023D0C2,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: peer pin name void(Object*;int); 11B shape
-?fwd@Rva002E2F39Owner@@QAEHH@Z,,0x002E2F39,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x1A8 int(int); 11B shape
 ?fwd@Rva004EC072Owner@@QAEXPAX@Z,,0x004EC072,11,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,matched,Address-derived wide-adjust forward: +0x90 void(void*); 11B shape
-?poll@Rva001EB72F@@QAEXXZ,,0x001EB72F,13,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked member forward; 13B load/test/jmp shape
-?poll@Rva001EB75C@@QAEXXZ,,0x001EB75C,13,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked member forward; 13B load/test/jmp shape
-?poll@Rva0020EB41@@QAEXXZ,,0x0020EB41,13,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked member forward; 13B load/test/jmp shape
-?poll@Rva005CCB16@@QAEXXZ,,0x005CCB16,13,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked member forward; 13B load/test/jmp shape
-?poll@Rva005D13D5@@QAEXXZ,,0x005D13D5,13,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked member forward; 13B load/test/jmp shape
-?fwd@Rva000A8AA6Owner@@QAEXI@Z,,0x000A8AA6,14,Code/GameEngine/Source/Common/RvaNullGuardArgFwds.cpp,matched,Address-derived null-guarded first-member forward of one dword; 14B shape
-?fwd@Rva000A8B23Owner@@QAEXI@Z,,0x000A8B23,14,Code/GameEngine/Source/Common/RvaNullGuardArgFwds.cpp,matched,Null-guarded first-member forward of one dword; 14B load/test/jmp/ret4 shape
-?rva000A8B4B@MilesStreamRef@@QAEXI@Z,,0x000A8B4B,14,Code/GameEngine/Source/Common/RvaNullGuardArgFwds.cpp,matched,Null-guarded first-member forward of one dword; 14B load/test/jmp/ret4 shape
-?fwd@Rva000A8C6EOwner@@QAEXI@Z,,0x000A8C6E,14,Code/GameEngine/Source/Common/RvaNullGuardArgFwds.cpp,matched,Null-guarded first-member forward of one dword; 14B load/test/jmp/ret4 shape
-?step@Rva005E1906@@QAEXXZ,,0x005E1906,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step via rowed markAsOverride; 17B shape
-?step@Rva005D1516@@QAEXXZ,,0x005D1516,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x08 fold-nop; 17B shape
-?step@Rva005E1917@@QAEXXZ,,0x005E1917,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x0C rowed disable; 17B shape
-?step@Rva005E1BC4@@QAEXXZ,,0x005E1BC4,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x0C fold-nop; 17B shape
-?step@Rva005E25DE@@QAEXXZ,,0x005E25DE,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x0C fold-nop; 17B shape
-?step@Rva005E590F@@QAEXXZ,,0x005E590F,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x08 fold-nop; 17B shape
-?step@Rva005E6BA3@@QAEXXZ,,0x005E6BA3,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x20 fold-nop; 17B shape
-?step@Rva005E6BB4@@QAEXXZ,,0x005E6BB4,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-member step: +0x20 fold-nop; 17B shape
 ?fwd@Rva0030BEE6Owner@@QAEHH@Z,,0x0030BEE6,19,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp,matched,Address-derived adjust-call-echo: run arg through this-0x28 then return arg; 19B shape
 ?fwd@Rva0030BEF9Owner@@QAEHH@Z,,0x0030BEF9,19,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp,matched,Address-derived adjust-call-echo -0x28; 19B shape
-?fwd@Rva00330C0FOwner@@QAEHH@Z,,0x00330C0F,19,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp,matched,Address-derived adjust-call-echo -0x3C; 19B shape
 ?fwd@Rva00330C22Owner@@QAEHH@Z,,0x00330C22,19,Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp,matched,Address-derived adjust-call-echo -0x3C; 19B shape
 ?rva0035519E@AiOrdersManager@@QAEXH@Z,,0x0035519E,23,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp,matched,AiOrdersManager find-then-run via rowed Armor find; 23B shape
 ?rva003551D3@AiOrdersManager@@QAEXH@Z,,0x003551D3,23,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp,matched,Address-derived find-then-run void(int); 23B push/call/test/mov/call shape
 ?fwd@Rva0040D3E8Owner@@QAEXH@Z,,0x0040D3E8,23,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp,matched,Address-derived find-then-run void(int); 23B push/call/test/mov/call shape
-?fwd@Rva0040FAFEOwner@@QAEXH@Z,,0x0040FAFE,23,Code/GameEngine/Source/Common/RvaFindThenRunFamily.cpp,matched,Address-derived find-then-run void(int); 23B push/call/test/mov/call shape
-?fwd@Rva0029B16AOwner@@QAEXHH@Z,,0x0029B16A,18,Code/GameEngine/Source/Common/RvaNullCheckArgFwds2.cpp,matched,Address-derived null-checked member forward 2-arg; 18B/retN shape
-?fwd@Rva002A9CDEOwner@@QAEXHH@Z,,0x002A9CDE,18,Code/GameEngine/Source/Common/RvaNullCheckArgFwds2.cpp,matched,Address-derived null-checked member forward 2-arg; 18B/retN shape
-?fwd@Rva002A9CF0Owner@@QAEXH@Z,,0x002A9CF0,18,Code/GameEngine/Source/Common/RvaNullCheckArgFwds2.cpp,matched,Address-derived null-checked member forward 1-arg; 18B/retN shape
 ?Rva001ECB78@@YGXHHHH@Z,,0x001ECB78,25,Code/GameEngine/Source/Common/RvaTopByteFwds.cpp,matched,Address-derived top-byte forward: (a;b;c;&c+3) to stdcall worker; 25B shape
 ?Rva001ECD19@@YGXHHH@Z,,0x001ECD19,25,Code/GameEngine/Source/Common/RvaTopByteFwds.cpp,matched,Address-derived top-byte forward (a;b;c;&c+3); 25B ebp-frame shape
-?Rva004F83F2@@YGXHHHH@Z,,0x004F83F2,25,Code/GameEngine/Source/Common/RvaTopByteFwds.cpp,matched,Address-derived top-byte forward (a;b;c;&c+3); 25B ebp-frame shape
-?Rva004F8B89@@YGXHHH@Z,,0x004F8B89,25,Code/GameEngine/Source/Common/RvaTopByteFwds.cpp,matched,Address-derived top-byte forward (a;b;c;&c+3); 25B ebp-frame shape
-?read@Rva004C7330Owner@@QAEPAV1@PAH@Z,,0x004C7330,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through: first-deref plus sub-read-rest; 29B shape
-?read@Rva004F802COwner@@QAEPAV1@PAH@Z,,0x004F802C,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
-?read@Rva00501DD4Owner@@QAEPAV1@PAH@Z,,0x00501DD4,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
-?read@Rva005020AFOwner@@QAEPAV1@PAH@Z,,0x005020AF,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
-?read@Rva00502909Owner@@QAEPAV1@PAH@Z,,0x00502909,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
-?read@Rva005564EBOwner@@QAEPAV1@PAH@Z,,0x005564EB,29,Code/GameEngine/Source/Common/RvaReadThroughFamily.cpp,matched,Address-derived read-through first-deref plus sub-read-rest; 29B shape
 ?fwd@Rva00057B27Owner@@QAEHHH@Z,,0x00057B27,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run; 36B shape
 ?fwd@Rva00057D38Owner@@QAEHHH@Z,,0x00057D38,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run (m+1 then two calls then return arg); 36B shape
 ?fwd@Rva000E0536Owner@@QAEHHH@Z,,0x000E0536,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run (m+1 then two calls then return arg); 36B shape
 ?fwd@Rva003EF34AOwner@@QAEHHH@Z,,0x003EF34A,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run (m+1 then two calls then return arg); 36B shape
 ?fwd@Rva0052B7F8Owner@@QAEHHH@Z,,0x0052B7F8,36,Code/GameEngine/Source/Common/RvaCountNoteRunFamily.cpp,matched,Address-derived count-note-run (m+1 then two calls then return arg); 36B shape
-?fwd@Rva001FBC43@@QAEHHH@Z,,0x001FBC43,38,Code/GameEngine/Source/Common/RvaChainedFindFamily.cpp,matched,Address-derived chained find head-store plus sub-tail; 38B shape
-?fwd@Rva001FBFEA@@QAEHHH@Z,,0x001FBFEA,38,Code/GameEngine/Source/Common/RvaChainedFindFamily.cpp,matched,Address-derived chained find head-store plus sub-tail; 38B shape
-?fwd@Rva001FC357@@QAEHHH@Z,,0x001FC357,38,Code/GameEngine/Source/Common/RvaChainedFindFamily.cpp,matched,Address-derived chained find head-store plus sub-tail; 38B shape
-?fwd@Rva001FC451@@QAEHHH@Z,,0x001FC451,38,Code/GameEngine/Source/Common/RvaChainedFindFamily.cpp,matched,Address-derived chained find head-store plus sub-tail; 38B shape
-?poll@Rva0004E4BD@@QAEXXZ,,0x0004E4BD,12,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked first-member forward; 12B shape
-?poll@Rva000A8AB4@@QAEXXZ,,0x000A8AB4,12,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked first-member forward; 12B shape
-?poll@Rva000A8ACC@@QAEXXZ,,0x000A8ACC,12,Code/GameEngine/Source/Common/RvaNullCheckedFwds.cpp,matched,Address-derived null-checked first-member forward; 12B shape
 ?Rva000A9DF8@@YAXPAXABVRva000AB3E2Element@@@Z,,0x000A9DF8,18,Code/GameEngine/Source/Common/RvaGuardedConstructTrio.cpp,matched,Address-derived guarded in-place construction; 18B shape
 ?Rva000A9E0A@@YAXPAXABVRva000AB419Element@@@Z,,0x000A9E0A,18,Code/GameEngine/Source/Common/RvaGuardedConstructTrio.cpp,matched,Address-derived guarded in-place construction; 18B shape
-?Rva004D9ACE@@YAXPAXABVRva004D971D@@@Z,,0x004D9ACE,18,Code/GameEngine/Source/Common/RvaGuardedConstructTrio.cpp,matched,Address-derived guarded in-place construction; 18B shape
-?step@Rva0010BA61@@QAEXXZ,,0x0010BA61,16,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-first-member step; 16B shape
-?step@Rva005962E7@@QAEXXZ,,0x005962E7,16,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-first-member step; 16B shape
-?fwd@Rva0007C2F0Owner@@QAEHHH@Z,,0x0007C2F0,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine: head=worker(extra;head;tag;&tag+3); 38B shape
-?fwd@Rva00173DF8Owner@@QAEHHH@Z,,0x00173DF8,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
-?fwd@Rva00335C62Owner@@QAEHHH@Z,,0x00335C62,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
-?fwd@Rva0054152DOwner@@QAEHHH@Z,,0x0054152D,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
-?fwd@Rva00541553Owner@@QAEHHH@Z,,0x00541553,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
-?fwd@Rva005B129FOwner@@QAEHHH@Z,,0x005B129F,38,Code/GameEngine/Source/Common/RvaTagCombineFamily.cpp,matched,Address-derived tag-combine head=worker(extra;head;tag;&tag+3); 38B ebp-frame shape
-?step@Rva0033B1CD@@QAEXXZ,,0x0033B1CD,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-sub step with narrow/wide and chained phases; 17B shape
-?step@Rva005CDDF0@@QAEXXZ,,0x005CDDF0,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-sub step with narrow/wide and chained phases; 17B shape
 ?step@Rva005E5554@@QAEXXZ,,0x005E5554,17,Code/GameEngine/Source/Common/RvaHelperMemberSteps.cpp,matched,Address-derived helper-then-sub step with narrow/wide and chained phases; 17B shape
 ?Rva003BBEDE@@YAXXZ,,0x003BBEDE,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
 ?Rva003BBEE9@@YAXXZ,,0x003BBEE9,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
 ?Rva003BD424@@YAXXZ,,0x003BD424,11,Code/GameEngine/Source/Common/RvaGlobalThisFwds.cpp,matched,Address-derived global-this forward; 11B mov-ecx-global tail-jmp shape
 ??0ParticleSystemTemplateTail@FXParticleSystem@@QAE@XZ,,0x001FBF37,22,Code/GameEngine/Source/GameLogic/Object/Rva001FA5A5Ctor.cpp,matched,Opaque pinned tail ctor zeroed ints then member ctor by REL32 graph
-??0Rva001FBF37@@QAE@XZ,,0x001FBF37,22,Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp,matched,Address-derived chained default ctor with member-initializer zeroes; 22B shape
 ??0Rva003B44DC@@QAE@XZ,,0x003B44DC,18,Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp,matched,Address-derived chained default ctor with member-initializer zeroes; 18B shape
-?Rva0021E741@@YAHHHHH@Z,,0x0021E741,27,Code/GameEngine/Source/Common/RvaForward4To5Family.cpp,matched,Address-derived 4-to-5 const-zero forwarder callee(a;b;c;0;d); 27B shape
-?Rva002BAE0F@@YAHHHHH@Z,,0x002BAE0F,27,Code/GameEngine/Source/Common/RvaForward4To5Family.cpp,matched,Address-derived 4-to-5 const-zero forwarder callee(a;b;c;0;d); 27B shape
-?Rva00337C55@@YAHHHHH@Z,,0x00337C55,27,Code/GameEngine/Source/Common/RvaForward4To5Family.cpp,matched,Address-derived 4-to-5 const-zero forwarder callee(a;b;c;0;d); 27B shape
 ?Rva002BFCF5@@YGXUVideoPair@@@Z,,0x002BFCF5,30,Code/GameEngine/Source/Common/RvaPairCopyCallFamily.cpp,matched,Address-derived pair-copy-call; 30B shape
 ?Rva005258F8@@YGXUVideoPair@@@Z,,0x005258F8,30,Code/GameEngine/Source/Common/RvaPairCopyCallFamily.cpp,matched,Address-derived pair-copy-call to stdcall worker; 30B ebp-frame shape
-?copyFrom@Rva005E35B5@@QAEPAV1@PBX@Z,,0x005E35B5,20,Code/GameEngine/Source/Common/RvaMemcpyReturnThisFamily.cpp,matched,Address-derived memcpy-return-this 8 dwords; 20B shape
-?copyFrom@Rva005EEEFF@@QAEPAV1@PBX@Z,,0x005EEEFF,20,Code/GameEngine/Source/Common/RvaMemcpyReturnThisFamily.cpp,matched,Address-derived memcpy-return-this N dwords; 20B shape
-?copyFrom@Rva005F8F00@@QAEPAV1@PBX@Z,,0x005F8F00,20,Code/GameEngine/Source/Common/RvaMemcpyReturnThisFamily.cpp,matched,Address-derived memcpy-return-this N dwords; 20B shape
 ??0Rva005F5C77@@QAE@PAXPAURva005F5C77In@@@Z,,0x005F5C77,174,Code/GameEngine/Source/Common/Rva005F5C77Ctor.cpp,matched,button ctor sibling of 0x005F5F2B: 3-base with button-temp holder init via pinned 0x005E1680 and image lookup through global 0xE06900 via rowed 0x005E16B9 plus unlock via rowed 0x005E1158 plus listener append via rowed 0x005A0B4C; /O1 /EHsc; poly Rva005E1158 view shares holder vptr slot
 ??0Rva005F5F2B@@QAE@PAXPAURva005F5F2BIn@@@Z,,0x005F5F2B,174,Code/GameEngine/Source/Common/Rva005F5F2BCtor.cpp,matched,button ctor sibling of 0x005F5C77: same 3-base shape via shared Base0 and holder views plus own D vtables; image global 0xE06918; pinned holder ctor reused; /O1 /EHsc
 ??1Rva005F6051@@QAE@XZ,,0x005F6051,69,Code/GameEngine/Source/Common/Rva005F6051Dtor.cpp,matched,member dtor via rowed 0x005242D7 at +0x18 plus rowed 0x0052413E at +0xC plus AsciiString at +8; /O1 /EHsc; pinned name reused
@@ -61809,9 +61721,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva005F86FE@@QAE@PAX0@Z,,0x005F86FE,73,Code/GameEngine/Source/Common/Rva005F86FECtor.cpp,matched,ctor with new-Heap member via pinned 0x005F8671 on rowed operator new; /O1 /EHsc
 ?Rva005F88D6Get@@YAHH@Z,,0x005F88D6,30,Code/GameEngine/Source/Common/Rva005F88D6Get.cpp,matched,null-checked global-logic lookup head; sibling of banked 0x005F88F4; /O1
 ?rva000B22E4@Rva000B22E4NullForwarder@@QAEXH@Z,,0x000B22E4,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
-?rva004FC176@Rva004FC176NullForwarder@@QAEXH@Z,,0x004FC176,15,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,Null-checked member tail forwarder by REL32
 ?Rva0040FAFEAdvance@@YGXH@Z,,0x0040FAFE,23,Code/GameEngine/Source/Common/Rva0040F7E5Advance.cpp,matched,chain via 0x0040D008 find and 0x0040F7E5 advance caller jmp 0x0023D091
-?rva005CDDF0@Rva005CDDF0@@QAEXXZ,,0x005CDDF0,17,Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp,matched,helper rva005E590F then wide validate at plus 0xC slot 1
 ??1Rva004ABFD9@@UAE@XZ,,0x004ABFD9,72,Code/GameEngine/Source/Common/Rva004ABFD9Dtor.cpp,matched,dtor removes from global registry then member then Snapshot base
 ?rva00574851@Rva00574815@@QAEXH@Z,,0x00574851,83,Code/GameEngine/Source/Common/Rva00574851Vslot.cpp,matched,slot16 vtable 0x0086E3E8 plus rowed clear new ctor set
 ?rva00355358@AiOrdersManager@@QAEXHPAX@Z,,0x00355358,52,Code/GameEngine/Source/GameLogic/Object/Rva00355358Broadcast.cpp,matched,walks list at holder+4 calling AiOrdersManager 0x355183 with arg and content+0x74
@@ -61869,7 +61779,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005D4E37@Rva005D4E37@@QAEXHPBD_N@Z,,0x005D4E37,44,Code/GameEngine/Source/Common/Rva005D4E37Set.cpp,matched,
 ?rva005D4EA8@Rva005D4EA8@@QAEPAXHH@Z,,0x005D4EA8,30,Code/GameEngine/Source/Common/Rva005D4EA8Forward.cpp,matched,
 ?rva005E39AE@Rva005E39AE@@QAEXXZ,,0x005E39AE,43,Code/GameEngine/Source/Common/Rva005E39AEUpdate.cpp,matched,
-?rva005E5884@Rva005E5884@@QAEHHH@Z,,0x005E5884,26,Code/GameEngine/Source/Common/Rva005E5884Get.cpp,matched,
 ?rva005E3AAA@Rva005E39AE@@QAEXH@Z,,0x005E3AAA,55,Code/GameEngine/Source/Common/Rva005E39AEUpdate.cpp,matched,
 ?rva005D3A91@Rva005D3A91@@QAEXXZ,,0x005D3A91,97,Code/GameEngine/Source/Common/Rva005D3A91Refresh.cpp,matched,
 ?rva005E4DAF@Rva005E4DAF@@QAEXH@Z,,0x005E4DAF,54,Code/GameEngine/Source/Common/Rva005E4DAFTwins.cpp,matched,
@@ -61883,10 +61792,8 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva003EEF38@Rva003EEF38@@QAEXH@Z,,0x003EEF38,104,Code/GameEngine/Source/Common/Rva003EE900Forward.cpp,matched,chain via 0x003EE7CA loop saving to +0x14
 ?rva005CCB63@Rva005CCB63@@QAEXXZ,,0x005CCB63,8,Code/GameEngine/Source/Common/Rva005CCB63Forwarder.cpp,matched,tail-jmp to rowed 0x005CCB23 thiscall caller 0x005CD762
 ?bfmePopulateGameReport@GameLogic@@QAEXPAVGameInfo@@PAH@Z,,0x00247378,1463,Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp,matched,BFME1 donor GameLogicPopulateGameReport.cpp adapted to BFME2 format/concat overloads; setPlayerLeaveStatus; LW CRC flag and offsets
-?erase@?$vector@URva001741EBElement@@V?$allocator@URva001741EBElement@@@_STL@@@_STL@@QAEPAURva001741EBElement@@PAU3@0@Z,,0x00173DF8,38,Code/Libraries/Source/WWVegas/WWLib/StlportVectorErase38Family.cpp,matched,STLport vector<Rva001741EBElement>::erase trivial destructor range erase
 ?erase@?$vector@UBfmeOpaqueRecord156@@V?$allocator@UBfmeOpaqueRecord156@@@_STL@@@_STL@@QAEPAUBfmeOpaqueRecord156@@PAU3@0@Z,,0x00335C62,38,Code/Libraries/Source/WWVegas/WWLib/StlportVectorErase38Family.cpp,matched,STLport vector<BfmeOpaqueRecord156>::erase trivial destructor range erase
 ?erase@?$vector@VRva0054103E@@V?$allocator@VRva0054103E@@@_STL@@@_STL@@QAEPAVRva0054103E@@PAV3@0@Z,,0x00541553,38,Code/Libraries/Source/WWVegas/WWLib/StlportVectorErase38Family.cpp,matched,STLport vector<Rva0054103E>::erase trivial destructor range erase
-?erase@?$vector@UBfmeStringRecord002CF4C6@@V?$allocator@UBfmeStringRecord002CF4C6@@@_STL@@@_STL@@QAEPAUBfmeStringRecord002CF4C6@@PAU3@0@Z,,0x005B129F,38,Code/Libraries/Source/WWVegas/WWLib/StlportVectorErase38Family.cpp,matched,STLport vector<BfmeStringRecord002CF4C6>::erase trivial destructor range erase
 ?rva005C3E31@Rva005C3F02@@QAEXUTreeHintRef00217D4C@@@Z,,0x005C3E31,72,Code/GameEngine/Source/Common/Rva005C3E31Add.cpp,matched,TreeHintRef forwarder to member element Add
 ??0Rva005C4A91@@QAE@ABVAsciiString@@@Z,,0x005C49EF,46,Code/GameEngine/Source/Common/Rva005C4A91Ctor.cpp,matched,Rva005C4A91 constructor over Rva004FA830 base
 ??1Rva005C4230@@UAE@XZ,,0x005C4230,80,Code/GameEngine/Source/Common/Rva005C4230Dtor.cpp,matched,Rva005C4230 destructor: passes m_str.str() to 0xDFEF18 then calls base dtor 0x5C4B1B
@@ -61913,7 +61820,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?Rva0045878Count@@YAHXZ,,0x00045878,106,Code/Libraries/Source/WWVegas/WW3D2/Rva0045878Video.cpp,matched,
 ?Rva00458E2Get@@YGXHPAH00@Z,,0x000458E2,162,Code/Libraries/Source/WWVegas/WW3D2/Rva0045878Video.cpp,matched,
 ?rva000456C9@Rva000456C9@@QAEXPBV?$RefCountPtr@VTextureClass@@@@@Z,,0x000456C9,39,Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp,matched,
-?rva00058913@Rva00058913@@QAEXPAURva00058913Out@@I@Z,,0x00058913,42,Code/GameEngine/Source/Common/Rva00057B27ReserveSet.cpp,matched,
 ?rva00043073@Rva00043073@@QAEXMMM_N@Z,,0x00043073,85,Code/Libraries/Source/WWVegas/WW3D2/Rva00043073Gamma.cpp,matched,
 ?Rva000527FB@@YGEPAVBfmeAudioEventPrefix136@@@Z,,0x000527FB,92,Code/GameEngine/Source/Common/Audio/Rva000527FB.cpp,matched,
 ?rva00033A80@GeneralAllocator@Allocator@EA@@QAEI_N@Z,,0x00033A80,269,Code/GameEngine/Source/Common/System/Rva00033A80Query.cpp,matched,GeneralAllocator largest-block query via bins at +0x428/+0x3C/+0x2C; pinned 0x33930 reused; SEH stub 0xB5CC48 via RAII idiom; Ghidra extent to 0x33B8D
@@ -61922,7 +61828,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00082B87@Rva00082B87Host@@QAEXH@Z,,0x00082B87,45,Code/GameEngine/Source/Common/Rva00082B87DetachErase.cpp,matched,detach twin A: mgr at +0x3C with 0xC8 diff key plus hint-range erase at +0x40 via pinned view
 ?rva00082BB4@Rva00082BB4Host@@QAEXH@Z,,0x00082BB4,45,Code/GameEngine/Source/Common/Rva00082B87DetachErase.cpp,matched,detach twin B: mgr at +0x48 with 0xCC diff key plus hint-range erase at +0x4C via pinned view
 ?rva00069AF5@Rva00069AF5Host@@QAEXPAM@Z,,0x00069AF5,215,Code/GameEngine/Source/Common/Rva00069AF5Falloff.cpp,matched,SSE spatial falloff leaf: nullable +0x37C0 subobject with dual null checks; 5.0/0.5/10.0 shared floats as compiler literals; x87 fsqrt via inline-asm helper; out quartet (fa fb e dist); address names
-?rva0007C2F0@Rva0007C2F0Host@@QAEPAURegion2D@@PAU2@0@Z,,0x0007C2F0,38,Code/GameEngine/Source/Common/Rva0007C2F0Filter.cpp,matched,Region2D filter via 4-push 7BF5A alias view (definition ignores 4th; leftover eax stored); /Oy- frame; address names
 ?rva0007F92A@Rva0007F92AHost@@QAEXHH@Z,,0x0007F92A,26,Code/GameEngine/Source/Common/Rva0007F92AGuard.cpp,matched,guard wrapper tail-jumping to pinned 0x7F87C; dual null checks on global plus 37C0; return-void-callee emits jmp; address names
 ?rva0007D9B5@Rva0007D9B5Host@@QAEXH@Z,,0x0007D9B5,26,Code/GameEngine/Source/Common/Rva0007D9B5Bodies.cpp,matched,address name; wrapper via +0x04 with int arg plus pinned other
 ?rva0007D9CF@Rva0007D9B5Host@@QAEXPBH@Z,,0x0007D9CF,29,Code/GameEngine/Source/Common/Rva0007D9B5Bodies.cpp,matched,address name; 12B copy to +0x08 plus pinned other
@@ -61953,9 +61858,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva005E35B5@@QAE@ABV0@@Z,,0x005E35B5,20,Code/GameEngine/Source/Common/Rva005E35B5Memcpy.cpp,matched,copy ctor of 32-byte word-array holder with rep movsd
 ??0Rva005EEEFF@@QAE@ABV0@@Z,,0x005EEEFF,20,Code/GameEngine/Source/Common/Rva005E35B5Memcpy.cpp,matched,copy ctor of 20-byte word-array holder with rep movsd
 ??0Rva005F8F00@@QAE@ABV0@@Z,,0x005F8F00,20,Code/GameEngine/Source/Common/Rva005E35B5Memcpy.cpp,matched,copy ctor of 36-byte word-array holder with rep movsd
-?rva002BFCF5@Rva002BFCF5@@QAEXHH@Z,,0x002BFCF5,30,Code/GameEngine/Source/Common/Rva002BFCF5TwoIntWraps.cpp,matched,two-int pack wrapper calling unrowed member 0x002BFA86
-?rva003A37DC@Rva003A37DC@@QAEXHH@Z,,0x003A37DC,30,Code/GameEngine/Source/Common/Rva002BFCF5TwoIntWraps.cpp,matched,two-int pack wrapper calling unrowed member 0x002ADCE1
-?rva005258F8@Rva005258F8@@QAEXHH@Z,,0x005258F8,30,Code/GameEngine/Source/Common/Rva002BFCF5TwoIntWraps.cpp,matched,two-int pack wrapper calling unrowed member 0x00525407
 ?rva002F1C5F@Rva002F1C5F@@QAEPAV1@HH@Z,,0x002F1C5F,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x002F0C32
 ?rva002F1CB3@Rva002F1CB3@@QAEPAV1@HH@Z,,0x002F1CB3,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x002F0C55
 ?rva004152BC@Rva004152BC@@QAEPAV1@HH@Z,,0x004152BC,42,Code/GameEngine/Source/Common/Rva002F1C5FSelfLink.cpp,matched,self-link init returning this calling unrowed member 0x004151C4
@@ -61988,8 +61890,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004F06E5@Rva004F06E5@@QAEXXZ,,0x004F06E5,49,Code/GameEngine/Source/Common/Rva004F06E5Teardown.cpp,matched,holder teardown: unless flag bit set free slot-0 result else pinned fallback; always clear holder; full byte gate
 ?rva004E9F6E@Rva004E9F6E@@QAEXXZ,,0x004E9F6E,68,Code/GameEngine/Source/Common/Rva004E9F6EGate.cpp,matched,empty-name gate via world probe plus TheEmptyString compare then bounds-gated tail-call; full byte gate
 ?rva004F4927@Rva004F4927@@QAEXXZ,,0x004F4927,59,Code/GameEngine/Source/Common/Rva004F4927Dispatch.cpp,matched,probe-gated quad slot dispatch then pinned tail worker; full byte gate
-?rva004F9EF3@@YAXPAURva004F6352@@0URva004F6352Cmp@@@Z,,0x004F9EF3,70,Code/Libraries/Source/WWVegas/WWLib/Rva004F9EF3Sort.cpp,matched,sort driver: element count plus halving depth plus pinned phase plus rowed final insertion; full byte gate
-?rva004ED08A@Rva004ED08A@@QAEXXZ,,0x004ED08A,77,Code/GameEngine/Source/Common/Rva004ED08ASweep.cpp,matched,AI group sweep over 0x14 entries via five rowed callees; full byte gate
 ?rva004EE79E@Rva004EE79E@@QAEXPAVRva004E06FBPtrChase32Field@@@Z,,0x004EE79E,79,Code/GameEngine/Source/Common/Rva004EE79ESelect.cpp,matched,counted selection via key plus link tag plus world push plus tag-indexed counter; full byte gate
 ?rva004F9635@@YGXPAURva004F9635Rec@@@Z,,0x004F9635,35,Code/Libraries/Source/WWVegas/WWLib/Rva004F9635Sort.cpp,matched,range sort via rowed STL sort with zeroed comp; full byte gate
 ?rva004EE15B@Rva004EE15B@@QAEXPAVRva004EE15BObj@@@Z,,0x004EE15B,78,Code/GameEngine/Source/Common/Rva004EE15BFwd.cpp,matched,triple slot forward with paired-byte scratch array; full byte gate
@@ -62052,7 +61952,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??0Rva004ABFD9@@QAE@ABV0@@Z,,0x004ABF47,102,Code/GameEngine/Source/Common/Rva004ABFD9Copy.cpp,matched,Polymorphic copy ctor: pinned base copy then vtable 0xC549F8 then rowed member copy and fields then registry insert
 ??0Rva004E2C66@@QAE@ABV0@@Z,,0x004E2C66,83,Code/GameEngine/Source/Common/Rva004E2382Ctor.cpp,matched,
 ?onEnter@AIMoveToAndEvacuateState@@UAE?AW4StateReturnType@@XZ,,0x003500E6,103,Code/GameEngine/Source/GameLogic/AI/AIMoveToAndEvacuateStateOnEnter.cpp,matched,Retail slot-4 body loads goal x/y/z before position subtraction; compiler barriers retain that grouped evaluation/store order. Target calls rowed Rva0033FA64Do and AIMoveToState::onEnter after INV comparison.
-?Rva00433B96@@YAXPAPAURva00433B96Node@@PAU1@1ABVUnicodeString@@@Z,,0x00433B96,39,Code/Libraries/Source/WWVegas/WWLib/stlport_list_unicodestring_find_00433B96.cpp,matched,address-derived UnicodeString list search; identity unresolved; reconstructed from target loop and compare call
 ?Rva00433C18@@YAXABVUnicodeString@@_N@Z,,0x00433C18,93,Code/Libraries/Source/WWVegas/WWLib/stlport_list_unicodestring_add_if_missing_00433C18.cpp,matched,address-derived add-if-missing over target-proven UnicodeString list at 0x00E032DC; clears on flag and checks empty input
 ?Rva00433C75@@YAXABVAsciiString@@_N@Z,,0x00433C75,125,Code/Libraries/Source/WWVegas/WWLib/gametext_list_add_from_ascii_00433C75.cpp,matched,Address-derived wrapper; target proves empty ASCII uses TheNullChr; other input fetches GameTextInterface slot 0x38; both pass Unicode result and flag to verified helper 0x00433C18.
 ?rva0043448C@AptSaveLoad@@QAEXXZ,,0x0043448C,135,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva0043448C.cpp,matched,address-derived AptSaveLoad save/load handler; target tests pending UnicodeString through Rva0037BBED and writes state 17 or helper state
@@ -62083,7 +61982,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva005FA89CInit@@YIPAVRva005FA89C@@PAV1@HHHPAURva005FA89CC@@@Z,,0x005FA89C,41,Code/GameEngine/Source/Common/Rva005FA89C.cpp,matched,fastcall chained init via pinned 0x005FF0F6; literal vtable 0x00C79E30 plus m_28 deref; returns this; /O1
 ?rva004E52DC@Rva004E52DC@@QAEXXZ,,0x004E52DC,31,Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp,matched,circular list walk calling pinned member; full byte gate
 ?rva004E7277@Rva004E7277@@QAEXXZ,,0x004E7277,36,Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp,matched,state gate tail-calling rowed Close; full byte gate
-?rva004E7392@Rva004E7277@@QAEPAXPAV1@@Z,,0x004E7392,39,Code/GameEngine/Source/Common/Rva004E52DCWalk.cpp,matched,same-class copy-init through pinned setter; full byte gate
 ?rva004F8B89@@YGXHHH@Z,,0x004F8B89,25,Code/GameEngine/Source/Common/Rva004F8B89Stub.cpp,matched,stdcall repack to pinned callee with Oy-minus frame; full byte gate
 ?rva004E99D6@@YAXHHH@Z,,0x004E99D6,27,Code/GameEngine/Source/Common/Rva004F8B89Fwd.cpp,matched,cdecl forward with stack byte to pinned callee; full byte gate
 ?rva004F83F2@@YGXHHHH@Z,,0x004F83F2,25,Code/GameEngine/Source/Common/Rva004F8B89Stub.cpp,matched,stdcall 4-arg repack twin; full byte gate
@@ -62113,36 +62011,27 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004FC176@Rva004FC176@@QAEXH@Z,,0x004FC176,15,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
 ?rva005CCB16@Rva005CCB16@@QAEXXZ,,0x005CCB16,13,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
 ?rva005D13D5@Rva005D13D5@@QAEXXZ,,0x005D13D5,13,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,matched,guarded one-callee forward at its pinned address; see the source comment
-?rva001EFC42@Rva001EFC42@@QAEXHHH@Z,,0x001EFC42,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
 ?rva0018C822@Rva0018C822@@QAEXHHH@Z,,0x0018C822,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
 ?rva0018C838@Rva0018C838@@QAEXHH@Z,,0x0018C838,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
 ?rva001DA73E@Rva001DA73E@@QAEXHHH@Z,,0x001DA73E,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
 ?rva001DAB29@Rva001DAB29@@QAEXHH@Z,,0x001DAB29,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
 ?rva0056A2DE@Rva0056A2DE@@QAEXHHH@Z,,0x0056A2DE,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
 ?rva0056A362@Rva0056A362@@QAEXHH@Z,,0x0056A362,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
-?rva005F50A3@Rva005F50A3@@QAEXHHH@Z,,0x005F50A3,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
-?rva005F50D3@Rva005F50D3@@QAEXHH@Z,,0x005F50D3,22,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,matched,F22 ebp-frame forwarder: forwards first two args plus (char*)&b+3 to pinned thiscall callee
 ??0Rva00210EF1@@QAE@H@Z,,0x00210EF1,24,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,F24 single-base ctor forwarding int to pinned base and stamping derived vtable
-??0Rva003B0835@@QAE@H@Z,,0x003B0835,24,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,F24 single-base ctor forwarding int to pinned base and stamping derived vtable
 ??0Rva005D50C4@@QAE@XZ,,0x005D50C4,20,Code/GameEngine/Source/Common/SingleBaseCtors.cpp,matched,F24 single-base ctor forwarding constant 1 to pinned base and stamping derived vtable
-?rva005C834A@Rva005C834AOwner@@QAEXHH@Z,,0x005C834A,37,Code/GameEngine/Source/Common/RangeApplyWrappers.cpp,matched,F34 range-apply wrapper over 0x48-byte elements forwarding two args
-?rva005C839B@Rva005C839BOwner@@QAEXHH@Z,,0x005C839B,37,Code/GameEngine/Source/Common/RangeApplyWrappers.cpp,matched,F34 range-apply wrapper over 0x48-byte elements forwarding two args
 ?rva00569393@Rva00569393Owner@@QAEXH@Z,,0x00569393,34,Code/GameEngine/Source/Common/RangeApplyWrappers.cpp,matched,F34 pointer-array wrapper forwarding one arg plus owner per element
 ?rva005CF22C@Rva005CF22COwner@@QAEXH@Z,,0x005CF22C,78,Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp,matched,F78 throwing new plus in-place ctor plus final on member subobject
 ?rva005CF6B5@Rva005CF6B5Owner@@QAEXH@Z,,0x005CF6B5,78,Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp,matched,F78 throwing new plus in-place ctor plus final on member subobject
 ?rva005CF703@Rva005CF703Owner@@QAEXH@Z,,0x005CF703,78,Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp,matched,F78 throwing new plus in-place ctor plus final on member subobject
 ?rva004ED3A2@Rva004ED3A2@@QAEPAXPAX@Z,,0x004ED3A2,47,Code/GameEngine/Source/Common/CursorCompaction.cpp,matched,F47 cursor-compaction wrapper cond-calling pinned cdecl helper with tag
-?rva005412E2@Rva005412E2@@QAEPAXPAX@Z,,0x005412E2,47,Code/GameEngine/Source/Common/CursorCompaction.cpp,matched,F47 cursor-compaction wrapper cond-calling pinned cdecl helper with tag
 ?rva00541311@Rva00541311@@QAEPAXPAX@Z,,0x00541311,47,Code/GameEngine/Source/Common/CursorCompaction.cpp,matched,F47 cursor-compaction wrapper cond-calling pinned cdecl helper with tag
 ?rva0059D1A9@@YGXHHHH@Z,,0x0059D1A9,26,Code/GameEngine/Source/Common/Rva0059CFAAFamily.cpp,matched,stdcall forwarder with a2+1 to pinned 0x59CF34
 ?rva0059D1C3@@YGXHHHH@Z,,0x0059D1C3,26,Code/GameEngine/Source/Common/Rva0059CFAAFamily.cpp,matched,stdcall forwarder with a2+1 to pinned 0x59CFAA
-?rva0059E0F7@@YAHH@Z,,0x0059E0F7,24,Code/GameEngine/Source/Common/Rva0059E098Small.cpp,matched,
 ?rva005AE78A@@YAHHHH@Z,,0x005AE78A,27,Code/GameEngine/Source/Common/Rva005AE78AChain.cpp,matched,cdecl wrapper passing char scratch to pinned callee and returning its result
 ?rva005AE7A5@Rva005AE7A5Class@@QAEHH@Z,,0x005AE7A5,33,Code/GameEngine/Source/Common/Rva005AE78AChain.cpp,matched,thiscall member returning callee result unless it equals m_4
 ?rva005A5BAF@Rva005A5BAFClass@@QAEXXZ,,0x005A5BAF,24,Code/GameEngine/Source/Common/Rva005A5BAFCheck.cpp,matched,flag check clearing m_4A0 and calling pinned stdcall callee with 1
 ?rva005AFC21@Rva005AFC21Class@@QAEXPAVGameWindow@@@Z,,0x005AFC21,43,Code/GameEngine/Source/Common/Rva005AFC21Store.cpp,matched,window store with null early-out then list-length and pinned callee calls
 ?rva005B0416@@YGXH@Z,,0x005B0416,48,Code/GameEngine/Source/Common/Rva005B0416Calls.cpp,matched,global stdcall threading one arg through three cdecl callees with batched cleanup
-?rva005B129F@Rva005B129FClass@@QAEHHH@Z,,0x005B129F,38,Code/GameEngine/Source/Common/Rva005B129FForward.cpp,matched,thiscall member forwarding to pinned callee and storing result
 ?rva0059E2DC@@YA_NPAPAVFileClass@@0URva0059E2DCBox@@@Z,,0x0059E2DC,33,Code/GameEngine/Source/Common/Rva0059E2DCBox.cpp,matched,box-method loop over pointer range calling pinned thiscall 0x4FC957 per element; returns box low byte
 ?Run@Rva0059EB6FBox@@QAE_NH@Z,,0x0059EB6F,64,Code/GameEngine/Source/Common/Rva0059EB6FBox.cpp,matched,gated notify-set-go on info singleton and +0x40C sub-object via pinned 0x44D5EE
 ?Run@Rva005A5B38Box@@QAE_NXZ,,0x005A5B38,119,Code/GameEngine/Source/Common/Rva005A5B38Box.cpp,matched,flag-gated refresh toggle with AptCall and pinned 0x5A51B9 helper plus timeGetTime stamp
@@ -62178,7 +62067,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva000BBE29@@YG_NHPAUVector3@@@Z,,0x000BBE29,93,Code/GameEngine/Source/Common/Rva000BBE29.cpp,matched,
 ?rva000BFD77@Rva000B8F5A@@QAEXXZ,,0x000BFD77,40,Code/GameEngine/Source/Common/Rva000B8F5A.cpp,matched,
 ?rva000BFD9F@Rva000B8F5A@@QAEXXZ,,0x000BFD9F,40,Code/GameEngine/Source/Common/Rva000B8F5A.cpp,matched,
-?rva0014F674@@YAPAXPAXI0H@Z,,0x0014F674,37,Code/GameEngine/Source/Common/Rva0014F674Loop.cpp,matched,cdecl stride loop via pinned helper
 ?addShadow@W3DVolumetricShadowManager@@QAEPAVW3DVolumetricShadow@@PAVRenderObjClass@@PAUShadowTypeInfo@Shadow@@PAVDrawable@@@Z,,0x000F2BB9,323,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowManagerAddShadow.cpp,matched,BFME1 donor W3DVolumetricShadowManager::addShadow identity (same class/name/signature/behavior); target divergences: no redundant !robj recheck; extent without length-scale multiply; single-mul PI/180 tan factor; small ShadowTypeInfo (m_sizeX +0x1C); inline KINDOF_IMMOBILE bit test; extra shadow+0x34=shadowInfo+0x08 store; Get_Anim ledger name serves the 19B Find+AddRef cache lookup; ctor pinned 0x000F1528; exact target bytes
 ?RenderVolume@W3DVolumetricShadow@@IAEXHH@Z,,0x000F49D0,231,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowRenderVolume.cpp,matched,BFME1 donor RenderVolume shape (same name/signature/mesh record/flag30/identity-matrix/DYNAMIC branch); target prologue refreshes via Get_User_Data slot 87 plus drawable +0x441 flag plus getTransformMatrix plus Set_Transform slot 21 with a no-drawable vcall pair; Peek_Lod_Model slot 138; Class_ID slot 3; Validate_Transform slot 20 explicit plus plain +0x18 transform; pins RenderMeshVolume 0x000F200A and RenderDynamicMeshVolume 0x000F42FF and identity 0x00DDD9D0; exact target bytes
 ?read_chunks@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,,0x0018B790,636,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadChunks.cpp,matched,
@@ -62213,10 +62101,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?setup@Rva001FA836@@QAEXPAX0@Z,,0x001FA836,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain bottom: slot 0x001F5E10 then rowed root 0x001FA54D
 ?setup@Rva001FB8EC@@QAEXPAX0@Z,,0x001FB8EC,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5DFC then 0x001FA836
 ?setup@Rva001FBA8C@@QAEXPAX0@Z,,0x001FBA8C,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5DE8 then 0x001FB8EC
-?setup@Rva001FBC43@@QAEXPAX0@Z,,0x001FBC43,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5DD4 then 0x001FBA8C
-?setup@Rva001FBFEA@@QAEXPAX0@Z,,0x001FBFEA,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5DC0 then 0x001FBC43
-?setup@Rva001FC357@@QAEXPAX0@Z,,0x001FC357,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5DAC then 0x001FBFEA
-?setup@Rva001FC451@@QAEXPAX0@Z,,0x001FC451,38,Code/GameEngine/Source/Common/Rva001FA836HolderChain.cpp,matched,holder-fetch chain: slot 0x001F5D98 then 0x001FC357
 ??0Rva00540B03@@QAE@XZ,,0x00540B03,69,Code/GameEngine/Source/Common/Rva00540B03Ctors.cpp,matched,head + BfmeE16 vector + zero 0x1c then member init 0x00540A26
 ??0Rva00542225@@QAE@XZ,,0x00542225,69,Code/GameEngine/Source/Common/Rva00540B03Ctors.cpp,matched,head + BfmeE16 vector + zero 0x1c then member init 0x00542067
 ??0Rva005422CF@@QAE@XZ,,0x005422CF,69,Code/GameEngine/Source/Common/Rva00540B03Ctors.cpp,matched,head + BfmeE16 vector + zero 0x1c then member init 0x00542148
@@ -62242,7 +62126,6 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?method@Rva005773C0@@QAE?AURvaF6Ret@@XZ,,0x005773C0,27,Code/GameEngine/Source/Common/RvaFamily6Forwarders.cpp,matched,value-return forwarder of field +0x0 through helper 0x0056BABF under /EHsc /Oy- /O1
 ?method@Rva005CE3DE@@QAE?AURvaF6Ret@@XZ,,0x005CE3DE,27,Code/GameEngine/Source/Common/RvaFamily6Forwarders.cpp,matched,value-return forwarder of field +0x0 through helper 0x0056BB8C under /EHsc /Oy- /O1
 ?method@Rva0004378D@@QAEXXZ,,0x0004378D,20,Code/GameEngine/Source/Common/RvaFamily7TailPairs.cpp,matched,tail pair: first 0x0025C4F3 then tail-call member second 0x0004353C at +0x280
-?method@Rva0033B1CD@@QAEXXZ,,0x0033B1CD,17,Code/GameEngine/Source/Common/RvaFamily7TailPairs.cpp,matched,tail pair: first 0x00036410 then tail-call member second 0x00036E70 at +4
 ?method@Rva005CDDF0@@QAEXXZ,,0x005CDDF0,17,Code/GameEngine/Source/Common/RvaFamily7TailPairs.cpp,matched,tail pair: first 0x005E590F then tail-call member second 0x000B3FD0 at +0xC
 ?method@Rva005E5554@@QAEXXZ,,0x005E5554,17,Code/GameEngine/Source/Common/RvaFamily7TailPairs.cpp,matched,tail pair: first 0x005E549E then tail-call member second 0x005F327A at this-8
 ?clone@Rva005CE46F@@QBE?AURvaF1Handle@@XZ,,0x005CE46F,67,Code/GameEngine/Source/Common/RvaFamily1Clones.cpp,matched,refcounted clone via forceinline init-list copy (refcount zero then vtable 0x00C75130 then Pay block) wrapped in RvaF1Handle
@@ -62455,7 +62338,6 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?Rva0051E262Init@@YA_NHH@Z,,0x0051E262,85,Code/GameEngine/Source/Common/Rva005185D8Init.cpp,matched,
 ?Rva005235A5@@YGHHEH@Z,,0x005235A5,48,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/StrategicPlayerStatusCallbacks.cpp,matched,
 ?rva0052A22C@Holder0052A22C@@QAEXPAUObj0052A22C@@@Z,,0x0052A22C,24,Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,matched,
-?Rva005258F8@@YGXHH@Z,,0x005258F8,30,Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,matched,
 ?Rva005243FA@@YAXHHH@Z,,0x005243FA,27,Code/GameEngine/Source/Common/Rva0052A22CForwarders.cpp,matched,
 ?rva0052B003@Holder0052B003@@QAEXH@Z,,0x0052B003,33,Code/GameEngine/Source/Common/Rva0052B003Loop.cpp,matched,
 ?Rva00526309@Holder00526309@@QAEXPAUObj00526309@@@Z,,0x00526309,42,Code/GameEngine/Source/Common/Rva00526309Dispatcher.cpp,matched,

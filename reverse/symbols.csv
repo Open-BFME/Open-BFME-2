@@ -11185,7 +11185,6 @@ name,address,notes
 ?rva00149002@@YAXHHPAVRva0014921EVector@@H@Z,0x00149002,"EH-protected range worker called from rva0014921e; 255B unpinned Ghidra body; address-derived name"
 ?rva00149F20@Rva00149F20NullTarget@@QAEHXZ,0x00149F20,"method a null-checked vtable-slot forwarder tail-jumps to (ret 0); opaque address name"
 ?rva0014F647@@YAXPAX0@Z,0x0014F647,"retail REL32 in 0x0014F674/0x0014F9E7 targets 0x0014F647 (cdecl 2 stack args no this; 45B Ghidra EH body); opaque candidate not identity"
-?rva0014F674@@YAPAXPAXI0H@Z,0x0014F674,"alias of rowed STL __uninitialized_fill_n at same address (duplicate identity yielded; stride-loop spelling emits identical 37B calling 0x0014F647); retains caller 0x0014FA47 resolution"
 ?rva001506BF@Rva001506BF@@QAEXPAXH0@Z,0x001506BF,"grow/realize callee: thiscall (pos,count,scratch-out); ecx=this forwarded; 0x150A8B-family passes &stack-scratch"
 ?rva00150A8B@Rva00150A8B@@QAEXH@Z,0x00150A8B,"86B grower variant 1: resize/erase+grow over 8B elems, EH-prolog, ret 0xC; called by 0x150BF9 with (n plus 12B scratch)"
 ?rva00150AE1@Rva00150AE1@@QAEXH@Z,0x00150AE1,"86B grower variant 2; called by 0x150C22"

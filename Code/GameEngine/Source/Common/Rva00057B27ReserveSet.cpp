@@ -1,5 +1,6 @@
 // cl: /MD
-// Wave-3 shape-family batch, five 36-byte frameless reserve-then-set twins:
+// Caller units retained after duplicate reserve-then-set bodies were consolidated.
+// Original Wave-3 evidence, five 36-byte reserve-then-set twins:
 //   push esi; eax=[this+0x10]+1; C1(eax); C2(b, a); return a; ret 8
 // (C1 is a one-arg thiscall on the same this with ecx passing through; C2 a
 // two-arg thiscall on the same this; the body returns its first argument.
@@ -17,6 +18,9 @@
 //   0x000E0536  0x000E0322    0x000E0298
 //   0x003EF34A  0x00212858    0x003EF264
 //   0x0052B7F8  0x00212858    0x0052B737
+class Rva00057B27Owner { public: int fwd(int, int); };
+class Rva000E0536Owner { public: int fwd(int, int); };
+
 class Rva00057B27
 {
 	char m_pad[0x10];
@@ -28,12 +32,6 @@ public:
 	void rva00058913(void *dst, unsigned int b);
 };
 
-int Rva00057B27::rva00057B27(unsigned int a, unsigned int b)
-{
-	rva00056BFE(m_count10 + 1);
-	rva00054BC3(a, b);
-	return a;
-}
 
 class Rva00057D38
 {
@@ -45,12 +43,6 @@ public:
 	int rva00057D38(unsigned int a, unsigned int b);
 };
 
-int Rva00057D38::rva00057D38(unsigned int a, unsigned int b)
-{
-	rva0053F1EC(m_count10 + 1);
-	rva000556AB(a, b);
-	return a;
-}
 
 class Rva000E0536
 {
@@ -63,12 +55,6 @@ public:
 	void rva000E055A(void *dst, unsigned int b);
 };
 
-int Rva000E0536::rva000E0536(unsigned int a, unsigned int b)
-{
-	rva000E0322(m_count10 + 1);
-	rva000E0298(a, b);
-	return a;
-}
 
 class Rva003EF34A
 {
@@ -80,12 +66,6 @@ public:
 	int rva003EF34A(unsigned int a, unsigned int b);
 };
 
-int Rva003EF34A::rva003EF34A(unsigned int a, unsigned int b)
-{
-	rva00212858(m_count10 + 1);
-	rva003EF264(a, b);
-	return a;
-}
 
 class Rva0052B7F8
 {
@@ -97,12 +77,6 @@ public:
 	int rva0052B7F8(unsigned int a, unsigned int b);
 };
 
-int Rva0052B7F8::rva0052B7F8(unsigned int a, unsigned int b)
-{
-	rva00212858(m_count10 + 1);
-	rva0052B737(a, b);
-	return a;
-}
 
 // 0x00058913 42B: fills a 9-byte (int int byte) temp via rowed reserve-then-set
 // 0x00057B27 on the same this (ecx passes through) then copies it to *dst.
@@ -117,7 +91,7 @@ void Rva00057B27::rva00058913(void *dst, unsigned int b)
 		int c2;
 		unsigned char c3;
 	} tmp;
-	rva00057B27((unsigned int)&tmp, b);
+	((Rva00057B27Owner *)this)->fwd((int)&tmp, (int)b);
 	((int *)dst)[0] = tmp.a;
 	((int *)dst)[1] = tmp.c2;
 	((unsigned char *)dst)[8] = tmp.c3;
@@ -135,7 +109,7 @@ void Rva000E0536::rva000E055A(void *dst, unsigned int b)
 		int c2;
 		unsigned char c3;
 	} tmp;
-	rva000E0536((unsigned int)&tmp, b);
+	((Rva000E0536Owner *)this)->fwd((int)&tmp, (int)b);
 	((int *)dst)[0] = tmp.a;
 	((int *)dst)[1] = tmp.c2;
 	((unsigned char *)dst)[8] = tmp.c3;
@@ -157,12 +131,3 @@ class Rva00058913
 public:
 	void rva00058913(Rva00058913Out *o, unsigned int b);
 };
-
-void Rva00058913::rva00058913(Rva00058913Out *o, unsigned int b)
-{
-	Rva00058913Out tmp;
-	((Rva00057B27 *)this)->rva00057B27((unsigned int)&tmp, b);
-	o->m_0 = tmp.m_0;
-	o->m_4 = tmp.m_4;
-	o->m_8 = tmp.m_8;
-}

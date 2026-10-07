@@ -24,11 +24,6 @@ private:
 	Rva005C8F50Elem *m_end;
 };
 
-void Rva005C834AOwner::rva005C834A(int a, int b)
-{
-	for (Rva005C8F50Elem *p = m_begin; p != m_end; ++p)
-		p->rva005C8F50(a, b);
-}
 
 class Rva005C90F1Elem
 {
@@ -47,11 +42,6 @@ private:
 	Rva005C90F1Elem *m_end;
 };
 
-void Rva005C839BOwner::rva005C839B(int a, int b)
-{
-	for (Rva005C90F1Elem *p = m_begin; p != m_end; ++p)
-		p->rva005C90F1(a, b);
-}
 
 class Rva005691DBHelper
 {

@@ -25,6 +25,7 @@ FUNCTIONS = ROOT / "reverse" / "functions.csv"
 SYMBOLS = ROOT / "reverse" / "symbols.csv"
 DELETED = ROOT / "reverse" / "deleted_rows.csv"
 RE_ATTEMPTS = ROOT / "reverse" / "re_attempts.log"
+BODY_OWNERS = ROOT / "reverse" / "body_owners.csv"
 
 # realcrc.cpp is linked twice in the retail exe, so these two symbols
 # legitimately appear at two addresses each. Any other duplicate name is a bug.
@@ -410,6 +411,66 @@ def check_orphans(spec, problems):
     return len(orphans)
 
 
+def check_body_owners(raw, functions_raw, problems):
+    """Enforce the owner recorded by a completed same-address reconstruction audit.
+
+    This registry makes no assertion that unrelated equal-byte bodies are not
+    legitimate folds. A supported rename/rehome updates the owner with evidence.
+    """
+    if not raw:  # Historical revisions before the registry was introduced.
+        return
+    check_lf_ledger(raw, "body_owners.csv", problems)
+    reader = csv.DictReader(io.StringIO(raw.decode("utf-8")))
+    expected = ["target_rva", "name", "target_size", "source", "evidence"]
+    if reader.fieldnames != expected:
+        problems.append("body_owners.csv: invalid header")
+        return
+    owners = {}
+    for row in reader:
+        try:
+            address = int(row["target_rva"], 16)
+            size = int(row["target_size"])
+            if not (address > 0 and size > 0 and row["name"]
+                    and row["source"].startswith("Code/") and row["evidence"].strip()
+                    and None not in row):
+                raise ValueError("invalid ownership record")
+        except (ValueError, TypeError, AttributeError):
+            problems.append(f"body_owners.csv: invalid owner record {row!r}")
+            continue
+        if address in owners:
+            problems.append(f"body_owners.csv: duplicate owner at 0x{address:08X}")
+        owners[address] = row
+    actual = {address: [] for address in owners}
+    for row in csv.DictReader(io.StringIO(functions_raw.decode("utf-8"))):
+        try:
+            address = int(row["target_rva"], 16)
+        except (ValueError, TypeError):
+            continue  # check_functions reports malformed ledger rows.
+        if address in actual:
+            actual[address].append(row)
+    for address, owner in owners.items():
+        rows = actual[address]
+        if len(rows) != 1:
+            problems.append(f"body_owners.csv: audited body 0x{address:08X} must have "
+                            f"one owner, found {len(rows)} rows")
+            continue
+        row = rows[0]
+        if any(row.get(key) != owner[key] for key in ("name", "source", "target_size")) \
+                or row.get("status") != "matched":
+            problems.append(f"body_owners.csv: owner disagrees with functions.csv "
+                            f"at 0x{address:08X}; reconcile the audit evidence")
+
+
+def read_body_owners(spec):
+    """An absent registry is valid only for revisions predating its introduction."""
+    if spec is None:
+        return BODY_OWNERS.read_bytes() if BODY_OWNERS.exists() else b""
+    rel = BODY_OWNERS.relative_to(ROOT).as_posix()
+    exists = subprocess.run(["git", "-C", str(ROOT), "cat-file", "-e", f"{spec}:{rel}"],
+                            capture_output=True)
+    return read_ledger(BODY_OWNERS, spec) if exists.returncode == 0 else b""
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -425,6 +486,7 @@ def main():
     deleted_raw = read_ledger(DELETED, spec)
     n_funcs = check_functions(read_ledger(FUNCTIONS, spec), problems, known_sources(spec),
                               deleted_raw)
+    check_body_owners(read_body_owners(spec), read_ledger(FUNCTIONS, spec), problems)
     n_syms = check_symbols(read_ledger(SYMBOLS, spec), problems)
     check_lf_ledger(deleted_raw, "deleted_rows.csv", problems)
     check_lf_ledger(read_ledger(RE_ATTEMPTS, spec), "re_attempts.log", problems,

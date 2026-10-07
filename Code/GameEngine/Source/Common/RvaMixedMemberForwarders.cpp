@@ -53,11 +53,6 @@ private:
 	Rva004F2C14NullTarget *m_member;
 };
 
-void Rva002A9BF2::rva002A9DEC(Int a0)
-{
-	if (m_member)
-		m_member->rva004F2C14(a0);
-}
 
 class Rva002C7474
 {

@@ -94,10 +94,3 @@ void Rva0040D3E8Owner::fwd(int value)
 	if (found)
 		found->rva0040C9F4();
 }
-
-void Rva0040FAFEOwner::fwd(int value)
-{
-	Rva0040F7E5Runner *found = (Rva0040F7E5Runner *)bfmeFind1038(value);
-	if (found)
-		found->run();
-}

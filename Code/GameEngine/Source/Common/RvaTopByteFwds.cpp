@@ -23,13 +23,3 @@ void __stdcall Rva001ECD19(int a, int b, int c)
 {
 	Rva001EC1B4Worker(a, b, c, (char *)&c + 3);
 }
-
-void __stdcall Rva004F83F2(int a, int b, int c, int ignored)
-{
-	Rva004F7EE9Worker(a, b, c, (char *)&c + 3);
-}
-
-void __stdcall Rva004F8B89(int a, int b, int c)
-{
-	Rva004F7EE9Worker(a, b, c, (char *)&c + 3);
-}

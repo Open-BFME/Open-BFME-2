@@ -104,11 +104,6 @@ private:
 	void *m_00;
 	Rva001FBA8C m_04;
 };
-void Rva001FBC43::setup(void *a, void *b)
-{
-	m_00 = ((Rva001F5DD4Slot *)b)->get(a);
-	m_04.setup(a, b);
-}
 class Rva001FBFEA
 {
 public:
@@ -117,11 +112,6 @@ private:
 	void *m_00;
 	Rva001FBC43 m_04;
 };
-void Rva001FBFEA::setup(void *a, void *b)
-{
-	m_00 = ((Rva001F5DC0Slot *)b)->get(a);
-	m_04.setup(a, b);
-}
 class Rva001FC357
 {
 public:
@@ -130,11 +120,6 @@ private:
 	void *m_00;
 	Rva001FBFEA m_04;
 };
-void Rva001FC357::setup(void *a, void *b)
-{
-	m_00 = ((Rva001F5DACSlot *)b)->get(a);
-	m_04.setup(a, b);
-}
 class Rva001FC451
 {
 public:
@@ -143,8 +128,3 @@ private:
 	void *m_00;
 	Rva001FC357 m_04;
 };
-void Rva001FC451::setup(void *a, void *b)
-{
-	m_00 = ((Rva001F5D98Slot *)b)->get(a);
-	m_04.setup(a, b);
-}

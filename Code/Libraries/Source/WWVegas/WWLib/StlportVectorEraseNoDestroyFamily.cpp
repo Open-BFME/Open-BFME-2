@@ -79,5 +79,8 @@ struct Rva00335C62Element;
 
 template Region2D *_STL::vector<Region2D >::erase(Region2D *, Region2D *);
 template BfmeStringRecord000B9534 *_STL::vector<BfmeStringRecord000B9534 >::erase(BfmeStringRecord000B9534 *, BfmeStringRecord000B9534 *);
-template Rva00173DF8Element *_STL::vector<Rva00173DF8Element >::erase(Rva00173DF8Element *, Rva00173DF8Element *);
-template Rva00335C62Element *_STL::vector<Rva00335C62Element >::erase(Rva00335C62Element *, Rva00335C62Element *);
+
+// These two independently rowed copy helpers must still be emitted after
+// their duplicate erase instantiations have been retired.
+template Rva00173DF8Element *_STL::__copy_ptrs<Rva00173DF8Element *, Rva00173DF8Element *>(Rva00173DF8Element *, Rva00173DF8Element *, Rva00173DF8Element *, const _STL::__false_type &);
+template Rva00335C62Element *_STL::__copy_ptrs<Rva00335C62Element *, Rva00335C62Element *>(Rva00335C62Element *, Rva00335C62Element *, Rva00335C62Element *, const _STL::__false_type &);

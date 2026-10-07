@@ -74,11 +74,3 @@ void Rva004E7277::rva004E7277()
 }
 
 // ?rva004E7392@Rva004E7277@@QAEXPAVRva004E7277@@@Z @0x004E7392 39B.
-void *Rva004E7277::rva004E7392(Rva004E7277 *arg)
-{
-	rva004E72C0(arg);
-	m_00 = &g_007FD010;
-	m_04 = arg->m_04;
-	m_08 = arg->m_08;
-	return this;
-}

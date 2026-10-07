@@ -1,31 +1,16 @@
 // cl: /DNDEBUG /MD
-//
-// ?rva0014F674@@YAPAXPAXI0H@Z @0x0014F674 37B cdecl loop.
-// Retail: esi=a1, edi=a3(count); if (count==0) skip; do {
-// helper(a1,a3) via pinned 0x0014F647; a1+=0x4C; } while (--count!=0);
-// return a1. 4 args (4th unused), caller cleans. No this, no pins in body
-// besides helper (pinned). Names opaque.
-void __cdecl rva0014F647(void *a, void *b);
-
-void *__cdecl rva0014F674(void *p, unsigned int count, void *ha, int unused)
-{
-	(void)unused;
-	char *s = (char *)p;
-	unsigned int n = count;
-	if (n > 0) {
-		do {
-			rva0014F647(s, ha);
-			s += 0x4C;
-		} while (--n != 0);
-	}
-	return s;
+// Retail 0x0014FA47 forwards to the uninitialized fill worker owned by
+// VectorOverflowRva001504A1.cpp at 0x0014F674. The 76-byte payload remains
+// address-derived; this declaration shares the retained worker identity.
+struct Rva001504A1Record;
+namespace _STL {
+struct __false_type {};
+template<class ForwardIterator, class Size, class T>
+ForwardIterator __uninitialized_fill_n(ForwardIterator, Size, const T &, const __false_type &);
 }
-
-// ?rva0014FA47@@YAPAXPAXI0@Z @0x0014FA47 27B forward.
-// Retail: char tmp at [ebp-1]; return rva0014F674(a,b,c,&tmp)
-// (4th dead in callee); caller cleans 0x10. Calls rowed 0x0014F674.
 void *__cdecl rva0014FA47(void *a, unsigned int b, void *c)
 {
-	char tmp;
-	return rva0014F674(a, b, c, (int)&tmp);
+    _STL::__false_type tag;
+    return _STL::__uninitialized_fill_n<Rva001504A1Record *, unsigned int, Rva001504A1Record>(
+        (Rva001504A1Record *)a, b, *(const Rva001504A1Record *)c, tag);
 }

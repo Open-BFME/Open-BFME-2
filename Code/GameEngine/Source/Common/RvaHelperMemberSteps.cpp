@@ -160,53 +160,13 @@ private:
 	Rva005E6AD8Run *m_next;
 };
 
-void Rva005D1516::step()
-{
-	((Rva000B3FD0Nop *)this)->noop();
-	m_next->run();
-}
 
-void Rva005E1906::step()
-{
-	((Overridable *)this)->markAsOverride();
-	m_next->run();
-}
 
-void Rva005E1917::step()
-{
-	((Rva00420B2AZeroSetter *)this)->disable();
-	m_next->run();
-}
 
-void Rva005E1BC4::step()
-{
-	((Rva000B3FD0Nop *)this)->noop();
-	m_next->run();
-}
 
-void Rva005E25DE::step()
-{
-	((Rva000B3FD0Nop *)this)->noop();
-	m_next->run();
-}
 
-void Rva005E590F::step()
-{
-	((Rva000B3FD0Nop *)this)->noop();
-	m_next->run();
-}
 
-void Rva005E6BA3::step()
-{
-	((Rva000B3FD0Nop *)this)->noop();
-	m_next->run();
-}
 
-void Rva005E6BB4::step()
-{
-	((Rva000B3FD0Nop *)this)->noop();
-	m_next->run();
-}
 
 class Rva0010BA61
 {
@@ -228,17 +188,7 @@ private:
 	void run();
 };
 
-void Rva0010BA61::step()
-{
-	prepare();
-	run();
-}
 
-void Rva005962E7::step()
-{
-	prepare();
-	run();
-}
 
 class Rva0033B1CDNarrow
 {
@@ -288,17 +238,7 @@ public:
 	void step();
 };
 
-void Rva0033B1CD::step()
-{
-	((Rva0033B1CDNarrow *)this)->release();
-	((Rva0033B1CDWide *)((char *)this + 4))->release();
-}
 
-void Rva005CDDF0::step()
-{
-	((Rva005E590FCaller *)this)->step();
-	((Rva000B3FD0Nop *)((char *)this + 0x0C))->noop();
-}
 
 void Rva005E5554::step()
 {

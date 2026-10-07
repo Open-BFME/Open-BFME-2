@@ -2,7 +2,7 @@
 // ?rva005CB91E@Rva005CB91E@@QAEHH@Z @0x005CB91E 179B: priority encoder returning 0..6 via three flag-gated lookups plus virtual bool checks. Evidence: pinned Lookup 0x003FE245 plus rowed Lookups 0x0052B225 0x0059E0F7 plus callers 0x005CB9E1 0x005CBBB9 plus unlock lane.
 extern "C" void *Rva003FE245Lookup(int key);
 unsigned __cdecl Rva0052B225(unsigned key);
-int __cdecl rva0059E0F7(int key);
+unsigned __cdecl Rva0059E0F7(unsigned key);
 struct LookupRes { char m_pad[0x38]; void *m_38; };
 struct Rva005CB91EIface
 {
@@ -61,7 +61,7 @@ int Rva005CB91E::rva005CB91E(int key)
     }
     if (m_06)
     {
-        if (int r = rva0059E0F7(key))
+        if (int r = Rva0059E0F7((unsigned)key))
         {
             void *v = ((LookupRes *)r)->m_38;
             if (v)

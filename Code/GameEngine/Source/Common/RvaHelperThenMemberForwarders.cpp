@@ -93,8 +93,3 @@ class Rva005CDDF0
 public:
 	void rva005CDDF0();
 };
-void Rva005CDDF0::rva005CDDF0()
-{
-	((Rva005E590F *)this)->step();
-	((StringBase<unsigned short> *)((char *)this + 0xc))->validate();
-}

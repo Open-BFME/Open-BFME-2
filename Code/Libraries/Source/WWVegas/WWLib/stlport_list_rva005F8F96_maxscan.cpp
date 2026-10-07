@@ -16,12 +16,12 @@ public:
     void rva005CCCFC();
 };
 // ?rva005CCCFC@Rva005CCCD0@@QAEXXZ, retail 0x005CCCFC, 58 bytes.
-// Scans list at +8 for max [obj+0xc], tail-jumps to Rva005CCB16::poll on best's [+8].
+// Scans list at +8 for max [obj+0xc], tail-jumps to Rva005CCB16::rva005CCB16 on best's [+8].
 // Evidence: same +8 list sentinel as neighbours; callee 0x005CCB16 row; caller 0x005CCE88 passes same this.
 class Rva005CCB16
 {
 public:
-    void poll();
+    void rva005CCB16();
 };
 struct Obj005CCCFC
 {
@@ -56,5 +56,5 @@ void Rva005CCCD0::rva005CCCFC()
     } while (cur != sentinel);
     if (!best)
         return;
-    ((Rva005CCB16 *)best->m_08)->poll();
+    ((Rva005CCB16 *)best->m_08)->rva005CCB16();
 }

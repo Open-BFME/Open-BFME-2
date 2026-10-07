@@ -99,11 +99,6 @@ Rva001FBA45::Rva001FBA45()
 {
 }
 
-Rva001FBF37::Rva001FBF37()
-	: m_00(0)
-	, m_04(0)
-{
-}
 
 Rva001FB8A9::Rva001FB8A9()
 	: m_00(0)

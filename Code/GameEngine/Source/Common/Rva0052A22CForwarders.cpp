@@ -31,13 +31,6 @@ struct Pair005258F8
 
 void __stdcall Rva00525407(Pair005258F8 *pair);
 
-void __stdcall Rva005258F8(int a, int b)
-{
-	Pair005258F8 pair;
-	pair.m_0 = a;
-	pair.m_4 = b;
-	Rva00525407(&pair);
-}
 
 // ?Rva005243FA@@YAXHHH@Z @0x005243FA 27B
 // Cdecl forwarder: passes three ints plus a temp byte to pinned 0x52408B.

@@ -22,10 +22,6 @@ public:
 	void rva001EFC42(int a, int b, int c);
 };
 
-void Rva001EFC42::rva001EFC42(int a, int b, int c)
-{
-	((Rva001EF83A *)this)->rva001EF83A(a, b, (char *)&b + 3);
-}
 
 class Rva0018C73C
 {
@@ -123,18 +119,9 @@ public:
 	void rva005F50A3(int a, int b, int c);
 };
 
-void Rva005F50A3::rva005F50A3(int a, int b, int c)
-{
-	((Rva005F4F74 *)this)->rva005F4F74(a, b, (char *)&b + 3);
-}
 
 class Rva005F50D3
 {
 public:
 	void rva005F50D3(int a, int b);
 };
-
-void Rva005F50D3::rva005F50D3(int a, int b)
-{
-	((Rva005F4F74 *)this)->rva005F4F74(a, b, (char *)&b + 3);
-}

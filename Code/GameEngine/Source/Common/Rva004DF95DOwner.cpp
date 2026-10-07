@@ -11,7 +11,7 @@
 class Rva005962E7
 {
 public:
-	void step();
+	void rva005962E7();
 };
 
 class Rva00596074
@@ -40,7 +40,7 @@ private:
 
 void Rva004DF95DOwner::rva004DF95D()
 {
-	m_field0->step();
+	m_field0->rva005962E7();
 	m_field4->rva00596074();
 	m_field8->rva0025C010();
 	m_fieldC->rva0025C010();

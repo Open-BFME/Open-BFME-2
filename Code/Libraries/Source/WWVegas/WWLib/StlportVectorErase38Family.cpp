@@ -74,7 +74,5 @@ struct Rva0054107FRecord;
 class Rva0054103E;
 struct BfmeStringRecord002CF4C6;
 
-template Rva001741EBElement *_STL::vector<Rva001741EBElement>::erase(Rva001741EBElement *, Rva001741EBElement *);
 template BfmeOpaqueRecord156 *_STL::vector<BfmeOpaqueRecord156>::erase(BfmeOpaqueRecord156 *, BfmeOpaqueRecord156 *);
 template Rva0054103E *_STL::vector<Rva0054103E>::erase(Rva0054103E *, Rva0054103E *);
-template BfmeStringRecord002CF4C6 *_STL::vector<BfmeStringRecord002CF4C6>::erase(BfmeStringRecord002CF4C6 *, BfmeStringRecord002CF4C6 *);

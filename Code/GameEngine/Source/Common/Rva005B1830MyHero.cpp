@@ -5,13 +5,19 @@
 // Evidence: rowed 0x005B129F and 0x005241DF plus StringBase ctor/release rows; literals MyHero::BaseAttrib/CurAttrib/MaxAttrib; callers 0x005B19BA 0x005B1B6E.
 #include "ascii_string.h"
 
+// Call the single retained erase owner at 0x005B129F. Record identity is
+// address-derived; only the pointer ABI is needed in this caller.
+struct Rva005B09D8Record;
+class Rva005B129FVector {
+public:
+    Rva005B09D8Record *erase(Rva005B09D8Record *, Rva005B09D8Record *);
+};
 class Rva005B129FClass
 {
 public:
 	int m_0;
 	int m_4;
 
-	int rva005B129F(int a1, int a2);
 };
 
 struct Rva005B1830Item
@@ -50,7 +56,7 @@ void Rva005B1830::rva005B1830()
 		Rva005B129FClass &slot = (Rva005B129FClass &)m_174[i];
 		int b = slot.m_4;
 		int a = slot.m_0;
-		slot.rva005B129F(a, b);
+		((Rva005B129FVector *)&slot)->erase((Rva005B09D8Record *)a, (Rva005B09D8Record *)b);
 	}
 	{
 		AsciiString s("MyHero::BaseAttrib");

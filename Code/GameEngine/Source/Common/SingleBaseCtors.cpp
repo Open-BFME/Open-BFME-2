@@ -36,9 +36,6 @@ public:
 	Rva003B0835(int a);
 };
 
-Rva003B0835::Rva003B0835(int a) : Rva003B0454Base(a)
-{
-}
 
 class Rva005D5095Base
 {

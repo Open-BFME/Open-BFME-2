@@ -45,17 +45,6 @@ private:
 	char *m_cursor;
 };
 
-void *Rva005412E2::rva005412E2(void *p)
-{
-	char *base = (char *)p;
-	char *last = m_cursor;
-	if ((void *)(base + 0x1C) != (void *)last) {
-		Rva005412E2Tag tag;
-		rva00541214(base + 0x1C, last, p, tag);
-	}
-	m_cursor -= 0x1C;
-	return p;
-}
 
 struct Rva00541311Tag {};
 void rva00541231(char *dst, char *cur, void *p, const Rva00541311Tag &tag);

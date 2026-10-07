@@ -40,9 +40,3 @@ void Rva000A9E0A(void *buffer, const Rva000AB419Element &value)
 	if (buffer)
 		new (buffer) Rva000AB419Element(value);
 }
-
-void Rva004D9ACE(void *buffer, const Rva004D971D &value)
-{
-	if (buffer)
-		new (buffer) Rva004D971D(value);
-}

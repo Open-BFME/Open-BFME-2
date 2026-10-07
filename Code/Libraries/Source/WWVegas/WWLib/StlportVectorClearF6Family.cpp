@@ -39,14 +39,6 @@ void _STL::vector<Rva0008B4AFElement>::_M_clear()
 		free(start);
 }
 
-template <>
-void _STL::vector<Rva00577EF1Element>::_M_clear()
-{
-	_STL::_Destroy((TreeHintRef00217D4C *)_M_start, (TreeHintRef00217D4C *)_M_finish);
-	Rva00577EF1Element *start = _M_start;
-	if (start)
-		free(start);
-}
 
 template <>
 void _STL::vector<Rva005C84D3Element>::_M_clear()
