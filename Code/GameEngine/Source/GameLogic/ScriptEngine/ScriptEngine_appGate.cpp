@@ -62,3 +62,15 @@ latchFail:
 		AppFastLatch = 0;
 	return false;
 }
+
+extern HMODULE st_DebugDLL;
+
+void Rva00203BB1ForceAppContinue()
+{
+	if (!st_DebugDLL)
+		return;
+
+	void *proc = GetProcAddress(st_DebugDLL, "ForceAppContinue");
+	if (proc)
+		((void (__cdecl *)())proc)();
+}
