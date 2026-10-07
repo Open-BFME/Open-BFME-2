@@ -16,6 +16,8 @@ class Rva0052BFE1
 {
 public:
 	void *rva0052BFE1(Int a, Int b);				// 0x0052BFE1
+	unsigned char opaque_00[4];
+	AsciiString m_name04;
 };
 
 // STLport vector view: three pointers, inline size() and operator[].
@@ -37,6 +39,7 @@ public:
 	void StartNewCampaign(const AsciiString &campaignName);
 	void StartNewCampaign(Int campaignIndex);			// 0x003B8C06
 	void *UseGenericSpawnArmyForPlayer(Int a, Int b);
+	Rva0052BFE1 *rva003B8EDC(const AsciiString &name);
 
 private:
 	Int rva003B8E2B(const AsciiString &campaignName);		// 0x003B8E2B
@@ -65,4 +68,31 @@ void *LivingWorldCampaignManager::UseGenericSpawnArmyForPlayer(Int a, Int b)
 		return campaign->rva0052BFE1(a, b);
 	}
 	return 0;
+}
+
+// ?rva003B8EDC@LivingWorldCampaignManager@@QAEPAVRva0052BFE1@@ABVAsciiString@@@Z
+// Native Ghidra extent 0x003B8EDC..0x003B8F20; RET 4. It walks the
+// existing campaign pointer vector and calls the verified string compare
+// worker at 0x000069D6 on each entry's +4 member. The method name is unknown.
+Rva0052BFE1 *LivingWorldCampaignManager::rva003B8EDC(const AsciiString &name)
+{
+	for (UnsignedInt i = 0; i < m_campaignVector.size(); ++i)
+	{
+		if (m_campaignVector[i]->m_name04.compare(name) == 0)
+			return m_campaignVector[i];
+	}
+	return 0;
+}
+
+// ?rva003B8E2B@LivingWorldCampaignManager@@AAEHABVAsciiString@@@Z
+// Native Ghidra extent 0x003B8E2B..0x003B8E6C; RET 4. The same scan as
+// 0x003B8EDC returns the matched index instead, or -1 for an unknown name.
+Int LivingWorldCampaignManager::rva003B8E2B(const AsciiString &campaignName)
+{
+	for (UnsignedInt i = 0; i < m_campaignVector.size(); ++i)
+	{
+		if (m_campaignVector[i]->m_name04.compare(campaignName) == 0)
+			return i;
+	}
+	return -1;
 }
