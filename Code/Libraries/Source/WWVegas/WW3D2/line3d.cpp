@@ -41,10 +41,12 @@ class RenderObjClass : public RefCountClass, public MultiListObjectClass {
 public:
     RenderObjClass(const RenderObjClass &);
     virtual ~RenderObjClass();
+    RenderObjClass &operator=(const RenderObjClass &);
 };
 class Line3DClass : public W3DMPO, public RenderObjClass {
 public:
     Line3DClass(const Line3DClass &);
+    Line3DClass &operator=(const Line3DClass &);
     virtual ~Line3DClass();
     virtual RenderObjClass *Clone(void) const;
     virtual int Class_ID(void) const;
@@ -69,4 +71,20 @@ Line3DClass::Line3DClass(const Line3DClass &src)
       Shader(src.Shader), Color(src.Color), SortLevel(0)
 {
     for (int i = 0; i < 8; ++i) vert[i] = src.vert[i];
+}
+
+// Donor operator= (ZH line3d.cpp) plus BFME's SortLevel copy at +0x140; the
+// base assignment stays an out-of-line call to the matched 0x13B5F0 body.
+Line3DClass &Line3DClass::operator=(const Line3DClass &that)
+{
+    RenderObjClass::operator=(that);
+    if (this != &that) {
+        Length = that.Length;
+        Width = that.Width;
+        Shader = that.Shader;
+        Color = that.Color;
+        for (int i = 0; i < 8; i++) vert[i] = that.vert[i];
+        SortLevel = that.SortLevel;
+    }
+    return *this;
 }
