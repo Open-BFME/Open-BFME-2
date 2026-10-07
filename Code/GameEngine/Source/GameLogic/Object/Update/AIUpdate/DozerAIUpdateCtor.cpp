@@ -98,6 +98,30 @@
 // 45), and anything else cancels the current task (dozer interface vslots
 // 9 and 13) for player commands before AIUpdateInterface::aiDoCommand
 // (pinned 0x002673F6) and resets the dozer machine.
+//
+// ?update@DozerActionMoveToActionPosState@@UAE?AW4StateReturnType@@XZ,
+// retail 0x004892E1, 412 bytes: slot 6 of vtable 0x0084B448, which the rowed
+// ctor 0x0048851B (ZH's second dozer action state, between the pick and do
+// states 0x004884ED and 0x00488545) stores. ZH's update: the machine's goal
+// object (pinned StateMachine::getGoalObject 0x004D7726) and owner, a
+// repairer that is not us fails the task (getSoleHealingBenefactor, dozer
+// interface vslot 14 internalTaskComplete, machine vslot 14 setGoalObject),
+// success within max(MIN_ACTION_TOLERANCE, bounding sphere radius + 15)
+// of the goal position (machine +0x24; the 70.0 at .rdata 0x0084B3DC is the
+// TU's own static, addressed through the reference max), failure when the AI
+// went idle. New in BFME 2: without a goal object it takes the dozer's own
+// (dozer interface vslot 29, the object whose id is at +0x4A4), the repair
+// check skips KINDOF_SWARM_DOZER units (kind-of bit 15 by the name table at
+// .rdata 0x009BBE18), there is no builder-id check, and a finished move to a
+// build site with that object deselects the dozer (the static
+// Rva00489256Do), runs dozer vslot 26 and the rowed Object 0x0028AB4E, tells
+// TheAiOrdersManager (pinned 0x00355183, order 3) and refreshes the site's
+// drawable (rowed 0x00274176) after the model condition swap (rowed mask
+// builders 0x0028F59A and 0x001E4912, Object 0x0028CFB2).
+//
+// ?Rva00489256Do@@YAXPAVObject@@@Z, retail 0x00489256, 95 bytes: a static
+// helper called only from that update (0x00489400) with the object in ESI,
+// MSVC's custom convention for a same-TU static.
 #include "ascii_string.h"
 
 // class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line normalize (rowed 0x000035B6) that newTask calls; same three floats
@@ -146,12 +170,13 @@ enum ObjectID
 class Thing;
 class ModuleData;
 class Object;
+class Drawable;
 
 enum StateReturnType
 {
-	STATE_CONTINUE,
-	STATE_SUCCESS,
-	STATE_FAILURE
+	STATE_CONTINUE = 0,
+	STATE_SUCCESS = -1,
+	STATE_FAILURE = -2
 };
 
 typedef UnsignedInt StateID;
@@ -173,12 +198,19 @@ public:
 	virtual void slot04(); virtual void slot05();
 	virtual void resetToDefaultState(); // vslot 6
 	virtual StateReturnType initDefaultState();
+	virtual void slot08(); virtual void slot09(); virtual void slot10();
+	virtual void slot11(); virtual void slot12(); virtual void slot13();
+	virtual void setGoalObject(const Object *obj); // vslot 14
 	void defineState(StateID id, struct State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = 0);
 	Object *getOwner() const { return m_owner; }
+	Object *getGoalObject();
+	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
 protected:
 	unsigned char m_pad04[0x14 - 0x04];
 	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x3C - 0x18]; // operator new size 0x3C
+	unsigned char m_pad18[0x24 - 0x18];
+	Coord3D m_goalPosition; // +0x24
+	unsigned char m_pad30[0x3C - 0x30]; // operator new size 0x3C
 };
 
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by
@@ -196,7 +228,9 @@ struct State
 {
 public:
 	virtual ~State();
+	StateMachine *getMachine() const { return m_machine; }
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
+	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
 protected:
 	unsigned char m_pad04[0x18 - 0x04];
 	StateMachine *m_machine; // +0x18
@@ -345,11 +379,18 @@ public:
 	virtual void slot10() = 0; virtual void slot11() = 0;
 	virtual void newTask(DozerTask task, Object *target) = 0; // vslot 12
 	virtual void cancelTask(DozerTask task) = 0; // vslot 13
-	virtual void slot14() = 0; virtual void slot15() = 0; virtual void slot16() = 0;
+	virtual void internalTaskComplete(DozerTask task) = 0; // vslot 14
+	virtual void slot15() = 0; virtual void slot16() = 0;
 	virtual void slot17() = 0; virtual void slot18() = 0; virtual void slot19() = 0;
 	virtual void slot20() = 0; virtual void slot21() = 0; virtual void slot22() = 0;
 	virtual void slot23() = 0;
 	virtual void finishBuildingSound() = 0; // vslot 24
+	// BFME 2's own slots. 26 (0x0048A15A) and 29 (0x00489DD1, the ICF twin
+	// of 28) both work on the object whose id is at DozerAIUpdate +0x4A4.
+	virtual void slot25() = 0;
+	virtual void vslot26() = 0;
+	virtual void slot27() = 0; virtual void slot28() = 0;
+	virtual Object *vslot29() = 0;
 };
 
 class AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24
@@ -390,6 +431,8 @@ private:
 
 enum ModelConditionFlagType
 {
+	MODELCONDITION_AWAITING_CONSTRUCTION = 67,
+	MODELCONDITION_PARTIALLY_CONSTRUCTED = 68,
 	MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED = 69, // +0x114 bit 5
 	MODELCONDITION_ACTIVELY_CONSTRUCTING = 73 // +0x114 bit 9
 };
@@ -409,19 +452,49 @@ private:
 	unsigned int m_words[19];
 };
 
+// The two model condition mask builders (19 dwords each).
+class Rva001E4912
+{
+public:
+	Rva001E4912 *rva001E4912(int unused, unsigned int bit1, unsigned int bit2);
+private:
+	unsigned int m_words[19];
+};
+
+class Rva0028F59A
+{
+public:
+	Rva0028F59A(int unused, int bit);
+private:
+	unsigned int m_words[19];
+};
+
+// The four-bit status mask Rva00489256Do sets.
+class Rva00346BC0
+{
+public:
+	Rva00346BC0(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5);
+private:
+	unsigned int m_bits[4];
+};
+
 class GeometryInfo
 {
 public:
 	Real getMajorRadius() const { return m_majorRadius; }
+	Real getBoundingSphereRadius() const { return m_boundingSphereRadius; }
 private:
 	unsigned char m_pad00[0x10];
 	Real m_majorRadius; // +0x10
-	unsigned char m_pad14[0x5C - 0x14];
+	Real m_boundingSphereRadius; // +0x14 (calcBoundingStuff 0x006BE700)
+	unsigned char m_pad18[0x5C - 0x18];
 };
 
+// BFME 2's kind-of bit names (the name table at .rdata 0x009BBE18).
 enum KindOfType
 {
 	KINDOF_DOZER = 14,
+	KINDOF_SWARM_DOZER = 15,
 	KINDOF_BRIDGE = 22
 };
 
@@ -443,6 +516,7 @@ public:
 	virtual ~Thing();
 	const ThingTemplate *getTemplate() const { return m_template; }
 	const Coord3D *getPosition() const { return &m_position; }
+	Drawable *getDrawable() const;
 private:
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad08[0x38 - 0x08];
@@ -458,6 +532,12 @@ public:
 	Bool isUsingAirborneLocomotor() const;
 	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
+	ObjectID getSoleHealingBenefactor() const;
+	Real rva002C97E8(const Coord3D *a, const Coord3D *b) const;
+	void rva0028AB4E() const;
+	void rva0028CFB2(const int *clear, const int *set);
+	void rva0028CDEB(const Rva00346BC0 &mask, bool set);
+	Bool get454() const { return m_454; }
 	void rva0028AE6D();
 	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
 	{
@@ -476,6 +556,8 @@ private:
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai; // +0x258
+	unsigned char m_pad25C[0x454 - 0x25C];
+	Bool m_454; // +0x454
 };
 
 class GameLogic
@@ -1014,4 +1096,142 @@ void DozerAIUpdate::aiDoCommand(const AICommandParms *parms)
 			break;
 		}
 	}
+}
+
+class Drawable
+{
+public:
+	void rva00274176(Bool flag);
+};
+
+class InGameUI
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09();
+	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29();
+	virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
+	virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49();
+	virtual void v50(); virtual void v51(); virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55(); virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59();
+	virtual void v60(); virtual void v61(); virtual void v62(); virtual void v63(); virtual void v64(); virtual void v65(); virtual void v66();
+	virtual void deselectDrawable(Drawable *draw); // vslot 67 (+0x10C)
+};
+
+extern InGameUI *TheInGameUI;
+
+class AiOrdersManager
+{
+public:
+	void rva00355183(Int a, Int b);
+};
+
+extern AiOrdersManager *TheAiOrdersManager;
+
+bool __cdecl rva004884B7(Object *obj);
+
+class Rva0028BAC0
+{
+public:
+	void rva0028BAC0();
+};
+
+// ZH's DozerActionMoveToActionPosState (rowed ctor 0x0048851B, vtable
+// 0x0084B448).
+class DozerActionMoveToActionPosState : public State
+{
+public:
+	virtual StateReturnType update();
+private:
+	DozerTask m_task; // +0x20
+};
+
+template <class T>
+inline const T &bfmeMax(const T &a, const T &b)
+{
+	return (a > b) ? a : b;
+}
+
+static const Real MIN_ACTION_TOLERANCE = 70.0f;
+
+static __declspec(noinline) void Rva00489256Do(Object *obj)
+{
+	TheInGameUI->deselectDrawable(obj->getDrawable());
+	if (rva004884B7(obj))
+		return;
+	Rva00346BC0 mask(0, 0x3c, 3, 0x4f, 0x63);
+	obj->rva0028CDEB(mask, true);
+	if (obj->get454())
+		reinterpret_cast<Rva0028BAC0 *>(obj)->rva0028BAC0();
+}
+
+StateReturnType DozerActionMoveToActionPosState::update()
+{
+	Object *goalObject = getMachineGoalObject();
+	Object *dozer = getMachineOwner();
+
+	// sanity
+	if (dozer == 0)
+		return STATE_FAILURE;
+	if (goalObject == 0)
+	{
+		DozerAIInterface *dozerAI = dozer->getAIUpdateInterface()->getDozerAIInterface();
+		if (dozerAI == 0 || (goalObject = dozerAI->vslot29()) == 0)
+			return STATE_FAILURE;
+	}
+
+	AIUpdateInterface *ai = dozer->getAIUpdateInterface();
+	if (m_task == DOZER_TASK_REPAIR && !dozer->isKindOf(KINDOF_SWARM_DOZER))
+	{
+		ObjectID currentRepairer = goalObject->getSoleHealingBenefactor();
+		if (currentRepairer != INVALID_ID && currentRepairer != dozer->getID()) // oops I guess someone beat me to it!
+		{
+			if (ai)
+			{
+				DozerAIInterface *dozerAI = ai->getDozerAIInterface();
+				if (dozerAI)
+					dozerAI->internalTaskComplete(m_task);
+			}
+			getMachine()->setGoalObject(0);
+			return STATE_FAILURE;
+		}
+	}
+
+	// if distance between us and our goal position is close enough
+	const Coord3D *goalPos = getMachine()->getGoalPosition();
+	Real distSqr = dozer->rva002C97E8(dozer->getPosition(), goalPos);
+	const Real SLOP = 15.0f;
+	Real allowableDistanceSqr = sqr(bfmeMax(MIN_ACTION_TOLERANCE, dozer->getGeometryInfo().getBoundingSphereRadius() + SLOP));
+
+	if (distSqr <= allowableDistanceSqr)
+	{
+		if (m_task == DOZER_TASK_BUILD)
+		{
+			DozerAIInterface *dozerAI = ai->getDozerAIInterface();
+			if (dozerAI)
+			{
+				Object *other = dozerAI->vslot29();
+				if (other)
+				{
+					Rva00489256Do(dozer);
+					dozerAI->vslot26();
+					other->rva0028AB4E();
+					TheAiOrdersManager->rva00355183(3, dozer->getID());
+				}
+			}
+
+			// the object is now no longer awaiting construction, it is being constructed
+			Rva001E4912 setBits;
+			goalObject->rva0028CFB2((const int *)&Rva0028F59A(0, MODELCONDITION_AWAITING_CONSTRUCTION),
+				(const int *)setBits.rva001E4912(0, MODELCONDITION_PARTIALLY_CONSTRUCTED, MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED));
+			goalObject->getDrawable()->rva00274176(true);
+		}
+
+		return STATE_SUCCESS;
+	}
+
+	// if we're in the idle state fail our move
+	if (ai && ai->isIdle())
+		return STATE_FAILURE;
+
+	return STATE_CONTINUE;
 }
