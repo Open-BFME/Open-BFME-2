@@ -15209,6 +15209,3 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00457577@BridgeBehavior@@QAEXXZ,0x00457577,callee of ?onDie@Rva004581FD@@UAEXPBVDamageInfo@@@Z
 ?rva00438592@Rva002542F3Member@@QAEXPAVRva00438758Interface@@@Z,0x00438592,direct callee at 0x00438779 with ECX on the wrapper +0 member view and one interface pointer; target Ghidra extent 454B writes the same +0..+0xA8 layout; owner identity remains a structural inference
 ??1Rva0043B4B4@@QAE@XZ,0x0043B4B4,direct call at 0x0043B67E with ECX=this+4 from the vtable-slot dtor; target helper reads and releases a pointer; helper owner remains address-derived
-?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
-?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
-?onContaining@HordeContain@@UAEXPAVObject@@_N@Z,0x0046FA46,callee of ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z
