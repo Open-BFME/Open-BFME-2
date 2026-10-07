@@ -8,6 +8,7 @@
 // reference or the owning class and input identities.
 
 #include <set>
+#include <list>
 #include "ascii_string.h"
 
 struct TreeKey00242F5E
@@ -43,6 +44,7 @@ class Rva000A7E9E
 {
 public:
 	void rva000A7E9E(const Rva000A7E9EInput &input);
+	void rva000A80A8(struct Rva000A80A8Item *item, int treeDetached);
 
 private:
 	unsigned char m_pad00[0x20];
@@ -57,4 +59,88 @@ void Rva000A7E9E::rva000A7E9E(const Rva000A7E9EInput &input)
 	m_tree.erase((const Rva000A7E31Key &)key);
 	register unsigned int amount = input.m_at30;
 	m_count -= amount;
+}
+
+struct Rva000A80A8Slot
+{
+	virtual bool shouldRemove(int flags);
+};
+
+struct Rva000A80A8Item
+{
+	AsciiString m_name;
+	unsigned char m_pad04[0x2C];
+	unsigned int m_amount;
+	unsigned int m_pad34;
+	unsigned int m_id;
+	unsigned int m_listIndex;
+	unsigned int m_pad40;
+	Rva000A80A8Slot m_slot;
+};
+
+class Rva0049B47C
+{
+public:
+	virtual ~Rva0049B47C();
+
+private:
+	char m_pad04[8];
+};
+
+class MiBase1
+{
+public:
+	virtual void f1();
+};
+
+class Rva0010EDC2_B2
+{
+public:
+	virtual void f2();
+};
+
+class Rva0010EDC2 : public Rva0049B47C, public MiBase1, public Rva0010EDC2_B2
+{
+public:
+	virtual ~Rva0010EDC2()
+	{
+	}
+};
+
+class Rva000427195
+{
+public:
+	int bucketIndex(const AsciiString *name);
+	int rva00223429(const AsciiString *key);
+
+	void *m_unused00;
+	void **m_beginBuckets;
+	void **m_endBuckets;
+	void **m_storageEnd;
+	unsigned int m_numElements;
+};
+
+void Rva000A7E9E::rva000A80A8(Rva000A80A8Item *item, int treeDetached)
+{
+	Rva000A80A8Item *entry = item;
+	if (entry->m_slot.shouldRemove(0))
+		*(unsigned int *)((char *)this + 0x38) -= entry->m_amount;
+
+	if (!treeDetached)
+		rva000A7E9E(*(const Rva000A7E9EInput *)(const void *)entry);
+
+	if (!entry->m_slot.shouldRemove(0)) {
+		_STL::list<int, _STL::allocator<int> > *list =
+			(_STL::list<int, _STL::allocator<int> > *)((char *)this + 0x14 + entry->m_listIndex * 4);
+		for (_STL::list<int, _STL::allocator<int> >::iterator it = list->begin(); it != list->end(); ++it) {
+			if ((void *)(unsigned int)*it == entry) {
+				*(_STL::list<int, _STL::allocator<int> >::iterator *)(void *)&item = list->erase(it);
+				break;
+			}
+		}
+	}
+
+	((Rva000427195 *)this)->rva00223429(&entry->m_name);
+	((Rva0010EDC2 *)entry)->Rva0010EDC2::~Rva0010EDC2();
+	::operator delete(entry);
 }
