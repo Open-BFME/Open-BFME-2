@@ -30,12 +30,16 @@ public:
     unsigned int rva0037BD64();
 };
 
+class Rva0037B5DF;
+
 class Rva0037BBED : public GameEngineDeletingBase
 {
 public:
     Rva0037BBED();
     virtual ~Rva0037BBED();
     virtual void rva0037B326();
+    bool rva0037CBB6(Rva0037B5DF &header);
+    bool rva0037D0EF(UnicodeString filename);
     void rva0037D0A7(unsigned int crc, int player, bool fromPlayback, unsigned int frame);
 private:
     Rva0037D097CRCView *m_0c;
@@ -147,4 +151,68 @@ void Rva0037BBED::rva0037D0A7(unsigned int crc, int player, bool fromPlayback, u
         if (!logic->crcProcessing71)
             logic->rva00241529(crc, player, frame, 0, false, 0);
     }
+}
+
+// Same 0x5C string-bearing header as the independently rowed destructor.
+// Target accesses, not the donor layout, establish the six string offsets.
+class Rva0037B5DF
+{
+public:
+    ~Rva0037B5DF();
+    char opaque00[0x20];
+    AsciiString options20;
+    int player24;
+    UnicodeString filename28;
+    bool forPlayback2C;
+    char opaque2D[3];
+    UnicodeString name30;
+    char time34[0x10];
+    UnicodeString version44;
+    UnicodeString versionTime48;
+    unsigned int iniCRC4C;
+    char opaque50[8];
+    UnicodeString string58;
+};
+// Target's 42B StringBase<unsigned short>::compare wrapper is nonthrowing:
+// it forwards a string buffer/length to the native comparator at 0x000067B1.
+// This opaque ABI view preserves the donor's throw() contract without changing
+// the shared string header or asserting another real name on the folded RVA.
+class Rva00006A7A
+{
+public:
+    int rva00006A7A(const UnicodeString &that) const throw();
+};
+class Version
+{
+public:
+    UnicodeString getFullUnicodeVersion();
+    UnicodeString getUnicodeBuildTime();
+};
+extern Version *TheVersion;
+struct RecorderCRCGlobalView
+{
+    char opaque00[0xB04];
+    unsigned int iniCRCB04;
+};
+
+// Native Ghidra 0x0037D0EF..0x0037D1E6; 247 bytes; thiscall RET 4.
+// ZH Recorder::testVersionPlayback and BFME1 1399ad37 RecorderReadReplayHeader
+// supply the comparison sequence. Target uses a Unicode filename and omits
+// the donor's version-number/executable checks. The destructor proves header
+// storage; retail proves forPlayback+2C, version+44/+48, and CRC+4C/global+B04.
+bool Rva0037BBED::rva0037D0EF(UnicodeString filename)
+{
+    Rva0037B5DF header;
+    header.forPlayback2C = true;
+    header.filename28 = filename;
+    bool success = rva0037CBB6(header);
+    if (!success)
+        return false;
+    bool versionStringDiff = reinterpret_cast<const Rva00006A7A *>(&header.version44)->rva00006A7A(TheVersion->getFullUnicodeVersion()) != 0;
+    bool versionTimeStringDiff = reinterpret_cast<const Rva00006A7A *>(&header.versionTime48)->rva00006A7A(TheVersion->getUnicodeBuildTime()) != 0;
+    bool exeDifferent = versionStringDiff || versionTimeStringDiff;
+    bool iniDifferent = header.iniCRC4C != reinterpret_cast<const RecorderCRCGlobalView *>(TheWritableGlobalData)->iniCRCB04;
+    if (exeDifferent || iniDifferent)
+        return true;
+    return false;
 }
