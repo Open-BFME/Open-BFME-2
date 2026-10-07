@@ -11,17 +11,28 @@ void operator delete[](void *p);
 class Rva006026E0
 {
 public:
-	char m_pad00[0x8];
+	char m_pad00[0x4];
+	void *m_p04;
 	void *m_p08;
-	char m_pad0c[0x48];
+	void *m_p0c;
+	void *m_p10;
+	char m_pad14[0x40];
 	void *(__cdecl *m_fn54)(unsigned n);
 	void *(__cdecl *m_fn58)(void *p);
-	char m_pad5c[0x4];
+	unsigned char m_flags5c;
+	char m_pad5d[3];
 	unsigned char m_flags60;
+	char m_pad61[3];
+	unsigned char m_flags64;
+	char m_pad65[3];
+	unsigned char m_flags68;
 
 	void *alloc(unsigned n);
 	void free(void *p);
+	int rva006026A0();
+	int rva006027B0();
 	int get();
+	int rva00602870();
 };
 
 void *Rva006026E0::alloc(unsigned n)
@@ -42,6 +53,26 @@ void Rva006026E0::free(void *p)
 	}
 }
 
+int Rva006026E0::rva006026A0()
+{
+	if (m_flags5c & 1)
+	{
+		m_flags5c |= 2;
+		return *(int *)((char *)m_p04 + 8);
+	}
+	return *(int *)((char *)m_p04 + 8);
+}
+
+int Rva006026E0::rva006027B0()
+{
+	if (m_flags64 & 1)
+	{
+		m_flags64 |= 2;
+		return *(int *)((char *)m_p0c + 8);
+	}
+	return *(int *)((char *)m_p0c + 8);
+}
+
 int Rva006026E0::get()
 {
 	if (m_flags60 & 1)
@@ -50,4 +81,14 @@ int Rva006026E0::get()
 		return *(int *)((char *)m_p08 + 8);
 	}
 	return *(int *)((char *)m_p08 + 8);
+}
+
+int Rva006026E0::rva00602870()
+{
+	if (m_flags68 & 1)
+	{
+		m_flags68 |= 2;
+		return *(int *)((char *)m_p10 + 8);
+	}
+	return *(int *)((char *)m_p10 + 8);
 }

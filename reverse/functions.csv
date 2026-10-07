@@ -68172,3 +68172,6 @@ uw_0076892b,,0x0076892B,11,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp,matche
 ?get@Rva006BD500LeaField@@QBEPAXXZ,,0x006BD500,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
 ?get@Rva006C03B0LeaField@@QBEPAXXZ,,0x006C03B0,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
 ?get@Rva0071AE40LeaField@@QBEPAXXZ,,0x0071AE40,4,Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp,matched,Disp8 LEA getter; address-derived opaque holder
+?rva006026A0@Rva006026E0@@QAEHXZ,,0x006026A0,26,Code/GameEngine/Source/Common/Rva006026E0Cluster.cpp,matched,flagged pointer-field getter sibling of 0x006027F0
+?rva006027B0@Rva006026E0@@QAEHXZ,,0x006027B0,26,Code/GameEngine/Source/Common/Rva006026E0Cluster.cpp,matched,flagged pointer-field getter sibling of 0x006027F0
+?rva00602870@Rva006026E0@@QAEHXZ,,0x00602870,26,Code/GameEngine/Source/Common/Rva006026E0Cluster.cpp,matched,flagged pointer-field getter sibling of 0x006027F0
