@@ -15572,3 +15572,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003FA4DB@Rva003FA4DB@@QAEXURva004FB582Slot@@@Z,0x003FA4DB,by-value slot callee of 0x004FB582 (+0x68 subobject) read from REL32 at 0x004FB5DB; address holds rowed vector erases (ICF shared body)
 ?rva002BF70F@Rva002BF70F@@QAEXURva004FB582Slot@@@Z,0x002BF70F,by-value slot callee of 0x004FB582 (+0x74 subobject) read from REL32 at 0x004FB5E8; address holds rowed vector erases (ICF shared body)
 ?rva005B129F@Rva005B129F@@QAEXURva004FB582Slot@@@Z,0x005B129F,by-value slot callee of 0x004FB582 (+0x80 subobject) read from REL32 at 0x004FB5F8
+?rva004E0CA3@Rva004E0CA3@@QAEXXZ,0x004E0CA3,tail-jmp target of 0x004FC21A with ecx already holding the +0x20 field object; no-arg thiscall

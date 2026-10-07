@@ -67844,3 +67844,4 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva004BD97A@@YGHH@Z,,0x004BD97A,39,Code/GameEngine/Source/Common/Rva004BD97ACheck.cpp,matched,
 ?rva004FAE34@Rva004FAE34Owner@@QAEXPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z,,0x004FAE34,118,Code/GameEngine/Source/Common/Rva004FAE34Loop.cpp,matched,0x58-stride array sweep pushing plus0x4C fields to caller Science vector on 0x002B3325 check
 ?rva004FB582@Rva004FB582Owner@@QAEXXZ,,0x004FB582,126,Code/GameEngine/Source/Common/Rva004FB582Init.cpp,matched,channel-driven init: one-time init of the 0x00E04508 channel object plus three target+0x14 queries into +0x0C/+0x10/+0x14 plus by-value slot calls on +0x68/+0x74/+0x80; seven pinned callees
+?rva004FC21A@Rva004FC21AOwner@@QAEXXZ,,0x004FC21A,36,Code/GameEngine/Source/Common/Rva004FC21ADecay.cpp,matched,flag-gated countdown decay tail-jumping to pinned 0x004E0CA3 on expiry; identities unproven
