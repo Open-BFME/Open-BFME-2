@@ -144,3 +144,31 @@ void Rva0056655FOwner::rva0056655F(const Elem003AF9E0 &x)
 {
 	m_vec.push_back(x);
 }
+
+struct Rva005668E9Element
+{
+	int a[3];
+};
+
+namespace _STL
+{
+template <> class vector<Rva005668E9Element, allocator<Rva005668E9Element> >
+{
+public:
+	void push_back(const Rva005668E9Element &x);
+};
+}
+
+class Rva005669B7Owner
+{
+public:
+	void rva005669B7(const Rva005668E9Element &x);
+private:
+	char m_pad[0x9C];
+	_STL::vector<Rva005668E9Element, _STL::allocator<Rva005668E9Element> > m_vec;
+};
+
+void Rva005669B7Owner::rva005669B7(const Rva005668E9Element &x)
+{
+	m_vec.push_back(x);
+}
