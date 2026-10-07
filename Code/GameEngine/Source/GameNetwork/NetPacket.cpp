@@ -118,6 +118,7 @@ public:
 	static NetCommandMsg *rva0058E20D(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E2D7(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E367(UnsignedByte *data, Int &readOffset);
+	static NetCommandMsg *rva0058E3F4(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E481(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058E511(UnsignedByte *data, Int &readOffset);
 
@@ -279,6 +280,14 @@ class Rva004D59D1
 {
 public:
 	Rva004D59D1();
+private:
+	char m_pad[0x24];
+};
+
+class Rva004D5A10
+{
+public:
+	Rva004D5A10();
 private:
 	char m_pad[0x24];
 };
@@ -1061,6 +1070,26 @@ NetCommandMsg *NetPacket::rva0058E367(unsigned char *data, int &readOffset)
 	memcpy(&leaveFrame, data + readOffset, 4);
 	readOffset += 4;
 	((BFMENetInformPlayerLeaveFrameCommandMsg *)msg)->setLeaveFrame(leaveFrame);
+	return (NetCommandMsg *)msg;
+}
+
+// ?rva0058E3F4@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058E3F4 141B.
+// Static NetCommandMsg factory reading player index then leaving-player ID.
+// Evidence: neighbours 0x0058E367 and 0x0058E481 same NetPacket static factory
+// shape PAEAAH; new-0x24 plus Rva004D5A10 ctor row; memcpy plus Rva004D57AE
+// setter plus-0x1C; second setter at 0x00317B9B writes plus-0x20; first dword
+// defaults -1 like 0x0058E367.
+NetCommandMsg *NetPacket::rva0058E3F4(unsigned char *data, int &readOffset)
+{
+	Rva004D5A10 *msg = new Rva004D5A10();
+	UnsignedInt playerIndex = (UnsignedInt)-1;
+	memcpy(&playerIndex, data + readOffset, 4);
+	readOffset += 4;
+	((Rva004D57AE *)msg)->setPlayerIndex(playerIndex);
+	Int field20 = 0;
+	memcpy(&field20, data + readOffset, 4);
+	readOffset += 4;
+	((BFMENetInformPlayerLeaveFrameCommandMsg *)msg)->setLeavingPlayerID(field20);
 	return (NetCommandMsg *)msg;
 }
 
