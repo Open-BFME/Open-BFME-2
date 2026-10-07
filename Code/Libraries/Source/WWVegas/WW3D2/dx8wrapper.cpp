@@ -4907,3 +4907,155 @@ void DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns(void)
 }
 
 
+
+// Device-state snapshot (retail 0x0011C770, no callers). BFME 2's version of
+// Open-BFME-1's Rva009038B0Capture (BFME 1 0x009038B0): the same render-state,
+// transform and texture-stage reads, now on the D3D9 device, preceded by a 0xCD
+// fill and extended with the material, the shader and texture bindings (each
+// reference GetX adds is released at once) and the fog states.
+// Layout from the retail stores; field names follow the D3D state each holds.
+struct Rva0011C770Unknown {
+	virtual HRESULT __stdcall QueryInterface(REFIID riid, void** ppvObject)=0;
+	virtual ULONG __stdcall AddRef()=0;
+	virtual ULONG __stdcall Release()=0;
+};
+struct IDirect3DVertexShader9 : Rva0011C770Unknown {};
+struct IDirect3DPixelShader9 : Rva0011C770Unknown {};
+struct IDirect3DBaseTexture9 : Rva0011C770Unknown {};
+
+struct Rva0011C770StageState
+{
+	DWORD ColorOp;
+	DWORD ColorArg1Select;		// D3DTA_SELECTMASK part of D3DTSS_COLORARG1
+	DWORD ColorArg1;			// its modifier bits
+	DWORD ColorArg2Select;
+	DWORD ColorArg2;
+	DWORD AlphaOp;
+	DWORD AlphaArg1Select;
+	DWORD AlphaArg1;
+	DWORD AlphaArg2Select;
+	DWORD AlphaArg2;
+	DWORD TexCoordIndex;
+	DWORD TextureTransformFlags;
+	D3DMATRIX TextureTransform;
+};
+
+struct Rva0011C770DeviceState
+{
+	DWORD CullMode;
+	DWORD ZEnable;
+	DWORD ZWriteEnable;
+	DWORD AlphaTestEnable;
+	DWORD SrcBlend;
+	DWORD DestBlend;
+	DWORD ZFunc;
+	DWORD AlphaRef;
+	DWORD AlphaFunc;
+	DWORD DitherEnable;
+	DWORD AlphaBlendEnable;
+	DWORD SpecularEnable;
+	DWORD StencilEnable;
+	DWORD TextureFactor;
+	DWORD Wrap0;
+	DWORD Wrap1;
+	DWORD Clipping;
+	DWORD Lighting;
+	DWORD NormalizeNormals;
+	DWORD ColorWriteEnable;
+	DWORD BlendOp;
+	DWORD BlendFactor;
+	DWORD DepthBias;
+	unsigned char Material[0x44];	// D3DMATERIAL9
+	D3DMATRIX World;
+	D3DMATRIX View;
+	D3DMATRIX Projection;
+	IDirect3DVertexShader9 *VertexShader;
+	IDirect3DPixelShader9 *PixelShader;
+	IDirect3DBaseTexture9 *Textures[16];
+	Rva0011C770StageState Stages[4];
+	DWORD FogEnable;
+	DWORD FogTableMode;
+	DWORD FogVertexMode;
+	DWORD FogStart;
+	DWORD FogEnd;
+	DWORD FogColor;
+};
+
+enum
+{
+	RVA0011C770_D3DRS_BLENDFACTOR = 193,	// D3D9 only
+	RVA0011C770_D3DRS_DEPTHBIAS = 195,
+};
+
+void Rva0011C770CaptureDeviceState(Rva0011C770DeviceState *state)
+{
+	memset(state, 0xCD, sizeof(*state));
+
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_CULLMODE, &state->CullMode);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_ZENABLE, &state->ZEnable);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_ZWRITEENABLE, &state->ZWriteEnable);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_ALPHATESTENABLE, &state->AlphaTestEnable);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_SRCBLEND, &state->SrcBlend);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_DESTBLEND, &state->DestBlend);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_ZFUNC, &state->ZFunc);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_ALPHAREF, &state->AlphaRef);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_ALPHAFUNC, &state->AlphaFunc);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_DITHERENABLE, &state->DitherEnable);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_ALPHABLENDENABLE, &state->AlphaBlendEnable);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_SPECULARENABLE, &state->SpecularEnable);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_STENCILENABLE, &state->StencilEnable);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_TEXTUREFACTOR, &state->TextureFactor);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_WRAP0, &state->Wrap0);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_WRAP1, &state->Wrap1);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_CLIPPING, &state->Clipping);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_LIGHTING, &state->Lighting);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_NORMALIZENORMALS, &state->NormalizeNormals);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_COLORWRITEENABLE, &state->ColorWriteEnable);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_BLENDOP, &state->BlendOp);
+	BfmeApplyOps::Device()->GetRenderState((D3DRENDERSTATETYPE)RVA0011C770_D3DRS_BLENDFACTOR, &state->BlendFactor);
+	BfmeApplyOps::Device()->GetRenderState((D3DRENDERSTATETYPE)RVA0011C770_D3DRS_DEPTHBIAS, &state->DepthBias);
+	BfmeApplyOps::Device()->GetMaterial(reinterpret_cast<D3DMATERIAL9 *>(state->Material));
+	BfmeApplyOps::Device()->GetTransform(D3DTS_WORLD, &state->World);
+	BfmeApplyOps::Device()->GetTransform(D3DTS_VIEW, &state->View);
+	BfmeApplyOps::Device()->GetTransform(D3DTS_PROJECTION, &state->Projection);
+
+	if (SUCCEEDED(BfmeApplyOps::Device()->GetVertexShader(&state->VertexShader)) && state->VertexShader) {
+		state->VertexShader->Release();
+	}
+	if (SUCCEEDED(BfmeApplyOps::Device()->GetPixelShader(&state->PixelShader)) && state->PixelShader) {
+		state->PixelShader->Release();
+	}
+	for (unsigned i = 0; i < 16; ++i) {
+		if (SUCCEEDED(BfmeApplyOps::Device()->GetTexture(i, &state->Textures[i])) && state->Textures[i]) {
+			state->Textures[i]->Release();
+		}
+	}
+
+	for (unsigned stage = 0; stage < 4; ++stage) {
+		Rva0011C770StageState &s = state->Stages[stage];
+		BfmeApplyOps::Device()->GetTextureStageState(stage, D3DTSS_COLOROP, &s.ColorOp);
+		BfmeApplyOps::Device()->GetTextureStageState(stage, D3DTSS_COLORARG1, &s.ColorArg1);
+		s.ColorArg1Select = s.ColorArg1 & D3DTA_SELECTMASK;
+		s.ColorArg1 &= ~D3DTA_SELECTMASK;
+		BfmeApplyOps::Device()->GetTextureStageState(stage, D3DTSS_COLORARG2, &s.ColorArg2);
+		s.ColorArg2Select = s.ColorArg2 & D3DTA_SELECTMASK;
+		s.ColorArg2 &= ~D3DTA_SELECTMASK;
+		BfmeApplyOps::Device()->GetTextureStageState(stage, D3DTSS_ALPHAOP, &s.AlphaOp);
+		BfmeApplyOps::Device()->GetTextureStageState(stage, D3DTSS_ALPHAARG1, &s.AlphaArg1);
+		s.AlphaArg1Select = s.AlphaArg1 & D3DTA_SELECTMASK;
+		s.AlphaArg1 &= ~D3DTA_SELECTMASK;
+		BfmeApplyOps::Device()->GetTextureStageState(stage, D3DTSS_ALPHAARG2, &s.AlphaArg2);
+		s.AlphaArg2Select = s.AlphaArg2 & D3DTA_SELECTMASK;
+		s.AlphaArg2 &= ~D3DTA_SELECTMASK;
+		BfmeApplyOps::Device()->GetTextureStageState(stage, D3DTSS_TEXCOORDINDEX, &s.TexCoordIndex);
+		BfmeApplyOps::Device()->GetTextureStageState(stage, D3DTSS_TEXTURETRANSFORMFLAGS, &s.TextureTransformFlags);
+		BfmeApplyOps::Device()->GetTransform((D3DTRANSFORMSTATETYPE)(D3DTS_TEXTURE0 + stage), &s.TextureTransform);
+	}
+
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_FOGENABLE, &state->FogEnable);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_FOGTABLEMODE, &state->FogTableMode);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_FOGVERTEXMODE, &state->FogVertexMode);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_FOGSTART, &state->FogStart);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_FOGEND, &state->FogEnd);
+	BfmeApplyOps::Device()->GetRenderState(D3DRS_FOGCOLOR, &state->FogColor);
+}
