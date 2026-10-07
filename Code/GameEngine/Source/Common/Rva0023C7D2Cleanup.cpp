@@ -7,16 +7,25 @@ class Rva0023C7D2Pointee
 {
 public:
 	virtual void *scalarDeletingDestructor(unsigned int flags);
+	virtual void slot04(int p);
 };
 
 class Rva0023C7D2
 {
 public:
+	void rva0023C7BB(int p);
 	void rva0023C7D2();
 private:
 	char m_pad[0x120];
 	Rva0023C7D2Pointee *m_ptr;
 };
+
+void Rva0023C7D2::rva0023C7BB(int p)
+{
+	if (m_ptr == 0)
+		return;
+	m_ptr->slot04(p);
+}
 
 void Rva0023C7D2::rva0023C7D2()
 {
