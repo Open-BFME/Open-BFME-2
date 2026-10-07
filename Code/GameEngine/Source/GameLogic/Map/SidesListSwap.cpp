@@ -12,13 +12,23 @@ struct BfmeE12
 	float z;
 };
 
+class ScriptList
+{
+public:
+	void swap(ScriptList *other);
+	char m_body[0x4C];
+};
+
 class SidesInfo
 {
 public:
 	void swap(SidesInfo *other);
 
 private:
-	char m_body[0x60];
+public:
+	char m_head[8];
+	ScriptList m_scripts; // +8, 0x4C-byte by-value list
+	char m_tail[0x60 - 8 - 0x4C];
 };
 
 class TeamsInfoRec
@@ -53,6 +63,7 @@ class SidesList
 {
 public:
 	void swap(SidesList *other);
+	void rva0032B7E3(SidesList *other);
 
 private:
 	char m_head[0x10];
@@ -88,4 +99,32 @@ void SidesList::swap(SidesList *other)
 	std::swap(m_cleared, other->m_cleared);
 	m_notifier.post(Rva005CB274, this, (int)other);
 	other->m_notifier.post(Rva005CB274, other, (int)this);
+}
+
+// Native 0x0032B7E3..0x0032B831, RET4. SidesList identity and the
+// side/script offsets follow the rowed swap above and SidesInfo::swap.
+// The callback is the already-rowed MSVC virtual-slot-5 thunk; the
+// notifier consumes its four-byte member-pointer representation.
+class Rva0032B7E3Listener
+{
+public:
+ virtual void slot00();
+ virtual void slot04();
+ virtual void slot08();
+ virtual void slot0C();
+ virtual void slot10();
+ virtual void slot14(SidesList *, SidesList *);
+};
+
+void SidesList::rva0032B7E3(SidesList *other)
+{
+ for (int i=0; i<m_numSides; ++i)
+  m_sides[i].m_scripts.swap(&other->m_sides[i].m_scripts);
+ union {
+  void (Rva0032B7E3Listener::*member)(SidesList *, SidesList *);
+  void (*callback)();
+ } notify;
+ notify.member=&Rva0032B7E3Listener::slot14;
+ m_notifier.post(notify.callback,this,(int)other);
+ other->m_notifier.post(notify.callback,other,(int)this);
 }
