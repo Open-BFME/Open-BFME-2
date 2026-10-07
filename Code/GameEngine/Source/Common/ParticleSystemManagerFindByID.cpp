@@ -65,16 +65,93 @@ namespace FXParticleSystem
 	class ParticleSystemTemplate;
 }
 
+// Consumed return/call ABI of the rowed helper at 0x003AFA0B. Its receiver
+// and method retain opaque names; the three scalar components are observed.
+struct Rva003AFA0BVector
+{
+	Rva003AFA0BVector() {}
+	Rva003AFA0BVector(float a, float b, float c) : x(a), y(b), z(c) {}
+	__forceinline Rva003AFA0BVector(const Rva003AFA0BVector &that)
+	{
+		x = that.x;
+		y = that.y;
+		z = that.z;
+	}
+	float x, y, z;
+};
+
+class Rva003AFA0B
+{
+public:
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual Rva003AFA0BVector slot10(void *a, void *b) = 0;
+	Rva003AFA0BVector rva003AFA0B(void *a, const Rva003AFA0BVector *source,
+	                            float scale, void *b);
+};
+
+class GlobalData
+{
+public:
+	unsigned char m_unknown000[0x9EC];
+	float m_value9EC;
+};
+extern GlobalData *TheWritableGlobalData;
+
+class Rva001F54C5Holder
+{
+public:
+	unsigned char m_unknown00[0x18];
+};
+
+// The reference parameter preserves retail's second null check before the
+// +0x18 adjustment. BFME 1's verified donor uses the same access shape.
+static __forceinline void *rva001F54C5Slot18(Rva001F54C5Holder *&slot)
+{
+	if (slot != 0)
+		return reinterpret_cast<char *>(slot) + 0x18;
+	return 0;
+}
+
 class ParticleSystem
 {
 public:
 	ParticleSystem(const FXParticleSystem::ParticleSystemTemplate *sysTemplate,
 		ParticleSystemID id, bool createSlaves);
+	Rva003AFA0BVector rva001F54C5(const Rva003AFA0BVector *pos);
 
 	unsigned char m_unmodelled_000[0xA8];
 	ParticleSystemID m_id;
-	unsigned char m_unmodelled_0AC[0x1DC - 0xAC];
+	unsigned char m_unmodelled_0AC[0x130 - 0xAC];
+	Rva003AFA0BVector m_factors130;
+	unsigned char m_unmodelled_13C[0x1BC - 0x13C];
+	Rva003AFA0B *m_receiver1BC;
+	Rva001F54C5Holder *m_holder1C0;
+	unsigned char m_unmodelled_1C4[0x1DC - 0x1C4];
 };
+
+// Native 0x001F54C5..0x001F553F, RET 8 (hidden result plus position).
+// Source lead: BFME 1 968ca36c3265b295297e6aed45a6bd89ffe59c40,
+// game/GameEngine/Source/GameClient/System/ParticleSystemComputeParticleVelocity.cpp.
+// Target supplies its +0x130 vector, +0x1BC receiver and +0x1C0 holder;
+// these differ from the donor's +0x134/+0x1C0/+0x1C4. The single callee
+// is independently rowed at 0x003AFA0B, and the global load is +0x9EC.
+// The surrounding ParticleSystem factory/handle rows establish the owner;
+// the donor's computeParticleVelocity name remains a lead, not a target pin.
+Rva003AFA0BVector ParticleSystem::rva001F54C5(const Rva003AFA0BVector *pos)
+{
+	if (m_receiver1BC != 0) {
+		if (m_holder1C0 != 0) {
+			return m_receiver1BC->rva003AFA0B(
+				const_cast<Rva003AFA0BVector *>(pos), &m_factors130,
+				(TheWritableGlobalData->m_value9EC + 1.0f) * 0.5f,
+				rva001F54C5Slot18(m_holder1C0));
+		}
+	}
+	return Rva003AFA0BVector(0, 0, 0);
+}
 
 struct BfmeParticleSystemNode
 {
