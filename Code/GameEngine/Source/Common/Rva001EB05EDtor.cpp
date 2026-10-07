@@ -17,3 +17,21 @@ private:
 Rva001EB05E::~Rva001EB05E()
 {
 }
+
+// ??1Rva001EB63C@@QAE@XZ @0x001EB63C 78B
+// Evidence: chain via 0x001EB05E; pins Rva001EB63C Rva002AE5CFRecord Rva002E2D10Record UnitRevivalEntry; callers 0x001EC957 0x002AD05A; Ascii at 0xD4 0xD0 plus member at 0xB0.
+class Rva001EB63C
+{
+public:
+	~Rva001EB63C();
+private:
+	char m_pad00[0xB0];
+	Rva001EB05E m_B0;
+	char m_padC4[0xD0 - 0xC4];
+	AsciiString m_D0;
+	AsciiString m_D4;
+};
+
+Rva001EB63C::~Rva001EB63C()
+{
+}
