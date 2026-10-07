@@ -46,3 +46,34 @@ void *Rva001EB8D7::rva001EB90C(const StringBase<char> &s)
 	_ReadWriteBarrier();
 	return m_start14 + idx;
 }
+
+// ?rva001EB8A4@Rva001EB8A4@@QAE_NABURva001EB8A4Elem@@@Z @0x001EB8A4 51B
+// Evidence: unlock; vector StringBase at 0x18 0x1C stride 4 compareNoCase 0x6A00; arg StringBase at +4; caller 0x001EC795.
+struct Rva001EB8A4Elem
+{
+	char m_pad00[4];
+	StringBase<char> m_str04;
+};
+
+class Rva001EB8A4
+{
+public:
+	bool rva001EB8A4(const Rva001EB8A4Elem &e);
+private:
+	char m_pad00[0x18];
+	StringBase<char> *m_begin18;
+	StringBase<char> *m_end1C;
+	StringBase<char> *m_cap20;
+};
+
+bool Rva001EB8A4::rva001EB8A4(const Rva001EB8A4Elem &e)
+{
+	StringBase<char> *p = m_begin18;
+	StringBase<char> *last = m_end1C;
+	for (; p != last; ++p)
+	{
+		if (e.m_str04.compareNoCase(*p) == 0)
+			return true;
+	}
+	return false;
+}
