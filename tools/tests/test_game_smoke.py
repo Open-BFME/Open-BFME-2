@@ -121,6 +121,30 @@ class PieceMover(unittest.TestCase):
             gs.piece_mover([[".text", 0x1000, 0x5000, 0x10]])(0x2000)
 
 
+class Coverage(unittest.TestCase):
+    def test_report_counts_units_and_bytes_that_ran(self):
+        units = {0xE41230: (0x22D290, 0x200, "GameEngine::execute"), 0xE50000: (0x23CB2C, 0x21E, "getCRC"),
+                 0xE60000: (0x1000, 0x10, "never")}
+        rep = gs.coverage_report(units, [(3.0, None, 0xE41230), (40.0, 25, 0xE50000), (41.0, 25, 0x123)])
+        self.assertEqual((rep["units"], rep["units_run"], rep["bytes"], rep["bytes_run"], rep["run_before_game"]),
+                         (3, 2, 0x200 + 0x21E + 0x10, 0x200 + 0x21E, 1))
+        self.assertEqual(rep["run"][1], ["0x23cb2c", 0x21E, "getCRC", 25])
+
+
+class MorePlayers(unittest.TestCase):
+    def test_four_brutal_ais_and_no_fps_cap(self):
+        info, glob = 0x6000000, 0x6400000
+        g = FakeGame({0x400000 + gs.RVA["TheSkirmishGameInfo"]: info, 0x400000 + gs.RVA["TheGlobalData"]: glob})
+        slots = [0x6100000 + 0x1000 * i for i in range(5)]
+        for i, sl in enumerate(slots):
+            g.mem[info + gs.SLOTS_OFF + 4 * i] = sl
+            g.mem[sl + gs.SLOT_STATE] = 1
+        gs.skirmish_setup(True, players=4, difficulty="brutal", fast=True)(g, 1, None)
+        self.assertEqual([g.u32(sl + gs.SLOT_STATE) for sl in slots], [1, 5, 5, 5, 5])
+        self.assertEqual(g.mem[("byte", glob + gs.USE_FPS_LIMIT_OFF)], 0)
+        self.assertIn("slot 4 brutal AI", g.res["setup"]["players"])
+
+
 class BlockDiff(unittest.TestCase):
     def test_first_differing_frame_per_block(self):
         a = [(25, {"objects": 1, "shroud": 7}), (50, {"objects": 2, "shroud": 8})]

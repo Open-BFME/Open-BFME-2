@@ -111,6 +111,8 @@ SLOTS_OFF, SLOT_STATE, SLOT_EASY_AI = 0x18, 4, 2
 # empty world; -1 (random) is resolved at game start from the game's seed.
 SLOT_TEMPLATE, TEMPLATE_RANDOM = 0x18, -1
 FIXED_SEED_OFF = 0x1228
+USE_FPS_LIMIT_OFF = 0x26          # GlobalData UseFPSLimit (bool; INI field table 0x7E85A0)
+AI_STATES = {"easy": 2, "medium": 3, "hard": 4, "brutal": 5}   # GameSlot states (isAI 0x3FF127)
 SEED_OFF = 0x50                   # GameInfo::setSeed (retail 0x3FF328) stores here; -file seeds it with time(0)
 # -file takes the short form: ConvertShortMapPathToLongMapPath (retail 0x3BA06E)
 # turns "maps\<name>.map" into "maps\<name>\<name>.map", the map cache's key.
@@ -152,6 +154,20 @@ def judge_playback(crc, recorded_last=None, played_last=None, min_pairs=3, crash
     if recorded_last is not None and (played_last or 0) < recorded_last - slack:
         return "playback-short"
     return "pass"
+
+
+def coverage_report(units, covered):
+    """Summary of a --coverage run: units probed / run, their bytes, how many first
+    ran before the skirmish's first logic frame, and the units that ran (retail
+    RVA, size, name, first logic frame), in order of first execution."""
+    ran = []
+    for t, frame, rva in covered:
+        if rva in units:
+            r, size, name = units[rva]
+            ran.append([hex(r), size, name, frame])
+    return {"units": len(units), "units_run": len(ran),
+            "bytes": sum(z for _, z, _ in units.values()), "bytes_run": sum(x[1] for x in ran),
+            "run_before_game": sum(1 for x in ran if not x[3]), "run": ran}
 
 
 def block_diff(a, b):
@@ -298,6 +314,8 @@ class Game:
         self.stepping = {}            # tid -> va to re-arm after the single step
         self.calls = {}               # stub int3 va -> (saved full context, bp va, keep, done callback)
         self.dlls = []                # (base, file name) of the game's DLLs
+        self.probe_units = {}         # --coverage: RVA in the image -> (retail RVA, size, name)
+        self.covered = []             # (seconds, logic frame, image RVA) of each first execution
         self.stub = None
         self.procs = {}
         self.pid = self.hproc = self.base = None
@@ -372,6 +390,7 @@ class Game:
         if ctx is None:
             return
         eip = ctx.eip
+        self.hit_va = va                              # the breakpoint's address (eip may be past the int3)
         keep = handler(self, tid, ctx)
         self.write(va, orig, code=True)
         if isinstance(keep, dict):                    # {"call": va, "ecx": this, "done": f(game, eax)}
@@ -567,7 +586,7 @@ class Game:
         seed, logic frame, caller RVA). Rare, so it stays armed."""
         glob = self.global_ptr("TheGlobalData")
         arg, ret = self.u32(ctx.esp + 4), self.u32(ctx.esp)
-        which = "InitRandom" if ctx.eip - 1 - self.base in (self.rva_map(RVA["InitRandom"]),) or             ctx.eip - self.base == self.rva_map(RVA["InitRandom"]) else "InitGameLogicRandom"
+        which = "InitRandom" if self.hit_va - self.base == self.rva_map(RVA["InitRandom"]) else "InitGameLogicRandom"
         self.res.setdefault("seeding", []).append(
             [self.seconds(), which, arg, self.u32(glob + 0x1228) if glob else None, self.logic()[0],
              hex(ret - self.base) if ret else None])
@@ -662,7 +681,19 @@ class Game:
             self._arm(self.va(name), Game._seeding)
         for rva, handler in self.handlers.items():
             self._arm(self.base + rva, handler)
+        armed = 0
+        for rva in self.probe_units:                 # one-shot; never on top of a harness breakpoint
+            if self.base + rva not in self.bps:
+                self._arm(self.base + rva, Game._probe)
+                armed += 1
+        if self.probe_units:
+            self.res["coverage_armed"] = armed
         return True
+
+    def _probe(self, tid, ctx):
+        """--coverage: an authored unit's entry ran (first time only)."""
+        self.covered.append((self.seconds(), self.logic()[0], self.hit_va - self.base))
+        return False
 
 
 def image_size(exe):
@@ -721,7 +752,7 @@ def sandbox_profile(appdata):
     return Path(appdata) / boot_smoke.PROFILE_LEAF
 
 
-def skirmish_setup(ai, seed=None, player=False):
+def skirmish_setup(ai, seed=None, player=False, players=2, difficulty="easy", fast=False):
     """At GameEngine::init's -file branch, after slot 0 became "Test", finish
     what the skirmish menu would have done: TheGameInfo = TheSkirmishGameInfo
     (retail's -file path leaves it null and GameLogic::update's CRC step then
@@ -733,7 +764,8 @@ def skirmish_setup(ai, seed=None, player=False):
     easy AIs with random factions: nothing typed or clicked into the window can
     issue a command, so outside input cannot change the game (seen live: a run
     with focus changes desynced from frame 25 while its RNG still matched).
-    `player` gives slot 0 a random faction instead (and only slot 1 an AI)."""
+    `player` gives slot 0 a random faction instead (and only slot 1 an AI).
+    `players` AIs (slots 1..N) of `difficulty` play; `fast` lifts the FPS cap."""
     def handler(game, tid, ctx):
         info = game.global_ptr("TheSkirmishGameInfo")
         if not info:
@@ -750,19 +782,30 @@ def skirmish_setup(ai, seed=None, player=False):
             if glob:
                 game.res["setup"]["fixed_seed_before"] = game.u32(glob + FIXED_SEED_OFF)
                 game.write(glob + FIXED_SEED_OFF, struct.pack("<I", seed & 0xFFFFFFFF))
-        slots = [game.u32(info + SLOTS_OFF + 4 * i) for i in (0, 1, 2)]
+        n_ai = (1 if player else players) if ai else 0
+        slots = [game.u32(info + SLOTS_OFF + 4 * i) for i in range(1 + max(n_ai, 2))]
         game.res["setup"]["templates_before"] = [game.u32(sl + SLOT_TEMPLATE) if sl else None for sl in slots]
-        ais = ([1] if player else [1, 2]) if ai else []
+        ais = list(range(1, 1 + n_ai))
         for i in ([0] if player else []) + ais:
             if slots[i]:
                 game.write(slots[i] + SLOT_TEMPLATE, struct.pack("<i", TEMPLATE_RANDOM))
         for i in ais:
             if slots[i]:
                 game.res["setup"][f"slot{i}_state_before"] = game.u32(slots[i] + SLOT_STATE)
-                game.write(slots[i] + SLOT_STATE, struct.pack("<I", SLOT_EASY_AI))
+                game.write(slots[i] + SLOT_STATE, struct.pack("<I", AI_STATES[difficulty]))
                 game.write(slots[i] + 8, b"\x01\x01")
         game.res["setup"]["players"] = ("slot 0 player, " if player else "slot 0 observer, ") + \
-            ", ".join(f"slot {i} easy AI" for i in ais)
+            ", ".join(f"slot {i} {difficulty} AI" for i in ais)
+        if fast:
+            # GameEngine::execute copies GlobalData's UseFPSLimit (+0x26) into its
+            # frame limiter every frame (retail 0x22D5B3) and GameEngine::update runs
+            # one logic frame per 6 client frames (0x225E53): without the cap the
+            # game runs as fast as it renders. Logic frames are unchanged, so CRCs
+            # stay comparable with an uncapped or capped reference.
+            glob = game.global_ptr("TheGlobalData")
+            if glob:
+                game.write(glob + USE_FPS_LIMIT_OFF, b"\x00")
+                game.res["setup"]["fps_limit"] = "off"
         if seed is not None:
             # The logic RNG is seeded once, by GameEngine::init's start-up
             # InitRandom(time(0)) (0x23424C), before GlobalData exists, and a -file
@@ -887,11 +930,21 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
     game = Game(gd, f"{a.args} {seed} {extra}".strip(), a.appdata, rva_map, focus_lie=not a.no_focus_lie)
     for name, h in handlers:
         game.on(name, h)
+    if a.coverage:
+        units = json.loads((boot_smoke.OUT / f"{a.image}.json").read_text())["authored"]
+        move = rva_map or (lambda r: r)
+        for rva, size, name in units:
+            try:
+                game.probe_units[move(rva)] = (rva, size, name)
+            except KeyError:
+                pass
     t0 = time.time()
     res = game.run(timeout or a.timeout, tick)
     out = {"args": game.args, "retail": a.retail, "wall_seconds": round(time.time() - t0, 1), "run": res}
     if not a.retail:
         out["addresses"], out["relayout"] = a.address_map, a.relayout
+    if a.coverage:
+        out["coverage"] = coverage_report(game.probe_units, game.covered)
     out["profile_guard"], out["profile_touched"] = profile_guard.check()
     out["sandbox_profile"] = sorted(str(Path(p).relative_to(a.appdata))
                                     for p in boot_smoke.snapshot(Path(a.appdata)))[:40]
@@ -920,6 +973,10 @@ def finish(a, name, out):
     if any(out["guard"].values()):
         out["outcome"] = "guard-violation"
     out["image"] = "retail" if a.retail else a.image
+    if "coverage" in out:                            # the unit list goes to its own file
+        cov = OUT / f"coverage_{name}_{out['image']}.json"
+        cov.write_text(json.dumps(out["coverage"], indent=1))
+        out["coverage"] = {k: v for k, v in out["coverage"].items() if k != "run"} | {"file": str(cov)}
     (OUT / f"{name}_{out['image']}.json").write_text(json.dumps(out, indent=1, default=str))
     print(json.dumps(out, indent=1, default=str))
     return 0 if out["outcome"] == "pass" else 1
@@ -927,7 +984,7 @@ def finish(a, name, out):
 
 def cmd_skirmish(a, keep_replay=None):
     samples = []
-    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player))]
+    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player, a.players, a.difficulty, a.fast))]
     hook = FrameHook(every=a.crc_every, modes=(a.mode,)) if keep_replay else None
     if hook:
         handlers.append(("GameEngine::update", hook))
@@ -964,7 +1021,7 @@ def cmd_save(a):
         if started and not hook.save_requested and samples[-1][0] - started[0] >= a.save_after:
             hook.save_requested = True
         return why
-    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player)), ("GameEngine::update", hook)]
+    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player, a.players, a.difficulty, a.fast)), ("GameEngine::update", hook)]
     game, out = launch(a, f'-file "{a.map}"', handlers, tick)
     res = out["run"]
     new = [q for q in find_saves(a.appdata) if q.name not in before]
@@ -1039,7 +1096,7 @@ def cmd_determinism(a):
     def tick(game):
         perturb_tick(a, game, samples[-1][1] if samples else None, perturbed)
         return base_tick(game)
-    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player)), ("GameEngine::update", hook)]
+    handlers = [("fileSlotsSet", skirmish_setup(not a.no_ai, a.seed, a.player, a.players, a.difficulty, a.fast)), ("GameEngine::update", hook)]
     game, out = launch(a, f'-file "{a.map}"', handlers, tick)
     crc = pair_crcs([(f, c, False) for f, c in record.get("crcs", [])] + [(f, c, True) for f, c in hook.crcs])
     out["blocks_differ"] = block_diff(record.get("blocks", []), hook.blocks)
@@ -1051,6 +1108,9 @@ def cmd_determinism(a):
     out["outcome"] = judge_playback(crc, None, None, a.min_crcs, crash_outcome(res))
     if out["outcome"] == "pass" and out["record_seed"] != a.seed:
         out["outcome"] = "seed-differs"
+    mine, theirs = out["run"].get("setup", {}), record["run"].get("setup", {})
+    if out["outcome"] in ("pass", "desync") and (mine.get("players"), mine.get("fps_limit")) !=             (theirs.get("players"), theirs.get("fps_limit")):
+        out["outcome"] = "setup-differs"              # players/difficulty must match the reference
     return finish(a, "determinism_perturbed" if a.perturb_frame is not None else "determinism", out)
 
 
@@ -1197,6 +1257,11 @@ def main(argv=None):
     ap.add_argument("--map", default=SKIRMISH_MAP)
     ap.add_argument("--mode", type=int, default=2, help="GameLogic game mode of a skirmish")
     ap.add_argument("--no-ai", action="store_true")
+    ap.add_argument("--players", type=int, default=2, help="AI players (slots 1..N; the map must have N starts)")
+    ap.add_argument("--difficulty", choices=sorted(AI_STATES), default="easy")
+    ap.add_argument("--fast", action="store_true", help="lift the FPS cap: logic runs at render rate / 6")
+    ap.add_argument("--coverage", action="store_true",
+                    help="one-shot probe on each authored unit's entry; report the units that ran")
     ap.add_argument("--player", action="store_true",
                     help="slot 0 plays (random faction) against one AI, instead of observing two AIs")
     ap.add_argument("--seed", type=lambda v: int(v, 0), default=1, help="-randomSeed and the skirmish seed (GameInfo+0x50)")
