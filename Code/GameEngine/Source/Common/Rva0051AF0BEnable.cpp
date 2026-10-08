@@ -83,7 +83,7 @@ public:
 	virtual void v17();
 	virtual GameMessage *v18(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern MessageStream *TheMessageStream;
 struct UnknownE03138
 {
 	virtual void u0();
@@ -122,7 +122,7 @@ void __cdecl Rva0051B09BEnable(void)
 {
 	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) != 0 && ((BfmeSelectionState *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->isSelectionLocked()) {
 		Rva0051AF0BEnable(0);
-		GameMessage *msg = MessageStreamSubsystem->v18(0x6b8);
+		GameMessage *msg = TheMessageStream->v18(0x6b8);
 		int v = ((Rva002B2B66 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->rva002B2B66();
 		msg->appendIntegerArgument(v);
 		return;
@@ -130,7 +130,7 @@ void __cdecl Rva0051B09BEnable(void)
 	Rva0051AF0BEnable(0);
 	if (g_00E03138->u18())
 		return;
-	GameMessage *msg2 = MessageStreamSubsystem->v18(0x448);
+	GameMessage *msg2 = TheMessageStream->v18(0x448);
 	msg2->appendBooleanArgument(false);
 	TheInGameUI->m_flag = 1;
 }

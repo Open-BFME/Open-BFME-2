@@ -34,7 +34,7 @@ public:
 	virtual GameMessage *appendType(int type);
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern MessageStream *TheMessageStream;
 
 struct Rva005E8D38Inner
 {
@@ -68,7 +68,7 @@ private:
 // ?rva005E8D38@Rva005E8D38@@QAEXXZ
 void Rva005E8D38::rva005E8D38()
 {
-	GameMessage *msg = MessageStreamSubsystem->appendType(0x6AB);
+	GameMessage *msg = TheMessageStream->appendType(0x6AB);
 	msg->appendIntegerArgument(m_mid->m_inner->m_first);
 	msg->appendIntegerArgument(m_mid->m_second);
 }

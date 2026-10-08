@@ -220,7 +220,7 @@ public:
 	virtual void m17();
 	virtual GameMessage *appendMessage(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern MessageStream *TheMessageStream;
 
 // TheGameInfo (0x00A02EEC); vslot 20 is Zero Hour's isSandbox.
 class GameInfo
@@ -274,11 +274,11 @@ void GameLogic::rva0023D0E3(bool selfDestruct)
 {
 	if (selfDestruct && isInMultiplayerGame() && m_gameMode != 2 && TheGameInfo && !TheGameInfo->isSandbox())
 	{
-		GameMessage *msg = MessageStreamSubsystem->appendMessage(0x448);
+		GameMessage *msg = TheMessageStream->appendMessage(0x448);
 		msg->appendBooleanArgument(true);
 	}
 	((Rva001EB0B1Holder *)TheTerrainVisual)->rva001EB0B1();
-	GameMessage *msg = MessageStreamSubsystem->appendMessage(0x1D);
+	GameMessage *msg = TheMessageStream->appendMessage(0x1D);
 	if (g_00DFEF18)
 		msg->appendIntegerArgument(2);
 	if (!isInMultiplayerGame())
