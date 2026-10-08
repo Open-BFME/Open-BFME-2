@@ -73,6 +73,7 @@ public:
 };
 class Rva00084206Track {
 public:
+ Rva00084206Track();
  char pad0[8]; TrackVector endpoints[2]; char pad20[0x12f1];
  bool bound; char pad1312[0xe]; Rva00084206Track *next,*prev;
  void init(float,float,const char*);
@@ -90,9 +91,30 @@ static __declspec(noinline) float computeTrackSpacing(Rva00084B18RenderObj *obj,
  }
  return spacing;
 }
+class SceneClass;
+class VertexMaterialClass {
+public:
+ enum PresetType { PRELIT_DIFFUSE = 0 };
+ static VertexMaterialClass *Get_Preset(PresetType);
+};
+class ShaderClass {
+public:
+ unsigned int bits;
+ static ShaderClass _PresetAlphaShader;
+};
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
+struct TrackSystemGlobalView {
+ char pad[0x10c]; int maxTerrainTracks;
+};
 class Rva00084C05System {
 public:
- char pad[0x10]; Rva00084206Track *used,*free;
+ void *vertexBuffer, *indexBuffer;
+ VertexMaterialClass *material; ShaderClass shader;
+ Rva00084206Track *used,*free;
+ SceneClass *scene;
+ void init(SceneClass *);
+ void ReAcquireResources();
  Rva00084206Track *bind(Rva00084B18RenderObj*,float,const char*,const char*,const char*);
 };
 Rva00084206Track *Rva00084C05System::bind(Rva00084B18RenderObj *obj,float length,const char *texture,const char *left,const char *right) {
@@ -107,4 +129,27 @@ Rva00084206Track *Rva00084C05System::bind(Rva00084B18RenderObj *obj,float length
   mod->bound=true;
  }
  return mod;
+}
+
+// Semantic donor: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
+// TerrainTracksSystemInit.cpp. Target 00084D01..00084DAC and WorldBuilder
+// 008BFFE0 independently agree on scene+18, free+14/used+10, track links
+// +1320/+1324, allocation size1328 and global maxTerrainTracks+10C.
+// WorldBuilder names init and ReAcquireResources; the address-derived class
+// views remain partial. The donor establishes the material/shader purpose.
+void Rva00084C05System::init(SceneClass *newScene) {
+ const int numModules = ((TrackSystemGlobalView *)TheWritableGlobalData)->maxTerrainTracks;
+ scene = newScene;
+ ReAcquireResources();
+ material = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
+ shader = ShaderClass::_PresetAlphaShader;
+ if (free || used) return;
+ for (int i = 0; i < numModules; ++i) {
+  Rva00084206Track *mod = new Rva00084206Track;
+  if (!mod) return;
+  mod->prev = 0;
+  mod->next = free;
+  if (free) free->prev = mod;
+  free = mod;
+ }
 }
