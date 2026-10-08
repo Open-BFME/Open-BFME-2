@@ -8,6 +8,9 @@
 // record's members are rowed under placeholder names (0x001DCDAF,
 // 0x001DD240); field names past WB's are not recovered.
 
+#include "../../../Libraries/Include/Lib/Coord2D.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
@@ -39,6 +42,19 @@ struct Vec001DCDAF
 	Real z;
 };
 
+// A returned position. The memberwise copy constructor is what gives the
+// retail return copies their fld/fstp-then-mov shape; the float constructor
+// builds a result in place.
+struct EvaCoord
+{
+	EvaCoord() {}
+	EvaCoord(const EvaCoord &p) : x(p.x), y(p.y), z(p.z) {}
+	EvaCoord(Real ax, Real ay, Real az) : x(ax), y(ay), z(az) {}
+	Real x;
+	Real y;
+	Real z;
+};
+
 // One event's info record (0x30 bytes), seen by the status updates as their
 // argument.
 struct Arg001DCDAF
@@ -46,7 +62,31 @@ struct Arg001DCDAF
 	unsigned char m_data[0x20];
 	EvaEventID *m_eventIDsStart;			// +0x20, observed retail pointer read
 	EvaEventID *m_eventIDsFinish;			// +0x24, observed retail pointer read
-	unsigned char m_pad28[0x30 - 0x28];
+	unsigned char m_pad28[0x2c - 0x28];
+	Bool m_2c;						// +0x2C, observed retail byte test
+	unsigned char m_pad2d[0x30 - 0x2d];
+};
+
+class Player
+{
+public:
+	int rva002ABCF0(unsigned char flag, int *out);		// 0x002ABCF0, the player's best object
+};
+
+// The object view: its position at +0x38.
+struct EvaObjectView
+{
+	unsigned char m_pad00[0x38];
+	EvaCoord m_position;					// +0x38
+};
+
+// The living-world player: its region name at +0x2C, its side at +0x14.
+struct EvaWorldMapPlayer
+{
+	unsigned char m_pad00[0x14];
+	int m_14;						// +0x14
+	unsigned char m_pad18[0x2c - 0x18];
+	unsigned char m_regionName[4];				// +0x2C
 };
 
 // One event's status record (0x34 bytes).
@@ -55,10 +95,14 @@ class Rva001DCDAF
 public:
 	Bool rva001DCDAF(const Arg001DCDAF *info, const Vec001DCDAF *pos, const Vec001DCDAF *pos2);	// 0x001DCDAF
 	void rva001DD7C1(Arg001DCDAF *info, const Vec001DCDAF *position);
+	EvaCoord getPlayPositionForEvent(const Arg001DCDAF *info, Player *localPlayerRTS, EvaWorldMapPlayer *localPlayerWorldMap) const;
 
 	Real m_blockedTime;					// +0x00, > 0 blocks the event
 	Real m_aboutToPlayTime;					// +0x04, >= 0 when about to play
-	unsigned char m_pad08[0x22 - 0x08];
+	EvaCoord m_position;					// +0x08
+	unsigned char m_pad14[0x20 - 0x14];
+	Bool m_hasPosition;					// +0x20
+	unsigned char m_pad21;
 	Bool m_hasPlayed;					// +0x22
 	unsigned char m_pad23[0x30 - 0x23];
 	UnsignedInt m_lastReallyPlayedFrame;			// +0x30
@@ -183,4 +227,78 @@ void Rva001DCDAF::rva001DD7C1(Arg001DCDAF *info, const Vec001DCDAF *position)
 	m_hasPlayed = true;
 	m_lastReallyPlayedFrame = TheGameLogic->m_frame;
 	*(Vec001DCDAF *)((unsigned char *)this + 0x24) = *position;
+}
+
+// The living-world region manager's lookups (TheLivingWorldLogic +0xB0):
+// 0x002104B6 finds a region by name, 0x0020EA58 its centre point; the region
+// keeps its owner at +0x13C.
+class Rva002104B6
+{
+public:
+	void *rva002104B6(void *name);
+};
+
+class Rva002B2702B0
+{
+public:
+	bool rva0020EA58(void *region, float *center);
+};
+
+struct EvaRegionView
+{
+	unsigned char m_pad00[0x13c];
+	int m_13c;						// +0x13C
+};
+
+class LivingWorldLogic
+{
+public:
+	void *getRegionManager() const { return m_regionManager; }
+
+	unsigned char m_pad00[0xb0];
+	void *m_regionManager;					// +0xB0
+};
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+// 0x002BF5B0 maps a world-map point to a 3D position.
+class Rva002D3627Host
+{
+public:
+	bool rva002BF5B0(const Coord2D *in, Coord3D *out);
+};
+extern Rva002D3627Host *g_00DFEF18;
+
+// EvaEventStatus::getPlayPositionForEvent, retail 0x001DCE6B (279 bytes;
+// WorldBuilder's Eva.cpp 0x00AC8E80, whose assert names both player
+// parameters): the event's own position unless the info record's +0x2C byte
+// is set, else the RTS player's best object, else the world-map player's
+// region centre, else (-100, -100, 0).
+EvaCoord Rva001DCDAF::getPlayPositionForEvent(const Arg001DCDAF *info, Player *localPlayerRTS, EvaWorldMapPlayer *localPlayerWorldMap) const
+{
+	if (m_hasPosition && !info->m_2c)
+		return m_position;
+	if (localPlayerRTS)
+	{
+		EvaObjectView *obj = (EvaObjectView *)localPlayerRTS->rva002ABCF0(1, 0);
+		if (obj)
+			return obj->m_position;
+	}
+	else if (localPlayerWorldMap)
+	{
+		EvaRegionView *region = (EvaRegionView *)((Rva002104B6 *)TheLivingWorldLogic->getRegionManager())->rva002104B6(localPlayerWorldMap->m_regionName);
+		if (region && region->m_13c == localPlayerWorldMap->m_14)
+		{
+			Coord2D center;
+			if (((Rva002B2702B0 *)TheLivingWorldLogic->getRegionManager())->rva0020EA58(region, &center.x))
+			{
+				Coord3D pos;
+				pos.x = center.x;
+				pos.y = center.y;
+				pos.z = 0.0f;
+				g_00DFEF18->rva002BF5B0(&center, &pos);
+				return EvaCoord(pos.x, pos.y, pos.z);
+			}
+		}
+	}
+	return EvaCoord(-100.0f, -100.0f, 0.0f);
 }
