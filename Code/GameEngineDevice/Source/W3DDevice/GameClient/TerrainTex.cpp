@@ -112,10 +112,12 @@ extern "C" HRESULT __stdcall D3DXLoadSurfaceFromMemory(void *pDestSurface,
 
 // Zero Hour's TerrainTex.h has no updateFlatDXT1, so this TU declares
 // TerrainTextureClass itself instead of including that header.
+class Rva00111784DwordField { public: int get() const; };
 class TerrainTextureClass : public TextureClass
 {
 public:
 	void setLOD(Int LOD);
+ int updateCliff(TileData**,int,int,int,int);
 	Int updateFlatDXT1(WorldHeightMap *htMap, Int xCell, Int yCell,
 		Int cellWidth, Int pixelsPerCell, Int tileKind);
 };
@@ -174,4 +176,53 @@ Int TerrainTextureClass::updateFlatDXT1(WorldHeightMap *htMap, Int xCell,
 void TerrainTextureClass::setLOD(Int LOD)
 {
 	if (Peek_D3D_Texture()) Peek_D3D_Texture()->SetLOD(LOD);
+}
+
+// BFME1 34f59164 Rva006D5B10Update donor; native EF63F..EF7A1 and
+// WB8C54C0 establish the extra tile-kind argument and 16-bit source pixels.
+// Existing 111784 getter provides the alternate tile when tileKind is one.
+Int TerrainTextureClass::updateCliff(TileData **tiles, Int firstTile, Int tileCount, Int cellWidth, Int tileKind)
+{
+	SurfaceResource *surface_level;
+	Rva006D5750SurfaceStorage surface_storage;
+	Rva006D53A0SurfaceDesc &surface_desc = surface_storage.desc;
+	D3DLOCKED_RECT locked_rect;
+	TerrainTextureClass *self = this;
+	BFME_DX8_ErrorCode(reinterpret_cast<BfmeD3DTexture *>(self->Peek_D3D_Base_Texture())->GetSurfaceLevel(0, &surface_level));
+	BFME_DX8_ErrorCode(surface_level->GetDesc(&surface_desc));
+	if (surface_desc.Width != cellWidth * TILE_PIXEL_EXTENT) {
+		return 0;
+	}
+
+	BFME_DX8_ErrorCode(surface_level->LockRect(&locked_rect, NULL, 0));
+	if (surface_desc.Format == D3DFMT_A1R5G5B5) {
+		Int pixelBytes = 2;
+		UnsignedByte *pBGRX_data = ((UnsignedByte *)locked_rect.pBits);
+		Int cellX, cellY;
+		for (cellX = 0; cellX < cellWidth; cellX++) {
+			for (cellY = 0; cellY < cellWidth; cellY++) {
+				TileData *tile = tiles[firstTile + cellY * cellWidth + cellX];
+                if (!tile) continue;
+                if (tileKind == 1) {
+                    tile = reinterpret_cast<TileData*>(reinterpret_cast<Rva00111784DwordField*>(tile)->get());
+                    if (!tile) continue;
+                }
+                UnsignedByte *pBGR = reinterpret_cast<UnsignedByte*>(tile) + 8;
+				if (pBGR == NULL) continue;
+				Int k, l;
+				for (k = TILE_PIXEL_EXTENT - 1; k >= 0; k--) {
+					Short *pBGRX = (Short *)(pBGRX_data + (TILE_PIXEL_EXTENT * (cellWidth - cellY - 1) + k) * surface_desc.Width * pixelBytes + cellX * TILE_PIXEL_EXTENT * pixelBytes);
+					for (l = 0; l < TILE_PIXEL_EXTENT; l++) {
+						*pBGRX++ = *reinterpret_cast<Short*>(pBGR) | 0x8000;
+						pBGR += 2;
+					}
+				}
+			}
+		}
+	}
+
+	surface_level->UnlockRect();
+	surface_level->Release();
+	BFME_DX8_ErrorCode(D3DXFilterTexture(reinterpret_cast<IDirect3DTexture8 *>(self->Peek_D3D_Base_Texture()), NULL, 0, 5));
+	return surface_desc.Height;
 }
