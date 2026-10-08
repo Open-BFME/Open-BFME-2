@@ -99,7 +99,7 @@ public:
 
 	virtual GPProfile getLocalProfileID( void );
 
-	BuddyThreadClass* getThread( void );
+	BuddyThreadClass* getThread( void ) { return m_thread; }
 
 private:
 	MutexClass m_requestMutex;
@@ -130,6 +130,7 @@ public:
 	void connectCallback( GPConnection *con, GPConnectResponseArg *arg );
 	void requestCallback( GPConnection *con, GPRecvBuddyRequestArg *arg );
 	void statusCallback( GPConnection *con, GPRecvBuddyStatusArg *arg );
+	void rva00550720( GPConnection *con, GPRecvBuddyRequestArg *arg );
 
 	Bool isConnecting( void ) { return m_isConnecting; }
 	Bool isConnected( void ) { return m_isConnected; }
@@ -155,6 +156,28 @@ static enum CallbackType
 	CALLBACK_RECVSTATUS,
 	CALLBACK_MAX
 };
+
+// Retail 0x00551FB3..0x00552027, 116B, immediately follows addResponse.
+// BFME1 34f59164f BuddyThread.cpp supplies callbackWrapper's purpose and
+// cases 0..4. Target calls identify those arms independently; case 5 calls
+// the existing address-named rva00550720 callback, whose purpose is opaque.
+// The target reads the queue's thread at +0x64, checks it once, then forwards
+// con and arg through the six-way dispatcher; every arm ends in a cdecl ret.
+void callbackWrapper( GPConnection *con, void *arg, void *param )
+{
+	BuddyThreadClass *thread = MESSAGE_QUEUE->getThread();
+	if (!thread)
+		return;
+	switch ((Int)param)
+	{
+	case 0: thread->connectCallback(con, (GPConnectResponseArg *)arg); break;
+	case 1: thread->errorCallback(con, (GPErrorArg *)arg); break;
+	case 2: thread->messageCallback(con, (GPRecvBuddyMessageArg *)arg); break;
+	case 3: thread->requestCallback(con, (GPRecvBuddyRequestArg *)arg); break;
+	case 4: thread->statusCallback(con, (GPRecvBuddyStatusArg *)arg); break;
+	case 5: thread->rva00550720(con, (GPRecvBuddyRequestArg *)arg); break;
+	}
+}
 
 
 //-------------------------------------------------------------------------
@@ -216,4 +239,3 @@ Bool GameSpyBuddyMessageQueue::getResponse( BuddyResponse& resp )
 
 
 //-------------------------------------------------------------------------
-
