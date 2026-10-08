@@ -2,12 +2,14 @@
 // CaveContain::onBuildComplete, target RVA 0x00466790, 65 bytes.
 //
 // Target evidence: CaveContainCtor.cpp stores vftable 0x00843A5C at object
-// offset +0x34. That table's slot 1 is 0x00466790; slot 3 is the rowed byte
-// getter at 0x00466467. The constructor and 0x00466780's module-data copy put
-// the cave index at object +0x104 and the build-complete flag at +0x100. From
-// this +0x34 view those fields are +0xD0 and +0xCC, and the owner Object* is
-// at this -0x2C. The body calls the CaveSystem helpers also used by nearby
-// CaveContain methods.
+// offset +0x34. Slot 0 is 0x00466780 (onCreate); slot 1 is 0x00466790
+// (onBuildComplete); slot 3 is the rowed byte getter at 0x00466467. The
+// 16-byte slot-0 body reads the ModuleData pointer at this -0x30 and its cave
+// index at data +0x98, then writes the index to this +0xD0. The constructor
+// and target body place that cave index at complete-object +0x104. The
+// build-complete flag is at complete-object +0x100 (this +0xCC), and the owner
+// Object* is at this -0x2C. The onBuildComplete body calls the CaveSystem
+// helpers also used by nearby CaveContain methods.
 //
 // Donor provenance: Open-BFME-1 revision 6583b3c1ff21db4a561285717028fdafc780b7db,
 // GeneralsMD/Code/GameEngine/Source/GameLogic/Object/Contain/CaveContain.cpp,
@@ -16,6 +18,14 @@
 // to TunnelTracker::onTunnelCreated remain inferences.
 
 class Object;
+
+// Narrow target view: retail onCreate reads the module-data field at +0x98.
+class CaveContainModuleDataView
+{
+public:
+	unsigned char m_pad[0x98];
+	int m_caveIndexData;
+};
 
 // Target helper is still recorded under its opaque row name. The donor calls
 // TunnelTracker::onTunnelCreated(Object*) at this point in onBuildComplete.
@@ -52,6 +62,15 @@ private:
 	unsigned char m_needToRunOnBuildComplete;
 	int m_caveIndex;
 };
+
+// ?onCreate@CaveContain@@UAEXXZ
+void CaveContain::onCreate()
+{
+	CaveContainModuleDataView *moduleData =
+		*reinterpret_cast<CaveContainModuleDataView **>(
+			reinterpret_cast<char *>(this) - 0x30);
+	m_caveIndex = moduleData->m_caveIndexData;
+}
 
 void CaveContain::onBuildComplete()
 {
