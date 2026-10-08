@@ -1,3 +1,4 @@
+#include "../GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD
 // ?rva007B6880@@YAXXZ @ 0x007B6880 (10B). Global setter thunk: ecx=&g_Va00DDEB24 then tail-jmp to rowed ?apply@Rva00019EC0DwordImmSetter@@QAEXXZ (0x00019EC0) which sets [ecx],0xBBC8D4. No callers. Prev 0x007B5860 (Rva00CE12FCMutex.cpp) next 0x007B7270 (BfmeConv804.cpp). Honest address name; no donor.
 extern "C" const void *const vtbl_00CE3934[];  // ??_7Rva00669510@@6B@
@@ -6175,12 +6176,11 @@ void __cdecl rva007B8F9F()
 	return p->~basic_string();
 }
 
-extern unsigned g_Va00E04494;
-unsigned int g_Va00E04494;
+AIEconomyFarmLibraryStorage AIEconomyBuilder::m_farmList;
 
 void __cdecl rva007B8FBD()
 {
-	StlNarrowString *p = (StlNarrowString *)&g_Va00E04494;
+	StlNarrowString *p = (StlNarrowString *)&AIEconomyBuilder::m_farmList;
 	return p->~basic_string();
 }
 
@@ -6758,23 +6758,23 @@ void __cdecl rva007B3EBF()
 	g_Va00E02C4C = 0x00E02C44;
 }
 
-// Opaque-class view for the thunk below. The destructor is declared only;
-// symbols.csv pins ??1Rva007EC44@@UAE@XZ to 0x007EC44 (opaque SEH dtor, vptr
-// 0xBC6F80; called by the rowed scalar deleting dtor 0x007EC87).
-class Rva007EC44
+// Startup thunk 0x007AC022 constructs Rva0007EBFB at VA 0x00DE2008.
+// Its verified WaterDraw destructor at 0x0007EC44 unregisters the binder
+// and destroys its two members; use that provider for the matching cleanup.
+class Rva0007EBFB
 {
 public:
-	virtual ~Rva007EC44();
+	virtual ~Rva0007EBFB();
 };
 
 extern unsigned g_Va00DE2008;
 unsigned int g_Va00DE2008;
 
-// ?rva007B6BF5@@YAXXZ @ 0x007B6BF5 (10B). Global Rva007EC44 dtor thunk: ecx=&g_Va00DE2008 then tail-jmp to pinned ??1Rva007EC44@@UAE@XZ (0x007EC44). No callers. Honest address name.
+// ?rva007B6BF5@@YAXXZ @ 0x007B6BF5 (10B). WaterDraw global cleanup registered by startup thunk 0x007AC022; tail-calls the verified destructor at 0x0007EC44.
 void __cdecl rva007B6BF5()
 {
-	Rva007EC44 *p = (Rva007EC44 *)&g_Va00DE2008;
-	return p->Rva007EC44::~Rva007EC44();
+	Rva0007EBFB *p = (Rva0007EBFB *)&g_Va00DE2008;
+	return p->Rva0007EBFB::~Rva0007EBFB();
 }
 
 // FrustumClass construction view for the thunk below. The rowed ctor

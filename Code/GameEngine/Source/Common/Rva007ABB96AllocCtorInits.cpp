@@ -1,3 +1,4 @@
+#include "../GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
 // cl: /MD
 //
 // Dynamic initializers from the 0x007AB7DA strip that construct a file-scope
@@ -71,7 +72,6 @@ extern unsigned g_Va00DFEA44;
 extern unsigned g_Va00DFF134;
 extern unsigned g_Va00E031A8;
 extern unsigned g_Va00E04484;
-extern unsigned g_Va00E04494;
 extern unsigned g_Va00E04920;
 extern unsigned g_Va00E0657C;
 extern unsigned g_Va00E06654;
@@ -161,7 +161,7 @@ void Rva007ABB96AllocCtorInits::rva007B31A8()
 // 0x007B31FA (29B): vector<BfmeE16> allocator ctor 0x004F710A on VA 0x00E04494, atexit(0x007B8FBD -> 0x0007FAB3)
 void Rva007ABB96AllocCtorInits::rva007B31FA()
 {
-	( (E16Vector *)&g_Va00E04494 )->E16Vector::vector();
+	( (E16Vector *)&AIEconomyBuilder::m_farmList )->E16Vector::vector();
 	atexit( rva007B8FBD );
 }
 

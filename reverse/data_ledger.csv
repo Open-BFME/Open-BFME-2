@@ -16750,8 +16750,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A04480,4,.data,global,_s_rva007B3162,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x00A04484,12,.data,global,?g_00E04484@@3URvaVector@@A,Code/GameEngine/Source/Common/Rva004E9B70Finish.cpp,provisional,?g_00E04484@@3URvaVector@@A;?g_Va00E04484@@3IA,2,11
 0x00A04490,4,.data,global,?g_Va00E04490@@3IA,,unowned,?g_00E04490@@3V?$StringBase@D@@B;?g_Va00E04490@@3IA,0,3
-0x00A04494,4,.data,global,?g_Va00E04494@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_00E04494@@3PAXA;?g_Va00E04494@@3IA,1,3
-0x00A04498,8,.data,global,?g_00E04498@@3PAXA,,unowned,,0,1
+0x00A04494,12,.data,global,?m_farmList@AIEconomyBuilder@@2UAIEconomyFarmLibraryStorage@@A,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,4
 0x00A044A0,8,.data,global,?g_00E044A0@@3HA,Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp,owned,,1,3
 0x00A044A8,4,.data,global,_s_rva007B3231,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A044AC,4,.data,global,?g_00E044AC@@3HA,Code/Libraries/Source/WWVegas/WW3D2/Rva004ECE14.cpp,owned,,1,1
