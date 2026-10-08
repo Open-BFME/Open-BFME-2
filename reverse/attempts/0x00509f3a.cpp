@@ -1,4 +1,6 @@
 // ?rva00509F3A@Made002CC8A4@@QAEEPAXPAVObject@@PAVDamageInfo@@@Z
+// partial score=0.9485 date=2026-10-09
+// ?rva00509F3A@Made002CC8A4@@QAEEPAXPAVObject@@PAVDamageInfo@@@Z
 // partial score=0.89174 date=2026-10-09
 // ?rva0050A1E9@Made002CC8A4@@QAEXPAXPAVObject@@@Z
 // partial score=0.88 date=2026-10-04
@@ -236,30 +238,30 @@ private:
 static inline const float &bfmeMin(const float &a, const float &b) { return a > b ? b : a; }
 unsigned char Made002CC8A4::rva00509F3A(void *weapon, Object *victim, DamageInfo *info)
 {
+ const Made002CC8A4 *self = this;
  Object *source;
- Made002CC8A4 *self = this;
  if (!weapon || !victim) goto failed;
  source = TheGameLogic->findObjectByID((ObjectID)*(int *)((char *)weapon + 8));
+ float dx,dy,dz;
  if (!source) goto failed;
  info->wave40 = m_128;
- float dx,dy,dz;
  if (!m_155 && m_14C) {
   dy = source->position.y - victim->position.y;
   dz = source->position.z - victim->position.z;
   dx = source->position.x - victim->position.x;
  } else {
-  dx = victim->position.x - source->position.x;
   dy = victim->position.y - source->position.y;
   dz = victim->position.z - source->position.z;
+  dx = victim->position.x - source->position.x;
  }
  Coord3D delta = {dx,dy,dz};
  if (m_144 != 0.0f) {
-  float side = bfmeMin(m_144, 1.0f);
-  float normal = 1.0f - side;
-  float perpendicularX = delta.y * side;
-  float perpendicularY = -delta.x * side;
-  delta.x = delta.x * normal + perpendicularX * side;
-  delta.y = delta.y * normal + perpendicularY * side;
+  const float side = bfmeMin(m_144, 1.0f);
+  float perpendicularY = -side * delta.x;
+  const float normal = 1.0f - side;
+  const float perpendicularX = delta.y * side;
+  delta.x = delta.x * (normal + perpendicularX * side);
+  delta.y *= normal + perpendicularY * side;
  }
  if (fabs(delta.x) < 0.0001f && fabs(delta.y) < 0.0001f && fabs(delta.z) < 0.0001f) {
   if (m_155) {
