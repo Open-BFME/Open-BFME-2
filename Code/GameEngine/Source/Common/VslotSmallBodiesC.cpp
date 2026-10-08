@@ -141,19 +141,6 @@ void Rva00080266::rva00080266()
 }
 
 
-// vtable 0x00BE82B8#18: 1 when +0x14 is set and +0x1C is not.
-class Rva00232E2F
-{
-public:
-	Int rva00232E2F();
-private:
-	char m_pad00[0x14];
-	Int m_14;
-	char m_pad18[0x1C - 0x18];
-	Int m_1C;
-};
-Int Rva00232E2F::rva00232E2F() { return m_14 != 0 && m_1C == 0; }
-
 // vtable 0x00BC7A88#20: toggle the byte at +0x811.
 class Rva0008EF81
 {

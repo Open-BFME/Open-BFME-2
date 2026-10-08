@@ -28,16 +28,6 @@ Rva00225ACA::~Rva00225ACA()
 {
 }
 
-class Rva00232D7B : public SubsystemInterface
-{
-public:
-	virtual ~Rva00232D7B();
-};
-
-Rva00232D7B::~Rva00232D7B()
-{
-}
-
 class Rva0025DB46 : public SubsystemInterface
 {
 public:

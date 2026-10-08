@@ -5119,16 +5119,7 @@ _rva0060E7F0,0x00211245,address,placeholder
 ?rva00232643@Keyboard@@QAE_NE@Z,0x00232643,address,placeholder
 ?rva00232AE8@Keyboard@@AAEXXZ,0x00232AE8,address,placeholder
 ?rva00232D38@CopyProtect@@SA_NXZ,0x00232D38,address,placeholder
-??1Rva00232D7B@@UAE@XZ,0x00232D7B,address,placeholder
-??_GRva00232D7B@@UAEPAXI@Z,0x00232D86,address,placeholder
-?rva00232E2F@Rva00232E2F@@QAEHXZ,0x00232E2F,address,placeholder
-?rva00232E9A@Rva00232E9A@@QAEXXZ,0x00232E9A,address,placeholder
-?rva00232F0C@Rva00232F0C@@QAEXXZ,0x00232F0C,address,placeholder
-?rva00232F4F@Rva00232F4F@@QAEXXZ,0x00232F4F,address,placeholder
-?rva00232F84@Rva00232F84@@QAEXH@Z,0x00232F84,address,placeholder
-??0Rva0023309A@@QAE@XZ,0x0023309A,address,placeholder
 ?rva002332B2@Rva002332B2@@QAEXH@Z,0x002332B2,address,placeholder
-??_GRva0023309A@@UAEPAXI@Z,0x00233A3E,address,placeholder
 ?getValue@GameClientRandomVariable@@QBEMXZ,0x002341A1,evidence,export
 ?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z,0x002341E7,evidence,export
 ?storeWord@Rva0023425D@@QAEPAV1@G@Z,0x0023425D,address,placeholder
