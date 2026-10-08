@@ -1,0 +1,5 @@
+Source claims: OK (7 sources, scoped byte-verified)
+Functions: OK 11/11 matched across 7 source file(s)
+String-ref verify: OK (1 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (5 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

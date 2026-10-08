@@ -1,0 +1,8 @@
+Source claims: OK (241 sources, scoped byte-verified)
+Compile: 0 of 241 TU(s) (deps-cache: 241 current)
+  FAIL ?rva00474B51@Rva00474B51@@QAEPAUCoord3D@@PAU2@PAVObject@@H@Z (Code/GameEngine/Source/GameLogic/Object/Contain/Rva00474B51.cpp)
+  FAIL ?CheckForTarget@Pathfinder@@QAE_NPAX00PAVRva002CB35CObj@@0000PAUCoord3D@@@Z (Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp)
+  FAIL ?BuildActualPath@Pathfinder@@QAEPAVPath@@PAVObject@@HPBUCoord3D@@PAVPathfindCell@@_N33@Z (Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp)
+  FAIL ?xfer@HordeContain@@MAEXPAVXfer@@@Z (Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainXfer.cpp)
+Functions: FAIL 4/1283
+4 function(s) failed byte comparison

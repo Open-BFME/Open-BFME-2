@@ -262,7 +262,7 @@ FX_PARTICLE_PARSER(GpuDrawModuleTemplate, g_00C6CA20)
 // Native 55CAAC..55CAEF scales a random unit vector into its return storage.
 // BFME1 968ca36c: PointEmissionVolumeVelocity.cpp supplies the return-by-value
 // shape; the original BFME2 method name and unused argument types are unknown.
-class Coord3D;
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 Coord3D *__cdecl Rva003AFA64FillUnitVector(Coord3D *out);
 
 struct Rva0055CAACVector

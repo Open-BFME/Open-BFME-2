@@ -1,0 +1,185 @@
+diff --git a/Code/GameEngine/Source/Common/GameMessageCopy.cpp b/Code/GameEngine/Source/Common/GameMessageCopy.cpp
+index 0170f5b420..a2233f7477 100644
+--- a/Code/GameEngine/Source/Common/GameMessageCopy.cpp
++++ b/Code/GameEngine/Source/Common/GameMessageCopy.cpp
+@@ -41,7 +41,7 @@ union GameMessageArgumentType
+ 	DrawableID drawableID;
+ 	unsigned int teamID;
+ 	unsigned int squadID;
+-	Coord3D location;
++	struct { float x, y, z; } location;
+ 	ICoord2D pixel;
+ 	IRegion2D pixelRegion;
+ 	unsigned int timestamp;
+@@ -136,11 +136,11 @@ GameMessage::GameMessage(const GameMessage &source)
+ 			break;
+ 		case ARGUMENTDATATYPE_LOCATION:
+ 		{
+-			const Coord3D &from = source.getArgument(i)->location;
++			const GameMessageArgumentType &from = *source.getArgument(i);
+ 			Coord3D location;
+-			location.x = from.x;
+-			location.y = from.y;
+-			location.z = from.z;
++			location.x = from.location.x;
++			location.y = from.location.y;
++			location.z = from.location.z;
+ 			appendLocationArgument(location);
+ 			break;
+ 		}
+@@ -204,11 +204,11 @@ void GameMessage::rva0031123E(const GameMessage &source)
+ 			break;
+ 		case ARGUMENTDATATYPE_LOCATION:
+ 		{
+-			const Coord3D &from = source.getArgument(i)->location;
++			const GameMessageArgumentType &from = *source.getArgument(i);
+ 			Coord3D location;
+-			location.x = from.x;
+-			location.y = from.y;
+-			location.z = from.z;
++			location.x = from.location.x;
++			location.y = from.location.y;
++			location.z = from.location.z;
+ 			appendLocationArgument(location);
+ 			break;
+ 		}
+diff --git a/Code/GameEngine/Source/Common/System/Rva0037FE3D.cpp b/Code/GameEngine/Source/Common/System/Rva0037FE3D.cpp
+index c461289200..026a429553 100644
+--- a/Code/GameEngine/Source/Common/System/Rva0037FE3D.cpp
++++ b/Code/GameEngine/Source/Common/System/Rva0037FE3D.cpp
+@@ -19,8 +19,8 @@ public:
+ };
+ void Rva0037FE3D::rva0037FE3D(const Rva0037FE3DList& list,int value) {
+     if(list.head->next==list.head) return;
+-    Coord3D first={0.0f,0.0f,0.0f};
+-    Coord3D second={1.0f,0.0f,0.0f};
++    Coord3D first; first.x=0.0f; first.y=0.0f; first.z=0.0f;
++    Coord3D second; second.x=1.0f; second.y=0.0f; second.z=0.0f;
+     Rva0037F62DGet(0,&first,&second);
+     rva0037FAC6(list,&first,&second,value,0);
+ }
+diff --git a/Code/GameEngine/Source/GameClient/MessageStream/CommandXlat_Rva004297bb.cpp b/Code/GameEngine/Source/GameClient/MessageStream/CommandXlat_Rva004297bb.cpp
+index df5ff9667d..f4e45a2c64 100644
+--- a/Code/GameEngine/Source/GameClient/MessageStream/CommandXlat_Rva004297bb.cpp
++++ b/Code/GameEngine/Source/GameClient/MessageStream/CommandXlat_Rva004297bb.cpp
+@@ -30,7 +30,7 @@ class Rva004D92FE { public:
+  void* field0c; int m_specialPowerType; Coord3D m_position; void* field1c;
+ };
+ typedef _STL::list<Drawable*> SelectedDrawableList;
+-union GameMessageArgumentType { int integer; unsigned drawableID; ICoord2D pixel; IRegion2D pixelRegion; Coord3D location; };
++union GameMessageArgumentType { int integer; unsigned drawableID; ICoord2D pixel; IRegion2D pixelRegion; struct { float x, y, z; } location; };
+ enum ObjectID { OBJECTID_NONE=0 };
+ class GameMessage { public:
+  enum Type { MSG_INVALID=0, MSG_CREATE_SELECTED_GROUP=0x3e9 };
+diff --git a/Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp b/Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp
+index c0ff3be3a1..d6b3a90b4d 100644
+--- a/Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp
++++ b/Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp
+@@ -96,7 +96,7 @@ void AIStateMachine::xfer(Xfer *xfer)
+  Xfer::Version version(1,2);*xfer==version;
+  StateMachine::xfer(xfer);
+  int count=goalPath.size();*xfer==count;
+- Coord3D pos={0,0,0};
++ Coord3D pos; pos.x=0; pos.y=0; pos.z=0;
+  for(int i=0;i<count;++i){if(xfer->IsStoring())pos=goalPath[i];*xfer==(Coord3DBase&)pos;if(xfer->IsLoading())goalPath.push_back(pos);}
+  AsciiString waypointName;if(goalWaypoint)waypointName=goalWaypoint->name;
+  *xfer==waypointName;
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainXfer.cpp b/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainXfer.cpp
+index d994f83597..3b0418ff0e 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainXfer.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainXfer.cpp
+@@ -182,7 +182,7 @@ public:
+ 		m_pos.y = 0.0f;
+ 		m_pos.z = 0.0f;
+ 	}
+-	Rva00469155(const Rva00469155 &o) : m_pos(o.m_pos), m_value(o.m_value) {}
++	Rva00469155(const Rva00469155 &o) { m_pos = o.m_pos; m_value = o.m_value; }
+ 	Rva00469155 &operator=(const Rva00469155 &o)
+ 	{
+ 		m_pos = o.m_pos;
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Contain/Rva00474B51.cpp b/Code/GameEngine/Source/GameLogic/Object/Contain/Rva00474B51.cpp
+index b4589add32..82f1b7f82a 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Contain/Rva00474B51.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Contain/Rva00474B51.cpp
+@@ -44,7 +44,8 @@ Coord3D *Rva00474B51::rva00474B51(Coord3D *out, Object *object, int word)
+ 	int mapped = keys[key];
+ 	if (enabled)
+ 	{
+-		Coord3D position = *reinterpret_cast<const Coord3D *>(reinterpret_cast<char *>(object) + 0x38);
++		Coord3D position;
++		position = *reinterpret_cast<const Coord3D *>(reinterpret_cast<char *>(object) + 0x38);
+ 		if (provider->v13(mapped, &position))
+ 		{
+ 			out->x = position.x;
+diff --git a/Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002B2A95EvaEvent.cpp b/Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002B2A95EvaEvent.cpp
+index ece250af6e..a8b26fb739 100644
+--- a/Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002B2A95EvaEvent.cpp
++++ b/Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002B2A95EvaEvent.cpp
+@@ -52,7 +52,7 @@ void Rva002B2A95Callback::rva002B2A95(const Rva002E0687 *target,
+ 		Coord2D xy;
+ 		xy.x = record->m_position.x;
+ 		xy.y = record->m_position.y;
+-		Coord3D position = { xy.x, xy.y, 0.0f };
++		Coord3D position; position.x = xy.x; position.y = xy.y; position.z = 0.0f;
+ 		g_00DFEF18->rva002BF5B0(&xy, &position);
+ 		TheEva->reportEvaEvent(record->m_event, &position, 0);
+ 	}
+diff --git a/Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva00319AA0SetPosition.cpp b/Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva00319AA0SetPosition.cpp
+index 87cbb18803..cec098ef38 100644
+--- a/Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva00319AA0SetPosition.cpp
++++ b/Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva00319AA0SetPosition.cpp
+@@ -44,7 +44,7 @@ void Rva00319AA0::rva00319AA0(const Coord2D *position)
+ 	rva003197B7();
+ 	if (m_target)
+ 	{
+-		Coord3D world = { m_position.x, m_position.y, 0.0f };
++		Coord3D world; world.x = m_position.x; world.y = m_position.y; world.z = 0.0f;
+ 		g_00DFEF18->rva002BF5B0(&m_position, &world);
+ 		m_target->slot5(&world);
+ 	}
+diff --git a/Code/GameEngine/Source/GameNetwork/NetPacket.cpp b/Code/GameEngine/Source/GameNetwork/NetPacket.cpp
+index aa79d731be..e050e037de 100644
+--- a/Code/GameEngine/Source/GameNetwork/NetPacket.cpp
++++ b/Code/GameEngine/Source/GameNetwork/NetPacket.cpp
+@@ -169,7 +169,8 @@ union GameMessageArgumentType
+ 	UnsignedInt objectID;
+ 	UnsignedInt drawableID;
+ 	UnsignedInt teamID;
+-	Coord3D location;
++	// Wire payload: both location paths copy exactly twelve raw bytes.
++	struct { float x, y, z; } location;
+ 	ICoord2D pixel;
+ 	IRegion2D pixelRegion;
+ 	UnsignedInt timestamp;
+diff --git a/Code/GameEngineDevice/Source/W3DDevice/GameClient/GlobalLightingDataChunk.cpp b/Code/GameEngineDevice/Source/W3DDevice/GameClient/GlobalLightingDataChunk.cpp
+index ece8a906ff..625aeb9948 100644
+--- a/Code/GameEngineDevice/Source/W3DDevice/GameClient/GlobalLightingDataChunk.cpp
++++ b/Code/GameEngineDevice/Source/W3DDevice/GameClient/GlobalLightingDataChunk.cpp
+@@ -17,7 +17,8 @@
+ // existing data owners. The shadow color read is +4 as in the donor getter.
+ // Reusing scalar vector snapshots gives native local lifetimes and protects
+ // each triplet from changes made by writeReal; no aggregate copy helper emits.
+-#include "Coord3D.h"
++// Stored lighting triplets remain trivial data records, including static defaults.
++struct LightingPosition { float x, y, z; };
+ class DataChunkOutput {
+ public:
+  void openDataChunk(char *,unsigned short);
+@@ -26,7 +27,7 @@ public:
+  void closeDataChunk();
+ };
+ struct LightingColor { float red,green,blue; };
+-struct LightingRecord { LightingColor ambient,diffuse; Coord3D lightPos; };
++struct LightingRecord { LightingColor ambient,diffuse; LightingPosition lightPos; };
+ class GlobalData {
+ public:
+  char prefix[0x134]; int m_timeOfDay; char pad[8];
+@@ -40,7 +41,7 @@ extern GlobalData *TheWritableGlobalData;
+ extern bool ShaderOverbrightEnabled;
+ class W3DShadowManager { public: void *vptr; int shadowColor; };
+ extern W3DShadowManager *TheW3DShadowManager;
+-struct LightingChunkVectorStorage { Coord3D components; float reserved; };
++struct LightingChunkVectorStorage { LightingPosition components; float reserved; };
+ LightingChunkVectorStorage GlobalLightingChunkVectors[3] = {
+  {{0.5f,0.5f,0.5f},0.0f},{{0.5f,0.5f,0.5f},0.0f},{{0.5f,0.5f,0.5f},0.0f}
+ };

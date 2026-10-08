@@ -1,0 +1,42 @@
+diff --git a/Code/Libraries/Include/Lib/Coord3D.h b/Code/Libraries/Include/Lib/Coord3D.h
+index 6d8555c1d2..ec4747d996 100644
+--- a/Code/Libraries/Include/Lib/Coord3D.h
++++ b/Code/Libraries/Include/Lib/Coord3D.h
+@@ -8,6 +8,8 @@ struct Coord3D {
+     float x;
+     float y;
+     float z;
++    Coord3D() {}
++    Coord3D(const Coord3D &r) { x = r.x; y = r.y; z = r.z; }
+     float length() const;
+     void normalize();
+     bool operator==(const Coord3D &r);
+diff --git a/reverse/class_contracts/Coord3D.json b/reverse/class_contracts/Coord3D.json
+index acd545afab..120b308683 100644
+--- a/reverse/class_contracts/Coord3D.json
++++ b/reverse/class_contracts/Coord3D.json
+@@ -60,6 +60,24 @@
+     "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
+     "decided_by": "byte-verified owner; MilesAudioManager 0x0005213E calls it on the camera-to-microphone delta (WB 0x77A260 calls Coord3D::GetLengthSqrd there)"
+    }
++  ],
++  "special_members": [
++   {
++    "declaration": "Coord3D() {}",
++    "name": "??0Coord3D@@QAE@XZ",
++    "rva": "0x0047A6A9",
++    "size": 3,
++    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
++    "decided_by": "byte-verified empty default constructor; exact sphere129 uses a stack Coord3D output without initialization"
++   },
++   {
++    "declaration": "Coord3D(const Coord3D &r) { x = r.x; y = r.y; z = r.z; }",
++    "name": "??0Coord3D@@QAE@ABU0@@Z",
++    "rva": "0x004216D3",
++    "size": 25,
++    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
++    "decided_by": "existing class-key owner ??0Coord3D@@QAE@ABV0@@Z is exact25; flat canonical struct memberwise copy also exact25 and gives exact Sphere129 hidden-return code"
++   }
+   ]
+  },
+  "fields": [
