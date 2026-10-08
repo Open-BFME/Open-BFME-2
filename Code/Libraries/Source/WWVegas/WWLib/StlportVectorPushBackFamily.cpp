@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include
 // stlport
 //
 // STLport 4.5.3 vector<T>::push_back for element types whose push_back sits
@@ -304,6 +304,14 @@ struct Rva005C847BRecord
 struct Rva005C84F1Record;
 struct BfmeE16 { unsigned char bytes[16]; };
 namespace _STL {
+// Use the kept destructor provider; this unit does not instantiate another copy.
+template <> class vector<Rva005C847BRecord, allocator<Rva005C847BRecord> >
+{
+public:
+    ~vector();
+private:
+    unsigned int words[3];
+};
 template <> class vector<Rva005C84F1Record, allocator<Rva005C84F1Record> >
 {
 public:
@@ -368,4 +376,189 @@ Rva005C865B::Rva005C865B(void *owner, float *coordinates)
             cells_.push_back(Rva005C847BRecord(center));
         }
     }
+}
+
+// W3DView::initHeightForMap ported from Open-BFME-1 revision
+// 34f59164f6d1efd413c5fd37f4894ec834c3c0fe, W3DViewInitHeightForMapBfme.cpp.
+// Donor supplies algorithm and field-name leads. Target 0008D807..0008D925
+// independently proves the W3DView caller chain, field offsets, clamp, scalar
+// initializer ABI, camera virtuals +44/+48 and terrain virtuals +18/+9C.
+// Target W3DView vftable BC756C slot21 also points directly to 48D807.
+#include "ascii_string.h"
+
+typedef float Real;
+typedef bool Bool;
+
+#include "Lib/Coord3D.h"
+
+class Rva0030E8DF { public: void rva0030E8DF(); };
+class Rva0030E961
+{
+public:
+	void rva0030E961(const unsigned short *source, int unused,
+		int sourceWidth, int sourceHeight, int state);
+
+private:
+	void *m_begin;
+	void *m_finish;
+	void *m_end;
+	int m_width;
+	int m_height;
+	Real m_scale;
+	int m_state;
+	Bool m_ready;
+};
+
+class CameraResetAux
+{
+public:
+	virtual void slot00();
+	virtual Real slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18(Real *value, unsigned *position);
+};
+
+class WorldHeightMap
+{
+public:
+	unsigned char m_padding00[0x08];
+	int m_width;
+	int m_height;
+	int m_borderSize;
+	unsigned char m_padding14[0x20 - 0x14];
+	int m_dataSize;
+	unsigned short *m_data;
+	__forceinline int getWidth() const { return m_width; }
+	__forceinline int getHeight() const { return m_height; }
+	__forceinline int getBorderSize() const { return m_borderSize; }
+	__forceinline int getDataSize() const { return m_dataSize; }
+	__forceinline const unsigned short *getData() const { return m_data; }
+};
+
+class BfmeA1087
+{
+public:
+	unsigned char m_padding00[0x37C0];
+	WorldHeightMap *m_map;
+};
+
+class TerrainLogic
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual Real getGroundHeight(Real x, Real y, void *normal = 0) const;
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void slot38();
+	virtual void *getTriggerAreaByName(const AsciiString &name);
+};
+
+class BaseHeightMapRenderObjClass;
+extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
+extern TerrainLogic *TheTerrainLogic;
+
+class W3DView
+{
+public:
+	virtual void initHeightForMap();
+
+private:
+	unsigned char m_padding0004[0x0C - 0x04];
+	Coord3D m_pos;
+	unsigned char m_padding0018[0x28 - 0x18];
+	unsigned m_positionState;
+	unsigned char m_padding002C[0xA0 - 0x2C];
+	Real m_cameraScale;
+	unsigned char m_padding00A4[0x23E8 - 0xA4];
+	Real m_cameraValueA;
+	Real m_cameraValueB;
+	unsigned char m_padding23E0[0x2408 - 0x23F0];
+	Real m_groundLevel;
+	unsigned char m_padding23FC[0x241C - 0x240C];
+	Bool m_cameraConstraintValid;
+	unsigned char m_padding240D[0x2458 - 0x241D];
+	Rva0030E961 m_heightField;
+	unsigned char m_padding2468[0x24BC - 0x2478];
+	void *m_altCameraTrigger;
+	unsigned char m_padding24B0[0x24C8 - 0x24C0];
+	CameraResetAux m_cameraAux;
+
+	void setCameraTransform();
+};
+
+void W3DView::initHeightForMap()
+{
+	reinterpret_cast<Rva0030E8DF *>(&m_heightField)->rva0030E8DF();
+
+	WorldHeightMap *map = ((BfmeA1087 *)TheTerrainRenderObject)->m_map;
+	if (map != 0)
+	{
+		m_heightField.rva0030E961(map->getData(), map->getDataSize(), map->getWidth(),
+			map->getHeight(), map->getBorderSize());
+	}
+
+	m_groundLevel = TheTerrainLogic->getGroundHeight(m_pos.x, m_pos.y, 0);
+	static const Real maxGroundLevel = 700.0f;
+	if (m_groundLevel > maxGroundLevel)
+		m_groundLevel = maxGroundLevel;
+
+	m_cameraAux.slot17();
+	m_cameraAux.slot18(&m_cameraValueA, &m_positionState);
+	m_cameraValueA *= m_cameraScale;
+	m_cameraValueB = m_cameraScale * m_cameraValueB;
+	m_cameraConstraintValid = false;
+	setCameraTransform();
+
+	// Target literal is VA 0x00BC7840.
+	m_altCameraTrigger = TheTerrainLogic->getTriggerAreaByName(
+		AsciiString("AltCamera"));
 }
