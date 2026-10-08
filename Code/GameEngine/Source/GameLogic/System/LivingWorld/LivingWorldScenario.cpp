@@ -37,7 +37,13 @@ public:
     int word130;
     int lastOwnershipTurn;
 };
-class LivingWorldScenario { public: class TeamVictoryCondition; class PlayerDefeatCondition; class TeamDefeatCondition; };
+// The target output element is a four-byte region ID, not ScienceType.
+// This local ABI tag makes no claim about the original enum spelling.
+enum Rva004FD8B8RegionID { RVA004FD8B8_REGION_ZERO = 0 };
+class Rva0020F442 { public: AsciiString *rva0020F442(const AsciiString &name); };
+class Rva00210390 { public: void *rva00210390(const AsciiString *name); };
+class Rva004FD6F9 { public: bool rva004FD6F9(const StringBase<char> &name); };
+class LivingWorldScenario { public: class TeamVictoryCondition; class PlayerDefeatCondition; class TeamDefeatCondition; class Scenario; };
 class LivingWorldScenario::TeamVictoryCondition {
 public:
     virtual ~TeamVictoryCondition();
@@ -180,4 +186,34 @@ bool LivingWorldScenario::TeamDefeatCondition::isTeamDefeated(int team)
             return false;
     }
     return true;
+}
+
+class LivingWorldScenario::Scenario {
+public:
+    void getDefaultStartSpots(const AsciiString &campaignName, _STL::vector<Rva004FD8B8RegionID> &out);
+private:
+    char pad[0x44];
+    _STL::vector<AsciiString> defaultStartRegions;
+};
+// Native 4FD8B8..4FD94E, 150 bytes, RET8. WB assertions at lines825..836
+// name regionCampaign, default-start names and allowsStartInRegion; native
+// confirms the +44 name vector, +12C output ID and each lookup/filter call.
+// The lookups and restriction helper keep their existing ABI views.
+void LivingWorldScenario::Scenario::getDefaultStartSpots(const AsciiString &campaignName, _STL::vector<Rva004FD8B8RegionID> &out)
+{
+    out.erase(out.begin(), out.end());
+    if (defaultStartRegions.empty())
+        return;
+    AsciiString *campaign = ((Rva0020F442 *)TheLivingWorldLogic->regions)->rva0020F442(campaignName);
+    if (!campaign)
+        return;
+    for (unsigned int i = 0; i < defaultStartRegions.size(); ++i) {
+        void *region = ((Rva00210390 *)campaign)->rva00210390(&defaultStartRegions[i]);
+        if (!region)
+            continue;
+        if (!((Rva004FD6F9 *)this)->rva004FD6F9(reinterpret_cast<const StringBase<char> &>(defaultStartRegions[i])))
+            continue;
+        Rva004FD8B8RegionID id = (Rva004FD8B8RegionID)*(int *)((char *)region + 0x12c);
+        out.push_back(id);
+    }
 }
