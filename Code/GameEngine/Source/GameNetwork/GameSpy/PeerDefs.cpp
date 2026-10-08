@@ -375,6 +375,8 @@ struct Gen_uw_00385371
 };
 typedef Gen_uw_00385371 PSPlayerStats;
 
+class Rva0038454E;
+
 class GameSpyPSMessageQueueInterface
 {
 public:
@@ -391,6 +393,10 @@ public:
 	virtual void s0A(void);
 	virtual void s0B(void);
 	virtual PSPlayerStats findPlayerStatsByID(Int id);
+	virtual void s0D();
+	virtual void s0E();
+	// Native by-value strategic return at slot+3C; original getter name unproved.
+	virtual Rva0038454E rvaSlot3CStrategicStats(Int id);
 };
 
 class GameSpyBuddyMessageQueueInterface
@@ -1434,7 +1440,24 @@ void Rva0038357B::rva0038357B()
 typedef char PeerDefsStagingRoomSize[(sizeof(GameSpyStagingRoom)==0x1020)?1:-1];
 typedef char PeerDefsGameSpyInfoSize[(sizeof(GameSpyInfo)==0x1640)?1:-1];
 
-class GameInfo { public: void enterGame(); };
+// Observed slot-name field at+30; other GameSlot fields remain opaque here.
+class GameSlot {
+public:
+    Bool isHuman() const;
+    unsigned char m_unreconstructed[0x30];
+    UnicodeString m_name;
+};
+class GameInfo {
+public:
+    virtual ~GameInfo();
+    virtual void s01(); virtual void s02(); virtual void s03();
+    virtual void s04(); virtual void s05(); virtual void s06();
+    virtual void s07(); virtual void s08(); virtual void s09();
+    virtual void s0A(); virtual void s0B(); virtual void s0C();
+    virtual Int getLocalSlotNum() const;
+    void enterGame();
+    const GameSlot *getConstSlot(Int) const;
+};
 class Rva00381D02 { public: void rva00381D02(void*); };
 class Rva00381CED { public: void rva00381CED(void*); };
 class Rva00382234 { public: void rva00382234(AsciiString); };
@@ -1478,5 +1501,89 @@ void GameSpyInfo::markAsStagingRoomJoiner(Int id)
         ((Rva003821E2*)local)->assign(((Rva0022C4DF*)room)->rva0022C4DF());
         *(Int*)((char*)&m_localStagingRoom+0x88)=*(Int*)((char*)room+0x88);
         ((Rva00381CED*)local)->rva00381CED((char*)room+0x60);
+    }
+}
+
+// Layouts from the verified Thread/PersistentStorageThread.cpp provider:
+// core copy [554F70,5550A0), id constructor [554463,55459E), dtor383D71.
+// Core extent154 and strategic extent208 agree native constructors, transfer,
+// merge and cleanup; strategic dtor38454E. Original record names unproved.
+typedef _STL::map<unsigned char, short> StatsShortMap;
+typedef _STL::map<unsigned char, float> StatsFloatMap;
+class XferStub;
+class Rva00553E47StatsCore {
+public:
+    Rva00553E47StatsCore(const Rva00553E47StatsCore &);
+    Rva00553E47StatsCore(int);
+    ~Rva00553E47StatsCore();
+    virtual void reset();
+    virtual void rva005550A0(XferStub *);
+    virtual void rva00555109(XferStub *);
+    virtual void rva00554AF2(const Rva00553E47StatsCore *);
+    StatsShortMap m_maps04[6];
+    StatsShortMap m_maps4c[6];
+    StatsShortMap m_maps94[6];
+    StatsFloatMap m_mapsdc[8];
+    unsigned m_13c, m_140;
+    unsigned short m_144, m_146, m_148, m_14a, m_14c, m_14e;
+    Int m_id;
+};
+class Rva0038454E : public Rva00553E47StatsCore {
+public:
+    virtual void reset();
+    virtual void rva00555109(XferStub *);
+    virtual void rva0055524B(const Rva0038454E *);
+    ~Rva0038454E();
+    StatsFloatMap m_maps154[8];
+    StatsShortMap m_maps1b4[2];
+    StatsFloatMap m_maps1cc[5];
+};
+typedef char StatsCore154[sizeof(Rva00553E47StatsCore)==0x154 ? 1 : -1];
+typedef char Strategic208[sizeof(Rva0038454E)==0x208 ? 1 : -1];
+
+namespace _STL {
+template <class C> class char_traits;
+template <class C, class Traits, class Alloc> class basic_string {
+    C *m_start, *m_finish, *m_storageEnd;
+public:
+    basic_string &operator=(const C *);
+};
+}
+typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > PeerRequestString;
+typedef char PeerRequestStringSize[sizeof(PeerRequestString)==12 ? 1 : -1];
+typedef char PeerRequestRecordSize[sizeof(BfmeOpaqueOwnedRecord492)==492 ? 1 : -1];
+struct OnlineMiscProfileStats;
+void accumulateOnlineMiscPrefs(OnlineMiscProfileStats *);
+
+// Native [387288,38745D),469B; WB F85AE0 debug string names the operation
+// SendStatsToOtherPlayers. Native queue slot3C returns the strategic block,
+// and slot30 returns the distinct all-stats record. Payload starts empty in
+// both retail and WB; retain that behavior. The request string offsets4/34/40
+// and flag118 are independently present in the verified492-byte owner.
+void SendStatsToOtherPlayers(GameInfo *game)
+{
+    BfmeOpaqueOwnedRecord492 req;
+    *(Int *)req.bytes = 13;
+    req.bytes[0x118] = true;
+    *(PeerRequestString *)(req.bytes+0x34) = "STATS/";
+    AsciiString data;
+    Rva00553E47StatsCore stats = TheGameSpyPSMessageQueue->rvaSlot3CStrategicStats(TheGameSpyInfo->getLocalProfileID());
+    Rva00553E47StatsCore sentStats(0);
+    sentStats.m_maps04[0] = stats.m_maps04[0];
+    sentStats.m_maps04[1] = stats.m_maps04[1];
+    sentStats.m_13c = stats.m_13c;
+    sentStats.m_140 = stats.m_140;
+    sentStats.m_144 = stats.m_144;
+    accumulateOnlineMiscPrefs((OnlineMiscProfileStats *)&sentStats);
+    *(PeerRequestString *)(req.bytes+0x40) = data.str();
+    Int localSlot = game->getLocalSlotNum();
+    for (Int i=0; i<8; ++i) {
+        const GameSlot *slot = game->getConstSlot(i);
+        if (slot->isHuman() && i != localSlot) {
+            AsciiString name;
+            name.translate(slot->m_name);
+            *(PeerRequestString *)(req.bytes+4) = name.str();
+            TheGameSpyPeerMessageQueue->addRequest(req);
+        }
     }
 }
