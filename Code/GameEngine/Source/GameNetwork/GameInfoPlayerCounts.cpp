@@ -61,7 +61,7 @@ enum
 };
 
 unsigned char Rva0056BD91Pack(unsigned char a, unsigned char b,
-	unsigned char c, unsigned char d);
+	char c, char d);
 
 void Rva0056BDA5Split(unsigned char a, unsigned char b, unsigned char c,
 	unsigned char *out1, unsigned char *out2);
