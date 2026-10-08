@@ -568,22 +568,7 @@ void InGameUI::setMouseCursor(Mouse::MouseCursor c)
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?InGameUI::findSWInfo present-unmatched
-SuperweaponInfo* InGameUI::findSWInfo(Int playerIndex, const AsciiString& powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate)
-{
-	SuperweaponMap::iterator mapIt = m_superweapons[playerIndex].find(powerName);
-	if (mapIt != m_superweapons[playerIndex].end())
-	{
-		for (SuperweaponList::iterator listIt = mapIt->second.begin(); listIt != mapIt->second.end(); ++listIt)
-		{
-			if ((*listIt)->m_id == id)
-			{
-				return *listIt;
-			}
-		}
-	}
-	return NULL;
-}
+// InGameUI::findSWInfo: defined in InGameUISuperweapons.cpp (its row's unit).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
