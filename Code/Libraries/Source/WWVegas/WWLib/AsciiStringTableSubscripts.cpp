@@ -89,3 +89,11 @@ void *node;
  { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
  return *(float *)(node==0 ? (char *)((Rva000427195 *)this)->rva00058C6F((const StoredPair5808E *)&static_cast<const FloatSlotPair &>(FloatSlotPair(*key, 0)))+4 : (char *)node+8);
 }
+
+// 2235F3..22366C RET4; rowed manager writers2239B2/2239E2 use this table; native AsciiString copy365F0 and zero-word insertion2234BA establish key and slot; preserve existing raw pointer argument ABI owner.
+void * Rva002235F3::rva002235F3(const void *raw) {
+ const AsciiString *key=(const AsciiString *)raw;
+void *node;
+ { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
+ return (void *)(node==0 ? (char *)((Rva000427195 *)this)->rva002234BA((const StoredPair4 *)&static_cast<const WordSlotPair &>(WordSlotPair(*key, 0)))+4 : (char *)node+8);
+}
