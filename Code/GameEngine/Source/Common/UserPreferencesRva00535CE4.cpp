@@ -164,7 +164,7 @@ public:
 	virtual void v11();
 	virtual void v12();
 	virtual void v13();
-	virtual void v14();
+	virtual UnicodeString slot38(const AsciiString &label, bool *exists);
 	virtual void v15();
 	virtual void v16();
 	virtual const UnicodeString *slot44(const char *label, bool *exists);
@@ -222,6 +222,7 @@ public:
 	int rva005373AF();
 	int rva0053734E(AsciiString arg);
 	int rva00537C28();
+	UnicodeString rva00537C3F();
 	void rva00536C61(AsciiString arg, int x);
 	int rva00536CA8(AsciiString arg);
 	void rva00536CF2(AsciiString arg, int x);
@@ -1045,4 +1046,23 @@ UnicodeString UserPreferences::rva00535B32(float seconds)
 	int hours = (int)seconds / 60 / 60;
 	text.format(TheGameText->slot44("Apt:TimePlayed", 0), hours / 24, hours % 24);
 	return text;
+}
+
+// ?rva00537C3F@UserPreferences@@QAE?AVUnicodeString@@XZ @0x00537C3F 244B
+// Retail boundary: complete EH prologue at 0x00537C3F after the preceding
+// rva00537C28 return; all branches converge before ret 4 at 0x00537D30.
+// Target reads FavoriteSide through the same slot 0x20 as sibling preference
+// getters, compares the narrow empty string, formats Side:%s, then fetches
+// its wide label through TheGameText slot 0x38. Return and temporary cleanup
+// use the rowed wide copy constructor and releaseBuffer. The method name
+// remains address-derived; these bytes do not establish a public spelling.
+UnicodeString UserPreferences::rva00537C3F()
+{
+    AsciiString side = v8(AsciiString("FavoriteSide"), AsciiString::TheEmptyString);
+    if (side == AsciiString::TheEmptyString)
+        return UnicodeString::TheEmptyString;
+    AsciiString label;
+    label.format("Side:%s", side.str());
+    const UnicodeString &text = TheGameText->slot38(label, 0);
+    return text;
 }
