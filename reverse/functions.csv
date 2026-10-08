@@ -69402,3 +69402,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva000E6FC8@Rva000E6FC8@@QAEXXZ,,0x000E6FC8,27,Code/GameEngine/Source/Common/Rva000E6FC8.cpp,matched,GlobalData +0xD45 selects 0x14 or 2 then thiscall 0x000E6D94
 ?rva000CF2CF@W3DFloorDraw@@QAEXXZ,,0x000CF2CF,161,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000CF2CF.cpp,matched,Address-derived W3DFloorDraw method; target callers at 0x000CF3AE 0x000CF4BA and 0x000CF4CE; boundary and offsets checked in retail; helper and wrapper ABI pinned from direct call and epilogue evidence
 ?rva00072B3A@Rva00072B3A@@QBE?AVRvaTextureHandleView@@XZ,,0x00072B3A,27,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp,matched,
+?rva000EE198@Rva000EE198Owner@@QAEXXZ,,0x000EE198,107,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000EE198Reset.cpp,matched,ref-release array loops and 0x60 ref+AsciiString pair loop; retail 107B
