@@ -110,6 +110,11 @@ struct Rva006D1130Iterator
 	BfmeRefVGO *position;
 	BfmeRefVGO *begin;
 	BfmeRefVGO *end;
+	Rva006D1130Iterator operator++(int) {
+		Rva006D1130Iterator old=*this;
+		++position;
+		return old;
+	}
 };
 void __cdecl Rva006CE3D0Cleanup(void *, int, int);
 BfmeRefVGO *__cdecl Rva006D05E0Copy(Rva006D1130Iterator first,
@@ -282,6 +287,32 @@ BfmeRefVGO *__cdecl Rva006D04D0CopyBackward(Rva006D1130Iterator first,
   --last.position;
   --result;
   --count;
+ }
+ return result;
+}
+
+// Native6D0540..6D05D1, including RET before the INT3 padding:
+// raw source range and a by-value three-word output iterator. The
+// returned iterator carries output position plus unchanged begin/end.
+Rva006D1130Iterator __cdecl Rva006D0540Copy(BfmeRefVGO *first,
+ BfmeRefVGO *last, Rva006D1130Iterator result) {
+ if(first!=last) {
+  do {
+   Rva006D1130Iterator destination=result++;
+   if(first!=destination.position) {
+    unsigned *old=destination.position->m_bfmeP;
+    if(old && --*old==0) {
+     Rva006D0280 *p=(Rva006D0280 *)destination.position->m_bfmeP;
+     if(p) {
+      p->teardown();
+      g_pChainBlockAllocator->freeBlock(p,0x1c);
+     }
+    }
+    destination.position->m_bfmeP=first->m_bfmeP;
+    if(destination.position->m_bfmeP) ++*destination.position->m_bfmeP;
+   }
+   ++first;
+  } while(first!=last);
  }
  return result;
 }
