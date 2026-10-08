@@ -1,3 +1,5 @@
+// ?Rva00328DE4Add@@YAXPAXPAPAX@Z
+// partial score=0.85 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // WorldBuilder names parseWaterAreasChunkImpl in OldPolygonTrigger.cpp at
 // 0x00BE2810. Its call graph maps to retail 0x003295B4. Retail proves the
@@ -56,6 +58,7 @@ struct PolygonData : Out
 };
 
 void __cdecl operator delete(void *);
+void *__cdecl operator new(unsigned int);
 
 class OldPolygonTriggerDataChunkParserBase
 {
@@ -96,98 +99,6 @@ bool OldPolygonTriggerDataChunkParserBase::Impl::parseWaterAreasChunkImpl(
 	return true;
 }
 
-struct TargetRef00217D4C
-{
-	virtual void *destroy(unsigned int);
-	int references;
-};
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-
-class Rva0032927ABoundary
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-	virtual void slot6();
-	virtual void setBoundary(const void *);
-};
-
-class Rva00308E63 : public TargetRef00217D4C
-{
-public:
-	Rva00308E63(int, bool);
-	char m_pad08[0x30 - 8];
-	Rva0032927ABoundary m_boundary;
-	char m_pad34[0xdc - 0x34];
-};
-
-class StandingWaterRef
-{
-public:
-	StandingWaterRef(Rva00308E63 *p) : m_ptr(p)
-	{
-		if (m_ptr) ++m_ptr->references;
-	}
-	StandingWaterRef(const StandingWaterRef &that) : m_ptr(that.m_ptr)
-	{
-		if (m_ptr) ++m_ptr->references;
-	}
-	~StandingWaterRef()
-	{
-		if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-	Rva00308E63 *m_ptr;
-};
-
-class Rva0030912A
-{
-public:
-	void rva0030912A(int, StandingWaterRef);
-};
-class Rva00537F74
-{
-public:
-	void rva00537F74(const AsciiString &);
-};
-class Rva00537FA0
-{
-public:
-	void rva00537FA0(const AsciiString &);
-};
-class Rva00308765
-{
-public:
-	void rva00308765(int, const AsciiString &);
-};
-void *__cdecl operator new(unsigned int);
-
-// WB's unnamed helper at 0x00BE19B0 imports non-river water records. Retail
-// proves allocation DC, retained-reference field +4 and boundary interface +30.
-// Existing setter and indexed-string rows establish the argument field accesses.
-void __cdecl rva0032927A(Rva003294B3Obj *record, int areaSet)
-{
-	Out *data = reinterpret_cast<Out *>(record);
-	StandingWaterRef water(new Rva00308E63(
-		data->m_pointsEnd - data->m_pointsBegin, true));
-	void (Rva0032927ABoundary::*setBoundary)(const void *) =
-		&Rva0032927ABoundary::setBoundary;
-	(water.m_ptr->m_boundary.*setBoundary)(&data->m_pointsBegin);
-	reinterpret_cast<Rva00537F74 *>(water.m_ptr)->rva00537F74(
-		*reinterpret_cast<const AsciiString *>(reinterpret_cast<char *>(record) + 4));
-	reinterpret_cast<Rva00537FA0 *>(water.m_ptr)->rva00537FA0(
-		*reinterpret_cast<const AsciiString *>(reinterpret_cast<char *>(record) + 8));
-	reinterpret_cast<Rva00308765 *>(water.m_ptr)->rva00308765(0,
-		*reinterpret_cast<const AsciiString *>(reinterpret_cast<char *>(record) + 0x24));
-	reinterpret_cast<Rva00308765 *>(water.m_ptr)->rva00308765(1,
-		*reinterpret_cast<const AsciiString *>(reinterpret_cast<char *>(record) + 0x28));
-	reinterpret_cast<Rva0030912A *>(areaSet)->rva0030912A(
-		*reinterpret_cast<int *>(record), water);
-}
-
 // WB 0x00BE2360 identifies this adjacent parser. Retail additionally proves
 // the list-head holder at +0x1C and the extended parsed record's flag at +0x74.
 bool OldPolygonTriggerDataChunkParserBase::Impl::parsePolygonTriggersChunkImpl(
@@ -220,4 +131,64 @@ bool OldPolygonTriggerDataChunkParserBase::Impl::parsePolygonTriggersChunkImpl(
 		}
 	}
 	return true;
+}
+
+// Target-proven trigger prefix; this constructor's original name is unresolved.
+class Rva002E3FAB
+{
+public:
+	Rva002E3FAB(int, int, bool);
+	virtual void *destroy(int);
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void setBoundary(const void *);
+	char m_pad04[0x3c - 4];
+	Rva002E3FAB *m_next;
+	AsciiString m_name;
+	char m_pad44[8];
+	AsciiString m_extra;
+	char m_pad50[0x64 - 0x50];
+};
+
+struct Rva002E3E2AResult
+{
+	Rva002E3FAB *m_ptr;
+	void detach() { m_ptr = 0; }
+	~Rva002E3E2AResult()
+	{
+		if (m_ptr)
+			m_ptr->destroy(1);
+	}
+};
+
+class Rva000AD6F4
+{
+public:
+	Rva000AD6F4(Rva002E3FAB *p) : m_ptr(p) {}
+	~Rva000AD6F4();
+	Rva002E3E2AResult rva002E3E2A();
+	Rva002E3FAB *m_ptr;
+};
+
+// WB 0x00BE1500 is the unnamed non-water trigger importer called by the
+// polygon parser. Retail independently proves allocation size 0x64, next +3C,
+// strings +40/+4C, and transfer into the caller's current list link.
+void __cdecl Rva00328DE4Add(void *record, void **linkPtr)
+{
+	Out *data = static_cast<Out *>(record);
+	Rva000AD6F4 trigger(new Rva002E3FAB(*static_cast<int *>(record),
+		data->m_pointsEnd - data->m_pointsBegin, true));
+	void (Rva002E3FAB::*setBoundary)(const void *) = &Rva002E3FAB::setBoundary;
+	(trigger.m_ptr->*setBoundary)(&data->m_pointsBegin);
+	reinterpret_cast<StringBase<char> *>(&trigger.m_ptr->m_name)->set(
+		*reinterpret_cast<StringBase<char> *>(static_cast<char *>(record) + 4));
+	reinterpret_cast<StringBase<char> *>(&trigger.m_ptr->m_extra)->set(
+		*reinterpret_cast<StringBase<char> *>(static_cast<char *>(record) + 8));
+	*static_cast<Rva002E3FAB **>(*linkPtr) = trigger.m_ptr;
+	*linkPtr = trigger.m_ptr ? &trigger.m_ptr->m_next : 0;
+	trigger.rva002E3E2A().detach();
 }

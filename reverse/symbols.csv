@@ -16264,3 +16264,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??0Out@@QAE@XZ,0x0032912D,callee of ?parseWaterAreasChunkImpl@Impl@OldPolygonTriggerDataChunkParserBase@@QAE_NAAVDataChunkInput@@PBUDataChunkInfo@@@Z
 ?Rva00328E96Parse@@YAXAAVDataChunkInput@@HPAX@Z,0x00328E96,callee of ?parsePolygonTriggersChunkImpl@Impl@OldPolygonTriggerDataChunkParserBase@@QAE_NAAVDataChunkInput@@PBUDataChunkInfo@@@Z
 ?Rva00328DE4Add@@YAXPAXPAPAX@Z,0x00328DE4,callee of ?parsePolygonTriggersChunkImpl@Impl@OldPolygonTriggerDataChunkParserBase@@QAE_NAAVDataChunkInput@@PBUDataChunkInfo@@@Z
+??0Rva00308E63@@QAE@H_N@Z,0x00308E63,callee of ?rva0032927A@@YAXPAURva003294B3Obj@@H@Z
+?rva0030912A@Rva0030912A@@QAEXHVStandingWaterRef@@@Z,0x0030912A,callee of ?rva0032927A@@YAXPAURva003294B3Obj@@H@Z
