@@ -1,5 +1,11 @@
-LZH-Light 1.0 — Sergey Ignatchenko's compressor, as compiled into lotrbfme.exe
-==============================================================================
+LZH-Light 1.0 — Sergey Ignatchenko's compressor, as compiled into game.dat
+==========================================================================
+
+This record describes BFME 2 (game.dat 1.06, imagebase 0x400000). Until
+2026-10-08 it was a copy of Open-BFME-1's record and quoted lotrbfme.exe
+addresses and measurements as if they were this image's; they are not, and
+the one place the two games differ in this library is the point of the
+rewrite (see "compress", below).
 
 Artifact
 --------
@@ -8,12 +14,8 @@ Artifact
     dated   2025-03-02  (the repository's initial import; the code itself is
             the 1998 v1.0 release, which no longer has a live home page)
 
-The nine files vendored here are byte-for-byte that commit's, with COMMENTS
-added to the two .cpp files and not one line of code changed. Two kinds: the
-header block naming this release, and three `// <symbol> present-unmatched`
-markers, which are what the pre-commit gate requires of a definition this repo
-cannot pin to an address (`tools/find_declared_unmatched.py`). The headers and
-.tbl files are untouched:
+Nine of its files are vendored here. Upstream's hashes, re-fetched and
+re-hashed on 2026-10-08:
 
     ddd3305592a947316b4671bcf31680d48515b47ba8ebdf30ecd73d049024bb56  Huff.cpp        13,886
     db11c18a1fd3a25f09bff08daec8fb290e4f86b30a4e38b04420ced8c9f542a5  Lz.cpp          10,459
@@ -25,16 +27,31 @@ cannot pin to an address (`tools/find_declared_unmatched.py`). The headers and
     361e612094a870c36f9d652774a6fd78e6d9e04a0392c439811da41ba3a59a2b  hdisp.tbl        1,919
     3d8ce0562678efb2d6167b5cd2d109a020fccfb120bdd9e8237e40ae952f135a  henc.tbl         7,123
 
-All nine were re-fetched and re-hashed on 2026-08-17: the seven headers and
-.tbl files are `cmp`-identical to that commit, and `diff` on the two .cpp files
-shows comment-only additions, no code line changed.
+The three headers and four .tbl files are that commit's text (the working
+copy differs only by CRLF, which the repository normalises). The two .cpp
+files are NOT pristine, and differ in two different ways:
 
-One inconsistency is upstream's own and is left as found: Huff.cpp's banner says
-"LZH-Light algorithm implementation v 1.01" while Lz.cpp's says "v 1.0". The
-repo, this file and the `vendored=lzhl-1.0` tag all say 1.0, after the release
-and the directory, not after Huff.cpp's banner. Nothing here depends on which
-banner is right — the release is pinned by the commit hash above and by the
-3,104 bytes of table data below, neither of which the banner touches.
+    Lz.cpp    comments only: the header block and a note above compress.
+              14 diff lines against upstream, every one a comment. No code
+              line changed -- and none needed to be, because BFME 2's
+              compress is upstream's (below).
+    Huff.cpp  the header block, one `present-unmatched` marker, and a CODE
+              change: LZHLDecompressor::decompress carries EA's divergence
+              from upstream, reconstructed from the retail body at
+              0x00692440 and documented in place above the function (the
+              per-`_get` negative-return tests dropped, the loop re-tested
+              at its bottom, `dstSz`/`srcSz` dereferenced unconditionally).
+              That is 40 non-comment diff lines, all inside decompress.
+
+Both files say so in their header blocks, because the licence (below)
+requires an altered source version to say so.
+
+One inconsistency is upstream's own and is left as found: Huff.cpp's banner
+says "LZH-Light algorithm implementation v 1.01" while Lz.cpp's says "v 1.0".
+The repo, this file and the `vendored=lzhl-1.0` tag all say 1.0, after the
+release and the directory, not after Huff.cpp's banner. Nothing here depends
+on which banner is right — the release is pinned by the commit hash above and
+by the 3,104 bytes of table data below, neither of which the banner touches.
 
 Why the initial commit and not the branch tip
 ---------------------------------------------
@@ -44,54 +61,59 @@ hosts, two POSIX-socket edits to Lzhl_tcp.cpp, an include-case fix, and a
 bounds fix that adds `- LZMATCH` to four `_updateTable` calls inside
 LZHLCompressor::compress. Only the initial commit is the release. The two are
 distinguishable in the one place the bounds fix lands: compress compiles to
-1,741 bytes from the initial commit and 1,747 from `main`. Everything else this
-tree claims is identical under both, so that single body is the whole
-difference — and, as recorded below, neither figure is retail's.
+1,741 bytes from the initial commit and 1,747 from `main`. In BFME 2 that
+decides it outright — retail's compress IS 1,741 bytes (below).
 
 Why this program and not one of the forks
 -----------------------------------------
-LZH-Light emits no strings, so there is no "assembler version 4.09.00.1126" to
-read out of the image the way vendor/d3dx9 could. The discriminator here is
-static DATA. Huff.cpp's four `.tbl` files are compiled into seven initialised
-arrays, which land in retail's `.data` as five contiguous blocks, byte for byte,
-each block at exactly ONE address, in the order the compiler emits them.
+LZH-Light emits no strings, so there is no banner to read out of the image.
+The discriminator is static DATA. Huff.cpp's four `.tbl` files are compiled
+into seven initialised arrays, which land in game.dat's `.data` as five
+blocks, byte for byte, each at exactly ONE address, in the order the compiler
+emits them. Measured against game.dat on 2026-10-08:
 
-Addresses below are VIRTUAL ADDRESSES (imagebase 0x400000), NOT the RVAs the
-ledger uses — read as an RVA, 0x012C51E0 is past the end of the image. Both are
-given so neither reading can be guessed at:
-
-    VA          RVA         size
-    0x012C51E0  0x00EC51E0  1,772 B  three statics in one block, in this order:
+    RVA         VA          size
+    0x009D9938  0x00DD9938  1,772 B  three statics in one block, in this order:
                                        1,096 B  LZHLEncoderStat::symbolTable0
                                                   Symbol[274], 4 B each  (henc.tbl)
                                          128 B  LZHLDecoderStat::groupTable0
                                                   Group[16], 8 B each    (hdec_g.tbl)
                                          548 B  LZHLDecoderStat::symbolTable0
                                                   HUFFINT[274], 2 B each (hdec_s.tbl)
-    0x012C58D0  0x00EC58D0     64 B  decompress's local _dispTable   (hdisp.tbl)
-    0x012C5910  0x00EC5910     64 B  decompress's local _matchOverTable
-    0x012C5950  0x00EC5950  1,024 B  putMatch's local _dispTable     (hdisp.tbl)
-    0x012C5D50  0x00EC5D50    180 B  putMatch's local _matchOverTable
+    0x009DA028  0x00DDA028     64 B  decompress's local _dispTable
+    0x009DA068  0x00DDA068     64 B  decompress's local _matchOverTable
+    0x009DA0A8  0x00DDA0A8  1,024 B  putMatch's local _dispTable     (hdisp.tbl)
+    0x009DA4A8  0x00DDA4A8    180 B  putMatch's local _matchOverTable
 
-The three-way split of the first COMDAT is arithmetic, not assertion:
-NHUFFSYMBOLS is 274 and HUFFINT/HUFFUINT are 16-bit (_huff.h:25-27), so
-274*4 + 16*8 + 274*2 = 1,772 exactly, and each sub-block reads back at its
-offset as the matching .tbl: (7,0x14),(8,0x30),(8,0x31) at +0, (2,0),(3,4) at
-+1096, 256,257,258 at +1224.
+Unlike lotrbfme.exe, where the linker left padding between the five blocks,
+game.dat packs them 8-aligned: the five run contiguously from 0x009D9938 to
+0x009DA55C, where unrelated pointer data begins. The three-way split of the
+first block is arithmetic, not assertion: NHUFFSYMBOLS is 274 and
+HUFFINT/HUFFUINT are 16-bit (_huff.h:25-27), so 274*4 + 16*8 + 274*2 = 1,772
+exactly, and each sub-block reads back at its offset as the matching .tbl:
+(7,0x14),(8,0x30),(8,0x31) at +0, (2,0),(3,4) at +1096, 256,257,258 at
++1224. The two 64-byte locals read back as {0,0},{0,1},{1,2},{2,4},{3,8},
+{4,16},{5,32},{6,64} and {1,8},{2,10},{3,14},{4,22},{5,38},{6,70},{7,134},
+{8,262}; putMatch's _dispTable opens (3,0),(3,1),(4,4),(4,5) as hdisp.tbl.
 
-3,104 bytes of Huffman tables, unique in a 20 MB image. On top of that, 31
-whole function bodies from these two TUs reproduce retail exactly, 4,310 bytes
-at 31 distinct addresses inside one contiguous run. (This paragraph read "26 ...
-at 26 distinct addresses" until 2026-08-17: it was written mid-wave and never
-refreshed when the last five bodies landed in the same commit. The ledger is
-the count of record — `grep -c 'vendored=lzhl-1.0' reverse/functions.csv`.)
+3,104 bytes of Huffman tables, unique in the image. On top of that, whole
+function bodies from these two TUs reproduce retail exactly inside one
+contiguous run (the ledger is the count of record, re-derive rather than
+quote):
 
-Two other public carriers were compiled and rejected:
+    grep -c 'vendored=lzhl-1.0' reverse/functions.csv     -> 33 rows, 5,150 B
+    rows sourced from Huff.cpp + Lz.cpp                    -> 38 rows, 6,928 B
+      (the 33 above plus compress 1,741 B, _wrap 10 B, and three
+       unwind funclets at 0x007A7BC0/0x007A7BC8/0x007A7BE0 the two
+       constructors emit)
+
+Two other public carriers were compiled and rejected (measured in BFME 1,
+and the reasoning carries over because BFME 2's bodies are the same program):
 
   TheAssemblyArmada/liblzhl @ 5dc72fa16d — describes itself as the EA variant
     and would be the obvious candidate, but it is a 2019-2022 refactor: its
-    compress compiles to 1,449 bytes against retail's 1,724. That is a
-    different program, not a different vintage of this one.
+    compress compiles to 1,449 bytes. That is a different program, not a
+    different vintage of this one.
   ryandrake08/lzhl @ master — the same 1998 algorithm restructured into nine
     class-per-file translation units (LZBuffer.cpp, LZHLEncoderStat.cpp, ...)
     and relabelled LGPL-3.0. Rejected on file set before compiling: EA's
@@ -100,11 +122,25 @@ Two other public carriers were compiled and rejected:
 
 Region
 ------
-RVA 0x008252C0-0x00826F9C. The bounds are witnessed, not assumed: zlib's
-`_inflateSyncPoint` ends at 0x008252B5 below it and zlib's `_adler32` starts at
-0x00826FA0 above it, both already attached from Compression/ZLib. LZHL is the
-only thing between them, which is what Compression.dsp says the static library
-contains.
+RVA 0x00690E10-0x00692ABC. The bounds are witnessed, not assumed: zlib's
+`_inflateSyncPoint` (0x00690DE0, 37 B) ends at 0x00690E05 below it and zlib's
+`_adler32` starts at 0x00692AC0 above it, both rowed from Compression/ZLib —
+the same two neighbours as in lotrbfme.exe. Every row between them is this
+library's: 24 from Huff.cpp, 11 from Lz.cpp, `?clearStats@Rva006918B0Owner`
+(0x006918B0, Rva006918B0ClearStats.cpp beside them), and two stat-table
+resets at 0x00692260 (51 B) and 0x00692360 (67 B) rowed under address names
+in Code/GameEngine/Source/Common/SmallGaps/Rva00826740ResetTables.cpp and
+Rva00826840ResetTables.cpp as byte-identical BFME 1 donors — their struct
+layouts (int[0x89] = 274 HUFFINT, int[0x20] = Group[16]) are this library's
+decoder-stat tables, and the address names preserve that no retail name
+witnesses them. Compression.dsp says the static library contains nothing else.
+
+The wrappers EA wrote around the library — LZHLCreateCompressor and friends
+in CompLibSource/LZHLApi.cpp and NoxCompress.cpp's CompressFile /
+DecompressFile / CompressMemory / DecompressMemory and factory thunks, at
+0x0068A5F0..0x0068AAA8 and 0x0068EC80..0x0068ED9B — sit outside this run,
+below it among zlib's own bodies (zlib's compress2 is at 0x0068AAB0 and its
+deflateEnd at 0x0068F1C0); they are EA code and carry no vendored tag.
 
 Where the files sit
 -------------------
@@ -133,34 +169,45 @@ the vendored source and byte-compares each row against retail exactly as it
 does for code this repo wrote; a row is not evidence of anything until it
 passes that.
 
-What this evidence does NOT decide
-----------------------------------
-1. Two bodies REFUSE to match, and this release is not BFME's for them.
-   LZHLCompressor::compress compiles to 1,741 bytes (1,747 from `main`);
-   retail's body at 0x00825680 is 1,724. LZHLDecompressor::decompress compiles
-   to 852; retail's run at 0x00826914 is 844 real bytes. Both stay as
-   `Code/gen_asm` dumps. The differences are small and one-directional — EA's
-   copy is SHORTER in both — which reads like a local EA edit to the two
-   biggest functions rather than a different vintage, but nothing here
-   establishes what the edit was, and no attempt was made to guess it. That
-   is 2,568 bytes this file explicitly does not claim.
+Two rows in this run carry a tag they should not, inherited from the sweep
+that placed them and left as found so the tag's history stays legible:
+`?compress@LZHLCompressor@@QAEIPAEPBEI@Z` (0x006911B0) is noted
+`stlport-4.5.3` and `?_wrap@LZBuffer@@KAHK@Z` (0x00690F50)
+`vendored=stlport-4.5.3`. Neither body touches STLport; both are this
+library's, verified from these sources.
 
-2. `?_wrap@LZBuffer@@KAHI@Z` and `?_distance@LZBuffer@@KAHH@Z` compile to the
-   same ten bytes, and exactly two unclaimed addresses in the run hold those
-   ten bytes: 0x00825410 and 0x00825420. Counts agree, so both are certainly
-   there, but nothing decides WHICH is which — no relocation, no caller that
-   distinguishes them, no independent name. Following the standard
-   vendor/d3dx9 set for its twins, neither is claimed rather than have the name
-   column assert an identity the image does not witness. 20 bytes.
+The two bodies, and how BFME 2 differs from BFME 1
+--------------------------------------------------
+1. compress. LZHLCompressor::compress compiles to 1,741 bytes from the
+   initial commit (1,747 from `main`), and game.dat's body at 0x006911B0 IS
+   1,741 bytes: it matches from the unmodified upstream Lz.cpp, and the row
+   is `matched`. This is the one place the two games differ. lotrbfme.exe's
+   compress (BFME 1, 0x00825680) is 1,724 bytes — an EA edit to the lazy
+   match that Open-BFME-1 reconstructs in its own Lz.cpp — and BFME 2 does
+   not carry that edit: its compress is stock LZHL 1.0.
 
-3. `??1HuffStat@@QAE@XZ` is ten bytes and retail holds eleven copies of them,
-   spread from 0x00061BD0 to 0x00589A70 with most already claimed by other
-   sources. Ten bytes of `delete[]` through the vector-deleting stub is not a
-   fingerprint; nothing attributes any of those eleven to this TU, so none is
-   claimed.
+2. decompress. LZHLDecompressor::decompress compiles to 852 bytes from
+   upstream; game.dat's body at 0x00692440 is 824 bytes, and Huff.cpp
+   carries EA's divergence reconstructed in source (see the comment above
+   the function), `matched`, noted `vendored=lzhl-1.0 with EA's divergence`.
+   BFME 1's decompress is the same 824-byte shape, so this edit EA made to
+   the library once and both games ship it; the compress edit they made
+   only once more, for BFME 1.
 
-4. The mangled names in the ledger come from THIS source, not from the image.
-   lotrbfme.exe exports none of these symbols and carries no RTTI for them, so
+3. `?_wrap@LZBuffer@@KAHK@Z` and `?_distance@LZBuffer@@KAHH@Z` compile to the
+   same ten bytes. One copy is rowed as _wrap at 0x00690F50 (under the
+   inherited tag noted above, between the rowed LZBuffer constructor at
+   0x00690F20 and its inline destructor at 0x00690F40, where Lz.cpp's COMDAT
+   order puts _wrap); nothing in the image distinguishes the two names, so
+   _distance is not claimed.
+
+4. `??1HuffStat@@QAE@XZ` is ten bytes of `delete[]` through the
+   vector-deleting stub, which retail holds in many places; nothing
+   attributes any of them to this TU, so none is claimed and Huff.cpp marks
+   the definition `present-unmatched`.
+
+5. The mangled names in the ledger come from THIS source, not from the image.
+   game.dat exports none of these symbols and carries no RTTI for them, so
    the C++ type encoding inside a name is the vendored header's, not retail's.
    The `main` branch's `signed int` retype changes
    `?_updateTable@LZHLCompressor@@AAEKKPBEKH@Z` to `...@AAEIIPBEIH@Z` without
@@ -185,4 +232,5 @@ removed or altered, and altered source versions must be plainly marked as such.
 That is a zlib-class permissive licence with no further restrictions, so it is
 compatible with this repository's GPLv3 and combining it with GPLv3 code is
 allowed. Both conditions are met here: every notice is intact, and this file
-plus each source header record the modifications made — comments only, no code.
+plus each source header record the modifications made — comments in Lz.cpp;
+comments plus the reconstructed decompress in Huff.cpp.

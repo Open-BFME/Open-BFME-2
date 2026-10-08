@@ -1,13 +1,17 @@
 // cl: /DNDEBUG /MD -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader
-/* LZH-Light 1.0 (Sergey Ignatchenko, 1998) -- upstream C++ source, verbatim
-   from github.com/TheSuperHackers/lzhl-1.0 commit dfd96e2, EXCEPT for comments:
-   this block and the `present-unmatched` markers below it. Not one line of code
-   is changed, and the alterations are named here because the licence below
-   requires an altered source version to say so.
-   Statically linked into lotrbfme.exe; EA kept it at
+/* LZH-Light 1.0 (Sergey Ignatchenko, 1998) -- upstream C++ source from
+   github.com/TheSuperHackers/lzhl-1.0 commit dfd96e2, ALTERED in two ways,
+   named here because the licence below requires an altered source version
+   to say so: (1) comments -- this block and the `present-unmatched` marker
+   below it; (2) one code change -- LZHLDecompressor::decompress carries EA's
+   divergence from upstream, reconstructed from game.dat's body at 0x00692440
+   (824 bytes where upstream compiles to 852) and documented above the
+   function. Every other line is upstream's.
+   Statically linked into game.dat (BFME 2); EA kept it at
    Compression/LZHCompress/CompLib{Header,Source} (Zero Hour Compression.dsp).
    See ../PROVENANCE.txt for the artifact identity, the five Huffman tables in
-   retail .data that pin this release, and the two bodies it does NOT match. */
+   retail .data (0x009D9938..) that pin this release, and how BFME 2's copy
+   differs from BFME 1's. */
 /*
  *  LZH-Light algorithm implementation v 1.01
  *  Copyright (C) Sergey Ignatchenko 1998
