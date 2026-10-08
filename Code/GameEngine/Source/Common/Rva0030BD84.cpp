@@ -19,6 +19,21 @@ struct BfmeE16
 	float z;
 	float w;
 };
+
+// BFME1 9cbfb551 VectorClassResizeNothrowDelete.cpp emits Vector4's
+// ordered equality as a source lead. Native30BCBF..30BD08 is independently
+// bounded after the rowed30BCBA/5 tail. Four float accesses and ordered
+// equality are target facts; the original record and function names are not.
+__forceinline bool Rva0030BCBFFloatsEqual(const BfmeE16 &a, const BfmeE16 &b)
+{
+	return a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w;
+}
+
+bool Rva0030BCBFEqual(const BfmeE16 &a, const BfmeE16 &b)
+{
+	return Rva0030BCBFFloatsEqual(a, b);
+}
+
 struct BfmePod16
 {
 	int a[4];
