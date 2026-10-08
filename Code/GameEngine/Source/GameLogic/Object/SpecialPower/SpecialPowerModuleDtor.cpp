@@ -15,6 +15,18 @@
 // base dtor is inline here (vtables 0x00BEEA7C/0x00BEE9C0 restored before
 // ObjectModule's dtor 0x0049B47C). Retail's unwind map destroys that base
 // (0x004607E1) in state 0 and the getPowerName temporary in state 1.
+//
+// ?onSpecialPowerCreation@SpecialPowerModule@@UAEXXZ, retail 0x004933C2,
+// 246 bytes: SpecialPowerModuleInterface slot 7 in every SpecialPowerModule
+// family vftable (e.g. 0x0085C4B8), reached on the +0x10 subobject. Name and
+// outline from the Zero Hour body; it is the mirror of the dtor above
+// (TheInGameUI slot 0x88 addSuperweapon beside slot 0x8C removeSuperweapon).
+// Target evidence: startPowerRecharge(1.0) through slot 15; for a template
+// whose final override has the shared flag at +0x59 the controlling player
+// gets the rowed timer pair 0x002AC75C (template, frame) / 0x002AC7A0, the
+// latter stored at +0x18; module data +0x0D pauses through slot 9 (pinned
+// pauseCountdown 0x00492FC2); the superweapon is added only for a structure
+// (template KindOf 7, the donor's KINDOF_STRUCTURE, tested inline at +0x108).
 #include "ascii_string.h"
 
 
@@ -31,11 +43,13 @@ class SpecialPowerTemplate : public Overridable
 public:
 	const AsciiString &getName() const { return getFO()->m_name; }
 	bool hasPublicTimer() const { return getFO()->m_publicTimer; }
+	bool isSharedNSync() const { return getFO()->m_sharedNSync; }
 private:
 	const SpecialPowerTemplate *getFO() const { return (const SpecialPowerTemplate *)friend_getFinalOverride(); }
 	AsciiString m_name;
 	char m_pad14[0x58 - 0x14];
 	bool m_publicTimer;
+	bool m_sharedNSync;
 };
 
 class Player
@@ -49,15 +63,40 @@ private:
 
 enum ObjectID { INVALID_ID = 0 };
 
+class Rva002AC6B1PlayerTimers
+{
+public:
+	void rva002AC75C(const SpecialPowerTemplate *temp, unsigned int frame);
+	unsigned int getOrStart(const SpecialPowerTemplate *temp);
+};
+
+enum KindOfType { KINDOF_STRUCTURE = 7 };
+
+class ThingTemplate
+{
+public:
+	__forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
+private:
+	char m_pad[0x108];
+	unsigned char m_kindOf[0x20];
+};
+
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
 	ObjectID getID() const { return m_id; }
+	__forceinline bool isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
 private:
-	char m_pad[0x74];
+	void *m_vptr;
+	const ThingTemplate *m_template;
+	char m_pad08[0x74 - 0x08];
 	ObjectID m_id;
 };
+
+class GameLogic;
+extern GameLogic *TheGameLogic;
+struct SpecialPowerCreationFrameView { char m_pad[0x40]; unsigned int m_frame; };
 
 class ModuleData
 {
@@ -70,6 +109,8 @@ class SpecialPowerModuleData : public ModuleData
 public:
 	char m_pad04[4];
 	const SpecialPowerTemplate *m_specialPowerTemplate;
+	bool m_updateModuleStartsAttack;
+	bool m_startsPaused;
 };
 
 class InGameUI
@@ -83,7 +124,8 @@ public:
 	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
 	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
 	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
-	virtual void v32(); virtual void v33(); virtual void v34();
+	virtual void v32(); virtual void v33();
+	virtual void addSuperweapon(int playerIndex, const AsciiString &powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate);
 	virtual void removeSuperweapon(int playerIndex, const AsciiString &powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate);
 };
 
@@ -115,7 +157,16 @@ public:
 class SpecialPowerModuleInterface
 {
 public:
+	virtual void s00() = 0; virtual void s01() = 0; virtual void s02() = 0;
+	virtual void s03() = 0; virtual void s04() = 0;
 	virtual AsciiString getPowerName() const = 0;
+	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const = 0;
+	virtual void onSpecialPowerCreation() = 0;
+	virtual void s08() = 0;
+	virtual void pauseCountdown(bool pause) = 0;
+	virtual void s10() = 0; virtual void s11() = 0; virtual void s12() = 0;
+	virtual void s13() = 0; virtual void s14() = 0;
+	virtual void startPowerRecharge(float percent) = 0;
 };
 
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
@@ -123,8 +174,12 @@ class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInter
 public:
 	virtual ~SpecialPowerModule();
 	virtual AsciiString getPowerName() const;
+	virtual void onSpecialPowerCreation();
 protected:
 	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return (const SpecialPowerModuleData *)getModuleData(); }
+private:
+	int m_unknown14;
+	unsigned int m_availableOnFrame;
 };
 
 SpecialPowerModule::~SpecialPowerModule()
@@ -140,6 +195,35 @@ SpecialPowerModule::~SpecialPowerModule()
 AsciiString SpecialPowerModule::getPowerName() const
 {
 	return getSpecialPowerModuleData()->m_specialPowerTemplate->getName();
+}
+
+void SpecialPowerModule::onSpecialPowerCreation()
+{
+	startPowerRecharge(1.0f);
+
+	if (getSpecialPowerTemplate()->isSharedNSync())
+	{
+		Player *player = getObject()->getControllingPlayer();
+		if (player)
+		{
+			((Rva002AC6B1PlayerTimers *)player)->rva002AC75C(getSpecialPowerTemplate(), ((SpecialPowerCreationFrameView *)TheGameLogic)->m_frame);
+			m_availableOnFrame = ((Rva002AC6B1PlayerTimers *)player)->getOrStart(getSpecialPowerTemplate());
+		}
+	}
+
+	const SpecialPowerModuleData *md = getSpecialPowerModuleData();
+	if (md->m_startsPaused)
+		pauseCountdown(true);
+
+	if (getSpecialPowerModuleData()->m_specialPowerTemplate->hasPublicTimer() &&
+			getObject()->getControllingPlayer() &&
+			getObject()->isKindOf(KINDOF_STRUCTURE))
+	{
+		TheInGameUI->addSuperweapon(getObject()->getControllingPlayer()->getPlayerIndex(),
+									getPowerName(),
+									getObject()->getID(),
+									getSpecialPowerModuleData()->m_specialPowerTemplate);
+	}
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
