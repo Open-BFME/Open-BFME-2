@@ -60,7 +60,7 @@ SmudgeManager *TheSmudgeManager=NULL;
 
 // W3DSmudgeManager::W3DSmudgeManager: defined in W3DSmudgeManagerConstructor.cpp (its row's unit).
 
-// ?W3DSmudgeManager::~W3DSmudgeManager present-unmatched
+// W3DSmudgeManager destructor is ledgered in this home unit.
 W3DSmudgeManager::~W3DSmudgeManager()
 {
 	ReleaseResources();
