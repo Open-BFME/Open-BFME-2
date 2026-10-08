@@ -84,6 +84,9 @@ template <class T, class Alloc = allocator<T> > class vector : public _Vector_ba
 public:
 	void push_back(const T &x);
 };
+// SidesList::operator= copies through the out-of-line copy instantiations.
+template <class InputIter, class OutputIter>
+OutputIter copy(InputIter first, InputIter last, OutputIter result);
 }
 
 // The faction build-list entry type (128 bytes); its real name is unknown.
@@ -236,10 +239,12 @@ void SidesListNotifier::post(void (*callback)(), void *owner, int index)
 void Rva005CB260();
 void Rva005CB26A();
 void Rva005CC208();
+void Rva005CB265();
 
 class TeamsInfoRec
 {
 public:
+	TeamsInfoRec &operator=(const TeamsInfoRec &that);	// 0x0032DDB3, copy-and-swap
 	void clear();
 
 private:
@@ -293,10 +298,11 @@ public:
 
 enum { XFER_INVALID_DATA = 5 };
 
-class SidesListSubsystemBase
+class SubsystemInterface
 {
 public:
-	virtual ~SidesListSubsystemBase();
+	virtual ~SubsystemInterface();
+	SubsystemInterface &operator=(const SubsystemInterface &that);	// 0x00329880
 private:
 	int m_subsystemData[2];
 };
@@ -309,10 +315,11 @@ public:
 	virtual void loadPostProcess();
 };
 
-class SidesList : public SidesListSubsystemBase, public SidesListSnapshotBase
+class SidesList : public SubsystemInterface, public SidesListSnapshotBase
 {
 public:
 	virtual ~SidesList();
+	SidesList &operator=(const SidesList &that);
 	int addSide(const Dict *d);
 	SidesInfo *getSideInfo(int side);				// 0x002035BA
 	virtual void DoXfer(Xfer *xfer);
@@ -473,6 +480,28 @@ void SidesList::clear()
 	emptyTeams();
 	m_cleared = true;
 	m_notifier.post(Rva005CB26A, this);
+}
+
+// The side arrays copy only their live entries; the notifier is not copied
+// and posts the change instead. The folded copy helpers are held under their
+// non-const instantiations, which is why the source drops const.
+SidesList &SidesList::operator=(const SidesList &that)
+{
+	if (&that != this) {
+		SidesList &src = const_cast<SidesList &>(that);
+		SubsystemInterface::operator=(that);
+		SidesListSnapshotBase::operator=(that);
+		m_numSides = src.m_numSides;
+		_STL::copy(src.m_sides, src.m_sides + src.m_numSides, m_sides);
+		m_numSkirmishSides = src.m_numSkirmishSides;
+		_STL::copy(src.m_skirmishSides, src.m_skirmishSides + src.m_numSkirmishSides, m_skirmishSides);
+		m_teamrec = src.m_teamrec;
+		m_skirmishTeamrec = src.m_skirmishTeamrec;
+		m_cleared = src.m_cleared;
+		_STL::copy(src.m_factionBuildLists, src.m_factionBuildLists + 20, m_factionBuildLists);
+		m_notifier.post(Rva005CB265, this);
+	}
+	return *this;
 }
 
 SidesInfo *Rva0032DD81Copy(SidesInfo *first, SidesInfo *last, SidesInfo *result)

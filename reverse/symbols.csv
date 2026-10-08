@@ -16133,3 +16133,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??1?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@QAE@XZ,0x0032BE80,callee of ?rva0032E6F4@SidesList@@QAEXHABUBfmePod128@@@Z
 ?rva003B693A@ScriptList@@QAEXXZ,0x003B693A,ScriptList discard of overridden scripts called on SidesInfo+8 by discardOverriddenScriptsAndTeams 0x0032C991 (WB 0xaa4f70)
 ?rva003B7362@ScriptList@@QAEXXZ,0x003B7362,callee of ?rva0032C88F@SidesList@@QAEXH@Z
+??$copy@PAUFactionBuildLists@SidesList@@PAU12@@_STL@@YAPAUFactionBuildLists@SidesList@@PAU12@00@Z,0x0032DD66,callee of ??4SidesList@@QAEAAV0@ABV0@@Z
+?Rva005CB265@@YAXXZ,0x005CB265,callee of ??4SidesList@@QAEAAV0@ABV0@@Z
