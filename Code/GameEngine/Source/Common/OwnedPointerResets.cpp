@@ -1706,5 +1706,27 @@ Rva005E893E::~Rva005E893E()
 	((Rva005E88EE *)this)->clear();
 }
 
+class AptInGameSideCommandBar
+{
+public:
+	class Impl
+	{
+	public:
+		void Update();
+	};
+};
+
+class Rva002D363E90
+{
+public:
+	AptInGameSideCommandBar::Impl *m_ptr;
+	void rva005288BD();
+};
+
+void Rva002D363E90::rva005288BD()
+{
+	m_ptr->Update();
+}
+
 
 
