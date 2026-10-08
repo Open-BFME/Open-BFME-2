@@ -6,9 +6,10 @@
 // Its seven command-map bindings capture this and prove the callback owners.
 // The callback argument is unused; void* records the observed one-word RET4
 // ABI, not a recovered argument type. Method names remain address-qualified.
+class BuildQueueOwnerView {public:virtual void unknown0();virtual void onBack();};
 namespace StrategicHUD {
 class BuildQueueDetailsMovieClip {
-public: class Impl { public: class QueuedIconSlot; class InProgressIconSlot; };
+public: class Impl { public: class QueuedIconSlot; class InProgressIconSlot; void rva005F68FE(void*); void rva005F6916(void*); void rva005F691D(void*); private: BuildQueueOwnerView *owner; char unknown[0x63]; bool backHover; };
 };
 }
 class StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot {
@@ -96,3 +97,6 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::rva005F
  else progress=0.0f;
  ((Rva000A4826*)TheDisplay)->rva000A4875(position->x,position->y,size->x,size->y,progress*100.0f,owner->overlayArg);
 }
+
+// Ctor5F7F21 binding: _OnBackButtonClicked.
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::rva005F68FE(void*) { if(((QueuedAptModeView*)g_bfmeAptWindowManager)->mode==0)owner->onBack(); }
