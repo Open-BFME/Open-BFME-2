@@ -1,4 +1,4 @@
-// cl: /Oy- /DNDEBUG /MD
+// cl: /O1 /Oy- /DNDEBUG /MD
 // GameWindowManager::winSendSystemMsg (0x002C0E7D, 44B) and winSendInputMsg
 // (0x002C0EA9, 44B): adjacent slots of the GameWindowManager vftable (rdata
 // 0x007C7D78/0x007C7D7C) and of W3DGameWindowManager's (0x007FF740/0x007FF744).
@@ -29,17 +29,31 @@ enum
 	WIN_STATUS_DESTROYED = 0x00000800
 };
 
+class GameWindowHandler
+{
+public:
+	virtual void h0();
+	virtual void h1();
+	virtual void h2();
+	virtual WindowMsgHandledType h3( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
+	virtual WindowMsgHandledType h4( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
+};
+
 class GameWindow
 {
 public:
+	virtual void v0();
+	virtual WindowMsgHandledType v1( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
+	virtual WindowMsgHandledType v2( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 	WindowMsgHandledType winSendSystemMsg( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 	WindowMsgHandledType winSendInputMsg( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 );
 
 private:
 	friend class GameWindowManager;
-	void *m_vtable;
 	unsigned int m_unrecovered04;
 	UnsignedInt m_status;	///< 0x08
+	char m_pad0C[0x1D0];
+	GameWindowHandler *m_handler;	///< 0x1DC
 };
 
 class GameWindowManager
@@ -86,3 +100,24 @@ WindowMsgHandledType GameWindowManager::winSendInputMsg( GameWindow *window,
 	return window->winSendInputMsg( msg, mData1, mData2 );
 
 }  // end winSendInputMsg
+
+//-------------------------------------------------------------------------------------------------
+// GameWindow::winSendInputMsg (0x00314511, 30B): handler at +0x1DC slot 3, else own vftable slot 1.
+// Retail tail-jumps to both targets with the caller's arguments still on the stack.
+//-------------------------------------------------------------------------------------------------
+WindowMsgHandledType GameWindow::winSendInputMsg( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 )
+{
+	if( m_handler )
+		return m_handler->h3( msg, mData1, mData2 );
+	return v1( msg, mData1, mData2 );
+}
+
+//-------------------------------------------------------------------------------------------------
+// GameWindow::winSendSystemMsg (0x0031452F, 30B): handler at +0x1DC slot 4, else own vftable slot 2.
+//-------------------------------------------------------------------------------------------------
+WindowMsgHandledType GameWindow::winSendSystemMsg( UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2 )
+{
+	if( m_handler )
+		return m_handler->h4( msg, mData1, mData2 );
+	return v2( msg, mData1, mData2 );
+}
