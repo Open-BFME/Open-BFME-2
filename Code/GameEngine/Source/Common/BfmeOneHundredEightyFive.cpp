@@ -194,3 +194,26 @@ void bfmeGoDA(BfmeThingDA *thing, int *where)
 
 	other->bfmeDoDA(where + 1);
 }
+
+class BfmeTargetEF
+{
+public:
+	virtual void bfmeSpare000EF(void) = 0;
+	virtual void bfmeSpare001EF(void) = 0;
+	virtual void bfmeDoEF(void) = 0;
+};
+
+class BfmeThingEF
+{
+public:
+	void bfmeRunEF(void);
+
+private:
+	BfmeTargetEF *m_bfmeTarget;		// 0x0
+};
+
+void BfmeThingEF::bfmeRunEF(void)
+{
+	if (m_bfmeTarget != 0)
+		m_bfmeTarget->bfmeDoEF();
+}
