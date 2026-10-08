@@ -56,6 +56,7 @@ class BuildQueueDetailsPanel::Impl
 {
 public:
 	class Icon;
+	friend class Icon;
 
 	void SelectQueueIndex(int queueIndex);
 	void ShowUnitStats(int queueIndex); // 0x005E7B28 (WorldBuilder name, pinned)
@@ -63,7 +64,8 @@ public:
 private:
 	Icon *GetIconAtQueueIndex(int queueIndex) { return (Icon *)((Rva005E73E4 *)this)->rva005E73E4(queueIndex); }
 
-	char m_pad00[0x18];
+	char m_pad00[0x14];
+ void *m_help; // native hover-help caller follows +14
  Rva005E76AEContext *m_context;
  Rva005E72B4Queue *m_queue;
  char m_pad20[0x30-0x20];
@@ -235,7 +237,7 @@ __declspec(noinline) static void *rva005E72B4Get(Rva005E72B4Queue *queue,int id)
  return summary;
 }
 
-class Rva00319CED { public: UnicodeString rva004E25AF(int); };
+class Rva00319CED { public: UnicodeString rva004E25AF(int); UnicodeString rva004E265F(int); };
 class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
 extern Rva002D06CA *TheThingFactory;
 struct Rva005E7322MidRet { char pad[4]; AsciiString text; };
@@ -287,4 +289,43 @@ void StrategicInGameUI::BuildQueueDetailsPanel::Impl::ShowUnitStats(int index)
   ((Rva005F7480 *)this)->rva005F7480();
   ((Rva005F7490 *)this)->rva005F7490();
  }
+}
+
+// Native hover-help siblings: the same 88B temporary provides the description
+// through the retail by-value return call. Icon owns a counted 12B help object
+// at+1C; the matched help constructor and holder setter establish its layout.
+// Preserve both temporary UnicodeString lifetimes across constructor and set.
+__declspec(noinline) static UnicodeString rva005E774FGet(Rva005E76AEContext *context,Rva005E72B4Queue *queue,int id)
+{
+ Rva004E3184 army(0);
+ if(queue->slot4(id,&army)) return ((Rva00319CED *)&army)->rva004E265F(context->m_id);
+ return UnicodeString::TheEmptyString;
+}
+// ?rva005E77C2Get@@YA?AVUnicodeString@@PAURva005E76AEContext@@PAVRva005E72B4Queue@@H@Z present-unmatched
+__declspec(noinline) static UnicodeString rva005E77C2Get(Rva005E76AEContext *context,Rva005E72B4Queue *queue,int index)
+{
+ return rva005E774FGet(context,queue,queue->slot13()->begin[index]);
+}
+class __declspec(novtable) Rva005398CDRefCounted {
+public:
+ Rva005398CDRefCounted() : m_refCount(0) {}
+ virtual ~Rva005398CDRefCounted(); int m_refCount;
+};
+class InGameSimpleHelp : public Rva005398CDRefCounted {
+public:
+ class Impl;
+ InGameSimpleHelp(const UnicodeString &,const UnicodeString &);
+ virtual ~InGameSimpleHelp();
+private: Impl *m_impl;
+};
+struct TargetRef00217D4C;
+class Rva002BED91 { public: TargetRef00217D4C *m_ptr; void set(TargetRef00217D4C *); };
+struct TreeHintRef00217D4C;
+class Rva001FF3A9 { public: void rva001FF3A9(const TreeHintRef00217D4C &); };
+// ?rva005E789A@Icon@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@QAEXXZ present-unmatched
+void StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::rva005E789A()
+{
+ if(!m_1c.m_value)
+  ((Rva002BED91 *)&m_1c)->set((TargetRef00217D4C *)new InGameSimpleHelp(rva005E7721Get(m_owner->m_context,m_owner->m_queue,m_queueIndex),rva005E77C2Get(m_owner->m_context,m_owner->m_queue,m_queueIndex)));
+ ((Rva001FF3A9 *)m_owner->m_help)->rva001FF3A9(*(const TreeHintRef00217D4C *)&m_1c);
 }
