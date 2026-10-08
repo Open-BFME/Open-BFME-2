@@ -5330,7 +5330,7 @@ _piCallbacksCleanup,,0x0069EEF0,24,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 _Rva008143A0,,0x006802A0,38,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matched,comm op-table slot 8 (callback setter); TickIdle constructor stores 0xA802A0; replaces the invented C++ duplicate ?Rva008143A0Set as BFME 1 did
 ?Rva00815730Set@@YAXPAVRva00815730Obj@@H@Z,,0x00681630,38,Code/GameEngine/Source/Common/Rva00815730Set.cpp,matched,
 ?get@Rva007F7160@@QAEPAXH@Z,,0x00663850,25,Code/GameEngine/Source/Common/Rva007F7160Get.cpp,matched,
-?get@Rva004781A0@@QAEHPAH0@Z,,0x00313B1D,31,Code/GameEngine/Source/Common/Rva004781A0Get.cpp,matched,
+?winGetCursorPosition@GameWindow@@QAEHPAH0@Z,,0x00313B1D,31,Code/GameEngine/Source/GameClient/GUI/GameWindowRva0031475A.cpp,matched,ZH GameWindow winGetCursorPosition plus native IME call233947; optional output pointers read cursor fields24/28; exact31B; removes anonymous standalone view
 ?get@Rva007F70F0@@QAEPAXH@Z,,0x006637E0,25,Code/GameEngine/Source/Common/Rva007F70F0Get.cpp,matched,
 ?get@Rva004784F0@@QAEXPAH0@Z,,0x00313D3F,37,Code/GameEngine/Source/Common/Rva004784F0Get.cpp,matched,
 ?set@Rva007F63D0@@QAEXPAHPBURva007F63D0Src@@H@Z,,0x00662B60,25,Code/GameEngine/Source/Common/Rva007F63D0Set.cpp,matched,
@@ -8640,11 +8640,11 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?get@Rva00215E3BDwordField@@QBEHXZ,,0x00215E3B,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva002190A1DwordField@@QBEHXZ,,0x002190A1,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva002190A8DwordField@@QBEHXZ,,0x002190A8,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00232E93DwordField@@QBEHXZ,,0x00232E93,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00232F7DDwordField@@QBEHXZ,,0x00232F7D,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00233043DwordField@@QBEHXZ,,0x00233043,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva0023304ADwordField@@QBEHXZ,,0x0023304A,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00233051DwordField@@QBEHXZ,,0x00233051,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?getCompositionCursorPosition@IMEManager@@UAEHXZ,,0x00232E93,7,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,Native IMEManager vftableBE82B8 slot and constructor field stores fix getter identity; existing whole body moved from anonymous holder into genuine IME class; ZH interface agrees
+?getIndexBase@IMEManager@@UAEHXZ,,0x00232F7D,7,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,Native IMEManager vftableBE82B8 slot and constructor field stores fix getter identity; existing whole body moved from anonymous holder into genuine IME class; ZH interface agrees
+?getSelectedCandidateIndex@IMEManager@@UAEHXZ,,0x00233043,7,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,Native IMEManager vftableBE82B8 slot and constructor field stores fix getter identity; existing whole body moved from anonymous holder into genuine IME class; ZH interface agrees
+?getCandidatePageSize@IMEManager@@UAEHXZ,,0x0023304A,7,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,Native IMEManager vftableBE82B8 slot and constructor field stores fix getter identity; existing whole body moved from anonymous holder into genuine IME class; ZH interface agrees
+?getCandidatePageStart@IMEManager@@UAEHXZ,,0x00233051,7,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,Native IMEManager vftableBE82B8 slot and constructor field stores fix getter identity; existing whole body moved from anonymous holder into genuine IME class; ZH interface agrees
 ?get@Rva0023C434DwordField@@QBEHXZ,,0x0023C434,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0023C44FDwordField@@QBEHXZ,,0x0023C44F,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0023C490DwordField@@QBEHXZ,,0x0023C490,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
@@ -11434,7 +11434,7 @@ _push_captures,,0x00749720,110,Code/Libraries/Source/Lua/lstrlib.c,matched,obj_s
 ?Get_PKey@INIClass@@QBE?AVPKey@@_N@Z,,0x00619010,236,Code/Libraries/Source/WWVegas/WWLib/ini_PutPKey.cpp,matched,ZH ini.cpp verbatim; Decode Get_UUBlock XMP rows resolve
 ??0PKey@@QAE@XZ,,0x00615EC0,46,Code/Libraries/Source/WWVegas/WWLib/ini_PutPKey.cpp,matched,PKey default ctor inline COMDAT via Get_PKey; BFME1 pk.h verbatim
 ?get@Rva00381D2DDwordField@@QBEHXZ,,0x00381D2D,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva0023303CDwordField@@QBEHXZ,,0x0023303C,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?getCandidateCount@IMEManager@@UAEHXZ,,0x0023303C,7,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,Native IMEManager vftableBE82B8 slot and constructor field stores fix getter identity; existing whole body moved from anonymous holder into genuine IME class; ZH interface agrees
 ?get@Rva0008E172DwordField@@QBEHXZ,,0x0008E172,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva002C8E39DwordField@@QBEHXZ,,0x002C8E39,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva003BA6D0DwordField@@QBEHXZ,,0x003BA6D0,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
@@ -11461,7 +11461,7 @@ _lmemfind,,0x007496B0,110,Code/Libraries/Source/Lua/lstrlib.c,matched,obj_sweep 
 ?get@Rva005EE2C7ByteField@@QBEEXZ,,0x005EE2C7,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva005C4131ByteField@@QBEEXZ,,0x005C4131,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva002B235DByteField@@QBEEXZ,,0x002B235D,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
-?get@Rva00232E8FByteField@@QBEEXZ,,0x00232E8F,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
+?isComposing@IMEManager@@UAE_NXZ,,0x00232E8F,4,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,Native IMEManager vftableBE82B8 slot and constructor field stores fix getter identity; existing whole body moved from anonymous holder into genuine IME class; ZH interface agrees
 ?get@Rva003FE57DByteField@@QBEEXZ,,0x003FE57D,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva0045310DByteField@@QBEEXZ,,0x0045310D,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva004A0DF8ByteField@@QBEEXZ,,0x004A0DF8,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
@@ -41211,7 +41211,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?reserve@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAEXI@Z,,0x0060C1C0,147,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool_reserve.cpp,matched,rowed bit_alloc copy free via bool o1 unit caller 0x0060C33F
 ?rva002B4360@Rva002B4360@@QAEXPAUNode002B4360@@@Z,,0x002B4360,45,Code/GameEngine/Source/Common/Rva002B4360.cpp,matched,unlock recursive child plus next free via rowed free
 ?rva002B438D@Rva002B438D@@QAEXPAUNode002B438D@@@Z,,0x002B438D,45,Code/GameEngine/Source/Common/Rva002B438D.cpp,matched,unlock sibling recursive free via rowed free
-??_E?$StringBase@G@@AAEPAXI@Z,,0x002331F0,75,Code/Libraries/Source/WWVegas/WWLib/string_base_vector_dtor.cpp,matched,wide StringBase vector deleting dtor element size 4
+??_EUnicodeString@@QAEPAXI@Z,,0x002331F0,75,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,Native IME candidate UnicodeString array deleting destructor; new[] construction and candidate readers prove type; canonical UnicodeString header; whole75B and destructor function-pointer relocation verified; removes private StringBase provider
 ?rva003421B2@Rva00342157@@UAEHXZ,,0x003421B2,66,Code/GameEngine/Source/Common/Rva00342157Slot4.cpp,matched,vslot4 of vtable 0x008118B0 via TheGameLogic frame plus random tail call
 ?Rva0043C933Get@@YAHXZ,,0x0043C933,54,Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp,matched,Tri-state multiplayer plus flag gate via caller evidence
 ?Rva00583202Set@@YGXH@Z,,0x00583202,206,Code/GameEngine/Source/Common/Rva00583202Timeout.cpp,matched,unlock TheGameText fetch MapTransfer Timeout swprintf bfmeSetText
@@ -41220,7 +41220,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?Rva000C3C59Parse@INI@@SAXPAV1@PAX1PBX@Z,,0x000C3C59,167,Code/GameEngine/Source/Common/System/INI_Rva000C3C59Parse.cpp,matched,INI parse BfmeNarrowRecord via rowed ctor assign scanInt and dtor
 ?rva0034230C@Rva00342228@@UAEHXZ,,0x0034230C,64,Code/GameEngine/Source/Common/Rva00342228Slot4.cpp,matched,vslot4 of vtable 0x00811900 via TheGameLogic frame plus random tail call
 ?Rva0043C99AGet@@YAHXZ,,0x0043C99A,25,Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp,matched,Null-or-flag test on global 0x00A03314 via caller evidence
-?rva002332B2@Rva002332B2@@QAEXH@Z,,0x002332B2,73,Code/GameEngine/Source/GameClient/Rva002332B2Cleanup.cpp,matched,chain after StringBase vector dtor window hide plus array free
+?closeCandidateList@IMEManager@@IAEXH@Z,,0x002332B2,73,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,ZH IMEManager closeCandidateList; serviceIMEMessage REL32 and native fields3044/3040; canonical UnicodeString array cleanup; whole73B; replaces anonymous private cleanup view
 ?Rva00468E26Get@@YGPAVModule@@PAVObject@@@Z,,0x00468E26,83,Code/GameEngine/Source/GameLogic/Object/Update/Rva00468E26Get.cpp,matched,BannerCarrierUpdate static key via nameToKey plus Object findModule via 3 callers
 ?Rva0060C253Xfer@@YAPAVXfer@@PAV1@PAV?$vector@_NV?$allocator@_N@_STL@@@_STL@@@Z,,0x0060C253,283,Code/GameEngine/Source/GameLogic/ScriptEngine/XferVectorBool.cpp,matched,chain after reserve skeleton mirrors xferListInt rowed pushback empty bumpup
 ?rva006E0E70@Rva006E0DE0@@QAEXXZ,,0x006E0E70,49,Code/Libraries/Source/Apt/Rva006E0DE0Remove.cpp,matched,Apt pool teardown via freeBlock
@@ -44024,7 +44024,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ??_ERva0035A18D@@QAEPAXI@Z,,0x0035A18D,75,Code/GameEngine/Source/Common/Rva0035A18DVectorDeletingDtor.cpp,matched,vector deleting dtor via delete anchor element 0x10 pinned scalar dtor
 ?rva0035AFE4@Rva0035AFE4@@QAE_NH@Z,,0x0035AFE4,44,Code/GameEngine/Source/Common/Rva0035AFE4Pred.cpp,matched,bool pred on mask m_1c via sibling pattern
 ?rva0035ABC0@Rva0035ABC0@@QAEXI@Z,,0x0035ABC0,32,Code/GameEngine/Source/Common/Rva0035ABC0Resize.cpp,matched,pod8 resize wrapper with zeroed fill via intrinsic memset
-?rva0031475A@GameWindow@@QAEHXZ,,0x0031475A,128,Code/GameEngine/Source/GameClient/GUI/GameWindowRva0031475A.cpp,matched,GameWindow parent 0x200 next 0x1F8 gadget 0x210 via rowed B92 A89 Remove and manager slots
+?winBringToTop@GameWindow@@QAEHXZ,,0x0031475A,128,Code/GameEngine/Source/GameClient/GUI/GameWindowRva0031475A.cpp,matched,ZH GameWindow winBringToTop plus native IME openCandidateList call; native parent200 next1F8 and layout210; exact128B; replaces address method spelling
 ?xfer@LifeEventModuleInfo@FXParticleSystem@@MAEXPAVXfer@@@Z,,0x00563E72,54,Code/GameEngine/Source/GameClient/System/FXParticleSystem/LifeEventModuleInfoXfer.cpp,matched,slot3 vtable 0081C188 IsLightCRC Version1 xferRandomVariable AsciiString
 ?rva00563ED1@Rva00563ED1@@QAEXPAVXfer@@@Z,,0x00563ED1,82,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00563ED1Xfer.cpp,matched,chain of 00563E72 IsLightCRC Version1 subxfer flags via 0x90
 ?Rva005635DEPut@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@AAV12@ABURva005635DEPayload@@@Z,,0x005635DE,22,Code/Libraries/Source/WWVegas/WWLib/Rva005635DEPut.cpp,matched,ostream long put via J caller prints key value newline
@@ -70828,3 +70828,4 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?assign@Rva0016CB90IntView@@QAEPAV1@PBURva0016CB90FloatView@@@Z,,0x0016CB90,31,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,donor=Open-BFME-1@40e7f2f21f0011b42a5654697cdedbc2658b6d9b:BfmeConv1332.cpp; target whole INT3-delimited RET4 body; physical float/int views only; original identity unknown
 ?assign@Rva00169F30IntView@@QAEPAV1@PBURva00169F30FloatView@@@Z,,0x00169F30,23,Code/GameEngine/Source/Common/Disp32CvtFloatIntGetters.cpp,matched,donor=Open-BFME-1@40e7f2f21f0011b42a5654697cdedbc2658b6d9b:BfmeConv1299.cpp; target whole INT3-delimited RET4 body; physical float/int views only; original identity unknown
 ?above@Rva00404901Coefficients@@QBEHMM@Z,,0x00404901,38,Code/GameEngine/Source/Common/Rva00404927Method.cpp,matched,Native404901..404927 RET8 following precedingRET8 at4048FE; MULSS/SUBSS/COMISS proves second*field08-first*field04>field10 and int0/1return; clean BF1 34f59164 S3FloatPredicates.cpp semanticdonor; no targetclass name or commonowner with adjacentindexed54B sibling inferred
+?updateCandidateList@IMEManager@@IAEXH@Z,,0x002332FB,509,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,ZH IMEManager updateCandidateList reference; native openCandidateList2338B4 and serviceIMEMessage233C0B direct calls prove identity; canonical UnicodeString candidate-array construction and deleting destructor2331F0; native style test excludes IME_CAND_READ2 rather than ZH IME_CAND_CODE3; full509B including new array EH and import thunks verified; BF1 inputs34f59164

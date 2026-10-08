@@ -86,7 +86,7 @@ typedef void *HIMC;
 #define IME_PROP_UNICODE			0x00080000
 #define ISC_SHOWUICOMPOSITIONWINDOW	0x80000000
 #define IME_CAND_UNKNOWN			0x0000
-#define IME_CAND_CODE				0x0003
+#define IME_CAND_READ				0x0002
 
 #define IMN_CLOSESTATUSWINDOW		0x0001
 #define IMN_OPENSTATUSWINDOW		0x0002
@@ -258,9 +258,7 @@ public:
 	virtual Bool isEnabled(void);
 	virtual Bool isAttachedTo(GameWindow *window);
 	virtual GameWindow *getWindow(void);
-	// The one-line getters (isComposing 0x00232E8F, getCompositionCursorPosition,
-	// getIndexBase, getCandidateCount..getCandidatePageStart) are still rowed under
-	// address names in Disp8ByteFieldGetters.cpp and DispDwordFieldGetters.cpp.
+	// Native vtable slots and constructor stores identify the getters owned here.
 	virtual Bool isComposing(void);
 	virtual void getCompositionString(UnicodeString &string);
 	virtual Int getCompositionCursorPosition(void);
@@ -326,6 +324,16 @@ IMEManager *CreateIMEManagerInterface(void)
 {
 	return new IMEManager;
 }
+
+// Retail IMEManager vftable 0x00BE82B8 slots 21/23/24/25/27/28/29 name
+// these existing 4/7-byte bodies; fields agree with the constructor stores.
+Bool IMEManager::isComposing(void) { return m_composing; }
+Int IMEManager::getCompositionCursorPosition(void) { return m_compositionCursorPos; }
+Int IMEManager::getIndexBase(void) { return m_indexBase; }
+Int IMEManager::getCandidateCount(void) { return m_candidateCount; }
+Int IMEManager::getSelectedCandidateIndex(void) { return m_selectedIndex; }
+Int IMEManager::getCandidatePageSize(void) { return m_pageSize; }
+Int IMEManager::getCandidatePageStart(void) { return m_pageStart; }
 
 IMEManager::IMEManager()
 {
@@ -532,7 +540,8 @@ protected:
 	void _M_insert_overflow(HKL *position, const HKL &x, const __true_type &, size_type fillLen, bool atEnd = false)
 	{
 		const size_type oldSize = size();
-		const size_type len = oldSize + (max)(oldSize, fillLen);
+		const size_type &larger = oldSize < fillLen ? fillLen : oldSize;
+		const size_type len = oldSize + larger;
 
 		HKL *newStart = _M_end_of_storage.allocate(len);
 		HKL *newFinish = (HKL *)__copy_trivial(_M_start, position, newStart);
@@ -1026,7 +1035,6 @@ void IMEManager::openCandidateList(Int candidateFlags)
 	m_candidateWindow->winSetPosition(cx, cy);
 }
 
-// ?IMEManager::closeCandidateList present-unmatched
 void IMEManager::closeCandidateList(Int candidateFlags)
 {
 	if (m_candidateWindow != NULL)
@@ -1044,7 +1052,6 @@ void IMEManager::closeCandidateList(Int candidateFlags)
 	m_candidateCount = 0;
 }
 
-// ?IMEManager::updateCandidateList present-unmatched
 void IMEManager::updateCandidateList(Int candidateFlags)
 {
 	if (m_candidateString)
@@ -1082,7 +1089,7 @@ void IMEManager::updateCandidateList(Int candidateFlags)
 			CANDIDATELIST *clist = (CANDIDATELIST *)buffer;
 			Int bytesCopied = ImmGetCandidateListW(m_context, i, clist, size);
 
-			if (bytesCopied != 0 && bytesCopied <= size && clist->dwStyle != IME_CAND_UNKNOWN && clist->dwStyle != IME_CAND_CODE)
+			if (bytesCopied != 0 && bytesCopied <= size && clist->dwStyle != IME_CAND_UNKNOWN && clist->dwStyle != IME_CAND_READ)
 			{
 				if ((clist->dwPageStart > clist->dwSelection) ||
 					(clist->dwSelection >= clist->dwPageStart + clist->dwPageSize))

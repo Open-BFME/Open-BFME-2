@@ -12862,7 +12862,6 @@ name,address,notes
 ?walk@Rva00477E60@@QAEPAV1@XZ,0x0031398A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?walkChild@ScriptEngine@@QAEXPAVRva003558C0Arr@@PAURva003412E0Node@@@Z,0x0020C0E3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?walkNamed@ScriptEngine@@QAEXPAVRva00355950Arr@@PAURva003412E0Node@@_N@Z,0x0020A775,callee of ?walkChild@ScriptEngine@@QAEXPAVRva003558C0Arr@@PAURva003412E0Node@@@Z at retail 0x0020C0E3 read from its REL32 displacement at call 0x0020C122; body unrowed
-?winBringToTop@GameWindow@@QAEHXZ,0x0031475A,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?winDrawBorder@GameWindow@@QAEXXZ,0x00313D03,callee of W3DGadgetTabControlDraw (0x000A3373) at the site its BFME1 donor calls or inlines it
 ?winGetChild@GameWindow@@QAEPAV1@XZ,0x003140C8
 ?winGetDisabledTextBorderColor@GameWindow@@QAEHXZ,0x00313EA1,GameWindow getter called by W3DGadgetComboBoxDraw (0x000A21A3); ICF-folded one-field getter shared with other classes
@@ -16319,9 +16318,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??$reverse@PAPAUHKL__@@@_STL@@YAXPAPAUHKL__@@0@Z,0x00233A26,ICF twin of the 4-byte-element reverse; REL32 from nextKeyboardLayout 0x00233B31 (backward walk); fold-proof=Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp
 ??$find@PAPAUHKL__@@PAU1@@_STL@@YAPAPAUHKL__@@PAPAU1@0ABQAU1@@Z,0x0020E873,ICF twin of the 4-byte-element find; REL32 from nextKeyboardLayout 0x00233B31; fold-proof=Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp
 ??$rotate@PAPAUHKL__@@@_STL@@YAPAPAUHKL__@@PAPAU1@00@Z,0x005F35ED,ICF twin of the 4-byte-element rotate; REL32 from nextKeyboardLayout 0x00233B31; fold-proof=Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp
-?winGetCursorPosition@GameWindow@@QAEHPAH0@Z,0x00313B1D,ZH GameWindow::winGetCursorPosition (m_cursorX/Y out-params); REL32 at 0x00233947 in IMEManager::openCandidateList; body still rowed under the address name ?get@Rva004781A0
-?closeCandidateList@IMEManager@@IAEXH@Z,0x002332B2,ZH IMEManager::closeCandidateList; REL32 at 0x00233E66 in IMEManager::serviceIMEMessage; body still rowed under the address name ?rva002332B2 (its ??_E callee 0x002331F0 keeps a StringBase name)
-?updateCandidateList@IMEManager@@IAEXH@Z,0x002332FB,ZH IMEManager::updateCandidateList; REL32 at 0x002338CF (openCandidateList) and 0x00233E75 (serviceIMEMessage); body unrowed until its ??_E callee 0x002331F0 is renamed
 ??1IMEManager@@UAE@XZ,0x0023361E,dtor installs the IMEManager vftable 0x00BE82B8 and is the REL32 callee of ??_GIMEManager 0x00233A3E; body unrowed until its ??_E callee 0x002331F0 is renamed
 ?erase@?$list@PAVCreditsLine@@V?$allocator@PAVCreditsLine@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVCreditsLine@@U?$_Nonconst_traits@PAVCreditsLine@@@_STL@@@2@U32@@Z,0x00438539,Credits update native list calls; fold-proof=Code/GameEngine/Source/GameClient/Credits.cpp
 ?push_back@?$list@PAVCreditsLine@@V?$allocator@PAVCreditsLine@@@_STL@@@_STL@@QAEXABQAVCreditsLine@@@Z,0x0005548F,Credits update native list calls; fold-proof=Code/GameEngine/Source/GameClient/Credits.cpp

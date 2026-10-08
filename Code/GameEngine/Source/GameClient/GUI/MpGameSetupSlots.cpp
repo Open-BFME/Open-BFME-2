@@ -25,7 +25,7 @@ public:
 	int winSetTooltipFunc(void (*tooltip)(GameWindow *window, WinInstanceData *instData, unsigned int mouse));
 	int winEnable(bool enable);
 	int winHide(bool hide);
-	int rva0031475A();
+	int winBringToTop();
 };
 
 // The map list box tooltip set by 0x00443BF3 (defined below).
@@ -2139,12 +2139,12 @@ bool AptMpGameSetup::Init(GameInfo *game, int value)
 		m_team[slot]->winEnable(false);
 		m_handicap[slot]->winEnable(false);
 		m_hero[slot]->winEnable(false);
-		m_player[slot]->rva0031475A();
-		m_colorCombo[slot].m_window->rva0031475A();
-		m_playerTemplate[slot]->rva0031475A();
-		m_team[slot]->rva0031475A();
-		m_handicap[slot]->rva0031475A();
-		m_hero[slot]->rva0031475A();
+		m_player[slot]->winBringToTop();
+		m_colorCombo[slot].m_window->winBringToTop();
+		m_playerTemplate[slot]->winBringToTop();
+		m_team[slot]->winBringToTop();
+		m_handicap[slot]->winBringToTop();
+		m_hero[slot]->winBringToTop();
 		if (slot >= 6)
 		{
 			m_player[slot]->winHide(mode1);
