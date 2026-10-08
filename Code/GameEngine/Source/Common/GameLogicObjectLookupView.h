@@ -87,6 +87,7 @@ public:
 	void deselectObject(Object *obj, unsigned int playerMask, bool affectClient);	// 0x0023C9F8
 	void bindObjectAndDrawable(Object *obj, Drawable *draw);	// 0x0023CD4A
 	void rva00376E92(bool first, bool second);	// 0x00376E92
+	void rva00248558(bool fromSave);	// 0x00248558, verified new-game/load pass
 	unsigned char isGamePaused();	// 0x0023CD97
 	void deleteLoadScreen();	// 0x002423E3
 	void processDestroyList();	// 0x002413DF
