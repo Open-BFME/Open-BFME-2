@@ -954,7 +954,7 @@ struct MilesAudioManager::LoopBuffer {
     ~LoopBuffer();
 
     bool m_isValid;                      // +0x00 (WB assert name)
-    char at01;
+    volatile bool m_at01;                // +0x01, shared with the loop-buffer thread; held paused
     bool m_is3D;                         // +0x02 selects the handle below
     bool m_at03;                         // +0x03, completion check pending
     void *m_3DSample;                    // +0x04
@@ -979,7 +979,7 @@ struct MilesAudioManager::LoopBuffer {
 // Retail 0x00052568, the element constructor init()'s new[] hands to the
 // vector constructor iterator: an empty, invalid 3D buffer.
 MilesAudioManager::LoopBuffer::LoopBuffer()
-    : m_isValid(false), at01(0), m_is3D(true), m_at03(false), m_3DSample(0), m_sample(0),
+    : m_isValid(false), m_at01(false), m_is3D(true), m_at03(false), m_3DSample(0), m_sample(0),
       m_at10(false), m_playingAudio(0), m_at18(0), m_playBufferSize(0),
       m_at2C(0), m_at30(0), m_endOfLastCopy(0), m_at38(0), m_at3C(0), m_at40(0), m_at44(false)
 {
@@ -1394,7 +1394,7 @@ void MilesAudioManager::rva0005EFE9(void)
             }
             if (!buffer->m_isValid)
                 continue;
-            if (buffer->at01) {
+            if (buffer->m_at01) {
                 ((Rva00050FE3 *)buffer)->rva00050FE3();
                 buffer->m_isValid = false;
                 continue;
@@ -2639,5 +2639,58 @@ void MilesAudioManager::rva000606CE(bool accelerated)
     if (m_selectedProvider != (unsigned int)-1) {
         ((Rva000512C4 *)this)->rva000512C4(m_atBE4);
         slot10();
+    }
+}
+
+extern "C" __declspec(dllimport) int __stdcall AIL_sample_status(void *sample);
+extern "C" __declspec(dllimport) int __stdcall AIL_3D_sample_status(void *sample3D);
+extern "C" __declspec(dllimport) void __stdcall AIL_stop_sample(void *sample);
+extern "C" __declspec(dllimport) void __stdcall AIL_stop_3D_sample(void *sample3D);
+extern "C" __declspec(dllimport) void __stdcall AIL_resume_sample(void *sample);
+extern "C" __declspec(dllimport) void __stdcall AIL_resume_3D_sample(void *sample3D);
+
+// Retail 0x00053113 (WorldBuilder twin 0x0078E1E0 names it and asserts a
+// sound is not both 2D and 3D, line 6474). 0x50D6C says whether the sound
+// should now be paused: streams pause or resume through their stream view,
+// samples stop unless already done, or resume from stopped unless their
+// loop buffer (types 1 and 3) is held at +0x01.
+void MilesAudioManager::pauseResumeSound(PlayingAudioRef &playing)
+{
+    PlayingAudio *audio = playing.get();
+    if (audio->m_type == 4) {
+        if ((unsigned char)((Rva00050D6C *)audio)->rva00050D6C())
+            ((MilesStreamRef *)&audio->m_at0C)->rva000A8AC0();
+        else
+            ((Rva000A8ACC *)&audio->m_at0C)->rva000A8ACC();
+        return;
+    }
+    void *sample;
+    void *sample3D;
+    getAppropriateSampleHandleForPlayingAudio(playing, &sample, &sample3D);
+    if (!sample && !sample3D)
+        return;
+    int status;
+    if (!sample)
+        status = AIL_3D_sample_status(sample3D);
+    else
+        status = AIL_sample_status(sample);
+    audio = playing.get();
+    if ((unsigned char)((Rva00050D6C *)audio)->rva00050D6C()) {
+        if (status != 2) {
+            if (!sample)
+                AIL_stop_3D_sample(sample3D);
+            else
+                AIL_stop_sample(sample);
+        }
+    } else if (status == 8) {
+        if (audio->m_type == 3 || audio->m_type == 1) {
+            LoopBuffer *buffer = &m_loopBuffers[audio->m_handle];
+            if (buffer->m_at01)
+                return;
+        }
+        if (!sample)
+            AIL_resume_3D_sample(sample3D);
+        else
+            AIL_resume_sample(sample);
     }
 }
