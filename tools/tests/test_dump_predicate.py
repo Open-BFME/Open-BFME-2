@@ -153,6 +153,10 @@ ALLOWED = {
                       "gen_uw, which AGENTS.md forbids hand-editing. The note cannot say "
                       "this: both lanes spell it `gen-dump`, so the lane is the path",
     "struct_match.py": "same lane restriction as family_scan.py, for the same reason",
+    "gen_small.py": "the immutable accessor batch first requires a gen-dump note, then "
+                    "refuses rows moved out of its deliberately restricted MASM lane",
+    "rtc_framevars.py": "selects the default MASM analysis lane; --rva independently "
+                       "accepts any source and neither path classifies ledger ownership",
 }
 
 

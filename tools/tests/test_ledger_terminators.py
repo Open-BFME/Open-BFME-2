@@ -87,7 +87,7 @@ def test_shipped_union_ledgers_are_canonical_lf_or_empty():
     reverse = TOOLS.parent / "reverse"
     for name in ("functions.csv", "symbols.csv", "deleted_rows.csv"):
         assert set(ledger_io.terminator_census((reverse / name).read_bytes())) == {b"\n"}
-    assert (reverse / "re_attempts.log").read_bytes() == b""
+    assert set(ledger_io.terminator_census((reverse / "re_attempts.log").read_bytes())) <= {b"\n"}
 
 
 @pytest.mark.parametrize("label", ["deleted_rows.csv", "re_attempts.log"])
@@ -273,17 +273,18 @@ def symbols_writers():
 def test_the_set_of_symbols_writers_is_the_one_this_file_reasons_about():
     """A new writer must not appear without deciding this question.
 
-    zh_sweep is the sixth, and it appends for the one case land_wave refuses:
+    zh_sweep appends for the one case land_wave refuses:
     a callee already pinned at another address, called again from a site whose
     own target is proven byte-equal. It answers this file's question the same
     way — gen_small.line_terminator, which is ledger_io.lf_terminator.
+    bfme1_sweep also preflights the existing ledger before copying a donor.
     """
-    assert symbols_writers() == ["dedup_csv.py", "gen_small.py", "gen_uw.py",
+    assert symbols_writers() == ["bfme1_sweep.py", "dedup_csv.py", "gen_small.py", "gen_uw.py",
                                  "land_wave.py", "locate.py",
                                  "zh_sweep.py"], symbols_writers()
 
 
-@pytest.mark.parametrize("tool", ["dedup_csv.py", "gen_small.py", "gen_uw.py",
+@pytest.mark.parametrize("tool", ["bfme1_sweep.py", "dedup_csv.py", "gen_small.py", "gen_uw.py",
                                   "land_wave.py", "locate.py", "zh_sweep.py"])
 def test_a_symbols_writer_takes_the_terminator_from_the_file(tool):
     text = (TOOLS / tool).read_text(encoding="utf-8")

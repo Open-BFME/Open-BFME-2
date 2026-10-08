@@ -42,6 +42,30 @@ def test_population_fails_closed_on_shape_drift(monkeypatch):
 
 def test_batch_is_the_expected_245_bytes():
     assert len(gen_small.ACCESSOR_BATCH) == 21
-    rows = {int(r["target_rva"], 16): int(r["target_size"])
-            for r in gen_small.B.load_all_function_rows()}
-    assert sum(rows[rva] for rva, _ in gen_small.ACCESSOR_BATCH) == 245
+    # These fixed donor addresses are not guaranteed to be in BFME 2's live
+    # ledger. Measure the closed recipes, leaving live eligibility to the gate.
+    sizes = {key: sum(1 if isinstance(item, int) else gen_small.FIELD_WIDTH[item[1]]
+                     for item in pattern) for key, pattern in gen_small.PATTERNS.items()}
+    assert sum(sizes[key] for _, key in gen_small.ACCESSOR_BATCH) == 245
+
+
+def test_missing_live_batch_row_still_refuses_generation(monkeypatch):
+    monkeypatch.setattr(gen_small, "ACCESSOR_BATCH", ((0x100, "access-pred-ne"),))
+    with pytest.raises(gen_small.FormatError, match="is missing"):
+        gen_small.accessor_population([], lambda *_: pytest.fail("read before row lookup"))
+
+
+def test_masm_path_does_not_substitute_for_dump_notes(monkeypatch):
+    monkeypatch.setattr(gen_small, "ACCESSOR_BATCH", ((0x100, "access-pred-ne"),))
+    candidate = row(0x100, 11)
+    candidate["notes"] = "recovered real source"
+    with pytest.raises(gen_small.FormatError, match="not a live gen-dump"):
+        gen_small.accessor_population([candidate], lambda *_: pytest.fail("read before classification"))
+
+
+def test_live_dump_in_another_lane_is_not_the_closed_accessor_batch(monkeypatch):
+    monkeypatch.setattr(gen_small, "ACCESSOR_BATCH", ((0x100, "access-pred-ne"),))
+    candidate = row(0x100, 11)
+    candidate["source"] = "Code/gen_small/dumps_000.cpp"
+    with pytest.raises(gen_small.FormatError, match="moved out of gen_asm"):
+        gen_small.accessor_population([candidate], lambda *_: pytest.fail("read before lane check"))

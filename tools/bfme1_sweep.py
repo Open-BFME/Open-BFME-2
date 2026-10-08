@@ -60,6 +60,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build
+import ledger_io
 import claims as shared_claims
 
 ROOT = build.ROOT
@@ -1681,6 +1682,8 @@ def _do_land(args, entry=None):
         raise SystemExit(f"bfme1_sweep: {source} already exists — landing would overwrite a "
                          "body this repo owns; resolve it by hand")
     symbols_before = BFME2_SYMBOLS.read_bytes() if BFME2_SYMBOLS.exists() else None
+    if pins:
+        ledger_io.lf_terminator(symbols_before or b"", "symbols.csv")
     dest.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(donor, dest)
     # check_csv refuses a row whose source is untracked, so the copy is staged

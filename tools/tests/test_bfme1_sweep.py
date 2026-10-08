@@ -13,6 +13,7 @@ True would test nothing.
 """
 import struct
 import sys
+from types import SimpleNamespace
 from pathlib import Path
 
 import pytest
@@ -21,6 +22,31 @@ TOOLS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS))
 
 import bfme1_sweep
+
+
+@pytest.mark.parametrize("raw", [b"name,address,notes\r\n", b"name,address,notes\n?old,0x1000,\r\n"])
+def test_land_rejects_non_lf_pins_before_copying_or_staging(tmp_path, monkeypatch, raw):
+    source = "game/GameEngine/Source/MockDonor.cpp"
+    donor_root = tmp_path / "reference" / "bfme1"
+    donor = donor_root / source
+    donor.parent.mkdir(parents=True)
+    donor.write_text("int donor() { return 1; }\n")
+    symbols = tmp_path / "symbols.csv"
+    symbols.write_bytes(raw)
+    monkeypatch.setattr(bfme1_sweep, "ROOT", tmp_path)
+    monkeypatch.setattr(bfme1_sweep, "BFME1", donor_root)
+    monkeypatch.setattr(bfme1_sweep, "BFME2_SYMBOLS", symbols)
+    monkeypatch.setattr(bfme1_sweep.subprocess, "run",
+                        lambda *a, **k: pytest.fail("staged or built before LF preflight"))
+    entry = {"source": source, "copy_tier": "A", "copy_note": "clean donor",
+             "policy": "available", "bodies": [
+                 {"tier": "T1", "name": "?donor@@YAHXZ", "bfme2_rva": 0x1000,
+                  "size": 6, "pins": [("?callee@@YAXXZ", 0x2000)]}]}
+    args = SimpleNamespace(allow_icf=False, ignore_import_alias=False, dry_run=False)
+    with pytest.raises(SystemExit, match="LF|mixed line"):
+        bfme1_sweep._do_land(args, entry)
+    assert symbols.read_bytes() == raw
+    assert not (tmp_path / bfme1_sweep.bfme2_source_path(source)).exists()
 
 
 IMAGE_BASE = 0x00400000
