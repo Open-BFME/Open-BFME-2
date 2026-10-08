@@ -51,7 +51,6 @@ class StanceUISelectionView {public:
 };
 class StanceOwnerView {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void *currentMenu();};
 class Rva00525E55 {public:void rva00567A6E(int);char pad[0xC];StanceOwnerView *owner;GameWindow *window;CommandButton *button;};
-// ?rva00567A6E@Rva00525E55@@QAEXH@Z present-unmatched
 void Rva00525E55::rva00567A6E(int stance) {
  reinterpret_cast<Rva0035B424 *>(button)->rva0035B424(StanceToButtonSlot(button,stance));
  GadgetButtonSetEnabledImage_Rva002C0433(window,button->rva0035B19E());
