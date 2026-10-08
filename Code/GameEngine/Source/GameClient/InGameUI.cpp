@@ -4378,29 +4378,7 @@ void InGameUI::buildRegion( const ICoord2D *anchor, const ICoord2D *dest, IRegio
 //-------------------------------------------------------------------------------------------------
 /** Add a new floating text to our list */
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::addFloatingText present-unmatched
-void InGameUI::addFloatingText(const UnicodeString& text,const Coord3D *pos, Color color)
-{
-	if( TheGameLogic->getDrawIconUI() )
-	{
-		FloatingTextData *newFTD = newInstance( FloatingTextData );
-		newFTD->m_frameCount = 0;
-		newFTD->m_color = color;
-		newFTD->m_pos3D.x = pos->x;
-		newFTD->m_pos3D.z = pos->z;
-		newFTD->m_pos3D.y = pos->y;
-		newFTD->m_text = text;
-		newFTD->m_dString->setText(text);
-		
-			
-		if(m_floatingTextTimeOut <= 0)
-			newFTD->m_frameTimeOut = TheGameLogic->getFrame() +  DEFAULT_FLOATING_TEXT_TIMEOUT;
-		else
-			newFTD->m_frameTimeOut = TheGameLogic->getFrame() +  m_floatingTextTimeOut; 
-		
-		m_floatingTextList.push_front( newFTD ); // add to the list
-	}
-}
+// InGameUI::addFloatingText: defined in InGameUIFloatingText.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -4560,19 +4538,7 @@ void InGameUI::clearPopupMessageData( void )
 //-------------------------------------------------------------------------------------------------
 /** Floating Text Constructor */
 //-------------------------------------------------------------------------------------------------
-// ?FloatingTextData::FloatingTextData present-unmatched
-FloatingTextData::FloatingTextData(void)
-{
-	// Added By Sadullah Nader
-	// Initializations missing and needed
-	m_color = 0;
-	m_frameCount = 0;
-	m_frameTimeOut = 0;
-	m_pos3D.zero();
-	m_text.clear();
-	//
-	m_dString = TheDisplayStringManager->newDisplayString();
-}
+// FloatingTextData::FloatingTextData: defined in InGameUIFloatingText.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** Floating Text Destructor */

@@ -33,6 +33,8 @@ public:
 // whose call 0x00439E0C takes the disguised object. The spell store's show
 // (finishShowPurchaseScience 0x0043CB48) reads the end flag at +0x6D and
 // the game mode at +0x110.
+// InGameUI::addFloatingText (0x002A0D19) gates on the byte at +0x9A, Zero
+// Hour's getDrawIconUI.
 // The object list head is at +0xAC: getFirstObject (0x0023CAD2) returns it and
 // prepareLogicForObjectLoad (0x00242C86) walks it inline.
 // ScoreKeeper::addObjectLost (0x0039CF73) tests the scoring byte at +0x98
@@ -54,7 +56,9 @@ public:
 private:
 	char pad6E[0x98 - 0x6E];
 	bool m_isScoringEnabled; // +0x98
-	char pad99[0xAC - 0x99];
+	char pad99[0x9A - 0x99];
+	bool m_drawIconUI; // +0x9A
+	char pad9B[0xAC - 0x9B];
 	Object *m_firstObject; // +0xAC, the head getFirstObject returns
 	char padB0[0xB4 - 0xB0];
 	ObjectIdMap m_map;
@@ -92,5 +96,6 @@ public:
 	bool getFlag125() const { return m_flag125; }
 	unsigned int getTimestamp() const { return m_timestamp; }
 	unsigned int getFrame() const { return m_frame; }
+	bool getDrawIconUI() const { return m_drawIconUI; }
 	Rva00439E0C *getManager178() const { return m_manager178; }
 };

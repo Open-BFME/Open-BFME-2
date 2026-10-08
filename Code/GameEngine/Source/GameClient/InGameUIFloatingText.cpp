@@ -120,3 +120,26 @@ FloatingTextData::FloatingTextData()
 	m_text.clear();
 	m_dString = TheDisplayStringManager->newDisplayString();
 }
+
+// ?addFloatingText@InGameUI@@UAEXABVUnicodeString@@PBUCoord3D@@H@Z
+void InGameUI::addFloatingText( const UnicodeString &text, const Coord3D *pos, Color color )
+{
+	if( TheGameLogic->getDrawIconUI() )
+	{
+		FloatingTextData *newFTD = new FloatingTextData;
+		newFTD->m_frameCount = 0;
+		newFTD->m_color = color;
+		newFTD->m_pos3D.x = pos->x;
+		newFTD->m_pos3D.z = pos->z;
+		newFTD->m_pos3D.y = pos->y;
+		newFTD->m_text = text;
+		newFTD->m_dString->setText( text );
+
+		if( m_floatingTextTimeOut <= 0 )
+			newFTD->m_frameTimeOut = TheGameClient->getFrame() + g_009BA4E8 / 3;
+		else
+			newFTD->m_frameTimeOut = TheGameClient->getFrame() + g_00DBA500 * m_floatingTextTimeOut;
+
+		m_floatingTextList.push_front( newFTD );
+	}
+}
