@@ -16,22 +16,16 @@
 // (0x002984D4) and getDrawable()->setDrawableHidden(true) (0x005508E2,
 // 0x00271601). Slot names are not established; address names are kept.
 #include <list>
+#include "../../../../Include/GameLogic/ContainmentListView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-typedef _STL::list<int, _STL::allocator<int> > IntList;
+typedef ContainmentList IntList;
 
 namespace _STL
 {
-template<> _List_base<int, allocator<int> >::~_List_base();
+template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_List_base();
 }
 
-class Rva0036AE51ListView
-{
-public:
-	void *a;
-	IntList *b;
-	IntList rva0036AE51();
-};
 
 enum DamageType
 {
@@ -184,7 +178,7 @@ Rva00588E44Contain *Rva0047A040Base9E0::rva00588BF3(void *contain, Object *obj)
 {
 	Rva0036AE51ListView view = ((Rva00588E44Contain *)((char *)contain + 0x20))->slot118();
 	for (IntList::iterator it = view.b->begin(); it != view.b->end(); ++it) {
-		Rva00588E44Contain *member = (Rva00588E44Contain *)rva00588B8A((void *)*it);
+		Rva00588E44Contain *member = (Rva00588E44Contain *)rva00588B8A((void *)containmentFirstWord(*it));
 		if (member != 0 && member->slot18(obj) == true)
 			return member;
 	}
@@ -202,7 +196,7 @@ Object *Rva0047A040Base9E0::rva00588C4E(void *contain, const Coord3D *pos)
 	Object *best = 0;
 	float bestDist = 3.402823466e+38F;
 	for (IntList::iterator it = view.b->begin(); it != view.b->end(); ++it) {
-		Rva00588E44Body *body = ((Object *)*it)->m_250;
+		Rva00588E44Body *body = ((Object *)containmentFirstWord(*it))->m_250;
 		if (body == 0)
 			continue;
 		Rva00588E44Contain *member = body->slot78();
@@ -210,7 +204,7 @@ Object *Rva0047A040Base9E0::rva00588C4E(void *contain, const Coord3D *pos)
 			continue;
 		Rva0036AE51ListView memberView = member->slot108();
 		for (IntList::iterator jt = memberView.b->begin(); jt != memberView.b->end(); ++jt) {
-			Object *o = (Object *)*jt;
+			Object *o = (Object *)containmentFirstWord(*jt);
 			if (((Rva00270260 *)o->getDrawable())->rva00270260() == true)
 				continue;
 			float dx = pos->x - o->m_38;
@@ -230,20 +224,20 @@ void Rva0047A040Base9E0::rva00588E44(void *contain)
 	Rva00588E44Contain *c = (Rva00588E44Contain *)((char *)contain + 0x20);
 	IntList items = c->slot118().rva0036AE51();
 	for (IntList::iterator it = items.begin(); it != items.end(); ++it) {
-		Rva00588E44Contain *member = (Rva00588E44Contain *)rva00588B8A((void *)*it);
+		Rva00588E44Contain *member = (Rva00588E44Contain *)rva00588B8A((void *)containmentFirstWord(*it));
 		if (member != 0) {
 			IntList inner = member->slot108().rva0036AE51();
 			for (IntList::iterator jt = inner.begin(); jt != inner.end(); ++jt) {
-				c->slotA4((Object *)*jt, false);
-				((Object *)*jt)->rva0029004B();
-				((Object *)*jt)->kill(DAMAGE_TYPE_8, DEATH_TYPE_0);
-				((Object *)*jt)->getDrawable()->setDrawableHidden(true);
+				c->slotA4((Object *)containmentFirstWord(*jt), false);
+				((Object *)containmentFirstWord(*jt))->rva0029004B();
+				((Object *)containmentFirstWord(*jt))->kill(DAMAGE_TYPE_8, DEATH_TYPE_0);
+				((Object *)containmentFirstWord(*jt))->getDrawable()->setDrawableHidden(true);
 			}
 		} else {
-			c->slotA4((Object *)*it, false);
-			((Object *)*it)->rva0029004B();
-			((Object *)*it)->kill(DAMAGE_TYPE_8, DEATH_TYPE_0);
-			((Object *)*it)->getDrawable()->setDrawableHidden(true);
+			c->slotA4((Object *)containmentFirstWord(*it), false);
+			((Object *)containmentFirstWord(*it))->rva0029004B();
+			((Object *)containmentFirstWord(*it))->kill(DAMAGE_TYPE_8, DEATH_TYPE_0);
+			((Object *)containmentFirstWord(*it))->getDrawable()->setDrawableHidden(true);
 		}
 	}
 }
@@ -257,7 +251,7 @@ void Rva0047A040Base9E0::rva00588F61(void *contain, Object *obj, CommandSourceTy
 {
 	IntList items = ((Rva00588E44Contain *)((char *)contain + 0x20))->slot118().rva0036AE51();
 	for (IntList::iterator it = items.begin(); it != items.end(); ++it) {
-		Object *o = (Object *)*it;
+		Object *o = (Object *)containmentFirstWord(*it);
 		Rva00588E44Body *body = o->m_250;
 		if (body != 0) {
 			Rva00588E44Contain *member = body->slot7C();

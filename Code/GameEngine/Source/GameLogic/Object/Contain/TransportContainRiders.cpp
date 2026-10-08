@@ -26,15 +26,16 @@ typedef float Real;
 #define FALSE false
 
 #include <list>
+#include "../../../../Include/GameLogic/ContainmentListView.h"
 
 #include "GameLogicObjectLookupView.h"
 #include "Coord3D.h"
 
-typedef _STL::list<int, _STL::allocator<int> > IntList;
+typedef ContainmentList IntList;
 
 namespace _STL
 {
-template<> _List_base<int, allocator<int> >::~_List_base();
+template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_List_base();
 }
 
 extern GameLogic *TheGameLogic;
@@ -286,11 +287,6 @@ public:
 	void *rva0046247D(Rva0046247DPair &result);
 };
 
-class Rva0036AE51ListView
-{
-public:
-	IntList rva0036AE51();
-};
 
 class TransportContainModuleData
 {
@@ -367,7 +363,7 @@ void TransportContain::killRidersWhoAreNotFreeToExit()
 	IntList::iterator it = riders.begin();
 	while (it != riders.end())
 	{
-		Object *obj = (Object *)*it++;
+		Object *obj = (Object *)containmentFirstWord(*it++);
 		if (!isSpecificRiderFreeToExit(obj))
 		{
 			if (d->m_destroyRidersWhoAreNotFreeToExit)
@@ -436,7 +432,7 @@ void TransportContain::letRidersUpgradeWeaponSet()
 	Bool anyRiderB = FALSE;
 	for (IntList::iterator it = ((IntList *)riders.source)->begin(); it != ((IntList *)riders.source)->end(); ++it)
 	{
-		Object *rider = (Object *)*it;
+		Object *rider = (Object *)containmentFirstWord(*it);
 		if (rider->isKindOfMulti(d->m_typeOneForWeaponSet, KINDOFMASK_NONE))
 			anyRiderA = TRUE;
 		else if (rider->isKindOfMulti(d->m_typeTwoForWeaponSet, KINDOFMASK_NONE))

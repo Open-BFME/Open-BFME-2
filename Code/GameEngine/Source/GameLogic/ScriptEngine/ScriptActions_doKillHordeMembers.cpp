@@ -23,12 +23,15 @@
 // return; nesting the loop under the test pushes EBX in the prologue instead
 // of after the first size walk.
 #include <list>
+#include "../../../Include/GameLogic/ContainmentListView.h"
+namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
+
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 
-typedef _STL::list<int, _STL::allocator<int> > IntList;
+typedef ContainmentList IntList;
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -50,13 +53,6 @@ enum DeathType
 	DEATH_NORMAL = 0
 };
 
-class Rva0036AE51ListView
-{
-public:
-	void *a;
-	IntList *b;
-	IntList rva0036AE51();
-};
 
 class HordeContainInterface
 {
@@ -137,7 +133,7 @@ void ScriptActions::doKillHordeMembers(Parameter *unitParameter, Real percentage
 	if (toKill > members.size() || toKill <= 0)
 		return;
 	for (IntList::iterator it = members.begin(); it != members.end(); ++it) {
-		Object *member = (Object *)*it;
+		Object *member = (Object *)containmentFirstWord(*it);
 		if (member && member->getBodyModule() && toKill) {
 			member->kill(DAMAGE_UNRESISTABLE, DEATH_NORMAL);
 			--toKill;

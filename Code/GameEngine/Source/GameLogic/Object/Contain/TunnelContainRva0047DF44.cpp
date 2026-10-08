@@ -15,6 +15,9 @@
 // Structural inference: the Player is held in a local before the call, which
 // evaluates the object before pushing &out as retail does.
 #include <list>
+#include "../../../../Include/GameLogic/ContainmentListView.h"
+namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
+
 class Thing;
 class ModuleData;
 class Player;
@@ -22,13 +25,6 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;
-};
-class Rva0036AE51ListView
-{
-	public:
-	int m_00;
-	_STL::list<int> *m_04;
-	_STL::list<int> rva0036AE51();
 };
 class Rva00466398
 {
@@ -116,9 +112,9 @@ bool TunnelContain::rva0047DF44(int id)
 {
 	Player *player = m_object->getControllingPlayer();
 	Rva0036AE51ListView out = player->m_2E8->rva00466398();
-	for (_STL::list<int>::iterator it = out.m_04->begin(); it._M_node != out.m_04->end()._M_node; ++it)
+	for (ContainmentList::iterator it = out.b->begin(); it._M_node != out.b->end()._M_node; ++it)
 	{
-		if (*it == id)
+		if (containmentFirstWord(*it) == id)
 			return true;
 	}
 	return false;

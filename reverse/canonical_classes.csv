@@ -62,3 +62,5 @@ Rva00418A12Result,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,native1
 Rva00418A8EHost,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,native hash prefix through count10; buckets4/end8; original application identity unresolved; full extent unasserted
 Rva003FE792,Code/GameEngine/Source/Common/TimedOperationNodeBFME2.h,target24B node; retail4B virtual table atC37E88 and exact constructor/destructors; next4 from append3FE60F; shared registration/provider view
 Rva005D639A,Code/GameEngine/Include/Common/Rva005D639A.h,existing header; contract class_contracts/Rva005D639A.json; 2/2 sampled units adopt
+Rva0036ADF9Element,Code/GameEngine/Include/GameLogic/ContainmentListView.h,Opaque8B element established by full88B copier36ADF9; first dword read by containment consumers; double storage and raw-word union are structural views; original identity unresolved
+Rva0036AE51ListView,Code/GameEngine/Include/GameLogic/ContainmentListView.h,Full40B helper36AE51 and26B descriptor return466398 establish two4B fields and one-word list return; ten consumer views reconciled and all26 affected bodies byte-verified

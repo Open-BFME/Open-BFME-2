@@ -3,12 +3,13 @@
 // ??1FlammableUpdate@@UAE@XZ @0x0048C724 77B
 // Dtor restores four vptrs (+0 +0xC +0x10 +0x20) then calls rowed stopBurningSound at 0x0048C55E and pinned base ??1UpdateModule at 0x0024A797; DamageModuleInterface trivial so no call; vtable values DIR32 auto-patches. Model follows PoisonedBehaviorDtor.
 #include <list>
+#include "../../../../Include/GameLogic/ContainmentListView.h"
 #include <vector>
 #include <algorithm>
 #include "ascii_string.h"
 namespace _STL
 {
-template<> _List_base<int, allocator<int> >::~_List_base();
+template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_List_base();
 }
 
 typedef bool Bool;
@@ -145,13 +146,6 @@ public:
 
 // The two-pointer range the contain's slot 70 returns by value; the rowed
 // 0x0036AE51 turns it into a list.
-class Rva0036AE51ListView
-{
-public:
-	void *m_first;
-	void *m_last;
-	_STL::list<int> rva0036AE51();
-};
 
 class ContainModuleInterface
 {
@@ -835,10 +829,10 @@ void FlammableUpdate::onDamage(DamageInfo *damageInfo)
 					info.m_sourceID = me->m_id;
 					info.m_damageType = DAMAGE_FLAME;
 					info.m_deathType = DEATH_BURNED;
-					_STL::list<int> contained = me->m_contain->rva70().rva0036AE51();
-					for (_STL::list<int>::iterator it = contained.begin(); it != contained.end(); )
+					ContainmentList contained = me->m_contain->rva70().rva0036AE51();
+					for (ContainmentList::iterator it = contained.begin(); it != contained.end(); )
 					{
-						Object *obj = (Object *)*it;
+						Object *obj = (Object *)containmentFirstWord(*it);
 						++it;
 						if (obj)
 							obj->attemptDamage(&info);

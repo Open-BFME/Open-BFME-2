@@ -11637,7 +11637,6 @@ name,address,notes
 ?rva00369064@Rva0036A88AOwner@@QAEHXZ,0x00369064,address read from the retail REL32 at 0x0036A88A+ in Rva0036A88AOwner::rva0036A88A (same-this no-arg call, result returned)
 ?rva0036914D@Rva0036A88AOwner@@QAEHXZ,0x0036914D,address read from the retail REL32 at 0x0036A88A+ in Rva0036A88AOwner::rva0036A88A (same-this no-arg call, result returned)
 ?rva00369217@Rva0036A88AOwner@@QAEXH@Z,0x00369217,address read from the retail REL32 at 0x0036A88A+ in Rva0036A88AOwner::rva0036A88A (push 0 same-this call; rowed under GiantBirdNormalFlightState::onExit, same address)
-?rva0036AE51@Rva0036AE51ListView@@QAE?AV?$list@HV?$allocator@H@_STL@@@_STL@@XZ,0x0036AE51,callee of ?rva00464286@OpenContain@@UAEXXZ
 ?rva0036D3A3@BfmeC986@@QAEDHH@Z,0x0036D3A3,two-arg check on same this in rva003724B8 at 0x372509 (REL32); returns byte tested; identity not recovered
 ?rva0036FB57@AIGroup@@QAEXPBVWaypoint@@W4CommandSourceType@@H@Z,0x0036FB57,AIGroup waypoint member mirroring rowed 0x0036F9FE; REL32 callee of dump-range-18 0x003BF39F selected by flag; identity unproven
 ?rva0036FC23@AIGroup@@QAEXH@Z,0x0036FC23,AIGroup member taking an int (called with 1); REL32 callee of dump-range-18 0x003C08CC after getTeamAsAIGroup; identity unproven

@@ -12,12 +12,13 @@
 // stays address-derived.
 
 #include <list>
+#include "../../../../Include/GameLogic/ContainmentListView.h"
 
-typedef _STL::list<int, _STL::allocator<int> > IntList;
+typedef ContainmentList IntList;
 
 namespace _STL
 {
-template<> _List_base<int, allocator<int> >::~_List_base();
+template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_List_base();
 }
 
 struct Rva0046247DPair
@@ -32,11 +33,6 @@ struct Rva004642D3PairResult
 	void *second;
 };
 
-class Rva0036AE51ListView
-{
-public:
-	IntList rva0036AE51();
-};
 
 class Rva00463AD3
 {

@@ -1,6 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
 // stlport
 #include <list>
+#include "../../../../Include/GameLogic/ContainmentListView.h"
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -28,13 +29,6 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 class Object;
 typedef bool Bool;
 
-class Rva0036AE51ListView
-{
-public:
-	void *m_first;
-	void *m_last;
-	_STL::list<int> rva0036AE51();
-};
 
 class Rva00466398
 {
@@ -115,18 +109,18 @@ private:
 	int m_caveIndex;
 };
 
-template <> void _STL::_List_base<int, _STL::allocator<int> >::clear();
-template <> _STL::_List_base<int, _STL::allocator<int> >::~_List_base();
+template <> void _STL::_List_base<Rva0036ADF9Element, _STL::allocator<Rva0036ADF9Element> >::clear();
+template <> _STL::_List_base<Rva0036ADF9Element, _STL::allocator<Rva0036ADF9Element> >::~_List_base();
 
 // ?removeAllContained@CaveContain@@UAEX_N@Z
 void CaveContain::removeAllContained(Bool exposeStealthUnits)
 {
 	Rva004F56FC *tracker = TheCaveSystem->getTunnelTrackerForCaveIndex(m_caveIndex);
-	_STL::list<int> objects = tracker->rva00466398().rva0036AE51();
-	_STL::list<int>::iterator it = objects.begin();
+	ContainmentList objects = tracker->rva00466398().rva0036AE51();
+	ContainmentList::iterator it = objects.begin();
 	while (it != objects.end())
 	{
-		Object *obj = (Object *)*it;
+		Object *obj = (Object *)containmentFirstWord(*it);
 		++it;
 		removeFromContain(obj, exposeStealthUnits);
 	}

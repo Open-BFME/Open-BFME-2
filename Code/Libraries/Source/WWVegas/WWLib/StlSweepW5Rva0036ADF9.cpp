@@ -5,5 +5,18 @@
 #include <list>
 #include <memory>
 
-struct Rva0036ADF9Element { double words[1];bool operator<(const Rva0036ADF9Element&)const;bool operator==(const Rva0036ADF9Element&)const; };
+#include "../../../../GameEngine/Include/GameLogic/ContainmentListView.h"
 template class _STL::list<Rva0036ADF9Element>;
+
+// Retail 36AE51 (40B): clear the descriptor's first word before copying
+// its source, otherwise copy the existing empty-list sentinel at E0362C.
+// 36ADF9's complete copier establishes the element width independently.
+extern unsigned g_Va00E0362C;
+ContainmentList Rva0036AE51ListView::rva0036AE51()
+{
+    if (a) {
+        a = 0;
+        return ContainmentList(*b);
+    }
+    return ContainmentList(*reinterpret_cast<const ContainmentList *>(&g_Va00E0362C));
+}

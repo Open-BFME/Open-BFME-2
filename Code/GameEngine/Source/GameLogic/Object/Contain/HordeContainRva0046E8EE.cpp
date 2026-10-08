@@ -10,6 +10,9 @@
 // +0x11C finish (0x1E4). Donor: BFME1 HordeContainCreatePayload.cpp
 // createPayload (100-m_damagePercent)*0.01 count destroy loop.
 #include <list>
+#include "../../../../Include/GameLogic/ContainmentListView.h"
+namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
+
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -20,7 +23,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 }
 
 
-typedef _STL::list<int, _STL::allocator<int> > IntList;
+typedef ContainmentList IntList;
 
 struct Rva0046247DPair
 {
@@ -34,11 +37,6 @@ public:
 	void *rva0046247D(Rva0046247DPair &p);
 };
 
-class Rva0036AE51ListView
-{
-public:
-	IntList rva0036AE51();
-};
 
 class Object;
 
@@ -186,7 +184,7 @@ void HordeContain::rva0046E8EE()
 			IntList::iterator it = members.begin();
 			while (it != members.end())
 			{
-				Object *member = (Object *)*it;
+				Object *member = (Object *)containmentFirstWord(*it);
 				if (member->getBodyModule() && toDestroy)
 				{
 					horde->destroyMember(member);
@@ -211,7 +209,7 @@ void HordeContain::rva0046E8EE()
 found:
 			for (IntList::iterator jt = members.begin(); jt != members.end(); ++jt)
 			{
-				Object *mem = (Object *)*jt;
+				Object *mem = (Object *)containmentFirstWord(*jt);
 				void **m2 = mem->m_244;
 				for (; *m2; ++m2)
 				{

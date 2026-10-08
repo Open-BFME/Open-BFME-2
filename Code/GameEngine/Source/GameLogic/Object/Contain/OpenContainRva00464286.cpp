@@ -4,19 +4,20 @@
 // OpenContain's slot 18 at 0x00464286 (77 bytes; Ghidra boundary) in the
 // primary table 0x00C435E8 (retail vftable map). Its body obtains a pair from
 // 0x0046247D, passes the returned pointer to the value-returning helper at
-// 0x0036AE51, then dispatches slot 26 with the resulting 12-byte list value
+// 0x0036AE51, then dispatches slot 26 with the resulting one-word list value
 // and the object+0x48 field. The list copy constructor and destructor are
 // already represented by matched rows at 0x0036ADF9 and 0x004EC395. The pair
 // field roles and slot 26's purpose remain address-level structural
 // interpretations; the method name is intentionally address-based.
 
 #include <list>
+#include "../../../../Include/GameLogic/ContainmentListView.h"
 
-typedef _STL::list<int, _STL::allocator<int> > IntList;
+typedef ContainmentList IntList;
 
 namespace _STL
 {
-template<> _List_base<int, allocator<int> >::~_List_base();
+template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_List_base();
 }
 
 struct Rva0046247DPair
@@ -31,15 +32,9 @@ public:
 	void *rva0046247D(Rva0046247DPair &result);
 };
 
-// Address-derived ABI view of the helper called by this body. The return type
-// is supported by the caller's 12-byte temporary, the list copy-constructor
-// call, and the list-base destructor call. Its body and identity remain
-// unresolved, so this TU declares but does not define it.
-class Rva0036AE51ListView
-{
-public:
-	IntList rva0036AE51();
-};
+// The shared helper and its eight-byte element copier are now recovered.
+// Original element identity and the descriptor's first-field meaning remain
+// unresolved; the shared header records only the observed ABI.
 
 class OpenContain
 {
