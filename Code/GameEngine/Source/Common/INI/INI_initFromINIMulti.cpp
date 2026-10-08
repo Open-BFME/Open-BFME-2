@@ -37,6 +37,14 @@ struct FieldParse
 	int offset;
 };
 
+// Its naturally emitted accessor copies recover the adjacent complete retail
+// leaves 0x2BABA/10B and 0x2BAC4/11B. The rowed constructor at 0x2BAA0
+// independently proves the two 16-slot arrays at +0/+0x40. BFME1 donor
+// 9cbfb551fe20dae985f91f2319d8997287b6a705 INI_stl.cpp agrees under
+// /O1 /arch:SSE /G7. The established INI API names are a structural
+// inference for these standalone copies; no retail direct callers are known.
+// Keep the rows here, where initFromINIMulti naturally emits both exact
+// providers, rather than introducing strong definitions in the ctor shard.
 class MultiIniFieldParse
 {
 public:
