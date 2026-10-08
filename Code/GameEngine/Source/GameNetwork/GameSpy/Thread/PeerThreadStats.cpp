@@ -44,8 +44,8 @@ void PeerThreadClass::trackStatsForPlayer(RoomType roomType, const char *nick, c
 
 class GameLogic;
 extern GameLogic *TheGameLogic;
-struct Rva0059E647World;
-extern Rva0059E647World *g_rva0059E647World;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002034E9Host { public: bool rva002034E9(); };
 class Rva002B31F2 {
 public:
@@ -67,6 +67,6 @@ _STL::vector<unsigned int> Rva0040DBA9::rva0040DBA9()
 {
  _STL::vector<unsigned int> values;
  if (reinterpret_cast<Rva002034E9Host *>(TheGameLogic)->rva002034E9())
-  reinterpret_cast<Rva002B31F2 *>(g_rva0059E647World)->rva002B31F2(&values);
+  reinterpret_cast<Rva002B31F2 *>(TheLivingWorldLogic)->rva002B31F2(&values);
  return values;
 }
