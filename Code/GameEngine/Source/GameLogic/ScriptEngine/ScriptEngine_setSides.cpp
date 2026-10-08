@@ -97,7 +97,17 @@ struct Rva00203BE9Mode
 	unsigned char enabled;
 };
 
-void rva00203BE9()
+// The end-game message dispatch is a ScriptEngine method: update() calls it
+// with this in ECX (0x0020D109) when the end-game timer runs out, where Zero
+// Hour appends MSG_CLEAR_GAME_DATA inline. The body never reads this.
+class ScriptEngine
+{
+public:
+	void rva00203BE9();
+};
+
+// ?ScriptEngine::rva00203BE9 present-unmatched
+void ScriptEngine::rva00203BE9()
 {
 	if (TheGameLogic->rva002034E9())
 	{
