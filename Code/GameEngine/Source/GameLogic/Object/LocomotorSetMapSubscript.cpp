@@ -58,3 +58,23 @@ template<> BfmeLocomotorTemplateVector& BfmeLocomotorSetMap::operator[](const Lo
 }
 
 template class _STL::map<LocomotorSetType, BfmeLocomotorTemplateVector, _STL::less<LocomotorSetType>, _STL::allocator<_STL::pair<const LocomotorSetType, BfmeLocomotorTemplateVector> > >;
+
+// Native 0x0021E063 has the same scoped-vector expression as 0x001EA05B.
+// Its insertion goes to the independently rowed int/vector<unsigned> map
+// wrapper 0x0021DB74. The lower-bound walk, empty vector header and pair
+// constructor are folded helpers; no Locomotor application identity is claimed
+// for this integer-keyed specialization.
+typedef _STL::vector<unsigned int> BfmeIntegerMapVector;
+typedef _STL::map<int, BfmeIntegerMapVector, _STL::less<int>, _STL::allocator<_STL::pair<const int, BfmeIntegerMapVector> > > BfmeIntegerVectorMap;
+
+template<> BfmeIntegerMapVector &BfmeIntegerVectorMap::operator[](const int &key)
+{
+ BfmeIntegerVectorMap::iterator it = lower_bound(key);
+ if (it == end() || key_comp()(key, (*it).first)) {
+  BfmeIntegerMapVector value;
+  it = insert(it, BfmeIntegerVectorMap::value_type(key, value));
+ }
+ return (*it).second;
+}
+
+template class _STL::map<int, BfmeIntegerMapVector, _STL::less<int>, _STL::allocator<_STL::pair<const int, BfmeIntegerMapVector> > >;
