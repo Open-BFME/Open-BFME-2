@@ -70,6 +70,8 @@ void GadgetTextEntrySetText(GameWindow *,UnicodeString);
 class GameSpyLoginPreferences: public UserPreferences { public:
     virtual bool write();
     void deleteNick(const AsciiString &,const AsciiString &);
+    void rva005CA53E(const AsciiString &);
+    void rva005CACDE(AsciiString,AsciiString,AsciiString,AsciiString);
     AsciiString rva005C9FC4();
     _STL::list<AsciiString> rva005CA07D();
     AsciiString getPasswordForEmail(AsciiString);
@@ -102,6 +104,9 @@ class PingerInterface { public:
     virtual void endThreads()=0;
     virtual bool areThreadsRunning()=0;
     virtual void addRequest(const PingRequest &)=0;
+    virtual void slot14();virtual void slot18();virtual void slot1C();
+    virtual bool arePingsInProgress();virtual void slot24();virtual void slot28();
+    virtual AsciiString getPingString(int);
 };
 extern PingerInterface *ThePinger;
 struct LoginPingStringData { int refs;unsigned short length,capacity;char text[1]; };
@@ -125,10 +130,37 @@ class GameSpyBuddyMessageQueueInterface { public:
  virtual void addRequest(const LoginSubmitRequest &);
 };
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
+
+typedef _STL::map<AsciiString,AsciiString> LoginPreferenceMap;
+extern template AsciiString &LoginPreferenceMap::operator[](const AsciiString &);
+class OptionPreferences { public:
+    OptionPreferences();virtual ~OptionPreferences();
+    LoginPreferenceMap settings;AsciiString filename;
+};
+class PSPlayerAllStats { public:
+    PSPlayerAllStats(const PSPlayerAllStats &);~PSPlayerAllStats();
+    void setID(int);
+    // 0x548 native extent independently corroborated by the recovered
+    // PersistentStorageThread provider. No fields reconstructed here.
+    unsigned opaque[0x548/4];
+};
+PSPlayerAllStats rva00556DFF();
+void Rva003B3371Call(int);
+bool GadgetCheckBoxIsChecked(GameWindow *);
+class AptOnlineShell { public:void LoadChildScreen(const char *); };
+class FirewallHelperClass { public:
+    virtual ~FirewallHelperClass();
+    bool behaviorDetectionUpdate();void writeFirewallBehavior();
+    void flagNeedToRefresh(bool);
+};
+// Existing owning unit models the native slot0 allocation-release result.
+struct Rva00A063B0Obj { virtual void *Unknown00(int); };
+extern Rva00A063B0Obj *g_a063b0;
+
 class GameSpyInfoInterface { public:
  virtual void slot00();
  virtual void slot04();
- virtual void slot08();
+ virtual void clearGroupRoomList();
  virtual void slot0C();
  virtual void slot10();
  virtual void slot14();
@@ -157,13 +189,46 @@ class GameSpyInfoInterface { public:
  virtual void slot70();
  virtual void slot74();
  virtual void slot78();
- virtual void slot7C();
+ virtual int getLocalProfileID();
  virtual void slot80();
 
  virtual void setLocalEmail(AsciiString);
  virtual void slot88();
  virtual void setLocalPassword(AsciiString);
  virtual void setLocalBaseName(AsciiString);
+ virtual void slot94();virtual void setCachedLocalPlayerStats(PSPlayerAllStats);
+ virtual void slot9C();
+ virtual void slotA0();
+ virtual void slotA4();
+ virtual void slotA8();
+ virtual void slotAC();
+ virtual void slotB0();
+ virtual void slotB4();
+ virtual void slotB8();
+ virtual void slotBC();
+ virtual void slotC0();
+ virtual void slotC4();
+ virtual void slotC8();
+ virtual void slotCC();
+ virtual void slotD0();
+ virtual void slotD4();
+ virtual void slotD8();
+ virtual void slotDC();
+ virtual void slotE0();
+ virtual void slotE4();
+ virtual void slotE8();
+ virtual void slotEC();
+ virtual void slotF0();
+ virtual void slotF4();
+ virtual void slotF8();
+ virtual void slotFC();
+ virtual void slot100();
+ virtual void slot104();
+ virtual void slot108();
+ virtual void slot10C();
+ virtual void slot110();
+ virtual void slot114();
+ virtual void setPingString(const AsciiString &);
 };
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
@@ -178,6 +243,7 @@ public:
     void rva00570D36();
     void rva00571129();
     void rva0057179D(bool);
+    void rva005700A0();
     void rva005709D1(AsciiString &,AsciiString &);
     bool rva005706D4();
     bool rva0056EC54(const UnicodeString &,bool);
@@ -191,7 +257,7 @@ private:
     GameWindow *password;
     GameWindow *remember;
     unsigned char padB4[4]; GameWindow *m_countryList;
-    unsigned char padBC[9]; bool needsRefresh;
+    unsigned char padBC[8]; bool loggedIn; bool needsRefresh;
     unsigned char padC6[2]; unsigned long loginStartTime;
     unsigned char padCC[4]; bool closeLocale;
     unsigned char padD1[3]; int locale;
@@ -561,4 +627,47 @@ void AptOnlineLogin::rva0057179D(bool argument) {
   else message="GUI:GSNoLoginInfoAll";
   GSMessageBoxOk(TheGameText->fetch("GUI:GSErrorTitle"),TheGameText->fetch(message),0);
  }
+}
+
+// BFME1 34f59164 OnlineLoginCheckLogin.cpp semantic donor. Native700A0
+// adds the firewall completion phase and uses PSPlayerAllStats (0x548).
+// Complete native evidence supplies offsets and virtual slots independently.
+void AptOnlineLogin::rva005700A0()
+{
+    if(g_a063b0) {
+        if(!((FirewallHelperClass *)g_a063b0)->behaviorDetectionUpdate()) return;
+        ((FirewallHelperClass *)g_a063b0)->writeFirewallBehavior();
+        ((FirewallHelperClass *)g_a063b0)->flagNeedToRefresh(false);
+        void *allocation=g_a063b0?g_a063b0->Unknown00(0):0;
+        operator delete(allocation);
+        g_a063b0=0;
+    }
+    if(loggedIn && ThePinger && !ThePinger->arePingsInProgress()) {
+        OptionPreferences preferences;
+        preferences.settings["HasGotOnline"]="yes";
+        ((UserPreferences *)&preferences)->UserPreferences::write();
+        AsciiString ping=ThePinger->getPingString(TheGameSpyConfig->getPingTimeoutInMs());
+        TheGameSpyInfo->setPingString(ping);
+        loggedIn=false;loginStartTime=0;
+        TheGameSpyInfo->clearGroupRoomList();
+        Rva003B3371Call(0x12);
+        PSPlayerAllStats stats=rva00556DFF();
+        stats.setID(TheGameSpyInfo->getLocalProfileID());
+        TheGameSpyInfo->setCachedLocalPlayerStats(stats);
+        AsciiString email;
+        email.translate(((Rva0056EBA1 *)this)->rva0056EB15());
+        AsciiString login,password;
+        login.translate(((Rva0056EA91 *)this)->rva0056EA91());
+        if(remember && GadgetCheckBoxIsChecked(remember))
+            password.translate(((Rva0056EBD0 *)this)->rva0056EBD0());
+        else password.clear();
+        (*(LoginPreferenceMap *)&loginPreferences)["lastName"]=login;
+        GameSpyLoginPreferences *preferences2=(GameSpyLoginPreferences *)((char *)this+0x60);
+        preferences2->rva005CA53E(email);
+        (*(LoginPreferenceMap *)&loginPreferences)["useProfiles"]="yes";
+        AsciiString date("01/01/1970");
+        preferences2->rva005CACDE(email,login,password,date);
+        preferences2->write();
+        ((AptOnlineShell *)owner)->LoadChildScreen("OnlineHome");
+    }
 }
