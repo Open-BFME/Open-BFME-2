@@ -70470,3 +70470,4 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?release@Rva000B3F43Ref@@QAEXXZ,,0x000B3F43,15,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
 ?release@Rva005E7461Ref@@QAEXXZ,,0x005E7461,15,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
 ?release@Rva005F0624Ref@@QAEXXZ,,0x005F0624,15,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+?get@Rva005EE258Source@@QAE?AURva005EE258Result@@XZ,,0x005EE258,23,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,

@@ -178,3 +178,22 @@ void Rva005F0624Ref::release()
 	if (m_target)
 		ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)(m_target + 4));
 }
+
+struct Rva005EE258Result
+{
+	~Rva005EE258Result();
+	int m_value;
+};
+
+// Native 0x005EE258, 23B: return virtual slot 1's by-value result.
+class Rva005EE258Source
+{
+public:
+	virtual void s00();
+	virtual Rva005EE258Result s01();
+	Rva005EE258Result get();
+};
+Rva005EE258Result Rva005EE258Source::get()
+{
+	return s01();
+}
