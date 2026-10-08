@@ -119,6 +119,13 @@
 //    or, without one, the home location (else the team centroid from Team
 //    0x0039DA2A). The disband deletes the team through its virtual
 //    destructor and global delete.
+//  - updateBridgeRepair 0x004F418A (500 bytes): ZH's body with the timer at
+//    +0x68 reset from the frame-rate global, the repair order through
+//    AICommandInterface 0x0036F19B (ZH aiRepair) and the return move adjusted
+//    by TheAI's pathfinder (+0x10) over the AI's locomotor set (+0x1CC).
+//    The first queue walk holds the count in a local that only guards the
+//    shift loop, which is how retail keeps it in edi across the lookup; the
+//    two Coord3D initialisations copy member-wise (movss) as retail does.
 #include <list>
 #include <vector>
 
@@ -351,6 +358,8 @@ class Rva0035149F : public _STL::vector<Coord3D>
 
 class Object;
 
+class LocomotorSet;
+
 class AICommandInterface
 {
 public:
@@ -358,6 +367,7 @@ public:
 	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
 	void aiIdle(CommandSourceType cmdSource);
 	void rva0026C3AC(Object *obj, CommandSourceType cmdSource);
+	void rva0036F19B(Object *obj, CommandSourceType cmdSource);	// ZH aiRepair
 };
 
 class StateMachine
@@ -374,6 +384,7 @@ class AIUpdateInterface
 public:
 	// The AICommandInterface base sits at +0x20.
 	AICommandInterface *getCommandInterface() { return (AICommandInterface *)((char *)this + 0x20); }
+	const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)((const char *)this + 0x1CC); }
 	Bool isMoving() const;
 	StateMachine *getStateMachine() const { return m_stateMachine; }
 	const Coord3D *getGoalPosition() const { return getStateMachine()->getGoalPosition(); }
@@ -703,12 +714,21 @@ extern ScienceStore *TheScienceStore;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
+class Pathfinder
+{
+public:
+	Bool adjustToPossibleDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest);
+};
+
 class AI
 {
 public:
-	char m_pad00[0x18];
+	char m_pad00[0x10];
+	Pathfinder *m_pathfinder;	// +0x10
+	char m_pad14[0x18 - 0x14];
 	TAiData *m_aiData;		// +0x18
 	const TAiData *getAiData() const { return m_aiData; }
+	Pathfinder *pathfinder() { return m_pathfinder; }
 };
 extern AI *TheAI;
 
@@ -949,6 +969,7 @@ protected:
 	Bool getBaseCenter(Coord3D *pos) const { *pos = m_baseCenter; return m_baseCenterSet; }
 	void queueSupplyTruck();
 	void queueUnits();
+	void updateBridgeRepair();
 	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
 	{
 		return DLINK_ITERATOR<TeamInQueue>(m_teamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
@@ -985,6 +1006,8 @@ private:
 	Coord3D m_repairDozerOrigin;	// +0x54
 	Int m_structuresInQueue;	// +0x60
 	Bool m_dozerQueuedForRepair;	// +0x64
+	Bool m_dozerIsRepairing;	// +0x65
+	Int m_bridgeTimer;		// +0x68
 };
 
 enum { DOZER_TASK_BUILD = 0 };
@@ -1583,6 +1606,109 @@ void AIPlayer::repairStructure(ObjectID structure)
 		return;
 	m_structuresToRepair[m_structuresInQueue] = structureObj->getID();
 	m_structuresInQueue++;
+}
+
+void AIPlayer::updateBridgeRepair()
+{
+	if (m_structuresInQueue == 0)
+		return;
+	m_bridgeTimer--;
+	if (m_bridgeTimer > 0)
+		return;
+	m_bridgeTimer = LOGICFRAMES_PER_SECOND;
+	Object *bridgeObj = NULL;
+	while (bridgeObj == NULL)
+	{
+		Int count = m_structuresInQueue;
+		if (count <= 0)
+			break;
+		bridgeObj = TheGameLogic->findObjectByID(m_structuresToRepair[0]);
+		if (bridgeObj == NULL)
+		{
+			Int i = 0;
+			if (count - 1 > 0)
+			{
+				do
+				{
+					m_structuresToRepair[i] = m_structuresToRepair[i + 1];
+					i++;
+				} while (i < m_structuresInQueue - 1);
+			}
+			m_structuresInQueue--;
+		}
+	}
+	if (m_structuresInQueue == 0)
+		return;
+
+	Object *dozer = NULL;
+	Coord3D bridgePos;
+	bridgePos.x = bridgeObj->m_pos.x;
+	bridgePos.y = bridgeObj->m_pos.y;
+	bridgePos.z = bridgeObj->m_pos.z;
+	BodyDamageType bridgeState = bridgeObj->getBodyModule()->getDamageState();
+	if (m_repairDozer == INVALID_OBJECT_ID)
+	{
+		m_dozerIsRepairing = false;
+		if (m_dozerQueuedForRepair)
+			return;
+		dozer = findDozer(&bridgePos);
+		if (dozer)
+		{
+			m_repairDozer = dozer->getID();
+			m_repairDozerOrigin = dozer->m_pos;
+			dozer->getAI()->getCommandInterface()->rva0036F19B(bridgeObj, CMD_FROM_AI);
+			m_dozerIsRepairing = true;
+			return;
+		}
+		queueDozer();
+		m_dozerQueuedForRepair = true;
+		return;
+	}
+
+	dozer = TheGameLogic->findObjectByID(m_repairDozer);
+	if (dozer == NULL)
+	{
+		m_repairDozer = INVALID_OBJECT_ID;
+		m_bridgeTimer = 0;
+		return;
+	}
+
+	DozerAIInterface *dozerAI = dozer->getAI()->getDozerAIInterface();
+	if (dozerAI == NULL)
+		return;
+	if (m_dozerIsRepairing)
+	{
+		if (!dozerAI->isAnyTaskPending())
+		{
+			if (bridgeState == BODY_PRISTINE)
+			{
+				Int i;
+				for (i = 0; i < m_structuresInQueue - 1; i++)
+					m_structuresToRepair[i] = m_structuresToRepair[i + 1];
+				m_structuresInQueue--;
+				m_dozerIsRepairing = false;
+				if (m_structuresInQueue == 0)
+				{
+					Coord3D pos;
+					pos.x = m_baseCenter.x;
+					pos.y = m_baseCenter.y;
+					pos.z = m_baseCenter.z;
+					if (!m_baseCenterSet)
+						pos = m_repairDozerOrigin;
+					AIUpdateInterface *ai = dozer->getAI();
+					TheAI->pathfinder()->adjustToPossibleDestination(dozer, ai->getLocomotorSet(), &pos);
+					dozer->getAI()->getCommandInterface()->aiMoveToPosition(&pos, CMD_FROM_AI);
+					return;
+				}
+			}
+		}
+		else
+		{
+			return;
+		}
+	}
+	dozer->getAI()->getCommandInterface()->rva0036F19B(bridgeObj, CMD_FROM_AI);
+	m_dozerIsRepairing = true;
 }
 
 enum { INVALID_SKILLSET_SELECTION = -1 };
