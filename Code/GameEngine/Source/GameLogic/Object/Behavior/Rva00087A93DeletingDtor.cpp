@@ -24,3 +24,12 @@ void Rva00087A93Delete(Rva00087A93 *p)
 {
 	delete p;
 }
+
+// ?Rva0008A1FDDestroy@@YAXPAVRva00087A93@@0@Z @ 0x0008A1FD (27B): the range
+// destroy loop over these references. MSVC calls each explicit destructor
+// through the scalar deleting destructor above with flags 0.
+void Rva0008A1FDDestroy(Rva00087A93 *first, Rva00087A93 *last)
+{
+	for (; first != last; ++first)
+		first->~Rva00087A93();
+}
