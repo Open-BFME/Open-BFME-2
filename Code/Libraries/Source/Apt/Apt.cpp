@@ -19,6 +19,7 @@ public:
 class AptCIH : public AptValue {};
 class AptString : public AptValue {public:static AptString *Create();};
 struct AptActionInterpreter {
+ AptValue *getVariable(AptValue *,AptValue *,const EAStringC *,int,int,int);
  bool setVariable(AptValue *,AptValue *,const EAStringC *,AptValue *,int,int,int);
 };
 extern AptActionInterpreter g_aptDateInterpreter;
@@ -29,5 +30,17 @@ void AptSetInternalVariable(const char *name, const char *text) {
  value->SetString(text);
  EAStringC key(name);
  g_aptDateInterpreter.setVariable(_AptGetAnimationAtLevel(0),0,&key,value,1,1,0);
+ value->Release();
+}
+
+// Native6CCAF0..6CCB7B; WB174F2E0's AptGetInternalVariable label.
+// The two caller arguments are the source key and a mutable output buffer.
+// Native6DE870 converts the AptValue to EAStringC and copies into that buffer.
+class Rva006DCD20 {public:void rva006DE870(char *);};
+void AptGetInternalVariable(const char *name,char *out) {
+ EAStringC key(name);
+ AptValue *value=g_aptDateInterpreter.getVariable(_AptGetAnimationAtLevel(0),0,&key,1,1,0);
+ value->AddRef();
+ ((Rva006DCD20 *)value)->rva006DE870(out);
  value->Release();
 }
