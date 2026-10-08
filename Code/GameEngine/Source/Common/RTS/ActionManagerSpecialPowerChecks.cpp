@@ -892,3 +892,47 @@ bool ActionManager::canDoSpecialPowerAtObject(const Object *obj, const Object *t
 	}
 	return false;
 }
+
+class AIUpdateInterface
+{
+public:
+	bool rva00262BEC();	// 0x00262BEC
+};
+
+class Pathfinder
+{
+public:
+	int GetGroundLayer(const Coord3D *pos);	// 0x002E9871
+};
+
+class AI
+{
+public:
+	Pathfinder *pathfinder() const { return m_pathfinder; }
+	char m_pad00[0x10];
+	Pathfinder *m_pathfinder;	// +0x10
+};
+extern AI *TheAI;
+
+// The canDoSpecialPower* veto: true when the object's AIUpdateInterface
+// passes 0x00262BEC (locomotor goal type 1 or 4 with a path) and the
+// pathfinder reports a layer at or above 0x11 500 units over its position.
+// Retail calls it on the source object from canDoSpecialPower (0x0041CD08),
+// canDoSpecialPowerAtObject (0x0041D0C4) and canDoSpecialPowerAtLocation
+// (0x0041D658); the name is not recovered.
+bool ActionManager::rva0041BA61(const Object *obj)
+{
+	if (TheAI && obj) {
+		AIUpdateInterface *ai = *reinterpret_cast<AIUpdateInterface *const *>(reinterpret_cast<const char *>(obj) + 0x258);
+		if (ai && ai->rva00262BEC()) {
+			const Coord3D *objPos = reinterpret_cast<const Coord3D *>(reinterpret_cast<const char *>(obj) + 0x38);
+			Coord3D pos;
+			pos.x = objPos->x;
+			pos.y = objPos->y;
+			pos.z = objPos->z + 500.0f;
+			if (TheAI->pathfinder()->GetGroundLayer(&pos) >= 0x11)
+				return true;
+		}
+	}
+	return false;
+}
