@@ -8,7 +8,7 @@
 // (reference/open-bfme-1 @ 6d943426), recompiled /Os. The body is
 // byte-identical to retail once relocations are masked (unique hit on
 // unclaimed .text), where BFME 1's own flags do not. Only this one placed
-// body is defined here; the donor's Rva000833E0, Rva00703EF0 and two
+// body was defined by the initial transfer; the donor's Rva000833E0, Rva00703EF0 and two
 // BFME_NULL_CHECKED_TAIL members stay out, so the unmatched-definition gate
 // passes.
 //
@@ -39,4 +39,34 @@ int Rva00113BA0( GenSlot08 *held )
 	if( held )
 		return held->slot08();
 	return 0;
+}
+
+// BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 clean donor
+// game/GameEngine/Source/Common/S2NullCheckedTailDispatch.cpp supplied the
+// nullable first-slot dispatch expression, compiled /O1 /arch:SSE /G7.
+// Retail independently proves receiver[0], zero on a null held pointer,
+// otherwise a tail jump through its first vtable slot. The whole leaf is
+// 0x000E44B1..0x000E44BE; the preceding function's final backward jump ends
+// at the start and the following EH-framed function begins at the end.
+// Both original classes and the slot's purpose remain unknown. Unsigned
+// expresses the returned raw32 bits without asserting source signedness.
+class Rva000E44B1Slot0
+{
+public:
+    virtual unsigned dispatch();
+};
+
+class Rva000E44B1
+{
+public:
+    unsigned dispatch() const;
+    Rva000E44B1Slot0 *m_held;
+};
+
+unsigned Rva000E44B1::dispatch() const
+{
+    Rva000E44B1Slot0 *held = m_held;
+    if (held)
+        return held->dispatch();
+    return 0;
 }
