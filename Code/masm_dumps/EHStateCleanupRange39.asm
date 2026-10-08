@@ -2536,6 +2536,18 @@ PUBLIC ?rva007A43B2@@YAXXZ
     ret
 ?rva007A43B2@@YAXXZ ENDP
 
+; Unwind@00ba4645 at RVA 0x007A4645; 19-byte eh-vector-dtor passes [ebp-72] with size 12 count 2 and raw dtor VA 0x009EC919.
+PUBLIC ?rva007A4645@@YAXXZ
+?rva007A4645@@YAXXZ PROC
+    push 009EC919h
+    push 2
+    push 0Ch
+    lea eax, DWORD PTR [ebp-72]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007A4645@@YAXXZ ENDP
+
 ; Unwind@00ba4694 at RVA 0x007A4694; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to UnicodeString at 0x005B804E.
 PUBLIC ?rva007A4694@@YAXXZ
@@ -2549,6 +2561,30 @@ PUBLIC ?rva007A4694@@YAXXZ
 cleanup_done_007A4694:
     ret
 ?rva007A4694@@YAXXZ ENDP
+
+; Unwind@00ba483c at RVA 0x007A483C; 19-byte eh-vector-dtor passes [ebp-124] with size 12 count 4 and raw dtor VA 0x004B3FD0.
+PUBLIC ?rva007A483C@@YAXXZ
+?rva007A483C@@YAXXZ PROC
+    push 004B3FD0h
+    push 4
+    push 0Ch
+    lea eax, DWORD PTR [ebp-124]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007A483C@@YAXXZ ENDP
+
+; Unwind@00ba4869 at RVA 0x007A4869; 19-byte eh-vector-dtor passes [ebp-128] with size 12 count 4 and raw dtor VA 0x004B3FD0.
+PUBLIC ?rva007A4869@@YAXXZ
+?rva007A4869@@YAXXZ PROC
+    push 004B3FD0h
+    push 4
+    push 0Ch
+    lea eax, DWORD PTR [ebp-128]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007A4869@@YAXXZ ENDP
 
 ; Unwind@00ba48ea at RVA 0x007A48EA; 20-byte masked-add cleanup adds 4 to [ebp-16] and tail-jumps to the dword imm-setter at 0x004E84A4.
 PUBLIC ?rva007A48EA@@YAXXZ
