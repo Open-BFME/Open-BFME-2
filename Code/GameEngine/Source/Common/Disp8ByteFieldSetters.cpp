@@ -79,3 +79,10 @@ BFME_DISP8_BYTE_SETTER(Rva003674B3ByteSlot, 0x5F)
 // Donor GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 // ?lockGhostObjects@GhostObjectManager@@QAEX_N@Z (name and bool type unasserted in target).
 BFME_DISP8_BYTE_SETTER(Rva002DABFEByteSlot, 0x08)
+
+// BF1 9cbfb551 clean W3DScene.cpp setAllowUninstall expression is a lead
+// only; its W3DMaskMaterialPassClass identity is not established in BF2.
+// Native complete4AD9A6..4AD9B0 follows the known4AD8E3/195 body's RET
+// at4AD9A5 and precedes known4AD9B0: stack low byte -> receiver+3C, RET4.
+// Preserve raw byte width and unknown owner/purpose through the existing macro.
+BFME_DISP8_BYTE_SETTER(Rva004AD9A6ByteSlot, 0x3C)
