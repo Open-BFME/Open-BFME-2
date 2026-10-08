@@ -35,3 +35,19 @@ and the declaration gate is silent. No generated source, gate or baseline is
 changed. Local evidence: build/object-filter-kindof-wb.txt,
 build/object-filter-kindof-reload-diff.txt and
 build/object-filter-kindof-temp-diff.txt.
+
+The same supported pattern then recovered the 601-byte native testTemplate
+at 0x003618B9..0x00361B12 on its first isolated trial. WB 0x00ED2690 independently
+names it at ObjectFilter.cpp lines 224..297. The four collections at +0x18,
++0x24, +0x30 and +0x3C compare template names or invoke isEquivalentTo before
+the mask rules. Retail fixes template name +0x64 and kind-of words +0x108.
+The three existing callers (ObjectFilterAccepts and the two product units)
+were read in full and reconciled to the named provider. All eight bodies
+across the four source files match, with all five EH-bearing bodies EXACT.
+The original three home transfer bodies and new kind-of body remain exact.
+
+No alias or new pin is needed. The now-unreferenced old address-name pin
+remains because another worker holds reverse/symbols.csv; that ledger was
+not edited. Its three former Code users now call the actual rowed provider.
+Evidence: build/object-filter-template-wb.txt and
+build/object-filter-template-diff.txt.

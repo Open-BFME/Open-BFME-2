@@ -8,10 +8,11 @@ class Player;
 class AsciiString;
 class UpgradeTemplate;
 
-class Rva2225E0Filter
+class ObjectFilter
 {
 public:
-	bool rva003618B9(const ThingTemplate *tmpl, Player *a, Player *b);
+	bool testTemplate(const ThingTemplate *tmpl, const Player *a, const Player *b);
+ int m_id;
 };
 
 class UpgradeCenter
@@ -31,7 +32,7 @@ public:
 struct Rva0049D244Value
 {
 	char m_name[4];
-	Rva2225E0Filter m_filter;
+	ObjectFilter m_filter;
 	char m_gap[4];
 	float m_scale;
 };
@@ -66,7 +67,7 @@ float Rva0049D244::rva0049D244(const ThingTemplate *tmpl)
 		do
 		{
 			Rva0049D244Value *value = node->m_value;
-			if (value->m_filter.rva003618B9(tmpl, 0, 0))
+			if (value->m_filter.testTemplate(tmpl, 0, 0))
 			{
 				const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(*(const AsciiString *)value);
 				if (upgrade != 0)

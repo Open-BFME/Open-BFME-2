@@ -13,9 +13,9 @@ public:
     const ThingTemplate *objectTemplate;
     Player *getControllingPlayer() const;
 };
+class ObjectFilter { public: bool testTemplate(const ThingTemplate *, const Player *, const Player *); };
 struct Rva2225E0Filter {
     bool accepts(Object *, Player *);
-    bool rva003618B9(const ThingTemplate *, Player *, Player *);
 };
 
 bool Rva2225E0Filter::accepts(Object *obj, Player *context)
@@ -23,5 +23,5 @@ bool Rva2225E0Filter::accepts(Object *obj, Player *context)
     if (!obj)
         return false;
     const ThingTemplate *objectTemplate = obj->objectTemplate;
-    return rva003618B9(objectTemplate, obj->getControllingPlayer(), context);
+    return reinterpret_cast<ObjectFilter*>(this)->testTemplate(objectTemplate, obj->getControllingPlayer(), context);
 }
