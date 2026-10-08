@@ -24,10 +24,17 @@ public:
 	void rva005CB260();
 };
 
+class Rva005C98C0
+{
+public:
+	void *rva005C98C0(int id);
+};
+
 class Rva005C9B76
 {
 public:
 	void rva005C9AB4();
+	int rva005C9ADD(int v, int);
 	void rva005C9B56(int v);
 	virtual ~Rva005C9B76();
 private:
@@ -51,6 +58,20 @@ void Rva005C9B76::rva005C9AB4()
 		}
 	}
 	m_b18 = 0;
+}
+int Rva005C9B76::rva005C9ADD(int v, int)
+{
+	m_b18 = 1;
+	int r = reinterpret_cast<int>(reinterpret_cast<Rva005C98C0 *>(this)->rva005C98C0(v));
+	int cur = m_i1C;
+	if (r != cur) {
+		m_i1C = r;
+		m_list.forEach(
+			reinterpret_cast<void (Rva005C9A64Listener::*)(void *, int)>(&Rva005CB260::rva005CB260),
+			this,
+			cur);
+	}
+	return 0;
 }
 void Rva005C9B76::rva005C9B56(int v)
 {
