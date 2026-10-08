@@ -18,6 +18,22 @@ public:
 	Rva000A89E3Ready m_ready;	// +0x44
 };
 
+// The ready file a handle hands out (WorldBuilder: AudioFileContainer). Its
+// constructors and destructor are separate functions in WorldBuilder
+// (0x008E4710/0x008E4730/0x008E47B0); retail keeps the pointer constructor
+// next to its one caller and folds the other two with identical bodies. The
+// empty constructor is out of line in MilesAudioManager.cpp, so the empty
+// returns below call it as retail does (0x00326BE6).
+class AudioFileContainer
+{
+public:
+	AudioFileContainer();
+	AudioFileContainer(Gen0002857E *target);
+	~AudioFileContainer();
+
+	Gen0002857E *m_target;
+};
+
 class Rva00690FF0Handle
 {
 public:
@@ -25,23 +41,37 @@ public:
 	Rva00690FF0Handle(Gen0002857E *target);
 	~Rva00690FF0Handle();
 
-	Rva00690FF0Handle rva000A89E3() const;
+	AudioFileContainer rva000A89E3() const;
 
 	Gen0002857E *m_target;
 };
 
 // Retail 0x000A89E3: a new reference to the file once it is ready, else an
-// empty handle. MilesAudioManager's loop-buffer refill passes the result to
-// putFileIntoLoopBuffer (0x0005ED1C and its siblings).
-Rva00690FF0Handle Rva00690FF0Handle::rva000A89E3() const
+// empty container. MilesAudioManager's loop-buffer refill passes the result
+// to putFileIntoLoopBuffer (0x0005ED1C and its siblings).
+AudioFileContainer Rva00690FF0Handle::rva000A89E3() const
 {
 	if (m_target == 0)
-		return Rva00690FF0Handle();
+		return AudioFileContainer();
 	if (!m_target->m_ready.check(0))
-		return Rva00690FF0Handle();
-	return Rva00690FF0Handle(m_target);
+		return AudioFileContainer();
+	return AudioFileContainer(m_target);
 }
 
+AudioFileContainer::AudioFileContainer(Gen0002857E *target)
+{
+	m_target = target;
+	if (target)
+		target->handle();
+}
+
+AudioFileContainer::~AudioFileContainer()
+{
+	if (m_target)
+		m_target->release();
+}
+
+// ??0Rva00690FF0Handle@@QAE@PAVGen0002857E@@@Z present-unmatched (masked body has 4 identical retail copies; address ambiguous)
 Rva00690FF0Handle::Rva00690FF0Handle(Gen0002857E *target)
 {
 	m_target = target;

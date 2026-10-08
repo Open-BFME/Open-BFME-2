@@ -133,7 +133,8 @@ struct AudioEventInfo {
     char at0C[0x44 - 0x0C];
     int m_priority;                          // +0x44
     unsigned int m_type;                     // +0x48, bit 3 global
-    char at4C[0x90 - 0x4C];
+    unsigned int m_control;                  // +0x4C, Zero Hour's AudioControl bits (AC_LOOP = 1)
+    char at50[0x90 - 0x50];
     float m_at90;                            // +0x90, occlusion factor when positive
     float m_maxDistance;                     // +0x94
     float m_minDistance;                     // +0x98
@@ -157,6 +158,9 @@ public:
     // Inline in WorldBuilder too (its twin copies the read into a temp);
     // putFileIntoLoopBuffer's first reads go through it into a register.
     int getNextPlayPortion(void) const { return m_portionToPlayNext; }
+    // Inline getter (WorldBuilder calls it on the +0x08 reference); the
+    // loop-buffer refill's decay test reads through it.
+    const AudioEventInfo *getAudioEventInfo(void) const { return m_info; }
     char at00[0x08];
     AudioEventInfo *m_info;  // +0x08 (owning ref in WB)
     int m_playingHandle;     // +0x0C, copied into a requeued loop's request
@@ -196,7 +200,8 @@ struct MilesSoundInfo {
     int m_format;                        // +0x00
     const void *m_dataPtr;               // +0x04, AILSOUNDINFO data_ptr
     unsigned int m_dataLen;              // +0x08, AILSOUNDINFO data_len
-    char at0C[0x14 - 0x0C];
+    unsigned int m_rate;                 // +0x0C
+    unsigned int m_bits;                 // +0x10
     int m_channels;                      // +0x14
     char at18[0x24 - 0x18];
 };
@@ -205,6 +210,8 @@ struct OpenAudioFile {
     char at04[0x08 - 0x04];
     MilesSoundInfo m_soundInfo;          // +0x08
     void *m_fileImage;                   // +0x2C
+    char at30[0x3C - 0x30];
+    int m_at3C;                          // +0x3C, re-requested by name while below 2
 };
 
 // Release-then-null holder at PlayingAudio +0x20 (ledger 0x000A8A6C); its
@@ -332,6 +339,26 @@ public:
 private:
     void *m_target;
 };
+// A ready file the handle hands out (WorldBuilder: AudioFileContainer, its
+// ctor asserting assertFileIsReady at 0x0077B650). It has its own ctor/dtor
+// pair in WorldBuilder (0x008E4730/0x008E47B0); retail folds the destructor
+// with the handle's (0x000A8A37).
+class AudioFileContainer {
+public:
+    AudioFileContainer();
+    ~AudioFileContainer();
+    bool isValid(void) const { return m_target != 0; }
+    operator const Rva00691040Handle &() const { return *reinterpret_cast<const Rva00691040Handle *>(this); }
+    const AsciiString &getFileName(void) const { return m_target ? m_target->m_fileName : AsciiString::TheEmptyString; }
+    const MilesSoundInfo *getMilesSoundInfo(void) const { return m_target ? &m_target->m_soundInfo : 0; }
+    void *getFileImage(void) const { return m_target ? m_target->m_fileImage : 0; }
+private:
+    OpenAudioFile *m_target;
+};
+// Retail folds it with the other empty-pointer constructors at 0x00326BE6.
+AudioFileContainer::AudioFileContainer() : m_target(0)
+{
+}
 class Rva00690FF0Handle {
 public:
     Rva00690FF0Handle();
@@ -341,13 +368,24 @@ public:
     const AsciiString &getFileName(void) const { return m_target ? m_target->m_fileName : AsciiString::TheEmptyString; }
     const MilesSoundInfo *getMilesSoundInfo(void) const { return m_target ? &m_target->m_soundInfo : 0; }
     void *getFileImage(void) const { return m_target ? m_target->m_fileImage : 0; }
+    int getAt3C(void) const { return m_target ? m_target->m_at3C : 0; }
+    AudioFileContainer rva000A89E3(void) const;  // a new reference once ready (0x000A89E3)
 private:
     OpenAudioFile *m_target;
 };
+// WorldBuilder names both overloads requestFile (MilesAudioCache.cpp); the
+// by-name one (0x000A7EFA) clamps its priority argument to 0..2.
 class AudioFileCache {
 public:
     Rva00690FF0Handle requestFile(const BfmePoolRef10 &event, int shortSound);
+    Rva00690FF0Handle requestFile(const AsciiString &fileName, int priority);
 };
+// The file handle's ready (+0x44) and failed (+0x4C) checks, rowed at
+// 0x00050DBD and 0x00050DD0 under address-derived names.
+class Rva00050DBD { public: bool rva00050DBD(); };
+class Rva00050DD0 { public: bool rva00050DD0(); };
+// Plain dword setter at +0x74 (0x002D94FE), i.e. the event's next play portion.
+class Rva002D94FEDwordSlot { public: void set(int value); };
 
 // Request gate rowed at 0x0005E13C under address-derived names.
 struct Rva0005E13CArg;
@@ -761,9 +799,9 @@ public:
     struct LoopBuffer;
 
     // WorldBuilder name; refills a loop buffer's play buffer up to position.
-    void transferBytesToPlayBuffer(LoopBuffer *buffer, unsigned int position);
+    void transferBytesToPlayBuffer(LoopBuffer &buffer, unsigned int position);
     // WorldBuilder name; binds a cached file to a loop buffer.
-    void putFileIntoLoopBuffer(LoopBuffer *buffer, const Rva00690FF0Handle &file, int arg);
+    void putFileIntoLoopBuffer(LoopBuffer *buffer, const AudioFileContainer &file, int arg);
     void rva0005EFE9(void);
     void putPlayingMusicOnStack(int viewType, int arg);
     void rva00059CE6(PlayingAudioRef &looping);
@@ -860,13 +898,13 @@ struct MilesAudioManager::LoopBuffer {
     bool m_at10;                         // +0x10
     PlayingAudio *m_playingAudio;        // +0x14
     unsigned char *m_at18;               // +0x18, freed with delete[]
-    unsigned int m_at1C;                 // +0x1C
+    unsigned int m_playBufferSize;       // +0x1C (WB assert name)
     Rva00690FF0Handle m_at20;            // +0x20
     Rva00690FF0Handle m_at24;            // +0x24
     Rva00690FF0Handle m_at28;            // +0x28
     unsigned int m_at2C;                 // +0x2C
     unsigned int m_at30;                 // +0x30
-    unsigned int m_at34;                 // +0x34
+    unsigned int m_endOfLastCopy;        // +0x34 (WB assert name)
     unsigned int m_at38;                 // +0x38
     unsigned int m_at3C;                 // +0x3C
     unsigned int m_at40;                 // +0x40
@@ -877,8 +915,8 @@ struct MilesAudioManager::LoopBuffer {
 // vector constructor iterator: an empty, invalid 3D buffer.
 MilesAudioManager::LoopBuffer::LoopBuffer()
     : m_isValid(false), at01(0), m_is3D(true), at03(0), m_3DSample(0), m_sample(0),
-      m_at10(false), m_playingAudio(0), m_at18(0), m_at1C(0),
-      m_at2C(0), m_at30(0), m_at34(0), m_at38(0), m_at3C(0), m_at40(0), m_at44(false)
+      m_at10(false), m_playingAudio(0), m_at18(0), m_playBufferSize(0),
+      m_at2C(0), m_at30(0), m_endOfLastCopy(0), m_at38(0), m_at3C(0), m_at40(0), m_at44(false)
 {
 }
 
@@ -907,7 +945,7 @@ void deleteLoopBuffers(MilesAudioManager::LoopBuffer *loopBuffers)
 // Retail 0x0005E98E (WorldBuilder twin 0x0077B150): steps the source event's
 // play portion, queues the next portion's file, then binds file to the play
 // buffer: its sound data runs from m_at30 to m_at2C within m_at20's image.
-void MilesAudioManager::putFileIntoLoopBuffer(LoopBuffer *buffer, const Rva00690FF0Handle &file, int arg)
+void MilesAudioManager::putFileIntoLoopBuffer(LoopBuffer *buffer, const AudioFileContainer &file, int arg)
 {
     BfmePoolRef10 &source = (BfmePoolRef10 &)buffer->m_source;
     source->m_at50 = true;
@@ -930,6 +968,113 @@ void MilesAudioManager::putFileIntoLoopBuffer(LoopBuffer *buffer, const Rva00690
     buffer->m_at30 = (const char *)soundInfo->m_dataPtr - (const char *)buffer->m_at20.getFileImage();
     buffer->m_at2C = soundInfo->m_dataLen + buffer->m_at30;
     rva0005DB6C(file.getFileName());
+}
+
+// Retail 0x0005EC7A (WorldBuilder twin 0x0077D5F0, names from its asserts):
+// fills the play buffer from m_endOfLastCopy up to position, zero filling once
+// the event is done and switching to the decay or next primary file whenever
+// the bound one runs out; gives up after 15 tries.
+void MilesAudioManager::transferBytesToPlayBuffer(LoopBuffer &buffer, unsigned int position)
+{
+    const int MAX_TRIES = 15;
+    int tries = 0;
+    bool done;
+    do {
+        done = true;
+        ++tries;
+        int bytesToCopy = position - buffer.m_endOfLastCopy;
+        if (bytesToCopy <= 0)
+            return;
+        if (tries == MAX_TRIES) {
+            ((Rva000A8A6C *)&buffer.m_at20)->rva000A8A6C();
+            return;
+        }
+        if (!buffer.m_at20.isValid()) {
+            BfmePoolRef10 &source = (BfmePoolRef10 &)buffer.m_source;
+            if (source->m_portionToPlayNext == 3) {
+                memset(buffer.m_at18 + buffer.m_endOfLastCopy, 0, bytesToCopy);
+                buffer.m_endOfLastCopy = position;
+                if (buffer.m_endOfLastCopy >= buffer.m_playBufferSize) {
+                    buffer.m_endOfLastCopy = 0;
+                    buffer.m_at44 = true;
+                }
+            } else {
+                if (source->m_portionToPlayNext == 2) {
+                    if (((Rva00050DBD *)&buffer.m_at28)->rva00050DBD()) {
+                        source->m_at50 = true;
+                        putFileIntoLoopBuffer(&buffer, buffer.m_at28.rva000A89E3(), 1);
+                    } else if (!buffer.m_at28.isValid()) {
+                        reinterpret_cast<Rva00691040Handle &>(buffer.m_at28) = m_audioFileCache->requestFile(source, 2);
+                        if (((Rva00050DBD *)&buffer.m_at28)->rva00050DBD())
+                            putFileIntoLoopBuffer(&buffer, buffer.m_at28.rva000A89E3(), 1);
+                    } else if (((Rva00050DD0 *)&buffer.m_at28)->rva00050DD0()) {
+                        ((Rva002D94FEDwordSlot *)source.operator->())->set(3);
+                    } else if (buffer.m_at28.getAt3C() < 2) {
+                        reinterpret_cast<Rva00691040Handle &>(buffer.m_at28) =
+                            m_audioFileCache->requestFile(buffer.m_at28.getFileName(), 2);
+                    }
+                } else if (source->m_portionToPlayNext != 3) {
+                    if (((Rva00050DD0 *)&buffer.m_at24)->rva00050DD0()) {
+                        source->m_at50 = true;
+                        source->rva002D9ADC();
+                        reinterpret_cast<Rva00691040Handle &>(buffer.m_at24) = m_audioFileCache->requestFile(source, 2);
+                    } else if (!((Rva00050DBD *)&buffer.m_at24)->rva00050DBD() && buffer.m_at24.getAt3C() < 2) {
+                        reinterpret_cast<Rva00691040Handle &>(buffer.m_at24) =
+                            m_audioFileCache->requestFile(buffer.m_at24.getFileName(), 2);
+                    }
+                }
+                if (((Rva00050DBD *)&buffer.m_at24)->rva00050DBD()) {
+                    bool usePrimary;
+                    switch (source->getNextPlayPortion()) {
+                    case 2:
+                        usePrimary = !buffer.m_at20.isValid() && (source->getAudioEventInfo()->m_control & 1);
+                        break;
+                    case 3:
+                        usePrimary = false;
+                        break;
+                    default:
+                        usePrimary = true;
+                        break;
+                    }
+                    if (usePrimary)
+                        putFileIntoLoopBuffer(&buffer, buffer.m_at24.rva000A89E3(), 0);
+                }
+                if (buffer.m_at20.isValid()) {
+                    const MilesSoundInfo *info = buffer.m_at20.getMilesSoundInfo();
+                    if (info->m_bits != buffer.m_at3C)
+                        buffer.m_at30 = buffer.m_at2C;
+                    if (info->m_rate != buffer.m_at38)
+                        buffer.m_at30 = buffer.m_at2C;
+                    if (info->m_channels != buffer.m_at40)
+                        buffer.m_at30 = buffer.m_at2C;
+                }
+            }
+        }
+        if (buffer.m_at20.isValid()) {
+            int bytesLeftInCurrentFile = buffer.m_at2C - buffer.m_at30;
+            if (bytesLeftInCurrentFile > 0)
+                memcpy(buffer.m_at18 + buffer.m_endOfLastCopy,
+                       (char *)buffer.m_at20.getFileImage() + buffer.m_at30,
+                       _STL::min(bytesToCopy, bytesLeftInCurrentFile));
+            if (bytesToCopy < bytesLeftInCurrentFile) {
+                buffer.m_at30 += bytesToCopy;
+                buffer.m_endOfLastCopy = position;
+                if (buffer.m_endOfLastCopy >= buffer.m_playBufferSize) {
+                    buffer.m_endOfLastCopy = 0;
+                    buffer.m_at44 = true;
+                }
+            } else {
+                buffer.m_at30 += bytesLeftInCurrentFile;
+                done = false;
+                buffer.m_endOfLastCopy += bytesLeftInCurrentFile;
+                if (buffer.m_endOfLastCopy >= buffer.m_playBufferSize) {
+                    buffer.m_endOfLastCopy = 0;
+                    buffer.m_at44 = true;
+                }
+                ((Rva000A8A6C *)&buffer.m_at20)->rva000A8A6C();
+            }
+        }
+    } while (!done);
 }
 
 class File;
@@ -994,20 +1139,20 @@ void MilesAudioManager::rva0005EFE9(void)
                     reinterpret_cast<Rva00691040Handle &>(buffer->m_at28) = m_audioFileCache->requestFile(source, 1);
             }
             unsigned int position = ((Rva00050FFD *)buffer)->rva00050FFD();
-            if (position >= buffer->m_at1C)
+            if (position >= buffer->m_playBufferSize)
                 position = 0;
             bool wasFull = buffer->m_at44;
             bool keepGoing = true;
-            if (position > buffer->m_at34) {
-                transferBytesToPlayBuffer(buffer, position);
-            } else if (position < buffer->m_at34) {
-                transferBytesToPlayBuffer(buffer, buffer->m_at1C);
-                if (buffer->m_at34 == 0) {
+            if (position > buffer->m_endOfLastCopy) {
+                transferBytesToPlayBuffer(*buffer, position);
+            } else if (position < buffer->m_endOfLastCopy) {
+                transferBytesToPlayBuffer(*buffer, buffer->m_playBufferSize);
+                if (buffer->m_endOfLastCopy == 0) {
                     if (!buffer->m_at20.isValid() && source->m_portionToPlayNext == 3) {
                         ((Rva00051017 *)buffer)->rva00051017(1);
                         keepGoing = false;
                     } else {
-                        transferBytesToPlayBuffer(buffer, position);
+                        transferBytesToPlayBuffer(*buffer, position);
                     }
                 }
             }
