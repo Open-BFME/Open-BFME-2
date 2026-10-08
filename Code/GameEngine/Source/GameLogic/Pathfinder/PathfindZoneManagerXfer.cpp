@@ -76,7 +76,11 @@ public:
 	void rva00531BA7(Xfer *);
 	void rva00531ABB(unsigned short);
 	unsigned short capacity, first;
-	char unknown04[16];
+	unsigned short *parents;
+ unsigned char *ranks;
+ unsigned short *next, *last;
+ unsigned short rva00531AEE(unsigned short);
+ void rva00531B3A(unsigned short);
 };
 class Rva00531E14
 {
@@ -304,4 +308,22 @@ case 5:
  break;
 }
  return true;
+}
+
+// Whole native109B531B3A..531BA7 and WB12D3B00 establish set reset.
+// FindSet531AEE chooses the first member; each cyclic member becomes its
+// own parent/next/last with rank0. WB uses a32-bit following index, then
+// narrows when advancing the16-bit member; this reproduces native peeling.
+// Original reset method name remains unknown; no getter identity inferred.
+void Rva00531A44::rva00531B3A(unsigned short n) {
+ n = rva00531AEE(n);
+ do {
+  int following = next[n];
+  last[n] = n;
+  next[n] = n;
+  parents[n] = n;
+  ranks[n] = 0;
+  if (following == n) break;
+  n = (unsigned short)following;
+ } while (true);
 }
