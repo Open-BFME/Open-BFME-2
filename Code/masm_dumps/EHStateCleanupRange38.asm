@@ -1868,6 +1868,19 @@ cleanup_done_007949c5:
     ret
 ?rva007949c5@@YAXXZ ENDP
 
+; Unwind@00b94a82 at RVA 0x00794A82; 22-byte body ends at RET.
+PUBLIC ?rva00794a82@@YAXXZ
+?rva00794a82@@YAXXZ PROC
+    push 0090EB02h
+    push 7
+    push 8
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 24h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00794a82@@YAXXZ ENDP
+
 ; Unwind@00b94adc at RVA 0x00794ADC; 25-byte state-bit cleanup ends at RET.
 ; Retail tests and clears bit 0 at [ebp-16]; uses LEA from [ebp-20] only when set.
 ; The tail-jump target is a matched function at RVA 0x0048BA39; parent identity/layout remain unproven.
@@ -2093,6 +2106,18 @@ cleanup_done_0079619c:
     ret
 ?rva0079619c@@YAXXZ ENDP
 
+; Unwind@00b962c3 at RVA 0x007962C3; 22-byte masked-add funclet tail-jumps to dtor.
+PUBLIC ?rva007962c3@@YAXXZ
+?rva007962c3@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-20]
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 27Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Rva004444D2@@UAE@XZ
+?rva007962c3@@YAXXZ ENDP
+
 ; Unwind@00b961b5 at RVA 0x007961B5; 25-byte state-bit cleanup ends at RET.
 ; Retail tests and clears bit 1 at [ebp-20]; uses LEA from [ebp-36] only when set.
 ; The tail-jump target is a matched function at RVA 0x005B804E; parent identity/layout remain unproven.
@@ -2297,6 +2322,45 @@ PUBLIC ?rva00793312@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva00793312@@YAXXZ ENDP
+
+; Unwind@00b93328 at RVA 0x00793328; 22-byte body ends at RET.
+PUBLIC ?rva00793328@@YAXXZ
+?rva00793328@@YAXXZ PROC
+    push 008F9630h
+    push 2
+    push 0Ch
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 24h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00793328@@YAXXZ ENDP
+
+; Unwind@00b93387 at RVA 0x00793387; 22-byte body ends at RET.
+PUBLIC ?rva00793387@@YAXXZ
+?rva00793387@@YAXXZ PROC
+    push 008F7D7Fh
+    push 2
+    push 0Ch
+    mov eax, DWORD PTR [ebp-28]
+    add eax, 0Ch
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00793387@@YAXXZ ENDP
+
+; Unwind@00b9339d at RVA 0x0079339D; 22-byte body ends at RET.
+PUBLIC ?rva0079339d@@YAXXZ
+?rva0079339d@@YAXXZ PROC
+    push 008F9630h
+    push 2
+    push 0Ch
+    mov eax, DWORD PTR [ebp-28]
+    add eax, 24h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0079339d@@YAXXZ ENDP
 
 ; Unwind@00b93a65 at RVA 0x00793A65; target byte boundary is 25 bytes.
 ; State bit 0 gates [ebp-5c] cleanup through RVA 0x0048BA39; parent
