@@ -1,14 +1,17 @@
-// ?rva004FF207@Rva004FF207@@QAEXXZ
-// partial score=0.92 date=2026-10-07
+// ?rva002BEDCA@Rva002D3627Host@@QAEHPBUCoord3D@@M@Z
+// partial score=0.8 date=2026-10-07
 // ?d_004ff207@@YAXXZ
 // partial score=0.86 date=2026-10-07
-// cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD /ICode/Libraries/Include/Lib
+// cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // Native 004FF207..004FF28E, 135B, RET0. The receiver forwards its
 // record +28 to the rowed manager helper, then uses the record's XY and
 // two floats in a camera-like singleton's four-word virtual slot +9C.
 // Original receiver, method and record names remain unknown.
 #include "Coord3D.h"
 #include "Coord2D.h"
+#include "wwmath.h"
+#include <math.h>
+extern int g_009BA4E8;
 
 struct Rva004FF207Point : Coord3D
 {
@@ -28,8 +31,7 @@ struct Rva004FF207Record {
 class Rva003EE980 { public: void rva003EE980(int); };
 class LivingWorldManager {
 public:
-	char unknown00[0x268];
-	Rva003EE980 *member268;
+	struct Settings {char pad[0x1bc];float rate0;char pad1c0[4];float rate1,limit;};char unknown00[0x14];Settings settings;char pad1e0[0x88];Rva003EE980 *member268;
 };
 extern LivingWorldManager *TheLivingWorldManager;
 class Rva002D3627Host {
@@ -59,11 +61,11 @@ public:
 	virtual void slot22();
 	virtual void slot23();
 	virtual void slot24();
-	virtual void slot25();
+	virtual float slot25();
 	virtual void slot26();
 	virtual void slot27();
 	virtual void slot28();
-	virtual void slot29();
+	virtual void slot29(Coord3D*);
 	virtual void slot30();
 	virtual void slot31();
 	virtual void slot32();
@@ -85,11 +87,13 @@ private:
 	Rva004FF207Record *record;
 };
 
-void Rva004FF207::rva004FF207()
-{
-	TheLivingWorldManager->member268->rva003EE980(reinterpret_cast<int>(record));
-	Rva004FF207Point point = record->point.point();
-	Coord2D values;values.y=record->values.y;values.x=record->values.x;
-	g_00DFEF18->slot39(&point, values.x, values.y,
-		g_00DFEF18->rva002BEDCA(&point, record->values.y));
+int Rva002D3627Host::rva002BEDCA(const Coord3D *target,float value) {
+ Coord3D current; slot29(&current);
+ float x=current.x-target->x,y=current.y-target->y,z=current.z-target->z;
+ float distance=WWMath::Sqrt(z*z+y*y+x*x)/TheLivingWorldManager->settings.rate1;
+ const LivingWorldManager::Settings &settings=TheLivingWorldManager->settings;
+ float magnitude=(float)fabs((double)(slot25()-value));float change=magnitude/settings.rate0*0.03333333507180214f;
+ const float &longer=change>distance ? change:distance;
+ float time=WWMath::Clamp(longer,0.0f,settings.limit);
+ return (int)((double)g_009BA4E8*time);
 }
