@@ -48,6 +48,13 @@ private:
 	bool m_headerOpened;
 };
 
+// The read() consumer naturally emits the unsigned-reference instantiation.
+// Its complete native leaf is 0x9FDE5..0x9FDF5 (16B): load two referents,
+// unsigned compare, select the second address when first<=second, RET0.
+// The previous minimum leaf ends at 0x9FDE4 and the following function starts
+// at 0x9FDF5. BFME1 9cbfb551fe20dae985f91f2319d8997287b6a705's Common
+// donor sweep agrees under O1/SSE/G7. Native proves this reference/tie contract;
+// the global template name comes from the already compiled semantic provider.
 template <typename T>
 inline const T &max(const T &a, const T &b)
 {
