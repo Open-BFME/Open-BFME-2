@@ -17,10 +17,33 @@ struct Rva004AF531Rec
 	Rva004AF531Rec(int key) : m_key(key), m_a(0), m_b(0), m_one(1.0f), m_flag(0) {}
 };
 
+struct RespawnRule
+{
+ unsigned level;
+ unsigned cost;
+ int time;
+ float health;
+ bool autoSpawn;
+ RespawnRule(unsigned ruleLevel=1):level(ruleLevel),cost(0),time(0),health(1.0f),autoSpawn(false) {}
+};
+class BFME2RespawnRuleTree
+{
+public:
+ void *find(const unsigned &key) const;
+ void *sentinel;
+};
+struct RespawnRuleNode
+{
+ char prefix[0x10];
+ RespawnRule rule;
+};
+extern float g_parseDurationMsecScale;
+
 class Rva004AF531
 {
 public:
 	int rva004AF531(int key);
+ int rva004AF5AC(unsigned level);
 	char m_pad[0x10C];
 	_STL::map<int, void *> m_map;
 };
@@ -38,4 +61,24 @@ int Rva004AF531::rva004AF531(int key)
 			return 1000;
 	}
 	return (int)(*it).second;
+}
+
+// Native4AF5AC..4AF63E: rule lookup with level1 fallback, node time
+// at18 divided by1000. The target uses the same20-byte rule construction
+// as rowed RespawnUpdate::triggerDeathBeforeRespawn4AF63E. Native shared
+// duration scale DBA4EC=0.005 and literal C556F0=30000 supply the miss.
+// Receiver original identity remains unknown; respawn-family relation
+// follows the shared tree at10C, rule layout and adjacent death handler.
+int Rva004AF531::rva004AF5AC(unsigned level)
+{
+ RespawnRule rule(level);
+ BFME2RespawnRuleTree *rules=(BFME2RespawnRuleTree *)&m_map;
+ RespawnRuleNode *found=(RespawnRuleNode *)rules->find(rule.level);
+ RespawnRuleNode *end=(RespawnRuleNode *)rules->sentinel;
+ if(found==end) {
+  rule.RespawnRule::RespawnRule(1);
+  found=(RespawnRuleNode *)rules->find(rule.level);
+  if(found==end) return (int)(g_parseDurationMsecScale * 30000.0f);
+ }
+ return found->rule.time / 1000;
 }
