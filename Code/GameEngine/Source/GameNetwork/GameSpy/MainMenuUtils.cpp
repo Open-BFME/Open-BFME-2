@@ -228,3 +228,44 @@ template <> _STL::_List_node<QueuedDownload> *_STL::list<QueuedDownload>::_M_cre
  _STL::_Construct(&p->_M_data,x);return p;
 }
 template _STL::list<QueuedDownload>::iterator _STL::list<QueuedDownload>::insert(_STL::list<QueuedDownload>::iterator,const QueuedDownload &);
+
+// BFME1 MainMenu downloader donor and WB158C240 source identity.
+// Native5BD0A7..5BD1F1 is the complete330-byte body. Named copy131 and
+// owned download/list providers preserve the native queue draining order.
+extern template void _STL::list<QueuedDownload>::pop_front();
+class DownloadManager {public:
+ void queueFileForDownload(AsciiString,AsciiString,AsciiString,AsciiString,AsciiString,AsciiString,bool);
+ long downloadNextQueuedFile();
+};
+extern DownloadManager *TheDownloadManager;
+class WindowLayout {public:
+ virtual void runInit(void *);
+ virtual void slot04();virtual void slot08();virtual void slot0C();
+ virtual void hide(bool);virtual void bringForward();
+};
+class GameWindowManager {public:
+#define SLOT(N) virtual void slot##N();
+ SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07) SLOT(08) SLOT(09)
+ SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18) SLOT(19)
+ SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30) SLOT(31)
+#undef SLOT
+ virtual WindowLayout *winCreateLayout(AsciiString);
+};
+extern GameWindowManager *TheWindowManager;
+void Rva00516E92Enable();
+void StartDownloadingPatches()
+{
+ if(downloads.empty()){Rva00516E92Enable();return;}
+ WindowLayout *layout=TheWindowManager->winCreateLayout("Menus/DownloadMenu.wnd");
+ layout->runInit(0);layout->hide(false);layout->bringForward();
+ Rva00516E92Enable();
+ if(!TheDownloadManager)return;
+ _STL::list<QueuedDownload>::iterator it=downloads.begin();
+ while(it!=downloads.end()){
+  QueuedDownload q=*it;
+  TheDownloadManager->queueFileForDownload(q.server,q.userName,q.password,q.file,q.localFile,q.regKey,q.tryResume);
+  downloads.pop_front();it=downloads.begin();
+ }
+ TheDownloadManager->downloadNextQueuedFile();
+}
+
