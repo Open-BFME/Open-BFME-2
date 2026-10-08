@@ -66,3 +66,22 @@ void Rva0055C18BWriteHeader(const void *self, File *file, unsigned int *flags)
 	Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
 	*flags += 2;
 }
+
+// Retail 0x0055B65D/216: the same module-header writer for category 1.
+// Its own +4 virtual class view, +4 name access, GetKey(1), stream calls,
+// temporary string cleanup and indentation increment establish the behavior.
+// WorldBuilder's corresponding body independently follows that same sequence;
+// the original owning module type and method name remain unresolved.
+void Rva0055B65DWriteHeader(const void *self, File *file, unsigned int *flags)
+{
+	_STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
+	const char *value = ((ModuleClassView *)((unsigned char *)self + 4))->getClass()->name;
+	const char *key = FXParticleSystem::GetKey((FXParticleSystem::ModuleCategory)1);
+	_STL::basic_ostream<char, _STL::char_traits<char> > &r = Rva001F6951Pad(oss, (unsigned int)*flags);
+	r._M_put_nowiden(key);
+	r._M_put_nowiden(" = ");
+	r._M_put_nowiden(value);
+	r._M_put_char('\n');
+	Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
+	*flags += 2;
+}
