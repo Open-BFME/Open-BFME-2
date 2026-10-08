@@ -1,24 +1,16 @@
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
+struct BfmePod28 {int a[7];};
 namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
+template<class It,class T> It __find(It first,It last,T val,const random_access_iterator_tag &);
 }
+BfmePod28 *Rva0021618AFind(BfmePod28 *first,BfmePod28 *last,int key) {
+ typedef BfmePod28 *(*FindByValue)(BfmePod28 *,BfmePod28 *,int,const _STL::random_access_iterator_tag &);
+ FindByValue find=&_STL::__find<BfmePod28 *,int>;
+ return find(first,last,key,_STL::random_access_iterator_tag());
 }
-#pragma optimize("", on)
 
-#include <algorithm>
-#include <memory>
-
-
-
-struct Rva0021618ARecord {  char bytes[1]; bool operator<(const Rva0021618ARecord&)const; };
-template void _STL::stable_sort(Rva0021618ARecord*,Rva0021618ARecord*);
+// Target evidence: WB B6FF20 and native21618A..2161A5 call existing28-byte record search215F83 with begin end and by-value key plus iterator tag; prior fill identity refuted by WB and native search; no writes or count argument.
+// The record view models only seven native words; original field names
+// and source-level template spelling remain unknown.

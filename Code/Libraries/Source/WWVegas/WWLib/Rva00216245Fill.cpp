@@ -1,32 +1,16 @@
-// cl: /O1 /arch:SSE /G7 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// ?rva00216245@Rva00216245@@QAEPAURva0021618ARecord@@ABU2@@Z @0x00216245 34B. STL helper is rowed; field offsets come from retail operands.
-// stlport
-struct Rva0021618ARecord
-{
-	char bytes[1];
-	bool operator<(const Rva0021618ARecord &) const;
+// cl: /O1 /G7 /arch:SSE /MD
+struct BfmePod28 {int a[7];};
+BfmePod28 *Rva0021618AFind(BfmePod28 *,BfmePod28 *,int);
+class Rva00216245 {
+public:BfmePod28 *rva00216245(int key);
+private:unsigned char m_pad[0x28];BfmePod28 *m_begin,*m_end;
 };
-
-namespace _STL
-{
-	template <class ForwardIter, class Size, class T>
-	ForwardIter uninitialized_fill_n(ForwardIter first, Size count, const T &value);
+BfmePod28 *Rva00216245::rva00216245(int key) {
+ BfmePod28 *end=m_end;
+ BfmePod28 *found=Rva0021618AFind(m_begin,end,key);
+ return found!=end ? found : 0;
 }
 
-class Rva00216245
-{
-public:
-	Rva0021618ARecord *rva00216245(const Rva0021618ARecord &value);
-
-private:
-	char m_pad00[0x28];
-	Rva0021618ARecord *m_data;
-	int m_count;
-};
-
-Rva0021618ARecord *Rva00216245::rva00216245(const Rva0021618ARecord &value)
-{
-	int count = m_count;
-	Rva0021618ARecord *end = _STL::uninitialized_fill_n(m_data, count, value);
-	return (int)end != count ? end : 0;
-}
+// Target evidence: WB B6ED70 and BannerUI caller2166BB establish28-byte banner entry lookup; begin28 end2C and by-value integer key from native216245..216267; return found unless end; retained unknown method name; prior fill ABI corrected.
+// The record view models only seven native words; original field names
+// and source-level template spelling remain unknown.

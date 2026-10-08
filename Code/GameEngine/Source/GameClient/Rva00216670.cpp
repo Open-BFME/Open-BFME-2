@@ -5,12 +5,11 @@
 // Evidence: callee 0x00216517 rowed int-return firer; callers 0x0052A2F4 0x0052A52B 0x0052AB56; literal SetBannerXOffset; global TheRva00222A8BTarget 0x009FE4CC.
 class Rva00222A8BTarget;
 
-struct Rva0021618ARecord;
 struct BfmePod28 { int a[7]; };
 
+BfmePod28 *Rva0021618AFind(BfmePod28 *first,BfmePod28 *last,int key);
+
 namespace _STL {
-template <class _ForwardIter, class _Size, class _Tp>
-_ForwardIter uninitialized_fill_n(_ForwardIter first, _Size count, const _Tp &value);
 
 template <class T> class allocator {};
 template <class T, class A> class vector {
@@ -39,10 +38,10 @@ class BannerUI
 	BfmePod28 *m_itemsBegin;
 	BfmePod28 *m_itemsEnd;
 	char m_pad30[0x0C];
-	float m_values3C[4];
+	float m_values3C[2]; // native21725B..21726F initializes3C..44 only
 public:
 	void SetBannerSlotXOffset(unsigned int index, float value);
-	void RemoveBanner(void *value);
+	void RemoveBanner(int value);
 };
 
 void BannerUI::SetBannerSlotXOffset(unsigned int index, float value)
@@ -57,16 +56,16 @@ void BannerUI::SetBannerSlotXOffset(unsigned int index, float value)
 
 // The target's literal at 0x00BE58A0 is "DeleteBanner". It uses the same
 // owner field at +0x24 and adjacent container view at +0x28 as SetBannerSlotXOffset.
-// The record identity and the meaning of the +0x2C endpoint remain unresolved.
-void BannerUI::RemoveBanner(void *value)
+// WB B6E700 calls this RemoveBanner and asserts that the handle exists.
+// Native216621..216670 searches28-byte records by the by-value integer
+// handle, fires DeleteBanner, and erases the matching iterator. The former
+// fill/count/reference ABI was refuted by the same WB/native search chain.
+void BannerUI::RemoveBanner(int value)
 {
 	BfmePod28 *end = m_itemsEnd;
-	Rva0021618ARecord *newEnd = _STL::uninitialized_fill_n(
-		(Rva0021618ARecord *)m_itemsBegin,
-		(int)end,
-		*(Rva0021618ARecord *)value);
-	bool alreadyAtEnd = newEnd == (Rva0021618ARecord *)end;
-	Rva0021618ARecord * volatile savedEnd = newEnd;
+	BfmePod28 *newEnd = Rva0021618AFind(m_itemsBegin,end,value);
+	bool alreadyAtEnd = newEnd == end;
+	BfmePod28 * volatile savedEnd = newEnd;
 	if (!alreadyAtEnd) {
 		Rva002162CFInvoke((Rva00222A8BTarget *)g_bfmeAptWindowManager,
 			m_owner24, "DeleteBanner", *(const unsigned int *)&value);
