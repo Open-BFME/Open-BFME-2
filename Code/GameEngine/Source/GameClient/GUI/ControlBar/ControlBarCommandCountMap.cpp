@@ -23,3 +23,4 @@ template void CountTree::_M_erase(_STL::_Rb_tree_node<CountValue> *);
 
 
 template void CountTree::clear();
+template CountTree::~_Rb_tree();
