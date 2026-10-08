@@ -328,3 +328,77 @@ bool AIUnitBuilder::Rva00598738(const AsciiString *name)
  }
  return Rva005982EA(name,&excluded,false)!=0;
 }
+
+// Existing Armor-valued provider is a read-only key-lookup ABI view; no
+// construction or mapped ArmorTemplate access occurs for the float table.
+class ArmorTemplate;
+namespace rts { template<class T> struct hash; template<class T>struct equal_to; }
+namespace _STL {
+template<class V> struct _Hashtable_node;
+struct ArmyFindNodePrefix {ArmyFindNodePrefix *next;unsigned int key;};
+template<class V,class K,class H,class X,class E,class A> class hashtable {
+ friend class ::AIUnitBuilder;
+ friend class ::Rva004DFBED;
+ unsigned int unknown00;
+ vector<_Hashtable_node<V>*> buckets;
+ unsigned int unknown10;
+ template<class T> __declspec(noinline) _Hashtable_node<V> *_M_find(const T &key) const {
+  unsigned int bucket=(unsigned int)key%buckets.size();
+  ArmyFindNodePrefix *node=(ArmyFindNodePrefix*)buckets[bucket];
+  for(;node;node=node->next) if(node->key==(unsigned int)key) break;
+  return (_Hashtable_node<V>*)node;
+ }
+};
+}
+typedef _STL::pair<const NameKeyType,ArmorTemplate> ArmyLookupProviderValue;
+typedef _STL::hashtable<ArmyLookupProviderValue,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<ArmyLookupProviderValue>,rts::equal_to<NameKeyType>,_STL::allocator<ArmyLookupProviderValue> > ArmyLookupProvider;
+struct ArmyPercentageNodeView {void *next;NameKeyType key;float percentage;};
+class Rva00598016 {public:void *rva00598016();};
+class Rva002A7461 {public:int rva002A7461();};
+struct BuildableTemplateQuantityView {char pad[0x618];int quantity;};
+// Retail calls the canonical empty vector-header provider (BfmeE16 at211E58)
+// and the existing ModuleData pointer-vector push provider (4DFCB0).
+// The empty POD vector owns only the12-byte header; selected AsciiString
+// pointers use the independently verified4-byte pointer-storage view.
+// No BfmeE16 or ModuleData element identity is attributed to these names.
+struct BfmeE16 {float x,y,z,w;};
+class ModuleData;
+
+// Identity: WB152DCA0 and native filename/assert399; names from config160,
+// quantities from template618, player capacity at60, pending build list14.
+// Native hash lookup reads node key4 and percentage8; unrelated fields opaque.
+AsciiString AIUnitBuilder::decideWhichTemplateToMake()
+{
+ _STL::vector<BfmeE16> storage;
+ _STL::vector<const ModuleData*> &candidates=*(_STL::vector<const ModuleData*>*)&storage;
+ Rva00598961Config *config=((Rva00598007*)this)->rva00598007()->config160;
+ for (_STL::vector<AsciiString*>::iterator i=config->unitNames.begin();i!=config->unitNames.end();++i) {
+  AsciiString *name=*i;
+  if (!Rva00598738(name)) continue;
+  BuildableTemplateQuantityView *thing=(BuildableTemplateQuantityView*)TheThingFactory->rva002D06CA(name);
+  int count=((Rva004DFBED*)((Rva00598016*)this)->rva00598016())->rva004DFBED(*name);
+  for (_STL::list<Rva00598C3AItem*>::iterator j=m_items.begin();j!=m_items.end();++j)
+   if (((StringBase<char>*)&(*j)->name0C)->compare(*(StringBase<char>*)name)==0) ++count;
+  float percentage=(float)(thing->quantity*count)/(float)((Rva002A7461*)((char*)m_30+0x60))->rva002A7461()*100.0f;
+  NameKeyType key=TheNameKeyGenerator->nameToKey(*name);
+  const ArmyLookupProvider &lookup=*(const ArmyLookupProvider*)m_pad18;
+  ArmyPercentageNodeView *node=(ArmyPercentageNodeView*)lookup._M_find(key);
+  if (node->percentage-percentage>0.0f)
+   candidates.push_back((const ModuleData *const &)name);
+ }
+ if(!candidates.empty()) {
+ int index=GetGameLogicRandomValue(0,candidates.size()-1,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIUnitBuilder\\AIUnitBuilder.cpp",399);
+ return *(AsciiString*)candidates[index];
+ }
+ return AsciiString::TheEmptyString;
+}
+
+// Target4DFBED..4DFC20: keyed count table at receiver14; node value8 or0.
+// WB129B860 establishes string argument; wider receiver identity stays unknown.
+int Rva004DFBED::rva004DFBED(const AsciiString &name)
+{
+ NameKeyType key=TheNameKeyGenerator->nameToKey(name);
+ const ArmyLookupProvider &table=*(const ArmyLookupProvider*)((char*)this+0x14);
+ ArmyPercentageNodeView *node=(ArmyPercentageNodeView*)table._M_find(key);
+ return node?*(int*)((char*)node+8):0;
+}
