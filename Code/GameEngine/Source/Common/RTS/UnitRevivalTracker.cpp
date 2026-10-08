@@ -29,8 +29,19 @@ typedef int Int;
 
 class Image;
 class Player;
+class Object;
+class Team;
+class Drawable;
+struct Coord3D;
+struct CreateMask { unsigned int words[4]; };
+enum ScienceType { SCIENCE_INVALID=-1 };
+class Player { public: bool hasScience(ScienceType) const; };
+
+
 
 #include "ascii_string.h"
+class ScienceStore { public: ScienceType getScienceFromInternalName(const AsciiString&) const; };
+extern ScienceStore *TheScienceStore;
 
 class ThingTemplate
 {
@@ -44,6 +55,7 @@ class ThingFactory
 {
 public:
 	const ThingTemplate *findTemplate(const AsciiString &name);
+	Object *newObject(const ThingTemplate*, Team*, const CreateMask*, bool);
 };
 extern ThingFactory *TheThingFactory;
 
@@ -79,6 +91,8 @@ struct RevivalLevelValue
 	int value;
 };
 
+class ExperienceTracker { public: void rva0039B315(float,bool,bool,bool,bool); };
+class Rva0039B20C { public: void rva0039B227(int); };
 class RevivalExperienceView
 {
 public:
@@ -134,10 +148,24 @@ struct RevivalTemplateView
 	char pad[0x64];
 	AsciiString name;
 };
+class Rva001EAFC1 { public: Rva001EAFC1 &operator=(const Rva001EAFC1&); };
+class ScriptEngine { public: void rva00357960(const AsciiString&,Object*); };
+extern ScriptEngine *TheScriptEngine;
+class CreateAHeroData;
+class CreateAHeroManager { public: CreateAHeroData *rva002197A6(int); };
+extern CreateAHeroManager *TheCreateAHeroManager;
+class CreateAHeroHero { public: bool UpdateCommandSet(int); };
+class Drawable { public: void rva00274176(bool); };
 class Object
 {
 public:
 	void *rva0028BC94();
+    void teleportTo(const Coord3D*,bool);
+    void rva0028BAAE(int);
+    void updateShroudNow();
+    Drawable *getDrawable() const;
+    bool addAttributeModifierToPool(const AsciiString&,int);
+    void rva0028B265() const;
 	Module *findModule(NameKeyType) const;
 	RevivalExperienceView *getExperience() const { return experience; }
 	unsigned char pad00[4];
@@ -159,6 +187,8 @@ class UnitRevivalEntry
 public:
 	UnitRevivalEntry(Object *object);
 	UnitRevivalEntry(const UnitRevivalEntry &other);
+	~UnitRevivalEntry();
+	void *getThingTemplate();
 	const Image *calcButtonImage(Int value);
 	Int revivalEntryCalcTimeToBuild(const Player *player, Object *producer);
 	Int revivalEntryCalcCostToBuild(const Player *player, Object *producer);
@@ -207,6 +237,10 @@ class UnitRevivalTracker
 {
 public:
 	Bool productionSystemQueueCreateUnit(Int index, Int productionID, const Image **outImage);
+    Object *productionSystemNewObject(unsigned int productionID,const Coord3D *position);
+    void rva0037EF2D(unsigned int);
+    UnitRevivalEntry *begin() const { return *reinterpret_cast<UnitRevivalEntry* const*>(reinterpret_cast<const char*>(this)+4); }
+    UnitRevivalEntry *end() const { return *reinterpret_cast<UnitRevivalEntry* const*>(reinterpret_cast<const char*>(this)+8); }
 
 private:
 	unsigned char m_pad00[0x10];
@@ -364,4 +398,64 @@ UnitRevivalEntry::UnitRevivalEntry(const UnitRevivalEntry &other)
 	, m_displayName(other.m_displayName)
 	, m_templateName(other.m_templateName)
 {
+}
+
+#include <bitset>
+namespace _STL { template<> void _Base_bitset<32>::_M_do_or(const _Base_bitset<32>&); }
+struct RevivalLogicFlags { char pad[0x98]; bool flag; bool getFlag() const { return flag; } void setFlag(bool b) { flag=b; } };
+// WB F60270 names the complete native 37EF5D..37F26D body. All D8
+// record accesses and the creation/revival/science calls below are native.
+Object *UnitRevivalTracker::productionSystemNewObject(unsigned int productionID,const Coord3D *position)
+{
+    for (UnitRevivalEntry *it=begin(); it!=end(); ++it) {
+        if (it->m_productionID==productionID) {
+            UnitRevivalEntry entry(*it);
+            const ThingTemplate *thingTemplate=static_cast<const ThingTemplate*>(entry.getThingTemplate());
+            if (!thingTemplate) return 0;
+            CreateMask mask;
+            memset(&mask,0,sizeof(mask));
+            Player *player=reinterpret_cast<Player*>(m_10);
+            Team *team=*reinterpret_cast<Team**>(reinterpret_cast<char*>(player)+0x2EC);
+            Object *object=TheThingFactory->newObject(thingTemplate,team,&mask,false);
+            object->teleportTo(position,false);
+            object->rva0028BAAE(entry.m_a8);
+            object->field460=entry.m_ac;
+            *reinterpret_cast<Rva001EAFC1*>(&object->record)=*reinterpret_cast<const Rva001EAFC1*>(&entry.m_record);
+            TheScriptEngine->rva00357960(entry.m_displayName,object);
+            if (entry.m_a1) object->flags|=0x10;
+            object->updateShroudNow();
+            int level=1;
+            if (entry.m_a0 || entry.m_experience>1.0f) {
+                bool oldFlag=reinterpret_cast<RevivalLogicFlags*>(TheGameLogic)->getFlag();
+                reinterpret_cast<RevivalLogicFlags*>(TheGameLogic)->setFlag(false);
+                reinterpret_cast<ExperienceTracker*>(object->getExperience())->rva0039B315(entry.m_experience-1.0f,false,false,false,false);
+                reinterpret_cast<Rva0039B20C*>(object->getExperience())->rva0039B227(entry.m_level);
+                *reinterpret_cast<bool*>(reinterpret_cast<char*>(object->getExperience())+0x20)=entry.m_record.flag;
+                reinterpret_cast<_STL::_Base_bitset<32>*>(&object->upgrades)->_M_do_or(*reinterpret_cast<const _STL::_Base_bitset<32>*>(&entry.m_upgrades));
+                level=entry.m_rank;
+                reinterpret_cast<RevivalLogicFlags*>(TheGameLogic)->setFlag(oldFlag);
+            }
+            if (reinterpret_cast<const unsigned char*>(object->thingTemplate)[0x11F]&0x40) {
+                int objectID=*reinterpret_cast<const int*>(reinterpret_cast<const char*>(object)+0x74);
+                CreateAHeroData *hero=TheCreateAHeroManager->rva002197A6(objectID);
+                if (hero) reinterpret_cast<CreateAHeroHero*>(hero)->UpdateCommandSet(level);
+            }
+            static NameKeyType respawnUpdateKey=TheNameKeyGenerator->nameToKey("RespawnUpdate");
+            Module *module=object->findModule(respawnUpdateKey);
+            if (module) reinterpret_cast<unsigned char*>(module)[0x41]=!entry.m_a0;
+            if (object->getDrawable()) object->getDrawable()->rva00274176(true);
+            ScienceType science=TheScienceStore->getScienceFromInternalName(AsciiString("SCIENCE_GandalftheWhite"));
+            if (reinterpret_cast<Player*>(m_10)->hasScience(science) && (reinterpret_cast<const unsigned char*>(object->thingTemplate)[0x11D]&1)) {
+                object->addAttributeModifierToPool(AsciiString("SpellBookGandalfWhite"),-1);
+                object->rva0028B265();
+            }
+            science=TheScienceStore->getScienceFromInternalName(AsciiString("SCIENCE_Anduril"));
+            if (reinterpret_cast<Player*>(m_10)->hasScience(science) && (reinterpret_cast<const unsigned char*>(object->thingTemplate)[0x11D]&2)) {
+                object->addAttributeModifierToPool(AsciiString("SpellBookAnduril"),-1);
+            }
+            rva0037EF2D(productionID);
+            return object;
+        }
+    }
+    return 0;
 }
