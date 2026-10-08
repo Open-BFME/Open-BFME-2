@@ -14857,7 +14857,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FE314,28,.data,global,?g_00DFE314@@3VAsciiString@@A,,unowned,,0,1
 0x009FE330,12,.data,global,_s_rva007ADA3C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FE33C,8,.data,global,?TheFontLibrary@@3PAVFontLibrary@@A,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_parseFont.cpp,owned,,1,12
-0x009FE344,4,.data,global,?TheHeroManager@@3PAVRva0021A54A@@A,,unowned,?TheHeroManager@@3PAVRva0021A54A@@A;?g_00DFE344@@3PAVRva002197A6Host@@A;?g_00DFE344@@3PAVRva00219B9E@@A;?g_00DFE344@@3PAVRva0021A4E6@@A;?g_rva005B5B0CMgr@@3PAURva005B5B0CMgr@@A;?g_rva005B5C02Mgr@@3PAURva005B5C02Mgr@@A;?g_rva005B692FMgr@@3PAURva005B692FMgr@@A,1,31
+0x009FE344,4,.data,global,?TheCreateAHeroManager@@3PAVCreateAHeroManager@@A,Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp,provisional,?TheCreateAHeroManager@@3PAVCreateAHeroManager@@A;?TheHeroManager@@3PAURva005B5C02Mgr@@A;?TheHeroManager@@3PAVRva00219251@@A;?TheHeroManager@@3PAVRva0021A54A@@A,1,44
 0x009FE348,4,.data,global,?g_Va00DFE348@@3HA,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,owned,,1,1
 0x009FE34C,4,.data,global,?g_rva005B5C02Flag@@3EA,,unowned,,0,2
 0x009FE350,4,.data,global,_s_rva007ADAA5,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1

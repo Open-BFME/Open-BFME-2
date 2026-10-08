@@ -30,6 +30,7 @@ class CreateAHeroHero
 {
 public:
 	void Reset();
+    void InitButtonList();
 
 private:
     unsigned int m_word00;
@@ -50,6 +51,26 @@ private:
     unsigned int m_word134, m_word138, m_word13C;
 };
 
+
+class CreateAHeroManager { public: const AsciiString &GetClassUpgradeName(unsigned int); };
+extern CreateAHeroManager *TheCreateAHeroManager;
+class UpgradeTemplate { public: char opaque00[0x38]; unsigned int bit; };
+class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &) const; };
+extern UpgradeCenter *TheUpgradeCenter;
+class Rva001EAE6FHelper { public: Rva001EAE6FHelper *clear80(); };
+class Rva00406F9C { public: bool rva00406F9C(const void *); unsigned int words[32]; };
+class InitCommandButtonView {
+public:
+    char opaque00[0x10];
+    AsciiString name;
+    unsigned int word14;
+    InitCommandButtonView *next;
+    char opaque1C[0x24C - 0x1C];
+    Rva00406F9C mask;
+};
+class ControlBar { public: char opaque00[0x2C]; InitCommandButtonView *buttons; };
+extern ControlBar *TheControlBar;
+namespace _STL { template<> void vector<AsciiString>::push_back(const AsciiString &); }
 // WB107C200 Reset; native4091F9..409285. Container cleanup uses the existing
 // owners' ABI views. The short-key map type is that provider's provisional
 // spelling, not a recovered identity for the hero's two early maps.
@@ -84,3 +105,34 @@ void CreateAHeroHero::Reset()
 }
 
 typedef char CreateAHeroHeroLayoutCheck[sizeof(CreateAHeroHero) == 0x140 ? 1 : -1];
+
+// ?InitButtonList@CreateAHeroHero@@QAEXXZ
+// WB107FB40 names InitButtonList. Retail409457..40952C rebuilds the string
+// vector for buttons whose required upgrade mask intersects the class bit,
+// then clears the 0x20 dirty flag. A local requirements view reproduces the
+// native ordering of the two argument-address calculations. All helpers use
+// their existing verified ABI; original CommandButton layout is not asserted
+// beyond the retail name10, next18 and required-mask24C accesses here.
+void CreateAHeroHero::InitButtonList()
+{
+    if (m_word38 & 0x20)
+    {
+        _STL::vector<AsciiString> *strings = &m_strings3C;
+        strings->erase(strings->begin(), strings->end());
+        AsciiString upgradeName(TheCreateAHeroManager->GetClassUpgradeName(m_word0C));
+        const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(upgradeName);
+        if (upgrade)
+        {
+            Rva00406F9C mask;
+            reinterpret_cast<Rva001EAE6FHelper *>(&mask)->clear80();
+            mask.words[upgrade->bit >> 5] |= 1U << (upgrade->bit & 31);
+            for (InitCommandButtonView *button = TheControlBar->buttons; button; button = button->next)
+            {
+                Rva00406F9C &requirements = button->mask;
+                if (requirements.rva00406F9C(&mask))
+                    strings->push_back(button->name);
+            }
+        }
+        m_word38 &= ~0x20;
+    }
+}
