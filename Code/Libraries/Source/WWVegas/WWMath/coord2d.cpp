@@ -386,7 +386,7 @@ float Coord2D::GetLength() const
     return (float)sqrt(x_value * x_value + y_value * y_value);
 }
 
-float Coord2D::GetLengthSqrd() const
+inline float Coord2D::GetLengthSqrd() const
 {
     float x_value = x;
     float y_value = y;
@@ -454,6 +454,7 @@ void _bfmeCoord2DInlineAnchor(Coord2D *c)
     Coord2D copy(*c);
     c->normalize();
     c->length();
+    c->GetLengthSqrd();
     c->toAngle();
 }
 #pragma inline_depth()
