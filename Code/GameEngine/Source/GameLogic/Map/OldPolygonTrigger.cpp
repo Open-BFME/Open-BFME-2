@@ -74,8 +74,13 @@ public:
 
 struct PolygonData : Out
 {
+	PolygonData();
 	bool m_isWaterArea;
 };
+
+// Native 0x003291E3 runs only the Out base constructor and returns this;
+// the trailing flag stays uninitialized.
+PolygonData::PolygonData() {}
 
 void __cdecl operator delete(void *);
 

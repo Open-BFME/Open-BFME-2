@@ -70433,3 +70433,9 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva003EEC63@Rva003EEC63@@QAEXPAXVAsciiString@@_N2@Z,,0x003EEC63,314,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003EED9D.cpp,matched,native 3EEC63..3EED9D RET16; existing callers prove pointer/string-value ABI; BYTE prepare flag and direct bool forwarding; WB friend_InitRegionStateObject semantic lead only; native render/scene slots and transform translations verified; default O1/G7/SSE
 ?rva002401C0@Rva002401C0@@QAE?AV?$vector@IV?$allocator@I@_STL@@@_STL@@XZ,,0x002401C0,29,Code/GameEngine/Source/Common/Rva002401C0Forward.cpp,matched,RVO forward to inner receiver at plus184 calling rowed Rva0040DBA9 0x0040DBA9; same thunk shape as rva00389081 at 0x00389081 (plus130)
 ?computeFlightDistToGoal@Path@@QAEMPBUCoord3D@@AAU2@@Z,,0x00363EC0,228,Code/GameEngine/Source/GameLogic/AI/PathRva00363DF9.cpp,matched,BFME1 donor 34f59164f6 PathComputeFlightDistToGoal; reference-derived name and const/reference signature; retail and WB aircraft-distance caller plus head+4 optimized-link+8 position+0xC establish target behavior and ABI; authentic normalize71 and length53 inline copies independently exact; existing Path199 retained; no pin or alias
+??0PolygonData@@QAE@XZ,,0x003291E3,12,Code/GameEngine/Source/GameLogic/Map/OldPolygonTrigger.cpp,matched,
+??0Rva001F88A8Holder@@QAE@XZ,,0x001F88A8,12,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+??0Rva00332CEFHolder@@QAE@XZ,,0x00332CEF,12,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+??0Rva0033C959Holder@@QAE@XZ,,0x0033C959,12,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+??0Rva005C46C8Holder@@QAE@XZ,,0x005C46C8,12,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+??0Rva0005B6FCHolder@@QAE@XZ,,0x0005B6FC,12,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
