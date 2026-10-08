@@ -56,6 +56,7 @@ class StrategicInGameUI::ResolveBattlesBehavior::Impl : public UserInputTranslat
 {
 public:
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
+	void rva00576AF3();
 
 private:
 	char m_pad04[0x20 - 0x04];
@@ -69,4 +70,47 @@ GameMessageDisposition StrategicInGameUI::ResolveBattlesBehavior::Impl::translat
 		|| m_statusDisplayer.rva005CD690(msg) == DESTROY_MESSAGE)
 		return DESTROY_MESSAGE;
 	return UserInputTranslator::translateGameMessage(msg);
+}
+
+class LivingWorldPendingBattle;
+class LivingWorldRegionManager
+{
+public:
+    LivingWorldPendingBattle *rva0020E6C0();
+};
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+struct ResolveBattleWorldView
+{
+    char unknown00[0xB0];
+    LivingWorldRegionManager *regionManager;
+};
+struct ResolveBattleResultView
+{
+    char unknown00[0x3C];
+    int state;
+};
+class Object;
+class Rva00575674 { public: void rva00575674(Object *); };
+class Rva00576591
+{
+public:
+    Rva00576591(void *owner);
+private:
+    char nativeStorage[12];
+};
+
+// Native576AF3..576B5E: when the selected pending/completed battle's +3C
+// state is2, install a twelve-byte state object in the receiver's +1C holder.
+// The rowed constructor's vtable/dtor prove its identity; field purpose is
+// unresolved. WB supplies CheckCompletedTacticalGame as a semantic lead.
+void StrategicInGameUI::ResolveBattlesBehavior::Impl::rva00576AF3()
+{
+    ResolveBattleWorldView *world = reinterpret_cast<ResolveBattleWorldView *>(TheLivingWorldLogic);
+    if (world && world->regionManager) {
+        LivingWorldPendingBattle *battle = world->regionManager->rva0020E6C0();
+        if (battle && reinterpret_cast<ResolveBattleResultView *>(battle)->state == 2)
+            reinterpret_cast<Rva00575674 *>(reinterpret_cast<char *>(this) + 0x1C)->rva00575674(
+                reinterpret_cast<Object *>(new Rva00576591(this)));
+    }
 }
