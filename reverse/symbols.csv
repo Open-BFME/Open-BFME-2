@@ -13886,7 +13886,7 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva0037E6E8@Rva0037E6E8@@QAEHPAX0@Z,0x0037E6E8,callee of ?rva0049CD4F@Rva0049CD4F@@QAEHPAVRva0049CD4FArg@@@Z
 ?rva00497FF3@BattlePlanUpdate@@QAEXH@Z,0x00497FF3,callee of ?rva0049862B@Rva0049862B@@QAEHXZ
 ?rva0021F47E@CreateAHeroCRC@@QAEXXZ,0x0021F47E,callee of ?getCRC@CreateAHeroCRC@@QAEIXZ
-??0GameTextManager@@QAE@XZ,0x002E63AA,callee of ?CreateGameTextInterface@@YAPAVGameTextInterface@@XZ
+?load@GameTextTable@@QAE_NPBD0PA_N@Z,0x002E68EC,callee of ?init@GameTextManager@@UAEXXZ 0x002E698B and ?initMapStringFile@GameTextManager@@UAEXABVAsciiString@@@Z 0x002E6A38; GameTextTable::load (clear, readSTR/readCSF, build+sort lookup), body banked (null-action EH frame unsolved)
 ??0CreateAHeroData@@QAE@HHHABVUnicodeString@@HHH@Z,0x00409C3D,callee of ??0GameSlot@@QAE@XZ
 ??4CreateAHeroData@@QAEAAV0@ABV0@@Z,0x00409359,callee of ?reset@GameSlot@@UAEXXZ
 ?animateSpecialPowerShortcut@ControlBar@@QAEX_N@Z,0x0031AF54,callee of ?HideControlBar@@YAX_N@Z at 0x00402A30 with false; body is ZH ControlBar::animateSpecialPowerShortcut (shortcut parent +0xD8 and its animate manager +0x14 checked; winGetUserData scan; registerGameWindow 500ms or reverseAnimateWindow)
