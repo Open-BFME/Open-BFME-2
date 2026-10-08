@@ -21523,9 +21523,9 @@ uw_00774ace,,0x00774ACE,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;obj
 uw_00774ae3,,0x00774AE3,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2565
 uw_00774aeb,,0x00774AEB,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2593
 uw_00774af3,,0x00774AF3,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2430
-uw_00774b05,,0x00774B05,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2430
-uw_00774b17,,0x00774B17,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2565
-uw_00774b29,,0x00774B29,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2575
+uw_00774b05,,0x00774B05,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3307;parent=?militarySubtitle@InGameUI@@UAEXABVAsciiString@@H@Z;unwind state 0 of FuncInfo 0x0091BE9C read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774b17,,0x00774B17,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3340;parent=?getLineWidth@@YAHPAVDisplayString@@PBVUnicodeString@@H@Z;unwind state 0 of FuncInfo 0x0091BEC0 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774b29,,0x00774B29,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3386;parent=?updateMilitarySubtitle@InGameUI@@IAEXXZ;unwind state 0 of FuncInfo 0x0091BEEC read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_00774b48,,0x00774B48,8,Code/gen_small/uw_gen_002.cpp,matched,gen-funclet;object-symbol=$L293
 uw_00774b50,,0x00774B50,8,Code/gen_small/uw_gen_003.cpp,matched,gen-funclet;object-symbol=$L305
 uw_00774b6f,,0x00774B6F,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2565
@@ -21533,7 +21533,7 @@ uw_00774b77,,0x00774B77,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;obje
 uw_00774b89,,0x00774B89,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2565
 uw_00774b91,,0x00774B91,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2565
 uw_00774b99,,0x00774B99,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2575
-uw_00774bab,,0x00774BAB,11,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L4072
+uw_00774bab,,0x00774BAB,11,Code/GameEngine/Source/GameClient/InGameUIFloatingText.cpp,matched,gen-funclet;object-symbol=$L4470;parent=??0FloatingTextData@@QAE@XZ;unwind state 0 of FuncInfo 0x0091BFA4 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_00774bc0,,0x00774BC0,8,Code/gen_small/uw_gen_004.cpp,matched,gen-funclet;object-symbol=$L793
 uw_00774beb,,0x00774BEB,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L319
 uw_00774bf3,,0x00774BF3,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2575
@@ -21542,18 +21542,18 @@ uw_00774c03,,0x00774C03,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;obje
 uw_00774c1d,,0x00774C1D,8,Code/gen_small/uw_gen_002.cpp,matched,gen-funclet;object-symbol=$L293
 uw_00774c25,,0x00774C25,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2575
 uw_00774c3f,,0x00774C3F,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L4223
-uw_00774c6f,,0x00774C6F,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L319
-uw_00774c77,,0x00774C77,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2565
-uw_00774c7f,,0x00774C7F,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2575
-uw_00774c87,,0x00774C87,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2584
-uw_00774c99,,0x00774C99,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L319
-uw_00774ca1,,0x00774CA1,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2565
-uw_00774ca9,,0x00774CA9,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2584
-uw_00774cb1,,0x00774CB1,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2575
-uw_00774cc3,,0x00774CC3,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2429
-uw_00774ccb,,0x00774CCB,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2565
-uw_00774cdd,,0x00774CDD,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2428
-uw_00774ce5,,0x00774CE5,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2565
+uw_00774c6f,,0x00774C6F,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3500;parent=?rva0029E656@InGameUI@@UAAXVAsciiString@@ZZ;unwind state 0 of FuncInfo 0x0091C0CC read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774c77,,0x00774C77,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3501;parent=?rva0029E656@InGameUI@@UAAXVAsciiString@@ZZ;unwind state 1 of FuncInfo 0x0091C0CC read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774c7f,,0x00774C7F,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3502;parent=?rva0029E656@InGameUI@@UAAXVAsciiString@@ZZ;unwind state 2 of FuncInfo 0x0091C0CC read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774c87,,0x00774C87,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3503;parent=?rva0029E656@InGameUI@@UAAXVAsciiString@@ZZ;unwind state 3 of FuncInfo 0x0091C0CC read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774c99,,0x00774C99,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3656;parent=?message@InGameUI@@UAAXVAsciiString@@ZZ;unwind state 0 of FuncInfo 0x0091C108 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774ca1,,0x00774CA1,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3657;parent=?message@InGameUI@@UAAXVAsciiString@@ZZ;unwind state 1 of FuncInfo 0x0091C108 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774ca9,,0x00774CA9,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3658;parent=?message@InGameUI@@UAAXVAsciiString@@ZZ;unwind state 2 of FuncInfo 0x0091C108 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774cb1,,0x00774CB1,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3659;parent=?message@InGameUI@@UAAXVAsciiString@@ZZ;unwind state 3 of FuncInfo 0x0091C108 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774cc3,,0x00774CC3,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3832;parent=?message@InGameUI@@UAAXVUnicodeString@@ZZ;unwind state 0 of FuncInfo 0x0091C134 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774ccb,,0x00774CCB,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3833;parent=?message@InGameUI@@UAAXVUnicodeString@@ZZ;unwind state 1 of FuncInfo 0x0091C134 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774cdd,,0x00774CDD,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3968;parent=?messageColor@InGameUI@@UAAXPBURGBColor@@VUnicodeString@@ZZ;unwind state 0 of FuncInfo 0x0091C160 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774ce5,,0x00774CE5,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3969;parent=?messageColor@InGameUI@@UAAXPBURGBColor@@VUnicodeString@@ZZ;unwind state 1 of FuncInfo 0x0091C160 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_00774d04,,0x00774D04,8,Code/gen_small/uw_gen_004.cpp,matched,gen-funclet;object-symbol=$L835
 uw_00774d0c,,0x00774D0C,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2565
 uw_00774d14,,0x00774D14,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2602
@@ -21565,7 +21565,7 @@ uw_00774d3c,,0x00774D3C,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;obje
 uw_00774d44,,0x00774D44,8,Code/gen_small/uw_gen_006.cpp,matched,gen-funclet;object-symbol=$L2280
 uw_00774d59,,0x00774D59,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2602
 uw_00774d61,,0x00774D61,8,Code/gen_small/uw_gen_001.cpp,matched,gen-funclet;object-symbol=$L5455
-uw_00774d73,,0x00774D73,8,Code/gen_small/uw_gen_002.cpp,matched,gen-funclet;object-symbol=$L293
+uw_00774d73,,0x00774D73,8,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3066;parent=?recreateControlBar@InGameUI@@UAEXXZ;unwind state 0 of FuncInfo 0x0091C210 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_00774d8f,,0x00774D8F,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L319
 uw_00774d97,,0x00774D97,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2575
 uw_00774d9f,,0x00774D9F,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2565
@@ -21587,7 +21587,7 @@ uw_00774eed,,0x00774EED,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;obje
 uw_00774f00,,0x00774F00,8,Code/gen_small/uw_gen_005.cpp,matched,gen-funclet;object-symbol=$L2575
 uw_00774f13,,0x00774F13,8,Code/gen_small/uw_gen_004.cpp,matched,gen-funclet;object-symbol=$L907
 uw_00774f1b,,0x00774F1B,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L4602
-uw_00775004,,0x00775004,8,Code/gen_small/uw_gen_002.cpp,matched,gen-funclet;object-symbol=$L293
+uw_00775004,,0x00775004,8,Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp,matched,gen-funclet;object-symbol=$L9055;parent=?objectChangedTeam@InGameUI@@UAEXPBVObject@@HH@Z;unwind state 0 of FuncInfo 0x0091BE44 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_00775016,,0x00775016,8,Code/gen_small/uw_gen_002.cpp,matched,gen-funclet;object-symbol=$L293
 uw_0077501e,,0x0077501E,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L4983
 uw_00775030,,0x00775030,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L320
@@ -21596,50 +21596,50 @@ uw_0077504a,,0x0077504A,11,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;obj
 uw_0077505f,,0x0077505F,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L320
 uw_0077508b,,0x0077508B,8,Code/gen_small/uw_gen_003.cpp,matched,gen-funclet;object-symbol=$L320
 uw_0077509d,,0x0077509D,8,Code/gen_small/uw_gen_009.cpp,matched,gen-funclet;object-symbol=$L2235
-uw_007750af,,0x007750AF,8,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L6273
-uw_007750ea,,0x007750EA,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L549
-uw_00775121,,0x00775121,14,Code/gen_small/uw_gen_009.cpp,matched,gen-funclet;object-symbol=$L2322
-uw_00775167,,0x00775167,14,Code/gen_small/uw_gen_009.cpp,matched,gen-funclet;object-symbol=$L2324
-uw_007751a5,,0x007751A5,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L670
-uw_007751b3,,0x007751B3,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L671
-uw_007751cf,,0x007751CF,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L673
-uw_007751dd,,0x007751DD,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L674
-uw_007751eb,,0x007751EB,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L675
-uw_007751f9,,0x007751F9,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L676
-uw_00775207,,0x00775207,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L677
-uw_00775215,,0x00775215,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L678
-uw_00775223,,0x00775223,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L679
-uw_00775231,,0x00775231,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L680
-uw_0077523f,,0x0077523F,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L681
-uw_0077524d,,0x0077524D,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L682
-uw_00775269,,0x00775269,14,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L7304
-uw_007752f1,,0x007752F1,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L684
-uw_007752ff,,0x007752FF,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L685
-uw_0077530d,,0x0077530D,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L687
-uw_0077531b,,0x0077531B,14,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L688
-uw_00775333,,0x00775333,8,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L6307
-uw_0077533b,,0x0077533B,11,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L4000
+uw_007750af,,0x007750AF,8,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10984;parent=??1InGameUI@@UAE@XZ;unwind state 0 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007750ea,,0x007750EA,11,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10988;parent=??1InGameUI@@UAE@XZ;unwind state 4 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775121,,0x00775121,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10992;parent=??1InGameUI@@UAE@XZ;unwind state 8 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775167,,0x00775167,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10997;parent=??1InGameUI@@UAE@XZ;unwind state 13 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007751a5,,0x007751A5,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11000;parent=??1InGameUI@@UAE@XZ;unwind state 16 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007751b3,,0x007751B3,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11001;parent=??1InGameUI@@UAE@XZ;unwind state 17 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007751cf,,0x007751CF,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11003;parent=??1InGameUI@@UAE@XZ;unwind state 19 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007751dd,,0x007751DD,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11004;parent=??1InGameUI@@UAE@XZ;unwind state 20 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007751eb,,0x007751EB,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11005;parent=??1InGameUI@@UAE@XZ;unwind state 21 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007751f9,,0x007751F9,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11006;parent=??1InGameUI@@UAE@XZ;unwind state 22 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775207,,0x00775207,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11007;parent=??1InGameUI@@UAE@XZ;unwind state 23 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775215,,0x00775215,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11008;parent=??1InGameUI@@UAE@XZ;unwind state 24 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775223,,0x00775223,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11009;parent=??1InGameUI@@UAE@XZ;unwind state 25 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775231,,0x00775231,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11010;parent=??1InGameUI@@UAE@XZ;unwind state 26 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077523f,,0x0077523F,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11011;parent=??1InGameUI@@UAE@XZ;unwind state 27 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077524d,,0x0077524D,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11012;parent=??1InGameUI@@UAE@XZ;unwind state 28 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775269,,0x00775269,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11014;parent=??1InGameUI@@UAE@XZ;unwind state 30 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007752f1,,0x007752F1,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11023;parent=??1InGameUI@@UAE@XZ;unwind state 39 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007752ff,,0x007752FF,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11024;parent=??1InGameUI@@UAE@XZ;unwind state 40 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077530d,,0x0077530D,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11025;parent=??1InGameUI@@UAE@XZ;unwind state 41 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077531b,,0x0077531B,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11026;parent=??1InGameUI@@UAE@XZ;unwind state 42 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775333,,0x00775333,8,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13843;parent=??0InGameUI@@QAE@XZ;unwind state 0 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077533b,,0x0077533B,11,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13844;parent=??0InGameUI@@QAE@XZ;unwind state 1 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_00775346,,0x00775346,11,Code/gen_small/uw_gen_014.cpp,matched,gen-funclet;object-symbol=$L4447
-uw_0077535c,,0x0077535C,11,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3698
-uw_00775393,,0x00775393,14,Code/gen_small/uw_gen_009.cpp,matched,gen-funclet;object-symbol=$L2500
-uw_007753d9,,0x007753D9,14,Code/gen_small/uw_gen_009.cpp,matched,gen-funclet;object-symbol=$L2501
-uw_00775417,,0x00775417,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3699
-uw_00775425,,0x00775425,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3700
-uw_00775441,,0x00775441,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3701
-uw_0077544f,,0x0077544F,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3702
-uw_0077545d,,0x0077545D,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3703
-uw_0077546b,,0x0077546B,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3704
-uw_00775479,,0x00775479,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3705
-uw_00775487,,0x00775487,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3706
-uw_00775495,,0x00775495,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3707
-uw_007754a3,,0x007754A3,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3708
-uw_007754b1,,0x007754B1,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3709
-uw_007754bf,,0x007754BF,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3710
-uw_007754db,,0x007754DB,14,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L7314
-uw_0077556d,,0x0077556D,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3711
-uw_0077557b,,0x0077557B,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3712
-uw_00775589,,0x00775589,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3713
-uw_00775597,,0x00775597,14,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3714
+uw_0077535c,,0x0077535C,11,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13847;parent=??0InGameUI@@QAE@XZ;unwind state 4 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775393,,0x00775393,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13851;parent=??0InGameUI@@QAE@XZ;unwind state 8 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007753d9,,0x007753D9,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13856;parent=??0InGameUI@@QAE@XZ;unwind state 13 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775417,,0x00775417,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13859;parent=??0InGameUI@@QAE@XZ;unwind state 16 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775425,,0x00775425,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13860;parent=??0InGameUI@@QAE@XZ;unwind state 17 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775441,,0x00775441,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13862;parent=??0InGameUI@@QAE@XZ;unwind state 19 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077544f,,0x0077544F,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13863;parent=??0InGameUI@@QAE@XZ;unwind state 20 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077545d,,0x0077545D,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13864;parent=??0InGameUI@@QAE@XZ;unwind state 21 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077546b,,0x0077546B,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13865;parent=??0InGameUI@@QAE@XZ;unwind state 22 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775479,,0x00775479,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13866;parent=??0InGameUI@@QAE@XZ;unwind state 23 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775487,,0x00775487,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13867;parent=??0InGameUI@@QAE@XZ;unwind state 24 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775495,,0x00775495,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13868;parent=??0InGameUI@@QAE@XZ;unwind state 25 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007754a3,,0x007754A3,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13869;parent=??0InGameUI@@QAE@XZ;unwind state 26 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007754b1,,0x007754B1,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13870;parent=??0InGameUI@@QAE@XZ;unwind state 27 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007754bf,,0x007754BF,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13871;parent=??0InGameUI@@QAE@XZ;unwind state 28 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007754db,,0x007754DB,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13873;parent=??0InGameUI@@QAE@XZ;unwind state 30 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077556d,,0x0077556D,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13883;parent=??0InGameUI@@QAE@XZ;unwind state 40 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077557b,,0x0077557B,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13884;parent=??0InGameUI@@QAE@XZ;unwind state 41 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775589,,0x00775589,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13885;parent=??0InGameUI@@QAE@XZ;unwind state 42 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775597,,0x00775597,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13886;parent=??0InGameUI@@QAE@XZ;unwind state 43 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007755cb,,0x007755CB,8,Code/gen_small/uw_gen_001.cpp,matched,gen-funclet;object-symbol=$L3751
 uw_007755dd,,0x007755DD,8,Code/gen_small/uw_gen_002.cpp,matched,gen-funclet;object-symbol=$L293
 uw_007755e5,,0x007755E5,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2430
@@ -21647,7 +21647,7 @@ uw_007755ed,,0x007755ED,8,Code/gen_small/uw_gen_004.cpp,matched,gen-funclet;obje
 uw_007755f5,,0x007755F5,8,Code/gen_small/uw_gen_003.cpp,matched,gen-funclet;object-symbol=$L320
 uw_007755fd,,0x007755FD,8,Code/gen_small/uw_gen_003.cpp,matched,gen-funclet;object-symbol=$L320
 uw_00775605,,0x00775605,8,Code/gen_small/uw_gen_002.cpp,matched,gen-funclet;object-symbol=$L293
-uw_00775621,,0x00775621,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;object-symbol=$L4584
+uw_00775621,,0x00775621,8,Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp,matched,gen-funclet;object-symbol=$L10321;parent=?addSuperweapon@InGameUI@@UAEXHABVAsciiString@@W4ObjectID@@PBVSpecialPowerTemplate@@@Z;unwind state 0 of FuncInfo 0x0091CA30 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_0077563d,,0x0077563D,11,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L7405
 uw_00775652,,0x00775652,8,Code/gen_small/uw_gen_001.cpp,matched,gen-funclet;object-symbol=$L3760
 uw_00775664,,0x00775664,8,Code/gen_small/uw_gen_001.cpp,matched,gen-funclet;object-symbol=$L3769
@@ -70127,3 +70127,70 @@ $L7319,,0x0079A19C,13,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ??0?$_Rb_tree_base@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@1@@Z,,0x001F0534,36,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold of the 24-byte-node tree base ctor; InGameUI named timer map chain
 ??0InGameUI@@QAE@XZ,,0x002A61A9,2152,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,InGameUI ctor; ZH member order; vftables Subsystem/Snapshot/0x7FD410 interfaces; holder 0x002A42D8
 ??_F?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXXZ,,0x002A1575,13,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,default ctor closure of the idle worker list array; the InGameUI ctor pushes 0x006A1575 to the eh vector constructor iterator
+??1?$list@HV?$allocator@H@_STL@@@_STL@@QAE@XZ,,0x00200667,5,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: list<int> dtor tail-jumps to the list<int> base dtor 0x004EC395 like the rowed owner; retail InGameUI ctor/dtor funclets jump here
+??1?$list@PAVWindowLayout@@V?$allocator@PAVWindowLayout@@@_STL@@@_STL@@QAE@XZ,,0x00200667,5,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: InGameUI member list dtor read from retail InGameUI ctor/dtor funclets jumping to 0x00200667; same jmp to the folded list base dtor 0x004EC395
+??1?$_List_base@PAVWindowLayout@@V?$allocator@PAVWindowLayout@@@_STL@@@_STL@@QAE@XZ,,0x004EC395,23,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: pointer-element list base dtor identical to the int instantiation (clear 0x0023DAA5 then free)
+?clear@?$_List_base@PAVWindowLayout@@V?$allocator@PAVWindowLayout@@@_STL@@@_STL@@QAEXXZ,,0x0023DAA5,39,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: 12-byte-node list clear identical to the int instantiation
+??1?$list@PAVFloatingTextData@@V?$allocator@PAVFloatingTextData@@@_STL@@@_STL@@QAE@XZ,,0x00200667,5,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: InGameUI member list dtor read from retail InGameUI ctor/dtor funclets jumping to 0x00200667; same jmp to the folded list base dtor 0x004EC395
+??1?$_List_base@PAVFloatingTextData@@V?$allocator@PAVFloatingTextData@@@_STL@@@_STL@@QAE@XZ,,0x004EC395,23,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: pointer-element list base dtor identical to the int instantiation (clear 0x0023DAA5 then free)
+?clear@?$_List_base@PAVFloatingTextData@@V?$allocator@PAVFloatingTextData@@@_STL@@@_STL@@QAEXXZ,,0x0023DAA5,39,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: 12-byte-node list clear identical to the int instantiation
+??1?$list@PAVWorldAnimationData@@V?$allocator@PAVWorldAnimationData@@@_STL@@@_STL@@QAE@XZ,,0x00200667,5,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: InGameUI member list dtor read from retail InGameUI ctor/dtor funclets jumping to 0x00200667; same jmp to the folded list base dtor 0x004EC395
+??1?$_List_base@PAVWorldAnimationData@@V?$allocator@PAVWorldAnimationData@@@_STL@@@_STL@@QAE@XZ,,0x004EC395,23,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: pointer-element list base dtor identical to the int instantiation (clear 0x0023DAA5 then free)
+?clear@?$_List_base@PAVWorldAnimationData@@V?$allocator@PAVWorldAnimationData@@@_STL@@@_STL@@QAEXXZ,,0x0023DAA5,39,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: 12-byte-node list clear identical to the int instantiation
+??1?$list@URva0035C9A6Entry@@V?$allocator@URva0035C9A6Entry@@@_STL@@@_STL@@QAE@XZ,,0x00200667,5,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: InGameUI member list dtor read from retail InGameUI ctor/dtor funclets jumping to 0x00200667; same jmp to the folded list base dtor 0x004EC395
+??1?$_List_base@URva0035C9A6Entry@@V?$allocator@URva0035C9A6Entry@@@_STL@@@_STL@@QAE@XZ,,0x004EC395,23,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: pointer-element list base dtor identical to the int instantiation (clear 0x0023DAA5 then free)
+?clear@?$_List_base@URva0035C9A6Entry@@V?$allocator@URva0035C9A6Entry@@@_STL@@@_STL@@QAEXXZ,,0x0023DAA5,39,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: 12-byte-node list clear identical to the int instantiation
+??1?$list@UCameraMarker@@V?$allocator@UCameraMarker@@@_STL@@@_STL@@QAE@XZ,,0x00295983,5,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,list<CameraMarker> dtor: jmp to the rowed CameraMarker list base dtor 0x002A1BEB; retail InGameUI ctor funclet 0x00774FEF destroys the camera marker holder list through it
+??1MoveHint@@QAE@XZ,,0x000B3FD0,1,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: trivial MoveHint dtor (bare ret); retail eh vector dtor iterator funclets 0x0077510B/0x0077537D push 0x004B3FD0 for the MoveHint array
+??1?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAE@XZ,,0x0007FAB3,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: 4-byte-element vector dtor (free start pointer); retail InGameUI funclets jump to 0x0007FAB3
+??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ,,0x0007FAB3,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: 4-byte-element vector dtor (free start pointer); retail InGameUI funclets jump to 0x0007FAB3
+??1?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAE@XZ,,0x0007FAB3,14,Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp,matched,ICF fold: 4-byte-element vector dtor; retail addSuperweapon funclet 0x00775621 jumps to 0x0007FAB3
+??1UIMessage@InGameUI@@QAE@XZ,,0x005B804E,5,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: UIMessage implicit dtor destroys its leading UnicodeString (jmp releaseBuffer); retail InGameUI funclets push 0x009B804E for the message array
+??1?$map@VAsciiString@@PAVNamedTimerInfo@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@PAVNamedTimerInfo@@@_STL@@@4@@_STL@@QAE@XZ,,0x002A4631,5,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,NamedTimer map dtor: jmp to the pinned NamedTimer tree dtor 0x002A3F5B; retail InGameUI funclets 0x007751C1/0x00775433 jump here
+??1?$map@VAsciiString@@V?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE@XZ,,0x002A5B2B,5,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,superweapon map dtor: jmp to the superweapon tree dtor 0x002A583E; retail InGameUI funclets 0x0077518D/0x007753FF push it
+??1?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE@XZ,,0x002A583E,56,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,ICF fold: superweapon map tree dtor (clear 0x002A47E1 then free header); the superweapon map dtor 0x002A5B2B tail-jumps here
+uw_00774c51,,0x00774C51,10,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3122;parent=?init@InGameUI@@UAEXXZ;unwind state 0 of FuncInfo 0x0091C090 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774c5b,,0x00774C5B,10,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3123;parent=?init@InGameUI@@UAEXXZ;unwind state 1 of FuncInfo 0x0091C090 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774d7b,,0x00774D7B,10,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp,matched,gen-funclet;object-symbol=$L3067;parent=?recreateControlBar@InGameUI@@UAEXXZ;unwind state 1 of FuncInfo 0x0091C210 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775629,,0x00775629,10,Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp,matched,gen-funclet;object-symbol=$L10322;parent=?addSuperweapon@InGameUI@@UAEXHABVAsciiString@@W4ObjectID@@PBVSpecialPowerTemplate@@@Z;unwind state 1 of FuncInfo 0x0091CA30 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774e23,,0x00774E23,10,Code/GameEngine/Source/GameClient/InGameUIFloatingText.cpp,matched,gen-funclet;object-symbol=$L4591;parent=?addFloatingText@InGameUI@@UAEXABVUnicodeString@@PBUCoord3D@@H@Z;unwind state 0 of FuncInfo 0x0091C348 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007750b7,,0x007750B7,20,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10985;parent=??1InGameUI@@UAE@XZ;unwind state 1 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007750df,,0x007750DF,11,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10987;parent=??1InGameUI@@UAE@XZ;unwind state 3 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077510b,,0x0077510B,22,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10991;parent=??1InGameUI@@UAE@XZ;unwind state 7 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077512f,,0x0077512F,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10993;parent=??1InGameUI@@UAE@XZ;unwind state 9 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077513d,,0x0077513D,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10994;parent=??1InGameUI@@UAE@XZ;unwind state 10 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077514b,,0x0077514B,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10995;parent=??1InGameUI@@UAE@XZ;unwind state 11 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775159,,0x00775159,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10996;parent=??1InGameUI@@UAE@XZ;unwind state 12 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775175,,0x00775175,24,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10998;parent=??1InGameUI@@UAE@XZ;unwind state 14 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077518d,,0x0077518D,24,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L10999;parent=??1InGameUI@@UAE@XZ;unwind state 15 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007751c1,,0x007751C1,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11002;parent=??1InGameUI@@UAE@XZ;unwind state 18 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077525b,,0x0077525B,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11013;parent=??1InGameUI@@UAE@XZ;unwind state 29 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775277,,0x00775277,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11015;parent=??1InGameUI@@UAE@XZ;unwind state 31 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775285,,0x00775285,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11016;parent=??1InGameUI@@UAE@XZ;unwind state 32 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775293,,0x00775293,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11017;parent=??1InGameUI@@UAE@XZ;unwind state 33 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007752a1,,0x007752A1,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11018;parent=??1InGameUI@@UAE@XZ;unwind state 34 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007752af,,0x007752AF,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11019;parent=??1InGameUI@@UAE@XZ;unwind state 35 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007752bd,,0x007752BD,24,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11020;parent=??1InGameUI@@UAE@XZ;unwind state 36 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007752d5,,0x007752D5,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11021;parent=??1InGameUI@@UAE@XZ;unwind state 37 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007752e3,,0x007752E3,14,Code/GameEngine/Source/GameClient/InGameUIDtor.cpp,matched,gen-funclet;object-symbol=$L11022;parent=??1InGameUI@@UAE@XZ;unwind state 38 of FuncInfo 0x0091C7F8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00774fef,,0x00774FEF,11,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13601;parent=??0Rva002A1B1D@@QAE@XZ;unwind state 0 of FuncInfo 0x0091C5DC read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775351,,0x00775351,11,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13846;parent=??0InGameUI@@QAE@XZ;unwind state 3 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077537d,,0x0077537D,22,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13850;parent=??0InGameUI@@QAE@XZ;unwind state 7 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007753a1,,0x007753A1,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13852;parent=??0InGameUI@@QAE@XZ;unwind state 9 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007753af,,0x007753AF,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13853;parent=??0InGameUI@@QAE@XZ;unwind state 10 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007753bd,,0x007753BD,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13854;parent=??0InGameUI@@QAE@XZ;unwind state 11 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007753cb,,0x007753CB,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13855;parent=??0InGameUI@@QAE@XZ;unwind state 12 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007753e7,,0x007753E7,24,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13857;parent=??0InGameUI@@QAE@XZ;unwind state 14 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007753ff,,0x007753FF,24,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13858;parent=??0InGameUI@@QAE@XZ;unwind state 15 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775433,,0x00775433,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13861;parent=??0InGameUI@@QAE@XZ;unwind state 18 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007754cd,,0x007754CD,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13872;parent=??0InGameUI@@QAE@XZ;unwind state 29 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007754e9,,0x007754E9,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13874;parent=??0InGameUI@@QAE@XZ;unwind state 31 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007754f7,,0x007754F7,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13875;parent=??0InGameUI@@QAE@XZ;unwind state 32 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775505,,0x00775505,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13876;parent=??0InGameUI@@QAE@XZ;unwind state 33 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775513,,0x00775513,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13877;parent=??0InGameUI@@QAE@XZ;unwind state 34 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775521,,0x00775521,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13878;parent=??0InGameUI@@QAE@XZ;unwind state 35 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775547,,0x00775547,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13880;parent=??0InGameUI@@QAE@XZ;unwind state 37 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00775555,,0x00775555,10,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13881;parent=??0InGameUI@@QAE@XZ;unwind state 38 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_0077555f,,0x0077555F,14,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13882;parent=??0InGameUI@@QAE@XZ;unwind state 39 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007755a5,,0x007755A5,10,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13887;parent=??0InGameUI@@QAE@XZ;unwind state 44 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_007755af,,0x007755AF,10,Code/GameEngine/Source/GameClient/InGameUICtor.cpp,matched,gen-funclet;object-symbol=$L13888;parent=??0InGameUI@@QAE@XZ;unwind state 45 of FuncInfo 0x0091C984 read from the parent prolog handler stub; emitted by the parent C++ in this TU

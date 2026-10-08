@@ -16303,3 +16303,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??0Rva0029B63A@@QAE@XZ,0x00413727,callee of ??0InGameUI@@QAE@XZ
 ??0Rva002A1D02@@QAE@XZ,0x002A5876,callee of ??0InGameUI@@QAE@XZ
 ??0Rva004E6C34@@QAE@XZ,0x004E6C34,callee of ??0InGameUI@@QAE@XZ
+??1Rva0029B5E3@@QAE@XZ,0x0029B5E3,owning-pointer member dtor folded with its reset body at this address: retail InGameUI ctor/dtor funclets 0x0077513D/0x007753AF jump here; placeholder class name
+??1Rva0029B620@@QAE@XZ,0x0029B620,owning-pointer member dtor folded with its reset body at this address: retail InGameUI ctor/dtor funclets 0x007752E3/0x0077555F jump here; placeholder class name
