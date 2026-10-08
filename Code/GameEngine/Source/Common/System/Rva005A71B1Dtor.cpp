@@ -10,10 +10,32 @@ extern "C" void __cdecl free(void *block);
 class Rva005A66B8Elem
 {
 public:
+    Rva005A66B8Elem();
     virtual ~Rva005A66B8Elem() {}
+    void rva005DB86E();
 private:
-    int m_pad[4];
+    float m_04;
+    float m_08;
+    float m_0C;
+    int m_10;
 };
+
+// The array-constructor callback at native 5DC45D proves this entry at
+// 5DB84F. Its 31 bytes end at RET immediately before the reset entry 5DB86E.
+// C71AE0 is the vtable already established by the rowed element destructor.
+Rva005A66B8Elem::Rva005A66B8Elem()
+    : m_04(0.0f), m_08(0.0f), m_0C(0.0f), m_10(0)
+{
+}
+
+// Native leaf 5DB86E..5DB885 resets the same +4/+8/+C floats and +10 count.
+void Rva005A66B8Elem::rva005DB86E()
+{
+    m_04 = 0.0f;
+    m_08 = 0.0f;
+    m_0C = 0.0f;
+    m_10 = 0;
+}
 
 class Rva005A71B1Base
 {
