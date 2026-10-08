@@ -584,3 +584,28 @@ void RailedTransportDockUpdate::loadPostProcess( void )
 	DockUpdate::loadPostProcess();
 
 }  // end loadPostProcess
+
+// Address-derived shim: the callee at 0x0044FC52 is pinned by address.
+class Rva0044FC52
+{
+public:
+	bool rva0044FC52();
+};
+
+class Rva004B01E6Owner
+{
+public:
+	bool rva004B01E6();
+
+private:
+	char m_pad00[0x24];
+	int m_24;
+};
+
+// ?rva004B01E6@Rva004B01E6Owner@@QAE_NXZ
+bool Rva004B01E6Owner::rva004B01E6()
+{
+	if (m_24 == 2)
+		return false;
+	return ((Rva0044FC52 *)this)->rva0044FC52();
+}
