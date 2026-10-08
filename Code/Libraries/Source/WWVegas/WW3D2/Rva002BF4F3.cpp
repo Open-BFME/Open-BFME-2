@@ -1,6 +1,15 @@
-// cl: /Ireference/shims/bfme2ray /Ireference/shims/bfme2renderobj /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
+// Geometry helper home: native2BF935 passes its unchanged receiver to ray helper2BF4F3.
+// WB D270A0 proves prefix1C plus dot plus argument-name54; its ReleaseRef label
+// comes from an inlined refcount assertion and does not establish the owner name.
+// Target facts: manager268 config; assets4; factory VT80; refcount4; delete VT0.
+// The 12/16-byte nodes use verified RegistryAsciiPath and Rva005F17C6Build ABIs.
+// Address-derived base views retain unknown expression and receiver identities.
+// Canonical AsciiString owns cleanup. Native2BF935..2BFA12 RET12; full221/EH exact.
 // ?rva002BF4F3@Rva002BF4F3@@QAE_NPAVRenderObjClass@@PBVVector3@@PAV3@H_N@Z @0x002BF4F3 189B unlock: AABox early-out then down-cast via rowed 0x002BF198; callers 0x002BF5B0 0x002BF935; box getter slot 0x108; float -1.0f via g_00BBB9AC
 
+
+#include "ascii_string.h"
 class Vector3
 {
 public:
@@ -19,6 +28,7 @@ public:
 class RenderObjClass
 {
 public:
+	int m_refs;
 	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04();
 	virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09();
 	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
@@ -48,6 +58,7 @@ class Rva002BF4F3
 {
 public:
 	bool rva002BF4F3(RenderObjClass *obj, const Vector3 *pt, Vector3 *out, int collisionType, bool checkHidden);
+ bool rva002BF935(void *arg, const Vector3 *pt, Vector3 *out);
 };
 
 bool Rva002BF4F3::rva002BF4F3(RenderObjClass *obj, const Vector3 *pt, Vector3 *out, int collisionType, bool checkHidden)
@@ -70,4 +81,60 @@ bool Rva002BF4F3::rva002BF4F3(RenderObjClass *obj, const Vector3 *pt, Vector3 *o
 	dir.Y = 0.0f;
 	dir.Z = g_00BBB9AC;
 	return ((Rva00DFEF18Host *)this)->Cast(obj, start, dir, out, collisionType, checkHidden);
+}
+
+struct Rva005F17C6S12 { int m0,m1,m2; };
+struct AsciiStringPlusText : Rva005F17C6S12 {};
+AsciiStringPlusText operator+(const AsciiString &,const char *);
+struct Rva0020F58E { int storage[4]; operator AsciiString(); };
+struct Rva005F17C6S16 : Rva0020F58E {};
+Rva005F17C6S16 Rva005F17C6Build(const Rva005F17C6S12 &,int);
+class Rva002BF935AssetManager { public:
+ virtual void slot00();
+ virtual void slot01();
+ virtual void slot02();
+ virtual void slot03();
+ virtual void slot04();
+ virtual void slot05();
+ virtual void slot06();
+ virtual void slot07();
+ virtual void slot08();
+ virtual void slot09();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual void slot15();
+ virtual void slot16();
+ virtual void slot17();
+ virtual void slot18();
+ virtual void slot19();
+ virtual void slot20();
+ virtual void slot21();
+ virtual void slot22();
+ virtual void slot23();
+ virtual void slot24();
+ virtual void slot25();
+ virtual void slot26();
+ virtual void slot27();
+ virtual void slot28();
+ virtual void slot29();
+ virtual void slot30();
+ virtual void slot31();
+ virtual RenderObjClass *create(const char *,int);
+};
+struct Rva002BF935Config { int pad0; Rva002BF935AssetManager *assets; char pad8[0x14]; AsciiString prefix; };
+class LivingWorldManager;
+extern LivingWorldManager *TheLivingWorldManager;
+struct Rva002BF935ManagerView { char pad[0x268]; Rva002BF935Config *config; };
+bool Rva002BF4F3::rva002BF935(void *arg,const Vector3 *pt,Vector3 *out) {
+ Rva002BF935Config *config=reinterpret_cast<Rva002BF935ManagerView *>(TheLivingWorldManager)->config;
+ AsciiString name=Rva005F17C6Build(static_cast<const Rva005F17C6S12 &>(config->prefix + "."),reinterpret_cast<int>((char *)arg+0x54));
+ config=reinterpret_cast<Rva002BF935ManagerView *>(TheLivingWorldManager)->config;
+ Rva002BF935AssetManager *assets=config->assets;
+ RenderObjClass *obj=assets->create(name.str(),0);
+ bool result=false;
+ if(obj) { result=rva002BF4F3(obj,pt,out,1,true); if(--obj->m_refs==0)obj->v00(); }
+ return result;
 }
