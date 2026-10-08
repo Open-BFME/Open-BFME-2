@@ -86,6 +86,12 @@ struct BlockInfo
 
 // PPMalloc's allocator. Most methods remain address-named; a few now have
 // donor PDB names backed by exact target bodies and boundaries.
+struct Rva00031BF0Chunk {
+ unsigned previousSize;
+ unsigned size;
+ Rva00031BF0Chunk* previous;
+ Rva00031BF0Chunk* next;
+};
 class GeneralAllocator
 {
 public:
@@ -120,6 +126,7 @@ public:
 	unsigned int rva006C1D10(const void *block);		// fast usable-size with tail call to 0x32A20 caller 0x6C36FD
 	void *rva00031680(const void *block);	// intrusive-list search unblocking 0x31BB0 0x31D00 0x32920
 	bool rva000316B0(void *block, bool release);	// conditional core-release callback / VirtualFree
+	int rva00031BF0(const void *block);
 	bool rva00031BB0(const void *block);	// small-block fencepost check via 0x31680 caller 0x3324E
 	void rva000338F0(void *block);				// Free-like
 	void *rva00035080(unsigned int size, int flags);	// Malloc-like
@@ -150,7 +157,11 @@ private:
 		ListNode *m_next;
 		ListNode *m_prev;
 	};
-	unsigned char m_pad0[0x448];
+	unsigned int m_unknown0;
+	unsigned int m_maxFastSize;
+	Rva00031BF0Chunk* m_fastBins[10];
+	Rva00031BF0Chunk* m_bins[256];
+	char m_pad430[0x18];
 	ListNode m_sentinel;
 	// Lock wrapper proven by 0x00032A20: Enter/Leave on the pointer at
 	// +0x4E4 with a use count at +0x18 of the wrapper.
@@ -625,3 +636,44 @@ void Rva00030D10::rva00030D10(unsigned int size) {
  else sizeAndFlag=flag;
 }
 
+
+// Native 31BF0..31CF4 including the final RET4, 260B (inventory stops
+// before that return). The allocator's fast and circular-bin searches
+// classify its chunk pointer as 1, 2, or the +440 distinguished chunk as 3.
+// Provider identity follows the adjacent rowed GeneralAllocator methods;
+// the API name and chunk-kind enum labels remain unresolved.
+namespace EA
+{
+namespace Allocator
+{
+int GeneralAllocator::rva00031BF0(const void* block) {
+ typedef Rva00031BF0Chunk Chunk;
+ const Chunk* chunk=(const Chunk*)block;
+ if(chunk==*(Chunk**)((char*)this+0x440)) return 3;
+ unsigned size=chunk->size&0x7ffffff8;
+ 
+ if(size>=0x10 && size<=m_maxFastSize) {
+  for(Chunk* p=m_fastBins[(size>>3)-2];p;p=p->next)
+   if(p==chunk) return 1;
+ }
+ 
+ unsigned index;
+ if((unsigned)chunk>=(unsigned)m_bins && (unsigned)chunk<(unsigned)this+0x430)
+  index=(((const char*)chunk-(const char*)this-0x30)>>4)+2;
+ else if(size<0x200) index=size>>3;
+ else index=GetLargeBinIndexFromChunkSize(size);
+ Chunk* head=m_bins[index];
+ for(Chunk* p=head->next;p!=head;p=p->next)
+  if(p==chunk) return 2;
+ for(int i=0;i<10;++i)
+  for(Chunk* p=m_fastBins[i];p;p=p->next)
+   if(p==chunk) return 1;
+ for(int i=2;i<256;i+=2) {
+  Chunk* head=m_bins[i];
+  for(Chunk* p=head->next;p!=head;p=p->next)
+   if(p==chunk) return 2;
+ }
+ return 0;
+}
+}
+}
