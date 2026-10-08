@@ -34,3 +34,11 @@ bool PolygonTrigger::pointInTrigger(const ICoord3D &point)
     const void *region = reinterpret_cast<const char *>(this) + 8;
     return rva00285B66(&planarPoint, region);
 }
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?take@Rva002E3A7AFields@@QAEIXZ
+struct Rva002E3A7AFields { unsigned int word0; unsigned int take(); };
+unsigned int Rva002E3A7AFields::take() { unsigned int value=word0; word0=0; return value; }
