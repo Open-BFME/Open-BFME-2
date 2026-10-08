@@ -14,11 +14,36 @@
 namespace _STL { void __cdecl free(void *block) throw(...); }
 #define free _STL::free
 #include <vector>
+#include <list>
 #undef free
 
 #include "ascii_string.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const AsciiString &name);	// 0x0009FA65
+	NameKeyType nameToKey(const char *name);	// 0x00148E1A
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class StaticNameKey
+{
+public:
+	NameKeyType key() const;			// 0x00148F5E
+	operator NameKeyType() const { return key(); }
+
+private:
+	mutable NameKeyType m_key;
+	const char *m_name;
+};
+extern const StaticNameKey TheKey_objectName;			// VA 0x00DBDCC4
+extern const StaticNameKey TheKey_objectIsABase;		// VA 0x00DBDD0C
+extern const StaticNameKey TheKey_objectBaseName;		// VA 0x00DBDD14
+extern const StaticNameKey TheKey_objectBasePriority;	// VA 0x00DBDD84
+extern const StaticNameKey TheKey_objectBasePhase;		// VA 0x00DBDD8C
 
 enum ErrorCode { ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005 };
 
@@ -34,6 +59,9 @@ class Dict
 {
 public:
 	~Dict() { releaseData(); }
+	bool getBool(int key, bool *exists = 0) const;	// 0x00313198
+	int getInt(int key, bool *exists = 0) const;	// 0x003131CA
+	AsciiString getAsciiString(int key, bool *exists = 0) const;	// 0x0031359F
 
 private:
 	void releaseData();					// 0x0031339C
@@ -111,6 +139,7 @@ class DataChunkOutput
 public:
 	void openDataChunk(char *name, unsigned short ver);	// 0x00307C76
 	void closeDataChunk();				// 0x00306C88
+	void writeNameKey(NameKeyType key);	// 0x00307D29
 	void writeReal(float r);			// 0x00306CFF
 	void writeInt(int i);				// 0x00306CFF
 	void writeByte(unsigned char b);	// 0x00306D17
@@ -132,6 +161,75 @@ struct Coord3D
 		y = other.y;
 		z = other.z;
 	}
+
+	void zero() { x = 0.0f; y = 0.0f; z = 0.0f; }
+	void add(const Coord3D *a) { x += a->x; y += a->y; z += a->z; }
+	void sub(const Coord3D *a) { x -= a->x; y -= a->y; z -= a->z; }
+};
+
+// The kind-of mask at +0x108 and the name at +0x64 of the template a map
+// object resolves to through its override chain.
+class ThingTemplate
+{
+public:
+	const AsciiString &getName() const { return m_name; }
+	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
+
+private:
+	char m_pad00[0x64];
+	AsciiString m_name;					// +0x64
+	char m_pad68[0x108 - 0x68];
+	unsigned char m_kindOf[4];			// +0x108
+};
+
+// MapObject's template and location getters, rowed under their address-era
+// spellings: the final-override walk 0x0030D833 and 0x0030D631.
+struct BfmeSlotJA;
+class BfmeThing932A { public: BfmeSlotJA *bfmeGo932A(); };
+class BfmeRetBWF;
+class Rva0030D631 { public: BfmeRetBWF *rva0030D631(); };
+
+class MapObject
+{
+public:
+	MapObject *getNext() const { return m_nextMapObject; }
+	const ThingTemplate *getThingTemplate() { return (const ThingTemplate *)((BfmeThing932A *)this)->bfmeGo932A(); }
+	const Coord3D *getLocation() { return (const Coord3D *)((Rva0030D631 *)this)->rva0030D631(); }
+	float getAngle() const { return m_angle; }
+	Dict *getProperties() { return &m_properties; }
+
+private:
+	char m_pad00[0x04];
+	MapObject *m_nextMapObject;			// +0x04
+	char m_pad08[0x1C - 0x08];
+	float m_angle;						// +0x1C
+	char m_pad20[0x24 - 0x20];
+	Dict m_properties;					// +0x24
+};
+
+// A castle path: its two-real points in a vector at +0x08, the next path at
+// +0x3C and its name at +0x40. The by-value point getter 0x002E3A8D keeps its
+// address-era spelling (hidden return pointer explicit).
+struct Rva002E3A8DPair
+{
+	float m_x;
+	float m_y;
+};
+
+class Rva002E3A8DHolder
+{
+public:
+	Rva002E3A8DPair *get(Rva002E3A8DPair *out, int index);	// 0x002E3A8D
+	int getNumPoints() const { return m_points.size(); }
+	Rva002E3A8DHolder *getNext() const { return m_next; }
+	const AsciiString &getName() const { return m_name; }
+
+private:
+	char m_pad00[0x08];
+	_STL::vector<Rva002E3A8DPair> m_points;	// +0x08
+	char m_pad14[0x3C - 0x14];
+	Rva002E3A8DHolder *m_next;			// +0x3C
+	AsciiString m_name;					// +0x40
 };
 
 // The 128-byte entry SidesList::addToFactionBuildListMap 0x0032CDFE copies.
@@ -242,6 +340,7 @@ public:
 	void rva0032E02B();					// 0x0032E02B, WB validateSides
 	bool parseCastleTemplateDataChunk(DataChunkInput &file, DataChunkInfo *info);
 	bool parseLibraryMapListsChunk(DataChunkInput &file, DataChunkInfo *info);
+	void writeCastleTemplateDataChunk(DataChunkOutput &out, MapObject *pMapObjs, const AsciiString &mapName, Rva002E3A8DHolder *paths);
 	void rva0032E6F4(int key, const BfmePod128 &entry);	// 0x0032E6F4, castle build entry add
 	void rva0032ED75(int key, const _STL::vector<BfmeE8> &path);	// 0x0032ED75, castle path add
 
@@ -487,4 +586,123 @@ bool SidesList::parseLibraryMapListsChunk(DataChunkInput &file, DataChunkInfo *i
 		}
 	}
 	return true;
+}
+
+// SidesList::writeCastleTemplateDataChunk, retail 0x0032B88C (1177 bytes): the
+// version 5 "CastleTemplates" chunk of a .bse castle map.
+//
+// Identity (target): WorldBuilder's debug twin (wb 0xa8ac80, SidesList.cpp
+// asserts 2756 and 2770) aligns call for call: the "bse" suffix test, the name
+// key of the map name up to its '.', the kind-of bit 18 test on each object's
+// template, the objectIsABase / objectBaseName / objectName / objectBasePriority
+// / objectBasePhase keys (VA 0x00DBDD0C, 0x00DBDD14, 0x00DBDCC4, 0x00DBDD84,
+// 0x00DBDD8C) with 40 as the missing priority and phase, then each path's name,
+// point count and centre-relative points through 0x002E3A8D.
+//
+// Shape (target): retail inlines the one-character append as
+// StringBase<char>::concat(&c, 1); the base sum reads its location through a
+// local (an inline add straight on the call result loads the sum first); and
+// the relative point is a pair whose x is never stored. The list<MapObject *>
+// base constructor, _M_create_node, insert and base destructor fold onto the
+// list<int> rows 0x004EC36C, 0x000B6447, 0x005925E2 and 0x004EC395.
+static __forceinline void concatChar(AsciiString &s, char c)
+{
+	((StringBase<char> *)&s)->concat(&c, 1);
+}
+
+void SidesList::writeCastleTemplateDataChunk(DataChunkOutput &out, MapObject *pMapObjs, const AsciiString &mapName, Rva002E3A8DHolder *paths)
+{
+	out.openDataChunk("CastleTemplates", 5);
+	if (!mapName.endsWithNoCase("bse")) {
+		out.writeNameKey(TheNameKeyGenerator->nameToKey("UNKNOWN"));
+		out.writeInt(0);
+		return;
+	}
+	AsciiString name;
+	for (int i = 0; mapName.getCharAt(i) != '.'; i++)
+		concatChar(name, mapName.getCharAt(i));
+	out.writeNameKey(TheNameKeyGenerator->nameToKey(name));
+
+	bool exists = false;
+	int count = 0;
+	Coord3D center;
+	center.zero();
+	Coord3D baseSum;
+	baseSum.zero();
+	Coord3D pieceSum;
+	pieceSum.zero();
+	int baseCount = 0;
+	AsciiString templateName("");
+	_STL::list<MapObject *> pieces;
+	for (MapObject *obj = pMapObjs; obj; obj = obj->getNext()) {
+		const ThingTemplate *tt = obj->getThingTemplate();
+		if (tt && tt->isKindOf(18)) {
+			const Coord3D *loc = obj->getLocation();
+			baseSum.add(loc);
+			baseCount++;
+			continue;
+		}
+		bool isABase = obj->getProperties()->getBool(TheKey_objectIsABase, &exists);
+		if (exists && isABase)
+			continue;
+		AsciiString baseName = obj->getProperties()->getAsciiString(TheKey_objectBaseName, &exists);
+		if (exists && !baseName.isEmpty()) {
+			pieces.push_back(obj);
+			count++;
+			pieceSum.add(obj->getLocation());
+		}
+	}
+	if (baseCount == 0) {
+		center.x = pieceSum.x / count;
+		center.y = pieceSum.y / count;
+		center.z = pieceSum.z / count;
+	} else {
+		center.x = baseSum.x / baseCount;
+		center.y = baseSum.y / baseCount;
+		center.z = baseSum.z / baseCount;
+	}
+
+	out.writeInt(count);
+	if (count > 0) {
+		for (_STL::list<MapObject *>::iterator it = pieces.begin(); it != pieces.end(); ++it) {
+			MapObject *building = *it;
+			if (!building)
+				return;
+			templateName = building->getProperties()->getAsciiString(TheKey_objectName, &exists);
+			out.writeAsciiString(exists ? templateName : AsciiString::TheEmptyString);
+			const ThingTemplate *tt = building->getThingTemplate();
+			out.writeAsciiString(tt ? tt->getName() : AsciiString::TheEmptyString);
+			Coord3D pos = *building->getLocation();
+			pos.sub(&center);
+			out.writeReal(pos.x);
+			out.writeReal(pos.y);
+			out.writeReal(pos.z);
+			out.writeReal(building->getAngle());
+			int priority = building->getProperties()->getInt(TheKey_objectBasePriority, &exists);
+			out.writeInt(exists ? priority : 40);
+			int phase = building->getProperties()->getInt(TheKey_objectBasePhase, &exists);
+			out.writeInt(exists ? phase : 40);
+		}
+	}
+
+	int numPaths = 0;
+	Rva002E3A8DHolder *path;
+	for (path = paths; path; path = path->getNext())
+		numPaths++;
+	out.writeInt(numPaths);
+	for (path = paths; path; path = path->getNext()) {
+		out.writeAsciiString(path->getName());
+		int numPoints = path->getNumPoints();
+		out.writeInt(numPoints);
+		for (int j = 0; j < numPoints; j++) {
+			Rva002E3A8DPair pt;
+			path->get(&pt, j);
+			Rva002E3A8DPair rel;
+			rel.m_x = pt.m_x - center.x;
+			rel.m_y = pt.m_y - center.y;
+			out.writeReal(rel.m_x);
+			out.writeReal(rel.m_y);
+		}
+	}
+	out.closeDataChunk();
 }
