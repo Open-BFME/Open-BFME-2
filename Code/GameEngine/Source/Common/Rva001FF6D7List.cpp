@@ -4,9 +4,7 @@
 // Unlock lane: if m_ptr null return else prepend node to global list at
 // 0x009B9448 (node->next = global; global = node). Caller 0x001FF75D.
 // Unwind funclet 0x0076C22E jmps here.
-extern void *Global_009B9448;
-// Global_009B9448: matched references place it at VA 0xdb9448 (retail .data initial value 0).
-void * Global_009B9448 = 0;
+#include "../../Include/Common/Rva002E8548Pool.h"
 
 struct Rva001FF6D7Node
 {
@@ -31,8 +29,8 @@ void Rva001FF6D7::rva001FF6D7()
 	void *node = m_ptr;
 	if (node == 0)
 		return;
-	*(void **)node = Global_009B9448;
-	Global_009B9448 = node;
+	*(void **)node = g_Va00DB9440.m_head;
+	g_Va00DB9440.m_head = node;
 }
 
 void Rva001FF6D7::rva001FF55F(Rva001FF6D7Node *head)
@@ -44,8 +42,8 @@ void Rva001FF6D7::rva001FF55F(Rva001FF6D7Node *head)
 	{
 		rva001FF55F(cur->m_child);
 		Rva001FF6D7Node *next = cur->m_next;
-		cur->m_globalNext = Global_009B9448;
-		Global_009B9448 = cur;
+		cur->m_globalNext = g_Va00DB9440.m_head;
+		g_Va00DB9440.m_head = cur;
 		cur = next;
 	} while (cur != 0);
 }

@@ -8,8 +8,8 @@ struct _Rva002EB46ENode {
     _Rva002EB46ENode *_m_next;
     _Rva002EB46ENode *_m_child;
 };
-// g_Va00DBD4D0: VA 0x00dbd4d0 (.data); retail initial bytes 00 00 00 00.
-_Rva002EB46ENode *g_Va00DBD4D0;
+// Native DBD4D0 is the shared pool's free-node field at +8.
+#include "../../../../GameEngine/Include/Common/Rva002E8548Pool.h"
 struct Rva002EB46E {
     _Rva002EB46ENode *m_head;
     int m_flag;
@@ -32,6 +32,6 @@ void Rva002EB46E::rva002EEA46()
     _Rva002EB46ENode *head = m_head;
     if (!head)
         return;
-    head->_m_link = g_Va00DBD4D0;
-    g_Va00DBD4D0 = head;
+    head->_m_link = g_Va00DBD4C8.m_head;
+    g_Va00DBD4C8.m_head = head;
 }

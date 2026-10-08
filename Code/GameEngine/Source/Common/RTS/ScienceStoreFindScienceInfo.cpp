@@ -236,8 +236,8 @@ class Rva001FF6D7 {
 public:
     void rva001FF55F(Rva001FF6D7Node *);
 };
-// Existing pool freelist owner; native base cleanup pushes the header here.
-extern void *Global_009B9448;
+// Native base cleanup pushes the header into the pool's free-node head.
+#include "../../../Include/Common/Rva002E8548Pool.h"
 namespace _STL {
 template <> void ScienceMemoTree::clear() {
     if (_M_node_count != 0) {
@@ -251,8 +251,8 @@ template <> void ScienceMemoTree::clear() {
 template <> _Rb_tree_base<ScienceMemoValue, allocator<ScienceMemoValue> >::~_Rb_tree_base() {
     void *node = _M_header._M_data;
     if (node) {
-        *reinterpret_cast<void **>(node) = Global_009B9448;
-        Global_009B9448 = node;
+        *reinterpret_cast<void **>(node) = g_Va00DB9440.m_head;
+        g_Va00DB9440.m_head = node;
     }
 }
 }

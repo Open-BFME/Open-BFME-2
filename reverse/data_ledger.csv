@@ -13514,8 +13514,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009B93BC,72,.data,global,?thePlayerTemplateBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009B9404,48,.data,global,?theRoadBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009B9434,12,.data,global,?theScienceBlockParse@@3UBlockParse@@A,,unowned,,0,2
-0x009B9440,8,.data,global,?g_Va00DB9440@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_00DB9440@@3VRva002EB448@@A;?g_Va00DB9440@@3IA,1,3
-0x009B9448,52,.data,global,?Global_009B9448@@3PAXA,Code/GameEngine/Source/Common/Rva001FF6D7List.cpp,owned,,1,4
+0x009B9440,60,.data,global,?g_Va00DB9440@@3VRva002E8548@@A,Code/Libraries/Source/WWVegas/WWLib/Rva002E8548Pool.cpp,owned,,1,9
 0x009B947C,40,.data,global,?theRankBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009B94A4,48,.data,global,?theSpecialPowerBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009B94D4,12,.data,global,?theShellMenuSchemeBlockParse@@3UBlockParse@@A,,unowned,,0,2
@@ -13651,8 +13650,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009BD33C,372,.data,global,?g_00DBD33C@@3PAIA,Code/GameEngine/Source/Common/Rva002E6DC4Check.cpp,owned,,1,2
 0x009BD4B0,8,.data,global,?g_Va00DBD4B0@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_00DBD4B0@@3VRva002EB448@@A;?g_Va00DBD4B0@@3IA,1,2
 0x009BD4B8,16,.data,global,?g_Va00DBD4B8@@3PAU_Rva002EB416Node@@A,Code/Libraries/Source/WWVegas/WWLib/Rva002EE9E0Reset.cpp,owned,,1,4
-0x009BD4C8,8,.data,global,?g_Va00DBD4C8@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_00DBD4C8@@3VRva002EB448@@A;?g_Va00DBD4C8@@3IA,1,2
-0x009BD4D0,744,.data,global,?g_Va00DBD4D0@@3PAU_Rva002EB46ENode@@A,Code/Libraries/Source/WWVegas/WWLib/Rva002EEA1DReset.cpp,owned,,1,4
+0x009BD4C8,752,.data,global,?g_Va00DBD4C8@@3VRva002E8548@@A,Code/Libraries/Source/WWVegas/WWLib/Rva002E8548Pool.cpp,owned,,1,8
 0x009BD7B8,36,.data,global,?g_bfmeDefaultCU@@3VBfmeBlockCU@@A,,unowned,,0,1
 0x009BD7DC,36,.data,global,?g_bfmeCurrentCU@@3VBfmeBlockCU@@A,,unowned,,0,1
 0x009BD800,96,.data,global,?g_bfmeTableSrcBQ@@3PAHA,,unowned,?g_bfmeTableSrcBQ@@3PAHA;_s_ringEffectSaved@Code/GameEngine/Source/GameClient/Drawable_Rva00309ffd.cpp,1,2

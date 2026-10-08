@@ -1522,8 +1522,9 @@ void __cdecl rva007B79F1()
 	p->rva001EAF7B();
 }
 
-extern unsigned g_Va00DB9440;
-unsigned int g_Va00DB9440;
+// The observed 24-byte ScienceStore pool is owned by Rva002E8548Pool.cpp.
+class Rva002E8548;
+extern Rva002E8548 g_Va00DB9440;
 
 // ?rva007B75C4@@YAXXZ @ 0x007B75C4 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DB9440 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B). No callers. Honest address name.
 void __cdecl rva007B75C4()

@@ -5,20 +5,7 @@
 // 1EAEF9. Target [2E8548,2E85AD) independently establishes stride24,
 // six-word pool storage and the allocator callback ABI. /G7 preserves IMUL.
 // Field names describe their observed use rather than original identities.
-class Rva002E8548
-{
-public:
-    void *rva002EB448();
-private:
-    bool rva002E8548(int arena, int size);
-public:
-    int m_00; // default node count
-    void *m_04; // allocated-block list
-    void *m_head; // free-node list
-    void *(__cdecl *m_alloc)(int size, int context);
-    void (__cdecl *m_free)(void *block, int context);
-    int m_14; // callback context
-};
+#include "../../../../GameEngine/Include/Common/Rva002E8548Pool.h"
 
 bool Rva002E8548::rva002E8548(int arena, int size)
 {
@@ -77,6 +64,8 @@ void __cdecl Rva0002FFE0Free(void *block, int context);
 // Native initialized image at DBD4C8: 128 nodes; null block/free lists;
 // allocator/free callbacks 42FFC0/42FFE0; context zero. Both full callbacks
 // are independently rowed. One 24-byte owner replaces the old 4-byte stub.
+// ScienceStore uses the same verified pool layout and callbacks at DB9440.
+Rva002E8548 g_Va00DB9440 = { 128, 0, 0, Rva0002FFC0Alloc, Rva0002FFE0Free, 0 };
 Rva002E8548 g_Va00DBD4C8 = { 128, 0, 0, Rva0002FFC0Alloc, Rva0002FFE0Free, 0 };
 // Native insertion compares the first payload word unsigned; the creator
 // copies two words at node+16. The second word is an opaque storage view;

@@ -1,13 +1,9 @@
 // cl: /DNDEBUG /MD
 // Dump lane range 13: ?rva002EB448 @0x002EB448 38B. Drain-then-unlink:
-// while the head slot is empty, refill via pinned 0x002E8548(0,0); false
+// while the head slot is empty, refill via verified 0x002E8548(0,0); false
 // returns null, else unlink and return the head node (next at +0).
 // Identity unproven.
-class Rva002E8548
-{
-public:
-	bool rva002E8548(int a, int b);
-};
+#include "../../../Include/Common/Rva002E8548Pool.h"
 class Rva002EB448
 {
 public:

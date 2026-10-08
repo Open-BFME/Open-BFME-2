@@ -52,3 +52,4 @@ ObjectIdNode,Code/GameEngine/Source/Common/GameLogicObjectLookupView.h,existing 
 HeaderTemplate,Code/GameEngine/Source/GameClient/GUI/HeaderTemplateView.h,native 20-byte template; font0 name4 fontName8 pointC bold10 verified across creation and font refresh
 HeaderTemplateManager,Code/GameEngine/Source/GameClient/GUI/HeaderTemplateView.h,shared native STLport list member at +0; circular node links0 and template pointer8; lookup and GUI caller contracts verified
 ControlBarSchemeManager,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeManagerView.h,native accessed prefix; current scheme0 multiplier4 STLport listC; full manager extent unasserted; existing scheme layouts preserved
+Rva002E8548,Code/GameEngine/Include/Common/Rva002E8548Pool.h,native grow establishes six-word pool layout and callback ABI; ScienceStore free-list field and two initialized pool owners reconciled

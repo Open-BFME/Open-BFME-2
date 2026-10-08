@@ -8,7 +8,7 @@ struct _Rva002EB46ENode {
     _Rva002EB46ENode *_m_next;
     _Rva002EB46ENode *_m_child;
 };
-extern _Rva002EB46ENode *g_Va00DBD4D0;
+#include "../../../../GameEngine/Include/Common/Rva002E8548Pool.h"
 struct Rva002EB46E {
     void rva002EB46E(_Rva002EB46ENode *p);
 };
@@ -19,8 +19,8 @@ void Rva002EB46E::rva002EB46E(_Rva002EB46ENode *p)
     do {
         rva002EB46E(p->_m_child);
         _Rva002EB46ENode *next = p->_m_next;
-        p->_m_link = g_Va00DBD4D0;
-        g_Va00DBD4D0 = p;
+        p->_m_link = g_Va00DBD4C8.m_head;
+        g_Va00DBD4C8.m_head = p;
         p = next;
     } while (p);
 }
