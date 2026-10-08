@@ -256,3 +256,18 @@ bool Rva002BF4F3::rva002BF5B0(const Vector3 *pt,Vector3 *out) {
  rva002BEA10(obj,true);
  return result;
 }
+
+class Rva0020F91D {
+public:
+    bool rva0020F91D(void *,const Vector3 *,const Vector3 *);
+    bool rva0020E354(RenderObjClass *,const Vector3 &,const Vector3 &);
+};
+class Rva002D3627Host;
+extern Rva002D3627Host *g_00DFEF18;
+// Native20E354..20E374 RET12. Caller20F91D preserves its original receiver;
+// this wrapper replaces it with the named scene singleton for the cast call.
+// Incoming receiver is intentionally unused; this keeps one code owner.
+bool Rva0020F91D::rva0020E354(RenderObjClass *obj,const Vector3 &start,const Vector3 &dir)
+{
+    return ((Rva00DFEF18Host *)g_00DFEF18)->Cast(obj,start,dir,0,1,true);
+}
