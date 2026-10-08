@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /arch:SSE /O1 /ICode/GameEngine/Source/Common /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // Target evidence: HordeSiegeEngineContain ctor 0x0047D247 installs primary
 // vtable 0x00C474A0; slot 8 at 0x00C474C0 points to 0x0047CB4D. That slot in
@@ -18,10 +18,14 @@ class Object;
 class Thing;
 class ModuleData;
 
-class GameLogic
+#include "GameLogicObjectLookupView.h"
+enum ObjectStatusTypes;
+class Object
 {
 public:
-	void destroyObject(Object *object);
+	bool testStatus(ObjectStatusTypes) const;
+	unsigned char unknown00[0x274];
+	Object *m_containedBy274;
 };
 
 extern GameLogic *TheGameLogic;
@@ -31,8 +35,10 @@ class OpenContain
 public:
 	virtual void onDelete();
 
-private:
-	unsigned char m_padding[0xFC];
+protected:
+	const ModuleData *m_moduleData;
+	Object *m_object;
+	unsigned char m_padding0C[0x100 - 0x0C];
 };
 
 class TransportContain : public OpenContain
@@ -51,9 +57,12 @@ class HordeSiegeEngineContain : public HordeTransportContain
 {
 public:
 	virtual void onDelete();
+	virtual void LoadPostProcess();
 
 private:
 	_STL::list<int> m_riderObjects;
+	unsigned char m_pad12C[0x140 - 0x12C];
+	_STL::list<int> m_restoreIDs140;
 };
 
 void HordeSiegeEngineContain::onDelete()
@@ -139,4 +148,50 @@ void Rva0047CE0CInterface::removeAndApplyForce(int)
 		}
 		first = m_riders.begin();
 	}
+}
+
+class XferException
+{
+public:
+    XferException(int tag, const char *format, ...);
+    XferException(const XferException &);
+    ~XferException();
+    char *text;
+    int tag;
+};
+class Rva00479D68 { public: void rva00479D68(); };
+template <int N> class Rva0047D19CSlots : public Rva0047D19CSlots<N - 1>
+{
+public:
+    virtual void gap(char (*)[N]) = 0;
+};
+template <> class Rva0047D19CSlots<0> {};
+class Rva0047D19CInterface : public Rva0047D19CSlots<24>
+{
+public:
+    virtual void slot24(Object *, int, int) = 0;
+};
+void HordeSiegeEngineContain::LoadPostProcess()
+{
+    // WB 011AF450 independently names this method and establishes crew-ID
+    // restoration plus XferException(5). Native 0047D19C..0047D246 proves
+    // owner+8, crew list128, restore-ID list140, Object field274 and slot24.
+    // WB layouts differ (+12C/+144/+27C); target offsets take precedence.
+    // The five-byte folded base wrapper is separately rowed at00479D68.
+    // Native ends after the noreturn throw call; emitted alignment byte at
+    // 0047D246 also matches retail. No donor class layout is asserted here.
+    Object *owner = m_object;
+    reinterpret_cast<Rva00479D68 *>(this)->rva00479D68();
+    if (!m_riderObjects.empty())
+        throw XferException(5, 0);
+    for (_STL::list<int>::iterator it = m_restoreIDs140.begin(); it != m_restoreIDs140.end(); ++it) {
+        Object *rider = TheGameLogic->findObjectByID((ObjectID)*it);
+        if (!rider)
+            throw XferException(5, 0);
+        m_riderObjects.push_back(reinterpret_cast<const int &>(rider));
+        if (rider->testStatus((ObjectStatusTypes)0x3D))
+            reinterpret_cast<Rva0047D19CInterface *>(this)->slot24(rider, 0, 0);
+        rider->m_containedBy274 = owner;
+    }
+    m_restoreIDs140.clear();
 }
