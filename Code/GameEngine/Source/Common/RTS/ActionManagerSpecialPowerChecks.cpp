@@ -20,7 +20,7 @@
 #include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 // Preserve the independently rowed Object getter's ABI spelling. Its target
 // numeric status threshold 3 corresponds to the reference's object fog state.
-enum CellShroudStatus { ACTION_OBJECT_SHROUD_FOGGED = 3 };
+enum CellShroudStatus { ACTION_OBJECT_SHROUD_FOGGED = 3, ACTION_OBJECT_SHROUD_SHROUDED = 4 };
 
 #include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
@@ -173,6 +173,7 @@ public:
 		const SpecialPowerTemplate *spTemplate, unsigned int commandOptions, bool checkSourceRequirements);
 	bool rva0041BA61(const Object *obj);
 	bool rva0041CE27(Object *obj, Object *target, int);
+	bool canTransferSuppliesAt(const Object *obj, const Object *transferDest);
 };
 
 bool ActionManager::validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
@@ -935,4 +936,109 @@ bool ActionManager::rva0041BA61(const Object *obj)
 		}
 	}
 	return false;
+}
+
+// canTransferSuppliesAt's views: the supply-truck interface the source's
+// AIUpdateInterface returns from slot 0x178 and the warehouse dock's box
+// count. BFME1 ba7ddda7 reads the same slots at 0x13C, 0x00 and 0x10.
+class ActionSupplyTruckView
+{
+public:
+	virtual int getNumberBoxes() const;	// +0x00
+	virtual void t01() const; virtual void t02() const; virtual void t03() const;
+	virtual bool isAvailableForSupplying() const;	// +0x10
+};
+
+class ActionSupplyAIView
+{
+public:
+	virtual void a00(); virtual void a01(); virtual void a02(); virtual void a03();
+	virtual void a04(); virtual void a05(); virtual void a06(); virtual void a07();
+	virtual void a08(); virtual void a09(); virtual void a10(); virtual void a11();
+	virtual void a12(); virtual void a13(); virtual void a14(); virtual void a15();
+	virtual void a16(); virtual void a17(); virtual void a18(); virtual void a19();
+	virtual void a20(); virtual void a21(); virtual void a22(); virtual void a23();
+	virtual void a24(); virtual void a25(); virtual void a26(); virtual void a27();
+	virtual void a28(); virtual void a29(); virtual void a30(); virtual void a31();
+	virtual void a32(); virtual void a33(); virtual void a34(); virtual void a35();
+	virtual void a36(); virtual void a37(); virtual void a38(); virtual void a39();
+	virtual void a40(); virtual void a41(); virtual void a42(); virtual void a43();
+	virtual void a44(); virtual void a45(); virtual void a46(); virtual void a47();
+	virtual void a48(); virtual void a49(); virtual void a50(); virtual void a51();
+	virtual void a52(); virtual void a53(); virtual void a54(); virtual void a55();
+	virtual void a56(); virtual void a57(); virtual void a58(); virtual void a59();
+	virtual void a60(); virtual void a61(); virtual void a62(); virtual void a63();
+	virtual void a64(); virtual void a65(); virtual void a66(); virtual void a67();
+	virtual void a68(); virtual void a69(); virtual void a70(); virtual void a71();
+	virtual void a72(); virtual void a73(); virtual void a74(); virtual void a75();
+	virtual void a76(); virtual void a77(); virtual void a78(); virtual void a79();
+	virtual void a80(); virtual void a81(); virtual void a82(); virtual void a83();
+	virtual void a84(); virtual void a85(); virtual void a86(); virtual void a87();
+	virtual void a88(); virtual void a89(); virtual void a90(); virtual void a91();
+	virtual void a92(); virtual void a93();
+	virtual const ActionSupplyTruckView *getSupplyTruckAIInterface() const;	// +0x178
+};
+
+struct ActionWarehouseDockView
+{
+	char m_pad00[0x88];
+	int m_boxesStored;	// +0x88
+};
+
+// ZH/BFME1 ba7ddda7 ActionManager::canTransferSuppliesAt; BFME2 moves the
+// dead bit to +0x438, the AI to +0x258 and tests the construction bit
+// through testStatus.
+bool ActionManager::canTransferSuppliesAt(const Object *obj, const Object *transferDest)
+{
+	if (!obj || !transferDest)
+		return false;
+
+	if (*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(transferDest) + 0x438) & 1)
+		return false;
+
+	if (obj->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION) ||
+		transferDest->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
+		return false;
+
+	if (transferDest->testStatus(OBJECT_STATUS_SOLD))
+		return false;
+
+	const ActionSupplyAIView *ai =
+		*reinterpret_cast<const ActionSupplyAIView *const *>(reinterpret_cast<const char *>(obj) + 0x258);
+	if (!ai)
+		return false;
+
+	const ActionSupplyTruckView *supplyTruck = ai->getSupplyTruckAIInterface();
+	if (!supplyTruck)
+		return false;
+
+	static const NameKeyType key_warehouseUpdate = TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");
+	const ActionWarehouseDockView *warehouseModule =
+		reinterpret_cast<const ActionWarehouseDockView *>(transferDest->findModule(key_warehouseUpdate));
+	if (warehouseModule)
+		if (warehouseModule->m_boxesStored == 0 || transferDest->getRelationship(obj) == ENEMIES)
+			return false;
+
+	static const NameKeyType key_centerUpdate = TheNameKeyGenerator->nameToKey("SupplyCenterDockUpdate");
+	Module *centerModule = transferDest->findModule(key_centerUpdate);
+	if (centerModule)
+		if (supplyTruck->getNumberBoxes() == 0 ||
+			transferDest->getControllingPlayer() != obj->getControllingPlayer())
+			return false;
+
+	if (!warehouseModule && !centerModule)
+		return false;
+
+	if (!supplyTruck->isAvailableForSupplying())
+		return false;
+
+	Player *objPlayer = obj->getControllingPlayer();
+	if (objPlayer) {
+		if (reinterpret_cast<const ShroudPlayerView *>(objPlayer)->type == 0 &&
+			transferDest->getShroudStatusForPlayer(reinterpret_cast<const ShroudPlayerView *>(objPlayer)->index) ==
+				ACTION_OBJECT_SHROUD_SHROUDED)
+			return false;
+	}
+
+	return true;
 }
