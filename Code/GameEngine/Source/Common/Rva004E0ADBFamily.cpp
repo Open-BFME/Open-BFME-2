@@ -1,8 +1,8 @@
 // cl: /DNDEBUG /MD /EHsc
 //
 // Dump-range-25 packet family: seven homogeneous forwarders around the
-// native EH pair 0x004E0918/0x004E0988 (the first recovered below;
-// the second remains an address-derived pinned candidate). A 16-byte Four plus trailing ints is packed
+// native EH pair 0x004E0918/0x004E0988 (both recovered below).
+// A 16-byte Four plus trailing ints is packed
 // and forwarded: Y::rva004E0ADB(Four,int) builds the 20-byte packet for
 // 0x004E0918, Y::rva004E0B02(Four,int,int) the 24-byte packet for 0x004E0988.
 // X methods forward this plus the packet to the member Y at +0x08 or
@@ -44,6 +44,15 @@ struct Rva004E0918Call
     int unused08;
     int unused0c;
     int argument;
+};
+
+struct Rva004E0988Call
+{
+    void (Rva004E0918Listener::*notify)(int, int);
+    int unused08;
+    int unused0c;
+    int argument1;
+    int argument2;
 };
 
 class LivingWorldLogic;
@@ -237,6 +246,22 @@ void Rva004E0918::rva004E0918(void *packet)
     {
         m_index++;
         (m_begin[i]->*call.notify)(call.argument);
+        i = m_index;
+    }
+}
+
+// Native 004E0988..004E09FB (115B), independently packed by 004E0B02.
+// Same proven list and callback ABI; this record passes the two words at
+// +10/+14 in native stack order. All prefix meanings stay unresolved.
+void Rva004E0918::rva004E0988(void *packet)
+{
+    const Rva004E0988Call &call = *static_cast<Rva004E0988Call *>(packet);
+    unsigned int i = 0;
+    LatchRestore<unsigned int> latch(m_index, i);
+    while (i < (unsigned int)(m_end - m_begin))
+    {
+        m_index++;
+        (m_begin[i]->*call.notify)(call.argument1, call.argument2);
         i = m_index;
     }
 }
