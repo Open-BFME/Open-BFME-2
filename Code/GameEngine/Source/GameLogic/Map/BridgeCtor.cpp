@@ -1,13 +1,26 @@
-// ??0Bridge@@QAE@AAVRva0027C36A@@PAVDict@@ABVAsciiString@@PAVPolygonTrigger@@@Z
-// partial score=0.9 date=2026-10-08
-// Banked 2026-10-08 at session wind-down: Bridge::Bridge 0x0027F882 (810 B). Compiles to 810 B; every
-// instruction matches except frame slot offsets (retail sub esp,0x24: IRegion2D at ebp-0x30 sharing with the
-// center Coord3D at ebp-0x2C, CreateMask at ebp-0x20; this gives 0x2C with region -0x28, mask -0x38) and the
-// three unresolved callees setPosition 0x0030AA80, updateObjValuesFromMapProperties 0x002951AB (needs a pin;
-// identity: reads Dict keys, sets name +0x88 and initial health) and setOrientation 0x0030AB9D.
-// Needs /EHsc; Coord2D toAngle/normalize are a private view here (needs a Coord2D contract extension).
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
+//
+// Bridge::Bridge (0x0027F882, 810 bytes), after Zero Hour's TerrainLogic.cpp
+// Bridge constructor (GeneralsMD/Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp).
+//
+// Target facts: the 0xCC-byte bridge stores vftable 0x00BFB1E0, copies the
+// 0xA8-byte bridge info (copy constructor 0x0027C410) to +0x0C, keeps the
+// template name at +0x08, the bounds at +0xB4, the layer at +0xC4 and the
+// outline polygon at +0xC8; the bounds are widened by the outline's integer
+// bounds (PolygonTrigger::getBounds 0x002E3978). With a property dict it
+// creates the "GenericBridge" object through the 4-argument
+// ThingFactory::newObject (0x002D0A23) under a function-static template,
+// positions it at the bridge centre (Thing::setPosition 0x0030AA80), applies
+// the map properties (0x002951AB) and orients it (Coord2D::toAngle 0x00005923,
+// Thing::setOrientation 0x0030AB9D), then normalizes a side vector and looks
+// up the bridge road type (0x002DB4DA) without using either result.
+//
+// Carried from the donor: member names, the order of the bound tests and the
+// _STL::min/max widening. Structural inference: retail's 0x24-byte frame
+// shares the create mask's slot with the side vector and the outline bounds'
+// slot with the centre, which MSVC 7.1 does only for locals of disjoint
+// scopes, so both sit in their own blocks.
 #include "ascii_string.h"
 #include "Lib/Coord3D.h"
 
@@ -36,6 +49,7 @@ enum PathfindLayerEnum
 	LAYER_INVALID = 0
 };
 
+// class-gate: allow Coord2D the canonical data-only header cannot declare BFME 2's out-of-line toAngle (rowed 0x00005923) and normalize (rowed 0x0000378A) that the constructor calls; same two floats
 class Coord2D
 {
 public:
@@ -88,8 +102,7 @@ typedef Rva0027C36A BridgeInfo;
 class PolygonTrigger
 {
 public:
-	void rva002E3978(Int *bounds);
-	void getBounds(IRegion2D *bounds) { rva002E3978((Int *)bounds); }
+	void getBounds(IRegion2D *bounds);
 };
 
 class Dict;
@@ -101,11 +114,16 @@ struct CreateMask
 	unsigned int m_bits[4];
 };
 
-class Object
+class Thing
 {
 public:
 	void setPosition(const Coord3D *pos);
 	void setOrientation(Real angle);
+};
+
+class Object : public Thing
+{
+public:
 	ObjectID getID() const { return m_id; }
 	void updateObjValuesFromMapProperties(Dict *properties);
 private:
@@ -118,12 +136,6 @@ class ThingFactory
 public:
 	const ThingTemplate *findTemplate(const AsciiString &name);
 	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, bool b);
-	Object *newObject(const ThingTemplate *tmplate, Team *team)
-	{
-		CreateMask mask;
-		memset(&mask, 0, sizeof(mask));
-		return newObject(tmplate, team, &mask, false);
-	}
 };
 extern ThingFactory *TheThingFactory;
 
@@ -149,7 +161,6 @@ private:
 	PolygonTrigger *m_outline; // +0xC8
 };
 
-// ??0Bridge@@QAE@AAVRva0027C36A@@PAVDict@@ABVAsciiString@@PAVPolygonTrigger@@@Z @0x0027F882
 Bridge::Bridge(BridgeInfo &theInfo, Dict *props, const AsciiString &bridgeTemplateName, PolygonTrigger *outline) :
 m_next(NULL),
 m_bridgeInfo(theInfo),
@@ -193,9 +204,12 @@ m_outline(outline)
 		static const ThingTemplate* genericBridgeTemplate = TheThingFactory->findTemplate("GenericBridge");
 		if (genericBridgeTemplate)
 		{
-			CreateMask mask;
-			memset(&mask, 0, sizeof(mask));
-			Object *bridge = TheThingFactory->newObject(genericBridgeTemplate, NULL, &mask, false);
+			Object *bridge;
+			{
+				CreateMask mask;
+				memset(&mask, 0, sizeof(mask));
+				bridge = TheThingFactory->newObject(genericBridgeTemplate, NULL, &mask, false);
+			}
 			Coord3D center;
 			center.x = (m_bridgeInfo.fromLeft.x + m_bridgeInfo.toRight.x)/2.0f;
 			center.y = (m_bridgeInfo.fromLeft.y + m_bridgeInfo.toRight.y)/2.0f;
@@ -208,14 +222,16 @@ m_outline(outline)
 			// we'll say the angle of this object representing the bridge is from the 'from' side
 			// to the 'to' side.
 			//
-			Coord2D v;
-			v.x = m_bridgeInfo.toLeft.x - m_bridgeInfo.fromLeft.x;
-			v.y = m_bridgeInfo.toLeft.y - m_bridgeInfo.fromLeft.y;
-			bridge->setOrientation( v.toAngle() );
+			{
+				Coord2D v;
+				v.x = m_bridgeInfo.toLeft.x - m_bridgeInfo.fromLeft.x;
+				v.y = m_bridgeInfo.toLeft.y - m_bridgeInfo.fromLeft.y;
+				bridge->setOrientation( v.toAngle() );
 
-			v.x = m_bridgeInfo.toLeft.x - m_bridgeInfo.toRight.x;
-			v.y = m_bridgeInfo.toLeft.y - m_bridgeInfo.toRight.y;
-			v.normalize();
+				v.x = m_bridgeInfo.toLeft.x - m_bridgeInfo.toRight.x;
+				v.y = m_bridgeInfo.toLeft.y - m_bridgeInfo.toRight.y;
+				v.normalize();
+			}
 
 			// get the template of the bridge
 			TheTerrainRoads->findBridge( bridgeTemplateName );
