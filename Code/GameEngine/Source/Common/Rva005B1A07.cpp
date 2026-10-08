@@ -36,6 +36,7 @@ class Rva005B1A07
 {
 public:
 	void rva005B1A07(unsigned int index, BfmePod20 val);
+	void rva005B1B26(unsigned int index);
 
 private:
 	BfmePod20 *m_0;
@@ -57,4 +58,19 @@ void Rva005B1A07::rva005B1A07(unsigned int index, BfmePod20 val)
 	int c2 = (e2 - b) / 20;
 	unsigned int need = index - (unsigned int)c2;
 	((_STL::vector<BfmePod20> *)this)->_M_fill_insert((BfmePod20 *)e2, need, val);
+}
+
+// ?rva005B1B26@Rva005B1A07@@QAEXI@Z, retail 0x005B1B26 56B: the one-argument
+// overload, forwarding an all-zero record to 0x005B1A07
+// on the same receiver -- STLport's resize(n) { resize(n, _Tp()); } shape.
+// Its caller is BuildBlingData (0x005B1C0A).
+void Rva005B1A07::rva005B1B26(unsigned int index)
+{
+	BfmePod20 zero;
+	zero.a[0] = 0;
+	zero.a[1] = 0;
+	zero.a[2] = 0;
+	zero.a[3] = 0;
+	zero.a[4] = 0;
+	rva005B1A07(index, zero);
 }
