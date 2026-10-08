@@ -130,7 +130,6 @@ void SmoothCameraHeightField::Initialize( const R3HeightSample *source, int unus
 	m_ready = true;
 }
 
-// ?resize@SmoothCameraHeightSamples@@QAEXIM@Z present-unmatched
 void SmoothCameraHeightSamples::resize(unsigned count,float value){
  if(count<size())erase(begin()+count,end());
  else insert(end(),count-size(),value);
