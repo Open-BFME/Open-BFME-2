@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /ICode/Libraries/Include
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /ICode/Libraries/Include
 //
 // FireLogicSystem's registration of a placed object (0x00286373): the id is
 // filed in the grid cell under its world position and the cell takes the
@@ -22,7 +22,10 @@
 // body unnamed) burns every cell of an area's bounds whose centre lies in
 // the area's shape; the centre test 0x00285B66 is defined here, and only
 // with its body in this unit does the compiler keep the centre's x store
-// out of the inner loop as retail does.
+// out of the inner loop as retail does. The constructor (0x00286EC8) and
+// destructor (0x00286F8F) need /GX for their unwind states; between them
+// sit the grid teardown 0x00286CC4 and the use-counted registration of the
+// system's block parse at VA 0x00DBB750.
 //
 // Target facts: the fire grid is the 20-byte cell rows at +0x70 with the row
 // and column counts at +0x78/+0x7C (as Rva00285DC5Paint.cpp reads them); a
@@ -114,7 +117,10 @@ class Rva00286214
 public:
 	Rva00286214Node *rva00286214(const Rva00285672 *key);
 	void erase(Rva002860CFIterator pos) { ((Rva002860CFHost *)this)->rva002860CF(pos); }
+	Rva00286214();	// the map's default ctor 0x00242F01
+	~Rva00286214();	// the tree teardown 0x0028681A
 	Rva00286214Node *m_header;
+	char m_pad04[8];
 };
 
 
@@ -148,9 +154,58 @@ struct FireCellCentre
 };
 class PolygonTrigger;
 
-class FireLogicSystem
+// The subsystem base (ctor 0x001B4E63, dtor 0x001B4E74) and Snapshot at
+// +0x0C, the second base whose vtable 0x00BBB554 the destructor restores.
+class SubsystemInterface
 {
 public:
+	SubsystemInterface();
+	virtual ~SubsystemInterface();
+	virtual void init();
+	virtual void postProcessLoad();
+	virtual void reset();
+	virtual void update();
+	virtual void draw();
+
+private:
+	char m_pad[8];
+};
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+
+// A material entry (0x18 bytes): the array constructor zeroes all six
+// dwords (0x00286297) and the destructor releases the string at +4
+// (0x0029D7C2, folded with CameraMarker's).
+struct Rva00286297
+{
+	Rva00286297();
+	~Rva00286297();
+	Int unknown00, unknown04;
+	Int fuel;
+	unsigned int field18, field00, field10;
+};
+
+// The FireLogicSystem block-parse registration (VA 0x00DBB750: vtable
+// 0x00BFB730, a use count at +4, the field table theFireLogicSystemBlockParse
+// at +8). The first live system registers it through 0x0020DFFB and the last
+// one out removes it through 0x0020DAE0; only these two bodies touch it.
+class ModuleData;
+void __cdecl Rva0020DFFBRegister(const ModuleData *);
+void __cdecl Rva0020DAE0(void *);
+struct FireLogicSystemParseRegistration
+{
+	void *m_vtable;
+	unsigned int m_useCount;
+};
+extern FireLogicSystemParseRegistration theFireLogicSystemParseRegistration;
+
+class FireLogicSystem : public SubsystemInterface, public Snapshot
+{
+public:
+	FireLogicSystem();
+	virtual ~FireLogicSystem();
+	virtual void loadPostProcess();
+	virtual void crc(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 	void ChangeBurnRate(Int x0, Int x1, Int y, Int delta, bool onlyBurning);
 	void ChangeBurnRate(const Coord3D *origin, const Coord3D *dir, float threshold, Int x0, Int x1, Int y, Int delta, bool onlyBurning);
 	void ChangeBurnRateInArea(const Coord3D *pos, float radius, Int delta, bool onlyBurning);
@@ -191,15 +246,18 @@ private:
 		WatcherNode *m_0C;
 		ObjectNode *m_objects; // +0x10
 	};
-	struct Material { Int unknown00, unknown04; Int fuel; unsigned int field18, field00, field10; };
-    char m_pad[0x10];
-    Material m_materials[4];
+	typedef Rva00286297 Material;
+    Material m_materials[4];	// +0x10
 	Cell **m_cells;
 	Cell *m_storage;	// +0x74, the rows' shared cell block
 	Int m_numRows;
 	Int m_numCols;
 	Int m_80;
 	Rva00286214 m_cellsOnFire;
+	Int m_90;
+	Int m_94;
+	Int m_98;
+	Int m_9C;
 };
 
 // ?rva00286373@FireLogicSystem@@QAEXHPBUCoord3D@@PBVThingTemplate@@@Z @0x00286373
@@ -674,4 +732,22 @@ void FireLogicSystem::rva00286CC4()
 		m_80 = 0;
 		((Rva0028614C *)&m_cellsOnFire)->rva0028662D();
 	}
+}
+
+// ??0FireLogicSystem@@QAE@XZ @0x00286EC8
+FireLogicSystem::FireLogicSystem()
+	: m_cells(0), m_storage(0), m_numRows(0), m_numCols(0), m_80(0),
+	  m_90(0x7FFFFFFF), m_94(1), m_98(0), m_9C(0)
+{
+	if (theFireLogicSystemParseRegistration.m_useCount == 0)
+		Rva0020DFFBRegister((const ModuleData *)&theFireLogicSystemParseRegistration);
+	++theFireLogicSystemParseRegistration.m_useCount;
+}
+
+// ??1FireLogicSystem@@UAE@XZ @0x00286F8F
+FireLogicSystem::~FireLogicSystem()
+{
+	rva00286CC4();
+	if (--theFireLogicSystemParseRegistration.m_useCount == 0)
+		Rva0020DAE0(&theFireLogicSystemParseRegistration);
 }
