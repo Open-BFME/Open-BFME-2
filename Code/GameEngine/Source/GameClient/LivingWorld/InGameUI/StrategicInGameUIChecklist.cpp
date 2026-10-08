@@ -77,7 +77,6 @@ public:
 	class Impl;
 
 	void AddItem(const ChecklistItemRef &newItem);
- void Update();
 
 private:
 	void *m_vtbl;
@@ -166,4 +165,19 @@ Rva005CCC74Record::Rva005CCC74Record(
 {
  if(m_ptr) ++reinterpret_cast<CountedChecklistItemView*>(m_ptr)->references;
  m_impl=impl;
+}
+
+// Native5CCEB6..5CCEBE: forwards the implementation pointer at+4 to the
+// independently identified checklist update. The outer receiver/name has no
+// independent identity proof, so retain a complete address-derived view.
+class Rva005CCEB6
+{
+public:
+ void rva005CCEB6();
+ void *unknown00;
+ StrategicInGameUI::Checklist::Impl *implementation;
+};
+void Rva005CCEB6::rva005CCEB6()
+{
+ implementation->Update();
 }
