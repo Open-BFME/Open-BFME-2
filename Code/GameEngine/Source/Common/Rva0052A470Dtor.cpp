@@ -28,14 +28,46 @@ class Rva0052A470
 {
 public:
 	~Rva0052A470();
+    void rva0052A66A();
+    void rva0052A4B5();
 private:
 	char m_pad00[8];
 	AsciiString m_08;
-	char m_pad0C[4];
+	bool m_at0C;
+    char m_pad0D[3];
 	Rva0052413E m_10;
 	Rva00524349 m_1C;
 };
 
 Rva0052A470::~Rva0052A470()
 {
+}
+
+namespace AptUtils { AsciiString DotPath2SlashPath(const char *); }
+class AptPlayer { public: void RemoveOverButtonHandler(const AsciiString &); };
+extern "C" AptPlayer *g_pRva00224BC9;
+
+// Retail 0x0052A66A..0x0052A765 reads the same +8 name owned by
+// this class's destructor. Original method and owner identities are unknown.
+void Rva0052A470::rva0052A66A()
+{
+    if (!((StringBase<char> *)&m_08)->isEmpty())
+    {
+        m_at0C = false;
+        rva0052A4B5();
+        if (g_pRva00224BC9)
+        {
+            AsciiString prefix;
+            prefix.format("Palantir/%s/Spell%%d/", AptUtils::DotPath2SlashPath(m_08.str()).str());
+            for (int i = 0; i < 24;)
+            {
+                AsciiString path;
+                const char *format = prefix.str();
+                ++i;
+                path.format(format, i);
+                g_pRva00224BC9->RemoveOverButtonHandler(path);
+            }
+        }
+        m_08.clear();
+    }
 }
