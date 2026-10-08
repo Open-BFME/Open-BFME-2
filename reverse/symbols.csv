@@ -16454,3 +16454,4 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?rva002F462C@Pathfinder@@QAEXXZ,0x002F462C,AI reset retail REL32 at 0x002FEB41; Pathfinder reset lead from ZH AI.cpp and independent BFME2 bank 0x002F462C; address-derived method identity
 ?rva002DE3C1@GameState@@QAEHUTreeHintOpaque0043671B@@@Z,0x002DE3C1,Retail wrapper 002DF2F6 REL32 at 002DF37D passes a copied DF4-byte save record; copy ctor22D106 and dtor229840 independently rowed; address-derived method identity; ZH loadGame AvailableGameInfo semantic lead
 ??0Rva002D57B6@@QAE@PAVRva002D3573@@H@Z,0x002D57B6,Retail constructor 002D638E allocates154 bytes and REL32 at002D6427 passes owner this and the APT load return; fresh allocation ctor ABI; original Impl name remains WB lead only
+?rva005E8B66@Rva005E8C54@@QAEXH@Z,0x005E8B66,callee of ??0Rva005E8C54@@QAE@PAXH0PBURva005E8C54Source@@@Z
