@@ -576,32 +576,7 @@ void InGameUI::setMouseCursor(Mouse::MouseCursor c)
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?InGameUI::removeSuperweapon present-unmatched
-Bool InGameUI::removeSuperweapon(Int playerIndex, const AsciiString& powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate)
-{
-	DEBUG_LOG(("Removing superweapon UI timer\n"));
-	SuperweaponMap::iterator mapIt = m_superweapons[playerIndex].find(powerName);
-	if (mapIt != m_superweapons[playerIndex].end())
-	{
-		SuperweaponList& swList = mapIt->second;
-		for (SuperweaponList::iterator listIt = swList.begin(); listIt != swList.end(); ++listIt)
-		{
-			if ((*listIt)->m_id == id)
-			{
-				SuperweaponInfo *info = *listIt;
-				swList.erase(listIt);
-				info->deleteInstance();
-				if (swList.size() == 0)
-				{
-					m_superweapons[playerIndex].erase(mapIt);
-				}
-				return TRUE;
-			}
-		}
-	}
-
-	return FALSE;
-}
+// InGameUI::removeSuperweapon: defined in InGameUISuperweapons.cpp (its row's unit).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------

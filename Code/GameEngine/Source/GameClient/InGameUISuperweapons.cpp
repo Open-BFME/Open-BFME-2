@@ -30,6 +30,10 @@
 // slots 35 and 34. The fallback add tests TheGameLogic's frame (+0x40),
 // Object::testStatus 0x0004E536 with status 2 and KINDOF_COMMANDCENTER, bit 1
 // of the template's kind-of byte at +0x10A.
+// removeSuperweapon (0x002A4975, slot 35): the list erase is the folded
+// four-byte list erase 0x00438539, the record goes through ::delete (virtual
+// dtor with flag 0, then operator delete 0x0002FD60) and an emptied name entry
+// is dropped by the out-of-line tree erase 0x002A408B.
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block); }
 #define free _STL::free
@@ -164,6 +168,7 @@ class SuperweaponInfo
 {
 public:
 	virtual ~SuperweaponInfo();
+	__forceinline void deleteInstance() { ::delete this; }
 	void *m_nameDisplayString;				// +0x04
 	void *m_timeDisplayString;				// +0x08
 	int m_color;							// +0x0C
@@ -276,4 +281,27 @@ void InGameUI::objectChangedTeam( const Object *obj, int oldPlayerIndex, int new
 			}
 		}
 	}
+}
+
+// ?removeSuperweapon@InGameUI@@UAE_NHABVAsciiString@@W4ObjectID@@PBVSpecialPowerTemplate@@@Z
+bool InGameUI::removeSuperweapon( int playerIndex, const AsciiString &powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate )
+{
+	SuperweaponMap::iterator mapIt = m_superweapons[playerIndex].find( powerName );
+	if( mapIt != m_superweapons[playerIndex].end() )
+	{
+		SuperweaponList &swList = mapIt->second;
+		for( SuperweaponList::iterator listIt = swList.begin(); listIt != swList.end(); ++listIt )
+		{
+			if( (*listIt)->m_id == id )
+			{
+				SuperweaponInfo *info = *listIt;
+				swList.erase( listIt );
+				info->deleteInstance();
+				if( swList.size() == 0 )
+					m_superweapons[playerIndex].erase( mapIt );
+				return true;
+			}
+		}
+	}
+	return false;
 }
