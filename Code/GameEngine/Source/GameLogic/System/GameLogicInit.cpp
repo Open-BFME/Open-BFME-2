@@ -2040,10 +2040,31 @@ public:
 	virtual void v74(void *a, int b, int c, bool d);                     // +0x1D0
 };
 
-// 0x00A02290 is TheRecorder. Its member 0x0037BD81 is rowed as
-// InGameUI::createReplayControl; the body is ZH's RecorderClass::initControls
-// (hide ReplayControl.wnd unless the +0x1C mode is playback).
-class RecorderClass;
+// 0x00A02290 is TheRecorder; 0x0037BD81 is RecorderClass::initControls (hide
+// ReplayControl.wnd unless the +0x1C mode is playback).
+class File;
+
+enum RecorderModeType
+{
+	RECORDERMODETYPE_RECORD,
+	RECORDERMODETYPE_PLAYBACK,
+	RECORDERMODETYPE_NONE
+};
+
+class RecorderClass : public SubsystemInterface
+{
+public:
+	bool isMultiplayer(void);
+	RecorderModeType getMode(void);
+	void logCRCMismatch(void);
+	void rva0037BE15(File *output, unsigned int frame);
+	void initControls(void);
+
+	char m_pad00C[0xe68 - 0xc];
+	int m_e68;
+	int m_e6c;
+};
+
 
 class InGameUI
 {
@@ -2051,9 +2072,6 @@ class InGameUI
 
 public:
 	void setClientQuiet(bool quiet) { m_clientQuiet = quiet; }
-
-protected:
-	void createReplayControl(void);
 
 private:
 	char m_pad000[0x8c5];
@@ -2186,7 +2204,7 @@ void GameLogic::rva00248278(bool loadingSaveGame)
 	TheTacticalView->setZoomToDefault();
 	Sleep(1);
 	if (TheRecorder)
-		((InGameUI *)TheRecorder)->createReplayControl();
+		TheRecorder->initControls();
 
 	Rva0134FAA0->slot28();
 	bfmeReleaseQueuedDeviceInterfaces();
@@ -2554,26 +2572,6 @@ public:
 	virtual int read(void *buffer, int bytes);                           // +0x0C
 	virtual int write(const void *buffer, int bytes);                    // +0x10
 	virtual int seek(int bytes, seekMode mode);                          // +0x14
-};
-
-enum RecorderModeType
-{
-	RECORDERMODETYPE_RECORD,
-	RECORDERMODETYPE_PLAYBACK,
-	RECORDERMODETYPE_NONE
-};
-
-class RecorderClass : public SubsystemInterface
-{
-public:
-	bool isMultiplayer(void);
-	RecorderModeType getMode(void);
-	void logCRCMismatch(void);
-	void rva0037BE15(File *output, unsigned int frame);
-
-	char m_pad00C[0xe68 - 0xc];
-	int m_e68;
-	int m_e6c;
 };
 
 class Radar
