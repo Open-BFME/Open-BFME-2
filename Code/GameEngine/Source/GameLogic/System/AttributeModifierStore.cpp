@@ -132,3 +132,26 @@ Rva0040450E *AttributeModifierStore::replaceModifier(Int index)
     m_modifiers[index] = (Rva004036B1 *)modifier;
     return modifier;
 }
+
+// Native 004043FF's established destructor owner. Its owning member offsets
+// agree with the record constructor and replacement; original class name remains unknown.
+class Rva002146F7
+{
+public:
+    ~Rva002146F7();
+private:
+    ModifierVectorHeader m_values;
+    unsigned m_word0C;
+    AsciiString m_name10;
+    unsigned char m_unreconstructed14[0xCC - 0x14];
+    unsigned char *m_storageCC;
+    unsigned char m_flagsD0[4];
+};
+Rva002146F7::~Rva002146F7()
+{
+    if (m_storageCC)
+    {
+        delete m_storageCC;
+        m_storageCC = 0;
+    }
+}
