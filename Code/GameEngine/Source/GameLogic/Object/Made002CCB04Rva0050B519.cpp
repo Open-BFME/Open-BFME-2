@@ -31,3 +31,30 @@ void Made002CCB04::rva0050B519(void *a, void *b)
 	for (void *other = iterator.next(); other; other = iterator.next())
 		rva0050B479(a, (Object *)other);
 }
+
+// Separate retail receiver: 0050921D reads a float at +128, unlike the
+// Made002CCB04 neighbour's +12C. Its vtable slot +4 filters each result
+// before the direct 00508FA8 call with the same receiver and two arguments.
+// WB's unnamed twin corroborates those calls and the range-query purpose;
+// it does not establish a class or method name.
+class Rva00508FA8
+{
+public:
+	virtual ~Rva00508FA8();
+	virtual bool check(void *a, Object *b);
+	void rva00508FA8(void *a, Object *b);
+	void rva0050921D(void *a, void *b);
+private:
+	char m_pad04[0x128 - 4];
+	float m_range128;
+};
+
+// Native 0050921D..005092B2 (149 bytes), thiscall ret 8.
+void Rva00508FA8::rva0050921D(void *a, void *b)
+{
+	float range = (m_range128 > g_Va00BBB8D8) ? m_range128 : g_Va00BBB8D8;
+	BfmeWideResult iterator = ThePartitionManager->rva006255D0((const Coord3D *)b, range, 3, 0);
+	for (void *other = iterator.next(); other; other = iterator.next())
+		if (check(a, (Object *)other))
+			rva00508FA8(a, (Object *)other);
+}
