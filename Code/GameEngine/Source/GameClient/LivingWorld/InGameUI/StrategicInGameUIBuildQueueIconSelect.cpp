@@ -97,6 +97,7 @@ public:
 	void Deselect(); // 0x005E7111 (rowed)
 	void rva005E7C56();
 	void rva005E789A(); // 0x005E789A (pinned)
+ void Update();
 
 	virtual void OnBuildQueueIconSlotLeftClicked(StrategicHUD::BuildQueueIconSlot *slot);
 	virtual void OnBuildQueueIconSlotRightClicked(StrategicHUD::BuildQueueIconSlot *slot);
@@ -458,3 +459,25 @@ void Rva005E7ED7::MoveTo(int index)
   ((Rva005E7E05QueuedSlot *)slot)->SetNumTurns(time);
  }
 }
+
+// WB tooltip provider, index wrapper and Icon::Update share the native queue
+// ABI: ECX queue + ESI hidden return; EAX queue + stack return/index respectively.
+// The null-template branch copies the existing empty UnicodeString global,
+// not a character literal. Mouse consumes the final string by value and owns
+// its parameter cleanup. Native54B update requires no caller EH frame.
+namespace StrategicInGameUI { UnicodeString __cdecl GetTooltipText(int); }
+__declspec(noinline) static UnicodeString rva005E764FGet(Rva005E72B4Queue *queue,int id)
+{
+ Rva005E7625Template *thing=(Rva005E7625Template *)rva005E7322Get(queue,id);
+ if(!thing) return UnicodeString::TheEmptyString;
+ return StrategicInGameUI::GetTooltipText(thing->imageID);
+}
+// ?rva005E7684Get present-unmatched
+__declspec(noinline) static UnicodeString rva005E7684Get(Rva005E72B4Queue *queue,int index)
+{ return rva005E764FGet(queue,queue->slot13()->begin[index]); }
+struct RGBColor;
+class Mouse { public: void rva001EEA6D(UnicodeString,int,const RGBColor *,float); };
+extern Mouse *TheMouse;
+// ?StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::Update present-unmatched
+void StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::Update()
+{ if(m_21) TheMouse->rva001EEA6D(rva005E7684Get(m_owner->m_queue,m_queueIndex),-1,0,1.0f); }
