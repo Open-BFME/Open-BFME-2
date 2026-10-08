@@ -1,6 +1,8 @@
-// ?rva00563F34@Rva00563F34@@QAEXXZ
-// partial score=0.95 date=2026-10-08
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /O1
+// Recovered from the V2 bank (score 0.95): the bank declared the fifth
+// doFXPos parameter as int; the rowed helper 0x00094C29 is mangled
+// ...PBVMatrix3D@@M1@Z, whose 1 back-reference is const Coord3D* (ZH
+// secondary position), and a null pointer pushes the same 0.
 // ?rva00563F34@Rva00563F34@@QAEXXZ 0x00563F34 84B. Fires one FX position per
 // armed gate once the frame clock has advanced past the object's stamp by the
 // gate's window; the pulse reads +0x58 on the object and sets +0x54 when the
@@ -10,7 +12,7 @@ class Matrix3D;
 class FXList
 {
 public:
-	static void doFXPos(const FXList *fx, const Coord3D *pos, const Matrix3D *mtx, float a, int b);
+	static void doFXPos(const FXList *fx, const Coord3D *pos, const Matrix3D *mtx, float primarySpeed, const Coord3D *secondary);
 };
 
 class ClientFrameSubsystem
