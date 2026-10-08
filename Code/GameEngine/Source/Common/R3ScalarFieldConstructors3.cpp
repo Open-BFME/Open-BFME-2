@@ -77,3 +77,25 @@ Rva00704980::Rva00704980()
 	m_1E = 0;
 	m_1F = 0;
 }
+
+// Lead: AssistanceRequestData's zero initializer in Open-BFME-1
+// 9cbfb551fe20dae985f91f2319d8997287b6a705 GameLogic/Object/Weapon.cpp.
+// Native 2C95CC..2C95DE is a complete thiscall leaf between two independently
+// bounded Ghidra functions, returning this after clearing +0/+4 and float+8.
+// The original class, constructor/reset purpose and first two field types
+// remain unknown; the method spelling claims only the native operation/ABI.
+class Rva002C95CCFields
+{
+public:
+    Rva002C95CCFields *initialize();
+    unsigned int m_00;
+    unsigned int m_04;
+    float m_08;
+};
+Rva002C95CCFields *Rva002C95CCFields::initialize()
+{
+    m_00 = 0;
+    m_04 = 0;
+    m_08 = 0.0f;
+    return this;
+}
