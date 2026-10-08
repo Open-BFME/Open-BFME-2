@@ -10,7 +10,8 @@
 // the template resolved through its override chain), but BFME 2 takes the
 // hunter and the target object, reads the target's template at +4, returns a
 // Real and, when asked, hands the priority to 0x00357025 together with both
-// objects. That helper's name is unknown; it is kept under its address.
+// objects. WB names that helper doModPriorityByCombatChain; its full172-byte body
+// now lives in ScriptEngineSupport.cpp.
 //
 // The map lookup is the rowed unsigned-keyed STLport _M_find at 0x00357180,
 // called through its existing descriptive facade pin; the override walk is
@@ -69,7 +70,7 @@ class AttackPriorityInfo
 {
 public:
 	Real getPriority(const Object *hunter, const Object *target, Bool adjust) const;
-	Real rva00357025(Real priority, const Object *hunter, const Object *target) const;
+	Real doModPriorityByCombatChain(Real priority, const Object *hunter, const Object *target) const;
 
 private:
 	void *m_snapshotVtable;
@@ -96,7 +97,7 @@ Real AttackPriorityInfo::getPriority(const Object *hunter, const Object *target,
 	}
 
 	if (adjust)
-		return rva00357025((Real)priority, hunter, target);
+		return doModPriorityByCombatChain((Real)priority, hunter, target);
 
 	return (Real)priority;
 }
