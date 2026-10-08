@@ -1,5 +1,5 @@
 // cl: /O1 /MD
-// ?rva002B5334@Rva002B5334@@QAEXXZ @0x002B5334 92B: __thiscall void sweep
+// ?AutoMarkUnitsForUpgrades@LivingWorldLogic@@QAEXXZ @0x002B5334 92B: __thiscall void sweep
 // over the +0x2C element table behind +0xB0/+0x08. Each element whose +0x13C
 // id is not -1 resolves through the rowed 0x2B51F8 find (id, NULL) and is
 // handed to the 0x2E2D8D pin, recounting every pass. Evidence: retail
@@ -59,16 +59,16 @@ public:
 	Rva002B5334Sub *m_sub8;
 };
 
-class Rva002B5334
+class LivingWorldLogic
 {
 public:
-	void rva002B5334();
+	void AutoMarkUnitsForUpgrades();
 private:
 	char m_pad[0xB0];
 	Rva002B5334Mid *m_midB0;
 };
 
-void Rva002B5334::rva002B5334()
+void LivingWorldLogic::AutoMarkUnitsForUpgrades()
 {
 	Rva002B5334Sub *sub = m_midB0->m_sub8;
 	Rva002B5334Vec *vec;

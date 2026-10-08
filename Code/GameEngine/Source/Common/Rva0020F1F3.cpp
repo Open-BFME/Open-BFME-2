@@ -1,8 +1,9 @@
 // cl: /O1 /arch:SSE /G7 /MD /Ireference/shims/bfme2_ascii
 // Native 0020F1F3..0020F27E RET4. Find a record by its leading string,
 // select it at +8, rebuild region effects, and reset each child at +2C.
-// The pointer-vector boundaries and calls are target facts; record and
-// receiver identities remain unresolved.
+// The pointer-vector boundaries and calls are target facts; the record
+// identity remains unresolved. The receiver is
+// LivingWorldRegionManager::SelectCampaign per WorldBuilder.
 #include "string_base.h"
 class Rva003F3F27 { public: void rva003F3F27(); };
 template<class T> struct Rva0020F1F3Vector
@@ -21,10 +22,10 @@ struct Rva0020F1F3Record
 };
 class LivingWorldManager { public: void SetUpRegionEffectsManager(); };
 extern LivingWorldManager *TheLivingWorldManager;
-class Rva0020F1F3
+class LivingWorldRegionManager
 {
 public:
- void rva0020F1F3(const StringBase<char> &name);
+ void SelectCampaign(const StringBase<char> &name);
 private:
  char pad0[8];
  Rva0020F1F3Record *m_current;
@@ -32,7 +33,7 @@ private:
  Rva0020F1F3Vector<Rva0020F1F3Record *> m_records;
 };
 
-void Rva0020F1F3::rva0020F1F3(const StringBase<char> &name)
+void LivingWorldRegionManager::SelectCampaign(const StringBase<char> &name)
 {
  for (unsigned i = 0; i < m_records.size(); ++i)
  {

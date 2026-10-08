@@ -1,5 +1,5 @@
 // cl: /O1 /Ob1 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB
-// ?rva0020F2A2@Rva0020F2A2Host@@QAE_NHPAX@Z @0x0020F2A2 79B
+// ?GetRegionUiPopupPoint@LivingWorldRegionManager@@QAE_NHPAX@Z @0x0020F2A2 79B
 // Bool dispatch via rowed EAF6: null false; AB set runs rowed 0x20E493 copy via exact Out0020E493 types then int-copy to out and true; else rowed F27E bool. Int copy avoids x87; void out keeps PAX.
 class Rva0020E89C;
 class Rva0020EAF6View
@@ -29,12 +29,12 @@ struct EAF6Elem
 	char m_pad[0xAB];
 	unsigned char m_AB;
 };
-class Rva0020F2A2Host
+class LivingWorldRegionManager
 {
 public:
-	bool rva0020F2A2(int idx, void *outRaw);
+	bool GetRegionUiPopupPoint(int idx, void *outRaw);
 };
-bool Rva0020F2A2Host::rva0020F2A2(int idx, void *outRaw)
+bool LivingWorldRegionManager::GetRegionUiPopupPoint(int idx, void *outRaw)
 {
 	Out0020E493 *out = (Out0020E493 *)outRaw;
 	Rva0020E89C *p = ((Rva0020EAF6View *)this)->rva0020EAF6(idx);

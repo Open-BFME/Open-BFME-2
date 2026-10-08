@@ -2,7 +2,7 @@
 // Served native 129-byte body 0x565085..0x565106: iterate 12-byte records
 // at +0x2C/+0x30; look up a named owner, resolve its region, then forward both
 // with literal one to the already rowed 0x2B2702. All three callees are rowed.
-// The surrounding action's real class and method names are unresolved.
+// Class and method names are WorldBuilder's (LivingWorldCampaignAct::MoveArmies).
 // Native argument addresses prove four-byte AsciiString fields at +4/+8.
 #include "ascii_string.h"
 
@@ -48,17 +48,17 @@ struct Rva00565085Vector
     Rva00565085Record *storage;
 };
 
-class Rva00565085
+class LivingWorldCampaignAct
 {
 public:
-    void rva00565085();
+    void MoveArmies();
 private:
     unsigned char prefix[0x2C];
     Rva00565085Vector records;
 };
 
-// ?rva00565085@Rva00565085@@QAEXXZ
-void Rva00565085::rva00565085()
+// ?MoveArmies@LivingWorldCampaignAct@@QAEXXZ
+void LivingWorldCampaignAct::MoveArmies()
 {
     for (unsigned i = 0; i < records.size(); ++i)
     {

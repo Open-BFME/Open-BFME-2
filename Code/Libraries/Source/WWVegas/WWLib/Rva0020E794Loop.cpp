@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// ?rva0020E794@Rva0020E794@@QAEPAVLivingWorldBattle@@XZ, retail 0x0020E794, 41 bytes.
+// ?SelectPendingBattle@LivingWorldRegionManager@@QAEPAVLivingWorldBattle@@XZ, retail 0x0020E794, 41 bytes.
 // Pointer scan at +0x14/+0x18 over LivingWorldBattle pointers via rowed 0x003F4831
 // returning first element with positive count else NULL. Caller at 0x0020EC21.
 
@@ -9,10 +9,10 @@ public:
 	int rva003F4831();
 };
 
-class Rva0020E794
+class LivingWorldRegionManager
 {
 public:
-	LivingWorldBattle *rva0020E794();
+	LivingWorldBattle *SelectPendingBattle();
 
 private:
 	unsigned char m_pad[0x14];
@@ -20,7 +20,7 @@ private:
 	LivingWorldBattle **m_end;
 };
 
-LivingWorldBattle *Rva0020E794::rva0020E794()
+LivingWorldBattle *LivingWorldRegionManager::SelectPendingBattle()
 {
 	LivingWorldBattle **begin = m_begin;
 	LivingWorldBattle **end = m_end;

@@ -151,7 +151,7 @@ void *Rva0020EE29::rva0020F9F6(void *a1, void *a2, void *filter)
 	return 0;
 }
 
-// ?rva0020FB41@Rva0020FB41@@QAEXHH@Z @0x0020FB41 74B
+// ?OnTurnEnding@LivingWorldRegionManager@@QAEXHH@Z @0x0020FB41 74B
 // Resets the +0x8/+0xC state and runs every entry of the inner pointer
 // vector at +0x4 (+0x2c/+0x30) through rowed-pending ?rva003F20E5 (two
 // stack args, this = entry). The rowed-pending ?rva0020F685 runs first on
@@ -165,10 +165,10 @@ public:
 	void rva0020F685();
 };
 
-class Rva0020FB41
+class LivingWorldRegionManager
 {
 public:
-	void rva0020FB41(int a1, int a2);
+	void OnTurnEnding(int a1, int a2);
 
 private:
 	int m_00;
@@ -177,7 +177,7 @@ private:
 	int m_0C;
 };
 
-void Rva0020FB41::rva0020FB41(int a1, int a2)
+void LivingWorldRegionManager::OnTurnEnding(int a1, int a2)
 {
 	((Rva0020FB41Outer *)((char *)this - 4))->rva0020F685();
 	m_08 = 0;
