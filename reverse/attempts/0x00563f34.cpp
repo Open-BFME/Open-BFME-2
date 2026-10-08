@@ -1,5 +1,5 @@
 // ?rva00563F34@Rva00563F34@@QAEXXZ
-// partial score=0.85 date=2026-10-08
+// partial score=0.95 date=2026-10-08
 // cl: /DNDEBUG /MD /EHsc
 // ?rva00563F34@Rva00563F34@@QAEXXZ 0x00563F34 84B. Fires one FX position per
 // armed gate once the frame clock has advanced past the object's stamp by the
@@ -10,7 +10,7 @@ class Matrix3D;
 class FXList
 {
 public:
-	static void doFXPos(const FXList *fx, const Coord3D *pos, const Matrix3D *mtx, float a, float b);
+	static void doFXPos(const FXList *fx, const Coord3D *pos, const Matrix3D *mtx, float a, int b);
 };
 
 class ClientFrameSubsystem
@@ -39,10 +39,11 @@ class Rva00563F34
 public:
 	void rva00563F34();
 private:
-	unsigned char m_pad00;
-	unsigned char m_flag0C; // +0x0C
+	unsigned char m_pad00[4];
 	Rva00563F34Stamp *m_stamp; // +0x04
-	unsigned char m_pad08[0x0C];
+	unsigned char m_pad08[4];
+	unsigned char m_flag0C; // +0x0C
+	unsigned char m_pad0D[7];
 	unsigned int m_window; // +0x14
 	FXList *m_fx; // +0x18
 	unsigned char m_armed; // +0x1C
@@ -56,10 +57,12 @@ void Rva00563F34::rva00563F34()
 		int elapsed = TheGameClient->slot7C() - *(int *)((char *)stamp + 0x58);
 		if ((unsigned int)elapsed >= m_window)
 		{
-			FXList::doFXPos(m_fx, (const Coord3D *)((char *)stamp + 0x1C), 0, 0.0f, 0);
+			char *pos = (char *)stamp;
+			pos += 0x1C;
+			FXList::doFXPos(m_fx, (const Coord3D *)pos, 0, 0.0f, 0);
 			m_armed = 0;
 			if (m_flag0C)
-				*(int *)((char *)stamp + 0x54) = 1;
+				*(int *)((char *)m_stamp + 0x54) = 1;
 		}
 	}
 }

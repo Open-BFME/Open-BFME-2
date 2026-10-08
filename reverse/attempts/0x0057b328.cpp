@@ -1,279 +1,10 @@
 // ?rva0057B328@Rva0057B328@@QAEXM@Z
-// partial score=0.9 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-//
-// Apt callbacks of two War of the Ring in-game panels, bound as member
-// pointers under "<movie>_On..." names (the movie name each constructor is
-// given plus a fixed suffix) by their unrowed constructors 0x0057B5AA and
-// 0x0057BD79; that binding is their only reference. The methods carry the
-// suffix as their name; the class names are unknown, so each class keeps
-// its constructor's address. Both keep an open state (1 opening, 2 open,
-// 3 closing, 0 closed) and call their rowed open and close bodies, which
-// the ledger names after their own addresses.
-#include "ascii_string.h"
-
-// BfmePathLeafAfterMarker.cpp's path helpers.
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
-
-class AnimateWindow;
-class ProcessAnimateWindowSlideFromBottomTimed
-{
-public:
-	virtual ~ProcessAnimateWindowSlideFromBottomTimed();
-	virtual void initAnimateWindow(AnimateWindow *);
-	virtual void initReverseAnimateWindow(AnimateWindow *, unsigned int);
-	virtual bool updateAnimateWindow(AnimateWindow *);
-	virtual bool reverseAnimateWindow(AnimateWindow *);
-};
-
-class Rva0057BC45Listener
-{
-public:
-	virtual void notify(void *);
-};
-
-class Rva0057BC45List
-{
-public:
-	void forEach(void (Rva0057BC45Listener::*notify)(void *), void *arg);
-
-private:
-	Rva0057BC45Listener **m_begin;
-	Rva0057BC45Listener **m_end;
-	Rva0057BC45Listener **m_capacity;
-	unsigned int m_index;
-};
-
-// ---- the panel built by 0x0057B5AA
-
-// The scroll bar holder at +0x28 (Rva000AD6F4's clear).
-class Rva000AD6F4
-{
-public:
-	void clear();
-
-	void *m_ptr;
-};
-
-// The scroll bar built from the loaded movie's level and path by the
-// unrowed constructor 0x005D4DA9 (pinned by address); listeners join its
-// +4 list through the rowed append 0x005A0B4C. The holder sets it through
-// its rowed 0x00575674.
-struct Rva002BA8F1Listener;
-
-class Rva005A0B4CList
-{
-public:
-	void append(Rva002BA8F1Listener *listener);
-
-	unsigned char m_pad[0x14];
-};
-
-class Rva005D4DA9
-{
-public:
-	Rva005D4DA9(int level, const AsciiString &path);
-
-	void *m_0;
-	Rva005A0B4CList m_listeners; // +0x04
-};
-
-class Object;
-
-class Rva00575674
-{
-public:
-	void rva00575674(Object *scrollBar);
-};
-
-// The rowed expand and collapse bodies.
-class Rva0057A8F9
-{
-public:
-	void rva0057A8F9();
-};
-
-class Rva0057A92D
-{
-public:
-	void rva0057A92D();
-};
-
-class Rva0057B5AA
-{
-public:
-	void OnClosed(const char *unused);
-	void OnOpen(const char *unused);
-	void OnScrollBarUnloaded(const char *unused);
-	void OnExpandButtonClicked(const char *unused);
-	void OnScrollBarLoaded(const char *name);
-
-	// Unrowed 0x0057B16D (170 bytes), pinned by address.
-	void rva0057B16D();
-
-private:
-	unsigned char m_pad00[0x08];
-	int m_listener; // +0x08, the scroll bar listener
-	unsigned char m_pad0c[0x14 - 0x0C];
-	int m_state; // +0x14
-	unsigned char m_pad18[0x28 - 0x18];
-	Rva000AD6F4 m_scrollBar; // +0x28
-};
-
-// Retail 0x0057A3D7, 13 bytes: bound as "<movie>_OnClosed" (0x0057B7E5).
-void Rva0057B5AA::OnClosed(const char *unused)
-{
-	if (m_state == 3)
-		m_state = 0;
-}
-
-// Retail 0x0057A3E4, 16 bytes: bound as "<movie>_OnOpen" (0x0057B774).
-void Rva0057B5AA::OnOpen(const char *unused)
-{
-	if (m_state == 1)
-		m_state = 2;
-}
-
-// Retail 0x0057A4DC, 11 bytes: bound as "<movie>_OnScrollBarUnloaded"
-// (0x0057B703).
-void Rva0057B5AA::OnScrollBarUnloaded(const char *unused)
-{
-	m_scrollBar.clear();
-}
-
-// Retail 0x0057B4F9, 177 bytes: bound as "<movie>_OnScrollBarLoaded"
-// (0x0057B6A3): builds the scroll bar once, listens to it and refreshes.
-void Rva0057B5AA::OnScrollBarLoaded(const char *name)
-{
-	Rva000AD6F4 *scrollBar = &m_scrollBar;
-	if (scrollBar->m_ptr == 0)
-	{
-		((Rva00575674 *)scrollBar)->rva00575674((Object *)new Rva005D4DA9(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
-		((Rva005D4DA9 *)scrollBar->m_ptr)->m_listeners.append((Rva002BA8F1Listener *)&m_listener);
-		rva0057B16D();
-	}
-}
-
-// Retail 0x0057AC0C, 27 bytes: bound as "<movie>_OnExpandButtonClicked"
-// (0x0057B859): collapses an open panel, expands a closed one.
-void Rva0057B5AA::OnExpandButtonClicked(const char *unused)
-{
-	int state = m_state;
-	if (state == 2)
-		((Rva0057A8F9 *)this)->rva0057A8F9();
-	else if (state == 0)
-		((Rva0057A92D *)this)->rva0057A92D();
-}
-
-// ---- the panel built by 0x0057BD79
-
-// The panel frame movie, built from the loaded movie's level and path by
-// the unrowed constructor 0x005D4FBA (pinned by address); the owning
-// pointer at +0x34 is viewed through its rowed reset and clear.
-class Rva005D4FFC
-{
-public:
-	Rva005D4FFC(int level, const AsciiString &path);
-
-	unsigned char m_pad[0x4];
-};
-
-class Rva0057B993
-{
-public:
-	void reset(Rva005D4FFC *p);
-
-	Rva005D4FFC *m_ptr;
-};
-
-class Rva0057B9B6
-{
-public:
-	void clear();
-};
-
-// The rowed open and close bodies.
-class Rva0057BA90
-{
-public:
-	void rva0057BA90();
-};
-
-class Rva0057BAC4
-{
-public:
-	void rva0057BAC4();
-};
-
-class Rva0057BD79
-{
-public:
-	void OnPanelFrameLoaded(const char *name);
-	void OnPanelFrameUnloaded(const char *name);
-	void OnToggleButtonClicked(const char *unused);
-	void OnClosed(const char *unused);
-	void OnOpened(const char *unused);
-
-private:
-	unsigned char m_pad00[0x04];
-	Rva0057BC45List m_listeners; // +0x04
-	unsigned char m_pad14[0x28 - 0x14];
-	int m_state; // +0x28
-	unsigned char m_pad2c[0x34 - 0x2C];
-	Rva0057B993 m_panelFrame; // +0x34
-};
-
-// Retail 0x0057B9F1, 148 bytes: bound as "<movie>_OnPanelFrameLoaded"
-// (0x0057BEE4).
-void Rva0057BD79::OnPanelFrameLoaded(const char *name)
-{
-	if (m_panelFrame.m_ptr == 0)
-		m_panelFrame.reset(new Rva005D4FFC(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
-}
-
-// Retail 0x0057BA85, 11 bytes: bound as "<movie>_OnPanelFrameUnloaded"
-// (0x0057BF3A).
-void Rva0057BD79::OnPanelFrameUnloaded(const char *name)
-{
-	((Rva0057B9B6 *)&m_panelFrame)->clear();
-}
-
-// Retail 0x0057BC2A, 27 bytes: bound as "<movie>_OnToggleButtonClicked"
-// (0x0057BFC9): opens a closed panel, closes an open one.
-void Rva0057BD79::OnToggleButtonClicked(const char *unused)
-{
-	int state = m_state;
-	if (state == 0)
-		((Rva0057BA90 *)this)->rva0057BA90();
-	else if (state == 2)
-		((Rva0057BAC4 *)this)->rva0057BAC4();
-}
-
-// Retail 0x0057BC9E, 27 bytes: bound as "<movie>_OnClosed" (0x0057BE19);
-// finishes closing and tells the listeners (animation slot 2).
-void Rva0057BD79::OnClosed(const char *unused)
-{
-	if (m_state == 3)
-	{
-		m_state = 0;
-		m_listeners.forEach(reinterpret_cast<void (Rva0057BC45Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initReverseAnimateWindow), this);
-	}
-}
-
-// Retail 0x0057BCB9, 30 bytes: bound as "<movie>_OnOpened" (0x0057BE5B);
-// finishes opening and tells the listeners (animation slot 1).
-void Rva0057BD79::OnOpened(const char *unused)
-{
-	if (m_state == 1)
-	{
-		m_state = 2;
-		m_listeners.forEach(reinterpret_cast<void (Rva0057BC45Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initAnimateWindow), this);
-	}
-}
-
-// Retail 0x0057B328, 91 bytes: REF via table slot 0x0086EEFC (VTABLE slot 1 at
-// 0x0086EEF8); takes float delta at [ebp+8], refreshes via pinned 0x0057B16D.
+// partial score=0.85 date=2026-10-08
+// cl: /DNDEBUG /MD /EHsc
+// ?rva0057B328@Rva0057B328@@QAEXM@Z 0x0057B328 91B. Walks the list at +0x44 and,
+// for each node's object, adds the float field's value to the offset value and
+// hands it back to the field's setter; then calls the owner's finish at +0x40.
+// The incoming offset is replaced by (+0x30 - value) before the walk.
 class Rva004987FEFloatField
 {
 public:
@@ -283,51 +14,71 @@ public:
 class Rva005D3FE4
 {
 public:
-	void rva005D3FE4(float v);
+	void rva005D3FE4(float value);
 };
 
-struct Rva0057B328Data
+namespace StrategicHUD
+{
+class ChecklistUIImpl;
+}
+
+struct Rva0057B328Node;
+
+struct Rva0057B328Obj
 {
 	unsigned char m_pad00[8];
-	Rva005D3FE4 m_field;
+	Rva004987FEFloatField m_field; // +0x08
 };
 
 struct Rva0057B328Node
 {
-	Rva0057B328Node *m_next;
+	Rva0057B328Node *m_next; // +0x00
 	unsigned char m_pad04[4];
-	Rva0057B328Data *m_data;
+	Rva0057B328Obj *m_obj; // +0x08
 };
+
+struct Rva0057B328List
+{
+	Rva0057B328Node *m_head; // +0x00
+};
+
+namespace StrategicHUD
+{
+class ChecklistUIImpl
+{
+public:
+	void rva0057B16D();
+	unsigned char m_pad00[0x30];
+	Rva0057B328Node *m_end; // +0x30
+};
+}
 
 class Rva0057B328
 {
 public:
-	void rva0057B328(float v);
+	void rva0057B328(float value);
 private:
 	unsigned char m_pad00[0x30];
-	float m_30;
-	unsigned char m_pad34[0x40 - 0x34];
-	Rva0057B5AA *m_40;
-	Rva0057B328Node **m_44;
+	float m_30; // +0x30
+	unsigned char m_pad34[0x0C];
+	StrategicHUD::ChecklistUIImpl *m_40; // +0x40
+	Rva0057B328List *m_44; // +0x44
 };
 
-// ?rva0057B328@Rva0057B328@@QAEXM@Z
-void Rva0057B328::rva0057B328(float v)
+void Rva0057B328::rva0057B328(float value)
 {
-	Rva0057B328Node *cur = *m_44;
-	Rva0057B328Node *end = *(Rva0057B328Node **)((unsigned char *)m_40 + 0x30);
-	v = m_30 - v;
-	if (cur != end)
+	Rva0057B328Node *end = m_40->m_end;
+	Rva0057B328Node *node = m_44->m_head;
+	value = m_30 - value;
+	if (node != end)
 	{
-		Rva005D3FE4 *field;
 		do
 		{
-			Rva0057B328Data *d = cur->m_data;
-			field = &d->m_field;
-			float nv = ((const Rva004987FEFloatField *)field)->get() + v;
-			field->rva005D3FE4(nv);
-			cur = cur->m_next;
-		} while (cur != end);
+			Rva004987FEFloatField *field = &node->m_obj->m_field;
+			float sum = field->get() + value;
+			reinterpret_cast<Rva005D3FE4 *>(field)->rva005D3FE4(sum);
+			node = node->m_next;
+		} while (node != end);
 	}
 	m_40->rva0057B16D();
 }
