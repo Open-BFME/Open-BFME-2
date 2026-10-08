@@ -33,6 +33,16 @@ RULES (the commit gate, --staged):
      refusing (the 48 h shadow before enforcement). `# mode: enforce` (also
      the default) refuses; enforce may never go back to shadow. Rule 5, a
      deleted register and a wrong first register are refused in both modes.
+  7. Reseed, shadow only. A register left in shadow drifts: commits it never
+     refused grew the tree past it, so every touched file reports growth that
+     commit did not make. `--reseed` rewrites the whole register from the tree
+     (no allow= stamps, mode kept) and is refused once the register says
+     `# mode: enforce`: an enforced register is never re-derived from the
+     tree it judges. The gate takes a staged register that raises lines as a
+     reseed only when it equals the staged tree exactly (one full scan, as for
+     the first register); anything short of that is judged line by line as
+     before. The commit carries `Verifier-Change: hatch-reseed <why>`
+     (tools/protected_paths.py asks for a trailer on any baseline edit).
 
 Usage:
   python3 tools/hatch_counters.py --staged              the commit gate
@@ -50,6 +60,7 @@ pin_admission.py --add, add_match.py --pin; BFME1: add_match.py for a verified
 row whose object-symbol= names a compiler label), so a checked, tool-written
 hatch passes and a hand-written one is refused once the register is enforced.
   python3 tools/hatch_counters.py --write-baseline      first baseline only (refuses if one exists)
+  python3 tools/hatch_counters.py --reseed              rewrite a SHADOW register from the tree (rule 7)
 """
 import argparse
 import collections
@@ -269,16 +280,23 @@ def index_blob_ids(paths):
     return out
 
 
-def tree_scan():
-    """Occurrences over every tracked relevant file, read from the work tree."""
+def tree_scan(index=False):
+    """Occurrences over every tracked relevant file, read from the work tree (or, with
+    INDEX, from the staged blobs: what the commit being judged will hold)."""
     counts = collections.Counter()
-    for path in git("ls-files", "-z").split("\0"):
-        if path and relevant(path):
-            try:
-                text = (ROOT / path).read_text(encoding="utf-8", errors="replace")
-            except OSError:
-                continue
-            counts.update(scan(path, text))
+    paths = [p for p in git("ls-files", "-z").split("\0") if p and relevant(p)]
+    if index:
+        texts = read_blobs([":" + p for p in paths])
+        for path in paths:
+            if texts[":" + path] is not None:
+                counts.update(scan(path, texts[":" + path]))
+        return counts
+    for path in paths:
+        try:
+            text = (ROOT / path).read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        counts.update(scan(path, text))
     return counts
 
 
@@ -373,7 +391,16 @@ def _check_staged(hard):
     for text in parent_texts.values():
         for key, n in parse(text or "")[0].items():
             b0[key] = max(n, b0.get(key, 0))
-    lowered = sorted({k[1] for k in set(b0) | set(b1) if b1.get(k, 0) < b0.get(k, 0)})
+    raised = [k for k, n in b1.items() if n > b0.get(k, 0)]
+    if (STATE["mode"] == "shadow" and BASELINE in changed and raised and not any(k in allow1 for k in raised)
+            and b1 == dict(tree_scan(index=True))):
+        # A shadow reseed (rule 7): lines were raised, none by a tool allowance (those stamp
+        # allow=, and must not pay for a full scan), and the register is exactly the staged
+        # tree, so no file holds more than it grants and there is nothing to report.
+        print("hatch_counters: %s reseeded from the staged tree (shadow): %s"
+              % (BASELINE, " ".join("%s=%d" % kv for kv in sorted(totals(b1).items()))), file=sys.stderr)
+        return errors, warnings
+    lowered =sorted({k[1] for k in set(b0) | set(b1) if b1.get(k, 0) < b0.get(k, 0)})
     paths = sorted(set(touched) | set(lowered))
     texts = read_blobs([":" + p for p in paths])
     actual = collections.Counter()
@@ -468,6 +495,26 @@ def update(allow_paths=(), reason=None):
             print("%-18s %7d -> %7d" % (hatch, t0[hatch], t1[hatch]))
 
 
+def reseed():
+    """Rule 7: rewrite a shadow register from the tree. Refused when enforced or absent."""
+    old_text = (ROOT / BASELINE).read_text(encoding="utf-8") if (ROOT / BASELINE).exists() else None
+    if old_text is None:
+        sys.exit("hatch_counters: no register yet; --write-baseline creates the first one")
+    if mode_of(old_text) != "shadow":
+        sys.exit("hatch_counters: %s is enforced; an enforced register only shrinks (--update) "
+                 "or grows by --allow, it is never reseeded" % BASELINE)
+    old, _ = parse(old_text)
+    new = tree_scan()
+    write(new, mode="shadow")
+    raised = sum(1 for k in new if new[k] > old.get(k, 0))
+    lowered = sum(1 for k in old if new.get(k, 0) < old[k])
+    t0, t1 = totals(old), totals(new)
+    for hatch in HATCHES:
+        print("%-18s %7d -> %7d" % (hatch, t0[hatch], t1[hatch]))
+    print("reseeded %s: %d line(s) raised or added, %d lowered or removed; commit it with "
+          "'Verifier-Change: hatch-reseed <why>'" % (BASELINE, raised, lowered))
+
+
 def blob_id(path, data):
     """The blob id DATA (bytes) would be staged as at PATH: git applies the path's
     eol/autocrlf filters, so the id agrees with `git add` on any checkout."""
@@ -560,6 +607,7 @@ def main(argv=None):
     g.add_argument("--allow", nargs="+", metavar="PATH")
     g.add_argument("--write-baseline", action="store_true")
     g.add_argument("--admit", metavar="PATH")
+    g.add_argument("--reseed", action="store_true", help="rewrite a shadow register from the tree")
     ap.add_argument("--reason")
     ap.add_argument("--tokens", nargs="+", help="--admit only: admit just these tokens")
     ap.add_argument("--mode", choices=("shadow", "enforce"), default="enforce",
@@ -591,6 +639,9 @@ def main(argv=None):
         if (ROOT / BASELINE).exists():
             sys.exit("hatch_counters: %s exists; use --update (shrink/move) or --allow" % BASELINE)
         write(tree_scan(), mode=args.mode)
+        return 0
+    if args.reseed:
+        reseed()
         return 0
     if args.admit:
         got = admit(args.admit, args.reason, args.tokens)

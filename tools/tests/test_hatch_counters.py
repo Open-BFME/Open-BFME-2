@@ -363,3 +363,75 @@ def test_admit_respects_the_freeze(repo):
     repo.write(repo.lay["src"], SOURCE + "void h() { __asm { __emit 0x90 } }\n" * 12)
     got = admit(repo, repo.lay["src"])
     assert got.returncode != 0 and "frozen" in got.stderr
+
+
+# ---- reseed (rule 7): a drifted shadow register is rewritten from the tree, once
+
+def _shadow_register(repo):
+    """The fixture register as a committed `# mode: shadow` one (via a legacy, mode-less commit:
+    enforce may never go back to shadow)."""
+    base = repo.read(repo.lay["base"])
+    repo.write(repo.lay["base"], base.replace("# mode: enforce\n", ""))
+    repo.commit("legacy register", when=T0 - DAY)
+    repo.write(repo.lay["base"], base.replace("# mode: enforce", "# mode: shadow"))
+    repo.commit("shadow", when=T0 - DAY + 1)
+
+
+def _drift(repo):
+    """What master did in shadow: hatches grew and shrank in commits the register never saw."""
+    repo.write(repo.lay["src"], SOURCE.replace("__emit 0x90 ", "") + "#pragma optimize(\"gsy\", on)\n")
+    repo.write(repo.lay["src2"], "void h() { __asm { __emit 0x90 __emit 0x90 } }\n")
+    pins = repo.lay["rev"] + "/symbols.csv"
+    repo.write(pins, repo.read(pins) + "?b@@3HA,0x00001004,\n")
+    repo.commit("drift", when=T0 - 3600)
+
+
+def test_reseed_makes_a_drifted_shadow_register_match_and_still_reports_new_growth(repo):
+    _shadow_register(repo)
+    _drift(repo)
+    repo.write(repo.lay["src"], repo.read(repo.lay["src"]) + "int clean;\n")
+    repo.git("add", repo.lay["src"])                               # the drift is reported on any touch
+    assert "SHADOW (not enforced): pragma_optimize +1" in staged(repo).stderr
+    got = repo.tool("--reseed")
+    assert got.returncode == 0 and "reseeded" in got.stdout
+    text = repo.read(repo.lay["base"])
+    assert "# mode: shadow" in text and "allow=" not in text
+    assert "emit\t%s\t*\t2\n" % repo.lay["src2"] in text and "\temit\t%s\t" % repo.lay["src"] not in text
+    repo.git("add", ".")
+    got = staged(repo)                                             # the reseed commit itself is clean
+    assert got.returncode == 0 and "SHADOW" not in got.stderr and "reseeded from the staged tree" in got.stderr
+    repo.commit("Reseed\n\nVerifier-Change: hatch-reseed fixture drift", when=T0)
+    assert repo.tool("--report").stdout.count("\n") == len(hc.HATCHES) + 1
+    for line in repo.tool("--report").stdout.splitlines()[1:]:     # register == tree for every hatch
+        _, reg, tree = line.split()
+        assert reg == tree
+    repo.write(repo.lay["src2"], repo.read(repo.lay["src2"]) + "void k() { __asm { __emit 0x90 } }\n")
+    repo.git("add", ".")
+    got = staged(repo)                                             # a hatch added after the reseed: reported
+    assert got.returncode == 0 and "SHADOW (not enforced): emit +1" in got.stderr
+    _set_mode(repo, "enforce")                                     # and refused once enforced
+    repo.git("add", ".")
+    got = staged(repo)
+    assert got.returncode == 1 and "emit +1" in got.stderr and "escape hatches grew" in got.stderr
+
+
+def test_reseed_staged_with_extra_growth_is_judged_line_by_line(repo):
+    _shadow_register(repo)
+    _drift(repo)
+    assert repo.tool("--reseed").returncode == 0
+    repo.write(repo.lay["src2"], repo.read(repo.lay["src2"]) + "void k() { __asm { __emit 0x90 } }\n")
+    repo.git("add", ".")                                           # register no longer equals the staged tree
+    got = staged(repo)
+    assert "reseeded from the staged tree" not in got.stderr and "SHADOW (not enforced): emit +1" in got.stderr
+    assert "raised by hand" in got.stderr                          # the reseed's raised lines are named too
+
+
+def test_reseed_is_refused_for_an_enforced_or_missing_register(repo):
+    _drift(repo)
+    before = repo.read(repo.lay["base"])
+    got = repo.tool("--reseed")
+    assert got.returncode != 0 and "never reseeded" in got.stderr
+    assert repo.read(repo.lay["base"]) == before
+    (repo.root / repo.lay["base"]).unlink()
+    got = repo.tool("--reseed")
+    assert got.returncode != 0 and "--write-baseline" in got.stderr
