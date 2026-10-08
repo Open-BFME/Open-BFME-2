@@ -7,6 +7,7 @@
 // Helper spelling and the remaining field names are address-derived.
 
 #include "ascii_string.h"
+#include "unicode_string.h"
 
 class Xfer;
 enum INILoadType
@@ -33,6 +34,8 @@ class LargeGroupAudio
 public:
     virtual void init();
     unsigned char rva0020DA21(INI *ini);
+    // Primary virtual slot 4; original source name and argument role unknown.
+    virtual bool rva0020DB09(int reason);
 private:
     // Partial view: the constructor establishes a primary vptr at +0,
     // Snapshot at +0xC and three 12-byte containers at +0x10/+0x1C/+0x28.
@@ -67,4 +70,32 @@ void LargeGroupAudio::init()
     rva0020DA21(&ini);
     m_flag38 = true;
     TheSubsystemList->rva001B5018(this);
+}
+
+class InGameUI
+{
+public:
+#define SLOT(N) virtual void vslot##N();
+    SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
+    SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
+#undef SLOT
+    // The already-rowed gated UnicodeString formatter occupies slot 16.
+    virtual void __cdecl rva0029E846(UnicodeString format, ...);
+};
+extern InGameUI *TheInGameUI;
+
+// Native 0x0020DB09..0x0020DB91, RET 4. The argument is unused.
+// Target sets INI word +8 to 5 and latches +0x39/+0x3A after a successful
+// reload; the notification and both latches are target facts.
+bool LargeGroupAudio::rva0020DB09(int reason)
+{
+    INI ini;
+    ini.m_word08 = static_cast<INILoadType>(5);
+    if (rva0020DA21(&ini))
+    {
+        m_flag39 = true;
+        TheInGameUI->rva0029E846(UnicodeString(L"RIF: LGAS reloaded. Changes take effect immediately."));
+        m_flag3A = true;
+    }
+    return m_flag39;
 }
