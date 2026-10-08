@@ -401,10 +401,10 @@ struct Rva00072988Cell
 	unsigned short rest : 12;
 };
 
-class Rva00072988
+class W3DShroud
 {
 public:
-	unsigned char rva00072988(int x, int y);
+	unsigned char getShroudLevel(int x, int y);
 private:
 	int width;
 	int height;
@@ -412,7 +412,7 @@ private:
 	Rva00072988Cell *data;
 };
 
-unsigned char Rva00072988::rva00072988(int x, int y)
+unsigned char W3DShroud::getShroudLevel(int x, int y)
 {
 	if (!data)
 		return 0;

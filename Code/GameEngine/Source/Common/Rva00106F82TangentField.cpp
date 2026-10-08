@@ -17,14 +17,14 @@
 #include <math.h>
 #undef inline
 #pragma intrinsic(tan)
-class Rva00106F82Field {
+class W3DVolumetricShadowV2 {
 public:
- void setScaledTangent(float argument);
+ void SetShadowAngleLimit(float argument);
 private:
  char opaque00[0x88];
  float value88;
 };
-void Rva00106F82Field::setScaledTangent(float argument) {
+void W3DVolumetricShadowV2::SetShadowAngleLimit(float argument) {
  value88=(float)tan(argument*57.295776f);
 }
 

@@ -51,17 +51,17 @@ class PlayerList { public: Player *getPlayerFromMask(int mask); };
 extern PlayerList *ThePlayerList;
 struct Rva00414EA1Vector { void *begin, *end, *capacity; };
 Xfer *Rva00414C92(Xfer *xfer, Rva00414EA1Vector *values);
-class Rva00414EA1
+class ScoredKillEvaAnnouncer
 {
 public:
-    void rva00414EA1(Xfer *xfer);
+    void DoXfer(Xfer *xfer);
 private:
     char unknown00[0x1C];
     Rva00414EA1Vector values;
     Player *player;
     int value;
 };
-void Rva00414EA1::rva00414EA1(Xfer *xfer)
+void ScoredKillEvaAnnouncer::DoXfer(Xfer *xfer)
 {
     Rva00414EA1Version version = {1, 1};
     xfer->xferVersion(&version);
