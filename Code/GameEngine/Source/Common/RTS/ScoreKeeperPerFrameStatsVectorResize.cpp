@@ -23,9 +23,17 @@ class Rva0039C190 {
 public:
  Rva0039B893 *rva0039C190(Rva0039B893*,Rva0039B893*);
  void rva0039D170(unsigned int n,Rva0039B893 value);
+ void rva0039D1D0(unsigned int n);
  Rva0039B893 *start,*finish,*capacity;
 };
 void Rva0039C190::rva0039D170(unsigned int n,Rva0039B893 value){
  if(n<(unsigned int)(finish-start))rva0039C190(start+n,finish);
  else reinterpret_cast<_STL::vector<Rva0039C415Element>*>(this)->_M_fill_insert(reinterpret_cast<Rva0039C415Element*>(finish),n-(unsigned int)(finish-start),reinterpret_cast<const Rva0039C415Element&>(value));
+}
+
+// Native39D1D0..39D1F1 default-fill overload. WBFA5240 proves a20-byte
+// constructed argument passed to the independently recovered resize provider.
+void Rva0039C190::rva0039D1D0(unsigned int n)
+{
+ rva0039D170(n,Rva0039B893());
 }
