@@ -603,3 +603,25 @@ void *Rva00031790::rva00031790(void *param)
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.
 #pragma comment(linker, "/alternatename:?g_heapTlsIndex@MemoryPool@@3KA=?g_Va00DB35A4@@3KA")
+
+// Native 0x00030D10..0x00030D4E, RET4: retain bit0 of word +4;
+// zero clears its size bits, otherwise clamp to 80, add 11, round down
+// to a multiple of 8, and impose a minimum of 16. Unsigned comparisons
+// and the receiver/one-word ABI are target facts; class/name remain unknown.
+class Rva00030D10 {
+public: void rva00030D10(unsigned int size);
+private: unsigned int unknown00, sizeAndFlag;
+};
+// ?nonzero30D10 absent-from-retail - source-only inline calculation
+inline unsigned int nonzero30D10(unsigned int size) {
+ if(size>80) size=80;
+ size+=11;
+ if(size>16) return size & ~7u;
+ return 16;
+}
+void Rva00030D10::rva00030D10(unsigned int size) {
+ unsigned flag=sizeAndFlag&1;
+ if(size) sizeAndFlag=nonzero30D10(size)|flag;
+ else sizeAndFlag=flag;
+}
+

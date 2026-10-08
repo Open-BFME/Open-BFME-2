@@ -69548,7 +69548,7 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ??0Rva0056D3FD@@QAE@ABVAsciiString@@0000@Z,,0x0056D5BD,98,Code/GameEngine/Source/Common/Rva0056D3FDDtor.cpp,matched,target Ghidra 56D5BD-56D61F98B constructor shares rowed56D3FD destructor layout; new56-byte implementation receives owner and five AsciiString refs per56D438; WB named InGameCommandButtonHelp Impl lead preserves opaque owner
 ?d_00028c40@@YAXXZ,,0x00028C40,42,Code/gen_asm/d_00028c40.asm,matched,gen-dump;bounds=None
 ?d_0002c5e6@@YAXXZ,,0x0002C5E6,59,Code/gen_asm/d_00028c40.asm,matched,gen-dump;bounds=None
-?d_00030d10@@YAXXZ,,0x00030D10,62,Code/gen_asm/d_00028c40.asm,matched,gen-dump;bounds=None
 ?d_000416ec@@YAXXZ,,0x000416EC,46,Code/gen_asm/d_00028c40.asm,matched,gen-dump;bounds=None
 ?d_0004e55b@@YAXXZ,,0x0004E55B,71,Code/gen_asm/d_00028c40.asm,matched,gen-dump;bounds=None
 ?d_00051038@@YAXXZ,,0x00051038,50,Code/gen_asm/d_00028c40.asm,matched,gen-dump;bounds=None
+?rva00030D10@Rva00030D10@@QAEXI@Z,,0x00030D10,62,Code/GameEngine/Source/Common/System/memory_pool.cpp,matched,Native Ghidra30D10..30D4E RET4: unsigned size clamp80 plus11 aligned8 min16 or zero; word4 bit0 preserved. Inline nonzero calculation reproduces native EAX result and independent zero path; address-derived owner; original class/name unknown.
