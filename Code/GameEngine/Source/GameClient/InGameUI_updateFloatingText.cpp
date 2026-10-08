@@ -1,5 +1,4 @@
 // ?updateFloatingText@InGameUI@@IAEXXZ
-// partial score=0.99 date=2026-10-02
 // cl: /Ireference/shims/bfmelist /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
@@ -54,7 +53,9 @@ extern GameEngine *TheGameEngine;
 class FloatingTextData
 {
 public:
-	virtual ~FloatingTextData();
+	// Local ABI view of retail vtable slot 0: the target passes delete flags
+	// and then sends its returned block pointer to operator delete.
+	virtual void *retailDeletingDtorSlot0(Int flags);
 	Color m_color;
 	unsigned char m_pad2[0x14];
 	Int m_frameTimeOut;
@@ -74,7 +75,6 @@ private:
 	Real m_floatingTextMoveVanishRate;
 };
 
-// ?updateFloatingText@InGameUI@@IAEXXZ present-unmatched
 void InGameUI::updateFloatingText()
 {
 	register InGameUI *self = this;
@@ -105,8 +105,7 @@ void InGameUI::updateFloatingText()
 			if (a <= 0)
 			{
 				it = floatingTextList.erase(it);
-				ftd->~FloatingTextData();
-				::operator delete(ftd);
+				::operator delete(ftd->retailDeletingDtorSlot0(0));
 				continue;
 			}
 		}
