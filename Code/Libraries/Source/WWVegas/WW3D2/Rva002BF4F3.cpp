@@ -94,6 +94,7 @@ class Rva002BF4F3
 public:
 	bool rva002BF4F3(RenderObjClass *obj, const Vector3 *pt, Vector3 *out, int collisionType, bool checkHidden);
  void rva002BEA10(RenderObjClass *,bool);
+ void rva002BEF4B(RenderObjClass *);
  bool rva002BF935(void *arg, const Vector3 *pt, Vector3 *out);
 };
 
@@ -181,5 +182,20 @@ void Rva002BF4F3::rva002BEA10(RenderObjClass *obj,bool flag) {
  for(int i=0;i<obj->v28();++i) {
   RenderObjClass *child=obj->v30(i);
   if(child) { child->v101(!flag); if(--child->m_refs==0)child->v00(); }
+ }
+}
+
+// WB D26CB0 and native2BEF4B..2BEFE5 RET4 prove LM_%02d child lookup.
+// Manager count18; named AsciiString::format; render slots80/194 and refs4/VT0.
+// The method name remains unknown; its original receiver is preserved but unused.
+struct Rva002BEF4BManagerView { char pad[0x18]; int count; };
+void Rva002BF4F3::rva002BEF4B(RenderObjClass *obj) {
+ int i=0;
+ int *count=&reinterpret_cast<Rva002BEF4BManagerView *>(TheLivingWorldManager)->count;
+ for(;i<*count;++i) {
+  AsciiString name;
+  name.format("LM_%02d",i+1);
+  RenderObjClass *child=obj->v32(name.str(),0);
+  if(child) { child->v101(0); if(--child->m_refs==0)child->v00(); }
  }
 }
