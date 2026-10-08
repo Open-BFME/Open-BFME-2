@@ -16266,3 +16266,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?Rva00328DE4Add@@YAXPAXPAPAX@Z,0x00328DE4,callee of ?parsePolygonTriggersChunkImpl@Impl@OldPolygonTriggerDataChunkParserBase@@QAE_NAAVDataChunkInput@@PBUDataChunkInfo@@@Z
 ??0Rva00308E63@@QAE@H_N@Z,0x00308E63,callee of ?rva0032927A@@YAXPAURva003294B3Obj@@H@Z
 ?rva0030912A@Rva0030912A@@QAEXHVStandingWaterRef@@@Z,0x0030912A,callee of ?rva0032927A@@YAXPAURva003294B3Obj@@H@Z
+?rva002E9D09@Rva002E9D09@@QAEHPAVObject@@HH@Z,0x002E9D09,Native rectangle002EED80 calls at002EEDBA and002EEF0B establish opaque thiscall three-arg visitor and five-arg polygon ABIs; WB D6BF90 corroborates matching callgraph; original visitor and instantiation names unknown
+?rva002EB7B4@Pathfinder@@QAEHPAH0HHPAVRva002E9D09@@@Z,0x002EB7B4,Native rectangle002EED80 calls at002EEDBA and002EEF0B establish opaque thiscall three-arg visitor and five-arg polygon ABIs; WB D6BF90 corroborates matching callgraph; original visitor and instantiation names unknown
