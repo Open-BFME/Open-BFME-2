@@ -40,7 +40,7 @@ class HostClass005C8E0A { public: void method_005C9069(); };
 class GameMessageList;
 class GameMessage { public: void friend_setList(GameMessageList *); };
 
-class AudioInterface005C9217
+class AudioManager
 {
 public:
     virtual void slot00(); virtual void slot04(); virtual void slot08();
@@ -53,7 +53,7 @@ public:
     virtual void slot54(); virtual void slot58(); virtual void slot5C();
     virtual unsigned int slot60(BfmePoolRef10 *);
 };
-extern AudioInterface005C9217 *TheAudio;
+extern AudioManager *TheAudio;
 
 struct Rva005C8624Element
 {
