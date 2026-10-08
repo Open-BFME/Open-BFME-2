@@ -56,10 +56,13 @@ private:
 	T *m_p;
 };
 
+class Rva005E5590Iface;
+
 class Rva005F4C52
 {
 public:
 	Rva005F4C8ERef<Rva005E6ED6Third> rva005F4C8E(int a, int b);
+	Rva005F4C8ERef<Rva005E5590Iface> rva005F4CF8(int a, int b);
 private:
 	unsigned char m_pad00[0x08];
 	int m_08;
@@ -86,4 +89,71 @@ private:
 Rva005F4C8ERef<Rva005E6ED6Second> Rva005FAAA1::rva005FAB34(int a, int b)
 {
 	return Rva005F4C8ERef<Rva005E6ED6Second>(new Rva005E6ED6(a, b, &m_08));
+}
+
+// The same factory over two other counted classes:
+//   ?rva005F4CF8@Rva005F4C52@@... @0x005F4CF8 106B, slot 3 of Rva005F4C52:
+//     a new 0x24-byte Rva005E5590 (0x005E5590, pinned), interface at +0x10;
+//   ?rva005CDF8B@Rva005CDF6C@@... @0x005CDF8B 106B, slot 2 of Rva005CDF6C:
+//     a new 0x30-byte Rva005CDE89 (0x005CDE89, pinned), interface at +0x0C.
+class Rva005E5590First : public virtual Rva005E6ED6Counted
+{
+public:
+	virtual void first0();
+	int m_08;
+	int m_0C;
+};
+
+class Rva005E5590Iface : public virtual Rva005E6ED6Counted
+{
+public:
+	virtual void iface0();
+};
+
+class Rva005E5590 : public Rva005E5590First, public Rva005E5590Iface
+{
+public:
+	Rva005E5590(int a, int b, void *owner);
+private:
+	int m_18;
+};
+
+class Rva005CDE89First : public virtual Rva005E6ED6Counted
+{
+public:
+	virtual void first0();
+	int m_08;
+};
+
+class Rva005CDE89Iface : public virtual Rva005E6ED6Counted
+{
+public:
+	virtual void iface0();
+};
+
+class Rva005CDE89 : public Rva005CDE89First, public Rva005CDE89Iface
+{
+public:
+	Rva005CDE89(int a, int b, void *owner);
+private:
+	int m_14[5];
+};
+
+Rva005F4C8ERef<Rva005E5590Iface> Rva005F4C52::rva005F4CF8(int a, int b)
+{
+	return Rva005F4C8ERef<Rva005E5590Iface>(new Rva005E5590(a, b, &m_08));
+}
+
+class Rva005CDF6C
+{
+public:
+	Rva005F4C8ERef<Rva005CDE89Iface> rva005CDF8B(int a, int b);
+private:
+	unsigned char m_pad00[0x08];
+	int m_08;
+};
+
+Rva005F4C8ERef<Rva005CDE89Iface> Rva005CDF6C::rva005CDF8B(int a, int b)
+{
+	return Rva005F4C8ERef<Rva005CDE89Iface>(new Rva005CDE89(a, b, &m_08));
 }
