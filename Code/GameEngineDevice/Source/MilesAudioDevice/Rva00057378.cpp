@@ -6,6 +6,13 @@
 // rowed 000562A2 helper, and forward the original key when absent.
 // The original method name and the meaning of the mapped keys are unknown.
 #include <hash_map>
+#include <vector>
+
+struct Rva0005A084Element { int m_value; };
+typedef _STL::vector<Rva0005A084Element> Rva0005A084Vector;
+struct OpaqueRefElement4;
+typedef _STL::vector<OpaqueRefElement4> MilesOwnedOutput;
+template<> MilesOwnedOutput::iterator MilesOwnedOutput::erase(iterator, iterator);
 
 class MilesMutexGuard
 {
@@ -28,6 +35,8 @@ public:
     void rva000562CF(int key);
     void rva00057530(unsigned int key, float value, int mode);
     void rva0005634C(int key, float value, int mode);
+    void rva0005A95B(unsigned int key, Rva0005A084Vector *output);
+    void rva0005A92A(int key, Rva0005A084Vector *output);
     bool rva000613A9(unsigned int handle);
     bool rva000615DA(unsigned int handle);
 private:
@@ -107,4 +116,25 @@ bool MilesAudioManager::rva000615DA(unsigned int handle)
         ++it;
     } while (it != aliases.end() && it->first == handle);
     return killed;
+}
+
+// Native 0005A95B..0005A9F8, RET8. The output's three-pointer vector
+// layout and owning erase are established by the call to rowed 00239EA5;
+// the append provider 0005A92A independently identifies its four-byte stride.
+// Unlike the adjacent setters, retail forwards the original key on every
+// iteration. The original method name and output element identity are unknown.
+void MilesAudioManager::rva0005A95B(unsigned int key, Rva0005A084Vector *output)
+{
+    MilesOwnedOutput *owned = reinterpret_cast<MilesOwnedOutput *>(output);
+    owned->erase(owned->begin(), owned->end());
+    MilesMutexGuard guard(&mutex, 0);
+    MilesKeyAliases::iterator it = aliases.find(key);
+    if (it == aliases.end()) {
+        rva0005A92A(key, output);
+    } else {
+        do {
+            rva0005A92A(key, output);
+            ++it;
+        } while (it != aliases.end() && it->first == key);
+    }
 }
