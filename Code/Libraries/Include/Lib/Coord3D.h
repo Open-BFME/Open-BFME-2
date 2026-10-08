@@ -10,6 +10,7 @@ struct Coord3D {
     float z;
     float length() const;
     void normalize();
+    bool operator==(const Coord3D &r);
 };
 
 #endif // CANONICAL_COORD3D_H

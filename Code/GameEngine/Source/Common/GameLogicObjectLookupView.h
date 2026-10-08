@@ -31,6 +31,8 @@ public:
 // whose call 0x00439E0C takes the disguised object. The spell store's show
 // (finishShowPurchaseScience 0x0043CB48) reads the end flag at +0x6D and
 // the game mode at +0x110.
+// The object list head is at +0xAC: getFirstObject (0x0023CAD2) returns it and
+// prepareLogicForObjectLoad (0x00242C86) walks it inline.
 // GameClient::update (0x0023BEE8) reads the byte at +0x125, next to the pause
 // byte isGamePaused (0x0023CD97) returns from +0x124, and skips the drawable,
 // terrain and display updates while it is set.
@@ -46,7 +48,9 @@ public:
 	bool m_6d; // +0x6D
 
 private:
-	char pad6E[0xB4 - 0x6E];
+	char pad6E[0xAC - 0x6E];
+	Object *m_firstObject; // +0xAC, the head getFirstObject returns
+	char padB0[0xB4 - 0xB0];
 	ObjectIdMap m_map;
 	char padB5[0x110 - 0xB5];
 
@@ -69,6 +73,8 @@ public:
 	void rva00376E92(bool first, bool second);	// 0x00376E92
 	unsigned char isGamePaused();	// 0x0023CD97
 	void deleteLoadScreen();	// 0x002423E3
+	void processDestroyList();	// 0x002413DF
+	void prepareLogicForObjectLoad();	// 0x00242C86
 	bool getFlag125() const { return m_flag125; }
 	unsigned int getTimestamp() const { return m_timestamp; }
 	unsigned int getFrame() const { return m_frame; }
