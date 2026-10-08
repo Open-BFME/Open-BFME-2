@@ -1,27 +1,18 @@
-// cl: /MD
-// ??0Rva00523DB7@@QAE@PBHABV?$StringBase@D@@@Z @0x00523DB7 29B:
-// 2-arg ctor copying int from *arg1 into +0 and StringBase<char> from arg2
-// into +4 via rowed copy 0x000365F0. Called by _Construct wrapper 0x0023FC23
-// plus 4 other 132B sites. Owner unproven, honest Rva name.
-template <typename T>
-class StringBase
-{
-private:
-	StringBase(const StringBase &other);
-	friend class Rva00523DB7;
-private:
-	void *m_data;
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /EHsc /MD
+// stlport
+// Native523DB7..523DD4 copies the referenced int and the one-pointer string.
+// The original opaque caller spelling remains supported. Its full29B body
+// and the genuine STLport pair<int,AsciiString> constructor compile identically,
+// including the owned StringBase copy365F0 relocation; integer signedness
+// is irrelevant here because this constructor performs no comparisons.
+// BFME1 donor34f59164 game/GameEngine/Source/GameLogic/Object/MakePairIntAsciiString.cpp
+// instantiates the same factory. Native23FC23 calls this constructor with
+// the hidden result pointer and the two source refs, then returns that pointer.
+#include "ascii_string.h"
+#include <utility>
+class Rva00523DB7 {
+public: Rva00523DB7(const int *,const StringBase<char> &);
+private: int m_00; AsciiString m_04;
 };
-class Rva00523DB7
-{
-public:
-	Rva00523DB7(const int *p, const StringBase<char> &s);
-private:
-	int m_00;
-	StringBase<char> m_04;
-};
-
-Rva00523DB7::Rva00523DB7(const int *p, const StringBase<char> &s)
-	: m_00(*p), m_04(s)
-{
-}
+Rva00523DB7::Rva00523DB7(const int *p,const StringBase<char> &s):m_00(*p),m_04(reinterpret_cast<const AsciiString &>(s)){}
+template _STL::pair<int, AsciiString> _STL::make_pair<int, AsciiString>(const int &, const AsciiString &);
