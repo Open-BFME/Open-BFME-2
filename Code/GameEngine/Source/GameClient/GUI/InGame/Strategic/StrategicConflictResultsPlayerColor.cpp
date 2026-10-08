@@ -42,11 +42,12 @@ struct StrategicIntIndexPrefix {StrategicIntNode *end;};
 extern "C" unsigned char *__cdecl _mbscpy(unsigned char *,const unsigned char *);
 
 struct RGBColor { int getAsInt()const;float red,green,blue;};
-class LivingWorldBattle {public:int rva003F459A();};
-class Rva003F468D {public:int rva003F468D(int,int);};
+class LivingWorldBattle {public:int rva003F459A();int getSide()const {return side;}char unknown00[0x38];int side;};
+class Rva003F468D {public:int rva003F468D(int,int);int rva003F4DAE(int);};
 struct StrategicPlayerColorView {char unknown00[0x184];RGBColor color;};
 class StrategicConflictResults::Impl {public:
  void ExternPlayerColor(int,char *,bool);
+ void ExternFunc(int,char *,bool);
  char unknown00[0xC];LivingWorldBattle *battle;char unknown10[0x28];StrategicIntIndexPrefix players;
 };
 void StrategicConflictResults::Impl::ExternPlayerColor(int selector,char *out,bool setting) {
@@ -58,4 +59,22 @@ void StrategicConflictResults::Impl::ExternPlayerColor(int selector,char *out,bo
  int address=reinterpret_cast<Rva003F468D *>(battle)->rva003F468D(packed/10000,packed%10000);
  const StrategicPlayerColorView *player=reinterpret_cast<const StrategicPlayerColorView *>(address);
  _snprintf(out,255,"%d",player->color.getAsInt()|0xFF000000);
+}
+
+// WB15E8A50 names this sibling ExternFunc (native5EB77D..5EB7CD).
+// Selector0 reports the current side count; selector1 reports total count.
+// Side38 and both out-of-line providers come from native accesses/calls.
+// The inline typed getter reproduces the receiver-first argument evaluation.
+void StrategicConflictResults::Impl::ExternFunc(int selector,char *out,bool setting)
+{
+ if(battle){
+  switch(selector){
+   case 1:
+    if(!setting)_snprintf(out,255,"%d",battle->rva003F459A());
+    break;
+   case 0:
+    if(!setting)_snprintf(out,255,"%d",reinterpret_cast<Rva003F468D *>(battle)->rva003F4DAE(battle->getSide()));
+    break;
+  }
+ }
 }
