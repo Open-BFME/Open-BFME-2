@@ -33,13 +33,15 @@ class Vector3
 {
 public:
 	Vector3(void) {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
+	Vector3(Real x, Real y, Real z);
 	__forceinline Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
 	__forceinline Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
 	Real Length2(void) const { return X*X + Y*Y + Z*Z; }
 	Real X, Y, Z;
 };
-inline Vector3 operator-(const Vector3 &a, const Vector3 &b) { return Vector3(a.X-b.X, a.Y-b.Y, a.Z-b.Z); }
+// Preserve retail SSE scheduling through the component setter without emitting conflicting Vector3 copies.
+static __forceinline void ShadowSetPoint(Vector3 *v,Real x,Real y,Real z) { v->X=x; v->Y=y; v->Z=z; }
+static __forceinline Vector3 ShadowSubtract(const Vector3 &a, const Vector3 &b) { Vector3 result; ShadowSetPoint(&result,a.X-b.X,a.Y-b.Y,a.Z-b.Z); return result; }
 
 class RenderObjClass;
 class W3DShadowGeometry;
@@ -126,7 +128,7 @@ Int W3DShadowGeometry::initFromMesh(RenderObjClass *robj, Int mesh_index, W3DSha
 		const Vector3 *vertex = &mesh->m_verts[j];
 		for (Int k = j + 1; k < mesh->m_numVertsTotal; ++k)
 		{
-			Vector3 delta(*vertex - mesh->m_verts[k]);
+			Vector3 delta(ShadowSubtract(*vertex,mesh->m_verts[k]));
 			if (delta.Length2() == 0)
 			{
 				vertParent[k] = j;
