@@ -6,6 +6,7 @@
 class Gen_004902A0
 {
 public:
+	Gen_004902A0();
 	virtual ~Gen_004902A0() throw();
 	virtual void slot1(int x);
 	Gen_004902A0 *m_next; // +4
@@ -14,12 +15,26 @@ public:
 class Rva00355CD8 : public Gen_004902A0
 {
 public:
+	Rva00355CD8(int minimum, int maximum);
 	virtual ~Rva00355CD8();
 	virtual void slot1(int value);
 private:
 	int m_minimum; // +8: lower range endpoint, used by slot1
 	int m_argC; // +0xC: upper range endpoint, sent by dtor
 };
+
+// BFME 1 donor 34f59164f6 LinkedCtorAndWindowDtor.cpp provides the linked
+// range constructor pattern. Target caller 0x00246B14 passes integers (1, 2);
+// native 0x00355C8E..0x00355CD8 calls the rowed base ctor 0x00355C60,
+// installs this existing owner's vtable, stores endpoints at +8/+C and
+// forwards the lower endpoint through the inherited link's slot 1. Original
+// application class name remains unknown; retain the actual target owner.
+Rva00355CD8::Rva00355CD8(int minimum, int maximum)
+    : Gen_004902A0(), m_minimum(minimum), m_argC(maximum)
+{
+    if (m_next)
+        m_next->slot1(minimum);
+}
 
 Rva00355CD8::~Rva00355CD8()
 {
