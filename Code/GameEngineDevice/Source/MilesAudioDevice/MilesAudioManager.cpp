@@ -28,6 +28,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include <vector>
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
 class Xfer;
 enum INILoadType
@@ -110,13 +111,27 @@ enum ObjectID
     ObjectID_Zero = 0
 };
 
+// (channel, volume) entry of AudioEventInfo +0xB8: 0x0005818B reads the
+// channel index first (-1 skips) and the float second.
+struct AudioEventChannelVolume {
+    int m_channel;
+    float m_volume;
+};
+
 // AudioEventInfo view: +0x44 is the priority the lowest-priority scan ranks by.
+// prep3DSample passes +0x94 as AIL_set_3D_sample_distances' max distance and
+// +0x98 (non-global sounds) as its min distance.
 struct AudioEventInfo {
     char at00[0x08];
     AsciiString m_audioName;                 // +0x08
     char at0C[0x44 - 0x0C];
     int m_priority;                          // +0x44
-    unsigned int m_type;                     // +0x48
+    unsigned int m_type;                     // +0x48, bit 3 global
+    char at4C[0x94 - 0x4C];
+    float m_maxDistance;                     // +0x94
+    float m_minDistance;                     // +0x98
+    char at9C[0xB8 - 0x9C];
+    _STL::vector<AudioEventChannelVolume> m_channelVolumes;  // +0xB8
 };
 
 class AudioEventRTS {
@@ -226,6 +241,29 @@ private:
 class Rva002D94CE { public: void rva002D94CE(int value); };
 class Weapon { public: void setLeechRangeActive(bool value); };
 class Rva002D9BDC { public: void rva002D9BDC(float lo, float hi); };
+// Float-returning event query rowed at 0x002DA153; prep3DSample compares it
+// with AudioSettings +0xB8 to treat a sound as global.
+class Rva002DA153 { public: float rva002DA153(void); };
+// Event pitch-shift multiplier (rowed 0x002D94DD, a const float product
+// getter); initFilters3D scales the 3D playback rate by it when non-zero.
+class Rva002D94DD { public: float rva002D94DD(void) const; };
+// Info-reference parameter type of the split-out 0x000581FA.
+struct Rva0005BA08InfoRef;
+
+// AudioSettings view (Zero Hour's MilesAudioManager reads it through
+// m_audioSettings at +0x10): +0x74 is an int distance, +0xB8 a float limit.
+struct AudioSettings {
+    char at00[0x74];
+    int m_at74;
+    char at78[0xB8 - 0x78];
+    float m_atB8;
+};
+
+extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_distances(void *sample, float maxDistance, float minDistance);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_position(void *sample, float x, float y, float z);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_volume(void *sample, float volume);
+extern "C" __declspec(dllimport) int __stdcall AIL_3D_sample_playback_rate(void *sample);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_playback_rate(void *sample, int rate);
 extern float g_00DBA4FC;
 extern float g_Va00BBDA30;
 
@@ -469,6 +507,12 @@ public:
     void getAppropriateSampleHandleForPlayingAudio(PlayingAudioRef &playing, void **sample, void **sample3D);
 
     void *get3DSampleHandleForPlayingAudio(PlayingAudioRef &playing);
+    void prep3DSample(PlayingAudioRef &playing, const Coord3D *pos);
+    void initFilters3D(PlayingAudioRef &playing, const Coord3D *pos);
+    void setOcclusionLevels(PlayingAudioRef &playing, const Coord3D *pos);
+    void rva00055C5D(PlayingAudioRef &playing, bool *result);
+    void rva00052FA0(PlayingAudioRef &playing);
+    void rva000581FA(const Rva0005BA08InfoRef &info, int viewType);
     void rva000535A6(PlayingAudioRef &playing);
 
     void rva000564C0(unsigned int sample);
@@ -481,7 +525,9 @@ public:
     void rva0005AA72(PlayingAudioRef &playing);
 
 private:
-    char at04[0x98 - 0x04];
+    char at04[0x10 - 0x04];
+    AudioSettings *m_audioSettings;      // +0x10 (Zero Hour name)
+    char at14[0x98 - 0x14];
     Rva00051107AudioRequestList m_audioRequests;    // +0x98
     char at9C[0xBC - 0x9C];
     Rva00059FBBMap m_allAudioEventInfo;  // +0xBC
@@ -1128,4 +1174,40 @@ void MilesAudioManager::rva0005DB6C(const AsciiString &fileName)
         m_unknownFileNames.push_back(fileName);
     else if (!(*it).second.isEmpty())
         m_pendingFileText.push_back((*it).second);
+}
+
+void MilesAudioManager::prep3DSample(PlayingAudioRef &playing, const Coord3D *pos)
+{
+    void *sample3D = get3DSampleHandleForPlayingAudio(playing);
+    BfmePoolRef10 &event = playing->m_event;
+    if (!event->m_info->m_channelVolumes.empty())
+        rva000581FA(*reinterpret_cast<const Rva0005BA08InfoRef *>(&event->m_info), event->m_viewType);
+    float minDistance;
+    if ((event->m_info->m_type & 8)
+        || reinterpret_cast<Rva002DA153 *>(event.operator->())->rva002DA153() > m_audioSettings->m_atB8)
+        minDistance = (float)m_audioSettings->m_at74;
+    else
+        minDistance = event->m_info->m_minDistance;
+    minDistance *= 2.0f;
+    AIL_set_3D_sample_distances(sample3D, event->m_info->m_maxDistance, minDistance);
+    AIL_set_3D_position(sample3D, pos->x, pos->y, -pos->z);
+    initFilters3D(playing, pos);
+}
+
+// WorldBuilder twin MilesAudioManager::initFilters3D (0x798000): volume, pitch
+// scaled playback rate, then the occlusion and two unnamed filter passes.
+void MilesAudioManager::initFilters3D(PlayingAudioRef &playing, const Coord3D *pos)
+{
+    void *sample3D = get3DSampleHandleForPlayingAudio(playing);
+    BfmePoolRef10 &event = playing->m_event;
+    AIL_set_3D_sample_volume(sample3D, rva0005A9F8(&playing, 1, 1));
+    float pitchShift = reinterpret_cast<const Rva002D94DD *>(event.operator->())->rva002D94DD();
+    if (pitchShift != 0.0f)
+        AIL_set_3D_sample_playback_rate(sample3D, (int)(AIL_3D_sample_playback_rate(sample3D) * pitchShift));
+    setOcclusionLevels(playing, pos);
+    {
+        bool result;
+        rva00055C5D(playing, &result);
+    }
+    rva00052FA0(playing);
 }
