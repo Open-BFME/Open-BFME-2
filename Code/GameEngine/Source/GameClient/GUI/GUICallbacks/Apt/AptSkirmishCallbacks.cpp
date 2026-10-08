@@ -93,6 +93,21 @@ public:
 class GameInfo;
 extern GameInfo *TheSkirmishGameInfo;
 
+// Target Apt screen base handler; the existing matched implementation is
+// _bfme_AptGameWindow::rva0051274F.
+class _bfme_AptGameWindow
+{
+public:
+	int rva0051274F(int message, unsigned int data1, unsigned int data2);
+};
+
+// The skirmish message callback calls this rowed action with its own ECX.
+class Rva00522A91
+{
+public:
+	void rva00522A91();
+};
+
 class AptSkirmish
 {
 public:
@@ -101,7 +116,8 @@ public:
 	// rowed validator in slot 14; the other local slots remain placeholders.
 	virtual void vslot0() = 0;
 	virtual void vslot1() = 0;
-	virtual void vslot2() = 0;
+	// Slot 2 is the target's three-argument Apt window-message handler.
+	virtual int rva005231B0(int message, unsigned int data1, unsigned int data2);
 	virtual void vslot3() = 0;
 	virtual void vslot4() = 0;
 	virtual void vslot5() = 0;
@@ -546,8 +562,67 @@ public:
 class AptMpGameSetup
 {
 public:
+	int rva00442CB3(unsigned int message, unsigned int data1, unsigned int data2);
 	void rva0044303D();
 };
+
+// Retail 0x005231B0 (282 bytes), primary AptSkirmish vtable slot 2 at
+// VA 0x00C67918. The target handles profile-list activation (0x4015),
+// name-entry change (0x4032) and submission (0x4031). The analogous WB GUI
+// handler at VA 0x014667F0 shares the message and popup-toggle shape; its
+// name is unproven, so target fields/calls and matched handlers define this
+// body's identity and layout.
+int AptSkirmish::rva005231B0(int message, unsigned int data1, unsigned int data2)
+{
+	int result = ((_bfme_AptGameWindow *)this)->rva0051274F(
+		message, data1, data2);
+	if (TheSkirmishGameInfo)
+		result = ((AptMpGameSetup *)((char *)this + 0x288))->rva00442CB3(
+			message, data1, data2);
+
+	switch (message)
+	{
+	case 0x4015:
+		if ((GameWindow *)data1 == m_profiles)
+			((Rva00522A91 *)this)->rva00522A91();
+		return 1;
+	case 0x4026:
+		return 1;
+	case 0x4031:
+		if ((GameWindow *)data1 == m_nameEntry.m_window)
+		{
+			if (data2 == 0)
+				((Rva00522A91 *)this)->rva00522A91();
+			return 1;
+		}
+		return 0;
+	case 0x4032:
+		if ((GameWindow *)data1 == m_nameEntry.m_window)
+		{
+			UnicodeString text = GadgetTextEntryGetText(m_nameEntry.m_window);
+			if (unicodeIsEmpty(text))
+			{
+				if (!m_6c2)
+				{
+					void *movie = m_274;
+					Rva0043DB23(TheRva00222A8BTarget, movie,
+						"PopupSelectBttnDisable");
+					m_6c2 = true;
+				}
+			}
+			else if (m_6c2)
+			{
+				void *movie = m_274;
+				Rva0043DB23(TheRva00222A8BTarget, movie,
+					"PopupSelectBttnEnable");
+				m_6c2 = false;
+			}
+		}
+		return 1;
+	default:
+		return result;
+	}
+}
 
 // Retail 0x00523303 (249 bytes), primary AptSkirmish vtable slot 12. Its
 // thiscall body refreshes the AptMpGameSetup panel at +0x288, state +0x6B8,
