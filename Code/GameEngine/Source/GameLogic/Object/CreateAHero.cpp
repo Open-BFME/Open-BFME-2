@@ -11,6 +11,8 @@
 // for a bad index.
 #include "ascii_string.h"
 #include <vector>
+#include <map>
+#include <algorithm>
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -143,7 +145,14 @@ public:
 	{
 	public:
 		Int rva0021BC2C(Int blingKey) const;		// 0x0021BC2C, bling count
-		Int GetDefaultBlingId(Int blingKey) const;	// 0x0021BC53
+		Int GetDefaultBlingId(Int blingKey) const; // 0x0021BC53
+    private:
+        // WB lookup and retail node+14/+18 prove the vector mapped value.
+        // Retail map headers are at +24 and +48.
+        unsigned char m_pad00[0x24];
+        std::map<int, std::vector<int> > m_blingIds;
+        unsigned char m_pad30[0x48-0x30];
+        std::map<int, int> m_defaultBlingIds;
 	};
 
 	class CreateAHeroClass
@@ -317,4 +326,19 @@ void CreateAHeroManager::init()
 		INI ini;
 		ini.loadFile(AsciiString("Data\\INI\\CreateAHeroSystem.ini"), INI_LOAD_OVERWRITE, TheSubsystemList ? TheSubsystemList->getXfer() : 0);
 	}
+}
+
+Int CreateAHeroManager::CreateAHeroSubClass::GetDefaultBlingId(Int blingKey) const
+{
+    std::map<int, int>::const_iterator def = m_defaultBlingIds.find(blingKey);
+    if (def != m_defaultBlingIds.end()) {
+        std::map<int, std::vector<int> >::const_iterator ids = m_blingIds.find(blingKey);
+        if (ids != m_blingIds.end()) {
+            const std::vector<int> &list = ids->second;
+            const int *it = std::find(list.begin(), list.end(), def->second);
+            if (it != list.end())
+                return it - list.begin();
+        }
+    }
+    return 0;
 }
