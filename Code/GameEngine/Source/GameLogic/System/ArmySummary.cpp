@@ -15,7 +15,11 @@
 extern "C" void __cdecl free(void*);
 struct TargetRef00217D4C { void* vtable; int references; };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
-struct Rva004F69C3Target { unsigned char opaque[0xAC]; TargetRef00217D4C ref; };
+struct Rva004F69C3Target { unsigned char unknown0[4]; AsciiString templateName; unsigned char opaque[0xAC-8]; TargetRef00217D4C ref; };
+// Target lookup2D06CA and the following byte test prove only this flag offset.
+class ThingTemplate { public: unsigned char opaque[0x113]; unsigned char flags113; };
+class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
+extern ThingFactory* TheThingFactory;
 struct Rva004F69C3 { int key; Rva004F69C3Target* value; ~Rva004F69C3(); };
 namespace _STL { template<> vector<Rva004F69C3>::iterator vector<Rva004F69C3>::erase(iterator); }
 // The existing 40E0EB provider destroys this same eight-byte entry range.
@@ -54,6 +58,7 @@ public:
  virtual const char *GetSnapshotName() const;
  Rva0040DD3ARef RemoveEntry(int);
  void rva0040DED9();
+ void rva0040DE16();
 private:
  bool flag14;
  unsigned char pad15[3];
@@ -106,3 +111,20 @@ ArmySummary::~ArmySummary()
 
 // Native C394F0 slot2 returns the complete ArmySummary literal.
 const char *ArmySummary::GetSnapshotName() const { return "ArmySummary"; }
+
+// Native40DE16..40DED9/195B traverses entries in reverse. A successful
+// lookup by the target name at +4 whose template byte113 lacks bit4 causes
+// removal through the established listener/reference sequence. The native
+// class is ArmySummary; the method name and bit meaning remain unproven.
+void ArmySummary::rva0040DE16()
+{
+ for(int index=(int)entries.size()-1;index>=0;--index) {
+  const ThingTemplate* definition=TheThingFactory->findTemplate(entries[index].value->templateName);
+  if(!definition || (definition->flags113&4)) continue;
+  Rva004F69C3* entry=entries.begin()+index;
+  Rva0040D8D6List::forEach(&Rva0040D8D6Listener::removing,this,entry->key);
+  Rva0040DD3ARef value(entry->value);
+  entries.erase(entry);
+  Rva0040D8D6List::forEach(&Rva0040D8D6Listener::removed,this,(int)value.value);
+ }
+}
