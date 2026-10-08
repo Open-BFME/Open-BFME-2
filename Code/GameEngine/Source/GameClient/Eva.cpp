@@ -142,7 +142,7 @@ struct EvaEventReport
 class Eva
 {
 public:
-	Bool internalReportEvaEvent(const EvaEventReport *report);	// 0x001DD468, unrowed
+	Bool internalReportEvaEvent(const EvaEventReport *report);	// 0x001DD468
 	void countEvaEventAsPlayed(EvaEventID eventID);
 	Bool isEventBlockedByTimeout(EvaEventID eventID) const;
 	Bool isEventAboutToPlay(EvaEventID eventID) const;
@@ -301,4 +301,24 @@ EvaCoord Rva001DCDAF::getPlayPositionForEvent(const Arg001DCDAF *info, Player *l
 		}
 	}
 	return EvaCoord(-100.0f, -100.0f, 0.0f);
+}
+
+// Eva::internalReportEvaEvent, retail 0x001DD468 (123 bytes). WorldBuilder's
+// Eva.cpp names this member; its report flags select the two optional positions.
+// Array extents and strides are retail observations (0x30 info, 0x34 status).
+// Keep the negated equality and member call: MSVC 7.1 emits the retail count
+// evaluation order and preloads both array bases before pushing the positions.
+Bool Eva::internalReportEvaEvent(const EvaEventReport *report)
+{
+	EvaEventID eventID = report->m_eventID;
+	if (eventID < 0 || (UnsignedInt)eventID >= m_eventStatus.size())
+		return false;
+	if (!(m_eventStatus.size() == m_allEventInfos.size()))
+		return false;
+	Arg001DCDAF *info = &m_allEventInfos[0];
+	Rva001DCDAF *status = &m_eventStatus[0];
+	Bool (Rva001DCDAF::*set)(const Arg001DCDAF *, const Vec001DCDAF *, const Vec001DCDAF *) = &Rva001DCDAF::rva001DCDAF;
+	return (status[eventID].*set)(&info[eventID],
+		report->m_hasPosition ? &report->m_position : 0,
+		report->m_hasSecondPosition ? &report->m_secondPosition : 0);
 }
