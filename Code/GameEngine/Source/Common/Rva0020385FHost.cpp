@@ -1,5 +1,5 @@
 // cl: /MD
-// ?setSway@ScriptEngine@@QAEXPAUParam0020385F@@@Z @0x0020385F 192B. __thiscall method reading a 5-slot param block (count at +8, pointers at +0xc..+0x1c); float slot at +0xc of slot0 becomes angle/sin/cos, dwords at +0xc of slots1,2,4 and word at +8 of slot3 (clamped >=1) fill members. Callees Sin/Cos rowed in wwmath.cpp. Retail-selected pointers deref unconditionally (null+0xc when count short), hence the xor-then-load shape.
+// ?setSway@ScriptEngine@@IAEXPAVScriptAction@@@Z @0x0020385F 192B. __thiscall method reading the action's 5-slot param block (count at +8, pointers at +0xc..+0x1c); float slot at +0xc of slot0 becomes angle/sin/cos, dwords at +0xc of slots1,2,4 and word at +8 of slot3 (clamped >=1) fill members. Callees Sin/Cos rowed in wwmath.cpp. Retail-selected pointers deref unconditionally (null+0xc when count short), hence the xor-then-load shape.
 float Sin(float value);
 float Cos(float value);
 
@@ -14,8 +14,9 @@ struct Elem0020385F
 	};
 };
 
-struct Param0020385F
+class ScriptAction
 {
+public:
 	char m_pad[8];
 	int m_count;
 	Elem0020385F *m_e0;
@@ -27,8 +28,10 @@ struct Param0020385F
 
 class ScriptEngine
 {
+protected:
+	void setSway(ScriptAction *p);
+
 public:
-	void setSway(Param0020385F *p);
 	char m_lead[0x1A4A8];
 	float m_angle;
 	float m_sin;
@@ -40,7 +43,7 @@ public:
 	unsigned short m_n;
 };
 
-void ScriptEngine::setSway(Param0020385F *p)
+void ScriptEngine::setSway(ScriptAction *p)
 {
 	++m_n;
 	Elem0020385F *e0 = p->m_count > 0 ? p->m_e0 : (Elem0020385F *)0;

@@ -16448,3 +16448,12 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?rva0033B427@ThingTemplate@@QBEPBVModuleData@@H@Z,0x0033B427,callee of isLocationLegalToBuild 0x00394352 at 0x3947B9 with this=ThingTemplate; 82B scan of the template's ModuleInfo at +0x2E4 calling ModuleData vslot +0x18; int arg unused; returns ModuleData*
 ??0Rva00286214@@QAE@XZ,0x00242F01,FireLogicSystem ctor 0x00286EC8 constructs m_cellsOnFire at +0x84 through this REL32 (retail 0x00286F2F); declaration-only map view resolving to the rowed ICF-shared STLport map default ctor
 ??1Rva00286214@@QAE@XZ,0x0028681A,FireLogicSystem dtor 0x00286F8F tears down m_cellsOnFire at +0x84 through this REL32 (retail 0x00286FD6); declaration-only map view resolving to the rowed _Rb_tree dtor
+?enableScript@ScriptEngine@@IAEXPAVScriptAction@@@Z,0x00204FBB,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
+?disableScript@ScriptEngine@@IAEXPAVScriptAction@@@Z,0x0020507F,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
+?setCounterToThreat@ScriptEngine@@IAEXPAVScriptAction@@_N@Z,0x00209003,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
+?setFade@ScriptEngine@@IAEXPAVScriptAction@@@Z,0x00203777,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
+?setPriorityKind@ScriptEngine@@IAEXPAVScriptAction@@@Z,0x0020611D,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
+?setPriorityThing@ScriptEngine@@IAEXPAVScriptAction@@@Z,0x00205EEC,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
+?rva00203693@ScriptEngine@@QAEHXZ,0x00203693,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
+?rva003B2832@ScriptAction@@QAEHXZ,0x003B2832,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
+?rva003B3D75@ScriptAction@@QAEXPAX0@Z,0x003B3D75,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
