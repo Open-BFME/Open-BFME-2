@@ -9,8 +9,12 @@
 // 0x003EDE44 (293 bytes, ret 4; the 0x0020D8F1 range loop's callee) runs the
 // same test twice, on the +0x0C/+0x14 and the +0x08/+0x10 slots, clears either
 // result through the +0x20/+0x24 flags when +0xE5 is set, and picks one
-// pointer-to-member callback: 0x00569863 on entry, 0x005697F7 on exit and
-// 0x00569628 when the x/y pairs from slots +0x00/+0x04 differ. Those pairs
+// pointer-to-member callback: 0x005697F7 when only the first test holds (the
+// 0x003EDF69 test), 0x00569863 when only the second does (the 0x003EDFD8
+// test) and 0x00569628 when both hold and the x/y pairs from slots
+// +0x00/+0x04 differ. 0x005697F7 adds the subject's weight to the sound key
+// pair and 0x00569863 subtracts it; WorldBuilder's call graph names
+// 0x00569863 unregisterSubject and 0x00569628 updateSubject. Those pairs
 // come back through hidden pointers and are compared with SSE ucomiss, hence
 // /arch:SSE (the two smaller workers match either way).
 // Structural inference: the argument vtable slot types and callback owners
@@ -100,33 +104,33 @@ struct Rva00DFE1A8ClockView
 void Rva0020DXXXElem::rva003EDE44(int x)
 {
 	Rva0020DXXXArg *arg = (Rva0020DXXXArg *)x;
-	bool wasIn;
+	bool isIn;
 	if (((Rva003EDE16 *)this)->rva003EDE16(arg->get0C())
 		&& ((Rva003EDE2A *)this)->rva003EDE2A(arg->get14()))
+		isIn = true;
+	else
+		isIn = false;
+	bool wasIn;
+	if (((Rva003EDE16 *)this)->rva003EDE16(arg->get08())
+		&& ((Rva003EDE2A *)this)->rva003EDE2A(arg->get10()))
 		wasIn = true;
 	else
 		wasIn = false;
-	bool nowIn;
-	if (((Rva003EDE16 *)this)->rva003EDE16(arg->get08())
-		&& ((Rva003EDE2A *)this)->rva003EDE2A(arg->get10()))
-		nowIn = true;
-	else
-		nowIn = false;
 	if (*(unsigned char *)((char *)this + 0xE5) != 0)
 	{
 		if (arg->get20())
-			wasIn = false;
+			isIn = false;
 		if (arg->get24())
-			nowIn = false;
+			wasIn = false;
 	}
 	int frame = arg->get28();
 	if (frame <= ((Rva00DFE1A8ClockView *)g_00DFE1A8)->m_3C)
-		nowIn = false;
+		wasIn = false;
 
 	Rva003EDE44Callback callback;
-	if (wasIn)
+	if (isIn)
 	{
-		if (nowIn)
+		if (wasIn)
 		{
 			if (arg->get04().isExactlyEqualTo(arg->get00()))
 				return;
@@ -137,7 +141,7 @@ void Rva0020DXXXElem::rva003EDE44(int x)
 			callback = reinterpret_cast<Rva003EDE44Callback>(&Rva005697F7::rva005697F7);
 	}
 	else
-		callback = nowIn ? &Rva00569863::rva00569863 : 0;
+		callback = wasIn ? &Rva00569863::rva00569863 : 0;
 
 	if (callback)
 	{
