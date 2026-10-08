@@ -8,7 +8,6 @@ class GameWindow;
 struct Rva0050F4D0Money { unsigned int pad00; unsigned int balance; };
 class Player {
 public:
-	bool isPlayerActive() const;
 	Rva0050F4D0Money *getMoneyView() { return &money; }
 private:
 	char pad00[0x90];
@@ -16,6 +15,9 @@ private:
 };
 struct Rva0050F4D0PlayerList { char pad00[0x10]; Player *localPlayer; };
 extern class PlayerList *ThePlayerList;
+// The row at 0x002AA231 owns this address-derived spelling. Other objects
+// define conflicting Player::isPlayerActive copies, so call the verified owner.
+class BfmeMemberRV { public: bool bfmeAskRV(); };
 class Rva0050F041 { public: void rva0050FF1C(); };
 
 
@@ -77,7 +79,7 @@ void Rva0050F5A6::rva0050F4D0()
 	for (int i = 0; i < m_20; ++i)
 	{
 		Entry &entry = m_entries[i];
-		if (entry.m_player != local && entry.m_obj && entry.m_player->isPlayerActive())
+		if (entry.m_player != local && entry.m_obj && ((BfmeMemberRV *)entry.m_player)->bfmeAskRV())
 			{
 			unsigned int requested = entry.m_obj->amount;
 			remaining -= Rva0050F4D0Min(remaining, requested);
@@ -89,7 +91,7 @@ void Rva0050F5A6::rva0050F4D0()
 		Entry &entry = m_entries[i];
 		if (entry.m_player != local && entry.m_obj)
 		{
-			if (entry.m_player->isPlayerActive())
+			if (((BfmeMemberRV *)entry.m_player)->bfmeAskRV())
 			{
 				unsigned int available = entry.m_obj->amount + remaining;
 				entry.m_obj->rva0050F2AF(Rva0050F4D0Min(left, available));
