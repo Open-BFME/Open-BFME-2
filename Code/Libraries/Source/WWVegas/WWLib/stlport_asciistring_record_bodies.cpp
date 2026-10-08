@@ -121,7 +121,15 @@ template void _Destroy<BfmeStringTailRecord144 *>(BfmeStringTailRecord144 *, Bfm
 template BfmeStringTailRecord144 *__copy<BfmeStringTailRecord144 *, BfmeStringTailRecord144 *, int>(BfmeStringTailRecord144 *, BfmeStringTailRecord144 *, BfmeStringTailRecord144 *, const random_access_iterator_tag &, int *);
 template void _Destroy<BfmeStringTailRecord144>(BfmeStringTailRecord144 *);
 }
-template class _STL::vector<BfmeStringTailRecord156, _STL::allocator<BfmeStringTailRecord156> >;
+// Emit only the recovered APIs. Whole-class instantiation also emitted a
+// footprint-only default ctor writing the trailing field at+0x98, conflicting
+// with the genuine four-byte owner constructor used by TerrainRoadType.
+namespace _STL {
+template void __destroy_aux<BfmeStringTailRecord156 *>(BfmeStringTailRecord156 *, BfmeStringTailRecord156 *, const __false_type &);
+template void _Destroy<BfmeStringTailRecord156 *>(BfmeStringTailRecord156 *, BfmeStringTailRecord156 *);
+template void vector<BfmeStringTailRecord156, allocator<BfmeStringTailRecord156> >::_M_clear();
+template void vector<BfmeStringTailRecord156, allocator<BfmeStringTailRecord156> >::push_back(const BfmeStringTailRecord156 &);
+}
 template class _STL::vector<BfmeStringTailRecord180, _STL::allocator<BfmeStringTailRecord180> >;
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

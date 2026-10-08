@@ -6,27 +6,16 @@
 // ??1TerrainRoadType@@UAE@XZ @0x002DB311 318B
 // Evidence: unlock lane; vtable g_00C03E24; callees clear 0x0048BA39 releaseBuffer 0x00036410 TailRecord dtor 0x0010F149 and ??_M CRT; 11 singles + 7 arrays to 0x144.
 extern const void *const g_00C03E24[];
-template <typename T> class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-	void clear();
-private:
-	void releaseBuffer();
-	void *m_data;
-};
-
-// Existing public narrow teardown spelling resolves to the verified
-// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
-#pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
+// Native scalar strings own one pointer and release it directly. Keep the
+// array element's native cleanup ABI by using the same genuine ownership.
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class AsciiElem
 {
 public:
-	~AsciiElem() { ((StringBase<char> *)this)->clear(); }
+	~AsciiElem() {}
 private:
-	void *m_data;
+	AsciiString m_text;
 };
 class OpaqueRefCounted
 {
@@ -44,19 +33,19 @@ class TerrainRoadType
 {
 public:
 	virtual ~TerrainRoadType();
-	StringBase<char> m_04;
+	AsciiString m_04;
 	char m_pad08[0x18];
-	StringBase<char> m_20;
-	StringBase<char> m_24;
+	AsciiString m_20;
+	AsciiString m_24;
 	char m_pad28[0xC];
-	StringBase<char> m_34;
-	StringBase<char> m_38;
-	StringBase<char> m_3C;
-	StringBase<char> m_40;
-	StringBase<char> m_44;
-	StringBase<char> m_48;
-	StringBase<char> m_4C;
-	StringBase<char> m_50;
+	AsciiString m_34;
+	AsciiString m_38;
+	AsciiString m_3C;
+	AsciiString m_40;
+	AsciiString m_44;
+	AsciiString m_48;
+	AsciiString m_4C;
+	AsciiString m_50;
 	AsciiElem m_54[4];
 	BfmeStringTailRecord156 m_64[4];
 	AsciiElem m_74[12];

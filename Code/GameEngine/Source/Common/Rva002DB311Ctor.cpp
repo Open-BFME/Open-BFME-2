@@ -12,29 +12,17 @@
 // Evidence: unlock lane ctor of same class; vtable 0x00803E24; callees UnicodeString ctor 0x00326BE6 clear TailRecord dtor and ??_L CRT; POD floats/ints incl 1.0f.
 extern const void *const g_00C03E24[];
 
-template <typename T> class StringBase
-{
-public:
-	StringBase() : m_data(0) {}
-	~StringBase() { releaseBuffer(); }
-	void clear();
-private:
-	void releaseBuffer();
-	void *m_data;
-};
-
-// Existing public narrow teardown spelling resolves to the verified
-// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
-#pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
+// Native scalar strings own one pointer and release it directly. Keep the
+// array element's native cleanup ABI by using the same genuine ownership.
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class AsciiElem
 {
 public:
-	AsciiElem() : m_data(0) {}
-	~AsciiElem() { ((StringBase<char> *)this)->clear(); }
+	AsciiElem() {}
+	~AsciiElem() {}
 private:
-	void *m_data;
+	AsciiString m_text;
 };
 class OpaqueRefCounted
 {
@@ -44,7 +32,7 @@ public:
 class BfmeStringTailRecord156
 {
 public:
-  BfmeStringTailRecord156();
+  BfmeStringTailRecord156() : m_ptr(0) {}
 	~BfmeStringTailRecord156();
 private:
 	OpaqueRefCounted *m_ptr;
@@ -54,7 +42,7 @@ class TerrainRoadType
 public:
 	TerrainRoadType();
 	virtual ~TerrainRoadType();
-	StringBase<char> m_04;
+	AsciiString m_04;
 	unsigned char m_08;
 	char m_pad09[3];
 	int m_0C;
@@ -62,19 +50,19 @@ public:
 	float m_14;
 	float m_18;
 	float m_1C;
-	StringBase<char> m_20;
-	StringBase<char> m_24;
+	AsciiString m_20;
+	AsciiString m_24;
 	float m_28;
 	float m_2C;
 	float m_30;
-	StringBase<char> m_34;
-	StringBase<char> m_38;
-	StringBase<char> m_3C;
-	StringBase<char> m_40;
-	StringBase<char> m_44;
-	StringBase<char> m_48;
-	StringBase<char> m_4C;
-	StringBase<char> m_50;
+	AsciiString m_34;
+	AsciiString m_38;
+	AsciiString m_3C;
+	AsciiString m_40;
+	AsciiString m_44;
+	AsciiString m_48;
+	AsciiString m_4C;
+	AsciiString m_50;
 	AsciiElem m_54[4];
 	BfmeStringTailRecord156 m_64[4];
 	AsciiElem m_74[12];
