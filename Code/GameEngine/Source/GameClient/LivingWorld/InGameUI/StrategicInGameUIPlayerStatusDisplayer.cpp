@@ -34,7 +34,10 @@ class PlayerStatusDisplayer
 public:
 	virtual void OnObjectivesButtonLeftClicked(Rva005CD649Button &button);
 	GameMessageDisposition rva005CD690(const GameMessage *msg);
-	void rva005CD625();
+	bool rva005CD625();
+private:
+	unsigned char m_pad04[0x0C - 0x04];
+	bool m_shown0C;
 };
 }
 
@@ -49,4 +52,35 @@ GameMessageDisposition StrategicInGameUI::PlayerStatusDisplayer::rva005CD690(con
 		return KEEP_MESSAGE;
 	rva005CD625();
 	return DESTROY_MESSAGE;
+}
+
+// ?rva005CD625@PlayerStatusDisplayer@StrategicInGameUI@@QAE_NXZ @0x005CD625
+// 36B: while the display is up (+0x0C) and the living world runs and its
+// rowed 0x002B254F check does not hold, the player status screen opens
+// (0x00523592) and the answer is true. 0x00523592 only reads the screen's
+// global (0x00E04934) and never ECX, so it is called as the static it is
+// (pinned); the 0x002B254F result is the byte retail tests.
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+class Rva002B254F
+{
+public:
+	int rva002B254F();
+};
+
+class StrategicPlayerStatus
+{
+public:
+	static void rva00523592Open();
+};
+
+bool StrategicInGameUI::PlayerStatusDisplayer::rva005CD625()
+{
+	if (!m_shown0C || !TheLivingWorldLogic)
+		return false;
+	if ((unsigned char)reinterpret_cast<Rva002B254F *>(TheLivingWorldLogic)->rva002B254F())
+		return false;
+	StrategicPlayerStatus::rva00523592Open();
+	return true;
 }

@@ -15915,7 +15915,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?SetTabsState@Impl@RegionDetailsMovieClip@StrategicHUD@@QAEXH@Z,0x005E314B,WorldBuilder name (callgraph from Impl::SetCurrentPage 0x005E31AA; whose REL32 calls these in this order); thiscall; one int page
 ?ShowPage@Impl@RegionDetailsMovieClip@StrategicHUD@@QAEXH@Z,0x005E2E91,WorldBuilder name (callgraph from Impl::SetCurrentPage 0x005E31AA; whose REL32 calls these in this order); thiscall; one int page
 ?OnEndPhase@ManualPhaseEnder@StrategicInGameUI@@QAEXXZ,0x005CD8A5,callee of ?Translate@ManualPhaseEnder@StrategicInGameUI@@QAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z
-?rva005CD625@PlayerStatusDisplayer@StrategicInGameUI@@QAEXXZ,0x005CD625,callee (same object) of PlayerStatusDisplayer::OnObjectivesButtonLeftClicked 0x005CD649 and its translator 0x005CD690
 ?translateGameMessage@UserInputTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z,0x005CBC95,callee of ?translateGameMessage@Impl@PlanRetreatsPhaseBehavior@StrategicInGameUI@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z
 ?Translate@Rva005C9BE3@@QAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z,0x005C9BE3,callee of ?translateGameMessage@Impl@CommonBehavior@StrategicInGameUI@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z
 ??0AutoResolve@Data@StrategicVeterancy@@QAE@PAX00@Z,0x005ECE81,callee of ?Rva005ED15DCreateAutoResolve@@YAPAVData@StrategicVeterancy@@PAX00@Z
@@ -16481,3 +16480,4 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ??1DynamicPortalLinkVectorCopy1FFD2C@@QAE@XZ,0x001FFD2C,callee of ??1Rva001FFE93@@UAE@XZ
 ?rva0040D008@ArmySummarySystem@@QAEPAXH@Z,0x0040D008,callee of ?rva0023D049@Rva0023D049@@QAEPAXH@Z
 ?rva0040D2FD@ArmySummarySystem@@QAEXHHPAURva0040D2FDVec@@@Z,0x0040D2FD,callee of ?rva0023D054@GameLogic@@QAEXHHPAURva0040D2FDVec@@@Z
+?rva00523592Open@StrategicPlayerStatus@@SAXXZ,0x00523592,callee of ?rva005CD625@PlayerStatusDisplayer@StrategicInGameUI@@QAE_NXZ
