@@ -169,9 +169,8 @@ void W3DVolumetricShadow::SetGeometry( W3DShadowGeometry *geometry )
 // independently identifies the native manager destructor at F2ECB, 143B.
 // Retail adds the device-lock scope and shared vector resets. The EH guard
 // is inferred from its state and cleanup; isolated EH verification is exact.
-// Keep the existing address-derived geometry-dtor binding; its source type
-// is not claimed here. Explicit destruction reproduces the non-virtual
-// delete sequence without dispatching through that opaque view's vtable.
+// The geometry-manager destructor below resolves the native direct delete
+// through its supported nonvirtual class declaration.
 // Data ledger globals g_00DEBE0C/24 own the shared vector roots. Their
 // 12B TCB stand-in is inherited; the original element identity is uncertain.
 // Native clears ActiveCount+10 then calls the existing 37B VectorClass<int>
@@ -184,7 +183,13 @@ struct VolShadowDeviceLock {
  ~VolShadowDeviceLock() { BFME_DX8_Thread_Assert(); }
 };
 class Rva000F0912 { public: void rva000F0972(); };
-class Rva000F2797 { public: virtual ~Rva000F2797(); };
+#include "hash.h"
+class Rva000F1AD8 { public: void rva000F1AD8(); };
+// BFME1/WB geometry manager: nonvirtual and two hash-table pointers at0/4.
+class W3DShadowGeometryManager {
+public: ~W3DShadowGeometryManager();
+private: HashTableClass *GeomPtrTable,*MissingGeomTable;
+};
 #include "tcbspline.h"
 // Promote the donor's protected nested type for the existing ledger globals;
 // this type-only access bridge creates no object or target identity.
@@ -196,8 +201,7 @@ W3DVolumetricShadowManager::~W3DVolumetricShadowManager()
 {
  VolShadowDeviceLock guard;
  ((Rva000F0912 *)this)->rva000F0972();
- Rva000F2797 *geometry=(Rva000F2797 *)m_W3DShadowGeometryManager;
- if(geometry) { geometry->Rva000F2797::~Rva000F2797(); ::operator delete(geometry); }
+ delete m_W3DShadowGeometryManager;
  m_W3DShadowGeometryManager=0;
  delete TheW3DBufferManager;
  TheW3DBufferManager=0;
@@ -205,4 +209,15 @@ W3DVolumetricShadowManager::~W3DVolumetricShadowManager()
  ((VectorClass<int> *)&g_00DEBE0C)->VectorClass<int>::Clear();
  *(int *)((char *)&g_00DEBE24+16)=0;
  ((VectorClass<int> *)&g_00DEBE24)->VectorClass<int>::Clear();
+}
+
+// Native60 atF2797; the manager143 deletion and matched constructor fields
+// agree with BFME1's two-table owner. Free_All_Geoms still uses the existing
+// address-derived95B binding; no additional callee identity is asserted.
+// ?W3DShadowGeometryManager::~W3DShadowGeometryManager present-unmatched
+W3DShadowGeometryManager::~W3DShadowGeometryManager()
+{
+ ((Rva000F1AD8 *)this)->rva000F1AD8();
+ delete GeomPtrTable; GeomPtrTable=0;
+ delete MissingGeomTable; MissingGeomTable=0;
 }
