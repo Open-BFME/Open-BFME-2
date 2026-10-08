@@ -148,7 +148,7 @@ public:
     virtual bool IsLightCRC() const;
 
     virtual void v5() = 0;
-    virtual void v6() = 0;
+    virtual void EndBlock() = 0;
     virtual void v7() = 0;
 
     virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
@@ -241,6 +241,7 @@ public:
     virtual Xfer &operator==(Xfer::Version &value);
     virtual Xfer &XferRawBytes(void *data, unsigned int size);
     virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+    virtual void EndBlock();
     int rva0060DF27(const char *s);
 
 private:
@@ -571,6 +572,7 @@ Xfer &XferSaveAsText::XferEnum(const char *name, void *data, unsigned int size)
 extern "C" void __cdecl free(void *block);
 namespace _STL
 {
+void free(void *block);
 template <class T> class allocator
 {
 public:
@@ -583,7 +585,8 @@ template <class C, class Tr, class A> class basic_string
 {
 public:
 	basic_string(const C *s, const A &a = A());
-	~basic_string() { if (_M_start != 0) free(_M_start); }
+	basic_string(const basic_string &other);
+	__forceinline ~basic_string() { if (_M_start != 0) free(_M_start); }
 	char *_M_start;
 	char *_M_finish;
 	char *_M_end;
@@ -626,3 +629,38 @@ int XferSaveAsText::rva0060DF27(const char *s)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:_bfmeAppend=?Print@XferSaveAsText@@SAXPAV1@PBDZZ")
+
+// A local view of the existing three-pointer label stack. Its element is the
+// same STLport narrow string used by the already-matched begin-block body.
+struct BfmeTextLabelStackView
+{
+    typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > Label;
+    Label *begin;
+    Label *finish;
+    Label *capacity;
+    Label *end() const { return finish; }
+    Label &back() { return *(end() - 1); }
+    __forceinline void pop()
+    {
+        --finish;
+        finish->Label::~Label();
+    }
+};
+
+// Retail 0x0060DE23..0x0060DEB1; WB 0x0165F260 names EndBlock in xfer_debug.cpp.
+// Slot 6 of vtable RVA 0x0087B388 pops the 12-byte label and prints its closing tag.
+void XferSaveAsText::EndBlock()
+{
+    typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > NarrowString;
+    BfmeTextLabelStackView &labels = *reinterpret_cast<BfmeTextLabelStackView *>(&m_bfme0C);
+    if (m_bfme0C == m_bfme10)
+        return;
+    NarrowString tmp(labels.back());
+    labels.pop();
+    if (m_bfme04) {
+        Print(this, "\n");
+        m_bfme04 = false;
+    }
+    Print(this, (const char *)0);
+    Print(this, "</%s>\n", tmp._M_start);
+}
