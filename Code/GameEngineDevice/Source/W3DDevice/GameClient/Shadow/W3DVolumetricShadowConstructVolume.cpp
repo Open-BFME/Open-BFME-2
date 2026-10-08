@@ -36,7 +36,7 @@ class Vector3
 {
 public:
 	Vector3(void) {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
+	Vector3(Real x, Real y, Real z);
 	__forceinline Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
 	__forceinline Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
 	Vector3 &operator*=(Real k) { X *= k; Y *= k; Z *= k; return *this; }
@@ -44,7 +44,12 @@ public:
 	Real X, Y, Z;
 };
 
-inline Vector3 operator-(const Vector3 &a, const Vector3 &b) { return Vector3(a.X-b.X, a.Y-b.Y, a.Z-b.Z); }
+// Keep the subtraction local to each recovered algorithm. Their inline forms
+// differ in evaluation order; both compute the same three component differences.
+// No competing out-of-line Vector3 constructor or subtraction is emitted.
+static __forceinline Vector3 VolumeSubtractDirect(const Vector3 &a, const Vector3 &b) { Vector3 result; result.X=a.X-b.X; result.Y=a.Y-b.Y; result.Z=a.Z-b.Z; return result; }
+static __forceinline Vector3 VolumeMakePoint(Real x, Real y, Real z) { Vector3 result; result.X=x; result.Y=y; result.Z=z; return result; }
+static __forceinline Vector3 VolumeSubtractArgs(const Vector3 &a, const Vector3 &b) { return VolumeMakePoint(a.X-b.X, a.Y-b.Y, a.Z-b.Z); }
 
 struct VertexFormatXYZ
 {
@@ -238,7 +243,7 @@ void W3DVolumetricShadow::constructVolume( Vector3 *lightPosObject,Real shadowEx
 	const Vector3& ev2=
 		geomMesh->GetVertex( silhouetteIndices[ 0 ] );
 
-	extrude2 = ev2 - *lightPosObject;
+	extrude2 = VolumeSubtractDirect(ev2, *lightPosObject);
 	extrude2 *= shadowExtrudeDistance;
 	extrude2 += ev2;
 
@@ -286,7 +291,7 @@ void W3DVolumetricShadow::constructVolume( Vector3 *lightPosObject,Real shadowEx
 				indexList[ 2 ] = vertexCount;
 				shadowVolume->SetPolygonIndex( polygonCount, indexList );
 
-				extrude2 = ev - *lightPosObject;
+				extrude2 = VolumeSubtractDirect(ev, *lightPosObject);
 				extrude2 *= shadowExtrudeDistance;
 				extrude2 += ev;
 				shadowVolume->SetVertex( vertexCount + 1, &extrude2 );
@@ -308,7 +313,7 @@ void W3DVolumetricShadow::constructVolume( Vector3 *lightPosObject,Real shadowEx
 			}
 
 			const Vector3& ev=geomMesh->GetVertex( silhouetteIndices[ i+2 ] );
-			extrude2 = ev - *lightPosObject;
+			extrude2 = VolumeSubtractDirect(ev, *lightPosObject);
 			extrude2 *= shadowExtrudeDistance;
 			extrude2 += ev;
 
@@ -333,7 +338,7 @@ void W3DVolumetricShadow::constructVolume( Vector3 *lightPosObject,Real shadowEx
 			indexList[ 2 ] = vertexCount;
 			shadowVolume->SetPolygonIndex( polygonCount, indexList );
 
-			extrude2 = ev - *lightPosObject;
+			extrude2 = VolumeSubtractDirect(ev, *lightPosObject);
 			extrude2 *= shadowExtrudeDistance;
 			extrude2 += ev;
 
@@ -494,7 +499,7 @@ void W3DVolumetricShadow::constructVolumeVB( Vector3 *lightPosObject,Real shadow
 
 	const Vector3& ev=geomMesh->GetVertex( silhouetteIndices[ 0 ] );
 
-	extrude2 = ev - *lightPosObject;
+	extrude2 = VolumeSubtractArgs(ev, *lightPosObject);
 	extrude2 *= shadowExtrudeDistance;
 	extrude2 += ev;
 
@@ -531,7 +536,7 @@ void W3DVolumetricShadow::constructVolumeVB( Vector3 *lightPosObject,Real shadow
 				ib[ 5 ] = vertexCount+1;
 				ib += 6;
 
-				extrude2 = ev - *lightPosObject;
+				extrude2 = VolumeSubtractArgs(ev, *lightPosObject);
 				extrude2 *= shadowExtrudeDistance;
 				extrude2 += ev;
 				*vb++ = *(VertexFormatXYZ *)&extrude2;
@@ -548,7 +553,7 @@ void W3DVolumetricShadow::constructVolumeVB( Vector3 *lightPosObject,Real shadow
 			}
 
 			const Vector3& evb=geomMesh->GetVertex( silhouetteIndices[ i+2 ] );
-			extrude2 = evb - *lightPosObject;
+			extrude2 = VolumeSubtractArgs(evb, *lightPosObject);
 			extrude2 *= shadowExtrudeDistance;
 			extrude2 += evb;
 
@@ -574,7 +579,7 @@ void W3DVolumetricShadow::constructVolumeVB( Vector3 *lightPosObject,Real shadow
 			ib[ 5 ] = vertexCount+1;
 			ib += 6;
 
-			extrude2 = ev - *lightPosObject;
+			extrude2 = VolumeSubtractArgs(ev, *lightPosObject);
 			extrude2 *= shadowExtrudeDistance;
 			extrude2 += ev;
 
