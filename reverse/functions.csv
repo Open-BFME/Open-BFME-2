@@ -61703,7 +61703,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva004F8CE0@@YGPAXABURva004F868AElement@@@Z,,0x004F8CE0,34,Code/GameEngine/Source/Common/Rva004F8CE0Factory.cpp,matched,element factory: rowed allocator block plus rowed in-place construct at +0x10; full byte gate
 ?rva004F06E5@Rva004F06E5@@QAEXXZ,,0x004F06E5,49,Code/GameEngine/Source/Common/Rva004F06E5Teardown.cpp,matched,holder teardown: unless flag bit set free slot-0 result else pinned fallback; always clear holder; full byte gate
 ?rva004E9F6E@Rva004E9F6E@@QAEXXZ,,0x004E9F6E,68,Code/GameEngine/Source/Common/Rva004E9F6EGate.cpp,matched,empty-name gate via world probe plus TheEmptyString compare then bounds-gated tail-call; full byte gate
-?rva004F4927@Rva004F4927@@QAEXXZ,,0x004F4927,59,Code/GameEngine/Source/Common/Rva004F4927Dispatch.cpp,matched,probe-gated quad slot dispatch then pinned tail worker; full byte gate
 ?rva004EE79E@Rva004EE79E@@QAEXPAVRva004E06FBPtrChase32Field@@@Z,,0x004EE79E,79,Code/GameEngine/Source/Common/Rva004EE79ESelect.cpp,matched,counted selection via key plus link tag plus world push plus tag-indexed counter; full byte gate
 ?rva004F9635@@YGXPAURva004F9635Rec@@@Z,,0x004F9635,35,Code/Libraries/Source/WWVegas/WWLib/Rva004F9635Sort.cpp,matched,range sort via rowed STL sort with zeroed comp; full byte gate
 ?rva004EE15B@Rva004EE15B@@QAEXPAVRva004EE15BObj@@@Z,,0x004EE15B,78,Code/GameEngine/Source/Common/Rva004EE15BFwd.cpp,matched,triple slot forward with paired-byte scratch array; full byte gate

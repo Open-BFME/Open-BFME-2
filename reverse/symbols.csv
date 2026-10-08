@@ -12039,7 +12039,6 @@ name,address,notes
 ?rva004F2ABC@Rva004F2ABCNullTarget@@QAEXHH@Z,0x004F2ABC,null-checked tail jmp target of 18B forwarder; original name unknown
 ?rva004F2C14@Rva004F2C14@@QAEXH@Z,0x004F2C14,tail-call target of the byte-verified Rva002A9DEC::rva002A9DEC 0x002A9DEC on its +0x2DC member read from its REL32 displacement; name unknown
 ?rva004F2C14@Rva004F2C14NullTarget@@QAEXH@Z,0x004F2C14,null-checked tail jmp target of 18B forwarder; original name unknown
-?rva004F418A@Rva004F418A@@QAEXXZ,0x004F418A,tail-call target of 0x004F4927 (mov ecx esi pop esi then jmp); dump-range-25 target 500B; body unrowed
 ?rva004F7767@@YAXPAX0_N@Z,0x004F7767,triple callee of 0x004F941E and 0x004F81DB read from REL32 (vec-begin vec-finish flag-byte); Ghidra FUN_008f7767; body unrowed
 ?rva004F7EE9@@YGXHHHPAX@Z,0x004F7EE9,stdcall 4-arg callee of 0x004F8B89 read from its REL32 displacement; body unrowed
 ?rva004F8C16@@YAXHHHHHH@Z,0x004F8C16,cdecl 6-arg callee of 0x004F904F read from its REL32 displacement; in-range target, provisional signature
