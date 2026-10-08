@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 // Native598052..5980F3 is161B, RET0; WB152E690 has the same seven calls.
 // The independently rowed AIUnitBuilder598D7A tail-calls this body with
@@ -10,6 +10,9 @@
 // The canonical GameLogic view and existing named living-world singleton
 // preserve their providers; no new globals, pins or aliases are introduced.
 #include <list>
+#include <map>
+#include <vector>
+#include "ascii_string.h"
 struct Rva00598052Owner {char unknown00[0x3AC];int playerId;};
 class Rva002E2903Player;
 class Rva002BA8F1Logic {public: Rva002E2903Player *find(int,unsigned int *);};
@@ -41,6 +44,47 @@ public:
 	virtual void slot6(int value, int flags);
 };
 
+enum NameKeyType { NAMEKEY_INVALID=0 };
+class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString&); };
+extern NameKeyGenerator *TheNameKeyGenerator;
+class Rva005982EAInterface {
+public:
+#define UNUSED_SLOT(n) virtual void slot##n();
+ UNUSED_SLOT(0) UNUSED_SLOT(1) UNUSED_SLOT(2) UNUSED_SLOT(3) UNUSED_SLOT(4) UNUSED_SLOT(5) UNUSED_SLOT(6) UNUSED_SLOT(7) UNUSED_SLOT(8) UNUSED_SLOT(9) UNUSED_SLOT(10) UNUSED_SLOT(11) UNUSED_SLOT(12) UNUSED_SLOT(13) UNUSED_SLOT(14) UNUSED_SLOT(15) UNUSED_SLOT(16)
+ virtual int slot17();
+ UNUSED_SLOT(18) UNUSED_SLOT(19) UNUSED_SLOT(20) UNUSED_SLOT(21) UNUSED_SLOT(22) UNUSED_SLOT(23) UNUSED_SLOT(24)
+ virtual bool slot25();
+#undef UNUSED_SLOT
+};
+class Object {
+public:
+ void *rva0028BC58(int);
+ char pad00[0x74]; ObjectID id74; char pad78[0x438-0x78]; unsigned int status438;
+};
+// The native bounds use signed NameKey order directly. Explicit member
+// specializations preserve the STLport search algorithm and avoid emitting
+// unrelated comparator bodies with incompatible shared definitions.
+typedef _STL::pair<const NameKeyType,ObjectID> AIObjectKeyValue;
+typedef _STL::_Rb_tree_node<AIObjectKeyValue> AIObjectKeyNode;
+typedef _STL::_Rb_tree<NameKeyType,AIObjectKeyValue,_STL::_Select1st<AIObjectKeyValue>,_STL::less<NameKeyType>,_STL::allocator<AIObjectKeyValue> > AIObjectKeyTree;
+namespace _STL {
+template<> AIObjectKeyNode *AIObjectKeyTree::_M_lower_bound(const NameKeyType &key) const {
+ AIObjectKeyNode *y=this->_M_header._M_data;
+ AIObjectKeyNode *x=_M_root();
+ while(x) {
+  if(!(x->_M_value_field.first<key)) {y=x; x=_S_left(x);} else x=_S_right(x);
+ }
+ return y;
+}
+template<> AIObjectKeyNode *AIObjectKeyTree::_M_upper_bound(const NameKeyType &key) const {
+ AIObjectKeyNode *y=this->_M_header._M_data;
+ AIObjectKeyNode *x=_M_root();
+ while(x) {
+  if(key<x->_M_value_field.first) {y=x; x=_S_left(x);} else x=_S_right(x);
+ }
+ return y;
+}
+}
 class AIUnitBuilder
 {
 public:
@@ -49,11 +93,13 @@ public:
 	void build();
 	void Rva00598052();
 	void Rva00598D7A();
+	Object *Rva005982EA(const AsciiString*,_STL::vector<ObjectID>*,bool);
 	Rva00598C3AItem *createBestHeroToBuild();
 	Rva00598C3AItem *createBestUnitToMake();
 
 private:
-	unsigned char m_pad00[0x14];
+	unsigned char m_pad00[8];
+	_STL::multimap<NameKeyType,ObjectID> m_objects; // +8,12B includes comparator storage
 	_STL::list<Rva00598C3AItem *> m_items; // +0x14
 	unsigned char m_pad18[0x2C - 0x18];
 	bool m_2C; // +0x2C, read and cleared by target bytes
@@ -90,4 +136,34 @@ void AIUnitBuilder::Rva00598D7A()
 	Rva00598961();
 	build();
 	return Rva00598052();
+}
+
+// Native5982EA..5983DA is240B RET12; WB152E7A0 follows the same flow.
+// AIUnitBuilder's observed +8 equal-key tree supplies ObjectID bit patterns
+// to the canonical object lookup. NameKeyType/ObjectID STLport storage is a
+// semantic view established by the two providers; original typedef is unknown. Full Object
+// layout is not claimed: id74/status438 and module getter28BC58 are observed.
+// Interface slots25/17 and the optional excluded-ID vector are target facts;
+// their original names remain unresolved. Exclusion end is read before begin.
+Object *AIUnitBuilder::Rva005982EA(const AsciiString *name, _STL::vector<ObjectID> *excluded, bool includeBusy)
+{
+ if (!m_objects.empty()) {
+ NameKeyType key=TheNameKeyGenerator->nameToKey(*name);
+ for (_STL::multimap<NameKeyType,ObjectID>::iterator i=m_objects.lower_bound(key);i._M_node!=m_objects.upper_bound(key)._M_node;++i) {
+  Object *obj=TheGameLogic->findObjectByID((ObjectID)i->second);
+  if (!obj || (obj->status438&1)) continue;
+  Rva005982EAInterface *iface=(Rva005982EAInterface*)obj->rva0028BC58(0);
+  if (!iface) continue;
+  if (!includeBusy && (iface->slot25() || iface->slot17())) continue;
+  bool found=false;
+  if (excluded) {
+   _STL::vector<ObjectID>::iterator end=excluded->end();
+   for (_STL::vector<ObjectID>::iterator e=excluded->begin();e!=end&&!found;++e) {
+    if(obj->id74==*e)found=true;
+   }
+  }
+  if (!found)return obj;
+ }
+ }
+ return 0;
 }
