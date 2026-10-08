@@ -1,4 +1,4 @@
-// cl: -MD -EHsc -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/shims/stringbaseunicode /Os -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/MessageStream
+// cl: -MD -EHsc -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/shims/stringbaseunicode /O1 /G7 /arch:SSE /ICode/Libraries/Include -Ireference/open-bfme-1/game/GameEngine/Source/GameClient/MessageStream
 // stlport
 // Ported from GeneralsMD/Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp.
 // Copyright 2025 Electronic Arts Inc.; GPL-3.0-or-later, as in the vendored source.
@@ -19,23 +19,25 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 #include "ascii_string.h"
 #include "Common/UnicodeString.h"
 inline UnicodeString::~UnicodeString() { ((StringBase<wchar_t>*)this)->releaseBuffer(); }
-class Coord3D { public: float x,y,z; };
+#include "Lib/Coord3D.h"
 struct ICoord2D { int x,y; };
 struct IRegion2D { ICoord2D lo,hi; int width() const { return hi.x-lo.x; } int height() const { return hi.y-lo.y; } };
 class Drawable; class Object; class Player; class ThingTemplate; class CommandButton;
-class PickAndPlayInfo { public:
- PickAndPlayInfo();
+class PickAndPlayInfo;
+class Rva004D92FE { public:
+ Rva004D92FE();
  bool field00; char pad01[3]; Drawable* m_drawTarget; void* m_weaponSlot;
- int m_specialPowerType; Coord3D m_position; void* field1c;
+ void* field0c; int m_specialPowerType; Coord3D m_position; void* field1c;
 };
-typedef _STL::list<Drawable*> DrawableList;
+typedef _STL::list<Drawable*> SelectedDrawableList;
 union GameMessageArgumentType { int integer; unsigned drawableID; ICoord2D pixel; IRegion2D pixelRegion; Coord3D location; };
+enum ObjectID { OBJECTID_NONE=0 };
 class GameMessage { public:
  enum Type { MSG_INVALID=0, MSG_CREATE_SELECTED_GROUP=0x3e9 };
  char pad00[0x10]; Type m_type;
  Type getType() const { return m_type; }
  const GameMessageArgumentType* getArgument(int) const;
- void appendBooleanArgument(bool); void appendObjectIDArgument(unsigned);
+ void appendBooleanArgument(bool); void appendObjectIDArgument(ObjectID);
  void appendLocationArgument(const struct Coord3D&);
 };
 enum GameMessageDisposition { KEEP_MESSAGE, DESTROY_MESSAGE };
@@ -53,6 +55,10 @@ public:
 
 };
 
+enum CanAttackResult { ATTACKRESULT_NONE,ATTACKRESULT_INVALID_SHOT,ATTACKRESULT_VALID2,ATTACKRESULT_VALID3 };
+enum AbleToAttackType { ATTACK_TYPE_ZERO,ATTACK_TYPE_ONE };
+enum CommandSourceType { SOURCE_ZERO };
+struct ForceAttackTemplate { char pad[0x108]; unsigned char kind108; char pad109[9]; unsigned char kind112; };
 class Object {
 public:
     virtual void slot00(); // vtable +0x0
@@ -67,15 +73,15 @@ public:
     virtual void slot09(); // vtable +0x24
     virtual Drawable* getDrawable() const; // vtable +0x28
 
- char pad04[0x34]; Coord3D m_position; char pad44[0x30]; unsigned m_id;
+ ForceAttackTemplate* m_template; char pad08[0x30]; Coord3D m_position; char pad44[0x30]; ObjectID m_id;
  char pad78[0x19c]; Object* m_containedBy;
- unsigned getID() const { return m_id; }
+ ObjectID getID() const { return m_id; }
  const Coord3D* getPosition() const { return &m_position; }
  bool isKindOf(int k) const { return ((const Thing*)this)->isKindOf((KindOfType)k); }
  bool isLocallyControlled() const;
- bool rva001C9C10() const;
- int rva001C77B0(int,const Object*,int) const;
- int rva001BE310(int,const Object*,const Coord3D*,int) const;
+ bool isAbleToAttack() const;
+ CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType,const Object*,CommandSourceType) const;
+ CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType,const Object*,const Coord3D*,CommandSourceType) const;
  SpawnBehaviorInterface* getSpawnBehaviorInterface() const;
 
 };
@@ -180,7 +186,7 @@ public:
     virtual int getSelectCount(); // vtable +0xF0
     virtual void slot3D(); // vtable +0xF4
     virtual void slot3E(); // vtable +0xF8
-    virtual const DrawableList* getAllSelectedDrawables() const; // vtable +0xFC
+    virtual void slot3F(); // vtable +0xFC
     virtual void slot40(); // vtable +0x100
     virtual Drawable* getFirstSelectedDrawable(); // vtable +0x104
     virtual void slot42(); // vtable +0x108
@@ -190,7 +196,7 @@ public:
     virtual void slot46(); // vtable +0x118
     virtual void slot47(); // vtable +0x11C
     virtual void slot48(); // vtable +0x120
-    virtual void slot49(); // vtable +0x124
+    virtual const SelectedDrawableList* getAllSelectedDrawables() const; // vtable +0x124
     virtual void slot4A(); // vtable +0x128
     virtual void slot4B(); // vtable +0x12C
     virtual void slot4C(); // vtable +0x130
@@ -231,7 +237,8 @@ public:
     virtual void slot0A(); // vtable +0x28
     virtual void slot0B(); // vtable +0x2C
     virtual void slot0C(); // vtable +0x30
-    virtual GameMessage* appendMessage(GameMessage::Type); // vtable +0x34
+    virtual void slot0D(); virtual void slot0E(); virtual void slot0F(); virtual void slot10(); virtual void slot11();
+    virtual GameMessage* appendMessage(GameMessage::Type); // vtable +0x48
 
 };
 
@@ -328,7 +335,7 @@ public:
     virtual void slot46(); // vtable +0x118
     virtual void slot47(); // vtable +0x11C
     virtual void slot48(); // vtable +0x120
-    virtual void slot49(); // vtable +0x124
+    virtual const SelectedDrawableList* getAllSelectedDrawables() const; // vtable +0x124
     virtual void slot4A(); // vtable +0x128
     virtual void slot4B(); // vtable +0x12C
     virtual void slot4C(); // vtable +0x130
@@ -633,6 +640,7 @@ void rva00569D80();
 void Rva004C1040(int);
 int Rva00459060(bool);
 int rva005A9B00(Object*,void*);
+class DrawableList;
 void pickAndPlayUnitVoiceResponse(const DrawableList*,GameMessage::Type,PickAndPlayInfo* = 0);
 
 class CommandTranslator { public:
@@ -659,29 +667,35 @@ static Object* iNeedAHero(Object* previous)
  return holder.hero;
 }
 
+// ZH canObjectForceAttack, reference34f59164f6; native4291C8..429276
+// and WB00E79D50 preserve the three argument meanings. Native uses EDI/ESI
+// for the first two arguments; keeping the static noinline definition with
+// its actual callers lets MSVC reproduce that internal calling convention.
+// Target kind bits108:04 and112:10 replace the donor queries; all object
+// attack calls bind existing native providers. Coord3D uses its canonical tag.
 static __declspec(noinline) int canObjectForceAttack(Object* obj,const Object* victim,const Coord3D* pos)
 {
- if(!obj->rva001C9C10()) return 0;
+ if(!obj->isAbleToAttack()) return 0;
  if(victim) {
-  int result=obj->rva001C77B0(1,victim,0);
-  if(result!=3 && result!=2 && obj->isKindOf(0x53)) {
+  int result=obj->getAbleToAttackSpecificObject(ATTACK_TYPE_ONE,victim,SOURCE_ZERO);
+  if(result!=3 && result!=2 && (obj->m_template->kind112&0x10)) {
    SpawnBehaviorInterface* spawn=obj->getSpawnBehaviorInterface();
-   if(spawn) { Object* slave=spawn->getClosestSlave(victim->getPosition()); if(slave) result=slave->rva001C77B0(1,victim,0); }
+   if(spawn) { Object* slave=spawn->getClosestSlave(victim->getPosition()); if(slave) result=slave->getAbleToAttackSpecificObject(ATTACK_TYPE_ONE,victim,SOURCE_ZERO); }
   }
   return result;
  }
  if(pos) {
-  if(obj->isKindOf(2) || obj->isKindOf(0x53)) {
+  if((obj->m_template->kind108&4) || (obj->m_template->kind112&0x10)) {
    SpawnBehaviorInterface* spawn=obj->getSpawnBehaviorInterface();
    if(spawn) spawn->getClosestSlave(pos);
   }
-  return obj->rva001BE310(0,0,pos,0);
+  return obj->getAbleToUseWeaponAgainstTarget(ATTACK_TYPE_ZERO,0,pos,SOURCE_ZERO);
  }
  return 0;
 }
-static __declspec(noinline) int canAnyForceAttack(const DrawableList* allSelected,const Object* victim,const Coord3D* pos)
+static __declspec(noinline) int canAnyForceAttack(const SelectedDrawableList* allSelected,const Object* victim,const Coord3D* pos)
 {
- for(DrawableList::const_iterator it=allSelected->begin();it!=allSelected->end();++it) {
+ for(SelectedDrawableList::const_iterator it=allSelected->begin();it!=allSelected->end();++it) {
   Drawable* draw=*it; if(!draw) continue;
   Object* obj=draw->getObject(); if(!obj) continue;
   return canObjectForceAttack(obj,victim,pos);
@@ -694,7 +708,7 @@ int CommandTranslator::evaluateForceAttack(Drawable* draw,const Coord3D* pos,Com
 {
  int retVal=0;
  if(!draw && !pos) return retVal;
- const DrawableList* allSelected=TheInGameUI->getAllSelectedDrawables();
+ const SelectedDrawableList* allSelected=TheInGameUI->getAllSelectedDrawables();
  if(draw) {
   Object* obj=draw->getObject();
   if(!obj) return retVal;
@@ -702,9 +716,9 @@ int CommandTranslator::evaluateForceAttack(Drawable* draw,const Coord3D* pos,Com
   if(result==3 || result==2) {
    retVal=0x425;
    if(type==DO_COMMAND) {
-    PickAndPlayInfo info;
+    Rva004D92FE info;
     info.m_drawTarget=draw;
-    pickAndPlayUnitVoiceResponse(allSelected,(GameMessage::Type)0x425,&info);
+    pickAndPlayUnitVoiceResponse((const DrawableList*)allSelected,(GameMessage::Type)0x425,(PickAndPlayInfo*)&info);
     GameMessage* newMsg=TheMessageStream->appendMessage((GameMessage::Type)0x425);
     newMsg->appendObjectIDArgument(obj->getID());
     newMsg->appendLocationArgument(*pos);
@@ -721,9 +735,9 @@ int CommandTranslator::evaluateForceAttack(Drawable* draw,const Coord3D* pos,Com
   if(result==3 || result==2) {
    retVal=0x426;
    if(type==DO_COMMAND) {
-    PickAndPlayInfo info;
+    Rva004D92FE info;
     info.m_position=*pos;
-    pickAndPlayUnitVoiceResponse(allSelected,(GameMessage::Type)0x426,&info);
+    pickAndPlayUnitVoiceResponse((const DrawableList*)allSelected,(GameMessage::Type)0x426,(PickAndPlayInfo*)&info);
     GameMessage* newMsg=TheMessageStream->appendMessage((GameMessage::Type)0x426);
     newMsg->appendLocationArgument(*pos);
    } else if(type==DO_HINT) {
