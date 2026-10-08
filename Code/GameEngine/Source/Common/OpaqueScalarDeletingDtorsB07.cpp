@@ -202,13 +202,38 @@ Rva003ABA4C::Rva003ABA4C(EmitVtableTag *)
 {
 }
 
-class Rva003B00D6
+class RvaSmartPtr12 { public: __declspec(nothrow) void rva0004CBC0(); };
+struct Rva003FCE38Handle
+{
+    void *system, *previous, *next;
+    ~Rva003FCE38Handle() throw()
+    {
+        if (system) ((RvaSmartPtr12 *)this)->rva0004CBC0();
+    }
+};
+// Target 0x003B00D6 drains the +0x14 head through virtual slot zero,
+// passing flag zero and deleting the returned storage. The callbacks may
+// update the head; retail reloads it on every iteration. Its handle at +4
+// and final Snapshot vptr are independently visible in the normal cleanup.
+struct Rva003B00D6Node { virtual void *destroy(unsigned int); };
+class Rva003B00D6 : public Snapshot
 {
 public:
-	Rva003B00D6(EmitVtableTag *);
-public:
-	virtual ~Rva003B00D6();
+    Rva003B00D6(EmitVtableTag *);
+    virtual ~Rva003B00D6();
+    Rva003FCE38Handle handle04;
+    unsigned int unmodelled10;
+    Rva003B00D6Node *head14;
 };
+void __cdecl operator delete(void *);
+Rva003B00D6::~Rva003B00D6()
+{
+    while (head14)
+    {
+        Rva003B00D6Node *node = head14;
+        ::operator delete(node ? node->destroy(0) : 0);
+    }
+}
 
 // ?<Rva003B00D6::Rva003B00D6> absent-from-retail
 Rva003B00D6::Rva003B00D6(EmitVtableTag *)
@@ -459,15 +484,6 @@ Rva003F9D08::Rva003F9D08(EmitVtableTag *)
 // existing unresolved operation 0x003FCD71, unregisters this pointer from
 // the 0x00DFE1C8 singleton, and conditionally unlinks its +0x1C handle.
 // The owner name is deliberately retained from the rowed deleting wrapper.
-class RvaSmartPtr12 { public: __declspec(nothrow) void rva0004CBC0(); };
-struct Rva003FCE38Handle
-{
-    void *system, *previous, *next;
-    ~Rva003FCE38Handle() throw()
-    {
-        if (system) ((RvaSmartPtr12 *)this)->rva0004CBC0();
-    }
-};
 class Rva003FCD71 { public: void rva003FCD71(); };
 class CreateAHeroData;
 class Rva00211541 { public: void rva00211541(CreateAHeroData *); };
