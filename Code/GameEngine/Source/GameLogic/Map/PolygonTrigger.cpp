@@ -113,3 +113,29 @@ void PolygonTrigger::getBounds(int *out)
 	out[2] = fast_float2long_round(ceil(r.x_max));
 	out[3] = fast_float2long_round(ceil(r.y_max));
 }
+
+// Native2E3E2A..2E3E51 is an owned-pointer transfer into a returned temporary.
+// WB59F8B0 constructs a local owner then moves it to the return value. The
+// temporary's virtual deleting destructor uses slot0 with delete flag1.
+// Pointee purpose remains opaque; the parser identifies its PolygonTrigger use.
+class Rva002E3E2AObject { public: virtual ~Rva002E3E2AObject(); };
+class Rva002E3E2AOut
+{
+public:
+ explicit Rva002E3E2AOut(Rva002E3E2AObject *p):pointer(p){}
+ Rva002E3E2AOut(Rva002E3E2AOut &other):pointer(other.pointer){other.pointer=0;}
+ ~Rva002E3E2AOut(){delete pointer;}
+ Rva002E3E2AObject *pointer;
+};
+class Rva000AD6F4
+{
+public:
+ Rva002E3E2AOut rva002E3E2A();
+ Rva002E3E2AObject *pointer;
+};
+Rva002E3E2AOut Rva000AD6F4::rva002E3E2A()
+{
+ Rva002E3E2AOut temporary(pointer);
+ pointer=0;
+ return temporary;
+}
