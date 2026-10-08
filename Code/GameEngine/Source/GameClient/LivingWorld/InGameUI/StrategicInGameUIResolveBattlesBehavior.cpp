@@ -82,10 +82,14 @@ GameMessageDisposition StrategicInGameUI::ResolveBattlesBehavior::Impl::translat
 }
 
 class LivingWorldPendingBattle;
+class PendingBattleVisitor;
+class Rva0020E7E8Callback;
 class LivingWorldRegionManager
 {
 public:
     LivingWorldPendingBattle *rva0020E6C0();
+    void EnumeratePendingBattles(PendingBattleVisitor &) const;
+    void EnumerateCompletedBattles(Rva0020E7E8Callback *);
 };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -139,4 +143,48 @@ void StrategicInGameUI::ResolveBattlesBehavior::Impl::CreateResolveRegionOwnersh
     Rva00576BDDDispute **end = disputes.end();
     for (Rva00576BDDDispute **it = disputes.begin(); it != end; ++it)
         reinterpret_cast<Rva005768CBCall *>(this)->rva005768CB(*it);
+}
+
+class PendingBattleVisitor {
+public:
+ virtual bool Visit(LivingWorldPendingBattle *) = 0;
+ ~PendingBattleVisitor() {}
+};
+class Rva0020E7E8Callback { public: virtual bool invoke(void *) = 0; };
+class Rva005766B3 : public PendingBattleVisitor {
+public:
+ Rva005766B3(int,int,int);
+ ~Rva005766B3() {}
+ virtual bool Visit(LivingWorldPendingBattle *);
+private:
+ int a,b,c;
+};
+
+
+class LivingWorldBattle { public: bool rva003F48EF(void *); };
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+class Rva005D1DCB {
+public:
+ Rva005D1DCB(void *, LivingWorldPendingBattle *);
+ char storage[24];
+};
+namespace StrategicInGameUI {
+struct ChecklistItemRef {
+ Rva005D1DCB *m_ptr;
+ ChecklistItemRef(Rva005D1DCB *p) : m_ptr(p) { if(p) ++*(int *)((char *)p+4); }
+ ~ChecklistItemRef() { if(m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr); }
+};
+class Checklist { public: void AddItem(const ChecklistItemRef &); };
+}
+// Native vtable86E7D0 slot0 reaches5766D3; pending/completed enumerators
+// invoke it with one battle pointer and inspect AL. WB14CFA70 confirms the
+// filtered checklist allocation and counted reference. Fields4/8/C remain
+// opaque pointer words, matching the existing constructor ABI.
+bool Rva005766B3::Visit(LivingWorldPendingBattle *battle) {
+ if(((LivingWorldBattle *)battle)->rva003F48EF((void *)a)) {
+  StrategicInGameUI::ChecklistItemRef item(new Rva005D1DCB((void *)c,battle));
+  ((StrategicInGameUI::Checklist *)b)->AddItem(item);
+ }
+ return true;
 }
