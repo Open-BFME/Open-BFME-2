@@ -1,4 +1,6 @@
 // ?rva002A8E7B@Rva002A8E7B@@QAEXXZ
+// partial score=0.98 date=2026-10-09
+// ?rva002A8E7B@Rva002A8E7B@@QAEXXZ
 // partial score=0.98 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
@@ -17,10 +19,10 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
-class Rva004F95DOwner
+class Rva004DF95DOwner
 {
 public:
-	void rva004F95D();
+	void rva004DF95D();
 };
 
 class AIGameTeam
@@ -48,7 +50,7 @@ void Rva002A8E7B::rva002A8E7B()
 		return;
 
 	for (_STL::map<int, int>::iterator it = m_map.begin(); it != m_map.end(); ++it)
-		((Rva004F95DOwner *)it->second)->rva004F95D();
+		((Rva004DF95DOwner *)it->second)->rva004DF95D();
 
 	_STL::vector<ObjectID>::iterator id = m_objectIDs.begin();
 	_STL::vector<ObjectID>::iterator idsEnd = m_objectIDs.end();
