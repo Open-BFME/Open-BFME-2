@@ -449,14 +449,7 @@ void *__stdcall Rva002B4948Find(void *player, void *region, void *arg);	// 0x002
 // layout, but returned through a hidden pointer and passed by value the way
 // BFME2's Coord2D is (retail 0x002B28B1 builds it in the argument slot), so
 // the TU view carries a user-declared constructor.
-struct Rva002B2858Coord
-{
-	Rva002B2858Coord() {}
-	Rva002B2858Coord(const Rva002B2858Coord &that) : x(that.x), y(that.y) {}
-	~Rva002B2858Coord() {}
-	float x;
-	float y;
-};
+#include "../../../Common/ArmyMoveDispatchView.h"
 
 // LivingWorldLogic's bases: a 0x10-byte primary base, then observer
 // interfaces at +0x10 and +0x14 (and the player observer at +0x18, see
@@ -519,7 +512,6 @@ public:
 	void GetNumUpgradeableTroopsInRegionForPlayer(Rva003F287F *region, Int player, Int *countA, Int *countB);
 	void EnforceArmyRegionOwnership();
 	Bool rva002B27B5(LivingWorldArmy *army, Rva00318C32Ret *target);
-	void rva002B26D0(LivingWorldArmy *army, Rva00318C32Ret *target, Rva002B2858Coord pos, Int flags);
 	Rva002B2858Coord AdjustArmyMoveTargetPos(Rva00318C32Ret *target, const Coord2D *pos);	// 0x002B2858, pinned
 	void armyMoveRequest(LivingWorldArmy *army, Rva00318C32Ret *target, const Coord2D *pos, Int flags);
 	void rva002B2834(LivingWorldArmy *army, Int flags);
@@ -1341,18 +1333,8 @@ Bool LivingWorldLogic::rva002B27B5(LivingWorldArmy *army, Rva00318C32Ret *target
 	return false;
 }
 
-// Retail 0x002B26D0 (50 bytes; WorldBuilder leaves it unnamed, its callees
-// are the army region getter and LivingWorldArmy::initiateMove;
-// armyMoveRequest calls it): moves an army to another region.
-// ?LivingWorldLogic::rva002B26D0 present-unmatched
-void LivingWorldLogic::rva002B26D0(LivingWorldArmy *army, Rva00318C32Ret *target, Rva002B2858Coord pos, Int flags)
-{
-	if (army == 0 || target == 0)
-		return;
-	if (((Rva00318C79Owner *)army)->rva00318C32() == target)
-		return;
-	army->initiateMove(*(const Coord2D *)&pos, target, flags);
-}
+// The existing neutral dispatch view at 0x002B26D0 shares this coordinate ABI.
+// Its region getter and initiateMove calls prove the borrowed receiver view.
 
 // The rowed army check 0x002B280C (address-named) and the army's unnamed
 // handler 0x00319831 (pinned) that 0x002B2834 forwards to.
@@ -1385,20 +1367,19 @@ void LivingWorldLogic::rva002B2834(LivingWorldArmy *army, Int flags)
 // 4: an army in no region is sent straight to the adjusted position; an army
 // in a region must be allowed the move (0x002B27B5), is told the flags
 // (0x002B2834), and is sent unless it already stands in the goal region.
-// ?LivingWorldLogic::armyMoveRequest present-unmatched
 void LivingWorldLogic::armyMoveRequest(LivingWorldArmy *army, Rva00318C32Ret *target, const Coord2D *pos, Int flags)
 {
 	if (m_turnPhase != 0 && m_turnPhase != 4)
 		return;
 	if (((Rva00318C79Owner *)army)->rva00318C32() == 0)
 	{
-		rva002B26D0(army, target, AdjustArmyMoveTargetPos(target, pos), flags);
+		((Rva002B26D0 *)this)->rva002B26D0((Rva00318C79Owner *)army, target, AdjustArmyMoveTargetPos(target, pos), (void *)flags);
 	}
 	else if (rva002B27B5(army, target))
 	{
 		rva002B2834(army, flags);
 		if (((Rva00318C79Owner *)army)->rva00318C32() != target)
-			rva002B26D0(army, target, AdjustArmyMoveTargetPos(target, pos), flags);
+			((Rva002B26D0 *)this)->rva002B26D0((Rva00318C79Owner *)army, target, AdjustArmyMoveTargetPos(target, pos), (void *)flags);
 	}
 }
 

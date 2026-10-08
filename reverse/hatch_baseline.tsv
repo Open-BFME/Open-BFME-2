@@ -40357,8 +40357,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	xfer
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	xfer@ScriptList@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp	LivingWorldLogic::AutoMarkUnitsForUpgrades	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp	LivingWorldLogic::CalcAttackingDirection	1
-present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp	LivingWorldLogic::armyMoveRequest	1
-present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp	LivingWorldLogic::rva002B26D0	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp	LivingWorldRegionManager::GetRegionCenterPoint	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp	LivingWorldRegionManager::GetRegionUiPopupPoint	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionManager.cpp	LivingWorldRegionManager::SetRegionReinforcements	1

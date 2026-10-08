@@ -26,18 +26,7 @@ public:
 	void rva0031A591(float *pair, void *key, void *extra);
 };
 
-struct RvaFloatPair
-{
-	__forceinline RvaFloatPair() {}
-	__forceinline ~RvaFloatPair() {}
-	__forceinline RvaFloatPair(const RvaFloatPair &that)
-	{
-		f0 = that.f0;
-		f1 = that.f1;
-	}
-	float f0;
-	float f1;
-};
+#include "ArmyMoveCoordinateView.h"
 
 class Rva002B2702B0
 {
@@ -45,25 +34,16 @@ public:
 	bool rva0020EA58(void *key, float *buf);
 };
 
-class Rva002B26D0
-{
-public:
-	void rva002B26D0(Rva00318C79Owner *owner, void *key, RvaFloatPair pair, void *extra);
-	void rva002B4F6C(struct Rva002B4F6CVector *ids, RvaFloatPair *out);
+#include "ArmyMoveDispatchView.h"
 
-private:
-	unsigned char m_pad00[0xB0];
-	Rva002B2702B0 *m_b0;
-};
-
-void Rva002B26D0::rva002B26D0(Rva00318C79Owner *owner, void *key, RvaFloatPair pair, void *extra)
+void Rva002B26D0::rva002B26D0(Rva00318C79Owner *owner, void *key, Rva002B2858Coord pair, void *extra)
 {
 	if (owner == 0)
 		return;
 	if (key == 0)
 		return;
 	if (owner->rva00318C32() != key)
-		owner->rva0031A591(&pair.f0, key, extra);
+		owner->rva0031A591(&pair.x, key, extra);
 }
 
 // Keep the established address-derived pin used by the script-action callers.
@@ -80,12 +60,12 @@ private:
 
 void Rva002B2702::rva002B2702(void *owner, void *key, int extra)
 {
-	RvaFloatPair buf;
+	Rva002B2858Coord buf;
 	if (owner == 0)
 		return;
 	if (key == 0)
 		return;
-	m_b0->rva0020EA58(key, &buf.f0);
+	m_b0->rva0020EA58(key, &buf.x);
 	((Rva002B26D0 *)this)->rva002B26D0((Rva00318C79Owner *)owner,
 		key, buf, (void *)extra);
 }
@@ -107,7 +87,7 @@ public:
 // pairs through the same +0xB0 helper, then return their difference.
 // The index-forward helper's existing address-derived declaration carries
 // its output pointer as an integer. No semantic name is established here.
-void Rva002B26D0::rva002B4F6C(Rva002B4F6CVector *ids, RvaFloatPair *out)
+void Rva002B26D0::rva002B4F6C(Rva002B4F6CVector *ids, Rva002B2858Coord *out)
 {
 	int count = ids->end - ids->begin;
 	int lastIndex = count - 1;
@@ -117,10 +97,10 @@ void Rva002B26D0::rva002B4F6C(Rva002B4F6CVector *ids, RvaFloatPair *out)
 		lastIndex = 0;
 		previousIndex = 0;
 	}
-	RvaFloatPair last, previous;
+	Rva002B2858Coord last, previous;
 	((Rva0020F27EHost *)m_b0)->rva0020F27E(ids->begin[lastIndex], (int)&last);
 	((Rva0020F27EHost *)m_b0)->rva0020F27E(ids->begin[previousIndex], (int)&previous);
 	*out = previous;
-	out->f0 -= last.f0;
-	out->f1 -= last.f1;
+	out->x -= last.x;
+	out->y -= last.y;
 }
