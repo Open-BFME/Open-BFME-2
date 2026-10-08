@@ -6,7 +6,10 @@
 // only nonnull results. No donor source identity is asserted. The native
 // append is independently rowed49B4DFCB0; its shared pointer-storage ABI is
 // consumed below without identifying wall objects as ModuleData.
+namespace _STL { void __cdecl free(void *); }
+#define free _STL::free
 #include <vector>
+#undef free
 class AsciiString;
 // Retail Version stores minimum/current bytes and has an inline constructor;
 // that constructor form also reproduces the independent stack homes in DoXfer.
@@ -55,13 +58,17 @@ virtual Xfer &xferBool(bool *);
 
 
 class ModuleData;
-namespace _STL {template<>void vector<const ModuleData*>::push_back(const ModuleData *const&);}
+// Keep the real STL append definition visible: a declaration-only
+// specialization changes aliasing spills in tryToStartWallProduction.
 void *rva004E99B1(void *key);
 struct AIWallIDView { unsigned char unknown[0x44]; unsigned int id; };
 class AIWall;
 class AIWallBuilder {
 public: void DoXfer(Xfer *); float rva004E98B4(AIWall *);
-private: unsigned char m_prefix[0x0c]; _STL::vector<AIWallIDView*> m_walls;
+    unsigned char canBuildAnyWall();
+    void tryToStartWallProduction();
+private: unsigned char m_prefix[8]; void *m_owner;
+    _STL::vector<AIWallIDView*> m_walls;
 };
 void AIWallBuilder::DoXfer(Xfer *xfer) {
     WallVersion version(1,1);
@@ -106,4 +113,57 @@ float g_00C62804 = 7e+01f;
 float AIWallBuilder::rva004E98B4(AIWall *unused)
 {
     return GetGameLogicRandomValueReal(g_00C62804, g_00C62800, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIWallBuilder\\AIWallBuilder.cpp", 0xB4);
+}
+
+// Native 4E9DA8..4E9EA1 and WB1380720 name this builder member. The
+// global at E04484 is a three-word pointer range. The two eligibility calls
+// precede append; selection uses inclusive random [0,size-1], file line165.
+// Builder owner+8 and walls+C are independently shared with its rowed peers.
+// ModuleData is only the canonical pointer-vector storage ABI; these pointers
+// are walls, not ModuleData objects. The vector methods must remain visible.
+// Preserve the registered data owner's RvaVector type name. Field labels
+// describe its three-word storage without asserting the original typedef.
+struct RvaVector { void **begin, **end, **capacity; };
+extern RvaVector g_00E04484;
+class Rva004EABB9 { public: bool rva004EABB9(); };
+// Full native 4EB7CC/310 and WB137BE20 prove bool result and ret4 owner
+// argument, on the wall selected here. Its original method name is unknown.
+// Full native 4EAF18/165 and named WB137BB30 prove activate's three argument
+// words and ret12. The last word is a string reference passed to StringBase::set;
+// its original type spelling is retained as an opaque caller ABI here.
+class AIWall {
+public:
+    bool rva004EB7CC(void *owner);
+    void activate(void *owner, float delay, const void *name);
+};
+struct Rva002A8B59Data { char unknown[0x28]; };
+class Rva002A8F24 { public: Rva002A8B59Data *rva002A8B59(void *); };
+extern Rva002A8F24 *g_00DFEEF8;
+int __cdecl GetGameLogicRandomValue(int, int, char *, int);
+
+void AIWallBuilder::tryToStartWallProduction()
+{
+    if (!canBuildAnyWall()) return;
+    _STL::vector<const ModuleData *> candidates;
+    void **end = g_00E04484.end;
+    void **it = g_00E04484.begin;
+    if (it != end) do {
+        const ModuleData *wall = reinterpret_cast<const ModuleData *>(*it);
+        if (reinterpret_cast<Rva004EABB9 *>(const_cast<ModuleData *>(wall))->rva004EABB9()
+            && reinterpret_cast<AIWall *>(const_cast<ModuleData *>(wall))->rva004EB7CC(m_owner))
+            candidates.push_back(wall);
+        ++it;
+    } while (it != end);
+    if (candidates.empty()) return;
+    {
+        const ModuleData *wall = candidates.size() > 1
+            ? candidates[GetGameLogicRandomValue(0, candidates.size() - 1,
+                "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIWallBuilder\\AIWallBuilder.cpp", 165)]
+            : candidates[0];
+        Rva002A8B59Data *def = g_00DFEEF8->rva002A8B59(m_owner);
+        reinterpret_cast<AIWall *>(const_cast<ModuleData *>(wall))->activate(
+            m_owner, rva004E98B4(reinterpret_cast<AIWall *>(const_cast<ModuleData *>(wall))),
+            reinterpret_cast<char *>(def) + 0x28);
+        reinterpret_cast<_STL::vector<const ModuleData *> &>(m_walls).push_back(wall);
+    }
 }
