@@ -1,6 +1,8 @@
 // cl: /O1 /G7 /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 #include <algorithm>
+#include <vector>
+struct Rva005334A4Element {unsigned short first, second;};
 // WB12D3020 and12D3290 name PathfindZoneManager::DoXfer and Block::DoXfer
 // in GameLogic/Pathfinder/pathfinder_zonemanager.cpp. Complete target bodies
 // 5342CB..53442A (351B) and533AF9..533B74 (123B) independently prove fields,
@@ -614,3 +616,10 @@ struct ZoneNeighborLess {
 // ZoneNeighborRecord/ZoneNeighborLess remain structural labels, not asserted
 // original type spellings. Explicit instantiation has no wrapper or new pin.
 template ZoneNeighborRecord *_STL::__lower_bound<ZoneNeighborRecord *,unsigned short,ZoneNeighborLess,int>(ZoneNeighborRecord *,ZoneNeighborRecord *,const unsigned short &,ZoneNeighborLess,int *);
+// The block's vector stores4B pairs (WB12D3630 and native5335B0).
+// STLport4.5.3 emits the full42B forward-copy body at31B031..31B05B;
+// it is a byte-and-relocation twin of the existing ScienceType copy provider.
+// These typed dependencies preserve the observed vector ABI without a pin.
+// The address-derived element label is retained from the existing push_back;
+// its two words follow the block helper's independently observed writes.
+template Rva005334A4Element *_STL::__copy<Rva005334A4Element *,Rva005334A4Element *,int>(Rva005334A4Element *,Rva005334A4Element *,Rva005334A4Element *,const _STL::random_access_iterator_tag &,int *);
