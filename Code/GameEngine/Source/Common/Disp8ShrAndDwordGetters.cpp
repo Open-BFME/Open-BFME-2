@@ -104,3 +104,19 @@ BFME_DISP8_SHRN_AND_DWORD_GETTER(Rva006DBDD0ShrNAndField, 0x04, 2)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?IsReleaseAtEnd@AptValue@@QBEHXZ=?get@Rva006DBDD0ShrNAndField@@QBEHXZ")
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?setBit1@Rva0030D38FFields@@QAEXXZ
+struct Rva0030D38FFields { char pad[0x44]; unsigned int word44; void setBit1(); };
+void Rva0030D38FFields::setBit1() { word44 |= 2; }
+
+// ?setBit5@Rva0030D394Fields@@QAEXXZ
+struct Rva0030D394Fields { char pad[0x44]; unsigned int word44; void setBit5(); };
+void Rva0030D394Fields::setBit5() { word44 |= 32; }
+
+// ?setBit3@Rva0030D399Fields@@QAEXXZ
+struct Rva0030D399Fields { char pad[0x44]; unsigned int word44; void setBit3(); };
+void Rva0030D399Fields::setBit3() { word44 |= 8; }
