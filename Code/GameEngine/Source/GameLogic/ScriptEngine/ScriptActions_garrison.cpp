@@ -21,6 +21,7 @@
 //              another team's members, round robin
 //   0x003C4EC3 (479B) ScriptActions::doCreateObject
 //   0x003C50A2 (658B) ScriptActions::createUnitOnTeamAt
+//   0x003C4A70 (189B) ScriptActions::doDisplayNotificationBox
 //
 // Target facts: Object +0x04 template (kind-of bits at template +0x108),
 // +0x250 contain module, +0x258 AI update (WorldBuilder's debug Object is
@@ -55,8 +56,20 @@
 // destination is the waypoint's +0x0C location or the object's +0x38
 // position; WB, like retail, leaves it unset when neither holds, and retail
 // keeps that unset local in the dead waypoint argument slot.
+//
+// doDisplayNotificationBox (BFME2 only; BFME1's ScriptActions has no such
+// action). Target facts: an unknown type name returns at once; the type's
+// record comes back by value from 0x00221ABB and is destroyed by 0x002217B1;
+// a non-empty object-type name (the out-of-line StringBase test 0x00001E2F)
+// that names a template sets the record's image to the template's button
+// image; the label is fetched through TheGameText slot 0x38 into the dead
+// name argument slot; the record, the text and seconds * 1000 go to the
+// 0x005CC208 forwarder on TheInGameUI's +0x10 notification box (0x000CF155).
+// WB supplies the names: FindInGameNotificationType and
+// InGameNotificationBox::Open.
 
 #include "ascii_string.h"
+#include "unicode_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../Common/PartitionRangeQueryCallView.h"
 #include <list>
@@ -134,10 +147,13 @@ public:
 	virtual int getPlayerWhoEntered(); // slot 0x144
 };
 
+class Image;
+
 class ThingTemplate
 {
 public:
 	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
+	const Image *getButtonImage(); // resolves the image name on first use
 
 private:
 	unsigned char m_pad[0x108];
@@ -337,9 +353,63 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
+// An InGameNotificationType's notification record, 0x14 bytes: the text at
+// +0x00 and the image at +0x08 (copy constructor 0x002217EA, destructor
+// 0x002217B1). The image setter 0x0010670B is folded with
+// GameMessage::friend_setPrev, so it keeps an address-derived spelling.
+class Rva002217EA
+{
+public:
+	~Rva002217EA();
+	void rva0010670B(const Image *image);
+
+private:
+	unsigned char m_data[0x14];
+};
+
+class InGameNotificationType
+{
+public:
+	Rva002217EA rva00221ABB() const; // WB 0x00B8D300, unnamed: the type's record
+};
+InGameNotificationType *FindInGameNotificationType(const AsciiString &name);
+
+class GameTextInterface
+{
+public:
+#define GAMETEXT_SLOT(n) virtual void slot##n();
+	GAMETEXT_SLOT(0) GAMETEXT_SLOT(1) GAMETEXT_SLOT(2) GAMETEXT_SLOT(3) GAMETEXT_SLOT(4)
+	GAMETEXT_SLOT(5) GAMETEXT_SLOT(6) GAMETEXT_SLOT(7) GAMETEXT_SLOT(8) GAMETEXT_SLOT(9)
+	GAMETEXT_SLOT(10) GAMETEXT_SLOT(11) GAMETEXT_SLOT(12) GAMETEXT_SLOT(13)
+#undef GAMETEXT_SLOT
+	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0); // slot 0x38
+};
+extern GameTextInterface *TheGameText;
+
+// WB's InGameNotificationBox::Open (0x01092540) asserts the timeout and hands
+// all three arguments to its own vtable slot 2; retail's copy is the tail jump
+// 0x005CC208, folded with the vcall thunk ??_9@$B7AE, so it keeps an
+// address-derived spelling.
+class InGameNotificationBox
+{
+public:
+	void rva005CC208(const UnicodeString &text, const Rva002217EA &data, int timeoutMS);
+};
+
+class Rva005CB260;
+
+class InGameUI
+{
+public:
+	Rva005CB260 *rva000CF155(); // the +0x10 notification box, null-checked
+};
+extern InGameUI *TheInGameUI;
+
 class ScriptActions
 {
 protected:
+	void doDisplayNotificationBox(const AsciiString &name, const AsciiString &textLabel,
+		int seconds, const AsciiString &objectTypeName);
 	ContainModuleInterface *rva003C538F(ObjectID *&it, const _STL::vector<ObjectID> &ids,
 		Object *unit, bool flag);
 	void rva003C6EFC(const AsciiString &teamName, const AsciiString &containerTeamName,
@@ -362,6 +432,22 @@ struct ContainTransfer
 };
 
 // WB 0x01006F10 (unnamed), retail 0x003C4B97.
+void ScriptActions::doDisplayNotificationBox(const AsciiString &name, const AsciiString &textLabel,
+	int seconds, const AsciiString &objectTypeName)
+{
+	InGameNotificationType *type = FindInGameNotificationType(name);
+	if (!type)
+		return;
+	Rva002217EA data = type->rva00221ABB();
+	if (!((const StringBase<char> *)&objectTypeName)->isEmpty()) {
+		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(objectTypeName);
+		if (thingTemplate)
+			data.rva0010670B(const_cast<ThingTemplate *>(thingTemplate)->getButtonImage());
+	}
+	UnicodeString text = TheGameText->fetch(textLabel);
+	((InGameNotificationBox *)TheInGameUI->rva000CF155())->rva005CC208(text, data, seconds * 1000);
+}
+
 static void transferContainedObjects(ContainTransfer *transfer)
 {
 	_STL::list<const Object *> objects;
