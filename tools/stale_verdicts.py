@@ -37,27 +37,20 @@ import re_log  # noqa: E402
 # A dependency word within a short window of the address -- what separates
 # "unresolved ChunkLoadClass::Seek 6150C0" from "calls 0x6150C0, resolved".
 _DEPENDENCY = re.compile(
-    r"unresolved|unrowed|blocked|blocker|depend|waiting|missing|needs|wall|"
-    r"not yet|unmatched|absent", re.IGNORECASE)
-_ADDRESS = re.compile(r"(?<![0-9A-Za-z])(?:0x)?([0-9A-Fa-f]{5,8})(?![0-9A-Za-z])")
+    r"(?:unresolved|unrowed|blocked|blocker|depends?|dependency|waiting|missing|needs|"
+    r"wall(?:ed)?|not yet|unmatched|absent)", re.IGNORECASE)
+_ADDRESS = re.compile(r"(?<![0-9A-Za-z])(?:0[xX])?([0-9A-Fa-f]{5,8})(?![0-9A-Za-z])")
 _WINDOW = 80
-_PLACEHOLDER_NAME = re.compile(r"^\?(?:d_[0-9a-f]+|gen_\w+)@@")
+_PLACEHOLDER_NAME = re.compile(r"^\?(?:d_[0-9A-Fa-f]+|gen_\w+)@@")
 
 
 def ledger_names():
-    """{rva: {names}} for real-source matched rows (same filter as matched_rvas)."""
+    """{rva: {names}} for real provider rows (re_log's rule, re_log's CSV parse)."""
     names = {}
-    ledger = re_log.RE_ATTEMPTS.parent / "functions.csv"
-    with ledger.open(encoding="utf-8", errors="replace") as handle:
-        next(handle, None)
-        for line in handle:
-            fields = line.rstrip("\r\n").split(",")
-            if (len(fields) >= 6 and fields[5] == "matched"
-                    and not fields[4].startswith(re_log._PLACEHOLDER_SOURCES)):
-                try:
-                    names.setdefault(int(fields[2], 16), set()).add(fields[0])
-                except ValueError:
-                    pass
+    for row in re_log.ledger_rows():
+        rva = re_log._rva_of(row)
+        if rva is not None and re_log._is_provider(row):
+            names.setdefault(rva, set()).add(row["name"])
     return names
 
 

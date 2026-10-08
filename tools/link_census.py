@@ -1527,17 +1527,31 @@ def main(argv=None):
         # record() proves every object current again: the links take minutes.
         record(census, rows)
     elif args.measure:
-        measure(census, rows, present, final_log(census))
+        measure(census, rows, present, final_log(census), state, sources)
     return 0
 
 
-def measure(census, rows, present, log):
-    """LINKED figures and the link index for this census, history untouched."""
+def measure(census, rows, present, log, state, sources):
+    """LINKED figures and the link index for this census, history untouched.
+
+    Published under record()'s rule: nothing is written unless the inputs,
+    tools and objects the plain link saw still hold after the selection link
+    and the judgment. It once published straight away, so a commit landing
+    during the selection link stamped the new tree's verdicts with the old
+    census commit.
+    """
+    def guard(when):
+        if census_state(present) != state or stale_objects(present, sources):
+            raise SystemExit(f"link_census: compiler inputs, tools or objects changed {when}; nothing written"
+                             f" ({moved(state, census_state(present))})")
     started = time.time()
     kept = selected_definitions(selection_link(present, log))
     print(f"link_census: selection (/MAP) link {time.time() - started:.0f}s after the plain link", flush=True)
-    clean, files, blocking, clean_prev, _ = write_status(
-        log, rows, present, {"date": census["when"], "commit": census["commit"]}, kept, publish=True)
+    guard("during the selection link")
+    clean, files, blocking, clean_prev, prepared = write_status(
+        log, rows, present, {"date": census["when"], "commit": census["commit"]}, kept, publish=False)
+    guard("during judgment")
+    prepared["accept"]()
     print(json.dumps({"files": files, "files_linked": len(clean), "files_linked_prev_rule": len(clean_prev),
                       "blocking": blocking, **linked_figures(clean)}), flush=True)
 

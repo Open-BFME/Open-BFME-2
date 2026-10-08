@@ -159,38 +159,49 @@ def remove_stash(rva, root):
 
 
 def record_landing(root, name, rva, size, source_rel, notes):
-    """Append the `landed` verdict and report the deferrals this landing may free.
+    """Append the `landed` verdict and report the deferrals this landing may free."""
+    record_landings(root, [(name, rva, size, source_rel, notes)])
+
+
+def record_landings(root, landed):
+    """Append `landed` for each (name, rva, size, source, notes); report who was waiting.
 
     Without it the log's last word on a landed function stayed whatever the
     previous attempt wrote -- ChunkLoadClass::Seek landed with five `blocked`
     rows and nothing after them -- and the rows parked behind it (two motion
     channel constructors citing "unresolved Seek 6150C0") had no way to learn
-    their wall was gone. Advisory: a verified row is never reverted over this.
+    their wall was gone. One read of the log for the whole batch. Advisory: a
+    verified row is never reverted over this, and a `landed` whose row a later
+    gate or revert removes stops standing (re_log._load).
     """
     import re_log
 
     log = Path(root) / "reverse" / "re_attempts.log"
-    if not log.exists():
+    if not log.exists() or not landed:
         return
     try:
-        evidence = f"add_match verified {source_rel} {size}B"
-        if notes:
-            evidence += f"; {notes}"
-        re_log.append(name, f"0x{rva:08X}", str(size), "landed", evidence, path=log)
-        print(f"add_match: recorded `landed` in reverse/re_attempts.log -- stage it")
+        eol = ledger_io.lf_terminator(log.read_bytes(), "re_attempts.log")
+        for name, rva, size, source_rel, notes in landed:
+            evidence = f"add_match verified {source_rel} {size}B"
+            if notes:
+                evidence += f"; {notes}"
+            re_log.append(name, f"0x{rva:08X}", str(size), "landed", evidence,
+                          eol=eol, path=log)
+        print(f"add_match: recorded `landed` x{len(landed)} in reverse/re_attempts.log -- stage it")
         if log.resolve() != re_log.RE_ATTEMPTS.resolve():
             return
-        freed = re_log.cites(rva, name)
-    except Exception as error:  # advisory, like the claim release below
-        print(f"add_match: could not record the landing: {error}", file=sys.stderr)
+        freed = []
+        for name, rva, *_ in landed:
+            freed.extend((rva, row) for row in re_log.cites(rva, name))
+    except (Exception, SystemExit) as error:  # the LF refusal is a SystemExit
+        print(f"add_match: could not record the landing (row stays live): {error}",
+              file=sys.stderr)
         return
-    for symbol, at, status, text in freed:
+    for rva, (symbol, at, status, text) in freed:
         print(f"add_match: may unblock {symbol} @ 0x{at:08X} ({status}): {text[:160]}")
     if freed:
-        print(
-            "add_match: land these, or re-record any that waited on this function "
-            "with blocked-on=0x%08X so the queue serves it as untried" % rva
-        )
+        print("add_match: land these, or re-record any that waited on a landed body "
+              "with blocked-on=0x<its rva> so the queue serves it as untried")
 
 
 def add_callee_pins(specs, root, name):

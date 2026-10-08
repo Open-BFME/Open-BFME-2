@@ -244,8 +244,9 @@ def main():
             sys.exit(1)
     print(f"add_match_batch: verified OK -- {len(claims)} row(s) live")
     for c in claims:
-        add_match.record_landing(root, c["name"], c["rva"], c["size"],
-                                 c["source"], c["notes"])
+        add_match.remove_stash(c["rva"], root)
+    add_match.record_landings(root, [(c["name"], c["rva"], c["size"], c["source"], c["notes"])
+                                     for c in claims])
     if root == DEFAULT_ROOT.resolve() and os.environ.get("BFME_CLAIMS", "on") != "off":
         try:
             import claims as shared_claims

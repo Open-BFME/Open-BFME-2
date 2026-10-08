@@ -12,6 +12,7 @@ import struct
 import subprocess
 import sys
 import threading
+import time
 from pathlib import Path
 
 import flag_defaults
@@ -23,6 +24,9 @@ from portable_lock import lock, unlock
 
 ROOT = Path(__file__).resolve().parents[1]
 REFERENCE_SUBMODULE = "reference/open-bfme-1"
+# compiler_command() runs the check: once per process per window, not per TU.
+_REFERENCE_CHECKED = None
+_REFERENCE_RECHECK = 300.0
 
 
 def ensure_reference_current():
@@ -35,6 +39,10 @@ def ensure_reference_current():
     stale checkout is the error reported, not whatever it breaks downstream.
     A tree git cannot describe (a seat, an export) is not judged.
     """
+    global _REFERENCE_CHECKED
+    now = time.monotonic()
+    if _REFERENCE_CHECKED is not None and now - _REFERENCE_CHECKED < _REFERENCE_RECHECK:
+        return
     try:
         status = subprocess.run(
             ["git", "submodule", "status", "--", REFERENCE_SUBMODULE],
@@ -42,12 +50,20 @@ def ensure_reference_current():
     except (OSError, subprocess.TimeoutExpired):
         return
     line = status.stdout.strip()
+    fix = (f"Fix:\n  git submodule update --init {REFERENCE_SUBMODULE}\n"
+           f"(tools/setup_hooks.sh sets submodule.recurse so pulls keep it current.)")
     if status.returncode == 0 and line[:1] in ("+", "U"):
         raise SystemExit(
             f"{REFERENCE_SUBMODULE} is checked out at a commit other than the one "
-            f"this tree pins:\n  {line}\nEvery build against it is suspect. Fix:\n"
-            f"  git submodule update --init {REFERENCE_SUBMODULE}\n"
-            f"(tools/setup_hooks.sh sets submodule.recurse so pulls keep it current.)")
+            f"this tree pins:\n  {line}\nEvery build against it is suspect. {fix}")
+    reference = ROOT / REFERENCE_SUBMODULE
+    if (status.returncode == 0 and line[:1] == "-"
+            and not (reference.is_dir() and any(reference.iterdir()))):
+        # Uninitialized and empty: every include under it is missing, and MSVC
+        # reports that as a missing header, never as this. A seat that
+        # populates the directory some other way is not judged.
+        raise SystemExit(f"{REFERENCE_SUBMODULE} is not checked out:\n  {line}\n{fix}")
+    _REFERENCE_CHECKED = now
 
 
 MANIFEST = ROOT / "baselines" / "bfme2" / "workshop-vanilla-1.06" / "manifest.json"
@@ -998,6 +1014,10 @@ def source_extra_flags(source):
 
 
 def compiler_command(source, output):
+    # Every compile path builds its command here -- explain_mismatch,
+    # link_check --refresh, flag_defaults, census_receipts and others skip
+    # build.main, so the stale-reference refusal lives where they all meet.
+    ensure_reference_current()
     root = vc71_root()
     source_arg = source.relative_to(ROOT).as_posix()
     output_arg = output.relative_to(ROOT).as_posix()
