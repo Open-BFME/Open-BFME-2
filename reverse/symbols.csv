@@ -17051,3 +17051,5 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ?rva001E2BB0@Rva001E2BB0@@QAE?AVRva000B3F15@@PBD@Z,0x001E2BB0,Native 1E2BB0 226B RET8; C4A94 hidden return and B3F15 assignment prove 4B handle ABI; neutral identity
 ?rva0050FFC0@Rva0050F5A6@@QAEXXZ,0x0050FFC0,callee of ?rva005101E2@Rva005101E2@@QAEXXZ
 ?rva0050F4D0@Rva0050F5A6@@QAEXXZ,0x0050F4D0,callee of ?rva0050FFC0@Rva0050F5A6@@QAEXXZ
+??0Rva0050FC54@@QAE@HABVAsciiString@@PAVPlayer@@@Z,0x0050FC54,callee of ?rva0050FFEC@Rva0050F5A6@@QAEXPBD@Z
+??0Rva0050FF55@@QAE@PAVRva0050F5A6@@HABVAsciiString@@PAVPlayer@@@Z,0x0050FF55,callee of ?rva0050FFEC@Rva0050F5A6@@QAEXPBD@Z

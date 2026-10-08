@@ -17,14 +17,14 @@ class Player;
 class PlayerList {public: char unknown00[0x10]; Player *localPlayer;};
 extern PlayerList *ThePlayerList;
 class Money {public: char unknown00[4];unsigned amount;};
-class Player {public: char unknown00[0x90];Money money;};
+class Player {public: bool isLocalPlayer() const; char unknown00[0x90];Money money;};
 class BfmeMemberRV {public: bool bfmeAskRV();};
 class Rva0050F0AB {public: char unknown00[0x6c];unsigned amount;void rva0050F2AF(unsigned);};
 inline const unsigned &minAmount(const unsigned &a,const unsigned &b){return a<b?a:b;}
 class Rva0050F041 { public: void rva0050FF1C(); };
 class Rva0050F5A6 { public:
- void rva0050FFC0(); void rva0050F4D0();
- char unknown00[0x20];int count;
+ void rva0050FFC0(); void rva0050F4D0(); void rva0050FFEC(const char*);
+ int level;char unknown04[0x1c];int count;
  struct Entry { Player *player;Rva0050F041 *object; };
  Entry *entries() { return reinterpret_cast<Entry *>((char *)this+0x24); }
 };
@@ -83,4 +83,35 @@ void Rva0050F5A6::rva0050F4D0() {
    remaining-=reinterpret_cast<Rva0050F0AB*>(slot.object)->amount;
   }
  }
+}
+
+extern "C" __declspec(dllimport) int __cdecl atoi(const char*);
+bool Rva004128F0GetParam(const char*,const char*,AsciiString&);
+int Rva004128BBGetLevel(const char*);
+const char *Rva00412845AfterLevel(const char*);
+class Rva0050FC54 {public: Rva0050FC54(int,const AsciiString&,Player*);char opaque[0x80];};
+class Rva0050FF55 {public: Rva0050FF55(Rva0050F5A6*,int,const AsciiString&,Player*);char opaque[0x84];};
+class Object;
+class Rva00575674 {public:void rva00575674(Object*);};
+// Native50FFEC..5101C0 468B RET4; WB1358B70/tribute.cpp1203 corroborates
+// index/name parsing and local-player row selection without an original name.
+// Native constructors50FF55(42B RET16) and50FC54(392B RET12) receive ordinary
+// ECX plus parent/level/path-reference/player or level/path-reference/player.
+// The measured opaque sizes84/80 come from retail new operands, not WB layout.
+// Both publish into the same slot via the existing pooled Object setter.
+void Rva0050F5A6::rva0050FFEC(const char *params) {
+ AsciiString indexText;
+ if(!Rva004128F0GetParam(params,"index",indexText))return;
+ int index=atoi(indexText.str());
+ if(index<0 || index>count)return;
+ Entry &slot=entries()[index];
+ if(slot.object)return;
+ AsciiString name;
+ if(!Rva004128F0GetParam(params,"name",name))return;
+ int rowLevel=Rva004128BBGetLevel(name.str());
+ if(rowLevel!=level)return;
+ if(slot.player->isLocalPlayer())
+  reinterpret_cast<Rva00575674*>(&slot.object)->rva00575674(reinterpret_cast<Object*>(new Rva0050FF55(this,rowLevel,AsciiString(Rva00412845AfterLevel(name.str())),slot.player)));
+ else
+  reinterpret_cast<Rva00575674*>(&slot.object)->rva00575674(reinterpret_cast<Object*>(new Rva0050FC54(rowLevel,AsciiString(Rva00412845AfterLevel(name.str())),slot.player)));
 }
