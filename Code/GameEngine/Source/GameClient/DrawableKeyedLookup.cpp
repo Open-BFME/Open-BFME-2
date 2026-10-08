@@ -42,6 +42,7 @@ class Rva0027675FIface
 {
 public:
 	virtual bool lookup(int key, Rva002390CB *out);
+	virtual bool lookupName(const class AsciiString &name, Rva002390CB *out);
 };
 
 class Rva0027675FListener
@@ -58,6 +59,7 @@ class Rva00239435
 {
 public:
 	Rva002390CB rva00239435(int key);
+	Rva002390CB rva0033D3E8(const AsciiString &name);
 };
 
 class Drawable
@@ -65,6 +67,7 @@ class Drawable
 public:
 	Rva002390CB rva0027675F(int key);
 	bool rva00276805(int key);
+	Rva002390CB rva00274CD8(const AsciiString &name);
 private:
 	unsigned char m_pad00[4];
 	Rva00239435 *m_template; // +0x04
@@ -90,4 +93,21 @@ bool Drawable::rva00276805(int key)
 {
 	Rva002390CB record = rva0027675F(key);
 	return record.m_4.m_ref != 0;
+}
+
+// Ghidra [274CD8,274D6F)151B RET8 (hidden result and name reference).
+// The matched keyed sibling proves the listener list154 and template04.
+// This entry uses interface slot1 and falls back to 33D3E8. The fallback
+// calls AsciiString's empty test and finds an AsciiString key in template388;
+// its WB twin reports "Unknown Audio name". The original method is unknown.
+Rva002390CB Drawable::rva00274CD8(const AsciiString &name)
+{
+	Rva002390CB result;
+	for (Rva0027675FListener **l = m_listeners; l && *l; ++l)
+	{
+		Rva0027675FIface *i = (*l)->getLookup();
+		if (i && i->lookupName(name, &result))
+			return result;
+	}
+	return m_template->rva0033D3E8(name);
 }
