@@ -16135,3 +16135,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva003B7362@ScriptList@@QAEXXZ,0x003B7362,callee of ?rva0032C88F@SidesList@@QAEXH@Z
 ??$copy@PAUFactionBuildLists@SidesList@@PAU12@@_STL@@YAPAUFactionBuildLists@SidesList@@PAU12@00@Z,0x0032DD66,callee of ??4SidesList@@QAEAAV0@ABV0@@Z
 ?Rva005CB265@@YAXXZ,0x005CB265,callee of ??4SidesList@@QAEAAV0@ABV0@@Z
+?rva002911B7@Object@@QAEPAVThingTemplate@@XZ,0x002911B7,callee of ?getObjectSelectedPortraitImage@Object@@QAEPBVImage@@XZ
