@@ -70529,3 +70529,5 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva004ECE93@Rva004ECE93@@QAEMH@Z,,0x004ECE93,21,Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp,matched,
 ?rva000C0386@Rva000BFDFE@@QAEXXZ,,0x000C0386,19,Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp,matched,
 ?rva002B8019@Rva002B6C9F@@QAE_NHHH@Z,,0x002B8019,44,Code/GameEngine/Source/Common/Rva002B6C9F.cpp,matched,
+?rva003FAD9A@Rva003FAC83@@QAEXXZ,,0x003FAD9A,9,Code/GameEngine/Source/Common/Rva003FAC83Flags.cpp,matched,
+?rva003FADA3@Rva003FAC83@@QAEXXZ,,0x003FADA3,18,Code/GameEngine/Source/Common/Rva003FAC83Flags.cpp,matched,

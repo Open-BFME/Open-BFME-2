@@ -16412,3 +16412,4 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?rva0052A4B5@Rva0052A470@@QAEXXZ,0x0052A4B5,callee of ?rva0052A66A@Rva0052A470@@QAEXXZ
 ?rva002C59CE@Rva002C59CE@@QAEMH@Z,0x002C59CE,tail callees of small member wrappers
 ?rva000BFDFE@Rva000BFDFE@@QAEXXZ,0x000BFDFE,tail callees of small member wrappers
+?rva003FAC83@Rva003FAC83@@QAEXXZ,0x003FAC83,tail callee of the 0x003FACB4/0x003FAD2B/0x003FAD9A/0x003FADA3 flag refreshers
