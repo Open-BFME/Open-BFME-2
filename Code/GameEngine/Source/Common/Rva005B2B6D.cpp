@@ -33,7 +33,7 @@ public:
 	Rva005B2B6D *m_current;
 };
 
-UnicodeString __cdecl Rva005B2376Describe(void *power, int unused, const AsciiString &fallback);
+UnicodeString __cdecl Rva005B2376Describe(void *power, const AsciiString &unused, const AsciiString &fallback);
 
 class Rva005B2B6D
 {
@@ -67,11 +67,11 @@ void Rva005B2B6D::rva005B2CE5(const char *path)
 	{
 		AsciiString noCurrent("TOOLTIP:CAH_NO_CURRENT_POWER");
 		AsciiString current("TOOLTIP:CAH_CURRENT_POWER");
-		m_name = Rva005B2376Describe((void *)button, (int)&current, noCurrent);
+		m_name = Rva005B2376Describe((void *)button, current, noCurrent);
 	}
 	else
 	{
 		m_name = Rva005B2376Describe((void *)button,
-			(int)&AsciiString::TheEmptyString, AsciiString::TheEmptyString);
+			AsciiString::TheEmptyString, AsciiString::TheEmptyString);
 	}
 }

@@ -1,10 +1,12 @@
-// cl: /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 //
 // BFME2's create-a-hero powers page, AptCreateAHero::Powers (WorldBuilder:
 // Code/GameEngine/Source/GameClient/Gui/GUICallbacks/Apt/AptCreateAHeroPowers.cpp).
 // Names are WorldBuilder's (wb-name-unverified); layouts are from the
 // retail bodies.
 #include "ascii_string.h"
+#include "unicode_string.h"
+#include <stdio.h>
 // stlport
 #include <map>
 
@@ -87,6 +89,7 @@ class Rva005B2DDF
 {
 public:
 	void *rva005B2E09(Rva005B2E09Cell *cell);
+	void *rva005B2DDF(unsigned int row, unsigned int column);
 };
 
 // TheCreateAHeroManager 0x009FE344 and its rowed 0x00219309 count.
@@ -112,11 +115,14 @@ private:
 	unsigned char m_pad00[0x240];
 	AsciiString m_prerequisite;
 };
+UnicodeString Rva005B2376Describe(void *power, const AsciiString &unused, const AsciiString &fallback);
+
 namespace AptCreateAHero
 {
 class Powers
 {
 public:
+	void MatrixToolTip(const char *path);
 	Rva005B2E09Cell *GetPrereqData(Rva005B2E09Cell *cell);
 	int CalculateFlashState(Rva005B2E09Cell *cell);
 	void UpdatePalantirButtons();
@@ -137,6 +143,8 @@ private:
 	int m_numPowers;             // +0x50
 	unsigned int m_numPalantir;  // +0x54
 	bool m_changed;             // +0x58
+	char m_pad59[0x68 - 0x59];
+	UnicodeString m_name;       // +0x68
 };
 }
 
@@ -262,16 +270,33 @@ Rva005B2E09Cell *AptCreateAHero::Powers::GetPrereqData(Rva005B2E09Cell *cell)
 {
 	AsciiString prereq = ((const Rva005B2B3BOwner *)cell->m_button)->rva005B2B3B();
 	if (prereq.isEmpty())
-	    return 0;
+		return 0;
 	std::map<AsciiString, Rva005B2E09Cell>::iterator it = m_powersNameMap.find(prereq);
 	if (it == m_powersNameMap.end())
-	    return 0;
+		return 0;
 	return &it->second;
 }
 
 AsciiString Rva005B2B3BOwner::rva005B2B3B() const
 {
 	if (m_prerequisite.isNone())
-	    return AsciiString::TheEmptyString;
+		return AsciiString::TheEmptyString;
 	return m_prerequisite;
+}
+
+// Native 0x005B3245..0x005B32D5: parse the one-based matrix row/column,
+// fetch the grid cell, and keep its description at +0x68 or the empty string.
+// WB MatrixToolTip 0x015751D0 supplies the method identity (wb-name-unverified).
+void AptCreateAHero::Powers::MatrixToolTip(const char *path)
+{
+	int row, column;
+	if (sscanf(path, "%d,%d", &row, &column) != 2)
+		return;
+	--row;
+	--column;
+	Rva005B2E09Cell *cell = (Rva005B2E09Cell *)((Rva005B2DDF *)this)->rva005B2DDF(row, column);
+	if (cell)
+		m_name = Rva005B2376Describe(cell->m_button, AsciiString::TheEmptyString, AsciiString::TheEmptyString);
+	else
+		m_name = UnicodeString::TheEmptyString;
 }

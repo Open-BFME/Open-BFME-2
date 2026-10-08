@@ -76,7 +76,7 @@ private:
 };
 
 // Rowed 0x005B23D7 in Code/GameEngine/Source/Common/AptHeroPowerText.cpp.
-void __cdecl Rva005B23D7HeroPowersDescription(void *power, int unused, const AsciiString &fallback);
+void __cdecl Rva005B23D7HeroPowersDescription(void *power, const AsciiString &unused, const AsciiString &fallback);
 
 class AptCreateAHero
 {
@@ -213,7 +213,7 @@ void AptCreateAHero::OnShowScreen(const char *screen)
 		if (m_page)
 			m_page->show();
 		m_myHero.rva005B1288();
-		Rva005B23D7HeroPowersDescription((void *)0, (int)&AsciiString::TheEmptyString, AsciiString::TheEmptyString);
+		Rva005B23D7HeroPowersDescription((void *)0, AsciiString::TheEmptyString, AsciiString::TheEmptyString);
 	}
 }
 
