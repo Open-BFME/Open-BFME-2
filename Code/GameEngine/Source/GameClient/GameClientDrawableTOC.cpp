@@ -1873,3 +1873,58 @@ void GameClient::rva002391AA(const FrustumClass *frustum, float radiusPad, GameC
 			((Rva002707FA *)draw)->rva002707FA(0);
 	}
 }
+
+// 0x002763E6 spline-interpolates the position between +0x40C and +0x430 and
+// is the getPosition ZH's iterateDrawablesInRegion calls. 0x0027930F is ZH
+// Drawable::setTimeOfDay (MODELCONDITION_NIGHT set for TIME_OF_DAY_NIGHT).
+class BFMERopeDrawable { public: const Coord3D *getPosition() const; };
+class Rva0027930FHost { public: void rva0027930F(int v); };
+
+// Donor: ZH GameClient::iterateDrawablesInRegion and setTimeOfDay, same
+// loops. Slot 27 (0x00238EBF) visits the drawables slot 26 left uncached.
+void GameClient::iterateDrawablesInRegion(Region3D *region, GameClientFuncPtr userFunc, void *userData)
+{
+	Drawable *draw, *nextDrawable;
+
+	for (draw = m_drawableList; draw; draw = nextDrawable)
+	{
+		nextDrawable = draw->getNextDrawable();
+
+		const Coord3D *pos = ((BFMERopeDrawable *)draw)->getPosition();
+		float x = pos->x;
+		float y = pos->y;
+		float z = pos->z;
+		if (region == 0 ||
+			(x >= region->lo.x && x <= region->hi.x &&
+			 y >= region->lo.y && y <= region->hi.y &&
+			 z >= region->lo.z && z <= region->hi.z))
+		{
+			(*userFunc)(draw, userData);
+		}
+	}
+}
+
+void GameClient::rva00238EBF(GameClientFuncPtr userFunc, void *userData)
+{
+	Drawable *draw, *nextDrawable;
+
+	for (draw = m_drawableList; draw; draw = nextDrawable)
+	{
+		int cullPlane = draw->m_cullPlane;
+		nextDrawable = draw->getNextDrawable();
+		if (cullPlane < 1 || cullPlane > 4)
+			(*userFunc)(draw, userData);
+	}
+}
+
+void GameClient::setTimeOfDay(TimeOfDay tod)
+{
+	Drawable *draw = firstDrawable();
+
+	while (draw)
+	{
+		((Rva0027930FHost *)draw)->rva0027930F(tod);
+
+		draw = draw->getNextDrawable();
+	}
+}
