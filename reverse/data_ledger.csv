@@ -19101,8 +19101,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A05F7C,4,.data,global,?g_rva00627A50A@@3PAXA,Code/GameEngine/Source/Common/Rva00627A50Clear.cpp,owned,,1,7
 0x00A05F80,4,.data,global,?g_rva00627A50B@@3PAXA,Code/GameEngine/Source/Common/Rva00627A50Clear.cpp,owned,,1,6
 0x00A05F84,4,.data,global,_reOpenPlayerInfoFlag,Code/GameEngine/Source/GameNetwork/GameSpyOverlay.cpp,owned,,1,2
-0x00A05F88,32,.data,global,?G00A05F88@@3PAPAVRva00548B97Helper@@A,Code/GameEngine/Source/Common/Rva00548B97Free.cpp,provisional,?G00A05F88@@3PAPAVRva00548B97Helper@@A;_overlayLayouts@Code/GameEngine/Source/GameNetwork/GameSpyOverlay.cpp;_overlayLayouts@Code/GameEngine/Source/GameNetwork/GameSpyOverlay_RaiseGSMessageBox_YAXXZ.cpp,3,6
-0x00A05FA8,4,.data,global,?G00A05FA8@@3HA,Code/GameEngine/Source/Common/Rva00548B97Free.cpp,owned,,1,1
+0x00A05F88,36,.data,global,?G00A05F88@@3PAPAVRva00548B97Helper@@A,Code/GameEngine/Source/Common/Rva00548B97Free.cpp,owned,,1,13
 0x00A05FAC,4,.data,global,?s_instance@AptStrategicMessageBox@@0PAV1@A,,unowned,?g_Va00E05FAC@@3HA;?s_instance@AptStrategicMessageBox@@0PAV1@A,1,11
 0x00A05FB0,4,.data,global,?G00A05FB0@@3PAVRva0054D974@@A,Code/GameEngine/Source/Common/Rva005BA36DGet.cpp,provisional,?G00A05FB0@@3PAVRva0054D974@@A;?TheLadderList@@3PAVRva0054D974@@A,1,4
 0x00A05FB4,4,.data,global,?TheGameSpyConfig@@3PAVGameSpyConfigInterface@@A,Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyInfo_getPingValue.cpp,provisional,?TheGameSpyConfig@@3PAVGameSpyConfigInterface@@A;?g_00E05FB4@@3PAVG00E05FB4Provider@@A,1,19

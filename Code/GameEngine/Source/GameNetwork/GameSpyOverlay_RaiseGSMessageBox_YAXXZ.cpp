@@ -195,28 +195,20 @@ static const char * gsOverlays[GSOVERLAY_MAX] =
 	"Menus/OptionsMenu.wnd",			// popup options
 };
 
-static WindowLayout *overlayLayouts[GSOVERLAY_MAX] =
-{
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-};
+// Shared nine-slot storage owned by Rva00548B97Free.cpp. Native indexed
+// references identify the same table, including the options slot at +32.
+class Rva00548B97Helper;
+extern Rva00548B97Helper *G00A05F88[GSOVERLAY_MAX];
 
 // ?raiseOverlays present-unmatched  static emitter inlined into RaiseGSMessageBox
 void raiseOverlays( void )
 {
-	// Double-load of overlayLayouts[i] yields retail mov eax,[esi]/mov ecx,eax
+	// Double-load of G00A05F88[i] yields retail mov eax,[esi]/mov ecx,eax
 	// thiscall shape (single local would load straight into ecx, 30B miss).
 	for (int i=0; i<GSOVERLAY_MAX; ++i)
 	{
-		if (overlayLayouts[i])
-			((BFMEOverlayLayoutCloseView *)overlayLayouts[i])->bringForward();
+		if (G00A05F88[i])
+			((BFMEOverlayLayoutCloseView *)G00A05F88[i])->bringForward();
 	}
 }
 

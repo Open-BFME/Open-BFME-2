@@ -198,18 +198,10 @@ static const char * gsOverlays[GSOVERLAY_MAX] =
 	"Menus/OptionsMenu.wnd",			// popup options
 };
 
-static WindowLayout *overlayLayouts[GSOVERLAY_MAX] =
-{
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-};
+// Shared nine-slot storage owned by Rva00548B97Free.cpp. Native indexed
+// references identify the same table, including the options slot at +32.
+class Rva00548B97Helper;
+extern Rva00548B97Helper *G00A05F88[GSOVERLAY_MAX];
 
 void GameSpyUpdateOverlays( void )
 {
@@ -218,8 +210,8 @@ void GameSpyUpdateOverlays( void )
 	// A single local loads straight into ecx and misses the 34-byte body at 0x00627C10.
 	for (int i=0; i<GSOVERLAY_MAX; ++i)
 	{
-		if (overlayLayouts[i])
-			((BFMEOverlayLayoutCloseView *)overlayLayouts[i])->runUpdate( NULL );
+		if (G00A05F88[i])
+			((BFMEOverlayLayoutCloseView *)G00A05F88[i])->runUpdate( NULL );
 	}
 }
 
@@ -231,7 +223,7 @@ void GameSpyCloseOverlay( GSOverlayType overlay );
 // inlines GameSpyIsOverlayOpen, so the toggle tests the layout slot directly.
 void GameSpyToggleOverlay( GSOverlayType overlay )
 {
-	if (overlayLayouts[overlay] != NULL)
+	if (G00A05F88[overlay] != NULL)
 		GameSpyCloseOverlay(overlay);
 	else
 		GameSpyOpenOverlay(overlay);
@@ -405,18 +397,18 @@ void GameSpyOpenOverlay( GSOverlayType overlay )
 			((GameSpyOverlayAudioView *)TheAudio)->addAudioEvent( &buttonClick );
 		}  // end if
 	}
-	if (overlayLayouts[overlay])
+	if (G00A05F88[overlay])
 	{
-		((BFMEOverlayLayoutCloseView *)overlayLayouts[overlay])->hide( FALSE );
-		((BFMEOverlayLayoutCloseView *)overlayLayouts[overlay])->bringForward();
+		((BFMEOverlayLayoutCloseView *)G00A05F88[overlay])->hide( FALSE );
+		((BFMEOverlayLayoutCloseView *)G00A05F88[overlay])->bringForward();
 	}
 	else
 	{
-		overlayLayouts[overlay] = ((GameSpyOverlayWindowManagerView *)TheWindowManager)->winCreateLayout( GameSpyOverlayLayoutName( gsOverlays[overlay] ) );
-		if (((GameSpyOverlayLayoutView *)overlayLayouts[overlay])->m_window08)
-			((GameSpyOverlayLayoutView *)overlayLayouts[overlay])->m_window08->m_field1F4 = 0;
-		((BFMEOverlayLayoutCloseView *)overlayLayouts[overlay])->runInit( NULL );
-		((BFMEOverlayLayoutCloseView *)overlayLayouts[overlay])->hide( FALSE );
-		((BFMEOverlayLayoutCloseView *)overlayLayouts[overlay])->bringForward();
+		G00A05F88[overlay] = (Rva00548B97Helper *)((GameSpyOverlayWindowManagerView *)TheWindowManager)->winCreateLayout( GameSpyOverlayLayoutName( gsOverlays[overlay] ) );
+		if (((GameSpyOverlayLayoutView *)G00A05F88[overlay])->m_window08)
+			((GameSpyOverlayLayoutView *)G00A05F88[overlay])->m_window08->m_field1F4 = 0;
+		((BFMEOverlayLayoutCloseView *)G00A05F88[overlay])->runInit( NULL );
+		((BFMEOverlayLayoutCloseView *)G00A05F88[overlay])->hide( FALSE );
+		((BFMEOverlayLayoutCloseView *)G00A05F88[overlay])->bringForward();
 	}
 }
