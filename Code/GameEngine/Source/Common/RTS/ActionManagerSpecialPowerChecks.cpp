@@ -22,6 +22,8 @@
 // numeric status threshold 3 corresponds to the reference's object fog state.
 enum CellShroudStatus { ACTION_OBJECT_SHROUD_FOGGED = 3 };
 
+enum Relationship { ENEMIES, NEUTRAL, ALLIES };
+
 class Object;
 class Player;
 
@@ -71,6 +73,7 @@ struct Coord3D
 class Object
 {
 public:
+	Relationship getRelationship(const Object *) const;
 	Player *getControllingPlayer() const;	// 0x0028AFA9
 	CellShroudStatus getShroudStatusForPlayer(int playerIndex) const;
 };
@@ -132,6 +135,7 @@ public:
 class ActionManager
 {
 public:
+	bool canMakeObjectDefector(const Object *, const Object *, CommandSourceType);
 	bool canConvertObjectToCarBomb(const Object *, const Object *, CommandSourceType);
 	bool validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
 };
@@ -215,4 +219,22 @@ bool ActionManager::canConvertObjectToCarBomb(
 			return true;
 	}
 	return false;
+}
+
+// BFME1 ba7ddda7 ActionManager.cpp canMakeObjectDefector, with native
+// Object status byte +438. Relationship enum ENEMIES=0 is already rowed.
+// The complete 64-byte body ends at 41BA5C; the adjacent five-byte stub
+// is outside this function and is not included in its extent.
+bool ActionManager::canMakeObjectDefector(
+	const Object *obj, const Object *target, CommandSourceType commandSource)
+{
+	if (!obj || !target)
+		return false;
+	if (obj->getRelationship(target) != ENEMIES)
+		return false;
+	if (*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(target) + 0x438) & 1)
+		return false;
+	if (isObjectShroudedForAction(obj, target, commandSource))
+		return false;
+	return true;
 }
