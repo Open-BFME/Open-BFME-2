@@ -704,7 +704,7 @@ public:
 class Rva0046BB38Iface11C : public Rva0046BB38Iface6
 {
 public:
-	virtual int rva0046979B() = 0; virtual void assignSpotToUnit(Object *obj) = 0; virtual void gap12() = 0; virtual void gap13() = 0;
+	virtual int rva0046979B() = 0; virtual void assignSpotToUnit(Object *obj) = 0; virtual void rva00469F2F(Object *obj) = 0; virtual void gap13() = 0;
 	virtual void gap14() = 0; virtual void gap15() = 0; virtual void performReform() = 0; virtual void rva0046FE99(_STL::list<Object *> &out) = 0;
 	virtual void gap18() = 0; virtual Object *rva0046CB2C() = 0; virtual Object *rva0046CC09() = 0; virtual Object *rva0046CBCA() = 0;
 	virtual void *rva004696CD() = 0; virtual bool rva0046CDC9() = 0; virtual void rva004696E5() = 0; virtual bool rva0046CCEF(const ThingTemplate *tmpl) = 0;
@@ -883,6 +883,8 @@ public:
 	virtual void ClassifyBeforeOnAfterInvalidPortal(_STL::vector<ObjectID> &before, _STL::vector<ObjectID> &on, _STL::vector<ObjectID> &after);
 	virtual AsciiString rva0046D1AC();
 	virtual void rva0046F7C9(Object *obj);
+	virtual void rva00469F2F(Object *obj);
+	void rva00469886(Object *obj);
 	virtual int rva0046979B();
 	virtual void *rva004696CD();
 	virtual void rva004696E5();
@@ -1065,6 +1067,29 @@ AsciiString HordeContain::rva0046D1AC()
 void HordeContain::rva0046F7C9(Object *obj)
 {
 	gatherUnitBack(obj);
+}
+
+// ?rva00469886@HordeContain@@QAEXPAVObject@@@Z @0x00469886: adds every name of
+// the module data's +0x224 vector to the Object's attribute modifier pools
+// (with -1); slot 12 below is its only caller.
+void HordeContain::rva00469886(Object *obj)
+{
+	if (!obj)
+		return;
+	const HordeContainModuleDataFields *data = fields();
+	if (!data)
+		return;
+	const AsciiString *it = data->m_224Begin;
+	const AsciiString *const *end = &data->m_224End;
+	for (; it != *end; ++it)
+		obj->addAttributeModifierToPool(*it, -1);
+}
+
+// ?rva00469F2F@HordeContain@@UAEXPAVObject@@@Z @0x00469F2F: slot 12, forwards to
+// 0x00469886 on the HordeContain base.
+void HordeContain::rva00469F2F(Object *obj)
+{
+	rva00469886(obj);
 }
 
 // ?rva0046979B@HordeContain@@UAEHXZ @0x0046979B: slot 10, module data +0x98.
