@@ -7,15 +7,9 @@
 // 0x0061EF90. The two option dwords are stored at object +0x30/+0x34. The
 // helper class identities at 0x00131DCB and 0x00132D43 remain address-derived.
 
-class TextureClass
-{
-public:
-	virtual void slot00();
-	unsigned short m_refCount;
-	unsigned short m_pad06;
-	void Release_Ref();
-};
+#include "BFME2ParticleTextureHandles.h"
 
+template<class T> inline RefCountPtr<T>::~RefCountPtr() { if (Ptr) Ptr->Release_Ref(); }
 class BfmeThingSJ : public TextureClass
 {
 public:
@@ -76,15 +70,11 @@ struct BfmeResetTextureRef
 
 // This opaque wrapper uses the 0x131DCB ctor-shaped helper. Its one-dword
 // layout and the subsequent assignment at 0x131D99 follow the target calls.
-class Rva00131DCBTextureRef : public BfmeResetTextureRef
+class Rva00131DCBTextureRef : public RefCountPtr<TextureClass>
 {
 public:
 	Rva00131DCBTextureRef(const BfmeResetAnyRef &rhs);
-	~Rva00131DCBTextureRef()
-	{
-		if (pointer)
-			((TextureClass *)pointer)->Release_Ref();
-	}
+	__forceinline ~Rva00131DCBTextureRef() {}
 };
 
 class Rva00132D43TextureCtor : public BfmeThingSJ
@@ -96,23 +86,6 @@ public:
 	int m_option1;
 	int m_pad38;
 	Rva00132D43TextureCtor(const char *filename);
-};
-
-class BFME2ParticleTextureHandle
-{
-public:
-	TextureClass *Ptr;
-	BFME2ParticleTextureHandle() : Ptr(0) {}
-	BFME2ParticleTextureHandle(TextureClass *ptr) : Ptr(ptr)
-	{
-		if (Ptr)
-			++Ptr->m_refCount;
-	}
-	~BFME2ParticleTextureHandle()
-	{
-		if (Ptr)
-			Ptr->Release_Ref();
-	}
 };
 
 extern void Add_Prototype(void *prototype);
@@ -131,22 +104,30 @@ BFME2ParticleTextureHandle __cdecl BFME2LoadParticleTexture(
 
 	Rva00131DCBTextureRef texture(
 		(const BfmeResetAnyRef &)Rva0061F230_GetPrototype(filename));
-	if (!texture.pointer)
+	if (!texture.Ptr)
 	{
 		Add_Prototype(new Rva00132D43TextureCtor(filename));
-		static_cast<BfmeResetTextureRef &>(texture) =
+		*reinterpret_cast<BfmeResetTextureRef *>(&texture) =
 			(const BfmeResetAnyRef &)Rva0061F230_GetPrototype(filename);
 	}
 	else
 	{
 		Rva00132D43TextureCtor *resource =
-			(Rva00132D43TextureCtor *)texture.pointer;
+			(Rva00132D43TextureCtor *)texture.Ptr;
 		resource->m_option0 = option0;
-		((Rva00132D43TextureCtor *)texture.pointer)->m_option1 = option1;
+		((Rva00132D43TextureCtor *)texture.Ptr)->m_option1 = option1;
 	}
-	return BFME2ParticleTextureHandle((TextureClass *)texture.pointer);
+	return BFME2ParticleTextureHandle((TextureClass *)texture.Ptr, BFME2ParticleTextureHandle::ACQUIRE_INLINE);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?bfmeDoBNH@@YAXPAVBfmeThingBNH@@PAXHH@Z=?BFME2LoadParticleTexture@@YA?AVBFME2ParticleTextureHandle@@PBDHH@Z")
+
+// 0x00131DCB..0x00131DFC: typed owning handle starts empty and delegates to
+// the established TEX-tag assignment. Its exception cleanup is the existing
+// RefCountPtr<TextureClass> destructor, proving a nontrivial owning base.
+Rva00131DCBTextureRef::Rva00131DCBTextureRef(const BfmeResetAnyRef &rhs)
+{
+	*reinterpret_cast<BfmeResetTextureRef *>(this) = rhs;
+}
