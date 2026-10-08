@@ -2509,6 +2509,18 @@ PUBLIC ?rva00792aa2@@YAXXZ
     jmp ?apply@Rva004EDFF8DwordImmSetter@@QAEXXZ
 ?rva00792aa2@@YAXXZ ENDP
 
+; Unwind@00b92a7a: masked-add cleanup adds 04h to [ebp-16] and tail-jumps to 0x004EDFFF.
+PUBLIC ?rva00792a7a@@YAXXZ
+?rva00792a7a@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 04h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ
+?rva00792a7a@@YAXXZ ENDP
+
 ; Unwind@00b92eb6 at RVA 0x00792EB6; target byte boundary is 25 bytes.
 ; State bit 0 gates [ebp+8] cleanup through RVA 0x005B804E; parent
 ; identity and concrete cleanup-object type remain unknown.
