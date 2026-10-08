@@ -63,3 +63,12 @@ bool MilesAudioManager::processFade(PlayingAudioRef &playing)
     }
     return fading;
 }
+
+// --- 2026-10-09 claude-opus-5-5 (w5-o4) notes (0.77, not better):
+// Bank: MilesAudioManager::processFade (WB 7A0EB0), retail 0x53448 350B. Apply to MilesAudioManager.cpp:
+//  PlayingAudio flags +0x44..+0x48 as bools; manager float m_at90 (+0x90 fade step); AudioEventRTS float m_at2C;
+//  class Rva00050D86 { bool rva00050D86(unsigned char); }; extern float g_00DBA4FC; decl bool processFade(PlayingAudioRef&).
+// Remaining: retail stores step=m_at90 (read via lea) before the view-type override and keeps this in ebx;
+// the if/else step form below matches the prologue but merges the step stores (ratio 0.77);
+// the straight form spills this and uses ebx as a zero register.
+

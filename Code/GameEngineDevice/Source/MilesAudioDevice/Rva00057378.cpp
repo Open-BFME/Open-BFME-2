@@ -25,6 +25,7 @@ private:
 };
 
 typedef _STL::hash_multimap<unsigned int, int> MilesKeyAliases;
+struct BfmeEventPositionView;
 // Physical Miles handle -> logical handle at +0x118, the reverse of the
 // alias table (WorldBuilder's unmapPhysicalHandle erases from both).
 typedef _STL::hash_map<unsigned int, int> MilesPhysicalHandles;
@@ -43,6 +44,8 @@ public:
     bool rva000613A9(unsigned int handle);
     bool rva000615DA(unsigned int handle);
     void unmapPhysicalHandle(unsigned int handle);
+    bool rva000562FA(int key, BfmeEventPositionView *output);
+    bool rva00057492(unsigned int key, BfmeEventPositionView *output);
 private:
     char at00[0x104];
     MilesKeyAliases aliases;
@@ -162,4 +165,21 @@ void MilesAudioManager::unmapPhysicalHandle(unsigned int handle)
         ++alias;
     if (alias != aliases.end() && alias->first == logical)
         aliases.erase(alias);
+}
+
+// Native 00057492..0005752E, RET8. Under the +0x9D4 mutex the position query
+// 000562FA runs for the handle itself when it has no alias, else for each
+// equal-key alias until one answers; the result says whether any did.
+bool MilesAudioManager::rva00057492(unsigned int key, BfmeEventPositionView *output)
+{
+    MilesMutexGuard guard(&mutex, 0);
+    MilesKeyAliases::iterator it = aliases.find(key);
+    if (it == aliases.end())
+        return rva000562FA(key, output);
+    do {
+        if (rva000562FA(it->second, output))
+            return true;
+        ++it;
+    } while (it != aliases.end() && it->first == key);
+    return false;
 }
