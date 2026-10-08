@@ -1,4 +1,4 @@
-// cl: /G7 /O1 -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
+// cl: /ICode/GameEngine/Source/Common /G7 /O1 -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
 
 // BFMEConnectionManager::processAck, native 0x004D094C, 56 bytes.
 //
@@ -12,6 +12,9 @@
 // its frame to m_frameMetrics.processLatencyResponse. Retail does no such thing
 // -- it deletes the returned reference and stops. That is one more piece of the
 // adaptive-latency layer that FINDINGS already shows is absent.
+
+#include "GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -35,7 +38,11 @@ class NetCommandRef;
 class NetCommandMsg
 {
 public:
+	void attach();
 	void detach();
+	UnsignedInt getExecutionFrame() const { return m_executionFrame; }
+	void setExecutionFrame(UnsignedInt frame) { m_executionFrame = frame; }
+	void setTimestamp(UnsignedInt timestamp) { m_timestamp = timestamp; }
 	UnsignedInt getTimestamp() { return m_timestamp; }
 	Int getNetCommandType() { return m_commandType; }
 	UnsignedInt getPlayerID() { return m_playerID; }
@@ -65,6 +72,7 @@ class Connection
 {
 public:
 	NetCommandRef *processAck(NetCommandMsg *msg);
+	void sendNetCommandMsg(NetCommandMsg *msg, UnsignedByte relay);
 };
 
 class NetAckBothCommandMsg : public NetCommandMsg {
@@ -94,9 +102,23 @@ public:
     NetCommandRef *findMessage(UnsignedShort, unsigned char, NetCommandType, unsigned int);
     void removeMessage(NetCommandRef *);
 };
+class FrameDataManager {
+public:
+    NetCommandRef *addNetCommandMsg(NetCommandMsg *msg);
+};
+bool CommandRequiresDirectSend(NetCommandMsg *msg);
+
 class ConnectionManager {
 public:
     void sendLocalCommand(NetCommandMsg *, unsigned char);
+    void sendLocalCommandDirect(NetCommandMsg *, unsigned char);
+private:
+    void *m_vptr;
+    Connection *m_connections[8];
+    unsigned char opaque24[0x12028-0x24];
+    UnsignedInt m_localSlot, m_packetRouterSlot;
+    unsigned char opaque12030[0x12104-0x12030];
+    FrameDataManager *m_frameData[8];
 };
 
 class BFMEConnectionManager
@@ -205,4 +227,32 @@ void BFMEConnectionManager::processAckCommand(void *command)
 				ref->relay = relay;
 		}
 	}
+}
+
+// Routed local command sender from the same native command-manager run.
+void ConnectionManager::sendLocalCommand(NetCommandMsg *msg, unsigned char relay)
+{
+    if (CommandRequiresDirectSend(msg) || m_packetRouterSlot >= 8 || m_connections[m_packetRouterSlot] == 0) {
+        sendLocalCommandDirect(msg, relay);
+        return;
+    }
+    msg->attach();
+    if (m_localSlot == m_packetRouterSlot) {
+        GameLogic *logic = TheGameLogic;
+        unsigned int frame = logic->getFrame();
+        unsigned int timestamp = logic->getTimestamp();
+        msg->setTimestamp(timestamp);
+        msg->setExecutionFrame(frame + 1);
+        for (int i=0; i<8; ++i) {
+            if ((relay & (1 << i)) != 0 && m_connections[i] != 0)
+                m_connections[i]->sendNetCommandMsg(msg, (unsigned char)(1 << i));
+        }
+        if (m_localSlot < 8 && (relay & (1 << m_localSlot)) != 0 && m_frameData[m_localSlot] != 0)
+            m_frameData[m_localSlot]->addNetCommandMsg(msg);
+    } else if (m_packetRouterSlot < 8 && m_connections[m_packetRouterSlot] != 0) {
+        if (msg->getTimestamp() == (unsigned int)-1)
+            msg->setTimestamp(TheGameLogic->getTimestamp());
+        m_connections[m_packetRouterSlot]->sendNetCommandMsg(msg, relay);
+    }
+    msg->detach();
 }
