@@ -15,7 +15,10 @@
 // the m_cellsOnFire set (+0x84) through its find (0x00286214) and erase
 // (0x002860CF). Its Coord3D overload (0x00286AB4, WorldBuilder name) touches
 // only the cells of the span whose offset from the origin projects onto the
-// direction at or past the threshold.
+// direction at or past the threshold. ChangeBurnRateInArea (0x002871A4
+// and its directional overload 0x002873DF, WorldBuilder names; assert
+// lines 775 and 827) walks a disc of cells row span by row span with the
+// midpoint circle loop ChangeFuelInArea uses.
 //
 // Target facts: the fire grid is the 20-byte cell rows at +0x70 with the row
 // and column counts at +0x78/+0x7C (as Rva00285DC5Paint.cpp reads them); a
@@ -30,6 +33,7 @@
 typedef int Int;
 
 extern "C" __declspec(dllimport) double __cdecl floor(double);
+extern "C" __declspec(dllimport) double __cdecl ceil(double);
 
 __forceinline long FloatToLong(float f)
 {
@@ -116,6 +120,8 @@ class FireLogicSystem
 public:
 	void ChangeBurnRate(Int x0, Int x1, Int y, Int delta, bool onlyBurning);
 	void ChangeBurnRate(const Coord3D *origin, const Coord3D *dir, float threshold, Int x0, Int x1, Int y, Int delta, bool onlyBurning);
+	void ChangeBurnRateInArea(const Coord3D *pos, float radius, Int delta, bool onlyBurning);
+	void ChangeBurnRateInArea(const Coord3D *pos, float radius, const Coord3D *dir, float threshold, Int delta, bool onlyBurning);
 	void ChangeCellToObjectFlammability(Int x, Int y, const ThingTemplate *tmpl);
     void rva0028641F(unsigned int id, const Coord3D *pos);
     void ResetCellToOriginalFlammability(Int x, Int y);
@@ -361,5 +367,89 @@ void FireLogicSystem::ChangeBurnRate(const Coord3D *origin, const Coord3D *dir, 
 			else
 				cell->m_check = (unsigned short)(cell->m_check + delta);
 		}
+	}
+}
+
+void FireLogicSystem::ChangeBurnRateInArea(const Coord3D *pos, float radius, Int delta, bool onlyBurning)
+{
+	if (radius <= 0.0f)
+		return;
+	if (delta == 0)
+		return;
+	float fx = (float)floor(pos->x * 0.1f + 0.5);
+	Int cx = FloatToLong(fx);
+	float fy = (float)floor(pos->y * 0.1f + 0.5);
+	Int cy = FloatToLong(fy);
+	float fr = (float)ceil(radius * 0.1f);
+	Int rad = FloatToLong(fr);
+	Int y = rad;
+	Int d = 0;
+	Int err = 2 - 2 * rad;
+	Int bot = cx;
+	Int top = cx;
+	while (true) {
+		if (err + y > 0) {
+			if (y == 0) {
+				if (rad == 1) {
+					d++;
+					bot++;
+					top--;
+				}
+			}
+			ChangeBurnRate(top, bot, cy + y, delta, onlyBurning);
+			if (y == 0)
+				break;
+			ChangeBurnRate(top, bot, cy - y, delta, onlyBurning);
+			y--;
+			err += 1 - 2 * y;
+		}
+		if (d <= err)
+			continue;
+		d++;
+		bot++;
+		top--;
+		err += 2 * d + 1;
+	}
+}
+
+void FireLogicSystem::ChangeBurnRateInArea(const Coord3D *pos, float radius, const Coord3D *dir, float threshold, Int delta, bool onlyBurning)
+{
+	if (radius <= 0.0f)
+		return;
+	if (delta == 0)
+		return;
+	float fx = (float)floor(pos->x * 0.1f + 0.5);
+	Int cx = FloatToLong(fx);
+	float fy = (float)floor(pos->y * 0.1f + 0.5);
+	Int cy = FloatToLong(fy);
+	float fr = (float)ceil(radius * 0.1f);
+	Int rad = FloatToLong(fr);
+	Int y = rad;
+	Int d = 0;
+	Int err = 2 - 2 * rad;
+	Int bot = cx;
+	Int top = cx;
+	while (true) {
+		if (err + y > 0) {
+			if (y == 0) {
+				if (rad == 1) {
+					d++;
+					bot++;
+					top--;
+				}
+			}
+			ChangeBurnRate(pos, dir, threshold, top, bot, cy + y, delta, onlyBurning);
+			if (y == 0)
+				break;
+			ChangeBurnRate(pos, dir, threshold, top, bot, cy - y, delta, onlyBurning);
+			y--;
+			err += 1 - 2 * y;
+		}
+		if (d <= err)
+			continue;
+		d++;
+		bot++;
+		top--;
+		err += 2 * d + 1;
 	}
 }
