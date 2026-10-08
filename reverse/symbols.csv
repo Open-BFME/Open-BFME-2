@@ -16248,3 +16248,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva005EBDBF@Rva005EB8D6@@QAE_NPAX@Z,0x005EBDBF,Native caller5EC017 directly calls worker with owning impl and opaque battle pointer then tests AL; constructor5EB9F2 and destructor5EB8D6 prove implementation owner; worker stores/dereferences argument at+0C; WB SetCurrentBattle lead retains address-derived spelling
 ?rva000B49A1@RevivalExperienceView@@QBEHXZ,0x000B49A1,native37E983 constructor edge; BFME1 UnitRevivalTracker experience-level getter semantics; complete7B getter2C->C no relocations fold-proof=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
 ?UpdateCommandSet@CreateAHeroHero@@QAE_NH@Z,0x00407705,callee of ?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z
+?rva0031DB83@Rva000427195@@QAEPAPAXABVAsciiString@@@Z,0x0031DB83,callee of ?rva0031E8D5@ControlBar@@QAEPAVRva00409FFA@@ABVAsciiString@@H@Z
