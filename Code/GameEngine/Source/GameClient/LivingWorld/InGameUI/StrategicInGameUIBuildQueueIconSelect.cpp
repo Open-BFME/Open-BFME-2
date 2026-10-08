@@ -353,7 +353,6 @@ __declspec(noinline) static const Image *rva005E7607Get(Rva005E76AEContext *cont
 }
 const Image *Rva005F01C7Get(int);
 struct Rva005E7625Template { char pad[0x5c4]; int imageID; };
-// ?rva005E7625Get@@YAPBVImage@@PAVRva005E72B4Queue@@H@Z present-unmatched
 __declspec(noinline) static const Image *rva005E7625Get(Rva005E72B4Queue *queue,int index)
 {
  Rva005E7625Template *thing=(Rva005E7625Template *)rva005E7322Get(queue,queue->slot13()->begin[index]);
