@@ -15,6 +15,7 @@ class NetCommandList
 {
 public:
 	NetCommandList();
+	int length();
 private:
 	const void *m_vtable; // +0, retail 0x00C70A08 (explicit so no vtable emitted)
 	void *m_first;
@@ -28,4 +29,22 @@ NetCommandList::NetCommandList()
 	m_first = 0;
 	m_last = 0;
 	m_lastMessageInserted = 0;
+}
+
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 NetCommandList.cpp
+// supplies length's source expression and spelling. Complete target
+// 58B0CA..58B0D7 follows removeMessage's RET4 and precedes findMessage.
+// Existing rowed list operations independently establish head+4 and next+4;
+// the function counts nodes without touching message payloads. The local
+// link view represents only those accessed words, not a complete node type.
+int NetCommandList::length()
+{
+	struct Link { void *command; Link *next; };
+	int count = 0;
+	Link *node = (Link *)m_first;
+	while (node != 0) {
+		++count;
+		node = node->next;
+	}
+	return count;
 }
