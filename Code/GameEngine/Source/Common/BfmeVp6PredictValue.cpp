@@ -14,8 +14,12 @@ struct Rva009B4880Neighbor
 	short value;
 };
 
-extern unsigned char g_bfmeVp6SelectorMap[];
-unsigned char g_bfmeVp6SelectorMap[256];
+// Retail 0x00BD8D00: ten 32-bit mode-to-frame entries. The consumers
+// read the low byte or word of each entry through this shared byte array.
+unsigned char g_bfmeVp6SelectorMap[40] = {
+    1, 0, 0, 0,  0, 0, 0, 0,  1, 0, 0, 0,  1, 0, 0, 0,  1, 0, 0, 0,
+    2, 0, 0, 0,  2, 0, 0, 0,  1, 0, 0, 0,  2, 0, 0, 0,  2, 0, 0, 0
+};
 
 void Rva009B4880PredictValue(Rva009B4880State *state, int block,
 	short *output, const Rva009B4880Neighbor *left,

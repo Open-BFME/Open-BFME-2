@@ -3,7 +3,7 @@
 // BFME1 donors at 0x009AB950 and 0x009AB990 were ICF-folded; this name is RVA-derived.
 // Retail accesses the table at 0x00BD8D00; context and output offsets follow target loads/stores.
 // RVA 0x009AB950: select one 128-byte block and copy two short values.
-extern unsigned char *g_bfmeVp6SelectorMap;
+extern unsigned char g_bfmeVp6SelectorMap[40];
 
 struct Rva001BC390Context
 {
@@ -27,5 +27,5 @@ void __cdecl Rva001BC390Select(Rva001BC390Context *context,
 {
     output->m_block = context->m_blocks[block];
     output->m_current = context->m_wordTable[block * 64];
-    output->m_reference = ((const unsigned short *)&g_bfmeVp6SelectorMap)[context->m_wordIndex * 2];
+    output->m_reference = ((const unsigned short *)g_bfmeVp6SelectorMap)[context->m_wordIndex * 2];
 }
