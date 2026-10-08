@@ -101,6 +101,11 @@ public:
 
 extern View *TheTacticalView;
 
+// The common Drawable interpolation getter at2763E6 is currently provided
+// under this legacy BFME1 view name. Use that kept definition, as the generic
+// GameClient drawable walker does, rather than a second unresolved spelling.
+class BFMERopeDrawable { public: const Coord3D *getPosition() const; };
+
 struct HeroButtonInfo
 {
 	ObjectID m_heroID;				// +0x00
@@ -191,7 +196,7 @@ void InGameHeroSelectInterface::Impl::FlashHeroButton(const AsciiString &templat
 // tests the drawable's position at scale 1.
 Bool InGameHeroSelectInterface::Impl::IsBuilderOnScreen(const Object *builder)
 {
-	return TheTacticalView->isPointOnScreen(builder->getDrawable()->getPosition(), 1.0f);
+	return TheTacticalView->isPointOnScreen(reinterpret_cast<const BFMERopeDrawable *>(builder->getDrawable())->getPosition(), 1.0f);
 }
 
 // The verified sort/comparator use a one-word Rva00525119 handle. Retail
