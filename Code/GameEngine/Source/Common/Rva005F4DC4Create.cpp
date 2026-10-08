@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // ?rva005F4DC4@Rva005F4DC4@@QAE?AVRva005F4DC4Handle@@XZ,
 // retail 0x005F4DC4..0x005F4E48 (132 bytes, RET 4): returns a counted handle
@@ -31,12 +31,21 @@ struct Rva005F4C70
 	__forceinline Rva005F4C70(const Payload005FAB16 &o) : m_ref(0), m8(o) {}
 };
 
-// A counted handle to either action (count at +4).
+// A counted handle to either action (count at +4), released through the
+// rowed ReleaseTreeHintRef00217D4C and passed on as a TreeHintRef00217D4C,
+// as RvaCloneResult is.
 class Rva005F4DC4Handle
 {
 public:
 	template <class T> __forceinline Rva005F4DC4Handle(T *p) : m_ptr(p) { if (p) ++p->m_ref; }
-	~Rva005F4DC4Handle();
+	~Rva005F4DC4Handle()
+	{
+		if (m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+	operator const TreeHintRef00217D4C &() const
+	{
+		return *(const TreeHintRef00217D4C *)this;
+	}
 private:
 	void *m_ptr;
 };
@@ -86,4 +95,47 @@ Rva005F4DC4Handle Rva005F4DC4::rva005F4DC4()
 		payload.flag = false;
 		return Rva005F4DC4Handle(new Rva005F4C70(payload));
 	}
+}
+
+// ??0Rva005F4EE8@@QAE@PAURva005F4EE8Source@@HABVAsciiString@@@Z, retail
+// 0x005F4E48..0x005F4ECC (132 bytes, EH, RET 12): the constructor of the
+// class whose rowed scalar deleting destructor (??_GRva005F4EE8, 0x005F4ECC)
+// heads its vtable 0x00C794E4. It is a StrategicHUD ArmyUnitSwapperMovieClip
+// (rowed constructor 0x005FDE24; slot 0 of that base's table is a deleting
+// destructor too) whose top and bottom actions come from the source's +0x0C
+// and +0x10 objects through the factory above, released once the base is
+// built; the source is kept at +0x08.
+class AsciiString;
+
+namespace StrategicHUD
+{
+class ArmyUnitSwapperMovieClip
+{
+public:
+	ArmyUnitSwapperMovieClip(int level, const AsciiString &name, const TreeHintRef00217D4C &top, const TreeHintRef00217D4C &bottom);
+	virtual ~ArmyUnitSwapperMovieClip();
+private:
+	void *m_impl;							// +0x04
+};
+}
+
+struct Rva005F4EE8Source
+{
+	char m_pad00[0x0C];
+	Rva005F4DC4 *m_top0C;					// +0x0C
+	Rva005F4DC4 *m_bottom10;				// +0x10
+};
+
+class Rva005F4EE8 : public StrategicHUD::ArmyUnitSwapperMovieClip
+{
+public:
+	Rva005F4EE8(Rva005F4EE8Source *source, int level, const AsciiString &name);
+private:
+	Rva005F4EE8Source *m_source08;			// +0x08
+};
+
+Rva005F4EE8::Rva005F4EE8(Rva005F4EE8Source *source, int level, const AsciiString &name)
+	: StrategicHUD::ArmyUnitSwapperMovieClip(level, name, source->m_top0C->rva005F4DC4(), source->m_bottom10->rva005F4DC4()),
+	  m_source08(source)
+{
 }
