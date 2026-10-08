@@ -268,6 +268,7 @@ extern GlobalA04934 *g_Va00A04934;
 struct GlobalA046B4;
 extern GlobalA046B4 *g_Va00A046B4;
 extern int g_Va00E048D0;
+extern int g_Va00E04934;
 void Rva004E855CClose();
 
 // Rva0052340DEnable.cpp's 0x0052340D.
@@ -288,6 +289,7 @@ class StrategicPlayerStatus
 public:
 	void OnCloseWindow(const char *unused);
 	void rva005234AD();
+	void rva00523592();
 	// Bound as "StrategicPlayerStatus::PlayerIndex" (query 0),
 	// "...::NumAlliedPlayers" (1) and "...::NumEnemyPlayers" (2), so it
 	// keeps its address.
@@ -370,6 +372,15 @@ void StrategicPlayerStatus::rva005234AD()
 	TheShell->rva0035C7CF(false);
 	TheShell->push("StrategicPlayerStatus.apt", false);
 	TheInGameUI->vslot94(1);
+}
+
+// ?rva00523592 @0x00523592 19B: flag-gated tail call to Rva0052340DEnable or rva005234AD.
+void StrategicPlayerStatus::rva00523592()
+{
+	if (g_Va00E04934)
+		Rva0052340DEnable();
+	else
+		rva005234AD();
 }
 
 // Retail 0x0050EC24..0x0050ED1F: cdecl opener called by the rowed
