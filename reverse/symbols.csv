@@ -16389,3 +16389,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?push_back@?$vector@PAVPolygonTrigger@@V?$allocator@PAVPolygonTrigger@@@_STL@@@_STL@@QAEXABQAVPolygonTrigger@@@Z,0x004DFCB0,Native39869E call appends PolygonTrigger pointer to CastleBehavior vector80; typed instantiation must match owner bytes and all recursive relocations; fold-proof=Code/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp
 ?rva003901DA@PhysicsBehavior@@QAE_NHM@Z,0x003901DA,callee of ?rva00390557@PhysicsBehavior@@QAEXPBUCoord3D@@MMHH@Z
 ??0Rva005A71B1@@QAE@XZ,0x005DC43B,callee of ??0Rva005A734B@@QAE@XZ
+?checkIdleTeams@Rva0059AC4D@@QAEXXZ,0x0059AA37,Native59AC6E update tail jmp59AA37 RET0 and WB152BA50 AITeamBuilder::checkIdleTeams assertions553..593 independently prove function role and this-only ABI; retain existing address-derived caller receiver.
