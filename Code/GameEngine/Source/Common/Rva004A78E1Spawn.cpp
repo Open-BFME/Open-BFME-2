@@ -25,7 +25,7 @@ class ParticleSystemManager
 {
 public:
 	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
-	int rva001F5AA4(ParticleSystemTemplate *tmpl, const Object *obj, int flag);
+	int rva001F5AA4(const ParticleSystemTemplate *tmpl, const Object *obj, bool flag);
 };
 
 class GameLogic

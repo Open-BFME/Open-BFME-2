@@ -30,6 +30,7 @@ class RvaSmartPtr12
 public:
 	RvaSmartPtr12(void *system) throw();
 	RvaSmartPtr12(const RvaSmartPtr12 &that);
+	void rva0004CBC0() throw();
 private:
 	void *m_ptr;
 	int m_pad04;
@@ -48,7 +49,11 @@ public:
 	{
 		((RvaSmartPtr12 *)this)->RvaSmartPtr12::RvaSmartPtr12(*(const RvaSmartPtr12 *)&that);
 	}
-	~BfmeParticleSystemHandle();
+	__forceinline ~BfmeParticleSystemHandle()
+	{
+		if (m_system)
+			((RvaSmartPtr12 *)this)->rva0004CBC0();
+	}
 	operator bool() const { return m_system != 0; }
 	ParticleSystem *operator->() const
 	{
@@ -114,6 +119,14 @@ static __forceinline void *rva001F54C5Slot18(Rva001F54C5Holder *&slot)
 		return reinterpret_cast<char *>(slot) + 0x18;
 	return 0;
 }
+
+struct Rva001F3C43Arg;
+class Rva001F3C43Slot
+{
+public:
+ void set(const Rva001F3C43Arg *arg) throw();
+};
+class Object;
 
 class ParticleSystem
 {
@@ -209,6 +222,7 @@ BfmeParticleSystemHandle __cdecl rva001F50BC(const ParticleSystemTemplate *sysTe
 class ParticleSystemManager
 {
 public:
+	int rva001F5AA4(const ParticleSystemTemplate *sysTemplate, const Object *object, bool createSlaves);
 	BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *sysTemplate,
 		bool createSlaves);
 private:
@@ -243,4 +257,19 @@ BfmeParticleSystemHandle ParticleSystemManager::createParticleSystem(
 
 	m_uniqueSystemID = (ParticleSystemID)((UnsignedInt)m_uniqueSystemID + 1);
 	return rva001F50BC(sysTemplate, m_uniqueSystemID, createSlaves);
+}
+
+extern ParticleSystemManager *TheParticleSystemManager;
+
+// Native complete102B at 1F5AA4 calls the matched handle-returning factory;
+// the matched setter consumes Object+74 and the result reads ParticleSystem+A8.
+// WB B16940 has the same factory / nullable setter / ID / handle cleanup path.
+// The original overload name is unknown; retain the existing address label.
+int ParticleSystemManager::rva001F5AA4(const ParticleSystemTemplate *sysTemplate,
+ const Object *object, bool createSlaves)
+{
+ BfmeParticleSystemHandle system = TheParticleSystemManager->createParticleSystem(sysTemplate, createSlaves);
+ if (system && object)
+  ((Rva001F3C43Slot *)system.operator->())->set((const Rva001F3C43Arg *)object);
+ return system ? (int)system->m_id : 0;
 }
