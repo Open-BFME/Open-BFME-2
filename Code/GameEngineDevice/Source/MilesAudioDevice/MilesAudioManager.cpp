@@ -317,6 +317,7 @@ private:
 };
 class Rva00690FF0Handle {
 public:
+    Rva00690FF0Handle();
     ~Rva00690FF0Handle();
     operator const Rva00691040Handle &() const { return *reinterpret_cast<const Rva00691040Handle *>(this); }
 private:
@@ -789,6 +790,7 @@ struct LoopBufferSource {
 };
 class LoopBufferSourceRef {
 public:
+    LoopBufferSourceRef() : m_source(0) {}
     ~LoopBufferSourceRef() { if (m_source) m_source->m_ref.Release_Ref(); }
 private:
     LoopBufferSource *m_source;
@@ -807,15 +809,30 @@ struct MilesAudioManager::LoopBuffer {
     void *m_3DSample;                    // +0x04
     void *m_sample;                      // +0x08
     LoopBufferSourceRef m_source;        // +0x0C
-    char at10[0x14 - 0x10];
+    bool m_at10;                         // +0x10
     PlayingAudio *m_playingAudio;        // +0x14
     unsigned char *m_at18;               // +0x18, freed with delete[]
-    char at1C[0x20 - 0x1C];
+    unsigned int m_at1C;                 // +0x1C
     Rva00690FF0Handle m_at20;            // +0x20
     Rva00690FF0Handle m_at24;            // +0x24
     Rva00690FF0Handle m_at28;            // +0x28
-    char at2C[0x48 - 0x2C];
+    unsigned int m_at2C;                 // +0x2C
+    unsigned int m_at30;                 // +0x30
+    unsigned int m_at34;                 // +0x34
+    unsigned int m_at38;                 // +0x38
+    unsigned int m_at3C;                 // +0x3C
+    unsigned int m_at40;                 // +0x40
+    bool m_at44;                         // +0x44
 };
+
+// Retail 0x00052568, the element constructor init()'s new[] hands to the
+// vector constructor iterator: an empty, invalid 3D buffer.
+MilesAudioManager::LoopBuffer::LoopBuffer()
+    : m_isValid(false), at01(0), m_is3D(true), at03(0), m_3DSample(0), m_sample(0),
+      m_at10(false), m_playingAudio(0), m_at18(0), m_at1C(0),
+      m_at2C(0), m_at30(0), m_at34(0), m_at38(0), m_at3C(0), m_at40(0), m_at44(false)
+{
+}
 
 // Retail 0x000525E5 (WorldBuilder twin 0x0077AF80, which asserts !m_isValid
 // first): release the Miles handles unless 0x51038 already has, then free the
