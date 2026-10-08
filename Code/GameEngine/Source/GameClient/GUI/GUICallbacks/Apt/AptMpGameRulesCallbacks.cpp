@@ -17,7 +17,15 @@ extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *f
 int Rva00559F7EGet(int mode);
 int Rva00559F95Get(int mode);
 
-class GameWindow;
+class GameWindow
+{
+public:
+	unsigned int winGetStyle();
+};
+
+void GadgetComboBoxGetSelectedPos(GameWindow *window, int *selection);
+void *GadgetComboBoxGetItemData(GameWindow *window, int selection);
+bool GadgetCheckBoxIsChecked(GameWindow *window);
 
 // A rule widget list (+0x64 combo boxes, +0x70 check boxes).
 struct AptMpGameRulesWidgets
@@ -283,6 +291,27 @@ void AptMpGameRules::rva0057F0AA()
 // 57E66A style/selection query; its +7C/+80 span and +88 gate are target facts.
 // The existing integer find specialization compares the same four-byte pointer
 // representations without asserting a new ICF identity for GameWindow find.
+// Retail 0x0057E66A: combo-box item data or a check-box value, and -1
+// for a missing widget, unsupported style, or absent selection.
+int AptMpGameRules::rva0057E66A(int rule)
+{
+	GameWindow *window = static_cast<GameWindow **>(m_ruleWindows.m_begin)[rule];
+	if (window)
+	{
+		unsigned int style = window->winGetStyle();
+		if (style & 0x8000)
+		{
+			int selection = -1;
+			GadgetComboBoxGetSelectedPos(window, &selection);
+			if (selection >= 0)
+				return reinterpret_cast<int>(GadgetComboBoxGetItemData(window, selection));
+		}
+		else if (style & 4)
+			return GadgetCheckBoxIsChecked(window);
+	}
+	return -1;
+}
+
 bool AptMpGameRules::rva0057E707(int message, GameWindow *window, int unused)
 {
     if (!m_88)
