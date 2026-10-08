@@ -10,6 +10,8 @@
 // named by the Weapon fields they restore. Retail keeps the entry pointer in
 // edx across the cacheStatus call, which cl only does because cacheStatus is
 // compiled earlier in this TU.
+#include <math.h>
+
 extern class GameLogic *TheGameLogic;
 
 enum WeaponStatus
@@ -35,7 +37,9 @@ public:
     int m_key0C;
     char m_pad10[0x78 - 0x10];
     int m_flag78;
-    char m_pad7C[0x120 - 0x78 - 4];
+    char m_pad7C[0xE4 - 0x7C];
+    int m_valueE4; // target ammo-scaling operand
+    char m_padE8[0x120 - 0xE8];
     ObjectFilter m_ammo;
     char m_pad121[0x16E - 0x121]; // ObjectFilter is one byte here
     bool m_flag16E;
@@ -71,6 +75,9 @@ public:
     void loadAmmoNow(const Object *sourceObj);
     void reloadAmmo(const Object *sourceObj);
     void rva002CE226(const Object *sourceObj, const SavedWeaponState *saved);
+    void rva002CE280(float rate, bool flag);
+protected:
+    void rebuildScatterTargets();
 private:
     char m_pad00[4];
     WeaponTemplate *m_template;
@@ -88,6 +95,36 @@ void Weapon::cacheStatus(WeaponStatus status) const
 {
     if (m_status != status)
         m_status = status;
+}
+
+// Ammo scaling is kept beside cacheStatus: both callers require the
+// same visible noinline worker for VC7.1 register-preservation analysis.
+// Upstream basetype.h x87 conversion, mirroring rowed sibling 0x002C937C:
+// (int) on the float must stay inline fld/fistp, never __ftol2.
+__forceinline long rva002CE280_float2long(float f)
+{
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
+}
+
+// ?rva002CE280@Weapon@@QAEXM_N@Z
+void Weapon::rva002CE280(float rate, bool flag)
+{
+	if (m_template->m_valueE4 == 0)
+		return;
+	int n = m_template->m_valueE4;
+	float f = (float)floor((double)n * rate);
+	int want = rva002CE280_float2long(f);
+	if (want > getRemainingAmmo(false) || (flag && want < getRemainingAmmo(false))) {
+		m_pad14 = want;
+		cacheStatus((WeaponStatus)(getRemainingAmmo(false) != 0));
+		m_frame18 = m_28 = TheGameLogic->m_frame;
+		rebuildScatterTargets();
+	}
 }
 
 WeaponStatus Weapon::getStatus() const
