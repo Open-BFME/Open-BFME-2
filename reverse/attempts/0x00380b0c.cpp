@@ -1,58 +1,106 @@
 // ?Rva00380B0CInit@@YAXXZ
-// partial score=0.97 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD /G7 /arch:SSE
-#include "ascii_string.h"
+// partial score=0.98 date=2026-10-08
+// Reference lead: Open-BFME-1 9cbfb551fe20dae985f91f2319d8997287b6a705,
+// game/GameEngine/Source/GameClient/GUI/AptGuiFXRegisterCallbacks.cpp.
+// WB F650A0 names AptGuiFX::Init, source AptGuiFX.cpp:74; native boundary
+// 0x380B0C..0x380C1E is 274 bytes. Target adds registry value13, load slot50
+// with two trailing arguments, and the strategic-message singleton.
+// Existing BFME2 53-byte holders own callback construction; their argument
+// is the address of a function pointer, not the function pointer itself.
+// The AptRef reference-count operations agree with the registration provider.
+// 0x3806D4 ignores its incoming receiver; the member/free union preserves
+// its existing ledger spelling and the native no-receiver call ABI.
+// The filename address contains the one-word StringBase<char> representation;
+// g_Va00E022E8 is an existing neutral data name, not a new identity assertion.
+// Bank: O1 emits274, all calls/instructions align, but callback stack slots
+// are distinct: frame14 vs retail10, second callback -1C vs retail -18,
+// savedESP -20 vs -1C. A shared callback fixes frame but changes stack slots.
+// O2 emits320 and cannot be admitted. No source/ledger claim of exactness.
+// cl: /O1 /Ob1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+//
+// BFME2's GuiFX screen Apt callback "AptGuiFX::OnInitialized", a static
+// callback bound by that name through the holder 0x0023E8D8 by the
+// screen's registration 0x00380B0C; that binding is its only reference.
+// The class is named for the string's prefix.
+
+// The GuiFX movie's ready flag (0x00E022E0, beside the "GuiFX.apt" name at
+// 0x00E022E8).
 extern bool g_Va00E022E0;
-extern unsigned g_Va00E022E8;
-extern void *TheRva00222A8BOwner;
+
+class AptGuiFX
+{
+public:
+	static void OnInitialized(const char *unused);
+	
+};
+
+// Retail 0x003808E8, 8 bytes: "AptGuiFX::OnInitialized" marks the GuiFX
+// movie ready.
+void AptGuiFX::OnInitialized(const char *unused)
+{
+	g_Va00E022E0 = true;
+}
+
+#include "ascii_string.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class AptGuiFX {public:static void OnInitialized(const char *);};
-class Coord2D;
-void rva00380869(Coord2D *,Coord2D *);
+extern unsigned int g_Va00E022E8;
+extern void *TheRva00222A8BOwner;
 struct TargetRef00217D4C;
-void ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-class Rva0023E8D8 {public:Rva0023E8D8(void *);void *ptr;};
-class Rva00380AB1 {public:Rva00380AB1(void *);void *ptr;};
-class AptCommandMap {public:void *vtable;int refs;};
-class AptCustomRender {public:void *vtable;int refs;};
-template<class T>class AptRef {public:
- AptRef(void *desc);
- AptRef(const AptRef &rhs):ptr(rhs.ptr){if(ptr)++ptr->refs;}
- ~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}
- private:T *ptr;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+class AptRefCounted { public: void *m_vtbl; int m_refCount; };
+class AptCommandMap : public AptRefCounted {};
+class AptCustomRender : public AptRefCounted {};
+class Rva0023E8D8 { public: Rva0023E8D8(void *); private: void *p; };
+class Rva00380AB1 { public: Rva00380AB1(void *); private: void *p; };
+template<class T> class AptRef {
+public:
+ T *m_ptr;
+ AptRef(void *);
+ AptRef(const AptRef &other):m_ptr(other.m_ptr) {if(m_ptr) ++m_ptr->m_refCount;}
+ ~AptRef(){if(m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}
 };
-template<>__forceinline AptRef<AptCommandMap>::AptRef(void *desc){((Rva0023E8D8*)this)->Rva0023E8D8::Rva0023E8D8(desc);}
-template<>__forceinline AptRef<AptCustomRender>::AptRef(void *desc){((Rva00380AB1*)this)->Rva00380AB1::Rva00380AB1(desc);}
-class AptPlayer {public:
-#define V(n) virtual void pad##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
- V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-#undef V
- virtual void *loadWindow(AsciiString,AsciiString,int,int);
+template<> inline AptRef<AptCommandMap>::AptRef(void *p) { ((Rva0023E8D8*)this)->Rva0023E8D8::Rva0023E8D8(p); }
+template<> inline AptRef<AptCustomRender>::AptRef(void *p) { ((Rva00380AB1*)this)->Rva00380AB1::Rva00380AB1(p); }
+class AptPlayer {
+public:
  void AddCommandMap(const AsciiString &,AptRef<AptCommandMap>);
  void AddCustomRender(const AsciiString &,AptRef<AptCustomRender>);
 };
+class GuiFXWindowLoader {
+public:
+#define SLOT(n) virtual void slot##n();
+ SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7) SLOT(8) SLOT(9)
+ SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18) SLOT(19)
+#undef SLOT
+ virtual int loadWindow(AsciiString directory,AsciiString file,int arg1,int arg2);
+};
 struct Rva001408C0Target;
 class Rva002239B2 {public:void rva002239B2(const void *,Rva001408C0Target *);};
-void Rva003806D4CreateMessageBox();
+class Coord2D;
+void rva00380869(Coord2D *,Coord2D *);
+class Rva003806D4 {public:void rva003806D4();};
 class AptStrategicMessageBox {public:static void CreateSingleton();};
-void Rva00380B0CInit(){
- if(g_bfmeAptWindowManager){
+void Rva00380B0CInit() {
+ if (g_bfmeAptWindowManager) {
   g_Va00E022E0=false;
-  ((Rva002239B2*)g_bfmeAptWindowManager)->rva002239B2(&g_Va00E022E8,(Rva001408C0Target*)13);
-  TheRva00222A8BOwner=((AptPlayer*)g_bfmeAptWindowManager)->loadWindow(AsciiString("Apt\\"),*(AsciiString*)&g_Va00E022E8,1,0);
-  if(g_bfmeAptWindowManager){
+  reinterpret_cast<Rva002239B2 *>(g_bfmeAptWindowManager)->rva002239B2(&g_Va00E022E8,reinterpret_cast<Rva001408C0Target *>(13));
+  TheRva00222A8BOwner=reinterpret_cast<void *>(reinterpret_cast<GuiFXWindowLoader *>(g_bfmeAptWindowManager)->loadWindow("Apt\\",*reinterpret_cast<AsciiString *>(&g_Va00E022E8),1,0));
+  if (g_bfmeAptWindowManager) {
    AsciiString name("AptGuiFX::OnInitialized");
-   void *callback=(void*)&AptGuiFX::OnInitialized;
-   ((AptPlayer*)g_bfmeAptWindowManager)->AddCommandMap(name,AptRef<AptCommandMap>(&callback));
+   void (__cdecl *callback)()=reinterpret_cast<void (__cdecl *)()>(AptGuiFX::OnInitialized);
+   reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->AddCommandMap(name,AptRef<AptCommandMap>(&callback));
   }
   {
    AsciiString name("ToolTipText");
-   void *callback=(void*)&rva00380869;
-   ((AptPlayer*)g_bfmeAptWindowManager)->AddCustomRender(name,AptRef<AptCustomRender>(&callback));
+   void (__cdecl *callback)()=reinterpret_cast<void (__cdecl *)()>(rva00380869);
+   reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->AddCustomRender(name,AptRef<AptCustomRender>(&callback));
   }
-  Rva003806D4CreateMessageBox();
+  union {void (Rva003806D4::*member)();void (__cdecl *call)();} create;
+  create.member=&Rva003806D4::rva003806D4;
+  create.call();
   AptStrategicMessageBox::CreateSingleton();
  }
 }
+
+
