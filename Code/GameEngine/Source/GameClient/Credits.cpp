@@ -111,6 +111,7 @@ public:
  virtual void reset();
  virtual void update();
  typedef _STL::list<CreditsLine *> CreditsLineList;
+ void addText(AsciiString text);
  static const FieldParse m_creditsFieldParseTable[];
  static void parseBlank(INI *, void *, void *, const void *);
 private:
@@ -395,4 +396,61 @@ void CreditsManager::update( void )
 	if(m_creditLineListIt != m_creditLineList.end())
 		m_creditLineListIt++;
 	
+}
+
+// CreditsManager::addText, retail 0x005B7E02 (343 bytes; WB 0x01581450), the
+// Zero Hour Credits.cpp body: title/position/normal lines are queued as is, a
+// column line pairs with the previous column line when that one is still open.
+// The line's 0x28-byte constructor (0x005B72BE) and destructor (0x005B72E7)
+// are rowed under address-derived receivers, so the allocation and deletion go
+// through those views; the constructor does not throw, so the new-expression
+// keeps no unwind state.
+class Rva0040C1F0
+{
+public:
+	Rva0040C1F0() throw();
+private:
+	char m_storage[0x28];
+};
+class Rva005B72E7
+{
+public:
+	~Rva005B72E7();
+};
+
+void CreditsManager::addText(AsciiString text)
+{
+	CreditsLine *cLine = (CreditsLine *)new Rva0040C1F0;
+	switch (m_currentStyle)
+	{
+	case CREDIT_STYLE_TITLE:
+	case CREDIT_STYLE_POSITION:
+	case CREDIT_STYLE_NORMAL:
+		cLine->m_text = getUnicodeString(text);
+		cLine->m_style = m_currentStyle;
+		m_creditLineList.push_back(cLine);
+		break;
+	case CREDIT_STYLE_COLUMN:
+		{
+			CreditsLineList::reverse_iterator rIt = m_creditLineList.rbegin();
+			CreditsLine *rcLine = *rIt;
+			if (rIt == m_creditLineList.rend() || rcLine->m_style != CREDIT_STYLE_COLUMN ||
+				(rcLine->m_style == CREDIT_STYLE_COLUMN && rcLine->m_done == true))
+			{
+				cLine->m_text = getUnicodeString(text);
+				cLine->m_style = CREDIT_STYLE_COLUMN;
+				cLine->m_useSecond = true;
+				m_creditLineList.push_back(cLine);
+			}
+			else
+			{
+				rcLine->m_secondText = getUnicodeString(text);
+				rcLine->m_done = true;
+				delete (Rva005B72E7 *)cLine;
+			}
+		}
+		break;
+	default:
+		delete (Rva005B72E7 *)cLine;
+	}
 }
