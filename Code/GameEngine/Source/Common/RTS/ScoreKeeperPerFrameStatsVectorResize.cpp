@@ -9,10 +9,12 @@
 // This recovery is96 new bytes; the record destructor already has a real row.
 #include <vector>
 #include "Common/Snapshot.h"
-class __declspec(novtable) Rva0039B893 : public Snapshot { public: Rva0039B893(); virtual __forceinline ~Rva0039B893(){}; int field04; float field08; short field0C,field0E,field10; protected: virtual void loadPostProcess();virtual void crc(Xfer*);virtual void xfer(Xfer*); };
+class Rva0039B893 : public Snapshot { public: Rva0039B893(); virtual __forceinline ~Rva0039B893(){}; int field04; float field08; short field0C,field0E,field10; protected: virtual void loadPostProcess();virtual void crc(Xfer*);virtual void xfer(Xfer*); };
 
 // The default record constructor is visible here because native39D1D0 keeps
-// its receiver in EDX across this call. This complete34-byte body also matches
+// its receiver in EDX across this call. The record must emit its own vtable:
+// novtable would bind the masked constructor store to Snapshot instead of
+// retail C1AD6C and fail full DIR32 consistency. This complete34-byte body matches
 // retail39B7FB and its C1AD6C snapshot vtable; no guessed constructor is used.
 __declspec(noinline) Rva0039B893::Rva0039B893()
  : field04(0),field08(0.0f),field0C(0),field0E(0),field10(0) {}
