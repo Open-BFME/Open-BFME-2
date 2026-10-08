@@ -2,6 +2,7 @@
 // ?iterateCellsAlongLine@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002ED15AInfo@@@Z @0x002F0CF6 63B Coord3D overload converts both points via WorldToCell 0x002E7875 then walks via 0x002EF116.
 // Evidence: callees rowed WorldToCell PathfindShimWorldToCell.cpp and iterate PathfinderCellLineWalks.cpp; caller 0x002F1BC6 in 51B unclaimed.
 typedef int Int;
+typedef bool Bool;
 
 struct ICoord2D
 {
@@ -77,7 +78,7 @@ public:
 	// the same order as these addresses); each calls the same walk overload
 	// and pops the same argument bytes as its WB twin.
 	Int IsLinePassable(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c, Int a20, Int a24);
-	Int IsLineBlocked(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18);
+	Bool IsLineBlocked(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18);
 	Int IsLinePassableForOptimize(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c);
 	Int IsHordeMeleeLinePassable(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18);
 private:
@@ -141,7 +142,7 @@ Int Pathfinder::IsLinePassable(void *a8, void *ac, PathfindLayerEnum a10, const 
 }
 
 // 0x002F1B32 52B: 5-arg wrapper, helper1 0x002E931F, !!logic.
-Int Pathfinder::IsLineBlocked(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18)
+Bool Pathfinder::IsLineBlocked(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18)
 {
 	Rva002ED01EInfo info;
 	return iterateCellsAlongLine(a14, a18, a10, info.init(this, a8, ac)) != 0;

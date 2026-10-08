@@ -16162,3 +16162,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva00473F81@Rva00473F81@@QAEAAVRva00469155@@ABH@Z,0x00473F81,callee of ?xfer@HordeContain@@MAEXPAVXfer@@@Z; address-derived int->{Coord3D int} map subscript (lower bound 0x00382A92 twin; ctor 0x00469155; pair 0x00469BEA; insert 0x00470205)
 ?rva00470041@Rva00470041@@QAEAAMABG@Z,0x00470041,callee of ?xfer@HordeContain@@MAEXPAVXfer@@@Z; address-derived ushort->float map subscript (lower bound 0x0046A9AB; 16-bit key compare; zero float; insert 0x004DD25A)
 ?rva0046A5B1@HordeContain@@QAEPAVCoord2D@@PAV2@H@Z,0x0046A5B1,HordeContain +0x188 record offset getter: rotates record +0xC Coord2D by the Object orientation via 0x00468E98; returns Coord2D through the hidden pointer (out-param ABI view); callers 0x00474C22 performReform
+?getMinMaxAndCenter@AIGroup@@QAE_NPAVCoord2D@@0PAUCoord3D@@@Z,0x0036D14F,callee of ?computeGroundPath@AIGroup@@QAE_NPBUCoord3D@@W4CommandSourceType@@@Z
+?FindGroundPath@Pathfinder@@QAEPAVPath@@PAVObject@@PBUCoord3D@@1H@Z,0x002F95F6,callee of ?computeGroundPath@AIGroup@@QAE_NPBUCoord3D@@W4CommandSourceType@@@Z
