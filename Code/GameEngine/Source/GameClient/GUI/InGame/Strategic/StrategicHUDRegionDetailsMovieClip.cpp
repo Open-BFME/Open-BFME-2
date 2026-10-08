@@ -353,3 +353,15 @@ void StrategicHUD::RegionDetailsMovieClip::Impl::HidePage(int page)
   target->OnHidden();
  }
 }
+// Native5E2CFA44B cdecl table lookup. WB PageIDToSlot identifies its role;
+// the original slot enum spelling and declaration remain unproven, so this
+// recovered body keeps its existing address-derived four-byte return view.
+void *Rva005E2CFAGet(const char *s)
+{
+	for (unsigned int i = 0; i < 3; ++i)
+	{
+		if (strcmp(s, g_00C77B40[i].m_name) == 0)
+			return g_00C77B40[i].m_result;
+	}
+	return 0;
+}
