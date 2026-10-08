@@ -1,6 +1,6 @@
 // cl: /O1 /DNDEBUG /MD
 //
-// ?rva002D37BD@Rva002D37BDOwner@@QAEXE@Z @0x002D37BD 96B: byte-field setter
+// ?SetPlanningModeEnabled@Palantir@@QAEXE@Z @0x002D37BD 96B: byte-field setter
 // with zero-side effect (thiscall, 1 byte arg, void). No-op when the new
 // value equals m_10+0x128; when clearing to zero with ThePlayerList mid
 // present and +0x750 == 2, posts message 0x469 with int args (0, 2)
@@ -50,18 +50,18 @@ struct Rva002D37BDMid10
 	unsigned char m_128;
 };
 
-class Rva002D37BDOwner
+class Palantir
 {
 public:
-	void rva002D37BD(unsigned char v);
+	void SetPlanningModeEnabled(unsigned char v);
 
 private:
 	char m_pad[0x10];
 	Rva002D37BDMid10 *m_10;
 };
 
-// ?rva002D37BD@Rva002D37BDOwner@@QAEXE@Z
-void Rva002D37BDOwner::rva002D37BD(unsigned char v)
+// ?SetPlanningModeEnabled@Palantir@@QAEXE@Z
+void Palantir::SetPlanningModeEnabled(unsigned char v)
 {
 	if (v == m_10->m_128)
 		return;

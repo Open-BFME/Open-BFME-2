@@ -256,7 +256,7 @@ struct AptDisplayList {
 struct Rva006E3FF0VectorEntry { AptValue* value; char pad04[24]; };
 class Rva006E34D0;
 extern Rva006E34D0* g_bfmeAptPtrAtE176D0;
-struct Rva006E3FF0Owner {
+struct AptAnimationPoolData {
     char pad00[8];
     Rva006E0DE0 set;
     int vectorCount;
@@ -269,9 +269,9 @@ struct Rva006E3FF0Owner {
     AptValue** moreValues;
     char pad28[8];
     AptDisplayList display;
-    void cleanup();
+    void PreDestroy();	// named by its own WorldBuilder assert string
 };
-void Rva006E3FF0Owner::cleanup()
+void AptAnimationPoolData::PreDestroy()
 {
     int remaining=set.count;
     for(int i=0; i<set.capacity; ++i) {
