@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /ICode/Libraries/Include/Lib
 //
 // ?isAbleToAttack@Object@@QBE_NXZ, retail 0x00290B73, 440 bytes.
 // Dedicated TU so Object.cpp cannot see this body.
@@ -19,7 +19,11 @@
 // testStatus (+0x94 words), isKindOf (+0x10C words) and getContain (+0x190)
 // are already matched and prove the low Object layout this TU extends.
 
+#include "Coord3D.h"
 typedef bool Bool;
+enum AbleToAttackType { ABLE_TO_ATTACK_TYPE_0 = 0 };
+enum CanAttackResult { ATTACKRESULT_NOT_POSSIBLE=0 };
+enum CommandSourceType {};
 typedef float Real;
 
 #ifndef NULL
@@ -37,7 +41,7 @@ enum ObjectStatusTypes
 
 enum KindOfType
 {
-	KINDOF_0x81 = 0x81
+	KINDOF_0x81 = 0x81, KINDOF_0x1BA=0x1BA
 };
 
 enum WeaponSlotType
@@ -54,23 +58,112 @@ enum WhichTurretType
 
 class Object;
 class Weapon;
+class Pathfinder {public:bool QuickDoesPathExistToStructure(Object *,const Coord3D *,Object *,int);};
+class AI {public:char pad[0x10];Pathfinder *pathfinder;};
+extern AI *TheAI;
+class Module;
+class WallUpgradeUpdate {public:static Module *rva004AB1F5(Object *);};
+class WallAttackPredicate {public:virtual bool slot0();};
+struct WallAttackView {char pad[0x24];WallAttackPredicate predicate;};
+class ContainedAttackObjectView {public:
+#define ATTACK_SLOT(N) virtual void slot##N();
+ ATTACK_SLOT(0)
+ ATTACK_SLOT(1)
+ ATTACK_SLOT(2)
+ ATTACK_SLOT(3)
+ ATTACK_SLOT(4)
+ ATTACK_SLOT(5)
+ ATTACK_SLOT(6)
+ ATTACK_SLOT(7)
+ ATTACK_SLOT(8)
+ ATTACK_SLOT(9)
+ ATTACK_SLOT(10)
+ ATTACK_SLOT(11)
+ ATTACK_SLOT(12)
+ ATTACK_SLOT(13)
+ ATTACK_SLOT(14)
+ ATTACK_SLOT(15)
+ ATTACK_SLOT(16)
+ ATTACK_SLOT(17)
+ ATTACK_SLOT(18)
+ ATTACK_SLOT(19)
+ virtual Object *slot20();
+ ATTACK_SLOT(21)
+ ATTACK_SLOT(22)
+ ATTACK_SLOT(23)
+ ATTACK_SLOT(24)
+ ATTACK_SLOT(25)
+ ATTACK_SLOT(26)
+ ATTACK_SLOT(27)
+ ATTACK_SLOT(28)
+ ATTACK_SLOT(29)
+ ATTACK_SLOT(30)
+ ATTACK_SLOT(31)
+ ATTACK_SLOT(32)
+ ATTACK_SLOT(33)
+ ATTACK_SLOT(34)
+ ATTACK_SLOT(35)
+ ATTACK_SLOT(36)
+ ATTACK_SLOT(37)
+ ATTACK_SLOT(38)
+ ATTACK_SLOT(39)
+ ATTACK_SLOT(40)
+ ATTACK_SLOT(41)
+ ATTACK_SLOT(42)
+ ATTACK_SLOT(43)
+ ATTACK_SLOT(44)
+ ATTACK_SLOT(45)
+ ATTACK_SLOT(46)
+ ATTACK_SLOT(47)
+ ATTACK_SLOT(48)
+ ATTACK_SLOT(49)
+ ATTACK_SLOT(50)
+ ATTACK_SLOT(51)
+ ATTACK_SLOT(52)
+ ATTACK_SLOT(53)
+ ATTACK_SLOT(54)
+ ATTACK_SLOT(55)
+ ATTACK_SLOT(56)
+ ATTACK_SLOT(57)
+ ATTACK_SLOT(58)
+ ATTACK_SLOT(59)
+ ATTACK_SLOT(60)
+ ATTACK_SLOT(61)
+ ATTACK_SLOT(62)
+ ATTACK_SLOT(63)
+ ATTACK_SLOT(64)
+ ATTACK_SLOT(65)
+ ATTACK_SLOT(66)
+ ATTACK_SLOT(67)
+ ATTACK_SLOT(68)
+#undef ATTACK_SLOT
+ virtual Object *slot69(int);
+};
 
 struct ThingTemplate
 {
 	unsigned char m_pad[0x108];
 	unsigned char m_kindByte108;
-	unsigned char m_pad109[0x10F - 0x109];
+	unsigned char m_kindByte109;
+	unsigned char m_pad10A[0x10F-0x10A];
 	unsigned char m_kindByte10F;
 	unsigned char m_pad110[0x112 - 0x110];
 	unsigned char m_kindByte112;
 	unsigned char m_pad113[0x115 - 0x113];
 	unsigned char m_kindByte115;
+	unsigned char pad116[0x11A-0x116];
+	unsigned char m_kindByte11A;
+	unsigned char pad11B[0x11F-0x11B];
+	unsigned char m_kindByte11F;
+	unsigned char pad120[0x634-0x120];
+	bool m_flag634;
 };
 
 struct WeaponSet
 {
 	char m_pad[8];
 	Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const;
+	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType,const Object*,const Object*,CommandSourceType)const;
 };
 
 class AIUpdateInterface
@@ -131,7 +224,7 @@ public:
 	virtual void slot28() = 0;
 	virtual void slot29() = 0;
 	virtual void slot30() = 0;
-	virtual void slot31() = 0;
+	virtual ContainedAttackObjectView *slot31() = 0;
 	virtual void slot32() = 0;
 	virtual void slot33() = 0;
 	virtual void slot34() = 0;
@@ -176,7 +269,9 @@ class Object
 {
 	char m_pad0[4];
 	ThingTemplate *m_template;
-	char m_pad8[0x1C8 - 0x8];
+	char m_pad8[0x38-8];
+	Coord3D m_position;
+	char m_pad44[0x1C8-0x44];
 	unsigned char m_statusByte1C8;
 	char m_pad1C9[0x250 - 0x1C9];
 	Bfme250Interface *m_iface250;
@@ -193,6 +288,7 @@ public:
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Bool isKindOf(KindOfType kind) const;
 	Bool isAbleToAttack() const;
+	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType,const Object*,CommandSourceType)const;
 	SpawnBehaviorInterface *getSpawnBehaviorInterface() const;
 };
 
@@ -303,4 +399,50 @@ checkKind:
 	}
 
 	return false;
+}
+
+// ?getAbleToAttackSpecificObject@Object@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBV1@W4CommandSourceType@@@Z
+// WB 0xCC76E0 names Object.cpp:3278 and confirms the three-argument ABI.
+// Native 0x28D051..0x28D156 (RET 12) proves all offsets and virtual slots.
+// BFME1 Object::getAbleToAttackSpecificObject supplies the attack-query purpose;
+// BFME2 adds path, wall and contained-attacker checks. The new kind bits, flag
+// +0x634 and interface slots retain opaque names because their names are unproved.
+CanAttackResult Object::getAbleToAttackSpecificObject(AbleToAttackType type,
+    const Object *target, CommandSourceType source) const
+{
+    if (!target)
+        return ATTACKRESULT_NOT_POSSIBLE;
+
+    if ((m_template->m_kindByte109 & 8) && !m_template->m_flag634 &&
+        (target->m_template->m_kindByte108 & 0x80))
+    {
+        Pathfinder *pathfinder = TheAI->pathfinder;
+        if (!pathfinder->QuickDoesPathExistToStructure(const_cast<Object *>(this),
+                &m_position, const_cast<Object *>(target), 0))
+            return ATTACKRESULT_NOT_POSSIBLE;
+    }
+    if (target->m_template->m_kindByte11A & 0x40)
+    {
+        Module *wall = WallUpgradeUpdate::rva004AB1F5(const_cast<Object *>(target));
+        if (wall && !reinterpret_cast<WallAttackView *>(wall)->predicate.slot0())
+            return ATTACKRESULT_NOT_POSSIBLE;
+    }
+    if (!((unsigned int)type & 0x10) && (m_template->m_kindByte115 & 0x20))
+    {
+        Bfme250Interface *iface = m_iface250;
+        if (!iface)
+            return ATTACKRESULT_NOT_POSSIBLE;
+        ContainedAttackObjectView *contain = iface->slot31();
+        if (!contain)
+            return ATTACKRESULT_NOT_POSSIBLE;
+        if (isKindOf(KINDOF_0x1BA) && (target->m_template->m_kindByte11F & 0x20))
+            return ATTACKRESULT_NOT_POSSIBLE;
+        Object *attacker = (m_template->m_kindByte115 & 0x40) ?
+            contain->slot20() : contain->slot69(0xA4);
+        if (attacker)
+            return attacker->m_weaponSet.getAbleToAttackSpecificObject(
+                type, attacker, target, source);
+        return ATTACKRESULT_NOT_POSSIBLE;
+    }
+    return m_weaponSet.getAbleToAttackSpecificObject(type, this, target, source);
 }
