@@ -5,7 +5,7 @@
 // Evidence: packet disasm with rowed GetMaxCommandPoints 0x003192B9 plus rowed
 // rva00318FBE 0x00318FBE plus rowed rva005FD956 0x005FD956, caller 0x005F5537.
 
-void *GetMaxCommandPoints(void *key);
+int GetMaxCommandPoints(void *key);
 
 class Rva00318FBE
 {
@@ -44,6 +44,6 @@ void Rva005F4B57::rva005F4B57()
 		return;
 	Rva005FD956 *p = m_08->m_14;
 	if (p != 0)
-		p->rva005FD956(m_0C, m_10->rva00318FBE(), (int)GetMaxCommandPoints(m_10));
+		p->rva005FD956(m_0C, m_10->rva00318FBE(), GetMaxCommandPoints(m_10));
 	m_30 = 0;
 }

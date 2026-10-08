@@ -82,7 +82,7 @@ public:
 	void rva003FDEAD();
 };
 
-void *GetMaxCommandPoints(void *key);
+int GetMaxCommandPoints(void *key);
 
 class Rva003193EC
 {
@@ -106,8 +106,8 @@ bool Rva003193EC::rva003193EC(int x)
 {
 	int v = m_78->bfmeVal1038();
 	int total = v + x;
-	void *got = GetMaxCommandPoints(this);
-	return total <= (int)got;
+	int got = GetMaxCommandPoints(this);
+	return total <= got;
 }
 
 bool Rva003193EC::rva00319413(Rva0037DCA5 *p)

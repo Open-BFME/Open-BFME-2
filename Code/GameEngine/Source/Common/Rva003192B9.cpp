@@ -1,7 +1,9 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?GetMaxCommandPoints@@YAPAXPAX@Z @0x003192B9 75B: free helper resolving a Value
-// via LivingWorld find plus empty-name Owner fallback. Evidence: packet
+// ?GetMaxCommandPoints@@YAHPAX@Z @0x003192B9 75B: free helper resolving a command-point limit
+// via LivingWorld find plus empty-name Owner fallback. Native signed comparisons
+// at 0x003193EC and integer forwarding at 0x005F4B57 establish the scalar ABI.
+// Evidence: packet
 // disasm with rowed find 0x002B51F8 via g_009FEF10 plus rowed StringBase
 // isEmpty at +0x18 plus pinned rva00318C32 plus rowed rva003EFD6F, callers
 // 0x003193FF 0x005CF41A 0x005E1A51 0x005E58D4 0x005E63C2 0x005F4B6E 0x005F4C2A,
@@ -12,12 +14,6 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 
 class Rva002E2903Player;
-class Rva002E071E
-{
-public:
-	bool rva002E071E(const Rva002E071E *other) const;
-};
-
 class Rva002BA8F1Logic
 {
 public:
@@ -31,15 +27,11 @@ public:
 	Rva00318C32Ret *rva00318C32();
 };
 
-struct Value003EFD6F
+class LivingWorldRegion
 {
-	char m_pad[4];
-};
-
-class Rva003EFD6F
-{
-public:
-	Value003EFD6F *rva003EFD6F(const Rva002E071E *arg);
+    friend int GetMaxCommandPoints(void *keyPtr);
+private:
+    int rva003EFD6F(Rva002E2903Player *owner) const;
 };
 
 struct Key003192B9
@@ -50,7 +42,7 @@ struct Key003192B9
 	int m_id54;
 };
 
-void *GetMaxCommandPoints(void *keyPtr)
+int GetMaxCommandPoints(void *keyPtr)
 {
 	Key003192B9 *key = (Key003192B9 *)keyPtr;
 	int id = key->m_id54;
@@ -60,10 +52,10 @@ void *GetMaxCommandPoints(void *keyPtr)
 	if (!key->m_str18.isEmpty())
 	{
 		void *mid = *(void **)((char *)player + 0x40);
-		return *(void **)((char *)mid + 0x1C);
+		return *(int *)((char *)mid + 0x1C);
 	}
 	Rva00318C32Ret *owner = ((Rva00318C79Owner *)key)->rva00318C32();
 	if (owner == 0)
 		return 0;
-	return ((Rva003EFD6F *)owner)->rva003EFD6F((const Rva002E071E *)player);
+	return ((const LivingWorldRegion *)owner)->rva003EFD6F(player);
 }

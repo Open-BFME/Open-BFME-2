@@ -30,7 +30,9 @@ struct LivingWorldBuildPlot
 {
 	Bool HasBuilding() const { return m_building != 0 && !m_hidden; }
 
-	unsigned char m_pad00[0x20];
+	unsigned char m_pad00[0x18];
+    Int m_key18;
+    unsigned char m_pad1C[4];
 	LivingWorldBuilding *m_building;	// +0x20
 	unsigned char m_pad24[0x34 - 0x24];
 	Bool m_hidden;				// +0x34
@@ -71,7 +73,23 @@ public:
 	Rva002E2903Player *find(Int id, UnsignedInt *outIndex);	// 0x002B51F8
 };
 
-class LivingWorldLogic;
+class Rva002E071E
+{
+public:
+    bool rva002E071E(const Rva002E071E *other) const;
+};
+
+class LivingWorldLogic
+{
+public:
+    void *rva002B4948(void *owner, void *region, void *exclude);
+};
+
+class Rva00318FBE
+{
+public:
+    Int rva00318FBE();
+};
 extern LivingWorldLogic *TheLivingWorldLogic;
 
 class LivingWorldRegion
@@ -81,13 +99,17 @@ public:
 	Bool CanSpawnUnitWithinCPLimit(Rva00319CED *unit) const;
 	LivingWorldBuilding *GetBuildingByIndex(Int index) const;
 	Int rva003F0614(CreateAHeroData *key) const;
+    LivingWorldBuildPlot *rva003F088C(Int key) const;
 
 private:
 	Int rva003EFDB3(Rva002E2903Player *owner) const;	// 0x003EFDB3, command points in use
 	Int rva003EFD6F(Rva002E2903Player *owner) const;	// 0x003EFD6F, command-point limit
 	Int usedCommandPoints(Rva002E2903Player *owner) const { return rva003EFDB3(owner); }
 
-	unsigned char m_pad00[0x13c];
+	unsigned char m_pad00[0x108];
+    Int m_limit108;
+    Int m_limit10C;
+    unsigned char m_pad110[0x13c - 0x110];
 	Int m_ownerPlayerID;			// +0x13C
 	unsigned char m_pad140[0x170 - 0x140];
 	BuildPlotVector m_buildPlots;		// +0x170
@@ -147,4 +169,40 @@ Int LivingWorldRegion::rva003F0614(CreateAHeroData *key) const
             ++count;
     }
     return count;
+}
+
+// Native 3EFD6F..3EFDB3 RET4. Calls from CanSpawnUnitWithinCPLimit
+// consume the return as a signed command-point limit; the former opaque
+// pointer-returning private view described the same +108/+10C slots.
+Int LivingWorldRegion::rva003EFD6F(Rva002E2903Player *owner) const
+{
+    Int key = m_ownerPlayerID;
+    if (key != owner->m_playerID)
+    {
+        Rva002E2903Player *player = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->find(key, 0);
+        if (player != 0 && reinterpret_cast<const Rva002E071E *>(player)->rva002E071E(
+                reinterpret_cast<const Rva002E071E *>(owner)))
+            return m_limit10C;
+    }
+    return m_limit108;
+}
+
+// Native 3EFDB3..3EFDD7 RET4. The singleton query takes the player, this
+// region and a null exclusion; an army result supplies its used points.
+Int LivingWorldRegion::rva003EFDB3(Rva002E2903Player *owner) const
+{
+    Rva00318FBE *army = static_cast<Rva00318FBE *>(TheLivingWorldLogic->rva002B4948(
+        owner, const_cast<LivingWorldRegion *>(this), 0));
+    return army ? army->rva00318FBE() : 0;
+}
+
+// Native3F088C..3F08D7 RET4 searches the same +170/+174 plot vector
+// as GetBuildingByIndex. The key at plot+18 and original method spelling
+// remain unresolved; no complete plot allocation layout is asserted.
+LivingWorldBuildPlot *LivingWorldRegion::rva003F088C(Int key) const
+{
+    for (UnsignedInt i=0;i<m_buildPlots.size();++i)
+        if (m_buildPlots[i]->m_key18 == key)
+            return m_buildPlots[i];
+    return 0;
 }
