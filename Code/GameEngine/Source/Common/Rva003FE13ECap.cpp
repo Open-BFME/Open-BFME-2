@@ -30,12 +30,15 @@ class Rva0025CEEFHost : public Keyboard
 
 extern class Keyboard *TheKeyboard;
 
-struct GlobalData
+class GlobalData
 {
+public:
 	char m_pad00[0x88];
 	unsigned char m_88;
 };
 
+// Native 0x003FE18A reads VA 0x00DFE758 before the +0x88 flag check.
+// GameClient.cpp owns this singleton with the class GlobalData spelling.
 extern GlobalData *TheWritableGlobalData;
 
 class Rva003FE13E
@@ -75,5 +78,3 @@ float Rva003FE13E::rva003FE13E()
 	}
 	return Rva003FE13EMin(dist, cap);
 }
-// ?TheWritableGlobalData@@3PAUGlobalData@@A: the global at VA 0xdfe758 is ?TheGlobalData@@3PAVGlobalData@@A.
-#pragma comment(linker, "/alternatename:?TheWritableGlobalData@@3PAUGlobalData@@A=?TheGlobalData@@3PAVGlobalData@@A")
