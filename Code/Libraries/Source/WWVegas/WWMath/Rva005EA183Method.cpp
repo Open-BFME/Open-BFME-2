@@ -25,6 +25,8 @@ class Rva005EA183
 {
 public:
   void rva005EA183();
+  void rva005EA0F6();
+  void rva005EA125();
   void rva005EA5BD();
 private:
   char m_pad[0x14];
@@ -40,5 +42,11 @@ void Rva005EA183::rva005EA183()
 void Rva005EA183::rva005EA5BD()
 {
   rva005EA183();
+  return m_holder.m_ptr->f2();
+}
+// ?rva005EA125@Rva005EA183@@QAEXXZ @0x005EA125 17B tail slot2 after callee 0x005EA0F6
+void Rva005EA183::rva005EA125()
+{
+  rva005EA0F6();
   return m_holder.m_ptr->f2();
 }
