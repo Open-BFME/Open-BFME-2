@@ -72,9 +72,10 @@ void famgenDelete(Rva005FAD8D *p) { delete p; }
 class Rva005FCA8B { public: ~Rva005FCA8B(); };
 void famgenDelete(Rva005FCA8B *p) { delete p; }
 
-// ??_GRva005FD628@@QAEPAXI@Z @0x005FD8C9 28B: calls pinned ~Rva005FD628 0x005FD628
-class Rva005FD628 { public: ~Rva005FD628(); };
-void famgenDelete(Rva005FD628 *p) { delete p; }
+// ??_GImpl@ArmyUnitSwapperMovieClip@StrategicHUD@@QAEPAXI@Z @0x005FD8C9 28B: calls recovered ~Impl 0x005FD628
+// Destructor-only view of the owner whose native member cleanup is recovered.
+namespace StrategicHUD { class ArmyUnitSwapperMovieClip { public: class Impl; }; class ArmyUnitSwapperMovieClip::Impl { public: ~Impl(); }; }
+void famgenDelete(StrategicHUD::ArmyUnitSwapperMovieClip::Impl *p) { delete p; }
 
 // ??_GRva005FF5F6@@QAEPAXI@Z @0x005FF659 28B: calls pinned ~Rva005FF5F6 0x005FF5F6
 class Rva005FF5F6 { public: ~Rva005FF5F6(); };

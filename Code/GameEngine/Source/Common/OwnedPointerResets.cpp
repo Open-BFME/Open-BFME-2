@@ -1220,26 +1220,23 @@ void Rva005FCB2D::clear()
 	}
 }
 
-class Rva005FD628
-{
-public:
-	~Rva005FD628();
-};
+// Destructor-only view; no construction or owner-layout assertion.
+namespace StrategicHUD { class ArmyUnitSwapperMovieClip { public: class Impl; }; class ArmyUnitSwapperMovieClip::Impl { public: ~Impl(); }; }
 
 class Rva005FD95E
 {
 public:
-	Rva005FD628 *m_ptr;
+	StrategicHUD::ArmyUnitSwapperMovieClip::Impl *m_ptr;
 	void clear();
 };
 
 void Rva005FD95E::clear()
 {
-	Rva005FD628 *p = m_ptr;
+	StrategicHUD::ArmyUnitSwapperMovieClip::Impl *p = m_ptr;
 	m_ptr = 0;
 	if (p)
 	{
-		p->Rva005FD628::~Rva005FD628();
+		p->~Impl();
 		::operator delete(p);
 	}
 }

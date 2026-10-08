@@ -4848,7 +4848,6 @@ name,address,notes
 ??1Rva005FCF0E@@UAE@XZ,0x005FCF0E,opaque dtor called by the scalar deleting dtor at 0x005FCF59 (vtable 0x00C7A1BC#0); identity unproven; address-derived name
 ??1Rva005FCFE5@@UAE@XZ,0x005FCFE5,opaque dtor called by the scalar deleting dtor at 0x005FCFC9 (vtable 0x00C7A1D0#0); identity unproven; address-derived name
 ??1Rva005FCFEA@@UAE@XZ,0x005FCFEA,opaque dtor called by the scalar deleting dtor at 0x005FD0DE (vtable 0x00C7A1F4#0); identity unproven; address-derived name
-??1Rva005FD628@@QAE@XZ,0x005FD628,pointee destructor called by the owning-pointer reset 0x005FD95E (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005FD9FF@@UAE@XZ,0x005FD9FF,opaque dtor called by the scalar deleting dtor at 0x005FDA1D (vtable 0x00C7A2E8#0); identity unproven; address-derived name
 ??1Rva005FED52@@UAE@XZ,0x005FED52,"destructor the scalar deleting destructor 0x003F4261 calls (REL32 at 0x003F4264; vtable 0x00C37064#1); opaque address name"
 ??1Rva005FEF65@@UAE@XZ,0x005FEF65,opaque dtor called by the scalar deleting dtor at 0x005FEFB0 (vtable 0x00C7A464#0); identity unproven; address-derived name

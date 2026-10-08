@@ -150,24 +150,42 @@ struct TreeHintRef00217D4C
 	TargetRef00217D4C *m_ptr;
 };
 
-// The two 0x18-byte Apt unit slots have a different destructor from fire
-// materials. Their six-dword zeroing constructor folds with 0x00286297;
-// their own 84-byte destructor is 0x005FD5D4. Names remain address-derived.
-class Rva005FD5D4UnitSlot
+// Native 5FD5D4 destroys wide strings at +C/+8, the owned handle at +4,
+// then clears its last EH state before null-checked release of the +0 ref.
+// A reference base and three RAII members model that observed cleanup order;
+// this is an address-derived compiler/ABI view, not an original class claim.
+struct Rva005FD5D4ReferenceBase
+{
+    TreeHintRef00217D4C m_ref;
+    // ?Rva005FD5D4ReferenceBase::Rva005FD5D4ReferenceBase present-unmatched
+    Rva005FD5D4ReferenceBase() { m_ref.m_ptr = 0; }
+    // ?Rva005FD5D4ReferenceBase::~Rva005FD5D4ReferenceBase present-unmatched
+    ~Rva005FD5D4ReferenceBase()
+    {
+        if (m_ref.m_ptr)
+            ReleaseTreeHintRef00217D4C(m_ref.m_ptr);
+    }
+};
+struct Rva005F4AD7Inner;
+struct Rva005F4AD7
+{
+    Rva005F4AD7Inner *m_ptr;
+    // ?Rva005F4AD7::Rva005F4AD7 present-unmatched
+    Rva005F4AD7() : m_ptr(0) {}
+    ~Rva005F4AD7();
+};
+class Rva005FD5D4UnitSlot : public Rva005FD5D4ReferenceBase
 {
 public:
-	// ?Rva005FD5D4UnitSlot::Rva005FD5D4UnitSlot present-unmatched
-	Rva005FD5D4UnitSlot()
-	{
-		m_ref.m_ptr = 0;
-		unsigned int *tail = reinterpret_cast<unsigned int *>(m_pad04);
-		tail[0] = 0; tail[1] = 0; tail[2] = 0; tail[3] = 0; tail[4] = 0;
-	}
-	~Rva005FD5D4UnitSlot();
-
-	TreeHintRef00217D4C m_ref; // +0x00
-	unsigned char m_pad04[0x14];
+    // ?Rva005FD5D4UnitSlot::Rva005FD5D4UnitSlot present-unmatched
+    Rva005FD5D4UnitSlot() : m_10(0), m_14(0) {}
+    ~Rva005FD5D4UnitSlot();
+    Rva005F4AD7 m_handle; // +4, own complete 22B destructor at 5F4AD7.
+    UnicodeString m_text8;
+    UnicodeString m_textC;
+    int m_10, m_14;
 };
+Rva005FD5D4UnitSlot::~Rva005FD5D4UnitSlot() {}
 
 // The Apt window manager's +0x318 mode (0: idle).
 struct Rva00578A7EAptMode
@@ -200,6 +218,7 @@ class StrategicHUD::ArmyUnitSwapperMovieClip::Impl
 {
 public:
 	Impl(ArmyUnitSwapperMovieClip *owner, int level, const AsciiString &name, const TreeHintRef00217D4C &top, const TreeHintRef00217D4C &bottom);
+	~Impl();
 	void SetSlotString(int index, const char *suffix, const UnicodeString &text);
 	void OnOpen(const char *path); // 0x005FD3EF
 	void OnClosed(const char *path); // 0x005FD3FF
@@ -312,3 +331,5 @@ StrategicHUD::ArmyUnitSwapperMovieClip::ArmyUnitSwapperMovieClip(int level, cons
 	: m_impl(new Impl(this, level, name, top, bottom))
 {
 }
+
+StrategicHUD::ArmyUnitSwapperMovieClip::Impl::~Impl() {}
