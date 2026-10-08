@@ -1,72 +1,29 @@
-// cl: /Od
+// cl: /Od /Ob1
+// Native 276B0..27738 proves thiscall with begin/end at +0/+4 and RET12.
+// BFME1 ba7ddda7 BfmeConv1460 supplies the search purpose; its historical
+// inline-assembly/free-stdcall spelling does not describe the receiver ABI.
+// Native five-word call to the owned find-first-of worker includes an empty
+// object. The tag and class names are structural views, not recovered names.
+// Force-inlined range readers reproduce the retail /Od temporary lifetimes.
+struct Rva00026E40Tag {};
+const char *bfmeFindFirstOfVMD(const char *, const char *, const char *, const char *, Rva00026E40Tag);
 
-const char *bfmeFindFirstOfVMD(const char *first1, const char *last1, const char *first2, const char *last2);
-
-class BfmeStrV20
+class BfmeThingPF
 {
 public:
-	char *b;
-	char *e;
+ char *m_begin; // +0
+ char *m_end;   // +4
+ __forceinline char *begin() const { return m_begin; }
+ __forceinline char *end() const { return m_end; }
+ int rva000276B0(const char *s, unsigned pos, unsigned n);
 };
 
-int __stdcall bfmeFindV20(const char *s, unsigned pos, unsigned n)
+int BfmeThingPF::rva000276B0(const char *s, unsigned pos, unsigned n)
 {
-	char pad[32];
-
-	__asm
-	{
-		mov dword ptr [ebp-0x1C], ecx
-		mov eax, dword ptr [ebp-0x1C]
-		mov ecx, dword ptr [ebp-0x1C]
-		mov edx, dword ptr [eax+4]
-		sub edx, dword ptr [ecx]
-		cmp dword ptr pos, edx
-		jb ok
-		or eax, 0xFFFFFFFF
-		jmp done
-	ok:
-		mov eax, dword ptr [ebp-0x1C]
-		mov ecx, dword ptr [eax+4]
-		mov dword ptr [ebp-0x0C], ecx
-		mov edx, dword ptr [ebp-0x1C]
-		mov eax, dword ptr [edx]
-		mov dword ptr [ebp-0x10], eax
-		mov cl, byte ptr [ebp-5]
-		push ecx
-		mov edx, dword ptr s
-		add edx, dword ptr n
-		push edx
-		mov eax, dword ptr s
-		push eax
-		mov ecx, dword ptr [ebp-0x0C]
-		push ecx
-		mov edx, dword ptr [ebp-0x10]
-		add edx, dword ptr pos
-		push edx
-		call bfmeFindFirstOfVMD
-		add esp, 0x14
-		mov dword ptr [ebp-4], eax
-		mov eax, dword ptr [ebp-0x1C]
-		mov ecx, dword ptr [eax+4]
-		mov dword ptr [ebp-0x14], ecx
-		mov edx, dword ptr [ebp-4]
-		cmp edx, dword ptr [ebp-0x14]
-		je notfound
-		mov eax, dword ptr [ebp-0x1C]
-		mov ecx, dword ptr [eax]
-		mov dword ptr [ebp-0x18], ecx
-		mov edx, dword ptr [ebp-4]
-		sub edx, dword ptr [ebp-0x18]
-		mov dword ptr [ebp-0x20], edx
-		jmp retidx
-	notfound:
-		mov dword ptr [ebp-0x20], 0xFFFFFFFF
-	retidx:
-		mov eax, dword ptr [ebp-0x20]
-	done:
-	}
+ const char *found;
+ Rva00026E40Tag tag;
+ if (pos >= (unsigned)(m_end - m_begin))
+  return -1;
+ found = bfmeFindFirstOfVMD(begin() + pos, end(), s, s + n, tag);
+ return found != end() ? (int)(found - begin()) : -1;
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?bfmeDoPF@BfmeThingPF@@QAEXPADPAXH@Z=?bfmeFindV20@@YGHPBDII@Z")

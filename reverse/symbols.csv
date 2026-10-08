@@ -8122,7 +8122,6 @@ name,address,notes
 ?bfmeDoOU@BfmeThingOU@@QAEXE@Z,0x0000C330
 ?bfmeDoOV@@YAPAXPAX000PAE@Z,0x00027FE0
 ?bfmeDoPA@@YAXPAX000PAE1E@Z,0x00026FF0
-?bfmeDoPF@BfmeThingPF@@QAEXPADPAXH@Z,0x000276B0
 ?bfmeDoPF@Rva00028B90Thing@@QAEXPADPAXH@Z,0x00027540,"thiscall callee of Rva00028B90Thing::bfmeGoPF at 0x00028B90; retail REL32 at +0x20; same body as rowed ?bfmeFindV20@@YGHPBDII@Z pin at 0x276B0"
 ?bfmeDoPF@Rva0002A270Thing@@QAEXPADPAXH@Z,0x00029850,"thiscall callee of Rva0002A270Thing::bfmeGoPF at 0x0002A270; retail REL32 at +0x20; body already rowed as ?bfmeFindV39@@YGHPADII@Z"
 ?bfmeDoPF@Rva0002ACF0Thing@@QAEXPADPAXH@Z,0x0002A420,"thiscall callee of Rva0002ACF0Thing::bfmeGoPF at 0x0002ACF0; retail REL32 at +0x20; Ghidra size 254"
