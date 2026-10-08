@@ -1,3 +1,5 @@
+// ?rva0032D554@SidesList@@QAEXXZ
+// partial score=0.97 date=2026-10-08
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
@@ -73,9 +75,36 @@ private:
 	void *m_data;
 };
 
+class ChunkInputStream
+{
+};
+
+// The cached file stream the build-list loader reads (BFME 1's
+// CachedFileInputStream), rowed under its constructor's address name: ctor
+// 0x00240000, dtor 0x0023F4F0 and open 0x00308050; its close is rowed under
+// Rva003079ED below. 0x20 bytes on the loader's stack.
+class Rva00240000 : public ChunkInputStream
+{
+public:
+	Rva00240000();						// 0x00240000
+	~Rva00240000();						// 0x0023F4F0
+	bool rva00308050(AsciiString path);	// 0x00308050, open
+
+private:
+	char m_data[0x20];
+};
+
+class Rva003079ED
+{
+public:
+	void rva003079ED();					// 0x003079ED, close
+};
+
 class DataChunkInput
 {
 public:
+	explicit DataChunkInput(ChunkInputStream *stream);	// 0x00307316
+	~DataChunkInput();					// 0x00306F01
 	int readInt();						// 0x00306E78
 	float readReal();					// 0x00306E56
 	unsigned char readByte();			// 0x00306E9A
@@ -83,6 +112,9 @@ public:
 	AsciiString readAsciiString();		// 0x0030750A
 	Dict readDict();					// 0x00307833
 	bool parse(void *userData);			// 0x00307AC0
+
+private:
+	char m_data[0x28];
 };
 
 // DataChunkInput's parser unregistration (WB DataChunkInput::unregisterParser),
@@ -351,6 +383,9 @@ private:
 	char m_rest[0x38 - 0x18];
 };
 
+// BFME 2's SidesList has two bases (SidesList_sidesInfo.cpp), so its member
+// pointers are the 8-byte multiple-inheritance form; this view flattens them.
+#pragma pointers_to_members(full_generality, multiple_inheritance)
 class SidesList
 {
 public:
@@ -373,6 +408,7 @@ public:
 	void rva0032C88F(int index);		// 0x0032C88F, WB 0xa86610
 	bool rva0032D038(DataChunkInput &file, DataChunkInfo *info);
 	bool rva0032D04A(DataChunkInput &file, DataChunkInfo *info);
+	void rva0032D554();
 	void discardOverriddenScriptsAndTeams();
 
 private:
@@ -778,11 +814,10 @@ void SidesList::discardOverriddenScriptsAndTeams()
 	m_teamrec.rva0032C2C4();
 }
 
-// The two "BuildLists" callbacks of SidesList's build-list loader 0x0032D554,
-// retail 0x0032D038 and 0x0032D04A (18 bytes each): parseBuildListDataChunk
-// with user data 0 for "Bases\Camps\Camps.map" and 1 for
-// "Bases\Others\Others.map". WorldBuilder binds its own pair (wb 0xa836b0,
-// 0xa836d0) at the same two sites; the names keep the addresses.
+// The two "BuildLists" callbacks the loader below binds, retail 0x0032D038 and
+// 0x0032D04A (18 bytes each): parseBuildListDataChunk with user data 0 for the
+// camps file and 1 for the others file. WorldBuilder binds its own pair (wb
+// 0xa836b0, 0xa836d0) at the same two sites; the names keep the addresses.
 bool SidesList::rva0032D038(DataChunkInput &file, DataChunkInfo *info)
 {
 	return parseBuildListDataChunk(file, info, (void *)0);
@@ -791,4 +826,65 @@ bool SidesList::rva0032D038(DataChunkInput &file, DataChunkInfo *info)
 bool SidesList::rva0032D04A(DataChunkInput &file, DataChunkInfo *info)
 {
 	return parseBuildListDataChunk(file, info, (void *)1);
+}
+
+// The build-list file binding (Common/System/BfmeDataChunkParserBinding.cpp,
+// ctor 0x000AD73D out of line here): this TU's base with its inline dtor, the
+// owner and an 8-byte member callback, which retail passes as {address, 0}.
+class Rva0032C84F
+{
+public:
+	void rva0032C84F();					// 0x0032C84F
+};
+
+typedef bool (SidesList::*SidesListChunkParser)(DataChunkInput &file, DataChunkInfo *info);
+
+class BfmeParserBindingVE : public BfmeParserBindingBaseVE
+{
+public:
+	BfmeParserBindingVE(SidesList *owner, SidesListChunkParser callback, DataChunkInput *input,
+		const AsciiString &label, const AsciiString &parentLabel);	// 0x000AD73D
+
+private:
+	SidesList *m_owner;
+	SidesListChunkParser m_callback;
+};
+
+// SidesList's build-list loader, retail 0x0032D554 (494 bytes).
+//
+// Identity (target): WorldBuilder's unnamed debug twin wb 0xa81470 makes the
+// same calls in the same order: the reset 0x0032C84F, then for
+// "Bases\Camps\Camps.map" and "Bases\Others\Others.map" the stream ctor, open
+// (a missing file returns), DataChunkInput, the "BuildLists" binding with the
+// callbacks above, parse (throwing ERROR_CORRUPT_FILE_FORMAT on failure),
+// close and the destructors. Donor: BFME 1's twin 0x0019B030
+// (Rva0019B030LoadBuildLists.cpp), which GameLogic::init calls on
+// TheSidesList; its name is not established there either.
+void SidesList::rva0032D554()
+{
+	((Rva0032C84F *)this)->rva0032C84F();
+
+	{
+		Rva00240000 camps;
+		if (!camps.rva00308050(AsciiString("Bases\\Camps\\Camps.map")))
+			return;
+		DataChunkInput file(&camps);
+		BfmeParserBindingVE parser(this, &SidesList::rva0032D038, &file,
+			AsciiString("BuildLists"), AsciiString::TheEmptyString);
+		if (!file.parse(0))
+			throw ERROR_CORRUPT_FILE_FORMAT;
+		((Rva003079ED *)&camps)->rva003079ED();
+	}
+
+	{
+		Rva00240000 others;
+		if (!others.rva00308050(AsciiString("Bases\\Others\\Others.map")))
+			return;
+		DataChunkInput file(&others);
+		BfmeParserBindingVE parser(this, &SidesList::rva0032D04A, &file,
+			AsciiString("BuildLists"), AsciiString::TheEmptyString);
+		if (!file.parse(0))
+			throw ERROR_CORRUPT_FILE_FORMAT;
+		((Rva003079ED *)&others)->rva003079ED();
+	}
 }
