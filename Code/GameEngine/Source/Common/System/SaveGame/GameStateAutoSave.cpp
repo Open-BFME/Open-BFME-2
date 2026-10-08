@@ -497,3 +497,57 @@ bool GameState::getSaveGameInfoFromFile(UnicodeString filename, SaveGameInfo *sa
 	}
 	return result;
 }
+
+// ?addGameToAvailableList@@YAXVUnicodeString@@PAX@Z @0x002DF0B4 317B
+// The iterateSaveFiles callback: read the file's SaveGameInfo and insert a
+// new AvailableGameInfo into the list at userData, newest first. The catch
+// (...) funclet at 0x002DF1EB resumes at the filename release 0x002DF116.
+// A failed read returns past the list code while an insert jumps to the end
+// of the try: that is the order retail lays the shared cleanup out in.
+void addGameToAvailableList(UnicodeString filename, void *userData)
+{
+	AvailableGameInfo **listHead = (AvailableGameInfo **)userData;
+
+	try
+	{
+		SaveGameInfo saveGameInfo;
+		if (!TheGameState->getSaveGameInfoFromFile(filename, &saveGameInfo))
+			return;
+
+		AvailableGameInfo *newInfo = new AvailableGameInfo;
+
+		newInfo->prev = 0;
+		newInfo->next = 0;
+		newInfo->saveGameInfo = saveGameInfo;
+		newInfo->filename = filename;
+
+		if (*listHead == 0)
+			*listHead = newInfo;
+		else
+		{
+			AvailableGameInfo *curr, *prev = 0;
+			for (curr = *listHead; curr != 0; curr = curr->next)
+			{
+				prev = curr;
+				if (newInfo->saveGameInfo.date.isNewerThan(&curr->saveGameInfo.date))
+				{
+					if (curr->prev)
+						curr->prev->next = newInfo;
+					else
+						*listHead = newInfo;
+					newInfo->prev = curr->prev;
+					curr->prev = newInfo;
+					newInfo->next = curr;
+					goto done;
+				}
+			}
+			prev->next = newInfo;
+			newInfo->prev = prev;
+		}
+	done:
+		;
+	}
+	catch (...)
+	{
+	}
+}
