@@ -154,6 +154,9 @@ public:
     bool hasMoreLoops(void) const;
     void rva002D9ADC(void);
     void advanceNextPlayPortion(void);
+    // Inline in WorldBuilder too (its twin copies the read into a temp);
+    // putFileIntoLoopBuffer's first reads go through it into a register.
+    int getNextPlayPortion(void) const { return m_portionToPlayNext; }
     char at00[0x08];
     AudioEventInfo *m_info;  // +0x08 (owning ref in WB)
     int m_playingHandle;     // +0x0C, copied into a requeued loop's request
@@ -190,7 +193,10 @@ private:
 // (OpenAudioFile::getMilesSoundInfo, getFileImage): the file name sits at +0,
 // Miles' AILSOUNDINFO at +0x08 (channels at +0x14) and the file image at +0x2C.
 struct MilesSoundInfo {
-    char at00[0x14];
+    int m_format;                        // +0x00
+    const void *m_dataPtr;               // +0x04, AILSOUNDINFO data_ptr
+    unsigned int m_dataLen;              // +0x08, AILSOUNDINFO data_len
+    char at0C[0x14 - 0x0C];
     int m_channels;                      // +0x14
     char at18[0x24 - 0x18];
 };
@@ -332,8 +338,11 @@ public:
     ~Rva00690FF0Handle();
     bool isValid(void) const { return m_target != 0; }
     operator const Rva00691040Handle &() const { return *reinterpret_cast<const Rva00691040Handle *>(this); }
+    const AsciiString &getFileName(void) const { return m_target ? m_target->m_fileName : AsciiString::TheEmptyString; }
+    const MilesSoundInfo *getMilesSoundInfo(void) const { return m_target ? &m_target->m_soundInfo : 0; }
+    void *getFileImage(void) const { return m_target ? m_target->m_fileImage : 0; }
 private:
-    void *m_target;
+    OpenAudioFile *m_target;
 };
 class AudioFileCache {
 public:
@@ -753,6 +762,8 @@ public:
 
     // WorldBuilder name; refills a loop buffer's play buffer up to position.
     void transferBytesToPlayBuffer(LoopBuffer *buffer, unsigned int position);
+    // WorldBuilder name; binds a cached file to a loop buffer.
+    void putFileIntoLoopBuffer(LoopBuffer *buffer, const Rva00690FF0Handle &file, int arg);
     void rva0005EFE9(void);
     void putPlayingMusicOnStack(int viewType, int arg);
     void rva00059CE6(PlayingAudioRef &looping);
@@ -891,6 +902,34 @@ MilesAudioManager::LoopBuffer::~LoopBuffer()
 void deleteLoopBuffers(MilesAudioManager::LoopBuffer *loopBuffers)
 {
     delete[] loopBuffers;
+}
+
+// Retail 0x0005E98E (WorldBuilder twin 0x0077B150): steps the source event's
+// play portion, queues the next portion's file, then binds file to the play
+// buffer: its sound data runs from m_at30 to m_at2C within m_at20's image.
+void MilesAudioManager::putFileIntoLoopBuffer(LoopBuffer *buffer, const Rva00690FF0Handle &file, int arg)
+{
+    BfmePoolRef10 &source = (BfmePoolRef10 &)buffer->m_source;
+    source->m_at50 = true;
+    if (source->getNextPlayPortion() != 2 || arg == 1)
+        source->advanceNextPlayPortion();
+    source->rva002D9ADC();
+    if (source->getNextPlayPortion() == 2) {
+        if (!buffer->m_at28.isValid())
+            reinterpret_cast<Rva00691040Handle &>(buffer->m_at28) = m_audioFileCache->requestFile(source, 0);
+    } else if (source->m_portionToPlayNext != 3) {
+        reinterpret_cast<Rva00691040Handle &>(buffer->m_at24) = m_audioFileCache->requestFile(source, 0);
+    }
+    reinterpret_cast<Rva00691040Handle &>(buffer->m_at20) = file;
+    if (!file.isValid()) {
+        buffer->m_at30 = 0;
+        buffer->m_at2C = 0;
+        return;
+    }
+    const MilesSoundInfo *soundInfo = file.getMilesSoundInfo();
+    buffer->m_at30 = (const char *)soundInfo->m_dataPtr - (const char *)buffer->m_at20.getFileImage();
+    buffer->m_at2C = soundInfo->m_dataLen + buffer->m_at30;
+    rva0005DB6C(file.getFileName());
 }
 
 class File;
