@@ -1,7 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // Waypoint's constructors and destructor (vtable 0x007FB21C, whose slot 0 is
 // ??_GWaypoint at 0x00282B9F), from Zero Hour's GameLogic/Map/TerrainLogic.cpp
-// as Open-BFME-1 reconstructs them (its WaypointConstructor.cpp).
+// as Open-BFME-1 reconstructs them (its WaypointConstructor.cpp), and its
+// save-game xfer (Open-BFME-1's WaypointXfer.cpp).
 //
 // Target facts: the nine-argument constructor (0x00282212, ret 0x24) takes
 // its five strings by value and destroys them itself; the waypoint list head
@@ -21,10 +22,80 @@ extern "C" void *memset(void *dst, int value, unsigned int size);
 typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
+typedef unsigned char UnsignedByte;
 
 #define NULL 0
 
-enum { WAYPOINT_ID_AUTO = 0x7ffffffe };
+enum { WAYPOINT_ID_AUTO = 0x7ffffffe, INVALID_WAYPOINT_ID = 0x7fffffff };
+
+struct XferVersion
+{
+	UnsignedByte m_first;
+	UnsignedByte m_version;
+};
+
+class Xfer
+{
+public:
+	virtual void slot00();
+	virtual Bool isLoading(); // +0x04
+	virtual Bool isStoring(); // +0x08
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual void slot18();
+	virtual void slot1C();
+	virtual void slot20();
+	virtual void xferUser(void *data, Int size); // +0x24
+	virtual void xferVersion(XferVersion *version); // +0x28
+	virtual void slot2C();
+	virtual void slot30();
+	virtual void slot34();
+	virtual void slot38();
+	virtual void slot3C();
+	virtual void slot40();
+	virtual void slot44();
+	virtual void slot48();
+	virtual void slot4C();
+	virtual void slot50();
+	virtual void slot54();
+	virtual void slot58();
+	virtual void slot5C();
+	virtual void xferCoord3D(Coord3D *value); // +0x60
+	virtual void slot64();
+	virtual void slot68();
+	virtual void xferAsciiString(AsciiString *value); // +0x6C
+	virtual void slot70();
+	virtual void slot74();
+	virtual void xferUnsignedInt(UnsignedInt *value); // +0x78
+	virtual void xferInt(Int *value); // +0x7C
+	virtual void slot80();
+	virtual void slot84();
+	virtual void slot88();
+	virtual void slot8C();
+	virtual void xferBool(Bool *value); // +0x90
+};
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+void XferWaypointID(Xfer *xfer, Int *id);
+void XferObjectID(Xfer *xfer, ObjectID *id);
+
+template <int NUMBITS> class BitFlags
+{
+public:
+	void xfer(Xfer *xfer);
+};
+
+// The rowed xfer of the member at +0xBC, named for its address.
+class Rva003189ADSub10
+{
+public:
+	void rva00362255(Xfer *xfer);
+};
 
 // Zero Hour's Coord3D::zero, and a location copied member by member rather
 // than as a block.
@@ -53,6 +124,7 @@ class Rva0024C7B3Member
 public:
 	Rva0024C7B3Member();
 	void zeroData() { memset(m_data, 0, sizeof(m_data)); }
+	void xfer(Xfer *xfer) { ((BitFlags<218> *)this)->xfer(xfer); }
 private:
 	unsigned int m_data[7];
 };
@@ -62,15 +134,34 @@ class Rva00360D26Member
 public:
 	Rva00360D26Member();
 	~Rva00360D26Member();
+	void xfer(Xfer *xfer) { ((Rva003189ADSub10 *)this)->rva00362255(xfer); }
 private:
 	unsigned m_unknown;
 };
 
-class TerrainLogic
+// N unnamed vftable slots appended to Base.
+template <class Base, int N> class TerrainLogicSlots : public TerrainLogicSlots<Base, N - 1>
 {
 public:
-	unsigned char m_pad[0x56c];
-	Rva0027F4CB m_tree;
+	virtual void gap(Base *, char (*)[N]);
+};
+template <class Base> class TerrainLogicSlots<Base, 0> : public Base
+{
+};
+
+class TerrainLogicHead
+{
+public:
+	virtual void slot0();
+};
+
+class TerrainLogic : public TerrainLogicSlots<TerrainLogicHead, 34>
+{
+public:
+	virtual Waypoint *getWaypointByID(UnsignedInt id); // +0x8C
+
+	unsigned char m_pad[0x56c - 0x04];
+	Rva0027F4CB m_tree; // +0x56C
 };
 
 extern TerrainLogic *TheTerrainLogic;
@@ -83,6 +174,8 @@ public:
 		AsciiString label2, AsciiString label3, Bool biDirectional, Int extraField,
 		AsciiString extraLabel);
 	virtual ~Waypoint();
+	UnsignedInt getID() const { return m_id; }
+	void xfer(Xfer *xfer);
 private:
 	UnsignedInt m_id; // +0x04
 	AsciiString m_name; // +0x08
@@ -91,7 +184,7 @@ private:
 	Waypoint *m_next; // +0x1C
 	Waypoint *m_links[8]; // +0x20
 	Waypoint *m_linkSource; // +0x40
-	Int m_field44; // +0x44
+	Waypoint *m_field44; // +0x44
 	Bool m_field48; // +0x48
 	Int m_numLinks; // +0x4C
 	AsciiString m_pathLabel1; // +0x50
@@ -207,3 +300,105 @@ Waypoint::~Waypoint()
 	if (TheTerrainLogic)
 		TheTerrainLogic->m_tree.rva00280AB6();
 }
+
+// ?xfer@Waypoint@@QAEXPAVXfer@@@Z @0x0027F5F7
+// Open-BFME-1's Waypoint::xfer (its WaypointXfer.cpp) at version 4: version 3
+// adds the frame threshold at +0xB4, version 4 the member at +0xBC and the
+// flag at +0xB8, and BFME 2 saves the flag at +0xA9 after the one at +0xA8.
+// Links are saved as ids; loading leaves the ids in the link slots for the
+// fixup pass to resolve.
+void Waypoint::xfer(Xfer *xfer)
+{
+	XferVersion version;
+	version.m_first = 1;
+	version.m_version = 4;
+	xfer->xferVersion(&version);
+
+	XferWaypointID(xfer, (Int *)&m_id);
+	xfer->xferAsciiString(&m_name);
+	xfer->xferCoord3D(&m_location);
+	if (version.m_version >= 2)
+		XferWaypointID(xfer, &g_Va00DBB708);
+
+	if (xfer->isLoading())
+	{
+		Int count;
+		Int id;
+		xfer->xferInt(&count);
+		Int i = 0;
+		while (i < count)
+		{
+			XferWaypointID(xfer, &id);
+			if (i < 8)
+				m_links[i] = (Waypoint *)id;
+			++i;
+		}
+		if (i < 8)
+		{
+			while (i < 8)
+				m_links[i++] = (Waypoint *)INVALID_WAYPOINT_ID;
+		}
+
+		XferWaypointID(xfer, &id);
+		m_field44 = (Waypoint *)id;
+		if (version.m_version >= 2)
+		{
+			XferWaypointID(xfer, &id);
+			m_linkSource = (Waypoint *)id;
+		}
+		else
+			m_linkSource = (Waypoint *)INVALID_WAYPOINT_ID;
+	}
+	else if (xfer->isStoring())
+	{
+		Int i = 8;
+		xfer->xferInt(&i);
+		i = 0;
+		Int id;
+		while (i < 8)
+		{
+			Waypoint *link = m_links[i];
+			if (link != NULL)
+				id = link->m_id;
+			else
+				id = INVALID_WAYPOINT_ID;
+			XferWaypointID(xfer, &id);
+			++i;
+		}
+
+		if (m_field44 != NULL)
+			id = m_field44->m_id;
+		else
+			id = INVALID_WAYPOINT_ID;
+		XferWaypointID(xfer, &id);
+		if (version.m_version >= 2)
+		{
+			id = m_linkSource != NULL ? m_linkSource->getID() : INVALID_WAYPOINT_ID;
+			XferWaypointID(xfer, &id);
+		}
+	}
+
+	xfer->xferBool(&m_field48);
+	xfer->xferInt(&m_numLinks);
+	xfer->xferAsciiString(&m_pathLabel1);
+	xfer->xferAsciiString(&m_pathLabel2);
+	xfer->xferAsciiString(&m_pathLabel3);
+	xfer->xferBool(&m_biDirectional);
+	xfer->xferUser(&m_extraField, 4);
+	xfer->xferAsciiString(&m_extraLabel);
+	xfer->xferBool(&m_hasInclude);
+	xfer->xferBool(&m_hasExclude);
+	xfer->xferBool(&m_skipRelationship);
+	xfer->xferBool(&m_fieldA9);
+	XferObjectID(xfer, (ObjectID *)&m_linkedObjectId);
+	m_includeMask.xfer(xfer);
+	m_excludeMask.xfer(xfer);
+	if (version.m_version >= 3)
+		xfer->xferUnsignedInt((UnsignedInt *)&m_frameThreshold);
+	if (version.m_version >= 4)
+	{
+		m_bc.xfer(xfer);
+		xfer->xferBool(&m_fieldB8);
+	}
+}
+
