@@ -24,7 +24,7 @@ class GameLogic
 public:
 	void removeObjectFromLookupTable( Object *obj );
 	void addObjectToLookupTable( Object *obj );
-	void rva00242BB4( Object *first, Object *second );
+	void SwapObjectIDs( Object *first, Object *second );
 
 private:
 	unsigned char m_pad[0xB4];	// +0x00..0xB4
@@ -85,7 +85,7 @@ void GameLogic::removeObjectFromLookupTable( Object *obj )
 // Target evidence: retail removes both objects from the lookup map, calls the
 // matched Object::setID with their reciprocal +0x74 IDs, then adds both back.
 // The operation is inferred from this call sequence; the name stays RVA-based.
-void GameLogic::rva00242BB4( Object *first, Object *second )
+void GameLogic::SwapObjectIDs( Object *first, Object *second )
 {
 	if( first == 0 || second == 0 )
 		return;

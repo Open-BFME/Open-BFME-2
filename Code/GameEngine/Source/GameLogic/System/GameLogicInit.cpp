@@ -525,15 +525,15 @@ public:
 	void rva00376D49(void);
 	void rva00246422(bool dontCreate);
 	void rva00248558(bool loadingSaveGame);
-	void rva00241230(bool loadingSaveGame);
+	void startNewGame_Init(bool loadingSaveGame);
 	void rva002469A5(bool loadingSaveGame, int *progress);
-	void rva002421F5(bool loadingSaveGame, int *progress);
+	void startNewGame_PlaceMPBuildings(bool loadingSaveGame, int *progress);
 	void rva00248278(bool loadingSaveGame);
 	void rva0023F52C(bool loadingSaveGame);
 	void rva0024004D(bool loadingSaveGame);
-	void rva0023E3CE(AsciiString mapName);
+	void loadMapINI(AsciiString mapName);
 	void rva0023E628(AsciiString mapName);
-	void rva0023EE5B(bool isSkirmish, int progress);
+	void CreateMPPlayers(bool isSkirmish, int progress);
 	void SetUpCampaignPlayers(void);
 	void rva0023E0C7(void);
 	void lastHeardFrom(int playerIndex);
@@ -545,11 +545,11 @@ public:
 	Object *findObjectByID(ObjectID id);
 	void rva00244D56(_STL::vector<Rva0024622FEntry> *created, const KindOfType *excludeKind,
 		const KindOfType *requireKind, bool dontCreate);
-	void rva00244CB0(bool loadingSaveGame, GameInfo *game);
+	void startNewGame_OpenLoadScreen(bool loadingSaveGame, GameInfo *game);
 	bool isInMultiplayerGame(void);
 	bool rva00085124(void);
 	void formatPlayerStartWaypointName(AsciiString *name);
-	void rva00241529(unsigned int crc, int player, unsigned int frame, GameMessage *message,
+	void ProcessCRC(unsigned int crc, int player, unsigned int frame, GameMessage *message,
 		bool forced, BfmeThingEC *stream);
 	void rva0023F8DA(void);
 	const AsciiString &rva0023FB58(int index);
@@ -902,7 +902,7 @@ public:
 };
 
 // One 0x14-byte start-position record of the map metadata (array at +0x54);
-// rva0023EE5B tests only the byte at +2, populateRandomSideAndColor reads the
+// CreateMPPlayers tests only the byte at +2, populateRandomSideAndColor reads the
 // set of faction names allowed at the position (+8, node count at +0xC).
 struct MapStartPosition
 {
@@ -1143,7 +1143,7 @@ void populateRandomStartPosition(GameInfo *game)
 	}
 }
 
-// ?rva00244CB0@GameLogic@@QAEX_NPAVGameInfo@@@Z @0x00244CB0 166B (ret 8 at
+// ?startNewGame_OpenLoadScreen@GameLogic@@QAEX_NPAVGameInfo@@@Z @0x00244CB0 166B (ret 8 at
 // 0x00244D53; Ghidra's 20-byte FUN_00644cb0 stops at the first call). Called
 // once, from 0x002485EE in the BFME 2 new-game setup (0x00248558). Target
 // evidence: it is the ZH startNewGame stretch that saves off each slot's
@@ -1198,7 +1198,7 @@ extern GameWindowTransitionsHandler *TheTransitionHandler;
 void bfmeReleaseQueuedDeviceInterfaces(void);
 void populateRandomSideAndColor(GameInfo *game);
 
-void GameLogic::rva00244CB0(bool loadingSaveGame, GameInfo *game)
+void GameLogic::startNewGame_OpenLoadScreen(bool loadingSaveGame, GameInfo *game)
 {
 	Rva0134FAA0->slot28();
 	bfmeReleaseQueuedDeviceInterfaces();
@@ -1895,13 +1895,13 @@ void GameLogic::rva00248558(bool loadingSaveGame)
 	bfmeClearReceiverFlag(0);
 
 	int progress = 3;
-	rva00241230(loadingSaveGame);
-	rva00244CB0(loadingSaveGame, TheGameInfo);
+	startNewGame_Init(loadingSaveGame);
+	startNewGame_OpenLoadScreen(loadingSaveGame, TheGameInfo);
 	Rva0004224C fpModeGuard;
 	rva002469A5(loadingSaveGame, &progress);
 	rva00246422(loadingSaveGame);
 	progress = 0x29;
-	rva002421F5(loadingSaveGame, &progress);
+	startNewGame_PlaceMPBuildings(loadingSaveGame, &progress);
 	((Rva0023C7D2 *)this)->rva0023C7BB(0x32);
 	rva00248278(loadingSaveGame);
 	Profile::StopRange("newgame");
@@ -2254,7 +2254,7 @@ void GameLogic::rva00248278(bool loadingSaveGame)
 	}
 }
 
-// ?rva00241230@GameLogic@@QAEX_N@Z @0x00241230 431B (EH frame, ret 4; next
+// ?startNewGame_Init@GameLogic@@QAEX_N@Z @0x00241230 431B (EH frame, ret 4; next
 // body 0x002413DF). Called from the new-game pass 0x00248558.
 // Target evidence: TheWindowManager (0x009FEF1C) virtual +0x28, the
 // GlobalData +0xDDC byte copied to +0x11C, bfmeClearReceiverFlag(2), the
@@ -2346,7 +2346,7 @@ static void checkForDuplicateColors(GameInfo *game)
 	}
 }
 
-void GameLogic::rva00241230(bool loadingSaveGame)
+void GameLogic::startNewGame_Init(bool loadingSaveGame)
 {
 	TheWindowManager->update();
 	m_11c = TheWritableGlobalData->m_ddc;
@@ -2383,7 +2383,7 @@ void GameLogic::rva00241230(bool loadingSaveGame)
 	checkForDuplicateColors(TheGameInfo);
 }
 
-// ?rva002421F5@GameLogic@@QAEX_NPAH@Z @0x002421F5 494B (EH frame, ret 8;
+// ?startNewGame_PlaceMPBuildings@GameLogic@@QAEX_NPAH@Z @0x002421F5 494B (EH frame, ret 8;
 // next body 0x002423E1). Called from the new-game pass 0x00248558 with the
 // load-progress counter.
 // Target evidence: progress 0x28 first; for a new game with TheGameInfo set,
@@ -2437,7 +2437,7 @@ static inline void addCoord(Coord3D *dst, const Coord3D *src)
 	dst->z += src->z;
 }
 
-void GameLogic::rva002421F5(bool loadingSaveGame, int *progress)
+void GameLogic::startNewGame_PlaceMPBuildings(bool loadingSaveGame, int *progress)
 {
 	((Rva0023C7D2 *)this)->rva0023C7BB(0x28);
 	if (TheGameInfo && !loadingSaveGame) {
@@ -2955,7 +2955,7 @@ void GameLogic::rva002469A5(bool loadingSaveGame, int *progress)
 	m_40 = 0;
 	Rva0134FAA0->slot28();
 	bfmeReleaseQueuedDeviceInterfaces();
-	rva0023E3CE(TheWritableGlobalData->m_mapName);
+	loadMapINI(TheWritableGlobalData->m_mapName);
 	Rva0134FAA0->slot28();
 	bfmeReleaseQueuedDeviceInterfaces();
 	TheLuaScriptEngine->rva003387DC(TheWritableGlobalData->m_mapName);
@@ -2986,7 +2986,7 @@ void GameLogic::rva002469A5(bool loadingSaveGame, int *progress)
 		}
 		if (TheGameEngine->isMultiplayerSession() || isSkirmish)
 			TheSidesList->rva0032FF91();
-		rva0023EE5B(isSkirmish, *progress);
+		CreateMPPlayers(isSkirmish, *progress);
 		g_00E03138->reset();
 	} else if (((Rva0023C6A4 *)this)->rva00200084()) {
 		SetUpCampaignPlayers();
@@ -3208,7 +3208,7 @@ private:
 
 extern "C" int (__cdecl * const _imp__sprintf)(char *buffer, const char *format, ...);
 
-void GameLogic::rva0023E3CE(AsciiString mapName)
+void GameLogic::loadMapINI(AsciiString mapName)
 {
 	if (!TheMapCache)
 		return;
@@ -3484,7 +3484,7 @@ void GameLogic::rva0023E0C7(void)
 }
 
 // ---------------------------------------------------------------------------
-// ?rva0023EE5B@GameLogic@@QAEX_NH@Z @0x0023EE5B 1685B (ret 8; called from
+// ?CreateMPPlayers@GameLogic@@QAEX_NH@Z @0x0023EE5B 1685B (ret 8; called from
 // rva002469A5 with the skirmish flag and the progress base).
 // BFME 1 / Zero Hour startNewGame's slot-to-side pass, now its own member:
 // first every occupied slot is given its side name (Observer_N for an
@@ -3513,7 +3513,7 @@ extern Rva00148F5ECache TheKey_skirmishDifficulty;
 extern Rva00148F5ECache TheKey_playerIsPreorder;
 extern Rva00148F5ECache TheKey_playerAIType;
 
-void GameLogic::rva0023EE5B(bool isSkirmish, int progressCount)
+void GameLogic::CreateMPPlayers(bool isSkirmish, int progressCount)
 {
 	if (!TheGameInfo)
 		return;
@@ -3806,7 +3806,7 @@ void populateRandomSideAndColor(GameInfo *game)
 	}
 }
 
-// ?rva00241529@GameLogic@@QAEXIHIPAVGameMessage@@_NPAVBfmeThingEC@@@Z
+// ?ProcessCRC@GameLogic@@QAEXIHIPAVGameMessage@@_NPAVBfmeThingEC@@@Z
 // @0x00241529 948B (Ghidra FUN_00641529, ret 0x18 at 0x002418DA). Callers:
 // 0x002458E3, 0x0037AA44 and 0x0037D0E4; all six argument slots are read.
 // Donor: BFME 1 game/GameEngine/Source/GameLogic/System/GameLogicPeerCRC.cpp
@@ -3871,7 +3871,7 @@ extern int g_value12A6F38;
 // 0x00A02D8A: keep playing after a CRC mismatch was logged.
 extern bool ignoreCRCMismatches;
 
-void GameLogic::rva00241529(unsigned int crc, int player, unsigned int frame, GameMessage *message,
+void GameLogic::ProcessCRC(unsigned int crc, int player, unsigned int frame, GameMessage *message,
 	bool forced, BfmeThingEC *stream)
 {
 	Rva00241529Record *entry = m_48;
@@ -4384,7 +4384,7 @@ void GameLogic::update(int phase)
 			if (!TheDeepCRC && !TheLiteCRC)
 				msg->appendBooleanArgument(false);
 			else
-				rva00241529(crc, player, m_40, msg, false, stream);
+				ProcessCRC(crc, player, m_40, msg, false, stream);
 		}
 		if (g_00DFEFF0)
 			((Rva002CEC0A *)g_00DFEFF0)->rva002CEC34();
