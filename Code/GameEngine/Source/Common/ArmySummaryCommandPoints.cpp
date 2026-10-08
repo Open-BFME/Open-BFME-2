@@ -46,3 +46,50 @@ int BfmeY1038::bfmeVal1038()
 		total += m_entries[i].m_holder.get()->rva0037DCA5();
 	return total;
 }
+
+// 0x0040CF55, 60 B: the same +0x40 entry vector, summing the field at +0x90
+// of each held unit whose flag byte at +0xC5 is clear. The unit is
+// address-derived (Rva0040CF55Unit); only its two field offsets are evidence.
+class Rva0040CF55Unit
+{
+public:
+	char m_pad0[0x90];
+	int m_value;		// +0x90
+	char m_pad1[0x31];
+	unsigned char m_flag;	// +0xC5
+};
+
+class Rva0040CF55Holder
+{
+public:
+	Rva0040CF55Unit *get() const { return m_p; }
+private:
+	Rva0040CF55Unit *m_p;
+};
+
+struct Rva0040CF55Entry
+{
+	int m_key;
+	Rva0040CF55Holder m_holder;	// +0x04
+};
+
+class Rva0040CF55Owner
+{
+public:
+	int sumUnflagged() const;
+private:
+	char m_pad[0x40];
+	std::vector<Rva0040CF55Entry> m_entries;	// +0x40
+};
+
+int Rva0040CF55Owner::sumUnflagged() const
+{
+	int total = 0;
+	for (unsigned int i = 0; i < m_entries.size(); ++i)
+	{
+		Rva0040CF55Unit *unit = m_entries[i].m_holder.get();
+		if (!unit->m_flag)
+			total += unit->m_value;
+	}
+	return total;
+}
