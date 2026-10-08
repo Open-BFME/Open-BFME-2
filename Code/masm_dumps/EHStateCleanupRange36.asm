@@ -1133,6 +1133,45 @@ PUBLIC ?rva00771F74@@YAXXZ
     jmp ??1Gen_uw_0049b47c@@QAE@XZ
 ?rva00771F74@@YAXXZ ENDP
 
+; Unwind@00b720d9: eh-vector-dtor cleanup adds 70h to [ebp-20] and passes it to 0047FAB3h.
+PUBLIC ?rva007720D9@@YAXXZ
+?rva007720D9@@YAXXZ PROC
+    push 0047FAB3h
+    push 3
+    push 0Ch
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 70h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007720D9@@YAXXZ ENDP
+
+; Unwind@00b72128: eh-vector-dtor cleanup adds 70h to [ebp-16] and passes it to 0047FAB3h.
+PUBLIC ?rva00772128@@YAXXZ
+?rva00772128@@YAXXZ PROC
+    push 0047FAB3h
+    push 3
+    push 0Ch
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 70h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00772128@@YAXXZ ENDP
+
+; Unwind@00b73f20: eh-vector-dtor cleanup adds 10h to [ebp-16] and passes it to 0069D7C2h.
+PUBLIC ?rva00773F20@@YAXXZ
+?rva00773F20@@YAXXZ PROC
+    push 0069D7C2h
+    push 4
+    push 18h
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 10h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00773F20@@YAXXZ ENDP
+
 ; Unwind@00b73f56: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
 PUBLIC ?rva00773F56@@YAXXZ
 ?rva00773F56@@YAXXZ PROC
