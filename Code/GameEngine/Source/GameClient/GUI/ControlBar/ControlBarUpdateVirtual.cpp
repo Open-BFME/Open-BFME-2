@@ -7,13 +7,13 @@ class GameWindow { public: bool winIsHidden(); int winHide(bool); };
 class Player;
 class Drawable;
 class CommandButton;
-class ClientFrameSubsystem;
+class GameClient;
 class GameWindowManager;
 class PlayerList;
 class RadarWindowOverrideSource { public: void rva002D370A(); };
-// Match the actual global provider's declaration; access its frame slot
-// through the explicitly measured dispatch view below.
-extern ClientFrameSubsystem *TheGameClient;
+// GameClient.cpp defines this singleton as GameClient*. Access its frame
+// slot through the explicitly measured dispatch view below.
+extern GameClient *TheGameClient;
 extern GameWindowManager *TheWindowManager;
 extern PlayerList *ThePlayerList;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
