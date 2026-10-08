@@ -110,3 +110,27 @@ BFME_DISP8_NEG_DWORD_GETTER(Rva00464825DwordField, -6)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?bfmeGet992C@BfmeAsk992@@QAEHXZ=?get@Rva0066DD00DwordField@@QBEHXZ")
+
+// repair_queue dest: between this home's native 0x0066D630/0x0066D650 reads.
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 donor
+// game/GameEngine/Source/Common/U2QwordMemberGetters.cpp supplied this
+// member-read expression under /O1 /arch:SSE /G7 (also exact /O2).
+//
+// Retail independently proves the full 0x0066D640..0x0066D647 leaf between
+// INT3 pads, with adjacent loads at ECX+0x70 and ECX+0x74 into EAX and EDX,
+// then RET0. Unsigned __int64 expresses the returned raw64 pair; the original
+// receiver, value purpose and source signedness remain unknown. Only the
+// accessed prefix is represented, without asserting the full object layout.
+class Rva0066D640QwordField
+{
+public:
+    unsigned __int64 get() const;
+private:
+    char m_lead[0x70];
+    unsigned __int64 m_bits;
+};
+
+unsigned __int64 Rva0066D640QwordField::get() const
+{
+    return m_bits;
+}
