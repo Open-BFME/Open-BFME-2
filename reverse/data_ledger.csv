@@ -3589,7 +3589,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007FCFF8,24,.rdata,vtable,??_7Rva004E72C0@@6B@,,literal,,0,1
 0x007FD010,24,.rdata,vtable,??_7Rva004E7392@@6B@,,literal,??_7Rva004E7392@@6B@;?g_007FD010@@3HA,0,2
 0x007FD028,4,.rdata,vtable,??_7Rva0029B816@@6B@,,literal,,0,2
-0x007FD02C,4,.rdata,vtable,??_7Rva0029B8DD@@6B@,,literal,,0,1
+0x007FD02C,4,.rdata,vtable,??_7NamedTimerInfo@@6B@,,literal,,0,1
 0x007FD030,24,.rdata,string,??_C@_0BG@DIEJPLLK@GUI?3SelectedAcrossMap?$AA@,,literal,,0,2
 0x007FD048,40,.rdata,string,??_C@_0BF@BFEBJBGK@GUI?3MaxSelectionSize?$AA@,,literal,,0,1
 0x007FD070,20,.rdata,string,??_C@_0BC@LLIHAOAL@ReplayControl?4wnd?$AA@,,literal,,0,1

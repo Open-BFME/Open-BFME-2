@@ -375,181 +375,14 @@ void InGameUI::crc( Xfer *xfer )
   * 3: Added m_evaReadyPlayed boolean to transfer
 */
 // ------------------------------------------------------------------------------------------------
-// ?InGameUI::xfer present-unmatched
-void InGameUI::xfer( Xfer *xfer )
-{
-	// version
-	const XferVersion currentVersion = 3;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
-
-	if( version >= 2 )
-	{
-		// Saving the named timer infos and their friends so we get script timers back after we load
-		xfer->xferInt(&m_namedTimerLastFlashFrame);
-		xfer->xferBool(&m_namedTimerUsedFlashColor);
-		xfer->xferBool(&m_showNamedTimers);
-
-		// For the timers themselves, all I need to save is the things that are used in the call to addNamedTimer.
-		// It is okay to do this, because SuperweaponInfos pushes things on to a map; addNamedTimer is just a more
-		// organized way to push things on the namedTimer Map.
-		// addNamedTimer needs (const AsciiString& timerName, const UnicodeString& text, Bool isCountdown)
-		if (xfer->getXferMode() == XFER_SAVE)
-		{
-			Int timerCount = m_namedTimers.size();
-			xfer->xferInt( &timerCount );
-			for( NamedTimerMapIt timerIter = m_namedTimers.begin(); timerIter != m_namedTimers.end(); ++timerIter )
-			{
-				xfer->xferAsciiString( &(timerIter->second->m_timerName) );
-				xfer->xferUnicodeString( &(timerIter->second->timerText) );
-				xfer->xferBool( &(timerIter->second->isCountdown) );
-			}
-		}
-		else // iz a Load
-		{
-			Int timerCount;
-			xfer->xferInt( &timerCount );
-			for( Int timerIndex = 0; timerIndex < timerCount; ++timerIndex )
-			{
-				AsciiString timerName;
-				UnicodeString timerText;
-				Bool isCountdown;
-				xfer->xferAsciiString( &timerName );
-				xfer->xferUnicodeString( &timerText );
-				xfer->xferBool( &isCountdown );
-
-				addNamedTimer( timerName, timerText, isCountdown );
-			}
-		}
-	}
-
-	xfer->xferBool(&m_superweaponHiddenByScript);
-	//xfer->xferBool(&m_inputEnabled);	// no, don't save this yet. somewhat problematic.
-
-	if (xfer->getXferMode() == XFER_SAVE)
-	{
-		for (Int playerIndex = 0; playerIndex < MAX_PLAYER_COUNT; ++playerIndex)
-		{
-			for (SuperweaponMap::iterator mapIt = m_superweapons[playerIndex].begin(); mapIt != m_superweapons[playerIndex].end(); ++mapIt)
-			{
-				AsciiString powerName = mapIt->first;
-				SuperweaponList& swList = mapIt->second;
-				for (SuperweaponList::iterator listIt = swList.begin(); listIt != swList.end(); ++listIt)
-				{
-					SuperweaponInfo* swInfo = *listIt;
-
-					// since this list tends to be somewhat sparse, we write stuff out pretty explicitly.
-					xfer->xferInt(&playerIndex);
-					
-					AsciiString templateName = swInfo->getSpecialPowerTemplate()->getName();
-
-					xfer->xferAsciiString(&templateName);
-					xfer->xferAsciiString(&powerName);
-					xfer->xferObjectID(&swInfo->m_id);
-					xfer->xferUnsignedInt(&swInfo->m_timestamp);
-					xfer->xferBool(&swInfo->m_hiddenByScript);
-					xfer->xferBool(&swInfo->m_hiddenByScience);
-					xfer->xferBool(&swInfo->m_ready);
-          if ( currentVersion >= 3 )
-          {
-            xfer->xferBool( &swInfo->m_evaReadyPlayed );
-          }
-				}
-			}
-		}
-		Int noMorePlayers = -1;		// our "done" sentinel
-		xfer->xferInt(&noMorePlayers);
-	}
-	else if (xfer->getXferMode() == XFER_LOAD)
-	{
-		for (;;)
-		{
-			Int playerIndex;
-			xfer->xferInt(&playerIndex);
-
-			if (playerIndex == -1)
-			{
-				break;	// our "done" sentinel
-			}
-			else if (playerIndex < 0 || playerIndex >= MAX_PLAYER_COUNT)
-			{
-				DEBUG_CRASH(("SWInfo bad plyrindex\n"));
-				throw INI_INVALID_DATA;
-			}
-
-			AsciiString templateName;
-			xfer->xferAsciiString(&templateName);
-			const SpecialPowerTemplate* powerTemplate = TheSpecialPowerStore->findSpecialPowerTemplate(templateName);
-			if (powerTemplate == NULL)
-			{
-				DEBUG_CRASH(("power %s not found\n",templateName.str()));
-				throw INI_INVALID_DATA;
-			}
-
-			AsciiString powerName;
-			ObjectID id;
-			UnsignedInt timestamp;
-			Bool hiddenByScript, hiddenByScience, ready, evaReadyPlayed;
-
-			xfer->xferAsciiString(&powerName);
-			xfer->xferObjectID(&id);
-			xfer->xferUnsignedInt(&timestamp);
-			xfer->xferBool(&hiddenByScript);
-			xfer->xferBool(&hiddenByScience);
-			xfer->xferBool(&ready);
-      if ( currentVersion >= 3 )
-      {
-        xfer->xferBool( &evaReadyPlayed );
-      }
-      else
-      {
-        evaReadyPlayed = ready;
-      }
-
-			// srj sez: due to order-of-operation stuff, sometimes these will already exist,
-			// sometimes not. not sure why. so handle both cases. 
-			SuperweaponInfo* swInfo = findSWInfo(playerIndex, powerName, id, powerTemplate);
-			if (swInfo == NULL)
-			{
-				const Player* player = ThePlayerList->getNthPlayer(playerIndex);
-				swInfo = newInstance(SuperweaponInfo)(
-					id,
-					timestamp,
-					hiddenByScript,
-					hiddenByScience,
-					ready,
-          evaReadyPlayed,
-					m_superweaponNormalFont, 
-					m_superweaponNormalPointSize, 
-					m_superweaponNormalBold, 
-					player->getPlayerColor(), 
-					powerTemplate);
-				m_superweapons[playerIndex][powerName].push_back(swInfo);
-			}
-			else
-			{
-				// swInfo->m_id = id;	// redundant, already matches
-				swInfo->m_timestamp = timestamp;
-				swInfo->m_hiddenByScript = hiddenByScript;
-				swInfo->m_hiddenByScience = hiddenByScience;
-				swInfo->m_ready = ready;
-        swInfo->m_evaReadyPlayed = evaReadyPlayed;
-			}
-			swInfo->m_forceUpdateText = true;
-		
-		}
-	}
-
-}
+// InGameUI::xfer: defined in InGameUIXfer.cpp (its row's unit). The superweapon map
+// node construction its load reached (0x006896F0) keeps this unit's flags and row.
+template void _STL::_Construct( SuperweaponMap::value_type *, const SuperweaponMap::value_type & );
 
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?InGameUI::loadPostProcess present-unmatched
-void InGameUI::loadPostProcess( void )
-{
-
-}  // end loadPostProcess
+// InGameUI::loadPostProcess: defined in InGameUIXfer.cpp (its row's unit).
 
 // InGameUI::setMouseCursor: defined in InGameUIInputModes.cpp (its row's unit).
 
@@ -595,26 +428,7 @@ Bool InGameUI::getSuperweaponDisplayEnabledByScript(void) const
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?InGameUI::addNamedTimer present-unmatched
-void InGameUI::addNamedTimer( const AsciiString& timerName, const UnicodeString& text, Bool isCountdown )
-{
-	NamedTimerInfo *info = newInstance( NamedTimerInfo );	
-	info->m_timerName = timerName;
-	info->color = m_namedTimerNormalColor;
-	info->timerText = text;
-	info->displayString = TheDisplayStringManager->newDisplayString();
-	info->displayString->reset();
-	info->displayString->setFont( TheFontLibrary->getFont( m_namedTimerNormalFont, 
-		TheGlobalLanguageData->adjustFontSize(m_namedTimerNormalPointSize), m_namedTimerNormalBold ) );
-	info->displayString->setText( UnicodeString::TheEmptyString );
-	info->timestamp = -1;
-	info->isCountdown = isCountdown;
-
-//	GameFont *font = info->displayString->getFont();
-
-	removeNamedTimer(timerName);
-	m_namedTimers[timerName] = info;
-}
+// InGameUI::addNamedTimer: defined in InGameUIXfer.cpp (its row's unit).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
