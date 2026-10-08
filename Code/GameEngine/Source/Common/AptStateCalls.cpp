@@ -365,3 +365,25 @@ void Rva005EF3F6::rva005EF3F6()
 {
 	return m_ptr04->Update();
 }
+
+// ?rva005FAA4D@Rva005FAA4D@@QAEXXZ @0x005FAA4D 67B: the battle prompt's swap
+// button tooltip, refreshed by the rowed Rva005FB1AD slot 1 (0x005FAA90) on
+// the object its +0x20 member holds. Unless +0x50 is negative, TheMouse's
+// tooltip (rowed 0x001EEA6D, delay -1, no colour, width 1.0) shows the
+// "APT:StrategicBattlePromptSwapButton1Tooltip" text for 0 and the "...2..."
+// one otherwise, fetched straight into the argument (TheGameText slot 15).
+class Rva005FAA4D
+{
+public:
+	void rva005FAA4D();
+private:
+	unsigned char m_pad00[0x50];
+	int m_50;
+};
+
+void Rva005FAA4D::rva005FAA4D()
+{
+	if (m_50 < 0)
+		return;
+	TheMouse->rva001EEA6D(TheGameText->fetch(m_50 == 0 ? "APT:StrategicBattlePromptSwapButton1Tooltip" : "APT:StrategicBattlePromptSwapButton2Tooltip"), -1, 0, 1.0f);
+}
