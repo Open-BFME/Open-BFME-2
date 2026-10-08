@@ -112,6 +112,31 @@ private:
 	unsigned char m_second;
 };
 
+// Borrowed prefix: native 29CBCA loads Drawable::m_object at +FC.
+class Object;
+class Drawable;
+struct SelectedDrawableView
+{
+	char pad[0xfc];
+	Object *m_object;
+};
+static __forceinline Object *selectedObject(Drawable *drawable)
+{
+	return reinterpret_cast<SelectedDrawableView *>(drawable)->m_object;
+}
+#include <list>
+typedef _STL::list<Drawable *> DrawableList;
+// Borrowed list/node prefix proved by 29CBC2/29CBC4/29CBCA/29CBF5.
+struct SelectedDrawableNode { SelectedDrawableNode *next, *prev; Drawable *value; };
+struct SelectedDrawableListView { SelectedDrawableNode *head; };
+class ActionManager
+{
+public:
+	bool canOverrideSpecialPowerDestination(Object *, const Coord3D *, int, int);
+};
+extern ActionManager *TheActionManager;
+enum SpecialPowerType { SPECIAL_INVALID = -1 };
+
 class InGameUI
 {
 public:
@@ -188,7 +213,7 @@ public:
 	virtual void slot70();
 	virtual void slot71();
 	virtual void slot72();
-	virtual void slot73();
+	virtual const DrawableList *getAllSelectedDrawables() const;
 	virtual void slot74();
 	virtual void slot75();
 	virtual void slot76();
@@ -218,6 +243,8 @@ public:
 	virtual int selectMatchingAcrossRegion(IRegion2D *region);
 	virtual void buildRegion(const ICoord2D *anchor, const ICoord2D *dest, IRegion2D *region);
 	virtual int selectMatchingAcrossScreen();
+	enum SelectionRules { SELECTION_ANY, SELECTION_ALL };
+	bool canSelectedObjectsOverrideSpecialPowerDestination(const Coord3D *, SelectionRules, SpecialPowerType) const;
 };
 
 extern InGameUI *TheInGameUI;
@@ -256,3 +283,29 @@ int InGameUI::selectMatchingAcrossScreen()
 #pragma comment(linker, "/alternatename:?g_Va009FEA3C@@3PAVRva003C4DC2Holder@@A=?TheTacticalView@@3PAVView@@A")
 // ?TheTacticalView@@3PAVTacticalView@@A: the global at VA 0xdfea3c is ?TheTacticalView@@3PAVView@@A.
 #pragma comment(linker, "/alternatename:?TheTacticalView@@3PAVTacticalView@@A=?TheTacticalView@@3PAVView@@A")
+
+// BFME1 ba7ddda7 InGameUI.cpp supplies the source algorithm. Independent
+// target corroboration: 29CBA6..29CC19 complete RET12 plus internal return
+// branch; UI singleton DFEDF0 slot124, Drawable +FC, rowed ActionManager
+// 41BB49 with position/type/player-source arguments, and ANY=0 / ALL=1.
+bool InGameUI::canSelectedObjectsOverrideSpecialPowerDestination(
+	const Coord3D *loc, SelectionRules rule, SpecialPowerType spType) const
+{
+	int count = 0;
+	int qualify = 0;
+	const SelectedDrawableListView *selected =
+		reinterpret_cast<const SelectedDrawableListView *>(TheInGameUI->getAllSelectedDrawables());
+	for (SelectedDrawableNode *it = selected->head->next;
+		it != selected->head; it = it->next) {
+		Drawable *other = it->value;
+		++count;
+		if (TheActionManager->canOverrideSpecialPowerDestination(selectedObject(other), loc, spType, 0)) {
+			if (rule == SELECTION_ANY)
+				return true;
+			++qualify;
+		}
+	}
+	if (rule == SELECTION_ALL && count > 0 && qualify == count)
+		return true;
+	return false;
+}

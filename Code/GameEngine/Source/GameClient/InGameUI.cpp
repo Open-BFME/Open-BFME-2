@@ -4494,41 +4494,8 @@ Bool InGameUI::canSelectedObjectsDoSpecialPower( const CommandButton *command, c
 }
 
 //------------------------------------------------------------------------------
-// ?InGameUI::canSelectedObjectsOverrideSpecialPowerDestination present-unmatched
-Bool InGameUI::canSelectedObjectsOverrideSpecialPowerDestination( const Coord3D *loc, SelectionRules rule, SpecialPowerType spType ) const
-{
-	// set up counters for rule checking
-	Int count = 0;
-	Int qualify = 0;
-
-	// get selected list of drawables
-	const DrawableList *selected = TheInGameUI->getAllSelectedDrawables();
-
-	// loop through all the selected drawables
-	Drawable *other;
-	for( DrawableListCIt it = selected->begin(); it != selected->end(); ++it )
-	{
-	
-		// get this drawable
-		other = *it;
-		count++;
-
-		if( TheActionManager->canOverrideSpecialPowerDestination( other->getObject(), loc, spType, CMD_FROM_PLAYER ) )
-		{
-			if( rule == SELECTION_ANY )
-			{
-				return true;
-			}
-			qualify++;
-		}
-	}
-	if( rule == SELECTION_ALL && count > 0 && qualify == count )
-	{
-		return true;
-	}
-	return false;
-}
-
+// canSelectedObjectsOverrideSpecialPowerDestination is recovered in
+// InGameUI_selectMatchingAcrossScreen.cpp with target-proven virtual/Drawable access.
 
 //------------------------------------------------------------------------------
 // ?InGameUI::canSelectedObjectsEffectivelyUseWeapon present-unmatched

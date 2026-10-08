@@ -37138,7 +37138,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::canSe
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::canSelectedObjectsDoSpecialPower	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::canSelectedObjectsEffectivelyUseWeapon	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::canSelectedObjectsNonAttackInteractWithObject	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::canSelectedObjectsOverrideSpecialPowerDestination	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::clearFloatingText	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::clearPopupMessageData	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::clearTooltipsDisabled	1
