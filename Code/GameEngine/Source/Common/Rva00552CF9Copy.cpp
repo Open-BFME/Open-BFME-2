@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00552CF9@PSPlayerAllStats@@QAEXPBV1@@Z 0x00552CF9 130B: thiscall copies fields and three sub-objects via virtuals slot 0x14 0x10 0x10; caller 0x0055941D
+// ?incorporate@PSPlayerAllStats@@QAEXPBV1@@Z 0x00552CF9 130B: thiscall copies fields and three sub-objects via virtuals slot 0x14 0x10 0x10; caller 0x0055941D
 class Sub8
 {
 public:
@@ -77,16 +77,16 @@ public:
 	unsigned short m_484;
 	char m_pad486[0x490 - 0x486];
 	int m_490;
-	void rva00552CF9(const PSPlayerAllStats *src);
+	void incorporate(const PSPlayerAllStats *src);
 	void rva00552E9E(int v);
 	void rva00552CB8();
 	void setID(int v);
-	void rva00552D7B(const Rva00552D7BSrc *src);
-	void rva00552DDA(const Rva00552DDASrc *src);
-	void rva00552E3C(const Rva00552E3CSrc *src);
+	void incorporate(const Rva00552D7BSrc *src);
+	void incorporate(const Rva00552DDASrc *src);
+	void incorporate(const Rva00552E3CSrc *src);
 };
 
-void PSPlayerAllStats::rva00552CF9(const PSPlayerAllStats *src)
+void PSPlayerAllStats::incorporate(const PSPlayerAllStats *src)
 {
 	if (m_0 && m_0 != src->m_0)
 		return;
@@ -122,7 +122,7 @@ void PSPlayerAllStats::rva00552CB8()
 	m_1B0.d0();
 	m_340.d0();
 }
-void PSPlayerAllStats::rva00552D7B(const Rva00552D7BSrc *src)
+void PSPlayerAllStats::incorporate(const Rva00552D7BSrc *src)
 {
 	if (m_0 && m_0 != src->m_150)
 		return;
@@ -141,7 +141,7 @@ void PSPlayerAllStats::rva00552D7B(const Rva00552D7BSrc *src)
 	}
 	m_8.copy(&src->m_8_0);
 }
-void PSPlayerAllStats::rva00552DDA(const Rva00552DDASrc *src)
+void PSPlayerAllStats::incorporate(const Rva00552DDASrc *src)
 {
 	if (m_0 && m_0 != src->m_150)
 		return;
@@ -160,7 +160,7 @@ void PSPlayerAllStats::rva00552DDA(const Rva00552DDASrc *src)
 	}
 	m_1B0.copy(&src->m_1B0_0);
 }
-void PSPlayerAllStats::rva00552E3C(const Rva00552E3CSrc *src)
+void PSPlayerAllStats::incorporate(const Rva00552E3CSrc *src)
 {
 	if (m_0 && m_0 != src->m_150)
 		return;
