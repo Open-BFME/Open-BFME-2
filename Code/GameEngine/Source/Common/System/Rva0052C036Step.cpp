@@ -28,7 +28,8 @@ public:
 	void rva002B77AD();
 };
 
-extern Rva0059E647World *g_rva0059E647World;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 
 class Glo012F1024Item
 {
@@ -77,6 +78,6 @@ bool Rva0052C036::rva0052C9F9()
 	m_8 |= -1;
 	rva0052C161();
 	rva0052C45E();
-	g_rva0059E647World->rva002B77AD();
+	(*(Rva0059E647World **)&TheLivingWorldLogic)->rva002B77AD();
 	return rva0052C036();
 }

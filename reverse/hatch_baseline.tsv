@@ -3004,7 +3004,6 @@ alternatename	Code/GameEngine/Source/Common/GameModePreferences.cpp	?g_00A022F4@
 alternatename	Code/GameEngine/Source/Common/Gen009F5040Handle.cpp	?bfmeLinkEQR@BfmeHostEQR@@QAEXPAVBfmeRecEQR@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Gen_00942BC0.cpp	?bfmeSet1042@BfmeSub1042@@QAEXPADHH@Z	1
 alternatename	Code/GameEngine/Source/Common/GeometryInfoCalcPitches.cpp	?getCenterPosition@GeometryInfo@@QBEXABUCoord3D@@AAU2@@Z	1
-alternatename	Code/GameEngine/Source/Common/Glo012F1024ItemRun.cpp	?Glo012F1028@@3PAVGlo012F1028Type@@A	1
 alternatename	Code/GameEngine/Source/Common/GlobalByteGetters.cpp	?g_Va00DB5F98@@3EA	1
 alternatename	Code/GameEngine/Source/Common/GlobalByteGetters.cpp	?g_Va00DB5FCD@@3EA	1
 alternatename	Code/GameEngine/Source/Common/GlobalByteGetters.cpp	?g_Va00DEC3D9@@3EA	1
@@ -3184,7 +3183,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00232F4FImm.cpp	?ji_00655622@@YGK
 alternatename	Code/GameEngine/Source/Common/Rva002390CBDtor.cpp	??1VoiceSlot@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00239C5EFind.cpp	??1?$StringBase@D@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0023C565Lock.cpp	?theBfmeDfdc14@@3PAVRva001DBAA4@@A	1
-alternatename	Code/GameEngine/Source/Common/Rva0023C6A4Check.cpp	?Rva00DFEF10@@3PAXA	1
 alternatename	Code/GameEngine/Source/Common/Rva0023D229Set.cpp	?g_Rva0023D229Global@@3PAURva0023D229Global@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva0023D30FCall.cpp	?g_Rva0023D30FFlag@@3HA	1
 alternatename	Code/GameEngine/Source/Common/Rva0023D30FCall.cpp	?g_Rva0023D30FTarget@@3PAVRva0023D30FTarget@@A	1
@@ -3436,7 +3434,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00559B64GetImage.cpp	?g_00DFF078@
 alternatename	Code/GameEngine/Source/Common/Rva0055EFE1Ctor.cpp	_vtbl_00C1C780	1
 alternatename	Code/GameEngine/Source/Common/Rva0055EFE1Ctor.cpp	_vtbl_00C1D2C0	1
 alternatename	Code/GameEngine/Source/Common/Rva0055F218Ctor.cpp	?g_00C1D1F4@@3QBQBXB	1
-alternatename	Code/GameEngine/Source/Common/Rva00564C08Loop.cpp	?Rva00DFEF10@@3PAVRva002B48E1@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva0056913DScan.cpp	??1?$StringBase@D@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva005691DBScan.cpp	??1?$StringBase@D@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00573B23Dtor.cpp	??1?$StringBase@D@@QAE@XZ	1
@@ -3699,7 +3696,6 @@ alternatename	Code/GameEngine/Source/Common/System/Rva000ABB87ParserRegistration
 alternatename	Code/GameEngine/Source/Common/System/Rva000ABB87ParserRegistration.cpp	?bfmeSlot1@BfmeParserBindingBaseVE@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/Rva000B9DD9.cpp	?g_00DEC2D4@@3PAXA	1
 alternatename	Code/GameEngine/Source/Common/System/Rva002F1BD5Finish.cpp	?g_009FE78C@@3PAVGameLogic@@A	1
-alternatename	Code/GameEngine/Source/Common/System/Rva003F03C9Fetch.cpp	?g_00DFEF10@@3PAURvaLogicHolder@@A	1
 alternatename	Code/GameEngine/Source/Common/System/Rva003F0C6CDtor.cpp	??1?$StringBase@D@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/System/Rva0050FAECDtor.cpp	_strcpy	1
 alternatename	Code/GameEngine/Source/Common/System/Rva0052BD59CopyCtor.cpp	?g_00861A70@@3QBQBXB	1
@@ -3971,11 +3967,6 @@ alternatename	Code/GameEngine/Source/GameClient/GameTextStringLookUpLess.cpp	??R
 alternatename	Code/GameEngine/Source/GameClient/InGameUI.cpp	?gen006896F0@@YAXPAUElem28@@PBU1@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp	??1Rva0023DAA5List@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp	?clear@Rva0023DAA5List@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossMap.cpp	?Glo012F1028@@3PAVGlo012F1028Type@@A	1
-alternatename	Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossMap.cpp	?Rva00DFEF10@@3PAVRva002B48E1@@A	1
-alternatename	Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossMap.cpp	?Rva00DFEF10@@3PAXA	1
-alternatename	Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossMap.cpp	?g_00DFEF10@@3PAURvaLogicHolder@@A	1
-alternatename	Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossMap.cpp	?g_bfmeStateDO@@3PAVBfmeSelectionState@@A	2
 alternatename	Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossScreen.cpp	?TheTacticalView@@3PAVTacticalView@@A	2
 alternatename	Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossScreen.cpp	?g_009FEA3C@@3PAVRva003C4E28PlaceMgr@@A	1
 alternatename	Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossScreen.cpp	?g_Va009FEA3C@@3PAVRva003C4DC2Holder@@A	1
