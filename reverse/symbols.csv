@@ -11694,6 +11694,7 @@ name,address,notes
 ?rva00397CC9@Rva0039834C@@QAEPAXABURva0039627D@@@Z,0x00397CC9,twin member for tree insert mov ecx edi ICF with free row
 ?rva00397F45@Rva00397F45@@QAE_NPAVPlayer@@H@Z,0x00397F45,thiscall bool(Player*,int); module-gate callee of dump-range-18 0x003BE2DB on the pool-key module with the controlling player
 ?rva003980BF@Rva003980BF@@QAEPAXPAXHH@Z,0x003980BF,thiscall (ptr,-2,0) returning pointer; module callee of dump-range-18 0x003BE38B feeding the 0x00208968/0x0020A5FF emits
+?rva0039815B@CastleBehavior@@QAEPAVObject@@PAVThingTemplate@@PBUCoord3D@@H@Z,0x0039815B,"CastleBehavior member (ret 0xC): builds the template at the given position with a 0/1 mode int; REL32 at 0x003C681F in ScriptActions::rva003C66F1 with ECX the castle module (findModule on the 0x003955DA key)"
 ?rva00399C6C@Rva00399C6C@@QAEXHH@Z,0x00399C6C,thiscall void(int,int); module writer callee of dump-range-18 0x003BE2DB with (flag,0)
 ?rva0039ABFF@ExperienceTracker@@QBE_NXZ,0x0039ABFF,"ExperienceTracker bool member with no arguments (forwards to a 0x00DFECC4 member); REL32 callee of VeterancyCrateCollide::isValidToExecute 0x004BCEF0 at 0x004BCF4E where Zero Hour asks canGainExpForLevel; address-named"
 ?rva0039AE04@ExperienceTracker@@QBE_NXZ,0x0039AE04,"bool member of the tracker at Object +0x264 (+0x34 owner kind test 0x3E; beside ExperienceTracker xfer 0x0039AFC8); REL32 in LevelGrantSpecialPower 0x004C2B8A"
