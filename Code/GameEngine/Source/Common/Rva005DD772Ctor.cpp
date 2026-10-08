@@ -31,7 +31,7 @@ public:
     virtual void slot00()=0; virtual void slot01()=0; virtual void slot02()=0; virtual void slot03()=0;
     virtual void slot04()=0; virtual void slot05()=0; virtual void slot06()=0; virtual void slot07()=0;
     virtual void slot08()=0; virtual void slot09()=0; virtual void slot10()=0; virtual void slot11()=0;
-    virtual void slot12()=0; virtual void slot13()=0; virtual void slot14()=0; virtual void slot15()=0;
+    virtual void slot12()=0; virtual UnicodeString fetch(const AsciiString &label, bool *exists=0)=0; virtual void slot14()=0; virtual void slot15()=0;
     virtual const UnicodeString& slot44(const char* label, bool* exists=0)=0;
 };
 extern GameTextInterface* TheGameText;
@@ -127,4 +127,56 @@ Rva005DD8E0::Rva005DD8E0(float value, float divisor) : Rva005DD772() {
     } else {
         translate(text);
     }
+}
+
+// Complete native 0x5DDA57..0x5DDB66 returns a localized duration unit.
+// Zero omits a unit; one uses the singular label; other counts append 's'
+// and format the plural label. The by-value label is a retail-owned temporary.
+UnicodeString Rva005DDA57(int count, AsciiString label) {
+    if (!count)
+        return UnicodeString::TheEmptyString;
+    UnicodeString text;
+    UnicodeString formatText;
+    if (count == 1) {
+        text = TheGameText->fetch(label);
+    } else {
+        label += "s";
+        formatText = TheGameText->fetch(label);
+        text.format(&formatText, count);
+    }
+    text += reinterpret_cast<const Wide *>(L" ");
+    return text;
+}
+
+// Native 0x5DDED5..0x5DE059 / WB 0x15D6F60: unsigned duration display.
+// Keep its numeric seconds and show at most the two highest adjacent units.
+class Rva005DDED5 : public Rva005DD772 {
+public:
+    Rva005DDED5(unsigned int seconds);
+};
+Rva005DDED5::Rva005DDED5(unsigned int seconds) : Rva005DD772() {
+    m04 = (float)seconds;
+    unsigned int days = seconds / 86400;
+    seconds %= 86400;
+    unsigned int hours = seconds / 3600;
+    seconds %= 3600;
+    unsigned int minutes = seconds / 60;
+    seconds %= 60;
+    clear();
+    if (days) {
+        *this += Rva005DDA57(days, AsciiString("TIME:Day"));
+        minutes = 0;
+        seconds = 0;
+    }
+    if (hours) {
+        *this += Rva005DDA57(hours, AsciiString("TIME:Hour"));
+        seconds = 0;
+    }
+    if (minutes)
+        *this += Rva005DDA57(minutes, AsciiString("TIME:Minute"));
+    if (seconds)
+        *this += Rva005DDA57(seconds, AsciiString("TIME:Second"));
+    trim();
+    if (isEmpty())
+        set(reinterpret_cast<const Wide *>(L"0 "));
 }
