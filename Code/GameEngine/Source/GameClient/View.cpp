@@ -297,20 +297,27 @@ void View::getScreenCornerWorldPointsAtZ( Coord3D *topLeft, Coord3D *topRight,
 // It stores seven scalar floats at +4..+1C and then sets byte +0 to one.
 // The original receiver and field meanings remain unknown. ZH ViewLocation
 // has a similar initializer, but its six-argument signature is different.
+struct Rva0025E9DECoord
+{
+	float x, y, z;
+};
+
 class Rva0025E9DE
 {
 public:
 	void rva0025E9DE(float a, float b, float c, float d, float e, float f, float g);
 private:
+	friend class Rva0025EB43;
 	bool flag00;
-	float value04, value08, value0C, value10, value14, value18, value1C;
+	Rva0025E9DECoord pos04;
+	float value10, value14, value18, value1C;
 };
 
 void Rva0025E9DE::rva0025E9DE(float a, float b, float c, float d, float e, float f, float g)
 {
-	value04 = a;
-	value08 = b;
-	value0C = c;
+	pos04.x = a;
+	pos04.y = b;
+	pos04.z = c;
 	value10 = d;
 	value14 = e;
 	value18 = f;
@@ -333,7 +340,8 @@ public:
 	RVA25EB43_SLOT(20) RVA25EB43_SLOT(24) RVA25EB43_SLOT(28) RVA25EB43_SLOT(2C)
 	RVA25EB43_SLOT(30) RVA25EB43_SLOT(34) RVA25EB43_SLOT(38) RVA25EB43_SLOT(3C)
 	RVA25EB43_SLOT(40) RVA25EB43_SLOT(44) RVA25EB43_SLOT(48) RVA25EB43_SLOT(4C)
-	RVA25EB43_SLOT(50) RVA25EB43_SLOT(54) RVA25EB43_SLOT(58) RVA25EB43_SLOT(5C)
+	virtual void slot50();	// forceRedraw
+	RVA25EB43_SLOT(54) RVA25EB43_SLOT(58) RVA25EB43_SLOT(5C)
 	RVA25EB43_SLOT(60) RVA25EB43_SLOT(64) RVA25EB43_SLOT(68) RVA25EB43_SLOT(6C)
 	RVA25EB43_SLOT(70) RVA25EB43_SLOT(74) RVA25EB43_SLOT(78) RVA25EB43_SLOT(7C)
 	RVA25EB43_SLOT(80) RVA25EB43_SLOT(84) RVA25EB43_SLOT(88) RVA25EB43_SLOT(8C)
@@ -343,24 +351,45 @@ public:
 	RVA25EB43_SLOT(C0) RVA25EB43_SLOT(C4) RVA25EB43_SLOT(C8) RVA25EB43_SLOT(CC)
 	RVA25EB43_SLOT(D0) RVA25EB43_SLOT(D4) RVA25EB43_SLOT(D8) RVA25EB43_SLOT(DC)
 	RVA25EB43_SLOT(E0) RVA25EB43_SLOT(E4) RVA25EB43_SLOT(E8) RVA25EB43_SLOT(EC)
-	RVA25EB43_SLOT(F0) RVA25EB43_SLOT(F4) RVA25EB43_SLOT(F8) RVA25EB43_SLOT(FC)
+	RVA25EB43_SLOT(F0) RVA25EB43_SLOT(F4) RVA25EB43_SLOT(F8)
+	virtual void slotFC(float value);
 	virtual float slot100();
-	RVA25EB43_SLOT(104)
+	virtual void slot104(float value);
 	virtual float slot108();
-	RVA25EB43_SLOT(10C)
+	virtual void slot10C(float value);
 	virtual float slot110();
 	RVA25EB43_SLOT(114) RVA25EB43_SLOT(118) RVA25EB43_SLOT(11C) RVA25EB43_SLOT(120)
 	virtual float slot124();
+	virtual void slot128(float value);
 	#undef RVA25EB43_SLOT
 
 	void rva0025EB43(Rva0025E9DE *location);
+	void rva0025EBB9(const Rva0025E9DE *location);
 private:
 	char m_pad04[8];
-	float m_pos[3];
+	Rva0025E9DECoord m_pos;
 };
 
 void Rva0025EB43::rva0025EB43(Rva0025E9DE *location)
 {
-	location->rva0025E9DE(m_pos[0], m_pos[1], m_pos[2],
+	location->rva0025E9DE(m_pos.x, m_pos.y, m_pos.z,
 		slot100(), slot108(), slot124(), slot110());
+}
+
+// Native 0x0025EBB9 (105B), the inverse of 0x0025EB43 and Zero Hour's
+// View::setLocation shape: only for a valid location, copy its position
+// to +0x0C, then hand each stored scalar to the setter beside the getter
+// that produced it (slots FC/104/10C/128 for 100/108/110/124) and redraw
+// (slot 50).
+void Rva0025EB43::rva0025EBB9(const Rva0025E9DE *location)
+{
+	if (location->flag00)
+	{
+		m_pos = location->pos04;
+		slotFC(location->value10);
+		slot104(location->value14);
+		slot10C(location->value1C);
+		slot128(location->value18);
+		slot50();
+	}
 }
