@@ -3,13 +3,13 @@
 // Opaque scalar deleting destructors, batch B07: 28-byte wrappers that
 // call the destructor, test bit 0 of the flags, conditionally free through
 // operator delete (0x0002FD60) and return this (ret 4), found in vtable slots
-// with no ledger owner. Each destructor is declared, not defined, so the call
-// resolves to its pin in reverse/symbols.csv (address names unless the
-// destructor already carried one); the dummy tag constructors (no retail
-// counterpart) only make this TU emit each vtable and with it the deleting
-// destructor. Owner identities are not recovered, and these declarations
-// model no layout (docs/reconstruction/deleting-destructor-identity-audit.md)
-// beyond the secondary-base offsets their adjustor thunks prove.
+// with no ledger owner. Unrecovered destructors remain declarations whose
+// calls resolve to reverse/symbols.csv. Recovered bodies below separately
+// document the member and base layouts proved by their own target bytes.
+// The dummy tag constructors (no retail counterpart) make this TU emit each
+// vtable and deleting destructor. Original owner identities remain unknown;
+// address-derived names preserve that uncertainty. See the identity audit:
+// docs/reconstruction/deleting-destructor-identity-audit.md.
 //
 //   wrapper     dtor        vtable#slot
 //   0x00362EAB  0x00362E1C  0x00C17088#0
@@ -39,6 +39,8 @@
 
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+
+extern "C" void __cdecl free(void *);
 
 struct EmitVtableTag;
 
@@ -240,16 +242,80 @@ Rva003B00D6::Rva003B00D6(EmitVtableTag *)
 {
 }
 
-class Rva003B0344
+namespace _STL {
+template <class T> class allocator
+{
+};
+template <class T, class A = allocator<T> > class vector
 {
 public:
-	Rva003B0344(EmitVtableTag *);
+    ~vector();
+	T *_M_start;
+	T *_M_finish;
+	T *_M_end_of_storage;
+	T *erase(T *);
+    T *erase(T *, T *);
+    T *begin() { return _M_start; }
+    T *end() { return _M_finish; }
+};
+}
+// Target 0x003B0344 takes the existing device mutex, releases the +1C
+// counted object, drains two rowed priority queues, then unlocks before
+// their storage and the now-recovered 0x003B00D6 base are destroyed.
+struct Rva003B02F4Entry { float key; unsigned int a, b; };
+struct Rva003B02F4Greater {};
+namespace _STL {
+template <class T> struct greater {};
+template <class T, class Container, class Compare> class priority_queue
+{
 public:
-	virtual ~Rva003B0344();
+    Container c;
+    Compare comp;
+    bool empty() const { return c._M_start == c._M_finish; }
+    void pop();
+};
+template <> inline vector<int>::~vector() { if (_M_start) free(_M_start); }
+template <> inline vector<Rva003B02F4Entry>::~vector() { if (_M_start) free(_M_start); }
+}
+void __cdecl BFME_DX8_Thread_Lock();
+void __cdecl BFME_DX8_Thread_Assert();
+struct Rva003B0344Guard
+{
+    Rva003B0344Guard() { BFME_DX8_Thread_Lock(); }
+    ~Rva003B0344Guard() { BFME_DX8_Thread_Assert(); }
+};
+struct Rva003B0344Ref
+{
+    virtual void destroy();
+    unsigned int count;
+    __forceinline void release() { if (--count == 0) destroy(); }
+};
+class Rva003B0344 : public Rva003B00D6
+{
+public:
+    Rva003B0344(EmitVtableTag *);
+    virtual ~Rva003B0344();
+    unsigned int unmodelled18;
+    Rva003B0344Ref *ref1C;
+    unsigned int unmodelled20;
+    _STL::priority_queue<Rva003B02F4Entry, _STL::vector<Rva003B02F4Entry>, Rva003B02F4Greater> queue24;
+    _STL::priority_queue<int, _STL::vector<int>, _STL::greater<int> > queue34;
 };
 
+Rva003B0344::~Rva003B0344()
+{
+    Rva003B0344Guard guard;
+    if (ref1C)
+    {
+        ref1C->release();
+        ref1C = 0;
+    }
+    while (!queue34.empty()) queue34.pop();
+    while (!queue24.empty()) queue24.pop();
+}
+
 // ?<Rva003B0344::Rva003B0344> absent-from-retail
-Rva003B0344::Rva003B0344(EmitVtableTag *)
+Rva003B0344::Rva003B0344(EmitVtableTag *tag) : Rva003B00D6(tag)
 {
 }
 
@@ -326,23 +392,6 @@ struct Elem003B2540
 	int m_key;
 	char m_pad2[12];
 };
-namespace _STL {
-template <class T> class allocator
-{
-};
-template <class T, class A = allocator<T> > class vector
-{
-public:
-    ~vector();
-	T *_M_start;
-	T *_M_finish;
-	T *_M_end_of_storage;
-	T *erase(T *);
-    T *erase(T *, T *);
-    T *begin() { return _M_start; }
-    T *end() { return _M_finish; }
-};
-}
 
 class Rva003F332E
 {
@@ -447,7 +496,6 @@ Rva003F8E20::Rva003F8E20(EmitVtableTag *)
 // Retail performs an explicit clear before ordinary member destruction.
 // releaseBuffer nulls each string pointer; the subsequent automatic release
 // is consequently safe. The final vptr store proves the Snapshot base.
-extern "C" void __cdecl free(void *);
 struct BfmePod8 { unsigned int words[2]; };
 namespace _STL {
 template <> inline vector<BfmePod8>::~vector()
@@ -530,7 +578,6 @@ public:
 class Rva0052B23D { public: void rva0052B23D(); };
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-extern "C" void __cdecl free(void *);
 struct Rva003FE58ABuffer
 {
     void *begin, *end, *capacity;
