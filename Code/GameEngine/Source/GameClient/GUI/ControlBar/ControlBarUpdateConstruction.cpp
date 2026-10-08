@@ -149,6 +149,7 @@ public:
     const CommandButton *findCommandButton(const AsciiString &);
     void showRallyPoint(const Coord3D *);
 	void rva0053E4B1();
+	void rva0053E6E1();
 	void updateContextContestedStructureInventory();
 	void rva0053E783(void *object, int flag);
 	void switchToContext(int context, void *object);
@@ -563,4 +564,12 @@ void ControlBar::rva0053E4F1(Object *objectUnderConstruction)
     if (theRadarWindowOverrideSource)
         ((Rva002D363EOwner *)theRadarWindowOverrideSource)->rva002D363E((int)objectUnderConstruction);
     overlaySink->rva0053EFC7(*(WindowList *)&windows);
+}
+
+// Complete native53E6E1..53E6E6: unchanged-this, zero-argument tail call.
+// The owned per-frame update invokes it in context4. Its historical method
+// identity is unresolved; retain the existing address-derived binding.
+void ControlBar::rva0053E6E1()
+{
+    rva0031D230();
 }
