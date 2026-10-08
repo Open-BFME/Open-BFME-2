@@ -1,17 +1,17 @@
 // ?bfmeRelativeAngleTo@Thing@@QBEMPBUCoord3D@@@Z
-// partial score=0.99 date=2026-09-28
-// ?bfmeRelativeAngleTo@Thing@@QBEMPBUCoord3D@@@Z
-// partial score=0.99 date=2026-09-28
+// partial score=0.98 date=2026-10-09
 // cl: /O1 /arch:SSE2
 // ?bfmeRelativeAngleTo@Thing@@QBEMPBUCoord3D@@@Z @0x000B4542 273B
-// BFME1 donor Code/GameEngine/Source/Common/Thing/Thing_bfmeRelativeAngleTo.cpp (matched 214B at 0x00150510)
-// Thing via getUnitDirectionVector2D pin 0x0030A25F + m_cachedPos at +0x38/+0x3c (BFME2 FloatUpdate +0x38 precedent)
-// Callers 0x000B788A 0x000CC9A8 0x001E9BFC; pooled 0.0f 0x007BAEAC 1.0f 0x007BB8D8 -1.0f 0x007BB9AC dbl -1.0 0x007C9CB8
-// Flags from Coord2D::toAngle /O1 /arch:SSE2 sibling (EBP frame + SSE float + x87 double + E8 sqrt thunk)
+// BFME1 donor Code/GameEngine/Source/Common/Thing/Thing_bfmeRelativeAngleTo.cpp
+// (matched 214B at 0x00150510): the signed angle between the unit's 2D facing
+// (pinned getUnitDirectionVector2D 0x0030A25F) and the direction to a point,
+// from the cached position at +0x38. Callers 0x000B788A 0x000CC9A8 0x001E9BFC.
+// The sqrt declaration is math.h's: with a bare extern "C" prototype MSVC
+// schedules the result store between the argument pops (the banked 0.99).
+#include <math.h>
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 typedef float Real;
 extern Real ACos(Real);
-extern "C" double sqrt(double value);
-struct Coord3D { Real x; Real y; Real z; };
 class Thing {
 public:
   const Coord3D *getUnitDirectionVector2D() const;
@@ -20,7 +20,6 @@ private:
   unsigned char m_pad000[0x38];
   Coord3D m_cachedPos;
 };
-// ?bfmeRelativeAngleTo@Thing@@QBEMPBUCoord3D@@@Z present-unmatched
 Real Thing::bfmeRelativeAngleTo(const Coord3D *point) const
 {
   Coord3D delta;
