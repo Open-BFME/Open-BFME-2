@@ -613,3 +613,37 @@ bool ActionManager::rva0041C79C(const Object *obj, const Object *target,
  if (Rva0041B80FCheck(const_cast<Object *>(target), const_cast<Object *>(obj))) return false;
  return true;
 }
+
+class Rva0041C96C
+{
+public:
+ bool rva0041C96C(const Object *, const Object *, CommandSourceType);
+};
+
+static __forceinline bool actionTargetStatusBit6(const Object *target)
+{
+	return (*reinterpret_cast<const unsigned int *>(reinterpret_cast<const char *>(target) + 0x94) >> 6) & 1;
+}
+// BFME1 ba7ddda7 canSnipeVehicle supplies a semantic lead. No native
+// caller establishes that method or its original class, so retain a neutral owner. Native omits the donor's vehicle/drone tests;
+// tests +94 bit6 and +1C8 bit5 after the enemy and visibility checks.
+// Native consumes two Object pointers and a command source; ECX is unused.
+// Complete 88-byte control flow ends at 41C9C4 (RET12).
+bool Rva0041C96C::rva0041C96C(
+	const Object *obj, const Object *target, CommandSourceType source)
+{
+	if (!obj || !target)
+		return false;
+	if (*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(target) + 0x438) & 1)
+		return false;
+	if (isObjectShroudedForAction(obj, target, source))
+		return false;
+	if (obj->getRelationship(target) != ENEMIES)
+		return false;
+	if (actionTargetStatusBit6(target))
+		return false;
+	unsigned char flags = *reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(target) + 0x1c8);
+	if (static_cast<unsigned char>(~static_cast<unsigned char>(flags >> 5)) & 1)
+		return true;
+	return false;
+}
