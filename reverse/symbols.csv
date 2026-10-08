@@ -16253,3 +16253,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??0LivingWorldBuilding@@QAE@PAVLivingWorldRegion@@ABVCoord2D@@PBURva003F1BD3TemplateView@@H@Z,0x004E119C,callee of ?rva004FC33E@Rva003F1C56Plot@@QAEXPBURva003F1BD3TemplateView@@@Z
 ?rva0021386C@Rva00056F61@@QAEPAXPBVAsciiString@@@Z,0x0021386C,callee of ?CreateSound@LivingWorldManager@@QAEPAVRva003FAE68Base@@ABVAsciiString@@@Z
 ??0Rva005E93FF@@QAE@IPAX@Z,0x005E93FF,callee of ?rva005CEB03@Rva005CEB03@@QAE?AURvaF1Handle@@I@Z
+?newBridge@TerrainRoadCollection@@QAEPAVTerrainRoadType@@VAsciiString@@@Z,0x002DB64E,callee of ?parseTerrainBridgeDefinition@INI@@SAXPAV1@@Z

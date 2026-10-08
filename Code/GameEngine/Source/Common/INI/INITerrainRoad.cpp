@@ -25,6 +25,7 @@ public:
     const char *getNextToken(const char *separators = 0);
     void initFromINI(void *what, const FieldParse *parseTable);
     static void parseTerrainRoadDefinition(INI *ini);
+    static void parseTerrainBridgeDefinition(INI *ini);
 };
 class TerrainRoadType
 {
@@ -32,6 +33,7 @@ public:
     bool isBridge() const { return m_isBridge; }
     const AsciiString &getName() const { return m_name; }
     static const FieldParse m_terrainRoadFieldParseTable[];
+    static const FieldParse m_terrainBridgeFieldParseTable[];
 private:
     char m_unrecovered00[4];
     AsciiString m_name;
@@ -41,6 +43,8 @@ class TerrainRoadCollection
 {
 public:
     TerrainRoadType *newRoad(AsciiString name);
+    TerrainRoadType *newBridge(AsciiString name);
+    TerrainRoadType *findBridge(AsciiString name);
 };
 extern TerrainRoadCollection *TheTerrainRoads;
 class Rva002DB496
@@ -63,4 +67,23 @@ void INI::parseTerrainRoadDefinition(INI *ini)
     else
         road = TheTerrainRoads->newRoad(name);
     ini->initFromINI(road, TerrainRoadType::m_terrainRoadFieldParseTable);
+}
+
+// BFME 1's same donor TU provides this sibling. WorldBuilder's
+// iniParseTerrainBridgeDefinition at 0x00AC2760 and its unique error text
+// establish target identity. Native 0x001DAEB8..0x001DAF77 supplies the
+// separate bridge list lookup, opposite flag check, and bridge parse table.
+void INI::parseTerrainBridgeDefinition(INI *ini)
+{
+    AsciiString name;
+    name = ini->getNextToken();
+    TerrainRoadType *bridge = TheTerrainRoads->findBridge(name);
+    if (bridge)
+    {
+        if (!bridge->isBridge())
+            throw INIException(3, "Redefining road '%s' as a bridge!\n", bridge->getName().str());
+    }
+    else
+        bridge = TheTerrainRoads->newBridge(name);
+    ini->initFromINI(bridge, TerrainRoadType::m_terrainBridgeFieldParseTable);
 }
