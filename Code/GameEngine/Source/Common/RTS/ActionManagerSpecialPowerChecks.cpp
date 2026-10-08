@@ -125,6 +125,7 @@ struct BfmeWidePayload
 
 struct BfmeWideResult
 {
+	unsigned int size() const { return m_value->m_end - m_value->m_begin; }
 	~BfmeWideResult();	// 0x0004AA28
 	BfmeWidePayload *m_value;
 };
@@ -178,6 +179,7 @@ public:
 	bool canMakeObjectDefector(const Object *, const Object *, CommandSourceType);
 	bool canConvertObjectToCarBomb(const Object *, const Object *, CommandSourceType);
 	bool validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
+	bool validLocationForCastingOnObjectFilter(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
 	bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType commandSource,
 		const SpecialPowerTemplate *spTemplate, unsigned int commandOptions, bool checkSourceRequirements);
 	bool rva0041BA61(const Object *obj);
@@ -199,6 +201,27 @@ bool ActionManager::validateLocationForForbiddenObjects(const Object *obj, const
 	Object *found = ThePartitionManager->getClosestObject(pos, (range = sp->getFinalOverride()->m_7C), 1,
 		Rva0026119DFilter().link(&Rva002614ECFilter(sp->getFinalOverride()->m_78, player, true)));
 	return found == 0;
+}
+
+// WorldBuilder's debug ActionManager.cpp (lines 1665..1666) names this
+// ActionManager::validLocationForCastingOnObjectFilter. Retail
+// 0x0041D4FA..0x0041D5CE RET12: when the power's flag bit 2 is set, some
+// alive object passing the override's +0x60 filter for the caster's player
+// must be within the override's +0x54 range of the location. The player and
+// hit list share an inner block: retail keeps the list in the dead obj slot.
+bool ActionManager::validLocationForCastingOnObjectFilter(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
+{
+	if (sp->getFinalOverride()->flag2()) {
+		float range = sp->getFinalOverride()->m_54;
+		{
+			Player *player = obj->getControllingPlayer();
+			BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos, range, 0,
+				Rva0026119DFilter().link(&Rva002614ECFilter(sp->getFinalOverride()->m_60, player, true)), 0);
+			if (hits.size() <= 0)
+				return false;
+		}
+	}
+	return true;
 }
 
 // BFME1 ba7ddda7 ActionManager.cpp supplies the nested visibility predicate
