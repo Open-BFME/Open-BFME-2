@@ -56,7 +56,7 @@ public:
 	void rva0054B414();
 
 private:
-	unsigned char m_cursor[0x10];
+	_STL::deque<BfmeTrivialDequeElement8>::iterator m_cursor;
 	_STL::deque<BfmeTrivialDequeElement8> m_deque;
 };
 
@@ -79,4 +79,15 @@ void SimpleObjectIterator::insert(int a, float b)
 void SimpleObjectIterator::rva0054B414()
 {
 	return reinterpret_cast<_STL::deque<BfmeE8> &>(m_deque).clear();
+}
+
+// Existing native +4/+24 cursor/finish view, with integer result and optional
+// numeric output. The original element identity is not established.
+struct Rva0054A82C { int rva0054A82C(int *); };
+
+// Vtable slot 1 at C6A69C; native 54B804..54B81A resets the sixteen-byte
+// cursor from deque.begin(), then requests the next item without a numeric out.
+int SimpleObjectIterator::first() {
+	m_cursor = m_deque.begin();
+	return reinterpret_cast<Rva0054A82C *>(this)->rva0054A82C(0);
 }
