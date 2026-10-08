@@ -16920,3 +16920,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?rva0045B9FB@BezierProjectileBehavior@@QAEXPAVObject@@@Z,0x0045B9FB,callee of 0x0045CD6E (thiscall Object arg)
 ?rva0045CC72@BezierProjectileBehavior@@QAEXH@Z,0x0045CC72,callee of 0x0045CD6E (thiscall push 0)
 ?rva0045C975@BezierProjectileBehavior@@QAEXH@Z,0x0045C975,callee of 0x0045CD6E (thiscall push 0)
+?rva0032C2FF@SidesList@@QAEXABVAsciiString@@@Z,0x0032C2FF,TheSidesList (0x00A01D58) member taking a template name; called from CastleBehaviorModuleData parser 0x0039981E
