@@ -46,15 +46,20 @@ class FirewallHelperClass
 {
 public:
 	void *rva00594D77(unsigned short port);
+	void rva00594EEF();
+	unsigned char rva00594F0C();
 
 private:
 	ManglerMessage *findEmptyMessage();
 
 private:
-	char _pad00[0x14];
+	char _pad00[4];
+	unsigned int m_behavior; // +4: native detection updates use this word
+	char _pad08[0x0C];
 	SpareEntry m_spare[8];			// +0x14
 	unsigned char m_pad54[0x8A - 0x54];
 	ManglerMessage m_messages[8];	// +0x8A
+	unsigned int m_currentState; // +0x17C after natural two-byte padding
 };
 
 // ?findEmptyMessage@FirewallHelperClass@@AAEPAUManglerMessage@@XZ
@@ -82,4 +87,25 @@ void *FirewallHelperClass::rva00594D77(unsigned short port)
 			return &m_spare[i];
 	}
 	return 0;
+}
+
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 FirewallHelper.cpp
+// detectFirewallBehavior supplies the two-state-store expression. Target
+// 594EEF..594EFC is independently RET-bounded: write 1 at +4 and +17C.
+// The rowed same-class detection updates independently establish the fields;
+// the original operation spelling is not established by a direct caller.
+void FirewallHelperClass::rva00594EEF()
+{
+	m_behavior = 1;
+	m_currentState = 1;
+}
+
+// BF1 detectionTest5Update is the source guide. Complete target
+// 594F0C..594F19 follows the separate word getter's RET and ends RET:
+// write 9 at +17C and return raw AL=1. The target's original operation
+// spelling and whether its byte result was declared bool remain unresolved.
+unsigned char FirewallHelperClass::rva00594F0C()
+{
+	m_currentState = 9;
+	return 1;
 }
