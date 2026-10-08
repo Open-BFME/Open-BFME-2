@@ -171,3 +171,19 @@ Bool Player::rva002A9CA4(Int minimumCash)
 {
 	return m_ai ? m_ai->rva004F2BEE(minimumCash) : true;
 }
+
+// BF1 9cb aabtreecull.cpp iterator constructor supplies a two-word
+// initialization pattern, not target naming or pointer-type proof. Complete
+// native 2A9BD4..2A9BE3 follows the preceding RET: first raw word from the
+// argument, second zero, and EAX returns the receiver. Original owner unknown.
+struct Rva002A9BD4Pair
+{
+    unsigned int first, second;
+    Rva002A9BD4Pair *initialize(unsigned int value);
+};
+Rva002A9BD4Pair *Rva002A9BD4Pair::initialize(unsigned int value)
+{
+    first = value;
+    second = 0;
+    return this;
+}
