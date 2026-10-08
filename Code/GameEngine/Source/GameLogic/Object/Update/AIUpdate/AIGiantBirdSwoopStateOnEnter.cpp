@@ -18,6 +18,20 @@
 // partner comes from AI slot 98 (+0x188); and the weapon template's bone
 // query 0x002CAAFA tries first, keeping its point unless it lies at or below
 // the ground.
+//
+// ?update@AIGiantBirdSwoopState@@UAE?AW4StateReturnType@@XZ
+// retail 0x0036C201, 567 bytes: slot 6 of the same vtable. Donor: BFME 1
+// update (its 0x002C3550 banked attempt) supplies the shape; BFME 2 shrinks
+// the swoop radius at AI +0x538 by m_scale (scaled by 0.8 each frame), calls
+// the target helper below, then either runs the AI move query 0x00368B51 or
+// the stationary-victim check (0x002907A1, victim AI getter 0x002627E8,
+// isKindOf 0x9B) before moving to m_pos through 0x00368C7A. Within half the
+// bounding radius the helper refreshes the goal; inside the anchor (+0x544)
+// range or with the +0x534 flag set it snaps to the anchor and succeeds.
+//
+// ?rva0036C438@AIGiantBirdSwoopState@@QAEX_N@Z
+// retail 0x0036C438, 603 bytes: the swoop target helper called only from
+// update (twice); the name is invented, the body is BFME 2 evidence only.
 
 typedef bool Bool;
 typedef int Int;
@@ -53,11 +67,13 @@ enum WeaponSlotType
 
 enum KindOfType
 {
-	KINDOF_BFME_48 = 0x48
+	KINDOF_BFME_48 = 0x48,
+	KINDOF_BFME_9B = 0x9B
 };
 
 enum ObjectStatusTypes
 {
+	OBJECT_STATUS_BFME_3C = 0x3C,
 	OBJECT_STATUS_BFME_43 = 0x43
 };
 
@@ -78,8 +94,11 @@ class GeometryInfo
 public:
 	GeometryInfo(const GeometryInfo &other);
 	virtual ~GeometryInfo();
+	Real getBoundingCircleRadius() const { return m_boundingCircleRadius; }
 private:
-	unsigned char m_pad04[0x5C - 4];
+	unsigned char m_pad04[0x10 - 4];
+	Real m_boundingCircleRadius; // +0x10
+	unsigned char m_pad14[0x5C - 0x14];
 };
 
 class BfmeBoundaryGeometry3D
@@ -171,7 +190,13 @@ public:
 	ObjectID m_victimID4C0; // +0x4C0
 	unsigned char m_pad4C4[0x4EC - 0x4C4];
 	unsigned char m_continue4EC; // +0x4EC
-	unsigned char m_pad4ED[0x554 - 0x4ED];
+	unsigned char m_pad4ED[0x534 - 0x4ED];
+	unsigned char m_flag534; // +0x534
+	unsigned char m_pad535[3];
+	Real m_swoopRadius538; // +0x538
+	unsigned char m_pad53C[0x544 - 0x53C];
+	Coord3D m_anchor544; // +0x544
+	unsigned char m_pad550[4];
 	ObjectID m_targetID554; // +0x554
 	unsigned char m_pad558[4];
 	Int m_mode55C; // +0x55C
@@ -181,7 +206,29 @@ public:
 class Rva00368C7A
 {
 public:
+	Int rva00368B51(Real distance, Bool flag);
+	void rva00368C7A(Real distance, const Coord3D *position, Int a);
 	void rva003681F2(const Coord3D *position, const unsigned char *mask, Int a, Int b);
+};
+
+// Object +0x10C model condition words (ModelConditionFlags), as in GiantBirdStateSlots.cpp.
+class Rva0010CBits
+{
+public:
+	unsigned int test(int bit) const
+	{
+		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void set(int bit)
+	{
+		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+	}
+	void clear(int bit)
+	{
+		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
+	}
+private:
+	unsigned int m_words[19];
 };
 
 class Object
@@ -205,6 +252,25 @@ public:
 	Object *adjustVictim(Object *owner, Int a, Int b);
 	Bool getWorldspaceBestContactPoint(Coord3D *pointOut, const Coord3D *callerPos,
 		const char *preferredPoint, Int pref, Int seed, Bool skipCollideTest) const;
+	Bool rva002907A1();
+	void rva0028AE6D();
+	__forceinline void clearModelConditionBit(int bit)
+	{
+		if (m_conditionBits.test(bit) != 0)
+		{
+			m_conditionBits.clear(bit);
+			rva0028AE6D();
+		}
+	}
+	__forceinline void setModelConditionBit(int bit)
+	{
+		if (m_conditionBits.test(bit) == 0)
+		{
+			m_conditionBits.set(bit);
+			rva0028AE6D();
+		}
+	}
+
 
 private:
 	void *m_vtbl;
@@ -217,7 +283,9 @@ private:
 	UnsignedInt m_status94; // +0x94
 	unsigned char m_pad098[0xA8 - 0x98];
 	GeometryInfo m_geometryInfo; // +0xA8
-	unsigned char m_pad104[0x250 - 0x104];
+	unsigned char m_pad104[0x10C - 0x104];
+	Rva0010CBits m_conditionBits; // +0x10C
+	unsigned char m_pad158[0x250 - (0x10C + sizeof(Rva0010CBits))];
 	ContainModuleInterface *m_contain; // +0x250
 	unsigned char m_pad254[4];
 	AIUpdateInterface *m_ai; // +0x258
@@ -225,6 +293,25 @@ private:
 	Object *m_containedBy; // +0x274
 	unsigned char m_pad278[0x438 - 0x278];
 	unsigned char m_privateStatus; // +0x438
+};
+
+class Thing
+{
+public:
+	void setPosition(const Coord3D *pos);
+};
+
+class BfmeVec3EJ;
+class Gen_000E5A50
+{
+public:
+	Real bfmeDistanceSquared(const BfmeVec3EJ *pos) const;
+};
+
+class Rva002627E8
+{
+public:
+	Real rva002627E8() const;
 };
 
 class Rva002CAAFA
@@ -282,6 +369,8 @@ public:
 	virtual void slot02();
 	virtual void slot03();
 	virtual StateReturnType onEnter();
+	virtual void onExit();
+	virtual StateReturnType update();
 protected:
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
 	StateMachine *getMachine() const { return m_machine; }
@@ -293,6 +382,8 @@ class AIGiantBirdSwoopState : public State
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
+	void rva0036C438(Bool force);
 private:
 	unsigned char m_pad1C[4];
 	ObjectID m_targetID; // +0x20
@@ -441,4 +532,135 @@ StateReturnType AIGiantBirdSwoopState::onEnter()
 		((Rva00368C7A *)ai)->rva003681F2(&m_pos, g_00E01EC0, 0, 0);
 
 	return ai->m_continue4EC ? STATE_CONTINUE : STATE_FAILURE;
+}
+
+//-------------------------------------------------------------------------------------------------
+void AIGiantBirdSwoopState::rva0036C438(Bool force)
+{
+	Object *owner = getMachineOwner();
+	AIUpdateInterface *ai = owner->getAI();
+	owner->clearModelConditionBit(155);
+	if (ai == 0)
+		return;
+	Object *victim = TheGameLogic->findObjectByID(ai->m_victimID4C0);
+	if (victim == 0)
+		return;
+
+	Coord3D pos;
+	const Weapon *weapon = owner->getCurrentWeapon();
+	if (weapon == 0 ||
+		!((Rva002CAAFA *)weapon->getTemplate())->rva002CAAFA(victim, &pos) ||
+		!(pos.z > TheTerrainLogic->getGroundHeight(pos.x, pos.y, 0)))
+	{
+		const Coord3D *ownerPos = owner->getPosition();
+		if (!ai->findNearestLabeledContactPointOnTarget(victim, &pos, ownerPos, false))
+		{
+			victim->getWorldspaceBestContactPoint(&pos, ownerPos, 0, 1,
+				GetGameLogicRandomValue(0, 12345678, GIANTBIRD_CPP, 0x294), false);
+		}
+	}
+
+	const Coord3D *goal = &m_pos;
+	Coord3D delta;
+	delta.x = pos.x - goal->x;
+	delta.y = pos.y - goal->y;
+	delta.z = pos.z - goal->z;
+	Real moved = delta.length();
+	delta = pos;
+	delta.x -= owner->getPosition()->x;
+	delta.y -= owner->getPosition()->y;
+	delta.z -= owner->getPosition()->z;
+	Real range = delta.length();
+
+	if (ai->m_swoopRadius538 * 4.0f > range)
+	{
+		owner->setModelConditionBit(155);
+	}
+
+	if (moved > 10.0f || force)
+	{
+		Real near8 = ai->m_swoopRadius538 * 8.0f;
+		if (near8 > range || moved > near8 || force)
+		{
+			m_pos = pos;
+			if (ai->m_mode55C == 0)
+			{
+				GiantBirdSwoopAI1F0 *terrain = ai->m_1F0;
+				if (terrain != 0)
+				{
+					m_pos.z = TheTerrainLogic->getGroundHeight(m_pos.x, m_pos.y, 0) + terrain->m_height48;
+					m_machine->setGoalPosition(&m_pos);
+				}
+			}
+			if (ai->testFlag(2) || ai->testFlag(3))
+				((Rva00368C7A *)ai)->rva003681F2(&m_pos, g_00E01EC8, 0, 0);
+			else
+				((Rva00368C7A *)ai)->rva003681F2(&m_pos, g_00E01EC0, 0, 0);
+		}
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+StateReturnType AIGiantBirdSwoopState::update()
+{
+	Object *owner = getMachineOwner();
+	if (owner->isDead())
+		return STATE_FAILURE;
+	AIUpdateInterface *ai = owner->getAI();
+	if (ai == 0)
+		return STATE_FAILURE;
+	Object *victim = TheGameLogic->findObjectByID(ai->m_victimID4C0);
+	if (victim == 0)
+		return STATE_SUCCESS;
+	if (victim->testStatus(OBJECT_STATUS_BFME_3C))
+		return STATE_SUCCESS;
+	if (victim->isDead())
+		return STATE_SUCCESS;
+
+	Real swoopRadius = (1.0f - m_scale) * ai->m_swoopRadius538;
+	m_scale *= 0.8f;
+	ai->m_swoopRadius538 = swoopRadius;
+	rva0036C438(false);
+
+	if (m_enabled)
+	{
+		if (((Rva00368C7A *)ai)->rva00368B51(-5.0f, true) == 1)
+			return STATE_SUCCESS;
+	}
+	else
+	{
+		Bool stationary;
+		if (victim->rva002907A1())
+		{
+			AIUpdateInterface *victimAI = victim->getAI();
+			stationary = victimAI != 0 && ((Rva002627E8 *)victimAI)->rva002627E8() <= 0.0f;
+		}
+		else
+			stationary = true;
+		if (!owner->isKindOf(KINDOF_BFME_9B) || !stationary)
+			((Rva00368C7A *)ai)->rva00368C7A(5.0f, &m_pos, 0);
+	}
+
+	if (!ai->m_continue4EC)
+		return STATE_FAILURE;
+
+	GeometryInfo geometry(owner->getGeometryInfo());
+	Real dx = m_pos.x - owner->getPosition()->x;
+	Real dy = m_pos.y - owner->getPosition()->y;
+	Real dz = m_pos.z - owner->getPosition()->z;
+	Real distSq = dx * dx + dy * dy + dz * dz;
+	if (distSq < geometry.getBoundingCircleRadius() * geometry.getBoundingCircleRadius() * 0.5f)
+		rva0036C438(true);
+
+	Real range = ai->m_swoopRadius538;
+	const Coord3D *src = &ai->m_anchor544;
+	Coord3D anchor;
+	anchor.x = src->x;
+	anchor.y = src->y;
+	anchor.z = src->z;
+	Bool inside = ((Gen_000E5A50 *)owner)->bfmeDistanceSquared((const BfmeVec3EJ *)&anchor) < range * range;
+	if (ai->m_flag534 == 0.0f && !inside)
+		return STATE_CONTINUE;
+	((Thing *)owner)->setPosition(&anchor);
+	return STATE_SUCCESS;
 }
