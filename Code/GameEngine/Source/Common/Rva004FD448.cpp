@@ -42,6 +42,7 @@ class Rva004FCE73
 {
 public:
 	void rva004FD013(int key, _STL::vector<const ModuleData *> *records, int *out);
+	bool rva004FCEB5(int key);
 };
 
 struct Rva004FCD49Vec {
@@ -54,6 +55,7 @@ class Rva004FD448 {
 public:
     void rva004FD448(const ModuleData *p);
     void rva004FD571(int key, _STL::vector<const ModuleData *> *records, int *out) const;
+    bool rva004FD656(int key) const;
 private:
     char m_pad00[0x68];
     _STL::multimap<int, int> m_map;
@@ -91,4 +93,20 @@ void Rva004FD448::rva004FD571(int key, _STL::vector<const ModuleData *> *records
         Rva004FCE73 *candidate = (Rva004FCE73 *)(*it).second;
         candidate->rva004FD013(key, records, out);
     }
+}
+
+// Retail 0x004FD656, 67 bytes, RET 4. The +0x68 equal_range and mapped
+// pointer at node +0x14 are shared with 0x004FD571. The target stops at the
+// first positive native predicate; its original owner and name are unknown.
+bool Rva004FD448::rva004FD656(int key) const
+{
+    _STL::pair<_STL::multimap<int, int>::const_iterator,
+        _STL::multimap<int, int>::const_iterator> range = m_map.equal_range(key);
+    for (_STL::multimap<int, int>::const_iterator it = range.first; it != range.second; ++it)
+    {
+        Rva004FCE73 *candidate = (Rva004FCE73 *)(*it).second;
+        if (candidate->rva004FCEB5(key))
+            return true;
+    }
+    return false;
 }
