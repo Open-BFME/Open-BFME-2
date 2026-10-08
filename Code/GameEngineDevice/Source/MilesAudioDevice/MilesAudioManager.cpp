@@ -23,6 +23,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 
+#include <hash_map>
 #include <set>
 #include <vector>
 #include "ascii_string.h"
@@ -169,10 +170,27 @@ struct PlayingAudio {
     bool m_at4B;                         // +0x4B, set by 0x000535A6
 };
 
+// Retain-and-replace setter rowed at 0x000A8CE5 under its address-derived owner.
+class Rva000A8C9B {
+public:
+    void rva000A8CE5(OpaqueRefCounted *value);
+private:
+    OpaqueRefCounted *m_ptr;
+};
+
 class PlayingAudioRef {
 public:
+    PlayingAudioRef() : m_ptr(0) {}
+    PlayingAudioRef(const PlayingAudioRef &other) : m_ptr(other.m_ptr) { if (m_ptr) asRefCounted()->Add_Ref(); }
+    ~PlayingAudioRef() { if (m_ptr) asRefCounted()->Release_Ref(); }
     PlayingAudio *operator->(void) const { return m_ptr; }
+    PlayingAudio *get(void) const { return m_ptr; }
+    void set(PlayingAudio *playing)
+    {
+        reinterpret_cast<Rva000A8C9B *>(this)->rva000A8CE5(reinterpret_cast<OpaqueRefCounted *>(playing));
+    }
 private:
+    OpaqueRefCounted *asRefCounted(void) const { return reinterpret_cast<OpaqueRefCounted *>(m_ptr); }
     PlayingAudio *m_ptr;
 };
 
@@ -212,6 +230,24 @@ extern float g_Va00BBDA30;
 
 struct Rva0005A084Element { int m_value; };
 typedef _STL::vector<Rva0005A084Element> Rva0005A084Vector;
+
+extern "C" __declspec(dllimport) void __stdcall AIL_lock_mutex();
+extern "C" __declspec(dllimport) void __stdcall AIL_unlock_mutex();
+
+// Miles global-mutex scope; its out-of-line constructor is rowed at
+// 0x00050E52 and the flag-gated unlock at 0x00050E62.
+class AILMutexScope {
+public:
+    AILMutexScope() { AIL_lock_mutex(); m_locked = true; }
+    ~AILMutexScope() { if (m_locked) AIL_unlock_mutex(); }
+private:
+    bool m_locked;
+};
+
+// Miles handle -> PlayingAudio maps at +0xB98/+0xBAC/+0xBC0. The mapped
+// value is the raw PlayingAudio pointer (node +8); it is viewed as void *
+// so the lookup binds the pinned folded _M_find at 0x002888D4.
+typedef _STL::hash_map<unsigned int, void *> MilesHandleMap;
 
 class MilesMutexGuard {
 public:
@@ -415,6 +451,10 @@ public:
     void *get3DSampleHandleForPlayingAudio(PlayingAudioRef &playing);
     void rva000535A6(PlayingAudioRef &playing);
 
+    void rva000564C0(unsigned int sample);
+    void rva0005653C(unsigned int sample3D);
+    void rva000565B8(unsigned int stream);
+
     void putPlayingMusicOnStack(int viewType, int arg);
     void rva00059CE6(PlayingAudioRef &looping);
     void rva0005AA72(PlayingAudioRef &playing);
@@ -443,7 +483,11 @@ private:
     PlayingAudioList m_playingStreams;   // +0xA48
     MusicStack m_musicStack[3][2];       // +0xA4C
     MusicSystem m_activeMusicSystem[3];  // +0xB3C
-    char atB48[0xBD4 - 0xB48];
+    char atB48[0xB94 - 0xB48];
+    PlayingAudioList m_completedAudio;   // +0xB94, filled by the EOS handlers
+    MilesHandleMap m_sampleMap;          // +0xB98
+    MilesHandleMap m_3DSampleMap;        // +0xBAC
+    MilesHandleMap m_streamMap;          // +0xBC0
     LoopBuffer *m_loopBuffers;           // +0xBD4 (WB assert name)
 };
 
@@ -971,4 +1015,78 @@ void MilesAudioManager::rva000535A6(PlayingAudioRef &playing)
         playing->m_at4B = true;
     else
         playing->m_at4B = false;
+}
+
+// End-of-sample handlers: under the Miles mutex, the PlayingAudio mapped to
+// the finished handle is queued on the +0xB94 completion list. The inner
+// block lets the reference reuse the dead handle's parameter slot. The 2D,
+// 3D and stream variants read the maps at +0xB98, +0xBAC and +0xBC0; the
+// callbacks below (registered by playSample, playSample3D and the stream
+// setup at 0x0005AB5E) forward the handle here. Names stay address-derived.
+void MilesAudioManager::rva000564C0(unsigned int sample)
+{
+    AILMutexScope lock;
+    MilesHandleMap::iterator it = m_sampleMap.find(sample);
+    {
+        PlayingAudioRef playing;
+        if (it == m_sampleMap.end())
+            return;
+        playing.set((PlayingAudio *)(*it).second);
+        if (!playing.get())
+            return;
+        m_completedAudio.push_back(playing);
+    }
+}
+
+void MilesAudioManager::rva0005653C(unsigned int sample3D)
+{
+    AILMutexScope lock;
+    MilesHandleMap::iterator it = m_3DSampleMap.find(sample3D);
+    {
+        PlayingAudioRef playing;
+        if (it == m_3DSampleMap.end())
+            return;
+        playing.set((PlayingAudio *)(*it).second);
+        if (!playing.get())
+            return;
+        m_completedAudio.push_back(playing);
+    }
+}
+
+void MilesAudioManager::rva000565B8(unsigned int stream)
+{
+    AILMutexScope lock;
+    MilesHandleMap::iterator it = m_streamMap.find(stream);
+    {
+        PlayingAudioRef playing;
+        if (it == m_streamMap.end())
+            return;
+        playing.set((PlayingAudio *)(*it).second);
+        if (!playing.get())
+            return;
+        m_completedAudio.push_back(playing);
+    }
+}
+
+// Zero Hour's AILCALLBACK end-of-sample callbacks (static there), which
+// forward the finished handle to TheAudio.
+class AudioManager;
+extern AudioManager *TheAudio;
+
+void __stdcall setSampleCompleted(void *sampleCompleted)
+{
+    if (TheAudio)
+        reinterpret_cast<MilesAudioManager *>(TheAudio)->rva000564C0((unsigned int)sampleCompleted);
+}
+
+void __stdcall set3DSampleCompleted(void *sample3DCompleted)
+{
+    if (TheAudio)
+        reinterpret_cast<MilesAudioManager *>(TheAudio)->rva0005653C((unsigned int)sample3DCompleted);
+}
+
+void __stdcall setStreamCompleted(void *streamCompleted)
+{
+    if (TheAudio)
+        reinterpret_cast<MilesAudioManager *>(TheAudio)->rva000565B8((unsigned int)streamCompleted);
 }
