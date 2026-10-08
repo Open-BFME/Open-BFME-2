@@ -22,8 +22,8 @@ SOURCE = "Code/GameEngine/Source/Common/Unit.cpp"
 STUBS = ("check_case_collisions", "conversion_gate", "link_debt", "class_gate", "tu_ownership",
          "hatch_counters", "code_identity_gate", "data_check", "ledger_guard", "check_csv",
          "flag_defaults", "pin_consistency", "pin_admission", "header_dependents")
-# These two read their list on stdin; drain it as the real tools do.
-READERS = ("eh_verify", "find_declared_unmatched")
+# These read their list on stdin; drain it as the real tools do.
+READERS = ("eh_verify", "find_declared_unmatched", "link_check")
 RECORD_BUILD = """import json, sys
 with open("build-calls.jsonl", "a", encoding="utf-8") as out:
     out.write(json.dumps(sys.argv[1:]) + "\\n")

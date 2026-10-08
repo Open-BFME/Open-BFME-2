@@ -33,9 +33,19 @@ recompiles every stale ledger object and replaces its census definitions).
   python3 tools/link_check.py Code/path/File.cpp [...]   # check files
   python3 tools/link_check.py --staged                  # the units staged for commit
   python3 tools/link_check.py --refresh SOURCE          # recompile stale objects first
+
+The pre-commit hook runs the admission form on the units a commit adds, with
+their list on stdin (Windows caps a command line at 32,767 characters). It
+names a new COMDAT copy only when that copy would change another unit's link
+at the new unit's place in link order (breaks_others), and reports in shadow
+mode until its false-refusal rate is measured on live traffic
+(docs/verifier_upgrade_plan.md, step 3):
+
+  printf '%s\\0' NEW... | python3 tools/link_check.py --new-variants --staged-peers --shadow --paths-from -
 """
 import argparse
 import collections
+import os
 import pickle
 import re
 import subprocess
@@ -275,13 +285,18 @@ def check_object(obj, index, truth, source=None):
                                        common_names=common)}
 
 
-def new_variants(obj, index, truth, previous=None):
+def new_variants(obj, index, truth, previous=None, rank=None):
     """COMDAT copies `obj` adds that can only hurt the link: a body no census
     object has yet that either splits a name every census object shares one
     copy of, or is proven not retail's (the ledger owns that name elsewhere).
-    Copies proven retail's never count. A new file can be judged on this
-    without its link position; three donor ports each adding a wrong
-    AsciiString::compare(const AsciiString&) re-blocked 56 linking units."""
+    Copies proven retail's never count. Three donor ports each adding a wrong
+    AsciiString::compare(const AsciiString&) re-blocked 56 linking units.
+
+    With `rank` (link_rank: every linked object's place in link order), such
+    a copy counts only when it would break another object's link
+    (breaks_others): link.exe keeps the first copy, so a copy that sorts after
+    the one the census keeps charges only its own unit. Without `rank`, every
+    such copy counts."""
     copies, _, _, _ = link_census.object_facts(obj, truth)
     # Admission checks growth, not unchanged debt. `previous` must come from
     # the census BEFORE refreshing this object; a refreshed self copy would
@@ -296,9 +311,84 @@ def new_variants(obj, index, truth, previous=None):
         existing = {d for i, d, _ in index["comdat"].get(name, ()) if index["objects"][i] != obj.name}
         if digest in existing:
             continue  # an identical copy is already linked: nothing new
-        if len(existing) == 1 or verdict == "wrong":
-            found.append(name)
+        if not (len(existing) == 1 or verdict == "wrong"):
+            continue
+        if rank is not None and not breaks_others(obj, name, digest, verdict, index, rank):
+            continue  # the link keeps another copy: only this unit is charged
+        found.append(name)
     return found
+
+
+def link_rank(rows):
+    """{object name: place} in the order the next census links its objects
+    (link_census.link_order over the current ledger, lowest matched RVA
+    first). A unit the census has never seen gets the place its own rows give
+    it; an object no matched row names is not linked at all."""
+    # A compiled source's object is its path's alone, so its lowest row places
+    # it: the same order from one row per source, in a third of the time
+    # (69k rows: 1.3 s, not 3.9 s). A lib's rows name different members.
+    lowest, members = {}, []
+    for row in rows:
+        if row["source"].lower().endswith(build.LIB_SUFFIX):
+            members.append(row)
+        elif row["source"] not in lowest or int(row["target_rva"], 16) < int(lowest[row["source"]]["target_rva"], 16):
+            lowest[row["source"]] = row
+    order = link_census.link_order(members + list(lowest.values()), link_census.data_ledger())
+    return {obj.name: place for place, obj in enumerate(order)}
+
+
+def breaks_others(obj, name, digest, verdict, index, rank):
+    """Would `obj`'s copy (digest, verdict) of COMDAT `name` change another
+    object's link, by the census's own rules at the places `rank` gives every
+    object? It does when another object's copy loses link_census.keep_rule
+    with it and did not without it (under the "first" rule: it sorts before
+    every other copy), or when it becomes the definition the link keeps
+    (judge_selected's holder: the census's /MAP exception, else the first
+    definer in link order) and that turns "wrong" for every unit touching the
+    name (where nothing else defines it, only for references an /alternatename
+    or an import library resolved: the rest were unresolved already). A copy
+    that only loses itself charges only its own unit. Objects the next census
+    does not link (no matched row) count on neither side."""
+    mine = rank.get(obj.name)
+    if mine is None:
+        return False  # no matched row: the census does not link this object
+    objects = index["objects"]
+
+    def linked(i):
+        return objects[i] != obj.name and objects[i] in rank
+
+    copies = sorted(((rank[objects[i]], objects[i], d, v) for i, d, v in index["comdat"].get(name, ()) if linked(i)),
+                    key=lambda copy: copy[0])
+    if copies:
+        before, _ = link_census.keep_rule([(o, d, v) for _, o, d, v in copies])
+        with_mine = sorted(copies + [(mine, obj.name, digest, verdict)], key=lambda copy: copy[0])
+        after, _ = link_census.keep_rule([(o, d, v) for _, o, d, v in with_mine])
+        if any(after[other] and not lost for other, lost in before.items()):
+            return True
+    selection = index["selection"]
+    exclusive = {objects[i] for i in index["strong"].get(name, ()) if linked(i)}
+    held = {o: (d, v) for _, o, d, v in copies}
+
+    def judged(found):
+        definers = set(found) | exclusive
+        if not definers:
+            return None
+        holder = min(definers, key=rank.__getitem__)
+        if name in selection["exceptions"]:  # the census's /MAP kept another (wrong_selected's rule)
+            census = selection["exceptions"][name]
+            holder = None if census is None else objects[census] if objects[census] in definers else holder
+        return link_census.judge_selected(holder, found, definers, exclusive, selection["owners"].get(name, set()))
+
+    if judged({**held, obj.name: (digest, verdict)}) != "wrong" or judged(held) == "wrong":
+        return False
+    if held or exclusive:
+        return True  # it displaces the definition the others were linked to
+    # Nothing else defines the name, so whoever references it was unresolved,
+    # already blocked, unless an /alternatename or an import library resolved
+    # it: then this wrong body is what they would link to instead.
+    excuses = index["excuses"]
+    return (any(linked(i) for i, _ in index["alternates"].get(name, ()))
+            or link_census.excused(name, excuses["runtime"], excuses["imported"], excuses["stubs"]))
 
 
 def wrong_selected(obj, fact, own, position, index, *, common_names=()):
@@ -392,14 +482,29 @@ def _git(*args, check=False):
     return done.stdout
 
 
+def read_path_list(name):
+    """Paths listed in file `name` ('-': stdin), NUL-separated if it holds a
+    NUL, else one per line (find_declared_unmatched.read_path_list)."""
+    data = sys.stdin.buffer.read() if name == "-" else Path(name).read_bytes()
+    if b"\0" in data:
+        entries = data.split(b"\0")
+    else:
+        entries = [line.rstrip(b"\r") for line in data.split(b"\n")]
+    return [os.fsdecode(entry) for entry in entries if entry]
+
+
 def staged():
     """The C/C++ units staged for commit. The check compiles the working
     tree, so a unit whose working copy differs from what is staged (a
     partial `git add -p`, an edit after staging) would preview the wrong
     bytes: refuse it, as the pre-commit hook does."""
-    out = _git("diff", "--cached", "--name-only", "--diff-filter=ACMR", "--", "Code/").split()
-    units = [p for p in out if p.lower().endswith((".c", ".cpp"))]
-    partial = _git("diff", "--name-only", "--", *units).split() if units else []
+    out = _git("diff", "--cached", "--name-only", "-z", "--diff-filter=ACMR", "--", "Code/", check=True)
+    units = [p for p in out.split("\0") if p.lower().endswith((".c", ".cpp"))]
+    # One listing of the tree, never the units as arguments: the commit gate
+    # reaches this through --staged-peers, and Windows caps a command line at
+    # 32,767 characters. -z keeps a path with a space or non-ASCII byte whole.
+    unstaged = set(_git("diff", "--name-only", "-z", "--", "Code/", check=True).split("\0")) if units else set()
+    partial = [p for p in units if p in unstaged]
     if partial:
         raise SystemExit("link_check: --staged checks the working tree, but these staged units also have "
                          f"unstaged edits: {', '.join(partial)}; stage or stash them first")
@@ -435,7 +540,17 @@ def main(argv=None):
                          "every census object agrees on (works for units the census has not seen)")
     ap.add_argument("--staged-peers", action="store_true",
                     help="with --new-variants: also judge the other staged units by their current objects")
+    ap.add_argument("--paths-from", metavar="FILE",
+                    help="also check the NUL- or newline-separated paths in FILE ('-': stdin); the "
+                         "pre-commit hook passes its list this way because Windows caps a command "
+                         "line at 32,767 characters")
+    ap.add_argument("--shadow", action="store_true",
+                    help="with --new-variants: report, never refuse (the pre-commit hook, until promoted)")
     args = ap.parse_args(argv)
+    if args.shadow and not args.new_variants:
+        ap.error("--shadow needs --new-variants")
+    if args.paths_from:
+        args.paths += read_path_list(args.paths_from)
     paths = staged() if args.staged else args.paths
     if args.new_variants:
         if not paths:
@@ -443,7 +558,8 @@ def main(argv=None):
         if not INDEX.exists():
             print("link_check: no census index; --new-variants skipped", file=sys.stderr)
             return 0
-        index, truth = load_index(), link_census.RetailTruth(link_census.ledger())
+        rows = link_census.ledger()
+        index, truth, rank = load_index(), link_census.RetailTruth(rows), link_rank(rows)
         bad = 0
         resolved = [resolve(path, index) for path in paths]
         # Units of this same change that the census already holds (the given
@@ -451,24 +567,29 @@ def main(argv=None):
         # judged by their current objects: a body moved from one staged unit
         # to another is then one copy, not a split against the census's stale
         # copy of the unit it left. Nothing else changes in the index.
-        previous = {}
-        for _, obj in resolved:
-            previous[obj.name] = {
-                name: {digest for position, digest, _ in copies
-                       if index["objects"][position] == obj.name}
-                for name, copies in index["comdat"].items()
-            }
+        # One pass over the census for every given object, holding only the
+        # copies it has: one dict of every COMDAT name per object cost 0.18 s
+        # and 34 MB each (140k names), gigabytes for a commit adding a hundred
+        # units, and a unit the census has never seen holds none.
+        previous = {obj.name: {} for _, obj in resolved}
+        for name, copies in index["comdat"].items():
+            for position, digest, _ in copies:
+                held = previous.get(index["objects"][position])
+                if held is not None:
+                    held.setdefault(name, set()).add(digest)
         given = {obj for _, obj in resolved}
         others = [resolve(path, index) for path in staged() if path not in paths] if args.staged_peers else []
         known = [obj for obj in given | {obj for _, obj in others} if obj.name in index["objects"]]
         if known and index.get("common_schema") == COMMON_SCHEMA and isinstance(index.get("alternates"), dict):
             refresh(index, known, truth)
+        tag = "shadow" if args.shadow else "refused"
         for source, obj in resolved:
-            for name in new_variants(obj, index, truth, previous[obj.name]):
-                print(f"  {source}: emits its own body for {name}, which every census object shares "
-                      "one copy of: include the shared header (or keep it out of line)", file=sys.stderr)
+            for name in new_variants(obj, index, truth, previous[obj.name], rank):
+                print(f"link_check [{tag}] {source}: its copy of {name} would replace the one other units "
+                      "link against (link.exe keeps the first copy in link order): give it their body "
+                      "(the shared header and flags) or keep it out of line", file=sys.stderr)
                 bad = 1
-        return bad
+        return 0 if args.shadow else bad
     if not paths:
         print("link_check: nothing to check")
         return 0

@@ -344,4 +344,33 @@ if [ "${#verify_set[@]}" -ne 0 ]; then
         || fail "exception data differs from retail (see above)"
 fi
 
+# 4) Link admission, SHADOW: a new unit's COMDAT copy that would break the link
+#    for others -- a wrong copy of a ledger-owned name, or a second body for one
+#    every linked object shares, where link.exe would keep it over the copy they
+#    link against: first in link order (lowest matched RVA, as the census
+#    orders objects). Three donor ports re-blocked 56 units this way. A copy the
+#    link discards charges only its own unit and is not reported. Judged
+#    against the link census index by tools/link_check.py --new-variants; the
+#    commit's other staged units are judged by their current objects, so a body
+#    moved between them is one copy. Skipped without a census index
+#    (build/link_census/link_index.pkl). After step 3, whose build made the new
+#    units' objects current. Reports, never refuses, until its false-refusal
+#    rate is measured on live traffic (docs/verifier_upgrade_plan.md, step 3:
+#    48 h, no correct work rejected); promotion drops --shadow.
+capture new_units_out "listing added units" \
+    git diff --cached --name-only -z --diff-filter=A -- 'Code/*.cpp' 'Code/*.c'
+new_units=()
+while IFS= read -r -d '' path; do
+    case "$path" in
+        Code/gen_asm/*|Code/gen_small/*) ;;
+        *) new_units+=("$path") ;;
+    esac
+done < "$new_units_out"
+rm -f "$new_units_out"
+if [ "${#new_units[@]}" -ne 0 ]; then
+    printf '%s\0' "${new_units[@]}" \
+        | python3 tools/link_check.py --new-variants --staged-peers --shadow --paths-from - \
+        || echo "pre-commit: link admission shadow check failed to run (ignored)" >&2
+fi
+
 echo "PRE-COMMIT OK (ledger integrity + ${#verify_set[@]} source(s) byte-verified)"

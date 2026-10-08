@@ -49,6 +49,8 @@ PROTECTED = (
     "tools/pin_admission.py", "tools/gate_baseline.py", "tools/check_module_registry.py",
     "tools/protected_paths.py", "tools/hatch_counters.py", "tools/retail_inventory.py",
     "tools/publisher.py", "tools/publisher_pre_push.sh", "tools/publisher_fixtures/*",
+    # link admission: pre-commit judges a new unit's COMDAT copies through it (shadow until promoted)
+    "tools/link_check.py",
     # data identity: the pre-commit check and the ledger it reads
     "tools/data_check.py", "tools/data_ledger.py", "reverse/data_ledger.csv",
     # which models may judge, and how they are called (decision record, pillar 5)

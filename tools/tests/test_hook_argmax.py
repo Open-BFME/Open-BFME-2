@@ -43,6 +43,12 @@ if "--sources-from" in sources:
 with open("eh-calls.jsonl", "a", encoding="utf-8") as out:
     out.write(json.dumps(sources) + "\\n")
 """
+# link_check.py --paths-from - reads the new units on stdin, like the real tool.
+RECORD_LINK = """import json, sys
+paths = [p.decode("utf-8") for p in sys.stdin.buffer.read().split(b"\\0") if p]
+with open("link-calls.jsonl", "a", encoding="utf-8") as out:
+    out.write(json.dumps({"argv": sys.argv[1:], "paths": paths}) + "\\n")
+"""
 # delta_sources.py prints LF-only lines, like the real tool.
 DELTA = """import os, sys
 sys.stdout.reconfigure(newline="\\n")
@@ -111,6 +117,7 @@ def make_repo(tmp_path, count):
     write(repo, "tools/delta_sources.py", DELTA)
     write(repo, "tools/build.py", RECORD_BUILD)
     write(repo, "tools/eh_verify.py", RECORD_EH)
+    write(repo, "tools/link_check.py", RECORD_LINK)
     shutil.copyfile(ROOT / "tools" / "find_declared_unmatched.py",
                     repo / "tools" / "find_declared_unmatched.py")
     write(repo, "build.sh", '#!/usr/bin/env bash\nexec python3 tools/build.py "$@"\n')
@@ -162,6 +169,11 @@ def test_clean_commit_of_1500_sources_verifies_every_one_in_bounded_chunks(repo)
     # eh_verify aggregates over every row, so it still sees the whole set in one call.
     eh = calls(repo, "eh-calls.jsonl")
     assert len(eh) == 1 and sorted(eh[0]) == sorted(map(source, range(COUNT)))
+    # Every source is a new unit; the link admission check gets them all on stdin.
+    link = calls(repo, "link-calls.jsonl")
+    assert len(link) == 1
+    assert link[0]["argv"] == ["--new-variants", "--staged-peers", "--shadow", "--paths-from", "-"]
+    assert sorted(link[0]["paths"]) == sorted(map(source, range(COUNT)))
 
 
 def test_undeclared_and_unclaimed_definitions_among_1500_are_still_refused(repo):
