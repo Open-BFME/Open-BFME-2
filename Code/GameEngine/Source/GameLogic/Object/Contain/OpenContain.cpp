@@ -744,20 +744,6 @@ void OpenContain::onCollide( Object *other, const Coord3D *loc, const Coord3D *n
 } 
 
 //-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// ?OpenContain::onDelete present-unmatched
-void OpenContain::onDelete( void )	///< Last possible moment cleanup
-{
-	// This uses my literal list, and not the gettor, because we don't want to get redirected some place fancy.
-	for(ContainedItemsList::iterator it = m_containList.begin(); it != m_containList.end(); )
-	{
-		Object* rider = *it;
-		++it;
-		TheGameLogic->destroyObject( rider );
-	}
-}
-
-//-------------------------------------------------------------------------------------------------
 /** The die callback. */
 //-------------------------------------------------------------------------------------------------
 // ?OpenContain::onDie present-unmatched

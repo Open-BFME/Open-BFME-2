@@ -48,6 +48,8 @@ public:
 };
 
 class Rva00439E0C;
+enum DamageType { DAMAGE_UNRESISTABLE = 8 };
+enum DeathType { DEATH_NORMAL = 0 };
 class Object
 {
 public:
@@ -55,8 +57,13 @@ public:
 	ThingTemplate *m_template;
 	char m_pad08[0x258 - 0x08];
 	void *m_ai;
+	char m_pad25c[0x274 - 0x25c];
+	// Target body 0x00464120 clears this dword with `and [object+0x274],0`.
+	// Its semantic field name is not established by the retail accesses here.
+	unsigned int m_word274;
 	Player *getControllingPlayer() const;
 	Rva00373EC6 *rva0028F4BC();
+	void kill(DamageType, DeathType);
 };
 
 enum CommandSourceType
@@ -135,6 +142,7 @@ class GameLogic
 public:
 	char m_pad00[0x178];
 	Rva00439E0C *m_178;
+	void destroyObject(Object *);
 };
 
 extern GameLogic *TheGameLogic;
@@ -165,6 +173,7 @@ public:
 	virtual void slot05() = 0;
 	virtual void slot06() = 0;
 	virtual void slot07() = 0;
+	virtual void onDelete();
 	virtual void slot08() = 0;
 	virtual void slot09() = 0;
 	virtual void slot10() = 0;
@@ -185,6 +194,9 @@ private:
 	OpenContainActionIface m_iface20;
 	char m_pad24[0x30];
 	IntList m_containList;
+	char m_pad58[0xDF - 0x58];
+	// Retail sets this target-proven byte before constructing its list snapshot.
+	unsigned char m_byteDF;
 };
 
 // Target facts: 0x00465011 is slot 32 of the OpenContain +0x20 interface
@@ -272,4 +284,35 @@ bool OpenContain::rva00464EE7(Object *object)
 		}
 	}
 	return true;
+}
+
+// Target facts: retail extent at 0x00464120 is 145 bytes. The existing
+// OpenContain::onDelete pin and SiegeEngineContain primary slot-8 caller at
+// 0x0047BB6B identify this method and preserve the primary receiver. Retail
+// bytes copy the list at +0x54 through 0x0036ADF9, set byte +0xDF, dispatch
+// through the +0x20 interface at vtable slot +0xA4, clear the rider dword at
+// +0x274, and test template byte +0x113 bit 2 before calling rowed
+// Object::kill (0x002984D4) or GameLogic::destroyObject (0x00242C09). The local
+// list destructor call is 0x004EC395. List and interface layouts follow the
+// adjacent byte-matched OpenContain methods in this TU; the +0x274 dword keeps
+// a raw name because its meaning is not established by these accesses.
+//
+// Donor provenance: Open-BFME-1 revision 6583b3c1ff21db4a561285717028fdafc780b7db,
+// GameLogic/Object/Contain/OpenContainOnDelete.cpp, supports the cleanup
+// sequence semantically. Its offsets and manual list view do not establish
+// BFME2 layout or ABI; those are supported above by BFME2 retail evidence.
+void OpenContain::onDelete()
+{
+	m_byteDF = 1;
+	Rva0036ADF9ListCopy riders(m_containList);
+	for (IntList::iterator it = riders.m_list.begin(); it != riders.m_list.end(); ++it)
+	{
+		Object *rider = (Object *)*it;
+		m_iface20.rva00464EE7Action(rider, 1);
+		rider->m_word274 &= 0;
+		if ((((unsigned char *)rider->m_template)[0x113] & 4) != 0)
+			rider->kill((DamageType)8, (DeathType)0);
+		else
+			TheGameLogic->destroyObject(rider);
+	}
 }
