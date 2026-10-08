@@ -1,15 +1,17 @@
-// ?Allocate_New_Surface@Render2DSentenceClass@@AAEXPBG_N@Z
-// partial score=0.985 date=2026-10-09
 // cl: /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 
 void __cdecl operator delete[](void *) throw();
 #include "vector.h"
+#include "vector2i.h"
 
 // Donor BFME1 9cbfb551fe20 Render2DSentenceClass_Allocate_New_Surface.cpp.
-// BFME2 native 158C60..158E87/551B: no leading Unlock; spacing uses loadCharacterData.
+// BFME2 native158990..158B93/515B uses font/text/glyph buffer/calc parameters.
+// Original method name remains unknown. Paired glyph loop calls Get_Char_Data
+// at158520; font height2C; native sentence offsets68/6C/70 and surface7C.
+// Resource lifetime follows BFME1 source. Vector2i::Set yields retail epilogue.
 // Target class fields and complete COM surface and PendingSurface lifecycle match donor.
-// The owner and method names remain address-derived.  The font character-data
-// helper uses the independently pinned Rva00941400 ABI.
+// Owner from target sentence fields and proven adjacent allocator158C60.
+// Glyph record types and offset-pair type carried from reference source.
 
 class BfmeSurfaceResource
 {
@@ -71,6 +73,13 @@ public:
 		return 0;
 	}
 
+public:
+    __forceinline int Get_Glyph_Advance(unsigned short glyph) {
+        const FontCharsClassCharDataStruct *data=Get_Char_Data(glyph);
+        return data ? data->ExtraSpacing + data->Width : 0;
+    }
+private:
+    const FontCharsClassCharDataStruct *Get_Char_Data(unsigned short);
 private:
 	char fields00[0x2c];
 	int char_height;
@@ -132,7 +141,7 @@ public:
 
 	virtual void reset();
 	private:
-	void Allocate_New_Surface(const unsigned short *text, bool justCalcExtents);
+	void Rva00158990(FontCharsClass *font,const unsigned short *text,const unsigned short *glyphs,bool justCalcExtents);
 
 	DynamicVectorClass<Render2DSentenceClass::SentenceDataStruct> sentence_data;
 	DynamicVectorClass<Render2DSentenceClass::PendingSurfaceStruct> pending_surfaces;
@@ -144,8 +153,7 @@ public:
 	float location_y;
 	float cursor_x;
 	float cursor_y;
-	int texture_offset_i;
-	int texture_offset_j;
+	Vector2i texture_offset;
 	int texture_start_x;
 	int current_texture_size;
 	int texture_size_hint;
@@ -167,14 +175,13 @@ typedef char rva00941a00_pending_surface_must_be_1c[
 typedef char rva00941a00_pending_vector_must_be_18[
 	(sizeof(DynamicVectorClass<Render2DSentenceClass::PendingSurfaceStruct>) == 0x18) ? 1 : -1];
 
-// ?Allocate_New_Surface@Render2DSentenceClass@@AAEXPBG_N@Z present-unmatched
-void Render2DSentenceClass::Allocate_New_Surface(
-	const unsigned short *text, bool justCalcExtents)
+void Render2DSentenceClass::Rva00158990(
+	FontCharsClass *font,const unsigned short *text,const unsigned short *glyphs,bool justCalcExtents)
 {
 
 	int text_width = 0;
 	for (int index = 0; text[index] != 0; index++) {
-		text_width += font->Get_Char_Spacing(text[index]);
+		text_width += font->Get_Glyph_Advance(glyphs[index]);
 	}
 
 	int char_height = font->Get_Char_Height();
@@ -214,5 +221,6 @@ void Render2DSentenceClass::Allocate_New_Surface(
 		pending_surfaces.Add(surface_info);
 	}
 
-	texture_offset_i = texture_offset_j = texture_start_x = 0;
+	texture_offset.Set(0,0);
+	texture_start_x = 0;
 }
