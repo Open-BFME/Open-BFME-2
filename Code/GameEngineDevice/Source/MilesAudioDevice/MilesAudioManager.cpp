@@ -130,7 +130,10 @@ struct AudioEventInfo {
     char at4C[0x94 - 0x4C];
     float m_maxDistance;                     // +0x94
     float m_minDistance;                     // +0x98
-    char at9C[0xB8 - 0x9C];
+    char at9C[0xA8 - 0x9C];
+    float m_reverbWetLevel;                  // +0xA8, wet level scaled by the global reverb multiplier (0x52FA0)
+    float m_reverbDryLevel;                  // +0xAC, dry level passed with it (0x52FA0)
+    char atB0[0xB8 - 0xB0];
     _STL::vector<AudioEventChannelVolume> m_channelVolumes;  // +0xB8
 };
 
@@ -195,16 +198,26 @@ private:
     OpenAudioFile *m_ptr;
 };
 
+// Target view for Ghidra FUN_004a8b04: thiscall receiver with two float args.
+// The receiver's original class and operation name remain unresolved.
+class Rva000A8B04 {
+public:
+    void rva000A8B04(float first, float second);
+};
+
 struct PlayingAudio {
     void *vfptr;
     long refs;
     int m_handle;                        // +0x08 loop-buffer / handle-state index
-    char at0C[0x14 - 0x0C];
+    Rva000A8B04 m_at0C;                  // +0x0C, type-4 receiver of the reverb level pair (0x52FA0)
+    char at0D[0x14 - 0x0D];
     int m_type;                          // +0x14
     int m_status;                        // +0x18
     BfmePoolRef10 m_event;            // +0x1C
     Rva000A8A6C m_file;                  // +0x20
-    char at24[0x4B - 0x24];
+    char at24[0x34 - 0x24];
+    float m_at34;                        // +0x34, scales the 3D effects level (0x52FA0)
+    char at38[0x4B - 0x38];
     bool m_at4B;                         // +0x4B, set by 0x000535A6
 };
 
@@ -287,6 +300,8 @@ struct AudioSettings {
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_distances(void *sample, float maxDistance, float minDistance);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_position(void *sample, float x, float y, float z);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_volume(void *sample, float volume);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_reverb_levels(void *sample, float dry, float wet);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_effects_level(void *sample3D, float level);
 extern "C" __declspec(dllimport) int __stdcall AIL_3D_sample_playback_rate(void *sample);
 typedef void (__stdcall *MilesSampleCallback)(void *sample);
 extern "C" __declspec(dllimport) void __stdcall AIL_init_sample(void *sample);
@@ -434,13 +449,6 @@ private:
     char opaque[0x14];
 };
 
-// Target view for Ghidra FUN_004a8b04: thiscall receiver with two float args.
-// The receiver's original class and operation name remain unresolved.
-class Rva000A8B04 {
-public:
-    void rva000A8B04(float first, float second);
-};
-
 // Address-derived callee view for the tree lookup used at 0x0005B1C2.
 class Rva001F8437 {
 public:
@@ -540,6 +548,7 @@ public:
     bool startNextLoop(PlayingAudioRef &looping);
     void getAppropriateSampleHandleForPlayingAudio(PlayingAudioRef &playing, void **sample, void **sample3D);
 
+    void *get2DSampleHandleForPlayingAudio(void *playing);
     void *get3DSampleHandleForPlayingAudio(PlayingAudioRef &playing);
     void prep3DSample(PlayingAudioRef &playing, const Coord3D *pos);
     void initFilters3D(PlayingAudioRef &playing, const Coord3D *pos);
@@ -1101,6 +1110,25 @@ void MilesAudioManager::rva0005407E(INI *ini)
     ini->loadFile(AsciiString("Data\\INI\\AudioSettings.ini"), type, 0);
 }
 
+// The 2D twin of get3DSampleHandleForPlayingAudio (WorldBuilder 0x77FFB0):
+// type 0 holds the sample itself, type 1 indexes a 2D loop buffer. Its ledger
+// spelling takes the PlayingAudioRef by address.
+void *MilesAudioManager::get2DSampleHandleForPlayingAudio(void *ref)
+{
+    PlayingAudioRef &playing = *static_cast<PlayingAudioRef *>(ref);
+    switch (playing->m_type) {
+    case 0:
+        return (void *)playing->m_handle;
+    case 1:
+        break;
+    default:
+        return 0;
+    }
+    if (!m_loopBuffers[playing->m_handle].m_is3D)
+        return m_loopBuffers[playing->m_handle].m_sample;
+    return 0;
+}
+
 void *MilesAudioManager::get3DSampleHandleForPlayingAudio(PlayingAudioRef &playing)
 {
     switch (playing->m_type) {
@@ -1114,6 +1142,53 @@ void *MilesAudioManager::get3DSampleHandleForPlayingAudio(PlayingAudioRef &playi
         return 0;
     }
     return 0;
+}
+
+// WorldBuilder 0x78B4F0 (unnamed): switch on the playing type. 2D samples
+// (types 0/1) and the type-4 receiver get the event info's reverb dry/wet pair,
+// 3D samples (2/3) an effects level scaled by +0x34; with reverb off the pair is
+// 1/0 and the level 0.
+void MilesAudioManager::rva00052FA0(PlayingAudioRef &playing)
+{
+    switch (playing->m_type) {
+    case 0:
+    case 1: {
+        void *sample = get2DSampleHandleForPlayingAudio(&playing);
+        if (sample) {
+            if (m_at6A7) {
+                float base = playing->m_event->m_info->m_reverbWetLevel;
+                float wet = getGlobalReverbMultiplier() * base;
+                AIL_set_sample_reverb_levels(sample, playing->m_event->m_info->m_reverbDryLevel, wet);
+            } else {
+                AIL_set_sample_reverb_levels(sample, 1.0f, 0.0f);
+            }
+        }
+        break;
+    }
+    case 2:
+    case 3: {
+        void *sample3D = get3DSampleHandleForPlayingAudio(playing);
+        if (sample3D) {
+            float level;
+            if (m_at6A7) {
+                float base = playing->m_event->m_info->m_reverbWetLevel;
+                level = getGlobalReverbMultiplier() * playing->m_at34 * base;
+            } else
+                level = 0.0f;
+            AIL_set_3D_sample_effects_level(sample3D, level);
+        }
+        break;
+    }
+    case 4:
+        if (m_at6A7) {
+            float base = playing->m_event->m_info->m_reverbWetLevel;
+            float wet = getGlobalReverbMultiplier() * base;
+            playing->m_at0C.rva000A8B04(playing->m_event->m_info->m_reverbDryLevel, wet);
+        } else {
+            playing->m_at0C.rva000A8B04(1.0f, 0.0f);
+        }
+        break;
+    }
 }
 
 // WorldBuilder 0x7A13D0 (unnamed, aligned by score 5.0): flags the playing
