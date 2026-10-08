@@ -242,3 +242,70 @@ int Rva00620170Get(void)
 {
 	return 32;
 }
+
+// The table addresses below have owned definitions in the data ledger.
+// Keep each getter's address-derived identity; no return type is inferred.
+extern const char *const ModelConditionNames[];
+extern const char *BodyStateNames[];
+extern const char *VeterancyLevelNames[];
+extern const char *SpecialPowerNames[];
+extern const char *g_Va00DD263CNames[];
+extern const char *EmotionNames[];
+struct FieldParse;
+extern const FieldParse g_00C64D60[];
+
+// ?Rva0004546DGet@@YAHXZ @ 0x0004546d (6B): returns 0x00dbaa98.
+// Follows a ret-4 (prev C2-04-00), no .rdata vtable slot, no direct callers,
+// no branch sources. Opaque address-derived name.
+int Rva0004546DGet(void)
+{
+	return (int)&ModelConditionNames;
+}
+
+// ?Rva000454CEGet@@YAHXZ @ 0x000454ce (6B): returns 0x00da5f30.
+// Follows a tiny mov-al returner. No direct callers.
+// Opaque address-derived name.
+int Rva000454CEGet(void)
+{
+	return (int)&BodyStateNames;
+}
+
+// ?Rva002532CEGet@@YAHXZ @ 0x002532ce (6B): returns 0x00dbaa40.
+// Follows an SEH epilogue plus leave plus ret. No direct callers.
+// Opaque address-derived name.
+int Rva002532CEGet(void)
+{
+	return (int)&VeterancyLevelNames;
+}
+
+// ?Rva003B0FA6Get@@YAHXZ @ 0x003b0fa6 (6B): returns 0x00dc0b40.
+// Follows a leave plus ret-4 tail. No direct callers. Opaque
+// address-derived name.
+int Rva003B0FA6Get(void)
+{
+	return (int)&SpecialPowerNames;
+}
+
+// ?Rva003B31C1Get@@YAHXZ @ 0x003b31c1 (6B): returns 0x00dd263c.
+// Follows a pop plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva003B31C1Get(void)
+{
+	return (int)&g_Va00DD263CNames;
+}
+
+// ?Rva003B321BGet@@YAHXZ @ 0x003b321b (6B): returns 0x00dba9c8.
+// Follows a pop plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva003B321BGet(void)
+{
+	return (int)&EmotionNames;
+}
+
+// ?Rva0050B5C9Get@@YAHXZ @ 0x0050b5c9 (6B): returns 0x00c64d60.
+// Follows a mov-al plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva0050B5C9Get(void)
+{
+	return (int)&g_00C64D60;
+}

@@ -12462,7 +12462,7 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ??0Rva003A6360Record@@QAE@ABV0@@Z,,0x0052BB9A,33,Code/GameEngine/Source/Common/Bfme/Rva003A6360CopyCtor.cpp,matched,BFME1 byte-identical donor; b1 0x003A6360; ICF-folded in BFME1 so the name is this sweep pick among its twins
 ?rva0080A280@Rva0080A280Owner@@QAEXPAURva0080A280Input@@@Z,,0x00676180,317,Code/GameEngine/Source/GameNetwork/Rva0080A280FeslHandler.cpp,matched,BFME1 donor with 4 FESL string-key constants repointed to BFME2 addresses; b1 0x0080A280
 ?bfmeDoPW@@YAHPAD000@Z,,0x00024FC0,135,Code/GameEngine/Source/Common/BfmeTwoHundredEightyThree.cpp,matched,Lexicographical range compare via char_traits compare over shared prefix then length ordering; /Od TU; human-readable locals firstLength/lenOther/prefix/secondPtr/lengthPtr/result/order
-?Rva0004546DGet@@YAHXZ,,0x0004546D,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 returner ret dbaa98; prev C2-04-00 with no vtable slot and no callers and no branches; opaque name
+?Rva0004546DGet@@YAHXZ,,0x0004546D,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 returner ret dbaa98; prev C2-04-00 with no vtable slot and no callers and no branches; opaque name
 ?Rva00062A52Get@@YAHXZ,,0x00062A52,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 returner ret ffff; prev C2-04-00 with no vtable slot and no callers and no branches; opaque name
 ?Rva001DB686Get@@YAHXZ,,0x001DB686,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 returner ret c0cd88; prev C2-04-00 with no vtable slot and no callers and no branches; opaque name
 ?Rva001DFAA0Get@@YAHXZ,,0x001DFAA0,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 returner ret bdc720; prev C2-04-00 with no vtable slot and no callers and no branches; opaque name
@@ -35526,7 +35526,7 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva0002BBC3Get@@YAHXZ,,0x0002BBC3,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva00030A40Get@@YAHXZ,,0x00030A40,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?getNthData@ModuleInfo@@QBEPBVModuleData@@H@Z,,0x0033ACE8,43,Code/GameEngine/Source/Common/Thing/ModuleInfoGetNthData.cpp,matched,ModuleInfo indexed data access via locomotor parser call sites plus ZH donor shape
-?Rva000454CEGet@@YAHXZ,,0x000454CE,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
+?Rva000454CEGet@@YAHXZ,,0x000454CE,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00051EA9Get@@YAHXZ,,0x00051EA9,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva0011C460Get@@YAHXZ,,0x0011C460,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva002A8A0FGet@@YAHXZ,,0x002A8A0F,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
@@ -35567,7 +35567,7 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva00250722Get@@YAHXZ,,0x00250722,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva002507ECGet@@YAHXZ,,0x002507EC,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00252165Get@@YAHXZ,,0x00252165,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
-?Rva002532CEGet@@YAHXZ,,0x002532CE,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
+?Rva002532CEGet@@YAHXZ,,0x002532CE,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00285B54Get@@YAHXZ,,0x00285B54,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00285B5AGet@@YAHXZ,,0x00285B5A,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00285B60Get@@YAHXZ,,0x00285B60,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
@@ -35582,12 +35582,12 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva0035B298Get@@YAHXZ,,0x0035B298,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva0035C959Get@@YAHXZ,,0x0035C959,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva0039009BGet@@YAHXZ,,0x0039009B,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
-?Rva003B0FA6Get@@YAHXZ,,0x003B0FA6,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
-?Rva003B31C1Get@@YAHXZ,,0x003B31C1,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
+?Rva003B0FA6Get@@YAHXZ,,0x003B0FA6,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
+?Rva003B31C1Get@@YAHXZ,,0x003B31C1,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ??0?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAE@ABV01@@Z,,0x004334D7,68,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_allocate_copy.cpp,matched,no-EH explicit instantiation emission; detour copy callee plus E8 get_allocator pin
 ?insert@BFME2RespawnRuleTree@@QAE?AURespawnInsertResult@@ABURespawnRule@@@Z,,0x004AFB2B,35,Code/GameEngine/Source/GameLogic/Object/Body/RespawnRuleTreeInsert.cpp,matched,hidden-result wrapper over unique-insert worker; inline memberwise copy ctor gives hidden-first dword-plus-byte copy
 ??0LivingWorldRegionConnection@@QAE@ABV0@@Z,,0x003F247D,83,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp,matched,string copy pin plus E8 vector copy row; two EH states
-?Rva003B321BGet@@YAHXZ,,0x003B321B,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
+?Rva003B321BGet@@YAHXZ,,0x003B321B,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva0040C344Get@@YAHXZ,,0x0040C344,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva00417AE3Get@@YAHXZ,,0x00417AE3,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva00418060Get@@YAHXZ,,0x00418060,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
@@ -35598,7 +35598,7 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva0041F71AGet@@YAHXZ,,0x0041F71A,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva004D949FGet@@YAHXZ,,0x004D949F,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva00509DA5Get@@YAHXZ,,0x00509DA5,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
-?Rva0050B5C9Get@@YAHXZ,,0x0050B5C9,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
+?Rva0050B5C9Get@@YAHXZ,,0x0050B5C9,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
 ?Rva005B729FGet@@YAHXZ,,0x005B729F,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva00611030Get@@YAHXZ,,0x00611030,6,Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp,matched,B8-6 const-int returner
 ?Rva00619FF0Get@@YAHXZ,,0x00619FF0,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 const-int returner
