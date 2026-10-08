@@ -4,6 +4,31 @@
 // Code/GameEngine/Source/GameClient/Gui/GUICallbacks/Apt/AptCreateAHeroPowers.cpp).
 // Names are WorldBuilder's (wb-name-unverified); layouts are from the
 // retail bodies.
+#include "ascii_string.h"
+
+class Image;
+class CommandButton
+{
+public:
+	const Image *rva0035B19E() const;
+};
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+extern ImageCollection *TheMappedImageCollection;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
+class Rva002239B2
+{
+public:
+	void rva002239E2(const AsciiString &name, const Image *image);
+};
+class Rva00223A94
+{
+public:
+	int rva00223A94(const AsciiString *name);
+};
 
 // The power grid's cell: its command button at +0x00, the grid row and
 // column at +0x04 / +0x08 (negative when unset) and the owned flag at +0x14.
@@ -54,6 +79,7 @@ class Powers
 public:
 	int CalculateFlashState(Rva005B2E09Cell *cell);
 	void UpdatePalantirButtons();
+	void ExternFunc(const CommandButton *button);
 
 private:
 	Rva005B2E09Cell *FindPrereq(Rva005B2E09Cell *cell)
@@ -91,6 +117,26 @@ void AptCreateAHero::Powers::UpdatePalantirButtons()
 	}
 	for (int i = m_numPalantir; i < 6 - required; ++i)
 		rva005B2295(0, (int)name, i + required, -1);
+}
+
+// ?ExternFunc@Powers@AptCreateAHero@@QAEXPBVCommandButton@@@Z @0x005B2E65 187B.
+// WorldBuilder supplies the ExternFunc lead (wb-name-unverified). Retail does
+// not use the receiver; ret4 consumes one button pointer. The image getter,
+// fallback image lookup and Apt set/erase bodies establish the argument roles.
+void AptCreateAHero::Powers::ExternFunc(const CommandButton *button)
+{
+	if (button)
+	{
+		const Image *image = button->rva0035B19E();
+		if (!image)
+			image = TheMappedImageCollection->findImageByName("CircleRed_42x42");
+		((Rva002239B2 *)g_bfmeAptWindowManager)->rva002239E2("Cah::CurSpellImage", image);
+	}
+	else
+	{
+		AsciiString name("Cah::CurSpellImage");
+		((Rva00223A94 *)g_bfmeAptWindowManager)->rva00223A94(&name);
+	}
 }
 
 static const unsigned int MAX_POWERS = 10;
