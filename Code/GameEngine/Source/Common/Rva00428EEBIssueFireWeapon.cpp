@@ -91,7 +91,9 @@ extern InGameUI *TheInGameUI;
 
 struct Rva004292F6Template
 {
-    char m_pad00[0x110];
+    char m_pad00[0x10A];
+    unsigned char m_kind10A;
+    char m_pad10B[5];
     unsigned int m_kind110;
     char m_pad114;
     unsigned char m_kind115;
@@ -110,6 +112,7 @@ public:
     Object *m_containedBy274;
     Drawable *getDrawable() const;
     bool isUsingAirborneLocomotor() const;
+    bool rva0028B3A6() const;
 };
 
 class Drawable
@@ -489,4 +492,22 @@ int CommandTranslator::issueSpecialPowerCommand(const CommandButton* command,int
   }
  }
  return msgType;
+}
+
+// ZH canSelectionSalvage, reference34f59164f6; WB00E7CA40 and native
+// 00429771..004297BB. Native passes the target in ECX and returns in AL.
+// The target predicate is the existing49B module-scan provider; selected
+// objects require the KINDOF_SALVAGER bit19 at template+10A bit3.
+bool __fastcall canSelectionSalvage(const Object* targetObj) {
+ if(targetObj&&targetObj->rva0028B3A6()) {
+  const DrawableList* selected=TheInGameUI->slot73();
+  for(SelectedDrawableNode* it=selected->sentinel->next;it!=selected->sentinel;it=it->next) {
+   Drawable* draw=it->value;
+   if(!draw)continue;
+   Object* obj=draw->m_object;
+   if(!obj)continue;
+   if(obj->m_template->m_kind10A&8)return true;
+  }
+ }
+ return false;
 }
