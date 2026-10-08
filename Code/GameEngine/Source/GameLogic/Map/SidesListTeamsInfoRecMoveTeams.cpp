@@ -45,6 +45,7 @@ private:
 };
 
 extern const StaticNameKey TheKey_teamOwner;	// VA 0x00DBD9FC
+extern const StaticNameKey TheKey_teamName;	// VA 0x00DBD9F4
 
 class Dict
 {
@@ -75,7 +76,10 @@ public:
 class TeamsInfoRec
 {
 public:
+	void renameTeam(int id, const AsciiString &owner, const AsciiString &name);
 	void moveTeamsToNewOwner(const AsciiString &oldOwner, const AsciiString &newOwner);
+	void bfmePrepareRelease(int id);	// 0x0032C1F7, WB removeFromIndex
+	void addToIndex(int id);	// 0x0032D103
 
 private:
 	TeamIndex m_index;			// +0x00
@@ -83,6 +87,20 @@ private:
 	short m_numActive;
 	short m_freeHead;
 };
+
+// ?renameTeam@TeamsInfoRec@@QAEXHABVAsciiString@@0@Z, retail 0x0032D223,
+// 86 bytes. WorldBuilder's twin TeamsInfoRec::renameTeam (wb 0xa89670,
+// SidesList.cpp asserts 2437..2442) unindexes the team, sets its teamOwner
+// and teamName and indexes it again; its asserts are compiled out here.
+// SidesList::validateSides passes both strings by address.
+void TeamsInfoRec::renameTeam(int id, const AsciiString &owner, const AsciiString &name)
+{
+	bfmePrepareRelease(id);
+	Dict *d = &m_entries[id].m_dict;
+	d->setAsciiString(TheKey_teamOwner, owner);
+	d->setAsciiString(TheKey_teamName, name);
+	addToIndex(id);
+}
 
 // Every index entry keyed by the old owner is re-keyed to the new one, and
 // every team overridden through that entry takes the new owner and iterator.
