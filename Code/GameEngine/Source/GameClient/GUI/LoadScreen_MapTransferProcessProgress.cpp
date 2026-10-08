@@ -33,6 +33,8 @@ public:
 	virtual void slot12(); virtual void slot13();
 	virtual UnicodeString fetch(const char *label, bool *exists = 0);
 	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
+	virtual void slot16();
+	virtual const UnicodeString *slot44(const char *label, bool *exists);
 };
 extern GameTextInterface *TheGameText;
 
@@ -42,6 +44,7 @@ class MapTransferLoadScreen
 {
 public:
 	virtual void processProgress(Int playerId, Int percentage, AsciiString stateStr);
+	void processTimeout(Int secondsLeft);
 
 private:
 	char m_pad04[0x10 - 0x04];
@@ -50,6 +53,9 @@ private:
 	GameWindow *m_progressText[MAX_SLOTS];  // +0x50
 	Int m_playerLookup[MAX_SLOTS];          // +0x70
 	Int m_oldProgress[MAX_SLOTS];           // +0x90
+	GameWindow *m_fileNameText;             // +0xB0
+	GameWindow *m_timeoutText;              // +0xB4
+	Int m_oldTimeout;                      // +0xB8
 };
 
 void MapTransferLoadScreen::processProgress(Int playerId, Int percentage, AsciiString stateStr)
@@ -63,4 +69,26 @@ void MapTransferLoadScreen::processProgress(Int playerId, Int percentage, AsciiS
 		GadgetProgressBarSetProgress(m_progressBars[translatedSlot], percentage);
 	if (m_progressText[translatedSlot])
 		GadgetStaticTextSetText(m_progressText[translatedSlot], TheGameText->fetch(stateStr));
+}
+
+// ?processTimeout@MapTransferLoadScreen@@QAEXH@Z @0x003564B6 (139 bytes).
+// Donor: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
+// game/GameEngine/Source/GameClient/GUI/LoadScreen.cpp::processTimeout.
+// Identity and offsets are independently supported by retail's comparison
+// and store at +0xB8, nullable text window at +0xB4, and actual ASCII literal
+// "MapTransfer:Timeout" at RVA 0x00814EEC (not a vtable address). Retail
+// fetches a UnicodeString pointer through GameText slot +0x44, then calls
+// the rowed string formatter with seconds/60 and seconds%60, and sends
+// the by-value copy to rowed GadgetStaticTextSetText (0x00321552).
+void MapTransferLoadScreen::processTimeout(Int secondsLeft)
+{
+    if (m_oldTimeout == secondsLeft)
+        return;
+    m_oldTimeout = secondsLeft;
+    if (m_timeoutText) {
+        UnicodeString text;
+        text.format(TheGameText->slot44("MapTransfer:Timeout", 0),
+                    secondsLeft / 60, secondsLeft % 60);
+        GadgetStaticTextSetText(m_timeoutText, text);
+    }
 }
