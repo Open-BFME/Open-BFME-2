@@ -301,6 +301,22 @@ while IFS= read -r path; do
     [ -n "$path" ] && verify_set["$path"]=1
 done < "$delta_out"
 rm -f "$delta_out"
+# 3a) ...and every OTHER unit whose object calls a name this commit renames,
+#     removes or re-addresses (a row or a symbols.csv pin): its call sites
+#     resolve through that name, so it stops matching although neither it nor
+#     its rows changed. One retracted row name broke 38 rows in 40 such units,
+#     every hook green (fork a7a39472e7). Free unless a call target is lost;
+#     then one scan of the object cache (tools/name_dependents.py).
+capture name_deps_out "listing the units that call a renamed or removed name" \
+    python3 tools/name_dependents.py --staged
+while IFS= read -r path; do
+    [ -n "$path" ] || continue
+    # The build reads the working copy, not what this commit contains.
+    [ -z "${unstaged_paths[$path]:-}" ] || { rm -f "$name_deps_out"
+        fail "unstaged edits in $path, which calls a name this commit renames or removes: stage or stash them"; }
+    verify_set["$path"]=1
+done < "$name_deps_out"
+rm -f "$name_deps_out"
 
 # Parked reconstruction drafts (whitelisted zero-matched-row sources) have
 # nothing to byte-verify; build.py errors on a filter that matches no rows.

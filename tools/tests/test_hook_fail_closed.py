@@ -36,6 +36,8 @@ if os.path.exists("delta.txt"):
 sys.stdout.flush()
 sys.exit(int(open("delta-exit").read()) if os.path.exists("delta-exit") else 0)
 """
+# name_dependents.py, the same way: prints name-deps.txt, exits with name-deps-exit's code.
+NAME_DEPS = DELTA.replace("delta", "name-deps")
 LEDGER = ("name,export_rva,target_rva,target_size,source,status,notes\n"
           f"?f@Unit@@QAEXXZ,,0x00001000,16,{SOURCE},matched,{{note}}\n")
 
@@ -87,13 +89,14 @@ def repo(tmp_path):
     for tool in READERS:
         write(repo, f"tools/{tool}.py", "import sys\nsys.stdin.buffer.read()\n")
     write(repo, "tools/delta_sources.py", DELTA)
+    write(repo, "tools/name_dependents.py", NAME_DEPS)
     write(repo, "tools/build.py", RECORD_BUILD)
     write(repo, "build.sh", '#!/usr/bin/env bash\nexec python3 tools/build.py "$@"\n')
     build_sh = repo / "build.sh"
     build_sh.chmod(build_sh.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
     write(repo, "reverse/functions.csv", LEDGER.format(note=""))
     write(repo, SOURCE, "struct Unit { void f(); };\nvoid Unit::f() {}\n")
-    write(repo, ".gitignore", "*.jsonl\ndelta.txt\ndelta-exit\nbad-index\n")
+    write(repo, ".gitignore", "*.jsonl\ndelta.txt\ndelta-exit\nname-deps.txt\nname-deps-exit\nbad-index\n")
     git(repo, "add", "-A")
     git(repo, "commit", "-qm", "base")
     return repo
@@ -191,4 +194,32 @@ def test_pre_push_refuses_when_the_edited_source_list_cannot_be_built(repo):
     result = run(repo, "pre-push", push_refs(repo, base))
     assert result.returncode == 1
     assert "PRE-PUSH FAILED: listing the edited claimed sources (see above)" in result.stderr
+    assert not built(repo)
+
+
+# ---------------------------------------------------------------- name_dependents
+
+def test_pre_commit_refuses_when_name_dependents_crashes(repo):
+    # The units calling a renamed name are listed by tools/name_dependents.py; a crash
+    # there must not read as "no unit calls it".
+    ledger_only_commit(repo)
+    write(repo, "name-deps.txt", SOURCE + "\n")
+    write(repo, "name-deps-exit", "3")
+    result = run(repo, "pre-commit")
+    assert result.returncode == 1
+    assert ("PRE-COMMIT FAILED: listing the units that call a renamed or removed name "
+            "(see above)") in result.stderr
+    assert not built(repo)
+
+
+def test_pre_push_refuses_when_name_dependents_crashes(repo):
+    base = git(repo, "rev-parse", "HEAD")
+    ledger_only_commit(repo)
+    git(repo, "commit", "-qm", "row")
+    write(repo, "name-deps.txt", SOURCE + "\n")
+    write(repo, "name-deps-exit", "3")
+    result = run(repo, "pre-push", push_refs(repo, base))
+    assert result.returncode == 1
+    assert ("PRE-PUSH FAILED: listing the units that call a renamed or removed name "
+            "(see above)") in result.stderr
     assert not built(repo)

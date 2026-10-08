@@ -122,6 +122,13 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     capture delta_out "delta_sources" python3 tools/delta_sources.py --range "$base" "$local_sha"
     mapfile -t delta < "$delta_out"
     rm -f "$delta_out"
+    # Units that call a name the range renames, removes or re-addresses (a row
+    # or a pin) resolve their call sites through it: verify them too
+    # (pre-commit's 3a; tools/name_dependents.py).
+    capture name_deps_out "listing the units that call a renamed or removed name" \
+        python3 tools/name_dependents.py --range "$base" "$local_sha"
+    mapfile -t name_deps < "$name_deps_out"
+    rm -f "$name_deps_out"
 
     # Sources the range EDITS while leaving their ledger rows alone are absent
     # from that delta, so nothing byte-verifies them — yet one such edit can
@@ -155,7 +162,7 @@ PY
 
     verify=()
     declare -A seen=()
-    for s in "${delta[@]}" "${edited[@]}"; do
+    for s in "${delta[@]}" "${edited[@]}" "${name_deps[@]}"; do
         [ -z "$s" ] && continue
         [ -n "${seen[$s]:-}" ] && continue
         seen["$s"]=1
