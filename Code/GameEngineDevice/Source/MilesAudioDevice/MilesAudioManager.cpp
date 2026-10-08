@@ -163,11 +163,13 @@ public:
     int m_ownerType;         // +0x38, 2 when object-owned (getObjectID's test)
     char at3C[0x4B - 0x3C];
     bool m_at4B;             // +0x4B
-    char at4C[0x50 - 0x4C];
+    bool m_at4C;             // +0x4C, the loop-buffer thread's decay/loop test
+    char at4D[0x50 - 0x4D];
     bool m_at50;             // +0x50, set once a sample starts playing
     char at51[0x64 - 0x51];
     float m_at64;            // +0x64, compared with AudioSettings +0xB4 and one frame
-    char at68[0x78 - 0x68];
+    char at68[0x74 - 0x68];
+    int m_portionToPlayNext; // +0x74, the portion advanceNextPlayPortion steps
     MusicSystem m_musicSystem; // +0x78
 };
 
@@ -255,6 +257,7 @@ class PlayingAudioRef {
 public:
     PlayingAudioRef() : m_ptr(0) {}
     PlayingAudioRef(const PlayingAudioRef &other) : m_ptr(other.m_ptr) { if (m_ptr) asRefCounted()->Add_Ref(); }
+    PlayingAudioRef(PlayingAudio *playing);
     ~PlayingAudioRef() { if (m_ptr) asRefCounted()->Release_Ref(); }
     PlayingAudio *operator->(void) const { return m_ptr; }
     PlayingAudio *get(void) const { return m_ptr; }
@@ -266,6 +269,14 @@ private:
     OpaqueRefCounted *asRefCounted(void) const { return reinterpret_cast<OpaqueRefCounted *>(m_ptr); }
     PlayingAudio *m_ptr;
 };
+
+// Retail 0x00051914, which ICF shares with AudioEventInfoRef's constructor;
+// the loop-buffer thread (0x0005EFE9) builds one from a buffer's playing audio.
+PlayingAudioRef::PlayingAudioRef(PlayingAudio *playing) : m_ptr(playing)
+{
+    if (m_ptr)
+        asRefCounted()->Add_Ref();
+}
 
 // 0x18-byte request record (operator new(0x18) in its allocator 0x00051107);
 // Zero Hour's AudioRequest plays this role, the name stays address-derived.
@@ -319,6 +330,7 @@ class Rva00690FF0Handle {
 public:
     Rva00690FF0Handle();
     ~Rva00690FF0Handle();
+    bool isValid(void) const { return m_target != 0; }
     operator const Rva00691040Handle &() const { return *reinterpret_cast<const Rva00691040Handle *>(this); }
 private:
     void *m_target;
@@ -431,7 +443,10 @@ struct AudioSettings {
     int m_at78;                          // +0x78, compared with a loop's +0x30 (0x59CE6)
     char at7C[0x80 - 0x7C];
     unsigned int m_at80;                 // +0x80, handed to the file cache's 0xA77D9
-    char at84[0xB0 - 0x84];
+    char at84[0x8C - 0x84];
+    unsigned int m_at8C;                 // +0x8C, over +0x90 the loop-buffer thread's sleep
+    unsigned int m_at90;                 // +0x90
+    char at94[0xB0 - 0x94];
     float m_atB0;                        // +0xB0, position change 0x55C5D ignores
     int m_atB4;                          // +0xB4, processRequest's preload limit
     float m_atB8;
@@ -506,6 +521,7 @@ class MilesMutexGuard {
 public:
     MilesMutexGuard(void *mutex, int defer);
     ~MilesMutexGuard();
+    bool rva00041037(int timeout);       // waits up to timeout ms for the lock
 private:
     void *m_mutex;
     bool m_held;
@@ -735,6 +751,8 @@ public:
     // WorldBuilder names its destructor MilesAudioManager::LoopBuffer::~LoopBuffer.
     struct LoopBuffer;
 
+    // WorldBuilder name; refills a loop buffer's play buffer up to position.
+    void transferBytesToPlayBuffer(LoopBuffer *buffer, unsigned int position);
     void rva0005EFE9(void);
     void putPlayingMusicOnStack(int viewType, int arg);
     void rva00059CE6(PlayingAudioRef &looping);
@@ -796,6 +814,11 @@ private:
 // the destructor below hands its Miles handles back through them.
 class Rva0005F279Elem { public: bool rva00051038() throw(); };
 class Rva00050FE3 { public: void rva00050FE3() throw(); };
+// The loop buffer's play position, start and loop count, rowed at 0x00050FFD,
+// 0x00050FC9 and 0x00051017 under address-derived names.
+class Rva00050FFD { public: unsigned int rva00050FFD(); };
+class Rva00050FC9 { public: void rva00050FC9(); };
+class Rva00051017 { public: void rva00051017(int loopCount); };
 
 // Reference at +0x0C that drops the referent's count at +0x88 on destruction.
 struct LoopBufferSource {
@@ -887,6 +910,85 @@ unsigned int __stdcall streamingFileOpen(const char *fileName, unsigned int *fil
 }
 
 // Retail 0x0005F267, the loop-buffer thread init() starts with CreateThread.
+extern "C" __declspec(dllimport) unsigned int __stdcall AIL_ms_count(void);
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
+
+// Retail 0x0005EFE9 (WorldBuilder twin 0x0077C240): the loop-buffer thread.
+// Reads the cycle time from the settings, then until m_atBE0 is set refills
+// every valid loop buffer under the manager mutex and sleeps out the cycle.
+void MilesAudioManager::rva0005EFE9(void)
+{
+    unsigned int sleepTime = 50;
+    {
+        MilesMutexGuard guard(&m_mutex, 1);
+        while (!guard.rva00041037(100)) {
+            if (m_atBE0)
+                return;
+        }
+        if (m_audioSettings)
+            sleepTime = m_audioSettings->m_at8C / m_audioSettings->m_at90;
+    }
+    if (m_atBE0)
+        return;
+    do {
+        unsigned int start = AIL_ms_count();
+        for (int i = 0; i < m_numLoopBuffers; ++i) {
+            LoopBuffer *buffer = &m_loopBuffers[i];
+            if (!buffer->m_isValid)
+                continue;
+            MilesMutexGuard guard(&m_mutex, 1);
+            while (!guard.rva00041037(100)) {
+                if (m_atBE0)
+                    return;
+            }
+            if (!buffer->m_isValid)
+                continue;
+            if (buffer->at01) {
+                ((Rva00050FE3 *)buffer)->rva00050FE3();
+                buffer->m_isValid = false;
+                continue;
+            }
+            BfmePoolRef10 &source = (BfmePoolRef10 &)buffer->m_source;
+            if (source->m_at4C && !buffer->m_at28.isValid() && source->m_portionToPlayNext == 1) {
+                source->advanceNextPlayPortion();
+                if (source->m_portionToPlayNext == 2)
+                    reinterpret_cast<Rva00691040Handle &>(buffer->m_at28) = m_audioFileCache->requestFile(source, 1);
+            }
+            unsigned int position = ((Rva00050FFD *)buffer)->rva00050FFD();
+            if (position >= buffer->m_at1C)
+                position = 0;
+            bool wasFull = buffer->m_at44;
+            bool keepGoing = true;
+            if (position > buffer->m_at34) {
+                transferBytesToPlayBuffer(buffer, position);
+            } else if (position < buffer->m_at34) {
+                transferBytesToPlayBuffer(buffer, buffer->m_at1C);
+                if (buffer->m_at34 == 0) {
+                    if (!buffer->m_at20.isValid() && source->m_portionToPlayNext == 3) {
+                        ((Rva00051017 *)buffer)->rva00051017(1);
+                        keepGoing = false;
+                    } else {
+                        transferBytesToPlayBuffer(buffer, position);
+                    }
+                }
+            }
+            if (!keepGoing) {
+                if (!source->m_at4C)
+                    buffer->at03 = 1;
+                buffer->m_isValid = false;
+            } else if (buffer->m_at44 && !wasFull) {
+                ((Rva00050FC9 *)buffer)->rva00050FC9();
+                pauseResumeSound(PlayingAudioRef(buffer->m_playingAudio));
+            }
+        }
+        if (m_atBE0)
+            return;
+        unsigned int now = AIL_ms_count();
+        if (now - start <= sleepTime)
+            Sleep(start - now + sleepTime);
+    } while (!m_atBE0);
+}
+
 unsigned long __stdcall rva0005F267(void *param)
 {
     MilesAudioManager *manager = (MilesAudioManager *)param;
