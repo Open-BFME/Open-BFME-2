@@ -21,3 +21,10 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 #include <vector>
 struct BfmeE8 { int a, b; };
 template class _STL::vector<BfmeE8, _STL::allocator<BfmeE8 > >;
+
+// MilesAudioManager's 8-byte trigger-area record: retail folds its push_back
+// and reserve onto the BfmeE8 bodies (0x00539A2E and 0x0030B876, called by
+// 0x000587C6).
+struct AudioTriggerArea { int a, b; };
+template void _STL::vector<AudioTriggerArea, _STL::allocator<AudioTriggerArea > >::push_back(const AudioTriggerArea &);
+template void _STL::vector<AudioTriggerArea, _STL::allocator<AudioTriggerArea > >::reserve(size_t);

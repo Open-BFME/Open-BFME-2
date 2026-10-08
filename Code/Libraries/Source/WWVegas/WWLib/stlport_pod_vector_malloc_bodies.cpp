@@ -35,3 +35,10 @@ template class _STL::vector<BfmePod16, _STL::allocator<BfmePod16 > >;
 template class _STL::vector<BfmePod40, _STL::allocator<BfmePod40 > >;
 template class _STL::vector<BfmePod44, _STL::allocator<BfmePod44 > >;
 template class _STL::vector<BfmePod68, _STL::allocator<BfmePod68 > >;
+
+// MilesAudioManager's 8-byte trigger-area records: retail folds their erase
+// onto the BfmePod8 body (0x003FA4DB, called twice by 0x000587C6).
+struct AudioTriggerArea { int a[2]; };
+struct AudioTriggerAreaSave { int a[2]; };
+template AudioTriggerArea *_STL::vector<AudioTriggerArea, _STL::allocator<AudioTriggerArea > >::erase(AudioTriggerArea *, AudioTriggerArea *);
+template AudioTriggerAreaSave *_STL::vector<AudioTriggerAreaSave, _STL::allocator<AudioTriggerAreaSave > >::erase(AudioTriggerAreaSave *, AudioTriggerAreaSave *);

@@ -1,4 +1,4 @@
-// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // MilesAudioManager members recovered from WorldBuilder leads.
 // Identity: WorldBuilder's debug build names each body (its assert text and
@@ -38,6 +38,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "Common/Snapshot.h"
 
 class Xfer;
 enum INILoadType
@@ -476,6 +477,12 @@ struct AudioTriggerArea {
     PolygonTrigger *m_trigger;
     float m_level;
 };
+// The saved form of an AudioTriggerArea: loadPostProcess (0x000587C6) looks
+// the +0x00 trigger ID up and copies the +0x04 level.
+struct AudioTriggerAreaSave {
+    int m_triggerID;
+    float m_level;
+};
 
 // Event position returned by the rowed 0x0005160F (zeros and false when the
 // event is not positional); playSample3D hands it to prep3DSample.
@@ -702,11 +709,25 @@ BfmeNode1105 *__cdecl bfmeNext1105(BfmeNode1105 *node);
 // Rowed at 0x0005F279 under its address-derived host.
 class Rva0005F279Host { public: void rva0005F279(void); };
 
-class MilesAudioManager {
+// MilesAudioManager's primary base: the vftable at +0x00 starts with the
+// scalar deleting destructor (0x00061AA1), and the Snapshot subobject sits at
+// +0x0C (its vftable holds the 0x0005D41D destructor thunk, loadPostProcess
+// 0x000587C6, the name getter 0x000518B2 and the xfer 0x0005E3E5), so the
+// base before it is SubsystemInterface's 12 bytes: vptr, +0x04 flag and the
+// +0x08 name (layout of the rowed SubsystemInterface constructor 0x001B4E63).
+class SubsystemInterface {
+public:
+    virtual ~SubsystemInterface();
+private:
+    bool m_flag;
+    AsciiString m_name;
+};
+
+class MilesAudioManager : public SubsystemInterface, public Snapshot {
 public:
     // Virtual slots 0..74 are not named here; slot 75 (+0x12C) looks an
     // event info up by name.
-    virtual void slot00(); virtual void init(); virtual void slot02(); virtual void slot03(); virtual void slot04();
+    virtual void init(); virtual void slot02(); virtual void slot03(); virtual void slot04();
     virtual void slot05(); virtual void slot06(); virtual void slot07(); virtual void slot08(); virtual void slot09();
     virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14();
     virtual void slot15(); virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
@@ -862,7 +883,9 @@ private:
     // Rowed at 0x00053352 and pinned at 0x000604A3 (OpenDevice.cpp's name).
     void unselectProvider(void);
     void setHardwareAccelerated(bool accelerated);
-    char at04[0x10 - 0x04];
+protected:
+    virtual void loadPostProcess(void);
+private:
     AudioSettings *m_audioSettings;      // +0x10 (Zero Hour name)
     char at14[0x3C - 0x14];
     AudioAreaCorner m_corners[5];        // +0x3C, entries 1..4 used by 0x53854
@@ -883,7 +906,9 @@ private:
     bool m_at6A7;                        // +0x6A7, read by 0x52F4C and 0x53AFA
     char at6A8[0x6AA - 0x6A8];
     bool m_at6AA;                        // +0x6AA, retest areas on every call (0x55C5D)
-    char at6AB[0x6B4 - 0x6AB];
+    bool m_at6AB;                        // +0x6AB, set by loadPostProcess
+    bool m_at6AC;                        // +0x6AC, cleared by loadPostProcess
+    char at6AD[0x6B4 - 0x6AD];
     unsigned int m_at6B4[3];             // +0x6B4 per-view-type affect masks
     unsigned int m_at6C0[3];             // +0x6C0
     // Zero Hour's ProviderInfo array; unselectProvider (0x53352) indexes it
@@ -907,7 +932,9 @@ private:
     MusicSystem m_activeMusicSystem[3];  // +0xB3C
     PlayingAudioRef m_playingMusic[3];   // +0xB48, the active system's stream per view type
     _STL::vector<AudioTriggerArea> m_triggerAreas;  // +0xB54, scanned by 0x55C5D
-    char atB60[0xB8C - 0xB60];
+    _STL::vector<AudioTriggerAreaSave> m_savedTriggerAreas;  // +0xB60, resolved by loadPostProcess
+    char atB6C[0xB78 - 0xB6C];           // +0xB6C, cleared through the rowed 0x00054B9A
+    char atB78[0xB8C - 0xB78];           // +0xB78, cleared through the rowed 0x00056DA2
     AudioFileCache *m_audioFileCache;    // +0xB8C (WorldBuilder requestFile receiver)
     char atB90[0xB94 - 0xB90];
     PlayingAudioList m_completedAudio;   // +0xB94, filled by the EOS handlers
@@ -2733,4 +2760,42 @@ void MilesAudioManager::startPendingMusicTracks(void)
         }
         ((Rva000A8C9B *)&track)->clear();
     }
+}
+
+// Retail 0x0002E36D5Find: the polygon trigger with this ID, or null.
+void *Rva002E36D5Find(int id);
+class Rva00053DC5 { public: void rva00054B9A(void); };
+class Rva00056DA2 { public: void rva00056DA2(void); };
+// XferException's throw information (0x00CFFD18) is what the missing-trigger
+// path throws; tag 5 is Zero Hour's invalid-data code.
+class XferException
+{
+public:
+    XferException(int tag, const char *format, ...);
+    XferException(const XferException &that);
+    ~XferException(void);
+    char *text;
+    int tag;
+};
+
+// WorldBuilder twin 0x7AB6E0 (MilesAudioManager::LoadPostProcess, assert at
+// line 15099: unable to find reverb suppression polygon trigger by ID).
+void MilesAudioManager::loadPostProcess(void)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    m_at6AC = false;
+    m_at6AB = true;
+    m_triggerAreas.clear();
+    m_triggerAreas.reserve(m_savedTriggerAreas.size());
+    for (_STL::vector<AudioTriggerAreaSave>::iterator it = m_savedTriggerAreas.begin(); it != m_savedTriggerAreas.end(); ++it) {
+        AudioTriggerArea area;
+        area.m_level = it->m_level;
+        area.m_trigger = (PolygonTrigger *)Rva002E36D5Find(it->m_triggerID);
+        if (!area.m_trigger)
+            throw XferException(5, 0);
+        m_triggerAreas.push_back(area);
+    }
+    m_savedTriggerAreas.clear();
+    ((Rva00053DC5 *)atB6C)->rva00054B9A();
+    ((Rva00056DA2 *)atB78)->rva00056DA2();
 }
