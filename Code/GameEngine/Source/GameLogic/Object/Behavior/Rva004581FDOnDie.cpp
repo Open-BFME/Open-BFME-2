@@ -5,7 +5,8 @@
 // this+0xDC. The BridgeBehavior constructor installs its bridge and die
 // interface vtables at object+0x20 and object+0x28. The matching ZH
 // BridgeBehavior::onDie source is semantic donor evidence; the target owner
-// remains address-derived and the helper identity remains unresolved.
+// remains address-derived. The helper is BridgeBehavior::handleObjectsOnBridgeOnDie
+// (BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp).
 
 enum ObjectID
 {
@@ -50,8 +51,9 @@ public:
 
 class BridgeBehavior
 {
-public:
-	void rva00457577();
+	friend class Rva004581FD;
+protected:
+	void handleObjectsOnBridgeOnDie();
 };
 
 class DamageInfo;
@@ -75,7 +77,7 @@ void Rva004581FD::onDie(const DamageInfo *)
 			tower->kill((DamageType)8, (DeathType)0);
 		++towerType;
 	}
-	((BridgeBehavior *)((char *)this - 0x28))->rva00457577();
+	((BridgeBehavior *)((char *)this - 0x28))->handleObjectsOnBridgeOnDie();
 	*(unsigned int *)((char *)this + 0xDC) =
 		*(unsigned int *)((char *)TheGameLogic + 0x40);
 }
