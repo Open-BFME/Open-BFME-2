@@ -19,11 +19,19 @@ public:
 	Object *m_ptr;
 };
 
+struct CameraMarker;
+class Rva00528FE6
+{
+public:
+	void rva00528FE6(CameraMarker *marker);
+	void *m_ptr;
+};
+
 struct Rva00529698Elem
 {
 	Rva00575674 m_holder;
 	int m_04;
-	int m_08;
+	Rva00528FE6 m_08;
 	int m_0C;
 	int m_10;
 };
@@ -32,6 +40,7 @@ class Rva0052936C
 {
 public:
 	void rva00529698(const char *section);
+	void rva0052991E(const char *section);
 private:
 	char m_pad00[0x64];
 	Rva00529698Elem m_elems[6];
@@ -88,4 +97,34 @@ void Rva0052936C::rva00529698(const char *section)
 			return;
 	}
 	e->m_holder.rva00575674((Object *)new Rva005D2462(Rva004128BBGetLevel(GetStr00529698(val)), AsciiString(Rva00412845AfterLevel(GetStr00529698(val))), (int)&e->m_04, (int)&e->m_08));
+}
+
+class Rva005C3932
+{
+public:
+	Rva005C3932(int level, const AsciiString &name);
+private:
+	char m_data[8];
+};
+
+// Native 0052991E..00529A21 (259B), thiscall / ret 4. Independent target
+// accesses establish the +0x64 array base, 20-byte stride and +8 owning
+// holder. Existing family methods establish the address-derived owner.
+// StrategicHUD::CommandUIImpl::OnToggleFlashLoaded is the matched algorithm
+// lead; that donor name is not claimed for this separate native callback.
+void Rva0052936C::rva0052991E(const char *section)
+{
+	AsciiString name;
+	Rva00529698Elem *button;
+	{
+		int slot;
+		if (!Rva00529628Get(section, &slot))
+			return;
+		if (!Rva00528C30Get(section, name))
+			return;
+		button = &m_elems[slot];
+	}
+	if (button->m_08.m_ptr)
+		return;
+	button->m_08.rva00528FE6((CameraMarker *)new Rva005C3932(Rva004128BBGetLevel(GetStr00529698(name)), AsciiString(Rva00412845AfterLevel(GetStr00529698(name)))));
 }
