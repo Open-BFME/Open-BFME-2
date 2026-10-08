@@ -1,3 +1,5 @@
+// ?rva00059CE6@MilesAudioManager@@QAEXAAVPlayingAudioRef@@@Z
+// partial score=0.92 date=2026-10-08
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // MilesAudioManager members recovered from WorldBuilder leads.
@@ -127,7 +129,8 @@ public:
     void advanceNextPlayPortion(void);
     char at00[0x08];
     AudioEventInfo *m_info;  // +0x08 (owning ref in WB)
-    char at0C[0x30 - 0x0C];
+    int m_playingHandle;     // +0x0C
+    char at10[0x30 - 0x10];
     int m_viewType;          // +0x30
     char at34[0x4B - 0x34];
     bool m_at4B;             // +0x4B
@@ -156,20 +159,29 @@ private:
     void *m_ptr;
 };
 
-struct PlayingAudio {
-    void *vfptr;
-    long refs;
+struct PlayingAudio : OpaqueRefCounted {
     int m_handle;                        // +0x08 loop-buffer / handle-state index
     char at0C[0x14 - 0x0C];
     int m_type;                          // +0x14
     int m_status;                        // +0x18
     BfmePoolRef10 m_event;            // +0x1C
     Rva000A8A6C m_file;                  // +0x20
+    char at24[0x30 - 0x24];
+    float m_at30;                        // +0x30 compared with the fade frames
+    char at34[0x3C - 0x34];
+    float m_at3C;                        // +0x3C
+    float m_at40;                        // +0x40
+    char at44[0x49 - 0x44];
+    bool m_at49;                         // +0x49
+    bool m_at4A;                         // +0x4A
 };
 
 class PlayingAudioRef {
 public:
+    PlayingAudioRef(const PlayingAudioRef &other) : m_ptr(other.m_ptr) { if (m_ptr) m_ptr->Add_Ref(); }  // 0x000A8C7C
+    ~PlayingAudioRef() { if (m_ptr) m_ptr->Release_Ref(); }
     PlayingAudio *operator->(void) const { return m_ptr; }
+    PlayingAudio *get(void) const { return m_ptr; }
 private:
     PlayingAudio *m_ptr;
 };
@@ -205,6 +217,14 @@ private:
 class Rva002D94CE { public: void rva002D94CE(int value); };
 class Weapon { public: void setLeechRangeActive(bool value); };
 class Rva002D9BDC { public: void rva002D9BDC(float lo, float hi); };
+class Rva0005F279Host { public: void rva0005F279(void); };
+typedef _STL::list<OpaqueRefElement4> OpaqueRefList;
+class Rva00481FAFFloatSlot { public: void store(float value); };
+class Rva00057B27 { public: void rva00058913(void *dst, unsigned int b); };
+// rva00058913's (iterator, inserted) result.
+struct Rva00058913Result { void *m_node; void *m_table; bool m_inserted; };
+// AudioSettings view at manager +0x10.
+struct MilesAudioSettingsView { char at00[0x78]; int m_fadeAudioFrames; };
 extern float g_00DBA4FC;
 extern float g_Va00BBDA30;
 
@@ -409,10 +429,14 @@ public:
 
     void putPlayingMusicOnStack(int viewType, int arg);
     void rva00059CE6(PlayingAudioRef &looping);
+    void deleteAudioRequest(void *request);
     void rva0005AA72(PlayingAudioRef &playing);
+    bool killLowestPrioritySoundImmediately(AudioEventRTS *event);
 
 private:
-    char at04[0x98 - 0x04];
+    char at04[0x10 - 0x04];
+    MilesAudioSettingsView *m_audioSettings;  // +0x10
+    char at14[0x98 - 0x14];
     Rva00051107AudioRequestList m_audioRequests;    // +0x98
     char at9C[0xBC - 0x9C];
     Rva00059FBBMap m_allAudioEventInfo;  // +0xBC
@@ -427,7 +451,8 @@ private:
     unsigned int m_at6C0[3];             // +0x6C0
     char at6CC[0x9D4 - 0x6CC];
     void *m_mutex;                       // +0x9D4
-    char at9D8[0xA40 - 0x9D8];
+    char at9D8[0xA3C - 0x9D8];
+    _STL::list<void *> m_available3DSamples; // +0xA3C (Zero Hour's name)
     PlayingAudioList m_playingSounds;    // +0xA40
     PlayingAudioList m_playing3DSounds;  // +0xA44
     PlayingAudioList m_playingStreams;   // +0xA48
@@ -593,6 +618,30 @@ bool MilesAudioManager::startNextLoop(PlayingAudioRef &looping)
     return false;
 }
 
+void MilesAudioManager::rva00059CE6(PlayingAudioRef &looping)
+{
+    looping->m_status = 1;
+    Rva00051107AudioRequest *request = rva00051107();
+    request->m_request = 0;
+    Rva00051107AudioRequest *queued = request;
+    BfmePoolRef10 &pending = request->m_pendingEvent;
+    pending = looping->m_event;
+    request->m_at11 = true;
+    request->m_at12 = looping->m_at49;
+    request->m_at13 = looping->m_at4A;
+    if (looping->m_at30 >= (float)m_audioSettings->m_fadeAudioFrames)
+        ((Weapon *)pending.operator->())->setLeechRangeActive(true);
+    request->m_at08 = pending->m_playingHandle;
+    if (looping->m_at40 > 0.0f) {
+        ((Rva00481FAFFloatSlot *)pending.operator->())->store(looping->m_at3C);
+        looping->m_at40 = 0.0f;
+    }
+    Rva00058913Result result;
+    ((Rva00057B27 *)at9C)->rva00058913(&result, (unsigned int)&queued);
+    if (!result.m_inserted)
+        deleteAudioRequest(request);
+}
+
 void MilesAudioManager::rva0005AA72(PlayingAudioRef &playing)
 {
     playing->m_event->rva002D9ADC();
@@ -602,6 +651,49 @@ void MilesAudioManager::rva0005AA72(PlayingAudioRef &playing)
         playing->m_event->m_at4B = true;
         rva00059CE6(playing);
     }
+}
+
+bool MilesAudioManager::killLowestPrioritySoundImmediately(AudioEventRTS *event)
+{
+    if (event->isPositionalAudio()) {
+        ((Rva0005F279Host *)this)->rva0005F279();
+        if (!m_available3DSamples.empty())
+            return true;
+    }
+    AudioEventRTS *lowestPriorityEvent = findLowestPrioritySound(event);
+    if (lowestPriorityEvent) {
+        PlayingAudioList::iterator it;
+        if (event->isPositionalAudio()) {
+            for (it = m_playing3DSounds.begin(); it != m_playing3DSounds.end(); it++) {
+                PlayingAudioRef playing = *it;
+                if (!playing.get())
+                    continue;
+                if (playing->m_event.operator->() == lowestPriorityEvent) {
+                    if (playing->m_event->hasMoreLoops())
+                        rva0005AA72(playing);
+                    releaseMilesHandles(*playing.get());
+                    reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).erase(
+                        OpaqueRefList::iterator((OpaqueRefList::_Node *)it._M_node));
+                    return true;
+                }
+            }
+        } else {
+            for (it = m_playingSounds.begin(); it != m_playingSounds.end(); it++) {
+                PlayingAudioRef playing = *it;
+                if (!playing.get())
+                    continue;
+                if (playing->m_event.operator->() == lowestPriorityEvent) {
+                    if (playing->m_event->hasMoreLoops())
+                        rva0005AA72(playing);
+                    releaseMilesHandles(*playing.get());
+                    reinterpret_cast<OpaqueRefList &>(m_playingSounds).erase(
+                        OpaqueRefList::iterator((OpaqueRefList::_Node *)it._M_node));
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 void MilesAudioManager::onPlayingAudioDeleted(PlayingAudio &playingAudioBeingDeleted)
