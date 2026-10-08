@@ -306,6 +306,7 @@ public:
 	void addTOCEntry(AsciiString name, unsigned short id);
 	void xferDrawableTOC(Xfer *xfer);
 	void rva0023ABDD();
+	void rva00239759();
 
 protected:
 	virtual void crc(Xfer *xfer);
@@ -326,7 +327,16 @@ private:
 	AsciiString m_stringBC;                                             // +0xBC
 	unsigned char m_byteC0;                                             // +0xC0
 	unsigned char m_byteC1;                                             // +0xC1
-	unsigned char m_padC2[0xe4 - 0xc2];
+	unsigned char m_padC2[0xc9 - 0xc2];
+	unsigned char m_displayModePending;                                 // +0xC9
+	unsigned char m_byteCA;                                             // +0xCA
+	unsigned char m_padCB;
+	unsigned int m_pendingXRes;                                         // +0xCC
+	unsigned int m_pendingYRes;                                         // +0xD0
+	unsigned int m_pendingBitDepth;                                     // +0xD4
+	unsigned int m_previousWidth;                                       // +0xD8
+	unsigned int m_previousHeight;                                      // +0xDC
+	unsigned int m_previousBitDepth;                                    // +0xE0
 	Rva00239AF4 m_drawableListE4;                                       // +0xE4
 	_STL::vector<Rva00362862Item *> m_vectorE8;                         // +0xE8
 	DrawableTOCList m_drawableTOC;                                      // +0xF4
@@ -484,7 +494,26 @@ private:
 	unsigned char m_pad[0x30 - 0x0C];
 };
 
-class InGameUI : public SubsystemInterface { public: virtual ~InGameUI(); };
+// TheInGameUI's slot 108 (+0x1B0) refreshes the layout after a resolution
+// change (AptMainMenu::ResetResolution calls it too).
+class InGameUI : public SubsystemInterface
+{
+public:
+	virtual ~InGameUI();
+#define V(n) virtual void vf##n();
+	V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
+	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
+	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49)
+	V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59)
+	V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69)
+	V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79)
+	V(80) V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89)
+	V(90) V(91) V(92) V(93) V(94) V(95) V(96) V(97) V(98) V(99)
+	V(100) V(101) V(102) V(103) V(104) V(105) V(106) V(107)
+#undef V
+	virtual void vf108();                                               // +0x1B0
+};
 
 class Shell : public SubsystemInterface
 {
@@ -494,6 +523,7 @@ public:
 	virtual void init();
 	virtual void reset();
 	virtual void update();
+	void push(AsciiString name, bool shutdownImmediate = false);
 
 private:
 	unsigned char m_pad[0x78 - 0x0C];
@@ -501,6 +531,15 @@ private:
 
 class IMEManager : public SubsystemInterface { public: virtual ~IMEManager(); };
 class GameWindowManager : public SubsystemInterface { public: virtual ~GameWindowManager(); };
+
+// GlobalData's screen resolution (ZH m_xResolution, m_yResolution).
+class GlobalData
+{
+public:
+	unsigned char m_pad[0x30];
+	unsigned int m_xResolution;                                         // +0x30
+	unsigned int m_yResolution;                                         // +0x34
+};
 
 // ZH Mouse; BFME 2 keeps parseIni and initCursorResources virtual (slots 14
 // and 15), and init calls slot 22 (+0x58) where ZH sets the mouse limits.
@@ -520,6 +559,9 @@ public:
 	virtual void vf20();
 	virtual void vf21();
 	virtual void setMouseLimits();                                      // +0x58
+	// The shared empty body 0x000B3FD0, pinned by address; called after a
+	// resolution change here and in AptMainMenu::ResetResolution.
+	void rva000B3FD0();
 };
 
 // TheAnimationSoundModuleManager: Rva00432F23 and Rva00432FA7 (the 0x2C-byte
@@ -554,7 +596,25 @@ public:
 // TheTerrainVisual: ZH TerrainVisual (Snapshot, SubsystemInterface), the
 // subsystem side at +4.
 class G00DFF080Obj : public Snapshot, public SubsystemInterface { public: virtual ~G00DFF080Obj(); };
-class Display : public SubsystemInterface { public: virtual ~Display(); };
+// ZH Display's mode accessors, three slots later than ZH's.
+class Display : public SubsystemInterface
+{
+public:
+	virtual ~Display();
+	virtual void vf11();
+	virtual void vf12();
+	virtual void vf13();
+	virtual void setWidth(unsigned int width);                         // +0x38
+	virtual void setHeight(unsigned int height);                       // +0x3C
+	virtual unsigned int getWidth();                                    // +0x40
+	virtual unsigned int getHeight();                                   // +0x44
+	virtual void setBitDepth(unsigned int bitDepth);                    // +0x48
+	virtual unsigned int getBitDepth();                                 // +0x4C
+	virtual void setWindowed(bool windowed);                            // +0x50
+	virtual bool getWindowed();                                         // +0x54
+	virtual bool setDisplayMode(unsigned int xres, unsigned int yres,
+		unsigned int bitDepth, bool windowed);                          // +0x58
+};
 class LanguageFilter : public SubsystemInterface { public: virtual ~LanguageFilter(); };
 class VideoPlayerInterface : public SubsystemInterface { public: virtual ~VideoPlayerInterface(); };
 
@@ -825,6 +885,7 @@ extern Rva00432F23 *g_004C9DC9Container;               // TheAnimationSoundModul
 extern Rva002D3627Host *g_00DFEF18;
 extern G00DFF080Obj *g_00DFF080;                        // TheTerrainVisual
 extern Display *TheDisplay;
+extern GlobalData *TheWritableGlobalData;
 extern HeaderTemplateManager *TheHeaderTemplateManager;
 extern LanguageFilter *TheLanguageFilter;
 extern VideoPlayerInterface *TheVideoPlayer;
@@ -849,6 +910,8 @@ void Rva00220DCDInit();
 void Rva002210CFInit();
 void Rva002220DCInit();
 void bfmeReset();
+// Unrowed 0x0041267F (10 bytes: two calls), pinned by address.
+void Rva0041267F();
 
 // The drawable hash's clear (0x001DBCDC) and resize (0x0053F1EC) are folded
 // STLport hashtable bodies; called through their pinned placeholder names.
@@ -1217,4 +1280,50 @@ void GameClient::reset()
 	m_byteC0 = 0;
 	rva0023ABDD();
 	m_count138 = 0;
+}
+
+// Called from update: applies a display mode change requested while the
+// shell was up, then rebuilds the shell and returns to the main menu.
+// ?rva00239759@GameClient@@QAEXXZ
+void GameClient::rva00239759()
+{
+	if (m_displayModePending)
+	{
+		::delete TheShell;
+		TheShell = 0;
+		m_displayModePending = 0;
+		if (m_pendingXRes > 0 && m_pendingYRes > 0 && m_pendingBitDepth > 0
+			&& (m_pendingXRes != TheWritableGlobalData->m_xResolution
+				|| m_pendingYRes != TheWritableGlobalData->m_yResolution))
+		{
+			if (m_byteCA)
+			{
+				m_previousWidth = TheDisplay->getWidth();
+				m_previousHeight = TheDisplay->getHeight();
+				m_previousBitDepth = TheDisplay->getBitDepth();
+			}
+			if (TheDisplay->setDisplayMode(m_pendingXRes, m_pendingYRes, m_pendingBitDepth, TheDisplay->getWindowed()))
+			{
+				TheWritableGlobalData->m_xResolution = m_pendingXRes;
+				TheWritableGlobalData->m_yResolution = m_pendingYRes;
+				TheHeaderTemplateManager->onResolutionChanged();
+				TheMouse->rva000B3FD0();
+				Rva0041267F();
+			}
+			else
+			{
+				m_byteCA = 0;
+			}
+			m_pendingXRes = 0;
+			m_pendingYRes = 0;
+			m_pendingBitDepth = 0;
+		}
+		TheShell = new Shell;
+		if (TheShell)
+			TheShell->init();
+		TheWindowManager->update();
+		g_bfmeAptWindowManager->vf10();
+		TheInGameUI->vf108();
+		TheShell->push(AsciiString("MainMenu.apt"));
+	}
 }
