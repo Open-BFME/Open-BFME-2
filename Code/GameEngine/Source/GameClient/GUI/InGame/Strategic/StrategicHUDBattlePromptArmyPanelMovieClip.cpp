@@ -11,6 +11,9 @@
 class BfmeAptWindowManager
 {
 public:
+    // Borrowed manager prefix: native OnClicked reads this32-bit word.
+    char m_pad000[0x318];
+    int m_word318;
 	void bfmeSetText(const AsciiString &key, const UnicodeString &value, bool b);
 };
 
@@ -167,3 +170,20 @@ void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::OnUnitIconRollOut(const
             m_parent00->slot05(index);
     }
 }
+
+// WB016399F0 OnClicked line315; constructor005FF675 binds this native
+// 24-byte RET4 body to _OnClicked. The path is ignored; manager word318
+// gates owner virtual slot01. Owner interface name remains unknown.
+void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::OnClicked(const char *)
+{
+    if (!g_bfmeAptWindowManager->m_word318) m_parent00->slot01();
+}
+
+// Native constructor005FF675 binds _OnRollOver/_OnRollOut to the existing
+// folded10-byte entries005C790D/005F057A. Neither has a separate retail body.
+// ?StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::OnRollOver present-unmatched
+void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::OnRollOver(const char *)
+{ m_parent00->slot02(); }
+// ?StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::OnRollOut present-unmatched
+void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::OnRollOut(const char *)
+{ m_parent00->slot03(); }

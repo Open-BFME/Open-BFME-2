@@ -16,7 +16,7 @@ public:
 private:
     void *m_alloc;
 };
-// Borrowed receiver interface: only invoked slots04/05 have known ABIs.
+// Borrowed receiver interface: only invoked slots01 through05 have known ABIs.
 class BattlePromptArmyPanelClipEvents {
 public:
     virtual void slot00();
@@ -42,6 +42,9 @@ public:
     void SetUnitIconCount(int);
     void SetSelected(bool);
     void SetMouseOver(bool);
+    void OnClicked(const char *);
+    void OnRollOver(const char *);
+    void OnRollOut(const char *);
     void OnUnitIconRollOver(const char *);
     void OnUnitIconRollOut(const char *);
 private:
