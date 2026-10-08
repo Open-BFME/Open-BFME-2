@@ -102,6 +102,67 @@ def test_link_items_serve_placed_unwired_rows_first(tmp_path):
     assert "2 row(s)" in note
 
 
+# ---- link tier sources: a local link cycle (build product) first, else the committed census
+
+CYCLE_STATUS = (
+    "name,kind,source,retail_rva,size,linked_rva,placed,placement_reason,self_strict,closed_strict,"
+    "closed_strict_pilot_rule,pinned_strict,byte_equal,hardcoded,failure_count,failures\n"
+    "?wire@@YAXXZ,real,Code/b.cpp,0x00003000,40,0x00003000,1,,0,0,0,0,0,0,1,data-back:g_x\n")
+CENSUS_STATUS = (
+    "source,linked,unresolved,duplicates,comdat_losers,addresses,wrong_selected\n"
+    "Code/GameEngine/Loco.cpp,no,2,0,1,0,0\n"
+    "Code/GameEngine/Body.cpp,no,1,0,0,0,0\n"
+    "Code/GameEngine/Rva00003000Noop.cpp,yes,0,0,0,0,0\n")
+CENSUS_HISTORY = "date,commit,objects\n2026-09-29 11:03,c4d3910546,9016\n2026-10-07 21:52,086d0a7aaa,19715\n"
+CENSUS_FILES = [("reverse/link_status.csv", CENSUS_STATUS), ("reverse/link_census_history.csv", CENSUS_HISTORY)]
+CENSUS_TIME = 1791409920                     # 2026-10-07 21:52 UTC, the history row's date
+
+
+def _cycle(tmp_path, when, commit=None):
+    out = tmp_path / "build/link_cycle"
+    out.mkdir(parents=True)
+    (out / "link_status.csv").write_text(CYCLE_STATUS, newline="\n")
+    if commit:
+        (out / "receipt.json").write_text('{"commit": "%s", "dirty": false}' % commit)
+    os.utime(out / "link_status.csv", (when, when))
+
+
+def test_link_tier_prefers_a_newer_local_link_cycle(tmp_path, monkeypatch, capsys):
+    monkeypatch.delenv("REPAIR_LINK_STATUS", raising=False)
+    _cycle(tmp_path, CENSUS_TIME + 3600, commit="f00dfeedbeef0123")
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER, CENSUS_FILES)
+    items, note = rq.link_items()
+    assert [i["function"] for i in items] == ["?wire@@YAXXZ"]
+    assert "local link cycle" in note and "commit f00dfeedbe" in note
+    assert rq.main(["link"]) == 0 and "local link cycle" in capsys.readouterr().out
+
+
+def test_link_tier_falls_back_to_the_committed_census(tmp_path, monkeypatch, capsys):
+    monkeypatch.delenv("REPAIR_LINK_STATUS", raising=False)
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER, CENSUS_FILES)
+    items, note = rq.link_items()                                        # no local cycle at all
+    assert [(i["source"], i["target_rva"], i["size"]) for i in items] == [
+        ("Code/GameEngine/Body.cpp", "0x00002000", 0x20),                 # one blocker: nearest to linking
+        ("Code/GameEngine/Loco.cpp", "0x00001000", 0x80)]                 # both Loco rows credited
+    assert items[1]["why"] == "unit does not link (2 matched row(s)): unresolved 2, comdat_losers 1"
+    assert "link_check.py Code/GameEngine/Body.cpp" in items[0]["pass_test"]
+    assert "committed link census reverse/link_status.csv" in note and "086d0a7aaa" in note
+    assert rq.main(["link"]) == 0 and "measured at commit 086d0a7aaa" in capsys.readouterr().out
+    _cycle(tmp_path, CENSUS_TIME - 3600)                                  # a local cycle older than the census
+    items, note = rq.link_items()
+    assert len(items) == 2 and "not newer" in note and "commit unknown" in note
+
+
+def test_link_tier_with_no_status_says_so_and_fails(tmp_path, monkeypatch, capsys):
+    monkeypatch.delenv("REPAIR_LINK_STATUS", raising=False)
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER)
+    items, note = rq.link_items()
+    assert items == [] and "no link status" in note
+    assert rq.main(["link"]) == 1
+    err = capsys.readouterr().err
+    assert "run tools/link_cycle.py" in err and "reverse/link_status.csv" in err
+
+
 def test_next_work_serves_repairs_before_new_matches():
     import next_work
     repair = [{"function": "r", "target_rva": "0x1", "size": 4}]

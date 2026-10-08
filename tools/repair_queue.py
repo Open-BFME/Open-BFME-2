@@ -25,6 +25,14 @@ tools/next_work.py serves these as tiers; this module builds them.
           placed but not self-strict, with the reason (build/link_cycle/
           link_status.csv, or REPAIR_LINK_STATUS). PASS TEST: the next cycle reports
           the row placed=1 self_strict=1 (`tools/link_cycle.py --measure-only`).
+          That file is a build product: only a machine that ran the cycle has it.
+          Without it, or when it describes an older commit than the committed link
+          census, the tier reads the census instead (reverse/link_status.csv, one
+          row per source, measured at the commit its link_census_history.csv row
+          names): units that do not link, with their blockers. PASS TEST: `tools/
+          link_check.py SOURCE` says LINKS; the next census records linked=yes.
+          The output names the source used and the commit it describes; with
+          neither, `link` says so and exits 1.
   dest    for a NEW match: the translation unit the row belongs in. EA evidence of
           the source file first (BFME1 ea_evidence.csv `file` rows), then address
           contiguity: the unit both neighbouring rows come from, else the nearest
@@ -41,12 +49,15 @@ tools/next_work.py serves these as tiers; this module builds them.
 """
 import argparse
 import bisect
+import calendar
 import csv
 import io
+import json
 import os
 import re
 import subprocess
 import sys
+import time
 from functools import lru_cache
 from pathlib import Path
 
@@ -62,7 +73,10 @@ NOT_A_HOME = ("game/gen_small/", "game/gen_asm/", "game/masm_dumps/", "Code/gen_
               "Code/masm_dumps/")
 ADDRESS_FILE = re.compile(r"(?i)(?=(?:[0-9a-f]*\d){3})[0-9a-f]{6,8}")
 DEST_WINDOW = 0x4000
-LINK_STATUS = os.environ.get("REPAIR_LINK_STATUS") or str(ROOT / "build" / "link_cycle" / "link_status.csv")
+LINK_STATUS_SET = os.environ.get("REPAIR_LINK_STATUS")      # named by hand: used whenever it exists
+LINK_STATUS = LINK_STATUS_SET or str(ROOT / "build" / "link_cycle" / "link_status.csv")
+CENSUS_STATUS = f"{REV}/link_status.csv"                     # committed: tools/link_census.py --history
+CENSUS_HISTORY = f"{REV}/link_census_history.csv"            # its last row names the census's commit
 FILE_ROUTES = ("wb1", "zh", "wb1-run", "retail-run", "wb2", "wb2-run")
 
 CHECKS = {
@@ -345,12 +359,107 @@ def repair_items_from(path, kind, text):
 
 # ---------------------------------------------------------------- link tier
 
+def stored_census():
+    """{"commit", "date", "when"} of the committed link census, or None when the repo has
+    no reverse/link_status.csv or no history row saying what it measured."""
+    if not (ROOT / CENSUS_STATUS).exists():
+        return None
+    rows = list(csv.DictReader(io.StringIO(_read(CENSUS_HISTORY))))
+    if not rows or not rows[-1].get("commit"):
+        return None
+    last = rows[-1]
+    try:                                            # link_census.py writes the date in UTC
+        when = calendar.timegm(time.strptime(last["date"], "%Y-%m-%d %H:%M"))
+    except (TypeError, ValueError):
+        when = 0
+    return {"commit": last["commit"], "date": last.get("date", ""), "when": when}
+
+
+def cycle_commit(path):
+    """(commit, dirty) a link cycle's status describes, from the receipt.json beside it;
+    (None, False) without one."""
+    try:
+        receipt = json.loads((Path(path).parent / "receipt.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None, False
+    return (receipt.get("commit") or None), receipt.get("dirty", False)
+
+
+def link_source(path=None):
+    """(kind, path, note) of the link status the link tier reads, or (None, None, why).
+
+    A link cycle's per-row status (kind "cycle") is preferred: it says which ROW failed and
+    why. It is used when named by hand (PATH, REPAIR_LINK_STATUS), or when it exists and is
+    not older than the committed census: its receipt's commit descends from the census's
+    commit, or, with no receipt or a commit this clone lacks, the file is newer than the
+    census's date. Otherwise the committed census (kind "census")."""
+    local = Path(path or LINK_STATUS)
+    census = stored_census()
+    skipped = ""
+    if local.exists():
+        commit, dirty = cycle_commit(local)
+        newer, basis = True, "named by hand"
+        if not (path or LINK_STATUS_SET) and census:
+            got = subprocess.run(["git", "merge-base", "--is-ancestor", census["commit"], commit],
+                                 cwd=ROOT, capture_output=True) if commit else None
+            if got is not None and got.returncode in (0, 1):
+                newer, basis = got.returncode == 0, "commit vs the census's %s" % census["commit"][:10]
+            else:
+                newer, basis = local.stat().st_mtime >= census["when"], "file time vs the census's date"
+        when = time.ctime(local.stat().st_mtime)
+        described = ("commit %s%s" % (commit[:10], " +uncommitted edits" if dirty else "") if commit
+                     else "commit unknown (no receipt.json)")
+        if newer:
+            return "cycle", local, f"local link cycle {local} ({described}, written {when})"
+        skipped = f"; local {local} ({described}) is not newer ({basis}), not used"
+    if census:
+        return "census", ROOT / CENSUS_STATUS, (f"committed link census {CENSUS_STATUS} (measured at commit "
+                                                f"{census['commit']}, {census['date']} UTC){skipped}")
+    return None, None, (f"no link status: no link-cycle status at {local} (run tools/link_cycle.py) and no "
+                        f"committed census at {CENSUS_STATUS} with a {CENSUS_HISTORY} row")
+
+
+def census_items(path):
+    """Units the committed census says do not link: one item per source, credited with
+    its matched bytes, nearest to linking (fewest blockers) first."""
+    by_rva, _ = ledger()
+    rows_of = {}
+    for rva, rows in by_rva.items():
+        for row in rows:
+            rows_of.setdefault(row["source"], []).append((rva, row))
+    items = []
+    with Path(path).open(encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle):
+            if row.get("linked") == "yes" or row["source"] not in rows_of:
+                continue
+            owned = sorted(rows_of[row["source"]], key=lambda r: r[0])
+            blockers = {k: int(row.get(k) or 0) for k in
+                        ("unresolved", "duplicates", "comdat_losers", "addresses", "wrong_selected")}
+            size = sum(int(r["target_size"] or 0) for _, r in owned)
+            items.append({
+                "tier": "link", "target_rva": "0x%08X" % owned[0][0], "function": owned[0][1]["name"],
+                "source": row["source"], "size": size, "credit": size, "placed": False,
+                "blockers": sum(blockers.values()),
+                "why": ("unit does not link (%d matched row(s)): " % len(owned)
+                        + (", ".join("%s %d" % kv for kv in blockers.items() if kv[1]) or "linked=no")),
+                "pass_test": f"python3 tools/link_check.py {row['source']}: LINKS (the next census: linked=yes)",
+            })
+    items.sort(key=lambda item: (item["blockers"], -item["size"]))
+    return items
+
+
 def link_items(path=None):
-    """BFME2 link-cycle failures: rows not placed at retail RVA, or placed but not self-strict."""
-    path = Path(path or LINK_STATUS)
-    if BFME1 or not path.exists():
-        return [], (f"no link-cycle status at {path}; run tools/link_cycle.py" if not BFME1
-                    else "BFME1 has no link cycle yet")
+    """BFME2 link repairs, with a note naming the source read and the commit it describes:
+    a link cycle's rows not placed at retail RVA or placed but not self-strict, else the
+    committed census's units that do not link (link_source)."""
+    if BFME1:
+        return [], "BFME1 has no link cycle yet"
+    kind, path, note = link_source(path)
+    if kind is None:
+        return [], note
+    if kind == "census":
+        items = census_items(path)
+        return items, f"{len(items)} unit(s) that do not link, from the {note}"
     items = []
     with path.open(encoding="utf-8", newline="") as handle:
         for row in csv.DictReader(handle):
@@ -366,8 +475,7 @@ def link_items(path=None):
             })
     # placed-but-not-strict first: one relocation fix credits the whole row
     items.sort(key=lambda item: (not item["placed"], -item["size"]))
-    mtime = path.stat().st_mtime
-    return items, f"{len(items)} row(s) from {path} (written {__import__('time').ctime(mtime)})"
+    return items, f"{len(items)} row(s) from the {note}"
 
 
 # ---------------------------------------------------------------- destination
@@ -478,6 +586,9 @@ def main(argv=None):
         print(message)
         return 0 if ok else 1
     items, note = (all_repair_items(), f"{len(parse_debt())} baseline line(s), plus tier C / diffexec / boot, game and static queues") if args.cmd == "repair" else link_items()
+    if args.cmd == "link" and not BFME1 and link_source()[0] is None:
+        print(f"repair_queue: {note}", file=sys.stderr)     # an empty queue would read as "nothing to fix"
+        return 1
     print(note)
     for item in items[:args.limit]:
         print(f"  {item['size']:>6}B {item.get('check', '')} {item['target_rva']} {item['function'][:80]}")
