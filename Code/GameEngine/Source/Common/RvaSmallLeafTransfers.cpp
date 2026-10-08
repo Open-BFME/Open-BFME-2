@@ -272,6 +272,25 @@ char *Rva00020EB0( char *record )
 	return record + 0x1D;
 }
 
+// Whole clean BFME 1 UnclaimedSmallLeaves02.cpp at
+// 9cbfb551fe20dae985f91f2319d8997287b6a705 emits these getters under the
+// named Common O1/x87/G6 min5 sweep. Two donor address names agree per body;
+// neither establishes an original target identity. Native independent 8-byte
+// extents at 20EC0 and 20ED0 have INT3 padding on both sides, read the first
+// stack pointer at +A/+E, and return only its byte in AL with caller cleanup.
+// No direct call/jump or address references establish a richer prototype.
+// Preserve unknown owner, semantic field names and original byte signedness;
+// these minimal char views reproduce the actual AL bits and complete bytes.
+char Rva00020EC0(const char *record)
+{
+    return record[0xA];
+}
+
+char Rva00020ED0(const char *record)
+{
+    return record[0xE];
+}
+
 // Target 0x00020EE0, 8 bytes; preceding int3 padding; terminal ret and int3 padding.
 // Donor b1 RVA 0x0084DC60; target instructions corroborate these accesses.
 char *Rva00020EE0( char *record )
