@@ -16,8 +16,12 @@ enum NameKeyType { NAMEKEY_INVALID=0 };
 enum ObjectStatusTypes { OBJECT_STATUS_5=5, OBJECT_STATUS_79=79 };
 class Player;
 class Module;
+enum DamageType { DAMAGE_8=8 };
+enum DeathType { DEATH_0=0 };
 class Object {
 public:
+ void* rva0028BCF4() const;
+ void kill(DamageType,DeathType);
  Player* getControllingPlayer() const;
  void setStatus(ObjectStatusTypes,bool);
 protected:
@@ -107,5 +111,23 @@ int Rva003974CE::apply(CastleObjectCallback callback,int context) {
 int Rva00395AD2Destroy(Object* object,int context) {
  if(field<unsigned char>(objectTemplate(object),0x115)&1)
   TheGameLogic->destroyObject(object);
+ return 1;
+}
+
+// Native cdecl callback VA795A9F..795AD2 (51B), embedded at 0x0039762F.
+// The template flag redirects the kill to the module slot-6 object; retail
+// assumes the module exists on that path. Callback context is unused.
+class Rva00395A9FInterface {
+public:
+ virtual void unused0(); virtual void unused1(); virtual void unused2();
+ virtual void unused3(); virtual void unused4(); virtual void unused5();
+ virtual Object* getObject();
+};
+int Rva00395A9FKill(Object* object,int context) {
+ if(object) {
+  if(field<unsigned char>(objectTemplate(object),0x115)&1)
+   object=((Rva00395A9FInterface*)object->rva0028BCF4())->getObject();
+  if(object) object->kill(DAMAGE_8,DEATH_0);
+ }
  return 1;
 }
