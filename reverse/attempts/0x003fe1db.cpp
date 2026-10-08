@@ -1,4 +1,6 @@
 // ?rva003FE1DB@Rva003FE1DBOwner@@QAEXXZ
+// partial score=0.82 date=2026-10-08
+// ?rva003FE1DB@Rva003FE1DBOwner@@QAEXXZ
 // partial score=0.85 date=2026-10-08
 // cl: /O1 /MD /DNDEBUG /EHsc
 // ?rva003FE1DB@Rva003FE1DBOwner@@QAEXXZ @0x003FE1DB 52B: when the element vector at +0x3C is
@@ -16,6 +18,7 @@ class Rva003FE1DBVec
 public:
 	Rva003FE1DBElem *m_begin;
 	Rva003FE1DBElem *m_end;
+    Rva003FE1DBElem *m_capacity;
 	void rva00538E43(Rva003FE1DBElem *out);
 };
 
@@ -27,9 +30,11 @@ public:
 private:
 	char m_pad00[0x3C];
 	Rva003FE1DBVec m_vec;
-	int m_50;
+	char m_pad48[8];
+    int m_50;
 	int m_54;
-	unsigned char m_5C;
+	char m_pad58[4];
+    unsigned char m_5C;
 };
 
 // ?rva003FE1DB@Rva003FE1DBOwner@@QAEXXZ @0x003FE1DB
@@ -49,3 +54,6 @@ void Rva003FE1DBOwner::rva003FE1DB()
 		m_5C = 0;
 	}
 }
+
+
+
