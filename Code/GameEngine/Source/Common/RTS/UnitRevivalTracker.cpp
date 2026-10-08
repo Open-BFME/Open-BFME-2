@@ -158,6 +158,7 @@ class UnitRevivalEntry
 {
 public:
 	UnitRevivalEntry(Object *object);
+	UnitRevivalEntry(const UnitRevivalEntry &other);
 	const Image *calcButtonImage(Int value);
 	Int revivalEntryCalcTimeToBuild(const Player *player, Object *producer);
 	Int revivalEntryCalcCostToBuild(const Player *player, Object *producer);
@@ -339,4 +340,28 @@ UnitRevivalEntry::UnitRevivalEntry(Object *object)
   t = static_cast<RevivalTemplateView*>(reinterpret_cast<RespawnUpdate*>(module)->rva004AF25D());
  }
  m_templateName.setCopyInline(t ? t->name : AsciiString::TheEmptyString);
+}
+
+// Native2E134C..2E1451 complete261B copy of the same D8 revival record.
+UnitRevivalEntry::UnitRevivalEntry(const UnitRevivalEntry &other)
+	: m_moduleID(other.m_moduleID)
+	, m_unknown04(other.m_unknown04)
+	, m_experience(other.m_experience)
+	, m_rank(other.m_rank)
+	, m_level(other.m_level)
+	, m_upgrades(other.m_upgrades)
+	, m_94(other.m_94)
+	, m_reviveStartFrame(other.m_reviveStartFrame)
+	, m_9c(other.m_9c)
+	, m_a0(other.m_a0)
+	, m_a1(other.m_a1)
+	, m_productionID(other.m_productionID)
+	, m_a8(other.m_a8)
+	, m_ac(other.m_ac)
+	, m_record(other.m_record)
+	, m_c8(other.m_c8)
+	, m_factor(other.m_factor)
+	, m_displayName(other.m_displayName)
+	, m_templateName(other.m_templateName)
+{
 }
