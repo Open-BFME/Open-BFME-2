@@ -70464,3 +70464,9 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ??G@YA?AVVector2@@ABV0@0@Z,,0x0007B305,40,Code/Libraries/Source/WWVegas/WW3D2/PointInTriangle2DO1.cpp,matched,Existing retail Vector2 helper; rehomed after declaration-only triangle binding; owner compiles the exact whole helper
 ?Set@Vector2@@QAEXMM@Z,,0x0004CAE4,24,Code/Libraries/Source/WWVegas/WW3D2/PointInTriangle2DO1.cpp,matched,Existing retail Vector2 helper; rehomed after declaration-only triangle binding; owner compiles the exact whole helper
 ??0Vector2@@QAE@MM@Z,,0x00615CE0,26,Code/Libraries/Source/WWVegas/WW3D2/PointInTriangle2DO1.cpp,matched,Existing retail Vector2 helper; rehomed after declaration-only triangle binding; owner compiles the exact whole helper
+??0Rva003027F5Holder@@QAE@XZ,,0x003027F5,16,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+?reset@Rva0023FD63Holder@@QAEXXZ,,0x0023FD63,14,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+??0Rva005567D1Holder@@QAE@XZ,,0x005567D1,17,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+?release@Rva000B3F43Ref@@QAEXXZ,,0x000B3F43,15,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+?release@Rva005E7461Ref@@QAEXXZ,,0x005E7461,15,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+?release@Rva005F0624Ref@@QAEXXZ,,0x005F0624,15,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
