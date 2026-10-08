@@ -651,21 +651,9 @@ void OpenContain::onContaining( Object *rider, Bool wasSelected )
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?OpenContain::onRemoving present-unmatched
-void OpenContain::onRemoving( Object *rider) 
-{
-	// Play audio
-	AudioEventRTS exitSound = *getObject()->getTemplate()->getSoundExit();
-	exitSound.setObjectID(getObject()->getID());
-	TheAudio->addAudioEvent(&exitSound);
-
-	if (rider) {
-		// This is a misnomer, but it makes it clearer for the user.
-		AudioEventRTS fallingSound = *rider->getTemplate()->getSoundFalling();
-		fallingSound.setObjectID(rider->getID());
-		TheAudio->addAudioEvent(&fallingSound);
-	}
-}
+// OpenContain::onRemoving is defined with its independently verified BFME2
+// body in OpenContainOnRemoving.cpp (0x00464D02). It extends the donor's two
+// audio scopes with keyed Drawable lookups, map cleanup and timed bonuses.
 
 //-------------------------------------------------------------------------------------------------
 // ?OpenContain::getContainedItemsMass present-unmatched
