@@ -2969,47 +2969,7 @@ void InGameUI::deselectDrawable( Drawable *draw )
 
 }  // end deselectDrawable
 
-//-------------------------------------------------------------------------------------------------
-/** Clear all drawables' "select" status */
-//-------------------------------------------------------------------------------------------------
-// ?InGameUI::deselectAllDrawables present-unmatched
-void InGameUI::deselectAllDrawables( Bool postMsg )
-{
-	const DrawableList *selected = TheInGameUI->getAllSelectedDrawables();
-
-	// loop through all the selected drawables
-	for ( DrawableListCIt it = selected->begin(); it != selected->end(); )
-	{
-
-		// get drawable and increment iterator, we will invalidate it as we deselect
-		Drawable* draw = *it++;
-
-		// do the deselection
-		TheInGameUI->deselectDrawable( draw );
-
-	}  // end while
-
-	// keep our list all tidy
-	m_selectedDrawables.clear();
-
-
-	// our selection can no longer consist of exactly one angry mob
-	m_soloNexusSelectedDrawableID = INVALID_DRAWABLE_ID;
-
-
-	///@todo don't we want to not emit this message if there wasn't a group at all? (CBD)
-	/** @todo also, we probably are sending this message too much, we should come up with
-	some kind of "selections are dirty" status that we can check once per frame and send
-	the correct group info over the network ... could be tricky tho (or impossible) given
-	the order of operations of things happening in the code (CBD) */
-	if( postMsg )
-	{
-		GameMessage *groupMsg = TheMessageStream->appendMessage( GameMessage::MSG_DESTROY_SELECTED_GROUP );
-
-		//True deletes entire group.
-		groupMsg->appendBooleanArgument( true );
-	}
-}
+// InGameUI::deselectAllDrawables: defined in InGameUISelection.cpp (its row's unit).
 
 
 
@@ -3072,55 +3032,8 @@ Bool InGameUI::isDrawableSelected( DrawableID idToCheck ) const
 
 }  // end isDrawableSelected
 
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ?InGameUI::isAnySelectedKindOf present-unmatched
-Bool InGameUI::isAnySelectedKindOf( KindOfType kindOf ) const
-{
-	Drawable *draw;
-
-	for( DrawableListCIt it = m_selectedDrawables.begin();
-			 it != m_selectedDrawables.end();
-			 ++it )
-	{
-
-		/** @todo, it seems like we might want to keep a list of drawable pointers so we
-		don't have to do this lookup ... it seems "tightly coupled" to me (CBD) */
-		// get the drawable from the ID
-		draw = *it;
-		if( draw && draw->isKindOf( kindOf ) )
-			return TRUE;
-
-	}  // end for, it
-
-	return FALSE;  // no selected objects are of the kind of type
-
-}  // end isAnySelectedKindOf
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ?InGameUI::isAllSelectedKindOf present-unmatched
-Bool InGameUI::isAllSelectedKindOf( KindOfType kindOf ) const
-{
-	Drawable *draw;
-
-	for( DrawableListCIt it = m_selectedDrawables.begin();
-			 it != m_selectedDrawables.end();
-			 ++it )
-	{
-
-		/** @todo, it seems like we might want to keep a list of drawable pointers so we
-		don't have to do this lookup ... it seems "tightly coupled" to me (CBD) */
-		// get the drawable from the ID
-		draw = *it;
-		if( draw && draw->isKindOf( kindOf ) == FALSE )
-			return FALSE;  // not all objects are of the kind of type
-
-	}  // end for, it
-
-	return TRUE;  // all objects have this kindof bit set in them
-
-}  // end isAllSelectedKindOf
+// InGameUI::isAnySelectedKindOf: defined in InGameUISelection.cpp (its row's unit).
+// InGameUI::isAllSelectedKindOf: defined in InGameUISelection.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** Set the input enabled/disabled */
