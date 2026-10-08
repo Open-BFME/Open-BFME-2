@@ -60,10 +60,12 @@ extern AudioManager *TheAudio;
 
 // TheAudio's misc audio (vslot 78) and addAudioEvent (vslot 25), as
 // Rva00323E1CMethod.cpp's view; the credits event is the misc audio's
-// +0xA4 reference.
+// +0xA4 reference and the sub-menu entry sound its +0x9C one.
 struct AptMainMenuMiscAudio
 {
-	unsigned char m_pad00[0xA4];
+	unsigned char m_pad00[0x9C];
+	OpaqueRefElement4 m_9c; // +0x9C
+	unsigned char m_padA0[0xA4 - 0xA0];
 	OpaqueRefElement4 m_credits; // +0xA4
 };
 
@@ -362,6 +364,7 @@ public:
 	void rva00514BA1();
 	void rva00514BB5();
 	void rva00514DC0(int button);
+	void rva00514F2E();
 	void rva00514FE9();
 	void rva005158A7();
 	// 0x00515633 (rowed as the free Rva00515633Delete; it ignores ECX but
@@ -563,6 +566,24 @@ void AptMainMenu::CreditsExit(const char *unused)
 	m_2a4.clear();
 	TheShell->m_5d = false;
 	((GameEngineRate *)TheGameEngine)->v18(((AptMainMenuGlobalData *)TheWritableGlobalData)->m_28);
+}
+
+// Retail 0x00514F2E, 187 bytes. Name unknown; the LAN opener 0x00515C64
+// calls it. It sets +0x27F, plays the "MainMenuToSubMenu" transition and,
+// unless the next screen is 9, 11 or 12, nudges the shell (0x0035BD3F) and
+// plays the misc audio's +0x9C sound as Credits plays its music.
+void AptMainMenu::rva00514F2E()
+{
+	m_27f = true;
+	TheTransitionHandler->setGroup(AsciiString("MainMenuToSubMenu"), false);
+	if (m_next != 9 && m_next != 11 && m_next != 12)
+	{
+		if (TheShell)
+			((Rva0035BD3F *)TheShell)->rva0035BD3F();
+		BfmeAudioEventPrefix136 sound(((AptMainMenuAudioView *)TheAudio)->getMiscAudio()->m_9c, 2);
+		((Weapon *)&sound)->setLeechRangeActive(true);
+		((AptMainMenuAudioView *)TheAudio)->addAudioEvent(&sound);
+	}
 }
 
 // Retail 0x00514FE9, 88 bytes. Name unknown; the tutorial prompt 0x00515980
