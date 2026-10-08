@@ -5,6 +5,12 @@
 // (0x004783D7, address-derived pin), then a comparison between this +0x2C5 and
 // the owner's +0x1D8 byte; on mismatch it tail-jumps slot 24 of the subobject at +0x11C.
 // Class and owner names are address-derived; the slots are shims.
+class OpenContain
+{
+    friend class Rva004697E1Contain;
+protected:
+    virtual void loadPostProcess();
+};
 class Rva004697E1Owner
 {
 public:
@@ -95,4 +101,12 @@ void Rva004697E1Contain::rva004697E1()
 	int ownerClear = owner->flag == zero;
 	if (mine != ownerClear)
 		tail.slot24();
+}
+
+// Native 004783D7..004783DC and WB 011A75F0 prove an unchanged-receiver
+// no-argument forward to OpenContain's separately verified load routine.
+// The folded wrapper's original class identity remains unknown.
+void Rva004697E1Contain::rva004783D7()
+{
+    reinterpret_cast<OpenContain *>(this)->OpenContain::loadPostProcess();
 }
