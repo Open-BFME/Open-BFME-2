@@ -54,3 +54,25 @@ void Rva005E1178::rva005E1178(float v)
 {
 	m_ptr08->rva005E1008(v);
 }
+
+// ?rva005E1170@@YIXPAVRva005F8A7ESub@@@Z @0x005E1170 8B
+// Free fastcall forwarder via +8 to rowed 0x005E0FBE, same shape as the 8B
+// method forwarders above. Evidence: gap between 0x005E1158 and 0x005E1178 in
+// this TU, pin names free fastcall, caller 0x005F8AE9, flags /O1 /arch:SSE /G7.
+class Rva005E0FBE
+{
+public:
+	void rva005E0FBE();
+};
+
+class Rva005F8A7ESub
+{
+public:
+	unsigned char m_pad00[8];
+	Rva005E0FBE *m_ptr08;
+};
+
+void __fastcall rva005E1170(Rva005F8A7ESub *p)
+{
+	p->m_ptr08->rva005E0FBE();
+}
