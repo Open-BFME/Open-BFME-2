@@ -133,7 +133,8 @@ struct AudioEventInfo {
     float m_atA4;                            // +0xA4, distance occlusion weight
     float m_reverbWetLevel;                  // +0xA8, wet level scaled by the global reverb multiplier (0x52FA0)
     float m_reverbDryLevel;                  // +0xAC, dry level passed with it (0x52FA0)
-    char atB0[0xB8 - 0xB0];
+    int m_atB0;                              // +0xB0, processRequest preloads a file when 2
+    char atB4[0xB8 - 0xB4];
     _STL::vector<AudioEventChannelVolume> m_channelVolumes;  // +0xB8
 };
 
@@ -155,7 +156,9 @@ public:
     bool m_at4B;             // +0x4B
     char at4C[0x50 - 0x4C];
     bool m_at50;             // +0x50, set once a sample starts playing
-    char at51[0x78 - 0x51];
+    char at51[0x64 - 0x51];
+    float m_at64;            // +0x64, compared with AudioSettings +0xB4 and one frame
+    char at68[0x78 - 0x68];
     MusicSystem m_musicSystem; // +0x78
 };
 
@@ -257,7 +260,7 @@ struct Rva00051107AudioRequest {
     int m_request;
     BfmePoolRef10 m_pendingEvent;         // +0x04
     unsigned int m_at08;                  // +0x08 (target stores one argument)
-    char at0C[0x10 - 0x0C];
+    Rva000A8A6C m_file;                   // +0x0C, preloaded by processRequest
     bool m_at10;                             // +0x10
     bool m_at11;
     bool m_at12;
@@ -267,6 +270,38 @@ struct Rva00051107AudioRequest {
 };
 
 typedef _STL::list<Rva00051107AudioRequest *> Rva00051107AudioRequestList;
+
+// File handle AudioFileCache::requestFile returns (WorldBuilder name and
+// MilesAudioCache.cpp asserts). The ledger rows its destructor (0x000A8A37)
+// and assignment (0x000A8A43) under two BFME 1 donor class names.
+class Rva00691040Handle {
+public:
+    Rva00691040Handle &operator=(const Rva00691040Handle &other);
+private:
+    void *m_target;
+};
+class Rva00690FF0Handle {
+public:
+    ~Rva00690FF0Handle();
+    operator const Rva00691040Handle &() const { return *reinterpret_cast<const Rva00691040Handle *>(this); }
+private:
+    void *m_target;
+};
+class AudioFileCache {
+public:
+    Rva00690FF0Handle requestFile(const BfmePoolRef10 &event, int shortSound);
+};
+
+// Request gate rowed at 0x0005E13C under address-derived names.
+struct Rva0005E13CArg;
+class Rva0005E13CHost {
+public:
+    bool rva0005E13C(const Rva0005E13CArg *request);
+};
+class Rva000CB12FByteField {
+public:
+    unsigned char get(void) const;
+};
 
 // 0x90-byte refcounted audio event built by the music requests below; its
 // (reference, value) constructor is rowed at 0x00051D22.
@@ -351,7 +386,7 @@ struct AudioSettings {
     int m_at74;
     char at78[0xB0 - 0x78];
     float m_atB0;                        // +0xB0, position change 0x55C5D ignores
-    char atB4[0xB8 - 0xB4];
+    int m_atB4;                          // +0xB4, processRequest's preload limit
     float m_atB8;
     bool m_atBC;                         // +0xBC, disables occlusion
     char atBD[0xC0 - 0xBD];
@@ -615,6 +650,13 @@ public:
     void rva000568CE(int viewType, int musicSystem, int arg);
     void rva000569A8(int viewType, int musicSystem, int arg, int flag);
     Rva00051107AudioRequest *rva00051107(void);
+    void processRequest(Rva00051107AudioRequest *req, bool *removeRequest);
+    bool rva00053606(Rva00051107AudioRequest *req);
+    void rva00053646(Rva00051107AudioRequest *req, bool *removeRequest);
+    void playAudioEvent(Rva00051107AudioRequest *req);
+    void rva0005FA3C(unsigned int handle);
+    void processPushMusicRequest(Rva00051107AudioRequest *req);
+    void processPopMusicRequest(Rva00051107AudioRequest *req);
     void onPlayingAudioDeleted(PlayingAudio &playingAudioBeingDeleted);
     void releaseMilesHandles(PlayingAudio &playing);
     void moveUpMusicSystems(int newMusicSystem, int viewType, int arg);
@@ -684,7 +726,9 @@ private:
     MusicSystem m_activeMusicSystem[3];  // +0xB3C
     char atB48[0xB54 - 0xB48];
     _STL::vector<AudioTriggerArea> m_triggerAreas;  // +0xB54, scanned by 0x55C5D
-    char atB60[0xB94 - 0xB60];
+    char atB60[0xB8C - 0xB60];
+    AudioFileCache *m_audioFileCache;    // +0xB8C (WorldBuilder requestFile receiver)
+    char atB90[0xB94 - 0xB90];
     PlayingAudioList m_completedAudio;   // +0xB94, filled by the EOS handlers
     MilesHandleMap m_sampleMap;          // +0xB98
     MilesHandleMap m_3DSampleMap;        // +0xBAC
@@ -1604,4 +1648,79 @@ bool MilesAudioManager::playSample3D(PlayingAudioRef &playing)
         }
     }
     return false;
+}
+
+// Preloads the file of a short play request the gate admits, then dispatches
+// the request by type; a refused play request burns one loop instead.
+void MilesAudioManager::processRequest(Rva00051107AudioRequest *req, bool *removeRequest)
+{
+    int canPlay = 2;
+    if (req->m_request == 0 && !req->m_file.isOpen() && req->m_pendingEvent.operator->()) {
+        float length = req->m_pendingEvent->m_at64;
+        if ((float)m_audioSettings->m_atB4 > length
+            && req->m_pendingEvent->m_info->m_atB0 == 2) {
+            if (canPlay == 2)
+                canPlay = reinterpret_cast<Rva0005E13CHost *>(this)->rva0005E13C(
+                    reinterpret_cast<const Rva0005E13CArg *>(req)) ? 1 : 0;
+            if (canPlay == 1)
+                reinterpret_cast<Rva00691040Handle &>(req->m_file) = m_audioFileCache->requestFile(
+                    // Shorter than one client frame (WorldBuilder tests it out of line).
+                    req->m_pendingEvent, !(req->m_pendingEvent->m_at64 >= g_00DBA4FC));
+        }
+    }
+
+    if (!rva00053606(req)) {
+        *removeRequest = false;
+        rva00053646(req, removeRequest);
+        return;
+    }
+
+    if (canPlay == 2) {
+        if (req->m_at11)
+            canPlay = reinterpret_cast<Rva0005E13CHost *>(this)->rva0005E13C(
+                reinterpret_cast<const Rva0005E13CArg *>(req)) ? 1 : 0;
+        else
+            canPlay = 1;
+    }
+
+    if (canPlay == 1) {
+        switch (req->m_request) {
+        case 0:
+            playAudioEvent(req);
+            break;
+        case 1:
+            rva0005FA3C(req->m_at08);
+            break;
+        case 2:
+            rva00057297(*req);
+            break;
+        case 3:
+            processPushMusicRequest(req);
+            break;
+        case 4:
+            processPopMusicRequest(req);
+            break;
+        case 5:
+            rva0005AC61(req->m_pendingEvent->m_viewType, req->m_pendingEvent->m_musicSystem, !req->m_at10);
+            break;
+        case 6: {
+            MusicSystem musicSystem = req->m_pendingEvent->m_musicSystem;
+            int viewType = req->m_pendingEvent->m_viewType;
+            rva0005876E(viewType, musicSystem, !req->m_at10,
+                !reinterpret_cast<Rva000CB12FByteField *>(req->m_pendingEvent.operator->())->get());
+            break;
+        }
+        case 7:
+            rva0005774F(req->m_pendingEvent->m_viewType, req->m_pendingEvent->m_musicSystem, !req->m_at10);
+            break;
+        }
+    } else if (req->m_request == 0 && req->m_pendingEvent.operator->()
+        && req->m_pendingEvent->hasMoreLoops()) {
+        req->m_pendingEvent->rva002D9ADC();
+        req->m_file.rva000A8A6C();
+        if (req->m_pendingEvent->hasMoreLoops()) {
+            *removeRequest = false;
+            req->m_pendingEvent->m_at4B = true;
+        }
+    }
 }
