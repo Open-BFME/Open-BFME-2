@@ -11,10 +11,10 @@ private:
 
 class AsciiString;
 
-class Rva0022453E
+class AptPlayer
 {
 public:
-	void rva0022453E(const AsciiString &key);
+	void RemoveOverButtonHandler(const AsciiString &key);
 };
 
 class Rva002245FF
@@ -70,7 +70,7 @@ void Rva00524021::rva00523F8C()
 	if ((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager) == 0)
 		return;
 	while (m_begin1 != m_end1) {
-		((Rva0022453E *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->rva0022453E(*(const AsciiString *)(m_end1 - 1));
+		((AptPlayer *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->RemoveOverButtonHandler(*(const AsciiString *)(m_end1 - 1));
 		--m_end1;
 		m_end1->clear();
 	}

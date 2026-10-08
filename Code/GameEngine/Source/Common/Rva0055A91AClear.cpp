@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva0055A91A@Rva0055A91A@@QAEXXZ @ 0x0055A91A 34B
+// ?rva0055A91A@ScoredKillTracker@@QAEXXZ @ 0x0055A91A 34B
 // Evidence: LINK BONUS via 0x0039C09C; inner Rva0039BCF8 at +0x10 via rowed rva0039BCF8 0x0039BCF8; flag +0x14 set -1; list<int> at +0x18 via rowed clear 0x0023DAA5; count +0x1C set 0; callers 0x0039C0CA 0x0041453E 0x0055A93F 0x0055AC2D 0x0055A993; layout like Rva0055AA06 list/count.
 #include <list>
 
@@ -29,12 +29,12 @@ public:
 	void add(const ModuleData *data);
 };
 
-class Rva0055A91A
+class ScoredKillTracker
 {
 public:
 	void rva0055A91A();
-	void rva0055A93C(Rva0039BCF8 *p);
-	void rva0055A962();
+	void hookToKeeper(Rva0039BCF8 *p);
+	void LoadPostProcess();
 private:
 	char m_pad00[0x10];
 	Rva0039BCF8 *m_10; // +0x10
@@ -58,7 +58,7 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-void Rva0055A91A::rva0055A91A()
+void ScoredKillTracker::rva0055A91A()
 {
 	if (m_10 == 0)
 		return;
@@ -68,7 +68,7 @@ void Rva0055A91A::rva0055A91A()
 	m_1c = 0;
 }
 
-void Rva0055A91A::rva0055A93C(Rva0039BCF8 *p)
+void ScoredKillTracker::hookToKeeper(Rva0039BCF8 *p)
 {
 	rva0055A91A();
 	if (p == 0)
@@ -78,14 +78,14 @@ void Rva0055A91A::rva0055A93C(Rva0039BCF8 *p)
 	((Rva0039C7A5Holder *)p)->add((const ModuleData *)this);
 }
 
-void Rva0055A91A::rva0055A962()
+void ScoredKillTracker::LoadPostProcess()
 {
 	if (m_14 == -1 || m_14 < 0)
 		return rva0055A91A();
 	Player *player = ThePlayerList->getNthPlayer(m_14);
 	if (player == 0)
 		return rva0055A91A();
-	rva0055A93C(&player->m_3BC);
+	hookToKeeper(&player->m_3BC);
 }
 
 struct BfmeAssignExtra
@@ -113,7 +113,7 @@ BfmeAssignRecord44 &BfmeAssignRecord44::operator=(const BfmeAssignRecord44 &othe
 {
 	if (this == &other)
 		return *this;
-	((Rva0055A91A *)this)->rva0055A91A();
+	((ScoredKillTracker *)this)->rva0055A91A();
 	m_04 = other.m_04;
 	m_08 = other.m_08;
 	m_0c = other.m_0c;
@@ -121,6 +121,6 @@ BfmeAssignRecord44 &BfmeAssignRecord44::operator=(const BfmeAssignRecord44 &othe
 	m_1c = other.m_1c;
 	m_20 = other.m_20;
 	if (other.m_10 != 0)
-		((Rva0055A91A *)this)->rva0055A93C(other.m_10);
+		((ScoredKillTracker *)this)->hookToKeeper(other.m_10);
 	return *this;
 }

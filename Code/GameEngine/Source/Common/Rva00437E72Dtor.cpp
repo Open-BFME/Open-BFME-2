@@ -44,20 +44,20 @@ public:
 extern const void *const g_00C3D294[];
 extern int g_Va00E032FC;
 
-class Rva00437E72 : public Rva0054D2CF
+class AptMessageBox : public Rva0054D2CF
 {
 public:
-	Rva00437E72();
-	virtual ~Rva00437E72();
+	AptMessageBox();
+	virtual ~AptMessageBox();
 };
 
-Rva00437E72::Rva00437E72()
+AptMessageBox::AptMessageBox()
 	: Rva0054D2CF(13, AsciiString("MessageBox"))
 {
 	g_Va00E032FC = (int)this;
 }
 
-Rva00437E72::~Rva00437E72()
+AptMessageBox::~AptMessageBox()
 {
 	g_Va00E032FC = 0;
 }

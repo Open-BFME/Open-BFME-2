@@ -2,7 +2,7 @@
 // stlport
 // ?rva00223D02@Rva00223D02@@QAEXPBVAsciiString@@PAVCreateAHeroData@@@Z @0x00223D02 74B
 // Table at +0x48 via rowed Iter find 0x0041534B then vector find-and-erase.
-// Evidence: add ecx 0x48 then rowed Rva00056F61::rva0041534B with hidden Iter out; null second arg returns; null node returns; node+8 holds vector<CreateAHeroData*> with end at +4; rowed find 0x0020E873 then rowed voidptr erase 0x001FF51F like Rva004DFB55HeroRemover; caller 0x000A9CFC; neighbours Rva00223CDB Rva00223D4C.
+// Evidence: add ecx 0x48 then rowed Rva00056F61::rva0041534B with hidden Iter out; null second arg returns; null node returns; node+8 holds vector<CreateAHeroData*> with end at +4; rowed find 0x0020E873 then rowed voidptr erase 0x001FF51F like Rva004DFB55HeroRemover; caller 0x000A9CFC; neighbours Rva00223CDB AptPlayer.
 #include "ascii_string.h"
 #include <vector>
 #include <algorithm>

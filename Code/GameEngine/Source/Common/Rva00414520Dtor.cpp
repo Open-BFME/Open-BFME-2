@@ -6,7 +6,7 @@
 
 struct Rva0039BCF8;
 
-class Rva0055A91A
+class ScoredKillTracker
 {
 public:
 	void rva0055A91A();
@@ -40,5 +40,5 @@ private:
 
 Rva00414520::~Rva00414520()
 {
-	((Rva0055A91A *)this)->rva0055A91A();
+	((ScoredKillTracker *)this)->rva0055A91A();
 }

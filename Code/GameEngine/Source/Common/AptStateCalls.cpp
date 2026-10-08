@@ -314,7 +314,7 @@ void InGameNotificationBoxMovieClip::DoClose()
 	}
 }
 
-// ?rva005EC23E@Rva005EC23E@@QAEXXZ @0x005EC23E 74B: close the window record
+// ?FadeOut@StrategicVeterancy@@QAEXXZ @0x005EC23E 74B: close the window record
 // this points at. In state 1 it is released through the Apt target's
 // 0x0022277D (pinned) and goes to state 0. In states 2 and 5 it runs
 // "CloseWindow" and goes to state 3.
@@ -325,15 +325,15 @@ struct Rva005EC23EWindow
 	int m_state;				// +0x08
 };
 
-class Rva005EC23E
+class StrategicVeterancy
 {
 public:
-	void rva005EC23E();
+	void FadeOut();
 private:
 	Rva005EC23EWindow *m_window;	// +0x00
 };
 
-void Rva005EC23E::rva005EC23E()
+void StrategicVeterancy::FadeOut()
 {
 	switch (m_window->m_state)
 	{
