@@ -20,7 +20,13 @@
 
 class Object;
 class AsciiString;
-class ArmySummarySystem {public:const AsciiString *GetArmyNameByID(int);const AsciiString *GetArmyBannerByID(int);};
+struct Rva0040D2FDVec;
+// The two providers 0x0040D008/0x0040D2FD are rowed as stdcall placeholders
+// (their bodies never read ECX); the forwarders below reach them as the
+// ArmySummarySystem methods they are, through thiscall pins.
+class ArmySummarySystem {public:const AsciiString *GetArmyNameByID(int);const AsciiString *GetArmyBannerByID(int);
+	void *rva0040D008(int id);
+	void rva0040D2FD(int a, int b, Rva0040D2FDVec *out);};
 
 class Rva0040D380Sub
 {
@@ -100,6 +106,7 @@ class GameLogic
 public:
 	void __fastcall rva0023CFFC(int unused, Rva0040E6D6Arg *arg);
 	void rva0023D033();
+	void rva0023D054(int a, int b, Rva0040D2FDVec *out);
 	const AsciiString *rva0023D05F(int value);
  const AsciiString *rva0023D06A(int value);
 	int rva0023D075(int value);
@@ -194,4 +201,27 @@ const AsciiString *GameLogic::rva0023D05F(int value) {
 //23D06A..23D075 uses the same GameLogic+184 member and26B provider40D366.
 const AsciiString *GameLogic::rva0023D06A(int value) {
  return ((ArmySummarySystem*)((char*)this+0x184))->GetArmyBannerByID(value);
+}
+
+// ?rva0023D049@Rva0023D049@@QAEPAXH@Z, native 0x0023D049..0x0023D054 (11B):
+// the GameLogic receiver adjusted by 0x184 (ArmySummarySystem) and a tail
+// jump to its 0x0040D008 lookup. WorldBuilder's twin (0x00D0BD20, unnamed)
+// makes the same call. Spelled under the class its existing caller pin names.
+class Rva0023D049
+{
+public:
+	void *rva0023D049(int value);
+};
+
+void *Rva0023D049::rva0023D049(int value)
+{
+	return ((ArmySummarySystem *)((char *)this + 0x184))->rva0040D008(value);
+}
+
+// ?rva0023D054@GameLogic@@QAEXHHPAURva0040D2FDVec@@@Z, native 0x0023D054..
+// 0x0023D05F (11B): the same adjustment and a tail jump to 0x0040D2FD with
+// its three arguments.
+void GameLogic::rva0023D054(int a, int b, Rva0040D2FDVec *out)
+{
+	((ArmySummarySystem *)((char *)this + 0x184))->rva0040D2FD(a, b, out);
 }
