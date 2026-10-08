@@ -799,6 +799,7 @@ public:
     void rva0006179C(int opaque);
     AsciiString rva00054714(void);
     PlayingAudioList::iterator rva000544CB(int viewType, int musicSystem, int filter);
+    PlayingAudioList::iterator rva0005442A(int viewType, int musicSystem, int filter);
     void rva00057297(Rva00051107AudioRequest &request);
     bool rva000570C8(AudioEventRTS *event);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
@@ -1598,6 +1599,13 @@ unsigned char MilesAudioManager::rva00054120(INI *ini)
     loaded |= ini->loadFile(AsciiString("Data\\INI\\AmbientStream.ini"), type, 0);
     loaded |= ini->loadFile(AsciiString("Data\\INI\\MiscAudio.ini"), type, 0);
     return loaded;
+}
+
+// Native 0x544CB..0x544EB and WorldBuilder 0x7919C0 forward the
+// same three lookup parameters through a one-pointer iterator return.
+PlayingAudioList::iterator MilesAudioManager::rva000544CB(int viewType, int musicSystem, int filter)
+{
+    return PlayingAudioList::iterator(static_cast<_STL::_List_node<PlayingAudioRef> *>(rva0005442A(viewType, musicSystem, filter)._M_node));
 }
 
 class Rva002D9AC3 { public: const char *rva002D9AC3(); };
