@@ -26,6 +26,8 @@ class Object;
 class Team;
 class TeamPrototype;
 class WorkOrder;
+class SpecialPowerTemplate;
+class Waypoint;
 
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -116,20 +118,94 @@ extern ScriptEngine *TheScriptEngine;
 
 static const Real HUGE_DIST = 1000000.0f;
 
-class AIPlayer
+// The locomotor set lives at AIUpdateInterface +0x1CC; Pathfinder's rowed
+// findBrokenBridge (0x002E99F9) takes it through its own view.
+struct Rva002E99F9Arg1;
+typedef Rva002E99F9Arg1 LocomotorSet;
+
+class AIUpdateInterface
 {
 public:
-	virtual void update();
-	virtual void onUnitProduced(Object *factory, Object *unit);
-	virtual void buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild);
+	LocomotorSet &getLocomotorSet() { return *(LocomotorSet *)m_locomotorSet; }
+private:
+	unsigned char m_pad00[0x1CC];
+	unsigned char m_locomotorSet[4];	// +0x1CC
+};
+
+class Object
+{
+public:
+	const Coord3D *getPosition() const { return &m_position; }
+	AIUpdateInterface *getAI() { return m_ai; }
+private:
+	unsigned char m_pad00[0x38];
+	Coord3D m_position;			// +0x38
+	unsigned char m_pad44[0x258 - 0x44];
+	AIUpdateInterface *m_ai;		// +0x258
+};
+
+class Waypoint
+{
+public:
+	const Coord3D *getLocation() const { return &m_location; }
+	Waypoint *getNext() const { return m_next; }
+private:
+	unsigned char m_pad00[0x0C];
+	Coord3D m_location;			// +0x0C
+	unsigned char m_pad18[0x1C - 0x18];
+	Waypoint *m_next;			// +0x1C
+};
+
+class Pathfinder
+{
+public:
+	Bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, Int flags);
+	Int FindBrokenBridge(Rva002E99F9Arg1 *locoSet, const Coord3D * volatile from, const Coord3D *to);
+};
+
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+private:
+	unsigned char m_pad00[0x10];
+	Pathfinder *m_pathfinder;		// +0x10
+};
+extern AI *TheAI;
+
+class AIPlayer
+{
 protected:
-	virtual void checkReadyTeams();
-	virtual void checkQueuedTeams();
-	virtual Object *findDozer(const Coord3D *searchPosition);
-	virtual void queueDozer();
-	virtual Bool selectTeamToBuild();
-	virtual Bool selectTeamToReinforce(Int minPriority);
-	virtual Bool startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName);
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+public:
+	virtual void computeSuperweaponTarget(const SpecialPowerTemplate *power, Coord3D *pos, Int playerNdx, Real weaponRadius);	// +0x10
+	virtual void update();						// +0x14
+protected:
+	virtual void slot06();
+public:
+	virtual void onUnitProduced(Object *factory, Object *unit);	// +0x1C
+	virtual void onStructureProduced(Object *factory, Object *bldg);	// +0x20
+	virtual void buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild);	// +0x24
+	virtual void recruitSpecificAITeam(TeamPrototype *teamProto, Real recruitRadius, const Coord3D *pos);	// +0x28
+	virtual Bool isSkirmishAI();					// +0x2C
+	virtual Player *getAiEnemy();					// +0x30
+	virtual Bool checkBridges(Object *unit, Waypoint *way);	// +0x34
+	virtual void repairStructure(ObjectID structure);		// +0x38
+protected:
+	virtual void slot15();
+	virtual void checkReadyTeams();					// +0x40
+	virtual void checkQueuedTeams();				// +0x44
+	virtual void doTeamBuilding();					// +0x48
+	virtual void doUpgradesAndSkills();				// +0x4C
+	virtual Object *findDozer(const Coord3D *searchPosition);	// +0x50
+	virtual void queueDozer();					// +0x54
+	virtual Bool selectTeamToBuild();				// +0x58
+	virtual Bool selectTeamToReinforce(Int minPriority);		// +0x5C
+	virtual Bool startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName);	// +0x60
+	virtual Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);	// +0x64
 
 public:
 	static void getPlayerStructureBounds(Region2D *bounds, Int playerNdx);
@@ -147,6 +223,7 @@ public:
 	virtual void update();
 	virtual void onUnitProduced(Object *factory, Object *unit);
 	virtual void buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild);
+	virtual Bool checkBridges(Object *unit, Waypoint *way);
 	virtual Player *getAiEnemy();
 protected:
 	virtual void checkReadyTeams();
@@ -245,6 +322,33 @@ Object *AISkirmishPlayer::findDozer(const Coord3D *pos)
 Bool AISkirmishPlayer::startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName)
 {
 	return AIPlayer::startTraining(order, busyOK, teamName);
+}
+
+// ?checkBridges@AISkirmishPlayer@@UAE_NPAVObject@@PAVWaypoint@@@Z @0x004EF6A0 154B
+// BFME 2's path test takes the unit itself (QuickDoesPathExist 0x002F477E)
+// and findBrokenBridge returns the bridge's id instead of filling one in.
+Bool AISkirmishPlayer::checkBridges(Object *unit, Waypoint *way)
+{
+	const Coord3D *pos = unit->getPosition();
+	Coord3D unitPos;
+	unitPos.x = pos->x;
+	unitPos.y = pos->y;
+	unitPos.z = pos->z;
+	AIUpdateInterface *ai = unit->getAI();
+	if (!ai) return false; // no ai
+	LocomotorSet &locoSet = ai->getLocomotorSet();
+	Waypoint *curWay;
+	for (curWay = way; curWay; curWay = curWay->getNext()) {
+		if (TheAI->pathfinder()->QuickDoesPathExist(unit, &unitPos, curWay->getLocation(), 0)) {
+			continue;
+		}
+		ObjectID brokenBridge = (ObjectID)TheAI->pathfinder()->FindBrokenBridge(&locoSet, &unitPos, curWay->getLocation());
+		if (brokenBridge) {
+			repairStructure(brokenBridge);
+			return true;
+		}
+	}
+	return false;
 }
 
 // ?acquireEnemy@AISkirmishPlayer@@IAEXXZ @0x004EFB3D 622B
