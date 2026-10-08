@@ -37,3 +37,18 @@ struct Rva00177F00Fields {
     void setOne();
 };
 void Rva00177F00Fields::setOne() { value00=1.0f; }
+
+// Native30F2BA..30F2C7 is a complete float-argument store at ECX+0,
+// between independently bounded RET4 at30F2B7 and known getter30F2C7.
+// Found beside the BF1 9cb WaterRenderObjConstructor Boxed<float> placement;
+// adjacency does not establish its original class or field purpose.
+class Rva0030F2BAFloatField
+{
+public:
+    void set(float value);
+    float m_value;
+};
+void Rva0030F2BAFloatField::set(float value)
+{
+    m_value=value;
+}
