@@ -58,7 +58,7 @@ EXTERN ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ:PROC
 EXTERN ??1Rva005EB753@@UAE@XZ:PROC
 EXTERN ?apply@Rva005CF843DwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva005CF84ADwordImmSetter@@QAEXXZ:PROC
-EXTERN ?apply@Rva005E211FDwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva0005E211FDwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva005E3947DwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva004EE006DwordImmSetter@@QAEXXZ:PROC
 
@@ -2086,7 +2086,7 @@ PUBLIC ?rva007A34FE@@YAXXZ
     neg ecx
     sbb ecx, ecx
     and ecx, eax
-    jmp ?apply@Rva005E211FDwordImmSetter@@QAEXXZ
+    jmp ?apply@Rva0005E211FDwordImmSetter@@QAEXXZ
 ?rva007A34FE@@YAXXZ ENDP
 
 ; Unwind@00ba3512 at RVA 0x007A3512; 20-byte funclet adds 0Ch to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x00238D97.
