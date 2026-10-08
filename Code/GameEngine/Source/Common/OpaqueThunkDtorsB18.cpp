@@ -74,22 +74,6 @@ Rva005FCFE5::~Rva005FCFE5()
 {
 }
 
-class Rva005FF95C
-{
-public:
-	virtual ~Rva005FF95C();
-};
-
-class __declspec(novtable) Rva005FED4D : public Rva005FF95C
-{
-public:
-	virtual ~Rva005FED4D();
-};
-
-Rva005FED4D::~Rva005FED4D()
-{
-}
-
 class Rva00600084
 {
 public:

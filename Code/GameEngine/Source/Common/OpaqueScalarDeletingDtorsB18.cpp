@@ -254,32 +254,6 @@ Rva005FD9FF::Rva005FD9FF(EmitVtableTag *)
 {
 }
 
-class Rva005FED4D
-{
-public:
-	Rva005FED4D(EmitVtableTag *);
-public:
-	virtual ~Rva005FED4D();
-};
-
-// ?<Rva005FED4D::Rva005FED4D> absent-from-retail
-Rva005FED4D::Rva005FED4D(EmitVtableTag *)
-{
-}
-
-class Rva005FEF65
-{
-public:
-	Rva005FEF65(EmitVtableTag *);
-public:
-	virtual ~Rva005FEF65();
-};
-
-// ?<Rva005FEF65::Rva005FEF65> absent-from-retail
-Rva005FEF65::Rva005FEF65(EmitVtableTag *)
-{
-}
-
 class Rva005FF13A
 {
 public:
@@ -290,19 +264,6 @@ public:
 
 // ?<Rva005FF13A::Rva005FF13A> absent-from-retail
 Rva005FF13A::Rva005FF13A(EmitVtableTag *)
-{
-}
-
-class Rva005FF95C
-{
-public:
-	Rva005FF95C(EmitVtableTag *);
-public:
-	virtual ~Rva005FF95C();
-};
-
-// ?<Rva005FF95C::Rva005FF95C> absent-from-retail
-Rva005FF95C::Rva005FF95C(EmitVtableTag *)
 {
 }
 

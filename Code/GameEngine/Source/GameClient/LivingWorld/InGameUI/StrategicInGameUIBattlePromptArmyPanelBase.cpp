@@ -1,8 +1,10 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // WorldBuilder 016371B0: StrategicInGameUIBattlePromptArmyPanelBase.cpp:122.
 // The helper's original name is unknown. Native 005FEF11..005FEF65 installs
 // C7A460 (slot 005FED99), zeros eight counts and visits the panel's summary.
-#include "../../../Common/BattlePromptCounterView.h"
+#include "../../../Common/BattlePromptArmyPanelView.h"
+#include "unicode_string.h"
+// stlport
 #include "string_base.h"
 
 Rva005FED61::Rva005FED61(const Rva005FEF11Input *panel)
@@ -67,4 +69,41 @@ void Rva005FED61::rva005FEE8C(const Rva005FEF11Input *input)
     Rva00318C32Ret *region = ((Rva00318C79Owner *)input)->rva00318C32();
     if (!region || panel->owner != region->owner) return;
     m_counts04[6] += rva005FEE09(region);
+}
+
+// WB 01637AB0 names BattlePromptArmyPanelBase and asserts lines 283-321.
+// Native 005FEFCC..005FF0F6 constructs the clip, counts at most six positive
+// categories and populates their icons. Scope ends before the name temporary.
+class Image;
+class Rva005FF4C5 { public: void rva005FF4C5(const Image*); };
+class Rva005FFA4E { public: void rva005FFA4E(int); };
+class Rva005FF5B8 { public: void rva005FF5B8(int,const Image*,int); };
+class Rva005FF5EE { public: void rva005FF5EE(const UnicodeString &); };
+struct Rva005D2355In;
+const Image *Rva005F031DGet(Rva005D2355In *);
+const Image *Rva005F01C7Get(int);
+UnicodeString Rva005C94C8Get(void *);
+struct CounterWords { void *vptr; int counts[8]; };
+Rva005FEF65::Rva005FEF65(int a,int b,const Rva005FEF11Input **source)
+ : m_08((int)this,a,b), m_input14(*source), m_selected24(7)
+{
+    Rva005FED61 counter(m_input14);
+    {
+    int count = 0;
+    for (int i = 0; i < 8; ++i) {
+        if (counter.m_counts04[i] > 0 && ++count >= 6) break;
+    }
+    ((Rva005FF4C5 *)&m_08)->rva005FF4C5(Rva005F031DGet((Rva005D2355In *)m_input14));
+    ((Rva005FFA4E *)&m_08)->rva005FFA4E(count);
+    m_types18.reserve(count);
+    for (int i = 0; i < 8; ++i) {
+        if (counter.m_counts04[i] > 0) {
+            int slot = m_types18.size();
+            ((Rva005FF5B8 *)&m_08)->rva005FF5B8(slot,Rva005F01C7Get(i),counter.m_counts04[i]);
+            m_types18.push_back((const ScienceType &)i);
+            if (m_types18.size() >= 6) break;
+        }
+    }
+    }
+    ((Rva005FF5EE *)&m_08)->rva005FF5EE(Rva005C94C8Get((void *)m_input14));
 }

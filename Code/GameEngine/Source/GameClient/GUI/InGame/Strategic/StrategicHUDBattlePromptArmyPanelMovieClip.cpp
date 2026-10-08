@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?SetUnitIconString@Impl@BattlePromptArmyPanelMovieClip@StrategicHUD@@QAEXHPBDABVUnicodeString@@@Z @ 0x005FF450 (109B).
 // Apt Unit text setter; formats APT:_level%u.%s_Unit%s%d from m_level at +4 and team name at +8.
@@ -44,6 +44,7 @@ private:
 
 int __cdecl Rva0052519DFire(void *a1, void *a2, const char *a3, const char *a4, int *a5);
 
+class Image;
 namespace StrategicHUD {
 class BattlePromptArmyPanelMovieClip
 {
@@ -55,6 +56,8 @@ public:
 class StrategicHUD::BattlePromptArmyPanelMovieClip::Impl
 {
 public:
+	void SetUnitIconProperties(int index, const Image *image, int quantity);
+    void rva005FF5C0(const UnicodeString &text);
 	void SetUnitIconString(int count, const char *kind, const UnicodeString &text);
 	void SetArmyNameString(const UnicodeString &text);
 	void SetUnitIconCount(int count);
@@ -62,7 +65,9 @@ private:
 	char m_pad[4];
 	unsigned int m_level;
 	Rva005FF450Team *m_team;
-	char m_padC[36];
+	char m_padC[0x18-0xC];
+    char m_images18[0x2C-0x18];
+    UnicodeString m_cached2C;
 	BfmePod8Vector m_icons;
 };
 
@@ -108,3 +113,49 @@ void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::SetUnitIconCount(int co
 	for (int i = cur; i < count; ++i)
 		SetUnitIconString(i, "Quantity", UnicodeString::TheEmptyString);
 }
+
+class Rva00524306 {
+public:
+ void rva00524306(const StringBase<char> &key);
+ void rva00524725(const AsciiString &key, const Image *image);
+};
+UnicodeString __cdecl Rva005FF207Format(int quantity);
+// WB 016393E0, StrategicHUDBattlePromptArmyPanelMovieClip.cpp:245-246.
+// Native 005FF4F8..005FF5B8 is the complete 192-byte cache update.
+void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::SetUnitIconProperties(int index, const Image *image, int quantity)
+{
+ BfmePod8 *slot = m_icons.m_begin + index;
+ if (image != (const Image *)slot->a[0]) {
+  AsciiString key;
+  const char *team = m_team ? m_team->m_name : "";
+  key.format("_level%u.%s_UnitIcon%d", m_level, team, index);
+  if (image) ((Rva00524306 *)m_images18)->rva00524725(key,image);
+  else ((Rva00524306 *)m_images18)->rva00524306(*(const StringBase<char> *)&key);
+  slot->a[0] = (int)image;
+ }
+ if (quantity != slot->a[1]) {
+  SetUnitIconString(index,"Quantity",Rva005FF207Format(quantity));
+  slot->a[1] = quantity;
+ }
+}
+// Unindexed native entry, bounded by the 005FF5B8 tail-jump and the next
+// wrapper at 005FF5EE. compare/set calls and the +2C member prove this cache.
+void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::rva005FF5C0(const UnicodeString &text)
+{
+ if (text.compare(m_cached2C)) {
+  SetArmyNameString(text);
+  m_cached2C = text;
+ }
+}
+class Rva005FF5B8 {
+public: void rva005FF5B8(int index,const Image *image,int quantity);
+private: char m_pad[4]; StrategicHUD::BattlePromptArmyPanelMovieClip::Impl *m_04;
+};
+void Rva005FF5B8::rva005FF5B8(int index,const Image *image,int quantity)
+{ m_04->SetUnitIconProperties(index,image,quantity); }
+class Rva005FF5EE {
+public: void rva005FF5EE(const UnicodeString &text);
+private: char m_pad[4]; StrategicHUD::BattlePromptArmyPanelMovieClip::Impl *m_04;
+};
+void Rva005FF5EE::rva005FF5EE(const UnicodeString &text)
+{ m_04->rva005FF5C0(text); }

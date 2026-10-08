@@ -69,3 +69,7 @@ Transport,Code/GameEngine/Include/GameNetwork/Transport.h,existing header; contr
 Rva0040CFC7Pred,Code/GameEngine/Source/Common/BattlePromptCounterView.h,retail 005FEF11 constructor and C7A460 slot 005FED99 prove one-slot predicate and eight counters; 0040CFC7 visitor preserves entry ABI
 Rva0040CFC7,Code/GameEngine/Source/Common/BattlePromptCounterView.h,retail 005FEF11 constructor and C7A460 slot 005FED99 prove one-slot predicate and eight counters; 0040CFC7 visitor preserves entry ABI
 Rva005FED61,Code/GameEngine/Source/Common/BattlePromptCounterView.h,retail 005FEF11 constructor and C7A460 slot 005FED99 prove one-slot predicate and eight counters; 0040CFC7 visitor preserves entry ABI
+Rva005FF912,Code/GameEngine/Source/Common/BattlePromptMovieClipView.h,native ctor and dtor vtables plus every provider body verify this view; 005FF912/005FF95C C7A530; 005FED2A/005FED4D C7A448; 005FEFCC/005FEF65 C7A464
+Rva005FED2A,Code/GameEngine/Source/Common/BattlePromptMovieClipView.h,native ctor and dtor vtables plus every provider body verify this view; 005FF912/005FF95C C7A530; 005FED2A/005FED4D C7A448; 005FEFCC/005FEF65 C7A464
+Rva005FEF65Base,Code/GameEngine/Source/Common/BattlePromptArmyPanelView.h,native ctor and dtor vtables plus every provider body verify this view; 005FF912/005FF95C C7A530; 005FED2A/005FED4D C7A448; 005FEFCC/005FEF65 C7A464
+Rva005FEF65,Code/GameEngine/Source/Common/BattlePromptArmyPanelView.h,native ctor and dtor vtables plus every provider body verify this view; 005FF912/005FF95C C7A530; 005FED2A/005FED4D C7A448; 005FEFCC/005FEF65 C7A464

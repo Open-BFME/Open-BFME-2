@@ -37,6 +37,7 @@ struct Rva005FEF11Input
 };
 class Rva005FED61 : public Rva0040CFC7Pred
 {
+    friend class Rva005FEF65;
 public:
     Rva005FED61(const Rva005FEF11Input *);
     virtual bool rva005FED99(const Rva005FED99Arg *);

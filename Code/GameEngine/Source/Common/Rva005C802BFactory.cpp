@@ -59,21 +59,12 @@ Rva005D19F8::Rva005D19F8(int a, int b)
 	m_04 = new Rva005D19F8Child(this, a, b);
 }
 
-class Rva005FF912;
+#include "BattlePromptMovieClipView.h"
 
 struct Rva005FF912Child
 {
 	Rva005FF912Child(Rva005FF912 *o, int a, int b);
 	char m_data[0x40];
-};
-
-class Rva005FF912
-{
-public:
-	Rva005FF912(int a, int b);
-	virtual ~Rva005FF912();
-private:
-	Rva005FF912Child *m_04;
 };
 
 Rva005FF912::Rva005FF912(int a, int b)

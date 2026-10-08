@@ -4853,12 +4853,10 @@ name,address,notes
 ??1Rva005FCFEA@@UAE@XZ,0x005FCFEA,opaque dtor called by the scalar deleting dtor at 0x005FD0DE (vtable 0x00C7A1F4#0); identity unproven; address-derived name
 ??1Rva005FD628@@QAE@XZ,0x005FD628,pointee destructor called by the owning-pointer reset 0x005FD95E (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005FD9FF@@UAE@XZ,0x005FD9FF,opaque dtor called by the scalar deleting dtor at 0x005FDA1D (vtable 0x00C7A2E8#0); identity unproven; address-derived name
-??1Rva005FED4D@@UAE@XZ,0x005FED4D,opaque dtor called by the scalar deleting dtor at 0x005FEDB1 (vtable 0x00C7A448#0); identity unproven; address-derived name
 ??1Rva005FED52@@UAE@XZ,0x005FED52,"destructor the scalar deleting destructor 0x003F4261 calls (REL32 at 0x003F4264; vtable 0x00C37064#1); opaque address name"
 ??1Rva005FEF65@@UAE@XZ,0x005FEF65,opaque dtor called by the scalar deleting dtor at 0x005FEFB0 (vtable 0x00C7A464#0); identity unproven; address-derived name
 ??1Rva005FF13A@@UAE@XZ,0x005FF13A,opaque dtor called by the scalar deleting dtor at 0x005FF145 (vtable 0x00C7A478#0); identity unproven; address-derived name
 ??1Rva005FF5F6@@QAE@XZ,0x005FF5F6,pointee destructor called by the owning-pointer reset 0x005FF8F8 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
-??1Rva005FF95C@@UAE@XZ,0x005FF95C,opaque dtor called by the scalar deleting dtor at 0x005FF9A9 (vtable 0x00C7A530#0); identity unproven; address-derived name
 ??1Rva005FFBCBElem@@QAE@XZ,0x005FFBCB,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
 ??1Rva00600379@@UAE@XZ,0x00600379,opaque dtor called by the scalar deleting dtor at 0x006003D3 (vtable 0x00C7A620#0); identity unproven; address-derived name
 ??1Rva00600505@@UAE@XZ,0x00600505,opaque dtor called by the scalar deleting dtor at 0x00600510 (vtable 0x00C7A64C#0); identity unproven; address-derived name
