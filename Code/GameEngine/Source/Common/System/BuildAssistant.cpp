@@ -1200,6 +1200,31 @@ Bool BuildAssistant::rva0039361E( const Coord3D *pos, const ThingTemplate *whatT
 	return FALSE;
 }
 
+// BuildAssistant::addBibs, retail 0x00393741 (vslot 19). Zero Hour's, with
+// the range query measured from the center (1) rather than ZH's 2D bounding
+// sphere.
+void BuildAssistant::addBibs( const Coord3D *worldPos, const ThingTemplate *build )
+{
+	Real range = build->friend_calcVisionRange();
+	range += 3*build->getTemplateGeometryInfo().getMajorRadius();
+
+	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange( worldPos, range, FROM_CENTER_3D,
+		&Rva0004584D( *(BfmeFixedStorage0004543D *)&Rva00045411BitSet( 0, KINDOF_STRUCTURE ),
+					  *(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE ), 0 );
+	for( Object *them = iter.next(); them; them = iter.next() )
+	{
+
+		// ignore any kind of class of objects that we will "remove" for building
+		if( isRemovableForConstruction( them ) == TRUE )
+			continue;
+
+		if( them->isKindOf( KINDOF_2 ) )
+			g_00DFF080->addFactionBib( them, TRUE );
+
+	}
+
+}
+
 // BuildAssistant::buildObjectNow, retail 0x003952D8 (vslot 14).
 Object *BuildAssistant::buildObjectNow( Object *constructorObject, const ThingTemplate *what,
 										const Coord3D *pos, Real angle, Player *owningPlayer )
