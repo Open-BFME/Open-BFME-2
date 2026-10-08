@@ -1,3 +1,5 @@
+// ?contains@Rva006D07E0List@@QAEHVRva006D07E0Key@@@Z
+// partial score=0.89 date=2026-10-08
 // cl: /MD /EHsc
 // A counted-handle getter and a doubly-linked unlink.
 //
@@ -175,8 +177,9 @@ struct Rva006D0280 {
 class Rva006D07E0Key {
 public:
  Rva006D07E0Key(const Rva006D07E0Key &other) {
-  m_object=other.m_object;
-  if(m_object) ++m_object->m_useCount;
+  Rva006D0280 *p=other.m_object;
+  m_object=p;
+  if(p) ++p->m_useCount;
  }
  ~Rva006D07E0Key() {
   Rva006D0280 *p=m_object;
@@ -196,6 +199,7 @@ struct Rva006D07E0Iterator {
 class Rva006D07E0List {
 public:
  Rva006D07E0Iterator find(Rva006D07E0Key key);
+ int contains(Rva006D07E0Key key);
  Rva006D07E0Node *head;
 };
 Rva006D07E0Iterator Rva006D07E0List::find(Rva006D07E0Key key) {
@@ -231,28 +235,18 @@ int Rva006D0660::contains(Rva006D07E0Key key) {
  return 0;
 }
 
-// Native6D0460..6D04C4: raw four-byte owner range copy. Semantic
-// guide BFME1 ba7ddda7 Rva008953C0RefRangeCopy.cpp; target's pooled
-// owner release uses existing6D0280/6DB270 providers and1c bytes.
-BfmeRefVGO *__cdecl Rva006D0460Copy(BfmeRefVGO *first,
- BfmeRefVGO *last, BfmeRefVGO *result) {
- if(first!=last) {
+// Native6D0860..6D092B. BFME1 ba7ddda7 Rva008956C0Contains.cpp
+// supplies the outer search and by-value handle lifetime guide. Target
+// has a28-byte pooled key instead of the donor's24-byte heap key.
+// The reinterpretation at entry4 is the exact receiver load in retail;
+// Rva006D0280 and Rva006D0660 are partial address-derived ABI views.
+int Rva006D07E0List::contains(Rva006D07E0Key key) {
+ Rva006D07E0Node *node=head;
+ if(node) {
   do {
-   BfmeRefVGO *destination=result++;
-   if(first!=destination) {
-    unsigned *old=destination->m_bfmeP;
-    if(old && --*old==0) {
-     Rva006D0280 *p=(Rva006D0280 *)destination->m_bfmeP;
-     if(p) {
-      p->teardown();
-      g_pChainBlockAllocator->freeBlock(p,0x1c);
-     }
-    }
-    destination->m_bfmeP=first->m_bfmeP;
-    if(destination->m_bfmeP) ++*destination->m_bfmeP;
-   }
-   ++first;
-  } while(first!=last);
+   if(((Rva006D0660 *)node->entry->key4)->contains(Rva006D07E0Key(key))) return 1;
+   node=node->next;
+  } while(node);
  }
- return result;
+ return 0;
 }
