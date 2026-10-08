@@ -16309,3 +16309,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?notifyHeroEarnedAward@InGameUI@@QAEXPAVCreateAHeroHero@@H@Z,0x0029DCA9,callee of ?UpdateAwardEarnedFlags@CreateAHeroHero@@QAEXXZ
 ?CreateNewExpLevel@ExperienceLevelStore@@QAE_NABVAsciiString@@0000@Z,0x0028A473,callee of ?AddCommandButtonLevel@CreateAHeroHero@@QAE_NIABVAsciiString@@00@Z
 ?rva0041B603@Rva0041B790@@QAEXXZ,0x0041B603,callee of ??1Rva0041B790@@UAE@XZ
+?rva001B5018@SubsystemInterfaceList@@QAEXPAX@Z,0x001B5018,callee of ?init@LargeGroupAudio@@UAEXXZ

@@ -48,3 +48,23 @@ unsigned char LargeGroupAudio::rva0020DA21(INI *ini)
 {
     return ini->loadFile("Data\\INI\\LargeGroupAudio.ini", ini->m_word08, 0);
 }
+
+class SubsystemInterfaceList
+{
+public:
+    // Target 0x001B5018 takes one pointer in a stack argument, this in ECX,
+    // and returns with RET 4. Its source name remains unresolved.
+    void rva001B5018(void *subsystem);
+};
+
+extern SubsystemInterfaceList *TheSubsystemList;
+
+// Retail init slot: 0x0020DA49..0x0020DAA5, 92 bytes. Local INI lifetime,
+// helper call, flag +0x38 and subsystem-list receiver are target evidence.
+void LargeGroupAudio::init()
+{
+    INI ini;
+    rva0020DA21(&ini);
+    m_flag38 = true;
+    TheSubsystemList->rva001B5018(this);
+}
