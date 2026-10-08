@@ -40,3 +40,16 @@ struct Rva00531EA5Fields
     unsigned short get() const;
 };
 unsigned short Rva00531EA5Fields::get() const { return *pointer; }
+
+// Clean BF1 9cb Rva004708F0WordGetter.cpp and Rva1A1A90Offset46WordGetter.cpp
+// supply the raw16 accessor expressions. Native2D6AEA follows a complete tail
+// jump and reads word12; native27C27B follows a complete RET4 and reads word2E.
+// Both leaves end in RET after five bytes. No direct native calls establish
+// their original owners; adjacent known types are not asserted as identities.
+// Signedness and complete receiver bounds remain unresolved.
+
+// ?get@Rva002D6AEAWordField@@QBEGXZ
+BFME_DISP8_WORD_FIELD_GETTER(Rva002D6AEAWordField, 0x12)
+
+// ?get@Rva0027C27BWordField@@QBEGXZ
+BFME_DISP8_WORD_FIELD_GETTER(Rva0027C27BWordField, 0x2E)
