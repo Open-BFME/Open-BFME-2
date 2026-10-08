@@ -123,6 +123,7 @@ class Powers
 {
 public:
 	void MatrixToolTip(const char *path);
+	void PalantirToolTip(const char *path);
 	Rva005B2E09Cell *GetPrereqData(Rva005B2E09Cell *cell);
 	int CalculateFlashState(Rva005B2E09Cell *cell);
 	void UpdatePalantirButtons();
@@ -299,4 +300,33 @@ void AptCreateAHero::Powers::MatrixToolTip(const char *path)
 		m_name = Rva005B2376Describe(cell->m_button, AsciiString::TheEmptyString, AsciiString::TheEmptyString);
 	else
 		m_name = UnicodeString::TheEmptyString;
+}
+
+// Native 0x005B2BDD..0x005B2CE5: select the last matching grid cell,
+// fall back to required buttons, and store the tooltip at +0x68.
+// WB PalantirToolTip 0x01574F90 supplies the method lead (wb-name-unverified).
+// The fallback loop tests the button before the bound; full-expression string
+// temporaries give retail's lifetimes and stack slots.
+void AptCreateAHero::Powers::PalantirToolTip(const char *path)
+{
+	int required = TheCreateAHeroManager->GetRequiredButtonCount();
+	int index;
+	if (sscanf(path, "%d", &index) != 1)
+		return;
+	--index;
+	Rva005B2E09Cell *selected = 0;
+	for (int i = 0; i < 10; ++i)
+	{
+		Rva005B2E09Cell *cell = m_cells[i];
+		if (cell && cell->m_index0c + required == index)
+			selected = cell;
+	}
+	const CommandButton *button = selected ? (const CommandButton *)selected->m_button : 0;
+	if (!button)
+	{
+		for (int i = 0; !button && i < required; ++i)
+			if (i == index)
+				button = TheCreateAHeroManager->GetRequiredButton(i);
+	}
+	m_name = Rva005B2376Describe((void *)button, "TOOLTIP:CAH_IN_PALANTIR", "TOOLTIP:CAH_PALANTIR_EMPTY_SLOT");
 }
