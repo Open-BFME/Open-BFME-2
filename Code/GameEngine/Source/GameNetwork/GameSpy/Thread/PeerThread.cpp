@@ -926,37 +926,41 @@ static void QRKeyListCallback
 		t->stopHostingAlready(peer);
 		*/
 
-	// register the keys we use
+	// register the keys we use. BFME2's custom keys are the ids
+	// PeerThreadClass::Run registers (exeCRC 0x33 .. scen 0x46): it adds
+	// cmdCRC, handicap_, rules, gCRC and scen, drops Zero Hour's stat, and
+	// reports the reserved gametype key where Zero Hour had none.
 	switch(type)
 	{
 	case key_server:
 		qr2_keybuffer_add(keyBuffer, HOSTNAME_KEY);
 		qr2_keybuffer_add(keyBuffer, GAMEVER_KEY);
-		//qr2_keybuffer_add(keyBuffer, GAMENAME_KEY);
 		qr2_keybuffer_add(keyBuffer, MAPNAME_KEY);
-		// BFME registers two more of the reserved keys than Zero Hour does, and
-		// in this order: 0x0C then 0x0B, TEAMPLAY before GAMEMODE.
-		qr2_keybuffer_add(keyBuffer, TEAMPLAY_KEY);
+		qr2_keybuffer_add(keyBuffer, GAMETYPE_KEY);
 		qr2_keybuffer_add(keyBuffer, GAMEMODE_KEY);
-		qr2_keybuffer_add(keyBuffer, EXECRC_KEY);
-		qr2_keybuffer_add(keyBuffer, INICRC_KEY);
-		qr2_keybuffer_add(keyBuffer, PW_KEY);
-		qr2_keybuffer_add(keyBuffer, OBS_KEY);
-    qr2_keybuffer_add(keyBuffer, USE_STATS_KEY);
-		qr2_keybuffer_add(keyBuffer, LADIP_KEY);
-		qr2_keybuffer_add(keyBuffer, LADPORT_KEY);
-		qr2_keybuffer_add(keyBuffer, PINGSTR_KEY);
-		qr2_keybuffer_add(keyBuffer, NUMPLAYER_KEY);
-		qr2_keybuffer_add(keyBuffer, MAXPLAYER_KEY);
-		qr2_keybuffer_add(keyBuffer, NUMOBS_KEY);
+		qr2_keybuffer_add(keyBuffer, 0x33);	// exeCRC
+		qr2_keybuffer_add(keyBuffer, 0x34);	// iniCRC
+		qr2_keybuffer_add(keyBuffer, 0x35);	// cmdCRC
+		qr2_keybuffer_add(keyBuffer, 0x36);	// pw
+		qr2_keybuffer_add(keyBuffer, 0x37);	// obs
+		qr2_keybuffer_add(keyBuffer, 0x38);	// ladIP
+		qr2_keybuffer_add(keyBuffer, 0x39);	// ladPort
+		qr2_keybuffer_add(keyBuffer, 0x3a);	// pings
+		qr2_keybuffer_add(keyBuffer, 0x3b);	// numRealPlayers
+		qr2_keybuffer_add(keyBuffer, 0x3c);	// maxRealPlayers
+		qr2_keybuffer_add(keyBuffer, 0x3d);	// numObservers
+		qr2_keybuffer_add(keyBuffer, 0x44);	// rules
+		qr2_keybuffer_add(keyBuffer, 0x45);	// gCRC
+		qr2_keybuffer_add(keyBuffer, 0x46);	// scen
 		break;
 	case key_player:
-		qr2_keybuffer_add(keyBuffer, NAME__KEY);
-		qr2_keybuffer_add(keyBuffer, WINS__KEY);
-		qr2_keybuffer_add(keyBuffer, LOSSES__KEY);
+		qr2_keybuffer_add(keyBuffer, 0x3e);	// name_
+		qr2_keybuffer_add(keyBuffer, 0x42);	// wins_
+		qr2_keybuffer_add(keyBuffer, 0x43);	// losses_
 		qr2_keybuffer_add(keyBuffer, PID__KEY);
-		qr2_keybuffer_add(keyBuffer, FACTION__KEY);
-		qr2_keybuffer_add(keyBuffer, COLOR__KEY);
+		qr2_keybuffer_add(keyBuffer, 0x3f);	// faction_
+		qr2_keybuffer_add(keyBuffer, 0x40);	// color_
+		qr2_keybuffer_add(keyBuffer, 0x41);	// handicap_
 		break;
 	case key_team:
 		// no custom team keys

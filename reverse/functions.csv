@@ -71525,3 +71525,4 @@ _VP6_printmodes,,0x001BB830,398,Code/Libraries/Source/VP6/debug.cpp,matched,Clea
 ?rva005BA02B@Rva005B9378@@QAEXXZ,,0x005BA02B,466,Code/GameEngine/Source/Common/AptHeroPowerText.cpp,matched,
 ?init@Rva00355DC5@@UAEXPAVGameInfo@@@Z,,0x00356541,455,Code/GameEngine/Source/GameClient/GUI/LoadScreen_ShellGameInit.cpp,matched,
 ?setCurrentFilename@MapTransferLoadScreen@@QAEXVAsciiString@@@Z,,0x00356E8E,198,Code/GameEngine/Source/GameClient/GUI/LoadScreen_MapTransferProcessProgress.cpp,matched,
+?QRKeyListCallback@@YAXPAXW4qr2_key_type@@00@Z,,0x00388A13,249,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,
