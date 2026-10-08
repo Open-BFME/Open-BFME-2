@@ -70438,3 +70438,4 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ??0Rva0033C959Holder@@QAE@XZ,,0x0033C959,12,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
 ??0Rva005C46C8Holder@@QAE@XZ,,0x005C46C8,12,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
 ??0Rva0005B6FCHolder@@QAE@XZ,,0x0005B6FC,12,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+?update@LargeGroupAudioUpdate@@UAE?AW4UpdateSleepTime@@XZ,,0x004ABB4B,273,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioRva004ABB4B.cpp,matched,WB01222A00 LargeGroupAudioUpdate update; target ctor004AB811 vtableC548F0 at+10 and negative data/object accesses; BFME1 ba7ddda7 multiple inheritance semantic donor; target fields and frame delta preserved; whole273B exact identity repair
