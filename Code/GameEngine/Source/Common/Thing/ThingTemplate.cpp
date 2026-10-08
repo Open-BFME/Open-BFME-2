@@ -1028,22 +1028,7 @@ void ThingTemplate::validateAudio()
 
 //-------------------------------------------------------------------------------------------------
 // copy the guts of that into this, but preserve this' name, id, and list-links.
-// ?ThingTemplate::copyFrom present-unmatched
-void ThingTemplate::copyFrom(const ThingTemplate* that)
-{
-	if (!that)
-		return;
-
-	ThingTemplate* next = this->m_nextThingTemplate;
-	UnsignedShort id = this->m_templateID;
-	AsciiString name = this->m_nameString;
-
-	*this = *that;
-
-	this->m_nextThingTemplate = next;
-	this->m_templateID = id;
-	this->m_nameString = name;
-}
+// BFME2 copyFrom is recovered in ThingTemplateSetCopiedFromDefault.cpp.
 
 //-------------------------------------------------------------------------------------------------
 void ThingTemplate::setCopiedFromDefault()
@@ -1372,3 +1357,9 @@ bool Rva00331578::rva00331578(const Rva00331578 &other)
 		return true;
 	return false;
 }
+
+// Preserve this unit's existing vector allocation helper after moving the
+// unfinished copyFrom caller. This member pointer only retains emission;
+// it is a compile anchor and makes no retail data or assignment-body claim.
+extern ThingTemplate &(ThingTemplate::*const _bfmeInlineAnchorTemplateAssignment)(const ThingTemplate &) =
+    &ThingTemplate::operator=;
