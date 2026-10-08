@@ -1,6 +1,11 @@
 // cl: /MD
-// ?Rva0041C21BIsVisible@@YG_NPAVPlayer@@PAVObject@@H@Z @0x0041C21B 122B
-// Free function at 0x0041C21B (122B): visibility/relationship check.
+// ?canPlayerGarrison@ActionManager@@QAE_NPBVPlayer@@PBVObject@@W4CommandSourceType@@@Z
+// @0x0041C21B 122B. Zero Hour's ActionManager::canPlayerGarrison: null
+// guards, effectively-dead and structure tests, a garrisonable contain, then
+// owner / neutral relationship and an empty contain. contextCommandForNewSelection
+// (0x0030ECD6) calls it with TheActionManager (0x00E030E8) in ECX, as Zero Hour's
+// SelectionInfo.cpp does; the body never reads this. Formerly rowed as the
+// stdcall free function Rva0041C21BIsVisible.
 // Evidence: callers 0x00261478 (36B, pushes [esi+8]/arg/[esi+0x10]) and 0x0030ECD6 (767B);
 // rowed callees ?getControllingPlayer@Object@@QBEPAVPlayer@@XZ and
 // ?getRelationship@Player@@QBE?AW4Relationship@@PBVTeam@@@Z; virtual slots +0x10 (bool)
@@ -124,7 +129,15 @@ public:
 	unsigned char m_flags438;
 };
 
-bool __stdcall Rva0041C21BIsVisible(Player *player, Object *obj, int unused)
+enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+
+class ActionManager
+{
+public:
+	bool canPlayerGarrison(const Player *player, const Object *obj, CommandSourceType commandSource);
+};
+
+bool ActionManager::canPlayerGarrison(const Player *player, const Object *obj, CommandSourceType commandSource)
 {
 	if (player == 0 || obj == 0)
 		return false;
