@@ -25,12 +25,16 @@ public:
 	const Coord3D *getPosition() const { return &m_pos; }
 	char m_pad000[0x38];
 	Coord3D m_pos;			// +0x38
+	char m_pad44[0x30];
+	int m_id74;
 };
 
 class Player
 {
 public:
 	void healAllObjects();	// 0x002AB06A
+	char m_head[0x54];
+	int m_playerIndex;
 };
 
 class AudioManager;
@@ -40,6 +44,7 @@ struct HealCrateMiscView
 {
 	char _pad[0x54];
 	OpaqueRefElement4 crateHeal;	// +0x54 m_crateHeal
+	OpaqueRefElement4 crateShroud;	// native +0x58
 };
 
 class HealCrateAudioView
@@ -155,4 +160,31 @@ bool HealCrateCollide::executeCrateBehavior(Object *other)
 	((Rva002D9508 *)&soundToPlay)->rva002D9508(other->getPosition());
 	reinterpret_cast<HealCrateAudioView *>(TheAudio)->addAudioEvent(&soundToPlay);
 	return true;
+}
+
+// Donor: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
+// game/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/
+// ShroudCrateCollide_executeCrateBehavior.cpp; the Zero Hour behavior supplies
+// the reveal-map, pickup-sound and object-ID operation, rather than its layout.
+// Target: 004BCB26..004BCBB2,140B RET4; primary vtable0085A8D8 slot12
+// belongs to the independently rowed ShroudCrateCollide constructor/name pair.
+// Native establishes player index54, object ID74, misc audio ref58, audio slots
+// 138/64, and calls the existing shroud thunk739780 and conditional ID setter.
+class PartitionManager;
+extern PartitionManager *TheShroudManager;
+class Rva00739780 { public: void rva00739780(int); };
+class Rva002D9531 { public: void rva002D9531(int); };
+class ShroudCrateCollide : public CrateCollide
+{
+protected:
+    virtual bool executeCrateBehavior(Object *other);
+};
+bool ShroudCrateCollide::executeCrateBehavior(Object *other)
+{
+    Player *cratePlayer=other->getControllingPlayer();
+    reinterpret_cast<Rva00739780 *>(TheShroudManager)->rva00739780(cratePlayer->m_playerIndex);
+    BfmeAudioEventPrefix136 soundToPlay(reinterpret_cast<HealCrateAudioView *>(TheAudio)->getMiscAudio()->crateShroud,0);
+    reinterpret_cast<Rva002D9531 *>(&soundToPlay)->rva002D9531(other->m_id74);
+    reinterpret_cast<HealCrateAudioView *>(TheAudio)->addAudioEvent(&soundToPlay);
+    return true;
 }
