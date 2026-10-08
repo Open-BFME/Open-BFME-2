@@ -201,6 +201,16 @@
 // getEachPlayerFromMask 0x002A7BC9) passes when its int at +0x1C reaches
 // what the rowed 0x003802DF returns for the object at Player+0x08. BFME
 // 2-only condition with no donor body, so the method keeps an address name.
+//
+// ?rva003E6BC5@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@@Z @ 0x003E6BC5 325B
+// Target evidence: jump-table case 200 calls 0x003E6BC5, which
+// initConditionTemplates names TYPE_SELECTED (object type); it starts where
+// evaluateTeamOwnedByPlayer (0x003E6B57, 110 bytes) ends. Same caching and
+// selected-drawable walk as NAMED_SELECTED, but each drawable's object
+// parses the type parameter into an ObjectTypesTemp (ctor 0x003BA7FF,
+// Script_objectTypesFromParam 0x00566E6C) and tests its template's name
+// with the rowed isInSet 0x00376A62. BFME 2-only condition with no donor
+// body, so the method keeps an address name.
 #include <vector>
 #include <list>
 #include "ascii_string.h"
@@ -729,6 +739,7 @@ protected:
 	bool evaluateUnitHasEmptied(Parameter *);
 	bool evaluateUnitHealth(Parameter *, Parameter *, Parameter *);
 	bool rva003E4519(Parameter *);
+	bool rva003E6BC5(Condition *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1347,4 +1358,48 @@ bool ScriptConditions::rva003E4519(Parameter *pPlayerParm)
 			return true;
 	}
 	return false;
+}
+
+bool ScriptConditions::rva003E6BC5(Condition *pCondition, Parameter *pTypeParm)
+{
+	if (TheGameEngine->isMultiplayerSession())
+		return false;
+
+	bool anyChanges = false;
+	if (pCondition->getCustomData() == 0)
+		anyChanges = true;
+
+	if (TheInGameUI->getFrameSelectionChanged() != pCondition->getCustomFrame())
+		anyChanges = true;
+
+	if (!anyChanges)
+	{
+		if (pCondition->getCustomData() == -1)
+			return false;
+		if (pCondition->getCustomData() == 1)
+			return true;
+	}
+
+	bool isSelected = false;
+	const DrawableList *selected = TheInGameUI->getAllSelectedDrawables();
+	for (DrawableList::const_iterator it = selected->begin(); it != selected->end(); ++it)
+	{
+		Object *obj = (*it)->getObject();
+		if (!obj)
+			continue;
+		ObjectTypesTemp types;
+		Script_objectTypesFromParam(pTypeParm, types.m_types);
+		const ThingTemplate *tmpl = obj->getTemplate();
+		if (tmpl && types.m_types->isInSet(tmpl->getName()))
+		{
+			isSelected = true;
+			break;
+		}
+	}
+
+	pCondition->setCustomData(-1);
+	if (isSelected)
+		pCondition->setCustomData(1);
+	pCondition->setCustomFrame(TheInGameUI->getFrameSelectionChanged());
+	return isSelected;
 }
