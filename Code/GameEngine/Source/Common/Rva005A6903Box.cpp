@@ -49,7 +49,7 @@ struct NAT
 
 	bool rva005A6709();
 	void processPlayerJoin(int idx);
-	void rva005A695F(int idx);
+	void processPlayerLeave(int idx);
 };
 
 // 0x005A671D ignores incoming ecx (loads its context from the 0xE063FC
@@ -79,7 +79,7 @@ void NAT::processPlayerJoin(int idx)
 // Native 0x005A695F..0x005A69C0 RET4 shares the NAT tables and +0x28
 // sub-object with the named join and reconnect siblings. This operation's
 // original name remains unknown; it clears the selected slot and its value.
-void NAT::rva005A695F(int idx)
+void NAT::processPlayerLeave(int idx)
 {
 	if ((unsigned short)idx >= 8)
 		return;

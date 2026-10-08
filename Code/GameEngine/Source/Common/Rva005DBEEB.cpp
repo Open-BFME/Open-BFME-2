@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva005DBEEB@PortNegotiationSchema@@QAE_NGGH@Z @0x005DBEEB 66B.
+// ?receivedAPong@PortNegotiationSchema@@QAE_NGGH@Z @0x005DBEEB 66B.
 // PortNegotiationSchema indexed notify: bounds-checked element via rowed 0x005DB98E,
 // Elem time smooth via rowed 0x005DB885, then list at +0x04 forEach with
 // notify 0x005CB260. Evidence: callers 0x005A80CF; callees all rowed;
@@ -40,14 +40,14 @@ class PortNegotiationSchema
 {
 public:
 	void *peekPing(unsigned short x, unsigned short y);
-	bool rva005DBEEB(unsigned short x, unsigned short y, int a);
-	bool rva005DBE95(unsigned short x, unsigned short y, float a, float b, float c);
+	bool receivedAPong(unsigned short x, unsigned short y, int a);
+	bool setPingStats(unsigned short x, unsigned short y, float a, float b, float c);
 private:
 	char m_pad00[4];
 	Rva005DBE6AList m_list;
 };
 
-bool PortNegotiationSchema::rva005DBEEB(unsigned short x, unsigned short y, int a)
+bool PortNegotiationSchema::receivedAPong(unsigned short x, unsigned short y, int a)
 {
 	void *elem = peekPing(x, y);
 	if (!elem)
@@ -57,9 +57,9 @@ bool PortNegotiationSchema::rva005DBEEB(unsigned short x, unsigned short y, int 
 	return true;
 }
 
-// ?rva005DBE95@PortNegotiationSchema@@QAE_NGGMMM@Z @0x005DBE95 86B: float triple setter
+// ?setPingStats@PortNegotiationSchema@@QAE_NGGMMM@Z @0x005DBE95 86B: float triple setter
 // sibling of 0x005DBEEB with rowed 0x005DB8F7 plus same forEach.
-bool PortNegotiationSchema::rva005DBE95(unsigned short x, unsigned short y, float a, float b, float c)
+bool PortNegotiationSchema::setPingStats(unsigned short x, unsigned short y, float a, float b, float c)
 {
 	void *elem = peekPing(x, y);
 	if (!elem)

@@ -45,7 +45,7 @@
 // TheWritableGlobalData's pending file and the logic random is seeded from
 // the seed at +0x50.
 //
-// GameSpyStagingRoom::rva004FE126 @ 0x004FE126 (569 bytes), named by
+// GameSpyStagingRoom::launchWOTRMPGame @ 0x004FE126 (569 bytes), named by
 // address: the GameSpy twin of the rowed LANAPI::rva0024900D (its only caller
 // is 0x005A63E3) and shaped like Zero Hour's GameSpyStagingRoom::launchGame.
 // Carried from Zero Hour: game in progress and preorder marks, a new network
@@ -80,10 +80,10 @@
 // GameSpyStagingRoom::launchGame @ 0x004FED35 (874 bytes). Identity from target
 // evidence: startGame calls it where Zero Hour's startGame calls launchGame,
 // and the NAT code at 0x005A63ED calls it where Zero Hour's NAT calls
-// launchGame once connections are established. rva004FE126 is called instead
+// launchGame once connections are established. launchWOTRMPGame is called instead
 // at 0x005A63E3 when the room's +0x5C is 1.
 // The body is Zero Hour's launchGame in BFME 2's form: preorder marks, the
-// network as in rva004FE126, the hero transfer check and the map transfer
+// network as in launchWOTRMPGame, the hero transfer check and the map transfer
 // (both failing as in rva004FDEFF), the pending file, then MSG_NEW_GAME
 // (0x1E) carrying GAME_INTERNET (5), 1, 0 and +0x1018, TheGameLogic's byte
 // +0x9D set as in LANAPI::OnGameStart, the logic random seed, buddy status 4
@@ -299,7 +299,7 @@ public:
 	void cleanUpSlotPointers(void);
 	void launchGame(void);
 	void rva004FDEFF(LivingWorldBattle *battle);
-	void rva004FE126(void);
+	void launchWOTRMPGame(void);
 	AsciiString generateGameSpyGameResultsPacket(Bool sawCRCMismatch, Bool playerQuit);
 	Bool isQMGame(void) { return m_isQM; }
 private:
@@ -600,7 +600,7 @@ public:
 	UnicodeString rva0022C4DF(void) const;
 };
 
-void GameSpyStagingRoom::rva004FE126(void)
+void GameSpyStagingRoom::launchWOTRMPGame(void)
 {
 	setGameInProgress(true);
 	for (Int i = 0; i < MAX_SLOTS; ++i)

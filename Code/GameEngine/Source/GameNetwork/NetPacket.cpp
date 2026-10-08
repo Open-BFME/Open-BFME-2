@@ -408,7 +408,7 @@ public:
 	static NetCommandMsg *rva0058DEF7(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DF29(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0059205C(UnsignedByte *data, Int &readOffset);
-	static NetCommandMsg *rva00591EA6(UnsignedByte *data, Int &readOffset);
+	static NetCommandMsg *readGameMessage(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva00592123(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva00592208(UnsignedByte *data, Int &readOffset);
 	static NetCommandMsg *rva0058DFB8(UnsignedByte *data, Int &readOffset);
@@ -2275,7 +2275,7 @@ NetCommandRef *NetPacket::ConstructNetCommandMsgFromRawData(UnsignedByte *data, 
 			Int readOffset = offset;
 			NetCommandMsg *msg;
 			if (commandType == 4) {
-				msg = rva00591EA6(data, readOffset);
+				msg = readGameMessage(data, readOffset);
 			} else if (commandType == 0) {
 				msg = rva0058DA7E(data, readOffset);
 			} else if (commandType == 1) {
@@ -2765,11 +2765,11 @@ NetCommandMsg *NetPacket::rva00592208(UnsignedByte *data, Int &readOffset)
 	return msg;
 }
 
-// ?rva00591EA6@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z, retail 0x00591EA6, 438 bytes:
+// ?readGameMessage@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z, retail 0x00591EA6, 438 bytes:
 // ZH's readGameMessage with a range check on the message type (an
 // out-of-range type frees the message and returns NULL): the argument-type
 // runs go into a GameMessageParser, then each argument is read by type.
-NetCommandMsg *NetPacket::rva00591EA6(UnsignedByte *data, Int &readOffset)
+NetCommandMsg *NetPacket::readGameMessage(UnsignedByte *data, Int &readOffset)
 {
 	NetGameCommandMsg *msg = new NetGameCommandMsg();
 
