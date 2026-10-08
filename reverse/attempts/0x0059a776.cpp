@@ -1,6 +1,8 @@
 // ?distanceSortUnits@AITeamBuilder@@QAEXPAXPBXPBUCoord3D@@@Z
+// partial score=0.91 date=2026-10-08
+// ?distanceSortUnits@AITeamBuilder@@QAEXPAXPBXPBUCoord3D@@@Z
 // partial score=0.85 date=2026-10-08
-// cl: /O1 /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /MD /EHs /arch:SSE /G7 /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // WB 0x0152B630 names distanceSortUnits (assert 492). Native
 // [0x0059A776,0x0059A85C) sorts ObjectIDs by squared distance from a point.
@@ -30,16 +32,19 @@ template <> void IDVectorView::push_back(const ScienceType &);
 
 // The rowed destructor owns an eight-byte tree header/count pair. Native
 // construction uses the existing map constructor with this same storage.
-class Rva00599FAA
-{
-public:
-    __forceinline Rva00599FAA() { new (this) HeaderConstructor; }
-    ~Rva00599FAA();
-    _STL::_Rb_tree_node_base *header;
-    unsigned int count;
-};
+class Rva00599FAA : public HeaderConstructor { public: __forceinline Rva00599FAA() {} ~Rva00599FAA(); };
 
 extern GameLogic *TheGameLogic;
+__forceinline void difference(const Coord3D *a, const Coord3D *b, Coord3D *out)
+{
+ out->x=a->x-b->x;
+ out->y=a->y-b->y;
+ out->z=a->z-b->z;
+}
+__forceinline float squareLength(const Coord3D *p)
+{
+ return p->x*p->x+p->y*p->y+p->z*p->z;
+}
 
 class AITeamBuilder
 {
@@ -60,14 +65,14 @@ void AITeamBuilder::distanceSortUnits(void *sortedStorage,
         unsigned int objectID = (unsigned int)*id;
         Object *object = TheGameLogic->findObjectByID((ObjectID)objectID);
         const Coord3D *position = (const Coord3D *)((const char *)object + 0x38);
-        float x = center->x - position->x;
-        float y = center->y - position->y;
-        float z = center->z - position->z;
+        Coord3D delta;
+        difference(center,position,&delta);
         TreeOpaqueMapped00372FF4 value;
         value.m_bits = objectID;
-        ((DistanceTree *)&distances)->insert_equal(DistanceValue(x*x + y*y + z*z, value));
+        _STL::pair<float, TreeOpaqueMapped00372FF4> entry(squareLength(&delta), value);
+        ((DistanceTree *)&distances)->insert_equal(DistanceValue(entry));
     }
-    sorted->reserve(distances.count);
+    sorted->reserve(*(unsigned *)((char *)&distances+4));
     DistanceTree *tree = (DistanceTree *)&distances;
     DistanceTree::iterator finish = tree->end();
     for (DistanceTree::iterator item = tree->begin();
