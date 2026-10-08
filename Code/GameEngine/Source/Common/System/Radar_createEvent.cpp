@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// cl: /I. /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // ?createEvent@Radar@@QAEXPBUCoord3D@@W4RadarEventType@@M@Z, retail
 // 0x002D88A4 (151 bytes).
 // Donor (Zero Hour Radar.cpp Radar::createEvent): look the event's two
@@ -15,7 +15,7 @@
 typedef float Real;
 typedef unsigned int UnsignedInt;
 
-struct Coord3D;
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 class Object;
 
 enum RadarEventType
@@ -37,11 +37,42 @@ struct RadarColorLookup
 
 struct Rva002D893BColorSource;
 
+struct BfmeRadarEventRecord
+{
+    RadarEventType type;
+    char opaque04[4];
+    UnsignedInt createFrame;
+    char opaque0C[0x28];
+    Coord3D worldLoc;
+    char opaque40[0x10];
+};
+
+class GameClient;
+extern GameClient *TheGameClient;
+extern int g_009BA4E8;
+
+// Same frame interface used by DrawableFade.cpp: retail calls slot +0x7C.
+class Rva00DFE77CHolder
+{
+public:
+    virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+    virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+    virtual void slot08(); virtual void slot09(); virtual void slot0A(); virtual void slot0B();
+    virtual void slot0C(); virtual void slot0D(); virtual void slot0E(); virtual void slot0F();
+    virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13();
+    virtual void slot14(); virtual void slot15(); virtual void slot16(); virtual void slot17();
+    virtual void slot18(); virtual void slot19(); virtual void slot1A(); virtual void slot1B();
+    virtual void slot1C(); virtual void slot1D(); virtual void slot1E(); virtual UnsignedInt slot1F();
+};
+
+
+
 extern RadarColorLookup radarColorLookupTable[];
 
 class Radar
 {
 public:
+	bool tryEvent(RadarEventType type, const Coord3D *world);
 	void tryInfiltrationEvent(const Object *object);
 	void createEvent(const Coord3D *world, RadarEventType type, Real secondsToLive);
 	void rva002D893B(const Rva002D893BColorSource *source, const Coord3D *world, RadarEventType type, Real scale);
@@ -49,6 +80,9 @@ public:
 protected:
 	void internalCreateEvent(const Coord3D *world, RadarEventType type, Real secondsToLive,
 		const RGBAColorInt *color1, const RGBAColorInt *color2);
+private:
+	char opaque00[0x2C];
+	BfmeRadarEventRecord m_event[64];
 };
 
 // Retail reads the color selector at +0x280 from argument one. Its identity
@@ -271,4 +305,34 @@ void Radar::tryInfiltrationEvent(const Object *object)
     BfmeAudioEventPrefix136 sound(reinterpret_cast<RadarInfiltrationAudio *>(TheAudio)->getMiscAudio()->sound, 0);
     reinterpret_cast<Rva0033F15DDwordSlot *>(&sound)->set(player->index);
     reinterpret_cast<RadarInfiltrationAudio *>(TheAudio)->addAudioEvent(&sound);
+}
+
+// ZH Radar.cpp::tryEvent and BFME1 9cbfb551f RadarTryEvent.cpp supply the
+// semantic lead. Target 002D8AF7..002D8B9D, RET 8, rejects event>=11/null,
+// scans 64 records at this+2C with stride50 and frame+8/location+34, compares
+// true squared distance to 360000, and calls the matched createEvent with
+// lifetime 4.0f. Caller 002D8B9D uses this helper after its object checks.
+// Unlike the donor expression, the target squares the two coordinate deltas.
+bool Radar::tryEvent(RadarEventType type, const Coord3D *world)
+{
+    if (type >= RADAR_EVENT_INVALID || world == 0)
+        return false;
+
+    UnsignedInt currentFrame = ((Rva00DFE77CHolder *)TheGameClient)->slot1F();
+    const UnsignedInt framesBetweenEvents = g_009BA4E8 * 10;
+    BfmeRadarEventRecord *event = m_event;
+    for (int i = 0; i < 64; ++i, ++event)
+    {
+        if (event->type == type)
+        {
+            Real dx=world->x-event->worldLoc.x; Real dy=world->y-event->worldLoc.y; Real distSquared=dx*dx+dy*dy;
+            if (distSquared <= 360000.0f)
+            {
+                if (currentFrame - event->createFrame < framesBetweenEvents)
+                    return false;
+            }
+        }
+    }
+    createEvent(world, type, 4.0f);
+    return true;
 }
