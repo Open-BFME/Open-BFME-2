@@ -23,6 +23,7 @@ EXTERN ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ:PROC
 EXTERN ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ:PROC
 EXTERN ??1Gen_uwm_001f22a3@@QAE@XZ:PROC
 EXTERN ??_M@YGXPAXIHP6EX0@Z@Z:PROC
+EXTERN ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b5d09b: bit 0 at [ebp-0x14], cleanup pointer at [ebp+8].
@@ -854,6 +855,18 @@ PUBLIC ?rva0076B62E@@YAXXZ
 cleanup_done_0076B62E:
     ret
 ?rva0076B62E@@YAXXZ ENDP
+
+; Unwind@00b6b66b: 20-byte masked-add funclet with add 0Ch tail-jumps to EmissionVelocityInfo dtor.
+PUBLIC ?rva0076B66B@@YAXXZ
+?rva0076B66B@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ
+?rva0076B66B@@YAXXZ ENDP
 
 ; Unwind@00b6b786: state bit 0 at [ebp-16]; cleanup transfer at [ebp-20].
 PUBLIC ?rva0076B786@@YAXXZ

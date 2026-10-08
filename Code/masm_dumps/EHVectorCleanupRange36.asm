@@ -8,6 +8,7 @@ assume fs:nothing
 ; compiler-generated EH vector cleanup shape covered by the range-39 MASM path.
 
 EXTERN ??_M@YGXPAXIHP6EX0@Z@Z:PROC
+EXTERN ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b5d5f0: four 8-byte elements at [ebp-0x14] + 0x14e0.
@@ -204,6 +205,18 @@ PUBLIC ?rva0075E81E@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva0075E81E@@YAXXZ ENDP
+
+; Unwind@00b5e987: 22-byte masked-add funclet with add 0C8h tail-jumps to EmissionVelocityInfo dtor.
+PUBLIC ?rva0075E987@@YAXXZ
+?rva0075E987@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-20]
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 0C8h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ
+?rva0075E987@@YAXXZ ENDP
 
 ; Unwind@00b5e9ab: 500 28-byte elements at [ebp-0x14] + 0xe0.
 PUBLIC ?rva0075E9AB@@YAXXZ
