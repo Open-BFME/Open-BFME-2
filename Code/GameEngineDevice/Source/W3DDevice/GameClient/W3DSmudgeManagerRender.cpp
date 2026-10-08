@@ -1,5 +1,4 @@
 // ?render@W3DSmudgeManager@@QAEXAAVRenderInfoClass@@@Z
-// partial score=0.99 date=2026-10-07
 // cl: /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
 //
 // W3DSmudgeManager::render, retail 0x000A6E08, 2447 bytes.
@@ -24,14 +23,13 @@
 //    lock 0x0013AA00/0x0013AB00, release 0x0013A780) under the
 //    BfmeSortingVBAccess view the other WW3D2 ports pin.
 //
-// BANKED NEAR MISS (2026-10-07): exact frame, calls and length 2448 vs 2447.
-// Residue is three commutative mulss operand orders in proj * verts[i].pos
-// (the v[1] term of rows 0, 1 and 3: retail loads v.Y and multiplies by the
-// matrix element; this loads the element first). Invariant under operand
-// order, *1.0f, inline/__forceinline, real WWMath headers, local order,
-// /G5-/G7//GB, /arch:SSE2 and the position expression's form. Writing the
-// operator with Row[r].X fields (a.Row[0].X * v[0] ...) gives exact length
-// with every operand order right but swaps row 0's term order (3 lines).
+// Codegen: row zero's X term uses operator[], with Y/Z/W fields; the other
+// rows use fields. This preserves retail's SSE term and operand ordering.
+// The existing address-derived Rva0007671F constructor owns the 64-byte
+// storage initialization. Matrix4 uses that storage without assigning the
+// constructor a second ledger name; this TU view is a structural adaptation.
+// DX8Wrapper's four-range draw has the established BFME 2 uint32 ABI.
+
 
 
 typedef int Int;
@@ -118,12 +116,16 @@ public:
 	}
 };
 
-class Matrix4
+class Rva0007671F
 {
 public:
 	Vector4 Row[4];
+	Rva0007671F();
+};
 
-	Matrix4(void);
+class Matrix4 : public Rva0007671F
+{
+public:
 	__forceinline void Make_Identity(void)
 	{
 		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
@@ -146,10 +148,10 @@ public:
 	friend __forceinline Vector4 operator*(const Matrix4 &a, const Vector3 &v)
 	{
 		return Vector4(
-			a[0][0] * v[0] + a[0][1] * v[1] + a[0][2] * v[2] + a[0][3] * 1.0f,
-			a[1][0] * v[0] + a[1][1] * v[1] + a[1][2] * v[2] + a[1][3] * 1.0f,
-			a[2][0] * v[0] + a[2][1] * v[1] + a[2][2] * v[2] + a[2][3] * 1.0f,
-			a[3][0] * v[0] + a[3][1] * v[1] + a[3][2] * v[2] + a[3][3] * 1.0f
+			a[0][0] * v[0] + a.Row[0].Y * v[1] + a.Row[0].Z * v[2] + a.Row[0].W * 1.0f,
+			a.Row[1].X * v[0] + a.Row[1].Y * v[1] + a.Row[1].Z * v[2] + a.Row[1].W * 1.0f,
+			a.Row[2].X * v[0] + a.Row[2].Y * v[1] + a.Row[2].Z * v[2] + a.Row[2].W * 1.0f,
+			a.Row[3].X * v[0] + a.Row[3].Y * v[1] + a.Row[3].Z * v[2] + a.Row[3].W * 1.0f
 		);
 	}
 };
@@ -369,8 +371,8 @@ public:
 	static void Apply_Render_State_Changes(void);
 	static void Set_Index_Buffer(const IndexBufferClass *ib, unsigned short index_base_offset);
 	static void Set_Vertex_Buffer(const DynamicVBAccessClass &vba);
-	static void Draw_Triangles(unsigned short start_index, unsigned short polygon_count,
-		unsigned short min_vertex_index, unsigned short vertex_count);
+	static void Draw_Triangles(unsigned int start_index, unsigned int polygon_count,
+		unsigned int min_vertex_index, unsigned int vertex_count);
 	static void Get_DX8_Texture_Stage_State_Value_Name(StringClass &name, unsigned long state, unsigned value);
 
 	static IDirect3DDevice8 *_Get_D3D_Device8(void)
