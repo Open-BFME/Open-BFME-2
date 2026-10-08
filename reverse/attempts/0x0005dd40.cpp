@@ -238,3 +238,14 @@ index c351bf76e3..a771a7ad89 100644
  // fills the play buffer from m_endOfLastCopy up to position, zero filling once
  // the event is done and switching to the decay or next primary file whenever
 #endif
+
+// --- 2026-10-08 claude-opus-5-5 (w5-o4) second bank, similarity 0.75, notes only:
+// ?checkForNaturalSoundCompletion@MilesAudioManager@@QAEXAAVPlayingAudioRef@@@Z
+// partial score=0.75 date=2026-10-08
+// Bank for MilesAudioManager::checkForNaturalSoundCompletion (0x5DD40, 605B). Diff of the whole
+// MilesAudioManager.cpp edit vs HEAD (layout: AudioEventRTS +0x10/+0x14/+0x84, PlayingAudio
+// +0x44/+0x46/+0x48/+0x4D, BfmePoolRef10 default+copy ctor decl, rva0005D734 decl, body).
+// Remaining: retail's chained-event ref has a copy ctor folded at 0x51950 but a dtor that
+// releases WITHOUT a null check (a different ref class); retail caches next.get() in esi,
+// keeps next at ebp-0x18 and the setter temp in the arg slot; onStack?2:0 is an if (push 2/pop).
+// Retail keeps audio=playing.get() in ebx from before the first isEmpty call but reloads
