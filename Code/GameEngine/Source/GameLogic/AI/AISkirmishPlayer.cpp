@@ -130,9 +130,19 @@ static const Real HUGE_DIST = 1000000.0f;
 struct Rva002E99F9Arg1;
 typedef Rva002E99F9Arg1 LocomotorSet;
 
+enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_AI = 2 };
+
+class AICommandInterface
+{
+public:
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+};
+
 class AIUpdateInterface
 {
 public:
+	// The AICommandInterface base sits at +0x20.
+	AICommandInterface *getCommandInterface() { return (AICommandInterface *)((char *)this + 0x20); }
 	LocomotorSet &getLocomotorSet() { return *(LocomotorSet *)m_locomotorSet; }
 private:
 	unsigned char m_pad00[0x1CC];
@@ -145,8 +155,11 @@ class ThingTemplate
 {
 public:
 	Bool isKindOfCommandCenter() const { return (m_kindOf10A & 2) != 0; }
+	const AsciiString &getName() const { return m_name; }
 private:
-	unsigned char m_pad000[0x10A];
+	unsigned char m_pad000[0x64];
+	AsciiString m_name;			// +0x64
+	unsigned char m_pad068[0x10A - 0x68];
 	unsigned char m_kindOf10A;		// +0x10A
 };
 
@@ -159,6 +172,8 @@ public:
 	Object *getNextObject() const { return m_next; }
 	Player *getControllingPlayer() const;
 	AIUpdateInterface *getAI() { return m_ai; }
+	Team *getTeam() const { return m_team; }
+	void setTeam(Team *team);
 private:
 	void *m_vtbl;
 	const ThingTemplate *m_template;	// +0x04
@@ -168,6 +183,8 @@ private:
 	Object *m_next;				// +0x8C
 	unsigned char m_pad90[0x258 - 0x90];
 	AIUpdateInterface *m_ai;		// +0x258
+	unsigned char m_pad25C[0x304 - 0x25C];
+	Team *m_team;				// +0x304
 };
 
 // BuildListInfo::getTemplateName is the shared copy-out of the AsciiString at
@@ -250,39 +267,78 @@ private:
 };
 extern AI *TheAI;
 
+class TeamFactory
+{
+public:
+	Team *findTeam(const AsciiString &owner, const AsciiString &name);
+	Team *createInactiveTeam(const AsciiString &owner, const AsciiString &name);
+};
+extern TeamFactory *TheTeamFactory;
+
+// BFME 2's unit entry is 0x18 bytes (AIPlayerTeamBuild.cpp's view).
+struct TCreateUnitsInfo
+{
+	Int minUnits;			// +0x00
+	Int maxUnits;			// +0x04
+	Int m_08;			// +0x08
+	AsciiString m_bfmeString0C;	// +0x0C
+	AsciiString unitThingName;	// +0x10
+	Int m_14;			// +0x14
+};
+
 class TeamPrototype
 {
 public:
 	Bool evaluateProductionCondition();
 	Int countTeamInstances();
 	const AsciiString &getName() const { return m_name; }
+	const AsciiString &getOwnerName() const { return m_owner; }
+	Bool getIsSingleton() const { return (m_flags & 1) != 0; }
 
-	char m_pad000[0x14];
+	char m_pad000[0x10];
+	AsciiString m_owner;			// +0x10
 	AsciiString m_name;			// +0x14
-	char m_pad018[0x218 - 0x18];
+	Int m_flags;				// +0x18
+	char m_pad01C[0x130 - 0x1C];
+	TCreateUnitsInfo m_unitsInfo[7];	// +0x130
+	Int m_numUnitsInfo;			// +0x1D8
+	Coord3D m_homeLocation;			// +0x1DC
+	Bool m_hasHomeLocation;			// +0x1E8
+	char m_pad1E9[0x218 - 0x1E9];
 	Int m_maxInstances;			// +0x218
 };
 
 class Team
 {
 public:
+	virtual ~Team();
 	TeamPrototype *getPrototype() const { return m_proto; }
+	Object *tryToRecruit(const ThingTemplate *thing, const Coord3D *pos, Real maxDist, Int a, Int b, Int c);
+	Bool hasAnyObjects(Bool ignoreBuilding);
+	__forceinline void deleteInstance() { ::delete this; }
 private:
-	char m_pad000[0x30];
+	char m_pad004[0x30 - 0x04];
 	TeamPrototype *m_proto;			// +0x30
 };
 
 class TeamInQueue
 {
 public:
+	TeamInQueue() throw();
+	virtual ~TeamInQueue();
 	TeamInQueue *dlink_next_TeamBuildQueue() const { return m_next; }
 
-	TeamInQueue *m_prev;			// +0x04 (after the vfptr)
+	TeamInQueue *m_prev;			// +0x04
 	TeamInQueue *m_next;			// +0x08
-	char m_pad0C[0x1C - 0x0C];
+	TeamInQueue *m_prevReady;		// +0x0C
+	TeamInQueue *m_nextReady;		// +0x10
+	WorkOrder *m_workOrders;		// +0x14
+	Bool m_priorityBuild;			// +0x18
+	char m_pad19[0x1C - 0x19];
 	Team *m_team;				// +0x1C
-private:
-	virtual ~TeamInQueue();
+	char m_pad20[0x24 - 0x20];
+	unsigned int m_frameStarted;		// +0x24
+	char m_pad28[0x30 - 0x28];
 };
 
 template <class OBJCLASS> class DLINK_ITERATOR
@@ -382,6 +438,9 @@ protected:
 	virtual Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);	// +0x64
 
 	Bool isPossibleToBuildTeam(TeamPrototype *proto, Bool requireIdleFactory, Bool &notEnoughMoney);
+public:
+	void prependTo_TeamReadyQueue(TeamInQueue *team);
+protected:
 	Bool rva004F13D8(TeamPrototype *proto);	// BFME 2 on-field shortcut
 	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
 	{
@@ -408,6 +467,7 @@ public:
 	virtual void update();
 	virtual void onUnitProduced(Object *factory, Object *unit);
 	virtual void buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild);
+	virtual void recruitSpecificAITeam(TeamPrototype *teamProto, Real recruitRadius, const Coord3D *pos);
 	virtual Bool checkBridges(Object *unit, Waypoint *way);
 	virtual Player *getAiEnemy();
 protected:
@@ -825,4 +885,106 @@ void AISkirmishPlayer::adjustBuildList(BuildListInfo *list)
 		cur = cur->getNext();
 	}
 
+}
+
+// ?recruitSpecificAITeam@AISkirmishPlayer@@UAEXPAVTeamPrototype@@MPBUCoord3D@@@Z @0x004EFFC9 830B
+// Zero Hour's skirmish recruit with BFME 2's owner-qualified team lookups,
+// optional recruit position and extra tryToRecruit arguments. Unlike
+// AIPlayer's 0x004F437E the skirmish body keeps ZH's missing-home-location
+// message and always sends recruits to the prototype's home location.
+void AISkirmishPlayer::recruitSpecificAITeam(TeamPrototype *teamProto, Real recruitRadius, const Coord3D *pos)
+{
+	if (recruitRadius < 1)
+		recruitRadius = 99999.0f;
+	if (teamProto)
+	{
+		if (teamProto->getIsSingleton())
+		{
+			Team *singletonTeam = TheTeamFactory->findTeam(teamProto->getOwnerName(), teamProto->getName());
+			if (singletonTeam && singletonTeam->hasAnyObjects(false))
+			{
+				AsciiString teamStr = "Unable to recruit singleton team '";
+				teamStr.concat("' because team already exists.");
+				TheScriptEngine->AppendDebugMessage(teamStr, false);
+				return;
+			}
+		}
+		if (!teamProto->m_hasHomeLocation)
+		{
+			AsciiString teamStr = "Error : team '";
+			teamStr.concat(teamProto->getName());
+			teamStr.concat("' has no Home Position (or Origin).");
+			TheScriptEngine->AppendDebugMessage(teamStr, false);
+		}
+		Team *theTeam = TheTeamFactory->createInactiveTeam(teamProto->getOwnerName(), teamProto->getName());
+		AsciiString teamName = teamProto->getName();
+		teamName.concat(" - Recruiting.");
+		TheScriptEngine->AppendDebugMessage(teamName, false);
+		const TCreateUnitsInfo *unitInfo = &teamProto->m_unitsInfo[0];
+		Int i;
+		Int unitsRecruited = 0;
+		for (i = 0; i < teamProto->m_numUnitsInfo; i++)
+		{
+			const ThingTemplate *thing = TheThingFactory->findTemplate(unitInfo[i].unitThingName);
+			if (thing)
+			{
+				int count = unitInfo[i].maxUnits;
+				while (count > 0)
+				{
+					Object *unit;
+					if (pos)
+						unit = theTeam->tryToRecruit(thing, pos, recruitRadius, unitInfo[i].m_14, 0, 0);
+					else
+						unit = theTeam->tryToRecruit(thing, &teamProto->m_homeLocation, recruitRadius, unitInfo[i].m_14, 0, 0);
+					if (unit)
+					{
+						unitsRecruited++;
+
+						AsciiString teamStr = "Team '";
+						teamStr.concat(theTeam->getPrototype()->getName());
+						teamStr.concat("' recruits ");
+						teamStr.concat(thing->getName());
+						teamStr.concat(" from team '");
+						teamStr.concat(unit->getTeam()->getPrototype()->getName());
+						teamStr.concat("'");
+						TheScriptEngine->AppendDebugMessage(teamStr, false);
+
+						unit->setTeam(theTeam);
+
+						AIUpdateInterface *ai = unit->getAI();
+						if (ai)
+							ai->getCommandInterface()->aiMoveToPosition(&teamProto->m_homeLocation, CMD_FROM_AI);
+					}
+					else
+					{
+						break;
+					}
+					count--;
+				}
+			}
+		}
+		if (unitsRecruited > 0)
+		{
+			TeamInQueue *team = new TeamInQueue;
+			prependTo_TeamReadyQueue(team);
+			team->m_priorityBuild = false;
+			team->m_workOrders = NULL;
+			team->m_frameStarted = TheGameLogic->getFrame();
+			team->m_team = theTeam;
+			teamName = teamProto->getName();
+			teamName.concat(" - Finished recruiting.");
+			TheScriptEngine->AppendDebugMessage(teamName, false);
+		}
+		else
+		{
+			if (!theTeam->getPrototype()->getIsSingleton())
+			{
+				theTeam->deleteInstance();
+				theTeam = NULL;
+			}
+			teamName = teamProto->getName();
+			teamName.concat(" - Recruited 0 units, disbanding.");
+			TheScriptEngine->AppendDebugMessage(teamName, false);
+		}
+	}
 }
