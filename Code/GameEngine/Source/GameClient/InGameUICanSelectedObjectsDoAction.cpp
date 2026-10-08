@@ -17,6 +17,8 @@
 // The truth byte preserves the existing byte-return helpers without normalizing
 // them differently from retail; their established returns are already 0 or 1.
 // The address-named ActionManager methods retain uncertain original names.
+enum CanAttackResult { ATTACKRESULT_NOT_POSSIBLE=0,ATTACKRESULT_INVALID_SHOT=1,ATTACKRESULT_POSSIBLE_AFTER_MOVING=2,ATTACKRESULT_POSSIBLE=3 };
+enum AbleToAttackType { ATTACK_NEW_TARGET=0,ATTACK_NEW_TARGET_FORCED=1 };
 enum KindOfType { KINDOF_INVALID=0 };
 enum ObjectID { INVALID_ID=0 };
 enum CommandSourceType { CMD_FROM_PLAYER=0 };
@@ -67,6 +69,7 @@ class Rva0041B8D2Obj;
 
 
 class ActionManager { public:
+ CanAttackResult getCanAttackObject(const Object*,const Object*,CommandSourceType,AbleToAttackType);
  unsigned char Rva0041BB87IsRelated(Object*,Object*,int);
  bool Rva0041CE27Check(Object*,Object*,int);
  bool Rva0041B94AGet(Object*,Object*,int);
@@ -175,6 +178,7 @@ class InGameUI { public:
  virtual void slot72();
  virtual const DrawableList *getAllSelectedDrawables()const;
  bool canSelectedObjectsDoAction(ActionType,const Object*,SelectionRules,bool)const;
+ CanAttackResult getCanSelectedObjectsAttack(ActionType,const Object*,SelectionRules,bool)const;
 };
 extern InGameUI *TheInGameUI;
 bool InGameUI::canSelectedObjectsDoAction(ActionType action,const Object *target,SelectionRules rule,bool additionalChecking) const {
@@ -237,4 +241,34 @@ bool InGameUI::canSelectedObjectsDoAction(ActionType action,const Object *target
  }
  if(rule==SELECTION_ALL && count>0 && qualify==count) return true;
  return false;
+}
+
+// BFME1 ba7ddda7 InGameUI.cpp:8353 semantic guide; named WB DBA1B0,
+// InGameUI.cpp assertion 6277, and native 29C779..29C823 establish identity.
+// This preserves the target-null/action-14 guard and signed min/max results.
+// UI/list/Drawable layout is independently verified by the neighboring dispatch.
+// getCanAttackObject 41C6CF is the existing enum-return owner; the forced-attack
+// selector is 0/1 in native and WB. Full RET16 boundary is 170 bytes.
+CanAttackResult InGameUI::getCanSelectedObjectsAttack(ActionType action,const Object*target,SelectionRules rule,bool additionalChecking)const {
+ if ((target==0)!=(action==(ActionType)14)) return ATTACKRESULT_NOT_POSSIBLE;
+ const DrawableList *selected=TheInGameUI->getAllSelectedDrawables();
+ int count=0;
+ CanAttackResult bestResult=ATTACKRESULT_NOT_POSSIBLE;
+ CanAttackResult worstResult=ATTACKRESULT_POSSIBLE;
+ Drawable *other;
+ for (DrawableList::const_iterator it=selected->begin();it!=selected->end();++it) {
+  other=*it;
+  count++;
+  switch(action) {
+   case (ActionType)1: {
+    CanAttackResult result=TheActionManager->getCanAttackObject(other->getObject(),target,CMD_FROM_PLAYER,additionalChecking?ATTACK_NEW_TARGET_FORCED:ATTACK_NEW_TARGET);
+    if(result>bestResult)bestResult=result;
+    if(result<worstResult)worstResult=result;
+    break;
+   }
+   default:return ATTACKRESULT_INVALID_SHOT;
+  }
+ }
+ if(count>0) {if(rule==SELECTION_ANY)return bestResult;return worstResult;}
+ return ATTACKRESULT_NOT_POSSIBLE;
 }
