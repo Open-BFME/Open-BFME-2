@@ -51,9 +51,15 @@ __forceinline long FloatToLong(float f)
 
 struct Rva00065964ObjectPool
 {
+	void *rva00285A3B();
 	void *rva00285AC4();
 };
 extern Rva00065964ObjectPool g_pool00286136;
+extern Rva00065964ObjectPool g_pool00286116;
+void Rva00286116Free(void *node);
+
+#include "../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
 
 class ThingTemplate;
 
@@ -154,7 +160,18 @@ public:
     void rva0028641F(unsigned int id, const Coord3D *pos);
     void ResetCellToOriginalFlammability(Int x, Int y);
 	void rva00286373(Int id, const Coord3D *pos, const ThingTemplate *tmpl);
+	void *rva00286D4E(ObjectID id, Int x, Int y, bool add);
+	bool rva00286772(const PolygonTrigger *area, Int minBurn);
 private:
+	// A cell's watcher list (16-byte nodes from the 0xDFEC94 pool).
+	struct WatcherNode
+	{
+		WatcherNode *m_next;
+		Int m_04;
+		ObjectID m_id;
+		short m_x;
+		short m_y;
+	};
 	struct ObjectNode
 	{
 		Int m_id;
@@ -170,7 +187,7 @@ private:
         unsigned int m_field18 : 12;
         unsigned int m_field30 : 1;
         unsigned int m_field31 : 1;
-		Int m_0C;
+		WatcherNode *m_0C;
 		ObjectNode *m_objects; // +0x10
 	};
 	struct Material { Int unknown00, unknown04; Int fuel; unsigned int field18, field00, field10; };
@@ -517,4 +534,98 @@ void FireLogicSystem::rva002872BA(const PolygonTrigger *area, Int delta, bool on
 				ChangeBurnRate(x, x, y, delta, onlyBurning);
 		}
 	}
+}
+
+// ?rva00286D4E@FireLogicSystem@@QAEPAXW4ObjectID@@HH_N@Z @0x00286D4E
+// Adds (or removes) a watcher id on cell (x, y); the added node comes back,
+// and a cell left with no watchers and no objects regains its terrain
+// flammability unless the object still there is of kind bit 2.
+void *FireLogicSystem::rva00286D4E(ObjectID id, Int x, Int y, bool add)
+{
+	if (x < 0 || y < 0 || x >= m_numRows || y >= m_numCols)
+		return 0;
+	Cell *cell = &m_cells[x][y];
+	if (add)
+	{
+		for (WatcherNode *n = cell->m_0C; n; n = n->m_next)
+			if (n->m_id == id)
+				return 0;
+		WatcherNode *node = (WatcherNode *)g_pool00286116.rva00285A3B();
+		node->m_next = cell->m_0C;
+		node->m_04 = 0;
+		node->m_x = (short)x;
+		node->m_y = (short)y;
+		node->m_id = id;
+		cell->m_0C = node;
+		return node;
+	}
+	for (WatcherNode **cursor = &cell->m_0C; *cursor; cursor = &(*cursor)->m_next)
+	{
+		if ((*cursor)->m_id == id)
+		{
+			WatcherNode *next = (*cursor)->m_next;
+			Rva00286116Free(*cursor);
+			*cursor = next;
+			if (cell->m_0C == 0 && cell->m_objects == 0)
+			{
+				Object *obj = TheGameLogic->findObjectByID(id);
+				if (!obj || (*(*(const unsigned char **)((const char *)obj + 4) + 0x108) & 4))
+					ResetCellToOriginalFlammability(x, y);
+			}
+			break;
+		}
+	}
+	return 0;
+}
+
+// m_cellsOnFire's in-order walk (STLport's shared increment, 0x00024250) and
+// the grid's burn query at a world point (0x00285860, rowed under its
+// structural view in Rva002E6EFFCellQuery.cpp).
+namespace _STL
+{
+	struct _Rb_tree_node_base;
+	template <class _Dummy> struct _Rb_global
+	{
+		static _Rb_tree_node_base *_M_increment(_Rb_tree_node_base *node);
+	};
+}
+struct Rva00286214Node
+{
+	char m_pad00[8];
+	Rva00286214Node *m_left;		// +0x08
+	char m_pad0C[0x18 - 0x0C];
+	FireCellCentre m_key;			// +0x18, the cell's centre
+};
+struct Rva002E6EFFPosition;
+class Rva002E6EFFGrid
+{
+public:
+	unsigned int rva00285860(const Rva002E6EFFPosition *position);
+};
+
+// ?rva00286772@FireLogicSystem@@QAE_NPBVPolygonTrigger@@H@Z @0x00286772
+// True when a burning cell inside the area's bounds and shape burns at
+// least minBurn.
+bool FireLogicSystem::rva00286772(const PolygonTrigger *area, Int minBurn)
+{
+	Rva0030B719Shape *shape = (Rva0030B719Shape *)((char *)area + 8);
+	Region2D bounds = shape->rva0030B6E3();
+	for (Rva00286214Node *node = m_cellsOnFire.m_header->m_left; node != m_cellsOnFire.m_header;
+		node = (Rva00286214Node *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)node))
+	{
+		float x = (float)node->m_key.x;
+		if (bounds.x_min > x || x > bounds.x_max)
+			continue;
+		float y = (float)node->m_key.y;
+		if (bounds.y_min > y || y > bounds.y_max)
+			continue;
+		Coord3D pos;
+		pos.x = x;
+		pos.y = y;
+		pos.z = 0.0f;
+		if ((Int)((Rva002E6EFFGrid *)this)->rva00285860((const Rva002E6EFFPosition *)&pos) >= minBurn
+			&& rva00285B66(&node->m_key, shape))
+			return true;
+	}
+	return false;
 }
