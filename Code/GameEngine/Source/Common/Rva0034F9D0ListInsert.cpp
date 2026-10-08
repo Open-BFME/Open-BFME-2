@@ -27,3 +27,22 @@ void __stdcall rva0034f9d0Insert(
 		head->m_first = node;
 	}
 }
+
+// BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 W3DVolumetricShadow.cpp
+// addDynamicShadowTask is an operation lead, not proof of the target owner.
+// Native EFB14/27 ends RET8 at EFB2C; EFB2F..EFB3E is a complete RET4 leaf.
+// It replaces the pointer at receiver+4, then writes the old pointer into
+// node+0. Preserve that order even if node overlaps the receiver's storage.
+// Original class and higher-level role remain unresolved.
+struct Rva000EFB2FNode { Rva000EFB2FNode *m_next; };
+class Rva000EFB2FList {
+public:
+ void prepend(Rva000EFB2FNode *node);
+ char m_pad00[4];
+ Rva000EFB2FNode *m_head;
+};
+void Rva000EFB2FList::prepend(Rva000EFB2FNode *node) {
+ Rva000EFB2FNode *old=m_head;
+ m_head=node;
+ node->m_next=old;
+}
