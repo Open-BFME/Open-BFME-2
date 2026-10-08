@@ -274,6 +274,7 @@ struct PlayingAudio {
 // Retain-and-replace setter rowed at 0x000A8CE5 under its address-derived owner.
 class Rva000A8C9B {
 public:
+    void clear(void);
     void rva000A8CE5(OpaqueRefCounted *value);
 private:
     OpaqueRefCounted *m_ptr;
@@ -786,6 +787,7 @@ public:
     void setMaxAmbientStreams(void);
     void rva0005452B(void);
     void rva000606CE(bool accelerated);
+    void startPendingMusicTracks(void);
     void openDevice(void);
     void removeCurrentlyPlayingMusic(int viewType, int arg);
     void rva00057151(int viewType, int musicSystem, int resume);
@@ -2692,5 +2694,43 @@ void MilesAudioManager::pauseResumeSound(PlayingAudioRef &playing)
             AIL_resume_3D_sample(sample3D);
         else
             AIL_resume_sample(sample);
+    }
+}
+
+class Rva000A8AEE { public: void rva000A8AEE(float volume); };
+
+
+// WorldBuilder twin 0x7A0720 names it (assert at MilesAudioManager.cpp:11501):
+// each view type's pending music track that is not already playing gets its
+// channel volumes, position and volume, joins the playing streams and starts
+// unless paused; the pending slot is then cleared.
+void MilesAudioManager::startPendingMusicTracks(void)
+{
+    for (int view = 0; view < 3; ++view) {
+        PlayingAudioRef &track = m_playingMusic[view];
+        // Retail re-reads the slot on every access, never caching it in a register.
+        PlayingAudio *volatile &pending = *reinterpret_cast<PlayingAudio *volatile *>(&track);
+        if (!pending)
+            continue;
+        bool found = false;
+        for (PlayingAudioList::iterator it = m_playingStreams.begin(); it != m_playingStreams.end() && !found; ++it) {
+            PlayingAudio *current = pending;
+            if ((*it).get() == current)
+                found = true;
+        }
+        if (!found) {
+            PlayingAudio *audio = pending;
+            AudioEventRTS *event = audio->m_event.operator->();
+            AudioEventInfo *const &info = event->m_info;
+            if (!info->m_channelVolumes.empty())
+                rva000581FA(*reinterpret_cast<const Rva0005BA08InfoRef *>(&info), event->m_viewType);
+            rva00053AFA(&track);
+            ((Rva000A8AEE *)&pending->m_at0C)->rva000A8AEE(rva0005A9F8(&track, 1, 1));
+            m_playingStreams.push_back(track);
+            audio = pending;
+            if (!(unsigned char)((Rva00050D6C *)audio)->rva00050D6C())
+                ((Rva000A8ACC *)&audio->m_at0C)->rva000A8ACC();
+        }
+        ((Rva000A8C9B *)&track)->clear();
     }
 }
