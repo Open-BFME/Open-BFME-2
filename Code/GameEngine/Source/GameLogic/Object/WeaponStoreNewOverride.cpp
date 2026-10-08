@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?newOverride@WeaponStore@@QAEPAVWeaponTemplate@@PAV2@@Z, retail 0x002CE063
 // (159 bytes).
@@ -13,14 +13,23 @@
 // same name key (+0x0C) for the new template. The 0x180-byte allocation
 // and its constructor stand for newInstance(WeaponTemplate).
 #include <vector>
+#include "ascii_string.h"
 
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
 };
 
+class NameKeyGenerator
+{
+public:
+    NameKeyType nameToKey(const AsciiString &name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
 class WeaponTemplate
 {
+    friend class WeaponStore;
 public:
 	WeaponTemplate();
 	WeaponTemplate &operator=(const WeaponTemplate &that);
@@ -33,7 +42,7 @@ public:
 private:
 	unsigned char m_pad000[0x04];
 	WeaponTemplate *m_nextTemplate; // +0x04
-	unsigned char m_pad008[0x0C - 0x08];
+	AsciiString m_name; // +0x08
 	NameKeyType m_nameKey; // +0x0C
 	unsigned char m_pad010[0x160 - 0x10];
 	bool m_isOverride; // +0x160
@@ -49,6 +58,7 @@ public:
 
 protected:
     WeaponTemplate *findWeaponTemplatePrivate(NameKeyType key) const;
+    WeaponTemplate *newWeaponTemplate(const AsciiString &name);
 
 private:
 	unsigned char m_pad00[0x0C];
@@ -92,4 +102,22 @@ WeaponTemplate *WeaponStore::findWeaponTemplatePrivate(NameKeyType key) const
         if (m_weaponTemplateVector[i]->getNameKey() == key)
             return m_weaponTemplateVector[i];
     return 0;
+}
+
+// Retail 0x002CD5FC: complete 128-byte creator. The mapped WB Weapon.cpp body
+// proves the 0x180 allocation, constructor, name at +0x08, key at +0x0C and
+// vector at store+0x0C. Both retail parser call sites pass their live string by
+// reference; they emit no by-value string copy or cleanup. Zero Hour supplies
+// the creator's purpose and member sequence; these layouts and ABI are target
+// facts. Donor reviewed: reference/open-bfme-1 at ba7ddda7e8f26116
+// (Zero Hour Weapon.cpp/Weapon.h). isEmpty uses retail's shared StringBase thunk.
+WeaponTemplate *WeaponStore::newWeaponTemplate(const AsciiString &name)
+{
+    if (((const StringBase<char> *)&name)->isEmpty())
+        return 0;
+    WeaponTemplate *wt = new WeaponTemplate;
+    wt->m_name = name;
+    wt->m_nameKey = TheNameKeyGenerator->nameToKey(name);
+    m_weaponTemplateVector.push_back(wt);
+    return wt;
 }

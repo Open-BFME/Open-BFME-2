@@ -1495,17 +1495,8 @@ const WeaponTemplate *WeaponStore::findWeaponTemplate( AsciiString name ) const
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?findWeaponTemplatePrivate@WeaponStore@@ present-unmatched
-WeaponTemplate *WeaponStore::findWeaponTemplatePrivate( NameKeyType key ) const
-{
-	// search weapon list for name
-	for (Int i = 0; i < m_weaponTemplateVector.size(); i++)
-		if( m_weaponTemplateVector[ i ]->getNameKey() == key )
-			return m_weaponTemplateVector[i];
-
-	return NULL;
-
-}
+// WeaponStore::findWeaponTemplatePrivate is defined with its verified retail body
+// in WeaponStoreNewOverride.cpp (0x002CADBE); keep one definition for the class.
 
 //-------------------------------------------------------------------------------------------------
 // ?newWeaponTemplate@WeaponStore@@ present-unmatched
