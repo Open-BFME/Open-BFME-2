@@ -157,13 +157,14 @@ int Rva0043C969Get(void)
 
 // ?Rva00062AC4Get@@YAHXZ @ 0x00062AC4 (6B) over 0x00DFEC54.
 
-extern int g_Va00DFEC54;
-// g_Va00DFEC54: matched references place it at VA 0xdfec54 (zero-filled .bss).
-int g_Va00DFEC54;
+// Waypoint's constructors/destructor maintain this list at VA 0x00DFEC54.
+// Its single zero-initialized definition lives with those bodies.
+class Waypoint;
+extern Waypoint *g_waypointListHead;
 
 int Rva00062AC4Get(void)
 {
-	return g_Va00DFEC54;
+	return reinterpret_cast<int>(g_waypointListHead);
 }
 
 // ?Rva00452D86Get@@YAHXZ @ 0x00452D86 (6B) over 0x00DC908C.

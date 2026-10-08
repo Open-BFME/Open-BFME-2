@@ -108,7 +108,7 @@ struct WaypointLocation : public Coord3D
 };
 
 class Waypoint;
-extern Waypoint *g_waypointListHead;
+Waypoint *g_waypointListHead = 0; // VA 0x00DFEC54, loader-zero list head
 extern int g_Va00DBB708; // next automatically assigned waypoint id
 
 class Rva0027F4CB
