@@ -16277,3 +16277,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva003993F2@CastleBehavior@@QAEX_N@Z,0x003993F2,Native unpack caller003999EF-003999F9 pushes its bool and retains the same CastleBehavior receiver; callee003993F2-0039947A is136B RET4 build-list enumeration; WB00EB9220 same-this bool calls buildCastleStructure then registerOwnedObject; retain address-derived helper identity
 ?buildCastleStructure@CastleBehavior@@QAEPAVObject@@PAVBuildListInfo@@_N@Z,0x00396311,Native00396311-00396722 1041B RET8; WB00EBC8C0 names CastleBehavior buildCastleStructure; native00399428-0039943D passes local128B BuildListInfo pointer and bool on same receiver then registers returned Object; complete banked reconstruction documents ABI and native layout
 ?rva0044C2C6@@YAXXZ,0x0044C2C6,callee of ?InitCreateAHeroOnStartGame@AptSkirmish@@QAEXXZ
+?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z,0x0031D85D,callee of ?rva0031DAF8@ControlBar@@QAEXXZ
