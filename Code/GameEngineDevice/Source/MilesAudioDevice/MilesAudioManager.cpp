@@ -12,6 +12,7 @@
 // event +0x1C. Field names other than WB-asserted ones are descriptive.
 // Callees still under address-derived ledger names are reached through
 // alias pins in reverse/symbols.csv.
+#include <math.h>
 #include <deque>
 #include <list>
 
@@ -127,10 +128,12 @@ struct AudioEventInfo {
     char at0C[0x44 - 0x0C];
     int m_priority;                          // +0x44
     unsigned int m_type;                     // +0x48, bit 3 global
-    char at4C[0x94 - 0x4C];
+    char at4C[0x90 - 0x4C];
+    float m_at90;                            // +0x90, occlusion factor when positive
     float m_maxDistance;                     // +0x94
     float m_minDistance;                     // +0x98
-    char at9C[0xA8 - 0x9C];
+    char at9C[0xA4 - 0x9C];
+    float m_atA4;                            // +0xA4, distance occlusion weight
     float m_reverbWetLevel;                  // +0xA8, wet level scaled by the global reverb multiplier (0x52FA0)
     float m_reverbDryLevel;                  // +0xAC, dry level passed with it (0x52FA0)
     char atB0[0xB8 - 0xB0];
@@ -290,11 +293,25 @@ struct Rva0005BA08InfoRef;
 
 // AudioSettings view (Zero Hour's MilesAudioManager reads it through
 // m_audioSettings at +0x10): +0x74 is an int distance, +0xB8 a float limit.
+// Per-view record of AudioSettings, indexed by the manager's +0x678 view
+// type; setOcclusionLevels divides the listener distance by +0x00 when it is
+// within +0x04 (squared).
+struct AudioViewSettings {
+    float m_at00;
+    float m_at04;
+    char at08[0x48 - 0x08];
+};
+
 struct AudioSettings {
     char at00[0x74];
     int m_at74;
     char at78[0xB8 - 0x78];
     float m_atB8;
+    bool m_atBC;                         // +0xBC, disables occlusion
+    char atBD[0xC0 - 0xBD];
+    float m_atC0;                        // +0xC0, occlusion floor
+    char atC4[0x15C - 0xC4];
+    AudioViewSettings m_viewSettings[3]; // +0x15C
 };
 
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_distances(void *sample, float maxDistance, float minDistance);
@@ -302,6 +319,7 @@ extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_position(void *sample
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_volume(void *sample, float volume);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_reverb_levels(void *sample, float dry, float wet);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_effects_level(void *sample3D, float level);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_occlusion(void *sample3D, float occlusion);
 extern "C" __declspec(dllimport) int __stdcall AIL_3D_sample_playback_rate(void *sample);
 typedef void (__stdcall *MilesSampleCallback)(void *sample);
 extern "C" __declspec(dllimport) void __stdcall AIL_init_sample(void *sample);
@@ -479,6 +497,16 @@ public:
     virtual void slot65(); virtual void slot66(); virtual void slot67(); virtual void slot68(); virtual void slot69();
     virtual void slot70(); virtual void slot71(); virtual void slot72(); virtual void slot73(); virtual void slot74();
     virtual AudioEventInfoRef findAudioEventInfo(const AsciiString &name) const;
+    // Slots 76..106 are not named here; slot 107 (+0x1AC, retail vftable
+    // 0x007C55B0) is the rowed 0x000516EF.
+    virtual void slot76(); virtual void slot77(); virtual void slot78(); virtual void slot79(); virtual void slot80();
+    virtual void slot81(); virtual void slot82(); virtual void slot83(); virtual void slot84(); virtual void slot85();
+    virtual void slot86(); virtual void slot87(); virtual void slot88(); virtual void slot89(); virtual void slot90();
+    virtual void slot91(); virtual void slot92(); virtual void slot93(); virtual void slot94(); virtual void slot95();
+    virtual void slot96(); virtual void slot97(); virtual void slot98(); virtual void slot99(); virtual void slot100();
+    virtual void slot101(); virtual void slot102(); virtual void slot103(); virtual void slot104(); virtual void slot105();
+    virtual void slot106();
+    virtual bool rva000516EF(const Coord3D *pos);
     bool rva00055FCA(int key, void **result, int flags);
     bool rva0005623E(int key, void **result, int flags);
     bool rva00054899(ObjectID objectID, int otherID);
@@ -553,6 +581,7 @@ public:
     void prep3DSample(PlayingAudioRef &playing, const Coord3D *pos);
     void initFilters3D(PlayingAudioRef &playing, const Coord3D *pos);
     void setOcclusionLevels(PlayingAudioRef &playing, const Coord3D *pos);
+    float rva00053854(const Coord3D *pos);
     void rva00055C5D(PlayingAudioRef &playing, bool *result);
     void rva00052FA0(PlayingAudioRef &playing);
     void rva000581FA(const Rva0005BA08InfoRef &info, int viewType);
@@ -575,7 +604,9 @@ public:
 private:
     char at04[0x10 - 0x04];
     AudioSettings *m_audioSettings;      // +0x10 (Zero Hour name)
-    char at14[0x98 - 0x14];
+    char at14[0x8C - 0x14];
+    float m_at8C;                        // +0x8C, distance occlusion scale
+    char at90[0x98 - 0x90];
     Rva00051107AudioRequestList m_audioRequests;    // +0x98
     char at9C[0xBC - 0x9C];
     Rva00059FBBMap m_allAudioEventInfo;  // +0xBC
@@ -1189,6 +1220,37 @@ void MilesAudioManager::rva00052FA0(PlayingAudioRef &playing)
         }
         break;
     }
+}
+
+// WorldBuilder 0x797C60 MilesAudioManager::setOcclusionLevels: no occlusion
+// when the settings disable it or slot 107 rejects the position; otherwise the
+// event info's +0x90 factor, reduced by the listener distance (0x53854) under
+// the per-view settings, sets the 3D sample occlusion within [floor, 1].
+void MilesAudioManager::setOcclusionLevels(PlayingAudioRef &playing, const Coord3D *pos)
+{
+    void *sample3D = get3DSampleHandleForPlayingAudio(playing);
+    if (m_audioSettings->m_atBC || rva000516EF(pos)) {
+        AIL_set_3D_sample_occlusion(sample3D, 0.0f);
+        return;
+    }
+    float occlusion = 1.0f;
+    if (playing->m_event->m_info->m_at90 > 0.0f)
+        occlusion *= playing->m_event->m_info->m_at90;
+    if (m_at8C > 0.0f && playing->m_event->m_info->m_atA4 > 0.0f) {
+        float distSqr = rva00053854(pos);
+        float scale;
+        if (distSqr > m_audioSettings->m_viewSettings[m_at678].m_at04)
+            scale = 1.0f;
+        else
+            scale = sqrt(distSqr) / m_audioSettings->m_viewSettings[m_at678].m_at00;
+        occlusion *= 1.0 - scale * m_at8C * playing->m_event->m_info->m_atA4;
+    }
+    float finalOcclusion = 1.0f - occlusion;
+    if (finalOcclusion > 1.0f)
+        finalOcclusion = 1.0f;
+    else if (finalOcclusion < m_audioSettings->m_atC0)
+        finalOcclusion = 0.0f;
+    AIL_set_3D_sample_occlusion(sample3D, finalOcclusion);
 }
 
 // WorldBuilder 0x7A13D0 (unnamed, aligned by score 5.0): flags the playing
