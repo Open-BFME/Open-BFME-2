@@ -1,4 +1,9 @@
 // cl: /EHsc /MD
+// Identity repair: native SidesList music loader 0x0032FD8E and WB
+// 0x00A86AD0 construct and destroy the same objects, with TeamsInfoRec
+// at 28 bytes and the LibraryMapCache vector header at 12 bytes.
+// Existing member/base provider declarations are preserved; this is not
+// a claim that all private class views or inherited template pins agree.
 // ??1Rva0032D279@@QAE@XZ, retail 0x0032D279, 84 bytes.
 // Dtor for vector of 8-byte pairs (int key plus polymorphic value at +4):
 // deletes each non-null value via virtual dtor plus operator delete,
@@ -28,13 +33,13 @@ struct Rva0032D279Pair
 	Rva0032D279Value *m_value;
 };
 
-class Rva0032D279 : public Rva0032CA4E
+class LibraryMapCache : public Rva0032CA4E
 {
 public:
-	~Rva0032D279();
+	~LibraryMapCache();
 };
 
-Rva0032D279::~Rva0032D279()
+LibraryMapCache::~LibraryMapCache()
 {
 	Rva0032D279Pair *last = (Rva0032D279Pair *)m_finish;
 	Rva0032D279Pair *first = (Rva0032D279Pair *)m_start;

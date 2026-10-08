@@ -1,4 +1,9 @@
 // cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// Identity repair: native SidesList music loader 0x0032FD8E and WB
+// 0x00A86AD0 construct and destroy the same objects, with TeamsInfoRec
+// at 28 bytes and the LibraryMapCache vector header at 12 bytes.
+// Existing member/base provider declarations are preserved; this is not
+// a claim that all private class views or inherited template pins agree.
 
 namespace _STL
 {
@@ -55,10 +60,10 @@ private:
 	char m_body[12];
 };
 
-class Rva0019A1D0Owner
+class TeamsInfoRec
 {
 public:
-	Rva0019A1D0Owner();
+	TeamsInfoRec();
 
 private:
 	_STL::_Rb_tree<int, int, _STL::_Select1st<int>, _STL::less<int>, _STL::allocator<int> > m_tree;
@@ -67,7 +72,7 @@ private:
 	short m_b;
 };
 
-Rva0019A1D0Owner::Rva0019A1D0Owner()
+TeamsInfoRec::TeamsInfoRec()
 	: m_member(1)
 {
 	m_a = 0;

@@ -1917,7 +1917,6 @@ name,address,notes
 ??0BfmeThingSJ@@QAE@H@Z,0x001320D0,address read from the REL32 displacement at a placed body
 ??0BfmeThingUNC@@QAE@HPAUBfmeOwnerUNC@@@Z,0x00674ED0
 ??0BfmeThingVTD@@QAE@XZ,0x00600611,callee read from the retail REL32 in placed BFME1-donor body ?bfmeCreateVTD@@YAPAVBfmeThingVTD@@XZ (0x00225F44)
-??0BfmeTmpACH@@QAE@PAX@Z,0x0032D9A4,callee of ?bfmeMakeCH@BfmeOwnCH@@QAEPAV1@PAX@Z at retail 0x0032DDC2 read from its REL32 displacement; body unrowed
 ??0BfmeTmpCF@@QAE@XZ,0x001E7087,callee of ?bfmeMakeCF@@YAXPAX0@Z at retail 0x0033A5CA read from its REL32 displacement; donor-named alias of the rowed ctor at 0x001E7087; body unrowed
 ??0BfmeVNITree@@QAE@XZ,0x005011C1,address read from the REL32 displacement at a placed body
 ??0BfmeVector0022C55B@@QAE@ABU0@@Z,0x0022C55B,Complete71-byte vector copy;20-byte elements; getter21983A base4FF36C range2DBEFF; destructor22CAC4
@@ -3150,7 +3149,6 @@ name,address,notes
 ??1BfmeStringTailRecord180@@QAE@XZ,0x000C0DA3,address read from the REL32 displacement at a placed body
 ??1BfmeSubobject00229875@@UAE@XZ,0x002DC62C,Complete67-byte polymorphic destructor;destroys eight1AC-byte elements then restores Snapshot vtable; direct SaveGameInfo member cleanup
 ??1BfmeThingHT@@QAE@XZ,0x004494BA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??1BfmeTmpACH@@QAE@XZ,0x0032C632,callee of ?bfmeMakeCH@BfmeOwnCH@@QAEPAV1@PAX@Z at retail 0x0032DDD2 read from its REL32 displacement; body unrowed
 ??1BfmeTmpCF@@QAE@XZ,0x001E86D0,callee of ?bfmeMakeCF@@YAXPAX0@Z at retail 0x0033A5E8 read from its REL32 displacement; donor-named alias of the pinned dtor at 0x001E86D0
 ??1BfmeVector0022C55B@@QAE@XZ,0x0022CAC4,Complete63-byte vector destructor;destroys20-byte range then frees buffer; direct SaveGameInfo member cleanup
 ??1BfmeVectorRecord000BDF17@@QAE@XZ,0x000BE201,TU record dtor resolves _Destroy call at 0xC37D7; opaque UAE pin coexists
@@ -8704,7 +8702,6 @@ name,address,notes
 ?bfmeUse1251@BfmeSub2_1251@@QAEXPAX@Z,0x006645D0
 ?bfmeUse926B@BfmeKeyLC@@QAEXPAUBfmeNodeLC@@@Z,0x002B2210
 ?bfmeUse975D@BfmeD975@@QAEDPAX@Z,0x0033BB04,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?bfmeUseCH@BfmeTmpACH@@QAEXPAX@Z,0x0032B651,callee of ?bfmeMakeCH@BfmeOwnCH@@QAEPAV1@PAX@Z at retail 0x0032DDCA read from its REL32 displacement; ICF alias onto ?swap@TeamsInfoRec@@QAEXPAV1@@Z (matched)
 ?bfmeUseFDE@BfmeThingFDE@@QAEXPAX@Z,0x004B9B99
 ?bfmeUseFGE@BfmeResFGE@@QAEXPAX0@Z,0x0023DB0E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeUseSB@BfmeSinkSB@@QAEXPAX0@Z,0x00675D00
@@ -17045,3 +17042,4 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ?Rva006CF852FoldedEmptyInit@@YAXXZ,0x0069E440,Native initializer6CF852 calls the shared empty RET69E440; WB174C9E4 calls174D7A0 then empty1777CD0. Address-derived call-site name disclaims original identity; not identified as the folded DX8_Assert owner.
 ?Rva006DF470Initialize@@YAXXZ,0x006DF470,Native initializer6CF8ED calls no-argument global-value setup6DF470; complete1321B callee has RET at6DF998 and initializes Apt globals. WB176C430 identifies AptValue.cpp732..800. Original name unresolved; body unrowed.
 ??0Rva006E6060Root@@QAE@PBURva00222343@@@Z,0x006E6060,Native6CF9CD..6CF9FD allocatesB4 bytes then constructs with ECX storage and selected init-parameter pointer under EH;6E6060 reads parameter fields and returns this with RET4 at6E63BE. WB1757760 AptAnimation.cpp632..654. Original class name unresolved.
+??0TeamsInfoRec@@QAE@ABV0@@Z,0x0032D9A4,Native32D9A4..32DA4E RET4 copies TeamsInfoRec vector at0C and shorts18/1A then rebuilds index backpointers. Existing43B TeamsInfoRec assignment32DDB3 passes source reference to this EH-protected28B temporary and swaps it into this. Replaces retired BfmeTmpACH void-pointer constructor spelling; no alternate address or identity.
