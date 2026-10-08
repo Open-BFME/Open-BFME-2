@@ -1,14 +1,20 @@
-// ?rva00584A9B@Rva005843DA@@QAEXPAVXfer@@@Z
-// partial score=0.98 date=2026-10-05
+// ?rva00584A9B@HordeMeleeSwarm@@QAEXPAVXfer@@@Z
+// stlport
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// ?rva00584A9B@Rva005843DA@@QAEXPAVXfer@@@Z @0x00584A9B 423B
-// Slot 15 (0x3C) of vtable 0x0086FC80 (class of ??0Rva005843DA). Xfer with
+// ?rva00584A9B@HordeMeleeSwarm@@QAEXPAVXfer@@@Z @0x00584A9B 423B
+// Slot 15 (0x3C) of vtable 0x0086FC80. The WorldBuilder and rowed ctor
+// establish HordeMeleeSwarm (formerly the Rva005843DA view). Xfer with
 // Version(1,1), HordeMeleeSwarm ascii check with throw via _bfmeFormatText,
 // bool at +0x14, int count, vector<28B> loop with Coord3D+bool per entry.
 // Evidence: disassembly packet, BuildListInfoXfer slot map (Ascii 0x6c bool
 // 0x90 int 0x7c Coord3D 0x60 Version 0x28 IsLoading 0x04), grow pin
 // 0x00584A3D, releaseBuffer 0x00036410, EmptyString g_Rva0107301CEmptyString.
+// Target 00584A9B..00584C42 is complete through RET4. The 28-byte entry
+// layout agrees with Rva005843DACtor.cpp; actual STLport vector indexing
+// reproduces retail's separate offset load and ADD/LEA copy setup. Growth
+// retains the established neutral callee at00584A3D; no second name is pinned.
 #include "ascii_string.h"
+#include <vector>
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -121,12 +127,12 @@ public:
 	void *m_held;
 };
 
-class Rva005843DA : public Rva005D6FCC
+class HordeMeleeSwarm : public Rva005D6FCC
 {
 public:
 	void rva00584A9B(Xfer *xfer);
 private:
-	Rva00584A7DVector<Rva00584A7DEntry> m_vec;
+	_STL::vector<Rva00584A7DEntry> m_vec;
 	bool m_flag;
 };
 
@@ -141,8 +147,7 @@ void __stdcall _CxxThrowException(void *a, void *b);
 extern const char g_Rva0107301CEmptyString[];
 extern int g_guardTargetTypeThrowInfo;
 
-// ?rva00584A9B@Rva005843DA@@QAEXPAVXfer@@@Z present-unmatched
-void Rva005843DA::rva00584A9B(Xfer *xfer)
+void HordeMeleeSwarm::rva00584A9B(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
@@ -163,7 +168,7 @@ void Rva005843DA::rva00584A9B(Xfer *xfer)
 	Int count = (Int)m_vec.size();
 	*xfer == count;
 	if (xfer->IsLoading())
-		m_vec.grow((UnsignedInt)count);
+		((Rva00584A7DVector<Rva00584A7DEntry> *)&m_vec)->grow((UnsignedInt)count);
 	for (Int i = 0; i < count; ++i)
 	{
 		Rva00584A7DEntry tmp;
@@ -175,10 +180,10 @@ void Rva005843DA::rva00584A9B(Xfer *xfer)
 		tmp.m_pos.y = 0.0f;
 		tmp.m_pos.z = 0.0f;
 		if (!xfer->IsLoading())
-			tmp = m_vec._M_start[i];
+			tmp = m_vec[i];
 		*xfer == tmp.m_pos;
 		*xfer == tmp.m_10;
 		if (xfer->IsLoading())
-			m_vec._M_start[i] = tmp;
+			m_vec[i] = tmp;
 	}
 }
