@@ -1,8 +1,7 @@
-// ?parseAttachModel@W3DScriptedModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z
-// partial score=0.99 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/iniexception
 // stlport
-// Banked reference repair, not a matched row. Donor Open-BFME/Open-BFME-1
+// W3DScriptedModelDrawModuleData::parseAttachModel, retail 0x000C8748 (378B).
+// Reference repair from Open-BFME/Open-BFME-1
 // 34f59164f6d1efd413c5fd37f4894ec834c3c0fe:
 // game/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva0077C390Parse.cpp.
 // Target C8748/378 and WB926F20 establish parseAttachModel identity, full
