@@ -16078,3 +16078,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0046CF21@Rva0046E740@@QAEXXZ,0x0046CF21,callee of ?rva0046E740@Rva0046E740@@QAEXH@Z
 ?rva0038037C@Rva00380200@@QAE_NH@Z,0x0038037C,callee of ?rva002A9FA0@Rva002A9FA0@@QAE_NH@Z
 ?rva005B95B8@OnlineHome@AptOnline@@QAEXXZ,0x005B95B8,callee of ?rva005B9717@@YAXPBURva005B9717Block@@00000@Z
+??0Rva0042C1B7Item@@QAE@PAVRva002D3627Host@@PAVRva0042CBB6@@PAVRva0042D8D4@@@Z,0x0042C76B,REL32 at Rva0023A128::rva00239457 0x002394AC after operator new(4): EH ctor storing a new 0x3C-byte impl built from (this holder source state) at +0; the item is deleted through the rowed dtor 0x0042C1B7 by the +0x18 owning pointer
+??0Rva0042C1B7Item@@QAE@PAVRva002D3627Host@@PAVRva0042CBB6@@@Z,0x0042C8D1,REL32 at Rva0023A128::rva00239457 0x0023950C after operator new(4): EH ctor storing a new 0x18-byte impl built from (this holder source) at +0; the item is deleted through the rowed dtor 0x0042C1B7 by the +0x1C owning pointer
