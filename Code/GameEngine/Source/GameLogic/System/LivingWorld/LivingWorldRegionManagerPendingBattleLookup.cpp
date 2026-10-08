@@ -28,8 +28,10 @@ public:
     LivingWorldPendingBattle *rva0020E57F(unsigned int key);
     LivingWorldPendingBattle *rva0020E5BB(int key);
     LivingWorldPendingBattle *rva0020E5FD(int key);
+    LivingWorldPendingBattle *rva0020E6C0();
 private:
-    unsigned char m_pad00[0x14];
+    unsigned char m_pad00[0x10];
+    int m_selectedKey;
     _STL::vector<LivingWorldPendingBattle *> m_pendingBattles;
     _STL::vector<LivingWorldPendingBattle *> m_completedBattles; // +0x20
 };
@@ -76,4 +78,16 @@ LivingWorldPendingBattle *LivingWorldRegionManager::rva0020E5FD(int key)
             return m_completedBattles[i];
     }
     return 0;
+}
+
+// Native20E6C0..20E6D6: try the selected +10 key in the pending collection,
+// then the completed collection. ResolveBattlesBehavior calls this wrapper;
+// the existing independently verified lookups prove its receiver identity.
+LivingWorldPendingBattle *LivingWorldRegionManager::rva0020E6C0()
+{
+    int key = m_selectedKey;
+    LivingWorldPendingBattle *battle = rva0020E5BB(key);
+    if (!battle)
+        battle = rva0020E5FD(key);
+    return battle;
 }
