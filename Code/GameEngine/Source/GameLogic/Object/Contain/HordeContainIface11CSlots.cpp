@@ -77,7 +77,7 @@ class AttributeModifierPoolUpdate
 {
 public:
 	bool addModifierToPool(const AsciiString &name, int a2);
-	void removeModifierFromPool(const AsciiString &name);
+	void rva00403744(const AsciiString &name);
 };
 enum NameKeyType
 {
@@ -1736,7 +1736,7 @@ void HordeContain::rva0046DC92(const AsciiString &name, Rva2225E0Filter *filter)
 	}
 	AttributeModifierPoolUpdate *pool = m_object->findAttributeModifierPoolUpdate();
 	if (pool)
-		pool->removeModifierFromPool(name);
+		pool->rva00403744(name);
 }
 
 // ?rva0046D158@HordeContain@@QAEPAURva0046D158Record@@VAsciiString@@@Z

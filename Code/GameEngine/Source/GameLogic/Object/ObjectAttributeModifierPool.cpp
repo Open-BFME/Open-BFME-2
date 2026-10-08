@@ -11,8 +11,8 @@
 // point removal/re-add (WB Player::removeCommandPoints/addCommandPoints,
 // rowed as placeholders) when the template's +0x61C bonus is positive.
 // The pool callees 0x00403E72 (WB AttributeModifierPoolUpdate::
-// addModifierToPool) and 0x00403744 (WB unnamed; remove by symmetry) are
-// pinned. Horde/contain class names are placeholders.
+// addModifierToPool) remains pinned. The unnamed pool-removal helper
+// 0x00403744 is now rowed under rva00403744; its original spelling is unresolved. Horde/contain class names are placeholders.
 #include "ascii_string.h"
 
 class Object;
@@ -32,7 +32,7 @@ class AttributeModifierPoolUpdate
 {
 public:
 	bool addModifierToPool(const AsciiString &name, int value);	// 0x00403E72
-	void removeModifierFromPool(const AsciiString &name);		// 0x00403744
+	void rva00403744(const AsciiString &name);		// 0x00403744
 };
 
 class Rva0028EA91Horde
@@ -274,7 +274,7 @@ void Object::removeAttributeModifierFromPool(const AsciiString &name)
 		bool commandPoints = player && getTemplate()->getCommandPointBonus() > 0;
 		if (commandPoints)
 			((Rva002A9B58 *)player)->rva002A9B58((Rva002A7588In *)this);
-		pool->removeModifierFromPool(name);
+		pool->rva00403744(name);
 		if (commandPoints)
 			((Rva002A9B58 *)player)->rva002A9B35((Rva002A7588In *)this);
 	}
