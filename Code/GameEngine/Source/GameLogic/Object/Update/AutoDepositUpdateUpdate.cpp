@@ -34,6 +34,7 @@ typedef float Real;
 typedef Int Color;
 
 #define TRUE 1
+#define FALSE 0
 #define NULL 0
 
 #define CONSTRUCTION_COMPLETE -1.0f
@@ -222,6 +223,7 @@ protected:
 class AutoDepositUpdate : public UpdateModule
 {
 public:
+	void awardInitialCaptureBonus( Player *player );
 	virtual UpdateSleepTime update();
 
 protected:
@@ -234,6 +236,39 @@ protected:
 	Bool m_awardInitialCaptureBonus; // +0x24
 	Bool m_initialized; // +0x25
 };
+
+// ?awardInitialCaptureBonus@AutoDepositUpdate@@QAEXPAVPlayer@@@Z @0x0049A26F 319B
+void AutoDepositUpdate::awardInitialCaptureBonus( Player *player )
+{
+	m_depositOnFrame = TheGameLogic->getFrame() + getAutoDepositUpdateModuleData()->m_depositFrame;
+
+	if( !player || !m_awardInitialCaptureBonus || getAutoDepositUpdateModuleData()->m_initialCaptureBonus <= 0 )
+		return;
+
+	Int moneyAmount = getAutoDepositUpdateModuleData()->m_initialCaptureBonus;
+	if( TheGameLogic->rva0023C6FD() )
+	{
+		Real moneyMult = TheWritableGlobalData->m_multiPlayMults.getMoneyMult( ThePlayerList->rva002A7C0B( false ) );
+		moneyAmount = (Int)( moneyAmount * moneyMult );
+	}
+	moneyAmount = player->ScaleMoney( moneyAmount );
+	player->m_money.rva003B0D7C( moneyAmount, &player->m_3BC, true );
+
+	if( getAutoDepositUpdateModuleData()->m_initialCaptureBonus > 0 )
+	{
+		UnicodeString moneyString;
+		moneyString.format( TheGameText->slot44( "GUI:AddCash", NULL ), getAutoDepositUpdateModuleData()->m_initialCaptureBonus );
+		Coord3D pos;
+		pos.x = getObject()->getPosition()->x;
+		pos.y = getObject()->getPosition()->y;
+		pos.z = getObject()->getPosition()->z;
+		pos.z += 10.0f; //add a little z to make it show up above the unit.
+
+		Color color = player->getPlayerColor() | GameMakeColor( 0, 0, 0, 230 );
+		TheInGameUI->addFloatingText( moneyString, &pos, color );
+	}
+	m_awardInitialCaptureBonus = FALSE;
+}
 
 // ?update@AutoDepositUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x0049A3AE 660B
 UpdateSleepTime AutoDepositUpdate::update( void )
