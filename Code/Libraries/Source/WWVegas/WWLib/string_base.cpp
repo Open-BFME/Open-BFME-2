@@ -337,3 +337,23 @@ void bfmeEmitstring_base(StringBase<char> *p, const StringBase<char> &that)
 #pragma comment(linker, "/alternatename:?set@AsciiString@@QAEXPBD@Z=?set@?$StringBase@D@@QAEXPBD@Z")
 #pragma comment(linker, "/alternatename:?concat@AsciiString@@QAEXPBD@Z=?concat@?$StringBase@D@@QAEXPBD@Z")
 #pragma comment(linker, "/alternatename:?concat@AsciiString@@QAEXABV1@@Z=?concat@?$StringBase@D@@QAEXABV1@@Z")
+
+// Native 0x0002C5E6..0x0002C621, cdecl two-pointer bool predicate.
+// A nullable descriptor holds contiguous 4-byte StringBase<char> objects
+// between words +0/+4. Check its unsigned element count then scan until the
+// rowed startsWithNoCase succeeds. WB's unnamed counterpart independently
+// corroborates the range and string predicate; no original helper or container
+// identity is asserted. The explicit unsigned >0 test preserves retail's SAR.
+struct Rva0002C5E6Range {
+ StringBase<char> *first,*last;
+ unsigned int size() const {return last-first;}
+};
+bool Rva0002C5E6(const StringBase<char> &text,const Rva0002C5E6Range *range) {
+ if(range && range->size()>0) {
+  for(StringBase<char> *it=range->first;it!=range->last;++it) {
+   if(text.startsWithNoCase(*it)) return true;
+  }
+ }
+ return false;
+}
+
