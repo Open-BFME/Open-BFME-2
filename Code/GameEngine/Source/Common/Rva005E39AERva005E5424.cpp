@@ -51,3 +51,20 @@ void Rva005E39AE::rva005E5424() {
  if(m_18->rva005F2767()) TheMouse->rva001EEA6D(((Rva005E3DE8*)&g_Va00E06710)->rva005E3E1D(),-1,0,1.0f);
 }
 
+// ?rva005E549E@Rva005E549E@@QAEXXZ @0x005E549E 8B: the member forwarder that
+// follows -- the object at +0x10 runs the 0x005E5424 above. Retail's vtable
+// reaches it directly (0x00877D08) and through an adjustor thunk (0x005E54A6,
+// this-8; 0x00877D04).
+class Rva005E549E
+{
+public:
+	void rva005E549E();
+private:
+	unsigned char m_pad00[0x10];
+	Rva005E39AE *m_10;
+};
+
+void Rva005E549E::rva005E549E()
+{
+	m_10->rva005E5424();
+}
