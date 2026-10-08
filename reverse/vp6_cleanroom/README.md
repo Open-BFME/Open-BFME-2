@@ -30,5 +30,5 @@ a clean room:
 `queue.tsv`: rva, size, name, ledger_status (what the ledger holds today), difficulty
 (1 easy .. 3 hard), depends_on (specs whose functions this one calls; `ext:` marks a
 callee outside this decoder). Take low difficulty first and claim with
-`tools/claims.py claim 0xRVA` like any other row. 52 further specs are still in
+`tools/claims.py claim 0xRVA` like any other row. 6 further specs are still in
 review and will be added to this queue.
