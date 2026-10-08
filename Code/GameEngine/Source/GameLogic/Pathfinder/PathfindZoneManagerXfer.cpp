@@ -1,4 +1,6 @@
-// cl: /O1 /G7 /MD
+// cl: /O1 /G7 /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// stlport
+#include <algorithm>
 // WB12D3020 and12D3290 name PathfindZoneManager::DoXfer and Block::DoXfer
 // in GameLogic/Pathfinder/pathfinder_zonemanager.cpp. Complete target bodies
 // 5342CB..53442A (351B) and533AF9..533B74 (123B) independently prove fields,
@@ -191,7 +193,7 @@ void PathfindZoneManager::DoXfer(Xfer *xfer)
 // These view names are structural labels; original template names remain
 // unproven. BF1 reference34f59164f6 has no clean equivalent lookup body.
 // Native532104..532165; WB12D5350 returns an iterator pair by value.
-struct ZoneNeighborRecord { unsigned short zone, unknown; };
+struct ZoneNeighborRecord { unsigned short zone, count; };
 struct ZoneAdjacencyRange {
  ZoneAdjacencyRange(ZoneNeighborRecord *first, ZoneNeighborRecord *last):begin(first),end(last) {}
  ZoneNeighborRecord *begin, *end;
@@ -205,6 +207,8 @@ class ZoneAdjacencyTable {
 public:
  ZoneAdjacencyRange rva00532104(unsigned short key);
  ZoneAdjacencyNode *buckets[4001];
+ ZoneAdjacencyNode *freeNodes;
+ bool Remove(unsigned short,unsigned short);
 };
 ZoneAdjacencyRange ZoneAdjacencyTable::rva00532104(unsigned short key) {
  ZoneAdjacencyNode *node = buckets[key % 4001u];
@@ -598,3 +602,15 @@ void PathfindZoneManager::rva00533664(Block *block,PathfindCell **map,PathfindLa
   }
  }
 }
+struct ZoneNeighborLess {
+ bool operator()(const ZoneNeighborRecord &a,unsigned short b)const {return a.zone<b;}
+};
+
+// STLport 4.5.3 __lower_bound retains its actual five-argument template ABI.
+// Native 0x0053249D..0x005324D8 is a complete 59B byte-and-relocation twin
+// of the existing three-argument address-qualified recovery. WB12D6010
+// and counted-pair callers prove record stride4 and low-word ordering;
+// WB12D5080 and retail532DF6 pass an empty comparator plus int distance tag.
+// ZoneNeighborRecord/ZoneNeighborLess remain structural labels, not asserted
+// original type spellings. Explicit instantiation has no wrapper or new pin.
+template ZoneNeighborRecord *_STL::__lower_bound<ZoneNeighborRecord *,unsigned short,ZoneNeighborLess,int>(ZoneNeighborRecord *,ZoneNeighborRecord *,const unsigned short &,ZoneNeighborLess,int *);
