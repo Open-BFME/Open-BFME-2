@@ -99,3 +99,21 @@ Rva002C95CCFields *Rva002C95CCFields::initialize()
     m_08 = 0.0f;
     return this;
 }
+
+// Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 WaterRenderObjConstructor.cpp
+// Boxed<float> constructor is a source guide, not proof of this target's class
+// or constructor role. Native30F2AB..30F2BA stores a single stack float at+0,
+// returns this, and RET4; aligned from known30F14C/351, whose final JMP at
+//30F2A9 stays inside its own teardown, then next independent store starts30F2BA.
+// The neutral initialize method preserves only the observed operation/ABI.
+class Rva0030F2ABFields
+{
+public:
+    Rva0030F2ABFields *initialize(float value);
+    float m_value;
+};
+Rva0030F2ABFields *Rva0030F2ABFields::initialize(float value)
+{
+    m_value=value;
+    return this;
+}
