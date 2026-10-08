@@ -105,13 +105,13 @@ private:
 };
 
 // The 0x00436FF6 else branch loads the singleton at 0x00DFF08C into ECX and
-// passes the screen's two list pointers, the +0x294 comparison, and +0x2A0.
-// This address-derived method view preserves its observed target ABI.
+// passes the screen's two list pointers, the +0x294 comparison, and +0x2A0
+// to populateSaveGameListbox (rowed in GameStateAutoSave.cpp).
 class GameState
 {
 public:
-	void rva002DF3B0(GameWindow *gameList, GameWindow *autoSaveList,
-		bool selected, int mode);
+	void populateSaveGameListbox(GameWindow *gameList, GameWindow *autoSaveList,
+		bool newSave, int filter);
 };
 extern GameState *TheGameState;
 
@@ -360,7 +360,7 @@ void AptSaveLoad::rva00436FF6()
 	if (m_mode == 4)
 		rva0043684C();
 	else
-		TheGameState->rva002DF3B0(
+		TheGameState->populateSaveGameListbox(
 			m_gameList, m_autoSaveList, m_294 == 3, m_mode);
 
 	return rva00434432();

@@ -11528,7 +11528,6 @@ name,address,notes
 ?rva002DD282@GameState@@QAE?AVUnicodeString@@H@Z,0x002DD282,Address-derived GameState member returning UnicodeString: 0x00434B62 passes Rva002DBE62Get's int in addition to a hidden return buffer with ECX loaded from TheGameState at VA 0x00DFF08C; Ghidra boundary 267B; method identity unresolved
 ?rva002DDE43@GameState@@QAEXABVUnicodeString@@0HH@Z,0x002DDE43,Address-derived GameState thiscall view: target 0x00435A6F loads TheGameState into ECX and passes two UnicodeString references plus integer flags 0 and 1; operation identity unresolved
 ?rva002DE311@Rva002DEE9AOwner@@QAEXXZ,0x002DE311,pin for 0x2DEE9A thiscall void () on this
-?rva002DF3B0@GameState@@QAEXPAVGameWindow@@0_NH@Z,0x002DF3B0,callee of ?rva00436FF6@AptSaveLoad@@QAEXXZ
 ?rva002E0A9F@Rva002E0A9FElem@@QAEHPAX@Z,0x002E0A9F,thiscall int scan over +0x1B8/+0x1BC entries with 1 stack arg; head-decoded, Ghidra FUN_006e0a9f 75B
 ?rva002E0BC0@Rva002E0BC0Helper@@QAEEH@Z,0x002E0BC0,callee of predicate 0x00318CA4 read from its REL32 displacement; w3-g26
 ?rva002E2D8D@Rva002E2903Player@@QAEXPAX@Z,0x002E2D8D,thiscall with 1 pointer arg on the 0x2B51F8 find result; Ghidra FUN_006e2d8d 428B, head not decoded
@@ -16216,3 +16215,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??$__copy_backward_ptrs@PAUBfmeE8@@PAU1@@_STL@@YAPAUBfmeE8@@PAU1@00ABU__false_type@0@@Z,0x0030B378,REL32 at 0x0030BA58 in vector insertion 0x0030B9F3; original STLport 4.5.3 pointer wrapper; fold-proof=Code/GameEngine/Source/Common/AreaPolygon.cpp
 ?rva0020D67C@Rva00056F61@@QAEPAXPBVAsciiString@@@Z,0x0020D67C,callee of ?iniParseEnvironmentSkyboxTextureDefinition@@YAXPAVINI@@@Z
 ?saveGame@GameState@@QAEHVUnicodeString@@ABV2@H_NH@Z,0x002DD38D,GameState::saveGame: GUI:GameSaveComplete / GUI:ErrorSavingGame body that opens an XferSave on a TheFileSystem File and calls xferSaveData 0x002DCE24; Zero Hour saveGame control flow; thiscall ret 0x14 from callers 0x002DD8C1 (auto-save) and 0x002DDE64; body banked partial 0.99 in reverse/attempts/0x002dd38d.cpp
+?iterateSaveFiles@GameState@@QAEXP6AXVUnicodeString@@PAX@Z1H@Z,0x002DF1F1,GameState::iterateSaveFiles: REL32 at 0x002DF4E1 in populateSaveGameListbox 0x002DF3B0 with ECX=this and pushes (callback 0x002DF0B4 / &m_availableGames +0xE14 / mode); body builds a L* search name plus the 0x002DBC97 mode suffix then lists getSaveDirectory through TheFileSystem and calls the callback with each UnicodeString name and userData; ret 0xC; ZH iterateSaveFiles shape plus the BFME 2 mode argument
