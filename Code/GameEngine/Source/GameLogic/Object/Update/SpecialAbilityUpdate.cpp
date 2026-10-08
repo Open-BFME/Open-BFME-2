@@ -1,10 +1,15 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// stlport
 // SpecialAbilityUpdate.cpp: bodies retail links from this TU (tu_map approved),
 // folded from three split units with these exact flags. The two
 // address-named helper classes keep their names (their rows are mangled with
 // them); Object and Overridable are shared views: object model-condition
 // words at +0x10C and the status-base pointer at +0x04, final-override kind
 // at +0x1C.
+
+#include <list>
+#include "Common/BfmeAudioEventPrefix136.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 enum ModelConditionFlagType
 {
@@ -58,6 +63,60 @@ class Thing
 public:
 	Drawable *getDrawable() const;
 };
+class Player
+{
+public:
+	bool isLocalPlayer() const;
+};
+class Eva
+{
+public:
+	void reportEvaEvent(int event, const Coord3D *position, int flag);
+};
+extern Eva *TheEva;
+// The one-Drawable list the voice responses hand out; its destructor is the
+// shared out-of-line pointer-list destructor 0x00239AF4.
+class DrawableList : public _STL::list<Drawable *>
+{
+public:
+	~DrawableList() throw();
+};
+class PickAndPlayInfo
+{
+public:
+	PickAndPlayInfo();
+	bool m_air;
+	Drawable *m_drawTarget;
+	void *m_weaponSlot;
+	void *m_specialPowerTemplate; // +0x0C
+	const void *m_10; // +0x10
+	Coord3D m_position;
+	unsigned int m_unmodelled_20;
+};
+class GameMessage
+{
+public:
+	enum Type
+	{
+		MSG_BFME2_0x7DD = 0x7DD,
+		MSG_BFME2_0x7DE = 0x7DE
+	};
+};
+void pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
+	PickAndPlayInfo *info);
+// The rowed setter that stamps an audio event with its owning object.
+class Rva002D9531
+{
+public:
+	void rva002D9531(int objectID);
+};
+// The rowed two-bit mask builder (0x001E4912) behind the pack conditions.
+class Rva001E4912
+{
+public:
+	Rva001E4912 *rva001E4912(int a, unsigned int b, unsigned int c);
+	unsigned int m_bits[19];
+};
 enum CommandSourceType
 {
 	CMD_FROM_AI = 2
@@ -71,6 +130,7 @@ class Object : public Thing
 {
 	friend class SpecialAbilityUpdate;
 public:
+	Player *getControllingPlayer() const;
 	bool isKindOf(KindOfType kindOf) const;
 	// rowed 0x0028CFB2: clears the first mask's conditions, sets the second's
 	void rva0028CFB2(const int *clearMask, const int *setMask);
@@ -96,7 +156,11 @@ public:
 
 	unsigned char m_pad000[4];
 	unsigned char *m_base4; // +0x04 status base (bytes +0x108/+0x114 read)
-	unsigned char m_pad008[0x10C - 8];
+	unsigned char m_pad008[0x38 - 8];
+	Coord3D m_position; // +0x38
+	unsigned char m_pad044[0x74 - 0x44];
+	int m_id; // +0x74
+	unsigned char m_pad078[0x10C - 0x78];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x258 - 0x158];
 	unsigned char *m_ai; // +0x258 AIUpdateInterface (command interface at +0x20)
@@ -119,11 +183,15 @@ public:
 	const Overridable *friend_getFinalOverride() const;
 	unsigned char m_pad00[0x1C];
 	int m_val1C;
+	unsigned char m_pad20[0x44 - 0x20];
+	int m_evaEvent44; // +0x44
 };
 class SpecialAbilityUpdateModuleData
 {
 public:
-	unsigned char m_pad[0x18];
+	unsigned char m_pad[0x8];
+	OpaqueRefElement4 m_packSound; // +0x08
+	unsigned char m_pad0C[0x18 - 0x0C];
 	ModelConditionFlagType m_18; // +0x18
 	unsigned int m_1C; // +0x1C
 	unsigned int m_20; // +0x20
@@ -161,7 +229,7 @@ public:
 	virtual void vslot12(); virtual void vslot13(); virtual void vslot14(); virtual void vslot15();
 	virtual void vslot16(); virtual void vslot17(); virtual void vslot18(); virtual void vslot19();
 	virtual void vslot20(); virtual void vslot21(); virtual void vslot22(); virtual void vslot23();
-	virtual void vslot24(); virtual void vslot25(); virtual void vslot26();
+	virtual void vslot24(); virtual AudioHandle addAudioEvent(const BfmeAudioEventPrefix136 *event); virtual void vslot26();
 	virtual void removeAudioEvent(AudioHandle handle); // slot 27 (+0x6C)
 };
 extern AudioManager *TheAudio;
@@ -198,6 +266,7 @@ public:
 	void rva0044EE07();
 	void rva0044EE80();
 	void rva0044F72E();
+	virtual void startPacking(bool success);
 	virtual void startUnpacking();
 protected:
 	void endPreparation();
@@ -207,7 +276,8 @@ private:
 	unsigned char m_pad2C[0x30 - 0x2C];
 	int m_packingState; // +0x30
 	AudioHandle m_prepSoundLoop; // +0x34
-	unsigned char m_pad38[0x40 - 0x38];
+	AudioHandle m_packSoundHandle; // +0x38
+	unsigned char m_pad3C[0x40 - 0x3C];
 	ObjectID m_targetID; // +0x40
 	unsigned char m_pad44[0x84 - 0x44];
 	unsigned int m_84; // +0x84
@@ -420,4 +490,72 @@ void SpecialAbilityUpdate::startUnpacking()
 	unsigned char *ai = self->m_ai;
 	if (ai)
 		((AICommandInterface *)(ai + 0x20))->rva0045003E(0, CMD_FROM_AI);
+}
+
+// SpecialAbilityUpdate::startPacking, retail 0x00450635 (642 bytes; the
+// WeaponFireSpecialAbilityUpdate slot override 0x004925DB forwards to it).
+// Zero Hour's startPacking reached through the matched BFME1 donor
+// (SpecialAbilityUpdate_startPacking.cpp): pack state 1, a randomised pack
+// time, conditions 96/118 -> 94, the selector condition, the pack sound with
+// the old loop handle dropped, the drawable animation time, an AI command
+// unless the power type is 0x2A, and on success a one-Drawable voice
+// response (0x7DD for power types 0x1A/0x1D, else 0x7DE) plus an Eva event
+// for the local player.
+void SpecialAbilityUpdate::startPacking(bool success)
+{
+	Object *self = m_object;
+	Player *player = self->getControllingPlayer();
+	const SpecialAbilityUpdateModuleData *d = (const SpecialAbilityUpdateModuleData *)m_moduleData;
+	m_packingState = 1;
+	float variation = GetGameLogicRandomValueReal(1.0f - d->m_packUnpackVariationFactor,
+		1.0f + d->m_packUnpackVariationFactor,
+		"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\SpecialAbilityUpdate.cpp",
+		1281);
+	m_animFrames = (unsigned int)(d->m_packTime * variation);
+	Rva001E4912 clearMask;
+	self->rva0028CFB2((const int *)clearMask.rva001E4912(0, 0x60, 0x76), (const int *)&Rva0028F59A(0, 0x5e));
+	self->setStatus(OBJECT_STATUS_46, true);
+	if (d->m_6C)
+	{
+		switch (d->m_6C)
+		{
+		case 1: self->setModelConditionState((ModelConditionFlagType)97); break;
+		case 2: self->setModelConditionState((ModelConditionFlagType)98); break;
+		case 3: self->setModelConditionState((ModelConditionFlagType)99); break;
+		case 4: self->setModelConditionState((ModelConditionFlagType)585); break;
+		case 5: self->setModelConditionState((ModelConditionFlagType)586); break;
+		case 6: self->setModelConditionState((ModelConditionFlagType)587); break;
+		}
+	}
+	BfmeAudioEventPrefix136 sound(d->m_packSound, 0);
+	((Rva002D9531 *)&sound)->rva002D9531(self->m_id);
+	TheAudio->addAudioEvent(&sound);
+	TheAudio->removeAudioEvent(m_packSoundHandle);
+	m_packSoundHandle = 1;
+	Drawable *draw = self->getDrawable();
+	if (draw)
+		draw->rva002723C0(m_animFrames);
+	if (d->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C != 0x2a)
+	{
+		unsigned char *ai = self->m_ai;
+		if (ai)
+			((AICommandInterface *)(ai + 0x20))->rva0045003E(0, CMD_FROM_AI);
+	}
+	if (success)
+	{
+		DrawableList list;
+		list.push_back(draw);
+		PickAndPlayInfo info;
+		info.m_10 = d->m_specialPowerTemplate;
+		if (d->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C == 0x1a
+			|| d->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C == 0x1d)
+			pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_BFME2_0x7DD, &info);
+		else
+			pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_BFME2_0x7DE, &info);
+		if (player && player->isLocalPlayer())
+		{
+			int evaEvent = d->m_specialPowerTemplate->friend_getFinalOverride()->m_evaEvent44;
+			TheEva->reportEvaEvent(evaEvent, &self->m_position, 0);
+		}
+	}
 }
