@@ -23,3 +23,18 @@ void Rva002620FADwordOrSetter::apply()
 {
 	m_value |= -1;
 }
+
+// BFME1 9cbfb551 Object.cpp emits _Base_bitset<1>::_M_do_or.
+// Native 3FA381..3FA38C is the complete ret4 leaf immediately after ret4
+// at 3FA37E; it ORs the receiver word with the pointed-to argument word.
+// Neither the donor template spelling nor its owner is claimed as target fact.
+class Rva003FA381WordMask
+{
+public:
+    void combine(const unsigned int *other);
+    unsigned int m_word;
+};
+void Rva003FA381WordMask::combine(const unsigned int *other)
+{
+    m_word |= *other;
+}

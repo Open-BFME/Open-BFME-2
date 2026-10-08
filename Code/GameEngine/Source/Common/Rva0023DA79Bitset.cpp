@@ -25,3 +25,19 @@ Rva0023DA79 *Rva0023DA79::rva0023DA79(int ignored, int index)
 	m_bits[(unsigned)index >> 5] |= (1u << ((unsigned)index & 31));
 	return this;
 }
+
+// BFME1 9cbfb551 OpenContain.cpp emits _Base_bitset<4>::_M_do_flip.
+// Native 332E83..332E8F is a complete leaf after bounded 332E60+35:
+// four consecutive 32-bit words are complemented in an unsigned loop.
+// Preserve the unknown owning type with an address-derived storage view.
+class Rva00332E83BitWords
+{
+public:
+    void flip();
+    unsigned int m_words[4];
+};
+void Rva00332E83BitWords::flip()
+{
+    for (unsigned int i = 0; i < 4; ++i)
+        m_words[i] = ~m_words[i];
+}
