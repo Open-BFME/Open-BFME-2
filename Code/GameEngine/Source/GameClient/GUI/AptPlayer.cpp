@@ -37,6 +37,32 @@ TreeHintRef00222C5A &Rva00223F4B::rva00223F4B(const AsciiString &key)
 	  reinterpret_cast<const Rva002236F2Value &>(Rva00223F4BPair(key, TreeHintRef00222C5A())))).second : node->value.second;
 }
 
+// Native 0x002BFC59 uses the same STLport hash_map subscript expression,
+// but inserts through 0x002BFAD6 and destroys its pair at 0x002BF0D6.
+// The iterator, node+8 mapped value, and null-handle temporary are target
+// facts. The mapped application type is unknown; its address name describes
+// only the observed four-byte reference-counted handle, not an Apt type.
+struct TreeHintRef002BF0D6 {
+ TargetRef00217D4C *m_ptr;
+ TreeHintRef002BF0D6() : m_ptr(0) {}
+ TreeHintRef002BF0D6(const TreeHintRef002BF0D6 &other) : m_ptr(other.m_ptr) { if(m_ptr) ++m_ptr->references; }
+ __forceinline ~TreeHintRef002BF0D6() { if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
+};
+typedef _STL::pair<const AsciiString, TreeHintRef002BF0D6> Rva002BFC59Pair;
+class Rva002BFAD6 { public: void *rva002BFAD6(const void *); };
+struct Rva002BFC59Node { Rva002BFC59Node *next; Rva002BFC59Pair value; };
+class Rva002BFC59 { public: TreeHintRef002BF0D6 &rva002BFC59(const AsciiString &key); };
+TreeHintRef002BF0D6 &Rva002BFC59::rva002BFC59(const AsciiString &key)
+{
+ Rva002BFC59Node *node;
+ {
+  Rva0041534BIter it = reinterpret_cast<Rva00056F61 *>(this)->rva0041534B(&key);
+  node = static_cast<Rva002BFC59Node *>(it.m_node);
+ }
+ return !node ? static_cast<Rva002BFC59Pair *>(reinterpret_cast<Rva002BFAD6 *>(this)->rva002BFAD6(
+   &Rva002BFC59Pair(key, TreeHintRef002BF0D6())))->second : node->value.second;
+}
+
 // AptPlayer.cpp -- AptPlayer members recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv): WB's debug build names the function; retail
 // supplies the bytes. The focus stack is a vector of pointers whose finish
