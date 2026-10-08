@@ -3,9 +3,10 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <list>
-typedef _STL::list<int> IntList;
-namespace _STL {template<> _List_base<int,allocator<int> >::~_List_base();}
-class Rva0036AE51ListView { public:void *a,*b;IntList rva0036AE51(); };
+#include "../../Code/GameEngine/Include/GameLogic/ContainmentListView.h"
+typedef ContainmentList IntList;
+namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
+
 struct Rva0046247DPair {void *a; IntList *objects;};
 class Rva0046247D {public:void rva0046247D(Rva0046247DPair &);};
 class Rva0047A040Base9E0 {public:void *rva00588B8A(void *);};
@@ -41,38 +42,17 @@ class HordeTransportContain {public:
     virtual void x3C(RiderContain *,Object *)=0;
     void rva004779F9(); void rva0047748E();
 };
-void HordeTransportContain::rva004779F9()
-{
-    Rva0046247DPair outer;
-    ((Rva0046247D*)this)->rva0046247D(outer);
-    for (IntList::iterator i=outer.objects->begin();i!=outer.objects->end();++i) {
-        RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A((void*)*i);
-        if (!contain) continue;
-        IntList nested=contain->s108().rva0036AE51();
-        for(IntList::iterator j=nested.begin();j!=nested.end();++j) {
-            Object *object=(Object*)*j;
-            Drawable *drawable=object->getDrawable();
-            if(!drawable || ((Rva00270260*)drawable)->rva00270260()) {
-                contain->sA8(object);
-                ((RemovalNotice*)((char*)this+0x20))->sA4(object,0);
-                object->kill(DeathDamage,NormalDeath);
-                if(drawable) ((Rva002716Holder*)drawable)->rva00271601(1);
-            }
-        }
-    }
-}
-
 void HordeTransportContain::rva0047748E()
 {
     Rva0046247DPair outer;
     ((Rva0046247D*)this)->rva0046247D(outer);
     for(IntList::iterator i=outer.objects->begin();i!=outer.objects->end();++i) {
-        RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A((void*)*i);
+        RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A((void*)containmentFirstWord(*i));
         if(!contain)continue;
         Rva0036AE51ListView nested=contain->s108();
         IntList *objects=(IntList*)nested.b;
         if(objects->empty()) continue;
-        Object *object=(Object*)*objects->begin();
+        Object *object=(Object*)containmentFirstWord(*objects->begin());
         Drawable *drawable=object->getDrawable();
         if(drawable && !((Rva00270260*)drawable)->rva00270260())
         {
