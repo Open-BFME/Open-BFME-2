@@ -1,7 +1,7 @@
 // cl: /O1 /arch:SSE /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
-// LargeGroupAudioAudioMap bodies (retail 0x003EE0CF..0x003EE23B).
+// LargeGroupAudioAudioMap bodies (retail 0x003EE0CF..0x003EE6F6).
 //
 // Identity: WorldBuilder names the unit LargeGroupAudioAudioMap.cpp (the
 // "two Sound blocks within the same LargeGroupAudioMap" string of 0x003EE576)
@@ -9,8 +9,10 @@
 // (wb_members asserts in LargeGroupAudioAudioMap::update). The constructor
 // 0x003EE0CF is the one LargeGroupAudio::parseLargeGroupAudioMapDefinition
 // calls with the block name; the destructor 0x003EE1BE is slot 0's callee
-// (vtable 0x00C3613C, deleting dtor 0x003EE3E2). The element class of the
-// +0x1C vector keeps its address-derived name from its destructor 0x0056A061.
+// (vtable 0x00C3613C, deleting dtor 0x003EE3E2). The +0x1C vector holds
+// LargeGroupAudioSoundKeyPair objects (WorldBuilder names their ctor
+// 0x00569FB3 and dtor 0x0056A061). parseSoundBlock 0x003EE576 is WorldBuilder's
+// name for its twin 0x1035FB0 (same callees, same "two Sound blocks" throw).
 typedef bool Bool;
 // Retail frees vector storage through the C++-linkage free (0x00030830),
 // which keeps the unwind-state store before each call.
@@ -24,6 +26,37 @@ void free(void *);
 #include "ascii_string.h"
 
 extern float g_secondsPerLogicFrame;
+
+class INI;
+struct FieldParse;
+
+class INI
+{
+public:
+	const char *getNextTokenOrNull(const char *seps);
+	void initFromINI(void *what, const FieldParse *parseTable);
+	char m_pad00[8];
+	int m_loadType;	// +0x08
+};
+
+class INIException
+{
+public:
+	INIException(int argCount, const char *format, ...);
+	INIException(const INIException &that);
+	~INIException();
+	char *mFailureMessage;
+	int mErrorCode;
+};
+
+int Rva0056A983Get();	// LargeGroupAudioSoundKeyPair field-parse table
+
+// The sound key pair's name getter 0x00568BE2 keeps its ledger spelling.
+class BitRange
+{
+public:
+	AsciiString rva00568BE2();
+};
 
 // Base shared with the LargeGroupAudio key holder (dtor 0x001E3624): vptr,
 // +4 next override, +8 override flag, +0xC.
@@ -64,6 +97,7 @@ public:
 	LargeGroupAudioAudioMap(AsciiString name);
 	virtual ~LargeGroupAudioAudioMap();
 	void rva003EE3FE(const LargeGroupAudioAudioMap &other);
+	static void parseSoundBlock(INI *ini, void *instance, void *store, const void *userData);
 private:
 	float m_10;										// +0x10
 	float m_14;										// +0x14
@@ -135,5 +169,29 @@ void LargeGroupAudioAudioMap::rva003EE3FE(const LargeGroupAudioAudioMap &other)
 		LargeGroupAudioSoundKeyPair *pair = new LargeGroupAudioSoundKeyPair(this, NULL);
 		m_soundKeyPairs.push_back(pair);
 		pair->rva0056A378(**src);
+	}
+}
+
+void LargeGroupAudioAudioMap::parseSoundBlock(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
+{
+	LargeGroupAudioAudioMap *self = (LargeGroupAudioAudioMap *)instance;
+	_STL::vector<LargeGroupAudioSoundKeyPair *> &vec = self->m_soundKeyPairs;
+
+	const char *name = ini->getNextTokenOrNull(NULL);
+	LargeGroupAudioSoundKeyPair *pair = new LargeGroupAudioSoundKeyPair(self, name);
+	vec.push_back(pair);
+	ini->initFromINI(pair, (const FieldParse *)Rva0056A983Get());
+
+	for (_STL::vector<LargeGroupAudioSoundKeyPair *>::iterator it = vec.begin(), end = vec.end(); it != end; ++it)
+	{
+		if (pair != *it && ((BitRange *)pair)->rva00568BE2() == ((BitRange *)*it)->rva00568BE2())
+		{
+			if (ini->m_loadType != 2 && ini->m_loadType != 5)
+				throw INIException(3, "LargeGroupAudio: You cannot use the same name(%s) for two Sound blocks within the same LargeGroupAudioMap(%s)",
+					((BitRange *)pair)->rva00568BE2().str(), self->m_name.str());
+			delete *it;
+			vec.erase(it);
+			return;
+		}
 	}
 }
