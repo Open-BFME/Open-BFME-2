@@ -87,6 +87,18 @@ private:
 	void *m_count;
 };
 
+// The binding that registers "LibraryMaps" and fills one vector<AsciiString>
+// per side and the count of lists read.
+class LibraryMapsParser : public BfmeParserBindingBaseVE
+{
+public:
+	LibraryMapsParser(void *lists, void *count, void *table, void *info);	// 0x00329F83
+
+private:
+	void *m_lists;
+	void *m_count;
+};
+
 class ScriptList
 {
 public:
@@ -196,9 +208,13 @@ public:
 	void setScriptList(ScriptList *scriptList) { m_scripts.swap(scriptList); }
 
 private:
+	friend class SidesList;
+
 	BuildListInfo *m_pBuildList;		// +0x00
 	Dict m_dict;						// +0x04
 	ScriptList m_scripts;				// +0x08
+	char m_scriptsRest[0x54 - 0x0C];
+	_STL::vector<AsciiString> m_libraryMaps;	// +0x54
 };
 
 class TeamsInfoRec
@@ -225,6 +241,7 @@ public:
 	void swap(SidesList *other);		// 0x0032B690
 	void rva0032E02B();					// 0x0032E02B, WB validateSides
 	bool parseCastleTemplateDataChunk(DataChunkInput &file, DataChunkInfo *info);
+	bool parseLibraryMapListsChunk(DataChunkInput &file, DataChunkInfo *info);
 	void rva0032E6F4(int key, const BfmePod128 &entry);	// 0x0032E6F4, castle build entry add
 	void rva0032ED75(int key, const _STL::vector<BfmeE8> &path);	// 0x0032ED75, castle path add
 
@@ -442,6 +459,31 @@ bool SidesList::parseCastleTemplateDataChunk(DataChunkInput &file, DataChunkInfo
 				}
 				rva0032ED75(faction, path);
 			}
+		}
+	}
+	return true;
+}
+
+// SidesList::parseLibraryMapListsChunk, retail 0x0032C779 (214 bytes): the
+// "LibraryMaps" binding 0x00329F83 parses up to 20 lists of map names and
+// their count, and each list read is swapped into its side (SidesInfo +0x54).
+// Identity (target): WorldBuilder's debug twin wb 0xa81bb0 (SidesList.cpp:529)
+// builds the same 20-element vector<AsciiString> array through the eh vector
+// constructor iterator 0x00629512 and walks the count down. The binding's
+// inline base destructor is the one Rva003B3417 uses; swap 0x00567ECD is the
+// folded vector swap.
+bool SidesList::parseLibraryMapListsChunk(DataChunkInput &file, DataChunkInfo *info)
+{
+	_STL::vector<AsciiString> lists[20];
+	int count;
+	LibraryMapsParser parser(lists, &count, &file, info);
+	if (!file.parse(0))
+		return false;
+	while (count > 0) {
+		--count;
+		if (count < m_numSides) {
+			_STL::vector<AsciiString> *maps = &getSideInfo(count)->m_libraryMaps;
+			maps->swap(lists[count]);
 		}
 	}
 	return true;
