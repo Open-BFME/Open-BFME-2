@@ -572,40 +572,7 @@ void InGameUI::setMouseCursor(Mouse::MouseCursor c)
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?InGameUI::addSuperweapon present-unmatched
-void InGameUI::addSuperweapon(Int playerIndex, const AsciiString& powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate)
-{
-	if (powerTemplate == NULL)
-		return;
-
-	// srj sez: don't allow adding the same superweapon more than once. it can happen. not sure how. (srj)
-	SuperweaponInfo* swInfo = findSWInfo(playerIndex, powerName, id, powerTemplate);
-	if (swInfo != NULL)
-		return;
-
-	const Player* player = ThePlayerList->getNthPlayer(playerIndex);
-	Bool hiddenByScience = (powerTemplate->getRequiredScience() != SCIENCE_INVALID) && (player->hasScience(powerTemplate->getRequiredScience()) == false);
-
-#ifndef DO_UNIT_TIMINGS
-  DEBUG_LOG(("Adding superweapon UI timer\n"));
-#endif
-	SuperweaponInfo *info = newInstance(SuperweaponInfo)(
-					id,
-					-1,			// timestamp
-					FALSE,	// hiddenByScript
-					hiddenByScience,//Aaayeeee! This is meaningless and just clogs up the works, sez srj, nuke or repair or SHIP WITH(tm), ASAP
-													// THe trouble is: There is no mechanism to clear this bit when the science is granted, thus,
-													// the timer never, ever, ever get drawn.... unless the owning object is post-science constructed.
-					FALSE,	// ready
-          FALSE,  // evaReadyPlayed
-					m_superweaponNormalFont, 
-					m_superweaponNormalPointSize, 
-					m_superweaponNormalBold, 
-					player->getPlayerColor(), 
-					powerTemplate);
-
-	m_superweapons[playerIndex][powerName].push_back(info);
-}
+// InGameUI::addSuperweapon: defined in InGameUISuperweapons.cpp (its row's unit).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
