@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
-// ?Rva003354D6@@YAHPAUlua_State@@_N@Z, retail 0x003354D6 220B.
+// ?ObjectModifyUpgrade@LuaScriptEngine@@SAHPAUlua_State@@_N@Z, retail 0x003354D6 220B.
 // Gap between CreateAndFire 0x0033541C and HasUpgrade 0x003355B2, same flags.
 // Grants/removes player or object upgrades by bool arg.
 // Evidence: rowed lua_gettop 0x00746F30, rowed Rva00990030Lookup 0x00747190,
@@ -63,7 +63,16 @@ public:
 };
 extern "C" UpgradeCenter *TheUpgradeCenter;
 
-int Rva003354D6(lua_State *L, bool b)
+// Static callback view only; this helper reads no LuaScriptEngine object.
+// WB C06AD0 ObjectModifyUpgrade has the same two stack arguments, complete
+// grant/remove control flow and retail call targets; native 3354D6..3355B2.
+class LuaScriptEngine
+{
+public:
+	static int ObjectModifyUpgrade(lua_State *L, bool grant);
+};
+
+int LuaScriptEngine::ObjectModifyUpgrade(lua_State *L, bool b)
 {
 	if (lua_gettop(L) < 2)
 		return 0;
@@ -103,7 +112,7 @@ int Rva003354D6(lua_State *L, bool b)
 // then setglobal); it forwards to the shared worker above with grant=true.
 int ObjectGrantUpgrade(lua_State *L)
 {
-	return Rva003354D6(L, true);
+	return LuaScriptEngine::ObjectModifyUpgrade(L, true);
 }
 
 // ?ObjectRemoveUpgrade@@YAHPAUlua_State@@@Z, retail 0x003356A0 14B: the Lua
@@ -111,5 +120,5 @@ int ObjectGrantUpgrade(lua_State *L)
 // with grant=false.
 int ObjectRemoveUpgrade(lua_State *L)
 {
-	return Rva003354D6(L, false);
+	return LuaScriptEngine::ObjectModifyUpgrade(L, false);
 }
