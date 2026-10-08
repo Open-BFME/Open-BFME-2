@@ -83,11 +83,26 @@ enum NameKeyType { NK_NONE=0 };
 class ArmorTemplate;
 class Rva00355B61 { public: const ArmorTemplate* rva00355155(NameKeyType) const; };
 class Object;
+class Rva0036E346;
+struct Coord3D;
+class MoveToFormationGroupOrder : public GroupOrder {
+public:
+    MoveToFormationGroupOrder(Rva0036E346*, int, const Coord3D&, float, bool);
+private: unsigned char opaque18[0x48-0x18];
+};
+class MoveToGroupOrder : public GroupOrder {
+public:
+    MoveToGroupOrder(Rva0036E346*, const Coord3D&, bool, bool);
+private: unsigned char opaque18[0x40-0x18];
+};
 class ObjectLookupMap { public: Object** findSlot(int*); private: unsigned char opaque[0x14]; };
 class AiOrdersManager {
 public: void addOrderToObjectQueues(int,GroupOrder*);
     void registerOrder(int,GroupOrder*);
     int cloneOrderForPatrol(int);
+    void rva00355664(const Coord3D&, int, GroupOrder*);
+    void rva003558D6(int, Rva0036E346*, int, const Coord3D&, float, bool);
+    void rva00355949(int, Rva0036E346*, const Coord3D&, bool, bool);
 private: unsigned char opaque[0x10]; ObjectLookupMap orders; QueueMap queues;
 };
 void AiOrdersManager::addOrderToObjectQueues(int mode,GroupOrder* order) {
@@ -148,3 +163,28 @@ int AiOrdersManager::cloneOrderForPatrol(int id) {
 // inserts that pointer in the same id table. The lookup's historical
 // ArmorTemplate return spelling is retained only as a provider ABI view;
 // no ArmorTemplate identity is claimed for the order returned here.
+
+// Native003558D6..00355949 RET24 and 00355949..003559B5 RET20.
+// The constructor identities and 0x48/0x40 allocations are independently
+// established by MoveToGroupOrderCtor.cpp. Both paths register through the
+// verified sibling, then pass the destination and mode to native00355664.
+// The holder and flags preserve the constructor providers' existing ABI.
+void AiOrdersManager::rva003558D6(int mode, Rva0036E346 *holder, int value,
+    const Coord3D &destination, float angle, bool flag)
+{
+    GroupOrder *order = new MoveToFormationGroupOrder(holder, value, destination, angle, flag);
+    if (order) {
+        registerOrder(mode, order);
+        rva00355664(destination, mode, order);
+    }
+}
+
+void AiOrdersManager::rva00355949(int mode, Rva0036E346 *holder,
+    const Coord3D &destination, bool flag1, bool flag2)
+{
+    GroupOrder *order = new MoveToGroupOrder(holder, destination, flag1, flag2);
+    if (order) {
+        registerOrder(mode, order);
+        rva00355664(destination, mode, order);
+    }
+}
