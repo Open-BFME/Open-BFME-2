@@ -11,7 +11,13 @@ class Rva002BA8F1Logic { public: Rva002E2903Player *find(int, unsigned int *); }
 #define TheRva00DFEF10 (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)
 struct Rva004FA5F8B { char pad[0x13C]; int id; };
 struct Rva004FA5F8A { char pad[0x24]; Rva004FA5F8B *b; };
-struct LivingWorldBuildingNuggetSpawnArmy { char pad0[4]; Rva004FA5F8A *a; Rva002E2903Player *getOwningPlayer(); };
+struct LivingWorldBuildingNuggetSpawnArmy
+{
+    char pad0[4];
+    Rva004FA5F8A *a;
+    __declspec(noinline) Rva002E2903Player *getOwningPlayer();
+    Rva002E2903Player *rva004FA618();
+};
 Rva002E2903Player *LivingWorldBuildingNuggetSpawnArmy::getOwningPlayer()
 {
     Rva004FA5F8A *aa = *(Rva004FA5F8A **)((char *)this + 4);
@@ -20,4 +26,11 @@ Rva002E2903Player *LivingWorldBuildingNuggetSpawnArmy::getOwningPlayer()
         return 0;
     int id = bb->id;
     return TheRva00DFEF10->find(id, 0);
+}
+
+// WB 0x0130B0F0 is unnamed and delegates to getOwningPlayer. Retail
+// 0x004FA618..0x004FA61D is its tail jump; canBuildUnit calls this wrapper.
+Rva002E2903Player *LivingWorldBuildingNuggetSpawnArmy::rva004FA618()
+{
+    return getOwningPlayer();
 }
