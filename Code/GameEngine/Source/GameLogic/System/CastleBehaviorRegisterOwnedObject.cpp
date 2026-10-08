@@ -62,7 +62,8 @@ inline void* objectTemplate(Object* object) { return field<void*>(object,4); }
 inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); }
 class BuildListInfo;
 class ThingTemplate;
-class CastleBehavior { public: Object* buildCastleStructure(BuildListInfo*,bool); void* GetArmyIDFromClosestObject(); Object* createOwnedObject(void*); void rva003993F2(bool); void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); void initiateUnpack(bool,const ThingTemplate*); };
+class PolygonTrigger;
+class CastleBehavior { public: void rva0039865E(PolygonTrigger*); Object* buildCastleStructure(BuildListInfo*,bool); void* GetArmyIDFromClosestObject(); Object* createOwnedObject(void*); void rva003993F2(bool); void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); void initiateUnpack(bool,const ThingTemplate*); };
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
@@ -740,7 +741,7 @@ public: BuildListInfo();
 protected: virtual ~BuildListInfo(); friend class CastleBehavior;
 private: unsigned char storage[124];
 };
-class SidesList { public: bool rva0032BD25(NameKeyType,int,BuildListInfo*); };
+class SidesList { public: bool rva0032BD64(NameKeyType,int,PolygonTrigger*); bool rva0032BD25(NameKeyType,int,BuildListInfo*); };
 extern SidesList* TheSidesList;
 class Rva00396B0D { public: int rva00396B0D(); };
 void CastleBehavior::rva003993F2(bool instant) {
@@ -777,4 +778,41 @@ void CastleBehavior::initiateUnpack(bool instant,const ThingTemplate* type) {
  if(field<int>(TheGameLogic,0x1b4)>0 && g_00DFEFF0) {
   fprintf(g_00DFEFF0,"CAMP: Frame %d: Castle %s(%d) ::initiateUnpack() called by %s",TheGameLogic->getFrame(),field<AsciiString>(objectTemplate(owner),0x64).str(),objectID(owner),field<AsciiString>(owner->getControllingPlayer(),0x4c).str());
  }
+}
+
+// Native00399370..003993F2,130B; WB00EB9110 unnamed CastleSystem helper.
+// Native allocates100B PolygonTrigger with explicit initialAllocation1 and
+// MSVC's hidden virtual-base-construction flag. The virtual interface below
+// is independently recovered in Rva00330C50Ctor.cpp. This is the complete
+// caller storage extent with an opaque92B nonvirtual prefix, not a claim that
+// PolygonTrigger's other native bases or fields have been reconciled here.
+// The native release path calls slot0(flags0), then deletes its returned
+// allocation pointer; a null polygon still reaches operator delete(nullptr).
+// Constructor, indexed loader and registration calls have checked native pins.
+class Rva00330C50Interface {
+public:
+ ~Rva00330C50Interface() {}
+ virtual void slot0()=0; virtual void slot1()=0; virtual void slot2()=0;
+ virtual void slot3()=0; virtual void slot4()=0; virtual void slot5()=0; virtual void slot6()=0;
+};
+class PolygonTrigger:public virtual Rva00330C50Interface {
+public:
+ PolygonTrigger(int initialAllocation);
+ virtual void* deleteInstance(int);
+ virtual void slot0(); virtual void slot1(); virtual void slot2();
+ virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6();
+private: char nativePrefix[0x54];
+};
+typedef char PolygonTriggerExtentCheck[sizeof(PolygonTrigger)==100?1:-1];
+void CastleBehavior::rva00399370() {
+ NameKeyType key=(NameKeyType)((Rva00396B0D*)this)->rva00396B0D();
+ int index=0;
+ PolygonTrigger* polygon;
+ for(;;) {
+  polygon=new PolygonTrigger(1);
+  if(!TheSidesList->rva0032BD64(key,index,polygon)) break;
+  rva0039865E(polygon);
+  ++index;
+ }
+ ::operator delete(polygon?polygon->deleteInstance(0):0);
 }
