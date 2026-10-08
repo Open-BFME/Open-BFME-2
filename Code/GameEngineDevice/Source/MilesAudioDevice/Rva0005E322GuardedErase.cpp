@@ -1,12 +1,12 @@
-// ?rva0005E322@Rva0005E322Host@@QAEXPBVAsciiString@@H@Z
-// partial score=0.8 date=2026-10-05
 // cl: /O1 /G7 /MD /EHsc
 //
-// 0x0005E322 (85B): guarded indexed tree-erase. Raises the MilesMutexGuard
+// ?rva0005E322@Rva0005E322Host@@QAEXPBVAsciiString@@H@Z, 0x0005E322 (85B): guarded indexed tree-erase. Raises the MilesMutexGuard
 // over the mutex zone at +0x9D4, erases the key through the 12-byte tree at
 // index (idx + 0xD7) of the array at +0x0 through the view pinned at the
 // rowed 0x0005B5EA (gen-alias for the Rb_tree AsciiString single erase),
-// then drops the guard under the SEH frame. Address names.
+// then drops the guard under the SEH frame. The host matches MilesAudioManager
+// (mutex +0x9D4, per-view-type name sets from +0xA14); address names kept
+// until that unit adopts it. Plain array indexing keeps add/imul into ecx.
 
 class AsciiString;
 
@@ -39,8 +39,5 @@ private:
 void Rva0005E322Host::rva0005E322(const AsciiString *key, int idx)
 {
 	MilesMutexGuard guard(m_mutexzone, 0);
-	int n = idx + 0xD7;
-	int off = n * 12;
-	Rva0005E322TreeView *t = (Rva0005E322TreeView *)((char *)this + off);
-	t->erase(*key);
+	m_trees[idx + 0xD7].erase(*key);
 }
