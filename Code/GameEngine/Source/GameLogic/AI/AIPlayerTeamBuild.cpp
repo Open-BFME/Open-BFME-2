@@ -39,6 +39,11 @@
 //    the production-condition script found by owner and name (0x003573C4)
 //    through 0x0020D451. Reading the prototype through an inline getter, not
 //    the raw field, is what gives retail's edi/ebx assignment.
+//  - computeCenterAndRadiusOfBase 0x004F1801 (466 bytes): ZH's two
+//    build-list walks with the bounding circle radius at template +0xB0 and
+//    m_baseCenterSet at +0x40. Reading each location's x and y into locals
+//    before the sums, rather than copying the Coord3D, gives retail's paired
+//    loads.
 //  - checkReadyTeams 0x004F2FC4 (498 bytes, vtable +0x40): ZH's ready-queue
 //    walk. BFME 2 finds the start script by owner and production condition
 //    (0x003573C4), calls Team 0x0039D889(false) after the unlink and has no
@@ -107,6 +112,8 @@ typedef float Real;
 #define NULL 0
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
+#include <math.h>
 class ThingTemplate;
 class Player;
 class Team;
@@ -136,10 +143,13 @@ public:
 	Bool isEquivalentTo(const ThingTemplate *other) const;
 	Int rva0033A69A(const Player *player, Int a, Int b) const;
 	const AsciiString &getName() const { return m_name; }
+	Real getBoundingCircleRadius() const { return m_boundingCircleRadius; }
 	ThingTemplate *friend_getNextTemplate() const { return m_nextThingTemplate; }
 	unsigned char m_pad000[0x64];
 	AsciiString m_name;				// +0x64
-	unsigned char m_pad068[0x109 - 0x68];
+	unsigned char m_pad068[0xB0 - 0x68];
+	Real m_boundingCircleRadius;			// +0xB0
+	unsigned char m_padB4[0x109 - 0xB4];
 	unsigned char m_kindOf109;			// +0x109, bit 0x40 = KINDOF_DOZER
 	unsigned char m_pad10A[0x10F - 0x10A];
 	unsigned char m_kindOf10F;			// +0x10F, bit 0x80 = factory
@@ -217,13 +227,16 @@ public:
 	Bool getUnsellable() const { return m_unsellable; }
 	void setUnderConstruction(Bool construction) { m_underConstruction = construction; }
 	BuildListInfo *getNext() const { return m_next; }
+	const Coord3D *getLocation() const { return &m_location; }
 	ObjectID getObjectID() const { return m_objectID; }
 	Bool isSupplyBuilding() const { return m_isSupplyBuilding; }
 	Int getDesiredGatherers() const { return m_desiredGatherers; }
 	Int getCurrentGatherers() const { return m_currentGatherers; }
 	void setCurrentGatherers(Int count) { m_currentGatherers = count; }
 
-	unsigned char m_pad00[0x2C];
+	unsigned char m_pad00[0x0C];
+	Coord3D m_location;			// +0x0C
+	unsigned char m_pad18[0x2C - 0x18];
 	BuildListInfo *m_next;			// +0x2C
 	unsigned char m_pad30[0x34 - 0x30];
 	Int m_health;				// +0x34
@@ -906,6 +919,7 @@ protected:
 	Bool rva004F13D8(TeamPrototype *proto);
 	Bool dozerInQueue();
 	void checkForSupplyCenter(BuildListInfo *info, Object *bldg);
+	void computeCenterAndRadiusOfBase(Coord3D *center, Real *radius);
 	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
 	{
 		return DLINK_ITERATOR<TeamInQueue>(m_teamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
@@ -934,7 +948,9 @@ private:
 	Int m_teamDelay;		// +0x24
 	unsigned char m_pad28[0x30 - 0x28];
 	Int m_skillsetSelector;		// +0x30
-	unsigned char m_pad34[0x48 - 0x34];
+	unsigned char m_pad34[0x40 - 0x34];
+	Bool m_baseCenterSet;		// +0x40
+	unsigned char m_pad41[0x48 - 0x41];
 	ObjectID m_structuresToRepair[MAX_STRUCTURES_TO_REPAIR];	// +0x48
 	ObjectID m_repairDozer;		// +0x50
 	Coord3D m_repairDozerOrigin;	// +0x54
@@ -1282,6 +1298,64 @@ void AIPlayer::checkQueuedTeams()
 			}
 		}
 	}
+}
+
+void AIPlayer::computeCenterAndRadiusOfBase(Coord3D *center, Real *radius)
+{
+	BuildListInfo *info;
+	Coord2D totalPos;
+	totalPos.x = 0;
+	totalPos.y = 0;
+	Int numBldg = 0;
+	for (info = m_player->getBuildList(); info; info = info->getNext())
+	{
+		AsciiString name = info->rva000AF1DD();
+		if (name.isEmpty())
+			continue;
+		const ThingTemplate *bldgPlan = TheThingFactory->findTemplate(name);
+		if (!bldgPlan)
+			continue;
+		Real px = info->getLocation()->x;
+		Real py = info->getLocation()->y;
+		totalPos.x += px;
+		totalPos.y += py;
+		numBldg++;
+	}
+	if (numBldg > 0)
+	{
+		totalPos.x /= numBldg;
+		totalPos.y /= numBldg;
+	}
+
+	m_baseCenterSet = numBldg > 0;
+	center->x = totalPos.x;
+	center->y = totalPos.y;
+
+	Real maxRadSqr = 0;
+	for (info = m_player->getBuildList(); info; info = info->getNext())
+	{
+		AsciiString name = info->rva000AF1DD();
+		if (name.isEmpty())
+			continue;
+		const ThingTemplate *bldgPlan = TheThingFactory->findTemplate(name);
+		if (!bldgPlan)
+			continue;
+		Real px = info->getLocation()->x;
+		Real py = info->getLocation()->y;
+		Real dx = px - center->x;
+		Real dy = py - center->y;
+		if (dx < 0)
+			dx = -dx;
+		if (dy < 0)
+			dy = -dy;
+		Real bldgRadius = bldgPlan->getBoundingCircleRadius() * 0.4f;
+		dx += bldgRadius;
+		dy += bldgRadius;
+		Real radSqr = dx * dx + dy * dy;
+		if (radSqr > maxRadSqr)
+			maxRadSqr = radSqr;
+	}
+	*radius = sqrt(maxRadSqr);
 }
 
 Bool AIPlayer::dozerInQueue()
