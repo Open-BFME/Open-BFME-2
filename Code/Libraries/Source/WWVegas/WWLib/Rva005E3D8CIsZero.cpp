@@ -1,6 +1,4 @@
-// ?isZero@Rva005E3D8CFields@@QBE_NXZ
-// partial score=1.0 date=2026-10-08
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /arch:SSE /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // STLport map<int, SBServer> backing the PeerThread staging-server table.
@@ -35,7 +33,6 @@ __declspec(noinline) SBServer::SBServer(const SBServer &src)
     }
 }
 
-#pragma optimize("t", on)
 #include <map>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -53,7 +50,6 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
                               const _Rb_tree_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-#pragma optimize("", on)
 
 // Teardown shares the rowed 0x7DEEF release helper: it computes the same
 // slot-derived object and tail-jumps to it (the fastcall argument is already
