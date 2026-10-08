@@ -53,11 +53,13 @@ public:
  ~BfmeIntVecG() { if(begin) free(begin); }
  int *begin,*end,*limit;
 };
+class Rva0040CB3AIndexedField { public: int find(int key) const; };
 class ArmySummary : public Snapshot, public Rva0040D8D6List {
 public:
  virtual ~ArmySummary();
  virtual const char *GetSnapshotName() const;
  Rva0040DD3ARef RemoveEntry(int);
+ Rva0040DD3ARef rva0040E672(int);
  void rva0040DED9();
  void rva0040DE16();
 private:
@@ -128,4 +130,14 @@ void ArmySummary::rva0040DE16()
   entries.erase(entry);
   Rva0040D8D6List::forEach(&Rva0040D8D6Listener::removed,this,(int)value.value);
  }
+}
+
+// Native40E672..40E6A4 and WB10892F0: find the key, return an empty
+// owning handle on a miss, otherwise remove and return the indexed entry.
+// The original method name is not present in WorldBuilder. Returning the
+// nontrivial handle directly preserves retail's hidden output and return flag.
+Rva0040DD3ARef ArmySummary::rva0040E672(int key) {
+ int index=reinterpret_cast<const Rva0040CB3AIndexedField *>(this)->find(key);
+ if(index<0) return Rva0040DD3ARef();
+ return RemoveEntry(index);
 }
