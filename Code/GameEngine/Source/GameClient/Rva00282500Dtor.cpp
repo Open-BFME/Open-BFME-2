@@ -1,8 +1,9 @@
 // cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // Waypoint's constructors and destructor (vtable 0x007FB21C, whose slot 0 is
 // ??_GWaypoint at 0x00282B9F), from Zero Hour's GameLogic/Map/TerrainLogic.cpp
-// as Open-BFME-1 reconstructs them (its WaypointConstructor.cpp), and its
-// save-game xfer (Open-BFME-1's WaypointXfer.cpp).
+// as Open-BFME-1 reconstructs them (its WaypointConstructor.cpp), its
+// save-game xfer (Open-BFME-1's WaypointXfer.cpp) and the post-load pass that
+// turns the saved link ids back into waypoints.
 //
 // Target facts: the nine-argument constructor (0x00282212, ret 0x24) takes
 // its five strings by value and destroys them itself; the waypoint list head
@@ -176,6 +177,8 @@ public:
 	virtual ~Waypoint();
 	UnsignedInt getID() const { return m_id; }
 	void xfer(Xfer *xfer);
+	Waypoint *rva0027C313(Int id);
+	void rva0027C330();
 private:
 	UnsignedInt m_id; // +0x04
 	AsciiString m_name; // +0x08
@@ -402,3 +405,22 @@ void Waypoint::xfer(Xfer *xfer)
 	}
 }
 
+// ?rva0027C313@Waypoint@@QAEPAV1@H@Z @0x0027C313
+// A link id saved by xfer, resolved back to its waypoint.
+Waypoint *Waypoint::rva0027C313(Int id)
+{
+	if (id == INVALID_WAYPOINT_ID)
+		return NULL;
+	return TheTerrainLogic->getWaypointByID(id);
+}
+
+// ?rva0027C330@Waypoint@@QAEXXZ @0x0027C330
+// After a load, every link slot xfer filled with an id holds the waypoint
+// again (Open-BFME-1 inlines the lookup into the same loop).
+void Waypoint::rva0027C330()
+{
+	for (Int i = 0; i < 8; i++)
+		m_links[i] = rva0027C313((Int)m_links[i]);
+	m_field44 = rva0027C313((Int)m_field44);
+	m_linkSource = rva0027C313((Int)m_linkSource);
+}
