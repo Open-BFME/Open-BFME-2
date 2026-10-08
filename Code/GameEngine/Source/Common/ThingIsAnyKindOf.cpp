@@ -8,11 +8,15 @@ class BitFlags
 public:
 	bool test(const void *kindOf) const;
 	bool testSetAndClear(const BitFlags &mustBeSet, const BitFlags &mustBeClear) const;
-	unsigned int m_bits[(N + 31) / 32];
+	// N preserves the existing ABI spelling. Both retail query instantiations
+	// (BitFlags69Test and BitFlags116TestSetAndClear) walk seven dwords.
+	unsigned int m_bits[7];
 };
 
 // placement unverified: no rowed DIR32 site yet; ZH KINDOFMASK_NONE starts clear.
-BitFlags<116> KINDOFMASK_NONE = { { 0, 0, 0, 0 } };
+// The target default storage at RVA 0x009FEFA4 is 28 zero bytes; its
+// placement under this name remains unverified until a rowed DIR32 site uses it.
+BitFlags<116> KINDOFMASK_NONE = { { 0, 0, 0, 0, 0, 0, 0 } };
 
 struct ThingTemplate
 {
