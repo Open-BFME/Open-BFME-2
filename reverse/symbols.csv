@@ -16250,3 +16250,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?UpdateCommandSet@CreateAHeroHero@@QAE_NH@Z,0x00407705,callee of ?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z
 ?rva0031DB83@Rva000427195@@QAEPAPAXABVAsciiString@@@Z,0x0031DB83,callee of ?rva0031E8D5@ControlBar@@QAEPAVRva00409FFA@@ABVAsciiString@@H@Z
 ?newRoad@TerrainRoadCollection@@QAEPAVTerrainRoadType@@VAsciiString@@@Z,0x002DB57F,BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f TerrainRoads donor and target road-parser call 0x001FF31C; native newRoad 207-byte body creates 0x14C TerrainRoadType and links road list +0x0C; WB paired new-road branch
+??0LivingWorldBuildPlotIcon@@QAE@PAVLivingWorldBuildPlotIconTemplate@@PAVLivingWorldBuildPlot@@ABVCoord2D@@@Z,0x0059E10F,callee of ?CreateIcon@LivingWorldBuildPlot@@QAEXABVAsciiString@@@Z
