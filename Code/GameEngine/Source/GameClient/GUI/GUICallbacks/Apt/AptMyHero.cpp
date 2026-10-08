@@ -33,7 +33,7 @@ public:
  void rva005B0923(int);void SetBling(int,int,int);
  Rva005B0473View *rva005B0473();
  void BuildBlingData();
- void rva005B0487();void rva005B1019();void rva005B097F(int);void rva005B0FCD(int);
+ void rva005B0487();void rva005B1019();void rva005B1288();void rva005B097F(int);void rva005B0FCD(int);
 private:
  char pad04[0x0C-4];
  int field0C,field10;
@@ -99,3 +99,9 @@ bool AptMyHero::rva005B0725(){
  reinterpret_cast<Rva002239B2 *>(g_bfmeAptWindowManager)->rva002239E2(name,image);
  return true;
 }
+
+// WB twin 0x0156ED30 (unnamed, AptMyHero.cpp) and native 0x005B1288..
+// 0x005B129F: the view-range reset, slot14 and 0x005B1019 -- the tail of
+// SwitchToPendingHero -- with the last call a tail jump. AptCreateAHero
+// calls it on its embedded hero at +0x27C (OnShowScreen 0x00513A2D).
+void AptMyHero::rva005B1288(){rva005B0487();slot14();rva005B1019();}
