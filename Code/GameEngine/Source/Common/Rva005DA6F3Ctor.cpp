@@ -106,16 +106,16 @@ class ControlBar : public Rva0031D5F8
 
 extern ControlBar *TheControlBar;
 
-class Rva005DA6F3 : public Rva005DAA36
+class AIUpgradeHeuristicFactoryUnlock : public Rva005DAA36
 {
 public:
-	Rva005DA6F3(void *held);
+	AIUpgradeHeuristicFactoryUnlock(void *held);
 
 private:
 	std::vector<PlayerAITypeEntry> m_modules;
 };
 
-Rva005DA6F3::Rva005DA6F3(void *held)
+AIUpgradeHeuristicFactoryUnlock::AIUpgradeHeuristicFactoryUnlock(void *held)
 	: Rva005DAA36(held)
 	, m_modules()
 {

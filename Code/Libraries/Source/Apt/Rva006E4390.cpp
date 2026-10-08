@@ -1,5 +1,5 @@
 // cl: /O2 /MD
-// ?rva006E4390@Rva006E4390@@QAEXXZ @0x006E4390 240B
+// ?_tickNewInsts@AptAnimationPoolData@@QAEXXZ @0x006E4390 240B
 // Unlock lane. Container of AptCIH pointers (array at +0 count at +4).
 // Per element: null-this assert AptCIH.h:181 then type 0xE defined path via
 // rowed get/isUndefined and rowed AptCIH::rva006E1090 button field (+0x18==0
@@ -42,16 +42,16 @@ public:
 	int rva006E3C80();
 };
 
-class Rva006E4390
+class AptAnimationPoolData
 {
 public:
-	void rva006E4390();
+	void _tickNewInsts();
 private:
 	AptCIH **m_arr;
 	int m_count;
 };
 
-void Rva006E4390::rva006E4390()
+void AptAnimationPoolData::_tickNewInsts()
 {
 	for (int i = 0; i < m_count; ++i) {
 		AptCIH *e = m_arr[i];

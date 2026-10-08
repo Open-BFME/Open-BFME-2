@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
-// ?rva005097CD@Rva005097CD@@QAEXXZ @0x005097CD 71B: resolve helper over base
+// ?friend_postProcessLoad@ProjectileNugget@@QAEXXZ @0x005097CD 71B: resolve helper over base
 // Rva00507823 slot 8 plus WeaponStore find by +0x130 name into +0x128 plus
 // FX lookup by +0x134 name into +0x12c when non-empty. All callees rowed.
 
@@ -37,10 +37,10 @@ private:
 	char m_pad[0x128 - 4];
 };
 
-class Rva005097CD : public Rva00507823
+class ProjectileNugget : public Rva00507823
 {
 public:
-	void rva005097CD();
+	void friend_postProcessLoad();
 
 private:
 	const WeaponTemplate *m_128;
@@ -49,7 +49,7 @@ private:
 	AsciiString m_134;
 };
 
-void Rva005097CD::rva005097CD()
+void ProjectileNugget::friend_postProcessLoad()
 {
 	Rva00507823::rva00507877();
 	m_128 = TheWeaponStore->findWeaponTemplate(m_130);

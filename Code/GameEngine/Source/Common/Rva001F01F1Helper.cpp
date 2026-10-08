@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 //
-// ?rva001F01F1@Rva001F01F1@@... @0x001F01F1 86B.
+// ?create@ApplyRandomForceNugget@@... @0x001F01F1 86B.
 // Tiny x87 float helper (ObjectCreationNugget neighbourhood, per the range
 // notes): null-checks the param at [ebp+8] and its +0x25C object pointer,
 // spills this+4..this+16 as four floats through the unrowed cdecl helper at
@@ -25,7 +25,7 @@ struct Rva001F01F1Param
 	Rva003909FAObj *m_obj;
 };
 
-class Rva001F01F1
+class ApplyRandomForceNugget
 {
 public:
 	int m_00;
@@ -33,10 +33,10 @@ public:
 	float m_08;
 	float m_0C;
 	float m_10;
-	void rva001F01F1(Rva001F01F1Param *p, int, int);
+	void create(Rva001F01F1Param *p, int, int);
 };
 
-void Rva001F01F1::rva001F01F1(Rva001F01F1Param *p, int, int)
+void ApplyRandomForceNugget::create(Rva001F01F1Param *p, int, int)
 {
 	if (p == 0)
 		return;

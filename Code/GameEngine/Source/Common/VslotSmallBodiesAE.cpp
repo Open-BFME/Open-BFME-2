@@ -450,10 +450,10 @@ struct Rva00597426Arg
 	char m_pad00[0x94];
 	UnsignedInt m_94;
 };
-class Rva00597426
+class AIUpgrade
 {
 public:
-	Int rva00597426(const Rva00597426Arg *arg);
+	Int canMake(const Rva00597426Arg *arg);
 private:
 	Int m_00;
 	Int m_04;
@@ -462,7 +462,7 @@ private:
 	UnsignedInt m_2C;
 	Int m_30;
 };
-Int Rva00597426::rva00597426(const Rva00597426Arg *arg)
+Int AIUpgrade::canMake(const Rva00597426Arg *arg)
 {
 	if (arg->m_94 < m_2C)
 		return 2;

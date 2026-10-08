@@ -16,15 +16,15 @@ public:
     Object *rva0040C495(Player *, int);
 };
 struct Rva0040E534Input { Rva0040C495 *value; };
-class Rva0040E534 {
+class ArmySummary {
 public:
-    void rva0040E534(Rva0040E534Input *, int,
+    void LoadArmyEntry(Rva0040E534Input *, int,
         _STL::list<Object *, _STL::allocator<Object *> > *, int);
 private:
     char unknown[0x1c];
     int index;
 };
-void Rva0040E534::rva0040E534(Rva0040E534Input *input, int count,
+void ArmySummary::LoadArmyEntry(Rva0040E534Input *input, int count,
     _STL::list<Object *, _STL::allocator<Object *> > *out, int overrideIndex)
 {
     Player *player = Rva0040C94ALookup(index);

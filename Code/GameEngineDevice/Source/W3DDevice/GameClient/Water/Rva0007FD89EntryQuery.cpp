@@ -33,11 +33,11 @@ class Rva0007FD89Entry {
 public:char unknown00[0x40];Rva00308DF0Owner *owner;
  bool rva0007FB85(void *input);
 };
-class Rva0007FD89 {
-public: bool rva0007FD89(void *input);
+class WaterRenderObjClass {
+public: bool IsReflectionVisible(void *input);
 private:char unknown00[0x108];Rva0007FD89Entry **first,**last,**capacity;
 };
-bool Rva0007FD89::rva0007FD89(void *input)
+bool WaterRenderObjClass::IsReflectionVisible(void *input)
 {
  if(!input)return false;
  if(reinterpret_cast<GlobalDataGate *>(TheWritableGlobalData)->enabled && TheRva00DFF488Setting && TheRva00DFF488Setting->flag50) {
