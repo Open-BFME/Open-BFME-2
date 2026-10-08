@@ -3,6 +3,8 @@
 // readable body of ?Cull@OBBoxCollisionTestClass@@: Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp
 
 // BFME 2 has no W3D memory pools (see Code/Libraries/Source/WWVegas/WWLib/always.h).
+// Bind the triangle test to its rowed 704-byte owner rather than emit a wrong O2 COMDAT.
+#include "../../../../../reference/shims/bfme_triangle_decl/tri.h"
 #include "always.h"
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)

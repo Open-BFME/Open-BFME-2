@@ -97,6 +97,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
+// Bind the triangle test to its rowed 704-byte owner rather than emit a wrong O2 COMDAT.
+#include "../../../../../reference/shims/bfme_triangle_decl/tri.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "meshgeometry.h"
 // Retail allocates the replacement culling tree with the global scalar
