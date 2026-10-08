@@ -1,4 +1,6 @@
 // ?upgradeImplementation@CastleUpgrade@@MAEXXZ
+// partial score=0.95 date=2026-10-09
+// ?upgradeImplementation@CastleUpgrade@@MAEXXZ
 // partial score=0.95 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 #include "ascii_string.h"

@@ -1,4 +1,6 @@
 // ?rva00739F50@Rva00739F50@@QAEXXZ
+// partial score=0.8 date=2026-10-09
+// ?rva00739F50@Rva00739F50@@QAEXXZ
 // partial score=0.9 date=2026-10-08
 // cl: /DNDEBUG /MD /EHsc
 // ?rva00739F50@Rva00739F50@@QAEXXZ 0x00739F50 133B. Two-phase slot pump on the

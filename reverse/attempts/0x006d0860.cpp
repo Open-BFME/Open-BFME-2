@@ -1,4 +1,6 @@
 // ?contains@Rva006D07E0List@@QAEHVRva006D07E0Key@@@Z
+// partial score=0.8 date=2026-10-09
+// ?contains@Rva006D07E0List@@QAEHVRva006D07E0Key@@@Z
 // partial score=0.89 date=2026-10-08
 // cl: /MD /EHsc
 // A counted-handle getter and a doubly-linked unlink.
