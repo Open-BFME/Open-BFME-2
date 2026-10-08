@@ -14,22 +14,18 @@
 // pins that placement read back are Object methods, not iterator ones.
 class Matrix3D;
 
-// Donor-swept pin for 0x00291C20 (BFME 1 BfmeConv1312 placement).
-class BfmeThingTFB
-{
-public:
-	void bfmeOneTFB();
-};
-
+// WB CCB850 names the native100B helper Object::restoreObjectToWorldInternal.
+// Its recovered definition replaces the old opaque donor-swept binding.
 class Object
 {
 public:
+	void restoreObjectToWorldInternal();
 	void setTransformMatrix(const Matrix3D *mtx);
 	void rva00291C84(const Matrix3D *mtx);
 };
 
 void Object::rva00291C84(const Matrix3D *mtx)
 {
-	((BfmeThingTFB *)this)->bfmeOneTFB();
+	restoreObjectToWorldInternal();
 	setTransformMatrix(mtx);
 }

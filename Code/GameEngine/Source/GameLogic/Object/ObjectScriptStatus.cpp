@@ -144,6 +144,7 @@ class Pathfinder { public:
  PathfindLayerEnum rva002ED236(Object *,Rva002ED236Pos);
  bool QuickDoesPathExist(Object *, const Coord3D *, const Coord3D *, int);
  void RemoveObjectFromPathfindMap(Object *);
+ void AddObjectToPathfindMap(Object *);
 };
 class AI { char unknown00[0x10]; Pathfinder *m_pathfinder; public: Pathfinder *getPathfinder() { return m_pathfinder; } };
 extern AI *TheAI;
@@ -182,6 +183,8 @@ struct Rva002D76C6Owner;
 class Radar { public: void removeObject(Rva002D76C6Owner *); };
 extern Radar *TheRadar;
 class Rva002D37Owner { public: void rva002D373E(int); };
+struct Obj00526309;
+class Rva002D3726 { public: void rva002D3726(Obj00526309 *); };
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
 class Object
@@ -211,6 +214,9 @@ public:
  void rva0028BAC0();
  void rva0029004B();
  void tempRemoveObjectFromWorld();
+ void restoreObjectToWorldInternal();
+ void rva0028DCC4();
+ void rva00290095();
 private:
  __forceinline const ObjectCrushLevelsView *getTemplate() const { return m_template; }
  AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
@@ -464,4 +470,17 @@ void Object::tempRemoveObjectFromWorld() {
  TheAI->getPathfinder()->RemoveObjectFromPathfindMap(this);
  if(theRadarWindowOverrideSource) ((Rva002D37Owner *)theRadarWindowOverrideSource)->rva002D373E((int)this);
  rva0028BAC0(); rva0029004B(); setStatus((ObjectStatusTypes)0x33,true);
+}
+
+// ?restoreObjectToWorldInternal@Object@@QAEXXZ
+// WB CCB850 names Object.cpp internal restore. Native291C20..291C84 RET0
+// tests and clears hidden51 while showing Drawable84 and restoring path-map
+// occupancy; the native radar call is removeObject. Opaque calls stay numeric.
+void Object::restoreObjectToWorldInternal() {
+ if(!testStatus((ObjectStatusTypes)0x33)) return;
+ if(drawable) ((Drawable *)drawable)->setDrawableHidden(false);
+ TheRadar->removeObject((Rva002D76C6Owner *)this);
+ TheAI->getPathfinder()->AddObjectToPathfindMap(this);
+ if(theRadarWindowOverrideSource) ((Rva002D3726 *)theRadarWindowOverrideSource)->rva002D3726((Obj00526309 *)this);
+ rva0028DCC4(); rva00290095(); setStatus((ObjectStatusTypes)0x33,false);
 }

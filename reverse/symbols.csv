@@ -8492,7 +8492,6 @@ name,address,notes
 ?bfmeOneGE@BfmeThingGE@@QAEXPAUBfmeSubGE@@PAH1@Z,0x003B7DAC,callee of ?bfmeGoGE@BfmeThingGE@@QAEXPAUBfmeSubGE@@@Z at retail 0x003B897C read from its REL32 displacement; member helper on this and the source object; body unrowed
 ?bfmeOneNA@BfmeThingNA@@QAEXXZ,0x003FAB93,callee of ??4LivingWorldSound@@QAEAAV0@ABV0@@Z at retail 0x003FB00B read from its REL32 displacement at call 0x003FB071; body unrowed
 ?bfmeOneRF@@YAPAXPAX0@Z,0x00658BD0
-?bfmeOneTFB@BfmeThingTFB@@QAEXXZ,0x00291C20,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeOpenZO@BfmeChunkZO@@QAEXPADG@Z,0x00307C76,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeOwner1001@BfmeX1001@@QAEPAXXZ,0x0028AFA9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeParseAsciiYW@@YAXPAX00PBX@Z,0x0002F11E
