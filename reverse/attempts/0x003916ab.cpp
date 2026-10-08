@@ -1,5 +1,7 @@
 // ?iterateFootprint@BuildAssistant@@QAEXPBVThingTemplate@@MPBUCoord3D@@MP6AX1PAX@Z2@Z
 // partial score=0.99 date=2026-10-08
+// ?iterateFootprint@BuildAssistant@@QAEXPBVThingTemplate@@MPBUCoord3D@@MP6AX1PAX@Z2@Z
+// partial score=0.99 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 #include <list>
