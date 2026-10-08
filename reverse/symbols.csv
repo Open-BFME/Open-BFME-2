@@ -16484,3 +16484,4 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ?rva002DBC97@GameState@@QAEPBGH@Z,0x002DBC97,callee of ?iterateSaveFiles@GameState@@QAEXP6AXVUnicodeString@@PAX@Z1H@Z
 ?rva006007DA@Rva006007DAFileSystem@@QAEXPBVUnicodeString@@0PAVRva0021C459@@_N@Z,0x006007DA,callee of ?iterateSaveFiles@GameState@@QAEXP6AXVUnicodeString@@PAX@Z1H@Z
 ?rva006EBDD0@Rva006E1C40Sub@@QAEXPAXHH@Z,0x006EBDD0,callee of ?rva006E1C40@AptCIH@@QAEXPAVAptRenderingContext@@H@Z
+?rva006FFD80@AptBasePtrStack@@QAEPAVBfmeAptValue006DCD20@@PAX00HHH@Z,0x006FFD80,callee of ?rva00700170@AptBasePtrStack@@QAEXPAX0@Z
