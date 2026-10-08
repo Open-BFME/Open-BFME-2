@@ -6193,7 +6193,7 @@ class_gate_allow	Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4so
 class_gate_allow	Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_insert.cpp	AsciiString	1
 class_gate_allow	Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_cleanup.cpp	AsciiString	1
 class_gate_allow	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_set.cpp	AsciiString	1
-emit	Code/gen_small/dumps_000.cpp	*	1747
+emit	Code/gen_small/dumps_000.cpp	*	223
 object_symbol	reverse/functions.csv	0x00006EE0	1
 object_symbol	reverse/functions.csv	0x00006F10	1
 object_symbol	reverse/functions.csv	0x00006F30	1
