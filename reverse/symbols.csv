@@ -16228,3 +16228,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 
 ?rva002DF3B0@GameState@@QAEXPAVGameWindow@@0_NH@Z,0x002DF3B0,callee of ?rva00436FF6@AptSaveLoad@@QAEXXZ
 ?rva004E00D9@Rva004E02D7Owner@@QAEXXZ,0x004E00D9,address-named callee of 0x004E02D7 (unnamed follow-up member; byte gate is the proof)
+?rva005BB3A1@Rva005BB3A1@@QAE_NXZ,0x005BB3A1,address-named gate predicate of 0x005BB5CE (unowned; byte gate is the proof)
