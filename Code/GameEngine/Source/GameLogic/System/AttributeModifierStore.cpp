@@ -23,14 +23,19 @@ public:
 	Bool rva004036B1(void *key, float *value, const StringBase<char> *name);	// 0x004036B1
 };
 
+class Rva0040450E;
+class ModuleData;
+
 class AttributeModifierStore
 {
 public:
 	Bool getModifier(Int index, void *key, float *value, const StringBase<char> *name);
+	Rva0040450E *replaceModifier(Int index);
 
 private:
 	unsigned char m_pad00[0xc];
 	std::vector<Rva004036B1 *> m_modifiers;		// +0x0C
+	std::vector<const ModuleData *> m_retired; // +0x18 native four-byte pointer slots
 };
 
 // AttributeModifierStore::getModifier, retail 0x00214762.
@@ -91,6 +96,7 @@ private:
 class Rva0040450E
 {
 public:
+	friend class AttributeModifierStore;
 	Rva0040450E();
 	void rva0040450E(int);
 	void rva00214917(AsciiString name);
@@ -111,4 +117,18 @@ Rva0040450E::Rva0040450E()
 void Rva0040450E::rva00214917(AsciiString name)
 {
 	m_name10 = name;
+}
+
+Rva0040450E *AttributeModifierStore::replaceModifier(Int index)
+{
+    if (index == -1)
+        return 0;
+    Rva0040450E *oldModifier = (Rva0040450E *)m_modifiers[index];
+    m_retired.push_back(reinterpret_cast<const ModuleData *const &>(oldModifier));
+    oldModifier->m_tailB4[0x1D] = 1;
+    Rva0040450E *modifier = new Rva0040450E;
+    modifier->rva00214917(oldModifier->m_name10);
+    modifier->m_key14 = oldModifier->m_key14;
+    m_modifiers[index] = (Rva004036B1 *)modifier;
+    return modifier;
 }
