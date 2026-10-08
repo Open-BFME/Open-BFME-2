@@ -65,6 +65,8 @@ EXTERN ?apply@Rva005CF843DwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva005CF84ADwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva0005E211FDwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva005E3947DwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva005E394EDwordImmSetter@@QAEXXZ:PROC
+EXTERN ??1Rva005E12D1@@UAE@XZ:PROC
 EXTERN ?apply@Rva004EE006DwordImmSetter@@QAEXXZ:PROC
 
 _TEXT SEGMENT
@@ -2604,6 +2606,42 @@ PUBLIC ?rva007A5241@@YAXXZ
 cleanup_done_007A5241:
     ret
 ?rva007A5241@@YAXXZ ENDP
+
+; Unwind@00ba52bc at RVA 0x007A52BC; 20-byte masked-add cleanup adds 4 to [ebp-16] and tail-jumps to the dword imm-setter at 0x005E394E.
+PUBLIC ?rva007A52BC@@YAXXZ
+?rva007A52BC@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 4
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva005E394EDwordImmSetter@@QAEXXZ
+?rva007A52BC@@YAXXZ ENDP
+
+; Unwind@00ba53cd at RVA 0x007A53CD; 20-byte masked-add cleanup adds 8 to [ebp-16] and tail-jumps to the virtual dtor at 0x005E12D1.
+PUBLIC ?rva007A53CD@@YAXXZ
+?rva007A53CD@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 8
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Rva005E12D1@@UAE@XZ
+?rva007A53CD@@YAXXZ ENDP
+
+; Unwind@00ba53e1 at RVA 0x007A53E1; 20-byte masked-add cleanup adds 1Ch to [ebp-16] and tail-jumps to the dword imm-setter at 0x005E3947.
+PUBLIC ?rva007A53E1@@YAXXZ
+?rva007A53E1@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 1Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva005E3947DwordImmSetter@@QAEXXZ
+?rva007A53E1@@YAXXZ ENDP
 
 ; Unwind@00ba559a at RVA 0x007A559A; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-24], then loads the cleanup pointer from [ebp+8] and tail-jumps to UnicodeString at 0x005B804E.
