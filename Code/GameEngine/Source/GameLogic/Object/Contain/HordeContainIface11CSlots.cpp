@@ -104,11 +104,14 @@ public:
 	void add(Object *obj);
 	void rva00372571(Rva00372571Params *params, int source);
 };
+class AttackPriorityInfo;
+class PartitionFilter;
 class AI
 {
 public:
 	AIGroup *createGroup();
 	void destroyGroup(AIGroup *group);
+	Object *findClosestEnemy(const Object *me, float range, unsigned int qualifiers, const AttackPriorityInfo *info, PartitionFilter *optionalFilter, int a6);
 	unsigned char m_pad00[0x10];
 	Pathfinder *m_pathfinder; // +0x10
 };
@@ -402,6 +405,7 @@ public:
 	float GetRelativeAngle(const Coord3D *pos) const;
 	bool rva0028C264(int *out, int a2);
 	Player *getControllingPlayer() const;
+	float getVisionRange() const;
 };
 class GameLogic
 {
@@ -541,7 +545,7 @@ class Rva0046BB38Iface6 : public Rva0046BB38Slots<0>
 {
 public:
 	virtual void rva00472329(const Coord3D *pos, int unused) = 0;
-	virtual void gap1() = 0; virtual void gap2() = 0; virtual void rva0046E253() = 0; virtual void gap4() = 0; virtual void gap5() = 0;
+	virtual void gap1() = 0; virtual void rva00472235() = 0; virtual void rva0046E253() = 0; virtual void rva00472790(int a1) = 0; virtual void gap5() = 0;
 	virtual bool rva0046BB38(Object *other) = 0;
 	virtual Coord3D slot7(Object *obj, float *angle) = 0;
 	virtual void rva0046F7C9(Object *obj) = 0;
@@ -737,6 +741,7 @@ public:
 	virtual ObjectID rva0046DEA1(ObjectID want);
 	virtual void rva0046A78F(const Matrix3D *mtx);
 	virtual void rva00472329(const Coord3D *pos, int unused);
+	virtual void rva00472235();
 	virtual void rva00472A24(const Coord3D *pos, CommandSourceType cmdSource, int a3);
 	virtual void slot42(const Object *obj);
 	virtual void assignSpotToUnit(Object *obj);
@@ -2244,6 +2249,35 @@ void HordeContain::rva00472329(const Coord3D *pos, int)
 			}
 		}
 		++it;
+	}
+}
+
+// ?rva00472235@HordeContain@@UAEXXZ @0x00472235: slot 2; unless the pinned
+// 0x004695DA holds, first runs slot 4 (false) when the member-ID set at +0x170
+// is not empty, then every contained Object whose +0x17C entry names a +0x188
+// record keyed in the module data's +0x1B8 map is ordered (CMD_FROM_AI) to
+// attack the closest enemy within its vision range.
+void HordeContain::rva00472235()
+{
+	if (((Rva004695DA *)(UpdateModule *)this)->rva004695DA())
+		return;
+	if (m_170.size() != 0)
+		rva00472790(0);
+	const _STL::list<Object *> *items = containedItems();
+	const _STL::map<int, int> *keys = &fields()->m_1B8;
+	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
+	{
+		Object *obj = *it;
+		if (m_17C.find(obj->getID()) != m_17C.end())
+		{
+			int key = m_188Begin[m_17C.find(obj->getID())->second].m_key;
+			if (keys->find(key) != keys->end())
+			{
+				Object *enemy = TheAI->findClosestEnemy(obj, obj->getVisionRange(), 2, 0, 0, 0);
+				if (enemy)
+					obj->m_ai->m_command.rva0026C2D9(enemy, 0x7FFFFFFF, CMD_FROM_AI);
+			}
+		}
 	}
 }
 
