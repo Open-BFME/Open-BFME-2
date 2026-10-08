@@ -69851,3 +69851,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva0055EECB@Rva0055EECB@@QAEXPAVXfer@@@Z,,0x0055EECB,110,Code/GameEngine/Source/GameClient/Rva0055EECBXfer.cpp,matched,version gated xfer; vslots 0x28 0x70 0x60 0x90; matched xferRandomVariable helper; t=68min model=claude-haiku-5-5
 ?rva003B9EC4@@YAHPAURva003B9EC4Arg@@H@Z,,0x003B9EC4,108,Code/GameEngine/Source/Common/Rva003B9EC4.cpp,matched,address-derived; timing-log enable byte global
 ?rva003F8052@Rva003F8052@@QAE_NXZ,,0x003F8052,21,Code/Libraries/Source/WWVegas/WW3D2/WaterRenderObjRva003F802B.cpp,matched,Null-guarded negated grid predicate 0x003F7D29 via +0x14 pointer; retail 21B
+?rva00135E3A@Rva00135E3A@@QAEHXZ,,0x00135E3A,38,Code/Libraries/Source/WWVegas/WW3D2/Rva00135E00Set.cpp,matched,vslot10 gate then vslot11 then m54 vslot2 tail; retail 38B
