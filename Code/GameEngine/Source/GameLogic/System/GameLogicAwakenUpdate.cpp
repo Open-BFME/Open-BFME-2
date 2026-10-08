@@ -24,6 +24,60 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 extern class Debug *theDebug;
 
 #include <vector>
+#include <list>
+
+class Object;
+
+// processDestroyList's retail module interface is embedded at +0x0C;
+// slot +0x24 returns an interface 0x10 bytes into the UpdateModule.
+class BehaviorModuleInterface
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual void slot18();
+	virtual void slot1C();
+	virtual void slot20();
+	virtual void *getUpdate();
+};
+
+class BehaviorModule
+{
+public:
+	char m_pad00[12];
+	BehaviorModuleInterface m_behavior;
+};
+
+// Retain the established callee identities until these owners are named.
+class Rva0023C420
+{
+public:
+	void rva0023C420();
+};
+
+class Rva001EB130Holder
+{
+public:
+	void rva001EB130();
+};
+
+class Pathfinder
+{
+public:
+	void RemoveObjectFromPathfindMap(Object *obj);
+};
+
+class AI
+{
+public:
+	char m_pad00[0x10];
+	Pathfinder *m_pathfinder;
+};
+extern AI *TheAI;
 
 typedef unsigned int UnsignedInt;
 typedef int Int;
@@ -37,6 +91,9 @@ class Object
 {
 public:
 	bool isInList(Object **pListHead) const;
+	void removeFromList(Object **head, Object **tail);
+	char m_pad00[0x244];
+	BehaviorModule **m_modules;
 };
 
 class UpdateModule
@@ -155,16 +212,20 @@ class GameLogic
 {
 public:
 	void friend_awakenUpdateModule(Object *obj, UpdateModule *u, UnsignedInt when);
+	void processDestroyList();
+	void removeObjectFromLookupTable(Object *obj);
 
 private:
 	unsigned char m_pad00[0x40]; // +0x00..0x40
 	UnsignedInt m_frame; // +0x40
 	unsigned char m_pad44[0x68]; // +0x44..0xAC
 	Object *objList; // +0xAC
-	unsigned char m_padB0[0x18]; // +0xB0..0xC8
+	Object *objTail; // +0xB0
+	unsigned char m_padB4[0x14]; // +0xB4..0xC8
 	_STL::vector<UpdateModule *> phaseUpdates[4]; // +0xC8
 	_STL::vector<UpdateModule *> sleeping; // +0xF8
 	UpdateModule *current; // +0x104
+	_STL::list<Object *> destroy; // +0x108
 };
 extern GameLogic *TheGameLogic;
 
@@ -208,4 +269,58 @@ void GameLogic::friend_awakenUpdateModule(Object *obj, UpdateModule *u, Unsigned
 		}
 		u->friend_setNextCallFrame(when);
 	}
+}
+
+// ?processDestroyList@GameLogic@@QAEXXZ, retail 0x002413DF (330 bytes).
+// Identity: WorldBuilder 0x00D02920 names this function and pairs its five
+// callees; destroyAllObjectsImmediate's verified call at 0x00243B87 agrees.
+// WorldBuilder supplies the statement order and two-container scheduler
+// algorithm. BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f's GameLogic.cpp
+// supplies the object-destruction semantic lead, but its heap scheduler is
+// different. The layouts here come from retail accesses, also corroborating
+// the existing wake path: module array +0x244, phase vectors +0xC8, sleeping
+// vector +0xF8, destroy list +0x108, and update index/phase +0x18/+0x1C.
+void GameLogic::processDestroyList()
+{
+	for (_STL::list<Object *>::iterator it = destroy.begin(); it != destroy.end(); ++it)
+	{
+		Object *obj = *it;
+		for (BehaviorModule **m = obj->m_modules; *m; ++m)
+		{
+			void *iface = (*m)->m_behavior.getUpdate();
+			UpdateModule *u = iface
+				? reinterpret_cast<UpdateModule *>(static_cast<char *>(iface) - 0x10)
+				: 0;
+			if (!u)
+				continue;
+			Int index = u->m_indexInLogic;
+			Int phase = u->m_phaseInLogic;
+			if (index == -1)
+				continue;
+			u->friend_setIndexInLogic(-1);
+			if (phase < 0)
+			{
+				if (index < (Int)sleeping.size() - 1)
+				{
+					sleeping[index] = sleeping.back();
+					sleeping[index]->friend_setIndexInLogic(index);
+				}
+				sleeping.pop_back();
+			}
+			else
+			{
+				if (index < (Int)phaseUpdates[phase].size() - 1)
+				{
+					phaseUpdates[phase][index] = phaseUpdates[phase].back();
+					phaseUpdates[phase][index]->friend_setIndexInLogic(index, phase);
+				}
+				phaseUpdates[phase].pop_back();
+			}
+		}
+		TheAI->m_pathfinder->RemoveObjectFromPathfindMap(obj);
+		obj->removeFromList(&objList, &objTail);
+		removeObjectFromLookupTable(obj);
+		reinterpret_cast<Rva0023C420 *>(obj)->rva0023C420();
+	}
+	reinterpret_cast<Rva001EB130Holder *>(&destroy)->rva001EB130();
 }
