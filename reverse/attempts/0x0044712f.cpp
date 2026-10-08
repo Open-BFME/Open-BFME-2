@@ -1,5 +1,5 @@
-// ?PopulateTeamComboBox@@YAXHQAPAVGameWindow@@PAVGameInfo@@_N@Z
-// partial score=0.99 date=2026-10-09
+// ?UpdateSlotList@@YAXPAVGameInfo@@QAPAVGameWindow@@1111PAV2@1@Z
+// partial score=0.9 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
