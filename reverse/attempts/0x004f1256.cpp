@@ -1,3 +1,5 @@
+// ?getPlayerSuperweaponValue@AIPlayer@@KAHPAUCoord3D@@HM@Z
+// partial score=0.8 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // BFME2 BuildListInfo desired-gatherers getter, transferred from the exact
@@ -99,8 +101,6 @@ struct Coord3D
 	float x;
 	float y;
 	float z;
-	// Retail copies positions member by member (getPlayerStructureBounds
-	// loads pos.x and pos.y but never pos.z), as BFME 1's view does.
 	Coord3D() {}
 	Coord3D(const Coord3D &that) : x(that.x), y(that.y), z(that.z) {}
 	void zero()
@@ -560,14 +560,7 @@ void AIPlayer::checkForSupplyCenter(BuildListInfo *info, Object *bldg)
 	}
 }
 
-// ?getPlayerSuperweaponValue@AIPlayer@@KAHPAUCoord3D@@HM@Z present-unmatched
-// 0x004F1256, 386 bytes; this body compiles to 410. Its logic and frame match
-// retail, but the aircraft KindOf test ahead of isSignificantlyAboveTerrain
-// makes VC7.1 keep &pObj->m_template in esi and rotate the member loop. The
-// near miss is banked in reverse/attempts/0x004f1256.cpp. The body stays here
-// because computeSuperweaponTarget (0x004F1D38) matches only when it can see
-// that this callee keeps no copy of the position address: that is what lets
-// VC7.1 hoist the pos.x and pos.z stores out of the inner grid loop.
+// ?getPlayerSuperweaponValue@AIPlayer@@KAHPAUCoord3D@@HM@Z (0x004F1256)
 Int AIPlayer::getPlayerSuperweaponValue(Coord3D *searchCenter, Int playerIndex, Real searchRadius)
 {
 	if (searchRadius < 4 * 10.0f)
