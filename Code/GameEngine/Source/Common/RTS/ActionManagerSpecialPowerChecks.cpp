@@ -79,6 +79,18 @@ struct Coord3D
 	float z;
 };
 
+struct Region3D
+{
+	Coord3D lo;
+	Coord3D hi;
+
+	__forceinline bool isInRegionNoZ(const Coord3D *query) const
+	{
+		return (lo.x < query->x) && (query->x < hi.x)
+			&& (lo.y < query->y) && (query->y < hi.y);
+	}
+};
+
 enum KindOfType { CAPTURE_FORBIDDEN_KIND = 0x6f };
 enum SpecialPowerType { CAPTURE_POWER = 0x1d, SPECIAL_POWER_27 = 0x27 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
@@ -182,6 +194,7 @@ public:
 	bool validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
 	bool validLocationForCastingOnObjectFilter(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
 	bool rva0041CB10(const Coord3D *pos, const SpecialPowerTemplate *sp);
+	bool rva0041CC65(const SpecialPowerTemplate *sp, const Coord3D *pos);
 	bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType commandSource,
 		const SpecialPowerTemplate *spTemplate, unsigned int commandOptions, bool checkSourceRequirements);
 	bool rva0041BA61(const Object *obj);
@@ -1509,3 +1522,41 @@ bool ActionManager::rva0041CB10(const Coord3D *pos, const SpecialPowerTemplate *
 	}
 	return true;
 }
+
+// 0x0041CC65's view: TheTerrainLogic (0x009FEC50) slot 12 fills the map extent.
+class TerrainLogic
+{
+public:
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot0A() = 0;
+	virtual void slot0B() = 0;
+	virtual void getExtent(Region3D *extent) const = 0;
+};
+extern TerrainLogic *TheTerrainLogic;
+
+// Retail 0x0041CC65..0x0041CCD5 RET8, WorldBuilder's debug body at 0x0110D0A0
+// the guide: the location must lie inside the map extent shrunk on every side
+// by the override's +0x54 radius.
+bool ActionManager::rva0041CC65(const SpecialPowerTemplate *sp, const Coord3D *pos)
+{
+	Region3D extent;
+	TheTerrainLogic->getExtent(&extent);
+	float margin = sp->getFinalOverride()->m_54;
+	extent.hi.x -= margin;
+	extent.hi.y -= margin;
+	extent.lo.x += margin;
+	extent.lo.y += margin;
+	if (extent.isInRegionNoZ(pos))
+		return true;
+	return false;
+}
+
