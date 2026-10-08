@@ -271,3 +271,18 @@ bool Rva0020F91D::rva0020E354(RenderObjClass *obj,const Vector3 &start,const Vec
 {
     return ((Rva00DFEF18Host *)g_00DFEF18)->Cast(obj,start,dir,0,1,true);
 }
+
+// Native20F91D..20F9F6 RET12: construct asset prefix/name from manager268,
+// acquire through factory slot80, test the start/direction cast and release.
+// WB b557b0 refcount assertion names an inline action, not the enclosing method.
+// Receiver is forwarded to the existing singleton wrapper; target names unknown.
+bool Rva0020F91D::rva0020F91D(void *arg,const Vector3 *start,const Vector3 *dir) {
+ Rva002BF935Config *config=reinterpret_cast<Rva002BF935ManagerView *>(TheLivingWorldManager)->config;
+ AsciiString name=Rva005F17C6Build(static_cast<const Rva005F17C6S12 &>(config->prefix + "."),reinterpret_cast<int>((char *)arg+0x54));
+ config=reinterpret_cast<Rva002BF935ManagerView *>(TheLivingWorldManager)->config;
+ Rva002BF935AssetManager *assets=config->assets;
+ RenderObjClass *obj=assets->create(name.str(),0);
+ bool result=false;
+ if(obj) { result=rva0020E354(obj,*start,*dir); if(--obj->m_refs==0)obj->v00(); }
+ return result;
+}
