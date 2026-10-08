@@ -124,11 +124,9 @@ public:
 	void newMap();
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-// The target load at VA 0x00DFF070 has the data-ledger alias below. Keep this
-// address-derived view because the TheRadar alias is still provisional.
-class Rva002D88A4;
-extern Rva002D88A4 *g_00DFF070;
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+extern Radar *TheRadar;
 
 struct RadarWindowOverrideInner
 {
@@ -239,14 +237,14 @@ void RadarWindowOverrideSource::rva002D370A( void )
 // pointer at +0 and tail-jump to 0x0052A66A.
 void RadarWindowOverrideSource::rva002D4240(bool immediate)
 {
-	if (!TheRva00222A8BTarget)
+	if (!g_bfmeAptWindowManager)
 		return;
 
 	if (immediate)
 	{
 		if ((m_inner->m_flags & 6) == 0)
 		{
-			TheRva00222A8BTarget->invoke(m_inner->m_movie, "Close", 0, 0, 0, 0, 0, 0);
+			((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(m_inner->m_movie, "Close", 0, 0, 0, 0, 0, 0);
 			m_inner->m_flags |= 2;
 		}
 
@@ -261,8 +259,8 @@ void RadarWindowOverrideSource::rva002D4240(bool immediate)
 		m_inner->m_C8.clear();
 		m_inner->m_CC.clear();
 
-		if (g_00DFF070)
-			((Radar *)g_00DFF070)->newMap();
+		if (TheRadar)
+			TheRadar->newMap();
 	}
 	else
 	{
@@ -271,7 +269,7 @@ void RadarWindowOverrideSource::rva002D4240(bool immediate)
 
 		if ((m_inner->m_flags & 4) && !(m_inner->m_flags & 1))
 		{
-			((Rva002224FE *)TheRva00222A8BTarget)->rva002224FE((int)m_inner->m_movie);
+			((Rva002224FE *)g_bfmeAptWindowManager)->rva002224FE((int)m_inner->m_movie);
 			m_inner->m_flags |= 1;
 		}
 	}
