@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
+// cl: /O1 /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX /arch:SSE /G7
 //
 // GameEngine.cpp: GameEngine bodies retail links from this TU (tu_map
 // approved), folded from the frame-admission and stopHeadlessClients split
@@ -13,6 +13,13 @@
 // body queries the network object's vtable slot +0x58, advances the client
 // frame counter at +0x38, and maintains the headroom limit at +0x44.
 
+#include <windows.h>
+#include <string.h>
+extern "C" __declspec(dllimport) char *__stdcall GetEnvironmentStrings(void);
+extern "C" void __cdecl free(void *);
+extern "C" void *__cdecl memset(void *,int,unsigned int);
+#pragma function(memset)
+namespace _STL { template<class T> class allocator { public: static T *allocate(unsigned int,const void *); }; }
 extern float g_Va00BBB8D8;
 
 // g_Va00DBA2F8: VA 0x00dba2f8 (.data); retail initial bytes 00 00 80 3f (1.0f).
@@ -75,6 +82,7 @@ class GameEngine
 {
 public:
 	virtual void slot00(void);
+	void startHeadlessClients(int numClients);
 
 private:
 	void stopHeadlessClients(void);
@@ -133,4 +141,79 @@ void GameEngine::stopHeadlessClients(void)
 	for (int index = 0; index < m_childProcessCount; ++index)
 		TerminateProcess(m_childProcesses[index], 0);
 	m_childProcessCount = 0;
+}
+
+// Clean BFME1 donor: game/GameEngine/Source/Common/GameEngineRva0006C180.cpp
+// at 9cbfb551fe20dae985f91f2319d8997287b6a705. Retail 0x00225F81..0x002260F7
+// proves the +4 process-table shift and the ordinary, unaligned path buffer.
+// BFME2 uses the local allocator/free thunks; O1/Ob1 matches this body and
+// both previously recovered siblings. Full 374 bytes, strings and imports verified.
+void GameEngine::startHeadlessClients(int numClients)
+{
+	char modulePath[0x200];
+
+	if (m_childProcessCount > 0)
+		return;
+	if (numClients < 1)
+		return;
+	if (numClients > 7)
+		numClients = 7;
+
+	GetModuleFileNameA(0, modulePath, 0x200);
+	char *environment = GetEnvironmentStrings();
+	int environmentLength = 0;
+	{
+		char *entry = environment;
+		while (*entry != 0)
+		{
+			int length = (int)strlen(entry);
+			environmentLength += length + 1;
+			entry += length + 1;
+		}
+	}
+
+	environmentLength += 0x3e8;
+	char *commandLine = GetCommandLineA();
+	char *environmentCopy;
+	environmentCopy = _STL::allocator<char>::allocate(environmentLength,0);
+	int count = 0;
+	if (numClients > 0)
+	{
+		PROCESS_INFORMATION processInformation;
+		int number = 1;
+		HANDLE *processSlot = m_childProcesses;
+		for (int remaining = numClients; remaining > 0; --remaining)
+		{
+			char *cursor = environmentCopy;
+			cursor += sprintf(cursor, "_EA_RTS_HEADLESS=%i", number) + 1;
+			cursor += sprintf(cursor, "_EA_RTS_FILENAME=");
+			GetModuleFileNameA(0, cursor, 0x100);
+			char *extension = strrchr(cursor, '.');
+			int suffixLength = sprintf(extension, "-%i.exe", number);
+			cursor = extension + suffixLength + 1;
+
+			{
+				char *entry = environment;
+				while (*entry != 0)
+				{
+					do
+						*cursor++ = *entry++;
+					while (cursor[-1] != 0);
+				}
+			}
+			*cursor = 0;
+
+			STARTUPINFOA startupInformation;
+			memset(&startupInformation, 0, sizeof(startupInformation));
+			startupInformation.cb = 0x44;
+			CreateProcessA(modulePath, commandLine, 0, 0, 0, 0x208,
+				environmentCopy, 0, &startupInformation, &processInformation);
+			*processSlot++ = processInformation.hProcess;
+			++number;
+			++count;
+		}
+	}
+
+	m_childProcessCount = count;
+	free(environmentCopy);
 }
