@@ -487,13 +487,14 @@ public:
 	virtual void finishBuildingSound() = 0; // vslot 24
 	// BFME 2's own slots. 26 (0x0048A15A) and 29 (0x00489DD1, which slot 28
 	// shares) both work on the object whose id is at DozerAIUpdate +0x4A4.
-	virtual void rva00489F7D(const ThingTemplate *what, Player *owningPlayer, const Coord3D *pos, Real angle) = 0; // vslot 25
-	virtual void rva0048A15A() = 0; // vslot 26
+	// Slot names 25, 26 and 31 are WorldBuilder's (DozerAIUpdate.cpp asserts).
+	virtual void createPhantomStructure(const ThingTemplate *what, Player *owningPlayer, const Coord3D *pos, Real angle) = 0; // vslot 25
+	virtual void makePhantomStructureReal() = 0; // vslot 26
 	virtual void rva00489D09() = 0; // vslot 27
 	virtual Object *slot28() = 0;
 	virtual Object *rva00489DD1() = 0; // vslot 29
 	virtual void slot30() = 0;
-	virtual void rva00488CC4() = 0; // vslot 31
+	virtual void notifyConstructionComplete() = 0; // vslot 31
 };
 
 class AIUpdateInterface : public UpdateModule, public AICommandInterface, public AIUpdateInterface24
@@ -862,11 +863,11 @@ public:
 	virtual void onDelete();
 	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags);
 	virtual void finishBuildingSound();
-	virtual void rva00489F7D(const ThingTemplate *what, Player *owningPlayer, const Coord3D *pos, Real angle);
-	virtual void rva0048A15A();
+	virtual void createPhantomStructure(const ThingTemplate *what, Player *owningPlayer, const Coord3D *pos, Real angle);
+	virtual void makePhantomStructureReal();
 	virtual void rva00489D09();
 	virtual Object *rva00489DD1();
-	virtual void rva00488CC4();
+	virtual void notifyConstructionComplete();
 	virtual void newTask(DozerTask task, Object *target);
 	virtual void cancelTask(DozerTask task);
 	virtual void internalTaskCompleteOrCancelled(DozerTask task);
@@ -1425,7 +1426,7 @@ StateReturnType DozerActionMoveToActionPosState::update()
 				if (other)
 				{
 					Rva00489256Do(dozer);
-					dozerAI->rva0048A15A();
+					dozerAI->makePhantomStructureReal();
 					other->rva0028AB4E();
 					TheAiOrdersManager->rva00355183(3, dozer->getID());
 				}
@@ -1669,7 +1670,7 @@ public:
 	void rva004EC2D4(int value);
 };
 
-void DozerAIUpdate::rva00488CC4()
+void DozerAIUpdate::notifyConstructionComplete()
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(getObject()->getControllingPlayer());
 	if (record)
@@ -1822,7 +1823,7 @@ public:
 // bits PENDING_CONSTRUCTION and PHANTOM_STRUCTURE and model condition
 // PHANTOM_STRUCTURE (retail's name tables). Its id goes to +0x4A4, which
 // vslots 27 and 29 work on, and the phantom is made inert at once.
-void DozerAIUpdate::rva00489F7D(const ThingTemplate *what, Player *owningPlayer, const Coord3D *pos, Real angle)
+void DozerAIUpdate::createPhantomStructure(const ThingTemplate *what, Player *owningPlayer, const Coord3D *pos, Real angle)
 {
 	if (m_4A4 != 0)
 		rva00489D09();
@@ -1984,7 +1985,7 @@ public:
 // Then the rest of ZH construct: clear and move what is in the way, flatten
 // the terrain and settle on it, one hit point, the under-construction status
 // bits, the pathfind map; the phantom bits, hiding and opacity come off.
-void DozerAIUpdate::rva0048A15A()
+void DozerAIUpdate::makePhantomStructureReal()
 {
 	if (m_4A4 == 0)
 		return;
@@ -2474,7 +2475,7 @@ StateReturnType DozerActionDoActionState::update()
 		// to be clean get rid of the goal object we set
 		getMachine()->setGoalObject(0);
 
-		dozerAI->rva00488CC4();
+		dozerAI->notifyConstructionComplete();
 
 		// we're done
 		return STATE_SUCCESS;
