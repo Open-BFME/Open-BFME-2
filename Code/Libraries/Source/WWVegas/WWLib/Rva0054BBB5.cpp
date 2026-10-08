@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // SimpleObjectIterator::insert (WorldBuilder name, SimpleObjectIterator.cpp line 62: deque push_back of the pair); 0x0054B414 (deque clear) is on the same class.
 // stlport
 //
@@ -28,26 +28,55 @@ struct BfmeE8
 	float b;
 };
 
-class SimpleObjectIterator
+// The existing cleanup provider names only the established eight-byte record
+// width. Its external declaration preserves the native potentially-throwing
+// member cleanup, including the base destructor's exceptional path.
+struct BfmeTrivialDequeElement8 { unsigned char opaque[8]; };
+namespace _STL {
+template<> deque<BfmeTrivialDequeElement8,allocator<BfmeTrivialDequeElement8> >::~deque();
+}
+
+// Native tables C6A68C and C6A698 share the empty base destructor and two
+// iterator slots. Keep the existing base owner spelling rather than guessing
+// a new name. Its layout is four bytes; the derived cursor occupies +4..+14.
+class Rva00549C74 {
+public:
+	virtual ~Rva00549C74() {}
+	virtual int first() = 0;
+	virtual int next() = 0;
+};
+
+class SimpleObjectIterator : public Rva00549C74
 {
 public:
+	virtual ~SimpleObjectIterator();
+	virtual int first();
+	virtual int next();
 	void insert(int a, float b);
 	void rva0054B414();
 
 private:
-	unsigned char m_pad00[0x14];
-	_STL::deque<BfmeE8> m_deque;
+	unsigned char m_cursor[0x10];
+	_STL::deque<BfmeTrivialDequeElement8> m_deque;
 };
+
+// Native 54B81A..54B850: the deque cleanup at +14 and the base-vtable
+// restoration independently establish the two destructor stages. The named
+// insert, constructor call sites and the three-slot vtable establish this
+// class; Zero Hour's ObjectIter.h supplies the empty-base destructor lead.
+SimpleObjectIterator::~SimpleObjectIterator() {}
 
 void SimpleObjectIterator::insert(int a, float b)
 {
 	BfmeE8 tmp;
 	tmp.a = a;
 	tmp.b = b;
-	m_deque.push_back(tmp);
+	// Preserve the existing provider's typed ABI view over the proven 8-byte
+	// deque storage. The original record type remains unrecovered.
+	reinterpret_cast<_STL::deque<BfmeE8> &>(m_deque).push_back(tmp);
 }
 
 void SimpleObjectIterator::rva0054B414()
 {
-	return m_deque.clear();
+	return reinterpret_cast<_STL::deque<BfmeE8> &>(m_deque).clear();
 }
