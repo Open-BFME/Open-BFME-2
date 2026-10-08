@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD
+#include "ascii_string.h"
 //
 // Small vtable-slot bodies with no ledger owner and no Ghidra entry (sized
 // from their bytes), batch S. As in VslotSmallBodiesA-R, each class and
@@ -88,13 +89,20 @@ class Rva0050F5A6
 {
 public:
 	Int rva0050FF7F(UnsignedInt a, GameWindow *w, UnsignedInt b);
+	void rva0050FFC0();
 };
 class Rva005101C0
 {
 public:
 	Int rva005101C0(UnsignedInt a, GameWindow *w, UnsignedInt b);
+	void rva005101E2();
 private:
-	char m_pad00[0x24];
+	char m_pad00[8];
+	void *m_level;
+	AsciiString m_prefix;
+	char m_pad10[0x20 - 0x10];
+	bool m_enabled;
+	char m_pad21[3];
 	Rva0050F5A6 *m_24;
 };
 Int Rva005101C0::rva005101C0(UnsignedInt a, GameWindow *w, UnsignedInt b)
@@ -417,4 +425,26 @@ void Rva0057A4C9::rva0057A4C9()
 {
 	if (m_28)
 		m_28->rva005D4BD4(0.0f);
+}
+
+class Rva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
+bool Rva0023D339Get();
+int Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
+// Native 0x005101E2..0x00510233 is 81B; the queue's 125B also contains
+// independent following wrappers. WB's unnamed 0x01359980 vtable body in
+// AptPlayerTribute.cpp supports the receiver view used by the adjacent router.
+// Once transfers are allowed, SetState("_enabled") on level+8/prefix+0xc
+// sets flag+0x20; the +0x24 child then runs the rowed refresh at 0x0050FFC0.
+// Original owner/method identity remains unknown.
+void Rva005101C0::rva005101E2()
+{
+	if (!m_enabled && Rva0023D339Get())
+	{
+		Rva005FB5E6AptCall((Rva00222A8BTarget *)g_bfmeAptWindowManager, m_level,
+			((const StringBase<char> *)&m_prefix)->str(), "SetState", "_enabled");
+		m_enabled = true;
+	}
+	if (m_24)
+		m_24->rva0050FFC0();
 }
