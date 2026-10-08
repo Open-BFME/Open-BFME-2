@@ -12,6 +12,8 @@ struct BfmePod8 {int a;float b;};
 class Rva005B0E9F {public: BfmePod8 *rva005B0E9F(int);};
 class Rva00406E47 {public: bool rva00406E47(int);};
 struct Rva005B0473View {char opaque[0x68];int field68;};
+class CreateAHeroManager {public: Rva005B0473View *rva00219F36(int,int);};
+extern CreateAHeroManager *TheCreateAHeroManager;
 class AptMyHero {
 public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
@@ -20,7 +22,9 @@ public:
  void BuildBlingData();
  void rva005B0487();void rva005B1019();void rva005B097F(int);void rva005B0FCD(int);
 private:
- char pad04[0x140-4];
+ char pad04[0x0C-4];
+ int field0C,field10;
+ char pad14[0x140-0x14];
  void *holder140;
  CreateAHeroData *pending144;
  bool flag148;
@@ -35,3 +39,8 @@ void AptMyHero::SwitchToPendingHero(){
  rva005B1019();
  if(flag148){rva005B097F(0);rva005B0FCD(1);flag148=false;}
 }
+
+// Native005B0473..005B0487 forwards fields10 then0C through the existing
+// typed manager global. Named locals preserve the independently observed
+// read order; the getter and returned view retain address-derived names.
+Rva005B0473View *AptMyHero::rva005B0473(){int b=field10;int a=field0C;return TheCreateAHeroManager->rva00219F36(a,b);}
