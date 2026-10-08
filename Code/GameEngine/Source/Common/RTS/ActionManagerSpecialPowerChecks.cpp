@@ -28,7 +28,8 @@ enum ObjectID { INVALID_OBJECT_ID = 0 };
 
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 
-enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2, OBJECT_STATUS_SOLD = 0x13, OBJECT_STATUS_3B = 0x3b };
+enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2, OBJECT_STATUS_SOLD = 0x13, OBJECT_STATUS_3B = 0x3b,
+	OBJECT_STATUS_63 = 0x63 };
 
 class Thing { public: bool isAboveTerrain() const; };
 
@@ -79,7 +80,7 @@ struct Coord3D
 };
 
 enum KindOfType { CAPTURE_FORBIDDEN_KIND = 0x6f };
-enum SpecialPowerType { CAPTURE_POWER = 0x1d };
+enum SpecialPowerType { CAPTURE_POWER = 0x1d, SPECIAL_POWER_27 = 0x27 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum WeaponSlotType { PRIMARY_WEAPON = 0 };
 struct Rva0028AC4EEntry;
@@ -103,6 +104,8 @@ public:
 	float GetRelativeAngle(const Coord3D *pos) const;	// 0x000B4542
 	bool rva0028D491() const;	// 0x0028D491
 	int rva0028FBBE();	// 0x0028FBBE
+	const AsciiString *rva00290E67() const;	// 0x00290E67
+	SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType) const;	// 0x00290E22
 	friend class ActionManager;
 protected:
 	Module *findModule(NameKeyType) const;	// 0x0028B6D6
@@ -1244,6 +1247,8 @@ class BFMEActionManager : public ActionManager
 public:
 	bool canEnterObject(const Object *obj, const Object *objectToEnter, CommandSourceType commandSource,
 		CanEnterType mode, bool passThrough, bool *outFlag);
+	bool rva000C4080(const Object *obj, const Object *target, CommandSourceType commandSource);	// 0x0041B94A
+	bool rva0041D435(const Object *obj, const Object *target, CommandSourceType commandSource);
 };
 
 static inline unsigned int enterKindOfWord(const Object *o, int word)
@@ -1371,4 +1376,73 @@ bool BFMEActionManager::canEnterObject(const Object *obj, const Object *objectTo
 			return false;
 	}
 	return true;
+}
+
+// 0x0041D435's views. TheControlBar's 0x0031D5F8 lookup takes the object's
+// command-set name (0x00290E67); CommandButton +0x14 is the command type,
+// +0x1C the options and +0x44 the special-power template; the special-power
+// module's slot 6 returns its template.
+class ControlBar;
+extern ControlBar *TheControlBar;
+
+class Rva0031D5F8
+{
+public:
+	void *rva0031D5F8(const AsciiString *name);	// 0x0031D5F8
+};
+
+class CommandButton
+{
+public:
+	char m_pad00[0x14];
+	int m_commandType;	// +0x14
+	char m_pad18[4];
+	unsigned int m_options;	// +0x1C
+	char m_pad20[0x44 - 0x20];
+	const SpecialPowerTemplate *m_specialPower;	// +0x44
+};
+
+class CommandSet
+{
+public:
+	const CommandButton *getCommandButton(int i) const;	// 0x00409EE8
+};
+
+class ActionSpecialPowerInterfaceView
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05();
+	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const;	// +0x18
+};
+
+// Retail 0x0041D435..0x0041D4FA RET12, reached only from the action switch
+// at 0x0029CA63 through TheActionManager. WorldBuilder's debug body at
+// 0x0110C6E0 is the guide: refuse a target with status 0x63 or one the
+// 0x0041B94A pair check rejects, then accept if any special-power button
+// (type 0x18) of the object's command set whose power is type 0x27 can be
+// used on the target.
+bool BFMEActionManager::rva0041D435(const Object *obj, const Object *target, CommandSourceType commandSource)
+{
+	if (target && target->testStatus(OBJECT_STATUS_63))
+		return false;
+	if (rva000C4080(obj, target, commandSource))
+		return false;
+	const CommandSet *commandSet = reinterpret_cast<const CommandSet *>(
+		reinterpret_cast<Rva0031D5F8 *>(TheControlBar)->rva0031D5F8(obj->rva00290E67()));
+	if (commandSet) {
+		for (int i = 0; i < 32; ++i) {
+			const CommandButton *button = commandSet->getCommandButton(i);
+			if (button && button->m_commandType == 0x18 &&
+				button->m_specialPower->getSpecialPowerType() == SPECIAL_POWER_27) {
+				ActionSpecialPowerInterfaceView *spm = reinterpret_cast<ActionSpecialPowerInterfaceView *>(
+					obj->findSpecialPowerModuleInterface(SPECIAL_POWER_27));
+				unsigned int options = button->m_options & ~0x8000;
+				if (spm && canDoSpecialPowerAtObject(obj, target, commandSource,
+						spm->getSpecialPowerTemplate(), options, true))
+					return true;
+			}
+		}
+	}
+	return false;
 }
