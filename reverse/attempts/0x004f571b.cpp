@@ -1,6 +1,6 @@
-// ?onTunnelDestroyed@TunnelTracker@@QAE_NPBVObject@@@Z
-// partial score=0.85 date=2026-10-04
-// cl: /G7 /MD /O1 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// ?rva004F571B@TunnelTracker@@QAE_NPAVObject@@@Z
+// partial score=0.85 date=2026-10-08
+// cl: /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 //
 // TunnelTracker contain-list bodies, ported from Zero Hour's
@@ -18,15 +18,6 @@
 //    0x00263895 (damage type 7 HEALING at +0x10, death type 1 NONE at +0x1C,
 //    amount at +0x20); body module Object +0x254 (getMaxHealth slot 6,
 //    attemptHealing slot 1); contained-by frame Object +0x27C.
-//  - onTunnelDestroyed, retail 0x004F571B (129 bytes): called by
-//    TunnelContain at 0x00466775, 0x00466813 and 0x0047DFA8. BFME 2 returns
-//    whether the last tunnel is gone and leaves the cave-in to its caller
-//    (0x0047DF81 tests al), so Zero Hour's m_tunnelCount == 0 branch is
-//    absent. The contained objects are walked through the rowed 0x00466398,
-//    which returns the tracker's (this + 4, &m_containList) pair by hidden
-//    pointer; TunnelContain's own walks (0x0047DF44) use it the same way.
-//    Contained-by is Object +0x274 and onContainedBy is the rowed
-//    Object::rva0028FAD1.
 // BFME 2 layout (target evidence, matching TunnelTracker::xfer): tunnel ids
 // +0x08, contain list +0x10, contain list size +0x18, tunnel count +0x1C.
 #include <list>
@@ -83,12 +74,10 @@ class Object
 {
 public:
 	BodyModuleInterface *getBodyModule() const { return m_body; }
-	ObjectID getID() const { return m_id; }
-	Object *getContainedBy() { return m_containedBy; }
-	UnsignedInt getContainedByFrame() const { return m_containedByFrame; }
-	void rva0028FAD1(Object *containedBy);
-	void onContainedBy(Object *containedBy) { rva0028FAD1(containedBy); }
-private:
+	void onContainedBy(Object *container);
+	// Contained-by frame, read directly (an inline getContainedByFrame here
+	// would be a second COMDAT copy beside GarrisonContain's Zero Hour
+	// header view, which reads ZH's +0x1B8).
 	char m_pad00[0x74];
 	ObjectID m_id; // +0x74
 	char m_pad78[0x254 - 0x78];
@@ -116,15 +105,32 @@ public:
 	char m_pad00[0xA98];
 	Int m_maxTunnelCapacity; // +0xA98
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData; // 0x00DFE758
+#define TheGlobalData TheWritableGlobalData
 
-typedef _STL::list<Object *> ContainedItemsList;
-
-// The (this + 4, &m_containList) pair the rowed 0x00466398 returns.
-struct ContainedItemsRef
+// The contain list's append is the STLport four-byte list push_back body
+// 0x0005548F (ICF-shared with list<int>), not the separate list<Object*>
+// instance 0x001EC03C, so the list is modelled as its own class here.
+class TunnelContainedItemsList
 {
-	void *m_owner;
-	ContainedItemsList *m_list;
+public:
+	void push_back(Object *const &obj);
+private:
+	void *m_node;
+};
+typedef TunnelContainedItemsList ContainedItemsList;
+
+// Native 0x00466398 descriptor: two pointers returned by hidden result word.
+class Rva0036AE51ListView
+{
+public:
+ void *a;
+ _STL::list<Object *> *b;
+};
+class Rva00466398
+{
+public:
+ Rva0036AE51ListView rva00466398();
 };
 
 class TunnelTracker
@@ -132,12 +138,11 @@ class TunnelTracker
 public:
 	Int getContainMax() const;
 	void addToContainList( Object *obj );
-	Bool onTunnelDestroyed( const Object *deadTunnel );
-	ContainedItemsRef getContainedItemsRef();
+	bool rva004F571B(Object *deadTunnel);
 	static void healObject( Object *obj, void *frames );
 private:
 	char m_pad00[0x08];
-	_STL::list<ObjectID> m_tunnelIDs; // +0x08
+	_STL::list<int> m_tunnelIDs; // +0x08
 	char m_pad0C[0x10 - 0x0C];
 	ContainedItemsList m_containList; // +0x10
 	char m_pad14[0x18 - 0x14];
@@ -175,7 +180,7 @@ void TunnelTracker::healObject( Object *obj, void *frames)
 	BodyModuleInterface *body = obj->getBodyModule();
 
 	// if we've been in here long enough ... set our health to max
-	if( TheGameLogic->getFrame() - obj->getContainedByFrame() >= *framesForFullHeal )
+	if( TheGameLogic->getFrame() - obj->m_containedByFrame >= *framesForFullHeal )
 	{
 
 		// set the amount to max just to be sure we're at the top
@@ -195,24 +200,27 @@ void TunnelTracker::healObject( Object *obj, void *frames)
 	}  // end else
 }
 
-// ------------------------------------------------------------------------
-Bool TunnelTracker::onTunnelDestroyed( const Object *deadTunnel )
-{
-	m_tunnelCount--;
-	m_tunnelIDs.remove( deadTunnel->getID() );
 
-	if( m_tunnelCount > 0 )
-	{
-		Object *validTunnel = TheGameLogic->findObjectByID( m_tunnelIDs.front() );
-		// make sure nobody inside remembers the dead tunnel as the one they entered
-		ContainedItemsList *list = getContainedItemsRef().m_list;
-		for(ContainedItemsList::iterator it = list->begin(); it != list->end(); )
-		{
-			Object* obj = *it;
-			++it;
-			if( obj->getContainedBy() == deadTunnel )
-				obj->onContainedBy( validTunnel );
-		}
-	}
-	return m_tunnelCount == 0;
+// 0x004F571B, 129B RET4. Adapt the banked ZH onTunnelDestroyed port:
+// BFME2 leaves the last-tunnel cave-in to the caller and returns whether
+// the count is zero. Native callback arguments and Object +274 establish
+// the contained-object walk. Prior bank: 0x004f571b.cpp, 2026-10-04.
+bool TunnelTracker::rva004F571B(Object *deadTunnel)
+{
+ --m_tunnelCount;
+ int id = deadTunnel->m_id;
+ m_tunnelIDs.remove(id);
+ if (m_tunnelCount > 0)
+ {
+  Object *validTunnel = TheGameLogic->findObjectByID(static_cast<ObjectID>(m_tunnelIDs.front()));
+  _STL::list<Object *> *list = reinterpret_cast<Rva00466398 *>(this)->rva00466398().b;
+  for (_STL::list<Object *>::iterator it = list->begin(); it != list->end(); )
+  {
+   Object *object = *it;
+   ++it;
+   if (object->m_containedBy == deadTunnel)
+    object->onContainedBy(validTunnel);
+  }
+ }
+ return m_tunnelCount == 0;
 }
