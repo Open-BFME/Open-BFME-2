@@ -153,3 +153,11 @@ BFME_DISP32_LEA_GETTER(Rva0066D480LeaGetter, 0x170)
 #pragma comment(linker, "/alternatename:?get@Rva007EA660FieldAddress@@QAEPADXZ=?get@Rva00657600LeaGetter@@QBEPAXXZ")
 #pragma comment(linker, "/alternatename:?getEnergy@Player@@QAEPAVEnergy@@XZ=?get@Rva00657650LeaGetter@@QBEPAXXZ")
 #pragma comment(linker, "/alternatename:?getAt80@Rva007EA6B0Accessor@@QAEPAXXZ=?get@Rva00657650LeaGetter@@QBEPAXXZ")
+
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705
+// game/GameEngine/Source/Common/DispFieldAddressGetters.cpp, /O1 /arch:SSE /G7,
+// supplies the interior-address expression. Retail independently has one
+// complete LEA(ecx+0x1e4)/RET leaf at 0x004CEF06..0x004CEF0D, immediately
+// after a complete jump thunk at 0x004CEF01 and before the rowed pair-copy
+// body at 0x004CEF0D. Original receiver and addressed member type are unknown.
+BFME_DISP32_LEA_GETTER(Rva004CEF06LeaGetter, 0x1E4)
