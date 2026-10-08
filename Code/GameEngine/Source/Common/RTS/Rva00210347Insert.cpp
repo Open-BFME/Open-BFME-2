@@ -8,6 +8,7 @@
 struct NoCaseTreeValue4
 {
 	char m_body[4];
+	NoCaseTreeValue4() { *(unsigned int *)m_body = 0; }
 };
 
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> NocasePair;
@@ -49,3 +50,39 @@ NocasePair &Rva00210347::rva00210347(const NocasePair &value)
 	++m_numElements;
 	return node->m_value;
 }
+
+// Native 2104ED..210566 RET4; existing insert210347 owns the name/value pair.
+// The iterator provider only hashes and compares existing string bytes.
+// End its nonthrowing lookup scope before constructing the conditional pair.
+class Rva00056F61;
+struct Rva0041534BIter
+{
+	void *m_node;
+	Rva00056F61 *m_table;
+ Rva0041534BIter(void *n, Rva00056F61 *t) : m_node(n), m_table(t) {}
+};
+
+class Rva00056F61
+{
+public:
+	__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *key);
+};
+
+class Rva002104ED
+{
+public:
+	NoCaseTreeValue4 &rva002104ED(const AsciiString *key);
+private:
+	char m_pad[0];
+};
+
+
+NoCaseTreeValue4 &Rva002104ED::rva002104ED(const AsciiString *key)
+{
+	void *node;
+ { Rva0041534BIter it = ((Rva00056F61 *)this)->rva0041534B(key); node = it.m_node; }
+	return node == 0 ? ((Rva00210347 *)this)->rva00210347(NocasePair(*key, NoCaseTreeValue4())).second
+		: *(NoCaseTreeValue4 *)((char *)node + 8);
+}
+
+
