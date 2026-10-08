@@ -6,7 +6,6 @@
 // rowed process 0x141C40, scope-end dtor pushing to 0xDB4254.
 // 197-vs-201B 4B delta = EH + unordered-max/div shape under /arch:SSE /G7.
 // Layout 0x28 TU-local matching canonical (actual header included).
-// Exclude Set_Level verbatim + 142960 ctor per lane.
 #include "rendobj.h"
 #include "aabox.h"
 #include "scene.h"
@@ -82,10 +81,31 @@ struct Rva00943FF0List
 // Extern g_bfmeDefaultBU removed (was undefined link hazard); literal keeps
 // identical movss/divss shape (DIR32-masked per-TU, link-correct via COMDAT).
 
-struct BfmeSceneVectorElement
+// The rowed 141CA0 destructor proves the scene list lives at element +4.
+// Retail's array constructor callback at 141830 initializes the same 28 bytes.
+class BfmeNonRefSceneList
 {
-	unsigned int m_00;
-	MultiListClass<RenderObjClass> m_objects;
+public:
+	virtual ~BfmeNonRefSceneList();
+private:
+	char m_pad[0x14];
+};
+
+class Rva00141D00
+{
+public:
+	Rva00141D00();
+	~Rva00141D00();
+private:
+	int m_pad;
+	BfmeNonRefSceneList m_list;
+};
+
+struct Rva0006FB50List
+{
+	Gen_00943CF0_Node *head;
+	// 6FB50 -> 6FABF only relinks and recycles nodes, without throwing calls.
+	~Rva0006FB50List() throw();
 };
 
 class BfmeSceneVector
@@ -93,9 +113,10 @@ class BfmeSceneVector
 public:
 	void rva00141EF0(Gen_00943CF0_Node **objects);
 	void rva00141F90(const Rva00141F90Bounds &newBounds);
+	void Set_Level(unsigned int level);
 
 	Rva00141F90Bounds bounds;
-	BfmeSceneVectorElement *vector;
+	Rva00141D00 *vector;
 	int vector_max;
 	float scale;
 	unsigned int level_mask;
@@ -113,5 +134,32 @@ void BfmeSceneVector::rva00141F90(const Rva00141F90Bounds &newBounds)
 	float dy = bounds.m_10 - bounds.m_04;
 	float greater = dx > dy ? dx : dy;
 	scale = 1.0f / greater;
+	((Gen_00943CF0 *)this)->process(&objects.head);
+}
+
+// BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f scene.cpp Set_Level
+// supplies the control-flow lead; its name is a donor inference. Target
+// [142060,142166) proves the limit, mask at +24, count at +1C, array at +18,
+// 28-byte stride and callbacks 141830/141CA0. Clear/process are rowed target
+// helpers 141EF0/141C40. The one-pointer local uses target dtor 6FB50.
+void BfmeSceneVector::Set_Level(unsigned int level)
+{
+	if (level > 10)
+		return;
+	unsigned int mask = 1u << level;
+	if (mask == level_mask)
+		return;
+	level_mask = mask;
+	int count = 1;
+	while (level != 0) {
+		--level;
+		count = count * 4 + 1;
+	}
+	Rva0006FB50List objects = {0};
+	rva00141EF0(&objects.head);
+	if (vector)
+		delete[] vector;
+	vector_max = count;
+	vector = new Rva00141D00[count];
 	((Gen_00943CF0 *)this)->process(&objects.head);
 }

@@ -16184,3 +16184,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?prompt@Rva0054D438Prompt@@QAE_NHABVUnicodeString@@0UTreeHintRef00217D4C@@1@Z,0x0054D438,callee of ?prompt@Rva0054D4CDPrompt@@QAE_NHABVUnicodeString@@0UTreeHintRef00217D4C@@1@Z
 ?rva0033D3E8@Rva00239435@@QAE?AVRva002390CB@@ABVAsciiString@@@Z,0x0033D3E8,callee of ?rva00274CD8@Drawable@@QAE?AVRva002390CB@@ABVAsciiString@@@Z
 ?rva002B31F2@Rva002B31F2@@QAEXPAV?$vector@IV?$allocator@I@_STL@@@_STL@@@Z,0x002B31F2,callee of ?rva0040DBA9@Rva0040DBA9@@QAE?AV?$vector@IV?$allocator@I@_STL@@@_STL@@XZ
+??0Rva00141D00@@QAE@XZ,0x00141830,callee of ?Set_Level@BfmeSceneVector@@QAEXI@Z
+??1Rva0006FB50List@@QAE@XZ,0x0006FB50,callee of ?Set_Level@BfmeSceneVector@@QAEXI@Z
