@@ -168,6 +168,7 @@ public:
 	char m_pad00[0x18];
 	bool flag1() const { return (m_flags >> 1) & 1; }
 	bool flag2() const { return (m_flags >> 2) & 1; }
+	bool flag3() const { return (m_flags >> 3) & 1; }
 	bool flag4() const { return (m_flags >> 4) & 1; }
 	SpecialPowerType getSpecialPowerType() const { return getFinalOverride()->m_type; }
 	unsigned int m_flags;	// +0x18
@@ -176,7 +177,8 @@ public:
 	float m_54;		// +0x54
 	char m_pad58[0x60 - 0x58];
 	char m_60[4];		// +0x60
-	char m_pad64[0x78 - 0x64];
+	char m_pad64[0x74 - 0x64];
+	float m_74;		// +0x74
 	char m_78[4];		// +0x78
 	float m_7C;		// +0x7C
 };
@@ -193,6 +195,7 @@ public:
 	bool canConvertObjectToCarBomb(const Object *, const Object *, CommandSourceType);
 	bool validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
 	bool validLocationForCastingOnObjectFilter(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
+	bool rva0041CA9E(const Coord3D *pos, const Coord3D *center, const SpecialPowerTemplate *sp);
 	bool rva0041CB10(const Coord3D *pos, const SpecialPowerTemplate *sp);
 	bool rva0041CC65(const SpecialPowerTemplate *sp, const Coord3D *pos);
 	bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType commandSource,
@@ -1483,6 +1486,25 @@ bool BFMEActionManager::rva0041D435(const Object *obj, const Object *target, Com
 			}
 		}
 	}
+	return false;
+}
+
+// Retail 0x0041CA9E..0x0041CB10 RET0C, WorldBuilder's debug body at
+// 0x0110CDF0 the guide: when the override's flag bit 3 is set the location
+// must lie strictly within the template's +0x74 radius of the center.
+bool ActionManager::rva0041CA9E(const Coord3D *pos, const Coord3D *center, const SpecialPowerTemplate *sp)
+{
+	if (!sp->getFinalOverride()->flag3())
+		return true;
+	Coord3D d;
+	d.x = pos->x;
+	d.y = pos->y;
+	d.z = pos->z;
+	d.x -= center->x;
+	d.y -= center->y;
+	d.z -= center->z;
+	if (d.x * d.x + d.y * d.y + d.z * d.z < sp->m_74 * sp->m_74)
+		return true;
 	return false;
 }
 
