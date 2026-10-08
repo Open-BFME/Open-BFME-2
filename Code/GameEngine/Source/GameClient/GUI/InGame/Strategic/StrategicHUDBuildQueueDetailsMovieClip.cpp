@@ -103,3 +103,6 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::rva005F68FE(void*) { if(((Q
 
 // Ctor5F7F21 binding: _OnBackButtonRollOver.
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::rva005F6916(void*) { backHover=true; }
+
+// Ctor5F7F21 binding: _OnBackButtonRollOut.
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::rva005F691D(void*) { backHover=false; }
