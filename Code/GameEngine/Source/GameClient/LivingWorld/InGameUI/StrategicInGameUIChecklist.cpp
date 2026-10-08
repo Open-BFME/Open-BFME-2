@@ -40,6 +40,13 @@ public:
 	Rva005D1A87Ref rva005D1A87();
 };
 
+class ChecklistUIFactory {
+public:
+ virtual void unused0();
+ virtual Rva005D1A87UI *getChecklistUI();
+};
+class Rva005CB26A { public: int rva005CB26A(); };
+class Rva005CCCD0 { public: void rva005CCCFC(); };
 namespace StrategicInGameUI
 {
 class ChecklistItem
@@ -55,6 +62,8 @@ class ChecklistItem::Impl
 {
 public:
 	void rva005CCA0B(const Rva005D1A87Ref &);
+ virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
+ virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void updateNative();
 };
 
 struct ChecklistItemRef
@@ -68,6 +77,7 @@ public:
 	class Impl;
 
 	void AddItem(const ChecklistItemRef &newItem);
+ void Update();
 
 private:
 	void *m_vtbl;
@@ -78,8 +88,9 @@ class Checklist::Impl
 {
 public:
 	void AddItem(const ChecklistItemRef &newItem, ChecklistItem::Impl *itemImpl);
+ void Update();
 private:
-	void *m_vtbl;
+	ChecklistUIFactory *m_factory;
 	Rva005D1A87UI *m_ui; // native +4
 	char m_records[4]; // native +8; viewed only through the rowed list ABI
 };
@@ -116,3 +127,31 @@ void StrategicInGameUI::Checklist::Impl::AddItem(
 	if (m_ui)
 		itemImpl->rva005CCA0B(m_ui->rva005D1A87());
 }
+
+struct ChecklistNode {
+ ChecklistNode *next, *prev;
+ StrategicInGameUI::ChecklistItem *item;
+ StrategicInGameUI::ChecklistItem::Impl *impl;
+};
+// Native5CCE1B..5CCEB6 and WB15B4B80: bind UI refs then select/update items.
+void StrategicInGameUI::Checklist::Impl::Update()
+{
+ if( !m_ui ) {
+  m_ui=m_factory->getChecklistUI();
+  if( m_ui ) {
+   ChecklistNode *end=*reinterpret_cast<ChecklistNode**>(m_records);
+   for( ChecklistNode *it=end->next; it!=end; it=it->next )
+    it->impl->rva005CCA0B(m_ui->rva005D1A87());
+  }
+ }
+ if( m_ui && !reinterpret_cast<Rva005CB26A*>(m_ui)->rva005CB26A() )
+  reinterpret_cast<Rva005CCCD0*>(this)->rva005CCCFC();
+ ChecklistNode *end=*reinterpret_cast<ChecklistNode**>(m_records);
+ ChecklistNode *it=end->next;
+ while( it!=end ) {
+  ChecklistNode *next=it->next;
+  it->impl->updateNative();
+  it=next;
+ }
+}
+
