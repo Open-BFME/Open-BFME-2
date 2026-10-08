@@ -15,6 +15,7 @@ namespace _STL { void __cdecl free(void *block) throw(...); }
 #define free _STL::free
 #include <vector>
 #include <list>
+#include <set>
 #undef free
 
 #include "ascii_string.h"
@@ -47,6 +48,7 @@ extern const StaticNameKey TheKey_objectBasePhase;		// VA 0x00DBDD8C
 extern const StaticNameKey TheKey_playerName;			// VA 0x00DBDE24
 extern const StaticNameKey TheKey_teamOwner;			// VA 0x00DBD9FC
 extern const StaticNameKey TheKey_teamLibraryMapName;	// VA 0x00DBDC1C
+extern const StaticNameKey TheKey_teamName;			// VA 0x00DBD9F4
 
 enum ErrorCode { ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005 };
 
@@ -61,12 +63,14 @@ struct DataChunkInfo
 class Dict
 {
 public:
+	Dict(const Dict &src) : m_data(src.m_data) { if (m_data) ++*(unsigned short *)m_data; }
 	~Dict() { releaseData(); }
 	enum DataType { DICT_NONE = -1, DICT_BOOL = 0, DICT_INT, DICT_REAL, DICT_ASCIISTRING };
 	DataType getType(int key) const;	// 0x0031317C
 	bool getBool(int key, bool *exists = 0) const;	// 0x00313198
 	int getInt(int key, bool *exists = 0) const;	// 0x003131CA
 	AsciiString getAsciiString(int key, bool *exists = 0) const;	// 0x0031359F
+	void setAsciiString(int key, const AsciiString &value);	// 0x0031375A
 
 private:
 	void releaseData();					// 0x0031339C
@@ -165,10 +169,23 @@ private:
 class ScriptList
 {
 public:
+	ScriptList(const ScriptList &other);	// 0x003B88DA
 	virtual ~ScriptList();
 	void swap(ScriptList *other);		// 0x003B58DF
 	void rva003B693A();					// 0x003B693A, WB discards overridden scripts
 	void rva003B7362();					// 0x003B7362, WB 0xaa4f20
+
+private:
+	char m_data[0x4C - 4];
+};
+
+// ScriptList's merge of another list (WB 0xaa4840), rowed under its
+// address-era spelling.
+struct BfmeSubGE;
+class BfmeThingGE
+{
+public:
+	void rva003B89A7(BfmeSubGE *other);	// 0x003B89A7
 };
 
 class DataChunkOutput
@@ -348,7 +365,6 @@ private:
 	BuildListInfo *m_pBuildList;		// +0x00
 	Dict m_dict;						// +0x04
 	ScriptList m_scripts;				// +0x08
-	char m_scriptsRest[0x54 - 0x0C];
 	_STL::vector<AsciiString> m_libraryMaps;	// +0x54
 };
 
@@ -381,6 +397,13 @@ private:
 	char m_rest[0x38 - 0x18];
 };
 
+class LibraryMapCache;
+
+// The case-insensitive set of library map names linkLibraryMaps has visited;
+// its _M_find 0x0002C751 and insert 0x0002CA26 are rowed in WWLib.
+struct BfmeStringNoCaseLess { bool operator()(const AsciiString &a, const AsciiString &b) const; };
+typedef _STL::set<AsciiString, BfmeStringNoCaseLess> AsciiStringNoCaseSet;
+
 // BFME 2's SidesList has two bases (SidesList_sidesInfo.cpp), so its member
 // pointers are the 8-byte multiple-inheritance form; this view flattens them.
 #pragma pointers_to_members(full_generality, multiple_inheritance)
@@ -409,8 +432,14 @@ public:
 	void rva0032D554();
 	bool rva0032F0AA(DataChunkInput &file, void *info);	// 0x0032F0AA, the "Teams" callback
 	void discardOverriddenScriptsAndTeams();
+	void linkLibraryMaps(int sideIndex, LibraryMapCache *cache, const _STL::vector<AsciiString> &libraryMaps,
+		AsciiStringNoCaseSet &visited, ScriptList *scripts, TeamsInfoRec *teams);
 
 private:
+	// getSideInfo expanded in place, as linkLibraryMaps has it for a library
+	// map's second side (cmp [sides+0x3C],1 / lea [sides+0xA0]).
+	SidesInfo *getSideInfoInline(int side) { return side >= 0 && side < m_numSides ? (SidesInfo *)m_sides + side : 0; }
+
 	char m_bases[0x3C - 4];
 	int m_numSides;						// +0x3C
 	char m_sides[0xF44 - 0x40];
@@ -946,4 +975,76 @@ SidesList *LibraryMapCache::getSides(const AsciiString &name)
 	((Rva003079ED *)&stream)->rva003079ED();
 	m_list.push_back(_STL::make_pair(name, sides));
 	return sides;
+}
+
+// An unevaluated a + b of two strings, which BFME 2 compares with a string
+// without building the sum: 0x0032BF39 takes the string and {&a, &b}.
+bool __cdecl Rva0032BF39Equal(int a, int b);	// 0x0032BF39
+
+struct AsciiStringSum
+{
+	AsciiStringSum(const AsciiString &a, const AsciiString &b) : m_a(&a), m_b(&b) {}
+	const AsciiString *m_a;
+	const AsciiString *m_b;
+};
+
+static __forceinline AsciiStringSum operator+(const AsciiString &a, const AsciiString &b)
+{
+	return AsciiStringSum(a, b);
+}
+
+static __forceinline bool operator==(const AsciiString &s, AsciiStringSum sum)
+{
+	return Rva0032BF39Equal((int)&s, (int)&sum);
+}
+
+// SidesList::linkLibraryMaps, retail 0x0032FA07 (617 bytes).
+// Identity (target): WorldBuilder's debug twin wb 0xa86e40 (SidesList.cpp,
+// asserts 1883..1930, recursive) makes the same calls in the same order: the
+// side's getSideInfo, then for each library map name from the back the set
+// find 0x0002C751 and insert 0x0002CA26, LibraryMapCache::getSides, the library's
+// side 1, the recursive link of its own library maps, the ScriptList copy
+// 0x003B88DA merged with this side's 0x003B89A7 and swapped in 0x003B58DF, the
+// playerName string, then per library team the teamOwner string, the
+// "team" + owner comparison 0x0032BF39 against teamName, the Dict copy, the
+// teamOwner and teamLibraryMapName setters 0x0031375A and addTeam 0x0032DA4E.
+void SidesList::linkLibraryMaps(int sideIndex, LibraryMapCache *cache, const _STL::vector<AsciiString> &libraryMaps,
+	AsciiStringNoCaseSet &visited, ScriptList *scripts, TeamsInfoRec *teams)
+{
+	SidesInfo *side = getSideInfo(sideIndex);
+	_STL::vector<AsciiString>::const_reverse_iterator end = libraryMaps.rend();
+	for (_STL::vector<AsciiString>::const_reverse_iterator it = libraryMaps.rbegin(); it != end; ++it) {
+		AsciiString name = *it;
+		if (visited.find(name) != visited.end())
+			continue;
+		visited.insert(name);
+
+		SidesList *librarySides = cache->getSides(name);
+		if (!librarySides)
+			continue;
+		SidesInfo *librarySide = librarySides->getSideInfoInline(1);
+		linkLibraryMaps(sideIndex, cache, librarySide->m_libraryMaps, visited, scripts, teams);
+
+		ScriptList *libraryScripts = &librarySide->m_scripts;
+		if (libraryScripts) {
+			ScriptList merged(*libraryScripts);
+			((BfmeThingGE *)&merged)->rva003B89A7((BfmeSubGE *)scripts);
+			scripts->swap(&merged);
+		}
+
+		AsciiString playerName = side->m_dict.getAsciiString(TheKey_playerName);
+		for (int id = librarySides->m_teamrec.getFirstTeamID(); id != 0; id = librarySides->m_teamrec.getNextTeamID(id)) {
+			Dict *libraryTeamDict = librarySides->m_teamrec.getTeamInfo(id);
+			AsciiString owner = libraryTeamDict->getAsciiString(TheKey_teamOwner);
+			if (owner.isEmpty())
+				continue;
+			if (libraryTeamDict->getAsciiString(TheKey_teamName) == AsciiString("team") + owner)
+				continue;
+
+			Dict teamDict(*libraryTeamDict);
+			teamDict.setAsciiString(TheKey_teamOwner, playerName);
+			teamDict.setAsciiString(TheKey_teamLibraryMapName, name);
+			teams->addTeam(&teamDict);
+		}
+	}
 }
