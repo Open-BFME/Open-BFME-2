@@ -122,6 +122,7 @@ template<> inline void vector<const ModuleData *>::_M_insert_overflow(
 class Rva004E5B0A {
 public:
     Rva004E5B0A(const UnicodeString &,Rva004E594EDescriptor *);
+    void rva004E59DB();
 private:
     _STL::vector<const ModuleData *> lines;
     unsigned char unknown0C[8];
@@ -390,4 +391,25 @@ unsigned int *__cdecl rva004E59D0(unsigned int *result, unsigned int value)
 {
     *result = value;
     return result;
+}
+
+// Native4E59DB..4E59F4 is a complete25-byte method after RET4E59DA.
+// It consumes the existing row group's pointer vector0/4 via the actual
+// rowed4E59AE member-pointer foreach operation, passing the independently
+// rowed4E583D frame-gated dispatch. No original wrapper name is asserted.
+// These are declarations of existing opaque providers; no objects or new
+// aliases are introduced. The provider's single-inheritance member pointer
+// carries the observed one-word target unchanged across the opaque views.
+struct Rva004E59AE { void rva(); };
+class Rva004E583D { public: void rva004E583D(); };
+typedef void (Rva004E59AE::*NoticeObservedMember)();
+void __cdecl Rva004E59AEFunc(NoticeObservedMember *,Rva004E59AE **,
+    Rva004E59AE **,NoticeObservedMember);
+void Rva004E5B0A::rva004E59DB()
+{
+    NoticeObservedMember result;
+    Rva004E59AEFunc(&result,
+        reinterpret_cast<Rva004E59AE **>(const_cast<ModuleData **>(lines.begin())),
+        reinterpret_cast<Rva004E59AE **>(const_cast<ModuleData **>(lines.end())),
+        reinterpret_cast<NoticeObservedMember>(&Rva004E583D::rva004E583D));
 }
