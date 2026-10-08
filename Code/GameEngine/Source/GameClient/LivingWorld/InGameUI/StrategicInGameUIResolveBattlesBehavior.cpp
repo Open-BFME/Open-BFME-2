@@ -1,4 +1,12 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
+// stlport
+#include <stdlib.h>
+// Retail576C39 frees through the existing C++-linkage game allocator30830.
+// Its throwing declaration retains the native exception-state reset.
+namespace _STL { void __cdecl free(void *); }
+#define free _STL::free
+#include <vector>
+#undef free
 //
 // StrategicInGameUI::ResolveBattlesBehavior::Impl (WorldBuilder
 // StrategicInGameUIResolveBattlesBehavior.cpp names its translateGameMessage, vtable match).
@@ -57,6 +65,7 @@ class StrategicInGameUI::ResolveBattlesBehavior::Impl : public UserInputTranslat
 public:
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
 	void rva00576AF3();
+ void CreateResolveRegionOwnershipChecklistItems();
 
 private:
 	char m_pad04[0x20 - 0x04];
@@ -113,4 +122,21 @@ void StrategicInGameUI::ResolveBattlesBehavior::Impl::rva00576AF3()
             reinterpret_cast<Rva00575674 *>(reinterpret_cast<char *>(this) + 0x1C)->rva00575674(
                 reinterpret_cast<Object *>(new Rva00576591(this)));
     }
+}
+
+class Rva00576BDDDispute;
+class Rva002B8817 { public: void rva002B8817(void *, void *); };
+class Rva005768CBCall { public: void rva005768CB(void *); };
+
+// WB14D0CB0 names this method and its dispute/checklist loop. Retail576BDD
+// proves the12-byte pointer vector and receiver+18 filter; original payload
+// class identity remains unresolved. The two callees retain their rowed ABI.
+void StrategicInGameUI::ResolveBattlesBehavior::Impl::CreateResolveRegionOwnershipChecklistItems()
+{
+    _STL::vector<Rva00576BDDDispute *> disputes;
+    reinterpret_cast<Rva002B8817 *>(TheLivingWorldLogic)->rva002B8817(
+        *reinterpret_cast<void **>(reinterpret_cast<char *>(this) + 0x18), &disputes);
+    Rva00576BDDDispute **end = disputes.end();
+    for (Rva00576BDDDispute **it = disputes.begin(); it != end; ++it)
+        reinterpret_cast<Rva005768CBCall *>(this)->rva005768CB(*it);
 }
