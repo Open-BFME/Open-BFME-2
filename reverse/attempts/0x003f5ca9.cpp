@@ -1,3 +1,5 @@
+// ?DoXfer@BattlePlayer@LivingWorldBattle@@QAEXPAVXfer@@@Z
+// partial score=0.88 date=2026-10-08
 // cl: /O1 /EHsc /MD /arch:SSE /G7 /D_STLP_USE_STATIC_LIB
 // stlport
 #include <vector>
@@ -9,6 +11,7 @@
 
 typedef int Int;
 
+class Xfer;
 class CreateAHeroData;
 class Rva003F4DCA { public: int rva003F4DCA(int,int); };
 class Rva002B7250 { public: void rva002B7250(CreateAHeroData*); };
@@ -20,7 +23,7 @@ namespace _STL {
 
 
 
-#include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
+#include "../reference/shims/bfme2_ascii/string_base.h"
 struct Rva003F4E07Results;
 struct Rva003F4E07Entry {
  int opaque00; StringBase<char> name; char pad08[0xA8-8]; bool flagA8;
@@ -33,7 +36,8 @@ class LivingWorldArmy {
 class Rva003190A5 { public: bool query() const; };
 class Rva0040CB2CIndexedField { public: int get(int) const; };
 struct Rva002B488EResult { char pad00[0x54]; int playerID; };
-class Rva002BA8F1Logic { public: Rva002B488EResult*rva002B488E(int); };
+class Xfer;class ModuleData;class Rva002E2903Player;
+class Rva002BA8F1Logic { public: Rva002E2903Player*find(int,unsigned*);void rva002B8D06(Xfer*,std::vector<const ModuleData*>*); Rva002B488EResult*rva002B488E(int); };
 class LivingWorldLogic; extern LivingWorldLogic* TheLivingWorldLogic;
 class Rva003F468D { public: int rva003F4DAE(int); };
 struct Rva003F4E07Player { char pad00[0x14];int id; };
@@ -49,7 +53,8 @@ struct Rva003F4E07Results {
 
 struct BattleArmyRecord
 {
-	unsigned char m_data[0x68];
+	virtual void slot0();virtual void slot1();virtual void slot2();virtual void DoXfer(Xfer*);
+ unsigned char m_data[0x64];
 };
 
 // The 104-byte swap worker is already owned by this STLport instantiation.
@@ -98,6 +103,7 @@ public:
 	{
 	public:
 		void SwapArmies(Int first, Int second);
+  void DoXfer(Xfer*);
 
 		Rva003F4E07Player *m_player;
 		std::vector<LivingWorldArmy*>m_armies; // +4
@@ -227,6 +233,22 @@ typedef unsigned char UnsignedByte;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
+enum ScienceType
+{
+	SCIENCE_0 = 0
+};
+// The same ScienceType vector's native overflow is rowed at 0x148D00.
+namespace _STL {
+template <> void vector<ScienceType, allocator<ScienceType> >::_M_insert_overflow(
+    ScienceType *, const ScienceType &, const __false_type &, unsigned int, bool);
+template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
+}
+
+enum ObjectID
+{
+	OBJECTID_0 = 0
+};
+
 struct XferVersion
 {
 	UnsignedByte m_version;
@@ -281,39 +303,37 @@ public:
 };
 
 
-// Native 3F5729..3F5822 is the complete 249-byte legacy snapshot-vector
-// helper called by BattlePlayer::DoXfer at 3F5D32. WB104F290 independently
-// supplies the vector/version flow. The clean source follows the already
-// verified XferScienceTypeVector.cpp family, originally transferred from
-// BFME1; retail proves the 104-byte stride, Xfer slots, exception text,
-// constructor 40E3EE, destructor 40E499, reserve 3F5192 and push 3B9369.
-// Rva0040E3EE is the existing constructor owner; its application name is
-// unresolved. The two vector casts reuse the existing reserve/push owners
-// over their proven three-pointer container and 104-byte record layouts.
-class Rva0040E3EE { public: Rva0040E3EE();virtual ~Rva0040E3EE();char pad[100]; };
+
+class Rva0040E3EE;
 struct BfmeAssignRecord104 { int data[26]; };
-struct BfmePod104 { int data[26]; };
-namespace _STL {
- template<> void vector<BfmeAssignRecord104,allocator<BfmeAssignRecord104> >::reserve(unsigned int);
- template<> void vector<BfmePod104,allocator<BfmePod104> >::push_back(const BfmePod104&);
-}
-Xfer *Rva003F5729Xfer(Xfer*xfer, std::vector<Rva0040E3EE>*vec)
+namespace _STL { template<> BfmeAssignRecord104*vector<BfmeAssignRecord104,allocator<BfmeAssignRecord104> >::erase(BfmeAssignRecord104*,BfmeAssignRecord104*); }
+class Rva003F5A06 {public:void rva003F5C4F(int);};
+class Rva003F3FFE {public:void rva003F3FFE(Xfer&);};
+class Rva003F5CA9Snapshot {public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void DoXfer(Xfer*);};
+void XferLivingWorldPlayerID(Xfer*,int*);
+Xfer*Rva003F5729Xfer(Xfer*,std::vector<Rva0040E3EE>*);
+void LivingWorldBattle::BattlePlayer::DoXfer(Xfer*xfer)
 {
- XferVersion version;version.m_version=1;version.m_currentVersion=1;
+ XferVersion version;version.m_version=1;version.m_currentVersion=4;
  xfer->xferVersion(version);
- UnsignedInt count=(UnsignedInt)vec->size();
- xfer->xferTypeName("std::vector").xferUnsignedInt(count);
- if(xfer->isSaving()) {
-  Rva0040E3EE*end=vec->end();Rva0040E3EE*cur=vec->begin();
-  while(cur!=end){xfer->xferSnapshot(cur);++cur;}
+ if(xfer->isLoading()){
+  int id;XferLivingWorldPlayerID(xfer,&id);
+  m_player=(Rva003F4E07Player*)((Rva002BA8F1Logic*)TheLivingWorldLogic)->find(id,0);
  }else{
-  if(!vec->empty())throw XferException(4,"Vector must be empty on load");
-  ((_STL::vector<BfmeAssignRecord104>*)vec)->reserve(count);
-  Rva0040E3EE value;
-  while(count--){
-   ((_STL::vector<BfmePod104>*)vec)->push_back(*(BfmePod104*)&value);
-   xfer->xferSnapshot(&vec->back());
+  int id=m_player->id;XferLivingWorldPlayerID(xfer,&id);
+ }
+ ((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B8D06(xfer,(std::vector<const ModuleData*>*)&m_armies);
+ if(version.m_currentVersion>=2)((Rva003F3FFE*)counters)->rva003F3FFE(*xfer);
+ if(version.m_currentVersion==3){Rva003F5729Xfer(xfer,(std::vector<Rva0040E3EE>*)&m_records);}
+ else if(version.m_currentVersion>=4){
+  unsigned count=m_records.size();xfer->xferUnsignedInt(count);
+  if(xfer->isLoading()){
+   typedef std::vector<BfmeAssignRecord104> V;
+   V*v=(V*)&m_records;v->erase(v->begin(),v->end());
+   ((Rva003F5A06*)&m_records)->rva003F5C4F(count);
+  }
+  for(unsigned i=0;i<m_records.size();++i){
+   m_records[i].DoXfer(xfer);
   }
  }
- return xfer;
 }

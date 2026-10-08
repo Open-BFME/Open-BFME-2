@@ -1,3 +1,5 @@
+// ?GetResolutionOptions@LivingWorldBattle@@QAEHXZ
+// partial score=0.9 date=2026-10-08
 // cl: /O1 /EHsc /MD /arch:SSE /G7 /D_STLP_USE_STATIC_LIB
 // stlport
 #include <vector>
@@ -20,7 +22,34 @@ namespace _STL {
 
 
 
-#include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
+#include "../reference/shims/bfme2_ascii/string_base.h"
+class LivingWorldBattle;
+
+class GameLogic; extern GameLogic*TheGameLogic;
+class GameInfo; extern GameInfo*TheGameInfo; extern GameInfo*TheSkirmishGameInfo;
+class Rva00210C66CmpBoolField {public:bool get()const;};
+class Rva002B254F {public:int rva002B254F();void*rva002B256E();};
+class Rva003F44A9 {public:bool rva003F44ED();};
+class Rva002E071E {public:int rva002E0BC0(int);};
+class Rva0020E89C;
+class Rva0020EAF6View {public:Rva0020E89C*rva0020EAF6(int);};
+struct Rva003F4FD4LogicView {char pad00[0x98];void*player;char pad9C[0xB0-0x9C];Rva0020EAF6View*manager;};
+struct Rva003F4FD4GameLogicView {char pad00[0x114];int mode;};
+struct Rva003F4FD4GameInfoView {char pad00[0x7C];int kind;};
+struct Rva003F4FD4Adjacent {char pad00[8];int id;char pad0C[0x18-0xC];};
+struct Rva003F4FD4Region {
+ char pad00[0xA9];bool special;char padAA[0x12C-0xAA];int id;
+ char pad130[0x1A8-0x130];std::vector<Rva003F4FD4Adjacent> adjacent;
+};
+struct Rva003F4FD4OwnedRegion {char pad00[0x13C];int playerID;};
+class Rva003F4FD4Tutorial {
+public:
+ virtual void slot00();virtual void slot01();virtual void slot02();virtual void slot03();virtual void slot04();
+ virtual void slot05();virtual void slot06();virtual void slot07();virtual void slot08();virtual void slot09();
+ virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();
+ virtual int slot14(LivingWorldBattle*);
+};
+
 struct Rva003F4E07Results;
 struct Rva003F4E07Entry {
  int opaque00; StringBase<char> name; char pad08[0xA8-8]; bool flagA8;
@@ -33,8 +62,8 @@ class LivingWorldArmy {
 class Rva003190A5 { public: bool query() const; };
 class Rva0040CB2CIndexedField { public: int get(int) const; };
 struct Rva002B488EResult { char pad00[0x54]; int playerID; };
-class Rva002BA8F1Logic { public: Rva002B488EResult*rva002B488E(int); };
-class LivingWorldLogic; extern LivingWorldLogic* TheLivingWorldLogic;
+class Rva002BA8F1Logic { public: Rva002B488EResult*rva002B488E(int);int rva002B5256(bool); };
+class LivingWorldLogic {public:bool WillPlayerBeEliminatedIfHeOrSheLosesThisRegion(int,int);}; extern LivingWorldLogic* TheLivingWorldLogic;
 class Rva003F468D { public: int rva003F4DAE(int); };
 struct Rva003F4E07Player { char pad00[0x14];int id; };
 struct Rva003F4E07Record { char pad00[0x30];int playerID; };
@@ -105,6 +134,7 @@ public:
 		int counters[5]; // +0x1C
 	};
 	void rva003F5397(Int a0, Int a1, Int a2, Int a3);
+ int GetResolutionOptions();void*rva003F4DEE(void*);int rva003F4831();
  void RemoveArmy(LivingWorldArmy*);
  void ComputeBattleResultsForPlayersAfterAutoBattle(Rva003F4E07Results*);
 
@@ -112,7 +142,7 @@ private:
 	char m_pad00[8];
 	Rva003F5224List m_list08;
 	std::vector<Rva003F5397Slot>m_table18;
- char pad24[0x38-0x24];int winningSide;
+ Rva003F4FD4Region*region24;char pad28[0x38-0x28];int winningSide;
 };
 
 struct Rva003F5397Slot
@@ -223,97 +253,46 @@ void LivingWorldBattle::RemoveArmy(LivingWorldArmy *army)
     } while (side < (int)m_table18.size());
 }
 
-typedef unsigned char UnsignedByte;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
-
-struct XferVersion
+int LivingWorldBattle::GetResolutionOptions()
 {
-	UnsignedByte m_version;
-	UnsignedByte m_currentVersion;
-};
-
-class Xfer
-{
-public:
-	virtual ~Xfer();
-	virtual Bool isLoading();
-	virtual Bool isSaving();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual Xfer &xferVersion(XferVersion &version);
-	virtual Xfer &xferTypeName(const char *const &name);
-	virtual void xferSnapshot(void*);
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
-	virtual void slot18();
-	virtual void slot19();
-	virtual void slot20();
-	virtual void slot21();
-	virtual void slot22();
-	virtual void slot23();
-	virtual void slot24();
-	virtual void slot25();
-	virtual void slot26();
-	virtual void xferAsciiString(void *value);
-	virtual void slot28();
-	virtual void slot29();
-	virtual Xfer &xferUnsignedInt(UnsignedInt &value);
-};
-
-class XferException
-{
-public:
-	XferException(int tag, const char *format, ...);
-	XferException(const XferException &that);
-	~XferException();
-
-	char *text;
-	int tag;
-};
-
-
-// Native 3F5729..3F5822 is the complete 249-byte legacy snapshot-vector
-// helper called by BattlePlayer::DoXfer at 3F5D32. WB104F290 independently
-// supplies the vector/version flow. The clean source follows the already
-// verified XferScienceTypeVector.cpp family, originally transferred from
-// BFME1; retail proves the 104-byte stride, Xfer slots, exception text,
-// constructor 40E3EE, destructor 40E499, reserve 3F5192 and push 3B9369.
-// Rva0040E3EE is the existing constructor owner; its application name is
-// unresolved. The two vector casts reuse the existing reserve/push owners
-// over their proven three-pointer container and 104-byte record layouts.
-class Rva0040E3EE { public: Rva0040E3EE();virtual ~Rva0040E3EE();char pad[100]; };
-struct BfmeAssignRecord104 { int data[26]; };
-struct BfmePod104 { int data[26]; };
-namespace _STL {
- template<> void vector<BfmeAssignRecord104,allocator<BfmeAssignRecord104> >::reserve(unsigned int);
- template<> void vector<BfmePod104,allocator<BfmePod104> >::push_back(const BfmePod104&);
-}
-Xfer *Rva003F5729Xfer(Xfer*xfer, std::vector<Rva0040E3EE>*vec)
-{
- XferVersion version;version.m_version=1;version.m_currentVersion=1;
- xfer->xferVersion(version);
- UnsignedInt count=(UnsignedInt)vec->size();
- xfer->xferTypeName("std::vector").xferUnsignedInt(count);
- if(xfer->isSaving()) {
-  Rva0040E3EE*end=vec->end();Rva0040E3EE*cur=vec->begin();
-  while(cur!=end){xfer->xferSnapshot(cur);++cur;}
- }else{
-  if(!vec->empty())throw XferException(4,"Vector must be empty on load");
-  ((_STL::vector<BfmeAssignRecord104>*)vec)->reserve(count);
-  Rva0040E3EE value;
-  while(count--){
-   ((_STL::vector<BfmePod104>*)vec)->push_back(*(BfmePod104*)&value);
-   xfer->xferSnapshot(&vec->back());
+ if((unsigned char)((Rva002B254F*)TheLivingWorldLogic)->rva002B254F())
+  return ((Rva003F4FD4Tutorial*)((Rva002B254F*)TheLivingWorldLogic)->rva002B256E())->slot14(this);
+ Rva003F4FD4Region*region=region24;
+ if(!region)return 0;
+ Rva003F4FD4GameInfoView*info=0;
+ GameLogic*gameLogic=TheGameLogic;
+ if(((Rva00210C66CmpBoolField*)gameLogic)->get())info=(Rva003F4FD4GameInfoView*)TheGameInfo;
+ else if(((Rva003F4FD4GameLogicView*)gameLogic)->mode!=3)info=(Rva003F4FD4GameInfoView*)TheSkirmishGameInfo;
+ if(region->special)return 8;
+ int flags=0;
+ if(info->kind!=2)flags=2;
+ bool mayRetreat=false;
+ bool eliminated=false;
+ void*localPlayer=((Rva003F4FD4LogicView*)TheLivingWorldLogic)->player;
+ BattlePlayer*player=localPlayer?(BattlePlayer*)rva003F4DEE(localPlayer):0;
+ if(player){
+  if(!((Rva003F44A9*)player)->rva003F44ED())mayRetreat=false;
+  else {
+   std::vector<Rva003F4FD4Adjacent>*adjacent=&region->adjacent;
+   for(unsigned i=0;i<adjacent->size();++i){
+    Rva0020E89C*owned=((Rva003F4FD4LogicView*)TheLivingWorldLogic)->manager->rva0020EAF6((*adjacent)[i].id);
+    if(owned&&(unsigned char)((Rva002E071E*)player->m_player)->rva002E0BC0(((Rva003F4FD4OwnedRegion*)owned)->playerID)){
+     mayRetreat=true;break;
+    }
+   }
+  }
+  int regionID=region24->id;
+  int playerID=player->m_player->id;
+  if(TheLivingWorldLogic->WillPlayerBeEliminatedIfHeOrSheLosesThisRegion(playerID,regionID))eliminated=true;
+  if(mayRetreat&&!eliminated)flags|=4;
+ }
+ if(info->kind!=1){
+  if(((Rva003F4FD4GameLogicView*)TheGameLogic)->mode==0)flags|=8;
+  else {
+   int count=((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B5256(false);
+   if(rva003F4831()==count)flags|=8;
+   else flags|=2;
   }
  }
- return xfer;
+ return flags;
 }
