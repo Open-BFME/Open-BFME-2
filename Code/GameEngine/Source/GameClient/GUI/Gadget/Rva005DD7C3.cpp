@@ -34,15 +34,10 @@ struct Rva005DE059Action
     void operator()(Rva005DDBAB &row) const { row.rva005DDBAB(window, focus); }
 };
 
-int GadgetListBoxGetTopVisibleEntry(GameWindow *window);
-void GadgetListBoxReset(GameWindow *window);
-void GadgetListBoxSetTopVisibleEntry(GameWindow *window, int top);
-
 class Rva005DD7C3
 {
 public:
 	void rva005DD7C3(GameWindow *window, const Widths *widths);
-	void rva005DE433(const Widths *focus);
 private:
 	unsigned m_unknown;
 	Rva005DDBAB *m_begin, *m_end, *m_capacity;
@@ -64,15 +59,7 @@ void Rva005DD7C3::rva005DD7C3(GameWindow *window, const Widths *widths)
 	GadgetListBoxAddMultiSelect(m_win10);
 }
 
-// ?rva005DE433@Rva005DD7C3@@QAEXPBUWidths@@@Z present-unmatched
-// Retail 0x005DE433, 70 bytes; preserves the visible row around the entry refresh.
-void Rva005DD7C3::rva005DE433(const Widths *focus)
-{
-    if (m_win10)
-    {
-        int top = GadgetListBoxGetTopVisibleEntry(m_win10);
-        GadgetListBoxReset(m_win10);
-        _STL::for_each(m_begin, m_end, Rva005DE059Action((int)m_win10, (int)focus));
-        GadgetListBoxSetTopVisibleEntry(m_win10, top);
-    }
-}
+// The live refresh owner now resides in AptTimeLineStats.cpp. Retain
+// only this verified STLport47B instantiation, identical to retail5DE059
+// and its existing C loop owner, including the callback relocation.
+template Rva005DE059Action _STL::for_each(Rva005DDBAB *, Rva005DDBAB *, Rva005DE059Action);
