@@ -30,6 +30,34 @@ public:
 	int rva00223A94(const AsciiString *name);
 };
 
+// The hero at owner+0x27c is accessed through its rowed button setter and
+// an unidentified target vslot at +0x14. This declaration adds no vtable body.
+class CreateAHeroHero
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0c();
+	virtual void slot10();
+	virtual void slot14();
+	bool SetButtonForLevel(const AsciiString &button, unsigned int level, unsigned int value);
+};
+struct Rva005B3676Owner
+{
+	char m_pad00[0x274];
+	void *m_aptOwner;
+	char m_pad278[4];
+	CreateAHeroHero m_hero;
+};
+class Rva005B35E8
+{
+public:
+	void rva005B35E8();
+};
+class Rva00222A8BTarget;
+int Rva002D4531Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const int &arg);
+
 // The power grid's cell: its command button at +0x00, the grid row and
 // column at +0x04 / +0x08 (negative when unset) and the owned flag at +0x14.
 struct Rva005B2E09Cell;
@@ -47,7 +75,7 @@ struct Rva005B2E09Cell
 	int m_row;                       // +0x04
 	int m_column;                    // +0x08
 	int m_index0c;                    // +0x0c; UpdatePalantirButtons adds required count
-	unsigned char m_pad10[0x14 - 0x10];
+	int m_powerIndex;                 // +0x10; AddMyPower stores the page count
 	bool m_owned;                    // +0x14
 };
 
@@ -80,6 +108,7 @@ public:
 	int CalculateFlashState(Rva005B2E09Cell *cell);
 	void UpdatePalantirButtons();
 	void ExternFunc(const CommandButton *button);
+	void AddMyPower(Rva005B2E09Cell *cell, bool flash);
 
 private:
 	Rva005B2E09Cell *FindPrereq(Rva005B2E09Cell *cell)
@@ -87,10 +116,13 @@ private:
 		return (Rva005B2E09Cell *)((Rva005B2DDF *)this)->rva005B2E09(cell);
 	}
 
-	unsigned char m_pad00[0x28];
+	unsigned char m_pad00[4];
+	Rva005B3676Owner *m_owner;  // +0x04; target owner contains hero at +0x27c
+	unsigned char m_pad08[0x28 - 0x08];
 	Rva005B2E09Cell *m_cells[10]; // +0x28; retail loop advances by four bytes
 	int m_numPowers;             // +0x50
 	unsigned int m_numPalantir;  // +0x54
+	bool m_changed;             // +0x58
 };
 }
 
@@ -141,6 +173,42 @@ void AptCreateAHero::Powers::ExternFunc(const CommandButton *button)
 
 static const unsigned int MAX_POWERS = 10;
 static const unsigned int MAX_PALANTIR_POWERS = 6;
+
+// ?AddMyPower@Powers@AptCreateAHero@@QAEXPAURva005B2E09Cell@@_N@Z
+// @0x005B3676 219B: WorldBuilder name lead (wb-name-unverified). The target
+// stores cell indices +0x0c/+0x10, calls the rowed hero setter at owner+0x27c,
+// optionally dispatches "FlashPalantir", updates the count and owned flags.
+void AptCreateAHero::Powers::AddMyPower(Rva005B2E09Cell *cell, bool flash)
+{
+	if (cell->m_owned || (unsigned int)m_numPowers >= MAX_POWERS)
+		return;
+	Rva005B2E09Cell *prereq = FindPrereq(cell);
+	int required = TheCreateAHeroManager->GetRequiredButtonCount();
+	if (prereq)
+		cell->m_index0c = prereq->m_index0c;
+	else
+	{
+		if (m_numPalantir >= MAX_PALANTIR_POWERS - required)
+			return;
+		cell->m_index0c = m_numPalantir;
+		++m_numPalantir;
+	}
+	m_cells[m_numPowers] = cell;
+	cell->m_powerIndex = m_numPowers;
+	m_owner->m_hero.SetButtonForLevel(*(const AsciiString *)((const char *)cell->m_button + 0x10),
+		m_numPowers, cell->m_index0c + required);
+	if (flash)
+	{
+		m_owner->m_hero.slot14();
+		int slot = cell->m_index0c + required + 1;
+		Rva002D4531Invoke((Rva00222A8BTarget *)g_bfmeAptWindowManager,
+			m_owner->m_aptOwner, "FlashPalantir", slot);
+	}
+	++m_numPowers;
+	((Rva005B35E8 *)this)->rva005B35E8();
+	cell->m_owned = true;
+	m_changed = true;
+}
 
 // Retail 0x005B32D5, 137 bytes: AptCreateAHero::Powers::CalculateFlashState
 // (WorldBuilder, AptCreateAHeroPowers.cpp line 803; wb-name-unverified).
