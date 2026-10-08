@@ -69398,3 +69398,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva003BA4DB@@YAHPAURva003BA4DBArg@@H@Z,,0x003BA4DB,92,Code/GameEngine/Source/GameLogic/System/Rva003BA4DBArgs.cpp,matched,argc-gated append of argument text into holder vector; retail 92B
 ?rva003BA537@@YAHPAURva003BA537Arg@@H@Z,,0x003BA537,101,Code/GameEngine/Source/GameLogic/System/Rva003BA537Args.cpp,matched,argc-gated append into the second holder vector; else sets flag byte; returns 2; retail 101B
 ?rva047E59E@Rva047E59E@@QAEXXZ,,0x0047E59E,54,Code/GameEngine/Source/GameLogic/Object/Rva047E59EKill.cpp,matched,kill-if-under-limit then tail member; retail 54B
+?rva003F8052@Rva003F8052@@QAE_NXZ,,0x003F8052,21,Code/Libraries/Source/WWVegas/WW3D2/WaterRenderObjRva003F802B.cpp,matched,Null-guarded negated grid predicate 0x003F7D29 via +0x14 pointer; retail 21B

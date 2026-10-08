@@ -81,3 +81,28 @@ bool Rva003F802B::rva003F802B()
 		return true;
 	return false;
 }
+
+// Address-derived name: Rva003F8052 (21B, retail 0x003F8052). Null-guarded
+// negated call to the 0x003F7D29 grid predicate through the pointer at +0x14.
+class Rva003F7D29
+{
+public:
+	unsigned char rva003F7D29();
+};
+
+class Rva003F8052
+{
+public:
+	bool rva003F8052();
+private:
+	char m_pad00[0x14];
+	Rva003F7D29 *m_14;
+};
+
+bool Rva003F8052::rva003F8052()
+{
+	Rva003F7D29 *p = m_14;
+	if (p)
+		return !p->rva003F7D29();
+	return false;
+}
