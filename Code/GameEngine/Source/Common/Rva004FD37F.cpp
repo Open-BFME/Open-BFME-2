@@ -40,10 +40,11 @@ public:
 	int m_key;
 };
 
-class Rva004FC8D6
+class LivingWorldScenario { public: class PlayerDefeatCondition; };
+class LivingWorldScenario::PlayerDefeatCondition
 {
 public:
-	bool rva004FC8D6(Rva002E1001 *p);
+    bool isPlayerDefeated(Rva002E1001 *p);
 };
 
 class Rva004FD37F
@@ -70,8 +71,8 @@ bool Rva004FD37F::rva004FD5C7(Rva002E1001 *p) const
 	int key = p->m_key;
 	_STL::pair<_STL::multimap<int, int>::const_iterator, _STL::multimap<int, int>::const_iterator> r = m_map.equal_range(key);
 	for (_STL::multimap<int, int>::const_iterator it = r.first; it != r.second; ++it) {
-		Rva004FC8D6 *cand = (Rva004FC8D6 *)(*it).second;
-		if (cand->rva004FC8D6(p))
+		LivingWorldScenario::PlayerDefeatCondition *cand = (LivingWorldScenario::PlayerDefeatCondition *)(*it).second;
+		if (cand->isPlayerDefeated(p))
 			return true;
 	}
 	return false;

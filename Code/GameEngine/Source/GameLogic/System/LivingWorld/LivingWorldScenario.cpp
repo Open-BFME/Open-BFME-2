@@ -37,7 +37,7 @@ public:
     int word130;
     int lastOwnershipTurn;
 };
-class LivingWorldScenario { public: class TeamVictoryCondition; };
+class LivingWorldScenario { public: class TeamVictoryCondition; class PlayerDefeatCondition; };
 class LivingWorldScenario::TeamVictoryCondition {
 public:
     virtual ~TeamVictoryCondition();
@@ -128,4 +128,29 @@ public:
 void ScenarioOwnerView::replaceScenario(ScenarioOwnedObjectView *scenario) {
     ::delete owned;
     owned = scenario;
+}
+
+// Native 4FC8D6..4FC91D, 71 bytes, RET4. WorldBuilder's named body and
+// home-region ownership check establish the method identity. The existing
+// address-derived player ABI view is retained; original reference and const
+// qualifications are not claimed by this source spelling.
+class LivingWorldScenario::PlayerDefeatCondition {
+public:
+    virtual ~PlayerDefeatCondition();
+    bool isPlayerDefeated(Rva002E1001 *player);
+private:
+    _STL::vector<int> teams;
+    int requiredRegionCount;
+    bool requireHome;
+};
+bool LivingWorldScenario::PlayerDefeatCondition::isPlayerDefeated(Rva002E1001 *player)
+{
+    if (requireHome) {
+        Rva002104B6 *manager = TheLivingWorldLogic->regions;
+        void *region = manager->rva002104B6((char *)player + 0x2c);
+        if (region && *(int *)((char *)region + 0x13c) != *(int *)((char *)player + 0x14))
+            return true;
+    }
+    bool defeated = player->rva002E1001() <= requiredRegionCount;
+    return defeated;
 }
