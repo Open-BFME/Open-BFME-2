@@ -52,6 +52,35 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 class Object;
+class AttributeModifierPoolUpdate
+{
+public:
+	bool addModifierToPool(const AsciiString &name, int a2);
+	void removeModifierFromPool(const AsciiString &name);
+};
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+// A store category: +0x0C is its index.
+struct Rva0046DB6DCategory
+{
+	unsigned char m_pad00[0x0C];
+	int m_index; // +0x0C
+};
+class AttributeModifierStore
+{
+public:
+	int rva00214713(int key);
+	void *GetCategoryContainer(int index);
+};
+extern AttributeModifierStore *TheAttributeModifierStore;
 class AICommandInterface
 {
 public:
@@ -408,6 +437,11 @@ public:
 	bool rva0028C264(int *out, int a2);
 	Player *getControllingPlayer() const;
 	float getVisionRange() const;
+	bool addAttributeModifierToPool(const AsciiString &name, int a2);
+	void removeAttributeModifierFromPool(const AsciiString &name);
+private:
+	friend class HordeContain;
+	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
 };
 class GameLogic
 {
@@ -595,7 +629,7 @@ public:
 	virtual void gap54() = 0; virtual void rva0046C4C0() = 0; virtual void rva0046C327() = 0; virtual void rva0046C20B() = 0;
 	virtual bool rva0046C5D7(int value) = 0; virtual bool rva0046F8A5() = 0; virtual bool rva0046F8F4() = 0; virtual void gap61() = 0;
 	virtual bool rva0046AAB8() = 0; virtual void gap63() = 0; virtual void gap64() = 0; virtual void gap65() = 0;
-	virtual void gap66() = 0; virtual void rva0046D1F7(_STL::list<const Object *> &out) = 0; virtual Object *rva0046D27A() = 0; virtual void gap69() = 0;
+	virtual Rva0046247DPair &rva0046F7FF(Rva0046247DPair &p) = 0; virtual void rva0046D1F7(_STL::list<const Object *> &out) = 0; virtual Object *rva0046D27A() = 0; virtual void gap69() = 0;
 	virtual Object *rva0046D372() = 0; virtual void gap71() = 0; virtual void gap72() = 0; virtual void gap73() = 0;
 	virtual void rva0046F8B2() = 0; virtual void gap75() = 0; virtual void gap76() = 0; virtual void startMeleeAttack(Object *target) = 0;
 	virtual void rva00468FDC() = 0; virtual void rva00473ADF() = 0; virtual bool rva0046A381(Object *target) = 0; virtual bool rva0046A46F() = 0;
@@ -608,7 +642,7 @@ public:
 	virtual void gap106() = 0; virtual void rva0046D8AE() = 0; virtual void rva0046D7AF(int a1) = 0; virtual void rva0046A78F(const Matrix3D *mtx) = 0;
 	virtual void rva0046A712(int unused) = 0; virtual void gap111() = 0; virtual void gap112() = 0; virtual bool rva0046D80B() = 0;
 	virtual bool rva0046A6C1() = 0; virtual bool rva0046A677() = 0; virtual void gap116() = 0; virtual void rva0046DDC5(int a1, int a2) = 0;
-	virtual void rva0046DB6D(const AsciiString &name, int a2, int a3) = 0; virtual void rva0046DC92(const AsciiString &name, int a2) = 0; virtual void gap120() = 0; virtual void rva0046981C() = 0;
+	virtual void rva0046DB6D(const AsciiString &name, Rva2225E0Filter *filter, int a3) = 0; virtual void rva0046DC92(const AsciiString &name, Rva2225E0Filter *filter) = 0; virtual void gap120() = 0; virtual void rva0046981C() = 0;
 	virtual void rva00469851() = 0; virtual void rva0046DE2D(const FXList *fx) = 0; virtual void gap124() = 0; virtual bool rva0046992C() = 0;
 	virtual void gap126() = 0; virtual bool rva004698BC() = 0; virtual const void *rva004698D6() = 0; virtual const void *rva004698E2() = 0;
 	virtual void gap130() = 0; virtual void gap131() = 0; virtual void rva004690A9(const Coord3D *pos) = 0; virtual void gap133() = 0;
@@ -783,6 +817,9 @@ public:
 	virtual bool rva0046B9DC(int a1);
 	virtual bool rva0046B95E(int a1);
 	virtual bool rva0046AAB8();
+	virtual void rva0046DB6D(const AsciiString &name, Rva2225E0Filter *filter, int a3);
+	virtual void rva0046DC92(const AsciiString &name, Rva2225E0Filter *filter);
+	virtual Rva0046247DPair &rva0046F7FF(Rva0046247DPair &p);
 	virtual Rva002390CB rva0046EC7C(Object *obj);
 	Rva0046D158Record *rva0046D158(AsciiString name);
 private:
@@ -1299,6 +1336,74 @@ bool HordeContain::rva0046AAB8()
 {
 	Rva0046247DPair p;
 	return ((Rva00291793 *)((Rva0046247D *)(UpdateModule *)this)->rva0046247D(p))->rva00291793() == 0 ? true : false;
+}
+
+// ?rva0046F7FF@HordeContain@@UAEAAURva0046247DPair@@AAU2@@Z @0x0046F7FF:
+// slot 66; fills the argument with the contained-list pair and returns it.
+Rva0046247DPair &HordeContain::rva0046F7FF(Rva0046247DPair &p)
+{
+	((Rva0046247D *)(UpdateModule *)this)->rva0046247D(p);
+	return p;
+}
+
+// ?rva0046DB6D@HordeContain@@UAEXABVAsciiString@@PAVRva2225E0Filter@@H@Z
+// @0x0046DB6D: slot 118; unless the named modifier's store category is
+// missing or has index 6, adds it (with the third argument) to the pool of
+// every contained Object and every Object keyed in the +0x170 tree the filter
+// accepts (all of them without a filter); then to this Object's own pool.
+void HordeContain::rva0046DB6D(const AsciiString &name, Rva2225E0Filter *filter, int a3)
+{
+	Rva0046247DPair p;
+	rva0046D27ASlot70(p);
+	_STL::list<Object *>::const_iterator it = p.m04->begin();
+	Object *self = m_object;
+	Rva0046DB6DCategory *category = (Rva0046DB6DCategory *)TheAttributeModifierStore->GetCategoryContainer(
+		TheAttributeModifierStore->rva00214713(TheNameKeyGenerator->nameToKey(name.str())));
+	if (category && category->m_index != 6)
+	{
+		for (; it != p.m04->end(); ++it)
+		{
+			Object *obj = *it;
+			if (!filter || filter->accepts(obj, self->getControllingPlayer()))
+				obj->addAttributeModifierToPool(name, a3);
+		}
+		for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
+		{
+			Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
+			if (obj && (!filter || filter->accepts(obj, self->getControllingPlayer())))
+				obj->addAttributeModifierToPool(name, a3);
+		}
+	}
+	AttributeModifierPoolUpdate *pool = m_object->findAttributeModifierPoolUpdate();
+	if (pool)
+		pool->addModifierToPool(name, a3);
+}
+
+// ?rva0046DC92@HordeContain@@UAEXABVAsciiString@@PAVRva2225E0Filter@@@Z
+// @0x0046DC92: slot 119; removes the named modifier from the pool of every
+// contained Object and every Object keyed in the +0x170 tree the filter
+// accepts (all of them without a filter), then from this Object's own pool.
+void HordeContain::rva0046DC92(const AsciiString &name, Rva2225E0Filter *filter)
+{
+	Rva0046247DPair p;
+	rva0046D27ASlot70(p);
+	_STL::list<Object *>::const_iterator it = p.m04->begin();
+	Object *self = m_object;
+	for (; it != p.m04->end(); ++it)
+	{
+		Object *obj = *it;
+		if (!filter || filter->accepts(obj, self->getControllingPlayer()))
+			obj->removeAttributeModifierFromPool(name);
+	}
+	for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
+	{
+		Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
+		if (obj && (!filter || filter->accepts(obj, self->getControllingPlayer())))
+			obj->removeAttributeModifierFromPool(name);
+	}
+	AttributeModifierPoolUpdate *pool = m_object->findAttributeModifierPoolUpdate();
+	if (pool)
+		pool->removeModifierFromPool(name);
 }
 
 // ?rva0046D158@HordeContain@@QAEPAURva0046D158Record@@VAsciiString@@@Z

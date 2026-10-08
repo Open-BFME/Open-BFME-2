@@ -69191,3 +69191,6 @@ _RefStringHash,,0x0069B8A0,20,Code/GameEngine/Source/GameNetwork/GameSpy/serverb
 ?rva0046AAB8@HordeContain@@UAE_NXZ,,0x0046AAB8,33,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,
 ?rva0046D158@HordeContain@@QAEPAURva0046D158Record@@VAsciiString@@@Z,,0x0046D158,84,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,
 ?rva0046EC7C@HordeContain@@UAE?AVRva002390CB@@PAVObject@@@Z,,0x0046EC7C,98,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,
+?rva0046F7FF@HordeContain@@UAEAAURva0046247DPair@@AAU2@@Z,,0x0046F7FF,22,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,
+?rva0046DB6D@HordeContain@@UAEXABVAsciiString@@PAVRva2225E0Filter@@H@Z,,0x0046DB6D,293,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,
+?rva0046DC92@HordeContain@@UAEXABVAsciiString@@PAVRva2225E0Filter@@@Z,,0x0046DC92,213,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,
