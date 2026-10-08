@@ -41,6 +41,10 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
 struct MyHeroBlingBlock {MyHeroBlingRecord *first,*last,*capacity;};
 int GetGameClientRandomValue(int,int,char *,int);
+extern "C" __declspec(dllimport) char *__cdecl strstr(const char *,const char *);
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *);
+// The Object fields the location map reads; offsets are retail's.
+class Object {public: char pad00[0x44];float field44;char pad48[0x74-0x48];int field74;char pad78[0x88-0x78];AsciiString name88;};
 class CommandButton;
 class Rva00406ED7 {public: const CommandButton *rva00406ED7(int);};
 void __cdecl Rva005B24CDHeroPowerText(void *,const char *,int);
@@ -50,7 +54,7 @@ public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
  void SwitchToPendingHero();
  void rva005B21DA(CreateAHeroData *hero,bool flag,int mode);
- void rva005B0416(int);void rva005B0446();
+ void rva005B0416(int);int rva005B0E60(const Object *);void rva005B0446();
  bool rva005B0725();
  void rva005B0923(int);void SetBling(int,int,int);
  Rva005B0473View *rva005B0473();
@@ -170,4 +174,15 @@ void AptMyHero::rva005B21DA(CreateAHeroData *hero,bool flag,int mode){
    field14C=1;
    break;
  }
+}
+
+// WB twin 0x01571460 (unnamed, AptMyHero.cpp, __thiscall) and native
+// 0x005B0E60..0x005B0E9F, RET 4: the map location an object's name encodes
+// after its first '_', or -1. Its only caller 0x005B1A6C sets ECX to the
+// AptMyHero receiver; the body never reads it.
+int AptMyHero::rva005B0E60(const Object *object){
+ if(!object)return -1;
+ const char *suffix=strstr(object->name88.str(),"_");
+ if(!suffix)return -1;
+ return atoi(suffix+1);
 }
