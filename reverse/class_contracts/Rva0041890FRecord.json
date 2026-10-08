@@ -1,0 +1,54 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0041890FRecord",
+ "evidence": {
+  "census": 1,
+  "retail_access": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "36": 1
+  },
+  "views": 1,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "name": "key",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 0,
+   "type": "AsciiString",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva004188B6",
+   "name": "value",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 0,
+   "type": "Rva004188B6",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "struct": 3
+ },
+ "outliers": [],
+ "queue": [],
+ "size": 36,
+ "size_by": "majority",
+ "vslots": {}
+}

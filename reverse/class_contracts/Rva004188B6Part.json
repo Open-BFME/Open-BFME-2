@@ -1,0 +1,40 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva004188B6Part",
+ "evidence": {
+  "census": 1,
+  "retail_access": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "12": 1
+  },
+  "views": 1,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva004186F2",
+   "name": "m_value",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 0,
+   "type": "Rva004186F2",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "struct",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}

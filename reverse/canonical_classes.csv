@@ -53,3 +53,10 @@ HeaderTemplate,Code/GameEngine/Source/GameClient/GUI/HeaderTemplateView.h,native
 HeaderTemplateManager,Code/GameEngine/Source/GameClient/GUI/HeaderTemplateView.h,shared native STLport list member at +0; circular node links0 and template pointer8; lookup and GUI caller contracts verified
 ControlBarSchemeManager,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSchemeManagerView.h,native accessed prefix; current scheme0 multiplier4 STLport listC; full manager extent unasserted; existing scheme layouts preserved
 Rva002E8548,Code/GameEngine/Include/Common/Rva002E8548Pool.h,native grow establishes six-word pool layout and callback ABI; ScienceStore free-list field and two initialized pool owners reconciled
+Rva004186F2,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,existing opaque12-byte tree-member call view moved intact; native165-byte tree copy4186F2; original element identity unresolved
+Rva004188B6Part,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,existing inline holder preserves member-copy ABI and argument order across the shared native record view
+Rva004188B6,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,native32-byte value with12-byte members at0/C and AsciiString18; copied by verified4188B6
+Rva0041890FRecord,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,native36-byte record; string key0 and verified32-byte value4 independently established by61/57-byte constructors
+Rva00418A12Node,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,native40-byte allocation4189ED; next0 and36-byte record4; insertion418A12 witnesses both accesses
+Rva00418A12Result,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,native12-byte insertion output; node0 table4 inserted8 from124-byte418A12
+Rva00418A8EHost,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,native hash prefix through count10; buckets4/end8; original application identity unresolved; full extent unasserted

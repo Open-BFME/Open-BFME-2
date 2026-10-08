@@ -1,0 +1,27 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva004186F2",
+ "evidence": {
+  "census": 1,
+  "retail_access": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "12": 1
+  },
+  "views": 1,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {}
+}
