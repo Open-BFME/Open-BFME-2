@@ -177,6 +177,7 @@ struct Rva006D0280 {
  int m_useCount;
  int unknown4;
  EAStringC name8;
+ int typeC;
 };
 class Rva006D07E0Key {
 public:
@@ -330,6 +331,7 @@ struct Rva006D0A30Node { Rva006D0280 *entry; Rva006D0A30Node *next; };
 class Rva006D0A30List {
 public:
  Rva006D07E0Key find(const EAStringC *key);
+ Rva006D07E0Key findSpecial(const EAStringC *key);
  Rva006D0A30Node *head;
 };
 Rva006D07E0Key Rva006D0A30List::find(const EAStringC *key) {
@@ -339,5 +341,15 @@ Rva006D07E0Key Rva006D0A30List::find(const EAStringC *key) {
    return Rva006D07E0Key(node->entry);
   node=node->next;
  }
+ return Rva006D07E0Key();
+}
+
+// Native6D0A90..6D0B35. Filters the counted lookup result by
+// target owner tagC values4/5; value copying and local destruction
+// preserve ownership even for a rejected non-null result.
+Rva006D07E0Key Rva006D0A30List::findSpecial(const EAStringC *key) {
+ Rva006D07E0Key found=find(key);
+ if(found.m_object && (found.m_object->typeC==4 || found.m_object->typeC==5))
+  return found;
  return Rva006D07E0Key();
 }
