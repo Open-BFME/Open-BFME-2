@@ -32,7 +32,7 @@ class Rva003F4DCA {public: int rva003F4DCA(int,int);};
 struct Rva00598052Metadata {char unknown00[0x1C];int id;char unknown20[12];int state;};
 struct Rva00598052Entry {char unknown00[0x78]; Rva00598052Metadata *metadata;};
 
-struct Rva00598961Config {char pad00[0x1C];float field1C;};
+struct Rva00598961Config {char pad00[4]; _STL::vector<AsciiString *> unitNames; char pad10[0x1C-0x10];float field1C;};
 struct Rva002A8AB1Record {char pad00[0x160];Rva00598961Config *config160;};
 class Rva00598007 {public:Rva002A8AB1Record *rva00598007();bool rva0059802E();};
 class Rva002D06CA {public:void *rva002D06CA(const AsciiString*);};
@@ -109,6 +109,7 @@ public:
 	Rva00598C3AItem *createBestHeroToBuild();
 	Rva00598C3AItem *createBestUnitToMake();
  int getHeroIndex();
+ void registerUnitFactory(ObjectID);
  AsciiString decideWhichTemplateToMake();
 
 private:
@@ -267,5 +268,44 @@ int AIUnitBuilder::getHeroIndex()
  }
  if (heroIndex==-1) heroIndex=GetGameLogicRandomValue(0,heroNames.size()-1,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIUnitBuilder\\AIUnitBuilder.cpp",225);
  return heroIndex;
+}
+
+
+class ThingTemplate;
+class Rva0037EE4C { public: int rva0037EE4C(const ThingTemplate *,int,int); };
+class Rva00A027B8 {
+public:
+#define SLOT(n) virtual void s##n();
+ SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24)
+#undef SLOT
+ virtual bool slot25(Object *,const ThingTemplate *,int);
+};
+extern Rva00A027B8 *g_00A027B8;
+// WB152CB70 explicitly names registerUnitFactory and assert127.
+// The native call4FF876 uses the existing int/int tree provider for these
+// 32-bit enum payloads; the home lower/upper bounds prove signed key ordering.
+void AIUnitBuilder::registerUnitFactory(ObjectID id)
+{
+ Object *object=TheGameLogic->findObjectByID(id);
+ if (!object) return;
+ Rva00598961Config *config=((Rva00598007 *)this)->rva00598007()->config160;
+ for (_STL::vector<AsciiString *>::iterator i=config->unitNames.begin();i!=config->unitNames.end();++i) {
+   AsciiString name=**i;
+   const ThingTemplate *thing=(const ThingTemplate *)TheThingFactory->rva002D06CA(&name);
+   if (g_00A027B8->slot25(object,thing,-1)) {
+     _STL::pair<int,int> item(TheNameKeyGenerator->nameToKey(name),id);
+     ((_STL::multimap<int,int> *)&m_objects)->insert(item);
+   }
+ }
+ for (_STL::vector<AsciiString>::iterator i=heroNames.begin();i!=heroNames.end();++i) {
+   AsciiString name=*i;
+   const ThingTemplate *thing=(const ThingTemplate *)TheThingFactory->rva002D06CA(&name);
+   int count=((Rva0037EE4C *)((char *)m_30+0x738))->rva0037EE4C(thing,-1,0);
+   if (g_00A027B8->slot25(object,thing,count)) {
+     _STL::pair<int,int> item(TheNameKeyGenerator->nameToKey(name),id);
+     ((_STL::multimap<int,int> *)&m_objects)->insert(item);
+   }
+ }
+ m_2C=true;
 }
 
