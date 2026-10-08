@@ -783,7 +783,12 @@ public:
     virtual void slot76(); virtual void slot77(); virtual void slot78(); virtual void slot79(); virtual void slot80();
     virtual void slot81(); virtual void slot82(); virtual void slot83(); virtual void slot84(); virtual void slot85();
     virtual void slot86(); virtual void slot87(); virtual void slot88(); virtual void slot89(); virtual void slot90();
-    virtual void slot91(); virtual void slot92(); virtual void slot93(); virtual void slot94(); virtual void slot95();
+    virtual void slot91(); virtual void slot92();
+    // Slots 93/94 (+0x174/+0x178, vftable entries 0x007C5724/0x007C5728):
+    // set or (level 1.0) drop a trigger area's audio level.
+    virtual void rva0005824D(PolygonTrigger *trigger, float level);
+    virtual void rva000551C2(PolygonTrigger *trigger);
+    virtual void slot95();
     virtual void slot96(); virtual void slot97();
     // Slot 98 (+0x188, retail vftable entry 0x007C5738).
     virtual void onAudioLODChanged(void);
@@ -2881,6 +2886,39 @@ void MilesAudioManager::rva00060123(unsigned int viewMask)
             }
         }
     }
+}
+
+// Native 0005824D..00058314, vftable slot 93. Under the mutex a trigger's
+// level is clamped to [0, 1] and stored in its +0xB54 area entry (appended
+// when absent); a full level instead drops the entry through slot 94. Any
+// change marks the areas for retesting (+0x6AA).
+void MilesAudioManager::rva0005824D(PolygonTrigger *trigger, float level)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    if (!trigger)
+        return;
+    if (level == 1.0f) {
+        rva000551C2(trigger);
+        return;
+    }
+    if (level > 1.0f)
+        level = 1.0f;
+    if (0.0f > level)
+        level = 0.0f;
+    for (_STL::vector<AudioTriggerArea>::iterator it = m_triggerAreas.begin(); it != m_triggerAreas.end(); ++it) {
+        if (it->m_trigger == trigger) {
+            if (it->m_level != level) {
+                it->m_level = level;
+                m_at6AA = true;
+            }
+            return;
+        }
+    }
+    AudioTriggerArea area;
+    area.m_trigger = trigger;
+    area.m_level = level;
+    m_triggerAreas.push_back(area);
+    m_at6AA = true;
 }
 
 // Retail 0x000606CE, called from onAudioLODChanged (0x607BB) and 0x61A2E.
