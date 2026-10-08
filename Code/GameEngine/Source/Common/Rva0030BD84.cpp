@@ -34,6 +34,14 @@ bool Rva0030BCBFEqual(const BfmeE16 &a, const BfmeE16 &b)
 	return Rva0030BCBFFloatsEqual(a, b);
 }
 
+// Native30BD08..30BD5B ends immediately before the rowed41-byte setter.
+// Its comparison result is materialized before boolean negation, including
+// unordered inputs. An inlined equality helper preserves that native shape.
+bool Rva0030BD08NotEqual(const BfmeE16 &a, const BfmeE16 &b)
+{
+	return !Rva0030BCBFFloatsEqual(a, b);
+}
+
 struct BfmePod16
 {
 	int a[4];
