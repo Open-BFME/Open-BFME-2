@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/GameClient/GUI/LoadScreenUpdates.cpp (donor revision
@@ -9,53 +9,12 @@
 // retail's call sites (reverse/symbols.csv). Only the placed bodies are
 // carried; the donor's other definitions are omitted.
 //
-// The load screen's per-frame pump, in all four of its flavours, plus the one
-// reset that shares their layout. A load screen is what runs the game while
-// nothing else can: LoadScreen::update at 0x004914C0 is the whole frame --
-// clear the cursor tooltip, service the OS message queue, update both window
-// managers, update and draw the display -- and each subclass wraps it with
-// whatever else has to keep breathing while the map loads.
-//
-//   ShellGameLoadScreen  drives its progress bar and calls up.       0x00491550
-//   MultiPlayerLoadScreen reports the local player's progress, over  0x00491EB0
-//                        the network if there is one and straight to
-//                        the logic if there is not.
-//   GameSpyLoadScreen    reports it over the network unconditionally 0x00491F30
-//                        -- there always is one -- and pumps it.
-//   MapTransferLoadScreen is the odd one: not a LoadScreen subclass  0x0050FF30
-//                        at all and not virtual, it inlines the whole
-//                        base frame on top of a full network update
-//                        because it runs while a map is downloading.
-//
-// Six files with six partial views of the same classes become one, and the
-// views were only ever partial: LoadScreen's own body knew the ready byte at
-// +0x0C, the ShellGame reset knew the load-screen window at +0x08, and the
-// ShellGame update knew nothing between +0x04 and +0x10 but needed the size to
-// reach its progress bar at +0x10. All three statements are in the one layout
-// below, and none of the six bodies moved a byte.
+// LoadScreen layout and subclass relation follow the donor. BFME 2 confirms
+// the ready byte at +0x0C and ShellGameLoadScreen's progress bar at +0x10.
+// The base frame below is reconstructed from retail's complete 109-byte
+// body; its slot offsets and scripted-UI global differ from BFME 1.
 
-template <typename T> class StringBase
-{
-	friend class UnicodeString;
-
-private:
-	StringBase( const StringBase<T> &other );
-	~StringBase();
-
-	void *m_data;
-};
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/UnicodeString.h
-// class-gate: allow UnicodeString the donor's own view; the placed bodies are byte-exact under it
-class UnicodeString : private StringBase<unsigned short>
-{
-public:
-	static UnicodeString TheEmptyString;
-
-	UnicodeString( const UnicodeString &other )
-		: StringBase<unsigned short>( other ) {}
-	~UnicodeString() {}
-};
+#include "unicode_string.h"
 
 #define BFME_VSLOT(n) virtual void slot##n();
 
@@ -161,10 +120,8 @@ extern Display *TheDisplay;
 extern void setFPMode();
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/LoadScreen.h
-// Slot numbering is vtable 0x010F9B0C, where the ShellGame screen's update is
-// slot 1, its already-matched init at 0x004920E0 is slot 2 and its reset is
-// slot 3. The three trailing pad bytes are what carry the base to +0x10, where
-// every subclass below starts its own members.
+// The donor places update in slot 1 and carries a 16-byte base. BFME 2
+// independently tests +0x0C and uses the subclass progress bar at +0x10.
 class LoadScreen
 {
 public:
@@ -214,7 +171,7 @@ public:
 
 
 // ?update@ShellGameLoadScreen@@UAEXH@Z
-// Retail 0x00491550, 34 bytes.
+// BFME 2 retail 0x00356082, 32 bytes.
 void ShellGameLoadScreen::update( int percent )
 {
 	GadgetProgressBarSetProgress( m_progressBar, percent );

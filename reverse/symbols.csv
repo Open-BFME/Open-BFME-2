@@ -12840,7 +12840,6 @@ name,address,notes
 ?update@DockUpdate@@UAE?AW4UpdateSleepTime@@XZ,0x00589F09,slot 0 of the UpdateModuleInterface vtable of the docks that inherit update (RepairDockUpdate 0x00C51D68 and MonsterDockUpdate); called directly by SupplyCenterDockUpdate::update 0x004A1119 as in Zero Hour SupplyCenterDockUpdate.cpp (result = DockUpdate::update())
 ?update@GameEngine@@UAEXXZ,0x00225DA9,"GameEngine vtable 0x00BE7188 slot 10 (ZH GameEngine::update by slot and by Win32GameEngine::update calling it first); REL32 at 0x00041EC6"
 ?update@GarrisonContain@@UAE?AW4UpdateSleepTime@@XZ,0x00479643,slot 0 of the +0x10 UpdateModuleInterface vftable 0x00C46560 that GarrisonContain and HordeGarrisonContain install at +0x10 (this at +0x10 like the rowed DeletionUpdate::update); SlaughterHordeContain::update 0x00480E72 tail-calls it
-?update@LoadScreen@@UAEXH@Z,0x00355FF9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?update@Player@@QAEXXZ,0x002AE770,"Player member PlayerList slot 10 (SubsystemInterface::update's slot) calls on each of the twenty players; REL32 at 0x002A7AC0; ZH Player::update by that pairing (inferred)"
 ?update@RadiusDecal@@QAEXXZ,0x00330F98,BFME1 RadiusDecal::update matched 461B; called on m_curRadiusCursor immediately after setPosition in handleRadiusCursor
 ?update@Rva001048C0@@QAE_NPBMPAM@Z,0x0033EC93,BFME1 donor view of the laser draw envelope at W3DLaserDraw+0x34 (update(const float* in float* out) returning bool); read from the REL32 at 0x000C9952 in W3DLaserDraw::doDrawModule
