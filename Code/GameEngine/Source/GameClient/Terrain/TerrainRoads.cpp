@@ -68,11 +68,16 @@ public:
 	~INIException();
 };
 
-// BFME 2 layout, read from the accessors' retail offsets. The members before
-// the transition tables are not recovered yet and stay an opaque prefix.
+// BFME 2 layout: the road allocation/INI paths establish name +4, bridge +8,
+// ID +0xC, next +0x10, widths +0x14/+0x18 and texture +0x38. Other prefix
+// fields remain opaque. Existing transition-table accessor offsets are retained.
 class TerrainRoadType
 {
 public:
+	TerrainRoadType();
+	virtual ~TerrainRoadType();
+	void friend_setName(AsciiString name);
+	void friend_setTexture(AsciiString texture);
 	static void parseTransitionToOCL( INI *ini, void *instance, void *store, const void *userData );
 	static void parseTransitionToFX( INI *ini, void *instance, void *store, const void *userData );
 
@@ -84,14 +89,33 @@ public:
 	void friend_setRepairedToFXString( BodyDamageType state, Int index, AsciiString str );
 
 protected:
-	char m_unrecoveredPrefix[ 0x64 ];
+	AsciiString m_name;                         ///< 0x04
+	Bool m_isBridge;                            ///< 0x08
+	unsigned int m_id;                          ///< 0x0C
+	TerrainRoadType *m_next;                     ///< 0x10
+	float m_roadWidth;                           ///< 0x14
+	float m_roadWidthInTexture;                  ///< 0x18
+	char m_unrecovered1C[0x1C];
+	AsciiString m_texture;                      ///< 0x38
+	char m_unrecovered3C[0x28];
 	AsciiString m_damageToSoundString[ BODYDAMAGETYPE_COUNT ];								///< 0x64
 	AsciiString m_damageToOCLString[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];		///< 0x74
 	AsciiString m_damageToFXString[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];		///< 0xA4
 	AsciiString m_repairedToSoundString[ BODYDAMAGETYPE_COUNT ];							///< 0xD4
 	AsciiString m_repairedToOCLString[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];	///< 0xE4
 	AsciiString m_repairedToFXString[ BODYDAMAGETYPE_COUNT ][ MAX_BRIDGE_BODY_FX ];	///< 0x114
+	float m_transitionEffectsHeight;            ///< 0x144
+	Int m_numFXPerType;                         ///< 0x148
 };
+
+// Native newRoad/newBridge calls prove this by-value name setter at 0x002DAD19.
+// ZH calls the same operation friend_setName. The complete 52-byte body has
+// its own EH graph, so it replaces the old gen-alias claim rather than folding.
+void TerrainRoadType::friend_setName(AsciiString name)
+{
+    AsciiString &slot = m_name;
+    slot = name;
+}
 
 AsciiString TerrainRoadType::getDamageToOCLString( BodyDamageType state, Int index )
 {
