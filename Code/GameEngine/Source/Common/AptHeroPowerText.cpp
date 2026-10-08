@@ -1,8 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // Hero power panel texts. Each builds a UnicodeString through a formatter
 // and hands it to the rowed bfmeSetText. Both formatters return a
-// UnicodeString by value through a hidden pointer: 0x005B2446 is defined
-// below, 0x005B2376 is still pinned from its REL32 call site.
+// UnicodeString by value through a hidden pointer; 0x005B2376 and
+// 0x005B2446 are defined below.
 //
 // ?Rva005B23D7HeroPowersDescription@@YAXPAXHABVAsciiString@@@Z @0x005B23D7 111B
 //   APT:HeroPowersDescription with the description text
@@ -57,6 +57,7 @@ class CommandButton
 {
 public:
 	const Image *rva0035B19E() const;
+	const AsciiString &rva0035B26F() const;
 };
 class ImageCollection
 {
@@ -139,6 +140,20 @@ public:
 };
 
 extern GameTextInterface *TheGameText;
+
+// ?Rva005B2376Describe@@YA?AVUnicodeString@@PAXHABVAsciiString@@@Z @0x005B2376
+// 97B: the game text for the button's current description label (rowed
+// CommandButton getter 0x0035B26F), else for the caller's fallback label,
+// else L" ". The early push of 0 is fetch's exists argument, evaluated
+// before the label. WorldBuilder's twin 0x0157F520 is unnamed.
+UnicodeString __cdecl Rva005B2376Describe(void *power, int unused, const AsciiString &fallback)
+{
+	if (power != NULL)
+		return TheGameText->fetch(((const CommandButton *)power)->rva0035B26F());
+	if (!fallback.isEmpty())
+		return TheGameText->fetch(fallback);
+	return UnicodeString((const unsigned short *)L" ");
+}
 
 // ?Rva005B2446Describe@@YA?AVUnicodeString@@PAX@Z @0x005B2446 135B: the
 // game text for "CAH:" + the power's +0x10 name + "_Name", or L" " without
