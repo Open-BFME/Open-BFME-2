@@ -70531,3 +70531,4 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva002B8019@Rva002B6C9F@@QAE_NHHH@Z,,0x002B8019,44,Code/GameEngine/Source/Common/Rva002B6C9F.cpp,matched,
 ?rva003FAD9A@Rva003FAC83@@QAEXXZ,,0x003FAD9A,9,Code/GameEngine/Source/Common/Rva003FAC83Flags.cpp,matched,
 ?rva003FADA3@Rva003FAC83@@QAEXXZ,,0x003FADA3,18,Code/GameEngine/Source/Common/Rva003FAC83Flags.cpp,matched,
+?stencil@Rva00785FD0Renderer@@QAEXXZ,,0x001103D6,118,Code/GameEngine/Source/Common/Rva00785FD0RendererSetMode.cpp,matched,BFME1 clean34f59164 GUI/Rva0078B280StencilGeneration.cpp O1/SSE/G7; existing nativeflushAA5E1 proves actualRva00785FD0Renderer stencil owner; signedgeneration+0C wraps255 to1; rowed nativeHas_Stencil11CDC0 and seven-argumentClear11D330; whole118 ends at ctor11044C; donorownername not adopted

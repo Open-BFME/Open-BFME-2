@@ -1,5 +1,15 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath
 // stlport
+
+#include "vector3.h"
+
+class DX8Wrapper
+{
+public:
+	static bool Has_Stencil();
+	static void Clear(bool clear_color, bool clear_z, bool clear_stencil,
+		const Vector3 &color, float dest_alpha, float z, unsigned stencil);
+};
 
 // BFME1 donor: Rva00785FD0RendererConstructor.cpp at verified revision
 // 1399ad37d42ea52a63829e417c46a1ba9ed2cd20; O1/SSE/G7 exact placement.
@@ -70,6 +80,7 @@ class Rva00785FD0Renderer
 public:
 	Rva00785FD0Renderer();
 	void __fastcall setMode(int mode);
+	void stencil();
 
 private:
 	bool m_modeChanged;
@@ -77,7 +88,7 @@ private:
 	unsigned char m_padding02[2];
 	RefCountPtr<TextureClass> m_texture;
 	unsigned m_mode;
-	unsigned m_stencilGeneration;
+	int m_stencilGeneration;
 	NativeRendererMatrix m_world;
 	NativeRendererMatrix m_view;
 	NativeRendererMatrix m_projection;
@@ -111,3 +122,32 @@ void __fastcall Rva00785FD0Renderer::setMode(int mode)
 }
 
 typedef char NativeRendererSize[sizeof(Rva00785FD0Renderer)==0xe0 ? 1 : -1];
+
+// ?stencil@Rva00785FD0Renderer@@QAEXXZ
+// BFME1 34f59164f6 donor GUI/Rva0078B280StencilGeneration.cpp under O1/SSE/G7.
+// Target1103D6..11044C: existing flushAA5E1 calls this exact owner/method;
+// native signed counter+0C wraps255 to1 and clears only on generation1.
+// Native providers Has_Stencil11CDC0 and seven-argument Clear11D330 are rowed.
+// The donor owner spelling is not adopted; the original application name is unknown.
+void Rva00785FD0Renderer::stencil()
+{
+	if (DX8Wrapper::Has_Stencil()) {
+		++m_stencilGeneration;
+		if (m_stencilGeneration > 255)
+			m_stencilGeneration = 1;
+		if (m_stencilGeneration != 1)
+			return;
+
+		Vector3 color;
+		color.X = 0.0f;
+		color.Y = 0.0f;
+		color.Z = 0.0f;
+		DX8Wrapper::Clear(false, false, true, color, 0.0f, 0.0f, 0);
+	} else {
+		Vector3 color;
+		color.X = 0.0f;
+		color.Y = 0.0f;
+		color.Z = 0.0f;
+		DX8Wrapper::Clear(false, true, true, color, 0.0f, 0.0f, 0);
+	}
+}
