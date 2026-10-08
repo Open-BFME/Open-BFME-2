@@ -649,34 +649,97 @@ void Mouse::resetTooltipDelay( void )
 // ------------------------------------------------------------------------------------------------
 /** Draw the cursor text at the mouse position.  Note that this is *NOT* the tooltip text */
 // ------------------------------------------------------------------------------------------------
-// ?drawCursorText@Mouse@@ present-unmatched
+class MouseDrawCursorTextDisplayString
+{
+public:
+	virtual ~MouseDrawCursorTextDisplayString();
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0c() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1c() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void setColor(Color color, Color dropColor) = 0;
+	virtual void slot2c() = 0;
+	virtual void slot30() = 0;
+	virtual void slot34() = 0;
+	virtual void draw(Int x, Int y, Int xDrop, Int yDrop) = 0;
+	virtual void getSize(Int *width, Int *height) = 0;
+};
+
+class MouseDrawCursorTextDisplay
+{
+public:
+	virtual ~MouseDrawCursorTextDisplay();
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0c() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1c() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2c() = 0;
+	virtual void slot30() = 0;
+	virtual void slot34() = 0;
+	virtual void slot38() = 0;
+	virtual void slot3c() = 0;
+	virtual UnsignedInt getWidth() = 0;
+	virtual UnsignedInt getHeight() = 0;
+};
+
 void Mouse::drawCursorText( void )
 {
+	// BFME2 adds 0x554 bytes before the corresponding BFME1 mouse fields.
+	Mouse *const retailMouse = reinterpret_cast<Mouse *>(
+		reinterpret_cast<char *>(this) + 0x554);
 
 	// sanity
-	if( m_cursorTextDisplayString == NULL )
+	if( retailMouse->m_cursorTextDisplayString == NULL )
 		return;
 
 	// get the colors to draw the text in an acceptable format
 	Color color, dropColor;
-	color = GameMakeColor( m_cursorTextColor.red, 
-												 m_cursorTextColor.green, 
-												 m_cursorTextColor.blue, 
-												 m_cursorTextColor.alpha );
-	dropColor = GameMakeColor( m_cursorTextDropColor.red, 
-														 m_cursorTextDropColor.green, 
-														 m_cursorTextDropColor.blue, 
-														 m_cursorTextDropColor.alpha );
+	color = GameMakeColor( retailMouse->m_cursorTextColor.red,
+													 retailMouse->m_cursorTextColor.green,
+													 retailMouse->m_cursorTextColor.blue,
+													 retailMouse->m_cursorTextColor.alpha );
+	dropColor = GameMakeColor( retailMouse->m_cursorTextDropColor.red,
+														 retailMouse->m_cursorTextDropColor.green,
+														 retailMouse->m_cursorTextDropColor.blue,
+														 retailMouse->m_cursorTextDropColor.alpha );
 
 	// get the size of the text to draw
 	Int width, height;
-	m_cursorTextDisplayString->getSize( &width, &height );
+	reinterpret_cast<MouseDrawCursorTextDisplayString *>(
+		retailMouse->m_cursorTextDisplayString)->getSize( &width, &height );
 
-	// draw the text around the cursor position
+	// Put the text to the right/below the cursor unless it would cross the
+	// retail display edge; then place it to the left/above the cursor.
 	Int x, y;
-	x = m_currMouse.pos.x - width / 2;
-	y = m_currMouse.pos.y - height / 2;
-	m_cursorTextDisplayString->draw( x, y, color, dropColor );
+	Int *const retailMousePosition = reinterpret_cast<Int *>(
+		reinterpret_cast<char *>(this) + 0x4f0c);
+	Int mouseX = retailMousePosition[0];
+	if( mouseX + 16 < reinterpret_cast<MouseDrawCursorTextDisplay *>(TheDisplay)->getWidth() - width )
+		x = mouseX + 16;
+	else
+		x = mouseX - width - 16;
+
+	Int mouseY = retailMousePosition[1];
+	if( mouseY + 16 < reinterpret_cast<MouseDrawCursorTextDisplay *>(TheDisplay)->getHeight() - height )
+		y = mouseY + 16;
+	else
+		y = mouseY - height - 16;
+
+	reinterpret_cast<MouseDrawCursorTextDisplayString *>(
+		retailMouse->m_cursorTextDisplayString)->setColor( color, dropColor );
+	reinterpret_cast<MouseDrawCursorTextDisplayString *>(
+		retailMouse->m_cursorTextDisplayString)->draw( x, y, 1, 1 );
 
 }  // end drawCursorText
 
