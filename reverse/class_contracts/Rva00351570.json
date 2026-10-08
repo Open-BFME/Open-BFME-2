@@ -1,0 +1,284 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva00351570",
+ "evidence": {
+  "census": 1,
+  "retail_access": {
+   "0x0": {
+    "4": 2
+   },
+   "0x14": {
+    "4": 1
+   },
+   "0x18": {
+    "4": 1
+   },
+   "0x1c": {
+    "4": 1
+   },
+   "0x20": {
+    "4": 1
+   },
+   "0x24": {
+    "4": 1
+   },
+   "0x30": {
+    "4": 1
+   },
+   "0x34": {
+    "4": 1
+   },
+   "0x38": {
+    "4": 1
+   },
+   "0x3c": {
+    "4": 1
+   },
+   "0x4": {
+    "4": 2
+   },
+   "0x40": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 2
+   },
+   "0xbc": {
+    "4": 1
+   },
+   "0xc0": {
+    "4": 1
+   }
+  },
+  "retail_member_rows": 2,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "196": 1
+  },
+  "views": 1,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_00",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:BfmeVec12",
+   "name": "m_08",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 2
+   },
+   "size": 12,
+   "type": "BfmeVec12",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_14",
+   "name_by": "majority",
+   "offset": 20,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_18",
+   "name_by": "majority",
+   "offset": 24,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "name": "m_1C",
+   "name_by": "majority",
+   "offset": 28,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "AsciiString",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:AsciiString",
+   "name": "m_20",
+   "name_by": "majority",
+   "offset": 32,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "AsciiString",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva0035149F",
+   "name": "m_24",
+   "name_by": "majority",
+   "offset": 36,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 12,
+   "type": "Rva0035149F",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_30",
+   "name_by": "majority",
+   "offset": 48,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_34",
+   "name_by": "majority",
+   "offset": 52,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_38",
+   "name_by": "majority",
+   "offset": 56,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_3C",
+   "name_by": "majority",
+   "offset": 60,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "S:Rva003427DD",
+   "name": "m_40",
+   "name_by": "majority",
+   "offset": 64,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 124,
+   "type": "Rva003427DD",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_BC",
+   "name_by": "majority",
+   "offset": 188,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_C0",
+   "name_by": "majority",
+   "offset": 192,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 196,
+ "size_by": "majority",
+ "vslots": {}
+}

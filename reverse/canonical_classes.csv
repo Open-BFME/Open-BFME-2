@@ -91,3 +91,5 @@ StrategicHUD::RegionDetailsArmiesMovieClip::Impl,Code/GameEngine/Source/Common/R
 AreaRetainedObjectView,Code/GameEngine/Source/GameLogic/Map/AreaSetEntryView.h,native 30C95C and callers30C61B/30CE66 prove retained-reference ownership and layout; original reference/entry spelling unasserted
 AreaRefValueView,Code/GameEngine/Source/GameLogic/Map/AreaSetEntryView.h,native 30C95C and callers30C61B/30CE66 prove retained-reference ownership and layout; original reference/entry spelling unasserted
 Rva0030C95C,Code/GameEngine/Source/GameLogic/Map/AreaSetEntryView.h,native 30C95C and callers30C61B/30CE66 prove retained-reference ownership and layout; original reference/entry spelling unasserted
+Rva00351570Src,Code/GameEngine/Include/GameLogic/BfmeAICommandParameterView.h,existing header; contract class_contracts/Rva00351570Src.json; 1/1 sampled units adopt
+Rva00351570,Code/GameEngine/Include/GameLogic/BfmeStoredAICommandView.h,existing header; contract class_contracts/Rva00351570.json; 1/1 sampled units adopt
