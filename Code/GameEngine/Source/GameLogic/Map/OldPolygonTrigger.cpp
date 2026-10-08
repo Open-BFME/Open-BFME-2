@@ -17,18 +17,40 @@ struct DataChunkInfo
 	unsigned short m_version;
 };
 
+class Rva0030B9DD
+{
+public:
+	Rva0030B9DD(int);
+	Coord2D *m_pointsBegin;
+	Coord2D *m_pointsEnd;
+	char m_pad08[0x2c - 8];
+};
+
 struct Out
 {
 	Out();
 	~Out();
-	char m_pad00[0x0c];
+	int m_id;
+	AsciiString m_name;
+	AsciiString m_extra;
 	bool m_isRiver;
-	char m_pad0d[0x48 - 0x0d];
-	Coord2D *m_pointsBegin;
-	Coord2D *m_pointsEnd;
-	char m_pad50[0x74 - 0x50];
-	unsigned int pointCount() const { return m_pointsEnd - m_pointsBegin; }
+	char m_pad0d[3];
+	int m_10;
+	AsciiString m_strings[6];
+	bool m_2c;
+	char m_pad2d[3];
+	int m_rgb[3];
+	float m_3c, m_40, m_44;
+	Rva0030B9DD m_polygon;
+	unsigned int pointCount() const
+	{
+		return m_polygon.m_pointsEnd - m_polygon.m_pointsBegin;
+	}
 };
+
+// Native 0x0032912D constructs two strings, six string-array elements, then
+// the existing 2C-byte polygon constructor with zero at +48.
+Out::Out() : m_polygon(0) {}
 
 class Rva00282135
 {
@@ -172,10 +194,10 @@ void __cdecl rva0032927A(Rva003294B3Obj *record, int areaSet)
 {
 	Out *data = reinterpret_cast<Out *>(record);
 	StandingWaterRef water(new Rva00308E63(
-		data->m_pointsEnd - data->m_pointsBegin, true));
+		data->m_polygon.m_pointsEnd - data->m_polygon.m_pointsBegin, true));
 	void (Rva0032927ABoundary::*setBoundary)(const void *) =
 		&Rva0032927ABoundary::setBoundary;
-	(water.m_ptr->m_boundary.*setBoundary)(&data->m_pointsBegin);
+	(water.m_ptr->m_boundary.*setBoundary)(&data->m_polygon.m_pointsBegin);
 	reinterpret_cast<Rva00537F74 *>(water.m_ptr)->rva00537F74(
 		*reinterpret_cast<const AsciiString *>(reinterpret_cast<char *>(record) + 4));
 	reinterpret_cast<Rva00537FA0 *>(water.m_ptr)->rva00537FA0(
