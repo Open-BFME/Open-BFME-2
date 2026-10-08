@@ -15,6 +15,9 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 struct TreeKey00242F5E { int m_id; AsciiString m_name; };
 struct TreeOpaqueMapped242F5E { unsigned int m_bits; };
 struct Out00524477 { int m_0; AsciiString m_4; };
+// Native three-word cdecl hidden-return ABI matches the recovered STLport
+// make_pair provider. Its generated linker alias retains this legacy view;
+// typed-return trials add EH data or trigger MSVC7.1 ICE in this flat-frame unit.
 int __cdecl Rva0023FC23(Out00524477 *out, int *a1, int a2);
 class CommandButton;
 class GameLogic

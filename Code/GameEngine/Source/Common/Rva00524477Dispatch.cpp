@@ -16,6 +16,9 @@ struct Out00524477
 	AsciiString m_4;
 };
 
+// Native three-word cdecl hidden-return ABI matches the recovered STLport
+// make_pair provider. Its generated linker alias retains this legacy view;
+// typed-return trials add EH data or trigger MSVC7.1 ICE in this flat-frame unit.
 int Rva0023FC23(Out00524477 *out, int *a1, int a2);
 int Rva005243FA(int a, int b, int c);
 
