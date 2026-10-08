@@ -514,37 +514,8 @@ will be processed when we get to the front of the pathfind queue. jba */
 // Requests a safe path away from the repulsor.
 // AIUpdateInterface::requestSafePath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestSafePath.cpp (0x00263EA2).
 
-enum {WAYPOINT_PATH_LIMIT=1024};
 //-------------------------------------------------------------------------------------------------
-// 
-// ?setPathFromWaypoint@AIUpdateInterface@@ present-unmatched
-void AIUpdateInterface::setPathFromWaypoint(const Waypoint *way, const Coord2D *offset) 
-{
-	destroyPath();
-	m_path = newInstance(Path);
-	Coord3D pos = *getObject()->getPosition();
-	m_path->prependNode( &pos, LAYER_GROUND );
-	m_path->markOptimized();
-	int count = 0;
-	while (way) {
-		Coord3D wayPos = *way->getLocation();
-		wayPos.x += offset->x;
-		wayPos.y += offset->y;
-		if (way->getLink(0) == NULL) {
-			TheAI->pathfinder()->snapPosition(getObject(), &wayPos);
-		}
-		m_path->appendNode( &wayPos, LAYER_GROUND );
-		way = way->getLink(0);
-		count++;
-		if (count>WAYPOINT_PATH_LIMIT) break;
-	}
-	m_waitingForPath = FALSE;	 
-	TheAI->pathfinder()->setDebugPath(m_path);
-#ifdef SLEEPY_AI
-	// if we're no longer waiting for a path, make sure we wake up right away!
-	wakeUpNow();
-#endif
-}
+// AIUpdateInterface::setPathFromWaypoint is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_setPathFromWaypoint.cpp (0x0026569F).
 
 //-------------------------------------------------------------------------------------------------
 // AIUpdateInterface::onObjectCreated is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (0x002625C8).

@@ -12618,7 +12618,6 @@ name,address,notes
 ?setNumChunks@NetWrapperCommandMsg@@QAEXI@Z,0x00210C87,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?setOpacity@Shadow@@QAEXH@Z,0x003308F6,Shadow opacity setter: BFME1 ShadowSetOpacity.cpp matched row proves mangling/layout (m_opacity +0x2C/m_type +0x34/m_color +0x24/m_diffuse +0x28); retail 0x3308F6 head reproduces (mov [esi+0x2C]/mov ecx [esi+0x34]/test 0x1420); 15 image-wide callers incl RadiusDecal setOpacity site 0x330DF5 passing (Int)(o*255.0f)
 ?setPathExtraDistance@AIUpdateInterface@@QAEXM@Z,0x002633F3,out-of-line Real setter (same body as the Rva002633F3FloatField row); REL32 from AIFollowPathState::onEnter 0x0034DFF1 and 0x0034E05A with ECX the owner AI at the sites ZH calls ai->setPathExtraDistance
-?setPathFromWaypoint@AIUpdateInterface@@QAEXPBVWaypoint@@PBUCoord2D@@@Z,0x0026569F,AIUpdateInterface::setPathFromWaypoint called by AIFollowWaypointPathExactState::onEnter at 0x0034F10B
 ?setPeer@Rva007F9B80@@QAEXPAX@Z,0x00665600
 ?setPlayerIndex@BfmeAudioEventPrefix136@@QAEXH@Z,0x0033F15D,AudioEventRTS player-index setter used by the script force-selection dispatch (0x003C5AB8) and 42 other audio-event sites; pushes the local-player index before addAudioEvent
 ?setPlayerIndex@NetDestroyPlayerCommandMsg@@QAEXI@Z,0x00318B09,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
