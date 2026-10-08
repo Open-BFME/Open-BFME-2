@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -DBFME_VOLUMETRIC_DELETE_LAYOUT -Ireference/open-bfme-1/inputs/reference/shims/volumetricshadow -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Shadow
+// cl: /O1 /G7 /arch:SSE -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -DBFME_VOLUMETRIC_DELETE_LAYOUT -Ireference/open-bfme-1/inputs/reference/shims/volumetricshadow -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Shadow
 // stlport
 // readable body of ?Fabs@WWMath@@: game/Libraries/Source/WWVegas/WW3D2/coltest.cpp
 #define Matrix4x4 Matrix4  // BFME renamed it
@@ -163,3 +163,46 @@ void W3DVolumetricShadow::SetGeometry( W3DShadowGeometry *geometry )
 	geometryShadow->m_geometry = geometry;
 
 }  // end SetGeometry
+
+// Manager destruction: BFME1 donor ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f
+// supplies ReleaseResources and the geometry/buffer-manager deletions. WB
+// independently identifies the native manager destructor at F2ECB, 143B.
+// Retail adds the device-lock scope and shared vector resets. The EH guard
+// is inferred from its state and cleanup; isolated EH verification is exact.
+// Keep the existing address-derived geometry-dtor binding; its source type
+// is not claimed here. Explicit destruction reproduces the non-virtual
+// delete sequence without dispatching through that opaque view's vtable.
+// Data ledger globals g_00DEBE0C/24 own the shared vector roots. Their
+// 12B TCB stand-in is inherited; the original element identity is uncertain.
+// Native clears ActiveCount+10 then calls the existing 37B VectorClass<int>
+// Clear provider, which frees raw storage and resets base fields without an
+// element destructor. No new global or call-target pin is introduced.
+void __cdecl BFME_DX8_Thread_Lock();
+bool __cdecl BFME_DX8_Thread_Assert();
+struct VolShadowDeviceLock {
+ VolShadowDeviceLock() { BFME_DX8_Thread_Lock(); }
+ ~VolShadowDeviceLock() { BFME_DX8_Thread_Assert(); }
+};
+class Rva000F0912 { public: void rva000F0972(); };
+class Rva000F2797 { public: virtual ~Rva000F2797(); };
+#include "tcbspline.h"
+// Promote the donor's protected nested type for the existing ledger globals;
+// this type-only access bridge creates no object or target identity.
+struct VolShadowTCBAccess : TCBSpline3DClass { typedef TCBClass Type; };
+extern DynamicVectorClass<VolShadowTCBAccess::Type> g_00DEBE0C;
+extern DynamicVectorClass<VolShadowTCBAccess::Type> g_00DEBE24;
+// ?W3DVolumetricShadowManager::~W3DVolumetricShadowManager present-unmatched
+W3DVolumetricShadowManager::~W3DVolumetricShadowManager()
+{
+ VolShadowDeviceLock guard;
+ ((Rva000F0912 *)this)->rva000F0972();
+ Rva000F2797 *geometry=(Rva000F2797 *)m_W3DShadowGeometryManager;
+ if(geometry) { geometry->Rva000F2797::~Rva000F2797(); ::operator delete(geometry); }
+ m_W3DShadowGeometryManager=0;
+ delete TheW3DBufferManager;
+ TheW3DBufferManager=0;
+ *(int *)((char *)&g_00DEBE0C+16)=0;
+ ((VectorClass<int> *)&g_00DEBE0C)->VectorClass<int>::Clear();
+ *(int *)((char *)&g_00DEBE24+16)=0;
+ ((VectorClass<int> *)&g_00DEBE24)->VectorClass<int>::Clear();
+}
