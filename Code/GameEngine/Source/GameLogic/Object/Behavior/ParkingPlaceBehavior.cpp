@@ -78,6 +78,9 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameLogic/Object.h"
 #include "GameLogic/TerrainLogic.h"
 #include "Common/Team.h" 
+// Reuse the verified Coord3D push-back specialization at2CE7DC.
+namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D&); }
+
 
 #ifdef _INTERNAL
 // for occasional debugging...

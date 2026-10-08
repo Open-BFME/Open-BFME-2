@@ -162,6 +162,9 @@ struct Coord3D
 	float length() const;						///< matched 0x00003571
 };
 
+// Reuse the verified Coord3D push-back specialization at2CE7DC.
+namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D&); }
+
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
 struct Region3D
 {

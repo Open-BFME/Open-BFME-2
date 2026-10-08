@@ -96,7 +96,72 @@ template <> void _Base_bitset<4>::_M_do_or(const _Base_bitset<4> &);
 #include "GameLogic/Scripts.h"
 #include "GameLogic/PartitionManager.h"
 #include "GameLogic/SidesList.h"
-#include "GameLogic/Squad.h"
+// TU-scoped ZH Squad declaration at BF1 ba7ddda7e8, with its existing
+// verified BFME2 constructor declared out of line. Preserve the donor
+// member view while removing its competing implicit constructor.
+#ifndef _H_SQAUD_
+#define _H_SQAUD_
+
+// INCLUDES ///////////////////////////////////////////////////////////////////
+#include "Common/Snapshot.h"
+#include "Common/GameMemory.h"
+
+// DEFINES ////////////////////////////////////////////////////////////////////
+
+// FORWARD DECLARATIONS ///////////////////////////////////////////////////////
+class AIGroup;
+class Object;
+class Team;
+
+
+// TYPE DEFINES ///////////////////////////////////////////////////////////////
+typedef std::vector<ObjectID> VecObjectID;
+typedef VecObjectID::iterator VecObjectIDIt;
+
+typedef std::vector<Object*> VecObjectPtr;
+typedef VecObjectPtr::iterator VecObjectPtrIt;
+
+class Squad : public MemoryPoolObject, public Snapshot
+{
+	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(Squad, "Squad")
+
+protected:
+	// snapshot methods
+	virtual void crc( Xfer *xfer );
+	virtual void xfer( Xfer *xfer );
+	virtual void loadPostProcess( void );
+
+	VecObjectID m_objectIDs;
+
+	// this one is the last requested object stuff. Its used so that we can return a
+	// const& rather than making a copy and placing it on the stack.
+	VecObjectPtr m_objectsCached;
+
+public:
+	// Native268CAC owns construction; do not generate a ZH default copy.
+	Squad() throw();
+	void addObject(Object *objectToAdd);							// add an object
+	void addObjectID(ObjectID objectID);							// add an object ID
+	void removeObject(Object *objectToRemove);				// remove an object
+	void clearSquad();																// remove all objects from this squad.
+	const VecObjectPtr& getAllObjects(void);					// get all objects on the list that haven't been deleted
+	const VecObjectPtr& getLiveObjects(void);					// get all objects that pass "isEffectivelyDead" test
+	Int getSizeOfGroup(void) const;										// get the current number of objects, including dead objects
+	Bool isOnSquad(const Object *objToTest) const;		// returns true if the object is on this squad, otherwise false
+
+	// convenience function to fill this squad with members of a team
+	// There SHOULD NOT be a TeamFromSquad Function. See comments in Squad.cpp for details
+	void squadFromTeam(const Team* fromTeam, Bool clearSquadFirst);
+
+	// convenience function to create a squad from an AIGroup, and an AIGroup from a team.
+	// When creating the AIGroup from the Squad, the old AIGroup affiliations are broken.
+	void squadFromAIGroup(const AIGroup* fromAIGroup, Bool clearSquadFirst);
+	void aiGroupFromSquad(AIGroup* aiGroupToFill);
+};
+EMPTY_DTOR(Squad)
+
+#endif /* _H_SQAUD_ */
+
 #include "GameLogic/RankInfo.h"
 #include "GameLogic/ScriptEngine.h"
 #include "GameLogic/Weapon.h"

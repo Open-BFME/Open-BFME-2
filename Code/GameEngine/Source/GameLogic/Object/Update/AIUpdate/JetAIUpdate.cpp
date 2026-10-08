@@ -62,6 +62,10 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameLogic/PartitionManager.h"
 #include "GameLogic/Weapon.h"
 
+// Reuse the complete byte-verified Coord3D push-back provider at2CE7DC.
+// Its declaration suppresses a second template body under this TU flags.
+namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D&); }
+
 const Real BIGNUM = 99999.0f;
 
 #ifdef _INTERNAL

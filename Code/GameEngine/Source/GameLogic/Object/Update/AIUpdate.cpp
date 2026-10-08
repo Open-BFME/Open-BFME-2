@@ -97,6 +97,9 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameLogic/TurretAI.h"
 #include "GameLogic/Weapon.h"
 #include "Common/Radar.h"									// For TheRadar
+// Reuse the verified Coord3D push-back specialization at2CE7DC.
+namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D&); }
+
 
 // Reuse the verified retail container providers. Native callers use the
 // out-of-line map subscript and folded pointer-vector erase/append bodies;
