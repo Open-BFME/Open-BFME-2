@@ -305,6 +305,7 @@ template <class T> class allocator
 template <class T, class A = allocator<T> > class vector
 {
 public:
+    ~vector();
 	T *_M_start;
 	T *_M_finish;
 	T *_M_end_of_storage;
@@ -438,13 +439,53 @@ Rva003FCE38::Rva003FCE38(EmitVtableTag *)
 {
 }
 
-class Rva003FE58A
+// Retail destructor at 0x003FE58A proves base cleanup at 0x0053947D,
+// pointer buffer at +0x2C, record vector at +0x3C, and counted ref at +0x4C.
+// The record-vector call 0x00538E3E is a direct JMP to its rowed destructor
+// 0x00319B58; it retains that provider's established STLport spelling.
+class Rva0053947D
 {
 public:
-	Rva003FE58A(EmitVtableTag *);
-public:
-	virtual ~Rva003FE58A();
+    virtual ~Rva0053947D();
+    virtual void v01(); virtual void rva005391D3(); virtual void v03();
+    virtual void v04(); virtual void v05(); virtual void v06();
+    virtual void v07(); virtual void v08(); virtual void v09();
+    virtual void v10(); virtual void v11(); virtual void v12();
+    virtual int v13(); virtual void v14(); virtual void *v15(int);
+    char unmodelled04[0x10];
 };
+class Rva0052B23D { public: void rva0052B23D(); };
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+extern "C" void __cdecl free(void *);
+struct Rva003FE58ABuffer
+{
+    void *begin, *end, *capacity;
+    ~Rva003FE58ABuffer() { if (begin) free(begin); }
+};
+struct Rva003FE58ARef
+{
+    TargetRef00217D4C *ref;
+    ~Rva003FE58ARef() { if (ref) ReleaseTreeHintRef00217D4C(ref); }
+};
+struct BfmeVectorRecord00319C84;
+class Rva003FE58A : public Rva0053947D
+{
+public:
+    Rva003FE58A(EmitVtableTag *);
+    virtual ~Rva003FE58A();
+    char unmodelled14[0x18];
+    Rva003FE58ABuffer buffer;
+    char unmodelled38[4];
+    _STL::vector<BfmeVectorRecord00319C84, _STL::allocator<BfmeVectorRecord00319C84> > records;
+    char unmodelled48[4];
+    Rva003FE58ARef ref;
+};
+
+Rva003FE58A::~Rva003FE58A()
+{
+    ((Rva0052B23D *)this)->rva0052B23D();
+}
 
 // ?<Rva003FE58A::Rva003FE58A> absent-from-retail
 Rva003FE58A::Rva003FE58A(EmitVtableTag *)
