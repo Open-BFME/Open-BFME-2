@@ -72,3 +72,13 @@ BFME_DISP32_BYTE_GETTER(Rva0052BAABByteField, 0xB4)
 BFME_DISP32_BYTE_GETTER(Rva0053B8DEByteField, 0x43B)
 BFME_DISP32_BYTE_GETTER(Rva0055D968ByteField, 0x194)
 BFME_DISP32_BYTE_GETTER(Rva0056285EByteField, 0x1A0)
+
+// Clean BF1 9cbfb551fe Common/Rva003CBA00Indexed.cpp semantic donor, normal O1/SSE/G7.
+// Native 0029A25D..0029A268 has its own complete RET boundary and establishes
+// receiver10 indexed dword load, RET4. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva0029A25DArray {
+public: int getValue(int index);
+private: unsigned char unknown[0x10]; int values[1];
+};
+int Rva0029A25DArray::getValue(int index) { return values[index]; }

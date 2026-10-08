@@ -164,3 +164,13 @@ Rva0047A2B6Floats *Rva0047A2B6Floats::initialize()
     second[2] = 1.0f;
     return this;
 }
+
+// Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
+// Native 0010855F..0010856E has its own complete RET boundary and establishes
+// receiver68 indexed dword store, RET8. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva0010855FArray {
+public: void setValue(unsigned int index, unsigned int value);
+private: unsigned char unknown[0x68]; unsigned int values[1];
+};
+void Rva0010855FArray::setValue(unsigned int index, unsigned int value) { values[index] = value; }

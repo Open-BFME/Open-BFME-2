@@ -437,3 +437,13 @@ int g_Va00E06398;
 #pragma comment(linker, "/alternatename:?g_Va00E046B4@@3HA=?g_Va00A046B4@@3PAUGlobalA046B4@@A")
 // ?g_Va00E18078@@3HA: the global at VA 0xe18078 is ?g_aptUndefinedAtE18078@@3PAVBfmeAptValue006DCD20@@A.
 #pragma comment(linker, "/alternatename:?g_Va00E18078@@3HA=?g_aptUndefinedAtE18078@@3PAVBfmeAptValue006DCD20@@A")
+
+// Clean BF1 9cbfb551fe Common/Rva000CBC30Get.cpp semantic donor, normal O1/SSE/G7.
+// Native 00380517..00380523 has its own complete RET boundary and establishes
+// receiver0 float pointer, indexed FLD, RET4. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva00380517Array {
+public: float getValue(int index);
+private: float *values;
+};
+float Rva00380517Array::getValue(int index) { return values[index]; }

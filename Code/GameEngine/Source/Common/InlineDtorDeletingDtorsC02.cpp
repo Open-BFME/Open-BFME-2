@@ -31,3 +31,14 @@ Rva00108475::Rva00108475(EmitVtableTag *)
 Rva00108475::~Rva00108475()
 {
 }
+
+// Clean BF1 9cbfb551fe Common/Rva007AE420Table.cpp semantic donor, normal O1/SSE/G7.
+// Native 001084D6..001084E4 has its own complete RET boundary and establishes
+// receiver58 pointer table, entry20 float. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+struct Rva001084D6Entry { unsigned char unknown[0x20]; float value20; };
+class Rva001084D6Table {
+public: float getValue(unsigned int index) const;
+private: unsigned char unknown[0x58]; Rva001084D6Entry *entries[1];
+};
+float Rva001084D6Table::getValue(unsigned int index) const { return entries[index]->value20; }

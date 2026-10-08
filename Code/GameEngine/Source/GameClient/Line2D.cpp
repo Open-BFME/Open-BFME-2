@@ -427,3 +427,13 @@ void ShortestDistancePointToSegment2D( const Coord2D *a, const Coord2D *b, const
 	}
 
 }
+
+// Clean BF1 9cbfb551fe Common/Rva00433740IndexedFloat.cpp semantic donor, normal O1/SSE/G7.
+// Native 0025FB7A..0025FB85 has its own complete RET boundary and establishes
+// receiver24 indexed FLD, RET4. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva0025FB7AArray {
+public: float getValue(unsigned int index) const;
+private: unsigned char unknown[0x24]; float values[1];
+};
+float Rva0025FB7AArray::getValue(unsigned int index) const { return values[index]; }
