@@ -130,17 +130,36 @@ Rva005FB1AD::Rva005FB1AD(EmitVtableTag *)
 {
 }
 
+class Rva005FBBEE;
+class Rva005FBC20
+{
+public:
+	Rva005FBC20(Rva005FBBEE *owner, unsigned level, const AsciiString &name);
+private:
+	char m_storage[0x50];
+};
+
 class Rva005FBBEE
 {
 public:
 	Rva005FBBEE(EmitVtableTag *);
+	Rva005FBBEE(unsigned level, const AsciiString &name);
 public:
 	virtual ~Rva005FBBEE();
+private:
+	Rva005FBC20 *m_impl;
 };
 
 // ?<Rva005FBBEE::Rva005FBBEE> absent-from-retail
 Rva005FBBEE::Rva005FBBEE(EmitVtableTag *)
 {
+}
+
+// Native5FBE0D..5FBE57: the existing C79FF4 owner allocates its50-byte
+// implementation and forwards its own pointer plus level and name.
+Rva005FBBEE::Rva005FBBEE(unsigned level, const AsciiString &name)
+{
+	m_impl = new Rva005FBC20(this, level, name);
 }
 
 // Native5FCF0E..5FCF59 is a75B destructor tied independently to this

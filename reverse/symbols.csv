@@ -16206,3 +16206,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva002C61AF@Rva002C61AF@@QAEXXZ,0x002C61AF,callee of ??1Rva002C6354@@UAE@XZ
 ??0Rva005FCF0E@@QAE@IABVAsciiString@@@Z,0x005FCEA9,callee of ??0Rva005FCFE5@@QAE@I@Z
 ??0Rva005FCB47@@QAE@PAVRva005FCF0E@@IABVAsciiString@@@Z,0x005FCB47,callee of ??0Rva005FCF0E@@QAE@IABVAsciiString@@@Z
+??0Rva005FBC20@@QAE@PAVRva005FBBEE@@IABVAsciiString@@@Z,0x005FBC20,Native5FBE0D ctor allocates50 bytes then forwards this plus unsigned level plus AsciiString reference; native5FBC20 stores owner0 and level4 then copies input string to8; WB DynamicAutoResolvePlayerPanelMovieClip Impl callgraph confirms member use; receiver identity remains opaque.
