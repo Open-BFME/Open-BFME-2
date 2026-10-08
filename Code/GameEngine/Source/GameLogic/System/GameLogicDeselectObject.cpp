@@ -8,6 +8,14 @@
 // 0x002AA164 (forwards to the +0x730 selection), setCurrentlySelectedAIGroup
 // 0x002ACC53; TheAI->destroyGroup is the rowed AI::destroyGroup;
 // InGameUI::deselectDrawable is InGameUI slot 67 (0x10C).
+//
+// ?selectObject@GameLogic@@QAEXPAVObject@@_NI1@Z retail 0x0023C924, 212
+// bytes, directly before it: Zero Hour GameLogic::selectObject (no CRC log)
+// with two BFME 2 additions per player: when the player controls the object
+// the first non-null 0x0028BD3A behavior interface gets its slot 1, then the
+// object gets 0x0029041B (the select twin of 0x00290496). Object's
+// isSelectable is 0x00292FAC, addAIGroupToCurrentSelection 0x002ACCA3 and
+// InGameUI::selectDrawable slot 66 (0x108).
 
 #include <stddef.h>
 
@@ -22,8 +30,19 @@ class AIGroup;
 class Object
 {
 public:
+	Bool rva00292FAC() const;
 	Drawable *getDrawable() const;
+	Player *getControllingPlayer() const;
+	void *rva0028BD3A() const;
+	void rva0029041B(Player *player);
 	void rva00290496(Player *player);
+};
+
+class Rva0028BD3AInterface
+{
+public:
+	virtual void v00();
+	virtual void v01();
 };
 
 class Player
@@ -31,6 +50,7 @@ class Player
 public:
 	void getCurrentSelectionAsAIGroup(AIGroup *group);
 	void setCurrentlySelectedAIGroup(AIGroup *group);
+	void rva002ACCA3(AIGroup *group);
 };
 
 class PlayerList
@@ -42,6 +62,7 @@ public:
 class AIGroup
 {
 public:
+	void add(Object *obj);
 	Bool remove(Object *obj);
 };
 
@@ -71,12 +92,13 @@ public:
 	virtual void s52(); virtual void s53(); virtual void s54(); virtual void s55();
 	virtual void s56(); virtual void s57(); virtual void s58(); virtual void s59();
 	virtual void s60(); virtual void s61(); virtual void s62(); virtual void s63();
-	virtual void s64(); virtual void s65(); virtual void s66();
+	virtual void s64(); virtual void s65();
 };
 
 class InGameUI : public InGameUISlots
 {
 public:
+	virtual void selectDrawable(Drawable *draw); // slot 66
 	virtual void deselectDrawable(Drawable *draw); // slot 67
 };
 
@@ -87,8 +109,54 @@ extern InGameUI *TheInGameUI;
 class GameLogic
 {
 public:
+	void selectObject(Object *obj, Bool createNewSelection, PlayerMaskType playerMask, Bool affectClient);
 	void deselectObject(Object *obj, PlayerMaskType playerMask, Bool affectClient);
 };
+
+void GameLogic::selectObject(Object *obj, Bool createNewSelection, PlayerMaskType playerMask, Bool affectClient)
+{
+	if (!obj) {
+		return;
+	}
+
+	if (!obj->rva00292FAC() && !createNewSelection) {
+		return;
+	}
+
+	while (playerMask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask((Int &)playerMask);
+		if (!player) {
+			return;
+		}
+
+		AIGroup *group = TheAI->createGroup();
+		group->add(obj);
+
+		if (createNewSelection) {
+			player->setCurrentlySelectedAIGroup(group);
+		} else {
+			player->rva002ACCA3(group);
+		}
+
+		TheAI->destroyGroup(group);
+
+		if (affectClient) {
+			Drawable *draw = obj->getDrawable();
+			if (draw) {
+				TheInGameUI->selectDrawable(draw);
+			}
+		}
+
+		if (player == obj->getControllingPlayer()) {
+			Rva0028BD3AInterface *iface = (Rva0028BD3AInterface *)obj->rva0028BD3A();
+			if (iface) {
+				iface->v01();
+			}
+		}
+
+		obj->rva0029041B(player);
+	}
+}
 
 void GameLogic::deselectObject(Object *obj, PlayerMaskType playerMask, Bool affectClient)
 {

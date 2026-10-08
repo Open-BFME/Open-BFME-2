@@ -15856,3 +15856,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva00472620@Rva00472620@@QAEPAUCoord3D@@PAU2@PAVObject@@H@Z,0x00472620,callee of ?rva00474B51@Rva00474B51@@QAEPAUCoord3D@@PAU2@PAVObject@@H@Z
 ?rva004F571B@TunnelTracker@@QAE_NPAVObject@@@Z,0x004F571B,callee of ?rva0047DF81@TunnelContain@@QAEXXZ
 ?rva0047DE6C@@YAXPAVObject@@0@Z,0x0047DE6C,callee of ?rva0047DF81@TunnelContain@@QAEXXZ
+?rva0029041B@Object@@QAEXPAVPlayer@@@Z,0x0029041B,REL32 at GameLogic::selectObject 0x0023C9E2 (object plus each player); sibling of rva00290496: when that player controls the object it sets +0x120 bit 0x400 and calls 0x0028AE6D then notifies the +0x250 contain slot 53
