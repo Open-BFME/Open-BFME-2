@@ -260,8 +260,11 @@ public:
 	Player *m_local;                                       // +0x10
 };
 
-struct GlobalData
+// The same retail singleton as GameClient.cpp defines; the ZH read alias
+// TheGlobalData is a macro over TheWritableGlobalData, not another global.
+class GlobalData
 {
+public:
 	unsigned char m_unreconstructed00[ 0x1160 ];
 	Color m_radialClockColor;                              // +0x1160
 	Color m_radialClockColorFlagged;                       // +0x1164
@@ -329,7 +332,7 @@ extern GameWindowManager *TheWindowManager;
 extern Display *TheDisplay;
 extern ImageCollection *TheMappedImageCollection;
 extern PlayerList *ThePlayerList;
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
 
 // Coordinates with an empty default constructor; see W3DCheckBox.cpp.
 struct CtorCoord : ICoord2D
@@ -945,9 +948,9 @@ void W3DGadgetPushButtonImageDrawOne( GameWindow *window, WinInstanceData *instD
 					{
 						LocalPlayerInfo *info = ThePlayerList->m_local->m_info;
 						if( info && info->m_flag1BC )
-							clockColor = TheGlobalData->m_radialClockColorFlagged;
+							clockColor = TheWritableGlobalData->m_radialClockColorFlagged;
 						else
-							clockColor = TheGlobalData->m_radialClockColor;
+							clockColor = TheWritableGlobalData->m_radialClockColor;
 					}
 
 					Real radiusX = size.x * 0.5f;
