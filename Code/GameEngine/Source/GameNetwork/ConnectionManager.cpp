@@ -1,4 +1,8 @@
 // cl: /Ireference/shims/connectionnotify /Ireference/shims/connectiontransport /Ireference/shims/transport /Ireference/shims/networkutil /Ireference/shims/framecommandreturn /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// Release through the complete nonvirtual destructor and global delete, as the
+// verified sendDisconnectFrameCommand does below. Calling inline deleteInstance
+// here emits an /O2 scalar deleting destructor that differs from its owned
+// /O1 retail body; these calls must not replace that existing provider.
 // stlport
 // Ported verbatim from the Generals Zero Hour reference
 // (GameEngine/Source/GameNetwork/ConnectionManager.cpp); this unit had no counterpart under Code/.
@@ -693,7 +697,8 @@ void ConnectionManager::processAckStage1(NetCommandMsg *msg) {
 			m_frameMetrics.processLatencyResponse(((NetFrameCommandMsg *)(ref->getCommand()))->getExecutionFrame());
 		}
 
-		ref->deleteInstance();
+		ref->NetCommandRef::~NetCommandRef();
+		::operator delete(ref);
 		ref = NULL;
 	}
 }
@@ -721,7 +726,8 @@ void ConnectionManager::processAckStage2(NetCommandMsg *msg) {
 		//DEBUG_LOG(("ConnectionManager::processAckStage2 - removing command %d from the pending commands list.\n", commandID));
 		DEBUG_ASSERTCRASH((m_localSlot == playerID), ("Found a command in the pending commands list that wasn't originated by the local player"));
 		m_pendingCommands->removeMessage(ref);
-		ref->deleteInstance();
+		ref->NetCommandRef::~NetCommandRef();
+		::operator delete(ref);
 		ref = NULL;
 	} else {
 		//DEBUG_LOG(("ConnectionManager::processAckStage2 - Couldn't find command %d from player %d in the pending commands list.\n", commandID, playerID));
@@ -739,7 +745,8 @@ void ConnectionManager::processAckStage2(NetCommandMsg *msg) {
 			m_relayedCommands->removeMessage(ref);
 			NetAckStage2CommandMsg *ackmsg = newInstance(NetAckStage2CommandMsg)(ref->getCommand());
 			sendLocalCommand(ackmsg, 1 << ackmsg->getOriginalPlayerID());
-			ref->deleteInstance();
+			ref->NetCommandRef::~NetCommandRef();
+			::operator delete(ref);
 			ref = NULL;
 
 			ackmsg->detach();
@@ -2033,7 +2040,8 @@ void ConnectionManager::notifyOthersOfCurrentFrame(Int frame) {
 	NetCommandRef *ref = NEW_NETCOMMANDREF(msg);
 	ref->setRelay(1 << m_localSlot);
 	m_disconnectManager->processDisconnectCommand(ref, this);
-	ref->deleteInstance();
+	ref->NetCommandRef::~NetCommandRef();
+	::operator delete(ref);
 
 	msg->detach();
 
@@ -2057,7 +2065,8 @@ void ConnectionManager::notifyOthersOfNewFrame(UnsignedInt frame) {
 	NetCommandRef *ref = NEW_NETCOMMANDREF(msg);
 	ref->setRelay(1 << m_localSlot);
 	m_disconnectManager->processDisconnectCommand(ref, this);
-	ref->deleteInstance();
+	ref->NetCommandRef::~NetCommandRef();
+	::operator delete(ref);
 
 	msg->detach();
 }
