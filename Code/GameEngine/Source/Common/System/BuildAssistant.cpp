@@ -1081,6 +1081,75 @@ Bool BuildAssistant::isPossibleToMakeUnit( Object *builder, const ThingTemplate 
 	return TRUE;
 }
 
+// BuildAssistant::sellObject, retail 0x003941FD (vslot 26).
+void BuildAssistant::sellObject( Object *obj )
+{
+	// sanity
+	if( obj == NULL )
+		return;
+
+	// we can only sell structures ... sanity check this
+	if( obj->getTemplate()->isKindOf( KINDOF_STRUCTURE ) == FALSE )
+		return;
+
+	if( obj->isKindOf( KINDOF_NOT_SELLABLE ) )
+		return;
+
+	// BFME2: only an object whose command set offers the sell command
+	if( reinterpret_cast<Rva00391994 *>( obj )->rva00391994() == FALSE )
+		return;
+
+	// an object under construction cannot be sold
+	if( obj->testStatus( OBJECT_STATUS_UNDER_CONSTRUCTION ) )
+		return;
+
+	// if object already has an entry in the sell list, we shouldn't try to sell it again
+	ObjectSellInfo *sellInfo = NULL;
+	ObjectSellListIterator it;
+	for( it = m_sellList.begin(); it != m_sellList.end(); ++it )
+	{
+		sellInfo = (*it);
+		if( sellInfo->m_id == obj->getID() )
+			break;
+		else
+			sellInfo = NULL;
+	}
+	if( sellInfo != NULL )
+		return;
+
+	// set the construction percent of this object just below 100.0% so we can start counting down
+	obj->setConstructionPercent( 99.9f );
+
+	// add this object to the list of objects being sold
+	sellInfo = new ObjectSellInfo;
+	sellInfo->m_id = obj->getID();
+	sellInfo->m_sellFrame = TheGameLogic->getFrame();
+	m_sellList.push_front( sellInfo );
+
+	obj->rva0028CDEB( Rva00391F4E( 0, OBJECT_STATUS_SOLD, OBJECT_STATUS_UNSELECTABLE ), TRUE );
+
+	// for everybody, unselect them at this time
+	TheGameLogic->deselectObject( obj, PLAYERMASK_ALL, TRUE );
+
+	Drawable *draw = obj->getDrawable();
+	if( draw )
+		draw->setAnimationLoopDuration( TOTAL_FRAMES_TO_SELL_OBJECT / 2 );
+
+	// We also need to refund all production for the object at start-of-sell time
+	ProductionUpdateInterface *production = (ProductionUpdateInterface *)obj->rva0028BC58( 0 );
+	if( production )
+		production->cancelAndRefundAllProduction();
+
+	// Tell it to stop attacking or anything else it is doing
+	if( obj->getAI() )
+		obj->getAI()->aiIdle( CMD_FROM_AI );
+
+	// Tell the contain module so it can decide what to do.
+	ContainModuleInterface *contain = obj->getContain();
+	if( contain )
+		contain->onSelling();
+}
+
 // BuildAssistant::clearRemovableForConstruction, retail 0x003940B8.
 void BuildAssistant::clearRemovableForConstruction( const ThingTemplate *whatToBuild,
 													const Coord3D *pos, Real angle )
