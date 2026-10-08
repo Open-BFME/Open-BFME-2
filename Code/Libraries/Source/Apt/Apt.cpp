@@ -52,3 +52,51 @@ extern void *(__cdecl *g_bfmeAptAllocAtE17728)(unsigned int);
 __declspec(noinline) void *Rva006CBC40Allocate(unsigned int bytes) {
  return g_bfmeAptAllocAtE17728(bytes);
 }
+
+// Native6CC380..6CC498, WB174D320 allocator initialization. Four arguments:
+// value-pool size/count followed by chain-pool size/count. Both allocate28B.
+// Keep the constructor provider's field layout and alignment. WB174D470
+// is the derived two-argument constructor inlined into retail's second new;
+// WB174D430 belongs to AptValueGCAllocator.h and forwards its allocation.
+// The address-derived class names preserve unresolved original identities.
+extern void *(__cdecl *g_bfmeAptAllocAtE17728)(unsigned);
+extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
+extern int g_bfmeAptInitAtE17700,g_bfmeAptBreakOnAssertAtDDC01C;
+extern unsigned char g_00E177E0,g_00E177E1,g_00E177E2,g_00E177E8;
+extern int g_00E177E4;
+void rva006D2D90();
+void *Rva006CBC40Allocate(unsigned);
+class Rva006CC4A0;
+void rva00ACBC50(Rva006CC4A0 *,int);
+void __debugbreak();
+#pragma intrinsic(__debugbreak)
+class Rva006DAEB0 {
+ void *m_table;
+ void *m_firstPool;
+ int m_unk08;
+ unsigned int m_maxSize;
+ union {unsigned int m_cfg;struct {unsigned char m_b0,m_b1,m_b2,m_b3;};};
+ int m_used,m_count;
+public:
+ Rva006DAEB0(unsigned,int,int,unsigned,unsigned char,unsigned char,unsigned char,unsigned char,unsigned char);
+ static void *operator new(unsigned size) {return Rva006CBC40Allocate(size);}
+ static void operator delete(void *ptr,unsigned size) {rva00ACBC50((Rva006CC4A0 *)ptr,size);}
+};
+class Rva006CC380ValuePool : public Rva006DAEB0 {
+public:
+ Rva006CC380ValuePool(unsigned size,int count) : Rva006DAEB0(size,count,g_00E177E1,g_00E177E4,g_00E177E2,1,g_00E177E0,0,g_00E177E8) {}
+ static void *operator new(unsigned size) {return g_bfmeAptAllocAtE17728(size);}
+ static void operator delete(void *ptr,unsigned size) {rva00ACBC50((Rva006CC4A0 *)ptr,size);}
+};
+class Rva006DB270;class Rva006D2A60;
+extern Rva006DB270 *g_pChainBlockAllocator;
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;
+void Rva006CC380Initialize(unsigned valueSize,int valueCount,unsigned chainSize,int chainCount) {
+ if(g_bfmeAptInitAtE17700) {
+  g_bfmeAptAssertAtE17734("bInitialized == 0 && \"Apt Allocator must be initialized before Apt Core!\"","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",0x273);
+  if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
+ }
+ rva006D2D90();
+ g_pChainBlockAllocator=(Rva006DB270 *)new Rva006DAEB0(chainSize,chainCount,4,0x100,0,0,0,0,0);
+ g_pChainBlockAllocatorF4=(Rva006D2A60 *)new Rva006CC380ValuePool(valueSize,valueCount);
+}
