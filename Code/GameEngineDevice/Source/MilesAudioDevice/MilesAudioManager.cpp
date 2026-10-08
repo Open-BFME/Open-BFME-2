@@ -784,6 +784,8 @@ public:
     };
 
     void setMaxAmbientStreams(void);
+    void rva0005452B(void);
+    void rva000606CE(bool accelerated);
     void openDevice(void);
     void removeCurrentlyPlayingMusic(int viewType, int arg);
     void rva00057151(int viewType, int musicSystem, int resume);
@@ -855,6 +857,9 @@ public:
     void rva0005AA72(PlayingAudioRef &playing);
 
 private:
+    // Rowed at 0x00053352 and pinned at 0x000604A3 (OpenDevice.cpp's name).
+    void unselectProvider(void);
+    void setHardwareAccelerated(bool accelerated);
     char at04[0x10 - 0x04];
     AudioSettings *m_audioSettings;      // +0x10 (Zero Hour name)
     char at14[0x3C - 0x14];
@@ -879,7 +884,12 @@ private:
     char at6AB[0x6B4 - 0x6AB];
     unsigned int m_at6B4[3];             // +0x6B4 per-view-type affect masks
     unsigned int m_at6C0[3];             // +0x6C0
-    char at6CC[0x9D4 - 0x6CC];
+    // Zero Hour's ProviderInfo array; unselectProvider (0x53352) indexes it
+    // by m_selectedProvider and 0x607BB compares the selected name.
+    struct ProviderInfo { AsciiString name; void *id; int isValid; };
+    ProviderInfo m_provider3D[64];       // +0x6CC
+    unsigned int m_providerCount;        // +0x9CC
+    unsigned int m_selectedProvider;     // +0x9D0, -1 when none
     void *m_mutex;                       // +0x9D4
     char at9D8[0x9E8 - 0x9D8];
     MilesFileTextMap m_fileText;         // +0x9E8
@@ -906,6 +916,8 @@ private:
     int m_numLoopBuffers;                // +0xBD8
     void *m_loopBufferThread;            // +0xBDC, CreateThread handle
     bool m_atBE0;                        // +0xBE0, stops the 0x5EFE9 thread loop
+    char atBE1[0xBE4 - 0xBE1];
+    int m_atBE4;                         // +0xBE4, reverb room type (0x530DF zeroes it)
 };
 
 // Rowed under address-derived names at 0x00051038 (pinned) and 0x00050FE3;
@@ -2586,5 +2598,46 @@ void MilesAudioManager::processRequestList(void)
                     deleteAudioRequest(req);
             }
         }
+    }
+}
+
+// Counted playing-audio copy whose constructor stays out of line at
+// 0x000A8C7C (rowed as Rva0036CA00Str); 0x606CE releases it unguarded.
+class Rva0036CA00Str {
+public:
+    Rva0036CA00Str(const Rva0036CA00Str &other);
+    ~Rva0036CA00Str() { reinterpret_cast<OpaqueRefCounted *>(m_ptr)->Release_Ref(); }
+    PlayingAudio *operator->(void) const { return m_ptr; }
+    PlayingAudio *get(void) const { return m_ptr; }
+private:
+    PlayingAudio *m_ptr;
+};
+class Rva000512C4 { public: void rva000512C4(int roomType); };
+class Rva00051525 { public: bool rva00051525(void); };
+
+// Retail 0x000606CE, called from onAudioLODChanged (0x607BB) and 0x61A2E.
+// With a provider selected it releases every playing 3D sound under the
+// mutex and unselects it, then reselects through 0x604A3 and, if that found
+// one, reapplies the reverb room type and calls vtable slot 10.
+void MilesAudioManager::rva000606CE(bool accelerated)
+{
+    if (m_selectedProvider != (unsigned int)-1) {
+        MilesMutexGuard guard(&m_mutex, 0);
+        OpaqueRefList &sounds = reinterpret_cast<OpaqueRefList &>(m_playing3DSounds);
+        OpaqueRefList::iterator it = sounds.begin();
+        while (it != sounds.end()) {
+            Rva0036CA00Str playing(*reinterpret_cast<const Rva0036CA00Str *>(&*it));
+            if (playing->m_event->hasMoreLoops())
+                rva0005AA72(*reinterpret_cast<PlayingAudioRef *>(&playing));
+            releaseMilesHandles(*playing.get());
+            it = sounds.erase(it);
+        }
+        rva0005452B();
+        unselectProvider();
+    }
+    setHardwareAccelerated(accelerated);
+    if (m_selectedProvider != (unsigned int)-1) {
+        ((Rva000512C4 *)this)->rva000512C4(m_atBE4);
+        slot10();
     }
 }
