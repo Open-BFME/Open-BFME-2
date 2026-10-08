@@ -64,6 +64,7 @@ class Rva000AD6F4
 {
 public:
 	__forceinline Rva000AD6F4() : m_ptr(0) {}
+	__forceinline bool empty() const { return m_ptr == 0; }
 	void clear();
 	~Rva000AD6F4() { clear(); }
 private:
@@ -88,6 +89,22 @@ public:
 	~Rva005F50B9() { clear(); }
 };
 
+class Rva00575674Sub
+{
+public:
+	void rva00575674(void *value);
+};
+
+class Rva005F4EE8
+{
+public:
+	Rva005F4EE8(Rva005F54DA *owner, void *inputA, void *inputB);
+	virtual ~Rva005F4EE8();
+private:
+	void *m_impl;
+	Rva005F54DA *m_owner;
+};
+
 class Rva005F54DA
 {
 public:
@@ -95,6 +112,7 @@ public:
 		void *firstA, void *firstB, void *secondA, void *secondB, void *callback);
 	~Rva005F54DA();
 	void rva005F4EED(void *inputA, void *inputB);
+	void rva005F4BB4(Rva005F501E *handler);
 private:
 	Rva005F566A *m_owner;
 	Rva0057C394 *m_p04;
@@ -125,4 +143,16 @@ Rva005F54DA::~Rva005F54DA()
 {
 	if (((const Rva0057C22FByteChaseField *)m_p04)->get())
 		m_p04->rva0057C2CC();
+}
+
+// Native callback has its own 108-byte EH boundary through RET 8.
+// The +14 frame holder uses the existing one-pointer setter ABI.
+void Rva005F54DA::rva005F4EED(void *inputA, void *inputB)
+{
+	if (m_b14.empty())
+	{
+		((Rva00575674Sub *)&m_b14)->rva00575674(new Rva005F4EE8(this, inputA, inputB));
+		rva005F4BB4(m_a0c.m_ptr);
+		rva005F4BB4(m_a10.m_ptr);
+	}
 }
