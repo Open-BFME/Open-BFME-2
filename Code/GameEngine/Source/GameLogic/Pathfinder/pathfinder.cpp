@@ -408,6 +408,7 @@ public:
 	Bool IsGroundPathPassable(const Coord3D *startWorld,
 		PathfindLayerEnum layer, const Coord3D *endWorld, Int pathDiameter);
 	void AddToOpenList(PathfindCell *cell);
+	int CalcExtraCosts(Object *,PathfindCell *,Rva002EBC7FPair *,int,int,bool);
 	int CalcCollisionFreeExtraCosts(Object *,PathfindCell *,Rva002EBC7FPair *,PathfindLayerEnum,int,int,bool);
 	PathfindCell *getCell(PathfindLayerEnum layer, Int x, Int y);	// 0x002E6D62
 	Bool IsValidMovementTerrain(PathfindLayerEnum layer, const Locomotor *locomotor, const Coord3D *pos);
@@ -833,6 +834,69 @@ int Pathfinder::CalcCollisionFreeExtraCosts(Object *object,PathfindCell *parent,
                     if (!object->getAI() || !other->getAI()) continue;
                     if (static_cast<unsigned>(object->getAI()->rva0026417F(enemies))<=static_cast<unsigned>(other->getAI()->rva0026417F(enemies))) return -1;
                 }
+            }
+        }
+    }
+    return cost;
+}
+
+// Retail 0x002EBE54..0x002EC0A2 (590 bytes), exact /O1 /G7 /arch:SSE.
+// WB 0x00D32350 names Pathfinder::CalcExtraCosts and asserts oldCell at line635.
+// Six-argument ABI, destination bounds, old-cell layer, enemy filtering,
+// priority and shifted 4/8 movement costs are established independently by
+// native bytes. WB's old-cell overlap expression has mutually exclusive y
+// comparisons and is dead; retail emits no overlap exclusion or old bounds.
+// No same-named BFME1/GeneralsMD donor method was found. Reconstructed from
+// native/WB using the independently verified CalcCollisionFreeExtraCosts
+// layouts, priority bool ABI and standard math declaration above.
+int Pathfinder::CalcExtraCosts(Object *object,PathfindCell *oldCell,Rva002EBC7FPair *destination,int lower,int upper,bool ignoreEnemies)
+{
+    if (!oldCell) return 0;
+    Rva002EBC7FPair minimum,maximum;
+    minimum.x=destination->x-lower; minimum.y=destination->y-lower;
+    maximum.x=destination->x+upper; maximum.y=destination->y+upper;
+    // The completed radius parameters become the shift and accumulated cost
+    // for this stage (native dead homes +0x18 and +0x14). References retain
+    // meaningful stage names without losing the verified storage lifetime.
+    int &reduction=upper;
+    reduction=0;
+    if (lower>=4) reduction=2;
+    else if (lower>1) reduction=1;
+    float ourArrival=-1.0f;
+    int &cost=lower;
+    cost=0;
+    for (int x=minimum.x;x<maximum.x;++x) {
+        for (int y=minimum.y;y<maximum.y;++y) {
+            PathCollisionCell *cell=reinterpret_cast<PathCollisionCell *>(getCell(static_cast<PathfindLayerEnum>(oldCell->getLayer()),x,y));
+            if (!cell || !cell->info) continue;
+            for (PathCollisionNode *node=cell->info->occupants;node;node=node->next) {
+                Object *other=node->object;
+                if (other==object || other->container==object) continue;
+                bool enemies=object->getRelationship(other)==ENEMIES;
+                if (enemies && ignoreEnemies) continue;
+                if (!object->getAI() || !other->getAI()) continue;
+                if (static_cast<unsigned>(object->getAI()->rva0026417F(enemies))>static_cast<unsigned>(other->getAI()->rva0026417F(enemies))) continue;
+                int amount;
+                if (other->IsAtGoalPosition() || !object->getAI()->locomotor || !other->getAI()->locomotor) amount=8;
+                else {
+                    Coord3D target;
+                    rva002EBC7F(&target,object,destination,1);
+                    if (ourArrival<0.0f) {
+                        float dx=object->position[0]-target.x;
+                        float dy=object->position[1]-target.y;
+                        Rva001E46E1 *locomotor=object->getAI()->locomotor;
+                        float distance=static_cast<float>(sqrt(dy*dy+dx*dx));
+                        ourArrival=distance/locomotor->rva001E46E1(object);
+                    }
+                    float dx=other->position[0]-target.x;
+                    float dy=other->position[1]-target.y;
+                    Rva001E46E1 *locomotor=other->getAI()->locomotor;
+                    float distance=static_cast<float>(sqrt(dy*dy+dx*dx));
+                    float otherArrival=distance/locomotor->rva001E46E1(other);
+                    if (!(otherArrival<ourArrival)) continue;
+                    amount=4;
+                }
+                cost+=amount>>reduction;
             }
         }
     }
