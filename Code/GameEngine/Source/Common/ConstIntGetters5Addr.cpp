@@ -260,14 +260,6 @@ int Rva00201992Get(void)
 	return 0x00be3098;
 }
 
-// ?Rva0020D7A6Get@@YAHXZ @ 0x0020d7a6 (6B): returns 0x00be3fd4.
-// Follows a leave plus ret tail. No direct callers. Opaque
-// address-derived name.
-int Rva0020D7A6Get(void)
-{
-	return 0x00be3fd4;
-}
-
 // ?Rva0020E2F2Get@@YAHXZ @ 0x0020e2f2 (6B): returns 0x00be4120.
 // Follows an al-returner tail. No direct callers. Opaque
 // address-derived name.

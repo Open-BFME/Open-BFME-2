@@ -36,6 +36,23 @@ public:
 	char m_storage[12];
 };
 
+class INI;
+typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
+
+// Zero Hour's Overridable; the holder base below is its address-named view.
+class Overridable
+{
+public:
+	Overridable *friend_getFinalOverride();	// 0x001E35DF
+};
+
 // Base of the +0x34 holder (dtor 0x001E3624): vptr, +4 next, +8 flag, +0xC.
 class Rva001E3624
 {
@@ -44,14 +61,18 @@ public:
 	virtual ~Rva001E3624();
 	void setNextOverride(Rva001E3624 *next) { m_next04 = next; }
 	void markAsOverride() { m_alloc08 = 1; }
+	Rva001E3624 *getFinalOverride()
+	{
+		if (m_next04)
+			return (Rva001E3624 *)((Overridable *)m_next04)->friend_getFinalOverride();
+		return this;
+	}
 private:
 	Rva001E3624 *m_next04;
 	unsigned char m_alloc08;
 	int m_extra0C;
 };
 
-struct FieldParse;
-class Overridable;
 
 class INI
 {
@@ -84,12 +105,21 @@ class Rva003EDDF5 { public: void rva003EDDF5(int arg); };
 class Rva0020DXXX { public: void rva0020D834(); };
 class Rva001B4E82 { public: void rva001B4E82(void *subsystem); };
 
+// Field parser for the holder's "Key" entries (0x003EDBAE).
+class Rva003D4920
+{
+public:
+	static void parseAudioKeyTokens(INI *ini, void *instance, void *store, const void *userData);
+};
+
 // The +0x34 holder (vtable 0x007E3FF4): the base plus a 12-byte key
 // container at +0x10.
 class Rva0020D98D : public Rva001E3624
 {
 public:
 	Rva0020D98D();	// 0x0020D7BC
+	Rva0020D98D(const Rva0020D98D &other);	// 0x0020D98D
+	static const FieldParse *getFieldParse();
 private:
 	ObjectCreationList m_10;
 };
@@ -108,6 +138,7 @@ public:
 	Overridable *removeOverrides();
 
 	static void parseLargeGroupAudioMapDefinition(INI *ini);
+	static void parseLargeGroupAudioUnusedKnownKeysDefinition(INI *ini);
 
 protected:
 	virtual void loadPostProcess();
@@ -126,6 +157,21 @@ private:
 };
 
 extern LargeGroupAudio *TheLargeGroupAudio;
+
+// The holder's field table (VA 0x00BE3FD4, read from the getter's and the
+// "LargeGroupAudioUnusedKnownKeys" parser's DIR32s): one "Key" entry parsed
+// into the +0x10 key container, then the zero sentinel, ending where the
+// holder's vtable 0x00BE3FF4 begins.
+extern const FieldParse TheLargeGroupAudioUnusedKnownKeysFieldParse[] =
+{
+	{ "Key", &Rva003D4920::parseAudioKeyTokens, 0, 0x10 },
+	{ 0, 0, 0, 0 }
+};
+
+const FieldParse *Rva0020D98D::getFieldParse()
+{
+	return TheLargeGroupAudioUnusedKnownKeysFieldParse;
+}
 
 LargeGroupAudio::LargeGroupAudio()
 	: m_34(NULL), m_waitingForLevelLoad(true), m_39(false), m_needsToRegenerateAfterReload(false), m_3C(-1)
@@ -225,4 +271,25 @@ void LargeGroupAudio::parseLargeGroupAudioMapDefinition(INI *ini)
 	}
 
 	ini->initFromINI(audioMap, (const FieldParse *)Rva003EE6F7Get());
+}
+
+void LargeGroupAudio::parseLargeGroupAudioUnusedKnownKeysDefinition(INI *ini)
+{
+	if (TheLargeGroupAudio == NULL)
+		TheLargeGroupAudio = new LargeGroupAudio;
+
+	Rva001E3624 *keys;
+	if (ini->m_loadType == 2)
+	{
+		Rva0020D98D *override = new Rva0020D98D(*TheLargeGroupAudio->m_34);
+		override->markAsOverride();
+		TheLargeGroupAudio->m_34->setNextOverride(override);
+		keys = override;
+	}
+	else
+	{
+		keys = TheLargeGroupAudio->m_34->getFinalOverride();
+	}
+
+	ini->initFromINI(keys, Rva0020D98D::getFieldParse());
 }
