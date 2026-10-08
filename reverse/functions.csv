@@ -69827,3 +69827,5 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?updateGenericScripts@Team@@QAEXXZ,,0x0039F8F7,533,Code/GameEngine/Source/Common/RTS/TeamUpdateGenericScripts.cpp,matched,WB Team.cpp Team::updateGenericScripts by name and call graph; ZH generic-script loop with BFME2 scope/delay/sequential branches
 ?updateState@Team@@QAEXXZ,,0x0039F0E3,1163,Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp,matched,Team::updateState; ZH donor flow; BFME2 filter chain and Lua record hand-off
 ?killTeam@Team@@QAEXXZ,,0x003A1D1A,587,Code/GameEngine/Source/Common/RTS/TeamKillTeam.cpp,matched,Zero Hour Team::killTeam port; in-TU DLINK iterator fixes the member loop registers
+?didAllEnter@Team@@QAE_NPAVPolygonTrigger@@I@Z,,0x0039E15D,176,Code/GameEngine/Source/Common/RTS/TeamDidAllEnter.cpp,matched,BFME1 TeamTriggerAreaTests donor; in-TU DLINK iterator fixes the member register
+?didAllExit@Team@@QAE_NPAVPolygonTrigger@@I@Z,,0x0039E303,197,Code/GameEngine/Source/Common/RTS/TeamDidAllEnter.cpp,matched,BFME1 TeamTriggerAreaTests donor; in-TU DLINK iterator fixes the member register
