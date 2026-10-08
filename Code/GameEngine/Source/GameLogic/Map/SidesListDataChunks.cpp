@@ -14,6 +14,7 @@
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 struct DataChunkInfo;
+class Dict;
 
 class DataChunkInput
 {
@@ -23,6 +24,18 @@ public:
 	unsigned char readByte();			// 0x00306E9A
 	NameKeyType readNameKey();			// 0x003077E0
 	AsciiString readAsciiString();		// 0x0030750A
+};
+
+class DataChunkOutput
+{
+public:
+	void openDataChunk(char *name, unsigned short ver);	// 0x00307C76
+	void closeDataChunk();				// 0x00306C88
+	void writeReal(float r);			// 0x00306CFF
+	void writeInt(int i);				// 0x00306CFF
+	void writeByte(unsigned char b);	// 0x00306D17
+	void writeAsciiString(const AsciiString &s);	// 0x00307033
+	void writeDict(const Dict &d);		// 0x00307D85
 };
 
 // class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's user copy constructor that keeps setLocation's by-value argument a stack temporary of its own (retail ebp-0x38; WB twin inlines it); same three floats
@@ -51,6 +64,10 @@ class Rva0032A438 { public: void rva0032A438(AsciiString s); };
 class Rva002AAE81 { public: void rva002AAE81(AsciiString s); };
 class Rva0032A46C { public: void rva0032A46C(AsciiString s); };
 
+// The by-value getter of the AsciiString at +0x04, folded with other classes'
+// name getters at 0x00564DF2.
+class Rva00564DF2NameView { public: AsciiString rva00564DF2() const; };
+
 class BuildListInfo
 {
 	friend class SidesList;
@@ -66,6 +83,18 @@ public:
 	void setWhiner(bool whiner) { m_whiner = whiner; }
 	void setUnsellable(bool unsellable) { m_unsellable = unsellable; }
 	void setRepairable(bool repairable) { m_repairable = repairable; }
+
+	AsciiString rva000AF1DD() const;	// 0x000AF1DD, the folded +0x08 getter
+	AsciiString getScript() const;		// 0x0032A4A0
+	const Coord3D *getLocation() const { return &m_location; }
+	float getAngle() const { return m_angle; }
+	bool isInitiallyBuilt() { return m_isInitiallyBuilt; }
+	int getNumRebuilds() { return m_numRebuilds; }
+	int getHealth() { return m_health; }
+	bool getWhiner() { return m_whiner; }
+	bool getUnsellable() { return m_unsellable; }
+	bool getRepairable() { return m_repairable; }
+	BuildListInfo *getNext() { return m_nextBuildList; }
 
 protected:
 	virtual ~BuildListInfo();			// 0x0032A186
@@ -87,11 +116,31 @@ private:
 	char m_tail[0x80 - 0x3B];
 };
 
+class SidesInfo
+{
+public:
+	BuildListInfo *getBuildList() { return m_pBuildList; }
+	Dict *getDict() { return reinterpret_cast<Dict *>(&m_dict); }
+
+private:
+	BuildListInfo *m_pBuildList;		// +0x00
+	void *m_dict;						// +0x04
+};
+
 class SidesList
 {
 public:
 	bool parseBuildListDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);
+	void writeSidesDataChunk(DataChunkOutput &chunkWriter);
 	void addToFactionBuildListMap(NameKeyType faction, const BfmePod128 &entry, int listType);	// 0x0032CDFE
+	SidesInfo *getSideInfo(int side);	// 0x002035BA
+	void rva0032E02B();					// 0x0032E02B, WB validateSides
+
+private:
+	char m_bases[0x3C];
+	int m_numSides;						// +0x3C
+	char m_sides[0xF7C - 0x40];
+	bool m_cleared;						// +0xF7C
 };
 
 // SidesList::parseBuildListDataChunk, retail 0x0032CE9E (410 bytes): up to 20
@@ -129,4 +178,48 @@ bool SidesList::parseBuildListDataChunk(DataChunkInput &file, DataChunkInfo *inf
 		}
 	}
 	return true;
+}
+
+// SidesList::writeSidesDataChunk, retail 0x0032E542 (434 bytes): the version 6
+// "SidesList" chunk, the cleared flag, then each side's dict and build list.
+// Identity (target): WorldBuilder's debug twin wb 0xa82a60 (SidesList.cpp:744
+// "had to clean up sideslist on write" after validateSides 0x0032E02B) aligns
+// write for write. Unlike BFME 1's static writer it is a member, runs
+// validateSides first and leaves teams and scripts to other chunks. The
+// getters' layout is the target's BuildListInfo above; the two name getters
+// are folded bodies called under their pinned spellings.
+void SidesList::writeSidesDataChunk(DataChunkOutput &chunkWriter)
+{
+	rva0032E02B();
+	chunkWriter.openDataChunk("SidesList", 6);
+	chunkWriter.writeByte(m_cleared);
+	chunkWriter.writeInt(m_numSides);
+	for (int i = 0; i < m_numSides; i++) {
+		chunkWriter.writeDict(*getSideInfo(i)->getDict());
+		BuildListInfo *pBuildList = getSideInfo(i)->getBuildList();
+		int count = 0;
+		while (pBuildList) {
+			count++;
+			pBuildList = pBuildList->getNext();
+		}
+		chunkWriter.writeInt(count);
+		pBuildList = getSideInfo(i)->getBuildList();
+		while (pBuildList) {
+			chunkWriter.writeAsciiString(reinterpret_cast<const Rva00564DF2NameView *>(pBuildList)->rva00564DF2());
+			chunkWriter.writeAsciiString(pBuildList->rva000AF1DD());
+			chunkWriter.writeReal(pBuildList->getLocation()->x);
+			chunkWriter.writeReal(pBuildList->getLocation()->y);
+			chunkWriter.writeReal(pBuildList->getLocation()->z);
+			chunkWriter.writeReal(pBuildList->getAngle());
+			chunkWriter.writeByte(pBuildList->isInitiallyBuilt());
+			chunkWriter.writeInt(pBuildList->getNumRebuilds());
+			chunkWriter.writeAsciiString(pBuildList->getScript());
+			chunkWriter.writeInt(pBuildList->getHealth());
+			chunkWriter.writeByte(pBuildList->getWhiner());
+			chunkWriter.writeByte(pBuildList->getUnsellable());
+			chunkWriter.writeByte(pBuildList->getRepairable());
+			pBuildList = pBuildList->getNext();
+		}
+	}
+	chunkWriter.closeDataChunk();
 }
