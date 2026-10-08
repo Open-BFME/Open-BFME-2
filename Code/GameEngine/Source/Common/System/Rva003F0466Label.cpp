@@ -58,3 +58,30 @@ UnicodeString LivingWorldRegion::GetFortressDisplayDescription()
 {
 	return !((const StringBase<char> *)&m_fortressDescriptionLabel)->isEmpty() ? TheGameText->fetchLabel(m_fortressDescriptionLabel) : UnicodeString::TheEmptyString;
 }
+
+// Native 0x003F8497..0x003F8509, 114B. The predicate and the optional
+// +0x14 child are the same receiver view as the rowed 0x003F8478 wrapper.
+// Retail constructs a temporary UnicodeString through the child's rowed
+// 0x003F83B5 getter, then copies either it or TheEmptyString to the hidden
+// return pointer. WB's callgraph twin independently shows that conditional
+// temporary and its teardown. Original owner and method names are unknown.
+class Rva003F83B5
+{
+public:
+	UnicodeString rva003F83B5();
+};
+
+class Rva003F8052
+{
+public:
+	bool rva003F8052();
+	UnicodeString rva003F8497();
+private:
+	char m_pad00[0x14];
+	Rva003F83B5 *m_child14;
+};
+
+UnicodeString Rva003F8052::rva003F8497()
+{
+	return rva003F8052() && m_child14 ? m_child14->rva003F83B5() : UnicodeString::TheEmptyString;
+}
