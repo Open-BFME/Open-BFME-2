@@ -82,6 +82,8 @@ class AIUpdateInterface;
 // The 28-byte kind-of mask.
 template <int N> class BitFlags
 {
+public:
+	Bool any() const;
 private:
 	unsigned int m_bits[7];
 };
@@ -163,6 +165,8 @@ private:
 class ModelConditionFlags
 {
 public:
+	unsigned int testMask(unsigned int mask) const { return m_words[0] & mask; }
+	void setMask(unsigned int mask) { m_words[0] |= mask; }
 	unsigned int test(int bit) const { return m_words[bit >> 5] & (1U << (bit & 0x1f)); }
 	void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 0x1f); }
 private:
@@ -202,6 +206,14 @@ public:
 	void clearWeaponSetFlag(WeaponSetType wst);
 	PhysicsBehavior *getPhysics() const { return m_physics; }
 	void rva0028AE6D(); // the model-condition change notifier
+	__forceinline void setRiderModelConditionMask(UnsignedInt mask)
+	{
+		if (!m_conditionFlags.testMask(mask))
+		{
+			m_conditionFlags.setMask(mask);
+			rva0028AE6D();
+		}
+	}
 	__forceinline void setModelConditionState(ModelConditionFlagType c)
 	{
 		if (!m_conditionFlags.test(c))
@@ -286,7 +298,10 @@ public:
 	char m_pad00[0xB0];
 	KindOfMaskType m_typeOneForWeaponSet; // +0xB0 TypeOneForWeaponSet
 	KindOfMaskType m_typeTwoForWeaponSet; // +0xCC TypeTwoForWeaponSet
-	char m_padE8[0x142 - 0xE8];
+	KindOfMaskType m_riderKindAtE8; // +0xE8, read by 0x0046731A
+	KindOfMaskType m_riderKindAt104; // +0x104
+	KindOfMaskType m_riderKindAt120; // +0x120
+	char m_pad13C[0x142 - 0x13C];
 	Bool m_destroyRidersWhoAreNotFreeToExit; // +0x142
 	char m_pad143[0x158 - 0x143];
 	Coord3D m_throwOutPassengersVelocity; // +0x158 ThrowOutPassengersVelocity
@@ -476,4 +491,36 @@ void TransportContain::rva0046740C()
 			}
 		}
 	}
+}
+
+// Secondary contain interface receiver, as shown by the -0x1C module-data
+// and -0x18 owner loads. Retail calls slot 60 before checking the three
+// 28-byte rider-kind masks, then sets owner condition 18, 19 or 20. These
+// offsets and the control flow are target facts; the hook's name is unknown.
+class Rva0046731A : public ContainSlots<60>
+{
+public:
+	virtual void slot60();
+	void rva0046731A(Object *rider);
+};
+
+// ?rva0046731A@Rva0046731A@@QAEXPAVObject@@@Z @0x0046731A
+void Rva0046731A::rva0046731A(Object *rider)
+{
+	slot60();
+	const TransportContainModuleData *d = *(const TransportContainModuleData **)((char *)this - 0x1C);
+	Object *owner = *(Object **)((char *)this - 0x18);
+	UnsignedInt mask;
+	if (((const BitFlags<218> *)&d->m_riderKindAtE8)->any() &&
+		rider->isKindOfMulti(d->m_riderKindAtE8, KINDOFMASK_NONE))
+		mask = 0x40000;
+	else if (((const BitFlags<218> *)&d->m_riderKindAt104)->any() &&
+		rider->isKindOfMulti(d->m_riderKindAt104, KINDOFMASK_NONE))
+		mask = 0x80000;
+	else if (((const BitFlags<218> *)&d->m_riderKindAt120)->any() &&
+		rider->isKindOfMulti(d->m_riderKindAt120, KINDOFMASK_NONE))
+		mask = 0x100000;
+	else
+		return;
+	owner->setRiderModelConditionMask(mask);
 }
