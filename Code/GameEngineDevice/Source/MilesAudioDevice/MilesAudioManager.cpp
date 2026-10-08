@@ -401,6 +401,7 @@ public:
     void rva00055B40(int viewType, int musicSystem, int arg);
     void rva000567F4(int viewType, int musicSystem, int arg);
     void rva000568CE(int viewType, int musicSystem, int arg);
+    void rva000569A8(int viewType, int musicSystem, int arg, int flag);
     Rva00051107AudioRequest *rva00051107(void);
     void onPlayingAudioDeleted(PlayingAudio &playingAudioBeingDeleted);
     void releaseMilesHandles(PlayingAudio &playing);
@@ -898,6 +899,23 @@ void MilesAudioManager::rva000568CE(int viewType, int musicSystem, int arg)
     request->m_pendingEvent.rva00053D26(
         reinterpret_cast<BfmePoolHolder88 *>(new Rva0051D93(OpaqueRefElement4(), 0)));
     ((Rva002D94CE *)request->m_pendingEvent.operator->())->rva002D94CE(viewType);
+    request->m_pendingEvent->m_musicSystem = (MusicSystem)musicSystem;
+    m_audioRequests.push_back(request);
+}
+
+// Target 0x000569A8: request-6 sibling of the verified request-4 wrapper.
+// Native order sets the view before the fourth-argument flag; all other
+// calls, member offsets, ABI and EH states agree. Opcode purpose stays open.
+void MilesAudioManager::rva000569A8(int viewType, int musicSystem, int arg, int flag)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    Rva00051107AudioRequest *request = rva00051107();
+    request->m_request = 6;
+    request->m_at10 = arg == 0;
+    request->m_pendingEvent.rva00053D26(
+        reinterpret_cast<BfmePoolHolder88 *>(new Rva0051D93(OpaqueRefElement4(), 0)));
+    ((Rva002D94CE *)request->m_pendingEvent.operator->())->rva002D94CE(viewType);
+    ((Weapon *)request->m_pendingEvent.operator->())->setLeechRangeActive(flag == 0);
     request->m_pendingEvent->m_musicSystem = (MusicSystem)musicSystem;
     m_audioRequests.push_back(request);
 }
