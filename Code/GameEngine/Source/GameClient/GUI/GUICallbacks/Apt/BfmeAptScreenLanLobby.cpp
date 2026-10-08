@@ -315,6 +315,26 @@ public:
 	void method(int type, const UnicodeString &text, const UnicodeString &title);
 };
 
+// Native 54D438 takes both counted handles (RET 20), forwards the first
+// to 54D222 and conditionally assigns the second at +20. Its original
+// owner remains unknown; no layout beyond the outer child's slot is needed.
+class Rva0054D438Prompt
+{
+public:
+	bool prompt(int, const UnicodeString &, const UnicodeString &,
+		TreeHintRef00217D4C, TreeHintRef00217D4C);
+};
+
+class Rva0054D4CDPrompt
+{
+public:
+	bool prompt(int, const UnicodeString &, const UnicodeString &,
+		TreeHintRef00217D4C, TreeHintRef00217D4C);
+private:
+	unsigned char m_unknown00[4];
+	Rva0054D438Prompt *m_child04;
+};
+
 class Rva0054D2CF
 {
 public:
@@ -730,6 +750,17 @@ void Rva0054D2DDTarget::method(int type, const UnicodeString &text,
 	TreeHintRef00217D4C callback2)
 {
 	m_child04->method(type, text, title, callback, callback2);
+}
+
+// Target Ghidra [54D4CD,54D54A)125B: child at +4, two by-value
+// one-word handles, referent count +4, fastcall teardown 7DEEF and RET 20.
+// Rowed caller 438083 supplies this from g_Va00E032FC and tests AL.
+// The child result survives both input destructors. Names are address-derived.
+bool Rva0054D4CDPrompt::prompt(int type, const UnicodeString &text,
+	const UnicodeString &title, TreeHintRef00217D4C callback,
+	TreeHintRef00217D4C callback2)
+{
+	return m_child04->prompt(type, text, title, callback, callback2);
 }
 
 // Same target-proven forwarder shape; the callee's identity remains its RVA.

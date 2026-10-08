@@ -16183,3 +16183,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0027CE80@Rva0027CE80@@QAEXXZ,0x0027CE80,REL32 callee at 0x00283575 in TerrainLogic::reset; helper identity unresolved; GeneralsMD deleteWaypoints is semantic context only
 ?rva0027D5AD@Rva0027D5AD@@QAEXXZ,0x0027D5AD,REL32 callee at 0x0028357C in TerrainLogic::reset; address-derived identity; GeneralsMD deleteBridges is semantic context only
 ?rva004DFCE6@Rva004DFCE6@@QAEXPAXP6APAX0@Z@Z,0x004DFCE6,Native caller4DFE4F passes key and cdecl pointer-return callback; 361B callee uses both arguments in indirect callback and returns ret8; member identity stays address-derived
+?prompt@Rva0054D438Prompt@@QAE_NHABVUnicodeString@@0UTreeHintRef00217D4C@@1@Z,0x0054D438,callee of ?prompt@Rva0054D4CDPrompt@@QAE_NHABVUnicodeString@@0UTreeHintRef00217D4C@@1@Z
