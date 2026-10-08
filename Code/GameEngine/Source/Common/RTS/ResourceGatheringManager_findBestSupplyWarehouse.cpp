@@ -28,7 +28,9 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 typedef bool Bool;
 typedef float Real;
-typedef unsigned int ObjectID;
+typedef unsigned int ObjectIDValue;
+// GameLogic::findObjectByID (row 0x00049DC5) takes Zero Hour's ObjectID enum.
+enum ObjectID { INVALID_ID = 0, FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff };
 
 enum NameKeyType
 {
@@ -77,7 +79,7 @@ public:
 	virtual void slot30() = 0;
 	virtual void slot34() = 0;
 	virtual void slot38() = 0;
-	virtual ObjectID getPreferredDockID() const = 0;
+	virtual ObjectIDValue getPreferredDockID() const = 0;
 };
 
 class AIUpdateInterface
@@ -232,7 +234,7 @@ public:
 class GameLogic
 {
 public:
-	Object *findObjectByID(int id);
+	Object *findObjectByID(ObjectID id);
 };
 
 extern ActionManager *TheActionManager;
@@ -270,7 +272,7 @@ public:
 	Object *findBestSupplyCenter(Object *queryObject);
 
 private:
-	typedef _STL::list<ObjectID> objectIDList;
+	typedef _STL::list<ObjectIDValue> objectIDList;
 	typedef objectIDList::iterator objectIDListIterator;
 
 	void *m_slice_vtbl;
@@ -291,8 +293,8 @@ Object *ResourceGatheringManager::findBestSupplyWarehouse(Object *queryObject)
 		queryObject->getAI()->getSupplyTruckAIInterface();
 	if (supplyTruckAI)
 	{
-		ObjectID dockID = supplyTruckAI->getPreferredDockID();
-		Object *dock = TheGameLogic->findObjectByID(dockID);
+		ObjectIDValue dockID = supplyTruckAI->getPreferredDockID();
+		Object *dock = TheGameLogic->findObjectByID((ObjectID)dockID);
 		if (dock)
 		{
 			static const NameKeyType key_warehouseUpdate =
@@ -313,7 +315,7 @@ Object *ResourceGatheringManager::findBestSupplyWarehouse(Object *queryObject)
 	while (iterator != m_supplyWarehouses.end())
 	{
 		Object *currentWarehouse =
-			TheGameLogic->findObjectByID(*iterator);
+			TheGameLogic->findObjectByID((ObjectID)*iterator);
 
 		if (currentWarehouse == NULL)
 		{
@@ -349,8 +351,8 @@ Object *ResourceGatheringManager::findBestSupplyCenter(Object *queryObject)
 		queryObject->getAI()->getSupplyTruckAIInterface();
 	if (supplyTruckAI)
 	{
-		ObjectID dockID = supplyTruckAI->getPreferredDockID();
-		Object *dock = TheGameLogic->findObjectByID(dockID);
+		ObjectIDValue dockID = supplyTruckAI->getPreferredDockID();
+		Object *dock = TheGameLogic->findObjectByID((ObjectID)dockID);
 		if (dock)
 		{
 			static const NameKeyType key_centerUpdate =
@@ -368,7 +370,7 @@ Object *ResourceGatheringManager::findBestSupplyCenter(Object *queryObject)
 	while (iterator != m_supplyCenters.end())
 	{
 		Object *currentCenter =
-			TheGameLogic->findObjectByID(*iterator);
+			TheGameLogic->findObjectByID((ObjectID)*iterator);
 
 		if (currentCenter == NULL)
 		{

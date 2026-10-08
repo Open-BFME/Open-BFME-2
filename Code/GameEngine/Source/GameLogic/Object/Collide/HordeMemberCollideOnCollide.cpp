@@ -22,7 +22,8 @@ class Coord3D;
 class ModuleData;
 class Player;
 
-typedef int ObjectID;
+// Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
+enum ObjectID { INVALID_ID = 0, FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff };
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 
 template <int N> class VSlots : public VSlots<N - 1>
