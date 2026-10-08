@@ -49,13 +49,13 @@ public:
 	virtual void slot35();
 	virtual void slot36(unsigned int *);
 };
-class Rva003189ADSub10 { public: void rva00362255(Xfer *); };
+class ObjectFilter { public: void DoXfer(Xfer *); };
 class Rva002AE71D {
 public:
 	void rva002AE71D(Xfer *);
 	void rva002ADDD9(Xfer *);
 private:
-	Rva003189ADSub10 *member00;
+	ObjectFilter *member00;
 	char unknown04[0x10 - 4];
 	ObjectID id10;
 	unsigned int word14;
@@ -65,7 +65,7 @@ void Rva002AE71D::rva002AE71D(Xfer *xfer)
 {
 	Rva002AE71DVersion version;
 	reinterpret_cast<Rva002AE71DXferView *>(xfer)->slot10(&version);
-	member00->rva00362255(xfer);
+	member00->DoXfer(xfer);
 	rva002ADDD9(xfer);
 	XferObjectID(xfer, &id10);
 	reinterpret_cast<Rva002AE71DXferView *>(xfer)->slot36(&word14);

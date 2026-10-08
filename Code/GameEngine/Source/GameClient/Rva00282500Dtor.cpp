@@ -91,11 +91,11 @@ public:
 	void xfer(Xfer *xfer);
 };
 
-// The rowed xfer of the member at +0xBC, named for its address.
-class Rva003189ADSub10
+// Verified ObjectFilter transfer of the four-byte member at +0xBC.
+class ObjectFilter
 {
 public:
-	void rva00362255(Xfer *xfer);
+	void DoXfer(Xfer *xfer);
 };
 
 // Zero Hour's Coord3D::zero, and a location copied member by member rather
@@ -135,7 +135,7 @@ class Rva00360D26Member
 public:
 	Rva00360D26Member();
 	~Rva00360D26Member();
-	void xfer(Xfer *xfer) { ((Rva003189ADSub10 *)this)->rva00362255(xfer); }
+	void xfer(Xfer *xfer) { ((ObjectFilter *)this)->DoXfer(xfer); }
 private:
 	unsigned m_unknown;
 };

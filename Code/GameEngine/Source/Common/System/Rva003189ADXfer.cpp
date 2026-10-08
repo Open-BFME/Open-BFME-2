@@ -102,10 +102,11 @@ public:
 class AudioManager;
 extern AudioManager *TheAudio;
 
+// Verified four-byte ObjectFilter ABI; retain surrounding provisional layouts.
+class ObjectFilter { public: void DoXfer(Xfer *); };
 class Rva003189ADSub10
 {
 public:
-	void rva00362255(Xfer *xfer);
 	int m_00;
 	int m_04;
 };
@@ -141,7 +142,7 @@ void Rva003189ADOwner::rva003189AD(Xfer *xfer)
 	XferGlobalWeatherType(xfer, &m_04);
 	((Rva003189ADGlobal *)TheAudio)->slot88(xfer, &m_08);
 	XferGlobalWeatherAffectsType(xfer, &m_0c);
-	m_10.rva00362255(xfer);
+	reinterpret_cast<ObjectFilter *>(&m_10)->DoXfer(xfer);
 	xfer->slot27(m_10.m_04);
 	unsigned int out = 0;
 	XferAttributeModifierCategoryType(xfer, (int *)&out);

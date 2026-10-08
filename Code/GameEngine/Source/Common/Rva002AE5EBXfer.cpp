@@ -7,7 +7,7 @@
 // ints via slot 0x7C, bool via slot 0x90, IsLoading via slot 0x04; vector
 // at +0x20 holds 12B records (int/ObjectID/filter) erased via rowed
 // 0x002A7644 and grown via rowed push_back 0x002A778D; per-record fields
-// via rowed XferObjectID 0x003060B2, pin rva00362255 and rowed ctor/dtor
+// via rowed XferObjectID 0x003060B2, ObjectFilter::DoXfer and rowed ctor/dtor
 // 0x002A7400/0x00360D26. Layout matches Rva002AE5EBCtor plus +0x0C/+0x10.
 #include "../../../Libraries/Include/Lib/Coord2D.h"
 
@@ -128,7 +128,7 @@ protected:
 class Xfer::Version
 {
 public:
-	Version(unsigned char current, unsigned char minimum)
+	__declspec(dllimport) __forceinline Version(unsigned char current, unsigned char minimum)
 		: m_current(current), m_minimum(minimum) {}
 	unsigned char m_current;
 	unsigned char m_minimum;
@@ -141,10 +141,11 @@ enum ObjectID
 
 void XferObjectID(Xfer *xfer, ObjectID *value);
 
+// Verified four-byte ObjectFilter ABI; retain surrounding provisional layouts.
+class ObjectFilter { public: void DoXfer(Xfer *); };
 class Rva003189ADSub10
 {
 public:
-	void rva00362255(Xfer *xfer);
 	int m_handle;
 };
 
@@ -246,7 +247,7 @@ void Rva002AE5EB::rva002A7818(Xfer *xfer)
 				Rva002A7400 tmp;
 				*xfer == tmp.m_value;
 				XferObjectID(xfer, &tmp.m_id);
-				tmp.m_filter.rva00362255(xfer);
+				reinterpret_cast<ObjectFilter *>(&tmp.m_filter)->DoXfer(xfer);
 				m_vecElem.push_back(*(const Rva002A76A0Element *)&tmp);
 			}
 		}
@@ -258,7 +259,7 @@ void Rva002AE5EB::rva002A7818(Xfer *xfer)
 			{
 				*xfer == p->m_value;
 				XferObjectID(xfer, &p->m_id);
-				p->m_filter.rva00362255(xfer);
+				reinterpret_cast<ObjectFilter *>(&p->m_filter)->DoXfer(xfer);
 			}
 		}
 	}
