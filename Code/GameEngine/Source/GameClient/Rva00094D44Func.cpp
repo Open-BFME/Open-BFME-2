@@ -21,3 +21,24 @@ float __stdcall rva00094D44(float a, float b, float c)
 	}
 	return r;
 }
+
+// BFME1 34f59164 Rva006E1CA0VectorLength.cpp supplies the clean expression.
+// Target evidence independently establishes native94DE5..94E2C (71B RET0),
+// one __cdecl pointer argument, float loads0/4/8, sqrt thunk62921C and ST0
+// result. The owner/type name is unknown; retain an address-qualified view.
+#include <math.h>
+
+class Rva00094DE5Vector
+{
+public:
+ static float length(const Rva00094DE5Vector *vector);
+private:
+ float x;
+ float y;
+ float z;
+};
+
+float Rva00094DE5Vector::length(const Rva00094DE5Vector *vector)
+{
+ return sqrt(vector->x * vector->x + vector->y * vector->y + vector->z * vector->z);
+}
