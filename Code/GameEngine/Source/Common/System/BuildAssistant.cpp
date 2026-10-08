@@ -1164,6 +1164,42 @@ void BuildAssistant::clearRemovableForConstruction( const ThingTemplate *whatToB
 	}
 }
 
+// BuildAssistant vslot 18, retail 0x0039361E: whether an allied kind-104
+// foundation whose vslot 3 interface test is clear lies within half its major
+// radius of pos. Neither retail nor WB reads the fifth argument; its type is
+// not evidenced and follows the (builder, player) tail of its siblings.
+Bool BuildAssistant::rva0039361E( const Coord3D *pos, const ThingTemplate *whatToBuild, Real angle,
+								  Object *builder, Player *unused )
+{
+	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange( pos,
+		whatToBuild->getTemplateGeometryInfo().getBoundingCircleRadius() * 1.1f, FROM_BOUNDINGSPHERE_3D,
+		&Rva00261603Filter( *pos, whatToBuild->getTemplateGeometryInfo(), angle, TRUE ), 0 );
+	for( Object *them = iter.next(); them; them = iter.next() )
+	{
+		if( !them->isKindOf( KINDOF_104 ) )
+			continue;
+
+		if( builder->getRelationship( them ) != ALLIES )
+			continue;
+
+		FoundationAIInterface *foundation = (FoundationAIInterface *)them->rva0028BCF4();
+		if( foundation && foundation->slot03() )
+			continue;
+
+		Coord3D delta;
+		delta.x = them->getPosition()->x;
+		delta.y = them->getPosition()->y;
+		delta.z = them->getPosition()->z;
+		delta.x -= pos->x;
+		delta.y -= pos->y;
+		delta.z -= pos->z;
+		Real dist = delta.length();
+		if( dist < them->getTemplate()->getTemplateGeometryInfo().getMajorRadius() / 2.0f )
+			return TRUE;
+	}
+	return FALSE;
+}
+
 // BuildAssistant::buildObjectNow, retail 0x003952D8 (vslot 14).
 Object *BuildAssistant::buildObjectNow( Object *constructorObject, const ThingTemplate *what,
 										const Coord3D *pos, Real angle, Player *owningPlayer )
