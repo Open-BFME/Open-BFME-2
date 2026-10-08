@@ -1,10 +1,13 @@
 // ?rva0032A587@SidesList@@QAE_NHHPAVBuildListInfo@@H@Z
-// partial score=0.85 date=2026-10-07
+// partial score=0.8974358974 date=2026-10-08
+// ?rva0032A587@SidesList@@QAE_NHHPAVBuildListInfo@@H@Z
 // cl: /O1 /arch:SSE /G7 /Oy- /MD
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
 // ?swap@SidesList@@QAEXPAV1@@Z @0x0032B690 279B unlock caller 0x0032F449
 // Evidence: prev/next swap TUs name SidesList swap; retail swaps counts SidesInfo arrays teamrecs extra vectors cleared byte then notifier posts both ways via rowed swaps and pin ??_9@$BBI@AE.
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 #include <algorithm>
 #include <vector>
 
@@ -153,6 +156,7 @@ bool SidesList::rva0032A587(int key, int index, BuildListInfo *out, int mode)
   else if (mode == 1) list = &m_extra[i].m_v2;
   else return true;
   if (index >= (int)list->size()) return false;
+  _ReadWriteBarrier();
   *out = (*list)[index];
   return true;
  }
