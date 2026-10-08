@@ -1,7 +1,13 @@
 // ?addMessage@NetCommandList@@QAEPAVNetCommandRef@@PAVNetCommandMsg@@@Z
-// partial score=0.95 date=2026-10-04
+// partial score=0.93 date=2026-10-09
 // ?addMessage@NetCommandList@@QAEPAVNetCommandRef@@PAVNetCommandMsg@@@Z
-// cl: /O1 /G6 /DNDEBUG /MD /EHsc
+// Corrected bank 2026-10-09: native 58B3F0 and WB153A52E load m_first
+// for the traversal timestamp comparison; the previous bank used tempmsg.
+// Explicit comparator sequencing follows retail: queued pointer captured,
+// incoming sort call, queued sort call, signed greater-than comparison.
+// Still539B vs540: sort result spills instead of native EBX and stack slots differ.
+// ?addMessage@NetCommandList@@QAEPAVNetCommandRef@@PAVNetCommandMsg@@@Z
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 //
 // NetCommandList::addMessage, retail 0x0058B2C6, 540 bytes. Sorted insert by
 // timestamp (+4), type (+0x14), player (+0xC) and sort-number virtual (+4).
@@ -151,12 +157,14 @@ NetCommandRef *NetCommandList::addMessage(NetCommandMsg *cmdMsg)
 		return msg;
 	}
 
+	NetCommandMsg *queuedForSort;
+	int incomingSort;
 	NetCommandRef *tempmsg = m_first;
 	while ((tempmsg != 0) &&
-		((cmdMsg->getTimestamp() > tempmsg->getCommand()->getTimestamp()) ||
+		((cmdMsg->getTimestamp() > m_first->getCommand()->getTimestamp()) ||
 		 (cmdMsg->getNetCommandType() > tempmsg->getCommand()->getNetCommandType()) ||
 		 (cmdMsg->getPlayerID() > tempmsg->getCommand()->getPlayerID()) ||
-		 ((__int64)tempmsg->getCommand()->getSortNumber() < (__int64)cmdMsg->getSortNumber()))) {
+		 ((queuedForSort = tempmsg->getCommand(), incomingSort = cmdMsg->getSortNumber(), incomingSort > queuedForSort->getSortNumber())))) {
 		tempmsg = tempmsg->getNext();
 	}
 
@@ -203,3 +211,4 @@ NetCommandRef *NetCommandList::addMessage(NetCommandMsg *cmdMsg)
 
 	return msg;
 }
+
