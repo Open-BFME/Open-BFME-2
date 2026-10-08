@@ -15,31 +15,7 @@
 // wrappers. Copy and destruction retain the native AddRef/Release operations.
 // Release can unwind through its virtual destruction call, so its declaration
 // must preserve the two retail registration EH states.
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
-	TargetRef00217D4C *m_ptr;
-	// ?TreeHintRef00217D4C::TreeHintRef00217D4C present-unmatched
-	TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr) {
-		if (m_ptr) ++m_ptr->references;
-	}
-	// ?TreeHintRef00217D4C::~TreeHintRef00217D4C present-unmatched
-	__forceinline ~TreeHintRef00217D4C() {
-		if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
-	}
-};
-class Rva003FE792 {
-	const void *m_vtable;
-	Rva003FE792 *m_next;
-	TreeHintRef00217D4C m_hint08;
-	bool m_b0C;
-	int m_i10;
-	int m_i14;
-public:
-	Rva003FE792(TreeHintRef00217D4C hint, int value);
-	~Rva003FE792();
- __declspec(noinline) void append(Rva003FE792 *node);
-};
+#include "TimedOperationNodeBFME2.h"
 
 void Rva003FE792::append(Rva003FE792 *node) {
  while (m_next) { m_next->append(node); return; }

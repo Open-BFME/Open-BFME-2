@@ -60,3 +60,4 @@ Rva0041890FRecord,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,native3
 Rva00418A12Node,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,native40-byte allocation4189ED; next0 and36-byte record4; insertion418A12 witnesses both accesses
 Rva00418A12Result,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,native12-byte insertion output; node0 table4 inserted8 from124-byte418A12
 Rva00418A8EHost,Code/GameEngine/Include/Common/Rva00418A12StringHash.h,native hash prefix through count10; buckets4/end8; original application identity unresolved; full extent unasserted
+Rva003FE792,Code/GameEngine/Source/Common/TimedOperationNodeBFME2.h,target24B node; retail4B virtual table atC37E88 and exact constructor/destructors; next4 from append3FE60F; shared registration/provider view
