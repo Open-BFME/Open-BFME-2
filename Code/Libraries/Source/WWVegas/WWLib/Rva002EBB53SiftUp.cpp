@@ -24,3 +24,30 @@ void Rva002EBB53SiftUp(_Rva002EBB53Wrap **base, int hole, int top, _Rva002EBB53W
     }
     base[hole] = val;
 }
+
+// Native 0x002EBB9B..0x002EBBFB adjusts the same wrapper-pointer heap.
+// Both payload keys are unsigned shorts at +0x10, through wrapper +0.
+// The five native pushes retain the unused comparator word; SiftUp ignores
+// that trailing argument. The same ABI is verified by Rva002E0E9DAdjustHeap.
+// The original element and comparator identities remain unasserted.
+typedef void (__cdecl *Rva002EBB53SiftUp5)(_Rva002EBB53Wrap **, int, int,
+                                        _Rva002EBB53Wrap *, void *);
+
+void Rva002EBB9BAdjustHeap(_Rva002EBB53Wrap **base, int hole, int len,
+                         _Rva002EBB53Wrap *value, void *extra)
+{
+    int top = hole;
+    int child = hole * 2 + 2;
+    while (child < len) {
+        if (base[child]->m_inner->m_key > base[child - 1]->m_inner->m_key)
+            --child;
+        base[hole] = base[child];
+        hole = child;
+        child = child * 2 + 2;
+    }
+    if (child == len) {
+        base[hole] = base[child - 1];
+        hole = child - 1;
+    }
+    ((Rva002EBB53SiftUp5)Rva002EBB53SiftUp)(base, hole, top, value, extra);
+}
