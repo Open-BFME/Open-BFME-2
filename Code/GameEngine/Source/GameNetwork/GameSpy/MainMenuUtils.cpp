@@ -47,3 +47,10 @@ void startOnline()
  if(online.motd){delete[] online.motd;online.motd=0;}
  if(online.config){delete[] online.config;online.config=0;}
 }
+
+extern template void _STL::_List_base<QueuedDownload,_STL::allocator<QueuedDownload> >::clear();
+void noPatchBeforeOnlineCallback() {
+ downloads.clear();
+ if(online.mustDownload || online.cantConnect) Rva00516E92Enable();
+ else startOnline();
+}
