@@ -16462,7 +16462,6 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?rva00569BBC@LargeGroupAudioSoundKeyPair@@QAEXPAVXfer@@PAUVersionPair@@@Z,0x00569BBC,LargeGroupAudioSoundKeyPair xfer (thiscall; ret 8; xfer + version args): RETAIL REL32 at 0x003EE34F and 0x003EE3AE in the AudioMap xfer 0x003EE23C call it between BeginBlock/EndBlock(SoundKeyPair) on each pair; WB twin 0x1442480 (unnamed); address-derived method name
 ?erase@?$_Rb_tree@URva00568FE4Key@@U1@U?$_Identity@URva00568FE4Key@@@_STL@@URva00568FE4Less@@V?$allocator@URva00568FE4Key@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@URva00568FE4Key@@U?$_Nonconst_traits@URva00568FE4Key@@@_STL@@@2@@Z,0x005530A8,pending-add multiset spelling of the folded POD tree erase(iterator); REL32 read at 0x00569933 in LargeGroupAudioSoundKeyPair::unregisterSubject and 0x00569768 in updateSubject; fold-proof=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioSoundKeyPair.cpp
 ?rva005FAA4D@Rva005FAA4D@@QAEXXZ,0x005FAA4D,callee of ?rva005FAA90@Rva005FB1AD@@QAEXXZ
-??0Rva005D0C87@@QAE@PAVRva005D0D85@@HHH@Z,0x005D0C87,callee of ??0Rva005D0D85@@QAE@HHH@Z
 ?UpdateButtonVisiblity@Impl@AptInGameSideCommandBar@@QAE_NPAVObject@@@Z,0x005285EF,WB named Impl Update calls UpdateButtonVisiblity with the same resolved Object pointer at 013C8028; native 00528850 confirms thiscall bool result and one pointer argument; owner and spelling donor carried from the matching WB callgraph
 ??0Rva002C5EF0@@QAE@ABUCoord3DBase@@MPAVPlayer@@@Z,0x002C6234,Native complete 0x002C6234..0x002C6354; 32-byte address-derived interest-zone constructor with 12-byte coordinate reference float and Player argument; sole direct call in TacticalAI::DoXfer at 0x002C6487
 ?push_back@?$vector@PAVRva002C5EF0@@V?$allocator@PAVRva002C5EF0@@@_STL@@@_STL@@QAEXABQAVRva002C5EF0@@@Z,0x004DFCB0,TacticalAI typed interest-zone vector insertion at 0x002C64AF; full bytes and all owner relocations proven fold-proof=Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp
@@ -16491,3 +16490,4 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ?rva006D3510@Rva006ED490Obj@@QAE_NH@Z,0x006D3510,callee of ?rva006ED490@@YAHPAVRva006ED490X@@PAVRva006ED490Obj@@D@Z
 ?rva004EA33A@Rva004EA3B8@@UAEXXZ,0x004EA33A,callee of ??1Rva004EA3B8@@UAE@XZ
 ?rva004EA420@Rva004EA3B8@@QAEXXZ,0x004EA420,callee of ??0Rva004EA3B8@@QAE@PAX@Z
+?rva005CB723@Rva005CB723@@QAEXH@Z,0x005CB723,callee of ?rva005CB84A@Rva005CB84A@@QAEXH@Z
