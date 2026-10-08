@@ -55,6 +55,27 @@ PRIMK = {"float": "f4", "double": "f8", "int": "i4", "uint": "i4", "long": "i4",
 PAD = re.compile(r"^(m_)?(pad|_pad|unk|gap|reserved)", re.I)
 
 
+def portable_component(name):
+    """One collision-free filename component, preserving ordinary class names."""
+    if not name:
+        raise ValueError("empty class name")
+    encoded = "".join(chr(b) if chr(b) in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
+                      else f"%{b:02X}" for b in name.encode("utf-8"))
+    if encoded.upper() in {"CON", "PRN", "AUX", "NUL", *(f"COM{i}" for i in range(1, 10)),
+                          *(f"LPT{i}" for i in range(1, 10))}:
+        encoded = f"%{ord(encoded[0]):02X}" + encoded[1:]
+    return encoded
+
+
+def contract_path(name):
+    return CONTRACTS / (portable_component(name) + ".json")
+
+
+def mangled_scope(name):
+    """Plain qualified C++ scope in MSVC's innermost-first spelling."""
+    return "@".join(reversed(name.split("::")))
+
+
 # ---------------------------------------------------------------- evidence: views
 
 def ledger_rows():
@@ -66,7 +87,7 @@ def census(name, rows=None):
     """Ledger sources (authored) that declare their own body for `name`."""
     sources = sorted({r["source"] for r in (rows or ledger_rows())
                       if r["source"].lower().endswith((".cpp", ".c")) and not r["source"].startswith(GENERATED)})
-    head = re.compile(r"^[ \t]*(?:class|struct)[ \t]+(?:__declspec\([^)]*\)\s+)?" + re.escape(name) + r"\s*(?::[^{;]*)?\{", re.M)
+    head = re.compile(r"^[ \t]*(?:class|struct)[ \t]+(?:__declspec\([^)]*\)\s+)?" + re.escape(name) + r"\s*(?::(?!:)[^{;]*)?\{", re.M)
     out = []
     for source in sources:
         try:
@@ -121,8 +142,9 @@ def flatten(layout, every, base=0, depth=0):
 # ---------------------------------------------------------------- evidence: retail
 
 def thiscall_rows(name, rows):
-    member = re.compile(r"^\?(\w+)@" + re.escape(name) + r"@@[AIQ][AB]E")
-    ctor = re.compile(r"^\?\?0" + re.escape(name) + r"@@[AIQ]AE")
+    scope = re.escape(mangled_scope(name))
+    member = re.compile(r"^\?(\w+)@" + scope + r"@@[AIQ][AB]E")
+    ctor = re.compile(r"^\?\?0" + scope + r"@@[AIQ]AE")
     return ([r for r in rows if member.match(r["name"])], [r for r in rows if ctor.match(r["name"])])
 
 
@@ -204,7 +226,7 @@ def ledger_key(name, rows):
     """Counter of the class-key the matched ledger names mangle: U = struct, V = class."""
     marks = collections.Counter()
     for row in rows:
-        for found in re.finditer(r"([UV])" + re.escape(name) + r"@@", row["name"]):
+        for found in re.finditer(r"([UV])" + re.escape(mangled_scope(name)) + r"@@", row["name"]):
             marks["struct" if found.group(1) == "U" else "class"] += 1
     return marks
 
@@ -214,7 +236,7 @@ def zh_layout(name, builder):
     zh_root = getattr(builder, "ZH_REFERENCE_ROOT", None)
     if zh_root is None or not Path(zh_root).exists():
         return None
-    head = re.compile(r"^(?:class|struct)\s+" + re.escape(name) + r"\b[^;]*\{", re.M)
+    head = re.compile(r"^(?:class|struct)\s+" + re.escape(name) + r"\s*(?::(?!:)[^{;]*)?\{", re.M)
     header = None
     for path in sorted(Path(zh_root).rglob("*.h")):
         try:
@@ -227,7 +249,7 @@ def zh_layout(name, builder):
         return None
     shown = header.as_posix()
     shown = shown[shown.find("CnC_Generals_Zero_Hour"):]
-    probe = class_layouts.CACHE / f"zh_{name}.cpp"
+    probe = class_layouts.CACHE / f"zh_{portable_component(name)}.cpp"
     probe.parent.mkdir(parents=True, exist_ok=True)
     # The header alone first: PreRTS.h drags in STLport, which these flags do not set up.
     every, failure = None, None
@@ -399,7 +421,7 @@ def main(argv=None):
     if args.write:
         CONTRACTS.mkdir(parents=True, exist_ok=True)
         frozen = {k: v for k, v in contract.items() if k != "sources"}
-        (CONTRACTS / f"{args.name}.json").write_text(json.dumps(frozen, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+        contract_path(args.name).write_text(json.dumps(frozen, indent=1, sort_keys=True) + "\n", encoding="utf-8")
     ev = contract["evidence"]
     print(f"{args.name}: {contract['key']} ({contract['key_by']}), sizeof {contract['size']} ({contract['size_by']}), "
           f"bases {contract['bases']} ({contract['bases_by']}); {ev['views']} views, {ev['view_errors']} uncompiled, "

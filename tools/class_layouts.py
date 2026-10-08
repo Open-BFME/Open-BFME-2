@@ -41,7 +41,7 @@ ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / "build" / "class_layouts"
 
 # A namespace-scope class head opening a body (class_views.HEAD's rule).
-HEAD = re.compile(r"^[ \t]*(?:class|struct)[ \t]+(?:__declspec\([^)]*\)\s+)?([A-Za-z_]\w*)\s*(?::[^{;]*)?\{", re.M)
+HEAD = re.compile(r"^[ \t]*(?:class|struct)[ \t]+(?:__declspec\([^)]*\)\s+)?([A-Za-z_]\w*(?:::[A-Za-z_]\w*)*)\s*(?::(?!:)[^{;]*)?\{", re.M)
 COMMENT = re.compile(r"//[^\n]*|/\*.*?\*/", re.S)
 
 PRIM = {0x03: ("void", 0), 0x10: ("char", 1), 0x20: ("uchar", 1), 0x70: ("char", 1), 0x68: ("int8", 1),

@@ -54,7 +54,7 @@ CANONICAL = ROOT / "reverse" / "canonical_classes.csv"
 # A class-head at namespace scope: `class Name` / `struct Name`, optionally
 # with a base clause, opening a body. Templates and nested types are
 # skipped (their name alone does not identify one class).
-HEAD = re.compile(r"^(?:class|struct)\s+(?:__declspec\([^)]*\)\s+)?([A-Za-z_]\w*)\s*(?::[^{;]*)?\{", re.M)
+HEAD = re.compile(r"^(?:class|struct)\s+(?:__declspec\([^)]*\)\s+)?([A-Za-z_]\w*(?:::[A-Za-z_]\w*)*)\s*(?::(?!:)[^{;]*)?\{", re.M)
 COMMENT = re.compile(r"//[^\n]*|/\*.*?\*/", re.S)
 
 
