@@ -124,16 +124,131 @@ enum CommandSourceType
 class AICommandInterface
 {
 public:
+	virtual void aiDoCommand(const void *parms);
+	void aiIdle(CommandSourceType cmdSource);
 	void rva0045003E(int value, CommandSourceType cmdSource);
+};
+// AIUpdateInterface: an update module whose AICommandInterface base is at +0x20.
+class AIUpdateModuleView
+{
+public:
+	virtual void v00();
+	unsigned char m_pad04[0x20 - 4];
+};
+class AIUpdateInterface : public AIUpdateModuleView, public AICommandInterface
+{
+};
+class Object;
+class ContainModuleInterface
+{
+public:
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08();
+	virtual void s09();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void s14();
+	virtual void s15();
+	virtual void s16();
+	virtual void s17();
+	virtual void s18();
+	virtual void s19();
+	virtual void s20();
+	virtual void s21();
+	virtual void s22();
+	virtual void s23();
+	virtual void s24();
+	virtual void s25();
+	virtual void s26();
+	virtual void s27();
+	virtual void s28();
+	virtual void s29();
+	virtual void s30();
+	virtual void s31();
+	virtual void s32();
+	virtual void s33();
+	virtual void s34();
+	virtual void s35();
+	virtual void s36();
+	virtual void s37();
+	virtual void s38();
+	virtual void s39();
+	virtual void s40();
+	virtual void s41();
+	virtual void s42();
+	virtual void s43();
+	virtual void s44();
+	virtual void s45();
+	virtual void s46();
+	virtual void s47();
+	virtual void s48();
+	virtual void s49();
+	virtual void s50();
+	virtual void s51();
+	virtual void s52();
+	virtual void s53();
+	virtual void s54();
+	virtual void s55();
+	virtual void s56();
+	virtual void s57();
+	virtual void s58();
+	virtual void useTarget(Object *target); // slot 59 (+0xEC)
+};
+class SpecialPowerModuleInterface
+{
+public:
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08();
+	virtual void s09();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void markSpecialPowerTriggered(const Coord3D *location); // slot 14 (+0x38)
+};
+// The rowed two-bit status mask (0x00391F4E) read as the status setter's mask.
+class Rva00346BC0;
+class Rva00391F4E
+{
+public:
+	Rva00391F4E(int a, int b, int c);
+	unsigned int m_bits[4];
+};
+enum Relationship
+{
+	ENEMIES = 0,
+	NEUTRAL = 1,
+	ALLIES = 2
 };
 class Object : public Thing
 {
 	friend class SpecialAbilityUpdate;
 public:
 	Player *getControllingPlayer() const;
+	bool isLocallyControlled() const;
+	Relationship getRelationship(const Object *that) const;
+	void rva0028CDEB(const Rva00346BC0 &mask, bool set);
 	bool isKindOf(KindOfType kindOf) const;
 	// rowed 0x0028CFB2: clears the first mask's conditions, sets the second's
 	void rva0028CFB2(const int *clearMask, const int *setMask);
+	// Zero Hour's inline Object::clearAndSetModelConditionState.
+	void clearAndSetModelConditionState(ModelConditionFlagType clr, ModelConditionFlagType set);
 	void setStatus(ObjectStatusTypes status, bool set);
 	void rva0028AE6D();
 	void setSpecialModelConditionState(ModelConditionFlagType mc, unsigned int frames);
@@ -162,8 +277,14 @@ public:
 	int m_id; // +0x74
 	unsigned char m_pad078[0x10C - 0x78];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
-	unsigned char m_pad158[0x258 - 0x158];
+	unsigned char m_pad158[0x250 - 0x158];
+	ContainModuleInterface *m_contain; // +0x250
+	unsigned char m_pad254[0x258 - 0x254];
 	unsigned char *m_ai; // +0x258 AIUpdateInterface (command interface at +0x20)
+	AIUpdateInterface *getAI() const { return (AIUpdateInterface *)m_ai; }
+	void *getTeam() const { return m_team; }
+	unsigned char m_pad25C[0x304 - 0x25C];
+	void *m_team; // +0x304
 protected:
 	Module *findModule(NameKeyType key) const;
 };
@@ -191,7 +312,9 @@ class SpecialAbilityUpdateModuleData
 public:
 	unsigned char m_pad[0x8];
 	OpaqueRefElement4 m_packSound; // +0x08
-	unsigned char m_pad0C[0x18 - 0x0C];
+	unsigned char m_pad0C[0x10 - 0x0C];
+	OpaqueRefElement4 m_prepSoundLoop; // +0x10
+	unsigned char m_pad14[0x18 - 0x14];
 	ModelConditionFlagType m_18; // +0x18
 	unsigned int m_1C; // +0x1C
 	unsigned int m_20; // +0x20
@@ -201,7 +324,9 @@ public:
 	float m_packUnpackVariationFactor; // +0x54
 	unsigned char m_pad58[0x6C - 0x58];
 	int m_6C; // +0x6C ability condition selector (1..6)
-	unsigned char m_pad70[0x84 - 0x70];
+	unsigned char m_pad70[0x74 - 0x70];
+	unsigned int m_preparationFrames; // +0x74
+	unsigned char m_pad78[0x84 - 0x78];
 	unsigned int m_packTime; // +0x84
 	unsigned int m_unpackTime; // +0x88
 };
@@ -260,13 +385,22 @@ class Rva001E42F2
 public:
 	void rva001E42F2(const int *mask);
 };
+__forceinline void Object::clearAndSetModelConditionState(ModelConditionFlagType clr, ModelConditionFlagType set)
+{
+	rva0028CFB2((const int *)&Rva0028F59A(0, clr), (const int *)&Rva0028F59A(0, set));
+}
 class SpecialAbilityUpdate : public BehaviorModule
 {
 public:
 	void rva0044EE07();
 	void rva0044EE80();
 	void rva0044F72E();
+	virtual void startPreparation();
 	virtual void startPacking(bool success);
+protected:
+	Object *createSpecialObject();
+	bool initLaser(Object *specialObject, Object *target);
+public:
 	virtual void startUnpacking();
 protected:
 	void endPreparation();
@@ -277,7 +411,7 @@ private:
 	int m_packingState; // +0x30
 	AudioHandle m_prepSoundLoop; // +0x34
 	AudioHandle m_packSoundHandle; // +0x38
-	unsigned char m_pad3C[0x40 - 0x3C];
+	unsigned int m_prepFrames; // +0x3C
 	ObjectID m_targetID; // +0x40
 	unsigned char m_pad44[0x84 - 0x44];
 	unsigned int m_84; // +0x84
@@ -558,4 +692,102 @@ void SpecialAbilityUpdate::startPacking(bool success)
 			TheEva->reportEvaEvent(evaEvent, &self->m_position, 0);
 		}
 	}
+}
+
+// The rowed special-power-module lookup (0x0044E633), taking the update as
+// this.
+class Rva0044E633
+{
+public:
+	void *rva0044E633();
+};
+
+// SpecialAbilityUpdate::startPreparation, retail 0x00450D9A (755 bytes,
+// vtable slot 15; ArrowStormUpdate overrides it). Zero Hour's
+// startPreparation reached through the matched BFME1 donor
+// (SpecialAbilityUpdate_startPreparation.cpp): with preparation frames the
+// container uses the target and conditions 96/118 -> 95 plus the selector
+// condition; per power type the laser (0x15), the same-team guard and
+// condition swap (0x1D) or the relationship guard, laser and swap (0x1A),
+// each with an Eva event 0x10 for a locally controlled target; then the
+// power module is marked, the AI idled, statuses 0x18/0x46 set and the
+// preparation sound started.
+void SpecialAbilityUpdate::startPreparation()
+{
+	const SpecialAbilityUpdateModuleData *d = (const SpecialAbilityUpdateModuleData *)m_moduleData;
+	Overridable *power = d->m_specialPowerTemplate;
+	m_prepFrames = (unsigned int)((Rva0044F633 *)this)->rva0044F633();
+	if (m_prepFrames)
+	{
+		Object *target = TheGameLogic->findObjectByID(m_targetID);
+		ContainModuleInterface *contain = m_object->m_contain;
+		if (contain && target)
+			contain->useTarget(target);
+		Object *self = m_object;
+		Rva001E4912 clearMask;
+		self->rva0028CFB2((const int *)clearMask.rva001E4912(0, 0x60, 0x76), (const int *)&Rva0028F59A(0, 0x5f));
+		if (d->m_6C)
+		{
+			switch (d->m_6C)
+			{
+			case 1: self->setModelConditionState((ModelConditionFlagType)97); break;
+			case 2: self->setModelConditionState((ModelConditionFlagType)98); break;
+			case 3: self->setModelConditionState((ModelConditionFlagType)99); break;
+			case 4: self->setModelConditionState((ModelConditionFlagType)585); break;
+			case 5: self->setModelConditionState((ModelConditionFlagType)586); break;
+			case 6: self->setModelConditionState((ModelConditionFlagType)587); break;
+			}
+		}
+	}
+	int type = power->friend_getFinalOverride()->m_val1C;
+	if (type == 0x15)
+	{
+		Object *target = TheGameLogic->findObjectByID(m_targetID);
+		if (target)
+		{
+			Object *special = createSpecialObject();
+			if (special && !initLaser(special, target))
+				return;
+		}
+	}
+	else if (type == 0x1d)
+	{
+		Object *target = TheGameLogic->findObjectByID(m_targetID);
+		if (target && target->getTeam() == getObject()->getTeam())
+			return;
+		m_object->clearAndSetModelConditionState((ModelConditionFlagType)0x60, (ModelConditionFlagType)0x76);
+		Drawable *draw = m_object->getDrawable();
+		if (draw)
+			draw->rva002723C0(d->m_preparationFrames);
+		if (target && target->isLocallyControlled())
+			TheEva->reportEvaEvent(0x10, &target->m_position, 0);
+	}
+	else if (type == 0x1a)
+	{
+		Object *target = TheGameLogic->findObjectByID(m_targetID);
+		if (target)
+		{
+			if (m_object->getRelationship(target) == ALLIES)
+				return;
+			Object *special = createSpecialObject();
+			if (special)
+			{
+				if (!initLaser(special, target))
+					return;
+				m_object->clearAndSetModelConditionState((ModelConditionFlagType)0x60, (ModelConditionFlagType)0x29);
+			}
+			if (target->isLocallyControlled())
+				TheEva->reportEvaEvent(0x10, &target->m_position, 0);
+		}
+	}
+	SpecialPowerModuleInterface *module = (SpecialPowerModuleInterface *)((Rva0044E633 *)this)->rva0044E633();
+	if (module)
+		module->markSpecialPowerTriggered(0);
+	if (getObject()->getAI())
+		getObject()->getAI()->aiIdle(CMD_FROM_AI);
+	Object *obj = m_object;
+	obj->rva0028CDEB(*(const Rva00346BC0 *)&Rva00391F4E(0, 0x18, 0x46), true);
+	BfmeAudioEventPrefix136 sound(d->m_prepSoundLoop, 0);
+	((Rva002D9531 *)&sound)->rva002D9531(m_object->m_id);
+	m_prepSoundLoop = TheAudio->addAudioEvent(&sound);
 }
