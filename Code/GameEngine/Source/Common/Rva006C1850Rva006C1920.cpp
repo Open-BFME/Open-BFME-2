@@ -116,3 +116,40 @@ bool Rva006C1850::rva006C1920(unsigned int newSize)
 	}
 	return ok;
 }
+
+// Address-derived shim for 0x006C1A50: a self-or-other dispatch with one
+// argument passed through by tail jumps. Both callees are pinned by address.
+class Rva00033150
+{
+public:
+	void rva00033150(int v);
+};
+
+class Rva000338F0
+{
+public:
+	void rva000338F0(int v);
+};
+
+class Rva006C1A50Owner
+{
+public:
+	void rva006C1A50(int v);
+
+private:
+	char m_pad00[0x510];
+	unsigned char m_510;
+	char m_pad511[0x678 - 0x511];
+	void *m_678;
+};
+
+// ?rva006C1A50@Rva006C1A50Owner@@QAEXH@Z
+void Rva006C1A50Owner::rva006C1A50(int v)
+{
+	if (m_678 == (void *)this) {
+		if (m_510)
+			((Rva00033150 *)this)->rva00033150(v);
+	} else {
+		((Rva000338F0 *)m_678)->rva000338F0(v);
+	}
+}
