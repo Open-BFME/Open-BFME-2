@@ -86,3 +86,21 @@ void bfmeEmitBfmeVectorRecord0002154F3Assign(BfmeVectorRecord0002154F3 *record)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??$_Construct@UBfmeVectorRecord0002154F3@@U1@@_STL@@YAXPAUBfmeVectorRecord0002154F3@@ABU1@@Z=??$_Construct@UBfmeVectorRecord002154F3@@U1@@_STL@@YAXPAUBfmeVectorRecord002154F3@@ABU1@@Z")
+
+// Native1B49C4..1B4A39, called by IniLoad3397D8 through TheSubsystemLegend.
+// The record prefix is its name and first file vector; the complete record
+// copy earlier in this unit is already recovered as BfmeVectorRecord001B4A39.
+// These views describe only accessed prefixes and never allocate a node.
+// Retail comparison69D6 is nonthrowing. Bind its owned StringBase provider
+// directly; the legacy AsciiString alias selects a wrong census provider.
+template<> int StringBase<char>::compare(const StringBase<char>&) const throw();
+struct IniLoadFileList {AsciiString name;AsciiString *begin,*end,*capacity;};
+struct SubsystemLegendNode {SubsystemLegendNode *next,*prev;IniLoadFileList value;};
+class SubsystemLegend {public:IniLoadFileList *rva001B49C4(AsciiString name);char prefix[12];SubsystemLegendNode *head;};
+IniLoadFileList *SubsystemLegend::rva001B49C4(AsciiString name) {
+ for(SubsystemLegendNode *p=head->next;p!=head;p=p->next) {
+  AsciiString current=p->value.name;
+  if(reinterpret_cast<const StringBase<char>*>(&current)->compare(*reinterpret_cast<const StringBase<char>*>(&name))==0) return &p->value;
+ }
+ return 0;
+}
