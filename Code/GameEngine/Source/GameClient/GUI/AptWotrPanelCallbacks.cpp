@@ -203,6 +203,14 @@ public:
 	}
 };
 
+// One-word, nontrivially copied iterator ABI witnessed at native57AD4D.
+// It is a node pointer, not the integer index the older declaration used.
+struct ChecklistSelectNode;
+struct ChecklistIteratorView {
+ ChecklistSelectNode *node;
+ ChecklistIteratorView(const ChecklistIteratorView& other):node(other.node){}
+};
+
 namespace StrategicHUD {
 class ChecklistUIImpl;
 }
@@ -210,6 +218,7 @@ class ChecklistUIImpl;
 class StrategicHUD::ChecklistUIImpl : public Rva0057AF2EBase, public Rva0057A83CBase, public Rva0057AC8FScrollListener
 {
 public:
+ void SetCurrentItem(ChecklistIteratorView);
 	void OnClosed(const char *unused);
 	void OnOpen(const char *unused);
 	void OnScrollBarUnloaded(const char *unused);
@@ -664,4 +673,25 @@ void StrategicHUD::SelectionDetailsUIImpl::rva0057BBBB()
 StrategicHUD::SelectionDetailsUIImpl::~SelectionDetailsUIImpl()
 {
 	forEach((void (Rva0057BC45Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
+}
+
+// Native57AD26..57AD6E and WB14BB520 identify Item::DoSelect.
+// Keep the witnessed second owner-current load; the first snapshot supplies
+// the old item while the second decides whether it is the end iterator.
+struct ChecklistSelectionOwnerView {char prefix[0x30];ChecklistIteratorView end,current;};
+class Rva0057AD26;
+struct ChecklistSelectObserver {virtual void deselect(Rva0057AD26*);virtual void slot04();virtual void slot08();virtual void slot0c();virtual void select(Rva0057AD26*);};
+struct ChecklistSelectNode {void *next,*prev;Rva0057AD26* item;};
+class Rva0057AD26 {public: void rva0057AD26(); char prefix[0x48]; StrategicHUD::ChecklistUIImpl *owner;ChecklistIteratorView position;int pad50;ChecklistSelectObserver *observer;};
+void Rva0057AD26::rva0057AD26()
+{
+ ChecklistSelectionOwnerView *state=reinterpret_cast<ChecklistSelectionOwnerView*>(owner);
+ ChecklistIteratorView current=state->current;
+ if(current.node==position.node) return;
+ if(*reinterpret_cast<ChecklistSelectNode*volatile*>(&state->current.node)!=state->end.node) {
+  Rva0057AD26 *item=reinterpret_cast<ChecklistSelectNode*>(current.node)->item;
+  if(item->observer) item->observer->deselect(item);
+ }
+ owner->SetCurrentItem(position);
+ if(observer) observer->select(this);
 }

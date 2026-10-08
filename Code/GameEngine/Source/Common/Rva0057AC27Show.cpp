@@ -1,7 +1,15 @@
 // cl: /MD
 // StrategicHUD::ChecklistUIImpl::SetCurrentItem (WorldBuilder name, line 1076: SetCurrentItemState _show/_hide on the changed +0x34 item).
-// was ?rva0057AC27@Rva0057AC27@@QAEXH@Z, retail 0x0057AC27 104B. Unlock: selected-index Apt SetCurrentItemState show/hide via TheRva00222A8BTarget.
+// was ?rva0057AC27@Rva0057AC27@@QAEXH@Z, retail 0x0057AC27 104B. Unlock: selected-iterator Apt SetCurrentItemState show/hide via TheRva00222A8BTarget.
 // Evidence: callees AptCall 0x005FB5E6 rowed; strings _show _hide SetCurrentItemState literals; EmptyString and TheRva00222A8BTarget externs; callers 0x0057AD58 0x0057B3B5.
+// One-word, nontrivially copied iterator ABI witnessed at native57AD4D.
+// It is a node pointer, not the integer index the older declaration used.
+struct ChecklistSelectNode;
+struct ChecklistIteratorView {
+ ChecklistSelectNode *node;
+ ChecklistIteratorView(const ChecklistIteratorView& other):node(other.node){}
+};
+
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
@@ -14,7 +22,7 @@ class ChecklistUIImpl;
 class StrategicHUD::ChecklistUIImpl
 {
 public:
-	void SetCurrentItem(int index);
+	void SetCurrentItem(ChecklistIteratorView iterator);
 private:
 	char m_pad00[0x0C];
 	void *m_level0C;
@@ -24,8 +32,9 @@ private:
 	int m_34;
 };
 
-void StrategicHUD::ChecklistUIImpl::SetCurrentItem(int index)
+void StrategicHUD::ChecklistUIImpl::SetCurrentItem(ChecklistIteratorView iterator)
 {
+	int index=reinterpret_cast<int>(iterator.node);
 	if (index == m_34)
 		return;
 	bool diff = (m_34 != m_30);
