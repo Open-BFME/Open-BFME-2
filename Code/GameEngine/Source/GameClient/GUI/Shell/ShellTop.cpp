@@ -78,10 +78,10 @@ public:
 	virtual void update() = 0;
 	void registerGameWindow(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int ms, unsigned int delayMs);
 	void reverseAnimateWindow();
-	Bool isFinished() { return m_isFinished; }
+	Bool isReversed() { return m_reverse; }
 private:
 	char m_pad04[0x15 - 4];
-	Bool m_isFinished; // +0x15
+	Bool m_reverse; // +0x15
 };
 
 class GameEngineDeletingBase
@@ -229,7 +229,7 @@ public:
 	WindowLayout *findScreenByFilename(AsciiString filename);
 	void registerWithAnimateManager(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int delayMS);
 	void reverseAnimatewindow();
-	Bool isAnimFinished();
+	Bool isAnimReversed();
 	void loadScheme(AsciiString name);
 	void rva0035BEC7();
 	void rva0035BF0E();
@@ -585,12 +585,12 @@ WindowLayout *Shell::getPopupReplayLayout()
 	return m_popupReplayLayout;
 }
 
-// ?isAnimFinished@Shell@@QAE_NXZ @0x0035BEAA 29B: Zero Hour's
-// Shell::isAnimFinished, the animate manager's +0x15 finished flag while
-// animateWindows (+0xB00) is on, else TRUE.
-Bool Shell::isAnimFinished()
+// ?isAnimReversed@Shell@@QAE_NXZ @0x0035BEAA 29B: Zero Hour's
+// Shell::isAnimReversed, the animate manager's +0x15 reverse flag while
+// animateWindows (+0xB00) is on, else TRUE (also with no manager).
+Bool Shell::isAnimReversed()
 {
 	if (m_animateWindowManager && TheGlobalData->m_animateWindows)
-		return m_animateWindowManager->isFinished();
+		return m_animateWindowManager->isReversed();
 	return 1;
 }

@@ -26300,3 +26300,4 @@ parseMod canonical string ownership	0x003BA348	403	blocked	Current BF1 9cb Commo
 ?sendChat@Network@@UAEXVUnicodeString@@H@Z	0x0025E29D	70	landed	add_match verified Code/GameEngine/Source/GameNetwork/Network.cpp 70B
 ?rva002724C4@Drawable@@QAEXH@Z	0x002724C4	57	landed	add_match verified Code/GameEngine/Source/GameClient/Drawable_rva002724C4.cpp 57B
 ?rva00272545@Drawable@@QAEHH@Z	0x00272545	54	landed	add_match verified Code/GameEngine/Source/GameClient/Drawable_rva002724C4.cpp 54B
+?isAnimReversed@Shell@@QAE_NXZ	0x0035BEAA	29	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp 29B
