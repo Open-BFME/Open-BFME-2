@@ -34,6 +34,15 @@
 // 0x0037E289, dtor 0x001EB63C) whose +0x08/+0x0C/+0x10 get the level's
 // required experience and rank twice, or the template's own rank (pinned
 // 0x0033B479) when no level is given or the store (g_00DFECC4) has none.
+//
+// ScriptActions::doCreateUnitRevivalEntryFromDelayedCarryoverHero, retail
+// 0x003CA14C (347B; ret 8), from WorldBuilder's twin (wb 0x0101B0E0; name,
+// statement order, ArmySummary::SpawnOneDelayedCarryoverUnitIntoUnitRevivalTracker):
+// the action side of ScriptConditions_delayedCarryover.cpp's condition, with
+// its views. A running linear campaign hands the types, tracker and player to
+// the campaign manager (pinned 0x001EC9AC, result only logged in WB);
+// otherwise the first army of the selected players that spawns one delayed
+// carryover unit of the types ends the search.
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -43,6 +52,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 class Rva0020E89C;
 struct Rva002B488EResult;
+class Rva0040D701ArmySummary;
 
 class Rva002104B6
 {
@@ -82,6 +92,7 @@ public:
 	Rva002B488EResult *rva002B488E(int armyID);
 	class Rva002E2903Player *find(int id, unsigned int *outIndex);
 	class Rva002E2903Player *rva002B52A8(int index);
+	void rva002B323C(_STL::vector<Rva0040D701ArmySummary *> *armies, int armyID);
 	int getPlayerCount() const { return m_players.size(); }
 	void *getRegionManager() const { return m_regionManager; }
 
@@ -167,16 +178,53 @@ class Player
 {
 public:
 	UnitRevivalTracker *getUnitRevivalTracker() { return &m_unitRevivalTracker; }
+	int getArmyID() const { return m_armyID; }
 
 private:
-	unsigned char m_pad00[0x738];
+	unsigned char m_pad00[0x3AC];
+	int m_armyID;
+	unsigned char m_pad3B0[0x738 - 0x3B0];
 	UnitRevivalTracker m_unitRevivalTracker;
+};
+
+class ObjectTypes
+{
+public:
+	ObjectTypes();
+	virtual ~ObjectTypes();
+	int getListSize() const { return m_objectTypes.size(); }
+	void addObjectType(const AsciiString &objectType);
+
+private:
+	AsciiString m_listName;
+	_STL::vector<AsciiString> m_objectTypes;
+};
+
+class LinearCampaignManager
+{
+public:
+	bool hasCampaign() const { return m_campaign != 0; }
+	bool rva001EC9AC(ObjectTypes *types, UnitRevivalTracker *tracker, Player *player);
+
+private:
+	unsigned char m_pad00[0x10];
+	void *m_campaign;
+};
+extern LinearCampaignManager *TheLinearCampaignManager;
+
+// WorldBuilder's ArmySummary (address-derived spelling as in
+// ScriptConditions_delayedCarryover.cpp).
+class Rva0040D701ArmySummary
+{
+public:
+	bool SpawnOneDelayedCarryoverUnitIntoUnitRevivalTracker(ObjectTypes *types);
 };
 
 class ScriptEngine
 {
 public:
 	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
+	ObjectTypes *getObjectTypes(const AsciiString &objectTypeList);
 	AsciiString *rva00208DB8(AsciiString name);
 	int *rva00208E99(AsciiString name);
 	int *rva00208CF0(AsciiString name);
@@ -214,6 +262,7 @@ protected:
 	void rva003C3943(const AsciiString &regionRefName, const AsciiString &armyRefName);
 	void rva003C39B8(const AsciiString &armyRefName, const AsciiString &regionRefName);
 	void doCreateUnitRevivalEntry(const AsciiString &objectTypeName, const AsciiString &playerName, int level);
+	void doCreateUnitRevivalEntryFromDelayedCarryoverHero(const AsciiString &objectTypeName, const AsciiString &playerName);
 };
 
 void ScriptActions::doLivingWorldSetRegionRefToAdjacentRegion(const AsciiString &destRefName,
@@ -365,4 +414,41 @@ void ScriptActions::doCreateUnitRevivalEntry(const AsciiString &objectTypeName, 
 		}
 	}
 	tracker->addRevivableUnit(entry, player);
+}
+
+void ScriptActions::doCreateUnitRevivalEntryFromDelayedCarryoverHero(const AsciiString &objectTypeName,
+	const AsciiString &playerName)
+{
+	ObjectTypes tempTypes;
+	ObjectTypes *types = TheScriptEngine->getObjectTypes(objectTypeName);
+	if (!types || types->getListSize() == 0) {
+		tempTypes.addObjectType(objectTypeName);
+		types = &tempTypes;
+	}
+	int mask = TheScriptEngine->rva00357475(playerName, 0);
+	if (TheLinearCampaignManager && TheLinearCampaignManager->hasCampaign()) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		if (player) {
+			UnitRevivalTracker *tracker = player->getUnitRevivalTracker();
+			if (tracker)
+				TheLinearCampaignManager->rva001EC9AC(types, tracker, player);
+		}
+	} else if (TheLivingWorldLogic) {
+		while (mask) {
+			Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+			if (!player)
+				continue;
+			int armyID = player->getArmyID();
+			if (armyID == -1)
+				continue;
+			_STL::vector<Rva0040D701ArmySummary *> armies;
+			(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B323C(&armies, armyID);
+			_STL::vector<Rva0040D701ArmySummary *>::iterator it = armies.begin();
+			_STL::vector<Rva0040D701ArmySummary *>::iterator end = armies.end();
+			for (; it != end; ++it) {
+				if ((*it)->SpawnOneDelayedCarryoverUnitIntoUnitRevivalTracker(types))
+					return;
+			}
+		}
+	}
 }
