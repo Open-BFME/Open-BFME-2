@@ -183,6 +183,18 @@ PUBLIC ?rva0075F97F@@YAXXZ
     ret
 ?rva0075F97F@@YAXXZ ENDP
 
+; Unwind@00b5facd: eh-vector-dtor cleanup passes the address of [ebp-88] with count 4 and size 12.
+PUBLIC ?rva0075FACD@@YAXXZ
+?rva0075FACD@@YAXXZ PROC
+    push 004B3FD0h
+    push 4
+    push 0Ch
+    lea eax, DWORD PTR [ebp-88]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0075FACD@@YAXXZ ENDP
+
 ; Unwind@00b5faf2: bit 0 at [ebp-0x14], cleanup pointer at [ebp+8].
 PUBLIC ?rva0075FAF2@@YAXXZ
 ?rva0075FAF2@@YAXXZ PROC
@@ -430,6 +442,19 @@ PUBLIC ?rva0076428C@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva0076428C@@YAXXZ ENDP
+
+; Unwind@00b642a2: eh-vector-dtor cleanup adds 68h to [ebp-16] and passes it to 004B3FD0h.
+PUBLIC ?rva007642A2@@YAXXZ
+?rva007642A2@@YAXXZ PROC
+    push 004B3FD0h
+    push 4
+    push 8
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 68h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007642A2@@YAXXZ ENDP
 
 ; Unwind@00b646b7: state bit 0 at [ebp-20]; cleanup transfer at [ebp+8].
 PUBLIC ?rva007646B7@@YAXXZ
