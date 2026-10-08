@@ -30,3 +30,18 @@ DebugIOCon::~DebugIOCon()
 		FreeConsole();
 	}
 }
+
+// Whole BFME 1 R1MemberPredicates.cpp at9cbfb551fe emits this byte test under
+// the clean named Common O2/x87/G6 min5 sweep. Native408C0..408C9 is
+// INT3-bounded, reads ECX+4 and normalizes that byte to0/1 in AL. No calls,
+// globals, literals or direct/address references establish an original owner
+// or richer prototype. Adjacent DebugIOCon code also uses byte+4, which makes
+// this prescribed debug home suitable but does not prove a method identity.
+// This ordinary fastcall projection models only the witnessed ECX input and
+// low-byte return, with no class view, stack argument or original ABI claim.
+bool __fastcall Rva000408C0NonzeroByte4(const unsigned char *receiver)
+{
+    if (receiver[4])
+        return true;
+    return false;
+}
