@@ -362,6 +362,7 @@ public:
 	void rva00514BA1();
 	void rva00514BB5();
 	void rva00514DC0(int button);
+	void rva00514FE9();
 	void rva005158A7();
 	// 0x00515633 (rowed as the free Rva00515633Delete; it ignores ECX but
 	// is called with the menu in it), pinned under this name.
@@ -562,6 +563,21 @@ void AptMainMenu::CreditsExit(const char *unused)
 	m_2a4.clear();
 	TheShell->m_5d = false;
 	((GameEngineRate *)TheGameEngine)->v18(((AptMainMenuGlobalData *)TheWritableGlobalData)->m_28);
+}
+
+// Retail 0x00514FE9, 88 bytes. Name unknown; the tutorial prompt 0x00515980
+// calls it while +0x27F is set. It clears that flag, restores the shell's
+// audio unless 0x0035BD5D holds (as CreditsExit does, but only with a shell)
+// and reverses the "MainMenuToSubMenu" transition.
+void AptMainMenu::rva00514FE9()
+{
+	m_27f = false;
+	if (TheShell && !TheShell->rva0035BD5D())
+	{
+		TheAudio->v35(2, 1, 0);
+		TheShell->rva0035C2B9();
+	}
+	TheTransitionHandler->reverse(AsciiString("MainMenuToSubMenu"));
 }
 
 // Retail 0x00514B8D, 20 bytes. Name unknown. State 5 while the resource
