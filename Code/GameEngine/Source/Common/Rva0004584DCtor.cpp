@@ -70,6 +70,18 @@ Rva002FDF47::Rva002FDF47(const BfmeFixedStorage0004543D &a, const BfmeFixedStora
 {
 }
 
+// The one-mask sibling installs C1A25C. Native slot 1 is 2610F2;
+// ctor 3959FA copies one 28-byte mask at +8 and returns at 395A19.
+class Rva003959FA : public Rva000421C8 {
+public:
+ Rva003959FA(const BfmeFixedStorage0004543D &);
+ __declspec(noinline) virtual ~Rva003959FA();
+ virtual bool allow(Object *);
+ BfmeFixedStorage0004543D m_08;
+};
+Rva003959FA::Rva003959FA(const BfmeFixedStorage0004543D &mask) : m_08(mask) {}
+inline Rva003959FA::~Rva003959FA() {}
+
 template<int N>
 class BitFlags
 {
@@ -109,4 +121,8 @@ inline Rva002FDF47::~Rva002FDF47() {}
 bool Rva0004584D::allow(Object *obj)
 {
 	return obj->isKindOfMulti(*(const BitFlags<116> *)&m_08, *(const BitFlags<116> *)&m_24);
+}
+
+bool Rva003959FA::allow(Object *obj) {
+ return obj->isAnyKindOf(*(const BitFlags<69> *)&m_08);
 }
