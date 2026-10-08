@@ -10,7 +10,6 @@ public:
 	void Release_Ref(void);
 };
 
-#pragma optimize("t", on)
 class RefCountClass
 {
 public:
@@ -32,7 +31,6 @@ public:
 private:
 	HashableClass *m_next;
 };
-#pragma optimize("", on)
 
 class W3DShadowTexture : public RefCountClass, public HashableClass
 {

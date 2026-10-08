@@ -174,11 +174,17 @@ Rva000A8EF6::~Rva000A8EF6()
 {
 }
 
+// BFME 1 hash.h at ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f supplies
+// the Hashable contract. Native BCEF94 has deleting dtor 4EF9D6 followed
+// by purecall 43B810; geometry ctor F1E48 zeroes NextHash at base+4.
 class HashableClass
 {
 public:
 	HashableClass(EmitVtableTag *);
 	virtual ~HashableClass() {}
+	virtual const char *Get_Key(void)=0;
+private:
+	HashableClass *NextHash;
 };
 
 // ?<HashableClass::HashableClass> absent-from-retail

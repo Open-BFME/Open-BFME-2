@@ -8,6 +8,9 @@
 // an array will not match, try it without this block.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
+// Native Hashable ctor EF9C2 is the 13B size copy; the /O2 default emits
+// a conflicting 16B provider. Use this existing scope for the base header.
+#include "hash.h"
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #define Matrix4x4 Matrix4

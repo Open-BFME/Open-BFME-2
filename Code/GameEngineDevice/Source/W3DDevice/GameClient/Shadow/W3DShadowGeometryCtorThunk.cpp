@@ -9,7 +9,6 @@
 typedef int Int;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
-#pragma optimize("t", on)
 class RefCountClass
 {
 public:
@@ -29,6 +28,8 @@ private:
 class HashableClass
 {
 public:
+	// Donor hash.h initializer; native EF9C2..EF9CF stores NextHash+4 and
+	// the known BCEF94 base vtable. Previous body ends ret4 at EF9BF.
 	HashableClass(void) : NextHash(0) {}
 	virtual ~HashableClass(void) {}
 	virtual const char *Get_Key(void) = 0;
@@ -36,7 +37,6 @@ public:
 private:
 	HashableClass *NextHash;
 };
-#pragma optimize("", on)
 
 struct AsciiStringData;
 
