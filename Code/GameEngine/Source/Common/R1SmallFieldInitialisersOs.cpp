@@ -59,3 +59,19 @@ struct Rva004689FAFields {
 Rva004689FAFields *Rva004689FAFields::initialize() {
     word00 = 0; word04 = ~0u; return this;
 }
+
+// BF1 9cbfb551fe Common/Q1ConstantFieldConstructors.cpp is the clean
+// zero-field/receiver-return semantic guide only. The target bodies are
+// independently RET-bounded: 23DC7F..23DC86 writes dword18=0 after RET23DC7E;
+// 85524..8552B writes dword28=0 after RET85523. Incoming ECX is returned in
+// EAX. Constructor-versus-reset, owner identity and complete bounds are unknown.
+struct Rva0023DC7FFields {
+    unsigned char unknown[0x18]; unsigned int word18;
+    Rva0023DC7FFields *clear();
+};
+Rva0023DC7FFields *Rva0023DC7FFields::clear() { word18=0; return this; }
+struct Rva00085524Fields {
+    unsigned char unknown[0x28]; unsigned int word28;
+    Rva00085524Fields *clear();
+};
+Rva00085524Fields *Rva00085524Fields::clear() { word28=0; return this; }
