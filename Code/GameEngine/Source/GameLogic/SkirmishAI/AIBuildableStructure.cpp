@@ -106,5 +106,34 @@ bool AIBuildableStructure::rva00573B5E()
  return false;
 }
 
+class BuildAssistantCallView {
+public:
+#define SLOT(n) virtual void s##n();
+ SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
+ virtual int checkPosition(const Coord3D *,const ThingTemplate *,float,int,Object *,Player *);
+ SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23)
+ virtual int canMakeUnit(Object *,const ThingTemplate *,int);
+#undef SLOT
+};
+class BuildAssistant;
+extern BuildAssistant *TheBuildAssistant;
+// WB1506DC0 assertion 86 names canMake. Native 573CFB..573DCD RET4
+// checks AI slot110, assistant slot24, the recovered fire-grid helper, then
+// assistant slot16. The final slot has six explicit arguments: the Player
+// remains on the stack across the producer lookup. /Oy- preserves this frame.
+int AIBuildableStructure::canMake(Player *player)
+{
+ Object *dozer=TheGameLogic->findObjectByID(producer);
+ if (!dozer || !dozer->ai->canUseDozer()) return 8;
+ const ThingTemplate *thing=(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
+ int status=((BuildAssistantCallView *)TheBuildAssistant)->canMakeUnit(dozer,thing,-1);
+ if (status==0) {
+   if (rva00573B5E()) return 9;
+   const ThingTemplate *siteThing=(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
+   if (((BuildAssistantCallView *)TheBuildAssistant)->checkPosition(&position(),siteThing,rotation(),133,TheGameLogic->findObjectByID(producer),player)) return 10;
+ }
+ return status;
+}
+
 
 
