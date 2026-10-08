@@ -64,3 +64,44 @@ int Rva002A7DD0::rva002A7DD0()
 {
 	return !m_ptr10->bfmeAskRV();
 }
+
+// Retail 0x002A7DDE (54 bytes): thiscall, one pointer argument, ret 4. Reads
+// the Player pointer at +0x10; a null pointer answers false. Otherwise it asks
+// bfmeAskRV on that pointer and answers true when the ask is false, else it
+// compares getRelationship on the argument's Team at +0x304 with 2.
+class Team;
+class Player;
+enum Relationship { Relationship0, Relationship1, Relationship2 };
+class Player
+{
+public:
+	Relationship getRelationship(const Team *) const;
+};
+class Rva002A7DDEArg
+{
+public:
+	char m_pad[0x304];
+	Team *m_team304;
+};
+class Rva002A7DDE
+{
+public:
+	bool rva002A7DDE(Rva002A7DDEArg *arg);
+
+private:
+	char m_lead[0x10];
+	Player *m_ptr10; // +0x10
+};
+
+bool Rva002A7DDE::rva002A7DDE(Rva002A7DDEArg *arg)
+{
+	Player *player = m_ptr10;
+	if (player == 0)
+		return false;
+	if (!((BfmeMemberRV *)player)->bfmeAskRV())
+		return true;
+	int relationship = player->getRelationship(arg->m_team304);
+	if (relationship == 2)
+		return true;
+	return false;
+}
