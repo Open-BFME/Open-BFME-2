@@ -16298,3 +16298,8 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?setRadiusCursorNone@InGameUI@@UAEXXZ,0x0029A64A,callee of ??1InGameUI@@UAE@XZ: REL32 at 0x002A5C00 = vftable 0x7FD410 slot 81 (0x0029A64A); ZH dtor calls setRadiusCursorNone after placeBuildAvailable
 ?stopCameoMovie@InGameUI@@UAEXXZ,0x0029F4AB,callee of ??1InGameUI@@UAE@XZ: REL32 at 0x002A5BF0 = vftable 0x7FD410 slot 91 (0x0029F4AB); ZH dtor calls stopCameoMovie after stopMovie
 ?stopMovie@InGameUI@@UAEXXZ,0x0029B4C4,callee of ??1InGameUI@@UAE@XZ: REL32 at 0x002A5BE9 = vftable 0x7FD410 slot 88 (0x0029B4C4); ZH dtor calls stopMovie after removeMilitarySubtitle
+??0Rva0029E2A9@@QAE@XZ,0x004E63FC,callee of ??0InGameUI@@QAE@XZ
+??0Rva004E7F29@@QAE@XZ,0x004E7F43,callee of ??0InGameUI@@QAE@XZ
+??0Rva0029B63A@@QAE@XZ,0x00413727,callee of ??0InGameUI@@QAE@XZ
+??0Rva002A1D02@@QAE@XZ,0x002A5876,callee of ??0InGameUI@@QAE@XZ
+??0Rva004E6C34@@QAE@XZ,0x004E6C34,callee of ??0InGameUI@@QAE@XZ
