@@ -150,13 +150,216 @@ public:
 	void clear();
 };
 
+// Command-map binding (the shape 0x0057BC63's rowed holder takes): the
+// target, an unused word, then the member pointer in its two-word
+// (multiple-inheritance) form.
+class __multiple_inheritance FunctorTarget;
+typedef void (FunctorTarget::*FunctorMethod)(void);
+
+struct FunctorBinding
+{
+	template <class T> FunctorBinding(T *target, void (T::*method)(const char *))
+		: m_target(reinterpret_cast<FunctorTarget *>(target)), m_method(reinterpret_cast<FunctorMethod>(method)) {}
+	template <class T> FunctorBinding(T *target, void (T::*method)(void *))
+		: m_target(reinterpret_cast<FunctorTarget *>(target)), m_method(reinterpret_cast<FunctorMethod>(method)) {}
+
+	FunctorTarget *m_target;
+	unsigned int m_pad;
+	FunctorMethod m_method;
+};
+
+class Rva0057BC63FunctorHolder
+{
+public:
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding); // 0x0057BC63
+
+	void *m_ptr;
+};
+
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
+
+class AptCommandMap;
+
+// The reference-counted command map AptCommandMapAdder::AddCommandMap
+// takes by value, built in the argument slot from a binding.
+template <class T> class AptRef
+{
+public:
+	AptRef(const FunctorBinding &binding) : m_holder(binding) {}
+	AptRef(const AptRef &that);
+	~AptRef()
+	{
+		if (m_holder.m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_holder.m_ptr);
+	}
+
+private:
+	Rva0057BC63FunctorHolder m_holder;
+};
+
+namespace _STL {
+template <class T> class allocator
+{
+public:
+	allocator() {}
+};
+
+// STLport vector storage; its allocator ctor is the shared out-of-line body
+// pinned at 0x00211E58.
+template <class T, class A> class _Vector_base
+{
+public:
+	_Vector_base(const A &alloc);
+
+protected:
+	T *_M_start;
+	T *_M_finish;
+	T *_M_end_of_storage;
+};
+}
+
+// The 12-byte command-map name list (vector<AsciiString>): AddCommandMap
+// 0x0052458E, dtor 0x0052413E (pinned). Its ctor is defined below; /OPT:ICF
+// folded it onto the identical vector default ctor at 0x001F81BF.
+class AptCommandMapAdder
+{
+public:
+	AptCommandMapAdder();
+	~AptCommandMapAdder();
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+
+	__forceinline void AddCommandMapBinding(const AsciiString &name, FunctorBinding binding)
+	{
+		AddCommandMap(name, binding);
+	}
+
+private:
+	_STL::_Vector_base<AsciiString, _STL::allocator<AsciiString> > m_names;
+};
+
+// ?AptCommandMapAdder::AptCommandMapAdder present-unmatched (ICF-folded at 0x001F81BF; pinned)
+AptCommandMapAdder::AptCommandMapAdder()
+	: m_names(_STL::allocator<AsciiString>())
+{
+}
+
+// "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
+class Rva000B3F84Pair
+{
+public:
+	Rva000B3F84Pair() {}
+	Rva000B3F84Pair *init(const char *src); // 0x000B3F84
+
+	const char *m_ptr;
+	int m_len;
+};
+
+struct AsciiStringRef
+{
+	const AsciiString *m_string;
+};
+
+struct AsciiStringPlusString : AsciiStringRef
+{
+	AsciiStringRef m_second;
+};
+
+struct AsciiStringPlusStringText : AsciiStringPlusString
+{
+	operator AsciiString(); // 0x0050F74B
+
+	Rva000B3F84Pair m_right;
+};
+
+static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
+{
+	AsciiStringPlusString result;
+	result.m_string = &left;
+	result.m_second.m_string = &right;
+	return result;
+}
+
+// ?operator+(AsciiStringPlusString, text) present-unmatched (inline, emitted out of line; ICF-folded at 0x00109CFD; pinned)
+inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
+{
+	Rva000B3F84Pair text;
+	text.init(right);
+	AsciiStringPlusStringText result;
+	static_cast<AsciiStringPlusString &>(result) = left;
+	result.m_right = text;
+	return result;
+}
+
+// The options/objectives button subobjects at +0x04 and +0x18: each the
+// rowed 0x00578C2E (vtable plus listener list at +4, Rva004FAC6BCtor.cpp)
+// under its own vtable (0x00C6EAC0).
+class __declspec(novtable) Rva004FAC6BBase0
+{
+public:
+	virtual void base0();
+};
+
+class Rva00578C2E : public Rva004FAC6BBase0
+{
+public:
+	Rva00578C2E() throw();
+	virtual ~Rva00578C2E() {}
+
+	Rva00578A60List m_listeners; // +0x04
+};
+
+template <int N> class PalantirButton : public Rva00578C2E
+{
+public:
+	virtual ~PalantirButton() {}
+};
+
+class __declspec(novtable) PalantirBase0
+{
+public:
+	virtual ~PalantirBase0();
+};
+
+// Owning holders with their rowed clears as destructors.
+
+class Rva0057866DHolder : public Rva0057866D
+{
+public:
+	Rva0057866DHolder() { m_ptr = 0; }
+	~Rva0057866DHolder() { ((Rva00578690 *)this)->rva00578690(); }
+};
+
+class Rva005786AAHolder : public Rva005786AA
+{
+public:
+	Rva005786AAHolder() { m_ptr = 0; }
+	~Rva005786AAHolder() { ((Rva005786CD *)this)->clear(); }
+};
+
+class Rva00578701Holder : public Rva00578701
+{
+public:
+	Rva00578701Holder() { m_ptr = 0; }
+	~Rva00578701Holder() { ((Rva005786E7 *)this)->rva005786E7(); }
+};
+
+class Rva0057873EHolder : public Rva0057873E
+{
+public:
+	Rva0057873EHolder() { m_ptr = 0; }
+	~Rva0057873EHolder() { ((Rva00578724 *)this)->clear(); }
+};
+
 namespace StrategicHUD {
 class Palantir;
 }
 
-class StrategicHUD::Palantir
+class StrategicHUD::Palantir : public PalantirBase0, public PalantirButton<0>, public PalantirButton<1>
 {
 public:
+	Palantir(int level, const AsciiString &name);
+	virtual ~Palantir();
 	void rva00578AC1(void *arg);
 	void rva00578B4C(void *arg);
 
@@ -175,29 +378,49 @@ public:
 
 	void rva005785A2(void *selection);
 	void rva005785CD();
+	Palantir *rva005785BE();
 
 private:
-	int m_00;
-	int m_04;
-	Rva00578A60List m_list08;
-	int m_18;
-	Rva00578A60List m_list1C;
-	char m_pad2C[0x40 - 0x2C];
+	int m_level; // +0x2C
+	AsciiString m_name; // +0x30
+	AptCommandMapAdder m_commandMaps; // +0x34
 	void *m_selection; // +0x40
-	Rva0057866D m_commandUI; // +0x44
-	Rva005786AA m_regionStatsTray; // +0x48
-	Rva00578701 m_regionUI; // +0x4C
-	Rva0057873E m_selectionUI; // +0x50
+	Rva0057866DHolder m_commandUI; // +0x44
+	Rva005786AAHolder m_regionStatsTray; // +0x48
+	Rva00578701Holder m_regionUI; // +0x4C
+	Rva0057873EHolder m_selectionUI; // +0x50
 	bool m_flag54;
-	char m_pad55;
+	bool m_flag55;
 	bool m_flag56;
+	bool m_flag57;
 };
+
+StrategicHUD::Palantir::Palantir(int level, const AsciiString &name)
+	: m_level(level), m_name(name), m_selection(0), m_flag54(false), m_flag55(false), m_flag56(false), m_flag57(false)
+{
+	AsciiString prefix;
+	prefix.format("_level%u.", m_level);
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnCommandUILoaded", FunctorBinding(this, &Palantir::OnCommandUILoaded));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnCommandUIUnloaded", FunctorBinding(this, &Palantir::OnCommandUIUnloaded));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnRegionStatsTrayLoaded", FunctorBinding(this, &Palantir::OnRegionStatsTrayLoaded));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnRegionStatsTrayUnloaded", FunctorBinding(this, &Palantir::OnRegionStatsTrayUnloaded));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnRegionUILoaded", FunctorBinding(this, &Palantir::OnRegionUILoaded));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnRegionUIUnloaded", FunctorBinding(this, &Palantir::OnRegionUIUnloaded));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnSelectionUILoaded", FunctorBinding(this, &Palantir::OnSelectionUILoaded));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnSelectionUIUnloaded", FunctorBinding(this, &Palantir::OnSelectionUIUnloaded));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnOptionsButtonClicked", FunctorBinding(this, &Palantir::OnOptionsButtonClicked));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnOptionsButtonRollOver", FunctorBinding(this, &Palantir::OnOptionsButtonRollOver));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnOptionsButtonRollOut", FunctorBinding(this, &Palantir::rva00578AC1));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnObjectivesButtonClicked", FunctorBinding(this, &Palantir::OnObjectivesButtonClicked));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnObjectivesButtonRollOver", FunctorBinding(this, &Palantir::rva00578B4C));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnObjectivesButtonRollOut", FunctorBinding(this, &Palantir::OnObjectivesButtonRollOut));
+}
 
 void StrategicHUD::Palantir::rva00578AC1(void *unused)
 {
 	(void)unused;
 	m_flag54 = false;
-	m_list08.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::updateAnimateWindow), &m_04);
+	PalantirButton<0>::m_listeners.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::updateAnimateWindow), &static_cast<PalantirButton<0> &>(*this));
 }
 
 // ?rva00578B4C@Palantir@StrategicHUD@@QAEXPAX@Z, retail 0x00578B4C, 24 bytes.
@@ -207,7 +430,7 @@ void StrategicHUD::Palantir::rva00578B4C(void *unused)
 {
 	(void)unused;
 	m_flag56 = true;
-	m_list1C.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow), &m_18);
+	PalantirButton<1>::m_listeners.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow), &static_cast<PalantirButton<1> &>(*this));
 }
 
 // Retail 0x005785A2, 25 bytes. Name unknown. Keeps the selection and hands
@@ -253,7 +476,7 @@ void StrategicHUD::Palantir::OnCommandUILoaded(const char *name)
 // Retail 0x005787F8, 11 bytes: bound as "<movie>_OnCommandUIUnloaded".
 void StrategicHUD::Palantir::OnCommandUIUnloaded(const char *name)
 {
-	((Rva00578690 *)&m_commandUI)->rva00578690();
+	((Rva00578690 *)static_cast<Rva0057866D *>(&m_commandUI))->rva00578690();
 }
 
 // Retail 0x00578803, 148 bytes: bound as "<movie>_OnRegionStatsTrayLoaded".
@@ -307,9 +530,9 @@ void StrategicHUD::Palantir::OnOptionsButtonClicked(const char *unused)
 {
 	int mode = ((Rva00578A7EAptMode *)TheRva00222A8BTarget)->m_mode;
 	if (mode == 0)
-		m_list08.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initAnimateWindow), this ? &m_04 : 0);
+		PalantirButton<0>::m_listeners.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initAnimateWindow), static_cast<PalantirButton<0> *>(this));
 	else if (mode == 2)
-		m_list08.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initReverseAnimateWindow), this ? &m_04 : 0);
+		PalantirButton<0>::m_listeners.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initReverseAnimateWindow), static_cast<PalantirButton<0> *>(this));
 }
 
 // Retail 0x00578AD9, 24 bytes: bound as "<movie>_OnOptionsButtonRollOver"
@@ -317,7 +540,7 @@ void StrategicHUD::Palantir::OnOptionsButtonClicked(const char *unused)
 void StrategicHUD::Palantir::OnOptionsButtonRollOver(const char *unused)
 {
 	m_flag54 = true;
-	m_list08.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow), &m_04);
+	PalantirButton<0>::m_listeners.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::reverseAnimateWindow), &static_cast<PalantirButton<0> &>(*this));
 }
 
 // Retail 0x00578AF1, 67 bytes: bound as "<movie>_OnObjectivesButtonClicked".
@@ -325,9 +548,9 @@ void StrategicHUD::Palantir::OnObjectivesButtonClicked(const char *unused)
 {
 	int mode = ((Rva00578A7EAptMode *)TheRva00222A8BTarget)->m_mode;
 	if (mode == 0)
-		m_list1C.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initAnimateWindow), this ? &m_18 : 0);
+		PalantirButton<1>::m_listeners.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initAnimateWindow), static_cast<PalantirButton<1> *>(this));
 	else if (mode == 2)
-		m_list1C.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initReverseAnimateWindow), this ? &m_18 : 0);
+		PalantirButton<1>::m_listeners.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initReverseAnimateWindow), static_cast<PalantirButton<1> *>(this));
 }
 
 // Retail 0x00578B34, 24 bytes: bound as "<movie>_OnObjectivesButtonRollOut"
@@ -335,7 +558,7 @@ void StrategicHUD::Palantir::OnObjectivesButtonClicked(const char *unused)
 void StrategicHUD::Palantir::OnObjectivesButtonRollOut(const char *unused)
 {
 	m_flag56 = false;
-	m_list1C.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::updateAnimateWindow), &m_18);
+	PalantirButton<1>::m_listeners.forEach(reinterpret_cast<void (Rva00578A60Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::updateAnimateWindow), &static_cast<PalantirButton<1> &>(*this));
 }
 
 // RVA 0x005CB265 is the 5-byte slot-3 dispatch (jmp [vptr+0x0C]);
@@ -347,3 +570,11 @@ void StrategicHUD::Palantir::OnObjectivesButtonRollOut(const char *unused)
 // replacing the undefined free-function placeholder and union bit-pun.
 // 0x005CB260 and 0x005CC208 are the slot-1 and slot-2 dispatches the
 // Clicked handlers take.
+
+StrategicHUD::Palantir *StrategicHUD::Palantir::rva005785BE()
+{
+	Palantir *ready = 0;
+	if (m_regionUI.m_ptr != 0 && m_regionStatsTray.m_ptr != 0)
+		ready = this;
+	return ready;
+}

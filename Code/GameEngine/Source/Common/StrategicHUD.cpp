@@ -185,6 +185,7 @@ class Palantir
 {
 public:
 	void rva005785A2(void *selection);
+	Palantir *rva005785BE(); // 0x005785BE
 	void rva005785CD();
 };
 
@@ -408,6 +409,7 @@ public:
 	class Impl;
 
 	void rva0042D5D6();
+	Palantir *rva0042D6EC();
 
 private:
 	Impl *m_impl;
@@ -442,6 +444,8 @@ public:
 	void OnStatsDisplayUnloaded(const char *name);
 
 	void rva0042D577();
+
+	Rva00578C43 *palantir() const { return m_palantir.m_ptr; }
 
 private:
 	int m_00; // the constructor's first argument
@@ -544,6 +548,15 @@ void StrategicHUD::HUD::Impl::rva0042D577()
 void StrategicHUD::HUD::rva0042D5D6()
 {
 	m_impl->rva0042D577();
+}
+
+// Retail 0x0042D6EC, 17 bytes. Name unknown. The Palantir when it is ready
+// (the readiness query 0x005785BE), else null; reached only through the jmp
+// thunk 0x00574348 in a vtable.
+StrategicHUD::Palantir *StrategicHUD::HUD::rva0042D6EC()
+{
+	StrategicHUD::Palantir *palantir = (StrategicHUD::Palantir *)m_impl->palantir();
+	return palantir ? palantir->rva005785BE() : 0;
 }
 
 // Retail 0x0042D92E, 181 bytes.
