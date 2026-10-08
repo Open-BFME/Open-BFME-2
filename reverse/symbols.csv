@@ -5397,7 +5397,6 @@ name,address,notes
 ??RBfmeRangeUpdaterFC@@QAEXHHH@Z,0x006C0EE0
 ??RBfmeScoreEntryLess@@QBE_NPBUBfmeScoreEntry@@0@Z,0x005B26CE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??RBfmeStringNoCaseLess@@QBE_NABVAsciiString@@0@Z,0x0002C63C,call site lea ecx edi+8 in 0002C686 proves thiscall compare at 0002C63C twin of rowed stdcall free
-??RMapHelper@?$SparseMatchFinder@VArmorTemplateSet@@V?$BitFlags@$0L@@@@@QBE_NABV?$BitFlags@$0L@@@0@Z,0x0002C63C
 ??RNameClearFunctor00462540@@QAEXAAU?$pair@$$CBVAsciiString@@UWindowRecord@@@_STL@@@Z,0x004107AE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??RRecordNocaseLess@@QBE_NABUBfmeStringRecord004071F7@@0@Z,0x0002C63C,finish 003ED70D call site lea ecx edi+8 proves thiscall compare at 0002C63C twin of rowed stdcall free
 ??RRva00078F95Cmp@@QBE_NPBURva00078F95Item@@0@Z,0x00078F95,thiscall comparator of the sort<Rva00078F95Item**> family: its 12 call sites are exactly the comparator calls inside that family's rowed bodies (median partition linear inserts heap helpers); 380B body not rowed
