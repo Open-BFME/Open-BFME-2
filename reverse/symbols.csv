@@ -4242,7 +4242,6 @@ name,address,notes
 ??1Rva0026E9BDBase@@UAE@XZ,0x0026E836,DeployStyle dtor TU spelling for the opaque SEH base dtor; same body as pinned ??1Rva0026E836@@UAE@XZ
 ??1Rva0026F445@@UAE@XZ,0x0026F445,"destructor the scalar deleting destructor 0x0026F597 calls (REL32 at 0x0026F59A; vtable 0x00BFABB8#0); opaque address name"
 ??1Rva002793F0@@UAE@XZ,0x002793F0,"destructor the scalar deleting destructor 0x00279FFC calls (REL32 at 0x00279FFF; vtable 0x00BFB0B4#7); opaque address name"
-??1Rva002827F3@@QAE@XZ,0x0028279F,"destructor for Rva002827F3 called from Rva002833E7Holder dtor at 0x002833E7"
 ??1Rva0028418A@@UAE@XZ,0x0028418A,opaque SEH dtor (mov-eax-cookie prologue); tail-called by 4-vptr dtor at 0x62AF7; identity unproven, address-derived name
 ??1Rva002859EADtor@@QAE@XZ,0x002859EA,dtor at 0x002859EA (target of thunks 0x007B6B73 0x007B781A 0x007B7824 0x007B7CD7 0x007B92A2)
 ??1Rva00285BEC@@UAE@XZ,0x00285BEC,"destructor the scalar deleting destructor 0x002862AD calls (REL32 at 0x002862B0; vtable 0x00BFB700#11); opaque address name"
@@ -16310,3 +16309,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?CreateNewExpLevel@ExperienceLevelStore@@QAE_NABVAsciiString@@0000@Z,0x0028A473,callee of ?AddCommandButtonLevel@CreateAHeroHero@@QAE_NIABVAsciiString@@00@Z
 ?rva0041B603@Rva0041B790@@QAEXXZ,0x0041B603,callee of ??1Rva0041B790@@UAE@XZ
 ?rva001B5018@SubsystemInterfaceList@@QAEXPAX@Z,0x001B5018,callee of ?init@LargeGroupAudio@@UAEXXZ
+?rva00282135@Rva0028279F@@QAEXXZ,0x00282135,callee of ??1Rva0028279F@@QAE@XZ
+??_9Rva00281A15Listener@@$BA@AE,0x001FF3A9,callee of ??1Rva0028279F@@QAE@XZ

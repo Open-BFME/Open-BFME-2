@@ -32,7 +32,6 @@ struct Rva00281A06
 class Rva002827F3
 {
 public:
-	~Rva002827F3();
 	void rva002827F3() throw();
 private:
 	unsigned char m_pad[4];
@@ -59,23 +58,30 @@ void Rva002827F3::rva002827F3() throw()
 	vec1->erase(vec1->m_start, vec1->m_finish);
 }
 
+// The lifetime call below targets 0x0028279F, whose listener header and
+// record vector differ from the two pointer vectors of Rva002827F3 above.
+class Rva0028279F
+{
+public:
+	~Rva0028279F();
+};
+
 class Rva002833E7Holder
 {
 public:
 	~Rva002833E7Holder();
 
 private:
-	Rva002827F3 *m_ptr;
+	Rva0028279F *m_ptr;
 };
 
 Rva002833E7Holder::~Rva002833E7Holder()
 {
-	Rva002827F3 *ptr = m_ptr;
+	Rva0028279F *ptr = m_ptr;
 	m_ptr = 0;
 	if (ptr)
 	{
-		ptr->~Rva002827F3();
+		ptr->~Rva0028279F();
 		::operator delete(ptr);
 	}
 }
-
