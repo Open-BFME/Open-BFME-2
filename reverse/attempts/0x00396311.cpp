@@ -1,8 +1,8 @@
 // ?buildCastleStructure@CastleBehavior@@QAEPAVObject@@PAVBuildListInfo@@_N@Z
-// partial score=0.8 date=2026-10-08
+// partial score=0.85 date=2026-10-08
 // Native 00396311..00396722, 1041B; WB ebc8c0 names CastleBehavior::buildCastleStructure.
 // Semantic matrix lead: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f WWMath matrix3d.h Transform_Vector.
-// Trial emits1020B; stack A0 vs retail A4, type/created register lifetimes, angle SSE spill and health/fade x87 shapes remain.
+// Trial emits1036B; by-value angle access and a sequential += recover the native SSE spill. Stack A0 vs retail A4 and type/created register lifetimes remain.
 // All direct callees resolved after the separately verified 3955AF return/receiver ABI correction.
 // No production construction body or ledger row has been added. Damage field names beyond established source/type/death/amount remain opaque.
 // cl: /O1 /G7 /arch:SSE /EHsc /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /I. /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
@@ -12,7 +12,7 @@
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/matrix3d.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
-class BuildListInfo { public: AsciiString rva000AF1DD() const; };
+class BuildListInfo { public: float angle() const { return *(const float*)((const char*)this+0x20); } AsciiString rva000AF1DD() const; };
 class ThingTemplate;
 class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
 extern ThingFactory* TheThingFactory;
@@ -30,7 +30,8 @@ public:
  virtual void slot7(const Coord3D*);
  virtual void slot8(); virtual bool slot9(Coord3D*,bool);
 };
-class Object { public:
+class CastleBodyView;
+class Object { public: CastleBodyView* body() const { return *(CastleBodyView*const*)((const char*)this+0x254); } float orientation() const { return *(const float*)((const char*)this+0x44); }
  Player* getControllingPlayer() const;
  Drawable* getDrawable() const;
  void setSpecialModelConditionState(ModelConditionFlagType,unsigned);
@@ -62,7 +63,7 @@ extern ScriptEngine* TheScriptEngine;
 extern int g_009BA4E8;
 float normalizeAngle(float);
 class Rva003955AFData { public: int query(int,int,float,int,int); };
-class CastleBehavior { public: Object* buildCastleStructure(BuildListInfo*,bool); };
+class CastleBehavior { public: Object* getOwner() const { return *(Object*const*)((const char*)this+8); } Object* buildCastleStructure(BuildListInfo*,bool); };
 Object* CastleBehavior::buildCastleStructure(BuildListInfo* record,bool instant) {
  Object* created=0;
  void* data=field<void*>(this,4);
@@ -72,22 +73,22 @@ Object* CastleBehavior::buildCastleStructure(BuildListInfo* record,bool instant)
  if(!type) return 0;
  if(field<unsigned char>((void*)type,0x114)&0x10) return 0;
  if(field<unsigned char>((void*)type,0x10f)&0x10) field<bool>(this,0x44)=true;
- Player* player=field<Object*>(this,8)->getControllingPlayer();
+ Player* player=getOwner()->getControllingPlayer();
  if(!((Rva2225E0Filter*)((char*)data+0x30))->rva003618B9(type,0,0)) player=field<Player*>(ThePlayerList,0x18);
  if(!player) return 0;
- Object* owner=field<Object*>(this,8);
+ Object* owner=getOwner();
  Vector3 p(field<float>(record,0xc),field<float>(record,0x10),field<float>(record,0x14));
  Matrix3D::Transform_Vector(field<Matrix3D>(owner,8),p,&p);
  Coord3D pos;
  pos.x=p.X; pos.y=p.Y; pos.z=p.Z;
- float angle=field<float>(owner,0x44)+field<float>(record,0x20);
+ float angle=owner->orientation(); angle+=record->angle();
  angle=normalizeAngle(angle);
- if(!(field<unsigned char>((void*)type,0x10a)&2) && field<Rva003955AFData*>(this,4)->query((int)&pos,(int)type,angle,5,(int)field<Object*>(this,8))) return 0;
- created=((CastleFactoryView*)((char*)this+0x20))->create(field<Object*>(this,8),type,&pos,angle,player,instant);
+ if(!(field<unsigned char>((void*)type,0x10a)&2) && field<Rva003955AFData*>(this,4)->query((int)&pos,(int)type,angle,5,(int)getOwner())) return 0;
+ created=((CastleFactoryView*)((char*)this+0x20))->create(getOwner(),type,&pos,angle,player,instant);
  if(created) {
-  if((field<unsigned char>((void*)type,0x10a)&2) && field<bool>(data,0x75) && field<Object*>(this,8)) {
-   CastleBodyView* from=field<CastleBodyView*>(field<Object*>(this,8),0x254);
-   CastleBodyView* to=field<CastleBodyView*>(created,0x254);
+  if((field<unsigned char>((void*)type,0x10a)&2) && field<bool>(data,0x75) && getOwner()) {
+   CastleBodyView* from=getOwner()->body();
+   CastleBodyView* to=created->body();
    if(from && to) {
     DamageInfo damage;
     float fraction=from->fraction();
