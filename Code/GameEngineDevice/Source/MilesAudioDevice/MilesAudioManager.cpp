@@ -156,7 +156,8 @@ public:
     void advanceNextPlayPortion(void);
     char at00[0x08];
     AudioEventInfo *m_info;  // +0x08 (owning ref in WB)
-    char at0C[0x30 - 0x0C];
+    int m_playingHandle;     // +0x0C, copied into a requeued loop's request
+    char at10[0x30 - 0x10];
     int m_viewType;          // +0x30
     char at34[0x38 - 0x34];
     int m_ownerType;         // +0x38, 2 when object-owned (getObjectID's test)
@@ -229,10 +230,14 @@ struct PlayingAudio {
     BfmePoolRef10 m_event;            // +0x1C
     Rva000A8A6C m_file;                  // +0x20
     Coord3D m_at24;                      // +0x24, last position 0x55C5D tested
-    char at30[0x34 - 0x30];
+    float m_at30;                        // +0x30, compared with settings +0x78 (0x59CE6)
     float m_at34;                        // +0x34, scales the 3D effects level (0x52FA0)
     int m_at38;                          // +0x38, area index 0x55C5D starts from
-    char at3C[0x4B - 0x3C];
+    float m_at3C;                        // +0x3C, extra volume handed to a requeued loop
+    float m_at40;                        // +0x40, cleared once that volume is handed on
+    char at44[0x49 - 0x44];
+    bool m_at49;                         // +0x49
+    bool m_at4A;                         // +0x4A
     bool m_at4B;                         // +0x4B, set by 0x000535A6
     char at4C[0x4E - 0x4C];
     bool m_at4E;                         // +0x4E, m_at24 holds a position
@@ -347,6 +352,9 @@ private:
 class Rva002D94CE { public: void rva002D94CE(int value); };
 class Weapon { public: void setLeechRangeActive(bool value); };
 class Rva002D9BDC { public: void rva002D9BDC(float lo, float hi); };
+// WorldBuilder calls this AudioEventRTS::setExtraVolumeMultiplier; retail
+// folded it to 0x00481FAF, rowed under this neutral float-slot name.
+class Rva00481FAFFloatSlot { public: void store(float value); };
 // Float-returning event query rowed at 0x002DA153; prep3DSample compares it
 // with AudioSettings +0xB8 to treat a sound as global.
 class Rva002DA153 { public: float rva002DA153(void); };
@@ -414,7 +422,8 @@ struct AudioViewSettings {
 struct AudioSettings {
     char at00[0x74];
     int m_at74;
-    char at78[0xB0 - 0x78];
+    int m_at78;                          // +0x78, compared with a loop's +0x30 (0x59CE6)
+    char at7C[0xB0 - 0x7C];
     float m_atB0;                        // +0xB0, position change 0x55C5D ignores
     int m_atB4;                          // +0xB4, processRequest's preload limit
     float m_atB8;
@@ -923,6 +932,27 @@ bool MilesAudioManager::startNextLoop(PlayingAudioRef &looping)
         return true;
     }
     return false;
+}
+
+void MilesAudioManager::rva00059CE6(PlayingAudioRef &looping)
+{
+    looping->m_status = 1;
+    Rva00051107AudioRequest *request = rva00051107();
+    request->m_request = 0;
+    request->m_pendingEvent = looping->m_event;
+    request->m_at11 = true;
+    request->m_at12 = looping->m_at49;
+    request->m_at13 = looping->m_at4A;
+    if (looping->m_at30 >= m_audioSettings->m_at78)
+        ((Weapon *)request->m_pendingEvent.operator->())->setLeechRangeActive(true);
+    request->m_at08 = request->m_pendingEvent->m_playingHandle;
+    if (looping->m_at40 > 0.0f) {
+        ((Rva00481FAFFloatSlot *)request->m_pendingEvent.operator->())->store(looping->m_at3C);
+        looping->m_at40 = 0.0f;
+    }
+    _STL::pair<Rva00051107AudioRequestSet::iterator, bool> result = m_requestSet.insert(request);
+    if (!result.second)
+        deleteAudioRequest(request);
 }
 
 void MilesAudioManager::rva0005AA72(PlayingAudioRef &playing)
