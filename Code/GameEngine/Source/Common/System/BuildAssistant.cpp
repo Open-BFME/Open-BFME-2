@@ -438,6 +438,23 @@ public:
 	virtual void slot00(); virtual void slot01(); virtual void slot02();
 	virtual void slot03(); virtual void slot04(); virtual void slot05();
 	virtual Bool slot06();						// +0x18
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual Bool slot23(ObjectID);			// +0x5C
 };
 
 class AICommandInterface
@@ -600,6 +617,7 @@ public:
 	Real getOrientation() const { return m_orientation; }
 	Relationship getRelationship(const Object *that) const;
 	ObjectID getID() const { return m_id; }
+	ObjectID get7C() const { return m_7C; }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	void rva0028CDEB(const Rva00346BC0 &mask, Bool set);		// setStatus
 	void setConstructionPercent(Real percent) { m_constructionPercent = percent; }
@@ -621,7 +639,9 @@ private:
 	Real m_orientation;			// +0x044
 	unsigned char m_pad048[0x74 - 0x48];
 	ObjectID m_id;				// +0x074
-	unsigned char m_pad078[0xA8 - 0x78];
+	unsigned char m_pad078[4];
+	ObjectID m_7C;				// +0x07C, target link ID
+	unsigned char m_pad080[0xA8 - 0x80];
 	GeometryInfo m_geometryInfo;		// +0x0A8
 	unsigned char m_pad104[0x244 - 0x104];
 	BehaviorModule **m_behaviors;		// +0x244, null-terminated
@@ -2105,3 +2125,19 @@ LegalBuildCode BuildAssistant::isLocationLegalToBuild( const Coord3D *worldPos,
 	return LBC_OK;
 
 }  // end isLocationLegalToBuild
+
+// Native [0x003919F6,0x00391A70): cdecl two-object connectivity predicate.
+// WB 0x00F9BED0 independently repeats kind 156, link-ID comparisons and
+// the 0x28BD17 module query followed by virtual slot 23. The predicate's
+// original name and the kind/module labels remain unresolved.
+Bool Rva003919F6Connected(Object*a,Object*b)
+{
+ if(a==0||b==0)return false;
+ if(!a->isKindOf((KindOfType)156)||!b->isKindOf((KindOfType)156))return false;
+ if(a->get7C()==b->getID() || b->get7C()==a->getID())return true;
+ Rva0028BD17Interface *x=(Rva0028BD17Interface*)a->rva0028BD17();
+ if(x && x->slot23(b->getID()))return true;
+ Rva0028BD17Interface *y=(Rva0028BD17Interface*)b->rva0028BD17();
+ if(y && y->slot23(a->getID()))return true;
+ return false;
+}
