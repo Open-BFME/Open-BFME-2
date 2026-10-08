@@ -263,3 +263,15 @@ Rva003141BCWindowView *Rva003141BCWindowView::rva003142E1(int x, int y, bool a3,
 	}
 	return this;
 }
+
+// BF1 9cbfb551fe GameWindowManager.cpp testGrab is a semantic guide only.
+// Native 002C176C..002C1777 is independently complete: previous CursorSearch
+// RET12 ends here; the next body starts with its own prologue. This leaf reads
+// stack argument8 and returns an EAX dword0-or1 with RET0. No literal native
+// function-pointer references were found. Original name, full argument count
+// and callback role remain unknown; this address-owned function states only
+// the observed two-slot prefix. The donor callback identity is not asserted.
+unsigned int __cdecl rva002C176C(unsigned int unused, unsigned int value)
+{
+    return value == 5;
+}
