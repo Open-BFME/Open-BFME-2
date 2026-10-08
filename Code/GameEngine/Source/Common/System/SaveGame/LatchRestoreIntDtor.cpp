@@ -28,3 +28,21 @@ LatchRestore<StoredType>::~LatchRestore(void)
 }
 
 template class LatchRestore<int>;
+
+// Native 0x002E7F80..0x002E7F86 is a complete six-byte leaf after the
+// preceding destructor's RET.  It subtracts 12 from raw word zero and
+// returns the receiver.  The original owner, word interpretation and full
+// object bounds are unknown; adjacency does not make this LatchRestore.
+// Structural guide: BFME1 9cbfb551 Rva3CxxTinyBodies.cpp /O1 /arch:SSE /G7.
+struct Rva002E7F80Fields
+{
+    unsigned int word0;
+    Rva002E7F80Fields *decrement();
+};
+
+// ?decrement@Rva002E7F80Fields@@QAEPAU1@XZ
+Rva002E7F80Fields *Rva002E7F80Fields::decrement()
+{
+    word0 -= 12;
+    return this;
+}
