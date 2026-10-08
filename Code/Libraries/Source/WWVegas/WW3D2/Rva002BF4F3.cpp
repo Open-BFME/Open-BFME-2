@@ -6,7 +6,7 @@
 // The 12/16-byte nodes use verified RegistryAsciiPath and Rva005F17C6Build ABIs.
 // Address-derived base views retain unknown expression and receiver identities.
 // Canonical AsciiString owns cleanup. Native2BF935..2BFA12 RET12; full221/EH exact.
-// ?rva002BF4F3@Rva002BF4F3@@QAE_NPAVRenderObjClass@@PBVVector3@@PAV3@H_N@Z @0x002BF4F3 189B unlock: AABox early-out then down-cast via rowed 0x002BF198; callers 0x002BF5B0 0x002BF935; box getter slot 0x108; float -1.0f via g_00BBB9AC
+// ?rva002BF4F3@Rva002BF4F3@@QAE_NPAVRenderObjClass@@PBVVector3@@PAV3@H_N@Z @0x002BF4F3 189B unlock: AABox early-out then down-cast via rowed 0x002BF198; callers 0x002BF5B0 0x002BF935; box getter slot 0x108; native float -1.0f
 
 
 #include "ascii_string.h"
@@ -81,7 +81,6 @@ public:
  virtual void v101(int);
 };
 
-extern float g_00BBB9AC;
 
 class Rva00DFEF18Host
 {
@@ -161,7 +160,7 @@ bool Rva002BF4F3::rva002BF4F3(RenderObjClass *obj, const Vector3 *pt, Vector3 *o
 	start.Z = box->Center.Z + box->Extent.Z;
 	dir.X = 0.0f;
 	dir.Y = 0.0f;
-	dir.Z = g_00BBB9AC;
+	dir.Z = -1.0f;
 	return ((Rva00DFEF18Host *)this)->Cast(obj, start, dir, out, collisionType, checkHidden);
 }
 
