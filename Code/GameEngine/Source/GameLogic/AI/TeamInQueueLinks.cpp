@@ -64,3 +64,48 @@ Bool TeamInQueue::dlink_isInList_TeamReadyQueue(TeamInQueue *const *pListHead) c
 {
 	return *pListHead == this || m_dlink_TeamReadyQueue.m_prev || m_dlink_TeamReadyQueue.m_next;
 }
+
+// Native-neighbor home suggested by repair_queue dest: 4F03A2 ends at
+// this file's existing 4F03AF queue helper; 4F0334 ends at existing4F0341.
+// This organization does not establish that the address-owned carriers below
+// are TeamInQueue or that their raw words are links. Those identities remain
+// unknown; each carrier states only its independently witnessed accesses.
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705
+// game/GameEngine/Source/Common/R2SmallMemberOps.cpp /O1 /arch:SSE /G7
+// supplies the high-first pair swap expression. Target independently proves
+// each complete RET-bounded leaf: 4F0334..4F0341 exchanges raw32 +4/+8;
+// 4F03A2..4F03AF exchanges raw32 +C/+10. Each reads high then low, writes
+// high then low, and has an ECX receiver with no stack arguments or calls.
+// Unsigned carriers describe only raw32 access. Original classes, field
+// meanings, signedness and any relationship between these owners are unknown.
+class Rva004F0334WordSwap
+{
+public:
+    void swap();
+private:
+    char leading[4];
+    unsigned low;
+    unsigned high;
+};
+void Rva004F0334WordSwap::swap()
+{
+    unsigned held = high;
+    high = low;
+    low = held;
+}
+
+class Rva004F03A2WordSwap
+{
+public:
+    void swap();
+private:
+    char leading[0xC];
+    unsigned low;
+    unsigned high;
+};
+void Rva004F03A2WordSwap::swap()
+{
+    unsigned held = high;
+    high = low;
+    low = held;
+}
