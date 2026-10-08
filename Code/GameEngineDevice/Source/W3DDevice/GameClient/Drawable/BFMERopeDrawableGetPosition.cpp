@@ -226,3 +226,55 @@ const Matrix3D *Drawable::getTransformMatrix() const
 return_cached:
 	return &m_cachedMatrix;
 }
+
+// BFME1 clean linear-position donor at 0x0041D150, revision
+// 9cbfb551fe20dae985f91f2319d8997287b6a705. Target native 0x00276470..0x0027653A
+// and WB 0x00CB0270 corroborate the null-object return, lazy rebuild, and
+// axis interpolation. Receiver +0xFC and returned +0x38/+0x238 are independently
+// witnessed by GameClient's frustum walk. Preserve its existing address-derived
+// method name: the target original name is unproved. The scalar 1.0f matches
+// retail's compiler-literal reference; no address-named global is required.
+
+class Rva00276470Drawable
+{
+private:
+	unsigned char m_unknown000[0x38];
+	Coord3D m_basePosition;
+	unsigned char m_unknown044[0x0FC - 0x44];
+	void *m_object;
+	unsigned char m_unknown100[0x238 - 0x100];
+	Coord3D m_interpolatedPosition;
+	unsigned char m_unknown244[0x418 - 0x244];
+	Coord3D m_position0;
+	Coord3D m_position1;
+	unsigned char m_unknown430[0x444 - 0x430];
+	bool m_interpolationReady;
+
+public:
+	const Coord3D *rva00276470() const;
+};
+
+const Coord3D *Rva00276470Drawable::rva00276470() const
+{
+	if (!m_object)
+		return &m_basePosition;
+
+	Rva00276470Drawable *self =
+		const_cast<Rva00276470Drawable *>(this);
+	if (!m_interpolationReady)
+		reinterpret_cast<Rva002747F9 *>(self)->rva002747F9(0);
+
+	float factor = TheGameEngine->m_interpolationFactor;
+	if (m_position0.x == m_position1.x)
+		self->m_interpolatedPosition.x = m_position0.x;
+	else
+		self->m_interpolatedPosition.x =
+			(1.0f - factor) * m_position0.x + factor * m_position1.x;
+
+	float oneMinusFactor = 1.0f - factor;
+	self->m_interpolatedPosition.y =
+		oneMinusFactor * m_position0.y + factor * m_position1.y;
+	self->m_interpolatedPosition.z =
+		oneMinusFactor * m_position0.z + factor * m_position1.z;
+	return &m_interpolatedPosition;
+}
