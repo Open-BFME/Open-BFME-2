@@ -230,6 +230,17 @@
 // 0x0039BF67 sums them by a kind mask with only the parameter's bit set
 // and a cleared exclusion mask (two memsets of one slot), true when the
 // total reaches the count. Structure follows that ZH-derived sibling.
+//
+// ?evaluateCanBuildAtBase@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E5B11 243B
+// BFME 1 donor: ScriptConditionsCanBuildAtBase.cpp's same-name body
+// (template 127). Target evidence: jump-table case 127 calls 0x003E5B11,
+// which initConditionTemplates names CAN_BUILD_AT_BASE (player, unit). The
+// named unit must belong to the mask's player (rowed getPlayerFromMask, the
+// donor's doubled getControllingPlayer test); a CastleBehavior module (rowed
+// key 0x003955DA) answers through the rowed 0x003971BF with no argument,
+// otherwise a KindOf 0x68 unit asks its FoundationAIUpdate module's +0x20
+// interface (slot 3, negated). The early returns for the unit and the mask
+// follow the sibling CAN_BUILD_OBJECTTYPE_AT_BASE body 0x003E5017.
 #include <string.h>
 #include <vector>
 #include <list>
@@ -331,6 +342,9 @@ public:
 	// KindOf bit 0x6D (byte +0x115, bit 5), unnamed: the horde kinds whose
 	// health lives in the contain interface.
 	bool testKindOf6D() const { return (m_kindOf115 & 0x20) != 0; }
+	// KindOf bit 0x68 (byte +0x115, bit 0), unnamed: the kinds whose base
+	// state is read from the FoundationAIUpdate module.
+	bool testKindOf68() const { return (m_kindOf115 & 0x01) != 0; }
 private:
 	unsigned char m_pad00[0x64];
 	AsciiString m_name; // +0x64
@@ -371,6 +385,34 @@ class CastleBehavior
 public:
 	static NameKeyType rva0003955DA();
 	bool rva003977F6(ObjectTypes *types);
+};
+
+// The rowed 0x003971BF view of the same CastleBehavior module (an ObjectID
+// range check over its +0x50/+0x74 lists, called with no argument).
+struct Arg3971BF;
+class Rva003971BF
+{
+public:
+	bool rva003971BF(Arg3971BF *arg);
+};
+
+// FoundationAIUpdate's second base at +0x20 (vftable 0x00C1A690, as in the
+// rowed FoundationAIUpdateSlots unit); slot 3 is an unnamed bool query.
+class Rva00C1A690Iface
+{
+public:
+	virtual void gap0();
+	virtual void gap1();
+	virtual void gap2();
+	virtual bool slot3() const;
+};
+class FoundationAIUpdate
+{
+public:
+	Rva00C1A690Iface *getFoundationIface() { return &m_iface; }
+private:
+	unsigned char m_pad00[0x20];
+	Rva00C1A690Iface m_iface; // +0x20
 };
 
 // The rowed path-label getters (Waypoint::getPathLabel1..3), each named for
@@ -470,6 +512,9 @@ public:
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	Player *getControllingPlayer() const;
+	// The template's KindOf bit 0x68 read in place: a getTemplate()
+	// temporary swaps retail's ESI/EDI choice in evaluateCanBuildAtBase.
+	bool isKindOf68() const { return m_template->testKindOf68(); }
 	bool isEffectivelyDead() const { return (m_privateStatus & EFFECTIVELY_DEAD) != 0; }
 private:
 	enum { EFFECTIVELY_DEAD = 0x01 };
@@ -787,6 +832,7 @@ protected:
 	bool rva003E6BC5(Condition *, Parameter *);
 	bool evaluateSkirmishPlayerHasPrereqsToBuild(Parameter *, Parameter *);
 	bool evaluatePlayerHasKilledKindOfUnits(Parameter *, Parameter *, Parameter *);
+	bool evaluateCanBuildAtBase(Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1478,6 +1524,38 @@ bool ScriptConditions::evaluatePlayerHasKilledKindOfUnits(Parameter *pPlayerParm
 			mustBeClear.clear();
 			int total = kills->rva0039BF67(mustBeSet, mustBeClear);
 			return total >= pCountParm->getInt();
+		}
+	}
+	return false;
+}
+
+bool ScriptConditions::evaluateCanBuildAtBase(Parameter *pPlayerParm, Parameter *pUnitParm)
+{
+	Object *theUnit = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!theUnit)
+		return false;
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	if (!mask)
+		return false;
+	Player *player = ThePlayerList->getPlayerFromMask(mask);
+	if (player != 0) {
+		Player *ctrl1 = theUnit->getControllingPlayer();
+		if (ctrl1 == player) {
+			Player *ctrl2 = theUnit->getControllingPlayer();
+			if (player == ctrl2) {
+				Module *mod = theUnit->findModule(CastleBehavior::rva0003955DA());
+				if (mod != 0) {
+					if (((Rva003971BF *)mod)->rva003971BF(0) != false)
+						return true;
+				} else if (theUnit->isKindOf68()) {
+					static NameKeyType keyFound = TheNameKeyGenerator->nameToKey("FoundationAIUpdate");
+					Module *fmod = theUnit->findModule(keyFound);
+					if (fmod) {
+						if (!((FoundationAIUpdate *)fmod)->getFoundationIface()->slot3())
+							return true;
+					}
+				}
+			}
 		}
 	}
 	return false;
