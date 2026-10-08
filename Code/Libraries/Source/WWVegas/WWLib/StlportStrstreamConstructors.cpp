@@ -11,6 +11,9 @@
 // base-stream initialization followed by init(&_M_buf). Existing destructor
 // rows independently support the class layouts. Every body and callee is
 // checked against its own target bytes; no new address pins are needed.
+// 00602970/188 adds the callback allocator sibling; 00602740/105 is the
+// buffer-setup helper already reached by the rowed three-argument constructor.
+// Retail uses put + length as the put-area end; preserve that target behavior.
 #include <strstream>
 #include <cstring>
 
@@ -20,6 +23,33 @@ namespace _STL {
 // than inlining the header's init into the istream/ostream base construction.
 template <> void basic_ios<char, char_traits<char> >::init(
     basic_streambuf<char, char_traits<char> > *);
+
+void strstreambuf::_M_setup(char *get, char *put, streamsize n)
+{
+    if (get) {
+        streamsize length = n > 0 ? n : n == 0 ? strlen(get) : 0x7fffffff;
+        if (put) {
+            setg(get, get, put);
+            setp(put, put + length);
+        } else {
+            setg(get, get, get + length);
+        }
+    }
+}
+
+strstreambuf::strstreambuf(__alloc_fn allocate, __free_fn release)
+{
+    _M_alloc_fun = allocate;
+    _M_free_fun = release;
+    _M_dynamic = true;
+    _M_frozen = false;
+    _M_constant = false;
+    char *buffer = _M_alloc_fun ? static_cast<char *>(_M_alloc_fun(16)) : new char[16];
+    if (buffer) {
+        setp(buffer, buffer + 16);
+        setg(buffer, buffer, buffer);
+    }
+}
 
 strstreambuf::strstreambuf(streamsize initial)
 {
