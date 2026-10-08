@@ -3103,7 +3103,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00028B90Siblings.cpp	?bfmeDoPF@Rv
 alternatename	Code/GameEngine/Source/Common/Rva00028B90Siblings.cpp	?bfmeDoPF@Rva0002ACF0Thing@@QAEXPADPAXH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00042F67Get.cpp	?g_Va00DEDA34@@3HA	1
 alternatename	Code/GameEngine/Source/Common/Rva00042F6DGet.cpp	?g_Va00DEDA7C@@3HA	1
-alternatename	Code/GameEngine/Source/Common/Rva0004584DCtor.cpp	?dummy@Rva0004584D@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0004CB5FSet.cpp	?TheParticleSystemManager@@3PAVParticleSystemManager002B@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva000518E0Thunk.cpp	?handle@Gen0003AC38@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva000685E2Reset.cpp	?g_d3dCallCount@@3IA	1
@@ -4564,7 +4563,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpe
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerModuleDataCtor.cpp	_vfn_0050B5C6	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CombineHordeSpecialPower.cpp	?specialPowerModuleInterfaceAnchor@SpecialPowerModuleInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CombineHordeSpecialPowerRva004C888D.cpp	?getPlayerMask@Rva000421C8@@UAEHXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CurseSpecialPowerSlots.cpp	?getPlayerMask@Rva000421C8@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DarknessSpecialPower.cpp	?specialPowerModuleInterfaceAnchor@SpecialPowerModuleInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DarknessSpecialPowerModuleDataCtor.cpp	_vtbl_00C5E7A8	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPowerModuleDataCtor.cpp	_vtbl_00C5E7A8	1

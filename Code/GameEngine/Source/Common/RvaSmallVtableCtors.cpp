@@ -336,7 +336,8 @@ public:
 	virtual int getPlayerMask();
 };
 
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
+// getPlayerMask resolves to the real byte-verified implementation in
+// ActionManagerSpecialPowerChecks.cpp (retail 0x0036CC7A).
 
 inline Rva000421C8::Rva000421C8()
 {

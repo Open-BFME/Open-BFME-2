@@ -77,7 +77,8 @@ struct Rva00045411BitSet
 };
 extern unsigned char g_00DFEFA4StoragePrototype[28];
 
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
+// Inherited mask resolves to the real implementation in
+// ActionManagerSpecialPowerChecks.cpp (retail 0x0036CC7A).
 
 struct Coord3D
 {
