@@ -20679,3 +20679,6 @@ FUN_008331c6	0x004331C6	458	blocked	identity unprovable: packet has no donor or 
 ?Rva0044C3D4@@YA_NXZ	0x0044C3D4	493	blocked	needs shared NetworkInterface slots 32-34 plus GameInfo 0xC8 array models t=20 model=muse-02
 ??0Rva005EA85A@@QAE@PAXHABVAsciiString@@@Z	0x005EA7C6	120	landed	add_match verified Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005EA85ACtor.cpp 120B; finish stash plus host fetcher helper for order plus rowed callees
 ?rva002BF2B7@Rva002BF4F3@@QAE_NHPAVVector3@@@Z	0x002BF2B7	129	landed	add_match verified Code/Libraries/Source/WWVegas/WW3D2/Rva002BF2B7.cpp 129B; finish stash plus host cast alias for reload plus rowed callees
+?Rva00395EB8Clear@@YGXPAVObject@@@Z	0x00395EB8	83	partial	direct test-mem-je-and-mem vs lea-mov-test-jns t=12 model=muse-spark score=0.97 stash=reverse/attempts/0x00395eb8.cpp
+??0ControlBar@@QAE@XZ	0x0031E94C	558	partial	EH states one low plus 2A0 2A4 stores after push t=28 model=muse-06 score=0.93 stash=reverse/attempts/0x0031e94c.cpp
+?rva002B8767@Rva002B8767@@QAEXUBfmePairWI@@ABVAsciiStringWI@@_N1@Z	0x002B8767	121	landed	add_match verified Code/Libraries/Source/WWVegas/WWLib/Rva002B8767.cpp 121B; unlock via Gen 0x002B59AA and push_back 0x004DFCB0 with LivingWorldManager and caller 0x00564F9C
