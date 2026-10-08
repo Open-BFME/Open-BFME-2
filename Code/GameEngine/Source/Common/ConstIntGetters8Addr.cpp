@@ -24,13 +24,6 @@ int Rva000B4935Get(void)
 	return 0x00de0878;
 }
 
-// ?Rva000F1ECDGet@@YAHXZ @ 0x000f1ecd (6B): returns 0x00bbac1c.
-// Follows a ret (add eax,8 / ret). Opaque address-derived name.
-int Rva000F1ECDGet(void)
-{
-	return 0x00bbac1c;
-}
-
 // ?Rva001EF348Get@@YAHXZ @ 0x001ef348 (6B): returns 0x00c18f40.
 // Follows padding plus leave / ret. Opaque address-derived name.
 int Rva001EF348Get(void)
