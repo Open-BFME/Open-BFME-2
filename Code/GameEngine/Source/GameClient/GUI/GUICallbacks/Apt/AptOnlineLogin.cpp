@@ -6,8 +6,14 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 // stlport
+// Native string cleanup calls the existing STL allocator free, not CRT free.
+#include <stdlib.h>
+namespace _STL { void __cdecl free(void *block); }
+#define free _STL::free
 #include <map>
 #include <list>
+#include <string>
+#undef free
 extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::~_List_base();
 bool operator<(const UnicodeString &,const UnicodeString &);
 namespace _STL { template<> struct less<UnicodeString> {
@@ -77,12 +83,32 @@ class SkirmishFindMap { public:
     SkirmishFindNode *end() const { return head; }
     SkirmishFindNode *head; unsigned char remainder[8];
 };
+
+class GameSpyConfigInterface { public:
+    virtual ~GameSpyConfigInterface();
+    virtual _STL::list<AsciiString> getPingServers()=0;
+    virtual int getNumPingRepetitions()=0;
+    virtual int getPingTimeoutInMs()=0;
+};
+extern GameSpyConfigInterface *TheGameSpyConfig;
+class PingRequest { public: _STL::string hostname;int repetitions,timeout; };
+class PingerInterface { public:
+    virtual ~PingerInterface();
+    virtual void startThreads()=0;
+    virtual void endThreads()=0;
+    virtual bool areThreadsRunning()=0;
+    virtual void addRequest(const PingRequest &)=0;
+};
+extern PingerInterface *ThePinger;
+struct LoginPingStringData { int refs;unsigned short length,capacity;char text[1]; };
+
 class AptOnlineLogin {
 public:
     void OnBttnRegisterFESL(const char *);
     void rva00572632(const char *);
     void rva00572768(const char *);
     void rva00571B75();
+    void rva00570C64();
     void rva005709D1(AsciiString &,AsciiString &);
     bool rva005706D4();
     bool rva0056EC54(const UnicodeString &,bool);
@@ -287,4 +313,24 @@ void AptOnlineLogin::rva005709D1(AsciiString &lastEmail,AsciiString &lastName)
     if(selectedPosition>=0) GadgetComboBoxSetSelectedPos(nickname,selectedPosition,false);
     g_cachedLoginPopulationBusy=false;
     rva005706D4();
+}
+
+// ZH WOLLoginMenu.cpp startPings supplies the semantic source. BFME1
+// 34f59164 PingThread.h retains the 20-byte request and virtual interfaces.
+// Native570C64..570D36 independently proves config slots4/C/8 and pinger10.
+// Original target method spelling is unknown.
+void AptOnlineLogin::rva00570C64()
+{
+    _STL::list<AsciiString> servers=TheGameSpyConfig->getPingServers();
+    int timeout=TheGameSpyConfig->getPingTimeoutInMs();
+    int repetitions=TheGameSpyConfig->getNumPingRepetitions();
+    for(_STL::list<AsciiString>::iterator it=servers.begin();it!=servers.end();++it) {
+        AsciiString server=*it;
+        PingRequest request;
+        const LoginPingStringData *data=*(const LoginPingStringData *const *)&server;
+        request.hostname=data?data->text:"";
+        request.repetitions=repetitions;
+        request.timeout=timeout;
+        ThePinger->addRequest(request);
+    }
 }
