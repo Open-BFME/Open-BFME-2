@@ -1,3 +1,4 @@
+// cl: /O1 /G7 /arch:SSE /MD
 // Nine wide-adjust forwarders (11B each): add ecx, IMM32 then tail-jump a
 // callee with the adjusted this; stack args (if any) pass through to the
 // callee, which cleans them (thiscall). Spelled as explicit
@@ -18,6 +19,8 @@
 // One ledger row per forwarder.
 
 class Object;
+class AsciiString;
+class ArmySummarySystem {public:const AsciiString *GetArmyNameByID(int);const AsciiString *GetArmyBannerByID(int);};
 
 class Rva0040D380Sub
 {
@@ -90,6 +93,7 @@ class GameLogic
 {
 public:
 	void __fastcall rva0023CFFC(int unused, Rva0040E6D6Arg *arg);
+	const AsciiString *rva0023D05F(int value);
 	int rva0023D075(int value);
 	int rva0023D080(int value);
 	int rva0023D08B(int value);
@@ -158,4 +162,13 @@ void GameLogic::rva0023D0C2(Object *obj, int value)
 void Rva004EC072Owner::fwd(void *arg)
 {
 	((Rva0059A71CSub *)((char *)this + 0x90))->method(arg);
+}
+
+// WB D0B960 calls named ArmySummarySystem::GetArmyNameByID; native
+//23D05F..23D06A adjusts the GameLogic receiver by184 and tail-jumps
+//40D34C. The outer method spelling remains unknown; return is the native
+//stable AsciiString pointer. Existing provider owner is renamed rather
+//than retaining a second alias at the same address.
+const AsciiString *GameLogic::rva0023D05F(int value) {
+ return ((ArmySummarySystem*)((char*)this+0x184))->GetArmyNameByID(value);
 }
