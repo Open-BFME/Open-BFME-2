@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /ICode/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // BFME2's skirmish screen Apt callbacks, 0x00521741 onward, bound by these
@@ -9,6 +9,7 @@
 // list the profile callbacks walk; STLport and /EHsc are for them).
 
 #include "unicode_string.h"
+#include "ascii_string.h"
 
 #include <list>
 
@@ -111,7 +112,7 @@ public:
 class AptSkirmish
 {
 public:
-	// Target constructor 0x00521977 installs the primary table at VA
+	// Target destructor 0x00521977 installs the primary table at VA
 	// 0x00C67910. Its raw 15 entries put rva00523303 in slot 12 and the
 	// rowed validator in slot 14; the other local slots remain placeholders.
 	virtual void vslot0() = 0;
@@ -250,6 +251,7 @@ class GameInfo
 public:
 	virtual void *v0slot0(int v);
 	GameSlot *getSlot(int index);
+ AsciiString getMap() const;
 };
 extern GameInfo *TheSkirmishGameInfo;
 extern int g_Va00E0333C;
@@ -628,7 +630,7 @@ int AptSkirmish::rva005231B0(int message, unsigned int data1, unsigned int data2
 // Retail 0x00523303 (249 bytes), primary AptSkirmish vtable slot 12. Its
 // thiscall body refreshes the AptMpGameSetup panel at +0x288, state +0x6B8,
 // profile index +0x304, flag +0x6C0, preferences +0x698 and name member
-// +0x668. Constructor 0x00521977 installs the table at VA 0x00C67910; the
+// +0x668. Destructor 0x00521977 installs the table at VA 0x00C67910; the
 // raw slot-12 pointer is 0x00523303. BFME1's AptSkirmish constructor
 // supports the screen-family provenance only, so the target method keeps an
 // address-derived name.
@@ -690,7 +692,7 @@ class Rva0043DB47DoubleSetter {public:void enable();};
 class Rva005216A6 {public:bool rva005216A6();};
 class AptMpGameSetupUpdateView {public:virtual void slot0();virtual void slot1();};
 
-class Rva00222A8BTarget {public:int invoke(void*,const char*,int,const char*,void*,void*,void*,void*);};
+class Rva00222A8BTarget {public:void rva00222F55(bool);int invoke(void*,const char*,int,const char*,void*,void*,void*,void*);};
 // WB14664A0 names OnUpdateData; native522290..5223D7 proves327B,
 // table867910 slot5, states6B8 and refresh6C1. State1 shows main, state5
 // initializes preferences/game, state6 waits for setup, state8 advances,
@@ -735,3 +737,72 @@ void AptSkirmish::MpOwnerGetLocalPlayerName(UnicodeString *out) {
  if(TheSkirmishGameInfo)
   reinterpret_cast<StringBase<unsigned short>*>(out)->set(*reinterpret_cast<StringBase<unsigned short>*>((char*)TheSkirmishGameInfo->getSlot(0)+0x30));
 }
+
+#include "GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+class GlobalData {public:char pad[12];AsciiString map;};extern GlobalData *TheWritableGlobalData;
+class Display {public:char pad[0x114];bool flag;};extern Display *TheDisplay;
+class Shell {public:void rva0035BF4C(bool);};extern Shell *TheShell;
+class AptFocusTarget;class AptPlayer {public:void PopFocus(AptFocusTarget *);};
+struct StartGameInfoView {char pad[0x50];unsigned seed;int u54;int scenario;};
+class MapMetaData {public:char pad[0x24];bool official;};
+class MapCache {public:const MapMetaData *findMap(AsciiString);};extern MapCache *TheMapCache;
+void InitGameLogicRandom(unsigned);
+class GameMessageArgument {public:char pad[8];int value;char tail[12];int type;};
+class GameMessage { GameMessageArgument *allocArg(); public:void appendIntegerArgument(int);
+ void wb00EC9680(int);};
+class StartGameSetupView {public:
+ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10();
+ virtual void start(int);
+};
+class VideoPlayerInterface {public:
+ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
+ virtual void stopAll();
+};
+extern VideoPlayerInterface *TheVideoPlayer;
+class Rva002D3627Host {public:
+ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
+ virtual void enable(bool);
+};
+extern Rva002D3627Host *g_00DFEF18;
+class MessageStream {public:
+ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17();
+ virtual GameMessage *append(int);
+};
+extern MessageStream *TheMessageStream;
+
+// Native 0x00521CFF..0x00521E65 and WB 0x01466D30
+// StartGameAfterCDCheck. Keep the existing target-address method identity.
+// WorldBuilder calls two distinct tag-zero word appenders; native folds the
+// second (WB 0x00EC9680) onto appendIntegerArgument at 0x0030F936. The full
+// emitted helper and its allocArg relocation are verified before binding it.
+void AptSkirmish::rva00521CFF() {
+ TheGameLogic->rva00376E92(false,false);
+ TheWritableGlobalData->map=TheSkirmishGameInfo->getMap();
+ ((StartGameSetupView *)TheSkirmishGameInfo)->start(0);
+ InitGameLogicRandom(((StartGameInfoView *)TheSkirmishGameInfo)->seed);
+ if(g_00E04930) {
+  if(*(int *)(g_00E04930+0x304)==1) {
+   ((AptPlayer *)TheRva00222A8BTarget)->PopFocus((AptFocusTarget *)-1);
+   TheRva00222A8BTarget->rva00222F55(false);
+   TheShell->rva0035BF4C(true);
+   TheDisplay->flag=true;
+   TheVideoPlayer->stopAll();
+   TheGameLogic->rva00376E92(false,false);
+   g_00DFEF18->enable(true);
+   GameMessage *msg=TheMessageStream->append(31);
+   if(msg) {msg->appendIntegerArgument(((StartGameInfoView *)TheSkirmishGameInfo)->scenario);msg->wb00EC9680(0);}
+  } else {
+   bool official=true;
+   const MapMetaData *map=TheMapCache->findMap(TheSkirmishGameInfo->getMap());
+   if(map) official=map->official;
+   GameMessage *msg=TheMessageStream->append(30);
+   msg->appendIntegerArgument(official ? 2 : 0);
+   msg->appendIntegerArgument(1);msg->appendIntegerArgument(0);
+  }
+ }
+}
+
+// ?GameMessage::wb00EC9680 present-unmatched
+void GameMessage::wb00EC9680(int value) { GameMessageArgument *a=allocArg();a->type=0;a->value=value; }
+
