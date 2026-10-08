@@ -31,5 +31,8 @@ void Rva002AABEE::rva002AABEE()
 		m_value = 0.0f;
 		return;
 	}
-	m_value = m_values[_STL::min(m_values.size() - 1, m_level - 1)];
+	unsigned int index = m_level - 1;
+	unsigned int last = m_values.size() - 1;
+	const unsigned int &bound = index < last ? index : last;
+	m_value = m_values[bound];
 }

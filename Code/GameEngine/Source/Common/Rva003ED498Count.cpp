@@ -119,7 +119,8 @@ void BitRange::rva003ED411(const BitRange &other)
 {
 	unsigned int ownSize = m_end - m_begin;
 	unsigned int otherSize = other.m_end - other.m_begin;
-	int wordCount = _STL::min(ownSize, otherSize);
+	const unsigned &bound = otherSize < ownSize ? otherSize : ownSize;
+	int wordCount = bound;
 	TreeNode *record = (TreeNode *)g_00A02E50->_M_left;
 	TreeNode *sentinel = (TreeNode *)g_00A02E50;
 	while (record != sentinel)
