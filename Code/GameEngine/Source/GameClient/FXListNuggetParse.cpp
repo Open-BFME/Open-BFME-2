@@ -30,6 +30,21 @@ class INI
 {
 public:
 	void initFromINIMulti(void *what, const MultiIniFieldParse &parse);
+	const char *getNextTokenOrNull(const char *seps);
+	const char *getNextToken(const char *seps);
+	float scanReal(const char *token);
+	unsigned int scanUnsignedInt(const char *token);
+};
+
+typedef int Int;
+class INIException
+{
+public:
+	INIException(Int code, const char *msg, ...);
+	INIException(const INIException &other);
+private:
+	Int m_code;
+	const char *m_msg;
 };
 
 class FXNugget;
@@ -38,10 +53,59 @@ class FXList
 {
 public:
 	void addFXNugget(FXNugget *fxn) { m_nuggets.push_back(fxn); }
+	static void parseCullingInfo(INI *ini, void *instance, void *, const void *);
 private:
 	int m_unused00;
 	_STL::list<FXNugget *> m_nuggets;	// +0x04
 };
+
+// Target evidence: the retail callback's own strings name
+// FXList::parseCullingInfo and its three keywords. It reads/writes the
+// culling settings at instance offsets +0x14, +0x1C and +0x20; the minimum
+// and maximum error strings identify the latter two fields independently.
+// Donor evidence: GeneralsMD's FXList subsystem is the family source, but its
+// FXList has no culling parser or those fields, so this body follows retail's
+// parser calls and control flow rather than claiming a donor implementation.
+struct FXListCullingSettingsView
+{
+	char m_pad00[0x14];
+	int m_trackingSeconds;
+	int m_pad18;
+	unsigned int m_cullTrackingMax;
+	unsigned int m_cullTrackingMin;
+};
+
+// Retail uses the _strcmpi IAT slot at 0x00BBA518 for these keyword checks.
+extern "C" int (__cdecl * const _imp___strcmpi)(const char *left, const char *right);
+extern int g_Va00DBA4E4;
+
+// ?parseCullingInfo@FXList@@SAXPAVINI@@PAX1PBX@Z
+void FXList::parseCullingInfo(INI *ini, void *instance, void *, const void *)
+{
+	FXListCullingSettingsView *settings = (FXListCullingSettingsView *)instance;
+	const char *token = ini->getNextTokenOrNull(*(const char **)((char *)ini + 0x420));
+	while (token != 0) {
+		if (_imp___strcmpi(token, "TrackingSeconds") == 0) {
+			settings->m_trackingSeconds =
+				(int)(ini->scanReal(ini->getNextToken(0)) * g_Va00DBA4E4);
+		} else if (_imp___strcmpi(token, "StartCullingAbove") == 0) {
+			settings->m_cullTrackingMin = ini->scanUnsignedInt(ini->getNextToken(0));
+		} else if (_imp___strcmpi(token, "CullAllAbove") == 0) {
+			settings->m_cullTrackingMax = ini->scanUnsignedInt(ini->getNextToken(0));
+		} else {
+			throw INIException(3,
+				"bad colon spacing, or unexpected token in FXList::parseCullingInfo");
+		}
+		token = ini->getNextTokenOrNull(*(const char **)((char *)ini + 0x420));
+	}
+
+	if (settings->m_cullTrackingMax == 0)
+		throw INIException(3, "m_cullTrackingMax == 0 in FXList::parseCullingInfo");
+	if (settings->m_cullTrackingMin == 0)
+		throw INIException(3, "m_cullTrackingMin == 0 in FXList::parseCullingInfo");
+	if (settings->m_cullTrackingMax <= settings->m_cullTrackingMin)
+		settings->m_cullTrackingMax = settings->m_cullTrackingMin + 1;
+}
 
 struct FieldParse;
 
