@@ -290,3 +290,82 @@ template void _STL::vector<Rva005F13E6Element>::push_back(const Rva005F13E6Eleme
 template void _STL::vector<Rva005FA197Element>::push_back(const Rva005FA197Element &);
 template void _STL::vector<Rva005FA1CEElement>::push_back(const Rva005FA1CEElement &);
 template void _STL::vector<Rva00601A3AElement>::push_back(const Rva00601A3AElement &);
+
+// Target 005C865B..005C8774: grid construction at two coordinates, with
+// vector header +8, owner +14 and column count +18. The caller/helper chain
+// establishes 72-byte cells. Nearby WB-named LargeGroupAudioGridCell methods
+// supply a subsystem lead; address-derived types retain identity uncertainty.
+struct Rva005C847BRecord
+{
+    Rva005C847BRecord(float *coordinates);
+    ~Rva005C847BRecord();
+    unsigned char bytes[72];
+};
+struct Rva005C84F1Record;
+struct BfmeE16 { unsigned char bytes[16]; };
+namespace _STL {
+template <> class vector<Rva005C84F1Record, allocator<Rva005C84F1Record> >
+{
+public:
+    void reserve(unsigned int);
+};
+}
+class AudioGridVectorHeader
+{
+public:
+    __forceinline AudioGridVectorHeader(
+        const _STL::allocator<BfmeE16> &alloc = _STL::allocator<BfmeE16>())
+    {
+        __assume(this != 0);
+        typedef _STL::_Vector_base<BfmeE16, _STL::allocator<BfmeE16> > Base;
+        new(this) Base(alloc);
+    }
+    __forceinline ~AudioGridVectorHeader()
+    {
+        ((_STL::vector<Rva005C847BRecord> *)this)->~vector();
+    }
+    __forceinline void reserve(unsigned int count)
+    {
+        ((_STL::vector<Rva005C84F1Record> *)this)->reserve(count);
+    }
+    __forceinline void push_back(const Rva005C847BRecord &cell)
+    {
+        ((_STL::vector<Rva005C8624Element> *)this)->push_back(
+            (const Rva005C8624Element &)cell);
+    }
+private:
+    unsigned int words[3];
+};
+void rva005C80D1(void *, float *, float, int *, int *);
+struct AudioGridCoordinates { float x, y; };
+class Rva005C865B
+{
+public:
+    Rva005C865B(void *owner, float *coordinates);
+private:
+    AudioGridCoordinates coordinates_;
+    AudioGridVectorHeader cells_;
+    void *owner_;
+    int columns_;
+};
+// ??0Rva005C865B@@QAE@PAXPAM@Z
+Rva005C865B::Rva005C865B(void *owner, float *coordinates)
+    : coordinates_(*(AudioGridCoordinates *)coordinates), cells_()
+{
+    void *grid = (char *)owner + 0xE8;
+    owner_ = owner;
+    float scale = *(float *)((char *)owner + 0x10);
+    int rows;
+    rva005C80D1(grid, coordinates, scale, &columns_, &rows);
+    cells_.reserve(columns_ * rows);
+    for (int row = 0; row < rows; ++row) {
+        float half = scale * 0.5f;
+        float center[2];
+        center[1] = row * scale + coordinates[1];
+        center[1] += half;
+        for (int column = 0; column < columns_; ++column) {
+            center[0] = column * scale + coordinates[0] + half;
+            cells_.push_back(Rva005C847BRecord(center));
+        }
+    }
+}
