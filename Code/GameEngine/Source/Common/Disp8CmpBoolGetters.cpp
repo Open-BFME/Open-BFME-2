@@ -337,3 +337,12 @@ int Rva0026FFF7::get() const { return m_value==1 || m_value==2; }
 // Target behavior: cdecl unsigned argument at least five; full EAX result 0 or1.
 // Original owner and full array bounds remain unknown; address-owned view only.
 unsigned int atLeastFive_Rva00050D21(unsigned int value) { return value >= 5; }
+
+// BF1 9cbfb551fe Common/Rva00694830Accessors.cpp is the clean semantic guide.
+// Complete native 00050D53..00050D60 RET leaf proves: receiver0 pointer returns null or pointed address plus8.
+// Original owner and complete bounds unresolved; independent address-owned view.
+class Rva00050D53Fields {
+public: char *get();
+private: char *value;
+};
+char *Rva00050D53Fields::get() { if (value != 0) return value + 8; return 0; }

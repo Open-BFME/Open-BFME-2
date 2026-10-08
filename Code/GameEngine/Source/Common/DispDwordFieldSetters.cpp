@@ -170,3 +170,9 @@ public: void subtract(unsigned int value);
 private: unsigned char unknown[0x28]; unsigned int value28;
 };
 void Rva0027C2A4Fields::subtract(unsigned int value) { value28 -= value; }
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic guide.
+// Complete native 001F34FE..001F350B RET leaf proves: cdecl pointer argument; byte1C equals zero; full EAX result0 or1.
+// Original owner and complete bounds unresolved; independent address-owned view.
+struct Rva001F34FEFields { unsigned char unknown[0x1C]; unsigned char value; };
+int isZero_Rva001F34FE(const Rva001F34FEFields *fields) { return fields->value == 0; }

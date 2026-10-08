@@ -304,3 +304,12 @@ BFME_DISP_DWORD_GETTER(Rva00108430DwordField, 0x170)
 #pragma comment(linker, "/alternatename:?bfmeFindDEB@BfmeThingDEB@@QAEPAUBfmeSubDEB@@XZ=?get@Rva003140C8DwordField@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?bfmeFindDEC@BfmeThingDEC@@QAEPAUBfmeSubDEC@@XZ=?get@Rva003140C8DwordField@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?bfmeFindDEA@BfmeThingDEA@@QAEPAUBfmeSubDEA@@XZ=?get@Rva003140C8DwordField@@QBEHXZ")
+
+// BF1 9cbfb551fe Common/Bfme/Rva001BD660_setFlags.cpp is the clean semantic guide.
+// Complete native 0023C4CE..0023C4DB RET leaf proves: OR stack dword into receiver114; RET4.
+// Original owner and complete bounds unresolved; independent address-owned view.
+class Rva0023C4CEFields {
+public: void setFlags(unsigned int value);
+private: unsigned char unknown[0x114]; unsigned int flags;
+};
+void Rva0023C4CEFields::setFlags(unsigned int value) { flags |= value; }

@@ -211,3 +211,14 @@ void TAiData::xfer( Xfer *xfer )
 	}
 
 }  // end xfer
+
+// BF1 9cbfb551fe Common/Rva14AAD0RangeCount.cpp is the clean semantic guide.
+// Complete native 002FDF11..002FDF1C RET leaf proves: receiver0 range pointer; end4 minus begin0 divided by element stride8.
+// Original owner and complete bounds unresolved; independent address-owned view.
+struct Rva002FDF11Element { unsigned char bytes[8]; };
+struct Rva002FDF11Range { Rva002FDF11Element *begin; Rva002FDF11Element *end; };
+class Rva002FDF11Fields {
+public: int count();
+private: Rva002FDF11Range *range;
+};
+int Rva002FDF11Fields::count() { return range->end - range->begin; }
