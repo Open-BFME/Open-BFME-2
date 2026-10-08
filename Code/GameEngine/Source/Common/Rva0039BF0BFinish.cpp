@@ -68,3 +68,39 @@ int Rva0039BF22::rva0039BF22(const BitFlags<116> &mustBeSet, const BitFlags<116>
 	const ObjectCountMap *self_map = &this->m_map;
 	return Rva0039BEC3Count(mustBeSet, mustBeClear, map ? map : self_map);
 }
+
+// ?rva0039BF39@Rva0039BF39@@QAEHABV?$BitFlags@$0HE@@@0@Z @0x0039BF39 23B: the sibling
+// forwarder for the map at +0x2EC, same recipe.
+class Rva0039BF39
+{
+public:
+	int rva0039BF39(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear);
+private:
+	char m_pad[0x2EC];
+	ObjectCountMap m_map;
+};
+
+int Rva0039BF39::rva0039BF39(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear)
+{
+	const ObjectCountMap *map = &m_map;
+	const ObjectCountMap *self_map = &this->m_map;
+	return Rva0039BEC3Count(mustBeSet, mustBeClear, map ? map : self_map);
+}
+
+// ?rva0039BF50@Rva0039BF50@@QAEHABV?$BitFlags@$0HE@@@0@Z @0x0039BF50 23B: the sibling
+// forwarder for the map at +0x1D4, same recipe.
+class Rva0039BF50
+{
+public:
+	int rva0039BF50(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear);
+private:
+	char m_pad[0x1D4];
+	ObjectCountMap m_map;
+};
+
+int Rva0039BF50::rva0039BF50(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear)
+{
+	const ObjectCountMap *map = &m_map;
+	const ObjectCountMap *self_map = &this->m_map;
+	return Rva0039BEC3Count(mustBeSet, mustBeClear, map ? map : self_map);
+}
