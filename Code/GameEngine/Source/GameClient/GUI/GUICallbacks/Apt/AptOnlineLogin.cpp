@@ -509,3 +509,7 @@ void b_00042a50();
 // Native57179D references this callback at56DCB2. Complete five-byte jump
 // ends at independent56DCB7. Preserve the distinct callable entry point.
 void Rva0056DCB2() { b_00042a50(); }
+
+// Native57179D registers571657; call44BA2A then singleton-gated tail to571129.
+// All21B terminate at57166C independentEHbody. Original callback name unknown.
+void Rva00571657() { b_00042a50(); if(g_bfmeObjELB) ((AptOnlineLogin *)g_bfmeObjELB)->rva00571129(); }
