@@ -14,6 +14,15 @@ struct Coord3D
 	float x;
 	float y;
 	float z;
+	void zero() { x = 0.0f; y = 0.0f; z = 0.0f; }
+};
+
+// Existing retail callee name; this is the PhysicsBehavior receiver at
+// 003909FA. Its original method identity is still unresolved.
+class Rva003909FAObj
+{
+public:
+	void consume(void *force, int source, int weapon);
 };
 
 enum UpdateSleepTime
@@ -93,6 +102,7 @@ public:
 	bool rva0039051E() const;
 	bool rva003901DA(int option, float strength);
 	void rva00390557(const Coord3D *where, float strength, float value44, int value60, int value64);
+	void rva00390E36(int source, int weapon);
 private:
 	_STL::vector<Gen_p12pod> m_elements;
 	Coord3D m_bfme2C;
@@ -162,4 +172,15 @@ void PhysicsBehavior::rva00390557(const Coord3D *where, float strength,
 		static_cast<UpdateModuleInterface *>(this)->update();
 		setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 	}
+}
+
+// BFME1 c1f3b5af79's PhysicsBehaviorApplyZeroMotiveForce.cpp supplies the
+// zero-vector wrapper as a semantic lead. BFME2's native 00390E36..00390E61
+// instead forwards two stack arguments (RET8) to the existing 003909FA pin.
+// The target proves a zero Coord3D and unchanged this, but not the old name.
+void PhysicsBehavior::rva00390E36(int source, int weapon)
+{
+	Coord3D force;
+	force.zero();
+	reinterpret_cast<Rva003909FAObj *>(this)->consume(&force, source, weapon);
 }
