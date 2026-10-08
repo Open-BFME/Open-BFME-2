@@ -219,3 +219,91 @@ void Rva0010FD5E::rva0010FD5E(float first, float second)
 		((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
 }
 
+
+// Four no-argument siblings of 0010FA6B. Each native boundary is 122B;
+// each allocates 12B, retains this through the same temporary and passes
+// its distinct rowed subtype to 0010F8D0. The comma expression keeps the
+// temporary alive until after submission, including the conditional-new
+// cleanup and the three EH states proven by the matched integer sibling.
+// Callers A8AB4/A8AC0/A8ACC establish the existing pinned owner spellings
+// for the final three. The first owner remains address-derived.
+
+class Rva0010EE4F : public Rva001164D3
+{
+public:
+    Rva0010EE4F(const Rva0036CA00Str &s);
+};
+
+class Rva0010F9F1
+{
+public:
+    void rva0010F9F1();
+};
+
+void Rva0010F9F1::rva0010F9F1()
+{
+    Rva0010EE4F *eventInfo;
+    (eventInfo = new Rva0010EE4F(AudioEventInfoRef(
+        reinterpret_cast<AudioEventInfo *>(this))),
+        ((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
+}
+
+class Rva0010EE86 : public Rva001164D3
+{
+public:
+    Rva0010EE86(const Rva0036CA00Str &s);
+};
+
+class Rva0010FAEA
+{
+public:
+    void rva0010FAEA();
+};
+
+void Rva0010FAEA::rva0010FAEA()
+{
+    Rva0010EE86 *eventInfo;
+    (eventInfo = new Rva0010EE86(AudioEventInfoRef(
+        reinterpret_cast<AudioEventInfo *>(this))),
+        ((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
+}
+
+class Rva0010EE9E : public Rva001164D3
+{
+public:
+    Rva0010EE9E(const Rva0036CA00Str &s);
+};
+
+class MilesStream
+{
+public:
+    void rva0010FB64();
+};
+
+void MilesStream::rva0010FB64()
+{
+    Rva0010EE9E *eventInfo;
+    (eventInfo = new Rva0010EE9E(AudioEventInfoRef(
+        reinterpret_cast<AudioEventInfo *>(this))),
+        ((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
+}
+
+class Rva0010EEB6 : public Rva001164D3
+{
+public:
+    Rva0010EEB6(const Rva0036CA00Str &s);
+};
+
+class Rva0010FBDE
+{
+public:
+    void rva0010FBDE();
+};
+
+void Rva0010FBDE::rva0010FBDE()
+{
+    Rva0010EEB6 *eventInfo;
+    (eventInfo = new Rva0010EEB6(AudioEventInfoRef(
+        reinterpret_cast<AudioEventInfo *>(this))),
+        ((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
+}
