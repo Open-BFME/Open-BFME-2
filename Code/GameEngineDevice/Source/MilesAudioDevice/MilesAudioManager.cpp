@@ -107,10 +107,7 @@ typedef _STL::deque<OpaqueRefElement4, _STL::allocator<OpaqueRefElement4> > Musi
 enum MusicSystem { MUSIC_SYSTEM_0, MUSIC_SYSTEM_1 };
 inline MusicSystem &operator--(MusicSystem &ms, int) { ms = (MusicSystem)(ms - 1); return ms; }
 
-enum ObjectID
-{
-    ObjectID_Zero = 0
-};
+#include "../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
 // (channel, volume) entry of AudioEventInfo +0xB8: 0x0005818B reads the
 // channel index first (-1 skips) and the float second.
@@ -152,7 +149,9 @@ public:
     AudioEventInfo *m_info;  // +0x08 (owning ref in WB)
     char at0C[0x30 - 0x0C];
     int m_viewType;          // +0x30
-    char at34[0x4B - 0x34];
+    char at34[0x38 - 0x34];
+    int m_ownerType;         // +0x38, 2 when object-owned (getObjectID's test)
+    char at3C[0x4B - 0x3C];
     bool m_at4B;             // +0x4B
     char at4C[0x50 - 0x4C];
     bool m_at50;             // +0x50, set once a sample starts playing
@@ -218,10 +217,14 @@ struct PlayingAudio {
     int m_status;                        // +0x18
     BfmePoolRef10 m_event;            // +0x1C
     Rva000A8A6C m_file;                  // +0x20
-    char at24[0x34 - 0x24];
+    Coord3D m_at24;                      // +0x24, last position 0x55C5D tested
+    char at30[0x34 - 0x30];
     float m_at34;                        // +0x34, scales the 3D effects level (0x52FA0)
-    char at38[0x4B - 0x38];
+    int m_at38;                          // +0x38, area index 0x55C5D starts from
+    char at3C[0x4B - 0x3C];
     bool m_at4B;                         // +0x4B, set by 0x000535A6
+    char at4C[0x4E - 0x4C];
+    bool m_at4E;                         // +0x4E, m_at24 holds a position
 };
 
 // Retain-and-replace setter rowed at 0x000A8CE5 under its address-derived owner.
@@ -285,6 +288,17 @@ class Rva002DA153 { public: float rva002DA153(void); };
 // Event pitch-shift multiplier (rowed 0x002D94DD, a const float product
 // getter); initFilters3D scales the 3D playback rate by it when non-zero.
 class Rva002D94DD { public: float rva002D94DD(void) const; };
+// 8-byte record of the manager's +0xB54 vector: 0x55C5D passes +0x00 to
+// Object::isInside(PolygonTrigger *) and keeps the lowest +0x04 level whose
+// trigger holds the event. Names are descriptive.
+class PolygonTrigger { public: bool rva002E3A39(const Coord3D &pos); };
+class Object { public: bool isInside(PolygonTrigger *trigger); };
+extern GameLogic *TheGameLogic;
+struct AudioTriggerArea {
+    PolygonTrigger *m_trigger;
+    float m_level;
+};
+
 // Event position returned by the rowed 0x0005160F (zeros and false when the
 // event is not positional); playSample3D hands it to prep3DSample.
 struct BfmeEventPositionView : public Coord3D {};
@@ -305,7 +319,9 @@ struct AudioViewSettings {
 struct AudioSettings {
     char at00[0x74];
     int m_at74;
-    char at78[0xB8 - 0x78];
+    char at78[0xB0 - 0x78];
+    float m_atB0;                        // +0xB0, position change 0x55C5D ignores
+    char atB4[0xB8 - 0xB4];
     float m_atB8;
     bool m_atBC;                         // +0xBC, disables occlusion
     char atBD[0xC0 - 0xBD];
@@ -618,7 +634,9 @@ private:
     bool m_at6A4;                        // +0x6A4
     char at6A5[0x6A7 - 0x6A5];
     bool m_at6A7;                        // +0x6A7, read by 0x52F4C and 0x53AFA
-    char at6A8[0x6B4 - 0x6A8];
+    char at6A8[0x6AA - 0x6A8];
+    bool m_at6AA;                        // +0x6AA, retest areas on every call (0x55C5D)
+    char at6AB[0x6B4 - 0x6AB];
     unsigned int m_at6B4[3];             // +0x6B4 per-view-type affect masks
     unsigned int m_at6C0[3];             // +0x6C0
     char at6CC[0x9D4 - 0x6CC];
@@ -633,7 +651,9 @@ private:
     PlayingAudioList m_playingStreams;   // +0xA48
     MusicStack m_musicStack[3][2];       // +0xA4C
     MusicSystem m_activeMusicSystem[3];  // +0xB3C
-    char atB48[0xB94 - 0xB48];
+    char atB48[0xB54 - 0xB48];
+    _STL::vector<AudioTriggerArea> m_triggerAreas;  // +0xB54, scanned by 0x55C5D
+    char atB60[0xB94 - 0xB60];
     PlayingAudioList m_completedAudio;   // +0xB94, filled by the EOS handlers
     MilesHandleMap m_sampleMap;          // +0xB98
     MilesHandleMap m_3DSampleMap;        // +0xBAC
@@ -1386,6 +1406,81 @@ void MilesAudioManager::initFilters3D(PlayingAudioRef &playing, const Coord3D *p
         rva00055C5D(playing, &result);
     }
     rva00052FA0(playing);
+}
+
+// File-static helper with its playing ref in EAX (retail caller 0x55DFF
+// `mov eax, ecx`): an object-owned event tests its object, any other the
+// trigger polygon at the position.
+static bool rva00055C1A(PlayingAudioRef &playing, const Coord3D *pos, PolygonTrigger *trigger)
+{
+    if (playing->m_event->m_ownerType == 2 && TheGameLogic) {
+        Object *obj = TheGameLogic->findObjectByID(playing->m_event->getObjectID());
+        if (obj)
+            return obj->isInside(trigger);
+    }
+    return trigger->rva002E3A39(*pos);
+}
+
+// WorldBuilder twin 0x78B740 (unnamed): picks the lowest area level whose
+// trigger holds the event, scanning backwards from the last hit, and reports
+// whether +0x34 changed.
+void MilesAudioManager::rva00055C5D(PlayingAudioRef &playing, bool *result)
+{
+    if (m_triggerAreas.empty()) {
+        *result = playing->m_at34 != 1.0f;
+        playing->m_at34 = 1.0f;
+        return;
+    }
+    if (playing->m_event->m_viewType != 0) {
+        *result = playing->m_at34 != 0.0f;
+        playing->m_at34 = 0.0f;
+        return;
+    }
+    bool valid;
+    BfmeEventPositionView pos = Rva0005160FGet(playing->m_event.operator->(), valid);
+    if (!valid) {
+        if (!playing->m_at4E) {
+            *result = playing->m_at34 != 1.0f;
+            playing->m_at34 = 1.0f;
+            return;
+        }
+        if (!m_at6AA) {
+            *result = false;
+            return;
+        }
+        static_cast<Coord3D &>(pos) = playing->m_at24;
+    } else if (!m_at6AA) {
+        float dx = pos.x - playing->m_at24.x;
+        float dy = pos.y - playing->m_at24.y;
+        float limit = m_audioSettings->m_atB0;
+        if (dx <= limit && -limit <= dx && dy <= limit && -limit <= dy) {
+            *result = false;
+            return;
+        }
+    }
+    playing->m_at24 = pos;
+    playing->m_at4E = true;
+    int start = playing->m_at38;
+    if (start < 0)
+        start = 0;
+    else if (start >= m_triggerAreas.size())
+        start = m_triggerAreas.size() - 1;
+    int i = start;
+    int best = start;
+    float bestLevel = 1.0f;
+    do {
+        if (m_triggerAreas[i].m_level < bestLevel && rva00055C1A(playing, &pos, m_triggerAreas[i].m_trigger)) {
+            bestLevel = m_triggerAreas[i].m_level;
+            best = i;
+        }
+        if (i == 0)
+            i = m_triggerAreas.size() - 1;
+        else
+            --i;
+    } while (i != start);
+    *result = bestLevel != playing->m_at34;
+    playing->m_at34 = bestLevel;
+    playing->m_at38 = best;
 }
 
 void __stdcall setSampleCompleted(void *sampleCompleted);
