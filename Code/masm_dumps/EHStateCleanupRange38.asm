@@ -1519,6 +1519,18 @@ PUBLIC ?rva0078a304@@YAXXZ
     ret
 ?rva0078a304@@YAXXZ ENDP
 
+; Unwind@00b8a463 at RVA 0x0078A463; 19-byte eh-vector-dtor lea target passes [ebp-80] with size 12 count 4 and raw dtor VA 0x004B3FD0.
+PUBLIC ?rva0078a463@@YAXXZ
+?rva0078a463@@YAXXZ PROC
+    push 004B3FD0h
+    push 4
+    push 0Ch
+    lea eax, [ebp-80]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0078a463@@YAXXZ ENDP
+
 ; Unwind@00b8a669 at RVA 0x0078A669; 24-byte vector cleanup ends at RET.
 ; Target passes [ebp-16]+0x88 to the rowed iterator with element size 12 count 4 and raw dtor VA 0x0047FAB3.
 PUBLIC ?rva0078a669@@YAXXZ
@@ -1674,6 +1686,19 @@ PUBLIC ?rva0078c77c@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva0078c77c@@YAXXZ ENDP
+
+; Unwind@00b8d24f at RVA 0x0078D24F; 22-byte eh-vector-dtor target passes [ebp-16]+0x44 with size 4 count 16 and raw dtor VA 0x0050F149.
+PUBLIC ?rva0078d24f@@YAXXZ
+?rva0078d24f@@YAXXZ PROC
+    push 0050F149h
+    push 10h
+    push 4
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 44h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0078d24f@@YAXXZ ENDP
 
 ; Unwind@00b8e2ce at RVA 0x0078E2CE; 25-byte state-bit cleanup ends at RET.
 ; Retail tests and clears bit 0 at [ebp-16]; loads ECX with MOV from [ebp+8] only when set.
