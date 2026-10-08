@@ -139,7 +139,20 @@
 // ObjectTypesTemp list; retail turns its byte result into the Boolean with
 // test/setne. BFME 2-only condition with no donor body, so the method keeps
 // an address name.
+//
+// ?evaluateNamedSelected@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@@Z @ 0x003E9B6A 209B
+// BFME 1 donor: ScriptConditionsEvaluateNamedSelected.cpp, same name and
+// logic. Target evidence: jump-table case 37 calls 0x003E9B6A, which
+// initConditionTemplates names NAMED_SELECTED (unit). Retail returns false
+// in a multiplayer session (TheGameEngine slot +0x58), reuses the cached
+// custom data unless it is zero or TheInGameUI's +0x120 selection frame
+// moved, and otherwise walks the +0x124 selected-drawable list comparing
+// each drawable's object (+0xFC) name at Object+0x88 with the parameter
+// string via rowed StringBase compare 0x000069D6. BFME 2 differs from the
+// donor in the vtable slots and the Object name offset; the loop re-reads
+// end() each pass, unlike the donor's hoisted end iterator.
 #include <vector>
+#include <list>
 #include "ascii_string.h"
 
 class Parameter
@@ -278,6 +291,7 @@ class Object
 public:
 	Module *findModule(NameKeyType key) const;
 	const ThingTemplate *getTemplate() const { return m_template; }
+	const AsciiString &getName() const { return m_name; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	Player *getControllingPlayer() const;
 	bool isEffectivelyDead() const { return (m_privateStatus & EFFECTIVELY_DEAD) != 0; }
@@ -285,13 +299,66 @@ private:
 	enum { EFFECTIVELY_DEAD = 0x01 };
 	void *m_vtbl;
 	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x254 - 0x08];
+	unsigned char m_pad08[0x88 - 0x08];
+	AsciiString m_name; // +0x88
+	unsigned char m_pad8C[0x254 - 0x8C];
 	BodyModuleInterface *m_body; // +0x254
 	unsigned char m_pad258[0x438 - 0x258];
 	unsigned char m_privateStatus; // +0x438
 };
 
 extern GameLogic *TheGameLogic;
+
+class Drawable
+{
+public:
+	Object *getObject() const { return m_object; }
+private:
+	unsigned char m_pad00[0xFC];
+	Object *m_object; // +0xFC
+};
+
+typedef _STL::list<Drawable *> DrawableList;
+
+// Vtable slots from retail: isMultiplayerSession is GameEngine slot 22
+// (+0x58, Common/GameEngineSlots.cpp); InGameUI +0x120 is the selection
+// frame and +0x124 the selected-drawable list (LeftHUDInput.cpp).
+#define BFME_SLOT(n) virtual void slot##n() = 0
+class GameEngine
+{
+public:
+	BFME_SLOT(00); BFME_SLOT(01); BFME_SLOT(02); BFME_SLOT(03); BFME_SLOT(04);
+	BFME_SLOT(05); BFME_SLOT(06); BFME_SLOT(07); BFME_SLOT(08); BFME_SLOT(09);
+	BFME_SLOT(10); BFME_SLOT(11); BFME_SLOT(12); BFME_SLOT(13); BFME_SLOT(14);
+	BFME_SLOT(15); BFME_SLOT(16); BFME_SLOT(17); BFME_SLOT(18); BFME_SLOT(19);
+	BFME_SLOT(20); BFME_SLOT(21);
+	virtual bool isMultiplayerSession() = 0; // +0x58
+};
+extern GameEngine *TheGameEngine;
+
+class InGameUI
+{
+public:
+	BFME_SLOT(00); BFME_SLOT(01); BFME_SLOT(02); BFME_SLOT(03); BFME_SLOT(04);
+	BFME_SLOT(05); BFME_SLOT(06); BFME_SLOT(07); BFME_SLOT(08); BFME_SLOT(09);
+	BFME_SLOT(10); BFME_SLOT(11); BFME_SLOT(12); BFME_SLOT(13); BFME_SLOT(14);
+	BFME_SLOT(15); BFME_SLOT(16); BFME_SLOT(17); BFME_SLOT(18); BFME_SLOT(19);
+	BFME_SLOT(20); BFME_SLOT(21); BFME_SLOT(22); BFME_SLOT(23); BFME_SLOT(24);
+	BFME_SLOT(25); BFME_SLOT(26); BFME_SLOT(27); BFME_SLOT(28); BFME_SLOT(29);
+	BFME_SLOT(30); BFME_SLOT(31); BFME_SLOT(32); BFME_SLOT(33); BFME_SLOT(34);
+	BFME_SLOT(35); BFME_SLOT(36); BFME_SLOT(37); BFME_SLOT(38); BFME_SLOT(39);
+	BFME_SLOT(40); BFME_SLOT(41); BFME_SLOT(42); BFME_SLOT(43); BFME_SLOT(44);
+	BFME_SLOT(45); BFME_SLOT(46); BFME_SLOT(47); BFME_SLOT(48); BFME_SLOT(49);
+	BFME_SLOT(50); BFME_SLOT(51); BFME_SLOT(52); BFME_SLOT(53); BFME_SLOT(54);
+	BFME_SLOT(55); BFME_SLOT(56); BFME_SLOT(57); BFME_SLOT(58); BFME_SLOT(59);
+	BFME_SLOT(60); BFME_SLOT(61); BFME_SLOT(62); BFME_SLOT(63); BFME_SLOT(64);
+	BFME_SLOT(65); BFME_SLOT(66); BFME_SLOT(67); BFME_SLOT(68); BFME_SLOT(69);
+	BFME_SLOT(70); BFME_SLOT(71);
+	virtual unsigned int getFrameSelectionChanged() = 0; // +0x120
+	virtual const DrawableList *getAllSelectedDrawables() = 0; // +0x124
+};
+extern InGameUI *TheInGameUI;
+#undef BFME_SLOT
 
 class ObjectTypes
 {
@@ -494,6 +561,7 @@ protected:
 	bool rva003E63CD(Condition *, Parameter *, Parameter *, Parameter *);
 	bool rva003E5267(Parameter *, Parameter *);
 	bool rva003E51D9(Parameter *, Parameter *);
+	bool evaluateNamedSelected(Condition *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -900,4 +968,43 @@ bool ScriptConditions::rva003E51D9(Parameter *pTypeParm, Parameter *pBaseParm)
 	Script_objectTypesFromParam(pTypeParm, types.m_types);
 	bool found = castle->rva003977F6(types.m_types) != 0;
 	return found;
+}
+
+bool ScriptConditions::evaluateNamedSelected(Condition *pCondition, Parameter *pUnitParm)
+{
+	if (TheGameEngine->isMultiplayerSession())
+		return false;
+
+	bool anyChanges = false;
+	if (pCondition->getCustomData() == 0)
+		anyChanges = true;
+
+	if (TheInGameUI->getFrameSelectionChanged() != pCondition->getCustomFrame())
+		anyChanges = true;
+
+	if (!anyChanges)
+	{
+		if (pCondition->getCustomData() == -1)
+			return false;
+		if (pCondition->getCustomData() == 1)
+			return true;
+	}
+
+	bool isSelected = false;
+	const DrawableList *selected = TheInGameUI->getAllSelectedDrawables();
+	for (DrawableList::const_iterator it = selected->begin(); it != selected->end(); ++it)
+	{
+		Drawable *draw = *it;
+		if (draw->getObject()->getName().compare(pUnitParm->getString()) == 0)
+		{
+			isSelected = true;
+			break;
+		}
+	}
+
+	pCondition->setCustomData(-1);
+	if (isSelected)
+		pCondition->setCustomData(1);
+	pCondition->setCustomFrame(TheInGameUI->getFrameSelectionChanged());
+	return isSelected;
 }
