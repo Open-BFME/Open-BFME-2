@@ -1603,51 +1603,8 @@ void GameClient::reset()
 	m_count138 = 0;
 }
 
-// Called from update: applies a display mode change requested while the
-// shell was up, then rebuilds the shell and returns to the main menu.
-// ?rva00239759@GameClient@@QAEXXZ
-void GameClient::rva00239759()
-{
-	if (m_displayModePending)
-	{
-		::delete TheShell;
-		TheShell = 0;
-		m_displayModePending = 0;
-		if (m_pendingXRes > 0 && m_pendingYRes > 0 && m_pendingBitDepth > 0
-			&& (m_pendingXRes != TheWritableGlobalData->m_xResolution
-				|| m_pendingYRes != TheWritableGlobalData->m_yResolution))
-		{
-			if (m_byteCA)
-			{
-				m_previousWidth = TheDisplay->getWidth();
-				m_previousHeight = TheDisplay->getHeight();
-				m_previousBitDepth = TheDisplay->getBitDepth();
-			}
-			if (TheDisplay->setDisplayMode(m_pendingXRes, m_pendingYRes, m_pendingBitDepth, TheDisplay->getWindowed()))
-			{
-				TheWritableGlobalData->m_xResolution = m_pendingXRes;
-				TheWritableGlobalData->m_yResolution = m_pendingYRes;
-				TheHeaderTemplateManager->onResolutionChanged();
-				TheMouse->rva000B3FD0();
-				Rva0041267F();
-			}
-			else
-			{
-				m_byteCA = 0;
-			}
-			m_pendingXRes = 0;
-			m_pendingYRes = 0;
-			m_pendingBitDepth = 0;
-		}
-		TheShell = new Shell;
-		if (TheShell)
-			TheShell->init();
-		TheWindowManager->update();
-		g_bfmeAptWindowManager->vf10();
-		TheInGameUI->vf108();
-		TheShell->push(AsciiString("MainMenu.apt"));
-	}
-}
+// The pending display-mode apply update calls (0x00239759) is rowed in
+// GameClientDisplayModeChange.cpp.
 
 // ?update@GameClient@@UAEXXZ
 void GameClient::update()
