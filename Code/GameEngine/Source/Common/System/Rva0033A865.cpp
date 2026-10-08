@@ -22,6 +22,6 @@ private:
 void Rva0033A865::rva0033A865()
 {
 	memset(this, 0, 4);
-	m04.set(AsciiString::TheEmptyString);
+	m04.setCopyInline(AsciiString::TheEmptyString);
 	m08 = 0;
 }

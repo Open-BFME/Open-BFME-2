@@ -50,7 +50,7 @@ public:
 };
 void Rva00238CC2::rva00238CC2(AsciiString *dest)
 {
-	dest->set((Rva00238C34 &)Rva005D2F96Build(
+	dest->setCopyInline((Rva00238C34 &)Rva005D2F96Build(
 		(const Rva005D2F96S16 &)Rva005F17C6Build((const Rva005F17C6S12 &)(m_50 + g_00BBE09C), (int)dest),
 		g_00BBE09C));
 }

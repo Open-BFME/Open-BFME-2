@@ -65,8 +65,8 @@ public:
 void TeamPrototype::rva003A2C0D(Player *owner, const AsciiString &ownerName, bool singleton, Dict *dict)
 {
 	rva003A0CD1();
-	m_name.set(owner->m_name4C);
-	m_ownerName.set(ownerName);
+	m_name.setCopyInline(owner->m_name4C);
+	m_ownerName.setCopyInline(ownerName);
 	m_1c = 0;
 	m_productionConditionScript = 0;
 	m_28 = 0;

@@ -30,7 +30,7 @@ AsciiString __stdcall Rva0051CC8DFormat(AsciiString text)
 		if (i % 3 == 0 && i != 0 && allDigits)
 			single += TheGlobalLanguageData->m_sep010;
 		single += acc;
-		acc.set(single);
+		acc.setCopyInline(single);
 	}
 	return acc;
 }
@@ -58,7 +58,7 @@ AsciiString Rva0051D009::rva0051CC8DFormat(AsciiString text)
 		if (i % 3 == 0 && i != 0 && allDigits)
 			single += TheGlobalLanguageData->m_sep010;
 		single += acc;
-		acc.set(single);
+		acc.setCopyInline(single);
 	}
 	return acc;
 }

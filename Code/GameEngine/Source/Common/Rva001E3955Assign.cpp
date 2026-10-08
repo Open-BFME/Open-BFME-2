@@ -114,7 +114,7 @@ private:
 Rva001E3955 &Rva001E3955::operator=(const Rva001E3955 &rhs)
 {
 	FXParticleSystem::StreakDrawModuleTemplate::operator=(*(const FXParticleSystem::StreakDrawModuleTemplate *)&rhs);
-	m_10.set(rhs.m_10);
+	m_10.setCopyInline(rhs.m_10);
 	m_14 = rhs.m_14;
 	m_18 = rhs.m_18;
 	m_1C = rhs.m_1C;
