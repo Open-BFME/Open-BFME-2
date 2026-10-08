@@ -8,7 +8,7 @@
 // corroborates its loops, failure fallback, ReleaseInfo, and -666666 reset.
 // Preserve the existing receiver/slot names; the original slot and node type
 // names are unknown. BFME1 ba7ddda and ZH provide no clean class implementation.
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Oy-
 class Object;
 struct Rva004DD8FAInfo;
 class PathfindCell {
@@ -102,4 +102,55 @@ void Rva004DD843::rva004DD8FA(Rva004DD843Slot *slot)
     }
     slot->m_cell = 0;
     slot->m_value = -666666;
+}
+
+// Native 004DD8A6..004DD8FA, 84 bytes, cdecl three-argument fallback.
+// WB1286D20 ClearObjectPtr corroborates 16-byte cell traversal, five heads,
+// key at node+8, and exactly one unlink per head. The sequenced node-key read
+// preserves the observed cursor/key access order; no guessed owning type.
+struct Rva004DD8A6Node
+{
+	Rva004DD8A6Node *m_next;
+	int m_04;
+	int m_key;
+};
+
+struct Rva004DD8A6Table
+{
+	char m_pad00[0x14];
+	Rva004DD8A6Node *m_buckets[5];
+};
+
+struct Rva004DD8A6Entry
+{
+	Rva004DD8A6Table * volatile m_table;
+	char m_pad04[0x0c];
+};
+
+void __cdecl rva004DD890(void *node);
+
+__declspec(noinline) void __cdecl rva004DD8A6(volatile int key, Rva004DD8A6Entry *entries, int count)
+{
+	if (count <= 0)
+		return;
+	int remaining = count;
+
+	do {
+		if (entries->m_table != 0) {
+			for (int offset = 0x14; offset < 0x28; offset += 4) {
+				Rva004DD8A6Node **link =
+					(Rva004DD8A6Node **)((char *)entries->m_table + offset);
+                for (; *link; link = &(*link)->m_next) {
+                    const int nodeKey = (*link)->m_key;
+                    if (nodeKey == key) {
+                        Rva004DD8A6Node *removed = *link;
+                        *link = removed->m_next;
+                        rva004DD890(removed);
+                        break;
+                    }
+                }
+			}
+		}
+		entries = (Rva004DD8A6Entry *)((char *)entries + 0x10);
+	} while (--remaining != 0);
 }
