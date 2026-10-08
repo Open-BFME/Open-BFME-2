@@ -10,7 +10,9 @@
 #include "unicode_string.h"
 #include <list>
 #include <string>
-class QueuedDownload { public: AsciiString server,userName,password,file,localFile,regKey;bool tryResume; QueuedDownload(const QueuedDownload &); ~QueuedDownload(); };
+class QueuedDownload { public: AsciiString server,userName,password,file,localFile,regKey;bool tryResume;
+ // ?QueuedDownload::QueuedDownload present-unmatched
+ QueuedDownload() {} QueuedDownload(const QueuedDownload &); ~QueuedDownload(); };
 extern unsigned int g_Va00E0657C;
 #include "MainMenuOnlineState.h"
 #define online g_mainMenuOnlineState
@@ -268,4 +270,55 @@ void StartDownloadingPatches()
  }
  TheDownloadManager->downloadNextQueuedFile();
 }
+
+
+// BFME1 queuePatch is the primary parser guide. Retail5BD1F1..5BD425
+// confirms the native FTP fallback strings and duplicate local-file check.
+// The local unused mandatory parameter is optimized out with its caller.
+namespace MainMenuCRT {extern "C" __declspec(dllimport) int __cdecl atoi(const char *);}
+
+static void queuePatch(bool mandatory,AsciiString downloadURL){
+ QueuedDownload q;bool success=true;
+ AsciiString connectionType;success &= downloadURL.nextToken(&connectionType,":");
+ AsciiString server;success &= downloadURL.nextToken(&server,":/");
+ AsciiString user;success &= downloadURL.nextToken(&user,":@");
+ AsciiString pass;success &= downloadURL.nextToken(&pass,"@/");
+ AsciiString filePath;success &= downloadURL.nextToken(&filePath,"");
+ if(!success && !user.isEmpty()){filePath=user;user="anonymous";pass="ccgenerals";success=true;}
+ AsciiString fileStr=filePath;const char *slash=filePath.reverseFind('/');if(slash)fileStr=slash+1;
+ AsciiString fileName="patches\\";fileName.concat(fileStr);
+ if(!success)return;
+ q.file=filePath;q.localFile=fileName;q.password=pass;q.regKey="";q.server=server;q.tryResume=true;q.userName=user;
+ _STL::list<QueuedDownload>::iterator it=downloads.begin();
+ while(it!=downloads.end()){if(it->localFile==q.localFile)return;++it;}
+ downloads.push_back(q);
+}
+
+// ?gamePatchCheckCallback present-unmatched
+GHTTPBool gamePatchCheckCallback(int request,GHTTPResult result,char *buffer,__int64 bufferLen,void *param){
+ if((int)param!=online.run)return GHTTPTrue;
+ --online.checks;
+ if(result!=GHTTPSuccess){
+  if(!online.checking)return GHTTPTrue;
+  online.cantConnect=true;
+  if(!online.checks)startOnline();
+  return GHTTPTrue;
+ }
+ AsciiString message=buffer,line;
+ while(message.nextToken(&line,"\r\n")){
+  AsciiString type,req,url;bool ok=true;
+  ok &= line.nextToken(&type," ");
+  ok &= line.nextToken(&req," ");
+  ok &= line.nextToken(&url," ");
+  if(ok && type.compare("patch")==0){
+   queuePatch(MainMenuCRT::atoi(req.str()),url);
+   if(MainMenuCRT::atoi(req.str()))online.mustDownload=true;
+  }else if(ok && type.compare("server")==0){}
+ }
+ if(!online.checks)startOnline();
+ return GHTTPTrue;
+}
+
+
+
 
