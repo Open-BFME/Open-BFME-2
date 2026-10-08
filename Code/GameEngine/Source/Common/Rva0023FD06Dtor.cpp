@@ -9,7 +9,15 @@
 // address-derived name as pinned.
 #include "ascii_string.h"
 
-class Rva0007DF07
+// Retail's base ctor7DF07 is13B: clear its +4 word then install the vtable.
+// The previous 4B private base view put that word in the derived class and
+// emitted a divergent9B implicit ctor. Use the existing 8B base view; the
+// held value remains at+8, so both declared matched bodies are unchanged.
+struct RvaSmallVtableZeroBase {
+ void *m_04;
+ RvaSmallVtableZeroBase() : m_04(0) {}
+};
+class Rva0007DF07 : public RvaSmallVtableZeroBase
 {
 public:
 	virtual ~Rva0007DF07() {}
@@ -35,7 +43,6 @@ public:
 	virtual int rva0023FCD3(float a, int b);
 
 private:
-	int m_04;
 	Rva0023E323 m_08;
 };
 
