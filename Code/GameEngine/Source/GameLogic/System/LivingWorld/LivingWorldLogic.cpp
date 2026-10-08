@@ -17,6 +17,7 @@ typedef bool Bool;
 
 class LivingWorldPlayer;
 class LivingWorldLogic;
+struct LivingWorldBuildingNuggetSpawnArmy;
 
 // The singleton at 0x009FEF10 (VA 0x00DFEF10): GameEngine::init registers it
 // under the literal "TheLivingWorldLogic" (initSubsystem call site 0x0022F331),
@@ -496,6 +497,7 @@ public:
 	void LetAIResolveRegionAwardDispute(Int regionID, const _STL::vector<Int> &players, UnsignedInt flags);
 	Rva002B8660Army *UseGenericSpawnArmyForPlayer(Int a, Rva002B8660Player *player);
 	Bool CanMoveArmyMember_internal(LivingWorldArmy *army, ArmySummaryEntry *entry, LivingWorldArmy *target, Bool checkRoom);
+	Bool canBuildUnit(LivingWorldBuildingNuggetSpawnArmy *nugget, Int token);
 	Int rva002B2C12(LivingWorldArmy *army, LivingWorldArmy *target);
 	void GetNumUpgradeableTroopsInRegionForPlayer(Rva003F287F *region, Int player, Int *countA, Int *countB);
 	void EnforceArmyRegionOwnership();
@@ -824,7 +826,7 @@ public:
 struct ThingTemplateKindOf
 {
 	unsigned char m_pad000[0x108];
-	UnsignedInt m_kindOf[4];				// +0x108
+	UnsignedInt m_kindOf[6];				// +0x108, observed through bit 190
 
 	Bool isKindOf(Int bit) const { return (m_kindOf[bit >> 5] >> (bit & 31)) & 1; }
 };
@@ -848,7 +850,11 @@ public:
 };
 
 // The target army's room for an entry: rowed 0x00319413.
-class Rva0037DCA5;
+class Rva0037DCA5
+{
+public:
+	void *rva0037DC52();					// 0x0037DC52, template lookup
+};
 class Rva003193EC
 {
 public:
@@ -1098,6 +1104,103 @@ Bool LivingWorldLogic::CanMoveArmyMember_internal(LivingWorldArmy *army, ArmySum
 	}
 	if (checkRoom && !((Rva003193EC *)target)->rva00319413((Rva0037DCA5 *)entry))
 		return false;
+	return true;
+}
+
+// canBuildUnit's target views: the nugget's build interface is its +0x0C
+// base; the game slot's optional player data begins at +0x64 and is enabled
+// by +0x60. The requested unit is a 32-bit token, also collected by
+// 0x004FAE34; its enum identity remains unproven.
+struct LivingWorldBuildingNuggetSpawnArmy
+{
+	Rva002E2903Player *rva004FA618();			// 0x004FA618
+};
+class Rva002B3325BuildInterface
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual Bool build(Int token, Rva004E3184 *spawn);	// +0x10
+};
+class Rva002B3325Campaign
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual void slot18();
+	virtual void slot1C();
+	virtual void slot20();
+	virtual Bool canBuild(LivingWorldBuildingNuggetSpawnArmy *nugget, Int token);	// +0x24
+};
+class GameSlot
+{
+public:
+	void *GetPlayerData() { return m_hasData ? (void *)m_playerData : 0; }
+	unsigned char m_pad00[0x60];
+	unsigned char m_hasData;
+	unsigned char m_pad61[3];
+	unsigned char m_playerData[1];
+};
+class Rva002E06B8
+{
+public:
+	GameSlot *rva002E06B8();				// 0x002E06B8
+};
+class Rva00319CED
+{
+public:
+	void *rva004E23C1();					// 0x004E23C1
+};
+class Rva0040CB2CIndexedField
+{
+public:
+	Int get(Int index) const;					// 0x0040CB2C
+};
+struct Rva002B3325Summary
+{
+	struct Entry { Int id; ArmySummaryEntry *entry; };
+	unsigned char m_pad00[0x40];
+	_STL::vector<Entry> m_entries;
+};
+
+// WB LivingWorldLogic::canBuildUnit (asserts 1471..1491); retail 0x002B3325
+// checks campaign approval and ownership, then a proposed spawn's first
+// entry and KindOf bit 190 when the player's slot has no player data.
+Bool LivingWorldLogic::canBuildUnit(LivingWorldBuildingNuggetSpawnArmy *nugget, Int token)
+{
+	if ((unsigned char)((Rva002B254F *)this)->rva002B254F() != 0)
+	{
+		Rva002B3325Campaign *campaign = (Rva002B3325Campaign *)((Rva003B8BAA *)TheCampaignManager)->rva003B8BAA();
+		if (!campaign->canBuild(nugget, token))
+			return false;
+	}
+	Rva002E2903Player *player = nugget->rva004FA618();
+	if (player == 0)
+		return false;
+	GameSlot *slot = ((Rva002E06B8 *)player)->rva002E06B8();
+	if (slot != 0 && slot->GetPlayerData() == 0)
+	{
+		Rva004E3184 spawn(0);
+		if (!((Rva002B3325BuildInterface *)((char *)nugget + 0x0c))->build(token, &spawn))
+			return false;
+		Rva002B3325Summary *summary = (Rva002B3325Summary *)((Rva00319CED *)&spawn)->rva004E23C1();
+		if (summary == 0)
+			return false;
+		if (summary->m_entries.size() == 0)
+			return false;
+		Rva0037DCA5 *entry = (Rva0037DCA5 *)((Rva0040CB2CIndexedField *)summary)->get(0);
+		const ThingTemplateKindOf *thing = (const ThingTemplateKindOf *)entry->rva0037DC52();
+		if (thing == 0)
+			return false;
+		if ((thing->m_kindOf[5] & (1u << 30)) != 0)
+			return false;
+	}
 	return true;
 }
 
