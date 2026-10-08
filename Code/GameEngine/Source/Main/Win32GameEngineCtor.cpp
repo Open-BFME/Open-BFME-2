@@ -50,6 +50,7 @@ class Win32GameEngine : public GameEngine
 {
 public:
 	Win32GameEngine();
+	virtual ~Win32GameEngine();
 
 private:
 	unsigned int m_previousErrorMode;
@@ -84,3 +85,11 @@ Win32GameEngine::Win32GameEngine()
 // stores). Bind them to the rows at those functions.
 #pragma comment(linker, "/alternatename:?m_unknown07@GameEngine@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 #pragma comment(linker, "/alternatename:?m_unknown13@GameEngine@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
+
+// ??1Win32GameEngine@@UAE@XZ, retail 0x00041E9F..0x00041EB9 (26 bytes): Zero
+// Hour's destructor, restoring the error mode the constructor saved, then
+// the rowed GameEngine destructor 0x00225B9B as a tail call.
+Win32GameEngine::~Win32GameEngine()
+{
+	SetErrorMode(m_previousErrorMode);
+}
