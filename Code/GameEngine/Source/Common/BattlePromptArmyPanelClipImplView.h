@@ -106,6 +106,7 @@ class Rva005FF912;
 class StrategicHUD::BattlePromptArmyPanelMovieClip::Impl {
 public:
     Impl(Rva005FF912 *, int, const AsciiString &);
+    ~Impl();
     void SetUnitIconProperties(int, const Image *, int);
     void rva005FF5C0(const UnicodeString &);
     void SetUnitIconString(int, const char *, const UnicodeString &);

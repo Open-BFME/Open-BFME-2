@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
 // Scalar deleting destructors that retail keeps but never references: no
 // vtable slot, call or jmp reaches them. Each is the 28B shape that calls
 // the pinned complete destructor, tests bit 0 of the flags, frees through
@@ -77,6 +78,6 @@ void famgenDelete(Rva005FCA8B *p) { delete p; }
 namespace StrategicHUD { class ArmyUnitSwapperMovieClip { public: class Impl; }; class ArmyUnitSwapperMovieClip::Impl { public: ~Impl(); }; }
 void famgenDelete(StrategicHUD::ArmyUnitSwapperMovieClip::Impl *p) { delete p; }
 
-// ??_GRva005FF5F6@@QAEPAXI@Z @0x005FF659 28B: calls pinned ~Rva005FF5F6 0x005FF5F6
-class Rva005FF5F6 { public: ~Rva005FF5F6(); };
-void famgenDelete(Rva005FF5F6 *p) { delete p; }
+// Native005FF659..005FF675: scalar delete for the recovered clip Impl.
+#include "BattlePromptArmyPanelClipImplView.h"
+void famgenDelete(StrategicHUD::BattlePromptArmyPanelMovieClip::Impl *p) { delete p; }

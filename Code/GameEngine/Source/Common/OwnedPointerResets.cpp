@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
 //
 // Owning-pointer resets: 26-byte members that take the pointer at +0, null
 // the slot, and if it was set run the pointee's destructor and free it through
@@ -1242,26 +1243,22 @@ void Rva005FD95E::clear()
 	}
 }
 
-class Rva005FF5F6
-{
-public:
-	~Rva005FF5F6();
-};
+#include "BattlePromptArmyPanelClipImplView.h"
 
 class Rva005FF8F8
 {
 public:
-	Rva005FF5F6 *m_ptr;
+	StrategicHUD::BattlePromptArmyPanelMovieClip::Impl *m_ptr;
 	void clear();
 };
 
 void Rva005FF8F8::clear()
 {
-	Rva005FF5F6 *p = m_ptr;
+	StrategicHUD::BattlePromptArmyPanelMovieClip::Impl *p = m_ptr;
 	m_ptr = 0;
 	if (p)
 	{
-		p->Rva005FF5F6::~Rva005FF5F6();
+		p->StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::~Impl();
 		::operator delete(p);
 	}
 }

@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /EHc- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ?SetUnitIconString@Impl@BattlePromptArmyPanelMovieClip@StrategicHUD@@QAEXHPBDABVUnicodeString@@@Z @ 0x005FF450 (109B).
@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #undef _CRTIMP
 #define _CRTIMP
-extern "C" void __cdecl free(void *);
+extern "C" void __cdecl free(void *) throw(...);
 extern "C" __declspec(dllimport) int __cdecl isdigit(int);
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -256,3 +256,7 @@ StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::Impl(Rva005FF912 *owner, int
     m_commands0C.AddCommandMapDelegate(prefix + m_name08 + "_OnUnitIconRollOut", DelegateDesc(this,&Impl::OnUnitIconRollOut));
     SetArmyNameString(UnicodeString::TheEmptyString);
 }
+
+// Native005FF5F6..005FF659,99 bytes. The native cleanup targets confirm
+// the typed vector, strings, image list and command-map member lifetimes.
+StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::~Impl() {}
