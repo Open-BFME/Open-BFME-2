@@ -84,17 +84,15 @@ Rva0023309A::Rva0023309A()
 	}
 }
 
-// ?rva002331BB@Rva002331BB@@QAEPAVRva0023309A@@XZ @0x002331BB 53B.
+// ?CreateIMEManagerInterface@@YAPAVIMEManager@@XZ present-unmatched
+// 0x002331BB 53B, retracted from its address-named row for this rename.
 // The retail body allocates 0x3064 bytes then invokes the ctor immediately;
-// that size matches this object's modeled extent. The owning class remains
-// address-named because the sole caller is an unclaimed large function.
-class Rva002331BB
-{
-public:
-	Rva0023309A *rva002331BB();
-};
+// that size matches this object's modeled extent. Its sole caller,
+// GameClient::init 0x0023A1BB, calls it with no this pointer where ZH calls
+// CreateIMEManagerInterface, and stores the result in TheIMEManager.
+class IMEManager;
 
-Rva0023309A *Rva002331BB::rva002331BB()
+IMEManager *CreateIMEManagerInterface()
 {
-	return new Rva0023309A;
+	return (IMEManager *)new Rva0023309A;
 }
