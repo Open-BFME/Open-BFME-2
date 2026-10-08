@@ -199,7 +199,7 @@ typedef void (__cdecl *ShroudManagerImpl008FBA40RefreshCallback)(
 class ShroudManagerImpl008FBA40Element
 {
 public:
-	ShroudManagerImpl008FBA40Element();
+	__declspec(noinline) ShroudManagerImpl008FBA40Element();
 	~ShroudManagerImpl008FBA40Element();
 	void adjustPlayerCounter008FC1F0(int playerIndex, int counterIndex,
 		int amount);
@@ -735,3 +735,20 @@ void ShroudManager::updatePlayerCells450_Rva0073D860(int playerIndex)
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?getShroudStatusForPlayer@ShroudManager@@QBE?AW4CellShroudStatus@@HPBUCoord3D@@@Z=?GetShroudStatusForPlayer@ShroudManagerImpl@@QBE?AW4CellShroudStatus@@HPBUCoord3D@@@Z")
 #pragma comment(linker, "/alternatename:?revealMapForPlayerPermanently@ShroudManager@@QAEXH@Z=?RevealMapForPlayerPermanently@ShroudManagerImpl@@QAEXH@Z")
+
+// Native 0x0073B600: array constructor used by _ReallocCells (0x73DBF0)
+// and the shroud transfer (0x73D8B0). Both pass the verified 0xA8 element
+// stride. Target initializes the cell link and trailing word, then twenty
+// status words to shrouded and all three counter words to zero.
+__declspec(noinline) ShroudManagerImpl008FBA40Element::ShroudManagerImpl008FBA40Element()
+{
+	cellNodes = 0;
+	unknown64 = 0;
+	for (int i = 0; i < 20; ++i)
+	{
+		playerStates[i].status = 0xffff;
+		unsigned short *values = &playerStates[i].counters[0];
+		for (int j = 0; j < 3; ++j)
+			values[j] = 0;
+	}
+}
