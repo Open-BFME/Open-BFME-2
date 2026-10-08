@@ -102,6 +102,7 @@ public:
 	unsigned int rva006D3750() const;
 	void rva006D3BA0() const;
 	bool rva006D36F0(const EAStringC *other) const;
+	EAStringC *initializeEmpty_Rva006D2FA0(unsigned int ignored);
 };
 
 // Retail empty singleton at VA 0x00DDC020: the eight-byte StringDataC header
@@ -647,4 +648,17 @@ EAStringC EAStringC::Left(int count) const
 	EAStringC text(*this);
 	text.ChangeBuffer(count, 0, count, CB_PUSH_ZERO, count);
 	return text;
+}
+
+// BF1 9cbfb551fe EAStringCUtf8Suffix.cpp supplies the empty-initialization
+// semantics. Complete native 6D2FA0..6D2FB2 is INT3-bounded and initializes
+// the same pointer and real singleton as adjacent rowed EAStringC::clear.
+// The original constructor/method spelling and unused argument type remain
+// unresolved; this address-named initializer models its 32-bit ignored slot
+// and receiver return, without a guessed constructor identity or new class.
+EAStringC *EAStringC::initializeEmpty_Rva006D2FA0(unsigned int)
+{
+    m_pData = &g_eaEmptyStringData;
+    ++g_eaEmptyStringData.m_uRefCount;
+    return this;
 }
