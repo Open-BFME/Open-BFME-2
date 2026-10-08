@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /EHsc
+// cl: /O1 /G7 /MD /EHsc /arch:SSE2
 // Identity: WB AptMyHero.cpp names SwitchToPendingHero (assert line816),
 // calls the same assignment/view/bling chain, and uses this+144/+148.
 // Native005B1E71..005B1EE2 is the full113-byte standard-thiscall body.
@@ -11,7 +11,7 @@ class CreateAHeroData {public: CreateAHeroData &operator=(const CreateAHeroData 
 struct BfmePod8 {int a;float b;};
 class Rva005B0E9F {public: BfmePod8 *rva005B0E9F(int);};
 class Rva00406E47 {public: bool rva00406E47(int);};
-struct Rva005B0473View {char opaque[0x68];int field68;};
+struct Rva005B0473View {char opaque[0x60];float field60;int field64,field68;};
 class CreateAHeroManager {public: Rva005B0473View *rva00219F36(int,int);};
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
@@ -32,7 +32,9 @@ private:
  void *holder140;
  CreateAHeroData *pending144;
  bool flag148;
- char pad149[0x174-0x149];
+ char pad149[0x168-0x149];
+ float field168,field16C;
+ char pad170[4];
  MyHeroBlingBlock blocks174[2];
 };
 void AptMyHero::SwitchToPendingHero(){
@@ -63,3 +65,6 @@ void AptMyHero::rva005B0923(int group){
  }
  slot14();
 }
+// Native005B0487..005B04B6 and WB corresponding view access prove the
+// +60 float bound and +168/+16C range. Retail emits SSE2 stores.
+void AptMyHero::rva005B0487(){int b=field10;int a=field0C;float upper=TheCreateAHeroManager->rva00219F36(a,b)->field60;float *range=&field168;range[0]=0.0f;range[1]=upper;}
