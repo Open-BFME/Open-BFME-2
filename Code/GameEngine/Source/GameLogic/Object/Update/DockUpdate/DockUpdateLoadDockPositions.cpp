@@ -1,14 +1,4 @@
-// ?loadDockPositions@DockUpdate@@IAEXXZ
-// partial score=0.9595 date=2026-10-06
-// ?loadDockPositions@DockUpdate@@IAEXXZ
-// partial score=0.9595 date=2026-10-06
-// ?loadDockPositions@DockUpdate@@IAEXXZ
-// partial score=0.9595 date=2026-10-05
-// ?loadDockPositions@DockUpdate@@IAEXXZ
-// partial score=0.99 date=2026-09-28
-// ?loadDockPositions@DockUpdate@@IAEXXZ
-// partial score=0.99 date=2026-09-28
-// cl: /O1 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /arch:SSE /Ireference/shims/sweep
+// cl: /ICode/Libraries/Include/Lib /O1 /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /arch:SSE /Ireference/shims/sweep
 // stlport
 //
 // ?loadDockPositions@DockUpdate@@IAEXXZ, retail 0x005897FB, 270 bytes.
@@ -16,11 +6,11 @@
 // (0x589909 loadPostProcess wrapper tail-jumping to UpdateModule::loadPostProcess,
 // 0x589972/0x58A1A1 with -0x20 this-adjustment) prove DockUpdate identity.
 // Donor is BFME1 DockUpdate::loadDockPositions
-// (reference/open-bfme-1/Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp:524,
+// (BFME1 revision 9cbfb551fe20dae985f91f2319d8997287b6a705, game engine DockUpdate.cpp:524,
 // protected IAEXXZ) via ZH DockUpdate.cpp:491. BFME2 drops the KINDOF_IGNORE_DOCKING_BONES
 // patch branch. Layout is the rowed DockUpdateCtor TU (UpdateModule base 0x20 plus
 // DockUpdateInterface vptr at +0x20, enter/dock/exit at +0x24/+0x30/+0x3C,
-/// number/bones/loaded at +0x48/+0x4C/+0x50, approach vector at +0x54).
+// number/bones/loaded at +0x48/+0x4C/+0x50, approach vector at +0x54).
 #include <limits.h>
 
 typedef int Int;
@@ -32,14 +22,17 @@ typedef bool Bool;
 #define FALSE 0
 #endif
 
-struct Coord3D
-{
-	Coord3D();
-	~Coord3D();
+#include "Coord3D.h"
 
-	float x;
-	float y;
-	float z;
+// This array's construction/destruction is witnessed in the native unwind
+// graph; the data view uses the canonical Coord3D layout. The lifetime-only
+// adapter callbacks are byte-and-relocation twins of the folded native
+// constructor at 0x0047A6A9 (8b c1 c3) and destructor at 0x000B3FD0 (c3).
+// These offsets prove lifetime machinery, not an independent class identity.
+struct Rva005897FBCoordLifetime : Coord3D
+{
+    Rva005897FBCoordLifetime() {}
+    ~Rva005897FBCoordLifetime() {}
 };
 
 class Matrix3D
@@ -110,27 +103,7 @@ public:
 	virtual void dockAnchor() = 0;
 };
 
-#include <stl/_bvector.h>
-
-namespace _STL
-{
-template <>
-class vector<Coord3D, allocator<Coord3D> > : public _Vector_base<Coord3D, allocator<Coord3D> >
-{
-public:
-	__forceinline vector() : _Vector_base<Coord3D, allocator<Coord3D> >(allocator<Coord3D>()) {}
-
-	Int size() const
-	{
-		return (Int)(_M_finish - _M_start);
-	}
-
-	Coord3D &operator[](Int index)
-	{
-		return _M_start[index];
-	}
-};
-}
+#include <vector>
 
 typedef _STL::vector<Coord3D, _STL::allocator<Coord3D> > VecCoord3D;
 
@@ -163,7 +136,7 @@ enum
 	DYNAMIC_APPROACH_VECTOR_FLAG = -1
 };
 
-// ?loadDockPositions@DockUpdate@@IAEXXZ present-unmatched
+// ?loadDockPositions@DockUpdate@@IAEXXZ
 void DockUpdate::loadDockPositions()
 {
 	Object *obj = m_object;
@@ -176,7 +149,7 @@ void DockUpdate::loadDockPositions()
 		myDrawable->getPristineBonePositions("DockEnd", 0, &m_exitPosition, NULL, 1, 0);
 		if (m_numberApproachPositions != DYNAMIC_APPROACH_VECTOR_FLAG)
 		{
-			Coord3D approachBones[DEFAULT_APPROACH_VECTOR_SIZE];
+			Rva005897FBCoordLifetime approachBones[DEFAULT_APPROACH_VECTOR_SIZE];
 			m_numberApproachPositionBones = myDrawable->getPristineBonePositions("DockWaiting", 1, approachBones, NULL, m_numberApproachPositions, 0);
 			if (m_numberApproachPositions == m_approachPositions.size())
 			{
