@@ -16,6 +16,12 @@
 // AIStructureCreepTactic.cpp documents): a vptr, the +0x04 link to the next
 // filter (PartitionFilter::link 0x00625790), then each filter's members;
 // address-derived names after allow (slot 1), the ctors being inline.
+
+#include "../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+// Preserve the independently rowed Object getter's ABI spelling. Its target
+// numeric status threshold 3 corresponds to the reference's object fog state.
+enum CellShroudStatus { ACTION_OBJECT_SHROUD_FOGGED = 3 };
+
 class Object;
 class Player;
 
@@ -66,6 +72,7 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;	// 0x0028AFA9
+	CellShroudStatus getShroudStatusForPlayer(int playerIndex) const;
 };
 
 struct BfmeWideHit
@@ -125,6 +132,7 @@ public:
 class ActionManager
 {
 public:
+	bool canConvertObjectToCarBomb(const Object *, const Object *, CommandSourceType);
 	bool validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
 };
 
@@ -137,4 +145,74 @@ bool ActionManager::validateLocationForForbiddenObjects(const Object *obj, const
 	Object *found = ThePartitionManager->getClosestObject(pos, (range = sp->getFinalOverride()->m_7C), 1,
 		Rva0026119DFilter().link(&Rva002614ECFilter(sp->getFinalOverride()->m_78, player, true)));
 	return found == 0;
+}
+
+// BFME1 ba7ddda7 ActionManager.cpp supplies the nested visibility predicate
+// and car-bomb collision algorithm. Target evidence: complete 88B boundary
+// 41B85D..41B8B5 and 108B boundary 41B9B0..41BA1C RET12; reserved signed IDs
+// at Object+74; Player fields +54/+5C; target status438 and module vector244.
+// Module+0C virtuals4/4/C corroborate the reference collision interface.
+// The same-TU static helper preserves retail's optimized EDI/ESI argument ABI.
+// Borrowed views describe only the fields and slots read by these bodies.
+struct ShroudPlayerView
+{
+	char pad[0x54];
+	int index;
+	char pad58[4];
+	int type;
+};
+
+static __declspec(noinline) bool isObjectShroudedForAction(
+	const Object *a, const Object *b, CommandSourceType c)
+{
+	if (b) {
+		int id = *reinterpret_cast<const int *>(reinterpret_cast<const char *>(b) + 0x74);
+		if (id >= 0x05f5e0fc && id <= 0x05f5e0ff)
+			return false;
+	}
+	if (a && b && a->getControllingPlayer()) {
+		if (reinterpret_cast<ShroudPlayerView *>(a->getControllingPlayer())->type == 0 &&
+			c != CMD_FROM_SCRIPT &&
+			b->getShroudStatusForPlayer(reinterpret_cast<ShroudPlayerView *>(
+				a->getControllingPlayer())->index) >= ACTION_OBJECT_SHROUD_FOGGED)
+			return true;
+	}
+	return false;
+}
+
+class BfmeCarBombCollideView
+{
+public:
+	virtual void slot0() = 0;
+	virtual bool wouldLikeToCollideWith(const Object *) const = 0;
+	virtual void slot2() = 0;
+	virtual bool isCarBombCrateCollide() const = 0;
+};
+
+class BfmeActionBehaviorView
+{
+public:
+	virtual void slot0() = 0;
+	virtual BfmeCarBombCollideView *getCollide() = 0;
+};
+
+bool ActionManager::canConvertObjectToCarBomb(
+	const Object *a, const Object *b, CommandSourceType c)
+{
+	if (!a || !b)
+		return false;
+	if (*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(b) + 0x438) & 1)
+		return false;
+	if (isObjectShroudedForAction(a, b, c))
+		return false;
+	void **modules = *reinterpret_cast<void ***>(
+		reinterpret_cast<char *>(const_cast<Object *>(a)) + 0x244);
+	for (; *modules; ++modules) {
+		BfmeActionBehaviorView *module = reinterpret_cast<BfmeActionBehaviorView *>(
+			reinterpret_cast<char *>(*modules) + 0x0c);
+		BfmeCarBombCollideView *collide = module->getCollide();
+		if (collide && collide->wouldLikeToCollideWith(b) && collide->isCarBombCrateCollide())
+			return true;
+	}
+	return false;
 }
