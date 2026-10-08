@@ -12,6 +12,13 @@
 // victim ID +0x4C0, rider ID +0x4C4, swoop radius +0x538, attack mode +0x55C,
 // contain +0x250, contained-by +0x274, team +0x304). Retail's contained-item
 // list query (contain slot 70) has no destructor where WorldBuilder's had one.
+//
+// ?update@AIGiantBirdAttackState@@UAE?AW4StateReturnType@@XZ
+// retail 0x00369DED, 182 bytes: slot 6 of the same vtable. WorldBuilder's
+// matching body (0x00F2EFF0) gives the order: dead owner, AI and AI flag bit 3
+// fail; a missing or dead victim (AI +0x4C0) succeeds; a ready weapon fires at
+// the victim and sets model-condition bit 155 (word +0x11C of the bits at
+// +0x10C) through the inline set-and-notify; an out-of-ammo weapon succeeds.
 
 #include "ascii_string.h"
 
@@ -46,6 +53,12 @@ enum ModelConditionFlagType
 	MODELCONDITION_BFME_06 = 0x06,
 	MODELCONDITION_BFME_80 = 0x80,
 	MODELCONDITION_BFME_AC = 0xAC
+};
+
+enum WeaponStatus
+{
+	READY_TO_FIRE = 0,
+	OUT_OF_AMMO = 3
 };
 
 enum NameKeyType
@@ -133,6 +146,7 @@ class Weapon
 {
 public:
 	const WeaponTemplate *getTemplate() const { return m_template; }
+	WeaponStatus getStatus() const;
 private:
 	void *m_vtbl;
 	const WeaponTemplate *m_template; // +4
@@ -253,6 +267,22 @@ public:
 	Real bfmeDistanceSquared(const BfmeVec3EJ *pos) const;
 };
 
+// The owner's model-condition bits at +0x10C (bit 155 is word +0x11C).
+class GiantBirdAttackConditionBits
+{
+public:
+	UnsignedInt test(Int bit) const
+	{
+		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void set(Int bit)
+	{
+		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+	}
+private:
+	UnsignedInt m_words[19];
+};
+
 class Thing
 {
 public:
@@ -288,6 +318,15 @@ public:
 	void fireCurrentWeapon(const Coord3D *pos);
 	void fireCurrentWeapon(Object *victim, Int id);
 	void setSpecialModelConditionState(ModelConditionFlagType flag, UnsignedInt frames);
+	void rva0028AE6D();
+	__forceinline void setModelConditionBit(Int bit)
+	{
+		if (m_conditionBits.test(bit) == 0)
+		{
+			m_conditionBits.set(bit);
+			rva0028AE6D();
+		}
+	}
 protected:
 	Module *findModule(NameKeyType key) const;
 	friend class AIGiantBirdAttackState;
@@ -296,7 +335,9 @@ private:
 	Coord3D m_position; // +0x38
 	unsigned char m_pad044[0x74 - 0x44];
 	ObjectID m_id; // +0x74
-	unsigned char m_pad078[0x250 - 0x78];
+	unsigned char m_pad078[0x10C - 0x78];
+	GiantBirdAttackConditionBits m_conditionBits; // +0x10C
+	unsigned char m_pad158[0x250 - (0x10C + sizeof(GiantBirdAttackConditionBits))];
 	ContainModuleInterface *m_contain; // +0x250
 	unsigned char m_pad254[4];
 	AIUpdateInterface *m_ai; // +0x258
@@ -337,6 +378,7 @@ class AIGiantBirdAttackState : public State
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
 private:
 	unsigned char m_pad1C[4];
 	ObjectID m_targetID; // +0x20
@@ -484,4 +526,38 @@ StateReturnType AIGiantBirdAttackState::onEnter()
 		}
 	}
 	return STATE_SUCCESS;
+}
+
+//-------------------------------------------------------------------------------------------------
+StateReturnType AIGiantBirdAttackState::update()
+{
+	Object *owner = getMachineOwner();
+	if (owner->isDead())
+		return STATE_FAILURE;
+
+	AIUpdateInterface *ai = owner->getAI();
+	if (ai == 0)
+		return STATE_FAILURE;
+	if (!ai->testFlag(3))
+		return STATE_FAILURE;
+
+	Object *victim = TheGameLogic->findObjectByID(ai->m_victimID4C0);
+	if (victim == 0 || victim->isDead())
+		return STATE_SUCCESS;
+
+	const Weapon *weapon = owner->getCurrentWeapon();
+	if (weapon == 0)
+		return STATE_FAILURE;
+
+	if (weapon->getStatus() == READY_TO_FIRE)
+	{
+		owner->rva0028FC8F();
+		owner->fireCurrentWeapon(victim, victim->getID());
+		owner->setModelConditionBit(155);
+	}
+	else if (weapon->getStatus() == OUT_OF_AMMO)
+	{
+		return STATE_SUCCESS;
+	}
+	return STATE_CONTINUE;
 }
