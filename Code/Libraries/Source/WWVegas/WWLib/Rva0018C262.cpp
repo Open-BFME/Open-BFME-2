@@ -29,7 +29,7 @@ public:
 	void rva0018C262(Rva0018C262Node *p);
 	void rva0018C316();
 	Rva0018C262Node *rva0018C28F(const unsigned short *key);
-	void rva0018C33F(Rva0018C262Node *&out, Rva0018C262Node *a, Rva0018C262Node *b, const unsigned short *v, Rva0018C262Node *c);
+	Rva0018C262Node *&rva0018C33F(Rva0018C262Node *&out, Rva0018C262Node *a, Rva0018C262Node *b, const unsigned short *v, Rva0018C262Node *c);
 	int m_size;
 };
 namespace _STL {
@@ -41,6 +41,7 @@ struct _Rb_tree_node_base {};
 template <typename D> class _Rb_global {
 public:
 	static void _Rebalance(_Rb_tree_node_base *x, _Rb_tree_node_base *&root);
+	static _Rb_tree_node_base *_M_decrement(_Rb_tree_node_base *x);
 };
 }
 void Rva0018C262::rva0018C262(Rva0018C262Node *p)
@@ -72,7 +73,7 @@ Rva0018C262Node *Rva0018C262::rva0018C28F(const unsigned short *key)
 		*dst = *key;
 	return (Rva0018C262Node *)mem;
 }
-void Rva0018C262::rva0018C33F(Rva0018C262Node *&out, Rva0018C262Node *a, Rva0018C262Node *b, const unsigned short *v, Rva0018C262Node *c)
+Rva0018C262Node *&Rva0018C262::rva0018C33F(Rva0018C262Node *&out, Rva0018C262Node *a, Rva0018C262Node *b, const unsigned short *v, Rva0018C262Node *c)
 {
 	Rva0018C262Node *node;
 	if (b != (Rva0018C262Node *)m_head && (c != 0 || (a == 0 && (short)*v >= (short)b->m_10))) {
@@ -98,6 +99,7 @@ void Rva0018C262::rva0018C33F(Rva0018C262Node *&out, Rva0018C262Node *a, Rva0018
 	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)node, (_STL::_Rb_tree_node_base *&)m_head->m_04);
 	++m_size;
 	out = node;
+	return out;
 }
 // Target 0x0018C3E6..0x0018C41D: clear the same tree, then release its
 // base-owned header through 0x00030830. The C++ allocator declaration preserves
@@ -107,4 +109,51 @@ void Rva0018C262::rva0018C33F(Rva0018C262Node *&out, Rva0018C262Node *a, Rva0018
 Rva0018C262::~Rva0018C262()
 {
 	rva0018C316();
+}
+
+// Native 0x0018C4A9..0x0018C533 compares signed short keys at node+0x10,
+// walks the same header links and calls the rowed insertion worker above.
+// Its caller 0x0018C6D5 supplies an eight-byte node/bool result packet.
+// The worker returns the result-slot address in EAX; the existing void
+// declaration discarded that independently observed part of its ABI.
+// The algorithm follows matched Rva004D1C81::rva0046ABA6. Application
+// identity remains unknown. Returning the node/bool packet reproduces
+// retail's hidden result slot and returned slot address without a raw pin.
+struct Rva0018C4A9Result {
+	Rva0018C262Node *first;
+	bool second;
+	Rva0018C4A9Result(Rva0018C262Node *node, bool inserted);
+};
+// ?Rva0018C4A9Result::Rva0018C4A9Result present-unmatched
+inline Rva0018C4A9Result::Rva0018C4A9Result(Rva0018C262Node *node, bool inserted) : first(node), second(inserted) {}
+class Rva0018C4A9 {
+	Rva0018C262Head *m_head;
+	unsigned int m_size;
+public:
+	Rva0018C4A9Result rva0018C4A9(short *key);
+};
+Rva0018C4A9Result Rva0018C4A9::rva0018C4A9(short *key)
+{
+	Rva0018C262Head *header = m_head;
+	Rva0018C262Node *x = header->m_04;
+	Rva0018C262Node *y = (Rva0018C262Node *)header;
+	bool comp = true;
+	while (x != 0) {
+		y = x;
+		comp = *key < (short)x->m_10;
+		x = comp ? x->m_08 : x->m_0C;
+	}
+	Rva0018C262Node *j = y;
+	if (comp) {
+		if (j == (Rva0018C262Node *)header->m_08) {
+			Rva0018C262Node *node;
+			return Rva0018C4A9Result(((Rva0018C262 *)this)->rva0018C33F(node, y, y, (const unsigned short *)key, 0), true);
+		}
+		j = (Rva0018C262Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)y);
+	}
+	if ((short)j->m_10 < *key) {
+		Rva0018C262Node *node;
+		return Rva0018C4A9Result(((Rva0018C262 *)this)->rva0018C33F(node, x, y, (const unsigned short *)key, 0), true);
+	}
+	return Rva0018C4A9Result(j, false);
 }
