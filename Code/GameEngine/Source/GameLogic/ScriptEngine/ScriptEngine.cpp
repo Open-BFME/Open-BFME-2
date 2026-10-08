@@ -50,18 +50,43 @@ public:
 class Condition
 {
 public:
+	enum ConditionType
+	{
+		CONDITION_FALSE = 0,
+		COUNTER,
+		FLAG,
+		CONDITION_TRUE,
+		TIMER_EXPIRED
+	};
+
 	Parameter *getParameter(int ndx)
 	{
 		if (ndx >= 0 && ndx < m_numParms)
 			return m_parms[ndx];
 		return 0;
 	}
+	ConditionType getConditionType() const { return m_conditionType; }
+	int rva003B275A();	// 0x003B275A, the condition template's mode mask
 
 private:
-	char m_unknown[8];
+	char m_unknown[4];
+	ConditionType m_conditionType;	// +0x04
 	int m_numParms;
 	Parameter *m_parms[12];
 };
+
+// TheScriptConditions 0x00A02E04: slot 14 evaluates the other condition types
+// (Zero Hour's ScriptConditionsInterface::evaluateCondition).
+class ScriptConditions
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13();
+	virtual bool evaluateCondition(Condition *pCondition);	// +0x38
+};
+extern ScriptConditions *TheScriptConditions;
 
 struct ScriptCounter
 {
@@ -106,8 +131,11 @@ public:
 	AsciiString getStats( Real *curTimePtr, Real *script1Time, Real *script2Time );
 	bool evaluateTimer(Condition *condition);
 	bool evaluateFlag(Condition *condition);
+	int rva00203693();	// 0x00203693, current mode mask (2 or 1)
 
 protected:
+	bool evaluateCounter(Condition *pCondition);	// 0x00208F61
+	bool evaluateCondition(Condition *pCondition);
 	void setSway(ScriptAction *pAction);
 	ScriptCounter *bfmeCounter(AsciiString name);
 	bool *bfmeFlagForWrite(AsciiString name);		// 0x002088A0
@@ -165,4 +193,23 @@ bool ScriptEngine::evaluateFlag(Condition *condition)
 			return true;
 	}
 	return false;
+}
+
+// ScriptEngine::evaluateCondition, retail 0x002096E2 (102B): Zero Hour's
+// switch (ScriptEngine.cpp:7059) behind BFME2's test of the condition's mode
+// mask (0x003B275A) against the engine's (0x00203693), the executeActions
+// test's shape.
+bool ScriptEngine::evaluateCondition(Condition *pCondition)
+{
+	if ((pCondition->rva003B275A() & rva00203693()) == 0)
+		return false;
+	switch (pCondition->getConditionType()) {
+		default:
+			return TheScriptConditions->evaluateCondition(pCondition);
+		case Condition::CONDITION_FALSE: return false;
+		case Condition::CONDITION_TRUE: return true;
+		case Condition::COUNTER: return evaluateCounter(pCondition);
+		case Condition::FLAG: return evaluateFlag(pCondition);
+		case Condition::TIMER_EXPIRED: return evaluateTimer(pCondition);
+	}
 }

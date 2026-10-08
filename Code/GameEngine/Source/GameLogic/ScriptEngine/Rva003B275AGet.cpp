@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva003B275A@Rva003B275A@@QAEHXZ 0x003B275A 17B
+// ?rva003B275A@Condition@@QAEHXZ 0x003B275A 17B
 // Evidence: pushes member at +4 into rowed ScriptEngine::getConditionTemplate
 // 0x00203941 through the engine pointer at 0x00DFE16C, returns the template's
 // first dword; caller 0x002096E2.
@@ -16,16 +16,18 @@ public:
 };
 extern ScriptEngine *TheScriptEngine;
 
-class Rva003B275A
+// The receiver is the Condition: +4 is its type, and evaluateCondition
+// (0x002096E2) tests the returned mode mask against the engine's.
+class Condition
 {
 	char m_pad[4];
-	int m_id;
+	int m_conditionType;	// +0x04
 
 public:
 	int rva003B275A();
 };
 
-int Rva003B275A::rva003B275A()
+int Condition::rva003B275A()
 {
-	return *(const int *)TheScriptEngine->getConditionTemplate(m_id)->bytes;
+	return *(const int *)TheScriptEngine->getConditionTemplate(m_conditionType)->bytes;
 }
