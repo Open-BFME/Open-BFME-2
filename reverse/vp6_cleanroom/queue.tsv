@@ -1,0 +1,249 @@
+rva	size	name	ledger_status	difficulty	depends_on
+001b5530	166	VP6_DeleteTmpBuffers	matched(placeholder bfmeFreeJT)	1	001b6410
+001b55e0	179	VP6_AllocateTmpBuffers	matched(placeholder bfmeAllocJT)	1	001b5530 001b6400
+001b56a0	66	VP6_DeletePBInstance	matched(placeholder releaseCodecState)	1	001b5530 001b7930 001b68d0 001b6410
+001b56f0	216	VP6_CreatePBInstance	matched(placeholder bfmeAllocJX)	2	001b6400 001b55e0 001b6410
+001b5830	6	VP60D_GetVersionNumber	matched(placeholder name@Rva001B5830Named)	1	
+001b58f0	25	VP6_GetPbParam	matched(placeholder rva001B58F0ConditionalOutput)	1	
+001b5910	432	VP6_SetPbParam	matched(placeholder Rva009A4E50Configure)	2	001b6920 001b9ac0
+001b5ac0	404	VP6_PickPostProcessingLevel	matched(placeholder _bfmeVp6ThresholdSelect)	2	
+001b5c60	1147	VP6_GetYUVConfig	unlisted	3	001b8e70 001b5ac0 001b6400 001b66b0 001b6ba0 001bb6c0 001bb5f0 001bb330
+001b62e0	67	VP6_StopDecoder	matched(placeholder bfmeFreeCodecJW)	1	001b7930 001b68d0 001b9040 001b92d0 001b56a0
+001b6410	5	duck_free thunk	matched(placeholder bfmeFreeOneJT)	1	001b63a0
+001b6520	193	InitPostProcessing	matched(placeholder Rva009A5AA0InstallFilter)	2	001c1750
+001b65f0	182	DeletePostProcBuffers	matched(placeholder bfmeOneBZB)	1	001b6410
+001b66b0	292	AllocatePostProcBuffers	matched(placeholder Rva009A5C40Initialize)	2	001b65f0 001b6400
+001b6890	63	CreatePostProcInstance	matched(placeholder bfmeMakeBZB)	1	001b6400 001b67e0
+001b68d0	36	DeletePostProcInstance	matched(placeholder bfmeGoBZB)	1	001b65f0 001b6410
+001b6900	12	SetPPInterlacedMode	matched(placeholder Rva001B6900Set)	1	
+001b6910	15	SetDeInterlaceMode	matched(placeholder Rva001B6910Set)	1	
+001b6920	15	SetAddNoiseMode	matched(placeholder Rva001B6920Set)	1	
+001b6930	58	UpdateFragQIndex	matched(placeholder bfmeFillZJ)	1	
+001b6970	65	gaussian	matched(placeholder bfmeGaussPdf)	1	
+001b69c0	475	PlaneAddNoise_C	unlisted	2	
+001b6ba0	1192	PostProcess	matched(placeholder Rva009A6130PostFilterDispatch)	3	001b6930 001bfbf0 001c4100 001b96a0 001c2f20 001bfd10 001c3440
+001b7050	24	VP6_InitQTables	matched(placeholder bfmeLoadTable)	1	
+001b7070	37	VP6_BuildQuantIndex_Generic	matched(placeholder Rva009A6600InitBlocks)	1	
+001b70a0	277	VP6_init_dequantizer	matched(placeholder bfmeApply1040)	2	
+001b71c0	45	VP6_UpdateQ	matched(placeholder bfmeGo1040B)	1	001b70a0
+001b71f0	945	VP6_init_quantizer	matched(placeholder Rva009A6780BuildQuantizers)	2	
+001b75b0	93	VP6_UpdateQC	matched(placeholder Rva001B75B0RefreshQuantizers)	1	001b71f0 001b70a0
+001b7610	500	VP6_quantize_c	matched(placeholder Rva009A6BA0QuantizeBlock)	2	
+001b7930	94	VP6_DeleteQuantizer	matched(placeholder Rva009A6EC0Release)	1	001b6410
+001b7990	73	VP6_CreateQuantizer	matched(placeholder bfmeMakeSubJX)	1	001b6400 001b7860 001b7930
+001b7aa0	582	AverageBlock_C	matched(placeholder Rva009A7040Average8x8)	1	
+001b7cf0	100	UnpackBlock_C	matched(placeholder widen8x8)	1	
+001b7d60	450	SubtractBlock_C	matched(placeholder Rva009A7300Subtract8x8)	1	
+001b8040	10	InitVPUtil	unlisted	1	001c4300 001c4440
+001b8050	174	FilterBlock1d	matched(placeholder Rva009A75F0Vp6FourTapFilter)	2	
+001b8100	177	FilterBlock2dFirstPass	matched(placeholder bfmeGo76A0)	2	
+001b81c0	189	FilterBlock2dSecondPass	matched(placeholder bfmeGo7760)	2	
+001b8280	65	FilterBlock2d	matched(placeholder bfmeGo7820)	1	001b8100 001b81c0
+001b82d0	107	FilterBlock1dBil	matched(placeholder Rva009A7870)	1	
+001b8340	110	FilterBlock2dBil_FirstPass	matched(placeholder Rva009A78E0)	1	
+001b83b0	127	FilterBlock2dBil_SecondPass	matched(placeholder Rva009A7950)	1	
+001b8430	295	FilterBlock2dBil	matched(placeholder Rva009A79D0Vp6Filter)	2	001b83b0
+001b8560	993	FilterBlock_C	matched(placeholder Rva009A7B00Vp6Filter)	2	001b8050 001b8280 001b8430
+001b8950	108	FilterBlock1dBil_8	matched(placeholder Rva009A7EF0)	1	
+001b89c0	123	FilterBlock2dBil_SecondPass_8	matched(placeholder Rva009A7F60)	1	
+001b8a40	295	FilterBlock2dBil_8	matched(placeholder Rva009A7FE0Vp6Filter)	2	001b89c0
+001b8b70	766	FilterBlockBil_8_C	unlisted	2	001b8a40
+001b8e70	29	VP6_readTSC	matched(placeholder Rva001B8E70)	1	
+001b8fb0	79	VP6_DMachineSpecificConfig	matched(placeholder Rva009A8550Init)	1	001c4390
+001b9000	21	VP6_IssueWarning	unlisted	1	
+001b9020	14	VP6_SytemGlobalAlloc	unlisted	1	
+001b9030	12	VP6_SystemGlobalFree	unlisted	1	
+001b9040	248	VP6_DeleteFragmentInfo	matched(placeholder bfmeStepJW)	1	001b6410
+001b9140	396	VP6_AllocateFragmentInfo	unlisted	2	001b9040 001b6400
+001b92d0	129	VP6_DeleteFrameInfo	matched(placeholder Rva009A8880Release)	1	001b6410
+001b9360	167	VP6_AllocateFrameInfo	matched(placeholder Rva009A8910Initialize)	1	001b92d0 001b6400
+001b9410	616	VP6_InitFrameDetails	matched(placeholder bfmeCheckJX)	2	001b5910 001b67e0 001b9140 001b9360 001b9040 001b6400
+001b9680	22	VP6_InitialiseConfiguration	matched(placeholder Rva009A8C30)	1	
+001b96a0	1047	UpdateUMVBorder	unlisted	2	
+001b9ac0	299	CopyFrame	matched(placeholder Rva009A9070CopyStreams)	1	001b96a0
+001b9bf0	31	HorizontalLine_Copy	matched(placeholder bfmeCopy)	1	
+001b9c10	247	HorizontalLine_4_5_Scale_C	matched(placeholder rva001B9C10Interpolate4To5)	2	
+001b9d10	157	VerticalBand_4_5_Scale_C	matched(placeholder Rva009A92D0)	2	
+001b9db0	130	LastVerticalBand_4_5_Scale_C	matched(placeholder Rva009A9370)	2	
+001b9e40	332	Scale_4_5_2D	matched(placeholder Rva009A9400)	2	001b9c10 001b9d10 001b9db0
+001b9f90	265	HorizontalLine_3_5_Scale_C	matched(placeholder Rva009A9550)	2	
+001ba0a0	179	VerticalBand_3_5_Scale_C	matched(placeholder Rva009A9660)	2	
+001ba160	136	LastVerticalBand_3_5_Scale_C	matched(placeholder Rva009A9720)	2	
+001ba1f0	300	Scale_3_5_2D	matched(placeholder Rva009A97B0)	2	001b9f90 001ba0a0 001ba160
+001ba320	53	HorizontalLine_1_2_Scale_C	matched(placeholder Rva009A98E0)	1	
+001ba360	56	VerticalBand_1_2_Scale_C	matched(placeholder Rva009A9920Average)	1	
+001ba3a0	28	LastVerticalBand_1_2_Scale_C	matched(placeholder Rva009A9960CopyBytes)	1	
+001ba460	98	Scale1D_2t1_i	unlisted	1	
+001ba4d0	53	Scale1D_2t1_ps	matched(placeholder bfmeCopyColAA90)	1	
+001ba510	697	Scale2D	matched(placeholder Rva009A9AD0Scale2D)	3	001ba3c0 001ba460 001ba4d0
+001ba7d0	865	ScaleFrame	matched(placeholder Rva009A9D90ScalePlanes)	2	001ba510
+001bab40	161	Fast_4_5_Scale	unlisted	1	001b9e40
+001babf0	161	Fast_3_5_Scale	unlisted	1	001ba1f0
+001baca0	644	AnyRatio_2D_Scale	matched(placeholder Rva009AA260Scale)	3	001b9bf0
+001baf30	606	AnyRatioFrameScale	unlisted	2	001baca0
+001bb190	406	CenterImage	matched(placeholder Rva009AA750CopyPlanes)	2	
+001bb330	126	ScaleOrCenter	matched(placeholder Rva009AA8F0Dispatch)	1	001b96a0 001baf30 001bb190
+001bb3b0	104	vp6_writeframe	matched(placeholder Rva009AA970DumpRaw)	1	
+001bb420	95	vp6_writeframe2	matched(placeholder Rva009AA9E0RawDump)	1	
+001bb5f0	121	vp6_showinfo2	matched(placeholder Rva009AABB0CodecDispatch)	1	001c4c90
+001bb670	67	vp6_appendframe	matched(placeholder appendTestRaw)	1	
+001bb6c0	156	vp6_showinfo	matched(placeholder Rva009AAC80CodecGrid)	1	001c4c90
+001bb760	208	VP6_PredictBlockToPostProcessBuffer	matched(placeholder Rva009AAD20)	2	001c5e30
+001bb830	398	VP6_printmodes	unlisted	2	
+001bba20	200	BuildScanOrder	matched(placeholder Rva009AAFE0BuildTable)	2	
+001bbaf0	336	BoolTreeToHuffCodes	matched(placeholder Rva009AB0B0ExpandWeights)	2	
+001bbc40	274	ZerosBoolTreeToHuffCodes	matched(placeholder Rva009AB200BuildWeights)	2	
+001bbd60	521	ConvertBoolTrees	matched(placeholder Rva009AB320BuildTables)	2	001bbaf0 001bbc40 001c69e0 001c6ba0 001c6c20
+001bbf70	556	VP6_ConfigureEntropyDecoder	unlisted	3	001c5100 001bcf40 001bba20 001c6da0
+001bc1a0	135	VP6_ResetLeftContext	matched(placeholder Rva009AB760Initialize)	1	
+001bc230	338	VP6_ResetAboveContext	matched(placeholder Rva009AB7F0Reset)	2	
+001bc390	51	VP6_UpdateContext	matched(placeholder Rva001BC390Select)	1	
+001bcc40	36	VP6_StartEncode	matched(placeholder Rva009AC240Init)	1	
+001bcc70	114	VP6_StopEncode	matched(placeholder Rva009AC270)	2	
+001bceb0	47	VP6_EncodeBool2	matched(placeholder Rva009AC4B0AddValue)	1	
+001bcee0	81	VP6_StartDecode	matched(placeholder bfmeInit1186)	1	
+001bcf40	40	VP6_bitread	matched(placeholder bfmeGoUSC)	1	001c4f80
+001bcf70	5	VP6_bitread1	unlisted	1	001c4f80
+001bcf80	60	InitHeaderBuffer	matched(placeholder bfmeReadWordXF)	1	
+001bd050	1279	LoadFrameHeader	matched(placeholder Rva009AC660ReadHeader)	3	001bcfc0 001b7050 001bcee0 001b6900 001b6910 001bcf40 001b9410 001c4f00 001b71c0
+001bd550	28	VP6_LoadFrame	unlisted	1	001bd050
+001bd570	15	VP6_SetFrameType	unlisted	1	
+001bd580	11	VP6_GetFrameType	unlisted	1	
+001bd590	145	SetupDeblockValueArray_Generic	matched(placeholder Rva009ACBA0SetupBounding)	1	
+001bd630	64	SetupDeblocker	matched(placeholder Rva009ACC40SetupFilter)	1	001bd590
+001bd670	773	DeblockVerticalEdgesInLoopFilteredBand	unlisted	3	
+001bd980	1976	DeblockLoopFilteredBand_C	unlisted	3	
+001be140	848	DeblockVerticalEdgesInNonFilteredBand	unlisted	3	
+001be490	730	DeblockVerticalEdgesInNonFilteredBandNewFilter	unlisted	3	
+001be770	2324	DeblockNonFilteredBand_C	unlisted	3	
+001bf090	2107	DeblockNonFilteredBandNewFilter_C	unlisted	3	
+001bf8d0	488	DeblockPlane	unlisted	2	001bd670 001be140
+001bfac0	303	DeblockPlaneNew	matched(placeholder copyPlane009AF0D0)	2	001be490
+001bfbf0	278	DeblockFrame	matched(placeholder Rva009AF200CopyPlanes)	2	001bd590 001bfac0 001bf8d0
+001bfd10	368	DeblockFrameInterlaced	matched(placeholder Rva009AF320CopyPlanes)	2	001bd590 001bfac0
+001bfe80	145	SetupBoundingValueArray_Generic	matched(placeholder Rva009AF490SetupBounding)	1	
+001bff20	51	SetupLoopFilter	matched(placeholder Rva009AF530Setup)	1	001bfe80
+001bff60	290	FilterHoriz_Generic	matched(placeholder Rva009AF570FilterVert, misnamed)	2	
+001c0090	341	FilterVert_Generic	matched(placeholder Rva009AF6A0FilterHoriz, misnamed)	2	
+001c01f0	60	Bound	matched(placeholder rva009af800)	1	
+001c0230	535	FilteringHoriz_8_C	matched(placeholder Rva009AF840FilterVert, misnamed)	2	
+001c0450	563	FilteringVert_8_C	matched(placeholder Rva009AFA60FilterHoriz, misnamed)	2	
+001c0690	535	FilteringHoriz_12_C	matched(placeholder Rva009AFCA0FilterVert, misnamed)	2	
+001c08b0	563	FilteringVert_12_C	matched(placeholder Rva009AFEC0FilterHoriz, misnamed)	2	
+001c0af0	1584	ApplyReconLoopFilter	unlisted	3	
+001c1120	1584	LoopFilter	unlisted	3	
+001c1750	881	PostProcMachineSpecificConfig	matched(placeholder bfmeInstallCpuDispatchTable)	2	001c4390 001d1610
+001c1ad0	2030	DeringBlockStrong_C	unlisted	3	
+001c22c0	1526	DeringBlockWeak_C	unlisted	3	
+001c2f20	1309	DeringFrame	unlisted	3	
+001c3440	1835	DeringFrameInterlaced	matched(placeholder Rva009B2A50)	3	
+001c3f50	180	FilterHoriz_Simple_C	matched(placeholder Rva009B3650FilterVert, misnamed)	2	
+001c4010	232	FilterVert_Simple_C	matched(placeholder Rva009B3560FilterHoriz, misnamed)	2	
+001c4100	503	SimpleDeblockFrame	matched(placeholder Rva009B3800PlaneCopy)	2	
+001c4300	140	fillidctconstants	matched(placeholder bfmeStep1_009A75E0)	1	
+001c4390	169	GetProcessorFlags	matched(placeholder bfmeQueryCpuTierFlags)	1	001d5470
+001c4440	766	UtilMachineSpecificConfig	matched(placeholder bfmeInstallSpreadTable)	2	001c4390
+001c4740	125	VP6_BuildQuantIndex_ForMMX	matched(placeholder initBlocksRva009B3E40)	1	
+001c47c0	125	VP6_BuildQuantIndex_ForWMT	matched(placeholder initBlocksRva009B3EC0)	1	
+001c4840	555	VP6_quantize_wmt	unlisted	2	
+001c4a70	539	VP6_quantize_mmx	unlisted	2	
+001c4c90	610	vp6_xprintf	unlisted	2	
+001c4fe0	94	bitread	unlisted	2	
+001c5040	47	bitreadonly	unlisted	1	
+001c5070	60	bitShift	unlisted	1	
+001c50b0	74	bitread1	matched(placeholder Rva009B47B0ReadBit)	1	
+001c5100	114	nDecodeBool	matched(placeholder Rva009B4800DecodeBool)	2	
+001c5180	126	VP6_PredictDC	matched(placeholder Rva009B4880PredictValue)	2	
+001c5200	269	VP6_ExtractTokenN	unlisted	2	
+001c5990	84	VP6_DecodeBlockMode	matched(placeholder Rva009B5090DecodeMode)	1	001c4f80
+001c59f0	270	VP6_DecodeMode	matched(placeholder Rva009B50F0DecodeToken)	2	001c4f00
+001c5b00	539	VP6_decodeMotionVector	matched(placeholder Rva009B5200DecodeMotionVector)	2	001c4f00
+001c5d20	272	VP6_FindNearestandNextNearest	unlisted	2	
+001c5e30	768	VP6_PredictFilteredBlock	unlisted	3	001d8dd0 001d8a30
+001c6130	184	VP6_ReconstructBlock	matched(placeholder Rva009B5830ReconstructBlock)	2	001c5e30
+001c63f0	700	VP6_decodeModeAndMotionVector	matched(placeholder Rva009B5AF0Vp6DecodeBlock)	3	001c5d20 001c59f0 001c5990 001c5b00
+001c66b0	705	VP6_DecodeMacroBlock	matched(placeholder Rva009B5DB0Vp6DecodeBlock)	3	001c5100 001c63f0 001c61f0
+001c6980	88	InsertSorted	unlisted	2	
+001c69e0	441	VP6_BuildHuffTree	unlisted	3	
+001c6ba0	116	VP6_BuildHuffLookupTable	matched(placeholder Rva009B62A0ExpandTable)	2	
+001c6c20	175	VP6_CreateCodeArray	matched(placeholder Rva009B6320DecodeTree)	2	001c6c20
+001c6da0	331	VP6_ConfigureContexts	matched(placeholder Rva009B64A0BuildTone)	2	
+001c6ef0	331	VP6_ConfigureMvEntropyDecoder	unlisted	2	001c4f00 001bcf40
+001c7040	514	VP6_BuildModeTree	unlisted	3	
+001c7250	211	VP6_decodeModeDiff	matched(placeholder Rva009B6950DecodeScale)	2	001c4f00 001c4f80 001bcf40
+001c7330	373	VP6_DecodeModeProbs	placeholder(Rva009B6A30LoadTables)	1	ext:001c4f00,001bcf40,001c7250,001c7040
+001c74b0	204	ClampLevels_C	placeholder(Rva009B6BB0)	1	
+001c7580	183	CFastDeInterlace	placeholder(bfmeBlurRows)	1	
+001c7640	53	SetupDeblockValueArray_ForMMX	placeholder(Rva009B6D40)	1	
+001c8a30	5572	DeblockNonFilteredBand_MMX	none	3	
+001ca000	4240	DeblockNonFilteredBandNewFilter_MMX	placeholder(Rva001CA000Vp6WideAccum)	3	
+001cdd70	253	ClampLevels_wmt	placeholder(Rva009BD470Vp6FilterSse)	1	
+001cde70	232	ClampLevels_mmx	none	1	
+001cdf60	232	MmxFastDeInterlace	placeholder(bfmeBlurRowsMmx)	1	
+001cf4b0	3721	DeblockLoopFilteredBand_WMT	none	3	
+001d0340	4068	DeblockNonFilteredBand_WMT	none	3	
+001d1540	200	WmtFastDeInterlace	placeholder(bfmeBlurRowsSse)	1	
+001d1610	57	FillLoopFilterLimitValues_MMX	placeholder(spreadTable)	1	
+001d1650	622	FilteringHoriz_8_MMX	placeholder(bfmeFilterBlockByIndexMmx)	2	001d1610
+001d18c0	352	FilteringVert_8_MMX	placeholder(bfmeFilterRowByIndex8Mmx)	2	001d1610
+001d1a20	882	FilteringHoriz_12_MMX	placeholder(bfmeFilterBlockPairByIndexMmx)	2	001d1610
+001d1da0	483	FilteringVert_12_MMX	placeholder(bfmeFilterRowByIndex12Mmx)	2	001d1610
+001d1f90	202	HorizontalLine_3_5_Scale_MMX	placeholder(bfmeExpand3to5Mmx)	2	
+001d2060	232	HorizontalLine_4_5_Scale_MMX	placeholder(bfmeExpand4to5Mmx)	2	
+001d2150	358	VerticalBand_4_5_Scale_MMX	placeholder(bfmeInterpRows5Mmx)	2	
+001d22c0	288	LastVerticalBand_4_5_Scale_MMX	placeholder(bfmeInterpRowsMmx)	2	
+001d23e0	366	VerticalBand_3_5_Scale_MMX	placeholder(bfmeInterpRows6Mmx)	2	
+001d2550	293	LastVerticalBand_3_5_Scale_MMX	placeholder(bfmeInterpRows2Mmx)	2	
+001d2680	86	VerticalBand_1_2_Scale_MMX	placeholder(bfmeAverageMmx)	1	
+001d26e0	31	LastVerticalBand_1_2_Scale_MMX	placeholder(bfmeCopyMmx)	1	
+001d2700	193	HorizontalLine_1_2_Scale_MMX	placeholder(bfmeExpandMmx)	2	
+001d27d0	659	FilterHoriz_Simple_MMX	placeholder(bfmeDeblockEdgeVerticalByIndexMmx)	2	
+001d2a70	424	FilterVert_Simple_MMX	placeholder(bfmeDeblockEdgeByIndexMmx)	2	
+001d3230	53	SetupBoundingValueArray_ForMMX	placeholder(initPattern)	1	
+001d3270	551	FilterHoriz_MMX	placeholder(bfmeFilterBlockMmx)	2	
+001d34a0	317	FilterVert_MMX	placeholder(bfmeFilterPairMmx)	2	
+001d45f0	88	MMX_idct1	placeholder(Rva009C3CF0)	1	
+001d55c0	301	SatUnsigned8	placeholder(bfmeClampBlock)	1	
+001d56f0	153	ScalarReconIntra	placeholder(Rva009C4DF0)	1	001d55c0
+001d5790	485	ScalarReconInter	placeholder(Rva009C4E90)	1	001d55c0
+001d5980	733	ScalarReconInterHalfPixel2	placeholder(Rva009C5080)	1	001d55c0
+001d5c60	308	ReconBlock_C	placeholder(Rva009C5360)	1	001d55c0
+001d5da0	1006	dequant_slow	placeholder(Rva009C54A0DequantZigzag)	1	
+001d65a0	182	dequant_slow10	placeholder(Rva009C5CA0)	1	
+001d6c90	211	FilterBlock1d_h_mmx	placeholder(rva009C6390BinkMmx)	2	
+001d6d70	196	FilterBlock1d_v_mmx	placeholder(rva009C6470BinkMmx)	2	
+001d6ff0	134	FilterBlock1d_hb8_mmx	placeholder(rva009C66F0BinkMmx)	1	
+001d7080	125	FilterBlock1d_vb8_mmx	placeholder(rva009C6780BinkMmx)	1	
+001d7100	254	FilterBlock2dBil_mmx	placeholder(Rva009C6800)	2	
+001d7200	204	FilterBlockBil_8_mmx	placeholder(Rva009C6900)	1	ext:001d6ff0,001d7080,001d7100
+001d72d0	83	FilterBlock2d_mmx	placeholder(rva009C69D0BinkMmx)	1	ext:001d6c90,001d6d70
+001d7330	486	FilterBlock_mmx	placeholder(Rva009C6A30)	2	ext:001d6c90,001d6d70,001d6ff0,001d7080,001d72d0,001d7100,001d7740
+001d7520	55	MMXReconIntra	placeholder(bfmePackXor80Mmx)	1	
+001d7560	75	MmxReconInter	placeholder(bfmeAddPack8MmxRow)	1	
+001d75b0	110	MmxReconInterHalfPixel2	placeholder(rva009C6CB0BinkMmx)	1	
+001d7620	3	ClearMmx	none	1	
+001d7630	110	CopyBlockMMX	placeholder(rva009C6D30BinkCopy)	1	
+001d76a0	51	Copy12x12_MMX	placeholder(copyTwelveVec3)	1	
+001d76e0	84	AverageBlock_MMX	placeholder(bfmeAvg8to16Mmx)	1	
+001d7740	53	UnpackBlock_MMX	placeholder(bfmeUnpack8to16Mmx)	1	
+001d7780	66	SubtractBlock_MMX	placeholder(bfmeSub8to16Mmx)	1	
+001d77d0	66	ReconBlock_MMX	placeholder(bfmeAddPack8Mmx)	1	
+001d7820	159	FilterBlock1d_h_wmt	placeholder(rva009C6F20BinkSse)	2	
+001d78c0	146	FilterBlock1d_v_wmt	placeholder(rva009C6FC0BinkSse)	2	
+001d7960	102	FilterBlock1d_hb8_wmt	placeholder(rva009C7060BinkSse)	1	
+001d79d0	100	FilterBlock1d_vb8_wmt	placeholder(rva009C70D0BinkSse)	1	
+001d7a40	192	FilterBlock2dBil_wmt	placeholder(rva009C7140BinkSse)	2	
+001d7b00	188	FilterUnpackBlock2dBil_wmt	placeholder(rva009C7200BinkSse)	2	
+001d7bc0	95	FilterUnpackBlock1d_hb8_wmt	placeholder(rva009C72C0BinkSse)	1	
+001d7c20	93	FilterUnpackBlock1d_vb8_wmt	placeholder(rva009C7320BinkSse)	1	
+001d7c80	204	FilterBlockBil_8_wmt	placeholder(rva009C7380BinkSse)	1	ext:001d7960,001d79d0,001d7a40
+001d7d90	83	FilterBlock2d_wmt	placeholder(rva009C7490BinkSse)	1	ext:001d7820,001d78c0
+001d7df0	465	FilterBlock_wmt	none	2	ext:001d7820,001d78c0,001d7d90,001d7bc0,001d7c20,001d7b00
+001d7fd0	62	WmtReconIntra	placeholder(bfmePackXor80Sse)	1	
+001d8010	69	WmtReconInter	placeholder(bfmeAddPack8Sse)	1	
+001d8060	95	WmtReconInterHalfPixel2	placeholder(rva009C7760BinkSse)	1	
+001d89c0	98	Wmt_idct1	none	1	
+001d8a30	130	Var16Point	placeholder(rva009C8130ByteDispersion)	1	
+001d8ac0	113	InitLoopDeringThresholds	placeholder(rva009C81C0TableInit)	1	
+001d8b40	655	LoopDeringBlock	none	1	
+001d8dd0	170	VP6_PredictFiltered	placeholder(Rva009C84D0Vp6Filter)	1	

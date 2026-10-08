@@ -51,6 +51,10 @@ never blocks a push.
   rows and emulator divergences; `repair_queue.py link` serves rows a link
   cycle did not place. `repair_queue.py dest 0xRVA` names the file a new
   match belongs in.
+- *VP6 clean room.* `reverse/vp6_cleanroom/queue.tsv` serves one spec per VP6
+  decoder function. Implement from the spec and retail only; never read any VP6
+  decoder source (On2, Winamp, ffdshow, MFNode): it may not be redistributed, and
+  this lane is no reference sweep. Rules: `reverse/vp6_cleanroom/README.md`.
 - *Verification runners.* Volunteer machines run `tools/link_cycle.py`, the
   nightly audit (`tools/audit/run_nightly.cmd`), `tools/boot_smoke.py` and
   the publisher in shadow mode. Ask a maintainer before starting one.
