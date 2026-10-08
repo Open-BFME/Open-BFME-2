@@ -188,7 +188,9 @@ struct BfmePoolHolder88;
 
 class BfmePoolRef10 {
 public:
+    ~BfmePoolRef10() { if (m_ptr) reinterpret_cast<OpaqueRefCounted *>(reinterpret_cast<char *>(m_ptr) + 0x88)->Release_Ref(); }
     AudioEventRTS *operator->(void) const { return m_ptr; }
+    AudioEventRTS *get(void) const { return m_ptr; }
     BfmePoolRef10 &operator=(const BfmePoolRef10 &other);
     void rva00053D26(BfmePoolHolder88 *p);  // assign from a raw event (0x00053D26)
     void rva000519BD(void);                 // release then null (0x000519BD)
@@ -738,7 +740,7 @@ public:
     virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43(); virtual void slot44();
     virtual void slot45(); virtual void slot46(); virtual void slot47(); virtual void slot48(); virtual void slot49();
     virtual void slot50(); virtual void slot51(); virtual void slot52(); virtual void slot53(); virtual void slot54();
-    virtual void slot55(); virtual void slot56(); virtual void slot57(); virtual void slot58(); virtual void slot59();
+    virtual void slot55(); virtual bool slot56(unsigned int soundClass); virtual void slot57(); virtual void slot58(); virtual void slot59();
     virtual void slot60(); virtual void slot61(); virtual void slot62(); virtual void slot63(); virtual void slot64();
     virtual void slot65(); virtual void slot66(); virtual void slot67(); virtual void slot68(); virtual void slot69();
     virtual void slot70(); virtual void slot71(); virtual void slot72(); virtual void slot73(); virtual void slot74();
@@ -816,6 +818,11 @@ public:
     void rva0005774F(int viewType, int musicSystem, int arg);
     void rva0005876E(int viewType, int musicSystem, int arg, int resume);
     bool addAudioEventMusic(BfmePoolRef10 &event, int requestType, int append);
+    int pushMusicEventInternal(AudioEventRTS *event, int arg1, int arg2, int append);
+    int addResumeOrPushMultisound(AudioEventRTS *event, int requestType, int arg2, int arg3, int arg4, int arg5);
+    BfmePoolRef10 rva0005286A(AudioEventRTS *event, int arg);
+    void rva000592B8(AudioEventRTS *event);
+    bool shouldPlayLocally(const AudioEventRTS *event);
     void rva00055A58(int viewType, int musicSystem, int arg, int flag);
     void rva00055B40(int viewType, int musicSystem, int arg);
     void rva000567F4(int viewType, int musicSystem, int arg);
@@ -2798,4 +2805,35 @@ void MilesAudioManager::loadPostProcess(void)
     m_savedTriggerAreas.clear();
     ((Rva00053DC5 *)atB6C)->rva00054B9A();
     ((Rva00056DA2 *)atB78)->rva00056DA2();
+}
+
+// WorldBuilder 0x788390 (MilesAudioManager.cpp asserts 4319..4335): Music
+// events only; a multisound info (type 5) goes through
+// addResumeOrPushMultisound, a muted sound class returns 1, a sound not for
+// the local player 3. Otherwise it queues push-music request 3 in front of
+// (or, with append, behind) the request list and returns the event handle.
+int MilesAudioManager::pushMusicEventInternal(AudioEventRTS *event, int arg1, int arg2, int append)
+{
+    const AudioEventInfo *info = event->getAudioEventInfo();
+    if (info == 0)
+        return 0;
+    if (info->m_atB0 == 5)
+        return addResumeOrPushMultisound(event, 2, 1, arg1, arg2, append);
+    if (event->getAudioEventInfo()->m_atB0 != 0)
+        return 0;
+    if (!slot56(event->getSoundClass()))
+        return 1;
+    BfmePoolRef10 ref = rva0005286A(event, arg2);
+    rva000592B8(ref.get());
+    if (!shouldPlayLocally(ref.get()))
+        return 3;
+    Rva00051107AudioRequest *request = rva00051107();
+    request->m_pendingEvent = ref;
+    request->m_request = 3;
+    request->m_at10 = arg1 == 0;
+    if (!append)
+        m_audioRequests.push_front(request);
+    else
+        m_audioRequests.push_back(request);
+    return ref->m_playingHandle;
 }
