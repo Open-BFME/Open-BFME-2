@@ -111,6 +111,14 @@
 //    and validates the factory only when 0x002A8AB1 has no record for the
 //    player. isWaitingToBuild is a count test written as an early return,
 //    which keeps the recruit loop top-tested as retail has it.
+//  - recruitSpecificAITeam 0x004F437E (811 bytes, vtable +0x28): ZH's body
+//    with BFME 2's position argument (null means the prototype's home),
+//    owner-and-name findTeam/createInactiveTeam, no home-position warning and
+//    tryToRecruit's extra int from the unit info (+0x14); the two recruit
+//    calls tail-merge as in queueUnits. A recruit moves to the given position
+//    or, without one, the home location (else the team centroid from Team
+//    0x0039DA2A). The disband deletes the team through its virtual
+//    destructor and global delete.
 #include <list>
 #include <vector>
 
@@ -785,7 +793,7 @@ public:
 class Team
 {
 public:
-	char m_pad000[0x04];
+	virtual ~Team();
 	Rva0055B156 m_bfme04;			// +0x04
 	char m_pad005[0x30 - 0x05];
 	TeamPrototype *m_proto;			// +0x30
@@ -807,6 +815,8 @@ public:
 	const AsciiString &getOwnerName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getOwnerName(); }
 	const AsciiString &getName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getName(); }
 	TeamPrototype *getPrototype() const { return m_proto; }
+	void rva0039DA2A(Coord3D *center) const;
+	__forceinline void deleteInstance() { ::delete this; }
 };
 
 class WorkOrder
@@ -910,9 +920,7 @@ public:
 	virtual void onUnitProduced(Object *factory, Object *unit);	// +0x1C
 	virtual void onStructureProduced(Object *factory, Object *bldg);	// +0x20
 	virtual void buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild);	// +0x24
-protected:
-	virtual void slot10();
-public:
+	virtual void recruitSpecificAITeam(TeamPrototype *teamProto, Real recruitRadius, const Coord3D *pos);	// +0x28
 	virtual Bool isSkirmishAI();					// +0x2C
 protected:
 	virtual void slot12();
@@ -2063,6 +2071,107 @@ void AIPlayer::buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild)
 				teamName.concat(" - contains 0 buildable units.");
 				TheScriptEngine->AppendDebugMessage(teamName, false);
 			}
+		}
+	}
+}
+
+void AIPlayer::recruitSpecificAITeam(TeamPrototype *teamProto, Real recruitRadius, const Coord3D *pos)
+{
+	if (recruitRadius < 1)
+		recruitRadius = 99999.0f;
+	if (teamProto)
+	{
+		if (teamProto->getIsSingleton())
+		{
+			Team *singletonTeam = TheTeamFactory->findTeam(teamProto->getOwnerName(), teamProto->getName());
+			if (singletonTeam && singletonTeam->hasAnyObjects(false))
+			{
+				AsciiString teamStr = "Unable to recruit singleton team '";
+				teamStr.concat("' because team already exists.");
+				TheScriptEngine->AppendDebugMessage(teamStr, false);
+				return;
+			}
+		}
+		Team *theTeam = TheTeamFactory->createInactiveTeam(teamProto->getOwnerName(), teamProto->getName());
+		AsciiString teamName = teamProto->getName();
+		teamName.concat(" - Recruiting.");
+		TheScriptEngine->AppendDebugMessage(teamName, false);
+		const TCreateUnitsInfo *unitInfo = &teamProto->m_unitsInfo[0];
+		Int i;
+		Int unitsRecruited = 0;
+		for (i = 0; i < teamProto->m_numUnitsInfo; i++)
+		{
+			const ThingTemplate *thing = TheThingFactory->findTemplate(unitInfo[i].unitThingName);
+			if (thing)
+			{
+				int count = unitInfo[i].maxUnits;
+				while (count > 0)
+				{
+					Object *unit;
+					if (pos)
+						unit = theTeam->tryToRecruit(thing, pos, recruitRadius, unitInfo[i].m_14, 0, 0);
+					else
+						unit = theTeam->tryToRecruit(thing, &teamProto->m_homeLocation, recruitRadius, unitInfo[i].m_14, 0, 0);
+					if (unit)
+					{
+						unitsRecruited++;
+
+						AsciiString teamStr = "Team '";
+						teamStr.concat(theTeam->getPrototype()->getName());
+						teamStr.concat("' recruits ");
+						teamStr.concat(thing->getName());
+						teamStr.concat(" from team '");
+						teamStr.concat(unit->m_team->getPrototype()->getName());
+						teamStr.concat("'");
+						TheScriptEngine->AppendDebugMessage(teamStr, false);
+
+						unit->setTeam(theTeam);
+
+						AIUpdateInterface *ai = unit->getAI();
+						if (ai)
+						{
+							const Coord3D *dest = pos;
+							Coord3D center;
+							theTeam->rva0039DA2A(&center);
+							if (pos == NULL)
+							{
+								if (teamProto->m_hasHomeLocation)
+									center = teamProto->m_homeLocation;
+								dest = &center;
+							}
+							ai->getCommandInterface()->aiMoveToPosition(dest, CMD_FROM_AI);
+						}
+					}
+					else
+					{
+						break;
+					}
+					count--;
+				}
+			}
+		}
+		if (unitsRecruited > 0)
+		{
+			TeamInQueue *team = new TeamInQueue;
+			prependTo_TeamReadyQueue(team);
+			team->m_workOrders = NULL;
+			team->m_priorityBuild = false;
+			team->m_frameStarted = TheGameLogic->getFrame();
+			team->m_team = theTeam;
+			teamName = teamProto->getName();
+			teamName.concat(" - Finished recruiting.");
+			TheScriptEngine->AppendDebugMessage(teamName, false);
+		}
+		else
+		{
+			if (!theTeam->getPrototype()->getIsSingleton())
+			{
+				theTeam->deleteInstance();
+				theTeam = NULL;
+			}
+			teamName = teamProto->getName();
+			teamName.concat(" - Recruited 0 units, disbanding.");
+			TheScriptEngine->AppendDebugMessage(teamName, false);
 		}
 	}
 }
