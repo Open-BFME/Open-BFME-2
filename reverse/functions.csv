@@ -33057,7 +33057,6 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva0029A268ByteField@@QBEEXZ,,0x0029A268,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
 ?get@Rva0029A83AByteField@@QBEEXZ,,0x0029A83A,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
 ?get@Rva0029A854ByteField@@QBEEXZ,,0x0029A854,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
-?get@Rva0029AAFCByteField@@QBEEXZ,,0x0029AAFC,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
 ?get@Rva002A9DA5ByteField@@QBEEXZ,,0x002A9DA5,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
 ?get@Rva002B223DByteField@@QBEEXZ,,0x002B223D,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
 ?get@Rva002B22F3ByteField@@QBEEXZ,,0x002B22F3,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
@@ -54092,7 +54091,6 @@ ___Extract_locale_name,,0x000216A0,153,Code/Libraries/Source/WWVegas/WWLib/Local
 ?rva0055ED5F@OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z,,0x0055ED5F,237,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055ED5FWrite.cpp,matched,vslot3 Outward template writeINI via header speed otherspeed
 ?rva0042D729@Rva0042D729@@QAEXPAVRva00577DE1OwningCell@@@Z,,0x0042D729,35,Code/GameEngine/Source/Common/Rva0042D729Set.cpp,matched,setter via ForwardClear 0x00577E3E plus delete 0x0002FD60 caller 0x0042DD37 sibling Rva0042D7A3Set pattern
 ?rva0042D74C@Rva0042D729@@QAEXXZ,,0x0042D74C,26,Code/GameEngine/Source/Common/Rva0042D729Set.cpp,matched,clearer via ForwardClear 0x00577E3E plus delete 0x0002FD60 sibling Rva0042D7A3 clearer
-?rva00050F29@Rva00050F29@@QAEHHH@Z,,0x00050F29,24,Code/Libraries/Source/WWVegas/WWLib/Rva00050F29.cpp,matched,leaf thiscall virtual slot88 neg sbb inc honest Rva name
 ?rva002E7482@Rva002E7482@@QAEMH@Z,,0x002E7482,42,Code/GameEngine/Source/GameLogic/Object/Rva002E7482.cpp,matched,float getter via rowed predicate 0x001E3679 and BfmeZeroRange with 64B stride at plus9C
 ?Rva0032AF02Compare@@YAHHHH@Z,,0x0032AF02,84,Code/GameEngine/Source/Common/Rva0032AF02Compare.cpp,matched,same 84B shape as Rva002ABC22Compare via Compare callers and vtables
 ?Rva0032B610Compare@@YAHHH@Z,,0x0032B610,31,Code/GameEngine/Source/Common/Rva0032B610Compare.cpp,matched,chain via 0x0032AF02 memset1 stosb pattern per Rva002AC271Compare
@@ -70111,3 +70109,9 @@ $L7319,,0x0079A19C,13,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva0029AC03@InGameUI@@UAEX_N@Z,,0x0029AC03,149,Code/GameEngine/Source/GameClient/InGameUIInputModes.cpp,matched,vftable 0x7FD410 slot 94; +0x810 input flag edge resets TheSelectionTranslator drag then setSelecting endAreaSelectHint setRadiusCursorNone and mode flags
 ?beginAreaSelectHint@InGameUI@@UAEXPBVGameMessage@@@Z,,0x0029A79F,37,Code/GameEngine/Source/GameClient/InGameUIInputModes.cpp,matched,ZH InGameUI::beginAreaSelectHint; vftable 0x7FD410 slot 26; drag flag +0x28 and region +0x2C from argument 0
 ?createGarrisonHint@InGameUI@@UAEXPBVGameMessage@@@Z,,0x0029A7C4,38,Code/GameEngine/Source/GameClient/InGameUIInputModes.cpp,matched,ZH InGameUI::createGarrisonHint; vftable 0x7FD410 slot 33; findDrawableByID then drawable 0x002754E3
+?worldToScreen@View@@QAE_NPBUCoord3D@@PAUICoord2D@@@Z,,0x00050F29,24,Code/GameEngine/Source/GameClient/ViewWorldToScreen.cpp,matched,ZH View.h inline worldToScreen: slot 88 of W3DView primary vftable 0xBC7568 is rowed worldToScreenTriReturn 0x8619F; result == WTS_INSIDE_FRUSTUM via neg sbb inc; renamed from Rva00050F29 placeholder
+?setPlacementStart@InGameUI@@UAEXPBUICoord2D@@@Z,,0x0029A9C2,61,Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp,matched,ZH InGameUI::setPlacementStart; InGameUI vftable 0x7FD410 slot 58; anchor flag +0x554 start +0x558 end +0x560
+?setPlacementEnd@InGameUI@@UAEXPBUICoord2D@@@Z,,0x0029AAE0,28,Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp,matched,ZH InGameUI::setPlacementEnd; vftable 0x7FD410 slot 59; writes end anchor +0x560
+?isPlacementAnchored@InGameUI@@UAE_NXZ,,0x0029AAFC,7,Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp,matched,ZH InGameUI::isPlacementAnchored; vftable 0x7FD410 slot 60 between setPlacementEnd and getPlacementPoints; reads anchor flag +0x554; renamed from Rva0029AAFCByteField
+?getPlacementPoints@InGameUI@@UAEXPAUICoord2D@@0@Z,,0x0029B45C,104,Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp,matched,ZH InGameUI::getPlacementPoints; vftable 0x7FD410 slot 61; BFME2 projects first place icon position through View::worldToScreen 0x50F29 when template kind-of bit +0x11F&0x10
+?getPlacementAngle@InGameUI@@UAEMXZ,,0x0029AB0B,23,Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp,matched,ZH InGameUI::getPlacementAngle; vftable 0x7FD410 slot 62; first place icon orientation else 0.0f

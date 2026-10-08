@@ -2735,74 +2735,27 @@ const ObjectID InGameUI::getPendingPlaceSourceObjectID( void )
 //-------------------------------------------------------------------------------------------------
 /** Start the angle selection interface for selecting building angles when placing them */
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::setPlacementStart present-unmatched
-void InGameUI::setPlacementStart( const ICoord2D *start )
-{
-
-	// if we have a start point we turn "on" the interface, otherwise we turn it "off"
-	if( start )
-	{
-
-		m_placeAnchorStart = *start;
-		m_placeAnchorEnd = *start;
-		m_placeAnchorInProgress = TRUE;
-
-	}  // end if
-	else
-		m_placeAnchorInProgress = FALSE;
-
-}  // end setPlacementStart
+// InGameUI::setPlacementStart: defined in InGameUIPlacement.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** Set the end anchor for the angle build interface */
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::setPlacementEnd present-unmatched
-void InGameUI::setPlacementEnd( const ICoord2D *end )
-{
-
-	if( end )
-		m_placeAnchorEnd = *end;
-
-}  // end setPlacementEnd
+// InGameUI::setPlacementEnd: defined in InGameUIPlacement.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** Is the angle selection interface for placing building at angles up? */
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::isPlacementAnchored present-unmatched
-Bool InGameUI::isPlacementAnchored( void )
-{
-
-	return m_placeAnchorInProgress;
-
-}  // end isPlacementAnchored
+// InGameUI::isPlacementAnchored: defined in InGameUIPlacement.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** Get the start and end anchor points for the building angle selection interface */
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::getPlacementPoints present-unmatched
-void InGameUI::getPlacementPoints( ICoord2D *start, ICoord2D *end )
-{
-
-	if( start )
-		*start = m_placeAnchorStart;
-	if( end )
-		*end = m_placeAnchorEnd;
-
-}  // end getPlacementPoints
+// InGameUI::getPlacementPoints: defined in InGameUIPlacement.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** Return the angle of the drawable at the cursor if any */
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::getPlacementAngle present-unmatched
-Real InGameUI::getPlacementAngle( void )
-{
-
-	if( m_placeIcon[ 0 ] )
-		return m_placeIcon[ 0 ]->getOrientation();
-
-	return 0.0f;
-
-}  // end getPlacementAngle
+// InGameUI::getPlacementAngle: defined in InGameUIPlacement.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** Mark given Drawable as "selected". */
