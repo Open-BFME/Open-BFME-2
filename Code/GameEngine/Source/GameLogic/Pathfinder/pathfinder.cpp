@@ -40,14 +40,23 @@ public:
 	char m_pad00[0x5c];
 	Int m_playerType;		// +0x5C (1: computer)
 };
+// Relationship order is established by the rowed Object::getRelationship.
+class AIUpdateInterface;
+enum Relationship { ENEMIES=0, NEUTRAL=1, ALLIES=2 };
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
-	char m_pad00[0x44];
+	Relationship getRelationship(const Object *) const;
+	bool IsAtGoalPosition() const;
+	AIUpdateInterface *getAI() const { return reinterpret_cast<AIUpdateInterface *>(m_258); }
+	char m_pad00[0x38];
+	float position[3];
 	float m_orientation;				// +0x44
 	char m_pad48[0x258 - 0x48];
 	char *m_258;						// +0x258 (WorldBuilder +0x260: CanApproachToTarget's gate)
+	char m_pad25C[0x274-0x25C];
+	Object *container;
 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Thing
@@ -357,6 +366,31 @@ public:
 	void rva005314C6(Int x, Int y, unsigned char flag);
 };
 
+
+struct Rva002EBC7FPair { int x,y; };
+void *rva002EBC7F(void *,void *,Rva002EBC7FPair *,int);
+#include <math.h>
+class Rva001E46E1 { public: float rva001E46E1(Object *); };
+class AIUpdateInterface {
+public:
+    int rva0026417F(bool);
+    char gap[0x1f0];
+    Rva001E46E1 *locomotor;
+};
+// Native 0x002EC0A2 reads Object nodes at cell-info +0x14, +0x20 and +0x24.
+// The list-role labels below describe the three observed conflict passes;
+// their original member spellings are not established. Nodes link at +0 and
+// carry Object* at +8; native Object position/AI/container are +0x38/+0x258/+0x274.
+struct PathCollisionNode { PathCollisionNode *next; void *word4; Object *object; };
+struct PathCollisionInfo {
+    int x,y;
+    char gap08[0x14-8];
+    PathCollisionNode *occupants;
+    char gap18[8];
+    PathCollisionNode *goals;
+    PathCollisionNode *reservations;
+};
+struct PathCollisionCell { PathCollisionInfo *info; };
 class Pathfinder
 {
 public:
@@ -374,6 +408,7 @@ public:
 	Bool IsGroundPathPassable(const Coord3D *startWorld,
 		PathfindLayerEnum layer, const Coord3D *endWorld, Int pathDiameter);
 	void AddToOpenList(PathfindCell *cell);
+	int CalcCollisionFreeExtraCosts(Object *,PathfindCell *,Rva002EBC7FPair *,PathfindLayerEnum,int,int,bool);
 	PathfindCell *getCell(PathfindLayerEnum layer, Int x, Int y);	// 0x002E6D62
 	Bool IsValidMovementTerrain(PathfindLayerEnum layer, const Locomotor *locomotor, const Coord3D *pos);
 	Int AdjustGroundPathPosition(const Coord3D &source, Coord3D &destination);
@@ -729,4 +764,77 @@ Bool Pathfinder::CanApproachToTarget(Object *obj, const Coord3D *targetPos,
 		}
 	}
 	return false;
+}
+
+// Retail 0x002EC0A2..0x002EC3CE (812 bytes), exact /O1 /G7 /arch:SSE.
+// Identity: WB 0x00D32F30, Pathfinder/pathfinder.cpp assertions 772..851;
+// its name, three conflict passes, arrival-time comparison and seven-argument
+// thiscall agree with native. The named BFME1 and GeneralsMD AIPathfind source
+// has no corresponding method; this is reconstruction from native and WB.
+// Layouts and helper bindings above are proved by native loads/call sites,
+// independently of WB's debug-only assertions and shifted Object offsets.
+// Standard math.h supplies sqrt's compiler declaration; a bare extern makes
+// the two x87 result stores interleave with stack cleanup instead of retail.
+int Pathfinder::CalcCollisionFreeExtraCosts(Object *object,PathfindCell *parent,Rva002EBC7FPair *destination,PathfindLayerEnum layer,int lower,int upper,bool ignoreReservations)
+{
+    Rva002EBC7FPair oldMin,oldMax;
+    if (parent) {
+        PathCollisionInfo *info=reinterpret_cast<PathCollisionCell *>(parent)->info;
+        oldMin.x=info->x-lower; oldMin.y=info->y-lower;
+        oldMax.x=info->x+upper; oldMax.y=info->y+upper;
+    }
+    Rva002EBC7FPair minimum,maximum;
+    minimum.x=destination->x-lower; minimum.y=destination->y-lower;
+    maximum.x=destination->x+upper; maximum.y=destination->y+upper;
+    float ourArrival=-1.0f;
+    int cost=0;
+    for (int x=minimum.x;x<maximum.x;++x) {
+        for (int y=minimum.y;y<maximum.y;++y) {
+            if (parent && x>=oldMin.x && x<oldMax.x && y>=oldMin.y && y<oldMax.y) continue;
+            PathCollisionCell *cell=reinterpret_cast<PathCollisionCell *>(getCell(layer,x,y));
+            if (!cell || !cell->info) continue;
+            for (PathCollisionNode *node=cell->info->occupants;node;node=node->next) {
+                Object *other=node->object;
+                if (other==object || other->container==object) continue;
+                bool enemies=object->getRelationship(other)==ENEMIES;
+                if (!object->getAI() || !other->getAI()) continue;
+                if (static_cast<unsigned>(object->getAI()->rva0026417F(enemies))>static_cast<unsigned>(other->getAI()->rva0026417F(enemies))) continue;
+                if (other->IsAtGoalPosition()) return -1;
+                if (object->getAI()->locomotor && other->getAI()->locomotor) {
+                    Coord3D target;
+                    rva002EBC7F(&target,object,destination,1);
+                    if (ourArrival<0.0f) {
+                        float dx=object->position[0]-target.x;
+                        float dy=object->position[1]-target.y;
+                        Rva001E46E1 *locomotor=object->getAI()->locomotor;
+                        float distance=static_cast<float>(sqrt(dy*dy+dx*dx));
+                        ourArrival=distance/locomotor->rva001E46E1(object);
+                    }
+                    float dx=other->position[0]-target.x;
+                    float dy=other->position[1]-target.y;
+                    Rva001E46E1 *locomotor=other->getAI()->locomotor;
+                    float distance=static_cast<float>(sqrt(dy*dy+dx*dx));
+                    float otherArrival=distance/locomotor->rva001E46E1(other);
+                    if (otherArrival<ourArrival) cost+=4;
+                } else cost+=8;
+            }
+            for (PathCollisionNode *node=cell->info->goals;node;node=node->next) {
+                Object *other=node->object;
+                if (other==object || other->container==object) continue;
+                bool enemies=object->getRelationship(other)==ENEMIES;
+                if (!object->getAI() || !other->getAI()) continue;
+                if (static_cast<unsigned>(object->getAI()->rva0026417F(enemies))<=static_cast<unsigned>(other->getAI()->rva0026417F(enemies))) return -1;
+            }
+            if (!ignoreReservations) {
+                for (PathCollisionNode *node=cell->info->reservations;node;node=node->next) {
+                    Object *other=node->object;
+                    if (other==object) continue;
+                    bool enemies=object->getRelationship(other)==ENEMIES;
+                    if (!object->getAI() || !other->getAI()) continue;
+                    if (static_cast<unsigned>(object->getAI()->rva0026417F(enemies))<=static_cast<unsigned>(other->getAI()->rva0026417F(enemies))) return -1;
+                }
+            }
+        }
+    }
+    return cost;
 }
