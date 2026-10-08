@@ -826,6 +826,21 @@ def _current_bfme1_include_flag(flag, source=None, cnc_variant=None):
     # Other BF2 ``reference/`` flags name local shims and must remain untouched.
     legacy_cnc = "reference/CnC_Generals_Zero_Hour/"
     if not in_donor and include.startswith(legacy_cnc):
+        # BF2 sources that retained the old CnC-rooted Code/ spelling also
+        # carry explicit BF1 Code roots later in the same // cl: list. In the
+        # current BF1 layout, Code/ moved to game/; use that migrated subtree
+        # when the exact directory exists. This preserves the BF1 game header
+        # selected by the verified pre-migration command (the raw CnC input
+        # header can have a different ABI). Keep inputs/reference as the
+        # physical destination for paths with no migrated game counterpart.
+        tail = include[len(legacy_cnc):].replace("\\", "/")
+        if cnc_variant in ("Generals", "GeneralsMD"):
+            variant_root = cnc_variant + "/Code/"
+            if tail.startswith(variant_root):
+                game_relative = "game/" + tail[len(variant_root):]
+                game_physical = _bfme1_physical_include(game_relative)
+                if game_physical is not None:
+                    return prefix + root + game_physical
         relative = _bfme1_layout_relative(include)
         physical = _bfme1_physical_include(relative, cnc_variant)
         if physical is not None:

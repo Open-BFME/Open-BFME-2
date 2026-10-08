@@ -107,6 +107,25 @@ def test_rootless_cnc_reference_flag_resolves_to_physical_current_reference(
             "WWVegas/WWDebug")
 
 
+def test_bfme2_legacy_cnc_code_root_prefers_verified_migrated_game_directory(
+        tmp_path, monkeypatch):
+    repo = tmp_path / "bfme2"
+    donor = repo / "reference/open-bfme-1"
+    legacy = (donor / "inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/"
+              "Code/Libraries/Source/WWVegas/WW3D2")
+    migrated = donor / "game/Libraries/Source/WWVegas/WW3D2"
+    legacy.mkdir(parents=True)
+    migrated.mkdir(parents=True)
+    monkeypatch.setattr(build, "ROOT", repo)
+    monkeypatch.setattr(build, "BFME1_ROOT", donor)
+    source = repo / "Code" / "sample.cpp"
+
+    assert build._current_bfme1_include_flag(
+        "-Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/"
+        "Libraries/Source/WWVegas/WW3D2", source, "GeneralsMD") == (
+            "-Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2")
+
+
 def test_legacy_cnc_library_family_moves_under_wwvegas_only_when_present(
         tmp_path, monkeypatch):
     repo = tmp_path / "bfme2"
