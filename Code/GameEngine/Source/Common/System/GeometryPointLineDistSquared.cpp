@@ -82,3 +82,15 @@ Bool GeometryInfo::isIntersectedByLineSegment(const Coord3D &loc, const Coord3D 
 	Real distSquared = calcPointToLineDistSquared(loc, from, to);
 	return distSquared <= sqr(boundingSphereRadius);
 }
+
+// BF1 9cbfb551fe GeometryInfoCalcBoundingStuff.cpp emits sqr<double> in the
+// clean named Common O1/SSE/G7 sweep. This supplies the expression, not a
+// target template identity. Retail 6BD4D0..6BD4D9 is independently INT3-bounded
+// on both sides: load a stack double, multiply by itself, return in ST0.
+// No calls/globals/literals; no direct CALL/JMP was found in all image sections.
+// The original name/owner/template identity remain unknown, so this ordinary
+// helper has a neutral address name in the existing geometry arithmetic home.
+double Rva006BD4D0Square(double value)
+{
+    return value * value;
+}
