@@ -1,14 +1,19 @@
-// ?Rva003064CBXfer@@YAXPAVXfer@@PAI@Z
-// partial score=0.96 date=2026-10-03
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
-// ?Rva003064CBXfer@@YAXPAVXfer@@PAI@Z present-unmatched
-// Retail 0x003064CB 350B: upgrade-bitmask helper called from 5 free functions.
-// Evidence: Version1 row 0x000053EE plus IsStoring slot 0x08 guard (store vs
-// load), TheUpgradeCenter global _TheUpgradeCenter, findUpgrade row 0x0026F26D,
-// getFirstTemplate ICF-twin of getParticleType row 0x001DB0A8 at +0x0C,
-// AsciiString set row 0x000366F0 plus releaseBuffer row 0x00036410,
-// _bfmeFormatText row 0x0060C36E plus _CxxThrowException pin plus
-// g_guardTargetTypeThrowInfo, memset 0x80 bytes via import thunk.
+// ?rva003064CB@@YAXPAVXfer@@PAVRva00291440@@@Z
+// partial score=0.98 date=2026-10-08
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /DNDEBUG /G7
+// Native 003064CB..00306629: complete 350-byte upgrade-mask transfer.
+// Semantic donor: BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f
+// game/GameEngine/Source/Common/System/XferUpgradeMask.cpp.
+// Native storage is 1024 bits, template name/index/next are +8/+38/+64.
+// Inline bit operations fix the previous bank's Xfer/bitset register swaps.
+// Remaining wall: count comparison uses SI=0 instead of immediate zero,
+// shifting the load suffix by one byte. Two getter calls are unresolved.
+// getFirstTemplate is a provisional descriptive declaration, not an admitted
+// original name or pin. Native calls 001DB0A8, a folded four-byte +C getter;
+// UpgradeCenterFindUpgradeByKey independently establishes list head at +C.
+// Formatter uses the real bfmeFormatText symbol and 8-byte result ABI.
+// No new pin, ledger row, or live Code source is asserted by this bank.
+// ?rva003064CB@@YAXPAVXfer@@PAVRva00291440@@@Z present-unmatched
 #include "ascii_string.h"
 #include <cstring>
 
@@ -79,6 +84,12 @@ protected:
 	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
 };
 
+class Rva00291440 {
+public:
+ unsigned int words[32];
+ __forceinline bool testBit(unsigned int bit) const { return (words[bit>>5] & (1u<<(bit&31))) != 0; }
+ __forceinline void setBit(unsigned int bit) { words[bit>>5] |= 1u<<(bit&31); }
+};
 class UpgradeTemplate
 {
 public:
@@ -98,7 +109,8 @@ public:
 };
 
 extern "C" UpgradeCenter *TheUpgradeCenter;
-extern "C" void __cdecl _bfmeFormatText(char *buf, const char *fmt, int dummy);
+struct BfmeFormattedText { char *text; int tag; };
+extern "C" BfmeFormattedText *__cdecl bfmeFormatText(BfmeFormattedText *result,int tag,const char *format,...);
 extern int g_guardTargetTypeThrowInfo;
 struct _s__ThrowInfo;
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
@@ -113,28 +125,26 @@ public:
 }
 
 // ?Rva003064CBXfer@@YAXPAVXfer@@PAI@Z
-void __cdecl Rva003064CBXfer(Xfer *xfer, unsigned int *bits)
+void __cdecl rva003064CB(Xfer *xfer, Rva00291440 *bits)
 {
 	Xfer *x = xfer;
-	unsigned int *b = bits;
+	Rva00291440 *b = bits;
 	x->Version1();
 	if (x->IsStoring()) {
 		AsciiString tmp;
-		unsigned short count = 0;
+		unsigned int count = 0;
 		const UpgradeTemplate *t = TheUpgradeCenter->getFirstTemplate();
 		while (t) {
 			unsigned int bit = t->m_bitIndex;
-			unsigned int mask = 1u << (bit & 31);
-			if (b[bit >> 5] & mask)
+			if (b->testBit(bit))
 				count++;
 			t = t->m_next;
 		}
-		*x == count;
+		*x == *reinterpret_cast<unsigned short*>(&count);
 		t = TheUpgradeCenter->getFirstTemplate();
 		while (t) {
 			unsigned int bit = t->m_bitIndex;
-			unsigned int mask = 1u << (bit & 31);
-			if (b[bit >> 5] & mask) {
+			if (b->testBit(bit)) {
 				tmp.set(t->m_name);
 				*x == tmp;
 			}
@@ -151,14 +161,13 @@ void __cdecl Rva003064CBXfer(Xfer *xfer, unsigned int *bits)
 				*x == tmp;
 				const UpgradeTemplate *up = TheUpgradeCenter->findUpgrade(tmp);
 				if (!up) {
-					char buf[8];
-					_bfmeFormatText(buf, 0, 0);
-					_CxxThrowException(buf, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
+					BfmeFormattedText error;
+					bfmeFormatText(&error, 0, 0);
+					_CxxThrowException(&error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
 					__assume(0);
 				}
 				unsigned int bit = up->m_bitIndex;
-				unsigned int mask = 1u << (bit & 31);
-				b[bit >> 5] |= mask;
+				b->setBit(bit);
 				++i;
 			} while (i < count);
 		}
