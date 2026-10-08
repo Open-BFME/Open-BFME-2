@@ -187,12 +187,16 @@ void Rva004FC320List::apply(const Rva004FC2B3Call &call)
 
 // ---- dual broadcast 0x004FA992: two-argument twin of 0x004FA978
 enum ObjectID { INVALID_ID = 0 };
+enum ScienceType { SCIENCE_INVALID = 0 };
 
 namespace _STL
 {
 // Declare the rowed vector specializations so this TU calls them without
 // emitting second definitions: erase on vector<ObjectID> (0x0025BF5D),
 template <> ObjectID *vector<ObjectID, allocator<ObjectID> >::erase(ObjectID *);
+// reserve and push_back on vector<ScienceType> (0x002A1410, 0x002E01C6).
+template <> void vector<ScienceType, allocator<ScienceType> >::reserve(unsigned int);
+template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
 }
 
 class Rva004E3184;
@@ -239,6 +243,7 @@ public:
 	virtual void v06();	// slot 6 (unrecovered; declared only)
 	virtual bool v07(int p);	// slot 7: gate on the int param (name unrecovered; declared only)
 		void rva004FA9B1(int index);
+	bool rva004FAEAA(ScienceType p);
 
 private:
 	// +0x00 vptr (was modelled as int m_00 before the slot-4 virtual call
@@ -355,4 +360,48 @@ void Rva004FA992Owner::rva004FA9B1(int index)
 	m_ids.erase(elem);
 	((Rva004FA659 *)((char *)this - 12))->rva004FA659();
 	((Rva004FA992 *)this)->rva004FA992(notify, ((char *)this - 12) ? this : 0, index);
+}
+
+// ---- owner method 0x004FAEAA (201B): bool sibling of 0x004FA9B1 on the same
+// owner. Gate on slot-7, reserve plus Science push_back of the param,
+// sub-view empty-check, count-1 channel broadcast, player find with a guarded
+// ModuleData refresh through slot-4. Ported from stranded 1b20ed4dcd onto
+// this unit's current names.
+// The ledger rows the void worker at 0x002E074E under its own address-derived
+// receiver; the call passes the same Player pointer and temp address.
+class Rva00319CED;
+class Rva002E074E
+{
+public:
+	void rva002E074E(Rva00319CED *ctx);
+};
+
+struct Rva004FAEAASeen
+{
+	char m_pad[0x14];
+	unsigned int count;	// +0x14 reserve count seen through *(this-4)
+};
+
+bool Rva004FA992Owner::rva004FAEAA(ScienceType p)
+{
+	Rva004FA953Notify notify;
+	*(int *)&notify = 0x009CC208;
+	if (!v07(p))
+		return false;
+	_STL::vector<ObjectID> *ids = &m_ids;
+	if (ids->empty())
+		m_20 &= 0;
+	Rva004FAEAASeen *seen = *(Rva004FAEAASeen **)((char *)this - 4);
+	((_STL::vector<ScienceType> *)ids)->reserve(seen->count);
+	((_STL::vector<ScienceType> *)ids)->push_back(p);
+	((Rva004FA659 *)((char *)this - 12))->rva004FA659();
+	((Rva004FA992 *)this)->rva004FA992(notify, ((char *)this - 12) ? this : 0, m_ids.size() - 1);
+	Rva002E2903Player *player = ((LivingWorldBuildingNuggetSpawnArmy *)((char *)this - 12))->getOwningPlayer();
+	if (player)
+	{
+		Rva004E3184 tmp(0);
+		if (checkId((ObjectID)p, &tmp))
+			((Rva002E074E *)player)->rva002E074E((Rva00319CED *)&tmp);
+	}
+	return true;
 }
