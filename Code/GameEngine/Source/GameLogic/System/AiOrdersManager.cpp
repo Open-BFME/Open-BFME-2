@@ -96,6 +96,12 @@ public:
 private: unsigned char opaque18[0x40-0x18];
 };
 class ObjectLookupMap { public: Object** findSlot(int*); private: unsigned char opaque[0x14]; };
+// The rowed attack-object order (constructor 0x00546ECE; 0x2C bytes).
+class AttackObjectGroupOrder : public GroupOrder {
+public:
+    AttackObjectGroupOrder(Rva0036E346*, int);
+private: unsigned char m_pad[0x2C - sizeof(GroupOrder)];
+};
 class AiOrdersManager {
 public: void addOrderToObjectQueues(int,GroupOrder*);
     void registerOrder(int,GroupOrder*);
@@ -103,6 +109,7 @@ public: void addOrderToObjectQueues(int,GroupOrder*);
     void rva00355664(const Coord3D&, int, GroupOrder*);
     void rva003558D6(int, Rva0036E346*, int, const Coord3D&, float, bool);
     void rva00355949(int, Rva0036E346*, const Coord3D&, bool, bool);
+    void rva003559B5(int, Rva0036E346*, int);
 private: unsigned char opaque[0x10]; ObjectLookupMap orders; QueueMap queues;
 };
 void AiOrdersManager::addOrderToObjectQueues(int mode,GroupOrder* order) {
@@ -187,4 +194,14 @@ void AiOrdersManager::rva00355949(int mode, Rva0036E346 *holder,
         registerOrder(mode, order);
         rva00355664(destination, mode, order);
     }
+}
+
+// Native 0x003559B5..0x00355A09 RET12 (called from 0x00377613): the third
+// sibling of the two creators above, for an attack-object order on a target;
+// it only registers the order (no destination to record).
+void AiOrdersManager::rva003559B5(int mode, Rva0036E346 *holder, int target)
+{
+    GroupOrder *order = new AttackObjectGroupOrder(holder, target);
+    if (order)
+        registerOrder(mode, order);
 }
