@@ -657,6 +657,27 @@ def compiler_environment(root, source=None):
     return env
 
 
+def _is_bfme1_donor(source):
+    """True when ``source`` is a descendant of this checkout's Open-BFME-1 root.
+
+    Seats link subtrees such as ``game/`` into the main checkout, so a genuine
+    donor can resolve outside BFME1_ROOT. Compare the lexical (normalized, not
+    symlink-resolved) path first, then the resolved one. Both checks stay under
+    BFME1_ROOT, so a sibling checkout's copy or a ``..`` escape is not a donor.
+    """
+    lexical_root = Path(os.path.abspath(BFME1_ROOT))
+    try:
+        Path(os.path.abspath(source)).relative_to(lexical_root)
+        return True
+    except ValueError:
+        pass
+    try:
+        resolved(source).relative_to(resolved(BFME1_ROOT))
+        return True
+    except ValueError:
+        return False
+
+
 def _current_bfme1_include_flag(flag, source=None):
     """Resolve Open-BFME-1 ``// cl: /I...`` paths from either checkout layout.
 
@@ -670,13 +691,7 @@ def _current_bfme1_include_flag(flag, source=None):
         return flag
     include = flag[len(prefix):]
     root = "reference/open-bfme-1/"
-    in_donor = False
-    if source is not None:
-        try:
-            resolved(source).relative_to(resolved(BFME1_ROOT))
-            in_donor = True
-        except ValueError:
-            pass
+    in_donor = source is not None and _is_bfme1_donor(source)
 
     relative = include[len(root):] if include.startswith(root) else include
     if not include.startswith(root) and not in_donor:

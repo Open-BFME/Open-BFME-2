@@ -35,6 +35,45 @@ def test_legacy_layout_donor_flags_resolve_against_the_legacy_tree(tmp_path, mon
         "-Ireference/open-bfme-1/Code/Libraries/Include")
 
 
+def test_donor_under_symlinked_subtree_maps_include_flags(tmp_path, monkeypatch):
+    # Seats keep reference/open-bfme-1 as a real directory whose game/ subtree
+    # is a symlink into the main checkout, so the donor's realpath lands outside
+    # BFME1_ROOT even though the source is a genuine descendant of it.
+    main_checkout = tmp_path / "main" / "reference" / "open-bfme-1"
+    (main_checkout / "game" / "Libraries").mkdir(parents=True)
+    seat_root = tmp_path / "seat" / "reference" / "open-bfme-1"
+    seat_root.mkdir(parents=True)
+    (seat_root / "game").symlink_to(main_checkout / "game", target_is_directory=True)
+    monkeypatch.setattr(build, "BFME1_ROOT", seat_root)
+    source = seat_root / "game" / "Libraries" / "sample.cpp"
+    source.write_text("// cl: /I game/Libraries/Include\n")
+
+    assert build._is_bfme1_donor(source)
+    assert build._current_bfme1_include_flag(
+        "-Igame/Libraries/Include", source) == (
+            "-Ireference/open-bfme-1/game/Libraries/Include")
+
+
+def test_donor_detection_is_lexical_and_rejects_outside_paths(tmp_path, monkeypatch):
+    main_checkout = tmp_path / "main" / "reference" / "open-bfme-1"
+    (main_checkout / "game").mkdir(parents=True)
+    seat_root = tmp_path / "seat" / "reference" / "open-bfme-1"
+    seat_root.mkdir(parents=True)
+    (seat_root / "game").symlink_to(main_checkout / "game", target_is_directory=True)
+    monkeypatch.setattr(build, "BFME1_ROOT", seat_root)
+    bfme2_source = tmp_path / "seat" / "Code" / "sample.cpp"
+    bfme2_source.parent.mkdir(parents=True)
+
+    # The other checkout's copy of a donor is not this seat's donor.
+    assert not build._is_bfme1_donor(main_checkout / "game" / "sample.cpp")
+    # A BFME2 source keeps its flags even when it sits beside the donor tree.
+    assert not build._is_bfme1_donor(bfme2_source)
+    # Lexical traversal out of the donor root is not a donor descendant.
+    assert not build._is_bfme1_donor(seat_root / ".." / ".." / "escape.cpp")
+    assert build._current_bfme1_include_flag(
+        "-Igame/Libraries/Include", bfme2_source) == "-Igame/Libraries/Include"
+
+
 def test_bfme2_local_game_include_is_not_rewritten():
     source = build.ROOT / "Code" / "Libraries" / "sample.cpp"
     assert build._current_bfme1_include_flag("-Igame/local/include", source) == (
