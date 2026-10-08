@@ -186,3 +186,11 @@ struct Rva00563E5FFields
     Rva00563E5FFields *enable();
 };
 Rva00563E5FFields *Rva00563E5FFields::enable() { flag = 1; return this; }
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?set@Rva002DAC16Fields@@QAEXM@Z
+struct Rva002DAC16Fields { char pad[0x144]; float value144; void set(float value); };
+void Rva002DAC16Fields::set(float value) { value144=value; }
