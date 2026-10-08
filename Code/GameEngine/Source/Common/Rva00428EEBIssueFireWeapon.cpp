@@ -44,7 +44,7 @@ public:
 	virtual GameMessage *createMessage(int type);
 };
 
-extern class MessageStream *TheMessageStream;
+extern class MessageStream *MessageStreamSubsystem;
 
 class DrawableList;
 class PickAndPlayInfo;
@@ -78,15 +78,30 @@ public:
 	virtual const DrawableList *slot73();
 	virtual void v74();
 	virtual Drawable *slot75();
+	char m_pad04[0x8B0 - 4];
+	bool m_waypoint8B0;
+	char m_pad8B1[7];
+	bool m_forceAttack8B8;
+	bool m_attackMove8B9;
 };
 
 extern InGameUI *TheInGameUI;
 
+struct Rva004292F6Template
+{
+    char m_pad00[0x110];
+    unsigned int m_kind110;
+};
+
 class Object
 {
 public:
-	unsigned char m_pad00[0x74];
-	ObjectID m_id;
+    char m_pad00[4];
+    Rva004292F6Template *m_template;
+    char m_pad08[0x38 - 8];
+    Coord3D m_position;
+    char m_pad44[0x74 - 0x44];
+    ObjectID m_id;
 };
 
 class Drawable
@@ -130,7 +145,7 @@ int __stdcall Rva00428EEBIssueFireWeapon(const CommandButton *command, int comma
 			int msgType = GameMessage::MSG_434;
 			if (commandType == 0)
 			{
-				GameMessage *msg = TheMessageStream->createMessage(msgType);
+				GameMessage *msg = MessageStreamSubsystem->createMessage(msgType);
 				msg->appendObjectIDArgument(target->m_object ? target->m_object->m_id : OBJECTID_NONE);
 				msg->appendIntegerArgument(0);
 
@@ -148,7 +163,7 @@ int __stdcall Rva00428EEBIssueFireWeapon(const CommandButton *command, int comma
 		int msgType = GameMessage::MSG_433;
 		if (commandType == 0)
 		{
-			GameMessage *msg = TheMessageStream->createMessage(msgType);
+			GameMessage *msg = MessageStreamSubsystem->createMessage(msgType);
 			msg->appendLocationArgument(*pos);
 			msg->appendIntegerArgument(0);
 
@@ -172,6 +187,10 @@ class CommandTranslator
 private:
     int issueCombatDropCommand(const CommandButton *command, int commandType,
                                Drawable *target, const Coord3D *pos);
+    int issueMoveToLocationCommand(const Coord3D *pos, Drawable *drawableInWay, int commandType);
+    char m_pad00[8];
+    bool m_teamExists;
+
 };
 
 int CommandTranslator::issueCombatDropCommand(const CommandButton *command, int commandType, Drawable *target, const struct Coord3D *pos)
@@ -186,7 +205,7 @@ int CommandTranslator::issueCombatDropCommand(const CommandButton *command, int 
 			int msgType = GameMessage::MSG_COMBATDROP_AT_OBJECT;
 			if (commandType == 0)
 			{
-				GameMessage *msg = TheMessageStream->createMessage(msgType);
+				GameMessage *msg = MessageStreamSubsystem->createMessage(msgType);
 				msg->appendObjectIDArgument(target->m_object ? target->m_object->m_id : OBJECTID_NONE);
 
 				Rva004D92FE info;
@@ -203,7 +222,7 @@ int CommandTranslator::issueCombatDropCommand(const CommandButton *command, int 
 		int msgType = GameMessage::MSG_COMBATDROP_AT_LOCATION;
 		if (commandType == 0)
 		{
-			GameMessage *msg = TheMessageStream->createMessage(msgType);
+			GameMessage *msg = MessageStreamSubsystem->createMessage(msgType);
 			msg->appendLocationArgument(*pos);
 
 			Rva004D92FE info;
@@ -213,4 +232,57 @@ int CommandTranslator::issueCombatDropCommand(const CommandButton *command, int 
 		return msgType;
 	}
 	return GameMessage::MSG_INVALID;
+}
+
+// Donor: GeneralsMD CommandXlat.cpp::issueMoveToLocationCommand, reference
+// ba7ddda7. Target 0x004292F6..0x004293EE retains the donor's team guard,
+// kind-bit query, message/voice dispatch and StatsCollector increment.
+// Retail has no force-move arm and adds the chosen location to voice info.
+// Offsets, flags and message values below are read from the target body.
+class StatsCollector
+{
+public:
+    char m_pad00[0x10];
+    int m_moveCount;
+};
+// Existing ledger provider at VA 0x00E032F8; donor calls it TheStatsCollector.
+extern StatsCollector *g_00E032F8;
+
+int CommandTranslator::issueMoveToLocationCommand(const Coord3D *pos, Drawable *drawableInWay, int commandType)
+{
+    int msgType = 0;
+    Object *obj = drawableInWay ? drawableInWay->m_object : 0;
+    bool isForceAttackable = false;
+    if (obj)
+        isForceAttackable = (obj->m_template->m_kind110 & 0x10) != 0;
+
+    if (m_teamExists)
+    {
+        if (TheInGameUI->m_waypoint8B0)
+            msgType = 0x432;
+        else if (TheInGameUI->m_attackMove8B9)
+            msgType = 0x431;
+        else if (TheInGameUI->m_forceAttack8B8 && isForceAttackable)
+            msgType = 0x425;
+        else
+            msgType = 0x42F;
+        if (commandType == 0)
+        {
+            GameMessage *msg = MessageStreamSubsystem->createMessage(msgType);
+            if (msgType == 0x425)
+                msg->appendObjectIDArgument(obj->m_id);
+            else
+                msg->appendLocationArgument(*pos);
+        }
+    }
+    if (commandType == 0)
+    {
+        Rva004D92FE info;
+        info.m_04 = drawableInWay;
+        info.m_14 = msgType == 0x425 ? obj->m_position : *pos;
+        pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)0x42F, (PickAndPlayInfo *)&info);
+    }
+    if (g_00E032F8)
+        ++g_00E032F8->m_moveCount;
+    return msgType;
 }
