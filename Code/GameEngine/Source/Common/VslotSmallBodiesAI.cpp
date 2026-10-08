@@ -305,25 +305,6 @@ void Rva005FC9F8::rva005FC9F8()
 	m_18->Update();
 }
 
-// 0x0041FB61: the rowed 0x003A2A41 on the +0x10 member.
-class Rva000427195
-{
-public:
-	void rva003A2A41();
-};
-class Rva0041FB61
-{
-public:
-	void rva0041FB61();
-private:
-	char m_pad00[0x10];
-	Rva000427195 m_10;
-};
-void Rva0041FB61::rva0041FB61()
-{
-	m_10.rva003A2A41();
-}
-
 // 0x0044BD53: the rowed handle 0x0044BD5B on the +0x08 member.
 class Rva004C5EF0
 {
