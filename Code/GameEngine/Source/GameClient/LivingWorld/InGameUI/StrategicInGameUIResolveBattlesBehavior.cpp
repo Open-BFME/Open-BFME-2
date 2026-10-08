@@ -66,6 +66,7 @@ public:
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
 	void rva00576AF3();
  void CreateResolveRegionOwnershipChecklistItems();
+ int rva00576946(void *, unsigned);
 
 private:
 	char m_pad04[0x20 - 0x04];
@@ -88,6 +89,7 @@ class LivingWorldRegionManager
 {
 public:
     LivingWorldPendingBattle *rva0020E6C0();
+    LivingWorldPendingBattle *rva0020E501(int);
     void EnumeratePendingBattles(PendingBattleVisitor &) const;
     void EnumerateCompletedBattles(Rva0020E7E8Callback *);
 };
@@ -200,4 +202,92 @@ void Rva00576753Func(int a, int b, int c)
     Rva005766B3 visitor(a, b, c);
     manager->EnumeratePendingBattles(visitor);
     manager->EnumerateCompletedBattles(reinterpret_cast<Rva0020E7E8Callback *>(&visitor));
+}
+
+class Rva002C025AViewer { public: void *rva002C025A(void *, unsigned, bool); };
+class Rva00212728 { public: void *rva00212728(void *); };
+class Rva00DFE1C8Host;
+extern Rva00DFE1C8Host *g_00DFE1C8;
+class Rva00328A83PtrChaseField { public: int get() const; };
+class Rva0042D6BAPtrChaseField { public: int get() const; };
+class Rva0057C22FByteChaseField { public: unsigned char get() const; };
+struct Rva002B5C5EVal;
+class Rva002B5C5E { public: Rva002B5C5EVal *rva002B5C5E(int); };
+class RegionAwardDispute { public: int GetResolvableBy(); };
+// The two native owning state holders share the38-byte reset at575674.
+// Distinct typed instantiations preserve the native caller's two EH paths;
+// each emitted reset is proved byte-and-relocation identical to the owner.
+// Slot0 returns the allocation after flags0 destruction. The original class
+// identities remain unresolved; these views only express the witnessed ABI.
+class ResolveClickState { public: virtual void *deleteInstance(int); };
+class Rva0057647E : public ResolveClickState { public: Rva0057647E(void *,LivingWorldPendingBattle *); char data[8]; };
+class Rva005765D1 : public ResolveClickState { public: Rva005765D1(void *,int,int); char data[8]; };
+template<class T> class ResolveClickHolder { public:
+ T *p;
+ __declspec(noinline) void reset(T *value) {
+  if(value==p) return;
+  T *old=p; p=value;
+  void *released=old ? old->deleteInstance(0) : 0;
+  ::operator delete(released);
+ }
+};
+struct ResolveClickPoint { int x,y; };
+struct ResolveClickRegion { int x,y,right,bottom; };
+struct ResolveClickUI { void *unknown0; Rva00328A83PtrChaseField *impl; };
+struct ResolveClickPlayer { char unknown0[0x14]; int id; };
+struct ResolveClickObject { char unknown0[0x10]; void *key; };
+struct ResolveClickView {
+ char unknown0[0x10]; ResolveClickUI *ui; Rva002C025AViewer *viewer;
+ ResolveClickPlayer *player; ResolveClickHolder<Rva0057647E> battle; char unknown20[0x20]; ResolveClickHolder<Rva005765D1> ownership;
+};
+// Native576946..576ACB and WB14D0EE0 (OnMouseLeftClick) independently show
+// the point-pick, battle lookup and dispute-resolution branches. The first
+// argument points to a four-int region; the second stack word is unused.
+// Original parameter types and return enum are unproven, so retain an
+// address-derived method with their observed pointer/word ABI. Point temporaries
+// end immediately after picking, allowing retail's subsequent allocation reuse.
+int StrategicInGameUI::ResolveBattlesBehavior::Impl::rva00576946(void *regionWord,unsigned unused) {
+ ResolveClickRegion *region=(ResolveClickRegion *)regionWord;
+ ResolveClickView *state=(ResolveClickView *)this;
+ if(region->right-region->x>0 || region->bottom-region->y>0) return 0;
+ if(!state->battle.p) {
+  ResolveClickObject *object;
+  {
+   ResolveClickPoint point; point.x=region->x; point.y=region->y;
+   object=(ResolveClickObject *)state->viewer->rva002C025A(&point,1,false);
+  }
+  if(object) {
+   int id=(int)((Rva00212728 *)g_00DFE1C8)->rva00212728(object->key);
+   if(id>=0) {
+    LivingWorldRegionManager *manager=((ResolveBattleWorldView *)TheLivingWorldLogic)->regionManager;
+    LivingWorldPendingBattle *battle=manager->rva0020E501(id);
+    if(battle) {
+     state->battle.reset(new Rva0057647E(this,battle));
+     return 1;
+    }
+   }
+  }
+ }
+ int hud=state->ui->impl->get();
+ Rva0057C22FByteChaseField *dialog=(Rva0057C22FByteChaseField *)((Rva0042D6BAPtrChaseField *)hud)->get();
+ if(dialog && !dialog->get()) {
+  ResolveClickObject *object;
+  {
+   ResolveClickPoint point; point.x=region->x; point.y=region->y;
+   object=(ResolveClickObject *)state->viewer->rva002C025A(&point,2,false);
+  }
+  if(object) {
+   int id=(int)((Rva00212728 *)g_00DFE1C8)->rva00212728(object->key);
+   if(id>=0) {
+    RegionAwardDispute *dispute=(RegionAwardDispute *)((Rva002B5C5E *)TheLivingWorldLogic)->rva002B5C5E(id);
+    if(dispute) {
+     int playerId=state->player->id;
+     if(dispute->GetResolvableBy()!=playerId) return 0;
+     state->ownership.reset(new Rva005765D1(this,(int)dialog,(int)dispute));
+     return 1;
+    }
+   }
+  }
+ }
+ return 0;
 }

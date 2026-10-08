@@ -16446,3 +16446,6 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?rva005FEE8C@Rva005FEF11@@QAEXPAURva005FEF11Arg@@@Z,0x005FEE8C,callee of ??0Rva005FEF11@@QAE@PAURva005FEF11Arg@@@Z
 ?canRenderToTexture@W3DShaderManager@@SA_NXZ,0x000F630C,callee of ?init@ScreenBWFilter@@UAEHXZ
 ??1Rva005F2381@@QAE@XZ,0x005F23B2,callee of ??0Rva005E626D@@QAE@PAURva005E626DOwner@@PAVRva0057C394@@PAURva005E626DListOwner@@PAX@Z
+??0Rva0057647E@@QAE@PAXPAVLivingWorldPendingBattle@@@Z,0x0057647E,Native57647E..5764F9 constructor stores vtable86E78C and owner+8 after base5D0D2D; caller5769E2 allocates12 and passes receiver plus PendingBattle returned by20E501; WB14CFB50 independently confirms constructor flow
+?reset@?$ResolveClickHolder@VRva0057647E@@@@QAEXPAVRva0057647E@@@Z,0x00575674,Distinct native state-holder types share38-byte guarded destruction and replacement; complete bodies and relocations reproduce owned575674; fold-proof=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior.cpp
+?reset@?$ResolveClickHolder@VRva005765D1@@@@QAEXPAVRva005765D1@@@Z,0x00575674,Distinct native state-holder types share38-byte guarded destruction and replacement; complete bodies and relocations reproduce owned575674; fold-proof=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIResolveBattlesBehavior.cpp
