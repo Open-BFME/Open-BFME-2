@@ -16917,3 +16917,6 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?rva0028447F@Rva004C82E5Terrain@@QAEXPAVBfmeX1035@@PBUCoord3D@@@Z,0x0028447F,thiscall spelling of the stdcall-rowed 0x0028447F: DevastateSpecialPower 0x004C8365 loads TheTerrainLogic into ECX first
 ?rva0027D378@Rva004C82E5Terrain@@QAEHPAVBfmeX1035@@H@Z,0x0027D378,Devastate-view spelling of the rowed terrain value getter 0x0027D378 (called 0x004C8394)
 ?rva002A9DAC@Player@@QAEHXZ,0x002A9DAC,thiscall spelling of the cdecl-rowed player supply getter 0x002A9DAC: DevastateSpecialPower 0x004C839D loads the player into ECX first
+?rva0045B9FB@BezierProjectileBehavior@@QAEXPAVObject@@@Z,0x0045B9FB,callee of 0x0045CD6E (thiscall Object arg)
+?rva0045CC72@BezierProjectileBehavior@@QAEXH@Z,0x0045CC72,callee of 0x0045CD6E (thiscall push 0)
+?rva0045C975@BezierProjectileBehavior@@QAEXH@Z,0x0045C975,callee of 0x0045CD6E (thiscall push 0)
