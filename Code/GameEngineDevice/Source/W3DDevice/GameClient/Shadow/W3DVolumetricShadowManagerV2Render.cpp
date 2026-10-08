@@ -39,6 +39,10 @@ public:
  bool rva00107046(Vector3*);
  void *vtable;bool enabled,invisible;char pad06[0x66];
  W3DVolumetricShadowV2 *next,*bufferNext;
+private:
+ RenderObjClass *object;
+ char gap78[8];float extent,extraExtrusionPadding;
+ char gap88[8];float lightOffsetX,lightOffsetY,lightOffsetZ;
 };
 class W3DVolumetricShadowManagerV2 {
 public:
@@ -85,4 +89,19 @@ void W3DVolumetricShadowManagerV2::renderShadows(RenderInfoClass &info)
   }
  }
  if(DX8Wrapper::Stencil_Caps()&0x100)DX8Wrapper::Set_DX8_Render_State(0xB9,0);
+}
+
+// BFME1 de2635e79 W3DVolumetricShadowVisibleBoundsPredicate.cpp supplies
+// the extrusion-bound predicate semantic lead. Native107046..10713A RET4
+// proves the point argument and fields74/80/84/90/94 independently of the
+// donor. The matched renderer above passes CameraClass::Get_Position.
+// The original predicate name is unknown; retain the admitted address name.
+bool W3DVolumetricShadowV2::rva00107046(Vector3 *point)
+{
+ Vector3 pos=object->Get_Position();
+ if(pos.Z+extraExtrusionPadding<point->Z)return 0;
+ return ((lightOffsetX>0.0f?lightOffsetX:0.0f)+extent+pos.X>point->X &&
+         pos.X-extent+(lightOffsetX<0.0f?lightOffsetX:0.0f)<point->X &&
+         (lightOffsetY>0.0f?lightOffsetY:0.0f)+extent+pos.Y>point->Y &&
+         pos.Y-extent+(lightOffsetY<0.0f?lightOffsetY:0.0f)<point->Y);
 }
