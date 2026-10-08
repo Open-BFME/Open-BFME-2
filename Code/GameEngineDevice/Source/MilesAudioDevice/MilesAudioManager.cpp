@@ -560,6 +560,11 @@ bool __cdecl Rva000515E4Less(const Rva000515E4Key *x, const Rva000515E4Key *y);
 
 typedef _STL::list<PlayingAudioRef> PlayingAudioList;
 
+// The list erase is rowed at 0x00054AA1 under the target-neutral
+// OpaqueRefElement4 instantiation, which ICF shares with every four-byte
+// owning-ref list; PlayingAudioList erases through that view.
+typedef _STL::list<OpaqueRefElement4> OpaqueRefList;
+
 // Owning AudioEventInfo reference returned by the slot-75 lookup.
 class AudioEventInfoRef {
 public:
@@ -596,6 +601,9 @@ public:
 // Existing donor-derived alias of the rowed STLport tree increment worker.
 struct BfmeNode1105;
 BfmeNode1105 *__cdecl bfmeNext1105(BfmeNode1105 *node);
+
+// Rowed at 0x0005F279 under its address-derived host.
+class Rva0005F279Host { public: void rva0005F279(void); };
 
 class MilesAudioManager {
 public:
@@ -651,6 +659,7 @@ public:
     bool rva000570C8(AudioEventRTS *event);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
     AudioEventRTS *findLowestPrioritySound(AudioEventRTS *event);
+    bool killLowestPrioritySoundImmediately(AudioEventRTS *event);
     float rva0005A9F8(void *ref, int a, int b);
     float rva00059AD0(void *event, int a);
     void rva000578B3(int key);
@@ -760,7 +769,8 @@ private:
     MilesFileTextMap m_fileText;         // +0x9E8
     _STL::vector<UnicodeString> m_pendingFileText;  // +0x9FC
     _STL::vector<AsciiString> m_unknownFileNames;   // +0xA08
-    char atA14[0xA40 - 0xA14];
+    char atA14[0xA3C - 0xA14];
+    _STL::list<void *> m_available3DSamples;  // +0xA3C (Zero Hour's name)
     PlayingAudioList m_playingSounds;    // +0xA40
     PlayingAudioList m_playing3DSounds;  // +0xA44
     PlayingAudioList m_playingStreams;   // +0xA48
@@ -1158,6 +1168,49 @@ AudioEventRTS *MilesAudioManager::findLowestPrioritySound(AudioEventRTS *event)
         }
     }
     return lowestEvent;
+}
+
+bool MilesAudioManager::killLowestPrioritySoundImmediately(AudioEventRTS *event)
+{
+    if (event->isPositionalAudio()) {
+        ((Rva0005F279Host *)this)->rva0005F279();
+        if (!m_available3DSamples.empty())
+            return true;
+    }
+    AudioEventRTS *lowestPriorityEvent = findLowestPrioritySound(event);
+    if (lowestPriorityEvent) {
+        PlayingAudioList::iterator it;
+        if (event->isPositionalAudio()) {
+            for (it = m_playing3DSounds.begin(); it != m_playing3DSounds.end(); it++) {
+                PlayingAudioRef playing = *it;
+                if (!playing.get())
+                    continue;
+                if (playing->m_event.operator->() == lowestPriorityEvent) {
+                    if (playing->m_event->hasMoreLoops())
+                        rva0005AA72(playing);
+                    releaseMilesHandles(*playing.get());
+                    reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).erase(
+                        OpaqueRefList::iterator((OpaqueRefList::_Node *)it._M_node));
+                    return true;
+                }
+            }
+        } else {
+            for (it = m_playingSounds.begin(); it != m_playingSounds.end(); it++) {
+                PlayingAudioRef playing = *it;
+                if (!playing.get())
+                    continue;
+                if (playing->m_event.operator->() == lowestPriorityEvent) {
+                    if (playing->m_event->hasMoreLoops())
+                        rva0005AA72(playing);
+                    releaseMilesHandles(*playing.get());
+                    reinterpret_cast<OpaqueRefList &>(m_playingSounds).erase(
+                        OpaqueRefList::iterator((OpaqueRefList::_Node *)it._M_node));
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 void MilesAudioManager::rva00057297(Rva00051107AudioRequest &request)
