@@ -21,6 +21,8 @@ private:
 class HashableClass
 {
 public:
+	// Native EF9CF..EF9D6 restores BCEF94 between the verified base
+	// constructor EF9C2 and scalar deleting destructor EF9D6.
 	virtual ~HashableClass(void) {}
 	virtual const char *Get_Key(void) = 0;
 

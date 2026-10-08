@@ -21,8 +21,6 @@ extern "C" const void *const vtbl_00BC745C[];  // ??_7Rva000851F3@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BC745C=??_7Rva000851F3@@6B@")
 extern "C" const void *const vtbl_00BC6F20[];  // folded, 7 classes; via ??_7Rva0007DF07@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BC6F20=??_7Rva0007DF07@@6B@")
-extern "C" const void *const vtbl_00BCEF94[];  // folded, 3 classes; via ??_7HashableClass@@6B@
-#pragma comment(linker, "/alternatename:_vtbl_00BCEF94=??_7HashableClass@@6B@")
 extern "C" const void *const vtbl_00BCEFA0[];  // folded, 3 classes; via ??_7BfmeShadowBufferOwnerBase@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BCEFA0=??_7BfmeShadowBufferOwnerBase@@6B@")
 extern "C" const void *const vtbl_00BDBA74[];  // folded, 3 classes; via ??_7Base0_00576C4B@@6B@
@@ -239,19 +237,6 @@ public:
 void Rva000E14BDDwordImmSetter::apply()
 {
 	m_value = ((unsigned int)vtbl_00BC6F24);
-}
-
-class Rva000EF9CFDwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva000EF9CFDwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00BCEF94);
 }
 
 class Rva00104D73DwordImmSetter
