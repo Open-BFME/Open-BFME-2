@@ -10,9 +10,14 @@
 // Name: Bfme (ref,int) spelling already rowed at 0x002D97D6, so this uses
 // the honest TU-local Rva class with identical layout; calls go through
 // BfmeAudioEventPrefix136 by cast so they mangle to the rowed names.
+// Opaque 32-bit owner-ID ABI view for the tag-3 constructor. Its original
+// application type is unknown; the distinct spelling separates native overloads.
+enum Rva002DA555Id { Rva002DA555Id_Zero = 0 };
+
 struct Rva002DA5D3
 {
 	Rva002DA5D3(const OpaqueRefElement4 &, int);
+	Rva002DA5D3(const OpaqueRefElement4 &, Rva002DA555Id);
 	virtual ~Rva002DA5D3();
 	AsciiString m_string04;
 	BfmePoolRef08 m_pool08;
@@ -65,6 +70,24 @@ Rva002DA5D3::Rva002DA5D3(const OpaqueRefElement4 &ref, int id)
 	self->m_int30 = 1;
 	if (id)
 		self->m_int38 = 4;
+	else
+		self->m_int34 = 0;
+	bool valid;
+	self->rva002DA1CC(valid);
+}
+
+// Native 0x002DA555..0x002DA5D3: same vtable and 0x88-byte member layout
+// as the tag-4 sibling above. All stores and calls are identical except the
+// nonzero-ID owner tag at +0x38 is 3. Both use initializer 0x002D96D3 and
+// position worker 0x002DA1CC; no application owner-kind identity is asserted.
+Rva002DA5D3::Rva002DA5D3(const OpaqueRefElement4 &ref, Rva002DA555Id id)
+{
+	BfmeAudioEventPrefix136 *self = (BfmeAudioEventPrefix136 *)this;
+	self->rva002D96D3(ref);
+	self->m_int34 = id;
+	self->m_int30 = 1;
+	if (id)
+		self->m_int38 = 3;
 	else
 		self->m_int34 = 0;
 	bool valid;
