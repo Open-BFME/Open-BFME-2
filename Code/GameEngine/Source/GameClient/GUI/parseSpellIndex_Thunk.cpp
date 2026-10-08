@@ -694,3 +694,179 @@ void AptSpellStore::rva0043CD3C()
 		}
 	}
 }
+
+// RegistryAsciiPath.cpp's "text + AsciiString" node (rowed 0x002226E5) and
+// its materializer 0x0022309D.
+class Rva000B3F84Pair
+{
+public:
+	Rva000B3F84Pair() {}
+
+	const char *m_ptr;
+	int m_len;
+};
+
+// The declared copy constructor keeps the operator+ result in place when
+// it binds to the helper's reference (retail passes it without a copy).
+struct Rva002226E5TextPlusString
+{
+	Rva002226E5TextPlusString(const Rva002226E5TextPlusString &other);
+	operator AsciiString();
+
+	Rva000B3F84Pair m_left;
+	const AsciiString *m_right;
+};
+
+Rva002226E5TextPlusString operator+(const char *left, const AsciiString &right);
+
+// Retail 0x0043D35A, 78 bytes: converts a "text + AsciiString" node and
+// copies the converted temporary into the return value. Its one caller is
+// the texture preload below.
+AsciiString Rva0043D35AMakeAsciiString(const Rva002226E5TextPlusString &text)
+{
+	return const_cast<Rva002226E5TextPlusString &>(text);
+}
+
+class FileSystem
+{
+public:
+	bool doesFileExist(const char *filename) const;
+};
+
+extern FileSystem *TheFileSystem;
+
+// The texture handle's views (W3D: TextureClass and its filter at +0x1C):
+// rowed BFME2LoadParticleTexture 0x00132D89, getFilter 0x00132856 and the
+// quality forwarder 0x00132FE9.
+class TextureClass
+{
+public:
+	void Release_Ref();
+};
+
+template <class T>
+class RefCountPtr
+{
+public:
+	~RefCountPtr() { if (m_ptr) m_ptr->Release_Ref(); }
+
+	T *m_ptr;
+};
+
+class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
+{
+};
+
+BFME2ParticleTextureHandle BFME2LoadParticleTexture(const char *filename, int a, int b);
+
+// WW3D's TextureFilterClass: min, mag and mip filters, then the U and V
+// address modes (1 clamps).
+class ShroudFilter
+{
+public:
+	int m_minFilter;
+	int m_magFilter;
+	int m_mipFilter;
+	int m_uAddressMode; // +0x0C
+	int m_vAddressMode; // +0x10
+};
+
+class ShroudTexture
+{
+public:
+	ShroudFilter *getFilter();
+};
+
+class TextureAsset
+{
+public:
+	void rva00132FE9(bool flag);
+};
+
+// The asset list GameLogicInit.cpp and Rva00081CDFWaterTextures.cpp fill
+// for the asset merge 0x0061F010: an STLport set, a pad word and a changed
+// flag.
+struct Rva001408C0Target;
+
+namespace _STL
+{
+template <class T> struct _Identity {};
+template <class T> struct less {};
+
+template <class Key, class Value, class Identity, class Compare, class Allocator>
+class _Rb_tree
+{
+public:
+	~_Rb_tree();
+
+private:
+	void *m_storage[3];
+};
+
+template <class T, class Compare, class Allocator>
+class set
+{
+	typedef _Rb_tree<T, T, _Identity<T>, Compare, Allocator> Tree;
+	Tree m_tree;
+
+public:
+	set();
+	~set() {}
+};
+}
+
+typedef Rva001408C0Target *Rva001408C0Key;
+typedef _STL::set<Rva001408C0Key, _STL::less<Rva001408C0Key>,
+	_STL::allocator<Rva001408C0Key> > Rva001408C0Set;
+
+struct AssetList00208F90
+{
+	Rva001408C0Set m_prototypes;
+	unsigned int m_treeLayoutPad;
+	bool m_changed;
+	AssetList00208F90() : m_treeLayoutPad(0), m_changed(true) {}
+	AssetList00208F90 &operator<<(const AsciiString &name);
+};
+
+void bfmeMergeReceiverKeys(int value);
+
+// The 0x00A099F8 singleton GameLogicInit.cpp brackets its loads with; the
+// spell store merges its textures only when it exists.
+class Rva009EB960;
+extern Rva009EB960 *Rva0134FAA0;
+
+// Retail 0x0043D467, 356 bytes: called once by GameLogic 0x00248278. It
+// preloads the spell store's numbered textures "apt_spellstore_1",
+// "apt_spellstore_2", ... (each as .dds, else .tga, under art/textures/)
+// until one is missing, clamping their U and V addressing.
+void rva0043D467(void)
+{
+	static const char *const extensions[] = { "dds", "tga" };
+
+	if (!TheFileSystem)
+		return;
+	for (int index = 1; ; )
+	{
+		AsciiString name;
+		unsigned int i;
+		for (i = 0; i < sizeof(extensions) / sizeof(extensions[0]); ++i)
+		{
+			name.format("apt_spellstore_%d.%s", index, extensions[i]);
+			if (TheFileSystem->doesFileExist(Rva0043D35AMakeAsciiString("art/textures/" + name).str()))
+				break;
+		}
+		if (i >= sizeof(extensions) / sizeof(extensions[0]))
+			break;
+		BFME2ParticleTextureHandle texture = BFME2LoadParticleTexture(name.str(), 1, 0);
+		((ShroudTexture *)&texture)->getFilter()->m_vAddressMode = 1;
+		((ShroudTexture *)&texture)->getFilter()->m_uAddressMode = 1;
+		((TextureAsset *)&texture)->rva00132FE9(true);
+		if (Rva0134FAA0)
+		{
+			AssetList00208F90 assets;
+			assets << name;
+			bfmeMergeReceiverKeys((int)&assets);
+		}
+		++index;
+	}
+}
