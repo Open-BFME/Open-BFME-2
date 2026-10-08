@@ -101,6 +101,16 @@
 //    the team id (+0x34) into every order after Team 0x0039D889(true), runs
 //    the production script only when it has an action, and marks a
 //    prototype with nothing buildable (+0x31C).
+//  - WorkOrder::validateFactory 0x004F33BD (47 bytes): ZH's body unchanged;
+//    it was rowed under a donor placeholder name in BfmeConv1001.cpp.
+//  - queueUnits 0x004F46A9 (559 bytes): ZH's recruit-then-train walk. BFME 2
+//    recruits with tryToRecruit's extra int from the order (+0x2C) and a
+//    100000 radius without a home, calls tryToRecruit once per branch (the
+//    two calls tail-merge into retail's shared push sequence), skips a null
+//    AI, activates the team after each recruit, skips orders flagged +0x29
+//    and validates the factory only when 0x002A8AB1 has no record for the
+//    player. isWaitingToBuild is a count test written as an early return,
+//    which keeps the recruit loop top-tested as retail has it.
 #include <list>
 #include <vector>
 
@@ -337,6 +347,8 @@ class AICommandInterface
 {
 public:
 	void rva0047971C(const Rva0035149F &path, Object *ignoreObject, CommandSourceType cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiIdle(CommandSourceType cmdSource);
 	void rva0026C3AC(Object *obj, CommandSourceType cmdSource);
 };
 
@@ -659,7 +671,9 @@ struct TAiData
 	char m_pad020[0x24 - 0x20];
 	Real m_teamPoorMod;		// +0x24
 	float m_teamResourcesToBuild;	// +0x28
-	char m_pad02C[0xF4 - 0x2C];
+	char m_pad02C[0x5C - 0x2C];
+	Real m_maxRecruitDistance;	// +0x5C
+	char m_pad060[0xF4 - 0x60];
 	AISideInfo *m_sideInfo;		// +0xF4
 };
 
@@ -785,6 +799,7 @@ public:
 
 	void rva0039D889(Bool flag);
 	void disband();
+	Object *tryToRecruit(const ThingTemplate *thing, const Coord3D *pos, Real maxDist, Int a, Int b, Int c);
 	Bool rva0039DFF8();
 	Bool hasAnyObjects(Bool ignoreBuilding);
 	void setActive() { if (!m_active) { m_created = true; m_active = true; } }
@@ -813,6 +828,9 @@ public:
 	Bool m_bfmeFlag28;			// +0x28
 	Bool m_bfmeFlag29;			// +0x29
 	Int m_bfmeInt2C;			// +0x2C
+
+	Bool isWaitingToBuild() const { if (m_numCompleted >= m_numRequired) return false; return true; }
+	void validateFactory(Player *thisPlayer);
 };
 
 class TeamInQueue
@@ -920,6 +938,9 @@ protected:
 	Bool dozerInQueue();
 	void checkForSupplyCenter(BuildListInfo *info, Object *bldg);
 	void computeCenterAndRadiusOfBase(Coord3D *center, Real *radius);
+	Bool getBaseCenter(Coord3D *pos) const { *pos = m_baseCenter; return m_baseCenterSet; }
+	void queueSupplyTruck();
+	void queueUnits();
 	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
 	{
 		return DLINK_ITERATOR<TeamInQueue>(m_teamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
@@ -948,7 +969,7 @@ private:
 	Int m_teamDelay;		// +0x24
 	unsigned char m_pad28[0x30 - 0x28];
 	Int m_skillsetSelector;		// +0x30
-	unsigned char m_pad34[0x40 - 0x34];
+	Coord3D m_baseCenter;		// +0x34
 	Bool m_baseCenterSet;		// +0x40
 	unsigned char m_pad41[0x48 - 0x41];
 	ObjectID m_structuresToRepair[MAX_STRUCTURES_TO_REPAIR];	// +0x48
@@ -1414,6 +1435,84 @@ Bool AIPlayer::startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName
 		}
 	}
 	return false;
+}
+
+void WorkOrder::validateFactory(Player *thisPlayer)
+{
+	if (m_factoryID == INVALID_OBJECT_ID)
+		return;
+	Object *factory = TheGameLogic->findObjectByID(m_factoryID);
+	if (factory == NULL)
+	{
+		m_factoryID = INVALID_OBJECT_ID;
+		return;
+	}
+	if (factory->getControllingPlayer() != thisPlayer)
+		m_factoryID = INVALID_OBJECT_ID;
+}
+
+void AIPlayer::queueUnits()
+{
+	queueSupplyTruck();
+
+	for (DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamBuildQueue(); !iter.done(); iter.advance())
+	{
+		TeamInQueue *team = iter.cur();
+		for (WorkOrder *order = team->m_workOrders; order; order = order->m_next)
+		{
+			const Coord3D *loc = &team->m_team->getPrototype()->m_homeLocation;
+			Coord3D home;
+			home.x = loc->x;
+			home.y = loc->y;
+			home.z = loc->z;
+			Bool hasHome = false;
+			if (team->m_team->getPrototype()->m_hasHomeLocation)
+				hasHome = true;
+			else
+				hasHome = getBaseCenter(&home);
+			while (order->isWaitingToBuild())
+			{
+				Object *unit;
+				if (hasHome)
+					unit = team->m_team->tryToRecruit(order->m_thing, &home, TheAI->getAiData()->m_maxRecruitDistance, order->m_bfmeInt2C, 0, 0);
+				else
+					unit = team->m_team->tryToRecruit(order->m_thing, &home, 100000.0f, order->m_bfmeInt2C, 0, 0);
+				if (unit)
+				{
+					order->m_numCompleted++;
+
+					AsciiString teamStr = "Team '";
+					teamStr.concat(team->m_team->getPrototype()->getName());
+					teamStr.concat("' recruits ");
+					teamStr.concat(order->m_thing->getName());
+					teamStr.concat(" from team '");
+					teamStr.concat(unit->m_team->getPrototype()->getName());
+					teamStr.concat("'");
+					TheScriptEngine->AppendDebugMessage(teamStr, false);
+
+					unit->setTeam(team->m_team);
+
+					AIUpdateInterface *ai = unit->getAI();
+					if (ai)
+					{
+						if (hasHome)
+							ai->getCommandInterface()->aiMoveToPosition(&home, CMD_FROM_AI);
+						else
+							ai->getCommandInterface()->aiIdle(CMD_FROM_AI);
+					}
+					team->m_team->setActive();
+				}
+				else
+				{
+					break;
+				}
+			}
+			if (order->isWaitingToBuild() && !order->m_bfmeFlag29)
+				startTraining(order, team->m_priorityBuild, team->m_team->getName());
+			else if (!g_00DFEEF8->rva002A8AB1(m_player))
+				order->validateFactory(m_player);
+		}
+	}
 }
 
 void AIPlayer::queueDozer()
