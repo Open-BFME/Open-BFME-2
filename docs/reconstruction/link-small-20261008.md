@@ -31,3 +31,24 @@ BFME 1 linking sweep reviewed revision
 demonstrates removing competing non-retail definitions while retaining
 their verified owners; this is an applicable repair pattern, not Apt
 identity evidence. No matching Dogma source repair was found there.
+
+## Audio-key member release
+
+`Rva003ED498Count.cpp` also defined `bfmeClearMembers`, although its row
+belongs to `LargeGroupAudioKeyList.cpp`. The earlier strong definition
+was selected instead of the ledger owner. Remove the redundant release
+walk and its private erase-tree view; keep all six rows owned by the
+edited unit and the existing release helper unchanged.
+
+The pristine nine-row gate included the Apt providers above. The repaired
+audio-only gate passes all seven rows. Checking the five affected units
+together predicts `RvaTreeDtorFamily.cpp` clean, with
+`LINKED 0 -> 4,755` bytes. The four other units retain independent tree,
+global, or call-name blockers. The placement rescan serves no new bodies
+or pins.
+
+BFME 1 donor repair `8cc14958ea` at the reviewed revision above routes
+the same subsystem's callers to its already matched member-release
+provider. BFME 2 already uses that call spelling; that part is inherited.
+Its remaining local defect is the competing definition, proven by this
+target's census and ledger ownership rather than donor addresses.
