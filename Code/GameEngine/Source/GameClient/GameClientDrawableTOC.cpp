@@ -40,6 +40,7 @@
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "GUI/HeaderTemplateView.h"
 #include "../Common/GameLogicObjectLookupView.h"
+#include "../../Include/Common/BfmeAudioEventPrefix136.h"
 
 // The TOC list's out-of-line members fold onto addresses other lists already
 // name, so its allocator is a placeholder class (as GameLogic's ObjectTOC list).
@@ -257,11 +258,7 @@ public:
 };
 
 class Rva00362862Item;
-class Rva0023BC36Element;
-struct OpaqueRefElement4
-{
-	void *m_ref;
-};
+class Dict;
 class Rva00239E25 : public _STL::_Vector_base<OpaqueRefElement4, _STL::allocator<OpaqueRefElement4> >
 {
 public:
@@ -471,6 +468,7 @@ public:
 	void xferDrawableTOC(Xfer *xfer);
 	void rva0023ABDD();
 	void rva00239759();
+	void rva0023B383(Dict *props, ThingTemplate *tmpl, const Coord3D *pos);
 
 protected:
 	virtual void crc(Xfer *xfer);
@@ -507,7 +505,7 @@ private:
 	_STL::vector<Rva00362862Item *> m_vectorE8;                         // +0xE8
 	DrawableTOCList m_drawableTOC;                                      // +0xF4
 	Rva00239AF4 m_drawableListsF8[10];                                  // +0xF8
-	_STL::vector<Rva0023BC36Element *> m_vector120;                                   // +0x120
+	_STL::vector<long> m_audioHandles;                                  // +0x120
 	Rva00239E25 m_vector12C;                                            // +0x12C
 	int m_count138;                                                     // +0x138
 	Rva0023A039 m_owned13C;                                             // +0x13C
@@ -2038,6 +2036,130 @@ void GameClient::rva00239911(void)
 		::delete (Rva00239911Item *)node->m_data;
 
 	((Rva00239380Holder *)&m_drawableListE4)->rva00239380();
+}
+
+// Map-object ambient sound (0x0023B383), called from the GameLogic map-object
+// loop at 0x002454FB with the object's property Dict, its ThingTemplate and
+// position. No ZH counterpart: ZH applies the same objectSoundAmbient* map
+// properties inline in Object.cpp; BFME 2 reads them through 0x00433796
+// (Dict getBool/getAsciiString/getReal/getInt, TheAudio slot 0x12C lookup,
+// Drawable 0x0027682F base info), which reports forced-off, a customized info
+// reference and enabled. A customized info is renamed " OC %d " plus its name
+// (0x00433403) under the counter at +0x138 and handed to TheAudio (slot 74);
+// otherwise the template's ambient slot 0x25 (0x00239435) is used. The event
+// (canonical 0x88-byte prefix, ctor 0x002D982A, dtor 0x002D9A43) is added
+// through slot 25; handles from 5 up are kept at +0x120 (folded push_back
+// 0x004DFCB0, compared unsigned) and the customized reference at +0x12C
+// (push_back 0x0023AD91); 0x0023ABDD removes and clears both.
+class Rva004EC166
+{
+public:
+	void rva00433403(const AsciiString &name);
+
+	char m_pad00[8];
+	AsciiString m_audioName;                                            // +0x08
+};
+
+class AudioManager
+{
+public:
+	virtual void vf00(); virtual void vf01(); virtual void vf02(); virtual void vf03(); virtual void vf04();
+	virtual void vf05(); virtual void vf06(); virtual void vf07(); virtual void vf08(); virtual void vf09();
+	virtual void vf10(); virtual void vf11(); virtual void vf12(); virtual void vf13(); virtual void vf14();
+	virtual void vf15(); virtual void vf16(); virtual void vf17(); virtual void vf18(); virtual void vf19();
+	virtual void vf20(); virtual void vf21(); virtual void vf22(); virtual void vf23(); virtual void vf24();
+	virtual unsigned int addAudioEvent(const BfmeAudioEventPrefix136 *event);  // slot 25 (+0x64)
+	virtual void vf26(); virtual void vf27(); virtual void vf28(); virtual void vf29(); virtual void vf30();
+	virtual void vf31(); virtual void vf32(); virtual void vf33(); virtual void vf34(); virtual void vf35();
+	virtual void vf36(); virtual void vf37(); virtual void vf38(); virtual void vf39(); virtual void vf40();
+	virtual void vf41(); virtual void vf42(); virtual void vf43(); virtual void vf44(); virtual void vf45();
+	virtual void vf46(); virtual void vf47(); virtual void vf48(); virtual void vf49(); virtual void vf50();
+	virtual void vf51(); virtual void vf52(); virtual void vf53(); virtual void vf54(); virtual void vf55();
+	virtual void vf56(); virtual void vf57(); virtual void vf58(); virtual void vf59(); virtual void vf60();
+	virtual void vf61(); virtual void vf62(); virtual void vf63(); virtual void vf64(); virtual void vf65();
+	virtual void vf66(); virtual void vf67(); virtual void vf68(); virtual void vf69(); virtual void vf70();
+	virtual void vf71(); virtual void vf72(); virtual void vf73();
+	virtual void addAudioEventInfo(Rva004EC166 *info);                      // slot 74 (+0x128)
+};
+extern AudioManager *TheAudio;
+
+// The 4-byte owning reference; release is inlined at each scope exit.
+struct Rva00239057Ref : OpaqueRefElement4
+{
+	Rva00239057Ref() { referent = 0; }
+	~Rva00239057Ref() { if (referent) referent->Release_Ref(); }
+	Rva00239057Ref &rva00239057(const Rva00239057Ref *other);
+	Rva004EC166 *get() const { return (Rva004EC166 *)referent; }
+};
+
+// 8-byte template audio slot, returned by value; the info reference is at +4.
+class Rva002390CB
+{
+public:
+	~Rva002390CB() { if (m_info.referent) m_info.referent->Release_Ref(); }
+
+	int m_00;
+	OpaqueRefElement4 m_info;                                           // +0x04
+};
+
+// Declared nothrow: retail stores no EH state for the reference constructed
+// before this call (the state moves straight from 0 to the temporary's 3).
+class Rva00239435
+{
+public:
+	Rva002390CB rva00239435(int index) throw();
+};
+
+struct Rva0023AD91Record
+{
+	Rva0023AD91Record();
+	Rva0023AD91Record(const Rva0023AD91Record &);
+	~Rva0023AD91Record();
+	Rva0023AD91Record &operator=(const Rva0023AD91Record &);
+
+private:
+	char bytes[4];
+};
+
+void rva00433796(Dict *props, Drawable *draw, ThingTemplate *tmpl, bool *soundOff,
+	Rva000A8C9B *customInfo, bool *soundEnabled);
+
+void GameClient::rva0023B383(Dict *props, ThingTemplate *tmpl, const Coord3D *pos)
+{
+	bool soundOff = false;
+	bool soundEnabled = false;
+	Rva00239057Ref customInfo;
+
+	rva00433796(props, 0, tmpl, &soundOff, (Rva000A8C9B *)&customInfo, &soundEnabled);
+	if (soundOff || !soundEnabled)
+		return;
+
+	Rva00239057Ref info;
+	if (customInfo.referent)
+	{
+		AsciiString name;
+		name.format(" OC %d ", m_count138);
+		name.concat(customInfo.get()->m_audioName);
+		customInfo.get()->rva00433403(name);
+		m_count138++;
+		TheAudio->addAudioEventInfo(customInfo.get());
+		info.rva00239057(&customInfo);
+	}
+	else
+	{
+		(OpaqueRefElement4 &)info = ((Rva00239435 *)tmpl)->rva00239435(0x25).m_info;
+		if (!info.referent)
+			return;
+	}
+
+	BfmeAudioEventPrefix136 event(info, *(const BfmeEventPositionView *)pos, 0);
+	long handle = TheAudio->addAudioEvent(&event);
+	if ((unsigned long)handle >= 5)
+	{
+		m_audioHandles.push_back(handle);
+		if (customInfo.referent)
+			((_STL::vector<Rva0023AD91Record> *)&m_vector12C)->push_back((const Rva0023AD91Record &)customInfo);
+	}
 }
 
 // Callback 3 (0x0023958B): BFME 2's title-screen logo, no ZH counterpart.

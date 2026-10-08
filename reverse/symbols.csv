@@ -16130,3 +16130,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?setControlBarOverride@GameLogic@@QAEXABVAsciiString@@HPBVCommandButton@@@Z,0x0024792F,ZH GameLogic::setControlBarOverride: REL32 at 0x003C5D5E and 0x003C5DEB in doRemoveCommandBarButton with ECX TheGameLogic (0xDFE78C) and (template command set name; slot; NULL) as the ZH donor; also 0x003BCB7A doAddCommandBarButton
 ?evaluateContextCommand@CommandTranslator@@QAE?AW4Type@GameMessage@@PAVDrawable@@PBUCoord3D@@W4CommandEvaluateType@1@@Z,0x00429E11,GameClient::evaluateContextCommand (0x00238F15; ZH forwards to m_commandTranslator) tail-jumps here; 4486-byte Ghidra function
 ?rva002888D4@Rva00239CC9DrawableHash@@QBEPAURva00239CC9DrawableHashNode@@ABW4DrawableID@@@Z,0x002888D4,callee of ?findDrawableByID@GameClient@@UAEPAVDrawable@@W4DrawableID@@@Z; folded hashtable _M_find
+?rva00239057@Rva00239057Ref@@QAEAAU1@PBU1@@Z,0x00239057,callee of ?rva0023B383@GameClient@@QAEXPAVDict@@PAVThingTemplate@@PBUCoord3D@@@Z
+?rva00433796@@YAXPAVDict@@PAVDrawable@@PAVThingTemplate@@PA_NPAVRva000A8C9B@@3@Z,0x00433796,callee of ?rva0023B383@GameClient@@QAEXPAVDict@@PAVThingTemplate@@PBUCoord3D@@@Z
