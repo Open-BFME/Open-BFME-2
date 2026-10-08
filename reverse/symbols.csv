@@ -12997,7 +12997,6 @@ name,address,notes
 ?xferSaveData@GameState@@QAEXPAVXfer@@W4SnapshotType@@@Z,0x002DCE24,friend_xferSaveDataForCRC 0x002DDD0B calls here (decode_calls); callee body stashed at reverse/attempts/0x002dce24.cpp with SAVE branch exact; pin retires when the xferSaveData row lands
 ?zeroFrame@FrameData@@QAEXXZ,0x005DA5E3,BFME2 frame-ring entry zeroing helper used by bulk frame clearing
 @_RTC_CheckStackVars@8,0x0075A5C5,address read from the REL32 displacement in DirtySock Y4CommTable Rva00811E20 at 0x0067DD20; compiler stack-check helper next to RTC_CheckEsp; body not yet converted
-@__security_check_cookie@4,0x00629BAB,address read from the REL32 displacement in DirtySock Y4CommTable Rva00811E20 at 0x0067DD20; compiler stack-cookie helper in the static CRT cluster; body not yet converted
 G00DB5FBC,0x009B5FBC,Render2DClass ctor 0x0011C0F0 stores 7; donor Render2DClassConstructor names this ThirdEB; opaque address-derived name
 G00DB5FC0,0x009B5FC0,Render2DClass ctor 0x0011C0F0 stores 2; donor Render2DClassConstructor names this FourthEB; opaque address-derived name
 G00DB5FC4,0x009B5FC4,Render2DClass ctor 0x0011C0F0 stores 5; donor Render2DClassConstructor names this FifthEB; opaque address-derived name
