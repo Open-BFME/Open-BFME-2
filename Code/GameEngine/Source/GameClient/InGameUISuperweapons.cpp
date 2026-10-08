@@ -34,6 +34,9 @@
 // four-byte list erase 0x00438539, the record goes through ::delete (virtual
 // dtor with flag 0, then operator delete 0x0002FD60) and an emptied name entry
 // is dropped by the out-of-line tree erase 0x002A408B.
+// hide/showObjectSuperweaponDisplayByScript (0x0029E20B / 0x0029E25A, slots
+// 39/40): twenty player maps (the loop count is 0x14) walked with
+// _M_increment 0x00024250, writing m_hiddenByScript at +0x20.
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block); }
 #define free _STL::free
@@ -175,7 +178,13 @@ public:
 	const SpecialPowerTemplate *m_powerTemplate;	// +0x10
 	AsciiString m_powerName;				// +0x14
 	ObjectID m_id;							// +0x18
+	unsigned int m_timestamp;				// +0x1C
+	bool m_hiddenByScript;					// +0x20
+	bool m_hiddenByScience;					// +0x21
+	bool m_ready;							// +0x22
 };
+
+enum { MAX_PLAYER_COUNT = 20 };
 
 typedef _STL::list<SuperweaponInfo *> SuperweaponList;
 typedef _STL::map<AsciiString, SuperweaponList> SuperweaponMap;
@@ -194,12 +203,17 @@ public:
 	virtual void addSuperweapon( int playerIndex, const AsciiString &powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate );	// slot 34
 	virtual bool removeSuperweapon( int playerIndex, const AsciiString &powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate );
 	virtual void objectChangedTeam( const Object *obj, int oldPlayerIndex, int newPlayerIndex );
+	virtual void slot37();
+	virtual void slot38();
+	virtual void hideObjectSuperweaponDisplayByScript( const Object *obj );	// slot 39
+	virtual void showObjectSuperweaponDisplayByScript( const Object *obj );	// slot 40
 
 protected:
 	SuperweaponInfo *findSWInfo( int playerIndex, const AsciiString &powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate );
 
 	char m_opaque004[0x630 - 0x4];
-	SuperweaponMap m_superweapons[(0x72C - 0x630) / 12];	// +0x630, one 12-byte map per player
+	SuperweaponMap m_superweapons[MAX_PLAYER_COUNT];	// +0x630, one 12-byte map per player
+	char m_opaque720[0x72C - 0x720];
 	AsciiString m_superweaponNormalFont;	// +0x72C
 	int m_superweaponNormalPointSize;		// +0x730
 	bool m_superweaponNormalBold;			// +0x734
@@ -304,4 +318,38 @@ bool InGameUI::removeSuperweapon( int playerIndex, const AsciiString &powerName,
 		}
 	}
 	return false;
+}
+
+// ?hideObjectSuperweaponDisplayByScript@InGameUI@@UAEXPBVObject@@@Z
+void InGameUI::hideObjectSuperweaponDisplayByScript( const Object *obj )
+{
+	ObjectID objID = obj->getID();
+	for( int playerIndex = 0; playerIndex < MAX_PLAYER_COUNT; ++playerIndex )
+	{
+		for( SuperweaponMap::iterator mapIt = m_superweapons[playerIndex].begin(); mapIt != m_superweapons[playerIndex].end(); ++mapIt )
+		{
+			for( SuperweaponList::iterator listIt = mapIt->second.begin(); listIt != mapIt->second.end(); ++listIt )
+			{
+				if( (*listIt)->m_id == objID )
+					(*listIt)->m_hiddenByScript = true;
+			}
+		}
+	}
+}
+
+// ?showObjectSuperweaponDisplayByScript@InGameUI@@UAEXPBVObject@@@Z
+void InGameUI::showObjectSuperweaponDisplayByScript( const Object *obj )
+{
+	ObjectID objID = obj->getID();
+	for( int playerIndex = 0; playerIndex < MAX_PLAYER_COUNT; ++playerIndex )
+	{
+		for( SuperweaponMap::iterator mapIt = m_superweapons[playerIndex].begin(); mapIt != m_superweapons[playerIndex].end(); ++mapIt )
+		{
+			for( SuperweaponList::iterator listIt = mapIt->second.begin(); listIt != mapIt->second.end(); ++listIt )
+			{
+				if( (*listIt)->m_id == objID )
+					(*listIt)->m_hiddenByScript = false;
+			}
+		}
+	}
 }

@@ -584,45 +584,11 @@ void InGameUI::setMouseCursor(Mouse::MouseCursor c)
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?InGameUI::hideObjectSuperweaponDisplayByScript present-unmatched
-void InGameUI::hideObjectSuperweaponDisplayByScript(const Object *obj)
-{
-	ObjectID objID = obj->getID();
-	for (Int playerIndex = 0; playerIndex < MAX_PLAYER_COUNT; ++playerIndex)
-	{
-		for (SuperweaponMap::iterator mapIt = m_superweapons[playerIndex].begin(); mapIt != m_superweapons[playerIndex].end(); ++mapIt)
-		{
-			for (SuperweaponList::iterator listIt = mapIt->second.begin(); listIt != mapIt->second.end(); ++listIt)
-			{
-				if ((*listIt)->m_id == objID)
-				{
-					(*listIt)->m_hiddenByScript = TRUE;
-				}
-			}
-		}
-	}
-}
+// InGameUI::hideObjectSuperweaponDisplayByScript: defined in InGameUISuperweapons.cpp (its row's unit).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?InGameUI::showObjectSuperweaponDisplayByScript present-unmatched
-void InGameUI::showObjectSuperweaponDisplayByScript(const Object *obj)
-{
-	ObjectID objID = obj->getID();
-	for (Int playerIndex = 0; playerIndex < MAX_PLAYER_COUNT; ++playerIndex)
-	{
-		for (SuperweaponMap::iterator mapIt = m_superweapons[playerIndex].begin(); mapIt != m_superweapons[playerIndex].end(); ++mapIt)
-		{
-			for (SuperweaponList::iterator listIt = mapIt->second.begin(); listIt != mapIt->second.end(); ++listIt)
-			{
-				if ((*listIt)->m_id == objID)
-				{
-					(*listIt)->m_hiddenByScript = FALSE;
-				}
-			}
-		}
-	}
-}
+// InGameUI::showObjectSuperweaponDisplayByScript: defined in InGameUISuperweapons.cpp (its row's unit).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
