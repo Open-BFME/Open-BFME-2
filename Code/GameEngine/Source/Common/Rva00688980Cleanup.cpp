@@ -8,6 +8,9 @@
 #include "ascii_string.h"
 
 extern "C" __declspec(dllimport) void *__cdecl memmove(void *, const void *, unsigned int);
+// STLport's allocator calls the C++-linkage free owned by GameMemoryFree.cpp.
+// Its existing binding selects the game allocator rather than the CRT thunk.
+namespace _STL { void __cdecl free(void *); }
 
 class Rva006888D0Owned
 {
@@ -26,6 +29,7 @@ inline Rva006888D0Owned **copyOwned(Rva006888D0Owned **destination,
 
 struct Rva006888D0Vector
 {
+    ~Rva006888D0Vector() { if (begin != 0) _STL::free(begin); }
     Rva006888D0Owned **begin;
     Rva006888D0Owned **end;
     Rva006888D0Owned **capacity;
@@ -35,6 +39,7 @@ struct Rva006888D0Vector
 class Rva00688980
 {
 public:
+    ~Rva00688980();
     void rva006888D0();
 private:
     unsigned char m_pad[8];
@@ -58,4 +63,12 @@ void Rva00688980::rva006888D0()
     m_nameA.clear();
     m_nameB.clear();
     m_count = 0;
+}
+
+// Native 00688980..006889EC and its unwind states destroy the vector then
+// the two strings in reverse order. This proves destruction despite the
+// older consumer's provisional 'teardown' method spelling.
+Rva00688980::~Rva00688980()
+{
+    rva006888D0();
 }
