@@ -1,25 +1,43 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-//
-// ?rva004FF9C9@Rva004FF9C9@@QAEPAXH@Z @0x004FF9C9 19B: map find thunk returning node+0x34.
-// Retail is lea eax [esp+4] push eax add ecx 4 call rowed int-int _M_find
-// 0x00388F63 then add eax 0x34 ret 4. The map lives at +4; the +0x34 is the
-// vector inside the mapped value (value+0x20 since second starts at node+0x14).
-// Reuses the rowed int-int _M_find like stlport_map_004FF8DA.cpp because
-// _M_find only touches keys. Caller 0x0059BB50 uses the return as a vector
-// with stride 0x14.
-#include <map>
-
-class Rva004FF9C9
-{
-	char m_pad[4];
-	_STL::map<int, int> m_map;
-public:
-	void *rva004FF9C9(int key);
+// Native4FF9B6..4FF9C9 and 4FF9C9..4FF9DC are the same int-key lookup
+// shape, returning node+28 and node+34 respectively. Both call the independently
+// rowed 56-byte int-key _M_find at388F63; it observes no mapped-value payload.
+// WB12FFA20 identifies the first role as LWAIWorldInformation::GetHeroArmies;
+// the actual mapped and return types remain unknown, so keep the RVA spelling.
+// These are partial receiver/call views, not full owner or allocation layouts.
+// Directly call the existing provider; do not emit competing <map> helpers.
+class Rva004FF9B6;
+class Rva004FF9C9;
+namespace _STL {
+template<class A,class B> struct pair { A first; B second; };
+template<class T> struct _Select1st {};
+template<class T> struct less {};
+template<class T> class allocator {};
+template<class T> struct _Rb_tree_node;
+template<class K,class V,class S,class C,class A> class _Rb_tree {
+ friend class ::Rva004FF9B6;
+ friend class ::Rva004FF9C9;
+ template<class Key> _Rb_tree_node<V> *_M_find(const Key &) const;
 };
-
-void *Rva004FF9C9::rva004FF9C9(int key)
-{
-	_STL::map<int, int>::iterator it = m_map.find(key);
-	return (char *)it._M_node + 0x34;
+}
+typedef _STL::pair<const int,int> IntIntPair;
+typedef _STL::_Rb_tree<int,IntIntPair,_STL::_Select1st<IntIntPair>,_STL::less<int>,_STL::allocator<IntIntPair> > IntIntTree;
+class Rva004FF9B6 {
+ char unknown00[4];
+ IntIntTree tree;
+public:
+ void *rva004FF9B6(int key);
+};
+void *Rva004FF9B6::rva004FF9B6(int key) {
+ return (char*)tree._M_find(key)+0x28;
+}
+class Rva004FF9C9 {
+ char unknown00[4];
+ IntIntTree tree;
+public:
+ void *rva004FF9C9(int key);
+};
+void *Rva004FF9C9::rva004FF9C9(int key) {
+ return (char*)tree._M_find(key)+0x34;
 }
