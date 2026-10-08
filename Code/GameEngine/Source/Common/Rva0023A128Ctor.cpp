@@ -102,6 +102,23 @@ public:
 private:
 	int m_0;
 };
+class Rva0042C1B7Item;
+class Rva0042C833
+{
+public:
+	Rva0042C833(Rva0042C1B7Item *owner, Rva002D3627Host *holder, Rva0042CBB6 *source);
+	virtual ~Rva0042C833();
+private:
+	char m_unknown[0x14];
+};
+class Rva0042C5C3
+{
+public:
+	Rva0042C5C3(Rva0042C1B7Item *owner, Rva002D3627Host *holder, Rva0042CBB6 *source, Rva0042D8D4 *state);
+	virtual ~Rva0042C5C3();
+private:
+	char m_unknown[0x38];
+};
 class Rva0042C1B7Item
 {
 public:
@@ -111,6 +128,19 @@ public:
 private:
 	void *m_impl;
 };
+
+// Native42C76B..42C7B1 and42C8D1..42C914 use the same allocation/forwarding
+// pattern. Allocation extents and argument stores are target evidence;
+// the existing item identity shared by both remains a structural inference.
+Rva0042C1B7Item::Rva0042C1B7Item(Rva002D3627Host *holder, Rva0042CBB6 *source, Rva0042D8D4 *state)
+{
+	m_impl = new Rva0042C5C3(this, holder, source, state);
+}
+
+Rva0042C1B7Item::Rva0042C1B7Item(Rva002D3627Host *holder, Rva0042CBB6 *source)
+{
+	m_impl = new Rva0042C833(this, holder, source);
+}
 class Rva0023932BPtr
 {
 public:
