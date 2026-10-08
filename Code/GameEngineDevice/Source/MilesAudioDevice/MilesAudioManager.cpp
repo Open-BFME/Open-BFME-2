@@ -691,6 +691,19 @@ typedef _STL::list<PlayingAudioRef> PlayingAudioList;
 // owning-ref list; PlayingAudioList erases through that view.
 typedef _STL::list<OpaqueRefElement4> OpaqueRefList;
 
+// 0x90-byte AudioEventRTS copies queued per view type at +0xE0, under the
+// ledger's established element name (its virtual destructor is rowed at
+// 0x002D9A43); +0x0C is the event's playing handle. Their range erase is
+// the rowed 0x00056B72.
+struct BfmeStringTailRecord144 {
+    virtual ~BfmeStringTailRecord144();
+    char at04[0x0C - 0x04];
+    unsigned int m_playingHandle;  // +0x0C
+    char at10[0x90 - 0x10];
+};
+typedef _STL::vector<BfmeStringTailRecord144> QueuedAudioEvents;
+template<> QueuedAudioEvents::iterator QueuedAudioEvents::erase(iterator first, iterator last);
+
 // Owning AudioEventInfo reference returned by the slot-75 lookup.
 class AudioEventInfoRef {
 public:
@@ -843,6 +856,10 @@ public:
     void setMaxAmbientStreams(void);
     void rva0005452B(void);
     void rva000606CE(bool accelerated);
+    void rva00060123(unsigned int viewMask);
+    void rva00060309(void);
+    void rva0006047C(void);
+    void rva000544EB(void);
     void startPendingMusicTracks(void);
     void openDevice(void);
     void removeCurrentlyPlayingMusic(int viewType, int arg);
@@ -937,9 +954,13 @@ private:
     Rva00051107AudioRequestSet m_requestSet;        // +0x9C
     char atB0[0xBC - 0xB0];
     Rva00059FBBMap m_allAudioEventInfo;  // +0xBC
-    char atD0[0x678 - 0xD0];
+    char atD0[0xE0 - 0xD0];
+    QueuedAudioEvents m_queuedEvents[3];  // +0xE0, per view type (0x60123)
+    char at104[0x678 - 0x104];
     int m_at678;                         // +0x678, compared with event view types
-    char at67C[0x698 - 0x67C];
+    char at67C[0x68C - 0x67C];
+    int m_at68C;                         // +0x68C, zeroed by 0x60309
+    char at690[0x698 - 0x690];
     unsigned int m_at698;                // +0x698, per-view-type bits processAudioCompletion clears
     unsigned short m_maxAmbientStreams;  // +0x69C
     char at69E[0x6A4 - 0x69E];
@@ -2797,6 +2818,71 @@ private:
     int m_atBF0;
 };
 
+// Native 00060123..00060309 (WorldBuilder twin 0x007967E0, unnamed). For
+// every view type in viewMask: playing sounds, 3D sounds and streams give
+// their Miles handles back and leave their lists, queued events unmap their
+// playing handles and are cleared, and both music stacks are emptied.
+void MilesAudioManager::rva00060123(unsigned int viewMask)
+{
+    PlayingAudioRef playing;
+    OpaqueRefList::iterator it;
+
+    it = reinterpret_cast<OpaqueRefList &>(m_playingSounds).begin();
+    while (it != reinterpret_cast<OpaqueRefList &>(m_playingSounds).end()) {
+        playing = *reinterpret_cast<const PlayingAudioRef *>(&*it);
+        if (playing.get()) {
+            int viewType = playing->m_event->m_viewType;
+            if (viewMask & (1 << viewType)) {
+                releaseMilesHandles(*playing.get());
+                it = reinterpret_cast<OpaqueRefList &>(m_playingSounds).erase(it);
+                continue;
+            }
+        }
+        ++it;
+    }
+    it = reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).begin();
+    while (it != reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).end()) {
+        playing = *reinterpret_cast<const PlayingAudioRef *>(&*it);
+        if (playing.get()) {
+            int viewType = playing->m_event->m_viewType;
+            if (viewMask & (1 << viewType)) {
+                releaseMilesHandles(*playing.get());
+                it = reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).erase(it);
+                continue;
+            }
+        }
+        ++it;
+    }
+    it = reinterpret_cast<OpaqueRefList &>(m_playingStreams).begin();
+    while (it != reinterpret_cast<OpaqueRefList &>(m_playingStreams).end()) {
+        playing = *reinterpret_cast<const PlayingAudioRef *>(&*it);
+        if (playing.get()) {
+            int viewType = playing->m_event->m_viewType;
+            if (viewMask & (1 << viewType)) {
+                releaseMilesHandles(*playing.get());
+                it = reinterpret_cast<OpaqueRefList &>(m_playingStreams).erase(it);
+                continue;
+            }
+        }
+        ++it;
+    }
+
+    for (int viewType = 0; viewType < 3; ++viewType) {
+        if (viewMask & (1 << viewType)) {
+            QueuedAudioEvents::iterator event;
+            for (event = m_queuedEvents[viewType].begin(); event != m_queuedEvents[viewType].end(); ++event)
+                unmapPhysicalHandle(event->m_playingHandle);
+            m_queuedEvents[viewType].clear();
+            for (int musicSystem = 0; musicSystem < 2; ++musicSystem) {
+                while (!m_musicStack[viewType][musicSystem].empty()) {
+                    releaseMilesHandles(*reinterpret_cast<PlayingAudio *>(m_musicStack[viewType][musicSystem].back().referent));
+                    m_musicStack[viewType][musicSystem].pop_back();
+                }
+            }
+        }
+    }
+}
+
 // Retail 0x000606CE, called from onAudioLODChanged (0x607BB) and 0x61A2E.
 // With a provider selected it releases every playing 3D sound under the
 // mutex and unselects it, then reselects through 0x604A3 and, if that found
@@ -2876,6 +2962,51 @@ extern "C" __declspec(dllimport) int __stdcall AIL_3D_sample_status(void *sample
 extern "C" __declspec(dllimport) void __stdcall AIL_stop_sample(void *sample);
 extern "C" __declspec(dllimport) void __stdcall AIL_stop_3D_sample(void *sample3D);
 extern "C" __declspec(dllimport) void __stdcall AIL_resume_sample(void *sample);
+extern "C" __declspec(dllimport) void __stdcall AIL_quick_shutdown(void);
+extern "C" __declspec(dllimport) void __stdcall AIL_shutdown(void);
+
+// Rowed at 0x00053D89; clears the holder at +0xB90.
+class Rva00053D89 { public: void clear(void); };
+
+// Native 00060309..000603ED (WorldBuilder twin 0x00797100, unnamed). Under
+// the mutex every loop buffer's sample is stopped, then each is invalidated
+// and, when still bound, cleaned up; all view types are then stopped
+// (0x60123 with mask 7), the 2D samples and 3D sample handles released, and
+// +0x68C cleared.
+void MilesAudioManager::rva00060309(void)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    int i;
+    for (i = 0; i < m_numLoopBuffers; ++i) {
+        if (m_loopBuffers[i].m_is3D) {
+            if (m_loopBuffers[i].m_3DSample)
+                AIL_stop_3D_sample(m_loopBuffers[i].m_3DSample);
+        } else if (m_loopBuffers[i].m_sample) {
+            AIL_stop_sample(m_loopBuffers[i].m_sample);
+        }
+    }
+    for (i = 0; i < m_numLoopBuffers; ++i) {
+        m_loopBuffers[i].m_isValid = false;
+        if (m_loopBuffers[i].m_at10)
+            cleanUpLoopBuffer(&m_loopBuffers[i]);
+    }
+    rva00060123(7);
+    rva000544EB();
+    rva0005452B();
+    m_at68C = 0;
+}
+
+// Native 0006047C..000604A3 (WorldBuilder twin 0x00798C10, unnamed): stop
+// everything, unselect the provider, clear +0xB90 and shut Miles down.
+void MilesAudioManager::rva0006047C(void)
+{
+    rva00060309();
+    unselectProvider();
+    reinterpret_cast<Rva00053D89 *>(&m_atB90)->clear();
+    AIL_quick_shutdown();
+    AIL_shutdown();
+}
+
 extern "C" __declspec(dllimport) void __stdcall AIL_resume_3D_sample(void *sample3D);
 
 // Retail 0x00053113 (WorldBuilder twin 0x0078E1E0 names it and asserts a
