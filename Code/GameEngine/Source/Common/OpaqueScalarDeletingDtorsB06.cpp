@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfmelist /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /EHsc /Ireference/shims/bfmelist /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // Opaque scalar deleting destructors, batch B06: 28-byte wrappers that
@@ -494,4 +494,65 @@ void AI::reset()
     nextGroupID = 0;
     nextFormationID = 0;
     ++nextFormationID;
+}
+
+// The complete 0x002D62AB..0x002D638E body decrements three flash
+// timers (+0x12C, stride 8) and sends changed Boolean states to APT.
+// Retail's data table names PlayerMagic, Objectives, PlanningMode. The
+// generated event is Set<name>ButtonFlashEffectState, argument _show/_hide.
+// Original member identity is unknown; no complete Palantir layout claimed.
+#include "ascii_string.h"
+class Rva000B3F84Pair
+{
+public:
+    // ?Rva000B3F84Pair::Rva000B3F84Pair absent-from-retail
+    Rva000B3F84Pair() {}
+    const char *m_ptr;
+    int m_len;
+};
+struct AsciiStringRefWithChar { const AsciiString *m_string; char m_char; };
+struct AsciiStringCharPlusText : AsciiStringRefWithChar { Rva000B3F84Pair m_right; };
+struct Rva005D2F96S16 { int m0, m1, m2, m3; };
+struct Rva005D2F96Base24 { int m0, m1, m2, m3, m4, m5; };
+struct Rva005D2F96S24 : Rva005D2F96Base24 {};
+Rva000B3F84Pair __cdecl Rva00108B93Make(const char *text);
+AsciiStringCharPlusText __cdecl operator+(const AsciiStringRefWithChar &, const char *);
+Rva005D2F96S24 __cdecl Rva005D2F96Build(const Rva005D2F96S16 &, const char *);
+AsciiString __cdecl Rva002D56C3(const Rva005D2F96Base24 &);
+class Rva00222A8BTarget;
+int __cdecl Rva002D3409Invoke(Rva00222A8BTarget *, void *, const char *, const char *const &);
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+extern const char *const g_00C031AC[3];
+struct Rva002D62ABFlashState { int timer; bool active; };
+class Rva002D62AB
+{
+public:
+    void updateButtonFlash();
+private:
+    char opaque00[0x5C];
+    void *owner;
+    char opaque60[0x12C - 0x60];
+    Rva002D62ABFlashState flash[3];
+};
+void Rva002D62AB::updateButtonFlash()
+{
+    const char *const *name = g_00C031AC;
+    Rva002D62ABFlashState *state = flash;
+    for (; (int)name < (int)(g_00C031AC + 3); ++name, ++state)
+    {
+        if (state->timer > 0)
+            --state->timer;
+        bool active = state->timer > 0;
+        if (active != state->active)
+        {
+            const char *argument = active ? "_show" : "_hide";
+            Rva002D3409Invoke(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager), owner,
+                Rva002D56C3((const Rva005D2F96Base24 &)Rva005D2F96Build(
+                    (const Rva005D2F96S16 &)operator+(
+                        (const AsciiStringRefWithChar &)Rva00108B93Make("Set"), *name),
+                    "ButtonFlashEffectState")).str(), argument);
+            state->active = active;
+        }
+    }
 }
