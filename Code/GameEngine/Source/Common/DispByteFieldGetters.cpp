@@ -205,3 +205,13 @@ BFME_DISP_BYTE_GETTER(Rva0010858FByteField, 0x85)
 BFME_DISP_BYTE_GETTER(Rva001E3412ByteField, 0x108)
 BFME_DISP_BYTE_GETTER(Rva001EADF0ByteField, 0xC2)
 BFME_DISP_BYTE_GETTER(Rva001EAE1AByteField, 0x98)
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
+// Full native leaf 001F350B..001F3513 ends at its own RET boundary.
+// Target evidence: receiver0C dword equals two; result in AL.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+class Rva001F350BFields {
+public: unsigned char isTwo() const;
+private: char unknown[0x0C]; unsigned int value;
+};
+unsigned char Rva001F350BFields::isTwo() const { return value == 2; }

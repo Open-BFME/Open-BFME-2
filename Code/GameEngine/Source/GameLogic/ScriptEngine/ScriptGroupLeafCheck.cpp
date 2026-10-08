@@ -86,3 +86,14 @@ unsigned char Rva003B46F4Holder::atIndex(int index) const
 {
     return m_table[index].m_bytes[0x0C];
 }
+
+// BF1 9cbfb551fe Common/Rva003543C0Arr.cpp is the clean semantic donor.
+// Full native leaf 003B4705..003B4716 ends at its own RET boundary.
+// Target evidence: receiver38 array pointer; stride14 hexadecimal; byte0C load; RET4.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+struct Rva003B4705Element { char unknown[0x0C]; unsigned char value; char tail[7]; };
+class Rva003B4705Array {
+public: unsigned char getByte(int index);
+private: char unknown[0x38]; Rva003B4705Element *values;
+};
+unsigned char Rva003B4705Array::getByte(int index) { return values[index].value; }

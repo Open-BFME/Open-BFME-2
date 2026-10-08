@@ -82,3 +82,25 @@ public: int getValue(int index);
 private: unsigned char unknown[0x10]; int values[1];
 };
 int Rva0029A25DArray::getValue(int index) { return values[index]; }
+
+// BF1 9cbfb551fe Common/Rva0028ED50Get.cpp is the clean semantic donor.
+// Full native leaf 004B0CEF..004B0CFD ends at its own RET boundary.
+// Target evidence: receiver4 pointer; inner0C dword not zero.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+struct Rva004B0CEFInner { char unknown[0x0C]; int value; };
+class Rva004B0CEFFields {
+public: bool get();
+private: char unknown[4]; Rva004B0CEFInner *inner;
+};
+bool Rva004B0CEFFields::get() { return inner->value != 0; }
+
+// BF1 9cbfb551fe Common/Rva0028ED70Nz.cpp is the clean semantic donor.
+// Full native leaf 004B0CFD..004B0D0C ends at its own RET boundary.
+// Target evidence: receiver4 pointer; inner4C dword not all ones.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+struct Rva004B0CFDInner { char unknown[0x4C]; int value; };
+class Rva004B0CFDFields {
+public: bool get();
+private: char unknown[4]; Rva004B0CFDInner *inner;
+};
+bool Rva004B0CFDFields::get() { return inner->value != -1; }
