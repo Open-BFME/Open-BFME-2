@@ -43,7 +43,9 @@ public:
     virtual UnicodeString fetch(const char *,bool *exists=0);
 };
 extern GameTextInterface *TheGameText;
-class UserPreferences { public: virtual ~UserPreferences(); virtual bool write(); };
+class UserPreferences { public: virtual ~UserPreferences();
+    virtual bool load(const AsciiString &); virtual bool load(const UnicodeString &);
+    virtual bool write(); };
 class GameSpyMiscPreferences: public UserPreferences {
 public: GameSpyMiscPreferences(); virtual ~GameSpyMiscPreferences();
     int rva00559782();
@@ -65,7 +67,9 @@ void Rva00325388Send(GameWindow *,int,int,int);
 void GadgetListBoxSetSelected(GameWindow *,int);
 void GadgetCheckBoxSetChecked(GameWindow *,bool);
 void GadgetTextEntrySetText(GameWindow *,UnicodeString);
-class GameSpyLoginPreferences { public:
+class GameSpyLoginPreferences: public UserPreferences { public:
+    virtual bool write();
+    void deleteNick(const AsciiString &,const AsciiString &);
     AsciiString rva005C9FC4();
     _STL::list<AsciiString> rva005CA07D();
     AsciiString getPasswordForEmail(AsciiString);
@@ -102,9 +106,12 @@ class PingerInterface { public:
 extern PingerInterface *ThePinger;
 struct LoginPingStringData { int refs;unsigned short length,capacity;char text[1]; };
 
+class Rva0056EBA1 { public: UnicodeString rva0056EB15(); };
+
 class AptOnlineLogin {
 public:
     void OnBttnRegisterFESL(const char *);
+    void OnAccountDeleted(bool);
     void rva00572632(const char *);
     void rva00572768(const char *);
     void rva00571B75();
@@ -125,6 +132,7 @@ private:
     unsigned char padBC[9]; bool needsRefresh;
     unsigned char padC6[10]; bool closeLocale;
     unsigned char padD1[3]; int locale;
+    AsciiString m_deleteNickname;
 };
 void AptOnlineLogin::OnBttnRegisterFESL(const char *)
 {
@@ -333,4 +341,22 @@ void AptOnlineLogin::rva00570C64()
         request.timeout=timeout;
         ThePinger->addRequest(request);
     }
+}
+
+// WB150F770 names OnAccountDeleted and m_deleteNickname at D8.
+// Native571593..571657 proves prefs60 and its write slot0C; the
+// trimmed-email getter and cached-login refresh use their ledger owners.
+void AptOnlineLogin::OnAccountDeleted(bool success)
+{
+    if (m_deleteNickname.isEmpty()) return;
+    if (success) {
+        AsciiString emailText;
+        emailText.translate(((Rva0056EBA1 *)this)->rva0056EB15());
+        GameSpyLoginPreferences *preferences=(GameSpyLoginPreferences *)((char *)this+0x60);
+        preferences->deleteNick(emailText,m_deleteNickname);
+        preferences->write();
+        AsciiString emptyName(AsciiString::TheEmptyString);
+        rva005709D1(emailText,emptyName);
+    }
+    m_deleteNickname=AsciiString::TheEmptyString;
 }
