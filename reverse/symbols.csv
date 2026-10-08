@@ -4201,7 +4201,6 @@ name,address,notes
 ??1Rva00216BF5@@UAE@XZ,0x00216BF5,"destructor the scalar deleting destructor 0x00216DA0 calls (REL32 at 0x00216DA3; vtable 0x00BE59E4#0); opaque address name"
 ??1Rva002186EB@@UAE@XZ,0x00218744,sole REL32 callee of the slot-0 ??_G at 0x00218728 in vftable 0x00BE5B10; body starts right after that ??_G
 ??1Rva002189C5@@QAE@XZ,0x00218803,non-virtual dtor called directly by scalar deleting dtor 0x002189C5; owning class unproven
-??1Rva0021FFEE@@UAE@XZ,0x0021FFEE,"destructor the scalar deleting destructor 0x002201B9 calls (REL32 at 0x002201BC; vtable 0x00BE648C#0); opaque address name"
 ??1Rva002213C0Dtor@@QAE@XZ,0x002213C0,dtor thunk stub at 0x002213C0 to 0x002212F1 (target of thunk 0x007B7704)
 ??1Rva0022167C@@QAE@XZ,0x0022167C,address read from the REL32 displacement at byte-matched body 0x005CB3BE; 14B dtor storing vtable 0x00BE6BA8 then tail-jumping to 0x0022161B
 ??1Rva00221A58@@QAE@XZ,0x002218D0,ICF twin of Open2Dtor4793C0 from Rva00221B42 dtor call site
