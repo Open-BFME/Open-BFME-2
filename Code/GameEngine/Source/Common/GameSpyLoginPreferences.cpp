@@ -120,6 +120,8 @@ typedef _STL::map<AsciiString, AsciiString> PassMap;
 typedef _STL::map<AsciiString, AsciiString> DateMap;
 typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiString> > > NickMap;
 typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiString> > > ClanMap;
+// Reuse the native list-base destructor shared by the existing list providers.
+extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::~_List_base();
 
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 AsciiString QuotedPrintableToAsciiString(AsciiString original);
@@ -158,6 +160,8 @@ public:
 	// Erases one email key from nick/pass/date maps at +0x2c/+0x14/+0x20 (retail 0x005CABF9).
 	void rva005CABF9(AsciiString email);
 	AsciiString rva005C9FC4(void);
+	const _STL::list<AsciiString> &rva005CA201(const AsciiString &);
+	const _STL::list<AsciiString> &rva005CA1A0(const AsciiString &,NickMap &);
 
 private:
 	PassMap m_emailPasswordMap;
@@ -415,4 +419,16 @@ AsciiString obfuscate( AsciiString in )
 	AsciiString out = buf;
 	delete[] buf;
 	return out;
+}
+
+// Native 5CA1A0..5CA201 returns a borrowed map value or its lazily
+// initialized empty list. The original method spelling is unproven.
+const _STL::list<AsciiString> &GameSpyLoginPreferences::rva005CA1A0(const AsciiString &email,NickMap &map)
+{
+    NickMap::iterator it=map.find(email);
+    if(it==map.end()) {
+        static _STL::list<AsciiString> empty;
+        return empty;
+    }
+    return it->second;
 }
