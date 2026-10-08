@@ -45,6 +45,19 @@ extern "C" void *g_anim2DGameClient;
 #include "GameClient/Display.h"
 #include "GameClient/GameClient.h"
 #include "GameClient/Image.h"
+
+// BFME retains formatted exceptions in release and adds an integer to ZH's message storage.
+class INIException
+{
+public:
+	INIException(Int, const char *message, ...);
+	INIException(const INIException &other);
+	~INIException();
+
+private:
+	char *m_message;
+	Int m_unreconstructed04;
+};
 #include "GameLogic/GameLogic.h"
 
 #ifdef _INTERNAL
@@ -161,7 +174,27 @@ void Anim2DTemplate::parseImage( INI *ini, void *instance, void *store, const vo
 	* we can parse this entry so we know how many images to allocate and look for */
 // ------------------------------------------------------------------------------------------------
 // ?parseImageSequence@Anim2DTemplate@@KAXPAVINI@@PAX1PBX@Z
-// Body in Anim2DTemplate_parse_walls.asm (exact 381B retail; same release-crash wall).
+void Anim2DTemplate::parseImageSequence( INI *ini, void *instance, void *store, const void *userData )
+{
+
+	const Image *image;
+	Anim2DTemplate *animTemplate = (Anim2DTemplate *)instance;
+	if( animTemplate->getNumFrames() == 0 )
+		throw INIException( 3, "Anim2DTemplate::parseImageSequence - You must specify the number of animation frames for animation '%s' *BEFORE* specifying the image sequence name\n", animTemplate->m_name.str() );
+
+	AsciiString imageBaseName = ini->getNextAsciiString();
+	AsciiString imageName;
+	for( Int i = 0; i < animTemplate->getNumFrames(); ++i )
+	{
+		imageName.format( "%s%03d", imageBaseName.str(), i );
+		image = TheMappedImageCollection->findImageByName( imageName );
+		if( image == NULL )
+			throw INIException( 3, "Anim2DTemplate::parseImageSequence - Image '%s' not found for animation '%s'.  Check the number of images specified in INI and also make sure all the actual images exist.\n", imageName.str(), animTemplate->m_name.str() );
+
+		animTemplate->storeImage( image );
+	}
+
+}  // end parseImageSequence
 
 // ------------------------------------------------------------------------------------------------
 /** Store the image at the next open image slot for the animation */
