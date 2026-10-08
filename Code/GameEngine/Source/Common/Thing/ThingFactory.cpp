@@ -73,19 +73,7 @@ ThingFactory *TheThingFactory = NULL;  ///< Thing manager singleton declaration
 //-------------------------------------------------------------------------------------------------
 /** Free all data loaded into this template database */
 //-------------------------------------------------------------------------------------------------
-// ?freeDatabase@ThingFactory@@ present-unmatched
-void ThingFactory::freeDatabase( void )
-{
-	while (m_firstTemplate)
-	{
-		ThingTemplate* tmpl = m_firstTemplate;
-		m_firstTemplate = m_firstTemplate->friend_getNextTemplate();
-		tmpl->deleteInstance();
-	}
-
-	m_templateHashMap.clear();
-
-}  // end freeDatabase
+// BFME2 freeDatabase is recovered in ThingFactoryReset.cpp.
 
 //-------------------------------------------------------------------------------------------------
 /** add the thing template passed in, into the databse */
@@ -508,3 +496,9 @@ void reportMissingNameInTemplate( AsciiString templateName )
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?dup_002ca82c@@YAXXZ=??$_Construct@VArmorTemplateSet@@V1@@_STL@@YAXPAVArmorTemplateSet@@ABV1@@Z")
+
+// Retain this unit's existing header-inline row after the unfinished
+// freeDatabase caller moves to its verified BFME2 unit. This pointer is
+// a compile anchor, not a retail data claim.
+extern ThingTemplate *(ThingTemplate::*const _bfmeInlineAnchorFriendNext)() const =
+    &ThingTemplate::friend_getNextTemplate;

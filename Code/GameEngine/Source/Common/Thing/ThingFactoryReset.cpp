@@ -82,6 +82,7 @@ class Rva000427195
 {
 public:
     int rva00223429(const AsciiString *key);
+    void rva003A2A41();
     void *m_unused;
     void **m_beginBuckets, **m_endBuckets, **m_storageEnd;
     unsigned int m_numElements;
@@ -93,6 +94,7 @@ public:
     virtual void reset();
     virtual void postProcessLoad();
 private:
+    void freeDatabase();
     ThingTemplate *m_firstTemplate;
     unsigned short m_nextTemplateID, m_unused12;
     Rva000427195 m_templateHashMap;
@@ -161,4 +163,22 @@ void ThingFactory::postProcessLoad()
         ((Rva0033A920 *)((char *)t + 0x520))->rva0033A920(t);
     }
     Rva00361439Resolve();
+}
+
+void bfmeGoEBL();
+
+// BFME1 ba7ddda7e8 ThingFactoryFreeDatabase donor, reconciled to the target
+// +0x0C head / +0x484 link and existing BFME2 table-clear worker.
+// WB a937f0 uses the global-delete path; native 002D0469..002D04A3 retains
+// the null guard, virtual destructor with flag0, and separate global delete.
+void ThingFactory::freeDatabase()
+{
+    while (m_firstTemplate)
+    {
+        ThingTemplate *tmpl = m_firstTemplate;
+        m_firstTemplate = m_firstTemplate->m_nextTemplate;
+        ::delete tmpl;
+    }
+    m_templateHashMap.rva003A2A41();
+    bfmeGoEBL();
 }
