@@ -1,10 +1,12 @@
-// cl: /O1 /MD /EHs /arch:SSE /G7 /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /MD /EHs /arch:SSE /G7 /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common /ICode/Libraries/Include
 // stlport
 #include <vector>
 #include <set>
 #include "../../../Common/GameLogicObjectLookupView.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 class Player;
+struct AITeamRequirementView;
+struct AITargetView;
 struct Rva002A8AB1Record;
 class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); };
 extern Rva002A8F24 *g_00DFEEF8;
@@ -41,6 +43,8 @@ class AITeamBuilder {
 public:
  int getCurNumUnits(Team *);
  int doesTeamMeetThreat(Team *);
+ bool rva0059A01C(Object*,const AITeamRequirementView*,const AITargetView*);
+ char prefix00[0x14]; Player* owner14;
 };
 class Rva0059AC4D {
  char prefix[8]; _STL::vector<TeamPrototype *> prototypes;
@@ -107,4 +111,62 @@ Team *Rva0059AC4D::rva00599F74(TeamPrototype *prototype)
   if (!first) first=it.cur();
  }
  return first;
+}
+
+#include "GameLogicObjectLookupView.h"
+#include "Lib/Coord3D.h"
+// Both rowed native query providers walk seven words. The existing
+// Thing::isAnyKindOf provider retains BitFlags<69> in its ABI spelling;
+// the actual requirement storage and any() instantiation are BitFlags<218>.
+template<int N> class BitFlags { public: bool any() const; unsigned int words[7]; };
+class Thing { public: bool isAnyKindOf(const BitFlags<69>&) const; };
+struct RecruitThingTemplate { char prefix[0x113]; unsigned char kind113; };
+class AIUpdateInterface { public: Object* getCurrentVictim() const; };
+class Object {
+public:
+ char pad00[4]; RecruitThingTemplate* objectTemplate;
+ char pad08[0x38-8]; Coord3D position;
+ char pad44[0x258-0x44]; AIUpdateInterface* ai;
+ char pad25c[0x304-0x25c]; Team* team;
+ char pad308[0x438-0x308]; unsigned char flag438;
+ char pad439[0x4c0-0x439]; unsigned int frame4c0;
+};
+class Player { public: char prefix[0x2ec]; Team* defaultTeam; };
+struct AITeamRequirementView {
+ char prefix[0xf0]; int priority;
+ char padf4[0x1b4-0xf4]; BitFlags<218> required;
+ BitFlags<218> forbidden;
+};
+struct AITargetView { int word0; int kind; int word8; Coord3D position; };
+// This is an observed secondary-interface call, not a Snapshot override:
+// native 59A06A adjusts Team by four and invokes slot eight for a float.
+// Keep its unresolved interface identity separate from the Team list ABI.
+class TeamPriorityCallView { public: virtual void slot0(); virtual void slot4(); virtual float priority(); };
+struct TeamPriorityDataView { char prefix[0x111]; bool active; };
+extern GameLogic* TheGameLogic;
+extern int g_00E063E0;
+// Native 0059A01C..0059A153 and WB0152A380 establish this three-argument
+// recruitment predicate. WB only exposes inlined Vector3 names, so retain
+// an address name for the outer method. Retail rejects unordered distance
+// comparisons, then applies required/forbidden kinds, age, and victim gates.
+bool AITeamBuilder::rva0059A01C(Object* obj,const AITeamRequirementView* req,const AITargetView* target) {
+ Team* currentTeam;
+ if(!obj || (obj->flag438&1) || (obj->objectTemplate->kind113&8))goto reject;
+ currentTeam=obj->team;
+ if(currentTeam!=owner14->defaultTeam) {
+  if(!(((TeamPriorityDataView*)currentTeam)->active && ((TeamPriorityCallView*)((char*)currentTeam+4))->priority()<req->priority)) {
+   if(!target||target->kind!=1)goto reject;
+   Coord3D a={target->position.x,target->position.y,target->position.z};
+   Coord3D b={obj->position.x,obj->position.y,obj->position.z};
+   Coord3D delta={b.x-a.x,b.y-a.y,b.z-a.z};
+   if(!(delta.z*delta.z+delta.y*delta.y+delta.x*delta.x<=1000000.0f))goto reject;
+  }
+ }
+ if(req->required.any()&&!((Thing*)obj)->isAnyKindOf((const BitFlags<69>&)req->required))goto reject;
+ if(req->forbidden.any()&&((Thing*)obj)->isAnyKindOf((const BitFlags<69>&)req->forbidden))goto reject;
+ if(TheGameLogic->getFrame()-obj->frame4c0<(unsigned)g_00E063E0)goto reject;
+ if(obj->ai->getCurrentVictim())goto reject;
+ return true;
+reject:
+ return false;
 }
