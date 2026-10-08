@@ -18,10 +18,14 @@ private:
     void *m_objectTypes[3];
 };
 
+enum ObjectID { INVALID_OBJECT_ID = 0 };
+
 class Rva0040D701ArmySummary
 {
 public:
     bool rva0040EC7C(const AsciiString &name);
+    ObjectID rva0040E83A(const AsciiString &name);
+    ObjectID SpawnOneDelayedCarryoverUnit(ObjectTypes *types);
     bool HasDelayedCarryoverUnitOfTypes(ObjectTypes *types);
 };
 
@@ -30,4 +34,14 @@ bool Rva0040D701ArmySummary::rva0040EC7C(const AsciiString &name)
     ObjectTypes types;
     types.addObjectType(name);
     return HasDelayedCarryoverUnitOfTypes(&types);
+}
+
+// Native40E83A-40E88B constructs the same ObjectTypes temporary and returns
+// the complete ObjectID from the existing pinned spawn method at40E589.
+// The adapter's original name remains unknown; WB confirms its callgraph.
+ObjectID Rva0040D701ArmySummary::rva0040E83A(const AsciiString &name)
+{
+    ObjectTypes types;
+    types.addObjectType(name);
+    return SpawnOneDelayedCarryoverUnit(&types);
 }
