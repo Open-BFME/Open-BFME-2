@@ -10420,6 +10420,7 @@ name,address,notes
 ?loadCharBitmap@FontCharsClass@@AAEPBUFontCharsClassCharDataStruct@@G@Z,0x00156A60,glyph rasterizer called with (this char) on table miss by loadCharacterData 0x158580; address read from its REL32; true identity unproven (opaque)
 ?loadCharacterData@FontCharsClass@@QAEPBUFontCharsClassCharDataStruct@@G@Z,0x00158580,retail REL32 from Get_Char_Spacing at 0x00158760; Thai-first glyph-ensure helper with 9 fontchars callers; named per BFME1 FontCharsClass_Get_Char_Data_BFME.cpp
 ?loadDirectory@INI@@QAEXVAsciiString@@_NW4INILoadType@@PAVXfer@@H@Z,0x0002E63B,retail callee of SubsystemInterfaceList::initSubsystem (0x001B5266) at the site the BFME1 source makes this call
+?loadGarrisonPoints@GarrisonContain@@IAEXXZ,0x0047901B,ZH GarrisonContain::loadGarrisonPoints name: callee of recalcApparentControllingPlayer 0x00479432 on the full object when the contain count is positive and the +0x9DC initialized byte is clear; EH body reading bone positions into +0x424 and +0x604
 ?loadDockPositions@DockUpdate@@IAEXXZ,0x005897FB,callee of ?advanceApproachPosition@DockUpdate@@UAE_NPAVObject@@PAUCoor at retail 0x00589D3E read from its REL32 displacement; body unrowed
 ?loadFile@INI@@QAEEVAsciiString@@W4INILoadType@@PAVXfer@@@Z,0x0002DC75,retail returns uchar used by ORs at 0x0031B4D6
 ?loadFile@INI@@QAEXVAsciiString@@W4INILoadType@@PAVXfer@@@Z,0x0002DC75,retail callee of SubsystemInterfaceList::initSubsystem (0x001B5266) at the site the BFME1 source makes this call
