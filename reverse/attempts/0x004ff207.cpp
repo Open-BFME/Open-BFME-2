@@ -1,5 +1,5 @@
-// ?rva004FF207@Rva004FF207@@QAEXXZ
-// partial score=0.8 date=2026-10-07
+// ?d_004ff207@@YAXXZ
+// partial score=0.86 date=2026-10-07
 // cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD /ICode/Libraries/Include/Lib
 // Native 004FF207..004FF28E, 135B, RET0. The receiver forwards its
 // record +28 to the rowed manager helper, then uses the record's XY and
@@ -8,9 +8,19 @@
 #include "Coord3D.h"
 #include "Coord2D.h"
 
+struct Rva004FF207Point : Coord3D
+{
+    Rva004FF207Point(float xx, float yy) { x=xx; y=yy; z=0.0f; }
+    Rva004FF207Point(const Rva004FF207Point &v) { x=v.x; y=v.y; z=v.z; }
+};
+struct Rva004FF207Pair : Coord2D
+{
+    Rva004FF207Point point() const { return Rva004FF207Point(x, y); }
+};
+
 struct Rva004FF207Record {
 	char unknown00[0x48];
-	Coord2D point;
+	Rva004FF207Pair point;
 	Coord2D values;
 };
 class Rva003EE980 { public: void rva003EE980(int); };
@@ -76,11 +86,8 @@ private:
 void Rva004FF207::rva004FF207()
 {
 	TheLivingWorldManager->member268->rva003EE980(reinterpret_cast<int>(record));
-	Coord3D point;
-	point.x = record->point.x;
-	point.y = record->point.y;
-	point.z = 0.0f;
+	Rva004FF207Point point = record->point.point();
 	Coord2D values = record->values;
 	g_00DFEF18->slot39(&point, values.x, values.y,
-		g_00DFEF18->rva002BEDCA(&point, values.y));
+		g_00DFEF18->rva002BEDCA(&point, record->values.y));
 }
