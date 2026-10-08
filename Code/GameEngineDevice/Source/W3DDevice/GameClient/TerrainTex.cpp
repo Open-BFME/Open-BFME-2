@@ -1,16 +1,5 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
 // stlport
-//
-// Bodies ported from Open-BFME-1's
-// GameEngineDevice/Source/W3DDevice/GameClient/TerrainTex.cpp (donor revision
-// 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled
-// that way each body below places uniquely on unclaimed game.dat .text by
-// masked whole-.text search, and ./build.sh reproduces it byte for byte:
-// TerrainTextureClass::setLOD 0x000EF2A0 (33B). Callee addresses are read off
-// retail's call sites (reverse/symbols.csv). Only the placed bodies are
-// carried; the donor's other definitions are omitted.
-#define Matrix4x4 Matrix4  // BFME renamed it
-#define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -29,160 +18,160 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-////////////////////////////////////////////////////////////////////////////////
-//																																						//
-//  (c) 2001-2003 Electronic Arts Inc.																				//
-//																																						//
-////////////////////////////////////////////////////////////////////////////////
 
-// FILE: TerrainTex.cpp ////////////////////////////////////////////////
-//-----------------------------------------------------------------------------
-//                                                                          
-//                       Westwood Studios Pacific.                          
-//                                                                          
-//                       Confidential Information                           
-//                Copyright (C) 2001 - All Rights Reserved                  
-//                                                                          
-//-----------------------------------------------------------------------------
-//
-// Project:   RTS3
-//
-// File name: TerrainTex.cpp
-//
-// Created:   John Ahlquist, April 2001
-//
-// Desc:      TextureClass overrides to perform custom texturing for the terrain.
-//
-//-----------------------------------------------------------------------------
+// BFME1 clean donor: 34f59164f6d1efd413c5fd37f4894ec834c3c0fe
+// game/GameEngineDevice/Source/W3DDevice/GameClient/Rva006D5750Update.cpp.
+// BFME2 native EF4A3..EF63F and WB8C5080 prove the extra tile-kind argument,
+// six-word tile lookup, out-of-line memcpy and Log_DX8_ErrorCode calls.
+// Original setLOD body retained and reverified with the same TextureClass base.
+#define Matrix4x4 Matrix4
+#define __PLACEMENT_VEC_NEW_INLINE
 
-//-----------------------------------------------------------------------------
-//         Includes                                                      
-//-----------------------------------------------------------------------------
-#include <stdlib.h>
-
-#include "W3DDevice/GameClient/TerrainTex.h"
+#include "WW3D2/Texture.h"
+#include "WWMATH/Matrix3d.h"
+#include "common/AsciiString.h"
 #include "W3DDevice/GameClient/WorldHeightMap.h"
 #include "W3DDevice/GameClient/TileData.h"
-#include "common/GlobalData.h"
 #include "WW3D2/dx8wrapper.h"
 #include "d3dx8tex.h"
 
+struct Rva006D53A0SurfaceDesc
+{
+	D3DFORMAT Format;
+	D3DRESOURCETYPE Type;
+	DWORD Usage;
+	D3DPOOL Pool;
+	UINT Size;
+	UINT reserved;
+	UINT Width;
+	UINT Height;
+};
 
-#if 0 // old version.
+class SurfaceResource
+{
+public:
+	virtual void slot00(void);
+	virtual void slot04(void);
+	virtual void __stdcall Release(void);
+	virtual void slot0c(void);
+	virtual void slot10(void);
+	virtual void slot14(void);
+	virtual void slot18(void);
+	virtual void slot1c(void);
+	virtual void slot20(void);
+	virtual void slot24(void);
+	virtual void slot28(void);
+	virtual void slot2c(void);
+	virtual int __stdcall GetDesc(Rva006D53A0SurfaceDesc *desc);
+	virtual int __stdcall LockRect(D3DLOCKED_RECT *locked, const RECT *rect, unsigned flags);
+	virtual int __stdcall UnlockRect(void);
+};
 
-#endif
+class BfmeD3DTexture
+{
+public:
+	virtual void slot00(void);
+	virtual void slot04(void);
+	virtual void slot08(void);
+	virtual void slot0c(void);
+	virtual void slot10(void);
+	virtual void slot14(void);
+	virtual void slot18(void);
+	virtual void slot1c(void);
+	virtual void slot20(void);
+	virtual void slot24(void);
+	virtual void slot28(void);
+	virtual void slot2c(void);
+	virtual void slot30(void);
+	virtual void slot34(void);
+	virtual void slot38(void);
+	virtual void slot3c(void);
+	virtual void slot40(void);
+	virtual void slot44(void);
+	virtual int __stdcall GetSurfaceLevel(unsigned level, SurfaceResource **surface);
+};
 
-//=============================================================================
-// TerrainTextureClass::setLOD
-//=============================================================================
-/** Sets the lod of the texture to be loaded into the video card.  */
-//=============================================================================
+extern void Log_DX8_ErrorCode(unsigned int);
+static __forceinline void BFME_DX8_ErrorCode(int result) { if(result) Log_DX8_ErrorCode(result); }
+class Rva000AED2EWorldHeightMapView { public: unsigned char *rva000AED2E(int,int,int,int,int,int); };
+
+#include <string.h>
+
+// Retail calls memcpy out of line.
+
+// TU-scoped: inputs/reference/shims/sweep/d3dx8tex.h routes to the validated DX8 shim,
+// which declares D3DXFilterTexture but not the memory loader this body needs.
+extern "C" HRESULT __stdcall D3DXLoadSurfaceFromMemory(void *pDestSurface,
+	const void *pDestPalette, const void *pDestRect, const void *pSrcMemory,
+	D3DFORMAT SrcFormat, unsigned SrcPitch, const void *pSrcPalette,
+	const void *pSrcRect, unsigned long Filter, unsigned long ColorKey);
+
+// The shim's D3DX_FILTER_BOX is 3; the SDK the retail build used numbers BOX 5,
+// which is the value in the image.
+#define RVA006D5750_FILTER_BOX 5
+
+// Zero Hour's TerrainTex.h has no updateFlatDXT1, so this TU declares
+// TerrainTextureClass itself instead of including that header.
+class TerrainTextureClass : public TextureClass
+{
+public:
+	void setLOD(Int LOD);
+	Int updateFlatDXT1(WorldHeightMap *htMap, Int xCell, Int yCell,
+		Int cellWidth, Int pixelsPerCell, Int tileKind);
+};
+
+struct Rva006D5750SurfaceStorage
+{
+	Rva006D53A0SurfaceDesc desc;
+};
+
+Int TerrainTextureClass::updateFlatDXT1(WorldHeightMap *htMap, Int xCell,
+	Int yCell, Int cellWidth, Int pixelsPerCell, Int tileKind)
+{
+	SurfaceResource *surface_level;
+	Rva006D5750SurfaceStorage surface_storage;
+	Rva006D53A0SurfaceDesc &surface_desc = surface_storage.desc;
+	TerrainTextureClass *self = this;
+	Int width = cellWidth * pixelsPerCell;
+	UnsignedByte *buffer = (UnsignedByte *)(new UnsignedInt[width * width]);
+	Int cellStride = pixelsPerCell * 4;
+
+	Int cellX, cellY;
+	for (cellX = 0; cellX < cellWidth; cellX++) {
+		for (cellY = 0; cellY < cellWidth; cellY++) {
+			UnsignedByte *pBGR = reinterpret_cast<Rva000AED2EWorldHeightMapView*>(htMap)->rva000AED2E(xCell + cellX, yCell + cellY, pixelsPerCell, tileKind, 0, 0);
+			if (pBGR == NULL) continue;
+			Int k;
+			for (k = pixelsPerCell - 1; k >= 0; k--) {
+				UnsignedByte *pBGRX = buffer + (cellWidth - cellY - 1) * cellStride * width +
+					k * width * 4 + cellX * cellStride;
+				memcpy(pBGRX, pBGR, pixelsPerCell * 4);
+				pBGR += pixelsPerCell * TILE_BYTES_PER_PIXEL;
+			}
+		}
+	}
+
+	BFME_DX8_ErrorCode(reinterpret_cast<BfmeD3DTexture *>(self->Peek_D3D_Base_Texture())->GetSurfaceLevel(0, &surface_level));
+	BFME_DX8_ErrorCode(surface_level->GetDesc(&surface_desc));
+	if (surface_desc.Width != width) {
+		delete [] buffer;
+		return 0;
+	}
+
+	RECT source_rect;
+	source_rect.top = 0;
+	source_rect.left = 0;
+	source_rect.bottom = width;
+	source_rect.right = width;
+	BFME_DX8_ErrorCode(D3DXLoadSurfaceFromMemory(surface_level, NULL, NULL,
+		buffer, D3DFMT_X8R8G8B8, width * 4, NULL, &source_rect, D3DX_FILTER_NONE, 0));
+	surface_level->Release();
+	BFME_DX8_ErrorCode(D3DXFilterTexture(reinterpret_cast<IDirect3DTexture8 *>(self->Peek_D3D_Base_Texture()), NULL, 0, RVA006D5750_FILTER_BOX));
+	delete [] buffer;
+	return width;
+}
+
 void TerrainTextureClass::setLOD(Int LOD)
 {
 	if (Peek_D3D_Texture()) Peek_D3D_Texture()->SetLOD(LOD);
 }
-
-
-//=============================================================================
-// AlphaTerrainTextureClass::Apply
-//=============================================================================
-/** Sets the texture as the current D3D texture, and does some custom setup.
-This may be applied in either single pass, as the second texture in the pipe, 
-or multipass.  If stage==0, we are doing multipass and we set up the pipe 
-for a single texture.  If stage==1, then we are doing a single pass, and we
-set up the pipe so that we blend onto the base texture in stage 0.
-(standard D3D setup, but beyond the scope of W3D). */
-//=============================================================================
-#define ALPHA_DEVICE_SLOT(n) virtual void __stdcall slot##n(void);
-struct Rva006D4FF0Device
-{
-	ALPHA_DEVICE_SLOT(0) ALPHA_DEVICE_SLOT(1) ALPHA_DEVICE_SLOT(2)
-	ALPHA_DEVICE_SLOT(3) ALPHA_DEVICE_SLOT(4) ALPHA_DEVICE_SLOT(5)
-	ALPHA_DEVICE_SLOT(6) ALPHA_DEVICE_SLOT(7) ALPHA_DEVICE_SLOT(8)
-	ALPHA_DEVICE_SLOT(9) ALPHA_DEVICE_SLOT(10) ALPHA_DEVICE_SLOT(11)
-	ALPHA_DEVICE_SLOT(12) ALPHA_DEVICE_SLOT(13) ALPHA_DEVICE_SLOT(14)
-	ALPHA_DEVICE_SLOT(15) ALPHA_DEVICE_SLOT(16) ALPHA_DEVICE_SLOT(17)
-	ALPHA_DEVICE_SLOT(18) ALPHA_DEVICE_SLOT(19) ALPHA_DEVICE_SLOT(20)
-	ALPHA_DEVICE_SLOT(21) ALPHA_DEVICE_SLOT(22) ALPHA_DEVICE_SLOT(23)
-	ALPHA_DEVICE_SLOT(24) ALPHA_DEVICE_SLOT(25) ALPHA_DEVICE_SLOT(26)
-	ALPHA_DEVICE_SLOT(27) ALPHA_DEVICE_SLOT(28) ALPHA_DEVICE_SLOT(29)
-	ALPHA_DEVICE_SLOT(30) ALPHA_DEVICE_SLOT(31) ALPHA_DEVICE_SLOT(32)
-	ALPHA_DEVICE_SLOT(33) ALPHA_DEVICE_SLOT(34) ALPHA_DEVICE_SLOT(35)
-	ALPHA_DEVICE_SLOT(36) ALPHA_DEVICE_SLOT(37) ALPHA_DEVICE_SLOT(38)
-	ALPHA_DEVICE_SLOT(39) ALPHA_DEVICE_SLOT(40) ALPHA_DEVICE_SLOT(41)
-	ALPHA_DEVICE_SLOT(42) ALPHA_DEVICE_SLOT(43) ALPHA_DEVICE_SLOT(44)
-	ALPHA_DEVICE_SLOT(45) ALPHA_DEVICE_SLOT(46) ALPHA_DEVICE_SLOT(47)
-	ALPHA_DEVICE_SLOT(48) ALPHA_DEVICE_SLOT(49) ALPHA_DEVICE_SLOT(50)
-	ALPHA_DEVICE_SLOT(51) ALPHA_DEVICE_SLOT(52) ALPHA_DEVICE_SLOT(53)
-	ALPHA_DEVICE_SLOT(54) ALPHA_DEVICE_SLOT(55) ALPHA_DEVICE_SLOT(56)
-	ALPHA_DEVICE_SLOT(57) ALPHA_DEVICE_SLOT(58) ALPHA_DEVICE_SLOT(59)
-	ALPHA_DEVICE_SLOT(60) ALPHA_DEVICE_SLOT(61) ALPHA_DEVICE_SLOT(62)
-	ALPHA_DEVICE_SLOT(63) ALPHA_DEVICE_SLOT(64) ALPHA_DEVICE_SLOT(65)
-	ALPHA_DEVICE_SLOT(66) ALPHA_DEVICE_SLOT(67) ALPHA_DEVICE_SLOT(68)
-	virtual long __stdcall SetTextureStageState(unsigned int stage,
-		unsigned int state, unsigned int value);
-};
-#undef ALPHA_DEVICE_SLOT
-
-extern unsigned int Rva01340594DX8Calls;
-extern unsigned int Rva01340568StageChanges;
-
-struct Rva006C9270Texture
-{
-	virtual void __stdcall QueryInterface(void);
-	virtual void __stdcall AddRef(void);
-	virtual void __stdcall Release(void);
-};
-
-struct Rva006C9270Device
-{
-#define ALPHA_TEXTURE_DEVICE_SLOT(n) virtual void __stdcall slot##n(void);
-	ALPHA_TEXTURE_DEVICE_SLOT(0) ALPHA_TEXTURE_DEVICE_SLOT(1)
-	ALPHA_TEXTURE_DEVICE_SLOT(2) ALPHA_TEXTURE_DEVICE_SLOT(3)
-	ALPHA_TEXTURE_DEVICE_SLOT(4) ALPHA_TEXTURE_DEVICE_SLOT(5)
-	ALPHA_TEXTURE_DEVICE_SLOT(6) ALPHA_TEXTURE_DEVICE_SLOT(7)
-	ALPHA_TEXTURE_DEVICE_SLOT(8) ALPHA_TEXTURE_DEVICE_SLOT(9)
-	ALPHA_TEXTURE_DEVICE_SLOT(10) ALPHA_TEXTURE_DEVICE_SLOT(11)
-	ALPHA_TEXTURE_DEVICE_SLOT(12) ALPHA_TEXTURE_DEVICE_SLOT(13)
-	ALPHA_TEXTURE_DEVICE_SLOT(14) ALPHA_TEXTURE_DEVICE_SLOT(15)
-	ALPHA_TEXTURE_DEVICE_SLOT(16) ALPHA_TEXTURE_DEVICE_SLOT(17)
-	ALPHA_TEXTURE_DEVICE_SLOT(18) ALPHA_TEXTURE_DEVICE_SLOT(19)
-	ALPHA_TEXTURE_DEVICE_SLOT(20) ALPHA_TEXTURE_DEVICE_SLOT(21)
-	ALPHA_TEXTURE_DEVICE_SLOT(22) ALPHA_TEXTURE_DEVICE_SLOT(23)
-	ALPHA_TEXTURE_DEVICE_SLOT(24) ALPHA_TEXTURE_DEVICE_SLOT(25)
-	ALPHA_TEXTURE_DEVICE_SLOT(26) ALPHA_TEXTURE_DEVICE_SLOT(27)
-	ALPHA_TEXTURE_DEVICE_SLOT(28) ALPHA_TEXTURE_DEVICE_SLOT(29)
-	ALPHA_TEXTURE_DEVICE_SLOT(30) ALPHA_TEXTURE_DEVICE_SLOT(31)
-	ALPHA_TEXTURE_DEVICE_SLOT(32) ALPHA_TEXTURE_DEVICE_SLOT(33)
-	ALPHA_TEXTURE_DEVICE_SLOT(34) ALPHA_TEXTURE_DEVICE_SLOT(35)
-	ALPHA_TEXTURE_DEVICE_SLOT(36) ALPHA_TEXTURE_DEVICE_SLOT(37)
-	ALPHA_TEXTURE_DEVICE_SLOT(38) ALPHA_TEXTURE_DEVICE_SLOT(39)
-	ALPHA_TEXTURE_DEVICE_SLOT(40) ALPHA_TEXTURE_DEVICE_SLOT(41)
-	ALPHA_TEXTURE_DEVICE_SLOT(42) ALPHA_TEXTURE_DEVICE_SLOT(43)
-	ALPHA_TEXTURE_DEVICE_SLOT(44) ALPHA_TEXTURE_DEVICE_SLOT(45)
-	ALPHA_TEXTURE_DEVICE_SLOT(46) ALPHA_TEXTURE_DEVICE_SLOT(47)
-	ALPHA_TEXTURE_DEVICE_SLOT(48) ALPHA_TEXTURE_DEVICE_SLOT(49)
-	ALPHA_TEXTURE_DEVICE_SLOT(50) ALPHA_TEXTURE_DEVICE_SLOT(51)
-	ALPHA_TEXTURE_DEVICE_SLOT(52) ALPHA_TEXTURE_DEVICE_SLOT(53)
-	ALPHA_TEXTURE_DEVICE_SLOT(54) ALPHA_TEXTURE_DEVICE_SLOT(55)
-	ALPHA_TEXTURE_DEVICE_SLOT(56) ALPHA_TEXTURE_DEVICE_SLOT(57)
-	ALPHA_TEXTURE_DEVICE_SLOT(58) ALPHA_TEXTURE_DEVICE_SLOT(59)
-	ALPHA_TEXTURE_DEVICE_SLOT(60) ALPHA_TEXTURE_DEVICE_SLOT(61)
-	ALPHA_TEXTURE_DEVICE_SLOT(62) ALPHA_TEXTURE_DEVICE_SLOT(63)
-	ALPHA_TEXTURE_DEVICE_SLOT(64)
-#undef ALPHA_TEXTURE_DEVICE_SLOT
-	virtual long __stdcall SetTexture(unsigned int stage,
-		Rva006C9270Texture *texture);
-};
-
-extern Rva006C9270Texture *Rva0133F478Textures[];
-extern unsigned int Rva01340560TextureChanges;
-
-
-extern void __stdcall Rva0090C610Invoke(void *argument);
-extern void __cdecl Rva006D4690Apply(void *argument);
-
-
-#define STRETCH_FACTOR ((float)(1/(63.0*MAP_XY_FACTOR/2))) /* covers 63/2 tiles */		
-
-

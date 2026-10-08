@@ -16401,3 +16401,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 __vsnprintf,0x00629898,PE msvcr71.dll import _vsnprintf owns IAT BBA5E0; complete6B import thunk629898 is the direct CRT call in EAString format worker6D53F0. C linkage yields __vsnprintf; original ji_629898 row is generated import scaffolding.
 ?decideWhichTemplateToMake@AIUnitBuilder@@QAE?AVAsciiString@@XZ,0x005987D2,Native194B factory REL32 at598B8E; hidden AsciiString result of399B RET4 at5987D2; WB152DCA0 names decideWhichTemplateToMake and asserts354..399
 ?rva004DFBED@Rva004DFBED@@QAEHABVAsciiString@@@Z,0x004DFBED,callee of ?getHeroIndex@AIUnitBuilder@@QAEHXZ
+?rva000AED2E@Rva000AED2EWorldHeightMapView@@QAEPAEHHHHHH@Z,0x000AED2E,Address-derived six-stack-word tile lookup; native EF517 REL32 and WB7722C0 body agree on thiscall ret24; no semantic name inferred for the unrowed provider
+_D3DXFilterTexture@16,0x0062AF62,PE-named d3dx9_27.dll D3DXFilterTexture import thunk FF25 through IAT VA00BBAA18; native EF61D and SDK stdcall16 agree
+_D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFromMemory import thunk FF25 through IAT VA00BBAA14; native EF5F7 and SDK stdcall40 agree
