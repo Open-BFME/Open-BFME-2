@@ -73,6 +73,52 @@ int Rva005C9B76::rva005C9ADD(int v, int)
 	}
 	return 0;
 }
+class Rva005C9A89Listener
+{
+public:
+	virtual void notify00(void *, int, int);
+	virtual void notify04(void *, int, int);
+	virtual void notify08(void *, int, int);
+	virtual void notify0C(void *, int, int);
+};
+
+class Rva005C9A89List
+{
+public:
+	void forEach(void (Rva005C9A89Listener::*notify)(void *, int, int), void *arg, int value, int extra);
+
+private:
+	Rva005C9A89Listener **m_begin;
+	Rva005C9A89Listener **m_end;
+	Rva005C9A89Listener **m_capacity;
+	unsigned int m_index;
+};
+
+class Obj005C9B0C
+{
+public:
+	int rva005C9B0C(int v, int, int extra);
+	int rva005C9B31(int v, int, int extra);
+
+private:
+	char m_pad00[4];
+	Rva005C9A89List m_list;
+};
+
+int Obj005C9B0C::rva005C9B0C(int v, int, int extra)
+{
+	int value = reinterpret_cast<int>(reinterpret_cast<Rva005C98C0 *>(this)->rva005C98C0(v));
+	m_list.forEach(&Rva005C9A89Listener::notify08, this, value, extra);
+	return 0;
+}
+
+int Obj005C9B0C::rva005C9B31(int v, int, int extra)
+{
+	int value = reinterpret_cast<int>(reinterpret_cast<Rva005C98C0 *>(this)->rva005C98C0(v));
+	m_list.forEach(&Rva005C9A89Listener::notify0C, this, value, extra);
+	return 0;
+}
+
 void Rva005C9B76::rva005C9B56(int v)
 {
 	int cur = m_i1C;
