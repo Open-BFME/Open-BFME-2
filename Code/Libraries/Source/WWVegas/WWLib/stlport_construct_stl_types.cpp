@@ -73,6 +73,33 @@ template void _STL::_Construct<ConstructProbeSciVec, ConstructProbeSciVec>(Const
 template void _STL::_Construct<ConstructProbeCoordList, ConstructProbeCoordList>(ConstructProbeCoordList *, const ConstructProbeCoordList &);
 template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(ConstructProbePairC *, const ConstructProbePairC &);
 
+// ??0Rva0023FC98@@QAE@ABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z,
+// retail 0x0023FC98..0x0023FCD3 (59 bytes, EH, RET 4): a counted holder of one
+// such pair. The counted base (count at +0x04 cleared; EH state 0 once built)
+// comes first, then the vtable 0x00BEDC94 and the pair copied into +0x08
+// through its rowed out-of-line copy constructor 0x00466EA7.
+class Rva0007DF07
+{
+public:
+	inline Rva0007DF07() : m_refCount(0) {}
+	virtual ~Rva0007DF07() {}
+	int m_refCount;
+};
+
+class Rva0023FC98 : public Rva0007DF07
+{
+public:
+	Rva0023FC98(const ConstructProbePair &value);
+	virtual ~Rva0023FC98();
+private:
+	ConstructProbePair m_value;
+};
+
+Rva0023FC98::Rva0023FC98(const ConstructProbePair &value)
+	: m_value(value)
+{
+}
+
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?dup_0022112D@@YAXXZ=??$_Construct@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@0@ABU10@@Z")
