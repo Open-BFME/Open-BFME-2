@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc
 // stlport
 // Native598052..5980F3 is161B, RET0; WB152E690 has the same seven calls.
 // The independently rowed AIUnitBuilder598D7A tail-calls this body with
@@ -109,6 +109,7 @@ public:
 	Rva00598C3AItem *createBestHeroToBuild();
 	Rva00598C3AItem *createBestUnitToMake();
  int getHeroIndex();
+ bool Rva00598738(const AsciiString *);
  void registerUnitFactory(ObjectID);
  AsciiString decideWhichTemplateToMake();
 
@@ -309,3 +310,21 @@ void AIUnitBuilder::registerUnitFactory(ObjectID id)
  m_2C=true;
 }
 
+
+// Retail598738..5987D2: EH prologue, RET4, followed by decideWhichTemplateToMake.
+// Same receiver/list14 and lookup5982EA as matched manageConstructingList.
+// Excludes objects already serving state0 requests, then tests the supplied
+// name. ObjectID storage follows lookup's canonical ID; original name unknown.
+bool AIUnitBuilder::Rva00598738(const AsciiString *name)
+{
+ _STL::vector<ObjectID> excluded;
+ _STL::list<Rva00598C3AItem *>::iterator end=m_items.end();
+ for (_STL::list<Rva00598C3AItem *>::iterator i=m_items.begin();i!=end;++i) {
+  Rva00598C3AItem *item=*i;
+  if (item->state10==0) {
+   Object *object=Rva005982EA(&item->name0C,&excluded,false);
+   if (object) { ObjectID id=object->id74; excluded.push_back(id); }
+  }
+ }
+ return Rva005982EA(name,&excluded,false)!=0;
+}
