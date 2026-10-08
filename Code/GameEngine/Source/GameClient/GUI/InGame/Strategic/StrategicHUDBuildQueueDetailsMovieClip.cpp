@@ -1,4 +1,5 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+#include "ascii_string.h"
 // Whole-file recovery from retail's QueuedIconSlot ctor 0x005F7B25 and
 // WorldBuilder 0x0162EB00, StrategicHUDBuildQueueDetailsMovieClip.cpp:685.
 // Its seven command-map bindings capture this and prove the callback owners.
@@ -6,7 +7,7 @@
 // ABI, not a recovered argument type. Method names remain address-qualified.
 namespace StrategicHUD {
 class BuildQueueDetailsMovieClip {
-public: class Impl { public: class QueuedIconSlot; };
+public: class Impl { public: class QueuedIconSlot; class InProgressIconSlot; };
 };
 }
 class StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot {
@@ -63,5 +64,22 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6AE8
  int mode=((QueuedAptModeView*)TheRva00222A8BTarget)->mode;
  if(mode==0) ((GameWindow*)this)->winDrawBorder();
  else if(mode==2) ((Rva005F698E*)this)->rva005F698E();
+}
+
+
+// Native81B state setter; WB owner and vtable8797F4 slot24 agree.
+extern const char *g_00C78D64[];
+int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget*,void*,const char*,const char*,const char**);
+struct IconOwner { char unknown[4]; void *level; AsciiString name; };
+class StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot {
+public:virtual void DoSetState(int);
+private:char unknown[0x10];int state;char gap[4];IconOwner *owner;
+};
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::DoSetState(int index) {
+ if(index==state)return;
+ const char *icon=g_00C78D64[index];
+ IconOwner *parent=owner;
+ Rva0050E9FEAptCall(TheRva00222A8BTarget,parent->level,parent->name.str(),"SetInProgressIconSlotState",&icon);
+ state=index;
 }
 
