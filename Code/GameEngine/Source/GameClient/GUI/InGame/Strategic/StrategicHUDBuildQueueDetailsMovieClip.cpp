@@ -100,3 +100,6 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::rva005F
 
 // Ctor5F7F21 binding: _OnBackButtonClicked.
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::rva005F68FE(void*) { if(((QueuedAptModeView*)g_bfmeAptWindowManager)->mode==0)owner->onBack(); }
+
+// Ctor5F7F21 binding: _OnBackButtonRollOver.
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::rva005F6916(void*) { backHover=true; }
