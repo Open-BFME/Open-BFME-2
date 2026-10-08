@@ -12,10 +12,22 @@ class Rva003EEC63
 public:
 	void rva003EEC63(void *p, AsciiString s, int a, int b);
 };
-class Rva004E3B78
-{
-public:
-	void rva004E3B78();
+class Rva004E3CD0 { public: void rva004E3A6E(); };
+struct Rva004E3B78Node {
+    unsigned unknown00;
+    Rva004E3B78Node *parent04, *left08, *right0C;
+    unsigned unknown10;
+    Rva004E3CD0 *value14;
+};
+namespace _STL {
+    struct _Rb_tree_node_base;
+    template<class T> class _Rb_global {
+    public: static _Rb_tree_node_base *_M_increment(_Rb_tree_node_base *);
+    };
+}
+class Rva004E3B78 {
+public: void rva004E3B78();
+private: Rva004E3B78Node *header00;
 };
 
 class Rva003EED9D
@@ -35,4 +47,17 @@ void Rva003EED9D::rva003EED9D()
 		return;
 	((Rva003EEC63 *)this)->rva003EEC63((char *)this + 4, m_name1C, 0, 0);
 	((Rva004E3B78 *)((char *)this + 8))->rva004E3B78();
+}
+
+// Complete native 41B traversal at 4E3B78..4E3BA1. The existing caller
+// supplies its container at receiver+8. Payload and owner identities remain
+// address-derived; nodes survive this value-reset pass.
+void Rva004E3B78::rva004E3B78()
+{
+    for (Rva004E3B78Node *node=header00->left08; node!=header00;
+         node=(Rva004E3B78Node *)_STL::_Rb_global<bool>::_M_increment(
+             (_STL::_Rb_tree_node_base *)node)) {
+        if (node->value14)
+            node->value14->rva004E3A6E();
+    }
 }
