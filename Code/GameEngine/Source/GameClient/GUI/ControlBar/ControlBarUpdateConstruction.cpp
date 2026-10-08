@@ -80,7 +80,7 @@ public:
     virtual const Coord3D *getRallyPoint() const=0;
 };
 class ExitInterface;
-class Rva002A7DD0 { public: int rva002A7DD0(); };
+class Rva002A7DD0 { public: bool rva002A7DD0(); };
 class BfmeMemberRV { public: bool bfmeAskRV(); };
 class PlayerList;
 extern PlayerList *ThePlayerList;
@@ -550,7 +550,7 @@ void ControlBar::rva0053E4F1(Object *objectUnderConstruction)
     bool overlay=((ConstructionOverlayModeView *)TheControlBar)->mode==1;
     _STL::vector<GameWindow *> windows;
     bool locallyControlled=objectUnderConstruction->isLocallyControlled();
-    bool lit=(unsigned char)((Rva002A7DD0 *)ThePlayerList)->rva002A7DD0() || locallyControlled;
+    bool lit=((Rva002A7DD0 *)ThePlayerList)->rva002A7DD0() || locallyControlled;
     const CommandButton *commandButton=findCommandButton("Command_CancelConstruction");
     GameWindow *win=commandWindows[0];
     if (!(((ConstructionObjectView *)objectUnderConstruction)->objectTemplate->flags&4)

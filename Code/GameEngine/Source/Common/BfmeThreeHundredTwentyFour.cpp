@@ -53,14 +53,14 @@ BfmeMemberRV *BfmeThingRV::bfmePickRV()
 class Rva002A7DD0
 {
 public:
-	int rva002A7DD0();
+	bool rva002A7DD0();
 
 private:
 	char m_lead[0x10];
 	BfmeMemberRV *m_ptr10; // +0x10
 };
 
-int Rva002A7DD0::rva002A7DD0()
+bool Rva002A7DD0::rva002A7DD0()
 {
 	return !m_ptr10->bfmeAskRV();
 }

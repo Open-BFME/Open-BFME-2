@@ -12,7 +12,7 @@ extern class ScriptEngine *TheScriptEngine;
 class Rva002A7DD0
 {
 public:
-	int rva002A7DD0();
+	bool rva002A7DD0();
 };
 
 class Rva00203BDAByteField
@@ -35,7 +35,7 @@ extern GameLogic *TheGameLogic;
 
 unsigned char Rva003BA8F3Get()
 {
-	if ((unsigned char)Rva00DFEEE8->rva002A7DD0() || Rva00DFE16C->get())
+	if (Rva00DFEEE8->rva002A7DD0() || Rva00DFE16C->get())
 		return 1;
 	GameLogic *logic = TheGameLogic;
 	if (logic->isInMultiplayerGame() && logic && logic->m_2A4 == 0)

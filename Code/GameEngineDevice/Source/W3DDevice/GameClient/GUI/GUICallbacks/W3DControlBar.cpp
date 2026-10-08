@@ -290,7 +290,7 @@ public:
 class Rva002A7DD0
 {
 public:
-	Int rva002A7DD0(void);
+	Bool rva002A7DD0(void);
 };
 
 struct ICoord2D

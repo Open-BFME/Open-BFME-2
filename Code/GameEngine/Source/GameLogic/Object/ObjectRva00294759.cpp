@@ -49,7 +49,7 @@ public:
 class Rva002A7DD0
 {
 public:
-	int rva002A7DD0();
+	bool rva002A7DD0();
 };
 
 // ThePlayerList: +0x10 is the local player.
@@ -127,7 +127,7 @@ const Image *Object::getObjectSelectedPortraitImage()
 	if (((ObjectPortraitTemplateView *)m_template)->m_11F & 0x40)
 	{
 		Rva00373EC6 *module = rva0028F4BC();
-		if (module && module->m_3C != 0 && !(unsigned char)((Rva002A7DD0 *)ThePlayerList)->rva002A7DD0()
+		if (module && module->m_3C != 0 && !((Rva002A7DD0 *)ThePlayerList)->rva002A7DD0()
 			&& ThePlayerList->getLocalPlayer()->getRelationship(getTeam()) == ENEMIES)
 		{
 			ThingTemplate *tmpl = module->m_3C;

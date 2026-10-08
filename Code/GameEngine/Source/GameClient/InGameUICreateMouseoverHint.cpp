@@ -224,7 +224,7 @@ class PlayerList { public:
 };
 extern PlayerList* ThePlayerList;
 
-class Rva002A7DD0 { public: int rva002A7DD0(); };
+class Rva002A7DD0 { public: bool rva002A7DD0(); };
 
 class ContainModuleInterface { public:
  virtual void slot00();
@@ -542,7 +542,7 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
     }
    } else {
     Rva00373EC6* component=const_cast<Object*>(obj)->rva0028F4BC();
-    if(component && component->thingTemplate && !(unsigned char)((Rva002A7DD0*)ThePlayerList)->rva002A7DD0() &&
+    if(component && component->thingTemplate && !((Rva002A7DD0*)ThePlayerList)->rva002A7DD0() &&
        ThePlayerList->getLocalPlayer()->getRelationship(obj->getTeam())==NEUTRAL) {
      player=ThePlayerList->getNthPlayer(component->playerIndex);
      thingTemplate=component->thingTemplate;disguised=true;
