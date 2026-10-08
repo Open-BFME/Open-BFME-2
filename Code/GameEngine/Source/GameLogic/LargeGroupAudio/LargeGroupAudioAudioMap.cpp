@@ -38,10 +38,16 @@ private:
 	int m_extra0C;
 };
 
-class Rva0056A061
+class LargeGroupAudioAudioMap;
+
+class LargeGroupAudioSoundKeyPair
 {
 public:
-	~Rva0056A061();	// 0x0056A061
+	LargeGroupAudioSoundKeyPair(LargeGroupAudioAudioMap *owner, const char *name);	// 0x00569FB3
+	~LargeGroupAudioSoundKeyPair();	// 0x0056A061
+	void rva0056A378(const LargeGroupAudioSoundKeyPair &other);	// 0x0056A378
+private:
+	char m_storage[0x68];
 };
 
 // Opaque 0x4C-byte zero-initialised member (ctor 0x00042526).
@@ -57,11 +63,12 @@ class LargeGroupAudioAudioMap : public Rva001E3624
 public:
 	LargeGroupAudioAudioMap(AsciiString name);
 	virtual ~LargeGroupAudioAudioMap();
+	void rva003EE3FE(const LargeGroupAudioAudioMap &other);
 private:
 	float m_10;										// +0x10
 	float m_14;										// +0x14
 	AsciiString m_name;								// +0x18
-	_STL::vector<Rva0056A061 *> m_soundKeyPairs;	// +0x1C
+	_STL::vector<LargeGroupAudioSoundKeyPair *> m_soundKeyPairs;	// +0x1C
 	Rva0042526Member m_28;							// +0x28
 	Rva0042526Member m_74;							// +0x74
 	_STL::bitset<128> m_C0;							// +0xC0
@@ -93,6 +100,40 @@ LargeGroupAudioAudioMap::LargeGroupAudioAudioMap(AsciiString name)
 
 LargeGroupAudioAudioMap::~LargeGroupAudioAudioMap()
 {
-	for (_STL::vector<Rva0056A061 *>::iterator it = m_soundKeyPairs.begin(); it != m_soundKeyPairs.end(); ++it)
+	for (_STL::vector<LargeGroupAudioSoundKeyPair *>::iterator it = m_soundKeyPairs.begin(); it != m_soundKeyPairs.end(); ++it)
 		delete *it;
+}
+
+void LargeGroupAudioAudioMap::rva003EE3FE(const LargeGroupAudioAudioMap &other)
+{
+	if (&other == this)
+		return;
+
+	for (_STL::vector<LargeGroupAudioSoundKeyPair *>::iterator it = m_soundKeyPairs.begin(); it != m_soundKeyPairs.end(); ++it)
+		delete *it;
+	m_soundKeyPairs.clear();
+
+	m_EC = -1.0f;
+	m_E8 = -1.0f;
+	m_F4 = -1.0f;
+	m_F0 = -1.0f;
+	m_10 = other.m_10;
+	m_14 = other.m_14;
+	m_name = other.m_name;
+	m_28 = other.m_28;
+	m_74 = other.m_74;
+	m_C0 = other.m_C0;
+	m_D0 = other.m_D0;
+	m_startThreshold = other.m_startThreshold;
+	m_stopThreshold = other.m_stopThreshold;
+	m_E4 = other.m_E4;
+	m_E5 = other.m_E5;
+
+	m_soundKeyPairs.reserve(other.m_soundKeyPairs.size());
+	for (_STL::vector<LargeGroupAudioSoundKeyPair *>::const_iterator src = other.m_soundKeyPairs.begin(); src != other.m_soundKeyPairs.end(); ++src)
+	{
+		LargeGroupAudioSoundKeyPair *pair = new LargeGroupAudioSoundKeyPair(this, NULL);
+		m_soundKeyPairs.push_back(pair);
+		pair->rva0056A378(**src);
+	}
 }
