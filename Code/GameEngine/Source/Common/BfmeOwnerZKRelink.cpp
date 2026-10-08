@@ -1,4 +1,21 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
+#include <stl/_algobase.h>
+// Keep the shared out-of-line max provider; the inlined operation is unchanged.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{ return a < b ? b : a; }
+}
+// Neutral storage for an x86 list-slot address, not the original element type.
+// This aggregate is POD; STLport needs user-type traits stated explicitly.
+struct BfmeScriptSlotAddress { unsigned int address; };
+typedef char ScriptSlotAddressWidth[sizeof(BfmeScriptSlotAddress) == 4 ? 1 : -1];
+namespace _STL {
+template<> struct __type_traits<BfmeScriptSlotAddress> : __type_traits_aux<1> {};
+}
+#include <deque>
+
+
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/BfmeOwnerZKRelink.cpp (donor revision
@@ -95,4 +112,23 @@ void BfmeOwnerZK::bfmeMoveZK(BfmeKeyZK *key, BfmeNodeZK **from, BfmeNodeZK **to)
 	(*from)->m_bfmeNextZK = *to;
 	*to = *from;
 	*from = next;
+}
+
+class ScriptList { public: void takeScripts(ScriptList *source,BfmeNodeZK **from,BfmeNodeZK **to); };
+// WB Scripts.cpp's takeScripts walks the source's next links, saves the
+// addresses of those links, then transfers in reverse order. Retail has a
+// complete 141-byte RET12 extent at 003B84C9..003B8556 and uses the rowed
+// BfmeOwnerZK transfer (003B847B). That opaque node view preserves its native
+// index/link words. The local holds list-slot addresses, not owned nodes.
+void ScriptList::takeScripts(ScriptList *source,BfmeNodeZK **from,BfmeNodeZK **to)
+{
+    _STL::deque<BfmeScriptSlotAddress> slots;
+    BfmeScriptSlotAddress slot;
+    slot.address=reinterpret_cast<unsigned int>(from);
+    for(;*reinterpret_cast<BfmeNodeZK**>(slot.address);slot.address=reinterpret_cast<unsigned int>(&(*reinterpret_cast<BfmeNodeZK**>(slot.address))->m_bfmeNextZK))
+        slots.push_back(slot);
+    while(!slots.empty()) {
+        reinterpret_cast<BfmeOwnerZK*>(this)->bfmeMoveZK(reinterpret_cast<BfmeKeyZK*>(source),reinterpret_cast<BfmeNodeZK**>(slots.back().address),to);
+        slots.pop_back();
+    }
 }
