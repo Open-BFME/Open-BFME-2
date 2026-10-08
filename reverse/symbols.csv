@@ -13724,7 +13724,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva0039AC0C@ExperienceTracker@@QBE?AUExperienceLevelHandle@@XZ,0x0039AC0C,unrowed 35B experience-tracker getter (WB 0x00F9FB80) returning the two-dword level handle through a hidden pointer; REL32 at 0x005C3192 in ComputeObjectRank on Object +0x264
 ??4LANGameSlot@@QAEAAV0@ABV0@@Z,0x00447B58,ZH LANGameSlot::operator= (WB 0x014A6D80); REL32 at 0x00448383 in LANGameInfo::setSlot copying the by-value slot into m_LANSlot[slotNum]
 ?rva003A40F5@TeamFactory@@QAEPAVTeam@@ABVAsciiString@@@Z,0x003A40F5,unrowed TheTeamFactory (0x00E028BC) team lookup by name (WB 0x00EEEC10 unnamed); REL32 at 0x0029A0CB in Object::restoreOriginalTeam with the original team name
-?resize@Rva005DE7D1Vector@@QAEXI@Z,0x005DE84E,unrowed 34B one-argument resize (default-constructs the fill record via 0x005DD772 then calls the rowed two-argument resize 0x005DE7D1; WB 0x015D7AB0); REL32 at 0x005DE8E0 in GameStats::Row::Init on Row +4
 ?rva00216F91@Rva00217194Types@@QAEPAXABVAsciiString@@@Z,0x00216F91,unrowed banner-type find-or-create by name on the banner UI singleton type table (g_00DFE32C +0x0C; WB 0x00B6EFD0 unnamed); REL32 at 0x002171C4 in BannerUI::ParseBannerTypeInfo
 ??0ThingTemplate@@QAE@XZ,0x0033E1B8,WB ThingTemplate::ThingTemplate (WB 0x00BC7500); REL32 at 0x002D1AE9 in ThingFactory::newOverride after operator new(0x640)
 ??4ThingTemplate@@QAEAAV0@ABV0@@Z,0x002D1101,ThingTemplate copy assignment (WB 0x00A93F30, 4859B member-wise copy); REL32 at 0x002D1B02 in ThingFactory::newOverride copying the final override into the new template

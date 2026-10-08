@@ -117,3 +117,10 @@ void Rva005DDBAB::rva005DDBAB(int window,int focus) {
 // the existing display-record constructor; original record name remains open.
 Rva005DE7D1Record::Rva005DE7D1Record()
     : text(AsciiString("-")), word(0.0f) {}
+
+// Native5DE84E..5DE870, RET4: construct the default8B fill record
+// in the outgoing by-value argument and call the already-matched resize.
+void Rva005DE7D1Vector::resize(unsigned count)
+{
+    resize(count, Rva005DE7D1Record());
+}
