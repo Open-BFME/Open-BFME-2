@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // CreateAHeroManager / CreateAHeroManager::CreateAHeroClass /
 // CreateAHeroManager::CreateAHeroSubClass accessors (CreateAHero.cpp in WB).

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva003FF02EPowerCap@@YAXH@Z @0x003FF02E 134B
 // Static AsciiString key APT:PlayerPowerCap via rowed StringBase ctor 0x00037BA0 plus atexit,
 // Unicode value via format 0x006CB5D0 on extern format string 0x007C9260,

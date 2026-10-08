@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva0030062CGet@@YAPAVAsciiString@@XZ, retail 0x0030062C, 76 bytes.
 // Function-local static AsciiString "LivingWorldScripts" with guard plus
 // _atexit dtor registration; returns its address. Evidence: EH_prolog with

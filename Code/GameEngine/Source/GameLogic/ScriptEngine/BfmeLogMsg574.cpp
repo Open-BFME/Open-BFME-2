@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /EHsc
 // The Lua print/debug callers declare this logger as bfmeLogMsg574. Retail
 // gates on the byte at TheWritableGlobalData + 0x9C1 (0xDFE758), accumulates
 // text in a function-local AsciiString, and forwards completed lines to

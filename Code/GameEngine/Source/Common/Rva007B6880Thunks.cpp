@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD
 // ?rva007B6880@@YAXXZ @ 0x007B6880 (10B). Global setter thunk: ecx=&g_Va00DDEB24 then tail-jmp to rowed ?apply@Rva00019EC0DwordImmSetter@@QAEXXZ (0x00019EC0) which sets [ecx],0xBBC8D4. No callers. Prev 0x007B5860 (Rva00CE12FCMutex.cpp) next 0x007B7270 (BfmeConv804.cpp). Honest address name; no donor.
 extern "C" const void *const vtbl_00CE3934[];  // ??_7Rva00669510@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00CE3934=??_7Rva00669510@@6B@")
@@ -6001,10 +6001,13 @@ extern unsigned g_Va00DDC00C;
 unsigned int g_Va00DDC00C;
 
 // ?rva007B9BE0@@YAXXZ @ 0x007B9BE0 (10B). Global StringBase<char> releaseBuffer thunk: ecx=&g_Va00DDC00C then tail-jmp to rowed ?releaseBuffer@?$StringBase@D@@AAEXXZ (0x00036410).
+// Unlike its AsciiString neighbours it expands the release in place, so it
+// goes through StringBase's inline clear() rather than the out-of-line
+// ~AsciiString this unit declares (/DBFME_ASCII_DTOR_DECL).
 void __cdecl rva007B9BE0()
 {
-	AsciiString *p = (AsciiString *)&g_Va00DDC00C;
-	return p->~AsciiString();
+	StringBase<char> *p = (StringBase<char> *)&g_Va00DDC00C;
+	return p->clear();
 }
 
 extern unsigned g_Va00DF6F98;

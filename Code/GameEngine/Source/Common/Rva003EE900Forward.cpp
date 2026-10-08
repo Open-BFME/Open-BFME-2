@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD
 // stlport
 //
 // ?rva003EE900@Rva003EE900@@QAEXH@Z @0x003EE900 26B.

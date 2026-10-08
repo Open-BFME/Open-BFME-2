@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva00300678Get@@YAPAVAsciiString@@XZ, retail 0x00300678, 76 bytes.
 // Function-local static AsciiString "lws" with guard plus
 // _atexit dtor registration; returns its address. Evidence: EH_prolog with

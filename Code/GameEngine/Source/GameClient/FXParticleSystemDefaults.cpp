@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /EHsc
 
 // The default module key and name tables. Each of these ten accessors builds
 // its string once into a function-local static and hands back the text, which

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva003FEECBSetPalantirCommandPoints@@YA_NHH@Z @0x003FEECB 181B: Apt Palantir command points display via static AsciiString key plus int-gated Unicode format/set plus bfmeSetText. Evidence: calls StringBase ctor 0x00037BA0 plus atexit plus UnicodeString format 0x006CB5D0 twice plus StringBase set 0x0000565D plus bfmeSetText pin 0x00225301 plus release 0x00036E70; same shape as rowed Rva003FF02EPowerCap 0x003FF02E plus sibling Rva003FEE43.
 #include "ascii_string.h"
 #include "unicode_string.h"

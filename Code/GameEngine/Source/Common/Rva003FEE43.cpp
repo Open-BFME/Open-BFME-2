@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?Rva003FEE43SetPlayerRank@@YA_NH@Z @0x003FEE43 136B: Apt PlayerRank display via static AsciiString key plus Unicode format plus bfmeSetText. Evidence: calls StringBase ctor 0x00037BA0 plus atexit plus UnicodeString format 0x006CB5D0 plus bfmeSetText pin 0x00225301 plus release 0x00036E70; same shape as rowed Rva003FF02EPowerCap 0x003FF02E.
 #include "ascii_string.h"
 #include "unicode_string.h"
