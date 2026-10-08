@@ -11,7 +11,7 @@
 class Rva002BA8F1Logic;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-extern class ClientFrameSubsystem *TheGameClient;
+extern class GameClient *TheGameClient;
 
 typedef int HMODULE;
 extern HMODULE g_00DFE158;
@@ -33,8 +33,6 @@ public:
 	char m_pad00[0xFC];
 	int m_frameNumber;
 };
-
-extern "C" HMODULE st_DebugDLL;
 
 #define TheAppModule g_00DFE158
 
@@ -79,11 +77,11 @@ void rva00204094()
 // TheLivingWorldLogic::m_frameNumber after the rowed mode check.
 void Rva002040E7GetFrameNumber()
 {
-	if (!st_DebugDLL)
+	if (!TheAppModule)
 		return;
 	rva00203C21();
 	typedef void (__cdecl *SetFrameProc)(int value);
-	SetFrameProc proc = (SetFrameProc)GetProcAddress(st_DebugDLL, "SetFrameNumber");
+	SetFrameProc proc = (SetFrameProc)GetProcAddress(TheAppModule, "SetFrameNumber");
 	if (!proc)
 		return;
 	GameLogic *logic = TheGameLogic;
