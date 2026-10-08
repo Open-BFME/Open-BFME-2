@@ -69433,3 +69433,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva003294B3@@YAXPAURva003294B3Obj@@HH@Z,,0x003294B3,35,Code/GameEngine/Source/GameLogic/System/Rva003294B3Pair.cpp,matched,flag-selected cdecl helper call; retail 35B
 ?rva005CFBF5@@YAXPAURva005CFBF5Pair@@HF@Z,,0x005CFBF5,29,Code/GameEngine/Source/GameLogic/System/Rva005CFBF5Pair.cpp,matched,pair store with 16-bit temporary widened to dword; retail 29B
 ?rva005A9693@Rva005A9693Owner@@QAEXXZ,,0x005A9693,102,Code/GameEngine/Source/Common/RTS/Rva005A9693PlayerScan.cpp,matched,
+??$__find@PAUBfmePod28@@H@_STL@@YAPAUBfmePod28@@PAU1@0HABUrandom_access_iterator_tag@0@@Z,,0x00215F83,108,Code/Libraries/Source/WWVegas/WWLib/Rva00215F83Find.cpp,matched,
