@@ -1,10 +1,12 @@
 // cl: /DNDEBUG /MD
 // ?Rva00135F6CMakeUnique@@YAXPAX@Z retail 0x00135F6C 149B chain now-ready via 0x00171780
 // Evidence: calls rowed Make_Unique 0x00149C10 with false; rowed rva0010E4D4 0x0010E4D4; tail jmp rowed rva00171780 0x00171780; callers 0x00137018 0x0013703A push RenderObjClass* from Create_Render_Obj.
+class MeshModelClass;
 class MeshClass
 {
 public:
     void Make_Unique(bool);
+    MeshModelClass *Get_Model();
 };
 class Rva0010E4D4
 {
@@ -15,6 +17,7 @@ class MeshModelClass
 {
 public:
     void rva00171780();
+    void Make_Geometry_Unique();
 };
 class Rva00135F6CNode
 {
@@ -177,4 +180,35 @@ void __cdecl Rva00135F6CMakeUnique(void *p)
         }
     }
     return;
+}
+
+// Donor reference/open-bfme-1 @34f59164f6d1efd413c5fd37f4894ec834c3c0fe:
+// game/GameEngine/Source/Common/Rva00739B30RenderObjectUnique.cpp semantic guide;
+// native 10E4F6..10E5A2 proves bool ABI, refcount+4 and slots0/C/70/78/154.
+static void releaseUniqueObject(Rva00135F6CNode *p) {
+    if (p && --p->m_ref == 0) p->v00();
+}
+void rva0010E4F6(void *pointer, bool geometry)
+{
+    Rva00135F6CNode *object=(Rva00135F6CNode *)pointer;
+    if (!object) return;
+    if (object->v03()==0) {
+        MeshClass *mesh=(MeshClass *)object;
+        mesh->Make_Unique(false);
+        Rva0010E4D4 *material=(Rva0010E4D4 *)((Rva00135F6CMesh *)object)->m85();
+        material->rva0010E4D4();
+        releaseUniqueObject((Rva00135F6CNode *)material);
+        if (geometry) {
+            MeshModelClass *model=mesh->Get_Model();
+            model->Make_Geometry_Unique();
+            releaseUniqueObject((Rva00135F6CNode *)model);
+        }
+    } else {
+        int count=object->v28();
+        for (int i=0;i<count;++i) {
+            Rva00135F6CNode *sub=(Rva00135F6CNode *)object->v30(i);
+            rva0010E4F6(sub,geometry);
+            releaseUniqueObject(sub);
+        }
+    }
 }

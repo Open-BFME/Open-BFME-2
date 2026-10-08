@@ -11110,7 +11110,7 @@ name,address,notes
 ?rva00108895@Rva0010BA2COwner@@QAEXXZ,0x00108895,ordinary no-argument thiscall from native ctor0x10BA2C and reinitializer0x10BA61; resource-owner layout and vtable refute former VictoryConditions reset identity; original method name unknown
 ?rva001091A8@Rva00108660ResourceManager@@QAEXPAX@Z,0x001091A8,"Rva00108660ResourceManager member taking an owner, called from vtable slot 0x00109DA6; opaque address name"
 ?rva0010B9E5@Rva00108660ResourceManager@@QAEXPAX@Z,0x0010B9E5,"Rva00108660ResourceManager member taking an owner, called from vtable slot 0x0010BB04; opaque address name"
-?rva0010E4F6@@YAXPAXH@Z,0x0010E4F6,172B cdecl helper taking (acquired pointer, 0) from 0x0009C0EB; caller-popped; original name unknown
+?rva0010E4F6@@YAXPAX_N@Z,0x0010E4F6,172B cdecl recursive mesh uniquing; pointer/bool ABI from BYTE arg+0C and self forwarding; callers9C0EB/3EEC63; replaces inferred int owner; original name unknown
 ?rva0010F9F1@Rva0010F9F1@@QAEXXZ,0x0010F9F1,122B no-arg thiscall method on the +0x0 member called from 0x000A8CC9; member carries an int at +0x20; original name unknown
 ?rva0010FA6B@Rva0010FA6B@@QAEXH@Z,0x0010FA6B,tail-call target of the byte-verified Rva000A8AA6::rva000A8AA6 0x000A8AA6 on its +0x0 member read from its REL32 displacement; name unknown
 ?rva0010FAEA@Rva0010FAEA@@QAEXXZ,0x0010FAEA,tail-call target of the byte-verified Rva000A8AB4::rva000A8AB4 0x000A8AB4 on its +0x0 member read from its REL32 displacement; name unknown

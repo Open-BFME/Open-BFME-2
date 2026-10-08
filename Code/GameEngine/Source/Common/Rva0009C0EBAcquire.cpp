@@ -63,7 +63,7 @@ private:
 	Rva0009C0EBProvider *m_D4;
 };
 
-void __cdecl rva0010E4F6(void *p, int v);
+void __cdecl rva0010E4F6(void *p, bool v);
 
 // ?rva0009C0EB@Rva0009C0EB@@QAEXPAPAURva0009C0EBRef@@PBVAsciiString@@@Z
 void Rva0009C0EB::rva0009C0EB(Rva0009C0EBRef **out, const AsciiString *in)

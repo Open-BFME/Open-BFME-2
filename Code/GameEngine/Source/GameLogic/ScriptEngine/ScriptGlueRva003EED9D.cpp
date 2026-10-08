@@ -70,7 +70,7 @@ void Rva004E3B78::rva004E3B78()
 // scene height/add slots40/44 and writable-global flag87.
 class RenderObjClass;
 RenderObjClass *Create_Render_Obj(const char *);
-void rva0010E4F6(void *,int);
+void rva0010E4F6(void *,bool);
 class Rva002BF4F3 { public: void rva002BEA10(RenderObjClass *,bool); };
 class Rva002D3627Host;
 extern Rva002D3627Host *g_00DFEF18;
