@@ -9,6 +9,7 @@
 // the icon is marked selected.
 // Evidence: callers at 0x005E7A33 0x005E7CD4 0x005E87BA.
 
+class Rva005E7ED7;
 struct Rva005E76AEContext;
 class Rva005E72B4Queue;
 
@@ -57,6 +58,7 @@ class BuildQueueDetailsPanel::Impl
 public:
 	class Icon;
 	friend class Icon;
+	friend class ::Rva005E7ED7;
 
 	void SelectQueueIndex(int queueIndex);
 	void ShowUnitStats(int queueIndex); // 0x005E7B28 (WorldBuilder name, pinned)
@@ -89,6 +91,7 @@ class BuildQueueDetailsPanel::Impl::Icon
 {
 public:
 	Icon(Impl *owner, int queueIndex, StrategicHUD::BuildQueueIconSlot *iconSlot, void *value10, int value14, int quantity);
+	~Icon(); // native constructor EH calls existing 61B body5E7C19
 	void Select();
 	void Deselect(); // 0x005E7111 (rowed)
 	void rva005E7C56();
@@ -237,7 +240,8 @@ __declspec(noinline) static void *rva005E72B4Get(Rva005E72B4Queue *queue,int id)
  return summary;
 }
 
-class Rva00319CED { public: UnicodeString rva004E25AF(int); UnicodeString rva004E265F(int); };
+class Image;
+class Rva00319CED { public: const Image *rva004E24DC(int); UnicodeString rva004E25AF(int); UnicodeString rva004E265F(int); };
 class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
 extern Rva002D06CA *TheThingFactory;
 struct Rva005E7322MidRet { char pad[4]; AsciiString text; };
@@ -326,4 +330,72 @@ void StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::rva005E789A()
  if(!m_1c.m_value)
   ((Rva002BED91 *)&m_1c)->set((TargetRef00217D4C *)new InGameSimpleHelp(rva005E7721Get(m_owner->m_context,m_owner->m_queue,m_queueIndex),rva005E77C2Get(m_owner->m_context,m_owner->m_queue,m_queueIndex)));
  ((Rva001FF3A9 *)m_owner->m_help)->rva001FF3A9(*(const TreeHintRef00217D4C *)&m_1c);
+}
+
+// Native queued-icon pass. The real constructor supplies the three ESI queue
+// helper calls; their providers use the already verified army/template lookups.
+// MI layout: Icon24 + the existing Rva0007DF07 counted base8 + slot pointer2C.
+// Keep the address-derived owner whose destructor already lives at5E7ED7.
+// Native EH calls Icon61 at5E7C19 and the counted base7 at4E84A4. Declaring
+// the real Icon destructor prevents an incorrect implicit member-only cleanup.
+// The base vtable points to rowed deleting destructor7E5EE; this view emits
+// that same29B body. The derived deleting destructor28 and adjustor8 reproduce
+// native5E7EBB/5E7EB3, with the compiler's weak vector-to-scalar fallback.
+__declspec(noinline) static const Image *rva005E704EGet(Rva005E76AEContext *context,Rva005E72B4Queue *queue,int id)
+{
+ Rva004E3184 army(0);
+ if(queue->slot4(id,&army)) return ((Rva00319CED *)&army)->rva004E24DC(context->m_id);
+ return 0;
+}
+// ?rva005E7607Get@@YAPBVImage@@PAURva005E76AEContext@@PAVRva005E72B4Queue@@H@Z present-unmatched
+__declspec(noinline) static const Image *rva005E7607Get(Rva005E76AEContext *context,Rva005E72B4Queue *queue,int index)
+{
+ return rva005E704EGet(context,queue,queue->slot13()->begin[index]);
+}
+const Image *Rva005F01C7Get(int);
+struct Rva005E7625Template { char pad[0x5c4]; int imageID; };
+// ?rva005E7625Get@@YAPBVImage@@PAVRva005E72B4Queue@@H@Z present-unmatched
+__declspec(noinline) static const Image *rva005E7625Get(Rva005E72B4Queue *queue,int index)
+{
+ Rva005E7625Template *thing=(Rva005E7625Template *)rva005E7322Get(queue,queue->slot13()->begin[index]);
+ if(!thing) return 0;
+ return Rva005F01C7Get(thing->imageID);
+}
+class Rva0037E07C { public: int rva0037E07C(); };
+// ?rva005E77F0Get@@YAHPAVRva005E72B4Queue@@H@Z present-unmatched
+__declspec(noinline) static int rva005E77F0Get(Rva005E72B4Queue *queue,int index)
+{
+ void *summary=rva005E72B4Get(queue,queue->slot13()->begin[index]);
+ if(summary) return ((Rva0037E07C *)((Rva005E7322R *)summary)->mid(0))->rva0037E07C();
+ return 0;
+}
+class Rva005F6B12 { public: int rva005F6B12(int) const; };
+struct RvaSmallVtableZeroBase { void *m_04; RvaSmallVtableZeroBase() : m_04(0) {} };
+class Rva0007DF07 : public RvaSmallVtableZeroBase {
+public:
+ inline Rva0007DF07() {}
+ virtual ~Rva0007DF07() {}
+};
+class Rva005E7ED7 : public StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon, public Rva0007DF07 {
+public:
+ typedef StrategicInGameUI::BuildQueueDetailsPanel::Impl Owner;
+ Rva005E7ED7(Owner *,int);
+ virtual ~Rva005E7ED7();
+private: StrategicHUD::BuildQueueIconSlot *slot;
+};
+class Rva005E7E05QueuedSlot {
+public:
+ virtual void v0();virtual void v1();virtual void v2();virtual void v3();
+ virtual void v4();virtual void v5();virtual void v6();virtual void v7();
+ virtual void v8();virtual void v9();virtual void v10();virtual void SetNumTurns(int);
+};
+// ??0Rva005E7ED7@@QAE@PAVImpl@BuildQueueDetailsPanel@StrategicInGameUI@@H@Z present-unmatched
+Rva005E7ED7::Rva005E7ED7(Owner *owner,int index)
+ : Icon(owner,index,(StrategicHUD::BuildQueueIconSlot *)((Rva005F6B12 *)owner)->rva005F6B12(index-1),
+        (void *)rva005E7607Get(owner->m_context,owner->m_queue,index),
+        (int)rva005E7625Get(owner->m_queue,index),rva005E77F0Get(owner->m_queue,index)),
+ slot((StrategicHUD::BuildQueueIconSlot *)((Rva005F6B12 *)owner)->rva005F6B12(index-1))
+{
+ int time=rva005E7582Get(owner->m_queue,index);
+ ((Rva005E7E05QueuedSlot *)slot)->SetNumTurns(time);
 }
