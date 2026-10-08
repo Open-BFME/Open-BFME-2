@@ -16198,7 +16198,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva004B04B2@SpecialDisguiseUpdate@@QAEX_N@Z,0x004B04B2,thiscall one-byte-arg member of SpecialDisguiseUpdate called with push 1 plus ecx=this from rva004B05F5 0x4B05F5; WB debug body 0x1106BA0 (323B retail unrowed) reads module data +0xDC and sets model condition 0xD6 on the owner; name not recovered
 ?rva00493251@SpecialPowerModule@@QAE_NXZ,0x00493251,callee of ?rva0049466D@SpecialPowerModule@@UAE_NPBUCoord3D@@@Z
 ?rva00493620@SpecialPowerModule@@QAE_NXZ,0x00493620,callee of ?rva0049466D@SpecialPowerModule@@UAE_NPBUCoord3D@@@Z
-??0Rva005FD628@@QAE@PAVRva005FD9FF@@IABVAsciiString@@ABURva005FDA39Factory@@2@Z,0x005FDA39,callee of ??0Rva005FD9FF@@QAE@IABVAsciiString@@ABURva005FDA39Factory@@1@Z
 ?rva002C61AF@Rva002C61AF@@QAEXXZ,0x002C61AF,callee of ??1Rva002C6354@@UAE@XZ
 ??0Rva005FCF0E@@QAE@IABVAsciiString@@@Z,0x005FCEA9,callee of ??0Rva005FCFE5@@QAE@I@Z
 ??0Rva005FCB47@@QAE@PAVRva005FCF0E@@IABVAsciiString@@@Z,0x005FCB47,callee of ??0Rva005FCF0E@@QAE@IABVAsciiString@@@Z
