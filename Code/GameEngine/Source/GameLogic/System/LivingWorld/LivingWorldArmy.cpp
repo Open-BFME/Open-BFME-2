@@ -94,3 +94,73 @@ void LivingWorldArmy::TakeUnitFromArmy_Internal(LivingWorldArmy *source, const R
         entry.entry->CancelUpgrades();
     reinterpret_cast<Rva003193EC *>(this)->rva003198B8(reinterpret_cast<Rva003193EC *>(source));
 }
+
+// ABI view: retail owns an army pointer vector; the existing ModuleData pointer
+// instantiation supplies its folded reserve/push/erase calls, not element identity.
+class ModuleData;
+namespace _STL {
+template<> void vector<const ModuleData *>::reserve(unsigned int);
+template<> void vector<const ModuleData *>::push_back(const ModuleData * const &);
+template<> vector<void *>::iterator vector<void *>::erase(iterator,iterator);
+}
+class Rva0031A257 {
+public: Rva0031A257(); char bytes[0x98];
+};
+class Xfer {
+public:
+    struct Version { unsigned char current, minimum; Version(unsigned char a,unsigned char b):current(a),minimum(b){} };
+    virtual void slot00();
+    virtual bool IsLoading() const;
+    virtual void slot02();
+    virtual void slot03();
+    virtual void slot04();
+    virtual void slot05();
+    virtual void slot06();
+    virtual void slot07();
+    virtual void slot08();
+    virtual void slot09();
+    virtual Xfer &xferVersion(Version &);
+    virtual void slot11();
+    virtual Xfer &xferSnapshot(void *);
+    virtual void slot13();
+    virtual void slot14();
+    virtual void slot15();
+    virtual void slot16();
+    virtual void slot17();
+    virtual void slot18();
+    virtual void slot19();
+    virtual void slot20();
+    virtual void slot21();
+    virtual void slot22();
+    virtual void slot23();
+    virtual void slot24();
+    virtual void slot25();
+    virtual void slot26();
+    virtual void slot27();
+    virtual void slot28();
+    virtual void slot29();
+    virtual void slot30();
+    virtual Xfer &xferInt(int &);
+};
+void XferOwningLivingWorldArmyVec(Xfer *xfer, _STL::vector<const ModuleData *> *armies)
+{
+    Xfer::Version version(1,1);
+    xfer->xferVersion(version);
+    if (xfer->IsLoading()) {
+        _STL::vector<void *> *pointerView = reinterpret_cast<_STL::vector<void *> *>(armies);
+        pointerView->erase(pointerView->begin(), pointerView->end());
+        int count;
+        xfer->xferInt(count);
+        armies->reserve(count);
+        for (int i=0; i<count; ++i) {
+            const ModuleData *army=reinterpret_cast<const ModuleData *>(new Rva0031A257);
+            xfer->xferSnapshot(const_cast<ModuleData *>(army));
+            armies->push_back(army);
+        }
+    } else {
+        int count=armies->size();
+        xfer->xferInt(count);
+        for (unsigned int i=0; i<armies->size(); ++i)
+            xfer->xferSnapshot(const_cast<ModuleData *>((*armies)[i]));
+    }
+}
