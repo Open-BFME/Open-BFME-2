@@ -21,9 +21,11 @@ unsigned int g_Va00E06390;
 extern unsigned int g_Va00E063C8;
 // g_Va00E063C8: matched references place it at VA 0xe063c8 (zero-filled .bss).
 unsigned int g_Va00E063C8;
-extern unsigned int g_Va00E06558;
-// g_Va00E06558: matched references place it at VA 0xe06558 (zero-filled .bss).
-unsigned int g_Va00E06558;
+#include "MainMenuOnlineState.h"
+// The flag word at VA E06558 and the independently observed MainMenuUtils
+// statics through E06574 share this owner. The old four-byte definition was
+// insufficient for the caller offsets; the view reserves their full storage.
+MainMenuOnlineState g_mainMenuOnlineState;
 extern unsigned int g_Va00E065B0;
 // g_Va00E065B0: matched references place it at VA 0xe065b0 (zero-filled .bss).
 unsigned int g_Va00E065B0;
@@ -89,7 +91,7 @@ unsigned int Rva0079D3AAClearFlag(void)
 
 unsigned int Rva0079FB9CClearFlag(void)
 {
-	return g_Va00E06558 &= 0xFFFFFFFEu;
+	return g_mainMenuOnlineState.flags &= 0xFFFFFFFEu;
 }
 
 unsigned int Rva007A08F0ClearFlag(void)
