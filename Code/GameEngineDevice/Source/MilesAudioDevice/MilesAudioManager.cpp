@@ -1901,6 +1901,23 @@ bool MilesAudioManager::killLowestPrioritySoundImmediately(AudioEventRTS *event)
     return false;
 }
 
+// Retail 0x00057232 (WorldBuilder twin 0x00792970 names it and asserts
+// request.m_request == AR_PopMusic and a bound pending event, lines 7641..7642).
+void MilesAudioManager::processPopMusicRequest(Rva00051107AudioRequest *req)
+{
+    Rva00051107AudioRequest &request = *req;
+    AudioEventRTS *event = request.m_pendingEvent.operator->();
+    int viewType = event->m_viewType;
+    int musicSystem = event->m_musicSystem;
+    if (m_activeMusicSystem[viewType] == musicSystem) {
+        removeCurrentlyPlayingMusic(viewType, !request.m_at10);
+        int resume = !((Rva000CB12FByteField *)request.m_pendingEvent.operator->())->get();
+        rva00057151(viewType, musicSystem, resume);
+    } else if (!m_musicStack[viewType][musicSystem].empty()) {
+        m_musicStack[viewType][musicSystem].pop_back();
+    }
+}
+
 void MilesAudioManager::rva00057297(Rva00051107AudioRequest &request)
 {
     AudioEventRTS *event = request.m_pendingEvent.operator->();
