@@ -36,6 +36,7 @@ EXTERN ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva00506B28DwordImmSetter@@QAEXXZ:PROC
 EXTERN ??1Rva00574A8A@@UAE@XZ:PROC
 EXTERN ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ:PROC
+EXTERN ??1Rva005248D0@@UAE@XZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b7c75e at RVA 0x0077C75E; 22-byte body ends at RET.
@@ -2564,6 +2565,54 @@ PUBLIC ?rva007925e9@@YAXXZ
     and ecx, eax
     jmp ?apply@Rva00506B28DwordImmSetter@@QAEXXZ
 ?rva007925e9@@YAXXZ ENDP
+
+; Unwind@00b93241 at RVA 0x00793241; 19-byte eh-vector-dtor lea target.
+PUBLIC ?rva00793241@@YAXXZ
+?rva00793241@@YAXXZ PROC
+    push 008F87B7h
+    push 2
+    push 10h
+    lea eax, [ebp-108]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00793241@@YAXXZ ENDP
+
+; Unwind@00b93655 at RVA 0x00793655; 20-byte masked-add funclet tail-jumps to dtor.
+PUBLIC ?rva00793655@@YAXXZ
+?rva00793655@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 8
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
+?rva00793655@@YAXXZ ENDP
+
+; Unwind@00b93669 at RVA 0x00793669; 20-byte masked-add funclet tail-jumps to apply.
+PUBLIC ?rva00793669@@YAXXZ
+?rva00793669@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 4
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ
+?rva00793669@@YAXXZ ENDP
+
+; Unwind@00b94a43 at RVA 0x00794A43; 20-byte masked-add funclet tail-jumps to dtor.
+PUBLIC ?rva00794a43@@YAXXZ
+?rva00794a43@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 14h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Rva005248D0@@UAE@XZ
+?rva00794a43@@YAXXZ ENDP
 
 _TEXT ENDS
 END
