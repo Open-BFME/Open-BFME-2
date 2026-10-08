@@ -97,9 +97,13 @@ void RenderableStandingWaterArea::onStandingWaterAreaTextureNameChanged(void *, 
 // view of the RiverArea accepted by the rowed createTexture provider.
 // Callback name and first argument identity are unresolved. Reads +4,
 // clears the indexed holder at +8, and writes the dirty byte at +0x1C.
+class Rva0030BBA9;
 class RenderableRiverArea {
+ char m_pad00[0x40];
+ Rva0030BBA9 *m_assets;
 public:
  void createTexture(int index);
+ void rva00082061();
 };
 class Rva0030BBA9 {
 public:
@@ -120,4 +124,19 @@ void Rva000820CA::rva000820CA(void *, int index) {
  assets << *(const AsciiString *)m_assets->rva0030BBA9(index);
  bfmeMergeReceiverKeys((int)&assets);
  m_dirty = true;
+}
+
+// Native 00082061..000820CA (105B). The receiver is the parent used by
+// the callback above: create four textures, collect their indexed names
+// through the same holder at +40, then merge the AssetList once. Retail
+// independently proves the four-entry loop and shared lifetime/callees.
+void RenderableRiverArea::rva00082061()
+{
+	AssetList assets;
+	for (int index = 0; index < 4; ++index)
+	{
+		createTexture(index);
+		assets << *(const AsciiString *)m_assets->rva0030BBA9(index);
+	}
+	bfmeMergeReceiverKeys((int)&assets);
 }
