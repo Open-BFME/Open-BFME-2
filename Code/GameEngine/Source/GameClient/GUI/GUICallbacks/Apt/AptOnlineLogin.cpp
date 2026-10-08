@@ -7,6 +7,8 @@
 #include "unicode_string.h"
 // stlport
 #include <map>
+#include <list>
+extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::~_List_base();
 bool operator<(const UnicodeString &,const UnicodeString &);
 namespace _STL { template<> struct less<UnicodeString> {
     bool operator()(const UnicodeString &a,const UnicodeString &b)const { return a<b; }
@@ -57,20 +59,32 @@ void Rva00325388Send(GameWindow *,int,int,int);
 void GadgetListBoxSetSelected(GameWindow *,int);
 void GadgetCheckBoxSetChecked(GameWindow *,bool);
 void GadgetTextEntrySetText(GameWindow *,UnicodeString);
-class GameSpyLoginPreferences { public: AsciiString rva005C9FC4(); };
+class GameSpyLoginPreferences { public:
+    AsciiString rva005C9FC4();
+    _STL::list<AsciiString> rva005CA07D();
+    AsciiString getPasswordForEmail(AsciiString);
+    const _STL::list<AsciiString> &rva005CA201(const AsciiString &);
+};
+void GadgetComboBoxReset(GameWindow *);
+void GadgetComboBoxSetIsEditable(GameWindow *,bool);
+int GadgetComboBoxAddEntry(GameWindow *,UnicodeString,int);
+void GadgetComboBoxSetSelectedPos(GameWindow *,int,bool);
+void GadgetComboBoxSetText(GameWindow *,UnicodeString);
+static bool g_cachedLoginPopulationBusy;
 struct SkirmishFindNode { unsigned char pad[0x14]; AsciiString value; };
 class SkirmishFindMap { public:
     SkirmishFindNode *find(const AsciiString &) const throw();
     SkirmishFindNode *end() const { return head; }
     SkirmishFindNode *head; unsigned char remainder[8];
 };
-class Rva005709D1Call { public: void rva005709D1(AsciiString &,AsciiString &); };
 class AptOnlineLogin {
 public:
     void OnBttnRegisterFESL(const char *);
     void rva00572632(const char *);
     void rva00572768(const char *);
     void rva00571B75();
+    void rva005709D1(AsciiString &,AsciiString &);
+    bool rva005706D4();
     bool rva0056EC54(const UnicodeString &,bool);
     void rva0056FEA8();
 private:
@@ -224,6 +238,53 @@ void AptOnlineLogin::rva00571B75()
         const AsciiString *nameValue=&it->value;
         lastName=*nameValue;
     }
-    ((Rva005709D1Call *)this)->rva005709D1(lastEmail,lastName);
+    rva005709D1(lastEmail,lastName);
     needsRefresh=false;
+}
+
+// BFME1 34f59164 OnlineLoginPopulateCachedLogins0054FF80 supplies behavior.
+// Native 5709D1..570C64 proves prefs60, controlsA4/A8/AC, two refs/RET8.
+// BFME2 uses a borrowed nickname list and its shared out-of-line cleanup.
+void AptOnlineLogin::rva005709D1(AsciiString &lastEmail,AsciiString &lastName)
+{
+    if(g_cachedLoginPopulationBusy) return;
+    g_cachedLoginPopulationBusy=true;
+    GadgetComboBoxReset(email);
+    GadgetComboBoxSetIsEditable(email,true);
+    GadgetComboBoxReset(nickname);
+    GadgetComboBoxSetIsEditable(nickname,true);
+    GadgetTextEntrySetText(password,UnicodeString::TheEmptyString);
+    GameSpyLoginPreferences *preferences=(GameSpyLoginPreferences *)((char *)this+0x60);
+    _STL::list<AsciiString> cachedEmails=preferences->rva005CA07D();
+    int selectedPosition=-1;
+    for(_STL::list<AsciiString>::iterator it=cachedEmails.begin();it!=cachedEmails.end();++it) {
+        UnicodeString translated;
+        translated.translate(*it);
+        int position=GadgetComboBoxAddEntry(email,translated,g_00DB9198);
+        if(((const StringBase<char> *)&*it)->compare(*(const StringBase<char> *)&lastEmail)==0)
+            selectedPosition=position;
+    }
+    if(selectedPosition>=0) {
+        GadgetComboBoxSetSelectedPos(email,selectedPosition,false);
+        if(lastEmail.isEmpty()) GadgetComboBoxSetText(email,UnicodeString::TheEmptyString);
+        UnicodeString passwordText;
+        passwordText.translate(preferences->getPasswordForEmail(lastEmail));
+        rva0056EC54(passwordText,true);
+    } else {
+        UnicodeString translated;
+        translated.translate(lastEmail);
+        GadgetComboBoxSetText(email,translated);
+    }
+    _STL::list<AsciiString> cachedNames=preferences->rva005CA201(lastEmail);
+    selectedPosition=-1;
+    for(_STL::list<AsciiString>::iterator it=cachedNames.begin();it!=cachedNames.end();++it) {
+        UnicodeString translated;
+        translated.translate(*it);
+        int position=GadgetComboBoxAddEntry(nickname,translated,g_00DB9198);
+        if(((const StringBase<char> *)&*it)->compare(*(const StringBase<char> *)&lastName)==0 || selectedPosition<0)
+            selectedPosition=position;
+    }
+    if(selectedPosition>=0) GadgetComboBoxSetSelectedPos(nickname,selectedPosition,false);
+    g_cachedLoginPopulationBusy=false;
+    rva005706D4();
 }

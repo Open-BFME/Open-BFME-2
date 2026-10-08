@@ -24,11 +24,7 @@ class AptOnlineLogin
 {
 public:
 	void rva00571B75();
-};
-class Rva005706D4Call
-{
-public:
-	void rva005706D4();
+	bool rva005706D4();
 };
 class Rva00571C60
 {
@@ -45,12 +41,12 @@ void Rva00571C60::rva00571C60()
 {
 	if (m_c5) {
 		((AptOnlineLogin *)this)->rva00571B75();
-		((Rva005706D4Call *)this)->rva005706D4();
+		((AptOnlineLogin *)this)->rva005706D4();
 	}
 	Bool8 *cached = &m_d2;
 	Bool8 value = ((Rva0056EE5F *)this)->rva0056EE5F();
 	if (*cached != value) {
-		((Rva005706D4Call *)this)->rva005706D4();
+		((AptOnlineLogin *)this)->rva005706D4();
 		value = ((Rva0056EE5F *)this)->rva0056EE5F();
 		*cached = value;
 	}

@@ -13986,7 +13986,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva005CCB4C@Rva005CCB4CCall@@QAE_NXZ,0x005CCB4C,address-derived bool helper; direct rel32 call target of 0x0057544B; 8-byte wrapper at 0x005CCB4C before rowed sibling 0x005CCB5B; purpose unproven
 ?rva005D2A53@Rva005D2A53Call@@QAEXXZ,0x005D2A53,address-derived thiscall callee; direct rel32 target of 0x005785CD; observed function-shaped entry at 0x005D2A53 ending in ret at 0x005D2B2E; semantics and original name unproven
 ?rva005C6CC7@Rva005C6CC7Call@@QAEXXZ,0x005C6CC7,address-derived void helper; direct call target of 0x00577E43; 5-byte thunk tail-jumps to rowed reset method 0x005C6C89; caller purpose remains unknown
-?rva005706D4@Rva005706D4Call@@QAEXXZ,0x005706D4,callee of ?rva00571C60@Rva00571C60@@QAEXXZ
 ?rva0031D230@ControlBar@@QAEXXZ,0x0031D230,direct tail call from 0x0053E4B1 on the same ControlBar this when Object status bit 2 is clear; Ghidra boundary 968; address-derived fallback method, purpose unknown
 ??0Rva005D12E3@@QAE@XZ,0x005D1296,callee of ??0Rva00576591@@QAE@PAX@Z
 ?Rva00598A3D@AIUnitBuilder@@QAEXXZ,0x00598A3D,callee of ?Rva00598D7A@AIUnitBuilder@@QAEXXZ
@@ -16427,4 +16426,5 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?_M_lower_bound@?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVUnicodeString@@H@_STL@@@2@ABVUnicodeString@@@Z,0x00448D65,Country-list table native call closure; complete emitted body and relocations proven; fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_online_country_tree.cpp
 ??M@YA_NABVUnicodeString@@0@Z,0x00448D3C,Country-list table native call closure; complete emitted body and relocations proven; fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_online_country_tree.cpp
 ??0?$pair@$$CBVUnicodeString@@H@_STL@@QAE@ABU01@@Z,0x005DDD40,Country-list table native call closure; complete emitted body and relocations proven; fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_online_country_tree.cpp
-?rva005709D1@Rva005709D1Call@@QAEXAAVAsciiString@@0@Z,0x005709D1,Native 571B75..571C60 passes its receiver and two AsciiString references to 5709D1..570C64; RET8 and complete target boundary; cached login behavior follows BFME1 34f59164; target method spelling unknown
+?rva005CA07D@GameSpyLoginPreferences@@QAE?AV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@XZ,0x005CA07D,Native5709D1 calls; email237 boundary5CA07D..5CA16A hidden list return RET4; apply760 boundary5706D4..5709CC returns boolean RET0; BFME1 34f59164 semantic donors; replaces opaque apply name
+?rva005706D4@AptOnlineLogin@@QAE_NXZ,0x005706D4,Native5709D1 calls; email237 boundary5CA07D..5CA16A hidden list return RET4; apply760 boundary5706D4..5709CC returns boolean RET0; BFME1 34f59164 semantic donors; replaces opaque apply name
