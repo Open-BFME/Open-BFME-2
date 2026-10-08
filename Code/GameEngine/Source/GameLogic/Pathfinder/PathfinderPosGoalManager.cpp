@@ -247,7 +247,13 @@ class NativeContain28 : public NativeSlots<28> { public: virtual int slot28()=0;
 class NativeContain31 : public NativeSlots<31> { public: virtual void *slot31()=0; };
 class NativeContain69 : public NativeSlots<69> { public: virtual unsigned int slot69(int)=0; };
 class Rva004DD9E3 { public: int rva004DD9E3(int,int,int); Rva004DD843Slot *slot; int category; Object *object; int layer,secondary; };
-class Pathfinder { public: int rva004DDDA4(const ICoord2DBase *,const ICoord2DBase *,float,int,Rva004DD9E3 *); };
+enum PathfindLayerEnum { PATHFIND_LAYER_GROUND=0 };
+class Pathfinder {
+public:
+    PathfindCell *getCell(PathfindLayerEnum,int,int);
+    int rva004DDDA4(const ICoord2DBase *,const ICoord2DBase *,float,int,Rva004DD9E3 *);
+    int rva004DDA9A(int *,int *,int,int,Rva004DD9E3 *);
+};
 class AI { public: char pad[16]; Pathfinder *map; }; extern AI *TheAI;
 class TerrainLogic : public NativeSlots<44> { public: virtual bool slot44(Object *,int)=0; }; extern TerrainLogic *TheTerrainLogic;
 float __cdecl Rva004DD722Get(int);
@@ -281,4 +287,44 @@ void Rva004DD843::rva004DDF51(Rva004DD843Slot *slot)
 }
 
 
+
+
+// Native004DDDA4..004DDF3A, 406B RET20. WB1287670 identifies rectangle traversal.
+// The one-cell path calls the existing 183B visitor; otherwise it computes four
+// corners and forwards mutable x/y arrays to the native724B polygon worker.
+// VC7 /O1 /Oi emits separate fsin/fcos in the saved pure C++ trial (411B).
+// The four-instruction fsincos block is the proven x87 compiler exception;
+// all branches, corner arithmetic, cell lookup and callback traversal are C++.
+int Pathfinder::rva004DDDA4(const ICoord2DBase *center,const ICoord2DBase *diameter,float angle,int layer,Rva004DD9E3 *visitor)
+{
+ if (diameter->x==1 && diameter->y==1) {
+   PathfindCell *cell=getCell((PathfindLayerEnum)layer,center->x,center->y);
+   return cell ? visitor->rva004DD9E3((int)cell,center->x,center->y) : 0;
+ }
+ int x[4],y[4];
+ if (angle!=0.0f) {
+   float sine,cosine;
+   __asm { fld angle
+           fsincos
+           fstp cosine
+           fstp sine }
+   float hx=diameter->x*0.5f,hy=diameter->y*0.5f;
+   float cx=(float)center->x,cy=(float)center->y;
+   x[0]=(int)(cx-hx*cosine+hy*sine);
+   y[0]=(int)(cy-hy*cosine-hx*sine);
+   x[1]=(int)(cx+hx*cosine+hy*sine);
+   y[1]=(int)(cy-hy*cosine+hx*sine);
+   x[2]=(int)(cx+hx*cosine-hy*sine);
+   y[2]=(int)(cy+hy*cosine+hx*sine);
+   x[3]=(int)(cx-hx*cosine-hy*sine);
+   y[3]=(int)(cy+hy*cosine-hx*sine);
+ } else {
+   int hx=diameter->x/2,hy=diameter->y/2;
+   x[0]=x[3]=center->x-hx;
+   y[0]=y[1]=center->y-hy;
+   x[1]=x[2]=center->x+diameter->x-hx-1;
+   y[2]=y[3]=center->y+diameter->y-hy-1;
+ }
+ return rva004DDA9A(x,y,4,layer,visitor);
+}
 
