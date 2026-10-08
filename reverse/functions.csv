@@ -70528,3 +70528,4 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?Rva005B2376Describe@@YA?AVUnicodeString@@PAXHABVAsciiString@@@Z,,0x005B2376,97,Code/GameEngine/Source/Common/AptHeroPowerText.cpp,matched,WB twin 0x157F520 (unnamed; callee CommandButton rva0035B26F) beside the other hero power helpers; native 5B2376..5B23D7 cdecl UnicodeString by hidden pointer; button given: TheGameText fetch(AsciiString) slot 0x38 of the rowed description getter 35B26F (the early push 0 is fetch's exists argument evaluated first) else fetch of a non-empty fallback else L-space; full 97B exact
 ?rva004ECE93@Rva004ECE93@@QAEMH@Z,,0x004ECE93,21,Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp,matched,
 ?rva000C0386@Rva000BFDFE@@QAEXXZ,,0x000C0386,19,Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp,matched,
+?rva002B8019@Rva002B6C9F@@QAE_NHHH@Z,,0x002B8019,44,Code/GameEngine/Source/Common/Rva002B6C9F.cpp,matched,

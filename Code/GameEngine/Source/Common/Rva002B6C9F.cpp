@@ -32,6 +32,15 @@ public:
 	char rva002B6BCF(int a1, int a2, int a3, int *pa3);
 };
 
+struct LivingWorldArmy;
+class ArmySummaryEntry;
+
+class LivingWorldLogic
+{
+public:
+	bool CanMoveArmyMember_internal(LivingWorldArmy *army, ArmySummaryEntry *entry, LivingWorldArmy *target, bool checkRoom);
+};
+
 class Rva003193EC
 {
 public:
@@ -43,6 +52,7 @@ class Rva002B6C9F
 public:
 	bool rva002B6C9F(int a1, int a2, int a3);
 	bool rva002B6CE5(int a1, int a2, int a3);
+	bool rva002B8019(int a1, int a2, int a3);
 };
 
 bool Rva002B6C9F::rva002B6C9F(int a1, int a2, int a3)
@@ -61,5 +71,16 @@ bool Rva002B6C9F::rva002B6CE5(int a1, int a2, int a3)
 {
 	if (((Rva002B2C40 *)this)->rva002B2C40((Arg54 *)a1, (Arg54 *)a3)) {
 		return ((Rva002B6BCF *)this)->rva002B6BCF(a1, a2, a3, &a3);
+	}
+}
+
+// ?rva002B8019@Rva002B6C9F@@QAE_NHHH@Z @0x002B8019 44B: the same 0x2B2C40
+// gate in front of LivingWorldLogic::CanMoveArmyMember_internal with the
+// room check on; shares rva002B6CE5's bare-pops exit.
+bool Rva002B6C9F::rva002B8019(int a1, int a2, int a3)
+{
+	if (((Rva002B2C40 *)this)->rva002B2C40((Arg54 *)a1, (Arg54 *)a3)) {
+		return ((LivingWorldLogic *)this)->CanMoveArmyMember_internal(
+			(LivingWorldArmy *)a1, (ArmySummaryEntry *)a2, (LivingWorldArmy *)a3, true);
 	}
 }
