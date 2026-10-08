@@ -114,14 +114,23 @@ class ArmyUnitSwapperMovieClip
 public:
 	ArmyUnitSwapperMovieClip(int level, const AsciiString &name, const TreeHintRef00217D4C &top, const TreeHintRef00217D4C &bottom);
 	virtual ~ArmyUnitSwapperMovieClip();
+	virtual void notifyClosed();
 private:
 	void *m_impl;							// +0x04
 };
 }
 
+class Rva005F4B48Target
+{
+public:
+	virtual void t0();
+	virtual void t1();
+};
+
 struct Rva005F4EE8Source
 {
-	char m_pad00[0x0C];
+	Rva005F4B48Target *m_target00;			// +0x00
+	char m_pad04[0x0C - 0x04];
 	Rva005F4DC4 *m_top0C;					// +0x0C
 	Rva005F4DC4 *m_bottom10;				// +0x10
 };
@@ -130,6 +139,7 @@ class Rva005F4EE8 : public StrategicHUD::ArmyUnitSwapperMovieClip
 {
 public:
 	Rva005F4EE8(Rva005F4EE8Source *source, int level, const AsciiString &name);
+	virtual void notifyClosed();
 private:
 	Rva005F4EE8Source *m_source08;			// +0x08
 };
@@ -138,4 +148,12 @@ Rva005F4EE8::Rva005F4EE8(Rva005F4EE8Source *source, int level, const AsciiString
 	: StrategicHUD::ArmyUnitSwapperMovieClip(level, name, source->m_top0C->rva005F4DC4(), source->m_bottom10->rva005F4DC4()),
 	  m_source08(source)
 {
+}
+
+// ?notifyClosed@Rva005F4EE8@@UAEXXZ, retail 0x005F4B48..0x005F4B52 (10
+// bytes): slot 1 of vtable 0x00C794E4, the base's notifyClosed, forwarded to
+// slot 1 of the source's +0x00 object.
+void Rva005F4EE8::notifyClosed()
+{
+	m_source08->m_target00->t1();
 }
