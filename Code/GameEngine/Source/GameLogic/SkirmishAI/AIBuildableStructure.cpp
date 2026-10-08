@@ -52,5 +52,59 @@ bool AIBuildableStructure::build(Player *player)
  return false;
 }
 
+extern "C" __declspec(dllimport) double __cdecl floor(double);
+// The native sequence narrows floor's result to float before FISTP. VC7.1
+// rejects /QIfist together with /arch:SSE. This is the established x87 helper
+// used by FireLogicSystemObjects.cpp and Rva002E6EFFCellQuery.cpp; the search
+// and grid access remain C++. No lifted instructions implement the body.
+static __forceinline long floatToLong(float value)
+{
+ long result;
+ __asm {
+  fld [value]
+  fistp [result]
+ }
+ return result;
+}
+class TerrainLogic {
+public:
+ virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
+ virtual void s4(); virtual void s5();
+ virtual float groundHeight(float,float,int);
+};
+extern TerrainLogic *TheTerrainLogic;
+class Rva002872BA;
+extern Rva002872BA *TheTriggerManager;
+// The native global at DFEC68 is the existing fire grid. Its 20-byte cells,
+// +70 columns, +78/+7C bounds and unsigned word +06 agree with the matched
+// FireLogicSystem and cell-query accessors. This is an accessed-prefix view.
+struct FireGridView {
+ struct Cell { int type; unsigned short fuel, check; int flammability, field0C; void *objects; };
+ char prefix[0x70]; Cell **cells; int field74, rows, cols;
+ __forceinline bool occupied(float x,float y) {
+   float fx=(float)floor((x+0.5f)*0.1f);
+   int ix=floatToLong(fx);
+   float fy=(float)floor((y+0.5f)*0.1f);
+   int iy=floatToLong(fy);
+   return ix>=0 && ix<rows && iy>=0 && iy<cols ? cells[ix][iy].check>0 : false;
+ }
+};
+// Native 573B5E..573C60, RET0 Bool. WB1506FA0 and canMake's call at
+// 573D5A establish the receiver and position slot; the original name is unknown.
+bool AIBuildableStructure::rva00573B5E()
+{
+ Coord3D center=position();
+ for (int dx=-150;dx<=150;dx+=15) {
+   for (int dy=-150;dy<=150;dy+=15) {
+     Coord3D point;
+     point.x=center.x+dx;
+     point.y=center.y+dy;
+     point.z=TheTerrainLogic->groundHeight(point.x,point.y,0);
+     if (((FireGridView *)TheTriggerManager)->occupied(point.x,point.y)) return true;
+   }
+ }
+ return false;
+}
+
 
 
