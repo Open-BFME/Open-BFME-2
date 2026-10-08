@@ -179,66 +179,54 @@ public:
 	virtual ~W3DRadarDeleteImage();
 };
 
-// ?deleteResources@W3DRadar@@IAEXXZ present-unmatched
+// Texture holder released and nulled by the rowed 0x0004D75B.
+class BfmeResetTextureRef
+{
+public:
+	void clear();
+private:
+	void *m_texture;
+};
+
+// Retail 0x0004D8DD. Zero Hour's deleteResources with BFME 2's layout: four
+// texture/image pairs (+0x1470/+0x146C, +0x1480/+0x147C, +0x148C/+0x1488,
+// +0x1498/+0x1494), a fifth texture at +0x1474 and eleven images from
+// +0x14A8. Images go through the global delete (destructor, then
+// ::operator delete), where Zero Hour calls deleteInstance.
 void W3DRadar::deleteResources( void )
 {
 	char *radar = reinterpret_cast<char *>(this);
-	W3DRadarResetTextureRef *&texture0 =
-		*reinterpret_cast<W3DRadarResetTextureRef **>(radar + 0x1478);
-	if (texture0)
-	{
-		texture0->releaseRef();
-		texture0 = NULL;
-	}
-	W3DRadarDeleteImage *&image0 = *reinterpret_cast<W3DRadarDeleteImage **>(radar + 0x1474);
-	delete image0;
+
+	reinterpret_cast<BfmeResetTextureRef *>(radar + 0x1470)->clear();
+	W3DRadarDeleteImage *&image0 = *reinterpret_cast<W3DRadarDeleteImage **>(radar + 0x146c);
+	if (image0)
+		::delete image0;
 	image0 = NULL;
 
-	W3DRadarResetTextureRef *&texture1 =
-		*reinterpret_cast<W3DRadarResetTextureRef **>(radar + 0x1488);
-	if (texture1)
-	{
-		texture1->releaseRef();
-		texture1 = NULL;
-	}
-	W3DRadarDeleteImage *&image1 = *reinterpret_cast<W3DRadarDeleteImage **>(radar + 0x1484);
-	delete image1;
+	reinterpret_cast<BfmeResetTextureRef *>(radar + 0x1480)->clear();
+	W3DRadarDeleteImage *&image1 = *reinterpret_cast<W3DRadarDeleteImage **>(radar + 0x147c);
+	if (image1)
+		::delete image1;
 	image1 = NULL;
 
-	W3DRadarResetTextureRef *&texture2 =
-		*reinterpret_cast<W3DRadarResetTextureRef **>(radar + 0x1494);
-	if (texture2)
-	{
-		texture2->releaseRef();
-		texture2 = NULL;
-	}
-	W3DRadarDeleteImage *&image2 = *reinterpret_cast<W3DRadarDeleteImage **>(radar + 0x1490);
-	delete image2;
+	reinterpret_cast<BfmeResetTextureRef *>(radar + 0x148c)->clear();
+	W3DRadarDeleteImage *&image2 = *reinterpret_cast<W3DRadarDeleteImage **>(radar + 0x1488);
+	if (image2)
+		::delete image2;
 	image2 = NULL;
 
-	W3DRadarResetTextureRef *&texture3 =
-		*reinterpret_cast<W3DRadarResetTextureRef **>(radar + 0x14a0);
-	if (texture3)
-	{
-		texture3->releaseRef();
-		texture3 = NULL;
-	}
-	W3DRadarDeleteImage *&image3 = *reinterpret_cast<W3DRadarDeleteImage **>(radar + 0x149c);
-	delete image3;
+	reinterpret_cast<BfmeResetTextureRef *>(radar + 0x1498)->clear();
+	W3DRadarDeleteImage *&image3 = *reinterpret_cast<W3DRadarDeleteImage **>(radar + 0x1494);
+	if (image3)
+		::delete image3;
 	image3 = NULL;
 
-	W3DRadarResetTextureRef *&texture4 =
-		*reinterpret_cast<W3DRadarResetTextureRef **>(radar + 0x147c);
-	if (texture4)
-	{
-		texture4->releaseRef();
-		texture4 = NULL;
-	}
+	reinterpret_cast<BfmeResetTextureRef *>(radar + 0x1474)->clear();
 
-	W3DRadarDeleteImage **images = reinterpret_cast<W3DRadarDeleteImage **>(radar + 0x14b0);
+	W3DRadarDeleteImage **images = reinterpret_cast<W3DRadarDeleteImage **>(radar + 0x14a8);
 	for (Int i = 11; i; --i, ++images)
 	{
-		delete *images;
+		::delete *images;
 		*images = NULL;
 	}
 
