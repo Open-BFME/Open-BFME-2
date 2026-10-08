@@ -31,6 +31,19 @@ void *__cdecl operator new(unsigned int size, void *place);
 
 #include <vector>
 
+// The native range-erase owner is the 34-byte optimized specialization
+// in stlport_vector_voidptr_opt.cpp, not this unit's /Od instantiation.
+// Keep its declaration so explicit class instantiation cannot emit a
+// competing 84-byte definition. Call sites retain the same symbol and ABI.
+template <> void **_STL::vector<void *>::erase(void **first, void **last);
+
+// Native _M_fill_assign calls the distinct 78-byte erase at 0x00027400,
+// already owned by vector<unsigned int>. Both views use 12-byte vector
+// headers and trivially copied four-byte elements; only this proven range
+// ABI is projected here. Preserve that callee rather than substituting the
+// optimized void-pointer erase at 0x0031BD55.
+template <> unsigned int *_STL::vector<unsigned int>::erase(unsigned int *first, unsigned int *last);
+
 namespace _STL
 {
 template <> inline vector<void *, allocator<void *> >::iterator
@@ -41,6 +54,32 @@ vector<void *, allocator<void *> >::insert(iterator position)
     pointer compilerStackSlot;
     value_type value = value_type();
     return insert(position, value);
+}
+}
+
+
+namespace _STL {
+// VC7.1 /Od retains five discarded words from the visible inline erase
+// body in _M_fill_assign's 0x9C frame. The external declaration removes
+// that bookkeeping. This empty inline scope preserves those words at
+// their original lifetime position; it emits no runtime instructions.
+// These are compiler frame slots, not claimed game variables.
+static __forceinline void retainEraseCompilerTemporaries() {
+    void *first; void *last; void *result; void *begin; void *end;
+}
+template <> inline void vector<void *>::_M_fill_assign(size_t n, void *const &value) {
+    if (n > capacity()) {
+        vector<void *> temporary(n, value, get_allocator());
+        temporary.swap(*this);
+    } else if (n > size()) {
+        fill(begin(), end(), value);
+        this->_M_finish = _STL::uninitialized_fill_n(this->_M_finish, n-size(), value);
+    } else {
+        reinterpret_cast<vector<unsigned int> *>(this)->erase(
+            reinterpret_cast<unsigned int *>(_STL::fill_n(begin(), n, value)),
+            reinterpret_cast<unsigned int *>(end()));
+        retainEraseCompilerTemporaries();
+    }
 }
 }
 

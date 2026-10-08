@@ -8,6 +8,14 @@
 
 #include <vector>
 
+// The native range-erase owner is the 34-byte optimized specialization
+// in stlport_vector_voidptr_opt.cpp, not this unit's /Od instantiation.
+// Keep its declaration so explicit class instantiation cannot emit a
+// competing 84-byte definition. Call sites retain the same symbol and ABI.
+template <> void **_STL::vector<void *>::erase(void **first, void **last);
+// The allocating unit owns the verified fill-assign specialization.
+template <> void _STL::vector<void *>::_M_fill_assign(size_t n, void *const &value);
+
 template class _STL::vector<void *, _STL::allocator<void *> >;
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
