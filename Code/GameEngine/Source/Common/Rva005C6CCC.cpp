@@ -69,3 +69,32 @@ template<> TreeHintRef003596AD &TreeHintMap003596AD::operator[](const int &key)
  return (*it).second;
 }
 template class _STL::map<int, TreeHintRef003596AD>;
+
+// Native 0x00218787 has the same signed lookup and counted-handle lifetime
+// as newly verified 0x003596AD; all four call targets agree. Earlier banked
+// float-map reconstruction lost the temporary destructor and its stack slot.
+// The handle layout is now established by the native retain/release pair.
+struct TreeHintRef00218787 {
+ TargetRef00217D4C *m_ptr;
+ TreeHintRef00218787() : m_ptr(0) {}
+ TreeHintRef00218787(const TreeHintRef00218787 &other) : m_ptr(other.m_ptr) {
+  if (m_ptr) ++m_ptr->references;
+ }
+ __forceinline ~TreeHintRef00218787() {
+  if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);
+ }
+};
+typedef _STL::map<int, TreeHintRef00218787> TreeHintMap00218787;
+// Reuse the same established insertion ABI as the first specialization.
+template<> TreeHintRef00218787 &TreeHintMap00218787::operator[](const int &key)
+{
+ iterator it = lower_bound(key);
+ if (it == end() || key_comp()(key, (*it).first)) {
+  it = iterator(reinterpret_cast<iterator::_Link_type>(
+   reinterpret_cast<TreeHintInsert003596AD *>(this)->insert(
+    TreeHintInsert003596AD::iterator(reinterpret_cast<TreeHintInsert003596AD::iterator::_Link_type>(it._M_node)),
+    reinterpret_cast<const TreeHintInsert003596AD::value_type &>(value_type(key, TreeHintRef00218787())))._M_node));
+ }
+ return (*it).second;
+}
+template class _STL::map<int, TreeHintRef00218787>;
