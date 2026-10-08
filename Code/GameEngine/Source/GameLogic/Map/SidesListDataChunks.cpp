@@ -44,6 +44,9 @@ extern const StaticNameKey TheKey_objectIsABase;		// VA 0x00DBDD0C
 extern const StaticNameKey TheKey_objectBaseName;		// VA 0x00DBDD14
 extern const StaticNameKey TheKey_objectBasePriority;	// VA 0x00DBDD84
 extern const StaticNameKey TheKey_objectBasePhase;		// VA 0x00DBDD8C
+extern const StaticNameKey TheKey_playerName;			// VA 0x00DBDE24
+extern const StaticNameKey TheKey_teamOwner;			// VA 0x00DBD9FC
+extern const StaticNameKey TheKey_teamLibraryMapName;	// VA 0x00DBDC1C
 
 enum ErrorCode { ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005 };
 
@@ -59,6 +62,8 @@ class Dict
 {
 public:
 	~Dict() { releaseData(); }
+	enum DataType { DICT_NONE = -1, DICT_BOOL = 0, DICT_INT, DICT_REAL, DICT_ASCIISTRING };
+	DataType getType(int key) const;	// 0x0031317C
 	bool getBool(int key, bool *exists = 0) const;	// 0x00313198
 	int getInt(int key, bool *exists = 0) const;	// 0x003131CA
 	AsciiString getAsciiString(int key, bool *exists = 0) const;	// 0x0031359F
@@ -133,6 +138,7 @@ public:
 	virtual ~ScriptList();
 	void swap(ScriptList *other);		// 0x003B58DF
 	void rva003B693A();					// 0x003B693A, WB discards overridden scripts
+	void rva003B7362();					// 0x003B7362, WB 0xaa4f20
 };
 
 class DataChunkOutput
@@ -316,14 +322,33 @@ private:
 	_STL::vector<AsciiString> m_libraryMaps;	// +0x54
 };
 
+// The 16-byte team entries (SidesListRemoveSideAndTeams.cpp): the next team
+// id at +0 and the team dict at +0xC.
+class TeamsInfoEntry
+{
+public:
+	short m_next;
+	short m_previous;
+	short m_reserved;
+	short m_free;
+	int m_generation;
+	Dict m_dict;						// +0x0C
+};
+
 class TeamsInfoRec
 {
 public:
 	int addTeam(const Dict *dict);		// 0x0032DA4E
 	void rva0032C2C4();					// 0x0032C2C4, WB discards overridden teams
+	void bfmeRelease(int id);			// 0x0032C26D, WB removeTeam
+	int getFirstTeamID() const { return m_teams[0].m_next; }
+	int getNextTeamID(int id) const { return m_teams[id].m_next; }
+	Dict *getTeamInfo(int id) { return &m_teams[id].m_dict; }
 
 private:
-	char m_data[0x38];
+	char m_index[0x0C];
+	_STL::vector<TeamsInfoEntry> m_teams;	// +0x0C
+	char m_rest[0x38 - 0x18];
 };
 
 class SidesList
@@ -345,6 +370,7 @@ public:
 	void writeCastleTemplateDataChunk(DataChunkOutput &out, MapObject *pMapObjs, const AsciiString &mapName, Rva002E3A8DHolder *paths);
 	void rva0032E6F4(int key, const BfmePod128 &entry);	// 0x0032E6F4, castle build entry add
 	void rva0032ED75(int key, const _STL::vector<BfmeE8> &path);	// 0x0032ED75, castle path add
+	void rva0032C88F(int index);		// 0x0032C88F, WB 0xa86610
 	void discardOverriddenScriptsAndTeams();
 
 private:
@@ -708,6 +734,30 @@ void SidesList::writeCastleTemplateDataChunk(DataChunkOutput &out, MapObject *pM
 		}
 	}
 	out.closeDataChunk();
+}
+
+// ?rva0032C88F@SidesList@@QAEXH@Z, retail 0x0032C88F (258 bytes).
+// Identity (target): WorldBuilder's unnamed debug twin wb 0xa86610 makes the
+// same calls in the same order: getSideInfo, the side's script list 0x003B7362
+// (wb 0xaa4f20), the playerName string, then per team getNextTeamID,
+// getTeamInfo, the teamLibraryMapName type test (DICT_ASCIISTRING), the
+// teamOwner string compared with the player name and TeamsInfoRec::removeTeam
+// 0x0032C26D. The name keeps the address.
+void SidesList::rva0032C88F(int index)
+{
+	SidesInfo *side = getSideInfo(index);
+	ScriptList *scripts = &side->m_scripts;
+	if (scripts)
+		scripts->rva003B7362();
+	AsciiString name = side->m_dict.getAsciiString(TheKey_playerName);
+	for (int id = m_teamrec.getFirstTeamID(); id != 0; ) {
+		int nextID = m_teamrec.getNextTeamID(id);
+		Dict *team = m_teamrec.getTeamInfo(id);
+		if (team->getType(TheKey_teamLibraryMapName) == Dict::DICT_ASCIISTRING
+				&& team->getAsciiString(TheKey_teamOwner) == name)
+			m_teamrec.bfmeRelease(id);
+		id = nextID;
+	}
 }
 
 // SidesList::discardOverriddenScriptsAndTeams, retail 0x0032C991 (53 bytes).
