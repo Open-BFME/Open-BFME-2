@@ -222,7 +222,8 @@ Int Rva0051E2FB::rva0051E2FB()
 }
 
 // 0x0053ECAC: clears (true) or sets (false) status 0x200 of window i of the
-// +0x3C array.
+// +0x3C array. A virtual: slot 3 of RadialWindowController's vtable
+// 0x00C6944C, as in WorldBuilder's twin table.
 class GameWindow
 {
 public:
@@ -232,9 +233,9 @@ public:
 class RadialWindowController
 {
 public:
-	void EnableButtonInput(Int i, bool clear);
+	virtual void EnableButtonInput(Int i, bool clear);
 private:
-	char m_pad00[0x3C];
+	char m_pad04[0x38];
 	GameWindow **m_3C;
 };
 void RadialWindowController::EnableButtonInput(Int i, bool clear)

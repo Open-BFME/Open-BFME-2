@@ -270,8 +270,9 @@ void Rva00525783::rva00525783()
 // Apt window close requests: in the open states 2 and 3, run the window's
 // Apt "Close" callback through the rowed Rva0043DB23 and move to state 4.
 // ?rva004E67D0@InGameNotificationBoxMovieClip@@QAEXH@Z @0x004E67D0 49B (argument unused)
-// ?DoClose@InGameNotificationBoxMovieClip@@QAEXXZ  @0x004E6B9B 55B (first clears the owned
-//   pointer at +0x40 through the rowed Rva004E6A1D::clear)
+// ?DoClose@InGameNotificationBoxMovieClip@@UAEXXZ  @0x004E6B9B 55B (first clears the owned
+//   pointer at +0x40 through the rowed Rva004E6A1D::clear; a virtual: slot 3
+//   of vtable 0x00C62440, as in WorldBuilder's twin table 0x01F1C804)
 void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
 
 class Rva004E6A1D
@@ -285,9 +286,8 @@ class InGameNotificationBoxMovieClip
 {
 public:
 	void rva004E67D0(int unused);
-	void DoClose();
+	virtual void DoClose();
 private:
-	char m_pad00[4];
 	void *m_owner;				// +0x04
 	int m_state;				// +0x08
 	char m_pad0C[0x34];

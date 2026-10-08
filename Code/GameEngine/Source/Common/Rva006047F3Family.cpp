@@ -4,23 +4,22 @@ struct Win32LocalFileSystem {
   virtual void _v0();
   virtual void _v1();
   virtual int Virt8(unsigned short* buf, void* a2, void* a3);
-  virtual void _v3();
+  // Slots 3, 5, 6 and 10 of vtable 0x00C7A9A8 (installed by the ctor at
+  // 0x00604A5F): each narrow-string virtual converts and forwards to its wide
+  // neighbour, so they are virtuals of this class, not plain members.
+  virtual int M7F3(const char* src, void* a2, int a3);
   virtual bool Virt10(unsigned short* buf);
-  virtual void _v5();
-  virtual void _v6();
+  virtual bool M831(const char* src);
+  virtual void getFileListInDirectory(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6);
   virtual void _v7();
   virtual void _v8();
   virtual int Virt24(unsigned short* buf, void* a2);
-  virtual void _v10();
+  virtual int M948(const char* src, void* a2);
   virtual void _v11();
   virtual void _v12();
   virtual void _v13();
   virtual void _v14();
   virtual void Virt60(unsigned short* b0, unsigned short* b1, unsigned short* b2, unsigned short* b3, void* a5, void* a6);
-  int M7F3(const char* src, void* a2, int a3);
-  bool M831(const char* src);
-  int M948(const char* src, void* a2);
-  void getFileListInDirectory(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6);
 };
 int Win32LocalFileSystem::M7F3(const char* src, void* a2, int a3) {
   unsigned short buf[260];
@@ -39,8 +38,8 @@ int Win32LocalFileSystem::M948(const char* src, void* a2) {
   return Virt24(buf, a2);
 }
 
-// ?getFileListInDirectory@Win32LocalFileSystem@@QAEXPBD000PAX1@Z @0x00604895 179B.
-// Four-string helper through table slot 0x0087A9C0 (neighbours M831): require
+// ?getFileListInDirectory@Win32LocalFileSystem@@UAEXPBD000PAX1@Z @0x00604895 179B.
+// Four-string virtual, slot 6 of vtable 0x00C7A9A8 (neighbours M831): require
 // a2-a4, optionally convert a1, convert a2-a4 via BFME2Utf8ToWide, then call
 // the 0x3C virtual with the four wide buffers plus a5-a6.
 void Win32LocalFileSystem::getFileListInDirectory(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6)

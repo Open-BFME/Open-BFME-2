@@ -46,7 +46,11 @@ public:
 
 // 0x0053EC7D and 0x0053ECD1: window i of the +0x3C array: moved and sized
 // from two coordinate pairs; resp. whether it is shown and its rowed push
-// button data has a positive +0xF8.
+// button data has a positive +0xF8. Both are virtuals: slots 2 and 1 of
+// RadialWindowController's vtable 0x00C6944C (the base at +0xC of the class
+// whose ctor/dtor 0x0053ED1A/0x0053ED78 install it). WorldBuilder's twin
+// table names slot 1 ShouldButtonFlash (RadialWindowController.cpp:262..265
+// asserts); its static window helper is inlined here.
 class GameWindow
 {
 public:
@@ -68,10 +72,10 @@ struct Rva0053ECD1ButtonData
 class RadialWindowController
 {
 public:
-	void PositionButton(Int i, const Rva0053EC7DPair *pos, const Rva0053EC7DPair *size);
-	bool rva0053ECD1(Int i);
+	virtual bool ShouldButtonFlash(Int i);
+	virtual void PositionButton(Int i, const Rva0053EC7DPair *pos, const Rva0053EC7DPair *size);
 private:
-	char m_pad00[0x3C];
+	char m_pad04[0x38];
 	GameWindow **m_3C;
 };
 void RadialWindowController::PositionButton(Int i, const Rva0053EC7DPair *pos, const Rva0053EC7DPair *size)
@@ -80,7 +84,7 @@ void RadialWindowController::PositionButton(Int i, const Rva0053EC7DPair *pos, c
 	w->winSetPosition(pos->x, pos->y);
 	w->winSetSize(size->x, size->y);
 }
-bool RadialWindowController::rva0053ECD1(Int i)
+bool RadialWindowController::ShouldButtonFlash(Int i)
 {
 	GameWindow *w = m_3C[i];
 	if (!w->winIsHidden())

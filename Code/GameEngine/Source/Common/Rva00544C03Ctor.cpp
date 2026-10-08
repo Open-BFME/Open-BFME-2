@@ -251,6 +251,10 @@ AIHarvestPrepareSiteState::AIHarvestPrepareSiteState(StateMachine *machine) : St
 	*(const void **)this = g_00C69C98;
 }
 
+// ICF-folded in retail: 0x00544AB3 is slot 3 of five State tables
+// (0x00C607D8, 0x00C60950, 0x00C69940, 0x00C69C98, 0x00C69CF8), where
+// WorldBuilder keeps five code-identical copies. This class's table
+// 0x00C69C98 is one of them, so the name is one pick among the five.
 void AIHarvestPrepareSiteState::xfer(Xfer *xfer)
 {
 	xfer->Version1();

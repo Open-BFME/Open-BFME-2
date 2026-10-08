@@ -3,7 +3,10 @@
 // 0x0061EDA0 neighbourhood cluster.  The body carries a BFME1 donor identity
 // (reference/open-bfme-1/game/Libraries/Source/assetmanager/assetmanager_base.cpp
 // bfmeAdvanceStages), but the BFME2 tail diverges (it deletes the bfmeStage7(0)
-// result), so the row keeps an address-derived method name on the donor class.
+// result). WorldBuilder names the body AssetFactoryBase::Delete
+// (assetmanager_base.cpp:37 assert); it is a virtual, slot 8 of 18 retail
+// vtables of AssetFactoryBase-derived factories that inherit it, as its WB
+// twin is slot 8 of the matching WB tables.
 
 class AssetFactoryBase
 {
@@ -16,17 +19,15 @@ public:
 	virtual void bfmeStage4();
 	virtual void bfmeStage5();
 	virtual void bfmeStage6();
-	virtual void bfmeSlot20();
+	virtual void Delete();
 	virtual void *bfmeStage7(unsigned int finalStage);
 	virtual bool bfmeCanAdvanceStages();
-
-	void Delete();
 
 private:
 	volatile unsigned int m_flags;
 };
 
-// ?Delete@AssetFactoryBase@@QAEXXZ
+// ?Delete@AssetFactoryBase@@UAEXXZ
 void AssetFactoryBase::Delete()
 {
 	if (bfmeCanAdvanceStages()) {
