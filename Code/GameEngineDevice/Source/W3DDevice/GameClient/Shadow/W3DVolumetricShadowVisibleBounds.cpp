@@ -55,3 +55,13 @@ __declspec(noinline) int W3DVolumetricShadow::bfmeIntersectsVisibleBounds(const 
 			pos.Y + m_robjExtent > box.Center.Y - box.Extent.Y &&
 			pos.Y - m_robjExtent < box.Center.Y + box.Extent.Y;
 }
+
+// BF1 9cbfb551fe Common/Rva006C8CC0DisplacedStubs.cpp is the clean semantic donor.
+// Target 106FA5..106FB6 RET4 follows precedingRET4; MOVSS stackfloat to receiver8C
+// Original owner/purpose is unproven; retain an independent address-owned type.
+class Rva00106FA5Fields
+{
+public: void setFloat(float value);
+private: char unknown[0x8C]; float value8C;
+};
+void Rva00106FA5Fields::setFloat(float value) { value8C=value; }

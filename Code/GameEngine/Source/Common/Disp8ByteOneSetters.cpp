@@ -90,3 +90,13 @@ BFME_DISP8_BYTE_ONE_SETTER(Rva005C399EOneSetter, 0x45)
 BFME_DISP8_BYTE_ZERO_SETTER(Rva006005D0ZeroSetter, 0x0C)
 BFME_DISP8_BYTE_ZERO_SETTER(Rva00238D8DZeroSetter, 0x6C)
 BFME_DISP8_BYTE_ONE_SETTER(Rva006005CBOneSetter, 0x0C)
+
+// BF1 9cbfb551fe Common/Rva004021B0PositiveGetter.cpp is the clean semantic donor.
+// Target 53110B..531113 RET0 followsRET4; signed dword0 greaterthan0 returnedAL
+// Original owner/purpose is unproven; retain an independent address-owned type.
+class Rva0053110BFields
+{
+public: bool isPositive() const;
+private: int field00;
+};
+bool Rva0053110BFields::isPositive() const { return field00>0; }

@@ -21,3 +21,13 @@ Bool equalTag_Rva003B31C7(const void *record, const void *tag, Int /*unused*/)
 {
 	return memcmp(record, tag, 4) == 0;
 }
+
+// BF1 9cbfb551fe Common/RvaTinyBodies_20260920.cpp is the clean semantic donor.
+// Target 3B31F6..3B3204 RET0 followsRET0; sets dwords0/4/8 to0/-1/0 and returnsreceiver
+// Original owner/purpose is unproven; retain an independent address-owned type.
+class Rva003B31F6Fields
+{
+public: Rva003B31F6Fields *initialize();
+private: int field00,field04,field08;
+};
+Rva003B31F6Fields *Rva003B31F6Fields::initialize() { field00=0;field04=-1;field08=0;return this; }
