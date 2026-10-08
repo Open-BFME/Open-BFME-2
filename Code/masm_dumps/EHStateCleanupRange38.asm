@@ -41,6 +41,8 @@ EXTERN ??1Rva005248D0@@UAE@XZ:PROC
 EXTERN ??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ:PROC
 EXTERN ??1Gen_uw_0049b47c@@QAE@XZ:PROC
 EXTERN ?apply@Rva004EDFF8DwordImmSetter@@QAEXXZ:PROC
+EXTERN ?clear@Rva003B4071@@QAEXXZ:PROC
+EXTERN ?apply@Rva002B2294DwordImmSetter@@QAEXXZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b7c75e at RVA 0x0077C75E; 22-byte body ends at RET.
@@ -597,6 +599,18 @@ cleanup_done_007824d7:
     ret
 ?rva007824d7@@YAXXZ ENDP
 
+; Unwind@00b8258c: masked-add cleanup adds 04h to [ebp-16] and tail-jumps to 0x003B4071.
+PUBLIC ?rva0078258c@@YAXXZ
+?rva0078258c@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 04h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?clear@Rva003B4071@@QAEXXZ
+?rva0078258c@@YAXXZ ENDP
+
 ; Unwind@00b827e8 at RVA 0x007827E8; 20-byte masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to the EmissionVelocityInfo dtor at 0x0049B47C.
 PUBLIC ?rva007827e8@@YAXXZ
 ?rva007827e8@@YAXXZ PROC
@@ -748,6 +762,18 @@ PUBLIC ?rva00784239@@YAXXZ
 cleanup_done_00784239:
     ret
 ?rva00784239@@YAXXZ ENDP
+
+; Unwind@00b8430b: masked-add cleanup adds 04h to [ebp-20] and tail-jumps to 0x0007FAB3.
+PUBLIC ?rva0078430b@@YAXXZ
+?rva0078430b@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-20]
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 04h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
+?rva0078430b@@YAXXZ ENDP
 
 ; Unwind@00b84973 at RVA 0x00784973; 25-byte state-bit cleanup ends at RET.
 ; Target clears bit 0 at [ebp-28] and tail-jumps through [ebp+8] to AsciiString dtor.
@@ -939,6 +965,18 @@ PUBLIC ?rva0078577f@@YAXXZ
 cleanup_done_0078577f:
     ret
 ?rva0078577f@@YAXXZ ENDP
+
+; Unwind@00b8582c: masked-add cleanup adds 04h to [ebp-16] and tail-jumps to 0x0007FAB3.
+PUBLIC ?rva0078582c@@YAXXZ
+?rva0078582c@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 04h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ
+?rva0078582c@@YAXXZ ENDP
 
 ; Unwind@00b85b4b at RVA 0x00785B4B; 25-byte state-bit cleanup ends at RET.
 ; Target clears bit 0 at [ebp-16] and tail-jumps with [ebp-20] to the rowed dtor.
@@ -2180,6 +2218,18 @@ cleanup_done_00794bbb:
     ret
 ?rva00794bbb@@YAXXZ ENDP
 
+; Unwind@00b94e32: masked-add cleanup adds 218h to [ebp-16] and tail-jumps to 0x005248D0.
+PUBLIC ?rva00794e32@@YAXXZ
+?rva00794e32@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 218h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Rva005248D0@@UAE@XZ
+?rva00794e32@@YAXXZ ENDP
+
 ; Unwind@00b9504c at RVA 0x0079504C; 25-byte state-bit cleanup ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20]; uses MOV from [ebp+8] only when set.
 ; The tail-jump target is a matched function at RVA 0x005B804E; parent identity/layout remain unproven.
@@ -2545,6 +2595,18 @@ PUBLIC ?rva00792a7a@@YAXXZ
     and ecx, eax
     jmp ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ
 ?rva00792a7a@@YAXXZ ENDP
+
+; Unwind@00b92a8e: masked-add cleanup adds 08h to [ebp-16] and tail-jumps to 0x002B2294.
+PUBLIC ?rva00792a8e@@YAXXZ
+?rva00792a8e@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 08h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva002B2294DwordImmSetter@@QAEXXZ
+?rva00792a8e@@YAXXZ ENDP
 
 ; Unwind@00b92eb6 at RVA 0x00792EB6; target byte boundary is 25 bytes.
 ; State bit 0 gates [ebp+8] cleanup through RVA 0x005B804E; parent

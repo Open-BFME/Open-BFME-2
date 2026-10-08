@@ -69,6 +69,7 @@ EXTERN ?apply@Rva005E3947DwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva005E394EDwordImmSetter@@QAEXXZ:PROC
 EXTERN ??1Rva005E12D1@@UAE@XZ:PROC
 EXTERN ?apply@Rva004EE006DwordImmSetter@@QAEXXZ:PROC
+EXTERN ??1SecondaryBase@@UAE@XZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b96a09 at RVA 0x00796A09; 25-byte interval ends at RET.
@@ -1549,6 +1550,18 @@ PUBLIC ?rva007A09CD@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva007A09CD@@YAXXZ ENDP
+
+; Unwind@00ba0af4: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x004FAC80.
+PUBLIC ?rva007A0AF4@@YAXXZ
+?rva007A0AF4@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1SecondaryBase@@UAE@XZ
+?rva007A0AF4@@YAXXZ ENDP
 
 ; Unwind@00ba0cb6 at RVA 0x007A0CB6; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
