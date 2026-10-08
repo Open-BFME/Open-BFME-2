@@ -35,6 +35,8 @@ public:
 // the game mode at +0x110.
 // The object list head is at +0xAC: getFirstObject (0x0023CAD2) returns it and
 // prepareLogicForObjectLoad (0x00242C86) walks it inline.
+// ScoreKeeper::addObjectLost (0x0039CF73) tests the scoring byte at +0x98
+// first, as Zero Hour's isScoringEnabled does.
 // GameClient::update (0x0023BEE8) reads the byte at +0x125, next to the pause
 // byte isGamePaused (0x0023CD97) returns from +0x124, and skips the drawable,
 // terrain and display updates while it is set.
@@ -50,7 +52,9 @@ public:
 	bool m_6d; // +0x6D
 
 private:
-	char pad6E[0xAC - 0x6E];
+	char pad6E[0x98 - 0x6E];
+	bool m_isScoringEnabled; // +0x98
+	char pad99[0xAC - 0x99];
 	Object *m_firstObject; // +0xAC, the head getFirstObject returns
 	char padB0[0xB4 - 0xB0];
 	ObjectIdMap m_map;
@@ -80,6 +84,7 @@ public:
 	void processDestroyList();	// 0x002413DF
 	void prepareLogicForObjectLoad();	// 0x00242C86
 	void setControlBarOverride(const AsciiString &commandSetName, int slot, const CommandButton *commandButton);	// 0x0024792F
+	bool isScoringEnabled() const { return m_isScoringEnabled; }
 	bool getFlag125() const { return m_flag125; }
 	unsigned int getTimestamp() const { return m_timestamp; }
 	unsigned int getFrame() const { return m_frame; }
