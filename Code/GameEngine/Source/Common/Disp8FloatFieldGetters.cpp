@@ -85,3 +85,22 @@ public: void *at(int index);
 private: unsigned char unknown[0x18]; Rva006C03D0Slot entries[1];
 };
 void *Rva006C03D0Fields::at(int index) { return &entries[index]; }
+
+// BF1 9cbfb551fe Common/R2SmallMemberOps.cpp Rva004223B0::isNonNegative
+// supplies the first comparison expression. Native adjacent predicate is a
+// local condition/offset adaptation, not a second asserted donor identity.
+// Independent complete RET extents: 1DCCDE..1DCCF0 reads float04>=0.0f after
+// RET1DCCDD; 1DCCF0..1DCD01 reads float00>0.0f before the rowed byte getter.
+// Both use independently verified BBAEAC=00000000; unordered returns false.
+// Original owners, field purposes and complete bounds remain unknown. Separate
+// address-owned carriers avoid equating classes merely because bodies adjoin.
+struct Rva001DCCDEFields {
+    unsigned char unknown[4]; float value04;
+    bool isNonNegative() const;
+};
+bool Rva001DCCDEFields::isNonNegative() const { return value04 >= 0.0f; }
+struct Rva001DCCF0Fields {
+    float value00;
+    bool isPositive() const;
+};
+bool Rva001DCCF0Fields::isPositive() const { return value00 > 0.0f; }
