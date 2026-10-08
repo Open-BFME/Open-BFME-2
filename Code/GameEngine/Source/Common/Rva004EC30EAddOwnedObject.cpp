@@ -54,11 +54,18 @@ public:
 	void rva00599825(int objectID);
 };
 
+class AIBuilder
+{
+public:
+	void unRegisterProducedObject(Object *object);
+};
+
 class Rva002A8AB1Record
 {
 public:
 	void rva004EC30E(Object *object);
 	void rva002C6A3D(Object *object);
+	void rva002C6A4E(Object *object);
 private:
 	char m_pad00[0x168];
 	unsigned char m_168;
@@ -89,4 +96,14 @@ void Rva002A8AB1Record::rva002C6A3D(Object *object)
 	if (m_168 != 0)
 		return;
 	rva004EC30E(object);
+}
+// ?rva002C6A4E@Rva002A8AB1Record@@QAEXPAVObject@@@Z @0x002C6A4E 17B
+// Old-owner leaf forwarder called from the FoundationAIUpdate slots with the
+// old owner's record. Tests byte +0x168; when zero tail-jumps to the rowed
+// removal path at 0x004EC8F4 with the same record and Object*.
+void Rva002A8AB1Record::rva002C6A4E(Object *object)
+{
+	if (m_168 != 0)
+		return;
+	((AIBuilder *)this)->unRegisterProducedObject(object);
 }
