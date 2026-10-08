@@ -80,10 +80,12 @@ public:
 	Coord3D m_pos;		// +0x38
 };
 
+// Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
+enum ObjectID { INVALID_ID = 0, FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff };
 class GameLogic
 {
 public:
-	Object *findObjectByID(int id);	// 0x00049DC5
+	Object *findObjectByID(ObjectID id);	// 0x00049DC5
 };
 extern GameLogic *TheGameLogic;
 
@@ -185,7 +187,7 @@ int ObjectBroadcastEventToEnemies(lua_State *state)
 	unsigned objectID = Rva00990030Lookup((Rva00990030Range *)state, 1);
 	if (!objectID && lua_type(state, 1) != 1)
 		return 0;
-	Object *object = TheGameLogic->findObjectByID(objectID);
+	Object *object = TheGameLogic->findObjectByID((ObjectID)objectID);
 	if (!object)
 		return 0;
 
@@ -233,7 +235,7 @@ int ObjectBroadcastEventToAllies(lua_State *state)
 	unsigned objectID = Rva00990030Lookup((Rva00990030Range *)state, 1);
 	if (!objectID && lua_type(state, 1) != 1)
 		return 0;
-	Object *object = TheGameLogic->findObjectByID(objectID);
+	Object *object = TheGameLogic->findObjectByID((ObjectID)objectID);
 	if (!object)
 		return 0;
 
@@ -269,7 +271,7 @@ int ObjectBroadcastEventToCivilians(lua_State *state)
 	unsigned objectID = Rva00990030Lookup((Rva00990030Range *)state, 1);
 	if (!objectID && lua_type(state, 1) != 1)
 		return 0;
-	Object *object = TheGameLogic->findObjectByID(objectID);
+	Object *object = TheGameLogic->findObjectByID((ObjectID)objectID);
 	if (!object)
 		return 0;
 
@@ -307,7 +309,7 @@ int ObjectBroadcastEventToUnits(lua_State *state)
 	unsigned objectID = Rva00990030Lookup((Rva00990030Range *)state, 1);
 	if (!objectID && lua_type(state, 1) != 1)
 		return 0;
-	Object *object = TheGameLogic->findObjectByID(objectID);
+	Object *object = TheGameLogic->findObjectByID((ObjectID)objectID);
 	if (!object)
 		return 0;
 

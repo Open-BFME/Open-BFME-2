@@ -24,7 +24,7 @@ public:
 enum ObjectID { INVALID_ID=0 };
 enum DrawableID { INVALID_DRAWABLE_ID=0 };
 class Object { public: char m_pad[0x74]; ObjectID m_id; };
-class GameLogic {public: Object *findObjectByID(int);};
+class GameLogic {public: Object *findObjectByID(ObjectID);};
 class Drawable {public: DrawableID getID() const;};
 struct LuaDrawableLink {char m_pad[0xC]; Drawable *m_drawable;};
 struct LuaDrawableState {char m_pad[0x9C]; LuaDrawableLink *m_drawable;};
@@ -127,7 +127,7 @@ int ObjectPlaySound(lua_State *state) {
  if(lua_gettop(state)<2 || !TheAudio) return 0;
  unsigned id=Rva00990030Lookup((Rva00990030Range*)state,1);
  if(!id && lua_type(state,1)!=1) return 0;
- Object *object=TheGameLogic->findObjectByID(id);
+ Object *object=TheGameLogic->findObjectByID((ObjectID)id);
  if(!object) return 0;
  Rva0036CA00Str sound=TheAudio->rvaSlot12C(AsciiString(lua_tostring(state,2)));
  if(!sound.m_item) return 1;

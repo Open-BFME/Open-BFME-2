@@ -26,10 +26,12 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/GameLogic.h
+// Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
+enum ObjectID { INVALID_ID = 0, FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff };
 class GameLogic
 {
 public:
-	Object *findObjectByID(int id);
+	Object *findObjectByID(ObjectID id);
 };
 
 extern GameLogic *TheGameLogic;
@@ -38,7 +40,7 @@ Object *BfmeObjectReference::resolve()
 {
 	if (this != 0) {
 		BfmeObjectIdSlot *slot = getObjectIdSlot();
-		return TheGameLogic->findObjectByID(slot->m_value->m_id);
+		return TheGameLogic->findObjectByID((ObjectID)slot->m_value->m_id);
 	}
 	return 0;
 }

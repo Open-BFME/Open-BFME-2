@@ -16,7 +16,9 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 struct Coord3D {float x,y,z;};
 class Drawable {public: const Coord3D *getPosition() const;};
 class Object {public: char pad[0x38]; BfmeEventPositionView position;};
-class GameLogic {public: Object *findObjectByID(int);};
+// Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
+enum ObjectID { INVALID_ID = 0, FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff };
+class GameLogic {public: Object *findObjectByID(ObjectID);};
 class GameClient {public:
  virtual void slot0();
  virtual void slot1();
@@ -55,7 +57,7 @@ BfmeEventPositionView BfmeAudioEventPrefix136::rva002DA1CC(bool &valid) {
   break;
  }
  case 2: {
-  Object *obj=TheGameLogic->findObjectByID(m_int34);
+  Object *obj=TheGameLogic->findObjectByID((ObjectID)m_int34);
   if(obj) {m_b48=1;m_position=obj->position;}
   break;
  }

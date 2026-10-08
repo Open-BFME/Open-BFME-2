@@ -75,10 +75,12 @@ public:
 	unsigned char m_438; // +0x438
 };
 
+// Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
+enum ObjectID { INVALID_ID = 0, FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff };
 class GameLogic
 {
 public:
-	Object *findObjectByID(int id);
+	Object *findObjectByID(ObjectID id);
 };
 
 extern GameLogic *TheGameLogic;
@@ -167,7 +169,7 @@ private:
 			Rva004530ED entry(it->_M_data);
 			if (entry.m_id > myId)
 			{
-				Object *other = TheGameLogic->findObjectByID(entry.m_id);
+				Object *other = TheGameLogic->findObjectByID((ObjectID)entry.m_id);
 				if (other)
 				{
 					GettingBuiltBehaviorInterface *gbi = interfaceOf(other);
@@ -211,7 +213,7 @@ int GettingBuiltBehavior::rva00453B7B(int index, Rva004530ED *out)
 			break;
 		if (i++ >= index)
 		{
-			Object *obj = TheGameLogic->findObjectByID(it->_M_data.m_id);
+			Object *obj = TheGameLogic->findObjectByID((ObjectID)it->_M_data.m_id);
 			if (obj)
 			{
 				*out = it->_M_data;

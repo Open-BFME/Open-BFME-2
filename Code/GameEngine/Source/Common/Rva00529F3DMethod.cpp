@@ -12,10 +12,12 @@
 #include <stddef.h>
 
 class Object;
+// Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
+enum ObjectID { INVALID_ID = 0, FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff };
 class GameLogic
 {
 public:
-	Object *findObjectByID(int id);
+	Object *findObjectByID(ObjectID id);
 };
 extern GameLogic *TheGameLogic;
 
@@ -62,7 +64,7 @@ void Rva00529F3D::rva00529F3D(int argument)
 	(void)argument;
 	if (m_30 != 0)
 	{
-		Object *object = TheGameLogic->findObjectByID(m_30);
+		Object *object = TheGameLogic->findObjectByID((ObjectID)m_30);
 		if (object != NULL)
 		{
 			if (ThePlayerList != NULL &&

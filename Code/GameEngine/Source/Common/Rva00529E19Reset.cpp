@@ -13,10 +13,12 @@
 #include "ascii_string.h"
 
 class Object;
+// Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
+enum ObjectID { INVALID_ID = 0, FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff };
 class GameLogic
 {
 public:
-	Object *findObjectByID(int id);
+	Object *findObjectByID(ObjectID id);
 };
 extern GameLogic *TheGameLogic;
 
@@ -59,7 +61,7 @@ void Holder00529E19::Rva00529E19()
 
 void Holder00529E19::Rva00529DA9(int value)
 {
-	Object *object = TheGameLogic->findObjectByID(value);
+	Object *object = TheGameLogic->findObjectByID((ObjectID)value);
 	const AsciiString *name = object != NULL
 		? object->rva00290E67()
 		: &AsciiString::TheEmptyString;

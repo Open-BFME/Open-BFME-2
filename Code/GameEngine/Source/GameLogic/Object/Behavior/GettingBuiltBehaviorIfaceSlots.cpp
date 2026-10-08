@@ -119,10 +119,12 @@ public:
 	unsigned char m_438; // +0x438
 };
 
+// Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
+enum ObjectID { INVALID_ID = 0, FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff };
 class GameLogic
 {
 public:
-	Object *findObjectByID(int id);
+	Object *findObjectByID(ObjectID id);
 };
 
 extern GameLogic *TheGameLogic;
@@ -406,7 +408,7 @@ void GettingBuiltBehavior::rva00453F31(int a1)
 
 	Object *other;
 	int upId = id + 1;
-	while ((other = TheGameLogic->findObjectByID(upId)) != 0)
+	while ((other = TheGameLogic->findObjectByID((ObjectID)upId)) != 0)
 	{
 		if (!other->m_template->isEquivalentTo(tmpl) || !rva00453F31Flag(other))
 			break;
@@ -415,7 +417,7 @@ void GettingBuiltBehavior::rva00453F31(int a1)
 			gbi->rva00453652(a1);
 		++upId;
 	}
-	while ((other = TheGameLogic->findObjectByID(--id)) != 0)
+	while ((other = TheGameLogic->findObjectByID((ObjectID)--id)) != 0)
 	{
 		if (!other->m_template->isEquivalentTo(tmpl) || !rva00453F31Flag(other))
 			break;
@@ -478,7 +480,7 @@ void __cdecl rva0045346D(const void *arg1, int arg2, int arg3)
 // handle of 5 or more goes to TheAudio slot 27 and resets to 1.
 void GettingBuiltBehavior::rva00454501()
 {
-	Object *other = TheGameLogic->findObjectByID(m_object->m_78);
+	Object *other = TheGameLogic->findObjectByID((ObjectID)m_object->m_78);
 	if (other)
 	{
 		Rva00454501Peer *peer = (Rva00454501Peer *)other->rva0028BCF4();
