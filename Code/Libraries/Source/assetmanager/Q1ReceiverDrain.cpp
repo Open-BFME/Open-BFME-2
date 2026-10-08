@@ -1,10 +1,7 @@
-// ?Rva00624790@Q1Receiver0134FAAC@@QAEXXZ
-// partial score=1.0 date=2026-10-07
-// ?Rva00624790@Q1Receiver0134FAAC@@QAEXXZ
 // cl: /O2 /G6 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/sweep
 // stlport
 
-// Retail RVA 0x009F1AE0, 1470 bytes. Identity is address-derived: its one
+// Retail RVA 0x00624790 (VA 0x009F1AE0), 1476 bytes. Identity is address-derived: its one
 // caller, the unclaimed guarded forwarder at 0x009EBC40 (mov ecx,[0x0134FAAC];
 // test ecx,ecx; je; jmp 0x009F1AE0), proves the receiver and the no-argument
 // thiscall ABI but is itself unnamed, and no vtable slot or string names this
