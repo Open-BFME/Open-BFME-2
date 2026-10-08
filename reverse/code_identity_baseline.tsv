@@ -900,8 +900,6 @@ Code/GameEngine/Source/Common/Rva005CD018ObjListPush.cpp	?push_back@?$list@PAVRv
 Code/GameEngine/Source/Common/Rva005CDA3DDtor.cpp	??1Rva005CDA3D@@UAE@XZ	??1Rva005E66A4@@UAE@XZ	0x005E66A4	unowned
 Code/GameEngine/Source/Common/Rva005CDDA4Dtor.cpp	??1Rva005CDDA4@@UAE@XZ	??1Rva005E66A4@@UAE@XZ	0x005E66A4	unowned
 Code/GameEngine/Source/Common/Rva005CFEDFOwnedPointerDtors.cpp	??1Rva005CFEDF@@UAE@XZ	?clear@Rva005EBC74@@QAEXXZ	0x005EBCC9	wrong
-Code/GameEngine/Source/Common/Rva005CFEDFOwnedPointerDtors.cpp	??1Rva005CFFB8@@UAE@XZ	?clear@Rva005EC422@@QAEXXZ	0x005EC4AA	wrong
-Code/GameEngine/Source/Common/Rva005CFEDFOwnedPointerDtors.cpp	??1Rva005D10F9@@UAE@XZ	?clear@Rva005EC422@@QAEXXZ	0x005EC4AA	wrong
 Code/GameEngine/Source/Common/Rva005D20E5Wrap.cpp	?rva005D20E5@Rva005D20E5@@QAEXXZ	?rva002BF6A7@Rva002BF6A7@@QAEXH@Z	0x002BF6A7	unowned
 Code/GameEngine/Source/Common/Rva005D25F2Dtor.cpp	??1Rva005D25F2@@UAE@XZ	??1Elem005D25F2@@QAE@XZ	0x005D258E	unowned
 Code/GameEngine/Source/Common/Rva005D26B2Method.cpp	?rva005D26B2@Rva005D2664@@QAEXPBD@Z	?Rva004128F0GetParam@@YA_NPBD0AAVAsciiString@@@Z	0x004128F0	unowned

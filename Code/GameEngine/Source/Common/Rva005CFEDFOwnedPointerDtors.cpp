@@ -20,10 +20,11 @@
 // rowed 0x005D1129, which works the +0x08 member). Callers: the rowed ??_G
 // wrappers 0x005CFEC3, 0x005CFF9C and 0x005D10DD.
 
+// noinline: the class dtors below call this row out of line in retail.
 class Rva005EC422
 {
 public:
-	~Rva005EC422();
+	__declspec(noinline) ~Rva005EC422();
 	void clear();
 
 private:

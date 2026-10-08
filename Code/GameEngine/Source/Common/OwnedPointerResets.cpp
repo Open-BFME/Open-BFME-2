@@ -8,6 +8,12 @@
 // 0x004E668E destructor is defined below from its own boundary; other names
 // remain address-derived. Owner and pointee type identities are not recovered.
 //
+// Five of the pointee destructors defined at the end of this unit
+// (0x004E668E, 0x0052710C, 0x00527FA2, 0x005D4FFC, 0x005E893E) are
+// declared noinline: retail's resets call them out of line, as they would
+// from another unit, while cl would otherwise expand them here and call
+// the clear helper each one forwards to.
+//
 //   reset       pointee dtor  callers
 //   0x000AF146  0x000AD71D    2
 //   0x0023A039  0x00239D7A    3
@@ -113,7 +119,7 @@ void Rva0023A039::clear()
 class Rva004E668E
 {
 public:
-	~Rva004E668E();
+	__declspec(noinline) ~Rva004E668E();
 };
 
 // Target identity: the reset methods below and the scalar deleting destructor
@@ -223,7 +229,7 @@ void Rva002B9099::clear()
 class Rva0052710C
 {
 public:
-	~Rva0052710C();
+	__declspec(noinline) ~Rva0052710C();
 };
 
 class Rva002D3894
@@ -271,7 +277,7 @@ void Rva002D38D1::clear()
 class Rva00527FA2
 {
 public:
-	~Rva00527FA2();
+	__declspec(noinline) ~Rva00527FA2();
 };
 
 class Rva002D3931
@@ -592,7 +598,7 @@ void Rva00578724::clear()
 class Rva005D4FFC
 {
 public:
-	~Rva005D4FFC();
+	__declspec(noinline) ~Rva005D4FFC();
 };
 
 class Rva0057B9B6
@@ -616,7 +622,7 @@ void Rva0057B9B6::clear()
 class Rva005E893E
 {
 public:
-	~Rva005E893E();
+	__declspec(noinline) ~Rva005E893E();
 };
 
 class Rva005CE21C
