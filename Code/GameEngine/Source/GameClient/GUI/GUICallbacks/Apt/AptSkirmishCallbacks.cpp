@@ -96,8 +96,23 @@ extern GameInfo *TheSkirmishGameInfo;
 class AptSkirmish
 {
 public:
-	// The last slot of the vtable at VA 0x00C67908..0x00C67948; WB names it
-	// (AptSkirmish.cpp, "Couldn't match skirmish game." at line 1209).
+	// Target constructor 0x00521977 installs the primary table at VA
+	// 0x00C67910. Its raw 15 entries put rva00523303 in slot 12 and the
+	// rowed validator in slot 14; the other local slots remain placeholders.
+	virtual void vslot0() = 0;
+	virtual void vslot1() = 0;
+	virtual void vslot2() = 0;
+	virtual void vslot3() = 0;
+	virtual void vslot4() = 0;
+	virtual void vslot5() = 0;
+	virtual void vslot6() = 0;
+	virtual void vslot7() = 0;
+	virtual void vslot8() = 0;
+	virtual void vslot9() = 0;
+	virtual void vslot10() = 0;
+	virtual void vslot11() = 0;
+	virtual void rva00523303();
+	virtual void vslot13() = 0;
 	virtual bool MPOwnerValidatGameInfo(GameInfo *gameInfo);
 
 	void OnInitialized(const char *unused);
@@ -129,7 +144,8 @@ private:
 	void *m_274; // +0x274, the screen's Apt movie
 	unsigned char m_pad278[0x6B8 - 0x278];
 	int m_state; // +0x6B8
-	unsigned char m_pad6bc[0x6C1 - 0x6BC];
+	unsigned char m_pad6bc[0x6C0 - 0x6BC];
+	bool m_6c0; // +0x6C0, target flag tested and cleared by slot 12
 	bool m_6c1; // +0x6C1
 	bool m_6c2; // +0x6C2
 	unsigned char m_pad6c3[0x6C4 - 0x6C3];
@@ -168,7 +184,8 @@ void AptSkirmish::StartGame(const char *unused)
 class SkirmishPreferences
 {
 public:
-	virtual void v0();
+	SkirmishPreferences(int profileIndex);
+	virtual ~SkirmishPreferences();
 	virtual void v1();
 	virtual void v2();
 	virtual void v3slotC();
@@ -182,6 +199,14 @@ public:
 	void setCurrentUserName(const UnicodeString &name);
 	// Unrowed 0x0043BE7C, pinned by address.
 	void rva0043BE7C();
+
+private:
+	// Target constructor and helper accesses agree with UserPreferences at
+	// +0x00..+0x13, then profile index +0x14, names +0x18, current name +0x1C.
+	unsigned char m_baseTail[0x10];
+	int m_profileIndex;
+	void *m_userNames;
+	void *m_currentUserName;
 };
 
 // The screen's member at +0x668; its unrowed 0x005C1ABA takes the current
@@ -189,7 +214,17 @@ public:
 class Rva005C1ABA
 {
 public:
+	virtual void vslot0();
+	virtual void vslot1();
+	virtual void vslot2();
+	virtual void vslot3();
 	void rva005C1ABA(const UnicodeString &name);
+};
+// Target memberwise assignment at 0x005232D0 copies the 0x20-byte preference
+// record shape; its owning type remains address-derived in the ledger.
+struct Rva005232D0
+{
+	Rva005232D0 &operator=(const Rva005232D0 &other);
 };
 class GameSlot;
 class GameInfo
@@ -507,6 +542,45 @@ class Rva005B5B0CMgr
 public:
 	void UseSub(void *hero);
 };
+
+class AptMpGameSetup
+{
+public:
+	void rva0044303D();
+};
+
+// Retail 0x00523303 (249 bytes), primary AptSkirmish vtable slot 12. Its
+// thiscall body refreshes the AptMpGameSetup panel at +0x288, state +0x6B8,
+// profile index +0x304, flag +0x6C0, preferences +0x698 and name member
+// +0x668. Constructor 0x00521977 installs the table at VA 0x00C67910; the
+// raw slot-12 pointer is 0x00523303. BFME1's AptSkirmish constructor
+// supports the screen-family provenance only, so the target method keeps an
+// address-derived name.
+void AptSkirmish::rva00523303()
+{
+	((AptMpGameSetup *)((char *)this + 0x288))->rva0044303D();
+	if (m_state == 9)
+		m_state = 7;
+
+	if (!m_6c0)
+	{
+		SkirmishPreferences preferences(
+			*(int *)((char *)this + 0x304));
+		*((Rva005232D0 *)((char *)this + 0x698)) =
+			*(const Rva005232D0 *)&preferences;
+	}
+	SkirmishPreferences *prefs =
+		(SkirmishPreferences *)((char *)this + 0x698);
+	if (prefs->Rva0043BBB6(prefs->Rva0043B9F5()) < 0)
+	{
+		prefs->setCurrentUserName(prefs->Rva0043BB88());
+		prefs->v3slotC();
+	}
+	Rva005C1ABA *nameMember = (Rva005C1ABA *)((char *)this + 0x668);
+	nameMember->vslot3();
+	nameMember->rva005C1ABA(prefs->Rva0043B9F5());
+	m_6c0 = false;
+}
 
 void AptSkirmish::InitCreateAHeroOnStartGame()
 {
