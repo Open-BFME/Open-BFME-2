@@ -12,10 +12,13 @@ public:
 struct Rva002B2DADMessageView { char pad[0x18]; unsigned char count; };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
+class LivingWorldPendingBattle;
+class LivingWorldRegionManager { public: LivingWorldPendingBattle *rva0020E5BB(int key); };
+// The independently recovered20E5BB provider now supplies the lookup.
+// This declaration binds the existing receiver/return ABI without another pin.
 class Rva0020E5BB
 {
 public:
- void *rva0020E5BB(int key);
  void rva0020E63F(int key, int field3c);
  void rva0020E6AD();
 private:
@@ -33,7 +36,7 @@ static __declspec(noinline) bool rva002B2DAD(GameMessage *message, void **out, i
   // Native explicitly reads the word before loading the singleton.
   int key = ((const volatile GameMessageArgumentType *)argument)->integer;
  Rva0020E5BB *manager = ((Rva002B2DADLogicView *)TheLivingWorldLogic)->manager;
-  void *result = manager->rva0020E5BB(key);
+  void *result = ((LivingWorldRegionManager *)manager)->rva0020E5BB(key);
   *out = result;
   return result != 0;
 }
@@ -70,7 +73,7 @@ void Rva0020E5BB::rva0020E63F(int key, int field3c)
 {
  currentKey = key;
  if (key) lastNonzeroKey = key;
- void *entry = rva0020E5BB(key);
+ void *entry = ((LivingWorldRegionManager *)this)->rva0020E5BB(key);
  if (entry) {
   ((AnimateWindow *)entry)->setAnimType((AnimTypes)field3c);
   for (int index = 0; index < ((Rva002BA8F1Logic *)TheLivingWorldLogic)->players.size(); ++index) {
@@ -97,7 +100,7 @@ private:
 };
 Rva003F468D *Rva0020E6B7RegionManager::rva0020E6B7()
 {
- return (Rva003F468D *)((Rva0020E5BB *)this)->rva0020E5BB(currentKey);
+ return (Rva003F468D *)((LivingWorldRegionManager *)this)->rva0020E5BB(currentKey);
 }
 
 class Rva003F468D

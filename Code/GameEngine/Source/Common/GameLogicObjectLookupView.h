@@ -63,8 +63,11 @@ private:
 public:
 	int m_110; // +0x110
 
+	// Native AIUnitBuilder598052 and listener239457 compare this word.
+	int m_114; // +0x114; precise mode meaning remains unresolved
+
 private:
-	char pad114[0x125 - 0x114];
+	char pad118[0x125 - 0x118];
 	bool m_flag125;
 	char pad126[0x178 - 0x126];
 	Rva00439E0C *m_manager178;
@@ -73,6 +76,7 @@ public:
 	bool isInMultiplayerGame();	// 0x00042235
 	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);	// 0x0023CD9E
 	Object *findObjectByID(ObjectID id);
+	int rva0023D08B(int value);	// 0x0023D08B, existing +0x184 forwarder
 	void rva0023D0C2(Object *obj, int handle);	// 0x0023D0C2
 	Object *getFirstObject();	// 0x0023CAD2
 	void destroyObject(Object *obj);	// 0x00242C09
