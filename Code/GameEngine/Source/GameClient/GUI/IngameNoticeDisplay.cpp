@@ -158,3 +158,34 @@ Rva004E5B0A::Rva004E5B0A(const UnicodeString &text,Rva004E594EDescriptor *descri
     }
     reinterpret_cast<NoticeManager *>(TheDisplayStringManager)->release(display);
 }
+
+// Callers expose this 24-byte line-input view; it is distinct from the row owner.
+struct NoticeLineInputView {
+    int maxWidth;
+    int center;
+    _STL::vector<const ModuleData *> *offsets;
+    NoticeResource *display;
+    UnicodeString text;
+    int width;
+};
+class IngameNoticeDisplay {
+public:
+    void rva004E5CCB(NoticeLineInputView *);
+    void AddWord(NoticeLineInputView *,int,const UnicodeString &);
+private:
+    unsigned char unknown0[12];
+    Rva004E594EDescriptor *descriptor;
+    _STL::vector<const ModuleData *> groups;
+};
+// 0x004E5CCB..0x004E5D4D: WB 0x0131FFB0 call graph and field accesses.
+// Both retail appends use the same owned four-byte storage operation.
+void IngameNoticeDisplay::rva004E5CCB(NoticeLineInputView *line)
+{
+    const ModuleData *group=reinterpret_cast<const ModuleData *>(new Rva004E5B0A(line->text,descriptor));
+    groups.push_back(group);
+    int centered=line->center-line->width/2;
+    const ModuleData *word=reinterpret_cast<const ModuleData *>(centered);
+    line->offsets->push_back(word);
+    line->text.clear();
+    line->width=0;
+}
