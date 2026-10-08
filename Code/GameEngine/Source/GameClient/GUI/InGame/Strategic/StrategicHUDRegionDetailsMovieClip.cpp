@@ -365,3 +365,14 @@ void *Rva005E2CFAGet(const char *s)
 	}
 	return 0;
 }
+
+// Native5E2D8A97B RET: WB ParsePageSlot obtains the id parameter and maps
+// it through PageIDToSlot. Preserve the established address-derived ABI;
+// use the canonical string accessor rather than the old private-layout read.
+void *Rva005E2D8AGet(const char *p)
+{
+	AsciiString tmp;
+	if (!Rva004128F0GetParam(p, "id", tmp))
+		return 0;
+	return Rva005E2CFAGet(tmp.str());
+}
