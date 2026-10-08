@@ -26,6 +26,7 @@ enum Relationship
 	ALLIES = 2
 };
 
+class UpgradeTemplate;
 class Object;
 class Team;
 
@@ -84,6 +85,7 @@ class Object
 {
 public:
 	void updateUpgradeModules();
+	void rva00290D42(const UpgradeTemplate *upgrade);
 };
 
 class Team : public MemoryPoolObject, public Snapshot
@@ -119,6 +121,9 @@ public:
 	Int m_evaOwn; // +0x4C
 	Int m_evaAlly; // +0x50
 	Int m_evaEnemy; // +0x54
+	Int m_evaRemovedOwn; // +0x58
+	Int m_evaRemovedAlly; // +0x5C
+	Int m_evaRemovedEnemy; // +0x60
 };
 
 class Player;
@@ -142,6 +147,7 @@ class Player
 {
 public:
 	void rva002AD93A(const UpgradeTemplate *upgrade, Int x);
+	void rva002AD9FD(const UpgradeTemplate *upgrade, Int x);
 	Relationship getRelationship(const Team *team) const;
 private:
 	char m_pad00[0x2EC];
@@ -180,6 +186,44 @@ void Player::rva002AD93A(const UpgradeTemplate *upgrade, Int x)
 			eventId = upgrade->m_evaAlly;
 		else
 			eventId = upgrade->m_evaEnemy;
+	}
+	TheEva->rva001DE2DA(eventId, 0, 0);
+}
+
+// Target: 0x002AD9FD..0x002ADAC3, same list and iterator ABI as above.
+// Calls rowed Object::rva00290D42 with the template; Eva fields +58/+5C/+60.
+// ZH onUpgradeRemoved supplies the semantic lead; the target name stays
+// address-derived because its full donor identity is not independently proven.
+void Player::rva002AD9FD(const UpgradeTemplate *upgrade, Int x)
+{
+	for (PlayerTeamNode *it = m_playerTeamPrototypes->m_next; it != m_playerTeamPrototypes; it = it->m_next)
+	{
+		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
+		{
+			Team *team = iter.cur();
+			if (!team)
+				continue;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
+			{
+				Object *obj = iter2.cur();
+				if (!obj)
+					continue;
+				obj->rva00290D42(upgrade);
+			}
+		}
+	}
+	if (upgrade == 0 || x != 0)
+		return;
+	Int eventId = -1;
+	Player *localPlayer = ThePlayerList->m_local;
+	if (this == localPlayer)
+		eventId = upgrade->m_evaRemovedOwn;
+	else if (localPlayer != 0 && m_team2EC != 0)
+	{
+		if (localPlayer->getRelationship(m_team2EC) == ALLIES)
+			eventId = upgrade->m_evaRemovedAlly;
+		else
+			eventId = upgrade->m_evaRemovedEnemy;
 	}
 	TheEva->rva001DE2DA(eventId, 0, 0);
 }
