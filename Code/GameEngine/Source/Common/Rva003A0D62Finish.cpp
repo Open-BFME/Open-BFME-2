@@ -32,6 +32,7 @@ class TeamPrototype
 {
 public:
 	void addUnitInfo(const Rva0039D769 &src);
+ void rva003A0E08(const Rva0039D769 &src);
 	char m_pad[0x12c];
 	Rva0039D5A9 m_sum;
 	char m_pad2[0xf8];
@@ -63,4 +64,19 @@ found:
 	m_sum.m_items[i].m00 += src.m00;
 	m_sum.m_items[i].m04 += src.m04;
 	m_total += src.m00;
+}
+
+// Native003A0E08..003A0E6E and WB00EF2990: find the same name/handle
+// record as addUnitInfo, subtract both requested counts and the total.
+// AITeamBuilder recruitment calls this with the consumed unit record;
+// the outer method name is not exposed by WB, so retain its address.
+void TeamPrototype::rva003A0E08(const Rva0039D769 &src) {
+ for(int i=0;i<m_sum.m_countAC;++i) {
+  if(((const StringBase<char>&)m_sum.m_items[i].m10).compare((const StringBase<char>&)src.m10)==0 && m_sum.m_items[i].m14==src.m14) {
+   m_sum.m_items[i].m00-=src.m00;
+   m_sum.m_items[i].m04-=src.m04;
+   m_total-=src.m00;
+   break;
+  }
+ }
 }
