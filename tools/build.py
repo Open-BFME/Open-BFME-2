@@ -582,12 +582,17 @@ _GENERALS_FLAGS = _ZH_BASE_FLAGS + _reference_include_dirs(
 
 
 def zh_reference_source(source):
-    """`source` relative to whichever vendored SAGE tree holds it, or None."""
+    """`source` relative to whichever vendored SAGE tree holds it, or None.
+
+    Lexical, not resolved(): a seat's reference/open-bfme-1 entries are
+    symlinks into the main checkout, and resolving them escapes the tree this
+    path was spelled in, so the containment check would miss every ZH source.
+    """
     if source is None:
         return None
     for root in (ZH_REFERENCE_ROOT, GENERALS_REFERENCE_ROOT):
         try:
-            return resolved(source).relative_to(root).as_posix()
+            return Path(os.path.abspath(source)).relative_to(root).as_posix()
         except ValueError:
             continue
     return None
