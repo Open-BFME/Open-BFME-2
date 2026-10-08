@@ -133,6 +133,18 @@ public: virtual void slot00(); virtual void slot04(); virtual void slot08(); vir
  virtual void slot10(); virtual void slot14(); virtual void slot18();
 };
 
+enum PathfindLayerEnum { LAYER_GROUND = 1 };
+struct Rva002ED236Pos {
+ float x,y,z;
+ Rva002ED236Pos(const Coord3D &p) { x=p.x;y=p.y;z=p.z; }
+ Rva002ED236Pos(const Rva002ED236Pos &p) { x=p.x;y=p.y;z=p.z; }
+ ~Rva002ED236Pos() {}
+};
+class Pathfinder { public: PathfindLayerEnum rva002ED236(Object *,Rva002ED236Pos); };
+class AI;
+extern AI *TheAI;
+struct Rva0028B98BAI {char opaque[0x10];Pathfinder *pathfinder;};
+
 class Object
 {
 public:
@@ -167,7 +179,11 @@ private:
  unsigned char m_pad254[0x437-0x254];
  unsigned char m_scriptStatus; // +0x437
  unsigned char flags438; // +0x438
- unsigned char m_pad439[0x49C-0x439];
+ unsigned char m_pad439[0x48C-0x439];
+ bool pending; // +0x48C, forced ground-layer expiration is pending
+ unsigned char m_pad48D[3];
+ unsigned int cachedFrame; // +0x490
+ unsigned char m_pad494[0x49C-0x494];
  int fireIndex; // +0x49C
  unsigned char m_pad4A0[0x4C4-0x4A0];
  PartitionData *m_partitionData; // +0x4C4
@@ -296,5 +312,23 @@ void Object::reactToTransformChange(const Matrix3D *oldMtx,const Coord3D *oldPos
   TheTerrainLogic->getExtent(&extent);
   if (extent.contains(&position)) flags438 &= ~8; else flags438 |= 8;
   rva0028B98B();
+ }
+}
+
+// ?rva0028B98B@Object@@QAEXXZ
+// BFME1 ObjectHeightAndLayer.cpp 9cbfb551 clean forced-layer expiration donor.
+// Native28B98B..28B9F6 RET0 and WB CD8420 corroborate Object fields38/48C/490,
+// frame+40, AI pathfinder+10, 13-frame delay and the ground-layer result1.
+// TerrainLogicBridges.cpp independently proves the existing Rva002ED236Pos
+// callee-destroyed by-value ABI; explicit component copy plus a named local
+// reproduces the native outgoing argument and saved argument-address slot.
+// The helper and pathfinder method retain their existing address identities.
+void Object::rva0028B98B() {
+ if(pending && cachedFrame+13<=TheGameLogic->getFrame()) {
+  Rva002ED236Pos p(position);
+  if(((Rva0028B98BAI *)TheAI)->pathfinder->rva002ED236(this,p)==1) {
+   cachedFrame=(unsigned int)-1;
+   pending=false;
+  }
  }
 }
