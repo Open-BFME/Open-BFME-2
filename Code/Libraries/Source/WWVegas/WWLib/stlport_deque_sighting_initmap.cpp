@@ -14,3 +14,10 @@
 #include <deque>
 class SightingInfo;
 template class _STL::deque<SightingInfo*, _STL::allocator<SightingInfo* > >;
+
+// AssetManagerImpl's seven 40-byte deques are constructed by the native
+// default-argument closure620D80. Emit its four-byte int storage view here,
+// under the same established no-exception settings. The constructor and map
+// initializer may share the SightingInfo* owners only after pin_admission's
+// full-body and relocation fold proof; the element spelling is an ABI view.
+template class _STL::deque<int, _STL::allocator<int> >;
