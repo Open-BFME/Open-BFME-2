@@ -56,12 +56,13 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6AA8
 
 // Click binding in ctor5F7B25; native RET4 closes5F6AE8..5F6B0B.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct QueuedAptModeView { char unknown[0x318]; int mode; };
 class GameWindow { public:void winDrawBorder(); };
 class Rva005F698E { public:void rva005F698E(); };
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6AE8(void*) {
- int mode=((QueuedAptModeView*)TheRva00222A8BTarget)->mode;
+ int mode=((QueuedAptModeView*)g_bfmeAptWindowManager)->mode;
  if(mode==0) ((GameWindow*)this)->winDrawBorder();
  else if(mode==2) ((Rva005F698E*)this)->rva005F698E();
 }
@@ -79,7 +80,7 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::DoSetSt
  if(index==state)return;
  const char *icon=g_00C78D64[index];
  IconOwner *parent=owner;
- Rva0050E9FEAptCall(TheRva00222A8BTarget,parent->level,parent->name.str(),"SetInProgressIconSlotState",&icon);
+ Rva0050E9FEAptCall((Rva00222A8BTarget*)g_bfmeAptWindowManager,parent->level,parent->name.str(),"SetInProgressIconSlotState",&icon);
  state=index;
 }
 
