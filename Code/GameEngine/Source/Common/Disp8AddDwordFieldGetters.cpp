@@ -55,3 +55,12 @@ BFME_DISP8_ADD_DWORD_GETTER(Rva00709D10AddDwordField, 0x30, 0x1C)
 BFME_DISP8_ADD_BEFORE_DWORD_GETTER(Rva004A3904AddDwordField, 0x1C, 0x08)
 BFME_DISP8_ADD_BEFORE_DWORD_GETTER(Rva004ABAC4AddDwordField, 0x20, 0x08)
 BFME_DISP8_ADD_BEFORE_DWORD_GETTER(Rva00464829AddDwordField, 0x18, 0x38)
+
+// Native5F83ED..5F83F4 follows a complete tail JMP and ends RET:
+// read raw word4 and add12. Clean BF1 9cb tagblock.cpp supplies the source
+// expression only; original receiver, signedness and complete bounds remain
+// unresolved. Unsigned storage preserves the native32-bit wrap semantics.
+
+// ?get@Rva005F83EDFields@@QBEIXZ
+struct Rva005F83EDFields { char pad[4]; unsigned int word4; unsigned int get() const; };
+unsigned int Rva005F83EDFields::get() const { return word4 + 12u; }
