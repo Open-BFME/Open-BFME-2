@@ -8,11 +8,23 @@
 // their call declarations model witnessed noarg/one-dword ABIs only.
 // No constructor, destructor or vtable layout beyond the used slots is claimed.
 #include "ascii_string.h"
+#include "unicode_string.h"
 class Image;
 class ImageCollection {public: const Image *findImageByName(const AsciiString &);};
 extern ImageCollection *TheMappedImageCollection;
-class BfmeAptWindowManager;
+class BfmeAptWindowManager {public: void bfmeSetText(const AsciiString &,const UnicodeString &,bool);};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+class GameTextInterface {
+public:
+ virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
+ virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();virtual void slot28();virtual void slot2C();
+ virtual void slot30();virtual void slot34();
+ virtual UnicodeString fetch(const AsciiString &label,bool *exists=0);
+};
+extern GameTextInterface *TheGameText;
+// CreateAHeroData's bling value get/set pair, rowed under this owner.
+class Rva00407E28 {public: int rva00407E28(int id);bool rva00407DE0(int id,int value);};
+class CreateAHeroHero;
 class Rva00223AC4 {public: Image *rva00223AC4(const char *,const char *);};
 class Rva002239B2 {public: void rva002239E2(const AsciiString &,const Image *);};
 class CreateAHeroData {public: CreateAHeroData &operator=(const CreateAHeroData &);};
@@ -24,7 +36,7 @@ class Rva00406E47 {public: bool rva00406E47(int);};
 struct Rva005B0473View {char opaque[0x60];float field60;int field64,field68;};
 struct CreateAHeroClassRecord {char opaque[0x20];};
 struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};
-class CreateAHeroManager {public: Rva005B0473View *rva00219F36(int,int);unsigned int GetClassCount() const {return classes14C.size();}char pad000[0x14C];CreateAHeroClassList classes14C;char pad158[0x1E8-0x158];AsciiString field1E8;};
+class CreateAHeroManager {public: Rva005B0473View *rva00219F36(int,int);const AsciiString &GetBlingNameTag(int,const CreateAHeroHero *,unsigned int);unsigned int GetClassCount() const {return classes14C.size();}char pad000[0x14C];CreateAHeroClassList classes14C;char pad158[0x1E8-0x158];AsciiString field1E8;};
 class Object;
 class Drawable {public: char pad000[0xFC];Object *object;char pad100[4];Drawable *next;};
 class GameClient {
@@ -85,7 +97,9 @@ private:
  bool flag148;
  char pad149[3];
  int field14C;
- char pad150[0x15C-0x150];
+ int field150;
+ int availAttribPoints154;	// WorldBuilder: m_availAttribPoints
+ int maxAttribPoints158;
  BfmePod8Vector mapObjectInfo15C;
  float field168,field16C;
  char pad170[4];
@@ -219,4 +233,36 @@ void AptMyHero::rva005B1A6C(){
   mapObjectInfo15C.first[location].a=object->field74;
   mapObjectInfo15C.first[location].b=object->field44;
  }
+}
+
+// AptMyHero::SetBling, retail 0x005B07C1..0x005B0923 (354 bytes, RET 12).
+// WorldBuilder names it and asserts the slot, m_firstBling/m_lastBling and
+// m_availAttribPoints bounds that retail keeps as early returns. Category 1
+// shows the bling's game-text name under APT:MyHeroAppearanceVal_<group>;
+// category 0 spends attribute points and shows the rest. The new value is
+// stored through the hero data's bling setter either way.
+void AptMyHero::SetBling(int category,int group,int to){
+ MyHeroBlingBlock &block=blocks174[category];
+ if((unsigned int)group>=(unsigned int)(block.last-block.first))return;
+ MyHeroBlingRecord &record=block.first[group];
+ int current=reinterpret_cast<Rva00407E28 *>(this)->rva00407E28(record.field00);
+ if(to<record.minimum||to>record.maximum)return;
+ switch(category){
+ case 1:{
+  AsciiString key;
+  key.format("APT:MyHeroAppearanceVal_%d",group);
+  const AsciiString &name=TheCreateAHeroManager->GetBlingNameTag(record.field00,reinterpret_cast<const CreateAHeroHero *>(this),to);
+  g_bfmeAptWindowManager->bfmeSetText(key,TheGameText->fetch(name),false);
+ }break;
+ case 0:{
+  int diff=current-to;
+  int &points=availAttribPoints154;
+  if(points+diff<0||points+diff>maxAttribPoints158)return;
+  points+=diff;
+  UnicodeString text;
+  text.format((const unsigned short *)L"%d",points);
+  g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:MyHeroAttribPoints"),text,false);
+ }break;
+ }
+ reinterpret_cast<Rva00407E28 *>(this)->rva00407DE0(record.field00,to);
 }
