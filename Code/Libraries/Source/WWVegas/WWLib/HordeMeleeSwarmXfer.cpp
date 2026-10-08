@@ -187,3 +187,34 @@ void HordeMeleeSwarm::rva00584A9B(Xfer *xfer)
 			m_vec[i] = tmp;
 	}
 }
+
+// The rowed by-value vector resize owns the neutral BfmePod28 element spelling.
+// Its POD payload is the 28-byte entry used here. This adapter initializes
+// exactly the fields the retail 00584A3D wrapper writes before that call.
+struct BfmePod28
+{
+    Int state;
+    Coord3DBase position;
+    bool needsPosition;
+    unsigned char pad11[3];
+    unsigned int word14, word18;
+    ~BfmePod28() {}
+    BfmePod28(const BfmePod28 &v) : state(v.state), position(v.position), needsPosition(v.needsPosition), word14(v.word14), word18(v.word18) {}
+    BfmePod28() : state(0), needsPosition(true), word14(0), word18(0)
+    { position.x = 0.0f; position.y = 0.0f; position.z = 0.0f; }
+};
+namespace _STL {
+template<> class vector<BfmePod28, allocator<BfmePod28> >
+{
+public:
+    typedef unsigned int size_type;
+    void resize(size_type count, BfmePod28 value);
+private:
+    BfmePod28 *first, *last, *capacity;
+};
+}
+template<>
+void Rva00584A7DVector<Rva00584A7DEntry>::grow(UnsignedInt count)
+{
+    reinterpret_cast<_STL::vector<BfmePod28> *>(this)->resize(count, BfmePod28());
+}
