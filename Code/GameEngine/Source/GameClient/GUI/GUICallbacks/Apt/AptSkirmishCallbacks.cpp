@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /ICode/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /Ireference/shims/bfmealloc /D_CRTIMP= /ICode/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // BFME2's skirmish screen Apt callbacks, 0x00521741 onward, bound by these
@@ -6,12 +6,13 @@
 // screen's registration; that binding is their only reference. The class
 // is named for the strings' prefix. +0x6B8 is the screen's state, +0x6D0
 // its profile name entry, +0x698 its SkirmishPreferences (whose user name
-// list the profile callbacks walk; STLport and /EHsc are for them).
+// list the profile callbacks walk; STLport and /EHs are for them).
 
 #include "unicode_string.h"
 #include "ascii_string.h"
 
 #include <list>
+#include <vector>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -806,3 +807,37 @@ void AptSkirmish::rva00521CFF() {
 // ?GameMessage::wb00EC9680 present-unmatched
 void GameMessage::wb00EC9680(int value) { GameMessageArgument *a=allocArg();a->type=0;a->value=value; }
 
+class Rva0004582DSarAvgField {public:int get() const;};
+class Rva003B8BAA {public:void *rva003B8BF9(int);};extern Rva003B8BAA *g_00E02D6C;
+class Rva003B8B2A {public:int rva003B8B2A();};
+class Rva0052BAB2 {public:int rva0052BAB2() const;};
+class Rva004FD8B8 {public:void rva004FD8B8(const AsciiString &,_STL::vector<int> *);};
+struct ScenarioCampaignView {char pad[0x1c];Rva004FD8B8 *scenario;};
+struct ScenarioSlotView {char pad[0x10];int start,original;void setStart(int n){start=n;original=n;}};
+// Native 0x005223D7..0x005224E3, WB 0x014680C0
+// MpOwnerSelectStrategicScenario. The receiver is the owner's secondary
+// interface at full-screen +0x27C: its mode +0x88 is screen +0x304.
+// Keep this interface view address-derived until the screen's multiple
+// inheritance is reconciled; do not put +0x88 in the primary screen view.
+class Rva005223D7Owner {public:bool rva005223D7(int);char pad[0x88];int mode;int getMode() const {return mode;}};
+bool Rva005223D7Owner::rva005223D7(int index) {
+ if(getMode()!=1) return true;
+ if(TheSkirmishGameInfo && g_00E02D6C && index>=0 && index<((Rva0004582DSarAvgField *)g_00E02D6C)->get()) {
+ void *campaign=g_00E02D6C->rva003B8BF9(index);
+ if(!(unsigned char)((Rva003B8B2A *)campaign)->rva003B8B2A()) return false;
+ Rva004FD8B8 *scenario=((ScenarioCampaignView *)campaign)->scenario;
+ if(scenario) {
+  _STL::vector<int> spots;
+  scenario->rva004FD8B8(*reinterpret_cast<const AsciiString *>(((Rva0052BAB2 *)campaign)->rva0052BAB2()),&spots);
+  if(!spots.empty()) {
+   unsigned pos=0;
+   for(int i=0;i<8;++i) {
+    if(pos>=spots.size()) break;
+    GameSlot *slot=TheSkirmishGameInfo->getSlot(i);
+    if(slot && slot->isOccupied()) { ((ScenarioSlotView *)slot)->setStart(spots[pos]);++pos; }
+   }
+  }
+ }
+ }
+ return true;
+}
