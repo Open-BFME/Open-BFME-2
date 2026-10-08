@@ -24,6 +24,8 @@ class MilesAudioManager
 public:
     void rva00057378(unsigned int key, const void *value);
     void rva000562A2(int key, const void *value);
+    void rva00057408(unsigned int key);
+    void rva000562CF(int key);
     void rva00057530(unsigned int key, float value, int mode);
     void rva0005634C(int key, float value, int mode);
     bool rva000613A9(unsigned int handle);
@@ -44,6 +46,25 @@ void MilesAudioManager::rva00057378(unsigned int key, const void *value)
     } else {
         do {
             rva000562A2(it->second, value);
+            ++it;
+        } while (it != aliases.end() && it->first == key);
+    }
+}
+
+// Native 00057408..00057492, RET4. The same mutex and unsigned-key
+// alias table as 00057378; the target forwards each mapped key to the
+// independently rowed 000562CF helper, or the original key when absent.
+// WorldBuilder's unnamed 0079A1A0 twin corroborates the receiver and loop.
+// The operation's original name and the meaning of the keys are unresolved.
+void MilesAudioManager::rva00057408(unsigned int key)
+{
+    MilesMutexGuard guard(&mutex, 0);
+    MilesKeyAliases::iterator it = aliases.find(key);
+    if (it == aliases.end()) {
+        rva000562CF(key);
+    } else {
+        do {
+            rva000562CF(it->second);
             ++it;
         } while (it != aliases.end() && it->first == key);
     }
