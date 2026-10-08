@@ -919,3 +919,15 @@ void MilesAudioManager::rva000569A8(int viewType, int musicSystem, int arg, int 
     request->m_pendingEvent->m_musicSystem = (MusicSystem)musicSystem;
     m_audioRequests.push_back(request);
 }
+
+// Target 0x000540A7: four default audio files loaded in native order.
+// The +8 INI value supplies every load type, as in 0x00054120; the manager
+// receiver remains inferred from the matched orchestration at 0x000541DB.
+void MilesAudioManager::rva000540A7(INI *ini)
+{
+    INILoadType type = static_cast<INILoadType>(ini->m_at08);
+    ini->loadFile(AsciiString("Data\\INI\\Default\\Music.ini"), type, 0);
+    ini->loadFile(AsciiString("Data\\INI\\Default\\Speech.ini"), type, 0);
+    ini->loadFile(AsciiString("Data\\INI\\Default\\SoundEffects.ini"), type, 0);
+    ini->loadFile(AsciiString("Data\\INI\\Default\\AmbientStream.ini"), type, 0);
+}
