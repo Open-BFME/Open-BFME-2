@@ -170,6 +170,17 @@
 // rowed getTeamNamed 0x003584E9 and its members from iterate_TeamMemberList
 // 0x00263864 and advance 0x00263526; each member is tested as in the named
 // condition, with every label compared before the found flag is read.
+//
+// ?evaluateUnitHasEmptied@ScriptConditions@@IAE_NPAVParameter@@@Z @ 0x003E4860 193B
+// Zero Hour source, verbatim apart from the view types. Target evidence:
+// jump-table case 76 calls 0x003E4860, which initConditionTemplates names
+// UNIT_EMPTIED (unit). The per-object records hang off the list head at
+// VA 0x00E02E00; a record is 0x14 bytes allocated with operator new
+// 0x0002FDA0 and built by the inlined ctor (rowed out of line as
+// 0x003E3C22: vtable 0x00835B34, next +0x04, object id +0x08, frame +0x0C,
+// count +0x10), matching Zero Hour's TransportStatus. The object's id is
+// Object+0x74, its contain module Object+0x250 (getContainCount(0) at
+// +0x114) and the frame TheGameLogic+0x40.
 #include <vector>
 #include <list>
 #include "ascii_string.h"
@@ -327,6 +338,30 @@ public:
 
 class Waypoint;
 
+// ContainModuleInterface::getContainCount(0) is vtable slot +0x114 (as in
+// Object/Contain/Rva00478231Contain.cpp).
+#define BFME_SLOT(n) virtual void slot##n() = 0
+class ContainModuleInterface
+{
+public:
+	BFME_SLOT(00); BFME_SLOT(01); BFME_SLOT(02); BFME_SLOT(03); BFME_SLOT(04);
+	BFME_SLOT(05); BFME_SLOT(06); BFME_SLOT(07); BFME_SLOT(08); BFME_SLOT(09);
+	BFME_SLOT(10); BFME_SLOT(11); BFME_SLOT(12); BFME_SLOT(13); BFME_SLOT(14);
+	BFME_SLOT(15); BFME_SLOT(16); BFME_SLOT(17); BFME_SLOT(18); BFME_SLOT(19);
+	BFME_SLOT(20); BFME_SLOT(21); BFME_SLOT(22); BFME_SLOT(23); BFME_SLOT(24);
+	BFME_SLOT(25); BFME_SLOT(26); BFME_SLOT(27); BFME_SLOT(28); BFME_SLOT(29);
+	BFME_SLOT(30); BFME_SLOT(31); BFME_SLOT(32); BFME_SLOT(33); BFME_SLOT(34);
+	BFME_SLOT(35); BFME_SLOT(36); BFME_SLOT(37); BFME_SLOT(38); BFME_SLOT(39);
+	BFME_SLOT(40); BFME_SLOT(41); BFME_SLOT(42); BFME_SLOT(43); BFME_SLOT(44);
+	BFME_SLOT(45); BFME_SLOT(46); BFME_SLOT(47); BFME_SLOT(48); BFME_SLOT(49);
+	BFME_SLOT(50); BFME_SLOT(51); BFME_SLOT(52); BFME_SLOT(53); BFME_SLOT(54);
+	BFME_SLOT(55); BFME_SLOT(56); BFME_SLOT(57); BFME_SLOT(58); BFME_SLOT(59);
+	BFME_SLOT(60); BFME_SLOT(61); BFME_SLOT(62); BFME_SLOT(63); BFME_SLOT(64);
+	BFME_SLOT(65); BFME_SLOT(66); BFME_SLOT(67); BFME_SLOT(68);
+	virtual unsigned int getContainCount(int unused) = 0; // +0x114
+};
+#undef BFME_SLOT
+
 // AIUpdateInterface keeps the last completed waypoint at +0x13C.
 class AIUpdateInterface
 {
@@ -342,7 +377,9 @@ class Object
 public:
 	Module *findModule(NameKeyType key) const;
 	const ThingTemplate *getTemplate() const { return m_template; }
+	ObjectID getID() const { return m_id; }
 	const AsciiString &getName() const { return m_name; }
+	ContainModuleInterface *getContain() const { return m_contain; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	Player *getControllingPlayer() const;
@@ -351,9 +388,12 @@ private:
 	enum { EFFECTIVELY_DEAD = 0x01 };
 	void *m_vtbl;
 	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x88 - 0x08];
+	unsigned char m_pad08[0x74 - 0x08];
+	ObjectID m_id; // +0x74
+	unsigned char m_pad78[0x88 - 0x78];
 	AsciiString m_name; // +0x88
-	unsigned char m_pad8C[0x254 - 0x8C];
+	unsigned char m_pad8C[0x250 - 0x8C];
+	ContainModuleInterface *m_contain; // +0x250
 	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
 	unsigned char m_pad25C[0x438 - 0x25C];
@@ -617,6 +657,7 @@ protected:
 	bool evaluateNamedSelected(Condition *, Parameter *);
 	bool evaluateNamedReachedWaypointsEnd(Parameter *, Parameter *);
 	bool evaluateTeamReachedWaypointsEnd(Parameter *, Parameter *);
+	bool evaluateUnitHasEmptied(Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1127,4 +1168,65 @@ bool ScriptConditions::evaluateTeamReachedWaypointsEnd(Parameter *pTeamParm, Par
 		}
 	}
 	return anyAtEnd;
+}
+
+class TransportStatus
+{
+public:
+	TransportStatus *m_nextStatus;
+	ObjectID m_objID;
+	unsigned int m_frameNumber;
+	int m_unitCount;
+public:
+	TransportStatus() : m_objID(INVALID_OBJECT_ID), m_frameNumber(0), m_unitCount(0), m_nextStatus(NULL) {}
+	virtual ~TransportStatus();
+};
+
+static TransportStatus *s_transportStatuses;
+
+bool ScriptConditions::evaluateUnitHasEmptied(Parameter *pUnitParm)
+{
+	Object *object = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!object) {
+		return false;
+	}
+
+	// have we checked this one before?
+	TransportStatus *stats = s_transportStatuses;
+	while (stats) {
+		if (stats->m_objID == object->getID()) {
+			break;
+		}
+
+		stats = stats->m_nextStatus;
+	}
+
+	ContainModuleInterface *cmi = object->getContain();
+	int numPeeps = cmi ? cmi->getContainCount(0) : 0;
+
+	unsigned int frameNum = TheGameLogic->getFrame();
+
+	if (stats == NULL)
+	{
+		TransportStatus *transportStatus = new TransportStatus;
+		transportStatus->m_objID = object->getID();
+		transportStatus->m_frameNumber = frameNum;
+		transportStatus->m_unitCount = numPeeps;
+		transportStatus->m_nextStatus = s_transportStatuses;
+		s_transportStatuses = transportStatus;
+		return false;
+	}
+
+	if (stats->m_frameNumber == frameNum - 1) {
+		if (stats->m_unitCount > 0 && numPeeps == 0) {
+			// don't actually update the info on this round, because we want to make sure that
+			// multiple calls to this in the same frame actually work.
+			return true;
+		}
+	}
+
+	// perform the update.
+	stats->m_frameNumber = frameNum;
+	stats->m_unitCount = numPeeps;
+	return false;
 }
