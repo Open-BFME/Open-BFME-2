@@ -69,7 +69,6 @@ class Rva003B40B6Holder { public: void *captureGroup(void *); };
 void WriteScriptSubRecord_Rva003B24F2(DataChunkOutput &,const ScriptSubRecord *);
 
 void WriteActionDataChunk(char *,DataChunkOutput &,ScriptAction *);
-// ?WriteScriptDataChunk@@YAXAAVDataChunkOutput@@PAVScriptList@@PAVScript@@@Z present-unmatched
 void WriteScriptDataChunk(DataChunkOutput &writer,ScriptList *list,Script *script) {
  for(;script;script=((ScriptInput *)script)->next) {
   ScriptInput *input=(ScriptInput *)script;
