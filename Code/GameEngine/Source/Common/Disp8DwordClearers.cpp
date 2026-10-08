@@ -76,3 +76,17 @@ void Rva000C9286PairClearer::clear()
     m_at0c = 0;
     m_at24 = 0;
 }
+
+
+// Receiver-return zero-field leaves from clean BFME1 9cbfb551 donor leads:
+// WorldHeightMap.cpp and W3DBridgeBufferCtorThunk.cpp supply the source pattern.
+// Retail independently fixes complete RET boundaries, raw32 fields14/0C and
+// EAX=receiver. The donor class names and complete layouts remain unproven;
+// address-owned carriers preserve that uncertainty without aliases or pins.
+// ?clear@Rva004D9A35Fields@@QAEPAU1@XZ
+struct Rva004D9A35Fields { char pad[0x14]; unsigned int word14; Rva004D9A35Fields *clear(); };
+Rva004D9A35Fields *Rva004D9A35Fields::clear() { word14=0; return this; }
+
+// ?clear@Rva002175C7Fields@@QAEPAU1@XZ
+struct Rva002175C7Fields { char pad[0xC]; unsigned int wordC; Rva002175C7Fields *clear(); };
+Rva002175C7Fields *Rva002175C7Fields::clear() { wordC=0; return this; }
