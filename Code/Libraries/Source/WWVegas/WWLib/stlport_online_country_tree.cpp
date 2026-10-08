@@ -145,5 +145,14 @@ template<> CountryTree::iterator CountryTree::insert_unique(iterator __position,
   }
 }
 }
-template class _STL::map<UnicodeString,int>;
-template class _STL::_Rb_tree<UnicodeString,CountryPair,_STL::_Select1st<CountryPair>,_STL::less<UnicodeString>,_STL::allocator<CountryPair> >;
+// Emit the verified operations and their dependencies rather than unrelated
+// whole-class members, which also emit divergent shared min/max helpers.
+template CountryMap::map();
+template CountryTree::~_Rb_tree();
+template void CountryTree::clear();
+template void CountryTree::_M_erase(CountryTree::_Link_type);
+template CountryMap::iterator CountryMap::insert(CountryMap::iterator,const CountryPair &);
+template CountryTree::iterator CountryTree::_M_insert(_STL::_Rb_tree_node_base *,_STL::_Rb_tree_node_base *,const CountryPair &,_STL::_Rb_tree_node_base *);
+template CountryTree::_Link_type CountryTree::_M_create_node(const CountryPair &);
+template int &CountryMap::operator[](const UnicodeString &);
+template CountryTree::_Link_type CountryTree::_M_lower_bound(const UnicodeString &) const;
