@@ -30,12 +30,14 @@ public:
 	void rva003F8090();
 	unsigned char rva003F8536();
 	void *rva003F80C3();						// 0x003F80C3
+	void rva003F8FB2();							// 0x003F8FB2
 };
 
 class Rva003F8101
 {
 public:
 	void *rva003F8101();						// 0x003F8101
+	__declspec(noinline) void rva003F8FF3();
 };
 
 struct Rva003F816EItem
@@ -51,6 +53,7 @@ public:
 	void *rva003F819A();
 	unsigned char rva003F85C6();
 	Rva003F7D86Inner *rva003F81B0();
+	void rva003F9037();
 private:
 	char m_pad00[0x14];
 	Rva003F816EItem **m_begin14;
@@ -135,4 +138,20 @@ Rva003F7D86Inner *Rva003F81FDProxy::rva003F81B0()
 	if (inner == 0)
 		return 0;
 	return (Rva003F7D86Inner *)inner->rva003F80C3();
+}
+
+// 0x003F8FF3 17B: run 0x003F8FB2 on the 0x003F8101 lookup when present.
+void Rva003F8101::rva003F8FF3()
+{
+	Rva003F8090 *inner = (Rva003F8090 *)rva003F8101();
+	if (inner != 0)
+		inner->rva003F8FB2();
+}
+
+// 0x003F9037 17B: the same through the 0x003F816E entry lookup.
+void Rva003F81FDProxy::rva003F9037()
+{
+	Rva003F8101 *entry = rva003F816E();
+	if (entry != 0)
+		entry->rva003F8FF3();
 }

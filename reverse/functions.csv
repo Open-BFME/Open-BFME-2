@@ -70496,3 +70496,5 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva00068395@BaseHeightMapRenderObjClass@@QAEXHPAVAsciiString@@0_N1@Z,,0x00068395,23,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,null-checked member forwarder tail-jumps to pinned callee 0x000E6005 with ret 20
 ?rva002EF3D9@Rva002EF3D9Host@@QAEHPADH@Z,,0x002EF3D9,21,Code/GameEngine/Source/Common/Rva002EF3D9Forwards.cpp,matched,
 ?rva002F2865@Rva002F2865Host@@QAEHPADH@Z,,0x002F2865,21,Code/GameEngine/Source/Common/Rva002EF3D9Forwards.cpp,matched,
+?rva003F8FF3@Rva003F8101@@QAEXXZ,,0x003F8FF3,17,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,
+?rva003F9037@Rva003F81FDProxy@@QAEXXZ,,0x003F9037,17,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,
