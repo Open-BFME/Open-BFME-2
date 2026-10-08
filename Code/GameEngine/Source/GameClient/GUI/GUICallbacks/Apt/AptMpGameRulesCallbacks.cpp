@@ -21,6 +21,7 @@ class GameWindow
 {
 public:
 	unsigned int winGetStyle();
+    int winHide(bool);
 };
 
 void GadgetComboBoxGetSelectedPos(GameWindow *window, int *selection);
@@ -378,4 +379,25 @@ void AptMpGameRules::UpdateRuleGadget(int rule) {
         GadgetCheckBoxSetChecked(window, value != 0);
     }
     m_88 = true;
+}
+
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *);
+// Reuse the ledger's folded pointer-vector resize provider. Retail proves
+// three pointer fields and four-byte pointer elements for these widget lists.
+class Drawable;
+namespace _STL {
+    template<class T> class allocator;
+    template<class T, class Allocator> class vector;
+    template<> class vector<Drawable *, allocator<Drawable *> > {
+    public:
+        void resize(unsigned int, Drawable *);
+    };
+}
+void AptMpGameRules::rva0057EF46(AptMpGameRulesWidgets *widgets, const char *index, GameWindow *window) {
+    int position = atoi(index);
+    unsigned int size = (GameWindow **)widgets->m_end - (GameWindow **)widgets->m_begin;
+    if (size <= (unsigned int)position)
+        ((_STL::vector<Drawable *, _STL::allocator<Drawable *> > *)widgets)->resize(position + 1, 0);
+    ((GameWindow **)widgets->m_begin)[position] = window;
+    window->winHide(true);
 }
