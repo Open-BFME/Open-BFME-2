@@ -16366,3 +16366,7 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva002CAAFA@Rva002CAAFA@@QAE_NPAVObject@@PAUCoord3D@@@Z,0x002CAAFA,callee of AIGiantBirdSwoopState::onEnter 0x36BDF2
 ?MessageBoxOkCancel@@YAXVUnicodeString@@0P6AXXZ1@Z,0x0044C146,ZH MessageBox helper identity; native cdecl two wide strings and two callbacks; core dialog kind 1 OkCancel or 2 YesNo; native teardown discards core result so BFME2 return is void
 ?MessageBoxYesNo@@YAXVUnicodeString@@0P6AXXZ1@Z,0x0044BFE9,ZH MessageBox helper identity; native cdecl two wide strings and two callbacks; core dialog kind 1 OkCancel or 2 YesNo; native teardown discards core result so BFME2 return is void
+?Rva00327D86Update@@YAXPAVGameWindow@@_N@Z,0x00327D86,callee of ?rva0031B641@ControlBar@@QAEXPAVGameWindow@@PBVCommandButton@@@Z
+?addHotKey@HotKeyManager@@QAE?AURva00359302Result@@ABUTreeHintRef00217D4C@@ABVAsciiString@@_N@Z,0x00359302,callee of ?rva0031B641@ControlBar@@QAEXPAVGameWindow@@PBVCommandButton@@@Z
+?rva0031ABD9@ControlBar@@QAEXPAVGameWindow@@H@Z,0x0031ABD9,callee of ?rva0031B641@ControlBar@@QAEXPAVGameWindow@@PBVCommandButton@@@Z
+?rva00358CCD@HotKeyManager@@QAE?AVAsciiString@@ABV2@@Z,0x00358CCD,callee of ?rva0031B641@ControlBar@@QAEXPAVGameWindow@@PBVCommandButton@@@Z
