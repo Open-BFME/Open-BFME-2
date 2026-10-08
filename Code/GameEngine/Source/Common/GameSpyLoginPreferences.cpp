@@ -161,6 +161,7 @@ public:
 	// Erases one email key from nick/pass/date maps at +0x2c/+0x14/+0x20 (retail 0x005CABF9).
 	void rva005CABF9(AsciiString email);
 	AsciiString rva005C9FC4(void);
+	AsciiString rva005CA58E(AsciiString,AsciiString &,AsciiString &,AsciiString &);
 	const _STL::list<AsciiString> &rva005CA201(const AsciiString &);
 	const _STL::list<AsciiString> &rva005CA211(const AsciiString &);
 	const _STL::list<AsciiString> &rva005CA1A0(const AsciiString &,NickMap &);
@@ -449,5 +450,34 @@ const _STL::list<AsciiString> &GameSpyLoginPreferences::rva005CA201(const AsciiS
 const _STL::list<AsciiString> &GameSpyLoginPreferences::rva005CA211(const AsciiString &email)
 {
     return rva005CA1A0(email,m_emailClanMap);
+}
+
+// BFME1 34f59164 GameSpyLoginPreferences_getDateForEmail_Thunk.cpp is
+// the semantic donor. Native 5CA58E..5CA70E independently establishes
+// date-map +20, an eight-character value, and three formatted outputs.
+// The original target method spelling is unknown.
+struct LoginDateStringView
+{
+    BfmeStringData<char> *data;
+    // ?LoginDateStringView::getCharAt absent-from-retail
+    __forceinline char getCharAt(int index) const
+    {
+        return data ? data->text[index] : 0;
+    }
+};
+AsciiString GameSpyLoginPreferences::rva005CA58E(AsciiString email,
+    AsciiString &month,AsciiString &day,AsciiString &year)
+{
+    if(m_emailDateMap.find(email)==m_emailDateMap.end())
+        return AsciiString::TheEmptyString;
+    AsciiString fullDate=m_emailDateMap[email];
+    if(fullDate.getLength()!=8)
+        return AsciiString::TheEmptyString;
+    const LoginDateStringView &view=*(const LoginDateStringView *)&fullDate;
+    month.format("%c%c",view.getCharAt(0),view.getCharAt(1));
+    day.format("%c%c",view.getCharAt(2),view.getCharAt(3));
+    year.format("%c%c%c%c",view.getCharAt(4),view.getCharAt(5),
+        view.getCharAt(6),view.getCharAt(7));
+    return m_emailDateMap[email];
 }
 
