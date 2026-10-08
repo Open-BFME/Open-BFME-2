@@ -195,11 +195,105 @@ public:
 	Rva001EB15A record;
 };
 
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+class Object;
+class DamageInfo;
+
+class Xfer
+{
+public:
+	class Version;
+
+	Xfer();
+	virtual ~Xfer();
+
+	void Version1();
+
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3DBase &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+
+	virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+
+protected:
+	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+class Rva004E0513 { public: void rva004E0513(Xfer*); };
+class Rva00291440;
+void rva003064CB(Xfer*,Rva00291440*);
+void XferLivingWorldArmyID(Xfer*,int*);
+void Rva004E12D7Parse(void*,void*);
+
 class UnitRevivalEntry
 {
 public:
 	UnitRevivalEntry(Object *object);
 	UnitRevivalEntry(const ThingTemplate *thingTemplate);
+	void rva0037E473(Xfer*);
 	UnitRevivalEntry(const UnitRevivalEntry &other);
 	~UnitRevivalEntry();
 	void *getThingTemplate();
@@ -213,7 +307,7 @@ public:
 	int m_rank;
 	int m_level;
 	BfmeFixedStorage128 m_upgrades;
-	Int m_94;			// +0x94
+	unsigned int m_94;		// +0x94: unsigned Xfer slot at 37E4F9
 	Int m_reviveStartFrame;		// +0x98
 	unsigned int m_9c;		// +0x9C: unsigned conversion emits retail x87/_ftol2
 	Bool m_a0;			// +0xA0
@@ -550,4 +644,45 @@ UnitRevivalEntry::UnitRevivalEntry(const ThingTemplate *thingTemplate)
     , m_record(),m_c8(0),m_factor(1.0f),m_displayName()
     , m_templateName(reinterpret_cast<const RevivalTemplateInitView*>(thingTemplate)->name)
 {
+}
+
+// Native 37E473..37E649, 470B RET4; WB F5F830 independently corroborates
+// the Version(1,10) field sequence and image-name save/load branches.
+// Xfer uses the established full virtual API view from Rva004E0513Xfer.cpp.
+// Its unsigned slot at +78 independently supports the cost/time fields.
+// Image.cpp and native +4 access agree on the inline AsciiString name.
+// Two explicit image assignments preserve the retail shared-ECX branch shape.
+// The entry-transfer method name remains address-derived.
+void UnitRevivalEntry::rva0037E473(Xfer *xfer)
+{
+    Xfer::Version version(1,10);
+    *xfer == version;
+    *xfer == m_templateName;
+    if(version.m_minimum >= 4) *xfer == m_experience;
+    else { int oldExperience=0; *xfer == oldExperience; m_experience=oldExperience; }
+    if(version.m_minimum >= 5) *xfer == m_level;
+    rva003064CB(xfer,reinterpret_cast<Rva00291440*>(&m_upgrades));
+    *xfer == m_94;
+    *xfer == m_reviveStartFrame;
+    *xfer == m_9c;
+    *xfer == m_a0;
+    *xfer == m_productionID;
+    XferLivingWorldArmyID(xfer,&m_a8);
+    if(version.m_minimum >= 7) Rva004E12D7Parse(xfer,&m_ac);
+    if(version.m_minimum >= 8) *xfer == m_a1;
+    if(version.m_minimum >= 2) reinterpret_cast<Rva004E0513*>(&m_record)->rva004E0513(xfer);
+    else *xfer == m_record.a;
+    if(version.m_minimum >= 3) *xfer == m_rank;
+    AsciiString imageName;
+    if(xfer->IsStoring()) {
+        if (m_reviveImage) imageName=*reinterpret_cast<const AsciiString*>(reinterpret_cast<const char*>(m_reviveImage)+4);
+        else imageName=AsciiString::TheEmptyString;
+        *xfer == imageName;
+    } else {
+        *xfer == imageName;
+        m_reviveImage=TheMappedImageCollection->findImageByName(imageName);
+    }
+    if(version.m_minimum >= 6) *xfer == m_factor;
+    if(version.m_minimum >= 9) *xfer == m_displayName;
+    if(version.m_minimum >= 10) *xfer == m_c8;
 }
