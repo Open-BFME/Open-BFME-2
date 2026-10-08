@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /Ireference/shims/moduledata
 //
 // Opaque scalar deleting destructors, batch B09: the 28-byte wrappers of the
 // classes OpaqueScalarDeletingDtors.cpp modelled with a stand-in three-vptr
@@ -34,6 +34,7 @@
 //   0x00092123  0x0009203A  +0x4 @ 0x00092032
 
 #include "Common/BfmeAudioEventPrefix136.h"
+#include "Common/Snapshot.h"
 
 struct EmitVtableTag;
 
@@ -119,27 +120,23 @@ Rva004FA1F::Rva004FA1F(EmitVtableTag *)
 {
 }
 
-class Rva005109DBase0
+// Native5109D..510B3: the +C Snapshot base is proved by rowed
+// adjusting thunk51C9A. Its inline destructor restores canonical BBB554;
+// the primary base tail-calls the rowed14B destructor1B4E74. Primary
+// fields are opaque here; that provider accesses its owned word at +8.
+class GameEngineDeletingBase
 {
 public:
-	virtual ~Rva005109DBase0();
+    GameEngineDeletingBase();
+    virtual ~GameEngineDeletingBase();
 private:
-	char m_unmodelled[0x8];
+    char m_unknown04[8];
 };
-
-// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0xC) at 0x00051C9A in its vtable is target evidence for it.
-class Rva005109DBaseC
+class Rva005109D : public GameEngineDeletingBase, public Snapshot
 {
 public:
-	virtual ~Rva005109DBaseC();
-};
-class Rva005109D : public Rva005109DBase0, public Rva005109DBaseC
-{
-public:
-	Rva005109D(EmitVtableTag *);
-public:
-	virtual ~Rva005109D();
+    Rva005109D(EmitVtableTag *);
+    __declspec(noinline) virtual ~Rva005109D();
 };
 
 // ?<Rva005109D::Rva005109D> absent-from-retail
