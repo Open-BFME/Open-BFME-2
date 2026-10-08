@@ -20,6 +20,7 @@ class Rva003FA835
 {
 public:
  void rva003FA781(int enabled);
+ void rva003FA7D3(int enabled);
  void rva003FA705(void *target, float value);
 private:
  char m_pad[8];
@@ -30,6 +31,7 @@ private:
  char m_pad15[3];
  float m_elapsed;
  float m_unknown1C;
+ float m_20;
 };
 
 void Rva003FA835::rva003FA781(int enabled)
@@ -53,5 +55,27 @@ void Rva003FA835::rva003FA705(void *target, float value)
  {
   m_unknown1C = value;
   Rva0010E676_SetEmissive(*(RenderObjClass **)((char *)target + 8), value, value, value);
+ }
+}
+
+// ?rva003FA7D3@Rva003FA835@@QAEXH@Z @0x003FA7D3 98B.
+// Ghidra-missed leaf called from 00210E95: when m_20 is non-zero and the
+// low byte is clear, clears m_20/m_elapsed and forwards m_target and the
+// template float to rva003FA705; otherwise when disabled and the low byte
+// is set, sets m_20 to 1.0 and clears m_elapsed. Evidence: prev/next in
+// same TU, rowed callees OVERRIDE::operator-> and rva003FA705, literal
+// 1.0f, caller 0x00210E95.
+void Rva003FA835::rva003FA7D3(int enabled)
+{
+ if (m_20 != 0.0f && !(unsigned char)enabled)
+ {
+  m_20 = 0.0f;
+  m_elapsed = 0.0f;
+  rva003FA705(m_target, ((const Rva003FA781Template *)m_template.operator->())->value);
+ }
+ else if (!m_enabled && (unsigned char)enabled)
+ {
+  m_20 = 1.0f;
+  m_elapsed = 0.0f;
  }
 }
