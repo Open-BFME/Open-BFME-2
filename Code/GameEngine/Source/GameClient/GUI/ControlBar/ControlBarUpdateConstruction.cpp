@@ -185,7 +185,9 @@ public:
 	virtual GameMessage *appendMessage(int type);
 };
 
-extern MessageStream *TheMessageStream;
+// Target data row names this global MessageStreamSubsystem at RVA 0x00A00950
+// (VA 0x00E00950); the BFME1 donor calls it TheMessageStream.
+extern MessageStream *MessageStreamSubsystem;
 
 class InGameUI;
 
@@ -441,7 +443,7 @@ void ControlBar::updateContextStructureInventory()
 		Int desiredGatherers = ((BuildListInfo *)object)->getDesiredGatherers();
 		if (desiredGatherers)
 		{
-			GameMessage *message = TheMessageStream->appendMessage(0x3ed);
+			GameMessage *message = MessageStreamSubsystem->appendMessage(0x3ed);
 			message->appendObjectIDArgument(object->getID());
 			((Rva0053EAECInGameUIView *)TheInGameUI)->slot67(desiredGatherers);
 		}
