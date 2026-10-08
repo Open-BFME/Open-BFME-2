@@ -3,11 +3,14 @@
 //
 // ?rva004E9823@Rva004E9823@@QAEXPBVModuleData@@@Z @ 0x004E9823, 137 bytes.
 // Armor-gated registry fill: look up parent's armor name through the ArmorStore
-// at g_00E0312C via rowed find 0x0041F474, new a 0x188-byte Rva002C6EE0 with
-// (parent, armor, map-empty) via pinned ctor 0x002C6EE0, file it under the
+// at g_00E0312C via rowed find 0x0041F474, new a 0x188-byte SkirmishAI with
+// (parent, armor, map-empty) via rowed ctor 0x002C6EE0, file it under the
 // parent's +0x54 key via rowed map<int,int>::operator[] 0x0028932C, push the
 // parent via rowed vector<const ModuleData*>::push_back 0x004DFCB0, set +0x24.
 // The +0x4 read is the map's own node count (size() == 0 inlined).
+// The historical ModuleData/ArmorTemplate names below are opaque ABI views.
+// The named SkirmishAI provider establishes the constructor receiver and
+// Player argument; this caller does not prove the registry's semantic type.
 #include <map>
 #include <vector>
 #include <new>
@@ -15,6 +18,7 @@
 class AsciiString;
 class ModuleData;
 class ArmorTemplate;
+class Player;
 
 class ArmorStore
 {
@@ -24,10 +28,10 @@ public:
 
 ArmorStore *g_00E0312C = 0;
 
-class Rva002C6EE0
+class SkirmishAI
 {
 public:
-	Rva002C6EE0(const ModuleData *a, const ArmorTemplate *b, bool c);
+	SkirmishAI(Player *player, void *master, bool first);
 
 private:
 	char m_pad[0x188];
@@ -49,7 +53,7 @@ void Rva004E9823::rva004E9823(const ModuleData *parent)
 {
 	const AsciiString *name = (const AsciiString *)((const char *)parent + 0x58);
 	const ArmorTemplate *armor = g_00E0312C->rva0041F474(*name);
-	Rva002C6EE0 *p = new Rva002C6EE0(parent, armor, m_map.size() == 0);
+	SkirmishAI *p = new SkirmishAI((Player *)parent, (void *)armor, m_map.size() == 0);
 	int key = *(const int *)((const char *)parent + 0x54);
 	m_map[key] = (int)p;
 	m_vec.push_back(parent);

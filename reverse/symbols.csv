@@ -2416,7 +2416,6 @@ name,address,notes
 ??0Rva002B91EDElement@@QAE@ABU0@@Z,0x002B90D6,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x002B91ED; element identity unproven; address-derived name
 ??0Rva002BAE2AElement@@QAE@ABU0@@Z,0x002B9247,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x002BAE2A; callee already rowed as the vector<Rva002B72C9> copy ctor so the element is likely that vector; address-derived placeholder name
 ??0Rva002C589B@@QAE@HHPAX@Z,0x002C5C1F,AIThreatFinder entry ctor (value then kind then owner) after a 0x3C new; REL32s at 0x0050558D in Rva0050542B::rva00505544
-??0Rva002C6EE0@@QAE@PBVModuleData@@PBVArmorTemplate@@_N@Z,0x002C6EE0,
 ??0Rva002E160FElement@@QAE@ABU0@@Z,0x002E134C,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x002E160F; element identity unproven; address-derived name
 ??0Rva002E2903Player@@QAE@PAURva002BA8F1Input@@PAX@Z,0x002E2903,Target REL32 from verified-shape RVA 002BA8F1; address-qualified TU view; Ghidra boundary and direct call target checked; semantics provisional
 ??0Rva002E3D7BBase@@QAE@PAPAURva002E36D5Node@@HH@Z,0x002E3D7B,address read from the REL32 displacement at byte-matched body 0x002E3DE3
@@ -11460,7 +11459,6 @@ name,address,notes
 ?rva002C6A76@Rva002A8AB1Record@@QAEXPAVTeam@@@Z,0x002C6A76,TheSkirmishAIManager per-owner record: unless the +0x168 byte is set forward the team to the +0x164 member (tail-jmp 0x002C5FB2); REL32 at 0x0039E6C7 in Team::transferUnitsTo and 0x0039E761 in Team::rva0039E6D1
 ?rva002C6AA8@Rva002A8AB1Record@@QAEXHPAVObject@@@Z,0x002C6AA8,callee of ?rva004690D0@HordeContain (0x004690FA; this = the controlling player's skirmish AI record; args value then Object) read from the REL32 displacement; 20B +0x168-gated forwarder (unrowed)
 ?rva002C6ACB@Rva002A8AB1Record@@QAEPAXXZ,0x002C6ACB,TheSkirmishAIManager per-owner record query through its +0x15C owner; REL32 at 0x005A9AED in the SiegeGates slot 1
-?rva002C6BFF@Rva002C6BFF@@QAEXXZ,0x002C6BFF,thiscall no-arg callee of 0x004E9710 read from its REL32 displacement; body unrowed
 ?rva002C7008@Rva002C7008@@QAEXPAX@Z,0x002C7008,thiscall void callee of 0x004E951C read from its REL32 displacement (this plus arg); body unrowed
 ?rva002C717E@Rva002A8AB1Record@@QAEXABVAsciiString@@H@Z,0x002C717E,TheSkirmishAIManager per-owner record: store an int under an AsciiString key in the +0x17C map; REL32 at 0x005A9967 in the AIBasePenetrationTroopsTactic slot 2
 ?rva002C7196@Rva002A8AB1Record@@QAEHABVAsciiString@@@Z,0x002C7196,TheSkirmishAIManager per-owner record: int under an AsciiString key in the +0x17C map (0 when absent); REL32 at 0x005A99F0 in the AIBasePenetrationTroopsTactic slot 1
@@ -13936,7 +13934,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva00395CEB@@QAE@XZ,0x0033C432,callee of the CastleBehavior ctor 0x003983D4 read from retail; ICF-folded STLport ctor under the CastleBehavior dtor/clear TU spelling
 ??0DozerPrimaryStateMachine@@QAE@PAVObject@@@Z,0x00488DAB,ZH DozerPrimaryStateMachine ctor: StateMachine base ctor then defineState 0;1;2..; createMachines 0x488EFC news 0x3C and calls it with getObject()
 ??0WorkerStateMachine@@QAE@PAVObject@@@Z,0x004A9D79,ZH WorkerStateMachine ctor: StateMachine base ctor then defineState; WorkerAIUpdate::createMachines 0x4A9ED5 news 0x3C and calls it first with getObject() storing +0x4C0 (the dtor 0x4A9A12's m_workerMachine)
-?rva004EDF03@AITactic@@QAEXXZ,0x004EDF03,Restored missing collaborator binding from the held-back generator: direct native REL32s at 505932 and 505A4F respectively; AITactic and Team identities agree with existing start and NotifyTeamCancelled providers; member purpose remains address named
 ?rva004ED6D2@AITactic@@QAEXPAVTeam@@@Z,0x004ED6D2,Restored missing collaborator binding from the held-back generator: direct native REL32s at 505932 and 505A4F respectively; AITactic and Team identities agree with existing start and NotifyTeamCancelled providers; member purpose remains address named
 ?GadgetTextEntryUpdateComposition@@YA_NPAVGameWindow@@@Z,0x00320B3C,callee of ?GadgetTextEntryInsertCharacter@@YA_NPAVGameWindow@@I@Z and GadgetTextEntryInput (which tests its bool)
 ?rva00432AEB@Rva0043283C@@QAEHH@Z,0x00432AEB,callee of ?GadgetTextEntrySystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
@@ -14582,7 +14579,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva005AE0AD@Rva005ADA40@@QAEXPAVXfer@@@Z,0x005AE0AD,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
 ?rva005AE26A@Rva005ADA40@@QAEXPAUCoord3D@@MH@Z,0x005AE26A,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
 ??0?$_Vector_base@PAURva00506909Item@@V?$allocator@PAURva00506909Item@@@_STL@@@_STL@@QAE@ABV?$allocator@PAURva00506909Item@@@1@@Z,0x00211E58,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
-?rva004EDF03@Rva00506909Item@@QAEXXZ,0x004EDF03,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
 ?rva0058AFB3@Rva0058AFB3@@QAE_NPAX@Z,0x0058AFB3,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
 ?rva004ED81D@Rva00506909Item@@QAEXPAURva00506909Request@@PAX@Z,0x004ED81D,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers
 ?rva004ED955@Rva00506909Item@@QAEXPAX@Z,0x004ED955,Retail REL32 calls in the AI tactic/generator units; address-derived ABI views; source identities remain those of their ledger providers

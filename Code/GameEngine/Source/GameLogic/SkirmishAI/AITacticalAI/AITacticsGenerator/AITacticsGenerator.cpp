@@ -128,7 +128,7 @@ public:
 	virtual ~AITactic();
 	virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
 	virtual void xfer(Xfer *xfer);	// slot 5
-	void rva004EDF03();
+	void preUpdate();
 	void rva004ECE1C();
 	bool start(Rva00506909Request *request, void *arg);
 	bool start(void *owner);
@@ -285,22 +285,22 @@ void Rva00506909::rva00505924()
 	Rva00506909Item **it;
 	for (it = m_10.begin(); it != m_10.end(); ++it) {
 		Rva00506909Item *item = *it;
-		reinterpret_cast<AITactic *>(item)->rva004EDF03();
+		reinterpret_cast<AITactic *>(item)->preUpdate();
 		reinterpret_cast<AITactic *>(item)->rva004ECE1C();
 	}
 	for (it = m_28.begin(); it != m_28.end(); ++it) {
 		Rva00506909Item *item = *it;
-		reinterpret_cast<AITactic *>(item)->rva004EDF03();
+		reinterpret_cast<AITactic *>(item)->preUpdate();
 		reinterpret_cast<AITactic *>(item)->rva004ECE1C();
 	}
 	for (it = m_40.begin(); it != m_40.end(); ++it) {
 		Rva00506909Item *item = *it;
-		reinterpret_cast<AITactic *>(item)->rva004EDF03();
+		reinterpret_cast<AITactic *>(item)->preUpdate();
 		reinterpret_cast<AITactic *>(item)->rva004ECE1C();
 	}
 	for (it = m_58.begin(); it != m_58.end(); ++it) {
 		Rva00506909Item *item = *it;
-		reinterpret_cast<AITactic *>(item)->rva004EDF03();
+		reinterpret_cast<AITactic *>(item)->preUpdate();
 		reinterpret_cast<AITactic *>(item)->rva004ECE1C();
 	}
 }

@@ -71,10 +71,10 @@ public:
 	void rva002C585A(int count);
 };
 
-class Rva002C6BFF
+class SkirmishAI
 {
 public:
-	void rva002C6BFF();
+	void update();
 };
 
 class Rva004E8FF6
@@ -231,7 +231,7 @@ void AIGameTeam::update()
 			{
 				void *inner = *(void **)((char *)m->m_14 + 0x164);
 				*(void **)((char *)inner + 0x18) = x;
-				((Rva002C6BFF *)m->m_14)->rva002C6BFF();
+				((SkirmishAI *)m->m_14)->update();
 			}
 			((AIGameTeam *)this)->rva004E9446();
 			g_00DFEEF8->m_obj->rva004E9040(((Rva004E93E8 *)this)->rva004E93E8());
