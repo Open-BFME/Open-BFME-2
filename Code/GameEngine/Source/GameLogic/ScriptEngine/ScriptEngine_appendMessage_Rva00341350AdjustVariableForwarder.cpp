@@ -1,38 +1,46 @@
 // cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
 //
+// ScriptEngine.cpp's script-debugger helper _adjustVariable (0x002054FF), its
+// forwarder (0x00206559) and its one in-TU caller ScriptEngine::update
+// (0x0020D065, 1004B).
+//
 // ?Rva00341350AdjustVariableForwarder@@YGXABVAsciiString@@HD@Z
 // retail 0x00206559, 32 bytes. Dedicated TU ported from the Open-BFME-1
 // donor game/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage.cpp (reference/open-bfme-1 @ 6d943426).
 // The donor body does not place at BFME 1's flags; compiled /O1 it is
 // byte-identical to retail once relocations are masked (unique hit on
-// unclaimed .text). Only the placed body is defined here; the donor's
-// other definitions are omitted.
+// unclaimed .text).
 // class-gate: allow AsciiString the donor's own view; the placed body is byte-exact under it
 // stlport
 //
-// Retail 0x0033E9A0, 360 bytes: BFME's copy of the ScriptEngine.cpp file-scope
-// helper _appendMessage.  The identity is the Zero Hour twin at
-// inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source/GameLogic/
-// ScriptEngine/ScriptEngine.cpp:9356 -- same name, same
-// (const AsciiString &, Bool, Bool) signature, same "Run script - " /
-// "Run script false -" pair, same "%d " frame prefix, and the same
-// GetProcAddress("AppendMessageAndPause")/("AppendMessage") tail.  BFME adds
-// two early-outs (the byte at 0x012ED4D8 and the debug-window module) and a
-// prefix filter over the AsciiString vector at TheWritableGlobalData+0x11E0;
-// the recorder pins at 0x012ED620/0x012ED624 independently place scalars at
-// GlobalData+0x11EC and +0x11F0, which brackets that vector to 0x11E0..0x11E8.
+// _adjustVariable takes `str` live in EDI, saves only ESI and returns
+// without popping arguments: MSVC 7.1's private convention for a static
+// helper, which it gets only beside its callers.  That is why it stays
+// `static` here with update, which calls it from the debug-window block.
 //
-// The retail body takes `str` live in EDI, saves only ESI and returns without
-// popping arguments: MSVC 7.1's private convention for a static helper.  That
-// is why it stays `static` here, beside its retail callers: without a call in
-// the TU the helper is neither emitted nor given the register-passed first
-// argument.  ScriptEngine::applyNamed (0x00340F10, BFME's executeScript)
-// reaches _appendMessage four times, which gives it retail's `mov edi,eax` and
-// two-push call shape; ScriptEngine::update (0x0034B9A0) calls _adjustVariable.
+// ScriptEngine::update, retail 0x0020D065 (1004B).
+// Identity (target): vtable slot of ScriptEngine's update (UAEXXZ), and the
+// WorldBuilder twin 0xB34480 carries the name with the same callee order:
+// GameLogic 0x001DCD1C and BitFlags<7,LivingWorldTurnPhase>::test on the
+// LivingWorldLogic turn phase, createNamedCache-position 0x0020A7C9,
+// particleEditorUpdate 0x00204032, closeWindows (ScriptActions slot +0x3C),
+// the end-game message 0x00203BE9, updateFades 0x002036CC, the
+// ScriptActions/ScriptConditions update slot +0x28, getNthPlayer,
+// keyToName, getSideInfo, walkNamed/walkChild, updateTeamStates,
+// list<int>::clear, evaluateAndProgressAllSequentialScripts, isTimeFast and
+// _adjustVariable.
+// Donor: Zero Hour ScriptEngine.cpp:5503 update (first-update, close-window
+// and end-game timers, fades, countdown decrement, side loop, team states,
+// UI interactions, sequential scripts, st_CurrentFrame, debug variables).
+// BFME 2 adds the turn-phase gate, the scope latch on m_currentScope per
+// side, the slow-script timing log and the "scope/name" debug keys; its
+// counters and flags are maps keyed by (scope, name).
 
 #define _STLP_NO_EXCEPTIONS 1
 #define _STLP_USE_STATIC_LIB 1
+#include <list>
 #include <map>
+#include <vector>
 
 typedef int Int;
 typedef bool Bool;
@@ -68,6 +76,7 @@ private:
 public:
 	void set(const StringBase<T> &other);			// 0x00887C90
 	void concat(const T *text, Int length);			// 0x00887D60
+	void concat(const StringBase<T> &other);		// 0x00006987
 	Bool startsWith(const T *text, Int length) const;	// 0x008875A0
 
 	Data *m_data;
@@ -121,6 +130,16 @@ public:
 		StringBase<char>::concat(other.str(), other.getLength());
 	}
 
+	// BFME 2 calls operator+=(char) out of line (0x000065FA) and inlines
+	// operator+=(AsciiString) to StringBase::concat (0x00006987), as the
+	// shared reference/shims/bfme2_ascii/ascii_string.h does.
+	AsciiString &operator+=(char c);
+	AsciiString &operator+=(const AsciiString &other)
+	{
+		StringBase<char>::concat(other);
+		return *this;
+	}
+
 	Bool startsWith(const AsciiString &other) const
 	{
 		return StringBase<char>::startsWith(other.str(), other.getLength());
@@ -137,16 +156,15 @@ public:
 	}
 };
 
-#include "Common/LatchRestore.h"
-
 class GameLogic
 {
 public:
+	Bool rva001DCD1C();					// 0x001DCD1C
 	Int getFrame() const { return m_frame; }
 
 private:
-	unsigned char m_unknown00[0x3c];
-	Int m_frame;						// +0x3C
+	unsigned char m_unknown00[0x40];
+	Int m_frame;						// +0x40
 };
 
 // The three-pointer vector living at GlobalData+0x10F4 in BFME 2 (+0x11E0 in
@@ -172,271 +190,241 @@ public:
 	GlobalData10F4StringVec m_stringVec10F4;		// +0x10F4
 };
 
-class Script;
-class ScriptAction;
-class Team;
-class Player;
+// ScriptEngine::update (0x0020D065).
+enum NameKeyType;
 
-enum GameDifficulty
+// WorldBuilder's twin tests the turn phase through
+// BitFlags<7,LivingWorldTurnPhase>::test (BitFlags.h:383): an unchecked word
+// and mask test on an unsigned index.
+enum LivingWorldTurnPhase;
+
+template <unsigned int NUMBITS, class T> class BitFlags
 {
-	DIFFICULTY_EASY,
-	DIFFICULTY_NORMAL,
-	DIFFICULTY_HARD
+public:
+	Bool test(T bit) const
+	{
+		unsigned int i = bit;
+		return (m_bits[i >> 5] & (1 << (i & 31))) != 0;
+	}
+
+private:
+	unsigned int m_bits[(NUMBITS + 31) / 32];
 };
 
-enum NameKeyType;
+typedef BitFlags<7, LivingWorldTurnPhase> LivingWorldTurnPhaseFlags;
+
+class LivingWorldLogic
+{
+public:
+	LivingWorldTurnPhase getTurnPhase() const { return m_turnPhase; }
+
+private:
+	unsigned char m_unknown00[0xf4];
+	LivingWorldTurnPhase m_turnPhase;			// +0xF4 (WB member name)
+};
+
+class ScriptActions
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02();
+	virtual void v03(); virtual void v04(); virtual void v05();
+	virtual void v06(); virtual void v07(); virtual void v08();
+	virtual void v09();
+	virtual void update();					// +0x28
+	virtual void v11(); virtual void v12(); virtual void v13();
+	virtual void v14();
+	virtual void closeWindows(Bool suppressDialogs);	// +0x3C
+};
+
+class ScriptConditions
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02();
+	virtual void v03(); virtual void v04(); virtual void v05();
+	virtual void v06(); virtual void v07(); virtual void v08();
+	virtual void v09();
+	virtual void update();					// +0x28
+};
 
 class Player
 {
 public:
-	GameDifficulty getPlayerDifficulty() const;		// ILT 0x000217D8
-	NameKeyType getNameKey() const { return at20; }
-
-	char at0[0x20];
-	NameKeyType at20;
-};
-
-// Zero Hour's DLINK_ITERATOR (GameCommon.h): the next-function member pointer
-// is a second iterator word, which is why the walk's frame holds eight bytes
-// for it although the pointer folds into a direct call.
-template <class OBJCLASS>
-class DLINK_ITERATOR
-{
-public:
-	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
+	NameKeyType getPlayerNameKey() const { return m_playerNameKey; }
 
 private:
-	OBJCLASS *m_cur;
-	GetNextFunc m_getNextFunc;
-
-public:
-	DLINK_ITERATOR(OBJCLASS *cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc) {}
-
-	void advance()
-	{
-		if (m_cur)
-			m_cur = ((*m_cur).*(m_getNextFunc))();
-	}
-
-	Bool done() const { return m_cur == 0; }
-	OBJCLASS *cur() const { return m_cur; }
+	unsigned char m_unknown00[0x50];
+	NameKeyType m_playerNameKey;				// +0x50
 };
 
-class Team
+class PlayerList
 {
 public:
-	Team *_bfme_nextInInstanceList() const;			// ILT 0x00022A70
+	Player *getNthPlayer(Int i);				// 0x002A7A29
+	void updateTeamStates();				// 0x002A7B1C
 };
 
-class TeamPrototype
+class NameKeyGenerator
 {
 public:
-	Int countTeamInstances();				// ILT 0x0003DE8D
-
-	DLINK_ITERATOR<Team> iterate_TeamInstanceList() const
-	{
-		return DLINK_ITERATOR<Team>(m_teamInstanceList, &Team::_bfme_nextInInstanceList);
-	}
-
-private:
-	unsigned char m_unmodelled_000[0x274];
-	Team *m_teamInstanceList;				// +0x274
+	const AsciiString &keyToName(NameKeyType key);		// 0x00148C95
 };
 
-class TeamFactory
-{
-public:
-	TeamPrototype *findTeamPrototype(const AsciiString &name,
-		const AsciiString &ownerName);			// ILT 0x00040A39
-};
-
-// The by-value string accessor at 0x00338EF0 (ILT 0x00012378) returns the
-// retail StringBase<char> copy of the string at Script+0x30.
-template <class T> class BFMERetailStringBase
-{
-public:
-	~BFMERetailStringBase()
-	{
-		((BFMERetailAsciiString *)this)->releaseBuffer();
-	}
-
-	Bool isEmpty() const { return !m_data || m_data->m_length == 0; }
-
-	typename StringBase<T>::Data *m_data;
-};
-
-class Rva00338EF0Host
-{
-public:
-	BFMERetailStringBase<char> copyStringAt30();		// ILT 0x00012378
-};
-
-// Types used by ScriptEngine::update (0x0034B9A0).
-extern AsciiString KEYNAME(NameKeyType);
-struct Update0034B9A0Counter { AsciiString at10,at14; int at18; bool at1c,at1d; };
-struct Update0034B9A0Flag { AsciiString at10,at14; bool at18; };
-typedef _STL::_Rb_tree_node<Update0034B9A0Counter> CounterNode;
-typedef _STL::_Rb_tree_node<Update0034B9A0Flag> FlagNode;
-typedef _STL::_Rb_tree_iterator<Update0034B9A0Counter,_STL::_Nonconst_traits<Update0034B9A0Counter> > CounterIterator;
-typedef _STL::_Rb_tree_iterator<Update0034B9A0Flag,_STL::_Nonconst_traits<Update0034B9A0Flag> > FlagIterator;
-struct Update0034B9A0List { Update0034B9A0List *next,*prev; AsciiString value; };
-class ScriptActionsInterface {
-public:
- virtual void slot0(); virtual void slot1(); virtual void slot2();
- virtual void slot3(); virtual void slot4(); virtual void update();
- virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9();
- virtual void closeWindows(bool);
-};
-class ScriptConditionsInterface {
-public:
- virtual void slot0(); virtual void slot1(); virtual void slot2();
- virtual void slot3(); virtual void slot4(); virtual void update();
- virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9();
- virtual void closeWindows(bool);
-};
+// The script tree walkers keep their address-derived parameter types
+// (ScriptEngine_rva0020A7C9.cpp, ScriptEngineArrWalk_Rva0020C0E3.cpp).
 struct Rva003412E0Node;
 class Rva00355950Arr;
 class Rva003558C0Arr;
-struct Update0034B9A0ScriptList { int at0; Rva003412E0Node *at4,*at8;
- Rva003412E0Node *getScript() { return at8; } Rva003412E0Node *getScriptGroup() { return at4; } };
-struct Update0034B9A0Side { char at0[8]; Update0034B9A0ScriptList *at8; char atc[12];
- Update0034B9A0ScriptList *getScriptList() { return at8; } };
-class SidesList {
-public:
- char at0[0x28]; int at28; Update0034B9A0Side at2c[1];
- int getNumSides() const { return at28; }
- Update0034B9A0Side *at(int i) { return i>=0 && i<at28 ? &at2c[i] : 0; }
-};
-class PlayerList { public: Player *getNthPlayer(int); void updateTeamStates(); };
 
-class ScriptEngine;
-
-class BFMEScriptEngineFlagLookup
+class ScriptList
 {
-	friend class ScriptEngine;
+public:
+	Rva003412E0Node *getScriptGroup() { return m_firstGroup; }
+	Rva003412E0Node *getScript() { return m_firstScript; }
 
 private:
-	AsciiString canonicalFlagName(const AsciiString &name);	// ILT 0x00036336
+	void *m_vtbl;
+	Rva003412E0Node *m_firstGroup;				// +0x04
+	Rva003412E0Node *m_firstScript;				// +0x08
 };
 
-class Script
+// BFME 2 keeps each side's script list by value at +0x08
+// (SidesInfoSetScriptList.cpp).
+class SidesInfo
 {
 public:
-	Int getDelayEvalSeconds() const { return *(const Int *)((const char *)this + 0x10); }
-	Bool isActive() const { return *(const Bool *)((const char *)this + 0x14); }
-	void setActive(Bool active) { *(Bool *)((char *)this + 0x14) = active; }
-	Bool isOneShot() const { return *(const Bool *)((const char *)this + 0x16); }
-	Bool isEasy() const { return *(const Bool *)((const char *)this + 0x18); }
-	Bool isNormal() const { return *(const Bool *)((const char *)this + 0x19); }
-	Bool isHard() const { return *(const Bool *)((const char *)this + 0x1a); }
-	ScriptAction *getAction() const { return *(ScriptAction *const *)((const char *)this + 0x20); }
-	ScriptAction *getFalseAction() const { return *(ScriptAction *const *)((const char *)this + 0x24); }
-	unsigned int getFrameToEvaluate() const { return *(const unsigned int *)((const char *)this + 0x28); }
-	void setFrameToEvaluate(unsigned int frame) { *(unsigned int *)((char *)this + 0x28) = frame; }
-	void setCurTime(float t) { *(float *)((char *)this + 0x38) = t; }
+	ScriptList *getScriptList() { return &m_scriptList; }
+
+private:
+	unsigned char m_unknown00[0x8];
+	ScriptList m_scriptList;				// +0x08
+};
+
+class SidesList
+{
+public:
+	Int getNumSides() { return m_numSides; }
+	SidesInfo *getSideInfo(Int ndx);			// 0x002035BA
+
+private:
+	unsigned char m_unknown00[0x3c];
+	Int m_numSides;						// +0x3C
+};
+
+// The scope latch on m_currentScope: restores the saved string when it goes
+// out of scope (Rva002048A2Ctor.cpp).
+class Rva002048A2
+{
+public:
+	Rva002048A2(AsciiString *dest, const AsciiString &src);	// 0x002048A2
+	virtual ~Rva002048A2();					// 0x002048EC
+
+private:
+	AsciiString m_valueToRestore;
+	AsciiString *m_whereToStore;
+};
+
+// The slow-script name list at 0x00DFE174; this TU only clears it, through
+// the out-of-line erase at 0x0002CCFC (VectorAsciiStringErase.cpp).
+namespace _STL
+{
+template <> class vector<AsciiString, allocator<AsciiString> >
+{
+public:
+	typedef AsciiString *iterator;
+	iterator begin() { return m_start; }
+	iterator end() { return m_finish; }
+	iterator erase(iterator first, iterator last);
+	void clear() { erase(begin(), end()); }
+
+private:
+	iterator m_start;
+	iterator m_finish;
+	iterator m_endOfStorage;
+};
+}
+
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
+
+// BFME 2 scopes Zero Hour's counter and flag arrays by (script scope, name)
+// in two maps; update reads the counter value, its countdown flag and the
+// seconds-display flag the debug window gets, and the flag value.
+typedef _STL::pair<AsciiString, AsciiString> ScopedName;
+
+struct ScriptCounter
+{
+	Int value;						// node +0x18
+	Bool isCountdownTimer;					// node +0x1C
+	Bool showSeconds;					// node +0x1D
+};
+
+typedef _STL::map<ScopedName, ScriptCounter> CounterMap;
+typedef _STL::map<ScopedName, Bool> FlagMap;
+
+enum TFade
+{
+	FADE_NONE
 };
 
 class ScriptEngine
 {
 public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02();
-	virtual void slot03(); virtual void slot04(); virtual void update();
-	virtual void slot06(); virtual void slot07(); virtual void slot08();
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14();
-	virtual void slot15(); virtual void slot16(); virtual void slot17();
-	virtual void slot18(); virtual void slot19(); virtual void slot20();
-	virtual void slot21(); virtual void slot22();
-	virtual Bool evaluateConditions(Script *pScript, Team *thisTeam = 0,
-		Player *player = 0);				// vtable +0x5C
-
-	Bool isTimeFast();					// ILT 0x0000A8A8 -> 0x00336FB0
-	void applyNamed(void *object, void *slot);
-	void createNamedCache(); void _bfme_finishEndGame();
-	void walkNamed(Rva00355950Arr*,Rva003412E0Node*,bool);
-	void walkChild(Rva003558C0Arr*,Rva003412E0Node*);
-	// Layout offsets read directly from the retail update and corroborated by newMap.
-	char at00004[0x16040-4];
-	_STL::_Rb_tree_node_base *at16040; char at16044[8];
-	_STL::_Rb_tree_node_base *at1604c; char at16050[0x17080-0x16050];
-	int at17080,at17084; AsciiString at17088; char at1708c[0x170a8-0x1708c];
-	bool at170a8; char at170a9[3]; Player *at170ac; int at170b0,at170b4;
-	char at170b8[0x17270-0x170b8]; Update0034B9A0List *at17270;
-	char at17274[0x17637-0x17274]; bool at17637;
+	virtual void update();
+	Bool isTimeFast();					// 0x00203B47
+	void rva0020A7C9();					// 0x0020A7C9
+	void rva00203BE9();					// 0x00203BE9, end game
+	void walkNamed(Rva00355950Arr *list, Rva003412E0Node *node, bool flag);	// 0x0020A775
+	void walkChild(Rva003558C0Arr *list, Rva003412E0Node *node);		// 0x0020C0E3
+	void evaluateAndProgressAllSequentialScripts();	// 0x0020C83F
 
 protected:
-	void executeActions(ScriptAction *pActionHead);		// ILT 0x0000B811
-	void updateFades();
+	void particleEditorUpdate();				// 0x00204032
+	void updateFades();					// 0x002036CC
 
 private:
-	const AsciiString &scope17088() const { return *(const AsciiString *)((const char *)this + 0x17088); }
-	Team *&team17094() { return *(Team **)((char *)this + 0x17094); }
-	Player *player170AC() const { return *(Player *const *)((const char *)this + 0x170ac); }
-	GameDifficulty difficulty17620() const { return *(const GameDifficulty *)((const char *)this + 0x17620); }
+	unsigned char m_unknown04[0x190a0 - 0x04];
+	CounterMap m_counters;					// +0x190A0
+	FlagMap m_flags;					// +0x190AC
+	unsigned char m_unknown190B8[0x1a104 - 0x190b8];
+	Int m_endGameTimer;					// +0x1A104
+	Int m_closeWindowTimer;					// +0x1A108
+	AsciiString m_currentScope;				// +0x1A10C
+	unsigned char m_unknown1A110[0x1a12c - 0x1a110];
+	Bool m_firstUpdate;					// +0x1A12C
+	Player *m_currentPlayer;				// +0x1A130
+	Int m_unknown1A134;					// +0x1A134
+	TFade m_fade;						// +0x1A138
+	unsigned char m_unknown1A13C[0x1a264 - 0x1a13c];
+	_STL::list<int> m_uiInteractions;			// +0x1A264
+	unsigned char m_unknown1A268[0x1a4d8 - 0x1a268];
+	Bool m_bfme1A4D8;					// +0x1A4D8
 };
-
-AsciiString Rva00195FC0JoinPath(const AsciiString &left, const AsciiString &right);
 
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer,
 	const char *format, ...);
 
-// File statics as in the Zero Hour ScriptEngine.cpp (st_DebugDLL, st_CurrentFrame).
-static void *TheScriptDebugWindowDLL;				// 0x012F0758
-static int st_CurrentFrame;					// 0x012F0760
-extern GlobalData *TheWritableGlobalData;			// 0x012ED5C8
-extern GameLogic *TheGameLogic;					// 0x012F0898
-extern ScriptEngine *TheScriptEngine;				// 0x012F076C
-extern TeamFactory *TheTeamFactory;				// 0x012ED810
+// Zero Hour's st_DebugDLL is the global the data ledger defines at
+// 0x00DFE158: update() keeps its read after the byte store at +0x1A4D8,
+// which a file static whose address is never taken would let cl hoist.
+extern int g_00DFE158;
+#define TheScriptDebugWindowDLL ((HMODULE)g_00DFE158)
+// File static as in the Zero Hour ScriptEngine.cpp.
+static int st_CurrentFrame;					// 0x00DFE160
+extern GlobalData *TheWritableGlobalData;			// 0x00DFE758
+extern GameLogic *TheGameLogic;					// 0x00DFE78C
+extern ScriptEngine *TheScriptEngine;				// 0x00DFE16C
+extern LivingWorldLogic *TheLivingWorldLogic;			// 0x00DFEF10
+extern PlayerList *ThePlayerList;				// 0x00DFEEE8
+extern NameKeyGenerator *TheNameKeyGenerator;			// 0x00DF36A4
+extern SidesList *TheSidesList;					// 0x00E01D58
+extern ScriptActions *TheScriptActions;				// 0x00E02D98
+extern ScriptConditions *TheScriptConditions;			// 0x00E02E04
+extern unsigned int g_Va00E02D64;				// 0x00E02D64
+extern unsigned int g_00DFE174;				// 0x00DFE174
 
-// 0x012ED4D8 carries no ledger pin; the address-derived spelling already used
-// by game/GameEngine/Source/Common/T3CommandLineParsers.cpp is kept.
-extern bool BFME2ScriptDebugLiteMode;					// 0x012ED4D8
+// SetTheSidesList hand-off to the debug window (ScriptEngine_setSides.cpp).
+void rva00203C21();
 
-static void _appendMessage(const AsciiString &str, Bool isTrueMessage,
-	Bool shouldPause)
-{
-	if (BFME2ScriptDebugLiteMode)
-		return;
-	if (!TheScriptDebugWindowDLL)
-		return;
-
-	// begin()/end() rather than the raw fields: retail materialises the end
-	// pointer into a register before the compare, which the direct field
-	// read folds into `cmp esi,[reg+0x10F8]` instead.
-	for (AsciiString *name = TheWritableGlobalData->m_stringVec10F4.begin();
-		 name != TheWritableGlobalData->m_stringVec10F4.end();
-		 ++name)
-	{
-		if (str.startsWith(*name))
-			return;
-	}
-
-	{
-		AsciiString msg;
-		msg.format("%d ", TheGameLogic->getFrame());
-		// Retail passes both lengths as immediates; Zero Hour's
-		// concat(const char *) folds strlen to the same 13 and 18.
-		if (isTrueMessage)
-			msg.concat("Run script - ", 13);
-		else
-			msg.concat("Run script false -", 18);
-		msg.concat(str);
-
-		HMODULE module = TheScriptDebugWindowDLL;
-		if (!module)
-			return;
-
-		FARPROC proc;
-		if (shouldPause)
-			proc = GetProcAddress(module, "AppendMessageAndPause");
-		else
-			proc = GetProcAddress(module, "AppendMessage");
-		if (!proc)
-			return;
-
-		((void(__cdecl *)(const char *))proc)(msg.str());
-	}
-}
+extern bool BFME2ScriptDebugLiteMode;					// 0x00E02D78
 
 // Retail 0x002054FF, 224 bytes (BFME 1: 0x0033EB70, 297 bytes): the Zero Hour
 // twin at ScriptEngine.cpp:9389
@@ -496,22 +484,106 @@ void __stdcall Rva00341350AdjustVariableForwarder(const AsciiString &str,
 {
 	_adjustVariable(str, value, shouldPause, false);
 }
+void ScriptEngine::update()
+{
+	if (TheGameLogic->rva001DCD1C()
+		&& !((const LivingWorldTurnPhaseFlags *)&g_Va00E02D64)->test(
+			TheLivingWorldLogic->getTurnPhase()))
+		return;
 
-// Retail 0x0034B9A0, 1212 bytes: ZH ScriptEngine::update; vtable 010E7A30 slot 5
-// -> ILT 00025A3B. Same TU as _adjustVariable for its private EDI convention.
-extern void j_0003ce98(); extern void j_0000fcbd();
-static __forceinline void callUpdateMember(ScriptEngine *p, void (*raw)()) {
- union {void (*raw)(); void (ScriptEngine::*member)();} u;
- u.raw=raw; (p->*u.member)();
+	if (m_firstUpdate) {
+		rva0020A7C9();
+		particleEditorUpdate();
+		m_firstUpdate = false;
+	} else {
+		particleEditorUpdate();
+	}
+
+	if (m_closeWindowTimer > 0) {
+		m_closeWindowTimer--;
+		if (m_closeWindowTimer < 1)
+			TheScriptActions->closeWindows(false);
+	}
+	if (m_endGameTimer > 0) {
+		m_endGameTimer--;
+		if (m_endGameTimer < 1)
+			rva00203BE9();
+	}
+
+	if (m_fade != FADE_NONE)
+		updateFades();
+
+	if (m_endGameTimer >= 0)
+		return;
+
+	if (TheScriptActions)
+		TheScriptActions->update();
+	if (TheScriptConditions)
+		TheScriptConditions->update();
+
+	Int i;
+	for (CounterMap::iterator it = m_counters.begin(), end = m_counters.end(); it != end; ++it) {
+		if (it->second.isCountdownTimer) {
+			Int value = it->second.value;
+			if (value >= 0)
+				it->second.value = value - 1;
+		}
+	}
+
+	_STL::vector<AsciiString> *slowScripts = (_STL::vector<AsciiString> *)&g_00DFE174;
+	slowScripts->clear();
+
+	unsigned long startTime = timeGetTime();
+
+	for (i = 0; i < TheSidesList->getNumSides(); i++) {
+		m_currentPlayer = ThePlayerList->getNthPlayer(i);
+		Rva002048A2 scope(&m_currentScope,
+			TheNameKeyGenerator->keyToName(m_currentPlayer->getPlayerNameKey()));
+		// The side's by-value script list: retail adds 8 and tests the sum
+		// (mov/add/je). The member-address spelling emits lea/test and frees
+		// the register that retail spends on timeGetTime, keeping i in EDI.
+		ScriptList *pSL = (ScriptList *)((char *)TheSidesList->getSideInfo(i) + 8);
+		if (pSL) {
+			walkNamed((Rva00355950Arr *)pSL, pSL->getScript(), true);
+			walkChild((Rva003558C0Arr *)pSL, pSL->getScriptGroup());
+		}
+		m_currentPlayer = NULL;
+	}
+
+	unsigned long elapsed = timeGetTime() - startTime;
+	if (elapsed > 10) {
+		char buf[256];
+		sprintf(buf, "slow script on logic frame %d = %d ms\n", TheGameLogic->getFrame(), elapsed);
+		Int n = 1;
+		for (AsciiString *p = slowScripts->begin(); p != slowScripts->end(); ++p, ++n)
+			sprintf(buf, "    %d %s\n", n, p->str());
+	}
+
+	ThePlayerList->updateTeamStates();
+
+	m_uiInteractions.clear();
+
+	m_bfme1A4D8 = true;
+	evaluateAndProgressAllSequentialScripts();
+	st_CurrentFrame++;
+	m_bfme1A4D8 = false;
+
+	if (TheScriptDebugWindowDLL && !isTimeFast()) {
+		rva00203C21();
+		for (CounterMap::iterator cit = m_counters.begin(), cend = m_counters.end(); cit != cend; ++cit) {
+			AsciiString name = cit->first.first;
+			name += '/';
+			name += cit->first.second;
+			if (cit->second.showSeconds)
+				_adjustVariable(name.str(), cit->second.value, false, true);
+			else
+				_adjustVariable(name.str(), cit->second.value, false, false);
+		}
+		for (FlagMap::iterator fit = m_flags.begin(), fend = m_flags.end(); fit != fend; ++fit) {
+			AsciiString name = fit->first.first;
+			name += '/';
+			name += fit->first.second;
+			_adjustVariable(name.str(), fit->second, false, false);
+		}
+	}
 }
-extern ScriptActionsInterface *TheScriptActions;
-extern ScriptConditionsInterface *TheScriptConditions;
-extern SidesList *TheSidesList;
-extern PlayerList *ThePlayerList;
-class AudioManager; class NameKeyGenerator; class View; class TerrainLogic; class ThingFactory;
-extern AudioManager *TheAudio; // 0x012ED668
-extern NameKeyGenerator *TheNameKeyGenerator; // 0x012ED600
-extern View *TheTacticalView; // 0x012F1600
-extern TerrainLogic *TheTerrainLogic; // 0x012EF4CC
-extern ThingFactory *TheThingFactory; // 0x012EF1D8
-#define CurrentFrame st_CurrentFrame
