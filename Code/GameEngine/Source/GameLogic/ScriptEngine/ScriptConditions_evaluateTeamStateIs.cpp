@@ -220,6 +220,17 @@
 // Script_objectTypesFromParam), then each player of the mask (rowed
 // rva00357B82 plus getEachPlayerFromMask) passes when the rowed
 // ObjectTypes::canBuildAny 0x00376988 accepts it.
+//
+// ?evaluatePlayerHasKilledKindOfUnits@ScriptConditions@@IAE_NPAVParameter@@00@Z @ 0x003E5C04 173B
+// Target evidence: jump-table case 128 calls 0x003E5C04, which
+// initConditionTemplates names PLAYER_HAS_KILLED_KINDOF_UNITS (player,
+// count, KindOf). The first player of the mask (rowed rva00357B82 plus
+// getEachPlayerFromMask) is read at its +0x3BC records, the same ones the
+// sibling evaluatePlayerHasKilledTypeUnits sums by name; here the rowed
+// 0x0039BF67 sums them by a kind mask with only the parameter's bit set
+// and a cleared exclusion mask (two memsets of one slot), true when the
+// total reaches the count. Structure follows that ZH-derived sibling.
+#include <string.h>
 #include <vector>
 #include <list>
 #include "ascii_string.h"
@@ -583,6 +594,29 @@ public:
 	int rva0039C0F4(const AsciiString &objectType);
 };
 
+// BFME2's 28-byte kind mask; the copy constructor is the pinned 0x0004543D
+// memcpy twin, and a cleared mask is a 28-byte memset.
+template <int N>
+class BitFlags
+{
+public:
+	BitFlags() { clear(); }
+	BitFlags(const BitFlags &other);
+	void clear() { memset(m_bits, 0, sizeof(m_bits)); }
+	void set(unsigned int bit) { m_bits[bit >> 5] |= 1u << (bit & 31); }
+private:
+	unsigned int m_bits[7];
+};
+typedef BitFlags<116> KindOfMaskType;
+
+// The same Player+0x3BC records summed by kind (rowed Rva0039BF67Sum,
+// mustBeSet/mustBeClear masks by value).
+class Rva0039BF67
+{
+public:
+	int rva0039BF67(KindOfMaskType mustBeSet, KindOfMaskType mustBeClear);
+};
+
 // The object at Player+0x08 whose rowed 0x003802DF answers the level cap.
 class Rva00380200
 {
@@ -598,6 +632,7 @@ public:
 	int getPlayerIndex() const { return m_playerIndex; }
 	Rva002A7461 *getCommandPoints() { return &m_commandPoints; }
 	Rva0039C0F4 *getKills() { return &m_kills; }
+	Rva0039BF67 *getKindOfKills() { return reinterpret_cast<Rva0039BF67 *>(&m_kills); }
 	void countObjectsByThingTemplate(int numThingTemplates, const ThingTemplate *const *things, bool ignoreDead, int *counts, bool ignoreUnderConstruction) const;
 private:
 	unsigned char m_pad00[0x08];
@@ -751,6 +786,7 @@ protected:
 	bool rva003E4519(Parameter *);
 	bool rva003E6BC5(Condition *, Parameter *);
 	bool evaluateSkirmishPlayerHasPrereqsToBuild(Parameter *, Parameter *);
+	bool evaluatePlayerHasKilledKindOfUnits(Parameter *, Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1425,6 +1461,24 @@ bool ScriptConditions::evaluateSkirmishPlayerHasPrereqsToBuild(Parameter *pSkirm
 		Player *player = ThePlayerList->getEachPlayerFromMask(playerMask);
 		if (player && types.m_types->canBuildAny(player))
 			return true;
+	}
+	return false;
+}
+
+bool ScriptConditions::evaluatePlayerHasKilledKindOfUnits(Parameter *pPlayerParm, Parameter *pCountParm, Parameter *pKindOfParm)
+{
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
+	Player *thePlayer = ThePlayerList->getEachPlayerFromMask(mask);
+	if (thePlayer) {
+		Rva0039BF67 *kills = thePlayer->getKindOfKills();
+		if (kills) {
+			KindOfMaskType mustBeSet;
+			mustBeSet.set(pKindOfParm->getInt());
+			KindOfMaskType mustBeClear;
+			mustBeClear.clear();
+			int total = kills->rva0039BF67(mustBeSet, mustBeClear);
+			return total >= pCountParm->getInt();
+		}
 	}
 	return false;
 }
