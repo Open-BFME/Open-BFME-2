@@ -17,9 +17,11 @@ public:
     ~RefCountPtr() { if(p) p->Release_Ref(); }
     bool operator==(const RefCountPtr &other) const { return p==other.p; }
 };
+class VertexMaterialClass;
 class DX8PolygonRendererClass;
 class DX8FVFCategoryContainer {
-public: void Change_Polygon_Renderer_Texture(MultiListClass<DX8PolygonRendererClass>&, const RefCountPtr<TextureClass>&, const RefCountPtr<TextureClass>&, unsigned, unsigned);
+public: void Change_Polygon_Renderer_Material(MultiListClass<DX8PolygonRendererClass>&, VertexMaterialClass*, VertexMaterialClass*, unsigned);
+    void Change_Polygon_Renderer_Texture(MultiListClass<DX8PolygonRendererClass>&, const RefCountPtr<TextureClass>&, const RefCountPtr<TextureClass>&, unsigned, unsigned);
 };
 class DX8TextureCategoryClass {
     char gap[0x34];
@@ -34,15 +36,22 @@ public: DX8TextureCategoryClass *Get_Texture_Category() { return TextureCategory
 class MeshMatDescClass {
 public:
     int PassCount;
-    char gap[0xc4];
-    void *TextureArray[4][2];
+    char gap4[0xa4];
+    VertexMaterialClass *Material[4];	// +0xA8
+    char gapB8[0x10];
+    void *TextureArray[4][2];	// +0xC8
+    void *MaterialArray[4];	// +0xE8
+    VertexMaterialClass *Peek_Material(int,int) const;
+    void Set_Material(int,VertexMaterialClass*,int);
+    void Set_Single_Material(VertexMaterialClass*,int);
     void Set_Texture(int,const RefCountPtr<TextureClass>&,int,int);
     void Set_Single_Texture(const RefCountPtr<TextureClass>&,int,int);
 };
 class MeshModelClass {
     char prefix[0x24];
     int PolygonCount;
-    char gap28[0x6c];
+    int VertexCount;	// +0x28
+    char gap2C[0x68];
     MeshMatDescClass *CurMatDesc;
     char gap98[4];
     MultiListClass<DX8PolygonRendererClass> PolygonRendererList;
@@ -61,6 +70,13 @@ public:
         return texture_category->Get_Container();
     }
     void Replace_Texture(const RefCountPtr<TextureClass>&,const RefCountPtr<TextureClass>&);
+    int Get_Vertex_Count() const { return VertexCount; }
+    bool Has_Material_Array(int pass) const { return CurMatDesc->MaterialArray[pass]!=0; }
+    VertexMaterialClass *Peek_Material(int i,int pass) const { return CurMatDesc->Peek_Material(i,pass); }
+    VertexMaterialClass *Peek_Single_Material(int pass) const { return CurMatDesc->Material[pass]; }
+    void Set_Material(int i,VertexMaterialClass *v,int pass) { CurMatDesc->Set_Material(i,v,pass); }
+    void Set_Single_Material(VertexMaterialClass *v,int pass) { CurMatDesc->Set_Single_Material(v,pass); }
+    void Replace_VertexMaterial(VertexMaterialClass*,VertexMaterialClass*);
 };
 // Zero Hour GeneralsMD meshmdl.cpp Replace_Texture, adapted to owning handles.
 void MeshModelClass::Replace_Texture(const RefCountPtr<TextureClass>& texture,const RefCountPtr<TextureClass>& new_texture)
@@ -83,5 +99,23 @@ void MeshModelClass::Replace_Texture(const RefCountPtr<TextureClass>& texture,co
                 fvf_category->Change_Polygon_Renderer_Texture(PolygonRendererList,texture,new_texture,pass,stage);
             }
         }
+    }
+}
+
+// Zero Hour GeneralsMD meshmdl.cpp Replace_VertexMaterial (retail 0x00172D40,
+// 199 bytes): per pass, swap matching per-vertex or single materials, then
+// let the FVF container retarget its polygon renderers.
+void MeshModelClass::Replace_VertexMaterial(VertexMaterialClass *vmat,VertexMaterialClass *new_vmat)
+{
+    for(int pass=0;pass<Get_Pass_Count();++pass) {
+        if(Has_Material_Array(pass)) {
+            for(int i=0;i<Get_Vertex_Count();++i) {
+                if(Peek_Material(i,pass)==vmat) Set_Material(i,new_vmat,pass);
+            }
+        } else {
+            if(Peek_Single_Material(pass)==vmat) Set_Single_Material(new_vmat,pass);
+        }
+        DX8FVFCategoryContainer *fvf_category=Peek_FVF_Category_Container();
+        if(fvf_category) fvf_category->Change_Polygon_Renderer_Material(PolygonRendererList,vmat,new_vmat,pass);
     }
 }

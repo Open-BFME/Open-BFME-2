@@ -16517,3 +16517,4 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ?TestWaterUpdate@@YAXXZ,0x000FF8FA,callee of ?flush@WaterTracksRenderSystem@@QAEXAAVRenderInfoClass@@@Z
 ?render@WaterTracksObj@@QAEHPAVDX8VertexBufferClass@@HAAVRenderInfoClass@@@Z,0x000FEADB,callee of ?flush@WaterTracksRenderSystem@@QAEXAAVRenderInfoClass@@@Z
 ?init@WaterTracksObj@@QAEXMMAAVVector2@@0PADHPAX@Z,0x000FE379,callee of ?TestWaterUpdate@@YAXXZ
+?Change_Polygon_Renderer_Material@DX8FVFCategoryContainer@@QAEXAAV?$MultiListClass@VDX8PolygonRendererClass@@@@PAVVertexMaterialClass@@1I@Z,0x001465C0,Zero Hour DX8FVFCategoryContainer::Change_Polygon_Renderer_Material (dx8renderer.cpp): REL32 at 0x00172DDE in MeshModelClass::Replace_VertexMaterial with ecx = the FVF container from Peek_FVF_Category_Container and (renderer list; old; new; pass); unrowed 877B body (blocked bank)
