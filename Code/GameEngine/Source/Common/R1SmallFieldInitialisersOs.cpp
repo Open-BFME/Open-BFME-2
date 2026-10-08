@@ -75,3 +75,16 @@ struct Rva00085524Fields {
     Rva00085524Fields *clear();
 };
 Rva00085524Fields *Rva00085524Fields::clear() { word28=0; return this; }
+
+// BF1 9cbfb551fe Common/RTS/Player_resetOrStartSpecialPowerReadyFrame.cpp
+// emits the SpecialPowerReadyTimerType constructor, a two-field initialization
+// semantic guide only. The target 2AA3B5..2AA3BF follows RET2AA3B4 and stores
+// raw word04=all ones BEFORE word00=zero, returning incoming ECX in EAX.
+// Original timer/class identity, constructor-versus-reset and bounds unknown.
+struct Rva002AA3B5Fields {
+    unsigned int word00, word04;
+    Rva002AA3B5Fields *initialize();
+};
+Rva002AA3B5Fields *Rva002AA3B5Fields::initialize() {
+    word04=~0u; word00=0; return this;
+}
