@@ -43,3 +43,27 @@ void Rva0059E647World::Apply(Rva0059E647Entry *templateView, void *regionView, R
         return;
     p2->rva003EFE72(result, p1);
 }
+
+class Rva0060EF3E
+{
+public:
+	bool rva0060EF3E(int v);
+};
+
+class Rva002B25BFOwner
+{
+public:
+	bool rva002B25BF(int v);
+
+private:
+	unsigned char m_pad00[0xB0];
+	Rva0060EF3E *m_B0;
+};
+
+// ?rva002B25BF@Rva002B25BFOwner@@QAE_NH@Z
+bool Rva002B25BFOwner::rva002B25BF(int v)
+{
+	if (v == 0)
+		return false;
+	return m_B0->rva0060EF3E(v);
+}
