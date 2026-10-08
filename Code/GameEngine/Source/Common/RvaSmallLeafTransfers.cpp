@@ -579,3 +579,24 @@ bool Rva003807AASentinelDiffers()
     return TheRva00222A8BOwner != (void *)-1;
 }
 #pragma optimize("",on)
+
+// Whole BFME 1 UnclaimedSmallLeaves04.cpp at9cbfb551fe20dae985f91f2319d8997287b6a705
+// emits this body under two opaque donor names in the named Common O1/x87/G6
+// min5 sweep. Native66E460..66E467 is independently INT3-bounded and returns
+// the ECX+8/+C words in EAX/EDX. No direct/address references establish an
+// original owner, constness, signedness or full layout. The unsigned 64-bit
+// projection preserves the witnessed bits; neighboring66E440/66E4A0 transfers
+// already live in this whole-leaf donor home.
+class Rva0066E460
+{
+public:
+    unsigned __int64 readWord8() const;
+private:
+    char m_unmodelled0[8];
+    unsigned __int64 m_word8;
+};
+
+unsigned __int64 Rva0066E460::readWord8() const
+{
+    return m_word8;
+}
