@@ -264,7 +264,6 @@ __declspec(noinline) static UnicodeString rva005E76AEGet(Rva005E76AEContext *con
  if(queue->slot4(id,&army)) return ((Rva00319CED *)&army)->rva004E25AF(context->m_id);
  return UnicodeString::TheEmptyString;
 }
-// ?rva005E7721Get@@YA?AVUnicodeString@@PAURva005E76AEContext@@PAVRva005E72B4Queue@@H@Z present-unmatched
 __declspec(noinline) static UnicodeString rva005E7721Get(Rva005E76AEContext *context,Rva005E72B4Queue *queue,int index)
 {
  return rva005E76AEGet(context,queue,queue->slot13()->begin[index]);
