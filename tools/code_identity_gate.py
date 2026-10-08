@@ -91,7 +91,13 @@ def check(sources, staged_names, *, full=False):
     for k in sorted(keys - base):
         problems.append("binding: " + k.replace("\t", " | "))
     # 2) duplicates / divergent COMDATs among names these objects define
-    objs = {str(allowed.row_object({"source": s})) for s in sources}
+    # A .lib source names no object by itself: row_object needs a row's member=
+    # note to pick the extracted member, which load() put in ident.defs under the
+    # same path. Its rows (in `rows` unless full) scope their members; only
+    # non-library sources are scoped by path alone.
+    objs = {str(allowed.row_object(r)) for r in rows} | {
+        str(allowed.row_object({"source": s})) for s in sources
+        if not s.lower().endswith(allowed.build.LIB_SUFFIX)}
     names = {n for n, copies in ident.defs.items() if full or any(c[0] in objs for c in copies)}
     sub = {n: ident.defs[n] for n in names}
     dkeys = dup_defs.debt(dup_defs.analyse(rows if full else allowed.census.ledger(), sub, ident.truth))
