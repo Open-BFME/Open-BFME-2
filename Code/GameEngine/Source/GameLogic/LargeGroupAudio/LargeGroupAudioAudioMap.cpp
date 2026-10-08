@@ -13,6 +13,10 @@
 // LargeGroupAudioSoundKeyPair objects (WorldBuilder names their ctor
 // 0x00569FB3 and dtor 0x0056A061). parseSoundBlock 0x003EE576 is WorldBuilder's
 // name for its twin 0x1035FB0 (same callees, same "two Sound blocks" throw).
+// 0x003EE23C is the per-map xfer LargeGroupAudio::xfer runs inside each
+// "AudioMap" block (WB twin 0x1035D30, unnamed): it writes the pair count and
+// each pair's name and id ahead of a "SoundKeyPair" block, and on load reports
+// false when the count differs or a saved pair is missing.
 typedef bool Bool;
 // Retail frees vector storage through the C++-linkage free (0x00030830),
 // which keeps the unwind-state store before each call.
@@ -51,11 +55,61 @@ public:
 
 int Rva0056A983Get();	// LargeGroupAudioSoundKeyPair field-parse table
 
+// Retail keeps the minimum/current version bytes in xfer's dead argument slot.
+struct VersionPair
+{
+	unsigned char minimum, current;
+};
+
+class Xfer
+{
+public:
+	virtual ~Xfer();
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual void slot04();
+	virtual int BeginBlock(const char *);
+	virtual void EndBlock();
+	virtual void SkipBlock(const char *);
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual Xfer &xferAsciiString(AsciiString *);
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual Xfer &xferInt(int *);
+};
+
 // The sound key pair's name getter 0x00568BE2 keeps its ledger spelling.
 class BitRange
 {
 public:
 	AsciiString rva00568BE2();
+};
+
+// The pair's id sum 0x00568991 keeps its ledger owner.
+class Rva005688D2
+{
+public:
+	int rva00568991();
 };
 
 // Base shared with the LargeGroupAudio key holder (dtor 0x001E3624): vptr,
@@ -79,6 +133,7 @@ public:
 	LargeGroupAudioSoundKeyPair(LargeGroupAudioAudioMap *owner, const char *name);	// 0x00569FB3
 	~LargeGroupAudioSoundKeyPair();	// 0x0056A061
 	void rva0056A378(const LargeGroupAudioSoundKeyPair &other);	// 0x0056A378
+	void rva00569BBC(Xfer *xfer, VersionPair *version);	// 0x00569BBC
 private:
 	char m_storage[0x68];
 };
@@ -96,6 +151,7 @@ class LargeGroupAudioAudioMap : public Rva001E3624
 public:
 	LargeGroupAudioAudioMap(AsciiString name);
 	virtual ~LargeGroupAudioAudioMap();
+	bool rva003EE23C(Xfer *xfer, VersionPair *version);
 	void rva003EE3FE(const LargeGroupAudioAudioMap &other);
 	static void parseSoundBlock(INI *ini, void *instance, void *store, const void *userData);
 private:
@@ -136,6 +192,62 @@ LargeGroupAudioAudioMap::~LargeGroupAudioAudioMap()
 {
 	for (_STL::vector<LargeGroupAudioSoundKeyPair *>::iterator it = m_soundKeyPairs.begin(); it != m_soundKeyPairs.end(); ++it)
 		delete *it;
+}
+
+bool LargeGroupAudioAudioMap::rva003EE23C(Xfer *xfer, VersionPair *version)
+{
+	bool complete = true;
+	int count = m_soundKeyPairs.size();
+	xfer->xferInt(&count);
+
+	if (xfer->IsLoading())
+	{
+		if (count != m_soundKeyPairs.size())
+			complete = false;
+
+		for (int i = 0; i < count; ++i)
+		{
+			AsciiString name;
+			xfer->xferAsciiString(&name);
+			int id;
+			xfer->xferInt(&id);
+
+			_STL::vector<LargeGroupAudioSoundKeyPair *>::iterator it;
+			for (it = m_soundKeyPairs.begin(); it != m_soundKeyPairs.end(); ++it)
+			{
+				if (((BitRange *)*it)->rva00568BE2() == name)
+					break;
+			}
+
+			if (it != m_soundKeyPairs.end() && id == ((Rva005688D2 *)*it)->rva00568991())
+			{
+				xfer->BeginBlock("SoundKeyPair");
+				(*it)->rva00569BBC(xfer, version);
+				xfer->EndBlock();
+			}
+			else
+			{
+				xfer->SkipBlock("SoundKeyPair");
+				complete = false;
+			}
+		}
+	}
+	else
+	{
+		for (_STL::vector<LargeGroupAudioSoundKeyPair *>::iterator it = m_soundKeyPairs.begin(); it != m_soundKeyPairs.end(); ++it)
+		{
+			LargeGroupAudioSoundKeyPair *pair = *it;
+			AsciiString name = ((BitRange *)pair)->rva00568BE2();
+			xfer->xferAsciiString(&name);
+			int id = ((Rva005688D2 *)pair)->rva00568991();
+			xfer->xferInt(&id);
+			xfer->BeginBlock("SoundKeyPair");
+			pair->rva00569BBC(xfer, version);
+			xfer->EndBlock();
+		}
+	}
+
+	return complete;
 }
 
 void LargeGroupAudioAudioMap::rva003EE3FE(const LargeGroupAudioAudioMap &other)
