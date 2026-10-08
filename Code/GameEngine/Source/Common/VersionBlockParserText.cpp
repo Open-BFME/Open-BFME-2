@@ -1,5 +1,3 @@
-// ?rva00427F14Text@VersionBlockParser@@QAE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABURva00427F14KeyPrefix@@@Z
-// partial score=1.0 date=2026-10-07
 // cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // Complete boundaries: 427F14..427F46 (50B), 427F46..427F75 (47B).
 // The two complete retail returns call rowed VersionBlockParser lookup
