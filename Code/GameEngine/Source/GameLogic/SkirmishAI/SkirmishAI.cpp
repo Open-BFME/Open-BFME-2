@@ -424,18 +424,6 @@ void SkirmishAI::UnRegister(Team *team)
         m_tacticalAI->UnRegister(team);
 }
 
-// Complete eight-byte member tails at 002C5FAA and 002C5FB2. The retail
-// targets are the rowed generator Team registration/cancellation bodies.
-void TacticalAI::Register(Team *team)
-{
-    m_generator->rva005059A1(team);
-}
-
-void TacticalAI::UnRegister(Team *team)
-{
-    m_generator->rva00505A56(team);
-}
-
 // SkirmishAI::DoXfer, retail 0x002C7008 (374 bytes). WB names it in
 // SkirmishAI.cpp (callgraph lead; assert "numberOfVariables ==
 // m_variables.size()"), with callees AIBuilder::DoXfer and TacticalAI::DoXfer
