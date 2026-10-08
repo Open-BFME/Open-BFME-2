@@ -146,3 +146,18 @@ int Rva003E468FCheck()
   return 1;
  return 0;
 }
+
+// BFME1 9cbfb551 ScriptActions.cpp supplies virtual-tail source leads.
+// Native3E4679..3E4684 and3E4684..3E468F are complete adjacent entries
+// after the preceding RET8. They use this unit's existing singleton and
+// bool slots48/4C, already witnessed by the rowed callers above. The
+// original wrapper names and subsystem semantics remain unproved.
+bool Rva003E4679Check()
+{
+	return g_00E03138->u18();
+}
+
+bool Rva003E4684Check()
+{
+	return g_00E03138->u19();
+}
