@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
+// cl: /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
 // ?rva0054840A@Rva0054840A@@QAEXPAVXfer@@@Z @0x0054840A 90B thiscall xfer with version 1 1 plus ObjectID plus three uints plus list<int>.
 // Evidence: chain callee rowed xferListInt 0x00206861; callees rowed XferObjectID 0x003060B2 plus Xfer slots 0x28 version and 0x78 uint; caller 0x003550EB news 0x14 and calls directly; ret 4 single Xfer arg.
@@ -10,20 +10,35 @@
 // Evidence: same 0x14 layout list at +4 uints at +8 +0x10; caller 0x003551F9; tail-jmp to rowed pop_back 0x00053D4F.
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
-// Retail's list<int> iterator prefix-- copy is the speed form (edx: mov edx,
-// [ecx+4]); this TU builds /O1 which emits the size form (ecx). Define the
-// explicit specialization for speed so our COMDAT matches retail; code this
-// TU's rows inline keeps this TU's flags.
+#include <algorithm>
+// The existing speed scope also keeps the placement construction helper
+// identical to STLport's verified provider at 0x00620140.
 #pragma optimize("s", off)
 #pragma optimize("t", on)
 namespace _STL {
-template <> inline _List_iterator<int, _Nonconst_traits<int> > &_List_iterator<int, _Nonconst_traits<int> >::operator--()
+template <> inline void _Construct<int, int>(int *p, const int &value)
 {
-	this->_M_decr();
-	return *this;
+    ::new (p) int(value);
 }
+
 }
 #pragma optimize("", on)
+
+// The tail operation is supplied by the verified pop_back provider.
+namespace _STL { template <> void list<int>::pop_back(); }
+
+// Compare node addresses directly, as in the native iterator comparison.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits> &a,
+                              const _List_iterator<T, Traits> &b)
+{ return a._M_node != b._M_node; }
+template <class T, class Traits>
+static inline bool operator==(const _List_iterator<T, Traits> &a,
+                              const _List_iterator<T, Traits> &b)
+{ return a._M_node == b._M_node; }
+
+}
 
 typedef unsigned char UnsignedByte;
 typedef unsigned int UnsignedInt;
@@ -88,6 +103,7 @@ public:
 	Rva0054840A(ObjectID id);
 	void rva0054840A(Xfer *xfer);
 	void rva00548700();
+    void rva00548464(int flags,int id);
 private:
 	ObjectID m_00;
 	ListInt m_list04;
@@ -132,7 +148,63 @@ void Rva0054840A::rva00548700()
 	if (m_08 == 0)
 		return;
 	m_10 = 0;
-	if (m_list04.back() == (int)m_08)
+	// back() reads this same tail node; avoid emitting a prefix-- copy.
+	if (static_cast<_STL::_List_node<int> *>(m_list04.end()._M_node->_M_prev)->_M_data == (int)m_08)
 		m_08 = 0;
 	m_list04.pop_back();
+}
+
+// Retail 0x00548464..0x00548527: WB ObjectOrderQueue::insertOrder
+// supplies the identity lead; the existing constructors and xfer establish
+// the 0x14-byte queue layout. The order activation vcall is at slot +0x10.
+// Keep the existing address-derived lookup spelling: ArmorTemplate is not
+// evidence that the returned order is an armor template.
+// STLport 4.5.3 emits real list<int> find/__find instantiations, identical
+// in bytes and relocations to the existing ObjectID instantiations.
+enum NameKeyType { NK_NONE = 0 };
+class ArmorTemplate;
+class Rva00355B61
+{
+public:
+    const ArmorTemplate *rva00355155(NameKeyType) const;
+};
+class AiOrdersManager;
+extern AiOrdersManager *TheAiOrdersManager;
+struct OrderActivationView
+{
+    virtual void slot0();
+    virtual void slot1();
+    virtual void slot2();
+    virtual void slot3();
+    virtual void slot4(ObjectID);
+};
+
+void Rva0054840A::rva00548464(int flags, int id)
+{
+    if (!id)
+        return;
+    if (flags & 2) {
+        m_list04.push_back(id);
+        if (!m_08)
+            m_08 = id;
+        m_10 = 0;
+    } else if (flags & 1) {
+        m_0c = 0;
+        if (!m_08)
+            m_list04.push_back(id);
+        else {
+            // Retail passes the stored 32-bit ID's address, without a copy.
+            ListInt::iterator pos = _STL::find(m_list04.begin(), m_list04.end(),
+                reinterpret_cast<const int &>(m_08));
+            if (pos == m_list04.end())
+                m_08 = 0;
+            m_list04.insert(pos, id);
+        }
+        if (m_list04.front() == id) {
+            const ArmorTemplate *order = ((Rva00355B61 *)TheAiOrdersManager)
+                ->rva00355155((NameKeyType)m_list04.front());
+            if (order)
+                ((OrderActivationView *)order)->slot4(m_00);
+        }
+    }
 }
