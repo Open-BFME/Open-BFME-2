@@ -16251,3 +16251,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?newRoad@TerrainRoadCollection@@QAEPAVTerrainRoadType@@VAsciiString@@@Z,0x002DB57F,BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f TerrainRoads donor and target road-parser call 0x001FF31C; native newRoad 207-byte body creates 0x14C TerrainRoadType and links road list +0x0C; WB paired new-road branch
 ??0LivingWorldBuildPlotIcon@@QAE@PAVLivingWorldBuildPlotIconTemplate@@PAVLivingWorldBuildPlot@@ABVCoord2D@@@Z,0x0059E10F,callee of ?CreateIcon@LivingWorldBuildPlot@@QAEXABVAsciiString@@@Z
 ??0LivingWorldBuilding@@QAE@PAVLivingWorldRegion@@ABVCoord2D@@PBURva003F1BD3TemplateView@@H@Z,0x004E119C,callee of ?rva004FC33E@Rva003F1C56Plot@@QAEXPBURva003F1BD3TemplateView@@@Z
+?rva0021386C@Rva00056F61@@QAEPAXPBVAsciiString@@@Z,0x0021386C,callee of ?CreateSound@LivingWorldManager@@QAEPAVRva003FAE68Base@@ABVAsciiString@@@Z
