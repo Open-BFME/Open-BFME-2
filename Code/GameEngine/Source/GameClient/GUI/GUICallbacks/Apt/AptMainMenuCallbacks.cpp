@@ -174,6 +174,10 @@ struct AptMainMenuGlobalData
 {
 	unsigned char m_pad00[0x28];
 	int m_28; // +0x28
+	unsigned char m_pad2C[0x9AD - 0x2C];
+	bool m_9ad; // +0x9AD
+	unsigned char m_pad9AE[0xAF4 - 0x9AE];
+	bool m_af4; // +0xAF4, cleared when the map roll starts or ends
 };
 
 class GameEngineRate
@@ -289,8 +293,13 @@ public:
 	virtual void v54(); virtual void v55(); virtual void v56(); virtual void v57();
 	virtual void v58(); virtual void v59(); virtual void v60(); virtual void v61();
 	virtual void v62(); virtual void v63(); virtual void v64(); virtual void v65();
-	virtual void v66(); virtual void v67(); virtual void v68();
+	virtual bool playMovie(AsciiString name, int flags, int a, int b);	// slot 66
+	virtual void v67(); virtual void v68();
 	virtual bool rva_slot69();		// +0x114, consulted when a campaign is not started
+	virtual void v70();
+	virtual bool rva_slot71();		// +0x11C
+
+	void rva002B2466(float a, float b, float c, float d);	// rowed
 
 	unsigned char m_pad04[0x114 - 0x04];
 	bool m_114;						// +0x114, set when a campaign starts
@@ -723,6 +732,33 @@ int AptMainMenu::LinearCampaignStart(const AsciiString &campaign, float time, bo
 	}
 	else if (!TheDisplay->rva_slot69())
 	{
+		result = 3;
+	}
+	return result;
+}
+
+// ?rva0051573A@@YAHM_N@Z, retail 0x0051573A..0x005157EE (180 bytes, cdecl):
+// the sequencer step 0x00515B0A queues after the parchment-map fade (the
+// sequencer's callbacks take a float and a start flag and answer 1, or 3 when
+// done). Starting, it clears TheGlobalData's +0xAF4, plays the "Map_Roll"
+// movie through TheDisplay's slot 66 (finished at once if that fails) and
+// resets the display's 0x002B2466 rectangle to (0, 0, 1, 1). Otherwise it is
+// done, clearing +0xAF4 again, when TheDisplay's slot 69 says no, its slot 71
+// says yes or TheGlobalData's +0x9AD is set. WorldBuilder's twin
+// (0x0145A030, unnamed) has the same shape.
+int rva0051573A(float time, bool start)
+{
+	int result = 1;
+	if (start)
+	{
+		((AptMainMenuGlobalData *)TheWritableGlobalData)->m_af4 = false;
+		if (!TheDisplay->playMovie(AsciiString("Map_Roll"), 0x2000C0, -1, -1))
+			result = 3;
+		TheDisplay->rva002B2466(0.0f, 0.0f, 1.0f, 1.0f);
+	}
+	else if (!TheDisplay->rva_slot69() || TheDisplay->rva_slot71() || ((AptMainMenuGlobalData *)TheWritableGlobalData)->m_9ad)
+	{
+		((AptMainMenuGlobalData *)TheWritableGlobalData)->m_af4 = false;
 		result = 3;
 	}
 	return result;
