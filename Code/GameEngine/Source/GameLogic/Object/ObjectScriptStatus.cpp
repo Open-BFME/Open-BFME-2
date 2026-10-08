@@ -1,4 +1,5 @@
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// cl: /O1 /G7 /arch:SSE /MD
+// Regional O1/SSE/G7 preserved; /MD imports the native _isnan dependency.
 // Object script-status and disabled-state helpers at retail 0x00291C9B+.
 // Decoded from retail bytes (all verified):
 // - setDisabledUntil pin (0x00290114) carries (DisabledType, frame); the
@@ -100,6 +101,38 @@ public:
 	void makeDirty( void );
 };
 
+#include <float.h>
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+class Matrix3D;
+class Thing { public: void setTransformMatrix(const Matrix3D *); };
+class Object;
+struct Rva00287C21Other;
+class FireLogicSystem { public: void RegisterObject(Rva00287C21Other *); void UnregisterObject(Rva00287C21Other *); };
+class Rva002872BA;
+extern Rva002872BA *TheTriggerManager;
+extern GameLogic *TheGameLogic;
+struct ObjectTransformRegion {
+ Coord3D lo, hi;
+ bool contains(const Coord3D *p) const { return p->x > lo.x && p->x < hi.x && p->y > lo.y && p->y < hi.y; }
+};
+class TerrainLogic {
+public:
+ virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
+ virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1c();
+ virtual void getExtent(ObjectTransformRegion *);
+};
+extern TerrainLogic *TheTerrainLogic;
+bool isPosDifferent(const Coord3D *,const Coord3D *);
+bool isAngleDifferent(float,float);
+class ObjectTransformContain {
+public: virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void notify();
+};
+class ObjectTransformCallbacks {
+public: virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
+ virtual void slot10(); virtual void slot14(); virtual void slot18();
+};
+
 class Object
 {
 public:
@@ -113,13 +146,31 @@ public:
 	void rva00292EB3( DisabledType type );
 	void rva0028CDEB(const Rva00346BC0 &mask, bool set);
 
+protected:
+ virtual void reactToTransformChange(const Matrix3D *, const Coord3D *, float);
+public:
+ void rva00291EB1();
+ void rva0028B98B();
 private:
-	unsigned char m_pad00[ 0x1F8 ];
-	int m_unk1F8[ 11 ]; // +0x1F8 dec-indexed by DisabledType; 11*4 ends at 0x224 upgrades
-	unsigned char m_pad224[ 0x437 - 0x224 ];
-	unsigned char m_scriptStatus;
-	unsigned char m_pad438[ 0x4C4 - 0x438 ];
-	PartitionData *m_partitionData;
+ // Primary vptr at +0; all accessed fields are witnessed in retail.
+ unsigned char m_pad04[0x38-4];
+ Coord3D position; // +0x38
+ float angle; // +0x44
+ unsigned char m_pad48[0x84-0x48];
+ Thing *drawable; // +0x84
+ unsigned char m_pad88[0x1C4-0x88];
+ float initialZ; // +0x1C4
+ unsigned char m_pad1C8[0x1F8-0x1C8];
+ int m_unk1F8[11];
+ unsigned char m_pad224[0x250-0x224];
+ ObjectTransformContain *contain; // +0x250
+ unsigned char m_pad254[0x437-0x254];
+ unsigned char m_scriptStatus; // +0x437
+ unsigned char flags438; // +0x438
+ unsigned char m_pad439[0x49C-0x439];
+ int fireIndex; // +0x49C
+ unsigned char m_pad4A0[0x4C4-0x4A0];
+ PartitionData *m_partitionData; // +0x4C4
 };
 
 // ?setDisabled@Object@@QAEXW4DisabledType@@@Z
@@ -210,3 +261,40 @@ public:
 
 // placement unverified: no rowed DIR32 site yet; ZH ObjectStatusMaskType starts clear.
 BitFlags<45> OBJECT_STATUS_MASK_NONE = { { 0, 0 } };
+
+// ?reactToTransformChange@Object@@MAEXPBVMatrix3D@@PBUCoord3D@@M@Z
+// BFME1 Object.cpp donor 9cbfb551fe20dae985f91f2319d8997287b6a705.
+// Native 0x00292D49..0x00292EB3 (RET12), WB 0x00CC8A20, and the named
+// transform diff callees independently support Object callback identity.
+// Target deltas: drawable +3A4/+3A8/+3A9, contain +250 slot0C, fire-system
+// reregister pair, initial-Z +1C4 and strict interior map bounds, OFF_MAP bit8.
+// The two unrowed Object helpers retain address names; no donor name is assumed.
+// TheTriggerManager is the ledger owner at DFEC68; its FireLogicSystem view is
+// established by RegisterObject/UnregisterObject and the init subsystem literal.
+void Object::reactToTransformChange(const Matrix3D *oldMtx,const Coord3D *oldPos,float oldAngle) {
+ if (_isnan(position.x) || _isnan(position.y) || _isnan(position.z)) TheGameLogic->destroyObject(this);
+ if (drawable) {
+  char *bytes=reinterpret_cast<char *>(drawable);
+  *reinterpret_cast<unsigned *>(bytes+0x3a4)=TheGameLogic->getFrame();
+  bytes[0x3a8]=0; bytes[0x3a9]=0;
+  drawable->setTransformMatrix(reinterpret_cast<const Matrix3D *>(reinterpret_cast<char *>(this)+8));
+ }
+ bool posDiff=isPosDifferent(oldPos,&position);
+ bool angDiff=isAngleDifferent(oldAngle,angle);
+ if (posDiff || angDiff) {
+  reinterpret_cast<ObjectTransformCallbacks *>(this)->slot18();
+  if (contain) contain->notify();
+  if (fireIndex>=0) {
+   reinterpret_cast<FireLogicSystem *>(TheTriggerManager)->UnregisterObject(reinterpret_cast<Rva00287C21Other *>(this));
+   reinterpret_cast<FireLogicSystem *>(TheTriggerManager)->RegisterObject(reinterpret_cast<Rva00287C21Other *>(this));
+  }
+ }
+ if (posDiff) {
+  if (initialZ==0.0f) initialZ=position.z;
+  rva00291EB1();
+  ObjectTransformRegion extent;
+  TheTerrainLogic->getExtent(&extent);
+  if (extent.contains(&position)) flags438 &= ~8; else flags438 |= 8;
+  rva0028B98B();
+ }
+}
