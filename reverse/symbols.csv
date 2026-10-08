@@ -16325,3 +16325,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva002B47C3@LivingWorldLogic@@QAEXXZ,0x002B47C3,callee of ?rva002BD544@LivingWorldLogic@@QAEXH@Z
 ?rva002B83E5@LivingWorldLogic@@QAEXXZ,0x002B83E5,callee of ?rva002B84CD@LivingWorldLogic@@QAEXH@Z
 ?rva002B49A8@LivingWorldLogic@@QAEXXZ,0x002B49A8,callee of ?rva002B84CD@LivingWorldLogic@@QAEXH@Z
+?push_back@?$vector@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAEXABQAVTeamPrototype@@@Z,0x004DFCB0,Native AITactic prototype vector push call; whole bytes and recursive relocation proof verified; fold-proof=Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp

@@ -1,6 +1,7 @@
-// cl: /ICode/Libraries/Include/Lib /O1 /MD /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /ICode/Libraries/Include/Lib /O1 /MD /Ireference/shims/bfme2_ascii /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
+#include "ascii_string.h"
 #include "Coord3D.h"
 // Existing bfmealloc shim and no-exception STL configuration reproduce the
 // native record-vector helpers. Each body and recursive relocation was checked.
@@ -14,7 +15,83 @@
 int __cdecl GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
 class Team;
-class TeamPrototype;
+class TeamPrototype
+{
+public:
+	unsigned int snapshotID() const { return m_id; }
+private:
+	unsigned char m_pad[0xC];
+	unsigned int m_id;					// +0x0C
+};
+
+class Xfer
+{
+public:
+	class Version;
+	virtual ~Xfer();
+	virtual bool isLoading();				// +0x04
+	virtual bool isSaving();				// +0x08
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual void v7();
+	virtual void v8();
+	virtual void v9();
+	virtual Xfer &operator==(Version &value);		// +0x28
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void xferCoord3D(Coord3D *value);		// +0x60
+	virtual void v25();
+	virtual void v26();
+	virtual void xferAsciiString(AsciiString *value);	// +0x6C
+	virtual void v28();
+	virtual void v29();
+	virtual void xferUnsignedInt(unsigned int *value);	// +0x78
+	virtual void xferInt(int *value);			// +0x7C
+	virtual void v32();
+	virtual void v33();
+	virtual void v34();
+	virtual void v35();
+	virtual void xferBool(bool *value);			// +0x90
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current) : m_loaded(0), m_current(current) {}
+	unsigned char m_loaded;
+	unsigned char m_current;
+};
+
+class Player
+{
+public:
+	int getPlayerIndex() const { return m_index; }
+private:
+	unsigned char m_pad[0x54];
+	int m_index;						// +0x54
+};
+
+class PlayerList
+{
+public:
+	Player *getNthPlayer(int index);			// 0x002A7A29
+};
+extern PlayerList *ThePlayerList;
+
+
 class Object;
 enum KindOfType;
 template<class T> class DLINK_ITERATOR {
@@ -30,6 +107,7 @@ class Object { public: bool isKindOf(KindOfType) const; };
 class TeamFactory
 {
 public:
+	TeamPrototype *findTeamPrototypeByID(unsigned int id);
 	Team *findTeamByID(unsigned int id);			// 0x0039F761
 };
 
@@ -60,10 +138,12 @@ class Rva002A8F24
 public:
 	unsigned char m_pad00[0x870];
     float m_movementThreshold;
+    void *rva002A8B73(void *owner, int id);
     Rva002A8AB1Record *rva002A8AB1(void *owner);		// 0x002A8AB1
 };
 
 extern Rva002A8F24 *g_00DFEEF8;
+extern int g_00E044AC;
 
 // The tactic's target (WorldBuilder AITarget); rowed under a placeholder owner.
 class Rva002C589B
@@ -78,13 +158,17 @@ public:
 	unsigned char m_pad08[0x19 - 8];
 	bool m_19;
 	unsigned char m_pad1A[2];
-	int m_numTactics;					// +0x1C
+	int m_numTactics; // +0x1C
+    unsigned char m_pad20[0x38 - 0x20];
+    unsigned int m_id; // +0x38
+    unsigned int getID() const { return m_id; }
 };
 
 // Same 20-byte record constructed at 0x004ECDA7 and transferred at 0x004ECDC8.
 class Rva004ECDC8 {
 public:
     Rva004ECDC8(unsigned int);
+    void rva004ECDC8(Xfer *xfer);
     Rva004ECDC8(const Rva004ECDC8 &that) { *this = that; }
     Rva004ECDC8 &operator=(const Rva004ECDC8 &that);
     unsigned int m_teamID;
@@ -108,7 +192,7 @@ public:
 	virtual void slot02();
 	virtual bool initializeTeamTemplate(void *p, int dummy);
 	virtual unsigned int getNumberOfTeamsNeeded();
-	virtual void slot05();
+	virtual void xfer(Xfer *xfer);
 	virtual void slot06();
 	virtual void slot07();
 	virtual void slot08();
@@ -128,11 +212,16 @@ private:
 	Rva002C589B *m_20;					// +0x20
 	void *m_24;						// +0x24
 	bool m_ended;						// +0x28
-	unsigned char m_pad29[0x38 - 0x29];
+	unsigned char m_pad29[3];
+    AsciiString m_name;
+    unsigned int m_30;
+    bool m_34;
+    unsigned char m_pad35[3];
 	Coord3D m_38;
 	Coord3D m_44; // +0x44
 	bool m_50;
-    bool m_51; // +0x51
+    bool m_51;
+    unsigned int m_54; // +0x51
 };
 
 bool AITactic::initializeTeamTemplate(void *p, int /*dummy*/)
@@ -284,5 +373,81 @@ Rva004ECDC8 &Rva004ECDC8::operator=(const Rva004ECDC8 &that)
     m_lastPosition.z = that.m_lastPosition.z;
     m_staleFrames = that.m_staleFrames;
     return *this;
+}
+
+
+// FACT: native 0x004EDA8C..0x004EDCE9, WB AITactic::DoXfer.
+// Versioned tactic state: prototype ids, 20-byte team records, owner/target ids,
+// and fields +0x28..+0x54. The target id getter preserves retail local sharing.
+void AITactic::xfer(Xfer *xfer)
+{
+	Xfer::Version version(2);
+	*xfer == version;
+	xfer->xferUnsignedInt((unsigned int *)&g_00E044AC);
+
+	unsigned int protoCount = m_protos.size();
+	xfer->xferUnsignedInt(&protoCount);
+	if (xfer->isSaving())
+	{
+		std::vector<TeamPrototype *>::iterator end = m_protos.end();
+		for (std::vector<TeamPrototype *>::iterator it = m_protos.begin(); it != end; ++it)
+		{
+			unsigned int id = (*it)->snapshotID();
+			xfer->xferUnsignedInt(&id);
+		}
+	}
+	else if (xfer->isLoading())
+	{
+		for (unsigned int i = 0; i < protoCount; ++i)
+		{
+			unsigned int id = 0;
+			xfer->xferUnsignedInt(&id);
+			TeamPrototype *proto = TheTeamFactory->findTeamPrototypeByID(id);
+			m_protos.push_back(proto);
+		}
+	}
+
+	xfer->xferBool(&m_10);
+
+	unsigned int teamCount = m_teams.size();
+	xfer->xferUnsignedInt(&teamCount);
+	if (xfer->isSaving())
+	{
+		Rva004ECDC8 *end = m_teams.end();
+		for (Rva004ECDC8 *rec = m_teams.begin(); rec != end; ++rec)
+			rec->rva004ECDC8(xfer);
+	}
+	else if (xfer->isLoading())
+	{
+		for (unsigned int i = 0; i < teamCount; ++i)
+		{
+			Rva004ECDC8 rec(0);
+			rec.rva004ECDC8(xfer);
+			m_teams.push_back(rec);
+		}
+	}
+
+	int playerIndex = (xfer->isSaving() && m_24) ? ((Player *)m_24)->getPlayerIndex() : -1;
+	xfer->xferInt(&playerIndex);
+	if (xfer->isLoading() && playerIndex != -1)
+		m_24 = ThePlayerList->getNthPlayer(playerIndex);
+
+	unsigned int targetID = m_20 ? m_20->getID() : (unsigned int)-1;
+	xfer->xferUnsignedInt(&targetID);
+	if (xfer->isLoading() && targetID != (unsigned int)-1)
+		m_20 = (Rva002C589B *)g_00DFEEF8->rva002A8B73(m_24, targetID);
+
+	xfer->xferBool(&m_ended);
+	xfer->xferAsciiString(&m_name);
+	xfer->xferUnsignedInt(&m_30);
+	xfer->xferBool(&m_34);
+	xfer->xferCoord3D(&m_38);
+	xfer->xferCoord3D(&m_44);
+	xfer->xferBool(&m_50);
+	if (version.m_current >= 2)
+	{
+		xfer->xferBool(&m_51);
+		xfer->xferUnsignedInt(&m_54);
+	}
 }
 
