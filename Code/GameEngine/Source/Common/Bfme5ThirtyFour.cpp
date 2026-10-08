@@ -80,3 +80,72 @@ void Gen_008F7AC0::bfmeUnlink(void)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?unlink@PartitionData@@QAEXXZ=?bfmeUnlink@Gen_008F7AC0@@QAEXXZ")
+
+// Growth helper 0x006D1130..0x006D1202. Semantic guide: BFME1
+// Gen00896320Append.cpp at ba7ddda7, rva00896100. Target facts: signed
+// capacity +4, count +0, pointer +8, one inline slot +12; unlike the donor,
+// the copy helper receives two three-word iterator values by value.
+// Neither the original container nor the iterator class name is known.
+unsigned __cdecl bfmeDecVGO(unsigned *p);
+void __cdecl bfmeDropVGO(void *p);
+class BfmeRefVGO
+{
+public:
+	BfmeRefVGO &bfmeAssignVGO(const BfmeRefVGO &other);
+	unsigned *m_bfmeP;
+};
+class Rva006D1130Item : public BfmeRefVGO
+{
+public:
+	Rva006D1130Item() { m_bfmeP = 0; }
+	~Rva006D1130Item()
+	{
+		if (m_bfmeP && bfmeDecVGO(m_bfmeP) == 0)
+			bfmeDropVGO(m_bfmeP);
+	}
+};
+struct Rva006D1130Iterator
+{
+	BfmeRefVGO *position;
+	BfmeRefVGO *begin;
+	BfmeRefVGO *end;
+};
+void __cdecl Rva006CE3D0Cleanup(void *, int, int);
+BfmeRefVGO *__cdecl Rva006D05E0Copy(Rva006D1130Iterator first,
+	Rva006D1130Iterator last, BfmeRefVGO *result);
+class Rva006D1130
+{
+public:
+	void grow(int capacity);
+private:
+	unsigned m_count;
+	int m_capacity;
+	Rva006D1130Item *m_begin;
+	Rva006D1130Item m_inline[1];
+};
+void Rva006D1130::grow(int capacity)
+{
+	int current = m_capacity;
+	if (capacity <= current)
+		return;
+	if (capacity <= 1)
+	{
+		m_capacity = capacity;
+		return;
+	}
+	// Existing pin uses the cleanup spelling. Its allocator mode returns
+	// the pointer in EAX when called with (0, 0, capacity+1).
+	Rva006D1130Item *newData = (Rva006D1130Item *)
+		((void *(__cdecl *)(void *, int, int))Rva006CE3D0Cleanup)(0, 0, capacity + 1);
+	Rva006D1130Item *oldEnd = m_begin + m_count;
+	Rva006D1130Iterator first = {m_begin, m_begin, oldEnd};
+	Rva006D1130Iterator last = {oldEnd, m_begin, oldEnd};
+	Rva006D05E0Copy(first, last, newData);
+	m_capacity = capacity;
+	if (m_begin != m_inline)
+		Rva006CE3D0Cleanup(m_begin, 0, 0);
+	m_begin = newData;
+	const Rva006D1130Item empty;
+	m_begin[m_count].bfmeAssignVGO(empty);
+	__assume(empty.m_bfmeP == 0);
+}
