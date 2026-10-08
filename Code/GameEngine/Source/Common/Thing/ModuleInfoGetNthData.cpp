@@ -9,7 +9,7 @@ public:
 	virtual void bfmeReservedV2();
 	virtual void bfmeReservedV3();
 	virtual bool isAiModuleData() const;
-	virtual void bfmeReservedV5();
+	virtual bool rva0033B3D7Predicate() const;
 	virtual void bfmeReservedV6();
 	virtual void bfmeReservedV7();
 	virtual void bfmeReservedV8();
@@ -54,6 +54,7 @@ class ThingTemplate
 public:
 	AIUpdateModuleData *friend_getAIModuleInfo();
 	int rva0033B479() const;
+	const ModuleData *rva0033B3D7() const;
 };
 
 inline const ModuleData *ModuleInfo::getNthData(int i) const
@@ -76,6 +77,21 @@ AIUpdateModuleData *ThingTemplate::friend_getAIModuleInfo()
 	{
 		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->isAiModuleData())
 			return (AIUpdateModuleData *)m_behaviorModuleInfo.getNthData(j);
+	}
+	return 0;
+}
+
+// Native 33B3D7..33B428, between friend_getAIModuleInfo and rva0033B479:
+// the same 20-byte record scan, testing virtual slot +14 and returning the
+// first module data that passes, or null. isLocationClearOfObjects reads its
+// +0x2C float as the query filter's range; the predicate is unnamed.
+const ModuleData *ThingTemplate::rva0033B3D7() const
+{
+	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
+	for (int j = 0; j < numModInfos; ++j)
+	{
+		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->rva0033B3D7Predicate())
+			return m_behaviorModuleInfo.getNthData(j);
 	}
 	return 0;
 }
