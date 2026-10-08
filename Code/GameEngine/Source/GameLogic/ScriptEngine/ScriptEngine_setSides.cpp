@@ -106,7 +106,6 @@ public:
 	void rva00203BE9();
 };
 
-// ?ScriptEngine::rva00203BE9 present-unmatched
 void ScriptEngine::rva00203BE9()
 {
 	if (TheGameLogic->rva002034E9())

@@ -1,19 +1,24 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// Three PlayerList virtuals that hand one Player call to each of the twenty
-// player slots (the inline pointer array at +0x18; MAX_PLAYER_COUNT is 20 in
+// Three PlayerList virtuals and one direct method that hand one Player call
+// to each of the twenty player slots (the inline pointer array at +0x18; MAX_PLAYER_COUNT is 20 in
 // BFME2, see PlayerList_getNthPlayer.cpp), in vtable 0x00BFD618:
 //
 //   slot 10  0x002A7AB6  PlayerList::update   -> Player::update 0x002AE770
 //   slot 16  0x002A7ACE  rva002A7ACE          -> Player 0x002A99FA
 //   slot 15  0x002A7AE6  rva002A7AE6          -> Player 0x002B0D00
+//   direct   0x002A7B1C  updateTeamStates     -> Player::updateTeamStates
 //
 // Slot 10 is SubsystemInterface::update's slot (GameEngine's update sits in
 // slot 10 of its table too), and Zero Hour's PlayerList::update is this loop
 // over Player::update; that pairing names the first body and its callee
 // (inference). Zero Hour's other two such loops, newMap and updateTeamStates,
 // are not virtual there, and the two Player callees do not show which is
-// which, so slots 15 and 16 keep address names.
+// which, so slots 15 and 16 keep address names. updateTeamStates is the
+// non-virtual one: ScriptEngine::update calls 0x002A7B1C directly on
+// ThePlayerList (0x0020D2A6) right after its side-script loop, where Zero
+// Hour's update calls ThePlayerList->updateTeamStates(), and its callee
+// 0x002AB429 is Player::updateTeamStates.
 //
 // Slot 1, 0x002A7EF1, is Zero Hour's PlayerList::init verbatim (one player
 // counted, every player re-initialised with no template, the neutral player
@@ -34,6 +39,7 @@ public:
 	void update();							///< pinned 0x002AE770 (ZH name, inferred)
 	void rva002A99FA();
 	void rva002B0D00();
+	void updateTeamStates();				///< 0x002AB429
 };
 
 class PlayerList
@@ -45,6 +51,7 @@ public:
 	virtual void rva002A7AE6();
 
 	void setLocalPlayer(Player *player);	///< pinned 0x002A7B34 (ZH name)
+	void updateTeamStates();
 
 private:
 	char m_unmodelled_04[0x10 - 0x04];
@@ -82,4 +89,10 @@ void PlayerList::rva002A7AE6()
 {
 	for (Int i = 0; i < MAX_PLAYER_COUNT; i++)
 		m_players[i]->rva002B0D00();
+}
+
+void PlayerList::updateTeamStates()
+{
+	for (Int i = 0; i < MAX_PLAYER_COUNT; i++)
+		m_players[i]->updateTeamStates();
 }

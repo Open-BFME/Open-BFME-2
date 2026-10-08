@@ -4190,6 +4190,7 @@ _IDct1,0x001D6C60,evidence,vendored
 ?rva00203B08@Rva00203B08@@QAE_NXZ,0x00203B08,address,placeholder
 ?rva00203B2B@Rva00203B2BHost@@QAEXXZ,0x00203B2B,address,placeholder
 ?rva00203B47@Rva00203B47Host@@QAE_NXZ,0x00203B47,address,placeholder
+?rva00203BE9@ScriptEngine@@QAEXXZ,0x00203BE9,address,placeholder
 ?rva00203C21@@YAXXZ,0x00203C21,address,placeholder
 ??0Rva00203E47IteratorView@@QAE@PAXP8Rva005C4AF5DwordField@@BEHXZ@Z,0x00203C7A,address,placeholder
 ?Rva00203E11Xfer@@YAXPAVRva00203E11A@@PAVRva00203E11B@@@Z,0x00203E11,address,placeholder
