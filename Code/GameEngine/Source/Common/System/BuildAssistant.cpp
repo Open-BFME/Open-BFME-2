@@ -482,6 +482,8 @@ public:
 	virtual UnsignedInt slot30();					// +0x78
 };
 
+struct Rva00391D25PathNode { unsigned char pad0[0x0C]; Coord3D pos; };
+struct Rva00391D25Path { unsigned char pad0[8]; Rva00391D25PathNode *node; };
 class AIUpdateInterface
 {
 public:
@@ -520,6 +522,8 @@ public:
 	virtual void slot122(); virtual void slot123(); virtual void slot124(); virtual void slot125();
 	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags);	// +0x1F8
 
+	void destroyPath();
+	Rva00391D25Path *getPath() const { return m_path; }
 	Bool isPathAvailable(const Coord3D *destination) const;
 	Bool isQuickPathAvailable(const Coord3D *destination) const;
 	__forceinline void aiIdle(CommandSourceType cmdSource) { m_command.aiIdle(cmdSource); }
@@ -529,6 +533,8 @@ public:
 private:
 	unsigned char m_pad04[0x20 - 0x04];
 	AICommandInterface m_command;		// +0x20
+	unsigned char m_pad021[0x140 - 0x21];
+	Rva00391D25Path *m_path;
 };
 
 // What WB asserts as getFoundationAIInterface: its vslot 7 takes the AI
@@ -2165,5 +2171,43 @@ Bool BuildAssistant::rva00391AA1(const ThingTemplate *builder, const ThingTempla
    }
   }
  }
+ return false;
+}
+
+// 391D25..391F4E: WB F9EBC0 gives closest-point-on-current-path test before destroyPath.
+// The native radius filter vtable C1A078 and caller moveObjectsForConstruction prove its owner.
+// Native AI +140 path, path +8 first node, node +C position; target Object position +38.
+Bool Rva00391D25Filter::allow(Object *obj)
+{
+ const ThingTemplate *what=obj->getTemplate();
+ if (what->isKindOfByte(KINDOF_INERT) || what->isKindOfByte((KindOfType)134) || what->isKindOfByte(KINDOF_104)
+     || what->isKindOf((KindOfType)60) || what->isKindOfByte(KINDOF_2) || what->isKindOfByte(KINDOF_SHRUBBERY)
+     || what->isKindOf(KINDOF_58) || what->isKindOf(KINDOF_CLEARED_BY_BUILD)) return false;
+ if (obj->isEffectivelyDead()) return false;
+ AIUpdateInterface *ai=obj->getAI();
+ if (!ai || !ai->getPath()) return false;
+ Rva0029439DModule *module=(Rva0029439DModule*)obj->rva0029439D();
+ if (module && module->slot114()) return false;
+ Coord3D start;start.x=obj->getPosition()->x;start.y=obj->getPosition()->y;start.z=obj->getPosition()->z;
+ const Coord3D *endpoint=&ai->getPath()->node->pos;
+ Coord3D end;end.x=endpoint->x;end.y=endpoint->y;end.z=endpoint->z;
+ Coord3D relative;relative.x=m_pos->x;relative.y=m_pos->y;relative.z=m_pos->z;
+ relative.x-=start.x;relative.y-=start.y;relative.z-=start.z;
+ Coord3D direction;direction.x=end.x;direction.y=end.y;direction.z=end.z;
+ direction.x-=start.x;direction.y-=start.y;direction.z-=start.z;
+ Real length=direction.GetLength();
+ direction.Normalize();
+ Real projection=direction * *(const Coord3DBase*)&relative;
+ Coord3D closest;
+ if (projection<0.f) closest=start;
+ else if (projection>length) closest=end;
+ else {
+  closest=direction;
+  closest.x*=projection;closest.y*=projection;closest.z*=projection;
+  closest.x+=start.x;closest.y+=start.y;closest.z+=start.z;
+ }
+ closest.x-=m_pos->x;closest.y-=m_pos->y;closest.z-=m_pos->z;
+ if (closest.GetLengthSqrd()>m_radius*m_radius) return false;
+ ai->destroyPath();
  return false;
 }

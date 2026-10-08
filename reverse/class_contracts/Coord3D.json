@@ -59,6 +59,30 @@
     "size": 31,
     "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
     "decided_by": "byte-verified owner; MilesAudioManager 0x0005213E calls it on the camera-to-microphone delta (WB 0x77A260 calls Coord3D::GetLengthSqrd there)"
+   },
+   {
+    "declaration": "float GetLength() const;",
+    "name": "?GetLength@Coord3D@@QBEMXZ",
+    "rva": "0x00005A26",
+    "size": 43,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
+    "decided_by": "byte-verified owner; native BuildAssistant site filter 391E6D calls this owner on twelve-byte three-float path/delta vectors; WB F9EBC0 independently identifies the corresponding math operation"
+   },
+   {
+    "declaration": "float Normalize();",
+    "name": "?Normalize@Coord3D@@QAEMXZ",
+    "rva": "0x00005A70",
+    "size": 66,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
+    "decided_by": "byte-verified owner; native BuildAssistant site filter 391E78 calls this owner on twelve-byte three-float path/delta vectors; WB F9EBC0 independently identifies the corresponding math operation"
+   },
+   {
+    "declaration": "float operator*(const struct Coord3DBase &r) const;",
+    "name": "??DCoord3D@@QBEMABUCoord3DBase@@@Z",
+    "rva": "0x00003C42",
+    "size": 27,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
+    "decided_by": "byte-verified owner; native BuildAssistant site filter 391E86 calls this owner on twelve-byte three-float path/delta vectors; WB F9EBC0 independently identifies the corresponding math operation"
    }
   ]
  },
