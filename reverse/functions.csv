@@ -69404,4 +69404,3 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva00072B3A@Rva00072B3A@@QBE?AVRvaTextureHandleView@@XZ,,0x00072B3A,27,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudMaterialPass.cpp,matched,
 ?rva000EE198@Rva000EE198Owner@@QAEXXZ,,0x000EE198,107,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000EE198Reset.cpp,matched,ref-release array loops and 0x60 ref+AsciiString pair loop; retail 107B
 ?rva00083E87@Rva00083CE9Host@@QAEXXZ,,0x00083E87,136,Code/GameEngineDevice/Source/W3DDevice/GameClient/TerrainTrackEdgeInfoO1.cpp,matched,TerrainTracks unlink walk then m_14 drain and three ref releases; retail 136B
-?rva005CEA1C@Rva005CEA1CHolder@@QAEXXZ,,0x005CEA1C,25,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva005CEA1CTail.cpp,matched,Coord2D dtor then tail slot1 dispatch; retail 25B
