@@ -2163,3 +2163,95 @@ void _bfmeFXParticleSystemHeaderInlineAnchor(void *storage)
 }
 #pragma inline_depth()
 }
+
+#include "../../../Libraries/Include/Lib/Coord2D.h"
+class ParticleSystem;
+ParticleSystem *Make001FCBD7();
+float ACos(float);
+class Rva001FA795 { public: void rva001FA795(); };
+// Native boundaries: 0x001F4E2D..1F4E82 and 0x001FA971..1FAA8D.
+// WB names the latter FXParticleSystem::CPUParticle::update, with the
+// lifetime assertion at FXParticleSystem.cpp:918. The former is its final
+// same-receiver callee; its original method name is not established.
+// Only accessed offsets and virtual slots are modelled. System +8 selects
+// the module handle; update advances the rowed handle chain at +0x94,
+// orients slot +0x24 from displacement, then expires the lifetime counter.
+namespace FXParticleSystem {
+class CPUParticleModule {
+public:
+    virtual ~CPUParticleModule();
+    virtual void rva04();
+    virtual void rva08();
+    virtual void rva0C();
+    virtual bool rva10(int);
+    virtual void rva14();
+    virtual void rva18();
+    virtual void rva1C();
+    virtual void rva20();
+    virtual void rva24(float);
+};
+class CPUParticle {
+public:
+    bool rva001F4E2D();
+    bool update();
+private:
+    char m_unknown000[0x1C];
+    FXCoord3D m_position;
+    FXCoord3D m_previous;
+    char m_unknown034[4];
+    bool m_orient038;
+    char m_unknown039[3];
+    ::ParticleSystem *m_system;
+    char m_unknown040[0x14];
+    unsigned int m_lifetimeLeft;
+    char m_unknown058[0x34];
+    unsigned int m_unknown08C;
+    char m_unknown090[4];
+    CPUParticleModule *m_module094;
+    CPUParticleModule *m_module098;
+    CPUParticleModule *m_module09C;
+};
+bool CPUParticle::rva001F4E2D() {
+    if(m_unknown08C) return false;
+    {
+        ::ParticleSystem *system=m_system;
+        if(!system) system=Make001FCBD7();
+        int kind=*reinterpret_cast<const int *>(reinterpret_cast<const char *>(system)+8);
+        switch(kind) {
+        case 1: case 2: case 5: case 6: {
+            CPUParticleModule *module=m_module094;
+            if(module) return module->rva10(kind);
+            return false;
+        }
+        case 3: case 4: case 7: {
+            CPUParticleModule *module=m_module098;
+            if(module) return module->rva10(kind);
+            return false;
+        }
+        default: return true;
+        }
+    }
+    return false;
+}
+// ?update@CPUParticle@FXParticleSystem@@QAE_NXZ present-unmatched
+bool CPUParticle::update() {
+    reinterpret_cast<Rva001FA795 *>(&m_module094)->rva001FA795();
+    if(m_orient038 && m_module09C) {
+        Coord2D delta;
+        delta.x=m_position.x-m_previous.x;
+        delta.y=m_position.y-m_previous.y;
+        if(delta.y<1.1920929e-7f && delta.y>-1.1920929e-7f) {
+            m_module09C->rva24(delta.x>0.0f ? 6.2831855f : 3.1415927f);
+        } else {
+            float length=delta.length();
+            if(length<1.1920929e-7f) m_module09C->rva24(3.1415927f);
+            else {
+                float angle=ACos(delta.y/length);
+                m_module09C->rva24(delta.x>0.0f ? 3.1415927f+angle : 3.1415927f-angle);
+            }
+        }
+    }
+    if(m_lifetimeLeft && --m_lifetimeLeft==0) return false;
+    return !rva001F4E2D();
+}
+}
