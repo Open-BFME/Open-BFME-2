@@ -165,10 +165,19 @@ public:
 		Int GetBlingCount(Int blingKey, UnsignedInt subClassIndex) const;
 		Int GetSubClassDefaultBlingId(Int blingKey, UnsignedInt subClassIndex) const;
 
+		const AsciiString &getUpgradeName() const { return m_upgradeName; }
+
 	private:
 		const CreateAHeroSubClass *rva00219B9E(UnsignedInt subClassIndex) const;	// 0x00219B9E
 
-		unsigned char m_data[0x20];
+		// Field table 0x00DBA0D8 (CreateAHeroClass block): NameTag,
+		// DescriptionTag, PowersDescTag, IconImage, UpgradeName, SubClass.
+		AsciiString m_nameTag;					// +0x00
+		AsciiString m_descriptionTag;				// +0x04
+		AsciiString m_powersDescTag;				// +0x08
+		AsciiString m_iconImage;				// +0x0C
+		AsciiString m_upgradeName;				// +0x10
+		unsigned char m_subClasses[0xc];			// +0x14
 	};
 
 
@@ -187,6 +196,7 @@ public:
 	Bool FindBlingByUpgradeName(const AsciiString &upgradeName, Int *index, Int *blingId);
 	void *GetBling(UnsignedInt blingId);			// 0x00219D85
 	const CreateAHeroHero *GetHeroForPlayer(const Player *player);
+	CreateAHeroClass *rva0021B31C(const AsciiString &upgradeName);
 
 private:
 	Int rva00219309() const;				// 0x00219309, required-button count
@@ -443,4 +453,15 @@ void CreateAHeroManager::iniParseCreateAHeroSystem(INI *ini)
 		if (TheUpgradeCenter->findUpgrade(TheCreateAHeroManager->m_canBuildUpgradeName) == 0)
 			TheCreateAHeroManager->m_canBuildUpgradeName.clear();
 	}
+}
+
+// Retail 0x0021B31C: the hero class granted by an upgrade, or NULL. The class
+// parser (0x002202BF) refuses a second class with the same upgrade through it.
+CreateAHeroManager::CreateAHeroClass *CreateAHeroManager::rva0021B31C(const AsciiString &upgradeName)
+{
+	for (UnsignedInt i = 0; i < m_classes.size(); i++) {
+		if (upgradeName.compareNoCase(m_classes[i].getUpgradeName()) == 0)
+			return &m_classes[i];
+	}
+	return 0;
 }
