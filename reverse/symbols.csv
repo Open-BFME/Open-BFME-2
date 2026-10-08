@@ -16478,3 +16478,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?Rva00075E42Init@@YAXXZ,0x00075E42,direct no-arg call from standalone 0x00077F80 at +0x9; address-derived callee identity
 ?Rva000754DEInit@@YAXXZ,0x000754DE,direct no-arg call from standalone 0x00077F80 at +0xE; address-derived callee identity; prior bank documents render-target path
 ?Rva00077C19Load@@YAJPBDPAI@Z,0x00077C19,direct call from standalone 0x00077F80 at +0x10B; target pushes path and output handle; address-derived callee identity
+?rva0052A765@Rva0052A765Owner@@QAEXXZ,0x0052A765,callee of ?rva002D4240@RadarWindowOverrideSource@@QAEX_N@Z
