@@ -430,7 +430,7 @@ class BFMEActionManager : public ActionManager
 {
 public:
 	Bool canEnterObject(const Object *obj, const Object *objectToEnter, CommandSourceType commandSource,
-		CanEnterType mode, int passThrough, Bool *outFlag);
+		CanEnterType mode, Bool passThrough, Bool *outFlag);
 };
 extern BFMEActionManager *TheActionManager;
 extern GameLogic *TheGameLogic;

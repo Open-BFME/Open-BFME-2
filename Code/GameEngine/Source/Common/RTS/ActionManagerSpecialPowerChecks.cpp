@@ -28,7 +28,7 @@ enum ObjectID { INVALID_OBJECT_ID = 0 };
 
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 
-enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2, OBJECT_STATUS_SOLD = 0x13 };
+enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2, OBJECT_STATUS_SOLD = 0x13, OBJECT_STATUS_3B = 0x3b };
 
 class Thing { public: bool isAboveTerrain() const; };
 
@@ -101,6 +101,8 @@ public:
 	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *) const;	// 0x0028BB9E
 	const Rva0028AC4EEntry *rva0028AC4E() const;	// 0x0028AC4E
 	float GetRelativeAngle(const Coord3D *pos) const;	// 0x000B4542
+	bool rva0028D491() const;	// 0x0028D491
+	int rva0028FBBE();	// 0x0028FBBE
 	friend class ActionManager;
 protected:
 	Module *findModule(NameKeyType) const;	// 0x0028B6D6
@@ -292,7 +294,7 @@ public:
 	virtual void slot2() = 0;
 	virtual void slot3() = 0;
 	virtual float getHealth() const = 0;
-	virtual void slot5() = 0;
+	virtual float slot14() const = 0;
 	virtual float getMaxHealth() const = 0;
 };
 
@@ -705,9 +707,14 @@ class ActionContainView
 public:
 	virtual void c00(); virtual void c01(); virtual void c02(); virtual void c03();
 	virtual bool slot10();	// +0x10
-	virtual void c05(); virtual void c06(); virtual void c07();
-	virtual void c08(); virtual void c09(); virtual void c10(); virtual void c11();
-	virtual void c12(); virtual void c13(); virtual void c14(); virtual void c15();
+	virtual void c05();
+	virtual bool slot18();	// +0x18
+	virtual void c07();
+	virtual bool slot20();	// +0x20
+	virtual void c09(); virtual void c10(); virtual void c11();
+	virtual void c12(); virtual void c13();
+	virtual bool slot38();	// +0x38
+	virtual void c15();
 	virtual void c16(); virtual void c17(); virtual void c18(); virtual void c19();
 	virtual void c20(); virtual void c21(); virtual void c22(); virtual void c23();
 	virtual void c24(); virtual void c25(); virtual void c26(); virtual void c27();
@@ -719,14 +726,20 @@ public:
 	virtual void c39(); virtual void c40(); virtual void c41(); virtual void c42();
 	virtual void c43(); virtual void c44(); virtual void c45(); virtual void c46();
 	virtual void c47(); virtual void c48(); virtual void c49(); virtual void c50();
-	virtual void c51(); virtual void c52(); virtual void c53(); virtual void c54();
-	virtual void c55(); virtual void c56(); virtual void c57(); virtual void c58();
+	virtual void c51(); virtual void c52(); virtual void c53();
+	virtual bool slotD8();	// +0xD8
+	virtual void c55();
+	virtual Player *slotE0();	// +0xE0
+	virtual bool slotE4(const Object *);	// +0xE4
+	virtual void c58();
 	virtual void c59(); virtual void c60(); virtual void c61(); virtual void c62();
 	virtual void c63(); virtual void c64(); virtual void c65(); virtual void c66();
 	virtual void c67(); virtual void c68();
 	virtual int slot114(int);	// +0x114
 	virtual void c70();
-	virtual void c71(); virtual void c72(); virtual void c73(); virtual void c74();
+	virtual void c71(); virtual void c72();
+	virtual int slot124();	// +0x124
+	virtual void c74();
 	virtual void c75(); virtual void c76(); virtual void c77(); virtual void c78();
 	virtual void c79(); virtual void c80(); virtual void c81(); virtual void c82();
 	virtual void c83(); virtual void c84(); virtual void c85(); virtual void c86();
@@ -906,10 +919,18 @@ bool ActionManager::canDoSpecialPowerAtObject(const Object *obj, const Object *t
 	return false;
 }
 
+class StateMachine
+{
+public:
+	Object *getGoalObject();	// 0x004D7726
+};
+
 class AIUpdateInterface
 {
 public:
 	bool rva00262BEC();	// 0x00262BEC
+	int rva00260DED() const;	// 0x00260DED
+	bool isQuickPathAvailable(const Coord3D *destination) const;	// 0x00264274
 };
 
 class Pathfinder
@@ -1200,4 +1221,154 @@ bool ActionManager::rva0041C138(const Object *obj, const Object *target, Command
 		return contain->slot114(0) == 0 && contain->allow(obj, true, true) ? 1 : 0;
 	}
 	return false;
+}
+
+// canEnterObject's views: the behavior module's collide getter (slot 1) and
+// its +0x48 slot, both read through the +0x0C interface.
+class ActionEnterBehaviorView
+{
+public:
+	virtual void e00();
+	virtual BfmeCarBombCollideView *getCollide();	// +0x04
+	virtual void e02(); virtual void e03(); virtual void e04(); virtual void e05();
+	virtual void e06(); virtual void e07(); virtual void e08(); virtual void e09();
+	virtual void e10(); virtual void e11(); virtual void e12(); virtual void e13();
+	virtual void e14(); virtual void e15(); virtual void e16(); virtual void e17();
+	virtual int slot48();	// +0x48
+};
+
+enum CanEnterType { CHECK_CAPACITY, DONT_CHECK_CAPACITY, COMBATDROP_INTO };
+
+class BFMEActionManager : public ActionManager
+{
+public:
+	bool canEnterObject(const Object *obj, const Object *objectToEnter, CommandSourceType commandSource,
+		CanEnterType mode, bool passThrough, bool *outFlag);
+};
+
+static inline unsigned int enterKindOfWord(const Object *o, int word)
+{
+	return reinterpret_cast<const unsigned int *>(actionTemplate(o) + 0x108)[word];
+}
+
+// WorldBuilder's debug body at 0x0110B4E0 (privateEnter's callee, pinned by
+// the REL32 at 0x002647BF) is the semantic guide: ZH canEnterObject with
+// BFME2's out-flag, a damaged-structure gate ahead of the sanity checks, an
+// in-progress enter (AI state 0x38 aimed at the target) that skips the
+// shroud test, and the contain module's ownership slots.
+bool BFMEActionManager::canEnterObject(const Object *obj, const Object *objectToEnter, CommandSourceType commandSource,
+	CanEnterType mode, bool passThrough, bool *outFlag)
+{
+	bool localFlag;
+	if (outFlag == 0)
+		outFlag = &localFlag;
+	*outFlag = false;
+
+	unsigned int kindof = enterKindOfWord(obj, 0);
+	if ((kindof & 0x4000) && (kindof & 0x10000)) {
+		ActionRepairBodyView *targetBody =
+			*reinterpret_cast<ActionRepairBodyView *const *>(reinterpret_cast<const char *>(objectToEnter) + 0x254);
+		if (targetBody && targetBody->slot14() < 0.99f)
+			return false;
+	}
+
+	if (obj == 0 || objectToEnter == 0)
+		return false;
+	if (obj == objectToEnter)
+		return false;
+	ActionContainView *contain = actionContain(objectToEnter);
+	if (!contain)
+		return false;
+	if (*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(objectToEnter) + 0x438) & 1)
+		return false;
+
+	bool alreadyEntering = false;
+	AIUpdateInterface *ai = *reinterpret_cast<AIUpdateInterface *const *>(reinterpret_cast<const char *>(obj) + 0x258);
+	if (ai && ai->rva00260DED() == 0x38)
+		alreadyEntering = (*reinterpret_cast<StateMachine *const *>(reinterpret_cast<const char *>(ai) + 0x30))
+			->getGoalObject() == objectToEnter;
+	if (!alreadyEntering && isObjectShroudedForAction(obj, objectToEnter, commandSource))
+		return false;
+
+	if (obj->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION) ||
+		objectToEnter->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
+		return false;
+	if (objectToEnter->testStatus(OBJECT_STATUS_3B))
+		return false;
+	if (objectToEnter->testStatus(OBJECT_STATUS_SOLD))
+		return false;
+
+	if ((enterKindOfWord(obj, 1) & 0x8000) || (enterKindOfWord(obj, 1) & 0x4000) ||
+		(enterKindOfWord(obj, 0) & 0x80) || (enterKindOfWord(obj, 0) & 4) ||
+		(enterKindOfWord(objectToEnter, 1) & 0x8000) || (enterKindOfWord(objectToEnter, 3) & 0x10000))
+		return false;
+
+	if ((enterKindOfWord(obj, 0) & 0x100) &&
+		(*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(objectToEnter) + 0x1c8) & 0x20))
+		return true;
+
+	for (void *const *m = *reinterpret_cast<void *const *const *>(reinterpret_cast<const char *>(obj) + 0x244);
+		*m; ++m) {
+		BfmeCarBombCollideView *collide =
+			reinterpret_cast<ActionEnterBehaviorView *>(reinterpret_cast<char *>(*m) + 0x0c)->getCollide();
+		if (!collide)
+			continue;
+		if (reinterpret_cast<ActionEnterBehaviorView *>(reinterpret_cast<char *>(*m) + 0x0c)->slot48() != 0)
+			continue;
+		if (collide->wouldLikeToCollideWith(objectToEnter))
+			return true;
+	}
+
+	if (contain->slot18()) {
+		ActionRepairBodyView *body =
+			*reinterpret_cast<ActionRepairBodyView *const *>(reinterpret_cast<const char *>(obj) + 0x254);
+		if (body->getHealth() == body->getMaxHealth())
+			return false;
+	}
+
+	if (mode == COMBATDROP_INTO) {
+		if (objectToEnter->rva0028D491())
+			return false;
+	} else {
+		bool checkCapacity = (mode == CHECK_CAPACITY);
+		bool owned = contain->slot20();
+		if (owned) {
+			if (contain->slotD8()) {
+				if (checkCapacity && !contain->slotE4(obj))
+					owned = false;
+				if (obj->getControllingPlayer() != contain->slotE0())
+					owned = false;
+			} else {
+				if (obj->getRelationship(objectToEnter) != ENEMIES)
+					owned = false;
+			}
+		}
+
+		if (objectToEnter->getControllingPlayer() != obj->getControllingPlayer()) {
+			int containCount = contain->slot114(0);
+			int stealthContainCount = contain->slot124();
+			int nonStealthContainCount = containCount - stealthContainCount;
+			if (!contain->slot38()) {
+				if (nonStealthContainCount > 0 || objectToEnter->rva0028D491()) {
+					if (!owned)
+						return false;
+					*outFlag = true;
+				}
+			}
+			if (stealthContainCount > 0 && nonStealthContainCount == 0)
+				checkCapacity = false;
+		}
+
+		if (checkCapacity && const_cast<Object *>(obj)->rva0028FBBE() == 0)
+			return false;
+		if (*outFlag)
+			checkCapacity = false;
+		if (!contain->allow(obj, checkCapacity, passThrough))
+			return false;
+		if ((enterKindOfWord(objectToEnter, 5) & 0x80000000) &&
+			!(*reinterpret_cast<AIUpdateInterface *const *>(reinterpret_cast<const char *>(objectToEnter) + 0x258))
+				->isQuickPathAvailable(reinterpret_cast<const Coord3D *>(reinterpret_cast<const char *>(obj) + 0x38)))
+			return false;
+	}
+	return true;
 }

@@ -515,10 +515,10 @@ public:
 	// Body 0x0041C2D0 (ret 0x18). BFME2 takes six arguments: the sixth is an
 	// out-flag (a null pointer is replaced by a local byte, which is cleared
 	// and later set), and the fifth is passed through as the third argument
-	// of the contain module's validity test at its vtable+0x98; that one's
-	// type is not evidenced.
+	// of the contain module's validity test at its vtable+0x98; WorldBuilder
+	// pushes it as a byte, so it is a Bool.
 	Bool canEnterObject(const Object *obj, const Object *objectToEnter, CommandSourceType commandSource,
-		CanEnterType mode, Int passThrough, Bool *outFlag);
+		CanEnterType mode, Bool passThrough, Bool *outFlag);
 	// Body 0x000C4080 (113 B, ret 0xC), reached through ILT 0x00012B57. A
 	// three-argument object/object/source test distinct from the five-argument
 	// canEnterObject above; its name is not evidenced, so it keeps the address.

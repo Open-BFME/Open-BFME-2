@@ -88,7 +88,7 @@ class BFMEActionManager
 {
 public:
 	bool canEnterObject(const Object *obj, const Object *objectToEnter, CommandSourceType commandSource,
-		CanEnterType mode, int passThrough, bool *outFlag);
+		CanEnterType mode, bool passThrough, bool *outFlag);
 };
 
 extern BFMEActionManager *TheActionManager;
