@@ -37,8 +37,8 @@ import re_log  # noqa: E402
 # A dependency word within a short window of the address -- what separates
 # "unresolved ChunkLoadClass::Seek 6150C0" from "calls 0x6150C0, resolved".
 _DEPENDENCY = re.compile(
-    r"(?:unresolved|unrowed|blocked|blocker|depends?|dependency|waiting|missing|needs|"
-    r"wall(?:ed)?|not yet|unmatched|absent)", re.IGNORECASE)
+    r"\b(?:unresolved|unrowed|blocked|blocker|depends?|dependency|waiting|missing|needs|"
+    r"wall(?:ed)?|not yet|unmatched|absent)\b", re.IGNORECASE)
 _ADDRESS = re.compile(r"(?<![0-9A-Za-z])(?:0[xX])?([0-9A-Fa-f]{5,8})(?![0-9A-Za-z])")
 _WINDOW = 80
 _PLACEHOLDER_NAME = re.compile(r"^\?(?:d_[0-9A-Fa-f]+|gen_\w+)@@")
