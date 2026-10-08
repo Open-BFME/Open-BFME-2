@@ -106,7 +106,66 @@ class PingerInterface { public:
 extern PingerInterface *ThePinger;
 struct LoginPingStringData { int refs;unsigned short length,capacity;char text[1]; };
 
+
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
+extern "C" unsigned char *__cdecl _mbscpy(unsigned char *,const unsigned char *);
 class Rva0056EBA1 { public: UnicodeString rva0056EB15(); };
+class Rva0056EA91 { public: UnicodeString rva0056EA91(); };
+class Rva0056EBD0 { public: UnicodeString rva0056EBD0(); };
+// Donor request fields retained only where retail accesses them. Native
+// proves this request's prefix and 0x2B8 stack extent; remaining bytes opaque.
+struct LoginSubmitRequest {
+ int type;
+ char nickname[31],email[51],password[31];bool hasFirewall;
+ unsigned char opaque[0x200];char registryKey[65];unsigned char tail;
+};
+class GameSpyBuddyMessageQueueInterface { public:
+ virtual void slot00();virtual void slot04();virtual void slot08();
+ virtual void slot0C();virtual void slot10();virtual void slot14();
+ virtual void addRequest(const LoginSubmitRequest &);
+};
+extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
+class GameSpyInfoInterface { public:
+ virtual void slot00();
+ virtual void slot04();
+ virtual void slot08();
+ virtual void slot0C();
+ virtual void slot10();
+ virtual void slot14();
+ virtual void slot18();
+ virtual void slot1C();
+ virtual void slot20();
+ virtual void slot24();
+ virtual void slot28();
+ virtual void slot2C();
+ virtual void slot30();
+ virtual void slot34();
+ virtual void slot38();
+ virtual void slot3C();
+ virtual void slot40();
+ virtual void slot44();
+ virtual void slot48();
+ virtual void slot4C();
+ virtual void slot50();
+ virtual void slot54();
+ virtual void slot58();
+ virtual void slot5C();
+ virtual void slot60();
+ virtual void slot64();
+ virtual void slot68();
+ virtual void slot6C();
+ virtual void slot70();
+ virtual void slot74();
+ virtual void slot78();
+ virtual void slot7C();
+ virtual void slot80();
+
+ virtual void setLocalEmail(AsciiString);
+ virtual void slot88();
+ virtual void setLocalPassword(AsciiString);
+ virtual void setLocalBaseName(AsciiString);
+};
+extern GameSpyInfoInterface *TheGameSpyInfo;
 
 class AptOnlineLogin {
 public:
@@ -116,6 +175,7 @@ public:
     void rva00572768(const char *);
     void rva00571B75();
     void rva00570C64();
+    void rva00570D36();
     void rva005709D1(AsciiString &,AsciiString &);
     bool rva005706D4();
     bool rva0056EC54(const UnicodeString &,bool);
@@ -130,7 +190,8 @@ private:
     GameWindow *remember;
     unsigned char padB4[4]; GameWindow *m_countryList;
     unsigned char padBC[9]; bool needsRefresh;
-    unsigned char padC6[10]; bool closeLocale;
+    unsigned char padC6[2]; unsigned long loginStartTime;
+    unsigned char padCC[4]; bool closeLocale;
     unsigned char padD1[3]; int locale;
     AsciiString m_deleteNickname;
 };
@@ -359,4 +420,41 @@ void AptOnlineLogin::OnAccountDeleted(bool success)
         rva005709D1(emailText,emptyName);
     }
     m_deleteNickname=AsciiString::TheEmptyString;
+}
+// BFME1 34f59164 OnlineLoginSubmit00551620.cpp supplies login-request behavior.
+// Native570D36..571129 independently proves all target offsets and slots;
+// BFME2 removes the donor's UI disables and nickname persistence here.
+// Original method spelling and the untouched request fields remain unknown.
+void AptOnlineLogin::rva00570D36() {
+ AsciiString login,password,email;
+ email.translate(((Rva0056EBA1 *)this)->rva0056EB15());
+ login.translate(((Rva0056EA91 *)this)->rva0056EA91());
+ password.translate(((Rva0056EBD0 *)this)->rva0056EBD0());
+ if(!email.isEmpty() && !login.isEmpty() && !password.isEmpty()) {
+  loginStartTime=timeGetTime();
+  LoginSubmitRequest req;
+  req.type=4;
+  _mbscpy((unsigned char *)req.nickname,(const unsigned char *)((const StringBase<char> *)&login)->str());
+  _mbscpy((unsigned char *)req.email,(const unsigned char *)((const StringBase<char> *)&email)->str());
+  _mbscpy((unsigned char *)req.password,(const unsigned char *)((const StringBase<char> *)&password)->str());
+  req.hasFirewall=true;
+  AsciiString registryValue;
+  GetStringFromRegistry("\\ergc","",registryValue);
+  _mbscpy((unsigned char *)req.registryKey,(const unsigned char *)((const StringBase<char> *)&registryValue)->str());
+  TheGameSpyInfo->setLocalBaseName(login);
+  TheGameSpyInfo->setLocalEmail(email);
+  TheGameSpyInfo->setLocalPassword(password);
+  TheGameSpyBuddyMessageQueue->addRequest(req);
+  ((Rva0056DCBF *)this)->rva0056DCBF(false);
+  rva00570C64();
+ } else {
+  if(email.isEmpty() && login.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoAll"),0);
+  else if(email.isEmpty() && login.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmailNickname"),0);
+  else if(email.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmailPassword"),0);
+  else if(login.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoNicknamePassword"),0);
+  else if(email.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmail"),0);
+  else if(password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoPassword"),0);
+  else if(login.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoNickname"),0);
+  else GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoAll"),0);
+ }
 }
