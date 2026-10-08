@@ -32,6 +32,15 @@ BFME_DISP32_BYTE_GETTER(Rva0026FC5CByteField, 0x9A)
 BFME_DISP32_BYTE_GETTER(Rva0026FCE5ByteField, 0x43F)
 BFME_DISP32_BYTE_GETTER(Rva0029A268ByteField, 0x278)
 BFME_DISP32_BYTE_GETTER(Rva002A9DA5ByteField, 0x33C)
+// Whole clean BFME 1 DispByteFieldGetters.cpp and TinyByteFieldGetters.cpp
+// at9cbfb551fe independently emit this same opaque byte getter in the named
+// Common O1/x87/G6 min5 sweep. Native2B21EF..2B21F6 reads ECX+C4 into AL,
+// with no calls/globals/literals or witnessed direct/address references. The
+// preceding Ghidra function2B212A/197 ends exactly at2B21EF (cleanup block
+// tail-jumps to its own epilogue); the next rowed body starts2B21F6. Preserve
+// unknown original owner, field meaning and byte signedness; this existing
+// unsigned-byte family models the witnessed low return bits only.
+BFME_DISP32_BYTE_GETTER(Rva002B21EFByteField, 0xC4)
 BFME_DISP32_BYTE_GETTER(Rva002B223DByteField, 0x88)
 BFME_DISP32_BYTE_GETTER(Rva002B22F3ByteField, 0x10B)
 BFME_DISP32_BYTE_GETTER(Rva002B2319ByteField, 0xC8)
