@@ -1,5 +1,7 @@
 // ?getPlayerSuperweaponValue@AIPlayer@@KAHPAUCoord3D@@HM@Z
 // partial score=0.8 date=2026-10-08
+// ?getPlayerSuperweaponValue@AIPlayer@@KAHPAUCoord3D@@HM@Z
+// partial score=0.8 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
 // BFME2 BuildListInfo desired-gatherers getter, transferred from the exact
