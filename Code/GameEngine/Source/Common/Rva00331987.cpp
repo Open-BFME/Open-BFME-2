@@ -1,6 +1,11 @@
 // cl: /O1 /arch:SSE /G7 /MD
-// Retail 0x00331987/66 binary-searches 12-byte records by the first integer at key; two callers pass the range and key by address.
-void *Rva00331987(void *first, void *last, const int *key)
+// Retail 0x00331987/66 binary-searches 12-byte records by the first integer at key.
+// Caller 0x0033280B passes five cdecl arguments: range, key,
+// an empty comparator and a null distance tag. The last two are unused here.
+// BFME1 Gen002DFFD0LowerBound.cpp at 34f59164 explains these STLport slots;
+// the original target name remains unknown. Both signatures emit the same 66B.
+struct S4LowerBoundLess {};
+void *Rva00331987(void *first, void *last, const int *key, S4LowerBoundLess, int *)
 {
     char *low = (char *)first;
     int count = ((char *)last - low) / 12;
