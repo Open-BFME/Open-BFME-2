@@ -222,6 +222,9 @@ struct BfmePeerThreadStatusView {
 	Bool isConnecting( void ) { return m_isConnecting; }
 	Bool isConnected( void ) { return m_isConnected; }
 	void markAsDisconnected( void ) { m_isConnecting = m_isConnected = false; }
+	UnsignedByte unknown_52[0x88 - 0x52];
+	Int m_currentGroupRoom;	// +0x88 (the donor class has it at +0x90)
+	Int getCurrentGroupRoom( void ) { return m_currentGroupRoom; }
 };
 struct Rva0009990D {
 	void *pointer;
@@ -977,26 +980,16 @@ static int QRCountCallback
 )
 {
 	PeerThreadClass *t = (PeerThreadClass *)param;
-	if (!t)
+	if (t)
 	{
-		DEBUG_LOG(("QRCountCallback: bailing because of no thread info\n"));
-		return 0;
-	}
-	if (!t->isHosting())
-		t->stopHostingAlready(peer);
+		if (!t->isHosting())
+			t->stopHostingAlready(peer);
 
-	if(type == key_player)
-	{
-		DEBUG_LOG(("QR_COUNT | %s = %d\n", KeyTypeToString(type), t->getNumPlayers() + t->getNumObservers()));
-		return t->getNumPlayers() + t->getNumObservers();
-	}
-	else if(type == key_team)
-	{
-		DEBUG_LOG(("QR_COUNT | %s = %d\n", KeyTypeToString(type), 0));
-		return 0;
+		// BFME2 always reports a full player table.
+		if(type == key_player)
+			return MAX_SLOTS;
 	}
 
-	DEBUG_LOG(("QR_COUNT | %s = %d\n", KeyTypeToString(type), 0));
 	return 0;
 }
 
@@ -3116,12 +3109,15 @@ static void globalKeyChangedCallback(PEER peer, const char *nick, const char *ke
 	PeerResponse resp;
 	resp.peerResponseType = PeerResponse::PEERRESPONSE_PLAYERINFO;
 	resp.nick = nick;
-	resp.player.roomType = t->getCurrentGroupRoom()?GroupRoom:StagingRoom;
+	resp.player.roomType = ((BfmePeerThreadStatusView *)t)->getCurrentGroupRoom()?GroupRoom:StagingRoom;
 
 	getPlayerInfo(t, peer, nick, resp.player.profileID, resp.player.IP,
 		resp.locale, resp.player.wins, resp.player.losses,
 		resp.player.rankPoints, resp.player.side, resp.player.preorder,
-		resp.player.roomType, resp.player.flags);
+		resp.player.roomType, resp.player.flags,
+		reinterpret_cast<Int &>(resp.unknown_payload[140]),
+		reinterpret_cast<Int &>(resp.unknown_payload[141]),
+		reinterpret_cast<Int &>(resp.unknown_payload[142]));
 	TheGameSpyPeerMessageQueue->addResponse(resp);
 }
 
