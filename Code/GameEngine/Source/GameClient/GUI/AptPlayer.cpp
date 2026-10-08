@@ -60,13 +60,41 @@ private:
 	AptFocusTarget **m_endOfStorage;
 };
 
+class AptRefCounted { public: void *m_vtbl; int m_refCount; };
+class AptCommandMap : public AptRefCounted {};
+class AptCustomRender : public AptRefCounted {};
+template <class T> class AptRef {
+public:
+ T *m_ptr;
+ AptRef(const AptRef &other) : m_ptr(other.m_ptr) { if(m_ptr) ++m_ptr->m_refCount; }
+ ~AptRef()
+ {
+  if (m_ptr)
+   ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+ }
+ __declspec(noinline) AptRef &operator=(const AptRef &other);
+};
+template<class T> AptRef<T> &AptRef<T>::operator=(const AptRef &other) {
+ if(this != &other) {
+  if(other.m_ptr) ++other.m_ptr->m_refCount;
+  if(m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+  m_ptr=other.m_ptr;
+ }
+ return *this;
+}
+
 class AptPlayer
 {
 public:
 	void PopFocus(AptFocusTarget *target);
+ void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+ void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);
 
 private:
-	unsigned char m_pad000[0x2fc];
+	unsigned char m_pad000[0xc];
+ unsigned char m_commandMap[0x28]; // observed member start +0x0C
+ unsigned char m_customRenderMap[0x28]; // observed member start +0x34
+ unsigned char m_pad05c[0x2fc-0x5c];
 	AptFocusStack m_focusStack;		// +0x2FC
 	Bool m_focusChanged;			// +0x308
 };
@@ -79,4 +107,26 @@ void AptPlayer::PopFocus(AptFocusTarget *target)
 		m_focusStack.pop_back();
 		m_focusChanged = true;
 	}
+}
+
+
+// WorldBuilder names AddCommandMap; native retail uses the map at +0x0C.
+// Copying the existing handle retains it until the duplicate check finishes.
+void AptPlayer::AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map) {
+ if(!map.m_ptr) return;
+ Rva00223F4B *table = reinterpret_cast<Rva00223F4B *>(m_commandMap);
+ AptRef<AptCommandMap> oldMap = reinterpret_cast<AptRef<AptCommandMap> &>(table->rva00223F4B(name));
+ if(oldMap.m_ptr) return;
+ AptRef<AptCommandMap> &entry = reinterpret_cast<AptRef<AptCommandMap> &>(table->rva00223F4B(name));
+ entry = map;
+}
+// WorldBuilder names AddCustomRender; native retail finds in the map at +0x34.
+// Only a missing node or empty mapped handle may receive the new renderer.
+void AptPlayer::AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render) {
+ if(!render.m_ptr) return;
+ Rva0041534BIter it = reinterpret_cast<Rva00056F61 *>(m_customRenderMap)->rva0041534B(&name);
+ Rva00223F4BNode *node = static_cast<Rva00223F4BNode *>(it.m_node);
+ if(node && node->value.second.m_ptr) return;
+ AptRef<AptCustomRender> &entry = reinterpret_cast<AptRef<AptCustomRender> &>(reinterpret_cast<Rva00223F4B *>(m_customRenderMap)->rva00223F4B(name));
+ entry = render;
 }
