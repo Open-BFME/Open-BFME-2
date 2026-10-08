@@ -72092,3 +72092,4 @@ _VP6_GetYUVConfig,,0x001B5C60,1147,Code/Libraries/Source/VP6/GetYUVConfig.cpp,ma
 ?rva00091DFB@Rva00091DC4@@QAEXXZ,,0x00091DFB,15,Code/GameEngine/Source/Common/Rva00091DC4Forward.cpp,matched,conditional tail forward to rowed 0x68420 via m_14; w4-T7-H1
 ?rva00091E0A@Rva00091DC4@@QAEXXZ,,0x00091E0A,15,Code/GameEngine/Source/Common/Rva00091DC4Forward.cpp,matched,conditional tail forward to rowed 0x68415 via m_14; w4-T7-H1
 ?rva00091DE3@Rva00091DC4@@QAEXPAVRva00091DE3Arg@@@Z,,0x00091DE3,24,Code/GameEngine/Source/Common/Rva00091DC4Forward.cpp,matched,conditional forward m_1C gate pushes arg+0x74 to rowed 0x6842B; w4-T7-H1
+?Rva00547263@@YA_NPAVObject@@PBUCoord3D@@@Z,,0x00547263,52,Code/GameEngine/Source/GameLogic/AI/Rva00547263.cpp,matched,
