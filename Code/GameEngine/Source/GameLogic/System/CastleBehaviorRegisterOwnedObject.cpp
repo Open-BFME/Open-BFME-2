@@ -22,6 +22,7 @@ class Object {
 public:
  void* rva0028BCF4() const;
  void kill(DamageType,DeathType);
+ void rva0028D282(void*);
  Player* getControllingPlayer() const;
  void setStatus(ObjectStatusTypes,bool);
 protected:
@@ -219,4 +220,36 @@ void CastleBehavior::rva00397B03(ObjectStatusTypes status,bool set) {
   }
  }
  ((Rva002039B6Host*)TheScriptEngine)->rva002039B6();
+}
+
+// WB names CastleBehavior::mapLoadPostProcess; native 0x0039585A is a
+// 156B interface method whose owner is at this-4, so keep the receiver
+// address-derived until its exact base type is established. The RET4
+// argument is unused. The existing rva0028D282 provider spells its raw
+// argument void*; this caller proves it transports the player index word.
+enum CellShroudStatus { CELL_NATIVE_1=1 };
+#include "../../Common/PartitionRangeQueryCallView.h"
+extern PartitionManager* TheShroudManager;
+class PlayerList;
+extern PlayerList* ThePlayerList;
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+class Rva00395561 {
+ int count;
+public:
+ Rva00395561();
+ void rva00395561();
+ ~Rva00395561() { rva00395561(); }
+};
+class Rva0039585A { public: void mapLoadPostProcess(int context); };
+void Rva0039585A::mapLoadPostProcess(int context) {
+ GameLogic* logic=TheGameLogic;
+ if(logic && (logic->isInMultiplayerGame() || field<int>(logic,0x110)==2)) {
+  Object* object=field<Object*>(this,-4);
+  if(TheShroudManager && object && ThePlayerList && field<Player*>(ThePlayerList,0x10)) {
+   Rva00395561 guard;
+   int index=field<int>(field<Player*>(ThePlayerList,0x10),0x54);
+   if(TheShroudManager->getShroudStatusForPlayer(index,&field<Coord3D>(object,0x38))==CELL_NATIVE_1)
+    object->rva0028D282((void*)index);
+  }
+ }
 }

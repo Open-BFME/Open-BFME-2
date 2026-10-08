@@ -1,5 +1,6 @@
 #pragma once
 
+enum CellShroudStatus;
 class Object;
 struct Coord3D;
 class Rva000421C8;
@@ -25,6 +26,8 @@ class PartitionManager
 	char m_pad[0x10];
 	Rva00628770Impl *m_impl;
 public:
+	// Existing native shroud facade; +0x10 forwarder at RVA007397F0.
+	CellShroudStatus getShroudStatusForPlayer(int playerIndex, const Coord3D *pos) const;
 	// Original name unknown: the four-argument range query uses no filters.
 	BfmeWideResult rva006255D0(const Coord3D *pos, float radius, int distType, int order);
 	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius,
