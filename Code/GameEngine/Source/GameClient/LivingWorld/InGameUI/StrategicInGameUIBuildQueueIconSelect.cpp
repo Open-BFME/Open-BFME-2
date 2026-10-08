@@ -321,7 +321,6 @@ struct TargetRef00217D4C;
 class Rva002BED91 { public: TargetRef00217D4C *m_ptr; void set(TargetRef00217D4C *); };
 struct TreeHintRef00217D4C;
 class Rva001FF3A9 { public: void rva001FF3A9(const TreeHintRef00217D4C &); };
-// ?rva005E789A@Icon@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@QAEXXZ present-unmatched
 void StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::rva005E789A()
 {
  if(!m_1c.m_value)
