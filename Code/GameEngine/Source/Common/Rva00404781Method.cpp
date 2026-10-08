@@ -89,3 +89,96 @@ int Rva00404781::rva00404CF5(bool useCellRatio)
 	}
 	return result;
 }
+
+// Complete native 0x004047E3..0x00404901 RET8 (Ghidra286 and adjacent
+// scalar predicate). Caller0x0056C21B iterates the same0xA8-stride cells.
+// Primary semantic donor: BF1 9cbfb551fe BfmeCellDecay.cpp (unchanged from40e).
+// Target independently fixes two20-float channels at0/50 and masksA0/A4;
+// each active channel is scaled then decremented and nonpositive entries clear
+// their mask bit. Compound assignments in the second-only branch reproduce
+// native operand order. Preserve the existing address-owned callee pin/name;
+// the original target class identity and shared ownership remain unproven.
+// Byte-matched BFME cell-channel decay helper.
+
+typedef unsigned int UnsignedInt;
+typedef float Real;
+
+class Rva004047E3
+{
+public:
+	void rva004047E3(Real scale, Real subtract);
+
+private:
+	Real m_first[20];
+	Real m_second[20];
+	UnsignedInt m_firstMask;
+	UnsignedInt m_secondMask;
+};
+
+void Rva004047E3::rva004047E3(Real scale, Real subtract)
+{
+	if (m_firstMask == 0 && m_secondMask == 0)
+		return;
+
+	if (m_firstMask == 0)
+	{
+		for (UnsignedInt playerIndex = 0; playerIndex < 20; ++playerIndex)
+		{
+			UnsignedInt playerMask = 1U << playerIndex;
+			if ((m_secondMask & playerMask) != 0)
+			{
+				m_second[playerIndex] *= scale;
+				m_second[playerIndex] -= subtract;
+				if (m_second[playerIndex] <= 0.0f)
+				{
+					m_second[playerIndex] = 0.0f;
+					m_secondMask &= ~playerMask;
+				}
+			}
+		}
+		return;
+	}
+
+	if (m_secondMask == 0)
+	{
+		for (UnsignedInt playerIndex = 0; playerIndex < 20; ++playerIndex)
+		{
+			UnsignedInt playerMask = 1U << playerIndex;
+			if ((m_firstMask & playerMask) != 0)
+			{
+				m_first[playerIndex] =
+					scale * m_first[playerIndex] - subtract;
+				if (m_first[playerIndex] <= 0.0f)
+				{
+					m_first[playerIndex] = 0.0f;
+					m_firstMask &= ~playerMask;
+				}
+			}
+		}
+		return;
+	}
+
+	for (UnsignedInt playerIndex = 0; playerIndex < 20; ++playerIndex)
+	{
+		UnsignedInt playerMask = 1U << playerIndex;
+		if ((m_firstMask & playerMask) != 0)
+		{
+			m_first[playerIndex] = scale * m_first[playerIndex] - subtract;
+			if (m_first[playerIndex] <= 0.0f)
+			{
+				m_first[playerIndex] = 0.0f;
+				m_firstMask &= ~playerMask;
+			}
+		}
+
+		if ((m_secondMask & playerMask) != 0)
+		{
+			m_second[playerIndex] = scale * m_second[playerIndex] - subtract;
+			if (m_second[playerIndex] <= 0.0f)
+			{
+				m_second[playerIndex] = 0.0f;
+				m_secondMask &= ~playerMask;
+			}
+		}
+	}
+}
