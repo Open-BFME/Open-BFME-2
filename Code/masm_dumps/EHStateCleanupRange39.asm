@@ -56,6 +56,8 @@ EXTERN ?apply@Rva0059EB3ADwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva004EDFF8DwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ:PROC
 EXTERN ??1Rva005EB753@@UAE@XZ:PROC
+EXTERN ?apply@Rva005CF843DwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva005CF84ADwordImmSetter@@QAEXXZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b96a09 at RVA 0x00796A09; 25-byte interval ends at RET.
@@ -1832,6 +1834,30 @@ PUBLIC ?rva007A1B1B@@YAXXZ
     jmp ?apply@Rva004EDFF8DwordImmSetter@@QAEXXZ
 ?rva007A1B1B@@YAXXZ ENDP
 
+; Unwind@00ba1b41 at RVA 0x007A1B41; 20-byte funclet adds 10h to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x005CF84A.
+PUBLIC ?rva007A1B41@@YAXXZ
+?rva007A1B41@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 10h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva005CF84ADwordImmSetter@@QAEXXZ
+?rva007A1B41@@YAXXZ ENDP
+
+; Unwind@00ba1b67 at RVA 0x007A1B67; 20-byte funclet adds 4 to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x004EDFF8.
+PUBLIC ?rva007A1B67@@YAXXZ
+?rva007A1B67@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 4
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva004EDFF8DwordImmSetter@@QAEXXZ
+?rva007A1B67@@YAXXZ ENDP
+
 ; Unwind@00ba1b98 at RVA 0x007A1B98; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to UnicodeString at 0x005B804E.
 PUBLIC ?rva007A1B98@@YAXXZ
@@ -1859,6 +1885,30 @@ PUBLIC ?rva007A1E30@@YAXXZ
 cleanup_done_007A1E30:
     ret
 ?rva007A1E30@@YAXXZ ENDP
+
+; Unwind@00ba1e85 at RVA 0x007A1E85; 20-byte funclet adds 0Ch to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x005CF843.
+PUBLIC ?rva007A1E85@@YAXXZ
+?rva007A1E85@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva005CF843DwordImmSetter@@QAEXXZ
+?rva007A1E85@@YAXXZ ENDP
+
+; Unwind@00ba1ef2 at RVA 0x007A1EF2; 20-byte funclet adds 0Ch to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x003F3F7C.
+PUBLIC ?rva007A1EF2@@YAXXZ
+?rva007A1EF2@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva003F3F7CDwordImmSetter@@QAEXXZ
+?rva007A1EF2@@YAXXZ ENDP
 
 ; Unwind@00ba1fcc at RVA 0x007A1FCC; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-28], then takes the cleanup object address at [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
@@ -1971,6 +2021,30 @@ PUBLIC ?rva007A3300@@YAXXZ
 cleanup_done_007A3300:
     ret
 ?rva007A3300@@YAXXZ ENDP
+
+; Unwind@00ba334f at RVA 0x007A334F; 20-byte funclet adds 8 to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x003F3F7C.
+PUBLIC ?rva007A334F@@YAXXZ
+?rva007A334F@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 8
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva003F3F7CDwordImmSetter@@QAEXXZ
+?rva007A334F@@YAXXZ ENDP
+
+; Unwind@00ba3363 at RVA 0x007A3363; 20-byte funclet adds 0Ch to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x005E186A.
+PUBLIC ?rva007A3363@@YAXXZ
+?rva007A3363@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva0005E186ADwordImmSetter@@QAEXXZ
+?rva007A3363@@YAXXZ ENDP
 
 ; Unwind@00ba34ba at RVA 0x007A34BA; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-16], then takes the cleanup object address at [ebp-32] and tail-jumps to UnicodeString at 0x005B804E.
