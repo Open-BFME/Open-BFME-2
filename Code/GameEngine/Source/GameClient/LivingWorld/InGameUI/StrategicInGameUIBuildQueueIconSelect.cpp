@@ -347,7 +347,6 @@ __declspec(noinline) static const Image *rva005E704EGet(Rva005E76AEContext *cont
  if(queue->slot4(id,&army)) return ((Rva00319CED *)&army)->rva004E24DC(context->m_id);
  return 0;
 }
-// ?rva005E7607Get@@YAPBVImage@@PAURva005E76AEContext@@PAVRva005E72B4Queue@@H@Z present-unmatched
 __declspec(noinline) static const Image *rva005E7607Get(Rva005E76AEContext *context,Rva005E72B4Queue *queue,int index)
 {
  return rva005E704EGet(context,queue,queue->slot13()->begin[index]);
