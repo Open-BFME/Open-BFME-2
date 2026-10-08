@@ -53,8 +53,8 @@ public:
 BfmeY1038 *__stdcall bfmeFind1038(int value);
 
 // The order queue the finder returns for clearOrders (its clear,
-// 0x005482E9, pinned address-named).
-class Rva005482E9Queue
+// 0x005482E9, recovered in the existing 0x14-byte queue unit).
+class Rva0054840A
 {
 public:
 	void rva005482E9(int flags);
@@ -119,5 +119,5 @@ void AiOrdersManager::clearOrders(int flags, int key)
 {
 	const ArmorTemplate *found = m_finder.rva0035516C((NameKeyType)key);
 	if (found)
-		((Rva005482E9Queue *)found)->rva005482E9(flags);
+		((Rva0054840A *)found)->rva005482E9(flags);
 }

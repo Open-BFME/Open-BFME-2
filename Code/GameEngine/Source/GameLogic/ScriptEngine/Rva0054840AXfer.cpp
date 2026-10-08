@@ -104,6 +104,7 @@ public:
 	void rva0054840A(Xfer *xfer);
 	void rva00548700();
     void rva00548464(int flags,int id);
+    void rva005482E9(int flags);
 private:
 	ObjectID m_00;
 	ListInt m_list04;
@@ -207,4 +208,28 @@ void Rva0054840A::rva00548464(int flags, int id)
                 ((OrderActivationView *)order)->slot4(m_00);
         }
     }
+}
+
+// Retail 0x005482E9..0x005483C6 clears the selected queue range.
+// Target flags select boundaries around the stored active ID; each removed
+// ID is passed to the existing notification wrapper before range erase.
+void __cdecl rva005480E8(void *, NameKeyType, int);
+void Rva0054840A::rva005482E9(int flags)
+{
+    ListInt::iterator first = m_list04.begin();
+    ListInt::iterator last = m_list04.end();
+    if (!(flags & 2) && m_08)
+        last = _STL::find(m_list04.begin(), m_list04.end(), reinterpret_cast<const int &>(m_08));
+    if (!(flags & 1)) {
+        first = last;
+        if (m_08)
+            first = _STL::find(m_list04.begin(), m_list04.end(), reinterpret_cast<const int &>(m_08));
+    }
+    for (ListInt::iterator i = first; i != last; ++i) {
+        rva005480E8((void *)m_00, (NameKeyType)*i, 1);
+        if (*i == (int)m_08) m_08 = 0;
+        if (*i == (int)m_0c) m_0c = 0;
+        if (*i == (int)m_10) m_10 = 0;
+    }
+    m_list04.erase(first, last);
 }

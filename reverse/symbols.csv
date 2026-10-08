@@ -16002,7 +16002,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?UnRegister@TacticalAI@@QAEXPAVTeam@@@Z,0x002C5FB2,WorldBuilder name: callee of the matching SkirmishAI::Register/UnRegister overload (callgraph; retail tail jump from 0x002C6A3D / 0x002C6A4E / 0x002C6A5F / 0x002C6A76)
 ?rva0054D2DD@AptMessageBox@@QAEXPAX00@Z,0x0054D2DD,callee of ?Show@AptMessageBox@@SAXPAX00@Z
 ?rva0054D3D9@AptMessageBox@@QAEXPAX00@Z,0x0054D3D9,callee of ?Change@AptMessageBox@@SAXPAX00@Z
-?rva005482E9@Rva005482E9Queue@@QAEXH@Z,0x005482E9,callee of ?clearOrders@AiOrdersManager@@QAEXHH@Z
 ?EnableInput@ButtonShell@Impl@AptRadialMenu@@QAEX_N@Z,0x00577D93,callee of ?EnableButtonInput@Impl@AptRadialMenu@@QAEXH_N@Z
 ?Move@ButtonShell@Impl@AptRadialMenu@@QAEXVCoord2D@@0@Z,0x00577CC5,callee of ?PositionButton@Impl@AptRadialMenu@@QAEXHABVCoord2D@@0@Z
 ??0?$list@FV?$allocator@F@_STL@@@_STL@@QAE@ABV?$allocator@F@1@@Z,0x002C5309,call-site 0x003200A2 in ??_F list<short>; fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_list_s_o1.cpp
