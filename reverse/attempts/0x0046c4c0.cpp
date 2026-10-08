@@ -1,5 +1,9 @@
 // ?rva0046C4C0@HordeContain@@UAEXXZ
 // partial score=0.85 date=2026-10-04
+// 2026-10-08 retry (t=30): local base pointer, forceinline/inline free and
+// member per-object helpers, m_110 vs m_conditionWords spellings of the bit-29
+// test/clear: none changes the frame; cl also CSEs lea [obj+0x110] where
+// retail reads [obj+0x110] and clears byte [obj+0x113].
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //

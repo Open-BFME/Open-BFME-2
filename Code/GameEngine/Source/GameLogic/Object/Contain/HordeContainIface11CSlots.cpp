@@ -183,6 +183,7 @@ class Drawable
 public:
 	void rva00272BE7();
 	void rva00272BAB(int a1, int a2);
+	void rva00274176(bool a1);
 };
 class Thing
 {
@@ -438,6 +439,8 @@ public:
 	Player *getControllingPlayer() const;
 	float getVisionRange() const;
 	bool addAttributeModifierToPool(const AsciiString &name, int a2);
+	void rva0029041B(Player *player);
+	bool isLocallyControlled() const;
 	void removeAttributeModifierFromPool(const AsciiString &name);
 private:
 	friend class HordeContain;
@@ -625,7 +628,7 @@ public:
 	virtual void gap38() = 0; virtual bool rva0046C65C() = 0; virtual bool rva0046C71E() = 0; virtual bool rva0046C6E7() = 0;
 	virtual void slot42(const Object *obj) = 0; virtual bool rva0046B9DC(int a1) = 0; virtual bool rva0046B95E(int a1) = 0; virtual void rva00468CA3(const Rva00468CA3Arg *arg) = 0;
 	virtual void gap46() = 0; virtual void gap47() = 0; virtual void gap48() = 0; virtual void gap49() = 0;
-	virtual void gap50() = 0; virtual void rva0046BD70() = 0; virtual void rva0046BE0E() = 0; virtual void gap53() = 0;
+	virtual void gap50() = 0; virtual void rva0046BD70() = 0; virtual void rva0046BE0E() = 0; virtual void rva0046C3FE(Player *player) = 0;
 	virtual void gap54() = 0; virtual void rva0046C4C0() = 0; virtual void rva0046C327() = 0; virtual void rva0046C20B() = 0;
 	virtual bool rva0046C5D7(int value) = 0; virtual bool rva0046F8A5() = 0; virtual bool rva0046F8F4() = 0; virtual void gap61() = 0;
 	virtual bool rva0046AAB8() = 0; virtual void gap63() = 0; virtual void gap64() = 0; virtual void gap65() = 0;
@@ -786,6 +789,7 @@ public:
 	virtual bool rva0046A381(Object *target);
 	virtual void rva0046BD70();
 	virtual void rva0046BE0E();
+	virtual void rva0046C3FE(Player *player);
 	virtual void rva0046D8AE();
 	virtual Object *rva0046CB2C();
 	virtual bool rva0046D80B();
@@ -2012,6 +2016,38 @@ bool HordeContain::slot38(Object *obj, int a2, int a3)
 	if (obj->m_template->isKindOf(13))
 		return false;
 	return TransportContain::slot38(obj, a2, a3);
+}
+
+// ?rva0046C3FE@HordeContain@@UAEXPAVPlayer@@@Z @0x0046C3FE: slot 53, which
+// Object 0x0029041B notifies; passes the player to 0x0029041B of every
+// contained Object and of the live Object of every +0x170 key, and runs the
+// pinned Drawable member 0x00274176(false) on the drawable of each one that
+// is locally controlled.
+void HordeContain::rva0046C3FE(Player *player)
+{
+	const _STL::list<Object *> *items = containedItems();
+	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
+	{
+		Object *obj = *it;
+		if (obj)
+		{
+			obj->rva0029041B(player);
+			Drawable *draw = ((Thing *)obj)->getDrawable();
+			if (draw && obj->isLocallyControlled())
+				draw->rva00274176(false);
+		}
+	}
+	for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
+	{
+		Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
+		if (obj)
+		{
+			obj->rva0029041B(player);
+			Drawable *draw = ((Thing *)obj)->getDrawable();
+			if (draw && obj->isLocallyControlled())
+				draw->rva00274176(false);
+		}
+	}
 }
 
 // ?rva0046C327@HordeContain@@UAEXXZ @0x0046C327: slot 56; when our Object is
