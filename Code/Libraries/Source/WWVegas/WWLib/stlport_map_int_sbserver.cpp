@@ -139,3 +139,20 @@ template void SBServerTree::erase(SBServerTree::iterator, SBServerTree::iterator
 template SBServerPair::pair(const int &, const SBServer &);
 template SBServerPair::pair(const SBServerPair &);
 template SBServerPair::~pair();
+
+// Native 005E4157..005E415F is a counted-wrapper forwarder, not the STL
+// erase specialization proposed by the drift queue. WB 015FA460 passes the
+// same stack argument through the handle at +10 to native 005E4087.
+// Keep the receiver and callee address-derived until independent names exist.
+class Rva005E4087 { public: void rva005E4087(int); };
+class Rva005E4157
+{
+public:
+    void rva005E4157(int);
+    char unknown00[0x10];
+    Rva005E4087 *implementation;
+};
+void Rva005E4157::rva005E4157(int index)
+{
+    implementation->rva005E4087(index);
+}
