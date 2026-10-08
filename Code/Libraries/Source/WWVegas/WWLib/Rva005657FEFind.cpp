@@ -1,5 +1,3 @@
-// ?rva005657FE@Rva005657FEOwner@@QBEPAURva005657FEElement@@ABV?$StringBase@D@@PBURva005657FEHolder@@@Z
-// partial score=0.85 date=2026-10-08
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
@@ -32,6 +30,12 @@ struct Rva005657FEHolder
 	const StringBase<char> &m_40;
 };
 
+struct Rva005657FERange
+{
+	Rva005657FEElement *begin;
+	Rva005657FEElement *end;
+};
+
 class Rva005657FEOwner
 {
 public:
@@ -44,9 +48,9 @@ private:
 
 Rva005657FEElement *Rva005657FEOwner::rva005657FE(const StringBase<char> &key, const Rva005657FEHolder *holder) const
 {
-	int offset = 0;
-	for (int i = 0; i < (int)((char *)m_end - (char *)m_begin) / 0x58; ++i, offset += 0x58) {
-		Rva005657FEElement *e = (Rva005657FEElement *)((char *)m_begin + offset);
+	const Rva005657FERange *range = (const Rva005657FERange *)&m_begin;
+	for (unsigned int i = 0; i < (unsigned int)(range->end - range->begin); ++i) {
+		Rva005657FEElement *e = ((const volatile Rva005657FERange *)range)->begin + i;
 		if (e->m_key.compare(key) == 0 && ((Rva004E2CD5 *)e)->rva004E2CD5(holder->m_40))
 			return e;
 	}
