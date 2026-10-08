@@ -53,17 +53,21 @@ int Rva0036E346::rva0036E346()
 	return count;
 }
 
-class Rva0036E2E2
+// The holder of 0x0036E2E2 and 0x0036E0E3 is AIGroup: evaluateAndProgressAll-
+// SequentialScripts (0x0020C83F) calls both on the group TheAI->createGroup()
+// returned and Team::getTeamAsAIGroup filled.
+class AIGroup
 {
 public:
 	void rva0036E2E2(bool flag);
+	bool rva0036E0E3();
 
 private:
 	char m_pad0[4]; // +0x00
 	ListNode *m_head; // +0x04
 };
 
-void Rva0036E2E2::rva0036E2E2(bool flag)
+void AIGroup::rva0036E2E2(bool flag)
 {
 	ListNode *cur = m_head->m_next;
 	if (cur == m_head)
@@ -78,17 +82,7 @@ void Rva0036E2E2::rva0036E2E2(bool flag)
 	} while (cur != m_head);
 }
 
-class Rva0036E0E3
-{
-public:
-	bool rva0036E0E3();
-
-private:
-	char m_pad0[4]; // +0x00
-	ListNode *m_head; // +0x04
-};
-
-bool Rva0036E0E3::rva0036E0E3()
+bool AIGroup::rva0036E0E3()
 {
 	ListNode *head = m_head;
 	ListNode *cur = head->m_next;
