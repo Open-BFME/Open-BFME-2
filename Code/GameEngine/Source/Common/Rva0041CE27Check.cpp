@@ -39,7 +39,29 @@ public:
     bool rva0049C6E1(Object *obj);
 };
 
-class ActionManager { public: bool Rva0041CE27Check(Object*, Object*, int); };
+class ActionManager;
+class GameMessage
+{
+public:
+	enum Type { MSG_ENTER_HINT = 175, MSG_CONTEST_HINT = 176, MSG_TYPE_193 = 193, MSG_TYPE_194 = 194 };
+};
+class DrawableList;
+template<int N> class NativeSlots : public NativeSlots<N-1> { public: virtual void gap(char (*)[N]) = 0; };
+template<> class NativeSlots<0> {};
+class InGameUI : public NativeSlots<73>
+{
+public:
+	virtual const DrawableList *slot124();
+};
+extern InGameUI *TheInGameUI;
+
+class ActionManager
+{
+public:
+	bool Rva0041CE27Check(Object *, Object *, int);
+	GameMessage::Type getEnterMessage(const Object *obj, const DrawableList *allDraws);
+	GameMessage::Type rva0041CE06(const Object *obj);
+};
 
 bool ActionManager::Rva0041CE27Check(Object *a, Object *b, int)
 {
@@ -60,4 +82,14 @@ bool ActionManager::Rva0041CE27Check(Object *a, Object *b, int)
     if (slot != 0)
         return ((Rva0049C6E1 *)slot)->rva0049C6E1(b);
     return false;
+}
+
+// ?rva0041CE06@ActionManager@@QAE?AW4Type@GameMessage@@PBVObject@@@Z @0x0041CE06 33B
+// Leaf forwarding InGameUI drawable list to getEnterMessage. Evidence:
+// callers 0x0042A6F2, callees TheInGameUI slot124 getEnterMessage,
+// prev/next ActionManager files.
+GameMessage::Type ActionManager::rva0041CE06(const Object *obj)
+{
+	const DrawableList *draws = TheInGameUI->slot124();
+	return getEnterMessage(obj, draws);
 }
