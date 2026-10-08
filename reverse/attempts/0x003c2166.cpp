@@ -1,6 +1,6 @@
 // ?rva003C2166@ScriptActions@@IAEXABVAsciiString@@H0@Z
-// partial score=0.9 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// partial score=0.96 date=2026-10-08
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
 // WB ScriptActions::doFlashSpellStoreButton; target is the guarded index-0
 // forwarding sibling of matched index-1 and index-2 wrappers at 0x003BD444
 // and 0x003BD459.
@@ -1435,5 +1435,5 @@ void ScriptActions::rva003C2166(const AsciiString &teamName, int count, const As
 	const ThingTemplate *tmpl = TheThingFactory->findTemplate(objectTypeName);
 	ObjectTypes *types = g_Va009FE16C->getObjectTypes(objectTypeName);
 	team->rva003A1AA3(tmpl, types, count,
-		team->hasAnyObjects(false) ? TheAI->getAiData()->m_5C : 1000000.0);
+		team->hasAnyObjects(false) ? TheAI->getAiData()->m_5C : 1000000.0f);
 }
