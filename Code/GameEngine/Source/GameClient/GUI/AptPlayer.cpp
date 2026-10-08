@@ -63,6 +63,8 @@ private:
 class AptRefCounted { public: void *m_vtbl; int m_refCount; };
 class AptCommandMap : public AptRefCounted {};
 class AptCustomRender : public AptRefCounted {};
+class AptTimer : public AptRefCounted {};
+class AptOverButtonHandler : public AptRefCounted {};
 template <class T> class AptRef {
 public:
  T *m_ptr;
@@ -89,12 +91,17 @@ public:
 	void PopFocus(AptFocusTarget *target);
  void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
  void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);
+ void AddTimer(const AsciiString &name, AptRef<AptTimer> timer);
+ void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
 
 private:
 	unsigned char m_pad000[0xc];
  unsigned char m_commandMap[0x28]; // observed member start +0x0C
  unsigned char m_customRenderMap[0x28]; // observed member start +0x34
- unsigned char m_pad05c[0x2fc-0x5c];
+ unsigned char m_pad05c[0xa4-0x5c];
+ unsigned char m_overButtonMap[0x14]; // +0xA4
+ unsigned char m_timerMap[0x14]; // +0xB8
+ unsigned char m_pad0cc[0x2fc-0xcc];
 	AptFocusStack m_focusStack;		// +0x2FC
 	Bool m_focusChanged;			// +0x308
 };
@@ -129,4 +136,21 @@ void AptPlayer::AddCustomRender(const AsciiString &name, AptRef<AptCustomRender>
  if(node && node->value.second.m_ptr) return;
  AptRef<AptCustomRender> &entry = reinterpret_cast<AptRef<AptCustomRender> &>(reinterpret_cast<Rva00223F4B *>(m_customRenderMap)->rva00223F4B(name));
  entry = render;
+}
+
+// WB AptPlayer::AddTimer; retail map starts at +0xB8.
+void AptPlayer::AddTimer(const AsciiString &name, AptRef<AptTimer> timer) {
+ if(!timer.m_ptr) return;
+ AptRef<AptTimer> &entry = reinterpret_cast<AptRef<AptTimer> &>(reinterpret_cast<Rva00223F4B *>(m_timerMap)->rva00223F4B(name));
+ if(entry.m_ptr) return;
+ entry = timer;
+}
+// WB AptPlayer::AddOverButtonHandler; retail +0xA4 map takes a local key copy.
+// That copy outlives the duplicate check and assignment.
+void AptPlayer::AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler) {
+ if(!handler.m_ptr) return;
+ AsciiString key(name);
+ AptRef<AptOverButtonHandler> &entry = reinterpret_cast<AptRef<AptOverButtonHandler> &>(reinterpret_cast<Rva00223F4B *>(m_overButtonMap)->rva00223F4B(key));
+ if(entry.m_ptr) return;
+ entry = handler;
 }
