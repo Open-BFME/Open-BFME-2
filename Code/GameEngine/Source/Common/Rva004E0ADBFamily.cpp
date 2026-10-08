@@ -1,8 +1,8 @@
-// cl: /MD
+// cl: /DNDEBUG /MD /EHsc
 //
 // Dump-range-25 packet family: seven homogeneous forwarders around the
-// unrowed EH pair 0x004E0918/0x004E0988 (pinned as honest address-derived
-// candidates; bodies deferred). A 16-byte Four plus trailing ints is packed
+// native EH pair 0x004E0918/0x004E0988 (the first recovered below;
+// the second remains an address-derived pinned candidate). A 16-byte Four plus trailing ints is packed
 // and forwarded: Y::rva004E0ADB(Four,int) builds the 20-byte packet for
 // 0x004E0918, Y::rva004E0B02(Four,int,int) the 24-byte packet for 0x004E0988.
 // X methods forward this plus the packet to the member Y at +0x08 or
@@ -12,6 +12,39 @@
 // X's +0x20 int matches Rva004E0705::m_20 and the 0x4E08A9 call reuses the
 // same this, so X is likely Rva004E0705 itself; kept address-named until the
 // +0x08 member and +0x30 tail are proven against its other views.
+
+template <typename T>
+class LatchRestore
+{
+protected:
+	T valueToRestore;
+	T &whereToRestore;
+
+public:
+	LatchRestore(T &dest, const T &src) : whereToRestore(dest)
+	{
+		valueToRestore = dest;
+		dest = src;
+	}
+
+	virtual ~LatchRestore()
+	{
+		whereToRestore = valueToRestore;
+	}
+};
+
+// Target packet loads prove an 8-byte adjusted member-function pointer.
+// The remaining two words in its four-word prefix are not read by this
+// body; their original meaning and the listener's class identity are unknown.
+class __multiple_inheritance Rva004E0918Listener;
+
+struct Rva004E0918Call
+{
+    void (Rva004E0918Listener::*notify)(int);
+    int unused08;
+    int unused0c;
+    int argument;
+};
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -57,6 +90,11 @@ public:
 	void rva004E0B02(Rva004EFour f, int e1, int e2);
 	void rva004E0918(void *pkt);
 	void rva004E0988(void *pkt);
+private:
+    Rva004E0918Listener **m_begin;
+    Rva004E0918Listener **m_end;
+    Rva004E0918Listener **m_capacity;
+    unsigned int m_index;
 };
 
 class Rva004E0C49Elem
@@ -101,7 +139,7 @@ public:
 private:
 	char m_pad[8];
 	Rva004E0918 m_08;
-	char m_pad09[0x20 - 0x09];
+	char m_pad18[0x20 - 0x18];
 	int m_20;
 	char m_pad24[0x2C - 0x24];
 	void *m_2C;
@@ -184,4 +222,21 @@ void Rva004E0B60::rva004E0CB6()
 {
 	((Holder0052B003 *)m_2C)->rva0052B003(0);
 	rva004E0C49();
+}
+
+// Native 004E0918..004E0988 (112B). Rowed 004E0ADB packs the record;
+// target accesses establish begin/end at +0/+4, index +C, callback +0,
+// this adjustment +4 and argument +10. Matched listener walks supply the
+// LatchRestore algorithm; no original listener or list name is claimed.
+void Rva004E0918::rva004E0918(void *packet)
+{
+    const Rva004E0918Call &call = *static_cast<Rva004E0918Call *>(packet);
+    unsigned int i = 0;
+    LatchRestore<unsigned int> latch(m_index, i);
+    while (i < (unsigned int)(m_end - m_begin))
+    {
+        m_index++;
+        (m_begin[i]->*call.notify)(call.argument);
+        i = m_index;
+    }
 }
