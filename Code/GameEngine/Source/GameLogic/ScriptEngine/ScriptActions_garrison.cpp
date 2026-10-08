@@ -266,6 +266,12 @@ public:
 	void rva0039E5B9(Coord3D *pos);
 };
 
+class Rva002046C0Owner
+{
+public:
+	AsciiString resolveName(const AsciiString &s);
+};
+
 class ScriptEngine
 {
 public:
@@ -402,6 +408,7 @@ class InGameUI
 {
 public:
 	Rva005CB260 *rva000CF155(); // the +0x10 notification box, null-checked
+	void addNamedTimer(const AsciiString &timerName, const UnicodeString &text, bool isCountdown);
 };
 extern InGameUI *TheInGameUI;
 
@@ -688,4 +695,13 @@ void ScriptActions::createUnitOnTeamAt(const AsciiString &unitName, const AsciiS
 			obj->rva0028FC18();
 		}
 	}
+}
+
+// ?Rva003C5405Do@@YGXVAsciiString@@ABV1@@Z @0x003C5405 152B evidence: timerName via resolveName 0x002046C0 plus '/' 0x2f plus concat; label via TheGameText slot 0x38; named timer via addNamedTimer 0x002A5A50; caller 0x003CC5FF; prev 0x003C538F in this file
+void __stdcall Rva003C5405Do(AsciiString timerName, const AsciiString &label)
+{
+	AsciiString tmp = ((Rva002046C0Owner *)TheScriptEngine)->resolveName(timerName);
+	tmp += '/';
+	tmp += timerName;
+	TheInGameUI->addNamedTimer(tmp, TheGameText->fetch(label), false);
 }
