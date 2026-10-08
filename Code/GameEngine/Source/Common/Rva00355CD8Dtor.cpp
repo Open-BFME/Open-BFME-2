@@ -45,3 +45,17 @@ void Rva00355CD8::slot1(int value)
         target->slot1(low + (int)(spanReal * ((float)value * 0.01f)));
     }
 }
+
+// ?Rva00355C39Interpolate@@YAHHHH@Z
+// BFME1 34f59164f6 Common/Rva00490250IntegerLerp.cpp supplies the readable
+// formula. Native355C39..355C60 reads three integer stack arguments and
+// truncates (b-a) * (t * 0.01f), then adds a; target scale is VA00BCF628.
+// The original function name and callers are not recovered. Keep an opaque
+// address-derived name beside the independently established range updater.
+int Rva00355C39Interpolate(int a, int b, int t)
+{
+	float factor = (float)t / 100.0f;
+	int difference = b - a;
+	factor *= (float)difference;
+	return a + (int)factor;
+}
