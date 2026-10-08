@@ -43,6 +43,7 @@ class Rva00083CB2
 public:
 	void rva00083CB2();
 	friend void __stdcall Rva00083CD7Clear(Rva00083CB2 *p);
+	friend class Rva00083CE9Host;
 private:
 	char _pad00[0x30];
 	int m_30;
@@ -75,13 +76,26 @@ public:
 	Rva00083CE9Node *m_1320;
 	Rva00083CE9Node *m_1324;
 };
+class Rva00083E87Ref
+{
+public:
+	virtual void rva00083E87Free();
+	int m_refs;
+	char _pad08[0x1320 - 8];
+	Rva00083E87Ref *m_1320;
+};
+
 class Rva00083CE9Host
 {
 public:
 	void rva00083CE9(Rva00083CE9Node *p);
 	void rva00084002();
+	void rva00083E87();
 private:
-	char _pad00[0x10];
+	Rva00083E87Ref *m_00;
+	Rva00083E87Ref *m_04;
+	Rva00083E87Ref *m_08;
+	char _pad0C[4];
 	Rva00083CE9Node *m_10;
 	Rva00083CE9Node *m_14;
 };
@@ -108,6 +122,64 @@ void Rva00083CE9Host::rva00083CE9(Rva00083CE9Node *p)
 }
 // ?rva00084002@Rva00083CE9Host@@QAEXXZ retail 0x00084002 34B drain m_10 list
 // via rva00083CE9. Evidence: chain calls 0x00083CE9; caller at 0x00091CE6.
+// ?rva00083E87@Rva00083CE9Host@@QAEXXZ @0x00083E87 136B: unlink-walk m_10 calling
+// rva00083CE9 on flag-zero nodes, drain m_14 releasing each ref, then release
+// the three ref slots at +0, +4 and +8.
+void Rva00083CE9Host::rva00083E87()
+{
+	Rva00083CE9Node *node = m_10;
+	while (node != 0)
+	{
+		Rva00083CE9Node *next = node->m_1320;
+		if (node->m_1311 == 0)
+		{
+			rva00083CE9(node);
+		}
+		node = next;
+	}
+	while (m_14 != 0)
+	{
+		Rva00083E87Ref *cur = reinterpret_cast<Rva00083E87Ref *>(m_14);
+		Rva00083E87Ref *next = cur->m_1320;
+		if (m_14 != 0)
+		{
+			if (--cur->m_refs == 0)
+			{
+				cur->rva00083E87Free();
+			}
+			m_14 = 0;
+		}
+		m_14 = reinterpret_cast<Rva00083CE9Node *>(next);
+	}
+	Rva00083E87Ref *m_04Ref = m_04;
+	if (m_04Ref != 0)
+	{
+		if (--m_04Ref->m_refs == 0)
+		{
+			m_04Ref->rva00083E87Free();
+		}
+		m_04 = 0;
+	}
+	Rva00083E87Ref *m_08Ref = m_08;
+	if (m_08Ref != 0)
+	{
+		if (--m_08Ref->m_refs == 0)
+		{
+			m_08Ref->rva00083E87Free();
+		}
+		m_08 = 0;
+	}
+	Rva00083E87Ref *m_00Ref = m_00;
+	if (m_00Ref != 0)
+	{
+		if (--m_00Ref->m_refs == 0)
+		{
+			m_00Ref->rva00083E87Free();
+		}
+		m_00 = 0;
+	}
+}
+
 void Rva00083CE9Host::rva00084002()
 {
 	Rva00083CE9Node *cur = m_10;
