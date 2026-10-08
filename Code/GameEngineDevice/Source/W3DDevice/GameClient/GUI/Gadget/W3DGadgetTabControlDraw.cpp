@@ -288,3 +288,141 @@ void W3DGadgetTabControlDraw( GameWindow *tabControl,
 }
 
 #undef BFME_DRAW_TAB
+
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705
+// GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DTabControl.cpp
+// and its GadgetTabControl accessors supply the fixed-index draw-field
+// expressions, compiled /O1 /arch:SSE /G7. The ZH header's arrays start four
+// bytes too early; donor labels from an unadjusted placement are not target
+// identities. These functions use this file's already-verified BFME2
+// GameWindow arrays48/B4/120 with image/color/border offsets0/4/8.
+// Each independent native leaf below loads its stack argument, reads one
+// raw32 draw field, and returns with RET0. Every start follows a prior RET
+// (A3155 follows the existing A3143 draw callback's RET4). Address-owned
+// names retain uncertainty about original callable names and color signedness.
+// Native0x000A3155..0x000A315D; offset0x70: EnabledColor index3.
+unsigned Rva000A3155TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetEnabledColor(3);
+}
+
+// Native0x000A3165..0x000A3170; offset0x88: EnabledColor index5.
+unsigned Rva000A3165TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetEnabledColor(5);
+}
+
+// Native0x000A317B..0x000A3186; offset0x94: EnabledColor index6.
+unsigned Rva000A317BTabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetEnabledColor(6);
+}
+
+// Native0x000A3186..0x000A3191; offset0x98: EnabledBorderColor index6.
+unsigned Rva000A3186TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetEnabledBorderColor(6);
+}
+
+// Native0x000A319C..0x000A31A7; offset0xA0: EnabledColor index7.
+unsigned Rva000A319CTabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetEnabledColor(7);
+}
+
+// Native0x000A31A7..0x000A31B2; offset0xA4: EnabledBorderColor index7.
+unsigned Rva000A31A7TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetEnabledBorderColor(7);
+}
+
+// Native0x000A31BD..0x000A31C8; offset0xAC: EnabledColor index8.
+unsigned Rva000A31BDTabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetEnabledColor(8);
+}
+
+// Native0x000A31E9..0x000A31F4; offset0xDC: DisabledColor index3.
+unsigned Rva000A31E9TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetDisabledColor(3);
+}
+
+// Native0x000A31FF..0x000A320A; offset0xF4: DisabledColor index5.
+unsigned Rva000A31FFTabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetDisabledColor(5);
+}
+
+// Native0x000A3215..0x000A3220; offset0x100: DisabledColor index6.
+unsigned Rva000A3215TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetDisabledColor(6);
+}
+
+// Native0x000A3220..0x000A322B; offset0x104: DisabledBorderColor index6.
+unsigned Rva000A3220TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetDisabledBorderColor(6);
+}
+
+// Native0x000A3236..0x000A3241; offset0x10C: DisabledColor index7.
+unsigned Rva000A3236TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetDisabledColor(7);
+}
+
+// Native0x000A3241..0x000A324C; offset0x110: DisabledBorderColor index7.
+unsigned Rva000A3241TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetDisabledBorderColor(7);
+}
+
+// Native0x000A3257..0x000A3262; offset0x118: DisabledColor index8.
+unsigned Rva000A3257TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetDisabledColor(8);
+}
+
+// Native0x000A3283..0x000A328E; offset0x148: HiliteColor index3.
+unsigned Rva000A3283TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetHiliteColor(3);
+}
+
+// Native0x000A3299..0x000A32A4; offset0x160: HiliteColor index5.
+unsigned Rva000A3299TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetHiliteColor(5);
+}
+
+// Native0x000A32AF..0x000A32BA; offset0x16C: HiliteColor index6.
+unsigned Rva000A32AFTabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetHiliteColor(6);
+}
+
+// Native0x000A32BA..0x000A32C5; offset0x170: HiliteBorderColor index6.
+unsigned Rva000A32BATabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetHiliteBorderColor(6);
+}
+
+// Native0x000A32D0..0x000A32DB; offset0x178: HiliteColor index7.
+unsigned Rva000A32D0TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetHiliteColor(7);
+}
+
+// Native0x000A32DB..0x000A32E6; offset0x17C: HiliteBorderColor index7.
+unsigned Rva000A32DBTabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetHiliteBorderColor(7);
+}
+
+// Native0x000A32F1..0x000A32FC; offset0x184: HiliteColor index8.
+unsigned Rva000A32F1TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetHiliteColor(8);
+}
+
