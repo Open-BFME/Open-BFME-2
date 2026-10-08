@@ -11,17 +11,21 @@ public:
 	int m_74;
 };
 
-// Native 3ED0C4..3ED191 copies seventeen dwords into its hidden result
-// pointer and returns that pointer in EAX (RET16). Only its first scalar is
-// consumed here; the original result type remains unresolved.
-struct Rva003ED0C4Result
-{
-    float values[17];
-};
-class Rva003ED0C4
+// WorldBuilder names ThreatFinder::getThreatForPlayer and its ThreatInfo
+// return record. Native 3ED0C4..3ED191 returns the 0x44-byte record through
+// a hidden pointer; its existing constructor owner supplies the data-only base.
+class Player;
+class Rva003ECA4BElement
 {
 public:
-    Rva003ED0C4Result rva003ED0C4(void *owner, int mode, int player);
+    Rva003ECA4BElement();
+    float values[17];
+};
+struct ThreatInfo : public Rva003ECA4BElement {};
+class ThreatFinder
+{
+public:
+    ThreatInfo getThreatForPlayer(Player *owner, int mode, Player *specificEnemy);
     char m_pad00[0x554];
     Coord3D m_position;
     float m_radius;
@@ -45,13 +49,14 @@ public:
 	void rva002C5CF7(const struct Coord3D *pos, float radius, int id);
 	void setTarget(Object *obj, float value);
     void markApproachHazard(const Coord3D *pos);
+    float checkThreatInArea(const Coord3D *pos);
 private:
     void *m_owner;
     unsigned int m_04;
     unsigned int m_frame;
     Coord3D m_position;
     char m_pad18[0x24 - 0x18];
-    Rva003ED0C4 *m_table;
+    ThreatFinder *m_table;
     float m_value;
     char m_pad2C[0x34 - 0x2C];
     int m_id;
@@ -69,7 +74,7 @@ void AITarget::rva002C5CF7(const Coord3D *pos, float radius, int id)
 {
     reinterpret_cast<Rva002C589B *>(this)->rva002C58B3();
     m_position = *pos;
-    Rva003ED0C4 *table = m_table;
+    ThreatFinder *table = m_table;
     m_id = id;
     m_frame = TheGameLogic->getFrame();
     Coord3D point;
@@ -79,7 +84,7 @@ void AITarget::rva002C5CF7(const Coord3D *pos, float radius, int id)
     table->m_position = point;
     m_table->m_radius = radius;
     reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
-    Rva003ED0C4Result result = m_table->rva003ED0C4(m_owner, 0, 0);
+    ThreatInfo result = m_table->getThreatForPlayer((Player *)m_owner, 0, 0);
     m_value = result.values[0];
 }
 
@@ -98,7 +103,7 @@ void AITarget::markApproachHazard(const Coord3D *pos)
     positions.point.z = pos->z;
     *destination = positions.point;
     reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
-    Rva003ED0C4Result result = m_table->rva003ED0C4(m_owner, 0, 0);
+    ThreatInfo result = m_table->getThreatForPlayer((Player *)m_owner, 0, 0);
     if (result.values[0] > m_value)
         m_value = result.values[0];
     else
@@ -109,4 +114,34 @@ void AITarget::markApproachHazard(const Coord3D *pos)
         m_table->m_position = positions.point;
         reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
     }
+}
+
+// Native 2C59CE..2C5AE6, RET4, 280 bytes. WB AITarget.cpp:140-141
+// names checkThreatInArea and shows the same two query calls. Save the table's
+// point/radius, query enemy and ally threat around the trial point at radius
+// 400, then restore and clear the table. Return positive ally threat minus
+// enemy threat, or zero. The aggregate order reproduces native stack homes.
+float AITarget::checkThreatInArea(const Coord3D *pos)
+{
+    struct PositionPair { Coord3D oldPoint; float oldRadius; Coord3D point; } positions;
+    Coord3D *destination=&m_table->m_position;
+    positions.oldPoint.x=destination->x;
+    positions.oldPoint.y=destination->y;
+    positions.oldPoint.z=destination->z;
+    positions.oldRadius=m_table->m_radius;
+    positions.point.x=pos->x;
+    positions.point.y=pos->y;
+    positions.point.z=pos->z;
+    *destination=positions.point;
+    m_table->m_radius=400.0f;
+    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
+    ThreatInfo enemy=((ThreatFinder *)m_table)->getThreatForPlayer((Player *)m_owner,0,0);
+    ThreatInfo ally=((ThreatFinder *)m_table)->getThreatForPlayer((Player *)m_owner,1,0);
+    positions.point.x=positions.oldPoint.x;
+    positions.point.y=positions.oldPoint.y;
+    positions.point.z=positions.oldPoint.z;
+    m_table->m_position=positions.point;
+    m_table->m_radius=positions.oldRadius;
+    reinterpret_cast<Rva003ECB0BDwordClearer *>(m_table)->clear();
+    return ally.values[0]>0.0f ? ally.values[0]-enemy.values[0] : 0.0f;
 }
