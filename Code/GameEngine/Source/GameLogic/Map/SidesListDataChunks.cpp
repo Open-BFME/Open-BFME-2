@@ -407,6 +407,7 @@ public:
 	bool rva0032D038(DataChunkInput &file, DataChunkInfo *info);
 	bool rva0032D04A(DataChunkInput &file, DataChunkInfo *info);
 	void rva0032D554();
+	bool rva0032F0AA(DataChunkInput &file, void *info);	// 0x0032F0AA, the "Teams" callback
 	void discardOverriddenScriptsAndTeams();
 
 private:
@@ -890,4 +891,59 @@ void SidesList::rva0032D554()
 			throw ERROR_CORRUPT_FILE_FORMAT;
 		((Rva003079ED *)&others)->rva003079ED();
 	}
+}
+
+// The side-list binding that registers "PlayerScriptsList" for each library
+// map's sides. Its ctor and dtor are rowed under two address names of one
+// object (vtable 0x00C0D8FC): the ctor here, the dtor as its base.
+class Rva0032989F
+{
+public:
+	virtual ~Rva0032989F();				// 0x0032989F
+
+private:
+	char m_data[0x6C - 4];
+};
+
+class Rva0032A082 : public Rva0032989F
+{
+public:
+	Rva0032A082(void *sides, BfmeParserRegistryVE *registry, const AsciiString *label);	// 0x0032A082
+};
+
+class LibraryMapCache
+{
+public:
+	SidesList *getSides(const AsciiString &name);
+
+private:
+	typedef _STL::pair<AsciiString, SidesList *> Entry;
+	_STL::vector<Entry> m_list;
+};
+
+SidesList *LibraryMapCache::getSides(const AsciiString &name)
+{
+	for (_STL::vector<Entry>::iterator it = m_list.begin(), end = m_list.end(); it != end; ++it) {
+		if ((*it).first.compareNoCase(name) == 0)
+			return (*it).second;
+	}
+
+	Rva00240000 stream;
+	if (!stream.rva00308050(name))
+		return 0;
+
+	SidesList *sides = new SidesList;
+	sides->addSide(0);
+	sides->addSide(0);
+	DataChunkInput file(&stream);
+	BfmeParserBindingVE teams(sides, reinterpret_cast<SidesListChunkParser>(&SidesList::rva0032F0AA),
+		&file, "Teams", AsciiString::TheEmptyString);
+	Rva0032A082 lists(sides, reinterpret_cast<BfmeParserRegistryVE *>(&file), 0);
+	BfmeParserBindingVE libraries(sides, &SidesList::parseLibraryMapListsChunk, &file,
+		"LibraryMapLists", AsciiString::TheEmptyString);
+	if (!file.parse(0))
+		return 0;
+	((Rva003079ED *)&stream)->rva003079ED();
+	m_list.push_back(_STL::make_pair(name, sides));
+	return sides;
 }

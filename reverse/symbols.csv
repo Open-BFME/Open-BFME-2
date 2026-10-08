@@ -16158,3 +16158,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva005BB3A1@Rva005BB3A1@@QAE_NXZ,0x005BB3A1,address-named gate predicate of 0x005BB5CE (unowned; byte gate is the proof)
 ?rva005B4653@Rva005B486DOwner@@QAEXXZ,0x005B4653,address-named member called from 0x005B486D (unowned; byte gate is the proof)
 ?rva005B2794@Rva005B486DOwner@@QAEXXZ,0x005B2794,address-named tail member of 0x005B486D (unowned; byte gate is the proof)
+??$make_pair@VAsciiString@@PAVSidesList@@@_STL@@YA?AU?$pair@VAsciiString@@PAVSidesList@@@0@ABVAsciiString@@ABQAVSidesList@@@Z,0x0032ACCF,callee of ?getSides@LibraryMapCache@@QAEPAVSidesList@@ABVAsciiString@@@Z
+?push_back@?$vector@U?$pair@VAsciiString@@PAVSidesList@@@_STL@@V?$allocator@U?$pair@VAsciiString@@PAVSidesList@@@_STL@@@2@@_STL@@QAEXABU?$pair@VAsciiString@@PAVSidesList@@@2@@Z,0x0032DC80,callee of ?getSides@LibraryMapCache@@QAEPAVSidesList@@ABVAsciiString@@@Z
