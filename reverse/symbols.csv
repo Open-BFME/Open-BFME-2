@@ -15848,3 +15848,4 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?Rva003B7836@@YA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z,0x003B7836,Registered callback at native3B7985 in full183B reader3B793A; registerParser307779 stores the cdecl Bool(DataChunkInput&;DataChunkInfo*;void*) callback; complete260B boundary3B7836..3B793A RET0 reads userData count at0 and appends ScriptList at4+4*count. Address identity only; original callback name unknown.
 ?rva003F962F@LivingWorldEyeTower@@AAEXXZ,0x003F962F,callee of ?processFrame@LivingWorldEyeTower@@AAEXXZ; complete941B same-this RET0; original method name unknown
 ?rva00075E42@@YAXXZ,0x00075E42,callee of ?testMinimumRequirements@W3DShaderManager@@SA_NPAW4ChipsetType@@PAW4CpuType@@PAHPA_KPAM44@Z
+?rva0040C495@Rva0040C495@@QAEPAVObject@@PAVPlayer@@H@Z,0x0040C495,callee of ?rva0040E534@Rva0040E534@@QAEXPAURva0040E534Input@@HPAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@H@Z
