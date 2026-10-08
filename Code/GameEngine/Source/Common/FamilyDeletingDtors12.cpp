@@ -32,10 +32,6 @@ void famgenDelete(Rva0050174A *p) { delete p; }
 class Rva005BEA22 { public: ~Rva005BEA22(); };
 void famgenDelete(Rva005BEA22 *p) { delete p; }
 
-// ??_GRva0056820D@@QAEPAXI@Z @0x00568323 28B: calls ~Rva0056820D 0x0056820D
-class Rva0056820D { public: ~Rva0056820D(); };
-void famgenDelete(Rva0056820D *p) { delete p; }
-
 // ??_GRva005C8565@@QAEPAXI@Z @0x005686D9 28B: calls ~Rva005C8565 0x005C8565
 class Rva005C8565 { public: ~Rva005C8565(); };
 void famgenDelete(Rva005C8565 *p) { delete p; }
