@@ -21,7 +21,8 @@ struct Rva005B2E09Cell
 	Rva002190A1DwordField *m_button; // +0x00
 	int m_row;                       // +0x04
 	int m_column;                    // +0x08
-	unsigned char m_pad0c[0x14 - 0x0C];
+	int m_index0c;                    // +0x0c; UpdatePalantirButtons adds required count
+	unsigned char m_pad10[0x14 - 0x10];
 	bool m_owned;                    // +0x14
 };
 
@@ -38,8 +39,13 @@ class CreateAHeroManager
 {
 public:
 	int GetRequiredButtonCount();
+	const class CommandButton *GetRequiredButton(unsigned int index);
 };
 extern CreateAHeroManager *TheCreateAHeroManager;
+
+// Existing address-named cdecl helper: four machine-word arguments. Its
+// unclaimed body's parameter names and source types remain unproven.
+void rva005B2295(int button, int name, int index, int page);
 
 namespace AptCreateAHero
 {
@@ -47,6 +53,7 @@ class Powers
 {
 public:
 	int CalculateFlashState(Rva005B2E09Cell *cell);
+	void UpdatePalantirButtons();
 
 private:
 	Rva005B2E09Cell *FindPrereq(Rva005B2E09Cell *cell)
@@ -54,10 +61,36 @@ private:
 		return (Rva005B2E09Cell *)((Rva005B2DDF *)this)->rva005B2E09(cell);
 	}
 
-	unsigned char m_pad00[0x50];
+	unsigned char m_pad00[0x28];
+	Rva005B2E09Cell *m_cells[10]; // +0x28; retail loop advances by four bytes
 	int m_numPowers;             // +0x50
 	unsigned int m_numPalantir;  // +0x54
 };
+}
+
+// ?UpdatePalantirButtons@Powers@AptCreateAHero@@QAEXXZ @0x005B2794 154B.
+// WorldBuilder method lead (wb-name-unverified); target evidence: the required
+// button count/getter pair, "PalantirBttn", cell pointers +0x28, count +0x50,
+// next free slot +0x54, and cell index +0x0c. The caller 0x005B486D tail-calls
+// this member with its original receiver.
+void AptCreateAHero::Powers::UpdatePalantirButtons()
+{
+	int required = TheCreateAHeroManager->GetRequiredButtonCount();
+	const char *name = "PalantirBttn";
+	for (int i = 0; i < required; ++i)
+	{
+		const CommandButton *button = TheCreateAHeroManager->GetRequiredButton(i);
+		rva005B2295((int)button, (int)name, i, -1);
+	}
+	for (unsigned int i = 0; i < (unsigned int)m_numPowers; ++i)
+	{
+		Rva005B2E09Cell *cell = m_cells[i];
+		if (cell)
+			rva005B2295((int)cell->m_button, (int)name,
+				cell->m_index0c + required, -1);
+	}
+	for (int i = m_numPalantir; i < 6 - required; ++i)
+		rva005B2295(0, (int)name, i + required, -1);
 }
 
 static const unsigned int MAX_POWERS = 10;
