@@ -150,13 +150,20 @@ struct TreeHintRef00217D4C
 	TargetRef00217D4C *m_ptr;
 };
 
-// One of the two 0x18-byte unit slots: rowed zeroing ctor 0x00286297, dtor
-// 0x005FD5D4 (pinned).
-class Rva00286297
+// The two 0x18-byte Apt unit slots have a different destructor from fire
+// materials. Their six-dword zeroing constructor folds with 0x00286297;
+// their own 84-byte destructor is 0x005FD5D4. Names remain address-derived.
+class Rva005FD5D4UnitSlot
 {
 public:
-	Rva00286297();
-	~Rva00286297();
+	// ?Rva005FD5D4UnitSlot::Rva005FD5D4UnitSlot present-unmatched
+	Rva005FD5D4UnitSlot()
+	{
+		m_ref.m_ptr = 0;
+		unsigned int *tail = reinterpret_cast<unsigned int *>(m_pad04);
+		tail[0] = 0; tail[1] = 0; tail[2] = 0; tail[3] = 0; tail[4] = 0;
+	}
+	~Rva005FD5D4UnitSlot();
 
 	TreeHintRef00217D4C m_ref; // +0x00
 	unsigned char m_pad04[0x14];
@@ -209,7 +216,7 @@ public:
 	AsciiString m_name; // +0x08
 	AptCommandMapAdder m_commandMaps; // +0x0C
 	int m_state; // +0x18 (0 closed, 1 open, 2/3 closing)
-	Rva00286297 m_slots[2]; // +0x1C
+	Rva005FD5D4UnitSlot m_slots[2]; // +0x1C
 	bool m_4c;
 	bool m_4d;
 	bool m_4e;

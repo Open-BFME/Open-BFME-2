@@ -175,10 +175,17 @@ private:
 // A material entry (0x18 bytes): the array constructor zeroes all six
 // dwords (0x00286297) and the destructor releases the string at +4
 // (0x0029D7C2, folded with CameraMarker's).
+// This material cleanup calls the native out-of-line AsciiString destructor.
+#define BFME_ASCII_DTOR_DECL
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 struct Rva00286297
 {
 	Rva00286297();
-	~Rva00286297();
+	// ?Rva00286297::~Rva00286297 present-unmatched
+	~Rva00286297()
+	{
+		reinterpret_cast<AsciiString *>(&unknown04)->~AsciiString();
+	}
 	Int unknown00, unknown04;
 	Int fuel;
 	unsigned int field18, field00, field10;
