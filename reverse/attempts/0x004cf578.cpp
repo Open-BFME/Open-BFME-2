@@ -1,6 +1,7 @@
 // ?relayCommand@BFMEConnectionManager@@QAEXPAX@Z
-// partial score=0.93 date=2026-10-07
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
+// partial score=0.97 date=2026-10-08
+// ?relayCommand@BFMEConnectionManager@@QAEXPAX@Z
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX /O1 /G7 /ICode/GameEngine/Source/Common
 //
 // BFME2's client frame gate totals the command counts held by its eight
 // per-player frame rings.  The local ring stores the expected total; the
@@ -70,14 +71,7 @@ public:
 	void sendNetCommandMsg(NetCommandMsg *msg, unsigned char relay);
 };
 
-class GameLogic
-{
-public:
-	char m_pad00[0x38];
-	unsigned int m_timestampFrame;
-	char m_pad3C[4];
-	unsigned int m_frame;
-};
+#include "GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -134,23 +128,28 @@ void BFMEConnectionManager::relayCommand(void *ref)
 	NetCommandMsg *msg = commandRef->msg;
 	if (!msg)
 		return;
+	unsigned int timestamp;
 	if (msg->getExecutionFrame() == (unsigned int)-1)
 	{
-		msg->setExecutionFrame(TheGameLogic->m_frame + 1);
-		msg->m_timestamp = TheGameLogic->m_timestampFrame;
+		GameLogic *logic = TheGameLogic;
+		unsigned int frame = logic->getFrame();
+		timestamp = logic->getTimestamp();
+		msg->setExecutionFrame(frame + 1);
 	}
 	else if (msg->getTimestamp() == (unsigned int)-1)
 	{
-		msg->m_timestamp = TheGameLogic->m_timestampFrame;
+		timestamp = TheGameLogic->getTimestamp();
 	}
-	if (msg->getExecutionFrame() + TheWritableGlobalData->m_networkRunAheadSlack < TheGameLogic->m_frame)
+	else goto afterStamp;
+	msg->m_timestamp = timestamp;
+afterStamp:
+	if (msg->getExecutionFrame() + TheWritableGlobalData->m_networkRunAheadSlack < TheGameLogic->getFrame())
 		return;
-	unsigned int localBit = 1u << m_localSlot;
-	unsigned int relay = commandRef->relay;
-	if ((relay & localBit) == 0)
+	unsigned char relay = commandRef->relay;
+	if ((relay & (1 << m_localSlot)) == 0)
 		return;
 	if (m_frameData[msg->getPlayerID()] == 0 ||
-		!IsCommandSynchronized(msg->getNetCommandType()))
+		!(unsigned char)IsCommandSynchronized(msg->getNetCommandType()))
 		return;
 	if (msg->getPlayerID() == m_localSlot &&
 		msg->getNetCommandType() != NETCOMMANDTYPE_PLAYERLEAVE)
