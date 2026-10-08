@@ -10,6 +10,7 @@
 #include <math.h>
 
 class PolygonTrigger;
+class Rva00330C50 { public: void rva00330AA6(int); };
 
 struct Region2D
 {
@@ -52,12 +53,19 @@ public:
 	Region2D rva0007E03A();
 	void getBounds(FloatRect0073CE30 *rect);
 	void getBounds(int *out);
+	void rva002E36B7(int);
 
 private:
 	unsigned char m_pad00[0x08];
 	Rva0030B719Shape m_shape;	// +0x08
 	unsigned char m_pad09[0x3c - 0x09];
 	PolygonTrigger *m_nextPolygonTrigger;	// +0x3C
+ char opaque40[8];
+ bool flag48;
+ char opaque49[7];
+ bool flag50;
+ char opaque51[3];
+ int field54,field58;
 };
 
 // PolygonTrigger::addPolygonTrigger, retail 0x002E36EF.
@@ -138,4 +146,15 @@ Rva002E3E2AOut Rva000AD6F4::rva002E3E2A()
  Rva002E3E2AOut temporary(pointer);
  pointer=0;
  return temporary;
+}
+
+// WBAB9AA0 and native2E36B7..2E36D5 reset the trigger's editor flags
+// after reserving its polygon's initial point capacity.
+void PolygonTrigger::rva002E36B7(int count)
+{
+ reinterpret_cast<Rva00330C50*>(this)->rva00330AA6(count);
+ flag48=false;
+ flag50=false;
+ field54=0;
+ field58=0;
 }
