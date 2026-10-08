@@ -32,7 +32,8 @@ struct Rva002B488EResult;
 struct Rva002B2579Result;
 class Rva002BA8F1Logic {public: Rva002B488EResult *rva002B488E(int);Rva002B2579Result *rva002B2579(int);};
 extern GameLogic *TheGameLogic;
-extern GameClient *TheGameClient;
+class ClientFrameSubsystem;
+extern ClientFrameSubsystem *TheGameClient;
 class Rva002D3627Host;
 extern Rva002D3627Host *g_00DFEF18;
 
@@ -45,7 +46,7 @@ public:
 };
 bool Rva002DA318::rva002DA318() {
  switch(m_tag38) {
- case 1: return TheGameClient->findDrawableByID(m_id34) == 0;
+ case 1: return ((GameClient *)TheGameClient)->findDrawableByID(m_id34) == 0;
  case 2: return TheGameLogic->findObjectByID((ObjectID)m_id34) == 0;
  case 3: return g_00DFEF18 && ((Rva002BFDAE *)g_00DFEF18)->rva002BFDAE((void*)m_id34) ? 0 : 1;
  case 4: return TheLivingWorldLogic && ((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B488E(m_id34) ? 0 : 1;
