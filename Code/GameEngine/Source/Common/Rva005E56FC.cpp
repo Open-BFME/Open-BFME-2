@@ -53,10 +53,12 @@ public:
 	Rva0020E89C *rva0020EAF6(int id);
 };
 class Rva002E2903Player;
+struct Rva002B488EResult;
 class Rva002BA8F1Logic
 {
 public:
 	Rva002E2903Player *find(int id, unsigned int *index);
+	Rva002B488EResult *rva002B488E(int id);
 public:
 	char m_pad[0xB0];
 	Rva0020EAF6View *m_B0;
@@ -81,6 +83,7 @@ public:
 	void *rva005E56FC();
 	int rva005E61A8();
 	void rva005E6765();
+	void rva005E66DF();
 private:
 	int m_00;
 	Rva005E56FCOuter *m_04;
@@ -127,6 +130,21 @@ int Rva005E56FC::rva005E61A8()
 void Rva005E56FC::rva005E6765()
 {
     void *result = rva005E56FC();
+    _STL::vector<int> values(Rva005E59FCKeyIterator(m_04->m_keyView.begin()),
+        Rva005E59FCKeyIterator(m_04->m_keyView.end()), _STL::allocator<int>());
+    if (result && ((Rva002B6C9F *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->rva002B6CE5(
+            (int)m_04->m_ptr18, (int)&values, (int)result))
+        m_04->rva005E652E(result);
+}
+
+// Native 0x005E66DF..0x005E6765 (134B). This receiver, owner tree,
+// range constructor, query and owner dispatch are shared with rva005E6765.
+// The difference is the rowed findArmy call on this+8 instead of the
+// garrison lookup. WB's SelectedMemberArmyDest::MoveTo corroborates this
+// call relationship; the receiver retains its established opaque name.
+void Rva005E56FC::rva005E66DF()
+{
+    void *result = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B488E(m_08);
     _STL::vector<int> values(Rva005E59FCKeyIterator(m_04->m_keyView.begin()),
         Rva005E59FCKeyIterator(m_04->m_keyView.end()), _STL::allocator<int>());
     if (result && ((Rva002B6C9F *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->rva002B6CE5(
