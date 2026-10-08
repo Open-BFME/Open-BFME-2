@@ -91,3 +91,8 @@ int SimpleObjectIterator::first() {
 	m_cursor = m_deque.begin();
 	return reinterpret_cast<Rva0054A82C *>(this)->rva0054A82C(0);
 }
+
+// Vtable slot 2 at C6A6A0; native 54B7FC..54B804 delegates without resetting.
+int SimpleObjectIterator::next() {
+	return reinterpret_cast<Rva0054A82C *>(this)->rva0054A82C(0);
+}
