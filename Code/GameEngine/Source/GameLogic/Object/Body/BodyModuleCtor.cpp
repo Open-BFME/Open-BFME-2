@@ -56,3 +56,25 @@ BodyModule::BodyModule(Thing *thing, const ModuleData *moduleData)
 // stores). Bind them to the rows at those functions.
 #pragma comment(linker, "/alternatename:?behaviorIfaceAnchor@BehaviorIface@@UAEXXZ=?getDie@DieModule@@UAEPAVDieModuleInterface@@XZ")
 #pragma comment(linker, "/alternatename:?objectAnchor@ObjectModule@@UAEXXZ=??_GRva004BD763@@UAEPAXI@Z")
+
+// Reference lead: Open-BFME-1 9cbfb551fe20dae985f91f2319d8997287b6a705,
+// BodyModule::applyDamageScalar in ZH BodyModule.h, emitted by the clean
+// game/GameEngine/Source/GameLogic/Object/Body/HiveStructureBody.cpp donor.
+// Native entry 4BD77C..4BD78F lies between the complete matched destructors
+// at 4BD763 and 4BD78F; 12 native body-interface tables point slot 26 here.
+// The matched PlayerBattlePlanBonuses.cpp calls that slot with armorScalar.
+// The constructor above proves interface+0x10 and damageScalar+0x14, hence
+// this secondary-interface entry accesses its scalar at +4. This address
+// carrier describes only that storage/ABI; the primary-this method name is
+// deliberately unresolved. It emits no vtable and changes no class contract.
+class Rva004BD77CFloatField
+{
+public:
+    void multiply(float scalar);
+    void *m_table;
+    float m_damageScalar;
+};
+void Rva004BD77CFloatField::multiply(float scalar)
+{
+    m_damageScalar *= scalar;
+}
