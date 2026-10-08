@@ -1,13 +1,18 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
-// ?Rva00077BF8Get@@YG_NABVAsciiString@@PBD@Z @0x00077BF8 33B: FileSystem existence wrapper extracting str with empty fallback then forwarding to 0x00600E3A. Evidence: callers 0x00077C19 0x00077E05 0x002E5D62; callee rowed; empty global g_Rva0107301CEmptyString.
+// Candidate identity ?getFileInfo@FileSystem@@QBE_NABVAsciiString@@PAUFileInfo@@@Z
+// @0x00077BF8 33B. The 0x77D0F caller loads TheFileSystem into ECX and passes
+// an AsciiString plus its FileInfo output. The target body extracts the string
+// and forwards both arguments to the BFME2 path resolver at 0x00600E3A.
 #include "ascii_string.h"
-bool __stdcall Rva00600E3AGet(const char *a, const char *b);
-bool __stdcall Rva00077BF8Get(const AsciiString &a, const char *b)
+struct FileInfo;
+class FileSystem
 {
-	const char *t = *(const char *const *)&a;
-	if (t)
-		t += 8;
-	else
-		t = "";
-	return Rva00600E3AGet(t, b);
+public:
+	bool getFileInfo(const AsciiString &filename, FileInfo *fileInfo) const;
+};
+
+bool __stdcall Rva00600E3AGet(const char *a, const char *b);
+bool FileSystem::getFileInfo(const AsciiString &a, FileInfo *b) const
+{
+	return Rva00600E3AGet(a.str(), (const char *)b);
 }

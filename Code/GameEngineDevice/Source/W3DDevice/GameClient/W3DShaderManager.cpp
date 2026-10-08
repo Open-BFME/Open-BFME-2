@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ascii
+#include "ascii_string.h"
 // ?preRender@ScreenMotionBlurFilter@@UAE_NAA_NAAW4CustomScenePassModes@@@Z retail 0x000FD4CE (19B).
 // Ported from Open-BFME-1 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp
 // (BFME1 0x007D8790, donor-verbatim): copies m_skipRender into skipRender,
@@ -13,11 +14,18 @@ enum CustomScenePassModes
 struct IDirect3DSurface8;
 struct IDirect3DTexture8;
 struct IDirect3DDevice8;
+struct Rva00077D0FVertexElement;
 
 struct IDirect3DDevice8Vtbl
 {
 	void *m_reserved[69];
 	long (__stdcall *m_setSamplerState)(IDirect3DDevice8 *device, unsigned stage, unsigned type, unsigned value);
+	void *m_reserved70[16];
+	long (__stdcall *m_createVertexShader)(IDirect3DDevice8 *device, const Rva00077D0FVertexElement *declaration, unsigned long *shader);
+	void *m_reserved87[4];
+	long (__stdcall *m_createShaderA)(IDirect3DDevice8 *device, const unsigned long *shaderData, unsigned long *shader);
+	void *m_reserved92[14];
+	long (__stdcall *m_createShaderB)(IDirect3DDevice8 *device, const unsigned long *shaderData, unsigned long *shader);
 };
 
 struct IDirect3DDevice8
@@ -96,6 +104,105 @@ IDirect3DTexture8 *W3DShaderManager::endRenderToTexture()
 	++ScreenTextureStageStateChanges;
 	m_renderingToTexture = false;
 	return m_renderTexture;
+}
+
+struct FileInfo
+{
+	long sizeHigh;
+	long sizeLow;
+	long timestampHigh;
+	long timestampLow;
+};
+
+class File
+{
+public:
+	enum { READ = 0x01, BINARY = 0x40 };
+};
+
+class FileSystem
+{
+public:
+	File *openFile(const char *filename, int access, int flags);
+	bool getFileInfo(const AsciiString &filename, FileInfo *fileInfo) const;
+};
+
+extern FileSystem *TheFileSystem;
+
+class Rva00077D0FFileView
+{
+public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void close();
+	virtual int read(void *buffer, int bytes);
+};
+
+struct Rva00077D0FVertexElement
+{
+	unsigned short stream;
+	unsigned short offset;
+	unsigned char type;
+	unsigned char method;
+	unsigned char usage;
+	unsigned char usageIndex;
+};
+
+extern "C" __declspec(dllimport) void *__stdcall GetProcessHeap(void);
+extern "C" __declspec(dllimport) void *__stdcall HeapAlloc(void *heap, unsigned long flags, unsigned long bytes);
+extern "C" __declspec(dllimport) int __stdcall HeapFree(void *heap, unsigned long flags, void *memory);
+extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char *text);
+
+long __cdecl Rva00077D0FLoad(const char *strFilePath, unsigned long *pHandle)
+{
+	try
+	{
+		{
+		File *file = TheFileSystem->openFile(strFilePath, File::READ | File::BINARY, 0);
+		if (file == 0) {
+			// The retail shared error call receives each string as an immediate
+			// stack argument. MSVC folds a C++ message phi through EAX instead.
+			__asm { push 0x00BC66EC }
+			goto reportFailure;
+		}
+
+		FileInfo fileInfo;
+		{
+			AsciiString filename(strFilePath);
+			TheFileSystem->getFileInfo(filename, &fileInfo);
+		}
+		unsigned long fileSize = fileInfo.sizeLow;
+
+		unsigned long *shader = (unsigned long *)HeapAlloc(GetProcessHeap(), 8, fileSize);
+		if (shader == 0) {
+			__asm { push 0x00BC66C0 }
+			goto reportFailure;
+		}
+
+		((Rva00077D0FFileView *)file)->read(shader, fileSize);
+		((Rva00077D0FFileView *)file)->close();
+
+		long hr = DX8Wrapper::_Get_D3D_Device8()->m_vtable->m_createShaderB(
+			DX8Wrapper::_Get_D3D_Device8(), shader, pHandle);
+		HeapFree(GetProcessHeap(), 0, shader);
+		if (hr < 0) {
+			__asm { push 0x00BC66A4 }
+			goto reportFailure;
+		}
+		}
+		return 0;
+
+	reportFailure:
+		((void (__stdcall *)(void))OutputDebugStringA)();
+		return (long)0x80004005L;
+	}
+	catch (...)
+	{
+		OutputDebugStringA("Error opening file \n");
+		return (long)0x80004005L;
+	}
+
+	return 0;
 }
 
 // Retail's data references in this unit's matched rows land on globals defined
