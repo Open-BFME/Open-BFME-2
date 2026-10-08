@@ -15914,7 +15914,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?Translate@Rva005C9BE3@@QAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z,0x005C9BE3,callee of ?translateGameMessage@Impl@CommonBehavior@StrategicInGameUI@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z
 ??0AutoResolve@Data@StrategicVeterancy@@QAE@PAX00@Z,0x005ECE81,callee of ?Rva005ED15DCreateAutoResolve@@YAPAVData@StrategicVeterancy@@PAX00@Z
 ?AddItem@Impl@Checklist@StrategicInGameUI@@QAEXABUChecklistItemRef@3@PAV1ChecklistItem@3@@Z,0x005CD049,callee of ?AddItem@Checklist@StrategicInGameUI@@QAEXABUChecklistItemRef@2@@Z
-?rva005D1F22@HeroArmySelectionHandler@StrategicInGameUI@@QAE_NXZ,0x005D1F22,callee of ?OnMouseoverRegionChanged@HeroArmySelectionHandler@StrategicInGameUI@@UAEXAAVMouseoverRegionTracker@@H@Z
 ?rva005EA0F6@Rva005EA183@@QAEXXZ,0x005EA0F6,callee of ?Done@ShowBattleStepStateHandler@Impl@DynamicAutoResolveDialog@StrategicInGameUI@@QAEXXZ
 ?rva005EA136@Rva005EA183@@QAEXXZ,0x005EA136,callee of ?OnSkipButtonClicked@MovieClip@Impl@DynamicAutoResolveDialog@StrategicInGameUI@@UAEXXZ
 ?rva005FBB96@Rva005FBB9E@@QAEXHH@Z,0x005FBB96,callee of ?DequeueBanner@PlayerPanelMovieClip@Impl@DynamicAutoResolveDialog@StrategicInGameUI@@QAEXXZ
