@@ -24,12 +24,6 @@ public:
 	const ArmorTemplate *rva0035516C(NameKeyType key) const;
 };
 
-class Rva00548632Runner
-{
-public:
-	void run();
-};
-
 class BfmeY1038;
 
 class Rva0040C985
@@ -53,6 +47,7 @@ class Rva0054840A
 public:
 	void rva005482E9(int flags);
 	void rva00548527();
+	void rva00548632();
 };
 
 class AiOrdersManager
@@ -89,7 +84,7 @@ void AiOrdersManager::rva003551D3(int value)
 {
 	const ArmorTemplate *found = m_finder.rva0035516C((NameKeyType)value);
 	if (found)
-		((Rva00548632Runner *)found)->run();
+		((Rva0054840A *)found)->rva00548632();
 }
 
 void Rva0040D3E8Owner::fwd(int value)

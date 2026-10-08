@@ -106,6 +106,7 @@ public:
     void rva00548464(int flags,int id);
     void rva005482E9(int flags);
     void rva00548527();
+    void rva00548632();
 private:
 	ObjectID m_00;
 	ListInt m_list04;
@@ -170,7 +171,7 @@ class Rva00355B61
 public:
     const ArmorTemplate *rva00355155(NameKeyType) const;
 };
-class AiOrdersManager;
+class AiOrdersManager { public: int cloneOrderForPatrol(int); };
 extern AiOrdersManager *TheAiOrdersManager;
 struct OrderActivationView
 {
@@ -179,6 +180,7 @@ struct OrderActivationView
     virtual void slot2();
     virtual void slot3();
     virtual void slot4(ObjectID);
+    virtual bool slot5(ObjectID);
 };
 
 void Rva0054840A::rva00548464(int flags, int id)
@@ -271,4 +273,42 @@ void Rva0054840A::rva00548527()
             ((OrderActivationView *)order)->slot4(m_00);
     }
     m_08 = 0;
+}
+
+class Rva00548984 { public: void rva00548984(void *, int); };
+// WB ObjectOrderQueue::process, ObjectOrderQueue.cpp assertions266/275.
+// Native0x00548632..0x00548700 and the existing queue fields establish
+// completion vcall+0x14 and patrol resubmission through the recovered
+// clone, insertion and removal providers.
+void Rva0054840A::rva00548632()
+{
+    if (m_list04.empty())
+        return;
+    int id = m_list04.front();
+    if (m_08 == (UnsignedInt)id)
+        return;
+    OrderActivationView *order = (OrderActivationView *)((Rva00355B61 *)TheAiOrdersManager)->rva00355155((NameKeyType)id);
+    if (!order)
+        return;
+    if (!order->slot5(m_00))
+        return;
+    if (m_0c == (UnsignedInt)id) {
+        int resubmitID = TheAiOrdersManager->cloneOrderForPatrol(id);
+        if (resubmitID) {
+            rva00548464(1, resubmitID);
+            ((Rva00548984 *)order)->rva00548984((void *)m_00, 0);
+            m_list04.pop_front();
+            m_0c = m_list04.front();
+        } else
+            m_0c = 0;
+    } else {
+        ((Rva00548984 *)order)->rva00548984((void *)m_00, 0);
+        m_list04.pop_front();
+    }
+    order = 0;
+    if (!m_list04.empty() && m_08 != (UnsignedInt)m_list04.front()) {
+        order = (OrderActivationView *)((Rva00355B61 *)TheAiOrdersManager)->rva00355155((NameKeyType)m_list04.front());
+        if (order)
+            order->slot4(m_00);
+    }
 }
