@@ -82,3 +82,24 @@ void Path::rva002655E3(const Coord3D *pos, PathfindLayerEnum layer, int waypoint
 	if (m_path == 0)
 		m_path = node;
 }
+
+// Native-neighbor home from repair_queue dest; this does not identify the
+// following carrier as Path. BF1 9cbfb551fe20dae985f91f2319d8997287b6a705
+// GameSpyInfoUpdatePlayerInfo.cpp emits a _Tree::begin expression lead.
+// Independently, 265691..26569F follows RET4 and ends RET4 before the next
+// prologue: load the pointer at receiver+4, copy its word0 to the stack
+// argument's destination, and return that destination. Pointer carriers
+// represent these accesses only; original owner, pointee type and whether
+// the destination was an explicit argument or hidden return are unknown.
+class Rva00265691IndirectCopy
+{
+	char unknown00[4];
+	void **indirect;
+public:
+	void **copy(void **output) const;
+};
+void **Rva00265691IndirectCopy::copy(void **output) const
+{
+	*output = *indirect;
+	return output;
+}
