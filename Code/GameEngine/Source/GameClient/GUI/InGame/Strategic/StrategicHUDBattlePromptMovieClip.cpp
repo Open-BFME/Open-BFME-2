@@ -14,9 +14,9 @@ struct Rva005F91F3 {unsigned int word0,word1;UnicodeString text;Rva005F91F3(cons
 void Rva00030830FreeAllocation(void *);
 class Rva005FA0C9;
 struct Rva005FA197Element {Rva005FA0C9 *ptr;Rva005FA197Element(Rva005FA0C9 *);Rva005FA197Element(const Rva005FA197Element &);~Rva005FA197Element();};
-struct Rva005FA1CEElement {int a[1];};
+class Rva005FA0F7;
+struct Rva005FA1CEElement {Rva005FA0F7 *ptr;Rva005FA1CEElement(Rva005FA0F7 *);Rva005FA1CEElement(const Rva005FA1CEElement &);~Rva005FA1CEElement();};
 namespace _STL {
-template<> void vector<Rva005FA1CEElement>::push_back(const Rva005FA1CEElement &);
 template<> inline void allocator<BfmeStringRecord005F93E3>::deallocate(BfmeStringRecord005F93E3 *p,size_t) const {if(p)::Rva00030830FreeAllocation(p);}
 template<> void vector<BfmeStringRecord005F93E3>::push_back(const BfmeStringRecord005F93E3 &);
 }
@@ -82,4 +82,19 @@ void StrategicHUD::BattlePromptMovieClip::Impl::AddAlly(const Rva005F91F3Src &it
   Rva005FA197Element page(new Rva005FA0C9(this,allyPages.size(),item));
   allyPages.push_back(page);
  } catch(...) {allies.pop_back();throw;}
+}
+
+class Rva005FA0F7 {public:Rva005FA0F7(StrategicHUD::BattlePromptMovieClip::Impl *,int,const Rva005F91F3Src &);unsigned int vtable;int refs;char rest[0x28];};
+// ?Rva005FA1CEElement::Rva005FA1CEElement present-unmatched
+inline Rva005FA1CEElement::Rva005FA1CEElement(Rva005FA0F7 *p):ptr(p){if(p)++p->refs;}
+// ?Rva005FA1CEElement::Rva005FA1CEElement present-unmatched
+inline Rva005FA1CEElement::Rva005FA1CEElement(const Rva005FA1CEElement &other):ptr(other.ptr){if(ptr)++ptr->refs;}
+// ?Rva005FA1CEElement::~Rva005FA1CEElement present-unmatched
+inline Rva005FA1CEElement::~Rva005FA1CEElement(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)ptr);}
+void StrategicHUD::BattlePromptMovieClip::Impl::AddEnemy(const Rva005F91F3Src &item) {
+ enemies.push_back((const BfmeStringRecord005F93E3 &)Rva005F91F3(item));
+ try {
+  Rva005FA1CEElement page(new Rva005FA0F7(this,enemyPages.size(),item));
+  enemyPages.push_back(page);
+ } catch(...) {enemies.pop_back();throw;}
 }
