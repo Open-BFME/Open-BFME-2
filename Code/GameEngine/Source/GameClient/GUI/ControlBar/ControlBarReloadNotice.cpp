@@ -1,7 +1,7 @@
-// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/iniexception /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/GameEngine/Source/GameClient /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // stlport
 //
-// The "needs restart" byte at VA 0x00E01D0C and the two bodies that touch it:
+// The "needs restart" byte at VA 0x00E01D0C and the bodies that touch it:
 //
 //   0x0031AB77  sets it (8 bytes).
 //   0x0031E7F0  slot 4 of vftable 0x00C0CC88 (the class whose deleting
@@ -32,10 +32,16 @@ static bool g_Va00E01D0C;
 // 0x001DAFEA loads TheControlBar before its call. The original method name
 // remains unknown, but its thiscall ABI is established independently of the
 // eight-byte optimized body, which does not need to read the receiver.
+class INI;
+class Rva00409FFA;
 class ControlBar
 {
 public:
 	void rva0031AB77SetFlag();
+    void forgetStaleCommandSet(const AsciiString &);
+    Rva00409FFA *rva0031E8D5(const AsciiString &,int);
+    Rva00409FFA *rva0031B05B(Rva00409FFA *);
+    static void parseCommandSetDefinition(INI *);
 };
 
 void ControlBar::rva0031AB77SetFlag()
@@ -62,8 +68,20 @@ template <class T> struct hash
 };
 }
 
+class Rva001E3624 {
+public:
+    virtual ~Rva001E3624();
+    bool isOverride() const { return m_override; }
+    void markAsOverride() { m_override=true; }
+    void clearStale() { m_stale=0; }
+private:
+    Rva001E3624 *m_next;
+    bool m_override;
+    int m_stale;
+};
+
 // The map's values: each gets 0x00409FCC (rowed under this address name).
-class Rva00409FFA
+class Rva00409FFA : public Rva001E3624
 {
 public:
 	void rva00409FCC();
@@ -120,3 +138,94 @@ bool Rva0031DCF0::rva0031E7F0(bool *needsRestart)
 	}
 	return result;
 }
+
+// WB 0x00C2D2B0 names ControlBar::parseCommandSetDefinition at ControlBar.cpp
+// line 1525; native block registration 0x007AD120 binds CommandSet to this
+// complete 0x0031EC03..0x0031ED00 body. BFME1 ba7ddda7 INICommandSet.cpp guides
+// the find/create/override/duplicate behavior; native adds reload type 5.
+// Keep the inline restart-byte store in the unit owning that file-static byte.
+// The complete proposed TU retains exact 8B setter and 137B reload-notice bodies;
+// the new parser is exact through its complete 253B retail boundary.
+#include "Common/INIException.h"
+class INI;
+typedef void (*INIFieldParseProc)(INI *,void *,void *,const void *);
+struct FieldParse {
+    const char *token;
+    INIFieldParseProc parse;
+    const void *userData;
+    int offset;
+};
+class INI {
+public:
+    const char *getNextToken(const char *separators=0);
+    void initFromINI(void *,const FieldParse *);
+    static void parseInt(INI *,void *,void *,const void *);
+    char m_unknown00[8];
+    int m_loadType;
+};
+class Rva0031D5F8 { public: void *rva0031D5F8(const AsciiString *); };
+class CommandSet { public: static const FieldParse m_commandSetFieldParseTable[]; };
+extern ControlBar *TheControlBar;
+void ControlBar::parseCommandSetDefinition(INI *ini)
+{
+    AsciiString name;
+    name=ini->getNextToken();
+    Rva00409FFA *set=(Rva00409FFA *)((Rva0031D5F8 *)TheControlBar)->rva0031D5F8(&name);
+    if(!set) {
+        set=TheControlBar->rva0031E8D5(name,0);
+        if(ini->m_loadType==2) set->markAsOverride();
+    } else if(ini->m_loadType==2) {
+        set=TheControlBar->rva0031B05B(set);
+    } else if(ini->m_loadType==5) {
+        if(set->isOverride()) g_Va00E01D0C=1;
+        TheControlBar->forgetStaleCommandSet(name);
+        set=TheControlBar->rva0031E8D5(name,0);
+        set->clearStale();
+    } else {
+        throw INIException(3,"Duplicate commandset %s found!",name.str());
+    }
+    ini->initFromINI(set,CommandSet::m_commandSetFieldParseTable);
+}
+
+// Complete retail table at RVA 0x00838DD0: 32 command slots at object+0x14,
+// followed by InitialVisible at +0x94 and the four-zero terminator. Callback
+// 0x0040A092 already owns its address-derived name in the function ledger.
+class CommandButton;
+void Rva0040A092Parse(INI *,void *,const CommandButton **,int);
+const FieldParse CommandSet::m_commandSetFieldParseTable[] =
+{
+    {"1",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)0,0x14},
+    {"2",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)1,0x14},
+    {"3",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)2,0x14},
+    {"4",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)3,0x14},
+    {"5",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)4,0x14},
+    {"6",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)5,0x14},
+    {"7",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)6,0x14},
+    {"8",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)7,0x14},
+    {"9",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)8,0x14},
+    {"10",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)9,0x14},
+    {"11",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)10,0x14},
+    {"12",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)11,0x14},
+    {"13",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)12,0x14},
+    {"14",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)13,0x14},
+    {"15",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)14,0x14},
+    {"16",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)15,0x14},
+    {"17",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)16,0x14},
+    {"18",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)17,0x14},
+    {"19",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)18,0x14},
+    {"20",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)19,0x14},
+    {"21",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)20,0x14},
+    {"22",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)21,0x14},
+    {"23",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)22,0x14},
+    {"24",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)23,0x14},
+    {"25",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)24,0x14},
+    {"26",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)25,0x14},
+    {"27",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)26,0x14},
+    {"28",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)27,0x14},
+    {"29",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)28,0x14},
+    {"30",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)29,0x14},
+    {"31",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)30,0x14},
+    {"32",reinterpret_cast<INIFieldParseProc>(Rva0040A092Parse),(const void *)31,0x14},
+    {"InitialVisible",INI::parseInt,0,0x94},
+    {0,0,0,0}
+};
