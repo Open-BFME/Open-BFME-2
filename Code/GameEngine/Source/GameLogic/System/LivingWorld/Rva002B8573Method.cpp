@@ -44,3 +44,28 @@ bool Rva002B8573::rva002B8573(Rva003190A5 *a)
 	m_vec04->push_back(obj);
 	return true;
 }
+
+// ?rva002B85B1@Rva002B85B1@@QAE_NPAVRva003190A5@@@Z @0x002B85B1 59B via ref table sibling.
+// Evidence: REF table slot 0x007FDFF0 plus neighbour rva002B8573 plus query plus push_back.
+class Rva002B85B1
+{
+public:
+	bool rva002B85B1(Rva003190A5 *a);
+private:
+	char m_pad00[4];
+	_STL::vector<Object *> *m_vec04;
+	int m_08;
+};
+
+bool Rva002B85B1::rva002B85B1(Rva003190A5 *a)
+{
+	Object *obj = a->m_78;
+	if (obj == 0)
+		return true;
+	if (!a->query())
+		return true;
+	if (a->m_54 != m_08)
+		return true;
+	m_vec04->push_back(obj);
+	return true;
+}
