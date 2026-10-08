@@ -1,4 +1,7 @@
-// cl: /O1 /G7 /MD /EHsc
+// ?onUnitCreated@AIBuilder@@QAEXPAVObject@@0_N@Z
+// partial score=0.85 date=2026-10-08
+// cl: /O1 /G7 /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 // WB1370CA0 names AIBuilder::DoXfer; native4EC1D9..4EC276 is157B RET4.
 // Native (rather than WB's older version) transfers Version1/5, unsigned158
 // at v2 and bool154 at v5. It serializes components140/4/B4/E4 unconditionally,
@@ -9,6 +12,8 @@
 // or member semantics are inferred. The new economy/wall/string providers
 // unlock these calls without speculative callee pins.
 #include "../../Common/GameLogicObjectLookupView.h"
+#include "ascii_string.h"
+#include <list>
 class AsciiString;
 // Retail Version stores minimum/current bytes and has an inline constructor;
 // that constructor form also reproduces the independent stack homes in DoXfer.
@@ -56,8 +61,8 @@ virtual Xfer &xferBool(bool *);
 };
 
 
-class AIDozerManager {public: void DoXfer(Xfer*); void rva00599825(int);};
-class AIBaseBuilder {public: void DoXfer(Xfer*); void notifyBuildingDestroyed(Object *);};
+class AIDozerManager {public: void DoXfer(Xfer*);};
+class AIBaseBuilder {public: void DoXfer(Xfer*);};
 #include "AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
 class AIWallBuilder {public: void DoXfer(Xfer*);};
 class Rva00598DA2 {public: void rva00598DA2(Xfer*);};
@@ -101,13 +106,10 @@ enum ObjectStatusTypes;
 class ThingTemplate
 {
 public:
-    unsigned char prefix00[0x108];
-    unsigned char kindOf108;
-    unsigned char kindOf109;
-    unsigned char gap10a[5];
-    unsigned char kindOf10f;
-    unsigned char gap110[0x10];
-    unsigned char kindOf120;
+    unsigned char prefix00[0x64];
+    AsciiString name64;
+    unsigned char gap68[0xad];
+    unsigned char kindOf115;
 };
 class Object
 {
@@ -117,16 +119,7 @@ public:
     ThingTemplate *template04;
     unsigned char gap08[0x6c];
     unsigned int id74;
-    ObjectID producer78;
-    unsigned char gap7c[0x204];
-    float value280;
-    unsigned char gap284[0x1b4];
-    unsigned char flags438;
 };
-class Rva00599534 {public: void rva00599534(int);};
-class Rva00598149 {public: void rva00598149(void *);};
-void *Rva00486687Find(void *);
-struct Rva005996FFArg;
 class AIBuilderOrder
 {
 public:
@@ -138,19 +131,14 @@ public:
     virtual void slot05() = 0;
     virtual void slot06() = 0;
     virtual void slot07(int state) = 0;
-    unsigned char opaque04[0x20];
-    unsigned int producedObject24;
-};
-struct AIBuilderOrderNode
-{
-    AIBuilderOrderNode *next;
-    AIBuilderOrderNode *prev;
-    AIBuilderOrder *order;
+    unsigned int opaque04;
+    unsigned int objectID08;
+    AsciiString name0c;
+    int state10;
 };
 class AIBuilder {
 public: void DoXfer(Xfer*); void moneySaverUpdate();
-    void unRegisterProducedObject(Object *);
-    void notifyDozerDead(Rva005996FFArg *);
+    void onUnitCreated(Object *, Object *, bool);
 private:
     Player *owner00;
     unsigned char gap04[0x7c];
@@ -158,7 +146,7 @@ private:
     unsigned char gap84[0xa8];
     Rva0059761B *component12c;
     unsigned char opaque130[0xc];
-    AIBuilderOrderNode *orders13c;
+    _STL::list<AIBuilderOrder *> orders13c;
     unsigned char opaque140[0x14];
     bool flag154; unsigned char gap155[3]; unsigned int value158;
 };
@@ -199,36 +187,26 @@ void AIBuilder::moneySaverUpdate()
     }
 }
 
-// WB1370730 establishes unRegisterProducedObject and the matching order
-// failure path. Native4EC8F4..4ECA01 proves the BFME2 offsets and flag masks,
-// the cached +13C list sentinel and virtual slot +1C. The +38 map's existing
-// opaque callee takes the Object ID in its void-pointer ABI; no new identity
-// is assigned to that helper or to the order payload's other virtual slots.
-void AIBuilder::unRegisterProducedObject(Object *object)
+// WB1370420 names onUnitCreated and supplies the list/production-order lead.
+// Native4EC3AC..4EC430 proves the +13C sentinel, node +8 payload, payload
+// +8 ID/+C name/+10 state, template flag +115 and virtual slot +1C. Payload
+// class identity and the other virtual slots remain unresolved.
+// ?onUnitCreated@AIBuilder@@QAEXPAVObject@@0_N@Z present-unmatched
+void AIBuilder::onUnitCreated(Object *object, Object *created, bool horde)
 {
-    if (object->template04->kindOf120 & 4)
-        reinterpret_cast<Rva00599534 *>(reinterpret_cast<unsigned char *>(this) + 0x140)->rva00599534(object->id74);
-    if (object->template04->kindOf10f & 0x80)
-        reinterpret_cast<Rva00598149 *>(reinterpret_cast<unsigned char *>(this) + 0x38)->rva00598149(reinterpret_cast<void *>(object->id74));
-    if ((object->template04->kindOf108 & 0x80) && (object->flags438 & 1) &&
-        ((object->value280 < 0.0f && !Rva00486687Find(object)) ||
-         object->testStatus(static_cast<ObjectStatusTypes>(2))))
+    if (object)
     {
-        if (object->testStatus(static_cast<ObjectStatusTypes>(2)))
+        for (_STL::list<AIBuilderOrder *>::iterator it = orders13c.begin(); it != orders13c.end(); ++it)
         {
-            Object *producer = TheGameLogic->findObjectByID(object->producer78);
-            if (producer && (producer->template04->kindOf109 & 0x40) && !(producer->flags438 & 1))
-                reinterpret_cast<AIDozerManager *>(reinterpret_cast<unsigned char *>(this) + 0x140)->rva00599825(producer->id74);
-            AIBuilderOrderNode *end = orders13c;
-            for (AIBuilderOrderNode *it = end->next; it != end; it = it->next)
+            AIBuilderOrder *order = *it;
+            if ((horde || !(created->template04->kindOf115 & 0x20)) &&
+                order->state10 == 1 && order->objectID08 == object->id74 &&
+                !created->testStatus(static_cast<ObjectStatusTypes>(0x57)) &&
+                order->name0c.compare(created->template04->name64) == 0)
             {
-                AIBuilderOrder *order = it->order;
-                if (order->producedObject24 == object->id74)
-                    order->slot07(3);
+                order->slot07(2);
+                break;
             }
         }
-        reinterpret_cast<AIBaseBuilder *>(reinterpret_cast<unsigned char *>(this) + 4)->notifyBuildingDestroyed(object);
     }
-    if ((object->template04->kindOf109 & 0x40) && (object->flags438 & 1))
-        notifyDozerDead(reinterpret_cast<Rva005996FFArg *>(object));
 }
