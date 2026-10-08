@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: -O1 -arch:SSE -G7 -Ireference/shims/bfme2_ascii -DNDEBUG -MD -EHsc
 // stlport
 // ?setMapCRC@GameInfo@@QAEXI@Z @0x00400E9F (187B):
 // GameInfo::setMapCRC. BFME1 GameInfo.cpp donor verbatim (DEBUG_LOG compiled
@@ -82,6 +82,7 @@ public:
 	virtual Int getLocalSlotNum() const = 0;
 	GameSlot *getSlot(Int slotNum);
 	void setMapCRC(UnsignedInt mapCRC);
+	void rva0033F898(Int mask);
 private:
 	char m_pad0C[0x0C];
 	Bool m_inGame;
@@ -89,6 +90,7 @@ private:
 	AsciiString m_mapName;
 	UnsignedInt m_mapCRC;
 	UnsignedInt m_mapSize;
+	Int m_mapMask;
 };
 
 void GameInfo::setMapCRC(UnsignedInt mapCRC)
@@ -115,3 +117,8 @@ void GameInfo::setMapCRC(UnsignedInt mapCRC)
 		}
 	}
 }
+
+// Native folded setter at33F898 writes GameInfo map-mask +4C.
+// Complete deserializer448423 passes its parsed mask here; donor semantic
+// purpose is setMapContentsMask but its original target spelling is unproven.
+void GameInfo::rva0033F898(Int mask) { m_mapMask=mask; }
