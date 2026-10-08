@@ -1,4 +1,4 @@
-// cl: /MD /Oi-
+// cl: /MD /Oi- /O1
 //
 // ?Rva004478A9Copy@@YAPADPADPBD0@Z @0x004478A9 96B.
 // Checked strncpy copy: with limit require dst below limit with room, strncpy
@@ -26,4 +26,10 @@ char *__cdecl Rva004478A9Copy(char *dst, const char *src, char *limit)
 		_mbscpy(dst, src);
 	}
 	return dst + strlen(src) + 1;
+}
+
+char *Rva0044780FCopy(char*,void*,unsigned int,char*);
+char *Rva00447891Write1(char *dst,unsigned char value,char *limit)
+{
+    return Rva0044780FCopy(dst,&value,1,limit);
 }
