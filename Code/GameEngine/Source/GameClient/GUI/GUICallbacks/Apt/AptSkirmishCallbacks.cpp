@@ -117,6 +117,7 @@ public:
 	void OnChangeProfile(const char *unused);
 	void OnDeleteProfile(const char *unused);
 	void OnAddProfileAccept(const char *unused);
+	void InitCreateAHeroOnStartGame();
 
 	// Unrowed 0x00521CFF (358 bytes), pinned by address; 0x00522556 is
 	// defined below.
@@ -190,10 +191,12 @@ class Rva005C1ABA
 public:
 	void rva005C1ABA(const UnicodeString &name);
 };
+class GameSlot;
 class GameInfo
 {
 public:
 	virtual void *v0slot0(int v);
+	GameSlot *getSlot(int index);
 };
 extern GameInfo *TheSkirmishGameInfo;
 extern int g_Va00E0333C;
@@ -438,4 +441,97 @@ bool AptSkirmish::MPOwnerValidatGameInfo(GameInfo *gameInfo)
 	if (TheSkirmishGameInfo && TheSkirmishGameInfo == gameInfo)
 		return true;
 	return false;
+}
+
+// Retail 0x005218AF, 126 bytes. WorldBuilder names this
+// AptSkirmish::InitCreateAHeroOnStartGame and its assertions check the
+// GameInfo, hero manager, slot, and hero-result guards. BFME1's AptSkirmish
+// donor at 6583b3c1 predates Create-A-Hero and has no counterpart for this
+// method; the target disassembly supplies the loop and call order. The slot
+// offsets are cross-checked against the matched GameSlot and CreateAHeroData
+// views in MpGameSetupSlots.cpp and GameSlot_rva0037AD8D.cpp.
+class CreateAHeroData
+{
+public:
+	virtual ~CreateAHeroData();
+	CreateAHeroData &operator=(const CreateAHeroData &that);
+
+private:
+	unsigned char m_fields[0x13C];
+};
+
+class GameSlot
+{
+public:
+	bool isOccupied() const;
+	void rva0037AD8D(const CreateAHeroData &data);
+
+	void *m_vtable;
+	unsigned char m_pad00[0x50 - 0x04];
+	int m_heroKind; // +0x50, nonzero before this screen assigns a hero
+	int m_hero0c; // +0x54
+	int m_hero10; // +0x58
+	int m_hero; // +0x5C, CreateAHeroData list index
+};
+
+class Rva0040A3F9
+{
+public:
+	CreateAHeroData *rva0040A32F(int index);
+};
+
+class CreateAHeroManager
+{
+public:
+	Rva0040A3F9 *rva0021F797();
+};
+
+// The canonical data-ledger symbol at RVA 0x009FE344 is TheHeroManager.
+// GameEngine::init registers this same target object under the subsystem name
+// TheCreateAHeroManager; its pointer type here is inferred from target calls.
+class Rva0021A54A;
+extern Rva0021A54A *TheHeroManager;
+
+// These are the target's direct helpers from 0x005218AF. Ghidra bounds
+// 0x0044C2C6 at 270 bytes; this caller pushes no arguments and the target
+// body returns void. WB maps it to SelectRandomHero by call graph, but the
+// target identity stays address-derived. The 106-byte 0x0021A428 helper is
+// thiscall with one pointer argument (ECX is the manager and the callee pops
+// four bytes); this call and 0x005B5B1E and 0x005B694F establish that ABI.
+// WB leaves it unnamed and its operation is unresolved. The existing
+// UseSub spellings are caller aliases only. The manager pointer is expressed
+// through its canonical data-ledger name above.
+void rva0044C2C6();
+class Rva005B5B0CMgr
+{
+public:
+	void UseSub(void *hero);
+};
+
+void AptSkirmish::InitCreateAHeroOnStartGame()
+{
+	GameInfo *gameInfo = TheSkirmishGameInfo;
+	if (gameInfo == 0)
+		return;
+
+	rva0044C2C6();
+	CreateAHeroManager *heroManager = (CreateAHeroManager *)TheHeroManager;
+	if (heroManager == 0)
+		return;
+
+	Rva0040A3F9 *heroes = heroManager->rva0021F797();
+	for (int i = 0; i < 8; ++i)
+	{
+		GameSlot *slot = gameInfo->getSlot(i);
+		if (slot == 0 || !slot->isOccupied() || slot->m_heroKind == 0)
+			continue;
+
+		CreateAHeroData *hero = heroes->rva0040A32F(slot->m_hero);
+		if (hero == 0)
+			continue;
+
+		if (i == 0)
+			((Rva005B5B0CMgr *)TheHeroManager)->UseSub(hero);
+		slot->rva0037AD8D(*hero);
+	}
 }
