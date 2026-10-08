@@ -154,6 +154,7 @@ public:
 		return (const SpecialPowerTemplate *)friend_getFinalOverride();
 	}
 	char m_pad00[0x18];
+	bool flag1() const { return (m_flags >> 1) & 1; }
 	bool flag2() const { return (m_flags >> 2) & 1; }
 	bool flag4() const { return (m_flags >> 4) & 1; }
 	SpecialPowerType getSpecialPowerType() const { return getFinalOverride()->m_type; }
@@ -180,6 +181,7 @@ public:
 	bool canConvertObjectToCarBomb(const Object *, const Object *, CommandSourceType);
 	bool validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
 	bool validLocationForCastingOnObjectFilter(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
+	bool rva0041CB10(const Coord3D *pos, const SpecialPowerTemplate *sp);
 	bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType commandSource,
 		const SpecialPowerTemplate *spTemplate, unsigned int commandOptions, bool checkSourceRequirements);
 	bool rva0041BA61(const Object *obj);
@@ -963,6 +965,7 @@ class Pathfinder
 {
 public:
 	int GetGroundLayer(const Coord3D *pos);	// 0x002E9871
+	bool IsWaterCell(int a, int b);	// 0x002E9897
 };
 
 class AI
@@ -1468,4 +1471,41 @@ bool BFMEActionManager::rva0041D435(const Object *obj, const Object *target, Com
 		}
 	}
 	return false;
+}
+
+// Retail 0x0041CB10..0x0041CC65 RET8, WorldBuilder's debug body at
+// 0x0110CEC0 the guide: unless the power's flag bit 1 is set, no water cell
+// may lie within the override's +0x54 radius of the location, sampled every
+// second unit; a radius under 1 tests the location itself.
+bool ActionManager::rva0041CB10(const Coord3D *pos, const SpecialPowerTemplate *sp)
+{
+	if (!sp->getFinalOverride()->flag1()) {
+		int radius = (int)sp->getFinalOverride()->m_54;
+		if (radius > 0) {
+			Coord3D center;
+			center.x = pos->x;
+			center.y = pos->y;
+			int minX = (int)(center.x - radius);
+			int maxX = (int)(center.x + radius);
+			int maxY = (int)(center.y + radius);
+			int minY = (int)(center.y - radius);
+			for (int y = minY; y <= maxY; y += 2) {
+				for (int x = minX; x <= maxX; x += 2) {
+					float dx = x - center.x;
+					float dy = y - center.y;
+					if (dx * dx + dy * dy < radius * radius) {
+						Coord3D cell;
+						cell.x = x;
+						cell.y = y;
+						cell.z = pos->z;
+						if (TheAI->pathfinder()->IsWaterCell((int)&cell, 1))
+							return false;
+					}
+				}
+			}
+		} else if (TheAI->pathfinder()->IsWaterCell((int)pos, 1)) {
+			return false;
+		}
+	}
+	return true;
 }
