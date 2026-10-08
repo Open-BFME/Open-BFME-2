@@ -1,5 +1,7 @@
 // ?rva0020F832@Rva0020EE29@@QAE_NPAX0@Z
 // partial score=0.85 date=2026-10-08
+// ?rva0020F832@Rva0020EE29@@QAE_NPAX0@Z
+// partial score=0.85 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /O1 /Ob1 /vmb /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 #include <new>
 #include "ascii_string.h"
