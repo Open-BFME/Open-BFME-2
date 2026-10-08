@@ -645,7 +645,9 @@ private:
 // 8-byte settings at +0x218 whose first word is the ambient stream cap.
 struct AudioLODSettings {
     unsigned short m_maxAmbientStreams;
-    char at02[6];
+    char at02[2];
+    unsigned char m_at04;    // +0x04, Dolby provider allowed (0x51525)
+    char at05[3];
 };
 
 class GameLODManager {
@@ -769,7 +771,10 @@ public:
     virtual void slot81(); virtual void slot82(); virtual void slot83(); virtual void slot84(); virtual void slot85();
     virtual void slot86(); virtual void slot87(); virtual void slot88(); virtual void slot89(); virtual void slot90();
     virtual void slot91(); virtual void slot92(); virtual void slot93(); virtual void slot94(); virtual void slot95();
-    virtual void slot96(); virtual void slot97(); virtual void slot98(); virtual void slot99(); virtual void slot100();
+    virtual void slot96(); virtual void slot97();
+    // Slot 98 (+0x188, retail vftable entry 0x007C5738).
+    virtual void onAudioLODChanged(void);
+    virtual void slot99(); virtual void slot100();
     virtual void slot101(); virtual void slot102(); virtual void slot103(); virtual void slot104(); virtual void slot105();
     virtual void slot106();
     virtual bool rva000516EF(const Coord3D *pos);
@@ -2782,7 +2787,15 @@ private:
     PlayingAudio *m_ptr;
 };
 class Rva000512C4 { public: void rva000512C4(int roomType); };
-class Rva00051525 { public: bool rva00051525(void); };
+// WorldBuilder's shouldUseDolbyProvider, under its ledger name. The manager
+// word at +0xBF0 must be 1..5 (beyond the members modelled above).
+class Rva00051525 {
+public:
+    bool rva00051525(void);
+private:
+    char at00[0xBF0];
+    int m_atBF0;
+};
 
 // Retail 0x000606CE, called from onAudioLODChanged (0x607BB) and 0x61A2E.
 // With a provider selected it releases every playing 3D sound under the
@@ -2809,6 +2822,53 @@ void MilesAudioManager::rva000606CE(bool accelerated)
         ((Rva000512C4 *)this)->rva000512C4(m_atBE4);
         slot10();
     }
+}
+
+// Retail 0x000607BB (WorldBuilder twin 0x0079DCD0 names it). Under the
+// mutex, a selected EAX 3 provider, or one whose Dolby-ness already agrees
+// with 0x51525 (WB shouldUseDolbyProvider), only gets the reverb room type
+// reapplied; otherwise the provider is reselected through 0x606CE. The
+// ambient stream cap is refreshed either way.
+// Retail 0x00051525. Defined in this unit ahead of onAudioLODChanged: retail
+// keeps a byte in dl across the call, which MSVC does only for a callee whose
+// register use it has already seen. The null-manager guard keeps an explicit
+// else so the shared true block stays between the guard and the body.
+bool Rva00051525::rva00051525(void)
+{
+    int value = m_atBF0;
+    if (value <= 0 || value > 5)
+        return false;
+    GameLODManager *lod = TheGameLODManager;
+    if (lod == 0)
+        return true;
+    else {
+        int level = lod->m_audioLOD;
+        if (level < 0 || level >= 2)
+            return true;
+        return lod->m_audioLODSettings[level].m_at04;
+    }
+}
+
+void MilesAudioManager::onAudioLODChanged(void)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    bool needReselect = true;
+    if (m_selectedProvider != (unsigned int)-1) {
+        const AsciiString &eaxName = m_provider3D[m_selectedProvider].name;
+        if (eaxName.compare("Creative Labs EAX 3 (TM)") == 0) {
+            needReselect = false;
+        } else {
+            const AsciiString &dolbyName = m_provider3D[m_selectedProvider].name;
+            bool isDolby = dolbyName.compare("Dolby Surround") == 0;
+            if (((Rva00051525 *)this)->rva00051525() == isDolby)
+                needReselect = false;
+        }
+    }
+    if (needReselect)
+        rva000606CE(false);
+    else
+        ((Rva000512C4 *)this)->rva000512C4(m_atBE4);
+    setMaxAmbientStreams();
 }
 
 extern "C" __declspec(dllimport) int __stdcall AIL_sample_status(void *sample);
