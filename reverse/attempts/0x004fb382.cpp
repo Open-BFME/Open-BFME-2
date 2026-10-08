@@ -1,67 +1,66 @@
 // ?rva004FB382@Rva004FB382@@QAE_NXZ
-// partial score=0.97 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /O1
-// ?rva004FB382@Rva004FB382@@QAE_NXZ 0x004FB382 112: predicate over LivingWorld players.
-// Evidence: callees rowed 0x002B52A8 Rva002BA8F1Logic::rva002B52A8 plus pin 0x002E0BC0
-// Rva002E0BC0Helper::rva002E0BC0; caller 0x004FBB25 shares this+0 helper and this+4 state;
-// global g_009FEF10 mangled ?g_009FEF10@@3PAVRva002BA8F1Logic@@A; Player +0x14 int and
-// +0x3C4 byte match Rva002BA8F1Lookups layout.
+// partial score=0.8 date=2026-10-08
+// cl: /O2 /DNDEBUG /MD
+//
+// ?rva004FB382@Rva004FB382@@QAE_NXZ @0x004FB382 112B: thiscall, no args, bool.
+// Null-owner gate on the first dword of this, then a loop over the living
+// world's player vector at +0x8C (begin, end). For each index, the owner's
+// id test (rva002E0BC0) decides; on a miss the player's +0x3C4 flag must be
+// set or the scan fails. Owner-to-player relation and the pointer-diff
+// divisor are structural inferences from the bytes, not named identities.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 
 class Rva002E2903Player
 {
 public:
-	char m_pad0[0x14];
-	int m_14;
-	char m_pad1[0x3C4 - 0x18];
-	unsigned char m_3C4;
-};
-
-class Rva002E0BC0Helper
-{
-public:
-	unsigned char rva002E0BC0(int val);
+	char at00[0x14];
+	int at14;
+	char at18[0x3C4 - 0x18];
+	bool m_3C4;
 };
 
 class Rva002BA8F1Logic
 {
 public:
 	Rva002E2903Player *rva002B52A8(int index);
-private:
-	char m_pad[0x8c];
-public:
-	struct PlayerVec
-	{
-		Rva002E2903Player **m_start;
-		Rva002E2903Player **m_finish;
-		Rva002E2903Player **m_end;
-		int size() const { return m_finish - m_start; }
-	};
-	PlayerVec m_players;
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
+class Rva002E071E
+{
+public:
+	int rva002E0BC0(int id);
+};
+
+// Re-read on every test: the id callee may change the list.
+static int playerCount()
+{
+	char *base = (char *)TheLivingWorldLogic;
+	Rva002E2903Player **begin = *(Rva002E2903Player ***)(base + 0x8C);
+	Rva002E2903Player **end = *(Rva002E2903Player ***)(base + 0x90);
+	return end - begin;
+}
 
 class Rva004FB382
 {
-private:
-	Rva002E0BC0Helper *m_0;
 public:
 	bool rva004FB382();
+	Rva002E071E *owner;
 };
 
-// ?rva004FB382@Rva004FB382@@QAE_NXZ present-unmatched
+// ?rva004FB382@Rva004FB382@@QAE_NXZ
 bool Rva004FB382::rva004FB382()
 {
-	if (m_0 != 0)
-	{
-		for (int i = 0; i < g_009FEF10->m_players.size(); ++i)
-		{
-			int v = g_009FEF10->rva002B52A8(i)->m_14;
-			if (!m_0->rva002E0BC0(v))
-			{
-				if (g_009FEF10->rva002B52A8(i)->m_3C4 == 0)
-					return false;
-			}
+	if (owner == 0)
+		return true;
+	for (int i = 0; i < playerCount(); ++i) {
+		Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
+		int id = p->at14;
+		if ((unsigned char)owner->rva002E0BC0(id) == 0) {
+			p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
+			if (!p->m_3C4)
+				return false;
 		}
 	}
 	return true;
