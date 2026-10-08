@@ -11,17 +11,7 @@
 // unwarranted allocation cleanup while retaining the native value-result ABI.
 // The result destructor is declared only; these six bodies do not call it.
 
-template <class T> class RvaCloneResult
-{
-public:
- RvaCloneResult(T *p) : pointer(p)
- {
-  if (p) ++p->m_ref;
- }
- ~RvaCloneResult();
-private:
- T *pointer;
-};
+#include "BattlePromptCallbackPayloadView.h"
 
 class Rva005FAAA1
 {
@@ -36,7 +26,6 @@ public:
  Payload m_data;
 };
 
-struct Payload005FAB16 { int v[4]; };
 class Rva005FAB16
 {
 public:
@@ -49,7 +38,6 @@ public:
  Payload005FAB16 m_data;
 };
 
-struct Payload005FAB9E { int v[4]; };
 class Rva005FAB9E
 {
 public:

@@ -3,9 +3,7 @@
 // Ctor storing vtable 0x00879EB4 at +0, zeroing +4, copying 16 bytes from
 // arg+0 to this+8 via 4x movsd. Evidence: caller 0x005FAC76; vtable DIR32
 // filled by gate; neighbours use /O1 /MD.
-struct Payload005FAB16 {
-    int v[4];
-};
+#include "BattlePromptCallbackPayloadView.h"
 struct Rva005FAB16 {
     virtual void _vf() {}
     int m4;

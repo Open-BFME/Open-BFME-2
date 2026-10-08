@@ -18,6 +18,7 @@ class Rva005FED2A : public Rva005FF912
 public:
     Rva005FED2A(int, int, int);
     void rva005FF4BD(int);
+    void rva005FF4CD(bool);
 private:
     int m_08;
 };

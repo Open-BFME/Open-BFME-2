@@ -23,9 +23,11 @@ private:
 class Rva005FEF65 : public Rva005FEF65Base
 {
     friend class Rva005FF13A;
+    friend class Rva005FAF9FOwner;
 public:
     Rva005FEF65(int, int, const Rva005FEF11Input **);
     virtual ~Rva005FEF65();
+    void setClipSelected(bool value) { m_08.rva005FF4CD(value); }
 private:
     Rva005FED2A m_08;
     const Rva005FEF11Input *m_input14;
@@ -43,11 +45,19 @@ public:
 };
 
 class Rva005FED59;
+class BattlePromptOwnerDisplay;
+class BattlePromptOwnerActions;
 class Rva005FAF9FOwner
 {
 public:
-    char m_pad00[0x14];
+    char m_pad00[8];
+    int m_context08;
+    BattlePromptOwnerDisplay *m_display0C;
+    BattlePromptOwnerActions *m_actions10;
     void *m_active14;
+    // The native callback list/map starts here. Only its address is used;
+    // this prefix deliberately makes no claim about the owner's full size.
+    unsigned char m_observers18[1];
     void rva005FADEF(Rva005FED59 *);
 };
 struct Rva005FA89CC

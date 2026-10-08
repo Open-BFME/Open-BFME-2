@@ -167,3 +167,10 @@ void Rva005FED2A::rva005FF4BD(int state)
 {
     ((Rva005FF267 *)m_04)->rva005FF267(state);
 }
+
+class Rva005FF328 { public: void rva005FF328(bool); };
+// Native 005FADEF uses this inherited clip at panel +08 to change its selected overlay.
+void Rva005FED2A::rva005FF4CD(bool flag)
+{
+    ((Rva005FF328 *)m_04)->rva005FF328(flag);
+}
