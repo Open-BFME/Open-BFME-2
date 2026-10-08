@@ -11,7 +11,9 @@
 #include "ascii_string.h"
 
 
-struct TargetRef00217D4C;
+// Page reference ABI view: retail visibility dispatch uses virtual slots4/8.
+// The original page-reference declaration is not inferred from this view.
+struct TargetRef00217D4C { virtual void slot0(); virtual void OnShown(); virtual void OnHidden(); };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
 
 class AptCommandTarget
@@ -305,4 +307,18 @@ void StrategicHUD::RegionDetailsMovieClip::Impl::SetCurrentPage(int page)
 StrategicHUD::RegionDetailsMovieClip::RegionDetailsMovieClip(int level, const AsciiString &name, int arg)
 	: m_impl(new Impl(this, level, name, arg))
 {
+}
+
+int __cdecl Rva0054C83FAptCall(Rva00222A8BTarget *,void *,const char *,const char *,const char **,bool *);
+struct Rva005E2CFAEntry { void *m_result; const char *m_name; };
+extern const Rva005E2CFAEntry g_00C77B40[3];
+// PageSlotToID role from WB; retain the existing address-derived return ABI.
+// Keeping this complete32B helper visible lets the compiler witness that it
+// preserves EDX across the visibility methods, as the native bodies require.
+__declspec(noinline) const char *Rva005E2D26Get(int key)
+{
+ for(unsigned int i=0;i<3;++i) {
+  if(key==(int)g_00C77B40[i].m_result) return g_00C77B40[i].m_name;
+ }
+ return 0;
 }
