@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 //
 // GameStats::Row::Init, retail 0x005DE8CD (89B), from the WorldBuilder lead
 // (GameStats.cpp): size the row's cell vector (+4; the one-argument resize
@@ -36,15 +36,15 @@ public:
 };
 extern GameTextInterface *TheGameText;
 
-class Rva005DE7D1Vector
-{
-public:
-	void resize(unsigned int count);
-
+struct Rva005DE7D1Record {UnicodeString text;float word;Rva005DE7D1Record();};
+class Rva005DE7D1Vector {public:
+ unsigned size()const{return finish-start;} Rva005DE7D1Record*begin(){return start;} Rva005DE7D1Record*end(){return finish;}
+ void resize(unsigned);
+ void resize(unsigned,Rva005DE7D1Record);
 private:
-	void *m_start;
-	void *m_finish;
-	void *m_end;
+ Rva005DE7D1Record*start;Rva005DE7D1Record*finish;Rva005DE7D1Record*limit;
+ Rva005DE7D1Record*erase(Rva005DE7D1Record*,Rva005DE7D1Record*);
+ void fill(Rva005DE7D1Record*,unsigned,const Rva005DE7D1Record&);
 };
 
 class GameStats
@@ -110,3 +110,10 @@ void Rva005DDBAB::rva005DDBAB(int window,int focus) {
         GadgetListBoxAddEntryText(win,UnicodeString(L" "),color,-1,0,true);
     }
 }
+
+// Native constructor 5DD772..5DD7C3: the eight-byte fill record owns
+// UnicodeString at0 and float at4; caller5DE85C constructs it in-place.
+// This composition constructor is a full byte-and-relocation twin of
+// the existing display-record constructor; original record name remains open.
+Rva005DE7D1Record::Rva005DE7D1Record()
+    : text(AsciiString("-")), word(0.0f) {}

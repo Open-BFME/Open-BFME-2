@@ -1,7 +1,9 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG
 // Target Ghidra [5DE7D1,5DE833),98B. RET12 and signed stride8
 // independently prove count plus a by-value8B record. The shared
-// UnicodeString owns the first word; second word semantics remain opaque.
+// UnicodeString owns the first word; row updater5DDB66 and cell display
+// 5DD88A establish the second word as float. The one-argument resize caller
+// constructs this eight-byte record through native5DD772.
 // Shrink uses full51B erase381B1F; grow uses full260B fill5DE651;
 // argument cleanup calls full133B wide release36E70. These providers and
 // full27B record copy5DDD40 support the consumed ABI. Original names are
@@ -9,9 +11,10 @@
 // Clean STLport resize supplies the algorithm; explicit extra count keeps
 // native evaluation/register ordering as in the matched28B-record sibling.
 #include "unicode_string.h"
-struct Rva005DE7D1Record {UnicodeString text;unsigned word;};
+struct Rva005DE7D1Record {UnicodeString text;float word;Rva005DE7D1Record();};
 class Rva005DE7D1Vector {public:
  unsigned size()const{return finish-start;} Rva005DE7D1Record*begin(){return start;} Rva005DE7D1Record*end(){return finish;}
+ void resize(unsigned);
  void resize(unsigned,Rva005DE7D1Record);
 private:
  Rva005DE7D1Record*start;Rva005DE7D1Record*finish;Rva005DE7D1Record*limit;
