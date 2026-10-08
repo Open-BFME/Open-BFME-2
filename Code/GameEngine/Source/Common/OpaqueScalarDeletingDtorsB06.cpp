@@ -1,4 +1,5 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfmelist /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // Opaque scalar deleting destructors, batch B06: 28-byte wrappers that
 // call the destructor, test bit 0 of the flags, conditionally free through
@@ -440,4 +441,57 @@ public:
 // ?<Rva00362D6C::Rva00362D6C> absent-from-retail
 Rva00362D6C::Rva00362D6C(EmitVtableTag *)
 {
+}
+
+// AI::reset at 0x002FEB3A..0x002FEBB7. Source lead: GeneralsMD
+// GameLogic/AI/AI.cpp at BFME1 donor revision 34f59164f6d1efd413c5fd37f4894ec834c3c0fe.
+// Target facts: receiver +0x10 pathfinder; +0x14 group-list sentinel;
+// +0x18 override-data head, whose next link is +0x100; +0x1C and +0x20
+// are the reset counters. Matched AI::destroyGroup (0x002FE712) supports
+// the group list and virtual deleteInstance(0) followed by scalar delete.
+// The donor supplies the reset purpose and field roles; the complete AI
+// and override-data layouts remain unrecovered. Retail returns at FEBB6,
+// followed immediately by the independently pinned destructor FEBB7.
+#include <list>
+class Pathfinder { public: void rva002F462C(); };
+class AIGroup;
+struct Rva002FEB3AData
+{
+    virtual void *deleteInstance(int flags);
+    char opaque04[0x100 - 4];
+    Rva002FEB3AData *next;
+};
+class AI
+{
+public:
+    void reset();
+    void destroyGroup(AIGroup *);
+private:
+    char opaque00[0x10];
+    Pathfinder *pathfinder;
+    _STL::list<int> groups;
+    Rva002FEB3AData *data;
+    unsigned int nextGroupID;
+    int nextFormationID;
+};
+void AI::reset()
+{
+    pathfinder->rva002F462C();
+    while (data && data->next)
+    {
+        Rva002FEB3AData *cur = data;
+        data = data->next;
+        ::operator delete(cur ? cur->deleteInstance(0) : 0);
+    }
+    while (groups.size())
+    {
+        AIGroup *group = reinterpret_cast<AIGroup *>(groups.front());
+        if (group)
+            destroyGroup(group);
+        else
+            groups.pop_front();
+    }
+    nextGroupID = 0;
+    nextFormationID = 0;
+    ++nextFormationID;
 }
