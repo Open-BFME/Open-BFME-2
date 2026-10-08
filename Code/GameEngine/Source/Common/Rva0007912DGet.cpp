@@ -20,11 +20,11 @@ struct Rva00DFE144Globals
 	int m_1788;
 };
 
-extern Rva00DFE144Globals *TheRva00DFE144;
+extern class GameLODManager *TheGameLODManager;
 
 int Rva0007912DGet(void)
 {
-	int v = TheRva00DFE144->m_1788 - 1;
+	int v = (*(Rva00DFE144Globals **)&TheGameLODManager)->m_1788 - 1;
 	if (v < 0)
 		return 0;
 	if (v > 2)

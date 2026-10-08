@@ -6,7 +6,7 @@
 struct Rva00517048;
 extern struct Rva00517048 *g_Va00A04904;
 class Rva00222A8BTarget;
-extern class Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva00222479ByteOneSetter
 {
 public:
@@ -17,5 +17,5 @@ void Rva00516E92Enable()
 {
 	if (g_Va00A04904 == 0)
 		return;
-	((Rva00222479ByteOneSetter *)TheRva00222A8BTarget)->enable();
+	((Rva00222479ByteOneSetter *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->enable();
 }

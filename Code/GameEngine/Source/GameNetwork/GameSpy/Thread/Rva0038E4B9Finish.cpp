@@ -19,8 +19,6 @@ void PeerThreadClass::clearPlayerStats(RoomType type) { switch (type) { case Gro
 
 void updateBuddyStatus(GameSpyBuddyStatus, Int groupRoom = 0, std::string gameName = "");
 void stagingRoomPlayerEnum(PEER, PEERBool, RoomType, int, const char *, int, void *);
-#pragma comment(linker, "/alternatename:??0PeerResponse@@QAE@XZ=??0BfmeOpaqueOwnedRecord840@@QAE@XZ")
-#pragma comment(linker, "/alternatename:??1PeerResponse@@QAE@XZ=??1BfmeOpaqueOwnedRecord840@@QAE@XZ")
 struct BfmePeerJoinState { unsigned char unknown[0x290]; Int localRoomID; unsigned char unknown294[0x484 - 0x294]; Bool roomJoined; unsigned char alignment[3]; Int qmGroupRoom; };
 class DualIndexedDispatchThunk { public: void dispatch(void *); };
 extern "C" void peerEnumPlayers(PEER, RoomType, void *, void *);

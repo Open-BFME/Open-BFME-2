@@ -24,7 +24,3 @@ void INI::parseBool(INI *ini, void *instance, void *store, const void *userData)
 {
 	*(bool *)store = ini->scanBool(ini->getNextToken(0));
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?parseBool@INI@@SAXPAX00PBX@Z=?parseBool@INI@@SAXPAV1@PAX1PBX@Z")

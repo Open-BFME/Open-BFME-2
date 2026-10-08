@@ -20,16 +20,6 @@ public:
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
 };
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-public:
-	void advance();
-};
-
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_NONE = 0
@@ -74,7 +64,7 @@ void ScriptActions::rva003C38EF(Parameter *pTeam, ObjectStatusTypes status, bool
 	Team *team = TheScriptEngine->getTeamNamed(pTeam->getString(), false);
 	if (team == 0)
 		return;
-	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {
+	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance()) {
 		Object *obj = it.cur();
 		if (!obj)
 			continue;

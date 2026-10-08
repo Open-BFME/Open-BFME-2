@@ -28,11 +28,3 @@ Rva004F6093Holder *__cdecl Rva003F74CFCopy(Rva004F6093Holder *first, Rva004F6093
 		Rva002B2FE2Copy(cur, *first);
 	return cur;
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??$__uninitialized_copy@PAVRva004F6093Holder@@PAV1@@_STL@@YAPAVRva004F6093Holder@@PAV1@00ABU__false_type@0@@Z=?Rva003F74CFCopy@@YAPAVRva004F6093Holder@@PAV1@00@Z")
-
-// Callers elsewhere reach this body through a spelling pinned to the same retail
-// address with the same calling convention; bind it here.
-#pragma comment(linker, "/alternatename:??$__uninitialized_copy@PAVRva004F6093Holder@@PAV1@@_STL@@YAPAVRva004F6093Holder@@PAV1@00ABU__false_type@0@@Z=?Rva003F74CFCopy@@YAPAVRva004F6093Holder@@PAV1@00@Z")

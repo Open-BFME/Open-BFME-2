@@ -103,8 +103,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern class Rva002D06CA *TheThingFactory;
-extern AsciiString g_009E0878;
+extern class ThingFactory *TheThingFactory;
 
 class ThingTemplate
 {
@@ -166,12 +165,12 @@ void StealthUpdate::xfer(Xfer *xfer)
 		xfer->xferUnsignedInt(m_framesGranted);
 	xfer->xferBool(m_enabled);
 	xfer->xferInt(m_disguiseAsPlayerIndex);
-	AsciiString tmp = m_disguiseAsTemplate ? m_disguiseAsTemplate->m_name : g_009E0878;
+	AsciiString tmp = m_disguiseAsTemplate ? m_disguiseAsTemplate->m_name : AsciiString::TheEmptyString;
 	xfer->xferAsciiString(tmp);
 	if (xfer->IsLoading()) {
 		m_disguiseAsTemplate = NULL;
 		if (!tmp.isEmpty()) {
-			m_disguiseAsTemplate = (const ThingTemplate *)TheThingFactory->rva002D06CA(&tmp);
+			m_disguiseAsTemplate = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp);
 			if (m_disguiseAsTemplate == NULL) {
 				bfmeFormatText(&error, 5, 0);
 				_CxxThrowException(&error, (const _s__ThrowInfo *)&g_rva008ffd18ThrowInfo); __assume(0);
@@ -191,7 +190,5 @@ void StealthUpdate::xfer(Xfer *xfer)
 	if (version.m_currentVersion >= 4)
 		xfer->xferBool(m_148);
 }
-// ?g_009E0878@@3VAsciiString@@A: the global at VA 0xde0878 is ?TheEmptyString@AsciiString@@2V1@B.
-#pragma comment(linker, "/alternatename:?g_009E0878@@3VAsciiString@@A=?TheEmptyString@AsciiString@@2V1@B")
 // ?g_rva008ffd18ThrowInfo@@3HA: the global at VA 0xcffd18 is ?g_guardTargetTypeThrowInfo@@3HA.
 #pragma comment(linker, "/alternatename:?g_rva008ffd18ThrowInfo@@3HA=?g_guardTargetTypeThrowInfo@@3HA")

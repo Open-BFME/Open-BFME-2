@@ -30,11 +30,17 @@ inline Snapshot::~Snapshot()
 	*(const void **)this = reinterpret_cast<const void *>(((unsigned int)vtbl_00BBB554));
 }
 
-struct AsciiString
+template <class T> class StringBase
 {
-	~AsciiString();
-
+	friend struct AsciiString;
+	void releaseBuffer();
+public:
 	char *m_data;
+};
+struct AsciiString : public StringBase<char>
+{
+public:
+	~AsciiString() { releaseBuffer(); }
 };
 
 struct GeometryRecord

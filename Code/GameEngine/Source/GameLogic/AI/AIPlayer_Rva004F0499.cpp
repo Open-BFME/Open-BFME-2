@@ -47,8 +47,8 @@ void AIPlayer::removeAll_TeamReadyQueue( RemoveAllProc removeCallback )
 // Actual rowed/link-clean two-list wrappers in Rva004F040FList.cpp.
 // These existing declaration-only receiver projections have the same
 // RET4 node-pointer call ABI; no original owner or full layout is inferred.
-#pragma comment(linker, "/alternatename:?rva004F0479@Rva004F0479@@QAEXPAVTeamInQueue@@@Z=?rva004F0479@Rva004F040F@@QAEXPAX@Z")
-#pragma comment(linker, "/alternatename:?firstUnlink@Rva004F0479@@QAEXPAVTeamInQueue@@@Z=?rva004F040F@Rva004F040F@@QAEXPAX@Z")
+#pragma comment(linker, "/alternatename:?rva004F0479@Rva004F0479@@QAEXPAVTeamInQueue@@@Z=?removeFrom_TeamReadyQueue@AIPlayer@@QAEXPAVTeamInQueue@@@Z")
+#pragma comment(linker, "/alternatename:?firstUnlink@Rva004F0479@@QAEXPAVTeamInQueue@@@Z=?removeFrom_TeamBuildQueue@AIPlayer@@QAEXPAVTeamInQueue@@@Z")
 
 void AIPlayer::removeAll_TeamBuildQueue(RemoveAllProc removeCallback)
 {

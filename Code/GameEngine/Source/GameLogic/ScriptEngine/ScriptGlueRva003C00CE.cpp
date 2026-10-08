@@ -34,14 +34,14 @@ class Rva002D88A4
 public:
 	void rva002D88A4(Coord3D *pos, void *extra, float scale);
 };
-extern Rva002D88A4 *g_00DFF070;
+extern class Radar *TheRadar;
 
 class Rva001DDAE1
 {
 public:
 	void rva001DDAE1(Coord3D *pos);
 };
-extern Rva001DDAE1 *g_00DFDC30;
+extern class Eva *TheEva;
 
 void __stdcall Rva003C00CEDo(const AsciiString *teamName, void *extra)
 {
@@ -52,6 +52,6 @@ void __stdcall Rva003C00CEDo(const AsciiString *teamName, void *extra)
 		return;
 	Coord3D pos;
 	team->rva0039E5B9(&pos);
-	g_00DFF070->rva002D88A4(&pos, extra, 4.0f);
-	g_00DFDC30->rva001DDAE1(&pos);
+	(*(Rva002D88A4 **)&TheRadar)->rva002D88A4(&pos, extra, 4.0f);
+	(*(Rva001DDAE1 **)&TheEva)->rva001DDAE1(&pos);
 }

@@ -14,7 +14,6 @@
 // The typed placement call uses the existing duplicate name because retail
 // contains a separate EH-bearing _Construct copy at 0x523DD4.
 #pragma comment(linker, "/alternatename:?dup_00523DD4@@YAXXZ=??$_Construct@UTreeKey00242F5E@@U1@@_STL@@YAXPAUTreeKey00242F5E@@ABU1@@Z")
-#pragma comment(linker, "/alternatename:??1TreeKey00242F5E@@QAE@XZ=??1CameraMarker@@QAE@XZ")
 #define _STLP_NO_EXCEPTIONS 1
 // TU-local overload avoids an incompatible shared max<unsigned> COMDAT.
 // It implements the same unsigned comparison used by retail's growth path.

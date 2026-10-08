@@ -174,19 +174,9 @@ template<class OBJCLASS>
 class DLINK_ITERATOR
 {
 public:
+	void advance();
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
-
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-};
-
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-public:
-	void advance();
 
 private:
 	OBJCLASS *m_cur;
@@ -297,7 +287,7 @@ void ScriptActions::doTeamGarrisonSpecificBuilding(const AsciiString &teamName,
 		return;
 	if (instant) {
 		for (DLINK_ITERATOR<Object> iter = theTeam->iterate_TeamMemberList(); !iter.done();
-			((Rva001705A0DlinkIterator<Object> *)&iter)->advance()) {
+			iter.advance()) {
 			if (!iter.cur()->testStatus((ObjectStatusTypes)0x26))
 				putUnitInContain(iter.cur(), contain, false);
 		}
@@ -384,12 +374,12 @@ void ScriptActions::rva003C6EFC(const AsciiString &teamName, const AsciiString &
 	_STL::vector<ObjectID> ids;
 	{
 		for (DLINK_ITERATOR<Object> iter = containerTeam->iterate_TeamMemberList(); !iter.done();
-			((Rva001705A0DlinkIterator<Object> *)&iter)->advance())
+			iter.advance())
 			ids.push_back(iter.cur()->getID());
 	}
 	ObjectID *it = ids.begin();
 	for (DLINK_ITERATOR<Object> iter = theTeam->iterate_TeamMemberList(); !iter.done();
-		((Rva001705A0DlinkIterator<Object> *)&iter)->advance()) {
+		iter.advance()) {
 		Object *obj = iter.cur();
 		if (obj->testStatus((ObjectStatusTypes)0x26))
 			continue;

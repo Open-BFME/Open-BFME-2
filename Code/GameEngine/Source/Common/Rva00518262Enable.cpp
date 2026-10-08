@@ -11,10 +11,10 @@ public:
 extern int g_Va00A04908;
 // g_Va00A04908: VA 0xe04908 (zero-filled .bss).
 int g_Va00A04908;
-extern Rva00222479ByteOneSetter *g_Va009FE4CC;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 void Rva00518262Enable(void)
 {
 	if (g_Va00A04908 == 0)
 		return;
-	g_Va009FE4CC->enable();
+	(*(Rva00222479ByteOneSetter **)&g_bfmeAptWindowManager)->enable();
 }

@@ -115,8 +115,7 @@ public:
 };
 
 // ?g_009FF000@@3PAVRva002D06CA@@A: the global at this VA is ?TheThingFactory@@3PAVRva002D06CA@@A; this name is an alias for it.
-extern class Rva002D06CA *TheThingFactory;
-#pragma comment(linker, "/alternatename:?g_009FF000@@3PAVRva002D06CA@@A=?TheThingFactory@@3PAVRva002D06CA@@A")
+extern class ThingFactory *TheThingFactory;
 
 enum ObjectID
 {
@@ -212,7 +211,7 @@ void RebuildHoleBehavior::xfer(Xfer *xfer)
 	xfer->xferAsciiString(tmp1);
 	if (xfer->IsLoading()) {
 		if (tmp1.compare(AsciiString::TheEmptyString) != 0)
-			m_workerTemplate = (const ThingTemplate *)TheThingFactory->rva002D06CA(&tmp1);
+			m_workerTemplate = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp1);
 		else
 			m_workerTemplate = 0;
 	}
@@ -221,7 +220,7 @@ void RebuildHoleBehavior::xfer(Xfer *xfer)
 	if (xfer->IsLoading()) {
 		m_rebuildTemplate = 0;
 		if (tmp2.compare(AsciiString::TheEmptyString) != 0)
-			m_rebuildTemplate = (const ThingTemplate *)TheThingFactory->rva002D06CA(&tmp2);
+			m_rebuildTemplate = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp2);
 	}
 	xfer->xferBool(m_44);
 	if (version.m_currentVersion >= 3)

@@ -18,7 +18,7 @@ public:
 	void setNext( LANGameInfo *next ) { m_next = next; }
 };
 
-extern LANGameInfo *g_Rva00E02EEC;
+extern class GameInfo *TheGameInfo;
 
 class LANAPI
 {
@@ -34,8 +34,8 @@ protected:
 
 void LANAPI::removeGame( LANGameInfo *game )
 {
-	if( g_Rva00E02EEC == game )
-		g_Rva00E02EEC = 0;
+	if( (*(LANGameInfo **)&TheGameInfo) == game )
+		(*(LANGameInfo **)&TheGameInfo) = 0;
 
 	LANGameInfo *g = m_games;
 	if( !game || !g )

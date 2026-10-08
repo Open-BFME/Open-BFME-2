@@ -15,7 +15,7 @@ extern class ScriptEngine *TheScriptEngine;
 extern class SidesList *TheSidesList;
 extern class View *TheTacticalView;
 extern class TerrainLogic *TheTerrainLogic;
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 typedef int HMODULE;
 extern HMODULE g_00DFE158;

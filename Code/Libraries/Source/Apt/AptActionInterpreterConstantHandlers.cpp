@@ -888,9 +888,6 @@ void AptActionInterpreter::_FunctionAptActionGetVariable(AptActionInterpreter *c
     }
 }
 
-// Default construction folds with the existing empty-string reset provider.
-#pragma comment(linker, "/alternatename:??0EAStringC@@QAE@XZ=?clear@EAStringC@@QAEAAV1@XZ")
-
 // The native ToNumber shares the source's early return for SWF7 undefined;
 // retaining that branch also preserves its final argument-setup scheduling.
 void AptActionInterpreter::_FunctionAptActionToNumber(AptActionInterpreter *const p, LocalContextT *const c)
@@ -1057,7 +1054,6 @@ void AptActionInterpreter::_FunctionAptActionSetMember(AptActionInterpreter *con
 
 #pragma comment(linker, "/alternatename:?c_array@AptValue@@QBEPAVAptArray@@XZ=?rva006DCFA0@BfmeAptValue006DCD20@@QAEPAV1@XZ")
 
-#pragma comment(linker, "/alternatename:?set@AptArray@@QAEXHPAVAptValue@@@Z=?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z")
 
 #pragma comment(linker, "/alternatename:?PopAndPush@AptBasePtrStack@@QAEXHPAVAptValue@@@Z=?rva006FE880@AptBasePtrStack@@QAEXHPAVBfmeAptValue006DCD20@@@Z")
 
@@ -1631,7 +1627,6 @@ void AptActionInterpreter::_FunctionAptActionStrictEquals(AptActionInterpreter *
     p->stack.PopAndPush(2,AptBoolean::Create(result!=0));
 }
 
-#pragma comment(linker, "/alternatename:?getVtblIndex@AptValue@@QBEHXZ=?get@Rva006DBB30SarDwordField@@QBEHXZ")
 
 // Native Equals2 uses exact float equality for two floats; the mixed numeric
 // branches use float tolerance. The Boolean fallback tests only operand A.

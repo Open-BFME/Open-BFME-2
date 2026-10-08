@@ -18,10 +18,16 @@ class Rva00108475
 {
 public:
 	Rva00108475(EmitVtableTag *);
-	virtual ~Rva00108475() {}
+	virtual ~Rva00108475();
 };
 
 // ?<Rva00108475::Rva00108475> absent-from-retail
 Rva00108475::Rva00108475(EmitVtableTag *)
+{
+}
+
+// ??1Rva00108475@@UAE@XZ @0x0010846E 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva00108475::~Rva00108475()
 {
 }

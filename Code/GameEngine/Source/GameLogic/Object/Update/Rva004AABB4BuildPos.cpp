@@ -35,10 +35,10 @@ public:
 	unsigned char m_bits;
 };
 
-class Rva00262B53
+class AIUpdateInterface
 {
 public:
-	bool rva00262B53(const Coord3D *point);
+	bool isPathAvailable(const Coord3D *point) const;
 };
 
 class Object
@@ -51,7 +51,7 @@ public:
 	char m_pad44[0x74 - 0x44];
 	int m_id;
 	char m_pad78[0x258 - 0x78];
-	Rva00262B53 *m_checker;
+	AIUpdateInterface *m_checker;
 };
 
 class GameLogic
@@ -114,7 +114,7 @@ Object *Rva004AABB4::rva004AABB4(Object *me, Object *target, Coord3D *out)
 		{
 			if (g_00E03CA8 && g_00DFEFF0)
 				fprintf((FILE *)g_00DFEFF0, "  target has a bridge behavior");
-			Rva00262B53 *checker = me->m_checker;
+			AIUpdateInterface *checker = me->m_checker;
 			float best = 10000000000.0f;
 			result = 0;
 			for (int index = 0; index < 4; ++index)
@@ -125,7 +125,7 @@ Object *Rva004AABB4::rva004AABB4(Object *me, Object *target, Coord3D *out)
 				Coord3D pos;
 				if (!rva004AA4FE(me, found, &pos))
 					continue;
-				if (!checker->rva00262B53(&pos))
+				if (!checker->isPathAvailable(&pos))
 					continue;
 				float dx = me->m_pos.x - pos.x;
 				float dy = me->m_pos.y - pos.y;

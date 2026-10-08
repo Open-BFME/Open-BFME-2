@@ -12,7 +12,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 struct RespawnUpdateModuleDataRef
 {
@@ -42,7 +42,7 @@ private:
 void *RespawnUpdate::rva004AF25D()
 {
 	if (m_cached == (void *)-1) {
-		void *found = TheThingFactory->rva002D06CA(&m_moduleData->m_str11C);
+		void *found = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_moduleData->m_str11C);
 		m_cached = found;
 		if (found == 0)
 			m_cached = m_object->m_unk04;

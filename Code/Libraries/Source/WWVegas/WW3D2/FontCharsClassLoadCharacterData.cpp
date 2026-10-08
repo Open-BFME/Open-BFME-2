@@ -37,7 +37,7 @@ struct FontScreenDCGlobals
 	unsigned char reserved[0x10];
 	HDC screen_dc;
 };
-extern FontScreenDCGlobals *FontScreenDCGlobalsPtr;
+extern class FontCharsClassGdiState *g_fontCharsGdiState;
 
 class FontCharsClass
 {
@@ -66,9 +66,9 @@ FontCharsClassCharDataStruct const *FontCharsClass::loadCharacterData(unsigned s
 		|| (character >= 0x0E3F && character <= 0x0E5B)) {
 		HFONT font = m_gdiFont;
 		unsigned int glyph = 0xFFFF;
-		HDC screen_dc = FontScreenDCGlobalsPtr->screen_dc;
+		HDC screen_dc = (*(FontScreenDCGlobals **)&g_fontCharsGdiState)->screen_dc;
 		HGDIOBJ old_font = ::SelectObject(screen_dc, font);
-		::GetGlyphIndicesW(FontScreenDCGlobalsPtr->screen_dc, &character, 1, (unsigned short *)&glyph, 1);
+		::GetGlyphIndicesW((*(FontScreenDCGlobals **)&g_fontCharsGdiState)->screen_dc, &character, 1, (unsigned short *)&glyph, 1);
 		::SelectObject(screen_dc, old_font);
 		if ((unsigned short)glyph != 0xFFFF)
 			return Get_Char_Data((unsigned short)glyph);
@@ -93,5 +93,3 @@ FontCharsClassCharDataStruct const *FontCharsClass::loadCharacterData(unsigned s
 		return alt->loadCharacterData(character);
 	return 0;
 }
-// ?FontScreenDCGlobalsPtr@@3PAUFontScreenDCGlobals@@A: the global at VA 0xdf6f24 is ?g_fontCharsGdiState@@3PAVFontCharsClassGdiState@@A.
-#pragma comment(linker, "/alternatename:?FontScreenDCGlobalsPtr@@3PAUFontScreenDCGlobals@@A=?g_fontCharsGdiState@@3PAVFontCharsClassGdiState@@A")

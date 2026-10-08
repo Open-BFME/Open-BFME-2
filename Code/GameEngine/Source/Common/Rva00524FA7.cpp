@@ -59,7 +59,7 @@ private:
 };
 
 extern InGameUI *TheInGameUI;
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 extern float g_00BC26EC;
 extern float g_00DBA500;
 // g_00DBA500: matched references place it at VA 0xdba500 (retail .data initial value 0.03f).
@@ -69,6 +69,6 @@ void Rva00524FA7::rva00524FA7()
 {
 	unsigned v = TheInGameUI->m_val;
 	int t = (int)((float)v * g_00DBA500);
-	int u = TheGameClient->slot31();
+	int u = ((ClientFrameSubsystem *)TheGameClient)->slot31();
 	m_1dc = u + t;
 }

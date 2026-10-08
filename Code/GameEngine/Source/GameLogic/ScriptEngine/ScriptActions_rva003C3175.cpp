@@ -31,11 +31,12 @@ class Rva00358752Opaque
 public:
 	Object *lookupUnitByValue(AsciiString name);
 };
-extern Rva00358752Opaque *g_Va009FE16C;
+class ScriptEngine;
+extern ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003C3175Do(const AsciiString &name, bool flag)
 {
-	Object *obj = g_Va009FE16C->lookupUnitByValue((AsciiString &)name);
+	Object *obj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue((AsciiString &)name);
 	if (obj == 0)
 		return;
 	static NameKeyType dualKey = TheNameKeyGenerator->nameToKey("DualWeaponBehavior");

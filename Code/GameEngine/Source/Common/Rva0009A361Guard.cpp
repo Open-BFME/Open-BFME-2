@@ -21,14 +21,13 @@ private:
 	bool m_0;
 };
 
-extern Rva000F4AB7 *g_00DEBCD8;
+extern class W3DVolumetricShadowManager *TheW3DVolumetricShadowManager;
 
 // ?rva0009A361@Rva0009A361@@QAEXH@Z
 void Rva0009A361::rva0009A361(int v)
 {
-	if (g_00DEBCD8 != 0 && m_0)
-		g_00DEBCD8->rva000F4AB7(v);
+	if ((*(Rva000F4AB7 **)&TheW3DVolumetricShadowManager) != 0 && m_0)
+		(*(Rva000F4AB7 **)&TheW3DVolumetricShadowManager)->rva000F4AB7(v);
 	m_0 = 0;
 }
 
-#pragma comment(linker, "/alternatename:?g_00DEBCD8@@3PAVRva000F4AB7@@A=?TheW3DVolumetricShadowManager@@3PAVW3DVolumetricShadowManager@@A")

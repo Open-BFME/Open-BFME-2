@@ -29,10 +29,15 @@
 // address fourth, so the callee's four parameters ARE this body's four pushed
 // dwords; only the last is reinterpreted, from `void **` to the
 // `char const **` the rowed body declares for its INI value.
-extern void __cdecl Rva001F82ABWrite( void *a, void *b, void *c, const char **element );
+namespace _STL
+{
+template <class C> class char_traits;
+template <class C, class T> class basic_ostream;
+}
+extern void __cdecl Rva001F82ABWrite( _STL::basic_ostream<char, _STL::char_traits<char> > &out, unsigned int b, const char *c, const char **element );
 
 void u1Range_005C8320( void *a, void *b, void *c, int index, int end, void **array )
 {
 	if ( index != end )
-		Rva001F82ABWrite( a, b, c, (const char **)(array + index) );
+		Rva001F82ABWrite( *(_STL::basic_ostream<char, _STL::char_traits<char> > *)a, (unsigned int)b, (const char *)c, (const char **)(array + index) );
 }

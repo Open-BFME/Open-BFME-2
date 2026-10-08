@@ -13,6 +13,13 @@
 // stores are compiler-generated, which is what puts the first one ahead of the
 // unwind state rather than after it.
 
+// The cleanup is the rowed W3DVideoBuffer::rva00072583.
+class W3DVideoBuffer
+{
+public:
+	void rva00072583();
+};
+
 class BfmeElemCC
 {
 public:
@@ -54,7 +61,7 @@ public:
 
 BfmeOwnerCC::~BfmeOwnerCC(void)
 {
-	bfmeCleanupCC();
+	((W3DVideoBuffer *)this)->rva00072583();
 
 	if (TheDisplay != 0)
 		((BfmeRegistryCC *)TheDisplay)->bfmeForgetCC(this);

@@ -112,7 +112,7 @@ public:
 	virtual AITactic *create();
 	unsigned char rva004ED169();
 	void rva004ED372(void *point);
-	void end(int a, int b);
+	void end(bool a, bool b);
 };
 
 class AITacticOffensive : public AITactic

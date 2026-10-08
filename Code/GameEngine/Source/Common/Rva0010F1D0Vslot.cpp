@@ -15,7 +15,6 @@ typedef void *HSTREAM;
 
 extern "C" __declspec(dllimport) HSTREAM __stdcall AIL_open_stream(void *driver, const char *filename, void *extra);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_user_data(HSTREAM stream, int index, void *data);
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva0036CA00Str
 {
@@ -79,7 +78,7 @@ void Rva0010F185::rva0010F1D0()
 	guard.m_locked = 0;
 	guard.rva0010F24F();
 	char *sdata = *(char **)&m_s10;
-	const char *filename = sdata ? sdata + 8 : g_Rva0107301CEmptyString;
+	const char *filename = sdata ? sdata + 8 : "";
 	HSTREAM stream = AIL_open_stream((void *)m_0C, filename, (void *)m_14);
 	if (stream)
 	{

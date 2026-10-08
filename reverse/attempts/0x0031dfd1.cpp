@@ -1,7 +1,5 @@
-// ?rva0031DFD1@Rva0031D5F8@@QAEXPAVPlayer@@HPAPBVCommandButton@@PAE22@Z
-// partial score=0.9868 date=2026-10-06
-// ?rva0031DFD1@Rva0031D5F8@@QAEXPAVPlayer@@HPAPBVCommandButton@@PAE22@Z
-// partial score=0.9868 date=2026-10-05
+// ?GetPurchaseScienceStatus@Rva0031D5F8@@QAEXPAVPlayer@@HPAPBVCommandButton@@PAE22@Z
+// partial score=0.99 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ?rva0031D5F8@Rva0031D5F8@@QAEPAXPBVAsciiString@@@Z, retail 0x0031D5F8 (38B).
 // Lookup AsciiString key in the Rva00056F61 bucket table at this+0x30 via
@@ -40,52 +38,55 @@ public:
 
 #define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
 
+// GetPurchaseScienceStatus's views: the player's science holder is its
+// second base (+0x04), a command button lists its sciences at +0xA4, and
+// TheScienceStore (VA 0x00DFE0E0) answers the prerequisite questions.
 enum ScienceType
 {
 	SCIENCE_INVALID = -1
 };
 
-namespace _STL
-{
-template <class T> class vector
-{
-public:
-	T *begin() const { return (T *)m_start; }
-	T *end() const { return (T *)m_finish; }
+class Rva0043D3A8 {};
 
-private:
-	void *m_start;
-	void *m_finish;
-	void *m_endOfStorage;
+class PlayerPrimaryBase
+{
+	void *m_vtbl;
 };
-}
 
-class Player
+class Player : public PlayerPrimaryBase, public Rva0043D3A8
 {
 public:
-	bool hasScience(ScienceType science) const;
+	bool hasScience(ScienceType st) const;			// 0x002AB7D5
+};
+
+struct ScienceVec
+{
+	bool empty() const { return m_begin == m_end; }
+	const ScienceType &operator[](unsigned int n) const { return m_begin[n]; }
+	ScienceType *m_begin;
+	ScienceType *m_end;
 };
 
 class CommandButton
 {
 public:
+	const ScienceVec &getScienceVec() const { return m_sciences; }
+
 	char m_pad[0xA4];
-	_STL::vector<ScienceType> m_sciences;
+	ScienceVec m_sciences;					// +0xA4
 };
 
 class CommandSet
 {
 public:
-	const CommandButton *getCommandButton(int index) const;
+	const CommandButton *getCommandButton(int i) const;	// 0x00409EE8
 };
-
-class Rva0043D3A8;
 
 class ScienceStore
 {
 public:
-	bool playerHasRootPrereqsForScience(const Player *player, ScienceType science) const;
-	bool rva001FF4D3(Rva0043D3A8 *holder, ScienceType science) const;
+	bool playerHasRootPrereqsForScience(const Player *player, ScienceType st) const;	// 0x001FFC55
+	bool rva001FF4D3(Rva0043D3A8 *holder, ScienceType st) const;			// 0x001FF4D3
 };
 
 extern ScienceStore *TheScienceStore;
@@ -95,7 +96,7 @@ class Rva0031D5F8
 public:
 	void *rva0031D5F8(const AsciiString *key);
 	void *rva0031DF89(const void *arg);
-	void rva0031DFD1(Player *player, int slot, const CommandButton **out, unsigned char *b1, unsigned char *b2, unsigned char *b3);
+	void GetPurchaseScienceStatus(Player *player, int slot, const CommandButton **button, unsigned char *available, unsigned char *purchasable, unsigned char *owned);
 	char m_pad[0x30];
 	Rva00056F61 m_table;
 };
@@ -123,36 +124,37 @@ void *Rva0031D5F8::rva0031DF89(const void *arg)
 	return rva0031D5F8(name);
 }
 
-class Rva0043D3A8;
-
-// ?rva0031DFD1@Rva0031D5F8@@QAEXPAVPlayer@@HPAPBVCommandButton@@PAE22@Z present-unmatched
-void Rva0031D5F8::rva0031DFD1(Player *player, int slot, const CommandButton **out, unsigned char *b1, unsigned char *b2, unsigned char *b3)
+// ControlBar::GetPurchaseScienceStatus, retail 0x0031DFD1 (151 bytes; WB
+// names it): the purchase-science command set's button in the slot is
+// reported; when it lists a science whose root prerequisites the player has,
+// the science is marked owned, or purchasable when the store allows it.
+void Rva0031D5F8::GetPurchaseScienceStatus(Player *player, int slot, const CommandButton **button, unsigned char *available, unsigned char *purchasable, unsigned char *owned)
 {
-	*b1 = 0;
-	*b2 = 0;
-	*b3 = 0;
-	void *raw = rva0031DF89(player);
-	if (raw == 0)
+	*available = 0;
+	*purchasable = 0;
+	*owned = 0;
+	const CommandSet *commandSet = (const CommandSet *)rva0031DF89(player);
+	if (commandSet == 0)
 		return;
-	*out = ((const CommandSet *)raw)->getCommandButton(slot);
-	if (*out == 0)
+	*button = commandSet->getCommandButton(slot);
+	if (*button == 0)
 		return;
-	*b1 = 1;
-	const _STL::vector<ScienceType> *sciences = &(*out)->m_sciences;
-	if (sciences->begin() == sciences->end())
+	*available = 1;
+	const ScienceVec &sciences = (*button)->getScienceVec();
+	if (sciences.empty())
 		return;
-	ScienceType st = *sciences->begin();
-	Rva0043D3A8 *holder = player ? (Rva0043D3A8 *)((char *)player + 4) : 0;
-	if (!TheScienceStore->playerHasRootPrereqsForScience((const Player *)holder, st))
+	ScienceType st = sciences[0];
+	Rva0043D3A8 *holder = player;
+	if (!TheScienceStore->playerHasRootPrereqsForScience(reinterpret_cast<const Player *>(holder), st))
 		return;
-	unsigned char *dst;
+	unsigned char *flag;
 	if (!player->hasScience(st))
 	{
 		if (!TheScienceStore->rva001FF4D3(holder, st))
 			return;
-		dst = b2;
+		flag = purchasable;
 	}
 	else
-		dst = b3;
-	*dst = 1;
+		flag = owned;
+	*flag = 1;
 }

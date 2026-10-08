@@ -12,7 +12,7 @@ public:
 	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // TheRva00222A8BOwner: VA 0x00DC06A0 (.data), retail initial value -1.
 void *TheRva00222A8BOwner = (void *)-1;
 
@@ -46,7 +46,7 @@ DisplayString * TheTooltipString;
 
 void Rva003807B7Hide()
 {
-	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "HideToolTip", 0, 0, 0, 0, 0, 0);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(TheRva00222A8BOwner, "HideToolTip", 0, 0, 0, 0, 0, 0);
 	if (TheTooltipString != 0)
 	{
 		TheDisplayStringManager->freeDisplayString(TheTooltipString);

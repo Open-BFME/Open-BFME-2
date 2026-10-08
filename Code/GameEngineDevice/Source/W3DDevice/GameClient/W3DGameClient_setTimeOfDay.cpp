@@ -19,9 +19,8 @@ extern void *W3DGCData00DE2000;
 // W3DGCData00DE2000: matched references place it at VA 0xde2000 (zero-filled .bss).
 void * W3DGCData00DE2000;
 // ?W3DGCData00DE5DFC@@3PAXA: the global at this VA is ?g_shadowManager@@3PAVGen0003AC38@@A; this name is an alias for it.
-extern void * W3DGCData00DE5DFC;
-#pragma comment(linker, "/alternatename:?W3DGCData00DE5DFC@@3PAXA=?g_shadowManager@@3PAVGen0003AC38@@A")
-extern void *W3DGCData00DFE9D8;
+extern class Gen0003AC38 *g_shadowManager;
+extern class Display *TheDisplay;
 
 #pragma optimize("ty", on)
 #include "vector3.h"
@@ -103,10 +102,10 @@ void W3DGameClient::setTimeOfDay(TimeOfDay tod)
 	void *water = W3DGCData00DE2000;
 	if (water)
 		((W3DGameClientWaterShim *)water)->setTimeOfDay(tod);
-	void *shadow = W3DGCData00DE5DFC;
+	void *shadow = (*(void **)&g_shadowManager);
 	if (shadow)
 		((W3DGameClientShadowShim *)shadow)->setTimeOfDay(tod);
-	void *display = W3DGCData00DFE9D8;
+	void *display = (*(void **)&TheDisplay);
 	((W3DGameClientDisplayShim *)display)->setTimeOfDay(tod);
 }
 
@@ -122,7 +121,7 @@ struct ShadowTerrainLightEntry
 	char m_pad24[0x6C - 0x24];
 };
 
-extern void *W3DGCData00DFE758;
+extern class GlobalData *TheWritableGlobalData;
 
 // Sun distance (BFME1 SUN_DISTANCE_FROM_GROUND was 10000.0f; retail pools
 // 10000000.0f in .rdata, so BFME2 keeps it a literal with a new value).
@@ -134,13 +133,9 @@ extern void *W3DGCData00DFE758;
 void W3DGameClientShadowShim::setTimeOfDay(TimeOfDay tod)
 {
 	const ShadowTerrainLightEntry *entry =
-		(const ShadowTerrainLightEntry *)((const char *)W3DGCData00DFE758 + 0x3C8 + tod * 0x6C);
+		(const ShadowTerrainLightEntry *)((const char *)(*(void **)&TheWritableGlobalData) + 0x3C8 + tod * 0x6C);
 	Vector3 lightRay(-entry->m_lightX, -entry->m_lightY, -entry->m_lightZ);
 	lightRay.Normalize();
 	lightRay *= SHADOW_SUN_DISTANCE_FROM_GROUND;
 	setLightPosition(0, lightRay.X, lightRay.Y, lightRay.Z);
 }
-// ?W3DGCData00DFE758@@3PAXA: the global at VA 0xdfe758 is ?TheGlobalData@@3PAVGlobalData@@A.
-#pragma comment(linker, "/alternatename:?W3DGCData00DFE758@@3PAXA=?TheGlobalData@@3PAVGlobalData@@A")
-// ?W3DGCData00DFE9D8@@3PAXA: the global at VA 0xdfe9d8 is ?TheDisplay@@3PAVDisplay@@A.
-#pragma comment(linker, "/alternatename:?W3DGCData00DFE9D8@@3PAXA=?TheDisplay@@3PAVDisplay@@A")

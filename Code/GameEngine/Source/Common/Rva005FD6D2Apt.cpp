@@ -2,8 +2,7 @@
 // ?rva005FD6D2@Rva005FD6D2@@QAEX_N@Z retail 0x005FD6D2 91B
 // Evidence: chain via 0x005F8EDA AptCall; suffix up disabled inner plus8; level at +4 flag at 0x4d; sibling 0x005FD677 precedent; caller 0x005FD8B1
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva005F8EDAAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0, void **ppA1);
 
@@ -28,7 +27,7 @@ void Rva005FD6D2::rva005FD6D2(bool enabled)
 	if (enabled == m_flag4D)
 		return;
 	const char *suffix = enabled ? "_up" : "_disabled";
-	const char *name = m_inner8 ? m_inner8->m_name : g_Rva0107301CEmptyString;
-	Rva005F8EDAAptCall(TheRva00222A8BTarget, m_level4, name, "SetButtonState", "moveUp", (void **)&suffix);
+	const char *name = m_inner8 ? m_inner8->m_name : "";
+	Rva005F8EDAAptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level4, name, "SetButtonState", "moveUp", (void **)&suffix);
 	m_flag4D = enabled;
 }

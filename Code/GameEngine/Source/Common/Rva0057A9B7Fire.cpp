@@ -4,7 +4,6 @@
 // Evidence: callees rowed Get 0x00222834 plus AptCall 0x00222B19 plus releaseBuffer 0x00036410 plus empty g_Rva0107301CEmptyString; callers 0x0057AB16 0x005ED7CC 0x005FE122; prev 0x0057A961 same page.
 #include "ascii_string.h"
 
-extern const char g_Rva0107301CEmptyString[];
 AsciiString __cdecl Rva00222834Get(int val);
 
 class Rva00222A8BTarget
@@ -16,7 +15,7 @@ public:
 __forceinline const char *GetStr(const AsciiString &s)
 {
 	char *t = *(char **)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 int __cdecl Rva0057A9B7Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, void *a6)

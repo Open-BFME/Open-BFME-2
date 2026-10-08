@@ -13,7 +13,7 @@ public:
 		void *a1, void *a2, void *a3, void *a4);
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva002D4531Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const int &arg);
 
@@ -34,18 +34,18 @@ void Rva00529A7B::rva00529A7B(float v)
 	if (arg_ge0)
 	{
 		if (!this_ge0)
-			TheRva00222A8BTarget->invoke(m00, "ShowRankProgress", 0, 0, 0, 0, 0, 0);
+			(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(m00, "ShowRankProgress", 0, 0, 0, 0, 0, 0);
 		int iv = 1 - (int)(v * -100.0f);
 		if (iv < 1)
 			iv = 1;
 		else if (iv > 100)
 			iv = 100;
-		Rva002D4531Invoke(TheRva00222A8BTarget, m00, "SetRankProgressBar", iv);
+		Rva002D4531Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m00, "SetRankProgressBar", iv);
 	}
 	else
 	{
 		if (this_ge0)
-			TheRva00222A8BTarget->invoke(m00, "HideRankProgress", 0, 0, 0, 0, 0, 0);
+			(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(m00, "HideRankProgress", 0, 0, 0, 0, 0, 0);
 	}
 	m14 = v;
 }

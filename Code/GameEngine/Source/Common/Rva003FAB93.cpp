@@ -92,7 +92,6 @@ struct BfmeAudioEventPrefix136
 };
 
 #pragma comment(linker, "/alternatename:??1BfmeAudioEventPrefix136@@UAE@XZ=??1BfmeStringTailRecord144@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??_GBfmeAudioEventPrefix136@@UAEPAXI@Z=??_GBfmeStringTailRecord144@@UAEPAXI@Z")
 
 class AudioManager;
 extern AudioManager *TheAudio;

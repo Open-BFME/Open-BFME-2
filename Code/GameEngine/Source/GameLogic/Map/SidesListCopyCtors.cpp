@@ -24,7 +24,6 @@ private:
 	std::vector<Rva0032C0E3Element> m_second;
 };
 
-#pragma comment(linker, "/alternatename:??1Rva0032C19D@@QAE@XZ=??1Rva001976F0@@QAE@XZ")
 
 Rva0032C19D::Rva0032C19D()
 {

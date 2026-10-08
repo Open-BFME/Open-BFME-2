@@ -69,7 +69,7 @@ public:
 struct BfmeWorldRV;
 extern class ScriptEngine *TheScriptEngine;
 extern TerrainLogic *TheTerrainLogic;
-extern struct BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 extern class AI *TheAI;
 
 void __stdcall Rva003C0849Do(const AsciiString &teamName, const AsciiString &commandName, const AsciiString &waypointName)
@@ -80,7 +80,7 @@ void __stdcall Rva003C0849Do(const AsciiString &teamName, const AsciiString &com
 	Waypoint *way = TheTerrainLogic->getWaypointByName(waypointName);
 	if (way == 0)
 		return;
-	const CommandButton *button = ((ControlBar *)g_bfmeWorldRV)->findCommandButton(commandName);
+	const CommandButton *button = ((ControlBar *)(*(BfmeWorldRV **)&TheControlBar))->findCommandButton(commandName);
 	if (button == 0)
 		return;
 	AIGroup *group = TheAI->createGroup();

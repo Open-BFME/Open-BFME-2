@@ -78,8 +78,7 @@ public:
 	virtual LANGameInfo *GetMyGame() = 0;
 };
 
-extern LANAPI *g_00DFE958;
-#define TheLAN g_00DFE958
+class LANAPI; extern LANAPI *TheLAN;
 
 class BfmeAptScreenLanLobby
 {

@@ -344,7 +344,7 @@ public:
  char m_pad[0xc0];
  unsigned char m_c0;
 };
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 
@@ -382,7 +382,7 @@ void BfmeOwnVVD::rva0042E75F(unsigned int arg)
   return;
  if (TheTacticalView->t115())
   return;
- if (TheGameClient->m_c0 != 0)
+ if (((ClientFrameSubsystem *)TheGameClient)->m_c0 != 0)
   return;
  void *tmp = TheMouse->m_4fa4;
  m_38 = 1;

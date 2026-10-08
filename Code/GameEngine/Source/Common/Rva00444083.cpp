@@ -12,7 +12,7 @@ public:
 	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva00444083
 {
@@ -32,7 +32,7 @@ void Rva00444083::rva00444083(int flags)
 	{
 		if ((m_flags6bc & 1) == 0)
 		{
-			TheRva00222A8BTarget->invoke(m_owner274, "EnableCreateGame", 0, 0, 0, 0, 0, 0);
+			(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(m_owner274, "EnableCreateGame", 0, 0, 0, 0, 0, 0);
 			m_flags6bc |= 1;
 		}
 	}
@@ -40,7 +40,7 @@ void Rva00444083::rva00444083(int flags)
 	{
 		if ((m_flags6bc & 2) == 0)
 		{
-			TheRva00222A8BTarget->invoke(m_owner274, "EnableJoinGame", 0, 0, 0, 0, 0, 0);
+			(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(m_owner274, "EnableJoinGame", 0, 0, 0, 0, 0, 0);
 			m_flags6bc |= 2;
 		}
 	}
@@ -52,7 +52,7 @@ void Rva00444083::rva004440F4(int flags)
 	{
 		if ((m_flags6bc & 1) != 0)
 		{
-			TheRva00222A8BTarget->invoke(m_owner274, "DisableCreateGame", 0, 0, 0, 0, 0, 0);
+			(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(m_owner274, "DisableCreateGame", 0, 0, 0, 0, 0, 0);
 			m_flags6bc &= ~1;
 		}
 	}
@@ -60,7 +60,7 @@ void Rva00444083::rva004440F4(int flags)
 	{
 		if ((m_flags6bc & 2) != 0)
 		{
-			TheRva00222A8BTarget->invoke(m_owner274, "DisableJoinGame", 0, 0, 0, 0, 0, 0);
+			(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(m_owner274, "DisableJoinGame", 0, 0, 0, 0, 0, 0);
 			m_flags6bc &= ~2;
 		}
 	}

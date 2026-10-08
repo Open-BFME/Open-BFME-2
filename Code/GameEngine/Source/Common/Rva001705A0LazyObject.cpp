@@ -43,13 +43,18 @@ enum ObjectID
 	INVALID_OBJECT_ID = 0
 };
 
+// Zero Hour's DLINK_ITERATOR (GameCommon.h). BFME2's Object carries a vbptr
+// at +0x68 (ObjectDlinkPmf.h), so the iterator's GetNextFunc is a
+// virtual-inheritance member pointer and advance() is the 32-byte body at
+// 0x00263526; retail calls it as DLINK_ITERATOR<Object>::advance from the
+// Team member walks (e.g. 0x0039E5B9, 0x003C9A80).
 template<class OBJCLASS>
-class Rva001705A0DlinkIterator
+class DLINK_ITERATOR
 {
 public:
 	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
 
-	Rva001705A0DlinkIterator( OBJCLASS *cur, GetNextFunc getNextFunc )
+	DLINK_ITERATOR( OBJCLASS *cur, GetNextFunc getNextFunc )
 		: m_cur( cur ), m_getNextFunc( getNextFunc ) {}
 
 	void advance()
@@ -111,8 +116,8 @@ void Rva001705A0Inner::apply( int value, bool enabled )
 		((Rva001705A0IDVectorView *)((char *)this + 4))->m_ids.clear();
 
 	Rva001705A0Team *team = (Rva001705A0Team *)value;
-	for ( Rva001705A0DlinkIterator<Object> iter =
-			Rva001705A0DlinkIterator<Object>( team->m_head,
+	for ( DLINK_ITERATOR<Object> iter =
+			DLINK_ITERATOR<Object>( team->m_head,
 				Object::dlink_next_TeamMemberList );
 			!iter.done(); iter.advance() )
 	{

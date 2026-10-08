@@ -17,7 +17,7 @@ struct Rva007F00B0Allocator
 
 typedef void *(__cdecl *Rva007F00B0Allocate)(unsigned int, int);
 
-extern Rva007F00B0Allocator *g_Rva0130A5B0;
+extern class GenAlloc *g_genAlloc;
 
 void *operator new(unsigned int size);
 
@@ -25,7 +25,7 @@ void Rva007F00B0(void *allocate, void *release)
 {
 	Rva007F00B0Allocator *p;
 
-	if (g_Rva0130A5B0)
+	if ((*(Rva007F00B0Allocator **)&g_genAlloc))
 		return;
 
 	if (allocate)
@@ -49,16 +49,10 @@ void Rva007F00B0(void *allocate, void *release)
 	if (!release)
 		release = (void *)0x00A5CED0;
 	p->m_release = release;
-	g_Rva0130A5B0 = p;
+	(*(Rva007F00B0Allocator **)&g_genAlloc) = p;
 	return;
 
 clear:
-	g_Rva0130A5B0 = 0;
+	(*(Rva007F00B0Allocator **)&g_genAlloc) = 0;
 }
 
-// ?g_Rva0130A5B0@@3PAURva007F00B0Allocator@@A: the global at this VA is ?g_genAlloc@@3PAVGenAlloc@@A; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?g_Rva0130A5B0@@3PAURva007F00B0Allocator@@A=?g_genAlloc@@3PAVGenAlloc@@A")
-#pragma comment(linker, "/alternatename:?g_bfmeS1019@@3PAVBfmeS1019@@A=?g_genAlloc@@3PAVGenAlloc@@A")
-#pragma comment(linker, "/alternatename:?g_Rva0130A5B0@@3PAURva007F0060Allocator@@A=?g_genAlloc@@3PAVGenAlloc@@A")
-// ?g_Rva0130A5B0@@3PAURva007F00B0Allocator@@A: the global at VA 0xe09fcc is ?g_genAlloc@@3PAVGenAlloc@@A.
-#pragma comment(linker, "/alternatename:?g_Rva0130A5B0@@3PAURva007F00B0Allocator@@A=?g_genAlloc@@3PAVGenAlloc@@A")

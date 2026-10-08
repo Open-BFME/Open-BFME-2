@@ -20,7 +20,7 @@ struct GlobalDataCheck
 	int m_check;
 };
 
-extern GlobalDataCheck *TheGlobalData;
+extern class GlobalData *TheWritableGlobalData;
 
 class VertexBufferClass
 {
@@ -80,7 +80,7 @@ void Rva00075A23Draw(int width, int height)
 {
 	if (g_vb == 0)
 		return;
-	if (-1 != TheGlobalData->m_check)
+	if (-1 != (*(GlobalDataCheck **)&TheWritableGlobalData)->m_check)
 		return;
 	DX8Wrapper::Set_Vertex_Buffer(0, 0);
 	int index = g_quadIndex;
@@ -136,6 +136,4 @@ void Rva00075A23Draw(int width, int height)
 
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?TheGlobalData@@3PAUGlobalDataCheck@@A=?TheWritableGlobalData@@3PAVGlobalData@@A")
 #pragma comment(linker, "/alternatename:?g_deviceObj@@3PAUDeviceObj@@A=?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A")
-#pragma comment(linker, "/alternatename:?g_numberOfDX8Calls@@3IA=?number_of_DX8_calls@@3IA")

@@ -5,14 +5,14 @@
 // Evidence: callee 0x00605C91 ??0Rva00605C91@@QAE@XZ row, vtable VA 0x00C7AAE0,
 // dtor 0x00605C6A ??1Rva00605C6A@@UAE@XZ same vtable, caller 0x00604B1F.
 
-class ModuleData
+class File
 {
 public:
-	ModuleData();
-	virtual ~ModuleData();
+	File();
+	virtual ~File();
 };
 
-class Rva00605C91 : public ModuleData
+class Rva00605C91 : public File
 {
 public:
 	Rva00605C91();

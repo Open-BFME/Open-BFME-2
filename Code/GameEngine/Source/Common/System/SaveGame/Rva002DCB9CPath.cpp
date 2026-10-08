@@ -53,7 +53,6 @@ extern const char *g_00DBD068;
 extern const char *g_00DBD06C;
 extern const char *g_00DBD070;
 extern const char *g_00DBD074;
-extern const char g_Rva0107301CEmptyString[];
 extern "C" unsigned int strlen(const char *s);
 
 class GameState
@@ -67,19 +66,19 @@ AsciiString GameState::packPortableMapPath(const AsciiString &in) const
 	AsciiString out;
 	if (((const StringBase<char> &)in).startsWithNoCase(g_00DBD054)) {
 		((StringBase<char> *)&out)->set(g_00DBD064);
-		const char *s = in.m_data ? &in.m_data->data[0] : g_Rva0107301CEmptyString;
+		const char *s = in.m_data ? &in.m_data->data[0] : "";
 		((StringBase<char> *)&out)->concat(s + strlen(g_00DBD054));
 	} else if (((const StringBase<char> &)in).startsWithNoCase(g_00DBD058)) {
 		((StringBase<char> *)&out)->set(g_00DBD068);
-		const char *s = in.m_data ? &in.m_data->data[0] : g_Rva0107301CEmptyString;
+		const char *s = in.m_data ? &in.m_data->data[0] : "";
 		((StringBase<char> *)&out)->concat(s + strlen(g_00DBD058));
 	} else if (((const StringBase<char> &)in).startsWithNoCase(g_00DBD05C)) {
 		((StringBase<char> *)&out)->set(g_00DBD06C);
-		const char *s = in.m_data ? &in.m_data->data[0] : g_Rva0107301CEmptyString;
+		const char *s = in.m_data ? &in.m_data->data[0] : "";
 		((StringBase<char> *)&out)->concat(s + strlen(g_00DBD05C));
 	} else if (((const StringBase<char> &)in).startsWithNoCase(g_00DBD060)) {
 		((StringBase<char> *)&out)->set(g_00DBD070);
-		const char *s = in.m_data ? &in.m_data->data[0] : g_Rva0107301CEmptyString;
+		const char *s = in.m_data ? &in.m_data->data[0] : "";
 		((StringBase<char> *)&out)->concat(s + strlen(g_00DBD060));
 	} else {
 		((StringBase<char> *)&out)->set(g_00DBD074);

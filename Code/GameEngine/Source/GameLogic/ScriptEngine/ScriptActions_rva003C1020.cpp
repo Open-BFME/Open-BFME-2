@@ -57,7 +57,7 @@ public:
 
 extern class ScriptEngine *TheScriptEngine;
 extern class AI *TheAI;
-extern struct BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 
 void __stdcall Rva003C1020Do(const AsciiString &teamName, const AsciiString &cmdName, Parameter *unitParm)
 {
@@ -66,7 +66,7 @@ void __stdcall Rva003C1020Do(const AsciiString &teamName, const AsciiString &cmd
 		return;
 	AIGroup *group = TheAI->createGroup();
 	team->getTeamAsAIGroup(group);
-	const CommandButton *button = ((ControlBar *)g_bfmeWorldRV)->findCommandButton(cmdName);
+	const CommandButton *button = ((ControlBar *)(*(BfmeWorldRV **)&TheControlBar))->findCommandButton(cmdName);
 	if (button == 0)
 		return;
 	const Overridable *ov = *(const Overridable *const *)((const char *)button + 0x44);

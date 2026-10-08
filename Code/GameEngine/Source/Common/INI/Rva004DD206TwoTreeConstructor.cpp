@@ -30,14 +30,21 @@ public:
 Rva004DD206TreeView::~Rva004DD206TreeView() { releaseNative(); }
 #pragma comment(linker,"/alternatename:??0Rva004DD206TreeView@@QAE@XZ=??0?$map@HPAXU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE@XZ")
 #pragma comment(linker,"/alternatename:?releaseNative@Rva004DD206TreeView@@QAEXXZ=??1?$_Rb_tree@HU?$pair@$$CBHURva00462D35Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@@_STL@@QAE@XZ")
-class Rva004DD206Owner {
+// The owner is Emotion: EmotionSystem::createEmotion (0x0042632F, rowed under
+// that name) news 52 bytes and constructs them here with (object, entry), the
+// two stack words stored at +0 and +4.
+class Object;
+class EmotionTrackerUpdateEntry;
+class Emotion {
 public:
- Rva004DD206Owner(unsigned int a,unsigned int b);
- unsigned int word00,word04,word08;
+ Emotion(Object *a,EmotionTrackerUpdateEntry *b);
+ Object *word00;
+ EmotionTrackerUpdateEntry *word04;
+ unsigned int word08;
  unsigned short word0C;
  unsigned int word10;
  Rva004DD206TreeView tree14,tree20;
  unsigned int word2C,word30;
 };
-Rva004DD206Owner::Rva004DD206Owner(unsigned int a,unsigned int b)
+Emotion::Emotion(Object *a,EmotionTrackerUpdateEntry *b)
  :word00(a),word04(b),word08(0),word0C(0),word10(0) {word2C=0;word30=0;}

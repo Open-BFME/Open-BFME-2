@@ -14,7 +14,7 @@ namespace rts
 {
 template <typename T> struct hash
 {
-	size_t operator()(const T &value) const;
+	size_t operator()(const T &value) const { return (size_t)value; }	// Zero Hour's rts::hash<NameKeyType>, inline
 };
 }
 class ArmorTemplate

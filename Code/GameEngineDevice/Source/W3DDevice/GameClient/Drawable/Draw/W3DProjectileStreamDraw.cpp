@@ -161,10 +161,15 @@ public:
 	virtual SceneClass *Peek_Scene();
 };
 
+// W3DDisplay::m_3DScene is an RTS3DScene (W3DLaserDrawDestructor.cpp defines it).
+class RTS3DScene : public SceneClass
+{
+};
+
 class W3DDisplay
 {
 public:
-	static SceneClass *m_3DScene;
+	static RTS3DScene *m_3DScene;
 };
 
 class W3DProjectileStreamDraw : public DrawModule
@@ -198,10 +203,6 @@ void W3DProjectileStreamDraw::setFullyObscuredByShroud(bool fullyObscured)
 		}
 	}
 }
-
-// Retail's data references in this unit's matched rows land on globals defined
-// under other spellings at the same addresses (addend-corrected DIR32). Bind them.
-#pragma comment(linker, "/alternatename:?m_3DScene@W3DDisplay@@2PAVSceneClass@@A=?m_3DScene@W3DDisplay@@2PAVRTS3DScene@@A")
 
 void W3DProjectileStreamDraw::xfer(Xfer *xfer)
 {

@@ -112,6 +112,12 @@ template <> void _Base_bitset<4>::_M_do_or(const _Base_bitset<4> &);
 
 #include "GameNetwork/GameInfo.h"
 
+// Retail's DLINK_ITERATOR<Object>::advance is the virtual-inheritance body at
+// 0x00263526 (rowed from Rva001705A0LazyObject.cpp): BFME2's Object has a vbptr
+// at +0x68, Zero Hour's does not, so this unit's header copy is not retail's.
+// Calls only; the definition comes from that unit.
+template<> void DLINK_ITERATOR<Object>::advance();
+
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
@@ -1787,11 +1793,9 @@ void Player::onStructureUndone(Object *structure)
 	m_scoreKeeper.removeObjectBuilt(structure);
 } // end onStructureUndone
 
-//=============================================================================
-// Player::addTeamToList is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerAddTeamToList.cpp (0x002AE228).
-
-//=============================================================================
-// Player::removeTeamFromList is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerRemoveTeamFromList.cpp (0x002ABD48).
+// Player::addTeamToList and Player::removeTeamFromList are rowed in
+// PlayerAddTeamToList.cpp and PlayerRemoveTeamFromList.cpp; this unit's
+// copies differed from retail and were the ones the link kept.
 
 //=============================================================================
 // Player::healAllObjects is defined with its retail-matched body in Code/GameEngine/Source/Common/RTS/PlayerTeamPrototypeQueries.cpp (0x002AB06A).

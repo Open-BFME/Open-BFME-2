@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // Trimmed from Open-BFME-1
 // (Code/GameEngine/Source/Common/System/File.cpp): only the placed
 // ?lock@File, ?close@File, ?open@File, ??1File, ?size@File, ?position@File,
@@ -47,19 +47,18 @@ public:
 	enum seekMode { START, CURRENT, END };
 	enum { TEXT = 0x20 };
 
-	// Retail File table 0x0087A808 has _purecall in these abstract slots.
 	virtual int read(void *buffer, int bytes) = 0;
 	virtual int write(const void *buffer, int bytes) = 0;
 	virtual int seek(int bytes, seekMode mode) = 0;
-	virtual void nextLine(char *buffer, int size) = 0;
-	virtual bool scanInt(int &value) = 0;
-	virtual bool scanReal(float &value) = 0;
-	virtual bool scanString(AsciiString &value) = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
 	virtual bool print(const char *format, ...);
 	virtual int size();
 	virtual int position();
 	virtual char *readEntireAndClose() = 0;
-	virtual File *convertToRAMFile() = 0;
+	virtual void slot14() = 0;
 	virtual void lock();
 	virtual void unlock();
 
@@ -80,16 +79,6 @@ private:
 	FileHandle m_mutex;
 };
 
-// ??0File@@QAE@XZ, RVA 0x006024FD (70 bytes). Identity is established
-// by the File table 0x0087A808 (size/position/print/lock/unlock) and the
-// verified RAMFile constructor's base call. The earlier ModuleData name
-// mistook File's filename/access/open/deleteOnClose/mutex fields for INI data.
-File::File()
-	: m_nameStr(), m_access(0), m_isOpen(0), m_deleteOnClose(0), m_mutex(0)
-{
-	m_nameStr.set("<no file>");
-}
-
 void File::lock()
 {
 	if (m_mutex == 0)
@@ -106,6 +95,21 @@ void File::unlock()
 {
 	if (m_mutex != 0)
 		ReleaseMutex(m_mutex);
+}
+
+// ??0File@@QAE@XZ, retail 0x006024FD, 70 bytes. Stores File's own vtable
+// 0x0087A808 (tools/vftable_map.py: open/close at slots 1-2, print/size/
+// position at 10-12, lock/unlock at 15-16, __purecall elsewhere, which is why
+// the slots this unit does not define are pure here), zeroes the name,
+// access, both flags and the mutex handle, then names the file "<no file>"
+// through the one-arg StringBase::set (0x000055F5) under an EH frame for the
+// name's teardown. Zero Hour File::File, plus BFME's mutex. RAMFile's ctor
+// (0x006054E7) calls it as its base. Previously rowed as ModuleData's ctor
+// from that one call site; the vtable it stores is File's, not a ModuleData's.
+File::File()
+	: m_access(0), m_isOpen(0), m_deleteOnClose(0), m_mutex(0)
+{
+	setName("<no file>");
 }
 
 // ?size@File@@UAEHXZ

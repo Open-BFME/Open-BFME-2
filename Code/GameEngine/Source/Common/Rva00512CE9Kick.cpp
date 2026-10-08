@@ -15,7 +15,7 @@ public:
 	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva00512CE9
 {
@@ -34,7 +34,7 @@ void Rva00512CE9::rva00512CE9(int player, bool show)
 	char buf[32];
 	sprintf(buf, "%d", player);
 	const char *which = show ? "ShowKickButton" : "HideKickButton";
-	TheRva00222A8BTarget->invoke(m_274, which, 1, buf, 0, 0, 0, 0);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(m_274, which, 1, buf, 0, 0, 0, 0);
 	m_286[player] = show;
 }
 

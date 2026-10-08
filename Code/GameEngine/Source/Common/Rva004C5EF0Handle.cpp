@@ -6,6 +6,13 @@
 //   ?handle@Rva004C5EF0@@QAEXH@Z 0x0044BD5B (30B)
 // Callee addresses are read off retail call sites (reverse/symbols.csv).
 
+// The callee is the rowed BfmeA1042N::bfmeGo1042D.
+class BfmeA1042N
+{
+public:
+	void bfmeGo1042D();
+};
+
 class BfmeSub939G
 {
 public:
@@ -27,11 +34,11 @@ void Rva004C5EF0::handle(int msg)
 	if (msg == 2)
 	{
 		if (m_first.m_bfmeP)
-			m_first.bfmeCall939G();
+			((BfmeA1042N *)&m_first)->bfmeGo1042D();
 	}
 	else if (msg == 3)
 	{
 		if (m_second.m_bfmeP)
-			m_second.bfmeCall939G();
+			((BfmeA1042N *)&m_second)->bfmeGo1042D();
 	}
 }

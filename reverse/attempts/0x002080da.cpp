@@ -1,5 +1,5 @@
 // ?Rva002080DAXferList@@YAPAVXfer@@PAV1@PAV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z
-// partial score=0.92 date=2026-10-06
+// partial score=0.96 date=2026-10-07
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
 // ?Rva002080DAXferList@@YAPAVXfer@@PAV1@PAV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z @0x002080DA 237B evidence leaf Xfer list helper version 1 1 via slots 0x28 0x2C 0x78 0x08 saving via Chain 0x00203DA2 loading via Chain plus push_back strings std-list List-must-be-empty AsciiString value gives exact size 237 no structural frame diff only

@@ -14,7 +14,6 @@
 
 #include "ascii_string.h"
 
-extern const char g_bfmeEmptyF9[];
 extern const void *const g_00BBB554[];
 extern const void *const g_00C4E318[];
 
@@ -147,7 +146,7 @@ SpecialPowerModuleData::SpecialPowerModuleData()
 	, m_value08(0)
 	, m_value0C(0)
 	, m_value0D(0)
-	, m_string18(g_bfmeEmptyF9)
+	, m_string18("")
 	, m_value1C(0.0f)
 	, m_value20(0)
 	, m_value28(0)
@@ -170,7 +169,7 @@ SpecialPowerModuleData::SpecialPowerModuleData()
 	, m_value61(1)
 	, m_value64(5)
 	, m_value68(0)
-	, m_string6C(g_bfmeEmptyF9)
+	, m_string6C("")
 	, m_value70(0)
 	, m_value74(0)
 	, m_value78(0.0f)
@@ -185,8 +184,6 @@ SpecialPowerModuleData::SpecialPowerModuleData()
 		BfmeFixedStorage0004543D(g_009FEFA4),
 		BfmeFixedStorage0004543D(g_009FEFA4));
 }
-// ?g_bfmeEmptyF9@@3QBDB: the global at VA 0xbbac1c is ?BfmeEmptyString@AsciiString@@0QBDB.
-#pragma comment(linker, "/alternatename:?g_bfmeEmptyF9@@3QBDB=?BfmeEmptyString@AsciiString@@0QBDB")
 
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.

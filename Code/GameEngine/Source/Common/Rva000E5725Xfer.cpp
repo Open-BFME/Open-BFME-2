@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /MD /Ireference/shims/moduledata
 
 // ?rva000E5725@Rva000E5725@@QAEXPAVXfer@@@Z, RVA 0x000E5725, 218B.
 // Chain lane: every callee is rowed (XferDrawableID 0x003060CA,
@@ -98,14 +98,7 @@ struct RGBAColorInt
 
 #include "ascii_string.h"
 
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void loadPostProcess() = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-};
+#include "Common/Snapshot.h"
 
 class Xfer
 {

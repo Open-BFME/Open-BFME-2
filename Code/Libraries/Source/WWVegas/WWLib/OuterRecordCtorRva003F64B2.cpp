@@ -35,7 +35,6 @@ Rva003F64B2Outer::Rva003F64B2Outer(Rva003F64B2Input *p)
  elements.push_back(Rva003F64B2Element(reinterpret_cast<int>(p)));
 }
 
-#pragma comment(linker, "/alternatename:??0?$_Vector_base@URva003F64B2Element@@V?$allocator@URva003F64B2Element@@@_STL@@@_STL@@QAE@ABV?$allocator@URva003F64B2Element@@@1@@Z=??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z")
 
 #pragma comment(linker, "/alternatename:??0Rva003F64B2Element@@QAE@H@Z=??0Rva003F610FElement@@QAE@H@Z")
 

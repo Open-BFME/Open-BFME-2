@@ -5,7 +5,6 @@
 // 0x005255D3 0x00526621 plus 0x005C3EA5 59B passing target plus Show; prev/next same dir.
 #include "ascii_string.h"
 
-extern const char g_Rva0107301CEmptyString[];
 AsciiString __cdecl Rva00222834Get(int val);
 
 class Rva00222A8BTarget
@@ -17,7 +16,7 @@ public:
 __forceinline const char *GetStr(const AsciiString &s)
 {
 	char *t = *(char **)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 int __cdecl Rva0052519DFire(void *a1, void *a2, const char *a3, const char *a4, int *a5)

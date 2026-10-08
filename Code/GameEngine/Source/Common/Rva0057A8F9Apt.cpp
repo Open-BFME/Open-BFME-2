@@ -5,8 +5,7 @@ class Rva00222A8BTarget
 {
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function);
 
@@ -33,7 +32,7 @@ void Rva0057A8F9::rva0057A8F9()
 	if (m_name10)
 		prefix = m_name10->m_name;
 	else
-		prefix = g_Rva0107301CEmptyString;
-	Rva00524EF4AptCall(TheRva00222A8BTarget, m_level0C, prefix, "CloseList");
+		prefix = "";
+	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level0C, prefix, "CloseList");
 	m_14 = 3;
 }

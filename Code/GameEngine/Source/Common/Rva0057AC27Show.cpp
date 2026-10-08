@@ -3,8 +3,7 @@
 // was ?rva0057AC27@Rva0057AC27@@QAEXH@Z, retail 0x0057AC27 104B. Unlock: selected-index Apt SetCurrentItemState show/hide via TheRva00222A8BTarget.
 // Evidence: callees AptCall 0x005FB5E6 rowed; strings _show _hide SetCurrentItemState literals; EmptyString and TheRva00222A8BTarget externs; callers 0x0057AD58 0x0057B3B5.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
@@ -34,10 +33,10 @@ void StrategicHUD::ChecklistUIImpl::SetCurrentItem(int index)
 	if (index != m_30) {
 		if (diff)
 			return;
-		const char *prefix = m_prefix10 ? (const char *)m_prefix10 + 8 : g_Rva0107301CEmptyString;
-		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level0C, prefix, "SetCurrentItemState", "_show");
+		const char *prefix = m_prefix10 ? (const char *)m_prefix10 + 8 : "";
+		Rva005FB5E6AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level0C, prefix, "SetCurrentItemState", "_show");
 	} else {
-		const char *prefix = m_prefix10 ? (const char *)m_prefix10 + 8 : g_Rva0107301CEmptyString;
-		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level0C, prefix, "SetCurrentItemState", "_hide");
+		const char *prefix = m_prefix10 ? (const char *)m_prefix10 + 8 : "";
+		Rva005FB5E6AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level0C, prefix, "SetCurrentItemState", "_hide");
 	}
 }

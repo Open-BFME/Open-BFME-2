@@ -53,7 +53,7 @@ public:
 	virtual void vf9();
 	virtual bool vf10(int v);
 };
-extern Rva00E05FB4 *g_00E05FB4;
+extern class GameSpyConfigInterface *TheGameSpyConfig;
 
 class GameSpyInfoInterface
 {
@@ -119,7 +119,7 @@ Rva005D62E8 *Rva005D62E8::rva005D62E8(PlayerInfo *p)
 	m_state = 0;
 	m_player = p;
 	m_sub = 11;
-	if ((p->m_flags & 0x20) == 0 && !g_00E05FB4->vf10(p->m_profileID))
+	if ((p->m_flags & 0x20) == 0 && !(*(Rva00E05FB4 **)&TheGameSpyConfig)->vf10(p->m_profileID))
 	{
 		_STL::map<int, int> *m = TheGameSpyInfo->vf24();
 		MapIntIntTree *t = (MapIntIntTree *)m;
@@ -152,7 +152,3 @@ Rva005D62E8 *Rva005D62E8::rva005D62E8(PlayerInfo *p)
 	}
 	return this;
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_00E05FB4@@3PAVRva00E05FB4@@A=?TheGameSpyConfig@@3PAVGameSpyConfigInterface@@A")

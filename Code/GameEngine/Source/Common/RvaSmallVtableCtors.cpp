@@ -203,7 +203,7 @@ class Rva004318C6
 {
 public:
 	Rva004318C6(void *p);
-	virtual ~Rva004318C6() {}
+	virtual ~Rva004318C6();
 private:
 	void *m_04;
 };
@@ -231,7 +231,7 @@ class Rva005B253F
 {
 public:
 	Rva005B253F(void *p);
-	virtual ~Rva005B253F() {}
+	virtual ~Rva005B253F();
 private:
 	void *m_04;
 };
@@ -781,3 +781,15 @@ void bfmeEmitRva0030D346Ctor(Rva0030D346 *p)
 	p->Rva0030D346::Rva0030D346();
 }
 #pragma inline_depth()
+
+// ??1Rva004318C6@@UAE@XZ @0x004318D8 7B: the empty dtor, restoring the vtable (the
+// deleting dtor still expands it inline).
+Rva004318C6::~Rva004318C6()
+{
+}
+
+// ??1Rva005B253F@@UAE@XZ @0x005B2551 7B: the empty dtor, restoring the vtable (the
+// deleting dtor still expands it inline).
+Rva005B253F::~Rva005B253F()
+{
+}

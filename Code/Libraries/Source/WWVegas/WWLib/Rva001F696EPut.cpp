@@ -18,14 +18,13 @@ public:
 };
 }
 
-extern const char g_Rva0107301CEmptyString[];
 
 _STL::basic_ostream<char, _STL::char_traits<char> > &Rva001F696EPut(
 	_STL::basic_ostream<char, _STL::char_traits<char> > &os,
 	const AsciiString &s)
 {
 	char *t = *(char **)(void *)&s;
-	const char *p = t ? t + 8 : g_Rva0107301CEmptyString;
+	const char *p = t ? t + 8 : "";
 	os._M_put_nowiden(p);
 	return os;
 }

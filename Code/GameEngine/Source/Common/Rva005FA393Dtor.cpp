@@ -30,6 +30,7 @@ private:
 	Rva005FA3B1Inner *m_member04;
 };
 
+// ?Rva005FA7EB::Rva005FA7EB present-unmatched
 Rva005FA7EB::Rva005FA7EB(void *a, void *b, void *c)
 	: m_vtable(g_00C078DC)
 {

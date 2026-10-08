@@ -4,9 +4,8 @@
 // 26 bytes. Dedicated TU so the factory and stream-ctor units cannot see this
 // body. Calls the base ctor then zeros TimeCodes and Samples.
 
-// Both derived channel dtors tail-call the address-pinned 7-byte base dtor;
-// resolve that ECX-only thiscall spelling to its matched body.
-#pragma comment(linker, "/alternatename:??1BFME2MotionChannel@@UAE@XZ=?apply@Rva001A466CDwordImmSetter@@QAEXXZ")
+// Both derived channel dtors tail-call the 7-byte base dtor, rowed as
+// ??1BFME2MotionChannel@@UAE@XZ (InlineDtorDeletingDtorsC01.cpp).
 
 class BFME2MotionChannel
 {

@@ -94,7 +94,7 @@ public:
 	virtual void c30();
 	virtual int getValue();
 };
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 struct Elem0029
 {
@@ -212,7 +212,7 @@ void Rva0029EAFA::rva0029EAFA(const GameMessage *msg)
 	if (!((Rva0029DE76 *)this)->rva0029DE76(&pos))
 		return;
 	((Rva0029ACA0 *)this)->rva0029ACC7(0);
-	int v = TheGameClient->getValue();
+	int v = ((ClientFrameSubsystem *)TheGameClient)->getValue();
 	m_elems[m_count].unk = v;
 	m_elems[m_count].pos = pos;
 	m_elems[m_count].flag = 0;

@@ -25,7 +25,7 @@ public:
 	virtual int s31();
 };
 
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 extern int g_Va00DE1B40;
 extern int g_Va00DB3BDC;
@@ -57,7 +57,7 @@ void Rva000B3A2D::rva000B3A2D()
 {
 	((StringBase<unsigned short> *)this)->validate();
 	m_b8 = g_Va00DE1B40;
-	g_Va00DB3BDC = TheGameClient->s31();
+	g_Va00DB3BDC = ((ClientFrameSubsystem *)TheGameClient)->s31();
 	int v = m_214;
 	if (v < 0)
 		return;

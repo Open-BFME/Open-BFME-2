@@ -46,9 +46,6 @@ private:
 template<> StringBase<char>::StringBase() : m_data(0) {}
 #pragma optimize("", on)
 
-#pragma comment(linker, "/alternatename:??0AsciiString@@QAE@ABV0@@Z=??0?$StringBase@D@@AAE@ABV0@@Z")
-#pragma comment(linker, "/alternatename:?set@AsciiString@@QAEXABV1@@Z=?set@?$StringBase@D@@QAEXABV1@@Z")
-#pragma comment(linker, "/alternatename:?releaseBuffer@AsciiString@@AAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
 
 struct BfmeVecZH
 {
@@ -80,9 +77,7 @@ public:
 	BfmeElemCD *m_end;
 };
 
-#pragma comment(linker, "/alternatename:?overflow@BfmeVecBE@@QAEXPAUBfmeElemBE@@ABU2@ABUBfmeFalseBE@@I_N@Z=?overflow@BfmeVecCD@@QAEXPAUBfmeElemCD@@ABUBfmeFalseCD@@I_N@Z")
 
-#pragma comment(linker, "/alternatename:?overflow@BfmeVecZHStorage@@QAEXPAUBfmeZHElement@@ABU2@ABUBfmeFalseZH@@I_N@Z=?overflow@BfmeVecCD@@QAEXPAUBfmeElemCD@@ABU2@ABUBfmeFalseCD@@I_N@Z")
 
 class BfmeObjZH
 {

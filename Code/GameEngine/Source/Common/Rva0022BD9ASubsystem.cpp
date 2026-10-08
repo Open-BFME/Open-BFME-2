@@ -11,7 +11,7 @@ namespace _STL { template<> struct hash<Rva0041EFE0Element> { unsigned operator(
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 class __declspec(novtable) BFME2NativeNetworkBase

@@ -28,7 +28,7 @@ class Rva0025CEEFHost : public Keyboard
 {
 };
 
-extern Rva0025CEEFHost *g_009FE720;
+extern class Keyboard *TheKeyboard;
 
 struct GlobalData
 {
@@ -69,7 +69,7 @@ float Rva003FE13E::rva003FE13E()
 		dist = d.length();
 	}
 	float cap = m_58;
-	if (g_009FE720->isShift()) {
+	if ((*(Rva0025CEEFHost **)&TheKeyboard)->isShift()) {
 		if (TheWritableGlobalData->m_88 != 0)
 			cap *= 10.0f;
 	}

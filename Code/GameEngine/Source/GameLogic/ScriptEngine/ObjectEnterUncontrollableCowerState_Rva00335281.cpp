@@ -41,7 +41,7 @@ public:
 	Object *findObjectByID(ObjectID id);
 
 private:
-	char m_slice_pad[0xB0];
+	char m_slice_pad[0xB4];
 	ObjectPtrHash m_objHash;
 };
 

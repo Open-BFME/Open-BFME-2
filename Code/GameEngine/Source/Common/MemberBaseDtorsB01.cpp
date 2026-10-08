@@ -511,6 +511,7 @@ public:
 // Target evidence: calls 0x005CC26E on this+0x5C, virtual slot 2 through the
 // pointer at this+0x54, 0x005C9BE3 on this+0x28, then 0x005CBC95 on this.
 // Address-derived class and offsets do not establish the original identity.
+// ?Rva00574910::rva00574910 present-unmatched
 int Rva00574910::rva00574910(void *arg)
 {
 	if (((Rva005CC26E *)((char *)this + 0x5C))->rva005CC26E(arg) == 1)
@@ -545,6 +546,7 @@ public:
 // Target evidence: adjacent Rva005772BF methods and its vtable support the
 // class association. This body reads +0x14/+0x18/+0x28 and short-circuits on
 // result 1; the rowed 0x005D1FD3 call identifies the argument as GameMessage*.
+// ?Rva005772BF::rva005771F4 present-unmatched
 int Rva005772BF::rva005771F4(GameMessage *message)
 {
 	Rva005D1F45 *dispatcher = *(Rva005D1F45 **)((char *)this + 0x14);

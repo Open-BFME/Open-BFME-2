@@ -43,6 +43,14 @@ public:
     virtual void bfmeSet996(int value, int enabled);
 };
 
+// The reader steps are the rowed BfmeB996Range::rva001068D1/rva0010690D.
+class BfmeB996Range
+{
+public:
+    bool rva001068D1(int first, unsigned int *second, char *stop);
+    void rva0010690D(void);
+};
+
 class BfmeB996
 {
 public:
@@ -82,15 +90,15 @@ void Rva007E4AD0Vp6Stream::update(void)
     m_first = -1;
     m_second = -1;
     m_reader.invokeForMode();
-    if (reader->bfmeGo996B((int)&first, (int)&second, &stop)) {
+    if (((BfmeB996Range *)reader)->rva001068D1((int)&first, (unsigned int *)&second, &stop)) {
         for (;;) {
             if (first == 0x36505641) {
-                reader->bfmeAdvance996();
+                ((BfmeB996Range *)reader)->rva0010690D();
             } else if (first == 0x6468564D) {
-                reader->bfmeAdvance996();
+                ((BfmeB996Range *)reader)->rva0010690D();
                 break;
             }
-            if (!reader->bfmeGo996B((int)&first, (int)&second, &stop)) {
+            if (!((BfmeB996Range *)reader)->rva001068D1((int)&first, (unsigned int *)&second, &stop)) {
                 break;
             }
         }

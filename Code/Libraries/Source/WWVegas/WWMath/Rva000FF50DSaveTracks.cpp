@@ -14,7 +14,6 @@ extern "C" unsigned int __cdecl strlen(const char *s);
 extern "C" __declspec(dllimport) struct _iobuf *__cdecl fopen(const char *path, const char *mode);
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(const void *ptr, unsigned int size, unsigned int count, struct _iobuf *file);
 extern "C" __declspec(dllimport) int __cdecl fclose(struct _iobuf *file);
-extern const char g_Rva0107301CEmptyString[];
 
 struct Vector2
 {
@@ -50,7 +49,7 @@ void Rva000FF50D::rva000FF50D()
 	AsciiString fileName = m_file;
 	char path[256];
 	const char *data = *(const char **)&fileName;
-	_mbscpy(path, data ? data + 8 : g_Rva0107301CEmptyString);
+	_mbscpy(path, data ? data + 8 : "");
 	unsigned int len = strlen(path);
 	_mbscpy(path + len - 4, ".wak");
 	int trackCount = 0;

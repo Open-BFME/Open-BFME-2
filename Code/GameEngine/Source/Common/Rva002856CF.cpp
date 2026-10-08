@@ -16,7 +16,7 @@ struct Rva002DFE78C
 	unsigned char m_pad[0x40];
 	int m_40;
 };
-extern Rva002DFE78C *g_00DFE78C;
+extern class GameLogic *TheGameLogic;
 class Rva002856CFHost
 {
 public:
@@ -33,5 +33,5 @@ void Rva002856CFHost::rva002856CF()
 	if (((Rva00DFE1A8 *)g_00DFE1A8)->m_3C < -1)
 		return;
 	((Rva0020D8F1Host *)g_00DFE1A8)->rva0020D8F1(this);
-	m_10 = g_00DFE78C->m_40;
+	m_10 = (*(Rva002DFE78C **)&TheGameLogic)->m_40;
 }

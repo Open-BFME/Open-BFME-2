@@ -4,7 +4,6 @@
 // Masked twin of Rva002A75DA erase @0x002A75DA; 12-byte string-like element.
 // Callees: copy 0x0007A401, dtor 0x00142D70 (basic_string).
 
-#pragma comment(linker, "/alternatename:??$__copy_ptrs@PBVRva000C4657Elem@@PAV1@@_STL@@YAPAVRva000C4657Elem@@PBV1@0PAV1@ABU__false_type@0@@Z=??$copy@PBV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@PAV12@@_STL@@YAPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@PBV10@0PAV10@@Z")
 
 struct Rva000C4657Elem
 {

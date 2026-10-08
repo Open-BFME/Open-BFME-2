@@ -1,7 +1,7 @@
 // cl: /O1 /MD /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget* _g_pRva00224BC9;
+class Rva00222A8BTarget; extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva005252CDInvoke(Rva00222A8BTarget* target, void* level, const char* prefix, const char* name, const int& a, const char* const& b);
 struct Rva005FFF62 {
   void* m_00;
@@ -18,7 +18,7 @@ void Rva005FFF62::Set(int idx, bool flag) {
   const char* b = flag ? "_up" : "_disabled";
   const char* prefix = m_08.str();
   const char* name = "SetSwapButtonState";
-  Rva005252CDInvoke(_g_pRva00224BC9, m_04, prefix, name, idx, b);
+  Rva005252CDInvoke(((Rva00222A8BTarget *)g_bfmeAptWindowManager), m_04, prefix, name, idx, b);
   e->_1 = flag;
 }
 // 0x005FBAFE sibling.
@@ -37,7 +37,7 @@ void Rva005FBAFE::Set2(int idx) {
   bool b0 = false;
   const char* prefix = m_08.str();
   const char* name = "SetBannerVisibility";
-  rva00977C23((int*)_g_pRva00224BC9, (int*)m_04, (int)prefix, (void*)name, (int)&idx, (int)&b0);
+  rva00977C23((int*)((Rva00222A8BTarget *)g_bfmeAptWindowManager), (int*)m_04, (int)prefix, (void*)name, (int)&idx, (int)&b0);
   e->_4 = 0;
 }
 

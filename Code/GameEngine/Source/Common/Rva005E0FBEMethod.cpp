@@ -8,8 +8,7 @@
 // globals g_Rva0107301CEmptyString and TheRva00222A8BTarget,
 // string ShowProductionCount, caller jmp at 0x005E1173.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 void __cdecl Rva005277D9Fire(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, bool *flagPtr);
 
 struct Rva005E0FBEInner
@@ -39,8 +38,8 @@ void Rva005E0FBE::rva005E0FBE()
 	if (m_flag40 != 0)
 	{
 		bool flag = false;
-		const char *prefix = m_inner0C ? m_inner0C->m_name : g_Rva0107301CEmptyString;
-		Rva005277D9Fire(TheRva00222A8BTarget, m_level08, prefix, "ShowProductionCount", &flag);
+		const char *prefix = m_inner0C ? m_inner0C->m_name : "";
+		Rva005277D9Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level08, prefix, "ShowProductionCount", &flag);
 	}
 	m_flag42 = 0;
 }

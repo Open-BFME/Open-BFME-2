@@ -17,13 +17,12 @@ public:
     int invoke(void *level, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
 };
 
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr00216332(const AsciiString &s, void *const *extra, void **a1)
 {
 	char *t = *(char **)(void *)&s;
 	*a1 = *(void **)extra;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 int __cdecl Rva00216332Call(void *target, void *level, const char *func, const unsigned int *val, void *const *extra)

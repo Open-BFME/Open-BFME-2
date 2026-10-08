@@ -16,7 +16,7 @@ struct Rva005B692FSub
 	void Poke(int v);
 };
 
-extern Rva005B692FMgr *g_rva005B692FMgr;
+extern class CreateAHeroManager *TheCreateAHeroManager;
 void Rva005B6755Helper();
 
 struct Rva005B692FBox
@@ -35,7 +35,7 @@ void Rva005B692FBox::Run()
 	if (m_8 != 0)
 		Rva005B6755Helper();
 	int off = 0x27c;
-	g_rva005B692FMgr->UseSub((char *)m_4 + off);
+	(*(Rva005B692FMgr **)&TheCreateAHeroManager)->UseSub((char *)m_4 + off);
 	((Rva005B692FSub *)((char *)m_4 + off))->Poke(1);
 	m_14 = 1;
 }

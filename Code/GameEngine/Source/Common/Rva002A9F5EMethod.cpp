@@ -21,7 +21,7 @@ public:
 };
 
 struct BfmeWorldRV;
-extern struct BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 
 class Rva002A9F5E
 {
@@ -42,7 +42,7 @@ void Rva002A9F5E::rva002A9F5E(int v)
 	((Rva00380200 *)(void *)this)->rva0038027B(v);
 	if (saved != m_001C)
 	{
-		if (g_bfmeWorldRV)
-			((ControlBar *)(void *)g_bfmeWorldRV)->rva0031B5A3((const Player *)(const void *)((const char *)(const void *)this - 8));
+		if ((*(BfmeWorldRV **)&TheControlBar))
+			((ControlBar *)(void *)(*(BfmeWorldRV **)&TheControlBar))->rva0031B5A3((const Player *)(const void *)((const char *)(const void *)this - 8));
 	}
 }

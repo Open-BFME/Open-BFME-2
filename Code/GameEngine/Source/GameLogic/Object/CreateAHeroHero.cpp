@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /arch:SSE
 // CreateAHeroHero.cpp -- CreateAHeroHero members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names each function and
 // its source file; retail supplies the bytes.
@@ -35,6 +35,22 @@ struct CreateAHeroBlingNode
 
 class CreateAHeroHero;
 
+// The twelve-byte per-level button record (CreateAHeroElementCopy.cpp's
+// BfmeHeroElement005C39DE): the button name, its experience level and a
+// third word. SetButtonForLevel 0x0040737F stores one into the fifteen at
+// +0x80.
+#include "ascii_string.h"
+struct BfmeHeroElement005C39DE
+{
+	AsciiString text;
+	unsigned word4, word8;
+	BfmeHeroElement005C39DE(const AsciiString &name, unsigned level, unsigned value);
+	BfmeHeroElement005C39DE &operator=(const BfmeHeroElement005C39DE &);
+};
+
+// WorldBuilder's CAH_MAX_EXP_LEVELS (the SetButtonForLevel assert).
+enum { CAH_MAX_EXP_LEVELS = 15 };
+
 // Award record; 0x0040AA27 (unnamed in WB) tests every requirement against
 // the hero.
 class CreateAHeroAward
@@ -49,12 +65,15 @@ public:
 	Bool HasEarnedAward(const CreateAHeroAward *award) const;
 	Int GetBlingCount(Int blingKey) const;
 	Int GetBlingId(Int blingKey, UnsignedInt index) const;
+	Bool SetButtonForLevel(const AsciiString &button, UnsignedInt experienceLevel, UnsignedInt value);
 
 private:
 	Bool rva004079D5(Int blingKey, CreateAHeroBlingNode **found) const;	// 0x004079D5
 
 	unsigned char m_pad00[0x74];
 	CreateAHeroBlingNode *m_blingHeader;	// +0x74, map end node
+	unsigned char m_pad78[0x80 - 0x78];
+	BfmeHeroElement005C39DE m_buttons[CAH_MAX_EXP_LEVELS];	// +0x80
 };
 
 // CreateAHeroHero::HasEarnedAward, retail 0x00406EA7.
@@ -90,4 +109,23 @@ Int rva00406DE3RollChance()
 {
 	Real roll = GetGameClientRandomValueReal(0.0f, 100.0f, CREATEAHEROHERO_FILE, 160);
 	return roll <= TheCreateAHeroManager->m_rollChance;
+}
+
+// Retail 0x004071D7, 32 bytes (unnamed in WorldBuilder, called from
+// SetButtonForLevel): the per-level record's constructor.
+BfmeHeroElement005C39DE::BfmeHeroElement005C39DE(const AsciiString &name, unsigned level, unsigned value)
+	: text(name), word4(level), word8(value)
+{
+}
+
+// CreateAHeroHero::SetButtonForLevel, retail 0x0040737F (WorldBuilder,
+// CreateAHeroHero.cpp line 1029; wb-name-unverified).
+Bool CreateAHeroHero::SetButtonForLevel(const AsciiString &button, UnsignedInt experienceLevel, UnsignedInt value)
+{
+	if (experienceLevel < CAH_MAX_EXP_LEVELS)
+	{
+		BfmeHeroElement005C39DE record(button, experienceLevel, value);
+		m_buttons[experienceLevel] = record;
+	}
+	return true;
 }

@@ -25,12 +25,19 @@ public:
 	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
 };
 
+struct BfmeE8;
 namespace _STL
 {
 template <class T> class allocator
 {
 };
 template <class T, class A> class vector;
+// The 8-byte push_back fold at 0x00539A2E is rowed under vector<BfmeE8>.
+template <> class vector< ::BfmeE8, allocator< ::BfmeE8> >
+{
+public:
+	void push_back(const ::BfmeE8 &x);
+};
 template <> class vector<Coord2D, allocator<Coord2D> >
 {
 public:
@@ -62,5 +69,5 @@ void WeaponTemplate::parseScatterTarget(INI *ini, void *instance, void * /*store
 	target.y = 0;
 	INI::parseCoord2D(ini, NULL, &target, NULL);
 
-	self->m_scatterTargets.push_back(target);
+	((_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > *)&self->m_scatterTargets)->push_back(*(const BfmeE8 *)&target);
 }

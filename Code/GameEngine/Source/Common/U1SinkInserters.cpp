@@ -64,11 +64,17 @@
 // This TU holds the one row the BFME 1 donor sweep placed; the donor's other
 // three definitions are omitted.
 
-class U1Sink
+// The append is the rowed STLport basic_ostream<char>::_M_put_nowiden.
+namespace _STL
+{
+template <class C> class char_traits;
+template <class C, class T> class basic_ostream
 {
 public:
-	void add( const char *text );
+	void _M_put_nowiden( const C *text );
 };
+}
+class U1Sink;
 
 class U1Box
 {
@@ -78,6 +84,6 @@ public:
 
 U1Sink *u1Insert_005C6350( U1Sink *sink, const U1Box *box )
 {
-	sink->add( box->m_value );
+	((_STL::basic_ostream<char, _STL::char_traits<char> > *)sink)->_M_put_nowiden( box->m_value );
 	return sink;
 }

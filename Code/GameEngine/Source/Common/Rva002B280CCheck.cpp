@@ -5,7 +5,7 @@
 // Evidence: retail call 0x2B254F/test al je true/mov ecx[g_00E02D6C]/call 0x3B8BAA/
 // push [esp+4]/mov edx[eax]/mov ecx eax/call [edx+14]/test al je end/mov al 1/ret 4.
 // Callers at 0x002B283F 0x005E914E 0x005F56D0. ecx passes through from thiscall.
-extern class Rva003B8BAA *g_00E02D6C;
+class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
 class Rva002B254F
 {
@@ -46,7 +46,7 @@ bool Rva002B280C::rva002B280C(Arg54 *a)
 {
 	if ((unsigned char)((Rva002B254F *)this)->rva002B254F() != 0)
 	{
-		void *p = g_00E02D6C->rva003B8BAA();
+		void *p = ((Rva003B8BAA *)TheCampaignManager)->rva003B8BAA();
 		if (!((LookupVirt14 *)p)->check(a))
 			return false;
 	}

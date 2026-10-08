@@ -10,18 +10,17 @@
 #include <string>
 #include <vector>
 
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr005A7974(const AsciiString &s)
 {
 	char *t = *(char * *)(const void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
-struct BfmeOpaqueOwnedRecord492
+struct PeerRequest
 {
-	BfmeOpaqueOwnedRecord492();
-	~BfmeOpaqueOwnedRecord492();
+	PeerRequest();
+	~PeerRequest();
 	int unknown_00;
 	std::string unknown_04;
 	std::wstring unknown_10;
@@ -61,7 +60,7 @@ struct Global003EF728V6
 	virtual void f3();
 	virtual void f4();
 	virtual void f5();
-	virtual void f6(BfmeOpaqueOwnedRecord492 *rec);
+	virtual void f6(PeerRequest *rec);
 };
 
 extern Global003EF728V6 *g_00A02340;
@@ -106,7 +105,7 @@ void NAT::rva005A7974(unsigned short port, void *info)
 	m_24 = 1;
 	if (m_04 != 0 && m_25 != 0)
 		m_04->Consume(m_18, m_90C[m_18]);
-	BfmeOpaqueOwnedRecord492 req;
+	PeerRequest req;
 	AsciiString portStr;
 	portStr.format("PORT%d %d %08X %X", m_14, port, m_1C, m_20);
 	req.unknown_00 = 0xd;

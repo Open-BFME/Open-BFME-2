@@ -104,8 +104,3 @@ append:
 	((LivingWorldCampaign *)instance)->AddPlayer(*(const Rva002E0A0A *)&record);
 done:;
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_00DFF0B0@@3PAVRva002E18C3Lookup@@A=?Va00DFF0B0Lookup@@3PAVRva002E18C3Lookup@@A")
-#pragma comment(linker, "/alternatename:?g_00E03140@@3PAVRva002E18C3Lookup@@A=?Va00E03140Lookup@@3PAVRva002E18C3Lookup@@A")

@@ -67,7 +67,6 @@ extern "C" struct FILE_dummy00346FD0;
 extern "C" void *theLogicRandomLogFile;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-extern const char g_Rva0107301CEmptyString[];
 extern int g_00E01E04;
 // g_00E01E04: matched references place it at VA 0xe01e04 (zero-filled .bss).
 int g_00E01E04;
@@ -107,7 +106,7 @@ StateReturnType Rva0033FE65::onEnter()
 		if (name)
 			name = name + 8;
 		else
-			name = g_Rva0107301CEmptyString;
+			name = "";
 		fprintf(logFile, "AIIdleState::onEnter() called for object %s(%d) at location %g,%g,%g.", name, id, obj->m_x38, obj->m_y3c, obj->m_z40);
 	}
 	m_20 = (unsigned short)GetGameLogicRandomValue(0, g_00E01E04, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIStates.cpp", 0x94A);

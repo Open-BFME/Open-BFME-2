@@ -16,7 +16,7 @@ public:
     virtual void s32(); virtual void s33(); virtual void s34();
     virtual void slot35(int a, int b, int c);
 };
-extern GlobalSlotTarget *g_00DFE6E8;
+extern class AudioManager *TheAudio;
 struct Inner14 {
     unsigned char pad[0xB0];
     int flag;
@@ -33,7 +33,7 @@ private:
 };
 void Rva003FAC3F::rva003FAC3F()
 {
-    GlobalSlotTarget *g = g_00DFE6E8;
+    GlobalSlotTarget *g = (*(GlobalSlotTarget **)&TheAudio);
     if (g == 0)
         return;
     unsigned int v = m_2c;
@@ -47,5 +47,3 @@ void Rva003FAC3F::rva003FAC3F()
     }
     m_2c = 1;
 }
-// ?g_00DFE6E8@@3PAVGlobalSlotTarget@@A: the global at VA 0xdfe6e8 is ?TheAudio@@3PAVAudioManager@@A.
-#pragma comment(linker, "/alternatename:?g_00DFE6E8@@3PAVGlobalSlotTarget@@A=?TheAudio@@3PAVAudioManager@@A")

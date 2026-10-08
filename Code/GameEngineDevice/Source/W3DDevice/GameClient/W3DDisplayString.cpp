@@ -132,39 +132,8 @@ W3DDisplayString::W3DDisplayString( void )
 	
 }  // end W3DDisplayString
 
-// ?reset@W3DDisplayString@@UAEXXZ present-unmatched
-void W3DDisplayString::reset( void )
-{
-	DisplayString::reset();
-	m_textRenderer.Reset();
-	m_textRendererHotKey.Reset();
-	m_textChanged = FALSE;
-	m_textPos.x = 0;
-	m_textPos.y = 0;
-	m_currTextColor = 0;
-	m_bfmeResetFields[2] = 0;
-	m_currDropColor = 0;
-	m_bfmeResetFields[3] = 0;
-	m_bfmeResetFields[0] = 0;
-	m_bfmeResetFields[4] = 0;
-	m_bfmeResetFields[1] = 0;
-	m_bfmeResetFields[5] = 0;
-	m_size.x = 0;
-	m_size.y = 0;
-	m_fontChanged = FALSE;
-	m_clipRegion.lo.x = 0;
-	m_clipRegion.lo.y = 0;
-	m_clipRegion.hi.x = 0;
-	m_clipRegion.hi.y = 0;
-	m_lastResourceFrame = 0;
-	m_useHotKey = FALSE;
-	m_hotKeyPos.x = 0;
-	m_hotKeyPos.y = 0;
-	m_hotKeyColor = GameMakeColor(255,255,255,255);
-	m_bfmeFlag20C = FALSE;
-	m_bfmeFlag1EC = TRUE;
-	m_hotkey.clear();
-}
+// ?reset@W3DDisplayString@@UAEXXZ is a row of W3DDisplayStringDtor.cpp; this unit's copy was
+// a second, non-retail definition of it.
 
 // W3DDisplayString::~W3DDisplayString ========================================
 /** */
@@ -352,29 +321,8 @@ void W3DDisplayString::setFont( GameFont *font )
 // W3DDisplayString::computeExtents ===========================================
 /** Update the width and height of our string */
 //=============================================================================
-// ?computeExtents@W3DDisplayString@@IAEXXZ present-unmatched
-void W3DDisplayString::computeExtents( void )
-{
-	UnsignedInt len = getTextLength();
-
-	// if we have no string, or no font we don't have a size yet
-	if( len == 0 || m_font == NULL )
-	{
-
-		m_size.x = 0;
-		m_size.y = 0;
-
-	}  // end if
-	else
-	{
-
-		Vector2 extents = m_textRenderer.Get_Formatted_Text_Extents(getText().str()); //Get_Text_Extents( getText().str() );
-		m_size.x = extents.X;
-		m_size.y = extents.Y;
-
-	}  // end else
-
-}  // end computeExtents
+// ?computeExtents@W3DDisplayString@@IAEXXZ is a row of W3DDisplayStringComputeExtents.cpp; this unit's copy was
+// a second, non-retail definition of it.
 
 // W3DDisplayString::setWordWrap ===========================================
 /** Set the wordwrap of the m_textRenderer */

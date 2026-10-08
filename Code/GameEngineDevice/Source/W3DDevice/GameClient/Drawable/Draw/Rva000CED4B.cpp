@@ -23,7 +23,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 class Rva0020AA00Target
 {
@@ -58,7 +58,7 @@ void __cdecl Rva000CED4BUpdate(void *p, AssetList *b, int c)
 	if (((StringBase<char> *)&a->m_28)->isEmpty() == false)
 		*b << a->m_28;
 	if (((StringBase<char> *)&a->m_48)->isEmpty() == false) {
-		void *t = TheThingFactory->rva002D06CA(&a->m_48);
+		void *t = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&a->m_48);
 		if (t != 0)
 			((Rva0020AA00Target *)t)->notify((int)b, c);
 	}

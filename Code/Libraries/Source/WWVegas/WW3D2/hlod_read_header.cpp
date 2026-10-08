@@ -19,10 +19,7 @@
 // the same way; the inline ??1 is a COMDAT the link discards for hlod.cpp's
 // regular copy.
 // ??1SubObjectArrayClass@HLodDefClass@@QAE@XZ present-unmatched
-inline HLodDefClass::SubObjectArrayClass::~SubObjectArrayClass(void)
-{
-	Reset();
-}
+// ??1SubObjectArrayClass@HLodDefClass@@QAE@XZ is a row of hlod.cpp; this unit only declares it.
 
 bool HLodDefClass::read_header(ChunkLoadClass & cload)
 {

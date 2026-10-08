@@ -12,7 +12,7 @@
 #include "ascii_string.h"
 
 class Rva003B8BAA;
-Rva003B8BAA *g_00E02D6C = 0;
+class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;	// defined once, in Rva002B47B1Get.cpp
 
 class Rva00319CED
 {
@@ -65,7 +65,7 @@ int Rva00319CED::rva004E1755()
 	AsciiString *s = &m_2C;
 	if (s->isEmpty())
 		return 0;
-	void *found = ((Rva003B8E89 *)g_00E02D6C)->rva003B8E89(s);
+	void *found = ((Rva003B8E89 *)((Rva003B8BAA *)TheCampaignManager))->rva003B8E89(s);
 	if (found != 0)
 		return ((BfmeY1038 *)found)->bfmeVal1038();
 	return 0;
@@ -78,7 +78,7 @@ void *Rva00319CED::rva004E23C1()
 	if (!rva00319CED())
 		return 0;
 	p += 0x2C;
-	return ((Rva003B8E89 *)g_00E02D6C)->rva003B8E89(p);
+	return ((Rva003B8E89 *)((Rva003B8BAA *)TheCampaignManager))->rva003B8E89(p);
 }
 
 // ?rva004E23E2@Rva00319CED@@QAEPAXXZ @0x004E23E2 42B.

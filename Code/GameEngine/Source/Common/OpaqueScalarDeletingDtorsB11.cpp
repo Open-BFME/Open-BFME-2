@@ -355,12 +355,11 @@ Rva005105D7::Rva005105D7(EmitVtableTag *)
 
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr0050FDDC(const AsciiString &s)
 {
 	char *t = *(char **)(const void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 class Rva000B3F84Pair

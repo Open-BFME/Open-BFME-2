@@ -1,7 +1,7 @@
 // cl: /MD
 // ?Rva0025CEEFCheck@@YA_N_N@Z @0x0025CEEF 59B evidence: sole caller 0x0025D7B6; global VA 0x009FE720; vtable slot 10 refresh; 8-byte records +0x10/+0x14 bounds; wanted flag differs
 
-extern class Rva0025CEEFHost *g_009FE720;
+extern class Keyboard *TheKeyboard;
 
 struct Item0025CEEF
 {
@@ -33,10 +33,10 @@ public:
 
 bool Rva0025CEEFCheck(bool wanted)
 {
-	Rva0025CEEFHost *host = g_009FE720;
+	Rva0025CEEFHost *host = (*(Rva0025CEEFHost **)&TheKeyboard);
 	bool found = false;
 	host->refresh();
-	host = g_009FE720;
+	host = (*(Rva0025CEEFHost **)&TheKeyboard);
 	Item0025CEEF *end = host->m_end;
 	Item0025CEEF *it = host->m_begin;
 	for (; it != end; ++it)

@@ -210,8 +210,7 @@ public:
 	virtual int v64(const UnicodeString &text, int kind) = 0;
 };
 
-extern LANAPI *g_00DFE958;
-#define TheLAN g_00DFE958
+class LANAPI; extern LANAPI *TheLAN;
 
 class MapMetaData
 {

@@ -12,8 +12,7 @@ class Rva00222A8BTarget
 {
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 struct Rva005EF557Team
 {
@@ -61,8 +60,8 @@ void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::ShowArmyName(const Unicod
 		m_cached30.set(text);
 	}
 	if (!m_shown3C) {
-		const char *team = m_outer04.m_team ? m_outer04.m_team->m_name : g_Rva0107301CEmptyString;
-		Rva005FB5E6AptCall(TheRva00222A8BTarget, (void *)m_00, team, "SetArmyNameState", "_show");
+		const char *team = m_outer04.m_team ? m_outer04.m_team->m_name : "";
+		Rva005FB5E6AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_00, team, "SetArmyNameState", "_show");
 		m_shown3C = true;
 	}
 }

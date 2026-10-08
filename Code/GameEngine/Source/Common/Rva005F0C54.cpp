@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /MD
 // StrategicHUD::RegionDetailsStructuresMovieClip::Impl::ShowBuildingName (WorldBuilder name, line 486: cached compare, SetBuildingNameString 0x005F066C, set, SetBuildingNameState _show once).
 // was ?rva005F0C54@Rva005F0C54@@QAEXABVUnicodeString@@@Z @0x005F0C54 109B
 // __thiscall method over +4 level +8 Outer +0x40 UnicodeString +0x4C shown flag.
@@ -24,9 +24,8 @@ void __cdecl Rva005F066CSet(int level, Rva005F066COuter *outer, const UnicodeStr
 class Rva00222A8BTarget;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
-extern const char g_Rva0107301CEmptyString[];
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 namespace StrategicHUD
 {
@@ -57,8 +56,8 @@ void StrategicHUD::RegionDetailsStructuresMovieClip::Impl::ShowBuildingName(cons
 		m_name.set(text);
 	}
 	if (!m_shown) {
-		const char *mid = m_outer.m_ptr ? m_outer.m_ptr->m_name : g_Rva0107301CEmptyString;
-		Rva005FB5E6AptCall(TheRva00222A8BTarget, (void *)m_level, mid, "SetBuildingNameState", "_show");
+		const char *mid = m_outer.m_ptr ? m_outer.m_ptr->m_name : "";
+		Rva005FB5E6AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_level, mid, "SetBuildingNameState", "_show");
 		m_shown = true;
 	}
 }

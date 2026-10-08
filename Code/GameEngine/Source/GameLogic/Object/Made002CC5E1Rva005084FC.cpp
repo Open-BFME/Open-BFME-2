@@ -39,10 +39,11 @@ public:
  unsigned char pad00[4];
  Rva005084FCModuleView *module04;
 };
+enum ObjectID { INVALID_ID = 0 };
 class GameLogic
 {
 public:
- Object *findObjectByID(int id);
+ Object *findObjectByID(ObjectID id);
 };
 extern GameLogic *TheGameLogic;
 struct Rva005084FCWeaponView
@@ -81,7 +82,7 @@ bool Made002CC5E1::rva005084FC(void *weapon, Object *target, const Coord3D *posi
    {
     if (factor != 0.0f)
     {
-     Object *source = TheGameLogic->findObjectByID(static_cast<Rva005084FCWeaponView *>(weapon)->sourceID08);
+     Object *source = TheGameLogic->findObjectByID((ObjectID)static_cast<Rva005084FCWeaponView *>(weapon)->sourceID08);
      if (source && !(source->module04->flags10B & 2))
       source->attemptHealing(factor, 0);
     }

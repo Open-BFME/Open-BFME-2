@@ -25,7 +25,7 @@ class Rva001D901B
 public:
 	const ArmorTemplate *rva001D901B(const AsciiString &name) const;
 };
-extern Rva001D901B *g_rva001D9083Store;
+extern class ArmorStore *TheArmorStore;
 class Rva001D9083
 {
 public:
@@ -33,7 +33,7 @@ public:
 };
 Int Rva001D9083::rva001D9083()
 {
-	const ArmorTemplate *armor = g_rva001D9083Store->rva001D901B(*(const AsciiString *)this);
+	const ArmorTemplate *armor = (*(Rva001D901B **)&TheArmorStore)->rva001D901B(*(const AsciiString *)this);
 	if (armor)
 	{
 		bool positive = armor->m_74 > 0;

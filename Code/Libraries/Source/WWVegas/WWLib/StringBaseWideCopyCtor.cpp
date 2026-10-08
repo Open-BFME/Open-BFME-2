@@ -54,7 +54,3 @@ StringBase<wchar_t>::StringBase(const StringBase<wchar_t> &src)
 		LeaveCriticalSection(&lock->m_cs);
 	}
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??0UnicodeStringWN@@QAE@ABV0@@Z=??0?$StringBase@G@@AAE@ABV0@@Z")

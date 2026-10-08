@@ -37,7 +37,3 @@ _bstr_t::_bstr_t(const char *value)
 	if (!m_data)
 		_com_issue_error(0x8007000e);
 }
-
-// Other units call this body (pinned at its address) under the spelling(s)
-// below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:??0BfmeBstrVGP@@QAE@PBD@Z=??0_bstr_t@@QAE@PBD@Z")

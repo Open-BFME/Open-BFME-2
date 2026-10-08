@@ -106,9 +106,17 @@ struct SFWRec
 };
 
 
+// The ledger rows the gate at retail 0x0042FB8F (the donor's
+// killThemKillThemAll) as Rva0042FB8F::rva0042FB8F; call it by that name.
+class Rva0042FB8F
+{
+public:
+	Bool rva0042FB8F( Drawable *draw, GameMessage *createTeamMsg );
+};
+
 /*friend*/ Bool killThemKillThemAllWrapper( Drawable *draw, void *userData )
 {
 	SFWRec *info = (SFWRec *)userData;
-	info->translator->killThemKillThemAll( draw, info->createTeamMsg );
+	((Rva0042FB8F *)info->translator)->rva0042FB8F( draw, info->createTeamMsg );
 	return true;
 }

@@ -20,7 +20,7 @@ public:
 	{
 		baseConstruct();
 	}
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 	virtual ~BFME2NativeNetwork();
 private:
 	char m_flag04;

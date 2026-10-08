@@ -9,7 +9,7 @@ extern int g_00DD179C;
 // g_00DD179C: matched references place it at VA 0xdd179c (retail .data initial value -1).
 int g_00DD179C = -1;
 struct GlobalA01E48;
-extern struct GlobalA01E48 *g_Va00A01E48;
+extern class Shell *TheShell;
 class Shell {
 public:
     void push(AsciiString s, bool flag);
@@ -18,15 +18,15 @@ class Rva00222A8BTarget {
 public:
     void rva002233A6(int v);
 };
-extern class Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 void Rva0052192DInit(int a1)
 {
     if (g_00E04930 != 0)
         return;
     g_00DD179C = a1;
-    ((Shell *)g_Va00A01E48)->push(AsciiString("Skirmish.apt"), false);
+    ((Shell *)(*(GlobalA01E48 **)&TheShell))->push(AsciiString("Skirmish.apt"), false);
     if (g_00E04930 == 0)
         return;
-    TheRva00222A8BTarget->rva002233A6(1);
+    (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva002233A6(1);
 }

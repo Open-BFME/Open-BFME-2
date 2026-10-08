@@ -17,7 +17,7 @@ class Rva00222A8BTarget
 public:
 	int invoke(void *level, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
 };
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 #pragma comment(linker, "/alternatename:?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
 
 class Display
@@ -44,9 +44,6 @@ extern GameLogic *TheGameLogic;
 
 class GameWindowTransitionsHandler;
 extern GameWindowTransitionsHandler *TheTransitionHandler;
-// Native DIR32 0xDFDC14 is the transition singleton, defined in WinMain.cpp.
-// TheAudio is separately located at 0xDFE6E8. Use the established typed alias.
-#pragma comment(linker, "/alternatename:?TheTransitionHandler@@3PAVGameWindowTransitionsHandler@@A=?theBfmeDfdc14@@3PAVAudioManager@@A")
 
 class GameWindowTransitionsHandler
 {
@@ -67,9 +64,9 @@ private:
 
 void VictoryConditions::rva00420110()
 {
-	if (TheRva00222A8BTarget != 0 && m_10 != 0)
+	if ((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager) != 0 && m_10 != 0)
 	{
-		TheRva00222A8BTarget->invoke((void *)13, "HideEndGame", 0, 0, 0, 0, 0, 0);
+		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke((void *)13, "HideEndGame", 0, 0, 0, 0, 0, 0);
 		m_10 = 0;
 		TheDisplay->m_140 = 1;
 		if (((BfmeGlob939D *)TheGameLogic)->bfmeCall939D() != 0 && m_85 != 0)

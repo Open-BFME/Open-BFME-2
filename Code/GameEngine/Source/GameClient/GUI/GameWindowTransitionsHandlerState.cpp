@@ -31,7 +31,7 @@ public:
 	virtual void v16(); virtual void v17();
 	virtual GameMessage *appendMessage(GameMessage::Type type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 class HandlerLock
 {
@@ -195,7 +195,7 @@ void GameWindowTransitionsHandler::rva001DBEB6()
 		m_24 = 0;
 	if (m_unk51 && !m_24 && !m_28)
 	{
-		MessageStreamSubsystem->appendMessage(GameMessage::MSG_IDLE_70);
+		TheMessageStream->appendMessage(GameMessage::MSG_IDLE_70);
 		m_unk51 = false;
 	}
 }

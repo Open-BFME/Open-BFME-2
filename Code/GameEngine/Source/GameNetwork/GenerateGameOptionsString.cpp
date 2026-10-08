@@ -33,7 +33,7 @@ class GameInfo
 class LANGameInfo : public GameInfo
 {
 public:
-	Bool rva004477C7( void ) const;
+	Bool amIHost( void ) const;
 };
 
 class LANAPI : public VSlots<56>
@@ -48,7 +48,7 @@ AsciiString GameInfoToAsciiString( const GameInfo *game, Bool includeSlots );
 
 AsciiString GenerateGameOptionsString( void )
 {
-	if( !TheLAN->GetMyGame() || !TheLAN->GetMyGame()->rva004477C7() )
+	if( !TheLAN->GetMyGame() || !TheLAN->GetMyGame()->amIHost() )
 		return AsciiString::TheEmptyString;
 
 	return GameInfoToAsciiString( TheLAN->GetMyGame(), true );

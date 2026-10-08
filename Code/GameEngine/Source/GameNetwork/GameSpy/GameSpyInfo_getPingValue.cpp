@@ -102,7 +102,3 @@ Int GameSpyInfo::getPingValue(const AsciiString& otherPing)
 
 	return best * TheGameSpyConfig->getPingTimeoutInMs() / (255+255);
 }
-
-// Other units name this global (at the same address) with the spelling(s)
-// below; bind them to this definition.
-#pragma comment(linker, "/alternatename:?g_00E05FB4@@3PAVRva00E05FB4@@A=?TheGameSpyConfig@@3PAVGameSpyConfigInterface@@A")

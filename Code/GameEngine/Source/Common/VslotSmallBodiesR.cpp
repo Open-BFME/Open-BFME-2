@@ -244,7 +244,7 @@ struct Rva003FF271Global
 	char m_pad00[0x114];
 	Int m_114;
 };
-extern Rva003FF271Global *g_rva003FF271Global;
+extern class GameLogic *TheGameLogic;
 class Rva003FF271
 {
 public:
@@ -276,7 +276,7 @@ private:
 void Rva003FF271::rva003FF271(Int value)
 {
 	m_14 = value;
-	if (g_rva003FF271Global->m_114 == 3)
+	if ((*(Rva003FF271Global **)&TheGameLogic)->m_114 == 3)
 		v17();
 	m_11 = true;
 }

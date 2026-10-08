@@ -27,6 +27,13 @@
 #include "GameClient/Drawable.h"
 #include "GameClient/GameText.h"
 
+// The template lookup is the rowed Rva002D06CA::rva002D06CA.
+class Rva002D06CA
+{
+public:
+	void *rva002D06CA(const AsciiString *name);
+};
+
 class BfmeThingFactory
 {
 public:
@@ -44,7 +51,7 @@ void ProductionPrerequisite::resolveNames()
 	for (Int i = 0; i < m_prereqUnits.size(); i++)
 	{
 		m_prereqUnits[i].unit =
-			((BfmeThingFactory *)TheThingFactory)->findTemplate(m_prereqUnits[i].name);
+			(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_prereqUnits[i].name);
 		((BFMERetailAsciiString *)&m_prereqUnits[i].name)->releaseBuffer();
 	}
 }

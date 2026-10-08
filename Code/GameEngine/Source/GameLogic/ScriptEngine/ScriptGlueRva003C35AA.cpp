@@ -28,14 +28,14 @@ struct Rva00DFF0F8Obj
 	char m_pad[0x10];
 	Rva0052E3E6 *m_p10;
 };
-extern Rva00DFF0F8Obj *g_00DFF0F8;
+extern class AI *TheAI;
 
 void __stdcall Rva003C35AADo(const AsciiString *teamName, void *x, bool flag)
 {
 	PolygonTrigger *trigger = TheScriptEngine->getQualifiedTriggerAreaByName(*teamName);
 	if (trigger == 0)
 		return;
-	g_00DFF0F8->m_p10->rva0052E3E6(trigger, x);
+	(*(Rva00DFF0F8Obj **)&TheAI)->m_p10->rva0052E3E6(trigger, x);
 	if (flag != 0)
 		return;
 	TheScriptEngine->rva00209811(*teamName, x);

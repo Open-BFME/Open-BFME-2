@@ -10,7 +10,7 @@ class Rva00222A8BTarget
 public:
 	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
 };
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct Rva00517048
 {
 	char m_pad[0x274];
@@ -19,5 +19,5 @@ struct Rva00517048
 };
 void Rva00517048::rva00516EE9()
 {
-	TheRva00222A8BTarget->invoke(m_274Owner, "ChatMessageClose", 0, 0, 0, 0, 0, 0);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(m_274Owner, "ChatMessageClose", 0, 0, 0, 0, 0, 0);
 }

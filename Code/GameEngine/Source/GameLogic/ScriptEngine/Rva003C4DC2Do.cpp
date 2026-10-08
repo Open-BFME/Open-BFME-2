@@ -103,7 +103,7 @@ public:
 	virtual void rva0098(const Coord3D *pos) = 0;
 };
 extern TerrainLogic *TheTerrainLogic;
-extern Rva003C4DC2Holder *g_Va009FEA3C;
+extern class View *TheTacticalView;
 void __stdcall Rva003C4DC2Do(const AsciiString &name)
 {
 	TerrainLogic *logic = TheTerrainLogic;
@@ -117,7 +117,7 @@ void __stdcall Rva003C4DC2Do(const AsciiString &name)
 found:
 	{
 		float x = cur->m_x;
-		Rva003C4DC2Holder *holder = g_Va009FEA3C;
+		Rva003C4DC2Holder *holder = (*(Rva003C4DC2Holder **)&TheTacticalView);
 		Coord3D pos;
 		pos.x = x;
 		pos.y = cur->m_y;
@@ -125,5 +125,3 @@ found:
 		holder->rva0098(&pos);
 	}
 }
-// ?g_Va009FEA3C@@3PAVRva003C4DC2Holder@@A: the global at VA 0xdfea3c is ?TheTacticalView@@3PAVView@@A.
-#pragma comment(linker, "/alternatename:?g_Va009FEA3C@@3PAVRva003C4DC2Holder@@A=?TheTacticalView@@3PAVView@@A")

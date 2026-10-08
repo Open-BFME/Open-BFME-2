@@ -9,8 +9,12 @@
 
 class GateOpenAndCloseBehavior
 {
+	friend class Rva004E8FF6;
 public:
 	bool rva00498980();
+private:
+	void rva0049924B(bool open);			// rowed private members at 0x0049924B
+	void rva004992D5(bool open, bool flag);	// and 0x004992D5
 };
 
 class Player;
@@ -28,25 +32,15 @@ public:
 	Relationship rva004989DF(const Player *arg) const;
 };
 
-class Rva0049924B
-{
-public:
-	void rva0049924B(void *arg);
-};
 
-class Rva004992D5
-{
-public:
-	void rva004992D5(int flag, void *arg);
-};
-
-class Rva002E713F
+class Rva002E713FOwner
 {
 public:
 	void rva002E713F();
 };
 
-void *g_00DFF0F8 = 0;
+class AI;
+extern AI *TheAI;	// 0x009FF0F8, ai_Rva002FD791.cpp's global
 
 class Rva004E8FF6
 {
@@ -70,10 +64,10 @@ void Rva004E8FF6::rva004E8FF6(void *arg)
 		{
 			int r = ((Rva004989D7 *)o)->rva004989DF((const Player *)arg);
 			if (r == 0)
-				((Rva0049924B *)o)->rva0049924B((void *)r);
+				((GateOpenAndCloseBehavior *)o)->rva0049924B((bool)r);
 		}
 	}
-	((Rva002E713F *)*(void **)((char *)g_00DFF0F8 + 0x10))->rva002E713F();
+	((Rva002E713FOwner *)*(void **)((char *)TheAI + 0x10))->rva002E713F();
 }
 
 // ?rva004E9040@Rva004E8FF6@@QAEXPAX@Z @0x004E9040 76B.
@@ -87,8 +81,8 @@ void Rva004E8FF6::rva004E9040(void *arg)
 		{
 			int r = ((Rva004989D7 *)o)->rva004989DF((const Player *)arg);
 			if (r == 0)
-				((Rva004992D5 *)o)->rva004992D5(1, (void *)r);
+				((GateOpenAndCloseBehavior *)o)->rva004992D5(true, (bool)r);
 		}
 	}
-	((Rva002E713F *)*(void **)((char *)g_00DFF0F8 + 0x10))->rva002E713F();
+	((Rva002E713FOwner *)*(void **)((char *)TheAI + 0x10))->rva002E713F();
 }

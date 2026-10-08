@@ -26,7 +26,6 @@ private:
 
 #include "ascii_string.h"
 
-extern AsciiString g_emptyAsciiString;
 
 class CommandSetUpgradeModuleData : public Rva00253487Base
 {
@@ -41,7 +40,7 @@ private:
 // ??0CommandSetUpgradeModuleData@@QAE@XZ @0x255652
 inline CommandSetUpgradeModuleData::CommandSetUpgradeModuleData()
 {
-	m_commandSet = g_emptyAsciiString;
+	m_commandSet = AsciiString::TheEmptyString;
 }
 
 // Header inlines that the units including the header emit as select-any

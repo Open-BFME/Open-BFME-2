@@ -1,10 +1,14 @@
 class BfmeThingCFF;
 
-class BfmeOwnerCFF
+class BfmeOwnerCFF;
+
+// The owner is the Player and this the TeamPrototype (the ledger rows).
+class TeamPrototype;
+class Player
 {
 public:
-	void bfmeDetachCFF(BfmeThingCFF *what);
-	void bfmeAttachCFF(BfmeThingCFF *what);
+	void addTeamToList(TeamPrototype *team);
+	void removeTeamFromList(TeamPrototype *team);
 };
 
 class BfmeThingCFF
@@ -20,8 +24,8 @@ void BfmeThingCFF::bfmeGoCFF(BfmeOwnerCFF *owner)
 	if (owner != 0)
 	{
 		if (m_bfmeOwner != 0)
-			m_bfmeOwner->bfmeDetachCFF(this);
+			((Player *)m_bfmeOwner)->removeTeamFromList((TeamPrototype *)this);
 		m_bfmeOwner = owner;
-		owner->bfmeAttachCFF(this);
+		((Player *)owner)->addTeamToList((TeamPrototype *)this);
 	}
 }

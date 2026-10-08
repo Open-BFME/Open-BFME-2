@@ -13,7 +13,7 @@ public:
 	char _pad[4];
 };
 
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class Rva0023C322
 {
@@ -52,9 +52,9 @@ void Rva00514DDA::rva00514DDA(int arg)
 	if (arg != 3)
 		return;
 	if (m_0282 != 0)
-		((Rva0023C322 *)TheGameClient)->rva0023C322();
+		((Rva0023C322 *)((ClientFrameSubsystem *)TheGameClient))->rva0023C322();
 	else
-		((Rva00238E1B *)TheGameClient)->rva00238FC0();
+		((Rva00238E1B *)((ClientFrameSubsystem *)TheGameClient))->rva00238FC0();
 	TheMouse->_bfme_setEngineVisibility(false);
 	m_0288 = 0;
 }

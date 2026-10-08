@@ -29,12 +29,12 @@ public:
 	void *bfmeGetEME(void *item);
 };
 
-extern BfmeObjEME *g_bfmeObjEME;
+extern class Q1Receiver0134FAAC *TheQ1Receiver;
 
 // ?bfmeGoEMEa@@YA_NPAX@Z, retail 0x0061F170 (24B).
 bool bfmeGoEMEa(void *item)
 {
-	BfmeObjEME *registry = g_bfmeObjEME;
+	BfmeObjEME *registry = (*(BfmeObjEME **)&TheQ1Receiver);
 	if (!registry)
 		return false;
 	return registry->bfmeAskEME(item);
@@ -43,7 +43,7 @@ bool bfmeGoEMEa(void *item)
 // ?bfmeGoEMEb@@YAPAXPAX@Z, retail 0x0061F600 (24B).
 void *bfmeGoEMEb(void *item)
 {
-	BfmeObjEME *registry = g_bfmeObjEME;
+	BfmeObjEME *registry = (*(BfmeObjEME **)&TheQ1Receiver);
 	if (!registry)
 		return 0;
 	return registry->bfmeGetEME(item);
@@ -57,5 +57,3 @@ public:
 	void bfmeGoEMHa(void);
 	void bfmeGoEMHb(void);
 };
-// ?g_bfmeObjEME@@3PAVBfmeObjEME@@A: the global at VA 0xe09c0c is ?TheQ1Receiver@@3PAVQ1Receiver0134FAAC@@A.
-#pragma comment(linker, "/alternatename:?g_bfmeObjEME@@3PAVBfmeObjEME@@A=?TheQ1Receiver@@3PAVQ1Receiver0134FAAC@@A")

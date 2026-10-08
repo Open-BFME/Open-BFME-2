@@ -370,19 +370,19 @@ void __cdecl rva007B6C2A()
 	return p->Rva0090088::~Rva0090088();
 }
 
-class Rva00090771DwordImmSetter
+class Rva000906DE
 {
 public:
-	void apply();
+	virtual ~Rva000906DE();
 };
 
 extern unsigned g_Va00DE4878;
 
-// ?rva007B6C3E@@YAXXZ @ 0x007B6C3E (10B). Global Rva00090771DwordImmSetter thunk: ecx=&g_Va00DE4878 then tail-jmp to rowed ?apply@Rva00090771DwordImmSetter@@QAEXXZ (0x00090771).
+// ?rva007B6C3E@@YAXXZ @ 0x007B6C3E (10B). Global Rva000906DE dtor thunk: ecx=&g_Va00DE4878 then tail-jmp to rowed ??1Rva000906DE@@UAE@XZ (0x00090771).
 void __cdecl rva007B6C3E()
 {
-	Rva00090771DwordImmSetter *p = (Rva00090771DwordImmSetter *)&g_Va00DE4878;
-	return p->apply();
+	Rva000906DE *p = (Rva000906DE *)&g_Va00DE4878;
+	return p->Rva000906DE::~Rva000906DE();
 }
 
 class Rva001EAF7B

@@ -144,7 +144,7 @@ class ExperienceTracker
 {
 public:
 	Bool rva0039AE04() const; // 0x0039AE04
-	void rva0039B315(Real experience, Bool flag1, Bool flag2, Bool flag3, Int unused); // 0x0039B315
+	void rva0039B315(Real experience, Bool flag1, Bool flag2, Bool flag3, Bool unused); // 0x0039B315
 };
 
 class Object
@@ -284,7 +284,7 @@ UpdateSleepTime AutoDepositUpdate::update( void )
 
 		ExperienceTracker *xp = getObject()->getExperienceTracker();
 		if( !getAutoDepositUpdateModuleData()->m_giveNoXP && xp && xp->rva0039AE04() )
-			xp->rva0039B315( getAutoDepositUpdateModuleData()->m_depositAmount * multiplier, true, true, true, 0 );
+			xp->rva0039B315( getAutoDepositUpdateModuleData()->m_depositAmount * multiplier, true, true, true, false );
 
 		if( getAutoDepositUpdateModuleData()->m_depositAmount > 0 )
 		{

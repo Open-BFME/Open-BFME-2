@@ -25,7 +25,6 @@ extern "C"
 	extern char *__cdecl _mbscpy(char *dst, const char *src);
 }
 extern const char g_00BBD40C[];
-extern const char g_Rva0107301CEmptyString[];
 bool Rva00407AF9Run(const AsciiString &a, const AsciiString &b)
 {
 	STARTUPINFOA si;

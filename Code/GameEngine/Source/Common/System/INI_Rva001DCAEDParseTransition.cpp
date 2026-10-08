@@ -34,8 +34,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 // ?Rva00DFDC14Object@@3PAXA: the global at this VA is ?theBfmeDfdc14@@3PAVAudioManager@@A; this name is an alias for it.
-extern void * Rva00DFDC14Object;
-#pragma comment(linker, "/alternatename:?Rva00DFDC14Object@@3PAXA=?theBfmeDfdc14@@3PAVAudioManager@@A")
+extern class GameWindowTransitionsHandler *TheTransitionHandler;
 
 class INI
 {
@@ -48,6 +47,6 @@ public:
 void INI::Rva001DCAED_ParseTransition(INI *ini, void *instance, void *store, const void *userData)
 {
 	NameKeyType key = TheNameKeyGenerator->nameToKey(ini->getNextToken(0));
-	TransitionFunc *slot = (TransitionFunc *)((ObjectLookupMap *)((char *)Rva00DFDC14Object + 0xC))->findSlot((int *)&key);
+	TransitionFunc *slot = (TransitionFunc *)((ObjectLookupMap *)((char *)(*(void **)&TheTransitionHandler) + 0xC))->findSlot((int *)&key);
 	(*slot)(ini, instance, store, userData);
 }

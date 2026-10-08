@@ -7,8 +7,7 @@
 // g_Rva0107301CEmptyString, manager TheRva00222A8BTarget, sets +0x18 to 1,
 // tail-calls slot 1 of member at +0. Caller jmp at 0x005C3EE3.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva0052519DFire(void *a1, void *a2, const char *a3, const char *a4, int *a5);
 
 class Inner005C3EA5
@@ -35,8 +34,8 @@ private:
 void Rva005C3EA5::rva005C3EA5()
 {
     char *t = *(char **)(void *)&m_s08;
-    const char *s = t ? t + 8 : g_Rva0107301CEmptyString;
-    Rva0052519DFire(TheRva00222A8BTarget, m_p04, s, "Show", &m_i1C);
+    const char *s = t ? t + 8 : "";
+    Rva0052519DFire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_p04, s, "Show", &m_i1C);
     m_flag18 = 1;
     m_obj00->tail();
 }

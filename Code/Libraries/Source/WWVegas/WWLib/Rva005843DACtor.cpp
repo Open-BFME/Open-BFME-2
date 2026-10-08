@@ -21,7 +21,7 @@ struct SingletonDFE78C
 	char m_pad[0x40];
 	unsigned int m_40;
 };
-extern SingletonDFE78C *g_00DFE78C;
+extern class GameLogic *TheGameLogic;
 
 class Rva005D6FCC
 {
@@ -70,8 +70,6 @@ bool HordeMeleeSwarm::isUnitRotating(int i)
 bool HordeMeleeSwarm::canUnitRotate(int i)
 {
 	if (i >= 0 && i < m_vec.size())
-		return m_vec[i].m_14 > g_00DFE78C->m_40;
+		return m_vec[i].m_14 > (*(SingletonDFE78C **)&TheGameLogic)->m_40;
 	return false;
 }
-// ?g_00DFE78C@@3PAUSingletonDFE78C@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-#pragma comment(linker, "/alternatename:?g_00DFE78C@@3PAUSingletonDFE78C@@A=?TheGameLogic@@3PAVGameLogic@@A")

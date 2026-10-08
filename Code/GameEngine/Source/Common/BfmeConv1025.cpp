@@ -12,7 +12,7 @@ public:
 	char bfmeSay1025(char *t);
 };
 
-extern BfmeP1025 *g_bfmeP1025;
+extern class Q1Receiver0134FAAC *TheQ1Receiver;
 
 struct BfmeR1025
 {
@@ -22,7 +22,7 @@ struct BfmeR1025
 // ?bfmeGo1025F@@YADPAUBfmeR1025@@@Z, retail 0x0061F3E0 (45B).
 char bfmeGo1025F(BfmeR1025 *p)
 {
-	if (g_bfmeP1025 != 0) {
+	if ((*(BfmeP1025 **)&TheQ1Receiver) != 0) {
 		char *t;
 
 		if (p->m_bfmeName != 0)
@@ -30,10 +30,8 @@ char bfmeGo1025F(BfmeR1025 *p)
 		else
 			t = (char *)"";
 
-		return g_bfmeP1025->bfmeSay1025(t);
+		return (*(BfmeP1025 **)&TheQ1Receiver)->bfmeSay1025(t);
 	}
 
 	return 0;
 }
-// ?g_bfmeP1025@@3PAVBfmeP1025@@A: the global at VA 0xe09c0c is ?TheQ1Receiver@@3PAVQ1Receiver0134FAAC@@A.
-#pragma comment(linker, "/alternatename:?g_bfmeP1025@@3PAVBfmeP1025@@A=?TheQ1Receiver@@3PAVQ1Receiver0134FAAC@@A")

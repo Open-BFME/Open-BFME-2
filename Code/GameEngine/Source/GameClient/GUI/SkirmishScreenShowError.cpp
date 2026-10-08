@@ -25,7 +25,6 @@ public:
 	~UnicodeString() {}
 };
 
-extern const unsigned short g_Rva01088AF4EmptyWideString[];
 
 class GameWindow;
 GameWindow *MessageBoxOk(UnicodeString title, UnicodeString body,
@@ -41,6 +40,6 @@ public:
 void BfmeAptScreenSkirmish::showError(const UnicodeString &message, int show)
 {
 	if(--show == 0)
-		MessageBoxOk(UnicodeString(g_Rva01088AF4EmptyWideString),
+		MessageBoxOk(UnicodeString((const unsigned short *)L""),
 			message, 0);
 }

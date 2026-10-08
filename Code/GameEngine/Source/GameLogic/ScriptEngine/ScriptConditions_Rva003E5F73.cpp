@@ -29,7 +29,6 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-extern const char g_Rva0107301CEmptyString[];
 
 template <unsigned int N>
 class BitFlags
@@ -69,7 +68,7 @@ bool ScriptConditions::evaluatePlayerHasNumberObjectsWithModelCondition(Paramete
 	int total = 0;
 
 	void *holder = a->m_holder;
-	const char *name = holder ? (const char *)holder + 8 : g_Rva0107301CEmptyString;
+	const char *name = holder ? (const char *)holder + 8 : "";
 	int bit = BitFlags<304>::getSingleBitFromName(name);
 
 	while (mask != 0)

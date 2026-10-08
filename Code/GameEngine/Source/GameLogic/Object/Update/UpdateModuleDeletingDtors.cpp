@@ -40,10 +40,7 @@ void EmotionTrackerUpdate_Delete(EmotionTrackerUpdate *p) { delete p; }
 
 // ??_GDockUpdate@@UAEPAXI@Z @0x0058A177 28B: slot 0 of vtable 0x00C70378; calls ??1 at 0x0058A0F4.
 // Owner evidence (audited 2026-09-26): donor ctor RVA 0x0058A290 stores this primary vptr at RVA 0x0058A2C5 and a separate interface vptr at +0x20; slot-3 xfer RVA 0x0058A410 corroborates the dock fields and member order.
-class DockUpdate { public: __declspec(noinline) virtual ~DockUpdate(); };
-// ??1DockUpdate@@UAE@XZ present-unmatched
-DockUpdate::~DockUpdate() {}
-void DockUpdate_Delete(DockUpdate *p) { delete p; }
+// Rowed in Rva0058A0F4Dtor.cpp, the unit of the destructor it calls.
 
 // ?rva0049B8A0@Rva0049B8A0@@QAEXPAVINI@@PAX@Z @0x0049B8A0 234B
 // Bitstring-list INI driver, same shape as the KindOf driver Rva00256499
@@ -70,12 +67,11 @@ private:
 	void *m_data;
 };
 
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr0049B8A0(const Rva0033B84ETok &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 class Rva0049B750

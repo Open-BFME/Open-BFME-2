@@ -4,7 +4,6 @@
 // Evidence: callee rowed AptCall 0x00222B19; callers 0x00525606 0x00578157; prev 0x0052519D same pattern.
 #include "ascii_string.h"
 
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva00222A8BTarget
 {
@@ -15,7 +14,7 @@ public:
 static __forceinline const char *GetStr(const AsciiString &s)
 {
 	char *t = *(char **)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 int __cdecl Rva00525203Fire(void *a1, void *a2, const char *a3, const char *a4, const AsciiString *a5)

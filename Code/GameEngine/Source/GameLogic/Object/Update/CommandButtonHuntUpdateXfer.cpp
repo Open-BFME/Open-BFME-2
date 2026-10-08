@@ -122,17 +122,19 @@ public:
 	const CommandButton *getCommandButton( Int i ) const;
 };
 
-class ControlBar
+// ControlBar::findCommandSet (0x0031D5F8) is rowed as Rva0031D5F8::rva0031D5F8.
+class Rva0031D5F8
 {
 public:
-	const CommandSet *findCommandSet( const AsciiString &name );
+	void *rva0031D5F8( const AsciiString *name );
 };
+class ControlBar;
 extern ControlBar *TheControlBar;
 
 class Object
 {
 public:
-	const AsciiString &getCommandSetString( void ) const;
+	const AsciiString *rva00290E67( void ) const;	// getCommandSetString, rowed by address
 };
 
 class UpdateModule
@@ -187,7 +189,7 @@ void CommandButtonHuntUpdate::xfer( Xfer *xfer )
 		// BFME 2 keeps the out-of-line StringBase<char>::isEmpty call here
 		if( ((const StringBase<char> *)&m_commandButtonName)->isEmpty() == false )
 		{
-			const CommandSet *commandSet = TheControlBar->findCommandSet( getObject()->getCommandSetString() );
+			const CommandSet *commandSet = (const CommandSet *)((Rva0031D5F8 *)TheControlBar)->rva0031D5F8( getObject()->rva00290E67() );
 			if( commandSet )
 			{
 				for( Int i = 0; i < MAX_COMMANDS_PER_SET; i++ )

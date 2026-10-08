@@ -22,7 +22,9 @@ public:
 // OutwardEmissionVelocityModuleTemplate_cvtbl0: matched references place it at VA 0xc1bca0 (retail .rdata value 20).
 extern "C" char OutwardEmissionVelocityModuleTemplate_cvtbl0 = 20;
 extern "C" char OutwardEmissionVelocityModuleTemplate_cvtbl4;
-extern "C" char OutwardEmissionVelocityModuleTemplate_csub_vtbl;
+// Retail shares the 6-byte sub vtable at 0x0081BC80 with the cylindrical
+// template; CylindricalEmissionVelocityModuleTemplateCopyCtorThunk.cpp defines it.
+extern "C" char CylindricalEmissionVelocityModuleTemplate_csub_vtbl;
 
 class OutwardEmissionVelocityModuleTemplate
 {
@@ -46,7 +48,7 @@ OutwardEmissionVelocityModuleTemplate::OutwardEmissionVelocityModuleTemplate(
 		(OutwardEmissionVelocityModuleTemplateSubCopyShim *)((char *)this + 8);
 	sub->construct_from(sub_src);
 	// Sub vtbl then outer dual vtbls (retail store order).
-	*(void **)sub = &OutwardEmissionVelocityModuleTemplate_csub_vtbl;
+	*(void **)sub = &CylindricalEmissionVelocityModuleTemplate_csub_vtbl;
 	m_v0 = &OutwardEmissionVelocityModuleTemplate_cvtbl0;
 	m_v4 = &OutwardEmissionVelocityModuleTemplate_cvtbl4;
 }

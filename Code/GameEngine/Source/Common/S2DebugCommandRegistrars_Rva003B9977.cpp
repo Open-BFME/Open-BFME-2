@@ -66,8 +66,8 @@ public:
 	virtual bool registerCommand( const char *text );
 };
 
-extern void *g_Rva00F36E5C;
-#define TheGen001336E5C ((Gen001336E5C *)g_Rva00F36E5C)
+extern class Debug *theDebug;
+#define TheGen001336E5C ((Gen001336E5C *)(*(void **)&theDebug))
 
 #define BFME_DEBUG_COMMAND_REGISTRAR( NAME, TEXT )                        	int NAME( void )                                                      	{                                                                     		TheGen001336E5C->registerCommand( TEXT );                         		return 1;                                                         	}
 

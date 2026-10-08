@@ -82,18 +82,11 @@ void Rva003F61C6EmitAnchor(_STL::vector<Rva003F61C6Record> *v,Rva003F61C6Record*
 
 #pragma comment(linker, "/alternatename:??4Rva003F61C6Record@@QAEAAU0@ABU0@@Z=??4Rva003F610FElement@@QAEAAU0@ABU0@@Z")
 
-#pragma comment(linker, "/alternatename:??$__copy_backward_ptrs@PAURva003F61C6Record@@PAU1@@_STL@@YAPAURva003F61C6Record@@PAU1@00ABU__false_type@0@@Z=?backwardDispatchRva003F58A3@@YAPAURva003F5B3ERecord@@PAU1@00ABURva003F5B3EEmpty@@@Z")
 
-#pragma comment(linker, "/alternatename:??$__copy_backward@PAURva003F61C6Record@@PAU1@H@_STL@@YAPAURva003F61C6Record@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z=?Rva003F5584CopyBackward@@YAPADPAD00@Z")
 
-#pragma comment(linker, "/alternatename:??$__uninitialized_copy@PAURva003F61C6Record@@PAU1@@_STL@@YAPAURva003F61C6Record@@PAU1@00ABU__false_type@0@@Z=??$__uninitialized_copy@PBUBfmePod48@@PAU1@@_STL@@YAPAUBfmePod48@@PBU1@0PAU1@ABU__false_type@0@@Z")
 
-#pragma comment(linker, "/alternatename:??$fill@PAURva003F61C6Record@@U1@@_STL@@YAXPAURva003F61C6Record@@0ABU1@@Z=?Rva003F58C0Fill@@YAXPAD00@Z")
 
-#pragma comment(linker, "/alternatename:??$uninitialized_fill_n@PAURva003F61C6Record@@IU1@@_STL@@YAPAURva003F61C6Record@@PAU1@IABU1@@Z=??$uninitialized_fill_n@PAUBfmePod48@@IU1@@_STL@@YAPAUBfmePod48@@PAU1@IABU1@@Z")
 
-#pragma comment(linker, "/alternatename:??$__uninitialized_fill_n@PAURva003F61C6Record@@IU1@@_STL@@YAPAURva003F61C6Record@@PAU1@IABU1@ABU__false_type@0@@Z=??$__uninitialized_fill_n@PAUBfmePod48@@IU1@@_STL@@YAPAUBfmePod48@@PAU1@IABU1@ABU__false_type@0@@Z")
 
 #pragma comment(linker, "/alternatename:??$_Construct@URva003F61C6Record@@U1@@_STL@@YAXPAURva003F61C6Record@@ABU1@@Z=??$_Construct@URva003F610FElement@@U1@@_STL@@YAXPAURva003F610FElement@@ABU1@@Z")
 
-#pragma comment(linker, "/alternatename:?_M_insert_overflow@?$vector@URva003F61C6Record@@V?$allocator@URva003F61C6Record@@@_STL@@@_STL@@IAEXPAURva003F61C6Record@@ABU3@ABU__false_type@2@I_N@Z=?_M_insert_overflow@?$vector@URva003F610FElement@@V?$allocator@URva003F610FElement@@@_STL@@@_STL@@IAEXPAURva003F610FElement@@ABU3@ABU__false_type@2@I_N@Z")

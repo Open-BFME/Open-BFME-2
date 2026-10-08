@@ -22,8 +22,8 @@ public:
 	Rva002D752DNode *rva002D752D(const StringBase<char> &name);
 };
 
-extern ImageCollection *g_00DFF078;
-extern Rva002D752D *g_00DFF068;
+extern ImageCollection *TheMappedImageCollection;
+class Rva002D752D; extern class Anim2DCollection *TheAnim2DCollection;
 extern const Image *g_00DFEB70;
 extern const Image *g_00DFEB74;
 extern const Image *g_00DFEB80;
@@ -53,85 +53,85 @@ void Rva00274E7DInit(void)
 		return;
 	{
 		AsciiString tmp("SCPAmmoFull");
-		g_00DFEB70 = g_00DFF078->findImageByName(tmp);
+		g_00DFEB70 = TheMappedImageCollection->findImageByName(tmp);
 	}
 	{
 		AsciiString tmp("SCPAmmoEmpty");
-		g_00DFEB74 = g_00DFF078->findImageByName(tmp);
+		g_00DFEB74 = TheMappedImageCollection->findImageByName(tmp);
 	}
 	{
 		AsciiString tmp("ContainPip");
-		g_00DFEB80 = g_00DFF078->findImageByName(tmp);
+		g_00DFEB80 = TheMappedImageCollection->findImageByName(tmp);
 	}
 	{
 		AsciiString tmp("ContainPipFrame");
-		g_00DFEB84 = g_00DFF078->findImageByName(tmp);
+		g_00DFEB84 = TheMappedImageCollection->findImageByName(tmp);
 	}
 	g_00DFEB78 = (Rva002D752DNode **)operator new[](0x38);
 	{
 		AsciiString tmp(g_00DBB660);
-		g_00DFEB78[0] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[0] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	{
 		AsciiString tmp(g_00DBB664);
-		g_00DFEB78[1] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[1] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	{
 		AsciiString tmp(g_00DBB668);
-		g_00DFEB78[2] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[2] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	{
 		AsciiString tmp(g_00DBB670);
-		g_00DFEB78[4] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[4] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	{
 		AsciiString tmp(g_00DBB674);
-		g_00DFEB78[5] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[5] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	{
 		AsciiString tmp(g_00DBB678);
-		g_00DFEB78[6] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[6] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	{
 		AsciiString tmp(g_00DBB67C);
-		g_00DFEB78[7] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[7] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	{
 		AsciiString tmp(g_00DBB680);
-		g_00DFEB78[8] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[8] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	{
 		AsciiString tmp(g_00DBB684);
-		g_00DFEB78[9] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[9] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	g_00DFEB78[10] = 0;
 	{
 		AsciiString tmp(g_00DBB68C);
-		g_00DFEB78[11] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[11] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	{
 		AsciiString tmp(g_00DBB690);
-		g_00DFEB78[12] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[12] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	{
 		AsciiString tmp(g_00DBB694);
-		g_00DFEB78[13] = g_00DFF068->rva002D752D(*(const StringBase<char> *)&tmp);
+		g_00DFEB78[13] = ((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&tmp);
 	}
 	{
 		AsciiString tmp("Good_Vet");
-		g_00DFEB88 = g_00DFF078->findImageByName(tmp);
+		g_00DFEB88 = TheMappedImageCollection->findImageByName(tmp);
 	}
 	{
 		AsciiString tmp("Good_Vet_Dot");
-		g_00DFEB8C = g_00DFF078->findImageByName(tmp);
+		g_00DFEB8C = TheMappedImageCollection->findImageByName(tmp);
 	}
 	{
 		AsciiString tmp("Evil_Vet");
-		g_00DFEB90 = g_00DFF078->findImageByName(tmp);
+		g_00DFEB90 = TheMappedImageCollection->findImageByName(tmp);
 	}
 	{
 		AsciiString tmp("Evil_Vet_Dot");
-		g_00DFEB94 = g_00DFF078->findImageByName(tmp);
+		g_00DFEB94 = TheMappedImageCollection->findImageByName(tmp);
 	}
 	g_00DFEB6C = 1;
 }

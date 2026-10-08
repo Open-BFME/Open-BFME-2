@@ -67,7 +67,7 @@ public:
 	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
 };
 
-static UpgradeCenter *TheUpgradeCenter;
+extern UpgradeCenter *TheUpgradeCenter;	// Upgrade.cpp's global (0x009FEB60)
 
 struct INIException
 {

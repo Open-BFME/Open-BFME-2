@@ -18,7 +18,7 @@ public:
     virtual void _d16(); virtual void _d17();
     virtual GameMessage *createMessage(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 struct Inner005FA91C {
     char m_pad[0x34];
     int m_val34;
@@ -43,7 +43,7 @@ struct Rva005FA91C {
 };
 void Rva005FA91C::rva005FA91C(int idx)
 {
-    GameMessage *msg = MessageStreamSubsystem->createMessage(0x6B4);
+    GameMessage *msg = TheMessageStream->createMessage(0x6B4);
     msg->appendIntegerArgument(m_ptr4->m_ptr14->m_val34);
     msg->appendIntegerArgument(m_ptr4->m_val18);
     msg->appendIntegerArgument(m_ptr4->m_val1C);

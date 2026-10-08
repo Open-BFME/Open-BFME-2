@@ -54,8 +54,8 @@ extern PlayerList *ThePlayerList;
 class Player
 {
 public:
-	typedef void (*ObjectIterateFunc)(Object *, void *);
-	void iterateObjects(ObjectIterateFunc func, void *userData) const;
+	typedef int (*ObjectIterateFunc)(Object *, void *);
+	int iterateObjects(ObjectIterateFunc func, void *userData) const;
 	Relationship getRelationship(const Team *team) const;
 };
 class Team
@@ -79,6 +79,6 @@ void __stdcall Rva004381C4Iterate(const Object *obj)
 		const Team *team = *(const Team *const *)((const char *)ctrl + 0x2EC);
 		if (player->getRelationship(team) != Rel_Zero)
 			continue;
-		player->iterateObjects(Rva00373DBEIterateCallback, (void *)obj);
+		player->iterateObjects((int (*)(Object *, void *))Rva00373DBEIterateCallback, (void *)obj);
 	}
 }

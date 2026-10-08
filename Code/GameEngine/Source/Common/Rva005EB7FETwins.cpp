@@ -6,7 +6,7 @@
 class Rva00222A8BTarget
 {
 public:
-	void rva0022277D(void *v);
+	bool rva0022277D(int v);
 };
 
 // Bind to the existing data-ledger owner; keep the retail access view local.
@@ -32,7 +32,7 @@ void Rva005EB7FE::rva005EB7FE()
 {
 	m00->m0c = 0;
 	if (m00->m08 != 0) {
-		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva0022277D((void *)m00->m04);
+		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva0022277D((int)m00->m04);
 		m00->m08 = 0;
 	}
 }

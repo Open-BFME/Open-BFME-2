@@ -34,13 +34,13 @@ public:
 	void *rva0028C197() const;
 };
 
-class Rva004D759C
+class StateMachine
 {
 public:
-	virtual ~Rva004D759C();
+	virtual ~StateMachine();
 };
 
-class Rva0033FBB7 : public Rva004D759C
+class Rva0033FBB7 : public StateMachine
 {
 public:
 	virtual ~Rva0033FBB7();

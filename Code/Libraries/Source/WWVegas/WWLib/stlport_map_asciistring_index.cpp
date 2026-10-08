@@ -94,7 +94,3 @@ typedef _STL::map<AsciiString, IndexMapValueF, _STL::less<AsciiString>,
 
 // retail 0x00476F70, over the tree whose _M_lower_bound is at 0x00474CD0
 template IndexMapValueF &IndexMapF::operator[]( const AsciiString & );
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??0Rva0021915B@@QAE@ABV0@@Z=??0?$pair@$$CBVAsciiString@@D@_STL@@QAE@ABU01@@Z")

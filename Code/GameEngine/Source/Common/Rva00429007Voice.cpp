@@ -39,7 +39,7 @@ public:
 	virtual void v16(); virtual void v17();
 	virtual GameMessage *createMessage(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 struct Sub741
 {
@@ -133,7 +133,7 @@ int Rva00429007::rva00429007(Arg *a, int b)
 			Rva004D92FE info;
 			info.m_04 = (int)a;
 			pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), type, (PickAndPlayInfo *)&info);
-			GameMessage *msg = MessageStreamSubsystem->createMessage((int)type);
+			GameMessage *msg = TheMessageStream->createMessage((int)type);
 			msg->appendObjectIDArgument((ObjectID)0);
 			msg->appendObjectIDArgument(a->m_innerFC->m_id74);
 		}

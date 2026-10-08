@@ -3,8 +3,7 @@
 // Honest address name: __thiscall FadeOut AptCall with team-name fallback, twin of 0x005C394D Go.
 // Target evidence: retail mov eax,[ecx+8] test je add 8 plus pushes, rowed 0x00524EF4 callee, literal FadeOut, manager TheRva00222A8BTarget, empty fallback g_Rva0107301CEmptyString, state 2 at +0x18, caller jmp at 0x005FD8C4.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
 struct Rva005F9330Holder
@@ -27,7 +26,7 @@ private:
 
 void Rva005F9330::rva005F9330()
 {
-    const char *team = m_team08 ? (const char *)m_team08 + 8 : g_Rva0107301CEmptyString;
-    Rva00524EF4AptCall(TheRva00222A8BTarget, m_level04, team, "FadeOut");
+    const char *team = m_team08 ? (const char *)m_team08 + 8 : "";
+    Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "FadeOut");
     m_state18 = 2;
 }

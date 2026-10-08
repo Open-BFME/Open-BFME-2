@@ -107,8 +107,6 @@ public:
 };
 
 extern GameTextInterface *TheGameText;
-extern unsigned short g_Va007BB5C4;
-extern const char g_Rva0107301CEmptyString[];
 
 void __cdecl Rva005EF096Set(int level, Rva005EF096Outer *outer, int a, int b)
 {
@@ -117,11 +115,11 @@ void __cdecl Rva005EF096Set(int level, Rva005EF096Outer *outer, int a, int b)
 	UnicodeString fetched = TheGameText->fetch("STRATEGICHUD:StatsCommandPoints", &exists);
 	if (exists)
 	{
-		const wchar_t *fmt = fetched.m_data.m_data ? fetched.m_data.m_data->data : (const wchar_t *)&g_Va007BB5C4;
+		const wchar_t *fmt = fetched.m_data.m_data ? fetched.m_data.m_data->data : L"";
 		tmp.format(fmt, a, b);
 	}
 	AsciiString key;
-	const char *mid = outer->m_ptr ? outer->m_ptr->m_name : g_Rva0107301CEmptyString;
+	const char *mid = outer->m_ptr ? outer->m_ptr->m_name : "";
 	key.format("APT:_level%u.%s_CommandPoints", level, mid);
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, tmp, true);
 }

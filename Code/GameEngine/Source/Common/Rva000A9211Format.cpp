@@ -13,7 +13,7 @@ public:
 	void rva00223E4B(void *a, char *buf);
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 void *Rva006CB9D0(const char *s);
 
@@ -21,7 +21,7 @@ void *Rva006CB9D0(const char *s);
 void *rva000A9211(void *a)
 {
 	char buf[256];
-	TheRva00222A8BTarget->rva00223E4B(a, buf);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva00223E4B(a, buf);
 	return Rva006CB9D0(buf);
 }
 

@@ -230,7 +230,6 @@ struct W3DShadowGeometryMesh
 
 typedef char W3DShadowGeometryMesh_must_be_0x34[(sizeof(W3DShadowGeometryMesh) == 0x34) ? 1 : -1];
 
-extern const char g_bfmeEmptyF9[];
 
 // Target layout view: W3DShadowGeometry+0x10 contains one buffer pointer;
 // retail uses it as [buffer + 8] and falls back to the rowed empty string.
@@ -240,7 +239,7 @@ public:
     Rva000055F5StringView &rva000055F5(const char *value);
     const char *Peek_Buffer() const
     {
-        return m_buffer ? (const char *)m_buffer + 8 : g_bfmeEmptyF9;
+        return m_buffer ? (const char *)m_buffer + 8 : "";
     }
 private:
     char *m_buffer;

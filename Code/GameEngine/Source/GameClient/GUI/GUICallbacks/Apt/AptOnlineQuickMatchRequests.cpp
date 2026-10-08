@@ -6,10 +6,10 @@
 // registration; that binding is their only reference. Each posts a peer
 // thread request (Rva0059FF9DDo.cpp's record and queue views).
 
-struct BfmeOpaqueOwnedRecord492
+struct PeerRequest
 {
-	BfmeOpaqueOwnedRecord492();
-	~BfmeOpaqueOwnedRecord492();
+	PeerRequest();
+	~PeerRequest();
 
 	int unknown_00;
 	unsigned char m_rest[0x1EC - 0x04];
@@ -23,10 +23,11 @@ struct Global003EF728V6
 	virtual void f3();
 	virtual void f4();
 	virtual void f5();
-	virtual void f6(BfmeOpaqueOwnedRecord492 *rec);
+	virtual void f6(PeerRequest *rec);
 };
 
-extern Global003EF728V6 *g_00A02340;
+class GameSpyPeerMessageQueueInterface;
+extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 
 // Native Cancel forwards through the screen's +0x58 owner to the verified
 // AptOnline::rva00516F08 body. Represent its named nested screen as a nested
@@ -55,18 +56,18 @@ public:
 // posts request 0x11.
 void AptOnline::OnlineQuickMatch::WidenSearch(const char *unused)
 {
-	BfmeOpaqueOwnedRecord492 request;
+	PeerRequest request;
 	request.unknown_00 = 0x11;
-	g_00A02340->f6(&request);
+	((Global003EF728V6 *)TheGameSpyPeerMessageQueue)->f6(&request);
 }
 
 // Retail 0x005BAAA3, 104 bytes: "AptOnline::OnlineQuickMatch::Cancel" posts
 // request 0x12, resets the state and tells the owner.
 void AptOnline::OnlineQuickMatch::Cancel(const char *unused)
 {
-	BfmeOpaqueOwnedRecord492 request;
+	PeerRequest request;
 	request.unknown_00 = 0x12;
-	g_00A02340->f6(&request);
+	((Global003EF728V6 *)TheGameSpyPeerMessageQueue)->f6(&request);
 	m_state = 0;
 	m_owner->rva00516F08();
 }

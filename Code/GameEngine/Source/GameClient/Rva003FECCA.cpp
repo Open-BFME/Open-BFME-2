@@ -11,7 +11,7 @@ public:
 	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // Native DIR32 at body+0x2A reads VA 0x00DC1A0C, the owner defined
 // by UiCallbackFirers.cpp; tooltip callbacks use VA 0x00DC06A0.
 extern void *TheRva009C1A0COwner;
@@ -24,5 +24,5 @@ void __cdecl Rva003FECCASetPlayerFaction(void **pp)
 		s = (const char *)p + 8;
 	else
 		s = "";
-	TheRva00222A8BTarget->invoke(TheRva009C1A0COwner, "SetPlayerFaction", 1, s, 0, 0, 0, 0);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(TheRva009C1A0COwner, "SetPlayerFaction", 1, s, 0, 0, 0, 0);
 }

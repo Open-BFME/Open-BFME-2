@@ -10,7 +10,7 @@ class CountedAsset { public: void Release_Ref(); };
 class Rva00782CB0
 {
 public:
-    virtual ~Rva00782CB0() {}
+    virtual ~Rva00782CB0();
 };
 class Rva00785140Handle : public Rva00782CB0
 {
@@ -23,4 +23,10 @@ Rva00785140Handle::~Rva00785140Handle()
 {
     if (m_target)
         m_target->Release_Ref();
+}
+
+// ??1Rva00782CB0@@UAE@XZ @0x000A8EC2 7B: the empty dtor, restoring the vtable (the
+// deleting dtor still expands it inline).
+Rva00782CB0::~Rva00782CB0()
+{
 }

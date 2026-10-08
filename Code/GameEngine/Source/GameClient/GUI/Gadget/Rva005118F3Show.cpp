@@ -38,7 +38,7 @@ struct Rva00511730State
 extern int g_Va00E046BC;
 extern Rva00511730State *g_Va00E046B8;
 extern UnicodeString g_Va00E048C0;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 void __cdecl Rva00381C2DClear(unsigned int idx);
 
 void __cdecl Rva005118F3Show(int index, bool clear)
@@ -47,7 +47,7 @@ void __cdecl Rva005118F3Show(int index, bool clear)
 		int old = g_Va00E046BC;
 		g_Va00E046BC = index;
 		if (g_Va00E046B8 != 0) {
-			TheRva00222A8BTarget->invoke(g_Va00E046B8->m_274, "ShowActiveTab", 0, 0, 0, 0, 0, 0);
+			(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(g_Va00E046B8->m_274, "ShowActiveTab", 0, 0, 0, 0, 0, 0);
 			g_Va00E046B8->m_flag29C = 1;
 			Rva005AFD43 *oldWin = g_Va00E046B8->m_array280[old];
 			Rva005AFD43 *newWin = g_Va00E046B8->m_array280[g_Va00E046BC];

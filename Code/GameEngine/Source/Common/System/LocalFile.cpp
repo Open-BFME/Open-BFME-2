@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /G7 /arch:SSE
 // Open-BFME5: LocalFile, retail vtable 0x01143D38.
 //
 // File.cpp already pins this class by construction: 0x009D23E0 installs
@@ -229,22 +229,8 @@ class RAMFile : public File
 public:
 	RAMFile();
 	virtual ~RAMFile();
-	// The constructor and the two emitted RAMFile tables must use one
-	// declaration order: File overrides, then open(File*) at 17,
-	// openFromArchive at 18 and copyDataToFile at 19 (retail 0x0087AA00).
-	virtual bool open(const char *filename, int access);
 	virtual bool open( File *file );
 	virtual void close( void );
-	virtual int read(void *buffer, int bytes);
-	virtual int write(const void *buffer, int bytes);
-	virtual int seek(int pos, seekMode mode);
-	virtual void nextLine(char *buf, int bufSize);
-	virtual bool scanInt(int &value);
-	virtual bool scanReal(float &value);
-	virtual bool scanString(AsciiString &value);
-	virtual char *readEntireAndClose();
-	virtual File *convertToRAMFile();
-	virtual bool openFromArchive(File *archiveFile, const AsciiString &filename, int offset, int size);
 	virtual bool copyDataToFile( File *file );
 
 protected:
@@ -270,16 +256,6 @@ protected:
 	int m_startingPos;	// +0x24
 	int m_curPos;		// +0x28
 };
-
-// ??0StreamingArchiveFile@@QAE@XZ, RVA 0x00605A28 (29 bytes).
-// The installed table 0x0087AA50 contains the verified streaming archive
-// openFromArchive/read/seek/close methods; its base call is RAMFile 0x6054E7.
-// Zeroed fields at +0x20/+0x24/+0x28 are file/start/current position.
-// The former EjectPilotDieModuleData spelling came from a shape-only placement.
-StreamingArchiveFile::StreamingArchiveFile()
-	: m_file(0), m_startingPos(0), m_curPos(0)
-{
-}
 
 class FileSystem
 {
@@ -327,6 +303,17 @@ LocalFile::~LocalFile()
 
 }
 
+// ??0RAMFile@@QAE@XZ, retail 0x006054E7, 29 bytes. Calls the rowed File ctor
+// 0x006024FD, zeroes m_data/m_pos/m_size at +0x14/+0x18/+0x1C and stores
+// RAMFile's vtable 0x0087AA00 (slot 0 ??_GRAMFile, slots 2/3/5/6 the rowed
+// RAMFile close/read/seek/nextLine). ZH RAMFile::RAMFile. Callers are
+// LocalFile::convertToRAMFile (new RAMFile) and the StreamingArchiveFile ctor
+// 0x00605A28. Previously rowed as DieModuleData's ctor in its own unit.
+RAMFile::RAMFile()
+	: m_data(0), m_pos(0), m_size(0)
+{
+}
+
 // ??1RAMFile@@UAE@XZ, retail 0x00605504, 67 bytes. RAMFile destructor: stores
 // vtable 0x0087AA00, array-deletes m_data at +0x14 via rowed ??_V 0x0002FD80,
 // calls rowed File::close 0x0060259A, then the rowed File dtor 0x006025CE.
@@ -338,6 +325,17 @@ RAMFile::~RAMFile()
 {
 	::operator delete[](m_data);
 	File::close();
+}
+
+// ??0StreamingArchiveFile@@QAE@XZ, retail 0x00605A28, 29 bytes. Calls the
+// RAMFile ctor 0x006054E7, zeroes m_file/m_startingPos/m_curPos at
+// +0x20/+0x24/+0x28 and stores StreamingArchiveFile's vtable 0x0087AA50.
+// ZH StreamingArchiveFile::StreamingArchiveFile. Previously rowed as
+// EjectPilotDieModuleData's ctor, a whole-.text placement of a body whose
+// bytes happen to agree; a ModuleData cannot have a RAMFile base.
+StreamingArchiveFile::StreamingArchiveFile()
+	: m_file(0), m_startingPos(0), m_curPos(0)
+{
 }
 
 // ??1StreamingArchiveFile@@UAE@XZ, retail 0x00605A45, 56 bytes.

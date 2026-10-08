@@ -4,8 +4,8 @@
 // Evidence: this passed through to rowed getRelativeAngle2D 0x2C9BE4 and to
 // rowed rva002C9BC3 0x2C9BC3 and rva002C9B80 0x2C9B80; callers in 0x2FAD13 and
 // 0x2FC9B1; neighbours Weapon getAttackRange and isWithinTargetPitch give
-// Object layout with float at +0xBC; rows for the two void callees say void
-// but their st0 is returned here so the float tail shares the epilogue.
+// Object layout with float at +0xBC; both callees return float (st0), which
+// is returned here so the float tail shares the epilogue.
 class Object {
 public:
     unsigned char _00[0xBC];
@@ -18,11 +18,11 @@ public:
 };
 class Rva002C9BC3Owner {
 public:
-    void rva002C9BC3(void *a, void *b);
+    float rva002C9BC3(void *a, void *b);
 };
 class Rva002C9B80Owner {
 public:
-    void rva002C9B80(void *a, float b);
+    float rva002C9B80(void *a, float b);
 };
 float PartitionManager::rva002C9C37(const Object *a, const Object *b, void *c)
 {
@@ -32,8 +32,8 @@ float PartitionManager::rva002C9C37(const Object *a, const Object *b, void *c)
         ang += b->m_orientBC;
         return ang;
     } else if (c) {
-        ((Rva002C9BC3Owner *)this)->rva002C9BC3((void *)a, c);
+        return ((Rva002C9BC3Owner *)this)->rva002C9BC3((void *)a, c);
     } else {
-        ((Rva002C9B80Owner *)this)->rva002C9B80((void *)a, 0.0f);
+        return ((Rva002C9B80Owner *)this)->rva002C9B80((void *)a, 0.0f);
     }
 }

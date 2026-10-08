@@ -37,7 +37,7 @@ public:
 	virtual GameMessage *appendMessage(GameMessage::Type type);
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 struct Rva002B5F8AHolder98
 {
@@ -70,7 +70,7 @@ bool Rva002B5F8A::rva002B5F8A()
 {
 	if (m_f4 < 6) {
 		if (((Rva002B5EB5 *)this)->rva002B5EB5()) {
-			GameMessage *m = MessageStreamSubsystem->appendMessage(GameMessage::T_6A6);
+			GameMessage *m = TheMessageStream->appendMessage(GameMessage::T_6A6);
 			m->appendIntegerArgument(m_fc);
 			m->appendIntegerArgument(m_f4);
 			m->appendIntegerArgument(m_ptr98->m_14);

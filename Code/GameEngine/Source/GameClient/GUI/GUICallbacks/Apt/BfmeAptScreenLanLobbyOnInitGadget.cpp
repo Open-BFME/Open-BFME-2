@@ -373,8 +373,7 @@ public:
 	unsigned char m_pad5e[0x60 - 0x5E];
 };
 
-extern LANAPI *g_00DFE958;
-#define TheLAN g_00DFE958
+class LANAPI; extern LANAPI *TheLAN;
 
 class AptLanLobby
 {

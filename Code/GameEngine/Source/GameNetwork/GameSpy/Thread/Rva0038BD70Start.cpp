@@ -19,7 +19,6 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 
 typedef void *PEER;
 
-extern const char g_Rva0107301CEmptyString[];
 extern "C" void peerStartGameA(PEER peer, const char *msg, int opt);
 
 class Rva0038BDEEReceiver

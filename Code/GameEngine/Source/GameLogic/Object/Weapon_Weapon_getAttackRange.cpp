@@ -482,7 +482,6 @@ public:
 	AsciiString getName() const;
 };
 
-#pragma comment(linker, "/alternatename:?getName@Rva00034045NameAccessor@@QBE?AVAsciiString@@XZ=?j_00034045@@YAXXZ")
 
 struct BfmeWeaponLayout
 {
@@ -516,8 +515,6 @@ typedef char BfmeWeaponLayoutVectorOffset[(offsetof(BfmeWeaponLayout, m_scatterT
 extern void friend_xferObjectID(Xfer *xfer, ObjectID *objectID);
 extern void bfmeWeaponSlotXfer(Xfer *xfer, void *value);
 extern void bfmeWeaponStatusXfer(Xfer *xfer, void *value);
-#pragma comment(linker, "/alternatename:?bfmeWeaponSlotXfer@@YAXPAVXfer@@PAX@Z=?j_0002bfa8@@YAXXZ")
-#pragma comment(linker, "/alternatename:?bfmeWeaponStatusXfer@@YAXPAVXfer@@PAX@Z=?j_000399dc@@YAXXZ")
 
   // end xfer
 

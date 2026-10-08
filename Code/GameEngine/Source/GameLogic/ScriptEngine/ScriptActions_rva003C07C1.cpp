@@ -53,7 +53,7 @@ public:
 
 struct BfmeWorldRV;
 extern class ScriptEngine *TheScriptEngine;
-extern struct BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 extern class AI *TheAI;
 
 void __stdcall Rva003C07C1Do(const AsciiString &teamName, const AsciiString &commandName, const AsciiString &unitName)
@@ -64,7 +64,7 @@ void __stdcall Rva003C07C1Do(const AsciiString &teamName, const AsciiString &com
 	Object *target = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue((AsciiString &)unitName);
 	if (target == 0)
 		return;
-	const CommandButton *button = ((ControlBar *)g_bfmeWorldRV)->findCommandButton(commandName);
+	const CommandButton *button = ((ControlBar *)(*(BfmeWorldRV **)&TheControlBar))->findCommandButton(commandName);
 	if (button == 0)
 		return;
 	AIGroup *group = TheAI->createGroup();

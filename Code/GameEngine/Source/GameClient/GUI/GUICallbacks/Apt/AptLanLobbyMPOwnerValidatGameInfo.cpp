@@ -11,13 +11,15 @@
 // LANAPI::ValidateGameInfo (0x00449969, the callee below), and retail's LAN
 // lobby owner vftable holds it.
 
-class Gen00024B7C
+class LANGameInfo;
+class LANAPI
 {
-public:
-	unsigned char handle(int a);
+	friend class AptLanLobby;
+protected:
+	bool ValidateGameInfo(LANGameInfo *game);
 };
 
-extern Gen00024B7C *g_Va012F7730;
+extern class LANAPI *TheLAN;
 
 class AptLanLobby
 {
@@ -27,11 +29,10 @@ public:
 
 unsigned char AptLanLobby::MPOwnerValidatGameInfo(int a)
 {
-	if (g_Va012F7730)
-		return g_Va012F7730->handle(a);
+	if (TheLAN)
+		return TheLAN->ValidateGameInfo((LANGameInfo *)a);
 	return 0;
 }
 
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_Va012F7730@@3PAVGen00024B7C@@A=?g_Va009FE958@@3PAUGlobal009FE958@@A")

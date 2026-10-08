@@ -8,7 +8,6 @@ class RenderObjClass;
 
 RenderObjClass *Create_Render_Obj(const char *name);
 
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva003FC74A
 {
@@ -23,7 +22,7 @@ RenderObjClass *Rva003FC74A::rva003FC74A(const AsciiString *name)
     if (!((const StringBase<char> *)name)->isEmpty())
     {
         const char *t = *(const char * const *)name;
-        const char *s = t ? t + 8 : g_Rva0107301CEmptyString;
+        const char *s = t ? t + 8 : "";
         RenderObjClass *obj = Create_Render_Obj(s);
         m_obj = obj;
         return obj;

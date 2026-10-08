@@ -82,12 +82,12 @@ struct Rva0059EB6FBox
 	bool Run(int mode);
 };
 
-extern Rva0059EB6FInfo *g_rva0059EB6FInfo;
+extern class GameSpyInfoInterface *TheGameSpyInfo;
 extern int g_rva0059EB6FFlag;
 
 bool Rva0059EB6FBox::Run(int mode)
 {
-	Rva0059EB6FInfo *info = g_rva0059EB6FInfo;
+	Rva0059EB6FInfo *info = (*(Rva0059EB6FInfo **)&TheGameSpyInfo);
 	if (info == 0)
 		return false;
 	if (g_rva0059EB6FFlag == 0)

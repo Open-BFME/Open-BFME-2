@@ -18,7 +18,7 @@
 struct PlayerAITypeEntry { AsciiString name; char unknown[12]; };
 // Bind the base initialization to its existing C++ owner. The inline bridge
 // is the same source pattern as the verified RankInfoStore constructor.
-class BFME2NativeNetwork { public: BFME2NativeNetwork *baseConstruct(); };
+class BFME2NativeNetwork { public: void baseConstruct(); };
 class __declspec(novtable) PlayerAITypeSetBase {
 public:
  PlayerAITypeSetBase() { ((BFME2NativeNetwork *)this)->baseConstruct(); }

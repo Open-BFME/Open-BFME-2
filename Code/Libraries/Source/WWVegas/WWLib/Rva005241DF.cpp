@@ -38,7 +38,7 @@ class Rva00222A8BTarget : public Rva002244CA
 {
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva005241DF
 {
@@ -50,11 +50,11 @@ private:
 
 void Rva005241DF::rva005241DF(const StringBase<char> &val)
 {
-	if (TheRva00222A8BTarget == 0)
+	if ((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager) == 0)
 		return;
 	StringBase<char> *found = Rva000BD22FFind((StringBase<char> *)m_vec.begin(), (StringBase<char> *)m_vec.end(), val);
 	if (found == (StringBase<char> *)m_vec.end())
 		return;
-	((Rva002244CA *)TheRva00222A8BTarget)->rva002244CA((const AsciiString *)&val);
+	((Rva002244CA *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->rva002244CA((const AsciiString *)&val);
 	m_vec.erase((Gen_t_001db910_p4cd *)found);
 }

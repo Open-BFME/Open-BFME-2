@@ -53,7 +53,7 @@ public:
 	virtual void d17();
 	virtual GameMessage *CreateMessage(int type);
 };
-extern class MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 struct Rva005F5B0FA
 {
 	char _pad0[0x20];
@@ -75,7 +75,7 @@ void __cdecl Rva005F5B0FNotify(Rva005F5B0FA *a, Rva005F5B0FB *b)
 	{
 		if (*(int *)(field->get(*(int *)((char *)node + 16)) + 0xbc) != 0)
 		{
-			GameMessage *msg = MessageStreamSubsystem->CreateMessage(0x6c0);
+			GameMessage *msg = TheMessageStream->CreateMessage(0x6c0);
 			msg->appendIntegerArgument(a->m_20);
 			msg->appendIntegerArgument(*(int *)((char *)node + 16));
 		}

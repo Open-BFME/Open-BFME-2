@@ -24,7 +24,7 @@ public:
     void *allocBlock(int blockSize);
 };
 // Same pool instance allocation side; per-TU extern patches from retail.
-extern Rva006DB160 *g_aptPoolAllocator; // 0x00E176E8
+extern class Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 class AptValue {
 public:
     virtual void AddRef();
@@ -115,7 +115,7 @@ AptValueVector *AptValueVector::rva006E6CF0(int capacity)
     mCapacity = capacity;
     mCurrentNum = 0;
     mHighWaterNum = 0;
-    mpValues = (AptValue **)g_aptPoolAllocator->allocBlock(capacity * 4);
+    mpValues = (AptValue **)(*(Rva006DB160 **)&g_pChainBlockAllocator)->allocBlock(capacity * 4);
     if (!mpValues) {
         g_bfmeAptAssertAtE17734("mpValues != NULL", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptValue\\AptValueVector.cpp", 0x3E);
         if (g_bfmeAptBreakOnAssertAtDDC01C)

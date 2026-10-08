@@ -23,16 +23,6 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-public:
-	void advance();
-};
-
 class Object
 {
 public:
@@ -85,7 +75,7 @@ void __stdcall Rva003C353BDo(Parameter *teamParm, void *p2)
 	if (base == 0)
 		return;
 	const Coord3D *pos = (const Coord3D *)((const char *)base + 0xC);
-	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {
+	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance()) {
 		Object *obj = it.cur();
 		if (!obj)
 			continue;

@@ -33,7 +33,6 @@ extern Rva00148F5ECache g_00DBDE44;
 extern Rva00148F5ECache g_00DBDE54;
 extern Rva00148F5ECache g_00DBDE4C;
 
-extern const char g_Rva0107301CEmptyString[];
 extern const unsigned short g_00C0DA78[];
 
 class Dict
@@ -73,7 +72,7 @@ int SidesList::rva0032DE04(const AsciiString &playerTemplate)
 	bool isHuman;
 
 	if (playerTemplate.isEmpty()) {
-		((StringBase<char> *)&playerName)->set(g_Rva0107301CEmptyString);
+		((StringBase<char> *)&playerName)->set("");
 		playerDisplayName.set(g_00C0DA78);
 		isHuman = false;
 	} else {

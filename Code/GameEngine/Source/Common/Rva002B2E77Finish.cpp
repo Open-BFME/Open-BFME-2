@@ -15,13 +15,9 @@ public:
 	virtual void s16(); virtual void s17();
 	virtual GameMessage* newMessage(int type);
 };
-extern GlobalHolder* Glo00A00950;
+extern class MessageStream *TheMessageStream;
 void __stdcall Rva002B2E77Append(int x)
 {
-	GameMessage *msg = Glo00A00950->newMessage(0x6B9);
+	GameMessage *msg = (*(GlobalHolder **)&TheMessageStream)->newMessage(0x6B9);
 	msg->appendIntegerArgument(x);
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?Glo00A00950@@3PAVGlobalHolder@@A=?MessageStreamSubsystem@@3PAVMessageStream@@A")

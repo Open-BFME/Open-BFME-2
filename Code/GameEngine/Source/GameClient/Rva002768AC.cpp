@@ -64,7 +64,7 @@ public:
 	virtual unsigned int GetTime();
 };
 
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class Rva002768AC
 {
@@ -82,7 +82,7 @@ private:
 Rva002768AC::Rva002768AC(Drawable *d)
 {
 	m_drawC = d;
-	m_time4 = TheGameClient->GetTime();
+	m_time4 = ((ClientFrameSubsystem *)TheGameClient)->GetTime();
 	m_count8 = 0;
 	rva002768AC();
 }
@@ -91,9 +91,9 @@ void Rva002768AC::rva002768AC()
 {
 	if (m_drawC == 0)
 		return;
-	if (m_time4 >= TheGameClient->GetTime())
+	if (m_time4 >= ((ClientFrameSubsystem *)TheGameClient)->GetTime())
 		return;
-	m_time4 = TheGameClient->GetTime();
+	m_time4 = ((ClientFrameSubsystem *)TheGameClient)->GetTime();
 	Matrix3D *mat = &m_mats[0];
 	if ((m_count8 = m_drawC->getCurrentClientBonePositions("B_TORNADO", 1, 0, mat, 0x10)) != 0)
 		return;

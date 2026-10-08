@@ -86,7 +86,7 @@ public:
 	virtual void v17();
 	virtual GameMessage *appendType(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 class InGameUI
 {
@@ -178,7 +178,7 @@ void __stdcall Rva003BD19CSet(void *p, Parameter *param)
 		if (pl != 0) {
 			if (pl == ThePlayerList->m_localPlayer) {
 				TheInGameUI->notify();
-				GameMessage *msg = MessageStreamSubsystem->appendType(0x3E9);
+				GameMessage *msg = TheMessageStream->appendType(0x3E9);
 				msg->appendBooleanArgument(true);
 				msg->appendObjectIDArgument(obj->m_id);
 				TheInGameUI->w66(obj->getDrawable());

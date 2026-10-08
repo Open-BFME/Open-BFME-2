@@ -3,7 +3,6 @@
 // Evidence: unlock lane; callers 0x005E2F49 and 0x005E3226; callees rowed 0x005E2CFA 0x00036410 plus pin 0x004128F0; string "id" plus empty fallback g_Rva0107301CEmptyString.
 #include "ascii_string.h"
 
-extern const char g_Rva0107301CEmptyString[];
 
 bool __cdecl Rva004128F0GetParam(const char *a, const char *b, AsciiString &out);
 void *__cdecl Rva005E2CFAGet(const char *s);
@@ -11,7 +10,7 @@ void *__cdecl Rva005E2CFAGet(const char *s);
 __forceinline const char *GetStr005E2D8A(const AsciiString &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 void *Rva005E2D8AGet(const char *p)

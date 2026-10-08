@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?Hide@BannerUI@@QAEX_N@Z, retail 0x00216B3F, 65 bytes.
 // Guards on TheRva00222A8BTarget null then branches on bool param: true calls
@@ -13,11 +13,10 @@ struct BfmePod28 { int a[7]; };
 class Rva00222A8BTarget
 {
 public:
-	// Native provider compares the incoming 32-bit index with 14 and returns AL.
-	bool rva0022277D(int index);
+	bool rva0022277D(int level);	// 0x0022277D, WB AptPlayer::HideLevel
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva002224FE
 {
@@ -40,18 +39,18 @@ private:
 
 void BannerUI::Hide(bool on)
 {
-	if (TheRva00222A8BTarget == 0)
+	if ((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager) == 0)
 		return;
 	m_flag34 = on;
 	if (on)
 	{
-		TheRva00222A8BTarget->rva0022277D(reinterpret_cast<int>(m_ptr24));
+		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva0022277D((int)m_ptr24);
 		_STL::vector<BfmePod28> &vr = m_vec28;
 		vr.erase(vr.begin(), vr.end());
 		m_flag20 = 0;
 	}
 	else
 	{
-		((Rva002224FE *)TheRva00222A8BTarget)->rva002224FE((int)m_ptr24);
+		((Rva002224FE *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->rva002224FE((int)m_ptr24);
 	}
 }

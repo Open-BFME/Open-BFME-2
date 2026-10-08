@@ -169,7 +169,7 @@ public:
 extern Radar *TheRadar;
 extern PartitionManager *ThePartitionManager;
 extern PartitionManager *TheShroudManager;
-extern Rva00DFE758Holder *TheRva00DFE758;
+extern class GlobalData *TheWritableGlobalData;
 // Matched DIR32 sites establish TheTerrainLogic at VA 0x00DFEC50. This is in
 // the PE .data zero-fill tail, so the retail startup value is null.
 TerrainLogic *TheTerrainLogic = 0;
@@ -196,7 +196,7 @@ void TerrainLogic::setActiveBoundary(Int newActiveBoundary)
 	TheRadar->newMap(TheTerrainLogic);
 	ThePartitionManager->rva00625300(&region);
 	TheShroudManager->setRegion(&region, 0.0f);
-	TheGameLogic->m_opaque170->rva0035A2DC(&region, TheRva00DFE758->m_floatD4);
+	TheGameLogic->m_opaque170->rva0035A2DC(&region, (*(Rva00DFE758Holder **)&TheWritableGlobalData)->m_floatD4);
 
 	Object *object = TheGameLogic->getFirstObject();
 	while (object != 0)
@@ -207,5 +207,3 @@ void TerrainLogic::setActiveBoundary(Int newActiveBoundary)
 
 	TheTacticalView->forceCameraConstraintRecalc();
 }
-// ?TheRva00DFE758@@3PAVRva00DFE758Holder@@A: the global at VA 0xdfe758 is ?TheGlobalData@@3PAVGlobalData@@A.
-#pragma comment(linker, "/alternatename:?TheRva00DFE758@@3PAVRva00DFE758Holder@@A=?TheGlobalData@@3PAVGlobalData@@A")

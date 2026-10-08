@@ -9,9 +9,6 @@
 
 #include "Common/Snapshot.h"
 
-extern "C" const void *const vtbl_00BBB554[];  // folded, 23 classes; via ??_7BfmeBaseVUQ@@6B@
-#pragma comment(linker, "/alternatename:_vtbl_00BBB554=??_7BfmeBaseVUQ@@6B@")
-
 void __cdecl operator delete(void *p);
 
 class AsciiStringMember

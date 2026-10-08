@@ -135,7 +135,7 @@ public:
 	virtual void v17();
 	virtual GameMessage *appendMessage(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 template <int N> class Rva0045527AUISlots : public Rva0045527AUISlots<N - 1>
 {
@@ -335,7 +335,7 @@ void FoundationAIUpdate::rva0045527A(ObjectID id)
 		{
 			if (m_object->getControllingPlayer() == ThePlayerList->getLocalPlayer())
 			{
-				GameMessage *msg = MessageStreamSubsystem->appendMessage(0x3ED);
+				GameMessage *msg = TheMessageStream->appendMessage(0x3ED);
 				msg->appendObjectIDArgument(m_object->getID());
 				TheInGameUI->slot67(draw);
 			}

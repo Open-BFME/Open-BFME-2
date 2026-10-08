@@ -15,7 +15,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 class ScriptEngine
 {
@@ -45,7 +45,7 @@ public:
 
 void __stdcall Rva003BD062Set(void *p, const AsciiString *templateName, unsigned char flag)
 {
-	void *t = TheThingFactory->rva002D06CA(templateName);
+	void *t = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(templateName);
 	if (t == 0)
 		return;
 	const AsciiString &name = *(const AsciiString *)((const char *)p + 0x10);

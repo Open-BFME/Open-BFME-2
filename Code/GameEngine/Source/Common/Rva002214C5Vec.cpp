@@ -33,7 +33,6 @@ struct FieldParse { const char *token; void *parse; const void *userdata; int of
 class FXList;
 
 extern const struct FieldParse SlaveAttackFieldTable;
-extern const char g_Rva0107301CEmptyString[];
 class INI;
 
 // The table entries' parse target: the map value is an object whose first

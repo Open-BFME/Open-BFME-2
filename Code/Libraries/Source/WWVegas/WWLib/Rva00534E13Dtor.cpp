@@ -7,10 +7,17 @@
 // List_base dtors 0x4EC395, StringBase<D> dtor 0x36410, caller 0x5353E3.
 #include <list>
 
-struct AsciiString
+template <class T> class StringBase
 {
-    void *m_data;
-    ~AsciiString();
+	friend struct AsciiString;
+	void releaseBuffer();
+public:
+	void *m_data;
+};
+struct AsciiString : public StringBase<char>
+{
+public:
+	~AsciiString() { releaseBuffer(); }
 };
 
 struct Coord3D

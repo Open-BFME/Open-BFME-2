@@ -9,15 +9,15 @@ public:
 	virtual void bfmeDoC1019(int a, int b);
 };
 
-extern BfmeS1019 *g_bfmeS1019;
+extern class GenAlloc *g_genAlloc;
 void bfmeInit1019(char *n);
 
 void *Rva007F0000Alloc(int a)
 {
-	if (g_bfmeS1019 == 0)
+	if ((*(BfmeS1019 **)&g_genAlloc) == 0)
 		bfmeInit1019((char *)"no FESL allocator defined\n");
 
-	return g_bfmeS1019->bfmeDoB1019(a, 0);
+	return (*(BfmeS1019 **)&g_genAlloc)->bfmeDoB1019(a, 0);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

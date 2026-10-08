@@ -11,14 +11,14 @@ public:
 	bool Render_Obj_Exists_Impl(const char *name);
 };
 
-extern AssetRegistry *g_theAssetRegistry;
+extern class Q1Receiver0134FAAC *TheQ1Receiver;
 
 // ?Render_Obj_Exists@@YA_NPBD@Z
 bool Render_Obj_Exists(const char *name)
 {
 	if (name)
 	{
-		AssetRegistry *registry = g_theAssetRegistry;
+		AssetRegistry *registry = (*(AssetRegistry **)&TheQ1Receiver);
 		if (registry)
 			return registry->Render_Obj_Exists_Impl(name);
 	}

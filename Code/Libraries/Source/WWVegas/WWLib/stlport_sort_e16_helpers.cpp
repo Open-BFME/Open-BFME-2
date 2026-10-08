@@ -19,9 +19,6 @@ bool __stdcall Rva005B26CELess(const void *a_, const void *b_)
     return true;
 }
 
-// The e16 sort calls this comparator as a functor (ECX ignored, two pointers, ret 8), pinned to 0x005B26CE; bind that spelling here.
-#pragma comment(linker, "/alternatename:??RRva005B26CEItemCmp@@QBE_NABURva005B2FDCItem@@0@Z=?Rva005B26CELess@@YG_NPBX0@Z")
-
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??RRva005B26CECmp@@QBE_NPBX0@Z=?Rva005B26CELess@@YG_NPBX0@Z")

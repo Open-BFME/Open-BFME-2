@@ -13,7 +13,7 @@ struct Coord3D { float x; float y; float z; };
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 class __declspec(novtable) Rva00420E67Base

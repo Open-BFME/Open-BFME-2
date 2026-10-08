@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc
 // ?rva0029DE76@Rva0029DE76@@QAE_NPBUCoord3D@@@Z @0x0029DE76 164B
 // evidence: unlock caller 0x0029EAFA; rowed PartitionManager::getShroudStatusForPlayer plus Object::rva002907A1 plus AIUpdateInterface::isQuickPathAvailable 0x00264274 path test
 enum CellShroudStatus
@@ -42,16 +42,10 @@ public:
 	unsigned char m_11a;
 };
 
-class AIUpdateInterface;
-
-// Native call at 0x0029DEFB targets Rva00264274Path.cpp (0x00264274).
-// ECX is the same AI update pointer read from Object+0x258; the sole stack
-// argument is the destination and AL is the bool result. Retain the
-// provider spelling without asserting a semantic name for its path test.
-class Rva00264274
+class AIUpdateInterface
 {
 public:
-	bool rva00264274(const Coord3D *destination);
+	bool isQuickPathAvailable(const Coord3D *destination) const;
 };
 
 class Object
@@ -177,7 +171,7 @@ bool Rva0029DE76::rva0029DE76(const Coord3D *pos)
 			return true;
 		if (!ai)
 			continue;
-		if (reinterpret_cast<Rva00264274 *>(ai)->rva00264274(pos))
+		if (ai->isQuickPathAvailable(pos))
 			return true;
 	}
 	return false;

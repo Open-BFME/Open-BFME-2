@@ -22,7 +22,7 @@ public:
 
 // Pool allocator instance at 0x00E176E8 (same global the string
 // Reserve path uses; DIR32 sites auto-patch from retail at verify).
-extern Rva006DB160 *g_aptPoolAllocator; // 0x00E176E8
+extern class Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 
 class EAStringC
 {
@@ -112,7 +112,7 @@ AptValue ***AptValueVector::GetData()
 // allocator call both resolve as relocs at verify time.
 void *AptValueVector::Allocate(int size)
 {
-	return g_aptPoolAllocator->allocBlock(size);
+	return (*(Rva006DB160 **)&g_pChainBlockAllocator)->allocBlock(size);
 }
 
 // ?rva006CC0A0@AptValueVector@@QAEXH@Z, retail 0x006CC0A0 (104B). Erase at

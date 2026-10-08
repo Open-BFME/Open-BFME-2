@@ -37,6 +37,7 @@ Rva005ECFE4::~Rva005ECFE4()
 // 0x005ECA91 and writes the same vtable as the rowed dtor at 0x005ECFE4.
 // The outer method and argument meanings are not recovered, so keep its
 // address-derived name.
+// ?Rva005ECFE4::rva005ED15D present-unmatched
 void *Rva005ECFE4::rva005ED15D(void *arg0, void *arg1, void *arg2)
 {
 	return new Rva005ECFE4(arg0, arg1, arg2);

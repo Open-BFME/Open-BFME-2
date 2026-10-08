@@ -6,6 +6,15 @@
 // masked (unique hit on unclaimed .text). Only the placed body is defined here;
 // the donor's other definitions are omitted.
 
+// The callee is the rowed Object::setWeaponLock.
+enum WeaponSlotType { WEAPONSLOT_UNUSED940 };
+enum WeaponLockType { WEAPONLOCK_UNUSED940 };
+class Object
+{
+public:
+	bool setWeaponLock(WeaponSlotType slot, WeaponLockType lock);
+};
+
 struct BfmeA940G
 {
 	char m_bfmePad[8];
@@ -32,5 +41,5 @@ void BfmeThing940G::bfmeGo940G()
 	m_bfmeFlag = 0;
 	void *v = a->m_bfmeVal;
 	BfmeB940G *b = *(BfmeB940G **)((char *)this - 8);
-	b->bfmeCall940G(v, 2);
+	((Object *)b)->setWeaponLock((WeaponSlotType)(int)v, (WeaponLockType)2);
 }

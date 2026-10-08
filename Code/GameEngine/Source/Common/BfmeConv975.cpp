@@ -9,6 +9,14 @@
 // are carried; the donor's other definitions are omitted.
 // Open-BFME5 conversions.
 
+// The template lookup is the rowed Rva002D06CA::rva002D06CA.
+class AsciiString;
+class Rva002D06CA
+{
+public:
+	void *rva002D06CA(const AsciiString *name);
+};
+
 struct BfmeObj975A
 {
 	char m_bfmePad[0x344];
@@ -108,7 +116,7 @@ public:
 
 char BfmeD975::bfmeGo975D(int a)
 {
-	void *p = ((BfmeFind975D *)TheThingFactory)->bfmeFind975D(a);
+	void *p = ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)a);
 
 	if (p)
 		return bfmeUse975D(p);

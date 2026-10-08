@@ -77,7 +77,7 @@ public:
 	void rva002AC673();
 	void rva002AE2ED(Player *other);
 	void rva002AE475(void *userData);
-	void iterateObjects(void (*func)(class Object *, void *), void *userData) const;
+	int iterateObjects(int (*func)(class Object *, void *), void *userData) const;
 private:
 	bool addScience(ScienceType science);
 	char m_pad00[0x1C];
@@ -123,5 +123,5 @@ void Player::rva002AE2ED(Player *other)
 void callback_002AE435(class Object *obj, void *userData);
 void Player::rva002AE475(void *userData)
 {
-	iterateObjects(callback_002AE435, userData);
+	iterateObjects((int (*)(Object *, void *))callback_002AE435, userData);
 }

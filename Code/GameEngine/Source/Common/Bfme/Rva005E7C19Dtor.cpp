@@ -26,3 +26,21 @@ Rva005E7C19::~Rva005E7C19()
 {
   ((Rva005E7855 *)this)->rva005E7855();
 }
+
+// Rva005E7D72: a class over Rva005E7C19 whose destructor is the 5-byte jmp 0x005E7D72 (rowed in
+// Rva005E7D72Dtor.cpp). Its scalar deleting destructor 0x005E7F94 calls that stub; the
+// destructor is only declared here, and the tag constructor (no retail
+// counterpart) makes this TU emit the vtable and with it the deleting
+// destructor.
+struct EmitVtableTag;
+class Rva005E7D72 : public Rva005E7C19
+{
+public:
+	Rva005E7D72(EmitVtableTag *);
+	virtual ~Rva005E7D72();
+};
+
+// ?<Rva005E7D72::Rva005E7D72> absent-from-retail
+Rva005E7D72::Rva005E7D72(EmitVtableTag *)
+{
+}

@@ -24,7 +24,7 @@ public:
 	void rva0007D9CF(const int *p);
 };
 
-extern void *g_00DE1FF8;
+extern class Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 
 class W3DGameClientShadowShim
 {
@@ -43,7 +43,7 @@ void W3DGameClientShadowShim::setLightPosition(int lightIndex, float x, float y,
 	m_lightPos[0].X = x;
 	m_lightPos[0].Y = y;
 	m_lightPos[0].Z = z;
-	if (g_00DE1FF8 == 0)
+	if ((*(void **)&Rva00DE1FF8Manager) == 0)
 		return;
 	Vector3_9A587 dir = -m_lightPos[0];
 	float lenSq = dir.Length2();
@@ -54,8 +54,5 @@ void W3DGameClientShadowShim::setLightPosition(int lightIndex, float x, float y,
 		dir.Y *= inv;
 		dir.Z *= inv;
 	}
-	((Rva0007D9B5Host *)g_00DE1FF8)->rva0007D9CF((const int *)&dir);
+	((Rva0007D9B5Host *)(*(void **)&Rva00DE1FF8Manager))->rva0007D9CF((const int *)&dir);
 }
-
-// Bind this unit's void* spelling to the census owner at VA 0x00DE1FF8.
-#pragma comment(linker, "/alternatename:?g_00DE1FF8@@3PAXA=?Rva00DE1FF8Manager@@3PAVRva0007DA23ResourceManager@@A")

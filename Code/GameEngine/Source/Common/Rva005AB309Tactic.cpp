@@ -229,7 +229,7 @@ public:
 	unsigned char rva004ED169();
 	void teamGarrisonObject(int index, Object *target);
 	void rva004ED372(const Coord3D *point);
-	void end(int a, int b);
+	void end(bool a, bool b);
 };
 
 class AITacticOffensive : public AITactic

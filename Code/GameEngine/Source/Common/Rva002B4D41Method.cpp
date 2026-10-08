@@ -1,7 +1,7 @@
 // cl: /MD /EHsc /DNDEBUG
 // ?rva002B4D41@Rva002B4D41@@QAEXXZ @0x002B4D41 128B: Rva002B4D41 countdown with sound.
 // Evidence: caller 0x002BD9B4 passes this in ecx; callee 0x002B35F7 rowed Rva002BA8F1Logic::rva002B35F7;
-// callee 0x0020E3EF rowed get; callee 0x00412A51 rowed PlaySound; globals g_009FE1C8 and g_Rva0107301CEmptyString.
+// callee 0x0020E3EF rowed get; callee 0x00412A51 rowed PlaySound; globals TheLivingWorldManager and g_Rva0107301CEmptyString.
 class Rva002BA8F1Logic
 {
 public:
@@ -20,8 +20,7 @@ public:
 	char m_pad[0x2C0];
 	unsigned char m_flag2C0;
 };
-extern Rva0021294A *g_009FE1C8;
-extern const char g_Rva0107301CEmptyString[];
+class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 void __cdecl PlaySound(const char *eventName);
 
 class Rva002B4D41
@@ -45,7 +44,7 @@ void Rva002B4D41::rva002B4D41()
 	if (!m_e8)
 		return;
 	if (m_169) {
-		if (g_009FE1C8->m_flag2C0 != 0)
+		if (((Rva0021294A *)TheLivingWorldManager)->m_flag2C0 != 0)
 			return;
 		m_169 = 0;
 		((Rva002BA8F1Logic *)this)->rva002B35F7();
@@ -55,7 +54,7 @@ void Rva002B4D41::rva002B4D41()
 			return;
 		int p = m_b0->get();
 		int v = *(int *)p;
-		const char *s = v ? (const char *)(v + 8) : g_Rva0107301CEmptyString;
+		const char *s = v ? (const char *)(v + 8) : "";
 		PlaySound(s);
 	}
 	if (m_16c != 0)

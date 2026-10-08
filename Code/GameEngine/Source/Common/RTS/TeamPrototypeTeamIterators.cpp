@@ -83,7 +83,10 @@ public:
 class Team : public MemoryPoolObject, public Snapshot
 {
 public:
-	Team *dlink_next_TeamInstanceList() const;
+	// Zero Hour's MAKE_DLINK(Team, TeamInstanceList) accessor: retail
+	// 0x005C4AF5 (4 B) reads the link's next pointer at +0x40, the slot the
+	// DLINK_ITERATOR below calls through.
+	Team *dlink_next_TeamInstanceList() const { return m_dlink_TeamInstanceList.m_next; }
 	Int rva0039DC63() const;
 	Int rva0039DC9E(KindOfMaskType setMask, KindOfMaskType clearMask) const;
 	void healAllObjects();
@@ -98,6 +101,15 @@ public:
 	Bool rva0039E815();
 	Bool damageTeamMembers(Real amount);
 	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const* things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
+
+private:
+	struct DLINK_TeamInstanceList
+	{
+		Team *m_prev;
+		Team *m_next;
+	};
+	unsigned char m_pad08[0x3C - 0x08];
+	DLINK_TeamInstanceList m_dlink_TeamInstanceList; // +0x3C
 };
 
 class TeamPrototype

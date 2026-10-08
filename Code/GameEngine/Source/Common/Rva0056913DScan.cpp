@@ -20,10 +20,16 @@ private:
 
 #pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
 
+// The ledger row at 0x005C834A is HostClass005C815B::method_005C834A.
+class HostClass005C815B
+{
+public:
+	void method_005C834A(int a, int b) throw();
+};
+
 class Rva005C834A
 {
 public:
-	void rva005C834A(void *a, void *b) throw();
 };
 
 class Rva00568F04
@@ -72,7 +78,7 @@ void LargeGroupAudioSoundKeyPair::removeDuckingTarget(BitRange *host, void *tag)
 	int left = 4;
 	do {
 		if (*slot != 0)
-			(*slot)->rva005C834A(host, tag);
+			((HostClass005C815B *)*slot)->method_005C834A((int)host, (int)tag);
 		++slot;
 	} while (--left != 0);
 	((Rva00568F04 *)host)->rva00568F04(this);

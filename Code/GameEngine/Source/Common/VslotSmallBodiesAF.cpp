@@ -77,7 +77,7 @@ class Rva00222A8BTarget
 public:
 	Int invoke(void *movie, const char *name, Int a, const char *b, void *c, void *d, void *e, void *f);
 };
-extern Rva00222A8BTarget *g_rva00518557Target;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva0051847B
 {
 public:
@@ -108,7 +108,7 @@ Int Rva0051847B::rva00518557(Int msg, unsigned char b, Int c)
 			rva0051847B(0);
 			break;
 		case 2:
-			g_rva00518557Target->invoke(m_274, "CloseAdvancedSettings", 0, 0, 0, 0, 0, 0);
+			(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(m_274, "CloseAdvancedSettings", 0, 0, 0, 0, 0, 0);
 			rva0051847B(0);
 			break;
 		}

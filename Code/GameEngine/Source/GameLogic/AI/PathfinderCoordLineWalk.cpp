@@ -55,6 +55,11 @@ struct Rva002F18D4Info
 	Int cellCallback(void *previousCell, void *currentCell, Int cellX, Int cellY);
 };
 
+struct Rva002F4D8BInfo
+{
+	Int cellCallback(void *previousCell, void *currentCell, Int cellX, Int cellY);
+};
+
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
 
 class Pathfinder
@@ -65,6 +70,7 @@ public:
 	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ED01EInfo *callbackInfo);
 	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002F1BD5Info *callbackInfo);
 	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002F18D4Info *callbackInfo);
+	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002F4D8BInfo *callbackInfo);
 	// Unproven-identity line-query wrappers at 0x002F1AF4/32/66/A2: build the
 	// callback query via the pinned init above, walk it, bool-convert the hit.
 	Int Rva002F1AF4(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c, Int a20, Int a24);
@@ -77,6 +83,7 @@ private:
 	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002ED01EInfo *callbackInfo);
 	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002F1BD5Info *callbackInfo);
 	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002F18D4Info *callbackInfo);
+	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002F4D8BInfo *callbackInfo);
 };
 
 Int Pathfinder::iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002ED15AInfo *callbackInfo)
@@ -108,6 +115,15 @@ Int Pathfinder::iterateCellsAlongLine(const Coord3D *start, const Coord3D *desti
 }
 
 Int Pathfinder::iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002F18D4Info *callbackInfo)
+{
+	ICoord2D tmpDest;
+	ICoord2D tmpStart;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, start), Rva002E7875WorldToCell(&tmpDest, true, destination), layer, callbackInfo);
+}
+
+// 0x002F9578 63B: the same Coord3D overload over the cell walk 0x002F6C22,
+// called by Pathfinder::CanApproachToTarget (0x002FA2DC) with its functor.
+Int Pathfinder::iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002F4D8BInfo *callbackInfo)
 {
 	ICoord2D tmpDest;
 	ICoord2D tmpStart;

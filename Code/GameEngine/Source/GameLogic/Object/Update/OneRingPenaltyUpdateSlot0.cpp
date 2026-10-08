@@ -4,6 +4,13 @@
 // 0x00499D18 (11 bytes), so `this` is that subobject: runs the class's
 // 0x00499C46 (pinned by address) on the primary this; the argument is
 // unused. Named by address.
+// The callee is the rowed BfmeC987::bfmeGo987C.
+class BfmeC987
+{
+public:
+	void bfmeGo987C();
+};
+
 class ModuleData;
 class Object;
 class OneRingPenaltyUpdateBase
@@ -28,5 +35,5 @@ public:
 };
 void OneRingPenaltyUpdate::rva00499D18(void *arg)
 {
-	rva00499C46();
+	((BfmeC987 *)this)->bfmeGo987C();
 }

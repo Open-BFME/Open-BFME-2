@@ -19,7 +19,7 @@ public:
 	Rva003FA681 *m_264;
 };
 
-extern Rva0021294A *g_009FE1C8;
+class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 
 void *__cdecl ji_006291ae(void *dest, int val, unsigned int count);
 #pragma comment(linker, "/alternatename:?ji_006291ae@@YAPAXPAXHI@Z=?ji_006291ae@@YAXXZ")
@@ -41,6 +41,6 @@ void Rva004E0A96::rva004E0A96()
 	int val;
 	ji_006291ae(&val, 0, 4);
 	val |= 1;
-	g_009FE1C8->m_264->rva003FA681((int)m_2c, val);
+	((Rva0021294A *)TheLivingWorldManager)->m_264->rva003FA681((int)m_2c, val);
 	m_2c = 0;
 }

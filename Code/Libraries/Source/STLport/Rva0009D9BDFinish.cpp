@@ -30,7 +30,7 @@ public:
 	void handle(void *p);
 };
 
-extern Gen0003AC38 *g_Rva000DE5DFC;
+extern class Gen0003AC38 *g_shadowManager;
 
 class Rva0009D9BD
 {
@@ -51,7 +51,7 @@ void Rva0009D9BD::rva0009D9BD()
 	int *span = (int *)&m_vec;
 	_STL::vector<void *> &vec = m_vec;
 	for (unsigned int i = 0; i < (unsigned)((span[1] - span[0]) >> 2); ++i)
-		g_Rva000DE5DFC->handle(vec[i]);
+		g_shadowManager->handle(vec[i]);
 	vec.erase(vec.begin(), vec.end());
 }
 
@@ -63,7 +63,7 @@ void Rva0009D9BD::rva0009D9FD()
 {
 	void *slot = m_19C;
 	if (slot) {
-		g_Rva000DE5DFC->handle(slot);
+		g_shadowManager->handle(slot);
 		m_19C = 0;
 		rva0009D9BD();
 	}

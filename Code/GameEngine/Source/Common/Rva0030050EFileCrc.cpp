@@ -17,7 +17,6 @@ public:
 	virtual int readFile(void *buf, int len);
 };
 extern FileSystem *TheFileSystem;
-extern const char g_Rva0107301CEmptyString[];
 unsigned int __cdecl ComputeCRC(const unsigned char *data, unsigned int len, unsigned int crc);
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
 extern "C" unsigned int __cdecl strlen(const char *s);
@@ -30,7 +29,7 @@ unsigned int __cdecl calcCRC(AsciiString a, AsciiString b)
 	char filebuf[4096];
 	AsciiString path;
 	char *t = *(char * const *)&b;
-	const char *s = t ? t + 8 : g_Rva0107301CEmptyString;
+	const char *s = t ? t + 8 : "";
 	_mbscpy(buf1, s);
 	unsigned int len = strlen(buf1);
 	if ((int)len >= 4) {
@@ -39,7 +38,7 @@ unsigned int __cdecl calcCRC(AsciiString a, AsciiString b)
 	}
 	((StringBase<char> *)&path)->set(*(const StringBase<char> *)&b);
 	char *pt = *(char * const *)&path;
-	const char *ps = pt ? pt + 8 : g_Rva0107301CEmptyString;
+	const char *ps = pt ? pt + 8 : "";
 	unsigned int crc = 0;
 	File *f = TheFileSystem->openFile(ps, 1, 0);
 	if (f) {

@@ -33,7 +33,7 @@ struct BfmeWorldRV
 	unsigned char m_28;
 };
 
-extern struct BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 
 class Rva004B7A9D
 {
@@ -49,5 +49,5 @@ void Rva004B7A9D::rva004B7A9D()
 		((Rva002793AF *)d)->rva002793AF(*(const AsciiString *)(*(char **)((char *)this - 0xC) + 0x118));
 		d->rva00274C88((AsciiString *)(*(char **)((char *)this - 0xC) + 0x11C));
 	}
-	g_bfmeWorldRV->m_28 = 1;
+	(*(BfmeWorldRV **)&TheControlBar)->m_28 = 1;
 }

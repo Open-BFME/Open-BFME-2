@@ -53,18 +53,16 @@ public:
 	virtual void slot84(int first, int second);
 };
 
-extern BfmeAwakenDebug *TheBfmeAwakenDebug;
+extern class Debug *theDebug;
 
 // ?Rva00889300DebugForward3@@YAXHHH@Z present-unmatched
 void Rva00889300DebugForward3(int first, int second, int third)
 {
-	TheBfmeAwakenDebug->slot80(first, second, third);
+	(*(BfmeAwakenDebug **)&theDebug)->slot80(first, second, third);
 }
 
 // ?Rva00889320DebugForward2@@YAXHH@Z
 void Rva00889320DebugForward2(int first, int second)
 {
-	TheBfmeAwakenDebug->slot84(first, second);
+	(*(BfmeAwakenDebug **)&theDebug)->slot84(first, second);
 }
-// ?TheBfmeAwakenDebug@@3PAVBfmeAwakenDebug@@A: the global at VA 0xde0880 is ?theDebug@@3PAVDebug@@A.
-#pragma comment(linker, "/alternatename:?TheBfmeAwakenDebug@@3PAVBfmeAwakenDebug@@A=?theDebug@@3PAVDebug@@A")

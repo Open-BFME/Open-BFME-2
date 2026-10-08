@@ -30,7 +30,7 @@ public:
 	virtual void v17();
 	virtual GameMessage *v18(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 class NetworkInterface
 {
 public:
@@ -93,7 +93,7 @@ void Rva0023D29F::rva0023D29F()
 {
 	if (TheNetwork != 0 && !TheNetwork->isPacketRouter())
 		return;
-	GameMessage *msg = MessageStreamSubsystem->v18(0x6a5);
+	GameMessage *msg = TheMessageStream->v18(0x6a5);
 	msg->appendIntegerArgument(m_38);
 	m_3c = 1;
 }

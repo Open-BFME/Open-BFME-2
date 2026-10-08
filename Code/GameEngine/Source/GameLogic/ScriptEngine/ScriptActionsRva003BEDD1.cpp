@@ -23,14 +23,6 @@ private:
 	OBJCLASS *m_cur;
 	GetNextFunc m_getNextFunc;
 };
-template<class OBJCLASS> class Rva001705A0DlinkIterator
-{
-public:
-	void advance();
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_rest[20];
-};
 class AttackPriorityInfo
 {
 public:
@@ -69,7 +61,7 @@ void ScriptActions::rva003BEDD1(const AsciiString &teamName, const AsciiString &
 	{
 		team->rva0039F094(*(AsciiString *)name);
 	}
-	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance())
+	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance())
 	{
 		Object *obj = it.cur();
 		void *holder = *(void **)((char *)obj + 0x258);

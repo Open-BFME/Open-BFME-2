@@ -22,12 +22,12 @@ public:
 	virtual void v8(char *a1, const char *a2, int a3);
 };
 
-extern Rva0060061AHelper *G00A06E54;
+extern class LocalFileSystem *TheLocalFileSystem;
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
 
 void __cdecl Rva00600777Set(char *src)
 {
 	_mbscpy(TheLangDir, src);
 	BFME2PreferLocalFiles = true;
-	G00A06E54->v8(TheLangDir, "*.BIG", 1);
+	(*(Rva0060061AHelper **)&TheLocalFileSystem)->v8(TheLangDir, "*.BIG", 1);
 }

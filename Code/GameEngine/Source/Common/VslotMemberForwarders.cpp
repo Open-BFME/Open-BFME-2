@@ -290,7 +290,7 @@ public:
 };
 
 // The global at VA 0x00DFE1C8.
-extern Rva00210E9DTarget *g_Rva0009AD42Global;
+class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 
 class Rva0009AD42Forwarder
 {
@@ -302,7 +302,7 @@ private:
 // vtable 0x00BC89C8#12
 void Rva0009AD42Forwarder::rva0009AD42()
 {
-	g_Rva0009AD42Global->rva00210E9D();
+	((Rva00210E9DTarget *)TheLivingWorldManager)->rva00210E9D();
 }
 
 class Rva000B0DA8Target
@@ -453,7 +453,7 @@ public:
 };
 
 // The global at VA 0x00DFE78C.
-extern Rva002034E9Target *g_Rva002A9F53Global;
+extern class GameLogic *TheGameLogic;
 
 class Rva002A9F53Forwarder
 {
@@ -465,7 +465,7 @@ private:
 // vtable 0x00BFDF18#5
 void Rva002A9F53Forwarder::rva002A9F53()
 {
-	g_Rva002A9F53Global->rva002034E9();
+	(*(Rva002034E9Target **)&TheGameLogic)->rva002034E9();
 }
 
 class Rva00513B94Target
@@ -761,8 +761,3 @@ void Rva003FD056Forwarder::rva003FD056(Int a0, Int a1, Int a2)
 {
 	m_member->rva003FD05E(a0, a1, a2);
 }
-
-// Aliases for the two globals above: they are the ledger's g_009FE1C8 (VA
-// 0x00DFE1C8) and TheGameLogic (VA 0x00DFE78C).
-#pragma comment(linker, "/alternatename:?g_Rva0009AD42Global@@3PAVRva00210E9DTarget@@A=?g_009FE1C8@@3PAVRva0021294A@@A")
-#pragma comment(linker, "/alternatename:?g_Rva002A9F53Global@@3PAVRva002034E9Target@@A=?TheGameLogic@@3PAVGameLogic@@A")

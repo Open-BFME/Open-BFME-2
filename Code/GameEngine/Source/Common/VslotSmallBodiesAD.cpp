@@ -120,7 +120,7 @@ public:
 	Int rva001F4002();
 	Int rva001F40AF();
 };
-extern Rva001F4002 *g_rva003AFE24Manager;
+extern class ParticleSystemManager *TheParticleSystemManager;
 class Rva003AFE24
 {
 public:
@@ -129,14 +129,14 @@ public:
 };
 Int Rva003AFE24::rva003AFE24()
 {
-	if (g_rva003AFE24Manager)
-		return g_rva003AFE24Manager->rva001F4002();
+	if ((*(Rva001F4002 **)&TheParticleSystemManager))
+		return (*(Rva001F4002 **)&TheParticleSystemManager)->rva001F4002();
 	return 0;
 }
 Int Rva003AFE24::rva003AFE36()
 {
-	if (g_rva003AFE24Manager)
-		return g_rva003AFE24Manager->rva001F40AF();
+	if ((*(Rva001F4002 **)&TheParticleSystemManager))
+		return (*(Rva001F4002 **)&TheParticleSystemManager)->rva001F40AF();
 	return 0;
 }
 

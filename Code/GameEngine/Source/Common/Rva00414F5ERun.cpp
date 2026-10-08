@@ -16,7 +16,7 @@ struct Rva00414F5EGlobal
 	char m_pad[0x10];
 	int m_10;
 };
-extern Rva00414F5EGlobal *g_Rva00414F5EGlobal;
+extern class PlayerList *ThePlayerList;
 
 class Rva00414F5EHost
 {
@@ -34,7 +34,7 @@ void Rva00414F5EHost::run()
 {
 	_STL::vector<BfmeAssignRecord44, _STL::allocator<BfmeAssignRecord44> > &v = m_vec1C;
 	v.erase(v.begin(), v.end());
-	m_28 = g_Rva00414F5EGlobal->m_10;
+	m_28 = (*(Rva00414F5EGlobal **)&ThePlayerList)->m_10;
 	m_2C = 0;
 	return tail();
 }

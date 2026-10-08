@@ -17,8 +17,10 @@ NameKeyType __cdecl Rva0045EE2CGet(void);
 class Module;
 class Object
 {
-public:
+protected:
 	Module *findModule(NameKeyType key) const;
+	friend bool __stdcall Rva005D7272Get(Object *obj);
+public:
 	void *rva0028C197() const;
 };
 class StancesBehavior

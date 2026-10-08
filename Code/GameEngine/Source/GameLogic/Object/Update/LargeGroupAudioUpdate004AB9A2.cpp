@@ -17,11 +17,14 @@ private:
 	unsigned char m_pad[0x10];
 	int m_10;
 };
-class Rva0020D959Host
+class Rva0020D959Host;
+// The ledger row at 0x0020D959 is Rva0020DXXX::rva0020D959(int).
+class Rva0020DXXX
 {
 public:
-	void rva0020D959(Rva0028572AHost *o);
+	void rva0020D959(int v);
 };
+
 extern Rva0020D959Host *g_00DFE1A8;
 class UpdateModule
 {
@@ -45,7 +48,7 @@ void LargeGroupAudioUpdate::rva004AB9A2()
 {
 	if (m_8D)
 	{
-		g_00DFE1A8->rva0020D959(&m_24);
+		((Rva0020DXXX *)g_00DFE1A8)->rva0020D959((int)&m_24);
 		setWakeFrame(m_object, UPDATE_SLEEP_FOREVER);
 		m_8D = false;
 	}

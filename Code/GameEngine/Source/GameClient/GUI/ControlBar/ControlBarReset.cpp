@@ -150,7 +150,6 @@ extern GameWindowManager *TheWindowManager;
 
 class GameWindowTransitionsHandler;
 extern GameWindowTransitionsHandler *TheTransitionHandler;
-#pragma comment(linker, "/alternatename:?TheTransitionHandler@@3PAVGameWindowTransitionsHandler@@A=?theBfmeDfdc14@@3PAVAudioManager@@A")
 
 class GameWindowTransitionsHandler
 {

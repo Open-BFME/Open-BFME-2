@@ -21,5 +21,4 @@ template Rva004E3E5AElement *_STL::__uninitialized_fill_n<Rva004E3E5AElement*,un
 
 // Keep the existing complete cleanup provider and its destruction identity.
 namespace _STL {template<> void vector<Rva004E3E5AElement>::_M_clear();}
-#pragma comment(linker, "/alternatename:?_M_clear@?$vector@URva004E3E5AElement@@V?$allocator@URva004E3E5AElement@@@_STL@@@_STL@@IAEXXZ=?rva004E3C71@Rva004E3C71@@QAEXXZ")
 template void _STL::vector<Rva004E3E5AElement>::_M_insert_overflow(Rva004E3E5AElement*,const Rva004E3E5AElement&,const _STL::__false_type&,unsigned int,bool);

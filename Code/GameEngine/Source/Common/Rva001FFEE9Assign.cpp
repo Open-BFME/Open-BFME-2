@@ -7,12 +7,18 @@ class Rva001FD28E
 public:
 	void rva001FD28E(void *p);
 };
-class UnicodeString
+// UnicodeString is StringBase<WideChar>; its set is the inherited
+// StringBase<unsigned short>::set, the row at 0x00037150 the calls land on.
+template <class T> class StringBase
 {
 public:
-	void set(const UnicodeString &that);
+	void set(const StringBase<T> &that);
 private:
-	void *m_data;};
+	void *m_data;
+};
+class UnicodeString : public StringBase<unsigned short>
+{
+};
 class Rva001FFD6B
 {
 public:

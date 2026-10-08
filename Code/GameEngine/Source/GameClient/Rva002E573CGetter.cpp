@@ -15,7 +15,6 @@ struct Outer002E573C
 	Inner002E573C *m_ptr;
 };
 
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva002E66F2
 {
@@ -42,6 +41,6 @@ public:
 
 UnicodeString Rva002E66F2::rva002E573C(const Outer002E573C *outer, int b)
 {
-	const char *s = outer->m_ptr ? outer->m_ptr->m_name : g_Rva0107301CEmptyString;
+	const char *s = outer->m_ptr ? outer->m_ptr->m_name : "";
 	return slot17(s, b);
 }

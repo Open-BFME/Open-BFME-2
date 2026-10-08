@@ -53,8 +53,6 @@ public:
 };
 
 #pragma comment(linker, "/alternatename:??0BfmeThingCDE@@QAE@PAX00@Z=?d_008f78b0@@YAXXZ")
-#pragma comment(linker, "/alternatename:?initializeArray@BfmeThingCDE@@QAEXH@Z=?d_008f7e20@@YAXXZ")
-#pragma comment(linker, "/alternatename:?getCDECount@BfmeOwnerCDE@@QAEHPAX@Z=?d_008fa4b0@@YAXXZ")
 
 void BfmeOwnerCDE::rva008fa850(void *what)
 {

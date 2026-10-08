@@ -44,13 +44,13 @@ public:
 typedef basic_string<char, char_traits<char>, allocator<char> > string;
 }
 
-struct BfmeOpaqueOwnedRecord840 {
+struct PeerResponse {
     union { unsigned int alignmentWitness; unsigned char bytes[840]; };
-    BfmeOpaqueOwnedRecord840();
-    ~BfmeOpaqueOwnedRecord840();
+    PeerResponse();
+    ~PeerResponse();
 };
-struct Global003EF728V6;
-extern Global003EF728V6 *g_00A02340;
+class GameSpyPeerMessageQueueInterface;
+extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 class UTMResponseQueueView {
 public:
     virtual void unused0();
@@ -61,19 +61,19 @@ public:
     virtual void unused5();
     virtual void unused6();
     virtual void unused7();
-    virtual void addResponse(const BfmeOpaqueOwnedRecord840 &resp);
+    virtual void addResponse(const PeerResponse &resp);
 };
 
 void playerUTMCallback(void *peer, const char *nick, const char *command,
     const char *parameters, int authenticated, void *param)
 {
-    BfmeOpaqueOwnedRecord840 resp;
+    PeerResponse resp;
     *(int *)resp.bytes = 16;
     if (nick) {
         *(_STL::string *)(resp.bytes + 0x10) = nick;
         *(_STL::string *)(resp.bytes + 0xe8) = command;
         *(_STL::string *)(resp.bytes + 0xf4) = parameters;
-        ((UTMResponseQueueView *)g_00A02340)->addResponse(resp);
+        ((UTMResponseQueueView *)TheGameSpyPeerMessageQueue)->addResponse(resp);
     }
 }
 
@@ -88,12 +88,12 @@ void roomUTMCallback(void *peer, RoomType roomType, const char *nick,
 {
     if (roomType != StagingRoom)
         return;
-    BfmeOpaqueOwnedRecord840 resp;
+    PeerResponse resp;
     *(int *)resp.bytes = 15;
     if (nick) {
         *(_STL::string *)(resp.bytes + 0x10) = nick;
         *(_STL::string *)(resp.bytes + 0xe8) = command;
         *(_STL::string *)(resp.bytes + 0xf4) = parameters;
-        ((UTMResponseQueueView *)g_00A02340)->addResponse(resp);
+        ((UTMResponseQueueView *)TheGameSpyPeerMessageQueue)->addResponse(resp);
     }
 }

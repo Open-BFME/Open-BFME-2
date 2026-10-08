@@ -6,7 +6,7 @@
 // slot 0, ret 12. Callers pass global 0x009FF000 in ecx with 3 stack args.
 // Unblocks 9 free functions, none ready yet.
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long ms);
-extern class ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 // g_00DFF004: VA 0x00dff004 (.data/bss); retail zero-filled.
 unsigned char g_00DFF004;
@@ -87,7 +87,7 @@ void *Rva002CF21B::rva002CF21B(void *a1, int a2, int a3)
 		return 0;
 	Result *r;
 	{
-		Mgr *mgr = (Mgr *)TheGameClient;
+		Mgr *mgr = (Mgr *)((ClientFrameSubsystem *)TheGameClient);
 		r = mgr->v28((int)a1, a2, a3);
 	}
 	Elem **p = r->m_array;

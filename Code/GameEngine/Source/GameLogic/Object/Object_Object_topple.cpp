@@ -888,7 +888,6 @@ class Rva00024D70AICommandCall
 public:
 	void invoke(int source);
 };
-#pragma comment(linker, "/alternatename:?invoke@Rva00024D70AICommandCall@@QAEXH@Z=?j_00024d70@@YAXXZ")
 
 // Retail calls cancelAndRefundAllProduction at vtable offset +0x34.
 class BfmeDefectProductionUpdateCall
@@ -990,7 +989,6 @@ class Rva0004067ECall
 public:
 	void invoke(int mode);
 };
-#pragma comment(linker, "/alternatename:?invoke@Rva0004067ECall@@QAEXH@Z=?j_0004067e@@YAXXZ")
 
 class BfmeAudioEventRTS
 {
@@ -1003,10 +1001,6 @@ public:
 private:
 	unsigned char m_data[0x70];
 };
-#pragma comment(linker, "/alternatename:??0BfmeAudioEventRTS@@QAE@ABV0@@Z=?j_00047b27@@YAXXZ")
-#pragma comment(linker, "/alternatename:??1BfmeAudioEventRTS@@QAE@XZ=?j_00026f35@@YAXXZ")
-#pragma comment(linker, "/alternatename:?setObjectID@BfmeAudioEventRTS@@QAEXI@Z=?j_00019a6a@@YAXXZ")
-#pragma comment(linker, "/alternatename:?setPlayerIndex@BfmeAudioEventRTS@@QAEXH@Z=?j_0003ac88@@YAXXZ")
 
 struct Rva005A00B0MiscAudio
 {

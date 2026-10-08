@@ -8,8 +8,7 @@ struct Rva005E1008Inner
 };
 
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 void __cdecl Rva005277D9Fire(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, bool *flagPtr);
 
 class Rva005E1008
@@ -32,8 +31,8 @@ void Rva005E1008::rva005E1008(float v)
 	if (m_flag43 == 0) {
 		if (m_flag40 != 0) {
 			bool flag = true;
-			const char *prefix = m_inner0C ? m_inner0C->m_name : g_Rva0107301CEmptyString;
-			Rva005277D9Fire(TheRva00222A8BTarget, m_level08, prefix, "ShowTimerOverlay", &flag);
+			const char *prefix = m_inner0C ? m_inner0C->m_name : "";
+			Rva005277D9Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level08, prefix, "ShowTimerOverlay", &flag);
 		}
 		m_flag43 = true;
 	}

@@ -30,7 +30,7 @@ struct G00524477
 	void Rva002245FF(int a1, int a2);
 };
 
-extern G00524477 *g_00DFE4CC;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 struct Holder00524477
 {
@@ -42,7 +42,7 @@ struct Holder00524477
 
 void Holder00524477::Rva00524477(int a1, int a2)
 {
-	if (g_00DFE4CC == 0)
+	if ((*(G00524477 **)&g_bfmeAptWindowManager) == 0)
 		return;
 	char buf[8];
 	Out00524477 *out = (Out00524477 *)buf;
@@ -53,6 +53,6 @@ void Holder00524477::Rva00524477(int a1, int a2)
 	((AsciiString *)(buf + 4))->~AsciiString();
 	if (rr == m_10)
 		return;
-	g_00DFE4CC->Rva002245FF(a1, a2);
+	(*(G00524477 **)&g_bfmeAptWindowManager)->Rva002245FF(a1, a2);
 	m_C.Rva00523EC8(rr);
 }

@@ -22,8 +22,6 @@ class PeerThreadClass { public:
  void handleQMMatch(PEER, Int, Int, char *names[MAX_SLOTS], char *ips[MAX_SLOTS], char *sides[MAX_SLOTS], char *colors[MAX_SLOTS], char *nats[MAX_SLOTS], char *unknown[MAX_SLOTS]);
 };
 extern Int matchbotProfileID;
-#pragma comment(linker, "/alternatename:??0PeerResponse@@QAE@XZ=??0BfmeOpaqueOwnedRecord840@@QAE@XZ")
-#pragma comment(linker, "/alternatename:??1PeerResponse@@QAE@XZ=??1BfmeOpaqueOwnedRecord840@@QAE@XZ")
 void playerMessageCallback(PEER peer, const char * nick, const char * message, MessageType messageType, void * param)
 {
 	PeerResponse resp;

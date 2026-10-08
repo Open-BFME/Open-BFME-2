@@ -56,7 +56,3 @@ void Rva006CC7C0(const char *text)
 {
 	((Rva006D1090 *)g_rva00893030Manager)->rva006D0D70(&EAStringC(text));
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_Rva006D1090AtE176CC@@3PAVRva006D1090@@A=?g_rva00893030Manager@@3PAVRva00893030Manager@@A")

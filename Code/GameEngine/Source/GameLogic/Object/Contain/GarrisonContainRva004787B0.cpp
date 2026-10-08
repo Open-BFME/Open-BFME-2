@@ -77,7 +77,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 struct CreateMask
 {
 	unsigned char m_data[0x10];
@@ -109,7 +109,7 @@ void GarrisonContain::rva004787B0()
 	int count = a->m_count;
 	if (count <= 0)
 		return;
-	void *tmpl = TheThingFactory->rva002D06CA((const AsciiString *)&a->m_nameOpaque);
+	void *tmpl = ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)&a->m_nameOpaque);
 	Object *obj = m_8;
 	CreateMask mask;
 	for (int i = 0; i < count; ++i)

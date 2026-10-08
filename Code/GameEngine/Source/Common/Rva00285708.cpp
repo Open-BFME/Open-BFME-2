@@ -5,7 +5,8 @@ class Rva0020DXXX
 public:
 	void rva0020D925(int v);
 };
-extern Rva0020DXXX *g_00DFE1A8;
+class Rva0020D959Host;
+extern Rva0020D959Host *g_00DFE1A8;
 class GameLogic
 {
 public:
@@ -25,6 +26,6 @@ void Rva00285708Host::rva00285708()
 {
 	if (m_10 != -1)
 		return;
-	g_00DFE1A8->rva0020D925((int)this);
+	((Rva0020DXXX *)g_00DFE1A8)->rva0020D925((int)this);
 	m_10 = TheGameLogic->m_40;
 }

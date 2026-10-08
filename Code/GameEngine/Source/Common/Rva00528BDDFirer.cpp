@@ -7,7 +7,7 @@ public:
 	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva00528BDD
 {
@@ -20,7 +20,7 @@ private:
 
 void Rva00528BDD::rva00528BDD()
 {
-	TheRva00222A8BTarget->invoke(m_owner, "HideCostModifierUpgradeInterface", 0, 0, 0, 0, 0, 0);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(m_owner, "HideCostModifierUpgradeInterface", 0, 0, 0, 0, 0, 0);
 	m_flag04 = false;
 }
 
@@ -37,7 +37,7 @@ void Rva00528B98::rva00528B98()
 {
 	if (!m_flag04)
 		return;
-	TheRva00222A8BTarget->invoke(m_owner, "HideRankInterface", 0, 0, 0, 0, 0, 0);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(m_owner, "HideRankInterface", 0, 0, 0, 0, 0, 0);
 	m_flag04 = false;
 }
 

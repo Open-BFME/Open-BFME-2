@@ -28,7 +28,7 @@ public:
 	Rva004E7A85World10 *m_10;
 };
 
-extern Rva004E7A85World *g_00DFEE88;
+extern class PlayerList *ThePlayerList;
 
 class GameLogic;
 extern GameLogic *TheGameLogic;
@@ -77,7 +77,7 @@ void Rva004E7A85::rva004E7A85()
 	if (m_4 == 0) {
 		ResourceEntryCollector *c = &m_1C;
 		c->rva004E551E();
-		Rva004E7A85World *world = g_00DFEE88;
+		Rva004E7A85World *world = (*(Rva004E7A85World **)&ThePlayerList);
 		int rel = 0;
 		if (world != 0 && world->m_10 != 0) {
 			int idx = world->m_10->m_54;

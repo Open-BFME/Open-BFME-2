@@ -111,7 +111,6 @@ public:
 };
 
 extern GameTextInterface *TheGameText;
-extern unsigned short g_Va007BB5C4;
 
 UnicodeString StrategicHUD::FormatCommandPointsString(int a, int b)
 {
@@ -120,7 +119,7 @@ UnicodeString StrategicHUD::FormatCommandPointsString(int a, int b)
 		Bool exists;
 		UnicodeString fetched = TheGameText->fetch("STRATEGICHUD:ArmyUnitSwapperCP", &exists);
 		if (exists) {
-			const wchar_t *fmt = fetched.m_data.m_data ? fetched.m_data.m_data->data : (const wchar_t *)&g_Va007BB5C4;
+			const wchar_t *fmt = fetched.m_data.m_data ? fetched.m_data.m_data->data : L"";
 			tmp.format(fmt, a, b);
 		}
 	}

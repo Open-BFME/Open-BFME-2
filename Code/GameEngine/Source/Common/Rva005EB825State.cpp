@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD
 //
 // ?rva005EB825@Rva005EB825@@QAEXXZ, retail 0x005EB825, 85 bytes.
 // State switch through inner at +0: clears +0xC, case 1 calls pinned
@@ -10,10 +10,9 @@
 class Rva00222A8BTarget
 {
 public:
-	// Native provider compares the incoming 32-bit index with 14 and returns AL.
-	bool rva0022277D(int index);
+	bool rva0022277D(int level);	// 0x0022277D, WB AptPlayer::HideLevel
 };
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 void __cdecl Rva00516F21Invoke(Rva00222A8BTarget *t, void *p, const char *a, const char *b);
 
 struct Rva005EB825Inner
@@ -37,12 +36,12 @@ void Rva005EB825::rva005EB825()
 	m_00->m_0C = 0;
 	switch (m_00->m_08) {
 	case 1:
-		TheRva00222A8BTarget->rva0022277D(reinterpret_cast<int>(m_00->m_04));
+		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva0022277D((int)m_00->m_04);
 		m_00->m_08 = 0;
 		break;
 	case 2:
 	case 5:
-		Rva00516F21Invoke(TheRva00222A8BTarget, m_00->m_04, "SetState", "_fadeOut");
+		Rva00516F21Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_00->m_04, "SetState", "_fadeOut");
 		m_00->m_08 = 3;
 		break;
 	default:

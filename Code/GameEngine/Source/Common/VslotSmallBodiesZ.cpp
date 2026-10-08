@@ -48,19 +48,17 @@ struct Rva003F468DRecord
 	Int m_00;
 	char m_pad04[0x2C];
 };
+struct Rva003F468DRecords
+{
+	Int size() const { return m_end - m_begin; }
+	Rva003F468DRecord *m_begin;
+	Rva003F468DRecord *m_end;
+};
 struct Rva003F468DEntry
 {
 	Int m_00;
-	struct Span
-	{
-		Rva003F468DRecord *m_begin;
-		Rva003F468DRecord *m_end;
-		Int size() const
-		{
-			return ((char *)m_end - (char *)m_begin) / 0x30;
-		}
-	} m_04;
-	char m_pad0c[0x10];
+	Rva003F468DRecords m_records; // +0x04
+	char m_pad0C[0x10];
 };
 class Rva003F468D
 {
@@ -73,14 +71,11 @@ private:
 };
 Int Rva003F468D::rva003F468D(Int a, Int b)
 {
-	return m_18[a].m_04.m_begin[b].m_00;
+	return m_18[a].m_records.m_begin[b].m_00;
 }
-
-// ?rva003F4DAE@Rva003F468D@@QAEHH@Z, retail 0x003F4DAE, 28 bytes.
-// Counts the 0x30-byte participant records in side a's [begin, end) range.
-// The packet and GetLivingWorldTacticalVictor call site establish the 0x1C-byte
-// side table at +0x18; the neighboring entry accessor confirms the +4 begin.
+// 0x003F4DAE (28 B; LivingWorldLogic battle bodies and the tactical-victor
+// lookup call it): the record count of entry [a], (end - begin) / 0x30.
 Int Rva003F468D::rva003F4DAE(Int a)
 {
-	return m_18[a].m_04.size();
+	return m_18[a].m_records.size();
 }

@@ -109,8 +109,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *TheThingFactory;
-extern AsciiString g_009E0878;
+extern class ThingFactory *TheThingFactory;
 
 class ThingTemplate
 {
@@ -243,12 +242,12 @@ void SpawnBehavior::xfer(Xfer *xfer)
 		xfer->xferUnsignedInt(m_initialBurstCountdown);
 	}
 	AsciiString tmp;
-	tmp = m_spawnTemplate != NULL ? m_spawnTemplate->m_name : g_009E0878;
+	tmp = m_spawnTemplate != NULL ? m_spawnTemplate->m_name : AsciiString::TheEmptyString;
 	xfer->xferAsciiString(tmp);
 	if (xfer->IsLoading()) {
 		m_spawnTemplate = NULL;
 		if (!tmp.isEmpty()) {
-			m_spawnTemplate = (const ThingTemplate *)TheThingFactory->rva002D06CA(&tmp);
+			m_spawnTemplate = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp);
 			if (m_spawnTemplate == NULL) {
 				bfmeFormatText(&error, 5, 0);
 				_CxxThrowException(&error, (const _s__ThrowInfo *)&g_rva008ffd18ThrowInfo); __assume(0);
@@ -267,7 +266,5 @@ void SpawnBehavior::xfer(Xfer *xfer)
 	xfer->xferInt(m_spawnCount);
 	xfer->xferUnsignedInt(m_selfTaskingSpawnCount);
 }
-// ?g_009E0878@@3VAsciiString@@A: the global at VA 0xde0878 is ?TheEmptyString@AsciiString@@2V1@B.
-#pragma comment(linker, "/alternatename:?g_009E0878@@3VAsciiString@@A=?TheEmptyString@AsciiString@@2V1@B")
 // ?g_rva008ffd18ThrowInfo@@3HA: the global at VA 0xcffd18 is ?g_guardTargetTypeThrowInfo@@3HA.
 #pragma comment(linker, "/alternatename:?g_rva008ffd18ThrowInfo@@3HA=?g_guardTargetTypeThrowInfo@@3HA")

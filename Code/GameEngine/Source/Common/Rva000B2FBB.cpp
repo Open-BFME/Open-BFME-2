@@ -33,7 +33,7 @@ public:
 	virtual int s31();
 };
 
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class Rva000B2FBB
 {
@@ -65,5 +65,5 @@ void Rva000B2FBB::rva000B2FBB(float f, const Matrix3D *m)
 	d2[2] = m->m22;
 	d2[3] = m->m23;
 	m_thing->setTransformMatrix(m);
-	m_i2c4 = TheGameClient->s31();
+	m_i2c4 = ((ClientFrameSubsystem *)TheGameClient)->s31();
 }

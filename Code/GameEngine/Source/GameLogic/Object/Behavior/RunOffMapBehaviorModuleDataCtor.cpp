@@ -23,7 +23,6 @@ public:
 	~UpdateModuleData();
 };
 
-extern const AsciiString emptyRunOffMapWaypointName;
 
 class RunOffMapBehaviorModuleData : public UpdateModuleData
 {
@@ -48,7 +47,5 @@ RunOffMapBehaviorModuleData::RunOffMapBehaviorModuleData()
 	m_runToLocation = 10.0f;
 	m_unnamed0C = 10.0f;
 	m_requiresSpecificTrigger = false;
-	m_runOffMapWaypointName = emptyRunOffMapWaypointName;
+	m_runOffMapWaypointName = AsciiString::TheEmptyString;
 }
-// ?emptyRunOffMapWaypointName@@3VAsciiString@@B: the global at VA 0xde0878 is ?TheEmptyString@AsciiString@@2V1@B.
-#pragma comment(linker, "/alternatename:?emptyRunOffMapWaypointName@@3VAsciiString@@B=?TheEmptyString@AsciiString@@2V1@B")

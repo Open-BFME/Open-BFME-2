@@ -13,7 +13,7 @@ extern "C" char *__cdecl strcpy(char *destination, const char *source);
 // TheLivingWorldCampaignManager (Rva002B256EThunk.cpp's g_00E02D6C); +0x2C
 // is set for the evil side.
 class Rva003B8BAA;
-extern Rva003B8BAA *g_00E02D6C;
+class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
 struct AptCampaignReviewCampaign
 {
@@ -56,7 +56,7 @@ struct GlobalA01E48
 	bool m_5d; // +0x5D
 };
 
-extern struct GlobalA01E48 *g_Va00A01E48;
+extern class Shell *TheShell;
 
 // Rva0051280EEnable.cpp's 0x0051280E.
 void Rva0051280EEnable();
@@ -137,8 +137,8 @@ void AptDisconnectScreen::OnInitialized(const char *unused)
 // Retail 0x00512823, 21 bytes: "AptCampaignReview::Continue".
 void AptCampaignReview::Continue(const char *unused)
 {
-	if (g_Va00A01E48)
-		g_Va00A01E48->m_5d = true;
+	if ((*(GlobalA01E48 **)&TheShell))
+		(*(GlobalA01E48 **)&TheShell)->m_5d = true;
 	Rva0051280EEnable();
 }
 
@@ -163,7 +163,7 @@ void AptCampaignReview::playerSideType(int query, char *result, bool skip)
 {
 	if (skip)
 		return;
-	AptCampaignReviewCampaign *campaign = (AptCampaignReviewCampaign *)g_00E02D6C;
+	AptCampaignReviewCampaign *campaign = (AptCampaignReviewCampaign *)((Rva003B8BAA *)TheCampaignManager);
 	if (campaign && campaign->m_evil)
 		strcpy(result, "evil");
 	else

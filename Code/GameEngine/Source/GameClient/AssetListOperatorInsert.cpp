@@ -75,12 +75,11 @@ private:
 	void *m_data;
 };
 
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr000B937E(const Rva0033B84ETok &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 class Rva000B664E

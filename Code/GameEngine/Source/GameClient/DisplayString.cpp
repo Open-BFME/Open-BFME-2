@@ -166,8 +166,3 @@ void DisplayString::appendString( const UnicodeString &text )
 	notifyTextChanged();
 
 }  // end appendString
-
-// getText is a DisplayString.h inline that retail folded into an identical
-// body owned by another row (vftable 0x00C15338 slot 2); getTextLength is
-// emitted in W3DDisplayStringWordWrap.cpp (slot 3).
-#pragma comment(linker, "/alternatename:?getText@DisplayString@@UAE?AVUnicodeString@@XZ=?rva0022C4DF@Rva0022C4DF@@QBE?AVUnicodeString@@XZ")

@@ -87,28 +87,9 @@ private:
 	Rva003B417E m_sub;
 };
 
-Rva001FA5A5::Rva001FA5A5()
-	: m_00(0)
-	, m_04(0)
-{
-}
+// The Rva001FA5A5, Rva001FBA45, Rva001FB8A9 and Rva001FBBE4 ctors are rows of
+// GameLogic/Object/Rva001FA5A5Ctor.cpp; this unit only declares them.
 
-Rva001FBA45::Rva001FBA45()
-	: m_00(0)
-	, m_04(0)
-{
-}
-
-
-Rva001FB8A9::Rva001FB8A9()
-	: m_00(0)
-{
-}
-
-Rva001FBBE4::Rva001FBBE4()
-	: m_00(0)
-{
-}
 
 Rva003B44DC::Rva003B44DC()
 	: m_00(0)

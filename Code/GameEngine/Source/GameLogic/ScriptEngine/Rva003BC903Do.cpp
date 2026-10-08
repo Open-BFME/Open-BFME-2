@@ -6,7 +6,7 @@ class Parameter
 class ExperienceTracker
 {
 public:
-	void rva0039B315(float amount, bool a, bool b, bool c, int d);
+	void rva0039B315(float amount, bool a, bool b, bool c, bool d);
 };
 class Object
 {
@@ -28,5 +28,5 @@ void __stdcall Rva003BC903Do(Parameter *param, int val)
 	ExperienceTracker *tracker = obj->m_264;
 	if (tracker == 0)
 		return;
-	tracker->rva0039B315((float)val, true, true, true, 0);
+	tracker->rva0039B315((float)val, true, true, true, false);
 }

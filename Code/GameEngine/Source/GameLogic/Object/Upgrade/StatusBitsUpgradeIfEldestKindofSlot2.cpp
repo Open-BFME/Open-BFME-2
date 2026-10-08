@@ -52,6 +52,12 @@ class UpgradeModuleInterface
 public:
 	virtual void upgradeModuleInterfaceAnchor();
 };
+// UpgradeMux's base body at 0x004CE2B0 is rowed as Rva004CE2B0::rva004CE2B0.
+class Rva004CE2B0
+{
+public:
+	Bool rva004CE2B0(Rva00406F9C *arg);
+};
 class UpgradeMux
 {
 public:
@@ -79,6 +85,6 @@ Bool StatusBitsUpgradeIfEldestKindof::rva004CE2B0(Rva00406F9C *arg)
 		(const StatusBitsUpgradeIfEldestKindofModuleData *)m_moduleData;
 	Object *obj = m_object;
 	if (m_eldestFrame.rva00485C19(obj, data, &TheStatusBitsUpgradeIfEldestKindofKey))
-		return UpgradeMux::rva004CE2B0(arg);
+		return ((Rva004CE2B0 *)((char *)this + 0x10))->rva004CE2B0(arg); // the UpgradeMux base at +0x10, no null test
 	return false;
 }

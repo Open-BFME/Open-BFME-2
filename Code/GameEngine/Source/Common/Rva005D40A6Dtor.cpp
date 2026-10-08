@@ -69,7 +69,6 @@ Rva005D40A6::~Rva005D40A6()
 
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
 
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
@@ -84,6 +83,6 @@ private:
 };
 void Rva005D4118::rva005D4118()
 {
-	const char *s = m_08 ? m_08 + 8 : g_Rva0107301CEmptyString;
+	const char *s = m_08 ? m_08 + 8 : "";
 	Rva00524EF4AptCall(TheRva00222A8BTarget, m_04, s, "Flash");
 }

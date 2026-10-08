@@ -13,7 +13,7 @@
 // mov ecx [0xDFE710 TheGameEngine] jmp to rowed stopHeadlessClients 0x2260F7;
 // callers at 0x44459D 0x444E7E 0x444EA4 0x444EE5 0x44666D.
 
-extern struct Global009FE958 *g_Va009FE958;
+class LANAPI; extern LANAPI *TheLAN;
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
@@ -64,7 +64,7 @@ public:
 	int m_31C; // +0x31C
 };
 
-#define TheGlobal004443E7958 (*(Global004443E7958View **)&g_Va009FE958)
+#define TheGlobal004443E7958 (*(Global004443E7958View **)&TheLAN)
 #define TheGameEngine004443E7 (*(class GameEngine **)&TheGameEngine)
 #define TheInvoke00444E8ATarget (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)
 

@@ -100,7 +100,11 @@ enum ModuleInterfaceType
 /** Base class for data-read-from-INI for modules. */
 //-------------------------------------------------------------------------------------------------
 /// @todo srj -- make ModuleData be MemoryPool based
-class ModuleData : public Snapshot
+// BFME2: novtable. Retail never stores a ModuleData vtable of its own (derived
+// ctors store only the derived table, derived dtors only the base 0x00BBB554),
+// and without it every unit emitted its own ??_7/??_GModuleData copies, which
+// differ between this view and Common/BfmeModuleData.h and between /O flags.
+class __declspec(novtable) ModuleData : public Snapshot
 {
 public:
 	ModuleData() { }

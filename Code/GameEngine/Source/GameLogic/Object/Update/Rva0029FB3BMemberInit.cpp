@@ -64,7 +64,6 @@ void Rva0029FB3BMember::reset()
 
 // ?g_freeList@@3PAXA: matched references place it at VA 0xda60f0; also referenced as ?g_pool009A60F0@@3PAUPoolNode002ABB20@@A.
 void * g_freeList = 0;
-#pragma comment(linker, "/alternatename:?g_pool009A60F0@@3PAUPoolNode002ABB20@@A=?g_freeList@@3PAXA")
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

@@ -117,7 +117,6 @@ public:
 };
 
 extern WeaponStore *TheWeaponStore;
-extern const char g_Rva0107301CEmptyString[];
 extern int g_guardTargetTypeThrowInfo;
 
 struct _s__ThrowInfo;
@@ -174,7 +173,7 @@ void Weapon::xfer(Xfer *xfer)
 {
 	Xfer::Version ver(1, 3);
 	*xfer == ver;
-	AsciiString nameTmp(m_template ? m_template->getName() : AsciiString(g_Rva0107301CEmptyString));
+	AsciiString nameTmp(m_template ? m_template->getName() : AsciiString(""));
 	*xfer == nameTmp;
 	if (xfer->IsLoading()) {
 		const WeaponTemplate *tmpl = TheWeaponStore->findWeaponTemplate(nameTmp);

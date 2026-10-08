@@ -40,7 +40,7 @@ class Rva006DB160 {
 public:
     void *allocBlock(int blockSize);
 };
-extern Rva006DB160 *g_aptPoolAllocator;
+extern class Rva006DB270 *g_pChainBlockAllocator;
 class AptValue {
 public:
     virtual void AddRef();
@@ -216,7 +216,7 @@ void AptNativeHash::rva0070AB30()
             __asm int 3
         }
     }
-    mpData = (Entry *)g_aptPoolAllocator->allocBlock(mnTotalSize * 8);
+    mpData = (Entry *)(*(Rva006DB160 **)&g_pChainBlockAllocator)->allocBlock(mnTotalSize * 8);
     if (!mpData) {
         g_bfmeAptAssertAtE17734("mpData != NULL", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptNativeHash.cpp", 0x1F9);
         if (g_bfmeAptBreakOnAssertAtDDC01C) {

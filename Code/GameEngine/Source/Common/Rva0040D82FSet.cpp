@@ -9,12 +9,23 @@
 class Rva0040D82FSub
 {
 public:
-	int set(int v); // pinned retail 0x0025BF5D (RVA form; VA 0x0065BF5D) thiscall: this in ECX, callee cleans
-
 	int m_first;
 };
 
-int rva0060E873(int a, int b, int *out); // pinned retail 0x0060E873
+// The callees are the rowed STLport find<CreateAHeroData **, CreateAHeroData *>
+// (0x0060E873) and vector<ObjectID>::erase(iterator) (0x0025BF5D).
+class CreateAHeroData;
+enum ObjectID { INVALID_ID_0040D82F = 0 };
+namespace _STL
+{
+template <class It, class T> It find(It first, It last, const T &value);
+template <class T> class allocator;
+template <class T, class A = allocator<T> > class vector
+{
+public:
+	T *erase(T *position);
+};
+}
 
 struct Rva0040D82FArg
 {
@@ -38,9 +49,9 @@ void __fastcall Rva0040D82FHost::setFrom(int unused, Rva0040D82FArg *arg)
 	if (arg != 0) {
 		int cur = m_18;
 		int tmp = arg->m_1C;
-		int r = rva0060E873(m_14.m_first, cur, &tmp);
+		int r = (int)_STL::find<CreateAHeroData **, CreateAHeroData *>((CreateAHeroData **)m_14.m_first, (CreateAHeroData **)cur, *(CreateAHeroData *const *)&tmp);
 		if (r != cur) {
-			m_14.set(r);
+			((_STL::vector<ObjectID> *)&m_14)->erase((ObjectID *)r);
 		}
 	}
 }

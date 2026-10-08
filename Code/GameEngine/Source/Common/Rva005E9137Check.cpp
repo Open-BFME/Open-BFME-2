@@ -71,7 +71,7 @@ public:
 	virtual void v17();
 	virtual class GameMessage *appendType(int type);
 };
-extern class MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 class Rva005E917A
 {
 public:
@@ -83,6 +83,6 @@ void Rva005E917A::rva005E917A()
 {
 	if (Rva005E9137Check(m_14) == 0)
 		return;
-	class GameMessage *msg = MessageStreamSubsystem->appendType(0x6a9);
+	class GameMessage *msg = TheMessageStream->appendType(0x6a9);
 	msg->appendIntegerArgument(m_14->m_20);
 }

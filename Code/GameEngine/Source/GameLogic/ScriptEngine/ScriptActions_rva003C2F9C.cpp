@@ -44,7 +44,6 @@ struct ScriptCounter
 
 extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
-extern const char g_Rva0107301CEmptyString[];
 
 template <unsigned int N>
 class BitFlags
@@ -64,7 +63,7 @@ void ScriptActions::doSetCounterToPlayerOwnershipOfUnitsWithModelCondition(const
 	int mask = TheScriptEngine->rva00357475(playerName, (bool *)0);
 	int total = 0;
 	const char *holder = *(const char *const *)&kindName;
-	const char *name = holder ? holder + 8 : g_Rva0107301CEmptyString;
+	const char *name = holder ? holder + 8 : "";
 	int bit = BitFlags<304>::getSingleBitFromName(name);
 	while (mask != 0)
 	{

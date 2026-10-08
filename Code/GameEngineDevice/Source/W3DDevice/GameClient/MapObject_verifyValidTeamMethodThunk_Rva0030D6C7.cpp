@@ -19,10 +19,12 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-class StaticNameKey
+// StaticNameKey::key is rowed as Rva00148F5ECache::get.
+class StaticNameKey;
+class Rva00148F5ECache
 {
 public:
-	NameKeyType key() const;
+	NameKeyType get();
 };
 
 extern const StaticNameKey TheKey_originalOwner;
@@ -30,8 +32,8 @@ extern const StaticNameKey TheKey_originalOwner;
 class Dict
 {
 public:
-	AsciiString getAsciiString(NameKeyType key, bool *exists = 0) const;
-	bool remove(NameKeyType key);
+	AsciiString getAsciiString(int key, bool *exists = 0) const;
+	bool remove(int key);
 };
 
 class MapObject
@@ -68,10 +70,10 @@ void MapObject::verifyValidTeam()
 {
 	bool exists;
 	AsciiString teamName = getProperties()->getAsciiString(
-		TheKey_originalOwner.key(), &exists);
+		((Rva00148F5ECache *)&TheKey_originalOwner)->get(), &exists);
 	if (exists)
 	{
 		if (!((Rva0019C520Owner *)TheSidesList)->forward(teamName, 0))
-			getProperties()->remove(TheKey_originalOwner.key());
+			getProperties()->remove(((Rva00148F5ECache *)&TheKey_originalOwner)->get());
 	}
 }

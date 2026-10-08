@@ -12,7 +12,7 @@
 class AITactic
 {
 public:
-	void end(int a, int b);
+	void end(bool a, bool b);
 };
 
 extern "C" void __cdecl free(void *p);

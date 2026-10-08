@@ -14,10 +14,13 @@
 
 // ??_GHordeGarrisonContainModuleData@@UAEPAXI@Z @0x002579E9 28B: slot 0 of vtable 0x00BF4328; calls ??1 at 0x00257A05.
 // Owner evidence: vtable 0x00BF4328 installed by ctor 0x0047A251; ctor factory 0x0024BAD1 news 0xD4; dtor 0x00257A05 is 5B jmp to Garrison dtor 0x00257507 (rowed); HordeTransport 5B-jmp precedent.
-class HordeGarrisonContainModuleData { public: __declspec(noinline) virtual ~HordeGarrisonContainModuleData(); };
-// ??1HordeGarrisonContainModuleData@@UAE@XZ present-unmatched
-HordeGarrisonContainModuleData::~HordeGarrisonContainModuleData() {}
-void HordeGarrisonContainModuleData_Delete(HordeGarrisonContainModuleData *p) { delete p; }
+// The destructor is rowed in HordeGarrisonContainModuleDataDtor.cpp and only
+// declared here; the tag constructor (no retail counterpart) makes this TU
+// emit the vtable and with it the deleting destructor.
+struct EmitVtableTag;
+class HordeGarrisonContainModuleData { public: HordeGarrisonContainModuleData(EmitVtableTag *); virtual ~HordeGarrisonContainModuleData(); };
+// ?<HordeGarrisonContainModuleData::HordeGarrisonContainModuleData> absent-from-retail
+HordeGarrisonContainModuleData::HordeGarrisonContainModuleData(EmitVtableTag *) {}
 
 // ??_GOpenContain@@UAEPAXI@Z @0x00464B7A 28B: slot 0 of vtable 0x00C435E8; calls ??1 at 0x00464692.
 // Owner evidence (audited 2026-09-26): retail slot 4 -> RVA 0x00464775 uses class-name string "OpenContain".

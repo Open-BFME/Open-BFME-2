@@ -68,10 +68,12 @@ public:
 	Rva002E5FF0Field23C *m_team;
 };
 
+enum ObjectID { INVALID_ID = 0 };
+
 class GameLogic
 {
 public:
-	Object *findObjectByID( int id );
+	Object *findObjectByID( ObjectID id );
 };
 
 extern GameLogic *TheGameLogic;
@@ -83,7 +85,6 @@ void bfmeGo1039E( BfmeQ1039 *q, int v );
 
 
 extern "C" void lua_pushstring( lua_State *state, const char *str );
-extern "C" const char g_bfmeEmptyAscii[];
 
 struct Rva002E5FF0Str
 {
@@ -144,6 +145,8 @@ public:
 template <typename T>
 class StringBase
 {
+	friend class AsciiString;
+	void releaseBuffer();
 public:
 	StringBase() { m_data = 0; }
 	StringBase( const T *text );
@@ -156,11 +159,11 @@ class AsciiString : public StringBase<char>
 public:
 	AsciiString() {}
 	AsciiString( const char *text ) : StringBase<char>( text ) {}
-	~AsciiString();
+	~AsciiString() { releaseBuffer(); }
 	AsciiString &operator=( const AsciiString &text );
 	const char *str() const
 	{
-		return m_data ? (const char *)m_data + 8 : g_bfmeEmptyAscii;
+		return m_data ? (const char *)m_data + 8 : "";
 	}
 
 };
@@ -202,9 +205,9 @@ int LuaScriptEngine::ObjectDescription( lua_State *state )
 		lua_pushnil( state );
 		return 1;
 	}
-	Object *object = TheGameLogic->findObjectByID( id );
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
 	AsciiString result = DescribeObject( object );
-	lua_pushstring( state, result.m_data ? (const char *)result.m_data + 8 : g_bfmeEmptyAscii );
+	lua_pushstring( state, result.m_data ? (const char *)result.m_data + 8 : "" );
 	return 1;
 }
 
@@ -297,7 +300,7 @@ int ObjectDispatchEvent( lua_State *state )
 	unsigned objectID = Rva00990030Lookup( state, 1 );
 	if( !objectID && lua_type( state, 1 ) != 1 )
 		return 0;
-	Object *object = TheGameLogic->findObjectByID( objectID );
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)objectID );
 	if( !object )
 		return 0;
 

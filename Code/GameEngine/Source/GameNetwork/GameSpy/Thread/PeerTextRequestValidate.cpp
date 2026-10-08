@@ -4,8 +4,8 @@
 // Peer text-request validator: trims a by-value UnicodeString, and when it
 // is non-empty files a PeerRequest (tag 0x15) carrying its text through
 // TheGameSpyPeerMessageQueue->addRequest (slot 6), returning true. Evidence:
-// - record lifetime is rowed 0x001EF661/0x001EF723 (BfmeOpaqueOwnedRecord492
-//   aka PeerRequest per PeerThread.cpp alternatenames); the struct below is
+// - record lifetime is rowed 0x001EF661/0x001EF723 (PeerRequest,
+//   the record PeerThread.cpp constructs there); the struct below is
 //   copied identically from Rva0059FF9DDo.cpp, which files the sibling tag
 //   0x19 request through the same slot-6 call on the same queue global.
 // - wstring member +0x10 takes the +8-or-NullChr text (0x00BBB5C4 fallback)
@@ -22,10 +22,10 @@
 
 #include "unicode_string.h"
 
-struct BfmeOpaqueOwnedRecord492
+struct PeerRequest
 {
-	BfmeOpaqueOwnedRecord492();
-	~BfmeOpaqueOwnedRecord492();
+	PeerRequest();
+	~PeerRequest();
 	int unknown_00;
 	std::string unknown_04;
 	std::wstring unknown_10;
@@ -65,22 +65,19 @@ struct PeerRequestQueue6
 	virtual void f3();
 	virtual void f4();
 	virtual void f5();
-	virtual void addRequest(BfmeOpaqueOwnedRecord492 *rec);
+	virtual void addRequest(PeerRequest *rec);
 };
 
 extern PeerRequestQueue6 *TheGameSpyPeerMessageQueue;
 
-// The wide NullChr retail falls back to: established name g_Va007BB5C4
-// (defined in Rva00579900Fetch.cpp, placed at VA 0x00BBB5C4).
-extern unsigned short g_Va007BB5C4;
 
 bool __stdcall Rva001EFCF7(UnicodeString str)
 {
-	BfmeOpaqueOwnedRecord492 rec;
+	PeerRequest rec;
 	const void *bits = *reinterpret_cast<const void * const *>(&str);
 	rec.unknown_10 = bits
 		? (const unsigned short *)(reinterpret_cast<const char *>(bits) + 8)
-		: (const unsigned short *)&g_Va007BB5C4;
+		: (const unsigned short *)L"";
 	str.trim();
 	const void *check = *reinterpret_cast<const void * const *>(&str);
 	bool ok;

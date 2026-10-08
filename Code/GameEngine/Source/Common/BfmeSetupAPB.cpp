@@ -33,7 +33,6 @@ int bfmeSetupAPB(void)
 
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_bfmeFlagsAPB@@3IA=?BFME2CommandFlags@@3IA")
 #pragma comment(linker, "/alternatename:?g_bfmeOnAPB@@3_NA=?g_Rva00A02D86@@3EA")
 #pragma comment(linker, "/alternatename:?g_bfmeDoneAPB@@3_NA=?g_Rva00A02D87@@3EA")
 

@@ -11,7 +11,6 @@ typedef unsigned short WideChar;
 extern "C" __declspec(dllimport) WideChar *__cdecl wcsncpy(WideChar *, const WideChar *, unsigned int);
 extern "C" __declspec(dllimport) unsigned int __stdcall timeGetTime();
 
-extern const WideChar TheNullChr[];
 
 class LANGameInfo2
 {
@@ -128,14 +127,10 @@ void LANAPI::rva00449FE8(void *arg)
 	*(int *)((char *)&msg + 0x1e) = *(int *)g1;
 	LANGameInfo2 *g2 = v100();
 	*(unsigned short *)((char *)&msg + 0x22) = *(unsigned short *)((char *)g2 + 4);
-	const WideChar *name = (m_14 != 0) ? (const WideChar *)((char *)m_14 + 8) : TheNullChr;
+	const WideChar *name = (m_14 != 0) ? (const WideChar *)((char *)m_14 + 8) : (const WideChar *)L"";
 	wcsncpy((WideChar *)((char *)&msg + 0x24), name, 0xa);
 	((WideChar *)((char *)&msg + 0x24))[0xa] = 0;
 	Rva004495A2(&msg, (unsigned int)arg);
 	m_28 = 2;
 	m_2c = timeGetTime() + m_30;
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?TheNullChr@@3QBGB=?g_Va007BB5C4@@3GA")

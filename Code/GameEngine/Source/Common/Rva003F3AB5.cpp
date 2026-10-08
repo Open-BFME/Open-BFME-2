@@ -24,10 +24,11 @@ private:
 	DynamicPortalLink *m_finish;
 };
 
-struct Rva003F3277Record
-{
-	char m_bytes[12];
-};
+// The 12-byte record of the rowed fill-insert at 0x003F35E3, declared as that
+// unit declares it, which instantiates the template: here it is only called.
+struct Rva003F3277Record { Rva003F3277Record(); Rva003F3277Record(const Rva003F3277Record &); ~Rva003F3277Record(); Rva003F3277Record &operator=(const Rva003F3277Record &); private: char bytes[12]; };
+extern template void _STL::vector<Rva003F3277Record, _STL::allocator<Rva003F3277Record> >::_M_fill_insert(
+	Rva003F3277Record *, unsigned int, const Rva003F3277Record &);
 
 class Rva003F3AB5
 {

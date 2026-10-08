@@ -281,7 +281,7 @@ public:
 	User *getUser(void *key);
 };
 
-extern BfmeGlobal_012f1024 *g_bfmeGlobal_012f1024;
+class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
 class Gen_003bcb40
 {
@@ -340,7 +340,7 @@ void Glo012F1024Item::j_00019eca(void)
 {
 	for (unsigned int index = 0; index < m_bfmeNames.bfmeSize(); ++index)
 	{
-		User *user = g_bfmeGlobal_012f1024->getUser(m_bfmeNames.bfmeBegin() + index);
+		User *user = ((BfmeGlobal_012f1024 *)TheCampaignManager)->getUser(m_bfmeNames.bfmeBegin() + index);
 		if (user != 0)
 		{
 			((Gen_003bcb40 *)TheLivingWorldLogic)->m(user->GetName());

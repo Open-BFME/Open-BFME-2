@@ -47,14 +47,14 @@ class Rva002036A9DwordImmSetter
 public:
 	void apply();
 };
-extern Rva002036A9DwordImmSetter *TheImmSetter;
+extern class ScriptEngine *TheScriptEngine;
 
 class Rva0021A54A
 {
 public:
 	void rva0021A54A();
 };
-extern Rva0021A54A *TheHeroManager;
+extern class CreateAHeroManager *TheCreateAHeroManager;
 
 class Rva003BD598
 {
@@ -73,6 +73,6 @@ void Rva003BD598::rva003BD598()
 	if (TheTerrainVisual != 0)
 		static_cast<W3DTerrainVisual *>(TheTerrainVisual)->W3DTerrainVisual::removeAllBibs();
 	TheCampaignManager->m_flag2D = true;
-	TheImmSetter->apply();
-	TheHeroManager->rva0021A54A();
+	(*(Rva002036A9DwordImmSetter **)&TheScriptEngine)->apply();
+	(*(Rva0021A54A **)&TheCreateAHeroManager)->rva0021A54A();
 }

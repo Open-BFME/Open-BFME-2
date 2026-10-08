@@ -38,7 +38,7 @@ public:
 	Team *rva003A3E37(const AsciiString &owner, const AsciiString &name);
 };
 
-extern Rva0039FE6COwner *TheTeamFactory;
+extern class TeamFactory *TheTeamFactory;	// Player.cpp's global, read through this view
 
 class Player
 {
@@ -57,7 +57,7 @@ void Player::setDefaultTeam()
 	AsciiString teamName;
 	teamName = "team";
 	teamName.concat(m_playerName);
-	Team *team = TheTeamFactory->rva003A3E37(m_playerName, teamName);
+	Team *team = ((Rva0039FE6COwner *)TheTeamFactory)->rva003A3E37(m_playerName, teamName);
 	if (team)
 	{
 		m_defaultTeam = team;

@@ -91,7 +91,7 @@ struct Rva009FE758Obj
 	int m_c18;
 };
 
-extern Rva009FE758Obj *g_Rva009FE758;
+extern class GlobalData *TheWritableGlobalData;
 
 void Rva0023E7D9::rva0023F88C(int dummy)
 {
@@ -100,12 +100,10 @@ void Rva0023E7D9::rva0023F88C(int dummy)
 	*(unsigned char *)((char *)this + 0x71) = 0;
 	if (g_Rva00A02D86 != 0)
 	{
-		g_Rva009FE758->m_c18 = 2;
+		(*(Rva009FE758Obj **)&TheWritableGlobalData)->m_c18 = 2;
 		return;
 	}
 	if (g_Rva00A02D87 == 0)
 		return;
-	g_Rva009FE758->m_c18 = 5;
+	(*(Rva009FE758Obj **)&TheWritableGlobalData)->m_c18 = 5;
 }
-// ?g_Rva009FE758@@3PAURva009FE758Obj@@A: the global at VA 0xdfe758 is ?TheGlobalData@@3PAVGlobalData@@A.
-#pragma comment(linker, "/alternatename:?g_Rva009FE758@@3PAURva009FE758Obj@@A=?TheGlobalData@@3PAVGlobalData@@A")

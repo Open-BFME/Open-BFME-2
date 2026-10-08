@@ -41,7 +41,7 @@ public:
 class LANGameInfo
 {
 public:
-	Bool rva004477C7( void ) const;
+	Bool amIHost( void ) const;
 	char m_pre114[0x114];
 	Rva00248CDD m_hostAddress;
 };
@@ -127,7 +127,7 @@ void Rva00447CA9( LANGameInfo *game, char *buffer, Int size );
 
 void Rva0044802D( char *buffer, Int size )
 {
-	if( TheLAN->GetMyGame() && TheLAN->GetMyGame()->rva004477C7() )
+	if( TheLAN->GetMyGame() && TheLAN->GetMyGame()->amIHost() )
 		Rva00447CA9( TheLAN->GetMyGame(), buffer, size );
 	else
 		memset( buffer, 0, size );

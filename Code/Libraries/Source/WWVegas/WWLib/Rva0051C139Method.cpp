@@ -24,7 +24,7 @@ public:
     virtual void v17();
     virtual void v18(int v);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 // PC operand 0x00DFDC14 is the window transition handler; the AudioManager
 // singleton is at 0x00DFE6E8. Slot 9 is retained without a guessed method name.
@@ -67,7 +67,7 @@ int Rva0051CBC6::rva0051C139()
             m--;
             if (m != 0)
                 return 1;
-            MessageStreamSubsystem->v18(0x1d);
+            TheMessageStream->v18(0x1d);
             _bfme_showCampaignReview();
         }
         else

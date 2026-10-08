@@ -50,3 +50,18 @@ void Rva001EB130Holder::rva001EB130()
 	((void **)m_head)[0] = m_head;
 	((void **)m_head)[1] = m_head;
 }
+
+// ??1Rva001EB940@@QAE@XZ @0x001EB940 5B: out-of-line destructor of an object
+// whose only member work is the circular-list holder at +0 -- a tail jmp to
+// its disposal 0x001EB769 above, `this` unchanged. Called by the deleting dtor
+// 0x0046ACDA and the destroy-aux family.
+class Rva001EB940
+{
+public:
+	~Rva001EB940();
+};
+
+Rva001EB940::~Rva001EB940()
+{
+	reinterpret_cast<Rva001EB769 *>(this)->rva001EB769();
+}

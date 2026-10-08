@@ -22,7 +22,6 @@ __declspec(noinline) Rva003F6975Record* rva003F6619Copy(Rva003F6975Record*first,
 
 #pragma comment(linker, "/alternatename:?rva003F6477Copy@@YAPAURva003F6975Record@@PAU1@00ABURva003F6477Tag@@PAH@Z=??$__copy@PAUBfmeAssignRecord28@@PAU1@H@_STL@@YAPAUBfmeAssignRecord28@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z")
 
-#pragma comment(linker, "/alternatename:??$__copy_ptrs@PAUBfmeAssignRecord28@@PAU1@@_STL@@YAPAUBfmeAssignRecord28@@PAU1@00U__false_type@0@@Z=?rva003F6619Copy@@YAPAURva003F6975Record@@PAU1@00ABURva003F6975Empty@@@Z")
 
 // Native [3F6975,3F69A8) range erase: copy the surviving tail into first;
 // destroy vacated28B records; update finish; return first. RET8 proves

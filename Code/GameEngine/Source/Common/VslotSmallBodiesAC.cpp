@@ -27,8 +27,10 @@ public:
 };
 class Object
 {
-public:
+protected:
 	Module *findModule(NameKeyType key) const;
+	friend class Rva005D7305;
+public:
 	char m_pad00[0x258];
 	AIUpdateInterface *m_ai258;
 };

@@ -17,11 +17,11 @@ struct Gen_0071be90_Obj
 	Gen_0071be90_Vtbl *vtbl;
 };
 
-int g_0071be90_count;
+extern unsigned number_of_DX8_calls;	// 0x009EDA98, dx8wrapper.cpp's counter
 
 // ?run_0071be90@@YAXPAX@Z
 void run_0071be90(void *p)
 {
 	reinterpret_cast<Gen_0071be90_Obj *>(DX8Wrapper::_Get_D3D_Device8())->vtbl->call(reinterpret_cast<Gen_0071be90_Obj *>(DX8Wrapper::_Get_D3D_Device8()), p);
-	++g_0071be90_count;
+	++number_of_DX8_calls;
 }

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD
 //
 // BFME2's online stats screen Apt callback "AptOnline::Stats::CurrentTab",
 // 0x005B8F04, bound by that name as a member pointer by the screen's
@@ -7,27 +7,26 @@
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
 
-// REL32 at 0x005B8F5F passes this unchanged to the rowed 73-byte
-// tab dispatcher in Rva005B8EBBBox.cpp; both use the tab word at +0x8C.
+// 0x005B8EBB (73 bytes; shows the selected tab) is rowed as Rva005B8EBB::Run.
 class Rva005B8EBB
 {
 public:
 	void Run();
 };
 
-class AptOnline
+namespace AptOnline
 {
-public:
 class Stats
 {
 public:
 	void CurrentTab(const char *tab);
 
+
 private:
 	unsigned char m_pad00[0x8C];
 	int m_tab; // +0x8C
 };
-};
+}
 
 // Retail 0x005B8F04, 101 bytes: "AptOnline::Stats::CurrentTab" selects the
 // "Tournament", "OpenPlay" or "Strategic" tab.
@@ -41,5 +40,5 @@ void AptOnline::Stats::CurrentTab(const char *tab)
 		m_tab = 2;
 	else
 		return;
-	reinterpret_cast<Rva005B8EBB *>(this)->Run();
+	((Rva005B8EBB *)this)->Run();
 }

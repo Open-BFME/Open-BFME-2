@@ -34,6 +34,7 @@ void Object::setCaptured(bool isCaptured)
 	else
 		m_privateStatus &= ~CAPTURED;
 }
+// ?Object::rva0028B238 present-unmatched
 void Object::rva0028B238(bool flag)
 {
 	if (flag == m_43C)

@@ -62,8 +62,8 @@ public:
 // reverse/symbols.csv, so the globals get their real addresses rather than
 // literals: a hard-coded image address here would break the linked build the
 // moment data moved.
-extern Rva0023C6A4 *g_pRva0023C6A4;	// VA 0x00DFE78C
-extern Rva002BE8D4 *g_pRva002BE8D4;	// VA 0x00DFEF18
+extern class GameLogic *TheGameLogic;	// VA 0x00DFE78C
+extern class Rva002D3627Host *g_00DFEF18;	// VA 0x00DFEF18
 
 class Rva002B5073
 {
@@ -71,8 +71,8 @@ public:
 	bool rva002B5073(int mask);
 };
 
-#define TheRva00DFE78C g_pRva0023C6A4
-#define TheRva00DFEF18 g_pRva002BE8D4
+#define TheRva00DFE78C (*(Rva0023C6A4 **)&TheGameLogic)
+#define TheRva00DFEF18 (*(Rva002BE8D4 **)&g_00DFEF18)
 
 struct Rva002B59FFHolder
 {

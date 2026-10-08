@@ -13,8 +13,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 struct Rva00528582Elem
 {
@@ -53,8 +52,8 @@ void AptInGameSideCommandBar::Impl::HideButtons(int v)
 		if (m_18)
 			s = (const char *)m_18 + 8;
 		else
-			s = g_Rva0107301CEmptyString;
-		Rva00525338Fire(TheRva00222A8BTarget, m_04, s, "SetButtonState", &m_count, (void *)"_hide");
+			s = "";
+		Rva00525338Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_04, s, "SetButtonState", &m_count, (void *)"_hide");
 		Rva00528582Elem &e = m_elems[m_count];
 		e.m_b.clear();
 		e.m_c = -1;

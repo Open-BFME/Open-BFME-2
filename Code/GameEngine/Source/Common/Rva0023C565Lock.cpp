@@ -10,9 +10,8 @@ public:
 	void unlock();
 };
 
-extern Rva001DBAA4 *theBfmeDfdc14;
+extern class GameWindowTransitionsHandler *TheTransitionHandler;
 
-#pragma comment(linker, "/alternatename:?theBfmeDfdc14@@3PAVRva001DBAA4@@A=?theBfmeDfdc14@@3PAVAudioManager@@A")
 
 class Rva0023C565
 {
@@ -23,12 +22,12 @@ public:
 
 Rva0023C565::Rva0023C565()
 {
-	if (theBfmeDfdc14)
-		theBfmeDfdc14->lock();
+	if ((*(Rva001DBAA4 **)&TheTransitionHandler))
+		(*(Rva001DBAA4 **)&TheTransitionHandler)->lock();
 }
 
 Rva0023C565::~Rva0023C565()
 {
-	if (theBfmeDfdc14)
-		theBfmeDfdc14->unlock();
+	if ((*(Rva001DBAA4 **)&TheTransitionHandler))
+		(*(Rva001DBAA4 **)&TheTransitionHandler)->unlock();
 }

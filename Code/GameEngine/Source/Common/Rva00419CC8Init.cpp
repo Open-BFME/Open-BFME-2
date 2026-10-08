@@ -7,9 +7,10 @@
 // just-landed 0x00419CB2.
 void __cdecl Rva00419CB2Init(void *p);
 
-extern int g_00E030D0;
+template <int N> class BitFlags;
+extern BitFlags<11> DISABLEDMASK_ALL;	// BitFlags11Any.cpp
 
 void __cdecl Rva00419CC8Init(void)
 {
-	Rva00419CB2Init(&g_00E030D0);
+	Rva00419CB2Init(&DISABLEDMASK_ALL);
 }

@@ -58,9 +58,8 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *TheThingFactory;
-// TheThingFactory: matched references place it at VA 0xdff000 (zero-filled .bss).
-Rva002D06CA * TheThingFactory;
+extern class ThingFactory *TheThingFactory;
+// TheThingFactory (0x009FF000) is ThingFactory.cpp's global; this unit reads it through its own view.
 
 
 
@@ -92,7 +91,7 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 			const ModuleData *tmpl;
 			{
 				AsciiString tmp(templateName);
-				tmpl = (const ModuleData *)TheThingFactory->rva002D06CA(&tmp);
+				tmpl = (const ModuleData *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp);
 			}
 			if (!tmpl)
 			{
@@ -102,7 +101,7 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 		}
 		else
 		{
-			const ModuleData *tmpl = (const ModuleData *)TheThingFactory->rva002D06CA(&name);
+			const ModuleData *tmpl = (const ModuleData *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
 			if (!tmpl)
 			{
 				throw INIException(3, "ObjectFilter::resolveNames() specified +%s but this template doesn't exist! Typo?", name.str());
@@ -123,7 +122,7 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 			const ModuleData *tmpl;
 			{
 				AsciiString tmp(templateName);
-				tmpl = (const ModuleData *)TheThingFactory->rva002D06CA(&tmp);
+				tmpl = (const ModuleData *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp);
 			}
 			if (!tmpl)
 			{
@@ -133,7 +132,7 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 		}
 		else
 		{
-			const ModuleData *tmpl = (const ModuleData *)TheThingFactory->rva002D06CA(&name);
+			const ModuleData *tmpl = (const ModuleData *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
 			if (!tmpl)
 			{
 				throw INIException(3, "ObjectFilter::resolveNames() specified -%s but this template doesn't exist! Typo?", name.str());

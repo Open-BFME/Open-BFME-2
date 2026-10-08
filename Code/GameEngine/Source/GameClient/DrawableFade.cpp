@@ -15,7 +15,7 @@
 // ObjectCreationList debris calls fadeIn/fadeOut with m_fadeFrames.
 
 
-extern class ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class Rva00DFE77CHolder
 {

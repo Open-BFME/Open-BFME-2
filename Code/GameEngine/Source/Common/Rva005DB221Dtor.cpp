@@ -13,12 +13,11 @@ public:
 };
 
 extern Rva002D3627Host *g_00DFEF18;
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr005DB221(const AsciiString &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 class Rva003FCE38

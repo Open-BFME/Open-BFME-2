@@ -33,7 +33,7 @@ public:
 };
 
 struct BfmeWorldRV;
-extern BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 
 class Rva0031D5F8
 {
@@ -55,7 +55,7 @@ void __stdcall Rva003C5825Do(Parameter *p, const AsciiString &name, const AsciiS
 	if (obj == 0 || obj2 == 0)
 		return;
 	const AsciiString *s = obj->rva00290E67();
-	const CommandSet *cmdSet = (const CommandSet *)((Rva0031D5F8 *)g_bfmeWorldRV)->rva0031D5F8(s);
+	const CommandSet *cmdSet = (const CommandSet *)((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(s);
 	if (cmdSet == 0)
 		return;
 	for (int i = 0; i < 32; ++i)

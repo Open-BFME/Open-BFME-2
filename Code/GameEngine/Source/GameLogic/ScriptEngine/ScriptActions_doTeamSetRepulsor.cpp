@@ -28,16 +28,6 @@ public:
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
 };
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-public:
-	void advance();
-};
-
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_BFME_8 = 8
@@ -79,7 +69,7 @@ void ScriptActions::doTeamSetRepulsor(const AsciiString &teamName, bool repulsor
 	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)
 		return;
-	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {
+	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance()) {
 		Object *obj = it.cur();
 		if (!obj)
 			continue;
@@ -92,7 +82,7 @@ void ScriptActions::rva003C05DE(const AsciiString &teamName, bool flag)
 	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
 	if (team == 0)
 		return;
-	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {
+	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance()) {
 		Object *obj = it.cur();
 		if (!obj)
 			continue;

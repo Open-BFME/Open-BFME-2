@@ -3,7 +3,7 @@
 // Retail cmp [esi+0x488] 0xA then AptCall(Target edi virtual-string ClosePassword) sets 1 plus byte 0.
 // Evidence: neighbours 0x0059ECAD setter plus 0x0059EE7F clearer share 0x488 member; caller 0x005A6630; callee 0x00524EF4 rowed.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
 class GameWindow
@@ -50,7 +50,7 @@ void Rva0059ECD2::rva0059ECD2(int /*unused*/)
 {
 	if (m_state488 == 0xa) {
 		void *level = m_p58->m_level274;
-		Rva00524EF4AptCall(TheRva00222A8BTarget, level, getStr(), "ClosePassword");
+		Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), level, getStr(), "ClosePassword");
 		m_state488 = 1;
 		m_flag4A0 = 0;
 	}

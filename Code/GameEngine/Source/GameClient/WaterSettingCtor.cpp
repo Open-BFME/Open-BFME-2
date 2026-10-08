@@ -87,3 +87,14 @@ WaterSetting::WaterSetting( void )
 	m_vScrollPerMs = 0.0f;
 
 }  // end WaterSetting
+
+// ------------------------------------------------------------------------------------------------
+/** Destructor. ??1WaterSetting@@UAE@XZ @0x00309D9E 60B, right behind the
+ * constructor: it restores the same vptr 0x00C082E8 and releases the two
+ * strings, and the static initializer 0x007AE6C2 passes it with the
+ * constructor to the eh vector constructor iterator. */
+// ------------------------------------------------------------------------------------------------
+WaterSetting::~WaterSetting( void )
+{
+
+}

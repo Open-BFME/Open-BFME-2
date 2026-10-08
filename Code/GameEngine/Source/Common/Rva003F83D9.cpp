@@ -7,7 +7,6 @@
 // IAT atof; caller at 0x003F8CF2 in 0x003F88BC.
 #include "ascii_string.h"
 
-extern const char g_Rva0107301CEmptyString[];
 extern "C" __declspec(dllimport) double __cdecl atof(const char *str);
 
 class Rva003F83D9

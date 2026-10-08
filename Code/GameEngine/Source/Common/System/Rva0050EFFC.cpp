@@ -7,8 +7,7 @@
 class Rva00222A8BTarget
 {
 };
-extern class Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern const char *g_00C6556C[];
 int Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char **a0ptr);
 
@@ -61,8 +60,8 @@ void Rva0050F041::rva0050EFFC(int state)
 {
 	if (state == m_74)
 		return;
-	const char *prefix = m_60 ? m_60->m_name : g_Rva0107301CEmptyString;
-	Rva0050E9FEAptCall(TheRva00222A8BTarget, (void *)m_5c, prefix, "SetState", &g_00C6556C[state]);
+	const char *prefix = m_60 ? m_60->m_name : "";
+	Rva0050E9FEAptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_5c, prefix, "SetState", &g_00C6556C[state]);
 	m_74 = state;
 }
 

@@ -303,7 +303,7 @@ class LANGameInfo : public Rva004482FB
 public:
 	LANGameInfo( void );
 	void setName( UnicodeString name );
-	Bool rva004477C7( void ) const;			// amIHost
+	Bool amIHost( void ) const;			// amIHost
 	void setSlot( Int slotNum, LANGameSlot slotInfo );
 	const BfmeNetAddress *getAddress( Int slot ) const { return &m_slots[slot].m_address; }
 	const LANSlotAddress *getSlotAddresses( void ) const { return (const LANSlotAddress *)&m_slots[0].m_address; }
@@ -632,7 +632,7 @@ void LANAPI::handleInActive( LANMessage *msg, const BfmeNetAddress *sender )
 		return;
 
 	// check to see if we are the host of this game.
-	if( !m_currentGame->rva004477C7() )
+	if( !m_currentGame->amIHost() )
 		return;
 
 	UnicodeString playerName;

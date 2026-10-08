@@ -11,7 +11,7 @@ void __cdecl GadgetListBoxGetSelected(GameWindow *w, int *sel);
 int __cdecl Rva003253BEGet(GameWindow *w, int a, int b);
 
 extern unsigned char g_rva005B5C02Flag;
-extern struct Rva005B5C02Mgr *g_rva005B5C02Mgr;
+extern class CreateAHeroManager *TheCreateAHeroManager;
 
 struct Rva005B5C02Entry
 {
@@ -53,7 +53,7 @@ void Rva005B5C02Box::Run()
 		return;
 	if (e->m_48 != 0 && g_rva005B5C02Flag == 0)
 		return;
-	Rva005B5C02List *l = g_rva005B5C02Mgr->List();
+	Rva005B5C02List *l = (*(Rva005B5C02Mgr **)&TheCreateAHeroManager)->List();
 	e->Use((char *)m_4 + 0x27c);
 	l->Add(e);
 	m_14 = 1;

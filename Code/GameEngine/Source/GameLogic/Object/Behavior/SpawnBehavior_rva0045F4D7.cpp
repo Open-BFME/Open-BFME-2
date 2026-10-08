@@ -25,7 +25,7 @@ public:
 class Player
 {
 public:
-	void iterateObjects(void (*func)(Object *, void *), void *userData) const;
+	int iterateObjects(int (*func)(Object *, void *), void *userData) const;
 };
 
 class Rva002D06CA
@@ -34,7 +34,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 extern float g_00C4254C;
 // g_00C4254C: matched references place it at VA 0xc4254c (retail .rdata value 1e+08f).
 float g_00C4254C = 1e+08f;
@@ -86,8 +86,8 @@ Object *SpawnBehavior::rva0045F4D7()
 	{
 		if (last.compare(*it) == 0)
 			continue;
-		helper.m_template = TheThingFactory->rva002D06CA(it);
-		player->iterateObjects(callback0045F4D7, &helper);
+		helper.m_template = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(it);
+		player->iterateObjects((int (*)(Object *, void *))callback0045F4D7, &helper);
 		last = *it;
 	}
 	return helper.m_result;

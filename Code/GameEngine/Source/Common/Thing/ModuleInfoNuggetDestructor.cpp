@@ -5,12 +5,15 @@
 // BFME1's first member is an AsciiString, but BFME2 tears the +0 member down
 // through 0x006CEAD0 (matched opaquely as Rva006CEAD0::drainChain in
 // ModuleInfoNuggetChainDrain.cpp), not the string release at 0x00036410. The
-// member is typed with that opaque class, and its destructor is pinned at the
-// address the byte-true call proves.
+// member is typed with that opaque class. Its destructor is inline over the
+// drain: the body expands it to the call at 0x006CEAD0, while the unwind
+// funclet (0x007A8360) calls the out-of-line copy, retail's 5-byte
+// `jmp 0x006CEAD0` at 0x006CF1C0.
 class Rva006CEAD0
 {
 public:
-	~Rva006CEAD0();
+	~Rva006CEAD0() { drainChain(); }
+	void drainChain();
 
 private:
 	unsigned char m_pad[4];

@@ -80,11 +80,21 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #define TheAptPlayer ((AptPlayer *)g_bfmeAptWindowManager)
 
+// AptPlayer::RemoveExternHandler (WorldBuilder name), rowed under its
+// address name: removes the handler registered under the name.
+class Rva002244CA
+{
+public:
+	int rva002244CA(const AsciiString *name);
+};
+
 // Registers one extern handler for its own lifetime; keeps the name.
 class AptSingleExternHandlerAdder
 {
 public:
 	AptSingleExternHandlerAdder(const AsciiString &name, Int arg, AptRef<AptExternHandler> handler);
+	~AptSingleExternHandlerAdder();
+	void rva00523D5A();
 
 private:
 	AsciiString m_name;
@@ -140,6 +150,22 @@ AptSingleExternHandlerAdder::AptSingleExternHandlerAdder(const AsciiString &name
 	: m_name(name)
 {
 	TheAptPlayer->AddExternHandler(m_name, arg, handler);
+}
+
+// Retail 0x00523D5A 18B (unnamed in WorldBuilder; it calls
+// AptPlayer::RemoveExternHandler): unregisters the handler by its name.
+void AptSingleExternHandlerAdder::rva00523D5A()
+{
+	if (TheAptPlayer)
+		((Rva002244CA *)TheAptPlayer)->rva002244CA(&m_name);
+}
+
+// AptSingleExternHandlerAdder::~AptSingleExternHandlerAdder, retail
+// 0x00523D88 47B: the destructor the army details clip runs on the adders
+// it built with the constructor above (0x005F37EB, 0x005F37F7).
+AptSingleExternHandlerAdder::~AptSingleExternHandlerAdder()
+{
+	rva00523D5A();
 }
 
 // AptCommandMapAdder::AddCommandMap, retail 0x0052458E.

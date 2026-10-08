@@ -16,7 +16,6 @@ class Rva00222A8BTarget
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
 extern const unsigned short g_Va007C9260[];
 
 struct Rva0057A51CTeam
@@ -29,7 +28,7 @@ void Rva0057A51CSet(int level, Rva0057A51CTeam **ppTeam, int turn)
 {
 	AsciiString key;
 	Rva0057A51CTeam *team = *ppTeam;
-	const char *mid = team ? team->m_name : g_Rva0107301CEmptyString;
+	const char *mid = team ? team->m_name : "";
 	key.format("APT:_level%u.%s_TurnNumber", level, mid);
 	UnicodeString value;
 	value.format(g_Va007C9260, turn);

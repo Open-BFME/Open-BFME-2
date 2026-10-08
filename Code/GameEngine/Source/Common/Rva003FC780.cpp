@@ -14,7 +14,6 @@ public:
 
 HTreeClass *Rva0014CF5F_GetAnimTree(const char *name);
 
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva003FB65C
 {
@@ -37,7 +36,7 @@ HTreeClass *Rva003FB65C::rva003FC780(const AsciiString *name, int x)
         m_tree = 0;
     }
     const char *t = *(const char * const *)name;
-    const char *animName = t ? t + 8 : g_Rva0107301CEmptyString;
+    const char *animName = t ? t + 8 : "";
     HTreeClass *newTree = Rva0014CF5F_GetAnimTree(animName);
     m_tree = newTree;
     rva003FB65C(x);

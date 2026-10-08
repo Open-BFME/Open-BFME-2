@@ -14,10 +14,11 @@ public:
 
 class TeamPrototype;
 
-class Rva0039FE6COwner
+// The pinned callee is the rowed TeamFactory::createInactiveTeam.
+class TeamFactory
 {
 public:
-	TeamPrototype *rva003A3B7E(const AsciiString &a, const AsciiString &b);
+	Team *createInactiveTeam(const AsciiString &name, const AsciiString &other);
 };
 
 class Rva003A3CBBOwner
@@ -28,7 +29,7 @@ public:
 
 Team *Rva003A3CBBOwner::createInstance(const AsciiString &a, const AsciiString &b)
 {
-	Team *team = (Team *)((Rva0039FE6COwner *)this)->rva003A3B7E(a, b);
+	Team *team = ((TeamFactory *)this)->createInactiveTeam(a, b);
 	if (!team->m_active5D) {
 		team->m_created5E = 1;
 		team->m_active5D = 1;

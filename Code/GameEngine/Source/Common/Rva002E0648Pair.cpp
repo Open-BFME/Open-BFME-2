@@ -28,7 +28,7 @@ struct Rva002E0648M4C
 	void rva004FB222(void *a, void *b);
 };
 
-extern Rva002E18C3Lookup *g_00A03140;
+extern class Rva002E18C3Lookup *Va00E03140Lookup;
 
 class Rva002E0648Owner
 {
@@ -51,7 +51,7 @@ void Rva002E0648Owner::rva002E0648(void *a)
 // ?rva002E07CC@Rva002E0648Owner@@QAEXXZ
 void Rva002E0648Owner::rva002E07CC()
 {
-	AsciiString *s = g_00A03140->find(*(AsciiString *)&m_m48);
+	AsciiString *s = Va00E03140Lookup->find(*(AsciiString *)&m_m48);
 	if (s == 0)
 		return;
 	m_m4C.rva004FB222(this, s);

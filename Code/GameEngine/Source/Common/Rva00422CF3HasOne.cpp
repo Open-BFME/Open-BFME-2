@@ -5,14 +5,14 @@
 // clear; otherwise counts the nodes after the head (an unsigned count, as
 // the jae compare shows) and answers whether there is at least one.
 // Identity unproven; the global and node type keep address-derived names.
-extern unsigned char g_Va00DC84F5;
+extern unsigned char g_00DC84F5;
 struct Rva00422CF3Node
 {
 	Rva00422CF3Node *m_next;
 };
 bool __stdcall rva00422CF3HasOne(void *arg)
 {
-	if (!g_Va00DC84F5)
+	if (!g_00DC84F5)
 		return false;
 	Rva00422CF3Node *head = *(Rva00422CF3Node **)arg;
 	unsigned int count = 0;

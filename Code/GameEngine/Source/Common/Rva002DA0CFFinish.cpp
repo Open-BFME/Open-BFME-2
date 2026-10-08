@@ -93,7 +93,7 @@ public:
 	virtual ClientRet40 *s016(int id);  // +0x40
 };
 
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class Rva002DA0CF
 {
@@ -116,7 +116,7 @@ double Rva002DA0CF::rva002DA0CF()
 {
 	switch (m_38) {
 	case 1: {
-		ClientRet40 *p = TheGameClient->s016(m_34);
+		ClientRet40 *p = ((ClientFrameSubsystem *)TheGameClient)->s016(m_34);
 		if (p != 0 && p->m_44A == 0)
 			return BfmeZeroRange;
 		break;

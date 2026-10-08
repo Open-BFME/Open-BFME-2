@@ -7,6 +7,7 @@
 // (unique hit on unclaimed .text). The donor preamble and this one body are
 // kept; the donor's other 66 definitions are omitted.
 // stlport
+extern struct Bfme939Helper *g_bfme939Helper;
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -416,7 +417,7 @@ void ControlBar::switchControlBarStage( ControlBarStages stage )
 {
 	if(stage < CONTROL_BAR_STAGE_DEFAULT || stage >= MAX_CONTROL_BAR_STAGES)
 		return;
-	if (TheRecorder && TheRecorder->getMode() == RECORDERMODETYPE_PLAYBACK)
+	if ((*(RecorderClass **)&g_bfme939Helper) && (*(RecorderClass **)&g_bfme939Helper)->getMode() == RECORDERMODETYPE_PLAYBACK)
 		return;
 	switch (stage) {
 	case CONTROL_BAR_STAGE_DEFAULT:

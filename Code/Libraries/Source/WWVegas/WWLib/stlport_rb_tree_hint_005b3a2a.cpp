@@ -15,6 +15,8 @@
 #include <map>
 template <class T> class StringBase
 {
+	friend class AsciiString;
+	void releaseBuffer();
     void *m_data;
     StringBase(const StringBase<T> &);
     friend class AsciiString;
@@ -26,7 +28,7 @@ public:
     {
         ((StringBase<char> *)this)->StringBase<char>::StringBase(*(const StringBase<char> *)&that);
     }
-    ~AsciiString();
+    ~AsciiString() { ((StringBase<char> *)this)->releaseBuffer(); }
 private:
     void *m_data;
 };

@@ -614,7 +614,7 @@ public:
 	void rva0057D19A(MapMetaData *map);
 	void bfmeSetMapDescription(MapMetaData *map);	// 0x0057C892
 	void rva0057D10F(MapMetaData *map);	// the map picture
-	void rva0057D709(Int region, _STL::vector<Rva0020E89C *> *regions);
+	void GetRegionsInOwnershipSet(Int region, _STL::vector<Rva0020E89C *> *regions);
 	void rva0057D746(Rva0020E89C *previous, Rva0020E89C *current);
 	void rva0057D85D(Rva0020E89C *region);
 	void rva0057D5E5();
@@ -814,7 +814,7 @@ void AptMapPreview::rva0057D5E5()
 
 // Retail 0x0057D709, 61 bytes. Name unknown. Refills the list with the
 // regions the campaign's start-region set groups with the given one.
-void AptMapPreview::rva0057D709(Int region, _STL::vector<Rva0020E89C *> *regions)
+void AptMapPreview::GetRegionsInOwnershipSet(Int region, _STL::vector<Rva0020E89C *> *regions)
 {
 	regions->clear();
 	if (m_livingWorldWindow != 0 && m_livingWorldWindow->m_info != 0 && m_livingWorldWindow->m_info->m_startRegions != 0)
@@ -835,7 +835,7 @@ void AptMapPreview::rva0057D746(Rva0020E89C *previous, Rva0020E89C *current)
 		if (previous != 0)
 		{
 			m_regions.clear();
-			rva0057D709((Int)previous, &m_regions);
+			GetRegionsInOwnershipSet((Int)previous, &m_regions);
 			((Rva003EEFA0 *)owner)->rva003EEFA0((Int)&m_regions);
 		}
 		if (current != 0)
@@ -843,7 +843,7 @@ void AptMapPreview::rva0057D746(Rva0020E89C *previous, Rva0020E89C *current)
 			if (AllowsStartInRegion((Int)current))
 			{
 				m_regions.clear();
-				rva0057D709((Int)current, &m_regions);
+				GetRegionsInOwnershipSet((Int)current, &m_regions);
 				((Rva003EEF38 *)owner)->rva003EEF38((Int)&m_regions);
 			}
 			UnicodeString text = current->rva0020E89C();
@@ -868,7 +868,7 @@ void AptMapPreview::rva0057D85D(Rva0020E89C *region)
 	if (m_regionPicked.m_op.get() == 0)
 		return;
 	Rva0020E89C *picked = region;
-	rva0057D709((Int)region, &m_regions);
+	GetRegionsInOwnershipSet((Int)region, &m_regions);
 	for (unsigned int i = 0; i < m_regions.size(); ++i)
 	{
 		if (((Rva0057C688 *)this)->rva0057C688(m_regions[i]->getId()) != 0)
@@ -1205,7 +1205,7 @@ void AptMapPreview::rva0057DB97()
 		Rva0020E89C *region = manager->rva0020EAF6(startPos);
 		if (region == 0)
 			continue;
-		rva0057D709((Int)region, &m_regions);
+		GetRegionsInOwnershipSet((Int)region, &m_regions);
 		Rva0020E89C *start = (Rva0020E89C *)((Rva004FC9CE *)startRegions)->rva004FC9CE(*(Rva0059E2FD *)region);
 		claimed[start->getId()] = (Rva0057DB97Slot)i;
 		((Rva003EFE3E *)start)->rva003EFE3E(i);

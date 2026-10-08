@@ -16,7 +16,6 @@ class Rva00222A8BTarget
 {
 };
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
 void __cdecl Rva005277D9Fire(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, bool *flagPtr);
 
 class BfmeAptWindowManager
@@ -64,7 +63,7 @@ void StrategicHUD::CommandButtonMovieClip::Impl::ShowProductionCount(int val)
 		if (m_flag40 != 0)
 		{
 			bool flag = true;
-			const char *prefix = m_inner0C ? (const char *)((char *)m_inner0C + 8) : g_Rva0107301CEmptyString;
+			const char *prefix = m_inner0C ? (const char *)((char *)m_inner0C + 8) : "";
 			Rva005277D9Fire(TheRva00222A8BTarget, (void *)m_level08, prefix, "ShowProductionCount", &flag);
 		}
 		m_flag42 = 1;
@@ -74,7 +73,7 @@ void StrategicHUD::CommandButtonMovieClip::Impl::ShowProductionCount(int val)
 		UnicodeString tmp;
 		tmp.format(g_Va007C9260, val);
 		AsciiString key;
-		const char *mid = m_inner0C ? (const char *)((char *)m_inner0C + 8) : g_Rva0107301CEmptyString;
+		const char *mid = m_inner0C ? (const char *)((char *)m_inner0C + 8) : "";
 		key.format("APT:_level%u.%s_ProductionCount", m_level08, mid);
 		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, tmp, false);
 		m_count38 = val;

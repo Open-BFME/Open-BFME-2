@@ -41,12 +41,11 @@ bool __cdecl Rva00529628Get(const char *section, int *out);
 bool __cdecl Rva00528C30Get(const char *section, AsciiString &out);
 const char *__cdecl Rva00412845AfterLevel(const char *s);
 int __cdecl Rva004128BBGetLevel(const char *s);
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr00529698(const AsciiString &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 class Rva005C31FB

@@ -66,5 +66,4 @@ OpaqueRefElement4 &OpaqueRefElement4::rva00239057(const OpaqueRefElement4 *other
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?assign@Rva0036CA00Str@@QAEXABV1@@Z=??4OpaqueRefElement4@@QAEAAU0@ABU0@@Z")
 #pragma comment(linker, "/alternatename:?Rva0050ED3@PoolMember@@QAEXXZ=?Release_Ref@OpaqueRefCounted@@QAEXXZ")

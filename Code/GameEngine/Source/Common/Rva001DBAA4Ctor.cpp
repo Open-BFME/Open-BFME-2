@@ -16,8 +16,8 @@ public:
 };
 Rva001DBAA4::Rva001DBAA4() : m_4(1), m_8(false), m_9(true), m_A(false), m_C(0) {}
 
-// Native destructor 0x001DBAC3 reinstalls the same 0x007DBC10 vptr as
-// the verified constructor and deleting destructor. The caller at 0x003603D4
-// tail-destroys this base after restoring its derived vptr; keep the opaque
-// class identity and emit its real destructor rather than a setter alias.
-Rva001DBAA4::~Rva001DBAA4() {}
+// ??1Rva001DBAA4@@UAE@XZ @0x001DBAC3 7B: the empty dtor, restoring the vtable (the
+// deleting dtor still expands it inline).
+Rva001DBAA4::~Rva001DBAA4()
+{
+}

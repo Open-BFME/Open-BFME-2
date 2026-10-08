@@ -51,4 +51,4 @@ BfmeVectorRecord000C0BEC::BfmeVectorRecord000C0BEC()
 {
 }
 
-#pragma comment(linker, "/alternatename:??0BfmeAsciiStringStorage000BDD48@@QAE@ABUBfmeAsciiStringAllocator000BDD48@@@Z=??0?$_Vector_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@@Z")
+#pragma comment(linker, "/alternatename:??0BfmeAsciiStringStorage000BDD48@@QAE@ABUBfmeAsciiStringAllocator000BDD48@@@Z=??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z")

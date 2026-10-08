@@ -59,7 +59,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 extern float g_Va007C26F0;
 
 struct TeamEntry
@@ -96,7 +96,7 @@ bool __stdcall Rva003E80DAGet(Parameter *p0, Parameter *p1)
 	int total = 0;
 	for (int i = 0; i < proto->m_1D8; ++i) {
 		TeamEntry &e = proto->m_entries[i];
-		void *found = TheThingFactory->rva002D06CA(&e.m_10);
+		void *found = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&e.m_10);
 		if (found != 0) {
 			int c = e.m_00 + e.m_04;
 			float f = (float)c * g_Va007C26F0;

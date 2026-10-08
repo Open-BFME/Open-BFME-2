@@ -44,8 +44,8 @@ class GameSpyInfoInterface;
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
 struct Global009FE958;
-extern Global009FE958 *g_Va009FE958;
-#define TheLAN g_Va009FE958
+class LANAPI; extern LANAPI *TheLAN;
+#define TheLAN ((Global009FE958 *)TheLAN)
 
 // TheGameLogic (0x00DFE78C): the game mode at +0x110.
 class GameLogic

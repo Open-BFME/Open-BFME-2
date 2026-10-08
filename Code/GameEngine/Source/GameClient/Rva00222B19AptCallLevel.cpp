@@ -10,7 +10,6 @@
 //
 #include "ascii_string.h"
 
-extern const char g_Rva0107301CEmptyString[];
 extern const char g_00BBD3EC[];
 // g_00DFE5D8: matched references place it at VA 0xdfe5d8; zero-filled at retail, sized to the
 // 0x10c-byte gap before the next known global there.

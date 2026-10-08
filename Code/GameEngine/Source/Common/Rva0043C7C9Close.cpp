@@ -56,7 +56,7 @@ public:
 	void rva00222F55(bool flag);
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva0043D3DA
 {
@@ -80,10 +80,10 @@ void Rva0043D3DA::rva0043C7C9(int unused)
 	}
 	if (m_closed)
 		return;
-	TheRva00222A8BTarget->invoke(Rva00222547Get((GameWindow *)this), "Close", 0, 0, 0, 0, 0, 0);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(Rva00222547Get((GameWindow *)this), "Close", 0, 0, 0, 0, 0, 0);
 	m_closed = true;
 	if (!m_bgHidden) {
-		TheRva00222A8BTarget->rva00222F55(false);
+		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva00222F55(false);
 		m_bgHidden = true;
 	}
 }

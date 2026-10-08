@@ -34,7 +34,7 @@ public:
 };
 
 struct Rva006E3710Node;
-struct Rva006E34D0;
+class Rva006E34D0;
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 class Rva006E3710
 {

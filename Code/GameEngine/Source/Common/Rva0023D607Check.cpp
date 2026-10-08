@@ -7,10 +7,10 @@ struct Rva0023D607Holder
 	char m_00[16];
 	int m_10;
 };
-extern Rva0023D607Holder *g_Rva0023D607Holder;
-// g_Rva0023D607Holder: matched references place it at VA 0xdfdc8c (zero-filled .bss).
-Rva0023D607Holder * g_Rva0023D607Holder;
+class LinearCampaignManager;
+// TheLinearCampaignManager: matched references place it at VA 0xdfdc8c (zero-filled .bss).
+LinearCampaignManager *TheLinearCampaignManager;
 unsigned char Rva0023D607Get()
 {
-	return g_Rva0023D607Holder->m_10 != 0;
+	return ((Rva0023D607Holder *)TheLinearCampaignManager)->m_10 != 0;
 }

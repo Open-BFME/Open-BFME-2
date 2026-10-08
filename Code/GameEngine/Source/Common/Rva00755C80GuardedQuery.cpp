@@ -29,7 +29,3 @@ void Rva00755C80(void)
 	if (g_Va01304B64)
 		g_Va001FDEB0 = g_Va01304B64->bfmeQuery();
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_Va01304B5C@@3HA=?g_Va001FDEB0@@3HA")

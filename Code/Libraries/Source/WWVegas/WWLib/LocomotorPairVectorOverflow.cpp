@@ -4,6 +4,13 @@
 // Target: 0x004C77C4, 180B; 16-byte stride and calls to the pair destroy
 // chain 0x004C7542/0x004C77A6 establish pair storage. Address-derived views
 // retain uncertainty about the enclosing vector instantiation.
+// The clear is the rowed Rva004C77A6::rva004C77A6.
+class Rva004C77A6
+{
+public:
+	void rva004C77A6();
+};
+
 struct Rva004C77C4Pair { char data[16]; };
 struct Rva004C77C4Tag {};
 // Retail borrows byte 3 of the four-byte final argument slot for the empty tag.
@@ -34,7 +41,7 @@ void Rva004C77C4::overflow(Rva004C77C4Pair *position,const Rva004C77C4Pair &valu
         ++new_finish;
     } else new_finish=Rva004C73A0Fill(new_finish,count,value,at_end.tag);
     if (!at_end.value) new_finish=Rva004C737ACopy(position,finish,new_finish,at_end.tag);
-    clear();
+    ((Rva004C77A6 *)this)->rva004C77A6();
     start=new_start;
     finish=new_finish;
     storage.end=new_start+length;

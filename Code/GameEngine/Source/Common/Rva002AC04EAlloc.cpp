@@ -9,10 +9,10 @@ class FreelistPool
 public:
 	void *pop();
 };
-extern FreelistPool g_pool002AC04E;
+extern FreelistPool g_freelistPool009BBD2C;
 void *__stdcall Rva002AC04EAlloc(void **arg)
 {
-	void *node = g_pool002AC04E.pop();
+	void *node = g_freelistPool009BBD2C.pop();
 	void *slot = (char *)node + 8;
 	if (slot != 0) {
 		void *v = *arg;

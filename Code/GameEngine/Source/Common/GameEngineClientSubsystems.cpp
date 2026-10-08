@@ -129,14 +129,11 @@ private:
 };
 
 extern GameLogic *TheGameLogic;
-extern ClientFrameSubsystem *TheGameClient;
-// TheGameClient: matched references place it at VA 0xdfe77c (zero-filled .bss).
-ClientFrameSubsystem * TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+// TheGameClient (0x009FE77C) is GameClient.cpp's global; this unit reads it through its own view.
 extern ClientSubsystem *WindowManagerSubsystem;
 extern RadarSubsystem *Radar;
-extern MessageStream *MessageStreamSubsystem;
-// MessageStreamSubsystem: matched references place it at VA 0xe00950 (zero-filled .bss).
-MessageStream * MessageStreamSubsystem;
+extern MessageStream *TheMessageStream;	// 0x00A00950, MessageStream.cpp's global
 extern ClientSubsystem *InputLockSubsystem;
 extern class InGameUI *TheInGameUI;
 extern class Mouse *TheMouse;
@@ -172,24 +169,24 @@ void GameEngine::_bfme_updateClientSubsystems(void)
 {
     TheGameLogic->deleteLoadScreen();
 
-    unsigned char advanceFrame = TheGameClient->m_advanceFrame;
+    unsigned char advanceFrame = ((ClientFrameSubsystem *)TheGameClient)->m_advanceFrame;
     if (advanceFrame != 0)
     {
-        TheGameClient->setFrame(TheGameClient->getFrame() + 1);
+        ((ClientFrameSubsystem *)TheGameClient)->setFrame(((ClientFrameSubsystem *)TheGameClient)->getFrame() + 1);
     }
 
     WindowManagerSubsystem->update();
     if (_bfme_shouldSkipClientFrame())
     {
         ++SkippedClientFrames;
-        SavedClientFrame = TheGameClient->getFrame();
+        SavedClientFrame = ((ClientFrameSubsystem *)TheGameClient)->getFrame();
         return;
     }
 
     BFMEDesyncCheck desyncCheck;
     Radar->m_update.update();
-    TheGameClient->update();
-    MessageStreamSubsystem->propagateMessages();
+    ((ClientFrameSubsystem *)TheGameClient)->update();
+    TheMessageStream->propagateMessages();
 
     unsigned int timedOps = _bfme_updateTimedOps();
     int inputLocked = timedOps & 1;
@@ -224,9 +221,6 @@ void GameEngine::_bfme_updateClientSubsystems(void)
 // ?AudioSubsystem@@3PAVClientSubsystem@@A: the global at this VA is ?TheAudio@@3PAVAudioManager@@A; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?AudioSubsystem@@3PAVClientSubsystem@@A=?TheAudio@@3PAVAudioManager@@A")
 #pragma comment(linker, "/alternatename:?TheAudio@@3PAVBfmeAudioVtblIndexed@@A=?TheAudio@@3PAVAudioManager@@A")
-#pragma comment(linker, "/alternatename:?g_00DFE6E8@@3PAVGlobalSlotTarget@@A=?TheAudio@@3PAVAudioManager@@A")
-#pragma comment(linker, "/alternatename:?g_audioMixer@@3PAVAudioMixer@@A=?TheAudio@@3PAVAudioManager@@A")
-#pragma comment(linker, "/alternatename:?g_009FE6E8@@3PAVBfmeAudio@@A=?TheAudio@@3PAVAudioManager@@A")
 // ?Radar@@3PAVRadarSubsystem@@A: the global at this VA is ?TheRadar@@3PAVRadar@@A; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?Radar@@3PAVRadarSubsystem@@A=?TheRadar@@3PAVRadar@@A")
 #pragma comment(linker, "/alternatename:?TheRadar@@3PAVPartitionManager@@A=?TheRadar@@3PAVRadar@@A")

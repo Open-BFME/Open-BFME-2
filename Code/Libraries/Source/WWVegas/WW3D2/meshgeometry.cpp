@@ -1956,20 +1956,8 @@ WW3DErrorType MeshGeometryClass::read_vertex_influences(ChunkLoadClass & cload)
  * HISTORY:                                                                                    *
  *   11/9/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-// ?MeshGeometryClass::read_vertex_shade_indices present-unmatched
-bool MeshGeometryClass::read_vertex_shade_indices(ChunkLoadClass & cload)
-{
-	uint32 * shade_index = get_shade_indices(true);
-	uint32 si;
-
-	for (int i=0; i<*reinterpret_cast<int *>(reinterpret_cast<char *>(this) + 0x28); i++) {
-		if (cload.Read(&si,sizeof(uint32)) != sizeof(uint32)) {
-			return false;
-		}
-		shade_index[i] = si;
-	}
-	return true;
-}
+// ?read_vertex_shade_indices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@@Z is a row of Rva0016B3C0Cluster.cpp; this unit's copy was
+// a second, non-retail definition of it.
 
 
 /***********************************************************************************************

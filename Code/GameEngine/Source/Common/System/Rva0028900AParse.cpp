@@ -29,7 +29,6 @@ public:
 	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
 };
 extern "C" UpgradeCenter *TheUpgradeCenter;
-extern const char g_Rva0107301CEmptyString[];
 extern const char g_00BBE7A4[];
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
 extern "C" __declspec(dllimport) char *__cdecl strtok(char *str, const char *delim);

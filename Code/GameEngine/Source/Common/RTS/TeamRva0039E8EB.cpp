@@ -38,20 +38,13 @@ Object *Team::rva0039E8EB()
 
 // ?rva0039E968@Team@@QAEPAVObject@@H@Z @0x0039E968 57B chain lane: first
 // member whose rowed 0x0028D8EB test is 1 else null; 0x18B iterator via
-// rowed iterate plus rowed Rva001705A0 advance; cmp al,1. The test and
-// advance live under different iterator spellings (DLINK_ITERATOR vs
-// Rva001705A0DlinkIterator, both 0x18B) so the calls go through narrow
-// casts; the test class Rva0028D8EB is the honest placeholder for what reads
+// rowed iterate plus rowed DLINK_ITERATOR<Object> advance; cmp al,1. The
+// test class Rva0028D8EB is the honest placeholder for what reads
 // as Object+0x3A4 at the call site.
 class Rva0028D8EB
 {
 public:
 	int rva0028D8EB(int bit);
-};
-template<class T> class Rva001705A0DlinkIterator
-{
-public:
-	void advance();
 };
 Object *Team::rva0039E968(int bit)
 {
@@ -59,12 +52,12 @@ Object *Team::rva0039E968(int bit)
 	while (!iter.done()) {
 		if ((char)((Rva0028D8EB *)iter.cur())->rva0028D8EB(bit) == 1)
 			return iter.cur();
-		((Rva001705A0DlinkIterator<Object> *)&iter)->advance();
+		iter.advance();
 	}
 	return 0;
 }
 
-// ?rva0039E8FF@Team@@QAE_NH@Z @0x0039E8FF 105B unlock Team method iterating members via rowed iterate plus rowed Rva001705A0 advance plus virtual 0x7c and 0xac plus pinned bfmeHas985C; caller 0x003C4A28
+// ?rva0039E8FF@Team@@QAE_NH@Z @0x0039E8FF 105B unlock Team method iterating members via rowed iterate plus rowed DLINK_ITERATOR<Object> advance plus virtual 0x7c and 0xac plus pinned bfmeHas985C; caller 0x003C4A28
 struct Rva0039E8FFMid
 {
 	virtual void f00(); virtual void f01(); virtual void f02(); virtual void f03();
@@ -117,7 +110,7 @@ bool Team::rva0039E8FF(int val)
 			if ((char)((BfmeArg985 *)cur)->bfmeHas985C(val) == 1)
 				return true;
 		}
-		((Rva001705A0DlinkIterator<Object> *)&iter)->advance();
+		iter.advance();
 	}
 	return false;
 }

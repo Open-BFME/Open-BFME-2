@@ -62,7 +62,7 @@ public:
 	void noteOwner( U4Owner00604C00 *o );
 };
 
-extern U4Notify *g_u4Notify;
+extern class Rva00432F23 *g_004C9DC9Container;
 
 // ---------------------------------------------------------------- 0x006057C0
 
@@ -84,8 +84,8 @@ U4Assign006057C0 &U4Assign006057C0::operator=( const U4Assign006057C0 &other )
 		m_f04 = other.m_f04;
 		m_f08 = other.m_f08;
 		m_f10 = other.m_f10;
-		if ( g_u4Notify != 0 )
-			g_u4Notify->noteAssign( this );
+		if ( (*(U4Notify **)&g_004C9DC9Container) != 0 )
+			(*(U4Notify **)&g_004C9DC9Container)->noteAssign( this );
 	}
 	return *this;
 }

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc
 //
 // ?rva005EC46F@Rva005EC46F@@QAEXXZ @0x005EC46F 59B: unlocks 0x005EC4AF.
 // State machine over +8 with cases 2 4 5. Case 4 releases owner via pinned
@@ -11,10 +11,9 @@
 class Rva00222A8BTarget
 {
 public:
-	// Native provider compares the incoming 32-bit index with 14 and returns AL.
-	bool rva0022277D(int index);
+	bool rva0022277D(int level);	// 0x0022277D, WB AptPlayer::HideLevel
 };
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva005FA854
 {
@@ -45,7 +44,7 @@ void Rva005EC46F::rva005EC46F()
 	switch (m_08)
 	{
 	case 4:
-		TheRva00222A8BTarget->rva0022277D(reinterpret_cast<int>(m_04));
+		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva0022277D((int)m_04);
 		m_08 = 0;
 		break;
 	case 2:

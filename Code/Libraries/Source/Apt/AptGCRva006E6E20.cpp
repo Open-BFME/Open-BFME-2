@@ -54,14 +54,14 @@ class StringPool { public: static void ClearTemporaryPool(); };
 void __cdecl Rva006CD330();
 void __cdecl Rva006CC110Log(int code, const char *format, ...);
 extern AptValueVector *g_releaseVectorAtE17710;
-extern AptValueGC_PoolManager *g_00E176F4;
+extern class Rva006D2A60 *g_pChainBlockAllocatorF4;
 extern unsigned char g_00E180EC;
 extern const char g_00CEC468[];
 void __cdecl Rva006E6E20Collect()
 {
     int cleaned = 0;
     g_releaseVectorAtE17710->ReleaseValues();
-    AptValue *pValue = g_00E176F4->GetFirstAptValue();
+    AptValue *pValue = (*(AptValueGC_PoolManager **)&g_pChainBlockAllocatorF4)->GetFirstAptValue();
     while (pValue) {
         if (!(pValue->getRefCount() > 0)) {
             g_bfmeAptAssertAtE17734("pObject->getRefCount() > 0", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptGC.cpp", 0x97);
@@ -76,10 +76,10 @@ void __cdecl Rva006E6E20Collect()
                 }
             }
         }
-        pValue = g_00E176F4->GetNextAptValue(pValue);
+        pValue = (*(AptValueGC_PoolManager **)&g_pChainBlockAllocatorF4)->GetNextAptValue(pValue);
     }
     Rva006CD330();
-    pValue = g_00E176F4->GetFirstAptValue();
+    pValue = (*(AptValueGC_PoolManager **)&g_pChainBlockAllocatorF4)->GetFirstAptValue();
     unsigned char saved = g_00E180EC;
     g_00E180EC = 1;
     while (pValue) {
@@ -87,10 +87,10 @@ void __cdecl Rva006E6E20Collect()
             pValue->PreDestroy();
             pValue->DestroyGCPointers();
         }
-        pValue = g_00E176F4->GetNextAptValue(pValue);
+        pValue = (*(AptValueGC_PoolManager **)&g_pChainBlockAllocatorF4)->GetNextAptValue(pValue);
     }
     g_00E180EC = saved;
-    pValue = g_00E176F4->GetFirstAptValue();
+    pValue = (*(AptValueGC_PoolManager **)&g_pChainBlockAllocatorF4)->GetFirstAptValue();
     while (pValue) {
         if (!((const Rva006DBB40ShrAndField *)pValue)->get()) {
             ++cleaned;
@@ -98,7 +98,7 @@ void __cdecl Rva006E6E20Collect()
         } else {
             pValue->setGCMark(false);
         }
-        pValue = g_00E176F4->GetNextAptValue(pValue);
+        pValue = (*(AptValueGC_PoolManager **)&g_pChainBlockAllocatorF4)->GetNextAptValue(pValue);
     }
     g_releaseVectorAtE17710->ReleaseValues();
     if (cleaned)

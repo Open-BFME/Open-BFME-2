@@ -4,8 +4,8 @@ class Rva001DD240 {
 public:
 	void rva001DD276(unsigned char flag);
 };
-extern Rva001DD240 *g_00DFDC30;
+extern class Eva *TheEva;
 void __stdcall Rva003BCA5DSet(unsigned char flag)
 {
-	g_00DFDC30->rva001DD276(flag);
+	(*(Rva001DD240 **)&TheEva)->rva001DD276(flag);
 }

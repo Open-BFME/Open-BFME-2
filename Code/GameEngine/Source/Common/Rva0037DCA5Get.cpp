@@ -14,7 +14,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 struct Rva0037DCA5Template
 {
 	char m_pad[0x618];
@@ -47,7 +47,7 @@ public:
 };
 int Rva0037DCA5::rva0037DCA5()
 {
-	void *found = TheThingFactory->rva002D06CA(&m_name);
+	void *found = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_name);
 	if (found == 0)
 		return 0;
 	return ((Rva0037DCA5Template *)found)->m_cost * m_count;
@@ -55,7 +55,7 @@ int Rva0037DCA5::rva0037DCA5()
 // ?rva0037DC52@Rva0037DCA5@@QAEPAXXZ @0x0037DC52 16B same +0x4 lookup via 0x002D06CA and global 0x00DFF000.
 void *Rva0037DCA5::rva0037DC52()
 {
-	return TheThingFactory->rva002D06CA(&m_name);
+	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_name);
 }
 // ?rva0040C64A@Rva0037DCA5@@QAEPAXXZ @0x0040C64A 19B chain of rva0037DC52.
 // Returns empty wide sentinel 0x00E0C898 when lookup misses else template+0x58.

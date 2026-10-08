@@ -27,8 +27,8 @@
 // `xor al,al` on the other) with the epilogue duplicated, so the two returns are
 // two constants in the source rather than one computed value.
 //
-// The count member is the ledger's own `Gen_00064730::m`, so it needs no pin; the
-// indexed accessor at 0x00064800 is still a gen dump and is pinned.
+// The count is the rowed FrameData::getCommandCount and the indexed accessor
+// the rowed Rva00504138::rva00504138.
 //
 // IDENTITY IS NOT RECOVERED.  Every other name is derived from an address.
 
@@ -37,6 +37,18 @@ class Gen003BBA00Element
 public:
 	char m_pad00[ 0x18 ];
 	int  m_at18;
+};
+
+class FrameData
+{
+public:
+	unsigned int getCommandCount();
+};
+
+class Rva00504138
+{
+public:
+	void *rva00504138( int index );
 };
 
 class Gen_00064730
@@ -56,8 +68,8 @@ public:
 bool Rva003BBA00::refresh()
 {
 	Gen_00064730 *entries = (Gen_00064730 *)( (char *)this + 0xC );
-	if( entries->m() < 2 )
+	if( (int)((FrameData *)entries)->getCommandCount() < 2 )
 		return true;
-	m_at18 = entries->at( 0 )->m_at18;
+	m_at18 = ((Gen003BBA00Element *)((Rva00504138 *)entries)->rva00504138( 0 ))->m_at18;
 	return false;
 }

@@ -31,10 +31,10 @@ set:
 // separately rowed26B Invoke and21B Begin wrappers. Its original class
 // name remains unproved; consume only the rowed42B setter ABI above.
 class Gen_009EBA60Target;
-extern Gen_009EBA60Target*TheInvokeRegistry;
+extern class Q1Receiver0134FAAC *TheQ1Receiver;
 void forwardRegistrySettingRva0061F1A0(unsigned value,int second) {
- if(TheInvokeRegistry)
-  ((Rva0061FFA0*)TheInvokeRegistry)->rva0061FFA0(value,second);
+ if((*(Gen_009EBA60Target **)&TheQ1Receiver))
+  ((Rva0061FFA0*)(*(Gen_009EBA60Target **)&TheQ1Receiver))->rva0061FFA0(value,second);
 }
 
 // Asset worker reference: Open-BFME-1 1399ad37d42ea52a63829e417c46a1ba9ed2cd20,

@@ -70,12 +70,8 @@ private:
 	bool m_flag;
 };
 
-Rva00355D66::~Rva00355D66()
-{
-	if (m_win)
-		TheWindowManager->managerSlot35(m_win);
-	m_win = 0;
-}
+// The Rva00355D66, Rva00355DC5, Rva00355F3E and Rva003563A7 dtors and the
+// Rva00355F3E ctor are rows of Rva00355D66Dtor.cpp; this unit only declares them.
 
 // ??1Rva00355DC5@@UAE@XZ @0x00355DC5 15B
 // Derived dtor (vtable 0x00814E74) tail-jumping to base 0x00355D66.
@@ -88,11 +84,6 @@ public:
 private:
 	int m_extra;
 };
-
-Rva00355DC5::~Rva00355DC5()
-{
-	m_extra = 0;
-}
 
 // ??1Rva00355F3E@@UAE@XZ @0x00355F3E 55B
 // Large derived dtor (vtable 0x00814E8C) tail-jumping to base 0x00355D66.
@@ -121,33 +112,6 @@ private:
 // (pinned twin Rva00355D66, ICF with Rva00490470), vtable store, init five 8-int
 // arrays at +0x10/+0x30/+0x50 to 0 and +0x70/+0x90 to -1 plus +0xB0/+0xB4/+0xB8 to 0.
 // Evidence: gap between 0x00355EE1 and 0x00355F3E, same // cl, callees pinned.
-Rva00355F3E::Rva00355F3E()
-{
-	m_h = 0;
-	for (int i = 0; i < 8; i++) {
-		m_a[i] = 0;
-		m_b[i] = 0;
-		m_c[i] = 0;
-		m_d[i] = -1;
-		m_e[i] = -1;
-	}
-	m_f = 0;
-	m_g = 0;
-}
-
-Rva00355F3E::~Rva00355F3E()
-{
-	for (int i = 0; i < 8; i++) {
-		m_a[i] = 0;
-		m_b[i] = 0;
-		m_c[i] = 0;
-		m_d[i] = -1;
-		m_e[i] = -1;
-	}
-	m_f = 0;
-	m_g = 0;
-}
-
 // ??1Rva003563A7@@UAE@XZ @0x003563A7 80B
 // Derived dtor (vtable 0x00814ED4) with display global plus AsciiString member.
 // Evidence: calls TheDisplay (0x00DFE9D8) slot 0x110, destroys StringBase narrow
@@ -196,16 +160,9 @@ private:
 	StringBase<char> m_str;
 };
 
-Rva003563A7::~Rva003563A7()
-{
-	TheDisplay->slot68();
-}
-
 // ?TheDisplay@@3PAVDisplayManager@@A: the global at this VA is ?TheDisplay@@3PAVDisplay@@A; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayManager@@A=?TheDisplay@@3PAVDisplay@@A")
 #pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayInterface@@A=?TheDisplay@@3PAVDisplay@@A")
-#pragma comment(linker, "/alternatename:?W3DGCData00DFE9D8@@3PAXA=?TheDisplay@@3PAVDisplay@@A")
-#pragma comment(linker, "/alternatename:?g_Va009FE9D8@@3PAVDummy24@@A=?TheDisplay@@3PAVDisplay@@A")
 // ?TheDisplay@@3PAVDisplayManager@@A: the global at VA 0xdfe9d8 is ?TheDisplay@@3PAVDisplay@@A.
 #pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayManager@@A=?TheDisplay@@3PAVDisplay@@A")
 

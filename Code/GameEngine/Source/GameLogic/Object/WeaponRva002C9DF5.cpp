@@ -10,7 +10,7 @@
 class Object;
 class Player;
 
-typedef void (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
+typedef int (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
 
 class Object
 {
@@ -21,7 +21,7 @@ public:
 class Player
 {
 public:
-	void iterateObjects(ObjectIterateFunc func, void *userData) const;
+	int iterateObjects(ObjectIterateFunc func, void *userData) const;
 };
 
 struct WeaponTemplateRange
@@ -60,5 +60,5 @@ void Weapon::rva002C9DF5(const Object *source, const void *other) const
 	data.m_rangeSqr = 0.0f;
 	float range = m_template->m_range;
 	data.m_rangeSqr = range * range;
-	player->iterateObjects(Rva006C9D47, &data);
+	player->iterateObjects((int (*)(Object *, void *))Rva006C9D47, &data);
 }

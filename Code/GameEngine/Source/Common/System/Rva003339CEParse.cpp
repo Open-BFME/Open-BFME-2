@@ -10,12 +10,11 @@
 // 0x00336D77, 0x003A4954, 0x0049724A).
 #include "ascii_string.h"
 
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr00334506(const AsciiString &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 class Rva003339CE

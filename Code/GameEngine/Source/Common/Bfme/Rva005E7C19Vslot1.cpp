@@ -33,7 +33,7 @@ public:
 	virtual void v17();
 	virtual GameMessage *appendType(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 struct ChainB005E712A
 {
 	char m_pad[0x18];
@@ -56,7 +56,7 @@ private:
 void Rva005E7C19::rva005E712A(int unused)
 {
 	(void)unused;
-	GameMessage *msg = MessageStreamSubsystem->appendType(0x6AE);
+	GameMessage *msg = TheMessageStream->appendType(0x6AE);
 	msg->appendIntegerArgument(m_04->m_18->m_18);
 	msg->appendIntegerArgument(m_08);
 }

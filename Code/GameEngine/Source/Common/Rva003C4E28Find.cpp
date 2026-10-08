@@ -111,12 +111,12 @@ public:
 	virtual void w49();
 	virtual void Place(float *pos, int n, float y, float z);
 };
-extern Rva003C4E28ListMgr *g_009FEC50;
-extern Rva003C4E28PlaceMgr *g_009FEA3C;
+extern class TerrainLogic *TheTerrainLogic;
+extern class View *TheTacticalView;
 
 void __stdcall Rva003C4E28Find(const AsciiString &name, float x, float y, float z)
 {
-	Rva003C4E28Entry *p = g_009FEC50->GetHead();
+	Rva003C4E28Entry *p = (*(Rva003C4E28ListMgr **)&TheTerrainLogic)->GetHead();
 	goto test;
 loop:
 	if (p->m_name.compare(name) == 0)
@@ -135,10 +135,6 @@ found:
 	int ix = (int)(x * 1000.0f);
 	float fy = y * 1000.0f;
 	float fz = tz * 1000.0f;
-	g_009FEA3C->Place(pos, ix, fy, fz);
+	(*(Rva003C4E28PlaceMgr **)&TheTacticalView)->Place(pos, ix, fy, fz);
 end:;
 }
-// ?g_009FEA3C@@3PAVRva003C4E28PlaceMgr@@A: the global at VA 0xdfea3c is ?TheTacticalView@@3PAVView@@A.
-#pragma comment(linker, "/alternatename:?g_009FEA3C@@3PAVRva003C4E28PlaceMgr@@A=?TheTacticalView@@3PAVView@@A")
-// ?g_009FEC50@@3PAVRva003C4E28ListMgr@@A: the global at VA 0xdfec50 is ?TheTerrainLogic@@3PAVTerrainLogic@@A.
-#pragma comment(linker, "/alternatename:?g_009FEC50@@3PAVRva003C4E28ListMgr@@A=?TheTerrainLogic@@3PAVTerrainLogic@@A")

@@ -19,10 +19,10 @@ class Rva001DDAE1
 public:
 	void rva001DDAE1(Coord3D *pos);
 };
-extern Rva001DDAE1 *g_00DFDC30;
+extern class Eva *TheEva;
 extern float g_00BC2918;
 void __stdcall Rva003BB76EDo(Coord3D *pos, void *extra)
 {
 	((Rva002D88A4 *)TheRadar)->rva002D88A4(pos, extra, g_00BC2918);
-	g_00DFDC30->rva001DDAE1(pos);
+	(*(Rva001DDAE1 **)&TheEva)->rva001DDAE1(pos);
 }

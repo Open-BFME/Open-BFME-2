@@ -4807,7 +4807,6 @@ void bfmeDrawSortingPrimitive(unsigned primitive_type,unsigned start_index,unsig
 #pragma comment(linker, "/alternatename:?g_BFMEIndexBufferDebug@@3PAVBFMEIndexBufferDebugClass@@A=?theDebug@@3PAVDebug@@A")
 #pragma comment(linker, "/alternatename:?TheGen001336E5C@@3PAVGen001336E5C@@A=?theDebug@@3PAVDebug@@A")
 #pragma comment(linker, "/alternatename:?theDebug@@3RAVDebug@@A=?theDebug@@3PAVDebug@@A")
-#pragma comment(linker, "/alternatename:?TheBfmeAwakenDebug@@3PAVBfmeAwakenDebug@@A=?theDebug@@3PAVDebug@@A")
 // ?bfmeSkipFixedFunctionState@@3_NA: matched references place it at VA 0xdeda20; also referenced as ?g_Va00DEDA20@@3EA.
 bool bfmeSkipFixedFunctionState;
 #pragma comment(linker, "/alternatename:?g_Va00DEDA20@@3EA=?bfmeSkipFixedFunctionState@@3_NA")
@@ -4816,7 +4815,6 @@ bool bfmeSkipFixedFunctionState;
 #pragma comment(linker, "/alternatename:?RendererPtr00DF363C@@3PAURendererFVFDeleteListView@@A=?TheDX8MeshRenderer@@3PAVDX8MeshRendererClass@@A")
 // ?bfmeProjectionBias@@3MA: matched references place it at VA 0xdeda74; also referenced as ?g_Va00DEDA74@@3MA.
 float bfmeProjectionBias;
-#pragma comment(linker, "/alternatename:?g_Va00DEDA74@@3MA=?bfmeProjectionBias@@3MA")
 // ?bfmeProjectionSource@@3VMatrix4@@A: the global at VA 0xdedc30 is ?ProjectionMatrix@DX8Wrapper@@1VMatrix4@@A.
 #pragma comment(linker, "/alternatename:?bfmeProjectionSource@@3VMatrix4@@A=?ProjectionMatrix@DX8Wrapper@@1VMatrix4@@A")
 // ?bfmeProjectionNear@@3MA: the global at VA 0xdec4f0 is ?ZNear@DX8Wrapper@@1MA.

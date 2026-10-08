@@ -9,7 +9,7 @@
 // trailing member's size is unproven and not declared beyond its dtor.
 class GameWindow
 {
-public:
+protected:
 	virtual ~GameWindow();
 };
 class Rva00524BB4

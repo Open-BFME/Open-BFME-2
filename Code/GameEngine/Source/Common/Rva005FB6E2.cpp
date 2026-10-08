@@ -2,8 +2,7 @@
 // ?ShowEliminated@Impl@DynamicAutoResolvePlayerPanelMovieClip@StrategicHUD@@QAEXXZ @0x005FB6E2 71B: __thiscall Apt eliminated-state setter via rowed AptCall 0x005FB5E6 with team+8 or empty string plus SetState plus _eliminated. Evidence: call-site mov ecx at 0x005FB846 plus TheRva00222A8BTarget plus level at +4 plus team at +8.
 class Rva00222A8BTarget;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct Rva005FB6E2Team
 {
     char m_pad[8];
@@ -40,8 +39,8 @@ void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::ShowEliminated(
     if (m_team)
         teamName = m_team->m_name;
     else
-        teamName = g_Rva0107301CEmptyString;
-    Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level, teamName, "SetState", "_eliminated");
+        teamName = "";
+    Rva005FB5E6AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level, teamName, "SetState", "_eliminated");
     m_b4C = false;
     m_b4D = false;
     m_done = 1;
@@ -54,8 +53,8 @@ void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::ShowSurvived()
     if (m_team)
         teamName = m_team->m_name;
     else
-        teamName = g_Rva0107301CEmptyString;
-    Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level, teamName, "SetState", "_survived");
+        teamName = "";
+    Rva005FB5E6AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level, teamName, "SetState", "_survived");
     m_b4C = false;
     m_b4D = false;
     m_done = 2;

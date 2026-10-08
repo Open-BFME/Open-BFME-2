@@ -9,7 +9,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 class Rva00319159
 {
 public:
@@ -24,7 +24,7 @@ void *Rva00319159::rva00319159()
 {
 	if (m_str.isEmpty())
 		return 0;
-	return TheThingFactory->rva002D06CA(&m_str);
+	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_str);
 }
 
 UnicodeString Rva00319159::rva0031964D()

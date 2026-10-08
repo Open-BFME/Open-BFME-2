@@ -7,7 +7,6 @@
 // 0x00038150; releaseBuffer row 0x00036410; precedent Rva005FF450Apt.
 #include "ascii_string.h"
 
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva00224455
 {
@@ -60,7 +59,7 @@ private:
 void Rva005F2792::rva005F2792()
 {
 	AsciiString key;
-	const char *mid = m_info->m_holder ? m_info->m_holder->m_name : g_Rva0107301CEmptyString;
+	const char *mid = m_info->m_holder ? m_info->m_holder->m_name : "";
 	key.format("_level%u.%s_OnUnitIconSlotLoaded%d", m_info->m_level, mid, m_slot);
 	((Rva00224455 *)TheRva00222A8BTarget)->rva00224455(&key);
 }

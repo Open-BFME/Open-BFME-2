@@ -27,7 +27,7 @@ public:
 		DICT_UNICODESTRING
 	};
 
-	DataType getType(NameKeyType key) const;
+	DataType getType(int key) const;
 	bool known(NameKeyType key, DataType type) const;
 };
 

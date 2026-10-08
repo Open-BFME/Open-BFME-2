@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 
 // ?xfer@DelayedLuaEventList@@UAEXPAVXfer@@@Z, retail 0x003316D2, 68 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x007C9CF0 installed by the rowed ctor
@@ -97,14 +97,7 @@ public:
 	unsigned char m_minimum;
 };
 
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void loadPostProcess() = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-};
+#include "Common/Snapshot.h"
 
 class DelayedLuaEvent : public Snapshot
 {

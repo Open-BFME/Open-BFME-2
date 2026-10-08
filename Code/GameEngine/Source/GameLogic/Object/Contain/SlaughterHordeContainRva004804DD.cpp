@@ -48,7 +48,7 @@ public:
 	void *rva002D06CA(const AsciiString *s);
 };
 
-extern Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
 
@@ -95,7 +95,7 @@ void SlaughterHordeContain::rva004804DD(Object *obj)
 
 	Player *ours = m_object->getControllingPlayer();
 	Player *theirs = obj->getControllingPlayer();
-	void *found = TheThingFactory->rva002D06CA(&m_9E8);
+	void *found = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_9E8);
 	if (ours != theirs && found)
 	{
 		ours->m_3BC.addObjectsLost((unsigned int)found, m_9E4);

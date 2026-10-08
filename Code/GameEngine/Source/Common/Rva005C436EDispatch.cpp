@@ -1,4 +1,4 @@
-// cl: /MD /EHsc
+// cl: /O1 /MD /EHsc /Ireference/shims/moduledata
 // ?rva005C436E@Rva005C436E@@QAEXH@Z retail 0x005C436E 65B
 // Evidence: callers 0x005C43BE 0x005C444D unblocks 0x005C4423 plus 0x005C43AF; rowed find 0x002B51F8 plus adds 0x002E07B9 0x002E07AC; chain [esi+4]+0x24+0x13c plus switch [esi+8]+8
 
@@ -45,19 +45,7 @@ struct Outer08
 	int m_0C;
 };
 
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc();
-	virtual void loadPostProcess();
-	virtual void xfer();
-};
-
-inline Snapshot::~Snapshot()
-{
-	*(const void **)this = reinterpret_cast<const void *>(((unsigned int)vtbl_00BBB554));
-}
+#include "Common/Snapshot.h"
 
 class Rva005C436E : public Snapshot
 {

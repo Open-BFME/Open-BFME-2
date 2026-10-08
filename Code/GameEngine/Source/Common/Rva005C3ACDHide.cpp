@@ -9,8 +9,7 @@
 // Evidence: retail cmp [esi+0x18] early ret, AptCall args, imul 12 loop,
 // jmp [eax+8]; caller jmp at 0x005C3E7C via +4.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
 class Rva002BED91
@@ -65,8 +64,8 @@ void Rva005C3ACD::rva005C3ACD()
     if (!m_flag18)
         return;
     char *t = *(char **)(void *)&m_s08;
-    const char *s = t ? t + 8 : g_Rva0107301CEmptyString;
-    Rva00524EF4AptCall(TheRva00222A8BTarget, m_p04, s, "Hide");
+    const char *s = t ? t + 8 : "";
+    Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_p04, s, "Hide");
     do
     {
         --m_count1C;

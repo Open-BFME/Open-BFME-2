@@ -3,7 +3,7 @@
 // GameLogic::TransitionFromLivingWorldTacticalBattle, retail 0x0023D0CD (22B),
 // from the WorldBuilder lead (name, statement order; WorldBuilder asserts
 // m_livingWorldVictorID != INVALID_LW_PLAYER_ID between the two calls at
-// GameLogic.cpp 8502). Both calls go to the living-world logic g_009FEF10:
+// GameLogic.cpp 8502). Both calls go to the living-world logic TheLivingWorldLogic:
 // 0x002B2A0A, then LivingWorldLogic::GameLogic_tacticalBattleComplete
 // (WorldBuilder's name for 0x002BC1DA), which retail reaches by tail jump.
 

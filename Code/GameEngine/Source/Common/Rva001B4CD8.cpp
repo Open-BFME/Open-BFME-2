@@ -5,11 +5,17 @@
 //   callers 0x001B4D45 and jmp 0x001B4D09.
 extern "C" void __cdecl free(void *);
 
-class Rva001B4C7ATarget
+// The callee is the rowed STLport _List_base<BfmeVectorRecord001B4A39>::clear.
+struct BfmeVectorRecord001B4A39;
+namespace _STL
+{
+template <class T> class allocator;
+template <class T, class A> class _List_base
 {
 public:
-	void rva001B4C7A();
+	void clear();
 };
+}
 
 class Rva001B4CD8
 {
@@ -22,7 +28,7 @@ private:
 
 void Rva001B4CD8::rva001B4CD8()
 {
-	((Rva001B4C7ATarget *)this)->rva001B4C7A();
+	((_STL::_List_base<BfmeVectorRecord001B4A39, _STL::allocator<BfmeVectorRecord001B4A39> > *)this)->clear();
 	void *p = m_ptr;
 	if (p != 0)
 		free(p);

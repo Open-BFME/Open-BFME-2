@@ -2,8 +2,20 @@
 extern "C" int g_bfmeNameAZC = 0;
 // g_bfmeNameBZC: matched references place it at VA 0xe0a198 (zero-filled .bss).
 extern "C" int g_bfmeNameBZC = 0;
-extern "C" void __cdecl bfmeCbAZC();
-extern "C" void __cdecl bfmeCbBZC();
+// The two callbacks are rowed statics: Rva00661220Callback::forward and
+// Rva007F4740::bfmeCbBZC.
+class BfmeThingVJL;
+class Rva00661220Callback
+{
+public:
+	static void __cdecl forward(int value, BfmeThingVJL *thing);
+};
+class Rva007F4740Context;
+class Rva007F4740
+{
+public:
+	static void __cdecl bfmeCbBZC(void *unused, Rva007F4740Context *context);
+};
 
 class BfmeThingZC
 {
@@ -45,6 +57,6 @@ void BfmeOwnerZC::bfmeRegisterZC()
 
 	host->m_bfmeThingZC->bfmeSetZC(m_bfmeSubZC, 0);
 
-	host->bfmeAddZC(&g_bfmeNameAZC, (void *)bfmeCbAZC, this);
-	host->bfmeAddZC(&g_bfmeNameBZC, (void *)bfmeCbBZC, this);
+	host->bfmeAddZC(&g_bfmeNameAZC, (void *)Rva00661220Callback::forward, this);
+	host->bfmeAddZC(&g_bfmeNameBZC, (void *)Rva007F4740::bfmeCbBZC, this);
 }

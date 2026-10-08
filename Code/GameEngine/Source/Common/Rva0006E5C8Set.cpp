@@ -26,15 +26,15 @@ public:
 	void rva000F0912();
 };
 
-extern void *W3DGCData00DE5DFC;
-extern Rva000F0912 *g_00DEBCD8;
+extern class Gen0003AC38 *g_shadowManager;
+extern class W3DVolumetricShadowManager *TheW3DVolumetricShadowManager;
 
 void __stdcall Rva0006E5C8Set(Vector3 *src)
 {
-	W3DGameClientShadowShim *shadow = (W3DGameClientShadowShim *)W3DGCData00DE5DFC;
+	W3DGameClientShadowShim *shadow = (W3DGameClientShadowShim *)(*(void **)&g_shadowManager);
 	if (shadow == 0)
 		return;
 	shadow->setLightPosition(0, src->X, src->Y, src->Z);
-	if (g_00DEBCD8 != 0)
-		g_00DEBCD8->rva000F0912();
+	if ((*(Rva000F0912 **)&TheW3DVolumetricShadowManager) != 0)
+		(*(Rva000F0912 **)&TheW3DVolumetricShadowManager)->rva000F0912();
 }

@@ -17,7 +17,7 @@ class Rva002034E9Host
 public:
 	bool rva002034E9();
 };
-extern Rva002034E9Host *g_00DFE78C;
+extern class GameLogic *TheGameLogic;
 
 class Rva002E2903Player;
 
@@ -52,7 +52,7 @@ private:
 
 int Player::ScaleMoney(int value)
 {
-	if (g_00DFE78C->rva002034E9() && m_3AC != -1)
+	if ((*(Rva002034E9Host **)&TheGameLogic)->rva002034E9() && m_3AC != -1)
 	{
 		Rva002E2903Player *entry = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(m_3AC, 0);
 		if (entry)

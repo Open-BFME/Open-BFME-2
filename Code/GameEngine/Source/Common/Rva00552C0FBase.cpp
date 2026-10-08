@@ -5,7 +5,7 @@ void operator delete(void *);
 class Rva00552C0FBase
 {
 public:
-	virtual ~Rva00552C0FBase() {}
+	virtual ~Rva00552C0FBase();
 	Rva00552C0FBase();
 	virtual void pure1() = 0;
 	virtual void pure2() = 0;
@@ -25,5 +25,11 @@ public:
 };
 
 Rva00552C0FBase::Rva00552C0FBase()
+{
+}
+
+// ??1Rva00552C0FBase@@UAE@XZ @0x00552C08 7B: the empty dtor, restoring the vtable (the
+// deleting dtor still expands it inline).
+Rva00552C0FBase::~Rva00552C0FBase()
 {
 }

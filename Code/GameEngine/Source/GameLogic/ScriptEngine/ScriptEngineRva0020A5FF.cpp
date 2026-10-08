@@ -42,7 +42,6 @@ struct Rva0020A227Element
 	Rva0020A227Element() : obj(0) {}
 };
 
-extern const char g_Rva0107301CEmptyString[];
 extern class ScriptEngine *TheScriptEngine;
 
 class ScriptEngine

@@ -72,28 +72,28 @@ public:
 	virtual void slotA0( void *a );
 };
 
-extern Gen001336E5C *TheGen001336E5C;					///< retail [0x01336E5C]
+extern class Debug *theDebug;					///< retail [0x01336E5C]
 
 // ?Rva0005BBB0@@YAXPAX0@Z
 void Rva0005BBB0( void *a, void *b )
 {
-	TheGen001336E5C->slot6C( a, b );
+	(*(Gen001336E5C **)&theDebug)->slot6C( a, b );
 }
 
 // ?Rva0005BBE0@@YAXPAX@Z
 void Rva0005BBE0( void *a )
 {
-	TheGen001336E5C->slotA0( a );
+	(*(Gen001336E5C **)&theDebug)->slotA0( a );
 }
 
 // ?Rva00060820@@YAXPBD@Z
 void Rva00060820( const char *text )
 {
-	TheGen001336E5C->registerCommand( text );
+	(*(Gen001336E5C **)&theDebug)->registerCommand( text );
 }
 
 // ?Rva0006B050@@YAXXZ
 void Rva0006B050( void )
 {
-	TheGen001336E5C->slot90();
+	(*(Gen001336E5C **)&theDebug)->slot90();
 }

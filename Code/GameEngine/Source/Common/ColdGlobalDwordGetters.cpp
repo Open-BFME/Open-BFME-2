@@ -417,10 +417,9 @@ int Rva0050E9CDGet(void)
 	return g_Va00E046B4;
 }
 
-// ?g_Va00E0ABB0@@3HA: matched references place it at VA 0xe0abb0; also referenced as ?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A, _g_bfmeHeadEQB.
+// ?g_Va00E0ABB0@@3HA: matched references place it at VA 0xe0abb0; also referenced as ?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A.
 int g_Va00E0ABB0;
 #pragma comment(linker, "/alternatename:?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A=?g_Va00E0ABB0@@3HA")
-#pragma comment(linker, "/alternatename:_g_bfmeHeadEQB=?g_Va00E0ABB0@@3HA")
 // ?g_Va00E04910@@3HA: matched references place it at VA 0xe04910; also referenced as ?g_Va00A04910@@3PAUGlobalA04910@@A.
 int g_Va00E04910;
 #pragma comment(linker, "/alternatename:?g_Va00A04910@@3PAUGlobalA04910@@A=?g_Va00E04910@@3HA")

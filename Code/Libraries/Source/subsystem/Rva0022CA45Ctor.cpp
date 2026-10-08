@@ -42,7 +42,7 @@ namespace _STL
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 // Precedent Rva00221088Ctor: novtable head whose inlined ctor runs

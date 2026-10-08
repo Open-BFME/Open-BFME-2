@@ -15,16 +15,19 @@ struct BfmeObjELH
 	BfmeVtELH *m_bfmeVtbl;
 };
 
-extern void *g_Va00DEDA34;					// retail 0x00DEDA34, ?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A
-extern int g_Va00DEDA98;					// retail 0x00DEDA98
-
-// ?g_Va00DEDA34@@3PAUIDirect3DDevice8@@A: the global at VA 0xDEDA34 is
-// ?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A.
-#pragma comment(linker, "/alternatename:?g_Va00DEDA34@@3PAX=?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A")
+// The device and per-frame counters are DX8Wrapper's protected statics
+// (dx8wrapper.cpp); number_of_DX8_calls is its file-scope counter.
+class DX8Wrapper
+{
+protected:
+	static struct IDirect3DDevice8 *D3DDevice;		// retail 0x00DEDA34
+	friend void __cdecl bfmeGoELHa(void *);
+};
+extern unsigned number_of_DX8_calls;		// retail 0x00DEDA98
 
 void __cdecl bfmeGoELHa(void *a)
 {
-	BfmeObjELH *o = reinterpret_cast<BfmeObjELH *>(g_Va00DEDA34);
+	BfmeObjELH *o = reinterpret_cast<BfmeObjELH *>(DX8Wrapper::D3DDevice);
 	o->m_bfmeVtbl->m_bfmeF89(o, a);
-	g_Va00DEDA98++;
+	number_of_DX8_calls++;
 }

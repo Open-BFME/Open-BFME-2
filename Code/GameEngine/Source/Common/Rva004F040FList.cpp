@@ -39,17 +39,6 @@ private:
 };
 
 
-// Whole verified BFME1 donor contexts AIPlayerQueueTeardown.cpp,
-// AIPlayerSelectTeamToReinforce.cpp and AIPlayer.cpp at1281192 supply
-// the two intrusive-list queue protocol. Native Ghidra32-byte entries
-// independently prove each condition, head offset, both call destinations
-// and RET4 ABI. Existing4F040F remains exact. Receiver original names
-// and full layouts remain unknown; no unverified class identity is added.
-// Native4F0490 in4F0479 calls the now-verified linked4F03AF/48 with
-// node receiver and head-pointer argument; this existing node declaration
-// is only that call ABI, bound to its proper TeamInQueue home.
-#pragma comment(linker, "/alternatename:?rva004F03AF@BfmeNode_00161220@@QAEXPAPAU1@@Z=?dlink_removeFrom_TeamReadyQueue@TeamInQueue@@QAEXPAPAV1@@Z")
-
 // Native4EF39A calls the independently byte-verified/link-clean23-byte
 // second-list prepend4EF35C with its node receiver and supplied head.
 // This declaration adds no receiver layout or original type claim.
@@ -58,11 +47,22 @@ class Rva004EF35CAppendABI
 public:
     void prepend(void **head);
 };
-#pragma comment(linker, "/alternatename:?prepend@Rva004EF35CAppendABI@@QAEXPAPAX@Z=?set@Rva00160620@@QAEXPAPAV1@@Z")
+// The membership test and the link are the rowed
+// TeamInQueue::dlink_isInList_TeamReadyQueue and Rva00160620::set.
+class TeamInQueue
+{
+public:
+	Bool dlink_isInList_TeamReadyQueue(TeamInQueue *const *head) const;
+};
+class Rva00160620
+{
+public:
+	void set(Rva00160620 **head);
+};
 
 void Rva004F040F::rva004EF383(void *arg)
 {
     void **head = &m_08;
-    if (!((BfmeNode_00161220 *)arg)->isInList0C((BfmeNode_00161220 **)head))
-        ((Rva004EF35CAppendABI *)arg)->prepend(head);
+    if (!((const TeamInQueue *)arg)->dlink_isInList_TeamReadyQueue((TeamInQueue *const *)head))
+        ((Rva00160620 *)arg)->set((Rva00160620 **)head);
 }

@@ -66,4 +66,3 @@ Bool W3DShadowManager::ReAcquireResources()
 
 // ?Rva00DEC2D8Manager@@3PAVRva00108660ResourceManager@@A: matched references place it at VA 0xdec2d8; also referenced as ?R2Ptr01306DF0@@3PAVR2GlobalReceiver@@A.
 Rva00108660ResourceManager * Rva00DEC2D8Manager = 0;
-#pragma comment(linker, "/alternatename:?R2Ptr01306DF0@@3PAVR2GlobalReceiver@@A=?Rva00DEC2D8Manager@@3PAVRva00108660ResourceManager@@A")

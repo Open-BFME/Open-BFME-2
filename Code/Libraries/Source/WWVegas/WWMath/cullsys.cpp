@@ -92,11 +92,13 @@ CullableClass * CullSystemClass::Get_Next_Collected_Object_Internal(CullableClas
 	return NULL;
 }
 
+// ?CullSystemClass::Peek_First_Collected_Object_Internal present-unmatched
 CullableClass * CullSystemClass::Peek_First_Collected_Object_Internal(void)
 {
 	return CollectionHead;
 }
 
+// ?CullSystemClass::Peek_Next_Collected_Object_Internal present-unmatched
 CullableClass * CullSystemClass::Peek_Next_Collected_Object_Internal(CullableClass * obj)
 {
 	if (obj != NULL) {

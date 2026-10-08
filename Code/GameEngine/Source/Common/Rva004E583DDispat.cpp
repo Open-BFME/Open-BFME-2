@@ -5,7 +5,7 @@
 // in the Rva0005121FElapsed.cpp holder view); when it has reached m_8,
 // forward m_4, the +0x10 block and the surplus to slot 8 on the +0x0 target.
 class ClientFrameSubsystem;
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class Rva004E583DClient
 {
@@ -42,7 +42,7 @@ private:
 
 void Rva004E583D::rva004E583D()
 {
-	unsigned int n = ((Rva004E583DClient *)TheGameClient)->slot1F();
+	unsigned int n = ((Rva004E583DClient *)((ClientFrameSubsystem *)TheGameClient))->slot1F();
 	if (n >= (unsigned int)m_8)
 		m_0->vf2(m_4, &m_10, n - m_8);
 }

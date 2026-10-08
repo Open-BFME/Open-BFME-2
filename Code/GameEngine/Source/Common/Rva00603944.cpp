@@ -15,7 +15,6 @@ public:
 
 extern ArchiveFileSystem *TheArchiveFileSystem;
 extern char g_00DD509C[];
-extern const char g_Rva0107301CEmptyString[];
 
 class Win32BIGFileSystem
 {
@@ -52,6 +51,6 @@ void Win32BIGFileSystem::init(bool flag)
 	}
 
 	const char *pat = "*.big";
-	S8(g_Rva0107301CEmptyString, pat, 0);
+	S8("", pat, 0);
 	S8("apt\\", pat, 0);
 }

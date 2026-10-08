@@ -9,7 +9,6 @@
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 #pragma function(memcpy)
 
-extern char g_bfmeEmptyF9[];
 
 struct Holder00527BA2
 {
@@ -39,6 +38,7 @@ void Holder00527BA2::Rva00527BA2(char *dst, int n, int m)
 	if (q != 0)
 		q += 8;
 	else
-		q = g_bfmeEmptyF9;
+		q = "";
 	memcpy(dst, q + n, m);
 }
+

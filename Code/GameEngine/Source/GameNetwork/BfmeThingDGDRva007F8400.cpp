@@ -17,21 +17,23 @@
 
 #include <new>
 
-extern char g_00E0A3EC[];
-extern char g_00E0A410[];
-extern char g_00E0A4C4[];
-extern char g_00E0A4B8[];
-extern char g_00E0A470[];
-extern char g_00E0A530[];
-extern char g_00E0A548[];
-extern char g_00E0A518[];
-extern char g_00E0A53C[];
-extern char g_00E0A4A0[];
-extern char g_00E0A494[];
-extern char g_00A636B0[];
+class Rva007F0210;
+extern Rva007F0210 bfmeRva0130A9D4TagSlot;	// 0x00E0A3EC
+extern Rva007F0210 bfmeRva0130A9F8TagSlot;	// 0x00E0A410
+extern Rva007F0210 bfmeRva0130AA58TagSlot;	// 0x00E0A470
+extern Rva007F0210 bfmeRva0130AA7CTagSlot;	// 0x00E0A494
+extern Rva007F0210 bfmeRva0130AA88TagSlot;	// 0x00E0A4A0
+extern Rva007F0210 bfmeRva0130AAA0TagSlot;	// 0x00E0A4B8
+extern Rva007F0210 bfmeRva0130AAACTagSlot;	// 0x00E0A4C4
+extern Rva007F0210 bfmeRva0130AB00TagSlot;	// 0x00E0A518
+extern Rva007F0210 bfmeRva0130AB18TagSlot;	// 0x00E0A530
+extern Rva007F0210 bfmeRva0130AB24TagSlot;	// 0x00E0A53C
+extern Rva007F0210 bfmeRva0130AB30TagSlot;	// 0x00E0A548
 
 class Rva007E8810Message;
 class BfmeDictESI;
+class Rva007F7980Browser;
+void Rva007F6FC0BrowserGameReply(Rva007E8810Message *value, Rva007F7980Browser *browser);
 
 class Rva007F7980Browser
 {
@@ -239,17 +241,17 @@ void BfmeThingDGD::rva007F8400( unsigned char arg34, int arg35, void *forwarded 
 	((BfmeThingRE *)m_0c)->bfmeRunRE( forwarded );
 	m_14 = m_10->v1();
 	m_14->m_6a8->v3( static_cast< Rva0112B7F8Base * >( this ), 0 );
-	m_14->v4( (void *)g_00E0A3EC, (void *)Rva00663690Handler, this );
-	m_14->v4( (void *)g_00E0A410, (void *)Rva006636A0Handler, this );
-	m_14->v4( (void *)g_00E0A4C4, (void *)g_00A636B0, this );
-	m_14->v4( (void *)g_00E0A4B8, (void *)Rva006636D0Handler, this );
-	m_14->v4( (void *)g_00E0A470, (void *)Rva006636E0Handler, this );
-	m_14->v4( (void *)g_00E0A530, (void *)Rva006636F0Handler, this );
-	m_14->v4( (void *)g_00E0A548, (void *)Rva00664A60Handler, this );
-	m_14->v4( (void *)g_00E0A518, (void *)Rva00663FF0Handler, this );
-	m_14->v4( (void *)g_00E0A53C, (void *)Rva00663700Handler, this );
-	m_14->v4( (void *)g_00E0A4A0, (void *)Rva00663710Handler, this );
-	m_14->v4( (void *)g_00E0A494, (void *)Rva00664A70Handler, this );
+	m_14->v4( (void *)&bfmeRva0130A9D4TagSlot, (void *)Rva00663690Handler, this );
+	m_14->v4( (void *)&bfmeRva0130A9F8TagSlot, (void *)Rva006636A0Handler, this );
+	m_14->v4( (void *)&bfmeRva0130AAACTagSlot, (void *)Rva007F6FC0BrowserGameReply, this );
+	m_14->v4( (void *)&bfmeRva0130AAA0TagSlot, (void *)Rva006636D0Handler, this );
+	m_14->v4( (void *)&bfmeRva0130AA58TagSlot, (void *)Rva006636E0Handler, this );
+	m_14->v4( (void *)&bfmeRva0130AB18TagSlot, (void *)Rva006636F0Handler, this );
+	m_14->v4( (void *)&bfmeRva0130AB30TagSlot, (void *)Rva00664A60Handler, this );
+	m_14->v4( (void *)&bfmeRva0130AB00TagSlot, (void *)Rva00663FF0Handler, this );
+	m_14->v4( (void *)&bfmeRva0130AB24TagSlot, (void *)Rva00663700Handler, this );
+	m_14->v4( (void *)&bfmeRva0130AA88TagSlot, (void *)Rva00663710Handler, this );
+	m_14->v4( (void *)&bfmeRva0130AA7CTagSlot, (void *)Rva00664A70Handler, this );
 
 	if( byte35 != 0 )
 	{

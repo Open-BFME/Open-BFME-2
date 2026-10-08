@@ -23,7 +23,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 class BehaviorModuleBase
 {
@@ -141,7 +141,7 @@ SpawnBehavior::SpawnBehavior(Thing *thing, const ModuleData *moduleData)
 {
 	const SpawnBehaviorModuleDataView *md = (const SpawnBehaviorModuleDataView *)m_moduleData;
 	m_templateNameIterator = md->m_spawnTemplateBegin;
-	m_spawnTemplate = (const ThingTemplate *)TheThingFactory->rva002D06CA(m_templateNameIterator);
+	m_spawnTemplate = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(m_templateNameIterator);
 	m_framesToWait = 0;
 	m_firstBatchCount = 0;
 	if (md->m_isOneShotData)

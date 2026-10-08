@@ -17,7 +17,7 @@ extern GameLogic *TheGameLogic; // ?TheGameLogic@@3PAVGameLogic@@A
 class GlobalData;
 extern GlobalData *TheWritableGlobalData; // ?TheWritableGlobalData@@3PAVGlobalData@@A
 struct GlobalA01E48;
-extern GlobalA01E48 *g_Va00A01E48; // ?g_Va00A01E48@@3PAUGlobalA01E48@@A
+extern class Shell *TheShell; // ?g_Va00A01E48@@3PAUGlobalA01E48@@A
 
 class Rva00203BCDDwordSlot
 {
@@ -75,7 +75,7 @@ void Rva00377064::rva00377064(int a, int b, int c)
 	}
 	m_94 = c;
 	if (TheGameLogic->m_110 != 4)
-		((Shell *)g_Va00A01E48)->hide(true);
+		((Shell *)(*(GlobalA01E48 **)&TheShell))->hide(true);
 	m_a8 = 0;
 	if (TheGameLogic->m_114 == 3)
 		((Rva0023D2D8DwordClearer *)TheGameLogic)->clear();

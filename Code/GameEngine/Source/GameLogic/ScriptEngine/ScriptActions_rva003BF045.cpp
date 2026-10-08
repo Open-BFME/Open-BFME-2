@@ -30,15 +30,6 @@ public:
 	Bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
 };
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-public:
-	void advance();
-};
 class Object
 {
 public:
@@ -100,7 +91,6 @@ extern class ScriptEngine *TheScriptEngine;
 extern class AI *TheAI;
 extern TerrainLogic *TheTerrainLogic;
 extern float g_Va00BBB8D8;
-extern const char g_Rva0107301CEmptyString[];
 
 class ScriptActions
 {
@@ -135,7 +125,7 @@ void ScriptActions::doTeamFollowSkirmishApproachPath(const AsciiString &teamName
 		++n;
 		if (first == 0)
 			first = o;
-		((Rva001705A0DlinkIterator<Object> *)&it)->advance();
+		it.advance();
 	}
 	if (n == 0)
 		return;
@@ -150,7 +140,7 @@ void ScriptActions::doTeamFollowSkirmishApproachPath(const AsciiString &teamName
 	int num = base + 1;
 	AsciiString waypointName;
 	const void *q = *(const void * const *)&prefix;
-	const char *s = q ? (const char *)q + 8 : g_Rva0107301CEmptyString;
+	const char *s = q ? (const char *)q + 8 : "";
 	waypointName.format("%s%d", s, num);
 	Waypoint *wp = TheTerrainLogic->v36(&sum, &waypointName);
 	if (wp == 0)

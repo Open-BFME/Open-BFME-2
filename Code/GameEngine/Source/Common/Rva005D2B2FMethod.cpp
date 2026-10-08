@@ -15,17 +15,16 @@ extern float g_00BBE358;
 // g_00BBE358: matched references place it at VA 0xbbe358 (retail .rdata value 1000.0f).
 float g_00BBE358 = 1000.0f;
 
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva00525338Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, void *a6);
 
 __forceinline const char *GetStr005D2B2F(const AsciiString &s)
 {
 	char *t = *(char **)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 static __forceinline long fast_round005D2B2F(float f)
@@ -73,10 +72,10 @@ void Rva005D25F2::rva005D2B2F(int idx, float val)
 	if (old == 0) {
 		if (ni == 0)
 			return;
-		Rva00525338Fire(TheRva00222A8BTarget, m_04, GetStr005D2B2F(m_08), "SetFlashEffectState", &idx, (void *)"_show");
+		Rva00525338Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_04, GetStr005D2B2F(m_08), "SetFlashEffectState", &idx, (void *)"_show");
 	} else {
 		if (ni != 0)
 			return;
-		Rva00525338Fire(TheRva00222A8BTarget, m_04, GetStr005D2B2F(m_08), "SetFlashEffectState", &idx, (void *)"_hide");
+		Rva00525338Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_04, GetStr005D2B2F(m_08), "SetFlashEffectState", &idx, (void *)"_hide");
 	}
 }

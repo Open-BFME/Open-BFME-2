@@ -37,7 +37,7 @@ struct BfmeWorldRV
 	char _00[0x28];
 	unsigned char m_28;
 };
-extern struct BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 
 class Rva0047A040Base9E0
 {
@@ -57,7 +57,7 @@ bool Rva0047A040Base9E0::rva00588D24(void *a, Object *b)
 		e->slot20(b);
 		e->slot100(TheGameLogic->m_40);
 		if (e->slotF4()) {
-			g_bfmeWorldRV->m_28 = 1;
+			(*(BfmeWorldRV **)&TheControlBar)->m_28 = 1;
 			e->slot100(0);
 		}
 		return true;
@@ -116,7 +116,7 @@ public:
 	virtual void v17();
 	virtual GameMessage *appendType(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 class InGameUI
 {
 public:
@@ -161,7 +161,7 @@ void Rva0047A040Base9E0::rva00588D99(Object *obj)
 		Player *local = ThePlayerList->m_localPlayer;
 		Player *ctrl = obj->getControllingPlayer();
 		if (ctrl == local) {
-			GameMessage *msg = MessageStreamSubsystem->appendType(0x3ED);
+			GameMessage *msg = TheMessageStream->appendType(0x3ED);
 			ObjectLayout *o = (ObjectLayout *)obj;
 			msg->appendObjectIDArgument(o->m_id);
 			TheInGameUI->slot10C(d);

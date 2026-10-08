@@ -9,7 +9,7 @@
 // the ctor); donor is BFME1 RandomSoundSelectorClientBehavior (float m_randomSelection
 // plus uint m_lastFrame) which reroll 0x004CBCF2 and getSelectedValue 0x004CBD44 prove.
 
-extern class ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class AsciiString;
 class UnicodeString;

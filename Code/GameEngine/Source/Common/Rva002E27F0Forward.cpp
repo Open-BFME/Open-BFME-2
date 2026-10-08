@@ -43,9 +43,9 @@ public:
 	virtual void slot94();
 };
 
-extern BFMEIndexBufferDebugClass *g_BFMEIndexBufferDebug;
+extern class Debug *theDebug;
 
 void rva002E27F0(void *a, void *b, void *c)
 {
-	g_BFMEIndexBufferDebug->slot80(a, b, c);
+	(*(BFMEIndexBufferDebugClass **)&theDebug)->slot80(a, b, c);
 }

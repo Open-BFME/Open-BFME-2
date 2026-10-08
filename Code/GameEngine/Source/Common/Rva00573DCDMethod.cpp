@@ -31,7 +31,7 @@ public:
 	int rva0033A69A(class Object *obj, int a, int b) const;
 };
 
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 extern GameLogic *TheGameLogic;
 
 class Rva0055B0CC
@@ -54,7 +54,7 @@ private:
 
 float Rva00573B23::rva00573DCD(int arg)
 {
-	void *thing = TheThingFactory->rva002D06CA(&m_0C);
+	void *thing = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_0C);
 	class Object *obj = TheGameLogic->findObjectByID(m_08);
 	int value = 0;
 	ThingTemplate *tmpl = (ThingTemplate *)thing;

@@ -61,7 +61,6 @@ public:
 };
 
 extern class ImageCollection *TheMappedImageCollection;
-extern const char g_Rva0107301CEmptyString[];
 
 bool bfmeRva000387C0();
 void _bfme_debugRecordCallsite(int kind);
@@ -87,7 +86,7 @@ extern Debug *theDebug;
 
 static const char *strOf(const AsciiString &s)
 {
-    return s.m_data != 0 ? (const char *)s.m_data + 8 : g_Rva0107301CEmptyString;
+    return s.m_data != 0 ? (const char *)s.m_data + 8 : "";
 }
 
 class ThingTemplate

@@ -322,7 +322,7 @@ class ExperienceTracker
 {
 public:
 	bool rva0039AE04() const;	// 0x0039AE04
-	void rva0039B315(float amount, bool a, bool b, bool c, int d);	// 0x0039B315
+	void rva0039B315(float amount, bool a, bool b, bool c, bool d);	// 0x0039B315
 };
 
 class FXList
@@ -413,7 +413,7 @@ void rva004C2B57(Object *obj, void *userData)
 		ExperienceTracker *tracker = obj->m_264;
 		if (!tracker || !tracker->rva0039AE04())
 			return;
-		tracker->rva0039B315(args->m_amount, true, true, true, 0);
+		tracker->rva0039B315(args->m_amount, true, true, true, false);
 	}
 	if (args->m_D4)
 		FXList::doFXObj(args->m_D4, obj, 0);

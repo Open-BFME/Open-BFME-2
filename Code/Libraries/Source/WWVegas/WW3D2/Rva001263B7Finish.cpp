@@ -28,7 +28,11 @@ public:
 private:
 	T *m_ptr;
 };
-extern int g_009B624C;
+class ShaderClass
+{
+public:
+	static ShaderClass _PresetAdditiveSpriteShader;	// shader.cpp; its first word
+};
 extern float g_007BB8D8;
 class Rva00126350
 {
@@ -48,7 +52,7 @@ private:
 };
 Rva00126350::Rva00126350(const Rva00126350 &other)
 	: m_tex()
-	, m_4(g_009B624C)
+	, m_4(*(int *)&ShaderClass::_PresetAdditiveSpriteShader)
 	, m_8(0.0f)
 {
 	float *f = &m_c;
@@ -61,3 +65,7 @@ Rva00126350::Rva00126350(const Rva00126350 &other)
 	m_20 = 0;
 	*this = other;
 }
+
+// Retail global spelled differently by the unit that defines it (same
+// address in reverse/data_ledger.csv); bind this unit's name to it.
+#pragma comment(linker, "/alternatename:?g_007BB8D8@@3MA=?g_Va00BBB8D8@@3MA")

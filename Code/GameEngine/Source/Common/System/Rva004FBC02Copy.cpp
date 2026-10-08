@@ -44,7 +44,7 @@ public:
 };
 
 class Rva0021294A;
-extern Rva0021294A *g_009FE1C8;
+class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 
 // Slot-12 target is unidentified; dummies pad the vtable so slot12 lands at +0x30.
 class Rva004FBDB0Target
@@ -67,7 +67,7 @@ public:
 
 void Rva004FBDB0::rva004FBDB0(int arg)
 {
-	int found = ((Rva002120A4 *)g_009FE1C8)->rva002120A4(m_key);
+	int found = ((Rva002120A4 *)TheLivingWorldManager)->rva002120A4(m_key);
 	if (found == 0)
 		return;
 	((Rva004FBDB0Target *)found)->slot12(arg);
@@ -75,7 +75,7 @@ void Rva004FBDB0::rva004FBDB0(int arg)
 
 // ?rva004FBDCC@Rva004FBDCC@@QAEXXZ 0x004FBDCC 19: pushes this+0x18 then sets
 // byte at +0x1c to 1 and forwards the int to Rva00DFE1C8Host::rva00212655
-// through global g_009FE1C8. Evidence: pin 0x00212655 plus caller 0x002BAF01.
+// through global TheLivingWorldManager. Evidence: pin 0x00212655 plus caller 0x002BAF01.
 class Rva00DFE1C8Host
 {
 public:
@@ -95,5 +95,5 @@ public:
 void Rva004FBDCC::rva004FBDCC()
 {
 	m_1c = true;
-	((Rva00DFE1C8Host *)g_009FE1C8)->rva00212655(m_18);
+	((Rva00DFE1C8Host *)TheLivingWorldManager)->rva00212655(m_18);
 }

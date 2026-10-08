@@ -19,9 +19,9 @@ struct Rva005C38EExec
 	void Exec(int v, int z);
 };
 
-extern Rva005C38EFinder *g_rva005C38EFinder;
-extern Rva005C38EChecker *g_rva005C38EChecker;
-extern Rva005C38EExec *g_rva005C38EExec;
+extern class GameLogic *TheGameLogic;
+extern class PlayerList *ThePlayerList;
+extern class ControlBar *TheControlBar;
 
 struct Rva005C38EFBox
 {
@@ -34,12 +34,12 @@ struct Rva005C38EFBox
 
 void Rva005C38EFBox::Run()
 {
-	void *r = g_rva005C38EFinder->Find(m_10);
+	void *r = (*(Rva005C38EFinder **)&TheGameLogic)->Find(m_10);
 	if (r != 0) {
-		if (g_rva005C38EChecker == 0)
+		if ((*(Rva005C38EChecker **)&ThePlayerList) == 0)
 			return;
-		if (!g_rva005C38EChecker->Check(r))
+		if (!(*(Rva005C38EChecker **)&ThePlayerList)->Check(r))
 			return;
 	}
-	g_rva005C38EExec->Exec(m_C, 0);
+	(*(Rva005C38EExec **)&TheControlBar)->Exec(m_C, 0);
 }

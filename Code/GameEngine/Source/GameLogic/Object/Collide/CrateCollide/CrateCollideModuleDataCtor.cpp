@@ -33,7 +33,6 @@ private:
 
 #include "ascii_string.h"
 
-extern AsciiString g_emptyAsciiString;
 
 extern const void *const g_00C5A660[];
 
@@ -74,11 +73,9 @@ CrateCollideModuleData::CrateCollideModuleData()
 	, m_humanOnly(false)
 	, m_pickupScience(-1)
 	, m_executeFX(0)
-	, m_executeAnimation(g_emptyAsciiString)
+	, m_executeAnimation(AsciiString::TheEmptyString)
 	, m_executeAnimationTime(0.0f)
 	, m_executeAnimationZRise(0.0f)
 	, m_executeAnimationFades(true)
 {
 }
-// ?g_emptyAsciiString@@3VAsciiString@@A: the global at VA 0xde0878 is ?TheEmptyString@AsciiString@@2V1@B.
-#pragma comment(linker, "/alternatename:?g_emptyAsciiString@@3VAsciiString@@A=?TheEmptyString@AsciiString@@2V1@B")

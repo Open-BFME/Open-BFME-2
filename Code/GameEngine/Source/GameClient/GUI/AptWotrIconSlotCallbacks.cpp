@@ -22,7 +22,7 @@
 extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *format, ...);
 
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 struct Rva005EEE74AptMode
 {
@@ -87,7 +87,7 @@ void Rva005EF669::OnIconSlotClicked(const char *unused)
 {
 	if (m_listener)
 	{
-		int mode = ((Rva005EEE74AptMode *)TheRva00222A8BTarget)->m_mode;
+		int mode = ((Rva005EEE74AptMode *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->m_mode;
 		if (mode == 0)
 			m_listener->v01(this);
 		else if (mode == 2)
@@ -152,15 +152,27 @@ void Rva005EF92D::PlayerColor(int query, char *result, bool skip)
 
 // ---- bound by 0x005F0CC9
 
+
 struct Rva005F0505Owner
 {
-	unsigned char m_pad00[0x0C];
+	unsigned char m_pad00[0x04];
+	void *m_level; // +0x04
+	char *m_name; // +0x08: the movie name's AsciiString buffer
 	int m_0c; // +0x0C
+
+	const char *name() const { return m_name ? m_name + 8 : ""; }
 };
+
+// The icon slot state names (0x00878D64) and the Apt calls taking them.
+extern const char *g_00C78D64[];
+int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *target, void *level, const char *prefix, const char *name, const int &a, const char *const &b);
+int __cdecl Rva00525338Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, void *a6);
 
 class Rva005F0CC9
 {
 public:
+	virtual void DoSetState(int state);
+	void DoHideProgress();
 	void OnIconSlotClicked(const char *unused);
 	void OnIconSlotRollOut(const char *unused);
 	void OnIconSlotRollOver(const char *unused);
@@ -171,11 +183,12 @@ public:
 	void RenderProgress(const Coord2D *position, const Coord2D *size, void *unused3, void *unused4);
 
 private:
-	unsigned char m_pad00[0x0C];
+	unsigned char m_pad04[0x0C - 0x04];
 	Rva005F0505Owner *m_owner; // +0x0C
-	unsigned char m_pad10[0x14 - 0x10];
+	int m_index; // +0x10
 	Rva005EEE74Listener *m_listener; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
+	int m_state; // +0x18
+	unsigned char m_pad1C[0x24 - 0x1C];
 	int m_total; // +0x24
 	int m_remaining; // +0x28
 	bool m_showProgress; // +0x2C
@@ -188,7 +201,7 @@ void Rva005F0CC9::OnIconSlotClicked(const char *unused)
 {
 	if (m_listener)
 	{
-		int mode = ((Rva005EEE74AptMode *)TheRva00222A8BTarget)->m_mode;
+		int mode = ((Rva005EEE74AptMode *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->m_mode;
 		if (mode == 0)
 			m_listener->v01(this);
 		else if (mode == 2)
@@ -284,4 +297,26 @@ void Rva005F141D::OnRegionFortressRollOver(const char *unused)
 void Rva005F141D::rva005F057A(const char *unused)
 {
 	m_target->v03();
+}
+
+// Retail 0x005F0A50 (WorldBuilder RegionDetailsStructuresMovieClip::Impl::
+// IconSlot::DoSetState, vtable match): "SetIconSlotState" with the slot index
+// and the state's name.
+void Rva005F0CC9::DoSetState(int state)
+{
+	if (state == m_state)
+		return;
+	Rva005252CDInvoke((Rva00222A8BTarget *)g_bfmeAptWindowManager, m_owner->m_level, m_owner->name(), "SetIconSlotState", m_index, g_00C78D64[state]);
+	m_state = state;
+}
+
+// Retail 0x005F0BF2 (WorldBuilder IconSlot::DoHideProgress): hides the
+// progress overlay once shown.
+void Rva005F0CC9::DoHideProgress()
+{
+	if (!m_showProgress)
+		return;
+	Rva00525338Fire(g_bfmeAptWindowManager, m_owner->m_level, m_owner->name(), "SetIconSlotProgressState", &m_index, (void *)"_hide");
+	m_showProgress = false;
+	m_turnsRolledOver = false;
 }

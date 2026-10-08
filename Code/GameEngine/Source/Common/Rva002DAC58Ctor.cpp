@@ -6,7 +6,7 @@ extern int g_00DFF088;
 class __declspec(novtable) BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 	__forceinline BFME2NativeNetwork() { baseConstruct(); }
 private:
 	virtual void unused() = 0;

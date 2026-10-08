@@ -39,10 +39,10 @@ class StringBase
 	friend class AsciiString;
 	StringBase(const T *text);
 	StringBase(const StringBase &src);
+	void releaseBuffer();
 
 public:
 	StringBase() : m_data(0) {}
-	~StringBase();
 	T *getBufferForRead(int len);
 	void set(const StringBase &src);
 
@@ -63,7 +63,7 @@ class UnicodeString;
 class AsciiString : public StringBase<char>
 {
 public:
-	~AsciiString();
+	~AsciiString() { releaseBuffer(); }
 	AsciiString() {}
 	AsciiString(const char *text) : StringBase<char>(text) {}
 	AsciiString(const AsciiString &src) : StringBase<char>(src) {}

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 //
 // ??1PlayerList@@UAE@XZ, retail 0x002A79A9, 122 bytes.
 // Virtual dtor over vtable 0x00BFD618 (slot 0 deleting dtor at 0x002A7ED5
@@ -35,15 +35,7 @@ private:
 // BFME 2's Snapshot has a virtual destructor (the deleting-destructor
 // adjustor thunk at 0x002A7ECD sits in PlayerList's Snapshot table) whose
 // inline body only restores Snapshot's vptr (??_7Snapshot@@6B@, 0x00BBB554).
-class Snapshot
-{
-public:
-	Snapshot();
-	virtual ~Snapshot() {}
-	virtual void crc(Xfer *xfer);
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess();
-};
+#include "Common/Snapshot.h"
 
 class Player
 {
@@ -72,7 +64,6 @@ private:
 	Player *m_players[20]; // +0x18
 };
 extern PlayerList *ThePlayerList;
-
 
 PlayerList::~PlayerList()
 {

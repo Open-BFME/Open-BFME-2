@@ -25,7 +25,7 @@ public:
 	virtual void slot000();
 	virtual void slot004();
 };
-extern R2GlobalReceiver *R2Ptr01306DF0;
+extern class Rva00108660ResourceManager *Rva00DEC2D8Manager;
 
 class BfmeThing928F
 {
@@ -39,24 +39,22 @@ public:
 	void rva0007BA35();
 };
 
-extern Rva000F278F *g_00DEBCD8;
+extern class W3DVolumetricShadowManager *TheW3DVolumetricShadowManager;
 extern StringBase<unsigned short> *g_00DEC2CC;
-extern Rva0007BA35 *g_00DE1FF8;
+extern class Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 
 void Rva0009A2CDRun()
 {
-	if (g_00DEBCD8 != 0)
-		g_00DEBCD8->rva000F278F();
+	if ((*(Rva000F278F **)&TheW3DVolumetricShadowManager) != 0)
+		(*(Rva000F278F **)&TheW3DVolumetricShadowManager)->rva000F278F();
 	if (g_00DEC2CC != 0)
 		g_00DEC2CC->validate();
-	if (R2Ptr01306DF0 != 0)
-		((BfmeThing928F *)R2Ptr01306DF0)->bfmeGo928F();
-	if (g_00DE1FF8 != 0)
-		g_00DE1FF8->rva0007BA35();
+	if ((*(R2GlobalReceiver **)&Rva00DEC2D8Manager) != 0)
+		((BfmeThing928F *)(*(R2GlobalReceiver **)&Rva00DEC2D8Manager))->bfmeGo928F();
+	if ((*(Rva0007BA35 **)&Rva00DE1FF8Manager) != 0)
+		(*(Rva0007BA35 **)&Rva00DE1FF8Manager)->rva0007BA35();
 }
 
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_00DEBCD8@@3PAVRva000F278F@@A=?TheW3DVolumetricShadowManager@@3PAVW3DVolumetricShadowManager@@A")
 #pragma comment(linker, "/alternatename:?g_00DEC2CC@@3PAV?$StringBase@G@@A=?TheW3DProjectedShadowManager@@3PAVW3DProjectedShadowManager@@A")
-#pragma comment(linker, "/alternatename:?g_00DE1FF8@@3PAVRva0007BA35@@A=?Rva00DE1FF8Manager@@3PAVRva0007DA23ResourceManager@@A")

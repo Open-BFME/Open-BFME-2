@@ -14,7 +14,7 @@ extern const void *const g_00BBB554[];
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 extern "C" void _ReadWriteBarrier(void);

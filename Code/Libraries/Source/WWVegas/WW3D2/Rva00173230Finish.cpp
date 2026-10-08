@@ -52,8 +52,8 @@ class Rva00199FFB { public: static void rva00199FFB(MeshMatDescClass *, MeshMode
 extern volatile unsigned g_0DB5F94;        // renderer mode gate
 extern volatile unsigned g_0DB5F90;        // NPatch mode gate
 extern volatile unsigned char g_0DEC410;   // force-register flag
-extern Rva001735F9 *g_0DF6F94;            // specialized renderer
-extern Rva00145C30 *g_0DF363C;            // plain renderer
+extern class Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;            // specialized renderer
+extern class DX8MeshRendererClass *TheDX8MeshRenderer;            // plain renderer
 
 void MeshModelClass::Register_For_Rendering()
 {
@@ -84,13 +84,13 @@ void MeshModelClass::Register_For_Rendering()
     if (desc->field_b8 != 0) goto specialized;
     if (desc->field_108 != 0) goto specialized;
     {
-        Rva00145C30 *renderer = g_0DF363C;
+        Rva00145C30 *renderer = (*(Rva00145C30 **)&TheDX8MeshRenderer);
         renderer->rva00145C30(this);
     }
     return;
 specialized:
     {
-        Rva001735F9 *renderer = g_0DF6F94;
+        Rva001735F9 *renderer = (*(Rva001735F9 **)&TheMeshGapFillerContext);
         renderer->rva001735F9(this);
     }
 }

@@ -21,7 +21,12 @@ struct Rva002B4BC9Arg
 	AsciiString m_str18;
 };
 
-int rva0020E873(int a, int b, int *out);
+// The search is the rowed STLport find<CreateAHeroData **, CreateAHeroData *>.
+class CreateAHeroData;
+namespace _STL
+{
+template <class It, class T> It find(It first, It last, const T &value);
+}
 
 class Rva002B4BC9
 {
@@ -43,6 +48,6 @@ bool Rva002B4BC9::rva002B4BC9(Rva002B4BC9Arg *arg)
 	// as a named int local forces an ebp frame and misses; taking the
 	// parameter's address reproduces the slot reuse exactly.
 	int lim = m_arg110;
-	int got = rva0020E873(m_arg10C, lim, (int *)&arg);
+	int got = (int)_STL::find<CreateAHeroData **, CreateAHeroData *>((CreateAHeroData **)m_arg10C, (CreateAHeroData **)lim, *(CreateAHeroData *const *)&arg);
 	return got != lim;
 }

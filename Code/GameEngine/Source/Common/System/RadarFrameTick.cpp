@@ -74,7 +74,7 @@ public:
 	virtual unsigned int getFrame();
 };
 
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class GameLogic
 {
@@ -160,7 +160,7 @@ private:
 
 void Radar::rva002D7DD5()
 {
-	unsigned int curFrame = TheGameClient->getFrame();
+	unsigned int curFrame = ((ClientFrameSubsystem *)TheGameClient)->getFrame();
 	m_flag = true;
 	RadarBody *body = &m_events[0].m_body;
 	int left = 0x40;

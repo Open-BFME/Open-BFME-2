@@ -5,8 +5,7 @@
 class Rva00222A8BTarget
 {
 };
-extern class Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
 class Rva005FBEBA
@@ -37,8 +36,8 @@ private:
 
 void Rva005FC02A::rva005FC02A()
 {
-	const char *prefix = m_08 ? m_08->m_name : g_Rva0107301CEmptyString;
-	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_04, prefix, "FadeOut");
+	const char *prefix = m_08 ? m_08->m_name : "";
+	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_04, prefix, "FadeOut");
 	m_1C = 2;
 	((Rva005FBEBA *)this)->rva005FBEBA();
 }

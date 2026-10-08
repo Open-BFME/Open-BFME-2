@@ -217,7 +217,7 @@ public:
 	virtual void update();
 	virtual void v8();
 	virtual AITactic *create();
-	void end(int a, int b);
+	void end(bool a, bool b);
 };
 
 class AITacticOffensive : public AITactic

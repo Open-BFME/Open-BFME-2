@@ -161,7 +161,7 @@ extern ControlBar *TheControlBar;
 // TheLivingWorldCampaignManager (Rva002B256EThunk.cpp's g_00E02D6C); +0x2C
 // is set for the evil side.
 class Rva003B8BAA;
-extern Rva003B8BAA *g_00E02D6C;
+class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
 struct AptPalantirCampaign
 {
@@ -224,8 +224,7 @@ class Rva00222A8BTarget
 {
 public:
 	// Unrowed 0x0022277D (98 bytes; ret 4), pinned by address.
-	// Native provider compares the incoming 32-bit index with 14 and returns AL.
-	bool rva0022277D(int index);
+	bool rva0022277D(int level);	// 0x0022277D, WB AptPlayer::HideLevel
 
 	unsigned char m_pad000[0x318];
 	int m_318; // +0x318, 2 for the right mouse button
@@ -389,7 +388,7 @@ void AptPalantir::OnInitialized(const char *unused)
 // Retail 0x002D2FE3, 31 bytes: "AptPalantir::OnClosed".
 void AptPalantir::OnClosed(const char *unused)
 {
-	TheRva00222A8BTarget->rva0022277D(reinterpret_cast<int>(m_movie));
+	TheRva00222A8BTarget->rva0022277D((int)m_movie);
 	m_flags = (m_flags & ~2) | 4;
 }
 
@@ -527,7 +526,7 @@ void AptPalantir::PalantirMinLOD(int query, char *result, bool skip)
 // Evenstar power-cap command button.
 void AptPalantir::rva002D3D61(const char *unused)
 {
-	bool evil = ((AptPalantirCampaign *)g_00E02D6C)->m_evil;
+	bool evil = ((AptPalantirCampaign *)((Rva003B8BAA *)TheCampaignManager))->m_evil;
 	const CommandButton *button = TheControlBar->findCommandButton(
 		AsciiString(evil ? "NonCommand_MaxRingPower" : "NonCommand_MaxEvenstarPower"));
 	if (button)

@@ -20,7 +20,6 @@ class Rva00222A8BTarget
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
 
 struct Rva005FF450Team
 {
@@ -70,7 +69,7 @@ private:
 void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::SetUnitIconString(int count, const char *kind, const UnicodeString &text)
 {
 	AsciiString key;
-	const char *team = m_team ? m_team->m_name : g_Rva0107301CEmptyString;
+	const char *team = m_team ? m_team->m_name : "";
 	key.format("APT:_level%u.%s_Unit%s%d", m_level, team, kind, count);
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, true);
 }
@@ -83,7 +82,7 @@ void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::SetUnitIconString(int c
 void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::SetArmyNameString(const UnicodeString &text)
 {
 	AsciiString key;
-	const char *team = m_team ? m_team->m_name : g_Rva0107301CEmptyString;
+	const char *team = m_team ? m_team->m_name : "";
 	key.format("APT:_level%u.%s_ArmyName", m_level, team);
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, true);
 }
@@ -100,7 +99,7 @@ void StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::SetUnitIconCount(int co
 	int cur = vec->m_end - vec->m_begin;
 	if (count == cur)
 		return;
-	const char *team = m_team ? m_team->m_name : g_Rva0107301CEmptyString;
+	const char *team = m_team ? m_team->m_name : "";
 	Rva0052519DFire(TheRva00222A8BTarget, (void *)m_level, team, "SetUnitIconCount", &count);
 	BfmePod8 fill;
 	fill.a[0] = 0;

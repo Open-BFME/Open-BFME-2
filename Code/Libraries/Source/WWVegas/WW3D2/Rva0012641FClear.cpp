@@ -7,11 +7,12 @@ public:
     void rva005F2577();
 };
 
-extern Rva005F2577Holder g_00DEE870;
-extern Rva005F2577Holder g_00DEE86C;
+class Rva007B7024Object;
+extern Rva007B7024Object *g_Va00DEE870;	// Rva007B7024Cluster.cpp
+extern Rva007B7024Object *g_Va00DEE86C;
 
 void Rva0012641FClear()
 {
-    g_00DEE870.rva005F2577();
-    g_00DEE86C.rva005F2577();
+    ((Rva005F2577Holder *)&g_Va00DEE870)->rva005F2577();
+    ((Rva005F2577Holder *)&g_Va00DEE86C)->rva005F2577();
 }

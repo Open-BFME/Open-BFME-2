@@ -13,12 +13,12 @@ public:
 	bool isSelectionLocked() const;
 };
 
-struct Rva00E02D6C
+struct Rva00E02D6CFlags
 {
 	char m_pad[0x2C];
 	unsigned char m_2C;
 };
-extern Rva00E02D6C *g_00E02D6C;
+class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
 class GameLogic
 {
@@ -53,7 +53,7 @@ int __cdecl ComputeFrameState()
 {
 	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) && ((const BfmeSelectionState *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->isSelectionLocked())
 	{
-		return g_00E02D6C->m_2C ? 4 : 2;
+		return ((Rva00E02D6CFlags *)TheCampaignManager)->m_2C ? 4 : 2;
 	}
 	if (TheGameLogic && TheGameLogic->rva0042219())
 	{

@@ -47,7 +47,6 @@ public:
 
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
 int __cdecl Rva00525235Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, int *a6);
 struct Rva005FDF1COuter;
 void __cdecl Rva005FDF1CSet(int level, Rva005FDF1COuter *outer, const UnicodeString &text);
@@ -55,7 +54,7 @@ void __cdecl Rva005FDF1CSet(int level, Rva005FDF1COuter *outer, const UnicodeStr
 __forceinline const char *GetStr005FE27A(const AsciiString &s)
 {
 	char *t = *(char **)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 class Rva005FE750

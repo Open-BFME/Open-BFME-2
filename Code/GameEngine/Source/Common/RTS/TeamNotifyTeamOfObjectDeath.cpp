@@ -38,19 +38,10 @@ private:
 	OBJCLASS *m_cur;
 	unsigned char m_targetAbiState[20];
 public:
+	void advance();
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
 };
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-public:
-	void advance();
-};
-
 struct BfmeDelayedLuaEvent
 {
 	unsigned char m_data[0x18];
@@ -124,7 +115,7 @@ void Team::notifyTeamOfObjectDeath(Object *obj)
 		return;
 
 	for (DLINK_ITERATOR<Object> it = iterate_TeamMemberList(); !it.done();
-		((Rva001705A0DlinkIterator<Object> *)&it)->advance())
+		it.advance())
 	{
 		Object *member = it.cur();
 		if (!member->isEffectivelyDead() && member->getAIUpdateInterface())

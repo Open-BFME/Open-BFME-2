@@ -78,7 +78,6 @@ public:
 	Rva003C08CCP2EC *m_p2EC; // +0x2EC
 };
 
-extern AsciiString g_00DE0878;
 
 class Rva003C01E2
 {
@@ -116,7 +115,7 @@ void Rva003C08CC::rva003C08CC(const AsciiString *teamName, bool extra)
 	}
 	const AsciiString *s;
 	if (e->m_p30 == 0)
-		s = &g_00DE0878;
+		s = &AsciiString::TheEmptyString;
 	else
 		s = (const AsciiString *)((const char *)e->m_p30 + 0x14);
 	((Rva003C01E2 *)this)->rva003C01E2(teamName, s);

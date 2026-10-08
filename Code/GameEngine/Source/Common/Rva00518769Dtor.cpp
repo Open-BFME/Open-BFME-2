@@ -50,7 +50,7 @@ public:
 extern AudioManager *TheAudio;
 
 class ClientFrameSubsystem;
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class Rva00238E1B
 {
@@ -123,7 +123,7 @@ AptOptions::~AptOptions()
 		_bfme_closeAptScreen(AsciiString("AptOptions::InitGadgets"));
 		if (m_2F8)
 		{
-			((Rva00238E1B *)TheGameClient)->rva00238F91(m_29C, m_2A0, m_2A4);
+			((Rva00238E1B *)((ClientFrameSubsystem *)TheGameClient))->rva00238F91(m_29C, m_2A0, m_2A4);
 		}
 		if (g_Va00A04910 != 0 && g_Va00A04910->m_278 != 0)
 		{

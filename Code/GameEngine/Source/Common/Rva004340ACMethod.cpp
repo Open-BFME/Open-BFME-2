@@ -3,7 +3,7 @@
 // Evidence: rowed Rva00222547Get 0x00222547 and Rva002D3409Invoke 0x002D3409; strings LoadButtonEnable DeleteButtonEnable; manager TheRva00222A8BTarget; pin AptSaveLoad::rva00433F7F 0x00433F7F used as pending pointer (declared int per pin cast to pointer per AptSaveLoadCallbacks precedent); fields +0x294 eq 2 and m_mode +0x2a0 eq 0x10 with pending kind +0x28 eq 6 and flag +0xde4 eq 0 selecting g_00BBFDDC/FDE0; caller jmp 0x00434487 in 0x00434432.
 // Pin return type note: pin 0x00433F7F declares int; body dereferences result as AptSaveLoadPending (+0x28 +0xde4) so cast follows the Load() precedent in AptSaveLoadCallbacks.cpp.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameWindow;
 GameWindow *Rva00222547Get(GameWindow *w);
 int __cdecl Rva002D3409Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *const &a);
@@ -47,6 +47,6 @@ void AptSaveLoad::rva004340AC()
 	if (m_mode == 0x10 && pending && pending->m_kind == 6 && pending->m_de4 == 0)
 		loadVal = zero;
 	GameWindow *w = Rva00222547Get((GameWindow *)this);
-	Rva002D3409Invoke(TheRva00222A8BTarget, w, "LoadButtonEnable", loadVal);
-	Rva002D3409Invoke(TheRva00222A8BTarget, w, "DeleteButtonEnable", deleteVal);
+	Rva002D3409Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), w, "LoadButtonEnable", loadVal);
+	Rva002D3409Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), w, "DeleteButtonEnable", deleteVal);
 }

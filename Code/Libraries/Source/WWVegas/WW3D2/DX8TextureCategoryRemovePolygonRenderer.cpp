@@ -95,7 +95,7 @@ struct TextureCategoryDeleteList
 	TextureCategoryListClass list;
 };
 
-TextureCategoryDeleteList *texture_category_delete_list;
+extern class DX8MeshRendererClass *TheDX8MeshRenderer;
 
 void DX8TextureCategoryClass::Remove_Polygon_Renderer(DX8PolygonRendererClass *p_renderer)
 {
@@ -104,7 +104,7 @@ void DX8TextureCategoryClass::Remove_Polygon_Renderer(DX8PolygonRendererClass *p
 	if (PolygonRendererList.Internal_Get_List_Head() == 0)
 	{
 		container->Remove_Texture_Category(this);
-		if (texture_category_delete_list)
-			texture_category_delete_list->list.Add_Tail(this, true);
+		if ((*(TextureCategoryDeleteList **)&TheDX8MeshRenderer))
+			(*(TextureCategoryDeleteList **)&TheDX8MeshRenderer)->list.Add_Tail(this, true);
 	}
 }

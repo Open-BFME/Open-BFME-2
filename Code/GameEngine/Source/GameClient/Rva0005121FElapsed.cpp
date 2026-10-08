@@ -20,7 +20,7 @@
 // 8-byte screen coordinate with result 0, or the 0x00DFEF18 object's slot 15
 // (0x3C) answer for it; any other mode answers true, a missing object false.
 class ClientFrameSubsystem;
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 class Rva00DFE77CHolder
 {
 public:

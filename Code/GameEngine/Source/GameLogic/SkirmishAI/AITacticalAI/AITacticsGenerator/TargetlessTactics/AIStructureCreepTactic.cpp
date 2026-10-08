@@ -383,7 +383,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);	// the thing template by name
 };
-extern Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 struct BfmeWideResult
 {
@@ -491,7 +491,7 @@ public:
 	virtual void run();
 	virtual void v8();
 	virtual AITactic *create();
-	void end(int a, int b);
+	void end(bool a, bool b);
 };
 
 class AITacticOffensive : public AITactic
@@ -665,7 +665,7 @@ bool AIStructureCreepTactic::validateTemplateName(const AsciiString &name)
 		}
 	}
 	if (objects.size() < 3) {
-		Rva005AC0B5Template *tmpl = (Rva005AC0B5Template *)TheThingFactory->rva002D06CA(&name);
+		Rva005AC0B5Template *tmpl = (Rva005AC0B5Template *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
 		if (tmpl->m_108 & 8)
 			return true;
 		if (names.find(name) == names.end())

@@ -42,7 +42,7 @@ public:
 
 extern int g_bfmeAptInitAtE17700;
 extern AptAnimationPoolData *g_bfmeAptPtrAtE176D0;
-extern void *g_bfmeAptQueueAtE180C0;
+extern class AptRenderingContext *g_aptRenderingContextAtE180C0;
 
 void rva006cc880()
 {
@@ -57,7 +57,7 @@ void rva006cc880()
 
 	g_bfmeAptPtrAtE176D0->clearBIL();
 	rva006dffa0();
-	((AptAnimationPoolData *)((char *)g_bfmeAptPtrAtE176D0 + 0x30))->rva006F7720Sub(g_bfmeAptQueueAtE180C0, 0);
+	((AptAnimationPoolData *)((char *)g_bfmeAptPtrAtE176D0 + 0x30))->rva006F7720Sub((*(void **)&g_aptRenderingContextAtE180C0), 0);
 	AptMath::ClipStackPop();
 
 	if (!(AptMath::m_nStackCount < AptMath::m_nStackCapacity)) {

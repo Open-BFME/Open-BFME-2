@@ -38,17 +38,6 @@ int Rva00020E90Get(void)
 	return g_Va00DA718C;
 }
 
-// ?Rva0003C0F0Get@@YAHXZ @ 0x0003C0F0 (6B) over 0x00DE08AC.
-
-extern int g_Va00DE08AC;
-// g_Va00DE08AC: matched references place it at VA 0xde08ac (zero-filled .bss).
-int g_Va00DE08AC;
-
-int Rva0003C0F0Get(void)
-{
-	return g_Va00DE08AC;
-}
-
 // ?Rva0002BACFGet@@YAHXZ @ 0x0002BACF (6B) over 0x00DDF578.
 
 extern int g_Va00DDF578;

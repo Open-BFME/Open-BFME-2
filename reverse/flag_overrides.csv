@@ -332,6 +332,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cp
 Code/GameEngine/Source/GameLogic/Object/Update/AngleFXInfoVectorInsertOverflow.cpp,,3,2,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Update/EMPUpdate.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/WeaponPrivateFireWrapper_002CE74B_O2.cpp,,1,1,region default loses rows
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_modelConditionTimed.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/GameLogic/System/GameLogicSetFPMode.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeFlushVQB.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJP.cpp,,1,1,region default loses rows

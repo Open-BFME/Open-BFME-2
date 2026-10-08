@@ -15,8 +15,6 @@
 namespace _STL { template <> string &string::append(const char *); }
 extern "C" void peerRetryWithNickA(PEER, const char *);
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
-#pragma comment(linker, "/alternatename:??0PeerResponse@@QAE@XZ=??0BfmeOpaqueOwnedRecord840@@QAE@XZ")
-#pragma comment(linker, "/alternatename:??1PeerResponse@@QAE@XZ=??1BfmeOpaqueOwnedRecord840@@QAE@XZ")
 struct BfmePeerLoginName { unsigned char unknown[0x54]; std::string name; };
 class PeerThreadClass { public: void nickErrorCallback(PEER, Int, const char *); };
 void PeerThreadClass::nickErrorCallback( PEER peer, Int type, const char *nick )

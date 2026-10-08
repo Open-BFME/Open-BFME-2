@@ -13,13 +13,13 @@ public:
 	virtual int vf5();
 };
 
-extern Rva00E05FB4 *g_00E05FB4;
+extern class GameSpyConfigInterface *TheGameSpyConfig;
 
 int __cdecl Rva005DB335Get(int v)
 {
-	if (!g_00E05FB4)
+	if (!(*(Rva00E05FB4 **)&TheGameSpyConfig))
 		return 0;
-	if (v < g_00E05FB4->vf4())
+	if (v < (*(Rva00E05FB4 **)&TheGameSpyConfig)->vf4())
 		return 1;
-	return v >= g_00E05FB4->vf5() ? 3 : 2;
+	return v >= (*(Rva00E05FB4 **)&TheGameSpyConfig)->vf5() ? 3 : 2;
 }

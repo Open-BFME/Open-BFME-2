@@ -30,7 +30,7 @@ public:
 	virtual GameMessage *createMessage(int type);
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
 
 struct Rva004328D8Payload
@@ -47,8 +47,8 @@ void __stdcall Rva004328D8Emit(Rva004328D8Payload *p)
 	if (p->m_flag14 & 1)
 		return;
 	p->m_flag14 |= 1;
-	MessageStreamSubsystem->createMessage(0xC3);
-	GameMessage *msg = MessageStreamSubsystem->createMessage(p->m_type);
+	TheMessageStream->createMessage(0xC3);
+	GameMessage *msg = TheMessageStream->createMessage(p->m_type);
 	msg->appendPixelArgument(p->m_pixel);
 	msg->appendIntegerArgument(p->m_0C);
 	msg->appendIntegerArgument((int)timeGetTime());

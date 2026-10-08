@@ -117,8 +117,6 @@ public:
 };
 
 extern ControlBar *TheControlBar;
-extern const char g_bfmeEmptyF9[];
-#pragma comment(linker, "/alternatename:?g_bfmeEmptyF9@@3QBDB=?BfmeEmptyString@AsciiString@@0QBDB")
 
 void CommandSetUpgrade::upgradeRemovalImplementation()
 {
@@ -129,7 +127,7 @@ void CommandSetUpgrade::upgradeRemovalImplementation()
 		Object *object = m_object;
 		if (object->m_commandSet.compare(data->m_commandSet) == 0)
 		{
-			AsciiString empty(g_bfmeEmptyF9);
+			AsciiString empty("");
 			object->setCommandSetStringOverride(empty);
 		}
 		TheControlBar->m_28 = true;

@@ -1,7 +1,12 @@
 // cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
 // stlport
 //
-// ??1Rva0058A0F4@@UAE@XZ, retail 0x0058A0F4, 125 bytes.
+// ??1DockUpdate@@UAE@XZ, retail 0x0058A0F4, 125 bytes.
+// Identity: the scalar deleting destructor 0x0058A177 in slot 0 of DockUpdate's
+// vtable 0x00C70378 (audited in UpdateModuleDeletingDtors.cpp: ctor 0x0058A290
+// stores it, xfer 0x0058A410 matches the dock fields) calls this body, and the
+// derived dock updates' destructors tail-call it as Zero Hour's do; that
+// wrapper is emitted and rowed here.
 // Opaque MI base dtor tail-called by the three rowed 32-byte derived dtors in
 // Rva0058A0F4Derived.cpp. Body: compiler vptr restores (+0 +0x0C +0x10
 // +0x20), inline frees of three POD vector buffers at +0x6C, +0x60, +0x54
@@ -51,10 +56,10 @@ public:
 	virtual void f20();
 };
 
-class Rva0058A0F4 : public Rva0024A797, public Rva0058A0F4_B20
+class DockUpdate : public Rva0024A797, public Rva0058A0F4_B20
 {
 public:
-	virtual ~Rva0058A0F4();
+	virtual ~DockUpdate();
 
 private:
 	unsigned char m_pad24[0x54 - 0x24];
@@ -63,7 +68,7 @@ private:
 	_STL::vector<int> m_6C;
 };
 
-Rva0058A0F4::~Rva0058A0F4()
+DockUpdate::~DockUpdate()
 {
 }
 

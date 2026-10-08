@@ -48,5 +48,3 @@ Gen_004E9FD0 &(IntGen004E9FD0Map::*emitGenSubscript)(const int &)=&IntGen004E9FD
 // The lower-bound helper observes only the common tree header and signed key.
 // The pair constructor accepts the same two addresses and copies the same value.
 #pragma comment(linker, "/alternatename:??1Gen_004E9FD0@@QAE@XZ=??1BuddyInfo@@QAE@XZ")
-#pragma comment(linker, "/alternatename:??0?$pair@$$CBHVGen_004E9FD0@@@_STL@@QAE@ABHABVGen_004E9FD0@@@Z=??0Rva00416504@@QAE@PBHABVGen_004E9FD0@@@Z")
-#pragma comment(linker, "/alternatename:?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHVGen_004E9FD0@@@_STL@@U?$_Select1st@U?$pair@$$CBHVGen_004E9FD0@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVGen_004E9FD0@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHVGen_004E9FD0@@@_STL@@@2@ABH@Z=?_M_lower_bound@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHH@_STL@@@2@ABH@Z")

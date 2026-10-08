@@ -1,8 +1,8 @@
 // cl: /EHsc /MD
 // ??1Rva0056B2DD@@UAE@XZ @0x0056B2DD 113B. Dtor unregistering via rowed erase
-// 0x002B7250, conditional rowed call 0x003EE966 through g_009FE1C8+0x268,
+// 0x002B7250, conditional rowed call 0x003EE966 through TheLivingWorldManager+0x268,
 // then base dtor 0x0056AC26. Evidence: deleting-dtor caller at 0x0056B49B;
-// extends sibling 0x0056B0BF with the g_009FE1C8 guard and int member +0x1C.
+// extends sibling 0x0056B0BF with the TheLivingWorldManager guard and int member +0x1C.
 class CreateAHeroData;
 class Rva002B7250 {
 public:
@@ -38,7 +38,7 @@ public:
     char m_pad[0x268];
     Rva003EE966 *m_268;
 };
-extern Rva0021294A *g_009FE1C8;
+class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 class Rva0056B2DD : public Rva0056AC26, public Rva0056B2DDB1, public Rva0056B2DDB2 {
 public:
     virtual ~Rva0056B2DD();
@@ -49,7 +49,7 @@ private:
 Rva0056B2DD::~Rva0056B2DD()
 {
     m_parent18->holder.rva002B7250((CreateAHeroData *)(Rva0056B2DDB2 *)this);
-    Rva003EE966 *p = g_009FE1C8->m_268;
+    Rva003EE966 *p = ((Rva0021294A *)TheLivingWorldManager)->m_268;
     if (p != 0)
         p->rva003EE966(m_x1C);
 }

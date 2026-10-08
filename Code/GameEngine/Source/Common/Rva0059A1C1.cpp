@@ -34,16 +34,6 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-public:
-	void advance();
-};
-
 struct TeamProto
 {
 	char m_pad[0x2C4];
@@ -87,7 +77,7 @@ int AITeamBuilder::doesTeamMeetThreat(Team *team)
 	if (found != 0)
 		vmax = ((Rva002C589B *)found)->rva002C5AE6();
 	float sum = 0.0f;
-	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); ((Rva001705A0DlinkIterator<Object> &)iter).advance())
+	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); ((DLINK_ITERATOR<Object> &)iter).advance())
 	{
 		Object *cur = iter.cur();
 		ThingTemplate *tmpl = cur->m_template;

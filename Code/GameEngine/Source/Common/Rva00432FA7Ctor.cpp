@@ -11,13 +11,13 @@
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 extern const void *const g_00C3CA30[];
 class Rva00432FA7;
 // ?g_00E032D0@@3PAVRva00432FA7@@A: the global at this VA is ?g_004C9DC9Container@@3PAVRva00432F23@@A; this name is an alias for it.
-extern Rva00432FA7 * g_00E032D0;
+extern class Rva00432F23 *g_004C9DC9Container;
 #pragma comment(linker, "/alternatename:?g_00E032D0@@3PAVRva00432FA7@@A=?g_004C9DC9Container@@3PAVRva00432F23@@A")
 
 class Rva00432FA7
@@ -47,8 +47,8 @@ Rva00432FA7::Rva00432FA7()
 	m_20 = FLT_MAX;
 	m_24 = FLT_MAX;
 	m_28 = FLT_MAX;
-	if (g_00E032D0 == 0)
-		g_00E032D0 = this;
+	if ((*(Rva00432FA7 **)&g_004C9DC9Container) == 0)
+		(*(Rva00432FA7 **)&g_004C9DC9Container) = this;
 }
 
 // Retail's data references in this unit's matched rows land on globals defined

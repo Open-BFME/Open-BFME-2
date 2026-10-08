@@ -7,12 +7,11 @@
 bool __cdecl Rva004128F0GetParam(const char *params, const char *key, AsciiString &value);
 extern "C" __declspec(dllimport) int __cdecl isdigit(int c);
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *s);
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr005F1A5F(const AsciiString &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 namespace StrategicHUD

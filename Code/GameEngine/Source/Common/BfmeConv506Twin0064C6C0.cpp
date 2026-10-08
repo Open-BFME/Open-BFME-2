@@ -9,6 +9,13 @@
 // guarded object as the SIXTH argument (the two arguments before it are not read): the
 // three leading arguments are forwarded to its thiscall member.
 
+// The callee is the rowed PeerThreadClass::nickErrorCallback.
+class PeerThreadClass
+{
+public:
+	void nickErrorCallback(void *peer, int type, const char *nick);
+};
+
 class BfmeSubBPB0064C6C0
 {
 public:
@@ -18,5 +25,5 @@ public:
 void bfmeGoBPB0064C6C0(void *one, void *two, void *three, int unusedFour, int unusedFive, BfmeSubBPB0064C6C0 *sub)
 {
 	if (sub != 0)
-		sub->bfmeDoBPB(one, two, three);
+		((PeerThreadClass *)sub)->nickErrorCallback(one, (int)two, (const char *)three);
 }

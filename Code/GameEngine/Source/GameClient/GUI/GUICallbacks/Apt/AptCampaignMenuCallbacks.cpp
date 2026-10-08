@@ -22,17 +22,17 @@ public:
 	virtual GameMessage *appendMessage(int type);
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
-// TheLinearCampaignManager (VA 0x00DFDC8C, the ledger's
-// g_Rva0023D607Holder); its unrowed 0x001ECEF6 forwards to its +0x10
+// TheLinearCampaignManager (VA 0x00DFDC8C, the data ledger's name); its unrowed 0x001ECEF6 forwards to its +0x10
 // member's 0x001ECE98 and is pinned by address.
 struct Rva0023D607Holder
 {
 	void rva001ECEF6();
 };
 
-extern Rva0023D607Holder *g_Rva0023D607Holder;
+class LinearCampaignManager;
+extern LinearCampaignManager *TheLinearCampaignManager;
 
 void __cdecl Rva005210ECEnable(bool flag);
 void __cdecl Rva00434160Init(int a, int b, bool c);
@@ -73,9 +73,9 @@ void AptCampaignMenu::OnBttnLoadGame(const char *unused)
 // Retail 0x0052119F, 26 bytes: "AptCampaignMenu::OnBttnLastMission".
 void AptCampaignMenu::OnBttnLastMission(const char *unused)
 {
-	if (g_Rva0023D607Holder)
+	if (TheLinearCampaignManager)
 	{
-		g_Rva0023D607Holder->rva001ECEF6();
+		((Rva0023D607Holder *)TheLinearCampaignManager)->rva001ECEF6();
 		Rva005210ECEnable(false);
 	}
 }
@@ -84,7 +84,7 @@ void AptCampaignMenu::OnBttnLastMission(const char *unused)
 // message 0x21.
 void AptCampaignMenu::OnBttnNextMission(const char *unused)
 {
-	MessageStreamSubsystem->appendMessage(0x21);
+	TheMessageStream->appendMessage(0x21);
 	Rva005210ECEnable(false);
 }
 

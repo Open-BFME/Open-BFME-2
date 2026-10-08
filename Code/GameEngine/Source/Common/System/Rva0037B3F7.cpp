@@ -31,7 +31,7 @@ public:
 	virtual void v17();
 	virtual GameMessage *v18(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 class Rva0037B3F7
 {
@@ -54,5 +54,5 @@ void Rva0037B3F7::rva0037B3F7()
 	m_str14.clear();
 	if (m_flagE70 != 0)
 		return;
-	MessageStreamSubsystem->v18(0x1D);
+	TheMessageStream->v18(0x1D);
 }

@@ -171,7 +171,6 @@ AptScriptFunctionBase::AptScriptFunctionBase(AptVirtualFunctionTable_Indices eTy
 }
 
 #undef CHECK_AT
-#pragma comment(linker, "/alternatename:??0AptValueWithHash@@QAE@W4AptVirtualFunctionTable_Indices@@H@Z=??0Rva006D6360@@QAE@HH@Z")
 #pragma comment(linker, "/alternatename:??0AptPrototype@@QAE@XZ=??0Rva006DE1A0@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?isCIH@AptValue@@QBE_N_N@Z=?isCIH@BfmeAptValue006DCD20@@QBEH_N@Z")
 #pragma comment(linker, "/alternatename:?GetRootAnimation@AptCIH@@QAEPAV1@XZ=?rva006E0CB0@AptCIH@@QBEPBV1@XZ")

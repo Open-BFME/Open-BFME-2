@@ -25,17 +25,17 @@ public:
 	void run();
 };
 
-extern Rva00203AD5Run *g_pRva003BBEDE;
+extern class ScriptEngine *TheScriptEngine;
 extern Rva002D37BDRun *g_pRva003BD424;
 
 void Rva003BBEDE()
 {
-	g_pRva003BBEDE->run();
+	(*(Rva00203AD5Run **)&TheScriptEngine)->run();
 }
 
 void Rva003BBEE9()
 {
-	((Rva00203ADDRun *)g_pRva003BBEDE)->run();
+	((Rva00203ADDRun *)(*(Rva00203AD5Run **)&TheScriptEngine))->run();
 }
 
 void Rva003BD424()

@@ -60,7 +60,7 @@ public:
 	void *rva002D06CA(const AsciiString *name);
 };
 
-extern class Rva002D06CA *TheThingFactory; // ?g_009FF000@@3PAVRva002D06CA@@A
+extern class ThingFactory *TheThingFactory; // ?g_009FF000@@3PAVRva002D06CA@@A
 
 class Player
 {
@@ -106,7 +106,7 @@ void BattlePlanUpdate::rva00497A4B()
 		return;
 	Payload00497A4B *payload = m_payload;
 	Object *obj = m_object;
-	void *tmpl = TheThingFactory->rva002D06CA(&payload->m_templateName);
+	void *tmpl = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&payload->m_templateName);
 	if (tmpl == 0)
 		return;
 	Player *player = ThePlayerList->m_player;

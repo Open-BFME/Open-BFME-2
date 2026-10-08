@@ -13,7 +13,7 @@ struct HeldEntry { char m_pad00[0x18]; int m_18; };
 struct HeldBlock { char m_pad00[0x188]; HeldEntry* m_entries; };
 
 struct GameLogicFrame { char m_pad00[0x40]; unsigned int m_frame; };
-extern GameLogicFrame* g_00DFE78C;
+extern class GameLogic *TheGameLogic;
 
 class Rva005D6FCC
 {
@@ -39,7 +39,5 @@ bool HordeMeleeFormation::canUnitRotate(int idx)
 	if (idx < 0 || (unsigned)idx >= m_vec.size())
 		return false;
 	HeldBlock* h = (HeldBlock*)m_held;
-	return m_vec[idx].m_20 > g_00DFE78C->m_frame || h->m_entries[idx].m_18 >= 0;
+	return m_vec[idx].m_20 > (*(GameLogicFrame **)&TheGameLogic)->m_frame || h->m_entries[idx].m_18 >= 0;
 }
-// ?g_00DFE78C@@3PAUGameLogicFrame@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-#pragma comment(linker, "/alternatename:?g_00DFE78C@@3PAUGameLogicFrame@@A=?TheGameLogic@@3PAVGameLogic@@A")

@@ -20,7 +20,7 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-extern _STL::vector<BfmePod8> g_00E06670;
+extern unsigned int g_Va00E06670;	// vector object at 0x00E06670 (Rva007B6880Thunks.cpp)
 
 class Rva005D84F6 : public Rva005EE30C
 {
@@ -31,9 +31,10 @@ public:
 
 Rva005D84F6::Rva005D84F6()
 {
+	_STL::vector<BfmePod8> &list = (_STL::vector<BfmePod8> &)g_Va00E06670;
 	if (TheGameLogic->m_40 <= 1)
 	{
-		if (!g_00E06670.empty())
-			g_00E06670.erase(g_00E06670.begin(), g_00E06670.end());
+		if (!list.empty())
+			list.erase(list.begin(), list.end());
 	}
 }

@@ -43,7 +43,7 @@ public:
 	virtual GameMessage *createMessage(int type);
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 class TacticalView
 {
@@ -149,7 +149,7 @@ int __cdecl Rva004312E5Emit(void *a, ICoord2D *b)
 		return 1;
 	Coord3D pos;
 	TheTacticalView->screenToTerrain(b, &pos, false);
-	GameMessage *msg = MessageStreamSubsystem->createMessage(0x444);
+	GameMessage *msg = TheMessageStream->createMessage(0x444);
 	msg->appendLocationArgument(pos);
 	return 1;
 }

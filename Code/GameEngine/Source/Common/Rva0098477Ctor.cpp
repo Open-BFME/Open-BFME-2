@@ -16,7 +16,7 @@ extern "C" void _ReadWriteBarrier(void);
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 class Rva0098477

@@ -4,11 +4,15 @@ public:
 	int bfmeVal1034(void);
 };
 
-class BfmeTab1034
+// The table lookup is the rowed Rva0070B380::lookup.
+class EAStringC;
+class Rva0070B380
 {
 public:
-	BfmeN1034 *bfmeFind1034F(int k);
+	void *lookup(const EAStringC &key);
 };
+
+class BfmeTab1034;
 
 class BfmeF1034
 {
@@ -21,7 +25,7 @@ public:
 
 int BfmeF1034::bfmeGo1034F(int k)
 {
-	BfmeN1034 *n = m_bfmeTab->bfmeFind1034F(k);
+	BfmeN1034 *n = (BfmeN1034 *)((Rva0070B380 *)m_bfmeTab)->lookup(*(const EAStringC *)k);
 
 	if (n != 0)
 		return n->bfmeVal1034();

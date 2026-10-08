@@ -11,6 +11,16 @@
 // retail uses the speed-form mov after it. The opaque derived identity remains
 // unresolved.
 
+// The scalar deleting destructor emitted here releases through the
+// chain-block pool at 0x00E176F4 with the class size, as retail's does.
+class Rva006D2A60
+{
+public:
+	void freeBlock(void *block, int blockSize);
+};
+
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;   // 0x00E176F4
+
 class Rva006D6470Owner
 {
 public:
@@ -21,6 +31,10 @@ class Rva00711330 : public Rva006D6470Owner
 {
 public:
 	virtual ~Rva00711330();
+	static void operator delete(void *p, unsigned int size)
+	{
+		g_pChainBlockAllocatorF4->freeBlock(p, size);
+	}
 
 private:
 	char m_pad04[0x20 - 4];

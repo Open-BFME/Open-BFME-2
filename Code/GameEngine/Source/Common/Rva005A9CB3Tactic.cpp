@@ -240,7 +240,7 @@ public:
 	bool isTeamIdle(int index);
 	void teamAttackObject(int a, Object *target);
 	void teamAttackMove(int a, const Coord3D *point);
-	void end(int a, int b);
+	void end(bool a, bool b);
 };
 
 class AITacticOffensive : public AITactic

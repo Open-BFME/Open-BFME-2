@@ -74,17 +74,15 @@ public:
 	virtual void v65(int a1, int a2, int a3);
 	virtual void slot108(int a1, int a2, int a3);
 };
-extern Rva0023D30FTarget *g_Rva0023D30FTarget;
+extern class NetworkInterface *TheNetwork;
 void __stdcall Rva0023D30FCall(int a1, int a2, int a3)
 {
 	if (g_Rva0023D30FFlag == 0)
 		return;
-	Rva0023D30FTarget *t = g_Rva0023D30FTarget;
+	Rva0023D30FTarget *t = (*(Rva0023D30FTarget **)&TheNetwork);
 	if (t == 0)
 		return;
 	t->slot108(a1, a2, a3);
 }
 // ?g_Rva0023D30FFlag@@3HA: the global at VA 0xe02eec is ?TheGameInfo@@3PAVGameInfo@@A.
 #pragma comment(linker, "/alternatename:?g_Rva0023D30FFlag@@3HA=?TheGameInfo@@3PAVGameInfo@@A")
-// ?g_Rva0023D30FTarget@@3PAVRva0023D30FTarget@@A: the global at VA 0xdfea28 is ?TheNetwork@@3PAVNetworkInterface@@A.
-#pragma comment(linker, "/alternatename:?g_Rva0023D30FTarget@@3PAVRva0023D30FTarget@@A=?TheNetwork@@3PAVNetworkInterface@@A")

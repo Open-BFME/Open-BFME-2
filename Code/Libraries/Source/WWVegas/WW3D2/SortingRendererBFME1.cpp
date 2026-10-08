@@ -608,7 +608,6 @@ void BFME2Set_Texture(unsigned stage, const struct BFME2TextureRef &texture);
 extern unsigned TheBoxTextureDirtyMask;
 // ?g_00DEE5DC@@3PAVVertexMaterialClass@@A: the global at this VA is ?ScreenMaterial@@3PAVVertexMaterialClass@@A; this name is an alias for it.
 extern class VertexMaterialClass *ScreenMaterial;
-#pragma comment(linker, "/alternatename:?g_00DEE5DC@@3PAVVertexMaterialClass@@A=?ScreenMaterial@@3PAVVertexMaterialClass@@A")
 extern struct IDirect3DDevice8 *g_d3dDevice;
 extern unsigned g_00DEDA4C;
 // ?g_00DEDA4C@@3IA: the global at this VA is ?matrix_changes@DX8Wrapper@@1IA; this name is an alias for it.

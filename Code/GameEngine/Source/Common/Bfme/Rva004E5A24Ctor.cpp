@@ -14,7 +14,7 @@ class __declspec(novtable) BFME2NativeNetwork
 public:
 	__forceinline BFME2NativeNetwork() { baseConstruct(); }
 	virtual ~BFME2NativeNetwork() { _ReadWriteBarrier(); }
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 private:
 	virtual void unused() = 0;
 	char m_flag;

@@ -4,7 +4,7 @@
 struct Outer00446A77;
 extern struct Outer00446A77 *g_Va00A03354;
 struct GlobalA01E48;
-extern struct GlobalA01E48 *g_Va00A01E48;
+extern class Shell *TheShell;
 class Shell
 {
 public:
@@ -15,12 +15,12 @@ class Rva00222A8BTarget
 public:
 	void rva002233A6(int mode);
 };
-extern class Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 void Rva00444525Init(void)
 {
 	if (g_Va00A03354 != 0)
 		return;
-	((Shell *)g_Va00A01E48)->push(AsciiString("LanLobby.apt"), false);
-	TheRva00222A8BTarget->rva002233A6(1);
+	((Shell *)(*(GlobalA01E48 **)&TheShell))->push(AsciiString("LanLobby.apt"), false);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva002233A6(1);
 }

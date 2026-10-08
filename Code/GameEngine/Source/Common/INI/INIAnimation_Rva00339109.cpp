@@ -38,11 +38,18 @@ private:
 
 class Anim2DTemplate;
 
-class Anim2DCollection
+// findTemplate (0x002D752D) is rowed as Rva002D752D::rva002D752D.
+struct Rva002D752DNode;
+class Rva002D752D
 {
 public:
-	Anim2DTemplate *findTemplate(const AsciiString &name);
+	Rva002D752DNode *rva002D752D(const StringBase<char> &name);
 };
+class Anim2DCollection;
+static inline const StringBase<char> &rva00339109Base(const AsciiString &s)
+{
+	return *(const StringBase<char> *)&s;
+}
 
 extern Anim2DCollection *TheAnim2DCollection;
 
@@ -61,7 +68,7 @@ void INI::parseAnim2DTemplate(INI *ini, void *instance, void *store, const void 
 	if (TheAnim2DCollection)
 	{
 		Anim2DTemplate **anim2DTemplate = (Anim2DTemplate **)store;
-		*anim2DTemplate = TheAnim2DCollection->findTemplate(AsciiString(token));
+		*anim2DTemplate = (Anim2DTemplate *)((Rva002D752D *)TheAnim2DCollection)->rva002D752D(rva00339109Base(AsciiString(token)));
 	}
 	else
 	{

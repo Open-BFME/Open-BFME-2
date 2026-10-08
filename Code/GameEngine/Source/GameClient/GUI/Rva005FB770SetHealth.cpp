@@ -1,8 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?SetPlayerHealth@Impl@DynamicAutoResolvePlayerPanelMovieClip@StrategicHUD@@QAEXM@Z @ 0x005FB8B4 79B: float health setter via rowed Fire 0x00527925 with SetPlayerHealth plus EmptyString fallback. Evidence: ucomiss float at +0x34 plus rowed Fire plus TheRva00222A8BTarget 0x009FE4CC plus g_Rva0107301CEmptyString 0x007BAC1C plus SetPlayerHealth literal plus gap between AptPlayerNameSet rows.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern "C" float kF7C;
 
 int __cdecl Rva00527925Fire(void *target, void *level, const char *prefix, const char *function, const float *val);
@@ -41,8 +40,8 @@ private:
 void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::SetPlayerHealth(float v)
 {
 	if (v != m_float34) {
-		const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
-		Rva00527925Fire(TheRva00222A8BTarget, m_level04, team, "SetPlayerHealth", &v);
+		const char *team = m_team08 ? m_team08->m_name : "";
+		Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "SetPlayerHealth", &v);
 		m_float34 = v;
 	}
 }
@@ -54,8 +53,8 @@ void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayHitAnim(flo
 	if (!(v > *pHealth))
 		p = &v;
 	v = *p;
-	const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
-	Rva00527925Fire(TheRva00222A8BTarget, m_level04, team, "PlayHitAnim", &v);
+	const char *team = m_team08 ? m_team08->m_name : "";
+	Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "PlayHitAnim", &v);
 	*pHealth -= v;
 	m_flag4C = true;
 }
@@ -67,8 +66,8 @@ void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayReinforceAn
 	if (!(v > cap))
 		p = &v;
 	v = *p;
-	const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
-	Rva00527925Fire(TheRva00222A8BTarget, m_level04, team, "PlayReinforceAnim", &v);
+	const char *team = m_team08 ? m_team08->m_name : "";
+	Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "PlayReinforceAnim", &v);
 	m_flag4D = true;
 	m_float34 += v;
 }

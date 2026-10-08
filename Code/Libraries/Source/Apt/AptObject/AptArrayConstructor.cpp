@@ -219,7 +219,6 @@ AptValue *AptArray::sMethod_slice(AptValue *pThis,int nParams) {
  return gpUndefinedValue;
 }
 
-#pragma comment(linker, "/alternatename:?At@AptBasePtrStack@@QAEPAVAptValue@@H@Z=?At@AptBasePtrStack@@QAEPAVBfmeAptValue006DCD20@@H@Z")
 #pragma comment(linker, "/alternatename:?rva006D95E0@BfmeAptValue006DCD20@@QAEXHPAV1@@Z=?set@AptArray@@QAEXHPAVAptValue@@@Z")
 #pragma comment(linker, "/alternatename:?g_aptValueStackAtE182E0@@3VAptBasePtrStack@@A=?g_aptDateInterpreter@@3UAptActionInterpreter@@A")
 
@@ -370,4 +369,3 @@ void AptValue::toString(EAStringC &sBuf) const {
 #pragma comment(linker, "/alternatename:?getName@AptActionInterpreter@@SAXPAVAptCIH@@AAVEAStringC@@@Z=?rva006ffce0@@YAXPAVAptValue@@AAVEAStringC@@@Z")
 #pragma comment(linker, "/alternatename:?rva006DD6C0@BfmeAptValue006DCD20@@QAEXPAVEAStringC@@@Z=?toString@AptValue@@QBEXAAVEAStringC@@@Z")
 #pragma comment(linker, "/alternatename:?rva006DD6C0@BfmeAptValue006DCD20@@QAEXAAVEAStringC@@@Z=?toString@AptValue@@QBEXAAVEAStringC@@@Z")
-#pragma comment(linker, "/alternatename:?rva006DD6C0@Rva006DD6C0@@QAEXPAVEAStringC@@@Z=?toString@AptValue@@QBEXAAVEAStringC@@@Z")

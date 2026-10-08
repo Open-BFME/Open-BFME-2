@@ -11,7 +11,7 @@ class Rva00222A8BTarget
 public:
 	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
 };
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern void *TheRva00222A8BOwner;
 
 class GuiScale
@@ -35,18 +35,15 @@ public:
 	virtual void g3C() = 0;
 	virtual void *getScale() = 0;
 };
-extern GuiScale *TheGuiScale;
 
 extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buf, unsigned int n, const char *fmt, ...);
 
 void Rva003807F3Move(float x, float y)
 {
-	float *scale = (float *)TheGuiScale->getScale();
+	float *scale = (float *)(*(GuiScale **)&g_bfmeAptWindowManager)->getScale();
 	char bufX[16];
 	char bufY[16];
 	_snprintf(bufX, 16, "%g", x * scale[0]);
 	_snprintf(bufY, 16, "%g", y * scale[1]);
-	TheRva00222A8BTarget->invoke(TheRva00222A8BOwner, "MoveToolTip", 2, bufX, bufY, 0, 0, 0);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(TheRva00222A8BOwner, "MoveToolTip", 2, bufX, bufY, 0, 0, 0);
 }
-// ?TheGuiScale@@3PAVGuiScale@@A: the global at VA 0xdfe4cc is ?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A.
-#pragma comment(linker, "/alternatename:?TheGuiScale@@3PAVGuiScale@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")

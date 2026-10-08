@@ -30,7 +30,7 @@ extern ControlBar *TheControlBar;
 // One-pointer string ABI and the two receiver calls are read from this
 // retail body; all aliases bind existing byte-verified definitions.
 #pragma comment(linker, "/alternatename:??0Rva005257F6String@@QAE@PBD@Z=??0?$StringBase@D@@AAE@PBD@Z")
-#pragma comment(linker, "/alternatename:??1Rva005257F6String@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
+#pragma comment(linker, "/alternatename:??1Rva005257F6String@@QAE@XZ=??1?$StringBase@D@@AAE@XZ")
 #pragma comment(linker, "/alternatename:?find@Rva005257F6Registry@@QAEPAXABVRva005257F6String@@@Z=?findCommandButton@ControlBar@@QAEPBVCommandButton@@ABVAsciiString@@@Z")
 #pragma comment(linker, "/alternatename:?use@Rva005257F6Registry@@QAEXHPAX@Z=?rva004C1B60@ControlBar@@QAEXPAVGameWindow@@PAX@Z")
 

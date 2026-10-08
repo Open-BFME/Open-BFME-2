@@ -294,3 +294,23 @@ public:
 Rva005E29CD::Rva005E29CD(EmitVtableTag *)
 {
 }
+
+// ??0Rva005D4E22@@QAE@PA_NPAVAsciiString@@@Z, retail 0x005D4E22, 21 bytes.
+// The 8-byte string-out binding the army details clip hands to its Apt extern
+// handlers (callers 0x005F36E6, 0x005F3756, each with a cleared flag and an
+// AsciiString to fill): stores both pointers and clears the flag. A
+// constructor: it returns this.
+class AsciiString;
+class Rva005D4E22
+{
+public:
+	Rva005D4E22(bool *flag, AsciiString *value);
+private:
+	bool *m_flag;
+	AsciiString *m_value;
+};
+Rva005D4E22::Rva005D4E22(bool *flag, AsciiString *value)
+	: m_flag(flag), m_value(value)
+{
+	*flag = false;
+}

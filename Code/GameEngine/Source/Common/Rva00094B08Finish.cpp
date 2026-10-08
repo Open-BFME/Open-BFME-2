@@ -31,3 +31,7 @@ void rva00094B08(Rva00094B08FloatBlock *p)
 	const float one = rva00094B08One;
 	p->values[0]=p->values[5]=p->values[10]=p->values[15]=one;
 }
+
+// Retail global spelled differently by the unit that defines it (same
+// address in reverse/data_ledger.csv); bind this unit's name to it.
+#pragma comment(linker, "/alternatename:?rva00094B08One@@3MB=?g_Va00BBB8D8@@3MA")

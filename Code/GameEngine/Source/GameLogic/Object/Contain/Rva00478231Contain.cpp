@@ -37,6 +37,14 @@ public:
 	virtual void mid(char (*)[1]) = 0;
 };
 
+// The rally-point check is the rowed protected GarrisonContain::validateRallyPoint.
+class GarrisonContain
+{
+	friend class Rva00478231;
+protected:
+	void validateRallyPoint();
+};
+
 class OpenContain
 {
 public:
@@ -47,7 +55,6 @@ class Rva00478231 : public Rva00478231Mid<48>
 {
 public:
 	virtual unsigned int getContainCount(unsigned int arg) = 0; // slot 0x114
-	void validateRallyPoint();
 	void rva00478231(bool exposeStealthUnits);
 };
 
@@ -59,7 +66,7 @@ public:
 void Rva00478231::rva00478231(bool exposeStealthUnits)
 {
 	if (getContainCount(0) > 0u) {
-		((Rva00478231 *)((char *)this - 0x20))->validateRallyPoint();
+		((GarrisonContain *)((char *)this - 0x20))->validateRallyPoint();
 		((OpenContain *)this)->OpenContain::removeAllContained(exposeStealthUnits);
 		recalcApparentControllingPlayer();
 	}

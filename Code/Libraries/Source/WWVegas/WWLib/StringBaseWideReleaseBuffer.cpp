@@ -1,27 +1,5 @@
 // cl: /O2 /EHs
 #include "../../../../GameEngine/Include/Common/Rva00041004Lock.h"
-// ?releaseBuffer@?$StringBase@D@@AAEXXZ @0x00036410 133B
-// ?releaseBuffer@?$StringBase@G@@AAEXXZ @0x00036E70 133B
-// ?ensureUniqueBufferOfSize@?$StringBase@D@@AAEXH_NPBV?$CharSource@D@@1@Z @0x000364A0 330B
-// ?ensureUniqueBufferOfSize@?$StringBase@G@@AAEXH_NPBV?$CharSource@G@@1@Z @0x00036F00 336B
-// Narrow/wide StringBase releaseBuffer twins: scoped lock guard, refcount dec, free via rowed _free, null.
-// Evidence: BFME2 exports ?releaseBuffer@?$StringBase@D@@AAEXXZ (narrow) and ?releaseBuffer@?$StringBase@G@@AAEXXZ (wide),
-// pinned same bodies for AsciiString/UnicodeString teardown and public spellings; wide callers at 0x0000288A
-// 0x000372EB 0x00037309 0x000373F2 0x00037402 plus set/ensureUnique; narrow callers at 0x0000216D 0x00002179
-// 0x00002429 0x00002EC5 plus Version/ParticleSystemInfo dtors;
-// ZH donor UnicodeString::releaseBuffer (GeneralsMD .../Common/System/UnicodeString.cpp) with ScopedCriticalSection
-// plus --refcount==0 free plus null; BFME2 locks are Rva00041004 via rowed Rva00035C90Get (narrow singleton 0x35C90,
-// object 0x9E0828) and Rva00035DF0Get (wide singleton 0x35DF0, object 0x9E0850), flag +0x20 bypass, cs +0x08,
-// with IAT Enter/Leave 0xBBA200/0xBBA204; rowed _free 0x30830.
-// Model/flags donor TU Code/Libraries/Source/WWVegas/WWLib/StringBaseWideStrLenSet.cpp // cl: /O2 /EHsc
-// plus /EHs for the extern C free EH frame (with /EHsc the extern C free is nothrow and the manual frame vanishes;
-// throw() on the dllimport Enter/Leave keeps their states out, leaving the single free state).
-// Guard is 8B (ptr + state byte, sub esp,8 + mov byte [esp+0x0C],1 after acquire, evidenced by frame
-// and by rowed guard dtor 0x000358B0 in StringBaseLockGuardDtor.cpp with m_lock +0 and bool m_locked +4).
-// The shared headers declare these members with the access/virtual spelling
-// retail's vftables reference; the ledger row keeps the spelling this TU
-// compiled to. Same function, same address: bind the header spelling here.
-#pragma comment(linker, "/alternatename:?releaseBuffer@?$StringBase@D@@IAEXXZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
 typedef unsigned short wchar_t;
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION *section) throw();
@@ -204,7 +182,6 @@ template void StringBase<wchar_t>::ensureUniqueBufferOfSize(int, bool, const Cha
 #pragma comment(linker, "/alternatename:?releaseBuffer@UnicodeString@@IAEXXZ=?releaseBuffer@?$StringBase@G@@AAEXXZ")
 #pragma comment(linker, "/alternatename:??1AsciiStringMember@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
 #pragma comment(linker, "/alternatename:??1BfmeWideString000543F5@@QAE@XZ=?releaseBuffer@?$StringBase@G@@AAEXXZ")
-#pragma comment(linker, "/alternatename:?releaseBuffer@?$StringBase@G@@QAEXXZ=?releaseBuffer@?$StringBase@G@@AAEXXZ")
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.

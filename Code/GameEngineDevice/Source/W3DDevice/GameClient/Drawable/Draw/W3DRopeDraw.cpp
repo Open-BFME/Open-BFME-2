@@ -40,10 +40,15 @@ public:
 	virtual void Remove_Render_Object(Line3DClass *obj);
 };
 
+// W3DDisplay::m_3DScene is an RTS3DScene (W3DLaserDrawDestructor.cpp defines it).
+class RTS3DScene : public BfmeScene
+{
+};
+
 class W3DDisplay
 {
 public:
-	static BfmeScene *m_3DScene;
+	static RTS3DScene *m_3DScene;
 };
 
 class DrawableModule
@@ -114,10 +119,6 @@ void W3DRopeDraw::tossSegments()
 	}
 	m_segments.clear();
 }
-
-// Retail's data references in this unit's matched rows land on globals defined
-// under other spellings at the same addresses (addend-corrected DIR32). Bind them.
-#pragma comment(linker, "/alternatename:?m_3DScene@W3DDisplay@@2PAVBfmeScene@@A=?m_3DScene@W3DDisplay@@2PAVRTS3DScene@@A")
 
 // ?rva000CA7F6@W3DRopeDraw@@SA?AW4NameKeyType@@XZ @0xCA7F6
 // (68B): cached pool-name key for W3DRopeDraw. The class

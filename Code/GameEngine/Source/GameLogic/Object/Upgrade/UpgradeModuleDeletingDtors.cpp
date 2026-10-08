@@ -19,12 +19,8 @@ class SubObjectsUpgradeModuleData { public: __declspec(noinline) virtual ~SubObj
 SubObjectsUpgradeModuleData::~SubObjectsUpgradeModuleData() {}
 void SubObjectsUpgradeModuleData_Delete(SubObjectsUpgradeModuleData *p) { delete p; }
 
-// ??_GLocomotorSetUpgrade@@UAEPAXI@Z @0x004B3F3C 28B: slot 0 of vtable 0x00C57530; calls ??1 at 0x004B3EA0.
-// Owner evidence (audited 2026-09-26): retail slot 4 -> RVA 0x004B3EC6 uses class-name string "LocomotorSetUpgrade".
-class LocomotorSetUpgrade { public: __declspec(noinline) virtual ~LocomotorSetUpgrade(); };
-// ??1LocomotorSetUpgrade@@UAE@XZ present-unmatched
-LocomotorSetUpgrade::~LocomotorSetUpgrade() {}
-void LocomotorSetUpgrade_Delete(LocomotorSetUpgrade *p) { delete p; }
+// ??_GLocomotorSetUpgrade @0x004B3F3C: rowed as ??_GLocomotorSetUpgrade@@MAEPAXI@Z in UpgradeModuleTailDtors.cpp,
+// which defines the protected destructor it calls.
 
 // ??_GObjectCreationUpgradeModuleData@@UAEPAXI@Z @0x004B45CC 28B: slot 0 of vtable 0x00C577C8; calls ??1 at 0x004B45E8.
 // Owner evidence (audited 2026-09-26): retail registration ObjectCreationUpgrade -> data factory RVA 0x0024FFAC -> ctor RVA 0x004B425B; primary vptr store RVA 0x004B4264.
@@ -47,9 +43,5 @@ class CostModifierUpgradeModuleData { public: __declspec(noinline) virtual ~Cost
 CostModifierUpgradeModuleData::~CostModifierUpgradeModuleData() {}
 void CostModifierUpgradeModuleData_Delete(CostModifierUpgradeModuleData *p) { delete p; }
 
-// ??_GAllowBannerSpawnUpgrade@@UAEPAXI@Z @0x004B85B8 28B: slot 0 of vtable 0x00C59030; calls ??1 at 0x004B84EA.
-// Owner evidence (audited 2026-09-26): retail slot 4 -> RVA 0x004B8520 uses class-name string "AllowBannerSpawnUpgrade".
-class AllowBannerSpawnUpgrade { public: __declspec(noinline) virtual ~AllowBannerSpawnUpgrade(); };
-// ??1AllowBannerSpawnUpgrade@@UAE@XZ present-unmatched
-AllowBannerSpawnUpgrade::~AllowBannerSpawnUpgrade() {}
-void AllowBannerSpawnUpgrade_Delete(AllowBannerSpawnUpgrade *p) { delete p; }
+// ??_GAllowBannerSpawnUpgrade @0x004B85B8: rowed as ??_GAllowBannerSpawnUpgrade@@MAEPAXI@Z in UpgradeModuleTailDtors.cpp,
+// which defines the protected destructor it calls.

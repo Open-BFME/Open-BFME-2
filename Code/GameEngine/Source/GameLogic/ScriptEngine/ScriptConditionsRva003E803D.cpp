@@ -22,12 +22,6 @@ public:
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
 };
-template<class T>
-class Rva001705A0DlinkIterator
-{
-public:
-	void advance();
-};
 class Rva003E803DAI
 {
 public:
@@ -90,7 +84,7 @@ bool __stdcall Rva003E803DGet(Parameter *p0, Parameter *p1)
 	Object *unit = TheScriptEngine->getUnitNamed(p1);
 	if (team == 0 || unit == 0)
 		return false;
-	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); ((Rva001705A0DlinkIterator<Object> *)&iter)->advance()) {
+	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance()) {
 		Object *cur = iter.cur();
 		Rva003E803DAI *ai = cur->m_ai;
 		void *sub = ai ? (void *)ai->f31() : 0;

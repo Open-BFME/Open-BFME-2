@@ -45,7 +45,7 @@ public:
 	Rva003FD789 *rva0021294A(const StringBase<char> &str);
 };
 
-extern Rva0021294A *g_009FE1C8;
+class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 extern const FieldParse g_00837CD8;
 
 void __cdecl Rva003FD7CEParse(INI *ini)
@@ -56,11 +56,10 @@ void __cdecl Rva003FD7CEParse(INI *ini)
 	Rva003FD789 *item;
 	{
 		StringBase<char> name(token);
-		item = g_009FE1C8->rva0021294A(name);
+		item = ((Rva0021294A *)TheLivingWorldManager)->rva0021294A(name);
 	}
 	ini->initFromINI(item, &g_00837CD8);
 }
 
-// ?g_009FE1C8@@3PAVRva0021294A@@A: matched references place it at VA 0xdfe1c8; also referenced as ?Rva00DFE1C8@@3PAXA.
-Rva0021294A * g_009FE1C8 = 0;
-#pragma comment(linker, "/alternatename:?Rva00DFE1C8@@3PAXA=?g_009FE1C8@@3PAVRva0021294A@@A")
+// TheLivingWorldManager (the data ledger's name): matched references place it at VA 0xdfe1c8.
+LivingWorldManager *TheLivingWorldManager = 0;

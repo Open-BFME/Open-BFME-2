@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata
 // ??1Rva002FDF72@@UAE@XZ @0x002FDF72 201B: ModuleData-style dtor with vtable
 // 0x008071E4 then Snapshot base restore 0x00BBB554; three intrusive lists at
 // +0xF4 (next +0x1BC) +0xFC (next +0x10) +0xF8 (next +0xC) each destructed via
@@ -7,8 +7,6 @@
 // 0xB7907D states 3-2-1-0, callers 0x002FE044, prev GameClient/next Namers,
 // PillageModuleDataDtor precedent for Snapshot+novtable shape.
 #include "ascii_string.h"
-
-extern const void *const g_00BBB554[];
 
 void __cdecl operator delete(void *p);
 
@@ -33,19 +31,7 @@ struct NodeF8
 	NodeF8 *m_next;
 };
 
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc();
-	virtual void loadPostProcess();
-	virtual void xfer();
-};
-
-inline Snapshot::~Snapshot()
-{
-	*(const void **)this = g_00BBB554;
-}
+#include "Common/Snapshot.h"
 
 class Rva002FDF72 : public Snapshot
 {

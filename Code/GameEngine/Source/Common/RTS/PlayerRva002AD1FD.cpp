@@ -11,7 +11,7 @@ class SpecialPowerModuleInterface;
 
 class AsciiString;
 struct BfmeWorldRV;
-extern BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 class Object;
 class CommandButton
 {
@@ -74,10 +74,10 @@ void Player::rva002AD1FD()
 	Object *obj = rva002AC629();
 	if (obj == 0)
 		return;
-	if (g_bfmeWorldRV == 0)
+	if ((*(BfmeWorldRV **)&TheControlBar) == 0)
 		return;
 	const AsciiString *name = obj->rva00290E67();
-	void *cmdSet = ((Rva0031D5F8 *)g_bfmeWorldRV)->rva0031D5F8(name);
+	void *cmdSet = ((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(name);
 	for (int i = 0; i < 0x20; i++)
 	{
 		const CommandButton *btn = ((CommandSet *)cmdSet)->getCommandButton(i);

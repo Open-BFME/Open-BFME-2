@@ -108,7 +108,6 @@ template Rva005DE5B5 *_STL::__uninitialized_fill_n<Rva005DE5B5 *, unsigned int, 
 // per-unit views; all existing rows must still pass after that change.
 Rva005DE5B5::Rva005DE5B5() : m_00(AsciiString("-")),m_04(),m_10(-FLT_MAX),m_14(false) {}
 
-#pragma comment(linker, "/alternatename:??0?$_Vector_base@UBfmeStringRecord005DDD40@@V?$allocator@UBfmeStringRecord005DDD40@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeStringRecord005DDD40@@@1@@Z=??0?$_Vector_base@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z")
 
 // Native Ghidra [5DDB66,5DDBAB),69B; index bounds on vector4;
 // full31B record assignment5DD6B6 followed by dirty14=true and optional

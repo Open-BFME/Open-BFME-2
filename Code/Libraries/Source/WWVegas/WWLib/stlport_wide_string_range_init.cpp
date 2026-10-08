@@ -10,10 +10,6 @@
 // BFME1 e8d95f1561 Bfme5WideStringRanges.cpp proves that exposing the
 // unused tag argument enables reuse of the hidden-result stack slot.
 
-// The established wide-destructor pin and the narrow ledger body both resolve
-// to 0x0000B3C0 (63 bytes, ICF). Preserve that binding in a linked image too.
-#pragma comment(linker, "/alternatename:??1?$_String_base@GV?$allocator@G@_STL@@@_STL@@QAE@XZ=??1?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@XZ")
-
 typedef unsigned short wchar_t;
 
 namespace _STL

@@ -16,7 +16,7 @@ struct OpaqueGlobal
 	void *m_p40;
 };
 
-extern OpaqueGlobal *g_updateGlobal;
+extern class GameLogic *TheGameLogic;
 
 // Opaque intermediate; ctor resolves to the opaque pin at 0x00362EC7.
 class Rva00362EC7
@@ -45,12 +45,10 @@ BeaconClientUpdate::BeaconClientUpdate(Thing *thing, const ModuleData *moduleDat
 {
 	m_i0C = 0;
 	*reinterpret_cast<char **>(this) = &PointDefenseLaserUpdate_vftable;
-	m_p10 = g_updateGlobal->m_p40;
+	m_p10 = (*(OpaqueGlobal **)&TheGameLogic)->m_p40;
 }
 
 // ??1BeaconClientUpdate@@ present-unmatched
 BeaconClientUpdate::~BeaconClientUpdate()
 {
 }
-// ?g_updateGlobal@@3PAUOpaqueGlobal@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-#pragma comment(linker, "/alternatename:?g_updateGlobal@@3PAUOpaqueGlobal@@A=?TheGameLogic@@3PAVGameLogic@@A")

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 
 // BFME1 CollisionManagerConstructor.cpp adapted to the target base layout.
 // Retail 0x758250: secondary vtable 0xCF3398 reaches the CollisionManager name
@@ -21,14 +21,7 @@ private:
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Snapshot.h
 #pragma optimize("s", on)
-class Snapshot
-{
-public:
-	virtual ~Snapshot() {}
-	virtual void crc(void *xfer) = 0;
-	virtual void xfer(void *xfer) = 0;
-	virtual void loadPostProcess() = 0;
-};
+#include "Common/Snapshot.h"
 #pragma optimize("", on)
 
 // Inferred target helper type: manager allocates 0xC070 bytes and calls the initializer at 0x75A000.

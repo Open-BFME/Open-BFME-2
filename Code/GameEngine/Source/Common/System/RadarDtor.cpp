@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /arch:SSE /EHsc /Ireference/shims/moduledata
 //
 // ??1Radar@@UAE@XZ, retail 0x002D7CED, 98 bytes. Radar destructor (MI:
 // primary Snapshot, second GameEngineDeletingBase). Evidence: two vptr
@@ -6,21 +6,12 @@
 // the ctor near 0x002D7CF0; calls rowed ?deleteListResources@Radar@@IAEXXZ;
 // destroys m_events[64] at +0x2C via ??_M (size 0x50 count 0x40, element
 // dtor at 0x002D7CE0); calls rowed ??1GameEngineDeletingBase@@UAE@XZ
-// on +4 slice; final inline Snapshot store to g_00BBB554. Neighbour TUs
+// on +4 slice; final inline Snapshot store (??_7Snapshot, 0x00BBB554). Neighbour TUs
 // Radar_reset.cpp / Radar_deleteListResources.cpp give +0x14/+0x18 lists,
 // +0xD flag, +0x2C events, +0x142C trailer layout.
 
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc();
-	virtual void loadPostProcess();
-	virtual void xfer();
-};
+#include "Common/Snapshot.h"
 
-extern const void *const g_00BBB554[];
-inline Snapshot::~Snapshot() { *(const void **)this = g_00BBB554; }
 
 class GameEngineDeletingBase
 {

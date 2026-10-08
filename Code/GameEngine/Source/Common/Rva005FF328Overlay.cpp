@@ -7,8 +7,7 @@
 // precedent Rva005F086E 0x005F086E and Rva005FF38D 0x005FF38D.
 class Rva00222A8BTarget;
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char **a0ptr);
 
@@ -40,7 +39,7 @@ void Rva005FF328::rva005FF328(bool flag)
 		state = "_show";
 	else
 		state = m_over3D ? "_over" : "_hide";
-	const char *prefix = m_team ? m_team->m_name : g_Rva0107301CEmptyString;
-	Rva0050E9FEAptCall(TheRva00222A8BTarget, m_level, prefix, "SetSelectionOverlayState", &state);
+	const char *prefix = m_team ? m_team->m_name : "";
+	Rva0050E9FEAptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level, prefix, "SetSelectionOverlayState", &state);
 	m_flag3C = flag;
 }

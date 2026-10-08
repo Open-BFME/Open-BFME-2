@@ -6,7 +6,7 @@
 // [edi+54]/jne false/cmp esi edi/je false/cmp [ecx+F4]/jne false/call 0x2B254F/
 // test al je true/mov ecx[g_00E02D6C]/call 0x3B8BAA/mov edx[eax]/push edi/push esi/
 // mov ecx eax/call [edx+C]/test jne true else false/ret 8. Callers at 0x2B6CAB etc.
-extern class Rva003B8BAA *g_00E02D6C;
+class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
 class Rva002B254F
 {
@@ -53,7 +53,7 @@ bool Rva002B2C40::rva002B2C40(Arg54 *a, Arg54 *b)
 		return false;
 	if ((unsigned char)((Rva002B254F *)this)->rva002B254F() != 0)
 	{
-		void *p = g_00E02D6C->rva003B8BAA();
+		void *p = ((Rva003B8BAA *)TheCampaignManager)->rva003B8BAA();
 		if (!((LookupVirt *)p)->check(a, b))
 			return false;
 	}

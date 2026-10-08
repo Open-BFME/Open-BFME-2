@@ -39,7 +39,6 @@ private:
 
 #include "ascii_string.h"
 
-extern AsciiString g_emptyAsciiString;
 
 class DamageFieldUpdateModuleData : public FireWeaponUpdateModuleData
 {
@@ -58,6 +57,6 @@ private:
 // ??0DamageFieldUpdateModuleData@@QAE@XZ @0x00491102
 DamageFieldUpdateModuleData::DamageFieldUpdateModuleData()
 	: m_radius(0)
-	, m_requiredUpgrade(g_emptyAsciiString)
+	, m_requiredUpgrade(AsciiString::TheEmptyString)
 {
 }

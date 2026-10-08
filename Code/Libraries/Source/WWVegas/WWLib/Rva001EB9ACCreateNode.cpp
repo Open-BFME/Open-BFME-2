@@ -18,7 +18,7 @@ public:
 	void *pop();
 };
 
-extern "C" char Rva001EB9AC_pool;
+extern FreelistPool g_freelistPool00DB8FEC;	// Rva007AD348PoolInits.cpp
 
 class Rva001EB9ACList
 {
@@ -28,7 +28,7 @@ public:
 
 RvaListNode *Rva001EB9ACList::_M_create_node(const Object *& __x)
 {
-	FreelistPool *pool = (FreelistPool *)&Rva001EB9AC_pool;
+	FreelistPool *pool = &g_freelistPool00DB8FEC;
 	RvaListNode *node = (RvaListNode *)pool->pop();
 	const Object **valuePtr = (const Object **)((char *)node + 8);
 	if (valuePtr == 0)

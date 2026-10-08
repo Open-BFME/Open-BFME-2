@@ -12,7 +12,7 @@ class Rva004D376A
 {
 public:
 	Rva004D376A();
-	virtual ~Rva004D376A() {}
+	virtual ~Rva004D376A();
 	int m_04;
 	int m_08;
 	int m_0c;
@@ -56,4 +56,10 @@ Rva004D376A::Rva004D376A()
 		m_272[i] = 0;
 		m_282[i] = 0;
 	}
+}
+
+// ??1Rva004D376A@@UAE@XZ @0x004D381B 7B: the empty dtor, restoring the vtable (the
+// deleting dtor still expands it inline).
+Rva004D376A::~Rva004D376A()
+{
 }

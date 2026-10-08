@@ -28,25 +28,19 @@ public:
 
 class R2GlobalReceiver;
 
-extern Rva000F0912 *g_00DEBCD8;
-extern Rva0074011F *g_00DEC2CC;
-extern R2GlobalReceiver *R2Ptr01306DF0;
-extern Rva0007BAD6 *g_00DE1FF8;
+extern class W3DVolumetricShadowManager *TheW3DVolumetricShadowManager;
+extern class W3DProjectedShadowManager *TheW3DProjectedShadowManager;
+extern class Rva00108660ResourceManager *Rva00DEC2D8Manager;
+extern class Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 
 void Rva0009A3DECleanup()
 {
-	if (g_00DEBCD8 != 0)
-		g_00DEBCD8->rva000F0972();
-	if (g_00DEC2CC != 0)
-		g_00DEC2CC->rva0074011F();
-	if (R2Ptr01306DF0 != 0)
-		((Rva00109DCF *)R2Ptr01306DF0)->rva00109DCF();
-	if (g_00DE1FF8 != 0)
-		g_00DE1FF8->rva0007BAD6();
+	if ((*(Rva000F0912 **)&TheW3DVolumetricShadowManager) != 0)
+		(*(Rva000F0912 **)&TheW3DVolumetricShadowManager)->rva000F0972();
+	if ((*(Rva0074011F **)&TheW3DProjectedShadowManager) != 0)
+		(*(Rva0074011F **)&TheW3DProjectedShadowManager)->rva0074011F();
+	if ((*(R2GlobalReceiver **)&Rva00DEC2D8Manager) != 0)
+		((Rva00109DCF *)(*(R2GlobalReceiver **)&Rva00DEC2D8Manager))->rva00109DCF();
+	if ((*(Rva0007BAD6 **)&Rva00DE1FF8Manager) != 0)
+		(*(Rva0007BAD6 **)&Rva00DE1FF8Manager)->rva0007BAD6();
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_00DEBCD8@@3PAVRva000F0912@@A=?TheW3DVolumetricShadowManager@@3PAVW3DVolumetricShadowManager@@A")
-#pragma comment(linker, "/alternatename:?g_00DEC2CC@@3PAVRva0074011F@@A=?TheW3DProjectedShadowManager@@3PAVW3DProjectedShadowManager@@A")
-#pragma comment(linker, "/alternatename:?g_00DE1FF8@@3PAVRva0007BAD6@@A=?Rva00DE1FF8Manager@@3PAVRva0007DA23ResourceManager@@A")

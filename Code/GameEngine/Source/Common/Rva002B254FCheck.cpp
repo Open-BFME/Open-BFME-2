@@ -4,7 +4,7 @@
 // Evidence: retail cmp [ecx+0xB4],0; je; mov ecx,[0x00E02D6C]; call 0x003B8B85 rowed bool;
 // test al,al; je; xor eax,eax; inc eax; ret; else xor eax,eax; ret. Chain from 0x003B8B85.
 // Global type matches Rva002B256EThunk.cpp and definition in Rva002B47B1Get.cpp.
-extern class Rva003B8BAA *g_00E02D6C;
+class Rva00E02D6C; extern Rva00E02D6C *TheCampaignManager;
 
 class Rva003B8BAA
 {
@@ -22,7 +22,7 @@ public:
 
 int Rva002B254F::rva002B254F()
 {
-	if (m_flagB4 != 0 && g_00E02D6C->rva003B8B85() != 0)
+	if (m_flagB4 != 0 && ((Rva003B8BAA *)TheCampaignManager)->rva003B8B85() != 0)
 		return 1;
 	return 0;
 }

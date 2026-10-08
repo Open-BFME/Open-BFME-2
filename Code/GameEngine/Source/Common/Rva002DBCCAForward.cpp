@@ -6,6 +6,13 @@
 // arg class is carried as 12 pure-virtual fillers plus the slot-12 view so
 // no dummy definitions are emitted. Honest address-derived names.
 
+// The first call is the rowed Xfer::Version1 (0x000053EE).
+class Xfer
+{
+public:
+	void Version1();
+};
+
 class Rva002DBCCAArg
 {
 public:
@@ -34,6 +41,6 @@ public:
 // ?rva002DBCCA@Rva002DBCCAOwner@@QAEXPAX@Z
 void Rva002DBCCAOwner::rva002DBCCA(void *a)
 {
-	((Rva002DBCCAArg *)a)->rva000053EE();
+	((Xfer *)a)->Version1();
 	((Rva002DBCCAArg *)a)->vf12((char *)this + 0x18);
 }

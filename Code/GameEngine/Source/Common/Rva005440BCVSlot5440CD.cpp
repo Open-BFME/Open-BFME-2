@@ -1,7 +1,7 @@
 // cl: /MD
 // ?rva005440CD@Rva005440BC@@QAEXXZ, retail 0x005440CD, 41 bytes.
 // Virtual slot 15 (offset 0x3C) of vtable 0x008699A0 (VA 0x00C699A0), class of
-// ??1Rva005440BC@@UAE@XZ in Rva004D759CDerived.cpp. Gets TurretStateMachine
+// ??1Rva005440BC@@UAE@XZ in Rva004D759CDerived.cpp (base StateMachine). Gets TurretStateMachine
 // goal object, finds BfmeGotBEC via BfmeSubBEC, notifies slot 0x34 with
 // this+0x14, then tail-jumps to StateMachine::halt. Callees getGoalObject
 // 0x004D7726 bfmeFindBEC 0x0028BCB4 halt 0x004D73A4 already rowed.
@@ -43,19 +43,14 @@ public:
 class StateMachine
 {
 public:
+	virtual ~StateMachine();
 	void halt();
-};
-
-class Rva004D759C
-{
-public:
-	virtual ~Rva004D759C();
 
 private:
 	char m_pad04[ 8 ];
 };
 
-class Rva005440BC : public Rva004D759C
+class Rva005440BC : public StateMachine
 {
 public:
 	void rva005440CD();
@@ -79,5 +74,5 @@ void Rva005440BC::rva005440CD()
 	bec->onSlot34( m_14 );
 
 halt:
-	((StateMachine *)this)->halt();
+	halt();
 }

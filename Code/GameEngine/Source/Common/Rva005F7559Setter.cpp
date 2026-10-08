@@ -7,8 +7,7 @@ public:
 	int rva00222B19(void *level, const char *prefix, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern const char *g_00C78D64[];
 
 int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *target, void *level, const char *prefix, const char *name, const int &a, const char *const &b);
@@ -44,7 +43,7 @@ void Rva005F6AB0::rva005F7559(int index)
 		return;
 	const char *icon = g_00C78D64[index];
 	Rva005F7559Owner *owner = m_owner1C;
-	const char *prefix = owner->m_team08 ? owner->m_team08->m_name : g_Rva0107301CEmptyString;
-	Rva005252CDInvoke(TheRva00222A8BTarget, owner->m_level04, prefix, "SetQueuedIconSlotState", m_20, icon);
+	const char *prefix = owner->m_team08 ? owner->m_team08->m_name : "";
+	Rva005252CDInvoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), owner->m_level04, prefix, "SetQueuedIconSlotState", m_20, icon);
 	m_14 = index;
 }

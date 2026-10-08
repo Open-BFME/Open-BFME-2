@@ -18,3 +18,7 @@ Int Rva0058AD9F::rva0058AD9F()
 	return g_Va00DBA4E4 * 5;
 }
 
+
+// Retail global spelled differently by the unit that defines it (same
+// address in reverse/data_ledger.csv); bind this unit's name to it.
+#pragma comment(linker, "/alternatename:?g_rva0058AD9FBase@@3HA=?g_Va00DBA4E4@@3HA")

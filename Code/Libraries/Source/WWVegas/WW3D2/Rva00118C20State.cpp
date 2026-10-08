@@ -38,7 +38,3 @@ void Rva00118C20(void)
 		g_Va00DB5FBC = 3;
 	}
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_00DB5FB4@@3HA=?g_Va00DB5FB4@@3HA")

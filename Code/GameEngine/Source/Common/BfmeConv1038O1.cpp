@@ -180,4 +180,3 @@ public:
 	void (__cdecl *m_bfmeFn)(int);
 	char m_bfmeFlag;
 };
-

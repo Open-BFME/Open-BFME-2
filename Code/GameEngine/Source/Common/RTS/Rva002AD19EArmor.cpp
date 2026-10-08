@@ -18,7 +18,7 @@ namespace rts
 {
 	template<class T> struct hash
 	{
-		unsigned int operator()(const T &x) const;
+		unsigned int operator()(const T &x) const { return (unsigned int)x; }	// Zero Hour's rts::hash<NameKeyType>, inline
 	};
 }
 typedef std::hash_map<NameKeyType, ArmorTemplate, rts::hash<NameKeyType>, std::equal_to<NameKeyType> > ArmorTemplateMap;

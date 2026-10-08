@@ -8,7 +8,7 @@ struct GlobalA01E48
     char _pad[0x54];
     unsigned char m_54;
 };
-extern GlobalA01E48 *g_Va00A01E48;
+extern class Shell *TheShell;
 
 class Rva00222479ByteOneSetter
 {
@@ -31,7 +31,7 @@ public:
     virtual void v09();
     virtual void v10();
 };
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 void Rva0051ED7ETail();
 
@@ -39,8 +39,8 @@ void Rva0051BF47Run()
 {
     if (g_00E04914 == 0)
         return;
-    g_Va00A01E48->m_54 = 1;
-    ((Rva00222479ByteOneSetter *)TheRva00222A8BTarget)->enable();
-    TheRva00222A8BTarget->v10();
+    (*(GlobalA01E48 **)&TheShell)->m_54 = 1;
+    ((Rva00222479ByteOneSetter *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->enable();
+    (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->v10();
     Rva0051ED7ETail();
 }

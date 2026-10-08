@@ -14,7 +14,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 class INI
 {
@@ -70,7 +70,7 @@ void INI::Rva0033940F_Parse(INI *ini, void *, void *store, const void *)
 		*(void **)store = 0;
 		return;
 	}
-	void *result = TheThingFactory->rva002D06CA(&AsciiString(token));
+	void *result = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&AsciiString(token));
 	if (result == 0 && bfmeRva000387C0()) {
 		_bfme_debugRecordCallsite(1);
 		theDebug->SkipNext();

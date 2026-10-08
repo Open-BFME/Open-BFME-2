@@ -13,9 +13,11 @@ public:
 // vptr VA 0xC4ED70. This differs from the recovered 0x14-byte ModuleData
 // constructor at 0x6024FD (vptr VA 0xC7A808). Keep this data view anonymous.
 class ModuleData;
-extern "C" void *const __identifier("??_7Rva00306A6EData@@6B@")[ ];
+// The table at VA 0xC4ED70 is shared (folded) by several ModuleData classes;
+// PilotFindVehicleUpdateCtor.cpp defines the unit-level symbol for it.
+extern "C" char PilotFindVehicleUpdate_vftable;
 struct Rva00306A6EData {
-    Rva00306A6EData() : vtable(__identifier("??_7Rva00306A6EData@@6B@")) {}
+    Rva00306A6EData() : vtable(reinterpret_cast<void *const *>(&PilotFindVehicleUpdate_vftable)) {}
     void *const *vtable;
     unsigned int opaque04;
 };

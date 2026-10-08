@@ -10,7 +10,7 @@ struct BfmeE16 { float x, y, z, w; };
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 class __declspec(novtable) BFME2NativeNetworkBase

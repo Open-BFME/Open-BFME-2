@@ -12,7 +12,6 @@
 #include <stddef.h>
 #include "Common/Snapshot.h"
 
-extern const char g_Rva0107301CEmptyString[];
 
 template <typename T> class StringBase
 {
@@ -198,7 +197,7 @@ SpecialAbilityUpdateModuleData::SpecialAbilityUpdateModuleData()
 	, m_B7(0)
 	, m_B8(0)
 	, m_BC()
-	, m_C0(g_Rva0107301CEmptyString)
+	, m_C0("")
 	, m_C4(0)
 	, m_C5(0)
 	, m_C6(0)

@@ -16,7 +16,3 @@ void __cdecl Rva006F12F0Free(void *block, int size)
 {
     g_pChainBlockAllocatorF4->freeBlock(block, size);
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_bfmeChainBlockAllocatorAtE176F4@@3PAVRva006D2A60@@A=?g_pChainBlockAllocatorF4@@3PAVRva006D2A60@@A")

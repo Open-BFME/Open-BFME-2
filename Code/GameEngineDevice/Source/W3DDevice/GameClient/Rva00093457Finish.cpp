@@ -9,7 +9,7 @@
 // Evidence: callers 0x00093B49 0x00093CBE; globals VA 0x00E01CE4 0x00DFE118;
 // neighbour Rva000932E1Get.cpp (same WeatherSetting layout, pinned resolve
 // 0x001E35DF).
-#define TheOther00E01CE4 (g_Va00E01CE4)
+#define TheOther00E01CE4 ((*(Rva00E01CE4Holder **)&TheGlobalWeatherSystem))
 #define TheWeather00DFE118 (g_Va00DFE118)
 struct Rva00E01CE4Holder
 {
@@ -17,7 +17,7 @@ struct Rva00E01CE4Holder
 	int m_10;
 };
 class WeatherSetting;
-Rva00E01CE4Holder *g_Va00E01CE4;
+extern class GlobalWeatherSystem *TheGlobalWeatherSystem;
 extern WeatherSetting *g_Va00DFE118;
 class Overridable
 {

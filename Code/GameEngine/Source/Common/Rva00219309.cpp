@@ -8,7 +8,7 @@
 #include "ascii_string.h"
 
 struct BfmeWorldRV;
-extern struct BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 
 class Rva0031D5F8
 {
@@ -33,7 +33,7 @@ public:
 
 int Rva00219309::rva00219309()
 {
-	void *p = ((Rva0031D5F8 *)g_bfmeWorldRV)->rva0031D5F8(&m_name);
+	void *p = ((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(&m_name);
 	if (p == 0)
 		return 0;
 	CommandSet *cmdSet = (CommandSet *)p;

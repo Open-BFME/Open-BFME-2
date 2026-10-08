@@ -4,12 +4,11 @@
 #include "ascii_string.h"
 #include <string.h>
 
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr0026F28B(const AsciiString &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 class INI

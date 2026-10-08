@@ -9,8 +9,8 @@ struct Rva005B5B0CMgr
 	void UseSub(void *s);
 };
 
-extern Rva005B5B0CMgr *g_rva005B5B0CMgr;
-extern void *g_rva005B5B0CObj;
+extern class CreateAHeroManager *TheCreateAHeroManager;
+extern class Shell *TheShell;
 void Rva00513866Free();
 
 struct Rva005B5B0CBox
@@ -25,8 +25,8 @@ struct Rva005B5B0CBox
 
 void Rva005B5B0CBox::Run(int unused)
 {
-	g_rva005B5B0CMgr->UseSub((char *)m_4 + 0x27c);
+	(*(Rva005B5B0CMgr **)&TheCreateAHeroManager)->UseSub((char *)m_4 + 0x27c);
 	m_16 = 1;
-	*(unsigned char *)((char *)g_rva005B5B0CObj + 0x54) = 1;
+	*(unsigned char *)((char *)(*(void **)&TheShell) + 0x54) = 1;
 	Rva00513866Free();
 }

@@ -34,7 +34,7 @@ public:
 	virtual void v17();
 	virtual GameMessage *appendType(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 class Rva0029AA3F
 {
 public:
@@ -52,7 +52,7 @@ private:
 
 void Rva0029AA3F::rva0029AA3F()
 {
-	GameMessage *msg = MessageStreamSubsystem->appendType(0x467);
+	GameMessage *msg = TheMessageStream->appendType(0x467);
 	msg->appendLocationArgument(m_pos);
 }
 

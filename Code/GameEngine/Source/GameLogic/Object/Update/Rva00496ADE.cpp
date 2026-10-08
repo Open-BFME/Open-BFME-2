@@ -7,7 +7,6 @@
 // caller 0x00497174, stash 0x00496ade 0.93 (order + dummy fixed, shared header).
 #include "ascii_string.h"
 
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva0042526Member
 {
@@ -32,6 +31,6 @@ Rva00496ADE::Rva00496ADE()
 	: m_mem08()
 {
 	m_04 = 0;
-	m_str54.set(g_Rva0107301CEmptyString);
+	m_str54.set("");
 	m_str00.clear();
 }

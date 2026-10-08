@@ -7,7 +7,7 @@ class Rva00222A8BTarget
 public:
 	unsigned char rva00222A53();
 };
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva0043287E
 {
 public:
@@ -18,5 +18,5 @@ private:
 };
 int Rva0043287E::rva0043287E()
 {
-	return (m_200 > 0 || TheRva00222A8BTarget->rva00222A53());
+	return (m_200 > 0 || (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva00222A53());
 }

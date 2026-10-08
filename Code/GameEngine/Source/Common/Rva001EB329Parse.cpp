@@ -17,7 +17,6 @@ public:
 };
 
 extern const FieldParse g_00BDF0E8;
-extern const char g_Rva0107301CEmptyString[];
 
 struct INIException
 {
@@ -45,7 +44,7 @@ void Rva001EB329::rva001EB329(INI *ini)
 	if (((const StringBase<char> *)&m_mapName)->isEmpty())
 	{
 		char *t = *(char **)this;
-		const char *s = t ? t + 8 : g_Rva0107301CEmptyString;
+		const char *s = t ? t + 8 : "";
 		INIException exc(3, "Campaign missions must have a Map. %s does not", s);
 		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva001EB329ThrowInfoAnchor); __assume(0);
 	}

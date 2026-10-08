@@ -16,7 +16,7 @@ extern "C" const void *const vtbl_00BE2B78[];  // folded, 9 classes; via ??_7Cle
 extern const void *const g_00C5F378[];
 extern const void *const g_00C5F368[];
 
-extern class ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class Thing;
 class ModuleData;

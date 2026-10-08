@@ -82,11 +82,17 @@ class Rva00074626
 {
 public:
 	Rva00074626(EmitVtableTag *);
-	virtual ~Rva00074626() {}
+	virtual ~Rva00074626();
 };
 
 // ?<Rva00074626::Rva00074626> absent-from-retail
 Rva00074626::Rva00074626(EmitVtableTag *)
+{
+}
+
+// ??1Rva00074626@@UAE@XZ @0x0007461F 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva00074626::~Rva00074626()
 {
 }
 
@@ -118,7 +124,7 @@ class Rva000906DE
 {
 public:
 	Rva000906DE(EmitVtableTag *);
-	virtual ~Rva000906DE() {}
+	virtual ~Rva000906DE();
 };
 
 // ?<Rva000906DE::Rva000906DE> absent-from-retail
@@ -126,11 +132,17 @@ Rva000906DE::Rva000906DE(EmitVtableTag *)
 {
 }
 
+// ??1Rva000906DE@@UAE@XZ @0x00090771 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva000906DE::~Rva000906DE()
+{
+}
+
 class Rva000A8E9C
 {
 public:
 	Rva000A8E9C(EmitVtableTag *);
-	virtual ~Rva000A8E9C() {}
+	virtual ~Rva000A8E9C();
 };
 
 // ?<Rva000A8E9C::Rva000A8E9C> absent-from-retail
@@ -138,15 +150,27 @@ Rva000A8E9C::Rva000A8E9C(EmitVtableTag *)
 {
 }
 
+// ??1Rva000A8E9C@@UAE@XZ @0x000A8E95 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva000A8E9C::~Rva000A8E9C()
+{
+}
+
 class Rva000A8EF6
 {
 public:
 	Rva000A8EF6(EmitVtableTag *);
-	virtual ~Rva000A8EF6() {}
+	virtual ~Rva000A8EF6();
 };
 
 // ?<Rva000A8EF6::Rva000A8EF6> absent-from-retail
 Rva000A8EF6::Rva000A8EF6(EmitVtableTag *)
+{
+}
+
+// ??1Rva000A8EF6@@UAE@XZ @0x000A8EEF 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva000A8EF6::~Rva000A8EF6()
 {
 }
 
@@ -166,7 +190,7 @@ class Rva000EFA0E
 {
 public:
 	Rva000EFA0E(EmitVtableTag *);
-	virtual ~Rva000EFA0E() {}
+	virtual ~Rva000EFA0E();
 };
 
 // ?<Rva000EFA0E::Rva000EFA0E> absent-from-retail
@@ -174,11 +198,17 @@ Rva000EFA0E::Rva000EFA0E(EmitVtableTag *)
 {
 }
 
+// ??1Rva000EFA0E@@UAE@XZ @0x00108650 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva000EFA0E::~Rva000EFA0E()
+{
+}
+
 class Rva001164B6
 {
 public:
 	Rva001164B6(EmitVtableTag *);
-	virtual ~Rva001164B6() {}
+	virtual ~Rva001164B6();
 };
 
 // ?<Rva001164B6::Rva001164B6> absent-from-retail
@@ -186,15 +216,27 @@ Rva001164B6::Rva001164B6(EmitVtableTag *)
 {
 }
 
+// ??1Rva001164B6@@UAE@XZ @0x0011647B 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva001164B6::~Rva001164B6()
+{
+}
+
 class BFME2MotionChannel
 {
 public:
 	BFME2MotionChannel(EmitVtableTag *);
-	virtual ~BFME2MotionChannel() {}
+	virtual ~BFME2MotionChannel();
 };
 
 // ?<BFME2MotionChannel::BFME2MotionChannel> absent-from-retail
 BFME2MotionChannel::BFME2MotionChannel(EmitVtableTag *)
+{
+}
+
+// ??1BFME2MotionChannel@@UAE@XZ @0x001A466C 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+BFME2MotionChannel::~BFME2MotionChannel()
 {
 }
 
@@ -226,7 +268,7 @@ class Rva0020E20C
 {
 public:
 	Rva0020E20C(EmitVtableTag *);
-	virtual ~Rva0020E20C() {}
+	virtual ~Rva0020E20C();
 };
 
 // ?<Rva0020E20C::Rva0020E20C> absent-from-retail
@@ -234,15 +276,27 @@ Rva0020E20C::Rva0020E20C(EmitVtableTag *)
 {
 }
 
+// ??1Rva0020E20C@@UAE@XZ @0x0020E205 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva0020E20C::~Rva0020E20C()
+{
+}
+
 class Rva00215E42
 {
 public:
 	Rva00215E42(EmitVtableTag *);
-	virtual ~Rva00215E42() {}
+	virtual ~Rva00215E42();
 };
 
 // ?<Rva00215E42::Rva00215E42> absent-from-retail
 Rva00215E42::Rva00215E42(EmitVtableTag *)
+{
+}
+
+// ??1Rva00215E42@@UAE@XZ @0x004059AC 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva00215E42::~Rva00215E42()
 {
 }
 
@@ -262,11 +316,17 @@ class Rva002BED74
 {
 public:
 	Rva002BED74(EmitVtableTag *);
-	virtual ~Rva002BED74() {}
+	virtual ~Rva002BED74();
 };
 
 // ?<Rva002BED74::Rva002BED74> absent-from-retail
 Rva002BED74::Rva002BED74(EmitVtableTag *)
+{
+}
+
+// ??1Rva002BED74@@UAE@XZ @0x002BEDA4 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva002BED74::~Rva002BED74()
 {
 }
 
@@ -298,11 +358,17 @@ class Rva002D3556
 {
 public:
 	Rva002D3556(EmitVtableTag *);
-	virtual ~Rva002D3556() {}
+	virtual ~Rva002D3556();
 };
 
 // ?<Rva002D3556::Rva002D3556> absent-from-retail
 Rva002D3556::Rva002D3556(EmitVtableTag *)
+{
+}
+
+// ??1Rva002D3556@@UAE@XZ @0x002D3354 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva002D3556::~Rva002D3556()
 {
 }
 
@@ -321,12 +387,19 @@ InputChunk::InputChunk(EmitVtableTag *)
 class Rva0037F57E
 {
 public:
-	Rva0037F57E(EmitVtableTag *);
-	virtual ~Rva0037F57E() {}
+	Rva0037F57E();
+	virtual ~Rva0037F57E();
 };
 
-// ?<Rva0037F57E::Rva0037F57E> absent-from-retail
-Rva0037F57E::Rva0037F57E(EmitVtableTag *)
+// ??0Rva0037F57E@@QAE@XZ @0x0037F4C0 9B: the empty ctor, installing the
+// one-slot vtable 0x00818DFC (slot 0 the deleting dtor below) and returning this.
+Rva0037F57E::Rva0037F57E()
+{
+}
+
+// ??1Rva0037F57E@@UAE@XZ @0x0037F4C9 7B: the empty dtor, restoring the vtable;
+// the deleting dtor below still expands it inline.
+Rva0037F57E::~Rva0037F57E()
 {
 }
 
@@ -334,7 +407,7 @@ class Rva00381D78
 {
 public:
 	Rva00381D78(EmitVtableTag *);
-	virtual ~Rva00381D78() {}
+	virtual ~Rva00381D78();
 };
 
 // ?<Rva00381D78::Rva00381D78> absent-from-retail
@@ -342,15 +415,27 @@ Rva00381D78::Rva00381D78(EmitVtableTag *)
 {
 }
 
+// ??1Rva00381D78@@UAE@XZ @0x00381D71 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva00381D78::~Rva00381D78()
+{
+}
+
 class Rva003919D9
 {
 public:
 	Rva003919D9(EmitVtableTag *);
-	virtual ~Rva003919D9() {}
+	virtual ~Rva003919D9();
 };
 
 // ?<Rva003919D9::Rva003919D9> absent-from-retail
 Rva003919D9::Rva003919D9(EmitVtableTag *)
+{
+}
+
+// ??1Rva003919D9@@UAE@XZ @0x003916A4 7B: the empty dtor, restoring the vtable;
+// the deleting dtor still expands it inline.
+Rva003919D9::~Rva003919D9()
 {
 }
 

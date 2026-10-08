@@ -34,7 +34,7 @@ class Rva002D06CA {
 public:
     void *rva002D06CA(const AsciiString *s);
 };
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 class ThingTemplate {
 public:
@@ -54,7 +54,7 @@ const Image *Rva005D2355Get(Rva005D2355In *in)
 {
     const AsciiString &s = in->str18;
     if (!((const StringBase<char> *)&s)->isEmpty()) {
-        void *v = TheThingFactory->rva002D06CA(&s);
+        void *v = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&s);
         if (v != 0)
             return ((ThingTemplate *)v)->rva0033BA46();
     }
@@ -76,7 +76,7 @@ const Image *Rva005F031DGet(Rva005D2355In *in)
 {
     const AsciiString &s = in->str18;
     if (!((const StringBase<char> *)&s)->isEmpty()) {
-        void *v = TheThingFactory->rva002D06CA(&s);
+        void *v = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&s);
         if (v != 0)
             return ((ThingTemplate *)v)->getButtonImage();
     }

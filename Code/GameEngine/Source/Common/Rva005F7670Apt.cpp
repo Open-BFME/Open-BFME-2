@@ -15,7 +15,6 @@ class Rva00222A8BTarget
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
 
 struct Rva005F7670Team
 {
@@ -90,13 +89,13 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::ShowUnitName(const UnicodeS
 {
 	if (text.compare(m_cached58) != 0) {
 		AsciiString key;
-		const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team08 ? m_team08->m_name : "";
 		key.format("APT:_level%u.%s_UnitName", m_level04, team);
 		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, false);
 		m_cached58.set(text);
 	}
 	if (!m_shown64) {
-		const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team08 ? m_team08->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level04, team, "SetUnitNameState", "_show");
 		m_shown64 = true;
 	}
@@ -125,7 +124,7 @@ void Rva005F772E::rva005F7470()
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::HideUnitName()
 {
 	if (m_shown64) {
-		const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team08 ? m_team08->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level04, team, "SetUnitNameState", "_hide");
 		m_shown64 = false;
 	}
@@ -133,7 +132,7 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::HideUnitName()
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::HideCommandPoints()
 {
 	if (m_shown66) {
-		const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team08 ? m_team08->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level04, team, "SetCommandPointsState", "_hide");
 		m_shown66 = false;
 	}
@@ -141,7 +140,7 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::HideCommandPoints()
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::HideBuildTime()
 {
 	if (m_shown65) {
-		const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team08 ? m_team08->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level04, team, "SetBuildTimeState", "_hide");
 		m_shown65 = false;
 	}
@@ -157,13 +156,13 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::ShowCommandPoints(int val)
 			tmp.format(fetched.str(), val);
 		}
 		AsciiString key;
-		const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team08 ? m_team08->m_name : "";
 		key.format("APT:_level%u.%s_CommandPoints", m_level04, team);
 		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, tmp, false);
 		m_cmdPts60 = val;
 	}
 	if (!m_shown66) {
-		const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team08 ? m_team08->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level04, team, "SetCommandPointsState", "_show");
 		m_shown66 = true;
 	}
@@ -183,13 +182,13 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::ShowBuildTime(int val)
 			}
 		}
 		AsciiString key;
-		const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team08 ? m_team08->m_name : "";
 		key.format("APT:_level%u.%s_BuildTime", m_level04, team);
 		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, tmp, false);
 		m_buildTime5C = val;
 	}
 	if (!m_shown65) {
-		const char *team = m_team08 ? m_team08->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team08 ? m_team08->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level04, team, "SetBuildTimeState", "_show");
 		m_shown65 = true;
 	}

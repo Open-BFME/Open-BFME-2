@@ -8,10 +8,19 @@
 class INI;
 class Xfer;
 
-// Retail's vtable (0x01141640) has nine slots. The ones we can name are
-//   0 ~SubsystemInterface   1 init   2 loadIniFilesFromLegend   4 reset   5 update
-// Slots 3, 6, 7 and 8 are base virtuals we have not identified (7 and 8 are empty
-// bodies shared by ~130 classes), so the vtable we emit is shorter than retail's.
+// Retail's base vtable (0x00BD77A0, installed by the ctor at 0x001B4E63 and
+// the dtor at 0x001B4E74) has fourteen slots, read from retail:
+//    0 ~SubsystemInterface (??_G 0x001B4F51)   1 init (pure)
+//    2 loadIniFilesFromLegend (0x001B5384)       3 postProcessLoad (empty)
+//    4 bool(int) returning false (0x005CB9FF)    5 bool() returning false (0x0047A699)
+//    6 int() returning 0 (0x000D43D0)            7 void(int), empty (0x0047A69C)
+//    8 void(), empty (0x000B3FD0)                9 reset (pure)   10 update (pure)
+//   11 bool(int) returning false (0x005CB9FF)   12 void(), empty   13 void(int), empty
+// Names: slot 3 is postProcessLoad because WeaponStore (table 0x00C02114) and
+// W3DDisplayStringManager (0x00BC7E2C) put their rowed postProcessLoad bodies
+// there; 9 and 10 are reset and update because ScriptEngine (0x00BE3D70) puts
+// its reset (0x00209ABE) and update there. Slots 4-8 and 11-13 have no name
+// evidence: vslotNN are ours, their default bodies are retail's (structural).
 // Slots 1 and 2 are the load-bearing ones: SubsystemInterfaceList::initSubsystem
 // dispatches through [vptr+4] and [vptr+8].
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SubsystemInterface.h
@@ -25,11 +34,18 @@ public:
 	// the legend supplied anything, in which case initSubsystem skips the
 	// hard-coded paths it was passed.
 	virtual Bool loadIniFilesFromLegend();
+	virtual void postProcessLoad() {}
+	virtual bool vslot04(int) { return false; }
+	virtual bool vslot05() { return false; }
+	virtual int vslot06() { return 0; }
+	virtual void vslot07(int) {}
+	virtual void vslot08() {}
 	virtual void reset() = 0;
 	virtual void update() = 0;
-	virtual void draw( void ) {}
+	virtual bool vslot11(int) { return false; }
+	virtual void vslot12() {}
+	virtual void vslot13(int) {}
 	inline void UPDATE(void) { update(); }
-	inline void DRAW(void) { draw(); }
 	void setName(AsciiString name) { m_name = name; }
 	AsciiString getName(void);
 protected:

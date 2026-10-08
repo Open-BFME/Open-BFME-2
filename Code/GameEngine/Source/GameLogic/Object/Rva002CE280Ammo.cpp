@@ -31,7 +31,7 @@ struct Rva002CE280Globals
 	void *m_p40; // +0x40
 };
 
-extern Rva002CE280Globals *g_00DFE78C;
+struct Rva002CE280Globals; extern class GameLogic *TheGameLogic;
 
 class Weapon
 {
@@ -84,7 +84,7 @@ void Weapon::rva002CE280(float rate, bool flag)
 	if (want > getRemainingAmmo(false) || (flag && want < getRemainingAmmo(false))) {
 		m_u14 = want;
 		cacheStatus((WeaponStatus)(getRemainingAmmo(false) != 0));
-		m_p18 = m_p28 = g_00DFE78C->m_p40;
+		m_p18 = m_p28 = ((Rva002CE280Globals *)TheGameLogic)->m_p40;
 		rebuildScatterTargets();
 	}
 }

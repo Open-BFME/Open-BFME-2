@@ -21,6 +21,7 @@ namespace FXParticleSystem
     const char * __cdecl GetKey(ModuleCategory category);
 };
 
+class INI;
 void __cdecl Rva001FA8DDParse();
 
 struct Obj80
@@ -42,7 +43,7 @@ void __cdecl Rva001FB912Init(void *obj_)
     obj->parse = (void *)Rva001FA8DDParse;
 }
 
-void __cdecl Rva001F8751Parse();
+void __cdecl Rva001F8751Parse(INI *ini, void *store);
 
 struct Obj70
 {
@@ -64,7 +65,7 @@ void __cdecl Rva001FBAB2Init(void *obj_)
     Rva001FB912Init(obj_);
 }
 
-void __cdecl Rva001F86E3Parse();
+void __cdecl Rva001F86E3Parse(INI *ini, void *store);
 
 struct Obj60
 {
@@ -86,7 +87,7 @@ void __cdecl Rva001FBC69Init(void *obj_)
     Rva001FBAB2Init(obj_);
 }
 
-void __cdecl Rva001F8675Parse();
+void __cdecl Rva001F8675Parse(INI *ini, void *store);
 
 struct Obj50
 {
@@ -108,7 +109,7 @@ void __cdecl Rva001FC010Init(void *obj_)
     Rva001FBC69Init(obj_);
 }
 
-void __cdecl Rva001F8607Parse();
+void __cdecl Rva001F8607Parse(INI *ini, void *store);
 
 struct Obj40
 {
@@ -130,7 +131,7 @@ void __cdecl Rva001FC37DInit(void *obj_)
     Rva001FC010Init(obj_);
 }
 
-void __cdecl Rva001F8599Parse();
+void __cdecl Rva001F8599Parse(INI *ini, void *store);
 
 struct Obj30
 {
@@ -152,7 +153,7 @@ void __cdecl Rva001FC477Init(void *obj_)
     Rva001FC37DInit(obj_);
 }
 
-void __cdecl Rva001F852BParse();
+void __cdecl Rva001F852BParse(INI *ini, void *store);
 
 struct Obj20
 {
@@ -174,7 +175,7 @@ void __cdecl Rva001FD022Init(void *obj_)
     Rva001FC477Init(obj_);
 }
 
-void __cdecl Rva001F84BDParse();
+void __cdecl Rva001F84BDParse(INI *ini, void *store);
 
 struct Obj10
 {
@@ -196,7 +197,7 @@ void __cdecl Rva001FD048Init(void *obj_)
     Rva001FD022Init(obj_);
 }
 
-void __cdecl Rva001F83C9Parse();
+void __cdecl Rva001F83C9Parse(INI *ini, void *store);
 
 struct Obj00
 {

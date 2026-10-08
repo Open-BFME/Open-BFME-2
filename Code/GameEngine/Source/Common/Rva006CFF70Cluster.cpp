@@ -18,7 +18,7 @@ public:
 	void *allocBlock(int blockSize);
 };
 
-extern Rva006DB160 *g_aptPoolAllocator; // 0x00E176E8
+extern class Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
 
 class Rva008951B0Entry;
 
@@ -46,7 +46,7 @@ public:
 // ?rva006CFF70@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z
 void Rva008951B0Owner::rva006CFF70(const Rva008951B0Handle &h)
 {
-	Rva008951B0Node *node = (Rva008951B0Node *)g_aptPoolAllocator->allocBlock(8);
+	Rva008951B0Node *node = (Rva008951B0Node *)(*(Rva006DB160 **)&g_pChainBlockAllocator)->allocBlock(8);
 	if (node) {
 		node->m_bfmeEntry = h.m_bfmeNode;
 		node->m_bfmeNext = 0;

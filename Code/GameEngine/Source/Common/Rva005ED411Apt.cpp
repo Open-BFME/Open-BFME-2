@@ -14,8 +14,7 @@ struct Rva005ED445Outer
 };
 
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
@@ -47,7 +46,7 @@ public:
 
 void StrategicHUD::RegionAwardMovieClip::Impl::rva005ED411()
 {
-	const char *prefix = m_outer.m_ptr ? m_outer.m_ptr->m_name : g_Rva0107301CEmptyString;
-	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_level, prefix, "FadeOut");
+	const char *prefix = m_outer.m_ptr ? m_outer.m_ptr->m_name : "";
+	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_level, prefix, "FadeOut");
 	m_state24 = 2;
 }

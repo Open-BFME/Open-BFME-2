@@ -34,6 +34,7 @@ typedef _STL::_Rb_tree<unsigned char, BfmeByteDwordNodeValue,
 template <> _STL::_Rb_tree_node<BfmeByteDwordNodeValue> *
 BfmeByteDwordNodeTree::_M_create_node(const BfmeByteDwordNodeValue &value);
 template <> _STL::_Rb_tree_node<BfmeByteDwordNodeValue> *
+// ?BfmeByteDwordNodeTree::_M_copy present-unmatched
 BfmeByteDwordNodeTree::_M_copy(_STL::_Rb_tree_node<BfmeByteDwordNodeValue> *x,
     _STL::_Rb_tree_node<BfmeByteDwordNodeValue> *p);
 typedef _STL::pair<const unsigned char, short> BfmeByteWordNodeValue;
@@ -44,6 +45,7 @@ typedef _STL::_Rb_tree<unsigned char, BfmeByteWordNodeValue,
 template <> _STL::_Rb_tree_node<BfmeByteWordNodeValue> *
 BfmeByteWordNodeTree::_M_create_node(const BfmeByteWordNodeValue &value);
 template <> _STL::_Rb_tree_node<BfmeByteWordNodeValue> *
+// ?BfmeByteWordNodeTree::_M_copy present-unmatched
 BfmeByteWordNodeTree::_M_copy(_STL::_Rb_tree_node<BfmeByteWordNodeValue> *x,
     _STL::_Rb_tree_node<BfmeByteWordNodeValue> *p);
 
@@ -56,6 +58,7 @@ BfmeByteDwordNodeTree::operator=(const BfmeByteDwordNodeTree &other);
 
 // Emit the rowed insertion and lookup members, rather than whole maps.
 template BfmeByteWordNodeTree::iterator
+// ?BfmeByteWordNodeTree::_M_insert present-unmatched
 BfmeByteWordNodeTree::_M_insert(_STL::_Rb_tree_node_base *, _STL::_Rb_tree_node_base *,
     const BfmeByteWordNodeValue &, _STL::_Rb_tree_node_base *);
 template _STL::pair<BfmeByteWordNodeTree::iterator, bool>
@@ -68,6 +71,7 @@ template BfmeByteWordMap::iterator
 BfmeByteWordMap::insert(BfmeByteWordMap::iterator, const BfmeByteWordNodeValue &);
 template short &BfmeByteWordMap::operator[](const unsigned char &);
 template BfmeByteDwordNodeTree::iterator
+// ?BfmeByteDwordNodeTree::_M_insert present-unmatched
 BfmeByteDwordNodeTree::_M_insert(_STL::_Rb_tree_node_base *, _STL::_Rb_tree_node_base *,
     const BfmeByteDwordNodeValue &, _STL::_Rb_tree_node_base *);
 template _STL::pair<BfmeByteDwordNodeTree::iterator, bool>

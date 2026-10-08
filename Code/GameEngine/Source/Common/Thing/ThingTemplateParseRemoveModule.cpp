@@ -11,7 +11,6 @@ typedef int Int;
 typedef bool Bool;
 
 // The empty-string constant at retail 0x0107388B.
-extern const char g_bfmeEmptyAscii[];
 
 #include "ascii_string.h"
 

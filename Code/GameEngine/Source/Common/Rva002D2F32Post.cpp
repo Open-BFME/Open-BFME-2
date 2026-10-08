@@ -51,7 +51,7 @@ public:
 	virtual void v16(); virtual void v17();
 	virtual GameMessage *appendMessage(GameMessage::Type type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 class Rva002D2F32Owner
 {
@@ -72,11 +72,11 @@ void Rva002D2F32Owner::rva002D2F32()
 		return;
 	Rva002D2F32Mid *mid = ThePlayerList->m_mid;
 	if (mid != 0 && mid->m_750 == 2) {
-		GameMessage *m = MessageStreamSubsystem->appendMessage(GameMessage::MSG_RVA469);
+		GameMessage *m = TheMessageStream->appendMessage(GameMessage::MSG_RVA469);
 		m->appendIntegerArgument(0);
 		m->appendIntegerArgument(2);
 		return;
 	}
-	GameMessage *m2 = MessageStreamSubsystem->appendMessage(GameMessage::MSG_RVA469);
+	GameMessage *m2 = TheMessageStream->appendMessage(GameMessage::MSG_RVA469);
 	m2->appendIntegerArgument(2);
 }

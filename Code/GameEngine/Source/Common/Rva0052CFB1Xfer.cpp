@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /O1 /MD /Ireference/shims/moduledata
 // ?xfer@Rva0052CFB1@@UAEXPAVXfer@@@Z @0x0052BAFE 42B: slot 3 xfer with IsLightCRC early-out plus Version1 plus int at +0x08 via Xfer slot 0x7c.
 // Evidence: vtable 0x00868780 slot 3 of class of ??1Rva0052CFB1 rowed at 0x0052CFB1, IsLightCRC slot 0x10 plus Version1 row 0x000053EE plus int slot 0x7c per Rva00589079 precedent, layout +0x08 int from Rva0052CFB1Dtor. Xfer declaration copied verbatim from PoisonedBehaviorXfer.cpp.
 
@@ -79,14 +79,7 @@ protected:
 	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
 };
 
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc(Xfer *xfer);
-	virtual void loadPostProcess();
-	virtual void xfer(Xfer *xfer);
-};
+#include "Common/Snapshot.h"
 
 class Rva0052CFB1 : public Snapshot
 {

@@ -30,7 +30,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *name);
 };
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 void __stdcall Rva003C21E5Do(const AsciiString *str1, int x, const AsciiString *str2, const AsciiString *str3)
 {
@@ -40,7 +40,7 @@ void __stdcall Rva003C21E5Do(const AsciiString *str1, int x, const AsciiString *
 	Team *team2 = TheScriptEngine->getTeamNamed(*str3, false);
 	if (team2 == 0)
 		return;
-	void *r1 = TheThingFactory->rva002D06CA(str2);
+	void *r1 = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(str2);
 	ObjectTypes *types = TheScriptEngine->getObjectTypes(*str2);
 	team1->rva003A1626(r1, types, x, team2);
 }

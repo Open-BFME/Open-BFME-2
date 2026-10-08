@@ -12,7 +12,6 @@ extern "C" __declspec(dllimport) int __cdecl sscanf(const char *buf, const char 
 extern "C" __declspec(dllimport) char *__cdecl strstr(const char *s, const char *sub);
 extern "C" unsigned int __cdecl strlen(const char *s);
 
-extern const char g_Rva0107301CEmptyString[];
 
 struct BuddyInviteGameInfo
 {
@@ -28,8 +27,8 @@ struct BuddyInviteGameInfo
 void BuddyInviteGameInfo::LocationFromString(const AsciiString &a)
 {
 	void *h = *(void *const *)&a;
-	const char *t = h != 0 ? (const char *)h + 8 : g_Rva0107301CEmptyString;
-	const char *s = h != 0 ? (const char *)h + 8 : g_Rva0107301CEmptyString;
+	const char *t = h != 0 ? (const char *)h + 8 : "";
+	const char *s = h != 0 ? (const char *)h + 8 : "";
 	sscanf(s, "%d %d %d", &m_04, &m_08, &m_14);
 	const char *pw = strstr(t, " PW:");
 	const char *host = strstr(pw, " #HOST:");

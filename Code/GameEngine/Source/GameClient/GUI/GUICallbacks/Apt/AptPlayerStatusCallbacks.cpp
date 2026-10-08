@@ -50,7 +50,7 @@ public:
 
 // The game being played (LANAPIRemoveGame.cpp's g_Rva00E02EEC).
 struct LANGameInfo;
-extern LANGameInfo *g_Rva00E02EEC;
+extern class GameInfo *TheGameInfo;
 
 // The objectives (Rva0039B95FCount.cpp's g_00E031E8; its +0x10 list is
 // Rva0051C0E7Ctor.cpp's Rva004266A1, whose rowed 0x004268F6 and 0x004269F7
@@ -116,7 +116,7 @@ void AptPlayerStatus::InitGadgets(const char *name, void *argument, GameWindow *
 	signed char slot = m_slot[index];
 	if (slot < 0)
 		return;
-	const GameSlot *gameSlot = ((GameInfo *)g_Rva00E02EEC)->getConstSlot(slot);
+	const GameSlot *gameSlot = ((GameInfo *)(*(LANGameInfo **)&TheGameInfo))->getConstSlot(slot);
 	if (gameSlot && !gameSlot->isAI())
 	{
 		window->winHide(false);

@@ -44,13 +44,6 @@ class PropagandaTowerBehaviorModuleData { public: __declspec(noinline) virtual ~
 PropagandaTowerBehaviorModuleData::~PropagandaTowerBehaviorModuleData() {}
 void PropagandaTowerBehaviorModuleData_Delete(PropagandaTowerBehaviorModuleData *p) { delete p; }
 
-// ??_GRebuildHoleBehaviorModuleData@@UAEPAXI@Z @0x0048332E 28B: slot 0 of vtable 0x00C49950; calls ??1 at 0x0048334A.
-// Owner evidence (audited 2026-09-26): retail registration RebuildHoleBehavior -> data factory RVA 0x0024C433 -> ctor RVA 0x0048323E; primary vptr store RVA 0x00483250.
-class RebuildHoleBehaviorModuleData { public: __declspec(noinline) virtual ~RebuildHoleBehaviorModuleData(); };
-// ??1RebuildHoleBehaviorModuleData@@UAE@XZ present-unmatched
-RebuildHoleBehaviorModuleData::~RebuildHoleBehaviorModuleData() {}
-void RebuildHoleBehaviorModuleData_Delete(RebuildHoleBehaviorModuleData *p) { delete p; }
-
 // ??_GSlaveWatcherBehaviorModuleData@@UAEPAXI@Z @0x004846DE 28B: slot 0 of vtable 0x00C4A298; calls ??1 at 0x004846FA.
 // Owner evidence (audited 2026-09-26): retail registration SlaveWatcherBehavior -> data factory RVA 0x0024C660 -> ctor RVA 0x004846C7; primary vptr store RVA 0x004846CB.
 class SlaveWatcherBehaviorModuleData { public: __declspec(noinline) virtual ~SlaveWatcherBehaviorModuleData(); };

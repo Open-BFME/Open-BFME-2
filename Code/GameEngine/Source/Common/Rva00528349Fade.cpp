@@ -2,8 +2,7 @@
 // ?rva00528349@Rva00528349@@QAEXXZ @0x00528349 64B: FadeIn Apt setter with state at +0x14 plus prefix at +0x18 plus level at +0x4.
 // Evidence: rowed AptCall 0x00524EF4 plus strings FadeIn plus empty plus TheRva plus caller 0x00528868; neighbours Rva00528309Clear.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
 struct Rva00528349Inner
@@ -32,8 +31,8 @@ void Rva00528349::rva00528349()
 		return;
 	if (state == 2)
 		return;
-	const char *prefix = m_18 ? m_18->m_name : g_Rva0107301CEmptyString;
-	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_04, prefix, "FadeIn");
+	const char *prefix = m_18 ? m_18->m_name : "";
+	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_04, prefix, "FadeIn");
 	m_14 = 2;
 }
 
@@ -44,7 +43,7 @@ void Rva00528349::rva00528389()
 		return;
 	if (state == 4)
 		return;
-	const char *prefix = m_18 ? m_18->m_name : g_Rva0107301CEmptyString;
-	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_04, prefix, "FadeOut");
+	const char *prefix = m_18 ? m_18->m_name : "";
+	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_04, prefix, "FadeOut");
 	m_14 = 4;
 }

@@ -79,7 +79,7 @@ public:
 	void regainFocus();
 };
 
-extern AudioMixer *g_audioMixer;
+extern class AudioManager *TheAudio;
 
 float LookupFocusChannelVolume(int channelIndex);
 
@@ -88,8 +88,6 @@ void AudioManager::regainFocus()
 {
 	for (int channel = 0; channel < 3; ++channel) {
 		float volume = LookupFocusChannelVolume(channel);
-		g_audioMixer->setChannelVolume(volume, 1 << channel);
+		(*(AudioMixer **)&TheAudio)->setChannelVolume(volume, 1 << channel);
 	}
 }
-// ?g_audioMixer@@3PAVAudioMixer@@A: the global at VA 0xdfe6e8 is ?TheAudio@@3PAVAudioManager@@A.
-#pragma comment(linker, "/alternatename:?g_audioMixer@@3PAVAudioMixer@@A=?TheAudio@@3PAVAudioManager@@A")

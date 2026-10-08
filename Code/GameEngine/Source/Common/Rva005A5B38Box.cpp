@@ -6,7 +6,7 @@
 // the pinned thiscall 0x5A51B9, stamp +0x488, snapshot timeGetTime, set
 // +0x4A0 and return true.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 extern const char g_rva005A5B38Const[];
@@ -54,7 +54,7 @@ bool Rva005A5B38Box::Run()
 	if (m_4A0 != 0) {
 		m_4A0 = 0;
 		void *key = *(void **)((char *)obj + 0x274);
-		Rva00524EF4AptCall(TheRva00222A8BTarget, key, GetName(), g_rva005A5B38Const);
+		Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), key, GetName(), g_rva005A5B38Const);
 		return false;
 	}
 	Rva005A5B38Helper *h = (Rva005A5B38Helper *)((char *)m_58 + 0x298);

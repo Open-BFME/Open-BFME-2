@@ -23,7 +23,9 @@ public:
 };
 int __cdecl Rva00381452Get();
 class CreateAHeroData { char m_pad[0x140]; };
-CreateAHeroData g_00E048C4;
+// 0x00A048C4: one retail global, defined (as g_Va00E048C4) by Rva007B6880Thunks.cpp,
+// whose dtor thunk and Rva007ABBB3CtorInits.cpp's initializer address the same object.
+extern unsigned int g_Va00E048C4;
 void __cdecl Rva00511F73Run()
 {
 	Rva00511730(0);
@@ -35,5 +37,5 @@ void __cdecl Rva00511F73Run()
 		AsciiString s2("AptMessenger::IsOpen");
 		((Rva002244CA *)TheRva00222A8BTarget)->rva002244CA(&s2);
 	}
-	((Rva002B7250 *)Rva00381452Get())->rva002B7250(&g_00E048C4);
+	((Rva002B7250 *)Rva00381452Get())->rva002B7250((CreateAHeroData *)&g_Va00E048C4);
 }

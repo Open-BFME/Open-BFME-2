@@ -1,7 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB
 // StringLookUp ordering predicate used by the BFME GameTextManager sort.
 
-extern const char g_bfmeEmptyAscii[];
 extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *left, const char *right);
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
@@ -29,9 +28,6 @@ bool __stdcall Rva002E56E2Greater(const char *left, const StringLookUp *right)
 {
 	return _strcmpi(left, right->label->str()) < 0;
 }
-
-// The sort helpers call this comparator as a functor (ECX ignored, two pointers, ret 8), pinned to 0x002E5678; bind that spelling here.
-#pragma comment(linker, "/alternatename:??RRva002E5678Cmp@@QBE_NABUStringLookUp@@0@Z=?compareStringLookUpLess@@YG_NPBX0@Z")
 
 // TheGameText, VA 0x00DFF0BC (.data, zero-filled tail): the GameTextInterface
 // singleton, read by 35 matched units (52 DIR32 sites). Zero Hour defines it in

@@ -28,16 +28,6 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-public:
-	void advance();
-};
-
 class Thing
 {
 public:
@@ -82,7 +72,7 @@ void __stdcall Rva003C36FEDo(Parameter *parm, bool flag)
 	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)parm->getString(), false);
 	if (team == 0)
 		return;
-	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {
+	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance()) {
 		Object *obj = it.cur();
 		if (!obj)
 			continue;

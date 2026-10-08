@@ -496,8 +496,9 @@ void W3DVolumetricShadowManager::renderShadows(RenderInfoClass &rinfo)
 		if (vmat) { vmat->Release_Ref(); vmat = 0; }
 
 		DX8Wrapper::Set_Shader(ShaderClass::_PresetOpaqueShader);
-		DX8Wrapper::Set_Texture(0,0);	//turn off textures
-		DX8Wrapper::Set_Texture(1,0);	//turn off textures
+		//turn off textures
+		DX8Wrapper::Set_Texture(0,0);
+		DX8Wrapper::Set_Texture(1,0);
 		DX8Wrapper::Apply_Render_State_Changes();	//force update of view and projection matrices
 
 		// turn off z writing

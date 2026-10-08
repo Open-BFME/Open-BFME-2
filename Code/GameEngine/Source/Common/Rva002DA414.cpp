@@ -60,7 +60,7 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class Rva002DA414
 {
@@ -80,7 +80,7 @@ void *Rva002DA414::rva002DA414()
 	if (m_type38 == 2) {
 		obj = TheGameLogic->findObjectByID(m_id34);
 	} else if (m_type38 == 1) {
-		ClientHolder *holder = TheGameClient->rva040(m_id34);
+		ClientHolder *holder = ((ClientFrameSubsystem *)TheGameClient)->rva040(m_id34);
 		if (holder == 0)
 			return m_ptr6C;
 		obj = holder->m_objFC;

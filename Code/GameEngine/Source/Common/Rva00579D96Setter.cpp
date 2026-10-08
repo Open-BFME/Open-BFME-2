@@ -20,7 +20,7 @@ namespace StrategicHUD
 	UnicodeString FormatBonusText(int value);
 	class StatsDisplayImpl;
 }
-UnicodeString __cdecl Rva00579A2FGet(int value);
+namespace StrategicHUD { UnicodeString __cdecl FormatPowerPointsText(int value); }
 
 class StrategicHUD::StatsDisplayImpl
 {
@@ -64,7 +64,7 @@ void StrategicHUD::StatsDisplayImpl::rva00579DF8(int value)
 {
 	if (value != m_3C)
 	{
-		SetRowText(5, Rva00579A2FGet(value));
+		SetRowText(5, StrategicHUD::FormatPowerPointsText(value));
 		m_3C = value;
 	}
 }

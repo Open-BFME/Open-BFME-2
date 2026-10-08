@@ -1,6 +1,6 @@
 // ??1Rva0034C5E0@@UAE@XZ
 // partial score=0.94 date=2026-09-27
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ob2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /O1 /Ob2 /Ireference/shims/moduledata
 // stlport
 // ??1Rva0034C5E0@@UAE@XZ @ 0x0035822E (88B).
 // Dtor of small Snapshot-derived class owning an unsigned-void* RB-tree at +0x0C and AsciiString at +0x04.
@@ -9,20 +9,7 @@
 // (+0x04 zero +0x08 one +0x0C zero) and caller deleting dtor 0x00358317 slot 0 of 0x008150E4.
 #include <map>
 
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc();
-	virtual void loadPostProcess();
-	virtual void xfer();
-};
-
-extern const void *const g_00BBB554[];
-inline Snapshot::~Snapshot()
-{
-	*(const void **)this = g_00BBB554;
-}
+#include "Common/Snapshot.h"
 
 #include "ascii_string.h"
 

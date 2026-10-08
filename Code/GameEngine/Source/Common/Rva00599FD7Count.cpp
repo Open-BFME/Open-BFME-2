@@ -32,16 +32,6 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-public:
-	void advance();
-};
-
 class Team
 {
 public:
@@ -57,7 +47,7 @@ public:
 int AITeamBuilder::getCurNumUnits(Team *team)
 {
 	int count = 0;
-	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); ((Rva001705A0DlinkIterator<Object> &)iter).advance()) {
+	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); ((DLINK_ITERATOR<Object> &)iter).advance()) {
 		Object *cur = iter.cur();
 		ThingTemplate *tmpl = cur->m_template;
 		if ((tmpl->m_kind0 & 8) != 0 || (tmpl->m_kind1 & 4) != 0)

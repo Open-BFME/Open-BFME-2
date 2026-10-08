@@ -58,8 +58,9 @@ private:
 
 class Object
 {
-public:
+protected:
 	Module *findModule(NameKeyType key) const;
+	friend struct findEldest;
 };
 
 struct findEldestData

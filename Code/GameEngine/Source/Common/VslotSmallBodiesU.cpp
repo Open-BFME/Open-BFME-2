@@ -34,7 +34,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *name);
 };
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 struct Rva00452EDDData
 {
 	char m_pad00[0x14];
@@ -61,21 +61,21 @@ void *Rva00452EDD::rva00452EDD()
 	const Rva00452EDDData *d = (const Rva00452EDDData *)m_moduleData;
 	if (!d)
 		return 0;
-	return TheThingFactory->rva002D06CA((const AsciiString *)&d->m_14);
+	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)&d->m_14);
 }
 void *Rva00452EDD::rva00452EF5()
 {
 	const Rva00452EDDData *d = (const Rva00452EDDData *)m_moduleData;
 	if (!d)
 		return 0;
-	return TheThingFactory->rva002D06CA((const AsciiString *)&d->m_18);
+	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)&d->m_18);
 }
 void *Rva00452EDD::rva00452F0D()
 {
 	const Rva00452EDDData *d = (const Rva00452EDDData *)m_moduleData;
 	if (!d)
 		return 0;
-	return TheThingFactory->rva002D06CA((const AsciiString *)&d->m_1C);
+	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)&d->m_1C);
 }
 
 // 0x0044F09F (interface at +0x20, beside WeaponFireSpecialAbilityUpdate's

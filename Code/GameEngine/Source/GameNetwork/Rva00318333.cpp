@@ -87,7 +87,6 @@ public:
 	Object *getFirstObject();
 };
 extern GameLogic *TheGameLogic;
-extern const char g_Rva0107301CEmptyString[];
 void Rva00318333::rva00318333(Object *obj, bool flag)
 {
 	if (!obj)
@@ -146,7 +145,7 @@ void Rva00318333::rva00318719()
 		obj = obj->m_8C;
 	}
 	m_18 = 0;
-	m_20.set(g_Rva0107301CEmptyString);
+	m_20.set("");
 	memset(&m_58, 0, 4);
 	m_24 = 0;
 	m_2C = 0;

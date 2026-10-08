@@ -20,7 +20,7 @@ public:
 	virtual void v9() = 0;
 	virtual void v10() = 0;
 };
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class GameLogic
 {
@@ -112,7 +112,7 @@ void Rva002B8860::rva002B8860()
 	if (g_Va00E032E0)
 	{
 		Rva00433D27Enable();
-		TheRva00222A8BTarget->v10();
+		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->v10();
 	}
 	if (TheGameLogic)
 		TheGameLogic->rva00376D49();

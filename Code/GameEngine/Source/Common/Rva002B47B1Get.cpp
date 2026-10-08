@@ -15,10 +15,11 @@ public:
 	int m_index10;
 	Rva002B47B1Elem **m_array14;
 };
-// g_00E02D6C: matched references place it at VA 0xe02d6c (retail .data initial value 0).
-Rva003B8BAA * g_00E02D6C = 0;
+// TheCampaignManager (0x00E02D6C): matched references place it at VA 0xe02d6c (retail .data initial value 0).
+class Rva00E02D6C;
+Rva00E02D6C *TheCampaignManager = 0;
 void *Rva002B47B1Get(void)
 {
-	Rva003B8BAA *g = g_00E02D6C;
+	Rva003B8BAA *g = ((Rva003B8BAA *)TheCampaignManager);
 	return g->m_array14[g->m_index10]->m_ptr40;
 }

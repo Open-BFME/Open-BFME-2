@@ -9,9 +9,9 @@ public:
 };
 
 extern AsciiString g_00DFF4F8;
-extern Rva0030ADED g_00DFF4B8;
+extern unsigned int g_Va00DFF4B8;	// object at 0x00DFF4B8 (Rva007B6880Thunks.cpp)
 
 void Rva0030AEA6Copy()
 {
-    ((Rva0030ADED &)g_00DFF4F8) = g_00DFF4B8;
+    ((Rva0030ADED &)g_00DFF4F8) = (Rva0030ADED &)g_Va00DFF4B8;
 }

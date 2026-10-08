@@ -131,7 +131,7 @@ public:
 	UnsignedInt getFrame() { return m_frame; }
 };
 
-static GameLogic *TheGameLogic;
+extern GameLogic *TheGameLogic;
 
 class StateMachine
 {

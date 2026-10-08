@@ -39,7 +39,7 @@ public:
 	virtual void v16(); virtual void v17();
 	virtual GameMessage *appendMessage(int type);	// slot 18 (+0x48)
 };
-extern MessageStream *MessageStreamSubsystem;	// VA 0x00E00950
+extern class MessageStream *TheMessageStream;	// VA 0x00E00950
 
 class InGameUI
 {
@@ -274,7 +274,7 @@ bool Rva001FDB55::rva001FD5B2()
 	{
 		TheInGameUI->message(UnicodeString(L"Reloaded PlayerTemplates require a map RESTART."));
 		TheInGameUI->message(UnicodeString(L"Use the Pause menu to RESTART at any time.."));
-		MessageStreamSubsystem->appendMessage(0x70);
+		TheMessageStream->appendMessage(0x70);
 		g_Va00DFE0D4 = false;
 		return true;
 	}

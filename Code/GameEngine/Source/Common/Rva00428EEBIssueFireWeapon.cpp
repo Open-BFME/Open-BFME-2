@@ -42,7 +42,7 @@ public:
 	virtual GameMessage *createMessage(int type);
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 class DrawableList;
 class PickAndPlayInfo;
@@ -128,7 +128,7 @@ int __stdcall Rva00428EEBIssueFireWeapon(const CommandButton *command, int comma
 			int msgType = GameMessage::MSG_434;
 			if (commandType == 0)
 			{
-				GameMessage *msg = MessageStreamSubsystem->createMessage(msgType);
+				GameMessage *msg = TheMessageStream->createMessage(msgType);
 				msg->appendObjectIDArgument(target->m_object ? target->m_object->m_id : OBJECTID_NONE);
 				msg->appendIntegerArgument(0);
 
@@ -146,7 +146,7 @@ int __stdcall Rva00428EEBIssueFireWeapon(const CommandButton *command, int comma
 		int msgType = GameMessage::MSG_433;
 		if (commandType == 0)
 		{
-			GameMessage *msg = MessageStreamSubsystem->createMessage(msgType);
+			GameMessage *msg = TheMessageStream->createMessage(msgType);
 			msg->appendLocationArgument(*pos);
 			msg->appendIntegerArgument(0);
 

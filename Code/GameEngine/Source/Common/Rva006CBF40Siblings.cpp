@@ -1,6 +1,6 @@
 // cl: /O1 /MD
 //
-// 29 scalar deleting destructors sharing the Rva006FB9B0DeletingDtor.cpp
+// 15 scalar deleting destructors sharing the Rva006FB9B0DeletingDtor.cpp
 // shape (35 bytes each): call the class complete destructor, then a sized
 // release through one of two pinned chain-block pools. The class is named
 // after its own deleting destructor RVA; the complete dtor is only declared
@@ -11,6 +11,14 @@
 //
 // Variation per member: complete-dtor call target, pool object
 // (0x00E176E8/Rva006DB270 or 0x00E176F4/Rva006D2A60) and class size.
+// Fourteen more of this shape are rowed beside the destructors they call:
+// 0x006D6570, 0x006E9B20, 0x006F2C70, 0x006F3960, 0x006FC0F0, 0x006FC190 in
+// Rva006D6470Derived.cpp, 0x006DE280 and 0x006DE760 in
+// Rva006D63C0Derived.cpp, 0x006F1DC0 in Rva006F1360Derived.cpp; and five
+// more beside their own class destructors: 0x006D64D0
+// (LadderPreferencesDtor.cpp), 0x006ECF90 (Rva006ECFC0Siblings.cpp),
+// 0x006F15D0 (Rva006F1360Dtor.cpp), 0x006FBC60 (Rva006FBC90OwnerDtor.cpp),
+// 0x00711350 (Rva00711330Dtor.cpp).
 
 class Rva006DE350
 {
@@ -119,48 +127,6 @@ void deleteRva006CEA60(Rva006CEA60 *p)
 	delete p;
 }
 
-class Rva006D64D0 : public Rva006DE350
-{
-public:
-	virtual ~Rva006D64D0();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x1C]; // sizeof 0x20
-};
-
-// ?Rva006D64D0::~Rva006D64D0 present-unmatched
-Rva006D64D0::~Rva006D64D0()
-{
-}
-
-void deleteRva006D64D0(Rva006D64D0 *p)
-{
-	delete p;
-}
-
-class Rva006D6570 : public Rva006DE350
-{
-public:
-	virtual ~Rva006D6570();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x20]; // sizeof 0x24
-};
-
-// ?Rva006D6570::~Rva006D6570 present-unmatched
-Rva006D6570::~Rva006D6570()
-{
-}
-
-void deleteRva006D6570(Rva006D6570 *p)
-{
-	delete p;
-}
-
 class Rva006D71B0 : public Rva006DE350
 {
 public:
@@ -224,69 +190,6 @@ void deleteRva006DA560(Rva006DA560 *p)
 	delete p;
 }
 
-class Rva006DE280 : public Rva006DE350
-{
-public:
-	virtual ~Rva006DE280();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x1C]; // sizeof 0x20
-};
-
-// ?Rva006DE280::~Rva006DE280 present-unmatched
-Rva006DE280::~Rva006DE280()
-{
-}
-
-void deleteRva006DE280(Rva006DE280 *p)
-{
-	delete p;
-}
-
-class Rva006DE760 : public Rva006DE350
-{
-public:
-	virtual ~Rva006DE760();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x1C]; // sizeof 0x20
-};
-
-// ?Rva006DE760::~Rva006DE760 present-unmatched
-Rva006DE760::~Rva006DE760()
-{
-}
-
-void deleteRva006DE760(Rva006DE760 *p)
-{
-	delete p;
-}
-
-class Rva006E9B20 : public Rva006DE350
-{
-public:
-	virtual ~Rva006E9B20();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x20]; // sizeof 0x24
-};
-
-// ?Rva006E9B20::~Rva006E9B20 present-unmatched
-Rva006E9B20::~Rva006E9B20()
-{
-}
-
-void deleteRva006E9B20(Rva006E9B20 *p)
-{
-	delete p;
-}
-
 class Rva006E9B50 : public Rva006DE350
 {
 public:
@@ -329,111 +232,6 @@ void deleteRva006EC170(Rva006EC170 *p)
 	delete p;
 }
 
-class Rva006ECF90 : public Rva006DE350
-{
-public:
-	virtual ~Rva006ECF90();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x3C]; // sizeof 0x40
-};
-
-// ?Rva006ECF90::~Rva006ECF90 present-unmatched
-Rva006ECF90::~Rva006ECF90()
-{
-}
-
-void deleteRva006ECF90(Rva006ECF90 *p)
-{
-	delete p;
-}
-
-class Rva006F15D0 : public Rva006DE350
-{
-public:
-	virtual ~Rva006F15D0();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x24]; // sizeof 0x28
-};
-
-// ?Rva006F15D0::~Rva006F15D0 present-unmatched
-Rva006F15D0::~Rva006F15D0()
-{
-}
-
-void deleteRva006F15D0(Rva006F15D0 *p)
-{
-	delete p;
-}
-
-class Rva006F1DC0 : public Rva006DE350
-{
-public:
-	virtual ~Rva006F1DC0();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x24]; // sizeof 0x28
-};
-
-// ?Rva006F1DC0::~Rva006F1DC0 present-unmatched
-Rva006F1DC0::~Rva006F1DC0()
-{
-}
-
-void deleteRva006F1DC0(Rva006F1DC0 *p)
-{
-	delete p;
-}
-
-class Rva006F2C70 : public Rva006DE350
-{
-public:
-	virtual ~Rva006F2C70();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x20]; // sizeof 0x24
-};
-
-// ?Rva006F2C70::~Rva006F2C70 present-unmatched
-Rva006F2C70::~Rva006F2C70()
-{
-}
-
-void deleteRva006F2C70(Rva006F2C70 *p)
-{
-	delete p;
-}
-
-class Rva006F3960 : public Rva006DE350
-{
-public:
-	virtual ~Rva006F3960();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x28]; // sizeof 0x2C
-};
-
-// ?Rva006F3960::~Rva006F3960 present-unmatched
-Rva006F3960::~Rva006F3960()
-{
-}
-
-void deleteRva006F3960(Rva006F3960 *p)
-{
-	delete p;
-}
-
 class Rva006F7DC0 : public Rva006DE350
 {
 public:
@@ -472,69 +270,6 @@ Rva006F8D70::~Rva006F8D70()
 }
 
 void deleteRva006F8D70(Rva006F8D70 *p)
-{
-	delete p;
-}
-
-class Rva006FBC60 : public Rva006DE350
-{
-public:
-	virtual ~Rva006FBC60();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x1C]; // sizeof 0x20
-};
-
-// ?Rva006FBC60::~Rva006FBC60 present-unmatched
-Rva006FBC60::~Rva006FBC60()
-{
-}
-
-void deleteRva006FBC60(Rva006FBC60 *p)
-{
-	delete p;
-}
-
-class Rva006FC0F0 : public Rva006DE350
-{
-public:
-	virtual ~Rva006FC0F0();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x60]; // sizeof 0x64
-};
-
-// ?Rva006FC0F0::~Rva006FC0F0 present-unmatched
-Rva006FC0F0::~Rva006FC0F0()
-{
-}
-
-void deleteRva006FC0F0(Rva006FC0F0 *p)
-{
-	delete p;
-}
-
-class Rva006FC190 : public Rva006DE350
-{
-public:
-	virtual ~Rva006FC190();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x1C]; // sizeof 0x20
-};
-
-// ?Rva006FC190::~Rva006FC190 present-unmatched
-Rva006FC190::~Rva006FC190()
-{
-}
-
-void deleteRva006FC190(Rva006FC190 *p)
 {
 	delete p;
 }
@@ -623,28 +358,3 @@ void deleteRva0070A590(Rva0070A590 *p)
 	delete p;
 }
 
-class Rva00711350 : public Rva006DE350
-{
-public:
-	virtual ~Rva00711350();
-	static void operator delete(void *p, unsigned int size)
-	{
-		g_pChainBlockAllocatorF4->freeBlock(p, size);
-	}
-	char m_pad[0x20]; // sizeof 0x24
-};
-
-// ?Rva00711350::~Rva00711350 present-unmatched
-Rva00711350::~Rva00711350()
-{
-}
-
-void deleteRva00711350(Rva00711350 *p)
-{
-	delete p;
-}
-
-// Other units name this global (at the same address) with the spelling(s)
-// below; bind them to this definition.
-#pragma comment(linker, "/alternatename:?g_poolAtE176F4@@3PAVAptValueGC_PoolManager@@A=?g_pChainBlockAllocatorF4@@3PAVRva006D2A60@@A")
-#pragma comment(linker, "/alternatename:?g_bfmeChainBlockAllocatorAtE176F4@@3PAVRva006D2A60@@A=?g_pChainBlockAllocatorF4@@3PAVRva006D2A60@@A")

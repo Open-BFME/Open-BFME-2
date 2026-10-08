@@ -165,5 +165,4 @@ Rva00403055 &Rva00403055::operator=(const Rva00403055 &other)
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?clearItems@Rva003FA26F@@QAEXXZ=?clearItems@Rva00403055@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?clearItems@Rva00402D7E@@QAEXXZ=?clearItems@Rva00403055@@QAEXXZ")

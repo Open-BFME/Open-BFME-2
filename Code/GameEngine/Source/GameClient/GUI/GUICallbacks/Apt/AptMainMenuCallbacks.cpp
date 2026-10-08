@@ -221,7 +221,7 @@ public:
 	virtual GameMessage *appendMessage(int type);
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 // The game mode TheGameLogic (0x00DFE78C) keeps at +0x110.
 class GameLogic;
@@ -431,7 +431,7 @@ void AptMainMenu::LoadReplay(const char *unused)
 void AptMainMenu::StopGameMovie(const char *unused)
 {
 	if (((AptMainMenuGameLogic *)TheGameLogic)->m_mode != 9)
-		MessageStreamSubsystem->appendMessage(0x1D);
+		TheMessageStream->appendMessage(0x1D);
 }
 
 // Retail 0x00515041, 51 bytes: "AptMainMenu::ContinueCampaign" stays on

@@ -28,7 +28,7 @@ public:
 	const UpgradeTemplate *findUpgrade(const AsciiString &name) const throw();
 };
 
-static UpgradeCenter *TheUpgradeCenter;
+extern UpgradeCenter *TheUpgradeCenter;	// Upgrade.cpp's global (0x009FEB60)
 
 struct UpgradeMaskType
 {

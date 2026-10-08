@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii
+// cl: /Ireference/shims/bfme2_ascii /O1 /Ireference/shims/moduledata
 
 // ?rva00271A0F@Rva00271A0F@@QAEXPAVXfer@@@Z, RVA 0x00271A0F, 113B.
 // Chain lane: calls Rva0030612AXfer 0x0030612A (3-float helper, rowed).
@@ -95,14 +95,7 @@ struct RGBAColorInt
 
 #include "ascii_string.h"
 
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void loadPostProcess() = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-};
+#include "Common/Snapshot.h"
 
 class Xfer
 {

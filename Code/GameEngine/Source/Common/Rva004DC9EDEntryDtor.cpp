@@ -9,13 +9,17 @@
 // name unrecovered, hence the address-derived vehicle. The ??_G at
 // 0x00426316 calls this body directly.
 
-class AsciiString
+template <class T> class StringBase
+{
+	friend class AsciiString;
+	void releaseBuffer();
+	char m_pad[4];
+};
+
+class AsciiString : public StringBase<char>
 {
 public:
-	~AsciiString();
-
-private:
-	char m_pad[4];
+	~AsciiString() { releaseBuffer(); }
 };
 
 class Rva004DC9EDEntry

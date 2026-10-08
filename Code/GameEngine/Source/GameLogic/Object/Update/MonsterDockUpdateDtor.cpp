@@ -8,7 +8,7 @@
 // The body restores the four vtable pointers of the complete object -- the
 // derived slot at +0x00 (0x851D74) plus the +0x0C (0x851B20), +0x10
 // (0x851D68) and +0x20 (0x851D18) secondary slots -- then tail-jumps to the
-// opaque SEH base destructor (pinned ??1Rva0058A0F4@@UAE@XZ at 0x0058A0F4).
+// opaque SEH base destructor (pinned ??1DockUpdate@@UAE@XZ at 0x0058A0F4).
 // The base is modelled with its full four-vptr shape here and only declared
 // (defined nowhere) so the call resolves via the pin. Vtable values are
 // DIR32 auto-patches. Caller: scalar deleting dtor at 0x004A1459.
@@ -43,13 +43,13 @@ public:
 	virtual void fe();
 };
 
-class Rva0058A0F4 : public Rva0058A0F4_Root, public Rva0058A0F4_M1, public Rva0058A0F4_B2, public Rva0058A0F4_E1
+class DockUpdate : public Rva0058A0F4_Root, public Rva0058A0F4_M1, public Rva0058A0F4_B2, public Rva0058A0F4_E1
 {
 public:
-	virtual ~Rva0058A0F4();
+	virtual ~DockUpdate();
 };
 
-class MonsterDockUpdate : public Rva0058A0F4
+class MonsterDockUpdate : public DockUpdate
 {
 protected:
 	virtual ~MonsterDockUpdate();

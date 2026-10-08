@@ -19,7 +19,7 @@
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 class __declspec(novtable) Rva0022C987Base

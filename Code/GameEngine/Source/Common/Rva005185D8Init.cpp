@@ -6,7 +6,7 @@
 extern int g_Va00A04908;
 extern int g_00E04914;
 struct GlobalA01E48;
-extern struct GlobalA01E48 *g_Va00A01E48;
+extern class Shell *TheShell;
 class Shell
 {
 public:
@@ -17,7 +17,7 @@ class Rva00222A8BTarget
 public:
 	void rva002233A6(int mode);
 };
-extern class Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct State005185D8
 {
 	char m_pad[0x280];
@@ -39,7 +39,7 @@ void Rva005185D8Init(bool a1, bool a2, bool a3, bool a4)
 {
 	if (g_Va00A04908 != 0)
 		return;
-	((Shell *)g_Va00A01E48)->push(AsciiString("Options.apt"), false);
+	((Shell *)(*(GlobalA01E48 **)&TheShell))->push(AsciiString("Options.apt"), false);
 	if (g_Va00A04908 != 0)
 	{
 		((State005185D8 *)g_Va00A04908)->m_280 = a2;
@@ -48,7 +48,7 @@ void Rva005185D8Init(bool a1, bool a2, bool a3, bool a4)
 		((State005185D8 *)g_Va00A04908)->m_281 = a3;
 		((State005185D8 *)g_Va00A04908)->m_282 = a2;
 	}
-	TheRva00222A8BTarget->rva002233A6(1);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva002233A6(1);
 }
 
 // ?Rva0051E262Init@@YA_NHH@Z @0x0051E262 85B
@@ -59,7 +59,7 @@ bool Rva0051E262Init(int a1, int a2)
 {
 	if (g_00E04914 != 0)
 		return true;
-	((Shell *)g_Va00A01E48)->push(AsciiString("ScoreScreen.apt"), false);
+	((Shell *)(*(GlobalA01E48 **)&TheShell))->push(AsciiString("ScoreScreen.apt"), false);
 	((State0051E262 *)g_00E04914)->m_280 = a1;
 	((State0051E262 *)g_00E04914)->m_288 = a2;
 	((State0051E262 *)g_00E04914)->rva0051DE3D();

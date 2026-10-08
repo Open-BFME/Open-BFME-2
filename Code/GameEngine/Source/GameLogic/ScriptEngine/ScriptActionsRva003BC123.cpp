@@ -43,7 +43,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 class AIUpdateInterface
 {
@@ -100,7 +100,7 @@ void ScriptActions::doNamedBuildStructureAtWaypoint(Parameter *param, const Asci
 {
 	Object *obj = TheScriptEngine->getUnitNamed(param);
 	Waypoint *way = TheTerrainLogic->getWaypointByName(wayName);
-	void *lookup = TheThingFactory->rva002D06CA(&arg2);
+	void *lookup = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&arg2);
 	if (!obj || !way || !lookup)
 		return;
 	AIUpdateInterface *ai = obj->getAI();

@@ -338,13 +338,13 @@ class Rva00222A8BTarget
 public:
 	void rva002233A6(Int a);
 };
-extern Rva00222A8BTarget *g_rva0051483CTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva0035C194
 {
 public:
 	bool rva0035C194(bool a, bool b);
 };
-extern Rva0035C194 *g_rva0051483COther;
+extern class Shell *TheShell;
 struct Rva0051483CLogic
 {
 	char m_pad00[0x110];
@@ -358,10 +358,10 @@ public:
 };
 bool Rva0051483C::rva0051483C()
 {
-	if (TheGameLogic && g_rva0051483COther && TheGameLogic->m_110 != 4
-		&& g_rva0051483COther->rva0035C194(true, false))
+	if (TheGameLogic && (*(Rva0035C194 **)&TheShell) && TheGameLogic->m_110 != 4
+		&& (*(Rva0035C194 **)&TheShell)->rva0035C194(true, false))
 	{
-		g_rva0051483CTarget->rva002233A6(1);
+		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva002233A6(1);
 		return false;
 	}
 	return true;

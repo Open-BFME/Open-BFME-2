@@ -26,9 +26,6 @@ extern PlayerList *ThePlayerList;
 
 class GameWindowTransitionsHandler;
 extern GameWindowTransitionsHandler *TheTransitionHandler;
-// Native DIR32 0xDFDC14 is the transition singleton, defined in WinMain.cpp.
-// TheAudio is separately located at 0xDFE6E8. Use the established typed alias.
-#pragma comment(linker, "/alternatename:?TheTransitionHandler@@3PAVGameWindowTransitionsHandler@@A=?theBfmeDfdc14@@3PAVAudioManager@@A")
 
 class InGameUI
 {

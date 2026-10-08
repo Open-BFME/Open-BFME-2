@@ -80,6 +80,8 @@ static void bfmeDataChunkYieldToOS(void)
 template <typename T>
 class StringBase
 {
+	friend class AsciiString;
+	void releaseBuffer();
 public:
 	StringBase(void) : m_data(0) {}
 	StringBase(const T *text);
@@ -118,7 +120,7 @@ public:
 	// StringBase<char> C-string ctor 0x00037BA0 directly; AsciiString's own
 	// out-of-line const char * ctor (0x0000654A) only forwards to it.
 	AsciiString(const char *text) : StringBase<char>(text) {}
-	~AsciiString();
+	~AsciiString() { releaseBuffer(); }
 
 	AsciiString &operator=(const AsciiString &other)
 	{
@@ -353,26 +355,8 @@ DataChunkInput::~DataChunkInput()
 // DataChunkInput::readArrayOfBytes: defined in DataChunkInputReadScalars.cpp (its row's unit).
 
 // ?readAsciiString@DataChunkInput@@QAE?AVAsciiString@@XZ
-// ?readAsciiString@DataChunkInput@@QAE?AVAsciiString@@XZ present-unmatched
-AsciiString DataChunkInput::readAsciiString(void)
-{
-	UnsignedShort len;
-
-	bfmeDataChunkYieldToOS();
-	m_file->read(&len, sizeof(UnsignedShort));
-	decrementDataLeft(sizeof(UnsignedShort));
-
-	AsciiString theString;
-	if (len > 0) {
-		char *str = theString.getBufferForRead(len);
-		m_file->read(str, len);
-		decrementDataLeft(len);
-
-		str[len] = '\0';
-	}
-
-	return theString;
-}
+// ?readAsciiString@DataChunkInput@@QAE?AVAsciiString@@XZ is a row of DataChunkInputReadAsciiString.cpp; this unit's copy was
+// a second, non-retail definition of it.
 
 // readNameKey lives in DataChunkReadNameKey.cpp (declared-only callees keep
 // the out-of-line readInt call; this TU's inline readInt would fold it).

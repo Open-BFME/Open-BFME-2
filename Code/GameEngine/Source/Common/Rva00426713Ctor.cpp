@@ -7,7 +7,7 @@ extern const void *const g_00C3C3F8[];
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 class __declspec(novtable) Rva00426713Base

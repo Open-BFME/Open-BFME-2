@@ -152,7 +152,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 class SidesList
 {
@@ -199,7 +199,7 @@ void __cdecl rva003967A5(Rva003967A5Owner *owner, int x, int y)
 				while (TheSidesList->rva0032BD25(key, idx, &info)) {
 					++idx;
 					AsciiString hitName(((const TerrainType *)&info)->getTexture());
-					void *tmpl = TheThingFactory->rva002D06CA(&hitName);
+					void *tmpl = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&hitName);
 					if (tmpl != 0)
 						((Rva0020AA00Target *)tmpl)->notify(x, y);
 				}
@@ -212,7 +212,7 @@ void __cdecl rva003967A5(Rva003967A5Owner *owner, int x, int y)
 	if (count != 0) {
 		do {
 			NoCaseTreePair4 tmp(owner->m_begin[i]);
-			void *tmpl = TheThingFactory->rva002D06CA(&tmp.first);
+			void *tmpl = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp.first);
 			if (tmpl != 0)
 				((Rva0020AA00Target *)tmpl)->notify(x, y);
 		} while (++i < count);

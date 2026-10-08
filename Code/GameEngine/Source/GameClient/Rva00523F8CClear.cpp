@@ -42,7 +42,7 @@ public:
 };
 
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 struct CameraMarker
 {
@@ -67,15 +67,15 @@ private:
 
 void Rva00524021::rva00523F8C()
 {
-	if (TheRva00222A8BTarget == 0)
+	if ((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager) == 0)
 		return;
 	while (m_begin1 != m_end1) {
-		((Rva0022453E *)TheRva00222A8BTarget)->rva0022453E(*(const AsciiString *)(m_end1 - 1));
+		((Rva0022453E *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->rva0022453E(*(const AsciiString *)(m_end1 - 1));
 		--m_end1;
 		m_end1->clear();
 	}
 	while (m_begin2 != m_end2) {
-		((Rva002245FF *)TheRva00222A8BTarget)->rva002245FF(*(int *)((char *)m_end2 - 8), *(const AsciiString *)((char *)m_end2 - 4));
+		((Rva002245FF *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->rva002245FF(*(int *)((char *)m_end2 - 8), *(const AsciiString *)((char *)m_end2 - 4));
 		--m_end2;
 		m_end2->~CameraMarker();
 	}
@@ -83,10 +83,10 @@ void Rva00524021::rva00523F8C()
 
 void Rva00524021::rva00523FEC()
 {
-	if (TheRva00222A8BTarget == 0)
+	if ((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager) == 0)
 		return;
 	while (m_begin1 != m_end1) {
-		((Rva002246B1 *)TheRva00222A8BTarget)->rva002246B1((const AsciiString *)(m_end1 - 1));
+		((Rva002246B1 *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->rva002246B1((const AsciiString *)(m_end1 - 1));
 		--m_end1;
 		m_end1->clear();
 	}
@@ -94,10 +94,10 @@ void Rva00524021::rva00523FEC()
 
 void Rva00524021::rva00523F57()
 {
-	if (TheRva00222A8BTarget == 0)
+	if ((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager) == 0)
 		return;
 	while (m_begin1 != m_end1) {
-		((Rva002244CA *)TheRva00222A8BTarget)->rva002244CA((const AsciiString *)(m_end1 - 1));
+		((Rva002244CA *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->rva002244CA((const AsciiString *)(m_end1 - 1));
 		--m_end1;
 		m_end1->clear();
 	}
@@ -105,10 +105,10 @@ void Rva00524021::rva00523F57()
 
 void Rva00524021::rva00523F22()
 {
-	if (TheRva00222A8BTarget == 0)
+	if ((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager) == 0)
 		return;
 	while (m_begin1 != m_end1) {
-		((Rva00224455 *)TheRva00222A8BTarget)->rva00224455((const AsciiString *)(m_end1 - 1));
+		((Rva00224455 *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->rva00224455((const AsciiString *)(m_end1 - 1));
 		--m_end1;
 		m_end1->clear();
 	}

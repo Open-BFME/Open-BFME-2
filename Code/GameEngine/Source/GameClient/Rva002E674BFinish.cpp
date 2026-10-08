@@ -27,7 +27,6 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 #include <vector>
 #include <string.h>
 
-extern const char g_Rva0107301CEmptyString[];
 
 struct AsciiStringHeader
 {
@@ -40,7 +39,7 @@ struct AsciiStringHeader
 class AsciiString
 {
 public:
-	const char *str() const { return m_data ? m_data->m_data : g_Rva0107301CEmptyString; }
+	const char *str() const { return m_data ? m_data->m_data : ""; }
 private:
 	AsciiStringHeader *m_data;
 };

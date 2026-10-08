@@ -1,9 +1,9 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva003E50B4Check@@YG_NPAVParameter@@0@Z
 // retail 0x003E50B4 81B leaf free stdcall bool of 2x Parameter ret 8. Evidence:
-// rowed ScriptEngine::getUnitNamed via g_Va009FE16C plus TerrainLogic slot 0x88
+// rowed ScriptEngine::getUnitNamed via TheScriptEngine plus TerrainLogic slot 0x88
 // getWaypointByName via TheTerrainLogic with (Parameter+0x10) plus pin
-// rva002F477E via g_Va009FF0F8+0x10 pathfinder with (object from to 0);
+// QuickDoesPathExist via TheAI+0x10 pathfinder with (object from to 0);
 // Object +0x38 Coord3D; Waypoint +0x0c Coord3D; siblings 0x003E4F79 0x003E5105 /O1.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -23,7 +23,7 @@ class ScriptEngine
 public:
 	Object *getUnitNamed(Parameter *p);
 };
-extern class ScriptEngine *TheScriptEngine;
+extern ScriptEngine *TheScriptEngine;
 
 struct Waypoint
 {
@@ -75,7 +75,7 @@ extern TerrainLogic *TheTerrainLogic;
 class Pathfinder
 {
 public:
-	bool rva002F477E(Object *obj, const Coord3D *from, const Coord3D *to, int x);
+	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int x);
 };
 
 class AI
@@ -84,7 +84,7 @@ public:
 	char m_pad[0x10];
 	Pathfinder *m_10;
 };
-extern class AI *TheAI;
+extern AI *TheAI;
 
 bool __stdcall Rva003E50B4Check(Parameter *a, Parameter *b)
 {
@@ -95,5 +95,5 @@ bool __stdcall Rva003E50B4Check(Parameter *a, Parameter *b)
 	if (!way)
 		return false;
 	Pathfinder *pf = TheAI->m_10;
-	return pf->rva002F477E(o1, &o1->m_38, &way->m_0c, 0);
+	return pf->QuickDoesPathExist(o1, &o1->m_38, &way->m_0c, 0);
 }

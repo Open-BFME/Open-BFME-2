@@ -1,22 +1,15 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc
 // ?endGame@GameInfo@@QAEXXZ @0x003FF296 (9B):
 // GameInfo::endGame. BFME1 GameInfo.cpp donor verbatim minus DEBUG_ASSERTCRASH
 // (compiled out under /DNDEBUG): clears inGame/inProgress at +0x10/+0x11.
 // Layout from GameInfoGetSlotNum (pad 0x10 then inGame): two mov byte 0 + ret.
-//
-// ?rva003FF268@GameInfo@@QAEXXZ @0x003FF268 (9B): sets inGame and clears
-// inProgress. Same fields as endGame; it sits just before startGame (vtable
-// slot 11, 0x003FF271) and endGame, where BFME1/ZH GameInfo.cpp place
-// enterGame, but the donor's reset() call is absent here (callers such as
-// GameEngine::init call vtable slot 10 just before), so the pinned address
-// name stays.
 
 typedef bool Bool;
 
 class GameInfo
 {
 public:
-	void rva003FF268();
+	void enterGame();
 	void endGame();
 
 private:
@@ -25,7 +18,11 @@ private:
 	Bool m_inProgress;  // +0x11
 };
 
-void GameInfo::rva003FF268()
+// ?enterGame@GameInfo@@QAEXXZ @0x003FF268 (9B): WorldBuilder names it
+// GameInfo::enterGame (GameInfo.cpp, assert line 721 "Entering game at a bad
+// time!", compiled out here): sets inGame, clears inProgress. Same shape in the
+// BFME1 GameInfo.cpp donor.
+void GameInfo::enterGame()
 {
 	m_inGame = true;
 	m_inProgress = false;

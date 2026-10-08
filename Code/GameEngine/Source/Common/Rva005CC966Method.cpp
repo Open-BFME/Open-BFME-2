@@ -1,5 +1,5 @@
-// cl: /DNDEBUG /MD
-// ?rva005CC966@Rva005CC966@@QAEXXZ @0x005CC966 30B evidence: Eva rva001DE2DA pin event pos 0; caller jmp 0x005CCB6B; global g_00DFDC30
+// cl: /O1 /DNDEBUG /MD
+// ?rva005CC966@Rva005CC966@@QAEXXZ @0x005CC966 30B evidence: Eva reportEvaEvent pin event pos 0; caller jmp 0x005CCB6B; global TheEva
 struct Coord3D
 {
 	float x;
@@ -9,9 +9,9 @@ struct Coord3D
 class Eva
 {
 public:
-	void rva001DE2DA(int ev, const Coord3D *pos, int unused);
+	void reportEvaEvent(int ev, const Coord3D *pos, int unused);
 };
-extern class Eva *TheEva;
+extern Eva *TheEva;
 class Rva005CC966
 {
 public:
@@ -24,5 +24,5 @@ public:
 void Rva005CC966::rva005CC966()
 {
 	const Coord3D *pos = m_flag ? &m_pos : 0;
-	TheEva->rva001DE2DA(m_event, pos, 0);
+	TheEva->reportEvaEvent(m_event, pos, 0);
 }

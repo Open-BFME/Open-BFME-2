@@ -12,7 +12,7 @@ public:
 	void bfmeReg1024(BfmeE1024 *entry);
 };
 
-extern BfmeP1024 *g_bfmeP1024;
+extern class Q1Receiver0134FAAC *TheQ1Receiver;
 
 class BfmeE1024
 {
@@ -29,10 +29,8 @@ void BfmeE1024::bfmeGo1024E(void)
 	if ((m_bfmeFlags & 0xff0000) == 0x70000)
 		return;
 
-	if (g_bfmeP1024 == 0)
+	if ((*(BfmeP1024 **)&TheQ1Receiver) == 0)
 		return;
 
-	g_bfmeP1024->bfmeReg1024(this);
+	(*(BfmeP1024 **)&TheQ1Receiver)->bfmeReg1024(this);
 }
-// ?g_bfmeP1024@@3PAVBfmeP1024@@A: the global at VA 0xe09c0c is ?TheQ1Receiver@@3PAVQ1Receiver0134FAAC@@A.
-#pragma comment(linker, "/alternatename:?g_bfmeP1024@@3PAVBfmeP1024@@A=?TheQ1Receiver@@3PAVQ1Receiver0134FAAC@@A")

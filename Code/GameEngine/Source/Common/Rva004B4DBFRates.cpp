@@ -15,8 +15,6 @@ public:
 
 extern GameLogic *TheGameLogic;
 extern int g_009BA4E8;
-// ?g_00DBA4E8@@3HA: the global at this VA is ?g_009BA4E8@@3HA; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?g_00DBA4E8@@3HA=?g_009BA4E8@@3HA")
 
 struct SubA004B4DBF
 {

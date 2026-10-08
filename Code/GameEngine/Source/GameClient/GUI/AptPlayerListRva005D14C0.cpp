@@ -37,7 +37,7 @@ public:
 	virtual void v17();
 	virtual GameMessage *CreateMessage(int type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 class Rva000B3FD0NullTarget
 {
@@ -104,7 +104,7 @@ void Rva005D14C0::rva005D14C0()
 
 	int index = reinterpret_cast<Rva00005C792CPtrChaseField *>(m_data->m_view)->get();
 	Rva005D14C0Entry *entry = (Rva005D14C0Entry *)m_data->m_entries[index];
-	GameMessage *message = MessageStreamSubsystem->CreateMessage(0x6B7);
+	GameMessage *message = TheMessageStream->CreateMessage(0x6B7);
 	message->appendIntegerArgument(((Rva005D14C0MessageHost *)m_data->m_messageHost)->m_value04);
 	message->appendIntegerArgument(entry->m_value14);
 }

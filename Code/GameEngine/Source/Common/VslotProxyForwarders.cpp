@@ -296,10 +296,69 @@ public:
 	void rva003F8374();
 	void rva003F8385();
 	void rva003F8361(const class Matrix3D *m);
-	Rva003F7D86Inner *rva003F81B0();			///< pinned 0x003F81B0
+	Rva003F7D86Inner *rva003F81B0();
+	struct Rva003F816EItem *rva003F816E();
 private:
-	char m_lead[4];
+	char m_lead[0x14];
+	struct Rva003F816EItem **m_begin14;
+	struct Rva003F816EItem **m_end18;
 };
+
+// 0x003F816E 35B: the entry of the [+0x14,+0x18) pointer array whose +8 id is
+// one past TheLivingWorldLogic's +0xFC value, else null. Same walk as the
+// rowed sibling Rva003F8101 (0x003F8101, +0xC/+0x10 array against +0xF4).
+class Rva003F816ELogic
+{
+public:
+	char m_pad00[0xFC];
+	int m_xFC;
+};
+class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
+
+struct Rva003F816EItem
+{
+	char m_pad00[8];
+	int m_id08;
+};
+
+Rva003F816EItem *Rva003F81FDProxy::rva003F816E()
+{
+	Rva003F816EItem **p = m_begin14;
+	Rva003F816EItem **end = m_end18;
+	int sought = ((Rva003F816ELogic *)TheLivingWorldLogic)->m_xFC + 1;
+	for (; p != end; ++p)
+	{
+		Rva003F816EItem *it = *p;
+		if (it->m_id08 == sought)
+			return it;
+	}
+	return 0;
+}
+
+// 0x003F81B0 30B: the inner interface the forwarders below call through --
+// the 0x003F816E entry, then its rowed 0x003F8101 lookup, then the rowed
+// 0x003F80C3 getter on that (tail call); null at either missing step.
+class Rva003F8101
+{
+public:
+	void *rva003F8101();
+};
+class Rva003F8090
+{
+public:
+	void *rva003F80C3();
+};
+
+Rva003F7D86Inner *Rva003F81FDProxy::rva003F81B0()
+{
+	Rva003F816EItem *entry = rva003F816E();
+	if (!entry)
+		return 0;
+	void *found = ((Rva003F8101 *)entry)->rva003F8101();
+	if (!found)
+		return 0;
+	return (Rva003F7D86Inner *)((Rva003F8090 *)found)->rva003F80C3();
+}
 
 // 0x00C3731C#3 slot 3
 Bool Rva003F81FDProxy::rva003F81FD(Int a0, Int a1)

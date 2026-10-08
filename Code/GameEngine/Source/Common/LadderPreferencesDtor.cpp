@@ -17,6 +17,16 @@
 // compiler emits the vtable store, the member call (EH state 0) and the
 // base call (EH state -1) around the SEH registration.
 
+// The scalar deleting destructor emitted here releases through the
+// chain-block pool at 0x00E176F4 with the class size, as retail's does.
+class Rva006D2A60
+{
+public:
+	void freeBlock(void *block, int blockSize);
+};
+
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;   // 0x00E176F4
+
 struct Rva006DE350
 {
 	virtual ~Rva006DE350();
@@ -31,8 +41,13 @@ struct Rva006D6470Owner : public Rva006DE350
 {
 	char m_pad[4]; // +0x04..0x07: base footprint is the vtable only
 	Rva0070A840 m_ladders; // +0x08: BFME1 keeps this map at +0x14
+	char m_rest[0x20 - 0x09]; // to the 0x20 bytes the pool release frees
 
 	virtual ~Rva006D6470Owner();
+	static void operator delete(void *p, unsigned int size)
+	{
+		g_pChainBlockAllocatorF4->freeBlock(p, size);
+	}
 };
 
 Rva006D6470Owner::~Rva006D6470Owner()

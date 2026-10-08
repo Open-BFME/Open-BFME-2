@@ -87,7 +87,7 @@ public:
 	virtual unsigned v4();
 	void calcLastTeamPos();
 	void NotifyTeamCancelled(Team *team);
-	void end(int a, int b);
+	void end(bool a, bool b);
 private:
 	char m_pad04[0x10 - 0x04];
 	unsigned char m_10;

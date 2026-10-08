@@ -61,7 +61,7 @@ struct Rva00DFE144Globals
 // COMMON merges across TUs; the address patches from retail.
 // The global at this VA is TheGameLODManager; this name aliases it rather than
 // defining a second variable the rest of the game never sees.
-extern Rva00DFE144Globals *TheRva00DFE144;
+extern class GameLODManager *TheGameLODManager;
 #pragma comment(linker, "/alternatename:?TheRva00DFE144@@3PAURva00DFE144Globals@@A=?TheGameLODManager@@3PAVGameLODManager@@A")
 
 class OptionPreferences : public AsciiPreferenceMap
@@ -88,6 +88,6 @@ Int OptionPreferences::getIdealStaticGameDetail(void)
 // ?getStaticGameDetail@OptionPreferences@@QAEHXZ
 Int OptionPreferences::getStaticGameDetail(void)
 {
-	Int level = TheRva00DFE144->m_staticLODLevel;
+	Int level = (*(Rva00DFE144Globals **)&TheGameLODManager)->m_staticLODLevel;
 	return GetEnumValue("StaticGameLOD", BfmeLODLevelNames, 6, level);
 }

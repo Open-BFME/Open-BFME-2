@@ -3,7 +3,7 @@
 #include "ascii_string.h"
 
 struct BfmeWorldRV;
-extern struct BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 
 class Object
 {
@@ -43,7 +43,7 @@ bool Rva002917E8::rva002917E8(void)
 	if (first)
 		return true;
 	const AsciiString *name = ((const Object *)this)->rva00290E67();
-	const CommandSet *cmdSet = (const CommandSet *)((Rva0031D5F8 *)g_bfmeWorldRV)->rva0031D5F8(name);
+	const CommandSet *cmdSet = (const CommandSet *)((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(name);
 	if (cmdSet) {
 		for (int i = 0; i < 0x20; ++i) {
 			const CommandButton *btn = cmdSet->getCommandButton(i);

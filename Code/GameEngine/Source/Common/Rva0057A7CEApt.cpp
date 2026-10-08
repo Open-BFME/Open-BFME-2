@@ -6,8 +6,7 @@ class Rva00222A8BTarget
 {
 };
 
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function);
 
@@ -38,8 +37,8 @@ void Rva0057A7CE::rva0057A7CE()
 	if (m_name10)
 		prefix = m_name10->m_name;
 	else
-		prefix = g_Rva0107301CEmptyString;
-	Rva00524EF4AptCall(TheRva00222A8BTarget, m_level0C, prefix, "FadeOut");
+		prefix = "";
+	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level0C, prefix, "FadeOut");
 	m_flag24 = 0;
 }
 
@@ -51,7 +50,7 @@ void Rva0057A7CE::rva0057A805()
 	if (m_name10)
 		prefix = m_name10->m_name;
 	else
-		prefix = g_Rva0107301CEmptyString;
-	Rva00524EF4AptCall(TheRva00222A8BTarget, m_level0C, prefix, "FadeIn");
+		prefix = "";
+	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level0C, prefix, "FadeIn");
 	m_flag24 = 1;
 }

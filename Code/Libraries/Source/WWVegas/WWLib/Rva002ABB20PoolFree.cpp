@@ -9,7 +9,7 @@ struct PoolNode002ABB20
 	PoolNode002ABB20* m_next;
 };
 
-extern PoolNode002ABB20* g_pool009A60F0;
+extern void *g_freeList;
 
 void __stdcall Rva002ABB20Free(void** out, PoolNode002ABB20* n)
 {
@@ -17,10 +17,8 @@ void __stdcall Rva002ABB20Free(void** out, PoolNode002ABB20* n)
 	PoolNode002ABB20* prev = n->m_prev;
 	next->m_prev = prev;
 	prev->m_next = next;
-	PoolNode002ABB20* head = g_pool009A60F0;
+	PoolNode002ABB20* head = (*(PoolNode002ABB20 **)&g_freeList);
 	n->m_prev = head;
-	g_pool009A60F0 = n;
+	(*(PoolNode002ABB20 **)&g_freeList) = n;
 	*out = prev;
 }
-// ?g_pool009A60F0@@3PAUPoolNode002ABB20@@A: the global at VA 0xda60f0 is ?g_freeList@@3PAXA.
-#pragma comment(linker, "/alternatename:?g_pool009A60F0@@3PAUPoolNode002ABB20@@A=?g_freeList@@3PAXA")

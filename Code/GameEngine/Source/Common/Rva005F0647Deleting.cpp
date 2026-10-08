@@ -81,8 +81,7 @@ void Rva005F09BC::rva005F09BC()
 // "_hide" and TheRva00222A8BTarget, then clears flag. Evidence: retail ternary
 // plus pushes plus add esp 0x14, caller 0x005F09D7 mov ecx [ecx+4] jmp here.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *func, const char *a0);
 struct Rva005F0832NameHolder
 {
@@ -115,8 +114,8 @@ void StrategicHUD::RegionDetailsStructuresMovieClip::Impl::HideBuildingName()
 {
 	if (m_flag)
 	{
-		const char *prefix = m_holder ? m_holder->m_name : g_Rva0107301CEmptyString;
-		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level, prefix, "SetBuildingNameState", "_hide");
+		const char *prefix = m_holder ? m_holder->m_name : "";
+		Rva005FB5E6AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level, prefix, "SetBuildingNameState", "_hide");
 		m_flag = false;
 	}
 }

@@ -3,8 +3,7 @@
 // Phase-index setter: mapped old/new via rowed Get 0x0057A3B2, fires inactive/active via 0x0057A9B7/0x00525338, then rowed Set 0x0057A685.
 // Evidence: callees rowed Get plus Fire plus Set; strings SetPhaseIndicatorState _inactive _active literals; externs g_Rva0107301CEmptyString TheRva00222A8BTarget; prev 0x0057AAD5 next 0x0057AC27 same dir.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 int __cdecl Rva0057A3B2Get(int val);
 int __cdecl Rva0057A9B7Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, void *a6);
@@ -41,12 +40,12 @@ void StrategicHUD::ChecklistUIImpl::DoSetCurrentPhase(int index)
 	int newMapped = Rva0057A3B2Get(index);
 	if (newMapped != oldMapped) {
 		if (oldMapped >= 0) {
-			const char *prefix = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
-			Rva0057A9B7Fire(TheRva00222A8BTarget, (void *)m_level08, prefix, "SetPhaseIndicatorState", &oldMapped, (void *)"_inactive");
+			const char *prefix = m_team0C ? m_team0C->m_name : "";
+			Rva0057A9B7Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_level08, prefix, "SetPhaseIndicatorState", &oldMapped, (void *)"_inactive");
 		}
 		if (newMapped >= 0) {
-			const char *prefix = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
-			Rva00525338Fire(TheRva00222A8BTarget, (void *)m_level08, prefix, "SetPhaseIndicatorState", &newMapped, (void *)"_active");
+			const char *prefix = m_team0C ? m_team0C->m_name : "";
+			Rva00525338Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_level08, prefix, "SetPhaseIndicatorState", &newMapped, (void *)"_active");
 		}
 	}
 	Rva0057A685Set(m_level08, &m_team0C, index);

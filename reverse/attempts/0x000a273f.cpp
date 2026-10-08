@@ -1,5 +1,5 @@
 // ?drawHiliteBar@@YAXPBVImage@@00HHHH@Z
-// partial score=0.9961 date=2026-10-06
+// partial score=0.996 date=2026-10-07
 // ?drawHiliteBar@@YAXPBVImage@@00HHHH@Z
 // partial score=0.9222 date=2026-10-05
 // ?drawHiliteBar@@YAXPBVImage@@00HHHH@Z

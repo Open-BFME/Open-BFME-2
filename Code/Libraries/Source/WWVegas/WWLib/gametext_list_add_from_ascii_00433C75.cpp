@@ -6,7 +6,6 @@
 #include "unicode_string.h"
 
 typedef unsigned short WideChar;
-extern const WideChar TheNullChr[];
 
 class GameTextInterface
 {
@@ -36,7 +35,7 @@ void Rva00433C75(const AsciiString &text, bool clearFirst)
 {
 	if (text.isEmpty())
 	{
-		UnicodeString converted(TheNullChr);
+		UnicodeString converted((const WideChar *)L"");
 		Rva00433C18(converted, clearFirst);
 	}
 	else
@@ -45,5 +44,3 @@ void Rva00433C75(const AsciiString &text, bool clearFirst)
 		Rva00433C18(converted, clearFirst);
 	}
 }
-
-#pragma comment(linker, "/alternatename:?TheNullChr@@3QBGB=?g_Va007BB5C4@@3GA")

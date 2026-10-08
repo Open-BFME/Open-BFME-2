@@ -14,10 +14,23 @@
 // AIUpdateInterface::rva00262AEA, and when the +0x4B flag is set the AI float
 // +0x1A0 is reset to FLT_MAX; +0x4B is cleared last. The state machine owner
 // sits at machine+0x14. ZH supplies the labels only.
+// AIInternalMoveToState::AIInternalMoveToState, retail 0x0033F279 (94 bytes):
+// the ZH inline ctor, out of line in BFME2 (16 derived-state ctors call it
+// with their name hash): State base (rowed hash ctor 0x004D73FC), vftable
+// 0x00C10DE8, goal and path-goal positions zeroed, the +0x2C float, goal
+// layer and path timestamp cleared, the three flag bytes +0x49..+0x4B
+// cleared, the audio handle set to 1 (as onExit leaves it) and
+// adjustDestinations true. Layout per the rowed xfer 0x0033FF76.
+// AIInternalMoveToState::getAdjustsDestination, retail 0x00344138 (191
+// bytes): the ZH body (parachuting status 7 -> false; AI present and its
+// isAllowedToAdjustDestination, vslot 107 at +0x1AC, false -> false; else
+// m_adjustDestinations at +0x48) with BFME2's CritterDesync log lines
+// (flag g_00E03745, log file g_00DFEFF0; strings from retail .rdata).
 typedef int AudioHandle;
 enum ObjectStatusTypes
 {
-	OBJECT_STATUS_NONE = 0
+	OBJECT_STATUS_NONE = 0,
+	OBJECT_STATUS_PARACHUTING = 7
 };
 enum StateExitType
 {
@@ -82,15 +95,29 @@ typedef bool Bool;
 struct Coord3D
 {
 	float x, y, z;
+	void zero() { x = 0.0f; y = 0.0f; z = 0.0f; }
 };
-class AIUpdateInterface
+enum PathfindLayerEnum
+{
+	LAYER_INVALID = 0
+};
+template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
 {
 public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class AIUpdateSlots<0>
+{
+};
+class AIUpdateInterface : public AIUpdateSlots<107>
+{
+public:
+	virtual Bool isAllowedToAdjustDestination() const;
 	void rva00262AEA();
 	void requestPath(Coord3D *destination, Bool isGoalDestination);
 	void rva00262ACE();
 	bool isWaitingForPath() const { return m_waitingForPath; }
-	unsigned char m_pad000[0x1A0];
+	unsigned char m_pad004[0x1A0 - 4];
 	float m_1A0; // +0x1A0
 	unsigned char m_pad1A4[0x3B1 - (0x1A0 + sizeof(float))];
 	bool m_waitingForPath; // +0x3B1
@@ -128,6 +155,7 @@ private:
 class State
 {
 public:
+	State(StateMachine *machine, unsigned int hash);
 	virtual ~State();
 	virtual void slot01();
 	virtual void slot02();
@@ -149,6 +177,7 @@ protected:
 class AIInternalMoveToState : public State
 {
 public:
+	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 protected:
@@ -157,13 +186,80 @@ protected:
 private:
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x40 - (0x20 + sizeof(Coord3D))];
+	float m_2C; // +0x2C
+	PathfindLayerEnum m_goalLayer; // +0x30
+	Coord3D m_pathGoalPosition; // +0x34
 	AudioHandle m_ambientPlayingHandle; // +0x40
-	unsigned char m_pad44[0x49 - 0x44];
+	unsigned int m_pathTimestamp; // +0x44
+	Bool m_adjustDestinations; // +0x48
 	bool m_waitingForPath; // +0x49
-	unsigned char m_pad4A[0x4B - 0x4A];
+	Bool m_tryOneMoreRepath; // +0x4A
 	bool m_4B; // +0x4B
 };
+AIInternalMoveToState::AIInternalMoveToState(StateMachine *machine, unsigned int hash)
+	: State(machine, hash)
+{
+	m_goalPosition.zero();
+	m_goalLayer = LAYER_INVALID;
+	m_2C = 0.0f;
+	m_pathGoalPosition.zero();
+	m_pathTimestamp = 0;
+	m_waitingForPath = false;
+	m_tryOneMoreRepath = false;
+	m_4B = false;
+	m_ambientPlayingHandle = 1;
+	m_adjustDestinations = true;
+}
+struct FprintfTarget
+{
+	char m_pad[4];
+};
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+extern unsigned char g_00E03745;
+extern void *g_00DFEFF0;
+Bool AIInternalMoveToState::getAdjustsDestination() const
+{
+	if (g_00E03745)
+	{
+		FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
+		if (log)
+			fprintf(log, "CritterDesync: getAdjustsDestination() entered.");
+	}
+	const Object *obj = getMachineOwner();
+	if (obj->testStatus(OBJECT_STATUS_PARACHUTING))
+	{
+		if (g_00E03745)
+		{
+			FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
+			if (log)
+				fprintf(log, "CritterDesync: getAdjustsDestination1 - parachuting returning FALSE.");
+		}
+		return false;
+	}
+	const AIUpdateInterface *ai = obj->getAI();
+	if (ai && !ai->isAllowedToAdjustDestination())
+	{
+		if (g_00E03745)
+		{
+			FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
+			if (log)
+				fprintf(log, "CritterDesync: getAdjustsDestination1 - isAllowedToAdjustDestination FALSE, returning FALSE.");
+		}
+		return false;
+	}
+	if (g_00E03745)
+	{
+		FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
+		if (log)
+		{
+			const char *tf = "TRUE";
+			if (!m_adjustDestinations)
+				tf = "FALSE";
+			fprintf(log, "CritterDesync: getAdjustsDestination1 - m_adjustsDestinations = %s", tf);
+		}
+	}
+	return m_adjustDestinations;
+}
 Bool AIInternalMoveToState::computePath()
 {
 	Object *obj = getMachineOwner();

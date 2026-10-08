@@ -18,7 +18,7 @@ struct BfmeE16
 };
 
 class Rva0021294A;
-extern Rva0021294A *g_009FE1C8;
+class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 
 class Rva00DFE1C8Host
 {
@@ -55,5 +55,5 @@ public:
 
 Rva002B644A::~Rva002B644A()
 {
-	((Rva00DFE1C8Host *)g_009FE1C8)->rva00212655(m_18);
+	((Rva00DFE1C8Host *)TheLivingWorldManager)->rva00212655(m_18);
 }

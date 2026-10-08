@@ -10,7 +10,7 @@ public:
 };
 
 class BfmeWorldRV;
-extern BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 
 class Rva0031D5F8
 {
@@ -81,7 +81,7 @@ const CommandButton *__stdcall Rva0042970AGet(int id)
 	InGameRet *r = (InGameRet *)((InGameUI *)TheInGameUI)->v75();
 	Object *obj = r->m_obj;
 	const AsciiString *name = obj->rva00290E67();
-	set = (CommandSet *)((Rva0031D5F8 *)g_bfmeWorldRV)->rva0031D5F8(name);
+	set = (CommandSet *)((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(name);
 	if (set != 0) {
 		for (i = 0; i < 0x20; i++) {
 			btn = set->getCommandButton(i);

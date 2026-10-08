@@ -6,17 +6,22 @@
 // cleanup is a thiscall whose callee pops its own explicit arg (ret 4).
 class FileClass;
 
+// The callee is the rowed W3DFileSystem::Return_File, called directly.
+class W3DFileSystem
+{
+public:
+	virtual void Return_File(FileClass *file);
+};
+
 struct Rva0059E2DCBox
 {
 	bool flag;
 	char pad[3];
-
-	void ReturnFile(FileClass *file);
 };
 
 bool __cdecl rva0059E2DC(FileClass **first, FileClass **last, Rva0059E2DCBox box)
 {
 	for (; first != last; ++first)
-		box.ReturnFile(*first);
+		((W3DFileSystem *)&box)->W3DFileSystem::Return_File(*first);
 	return box.flag;
 }

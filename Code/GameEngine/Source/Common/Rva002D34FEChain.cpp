@@ -27,15 +27,15 @@ public:
 
 // N.B. pointee type at 0x00E01CFC is unproven; viewed as helper for the
 // observed thiscall shape only.
-extern Rva002D34FEHelper *g_00E01CFC;
+extern class ControlBar *TheControlBar;
 
 // ?rva002D34FE@Rva002D34FE@@QAEXH@Z
 void Rva002D34FE::rva002D34FE(int)
 {
 	if (rva00401E2F())
 		return;
-	int r = g_00E01CFC->rva0071BE3C(this);
+	int r = (*(Rva002D34FEHelper **)&TheControlBar)->rva0071BE3C(this);
 	if (!r)
 		return;
-	g_00E01CFC->rva00805DBC(0, (void *)r);
+	(*(Rva002D34FEHelper **)&TheControlBar)->rva00805DBC(0, (void *)r);
 }

@@ -166,3 +166,68 @@ bool Pathfinder::IsPointOnWall(int a, bool b)
 		return true;
 	return false;
 }
+
+// Rva002E9ACC::Rva002E9ACC, retail 0x002E9ACC (101 bytes; ret 0x14): an
+// unnamed pathfinding functor (built by Pathfinder::CanApproachToTarget
+// 0x002FA35D) holding (a1, object, locomotor source), the object's
+// Rva002E8BCF locomotor-set view at +0x0C (template +0x634/+0x56C and
+// Object::rva0028AFBB, as Rva002EAB6F builds it) and five flag bytes.
+struct Rva002E8BCFSrc;
+class Rva002E8BCF
+{
+public:
+	Rva002E8BCF(Rva002E8BCFSrc const *src, bool a, int b, bool c);
+	int m0;
+	bool m4;
+	bool m5;
+	int m8;
+	bool mC;
+};
+struct Rva002E9ACCTemplate
+{
+	char _00[0x56C];
+	int m_56C;
+	char _570[0x634 - 0x570];
+	unsigned char m_634;
+};
+class Object
+{
+public:
+	bool rva0028AFBB() const;
+	char _00[4];
+	Rva002E9ACCTemplate *m_04;
+};
+static unsigned char Rva002E9ACCFlag(const Object *obj)
+{
+	return obj->m_04->m_634;
+}
+static int Rva002E9ACCCount(const Object *obj)
+{
+	return obj->m_04->m_56C;
+}
+class Rva002E9ACC
+{
+public:
+	Rva002E9ACC(void *a1, Object *obj, Rva002E8BCFSrc const *src,
+		unsigned char a4, unsigned char a5);
+	void *m_00;
+	Object *m_04;
+	Rva002E8BCFSrc const *m_08;
+	Rva002E8BCF m_0C;
+	unsigned char m_1C;
+	unsigned char m_1D;
+	unsigned char m_1E;
+	unsigned char m_1F;
+	unsigned char m_20;
+};
+Rva002E9ACC::Rva002E9ACC(void *a1, Object *obj,
+	Rva002E8BCFSrc const *src, unsigned char a4, unsigned char a5)
+	: m_00(a1), m_04(obj), m_08(src),
+	m_0C(src, Rva002E9ACCFlag(obj) == 0, Rva002E9ACCCount(obj) - 1, obj->rva0028AFBB())
+{
+	m_1D = a4;
+	m_20 = a5;
+	m_1C = 0;
+	m_1E = 1;
+	m_1F = 0;
+}

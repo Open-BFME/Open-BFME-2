@@ -30,10 +30,10 @@ public:
 	void rva005D4BC1(float v);
 };
 
-class Rva005D49D5
+class Rva005D49CD
 {
 public:
-	void SetVisible(bool v);
+	void rva005D49D5(bool v);
 };
 
 // The checklist's items: sentinel node at +0x30. Only the next link is
@@ -122,5 +122,5 @@ void StrategicHUD::ChecklistUIImpl::rva0057B16D()
 	else
 		inv = 0.0f;
 	((Rva005D4BC1 *)m_scrollBar.m_ptr)->rva005D4BC1(inv);
-	((Rva005D49D5 *)m_scrollBar.m_ptr)->SetVisible(total > m_3C);
+	((Rva005D49CD *)m_scrollBar.m_ptr)->rva005D49D5(total > m_3C);
 }

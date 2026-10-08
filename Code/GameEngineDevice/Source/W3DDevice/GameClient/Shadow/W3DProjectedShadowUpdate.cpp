@@ -5,6 +5,7 @@
 // added to its flags, the settings W3DView.cpp's donor bodies match under.
 // Searched by masked whole-.text search, the body places once on unclaimed
 // game.dat .text at 0x001094E2 (92B).
+extern class Gen0003AC38 *g_shadowManager;
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -403,9 +404,9 @@ void W3DProjectedShadow::update(void)
 	//layout shim (BFMEShadowManagerLayout) carries the same offsets.
 	W3DShadowTexture *texture = *(W3DShadowTexture **)((char *)this + 0x68);
 	Vector3 &lastPos = texture->getLightPosHistory();
-	if (lastPos != TheW3DShadowManager->getLightPosWorld(0))
+	if (lastPos != (*(W3DShadowManager **)&g_shadowManager)->getLightPosWorld(0))
 	{	//light has moved since last time this shadow was calculated. Need update
-		updateTexture(TheW3DShadowManager->getLightPosWorld(0));
+		updateTexture((*(W3DShadowManager **)&g_shadowManager)->getLightPosWorld(0));
 	}
 }
 

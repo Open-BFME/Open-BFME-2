@@ -491,7 +491,18 @@ void WorkerAIUpdate::exitingSupplyTruckState()
 // ------------------------------------------------------------------------------------------------
 /** Given our current task and repair target, can we accept this as a new repair target */
 // ------------------------------------------------------------------------------------------------
-// ?canAcceptNewRepair@WorkerAIUpdate@@UAE_NPAVObject@@@Z present-unmatched
+// BFME 2's KINDOF_BRIDGE_TOWER test as retail inlines it here: bit 24 of the
+// KindOf dword at +0x108 of the Object's raw template pointer (Thing +0x04),
+// without the override walk Zero Hour's isKindOf takes. Retail tests the
+// masked dword itself (mask hoisted into a register for both tests), so the
+// helper answers the masked bits rather than a bool, which MSVC would narrow
+// to a byte test.
+static inline UnsignedInt workerIsBridgeTower( const Object *obj )
+{
+	const UnsignedInt *kindOf = (const UnsignedInt *)( *(const char * const *)((const char *)obj + 0x04) + 0x100 );
+	return kindOf[ 2 ] & 0x1000000;
+}
+
 Bool WorkerAIUpdate::canAcceptNewRepair( Object *obj )
 {
 
@@ -514,8 +525,7 @@ Bool WorkerAIUpdate::canAcceptNewRepair( Object *obj )
 			return FALSE;
 
 		// check for repairing any tower on the same bridge
-		if( currentRepair->isKindOf( KINDOF_BRIDGE_TOWER ) && 
-				obj->isKindOf( KINDOF_BRIDGE_TOWER ) )
+		if( workerIsBridgeTower( currentRepair ) && workerIsBridgeTower( obj ) )
 		{
 			BridgeTowerBehaviorInterface *currentTowerInterface = NULL;
 			BridgeTowerBehaviorInterface *newTowerInterface = NULL;

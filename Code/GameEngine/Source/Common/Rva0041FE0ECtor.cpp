@@ -13,7 +13,7 @@ extern "C" const void *const vtbl_00C3B988[];  // ??_7Rva0041FE0E@@6B@
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 class Rva0041FE0E

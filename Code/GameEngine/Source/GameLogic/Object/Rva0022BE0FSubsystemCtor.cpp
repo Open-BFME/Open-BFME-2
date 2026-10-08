@@ -21,7 +21,7 @@ extern "C" void _ReadWriteBarrier(void);
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 class __declspec(novtable) BFME2NativeNetworkBase

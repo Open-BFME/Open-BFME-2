@@ -16,7 +16,6 @@ public:
 
 // ?g_00DFF078@@3PAVImageCollection@@A: the global at this VA is ?TheMappedImageCollection@@3PAVImageCollection@@A; this name is an alias for it.
 extern class ImageCollection *TheMappedImageCollection;
-#pragma comment(linker, "/alternatename:?g_00DFF078@@3PAVImageCollection@@A=?TheMappedImageCollection@@3PAVImageCollection@@A")
 extern const char *g_00DBE9B0[];
 
 const Image *__cdecl Rva00559B64GetImage(int side, int rank)

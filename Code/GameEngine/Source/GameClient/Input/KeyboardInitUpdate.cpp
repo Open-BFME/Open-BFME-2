@@ -74,7 +74,7 @@ public:
 
 // Ledger name of the stream global at VA 0x00E00950 (Zero Hour's
 // TheMessageStream).
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 class Keyboard
 {
@@ -113,7 +113,7 @@ void Keyboard::update()
 void Keyboard::createStreamMessages()
 {
 	// santiy
-	if (MessageStreamSubsystem == 0)
+	if (TheMessageStream == 0)
 		return;
 
 	KeyboardIO *end = m_keysEnd;
@@ -125,9 +125,9 @@ void Keyboard::createStreamMessages()
 
 		// add message to stream
 		if (key->state & KEY_STATE_DOWN)
-			msg = MessageStreamSubsystem->appendMessage(GameMessage::MSG_RAW_KEY_DOWN);
+			msg = TheMessageStream->appendMessage(GameMessage::MSG_RAW_KEY_DOWN);
 		else if (key->state & KEY_STATE_UP)
-			msg = MessageStreamSubsystem->appendMessage(GameMessage::MSG_RAW_KEY_UP);
+			msg = TheMessageStream->appendMessage(GameMessage::MSG_RAW_KEY_UP);
 
 		// fill out message arguments
 		if (msg)

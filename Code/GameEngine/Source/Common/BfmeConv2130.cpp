@@ -7,10 +7,17 @@
 // Callee addresses are read off retail call sites (reverse/symbols.csv).
 class BfmeR1094;
 
+// The probe is the rowed Object::getControllingPlayer.
+class Player;
+class Object
+{
+public:
+	Player *getControllingPlayer() const;
+};
+
 class BfmeK1094
 {
 public:
-	BfmeR1094 *bfmeCur1094();
 	void bfmeApplyABG(void *a, void *b);
 };
 
@@ -36,7 +43,7 @@ void BfmeHostABG::bfmeVisitABG(void *a, void *b)
 	{
 		BfmeK1094 *it = n->m_bfme08ABG;
 
-		if (it->bfmeCur1094() != 0)
+		if (((const Object *)it)->getControllingPlayer() != 0)
 		{
 			it->bfmeApplyABG(a, b);
 			return;

@@ -46,17 +46,6 @@ private:
     void *m_pad2[5];
 };
 
-template <class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-public:
-    void advance();
-
-private:
-    OBJCLASS *m_cur;
-    void *m_pad2[5];
-};
-
 class Team
 {
 public:
@@ -82,7 +71,7 @@ void ScriptActions::rva003C062D(const AsciiString &teamName, float value)
     Team *team = TheScriptEngine->getTeamNamed(teamName, false);
     if (!team)
         return;
-    for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); it.cur() != 0; ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {
+    for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); it.cur() != 0; it.advance()) {
         Mid *mid = it.cur()->m_mid;
         if (mid == 0)
             break;

@@ -88,10 +88,6 @@ void DockUpdate::getExitPosition( Object* docker, Coord3D *position )
 }
 
 
-// Header view differs only in struct/class decoration and const qualification.
-// Native call is the existing 57-byte coordinate equality at RVA 0x3702.
-#pragma comment(linker, "/alternatename:??8Coord3D@@QAE_NABU0@@Z=??8Coord3D@@QBE_NABV0@@Z")
-
 // Interface slot 6 at 0xC51D18: native RVA 0x005899EB, 99 bytes.
 void DockUpdate::getDockPosition( Object* docker, Coord3D *position )
 {

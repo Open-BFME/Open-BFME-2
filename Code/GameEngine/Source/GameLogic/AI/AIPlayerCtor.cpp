@@ -34,7 +34,7 @@ struct Rva004F04FCScriptEngine
 	char m_pad[0x1A4C4];
 	int m_difficulty;
 };
-extern Rva004F04FCScriptEngine *g_00DFE16C;
+extern class ScriptEngine *TheScriptEngine;
 
 struct Rva004F04FCAIData
 {
@@ -48,7 +48,7 @@ struct Rva004F04FCAI
 	char m_pad[0x18];
 	Rva004F04FCAIData *m_aiData;
 };
-extern Rva004F04FCAI *g_00DFF0F8;
+extern class AI *TheAI;
 
 struct Coord3D
 {
@@ -128,6 +128,6 @@ AIPlayer::AIPlayer(Player *p) :
 	m_repairDozerOrigin.zero();
 	m_baseCenter.zero();
 	m_baseCenterSet = false;
-	m_difficulty = g_00DFE16C->getGlobalDifficulty();
-	m_teamSeconds = g_00DFF0F8->getAiData()->m_teamSeconds;
+	m_difficulty = (*(Rva004F04FCScriptEngine **)&TheScriptEngine)->getGlobalDifficulty();
+	m_teamSeconds = (*(Rva004F04FCAI **)&TheAI)->getAiData()->m_teamSeconds;
 }

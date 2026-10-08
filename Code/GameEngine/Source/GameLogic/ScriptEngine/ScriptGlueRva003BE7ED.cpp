@@ -127,7 +127,6 @@ public:
 };
 extern Rva001EB0CAHolder *g_00DFDC8C;
 
-extern AsciiString g_00DE0878;
 
 class Rva003BE7ED
 {
@@ -151,7 +150,7 @@ void Rva003BE7ED::rva003BE7ED()
 					AsciiString s1("Gui_DefeatScreen");
 					AsciiString s2("APT:EndDefeat");
 					Rva003BE5C9P34 *p = player->m_p34;
-					g_00E03138->slot23(s2, p ? p->m_1bc : (unsigned char)0, s1, g_00DE0878);
+					g_00E03138->slot23(s2, p ? p->m_1bc : (unsigned char)0, s1, AsciiString::TheEmptyString);
 				}
 			}
 		}

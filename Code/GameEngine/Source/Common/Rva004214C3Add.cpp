@@ -44,7 +44,6 @@ extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__T
 struct Rva004214C3ThrowInfoAnchor { int a; int b; int c; int d; };
 static const Rva004214C3ThrowInfoAnchor rva004214C3ThrowInfoAnchor = { 0, 0, 0, 0 };
 
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva004214C3
 {
@@ -60,7 +59,7 @@ void Rva004214C3::rva004214C3(const ModuleData *data)
 	const ModuleData *found = Rva00421263Find((const Rva00421263Vec *)&m_vec, data->m_name);
 	if (found) {
 		char *t = *(char **)&found->m_name;
-		const char *s = t ? t + 8 : g_Rva0107301CEmptyString;
+		const char *s = t ? t + 8 : "";
 		INIException exc(3, "A light point level %s already exists.", s);
 		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva004214C3ThrowInfoAnchor); __assume(0);
 	}

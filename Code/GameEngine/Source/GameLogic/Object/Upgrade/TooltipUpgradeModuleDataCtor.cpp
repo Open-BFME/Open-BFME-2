@@ -24,7 +24,6 @@ private:
 
 #include "ascii_string.h"
 
-extern AsciiString g_emptyAsciiString;
 
 class TooltipUpgradeModuleData : public Rva00253487Base
 {
@@ -40,6 +39,6 @@ private:
 // ??0TooltipUpgradeModuleData@@QAE@XZ @0x25588E
 TooltipUpgradeModuleData::TooltipUpgradeModuleData()
 {
-	m_displayName = g_emptyAsciiString;
-	m_description = g_emptyAsciiString;
+	m_displayName = AsciiString::TheEmptyString;
+	m_description = AsciiString::TheEmptyString;
 }

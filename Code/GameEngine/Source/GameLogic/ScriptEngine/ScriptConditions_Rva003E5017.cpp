@@ -45,7 +45,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 enum NameKeyType
 {
@@ -83,7 +83,7 @@ protected:
 
 bool __stdcall Rva003E5017Check(Parameter *a, Parameter *b, Parameter *c)
 {
-	void *payload = TheThingFactory->rva002D06CA(&c->m_string10);
+	void *payload = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&c->m_string10);
 	if (!payload)
 		return false;
 	Object *obj = TheScriptEngine->getUnitNamed(b);

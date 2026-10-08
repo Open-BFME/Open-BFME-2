@@ -24,12 +24,11 @@ class MemoryPool;
 int DoesCommandRequireACommandID(NetCommandType type);
 AsciiString Rva005813D4Get(int type);
 
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr004D5B4C(const AsciiString &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 class NetCommandMsg

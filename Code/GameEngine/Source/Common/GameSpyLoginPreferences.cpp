@@ -362,7 +362,6 @@ void GameSpyLoginPreferences::rva005CABF9(AsciiString email)
 // lookup via throw() shim (shape-lever: no EH state across find) pinned to
 // shared _M_find worker 0x001F8437 like SkirmishPreferences.
 bool GetStringFromRegistry(AsciiString path, AsciiString key, AsciiString &val);
-extern const char g_Rva0107301CEmptyString[];
 struct SkirmishFindNode
 {
 	unsigned char m_pad[0x14];
@@ -390,7 +389,7 @@ AsciiString GameSpyLoginPreferences::rva005C9FC4(void)
 	}
 	PreferenceMap::iterator it = *(PreferenceMap::iterator *)&rawIt;
 	if (it == this->end())
-		GetStringFromRegistry(g_Rva0107301CEmptyString, "MemberName", result);
+		GetStringFromRegistry("", "MemberName", result);
 	else
 		result = it->second;
 	return result;

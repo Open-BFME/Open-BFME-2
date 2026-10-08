@@ -3,7 +3,6 @@
 #include "ascii_string.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
-extern const char g_Rva0107301CEmptyString[];
 struct Rva00395E19Q
 {
 	char m_pad[8];
@@ -38,6 +37,6 @@ void Rva00395E19::rva00395E19(AsciiString *out, int idx)
 	char *addr = (char *)mid + 100;
 	_ReadWriteBarrier();
 	Rva00395E19Q *q = *(Rva00395E19Q **)addr;
-	const char *s = q ? (const char *)q + 8 : g_Rva0107301CEmptyString;
+	const char *s = q ? (const char *)q + 8 : "";
 	out->format("Dynamic_%s_of_id_%d_at_index_%d", s, id, idx);
 }

@@ -6,10 +6,19 @@
 // __fastcall member: the middle int parameter rides in EDX and is not
 // consulted on this path; the callee pops the one stack arg. Names are
 // address-derived.
-class Rva0040E6D6Sub
+// The callee is the rowed STLport vector<ScienceType>::push_back.
+enum ScienceType { SCIENCE_INVALID_0040E6D6 = -1 };
+namespace _STL
+{
+template <class T> class allocator;
+template <class T, class A = allocator<T> > class vector
 {
 public:
-	void forward(int *slot); // pinned retail 0x006E01C6
+	void push_back(const T &value);
+};
+}
+class Rva0040E6D6Sub
+{
 };
 
 struct Rva0040E6D6Arg
@@ -33,6 +42,6 @@ void __fastcall Rva0040E6D6Host::forwardFrom(int unused, Rva0040E6D6Arg *arg)
 	if (arg == 0) {
 		return;
 	}
-	int slot = arg->m_1C;
-	m_14.forward(&slot);
+	ScienceType slot = (ScienceType)arg->m_1C;
+	((_STL::vector<ScienceType> *)&m_14)->push_back(slot);
 }

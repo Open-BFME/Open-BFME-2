@@ -14,12 +14,11 @@ public:
 	int rva00222B19(void *level, const char *prefix, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
 };
 
-extern const char g_Rva0107301CEmptyString[];
 
 static __forceinline const char *GetStr(const AsciiString &s)
 {
 	char *t = *(char **)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 int __cdecl Rva005C3240AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const AsciiString &a0, const AsciiString &a1)

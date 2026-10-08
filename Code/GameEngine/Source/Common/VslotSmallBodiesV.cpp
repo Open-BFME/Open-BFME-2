@@ -103,7 +103,7 @@ class Rva0020AA00Registry
 public:
 	Rva0020AA00Target *lookup(const Int &key);
 };
-extern Rva0020AA00Registry *g_rva001E30F5Registry;
+extern class ThingFactory *TheThingFactory;
 class Rva001E30F5
 {
 public:
@@ -118,7 +118,7 @@ void Rva001E30F5::rva001E30F5(Int a, Int b)
 {
 	if (!m_14C)
 	{
-		Rva0020AA00Target *t = g_rva001E30F5Registry->lookup(m_154);
+		Rva0020AA00Target *t = (*(Rva0020AA00Registry **)&TheThingFactory)->lookup(m_154);
 		if (t)
 			t->notify(a, b);
 	}
@@ -171,7 +171,7 @@ public:
 	char m_pad04[0x124C];
 	Rva00235736Node *m_next;
 };
-extern Rva00235736Node *g_rva00235736Head;
+extern class GlobalData *TheWritableGlobalData;
 extern Rva00235736Node *g_rva00235736End;
 class Rva00235736
 {
@@ -180,11 +180,11 @@ public:
 };
 void Rva00235736::rva00235736()
 {
-	while (g_rva00235736Head != g_rva00235736End)
+	while ((*(Rva00235736Node **)&TheWritableGlobalData) != g_rva00235736End)
 	{
-		Rva00235736Node *next = g_rva00235736Head->m_next;
-		::delete g_rva00235736Head;
-		g_rva00235736Head = next;
+		Rva00235736Node *next = (*(Rva00235736Node **)&TheWritableGlobalData)->m_next;
+		::delete (*(Rva00235736Node **)&TheWritableGlobalData);
+		(*(Rva00235736Node **)&TheWritableGlobalData) = next;
 	}
 }
 

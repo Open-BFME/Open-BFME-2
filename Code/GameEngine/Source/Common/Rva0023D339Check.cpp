@@ -12,18 +12,14 @@ struct Rva0023D339B
 	char m_00[64];
 	unsigned int m_40;
 };
-extern Rva0023D339A *g_Rva0023D339A;
+extern class GlobalData *TheWritableGlobalData;
 extern unsigned int g_bfmeRva42E8C1Add;
-extern Rva0023D339B *g_Rva0023D339B;
+extern class GameLogic *TheGameLogic;
 bool Rva0023D339Get()
 {
-	unsigned int tmp = g_Rva0023D339A->m_122C;
+	unsigned int tmp = (*(Rva0023D339A **)&TheWritableGlobalData)->m_122C;
 	tmp *= g_bfmeRva42E8C1Add;
-	Rva0023D339B *b = g_Rva0023D339B;
+	Rva0023D339B *b = (*(Rva0023D339B **)&TheGameLogic);
 	tmp *= 60;
 	return b->m_40 >= tmp;
 }
-// ?g_Rva0023D339A@@3PAURva0023D339A@@A: the global at VA 0xdfe758 is ?TheGlobalData@@3PAVGlobalData@@A.
-#pragma comment(linker, "/alternatename:?g_Rva0023D339A@@3PAURva0023D339A@@A=?TheGlobalData@@3PAVGlobalData@@A")
-// ?g_Rva0023D339B@@3PAURva0023D339B@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-#pragma comment(linker, "/alternatename:?g_Rva0023D339B@@3PAURva0023D339B@@A=?TheGameLogic@@3PAVGameLogic@@A")

@@ -22,7 +22,11 @@ struct Rva00485C19Data
 };
 class Object;
 typedef Int (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
-Int __cdecl Rva004859A2Callback(Object *obj, void *userData);
+// The callback 0x004859A2 is the rowed findEldest::func.
+struct findEldest
+{
+	static Int __cdecl func(Object *obj, void *userData);
+};
 class TeamPrototype
 {
 public:
@@ -71,6 +75,6 @@ Bool StatusBitsEldestFrame::rva00485C19(Object *obj, const Rva00485C19Data *data
 	ctx.m_data = data;
 	ctx.m_key = *key;
 	for (PlayerTeamNode *it = (*head)->m_next; it != *head; it = it->m_next)
-		it->m_value->rva0039ED9C(Rva004859A2Callback, &ctx);
+		it->m_value->rva0039ED9C(findEldest::func, &ctx);
 	return ctx.m_found != 0 && ctx.m_found->m_id74 == obj->m_id74;
 }

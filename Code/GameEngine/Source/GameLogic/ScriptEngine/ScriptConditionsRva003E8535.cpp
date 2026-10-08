@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /GX
 // ?Rva003E8535Get@@YG_NPAVParameter@@0@Z @0x003E8535 105B: free stdcall two Parameters team+unit path test.
-// Evidence: ret 8 two params; Parameter+0x10 AsciiString by-value plus false to ScriptEngine::getTeamNamed row; null je; Team::rva0039E8EB row null je; Parameter+? to getUnitNamed row null jne; TheAI+0x10 Pathfinder::rva002F477E pin with teamObj UnitObj positions plus 0; caller 0x003EC13F.
+// Evidence: ret 8 two params; Parameter+0x10 AsciiString by-value plus false to ScriptEngine::getTeamNamed row; null je; Team::rva0039E8EB row null je; Parameter+? to getUnitNamed row null jne; TheAI+0x10 Pathfinder::QuickDoesPathExist pin with teamObj UnitObj positions plus 0; caller 0x003EC13F.
 #include "ascii_string.h"
 class Parameter
 {
@@ -28,11 +28,11 @@ public:
 	Team *getTeamNamed(AsciiString name, bool b);
 	Object *getUnitNamed(Parameter *p);
 };
-extern class ScriptEngine *TheScriptEngine;
+extern ScriptEngine *TheScriptEngine;
 class Pathfinder
 {
 public:
-	bool rva002F477E(Object *obj, const Coord3D *from, const Coord3D *to, int v);
+	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int v);
 };
 class AI
 {
@@ -40,7 +40,7 @@ public:
 	char m_pad[0x10];
 	Pathfinder *m_pf;
 };
-extern class AI *TheAI;
+extern AI *TheAI;
 
 bool __stdcall Rva003E8535Get(Parameter *p0, Parameter *p1)
 {
@@ -54,5 +54,5 @@ bool __stdcall Rva003E8535Get(Parameter *p0, Parameter *p1)
 	if (!unitObj)
 		return false;
 	Pathfinder *pf = TheAI->m_pf;
-	return pf->rva002F477E(teamObj, &teamObj->m_pos, &unitObj->m_pos, 0);
+	return pf->QuickDoesPathExist(teamObj, &teamObj->m_pos, &unitObj->m_pos, 0);
 }

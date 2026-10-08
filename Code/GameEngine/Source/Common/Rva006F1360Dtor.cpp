@@ -10,6 +10,16 @@
 // Dedicated speed-flags TU (like Rva00711330Dtor): /O1 compacts member
 // clears. Owner identity is unproven (opaque Rva name).
 
+// The scalar deleting destructor emitted here releases through the
+// chain-block pool at 0x00E176F4 with the class size, as retail's does.
+class Rva006D2A60
+{
+public:
+	void freeBlock(void *block, int blockSize);
+};
+
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;   // 0x00E176F4
+
 class Rva006D6470
 {
 public:
@@ -20,6 +30,10 @@ class Rva006F1360 : public Rva006D6470
 {
 public:
 	virtual ~Rva006F1360();
+	static void operator delete(void *p, unsigned int size)
+	{
+		g_pChainBlockAllocatorF4->freeBlock(p, size);
+	}
 
 private:
 	char m_pad04[0x20 - 4];

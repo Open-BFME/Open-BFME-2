@@ -22,16 +22,6 @@ public:
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
 };
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-public:
-	void advance();
-};
-
 class Object;
 
 // TheGameLogic's forwarders to its +0x184 member (0x0023D0B7 returns a
@@ -80,6 +70,6 @@ void ScriptActions::rva003C3609(Parameter *pTeam)
 	int handle = TheGameLogic->rva0023D0B7();
 	if (handle == 0)
 		return;
-	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance())
+	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance())
 		TheGameLogic->rva0023D0C2(it.cur(), handle);
 }

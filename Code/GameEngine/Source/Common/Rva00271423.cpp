@@ -48,7 +48,7 @@ public:
 	virtual unsigned int GetTime();
 };
 
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class GameEngine
 {
@@ -77,11 +77,11 @@ private:
 
 Matrix3D *Rva00271423::rva00271423()
 {
-	if (m_378 <= TheGameClient->GetTime())
+	if (m_378 <= ((ClientFrameSubsystem *)TheGameClient)->GetTime())
 		return &m_1a0;
-	if (m_204 != TheGameClient->GetTime()) {
+	if (m_204 != ((ClientFrameSubsystem *)TheGameClient)->GetTime()) {
 		Matrix3D::Lerp(m_170, m_1a0, TheGameEngine->m_3c, m_1d0);
-		m_204 = TheGameClient->GetTime();
+		m_204 = ((ClientFrameSubsystem *)TheGameClient)->GetTime();
 	}
 	return &m_1d0;
 }

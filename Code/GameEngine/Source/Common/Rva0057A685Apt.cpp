@@ -40,7 +40,6 @@ public:
 };
 
 extern GameTextInterface *TheGameText;
-extern const char g_Rva0107301CEmptyString[];
 
 struct Rva0057A685Team
 {
@@ -71,7 +70,7 @@ void Rva0057A685Set(int level, Rva0057A685Team **ppTeam, int phase)
 	}
 	AsciiString key;
 	Rva0057A685Team *team = *ppTeam;
-	const char *mid = team ? team->m_name : g_Rva0107301CEmptyString;
+	const char *mid = team ? team->m_name : "";
 	key.format("APT:_level%u.%s_PhaseTitle", level, mid);
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, value, true);
 }

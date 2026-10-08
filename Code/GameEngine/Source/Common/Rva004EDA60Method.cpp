@@ -10,7 +10,7 @@ class AITactic
 {
 public:
 	void rva004ED372(void *p);
-	void end(int a, int b);
+	void end(bool a, bool b);
 	void rva004EDA60();
 private:
 	char m_pad00[0x20]; // +0

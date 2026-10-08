@@ -13,7 +13,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 struct Rva004B031EInner
 {
@@ -33,5 +33,5 @@ private:
 void *Rva004B031E::rva004B031E()
 {
 	AsciiString *key = &m_ptr->m_key;
-	return TheThingFactory->rva002D06CA(key);
+	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA(key);
 }

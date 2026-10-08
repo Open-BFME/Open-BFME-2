@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ?rva005F2FEF@Rva005F2FEF@@QAEXABVUnicodeString@@@Z retail 0x005F2FEF 191B
 // Evidence: SetMemberNameState _show plus APT:_level%u.%s_MemberName via rowed format 0x00038150 and pinned bfmeSetText 0x00225301; rowed compare 0x00006A7A set 0x00037150 release 0x00036410 AptCall 0x005FB5E6; globals 0x009FE4CC 0x007BAC1C; caller forwarder 0x005F3272; precedent Rva005F7670 UnitName show plus cached
 #include "ascii_string.h"
@@ -17,7 +17,6 @@ public:
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
 
 struct Rva005F2FEFTeam
 {
@@ -25,11 +24,28 @@ struct Rva005F2FEFTeam
 	char m_name[1];
 };
 
+// The Apt window manager's +0x318 mode (0: idle).
+struct Rva005F2537AptMode
+{
+	unsigned char m_pad000[0x318];
+	int m_mode; // +0x318
+};
+
 namespace StrategicHUD {
 class ArmyDetailsMovieClip
 {
 public:
 	class Impl;
+
+	// The owner's slots the back-button and icon-list callbacks fire
+	// (vtable +4 / +8; names follow the bound callbacks, inference).
+	ArmyDetailsMovieClip(int level, const AsciiString &name, int layout, bool backButtonVisible);
+	virtual void v0();
+	virtual void notifyBackButtonClicked();
+	virtual void notifyIconListBackgroundClicked();
+
+private:
+	Impl *m_impl; // +0x04
 };
 }
 
@@ -44,8 +60,14 @@ public:
 	void ShowMemberRank(int rank);
 	void ShowMemberRankProgress(float progress);
 	void ShowCommandPoints(int val);
+	Impl(ArmyDetailsMovieClip *owner, int level, const AsciiString &name, int layout, bool backButtonVisible); // 0x005F39D6 (pinned)
+	void OnBackButtonClicked(const char *path);
+	void OnBackButtonRollOver(const char *path);
+	void OnBackButtonRollOut(const char *path);
+	void OnIconListBackgroundClicked(const char *path);
 private:
-	char m_pad00[8];
+	void *m_vtbl; // +0x00 (0x00879290)
+	ArmyDetailsMovieClip *m_owner; // +0x04
 	void *m_level08;
 	Rva005F2FEFTeam *m_team0C;
 	char m_pad10[0x48 - 0x10];
@@ -83,13 +105,13 @@ int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const cha
 void StrategicHUD::ArmyDetailsMovieClip::Impl::ShowMemberName(const UnicodeString &text)
 {
 	if (!(m_flags58 & 1)) {
-		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team0C ? m_team0C->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level08, team, "SetMemberNameState", "_show");
 		m_flags58 |= 1;
 	}
 	if (text.compare(m_cached48) != 0) {
 		AsciiString key;
-		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team0C ? m_team0C->m_name : "";
 		key.format("APT:_level%u.%s_MemberName", m_level08, team);
 		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, false);
 		m_cached48.set(text);
@@ -99,13 +121,13 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::ShowMemberName(const UnicodeStrin
 void StrategicHUD::ArmyDetailsMovieClip::Impl::rva005F2897()
 {
 	if (m_flags58 & 1) {
-		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team0C ? m_team0C->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level08, team, "SetMemberNameState", "_hide");
 		m_flags58 &= ~1;
 	}
 	if (!m_cached48.isEmpty()) {
 		AsciiString key;
-		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team0C ? m_team0C->m_name : "";
 		key.format("APT:_level%u.%s_MemberName", m_level08, team);
 		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, UnicodeString::TheEmptyString, false);
 		m_cached48.set(UnicodeString::TheEmptyString);
@@ -115,7 +137,7 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::rva005F2897()
 void StrategicHUD::ArmyDetailsMovieClip::Impl::HideMemberRank()
 {
 	if (m_flags58 & 2) {
-		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team0C ? m_team0C->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level08, team, "SetMemberRankState", "_hide");
 		m_flags58 &= ~2;
 	}
@@ -124,7 +146,7 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::HideMemberRank()
 void StrategicHUD::ArmyDetailsMovieClip::Impl::HideMemberRankProgress()
 {
 	if (m_flags58 & 4) {
-		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team0C ? m_team0C->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level08, team, "SetMemberRankProgressBarState", "_hide");
 		m_flags58 &= ~4;
 	}
@@ -133,7 +155,7 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::HideMemberRankProgress()
 void StrategicHUD::ArmyDetailsMovieClip::Impl::HideCommandPoints()
 {
 	if (m_flags58 & 8) {
-		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team0C ? m_team0C->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level08, team, "SetCommandPointsState", "_hide");
 		m_flags58 &= ~8;
 	}
@@ -201,7 +223,7 @@ AsciiString Rva002228E8Get(float val);
 __forceinline const char *GetStr005F2A52(const AsciiString &s)
 {
 	char *t = *(char **)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 int __cdecl Rva005F2A52AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *pInt, float *pF1, float *pF2)
@@ -219,13 +241,13 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::ShowMemberRank(int rank)
 			tmp.format(fetched.str(), rank);
 		}
 		AsciiString key;
-		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team0C ? m_team0C->m_name : "";
 		key.format("APT:_level%u.%s_MemberRank", m_level08, team);
 		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, tmp, false);
 		m_rank4C = rank;
 	}
 	if (!(m_flags58 & 2)) {
-		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team0C ? m_team0C->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level08, team, "SetMemberRankState", "_show");
 		m_flags58 |= 2;
 	}
@@ -241,14 +263,48 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::ShowCommandPoints(int val)
 			tmp.format(fetched.str(), val);
 		}
 		AsciiString key;
-		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team0C ? m_team0C->m_name : "";
 		key.format("APT:_level%u.%s_CommandPoints", m_level08, team);
 		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, tmp, false);
 		m_cmdPts54 = val;
 	}
 	if (!(m_flags58 & 8)) {
-		const char *team = m_team0C ? m_team0C->m_name : g_Rva0107301CEmptyString;
+		const char *team = m_team0C ? m_team0C->m_name : "";
 		Rva005FB5E6AptCall(TheRva00222A8BTarget, m_level08, team, "SetCommandPointsState", "_show");
 		m_flags58 |= 8;
 	}
+}
+
+// The four small callbacks the Impl ctor 0x005F39D6 binds as
+// "<_level%u.><name>_OnBackButtonClicked / _OnBackButtonRollOver /
+// _OnBackButtonRollOut / _OnIconListBackgroundClicked" (retail strings).
+void StrategicHUD::ArmyDetailsMovieClip::Impl::OnBackButtonClicked(const char *path)
+{
+	if (((Rva005F2537AptMode *)TheRva00222A8BTarget)->m_mode == 0)
+		m_owner->notifyBackButtonClicked();
+}
+
+void StrategicHUD::ArmyDetailsMovieClip::Impl::OnBackButtonRollOver(const char *path)
+{
+	m_flags58 |= 0x10;
+}
+
+void StrategicHUD::ArmyDetailsMovieClip::Impl::OnBackButtonRollOut(const char *path)
+{
+	m_flags58 &= ~0x10;
+}
+
+void StrategicHUD::ArmyDetailsMovieClip::Impl::OnIconListBackgroundClicked(const char *path)
+{
+	if (((Rva005F2537AptMode *)TheRva00222A8BTarget)->m_mode == 0)
+		m_owner->notifyIconListBackgroundClicked();
+}
+
+// The owner's ctor 0x005F3E93 (ret 0x10): vtable 0x0087936C and its Impl
+// (new 0x5C; WorldBuilder-named ctor 0x005F39D6, pinned: it stores owner,
+// level and the name, lays out "_hero" when the layout is 1 and sets
+// SetBackButtonVisibility from the flag) built with this and the arguments.
+StrategicHUD::ArmyDetailsMovieClip::ArmyDetailsMovieClip(int level, const AsciiString &name, int layout, bool backButtonVisible)
+	: m_impl(new Impl(this, level, name, layout, backButtonVisible))
+{
 }

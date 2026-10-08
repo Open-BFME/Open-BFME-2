@@ -2,7 +2,7 @@
 
 // ?rva005DDE33@Rva005DDE33@@QAEMIII@Z, RVA 0x005DDE33, 54B. Chain lane:
 // bounds-checked delegate; count is the byte range at +4/+8 divided by 0x18
-// via push/pop idiv, out of range returns pooled 0.0f g_Va00BBAEAC, else calls
+// via push/pop idiv, out of range returns pooled 0.0f BfmeZeroRange, else calls
 // the rowed float range-sum 0x005DDC6B on the indexed 0x18 element head with
 // (lo,hi). 12 callers in 0x005DE100. Owner unknown so honest address-derived
 // method name; element head overlaps the callee layout at +4 by construction.
@@ -11,7 +11,7 @@
 // before the barrier, pointer-cast element access. That form is what schedules
 // the hi push ahead of the imul, which retail 0x005DDE33 also does; the
 // start/finish-local form emits the imul first and is one byte short of exact.
-extern float g_Va00BBAEAC;
+extern const float BfmeZeroRange;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -39,10 +39,7 @@ float Rva005DDE33::rva005DDE33(unsigned idx, unsigned lo, unsigned hi)
 	int count = (m_08 - m_04) / 0x18;
 	_ReadWriteBarrier();
 	if (idx >= (unsigned)count)
-		return g_Va00BBAEAC;
+		return BfmeZeroRange;
 	return ((Rva005DDC6B *)(m_04 + idx * 0x18))->rva005DDC6B(lo, hi);
 }
 
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_Va00BBAEAC@@3MA=?BfmeZeroRange@@3MB")

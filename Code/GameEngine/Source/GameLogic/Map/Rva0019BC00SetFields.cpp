@@ -30,8 +30,18 @@ public:
 	AsciiString *setAsciiString(AsciiString value);
 };
 
-extern Dict g_dictA;
-extern Dict g_dictB;
+class StaticNameKey;
+extern const StaticNameKey TheKey_teamOwner;
+extern const StaticNameKey TheKey_teamName;
+
+// The bracketing calls are the rowed TeamsInfoRec::bfmePrepareRelease and
+// TeamsInfoRec::addToIndex.
+class TeamsInfoRec
+{
+public:
+	void bfmePrepareRelease(int index);
+	void addToIndex(int index);
+};
 
 class Rva0019BC00Owner
 {
@@ -47,9 +57,9 @@ private:
 
 void Rva0019BC00Owner::apply(int index, AsciiString a, AsciiString b)
 {
-	prepare(index);
+	((TeamsInfoRec *)this)->bfmePrepareRelease(index);
 	AsciiStringField *field = (AsciiStringField *)(m_data + (index << 4) + 0xC);
-	field->set(g_dictA.setAsciiString(a));
-	field->set(g_dictB.setAsciiString(b));
-	finish(index);
+	field->set(((Dict *)&TheKey_teamOwner)->setAsciiString(a));
+	field->set(((Dict *)&TheKey_teamName)->setAsciiString(b));
+	((TeamsInfoRec *)this)->addToIndex(index);
 }

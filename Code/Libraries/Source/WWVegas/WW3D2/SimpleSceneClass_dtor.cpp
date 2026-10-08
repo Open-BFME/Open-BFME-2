@@ -103,9 +103,7 @@ SimpleSceneClass::~SimpleSceneClass()
 
 #pragma comment(linker, "/alternatename:??_VBfmeSceneVectorElement@@SAXPAX@Z=??_V@YAXPAX@Z")
 
-#pragma comment(linker, "/alternatename:??1BfmeRefSceneList@@UAE@XZ=?j_000319df@@YAXXZ")
-#pragma comment(linker, "/alternatename:??1BfmeNonRefSceneList@@UAE@XZ=??1?$MultiListClass@VDX8TextureCategoryClass@@@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??1BfmeSceneVectorElement@@QAE@XZ=?invoke@Rva00943970@@QAEXXZ")
+#pragma comment(linker, "/alternatename:??1BfmeSceneVectorElement@@QAE@XZ=??1Rva00141D00@@QAE@XZ")
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 //
 // ??1Rva00382FA7@@UAE@XZ @0x00400A7F 121B: GameInfo virtual dtor (Rva name keeps
 // pinned caller 0x003830CE and LINK GameSpyStagingRoomCopy); installs vtable
@@ -25,17 +25,7 @@ public:
 };
 
 class Xfer;
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc(Xfer *xfer);
-	virtual void loadPostProcess();
-	virtual void xfer(Xfer *xfer);
-};
-
-extern const void *const g_00BBB554[];
-inline Snapshot::~Snapshot() { *(const void **)this = g_00BBB554; }
+#include "Common/Snapshot.h"
 
 class Rva00382FA7 : public Snapshot
 {

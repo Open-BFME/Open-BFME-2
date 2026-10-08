@@ -48,11 +48,17 @@ typedef _STL::_Rb_tree<Int, _STL::pair<const Int, Gen_t_0040abb0_p12cd>,
 		_STL::allocator<_STL::pair<const Int, Gen_t_0040abb0_p12cd> > >
 	ReferenceStateTree;
 
+// The tree's erase(const key &) at 0x00362B89 is rowed as Rva00362AB5::rva00362B89.
+class Rva00362AB5
+{
+public:
+	unsigned int rva00362B89(const Int &key);
+};
+
 // 0x012F10DC holds the tree instance; retail's dynamic initializer
 // (retail 0x00C6B3D0) constructs it, so the one definition of the storage is
 // the init struct in game/GameEngine/Source/Common/Rva00C6B390StaticInitializers.cpp.
-struct Rva00C6B3D0Init;
-extern Rva00C6B3D0Init g_rva012F10DC;				// 0x012F10DC
+extern unsigned int g_Va00E01E7C;				// tree object at 0x00E01E7C (Rva007B6880Thunks.cpp)
 
 class ReferenceStateReferent
 {
@@ -100,7 +106,7 @@ void Rva0040AD80ReferenceState::releaseReferences(void)
 		{
 			Int key = second->m_key;
 
-			((ReferenceStateTree *)&g_rva012F10DC)->erase(key);
+			((Rva00362AB5 *)&g_Va00E01E7C)->rva00362B89(key);
 		}
 
 		ReferenceStateReferent *again = m_secondReferent;

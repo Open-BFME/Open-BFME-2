@@ -47,7 +47,12 @@ public:
 };
 
 class AptValue;
-AptValue *Rva006D88C0MakeBool(bool b);
+// The value maker is the rowed AptBoolean::Create.
+class AptBoolean
+{
+public:
+	static AptValue *Create(bool value);
+};
 
 void rva006F1530(BfmeAptValue006DCD20 *obj)
 {
@@ -55,11 +60,11 @@ void rva006F1530(BfmeAptValue006DCD20 *obj)
 		BfmeAptValue006DCD20 *p = obj->rva006DD220();
 		Rva006F1530Inner *inner = p->m_inner20;
 		if (inner) {
-			Rva006D88C0MakeBool(inner->slot9() != 0);
+			AptBoolean::Create(inner->slot9() != 0);
 			_ReadWriteBarrier();
 			return;
 		}
 	}
-	Rva006D88C0MakeBool(false);
+	AptBoolean::Create(false);
 	_WriteBarrier();
 }

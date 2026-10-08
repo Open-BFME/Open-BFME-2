@@ -14,13 +14,12 @@ public:
 	File *openFile(const char *filename, int access, int unk);
 };
 extern FileSystem *TheFileSystem;
-extern const char g_Rva0107301CEmptyString[];
 extern "C" __declspec(dllimport) char *__cdecl strchr(const char *, int);
 
 static File *openFile(const AsciiString *fname)
 {
 	char *t = *(char * const *)fname;
-	const char *s = t ? t + 8 : g_Rva0107301CEmptyString;
+	const char *s = t ? t + 8 : "";
 	for (;;) {
 		File *f = TheFileSystem->openFile(s, 1, 0);
 		if (f)

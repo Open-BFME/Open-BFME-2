@@ -31,10 +31,11 @@ public:
 // one argument, so one declaration of it serves both offsets; the forwarded
 // argument is only ever a dword, so it is typed as an opaque pointer here and
 // the class is named for the address it is pinned at.
+class Rva00064640Record;
 class Rva005045C6
 {
 public:
-	void take( GenForwardedArg *a );
+	void rva005045C6( const Rva00064640Record &a );
 };
 
 #define BFME_SUBOBJECT_ARG_FORWARDER( NAME, OFFSET )                      \
@@ -46,7 +47,7 @@ public:
 	};                                                                    \
 	void NAME( NAME##Owner *owner, GenForwardedArg *a )                   \
 	{                                                                     \
-		owner->m_sub.take( a );                                           \
+		owner->m_sub.rva005045C6( *(const Rva00064640Record *)a );       \
 	}
 
 // @?Rva003B7140@@YAXPAVRva003B7140Owner@@PAVGenForwardedArg@@@Z 0x003B7140

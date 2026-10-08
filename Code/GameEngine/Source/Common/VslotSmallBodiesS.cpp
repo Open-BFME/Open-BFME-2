@@ -41,7 +41,7 @@ class Rva0020AA00Registry
 public:
 	Rva0020AA00Target *lookup(const Int &key);
 };
-extern Rva0020AA00Registry *g_rva0050B95BRegistry;
+extern class ThingFactory *TheThingFactory;
 class Rva0050B95B
 {
 public:
@@ -52,7 +52,7 @@ private:
 };
 void Rva0050B95B::rva0050B95B(Int a, Int b)
 {
-	Rva0020AA00Target *t = g_rva0050B95BRegistry->lookup(m_12C);
+	Rva0020AA00Target *t = (*(Rva0020AA00Registry **)&TheThingFactory)->lookup(m_12C);
 	if (t)
 		t->notify(a, b);
 }
@@ -161,13 +161,13 @@ class Rva00222A8BTarget
 public:
 	void rva00222F55(bool b);
 };
-extern Rva00222A8BTarget *g_rva00514878Target;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct Rva00514878Flags
 {
 	char m_pad00[0x5D];
 	bool m_5D;
 };
-extern Rva00514878Flags *g_rva00514878Flags;
+extern class Shell *TheShell;
 class Rva00514878
 {
 public:
@@ -181,9 +181,9 @@ void Rva00514878::rva00514878()
 	if (m_288 == 2)
 	{
 		m_288 = 0;
-		g_rva00514878Target->rva00222F55(false);
+		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva00222F55(false);
 	}
-	g_rva00514878Flags->m_5D = true;
+	(*(Rva00514878Flags **)&TheShell)->m_5D = true;
 }
 
 // 0x0051E2FB: state 1 at +0x27C runs virtual slot 9 of the object at VA
@@ -202,7 +202,7 @@ public:
 	virtual void v08();
 	virtual void v09();
 };
-extern Rva0051E2FBTarget *g_rva0051E2FBTarget;
+extern class GameWindowTransitionsHandler *TheTransitionHandler;
 class Rva0051E2FB
 {
 public:
@@ -215,7 +215,7 @@ Int Rva0051E2FB::rva0051E2FB()
 {
 	if (m_27C == 1)
 	{
-		g_rva0051E2FBTarget->v09();
+		(*(Rva0051E2FBTarget **)&TheTransitionHandler)->v09();
 		m_27C = 0;
 	}
 	return 1;

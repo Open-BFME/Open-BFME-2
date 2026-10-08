@@ -10,10 +10,10 @@
 #include <math.h>
 #include <string.h>
 class Rva006DB160 { public: void *allocBlock(int); };
-extern Rva006DB160 *g_aptPoolAllocator;
+extern class Rva006DB270 *g_pChainBlockAllocator;
 enum PropertyAllocation { propertyAllocation };
 // ?operator new absent-from-retail
-inline void *operator new(unsigned int size,PropertyAllocation) {return g_aptPoolAllocator->allocBlock(size);}
+inline void *operator new(unsigned int size,PropertyAllocation) {return (*(Rva006DB160 **)&g_pChainBlockAllocator)->allocBlock(size);}
 // ?operator delete absent-from-retail
 inline void operator delete(void *,PropertyAllocation) {}
 // ?PropertyArray::PropertyArray present-unmatched

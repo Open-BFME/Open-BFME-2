@@ -1,4 +1,4 @@
-// cl: /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ?findIndex@Rva0040A3F9@@QBEHPAVCreateAHeroData@@@Z @0x0040A3F9 43B
 // Evidence: unlock lane; vector-like +0/+4 of CreateAHeroData* searched via
@@ -27,19 +27,6 @@ int Rva0040A3F9::findIndex(CreateAHeroData *value) const
     return _STL::find(m_begin, m_end, value) - m_begin;
 }
 
-// ?rva0040A32F@Rva0040A3F9@@QAEPAVCreateAHeroData@@H@Z @0x0040A32F 28B
-// Evidence: leaf lane; +0/+4 CreateAHeroData* vector bounds-checked index;
-// null when index out of range else the slot; callers include 6 matched rows.
-CreateAHeroData *Rva0040A3F9::rva0040A32F(int index)
-{
-	CreateAHeroData *result;
-	if ((unsigned)index >= (unsigned)(m_end - m_begin))
-		result = 0;
-	else
-		result = m_begin[index];
-	return result;
-}
-
 // ?rva0040A441@Rva0040A3F9@@QAE_NPAVCreateAHeroData@@@Z @0x0040A441 46B
 // Evidence: unlock lane; same +0/+4 CreateAHeroData* vector as findIndex above;
 // find via rowed 0x20E873 then rowed vector<void*> erase 0x1FF51F; false if
@@ -55,4 +42,15 @@ bool Rva0040A3F9::rva0040A441(CreateAHeroData *value)
         ok = true;
     }
     return ok;
+}
+
+// ?rva0040A32F@Rva0040A3F9@@QAEPAVCreateAHeroData@@H@Z @0x0040A32F 28B
+// Evidence: same +0/+4 CreateAHeroData* vector; bounds-checked index read
+// (unsigned compare against the element count, null past the end); six
+// matched callers reach it under this name.
+CreateAHeroData *Rva0040A3F9::rva0040A32F(int index)
+{
+    if ((unsigned int)index >= (unsigned int)(m_end - m_begin))
+        return 0;
+    return m_begin[index];
 }

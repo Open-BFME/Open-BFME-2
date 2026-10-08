@@ -1,8 +1,11 @@
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// Target copy and cleanup of an 840-byte owning record.
-// Offsets and copy operations come from retail disassembly; record identity and
-// payload meanings remain unclaimed. BFME1 PeerResponse is related donor context.
+// Target copy and cleanup of the 840-byte PeerResponse record.
+// Offsets and copy operations come from retail disassembly; payload meanings
+// remain unclaimed. Identity (target): the matched PeerThread units construct
+// and destroy their local PeerResponse through the REL32 calls that land on
+// 0x00389F77 / 0x0038A063, and GameSpyPeerMessageQueue's response queue holds
+// these 840-byte records. Name carried from the ZH/BFME1 PeerResponse donor.
 // Anonymous union alternatives preserve the observed overlapping copies.
 #include <string>
 #include <vector>
@@ -10,9 +13,9 @@
 
 #include "ascii_string.h"
 
-struct BfmeOpaqueOwnedRecord840 {
-    BfmeOpaqueOwnedRecord840();
-    ~BfmeOpaqueOwnedRecord840();
+struct PeerResponse {
+    PeerResponse();
+    ~PeerResponse();
     int unknown_00;
     std::string unknown_04;
     std::string unknown_10;
@@ -43,19 +46,19 @@ struct BfmeOpaqueOwnedRecord840 {
     };
 };
 
-typedef char Record840Extent[sizeof(BfmeOpaqueOwnedRecord840) == 840 ? 1 : -1];
-typedef char Record840Alignment[__alignof(BfmeOpaqueOwnedRecord840) == 4 ? 1 : -1];
-typedef char Record840WideStringOffset[offsetof(BfmeOpaqueOwnedRecord840, unknown_28) == 0x28 ? 1 : -1];
-typedef char Record840SecondWideOffset[offsetof(BfmeOpaqueOwnedRecord840, unknown_4c) == 0x4c ? 1 : -1];
-typedef char Record840ArrayOffset[offsetof(BfmeOpaqueOwnedRecord840, unknown_88) == 0x88 ? 1 : -1];
-typedef char Record840StringE8Offset[offsetof(BfmeOpaqueOwnedRecord840, unknown_e8) == 0xe8 ? 1 : -1];
-typedef char Record840StringF4Offset[offsetof(BfmeOpaqueOwnedRecord840, unknown_f4) == 0xf4 ? 1 : -1];
-typedef char Record840VectorOffset[offsetof(BfmeOpaqueOwnedRecord840, unknown_100) == 0x100 ? 1 : -1];
-typedef char Record840PayloadStart[offsetof(BfmeOpaqueOwnedRecord840, payload_word0) == 0x10c ? 1 : -1];
+typedef char Record840Extent[sizeof(PeerResponse) == 840 ? 1 : -1];
+typedef char Record840Alignment[__alignof(PeerResponse) == 4 ? 1 : -1];
+typedef char Record840WideStringOffset[offsetof(PeerResponse, unknown_28) == 0x28 ? 1 : -1];
+typedef char Record840SecondWideOffset[offsetof(PeerResponse, unknown_4c) == 0x4c ? 1 : -1];
+typedef char Record840ArrayOffset[offsetof(PeerResponse, unknown_88) == 0x88 ? 1 : -1];
+typedef char Record840StringE8Offset[offsetof(PeerResponse, unknown_e8) == 0xe8 ? 1 : -1];
+typedef char Record840StringF4Offset[offsetof(PeerResponse, unknown_f4) == 0xf4 ? 1 : -1];
+typedef char Record840VectorOffset[offsetof(PeerResponse, unknown_100) == 0x100 ? 1 : -1];
+typedef char Record840PayloadStart[offsetof(PeerResponse, payload_word0) == 0x10c ? 1 : -1];
 
-template void _STL::_Construct<BfmeOpaqueOwnedRecord840, BfmeOpaqueOwnedRecord840>(
-    BfmeOpaqueOwnedRecord840 *, const BfmeOpaqueOwnedRecord840 &);
+template void _STL::_Construct<PeerResponse, PeerResponse>(
+    PeerResponse *, const PeerResponse &);
 
-BfmeOpaqueOwnedRecord840::BfmeOpaqueOwnedRecord840() {}
+PeerResponse::PeerResponse() {}
 
-BfmeOpaqueOwnedRecord840::~BfmeOpaqueOwnedRecord840() {}
+PeerResponse::~PeerResponse() {}

@@ -124,4 +124,3 @@ FontCharsClass::FontCharsClass()
 
 // ?g_fontCharsGdiState@@3PAVFontCharsClassGdiState@@A: matched references place it at VA 0xdf6f24; also referenced as ?FontScreenDCGlobalsPtr@@3PAUFontScreenDCGlobals@@A.
 FontCharsClassGdiState * g_fontCharsGdiState = 0;
-#pragma comment(linker, "/alternatename:?FontScreenDCGlobalsPtr@@3PAUFontScreenDCGlobals@@A=?g_fontCharsGdiState@@3PAVFontCharsClassGdiState@@A")

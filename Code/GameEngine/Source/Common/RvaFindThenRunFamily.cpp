@@ -52,11 +52,20 @@ public:
 
 BfmeY1038 *__stdcall bfmeFind1038(int value);
 
+// The order queue the finder returns for clearOrders (its clear,
+// 0x005482E9, pinned address-named).
+class Rva005482E9Queue
+{
+public:
+	void rva005482E9(int flags);
+};
+
 class AiOrdersManager
 {
 public:
 	void rva0035519E(int value);
 	void rva003551D3(int value);
+	void clearOrders(int flags, int key);
 
 private:
 	Rva0035516C m_finder;
@@ -93,4 +102,22 @@ void Rva0040D3E8Owner::fwd(int value)
 	Rva0040C985 *found = (Rva0040C985 *)bfmeFind1038(value);
 	if (found)
 		found->rva0040C9F4();
+}
+
+// ?Rva0040FAFEOwner::fwd present-unmatched
+void Rva0040FAFEOwner::fwd(int value)
+{
+	Rva0040F7E5Runner *found = (Rva0040F7E5Runner *)bfmeFind1038(value);
+	if (found)
+		found->run();
+}
+
+// AiOrdersManager::clearOrders, retail 0x00355183 (27 B, ret 8; WorldBuilder
+// AiOrdersManager.cpp:340 names it): finds the queue for the key with the
+// same finder and clears it with the flags.
+void AiOrdersManager::clearOrders(int flags, int key)
+{
+	const ArmorTemplate *found = m_finder.rva0035516C((NameKeyType)key);
+	if (found)
+		((Rva005482E9Queue *)found)->rva005482E9(flags);
 }

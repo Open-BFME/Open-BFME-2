@@ -88,7 +88,3 @@ int Rva002F1BD5::rva002F1BD5(int a1, Rva002F1BD5Arg *a2, int a3, int a4)
 	}
 	return 0;
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_009FE78C@@3PAVGameLogic@@A=?TheGameLogic@@3PAVGameLogic@@A")

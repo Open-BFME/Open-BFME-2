@@ -64,7 +64,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *data);
-	virtual ~UpdateModule() {}
+	virtual ~UpdateModule();
 
 protected:
 	void setWakeFrame(Object *object, UpdateSleepTime frame);

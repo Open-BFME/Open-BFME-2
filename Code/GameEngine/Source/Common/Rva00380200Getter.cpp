@@ -97,7 +97,7 @@ class Rva002000D7Store
 public:
 	Rva002000D7Config *get(int);
 };
-extern Rva002000D7Store *Va00DFE0ECStore;
+extern class RankInfoStore *TheRankInfoStore;
 
 class Rva00380200
 {
@@ -127,9 +127,9 @@ AsciiString *Rva00380200::rva00380200()
 
 void Rva00380200::rva0038020D()
 {
-	Rva002000D7Config *config = Va00DFE0ECStore ? Va00DFE0ECStore->get(m_14 + 1) : 0;
+	Rva002000D7Config *config = (*(Rva002000D7Store **)&TheRankInfoStore) ? (*(Rva002000D7Store **)&TheRankInfoStore)->get(m_14 + 1) : 0;
 	m_20 = config ? config->rva00200157(*rva00380200()) : 0x7fffffff;
-	config = Va00DFE0ECStore ? Va00DFE0ECStore->get(m_14) : 0;
+	config = (*(Rva002000D7Store **)&TheRankInfoStore) ? (*(Rva002000D7Store **)&TheRankInfoStore)->get(m_14) : 0;
 	m_24 = config ? config->rva00200157(*rva00380200()) : 0;
 }
 

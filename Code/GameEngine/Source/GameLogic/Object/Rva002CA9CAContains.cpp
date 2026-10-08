@@ -133,7 +133,7 @@ public:
 	void *rva002D06CA(const void *key);
 };
 
-extern Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 struct FloatHolder
 {

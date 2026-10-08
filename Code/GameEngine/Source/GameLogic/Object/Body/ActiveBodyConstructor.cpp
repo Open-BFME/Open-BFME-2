@@ -100,7 +100,6 @@ public:
 };
 
 extern class GlobalData *TheWritableGlobalData;
-extern unsigned g_Va00DE0878;
 
 template<int N>
 class BitFlags
@@ -165,7 +164,7 @@ ActiveBody::ActiveBody(Thing *thing, const ModuleData *moduleData)
 	  m_fieldEC(0),
 	  m_curArmorSetFlags(),
 	  m_curArmorSet(0),
-	  m_armorSetName(*reinterpret_cast<const AsciiString *>(&g_Va00DE0878)),
+	  m_armorSetName(AsciiString::TheEmptyString),
 	  m_curDamageFX(0)
 {
 	const ActiveBodyModuleDataFields *data =
@@ -196,12 +195,8 @@ ActiveBody::ActiveBody(Thing *thing, const ModuleData *moduleData)
 
 // ?g_Va00DE0878@@3IA: the global at this VA is ?TheEmptyString@AsciiString@@2V1@B; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?g_Va00DE0878@@3IA=?TheEmptyString@AsciiString@@2V1@B")
-#pragma comment(linker, "/alternatename:?g_009E0878@@3VAsciiString@@A=?TheEmptyString@AsciiString@@2V1@B")
-#pragma comment(linker, "/alternatename:?g_emptyAsciiString@@3VAsciiString@@A=?TheEmptyString@AsciiString@@2V1@B")
 #pragma comment(linker, "/alternatename:?TheDefaultArmorTemplateName@@3VAsciiString@@A=?TheEmptyString@AsciiString@@2V1@B")
-#pragma comment(linker, "/alternatename:?g_emptyName@@3VAsciiString@@B=?TheEmptyString@AsciiString@@2V1@B")
 #pragma comment(linker, "/alternatename:?g_bfmeNullAdjustDE0878@@3UBfmeNullAdjustDefault@@A=?TheEmptyString@AsciiString@@2V1@B")
-#pragma comment(linker, "/alternatename:?emptyRunOffMapWaypointName@@3VAsciiString@@B=?TheEmptyString@AsciiString@@2V1@B")
 #pragma comment(linker, "/alternatename:?g_str009E0878@@3V?$StringBase@D@@A=?TheEmptyString@AsciiString@@2V1@B")
 #pragma comment(linker, "/alternatename:?g_emptyModuleName@@3VBFMERetailAsciiString@@A=?TheEmptyString@AsciiString@@2V1@B")
 // ?g_Va00DE0878@@3IA: the global at VA 0xde0878 is ?TheEmptyString@AsciiString@@2V1@B.

@@ -71,8 +71,3 @@ Rva008A2C80::Rva008A2C80(Rva008A2BA0Handle value)
     m_value34 = value;
     m_value0c = value.m_ptr->getValue();
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?slot2@Gen_008AC620@@UAEXXZ=?go@Rva008A2C60@@QAEXXZ")

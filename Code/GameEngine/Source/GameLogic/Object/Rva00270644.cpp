@@ -3,7 +3,7 @@
 // Honest 2-float setter with frame via holder 0x00DFE77C slot 0x7C.
 // Evidence: movss at +0xD8 +0xDC plus frame at +0x380; holder same as DrawableFade slot1F;
 // callers at 0x0027530C 0x0045DF43 0x0046DAE3 0x0046DB53 0x0048578B.
-extern class ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 class Rva00DFE77CHolder
 {

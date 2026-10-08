@@ -77,7 +77,27 @@ protected:
 	T *m_finish;
 	T *m_endOfStorage;
 };
+// The faction build-list map's vectors; only the out-of-line push_back
+// (0x0032CA14, rowed under the 128-byte placeholder element) is called here.
+template <class T, class Alloc = allocator<T> > class vector : public _Vector_base<T, Alloc>
+{
+public:
+	void push_back(const T &x);
+};
 }
+
+// The faction build-list entry type (128 bytes); its real name is unknown.
+struct BfmePod128 { int a[32]; };
+
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);		// 0x00148E1A
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
 
 class SidesInfoStringVector : private _STL::_Vector_base<AsciiString, _STL::allocator<AsciiString> >
 {
@@ -102,6 +122,9 @@ public:
 	void swap(SidesInfo *other);
 	void init(const Dict *d);
 	void clear() { init(0); }
+	const ScriptList *getScriptList() const { return &m_scripts; }
+	ScriptList *getScriptList() { return &m_scripts; }
+	void setScriptList(ScriptList *scripts) { m_scripts.swap(scripts); }	// 0x003297F3 out of line
 
 private:
 	BuildListInfo *m_pBuildList;     // +0x00
@@ -212,6 +235,7 @@ void SidesListNotifier::post(void (*callback)(), void *owner, int index)
 // callback addresses, but their semantic names are not established.
 void Rva005CB260();
 void Rva005CB26A();
+void Rva005CC208();
 
 class TeamsInfoRec
 {
@@ -222,16 +246,84 @@ private:
 	char m_body[0x1C];
 };
 
-class SidesList
+// DoXfer's bases: the subsystem interface (vptr plus two words) at +0x00
+// and the Snapshot interface at +0x0C, whose DoXfer runs with this at +0x0C.
+class Xfer;
+
+struct XferVersion
+{
+	XferVersion(unsigned char current) : m_version(current), m_currentVersion(current) {}
+	unsigned char m_version;
+	unsigned char m_currentVersion;
+};
+
+// The Xfer slots DoXfer calls (BFME 2 order).
+class Xfer
 {
 public:
+#define SIDES_XFER_SLOT(n) virtual void slot##n();
+	SIDES_XFER_SLOT(00) SIDES_XFER_SLOT(01) SIDES_XFER_SLOT(02) SIDES_XFER_SLOT(03)
+	virtual bool skipsTransfer();				// +0x10, name unknown: true skips the body
+	SIDES_XFER_SLOT(05) SIDES_XFER_SLOT(06) SIDES_XFER_SLOT(07) SIDES_XFER_SLOT(08)
+	SIDES_XFER_SLOT(09)
+	virtual void xferVersion(XferVersion *version);		// +0x28
+	SIDES_XFER_SLOT(11)
+	virtual void xferSnapshot(void *snapshot);		// +0x30
+	SIDES_XFER_SLOT(13) SIDES_XFER_SLOT(14) SIDES_XFER_SLOT(15) SIDES_XFER_SLOT(16)
+	SIDES_XFER_SLOT(17) SIDES_XFER_SLOT(18) SIDES_XFER_SLOT(19) SIDES_XFER_SLOT(20)
+	SIDES_XFER_SLOT(21) SIDES_XFER_SLOT(22) SIDES_XFER_SLOT(23) SIDES_XFER_SLOT(24)
+	SIDES_XFER_SLOT(25) SIDES_XFER_SLOT(26) SIDES_XFER_SLOT(27) SIDES_XFER_SLOT(28)
+	SIDES_XFER_SLOT(29) SIDES_XFER_SLOT(30)
+	virtual void xferInt(int *value);			// +0x7C
+	SIDES_XFER_SLOT(32) SIDES_XFER_SLOT(33) SIDES_XFER_SLOT(34) SIDES_XFER_SLOT(35)
+	virtual void xferBool(bool *value);			// +0x90
+#undef SIDES_XFER_SLOT
+};
+
+class XferException
+{
+public:
+	XferException(int tag, const char *format, ...);	// 0x0060C36E
+	XferException(const XferException &that);
+	~XferException();
+
+	void *text;
+	int tag;
+};
+
+enum { XFER_INVALID_DATA = 5 };
+
+class SidesListSubsystemBase
+{
+public:
+	virtual ~SidesListSubsystemBase();
+private:
+	int m_subsystemData[2];
+};
+
+class SidesListSnapshotBase
+{
+public:
+	virtual void crc(Xfer *xfer);
+	virtual void DoXfer(Xfer *xfer) = 0;
+	virtual void loadPostProcess();
+};
+
+class SidesList : public SidesListSubsystemBase, public SidesListSnapshotBase
+{
+public:
+	virtual ~SidesList();
 	int addSide(const Dict *d);
+	SidesInfo *getSideInfo(int side);				// 0x002035BA
+	virtual void DoXfer(Xfer *xfer);
+	void removeSide(int index);
+	void duplicateScripts(const SidesList &other);
+	void addToFactionBuildListMap(NameKeyType faction, const BfmePod128 &entry, int listType);
 	void clear();
 	void emptySides();
 	void emptyTeams();
 
 private:
-	char m_head[0x10];
 	SidesListNotifier m_notifier;             // +0x10
 	char m_pad[0x3C - 0x11];
 	int m_numSides;                           // +0x3C
@@ -241,6 +333,12 @@ private:
 	TeamsInfoRec m_teamrec;                   // +0xF44
 	TeamsInfoRec m_skirmishTeamrec;           // +0xF60
 	bool m_cleared;                           // +0xF7C
+	struct FactionBuildLists
+	{
+		NameKeyType m_faction;                 // "UNASSIGNED" when free
+		_STL::vector<BfmePod128> m_lists[2];   // by list type 0 and 1
+	};
+	FactionBuildLists m_factionBuildLists[20]; // +0xF80, 0x1C each
 };
 
 int SidesList::addSide(const Dict *d)
@@ -253,6 +351,102 @@ int SidesList::addSide(const Dict *d)
 		return index;
 	}
 	return -1;
+}
+
+// SidesList::removeSide, retail 0x0032D850 (117 bytes): WB names it in
+// SidesList.cpp and asserts 0 <= index < m_numSides and m_numSides > 1. The
+// later sides swap down one slot, every slot from there on is cleared, and
+// the removal is posted with the side's index.
+void SidesList::removeSide(int index)
+{
+	int i;
+	for (i = index; i < m_numSides - 1; i++) {
+		m_sides[i].swap(&m_sides[i + 1]);
+	}
+	for (; i < 20; i++) {
+		m_sides[i].clear();
+	}
+	m_numSides--;
+	m_notifier.post(Rva005CC208, this, index);
+}
+
+// SidesList::getSideInfo, retail 0x002035BA: rowed in SidesList_getSideInfo.cpp
+// under the struct-key spelling; this class-key copy reproduces the same body
+// and is pinned onto it as a proven fold (fold-proof) for DoXfer's call.
+SidesInfo *SidesList::getSideInfo(int side)
+{
+	return (side >= 0 && side < m_numSides) ? &m_sides[side] : 0;
+}
+
+// SidesList::duplicateScripts, retail 0x00329A80 (106 bytes): WB names it
+// in SidesList.cpp and asserts both lists hold as many sides; each side takes
+// a copy of the other list's scripts.
+void SidesList::duplicateScripts(const SidesList &other)
+{
+	for (int i = 0; i < m_numSides; i++) {
+		ScriptList scripts(*other.m_sides[i].getScriptList());
+		m_sides[i].setScriptList(&scripts);
+	}
+}
+
+// SidesList::addToFactionBuildListMap, retail 0x0032CDFE (160 bytes): WB
+// names it in SidesList.cpp. The entry joins list 0 or 1 of the faction's
+// slot, claiming the first "UNASSIGNED" slot for a new faction.
+void SidesList::addToFactionBuildListMap(NameKeyType faction, const BfmePod128 &entry, int listType)
+{
+	int i;
+	for (i = 0; i < 20; i++) {
+		if (m_factionBuildLists[i].m_faction == faction) {
+			if (listType == 0)
+				m_factionBuildLists[i].m_lists[0].push_back(entry);
+			else if (listType == 1)
+				m_factionBuildLists[i].m_lists[1].push_back(entry);
+			return;
+		}
+	}
+	for (i = 0; i < 20; i++) {
+		if (m_factionBuildLists[i].m_faction == TheNameKeyGenerator->nameToKey("UNASSIGNED")) {
+			m_factionBuildLists[i].m_faction = faction;
+			if (listType == 0)
+				m_factionBuildLists[i].m_lists[0].push_back(entry);
+			else if (listType == 1)
+				m_factionBuildLists[i].m_lists[1].push_back(entry);
+			return;
+		}
+	}
+}
+
+// SidesList::DoXfer, retail 0x00329AEA (212 bytes), the Snapshot override
+// (this at SidesList+0x0C): WB names it. Zero Hour's SidesList::xfer body —
+// version 1, the side count, each side's script list presence and script
+// list — skipped when slot +0x10 says so and followed by the cleared flag.
+void SidesList::DoXfer(Xfer *xfer)
+{
+	if (xfer->skipsTransfer())
+		return;
+
+	XferVersion version(1);
+	xfer->xferVersion(&version);
+
+	int i;
+	int sideCount = m_numSides;
+	xfer->xferInt(&sideCount);
+	if (sideCount != m_numSides)
+		throw XferException(XFER_INVALID_DATA, 0);
+
+	for (i = 0; i < sideCount; ++i) {
+		SidesInfo *sideInfo = getSideInfo(i);
+		ScriptList *scriptList = sideInfo->getScriptList();
+		bool scriptListPresent = scriptList != 0;
+		xfer->xferBool(&scriptListPresent);
+		if ((scriptList == 0 && scriptListPresent == true) ||
+			(scriptList != 0 && scriptListPresent == false))
+			throw XferException(XFER_INVALID_DATA, 0);
+		if (scriptListPresent)
+			xfer->xferSnapshot(scriptList);
+	}
+
+	xfer->xferBool(&m_cleared);
 }
 
 void SidesList::emptySides()

@@ -10,12 +10,11 @@
 // g_Rva0107301CEmptyString; virtual slot 0x2c.
 #include "ascii_string.h"
 
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr001B4EAB(const AsciiString &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 struct Rva001B4EABEntry

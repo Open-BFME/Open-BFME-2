@@ -130,8 +130,6 @@ done:
 
 // ?TheArchiveFileSystem@@3PAVArchiveFileSystem@@A: matched references place it at VA 0xe06e5c; also referenced as ?G00A06E5C@@3PAVRva0060061AHelper@@A, ?G00A06E5C@@3PAVRva00600676Target@@A.
 ArchiveFileSystem * TheArchiveFileSystem = 0;
-#pragma comment(linker, "/alternatename:?G00A06E5C@@3PAVRva0060061AHelper@@A=?TheArchiveFileSystem@@3PAVArchiveFileSystem@@A")
-#pragma comment(linker, "/alternatename:?G00A06E5C@@3PAVRva00600676Target@@A=?TheArchiveFileSystem@@3PAVArchiveFileSystem@@A")
 // ?TheLocalFileSystem@@3PAVLocalFileSystem@@A: matched references place it at VA 0xe06e54; also referenced as ?G00A06E54@@3PAVRva0060061AHelper@@A.
 LocalFileSystem * TheLocalFileSystem = 0;
 #pragma comment(linker, "/alternatename:?G00A06E54@@3PAVRva0060061AHelper@@A=?TheLocalFileSystem@@3PAVLocalFileSystem@@A")

@@ -17,7 +17,6 @@ UnicodeString Rva005ED310Get(int val);
 
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
 int __cdecl Rva0057A9B7Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, void *a6);
 
 struct Rva005ED445Holder
@@ -95,12 +94,12 @@ void StrategicHUD::RegionAwardMovieClip::Impl::SelectPlayer(int newRow)
 	if (newRow == m_row50)
 		return;
 	if (m_row50 >= 0) {
-		const char *oldTeam = m_holder08 ? (const char *)m_holder08 + 8 : g_Rva0107301CEmptyString;
+		const char *oldTeam = m_holder08 ? (const char *)m_holder08 + 8 : "";
 		Rva0057A9B7Fire(TheRva00222A8BTarget, m_level04, oldTeam, "SetPlayerRowState", &m_row50, (void *)"_deselect");
 	}
 	m_row50 = newRow;
 	if (newRow < 0)
 		return;
-	const char *newTeam = m_holder08 ? (const char *)m_holder08 + 8 : g_Rva0107301CEmptyString;
+	const char *newTeam = m_holder08 ? (const char *)m_holder08 + 8 : "";
 	Rva0057A9B7Fire(TheRva00222A8BTarget, m_level04, newTeam, "SetPlayerRowState", &m_row50, (void *)"_selected");
 }

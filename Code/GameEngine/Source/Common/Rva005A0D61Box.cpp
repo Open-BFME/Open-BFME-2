@@ -14,8 +14,9 @@ public:
 	bool rva00580172();
 };
 
-struct GameSpyInfoInterface
+class GameSpyInfoInterface
 {
+public:
 	virtual void d00();
 	virtual void d01();
 	virtual void d02();

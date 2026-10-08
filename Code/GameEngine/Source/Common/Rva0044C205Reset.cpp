@@ -107,7 +107,7 @@ public:
 	virtual void slot24() = 0;
 	virtual void slot28() = 0;
 };
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Display
 {
@@ -135,7 +135,7 @@ void Rva0044C205Reset()
 	TheMouse->rva001EEA6D(UnicodeString::TheEmptyString, -1, 0, 1.0f);
 	TheGameEngine->slot5c();
 	TheWindowManager->slot28();
-	TheRva00222A8BTarget->slot28();
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->slot28();
 	TheDisplay->slot28();
 	TheDisplay->slot30();
 }

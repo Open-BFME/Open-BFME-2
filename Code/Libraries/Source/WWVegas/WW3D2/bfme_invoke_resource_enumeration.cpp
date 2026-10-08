@@ -12,10 +12,10 @@ public:
 	void bfmeInvoke(void *name, void *source);
 };
 
-Gen_009EBA60Target *TheInvokeRegistry;
+extern class Q1Receiver0134FAAC *TheQ1Receiver;
 
 void bfmeInvokeResourceEnumeration(void *name, void *source)
 {
-	if (TheInvokeRegistry != 0)
-		TheInvokeRegistry->bfmeInvoke(name, source);
+	if ((*(Gen_009EBA60Target **)&TheQ1Receiver) != 0)
+		(*(Gen_009EBA60Target **)&TheQ1Receiver)->bfmeInvoke(name, source);
 }

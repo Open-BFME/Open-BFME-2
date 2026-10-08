@@ -1,27 +1,12 @@
-// cl: /DNDEBUG /MD /GX
+// cl: /O1 /DNDEBUG /MD /GX /Ireference/shims/moduledata
 // ??1Rva00161220@@UAE@XZ at 0x004F05F0 102B: ModuleData-style dtor with list teardown.
 // Evidence: vptr 0x862B78 at +0 then Snapshot restore 0xBBB554; list at +0x14 via virtual slot0(0) plus operator delete 0x2FD60; flag bytes at +0x5D/+0x5E via +0x1C; layout matches Rva00161220Ctor TU; precedent PillageModuleDataDtor.
-
-extern const void *const g_00BBB554[];
 
 void __cdecl operator delete(void *p);
 
 class Xfer;
 
-// class-gate: allow Snapshot canonical header dtor is empty; retail restores base vptr 0xBBB554 here
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc(Xfer *xfer);
-	virtual void loadPostProcess();
-	virtual void xfer(Xfer *xfer);
-};
-
-inline Snapshot::~Snapshot()
-{
-	*(const void **)this = g_00BBB554;
-}
+#include "Common/Snapshot.h"
 
 struct Rva004F05F0Node
 {

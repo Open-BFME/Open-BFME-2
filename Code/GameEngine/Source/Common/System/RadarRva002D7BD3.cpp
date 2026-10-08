@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /arch:SSE /EHsc /Ireference/shims/moduledata
 //
 // ?rva002D7BD3@Radar@@QAEXXZ @0x002D7BD3 42B Radar invalidate draw cache.
 // Evidence: stores 0xFFFF0001 at +0x144C and +0x1450 then 0xFFFF at +0x1454
@@ -15,19 +15,12 @@
 // +0x1460=0. Layout from RadarDtor/Radar_reset/Radar_deleteListResources.
 // Same-TU rva body lets MSVC keep ECX across the first call (shape lever).
 
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc();
-	virtual void loadPostProcess();
-	virtual void xfer();
-};
+#include "Common/Snapshot.h"
 
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 class __declspec(novtable) RadarSecondBase

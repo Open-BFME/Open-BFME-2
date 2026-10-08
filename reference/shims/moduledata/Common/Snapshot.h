@@ -24,7 +24,8 @@
 
 // FILE: Snapshot.h ///////////////////////////////////////////////////////////////////////////////
 // Desc:   Canonical BFME2 Snapshot base. Retail vtable 0x00BBB554 has a
-//         deleting destructor followed by three pure virtual slots.
+//         deleting destructor followed by three pure virtual slots, in
+//         retail order: loadPostProcess, GetSnapshotName, xfer.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -53,16 +54,31 @@ public:
 
 protected:
 
-	/// run the "light" crc check on this data structure
+	// Retail order. Vtable 0x00BBB554 is the deleting destructor, then three
+	// __purecall slots, and the overriders fix what each slot is:
+	//  - the exports name every FXParticleSystem info's overriders
+	//    LoadPostProcess, GetSnapshotName and DoXfer(Xfer &), and their
+	//    vtables (e.g. 0x00BBB5C8) hold them in slots 1, 2 and 3;
+	//  - Xfer::operator&(Snapshot &) (export, 0x0060B8C6) calls slot 3
+	//    ([eax+0Ch]) with the Xfer;
+	//  - Module and ModuleData vtables (0x00C59368, 0x00C52534, 0x00C594E0)
+	//    hold loadPostProcess in slot 1, a getter returning the class-name
+	//    literal in slot 2 and xfer in slot 3.
+	// Retail has no crc. The Zero Hour classes still compiled against this
+	// header override crc(Xfer *), so it stands in for GetSnapshotName in
+	// slot 2 and keeps every derived table at four base slots; slots 1 and 3
+	// keep the Zero Hour spellings the ledger's rows use.
+
+	/** post process phase for loading save games.  All save systems have their xfer
+	run using XferLoad mode, and then all systems each have their post process run */
+	virtual void loadPostProcess( void ) = 0;
+
+	/// slot 2: retail GetSnapshotName (see above)
 	virtual void crc( Xfer *xfer ) = 0;
 
 	/** run save, load, or deep CRC check on this data structure, the type depends on the
 	setup of the Xfer pointer */
 	virtual void xfer( Xfer *xfer ) = 0;
-
-	/** post process phase for loading save games.  All save systems have their xfer
-	run using XferLoad mode, and then all systems each have their post process run */
-	virtual void loadPostProcess( void ) = 0;
 
 };
 

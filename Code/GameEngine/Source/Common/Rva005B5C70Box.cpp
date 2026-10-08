@@ -10,7 +10,7 @@ class GameWindow;
 void __cdecl GadgetListBoxGetSelected(GameWindow *w, int *sel);
 int __cdecl Rva003253BEGet(GameWindow *w, int a, int b);
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern const char g_rva005B5C70Str[];
 extern unsigned char g_rva005B5C02Flag;
 void __cdecl Rva004E6816Fire(Rva00222A8BTarget *t, void *p, const char *s, bool *b);
@@ -64,5 +64,5 @@ void Rva005B5C70Box::Run(int a)
 		if (g_rva005B5C02Flag != 0)
 			((unsigned char *)&a)[3] = 1;
 	}
-	Rva004E6816Fire(TheRva00222A8BTarget, m_4->m_274, g_rva005B5C70Str, (bool *)&((unsigned char *)&a)[3]);
+	Rva004E6816Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_4->m_274, g_rva005B5C70Str, (bool *)&((unsigned char *)&a)[3]);
 }

@@ -30,7 +30,7 @@ class Rva006D89D0ByteField { public: unsigned char get() const; };
 class Rva00723490FloatField { public: float get() const; };
 class Rva00144010Opaque { public: int rva00144010(); };
 extern "C" double Rva006CD070Atof(const char *);
-extern const float g_aptNumberZeroAtBBAEAC;
+extern const float BfmeZeroRange;
 struct NumberStringView
 {
     unsigned char pad[8];
@@ -40,7 +40,7 @@ extern BfmeAptValue006DCD20 *g_aptUndefinedAtE18078;
 float BfmeAptValue006DCD20::rva006DD460()
 {
     if (isUndefined())
-        return g_aptNumberZeroAtBBAEAC;
+        return BfmeZeroRange;
     switch (static_cast<int>(m_flags) >> 25) {
     case 1:
     case 42: {
@@ -48,15 +48,16 @@ float BfmeAptValue006DCD20::rva006DD460()
         return (float)Rva006CD070Atof(string->text.rva00620090());
     }
     case 5:
-        return reinterpret_cast<const Rva006D89D0ByteField *>(rva006DCEA0())->get() ? 1.0f : g_aptNumberZeroAtBBAEAC;
+        return reinterpret_cast<const Rva006D89D0ByteField *>(rva006DCEA0())->get() ? 1.0f : BfmeZeroRange;
     case 7:
         return static_cast<float>(reinterpret_cast<Rva00144010Opaque *>(checkedInteger())->rva00144010());
     case 6:
         return reinterpret_cast<const Rva00723490FloatField *>(checkedFloat())->get();
     default:
-        return this != g_aptUndefinedAtE18078 ? 1.0f : g_aptNumberZeroAtBBAEAC;
+        return this != g_aptUndefinedAtE18078 ? 1.0f : BfmeZeroRange;
     }
 }
 // Shared readonly zero at native VA BBAEAC. Keep storage declared before
 // use and defined afterward so MSVC retains the target memory loads.
-extern const float g_aptNumberZeroAtBBAEAC = 0.0f;
+extern const float BfmeZeroRange = 0.0f;
+

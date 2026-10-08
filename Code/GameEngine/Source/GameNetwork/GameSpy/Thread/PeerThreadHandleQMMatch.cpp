@@ -59,9 +59,9 @@ enum RoomType
 	StagingRoom
 };
 
-struct BfmeOpaqueOwnedRecord840 {
-	BfmeOpaqueOwnedRecord840();
-	~BfmeOpaqueOwnedRecord840();
+struct PeerResponse {
+	PeerResponse();
+	~PeerResponse();
 	int unknown_00;
 	std::string unknown_04;
 	std::string unknown_10;
@@ -103,10 +103,9 @@ public:
 	virtual void unused5();
 	virtual void unused6();
 	virtual void unused7();
-	virtual void addResponse(const BfmeOpaqueOwnedRecord840 &resp);
+	virtual void addResponse(const PeerResponse &resp);
 };
 
-extern const char g_Rva0107301CEmptyString[];
 
 extern "C" void peerLeaveRoomA(PEER peer, int roomType, const char *msg);
 extern "C" void peerMessagePlayerA(PEER peer, const char *nick, const char *msg, int type);
@@ -132,12 +131,12 @@ void PeerThreadClass::handleQMMatch(PEER peer, Int mapIndex, Int seed,
 {
 	if (m_qmStatus == QM_WORKING) {
 		m_qmStatus = QM_MATCHED;
-		peerLeaveRoomA(peer, GroupRoom, g_Rva0107301CEmptyString);
+		peerLeaveRoomA(peer, GroupRoom, "");
 		for (Int i = 0; i < MAX_SLOTS; ++i) {
 			if (playerName[i] && _strcmpi(playerName[i], m_loginName.c_str()))
 				peerMessagePlayerA(peer, playerName[i], "We're matched!", NormalMessage);
 		}
-		BfmeOpaqueOwnedRecord840 resp;
+		PeerResponse resp;
 		resp.qm_status = QM_MATCHED;
 		resp.unknown_00 = 17;
 		for (i = 0; i < MAX_SLOTS; ++i) {
@@ -150,7 +149,7 @@ void PeerThreadClass::handleQMMatch(PEER peer, Int mapIndex, Int seed,
 				resp.qm_nat[i] = atoi(playerNAT[i]);
 				resp.qm_extra[i] = atoi(playerExtra[i]);
 			} else {
-				resp.unknown_88[i] = g_Rva0107301CEmptyString;
+				resp.unknown_88[i] = "";
 				resp.qm_IP[i] = 0;
 				resp.qm_side[i] = 0;
 				resp.qm_color[i] = 0;

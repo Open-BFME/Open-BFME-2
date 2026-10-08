@@ -5,11 +5,12 @@
 // places uniquely on unclaimed game.dat .text by masked whole-.text search:
 //   ?bfmeEitherQP@@YAHPAX0@Z 0x004D93B5 (45B)
 // Callee addresses are read off retail call sites (reverse/symbols.csv).
-char bfmeTestQP(void *a, void *b);
+struct Rva004D9367Key;
+unsigned char Rva004D9367Less(const Rva004D9367Key *a, const Rva004D9367Key *b);
 
 int bfmeEitherQP(void *a, void *b)
 {
-	if (bfmeTestQP(a, b) || bfmeTestQP(b, a))
+	if (Rva004D9367Less((const Rva004D9367Key *)a, (const Rva004D9367Key *)b) || Rva004D9367Less((const Rva004D9367Key *)b, (const Rva004D9367Key *)a))
 		return 1;
 
 	return 0;

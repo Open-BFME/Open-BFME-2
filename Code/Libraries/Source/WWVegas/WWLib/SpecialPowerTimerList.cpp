@@ -26,6 +26,3 @@ template<> list<BfmeSpecialPowerTimer8,allocator<BfmeSpecialPowerTimer8> >::iter
 template void list<BfmeSpecialPowerTimer8,allocator<BfmeSpecialPowerTimer8> >::push_back(const BfmeSpecialPowerTimer8 &);
 
 }
-// The independently compiled typed copy is full23-byte exact at60C9D9.
-// Bind it to the existing pair<int,int> copy provider at that folded address.
-#pragma comment(linker, "/alternatename:??$_Construct@UBfmeSpecialPowerTimer8@@U1@@_STL@@YAXPAUBfmeSpecialPowerTimer8@@ABU1@@Z=??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z")

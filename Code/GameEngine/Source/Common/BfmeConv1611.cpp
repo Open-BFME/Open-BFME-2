@@ -10,14 +10,17 @@
 void *__cdecl operator new(unsigned int size);
 void __cdecl operator delete(void *block);
 
-class BfmeThingVTD
+// The object built is Rva0060061A (one vtable pointer; its ctor is the rowed
+// ??0Rva0060061A at 0x00600611, the call retail makes).
+class BfmeThingVTD;
+class Rva0060061A
 {
 public:
-	BfmeThingVTD();
-	int m_bfme00;
+	Rva0060061A();
+	virtual ~Rva0060061A();
 };
 
 BfmeThingVTD *bfmeCreateVTD()
 {
-	return new BfmeThingVTD;
+	return (BfmeThingVTD *)new Rva0060061A;
 }

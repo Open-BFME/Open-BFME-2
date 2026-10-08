@@ -12,8 +12,8 @@ public:
 	void *m_bfmeKey;					// +0x14
 };
 
-class TimedOperationNode;
-extern TimedOperationNode *g_timedOperationHead;		// retail 0x012ED584
+class TimedOp;
+extern TimedOp *g_timedOperationHead;		// retail 0x012ED584
 
 // ?bfmeFind@@YAPAVBfmeEntryCK@@PAX@Z
 BfmeEntryCK * __cdecl bfmeFind(void *key)

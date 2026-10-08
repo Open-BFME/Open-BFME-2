@@ -106,3 +106,21 @@ void Rva00577914::rva00577914()
 	m_08->m_obj->virt4(m_0C);
 	m_14.clear();
 }
+
+// Rva000AD71D: a class over Rva00328A75 whose destructor is the 5-byte jmp 0x000AD71D (rowed in
+// Rva000AD71DDtor.cpp). Its scalar deleting destructor 0x000ADE29 calls that stub; the
+// destructor is only declared here, and the tag constructor (no retail
+// counterpart) makes this TU emit the vtable and with it the deleting
+// destructor.
+struct EmitVtableTag;
+class Rva000AD71D : public Rva00328A75
+{
+public:
+	Rva000AD71D(EmitVtableTag *);
+	virtual ~Rva000AD71D();
+};
+
+// ?<Rva000AD71D::Rva000AD71D> absent-from-retail
+Rva000AD71D::Rva000AD71D(EmitVtableTag *)
+{
+}

@@ -34,7 +34,7 @@ public:
 	void *rva002D06CA(const AsciiString *value);
 };
 
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 class Rva0039205C
 {
@@ -61,6 +61,6 @@ void *Rva0039205C::rva00392CC5(unsigned int index)
 	if (m_array08 == 0)
 		((Rva00392092Target *)this)->rva00392092();
 	if (index < (unsigned int)m_count00)
-		return TheThingFactory->rva002D06CA(&m_array08[index].m_str14);
+		return ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_array08[index].m_str14);
 	return 0;
 }

@@ -2,8 +2,7 @@
 // ?rva0057BA90@Rva0057BA90@@QAEXXZ @0x0057BA90 52B leaf lane Apt Open via rowed call.
 // Evidence: same shape as Rva0057BAC4Close 52B; prefix +0x18 plus 8 else g_Rva0107301CEmptyString; level +0x14; function Open; sets +0x28 to 1; callers 0x0057BC31 0x0057BC20.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function);
 
 struct Rva0057BA90Inner
@@ -26,7 +25,7 @@ private:
 
 void Rva0057BA90::rva0057BA90()
 {
-    const char *prefix = m_inner18 ? m_inner18->m_name : g_Rva0107301CEmptyString;
-    Rva00524EF4AptCall(TheRva00222A8BTarget, m_level14, prefix, "Open");
+    const char *prefix = m_inner18 ? m_inner18->m_name : "";
+    Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level14, prefix, "Open");
     m_state28 = 1;
 }

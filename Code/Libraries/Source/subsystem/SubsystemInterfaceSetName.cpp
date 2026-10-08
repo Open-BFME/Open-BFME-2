@@ -10,11 +10,17 @@
 // landed initSubsystem caller in SubsystemInterface.cpp keeps calling
 // out-of-line instead of inlining.
 
-class AsciiString
+template <class T> class StringBase
+{
+	friend class AsciiString;
+	void releaseBuffer();
+};
+
+class AsciiString : public StringBase<char>
 {
 public:
 	AsciiString& operator=(const AsciiString& other);
-	~AsciiString();
+	~AsciiString() { releaseBuffer(); }
 };
 
 class SubsystemInterface

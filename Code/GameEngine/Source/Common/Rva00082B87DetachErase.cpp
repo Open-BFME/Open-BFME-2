@@ -22,8 +22,18 @@ struct Rva00082XXHintVec
 	TreeHintRef00217D4C *m_begin;
 	TreeHintRef00217D4C *m_finish;
 	TreeHintRef00217D4C *m_end;
-	TreeHintRef00217D4C *erase(TreeHintRef00217D4C *first, TreeHintRef00217D4C *last);
 };
+
+// The range erase is the rowed STLport vector<TreeHintRef00217D4C>::erase.
+namespace _STL
+{
+template <class T> class allocator;
+template <class T, class A = allocator<T> > class vector
+{
+public:
+	T *erase(T *first, T *last);
+};
+}
 
 class Rva00082B87Host
 {
@@ -44,7 +54,7 @@ void Rva00082B87Host::rva00082B87(int unused)
 	mgr->rva002B7250(key);
 	Rva00082XXHintVec *hv = &m_hints;
 	m_mgr = 0;
-	hv->erase(hv->m_begin, hv->m_finish);
+	((_STL::vector<TreeHintRef00217D4C> *)hv)->erase(hv->m_begin, hv->m_finish);
 }
 
 class Rva00082BB4Host
@@ -66,5 +76,5 @@ void Rva00082BB4Host::rva00082BB4(int unused)
 	mgr->rva002B7250(key);
 	Rva00082XXHintVec *hv = &m_hints;
 	m_mgr = 0;
-	hv->erase(hv->m_begin, hv->m_finish);
+	((_STL::vector<TreeHintRef00217D4C> *)hv)->erase(hv->m_begin, hv->m_finish);
 }

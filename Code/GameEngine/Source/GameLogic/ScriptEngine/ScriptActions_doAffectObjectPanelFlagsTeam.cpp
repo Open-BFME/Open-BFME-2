@@ -21,16 +21,6 @@ public:
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
 };
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-public:
-	void advance();
-};
-
 class Team
 {
 public:
@@ -71,7 +61,7 @@ void ScriptActions::doAffectObjectPanelFlagsTeam(const AsciiString &teamName, co
 	if (!team)
 		return;
 	DLINK_ITERATOR<Object> iter;
-	for (iter = team->iterate_TeamMemberList(); !iter.done(); ((Rva001705A0DlinkIterator<Object> *)&iter)->advance())
+	for (iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance())
 	{
 		Object *obj = iter.cur();
 		changeObjectPanelFlagForSingleObject(obj, flagName, enable);

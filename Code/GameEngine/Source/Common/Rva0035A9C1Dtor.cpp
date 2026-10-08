@@ -1,7 +1,7 @@
-// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /arch:SSE /Ireference/shims/moduledata
 // stlport
 // ??1Rva0035A9C1@@UAE@XZ @0x0035A9C1 125B
-// Evidence: vtable 0x00C153E0#0 via deleting dtor 0x0035ABA4; Snapshot base vtable g_00BBB554; forEach 0x00359BE8 with callback 0x1FF3A9 (receiver virtual slot zero); list clear/dtor 0x0023DAA5/0x004EC395 at +0x14; array delete 0x0035A18D at +0x40; free 0x00030830 of +0x04 buffer.
+// Evidence: vtable 0x00C153E0#0 via deleting dtor 0x0035ABA4; Snapshot base vtable 0x00BBB554; forEach 0x00359BE8 with callback 0x1FF3A9 (receiver virtual slot zero); list clear/dtor 0x0023DAA5/0x004EC395 at +0x14; array delete 0x0035A18D at +0x40; free 0x00030830 of +0x04 buffer.
 #include <string>
 
 namespace _STL
@@ -51,16 +51,7 @@ public:
 	Rva00359BE8List m_list;
 };
 
-extern const void *const g_00BBB554[];
-class Snapshot
-{
-public:
-	virtual ~Snapshot();
-	virtual void crc();
-	virtual void loadPostProcess();
-	virtual void xfer();
-};
-inline Snapshot::~Snapshot() { *(const void **)this = g_00BBB554; }
+#include "Common/Snapshot.h"
 
 class Rva0035A9C1 : public Snapshot
 {

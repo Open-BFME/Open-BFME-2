@@ -5,13 +5,14 @@
 // 6d9434269164392c5ba62aaa7c15a86b5b020d76. The member-function-pointer
 // representation supplies the return-by-value iterator structure. Target
 // reads head+0x334 and stores callback VA0x009C4AF5 plus zero adjustment.
-// That VA is the existing four-byte getter at RVA0x005C4AF5; the owner and
-// list identity have no independent naming evidence and remain address-derived.
+// That VA is Team::dlink_next_TeamInstanceList at RVA0x005C4AF5 (rowed in
+// TeamPrototypeTeamIterators.cpp, whose walks pass the same accessor); the
+// iterator and owner views keep their address-derived names.
 // MSVC's eight-byte member pointer leaves the return structure's +4 gap intact.
 #pragma pointers_to_members(full_generality, multiple_inheritance)
-class Rva005C4AF5DwordField;
-typedef int (Rva005C4AF5DwordField::*Rva00203E47Next)() const;
-class Rva005C4AF5DwordField { public: int get() const; char m_lead[0x40]; int m_value; };
+class Team;
+typedef Team *(Team::*Rva00203E47Next)() const;
+class Team { public: Team *dlink_next_TeamInstanceList() const; };
 struct Rva00203E47IteratorView
 {
     void *current;
@@ -32,6 +33,6 @@ public:
 };
 Rva00203E47IteratorView Rva00203E47OwnerView::iterate() const
 {
-    return Rva00203E47IteratorView(head, &Rva005C4AF5DwordField::get);
+    return Rva00203E47IteratorView(head, &Team::dlink_next_TeamInstanceList);
 }
 

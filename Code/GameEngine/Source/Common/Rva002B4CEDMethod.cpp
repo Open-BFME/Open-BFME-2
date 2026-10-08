@@ -2,13 +2,13 @@
 // stlport
 // ?rva002B4CED@Rva002B4CED@@QAEXPAX@Z @0x002B4CED 84B: notify singleton then vector erase.
 // Evidence: callers 0x002B4E7B 0x002BD9B4; rowed vector voidptr erase 0x001FF51F;
-// pin 0x00212655 Rva00DFE1C8Host::rva00212655; global g_009FE1C8 at VA 0x00DFE1C8.
+// pin 0x00212655 Rva00DFE1C8Host::rva00212655; global TheLivingWorldManager at VA 0x00DFE1C8.
 #include <vector>
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 class Rva0021294A;
-extern Rva0021294A *g_009FE1C8;
+class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 
 class Rva00DFE1C8Host
 {
@@ -36,7 +36,7 @@ void Rva002B4CED::rva002B4CED(void *p)
 {
 	if (!p)
 		return;
-	((Rva00DFE1C8Host *)g_009FE1C8)->rva00212655(((Rva002B4CEDItem *)p)->m_8);
+	((Rva00DFE1C8Host *)TheLivingWorldManager)->rva00212655(((Rva002B4CEDItem *)p)->m_8);
 	for (unsigned int i = 0; i < m_vec.size(); ++i) {
 		if (m_vec[i] == p)
 			m_vec.erase(m_vec.begin() + i);
@@ -47,8 +47,8 @@ void Rva002B4CED::rva002B753B()
 	_STL::vector<void *> *vec = &m_vec;
 	for (unsigned int i = 0; i < vec->size(); ++i) {
 		_ReadWriteBarrier();
-		if (g_009FE1C8)
-			((Rva00DFE1C8Host *)g_009FE1C8)->rva00212655(((Rva002B4CEDItem *)(*vec)[i])->m_8);
+		if (TheLivingWorldManager)
+			((Rva00DFE1C8Host *)TheLivingWorldManager)->rva00212655(((Rva002B4CEDItem *)(*vec)[i])->m_8);
 	}
 	vec->erase(vec->begin(), vec->end());
 }

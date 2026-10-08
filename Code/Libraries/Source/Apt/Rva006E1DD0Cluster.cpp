@@ -10,7 +10,7 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
 // global at VA 0x00E180C0; only the loaded pointer value is used (DIR32)
-extern void *g_Va00E180C0;
+extern class AptRenderingContext *g_aptRenderingContextAtE180C0;
 
 class AptCIH
 {
@@ -40,5 +40,5 @@ void AptCIH::rva006E1DD0(void *pRect)
 	u[2] = neg;
 	u[3] = neg;
 	u[1] = 0x4E6E6B28u;
-	rva006E1C40((void *)g_Va00E180C0, pRect);
+	rva006E1C40((void *)(*(void **)&g_aptRenderingContextAtE180C0), pRect);
 }

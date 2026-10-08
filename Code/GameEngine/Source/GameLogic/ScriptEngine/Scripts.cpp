@@ -1005,38 +1005,8 @@ void Script::loadPostProcess( void )
   list is duplicated as well.  Note - just the script, doesn't
 	duplicate a list of scripts.  m_nextScript is NULL on the copy.
 */
-// ?duplicate@Script@@QBEPAV1@XZ present-unmatched
-Script *Script::duplicate(void) const 
-{
-	Script *pNew = newInstance(Script);	
-	if (pNew->m_condition) {
-		pNew->m_condition->deleteInstance();
-	}
-	if (pNew->m_action) {
-		pNew->m_action->deleteInstance();
-	}
-	pNew->m_scriptName = m_scriptName;
-	pNew->m_comment = m_comment;
-	pNew->m_conditionComment = m_conditionComment;
-	pNew->m_actionComment = m_actionComment;
-	pNew->m_isActive = m_isActive;
-	pNew->m_isOneShot = m_isOneShot;
-	pNew->m_isSubroutine = m_isSubroutine;
-	pNew->m_easy = m_easy;
-	pNew->m_normal = m_normal;
-	pNew->m_hard = m_hard;
-	pNew->m_delayEvaluationSeconds = m_delayEvaluationSeconds;
-	if (m_condition) {
-		pNew->m_condition = m_condition->duplicate();
-	}
-	if (m_action) {
-		pNew->m_action = m_action->duplicate();
-	}
-	if (m_actionFalse) {
-		pNew->m_actionFalse = m_actionFalse->duplicate();
-	}
-	return pNew;
-}
+// ?duplicate@Script@@QBEPAV1@XZ is a row of ScriptDuplicate.cpp; this unit's copy was
+// a second, non-retail definition of it.
 
 /**
   Script::duplicate - Creates a full, "deep" copy of script, with qualifier 

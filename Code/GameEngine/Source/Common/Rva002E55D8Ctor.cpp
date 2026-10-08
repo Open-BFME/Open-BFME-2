@@ -5,7 +5,7 @@
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 extern const void *const g_00804E90[];

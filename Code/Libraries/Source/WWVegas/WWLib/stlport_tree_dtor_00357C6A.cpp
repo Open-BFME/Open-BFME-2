@@ -20,3 +20,16 @@ template <> __forceinline void allocator<_Rb_tree_node< ::Rva00357C6APair > >::d
 typedef _STL::_Rb_tree<unsigned, Rva00357C6APair, _STL::_Select1st<Rva00357C6APair>, _STL::less<unsigned>, _STL::allocator<Rva00357C6APair> > Rva00357C6ATree;
 
 template Rva00357C6ATree::~_Rb_tree();
+
+// ??1?$map@IPAXU?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@XZ @ 0x00357CD9 (5B):
+// the map's implicit destructor, out of line only where an unwind funclet needs
+// it: `jmp` to the tree destructor above. Retail's funclets (uw_gen_010) and
+// two matched dtors call it there. The function below exists only to make this
+// unit emit that COMDAT, as an unwind action does.
+typedef _STL::map<unsigned, void *> Rva00357CD9Map;
+// ?Rva00357CD9EmitMapDtor absent-from-retail
+void Rva00357CD9EmitMapDtor()
+{
+	Rva00357CD9Map local;
+	throw 0;
+}

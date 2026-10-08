@@ -3,7 +3,7 @@
 #include "ascii_string.h"
 
 struct BfmeWorldRV;
-extern struct BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 
 class CommandButton
 {
@@ -41,7 +41,7 @@ void BfmeK1094::bfmeApplyABG(void *a, void *b)
 {
 	int commandIndex = (int)a;
 	const AsciiString *name = ((const Object *)this)->rva00290E67();
-	const CommandSet *cmdSet = (const CommandSet *)((Rva0031D5F8 *)g_bfmeWorldRV)->rva0031D5F8(name);
+	const CommandSet *cmdSet = (const CommandSet *)((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(name);
 	if (!cmdSet)
 		return;
 	for (int i = 0; i < 0x20; ++i)

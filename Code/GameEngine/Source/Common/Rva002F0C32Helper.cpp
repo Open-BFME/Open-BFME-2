@@ -12,7 +12,7 @@ public:
 	void *rva002EB448();
 };
 
-extern Rva002EB448 g_00DBD4B0;
+extern unsigned int g_Va00DBD4B0;	// pool object at 0x00DBD4B0 (Rva007B6880Thunks.cpp)
 
 namespace _STL
 {
@@ -45,6 +45,6 @@ Rva002F1C5F *Rva002F1C5F::helper(int x)
 		(_STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > *)this;
 	__assume(proxy != 0);
 	new (proxy) _STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> >(tmp, 0);
-	proxy->_M_data = (unsigned int)g_00DBD4B0.rva002EB448();
+	proxy->_M_data = (unsigned int)((Rva002EB448 *)&g_Va00DBD4B0)->rva002EB448();
 	return this;
 }

@@ -10,12 +10,11 @@
 #include "ascii_string.h"
 #include <new>
 
-extern const char g_Rva0107301CEmptyString[];
 
 __forceinline const char *GetStr003340C1(const AsciiString &s)
 {
 	char *t = *(char * *)(void *)&s;
-	return t ? t + 8 : g_Rva0107301CEmptyString;
+	return t ? t + 8 : "";
 }
 
 struct lua_State;

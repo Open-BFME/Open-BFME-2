@@ -3,9 +3,15 @@ class Rva0028572AHost;
 class Rva0020D959Host
 {
 public:
-	void rva0020D959(Rva0028572AHost *o);
 };
 extern Rva0020D959Host *g_00DFE1A8;
+// The ledger row at 0x0020D959 is Rva0020DXXX::rva0020D959(int).
+class Rva0020DXXX
+{
+public:
+	void rva0020D959(int v);
+};
+
 class Rva0028572AHost
 {
 public:
@@ -19,7 +25,7 @@ void Rva0028572AHost::rva0028572A()
 {
 	if (m_10 != -1)
 	{
-		g_00DFE1A8->rva0020D959(this);
+		((Rva0020DXXX *)g_00DFE1A8)->rva0020D959((int)this);
 		m_10 = -1;
 	}
 }

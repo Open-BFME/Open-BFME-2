@@ -6,17 +6,23 @@
 // int f(int, bool start) -- on start, kick a transition group and poke two
 // other singletons; on !start, poll isFinished(). Literal at 0x1109E30 is
 // "FadeScreenToBlack". Callee 0x00042E6F pins isFinished@GameWindowTransitionsHandler,
-// 0x00045C28 pins setGroup@BfmeRankTransitionHandler (name is a placeholder --
-// same TheTransitionHandler object, cast to a different declared type per
-// pinned mangled name), 0x0003D578 pins bfmeEnd1100@BfmeZ1100 (called on
-// TheMouse), and the second TheTransitionHandler call (0x0000F1FF) resolves
-// through its ILT thunk to the already-matched Rva004893C0ByteSetter::set()
-// (sets a flag byte at +0x55).
+// 0x00045C28 is the rowed GameWindowTransitionsHandler::setGroup, 0x0003D578
+// the rowed Mouse::_bfme_setEngineVisibility (called on TheMouse), and the
+// second TheTransitionHandler call (0x0000F1FF) the rowed
+// Rva001DBB82OneSetter::enable (sets a flag byte at +0x55).
 
 class GameWindowTransitionsHandler
 {
 public:
 	bool isFinished();
+	void setGroup(AsciiString name, bool immediate);
+};
+
+// The flag poke is the rowed Rva001DBB82OneSetter::enable.
+class Rva001DBB82OneSetter
+{
+public:
+	void enable();
 };
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
@@ -42,7 +48,11 @@ public:
 // Retail's singleton at 0x012F4C5C is EA's Mouse *TheMouse; (defined once in
 // GameClient/Input/Mouse.cpp).  This TU keeps its own view of the layout and
 // casts at the use so the reference links to the one global.
-class Mouse;
+class Mouse
+{
+public:
+	void _bfme_setEngineVisibility(bool visible);
+};
 extern Mouse *TheMouse;
 
 // ?rva00565170@@YAHH_N@Z
@@ -52,9 +62,9 @@ int rva00565170(int, bool start)
 
 	if (start)
 	{
-		((BfmeRankTransitionHandler *)TheTransitionHandler)->setGroup(AsciiString("FadeScreenToBlack"), 0);
-		((Rva004893C0ByteSetter *)TheTransitionHandler)->set();
-		((BfmeZ1100 *)TheMouse)->bfmeEnd1100(0);
+		TheTransitionHandler->setGroup(AsciiString("FadeScreenToBlack"), false);
+		((Rva001DBB82OneSetter *)TheTransitionHandler)->enable();
+		TheMouse->_bfme_setEngineVisibility(false);
 	}
 	else if (TheTransitionHandler->isFinished())
 	{

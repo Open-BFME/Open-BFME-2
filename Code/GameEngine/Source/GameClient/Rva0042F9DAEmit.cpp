@@ -106,12 +106,12 @@ public:
 	virtual void notify();
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 extern InGameUI *TheInGameUI;
 
 void Rva0042F9DAEmit()
 {
-	GameMessage *msg = MessageStreamSubsystem->appendType(0x3EC);
+	GameMessage *msg = TheMessageStream->appendType(0x3EC);
 	msg->appendBooleanArgument(true);
 	TheInGameUI->notify();
 }

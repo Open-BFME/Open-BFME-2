@@ -60,7 +60,6 @@ public:
 };
 
 extern FileSystem *TheFileSystem;
-extern const char g_Rva0107301CEmptyString[];
 extern int g_guardTargetTypeThrowInfo;
 
 struct BfmeFormattedText
@@ -77,7 +76,7 @@ void __cdecl operator delete[](void *p);
 static void __cdecl Rva0041AD08Read(AsciiString path, File *ctx)
 {
 	char *t = *(char **)(void *)&path;
-	const char *name = t ? t + 8 : g_Rva0107301CEmptyString;
+	const char *name = t ? t + 8 : "";
 	OpenedFile *f = (OpenedFile *)TheFileSystem->openFile(name, 0x41, 0);
 	if (!f)
 	{
@@ -124,7 +123,7 @@ void __cdecl Rva0041AD08Caller(AsciiString p, File *c)
 static void __cdecl Rva0041AE00Read(AsciiString path, File *ctx)
 {
 	char *t = *(char **)(void *)&path;
-	const char *name = t ? t + 8 : g_Rva0107301CEmptyString;
+	const char *name = t ? t + 8 : "";
 	OpenedFile *f = (OpenedFile *)TheFileSystem->openFile(name, 0x41, 0);
 	if (!f)
 	{

@@ -19,9 +19,6 @@ struct Rva00802A90Query
 	int m_key;
 };
 
-// Retail's 0x00801CB0 body is the member implementation reached through
-// notify; the generated dump remains its linker-side implementation.
-#pragma comment(linker, "/alternatename:?notify@Rva00802A90Elem@@QAEXPAURva00802A90Query@@PAXHH@Z=?d_00801cb0@@YAXXZ")
 
 class Rva00802A90Owner
 {

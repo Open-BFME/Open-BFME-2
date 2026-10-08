@@ -27,7 +27,6 @@ public:
 };
 extern GlobalData *TheWritableGlobalData;
 
-extern const char g_Rva0107301CEmptyString[];
 
 class Rva00300489
 {

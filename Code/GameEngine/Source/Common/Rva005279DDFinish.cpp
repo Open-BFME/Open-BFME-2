@@ -1,8 +1,7 @@
-// cl: /MD
+// cl: /O1 /MD /arch:SSE
 // ?Update@InGameHelpBoxMovieClip@@QAEXXZ @ 0x005279DD (270B): thiscall state switch calling Hide Show SampleContentWidth via rowed AptCall wrappers plus float Fire 0x00527925. Evidence: calls just-landed 0x00527925 plus rowed 0x005278DD 0x00524EF4 plus int-return twin 0x005CB260 row says void but retail uses int return pinned QAEHH; strings Show Hide SampleContentWidth; globals TheRva00222A8BTarget g_Rva0107301CEmptyString; neighbours Rva0052798FConcat Rva00527AEBWrapper.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00527925Fire(void *target, void *level, const char *prefix, const char *function, const float *val);
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
@@ -76,10 +75,10 @@ void InGameHelpBoxMovieClip::Update()
 		if (m_obj1C == 0)
 			return;
 		int v = m_obj1C->rva005CB260(m_arg18);
-		Rva00222A8BSlot40Ret *p = ((Rva00222A8BSlot40 *)TheRva00222A8BTarget)->slot16();
+		Rva00222A8BSlot40Ret *p = ((Rva00222A8BSlot40 *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->slot16();
 		float f = (float)v * p->m_04;
-		const char *s = m_inner08 ? m_inner08->m_name : g_Rva0107301CEmptyString;
-		Rva00527925Fire(TheRva00222A8BTarget, m_level04, s, "Show", &f);
+		const char *s = m_inner08 ? m_inner08->m_name : "";
+		Rva00527925Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, s, "Show", &f);
 		m_state0C = 3;
 		return;
 	}
@@ -87,15 +86,15 @@ void InGameHelpBoxMovieClip::Update()
 	{
 		if (m_arg18 <= 0)
 			return;
-		const char *s = m_inner08 ? m_inner08->m_name : g_Rva0107301CEmptyString;
-		Rva00524EF4AptCall(TheRva00222A8BTarget, m_level04, s, "Hide");
+		const char *s = m_inner08 ? m_inner08->m_name : "";
+		Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, s, "Hide");
 		m_state0C = 2;
 		return;
 	}
 	case 0:
 	{
-		const char *s = m_inner08 ? m_inner08->m_name : g_Rva0107301CEmptyString;
-		Rva00524EF4AptCall(TheRva00222A8BTarget, m_level04, s, "SampleContentWidth");
+		const char *s = m_inner08 ? m_inner08->m_name : "";
+		Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, s, "SampleContentWidth");
 		m_arg18 = -1;
 		m_state0C = 1;
 		return;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // Eight Apt image setters, one shape:
 //
 //     if (image == m_image) return;
@@ -247,12 +247,19 @@ class RegionDetailsTerritoryMovieClip
 {
 public:
 	class Impl;
+
+	RegionDetailsTerritoryMovieClip(unsigned int level, const AsciiString &name);
+	virtual ~RegionDetailsTerritoryMovieClip();
+
+private:
+	Impl *m_impl; // +0x04
 };
 }
 
 class StrategicHUD::RegionDetailsTerritoryMovieClip::Impl
 {
 public:
+	Impl(unsigned int level, const AsciiString &name); // 0x005F1DB0 (pinned)
 	void rva005F191E(const Image *image);
 	void SetTerritoryName(const UnicodeString &text);
 	void SetTerritoryDescription(const UnicodeString &text);
@@ -265,6 +272,7 @@ private:
 	UnicodeString m_territoryName;	// +0x20
 	UnicodeString m_description;	// +0x24
 	const Image *m_image;		// +0x28
+	char m_pad2C[0x48 - 0x2C];	// sizeof 0x48 (the owner ctor's new)
 };
 
 APT_IMAGE_KEY_SET( StrategicHUD::RegionDetailsTerritoryMovieClip::Impl, rva005F191E, "_level%u.%s_MapPreview", m_image )
@@ -604,17 +612,7 @@ void InGameCommandButtonMovieClip::Impl::SetProductionCount(int count)
 // Evidence: flag at +0x4c plus cached index at +0x50 plus team ptr at +0x0c with +8 name or empty plus level at +0x08 plus table g_00C74A98 indexed by arg plus SetState plus TheRva00222A8BTarget; same shape as rowed Rva005FB6E2 eliminated/survived setters; caller jmp at 0x005C7C78.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
-// Native table: eight DIR32 string pointers at VA 0x00C74A98..0x00C74AB8.
-// The next bytes begin the separate "_level%u" format literal. Keep the
-// established pointer ABI used by the rowed Apt call; the application name
-// of this table is unknown. Each entry below is read from its retail pointer.
-// Retail places the table in read-only storage; the call only reads its slot.
-#pragma section(".rdata", read)
-__declspec(allocate(".rdata")) const char *g_00C74A98[] = {
-    "_unused", "_disabled", "_extraDisabled", "_cantAfford",
-    "_static", "_notReady", "_up", "_visuallyEnabled"
-};
+extern const char *g_00C74A98[];
 int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char **a0);
 struct Rva005C7B96Team
 {
@@ -632,7 +630,15 @@ void InGameCommandButtonMovieClip::Impl::SetState(int index)
     if (team)
         teamName = team->m_name;
     else
-        teamName = g_Rva0107301CEmptyString;
+        teamName = "";
     Rva0050E9FEAptCall(TheRva00222A8BTarget, (void *)m_level, teamName, "SetState", &g_00C74A98[index]);
     m_state = index;
+}
+
+// The owner's ctor 0x005F207C (ret 8): vtable 0x00879138 and its Impl (new
+// 0x48; WorldBuilder-named ctor 0x005F1DB0, pinned: level +0x00, name +0x04,
+// then its "_OnRollOverBonus" bindings) built from the two arguments.
+StrategicHUD::RegionDetailsTerritoryMovieClip::RegionDetailsTerritoryMovieClip(unsigned int level, const AsciiString &name)
+	: m_impl(new Impl(level, name))
+{
 }

@@ -9,8 +9,7 @@
 // g_Rva0107301CEmptyString and TheRva00222A8BTarget; caller 0x0057BBBB;
 // precedent Rva005F086E 86B same shape (InGameCommandButtonMovieClip::Impl mov-first which).
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char **a0ptr);
 
 struct Rva0057BAF8Inner
@@ -42,7 +41,7 @@ void StrategicHUD::SelectionDetailsUIImpl::SetToggleButtonEnabled(bool flag)
 	const char *state = "_enabled";
 	if (!flag)
 		state = "_disabled";
-	const char *prefix = m_inner18 ? m_inner18->m_name : g_Rva0107301CEmptyString;
-	Rva0050E9FEAptCall(TheRva00222A8BTarget, m_level14, prefix, "SetToggleButtonState", &state);
+	const char *prefix = m_inner18 ? m_inner18->m_name : "";
+	Rva0050E9FEAptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level14, prefix, "SetToggleButtonState", &state);
 	m_flag2D = flag;
 }

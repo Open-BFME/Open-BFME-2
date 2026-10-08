@@ -5,11 +5,6 @@
 // itself, kept by the compiler as lea/test, plus bounds guards), except
 // BFME2 spells the bounds as separate guards: the && form lays the dead
 // null tail mid-function, while retail shares it at the end.
-
-// The shared headers declare these members with the access/virtual spelling
-// retail's vftables reference; the ledger row keeps the spelling this TU
-// compiled to. Same function, same address: bind the header spelling here.
-#pragma comment(linker, "/alternatename:?resetAccepted@GameInfo@@UAEXXZ=?resetAccepted@GameInfo@@QAEXXZ")
 typedef int Int;
 
 enum { MAX_SLOTS = 8 };

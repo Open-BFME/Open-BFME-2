@@ -13,7 +13,7 @@ struct Rva0022D95AElement
 class BFME2NativeNetwork
 {
 public:
-	BFME2NativeNetwork *baseConstruct();
+	void baseConstruct();
 };
 
 class __declspec(novtable) Rva0022A8F3SubsystemBase

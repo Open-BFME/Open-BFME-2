@@ -254,10 +254,11 @@ BitChannelClass::~BitChannelClass(void)
 // ?BitChannelClass::Free present-unmatched
 void BitChannelClass::Free(void)
 {
-	if (Bits != NULL) {
-		delete[] Bits;
-		Bits = NULL;
-	}
+	// No null test, as in MotionChannelClass::Free: retail's ~NodeMotionStruct
+	// (0x0018E750) releases Vis through the shared body at 0x001960C0, which
+	// loads [esi+0x14], deletes it and nulls it with nothing in between.
+	delete[] Bits;
+	Bits = NULL;
 }
 
 

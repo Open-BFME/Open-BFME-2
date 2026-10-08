@@ -67,7 +67,6 @@ BFME_DISP8_DWORD_GETTER(Rva0057E556DwordField, 0x14)
 BFME_DISP8_DWORD_GETTER(Rva005C4AE9DwordField, 0x34)
 BFME_DISP8_DWORD_GETTER(Rva005C4AEDDwordField, 0x38)
 BFME_DISP8_DWORD_GETTER(Rva005C4AF1DwordField, 0x3C)
-BFME_DISP8_DWORD_GETTER(Rva005C4AF5DwordField, 0x40)
 BFME_DISP8_DWORD_GETTER(Rva005C4AF9DwordField, 0x44)
 // Negative-displacement sibling: the disp8 byte sign-extends, so a disp byte
 // above 0x7F reads *before* `this` (e.g. D4 = -44, an embedded member view).

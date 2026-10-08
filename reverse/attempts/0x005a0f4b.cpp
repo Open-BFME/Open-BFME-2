@@ -1,0 +1,745 @@
+// ?MpOwnerSelectColor@AptOnlineCustomMatch@@UAE_NPAVGameSlot@@H@Z
+// partial score=0.97 date=2026-10-07
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
+//
+// BFME2's online custom match screen Apt callbacks, 0x0059EC65 onward,
+// bound by these names ("AptOnline::CustomMatch::PlayGame" ...) as member
+// pointers by the screen's registration; that binding is their only
+// reference. The scope and class are named for the strings. +0x488 is the
+// screen's state.
+
+#include "ascii_string.h"
+#include "unicode_string.h"
+#include <map>
+#include <string>
+#include <vector>
+
+class GameWindow;
+
+class GameWindowManager
+{
+public:
+#define V(n) virtual void pad##n() = 0;
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
+	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
+	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
+	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
+	V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
+	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47)
+	V(48)
+#undef V
+	virtual int winSetFocus(GameWindow *window) = 0;
+};
+
+extern GameWindowManager *TheWindowManager;
+
+class Rva00222A8BTarget;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
+void __cdecl Rva00434160Init(int a, int b, bool c);
+
+// The game slot the owner menus edit. Target facts: Team writes +0x1C;
+// the host's name (slot 0) is the UnicodeString at +0x30 that
+// AsciiString::translate 0x00038220 reads. encodeHero is the rowed
+// 0x003FF16F.
+class GameSlot
+{
+public:
+	virtual void reset();
+	unsigned char encodeHero() const;
+	bool isPlayer(AsciiString name) const;        // rowed 0x003FFEF5
+	void rva003FF5F2(const AsciiString &clanID); // rowed 0x003FF5F2
+	void setMapAvailability(bool available);      // rowed 0x003FF8A0
+	void setPlayerTemplate(int playerTemplate);   // rowed 0x00400E33
+
+	int m_state;                // +0x04
+	unsigned char m_pad08[0x0C - 0x08];
+	int m_color;                // +0x0C
+
+	int m_startPos;             // +0x10, StartPos sends this one
+	int m_startPos14;           // +0x14, written with it
+	unsigned char m_pad18[0x1C - 0x18];
+	int m_teamNumber;           // +0x1C
+	int m_handicap;             // +0x20
+	unsigned char m_pad24[0x30 - 0x24];
+	UnicodeString m_name;       // +0x30
+};
+
+// The current staging room's game info. Target facts: getSlot (rowed
+// 0x003FF29F) takes the room pointer itself, so the vtable is GameInfo's;
+// every owner menu calls virtual slot 14 (+0x38) before asking whether this
+// player hosts, where the BFME1 donor (OnlineCustomMatchApplySlotTeam.cpp)
+// calls resetAccepted.
+class GameInfo
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	// Slot 12 (+0x30): StartPosition asks the room this where the other
+	// owner menus ask TheGameSpyInfo's amIHost.
+	virtual bool amIHost();
+	// Slot 13 (+0x34): the local player's slot index, negative when absent.
+	virtual int getLocalSlotNum();
+	virtual void resetAccepted();
+	// Slots 15 and 16 as AptLanLobby::bfmeMapChanged names them (LANGameInfo
+	// vtable 0x00C3E518).
+	virtual void resetStartSpots();
+	virtual void adjustSlotsForMap();
+
+	GameSlot *getSlot(int index);
+	void setMap(AsciiString mapName);    // rowed 0x00400126
+	void setMapCRC(unsigned int crc);    // rowed 0x00400E9F
+	void setMapSize(unsigned int size);  // rowed 0x00400F5A
+};
+
+class GameSpyGameSlot : public GameSlot
+{
+};
+
+class GameSpyStagingRoom : public GameInfo
+{
+public:
+	GameSpyGameSlot *getGameSpySlot(int index); // rowed 0x004FDA3D
+};
+
+// TheGameSpyGame 0x00A02324.
+extern GameSpyStagingRoom *TheGameSpyGame;
+
+// The map cache: the AsciiString-keyed map whose find worker is the pinned
+// _M_find 0x001F8437; size at +0x28 and CRC at +0x2C of the value (as
+// AptLanLobby::bfmeMapChanged reads them).
+class MapMetaData
+{
+public:
+	unsigned char m_pad00[0x28];
+	unsigned int m_filesize; // +0x28
+	unsigned int m_CRC;      // +0x2C
+};
+
+bool operator<(const AsciiString &left, const AsciiString &right);
+
+class MapCache : public std::map<AsciiString, MapMetaData>
+{
+};
+
+extern MapCache *TheMapCache;
+
+// TheGameSpyInfo 0x00A02320: slot 29 (+0x74) returns an AsciiString as the
+// BFME1 donor's getLocalName; slots 51 (+0xCC), 53 (+0xD4) and 55 (+0xDC)
+// as the BFME1 donor's amIHost / getCurrentStagingRoom / setGameOptions.
+class GameSpyInfoInterface
+{
+public:
+#define V(n) virtual void gs##n() = 0;
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
+	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28)
+	virtual AsciiString getLocalName() = 0; // slot 29 (+0x74)
+	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
+	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49)
+	V(50)
+	virtual bool amIHost() = 0;
+	V(52)
+	virtual GameSpyStagingRoom *getCurrentStagingRoom() = 0;
+	V(54)
+	virtual void setGameOptions() = 0;
+	V(56) V(57) V(58) V(59) V(60)
+	// Slot 61 (+0xF4): text with a color (PrintMessage kinds 0 and 1).
+	virtual void v61(UnicodeString text, int color) = 0;
+	V(62) V(63) V(64)
+	// Slot 65 (+0x104): text alone (PrintMessage kind 2).
+	virtual void v65(UnicodeString text) = 0;
+#undef V
+};
+
+extern GameSpyInfoInterface *TheGameSpyInfo;
+
+// The online chat colors: 0x009B9198 and, inside the 148-byte table
+// 0x009B91B4, the dword at +0x44 (0x009B91F8).
+extern int g_00DB9198;
+extern unsigned int g_00DB91B4;
+
+// Unrowed 0x0044C0A8 (pinned; as AptLanLobby::MpOwnerPrintMessage uses it)
+// and the flag it is skipped under.
+void Rva0044C0A8(UnicodeString title, UnicodeString text, void *callback);
+extern int g_Va00E046B8;
+
+// The peer thread request (layout of Rva005A8666BoxNat.cpp): type +0x00,
+// nick +0x04, id +0x34, options +0x40, the staging-room flag +0x118.
+struct PeerRequest
+{
+	PeerRequest();
+	~PeerRequest();
+	int peerRequestType;
+	std::string nick;
+	std::wstring unknown_10;
+	std::string unknown_1c;
+	std::string unknown_28;
+	std::string id;
+	std::string options;
+	std::string unknown_4c;
+	std::string unknown_58;
+	std::string unknown_64;
+	std::string unknown_70[8];
+	unsigned int unknown_d0[10];
+	std::string unknown_f8;
+	std::vector<bool> unknown_104;
+	bool isStagingRoom; // +0x118
+	unsigned char m_tail[0x1EC - 0x119];
+};
+
+// TheGameSpyPeerMessageQueue 0x00A02340: addRequest is virtual slot 6.
+class GameSpyPeerMessageQueueInterface
+{
+public:
+	virtual ~GameSpyPeerMessageQueueInterface();
+	virtual void startThread() = 0;
+	virtual void endThread() = 0;
+	virtual int isThreadRunning() = 0;
+	virtual int isConnected() = 0;
+	virtual int isConnecting() = 0;
+	virtual void addRequest(const PeerRequest &request) = 0;
+};
+
+extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
+
+// The screen's owner at +0x58 keeps its Apt movie at +0x274.
+struct AptOnlineCustomMatchOwner
+{
+	unsigned char m_pad000[0x274];
+	void *m_movie; // +0x274
+};
+
+// The screen's full object, as the placeholder row 0x0059F950 names it.
+class Rva0059F950
+{
+public:
+	void rva0059F950();
+};
+
+// The +0x70 member PlayerTemplate enables after a host change (rowed
+// 0x0043DB47: bytes +0x2B9 and +0x2BA).
+class Rva0043DB47DoubleSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x2B9];
+	unsigned char m_a;
+	unsigned char m_b;
+};
+
+// The screen's primary base: the vtable whose slot 10 gives the Apt path,
+// and the owner at +0x58.
+class CustomMatchScreen
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09();
+	// vslot 10: the screen's Apt path for its callbacks.
+	virtual const char *v10();
+
+protected:
+	unsigned char m_pad004[0x58 - 0x04];
+	AptOnlineCustomMatchOwner *m_owner; // +0x58
+	unsigned char m_pad05c[0x60 - 0x5C];
+};
+
+// The multiplayer owner interface at +0x60. Target facts: vftable
+// 0x008713B8 (slot 0 is a sub-ecx-0x60 deleting thunk; the same bodies fill
+// 0x00873CD8 and 0x00873D70), and its bodies reach the screen at this-0x60.
+// Slot names are WorldBuilder's where it names the body.
+class MpOwner
+{
+public:
+	virtual ~MpOwner();                                                       // 0
+	virtual bool rva0059EBDE() = 0;                                           // 1
+	virtual void rva0059EBFE() = 0;                                           // 2
+	virtual bool MpOwnerOnReadyChecked(bool ready) = 0;                       // 3
+	virtual bool MpOwnerSelectColor(GameSlot *slot, int color) = 0;           // 4
+	virtual bool MpOwnerSelectHandicap(GameSlot *slot, int handicap) = 0;     // 5
+	virtual bool MpOwnerSelectHero(GameSlot *slot) = 0;                       // 6
+	virtual bool MpOwnerSelectMap(const AsciiString &mapName) = 0;            // 7
+	virtual void MpOwnerSelectStrategicScenario() = 0;                        // 8
+	virtual bool MpOwnerSelectPlayer(GameSlot *slot, int state, int unused) = 0; // 9
+	virtual bool MpOwnerSelectPlayerTemplate(GameSlot *slot, int playerTemplate) = 0; // 10
+	virtual bool MpOwnerSelectStartPosition(GameSlot *slot, int startPos) = 0; // 11
+	virtual bool MpOwnerSelectTeam(GameSlot *slot, int team) = 0;             // 12
+	virtual bool MpOwnerSetClanID(GameSlot *slot, const UnicodeString &clanID) = 0; // 13
+	virtual void MpOwnerGetLocalPlayerName(UnicodeString &name) = 0;          // 14
+	virtual void rva005A1D32() = 0;                                           // 15
+	virtual void rva005A1C87(bool open) = 0;                                  // 16
+	virtual void MpOwnerPrintMessage(const UnicodeString &text, int kind) = 0; // 17
+
+private:
+	unsigned char m_pad04[0x0C - 0x04];
+};
+
+class AptOnlineCustomMatch : public CustomMatchScreen, public MpOwner
+{
+public:
+	void PlayGame(const char *unused);
+	void LoadGame(const char *unused);
+	void CancelPopUpCreate(const char *unused);
+	void CancelPopUpHost(const char *unused);
+	void OnOpenConnectionsScreen(const char *unused);
+	void OnClosingConnectionsScreen(const char *unused);
+	void Refresh(const char *unused);
+	// Bound as "AptOnline::OnOpenCreateDialog" on this screen.
+	void OnOpenCreateDialog(const char *unused);
+
+	virtual bool rva0059EBDE();
+	virtual bool MpOwnerOnReadyChecked(bool ready);
+	virtual bool MpOwnerSelectColor(GameSlot *slot, int color);
+	virtual bool MpOwnerSelectHandicap(GameSlot *slot, int handicap);
+	virtual bool MpOwnerSelectHero(GameSlot *slot);
+	virtual bool MpOwnerSelectMap(const AsciiString &mapName);
+	virtual bool MpOwnerSelectPlayerTemplate(GameSlot *slot, int playerTemplate);
+	virtual bool MpOwnerSelectStartPosition(GameSlot *slot, int startPos);
+	virtual bool MpOwnerSelectTeam(GameSlot *slot, int team);
+	virtual bool MpOwnerSetClanID(GameSlot *slot, const UnicodeString &clanID);
+	virtual void rva005A1D32();
+	virtual void MpOwnerPrintMessage(const UnicodeString &text, int kind);
+
+	// Unrowed 0x005A0DC2 (339 bytes; ret 4, a byte flag), pinned by address.
+	void rva005A0DC2(bool flag);
+
+	// Unrowed 0x005A0D61 (97 bytes; ret 4, a byte flag), pinned by address.
+	void rva005A0D61(bool force);
+
+private:
+	// Everything after the screen's own state that the full object refreshes
+	// when the local slot changes (placeholder row 0x0059F950).
+	void RefreshScreen() { ((Rva0059F950 *)this)->rva0059F950(); }
+
+	unsigned char m_pad06c[0x70 - 0x6C];
+	Rva0043DB47DoubleSetter m_70; // +0x70
+	unsigned char m_pad32b[0x488 - (0x70 + sizeof(Rva0043DB47DoubleSetter))];
+	int m_state; // +0x488
+	unsigned char m_pad48c[0x49C - 0x48C];
+	GameWindow *m_createDialog; // +0x49C
+	bool m_popUp; // +0x4A0
+	unsigned char m_pad4a1[0x4D8 - 0x4A1];
+	bool m_connectionsScreen; // +0x4D8
+};
+
+// Retail 0x0059EC65, 13 bytes: "AptOnline::CustomMatch::PlayGame".
+void AptOnlineCustomMatch::PlayGame(const char *unused)
+{
+	m_state = 7;
+}
+
+// Retail 0x0059ECC1, 17 bytes: "AptOnline::CustomMatch::LoadGame".
+void AptOnlineCustomMatch::LoadGame(const char *unused)
+{
+	Rva00434160Init(2, 16, false);
+}
+
+// Retail 0x0059ED18, 20 bytes: "AptOnline::CustomMatch::CancelPopUpCreate".
+void AptOnlineCustomMatch::CancelPopUpCreate(const char *unused)
+{
+	m_state = 1;
+	m_popUp = false;
+}
+
+// Retail 0x0059ED2C, 61 bytes: "AptOnline::CustomMatch::CancelPopUpHost"
+// also tells the movie "ClosePassword".
+void AptOnlineCustomMatch::CancelPopUpHost(const char *unused)
+{
+	void *movie = m_owner->m_movie;
+	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), movie, v10(), "ClosePassword");
+	m_state = 1;
+	m_popUp = false;
+}
+
+// Retail 0x0059ED69, 17 bytes: "AptOnline::CustomMatch::OnOpenConnectionsScreen".
+void AptOnlineCustomMatch::OnOpenConnectionsScreen(const char *unused)
+{
+	if (!m_connectionsScreen)
+		m_connectionsScreen = true;
+}
+
+// Retail 0x0059ED7A, 17 bytes: "AptOnline::CustomMatch::OnClosingConnectionsScreen".
+void AptOnlineCustomMatch::OnClosingConnectionsScreen(const char *unused)
+{
+	if (m_connectionsScreen)
+		m_connectionsScreen = false;
+}
+
+// Retail 0x005A0F15, 10 bytes: "AptOnline::CustomMatch::Refresh".
+void AptOnlineCustomMatch::Refresh(const char *unused)
+{
+	rva005A0D61(true);
+}
+
+// Retail 0x005A0F1F, 44 bytes: bound as "AptOnline::OnOpenCreateDialog";
+// focuses the +0x49C window and moves to state 3.
+void AptOnlineCustomMatch::OnOpenCreateDialog(const char *unused)
+{
+	rva005A0DC2(true);
+	TheWindowManager->winSetFocus(m_createDialog);
+	m_state = 3;
+}
+
+// Retail 0x005A1281, 343 bytes (WorldBuilder name, AptOnlineCustomMatch.cpp
+// line 1004; wb-name-unverified): asks the host for the slot's hero, as the
+// BFME1 donor's applySlotTeam shape with "Hero=%d" of GameSlot::encodeHero.
+bool AptOnlineCustomMatch::MpOwnerSelectHero(GameSlot *slot)
+{
+	if (!TheGameSpyInfo)
+		return false;
+	GameSpyStagingRoom *room = TheGameSpyInfo->getCurrentStagingRoom();
+	if (!room)
+		return false;
+
+	room->resetAccepted();
+	if (TheGameSpyInfo->amIHost())
+	{
+		TheGameSpyInfo->setGameOptions();
+	}
+	else
+	{
+		AsciiString options;
+		options.format("Hero=%d", slot->encodeHero());
+		AsciiString hostName;
+		hostName.translate(room->getSlot(0)->m_name);
+
+		PeerRequest req;
+		req.peerRequestType = 0xD;
+		req.isStagingRoom = true;
+		req.id = "REQ/";
+		req.nick = hostName.str();
+		req.options = options.str();
+		TheGameSpyPeerMessageQueue->addRequest(req);
+	}
+	return true;
+}
+
+// Retail 0x005A13D8, 343 bytes (WorldBuilder name; wb-name-unverified): the
+// BFME1 donor applySlotTeam (0x0053D170) with "Team=%d".
+bool AptOnlineCustomMatch::MpOwnerSelectTeam(GameSlot *slot, int team)
+{
+	if (!TheGameSpyInfo)
+		return false;
+	GameSpyStagingRoom *room = TheGameSpyInfo->getCurrentStagingRoom();
+	if (!room)
+		return false;
+
+	slot->m_teamNumber = team;
+	room->resetAccepted();
+	if (TheGameSpyInfo->amIHost())
+	{
+		TheGameSpyInfo->setGameOptions();
+	}
+	else
+	{
+		AsciiString options;
+		options.format("Team=%d", team);
+		AsciiString hostName;
+		hostName.translate(room->getSlot(0)->m_name);
+
+		PeerRequest req;
+		req.peerRequestType = 0xD;
+		req.isStagingRoom = true;
+		req.id = "REQ/";
+		req.nick = hostName.str();
+		req.options = options.str();
+		TheGameSpyPeerMessageQueue->addRequest(req);
+	}
+	return true;
+}
+
+// Retail 0x005A152F, 350 bytes (WorldBuilder name; wb-name-unverified):
+// "Handicap=%d" for the slot's +0x20; the host resets acceptance again
+// before publishing the options.
+bool AptOnlineCustomMatch::MpOwnerSelectHandicap(GameSlot *slot, int handicap)
+{
+	if (!TheGameSpyInfo)
+		return false;
+	GameSpyStagingRoom *room = TheGameSpyInfo->getCurrentStagingRoom();
+	if (!room)
+		return false;
+
+	slot->m_handicap = handicap;
+	room->resetAccepted();
+	if (TheGameSpyInfo->amIHost())
+	{
+		room->resetAccepted();
+		TheGameSpyInfo->setGameOptions();
+	}
+	else
+	{
+		AsciiString options;
+		options.format("Handicap=%d", handicap);
+		AsciiString hostName;
+		hostName.translate(room->getSlot(0)->m_name);
+
+		PeerRequest req;
+		req.peerRequestType = 0xD;
+		req.isStagingRoom = true;
+		req.id = "REQ/";
+		req.nick = hostName.str();
+		req.options = options.str();
+		TheGameSpyPeerMessageQueue->addRequest(req);
+	}
+	return true;
+}
+
+// Retail 0x005A186B, 341 bytes (WorldBuilder name; wb-name-unverified):
+// "StartPos=%d"; the BFME1 donor is applySlotStartPos.
+bool AptOnlineCustomMatch::MpOwnerSelectStartPosition(GameSlot *slot, int startPos)
+{
+	if (!TheGameSpyInfo)
+		return false;
+	GameSpyStagingRoom *room = TheGameSpyInfo->getCurrentStagingRoom();
+	if (!room)
+		return false;
+
+	slot->m_startPos = startPos;
+	slot->m_startPos14 = startPos;
+	if (room->amIHost())
+	{
+		room->resetAccepted();
+		TheGameSpyInfo->setGameOptions();
+	}
+	else
+	{
+		AsciiString options;
+		options.format("StartPos=%d", slot->m_startPos);
+		AsciiString hostName;
+		hostName.translate(room->getSlot(0)->m_name);
+
+		PeerRequest req;
+		req.peerRequestType = 0xD;
+		req.isStagingRoom = true;
+		req.id = "REQ/";
+		req.nick = hostName.str();
+		req.options = options.str();
+		TheGameSpyPeerMessageQueue->addRequest(req);
+	}
+	return true;
+}
+
+// Retail 0x005A19C0, 399 bytes (WorldBuilder name; wb-name-unverified):
+// stores the translated clan ID through GameSlot 0x003FF5F2, then, when not
+// hosting, asks the host "clanID=<id>" only for the local player's slot.
+bool AptOnlineCustomMatch::MpOwnerSetClanID(GameSlot *slot, const UnicodeString &clanID)
+{
+	if (!TheGameSpyInfo)
+		return false;
+	GameSpyStagingRoom *room = TheGameSpyInfo->getCurrentStagingRoom();
+	if (!room)
+		return false;
+
+	AsciiString clan;
+	clan.translate(clanID);
+	slot->rva003FF5F2(clan);
+	room->resetAccepted();
+	if (TheGameSpyInfo->amIHost())
+	{
+		TheGameSpyInfo->setGameOptions();
+	}
+	else
+	{
+		if (!slot->isPlayer(TheGameSpyInfo->getLocalName()))
+			return false;
+
+		AsciiString options("clanID=");
+		options += clan;
+		AsciiString hostName;
+		hostName.translate(room->getSlot(0)->m_name);
+
+		PeerRequest req;
+		req.peerRequestType = 0xD;
+		req.isStagingRoom = true;
+		req.id = "REQ/";
+		req.nick = hostName.str();
+		req.options = options.str();
+		TheGameSpyPeerMessageQueue->addRequest(req);
+	}
+	return true;
+}
+
+// Retail 0x005A1DCE, 288 bytes (WorldBuilder name; wb-name-unverified): a
+// joined player tells the host "READY" / "UNREADY" (options "true").
+bool AptOnlineCustomMatch::MpOwnerOnReadyChecked(bool ready)
+{
+	if (TheGameSpyInfo->amIHost())
+		return false;
+	GameSpyStagingRoom *room = TheGameSpyInfo->getCurrentStagingRoom();
+	if (!room)
+		return false;
+
+	UnicodeString hostName(room->getSlot(0)->m_name);
+	AsciiString asciiName;
+	asciiName.translate(hostName);
+
+	PeerRequest req;
+	req.peerRequestType = 0xD;
+	req.isStagingRoom = true;
+	req.options = "true";
+	req.id = ready ? "READY" : "UNREADY";
+	req.nick = asciiName.str();
+	TheGameSpyPeerMessageQueue->addRequest(req);
+	return true;
+}
+
+// Retail 0x0059F043, 180 bytes (WorldBuilder name; wb-name-unverified): the
+// staging room counterpart of AptLanLobby::MpOwnerPrintMessage 0x004448E5.
+void AptOnlineCustomMatch::MpOwnerPrintMessage(const UnicodeString &text, int kind)
+{
+	if (!TheGameSpyInfo)
+		return;
+
+	switch (kind)
+	{
+	case 0:
+		TheGameSpyInfo->v61(text, g_00DB9198);
+		break;
+	case 1:
+		if (!g_Va00E046B8)
+			Rva0044C0A8(UnicodeString(L""), text, 0);
+		TheGameSpyInfo->v61(text, (&g_00DB91B4)[17]);
+		break;
+	case 2:
+		TheGameSpyInfo->v65(text);
+		break;
+	}
+}
+
+// Retail 0x005A0B7E, 240 bytes (WorldBuilder name; wb-name-unverified): the
+// host's map change, the staging room counterpart of
+// AptLanLobby::bfmeMapChanged 0x00444F9C.
+bool AptOnlineCustomMatch::MpOwnerSelectMap(const AsciiString &mapName)
+{
+	if (!TheGameSpyInfo)
+		return false;
+	if (!TheGameSpyGame)
+		return false;
+
+	AsciiString lowerMap = mapName;
+	lowerMap.toLower();
+	TheGameSpyGame->setMap(lowerMap);
+	MapCache::iterator it = TheMapCache->find(lowerMap);
+	if (it != TheMapCache->end())
+	{
+		TheGameSpyGame->getGameSpySlot(0)->setMapAvailability(true);
+		TheGameSpyGame->setMapCRC(it->second.m_CRC);
+		TheGameSpyGame->setMapSize(it->second.m_filesize);
+	}
+	TheGameSpyGame->adjustSlotsForMap();
+	TheGameSpyGame->resetAccepted();
+	TheGameSpyGame->resetStartSpots();
+	TheGameSpyInfo->setGameOptions();
+	return true;
+}
+
+// Retail 0x0059EBDE, 32 bytes, vftable 0x008713B8 slot 1 (unnamed in
+// WorldBuilder): whether the current staging room says this player hosts.
+bool AptOnlineCustomMatch::rva0059EBDE()
+{
+	if (!TheGameSpyInfo)
+		return false;
+	GameSpyStagingRoom *room = TheGameSpyInfo->getCurrentStagingRoom();
+	if (!room)
+		return false;
+	return room->amIHost();
+}
+
+// Retail 0x005A1D32, 156 bytes, vftable 0x008713B8 slot 15 (unnamed in
+// WorldBuilder): the host posts request 0xE "EUI/" with options "true".
+void AptOnlineCustomMatch::rva005A1D32()
+{
+	if (TheGameSpyPeerMessageQueue && TheGameSpyInfo && TheGameSpyInfo->amIHost())
+	{
+		PeerRequest req;
+		req.peerRequestType = 0xE;
+		req.isStagingRoom = true;
+		req.id = "EUI/";
+		req.options = "true";
+		TheGameSpyPeerMessageQueue->addRequest(req);
+	}
+}
+
+// Retail 0x005A0F4B, 399 bytes (WorldBuilder name; wb-name-unverified):
+// "Color=%d" asked of the host for the local player's own slot; a change to
+// the local slot refreshes the screen.
+bool AptOnlineCustomMatch::MpOwnerSelectColor(GameSlot *slot, int color)
+{
+	if (!TheGameSpyInfo)
+		return false;
+	GameSpyStagingRoom *room = TheGameSpyInfo->getCurrentStagingRoom();
+	if (!room)
+		return false;
+
+	slot->m_color = color;
+	if (TheGameSpyInfo->amIHost())
+	{
+		TheGameSpyInfo->setGameOptions();
+	}
+	else
+	{
+		if (!slot->isPlayer(TheGameSpyInfo->getLocalName()))
+			return false;
+
+		AsciiString options;
+		options.format("Color=%d", color);
+		AsciiString hostName;
+		hostName.translate(room->getSlot(0)->m_name);
+
+		PeerRequest req;
+		req.peerRequestType = 0xD;
+		req.isStagingRoom = true;
+		req.id = "REQ/";
+		req.nick = hostName.str();
+		req.options = options.str();
+		TheGameSpyPeerMessageQueue->addRequest(req);
+	}
+	if (slot->m_name.compare(room->getSlot(room->getLocalSlotNum())->m_name) == 0)
+		RefreshScreen();
+	return true;
+}
+
+// Retail 0x005A10DA, 423 bytes (WorldBuilder name; wb-name-unverified):
+// "PlayerTemplate=%d"; the host also enables the +0x70 member.
+bool AptOnlineCustomMatch::MpOwnerSelectPlayerTemplate(GameSlot *slot, int playerTemplate)
+{
+	if (!TheGameSpyInfo)
+		return false;
+	GameSpyStagingRoom *room = TheGameSpyInfo->getCurrentStagingRoom();
+	if (!room)
+		return false;
+	if (room->getLocalSlotNum() < 0)
+		return false;
+
+	slot->setPlayerTemplate(playerTemplate);
+	room->resetAccepted();
+	if (TheGameSpyInfo->amIHost())
+	{
+		room->resetAccepted();
+		TheGameSpyInfo->setGameOptions();
+		m_70.enable();
+	}
+	else
+	{
+		AsciiString options;
+		options.format("PlayerTemplate=%d", playerTemplate);
+		AsciiString hostName;
+		hostName.translate(room->getSlot(0)->m_name);
+
+		PeerRequest req;
+		req.peerRequestType = 0xD;
+		req.isStagingRoom = true;
+		req.id = "REQ/";
+		req.nick = hostName.str();
+		req.options = options.str();
+		TheGameSpyPeerMessageQueue->addRequest(req);
+	}
+	if (slot->m_name.compare(room->getSlot(room->getLocalSlotNum())->m_name) == 0)
+		RefreshScreen();
+	return true;
+}

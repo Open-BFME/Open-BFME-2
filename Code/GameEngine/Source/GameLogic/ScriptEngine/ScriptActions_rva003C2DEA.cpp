@@ -40,16 +40,6 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_rest[20];
-public:
-	void advance();
-};
-
 class Team
 {
 public:
@@ -78,7 +68,7 @@ void __stdcall Rva003C2DEADo(Parameter *a, Parameter *b)
 	if (team == 0)
 		return;
 	int total = 0;
-	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {
+	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance()) {
 		Object *obj = it.cur();
 		total += obj->m_p4->m_618;
 	}

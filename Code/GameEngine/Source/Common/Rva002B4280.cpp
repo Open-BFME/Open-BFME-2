@@ -6,7 +6,7 @@
 // then posts GameMessage 0x6BB with arg 1 unless (flag or state==1) and count>1.
 // Callees rowed 0x0030F936; unblocks 0x002B4FEB. Sets flag +0x177.
 // TU-local honest-address class; shape from Rva002B41F4.cpp.
-extern class MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 #include <vector>
 class GameMessage {
@@ -22,7 +22,7 @@ public:
     virtual void s16(); virtual void s17();
     virtual GameMessage *newMessage(int type);
 };
-#define TheMsgFactory002B4280 (*(Rva002B4280Factory **)&MessageStreamSubsystem)
+#define TheMsgFactory002B4280 (*(Rva002B4280Factory **)&TheMessageStream)
 struct Rva002B4280Elem {
     char m_pad[0x44];
     int m_44;

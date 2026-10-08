@@ -363,13 +363,11 @@ DebugStackwalk::~DebugStackwalk()
 {
 }
 
-// ?GetDbghelpHandle@DebugStackwalk@@SAPAXXZ present-unmatched
 void *DebugStackwalk::GetDbghelpHandle(void)
 {
   return g_dbghelp;
 }
 
-// ?IsOldDbghelp@DebugStackwalk@@SA_NXZ present-unmatched
 bool DebugStackwalk::IsOldDbghelp(void)
 {
   return g_oldDbghelp;

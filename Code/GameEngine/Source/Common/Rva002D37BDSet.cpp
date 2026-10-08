@@ -42,7 +42,7 @@ public:
 	virtual void v16(); virtual void v17();
 	virtual GameMessage *appendMessage(GameMessage::Type type);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 
 struct Rva002D37BDMid10
 {
@@ -68,7 +68,7 @@ void Rva002D37BDOwner::rva002D37BD(unsigned char v)
 	if (v == 0) {
 		Rva002D37BDMid *mid = ThePlayerList->m_mid;
 		if (mid != 0 && mid->m_750 == 2) {
-			GameMessage *m = MessageStreamSubsystem->appendMessage(GameMessage::MSG_RVA469);
+			GameMessage *m = TheMessageStream->appendMessage(GameMessage::MSG_RVA469);
 			m->appendIntegerArgument(0);
 			m->appendIntegerArgument(2);
 		}

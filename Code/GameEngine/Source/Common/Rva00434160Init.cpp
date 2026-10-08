@@ -3,7 +3,7 @@
 // ?Rva00434160Init@@YAXHH_N@Z @0x00434160 120B: free init storing 3 args into struct at g_Va00E032E0 after Shell::push("SaveLoad.apt",false); evidence packet callees Shell::push pin and StringBase row, callers 0x00446443 0x00515C64, globals g_Va00E032E0 g_Va00A01E48.
 extern int g_Va00E032E0;
 struct GlobalA01E48;
-extern struct GlobalA01E48 *g_Va00A01E48;
+extern class Shell *TheShell;
 class Shell {
 public:
     void push(AsciiString s, bool flag);
@@ -20,7 +20,7 @@ void Rva00434160Init(int a1, int a2, bool a3)
 {
     if (g_Va00E032E0 != 0)
         return;
-    ((Shell *)g_Va00A01E48)->push(AsciiString("SaveLoad.apt"), false);
+    ((Shell *)(*(GlobalA01E48 **)&TheShell))->push(AsciiString("SaveLoad.apt"), false);
     ((State00434160 *)g_Va00E032E0)->f294 = a1;
     ((State00434160 *)g_Va00E032E0)->f298 = a2;
     int c = 1;

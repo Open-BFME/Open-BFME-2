@@ -6,8 +6,7 @@
 // clears byte at +0x18; sibling Rva005FB6E2 same Apt plus team-plus-8 or empty pattern.
 class Rva00222A8BTarget;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function);
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct Rva0057C236Team
 {
     char m_pad[8];
@@ -36,8 +35,8 @@ void AptLoadMovieFrame::Impl::UnloadContent()
     if (m_team)
         name = m_team->m_name;
     else
-        name = g_Rva0107301CEmptyString;
-    Rva00524EF4AptCall(TheRva00222A8BTarget, m_level, name, "UnloadContent");
+        name = "";
+    Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level, name, "UnloadContent");
     m_flag = false;
 }
 // ?rva0057C2CC@Rva0057C2CC@@QAEXXZ @0x0057C2CC 8B

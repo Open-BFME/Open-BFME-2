@@ -11,8 +11,7 @@ struct Rva005D2FD0Outer
 	Rva005D2FD0Inner *m_ptr;
 };
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 namespace StrategicHUD
 {
 	void SetCommandPointsString(int level, Rva005D2FD0Outer *outer, int a, int b);
@@ -45,8 +44,8 @@ void StrategicHUD::SelectionUIImpl::ShowCommandPoints(int a, int b)
 		m_b2c = b;
 	}
 	if (!m_flag31) {
-		const char *prefix = m_outer08.m_ptr ? m_outer08.m_ptr->m_name : g_Rva0107301CEmptyString;
-		Rva005FB5E6AptCall(TheRva00222A8BTarget, (void *)m_level04, prefix, "SetCPState", "_show");
+		const char *prefix = m_outer08.m_ptr ? m_outer08.m_ptr->m_name : "";
+		Rva005FB5E6AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_level04, prefix, "SetCPState", "_show");
 		m_flag31 = true;
 	}
 }
@@ -55,8 +54,8 @@ void StrategicHUD::SelectionUIImpl::ShowCommandPoints(int a, int b)
 void StrategicHUD::SelectionUIImpl::HideCommandPoints()
 {
 	if (m_flag31) {
-		const char *prefix = m_outer08.m_ptr ? m_outer08.m_ptr->m_name : g_Rva0107301CEmptyString;
-		Rva005FB5E6AptCall(TheRva00222A8BTarget, (void *)m_level04, prefix, "SetCPState", "_hide");
+		const char *prefix = m_outer08.m_ptr ? m_outer08.m_ptr->m_name : "";
+		Rva005FB5E6AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_level04, prefix, "SetCPState", "_hide");
 		m_flag31 = false;
 	}
 }

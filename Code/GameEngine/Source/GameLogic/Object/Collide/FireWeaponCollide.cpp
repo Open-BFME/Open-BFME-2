@@ -57,10 +57,13 @@ protected:
 	Object *m_object;
 };
 
+// Slot 0 of both interface vftables is retail's shared `return 0` fold
+// (33 C0 C3 at 0x000D43D0); the views define it inline with that body, so
+// the compiled tables name a definition of their own.
 class BehaviorModuleInterface
 {
 public:
-	virtual void behaviorSlot();
+	virtual void *behaviorSlot() { return 0; }
 };
 
 class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
@@ -72,7 +75,7 @@ public:
 class CollideModuleInterface
 {
 public:
-	virtual void collideSlot();
+	virtual void *collideSlot() { return 0; }
 };
 
 class CollideModule : public BehaviorModule, public CollideModuleInterface
@@ -143,9 +146,3 @@ FireWeaponCollide::FireWeaponCollide(Thing *thing, const ModuleData *moduleData)
 	m_collideWeapon->m_status = m_object->m_weaponStatus;
 	m_everFired = false;
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?behaviorSlot@BehaviorModuleInterface@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?collideSlot@CollideModuleInterface@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")

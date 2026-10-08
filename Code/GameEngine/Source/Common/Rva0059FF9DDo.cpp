@@ -9,10 +9,10 @@
 #include <string>
 #include <vector>
 
-struct BfmeOpaqueOwnedRecord492
+struct PeerRequest
 {
-	BfmeOpaqueOwnedRecord492();
-	~BfmeOpaqueOwnedRecord492();
+	PeerRequest();
+	~PeerRequest();
 	int unknown_00;
 	std::string unknown_04;
 	std::wstring unknown_10;
@@ -52,7 +52,7 @@ struct Global003EF728V6
 	virtual void f3();
 	virtual void f4();
 	virtual void f5();
-	virtual void f6(BfmeOpaqueOwnedRecord492 *rec);
+	virtual void f6(PeerRequest *rec);
 };
 
 extern int g_009C0758;
@@ -61,15 +61,15 @@ int g_009C0758 = -1;
 extern int g_009C075C;
 // g_009C075C: matched references place it at VA 0xdc075c (retail .data initial value -1).
 int g_009C075C = -1;
-extern Global003EF728V6 *g_00A02340;
-// g_00A02340: matched references place it at VA 0xe02340 (zero-filled .bss).
-Global003EF728V6 * g_00A02340;
+// 0x00A02340 is PeerThread.cpp's TheGameSpyPeerMessageQueue; this unit reads it
+// through its own view.
+extern class GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 
 void __cdecl Rva0059FF9DDo()
 {
-	BfmeOpaqueOwnedRecord492 rec;
+	PeerRequest rec;
 	rec.unknown_00 = 0x19;
 	rec.payload_60.words[0] = g_009C0758;
 	rec.payload_60.words[1] = g_009C075C;
-	g_00A02340->f6(&rec);
+	((Global003EF728V6 *)TheGameSpyPeerMessageQueue)->f6(&rec);
 }

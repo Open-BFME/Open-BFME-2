@@ -85,8 +85,7 @@ public:
 };
 
 #pragma comment(linker, "/alternatename:?d_008f7990@BfmeThingCDE@@QAEXXZ=?d_008f7990@@YAXXZ")
-#pragma comment(linker, "/alternatename:?d_008f7ec0@BfmeThingCDE@@QAEXXZ=?d_008f7ec0@@YAXXZ")
-#pragma comment(linker, "/alternatename:?ArrayDeleteHelperBodyThunk@@YGXPAXII0@Z=?ArrayDeleteHelperBodyThunk@@YAXXZ")
+#pragma comment(linker, "/alternatename:?ArrayDeleteHelperBodyThunk@@YGXPAXII0@Z=??_M@YGXPAXIHP6EX0@Z@Z")
 
 void __stdcall ArrayDeleteHelperBodyThunk(void *, unsigned, unsigned, void *);
 extern void __cdecl operator delete[](void *);

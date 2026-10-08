@@ -73,7 +73,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);	// 0x002D06CA
 };
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 void __cdecl ji_006291ae();
 
@@ -225,7 +225,7 @@ protected:
 bool UnitCrateCollide::executeCrateBehavior(Object *other)
 {
 	unsigned int remaining = m_moduleData->m_unitCount;
-	void *tmpl = TheThingFactory->rva002D06CA(&m_moduleData->m_unitType);
+	void *tmpl = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_moduleData->m_unitType);
 	if (tmpl == 0)
 		return false;
 	for (; remaining > 0; --remaining)

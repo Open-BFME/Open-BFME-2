@@ -30,7 +30,7 @@ public:
 	void *rva004196F8();
 };
 
-extern Rva0041811D *g_Rva0041811D;
+extern class Rva0041811D *g_Va00E030C0;
 
 class ThingTemplate
 {
@@ -51,5 +51,5 @@ void *ThingTemplate::getCurrentLivingWorldAutoResolveWeapon(const void *context)
 		if (it->rva0033A8D9(context))
 			return it->getWeapon();
 	}
-	return g_Rva0041811D->rva004196F8();
+	return g_Va00E030C0->rva004196F8();
 }

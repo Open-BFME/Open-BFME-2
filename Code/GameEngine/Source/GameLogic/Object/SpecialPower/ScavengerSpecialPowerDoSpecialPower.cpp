@@ -7,6 +7,13 @@
 // float into the controlling Player's +0x314 (0x002A9E25, pinned for Player
 // by address on this call site), runs the SpecialPowerModule base
 // doSpecialPower 0x0049490F, then raises the byte at +0x34.
+// The setter is the rowed Rva002A9E25FloatField::set.
+class Rva002A9E25FloatField
+{
+public:
+	void set(float value);
+};
+
 class Player
 {
 public:
@@ -82,7 +89,7 @@ void ScavengerSpecialPower::doSpecialPower(unsigned int options)
 {
 	const ScavengerSpecialPowerModuleData *data = getData();
 	Object *object = m_object;
-	object->getControllingPlayer()->rva002A9E25(data->m_7C);
+	((Rva002A9E25FloatField *)object->getControllingPlayer())->set(data->m_7C);
 	SpecialPowerModule::doSpecialPower(options);
 	m_34 = true;
 }

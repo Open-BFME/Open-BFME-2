@@ -5,8 +5,7 @@
 // Evidence: EBP frame, rowed AptCall, literals _hide and SetLeaderRankProgressBarState,
 // empty g_Rva0107301CEmptyString, manager TheRva00222A8BTarget, caller jmp 0x005F6309.
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 struct Rva005F61E4Team
 {
@@ -40,7 +39,7 @@ void StrategicHUD::HeroArmyDetailsMovieClip::Impl::HideLeaderRankProgress()
     if (m_team)
         team = (const char *)((char *)m_team + 8);
     else
-        team = g_Rva0107301CEmptyString;
-    Rva005FB5E6AptCall(TheRva00222A8BTarget, (void *)m_level, team, "SetLeaderRankProgressBarState", "_hide");
+        team = "";
+    Rva005FB5E6AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_level, team, "SetLeaderRankProgressBarState", "_hide");
     m_flag = 0;
 }

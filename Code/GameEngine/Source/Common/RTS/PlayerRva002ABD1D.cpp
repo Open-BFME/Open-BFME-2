@@ -9,12 +9,12 @@ class Object
 public:
 	bool isKindOf(KindOfType t) const;
 };
-typedef void (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
+typedef int (__cdecl *ObjectIterateFunc)(Object *obj, void *userData);
 
 class Player
 {
 public:
-	void iterateObjects(ObjectIterateFunc func, void *userData) const;
+	int iterateObjects(ObjectIterateFunc func, void *userData) const;
 	int rva002ABD1D(int kind, int limit);
 };
 

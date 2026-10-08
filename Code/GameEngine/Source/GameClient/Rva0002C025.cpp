@@ -9,7 +9,6 @@
 extern "C" __declspec(dllimport) int __cdecl _stat(const char *path, void *buffer);
 extern "C" __declspec(dllimport) struct tm *__cdecl localtime(const int *timer);
 
-extern const char g_Rva0107301CEmptyString[];
 
 #include "ascii_string.h"
 

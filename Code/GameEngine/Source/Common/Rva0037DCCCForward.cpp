@@ -10,10 +10,16 @@
 
 class Object;
 
+// The callee is the rowed STLport _Base_bitset<32>::_M_do_or.
+namespace _STL
+{
+template <unsigned int N> struct _Base_bitset
+{
+	void _M_do_or(const _Base_bitset<N> &other);
+};
+}
 class Rva0037DCCC284
 {
-public:
-	void run(int b);
 };
 
 class Object
@@ -27,6 +33,6 @@ public:
 // ?rva0037DCCC@@YAXPAVObject@@H@Z, retail 0x0037DCCC, 28 bytes.
 void __cdecl rva0037DCCC(Object *o, int b)
 {
-	o->m_284.run(b);
+	((_STL::_Base_bitset<32> *)&o->m_284)->_M_do_or(*(const _STL::_Base_bitset<32> *)b);
 	o->updateUpgradeModules();
 }

@@ -16,7 +16,7 @@ public:
     void rva00239FE4(const ModuleData *p);
 };
 class ClientFrameSubsystem;
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 class Rva00362DBD : public ModuleData {
 public:
     Rva00362DBD(int v);
@@ -26,5 +26,5 @@ private:
 };
 Rva00362DBD::Rva00362DBD(int v) : m_val04(v)
 {
-    ((Rva00239FE4 *)TheGameClient)->rva00239FE4((const ModuleData *)this);
+    ((Rva00239FE4 *)((ClientFrameSubsystem *)TheGameClient))->rva00239FE4((const ModuleData *)this);
 }

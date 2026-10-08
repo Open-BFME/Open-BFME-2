@@ -48,5 +48,5 @@ BFME_DISP8_NULL_ADJUST_GLOBAL_GETTER(Rva00151733NullAdjustGlobalField, 0x18, 8, 
 BFME_DISP8_NULL_ADJUST_GLOBAL_GETTER(Rva0020E3EFNullAdjustGlobalField, 0x08, 0x50, g_bfmeNullAdjustDE0878)
 // ?g_bfmeNullAdjustDE0878@@3UBfmeNullAdjustDefault@@A: the global at VA 0xde0878 is ?TheEmptyString@AsciiString@@2V1@B.
 #pragma comment(linker, "/alternatename:?g_bfmeNullAdjustDE0878@@3UBfmeNullAdjustDefault@@A=?TheEmptyString@AsciiString@@2V1@B")
-// ?g_bfmeNullAdjustBBAC1C@@3UBfmeNullAdjustDefault@@A: the global at VA 0xbbac1c is ?BfmeEmptyString@AsciiString@@0QBDB.
-#pragma comment(linker, "/alternatename:?g_bfmeNullAdjustBBAC1C@@3UBfmeNullAdjustDefault@@A=?BfmeEmptyString@AsciiString@@0QBDB")
+// ?g_bfmeNullAdjustBBAC1C@@3UBfmeNullAdjustDefault@@A: the global at VA 0xbbac1c is ?g_Rva0107301CEmptyString@@3QBDB (data_ledger.csv).
+#pragma comment(linker, "/alternatename:?g_bfmeNullAdjustBBAC1C@@3UBfmeNullAdjustDefault@@A=?g_Rva0107301CEmptyString@@3QBDB")

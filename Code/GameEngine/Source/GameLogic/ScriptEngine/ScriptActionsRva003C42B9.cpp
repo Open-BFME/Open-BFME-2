@@ -44,10 +44,10 @@ public:
 	void *rva002D06CA(const AsciiString *s);
 };
 
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 struct BfmeWorldRV;
-extern struct BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 
 class ControlBar
 {
@@ -84,10 +84,10 @@ void ScriptActions::rva003C42B9(Parameter *param, const AsciiString &a, const As
 		tmpl = *(const ThingTemplate *const *)((const char *)obj + 4);
 	}
 	else
-		tmpl = (const ThingTemplate *)TheThingFactory->rva002D06CA(&b);
+		tmpl = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&b);
 	if (tmpl == 0)
 		return;
-	const CommandButton *button = ((ControlBar *)g_bfmeWorldRV)->findCommandButton(a);
+	const CommandButton *button = ((ControlBar *)(*(BfmeWorldRV **)&TheControlBar))->findCommandButton(a);
 	if (button == 0)
 		return;
 	if (!button->isReady(unit))

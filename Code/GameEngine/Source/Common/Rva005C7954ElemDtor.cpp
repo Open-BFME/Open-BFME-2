@@ -5,7 +5,6 @@
 
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
 class Rva005C31FB
@@ -70,12 +69,12 @@ Rva005C7954Elem::~Rva005C7954Elem()
 	if (m_4C) {
 		if (m_54) {
 			char *t = *(char **)(void *)&m_0C;
-			const char *s = t ? t + 8 : g_Rva0107301CEmptyString;
+			const char *s = t ? t + 8 : "";
 			Rva005FB5E6AptCall(TheRva00222A8BTarget, m_08, s, "SetAutoAbilityOverlayState", "_hide");
 		}
 		if (m_55) {
 			char *t = *(char **)(void *)&m_0C;
-			const char *s = t ? t + 8 : g_Rva0107301CEmptyString;
+			const char *s = t ? t + 8 : "";
 			Rva005FB5E6AptCall(TheRva00222A8BTarget, m_08, s, "SetFlashEffectState", "_hide");
 		}
 	}

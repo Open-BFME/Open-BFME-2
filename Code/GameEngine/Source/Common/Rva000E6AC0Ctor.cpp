@@ -120,6 +120,5 @@ Rva000E6AC0::Rva000E6AC0()
 
 // ?g_Va009FE710@@3PAUGlobal9FE710@@A: the global at this VA is ?TheGameEngine@@3PAVGameEngine@@A; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?g_Va009FE710@@3PAUGlobal9FE710@@A=?TheGameEngine@@3PAVGameEngine@@A")
-#pragma comment(linker, "/alternatename:?g_Va009FE710@@3PAVDummy24@@A=?TheGameEngine@@3PAVGameEngine@@A")
 // ?g_Va009FE710@@3PAUGlobal9FE710@@A: the global at VA 0xdfe710 is ?TheGameEngine@@3PAVGameEngine@@A.
 #pragma comment(linker, "/alternatename:?g_Va009FE710@@3PAUGlobal9FE710@@A=?TheGameEngine@@3PAVGameEngine@@A")

@@ -15,24 +15,7 @@
 // module data +0xA4, else AsciiString::TheEmptyString, returned by value.
 #include "ascii_string.h"
 #include <list>
-
-// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
-namespace _STL {
-template <class T, class LeftTraits, class RightTraits>
-static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
-                              const _List_iterator<T, RightTraits>& b)
-{ return a._M_node != b._M_node; }
-}
-
 #include <map>
-
-// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
-namespace _STL {
-template <class T, class LeftTraits, class RightTraits>
-static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
-                              const _Rb_tree_iterator<T, RightTraits>& b)
-{ return a._M_node != b._M_node; }
-}
 #include <set>
 #include <vector>
 #include <math.h>
@@ -202,10 +185,35 @@ class BfmeArg985
 public:
 	char bfmeHas985C(int a1);
 };
+struct Rva003642DFNode;
+struct Rva003642DFResult;
+struct Rva00468C37Holder;
+// The AI's +0x140 path.
 class Rva003638BA
 {
 public:
 	bool rva003638BA();
+	bool rva00363AD7();
+	// 0x00364521: the path point for the +0x1F0 member's distance
+	// (unnamed; returns the 16-byte node+position value of 0x003642DF).
+	Rva003642DFResult rva00364521(Rva00468C37Holder *holder);
+};
+// What 0x003642DF/0x00364521 return by value (16 bytes): a node and a
+// position; 0x001E3511 reads its node's level value (0x7FFFFFFF without one).
+struct Rva003642DFResult
+{
+	Rva003642DFNode *m_node; // +0x00
+	Coord3D m_pos; // +0x04
+};
+struct Rva003642DFNode
+{
+	unsigned char m_pad00[0x08];
+	int m_08; // +0x08
+};
+class Rva001E3511
+{
+public:
+	int rva001E3511();
 };
 struct Rva00468C37Template
 {
@@ -227,6 +235,13 @@ template <> class Rva00468D11Slots<1>
 public:
 	virtual void gap(char (*)[1]) = 0;
 };
+// TheTerrainLogic: only slot 35 (a level/portal query, unnamed) is called.
+class TerrainLogic : public Rva00468D11Slots<35>
+{
+public:
+	virtual int slot35(int level) = 0;
+};
+extern TerrainLogic *TheTerrainLogic;
 class AIUpdateInterfaceSlots : public Rva00468D11Slots<110>
 {
 public:
@@ -311,9 +326,19 @@ class Rva0046A2ECContain : public Rva00468D11Slots<58>
 public:
 	virtual bool slot58(Object *other) = 0;
 };
+// The weapon's float range query is the rowed 0x002C9B80 (its row names the
+// owner Rva002C9B80Owner).
+class Weapon;
+class Rva002C9B80Owner
+{
+public:
+	float rva002C9B80(void *obj, float bonus);
+};
+enum WeaponSlotType;
 class Object
 {
 public:
+	Weapon *getCurrentWeapon(WeaponSlotType *slot = 0);	// pinned 0x0028AEBD
 	int getID() const { return m_74; }
 	__forceinline unsigned int testCondition(int bit) const
 	{
@@ -391,7 +416,7 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *name);
 };
-extern Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 struct Rva0046247DPair
 {
 	void *m00;
@@ -527,7 +552,7 @@ class Rva0046BB38Iface11C : public Rva0046BB38Iface6
 public:
 	virtual int rva0046979B() = 0; virtual void assignSpotToUnit(Object *obj) = 0; virtual void gap12() = 0; virtual void gap13() = 0;
 	virtual void gap14() = 0; virtual void gap15() = 0; virtual void slot16() = 0; virtual void rva0046FE99(_STL::list<Object *> &out) = 0;
-	virtual void gap18() = 0; virtual Object *rva0046CB2C() = 0; virtual void gap20() = 0; virtual Object *rva0046CBCA() = 0;
+	virtual void gap18() = 0; virtual Object *rva0046CB2C() = 0; virtual Object *rva0046CC09() = 0; virtual Object *rva0046CBCA() = 0;
 	virtual void *rva004696CD() = 0; virtual bool rva0046CDC9() = 0; virtual void rva004696E5() = 0; virtual bool rva0046CCEF(const ThingTemplate *tmpl) = 0;
 	virtual void rva00472D43(void *thingTemplate) = 0; virtual bool rva0046970D(Object *obj, int a2, const Rva00469851Names *names, bool sameGroup) = 0; virtual void gap28() = 0; virtual void gap29() = 0;
 	virtual void gap30() = 0; virtual void rva00472A24(const Coord3D *pos, CommandSourceType cmdSource, int a3) = 0; virtual void gap32() = 0; virtual void rva00472C8E(Object *obj, CommandSourceType cmdSource) = 0;
@@ -556,7 +581,7 @@ public:
 	virtual void rva00469851() = 0; virtual void rva0046DE2D(const FXList *fx) = 0; virtual void gap124() = 0; virtual bool rva0046992C() = 0;
 	virtual void gap126() = 0; virtual bool rva004698BC() = 0; virtual const void *rva004698D6() = 0; virtual const void *rva004698E2() = 0;
 	virtual void gap130() = 0; virtual void gap131() = 0; virtual void rva004690A9(const Coord3D *pos) = 0; virtual void gap133() = 0;
-	virtual void gap134() = 0; virtual void gap135() = 0; virtual bool rva0046F8CD() = 0; virtual void gap137() = 0;
+	virtual void gap134() = 0; virtual void ClassifyBeforeOnAfterInvalidPortal(_STL::vector<ObjectID> &before, _STL::vector<ObjectID> &on, _STL::vector<ObjectID> &after) = 0; virtual bool rva0046F8CD() = 0; virtual void gap137() = 0;
 	virtual ObjectID rva0046DEA1(ObjectID want) = 0; virtual void gap139() = 0; virtual bool rva0046E113(Coord3D *center) = 0; virtual void rva004690D0(int value) = 0;
 	virtual bool rva00468C37() = 0; virtual void rva00468BDC(int on) = 0;
 	virtual float rva00468B5B(float value) = 0;
@@ -642,6 +667,8 @@ public:
 	HordeBannerCarrierUpdate *rva00468E26(Object *obj);	// 0x00468E26, banner carrier update lookup
 	virtual void iterateContained(ContainIterateFunc func, void *userData, int a3);
 	virtual bool rva0046BB38(Object *other);
+	virtual void rva0046FE99(_STL::list<Object *> &out);
+	virtual void ClassifyBeforeOnAfterInvalidPortal(_STL::vector<ObjectID> &before, _STL::vector<ObjectID> &on, _STL::vector<ObjectID> &after);
 	virtual AsciiString rva0046D1AC();
 	virtual void rva0046F7C9(Object *obj);
 	virtual int rva0046979B();
@@ -703,6 +730,7 @@ public:
 	virtual void rva0046E2BC();
 	virtual void endMove();
 	virtual bool rva0046992C();
+	virtual Object *rva0046CC09();
 	virtual Object *rva0046CBCA();
 	virtual void rva0046C327();
 	virtual void rva0046C20B();
@@ -817,14 +845,14 @@ int HordeContain::rva0046979B()
 // lookup of the module data's +0x1B0 name.
 void *HordeContain::rva004696CD()
 {
-	return TheThingFactory->rva002D06CA(&fields()->m_1B0);
+	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&fields()->m_1B0);
 }
 
 // ?rva004696E5@HordeContain@@UAEXXZ @0x004696E5: slot 24, the same lookup handed
 // to slot 26 when found.
 void HordeContain::rva004696E5()
 {
-	void *thingTemplate = TheThingFactory->rva002D06CA(&fields()->m_1B0);
+	void *thingTemplate = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&fields()->m_1B0);
 	if (thingTemplate)
 		rva00472D43(thingTemplate);
 }
@@ -1748,6 +1776,54 @@ Object *HordeContain::rva0046CBCA()
 	return TheGameLogic->findObjectByID(data.m_id);
 }
 
+// ?rva0046CC09@HordeContain@@UAEPAVObject@@XZ @0x0046CC09: slot 20 (vtable
+// 0x00C44C58 entry 20); of the contained Objects (+0x20 interface slot 70)
+// and the live Objects of the +0x170 keys, the one whose current weapon
+// (pinned Object::getCurrentWeapon 0x0028AEBD) reports the largest range
+// from the rowed float query 0x002C9B80, else null.
+Object *HordeContain::rva0046CC09()
+{
+	Object *best = 0;
+	float bestRange = 0.0f;
+	Rva0046247DPair p;
+	rva0046D27ASlot70(p);
+	for (_STL::list<Object *>::const_iterator it = p.m04->begin(); it != p.m04->end(); ++it)
+	{
+		Object *obj = *it;
+		if (obj)
+		{
+			Weapon *weapon = obj->getCurrentWeapon();
+			if (weapon)
+			{
+				float range = ((Rva002C9B80Owner *)weapon)->rva002C9B80(obj, 0.0f);
+				if (range > bestRange)
+				{
+					bestRange = range;
+					best = obj;
+				}
+			}
+		}
+	}
+	for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
+	{
+		Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
+		if (obj)
+		{
+			Weapon *weapon = obj->getCurrentWeapon();
+			if (weapon)
+			{
+				float range = ((Rva002C9B80Owner *)weapon)->rva002C9B80(obj, 0.0f);
+				if (range > bestRange)
+				{
+					bestRange = range;
+					best = obj;
+				}
+			}
+		}
+	}
+	return best;
+}
+
 // ?slot38@HordeContain@@UAE_NPAVObject@@HH@Z @0x00469647: slot 38 of the +0x20
 // contain interface (vtable 0x00C44EC8, compiled with that subobject this);
 // refuses an Object whose template has KindOf bit 13, else TransportContain's
@@ -1875,7 +1951,7 @@ bool HordeContain::rva0046CDC9()
 	unsigned int count = objects.size();
 	if (count >= 1)
 	{
-		const ThingTemplate *tmpl = (const ThingTemplate *)TheThingFactory->rva002D06CA(&fields()->m_1B0);
+		const ThingTemplate *tmpl = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&fields()->m_1B0);
 		if (tmpl)
 		{
 			const ModuleInfo *info = &tmpl->m_moduleInfo;
@@ -1909,7 +1985,7 @@ bool HordeContain::rva0046CCEF(const ThingTemplate *want)
 	unsigned int count = objects.size();
 	if (count < 1)
 		return false;
-	const ThingTemplate *tmpl = (const ThingTemplate *)TheThingFactory->rva002D06CA(&fields()->m_1B0);
+	const ThingTemplate *tmpl = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&fields()->m_1B0);
 	if (!tmpl || want != tmpl)
 		return false;
 	const ModuleInfo *info = &tmpl->m_moduleInfo;
@@ -2108,7 +2184,7 @@ void HordeContain::assignSpotToUnit(Object *obj)
 		int index = *it;
 		char *entry = (char *)((Rva00469294 *)m_moduleData)->rva00469294(m_188Begin[index].m_key);
 		if (entry && obj->m_template->isEquivalentTo(
-			(const ThingTemplate *)TheThingFactory->rva002D06CA((const AsciiString *)(entry + 4))))
+			(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)(entry + 4))))
 		{
 			m_17C[obj->getID()] = index;
 			m_194.erase(it);
@@ -2191,7 +2267,7 @@ bool HordeContain::rva0046970D(Object *obj, int a2, const Rva00469851Names *name
 	short key = obj->m_template->m_5D8;
 	for (const AsciiString *name = names->begin(); name != names->end(); ++name)
 	{
-		const ThingTemplate *tmpl = (const ThingTemplate *)TheThingFactory->rva002D06CA(name);
+		const ThingTemplate *tmpl = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(name);
 		if (tmpl && tmpl->m_5D8 == key)
 			return true;
 	}
@@ -2321,6 +2397,77 @@ void *HordeContain::rva0046AF12()
 		++it;
 	char *entry = (char *)((Rva00469294 *)m_moduleData)->rva00469294(m_188Begin[*it].m_key);
 	if (entry)
-		return TheThingFactory->rva002D06CA((const AsciiString *)(entry + 4));
+		return ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)(entry + 4));
 	return 0;
+}
+
+// ?rva0046FE99@HordeContain@@UAEXAAV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@@Z @0x0046FE99:
+// slot 17; appends the contained Objects (through the +0x20 contain
+// interface's slot 70) and the live Objects of the +0x170 keys to the list,
+// then hands each contained Object, from a copy of the contained list, to
+// slot 42.
+void HordeContain::rva0046FE99(_STL::list<Object *> &out)
+{
+	Rva0046247DPair p;
+	rva0046D27ASlot70(p);
+	for (_STL::list<Object *>::const_iterator it = p.m04->begin(); it != p.m04->end(); ++it)
+		out.push_back(*it);
+	for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
+	{
+		Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
+		if (obj)
+			out.push_back(obj);
+	}
+	_STL::list<const Object *> copy;
+	for (_STL::list<Object *>::const_iterator c = p.m04->begin(); c != p.m04->end(); ++c)
+		copy.push_back(*c);
+	{
+		void *unused = p.m00;
+		p.m00 = unused;
+		p.m00 = NULL;
+	}
+	_STL::list<const Object *>::iterator o;
+	for (o = copy.begin(); o != copy.end(); ++o)
+		slot42(*o);
+}
+
+// HordeContain::ClassifyBeforeOnAfterInvalidPortal, retail 0x0046FF81 (187
+// bytes; slot 135 of the +0x11C interface vtable 0x00C44C58). Name from
+// WorldBuilder (HordeContain.cpp, wb-name-unverified); the before/on/after
+// parameter names follow it and are not target facts. Sorts the contained
+// members' IDs by their AI path's next node: with a level TheTerrainLogic
+// slot 35 rejects -> `on`; else a path that passes 0x00363AD7 -> `before`;
+// anything else (no AI path, no node) -> `after`.
+void HordeContain::ClassifyBeforeOnAfterInvalidPortal(_STL::vector<ObjectID> &before, _STL::vector<ObjectID> &on, _STL::vector<ObjectID> &after)
+{
+	const _STL::list<Object *> *items = containedItems();
+	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
+	{
+		Object *obj = *it;
+		if (!obj)
+			continue;
+		AIUpdateInterface *ai = obj->m_ai;
+		if (!ai)
+			continue;
+		Rva003638BA *path = ai->m_140;
+		if (path)
+		{
+			Rva003642DFResult point = path->rva00364521(ai->m_1F0);
+			if (point.m_node && point.m_node->m_08)
+			{
+				int level = ((Rva001E3511 *)&point)->rva001E3511();
+				if (level != 0x7fffffff && !TheTerrainLogic->slot35(level))
+				{
+					on.push_back((ObjectID)obj->getID());
+					continue;
+				}
+				if (path->rva00363AD7())
+				{
+					before.push_back((ObjectID)obj->getID());
+					continue;
+				}
+			}
+		}
+		after.push_back((ObjectID)obj->getID());
+	}
 }

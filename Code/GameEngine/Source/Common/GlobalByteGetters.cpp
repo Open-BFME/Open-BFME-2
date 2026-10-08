@@ -103,17 +103,6 @@ unsigned char Rva000308D0GetByte(void)
 	return MemoryPool::g_heaps.m_clearAllocations;
 }
 
-// ?Rva0003C100GetByte@@YAEXZ @ 0x0003C100 (6B) over 0x00DE08A8.
-
-extern unsigned char g_Va00DE08A8;
-// g_Va00DE08A8: matched references place it at VA 0xde08a8 (zero-filled .bss).
-unsigned char g_Va00DE08A8;
-
-unsigned char Rva0003C100GetByte(void)
-{
-	return g_Va00DE08A8;
-}
-
 // ?Rva00116F70GetByte@@YAEXZ @ 0x00116F70 (6B) over 0x00DEDA06.
 
 extern unsigned char g_Va00DEDA06;

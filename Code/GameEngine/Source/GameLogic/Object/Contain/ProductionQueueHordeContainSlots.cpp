@@ -47,7 +47,7 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern class Rva002D06CA *TheThingFactory;
+extern class ThingFactory *TheThingFactory;
 
 class Rva0028BC58Ret
 {
@@ -154,7 +154,7 @@ void ProductionQueueHordeContain::CreateTemplate(ObjectID id, Object *obj)
 	{
 		if (((Rva2225E0Filter *)&p->m_tab)->accepts(obj, (Player *)0))
 		{
-			void *thing = TheThingFactory->rva002D06CA(&p->m_str);
+			void *thing = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&p->m_str);
 			r->s08(thing, -1, slot2, -1, 0, &AsciiString::TheEmptyString, 0);
 			r->s14(slot2, id);
 			return;

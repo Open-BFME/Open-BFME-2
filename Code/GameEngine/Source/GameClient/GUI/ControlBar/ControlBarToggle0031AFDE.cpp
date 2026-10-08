@@ -104,7 +104,7 @@ public:
 	virtual void notify();
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern class MessageStream *TheMessageStream;
 extern InGameUI *TheInGameUI;
 
 class Rva0031AFDE
@@ -126,7 +126,7 @@ int Rva0031AFDE::rva0031AFDE()
 		m_flag = 0;
 		break;
 	}
-	GameMessage *msg = MessageStreamSubsystem->appendType(0x3EC);
+	GameMessage *msg = TheMessageStream->appendType(0x3EC);
 	msg->appendBooleanArgument(true);
 	TheInGameUI->notify();
 	return m_flag;

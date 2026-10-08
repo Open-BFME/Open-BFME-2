@@ -384,4 +384,3 @@ AptCIH *AptDisplayList::placeObject(AptControlPlaceObject2 *place,AptCIH *parent
 // native caller saves that AptCIH* across its name destructor. The old provider
 // uses an opaque void spelling; this direct alias retains its verified ABI.
 #pragma comment(linker, "/alternatename:?placeObjectNCXForm@AptDisplayList@@QAEPAVAptCIH@@PAV2@HPAUAptCharacter@@PAVEAStringC@@0HHPBIPBMPAXM@Z=?bfmeSubmitColors1283@BfmeSubmitter1283@@QAEXHHHHHHHPBIHHH@Z")
-#pragma comment(linker, "/alternatename:??0EAStringC@@QAE@XZ=?clear@EAStringC@@QAEAAV1@XZ")

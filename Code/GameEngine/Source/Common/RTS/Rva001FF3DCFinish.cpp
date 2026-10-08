@@ -32,7 +32,7 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-extern RecorderClass *TheRecorder;
+extern struct Bfme939Helper *g_bfme939Helper;
 
 class ScienceStore
 {
@@ -53,7 +53,7 @@ int ScienceStore::getSciencePurchaseCost(ScienceType st) const
 		if (!mp)
 			mode = game->m_gameMode;
 		if (mp || mode == 2 ||
-		    (mode == 3 && TheRecorder && TheRecorder->isMultiplayer()))
+		    (mode == 3 && (*(RecorderClass **)&g_bfme939Helper) && (*(RecorderClass **)&g_bfme939Helper)->isMultiplayer()))
 			return si->m_sciencePurchasePointCostMP;
 		return si->m_sciencePurchasePointCost;
 	}

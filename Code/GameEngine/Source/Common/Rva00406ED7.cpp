@@ -13,7 +13,7 @@ public:
     const CommandButton *findCommandButton(const AsciiString &name);
 };
 struct BfmeWorldRV;
-extern struct BfmeWorldRV *g_bfmeWorldRV;
+extern class ControlBar *TheControlBar;
 
 struct Rva00406ED7Item
 {
@@ -32,5 +32,5 @@ const CommandButton *Rva00406ED7::rva00406ED7(int idx)
 {
     if ((unsigned int)idx >= 15)
         return 0;
-    return ((ControlBar *)(void *)g_bfmeWorldRV)->findCommandButton(*(const AsciiString *)((char *)this + 0x80 + idx * 12));
+    return ((ControlBar *)(void *)(*(BfmeWorldRV **)&TheControlBar))->findCommandButton(*(const AsciiString *)((char *)this + 0x80 + idx * 12));
 }

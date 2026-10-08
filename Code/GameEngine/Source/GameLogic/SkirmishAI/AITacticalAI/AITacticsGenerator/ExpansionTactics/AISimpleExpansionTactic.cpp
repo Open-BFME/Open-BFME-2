@@ -199,7 +199,7 @@ public:
 	virtual void v8();
 	virtual AITactic *create();
 	unsigned char rva004ED169();
-	void end(int a, int b);
+	void end(bool a, bool b);
 };
 
 class AITacticOffensive : public AITactic

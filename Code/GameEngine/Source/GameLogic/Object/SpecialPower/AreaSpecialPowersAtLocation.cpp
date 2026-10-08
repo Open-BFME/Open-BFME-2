@@ -11,12 +11,12 @@
 // bodies, each taking the location).
 //
 // DarknessSpecialPower 0x004C4F1C (71 bytes, vftable 0x00C5D7F0): helper
-// 0x004C4E93, then clears +0x98 of the g_00DFEC68 manager.
+// 0x004C4E93, then clears +0x98 of TheTriggerManager (0x00DFEC68).
 // TaintSpecialPower 0x004C4B3C (74 bytes, vftable 0x00C5D568): also nothing
 // while the module data's +0x7C name is empty; helper 0x004C49AE.
 // FreezingRainSpecialPower 0x004C4D22 (79 bytes, vftable 0x00C5D700):
 // helper 0x004C4C99, then hands the module data's +0x84 value to the
-// g_00DFEC68 manager (0x00287519).
+// TheTriggerManager (0x00DFEC68), via 0x00287519.
 // ElvenWoodSpecialPower 0x004C3CFF (77 bytes, vftable 0x00C5CE28): Taint's
 // shape with the name at module data +0x88 and helper 0x004C3B17.
 // ElvenWoodSpecialPower slots 10 and 11 are also the slot-10/11 entries of
@@ -27,7 +27,7 @@
 // virtual slot 12 and both nothing while the Object is disabled.
 // CloudBreakSpecialPower 0x004C482B (80 bytes, vftable 0x00C5D3C8): helpers
 // 0x004C4621 (with the location) and 0x004C4582, then clears +0x98 of the
-// g_00DFEC68 manager.
+// TheTriggerManager (0x00DFEC68).
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 template <int N> class BitFlags
@@ -67,7 +67,8 @@ private:
 	unsigned char m_pad00[0x98];
 	int m_98;			// +0x98
 };
-extern Rva00285D34 *g_00DFEC68;
+class Rva002872BA;
+extern Rva002872BA *TheTriggerManager;
 
 class ModuleData;
 class ModuleBase
@@ -168,7 +169,7 @@ void DarknessSpecialPower::doSpecialPowerAtLocation(const Coord3D *loc, unsigned
 		return;
 	SpecialPowerModule::doSpecialPowerAtLocation(loc, options);
 	rva004C4E93(loc);
-	g_00DFEC68->clear98();
+	((Rva00285D34 *)TheTriggerManager)->clear98();
 }
 
 void TaintSpecialPower::doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options)
@@ -197,7 +198,7 @@ void FreezingRainSpecialPower::doSpecialPowerAtLocation(const Coord3D *loc, unsi
 		return;
 	SpecialPowerModule::doSpecialPowerAtLocation(loc, options);
 	rva004C4C99(loc);
-	g_00DFEC68->rva00287519(getData()->m_84);
+	((Rva00285D34 *)TheTriggerManager)->rva00287519(getData()->m_84);
 }
 
 void CloudBreakSpecialPower::doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options)
@@ -211,7 +212,7 @@ void CloudBreakSpecialPower::doSpecialPowerAtLocation(const Coord3D *loc, unsign
 	SpecialPowerModule::doSpecialPowerAtLocation(loc, options);
 	rva004C4621(loc);
 	rva004C4582();
-	g_00DFEC68->clear98();
+	((Rva00285D34 *)TheTriggerManager)->clear98();
 }
 
 void ElvenWoodSpecialPower::doSpecialPower(unsigned int options)

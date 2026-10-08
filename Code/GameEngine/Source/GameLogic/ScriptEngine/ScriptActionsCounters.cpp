@@ -32,7 +32,6 @@
 #include <map>
 #include "StringInline.h"
 
-extern const char g_bfmeEmptyAscii[];
 extern "C" int __cdecl memcmp(const void *left, const void *right,
 	unsigned int count);
 #pragma intrinsic(memcmp)
@@ -167,9 +166,9 @@ public:
 		const BfmePlayerKillsStringView *that = &other;
 		const BfmePlayerKillsStringView *self = this;
 		Int thatLen = that->m_data ? that->m_data->m_length : 0;
-		const char *thatData = that->m_data ? &that->m_data->m_text[0] : g_bfmeEmptyAscii;
+		const char *thatData = that->m_data ? &that->m_data->m_text[0] : "";
 		Int thisLen = self->m_data ? self->m_data->m_length : 0;
-		const char *thisData = self->m_data ? &self->m_data->m_text[0] : g_bfmeEmptyAscii;
+		const char *thisData = self->m_data ? &self->m_data->m_text[0] : "";
 		Int c = memcmp(thisData, thatData,
 			(unsigned int)(thisLen < thatLen ? thisLen : thatLen));
 		if (c != 0)

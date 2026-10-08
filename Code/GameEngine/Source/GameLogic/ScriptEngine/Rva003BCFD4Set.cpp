@@ -7,9 +7,9 @@ public:
 	unsigned char m_pad[0xc0];
 	unsigned char m_c0;
 };
-extern ClientFrameSubsystem *TheGameClient;
+class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
 void __stdcall Rva003BCFD4Set(bool b)
 {
-	TheGameClient->m_c0 = b;
+	((ClientFrameSubsystem *)TheGameClient)->m_c0 = b;
 }

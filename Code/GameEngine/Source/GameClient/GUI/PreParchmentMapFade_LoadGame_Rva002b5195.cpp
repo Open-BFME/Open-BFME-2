@@ -38,7 +38,7 @@ class WindowManager
 public:
 	void unidentified_0002e9a1(int a);
 };
-extern WindowManager *g_theWindowManager;
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 // ?parchmentMapFadeLoadGame@@YAHH_N@Z
 int parchmentMapFadeLoadGame(int, bool start)
@@ -50,8 +50,8 @@ int parchmentMapFadeLoadGame(int, bool start)
 		TheTransitionHandler->setGroup(AsciiString("PreParchmentMapFade_LoadGame"), 0);
 		if (TheShell)
 			((Rva0057F100 *)TheShell)->giveBack();
-		if (g_theWindowManager)
-			g_theWindowManager->unidentified_0002e9a1(-1);
+		if ((*(WindowManager **)&g_bfmeAptWindowManager))
+			(*(WindowManager **)&g_bfmeAptWindowManager)->unidentified_0002e9a1(-1);
 	}
 	else if (TheTransitionHandler->isFinished())
 		result = 3;

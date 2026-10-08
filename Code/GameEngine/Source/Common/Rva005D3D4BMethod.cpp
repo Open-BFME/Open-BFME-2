@@ -10,8 +10,7 @@ struct Rva005D2FD0Inner
 };
 
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
 class Rva005D3AF2
@@ -50,8 +49,8 @@ void StrategicHUD::SelectionUIImpl::Hide()
 		return;
 	((Rva005D3AF2 *)this)->rva005D3AF2();
 	((Rva005D3B9A *)this)->rva005D3B9A();
-	const char *prefix = m_inner08 ? m_inner08->m_name : g_Rva0107301CEmptyString;
-	Rva005FB5E6AptCall(TheRva00222A8BTarget, (void *)m_level04, prefix, "SetState", "_hide");
+	const char *prefix = m_inner08 ? m_inner08->m_name : "";
+	Rva005FB5E6AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_level04, prefix, "SetState", "_hide");
 	m_flag30 = 0;
 	m_flag32 = 0;
 }

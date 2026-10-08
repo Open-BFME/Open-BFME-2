@@ -235,7 +235,6 @@ public:
 };
 
 extern GlobalData *TheWritableGlobalData;
-extern const char g_Rva0107301CEmptyString[];
 extern char g_00DC8AF0[];
 
 class StatsCollector
@@ -474,7 +473,7 @@ void StatsCollector::createFileName()
 
 	m_statsFileName.clear();
 	char *t = *(char **)(void *)&name;
-	const char *p = t ? t + 8 : g_Rva0107301CEmptyString;
+	const char *p = t ? t + 8 : "";
 	m_statsFileName.format("%s%s%s.txt", g_00DC8AF0, p, datestr);
 }
 
@@ -537,19 +536,11 @@ void StatsCollector::writeStatInfo()
 
 // ?TheGameLogic@@3PAXA: the global at this VA is ?TheGameLogic@@3PAVGameLogic@@A; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?TheGameLogic@@3PAXA=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_Va009FE78C@@3PAUGlobal9FE78C@@A=?TheGameLogic@@3PAVGameLogic@@A")
 #pragma comment(linker, "/alternatename:?Va00DFE78CStatePointer@@3PAUVa00DFE78CState@@A=?TheGameLogic@@3PAVGameLogic@@A")
 #pragma comment(linker, "/alternatename:?g_bfmeRva42E8C1Holder@@3PAUBfmeRva42E8C1Limit@@A=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_00DFE78C@@3PAUSingletonDFE78C@@A=?TheGameLogic@@3PAVGameLogic@@A")
 #pragma comment(linker, "/alternatename:?g_009FE78C@@3PAVRva0023D661@@A=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_00DFE78C@@3PAURva00DFE78CHolder@@A=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_00DFE78C@@3PAUGameLogicFrame@@A=?TheGameLogic@@3PAVGameLogic@@A")
 #pragma comment(linker, "/alternatename:?g_009FE78C@@3PAUGameLogic@@A=?TheGameLogic@@3PAVGameLogic@@A")
 #pragma comment(linker, "/alternatename:?g_Va009FE78C@@3HA=?TheGameLogic@@3PAVGameLogic@@A")
 #pragma comment(linker, "/alternatename:?TheGameLogic@@3PAUGameLogic@@A=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_updateGlobal@@3PAUOpaqueGlobal@@A=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_Rva0023D229Global@@3PAURva0023D229Global@@A=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_Rva0023D339B@@3PAURva0023D339B@@A=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_bfme939GlobD@@3PAVBfmeGlob939D@@A=?TheGameLogic@@3PAVGameLogic@@A")
 // ?TheGameLogic@@3PAXA: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
 #pragma comment(linker, "/alternatename:?TheGameLogic@@3PAXA=?TheGameLogic@@3PAVGameLogic@@A")

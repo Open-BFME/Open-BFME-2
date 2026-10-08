@@ -39,7 +39,7 @@ public:
 	virtual void audioSlot180(int val);
 };
 
-extern BfmeAudio *g_009FE6E8;
+extern class AudioManager *TheAudio;
 
 class Rva0023D661
 {
@@ -57,7 +57,5 @@ void Rva0023D661::rva0023D661(int val)
 		obj->rva0028B31A(val);
 		obj = obj->m_next;
 	}
-	return g_009FE6E8->audioSlot180(val);
+	return (*(BfmeAudio **)&TheAudio)->audioSlot180(val);
 }
-// ?g_009FE6E8@@3PAVBfmeAudio@@A: the global at VA 0xdfe6e8 is ?TheAudio@@3PAVAudioManager@@A.
-#pragma comment(linker, "/alternatename:?g_009FE6E8@@3PAVBfmeAudio@@A=?TheAudio@@3PAVAudioManager@@A")

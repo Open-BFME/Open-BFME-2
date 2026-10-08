@@ -41,7 +41,6 @@ public:
 // Hour spells TheGlobalData as a macro over it); this name aliases it
 // rather than defining a second pointer the game never writes.
 extern class GlobalData *TheWritableGlobalData;
-#pragma comment(linker, "/alternatename:?TheGlobalData@@3PAVGlobalData@@A=?TheWritableGlobalData@@3PAVGlobalData@@A")
 extern bool BFME2UseDebugWindowLite;
 
 class SubsystemInterface

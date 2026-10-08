@@ -26,7 +26,6 @@ void Rva004748F0PopHeap(Rva004748F0Element *first, Rva004748F0Element *last,
 	Rva004748F0Element *result, Rva004748F0Element value,
 	Rva004748F0Compare comp, int *);
 
-#pragma comment(linker, "/alternatename:?Rva004748F0PopHeap@@YAXPAURva004748F0Element@@00U1@URva004748F0Compare@@PAH@Z=?j_0000561e@@YAXXZ")
 
 void Rva00474A90PopHeapAux(Rva004748F0Element *first, Rva004748F0Element *last,
 	Rva004748F0Element *, Rva004748F0Compare comp)
