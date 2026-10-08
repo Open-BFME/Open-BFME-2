@@ -392,3 +392,24 @@ void PathfindZoneManager::rva005324D8(unsigned char incremental,unsigned short f
  if(incremental && a->id==b->id && !(mask & ~0x11u))
   ((Rva005321D1 *)&finalUnion)->rva00532455(first,second);
 }
+
+class PathfindCell {
+public:
+ char unknown00[8]; unsigned short zone; char unknown0A[2];
+ union { unsigned value; struct {
+ unsigned type:4,id:6,secondary:6,unknown16:1,flag17:1,flag18:1,kind:2,unknown21:1,flag22:1,unknown23:9;
+ }; };
+ unsigned char get17() const { return (unsigned char)flag17; }
+ unsigned char get18() const { return (unsigned char)flag18; }
+ unsigned char get22() const { return (unsigned char)flag22; }
+};
+
+bool Rva0053166DEqual(const PathfindCell *a,const PathfindCell *b) {
+ return a->type==b->type && a->id==b->id && a->secondary==b->secondary &&
+  a->get17()==b->get17() && a->get18()==b->get18() && a->kind==b->kind && a->get22()==b->get22();
+}
+
+// WB 0x012D0A40 and native 0x0053166D..0x005316E0 prove this comparison.
+// The original function name is unknown. Packed DWORD fields are at cell+0x0C;
+// byte-return flag accessors preserve retail promotion and the bool result ABI.
+
