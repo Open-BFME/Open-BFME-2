@@ -16393,3 +16393,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??0Rva0031A257@@QAE@XZ,0x0031A257,callee of ?XferOwningLivingWorldArmyVec@@YAXPAVXfer@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z
 ?rva002E34A9@Rva002E34A9@@QAEXABURva0040DD3ARef@@H@Z,0x002E34A9,callee of ?KillSummaryEntry@LivingWorldArmy@@QAEXH@Z
 ?rva00599D56@AIDozerManager@@QAEXXZ,0x00599D56,callee of ?rva00599EDC@AIDozerManager@@QAEXXZ
+?isValidContainerFor@OpenContain@@UAE_NPAVObject@@_N1@Z,0x00462977,WB1196690 names OpenContain::isValidContainerFor; native467B at462977; OpenContain interface+20 tableC433B0 slot38 points862977; Garrison base478629 forwards Object pointer and two bool stack slots to the same code entry; mutable qualification is an ABI view
