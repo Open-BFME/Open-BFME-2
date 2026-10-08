@@ -1,5 +1,5 @@
 // ?rva000311E0@GeneralAllocator@Allocator@EA@@QAEIPBXIPADPAGI@Z
-// partial score=0.8638 date=2026-10-05
+// partial score=0.86379 date=2026-10-09
 // BFME 2's memory-pool entry points. `namespace MemoryPool` is retail's own
 // name: every `_`-prefixed function here is exported under it
 // (reverse/exports.csv), and 0x00030730 resolves each export back out of the
@@ -24,9 +24,52 @@
 
 #include <string.h>
 
+// Native [0x00030E20,0x00030E88): cdecl byte predicate used by allocator
+// guard checks. The existing address-derived callee spelling is retained;
+// retail reads the buffer and never writes a fill. Aligned spans compare
+// four repeated bytes at a time, then compare the remaining bytes.
+unsigned char rva00030E20Fill(void *memory, unsigned int size, unsigned char value)
+{
+	unsigned char *p = (unsigned char *)memory;
+	unsigned char *end = p + size;
+	unsigned char *wordEnd = p + (size / 4) * 4;
+	if (size >= 4 && ((unsigned int)p & 3) == 0)
+	{
+		unsigned int pattern = value;
+		pattern = (pattern << 8) | value;
+		pattern = (pattern << 8) | value;
+		pattern = (pattern << 8) | value;
+		while (p < wordEnd)
+		{
+			unsigned int word = *(unsigned int *)p;
+			p += 4;
+			if (word != pattern)
+				return 0;
+		}
+	}
+	while (p < end)
+	{
+		unsigned char byte = *p++;
+		if (byte != value)
+			return 0;
+	}
+	return 1;
+}
+
 extern "C" __declspec(dllimport) void *__stdcall TlsGetValue(unsigned long index);
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *section);
+extern "C" __declspec(dllimport) int __stdcall VirtualFree(void *address, unsigned int size, unsigned int type);
+
+class MemoryPoolFactory;
+// placement unverified: no rowed DIR32 site yet; ZH initial value is null.
+MemoryPoolFactory *TheMemoryPoolFactory = 0;
+
+class Rva00033E90
+{
+public:
+	void freeBlock(void *p);
+};
 
 namespace EA
 {
@@ -45,6 +88,12 @@ struct BlockInfo
 
 // PPMalloc's allocator. Most methods remain address-named; a few now have
 // donor PDB names backed by exact target bodies and boundaries.
+struct Rva00031BF0Chunk {
+ unsigned previousSize;
+ unsigned size;
+ Rva00031BF0Chunk* previous;
+ Rva00031BF0Chunk* next;
+};
 class GeneralAllocator
 {
 public:
@@ -70,12 +119,17 @@ public:
 	// Donor PDB name; target allocator call sites and the size-bin thresholds
 	// support its role. Its parameter meaning is carried from the donor.
 	static unsigned int GetLargeBinIndexFromChunkSize(unsigned int size);
+	unsigned int rva000311E0(const void*,unsigned,char*,unsigned short*,unsigned);
 	bool rva00032830(const void *block, int addressType);	// ValidateAddress-like
 	bool rva00032920(const void *block);			// owns-address test
 	bool rva000329E0(int level);				// ValidateHeap-like
+	int rva000327E0(const void *blockData, unsigned int left, char *dst);
+	int rva00031430(const void *block, unsigned int left, char *dst);
 	unsigned int rva00032A20(const void *block);		// GetUsableSize-like
 	unsigned int rva006C1D10(const void *block);		// fast usable-size with tail call to 0x32A20 caller 0x6C36FD
 	void *rva00031680(const void *block);	// intrusive-list search unblocking 0x31BB0 0x31D00 0x32920
+	bool rva000316B0(void *block, bool release);	// conditional core-release callback / VirtualFree
+	int rva00031BF0(const void *block);
 	bool rva00031BB0(const void *block);	// small-block fencepost check via 0x31680 caller 0x3324E
 	void rva000338F0(void *block);				// Free-like
 	void *rva00035080(unsigned int size, int flags);	// Malloc-like
@@ -84,7 +138,6 @@ public:
 	void *rva000353B0(void *context, int blockTypes, bool copy, void *storage, unsigned int storageSize);	// ReportBegin-like
 	const BlockInfo *rva00032F60(void *context, int blockTypes);	// ReportNext-like
 	void rva00033E90(void *context);			// ReportEnd-like
-	unsigned int rva000311E0(const void *src, unsigned int count, char *ascii, unsigned short *wide, unsigned int cap);
 
 private:
 	// Intrusive list node proven by 0x00031680 (size at +4 next at +0x18)
@@ -95,11 +148,23 @@ private:
 	{
 		unsigned int m_unk0;
 		unsigned int m_size;
-		unsigned char m_pad[16];
+		// 0x316B0 independently consumes these fields. Names describe their
+		// observed use; the original field names and flag meanings are unknown.
+		unsigned int m_releaseSize;
+		unsigned char m_unknownC;
+		bool m_releaseDirect;
+		bool m_releaseAllowed;
+		unsigned char m_unknownF;
+		void (__cdecl *m_releaseCallback)(GeneralAllocator *, void *, unsigned int, void *);
+		void *m_releaseContext;
 		ListNode *m_next;
 		ListNode *m_prev;
 	};
-	unsigned char m_pad0[0x448];
+	unsigned int m_unknown0;
+	unsigned int m_maxFastSize;
+	Rva00031BF0Chunk* m_fastBins[10];
+	Rva00031BF0Chunk* m_bins[256];
+	char m_pad430[0x18];
 	ListNode m_sentinel;
 	// Lock wrapper proven by 0x00032A20: Enter/Leave on the pointer at
 	// +0x4E4 with a use count at +0x18 of the wrapper.
@@ -175,6 +240,25 @@ unsigned int GeneralAllocator::GetLargeBinIndexFromChunkSize(unsigned int size)
 	return 0x7E;
 }
 
+// Native [0x316B0,0x31701), RET8. GeneralAllocator's teardown calls it at
+// 0x33E13 with the same receiver and a node unlinked by 0x31660. This proves
+// the node ABI independently of the descriptive release-field labels.
+// Success means that a release was attempted; VirtualFree's result is ignored.
+bool GeneralAllocator::rva000316B0(void *block, bool release)
+{
+	ListNode *core = (ListNode *)block;
+	bool result = false;
+	if (core->m_releaseDirect || (release && core->m_releaseAllowed))
+	{
+		if (core->m_releaseCallback)
+			core->m_releaseCallback(this, block, core->m_releaseSize, core->m_releaseContext);
+		else
+			VirtualFree(block, core->m_releaseSize, 0x8000);
+		result = true;
+	}
+	return result;
+}
+
 // ?rva00031680@GeneralAllocator@Allocator@EA@@QAEPAXPBX@Z @ 0x00031680 (47B):
 // intrusive circular-list search returning the node containing the address or
 // null. Class proven by callers 0x00031BB0 0x00031D00 0x00032920 passing the
@@ -217,6 +301,28 @@ bool GeneralAllocator::rva00031BB0(const void *block)
 		}
 	}
 	return false;
+}
+
+// ?rva000327E0@GeneralAllocator@Allocator@EA@@QAEHPBXIPAD@Z
+// Target evidence: retail locks with this+0x4E4/+0x18 around the call to
+// 0x00031430, passing blockData-8, left, and dst. The same allocator this and
+// lock layout are established by the matched 0x32A20 sibling; the helper's
+// address-derived role as the block formatter is supported by 0x353F0.
+int GeneralAllocator::rva000327E0(const void *blockData, unsigned int left, char *dst)
+{
+	Lock *lock = m_4E4;
+	if (lock != 0)
+	{
+		EnterCriticalSection(lock);
+		++lock->m_count;
+	}
+	int result = rva00031430((const char *)blockData - 8, left, dst);
+	if (lock != 0)
+	{
+		--lock->m_count;
+		LeaveCriticalSection(lock);
+	}
+	return result;
 }
 
 // ?rva00032A20@GeneralAllocator@Allocator@EA@@QAEIPBX@Z @0x00032A20 146B
@@ -288,79 +394,23 @@ unsigned int GeneralAllocator::rva006C1D10(const void *block)
 	return rva00032A20(block);
 }
 
-// ?rva000311E0@GeneralAllocator@Allocator@EA@@QAEIPBXIPADPAGI@Z @ 0x000311E0 (497B):
-// hex-dump formatter proven by caller 0x00031430 passing block+8 size 0x100-byte buffer null-wide 0x100;
-// fills ascii and wide with spaces then hex pairs plus printable-or-dot with tab separator.
-// ?rva000311E0@GeneralAllocator@Allocator@EA@@QAEIPBXIPADPAGI@Z present-unmatched
-unsigned int GeneralAllocator::rva000311E0(const void *src_, unsigned int count, char *ascii, unsigned short *wide, unsigned int cap)
+// ?rva000338F0@GeneralAllocator@Allocator@EA@@QAEXPAX@Z @0x000338F0 63B
+// Free-like: lock at +0x4E4 with count at +0x18 around Rva00033E90::freeBlock pin 0x00033150.
+// Evidence: caller _Free 0x000305D6 plus 3 unclaimed; Enter/LeaveCriticalSection IAT; inc/dec at +0x18.
+__declspec(noinline) void GeneralAllocator::rva000338F0(void *block)
 {
-	const unsigned char *src = (const unsigned char *)src_;
-	if (cap < 5)
+	Lock *lock = m_4E4;
+	if (lock != 0)
 	{
-		if (cap == 0)
-			return 0;
-		if (0 != ascii)
-			*ascii = 0;
-		if (wide == 0)
-			return 0;
-		*wide = 0;
-		return 0;
+		EnterCriticalSection(lock);
+		++lock->m_count;
 	}
-	unsigned short *w_hold = wide;
-	unsigned char hex[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-	int limit = (cap - 2) >> 2;
-	char *a_hold = ascii;
-	if (limit > count)
-		limit = count;
-	if (0 != a_hold)
+	((::Rva00033E90 *)this)->freeBlock(block);
+	if (lock != 0)
 	{
-		memset(a_hold, ' ', cap);
-		a_hold[cap - 1] = 0;
+		--lock->m_count;
+		LeaveCriticalSection(lock);
 	}
-	if (w_hold != 0)
-	{
-		memset(w_hold, ' ', cap * 2);
-		w_hold[cap - 1] = 0;
-	}
-	if (a_hold != 0)
-		a_hold[limit * 3 - 1] = '\t';
-	if (w_hold != 0)
-		w_hold[limit * 3 - 1] = '\t';
-	if (0 == limit)
-		return 0;
-	unsigned short *wp = w_hold;
-	char *ap = a_hold;
-	unsigned int i = 0;
-	while (i < limit)
-	{
-		unsigned char c = src[i];
-		char hi = hex[c >> 4];
-		char lo = hex[c & 0xF];
-		if (0 != a_hold)
-		{
-			ap[0] = hi;
-			ap[1] = lo;
-			const char d = (char)src[i];
-			if (0x20 > d || d >= 0x7F || d == '"' || d == '\'')
-				a_hold[limit * 3 + i] = '.';
-			else
-				a_hold[limit * 3 + i] = d;
-		}
-		if (w_hold != 0)
-		{
-			wp[0] = (unsigned short)hi;
-			wp[1] = (unsigned short)lo;
-			const char d = (char)src[i];
-			if (d < 0x20 || d == '"' || d == '\'')
-				w_hold[limit * 3 + i] = '.';
-			else
-				w_hold[limit * 3 + i] = d;
-		}
-		i++;
-		ap = ap + (3);
-		wp = wp + (3);
-	}
-	return 0;
 }
 
 }
@@ -414,6 +464,7 @@ struct HeapTable
 };
 
 extern HeapTable g_heaps;
+HeapTable g_heaps;
 extern unsigned long g_heapTlsIndex;
 
 EA::Allocator::GeneralAllocator *_GetHeapAllocator(unsigned int id)
@@ -538,3 +589,167 @@ void _Exit()
 }
 
 }
+
+// ?rva00031790@Rva00031790@@QAEPAXPAX@Z @ 0x00031790 (35B):
+// lock-holder setter: stores param at +0 then when non-null enters it as a
+// critical section and bumps the use count at +0x18 returning this.
+// Class unproven by callers (both call sites unclaimed) so honest
+// address-derived owner; EnterCriticalSection via dllimport like neighbours.
+class Rva00031790
+{
+public:
+	void *m_0000;
+	void *rva00031790(void *param);
+};
+
+void *Rva00031790::rva00031790(void *param)
+{
+	m_0000 = param;
+	if (param != 0)
+	{
+		EnterCriticalSection(param);
+		int count = *(volatile int *)((char *)param + 0x18);
+		*(volatile int *)((char *)param + 0x18) = count + 1;
+	}
+	return this;
+}
+
+// Retail's data references in this unit's matched rows land on globals defined
+// under other spellings at the same addresses (addend-corrected DIR32). Bind them.
+#pragma comment(linker, "/alternatename:?g_heapTlsIndex@MemoryPool@@3KA=?g_Va00DB35A4@@3KA")
+
+// Native 0x00030D10..0x00030D4E, RET4: retain bit0 of word +4;
+// zero clears its size bits, otherwise clamp to 80, add 11, round down
+// to a multiple of 8, and impose a minimum of 16. Unsigned comparisons
+// and the receiver/one-word ABI are target facts; class/name remain unknown.
+class Rva00030D10 {
+public: void rva00030D10(unsigned int size);
+private: unsigned int unknown00, sizeAndFlag;
+};
+// ?nonzero30D10 absent-from-retail - source-only inline calculation
+inline unsigned int nonzero30D10(unsigned int size) {
+ if(size>80) size=80;
+ size+=11;
+ if(size>16) return size & ~7u;
+ return 16;
+}
+void Rva00030D10::rva00030D10(unsigned int size) {
+ unsigned flag=sizeAndFlag&1;
+ if(size) sizeAndFlag=nonzero30D10(size)|flag;
+ else sizeAndFlag=flag;
+}
+
+
+// Native 31BF0..31CF4 including the final RET4, 260B (inventory stops
+// before that return). The allocator's fast and circular-bin searches
+// classify its chunk pointer as 1, 2, or the +440 distinguished chunk as 3.
+// Provider identity follows the adjacent rowed GeneralAllocator methods;
+// the API name and chunk-kind enum labels remain unresolved.
+namespace EA
+{
+namespace Allocator
+{
+int GeneralAllocator::rva00031BF0(const void* block) {
+ typedef Rva00031BF0Chunk Chunk;
+ const Chunk* chunk=(const Chunk*)block;
+ if(chunk==*(Chunk**)((char*)this+0x440)) return 3;
+ unsigned size=chunk->size&0x7ffffff8;
+ 
+ if(size>=0x10 && size<=m_maxFastSize) {
+  for(Chunk* p=m_fastBins[(size>>3)-2];p;p=p->next)
+   if(p==chunk) return 1;
+ }
+ 
+ unsigned index;
+ if((unsigned)chunk>=(unsigned)m_bins && (unsigned)chunk<(unsigned)this+0x430)
+  index=(((const char*)chunk-(const char*)this-0x30)>>4)+2;
+ else if(size<0x200) index=size>>3;
+ else index=GetLargeBinIndexFromChunkSize(size);
+ Chunk* head=m_bins[index];
+ for(Chunk* p=head->next;p!=head;p=p->next)
+  if(p==chunk) return 2;
+ for(int i=0;i<10;++i)
+  for(Chunk* p=m_fastBins[i];p;p=p->next)
+   if(p==chunk) return 1;
+ for(int i=2;i<256;i+=2) {
+  Chunk* head=m_bins[i];
+  for(Chunk* p=head->next;p!=head;p=p->next)
+   if(p==chunk) return 2;
+ }
+ return 0;
+}
+}
+}
+
+namespace EA {namespace Allocator {
+unsigned int GeneralAllocator::rva000311E0(const void *src_, unsigned int count, char *ascii, unsigned short *wide, unsigned int cap)
+{
+	const unsigned char *src = (const unsigned char *)src_;
+	if (cap < 5)
+	{
+		if (cap == 0)
+			return 0;
+		if (0 != ascii)
+			*ascii = 0;
+		if (wide == 0)
+			return 0;
+		*wide = 0;
+		return 0;
+	}
+	unsigned short *w_hold = wide;
+	unsigned char hex[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+	int limit = (cap - 2) >> 2;
+	char *a_hold = ascii;
+	if (limit > count)
+		limit = count;
+	if (0 != a_hold)
+	{
+		memset(a_hold, ' ', cap);
+		a_hold[cap - 1] = 0;
+	}
+	if (w_hold != 0)
+	{
+		memset(w_hold, ' ', cap * 2);
+		w_hold[cap - 1] = 0;
+	}
+	if (a_hold != 0)
+		a_hold[limit * 3 - 1] = '\t';
+	if (w_hold != 0)
+		w_hold[limit * 3 - 1] = '\t';
+	if (0 == limit)
+		return 0;
+	unsigned short *wp = w_hold;
+	char *ap = a_hold;
+	unsigned int i = 0;
+	while (i < limit)
+	{
+		unsigned char c = src[i];
+		char hi = hex[c >> 4];
+		char lo = hex[c & 0xF];
+		if (0 != a_hold)
+		{
+			ap[0] = hi;
+			ap[1] = lo;
+			const char d = (char)src[i];
+			if (0x20 > d || d >= 0x7F || d == '"' || d == '\'')
+				a_hold[limit * 3 + i] = '.';
+			else
+				a_hold[limit * 3 + i] = d;
+		}
+		if (w_hold != 0)
+		{
+			wp[0] = (unsigned short)hi;
+			wp[1] = (unsigned short)lo;
+			const char d = (char)src[i];
+			if (d < 0x20 || d == '"' || d == '\'')
+				w_hold[limit * 3 + i] = '.';
+			else
+				w_hold[limit * 3 + i] = d;
+		}
+		i++;
+		ap = ap + (3);
+		wp = wp + (3);
+	}
+	return 0;
+}
+}}
