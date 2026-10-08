@@ -33,6 +33,7 @@ public:
 class ResourceGatheringManager : public ResourceGatheringManagerBase
 {
 public:
+	ResourceGatheringManager();
 	virtual ~ResourceGatheringManager();
 	virtual void slot1() = 0;
 	virtual const char *name() const = 0;
@@ -48,4 +49,13 @@ ResourceGatheringManager::~ResourceGatheringManager()
 {
 	m_supplyWarehouses.erase(m_supplyWarehouses.begin(), m_supplyWarehouses.end());
 	m_supplyCenters.erase(m_supplyCenters.begin(), m_supplyCenters.end());
+}
+
+// ??0ResourceGatheringManager@@QAE@XZ, retail 0x004F5B63..0x004F5BAA (71
+// bytes, EH): Zero Hour's empty constructor. The base is built first (EH
+// state 0), the vtable 0x00C6327C stored, then both supply lists through the
+// rowed list base constructor 0x004EC36C (state 1 between them). Its one
+// caller, 0x002B0546, allocates the 12 bytes with the global operator new.
+ResourceGatheringManager::ResourceGatheringManager()
+{
 }
