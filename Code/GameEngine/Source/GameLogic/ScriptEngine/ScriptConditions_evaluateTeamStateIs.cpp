@@ -277,6 +277,18 @@
 // area (rowed isInside), it is alive or of KindOf bit 0x30 (+0x10E bit 0),
 // and under the flag its float at +0x280 is -1. The count's six-way
 // comparison is returned after the condition's frame stamp is refreshed.
+//
+// ?rva003E8D01@ScriptConditions@@IAE_NPAVParameter@@00@Z @ 0x003E8D01 290B
+// Donor: BFME 1 Rva0032CDB0.cpp (the same condition there, kept under its
+// address). Target evidence: jump-table case 174 calls 0x003E8D01, which
+// initConditionTemplates names EVAL_TEAM_HEALTH (team, comparison, int);
+// the C++ name is unproven. Each member of the named team (rowed
+// getTeamNamed, the out-of-line member iterator) without KindOf bit 0x59
+// (+0x113 bit 1) or 0x2F (+0x10D bit 7) adds, for KindOf bit 0x6D, slots
+// +0x17C and +0x180(false) of the rowed rva0028C197 interface to the
+// maximum and current totals, otherwise one to each unless the rowed
+// testStatus reports status 0x26. The percentage (0 without members) is
+// compared six ways with the int parameter; other comparisons fail.
 #include <string.h>
 #include <vector>
 #include <list>
@@ -387,10 +399,14 @@ public:
 	// KindOf 48 (BFME 1's ScriptConditionsRva0032A710.cpp).
 	bool testKindOf30() const { return (m_kindOf10E & 0x01) != 0; }
 	bool testKindOf59() const { return (m_kindOf113 & 0x02) != 0; }
+	// KindOf bit 0x2F (byte +0x10D, bit 7), unnamed: skipped by the team
+	// health total alongside 0x59.
+	bool testKindOf2F() const { return (m_kindOf10D & 0x80) != 0; }
 private:
 	unsigned char m_pad00[0x64];
 	AsciiString m_name; // +0x64
-	unsigned char m_pad68[0x10E - 0x68];
+	unsigned char m_pad68[0x10D - 0x68];
+	unsigned char m_kindOf10D; // +0x10D
 	unsigned char m_kindOf10E; // +0x10E
 	unsigned char m_pad10F[0x113 - 0x10F];
 	unsigned char m_kindOf113; // +0x113
@@ -509,7 +525,7 @@ public:
 };
 
 // The interface rowed Object::rva0028C197 returns (the +0x250 module's slot
-// +0x7C answer); slots +0x17C and +0x188 return unsigned counts.
+// +0x7C answer); slots +0x17C, +0x180 and +0x188 return unsigned counts.
 class Rva0028C197Iface
 {
 public:
@@ -533,7 +549,8 @@ public:
 	BFME_SLOT(85); BFME_SLOT(86); BFME_SLOT(87); BFME_SLOT(88); BFME_SLOT(89);
 	BFME_SLOT(90); BFME_SLOT(91); BFME_SLOT(92); BFME_SLOT(93); BFME_SLOT(94);
 	virtual unsigned int rvaSlot17C() = 0; // +0x17C
-	BFME_SLOT(96); BFME_SLOT(97);
+	virtual unsigned int rvaSlot180(bool flag) = 0; // +0x180
+	BFME_SLOT(97);
 	virtual unsigned int rvaSlot188() = 0; // +0x188
 };
 #undef BFME_SLOT
@@ -550,6 +567,12 @@ private:
 
 // Zero Hour's Coord3D; length is the rowed out-of-line 0x00003571.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+
+// Object::testStatus 0x0004E536 tests a bit of the status mask at +0x94.
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_26 = 0x26
+};
 
 class Object
 {
@@ -572,6 +595,7 @@ public:
 	// temporary swaps retail's ESI/EDI choice in evaluateCanBuildAtBase.
 	bool isKindOf68() const { return m_template->testKindOf68(); }
 	bool isEffectivelyDead() const { return (m_privateStatus & EFFECTIVELY_DEAD) != 0; }
+	bool testStatus(ObjectStatusTypes bit) const;
 private:
 	enum { EFFECTIVELY_DEAD = 0x01 };
 	void *m_vtbl;
@@ -929,6 +953,7 @@ protected:
 	bool evaluateDistanceBetweenObjects(Condition *);
 	bool evaluateDistanceBetweenTeams(Condition *);
 	bool rva003E61A4(Condition *, Parameter *, Parameter *, Parameter *, Parameter *, Parameter *, Parameter *, bool);
+	bool rva003E8D01(Parameter *, Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1766,5 +1791,54 @@ bool ScriptConditions::rva003E61A4(Condition *pCondition, Parameter *pPlayerParm
 	pCondition->setCustomFrame(TheScriptEngine->getFrameObjectCountChanged());
 	if (comparison)
 		return true;
+	return false;
+}
+
+bool ScriptConditions::rva003E8D01(Parameter *pTeamParm, Parameter *pComparisonParm, Parameter *pPercentParm)
+{
+	Team *theTeam = TheScriptEngine->getTeamNamed(pTeamParm->getString(), false);
+	if (theTeam) {
+		int maxHealth = 0;
+		int curHealth = 0;
+		int percent;
+		DLINK_ITERATOR<Object> iter = theTeam->iterate_TeamMemberList();
+		if (!iter.done()) {
+			for (; !iter.done(); iter.advance()) {
+				Object *pObj = iter.cur();
+				if (pObj->getTemplate()->testKindOf59())
+					continue;
+				if (pObj->getTemplate()->testKindOf2F())
+					continue;
+				if (pObj->getTemplate()->testKindOf6D()) {
+					Rva0028C197Iface *horde = (Rva0028C197Iface *)pObj->rva0028C197();
+					if (horde) {
+						maxHealth += horde->rvaSlot17C();
+						curHealth += horde->rvaSlot180(false);
+					}
+				} else if (!pObj->testStatus(OBJECT_STATUS_26)) {
+					++maxHealth;
+					++curHealth;
+				}
+			}
+			if (maxHealth)
+				percent = curHealth * 100 / maxHealth;
+			else
+				percent = 0;
+		} else {
+			percent = 0;
+		}
+		bool comparison;
+		switch (pComparisonParm->getInt()) {
+		case 0: comparison = percent < pPercentParm->getInt(); break;
+		case 1: comparison = percent <= pPercentParm->getInt(); break;
+		case 2: comparison = percent == pPercentParm->getInt(); break;
+		case 3: comparison = percent >= pPercentParm->getInt(); break;
+		case 4: comparison = percent > pPercentParm->getInt(); break;
+		case 5: comparison = percent != pPercentParm->getInt(); break;
+		default: return false;
+		}
+		if (comparison)
+			return true;
+	}
 	return false;
 }
