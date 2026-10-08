@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 // Source lead: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
 // game/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp.
@@ -20,6 +20,7 @@ class Player;
 class Module;
 enum DamageType { DAMAGE_8=8 };
 enum DeathType { DEATH_0=0 };
+class Team;
 class Object {
 public:
  void* rva0028BCF4() const;
@@ -27,6 +28,7 @@ public:
  void rva0028D282(void*);
  Player* getControllingPlayer() const;
  void setStatus(ObjectStatusTypes,bool);
+ void setTeam(Team*); void rva0028BAC0(); void rva0028DCC4(); void rva0028D253(); void rva0028AE6D();
 protected:
  Module* findModule(NameKeyType) const;
  friend class CastleBehavior;
@@ -42,7 +44,7 @@ class FoundationAIUpdate { protected: virtual void xfer(Xfer*); private: void rv
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 inline void* objectTemplate(Object* object) { return field<void*>(object,4); }
 inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); }
-class CastleBehavior { public: void registerOwnedObject(Object*); bool checkForAutoPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); };
+class CastleBehavior { public: void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); };
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
@@ -397,4 +399,80 @@ void CastleBehavior::rva0039792B() {
  for(unsigned i=0;i<field<_STL::vector<ObjectID> >(this,0x50).size();++i)
   addCastlePathObject(TheGameLogic->findObjectByID(field<_STL::vector<ObjectID> >(this,0x50)[i]));
  addCastlePathObject(TheGameLogic->findObjectByID(field<ObjectID>(this,0x38)));
+}
+
+// WB 0x00EBDE20 names CastleBehavior::checkForInstantUnPack; native
+// 0x00399D54..0x00399EB3, 351B. Player-search locals and break follow the
+// WB source flow; extracting the loop changes the native branch layout.
+// Model-condition update follows the byte-verified masked-word helper in
+// HordeSiegeEngineContainCtor.cpp, with this native bit at Object+0x124.
+// Unpack callee has its own checked native pin; other calls use existing rows.
+// The record scalar is forwarded unchanged to the existing opaque 3980BF ABI.
+#include <ascii_string.h>
+class Team;
+class PlayerList { public: Player* getNthPlayer(int); };
+class ThingTemplate;
+class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
+extern ThingFactory* TheThingFactory;
+// Existing verified 8B ASCII-plus-word record view. The source pair's scalar
+// identity is unresolved; only the measured layout and copy ABI are used here.
+struct BfmeAsciiScalarValue8 {
+ AsciiString first;
+ int second;
+ BfmeAsciiScalarValue8(const BfmeAsciiScalarValue8&);
+};
+class Rva003980BF { public: void* rva003980BF(void*,int,int); };
+class Rva00399959 { public: void unpack(bool); };
+class CastleConditionBits {
+ unsigned words[20];
+public:
+ unsigned test(int bit) const { return words[bit>>5] & (1U<<(bit&31)); }
+ void set(int bit) { words[bit>>5] |= 1U<<(bit&31); }
+};
+struct CastleConditionView { char pad[0x10c]; CastleConditionBits conditions; };
+static __forceinline void castleSetCondition(Object* owner,int bit) {
+ CastleConditionView* view=(CastleConditionView*)owner;
+ if(view->conditions.test(bit)==0) {
+  view->conditions.set(bit);
+  owner->rva0028AE6D();
+ }
+}
+bool CastleBehavior::checkForInstantUnPack() {
+ if(field<bool>(this,0x3c)) {
+ Object* owner=field<Object*>(this,8);
+ void* data=field<void*>(this,4);
+ AsciiString& name=field<AsciiString>(data,0x10);
+ Player* player=0;
+ if(((StringBase<char>*)&name)->isEmpty()) player=owner->getControllingPlayer();
+ else {
+  for(int i=0;i<field<int>(ThePlayerList,0x14);++i) {
+   Player* candidate=ThePlayerList->getNthPlayer(i);
+   if(candidate && ((StringBase<char>*)((char*)candidate+0x4c))->compare(*(const StringBase<char>*)&name)==0) {
+    player=candidate;
+    break;
+   }
+  }
+ }
+ if(player) {
+  Team* team=field<Team*>(player,0x2ec);
+  if(team) {
+   owner->setTeam(team);
+   owner->rva0028BAC0();
+   owner->rva0028DCC4();
+   owner->rva0028D253();
+   ((Rva00399959*)this)->unpack(true);
+   int count=(field<BfmeAsciiScalarValue8*>(data,0x54)-field<BfmeAsciiScalarValue8*>(data,0x50));
+   for(int i=0;i<count;++i) {
+    BfmeAsciiScalarValue8 entry(field<BfmeAsciiScalarValue8*>(data,0x50)[i]);
+    const ThingTemplate* type=TheThingFactory->findTemplate(entry.first);
+    if(type) ((Rva003980BF*)this)->rva003980BF((void*)type,entry.second,1);
+   }
+  }
+ }
+ field<bool>(this,0x3c)=false;
+ castleSetCondition(owner,218);
+ rva00397B03(OBJECT_STATUS_79,false);
+ return true;
+ }
+ return false;
 }
