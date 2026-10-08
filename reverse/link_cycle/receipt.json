@@ -1,0 +1,384 @@
+{
+ "authoritative": true,
+ "canon_rules": "coff-canon-1",
+ "commit": "ab786c98018067a69d188335cedbeed603795887",
+ "compile_failed": [],
+ "core_canon_sha256": "3d9eb880a7b22548c016f3cd7d2df7f35cd479042828804efd72f96b8907301f",
+ "core_sha256": "c4a4566ccb1bc760612c3855021f7d082388560a8af545ac74ff6159ba3d2dcb",
+ "date_utc": "2026-10-08 10:25:30",
+ "inputs": {
+  "functions_csv": "48ce3f50563310fd6262cf5401366c22197e9bb9b7eeb88ac07ced9b48bcf209",
+  "ghidra_functions_csv": "a3543f692612bde1632cbba2de313b63911c440690e1f91062b9a9796d28f1ac",
+  "symbols_csv": "c5e0a98a4c764b0eff1cdd399faa3b0a3e893a34b25e6dff4e37c74c7bac3a0c"
+ },
+ "iterations": 4,
+ "measure_env": {
+  "capstone": "4.0.2",
+  "pefile": "2023.2.7",
+  "python": "3.11.2"
+ },
+ "objects": 19901,
+ "objects_canon_digest": "499d81c4d3e929901bd21b20068f84504817d0fdc83b4ce28cdd861e99f86471",
+ "objects_digest": "0da4929777232a056f91a403563f25f145aad3380fd18defdc8aaea8630f2ed5",
+ "retail_sha256": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640",
+ "rules": "link-cycle-2",
+ "scaffold": {
+  "aliases": 12195,
+  "filler_bytes": 4002024,
+  "filler_chunks": 44386,
+  "import_entries": 602,
+  "imports_not_in_retail": 107,
+  "stubs": 6359,
+  "zz_sections": 200292
+ },
+ "seconds": {
+  "analyze": 100,
+  "compile": 52,
+  "link": 1889,
+  "measure": 31,
+  "provenance": 56,
+  "total": 2081
+ },
+ "series": {
+  "closure_nodes": {
+   "datum_closed": 27622,
+   "datum_failed": 4520,
+   "datum_ok": 28732,
+   "datum_open": 5630,
+   "eh_closed": 7335,
+   "eh_ok": 7335,
+   "twin_closed": 1911,
+   "twin_failed": 3693,
+   "twin_ok": 2671,
+   "twin_open": 4453,
+   "unit_closed": 17852,
+   "unit_failed": 21570,
+   "unit_ok": 33382,
+   "unit_open": 37100
+  },
+  "credit_unique_bytes": 1034572,
+  "eh_thunks": {
+   "FuncInfo header differs": 7,
+   "catch map differs": 1,
+   "unwind funclet differs": 259,
+   "verified": 7464
+  },
+  "gen-alias": {
+   "all": {
+    "bytes": 16748,
+    "pct_text": 0.21,
+    "rows": 281,
+    "unique_bytes": 16748
+   },
+   "placed": {
+    "bytes": 5470,
+    "pct_text": 0.07,
+    "rows": 102,
+    "unique_bytes": 5470
+   },
+   "placed_byte_equal": {
+    "bytes": 3044,
+    "pct_text": 0.04,
+    "rows": 63,
+    "unique_bytes": 3044
+   },
+   "placed_closed_strict": {
+    "bytes": 1938,
+    "pct_text": 0.02,
+    "rows": 51,
+    "unique_bytes": 1938
+   },
+   "placed_closed_strict_pilot_rule": {
+    "bytes": 2027,
+    "pct_text": 0.03,
+    "rows": 54,
+    "unique_bytes": 2027
+   },
+   "placed_pinned_strict": {
+    "bytes": 3577,
+    "pct_text": 0.04,
+    "rows": 73,
+    "unique_bytes": 3577
+   },
+   "placed_self_strict": {
+    "bytes": 3808,
+    "pct_text": 0.05,
+    "rows": 76,
+    "unique_bytes": 3808
+   },
+   "placed_self_strict_shift_safe": {
+    "bytes": 3808,
+    "pct_text": 0.05,
+    "rows": 76,
+    "unique_bytes": 3808
+   },
+   "self_strict_any": {
+    "bytes": 10186,
+    "pct_text": 0.13,
+    "rows": 160,
+    "unique_bytes": 10186
+   }
+  },
+  "gen-funclet": {
+   "all": {
+    "bytes": 150646,
+    "pct_text": 1.86,
+    "rows": 16207,
+    "unique_bytes": 150646
+   },
+   "placed": {
+    "bytes": 20,
+    "pct_text": 0.0,
+    "rows": 1,
+    "unique_bytes": 20
+   },
+   "placed_pinned_strict": {
+    "bytes": 20,
+    "pct_text": 0.0,
+    "rows": 1,
+    "unique_bytes": 20
+   },
+   "placed_self_strict": {
+    "bytes": 20,
+    "pct_text": 0.0,
+    "rows": 1,
+    "unique_bytes": 20
+   },
+   "placed_self_strict_shift_safe": {
+    "bytes": 20,
+    "pct_text": 0.0,
+    "rows": 1,
+    "unique_bytes": 20
+   },
+   "self_strict_any": {
+    "bytes": 143748,
+    "pct_text": 1.78,
+    "rows": 15656,
+    "unique_bytes": 143748
+   }
+  },
+  "gen-import": {
+   "all": {
+    "bytes": 930,
+    "pct_text": 0.01,
+    "rows": 155,
+    "unique_bytes": 930
+   },
+   "placed": {
+    "bytes": 918,
+    "pct_text": 0.01,
+    "rows": 153,
+    "unique_bytes": 918
+   },
+   "placed_closed_strict": {
+    "bytes": 918,
+    "pct_text": 0.01,
+    "rows": 153,
+    "unique_bytes": 918
+   },
+   "placed_closed_strict_pilot_rule": {
+    "bytes": 918,
+    "pct_text": 0.01,
+    "rows": 153,
+    "unique_bytes": 918
+   },
+   "placed_pinned_strict": {
+    "bytes": 918,
+    "pct_text": 0.01,
+    "rows": 153,
+    "unique_bytes": 918
+   },
+   "placed_self_strict": {
+    "bytes": 918,
+    "pct_text": 0.01,
+    "rows": 153,
+    "unique_bytes": 918
+   },
+   "placed_self_strict_shift_safe": {
+    "bytes": 918,
+    "pct_text": 0.01,
+    "rows": 153,
+    "unique_bytes": 918
+   },
+   "self_strict_any": {
+    "bytes": 930,
+    "pct_text": 0.01,
+    "rows": 155,
+    "unique_bytes": 930
+   }
+  },
+  "imports_read_through_equivalent": 591,
+  "link_status_sha256": "259a700cf29f4ebb074681515b867429d381f4361c65ee7597d8a4c0f3eac9b9",
+  "placed_failure_classes": {
+   "code-unmapped": [
+    339,
+    72360
+   ],
+   "code-wrong": [
+    5,
+    273
+   ],
+   "data-back": [
+    8531,
+    1526375
+   ],
+   "data-codeptr": [
+    2761,
+    305663
+   ],
+   "data-content": [
+    377,
+    86652
+   ],
+   "data-extent": [
+    7,
+    2439
+   ],
+   "data-fwd": [
+    1369,
+    488817
+   ],
+   "data-outside-image": [
+    3,
+    829
+   ],
+   "data-pin": [
+    2,
+    382
+   ],
+   "data-ptr-back": [
+    559,
+    78102
+   ],
+   "data-ptr-fwd": [
+    442,
+    40500
+   ],
+   "data-ptr-stub": [
+    796,
+    73427
+   ],
+   "data-stub": [
+    1321,
+    258978
+   ],
+   "eh": [
+    260,
+    40943
+   ],
+   "shift": [
+    479,
+    19255
+   ],
+   "twin-rejected": [
+    4135,
+    721272
+   ]
+  },
+  "real": {
+   "all": {
+    "bytes": 4755345,
+    "pct_text": 58.35,
+    "rows": 53055,
+    "unique_bytes": 4724794
+   },
+   "placed": {
+    "bytes": 4004067,
+    "pct_text": 49.45,
+    "rows": 42262,
+    "unique_bytes": 4004067
+   },
+   "placed_byte_equal": {
+    "bytes": 919811,
+    "pct_text": 11.36,
+    "rows": 19861,
+    "unique_bytes": 919811
+   },
+   "placed_closed_strict": {
+    "bytes": 1034572,
+    "pct_text": 12.78,
+    "rows": 15245,
+    "unique_bytes": 1034572
+   },
+   "placed_closed_strict_pilot_rule": {
+    "bytes": 1153020,
+    "pct_text": 14.24,
+    "rows": 17451,
+    "unique_bytes": 1153020
+   },
+   "placed_pinned_strict": {
+    "bytes": 1333165,
+    "pct_text": 16.46,
+    "rows": 24326,
+    "unique_bytes": 1333165
+   },
+   "placed_self_strict": {
+    "bytes": 1994140,
+    "pct_text": 24.63,
+    "rows": 28825,
+    "unique_bytes": 1994140
+   },
+   "placed_self_strict_hardcoded": {
+    "bytes": 8957,
+    "pct_text": 0.11,
+    "rows": 388,
+    "unique_bytes": 8957
+   },
+   "placed_self_strict_shift_safe": {
+    "bytes": 1985183,
+    "pct_text": 24.52,
+    "rows": 28437,
+    "unique_bytes": 1985183
+   },
+   "self_strict_any": {
+    "bytes": 2236074,
+    "pct_text": 27.43,
+    "rows": 32222,
+    "unique_bytes": 2221055
+   }
+  },
+  "retail_relocations": {
+   "lost_pages": [
+    "0x6a6000",
+    "0x6e9000"
+   ],
+   "recovered_sites": 6527,
+   "table_sites": 278296
+  },
+  "retail_text_bytes": 8096994,
+  "shift": {
+   "checked": true,
+   "delta": 264241152,
+   "failed": {
+    "code:hardcoded address": 546,
+    "code:retail relocates a hardcoded field": 46,
+    "datum:retail relocates a hardcoded field": 21
+   },
+   "why_unchecked": null
+  },
+  "twins": {
+   "bytes": 245,
+   "calls a rejected twin": 957,
+   "certified": 2672,
+   "code-unmapped": 112,
+   "code-wrong": 19,
+   "data-back": 159,
+   "data-codeptr": 34,
+   "data-content": 17,
+   "data-fwd": 79,
+   "data-ptr-back": 6,
+   "data-ptr-stub": 2,
+   "data-stub": 93,
+   "eh": 4,
+   "extent differs": 1877,
+   "no map definition": 88
+  }
+ },
+ "tool": "link_cycle",
+ "tool_digest": "2587136a1abc7ea57ae95ad45ccee8cfe90a8048ec716cbea4bf6135622dbecf",
+ "toolchain_sha256": {
+  "cl.exe": "2ecf86a3edfd3deae498e08298e210e984537ce9e11759930561e43f40bd2515",
+  "lib.exe": "3892c55821f628961ebf177537fdb002f3423166ead89c3aa7bc2ea1419fe1eb",
+  "link.exe": "0d5f9712d0da843d787bf4ce4e678abc6b737940996706b2c86101eac9df3e3c"
+ }
+}
