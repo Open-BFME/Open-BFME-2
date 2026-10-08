@@ -102,6 +102,7 @@ public:
 	void deleteLoadScreen();	// 0x002423E3
 	void processDestroyList();	// 0x002413DF
 	void prepareLogicForObjectLoad();	// 0x00242C86
+	void processProgressComplete(int playerID);	// 0x0023D76E
 	void setControlBarOverride(const AsciiString &commandSetName, int slot, const CommandButton *commandButton);	// 0x0024792F
 	bool isScoringEnabled() const { return m_isScoringEnabled; }
 	bool getFlag125() const { return m_flag125; }

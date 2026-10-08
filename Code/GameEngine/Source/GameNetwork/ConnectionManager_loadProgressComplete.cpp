@@ -1,5 +1,3 @@
-// ?loadProgressComplete@ConnectionManager@@QAEXXZ
-// partial score=1.0 date=2026-10-09
 // cl: /O1 /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ConnectionManager::loadProgressComplete, retail 0x004D02F6, 139 bytes.
 //
@@ -47,11 +45,8 @@ protected:
 	Int m_referenceCount;
 };
 
-class GameLogic
-{
-public:
-	void processProgressComplete(Int playerID);
-};
+#include "../Common/GameLogicObjectLookupView.h"
+
 extern GameLogic *TheGameLogic;
 
 Bool DoesCommandRequireACommandID(NetCommandType type);
