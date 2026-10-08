@@ -15,11 +15,27 @@
 // player-flag filters and (unless data+0x60) shares the source's controlling
 // player, goes to primary virtual slot 13 (0x00493EA7) with that frame and the
 // mask. Field offsets are target evidence; field meanings are inferred.
+//
+// ?rva00493EA7@SpecialPowerModule@@UAEXPAVObject@@HPBV?$BitFlags@$0L@@@@Z
+// @0x00493EA7 388B, that slot-13 virtual. Original name unknown; callers are
+// 0x0049402B above and the slot-13 entries of the special-power vtables. Retail
+// shape: the target's ExperienceTracker (+0x264) gains up to data+0x58 levels
+// through the rowed 0x0039ABFF/0x0039B4EC pair, the data's attribute modifier
+// name goes to the rowed Object::addAttributeModifierToPool with -1 (built as a
+// temporary from its text), and for a non-zero frame and a non-empty mask the
+// object's attribute modifier pool update (rowed private
+// findAttributeModifierPoolUpdate) gets 0x00403415(mask, frame), or the current
+// frame when data+0x42 is set and the +0x5E/+0x5F player-flag tests or (when
+// neither is set) an owner relationship of 2 say so; FXLists at data+0x4C and
+// (unless the target template has KindOf 109) data+0x28 play on the target.
+// Codegen levers: the player flag must come from the same inline getter as
+// above (mov al / xor al / test al), and the pool call must be written as two
+// calls in an if/else rather than one call with a ternary argument.
 #include "ascii_string.h"
 #include "../../../Common/PartitionRangeQueryCallView.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-enum KindOfType { KINDOF_47 = 47, KINDOF_300 = 300 };
+enum KindOfType { KINDOF_47 = 47, KINDOF_109 = 109, KINDOF_300 = 300 };
 
 template <int N>
 class BitFlags
@@ -85,6 +101,26 @@ public:
 
 class Module;
 class SpecialPowerModule;
+class AttributeModifierPoolUpdate
+{
+public:
+	void rva00403415(int *mask, int value);
+};
+
+class ExperienceTracker
+{
+public:
+	bool rva0039ABFF() const;
+	bool rva0039B4EC(int count, bool a, bool b);
+};
+
+enum Relationship { REL_ENEMIES = 0, REL_NEUTRAL = 1, REL_ALLIES = 2 };
+
+class FXList
+{
+public:
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
+};
 
 class Object
 {
@@ -93,11 +129,17 @@ public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	bool isKindOf(KindOfType t) const;
 	Player *getControllingPlayer() const;
+	bool addAttributeModifierToPool(const AsciiString &name, int frame);
+	Relationship getRelationship(const Object *that) const;
+	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
 protected:
 	Module *findModule(NameKeyType key) const;
 private:
+	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
 	void *m_vptr;
 	const ThingTemplate *m_template;
+	char m_pad08[0x264 - 0x08];
+	ExperienceTracker *m_experienceTracker;
 };
 
 class SpecialDisguiseUpdate
@@ -121,9 +163,17 @@ public:
 	AsciiString m_attributeModifierName;
 	char m_pad1C[0x20 - 0x1C];
 	bool m_includeSelf;
-	char m_pad21[0x34 - 0x21];
+	char m_pad21[0x28 - 0x21];
+	const FXList *m_fx28;
+	char m_pad2C[0x34 - 0x2C];
 	BitFlags<11> m_mask;
-	char m_pad38[0x5E - 0x38];
+	char m_pad38[0x42 - 0x38];
+	bool m_42;
+	char m_pad43[0x4C - 0x43];
+	const FXList *m_fx4C;
+	char m_pad50[0x58 - 0x50];
+	int m_levels;
+	char m_pad5C[0x5E - 0x5C];
 	bool m_skipFlaggedPlayers;
 	bool m_onlyFlaggedPlayers;
 	bool m_anyPlayer;
@@ -186,4 +236,52 @@ void SpecialPowerModule::rva0049402B(BfmeWideResult *iter)
 			continue;
 		rva00493EA7(obj, frame, &modData->m_mask);
 	}
+}
+
+void SpecialPowerModule::rva00493EA7(Object *obj, int frame, const BitFlags<11> *mask)
+{
+	const SpecialPowerModuleData *modData = (const SpecialPowerModuleData *)m_moduleData;
+	ExperienceTracker *tracker = obj->getExperienceTracker();
+	if (tracker)
+	{
+		int levels = modData->m_levels;
+		while (levels > 0)
+		{
+			if (tracker->rva0039ABFF())
+			{
+				tracker->rva0039B4EC(1, true, false);
+				--levels;
+			}
+			else
+				levels = 0;
+		}
+	}
+
+	if (!((const StringBase<char> *)&modData->m_attributeModifierName)->isEmpty())
+		obj->addAttributeModifierToPool(modData->m_attributeModifierName.str(), -1);
+
+	if (frame != 0 && mask->any())
+	{
+		AttributeModifierPoolUpdate *pool = obj->findAttributeModifierPoolUpdate();
+		bool useNow = false;
+		if (modData->m_42)
+		{
+			if (modData->m_onlyFlaggedPlayers && obj->getControllingPlayer()->rva0049402BFlag())
+				useNow = true;
+			if (modData->m_skipFlaggedPlayers && !obj->getControllingPlayer()->rva0049402BFlag())
+				useNow = true;
+			if (!modData->m_onlyFlaggedPlayers && !modData->m_skipFlaggedPlayers
+				&& m_object->getRelationship(obj) == REL_ALLIES)
+				useNow = true;
+		}
+		if (useNow)
+			pool->rva00403415((int *)mask, ((Rva0049402BFrameView *)TheGameLogic)->frame);
+		else
+			pool->rva00403415((int *)mask, frame);
+		if (modData->m_fx4C)
+			FXList::doFXObj(modData->m_fx4C, obj, 0);
+	}
+
+	if (modData->m_fx28 && !obj->getTemplate()->isKindOf(KINDOF_109))
+		FXList::doFXObj(modData->m_fx28, obj, 0);
 }
