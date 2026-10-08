@@ -1945,16 +1945,21 @@ def compile_function(row, symbol_map, output):
     masked = lib_member
     if lib_member:
         # A masked REL32 site is proven, not merely hidden, when the member's
-        # own call (addend 0) names a callee the ledger places exactly where
-        # retail's displacement lands. Count such a site as concrete, so a short
-        # CRT body whose only call goes to its rowed sibling is evidence; a call
-        # landing anywhere else, or naming a callee with no address, stays masked.
+        # own call (addend 0) names a callee whose own ledger row starts exactly
+        # where retail's displacement lands. Count such a site as concrete, so a
+        # short CRT body whose only call goes to its rowed sibling is evidence; a
+        # call landing anywhere else, or naming a callee with no row, stays
+        # masked. The test is the row's target_rva, never symbol_map: that list
+        # also holds every symbols.csv pin and every build_call_thunks() hit,
+        # and in this non-incremental image a "thunk" is some OTHER code that
+        # jumps to the body (see ledger_entry_points).
+        entries = ledger_entry_points()
         for offset, rtype, sym_name in relocs:
-            if (rtype != 0x0014 or offset + 4 > target_size or sym_name not in symbol_map
+            if (rtype != 0x0014 or offset + 4 > target_size
                     or compiled[offset : offset + 4] != b"\0\0\0\0"):
                 continue
             lands = (target_rva + offset + 4 + struct.unpack_from("<i", target, offset)[0]) & 0xFFFFFFFF
-            if lands in symbol_map[sym_name]:
+            if lands in entries.get(sym_name, ()):
                 covered[offset : offset + 4] = b"\0" * 4
     if gen_alias and not lib_member and bytes(resolved) != target:
         alt_resolved, alt_unresolved, alt_covered = resolve(True)
@@ -1986,6 +1991,28 @@ def compile_function(row, symbol_map, output):
 REL32 = 0x0014
 DIR32 = 0x0006
 IMAGE_BASE = 0x400000
+
+
+@functools.lru_cache(maxsize=1)
+def ledger_entry_points():
+    """Each name's own row addresses: where the ledger itself places that body.
+
+    Deliberately narrower than load_symbol_map. No symbols.csv pin: a pin is
+    an unproven candidate. No build_call_thunks() address: BFME2 was linked
+    without incremental linking (tools/allowed_symbols.py), so every E9 that
+    scan finds is other code jumping to the body -- a separately rowed
+    forwarder (_lua_pushcclosure 0x00747640 for _luaV_Cclosure), the jmp
+    inside a body (0x00629BB4, in __security_check_cookie, for
+    _report_failure), or a stray E9 byte. A call landing on any of those
+    reaches a different function, which proves nothing about the callee's
+    name. An alias row counts on load_symbol_map's own terms.
+    """
+    entries = {}
+    for row in load_all_function_rows():
+        if is_alias_row(row) and not gate_baselined("alias-row", row):
+            continue
+        entries.setdefault(row["name"], set()).add(int(row["target_rva"], 16))
+    return entries
 
 
 @functools.lru_cache(maxsize=1)
