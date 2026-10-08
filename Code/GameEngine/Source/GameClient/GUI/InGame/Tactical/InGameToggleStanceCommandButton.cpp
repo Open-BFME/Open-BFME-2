@@ -63,3 +63,18 @@ void Rva00525E55::rva00567A6E(int stance) {
  info.button=button;
  pickAndPlayUnitVoiceResponse(selected,GameMessage::STANCE_VOICE,&info);
 }
+
+// Native567B10..567B42 50B. WB1431290 and the established pin identify
+// the stance-change listener; only its third argument is used. The
+// abstract view supplies the vptr-sized prefix without emitting a guessed
+// table; its button/window offsets agree with SetStance above.
+class StancesBehavior;
+class InGameToggleStanceCommandButton {public:class Impl;};
+class InGameToggleStanceCommandButton::Impl {public:
+ virtual void onStancesBehaviorStanceChanged(StancesBehavior &,int,int)=0;
+ char pad[0xC-4];StanceOwnerView *owner;GameWindow *window;CommandButton *button;
+};
+void InGameToggleStanceCommandButton::Impl::onStancesBehaviorStanceChanged(StancesBehavior &,int,int stance) {
+ reinterpret_cast<Rva0035B424 *>(button)->rva0035B424(StanceToButtonSlot(button,stance));
+ GadgetButtonSetEnabledImage_Rva002C0433(window,button->rva0035B19E());
+}
