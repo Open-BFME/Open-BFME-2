@@ -1,10 +1,12 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 //
 // BFME2's create-a-hero powers page, AptCreateAHero::Powers (WorldBuilder:
 // Code/GameEngine/Source/GameClient/Gui/GUICallbacks/Apt/AptCreateAHeroPowers.cpp).
 // Names are WorldBuilder's (wb-name-unverified); layouts are from the
 // retail bodies.
 #include "ascii_string.h"
+// stlport
+#include <map>
 
 class Image;
 class CommandButton
@@ -100,11 +102,22 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 // "%s_%d_%d") at the button's image and returns whether it changed.
 bool __cdecl rva005B2295(const CommandButton *button, const char *prefix, int index, int page);
 
+// Target 0x005B2B3B returns a copy of the string at +0x240, substituting
+// AsciiString::TheEmptyString when it is absent. The caller 0x005B3FAB
+// supplies the grid cell's button pointer. The owner's original name is unknown.
+class Rva005B2B3BOwner {
+public:
+	AsciiString rva005B2B3B() const;
+private:
+	unsigned char m_pad00[0x240];
+	AsciiString m_prerequisite;
+};
 namespace AptCreateAHero
 {
 class Powers
 {
 public:
+	Rva005B2E09Cell *GetPrereqData(Rva005B2E09Cell *cell);
 	int CalculateFlashState(Rva005B2E09Cell *cell);
 	void UpdatePalantirButtons();
 	void ExternFunc(const CommandButton *button);
@@ -118,7 +131,8 @@ private:
 
 	unsigned char m_pad00[4];
 	Rva005B3676Owner *m_owner;  // +0x04; target owner contains hero at +0x27c
-	unsigned char m_pad08[0x28 - 0x08];
+	std::map<AsciiString, Rva005B2E09Cell> m_powersNameMap;
+	unsigned char m_pad14[0x28 - 0x14];
 	Rva005B2E09Cell *m_cells[10]; // +0x28; retail loop advances by four bytes
 	int m_numPowers;             // +0x50
 	unsigned int m_numPalantir;  // +0x54
@@ -235,4 +249,29 @@ int AptCreateAHero::Powers::CalculateFlashState(Rva005B2E09Cell *cell)
 			return 5;
 	}
 	return 1;
+}
+
+// WorldBuilder names GetPrereqData at 0x01576D30, paired with retail
+// 0x005B3FAB..0x005B400A. The target supplies cell->button, returns the
+// prerequisite string through 0x005B2B3B, and searches the AsciiString-keyed
+// map at +8. Its result is the address of the inline cell at node+0x14.
+// The grid-cell type is the established view used by the sibling methods;
+// the mapped type is structural inference, checked by the whole emitted find
+// body and every pre-existing row in this unit.
+Rva005B2E09Cell *AptCreateAHero::Powers::GetPrereqData(Rva005B2E09Cell *cell)
+{
+	AsciiString prereq = ((const Rva005B2B3BOwner *)cell->m_button)->rva005B2B3B();
+	if (prereq.isEmpty())
+	    return 0;
+	std::map<AsciiString, Rva005B2E09Cell>::iterator it = m_powersNameMap.find(prereq);
+	if (it == m_powersNameMap.end())
+	    return 0;
+	return &it->second;
+}
+
+AsciiString Rva005B2B3BOwner::rva005B2B3B() const
+{
+	if (m_prerequisite.isNone())
+	    return AsciiString::TheEmptyString;
+	return m_prerequisite;
 }
