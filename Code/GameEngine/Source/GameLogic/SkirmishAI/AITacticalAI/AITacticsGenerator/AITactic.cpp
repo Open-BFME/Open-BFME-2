@@ -1,5 +1,9 @@
-// cl: /ICode/Libraries/Include/Lib /O1 /MD
+// cl: /ICode/Libraries/Include/Lib /O1 /MD /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// stlport
+#include <vector>
 #include "Coord3D.h"
+// Existing bfmealloc shim and no-exception STL configuration reproduce the
+// native record-vector helpers. Each body and recursive relocation was checked.
 // AITactic::initializeTeamTemplate @ 0x004ECE61, 50 bytes: slot 3 of the AITactic
 // vtable, which WorldBuilder names initializeTeamTemplate in every tactic that
 // overrides it (the AIRingHero/AIRoamingDefense/AITacticDefensive overrides
@@ -36,7 +40,11 @@ class Team
 {
 public:
 	void disband(); // 0x0039E9E0
-	bool hasAnyObjects(bool flag);
+	unsigned char m_pad00[0x30];
+    TeamPrototype *m_prototype;
+    unsigned int m_teamID;
+    unsigned int getID() const { return m_teamID; }
+    bool hasAnyObjects(bool flag);
     void rva0039E5B9(Coord3D *position);
     DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
     bool rva0039DAF4() const; // 0x0039DAF4
@@ -73,27 +81,23 @@ public:
 	int m_numTactics;					// +0x1C
 };
 
-struct AITacticTeamRecord
-{
-	unsigned int m_teamID;					// +0x00
-	Coord3D m_lastPosition;
-	int m_staleFrames;
+// Same 20-byte record constructed at 0x004ECDA7 and transferred at 0x004ECDC8.
+class Rva004ECDC8 {
+public:
+    Rva004ECDC8(unsigned int);
+    Rva004ECDC8(const Rva004ECDC8 &that) { *this = that; }
+    Rva004ECDC8 &operator=(const Rva004ECDC8 &that);
+    unsigned int m_teamID;
+    Coord3D m_lastPosition;
+    int m_staleFrames;
 };
+typedef Rva004ECDC8 AITacticTeamRecord;
 
 // Existing 20-byte-record erase provider at 0x004ED3A2.
 class Rva004ED3A2
 {
 public:
     void *rva004ED3A2(void *position);
-};
-
-// Retail uses the same begin/end/capacity aggregate for the team records.
-struct AITacticTeams
-{
-    AITacticTeamRecord *m_begin;
-    AITacticTeamRecord *m_end;
-    AITacticTeamRecord *m_cap;
-    bool empty() const { return m_begin == m_end; }
 };
 
 class AITactic
@@ -111,24 +115,24 @@ public:
 
 	void end(bool a, bool b);
 	void preUpdate();
+    void NotifyTeamCreated(Team *team);
 	void updateTeamInfos();
 	void calcLastTeamPos();
 	void cohereTeams();
 	void sendTeamToAssistAnotherHorde(Team *team);		// 0x004ED52E
 
 private:
-	TeamPrototype **m_protoBegin;				// +0x04
-	TeamPrototype **m_protoEnd;				// +0x08
-	TeamPrototype **m_protoCap;				// +0x0C
+	std::vector<TeamPrototype *> m_protos;
 	bool m_10;						// +0x10
-	AITacticTeams m_teams;
+	std::vector<Rva004ECDC8> m_teams;
 	Rva002C589B *m_20;					// +0x20
 	void *m_24;						// +0x24
 	bool m_ended;						// +0x28
 	unsigned char m_pad29[0x38 - 0x29];
 	Coord3D m_38;
-	Coord3D m_44;			// +0x38
-	bool m_50;						// +0x50
+	Coord3D m_44; // +0x44
+	bool m_50;
+    bool m_51; // +0x51
 };
 
 bool AITactic::initializeTeamTemplate(void *p, int /*dummy*/)
@@ -160,13 +164,13 @@ void AITactic::end(bool a, bool b)
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_24);
 	if (record)
 	{
-		TeamPrototype **protoEnd = m_protoEnd;
-		for (TeamPrototype **it = m_protoBegin; it != protoEnd; ++it)
+		TeamPrototype **protoEnd = m_protos.end();
+		for (TeamPrototype **it = m_protos.begin(); it != protoEnd; ++it)
 			record->rva004EC07D(*it);
 	}
 
-	AITacticTeamRecord *teamsEnd = m_teams.m_end;
-	for (AITacticTeamRecord *rec = m_teams.m_begin; rec != teamsEnd; ++rec)
+	AITacticTeamRecord *teamsEnd = m_teams.end();
+	for (AITacticTeamRecord *rec = m_teams.begin(); rec != teamsEnd; ++rec)
 	{
 		Team *team = TheTeamFactory->findTeamByID(rec->m_teamID);
 		if (team)
@@ -197,13 +201,13 @@ void AITactic::end(bool a, bool b)
 // The final indirect call is vslot 8; its method name remains unresolved.
 void AITactic::preUpdate()
 {
-    AITacticTeamRecord *it = m_teams.m_begin;
-    while (it != m_teams.m_end) {
+    AITacticTeamRecord *it = m_teams.begin();
+    while (it != m_teams.end()) {
         Team *team = TheTeamFactory->findTeamByID(it->m_teamID);
         if (team && team->hasAnyObjects(false))
             ++it;
         else
-            it = (AITacticTeamRecord *)((Rva004ED3A2 *)&m_teams.m_begin)->rva004ED3A2(it);
+            it = (AITacticTeamRecord *)((Rva004ED3A2 *)&m_teams)->rva004ED3A2(it);
     }
     if ((!m_10 && m_20 && m_20->m_19) ||
         (m_10 && getNumberOfTeamsNeeded() > 0 && m_teams.empty()))
@@ -225,8 +229,8 @@ void AITactic::preUpdate()
 // call signatures without guessing the unresolved predicate's semantics.
 void AITactic::updateTeamInfos()
 {
-    AITacticTeamRecord *end = m_teams.m_end;
-    for (AITacticTeamRecord *rec = m_teams.m_begin; rec != end; ++rec) {
+    AITacticTeamRecord *end = m_teams.end();
+    for (AITacticTeamRecord *rec = m_teams.begin(); rec != end; ++rec) {
         Team *team = TheTeamFactory->findTeamByID(rec->m_teamID);
         Coord3D position;
         team->rva0039E5B9(&position);
@@ -247,5 +251,38 @@ void AITactic::updateTeamInfos()
         if (!moved && !hasKind && !team->rva0039DAF4()) ++rec->m_staleFrames;
         else rec->m_staleFrames = 0;
     }
+}
+
+
+// FACT: WB AITactic::NotifyTeamCreated; native 0x004ED6D2..0x004ED748.
+// A created team's id (+0x34) becomes a record; its prototype (+0x30) is
+// removed from pending prototypes. +0x51 becomes true when all needed teams
+// have arrived before the tactic has started (+0x10 false).
+void AITactic::NotifyTeamCreated(Team *team)
+{
+    if (m_ended) return;
+    m_teams.push_back(Rva004ECDC8(team->getID()));
+    TeamPrototype **end = m_protos.end();
+    for (TeamPrototype **it = m_protos.begin(); it != end; ++it) {
+        if (team->m_prototype == *it) {
+            m_protos.erase(it);
+            break;
+        }
+    }
+    if (!m_10 && (int)m_teams.size() == getNumberOfTeamsNeeded())
+        m_51 = true;
+}
+
+// ?Rva004ECDC8::operator= present-unmatched
+// Native 0x004ECEA8 copies these five words; this unrowed instantiation is
+// retained for the complete record-vector fold proof, not counted as new bytes.
+Rva004ECDC8 &Rva004ECDC8::operator=(const Rva004ECDC8 &that)
+{
+    m_teamID = that.m_teamID;
+    m_lastPosition.x = that.m_lastPosition.x;
+    m_lastPosition.y = that.m_lastPosition.y;
+    m_lastPosition.z = that.m_lastPosition.z;
+    m_staleFrames = that.m_staleFrames;
+    return *this;
 }
 
