@@ -127,20 +127,27 @@ def index_tables(present, facts, selection):
 def require_common_index(index):
     if index.get("common_schema") != COMMON_SCHEMA or not isinstance(index.get("common"), dict):
         raise SystemExit("link_check: census index lacks complete COMMON providers; rebuild it with "
-                         "python3 tools/link_census.py --build --history")
+                         "python3 tools/link_census.py --build --measure")
     if not isinstance(index.get("alternates"), dict):
         raise SystemExit("link_check: census index lacks the objects' /alternatename directives; rebuild it "
-                         "with python3 tools/link_census.py --build --history")
+                         "with python3 tools/link_census.py --build --measure")
 
 
 def load_index():
     if not INDEX.exists():
         common = _git("rev-parse", "--path-format=absolute", "--git-common-dir").strip()
         census = Path(common).parent / "build" / "wt_link" / INDEX.relative_to(ROOT)
+        # Offer the daily census's copy only where one exists: on a machine that
+        # never ran it the hint named a missing file. --build alone writes no
+        # index; --measure writes it (and reverse/link_status.csv) without the
+        # history row --history appends, so it is the one to run for a check.
+        copy = (f"  copy the daily census's:  mkdir -p build/link_census && cp '{census.as_posix()}' "
+                "build/link_census/\n" if census.exists() else "")
         raise SystemExit(
             f"link_check: no census index at {INDEX.relative_to(ROOT).as_posix()} (never tracked).\n"
-            f"  copy the daily census's:  mkdir -p build/link_census && cp '{census.as_posix()}' build/link_census/\n"
-            "  or build one:             python3 tools/link_census.py --build --history")
+            f"{copy}"
+            "  build one (keep the tree still until it ends; rewrites reverse/link_status.csv):\n"
+            "                            python3 tools/link_census.py --build --measure")
     with INDEX.open("rb") as handle:
         return pickle.load(handle)
 

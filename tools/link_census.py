@@ -1437,6 +1437,15 @@ def main(argv=None):
         record(json.loads(path.read_text(encoding="utf-8")), ledger(), rerun=True)
         return 0
     refuse_unsupported_ledgers()
+    if not (args.history or args.measure or args.scaffold):
+        # The index link_check reads is written by record() and measure() only;
+        # a bare --build ran a full census on 2026-10-08 and left nothing to check.
+        print("link_census: no --measure/--history -- this run writes no link index "
+              "(build/link_census/link_index.pkl) for link_check", file=sys.stderr)
+    # census_state() is compared at the end of each link; any move aborts the run
+    # with nothing recorded, after the whole compile and link have been paid for.
+    print("link_census: keep HEAD, compiler inputs and tools/ still until this exits "
+          "-- a pull, commit or tools edit meanwhile aborts it at the end", file=sys.stderr, flush=True)
     rows = ledger()
     if args.build:
         os.environ.setdefault("BUILD_POOL", str(max(1, (os.cpu_count() or 2) - 2)))
@@ -1477,7 +1486,8 @@ def main(argv=None):
     log, seconds, code = link(present)
     unexplained_exit(code, log, OUT / "census.exe")
     if census_state(present) != state or stale_objects(present, sources):
-        raise SystemExit("link_census: compiler inputs, tools or objects changed during link; nothing recorded")
+        raise SystemExit("link_census: compiler inputs, tools or objects changed during link; nothing recorded"
+                         f" ({moved(state, census_state(present))})")
     crashed = FATAL.search(log)
     if crashed:
         # A linker that dies prints no per-symbol errors, which would read as
@@ -1511,7 +1521,8 @@ def main(argv=None):
     path.write_text(json.dumps(census, indent=1), encoding="utf-8")
     report(census)
     if census_state(present) != state:
-        raise SystemExit("link_census: compiler inputs, tools or objects changed after the link; nothing recorded")
+        raise SystemExit("link_census: compiler inputs, tools or objects changed after the link; nothing recorded"
+                         f" ({moved(state, census_state(present))})")
     if args.history:
         # record() proves every object current again: the links take minutes.
         record(census, rows)
@@ -2022,6 +2033,11 @@ def objects_digest(present):
         digest.update(Path(obj).name.encode() + b"\0")  # build.obj_path names are unique
         digest.update(hashlib.sha256(Path(obj).read_bytes()).digest())
     return digest.hexdigest()
+
+
+def moved(before, after):
+    """Which census_state components differ -- what an abort has to name."""
+    return ", ".join(key for key in before if before[key] != after.get(key)) or "objects went stale"
 
 
 def census_state(present):
