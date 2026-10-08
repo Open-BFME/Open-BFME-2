@@ -28,9 +28,14 @@ public:
 private:
 	unsigned int m_words[19];
 };
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_18 = 0x18
+};
 class Object
 {
 public:
+	void setStatus(ObjectStatusTypes status, bool set);
 	void rva0028AE6D();
 	void setSpecialModelConditionState(ModelConditionFlagType mc, unsigned int frames);
 	__forceinline void setModelConditionState(ModelConditionFlagType mc)
@@ -60,13 +65,36 @@ struct Rva004CE41ECondition
 	ModelConditionFlagType m_type; // +0x00
 	unsigned int m_frames; // +0x04
 };
+class Overridable
+{
+public:
+	const Overridable *friend_getFinalOverride() const;
+	unsigned char m_pad00[0x1C];
+	int m_val1C;
+};
 class SpecialAbilityUpdateModuleData
 {
 public:
 	unsigned char m_pad[0x18];
 	ModelConditionFlagType m_18; // +0x18
 	unsigned int m_1C; // +0x1C
+	unsigned char m_pad20[0x38 - 0x20];
+	Overridable *m_specialPowerTemplate; // +0x38
 };
+typedef unsigned int AudioHandle;
+class AudioManager
+{
+public:
+	virtual void vslot00(); virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
+	virtual void vslot04(); virtual void vslot05(); virtual void vslot06(); virtual void vslot07();
+	virtual void vslot08(); virtual void vslot09(); virtual void vslot10(); virtual void vslot11();
+	virtual void vslot12(); virtual void vslot13(); virtual void vslot14(); virtual void vslot15();
+	virtual void vslot16(); virtual void vslot17(); virtual void vslot18(); virtual void vslot19();
+	virtual void vslot20(); virtual void vslot21(); virtual void vslot22(); virtual void vslot23();
+	virtual void vslot24(); virtual void vslot25(); virtual void vslot26();
+	virtual void removeAudioEvent(AudioHandle handle); // slot 27 (+0x6C)
+};
+extern AudioManager *TheAudio;
 class ModuleData;
 class BehaviorModule
 {
@@ -99,17 +127,14 @@ class SpecialAbilityUpdate : public BehaviorModule
 public:
 	void rva0044EE07();
 	void rva0044EE80();
+	void rva0044F72E();
+protected:
+	void endPreparation();
 private:
-	unsigned char m_pad0C[0x84 - 0x0C];
+	unsigned char m_pad0C[0x34 - 0x0C];
+	AudioHandle m_prepSoundLoop; // +0x34
+	unsigned char m_pad38[0x84 - 0x38];
 	int m_84; // +0x84
-};
-
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	unsigned char m_pad00[0x1C];
-	int m_val1C;
 };
 
 struct Rva0044EF2CHolder
@@ -243,4 +268,26 @@ void *Rva0044F633::rva0044F633()
 		}
 	}
 	return inner->m_fallback74;
+}
+
+// Retail 0x0044F81E (99 bytes): ZH SpecialAbilityUpdate::endPreparation. Clears
+// object status 0x18 via the rowed Object::setStatus, drops the prep sound loop
+// handle at +0x34 through TheAudio slot 0x6C and clears model condition 0x5F
+// through the rowed mask helpers 0x0028F59A / 0x001E42F2 (BFME2 additions);
+// then switches on the special power type and for types 0x15 0x1A 0x1D runs
+// the rowed 0x0044F72E (ZH killSpecialObjects position in the switch).
+void SpecialAbilityUpdate::endPreparation()
+{
+	getObject()->setStatus(OBJECT_STATUS_18, false);
+	TheAudio->removeAudioEvent(m_prepSoundLoop);
+	((Rva001E42F2 *)getObject())->rva001E42F2((const int *)&Rva0028F59A(0, 0x5f));
+	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
+	switch (data->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C)
+	{
+	case 0x15:
+	case 0x1a:
+	case 0x1d:
+		rva0044F72E();
+		break;
+	}
 }
