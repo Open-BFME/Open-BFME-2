@@ -2162,7 +2162,8 @@ extern View *TheTacticalView;
 extern RecorderClass *TheRecorder;
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern const StaticNameKey TheKey_InitialCameraPosition;
-extern void *g_Va00E02F3C;
+class VictorySystem;
+extern VictorySystem *TheVictorySystem;
 extern Rva002A8F24 *g_00DFEEF8;
 extern TeamFactory *TheTeamFactory;
 extern NetworkInterface *TheNetwork;
@@ -2221,7 +2222,7 @@ void GameLogic::rva00248278(bool loadingSaveGame)
 
 	if (!loadingSaveGame)
 		ThePlayerList->newMap();
-	((Rva00E02F3CObj *)g_Va00E02F3C)->slot38();
+	((Rva00E02F3CObj *)TheVictorySystem)->slot38();
 	g_00DFEEF8->rva002A95F9();
 	TheTeamFactory->rva003A262C();
 
@@ -4343,8 +4344,8 @@ void GameLogic::update(int phase)
 		TheScriptEngine->update();
 		TheLuaScriptEngine->update();
 		TheTerrainLogic->update();
-		if (g_Va00E02F3C)
-			((SubsystemInterface *)g_Va00E02F3C)->update();
+		if (TheVictorySystem)
+			((SubsystemInterface *)TheVictorySystem)->update();
 	}
 
 	if (rva0042219() && TheRecorder && first) {

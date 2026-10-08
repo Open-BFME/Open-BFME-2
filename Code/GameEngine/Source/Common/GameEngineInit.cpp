@@ -250,7 +250,8 @@ extern class MetaMap *g_00DFDBF8;
 extern HouseColorSystem *TheHouseColorSystem;
 extern Rva0022BA67Subsystem *TheMeshInstancingManager;
 extern class Rva00E02D6C *TheCampaignManager;
-extern void *g_Va00E02F3C;
+class VictorySystem;
+extern VictorySystem *TheVictorySystem;
 extern class Rva002872BA *TheTriggerManager;
 extern void *g_Va00E01EDC;
 extern class Rva002A8F24 *g_00DFEEF8;
@@ -748,7 +749,7 @@ void GameEngine::init(Int argc, char *argv[])
 		initSubsystem(TheHouseColorSystem, "TheHouseColorSystem", new HouseColorSystem, 0);
 		initSubsystem(TheMeshInstancingManager, "TheMeshInstancingManager", new Rva0022BA67Subsystem, 0);
 		initSubsystem((reinterpret_cast<Rva0022BADCSubsystem *&>(TheCampaignManager)), "TheLivingWorldCampaignManager", new Rva0022BADCSubsystem, 0);
-		initSubsystem((reinterpret_cast<VictorySystem *&>(g_Va00E02F3C)), "TheVictorySystem", new VictorySystem, 0);
+		initSubsystem((reinterpret_cast<VictorySystem *&>(TheVictorySystem)), "TheVictorySystem", new VictorySystem, 0);
 		initSubsystem((reinterpret_cast<Rva0022BBC6Subsystem *&>(TheTriggerManager)), "TheFireLogicSystem", new Rva0022BBC6Subsystem, 0);
 		initSubsystem((reinterpret_cast<Rva0022BC3BSubsystem *&>(g_Va00E01EDC)), "TheMineshaftPortalNetworkManager", new Rva0022BC3BSubsystem, 0);
 		initSubsystem((reinterpret_cast<Rva0022BCB0Subsystem *&>(g_00DFEEF8)), "TheSkirmishAIManager", new Rva0022BCB0Subsystem, 0);

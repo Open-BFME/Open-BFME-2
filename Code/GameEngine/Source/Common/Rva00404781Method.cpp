@@ -26,7 +26,8 @@ public:
 };
 
 // Owned native VictorySystem pointer, defined by GameStateInit.cpp.
-extern void *g_Va00E02F3C;
+class VictorySystem;
+extern VictorySystem *TheVictorySystem;
 
 class Rva00404781
 {
@@ -73,7 +74,7 @@ int Rva00404781::rva00404CF5(bool useCellRatio)
 	{
 		for (unsigned int player = 0; player < 20; ++player)
 		{
-			if (static_cast<unsigned char>(static_cast<Rva00404C26 *>(g_Va00E02F3C)->rva00404C26(player)->rva00404927(this, player)))
+			if (static_cast<unsigned char>(reinterpret_cast<Rva00404C26 *>(TheVictorySystem)->rva00404C26(player)->rva00404927(this, player)))
 				result |= 1 << player;
 		}
 	}
@@ -81,7 +82,7 @@ int Rva00404781::rva00404CF5(bool useCellRatio)
 	{
 		for (unsigned int player = 0; player < 20; ++player)
 		{
-			Rva00404927 *parameters = static_cast<Rva00404C26 *>(g_Va00E02F3C)->rva00404C26(player);
+			Rva00404927 *parameters = reinterpret_cast<Rva00404C26 *>(TheVictorySystem)->rva00404C26(player);
 			if (m_a[player] * parameters->enemyScale - m_b[player] * parameters->allyScale > parameters->threshold)
 				result |= 1 << player;
 		}

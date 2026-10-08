@@ -51,7 +51,8 @@ extern void *g_Va00DFE754;
 class ParticleSystemManager; extern ParticleSystemManager *TheParticleSystemManager;
 class G00DFF080Obj; extern G00DFF080Obj *g_00DFF080;
 class GhostObjectManager; extern GhostObjectManager *TheGhostObjectManager;
-void *g_Va00E02F3C = 0;
+class VictorySystem;
+VictorySystem *TheVictorySystem = 0;
 void *g_Va00DFE750 = 0;
 class GlobalWeatherSystem; extern GlobalWeatherSystem *TheGlobalWeatherSystem;
 class Rva002A8F24; extern Rva002A8F24 *g_00DFEEF8;
@@ -86,7 +87,7 @@ void GameState::init()
     addSnapshotBlock("CHUNK_ParticleSystem", (Snapshot *)(SnapshotSubsystemView *)TheParticleSystemManager, (SnapshotType)0);
     addSnapshotBlock("CHUNK_TerrainVisual", (Snapshot *)g_00DFF080, (SnapshotType)0);
     addSnapshotBlock("CHUNK_GhostObject", (Snapshot *)TheGhostObjectManager, (SnapshotType)0);
-    addSnapshotBlock("CHUNK_VictorySystem", (Snapshot *)(SnapshotSubsystemView *)g_Va00E02F3C, (SnapshotType)0);
+    addSnapshotBlock("CHUNK_VictorySystem", (Snapshot *)(SnapshotSubsystemView *)TheVictorySystem, (SnapshotType)0);
     addSnapshotBlock("CHUNK_TaintManager", (Snapshot *)(SnapshotSubsystemView *)g_Va00DFE750, (SnapshotType)0);
     addSnapshotBlock("CHUNK_WeatherSystem", (Snapshot *)(SnapshotSubsystemView *)TheGlobalWeatherSystem, (SnapshotType)0);
     addSnapshotBlock("CHUNK_SkirmishAISystem", (Snapshot *)(SnapshotSubsystemView *)g_00DFEEF8, (SnapshotType)0);
