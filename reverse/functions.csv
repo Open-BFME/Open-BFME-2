@@ -69436,3 +69436,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ??$__find@PAUBfmePod28@@H@_STL@@YAPAUBfmePod28@@PAU1@0HABUrandom_access_iterator_tag@0@@Z,,0x00215F83,108,Code/Libraries/Source/WWVegas/WWLib/Rva00215F83Find.cpp,matched,
 ?rva005657FE@Rva005657FEOwner@@QBEPAURva005657FEElement@@ABV?$StringBase@D@@PBURva005657FEHolder@@@Z,,0x005657FE,103,Code/Libraries/Source/WWVegas/WWLib/Rva005657FEFind.cpp,matched,
 ?rva004E02D7@Rva004E02D7Owner@@QAEXPAVCreateAHeroData@@@Z,,0x004E02D7,52,Code/GameEngine/Source/Common/Rva004E02D7Find.cpp,matched,
+?Rva00580C0E@@YAXPAPAX00PAXVRva000795C1Record@@0@Z,,0x00580C0E,97,Code/Libraries/Source/WWVegas/WWLib/Rva00580C0EPopHeap.cpp,matched,
