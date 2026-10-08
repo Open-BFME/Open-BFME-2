@@ -2562,6 +2562,19 @@ cleanup_done_007A4694:
     ret
 ?rva007A4694@@YAXXZ ENDP
 
+; Unwind@00ba47d2 at RVA 0x007A47D2; 22-byte eh-vector-dtor passes [ebp-16]+2Ch with size 4 count 6 and raw dtor VA 0x009B804E.
+PUBLIC ?rva007A47D2@@YAXXZ
+?rva007A47D2@@YAXXZ PROC
+    push 009B804Eh
+    push 6
+    push 4
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 2Ch
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007A47D2@@YAXXZ ENDP
+
 ; Unwind@00ba483c at RVA 0x007A483C; 19-byte eh-vector-dtor passes [ebp-124] with size 12 count 4 and raw dtor VA 0x004B3FD0.
 PUBLIC ?rva007A483C@@YAXXZ
 ?rva007A483C@@YAXXZ PROC

@@ -404,6 +404,19 @@ PUBLIC ?rva0078138c@@YAXXZ
     ret
 ?rva0078138c@@YAXXZ ENDP
 
+; Unwind@00b81431 at RVA 0x00781431; 22-byte eh-vector-dtor passes [ebp-16]+4 with size 24 count 7 and raw dtor VA 0x0079EAB7.
+PUBLIC ?rva00781431@@YAXXZ
+?rva00781431@@YAXXZ PROC
+    push 0079EAB7h
+    push 7
+    push 18h
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 4
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00781431@@YAXXZ ENDP
+
 ; Unwind@00b817fb at RVA 0x007817FB; 24-byte array cleanup ends at RET.
 ; Target passes [ebp-16]+0x118 with size 4 count 32 and raw dtor VA 0x0088BA39.
 PUBLIC ?rva007817fb@@YAXXZ
@@ -790,6 +803,18 @@ PUBLIC ?rva00784ac6@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva00784ac6@@YAXXZ ENDP
+
+; Unwind@00b84ae7 at RVA 0x00784AE7; 22-byte eh-vector-dtor passes [ebp-244] with size 4 count 8 and raw dtor VA 0x009B804E.
+PUBLIC ?rva00784ae7@@YAXXZ
+?rva00784ae7@@YAXXZ PROC
+    push 009B804Eh
+    push 8
+    push 4
+    lea eax, DWORD PTR [ebp-244]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00784ae7@@YAXXZ ENDP
 
 ; Unwind@00b84e61: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
 PUBLIC ?rva00784e61@@YAXXZ
