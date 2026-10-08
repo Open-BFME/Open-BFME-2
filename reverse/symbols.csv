@@ -16207,6 +16207,7 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??0LivingWorldBuilding@@QAE@PAVLivingWorldRegion@@ABVCoord2D@@PBURva003F1BD3TemplateView@@H@Z,0x004E119C,callee of ?rva004FC33E@Rva003F1C56Plot@@QAEXPBURva003F1BD3TemplateView@@@Z
 ?rva0021386C@Rva00056F61@@QAEPAXPBVAsciiString@@@Z,0x0021386C,callee of ?CreateSound@LivingWorldManager@@QAEPAVRva003FAE68Base@@ABVAsciiString@@@Z
 ??0Rva005E93FF@@QAE@IPAX@Z,0x005E93FF,callee of ?rva005CEB03@Rva005CEB03@@QAE?AURvaF1Handle@@I@Z
+?rva00466848@CaveContain@@QAEXPAVTeam@@_N@Z,0x00466848,Direct REL32 callee of target recalc body 0x00466977 at 0x00466A04; Ghidra boundary 0x00466848 size 148. Address-derived label; BFME1 helper source is a semantic lead only.
 ?newBridge@TerrainRoadCollection@@QAEPAVTerrainRoadType@@VAsciiString@@@Z,0x002DB64E,callee of ?parseTerrainBridgeDefinition@INI@@SAXPAV1@@Z
 ?Rva00220E30@@YA?AVUnicodeString@@PAX_N@Z,0x00220E30,callee of ?rva00406BF3@Rva00406BB0@@QAE?AUTreeHintRef00217D4C@@XZ
 ?rva00399370@CastleBehavior@@QAEXXZ,0x00399370,Native REL32 at CastleBehavior DoXfer RVA00399665 calls00399370 with the unchanged CastleBehavior receiver. Ghidra130B boundary VA00799370..007993F2 ends RET0; WorldBuilder equivalent unnamed eb9110. No existing owner name. PolygonTrigger loading role evidenced by constructor2E3EB8 and registration39865E; semantic method name unresolved.
