@@ -10,6 +10,7 @@ struct NoCaseTreeValue4
 {
 public:
 	unsigned char m_data[4];
+	NoCaseTreeValue4() { *(unsigned int *)m_data = 0; }
 };
 
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> Bef1Pair;
@@ -31,6 +32,7 @@ public:
 	void rva00212858(unsigned int n);
 	int bucketIndex(const AsciiString *name);
 	void *rva0031C7D6(const Bef1Pair &x);
+	void **rva0031DB83(const AsciiString &name);
 
 	void *m_unused00;
 	void **m_beginBuckets;
@@ -50,3 +52,27 @@ void *Rva000427195::rva0031C7D6(const Bef1Pair &x)
 	++m_numElements;
 	return &node->m_pair;
 }
+
+// Native 31DB83..31DBFC and WB C318E0; ControlBar command-set map +30.
+// The iterator provider only hashes and compares existing string bytes.
+// End its nonthrowing lookup scope before constructing the conditional pair.
+class Rva00056F61;
+struct Rva0041534BIter {
+    void *m_node; Rva00056F61 *m_table;
+    Rva0041534BIter(void *n,Rva00056F61 *t) : m_node(n),m_table(t) {}
+    Rva0041534BIter(const Rva0041534BIter &it) : m_node(it.m_node),m_table(it.m_table) {}
+};
+class Rva00056F61 { public: __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *); };
+
+void **Rva000427195::rva0031DB83(const AsciiString &name)
+{
+    void *node;
+    {
+        Rva0041534BIter it=((Rva00056F61 *)this)->rva0041534B(&name);
+        node=it.m_node;
+    }
+    return node==0
+        ? (void **)((char *)rva0031C7D6(Bef1Pair(name,NoCaseTreeValue4()))+4)
+        : (void **)((char *)node+8);
+}
+
