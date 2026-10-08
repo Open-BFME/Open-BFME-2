@@ -16456,3 +16456,4 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ??0Rva002D57B6@@QAE@PAVRva002D3573@@H@Z,0x002D57B6,Retail constructor 002D638E allocates154 bytes and REL32 at002D6427 passes owner this and the APT load return; fresh allocation ctor ABI; original Impl name remains WB lead only
 ?rva005E8B66@Rva005E8C54@@QAEXH@Z,0x005E8B66,callee of ??0Rva005E8C54@@QAE@PAXH0PBURva005E8C54Source@@@Z
 ?rva005F888C@Rva005F888C@@QAEXABURva005F888CRef@@@Z,0x005F888C,callee of ?rva005F88CE@Rva005F8427@@QAEXABURva005F888CRef@@@Z
+??0AIGuardMachine@@QAE@PAVObject@@I@Z,0x00543163,"AIGuardMachine ctor: installs vtable 0x00C69680 whose slot 2 (0x00542C24) returns ""AIGuardMachine"" and slot 3 is the rowed AIGuardMachine::xfer 0x00542FC5; base StateMachine ctor 0x004D79E1 takes (owner, name hash); GiantBirdGuardMachine ctor 0x00368A13 calls it with hash 0x3EDCCF0B"

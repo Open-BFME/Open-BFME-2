@@ -1,5 +1,7 @@
 // cl: /MD
-// ??0Rva00367539@@QAE@PAVStateMachine@@_N1@Z @0x00367539 43B
+// ??0GiantBirdNormalFlightState@@QAE@PAVStateMachine@@_N1@Z @0x00367539 43B
+// (was Rva00367539: vtable 0x00C17300's slots 4-6 are the rowed
+// GiantBirdNormalFlightState onEnter/onExit/update bodies)
 // State-derived ctor hash 0x815D9F7C vtable 0x00817300 plus bool at +0x20
 // plus bool at +0x21. Evidence: callers 8 unclaimed sites; rowed State
 // base 0x004D73FC via I twin ??0State@@QAE@PAVStateMachine@@I@Z; precedent
@@ -25,16 +27,16 @@ public:
 // Rva00367539_vftable: matched references place it at VA 0xc17300 (retail .rdata value 7).
 extern "C" char Rva00367539_vftable = 7;
 
-class __declspec(novtable) Rva00367539 : public State
+class __declspec(novtable) GiantBirdNormalFlightState : public State
 {
 public:
-	Rva00367539(StateMachine *machine, bool b1, bool b2);
+	GiantBirdNormalFlightState(StateMachine *machine, bool b1, bool b2);
 private:
 	bool m_20;
 	bool m_21;
 };
 
-Rva00367539::Rva00367539(StateMachine *machine, bool b1, bool b2) : State(machine, 0x815D9F7Cu)
+GiantBirdNormalFlightState::GiantBirdNormalFlightState(StateMachine *machine, bool b1, bool b2) : State(machine, 0x815D9F7Cu)
 {
 	m_20 = b1;
 	m_21 = b2;
