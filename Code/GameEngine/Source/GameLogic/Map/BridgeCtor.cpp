@@ -16,6 +16,11 @@
 // Thing::setOrientation 0x0030AB9D), then normalizes a side vector and looks
 // up the bridge road type (0x002DB4DA) without using either result.
 //
+// TerrainLogic::addBridgeToLogic (0x00280294, 106 bytes) and
+// addLandmarkBridgeToLogic (0x0028125C, 99 bytes) push a new bridge on the
+// list at TerrainLogic+0x40, register it with the pathfinder (TheAI+0x10,
+// 0x002E71BF) and store the returned layer at Bridge+0xC4.
+//
 // Carried from the donor: member names, the order of the bound tests and the
 // _STL::min/max widening. Structural inference: retail's 0x24-byte frame
 // shares the create mask's slot with the side vector and the outline bounds'
@@ -150,8 +155,12 @@ extern TerrainRoadCollection *TheTerrainRoads;
 class Bridge
 {
 public:
-	Bridge(BridgeInfo &theInfo, Dict *props, const AsciiString &bridgeTemplateName, PolygonTrigger *outline);
+	Bridge(BridgeInfo &theInfo, Dict *props, const AsciiString &bridgeTemplateName, PolygonTrigger *outline = NULL);
+	Bridge(Object *bridgeObj);
 	virtual ~Bridge();
+
+	void setNext(Bridge *next) { m_next = next; }
+	void setLayer(Int layer) { m_layer = layer; }
 private:
 	Bridge *m_next; // +0x04
 	AsciiString m_templateName; // +0x08
@@ -237,4 +246,50 @@ m_outline(outline)
 			TheTerrainRoads->findBridge( bridgeTemplateName );
 		}
 	}
+}
+
+// The rowed name of 0x002E71BF takes and returns an Int; it is Zero Hour's
+// Pathfinder::addBridge(Bridge *), returning the bridge's pathfind layer.
+class Pathfinder
+{
+public:
+	Int AddBridge(Int bridge);
+};
+
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+private:
+	char m_pad00[0x10];
+	Pathfinder *m_pathfinder; // +0x10
+};
+extern AI *TheAI;
+
+class TerrainLogic
+{
+public:
+	virtual void addBridgeToLogic(BridgeInfo *pInfo, Dict *props, const AsciiString &bridgeTemplateName);
+	virtual void addLandmarkBridgeToLogic(Object *bridgeObj);
+private:
+	char m_pad04[0x40 - 0x04];
+	Bridge *m_bridgeListHead; // +0x40
+};
+
+void TerrainLogic::addBridgeToLogic(BridgeInfo *pInfo, Dict *props, const AsciiString &bridgeTemplateName)
+{
+	Bridge *pBridge = new Bridge(*pInfo, props, bridgeTemplateName);
+	pBridge->setNext(m_bridgeListHead);
+	m_bridgeListHead = pBridge;
+	Int layer = TheAI->pathfinder()->AddBridge((Int)pBridge);
+	pBridge->setLayer(layer);
+}
+
+void TerrainLogic::addLandmarkBridgeToLogic(Object *bridgeObj)
+{
+	Bridge *pBridge = new Bridge(bridgeObj);
+	pBridge->setNext(m_bridgeListHead);
+	m_bridgeListHead = pBridge;
+	Int layer = TheAI->pathfinder()->AddBridge((Int)pBridge);
+	pBridge->setLayer(layer);
 }
