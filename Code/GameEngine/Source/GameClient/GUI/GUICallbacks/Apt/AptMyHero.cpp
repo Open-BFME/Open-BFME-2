@@ -297,3 +297,13 @@ void AptMyHero::AdjustBling(int category,int group,int delta){
  SetBling(category,group,current);
  slot14();
 }
+
+// WB-unnamed helper, retail 0x005B0A53..0x005B0A95 (cdecl): the shared
+// "MyHero::<kind>Attrib_<index>" key, built in a function-local static
+// AsciiString (guard 0x00E0645C, object 0x00E06458, atexit cleanup
+// 0x007B969E). The destructor walks it with the kinds Base, Cur and Max.
+const AsciiString &rva005B0A53(const char *kind,int index){
+ static AsciiString key;
+ key.format("MyHero::%sAttrib_%d",kind,index);
+ return key;
+}
