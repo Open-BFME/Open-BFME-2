@@ -13,6 +13,7 @@ class RefCountClass
 {
 public:
 	RefCountClass() : NumRefs(1) {}
+	void Add_Ref() { ++NumRefs; }
 
 	void Release_Ref()
 	{
@@ -45,6 +46,7 @@ class MaterialPassClass : public RefCountClass
 {
 public:
  	virtual ~MaterialPassClass();
+	RefCountClass *rva0013EF70() const;
 
 private:
 	MaterialPassStage Stages[8];
@@ -73,3 +75,13 @@ void _bfmeMaterialPassClassInlineAnchor(MaterialPassClass *p)
     p->MaterialPassClass::~MaterialPassClass();
 }
 #pragma inline_depth()
+// BFME1 matpass.cpp rev9cbfb551fe20 Get_Material is the semantic lead.
+// Native [0013EF70,0013EF7F) witnesses field2C, null guard and +4 refcount.
+// Retain the existing base pointer view; the original return type and
+// accessor spelling are not established from the target.
+RefCountClass *MaterialPassClass::rva0013EF70() const
+{
+    if (Material)
+        Material->Add_Ref();
+    return Material;
+}
