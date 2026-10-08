@@ -162,6 +162,7 @@ public:
 	void rva00286373(Int id, const Coord3D *pos, const ThingTemplate *tmpl);
 	void *rva00286D4E(ObjectID id, Int x, Int y, bool add);
 	bool rva00286772(const PolygonTrigger *area, Int minBurn);
+	void rva00286CC4();
 private:
 	// A cell's watcher list (16-byte nodes from the 0xDFEC94 pool).
 	struct WatcherNode
@@ -194,10 +195,10 @@ private:
     char m_pad[0x10];
     Material m_materials[4];
 	Cell **m_cells;
-	Int m_pad74;
+	Cell *m_storage;	// +0x74, the rows' shared cell block
 	Int m_numRows;
 	Int m_numCols;
-	char m_pad80[0x84 - 0x80];
+	Int m_80;
 	Rva00286214 m_cellsOnFire;
 };
 
@@ -628,4 +629,49 @@ bool FireLogicSystem::rva00286772(const PolygonTrigger *area, Int minBurn)
 			return true;
 	}
 	return false;
+}
+
+void operator delete[](void *p);
+
+// m_cellsOnFire's clear (0x0028662D).
+class Rva0028614C
+{
+public:
+	void rva0028662D();
+};
+
+// ?rva00286CC4@FireLogicSystem@@QAEXXZ @0x00286CC4
+// Frees every cell's watcher and object lists, the grid and the burning set.
+void FireLogicSystem::rva00286CC4()
+{
+	if (m_storage)
+	{
+		Cell *cell = m_storage + m_numRows * m_numCols;
+		while (cell != m_storage)
+		{
+			--cell;
+			WatcherNode *w = cell->m_0C;
+			while (w)
+			{
+				WatcherNode *next = w->m_next;
+				Rva00286116Free(w);
+				w = next;
+			}
+			ObjectNode *o = cell->m_objects;
+			while (o)
+			{
+				ObjectNode *next = o->m_next;
+				Rva00286136Free(o);
+				o = next;
+			}
+		}
+		delete[] m_cells;
+		delete[] m_storage;
+		m_cells = 0;
+		m_storage = 0;
+		m_numCols = 0;
+		m_numRows = 0;
+		m_80 = 0;
+		((Rva0028614C *)&m_cellsOnFire)->rva0028662D();
+	}
 }
