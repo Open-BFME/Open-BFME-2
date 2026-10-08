@@ -33,7 +33,7 @@ class AptMyHero {
 public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
  void SwitchToPendingHero();
- void rva005B0416(int);
+ void rva005B0416(int);void rva005B0446();
  bool rva005B0725();
  void rva005B0923(int);void SetBling(int,int,int);
  Rva005B0473View *rva005B0473();
@@ -120,3 +120,7 @@ void AptMyHero::rva005B0416(int level){
  Rva005B24CDHeroPowerText((void *)button,"MyPowerLevel",level);
  rva005B2295((int)button,(int)"MyPowerIcon",level,-1);
 }
+
+// WB twin 0x0156F3D0 (unnamed, AptMyHero.cpp; called from FrameUpdate) and
+// native 0x005B0446..0x005B045D: labels the ten power levels in turn.
+void AptMyHero::rva005B0446(){for(unsigned int level=0;level<10;++level)rva005B0416(level);}
