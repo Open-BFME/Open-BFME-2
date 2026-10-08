@@ -69829,3 +69829,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?killTeam@Team@@QAEXXZ,,0x003A1D1A,587,Code/GameEngine/Source/Common/RTS/TeamKillTeam.cpp,matched,Zero Hour Team::killTeam port; in-TU DLINK iterator fixes the member loop registers
 ?didAllEnter@Team@@QAE_NPAVPolygonTrigger@@I@Z,,0x0039E15D,176,Code/GameEngine/Source/Common/RTS/TeamDidAllEnter.cpp,matched,BFME1 TeamTriggerAreaTests donor; in-TU DLINK iterator fixes the member register
 ?didAllExit@Team@@QAE_NPAVPolygonTrigger@@I@Z,,0x0039E303,197,Code/GameEngine/Source/Common/RTS/TeamDidAllEnter.cpp,matched,BFME1 TeamTriggerAreaTests donor; in-TU DLINK iterator fixes the member register
+?rva003A2DBB@Team@@QAEXM@Z,,0x003A2DBB,258,Code/GameEngine/Source/Common/RTS/TeamRva003A2DBB.cpp,matched,first-member reference partition query summing template +0x51C into +0x120 then 5000 ms deadline; in-TU DLINK iterator in an inner scope; next() and 0x0039D8D3 nothrow

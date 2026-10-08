@@ -13,7 +13,7 @@ struct BfmeWideResult
 	BfmeWideResult();
 	BfmeWideResult(const BfmeWideResult &that);
 	~BfmeWideResult();
-	Object *next();
+	Object *next() throw();	// nothrow: no unwind state spans a query loop (0x003A2DBB)
 	void rva00626630(Object *obj, float distance);	// 0x00626630
 };
 
