@@ -388,7 +388,7 @@ void XferLivingWorldPlayerID(Xfer *,int *);
 Xfer *Rva003F2394Xfer(Xfer *,_STL::vector<ScienceType> *);
 class Rva004E075FObj;
 int Rva004E075FGet(Rva004E075FObj *,int);
-class Rva003F1093 { public: CreateAHeroData *rva003F083A(void *); };
+class Rva003F1093 { public: CreateAHeroData *rva003F083A(void *); char prefix[0x170]; BuildPlotVector plots; };
 class Rva003F3B28View { public: void rva003F3B28(int); };
 // Native construction tracks an eight-byte zero coordinate temporary in the
 // EH bitmap and then clears its bit without a cleanup call. Keep that lifetime
@@ -450,4 +450,17 @@ void LivingWorldRegion::DoXfer(Xfer *xfer)
         for(int i=0;i<spots;++i) reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->rva002B8D06(xfer,&m_heroSlots[i].armies);
     }
     if(version.fields.current>=3) { xfer->Int(&value134); xfer->Int(&value138); }
+}
+
+// WB10413F0 and native3F083A..3F088C RET4: return the plot whose building
+// has the requested +18 ID. Keep the existing neutral pointer ABI; the
+// historical return type is not asserted as the application object identity.
+CreateAHeroData *Rva003F1093::rva003F083A(void *key)
+{
+    for (unsigned i=0;i<plots.size();++i) {
+        LivingWorldBuilding *building=plots[i]->m_building;
+        if(building && building->id == reinterpret_cast<int>(key))
+            return reinterpret_cast<CreateAHeroData *>(plots[i]);
+    }
+    return 0;
 }
