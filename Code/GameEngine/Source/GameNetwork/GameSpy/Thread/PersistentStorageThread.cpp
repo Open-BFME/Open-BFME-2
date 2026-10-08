@@ -1801,3 +1801,16 @@ bool PSThreadClass::tryLogin(Int id, Rva00385333String nick, Rva00385333String p
 		PersistThink();
 	return m_loginOK;
 }
+
+// ?Rva005BD5F3Add@@YAXXZ @0x005BD5F3 90B: queue a type-12 persistent request.
+// Evidence: leaf caller 0x005BD7C1, string-free, callees Rva00381452Get
+// append StringBase workers AddCommandMap AddExternHandler all rowed,
+// globals g_00E048C4 and TheGameSpyPSMessageQueue from packet,
+// flags /O1 /arch:SSE /G7.
+void Rva005BD5F3Add()
+{
+	BfmeOpaqueOwnedRecord1432 req;
+	req.requestType = 12;
+	if (TheGameSpyPSMessageQueue != 0)
+		TheGameSpyPSMessageQueue->addRequest(req);
+}
