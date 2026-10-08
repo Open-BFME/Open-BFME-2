@@ -1,13 +1,13 @@
 // ?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z
-// partial score=0.9216 date=2026-10-05
-// cl: /O1 /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// partial score=0.989418 date=2026-10-09
+// cl: /O1 /Oy- /G7 /arch:SSE /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
 // stlport
 //
 // The skirmish-AI object behind vtable 0x00863FAC, newed by 0x004EC430 in the
 // AITactic.cpp range (its assert path is at 0x00862968; the neighbouring
-// asserts at 0x005061FD.. name AITacticsGenerator.cpp). No RTTI and no donor:
-// the class keeps the address-derived name its matched member 0x00506B74
-// already carries (Rva00506B74CopyCompare.cpp).
+// asserts at 0x005061FD.. name AITacticsGenerator.cpp). WorldBuilder and the matched
+// collaborator providers identify AIBaseBuilder and its owned AIBase objects.
+// The measured layout below is unchanged (Rva00506B74CopyCompare.cpp).
 //
 // Target evidence for the layout:
 //   +0x00 base Rva00506B1B (ctor 0x00506B1B, dtor 0x00506B28, vtable
@@ -17,6 +17,19 @@
 //         dtor 0x005ADA40 plus operator delete, then erase 0x0031BD55
 //   +0x18 Coord3D, +0x24 flag, +0x28 Coord3D, both points seeded from the
 //         -1 triple at 0x00DD0870 (Gen00DD0870)
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+#include <stl/_algobase.h>
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+namespace _STL {
+template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#pragma optimize("", on)
+
 #define __PLACEMENT_VEC_NEW_INLINE
 #include <vector>
 #include "ascii_string.h"
@@ -31,8 +44,9 @@ struct Coord3DBase
 
 struct Coord3D : public Coord3DBase
 {
-	Coord3D() {}
-	Coord3D(const Coord3D &that) { x = that.x; y = that.y; z = that.z; }
+ Coord3D(){}
+ __forceinline float lengthSq()const{return x*x+y*y+z*z;}
+ Coord3D(const Coord3D &p){x=p.x;y=p.y;z=p.z;}
 	bool equals(const Coord3DBase &that) const;
 	void set(const Coord3DBase *that) { x = that->x; y = that->y; z = that->z; }
 };
@@ -132,13 +146,16 @@ public:
 
 class Rva00506FE9Hit;
 
-class Rva005ADA40
+// Legacy vector spelling is an opaque pointer handle. Its existing container
+// ABI is retained; only AIBase objects are constructed and accessed through it.
+class Rva005ADA40;
+class AIBase
 {
 public:
-	Rva005ADA40(unsigned int index, void *owner);
-	~Rva005ADA40();
-	void rva005AE0AD(Xfer *xfer);
-	void rva005AE26A(Coord3D *point, float angle, int more);
+	AIBase(unsigned int index, void *owner);
+	~AIBase();
+	void DoXfer(Xfer *xfer);
+	void loadBestFitTemplate(Coord3D *point, float angle, int more);
 	void rva005AD99C(const AsciiString &name, _STL::vector<Rva00506FE9Hit *> *hits);
 	void rva005ADC63();
 	Rva005AD9C0Hit *rva005AD9C0(void *arg);
@@ -219,11 +236,11 @@ extern Rva002A8F24 *g_00DFEEF8;
 
 Coord3D __cdecl Rva00506CF5(void *owner, Coord3D *point);
 
-class Rva00506B74 : public Rva00506B1B
+class AIBaseBuilder : public Rva00506B1B
 {
 public:
-	Rva00506B74(void *owner);
-	virtual ~Rva00506B74();
+	AIBaseBuilder(void *owner);
+	virtual ~AIBaseBuilder();
 	virtual void v1();
 	virtual void v2();
 	bool rva00506B74(Coord3D *out);
@@ -232,9 +249,9 @@ public:
 	Rva005AD9C0Hit *rva00506BF7(void *arg);
 	bool rva00506C39(void *arg);
 	Rva005ADA40 *rva00506C64(unsigned int index);
-	void rva00507522();
-	void rva00506FE9(Object *obj);
-	void rva005073D6(Xfer *xfer);
+	void postInit();
+	void notifyBuildingDestroyed(Object *obj);
+	void DoXfer(Xfer *xfer);
 private:
 	void *m_08;
 	_STL::vector<Rva005ADA40 *> m_0C;
@@ -243,154 +260,17 @@ private:
 	Coord3D m_28;
 };
 
-// ??0Rva00506B74@@QAE@PAX@Z
-Rva00506B74::Rva00506B74(void *owner)
-	: m_08(owner)
-{
-	m_18.set(&Gen00DD0870);
-	m_24 = false;
-	m_28.set(&Gen00DD0870);
-	m_28 = Rva00506CF5(m_08, &m_18);
-}
-
-// ??1Rva00506B74@@UAE@XZ
-Rva00506B74::~Rva00506B74()
-{
-	v2();
-}
-
-// Slot 1 (0x00506BDC).
-void Rva00506B74::v1()
-{
-	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
-		(*it)->rva005ADC63();
-}
-
-// Slot 2 (0x005071A1): free every element, then empty the vector.
-void Rva00506B74::v2()
-{
-	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
-		delete *it;
-	m_0C.clear();
-}
-
-void Rva00506B74::rva00506B96(const Coord3D *point)
-{
-	if (!m_24)
-		m_18 = *point;
-}
-
-Rva005AD9C0Hit *Rva00506B74::rva00506BF7(void *arg)
-{
-	Rva005ADA40 **end = m_0C.end();
-	for (Rva005ADA40 **it = m_0C.begin(); it != end; ++it) {
-		Rva005AD9C0Hit *hit = (*it)->rva005AD9C0((char *)arg + 0xC);
-		if (hit) {
-			hit->v3(arg);
-			return hit;
-		}
-	}
-	return 0;
-}
-
-bool Rva00506B74::rva00506C39(void *arg)
-{
-	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it) {
-		if ((*it)->rva005AD9C0(arg))
-			return true;
-	}
-	return false;
-}
-
-Rva005ADA40 *Rva00506B74::rva00506C64(unsigned int index)
-{
-	if (index < m_0C.size())
-		return m_0C[index];
-	return 0;
-}
-
-void Rva00506B74::rva00507522()
-{
-	if (!m_24) {
-		if (rva00506B74(&m_28))
-			rva0050722A(&m_28);
-	}
-	m_24 = true;
-}
-
-// 0x00506FE9: collect the owned elements' hits for the object's template name
-// (its rebuild template when it is a rebuild hole), then rescale and re-run
-// every hit that belongs to this object.
-void Rva00506B74::rva00506FE9(Object *obj)
-{
-	_STL::vector<Rva00506FE9Hit *> hits;
-	AsciiString name;
-	RebuildHoleBehaviorInterface *rebuild = RebuildHoleBehavior::getRebuildHoleBehaviorInterfaceFromObject(obj);
-	if (rebuild)
-		name = ((Rva00506FE9RebuildView *)rebuild)->getRebuildTemplate()->m_name;
-	else
-		name = ((Rva00506FE9ObjectView *)obj)->m_template->m_name;
-	Rva005ADA40 **end = m_0C.end();
-	for (Rva005ADA40 **it = m_0C.begin(); it != end; ++it)
-		(*it)->rva005AD99C(name, &hits);
-	if (!hits.empty()) {
-		Rva002A8B59Data *data = g_00DFEEF8->rva002A8B59(m_08);
-		for (Rva00506FE9Hit **h = hits.begin(); h != hits.end(); ++h) {
-			Rva00506FE9Hit *hit = *h;
-			if (hit->m_24 == ((Rva00506FE9ObjectView *)obj)->m_id) {
-				hit->rva0055ADBA(m_08);
-				float v = hit->m_04;
-				hit->m_04 = data->m_88 * v;
-				hit->v6(m_08, 0);
-			}
-		}
-	}
-}
-
-// 0x005073D6: save/load. Version 2 added the +0x28 point; on load the owned
-// elements are rebuilt (0x2C bytes each, ctor 0x005AD9FF) before each one
-// transfers itself (0x005AE0AD).
-void Rva00506B74::rva005073D6(Xfer *xfer)
-{
-	Xfer::Version version(1, 2);
-	*xfer == version;
-	*xfer == m_18;
-	*xfer == m_24;
-	if (version.m_minimum >= 2)
-		*xfer == m_28;
-	unsigned int count = m_0C.size();
-	*xfer == count;
-	if (xfer->IsLoading()) {
-		if (!m_0C.empty()) {
-			for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
-				delete *it;
-			m_0C.clear();
-		}
-		for (unsigned int i = 0; i < count; ++i) {
-			Rva005ADA40 *element = new Rva005ADA40(i, m_08);
-			m_0C.push_back(element);
-		}
-	}
-	Rva005ADA40 **end = m_0C.end();
-	for (Rva005ADA40 **it = m_0C.begin(); it != end; ++it)
-		(*it)->rva005AE0AD(xfer);
-}
-
-// 0x00506CC3: the waypoint with this name, walking TheTerrainLogic's list from
-// its first-waypoint virtual (+0x84) along the +0x1C links and comparing the
-// +0x08 name through AsciiString::compare (0x000069D6). Eight callers in the
-// script-engine range (0x0023FDBD..) plus two in this cluster.
 class Waypoint
 {
 public:
 	const AsciiString &getName() const { return m_name; }
+ const Coord3DBase &getLocation()const{return m_location;}
 	Waypoint *getNext() const { return m_pNext; }
-	const Coord3D *getLocation() const { return &m_location; }
 private:
 	int m_00;
 	int m_04;
 	AsciiString m_name;		// +0x08
-	Coord3D m_location;		// +0x0C
+	Coord3DBase m_location;	// +0x0C
 	int m_18;
 	Waypoint *m_pNext;		// +0x1C
 };
@@ -399,7 +279,7 @@ class TerrainLogic
 {
 public:
 	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual float getGroundHeight(float x, float y, Coord3D *normal) const; virtual void v07();
+	virtual void v04(); virtual void v05(); virtual float getGroundHeight(float,float,Coord3D*); virtual void v07();
 	virtual void v08(); virtual void getExtent(Region3D *extent) const; virtual void v10(); virtual void v11();
 	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
 	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
@@ -412,174 +292,56 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-Waypoint *Rva00506CC3FindWaypoint(const AsciiString &name)
-{
-	for (Waypoint *way = TheTerrainLogic->getFirstWaypoint(); way; way = way->getNext()) {
-		if (way->getName() == name)
-			return way;
-	}
-	return 0;
-}
 
-float ACos(float x);
-float normalizeAngle(float angle);
-
-struct Rva0050722AExtent
-{
-	Coord3DBase lo;
-	Coord3DBase hi;
-};
-
-// 0x0050722A: add an element facing from the point towards the map centre.
-void Rva00506B74::rva0050722A(Coord3D *point)
-{
-	Rva0050722AExtent extent;
-	TheTerrainLogic->getExtent((Region3D *)&extent);
-	Vector3 dir;
-	dir.Set((extent.hi.x - extent.lo.x) * 0.5f, (extent.hi.y - extent.lo.y) * 0.5f, 0.0f);
-	Vector3 pos;
-	pos.Set(point->x, point->y, 0.0f);
-	dir -= pos;
-	dir.Normalize();
-	Vector3 xAxis;
-	xAxis.Set(1.0f, 0.0f, 0.0f);
-	float angle = ACos(WWMath::Clamp(Vector3::Dot_Product(dir, xAxis), -1.0f, 1.0f));
-	if (Vector3::Cross_Product_Z(dir, xAxis) > 0.0f)
-		angle *= -1.0f;
-	angle = normalizeAngle(angle - 1.5707964f);
-	unsigned int index = m_0C.empty() ? 0 : m_0C.size();
-	Rva005ADA40 *element = new Rva005ADA40(index, m_08);
-	m_0C.push_back(element);
-	element->rva005AE26A(point, angle, index != 0);
-}
-
-// 0x00506CF5: where an AI player should consider home. In mode 3 that is its
-// slot's "Player_%d_Start" waypoint (else the given point when it is set);
-// otherwise the nearest start waypoint to the first of the owner's living-world
-// entries that reports a position, skipping the first slot when the
-// living-world lookup names another owner. The height comes from the terrain.
-class GameLogic;
-class GameSlot;
-struct Rva00506C82Arg;
-
-extern GameLogic *TheGameLogic;
-GameSlot *Rva00506C82Find(const Rva00506C82Arg *arg);
-
-struct Rva00506CF5GameLogicView
-{
-	char m_pad00[0x114];
-	int m_mode;		// +0x114
-};
-
-struct Rva00506CF5SlotView
-{
-	char m_pad00[0x10];
-	int m_startIndex;	// +0x10
-};
-
-struct Rva00506CF5OwnerView
-{
-	int getId() const { return m_id; }
-	char m_pad00[0x3AC];
-	int m_id;		// +0x3AC
-};
-
-class Rva00506CF5Entry
-{
-public:
-	bool rva0040CCC6(int id, Coord3D *pos, Coord3D *aux, int flag);
-};
-
-struct Rva003F4D09Result
-{
-	char m_pad00[0x14];
-	int m_id;		// +0x14
-};
-
-class Rva0020E6B7Result
-{
-public:
-	Rva003F4D09Result *rva003F4D09();
-};
-
-class Rva0020E6B7Owner
-{
-public:
-	Rva0020E6B7Result *rva0020E6B7();
-};
-
-class Rva002BA8F1Logic
-{
-public:
-	void rva002B323C(_STL::vector<Rva00506CF5Entry *> *entries, int id);
-	char m_pad00[0xB0];
-	Rva0020E6B7Owner *m_B0;	// +0xB0
-};
-
-extern Rva002BA8F1Logic *g_009FEF10;
-
-Coord3D __cdecl Rva00506CF5(void *owner, Coord3D *point)
-{
-	Coord3D result(*(const Coord3D *)&Gen00DD0870);
-	if (((Rva00506CF5GameLogicView *)TheGameLogic)->m_mode == 3) {
-		GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)owner);
-		if (slot) {
-			int startIndex = ((Rva00506CF5SlotView *)slot)->m_startIndex;
-			AsciiString name;
-			name.format("Player_%d_Start", startIndex + 1);
-			Waypoint *way = Rva00506CC3FindWaypoint(name);
-			if (way) {
-				result = *way->getLocation();
-				result.z = TheTerrainLogic->getGroundHeight(result.x, result.y, 0);
-				return result;
-			}
-		} else if (point && !point->equals(Gen00DD0870)) {
-			result = *point;
-		}
-	} else {
-	float bestDist = 0.0f;
-	Waypoint *best = 0;
-	bool found = false;
-	_STL::vector<Rva00506CF5Entry *> entries;
-	int id = ((Rva00506CF5OwnerView *)owner)->m_id;
-	g_009FEF10->rva002B323C(&entries, id);
-	if (!entries.empty()) {
-		Coord3D pos;
-		Coord3D aux;
-		Rva00506CF5Entry **end = entries.end();
-		Rva00506CF5Entry **it = entries.begin();
-		for (; it != end; ++it) {
-			if (found)
-				break;
-			if ((*it)->rva0040CCC6(((Rva00506CF5OwnerView *)owner)->getId(), &pos, &aux, 0))
-				found = true;
-		}
-		if (found) {
-			Rva003F4D09Result *other = g_009FEF10->m_B0->rva0020E6B7()->rva003F4D09();
-			bool skipFirst = other && ((Rva00506CF5OwnerView *)owner)->m_id != other->m_id;
-			for (int i = skipFirst; i < 8; ++i) {
-				AsciiString name;
-				name.format("Player_%d_Start", i + 1);
-				Waypoint *way = Rva00506CC3FindWaypoint(name);
-				if (way) {
-					const Coord3D *loc = way->getLocation();
-					float dx = loc->x - pos.x;
-					float dy = loc->y - pos.y;
-					float dz = loc->z - pos.z;
-					float dist = dx * dx + dy * dy + dz * dz;
-					if (!best || dist < bestDist) {
-						best = way;
-						bestDist = dist;
-					}
-				}
-			}
-			if (best) {
-				result = *best->getLocation();
-				result.z = TheTerrainLogic->getGroundHeight(result.x, result.y, 0);
-				return result;
-			}
-		}
-	}
-	}
-	return result;
+Waypoint *Rva00506CC3FindWaypoint(const AsciiString &);
+struct Rva00506C82Arg {char pad[0x50];int key;};
+class GameSlot {public:char pad[0x10];int start;};
+GameSlot*Rva00506C82Find(const Rva00506C82Arg*);
+class GameLogic;extern GameLogic*TheGameLogic;
+struct TacticGameLogicView {char pad[0x114];int mode;};
+struct TacticPlayerView {char pad[0x3ac];int army;__forceinline int getArmyID()const{return army;}};
+class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
+class Rva003F468D;
+class Rva0020E6B7RegionManager {public:Rva003F468D*rva0020E6B7();};
+struct TacticWorldView {char pad[0xb0];Rva0020E6B7RegionManager*manager;};
+struct TacticBattleParticipantView {char pad[0x14];int army;};
+class Rva003F468D {public:TacticBattleParticipantView*rva003F4D09();};
+class Rva0040D701ArmySummary {public:bool rva0040CCC6(int,Coord3D*,Coord3D*,bool);};
+class Rva002BA8F1Logic {public:void rva002B323C(_STL::vector<Rva0040D701ArmySummary*>*,int);};
+Coord3D Rva00506CF5(void *owner,Coord3D *point) {
+ Coord3D result;result.set(&Gen00DD0870);
+ if(((TacticGameLogicView*)TheGameLogic)->mode==3) {
+  GameSlot*slot=Rva00506C82Find((Rva00506C82Arg*)owner);
+  if(slot) {
+   int start=slot->start;AsciiString name;name.format("Player_%d_Start",start+1);
+   Waypoint *way=Rva00506CC3FindWaypoint(name);
+   if(way){result=*(const Coord3D*)&way->getLocation();result.z=TheTerrainLogic->getGroundHeight(result.x,result.y,0);return result;}
+  }else if(point&&!point->equals(Gen00DD0870)){result=*point;}
+ }else {
+  float bestDistance=0.0f;Waypoint*best=0;
+  bool found=false;
+  _STL::vector<Rva0040D701ArmySummary*>armies;
+  ((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B323C(&armies,((TacticPlayerView*)owner)->getArmyID());
+  Coord3D position,other;
+  Rva0040D701ArmySummary**end=armies.end();
+  for(Rva0040D701ArmySummary**it=armies.begin();it!=end&&!found;++it) {
+   int armyID=((TacticPlayerView*)owner)->getArmyID();
+   if((*it)->rva0040CCC6(armyID,&position,&other,false))found=true;
+  }
+  if(found){
+   TacticBattleParticipantView*p=((TacticWorldView*)TheLivingWorldLogic)->manager->rva0020E6B7()->rva003F4D09();
+   bool skipFirst=p&&((TacticPlayerView*)owner)->getArmyID()!=p->army;
+   for(int i=skipFirst?1:0;i<8;++i){
+    AsciiString name;name.format("Player_%d_Start",i+1);
+    Waypoint*way=Rva00506CC3FindWaypoint(name);
+    if(way){
+     Coord3D delta;delta.x=way->getLocation().x-position.x;delta.y=way->getLocation().y-position.y;delta.z=way->getLocation().z-position.z;
+     float distance=delta.lengthSq();
+     if(!best||distance<bestDistance){best=way;bestDistance=distance;}
+    }
+   }
+   if(best){result=*(const Coord3D*)&best->getLocation();result.z=TheTerrainLogic->getGroundHeight(result.x,result.y,0);return result;}
+  }
+ }
+ return result;
 }
