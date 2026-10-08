@@ -103,3 +103,23 @@ int Rva004CEEA1WordIntField::get() const
 {
 	return m_value;
 }
+
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 donor
+// game/GameEngine/Source/Common/SignedFieldAccessor00191450.cpp supplies the
+// signed-short to int expression under /O1 /arch:SSE /G7 (also exact /O2).
+// Retail independently proves MOVSX from word[ecx+0x18], EAX return and the
+// complete 0x003297C4..0x003297C9 leaf after RET4 at 0x003297C1 and before
+// the following constructor. Original receiver and field purpose are unknown.
+class Rva003297C4SignedWordIntField
+{
+public:
+    int get() const;
+private:
+    char m_pad[0x18];
+    short m_value;
+};
+
+int Rva003297C4SignedWordIntField::get() const
+{
+    return m_value;
+}
