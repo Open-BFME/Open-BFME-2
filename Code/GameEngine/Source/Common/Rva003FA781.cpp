@@ -6,6 +6,8 @@
 // The original owner/template names and meanings of the floats are open.
 // The folded OVERRIDE getter is used only for its proven pointer-chain ABI.
 class LocomotorTemplate;
+class RenderObjClass;
+bool Rva0010E676_SetEmissive(RenderObjClass *, float, float, float);
 template<class T> class OVERRIDE
 {
 public:
@@ -27,6 +29,7 @@ private:
  bool m_enabled;
  char m_pad15[3];
  float m_elapsed;
+ float m_unknown1C;
 };
 
 void Rva003FA835::rva003FA781(int enabled)
@@ -41,5 +44,14 @@ void Rva003FA835::rva003FA781(int enabled)
  {
   m_enabled = true;
   m_elapsed = 0.0f;
+ }
+}
+
+void Rva003FA835::rva003FA705(void *target, float value)
+{
+ if (value != m_unknown1C)
+ {
+  m_unknown1C = value;
+  Rva0010E676_SetEmissive(*(RenderObjClass **)((char *)target + 8), value, value, value);
  }
 }
