@@ -3,8 +3,12 @@
 // FireLogicSystem's registration of a placed object (0x00286373): the id is
 // filed in the grid cell under its world position and the cell takes the
 // template's flammability through ChangeCellToObjectFlammability
-// (0x00285F43, WorldBuilder's Map/FireLogicSystem.cpp name; pinned, its
-// register allocation is banked in reverse/attempts/0x00285f43.cpp).
+// (0x00285F43, WorldBuilder's Map/FireLogicSystem.cpp name). Removing an id
+// (0x0028641F, name unknown) unlinks its node and, once the cell holds no
+// objects, restores the terrain material's flammability through
+// ResetCellToOriginalFlammability (0x00285778, WorldBuilder name; asserts at
+// lines 1361..1367). The material table is four 24-byte entries at +0x10
+// indexed by TheTerrainLogic's slot 0x60 material lookup.
 //
 // Target facts: the fire grid is the 20-byte cell rows at +0x70 with the row
 // and column counts at +0x78/+0x7C (as Rva00285DC5Paint.cpp reads them); a
@@ -38,10 +42,21 @@ extern Rva00065964ObjectPool g_pool00286136;
 
 class ThingTemplate;
 
+// The flammability a template gives its cell (WB reads it at +0x314).
+struct FlammabilityData
+{
+	unsigned short m_fuel;	// +0x314
+	Int m_field18;		// +0x318, 12-bit cell field
+	Int m_flammability;	// +0x31C, 10-bit cell field
+	Int m_field10;		// +0x320, 8-bit cell field
+};
+
 class FireLogicSystem
 {
 public:
 	void ChangeCellToObjectFlammability(Int x, Int y, const ThingTemplate *tmpl);
+    void rva0028641F(unsigned int id, const Coord3D *pos);
+    void ResetCellToOriginalFlammability(Int x, Int y);
 	void rva00286373(Int id, const Coord3D *pos, const ThingTemplate *tmpl);
 private:
 	struct ObjectNode
@@ -54,11 +69,17 @@ private:
 		Int m_type;
 		unsigned short m_fuel;
 		unsigned short m_check;
-		unsigned int m_flammability; // +0x08, 10/8/12-bit fields
+		unsigned int m_flammability : 10;
+        unsigned int m_field10 : 8;
+        unsigned int m_field18 : 12;
+        unsigned int m_field30 : 1;
+        unsigned int m_field31 : 1;
 		Int m_0C;
 		ObjectNode *m_objects; // +0x10
 	};
-	char m_pad[0x70];
+	struct Material { Int unknown00, unknown04; Int fuel; unsigned int field18, field00, field10; };
+    char m_pad[0x10];
+    Material m_materials[4];
 	Cell **m_cells;
 	Int m_pad74;
 	Int m_numRows;
@@ -80,4 +101,96 @@ void FireLogicSystem::rva00286373(Int id, const Coord3D *pos, const ThingTemplat
 		m_cells[x][y].m_objects = node;
 		ChangeCellToObjectFlammability(x, y, tmpl);
 	}
+}
+
+void Rva00286136Free(void *node);
+
+void FireLogicSystem::rva0028641F(unsigned int id, const Coord3D *pos)
+{
+    float fx = (float)floor(pos->x * 0.1f + 0.5);
+    Int x = FloatToLong(fx);
+    float fy = (float)floor(pos->y * 0.1f + 0.5);
+    Int y = FloatToLong(fy);
+    if (x >= 0 && x < m_numRows && y >= 0 && y < m_numCols)
+    {
+        Cell *cell = &m_cells[x][y];
+        ObjectNode **cursor = &cell->m_objects;
+        while (*cursor)
+        {
+            if ((unsigned int)(*cursor)->m_id == id)
+            {
+                ObjectNode *next = (*cursor)->m_next;
+                Rva00286136Free(*cursor);
+                *cursor = next;
+                if (cell->m_0C == 0 && cell->m_objects == 0)
+                    ResetCellToOriginalFlammability(x, y);
+                break;
+            }
+            cursor = &(*cursor)->m_next;
+        }
+    }
+}
+
+class TerrainLogic {
+public:
+ virtual void slot00();
+ virtual void slot01();
+ virtual void slot02();
+ virtual void slot03();
+ virtual void slot04();
+ virtual void slot05();
+ virtual void slot06();
+ virtual void slot07();
+ virtual void slot08();
+ virtual void slot09();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual void slot15();
+ virtual void slot16();
+ virtual void slot17();
+ virtual void slot18();
+ virtual void slot19();
+ virtual void slot20();
+ virtual void slot21();
+ virtual void slot22();
+ virtual void slot23();
+ virtual unsigned char materialAt(float x, float y);
+};
+extern TerrainLogic *TheTerrainLogic;
+
+void FireLogicSystem::ResetCellToOriginalFlammability(Int x, Int y)
+{
+    Cell *cell = &m_cells[x][y];
+    float fx = (x + 0.5) * 10.0;
+    float fy = (y + 0.5) * 10.0;
+    int type = TheTerrainLogic->materialAt(fx, fy);
+    if (type != 0)
+    {
+        Material *material = &m_materials[type];
+        if (material->fuel < cell->m_fuel) cell->m_fuel = (unsigned short)material->fuel;
+        if (material->field18 < cell->m_field18) cell->m_field18 = material->field18;
+        if (material->field00 > cell->m_flammability) cell->m_flammability = material->field00;
+        if (material->field10 > cell->m_field10) cell->m_field10 = material->field10;
+    }
+    else
+    {
+        cell->m_fuel = 0;
+        cell->m_flammability = 0;
+        cell->m_field10 = 0;
+        cell->m_field18 = 0;
+    }
+    cell->m_field31 = 0;
+}
+
+void FireLogicSystem::ChangeCellToObjectFlammability(Int x, Int y, const ThingTemplate *tmpl)
+{
+	const FlammabilityData *data = (const FlammabilityData *)((const char *)tmpl + 0x314);
+	Cell *cell = &m_cells[x][y];
+	cell->m_fuel = data->m_fuel;
+	cell->m_flammability = data->m_flammability;
+	cell->m_field18 = data->m_field18;
+	cell->m_field10 = data->m_field10;
 }
