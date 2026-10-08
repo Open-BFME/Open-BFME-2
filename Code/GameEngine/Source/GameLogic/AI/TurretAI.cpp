@@ -92,3 +92,24 @@ void TurretAI::notifyNewVictimChosen(Object* victim)
 {
 	setTurretTargetObject(victim, FALSE);
 }
+
+// Source: Open-BFME-1 9cbfb551fe20dae985f91f2319d8997287b6a705,
+// game/GameEngine/Source/GameLogic/AI/TurretAI.cpp.
+// Target entries 4D81B6 and 4D81C4 are the complete ret-4 leaves directly
+// after the verified turnTowardsPitch body and before notifyFired (4D81D2).
+// The target reads data+8, then indexed float arrays at data+10 and data+28.
+// Class and field purposes follow the donor; native bytes independently prove
+// the offsets, indexing, x87 return and thiscall argument cleanup.
+Real TurretAI::getTurretFireAngleSweepForWeaponSlot(WeaponSlotType slot) const
+{
+    return m_data->m_turretFireAngleSweep[slot];
+}
+
+Real TurretAI::getTurretSweepSpeedModifierForWeaponSlot(WeaponSlotType slot) const
+{
+    // BFME 2 stores this array at +0x28; the current BFME 1 shim uses +0x20.
+    // Keep the target-only layout adjustment local to this access.
+    const Real *speed = reinterpret_cast<const Real *>(
+        reinterpret_cast<const char *>(m_data) + 0x28);
+    return speed[slot];
+}
