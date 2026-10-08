@@ -7,14 +7,21 @@
 // Native listener member pointers are the compiler's virtual-slot 4 / 3 thunks.
 // The output retains the target before the local handle releases it; erase
 // uses the independently verified Rva004F69C3 vector provider at 0x0040DC1F.
-// cl: /O1 /G7 /arch:SSE /GX /MD /DNDEBUG
+// cl: /O1 /G7 /arch:SSE /GX /MD /DNDEBUG /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 // stlport
 #include <vector>
+#include "ascii_string.h"
+#include "Common/Snapshot.h"
+extern "C" void __cdecl free(void*);
 struct TargetRef00217D4C { void* vtable; int references; };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 struct Rva004F69C3Target { unsigned char opaque[0xAC]; TargetRef00217D4C ref; };
 struct Rva004F69C3 { int key; Rva004F69C3Target* value; ~Rva004F69C3(); };
 namespace _STL { template<> vector<Rva004F69C3>::iterator vector<Rva004F69C3>::erase(iterator); }
+// The existing 40E0EB provider destroys this same eight-byte entry range.
+class Rva0040E0EB : public _STL::vector<Rva004F69C3> { public: ~Rva0040E0EB(); };
+class Rva0040D8B8Listener { public: virtual void slot0(); virtual void notify(void*); };
+class Rva0040D8B8List { public: void forEach(void(Rva0040D8B8Listener::*)(void*),void*); };
 class Rva0040D8D6Listener {
 public:
  virtual void slot0(); virtual void slot1(); virtual void slot2();
@@ -22,7 +29,8 @@ public:
 };
 class Rva0040D8D6List {
 public: void forEach(void(Rva0040D8D6Listener::*)(void*,int),void*,int);
-private: unsigned char opaque[0x10];
+public: ~Rva0040D8D6List() { if(begin) free(begin); }
+private: void *begin,*end,*limit; unsigned int index;
 };
 struct Rva0040DD3ARef {
  Rva004F69C3Target* value;
@@ -31,53 +39,70 @@ struct Rva0040DD3ARef {
  Rva0040DD3ARef(const Rva0040DD3ARef& x):value(x.value){if(value)++value->ref.references;}
  ~Rva0040DD3ARef(){if(value)ReleaseTreeHintRef00217D4C(&value->ref);}
 };
-class Xfer;
-enum ScienceType { SCIENCE_0=0 };
-namespace _STL { template<> ScienceType*vector<ScienceType,allocator<ScienceType> >::erase(ScienceType*,ScienceType*); }
-class ArmySummary {
+// Existing 532803 provider view: twelve-byte vector of opaque four-byte
+// words, with the same observed range-erasure ABI. Element purpose unknown.
+class BfmeIntVecG {
+public:
+ void bfmeErase(int*,int*);
+ __forceinline void clear() { bfmeErase(begin,end); }
+ ~BfmeIntVecG() { if(begin) free(begin); }
+ int *begin,*end,*limit;
+};
+class ArmySummary : public Snapshot, public Rva0040D8D6List {
 public:
  virtual ~ArmySummary();
- virtual void loadPostProcess();
- virtual const char*GetSnapshotName()const;
- virtual void xfer(Xfer*);
+ virtual const char *GetSnapshotName() const;
  Rva0040DD3ARef RemoveEntry(int);
  void rva0040DED9();
 private:
- Rva0040D8D6List listeners;
- bool flag14;char gap15[0x3C-0x15];int state3C;
- _STL::vector<Rva004F69C3>entries;
- unsigned char pending4C[12];
+ bool flag14;
+ unsigned char pad15[3];
+ AsciiString name18;
+ int at1C;
+ AsciiString name20;
+ unsigned char gap[0x3C-0x24];
+ int at3C;
+ Rva0040E0EB entries;
+ BfmeIntVecG words4C;
+ unsigned char gap58[0x64-0x58];
+ AsciiString name64;
 };
 Rva0040DD3ARef ArmySummary::RemoveEntry(int index) {
  Rva004F69C3* entry=entries.begin()+index;
- listeners.forEach(&Rva0040D8D6Listener::removing,this,entry->key);
+ Rva0040D8D6List::forEach(&Rva0040D8D6Listener::removing,this,entry->key);
  Rva0040DD3ARef value(entry->value);
  entries.erase(entry);
- listeners.forEach(&Rva0040D8D6Listener::removed,this,(int)value.value);
+ Rva0040D8D6List::forEach(&Rva0040D8D6Listener::removed,this,(int)value.value);
  return value;
 }
 
-// Vtable C394F0 slot2 is native40E493..40E499. Its complete literal
-// identifies the record as ArmySummary independently of the WB RemoveEntry
-// lead. The four slot declarations express the native Snapshot slot order;
-// no object or vtable is constructed by this prefix view.
-const char*ArmySummary::GetSnapshotName()const{return "ArmySummary";}
-// Native40DED9..40DF77 and WB108B1A0 prove these same listener/key/ref
-// fields and the retained local handle across pop_back. Original method
-// label, flag14/state3C names and pending4C element identity remain unknown.
-void ArmySummary::rva0040DED9(){
- while(!entries.empty()){
-  Rva004F69C3*entry=&entries.back();
-  listeners.forEach(&Rva0040D8D6Listener::removing,this,entry->key);
-  Rva0040DD3ARef value(entry->value);
+// Native40DED9..40DF77/158B pops entries in reverse order. The matched
+// RemoveEntry156B provides the listener callbacks and target ref-count ABI;
+// target bytes independently establish reset word3C and vector4C/flag14.
+// The original method name and the four-byte-vector element meaning are unknown.
+void ArmySummary::rva0040DED9()
+{
+ while (!entries.empty()) {
+  Rva004F69C3 &entry=entries.back();
+  Rva0040D8D6List::forEach(&Rva0040D8D6Listener::removing,this,entry.key);
+  Rva0040DD3ARef value(entry.value);
   entries.pop_back();
-  listeners.forEach(&Rva0040D8D6Listener::removed,this,(int)value.value);
+  Rva0040D8D6List::forEach(&Rva0040D8D6Listener::removed,this,(int)value.value);
  }
- // This is the existing four-byte erase owner over the proven three-word
- // pending vector. ScienceType is only that provider's type, not a claim
- // about these pending elements.
- std::vector<ScienceType>*toClear=(std::vector<ScienceType>*)((char*)this+0x4C);
- state3C=1;
- toClear->erase(toClear->begin(),toClear->end());
+ at3C=1;
+ words4C.clear();
  flag14=false;
 }
+
+// Native40E499..40E534/155B is the C394F0 slot-0 target, whose
+// name-getter40E493 returns ArmySummary. The destructor proves Snapshot
+// at +0, the listener list as a second base at +4 (nullable derived-to-base
+// EH cleanup conversion), and strings +18/+20/+64 from its teardown calls.
+ArmySummary::~ArmySummary()
+{
+ rva0040DED9();
+ ((Rva0040D8B8List*)static_cast<Rva0040D8D6List*>(this))->forEach(&Rva0040D8B8Listener::notify,this);
+}
+
+// Native C394F0 slot2 returns the complete ArmySummary literal.
+const char *ArmySummary::GetSnapshotName() const { return "ArmySummary"; }
