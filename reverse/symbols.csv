@@ -7827,7 +7827,6 @@ name,address,notes
 ?allocateNewWeapon@WeaponStore@@QBEPAVWeapon@@PBVWeaponTemplate@@W4WeaponSlotType@@@Z,0x0028AA81,weapon allocator over TheWeaponStore global; 21 raw callers are weapon-creation sites; FireWeaponCollide ctor passes module-template plus PRIMARY_WEAPON per BFME1 donor
 ?allocateRoadBuffers@Rva006DED60RoadBuffer@@QAEXXZ,0x000D1C83,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?allocateRoadBuffers@W3DRoadBuffer@@IAEXXZ,0x000D77AE,last call of the W3DRoadBuffer ctor (0x000DC5B7) as in Zero Hour
-?allocateSilhouette@W3DVolumetricShadow@@IAE_NHH@Z,0x000F07C3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?allocateSlotStorage@W3DBufferManager@@IAEPAUW3DIndexBufferSlot@1@H@Z,0x001162BE,callee of getSlot (0x00116434) at the site its BFME1 donor calls it; may be an ICF alias
 ?allow@FilePathGate@@QAE_NPBD@Z,0x00600AE5,path-gate filename predicate (ebp-frame validator: null/empty/drive-colon checks); called thiscall from FileSystem::doesFileExist; method name unproven
 ?allow@Rva00260F1BFilter@@UAE_NPAVObject@@@Z,0x00260F1B,"slot 1 of partition filter vftable 0x00C6E1B0: tests bit (relationship of +0x08 to the object) of the +0x0C flags"
@@ -9217,8 +9216,6 @@ name,address,notes
 ?deleteInstance@MemoryPoolObject@@QAEXXZ,0x0061ED10,address read from the REL32 displacement at a placed body
 ?deleteLoadScreen@GameLogic@@QAEXXZ,0x002423E3,GameEngine slot 39 call target; BFME1 GameLogic deleteLoadScreen is the first client-subsystem operation and this BFME2 body owns the same GameLogic state
 ?deleteNode@Rva00289371HashTable@@AAEXPAUNode@1@@Z,0x00289164,callee of ?clear@Rva00289371HashTable@@QAEXXZ at retail 0x00289392 read from its REL32 displacement; destroys node+4 (0x00288B89) then operator delete
-?deleteSilhouette@W3DVolumetricShadow@@AAEXH@Z,0x000F0803,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?deleteSilhouette@W3DVolumetricShadow@@IAEXH@Z,0x000F0803,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?deleteTerrainIndexArray@@YAXPAX@Z,0x0002FD80
 ?deselectObject@GameLogic@@QAEXPAVObject@@IH@Z,0x0023C9F8,address read from the REL32 at StructureCollapseUpdate::onDie 0x004A466E; BFME2 PlayerMaskType 32-bit
 ?destroy@CustomAsciiStringShim@@QAEXXZ,0x00036410,AsciiString temp teardown for the volume-key temp; aliases the releaseBuffer pin at the same address

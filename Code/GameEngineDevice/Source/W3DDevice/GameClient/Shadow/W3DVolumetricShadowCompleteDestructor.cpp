@@ -110,7 +110,8 @@ class W3DVolumetricShadow : public Rva007B12F0Base
 public:
 	virtual ~W3DVolumetricShadow(void);
 
-private:
+protected:
+	bool allocateSilhouette(int meshIndex,int numVertices);
 	void deleteSilhouette(int meshIndex)
 	{
 		if (m_silhouetteIndex[meshIndex])
@@ -148,4 +149,20 @@ W3DVolumetricShadow::~W3DVolumetricShadow(void)
 
 	m_geometry = 0;
 	m_robj = 0;
+}
+
+// Donor ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f names the silhouette
+// allocator. Retail F07C3/64 allocates five shorts per input vertex into
+// +4180, clears +4400, and records capacity at +4540. Native F0803/47
+// is the existing inline free routine above; protected access follows
+// the donor ABI used by the matched SetGeometry consumer.
+bool W3DVolumetricShadow::allocateSilhouette(int meshIndex,int numVertices)
+{
+ int numEntries=numVertices*5;
+ short *indices=new short[numEntries];
+ m_silhouetteIndex[meshIndex]=indices;
+ if(!indices) return false;
+ m_numSilhouetteIndices[meshIndex]=0;
+ m_maxSilhouetteEntries[meshIndex]=(short)numEntries;
+ return true;
 }
