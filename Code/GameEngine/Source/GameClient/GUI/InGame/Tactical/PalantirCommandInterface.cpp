@@ -226,7 +226,7 @@ struct PalantirCostInterface {Rva00528BC1 state;
 __forceinline PalantirCostInterface(void*p){state.rva00528BC1(p);}};
 class Rva00529F3D {public:void rva00529F3D(int);};
 class Rva0052936C {public:
- Rva0052936C(void*,int);void rva00529698(const char*);void rva005297A0(const char*);void rva005298E0(const char*);void rva00529A21(const char*);
+ Rva0052936C(void*,int);~Rva0052936C();void rva00529698(const char*);void rva005297A0(const char*);void rva005298E0(const char*);void rva00529A21(const char*);
  void*owner;int frame;AptCommandMapAdder maps;AptOverButtonHandlerAdder over;bool flag2c,flag2d;void*current;AsciiString label;PalantirRankInterface rank;PalantirCostInterface cost;int value60;Rva00529318Slot slots[6];
 };
 class Rva00528F30Target {public:void reset();};
@@ -240,3 +240,9 @@ Rva0052936C::Rva0052936C(void*p,int f):owner(p),frame(f),flag2c(false),flag2d(fa
  maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnToggleFlashUnloaded"),DelegateDesc(this,&Rva0052936C::rva00529A21));
  ((Rva00528F30Target*)this)->reset();
 }
+
+// Rehome the already matched52936C destructor into the constructor's complete
+// member view. The previous source treated each20B slot as string+padding;
+// constructor callback2859D7 and independently verified destructor529318 prove
+// the owning-pointer/camera/Apt members instead. Native103B and EH stay exact.
+Rva0052936C::~Rva0052936C() {}
