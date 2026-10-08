@@ -162,6 +162,7 @@ public:
     // Inline getter (WorldBuilder calls it on the +0x08 reference); the
     // loop-buffer refill's decay test reads through it.
     const AudioEventInfo *getAudioEventInfo(void) const { return m_info; }
+    AsciiString getFilename(void);
     char at00[0x08];
     AudioEventInfo *m_info;  // +0x08 (owning ref in WB)
     int m_playingHandle;     // +0x0C, copied into a requeued loop's request
@@ -249,6 +250,9 @@ class Rva000A8C6E { public: void rva000A8C6E(const Rva0010FFA2Packet *packet); }
 class Rva000A8B31 { public: void rva000A8B31(float position, int arg); };
 class Rva000A8ACC { public: void rva000A8ACC(void); };
 class MilesStreamRef { public: void rva000A8AC0(void); };
+class Rva000A8AD8 { public: void rva000A8AD8(float level); };
+// Opens a stream file into the +0x0C holder (0x000A8D0B, operator new(0x28)).
+class Rva000A8D0B { public: void rva000A8D0B(void *owner, const AsciiString &file, int arg); };
 
 struct PlayingAudio {
     void *vfptr;
@@ -266,7 +270,9 @@ struct PlayingAudio {
     int m_at38;                          // +0x38, area index 0x55C5D starts from
     float m_at3C;                        // +0x3C, extra volume handed to a requeued loop
     float m_at40;                        // +0x40, cleared once that volume is handed on
-    char at44[0x49 - 0x44];
+    char at44[0x45 - 0x44];
+    bool m_at45;                         // +0x45, set when a pushed track resumes
+    char at46[0x49 - 0x46];
     bool m_at49;                         // +0x49
     bool m_at4A;                         // +0x4A
     bool m_at4B;                         // +0x4B, set by 0x000535A6
@@ -837,6 +843,7 @@ public:
     void playAudioEvent(Rva00051107AudioRequest *req);
     void rva0005FA3C(unsigned int handle);
     void processPushMusicRequest(Rva00051107AudioRequest *req);
+    PlayingAudioRef allocatePlayingAudio(void);
     void processPopMusicRequest(Rva00051107AudioRequest *req);
     void onPlayingAudioDeleted(PlayingAudio &playingAudioBeingDeleted);
     void releaseMilesHandles(PlayingAudio &playing);
@@ -943,7 +950,7 @@ private:
     char atB6C[0xB78 - 0xB6C];           // +0xB6C, cleared through the rowed 0x00054B9A
     char atB78[0xB8C - 0xB78];           // +0xB78, cleared through the rowed 0x00056DA2
     AudioFileCache *m_audioFileCache;    // +0xB8C (WorldBuilder requestFile receiver)
-    char atB90[0xB94 - 0xB90];
+    void *m_atB90;                       // +0xB90, handed to the stream opener 0x000A8D0B
     PlayingAudioList m_completedAudio;   // +0xB94, filled by the EOS handlers
     MilesHandleMap m_sampleMap;          // +0xB98
     MilesHandleMap m_3DSampleMap;        // +0xBAC
@@ -2836,4 +2843,31 @@ int MilesAudioManager::pushMusicEventInternal(AudioEventRTS *event, int arg1, in
     else
         m_audioRequests.push_back(request);
     return ref->m_playingHandle;
+}
+
+void MilesAudioManager::processPushMusicRequest(Rva00051107AudioRequest *req)
+{
+    int viewType = req->m_pendingEvent->m_viewType;
+    int musicSystem = req->m_pendingEvent->m_musicSystem;
+    MusicSystem *active = &m_activeMusicSystem[viewType];
+    if (musicSystem > *active)
+        moveUpMusicSystems(musicSystem, viewType, req->m_at10 == 0);
+    PlayingAudioRef playing = allocatePlayingAudio();
+    playing->m_event = req->m_pendingEvent;
+    AsciiString file = playing->m_event->getFilename();
+    void *owner = m_atB90;
+    ((Rva000A8D0B *)&playing->m_at0C)->rva000A8D0B(owner, file, 0);
+    PlayingAudio *p = playing.get();
+    ((Rva000A8AD8 *)&p->m_at0C)->rva000A8AD8(((Rva002D94DD *)p->m_event.get())->rva002D94DD());
+    rva0005DB6C(file);
+    playing->m_type = 4;
+    if (musicSystem == *active) {
+        putPlayingMusicOnStack(viewType, req->m_at10 == 0);
+        if (((Rva000CB12FByteField *)playing->m_event.get())->get()) {
+            playing->m_at45 = true;
+            playing->m_at30 = (float)m_audioSettings->m_at78;
+            ((Weapon *)playing->m_event.get())->setLeechRangeActive(false);
+        }
+    }
+    playAndStoreStream(playing, 0);
 }
