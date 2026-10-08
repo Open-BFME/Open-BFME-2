@@ -193,3 +193,23 @@ unsigned Rva0010E4B2Words::rva0010E4B2(unsigned index) const
 {
 	return table->slots[index];
 }
+
+// BFME1 9cbfb551 LivingWorld/Rva003B46A0.cpp emits the source lead.
+// Native564C4C..564C58 is a complete RET4 entry between the independently
+// rowed 564C40/12 and 564C58/37 bodies. It indexes the pointer at receiver
+// offset zero with a 32-byte stride. Only that physical stride is proven;
+// the original owner, element identity and container bounds remain unknown.
+struct Rva00564C4CElement { unsigned char unknown[0x20]; };
+struct Rva00564C4CArray
+{
+	Rva00564C4CElement *elements;
+	void *at(unsigned index) const;
+};
+
+// Size optimization keeps retail's add-from-memory scheduling.
+#pragma optimize("s", on)
+void *Rva00564C4CArray::at(unsigned index) const
+{
+	return elements + index;
+}
+#pragma optimize("", on)
