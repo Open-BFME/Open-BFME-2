@@ -151,24 +151,70 @@ public:
 // Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/GameClient/Drawable.cpp (reference/open-bfme-1),
 // which is byte-identical to retail 0x0030A040 once relocations are masked.
-// Only the placed body ?parseFireEffect@@YAXPAVINI@@@Z is defined here; the
-// donor's other definitions are omitted.
+// The native parser and a structurally associated explicit default initializer
+// are recovered here with the complete native field table.
 
 struct FireEffect
 {
+	FireEffect *rva00309F23();
 	Real m_scale;					// 0x00  Scale
 	Real m_blend;					// 0x04  Blend
 	RGBColor m_effectColor;			// 0x08  EffectColor
 	RGBColor m_baseColor;			// 0x14  BaseColor
 	Real m_effectSaturation;		// 0x20  EffectSaturation
 	Real m_baseSaturation;			// 0x24  BaseSaturation
-	char m_unknown28[ 0x4c - 0x28 ];// 0x28  no INI field writes here
+	RGBColor m_unknown28[3];		// 0x28: three physical float triples; purpose unknown
 	Real m_velocity;				// 0x4c  Velocity
 	Real m_textureCross;			// 0x50  TextureCross
 	Real m_textureRepeatCount;		// 0x54  TextureRepeatCount
 
 	static const FieldParse m_fieldParseTable[];
 };
+
+// Target VA 0x00C084C0 has ten 16-byte entries through its zero terminator;
+// the following string literals are not part of this table.
+const FieldParse FireEffect::m_fieldParseTable[] =
+{
+	{ "Scale", INI::parseReal, 0, offsetof(FireEffect, m_scale) },
+	{ "Blend", INI::parseReal, 0, offsetof(FireEffect, m_blend) },
+	{ "BaseSaturation", INI::parseReal, 0, offsetof(FireEffect, m_baseSaturation) },
+	{ "EffectSaturation", INI::parseReal, 0, offsetof(FireEffect, m_effectSaturation) },
+	{ "BaseColor", INI::parseRGBColor, 0, offsetof(FireEffect, m_baseColor) },
+	{ "EffectColor", INI::parseRGBColor, 0, offsetof(FireEffect, m_effectColor) },
+	{ "Velocity", INI::parseReal, 0, offsetof(FireEffect, m_velocity) },
+	{ "TextureCross", INI::parseReal, 0, offsetof(FireEffect, m_textureCross) },
+	{ "TextureRepeatCount", INI::parseReal, 0, offsetof(FireEffect, m_textureRepeatCount) },
+	{ 0, 0, 0, 0 }
+};
+
+// BFME 1 donor 34f59164f6d1efd413c5fd37f4894ec834c3c0fe,
+// game/GameEngine/Source/Common/Rva00421D30Defaults.cpp, recompiled /O1
+// /arch:SSE /G7. Target RVA 0x00309F23 is a complete 144-byte body with
+// its own RET; no direct caller establishes constructor identity. FireEffect
+// ownership is a structural inference from the adjacent parser, its 0x58-byte
+// copy and the native FieldParse layout. Preserve an explicit initializer.
+FireEffect *FireEffect::rva00309F23()
+{
+	m_scale = 4.0f;
+	m_blend = 0.7f;
+	m_effectColor.red = 1.0f;
+	m_effectColor.green = 1.0f;
+	m_effectColor.blue = 1.0f;
+	m_baseColor.red = 1.0f;
+	m_baseColor.green = 1.0f;
+	m_baseColor.blue = 1.0f;
+	m_baseSaturation = 1.0f;
+	m_effectSaturation = 1.0f;
+	m_unknown28[1].red = 0.5f;
+	m_unknown28[1].green = 0.5f;
+	m_unknown28[1].blue = 0.5f;
+	m_unknown28[2] = m_unknown28[1];
+	m_unknown28[0] = m_unknown28[1];
+	m_velocity = 1.0f;
+	m_textureCross = 1.0f;
+	m_textureRepeatCount = 5.0f;
+	return this;
+}
 
 // BFME has a fourth INILoadType that Zero Hour does not, value 4. Both it and
 // INI_LOAD_CREATE_OVERRIDES suppress the write-back. Left as the literal because

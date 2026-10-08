@@ -151,26 +151,82 @@ public:
 // Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/GameClient/Drawable.cpp (reference/open-bfme-1),
 // which is byte-identical to retail 0x00309FFD once relocations are masked.
-// Only the placed body ?parseRingEffect@@YAXPAVINI@@@Z is defined here; the
-// donor's other definitions are omitted.
+// The native parser and a structurally associated explicit default initializer
+// are recovered here with the complete native field table.
 
 struct RingEffect
 {
+	RingEffect *rva00309E85();
 	Real m_scale;					// 0x00  Scale
 	Real m_blend;					// 0x04  Blend
 	RGBColor m_effectColor;			// 0x08  EffectColor
 	RGBColor m_baseColor;			// 0x14  BaseColor
 	Real m_effectSaturation;		// 0x20  EffectSaturation
 	Real m_baseSaturation;			// 0x24  BaseSaturation
-	char m_unknown28[ 0x4c - 0x28 ];// 0x28  no INI field writes here
+	RGBColor m_unknown28[3];		// 0x28: three physical float triples; purpose unknown
 	Real m_velocity;				// 0x4c  Velocity
 	Real m_textureCross;			// 0x50  TextureCross
 	Real m_textureRepeatCount;		// 0x54  TextureRepeatCount
 	Int m_effectBlurDiameter;		// 0x58  EffectBlurDiameter
-	Real m_baseBlurDiameter;		// 0x5c  BaseBlurDiameter
+	union
+	{
+		Real m_baseBlurDiameter;		// 0x5c: parsed as Real by the native table
+		UnsignedInt m_baseBlurDiameterBits;
+	};
 
 	static const FieldParse m_fieldParseTable[];
 };
+
+// Target table VA 0x00C08400: all twelve 16-byte entries, including the
+// terminator. Tokens, callback identities and field offsets are target facts.
+const FieldParse RingEffect::m_fieldParseTable[] =
+{
+	{ "Scale", INI::parseReal, 0, offsetof(RingEffect, m_scale) },
+	{ "Blend", INI::parseReal, 0, offsetof(RingEffect, m_blend) },
+	{ "BaseSaturation", INI::parseReal, 0, offsetof(RingEffect, m_baseSaturation) },
+	{ "EffectSaturation", INI::parseReal, 0, offsetof(RingEffect, m_effectSaturation) },
+	{ "BaseColor", INI::parseRGBColor, 0, offsetof(RingEffect, m_baseColor) },
+	{ "EffectColor", INI::parseRGBColor, 0, offsetof(RingEffect, m_effectColor) },
+	{ "Velocity", INI::parseReal, 0, offsetof(RingEffect, m_velocity) },
+	{ "TextureCross", INI::parseReal, 0, offsetof(RingEffect, m_textureCross) },
+	{ "TextureRepeatCount", INI::parseReal, 0, offsetof(RingEffect, m_textureRepeatCount) },
+	{ "EffectBlurDiameter", INI::parseInt, 0, offsetof(RingEffect, m_effectBlurDiameter) },
+	{ "BaseBlurDiameter", INI::parseReal, 0, offsetof(RingEffect, m_baseBlurDiameter) },
+	{ 0, 0, 0, 0 }
+};
+
+// BFME 1 donor 34f59164f6d1efd413c5fd37f4894ec834c3c0fe,
+// game/GameEngine/Source/Common/Rva00421C70Defaults.cpp, recompiled /O1
+// /arch:SSE /G7. The target is the complete RET-delimited 158-byte body
+// at RVA 0x00309E85, with no direct callers or address-taken references.
+// RingEffect ownership is inferred from the adjacent named parser, its exact
+// 0x60-byte layout and the field table; no original constructor name is known.
+// Keep this an explicit initializer, with no lifetime or constructor claim.
+// Native +0x5C stores the integer bit pattern 1 although the parser reads Real.
+RingEffect *RingEffect::rva00309E85()
+{
+	m_scale = 4.0f;
+	m_blend = 0.7f;
+	m_effectColor.red = 1.0f;
+	m_effectColor.green = 1.0f;
+	m_effectColor.blue = 1.0f;
+	m_baseColor.red = 1.0f;
+	m_baseColor.green = 1.0f;
+	m_baseColor.blue = 1.0f;
+	m_baseSaturation = 1.0f;
+	m_effectSaturation = 1.0f;
+	m_unknown28[1].red = 0.5f;
+	m_unknown28[1].green = 0.5f;
+	m_unknown28[1].blue = 0.5f;
+	m_unknown28[2] = m_unknown28[1];
+	m_unknown28[0] = m_unknown28[1];
+	m_velocity = 1.0f;
+	m_textureCross = 1.0f;
+	m_textureRepeatCount = 5.0f;
+	m_effectBlurDiameter = 3;
+	m_baseBlurDiameterBits = 1;
+	return this;
+}
 
 // BFME has a fourth INILoadType that Zero Hour does not, value 4. Both it and
 // INI_LOAD_CREATE_OVERRIDES suppress the write-back. Left as the literal because
