@@ -136,6 +136,113 @@ protected:
 	bool m_messageBold;							// +0x834
 };
 
+void InGameUI::rva0029E656( AsciiString stringManagerLabel, ... )
+{
+	if( !TheBfmeGlob->bfmeCall939D() )
+		return;
+
+	UnicodeString stringManagerString;
+	UnicodeString formattedMessage;
+
+	stringManagerString = TheGameText->fetch( stringManagerLabel.str() );
+	if( stringManagerString.isEmpty() )
+		return;
+
+	va_list args;
+	va_start( args, stringManagerLabel );
+	WideChar buf[ 8192 ];
+	if( vswprintf( buf, sizeof( buf ) / sizeof( WideChar ) - 1, stringManagerString.str(), args ) < 0 )
+		throw ERROR_OUT_OF_MEMORY;
+	formattedMessage.set( buf );
+	va_end( args );
+
+	addMessageText( formattedMessage );
+}
+
+void InGameUI::message( AsciiString stringManagerLabel, ... )
+{
+	UnicodeString stringManagerString;
+	UnicodeString formattedMessage;
+
+	stringManagerString = TheGameText->fetch( stringManagerLabel.str() );
+
+	va_list args;
+	va_start( args, stringManagerLabel );
+	WideChar buf[ 8192 ];
+	if( vswprintf( buf, sizeof( buf ) / sizeof( WideChar ) - 1, stringManagerString.str(), args ) < 0 )
+		throw ERROR_OUT_OF_MEMORY;
+	formattedMessage.set( buf );
+	va_end( args );
+
+	addMessageText( formattedMessage );
+}
+
+void InGameUI::rva0029E846( UnicodeString format, ... )
+{
+	if( TheBfmeGlob->bfmeCall939D() )
+	{
+		UnicodeString formattedMessage;
+
+		va_list args;
+		va_start( args, format );
+		WideChar buf[ 8192 ];
+		if( vswprintf( buf, sizeof( buf ) / sizeof( WideChar ) - 1, format.str(), args ) < 0 )
+			throw ERROR_OUT_OF_MEMORY;
+		formattedMessage.set( buf );
+		va_end( args );
+
+		addMessageText( formattedMessage );
+	}
+}
+
+void InGameUI::message( UnicodeString format, ... )
+{
+	UnicodeString formattedMessage;
+
+	va_list args;
+	va_start( args, format );
+	WideChar buf[ 8192 ];
+	if( vswprintf( buf, sizeof( buf ) / sizeof( WideChar ) - 1, format.str(), args ) < 0 )
+		throw ERROR_OUT_OF_MEMORY;
+	formattedMessage.set( buf );
+	va_end( args );
+
+	addMessageText( formattedMessage );
+}
+
+void InGameUI::rva0029E99F( const RGBColor *rgbColor, UnicodeString format, ... )
+{
+	if( TheBfmeGlob->bfmeCall939D() )
+	{
+		UnicodeString formattedMessage;
+
+		va_list args;
+		va_start( args, format );
+		WideChar buf[ 8192 ];
+		if( vswprintf( buf, sizeof( buf ) / sizeof( WideChar ) - 1, format.str(), args ) < 0 )
+			throw ERROR_OUT_OF_MEMORY;
+		formattedMessage.set( buf );
+		va_end( args );
+
+		addMessageText( formattedMessage, rgbColor );
+	}
+}
+
+void InGameUI::messageColor( const RGBColor *rgbColor, UnicodeString format, ... )
+{
+	UnicodeString formattedMessage;
+
+	va_list args;
+	va_start( args, format );
+	WideChar buf[ 8192 ];
+	if( vswprintf( buf, sizeof( buf ) / sizeof( WideChar ) - 1, format.str(), args ) < 0 )
+		throw ERROR_OUT_OF_MEMORY;
+	formattedMessage.set( buf );
+	va_end( args );
+
+	addMessageText( formattedMessage, rgbColor );
+}
+
 void InGameUI::addMessageText( const UnicodeString &formattedMessage, const RGBColor *rgbColor )
 {
 	int i;
