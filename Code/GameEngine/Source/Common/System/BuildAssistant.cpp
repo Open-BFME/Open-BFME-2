@@ -264,6 +264,8 @@ class ThingTemplate
 {
 public:
 	const AsciiString &getName() const { return m_nameString; }
+	const AsciiString &getCommandSetString() const { return m_commandSetString; }
+	__forceinline Bool isKindOfByte(KindOfType t) const { return (((const unsigned char*)m_kindOf)[t >> 3] & (1U << (t & 7))) != 0; }
 	Bool isEquivalentTo(const ThingTemplate *tt) const;
 	const GeometryInfo &getTemplateGeometryInfo() const { return m_geometryInfo; }
 	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 31)); }
@@ -276,7 +278,9 @@ public:
 private:
 	unsigned char m_pad000[0x64];
 	AsciiString m_nameString;		// +0x64
-	unsigned char m_pad068[0xA0 - 0x68];
+	unsigned char m_pad068[8];
+	AsciiString m_commandSetString;
+	unsigned char m_pad074[0xA0 - 0x74];
 	GeometryInfo m_geometryInfo;	// +0xA0
 	unsigned char m_pad0FC[0x108 - 0xFC];
 	UnsignedInt m_kindOf[8];		// +0x108
@@ -782,6 +786,7 @@ public:
 
 	void iterateFootprint(const ThingTemplate *build, Real buildOrientation, const Coord3D *worldPos, Real sampleResolution, void (*func)(const Coord3D *samplePoint, void *userData), void *userData);
 	Bool isRemovableForConstruction(Object *obj);
+	Bool rva00391AA1(const ThingTemplate *builder, const ThingTemplate *what);
 	void clearRemovableForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle);
 	Bool moveObjectsForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle, Player *owningPlayer);
 
@@ -2139,5 +2144,26 @@ Bool Rva003919F6Connected(Object*a,Object*b)
  if(x && x->slot23(b->getID()))return true;
  Rva0028BD17Interface *y=(Rva0028BD17Interface*)b->rva0028BD17();
  if(y && y->slot23(a->getID()))return true;
+ return false;
+}
+
+// Target 391AA1..391B08: native caller 5DCCD3 loads TheBuildAssistant into ECX,
+// passes two ThingTemplateRegistry::rva002D06CA results; ret8 proves two stack args.
+// WB F9DBB0 independently confirms kind63, command string70, 32 buttons and four command IDs.
+Bool BuildAssistant::rva00391AA1(const ThingTemplate *builder, const ThingTemplate *what)
+{
+ if (builder->isKindOfByte((KindOfType)63)) {
+  const CommandSet *set=TheControlBar->findCommandSet(&builder->getCommandSetString());
+  if (set) {
+   for (Int i=0;i<32;++i) {
+    const CommandButton *button=set->getCommandButton(i);
+    if (button) {
+     GUICommandType type=button->getCommandType();
+     if (type==GUI_COMMAND_UNIT_BUILD || type==GUI_COMMAND_53 || type==GUI_COMMAND_DOZER_CONSTRUCT || type==GUI_COMMAND_46)
+      if (button->rva0035B570()==what) return true;
+    }
+   }
+  }
+ }
  return false;
 }
