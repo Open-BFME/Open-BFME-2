@@ -59,13 +59,30 @@ class RvaTextureHandleView : public RefCountPtr<TextureClass>
 {
 };
 
+// Surface lock/unlock under their ledger names (0x00116680 returns the bits
+// and the pitch; 0x00116760 unlocks).
+class Rva00116680
+{
+public:
+	void *rva00116680(int *pitch, bool discard);
+};
+
+class Member0C00739C70
+{
+public:
+	void clear();
+};
+
 class Rva00072B3A
 {
 public:
 	RvaTextureHandleView rva00072B3A() const;
+	void rva00072E84(unsigned char level, Rva00116680 *surface);
 private:
 	char m_pad[0x1c];
 	RvaTextureHandleView m_texture;
+	int m_dstTextureWidth;   // +0x20 (Zero Hour's name for the border fill extent)
+	int m_dstTextureHeight;  // +0x24
 };
 
 RvaTextureHandleView Rva00072B3A::rva00072B3A() const
@@ -121,4 +138,62 @@ public:
 void W3DShaderManager::setTexture(int stage, const TextureHandle &texture)
 {
 	Rva00075655::m_Textures[stage] = texture;
+}
+
+// TheGlobalData view: the shroud colour as red/green/blue floats at
+// +0xBDC/+0xBE0/+0xBE4 and the minimum shroud level byte at +0xBEA.
+class GlobalData
+{
+public:
+	char m_pad[0xBDC];
+	float m_shroudRed;
+	float m_shroudGreen;
+	float m_shroudBlue;
+	char m_padBE8[0xBEA - 0xBE8];
+	unsigned char m_shroudAlpha;
+};
+
+extern GlobalData *TheGlobalData;
+
+// Reference-returning clamps; retail's min tests a < b (not STLport's
+// b < a), as its select order shows.
+template <class T> inline const T &ShroudMax(const T &a, const T &b) { return a < b ? b : a; }
+template <class T> inline const T &ShroudMin(const T &a, const T &b) { return a < b ? a : b; }
+
+// Native 00072D5D..00072E10, cdecl. Converts a shroud level to the shroud
+// texture's 4444 pixel: each colour channel is the level scaled by the
+// shroud colour, alpha ramps from level 4 to 50, and a fully visible level
+// (255) is opaque white. Zero Hour inlines the colour part in each fill.
+unsigned short __cdecl Rva00072D5DShroudPixel(unsigned char level)
+{
+	int value = level;
+	unsigned int blue = (unsigned int)(value * TheGlobalData->m_shroudBlue);
+	unsigned int green = (unsigned int)(value * TheGlobalData->m_shroudGreen);
+	unsigned int red = (unsigned int)(value * TheGlobalData->m_shroudRed);
+	int alpha = ShroudMin((ShroudMax(0, value - 4) * 255) / 46, 255);
+	if (level == 255) {
+		red = 255;
+		green = 255;
+		blue = 255;
+		alpha = 255;
+	}
+	return (unsigned short)(((alpha & 0xf0) << 8) | ((red & 0xf0) << 4) | (green & 0xf0) | ((blue >> 4) & 0xf));
+}
+
+// Native 00072E84..00072EEB. Zero Hour's fillBorderShroudData destination
+// fill: the level is raised to the global minimum, converted once, and
+// written to every texel of the locked surface.
+void Rva00072B3A::rva00072E84(unsigned char level, Rva00116680 *surface)
+{
+	if (level < TheGlobalData->m_shroudAlpha)
+		level = TheGlobalData->m_shroudAlpha;
+	unsigned short pixel = Rva00072D5DShroudPixel(level);
+	int pitch;
+	unsigned short *ptr = (unsigned short *)surface->rva00116680(&pitch, false);
+	for (int y = 0; y < m_dstTextureHeight; y++) {
+		for (int x = 0; x < m_dstTextureWidth; x++)
+			ptr[x] = pixel;
+		ptr = (unsigned short *)((char *)ptr + pitch);
+	}
+	reinterpret_cast<Member0C00739C70 *>(surface)->clear();
 }
