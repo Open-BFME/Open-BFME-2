@@ -28016,3 +28016,5 @@ CreateRevivalEntry	0x002E1AA0	519	blocked	Native2E1AA0..2E1CA7 and WBDE5650 iden
 ?rva002729CB@Drawable@@QAEXM@Z	0x002729CB	30	landed	add_match verified Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp 30B
 ?rva002729E9@Drawable@@QAEXH@Z	0x002729E9	25	landed	add_match verified Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp 25B
 ??1ImageCollection@@UAE@XZ	0x002D9283	115	landed	add_match verified Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp 115B
+?sizeWindowsDefault@ControlBarResizer@@QAEXXZ	0x001DB7C9	100	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarResizerO1.cpp 100B
+?sizeWindowsAlt@ControlBarResizer@@QAEXXZ	0x001DB82D	253	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarResizerO1.cpp 253B

@@ -72032,3 +72032,5 @@ _VP6_GetYUVConfig,,0x001B5C60,1147,Code/Libraries/Source/VP6/GetYUVConfig.cpp,ma
 ?rva002729CB@Drawable@@QAEXM@Z,,0x002729CB,30,Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp,matched,
 ?rva002729E9@Drawable@@QAEXH@Z,,0x002729E9,25,Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp,matched,
 ??1ImageCollection@@UAE@XZ,,0x002D9283,115,Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp,matched,
+?sizeWindowsDefault@ControlBarResizer@@QAEXXZ,,0x001DB7C9,100,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarResizerO1.cpp,matched,
+?sizeWindowsAlt@ControlBarResizer@@QAEXXZ,,0x001DB82D,253,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarResizerO1.cpp,matched,
