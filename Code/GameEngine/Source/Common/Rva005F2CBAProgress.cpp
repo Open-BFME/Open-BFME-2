@@ -117,6 +117,7 @@ class Rva005F2792
 {
 public:
 	void rva005F2792();
+ void rva005F27F8(const char*);
 };
 
 // The Apt command-map registration (AptCallbackAdders.cpp's view): a
@@ -178,7 +179,8 @@ class Rva000AD6F4
 public:
 	Rva000AD6F4() : m_ptr(0) {}
 	~Rva000AD6F4();
-	void *m_ptr;
+	void clear();
+ void *m_ptr;
 };
 
 // The icon slot's base: an interface whose out-of-line destructor only
@@ -265,6 +267,7 @@ public:
 	void UpdateIconSlotPositions();
 	void SetupScrollBar();
 	void OnScrollBarLoaded(const char *name);
+ void OnScrollBarUnloaded(const char*);
 	void rva005F2E85();
  void Update();
  virtual void rva005F267E(int,float);
@@ -442,7 +445,8 @@ StrategicHUD::ArmyDetailsMovieClip::Impl::IconSlot::IconSlot(Impl *owner, int ap
 	AsciiString name;
 	team = m_owner->m_team0C ? m_owner->m_team0C->m_name : "";
 	name.format("_level%u.%s_OnUnitIconSlotLoaded%d", m_owner->m_level08, team, m_aptIndex);
-	AddCommandMapDelegate(name, DelegateDesc(this, &IconSlot::OnLoaded));
+	// Native DIR32 names the independently rowed callback owner at5F27F8.
+ AddCommandMapDelegate(name, DelegateDesc(reinterpret_cast<Rva005F2792*>(this), &Rva005F2792::rva005F27F8));
 }
 
 void StrategicHUD::ArmyDetailsMovieClip::Impl::Update()
@@ -495,4 +499,9 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::rva005F267E(int,float value)
  if(fabs(page-1.0f)>=0.0001f) {
   m_scrollRow=_STL::min(_STL::max((int)fast_float2long_round(floor(rows*value/(1.0f-page))),0),rows-1);
  }else m_scrollRow=0;
+}
+
+// Native ctor5F39D6 binds the +1C callback fold at42D5CB.
+void StrategicHUD::ArmyDetailsMovieClip::Impl::OnScrollBarUnloaded(const char*) {
+ reinterpret_cast<Rva000AD6F4*>(&m_scrollBar)->clear();
 }
