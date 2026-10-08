@@ -25,6 +25,12 @@ struct BfmeE12
 	int m_04;
 	int m_08;
 };
+// Reuse the retail 12-byte-POD iterator operation at 0x00585A18.
+typedef _STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > BfmeE12CopyIterator;
+namespace _STL {
+template <> BfmeE12CopyIterator copy_backward<BfmeE12CopyIterator, BfmeE12CopyIterator>(
+    BfmeE12CopyIterator, BfmeE12CopyIterator, BfmeE12CopyIterator);
+}
 
 struct Ints12
 {

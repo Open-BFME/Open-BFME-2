@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/open-bfme-1/inputs/vendor/stlport/stl
 // stlport
 //
 // The element type here is a STAND-IN. What the image fixes is the element
@@ -11,7 +11,10 @@
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
 // flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
 // overload keeps the inlined code and offers the link no second copy.
-#include <stl/_algobase.h>
+// Use the pristine algorithms while retaining BFME2's allocation shim.
+// The shim's algorithm header forces the copy-backward aux layer inline,
+// producing a competing 65-byte body instead of retail's 63-byte wrapper.
+#include <_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {

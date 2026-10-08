@@ -21,4 +21,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <deque>
 struct BfmeE12 { float x, y, z; };
+// Reuse the complete stock-header copy-backward provider at 0x00585A18.
+typedef _STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > BfmeE12CopyIterator;
+namespace _STL {
+template <> BfmeE12CopyIterator copy_backward<BfmeE12CopyIterator, BfmeE12CopyIterator>(
+    BfmeE12CopyIterator, BfmeE12CopyIterator, BfmeE12CopyIterator);
+}
 template class _STL::deque<BfmeE12, _STL::allocator<BfmeE12 > >;
