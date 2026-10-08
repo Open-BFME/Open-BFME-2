@@ -156,23 +156,28 @@ extern "C" const void *const vtbl_00BC6F20[];
 #pragma comment(linker, "/alternatename:_vtbl_00BC6F20=??_7Rva0007DF07@@6B@")
 class __declspec(novtable) Rva005FCF0EBase {
 public:
+ Rva005FCF0EBase() : word04(0) {}
  // ?<Rva005FCF0EBase::~Rva005FCF0EBase> present-unmatched
  __forceinline virtual ~Rva005FCF0EBase() {*(const void**)this=vtbl_00BC6F20;}
 protected: int word04;
 };
-class Rva005FCF0EStorage {
+class Rva00330757Member {
 public:
- // ?<Rva005FCF0EStorage::~Rva005FCF0EStorage> present-unmatched
- __forceinline ~Rva005FCF0EStorage() {if(begin)free(begin);}
-private: void *begin,*unknown0C,*unknown10;
+ Rva00330757Member();
+ // ?<Rva00330757Member::~Rva00330757Member> present-unmatched
+ __forceinline ~Rva00330757Member() {if(begin)free(begin);}
+private: void *begin,*unknown0C,*unknown10; int unknown14;
 };
 class Rva005FCB2DReleaseView {
-public: ~Rva005FCB2DReleaseView();
+public:
+ Rva005FCB2DReleaseView() {}
+ Rva005FCB2DReleaseView(void *value) : owned(value) {}
+ ~Rva005FCB2DReleaseView();
 private: void *owned;
 };
 #pragma comment(linker, "/alternatename:??1Rva005FCB2DReleaseView@@QAE@XZ=?clear@Rva005FCB2D@@QAEXXZ")
 
-class Rva005FCF0E : public Rva005FCF0EBase
+class Rva005FCF0E : public Rva005FCF0EBase, public Rva00330757Member
 {
 public:
 	Rva005FCF0E(EmitVtableTag *);
@@ -180,8 +185,6 @@ public:
 public:
 	virtual ~Rva005FCF0E();
 private:
-	Rva005FCF0EStorage storage08;
-	int unknown14;
 	Rva005FCB2DReleaseView member18;
 };
 
@@ -358,5 +361,23 @@ Rva0073EF24::Rva0073EF24(EmitVtableTag *)
 // derived owner identity remains unknown so retain its established name.
 Rva005FCFE5::Rva005FCFE5(unsigned int level)
     : Rva005FCF0E(level, AsciiString("ArmyHeroIcon"))
+{
+}
+
+// The complete allocation size and three argument reads are target facts
+// from the 866-byte constructor at5FCB47. WB names its implementation class;
+// retain an opaque ABI name while this unit's owner identity remains unknown.
+class Rva005FCB47
+{
+public:
+    Rva005FCB47(Rva005FCF0E *owner, unsigned int level, const AsciiString &name);
+private:
+    unsigned char m_storage[0x38];
+};
+
+// Target5FCEA9-5FCF0E: base word04 zero; observer storage ctor at+8;
+// vtableC7A1BC; 0x38-byte allocation and implementation ctor; holder at+18.
+Rva005FCF0E::Rva005FCF0E(unsigned int level, const AsciiString &name)
+    : member18(new Rva005FCB47(this, level, name))
 {
 }
