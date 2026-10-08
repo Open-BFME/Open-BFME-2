@@ -249,7 +249,6 @@ int GameFileClass::Size(void)
 //-------------------------------------------------------------------------------------------------
 /** Write. */
 //-------------------------------------------------------------------------------------------------
-// ?Write@GameFileClass@@UAEHPBXH@Z present-unmatched
 int GameFileClass::Write(void const *buffer, Int len) 
 {
 #ifdef _DEBUG
