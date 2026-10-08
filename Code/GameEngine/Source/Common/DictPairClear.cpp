@@ -102,7 +102,7 @@ void Dict::DictPair::clear()
 			m_value = 0;
 			break;
 		case DICT_ASCIISTRING:
-			((AsciiString *)&m_value)->~AsciiString();
+			((StringBase<char> *)&m_value)->clear(); // inline releaseBuffer(): retail calls the 133-byte narrow buffer owner
 			break;
 		case DICT_UNICODESTRING:
 			((UnicodeString *)&m_value)->clear();	// inline releaseBuffer(): retail tail-jumps to StringBase<unsigned short>::releaseBuffer
