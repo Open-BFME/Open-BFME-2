@@ -30,6 +30,7 @@ class Rva00510CC3
 {
 public:
 	~Rva00510CC3();
+ void OnEnabledContentUnloaded(const char *unused);
 private:
 	Rva0050EA74 m_00;
 	Rva0052413E m_14;
@@ -40,4 +41,11 @@ private:
 Rva00510CC3::~Rva00510CC3()
 {
 	m_24.rva0050F6AD();
+}
+
+// Native510233..51023E11B RET4. Independent bound member pointer at510C54
+// in this page's constructor follows the literal "_OnEnabledContentUnloaded"
+// atRVA86563C. Existing dtor proves this same holder24 and provider50F6AD.
+void Rva00510CC3::OnEnabledContentUnloaded(const char *unused) {
+ m_24.rva0050F6AD();
 }
