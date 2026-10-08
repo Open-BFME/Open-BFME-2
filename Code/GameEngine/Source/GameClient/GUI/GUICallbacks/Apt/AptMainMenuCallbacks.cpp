@@ -313,6 +313,7 @@ class Mouse
 {
 public:
 	void rva000B3FD0();
+	void _bfme_setEngineVisibility(bool visible);	// rowed 0x001EE5BE
 };
 
 extern Mouse *TheMouse;
@@ -373,6 +374,7 @@ public:
 	void rva00514BA1();
 	void rva00514BB5();
 	void rva00514DC0(int button);
+	int rva00514950(int msg, int p1, int p2);
 	void rva00514F2E();
 	void rva00514FE9();
 	void rva005158A7();
@@ -381,7 +383,9 @@ public:
 	void rva00515633();
 
 private:
-	unsigned char m_pad000[0x27C];
+	unsigned char m_pad000[0x274];
+	void *m_274; // +0x274, the screen's Apt movie level
+	unsigned char m_pad278[0x27C - 0x278];
 	bool m_initialized; // +0x27C
 	bool m_pendingRestart; // +0x27D
 	bool m_restart; // +0x27E
@@ -685,6 +689,7 @@ extern AptPlayer *TheAptPlayer;
 class Rva00222A8BTarget
 {
 public:
+	int invoke(void *level, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);	// rowed 0x00222A8B
 	void rva00222F55(bool show);			// 0x00222F55, AptPlayer::HideBackground
 };
 
@@ -762,4 +767,86 @@ int rva0051573A(float time, bool start)
 		result = 3;
 	}
 	return result;
+}
+
+extern "C" int __cdecl abs(int value);
+
+// Retail 0x00514950, 331 bytes: vslot 1 of the menu's vtable 0x00C65F10
+// (slot 0 is the deleting destructor 0x0051588B), the screen's message
+// handler; WorldBuilder's twin is unnamed and switches the same way. While
+// the menu runs (+0x27D) only a pressed escape (message 0x15, key 1) is
+// taken: it is eaten in states 1 and 2 and in state 4 hides the credits. Until
+// then any key outside the credits, or a mouse move (0x18) more than 20 pixels
+// from where the first one landed (two function-local statics), starts the
+// menu: the mouse is shown and the movie told "ShowMainMenu". WorldBuilder's
+// build also sends "EscapeKeyPressed" in other states; retail does not.
+int AptMainMenu::rva00514950(int msg, int p1, int p2)
+{
+	if (m_state == 8)
+		return 0;
+
+	if (m_pendingRestart)
+	{
+		switch (msg)
+		{
+		case 0x15:
+		{
+			unsigned char key = (unsigned char)p1;
+			unsigned char keyState = (unsigned char)p2;
+			switch (key)
+			{
+			case 1:
+				if (keyState & 1)
+				{
+					if (m_state == 1 || m_state == 2)
+						return 1;
+					if (m_state == 4)
+					{
+						reinterpret_cast<Rva00222A8BTarget *>(TheAptPlayer)->invoke(m_274, "HideCredits", 0, 0, 0, 0, 0, 0);
+						return 1;
+					}
+					return 1;
+				}
+				else
+				{
+					return 1;
+				}
+			}
+			break;
+		}
+		}
+		return 0;
+	}
+
+	if (m_restart)
+		m_pendingRestart = true;
+
+	switch (msg)
+	{
+	case 0x15:
+		if (m_state != 4)
+			m_pendingRestart = true;
+		break;
+	case 0x18:
+	{
+		int x = p1 & 0xFFFF;
+		int y = (unsigned int)p1 >> 16;
+		if (x != 0 || y != 0)
+		{
+			static int s_firstX = x;
+			static int s_firstY = y;
+			if (abs(x - s_firstX) > 20 || abs(y - s_firstY) > 20)
+				m_pendingRestart = true;
+		}
+		break;
+	}
+	}
+
+	if (m_pendingRestart)
+	{
+		TheMouse->_bfme_setEngineVisibility(true);
+		m_pendingRestart = true;
+		reinterpret_cast<Rva00222A8BTarget *>(TheAptPlayer)->invoke(m_274, "ShowMainMenu", 0, 0, 0, 0, 0, 0);
+	}
+	return 0;
 }
