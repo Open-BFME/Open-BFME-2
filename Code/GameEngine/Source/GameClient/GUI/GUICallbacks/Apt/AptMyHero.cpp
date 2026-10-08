@@ -41,7 +41,8 @@ protected:
  const Image *image138;
  char pad13C[4];
 };
-void free(void *);
+// Native vector cleanup uses the game CRT allocator at00030830.
+extern "C" void __cdecl free(void *) throw(...);
 struct BfmePod8 {int a;float b;};
 // The rowed by-value resize 0x005FF96A is spelled on this vector view.
 class BfmePod8Vector {public: ~BfmePod8Vector(){if(first)free(first);}void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};

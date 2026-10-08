@@ -34,12 +34,15 @@ private:
 	unsigned char m_pad04[4];
 };
 
-struct Rva002BA8F1Listener
+// Native base-vptr store is C3702C, distinct from C77F44 in0057605D.
+// This two-slot view keeps an independent opaque identity.
+struct Rva005E626DListener
 {
 	virtual void notify();
-	virtual ~Rva002BA8F1Listener();
+	virtual ~Rva005E626DListener();
 };
 
+struct Rva002BA8F1Listener; // borrowed list-entry representation
 class Rva005A0B4CList
 {
 public:
@@ -59,7 +62,7 @@ struct Rva005E626DListOwner
 	Rva005A0B4CList m_list08;
 };
 
-class Rva005E626D : public Rva005F566A, public Rva002BA8F1Listener
+class Rva005E626D : public Rva005F566A, public Rva005E626DListener
 {
 public:
 	Rva005E626D(Rva005E626DOwner *owner, Rva0057C394 *source, Rva005E626DListOwner *listOwner, void *extra);
@@ -76,5 +79,5 @@ Rva005E626D::Rva005E626D(Rva005E626DOwner *owner, Rva0057C394 *source, Rva005E62
 	  m_owner0C(owner),
 	  m_listOwner10(listOwner)
 {
-	listOwner->m_list08.append(this);
+	listOwner->m_list08.append((Rva002BA8F1Listener *)(Rva005E626DListener *)this);
 }
