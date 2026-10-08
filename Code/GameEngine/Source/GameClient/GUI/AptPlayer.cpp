@@ -16,7 +16,7 @@ struct Rva0041534BIter {
 	void *m_node; Rva00056F61 *m_table;
 	Rva0041534BIter(void *n,Rva00056F61*t) : m_node(n), m_table(t) {}
 };
-class Rva00056F61 { public: Rva0041534BIter rva0041534B(const AsciiString *); };
+class Rva00056F61 { public: __declspec(nothrow) void *rva00056F61(const AsciiString *); Rva0041534BIter rva0041534B(const AsciiString *); };
 struct Rva002236F2Value;
 class Rva002236F2 { public: Rva002236F2Value &rva002236F2(const Rva002236F2Value &); };
 struct Rva00223F4BNode { Rva00223F4BNode *next; Rva00223F4BPair value; };
@@ -115,6 +115,7 @@ class AptPlayer
 {
 public:
 	void PopFocus(AptFocusTarget *target);
+ void SetExtern(const char *name,int value);
  void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
  void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);
  void AddTimer(const AsciiString &name, AptRef<AptTimer> timer);
@@ -180,3 +181,34 @@ void AptPlayer::AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButt
  if(entry.m_ptr) return;
  entry = handler;
 }
+
+class Rva00222947Ref { public: void invoke(int,int,int); private: void *operation; };
+struct AptExternNode { AptExternNode *next; AsciiString key; Rva00222947Ref handle; int context; };
+const char *Rva00412845AfterLevel(const char *);
+class AptExternTable {
+public:
+ __declspec(nothrow) __forceinline Rva0041534BIter find(const AsciiString &key) {
+  Rva00056F61 *table=reinterpret_cast<Rva00056F61 *>(this);
+  return Rva0041534BIter(table->rva00056F61(&key),table);
+ }
+};
+// WorldBuilder B97730 names SetExtern (AptPlayer.cpp:1927).
+// Native 223DD7..223E4B proves map20, the key copy and prefix retry,
+// four-byte callback handle at node8 and context word at nodeC.
+// Existing find56F61, prefix412845 and invoke222947 providers retain
+// their owned identities. Original application payload types are unasserted.
+void AptPlayer::SetExtern(const char *name,int value)
+{
+
+ Rva0041534BIter found=reinterpret_cast<AptExternTable *>(m_commandMap+0x14)->find(AsciiString(name));
+ if(!found.m_node) {
+  found=reinterpret_cast<AptExternTable *>(m_commandMap+0x14)->find(AsciiString(Rva00412845AfterLevel(name)));
+  if(!found.m_node) return;
+ }
+ AptExternNode *node=static_cast<AptExternNode *>(found.m_node);
+ node->handle.invoke(node->context,value,1);
+}
+
+
+
+
