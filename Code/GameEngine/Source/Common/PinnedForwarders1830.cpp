@@ -291,6 +291,28 @@ void Rva000A8B23::rva000A8B23(int a)
 		m_ptr->rva0010FDE9(a);
 }
 
+class Rva0010FE6D
+{
+public:
+	void rva0010FE6D(float a, int b);
+};
+
+// Called by the stream setup 0x0005AADD with a start position and 0; the
+// float is re-pushed, so this one is not a tail call.
+class Rva000A8B31
+{
+public:
+	void rva000A8B31(float a, int b);
+private:
+	Rva0010FE6D *m_ptr;
+};
+
+void Rva000A8B31::rva000A8B31(float a, int b)
+{
+	if (m_ptr)
+		m_ptr->rva0010FE6D(a, b);
+}
+
 class Rva0010FEF3
 {
 public:

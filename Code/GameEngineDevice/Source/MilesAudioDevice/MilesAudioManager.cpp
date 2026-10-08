@@ -239,6 +239,13 @@ public:
 // 0x000A8B23 and 0x000A8AB4 under their own address-derived owners.
 class Rva000A8B23 { public: void rva000A8B23(int loopCount); };
 class Rva000A8AB4 { public: void rva000A8AB4(void); };
+// Further +0x0C stream-holder forwarders (PinnedForwarders1830.cpp).
+struct Rva0010FFA2Packet;
+class Rva000A8B4B { public: void rva000A8B4B(int callback); };
+class Rva000A8C6E { public: void rva000A8C6E(const Rva0010FFA2Packet *packet); };
+class Rva000A8B31 { public: void rva000A8B31(float position, int arg); };
+class Rva000A8ACC { public: void rva000A8ACC(void); };
+class MilesStreamRef { public: void rva000A8AC0(void); };
 
 struct PlayingAudio {
     void *vfptr;
@@ -278,6 +285,7 @@ public:
     PlayingAudioRef(const PlayingAudioRef &other) : m_ptr(other.m_ptr) { if (m_ptr) asRefCounted()->Add_Ref(); }
     PlayingAudioRef(PlayingAudio *playing);
     ~PlayingAudioRef() { if (m_ptr) asRefCounted()->Release_Ref(); }
+    PlayingAudioRef &operator=(const PlayingAudioRef &other);  // folded at 0x00239099
     PlayingAudio *operator->(void) const { return m_ptr; }
     PlayingAudio *get(void) const { return m_ptr; }
     void set(PlayingAudio *playing)
@@ -538,6 +546,30 @@ extern "C" __declspec(dllimport) void __stdcall AIL_unlock_mutex();
 
 // Miles global-mutex scope; its out-of-line constructor is rowed at
 // 0x00050E52 and the flag-gated unlock at 0x00050E62.
+// The stream map's insert binds the folded helper at 0x004DA240 under the
+// ledger's KeyToBucketMap view (NameKeyGeneratorMapInsert.cpp).
+class NameKeyGenerator
+{
+public:
+    class KeyToBucketMap
+    {
+    public:
+        struct value_type
+        {
+            value_type(unsigned int f, void *s) : first(f), second(s) {}
+            unsigned int first;
+            void *second;
+        };
+        struct insert_result
+        {
+            void *first;
+            KeyToBucketMap *second;
+            bool inserted;
+        };
+        insert_result insert(const value_type &value);
+    };
+};
+
 class AILMutexScope {
 public:
     AILMutexScope() { AIL_lock_mutex(); m_locked = true; }
@@ -815,6 +847,8 @@ public:
     void checkForNaturalSoundCompletion(PlayingAudioRef &playing);
     // WorldBuilder name; restarts, requeues or retires a finished sound.
     void processAudioCompletion(PlayingAudioRef &completedAudio);
+    // WorldBuilder name; maps, configures and starts a stream.
+    void playAndStoreStream(PlayingAudioRef &playing, const Rva0010FFA2Packet *resumePosition);
     void rva0005EFE9(void);
     void putPlayingMusicOnStack(int viewType, int arg);
     void rva00059CE6(PlayingAudioRef &looping);
@@ -859,7 +893,7 @@ private:
     PlayingAudioList m_playingStreams;   // +0xA48
     MusicStack m_musicStack[3][2];       // +0xA4C
     MusicSystem m_activeMusicSystem[3];  // +0xB3C
-    char atB48[0xB54 - 0xB48];
+    PlayingAudioRef m_playingMusic[3];   // +0xB48, the active system's stream per view type
     _STL::vector<AudioTriggerArea> m_triggerAreas;  // +0xB54, scanned by 0x55C5D
     char atB60[0xB8C - 0xB60];
     AudioFileCache *m_audioFileCache;    // +0xB8C (WorldBuilder requestFile receiver)
@@ -1163,7 +1197,7 @@ void MilesAudioManager::transferBytesToPlayBuffer(LoopBuffer &buffer, unsigned i
 // StartAudioStream loop-count helper is the semantic donor): the loop count
 // a stream is started or restarted with. Retail takes the event in EDX and
 // reads nothing from ECX, so the fastcall's first register stays unused.
-int __fastcall getAppropriateStreamLoopCount(void *unusedEcx, const AudioEventRTS *event)
+static int __fastcall getAppropriateStreamLoopCount(void *unusedEcx, const AudioEventRTS *event)
 {
     const AudioEventInfo *info = event->m_info;
     if (!info)
@@ -1242,6 +1276,60 @@ void MilesAudioManager::processAudioCompletion(PlayingAudioRef &completedAudio)
     }
     checkForNaturalSoundCompletion(completedAudio);
     completedAudio->m_status = 1;
+}
+
+class Rva0036CA00Str;
+class Rva00058B90 { public: void rva00058B90(const Rva0036CA00Str &t); };
+class Rva00050D6C { public: int rva00050D6C(void); };
+class Rva000A8A98 { public: int rva000A8A98(void); };
+float GetGameAudioRandomValueReal(float lo, float hi, char *file, int line);
+#define MILES_AUDIO_MANAGER_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngineDevice\\Source\\MilesAudioDevice\\MilesAudioManager.cpp"
+void __stdcall setStreamCompleted(void *streamCompleted);
+
+// Retail 0x0005AADD (WorldBuilder twin 0x007A4860 names it): maps the stream
+// handle to its playing audio, sets the loop count, end callback and start
+// position, then parks music on its system's slot or stack, or queues any
+// other stream and starts or pauses it.
+void MilesAudioManager::playAndStoreStream(PlayingAudioRef &playing, const Rva0010FFA2Packet *resumePosition)
+{
+    PlayingAudio *audio = playing.get();
+    void *stream = &audio->m_at0C;
+    AudioEventInfo *const &info = audio->m_event->m_info;
+    {
+        AILMutexScope lock;
+        ((NameKeyGenerator::KeyToBucketMap *)&m_streamMap)->insert(
+            NameKeyGenerator::KeyToBucketMap::value_type(((Rva000A8A98 *)stream)->rva000A8A98(), playing.get()));
+    }
+    if (!resumePosition) {
+        ((Rva000A8B23 *)stream)->rva000A8B23(getAppropriateStreamLoopCount(0, audio->m_event.operator->()));
+    }
+    ((Rva000A8B4B *)stream)->rva000A8B4B((int)setStreamCompleted);
+    rva00053AFA(&playing);
+    if (resumePosition)
+        ((Rva000A8C6E *)stream)->rva000A8C6E(resumePosition);
+    else if (info->m_control & 4) {
+        float startPosition = GetGameAudioRandomValueReal(0.0f, 1.0f, MILES_AUDIO_MANAGER_FILE, 12958);
+        ((Rva000A8B31 *)stream)->rva000A8B31(startPosition, 0);
+    } else
+        ((Rva000A8B31 *)stream)->rva000A8B31(0.0f, 0);
+    rva000535A6(playing);
+    if (info->m_atB0 == 0) {
+        AudioEventRTS *event = audio->m_event.operator->();
+        int viewType = event->m_viewType;
+        MusicSystem musicSystem = event->m_musicSystem;
+        if (musicSystem == m_activeMusicSystem[viewType])
+            m_playingMusic[viewType] = playing;
+        else
+            ((Rva00058B90 *)&m_musicStack[viewType][musicSystem])->rva00058B90(*(const Rva0036CA00Str *)&playing);
+        return;
+    }
+    if (!info->m_channelVolumes.empty())
+        rva000581FA(*reinterpret_cast<const Rva0005BA08InfoRef *>(&info), audio->m_event->m_viewType);
+    m_playingStreams.push_back(playing);
+    if ((unsigned char)((Rva00050D6C *)playing.get())->rva00050D6C())
+        ((MilesStreamRef *)stream)->rva000A8AC0();
+    else
+        ((Rva000A8ACC *)stream)->rva000A8ACC();
 }
 
 class File;
