@@ -1,22 +1,47 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 
+// The cached audio file a handle points at; the loop buffer asks its +0x44
+// interface whether the file has finished loading (the inline twin of the
+// rowed 0x00050DBD).
+struct Rva000A89E3Ready
+{
+	virtual bool check(int v);
+};
+
 class Gen0002857E
 {
 public:
 	void handle();
 	void release();
+
+	char m_pad[0x44];
+	Rva000A89E3Ready m_ready;	// +0x44
 };
 
 class Rva00690FF0Handle
 {
 public:
+	Rva00690FF0Handle();
 	Rva00690FF0Handle(Gen0002857E *target);
 	~Rva00690FF0Handle();
+
+	Rva00690FF0Handle rva000A89E3() const;
 
 	Gen0002857E *m_target;
 };
 
-// ??0Rva00690FF0Handle@@QAE@PAVGen0002857E@@@Z present-unmatched (masked body has 4 identical retail copies; address ambiguous)
+// Retail 0x000A89E3: a new reference to the file once it is ready, else an
+// empty handle. MilesAudioManager's loop-buffer refill passes the result to
+// putFileIntoLoopBuffer (0x0005ED1C and its siblings).
+Rva00690FF0Handle Rva00690FF0Handle::rva000A89E3() const
+{
+	if (m_target == 0)
+		return Rva00690FF0Handle();
+	if (!m_target->m_ready.check(0))
+		return Rva00690FF0Handle();
+	return Rva00690FF0Handle(m_target);
+}
+
 Rva00690FF0Handle::Rva00690FF0Handle(Gen0002857E *target)
 {
 	m_target = target;

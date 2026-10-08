@@ -6264,7 +6264,6 @@ object_symbol	reverse/functions.csv	0x0007FAB3	1
 object_symbol	reverse/functions.csv	0x0007FF18	1
 object_symbol	reverse/functions.csv	0x0008B632	1
 object_symbol	reverse/functions.csv	0x000A8893	1
-object_symbol	reverse/functions.csv	0x000A8A1F	1
 object_symbol	reverse/functions.csv	0x000AACAB	1
 object_symbol	reverse/functions.csv	0x000ABC25	1
 object_symbol	reverse/functions.csv	0x000AF1DD	1
@@ -37874,7 +37873,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva005FEA62VirtualValue.cpp	Rva0
 present_unmatched	Code/GameEngine/Source/Common/Rva00601B30StringIndexedRecords.cpp	allocator<Rva00601A3AElement>::deallocate	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00601B30StringIndexedRecords.cpp	operator==	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00604A5FCtor.cpp	1Rva00604A5F@@UAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00690FF0Handle.cpp	0Rva00690FF0Handle@@QAE@PAVGen0002857E@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00690FF0Handle.cpp	0Rva006910F0Handle@@QAE@PAVGen0002857E@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00690FF0Handle.cpp	4Rva00691140Handle@@QAEAAV0@ABV0@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva006C3CC0Cluster.cpp	Rva006C17B0::~Rva006C17B0	1
