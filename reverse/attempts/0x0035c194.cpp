@@ -1,13 +1,14 @@
-// ?rva0035C194@Shell@@QAEE_N0@Z
-// partial score=0.98 date=2026-10-02
-// cl: /O1 /DNDEBUG /MD /EHsc
+// ?showShellMap@Shell@@QAE_N_N0@Z
+// partial score=0.85 date=2026-10-09
+// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
 // ?top@Shell@@QAEPAVWindowLayout@@XZ @ 0x0035BD7E (13B). Donor ZH GeneralsMD Shell.h top plus BFME1 Shell.cpp top; caller Shell push @0x0035C74A calls top then hidden check then runShutdown slot 3; prev Rva0035BD7BGet next GadgetTextEntryValidateCharacter.
+class AsciiString;
 class WindowLayout
 {
 public:
 	virtual void runInit(void *userData) = 0;
 	virtual void *deleteInstance(int flags) = 0;
-	virtual void s02() = 0;
+	virtual void runUpdate(void *userData) = 0;
 	virtual void s03(bool *flag) = 0;
 	virtual void s04() = 0;
 	virtual void s05() = 0;
@@ -15,6 +16,7 @@ public:
 	virtual void s07() = 0;
 	virtual void destroyWindows() = 0;
 	bool isHidden() { return m_hidden; }
+	AsciiString getFilename();
 private:
 	char _pad14[0x10];
 	bool m_hidden;
@@ -75,8 +77,13 @@ public:
 	virtual void a07() = 0;
 	virtual void a08() = 0;
 	virtual void reset() = 0;
+	virtual void update() = 0;
 	void registerGameWindow(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int ms, unsigned int delayMs);
 	void reverseAnimateWindow();
+	Bool isFinished() { return m_isFinished; }
+private:
+	char m_pad04[0x15 - 4];
+	Bool m_isFinished; // +0x15
 };
 
 class GameEngineDeletingBase
@@ -99,6 +106,14 @@ public:
 	~Rva002007D5();
 };
 
+struct GlobalData
+{
+	unsigned char _pad[0xB00];
+	Bool m_animateWindows;
+};
+
+extern GlobalData *TheGlobalData;
+
 class ShellMenuSchemeManager;
 
 template <typename T> struct BfmeStringData
@@ -119,35 +134,27 @@ template <typename T> class StringBase
 public:
 	StringBase() : m_data(0) {}
 	~StringBase() { releaseBuffer(); }
-	bool isEmpty() const;
 	void set(const T *text);
 	void set(const StringBase<T> &other);
 };
+
+// Existing public narrow teardown spelling resolves to the verified
+// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
+template <> StringBase<char>::~StringBase();
+#pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
+
 
 class AsciiString : public StringBase<char>
 {
 public:
 	AsciiString() {}
 	AsciiString(const AsciiString &other) : StringBase<char>(other) {}
+	AsciiString(const char *text) : StringBase<char>(text) {}
 	~AsciiString() {}
 	bool isEmpty() const { return m_data == 0 || m_data->length == 0; }
+	int compareNoCase(const AsciiString &s) const throw();
 	AsciiString &operator=(const AsciiString &other) { set(other); return *this; }
 };
-
-struct GlobalData
-{
-	unsigned char _pad_abc[0xABC];
-	AsciiString m_abc; // +0xABC
-	AsciiString m_ac0; // +0xAC0
-	unsigned char _pad_aec[0x28]; // +0xAC4..0xAEC
-	AsciiString m_aec; // +0xAEC
-	Bool m_af0; // +0xAF0
-	unsigned char _pad_b00[0xB00 - 0xAF1];
-	Bool m_animateWindows; // +0xB00
-};
-
-extern GlobalData *TheGlobalData;
-extern GlobalData *TheWritableGlobalData;
 
 class GameWindowManager
 {
@@ -189,66 +196,6 @@ public:
 
 extern GameWindowManager *TheWindowManager;
 
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int value);
-};
-
-class MessageStream
-{
-public:
-	virtual void m00() = 0;
-	virtual void m04() = 0;
-	virtual void m08() = 0;
-	virtual void m0C() = 0;
-	virtual void m10() = 0;
-	virtual void m14() = 0;
-	virtual void m18() = 0;
-	virtual void m1C() = 0;
-	virtual void m20() = 0;
-	virtual void m24() = 0;
-	virtual void m28() = 0;
-	virtual void m2C() = 0;
-	virtual void m30() = 0;
-	virtual void m34() = 0;
-	virtual void m38() = 0;
-	virtual void m3C() = 0;
-	virtual void m40() = 0;
-	virtual void m44() = 0;
-	virtual GameMessage *m48(int value) = 0;
-};
-
-extern MessageStream *MessageStreamSubsystem;
-
-struct Rva0023D607Holder
-{
-	int _pad00[4];
-	int m_10; // +0x10
-};
-
-extern Rva0023D607Holder *g_Rva0023D607Holder;
-
-class Display;
-extern Display *TheDisplay;
-
-class W3DDisplay
-{
-public:
-	void rva0025D2F6();
-};
-
-class GameLogic
-{
-public:
-	char _pad00[0x110];
-	int m_110; // +0x110
-};
-
-extern GameLogic *TheGameLogic;
-
-void __cdecl InitGameLogicRandom(unsigned int value);
-
 class Shell : public GameEngineDeletingBase
 {
 private:
@@ -256,8 +203,8 @@ private:
 	int m_screenCount; // +0x4C
 	Bool m_pendingPush; // +0x50
 	Bool m_pendingPop; // +0x51
-	Bool m_52; // +0x52
-	Bool m_53; // +0x53
+	Bool m_byte52; // +0x52
+	Bool m_lowLODBackdropDone; // +0x53
 	Bool m_clearBackground; // +0x54
 	unsigned char _pad5557[3];
 	AsciiString m_pendingPushName; // +0x58
@@ -277,23 +224,63 @@ protected:
 	void doPush(AsciiString layoutFile);
 public:
 	virtual ~Shell();
+	virtual void update();
 	WindowLayout *top();
+	Bool rva0035BD5D();
+	void rva0035C2B9();
+	WindowLayout *findScreenByFilename(AsciiString filename);
 	void registerWithAnimateManager(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int delayMS);
-	void rva0035BE8F();
+	void reverseAnimatewindow();
+	Bool isAnimFinished();
+	Bool showShellMap(Bool useShellMap, Bool restartShellGame);
 	void loadScheme(AsciiString name);
 	void rva0035BEC7();
 	void rva0035BF0E();
 	void rva0035C16A();
-	unsigned char rva0035C194(bool a, bool b);
 	void shutdownComplete(WindowLayout *screen, Bool impendingPush);
 	void push(AsciiString filename, bool shutdownImmediate);
+	WindowLayout *getSaveLoadMenuLayout();
+	WindowLayout *getPopupReplayLayout();
 };
 
 class ShellMenuSchemeManager
 {
 public:
 	void setShellMenuScheme(AsciiString name);
+	void update();
 };
+
+// BFME 2's Shell::update additions: the low-LOD shell map backdrop and the
+// transition it fades in with.
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
+class Image;
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+extern ImageCollection *TheMappedImageCollection;
+class BfmeStrVM0
+{
+public:
+	void rva0025C72C(int image, int arg, float x0, float y0, float x1, float y1);
+};
+struct ShellDisplayView
+{
+	unsigned char m_pad000[0x114];
+	Bool m_byte114;
+};
+extern ShellDisplayView *TheDisplay;
+class GameWindowTransitionsHandler
+{
+public:
+	virtual void t00(); virtual void t01(); virtual void t02(); virtual void t03();
+	virtual void t04(); virtual void t05(); virtual void t06(); virtual void t07();
+	virtual void t08(); virtual void t09();
+	virtual void slot0A();
+	void reverse(AsciiString groupName);
+};
+extern GameWindowTransitionsHandler *TheTransitionHandler;
 
 WindowLayout *Shell::top()
 {
@@ -301,6 +288,88 @@ WindowLayout *Shell::top()
 		return 0;
 	return m_screenStack[m_screenCount - 1];
 }
+
+// ?update@Shell@@UAEXXZ @ 0x0035C566 (334B), slot 10 of the Shell vftable
+// 0x00816208 (slot 9 is the rowed reset-like rva0035C16A). Zero Hour's timed
+// layout update (30 per second via a static timeGetTime stamp), without the
+// m_background teardown; the scheme manager's update is the empty folded
+// 0x000B3FD0. BFME 2 then shows the "ShellMapLowLOD" backdrop once when the
+// shell map is off, and finally runs 0x0035BD5D / 0x0035C2B9 (unrowed Shell
+// members, pinned from this body) while the shell map is off.
+void Shell::update()
+{
+	static int lastUpdate = timeGetTime();
+	static const int shellUpdateDelay = 30;  // try to update 30 frames a second
+	int now = timeGetTime();
+
+	//
+	// we keep the shell updates fixed in time so that we can write consitent animation
+	// speeds during the screen update functions
+	//
+	if( now - lastUpdate >= ((1000.0f / shellUpdateDelay ) - 1) )
+	{
+
+		// run the updates for every window layout on the stack
+		for( int i = m_screenCount - 1; i >= 0; i-- )
+			m_screenStack[ i ]->runUpdate( 0 );
+
+		// Update the animate window manager
+		m_animateWindowManager->update();
+
+		m_schemeManager->update();
+
+		// mark last time we ran the updates
+		lastUpdate = now;
+
+	}  // end if
+
+	if( !m_lowLODBackdropDone && m_byte52 && !m_shellMapOn )
+	{
+		m_lowLODBackdropDone = true;
+		AsciiString name( "ShellMapLowLOD" );
+		const Image *image = TheMappedImageCollection->findImageByName( name );
+		if( image )
+		{
+			TheDisplay->m_byte114 = true;
+			((BfmeStrVM0 *)TheDisplay)->rva0025C72C( (int)image, 0, 0.0f, 0.0f, 1.0f, 1.0f );
+			TheTransitionHandler->reverse( AsciiString( "FadeInGameMovie_NoAudio" ) );
+			TheTransitionHandler->slot0A();
+		}
+	}
+
+	if( !m_shellMapOn && !rva0035BD5D() )
+		rva0035C2B9();
+
+}  // end update
+
+// ?findScreenByFilename@Shell@@QAEPAVWindowLayout@@VAsciiString@@@Z @ 0x0035C6B4
+// (150B). Zero Hour's body: walk all sixteen stack slots from +0x0C and return
+// the first screen whose filename (WindowLayout::getFilename, a by-value
+// AsciiString getter folded at 0x00564DF2) compares equal ignoring case
+// (AsciiString::compareNoCase 0x00006A00). No direct reference in retail.
+// Retail keeps no unwind state across the compareNoCase call while the
+// getFilename temporary is live, so the view declares that leaf throw().
+WindowLayout *Shell::findScreenByFilename(AsciiString filename)
+{
+
+	if (filename.isEmpty())
+		return 0;
+
+	// search screen list
+	WindowLayout *screen;
+	int i;
+	for( i = 0; i < 16; i++ )
+	{
+
+		screen = m_screenStack[ i ];
+		if( screen && filename.compareNoCase(screen->getFilename()) == 0 )
+			return screen;
+
+	}  // end for i
+
+	return 0;
+
+}  // end findScreenByFilename
 
 // ?linkScreen@Shell@@IAEXPAVWindowLayout@@@Z @ 0x0035BD8B (26B). Donor BFME1 Shell.cpp linkScreen plus ZH Shell.h protected linkScreen; callee of Shell doPush path; prev top next unlink.
 void Shell::linkScreen(WindowLayout *screen)
@@ -392,12 +461,12 @@ void Shell::registerWithAnimateManager(GameWindow *win, AnimTypes animType, Bool
 	m_animateWindowManager->registerGameWindow(win, animType, needsToFinish, 500, delayMS);
 }
 
-// ?rva0035BE8F@Shell@@QAEXXZ @0x0035BE8F 27B
+// ?reverseAnimatewindow@Shell@@QAEXXZ @0x0035BE8F 27B
 // Guarded tail reverse: null manager or disabled animateWindows returns,
 // else tail-jmps to AnimateWindowManager::reverseAnimateWindow.
 // Evidence: ecx-first thiscall ret; global TheWritableGlobalData flag +0xB00;
 // rowed callee 0x0053B417; callers 0x0050CF0E 0x0050CED9; Shell +0x60.
-void Shell::rva0035BE8F()
+void Shell::reverseAnimatewindow()
 {
 	if (!m_animateWindowManager)
 		return;
@@ -457,55 +526,6 @@ void Shell::rva0035C16A()
 	return m_animateWindowManager->reset();
 }
 
-// ?rva0035C194@Shell@@QAEEN_N@Z @ 0x0035C194 (293B). Shell init-like with MessageStream Display GameLogic globals and m_52/m_53.
-// Evidence: callees g_Rva0023D607Holder MessageStreamSubsystem TheWritableGlobalData isEmpty set InitGameLogicRandom TheGameLogic TheDisplay rva0025D2F6 rva0035BD3F appendIntegerArgument rowed; members +0x52 +0x53; callers 7 unclaimed.
-// ?rva0035C194@Shell@@QAEEN_N@Z present-unmatched
-unsigned char Shell::rva0035C194(bool a, bool b)
-{
-	if (a) {
-		if (g_Rva0023D607Holder != 0 && g_Rva0023D607Holder->m_10 != 0)
-			MessageStreamSubsystem->m48(0x22);
-		if (TheWritableGlobalData->m_af0 != 0)
-			m_52 = 0;
-		else
-			m_52 = 1;
-	} else {
-		m_52 = 0;
-	}
-	if (!TheWritableGlobalData->m_abc.StringBase<char>::isEmpty())
-		return 0;
-	if (TheGameLogic == 0)
-		return 0;
-	m_53 = false;
-	if (a) {
-		if (TheWritableGlobalData->m_af0 == 0)
-			goto elseBranch;
-		((W3DDisplay *)TheDisplay)->rva0025D2F6();
-		((Rva0035BD3F *)this)->rva0035BD3F();
-		if (TheGameLogic->m_110 == 4) {
-			if (!b)
-				return 1;
-		} else if (TheGameLogic->m_110 == 9) {
-		} else {
-			GameMessage *msg1 = MessageStreamSubsystem->m48(0x1D);
-			(void)msg1;
-		}
-		TheWritableGlobalData->m_ac0.set(TheWritableGlobalData->m_aec);
-		InitGameLogicRandom(0);
-		GameMessage *msg2 = MessageStreamSubsystem->m48(0x1E);
-		msg2->appendIntegerArgument(4);
-		return 1;
-	}
-elseBranch:
-	((W3DDisplay *)TheDisplay)->rva0025D2F6();
-	((Rva0035BD3F *)this)->rva0035BD3F();
-	if (TheGameLogic->m_110 != 4)
-		return 0;
-	GameMessage *msg3 = MessageStreamSubsystem->m48(0x1D);
-	(void)msg3;
-	return 0;
-}
-
 // ??1Shell@@UAE@XZ @ 0x0035C087 (227B). Shell dtor: pops screens via top/rva0035BF0E loop then animate deleteInstance+delete scheme delete layouts destroy+deleteInstance+delete audio string base. Evidence: vtable 0x00816208 callers 0x0035C54A deleting dtor callees top rva0035BF0E scheme 0x002007D5 releaseBuffer 0x00036410 base 0x001B4E74 audio 0x0035BD3F BFME1 ShellDestructor donor.
 inline Shell::~Shell()
 {
@@ -535,16 +555,10 @@ inline Shell::~Shell()
 
 // ?TheGlobalData@@3PAUGlobalData@@A: the global at this VA is ?TheGlobalData@@3PAVGlobalData@@A; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?TheGlobalData@@3PAUGlobalData@@A=?TheGlobalData@@3PAVGlobalData@@A")
-#pragma comment(linker, "/alternatename:?W3DGCData00DFE758@@3PAXA=?TheGlobalData@@3PAVGlobalData@@A")
-#pragma comment(linker, "/alternatename:?TheRva00DFE758@@3PAVRva00DFE758Holder@@A=?TheGlobalData@@3PAVGlobalData@@A")
 #pragma comment(linker, "/alternatename:?g_Va009FE758@@3PAVGlobal9FE758@@A=?TheGlobalData@@3PAVGlobalData@@A")
-#pragma comment(linker, "/alternatename:?g_Rva009FE758@@3PAURva009FE758Obj@@A=?TheGlobalData@@3PAVGlobalData@@A")
 #pragma comment(linker, "/alternatename:?g_00DFE758@@3PAURva00DFE758Holder@@A=?TheGlobalData@@3PAVGlobalData@@A")
 #pragma comment(linker, "/alternatename:?TheWritableGlobalData@@3PAUGlobalData@@A=?TheGlobalData@@3PAVGlobalData@@A")
-#pragma comment(linker, "/alternatename:?g_Rva0023DCCEGlobal@@3PAURva0023DCCEGlobal@@A=?TheGlobalData@@3PAVGlobalData@@A")
 #pragma comment(linker, "/alternatename:?g_rampageGlobal@@3PAUGlobalWithB8@@A=?TheGlobalData@@3PAVGlobalData@@A")
-#pragma comment(linker, "/alternatename:?g_Rva0023D339A@@3PAURva0023D339A@@A=?TheGlobalData@@3PAVGlobalData@@A")
-#pragma comment(linker, "/alternatename:?TheGameLogic@@3PAUGameLogicMirror@@A=?TheGlobalData@@3PAVGlobalData@@A")
 // ?TheGlobalData@@3PAUGlobalData@@A: the global at VA 0xdfe758 is ?TheGlobalData@@3PAVGlobalData@@A.
 #pragma comment(linker, "/alternatename:?TheGlobalData@@3PAUGlobalData@@A=?TheGlobalData@@3PAVGlobalData@@A")
 #pragma inline_depth(0)
@@ -554,3 +568,120 @@ void bfmeEmitShellTop(Shell *p)
 	p->Shell::~Shell();
 }
 #pragma inline_depth()
+
+// ?getSaveLoadMenuLayout@Shell@@QAEPAVWindowLayout@@XZ @0x0035C4E6 50B and
+// ?getPopupReplayLayout@Shell@@QAEPAVWindowLayout@@XZ @0x0035C518 50B: Zero
+// Hour's lazily created popups (Shell.cpp), "Menus/PopupSaveLoad.wnd" at
+// +0x70 and "Menus/PopupReplay.wnd" at +0x74 through winCreateLayout (slot
+// 32). The second name is the layout's, Zero Hour's getPopupReplayLayout.
+WindowLayout *Shell::getSaveLoadMenuLayout()
+{
+	if (m_saveLoadMenuLayout == 0)
+		m_saveLoadMenuLayout = TheWindowManager->winCreateLayout("Menus/PopupSaveLoad.wnd");
+	return m_saveLoadMenuLayout;
+}
+
+WindowLayout *Shell::getPopupReplayLayout()
+{
+	if (m_popupReplayLayout == 0)
+		m_popupReplayLayout = TheWindowManager->winCreateLayout("Menus/PopupReplay.wnd");
+	return m_popupReplayLayout;
+}
+
+// ?isAnimFinished@Shell@@QAE_NXZ @0x0035BEAA 29B: Zero Hour's
+// Shell::isAnimFinished, the animate manager's +0x15 finished flag while
+// animateWindows (+0xB00) is on, else TRUE.
+Bool Shell::isAnimFinished()
+{
+	if (m_animateWindowManager && TheGlobalData->m_animateWindows)
+		return m_animateWindowManager->isFinished();
+	return 1;
+}
+
+// ?showShellMap@Shell@@QAE_N_N0@Z @0x0035C194 293B: Zero Hour's
+// Shell::showShellMap reshaped by BFME 2. Target evidence: the flags at
+// +0x52 (set only for a requested map while the shell map is off; the
+// linear campaign manager's +0x10 first queues message 0x22) and +0x53,
+// TheGlobalData's initial file +0xABC, pending file +0xAC0, shell map name
+// +0xAEC and shell map flag +0xAF0, TheDisplay's 0x0025D2F6 and Shell's
+// 0x0035BD3F on both paths, TheGameLogic's game mode at +0x110 (GAME_SHELL 4,
+// 9 skips the clear), TheMessageStream's appendMessage (slot 18) with
+// MSG_CLEAR_GAME_DATA 0x1D and MSG_NEW_GAME 0x1E, and InitGameLogicRandom.
+// It returns whether a shell game is (or stays) running; the second flag
+// restarts one already running.
+struct ShellMapGlobalData
+{
+	unsigned char _pad[0xABC];
+	AsciiString m_initialFile; // +0xABC
+	AsciiString m_pendingFile; // +0xAC0
+	unsigned char _padAC4[0xAEC - 0xAC4];
+	AsciiString m_shellMapName; // +0xAEC
+	Bool m_shellMapOn; // +0xAF0
+};
+class GameMessage
+{
+public:
+	void appendIntegerArgument(int arg);
+};
+class ShellMessageStream
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+	virtual void s16(); virtual void s17();
+	virtual GameMessage *appendMessage(int type);
+};
+extern ShellMessageStream *TheMessageStream;
+struct ShellLinearCampaignManager
+{
+	unsigned char _pad[0x10];
+	int m_10;
+};
+extern ShellLinearCampaignManager *TheLinearCampaignManager;
+class W3DDisplay
+{
+public:
+	void rva0025D2F6();
+};
+struct ShellGameLogic
+{
+	unsigned char _pad[0x110];
+	int m_gameMode; // +0x110
+};
+extern ShellGameLogic *TheGameLogic;
+void InitGameLogicRandom(unsigned int seed);
+#define TheShellMapGlobalData ((ShellMapGlobalData *)TheGlobalData)
+
+Bool Shell::showShellMap(Bool useShellMap, Bool restartShellGame)
+{
+	if (useShellMap && TheLinearCampaignManager && TheLinearCampaignManager->m_10)
+		TheMessageStream->appendMessage(0x22);
+	m_byte52 = useShellMap && !TheShellMapGlobalData->m_shellMapOn;
+
+	if (!TheShellMapGlobalData->m_initialFile.isEmpty() || !TheGameLogic)
+		return false;
+
+	m_lowLODBackdropDone = false;
+	if (useShellMap && TheShellMapGlobalData->m_shellMapOn)
+	{
+		((W3DDisplay *)TheDisplay)->rva0025D2F6();
+		((Rva0035BD3F *)this)->rva0035BD3F();
+		if (TheGameLogic->m_gameMode == 4 && !restartShellGame)
+			return true;
+		if (TheGameLogic->m_gameMode != 9)
+			TheMessageStream->appendMessage(0x1D);
+		TheShellMapGlobalData->m_pendingFile = TheShellMapGlobalData->m_shellMapName;
+		InitGameLogicRandom(0);
+		GameMessage *msg = TheMessageStream->appendMessage(0x1E);
+		msg->appendIntegerArgument(4);
+		return true;
+	}
+
+	((W3DDisplay *)TheDisplay)->rva0025D2F6();
+	((Rva0035BD3F *)this)->rva0035BD3F();
+	if (TheGameLogic->m_gameMode == 4)
+		TheMessageStream->appendMessage(0x1D);
+	return false;
+}
