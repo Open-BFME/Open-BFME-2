@@ -61,6 +61,39 @@ void Rva001F8384Write(
 
 namespace FXParticleSystem {
 
+// Target identity: exported LifeEvent ModuleTemplate vtable RVA 0x81C198
+// points to retail 0x56435C in slot 3. BFME 1 ba7ddda7e8's
+// fx_particle_system_bulk.cpp LifeEventModuleTemplate::writeINI supplies the
+// purpose and field order; the BFME 2 accesses independently prove the offsets.
+// The first eight bytes hold the two category-interface vptrs. The info
+// subobject starts at +0xC; its event name and random variable are at +0x10/+0x14.
+class LifeEventModuleTemplate {
+public:
+	virtual ~LifeEventModuleTemplate();
+	virtual void moduleSlot1();
+	virtual void moduleSlot2();
+	virtual void writeINI(File &file, unsigned int flags) const;
+private:
+	char m_pad4[4];
+	bool m_perParticle;
+	bool m_killAfterEvent;
+	char m_padA[6];
+	AsciiString m_eventFX;
+	S001F87D5 m_eventTime;
+};
+
+void LifeEventModuleTemplate::writeINI(File &file, unsigned int flags) const
+{
+	Rva00564284WriteHeader(this, &file, &flags);
+	_STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
+	Rva001F8B5FWrite(oss, flags, "EventTime", m_eventTime);
+	Rva001F82EEWrite(oss, flags, "EventFX", m_eventFX);
+	Rva001F8384Write(oss, flags, "PerParticle", &m_perParticle);
+	Rva001F8384Write(oss, flags, "KillAfterEvent", &m_killAfterEvent);
+	Rva001F458BWrite(file, (const Rva001F458BText &)oss.str());
+	Rva003AFC6BWrite(&file, &flags);
+}
+
 class TerrainCollisionModuleTemplate {
 public:
 	void rva0056499B(File *file, unsigned int flags);
