@@ -61,10 +61,13 @@ public:
     char opaque00[0x64];
     AsciiString name;
 };
+template<int N> class BitFlags;
+class Player;
 class ObjectFilter
 {
 public:
     void DoXfer(Xfer *);
+    bool testKindOf(const BitFlags<218> *, const Player *, const Player *);
     static void rva003611EFResolveNames(ObjectFilter *);
     void DoNamesXfer(Xfer *, _STL::vector<AsciiString> *);
     void DoTemplatesXfer(Xfer *, _STL::vector<ThingTemplate *> *, _STL::vector<ThingTemplate *> *);
@@ -102,7 +105,11 @@ void ObjectFilter::DoTemplatesXfer(Xfer *xfer,
 }
 
 // Existing verified 218-bit flag provider; only its member ABI is used here.
-template<int N> class BitFlags { public: void xfer(Xfer *); };
+template<int N> class BitFlags {
+public:
+ void xfer(Xfer *); bool any() const; bool test(const void *) const;
+ bool testSetAndClear(const BitFlags &, const BitFlags &) const;
+};
 // Existing constructor/destructor/equality own this nonvirtual 0x94-byte
 // interned record. Offset views below come from this retail transfer and are
 // consistent with those providers; no new record identity is asserted.
@@ -166,4 +173,58 @@ void ObjectFilter::DoXfer(Xfer *xfer)
     }
     if (version.current >= 2)
         xfer->xferInt(reinterpret_cast<int *>(data->bytes + 0x90));
+}
+
+class Team;
+enum Relationship { Relationship0, Relationship1, Relationship2 };
+// This is a measured field view, not an assertion of the template's class name.
+struct FilterPlayerTemplateView { char unknown00[0x1bc]; bool alignment; };
+class Player {
+public:
+ Relationship getRelationship(const Team *) const;
+ char unknown00[0x34]; FilterPlayerTemplateView *playerTemplate;
+ char unknown38[0x54-0x38]; int playerID;
+ char unknown58[0x2ec-0x58]; Team *team;
+};
+extern BitFlags<116> KINDOFMASK_NONE;
+// Native361B12..361CA5 and WB ED3050 ObjectFilter::testKindOf. The existing
+// 69/116 mask-provider spellings both operate on seven native words. Reload
+// relationship bits after the player query; its call may mutate shared state.
+// Pointer/const spelling is a local ABI view of the three argument words.
+bool ObjectFilter::testKindOf(const BitFlags<218> *kindOf, const Player *player, const Player *context)
+{
+ if(!kindOf) return false;
+ if(m_id >= (g_validityEnd-g_validityBegin)/(int)sizeof(Rva00360F55)) return false;
+ if(m_id == -1) m_id=Rva00361790(&Rva00360F55());
+ Rva00360F55 *data=reinterpret_cast<Rva00360F55*>(g_validityBegin)+m_id;
+ int alignment=*reinterpret_cast<int*>(data->bytes+0x90);
+ if(alignment) {
+  bool flag=player->playerTemplate->alignment;
+  switch(alignment) {
+   case 1: if(!flag) return false; break;
+   case 2: if(flag) return false; break;
+  }
+ }
+ 
+ if((*reinterpret_cast<int*>(data->bytes+0x84))) {
+  if(!player || !context) return false;
+  switch(context->getRelationship(player->team)) {
+   case Relationship2:
+    if(!((*reinterpret_cast<int*>(data->bytes+0x84))&1) && !(context->playerID==player->playerID && ((*reinterpret_cast<int*>(data->bytes+0x84))&8))) return false;
+    break;
+   case Relationship0: if(!((*reinterpret_cast<int*>(data->bytes+0x84))&2)) return false; break;
+   case Relationship1: if(!((*reinterpret_cast<int*>(data->bytes+0x84))&4)) return false; break;
+   default: return false;
+  }
+ }
+ BitFlags<218> *reject=reinterpret_cast<BitFlags<218>*>(data->bytes+0x64);
+ if(reject->any() && reinterpret_cast<BitFlags<69>*>(reject)->test(kindOf)) return false;
+ int &mode=*reinterpret_cast<int*>(data->bytes+0x80);
+
+ switch(mode) {
+  case 2: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(data->bytes+0x48); if(require->any() && reinterpret_cast<BitFlags<69>*>(require)->test(kindOf)) return true; break; }
+  case 1: { BitFlags<218> *require=reinterpret_cast<BitFlags<218>*>(data->bytes+0x48); if(require->any() && reinterpret_cast<const BitFlags<116>*>(kindOf)->testSetAndClear(*reinterpret_cast<BitFlags<116>*>(require),KINDOFMASK_NONE)) return true; break; }
+  case 0: mode=3; break;
+ }
+ bool result=mode==3; return result;
 }
