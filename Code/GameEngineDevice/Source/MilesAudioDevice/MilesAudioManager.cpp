@@ -400,6 +400,7 @@ public:
     void rva00055A58(int viewType, int musicSystem, int arg, int flag);
     void rva00055B40(int viewType, int musicSystem, int arg);
     void rva000567F4(int viewType, int musicSystem, int arg);
+    void rva000568CE(int viewType, int musicSystem, int arg);
     Rva00051107AudioRequest *rva00051107(void);
     void onPlayingAudioDeleted(PlayingAudio &playingAudioBeingDeleted);
     void releaseMilesHandles(PlayingAudio &playing);
@@ -878,6 +879,21 @@ void MilesAudioManager::rva000567F4(int viewType, int musicSystem, int arg)
     MilesMutexGuard guard(&m_mutex, 0);
     Rva00051107AudioRequest *request = rva00051107();
     request->m_request = 7;
+    request->m_at10 = arg == 0;
+    request->m_pendingEvent.rva00053D26(
+        reinterpret_cast<BfmePoolHolder88 *>(new Rva0051D93(OpaqueRefElement4(), 0)));
+    ((Rva002D94CE *)request->m_pendingEvent.operator->())->rva002D94CE(viewType);
+    request->m_pendingEvent->m_musicSystem = (MusicSystem)musicSystem;
+    m_audioRequests.push_back(request);
+}
+
+// Target 0x000568CE: request-5 twin of the matched request-2 member.
+// Retail preserves the same calls, member offsets, argument ABI and EH states.
+void MilesAudioManager::rva000568CE(int viewType, int musicSystem, int arg)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    Rva00051107AudioRequest *request = rva00051107();
+    request->m_request = 5;
     request->m_at10 = arg == 0;
     request->m_pendingEvent.rva00053D26(
         reinterpret_cast<BfmePoolHolder88 *>(new Rva0051D93(OpaqueRefElement4(), 0)));
