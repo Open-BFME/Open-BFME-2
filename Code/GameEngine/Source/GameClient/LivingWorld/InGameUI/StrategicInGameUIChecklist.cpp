@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /DNDEBUG /MD /EHsc
 //
 // StrategicInGameUI::Checklist (WorldBuilder StrategicInGameUIChecklist.cpp).
 // Target facts for AddItem 0x005CD0C2 (thiscall, ret 4): hands the new
@@ -61,6 +61,16 @@ public:
 };
 class Rva005CB26A { public: int rva005CB26A(); };
 class Rva005CCCD0 { public: void rva005CCCFC(); };
+class ChecklistUIItemNative {
+public:
+ // Native binding calls folded vcall thunks at slots 1/3/5/7/9. Taking
+ // these virtual member pointers emits their existing compiler thunk names.
+ // WB15B3410 proves the listener/text/importance/check/age operations.
+ virtual void destroy(); virtual void bindListener(void*); virtual void unused2();
+ virtual void setText(void*); virtual void unused4(); virtual void setImportance(int);
+ virtual void unused6(); virtual void setCheck(bool); virtual void unused8(); virtual void age();
+};
+class Rva005CC9CB { public: Rva005CC9CB *rva005CC9CB(Rva005CC9CB*); };
 namespace StrategicInGameUI
 {
 class ChecklistItem
@@ -78,6 +88,8 @@ public:
 	void rva005CCA0B(const Rva005D1A87Ref &);
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
  virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void updateNative();
+ ChecklistUIItemNative *uiItem;
+ char text[4]; int importance; char unknown10[0x11]; bool checked; bool noAge;
 };
 
 struct ChecklistItemRef
@@ -202,4 +214,16 @@ Rva005D1A87Ref Rva005D1A87UI::rva005D1A87()
 {
  ChecklistTempRef result=createNativeItem();
  return Rva005D1A87Ref(result.ptr);
+}
+
+// Native5CCA0B..5CCA57: bind the counted UI item at+4 then initialize its
+// listener and presentation state. G7 preserves native's MOV AL boolean ABI.
+void StrategicInGameUI::ChecklistItem::Impl::rva005CCA0B(const Rva005D1A87Ref &item)
+{
+ reinterpret_cast<Rva005CC9CB*>(&uiItem)->rva005CC9CB(reinterpret_cast<Rva005CC9CB*>(const_cast<Rva005D1A87Ref*>(&item)));
+ (uiItem->*&ChecklistUIItemNative::bindListener)(this);
+ (uiItem->*&ChecklistUIItemNative::setText)(text);
+ (uiItem->*&ChecklistUIItemNative::setImportance)(importance);
+ (uiItem->*&ChecklistUIItemNative::setCheck)(checked);
+ if(!noAge) (uiItem->*&ChecklistUIItemNative::age)();
 }

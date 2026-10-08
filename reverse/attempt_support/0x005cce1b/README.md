@@ -47,3 +47,13 @@ order. No assembly, new pin, or alias was introduced. The entire home passes
 6/6 body checks, and all three EH-bearing bodies pass EXACT, including the
 factory's two lifetime states. Evidence: build/checklist-create-item-add-match.txt
 and build/checklist-create-item-eh.json.
+
+The remaining native binding at 0x005CCA0B also passes all 76 bytes. WB
+0x015B3410 identifies the checklist item implementation through its source
+path, binding assertions and five presentation operations. The new body uses
+real virtual member pointers for slots 1/3/5/7/9; MSVC emits the existing folded
+vcall symbols, avoiding the old bank's unrelated AnimateWindow cast and three
+alias bindings. G7 fixes the previous one-byte boolean-load blocker while
+preserving all six siblings. The home passes 7/7, EH remains EXACT 3/3 and the
+declaration gate is silent. The old 0.97 bank was cleared by add_match.
+Evidence: build/checklist-bind-g7-diff.txt and the official admission output.
