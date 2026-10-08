@@ -151,6 +151,25 @@
 // string via rowed StringBase compare 0x000069D6. BFME 2 differs from the
 // donor in the vtable slots and the Object name offset; the loop re-reads
 // end() each pass, unlike the donor's hoisted end iterator.
+//
+// ?evaluateNamedReachedWaypointsEnd@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E992C 243B
+// BFME 1 donor: ScriptConditionsNamedUnit.cpp, same name and shape (BFME 2
+// passes the Parameter itself to the rowed getUnitNamed 0x003588E7).
+// Target evidence: jump-table case 34 calls 0x003E992C, which
+// initConditionTemplates names NAMED_REACHED_WAYPOINTS_END (unit, waypoint
+// path). The object's AI (Object+0x258) supplies the completed waypoint at
+// +0x13C, whose three path labels come back by value from the rowed
+// getters 0x0027F5A6, 0x0027F5C1 and 0x0027F5DC and are compared with a copy
+// of the path name; the copy's unwind state uses handler 0x007834D3.
+//
+// ?evaluateTeamReachedWaypointsEnd@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E9A1F 331B
+// Zero Hour source, verbatim apart from the view types and the path-label
+// casts. Target evidence:
+// jump-table case 35 calls 0x003E9A1F, which initConditionTemplates names
+// TEAM_REACHED_WAYPOINTS_END (team, waypoint path). The team comes from the
+// rowed getTeamNamed 0x003584E9 and its members from iterate_TeamMemberList
+// 0x00263864 and advance 0x00263526; each member is tested as in the named
+// condition, with every label compared before the found flag is read.
 #include <vector>
 #include <list>
 #include "ascii_string.h"
@@ -286,6 +305,38 @@ public:
 	bool rva003977F6(ObjectTypes *types);
 };
 
+// The rowed path-label getters (Waypoint::getPathLabel1..3), each named for
+// its address and called through a cast because an inline forwarder
+// returning the string is not expanded under /EHs (as in
+// Map/TerrainLogicWaypointLookups.cpp).
+class Rva0027F5A6
+{
+public:
+	AsciiString rva0027F5A6();
+};
+class Rva0027F5C1
+{
+public:
+	AsciiString rva0027F5C1();
+};
+class Rva0027F5DC
+{
+public:
+	AsciiString rva0027F5DC();
+};
+
+class Waypoint;
+
+// AIUpdateInterface keeps the last completed waypoint at +0x13C.
+class AIUpdateInterface
+{
+public:
+	const Waypoint *getCompletedWaypoint() const { return m_completedWaypoint; }
+private:
+	unsigned char m_pad00[0x13C];
+	const Waypoint *m_completedWaypoint; // +0x13C
+};
+
 class Object
 {
 public:
@@ -293,6 +344,7 @@ public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	const AsciiString &getName() const { return m_name; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
+	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	Player *getControllingPlayer() const;
 	bool isEffectivelyDead() const { return (m_privateStatus & EFFECTIVELY_DEAD) != 0; }
 private:
@@ -303,7 +355,8 @@ private:
 	AsciiString m_name; // +0x88
 	unsigned char m_pad8C[0x254 - 0x8C];
 	BodyModuleInterface *m_body; // +0x254
-	unsigned char m_pad258[0x438 - 0x258];
+	AIUpdateInterface *m_ai; // +0x258
+	unsigned char m_pad25C[0x438 - 0x25C];
 	unsigned char m_privateStatus; // +0x438
 };
 
@@ -562,6 +615,8 @@ protected:
 	bool rva003E5267(Parameter *, Parameter *);
 	bool rva003E51D9(Parameter *, Parameter *);
 	bool evaluateNamedSelected(Condition *, Parameter *);
+	bool evaluateNamedReachedWaypointsEnd(Parameter *, Parameter *);
+	bool evaluateTeamReachedWaypointsEnd(Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1007,4 +1062,69 @@ bool ScriptConditions::evaluateNamedSelected(Condition *pCondition, Parameter *p
 		pCondition->setCustomData(1);
 	pCondition->setCustomFrame(TheInGameUI->getFrameSelectionChanged());
 	return isSelected;
+}
+
+bool ScriptConditions::evaluateNamedReachedWaypointsEnd(Parameter *pUnitParm, Parameter *pWaypointPathParm)
+{
+	Object *theObj = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!theObj)
+		return false;
+
+	AIUpdateInterface *ai = theObj->getAIUpdateInterface();
+	if (!ai)
+		return false;
+
+	const Waypoint *targetWay = ai->getCompletedWaypoint();
+	if (!targetWay)
+		return false;
+
+	AsciiString pathName = pWaypointPathParm->getString();
+	if (((Rva0027F5A6 *)targetWay)->rva0027F5A6() == pathName)
+		return true;
+	if (((Rva0027F5C1 *)targetWay)->rva0027F5C1() == pathName)
+		return true;
+	if (((Rva0027F5DC *)targetWay)->rva0027F5DC() == pathName)
+		return true;
+
+	return false;
+}
+
+bool ScriptConditions::evaluateTeamReachedWaypointsEnd(Parameter *pTeamParm, Parameter* pWaypointPathParm)
+{
+	Team *theTeam = TheScriptEngine->getTeamNamed( pTeamParm->getString(), false );
+	if (!theTeam) {
+		return false;
+	}
+
+	AsciiString	pathName = pWaypointPathParm->getString();
+	bool anyAtEnd = false;
+	bool anyNotAtEnd = false;
+	// Note - This returns true if any of the team completed the path.  This is as the current
+	// implementation tends to do group pathfinding by default, so we trigger when the leader actually thinks
+	// that he has reached the end of the waypoint path.
+	for (DLINK_ITERATOR<Object> iter = theTeam->iterate_TeamMemberList(); !iter.done(); iter.advance()) {
+		Object *pObj = iter.cur();
+		if (!pObj) {
+			continue;
+		}
+		AIUpdateInterface *ai = pObj->getAIUpdateInterface();
+		if (!ai) continue; // in case there are any rocks or trees in the team :)
+
+		const Waypoint *targetWay = ai->getCompletedWaypoint();
+
+		if (!targetWay) {
+			anyNotAtEnd = true;
+			continue;
+		}
+		bool found = false;
+		if (((Rva0027F5A6 *)targetWay)->rva0027F5A6() == pathName) found = true;
+		if (((Rva0027F5C1 *)targetWay)->rva0027F5C1() == pathName) found = true;
+		if (((Rva0027F5DC *)targetWay)->rva0027F5DC() == pathName) found = true;
+		if (found) {
+			anyAtEnd = true;
+		} else {
+			anyNotAtEnd = true;
+		}
+	}
+	return anyAtEnd;
 }
