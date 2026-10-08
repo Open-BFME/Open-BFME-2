@@ -5,6 +5,8 @@
 // registration; that binding is their only reference. The class is named
 // for the strings' prefix. +0x27C is the screen's state.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "unicode_string.h"
 #include "ascii_string.h"
 
@@ -129,8 +131,6 @@ public:
 	void rva002B2E77(int value);
 };
 
-extern RvaLogicHolder *g_00DFEF10;
-
 // TheGameLogic; its rowed 0x0023D30F (rowed as the stdcall
 // Rva0023D30FCall) likewise.
 class GameLogic
@@ -158,12 +158,12 @@ static inline bool unicodeIsEmpty(const UnicodeString &text)
 // TheLivingWorldLogic 1 for button 2 and 2 for button 3.
 void __cdecl Rva00433D4D(int button)
 {
-	if (!g_00DFEF10)
+	if (!(*(RvaLogicHolder **)&TheLivingWorldLogic))
 		return;
 	if (button == 2)
-		g_00DFEF10->rva002B2E77(1);
+		(*(RvaLogicHolder **)&TheLivingWorldLogic)->rva002B2E77(1);
 	else if (button == 3)
-		g_00DFEF10->rva002B2E77(2);
+		(*(RvaLogicHolder **)&TheLivingWorldLogic)->rva002B2E77(2);
 }
 
 // Retail 0x004341D8, 72 bytes. Name unknown: bound without a name as the

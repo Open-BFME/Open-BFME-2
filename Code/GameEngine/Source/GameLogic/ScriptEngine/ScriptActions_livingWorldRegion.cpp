@@ -25,6 +25,8 @@
 // assignment (it is reachable only with an empty list, where nothing is
 // found). Retail is the result of compiling that loop as written.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 #include <vector>
 #include <algorithm>
@@ -79,7 +81,6 @@ private:
 	unsigned char m_pad98[0xB0 - 0x98];
 	void *m_regionManager;
 };
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class ScriptEngine
 {
@@ -128,20 +129,20 @@ void ScriptActions::doLivingWorldSetRegionRefToAdjacentRegion(const AsciiString 
 	AsciiString *destRef = TheScriptEngine->rva00208DB8(destRefName);
 	AsciiString *srcRef = TheScriptEngine->rva00208DB8(srcRefName);
 	LivingWorldRegionView *srcRegion = (LivingWorldRegionView *)
-		((Rva002104B6 *)g_009FEF10->getRegionManager())->rva002104B6(srcRef);
+		((Rva002104B6 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->getRegionManager())->rva002104B6(srcRef);
 	destRef->clear();
 	if (!srcRegion)
 		return;
 
 	_STL::vector<int> ids;
-	((Rva0020FD42 *)g_009FEF10->getRegionManager())->rva0020FD42(srcRegion, &ids);
+	((Rva0020FD42 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->getRegionManager())->rva0020FD42(srcRegion, &ids);
 	LivingWorldRegionView *found = 0;
 	_STL::vector<int>::iterator it = ids.begin();
 	_STL::vector<int>::iterator end = ids.end();
 	while (it != end) {
 		if (!found) {
 			LivingWorldRegionView *region = (LivingWorldRegionView *)
-				((Rva0020EAF6View *)g_009FEF10->getRegionManager())->rva0020EAF6(*it);
+				((Rva0020EAF6View *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->getRegionManager())->rva0020EAF6(*it);
 			if (region) {
 				bool ok = true;
 				if (skipMatching13C && region->m_13C == srcRegion->m_13C)
@@ -161,7 +162,7 @@ void ScriptActions::rva003C3943(const AsciiString &regionRefName, const AsciiStr
 {
 	AsciiString *regionRef = TheScriptEngine->rva00208DB8(regionRefName);
 	int *armyRef = TheScriptEngine->rva00208E99(armyRefName);
-	Rva002B488EResult *army = g_009FEF10->rva002B488E(*armyRef);
+	Rva002B488EResult *army = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B488E(*armyRef);
 	if (!army) {
 		regionRef->clear();
 		return;
@@ -177,12 +178,12 @@ void ScriptActions::rva003C39B8(const AsciiString &armyRefName, const AsciiStrin
 	int armyID = *TheScriptEngine->rva00208E99(armyRefName);
 	if (armyID == 0 || ((Rva00329EE9StringValue *)regionRef)->isEmpty())
 		return;
-	Rva002B488EResult *army = g_009FEF10->rva002B488E(armyID);
+	Rva002B488EResult *army = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B488E(armyID);
 	if (!army)
 		return;
-	void *region = ((Rva002104B6 *)g_009FEF10->getRegionManager())->rva002104B6(regionRef);
+	void *region = ((Rva002104B6 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->getRegionManager())->rva002104B6(regionRef);
 	if (region)
-		((Rva002B2702 *)g_009FEF10)->rva002B2702(army, region, 1);
+		((Rva002B2702 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->rva002B2702(army, region, 1);
 }
 
 struct Rva003C3AB0Item
@@ -212,9 +213,9 @@ public:
 void ScriptActions::rva003C6279(const AsciiString &refName, const AsciiString &playerName)
 {
 	int *ref = TheScriptEngine->rva00208CF0(refName);
-	int count = g_009FEF10->getPlayerCount();
+	int count = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->getPlayerCount();
 	for (int i = 0; i < count; ++i) {
-		Rva002E2903Player *player = g_009FEF10->rva002B52A8(i);
+		Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
 		if (player && player->m_name->compare(playerName) == 0) {
 			*ref = player->m_id;
 			return;
@@ -228,7 +229,7 @@ void ScriptActions::rva003CA418(const AsciiString &armyRefName, int n, const Asc
 	int *armyRef = TheScriptEngine->rva00208E99(armyRefName);
 	*armyRef = 0;
 	int *playerRef = TheScriptEngine->rva00208CF0(playerRefName);
-	Rva002E2903Player *player = g_009FEF10->find(*playerRef, 0);
+	Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(*playerRef, 0);
 	if (!player)
 		return;
 	_STL::vector<Rva003C3AB0Item *> &armies = player->m_armies;

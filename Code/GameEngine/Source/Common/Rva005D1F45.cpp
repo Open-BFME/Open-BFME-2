@@ -1,5 +1,8 @@
 // cl: /MD
 // ?rva005D1F45@Rva005D1F45@@QAEHPAUIRegion2D@@H@Z @0x005D1F45 142B: click-region handler that ignores drags then emits MSG 0x6a8 with two ints plus world location. Evidence: unlock lane; caller 0x005D1FD3 passes region pointer plus int with ret 8; callees rowed appendIntegerArgument 0x0030F936 appendLocationArgument 0x0030F9BB; globals g_009FEF10 MessageStreamSubsystem; IRegion2D layout from GameMessageStructArgs donor.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 struct IRegion2D
 {
 	int m_loX;
@@ -48,7 +51,7 @@ public:
 	virtual GameMessage *appendType(int type);
 };
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
+
 extern MessageStream *MessageStreamSubsystem;
 class ViewConv
 {
@@ -104,7 +107,7 @@ int Rva005D1F45::rva005D1F45(IRegion2D *region, int unused)
 		return 0;
 	if (region->m_hiY - region->m_loY > 0)
 		return 0;
-	if (g_009FEF10 == 0)
+	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) == 0)
 		return 0;
 	Holder8 *holder = m_08;
 	SubData *sub = holder->m_1C;

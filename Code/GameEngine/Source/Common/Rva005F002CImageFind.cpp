@@ -4,6 +4,9 @@
 // ImageCollection::findImageByName via TheMappedImageCollection.
 // TU-local honest-address views; offsets prove operations not original names.
 // cl: /MD
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class AsciiString { void *m_data; };
 class Image;
 class ImageCollection { public: const Image *findImageByName(const AsciiString &n); };
@@ -11,8 +14,8 @@ extern ImageCollection *TheMappedImageCollection;
 class Rva002E2903Player { public: char pad[0x40]; void *p40; };
 struct Rva005F002CHolder { char pad[0x20]; AsciiString str; };
 class Rva002BA8F1Logic { public: Rva002E2903Player *find(int, unsigned int *); };
-extern Rva002BA8F1Logic *g_009FEF10;
-#define TheRva00DFEF10 g_009FEF10
+
+#define TheRva00DFEF10 (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)
 struct Rva005F002CIn { char pad[0x54]; int id; };
 const Image *Rva005F002CGet(Rva005F002CIn *in);
 const Image *Rva005F002CGet(Rva005F002CIn *in)

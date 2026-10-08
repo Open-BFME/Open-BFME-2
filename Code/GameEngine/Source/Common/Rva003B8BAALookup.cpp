@@ -5,8 +5,10 @@
 // mov ecx,[ecx+0x14]; mov eax,[ecx+eax*4]; mov eax,[eax+0x20]; ret. Callers at 0x002B2655 0x002B2681
 // 0x002B27F3 0x002B281B 0x002B2C6E load ecx from 0x00E02D6C then call/jmp here and use eax as
 // vtable object (+0x28/+0x38). Singleton +0xB4 proven by Rva0023C6A4Check and Rva002BA8F1Logic finds.
-extern class Rva002BA8F1Logic *g_009FEF10;
 
+class Rva002BA8F1Logic;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva003B8BAAElem
 {
 	char m_pad[0x20];
@@ -29,7 +31,7 @@ struct Rva00DFEF10Global
 	char m_pad[0xB4];
 	unsigned char m_flagB4;
 };
-#define TheRva00DFEF10 (*(Rva00DFEF10Global **)&g_009FEF10)
+#define TheRva00DFEF10 (*(Rva00DFEF10Global **)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))
 
 void *Rva003B8BAA::rva003B8BAA()
 {

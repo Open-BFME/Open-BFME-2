@@ -3,6 +3,9 @@
 // Evidence: rowed find 0x002B51F8 plus pin 0x002E0BC0 plus rowed broadcast
 // 0x003F1A03 plus row 0x001FF3A9 forwarder; callers 0x003F2A8C 0x003F3F27;
 // global g_009FEF10 mangled ?g_009FEF10@@3PAVRva002BA8F1Logic@@A.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E2903Player;
 
 // The native provider normalizes its bool result with movzx eax,al at
@@ -22,8 +25,6 @@ public:
 	char m_pad9C[0xFC - 0x9C];
 	int m_FC;
 };
-
-extern Rva002BA8F1Logic *g_009FEF10;
 
 struct Rva003F1AFF198
 {
@@ -69,14 +70,14 @@ void Rva003F1AFF::rva003F1AFF(int arg)
 	if (m_13C == arg)
 		return;
 	int old = m_13C;
-	m_138 = g_009FEF10->m_FC;
-	Rva002E2903Player *found = g_009FEF10->find(old, 0);
+	m_138 = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_FC;
+	Rva002E2903Player *found = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(old, 0);
 	if (found != 0)
 	{
 		if ((unsigned char)((Rva002E071E *)found)->rva002E0BC0(arg))
 			goto broadcast;
 	}
-	m_134 = g_009FEF10->m_FC;
+	m_134 = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_FC;
 broadcast:
 	m_13C = arg;
 	m_140 = arg;

@@ -6,10 +6,13 @@
 // Evidence: unlock lane; callers at 0x004E08C2 0x004E248B 0x004E255C 0x004E2615;
 // same id-chase plus find pattern as LivingWorldBuildingNuggetSpawnArmy and Rva005F002CImageFind.
 // No // cl: line (defaults; neighbours default).
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E2903Player;
 class Rva002BA8F1Logic { public: Rva002E2903Player *find(int, unsigned int *); };
-extern Rva002BA8F1Logic *g_009FEF10;
-#define TheRva00DFEF10 g_009FEF10
+
+#define TheRva00DFEF10 (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)
 struct Rva004E0705Inner { char m_pad[0x13C]; int m_id; };
 class Rva004E0705
 {

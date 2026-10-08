@@ -6,9 +6,11 @@
 // tests al only, e.g. 0x0023C8E3 test al,al). Evidence: 3 callers,
 // Rva0023C6A4Check +0xB4 pattern, /O1 mov-al size form (not movzx).
 // No fallback paths.
-extern class Rva002BA8F1Logic *g_009FEF10;
 
-#define TheRva00DFEF10 (*(void **)&g_009FEF10)
+class Rva002BA8F1Logic;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+#define TheRva00DFEF10 (*(void **)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))
 
 unsigned char Rva00210DC9Get()
 {

@@ -5,6 +5,8 @@
 // 4 from Rva002BA8F1Logic members, 3 from globals, 1 from member pointer.
 // Evidence: packet disassembly order and offsets, callers 0x004EE695/0x004EE78A.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class CreateAHeroData
 {
 public:
@@ -18,7 +20,7 @@ public:
 };
 
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
+
 Rva002B7250 g_00E04424;
 extern Rva002B7250 g_00E02E88;
 Rva002B7250 g_00E044F0;
@@ -56,10 +58,10 @@ private:
 
 void Rva004EE5D2::rva004EE5D2()
 {
-	((Rva002B7250 *)((char *)g_009FEF10 + 0x1c))->rva002B7250(this ? &m_4 : (CreateAHeroData *)0);
-	((Rva002B7250 *)((char *)g_009FEF10 + 0x2c))->rva002B7250(this ? &m_c : (CreateAHeroData *)0);
-	((Rva002B7250 *)((char *)g_009FEF10 + 0x3c))->rva002B7250(this ? &m_10 : (CreateAHeroData *)0);
-	((Rva002B7250 *)((char *)g_009FEF10 + 0x4c))->rva002B7250(this ? &m_1c : (CreateAHeroData *)0);
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x1c))->rva002B7250(this ? &m_4 : (CreateAHeroData *)0);
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x2c))->rva002B7250(this ? &m_c : (CreateAHeroData *)0);
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x3c))->rva002B7250(this ? &m_10 : (CreateAHeroData *)0);
+	((Rva002B7250 *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0x4c))->rva002B7250(this ? &m_1c : (CreateAHeroData *)0);
 	g_00E04424.rva002B7250(this ? &m_8 : (CreateAHeroData *)0);
 	g_00E02E88.rva002B7250(this ? &m_14 : (CreateAHeroData *)0);
 	g_00E044F0.rva002B7250(this ? &m_20 : (CreateAHeroData *)0);
@@ -68,7 +70,7 @@ void Rva004EE5D2::rva004EE5D2()
 
 void Rva004EE5D2::rva004EE695()
 {
-	if (g_009FEF10 != 0 && ((BfmeSelectionState *)g_009FEF10)->isSelectionLocked() != 0)
+	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) != 0 && ((BfmeSelectionState *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->isSelectionLocked() != 0)
 		m_70 = time(0);
 	else
 		m_70 = 0;

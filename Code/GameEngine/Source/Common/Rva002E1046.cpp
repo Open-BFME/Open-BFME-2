@@ -6,6 +6,8 @@
 // pinned rva002E0BC0 plus byte flag at +0x3c4 on self and player, caller
 // 0x00520A28, neighbours Rva002E1001 and Rva002E0CD4Get with /O1.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E2903Player
 {
 public:
@@ -30,8 +32,6 @@ public:
 	PlayerList m_players8c;
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
-
 // The native provider normalizes its bool result with movzx eax,al at
 // 0x002E0BE0. Keep each caller's byte-sized test while naming its int ABI.
 class Rva002E071E
@@ -53,12 +53,12 @@ bool Rva002E1046::rva002E1046()
 {
 	if (m_3c4 != 0)
 		return false;
-	for (int i = 0; i < g_009FEF10->m_players8c.size(); i++)
+	for (int i = 0; i < (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_players8c.size(); i++)
 	{
-		Rva002E2903Player *p1 = g_009FEF10->rva002B52A8(i);
+		Rva002E2903Player *p1 = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
 		if ((unsigned char)((Rva002E071E *)this)->rva002E0BC0(p1->m_14))
 			continue;
-		Rva002E2903Player *p2 = g_009FEF10->rva002B52A8(i);
+		Rva002E2903Player *p2 = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
 		if (p2->m_3c4 == 0)
 			return true;
 	}

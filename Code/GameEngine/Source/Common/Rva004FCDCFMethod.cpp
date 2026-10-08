@@ -3,6 +3,9 @@
 // ?QueryRegionsAndNumbers@PlayerDefeatCondition@LivingWorldScenario@@QAEXPAXPAXPAH@Z, retail 0x004FCDCF, 114 bytes.
 // Caller 0x004FD4D4 passes player plus vector plus maxOut; duplicate check by +0x12c then push_back plus max update.
 // Keep this inlined unsigned max overload local; retail has one external owner.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -33,8 +36,6 @@ public:
 	Rva002104B6 *m_B0;
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
-
 class LivingWorldScenario
 {
 public:
@@ -54,7 +55,7 @@ private:
 void LivingWorldScenario::PlayerDefeatCondition::QueryRegionsAndNumbers(void *a1, _STL::vector<const ModuleData *> *vec, int *maxOut)
 {
 	if (m_14 != 0) {
-		Rva002104B6 *mgr = g_009FEF10->m_B0;
+		Rva002104B6 *mgr = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0;
 		const ModuleData *mod = (const ModuleData *)mgr->rva002104B6((char *)a1 + 0x2c);
 		struct Vec12
 		{

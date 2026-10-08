@@ -7,6 +7,8 @@
 // 0x003193FF 0x005CF41A 0x005E1A51 0x005E58D4 0x005E63C2 0x005F4B6E 0x005F4C2A,
 // neighbour AsciiString-at-+0x18 shape from Rva00319159Get.cpp.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 
 class Rva002E2903Player;
@@ -21,8 +23,6 @@ class Rva002BA8F1Logic
 public:
 	Rva002E2903Player *find(int id, unsigned int *index);
 };
-
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class Rva00318C32Ret;
 class Rva00318C79Owner
@@ -54,7 +54,7 @@ void *GetMaxCommandPoints(void *keyPtr)
 {
 	Key003192B9 *key = (Key003192B9 *)keyPtr;
 	int id = key->m_id54;
-	Rva002E2903Player *player = g_009FEF10->find(id, (unsigned int *)0);
+	Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(id, (unsigned int *)0);
 	if (player == 0)
 		return 0;
 	if (!key->m_str18.isEmpty())

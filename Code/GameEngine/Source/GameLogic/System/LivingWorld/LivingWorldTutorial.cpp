@@ -5,6 +5,8 @@
 // retail supplies the bytes. The battle comes from the living-world logic's
 // region manager (+0xB0) through 0x0020E57F (unnamed).
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 typedef int Int;
 
 class Rva0020E57FManager
@@ -20,7 +22,7 @@ public:
 	Rva0020E57FManager *m_regionManager;	// +0xB0
 };
 
-extern Rva002BA8F1Logic *g_00DFEF10;	// TheLivingWorldLogic
+	// TheLivingWorldLogic
 
 class Rva003F802B
 {
@@ -65,7 +67,7 @@ void *LivingWorldTutorial::SessionTask::getBattleParam(Int index)
 	void *region = getRegionParam(index);
 	if (region)
 	{
-		Rva0020E57FManager *manager = g_00DFEF10->m_regionManager;
+		Rva0020E57FManager *manager = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_regionManager;
 		return manager->rva0020E57F(region);
 	}
 	return 0;

@@ -7,6 +7,8 @@
 // Evidence: rowed ?get@Rva004E0605ByteChaseField@@QBEEXZ at 0x004E0605,
 // callers 0x0020FCA4 0x00319637 0x003F0361 0x003F037E.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva004E0605ByteChaseField
 {
 public:
@@ -28,8 +30,6 @@ class Rva002BA8F1Logic
 public:
 	Rva002E2903Player *find(int id, unsigned int *index);
 };
-
-extern Rva002BA8F1Logic *g_009FEF10;
 
 struct Rva003F02E4Node
 {
@@ -80,7 +80,7 @@ bool Rva003F02E4::rva003F02E4()
 // Evidence: callers 0x0020FF46 0x0020FFDA in 0x0020FDDF; prev 0x003F02E4 same TU flags.
 bool Rva003F02E4::rva003F0336(const Rva002E071E *other)
 {
-	Rva002E2903Player *p = g_009FEF10->find(m_13C, 0);
+	Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(m_13C, 0);
 	if (p == 0)
 		return false;
 	if (!p->rva002E071E(other))

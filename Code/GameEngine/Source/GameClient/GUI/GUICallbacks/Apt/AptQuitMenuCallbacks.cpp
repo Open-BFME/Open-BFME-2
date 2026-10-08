@@ -5,6 +5,8 @@
 // screen's registration; that binding is their only reference. The class
 // is named for the strings' prefix.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -123,8 +125,6 @@ class BfmeSelectionState
 public:
 	bool isSelectionLocked() const;
 };
-
-extern BfmeSelectionState *g_009FEF10;
 
 // The living-world logic's player at +0x98 and its byte +0x3C5.
 struct LivingWorldPlayer
@@ -685,7 +685,7 @@ void AptQuitMenu::Externs(int query, char *value, bool set)
 	GameLogic *logic = TheGameLogic;
 	if (logic == 0 || logic->m_114 == 3)
 		label = "Restart";
-	else if (g_009FEF10 != 0 && g_009FEF10->isSelectionLocked())
+	else if ((*(BfmeSelectionState **)&TheLivingWorldLogic) != 0 && (*(BfmeSelectionState **)&TheLivingWorldLogic)->isSelectionLocked())
 		label = "Surrender";
 	else
 		label = "Forfeit";
@@ -729,17 +729,17 @@ AptQuitMenu::~AptQuitMenu()
 	{
 		if (logic->m_40 < g_007ED97C && (logic->m_110 == 1 || logic->m_110 == 5) && TheNetwork)
 			TheNetwork->quitGame();
-		else if (logic->m_114 != 3 && g_009FEF10)
+		else if (logic->m_114 != 3 && (*(BfmeSelectionState **)&TheLivingWorldLogic))
 		{
-			if (((LivingWorldLocal *)g_009FEF10)->m_98)
-				((LivingWorldLocal *)g_009FEF10)->m_98->m_3c5 = true;
-			if (!g_009FEF10->isSelectionLocked())
+			if (((LivingWorldLocal *)(*(BfmeSelectionState **)&TheLivingWorldLogic))->m_98)
+				((LivingWorldLocal *)(*(BfmeSelectionState **)&TheLivingWorldLogic))->m_98->m_3c5 = true;
+			if (!(*(BfmeSelectionState **)&TheLivingWorldLogic)->isSelectionLocked())
 			{
 				GameMessage *surrender = MessageStreamSubsystem->appendMessage(0x448);
 				surrender->appendBooleanArgument(true);
 			}
 			GameMessage *msg = MessageStreamSubsystem->appendMessage(0x6B8);
-			msg->appendIntegerArgument(((Rva002B2B66 *)g_009FEF10)->rva002B2B66());
+			msg->appendIntegerArgument(((Rva002B2B66 *)(*(BfmeSelectionState **)&TheLivingWorldLogic))->rva002B2B66());
 		}
 		else
 			logic->rva0023D0E3(true);
@@ -776,7 +776,7 @@ void ShowQuitMenu()
 		return;
 	if (TheScriptEngine->m_1a104 >= 0)
 		return;
-	if (g_009FEF10 && ((LivingWorldLocal *)g_009FEF10)->m_b4 && ((LivingWorldLocal *)g_009FEF10)->m_168)
+	if ((*(BfmeSelectionState **)&TheLivingWorldLogic) && ((LivingWorldLocal *)(*(BfmeSelectionState **)&TheLivingWorldLogic))->m_b4 && ((LivingWorldLocal *)(*(BfmeSelectionState **)&TheLivingWorldLogic))->m_168)
 		return;
 	if (!TheTransitionHandler->isFinished())
 		return;
@@ -789,7 +789,7 @@ void ShowQuitMenu()
 		if (TheDisplay->slot87())
 			return;
 	}
-	if (g_009FEF10 && ((Rva0051AEEF *)g_009FEF10)->rva0051AEEF())
+	if ((*(BfmeSelectionState **)&TheLivingWorldLogic) && ((Rva0051AEEF *)(*(BfmeSelectionState **)&TheLivingWorldLogic))->rva0051AEEF())
 		return;
 
 	Rva0043C96FEnable();
@@ -849,8 +849,8 @@ void restartMissionMenu()
 
 	TheGameLogic->rva00376E92(false, false);
 	TheGameEngine->setQuitting(false);
-	if (g_009FEF10)
-		((Rva002BA8F1Logic *)g_009FEF10)->rva002B36F3();
+	if ((*(BfmeSelectionState **)&TheLivingWorldLogic))
+		((Rva002BA8F1Logic *)(*(BfmeSelectionState **)&TheLivingWorldLogic))->rva002B36F3();
 
 	if (replayFile.isNotEmpty())
 	{
@@ -878,7 +878,7 @@ void AptQuitMenu::HandleOverRestartButton(const char *unused)
 	const char *label;
 	if (TheGameLogic && TheGameLogic->m_114 != 3)
 	{
-		if (g_009FEF10 && g_009FEF10->isSelectionLocked())
+		if ((*(BfmeSelectionState **)&TheLivingWorldLogic) && (*(BfmeSelectionState **)&TheLivingWorldLogic)->isSelectionLocked())
 			label = "TOOLTIP:QuitMenu/Surrender/WOTRSurrender";
 		else
 			label = "TOOLTIP:QuitMenu/Forfeit/WOTRForfeit";

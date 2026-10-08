@@ -13,6 +13,8 @@
 // ?rva000E2BCF@BaseHeightMapRenderObjClass@@QAE?AV?$RefCountPtr@VTextureClass@@@@XZ @0x000E2BCF 31B (+0x381C)
 // ?rva000E28A7@Rva000E28A7@@QAE?AV?$RefCountPtr@VTextureClass@@@@XZ               @0x000E28A7 28B (+0x1C)
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class TextureClass
 {
 public:
@@ -183,8 +185,6 @@ public:
 	bool m_b5;
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
-
 void Rva000E222FResourceTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	effect->SetTexture(handle, Rva00132F30BlackTexture().Peek_D3D_Base_Texture());
@@ -200,7 +200,7 @@ void Rva000E227FMacroTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 
 void Rva000E24C5ShroudTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
-	if (g_009FEF10 && g_009FEF10->m_b4 && g_009FEF10->m_b5)
+	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) && (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b4 && (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b5)
 		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
 	else if (TheTerrainRenderObject && TheTerrainRenderObject->m_3878 && TheTerrainRenderObject->m_3878->rva00072B3A())
 		effect->SetTexture(handle, TheTerrainRenderObject->get3878()->rva00072B3A().Peek_D3D_Base_Texture());

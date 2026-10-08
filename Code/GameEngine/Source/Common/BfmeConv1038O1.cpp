@@ -9,6 +9,8 @@
 // carried; the donor's other definitions are omitted.
 // Open-BFME5 conversions.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva008BD5B0Key
 {
 	int unused;
@@ -29,7 +31,6 @@ public:
 	Rva008BD5B0Item *items[32];
 	int count;
 };
-
 
 class BfmeB1038
 {
@@ -94,7 +95,6 @@ public:
 	void bfmeStep1038(void);
 };
 
-
 struct Rva007EB810Diag
 {
 	virtual void v0();
@@ -113,7 +113,6 @@ public:
 	char m_bfmePad[4];
 	void *m_bfmeHandle;
 };
-
 
 class BfmeY1038
 {
@@ -135,12 +134,10 @@ public:
 	Rva002B488EResult *rva002B488E(int a);
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
-
 // ?bfmeFind1038@@YGPAVBfmeY1038@@H@Z @0x0040D008 29B: forward int arg to rowed-adjacent Rva002BA8F1Logic::rva002B488E via g_009FEF10 then return +0x78 slot or null. Evidence: LINK BONUS 2 files 81B; pin name; callers at 0x0040D029 and 0x0040D280 set.
 BfmeY1038 * __stdcall bfmeFind1038(int a)
 {
-	Rva002B488EResult *r = g_009FEF10->rva002B488E(a);
+	Rva002B488EResult *r = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B488E(a);
 	return r != 0 ? r->m_78 : 0;
 }
 
@@ -173,7 +170,6 @@ extern BfmeAObj1038 *g_bfmeA1038;
 extern int g_bfmeB1038;
 extern int g_bfmeC1038;
 void bfmeFlush1038(void);
-
 
 class BfmeI1038
 {

@@ -5,6 +5,9 @@
 // times int at +0x90. Sibling of rowed 0x0037E270 (same global and callee via
 // Rva0037E270Lookup.cpp) and unclaimed 0x0037DC52 (same +0x4 lookup shape).
 // Callers at 0x002B369C 0x002B36A5 0x002B6C58 0x0031906A 0x0040CFAC.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 class Rva002D06CA
 {
@@ -36,7 +39,7 @@ class Rva002BA8F1Logic
 public:
 	Rva002E2903Player *find(int v, unsigned int *x);
 };
-extern Rva002BA8F1Logic *g_009FEF10;
+
 class Rva002E06B8
 {
 public:
@@ -72,7 +75,7 @@ void *Rva0037DCA5::rva0040C65D(int v)
 		return (void *)&UnicodeString::TheEmptyString;
 	if ((((unsigned char *)found)[0x11F] & 0x40) == 0)
 		return (char *)found + 0x58;
-	Rva002E2903Player *player = g_009FEF10->find(v, 0);
+	Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(v, 0);
 	if (player == 0)
 		return (char *)found + 0x58;
 	void *inner = ((Rva002E06B8 *)player)->rva002E06EF();

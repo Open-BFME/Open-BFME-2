@@ -5,6 +5,9 @@
 // Index AsciiString array at +0xC and find via rowed Rva002B48E1.
 // Evidence: chain lane; callee rowed 0x002B48E1; global 0x009FEF10;
 // callers at 0x003F8A65 0x003F8AC3 0x003F8C93; unblocks 0x003F88BC.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 
 struct Rva002E1948Entry;
@@ -14,8 +17,6 @@ class Rva002B48E1
 public:
 	Rva002E1948Entry *rva002B48E1(const AsciiString &name);
 };
-
-extern Rva002B48E1 *Rva00DFEF10;
 
 class LivingWorldTutorial
 {
@@ -33,5 +34,5 @@ private:
 
 Rva002E1948Entry *LivingWorldTutorial::SessionTask::getArmyParam(int i)
 {
-	return Rva00DFEF10->rva002B48E1(m_arr0C[i]);
+	return (*(Rva002B48E1 **)&TheLivingWorldLogic)->rva002B48E1(m_arr0C[i]);
 }

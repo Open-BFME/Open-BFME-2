@@ -1,5 +1,8 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // ?rva003FE0EB@Rva003FE05E@@QAE?AUTreeHintRef00217D4C@@XZ @0x003FE0EB 83B: __thiscall TreeHintRef getter that refreshes +0x4C via rowed rva003FE05E when +0x38 link differs then returns +0x4C with AddRef. Evidence: rowed rva003FE05E 0x003FE05E plus pinned helper 0x002E0BC0 plus global g_009FEF10 plus sibling layouts 0x003FE0B3 0x003FE05E.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 struct TargetRef00217D4C
 {
     void *m_vtbl;
@@ -43,7 +46,7 @@ public:
     char m_pad9C[0xF4 - 0x9C];
     int m_F4;
 };
-extern Rva002BA8F1Logic *g_009FEF10;
+
 class Rva003FE05E
 {
     char m_pad00[0x38];
@@ -59,7 +62,7 @@ TreeHintRef00217D4C Rva003FE05E::rva003FE0EB()
     if (m_38)
     {
         int v = m_38->m_54;
-        Rva002BA8F1Logic *logic = g_009FEF10;
+        Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
         int f4 = logic->m_F4;
         Rva002E071E *helper = logic->m_98;
         if (f4 != 0)

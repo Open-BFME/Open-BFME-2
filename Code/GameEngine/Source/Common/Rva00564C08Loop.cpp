@@ -6,6 +6,9 @@
 // record byte at +0x8 through the rowed byte-slot set 0x00318D14.
 // Caller at 0x005669AA; unblocks 0x0056696F.
 // TU-local honest-address views; offsets prove operations not type names.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 
 struct Rva002E1948Entry;
@@ -21,8 +24,6 @@ class Rva00318D14ByteSlot
 public:
 	void set(unsigned char value);
 };
-
-extern Rva002B48E1 *Rva00DFEF10;
 
 struct Rec00564C08
 {
@@ -48,10 +49,8 @@ void Rva00564C08::rva00564C08()
 	Rec00564C08 *end = m_endAC;
 	for (Rec00564C08 *p = begin; p != end; ++p)
 	{
-		Rva002E1948Entry *entry = Rva00DFEF10->rva002B48E1(p->m_name4);
+		Rva002E1948Entry *entry = (*(Rva002B48E1 **)&TheLivingWorldLogic)->rva002B48E1(p->m_name4);
 		if (entry != 0)
 			((Rva00318D14ByteSlot *)entry)->set(p->m_flag8);
 	}
 }
-// ?Rva00DFEF10@@3PAVRva002B48E1@@A: the global at VA 0xdfef10 is ?g_009FEF10@@3PAVRva002BA8F1Logic@@A.
-#pragma comment(linker, "/alternatename:?Rva00DFEF10@@3PAVRva002B48E1@@A=?g_009FEF10@@3PAVRva002BA8F1Logic@@A")

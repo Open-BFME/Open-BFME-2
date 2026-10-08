@@ -7,12 +7,14 @@
 // when the tag is 1, push the world's +0xFC selection into the +0x44
 // ModuleData vector through rowed push_back 0x004DFCB0. Always bumps the
 // +0x78 counter indexed by the tag.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include <vector>
 
 class ModuleData;
 
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
 
 struct Rva004EE79EWorld
 {
@@ -55,7 +57,7 @@ void Rva004EE79E::rva004EE79E(Rva004E06FBPtrChase32Field *a)
 	if (!s)
 		return;
 	if (s->m_2C == 1) {
-		const ModuleData *sel = ((Rva004EE79EWorld *)g_009FEF10)->m_FC;
+		const ModuleData *sel = ((Rva004EE79EWorld *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->m_FC;
 		m_44.push_back(sel);
 	}
 	++m_count[s->m_2C];

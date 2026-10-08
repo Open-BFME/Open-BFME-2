@@ -6,6 +6,9 @@
 // global 0x009FE4CC. Same idiom as rowed Rva0050E9D3Enable plus the stored
 // value; small callers at 0x0051B11E 0x0051B502 pass 0.
 // Evidence: unlock lane, unblocks 0x0051B11C 0x00435DE7 0x0051B90B 0x0051B4F7.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 struct GlobalA04910 { char pad[0x278]; unsigned char flag; char pad2[7]; int val; };
 extern GlobalA04910 *g_Va00A04910;
 struct GlobalA01E48 { char pad[0x54]; unsigned char flag; };
@@ -45,7 +48,7 @@ public:
 	bool isSelectionLocked() const;
 };
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
+
 class Rva002B2B66
 {
 public:
@@ -117,10 +120,10 @@ extern InGameUI *TheInGameUI;
 
 void __cdecl Rva0051B09BEnable(void)
 {
-	if (g_009FEF10 != 0 && ((BfmeSelectionState *)g_009FEF10)->isSelectionLocked()) {
+	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) != 0 && ((BfmeSelectionState *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->isSelectionLocked()) {
 		Rva0051AF0BEnable(0);
 		GameMessage *msg = MessageStreamSubsystem->v18(0x6b8);
-		int v = ((Rva002B2B66 *)g_009FEF10)->rva002B2B66();
+		int v = ((Rva002B2B66 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->rva002B2B66();
 		msg->appendIntegerArgument(v);
 		return;
 	}

@@ -5,6 +5,9 @@
 // zero runs g_009FEF10->m_B0->rva0020EA22(this+0x12C); then if
 // g_009FE1C8->m_268 non-null runs it->SyncRegion((int)this). Types follow
 // rowed callees and g_ externs in use.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva0020EA22Outer
 {
 public:
@@ -17,8 +20,6 @@ public:
 	char m_pad[0xB0];
 	Rva0020EA22Outer *m_B0;
 };
-
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class LivingWorldRegionEffectsManager
 {
@@ -61,7 +62,7 @@ void Rva003EFDF5Host::rva003EFDF5(void *a)
 	m_1A2 = v;
 	inner->m_2C = v;
 	if (v == 0)
-		g_009FEF10->m_B0->rva0020EA22(m_12C);
+		(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0->rva0020EA22(m_12C);
 	LivingWorldRegionEffectsManager *obj = g_009FE1C8->m_268;
 	if (obj)
 		obj->SyncRegion((int)this);

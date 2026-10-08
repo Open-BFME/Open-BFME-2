@@ -8,8 +8,9 @@
 // Evidence: pinned name, callers at 0x00205CC3 0x00205F67 0x00206168,
 // rowed callees format 0x38150 concat 0x6987 releaseBuffer 0x36410 gate 0x1DCD1C.
 
-extern class Rva002BA8F1Logic *g_009FEF10;
-
+class Rva002BA8F1Logic;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 extern bool BFME2ScriptDebugLiteMode;
 
 typedef bool Bool;
@@ -33,7 +34,6 @@ template <typename T> struct BfmeStringData
 
 #include "ascii_string.h"
 
-
 class GameLogic
 {
 public:
@@ -47,7 +47,7 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
-#define TheRva00DFEF10 (*(void **)&g_009FEF10)
+#define TheRva00DFEF10 (*(void **)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))
 #define TheScriptDebugWindowDLL g_00DFE158
 #define ScriptDebugMessagesDisabled BFME2ScriptDebugLiteMode
 

@@ -3,6 +3,9 @@
 // 0x003E9029 57B, adjacent). Sibling of the matched evaluateTeamEnteredArea
 // family: Parameter string at +0x10 via getString, ScriptEngine
 // getQualifiedTriggerAreaByName, then a manager/lookup gate returning bool.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 
 class Parameter
@@ -40,7 +43,6 @@ struct LivingWorldRva
     char m_pad[0xB0];
     Rva002104B6 *m_B0;
 };
-extern LivingWorldRva *g_009FEF10;
 
 bool __stdcall Rva003E8FEE(Parameter *parm)
 {
@@ -53,7 +55,7 @@ bool __stdcall Rva003E8FEE(Parameter *parm)
 bool __stdcall Rva003E9029(const AsciiString *name)
 {
     void *p1 = TheScriptEngine->rva00208DB8(*name);
-    Rva002104B6 *mgr = g_009FEF10->m_B0;
+    Rva002104B6 *mgr = (*(LivingWorldRva **)&TheLivingWorldLogic)->m_B0;
     void *p2 = mgr->rva002104B6(p1);
     return p2 != 0;
 }

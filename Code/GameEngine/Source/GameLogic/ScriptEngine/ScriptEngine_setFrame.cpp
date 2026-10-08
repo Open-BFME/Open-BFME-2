@@ -8,8 +8,10 @@
 // - App module at [0xDFE158]; latch-free early outs.
 // Human-readable names; opaque free function (no this, standard ret).
 
+class Rva002BA8F1Logic;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 extern class ClientFrameSubsystem *TheGameClient;
-extern class Rva002BA8F1Logic *g_009FEF10;
 
 typedef int HMODULE;
 extern HMODULE g_00DFE158;
@@ -31,7 +33,6 @@ public:
 	char m_pad00[0xFC];
 	int m_frameNumber;
 };
-extern LivingWorldLogic *TheLivingWorldLogic;
 
 extern "C" HMODULE st_DebugDLL;
 
@@ -53,7 +54,7 @@ public:
 };
 
 #define TheRva00DFE77C (*(Rva00DFE77CHolder **)&TheGameClient)
-#define TheRva00DFEF10 (*(void **)&g_009FEF10)
+#define TheRva00DFEF10 (*(void **)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))
 
 void rva00204094()
 {

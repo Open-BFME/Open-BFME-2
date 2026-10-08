@@ -6,6 +6,8 @@
 // rowed 0x005EB87A predicate, and on the other path allocates an 8-byte link
 // node with vtable 0x00C755A4 before updating the prior object's wrapper.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva005EB87AInner
 {
 	char m_pad[8];
@@ -21,7 +23,6 @@ public:
 
 class Object;
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class Rva00575674
 {

@@ -5,11 +5,13 @@
 // else UnicodeString::TheEmptyString. Evidence: chain lane calls rowed
 // 0x0020EDD5, null holder returns empty via rowed wide copy 0x00037050,
 // empty VA 0x00A0C898, fetch-family flags like Rva0020EDD5Fetch.cpp.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 typedef unsigned short wchar_t;
 typedef bool Bool;
 
 #include "ascii_string.h"
-
 
 #include "unicode_string.h"
 
@@ -25,8 +27,6 @@ struct RvaLogicHolder
 	Rva0020EDD5 *m_holder;
 };
 
-extern RvaLogicHolder *g_00DFEF10;
-
 class Rva003F03C9
 {
 public:
@@ -38,10 +38,8 @@ private:
 
 UnicodeString Rva003F03C9::rva003F03C9()
 {
-	Rva0020EDD5 *holder = g_00DFEF10->m_holder;
+	Rva0020EDD5 *holder = (*(RvaLogicHolder **)&TheLivingWorldLogic)->m_holder;
 	if (holder != 0)
 		return holder->rva0020EDD5(m_index);
 	return UnicodeString::TheEmptyString;
 }
-// ?g_00DFEF10@@3PAURvaLogicHolder@@A: the global at VA 0xdfef10 is ?g_009FEF10@@3PAVRva002BA8F1Logic@@A.
-#pragma comment(linker, "/alternatename:?g_00DFEF10@@3PAURvaLogicHolder@@A=?g_009FEF10@@3PAVRva002BA8F1Logic@@A")

@@ -4,6 +4,8 @@
 // at +0xE0, looks up a player by that string, updates ownership through the
 // direct callee at 0x003F2A8C, then calls the rowed scheduler at 0x002B388D.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 
 typedef unsigned int UnsignedInt;
@@ -20,8 +22,6 @@ class Rva002BA8F1Logic
 public:
 	Rva002E2903Player *find(const AsciiString &name, UnsignedInt *outIndex);
 };
-
-extern Rva002BA8F1Logic *g_00DFEF10;
 
 class Rva003F2A8C
 {
@@ -59,11 +59,11 @@ void Rva003F300A::rva003F300A()
 	AsciiString *key = (AsciiString *)((char *)region + 0xE0);
 	if (rva003F300ANameLength(key) <= 0)
 		return;
-	Rva002E2903Player *player = g_00DFEF10->find(*key, 0);
+	Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(*key, 0);
 	if (player != 0)
 	{
 		((Rva003F2A8C *)region)->rva003F2A8C(player->m_playerID);
-		((Refresh0023FA80Primary *)g_00DFEF10)->scheduleNullable(
+		((Refresh0023FA80Primary *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->scheduleNullable(
 			(Refresh0023FA80AI *)region, (Refresh0023FA80Object *)player);
 	}
 }

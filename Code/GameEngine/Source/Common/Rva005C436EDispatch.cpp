@@ -1,6 +1,9 @@
 // cl: /MD /EHsc
 // ?rva005C436E@Rva005C436E@@QAEXH@Z retail 0x005C436E 65B
 // Evidence: callers 0x005C43BE 0x005C444D unblocks 0x005C4423 plus 0x005C43AF; rowed find 0x002B51F8 plus adds 0x002E07B9 0x002E07AC; chain [esi+4]+0x24+0x13c plus switch [esi+8]+8
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 extern "C" const void *const vtbl_00BBB554[];  // folded, 23 classes; via ??_7BfmeBaseVUQ@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BBB554=??_7BfmeBaseVUQ@@6B@")
 
@@ -10,7 +13,6 @@ class Rva002BA8F1Logic
 public:
 	Rva002E2903Player *find(int v, unsigned int *p);
 };
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class Rva002E07B9
 {
@@ -72,7 +74,7 @@ private:
 void Rva005C436E::rva005C436E(int v)
 {
 	int idx = m_04->m_ptr->m_val;
-	Rva002E2903Player *p = g_009FEF10->find(idx, 0);
+	Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(idx, 0);
 	if (!p)
 		return;
 	switch (m_08->m_val) {

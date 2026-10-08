@@ -6,6 +6,9 @@
 // else forwards the player to landed rva002E071E (player-to-other
 // conversion unproven, explicit cast). Owner reuses Rva002E071E so
 // the rowed call resolves.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E2903Player;
 
 class Rva002BA8F1Logic
@@ -13,7 +16,6 @@ class Rva002BA8F1Logic
 public:
 	Rva002E2903Player *find(int id, unsigned int *index);
 };
-extern Rva002BA8F1Logic *g_00DFEF10;
 
 class Rva002E071E
 {
@@ -25,7 +27,7 @@ public:
 // ?rva002E0BC0@Rva002E071E@@QAEHH@Z
 int Rva002E071E::rva002E0BC0(int id)
 {
-	Rva002E2903Player *p = g_00DFEF10->find(id, 0);
+	Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(id, 0);
 	if (p != 0) {
 		return rva002E071E((const Rva002E071E *)p);
 	}

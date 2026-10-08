@@ -5,6 +5,9 @@
 // load ecx from TheGameState (0x00434B51, 0x00435762) or pass their own this
 // (0x002DD3A0), so it is a member that never reads this.
 // Evidence: unlock lane; callers 0x002DD3A7 0x002DD7F8 0x00434B57 0x00435768 0x00435A44; callees rowed isSelectionLocked 0x4253A and get 0x210C66; globals TheGameLogic g_009FEF10 g_Rva0023D607Holder; GameLogic +0x110 +0x114 layout from Disp8 getters and holder check.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class GameLogic
 {
 public:
@@ -14,7 +17,7 @@ public:
 };
 extern GameLogic *TheGameLogic;
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
+
 class BfmeSelectionState
 {
 public:
@@ -40,7 +43,7 @@ int GameState::determineCurrentGameSaveFileMode()
 {
 	GameLogic *logic = TheGameLogic;
 	Rva002BA8F1Logic *sel;
-	if (logic == 0 || (sel = g_009FEF10) == 0)
+	if (logic == 0 || (sel = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)) == 0)
 		return 2;
 	if (((BfmeSelectionState *)sel)->isSelectionLocked())
 		return logic->m_114 != 0 ? 6 : 4;
@@ -57,7 +60,7 @@ int Rva002DBE62Get()
 {
 	GameLogic *logic = TheGameLogic;
 	Rva002BA8F1Logic *sel;
-	if (logic == 0 || (sel = g_009FEF10) == 0)
+	if (logic == 0 || (sel = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)) == 0)
 		return 2;
 	if (((BfmeSelectionState *)sel)->isSelectionLocked())
 		return logic->m_114 != 0 ? 6 : 4;

@@ -9,6 +9,8 @@
 // and NetWrapperCommandMsg::getData; helper state +0xE74 2/1/5 like sibling
 // BfmeConv939Call939D; globals g_009FEF10 and g_bfme939Helper in use.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class BfmeSelectionState
 {
 public:
@@ -20,8 +22,6 @@ class Rva002BA8F1Logic
 public:
 	char _pad[4];
 };
-
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class NetWrapperCommandMsg
 {
@@ -49,7 +49,7 @@ public:
 
 char Rva0023C748::rva0023C748()
 {
-	if (g_009FEF10 != 0 && ((BfmeSelectionState *)g_009FEF10)->isSelectionLocked())
+	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) != 0 && ((BfmeSelectionState *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->isSelectionLocked())
 		return 0;
 	if (m_mode == 5)
 		return 1;

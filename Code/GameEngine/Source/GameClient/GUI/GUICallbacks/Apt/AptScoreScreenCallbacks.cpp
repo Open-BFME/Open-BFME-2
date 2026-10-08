@@ -6,6 +6,9 @@
 // screen's registration; that binding is their only reference. The class
 // is named for the strings' prefix. +0x27C is the screen's state.
 
+class Rva002BA8F1Logic;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include <vector>
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -93,8 +96,6 @@ public:
 	unsigned char m_pad000[0xB0];
 	Rva002104B6 *m_B0; // +0xB0, its regions by name
 };
-
-extern class Rva002BA8F1Logic *g_009FEF10;
 
 // The persistent-unit list box (BFME 1's ScoreScreenRva005778E0.cpp):
 // Zero Hour's list box gadget API, the living world's armies of
@@ -393,7 +394,7 @@ void AptScoreScreen::RestartGame(const char *unused)
 // Retail 0x0051BFB6, 28 bytes: "AptScoreScreen::Continue".
 void AptScoreScreen::Continue(const char *unused)
 {
-	g_009FEF10->rva002B3740();
+	(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B3740();
 	m_state = 3;
 }
 
@@ -605,7 +606,7 @@ bool AptScoreScreen::rva0051DA24()
 		const Image *image = thing->getButtonImage();
 		if (image)
 			GadgetListBoxAddEntryImage(m_units, image, row, 0, 40, 40, true, -1);
-		Rva002104B6 *regions = g_009FEF10->m_B0;
+		Rva002104B6 *regions = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0;
 		Rva0020E89C *region = (Rva0020E89C *)regions->rva002104B6(&unit->m_regionName);
 		if (region)
 			GadgetListBoxAddEntryText(m_units, region->rva0020E89C(), color, row, 2, true);

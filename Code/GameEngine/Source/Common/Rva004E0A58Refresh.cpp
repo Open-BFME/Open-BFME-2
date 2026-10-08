@@ -5,8 +5,10 @@
 // with m_20 armed to -1, run the pinned 0x0052B10F sweep on the +0x2C
 // target, then re-run the rowed 0x004E08A9 gate; on success dispatch slot
 // 0x20 on the target with (1 0) and report true.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
 
 struct Rva004E08A9World
 {
@@ -54,7 +56,7 @@ public:
 
 bool Rva004E0705::rva004E0A58()
 {
-	int id = ((Rva004E08A9World *)g_009FEF10)->m_FC;
+	int id = ((Rva004E08A9World *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->m_FC;
 	m_20 = -1;
 	m_1C = id;
 	m_2C->rva0052B10F();

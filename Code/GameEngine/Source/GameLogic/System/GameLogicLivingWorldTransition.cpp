@@ -7,13 +7,14 @@
 // 0x002B2A0A, then LivingWorldLogic::GameLogic_tacticalBattleComplete
 // (WorldBuilder's name for 0x002BC1DA), which retail reaches by tail jump.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class LivingWorldLogic
 {
 public:
 	void rva002B2A0A();
 	void GameLogic_tacticalBattleComplete();
 };
-extern LivingWorldLogic *g_009FEF10;
 
 class GameLogic
 {
@@ -23,6 +24,6 @@ public:
 
 void GameLogic::TransitionFromLivingWorldTacticalBattle()
 {
-	g_009FEF10->rva002B2A0A();
-	g_009FEF10->GameLogic_tacticalBattleComplete();
+	TheLivingWorldLogic->rva002B2A0A();
+	TheLivingWorldLogic->GameLogic_tacticalBattleComplete();
 }

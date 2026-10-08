@@ -14,6 +14,8 @@
 // +0x18; the participant entry type is not established and keeps an
 // address-derived name.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva003F468DParticipant
 {
 	unsigned char m_pad00[0x14];
@@ -73,7 +75,6 @@ private:
 	unsigned char m_pad00[0xB0];
 	Rva0020E6B7RegionManager *m_regionManager;
 };
-extern Rva0020E6B7Logic *g_009FEF10;
 
 class GameLogic
 {
@@ -83,7 +84,7 @@ public:
 
 Rva003F468DParticipant *GameLogic::GetLivingWorldTacticalVictor()
 {
-	Rva003F468D *battle = g_009FEF10->getRegionManager()->rva0020E6B7();
+	Rva003F468D *battle = (*(Rva0020E6B7Logic **)&TheLivingWorldLogic)->getRegionManager()->rva0020E6B7();
 	if (!battle)
 		return 0;
 	for (int side = 0; side < battle->getSideCount(); side++) {

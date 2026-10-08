@@ -3,6 +3,9 @@
 // name, LivingWorldScenarioOwnershipSet.cpp line 209: region lookup per name
 // in the +0x1C list, found ones appended). Collect ModuleData list via Logic+0xb0 lookup.
 // Evidence: rowed vector erase 0x0031BD55 reserve 0x002B712E push_back 0x004DFCB0; g_009FEF10 via Rva002BA8F1Logic+0xb0 to rowed Rva002104B6 lookup; this+0x1c/0x20 begin/end like Rva0059E2FD.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 
 class ModuleData;
@@ -33,7 +36,6 @@ public:
 	unsigned char m_pad[0xb0];
 	Rva002104B6 *m_b0;
 };
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class LivingWorldScenario
 {
@@ -56,7 +58,7 @@ void LivingWorldScenario::OwnershipSet::getRegions(_STL::vector<const ModuleData
 	((_STL::vector<void *, _STL::allocator<void *> > *)out)->erase((void **)out->_M_start, (void **)out->_M_finish);
 	out->reserve(m_end - m_begin);
 	for (StringBase<char> *p = m_begin, *e = m_end; p != e; ++p) {
-		const ModuleData *found = (const ModuleData *)g_009FEF10->m_b0->rva002104B6(p);
+		const ModuleData *found = (const ModuleData *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b0->rva002104B6(p);
 		if (found)
 			out->push_back(found);
 	}

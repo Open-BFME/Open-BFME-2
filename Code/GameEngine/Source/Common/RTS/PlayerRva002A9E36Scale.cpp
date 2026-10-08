@@ -7,6 +7,9 @@
 // (0x00DFEF10) and returns ceil(value * (level * 0.01 + 1)) with the level from
 // the rowed 0x002E0C2B, rounded through a fld/fistp REAL_TO_INT; otherwise
 // the value is returned unchanged. Identity is address-derived.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include <math.h>
 
 class Rva002034E9Host
@@ -23,7 +26,6 @@ class Rva002BA8F1Logic
 public:
 	Rva002E2903Player *find(int id, unsigned int *index);
 };
-extern Rva002BA8F1Logic *g_00DFEF10;
 
 class Rva002E0C2B
 {
@@ -52,7 +54,7 @@ int Player::ScaleMoney(int value)
 {
 	if (g_00DFE78C->rva002034E9() && m_3AC != -1)
 	{
-		Rva002E2903Player *entry = g_00DFEF10->find(m_3AC, 0);
+		Rva002E2903Player *entry = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(m_3AC, 0);
 		if (entry)
 		{
 			int level = ((Rva002E0C2B *)entry)->rva002E0C2B();

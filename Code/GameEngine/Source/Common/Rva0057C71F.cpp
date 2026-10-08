@@ -1,5 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?GetStartPositionInfoForSlot@AptMapPreview@@QAEPAXH@Z @0x0057C71F 155B evidence: leaf 2 callers; callees rowed getConstSlot getMap findMap rva0043DA65 rva0020EAF6 rva004FCA5A; globals g_009FEF10 TheMapCache
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 class Rva0043DA65
 {
@@ -61,7 +64,7 @@ public:
 	const MapMetaData *findMap(AsciiString s);
 };
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
+
 extern MapCache *TheMapCache;
 class Rva004FCA5AInner
 {
@@ -95,7 +98,7 @@ void *AptMapPreview::GetStartPositionInfoForSlot(int slot)
 			int v10 = gs->m_10;
 			if (m_1c == 1) {
 				if (v10 != -1) {
-					Rva002BA8F1Logic *logic = g_009FEF10;
+					Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
 					Rva0020EAF6View *view = *(Rva0020EAF6View **)((char *)logic + 0xb0);
 					Rva0020E89C *p = view->rva0020EAF6(v10);
 					if (p) {

@@ -13,8 +13,9 @@
 // same this, so X is likely Rva004E0705 itself; kept address-named until the
 // +0x08 member and +0x30 tail are proven against its other views.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class Rva004E0705
 {
@@ -143,7 +144,7 @@ void Rva004E0B60::rva004E0C49()
 	Rva004E0C49Elem **end = m_34;
 	for (Rva004E0C49Elem **p = m_30; p != end; ++p)
 		(*p)->v6();
-	m_20 = *(int *)((char *)g_009FEF10 + 0xFC);
+	m_20 = *(int *)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0xFC);
 	Rva004EFour f = { 0x5FF3A9, 0, 0, 0 };
 	rva004E0B60(f, (int)this);
 }

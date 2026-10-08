@@ -1,6 +1,9 @@
 // cl: /Ireference/shims/bfme2_ascii /GX- /O1 /arch:SSE
 // ?rva003802DF@Rva00380200@@QAEHXZ @0x003802DF 157B. Unlock min selector plus rank store tail.
 // evidence: abuts prev 0x0038028B same page same class Rva00380200; vcall +0x14 plus g_009FEF10 plus TheRankInfoStore get 0x003B0FC6 plus rva002B2AFD plus TheGameLogic mode +0x110 plus isInMultiplayerGame; unblocks 4.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva003B0FC6SarAvgField
 {
 public:
@@ -14,7 +17,7 @@ public:
 class RankInfoStore;
 extern RankInfoStore *TheRankInfoStore;
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
+
 class GameLogic
 {
 public:
@@ -48,10 +51,10 @@ private:
 };
 int Rva00380200::rva003802DF()
 {
-    if (isReady() && g_009FEF10)
+    if (isReady() && (*(Rva002BA8F1Logic **)&TheLivingWorldLogic))
     {
         int a = ((Rva003B0FC6SarAvgField *)TheRankInfoStore)->get();
-        int b = ((Rva002B2AFD *)g_009FEF10)->rva002B2AFD();
+        int b = ((Rva002B2AFD *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->rva002B2AFD();
         const int &r = b < a ? b : a;
         return r;
     }

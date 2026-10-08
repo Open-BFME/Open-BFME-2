@@ -19,6 +19,9 @@
 // setup and the ghost manager, an out-of-line player-leave reset
 // (0x0023D17D through TheGameLogic) and moved field offsets. Field names
 // stay offset names: only the donor knows their meaning.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include <list>
 #include <map>
 #include <set>
@@ -1488,7 +1491,6 @@ struct AssetLoadMode
 
 void bfmeMergeReceiverKeys(int value);
 
-
 class MapObject
 {
 public:
@@ -1864,7 +1866,6 @@ private:
 	char m_pad0000[0x1768];
 	int m_staticLODLevel;
 };
-
 
 void bfmeClearReceiverFlag(int value);
 
@@ -3291,7 +3292,6 @@ private:
 	Rva0020E6B7RegionManager *m_regionManager;                           // +0xB0
 };
 
-extern Rva002BA8F1Logic *TheLivingWorldLogic;
 extern const StaticNameKey TheKey_playerName;
 extern const StaticNameKey TheKey_livingWorldPlayerID;
 
@@ -3299,9 +3299,9 @@ void GameLogic::SetUpCampaignPlayers(void)
 {
 	if (TheLinearCampaignManager->hasCampaign())
 		return;
-	if (TheLivingWorldLogic == 0)
+	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) == 0)
 		return;
-	Rva0020E6B7RegionManager *regions = TheLivingWorldLogic->getRegionManager();
+	Rva0020E6B7RegionManager *regions = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->getRegionManager();
 	if (regions == 0)
 		return;
 	Rva003F468D *battle = regions->rva0020E6B7();
@@ -3322,7 +3322,7 @@ void GameLogic::SetUpCampaignPlayers(void)
 				Rva0023FED9Entry **end = entries->m_end;
 				for (; it != end; ++it) {
 					if ((*it)->m_sideName == name) {
-						Rva002E2903Player *player = TheLivingWorldLogic->find((*it)->m_playerName, 0);
+						Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find((*it)->m_playerName, 0);
 						if (player)
 							dict->setInt(((Rva00148F5ECache *)&TheKey_livingWorldPlayerID)->get(), player->m_id);
 						break;
@@ -3464,8 +3464,8 @@ void GameLogic::rva0023EE5B(bool isSkirmish, int progressCount)
 			if (m_114 != 3)
 			{
 				int playerID = slot->m_livingWorldPlayerID;
-				Rva002E2903Player *player = TheLivingWorldLogic->find(playerID, 0);
-				Rva002B3740Item *item = TheLivingWorldLogic->rva002B2B2D();
+				Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(playerID, 0);
+				Rva002B3740Item *item = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B2B2D();
 				if (player && item)
 				{
 					if (item->m_13c == player->m_id)

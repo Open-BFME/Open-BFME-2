@@ -14,6 +14,9 @@
 // proven registration name; the other address-derived names retain uncertainty.
 // Singleton getters retain their rowed address-derived identities; calls in
 // this initializer reach their proven thunks43CCC2 and4E4312. Both five-byte jumps are pinned to their rowed bodies.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 class SnapshotSubsystemPrefix { public: virtual ~SnapshotSubsystemPrefix(); private: char opaque04[8]; };
@@ -26,7 +29,7 @@ private: void addSnapshotBlock(AsciiString, Snapshot *, SnapshotType); char opaq
 void *Rva0043CCC2GetRoute(); void *Rva004E4312GetRoute();
 #pragma comment(linker, "/alternatename:?Rva0043CCC2GetRoute@@YAPAXXZ=?Rva0043C9B3Get@@YAPAXXZ")
 #pragma comment(linker, "/alternatename:?Rva004E4312GetRoute@@YAPAXXZ=?Rva004E4179Get@@YAPAXXZ")
-class Rva002BA8F1Logic; extern Rva002BA8F1Logic *g_009FEF10;
+class Rva002BA8F1Logic; 
 class AudioManager; extern AudioManager *TheAudio;
 class GameState; extern GameState *TheGameState;
 struct Rva0023D607Holder; extern Rva0023D607Holder *g_Rva0023D607Holder;
@@ -61,7 +64,7 @@ struct Rva0039B95FHolder; extern Rva0039B95FHolder *g_00E031E8;
 class Rva00285D34; extern Rva00285D34 *g_00DFEC68;
 void GameState::init()
 {
-    addSnapshotBlock("CHUNK_LivingWorldLogic", (Snapshot *)(SnapshotSubsystemView *)g_009FEF10, (SnapshotType)0);
+    addSnapshotBlock("CHUNK_LivingWorldLogic", (Snapshot *)(SnapshotSubsystemView *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic), (SnapshotType)0);
     addSnapshotBlock("CHUNK_Audio", (Snapshot *)(SnapshotSubsystemView *)TheAudio, (SnapshotType)0);
     addSnapshotBlock("CHUNK_GameState", (Snapshot *)(SnapshotSubsystemView *)TheGameState, (SnapshotType)0);
     addSnapshotBlock("CHUNK_Campaign", (Snapshot *)g_Rva0023D607Holder, (SnapshotType)0);
@@ -102,14 +105,14 @@ void GameState::init()
     addSnapshotBlock("CHUNK_Shroud", (Snapshot *)(SnapshotSubsystemView *)TheShroudManager, (SnapshotType)1);
     addSnapshotBlock("CHUNK_Collision", (Snapshot *)(SnapshotSubsystemView *)g_Va00DFE754, (SnapshotType)1);
     addSnapshotBlock("CHUNK_SkirmishAISystem", (Snapshot *)(SnapshotSubsystemView *)g_00DFEEF8, (SnapshotType)1);
-    addSnapshotBlock("CHUNK_LivingWorldLogic", (Snapshot *)(SnapshotSubsystemView *)g_009FEF10, (SnapshotType)3);
+    addSnapshotBlock("CHUNK_LivingWorldLogic", (Snapshot *)(SnapshotSubsystemView *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic), (SnapshotType)3);
     addSnapshotBlock("CHUNK_Audio", (Snapshot *)(SnapshotSubsystemView *)TheAudio, (SnapshotType)3);
     addSnapshotBlock("CHUNK_GameState", (Snapshot *)(SnapshotSubsystemView *)TheGameState, (SnapshotType)3);
     addSnapshotBlock("CHUNK_Campaign", (Snapshot *)g_Rva0023D607Holder, (SnapshotType)3);
     addSnapshotBlock("CHUNK_Palantir", (Snapshot *)(SnapshotSubsystemView *)TheRva002D3627Host, (SnapshotType)3);
     addSnapshotBlock("CHUNK_GameStateMap", (Snapshot *)(SnapshotSubsystemView *)g_Va00E030D8, (SnapshotType)3);
     addSnapshotBlock("CHUNK_GameLogic", (Snapshot *)(SnapshotSubsystemView *)TheGameLogic, (SnapshotType)3);
-    addSnapshotBlock("CHUNK_LivingWorldLogic", (Snapshot *)(SnapshotSubsystemView *)g_009FEF10, (SnapshotType)4);
+    addSnapshotBlock("CHUNK_LivingWorldLogic", (Snapshot *)(SnapshotSubsystemView *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic), (SnapshotType)4);
     addSnapshotBlock("CHUNK_Audio", (Snapshot *)(SnapshotSubsystemView *)TheAudio, (SnapshotType)4);
     addSnapshotBlock("CHUNK_GameState", (Snapshot *)(SnapshotSubsystemView *)TheGameState, (SnapshotType)4);
     addSnapshotBlock("CHUNK_Campaign", (Snapshot *)g_Rva0023D607Holder, (SnapshotType)4);

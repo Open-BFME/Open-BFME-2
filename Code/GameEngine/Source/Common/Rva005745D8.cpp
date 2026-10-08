@@ -1,6 +1,9 @@
 // cl: /O1 /DNDEBUG /MD
 // ?Rva005745D8Get@@YIXPAX@Z 187B @0x005745D8: free fastcall void (void*) chaining get plus globals plus 0x2E0C68 plus 0x2E0CD4 plus virtuals plus floor scale.
 // Evidence: chain lane calls 0x002E0C68 just landed rowed; caller 0x0057506A mov ecx [esi+0x20] call no pushes ret0 so fastcall void* ret void; callees all rowed/pinned per packet incl 0x42D714 (row says int but body derefs as pointer so cast with note for central retype) 0x2E0C68 0x2E0CD4 0x2E0C2B 0x2E063B plus IAT floor plus BfmeZeroRange style floats at 0xBCF628 0xBBB8D8; prev Rva00574499Dtor next Rva005746AFCtor share /O1 /DNDEBUG /MD.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva0042D714PtrChaseField
 {
 public:
@@ -9,7 +12,7 @@ public:
 struct BfmeWorldRV;
 extern BfmeWorldRV *g_bfmeWorldRV;
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
+
 class Rva002E0C68
 {
 public:
@@ -71,7 +74,7 @@ void __fastcall Rva005745D8Get(void *a)
 	void *esi_obj = (void *)first;
 	if (esi_obj == 0)
 		return;
-	void *g = g_009FEF10;
+	void *g = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
 	if (g == 0)
 		return;
 	void *edi_obj = *(void **)((char *)g + 0x98);

@@ -13,6 +13,9 @@
 // entry (vector at +0x04, 0xD8 bytes each) whose template has kinds 90 and
 // 128 goes to the army summary when the living-world player accepts it,
 // else back to that player. Kind indices are read off the tested bits.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include <vector>
 
 enum KindOfType
@@ -56,8 +59,6 @@ public:
 	Rva002E2903Player *find(int id, unsigned int *index);
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
-
 class ArmySummarySystem
 {
 public:
@@ -90,7 +91,7 @@ void UnitRevivalTracker::retrieveHeroesForArmySummary(ArmySummarySystem *summary
 	int id = m_player->getLivingWorldPlayerID();
 	if (id == -1)
 		return;
-	Rva002E2903Player *lwPlayer = g_009FEF10->find(id, 0);
+	Rva002E2903Player *lwPlayer = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(id, 0);
 	if (!lwPlayer)
 		return;
 	for (unsigned int i = 0; i < m_entries.size(); ++i)

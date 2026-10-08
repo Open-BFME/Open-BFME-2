@@ -10,6 +10,8 @@
 // reproduces retail's sub/sar-2/jne count check; testing the pointer
 // difference inline folds to the 3-byte-longer `test edx,0xFFFFFFFC`.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva004E0605ByteChaseField
 {
 public:
@@ -31,8 +33,6 @@ class Rva002BA8F1Logic
 public:
 	Rva002E2903Player *find(int id, unsigned int *index);
 };
-
-extern Rva002BA8F1Logic *g_009FEF10;
 
 struct Rva003F02E4Node
 {

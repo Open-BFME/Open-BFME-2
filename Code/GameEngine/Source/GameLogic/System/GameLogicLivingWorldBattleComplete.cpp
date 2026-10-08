@@ -22,6 +22,8 @@
 // 0x00376E92(1, 0) and the transition. Unestablished types keep
 // address-derived names.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Object;
 
 class ArmySummarySystem
@@ -89,7 +91,6 @@ private:
 	unsigned char m_pad00[0xB0];
 	Rva0020E6B7RegionManager *m_regionManager;
 };
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class Rva00DFE1C8Host
 {
@@ -144,7 +145,7 @@ extern GameLogic *TheGameLogic;
 void GameLogic::LivingWorldTacticalBattleComplete()
 {
 	m_armySummarySystem.Save(m_objList);
-	LivingWorldBattle *battle = g_009FEF10->getRegionManager()->rva0020E6B7();
+	LivingWorldBattle *battle = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->getRegionManager()->rva0020E6B7();
 	int mask = 0xFFFFF;
 	while (mask) {
 		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
@@ -154,7 +155,7 @@ void GameLogic::LivingWorldTacticalBattleComplete()
 		void *block = player->getScoreKeeperBlock();
 		if (!battle || !block)
 			continue;
-		Rva002E2903Player *lwPlayer = g_009FEF10->find(player->getArmyID(), 0);
+		Rva002E2903Player *lwPlayer = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(player->getArmyID(), 0);
 		if (!lwPlayer)
 			continue;
 		int sideIndex = battle->rva003F4752(lwPlayer);
@@ -186,7 +187,7 @@ void GameLogic::LivingWorldTacticalBattleComplete()
 // 0x002B3669 query of g_009FEF10; success pushes 1 then 0 for the pinned GameLogic helper; failure tail-calls LivingWorldTacticalBattleComplete.
 void GameLogic::rva0023DA4E()
 {
-	if (g_009FEF10 && g_009FEF10->rva002B3669())
+	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) && (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B3669())
 		rva00376E92(0, 1);
 	else
 		LivingWorldTacticalBattleComplete();

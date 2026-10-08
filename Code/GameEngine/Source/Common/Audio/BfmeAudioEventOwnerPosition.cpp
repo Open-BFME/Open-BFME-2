@@ -1,4 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /MD
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "Common/BfmeAudioEventPrefix136.h"
 // PC worker2DA1CC-2DA318: native object/drawable constructors2DA461/2DA4DB
 // pass the hidden three-float return buffer and bool reference here. Tags1/2
@@ -43,7 +46,7 @@ extern GameLogic *TheGameLogic;
 extern GameClient *TheGameClient;
 class Rva002D3627Host;
 extern Rva002D3627Host *g_00DFEF18;
-extern Rva002BA8F1Logic *g_009FEF10;
+
 BfmeEventPositionView BfmeAudioEventPrefix136::rva002DA1CC(bool &valid) {
  switch(m_int38) {
  case 1: {
@@ -63,14 +66,14 @@ BfmeEventPositionView BfmeAudioEventPrefix136::rva002DA1CC(bool &valid) {
   }
   break;
  case 4:
-  if(g_009FEF10) {
-   Rva002B488EResult *item=g_009FEF10->rva002B488E(m_int34);
+  if((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)) {
+   Rva002B488EResult *item=(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B488E(m_int34);
    if(item) {m_b48=1; BfmeEventPositionView pos; pos.x=item->x;pos.y=item->y;pos.z=0; m_position=pos;}
   }
   break;
  case 5:
-  if(g_009FEF10) {
-   Rva002B2579Result *item=g_009FEF10->rva002B2579(m_int34);
+  if((*(Rva002BA8F1Logic **)&TheLivingWorldLogic)) {
+   Rva002B2579Result *item=(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B2579(m_int34);
    if(item) {Rva002B2579Position *pos=item->get(); if(pos) {m_b48=1;m_position=pos->position;}}
   }
   break;

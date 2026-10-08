@@ -10,6 +10,8 @@
 // +4 delegate thunks and their rowed callees; the original host class name
 // and higher-level method name are unknown, so this remains address-derived.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -29,7 +31,6 @@ public:
 	class Impl;
 };
 }
-
 
 class Rva002BA8F1Logic;
 class Object;
@@ -134,7 +135,6 @@ private:
 	char **m_entriesEnd;
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
 extern "C" const void *const vtbl_00C755C0[];
 #pragma comment(linker, "/alternatename:_vtbl_00C755C0=??_7Rva005D13BD@@6B@")
 
@@ -182,7 +182,7 @@ void StrategicInGameUI::RegionAwardDialog::Impl::SetupMovieClipPlayers()
 // nested key views are address-derived; their original type names are unknown.
 Rva0020E89C *StrategicInGameUI::RegionAwardDialog::Impl::GetRegion()
 {
-	Rva0020EAF6View *holder = *(Rva0020EAF6View **)((char *)g_009FEF10 + 0xB0);
+	Rva0020EAF6View *holder = *(Rva0020EAF6View **)((char *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic) + 0xB0);
 	return holder->rva0020EAF6(m_key->m_index);
 }
 

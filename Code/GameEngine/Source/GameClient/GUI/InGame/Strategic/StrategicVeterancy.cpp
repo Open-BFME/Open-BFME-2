@@ -7,6 +7,8 @@
 // which keeps the Apt level at +0x04, the display state at +0x08 (0 hidden,
 // 1 shown, 2 fading in, 3-4 later states) and an enable word at +0x0C.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 typedef int Int;
 typedef bool Bool;
 
@@ -35,8 +37,6 @@ class Rva002B254F
 public:
 	Int rva002B254F();					// 0x002B254F
 };
-
-extern Rva002B254F *g_00DFEF10;
 
 class StrategicVeterancy
 {

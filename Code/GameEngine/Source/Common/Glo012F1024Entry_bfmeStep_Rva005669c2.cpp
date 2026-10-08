@@ -15,6 +15,8 @@
 // and the notification is written out twice rather than shared: it is a tail
 // jump in each arm, so there is no frame here at all.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 typedef int Int;
 
 class User;
@@ -291,7 +293,6 @@ public:
 // GameLogic/LivingWorld/LivingWorldLogic.cpp); the Gen_* views below keep the
 // methods this TU calls, so every use casts.
 class LivingWorldLogic;
-extern LivingWorldLogic *TheLivingWorldLogic;
 
 class Rva0060D5E0
 {
@@ -332,8 +333,7 @@ public:
 	void j_00008c0b(void);
 };
 
-extern Glo012F1028Type *Glo012F1028;				// 0x012F1028
-
+				// 0x012F1028
 
 // ?j_00019eca@Glo012F1024Item@@QAEXXZ
 void Glo012F1024Item::j_00019eca(void)

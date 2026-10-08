@@ -5,6 +5,9 @@
 // the arg through the rowed view lookup 0x0020EAF6 on the 0x00DFEF10
 // logic's +0xB0 view, answers -1 on a null lookup, else the +0x12C int of
 // the 0x004FCA0C result built from this+0x1C and the lookup pointer.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva0020E89C;
 
 class Rva0020EAF6View
@@ -18,8 +21,6 @@ struct Logic0052BAC1
 	char m_pad[0xB0];
 	Rva0020EAF6View *m_B0;
 };
-
-extern Logic0052BAC1 *g_00DFEF10;
 
 struct Res004FCA0C
 {
@@ -44,7 +45,7 @@ int Holder0052BAC1::Rva0052BAC1(int arg)
 	Sub0052BAC1 *sub = m_1C;
 	if (sub != 0)
 	{
-		Rva0020E89C *found = g_00DFEF10->m_B0->rva0020EAF6(arg);
+		Rva0020E89C *found = (*(Logic0052BAC1 **)&TheLivingWorldLogic)->m_B0->rva0020EAF6(arg);
 		if (found == 0)
 			return -1;
 		return sub->Rva004FCA0C(found)->m_12C;

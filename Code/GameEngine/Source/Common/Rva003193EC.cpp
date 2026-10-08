@@ -7,6 +7,8 @@
 // plus setle bool return, callers 0x002B6CD6 0x002B6D6F 0x00319422.
 // class-gate: allow StringBase private validate for row ?validate@?$StringBase@G@@ABEXXZ at 0x000B3FD0
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 template <typename T> class StringBase
 {
 	friend class Rva003193EC;
@@ -26,7 +28,6 @@ public:
 };
 
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class Rva002B2B5B
 {
@@ -124,7 +125,7 @@ void Rva003193EC::rva003190E7(bool flag)
 	int v = m_78->bfmeVal1038();
 	if (v == -1)
 		return;
-	int w = ((Rva002B2B5B *)g_009FEF10)->rva002B2B5B(v);
+	int w = ((Rva002B2B5B *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->rva002B2B5B(v);
 	((Rva00318BC6Owner *)this)->rva00318BC6(w);
 }
 

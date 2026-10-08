@@ -1,5 +1,8 @@
 // cl: /EHsc /MD
 // ??1Rva00576C4B@@UAE@XZ @0x00576C4B 186B: virtual dtor unregistering listener base at +0xC via rowed erase 0x002B7250 then conditional ptr-chase release then member teardown. Evidence: three vtable stores plus base restores 0x0086E7F0/0x0086E7E8/0x0086E7E4 to 0x007DBA74/0x0086E788; erase caller plus deleting-dtor caller at 0x00576DD5; callees all rowed.
+class Rva002BA8F1Logic;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class CreateAHeroData;
 class Rva002B7250
 {
@@ -12,7 +15,7 @@ public:
 	char m_pad[0x5c];
 	Rva002B7250 m_holder;
 };
-extern class Rva002BA8F1Logic *g_009FEF10;
+
 class Rva00328A83PtrChaseField
 {
 public:
@@ -95,7 +98,7 @@ private:
 };
 Rva00576C4B::~Rva00576C4B()
 {
-	g_009FEF10->m_holder.rva002B7250((CreateAHeroData *)(Listener00576C4B *)this);
+	(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_holder.rva002B7250((CreateAHeroData *)(Listener00576C4B *)this);
 	if (m_flag44) {
 		int v1 = m_s->m_p->get();
 		int v2 = ((Rva0042D6AEPtrChaseField *)v1)->get();

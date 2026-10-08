@@ -7,6 +7,9 @@
 // init versus body paths), ints 0 at +0xB4 +0xB8 +0xBC +0xC0 plus bytes 0 at
 // +0xC4 +0xC5. Chain of 0x0037DF2C which this session landed. Callers at
 // 0x003F22B6 0x0040EFBB 0x0040F09B 0x0040F149 0x0040F24D 0x0040F721.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 extern "C" const void *const vtbl_00BC6F20[];  // folded, 7 classes; via ??_7Rva0007DF07@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BC6F20=??_7Rva0007DF07@@6B@")
 
@@ -133,7 +136,7 @@ class Rva002BA8F1Logic
 public:
 	Rva002B2579Result *rva002B2579(int id);
 };
-extern Rva002BA8F1Logic *g_009FEF10;
+
 class Rva0040C45CSlot4
 {
 public:
@@ -148,7 +151,7 @@ void ArmySummaryEntry::CancelUpgrades()
 	int id = m_bc;
 	if (id == 0)
 		return;
-	Rva002B2579Result *found = g_009FEF10->rva002B2579(id);
+	Rva002B2579Result *found = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B2579(id);
 	if (found == 0)
 	{
 		m_bc &= 0;

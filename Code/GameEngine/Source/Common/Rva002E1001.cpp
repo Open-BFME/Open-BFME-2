@@ -7,6 +7,8 @@
 // sub-sar-2 count plus inc-eax loop shape as pool counters; neighbours carry
 // /O1.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E1001
 {
 public:
@@ -36,12 +38,11 @@ public:
 	char *m_begin;
 	char *m_end;
 };
-extern Rva002BA8F1Logic *g_009FEF10;
 
 int Rva002E1001::rva002E1001()
 {
 	int c = 0;
-	void **pp = *(void ***)&g_009FEF10;
+	void **pp = *(void ***)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
 	pp = *(void ***)((char *)pp + 0xB0);
 	pp = *(void ***)((char *)pp + 8);
 	char *p;
@@ -80,12 +81,12 @@ done:
 // same sub-sar-2 plus inc loop shape as 0x002E1001; neighbours carry /O1.
 bool Rva002E1001::rva004FC970(int id)
 {
-	Rva002BA8F1Logic *logic = *(Rva002BA8F1Logic **)&g_009FEF10;
+	Rva002BA8F1Logic *logic = *(Rva002BA8F1Logic **)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
 	char *pp = (char *)logic + 0x8c;
 	int n = (*(int *)(pp + 4) - *(int *)pp) >> 2;
 	int sum = 0;
 	for (int i = 0; i < n; ++i) {
-		Rva002E2903Player *p = g_009FEF10->rva002B52A8(i);
+		Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
 		if (p->m_34 != id)
 			continue;
 		sum += ((Rva002E1001 *)p)->rva002E1001();

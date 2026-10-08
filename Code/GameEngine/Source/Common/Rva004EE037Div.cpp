@@ -2,6 +2,9 @@
 //
 // ?rva004EE037@LivingWorldScoreKeeper@@QAEIXZ retail 0x004EE037 12B unsigned div.
 // Evidence: [ecx+0x74] div by LogicFramesPerSecond 0x009BA4E4; callers 0x005BE3D6 0x005BFDE4.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 extern int g_Va00DBA4E4;
 
 #define LogicFramesPerSecond (*(const unsigned *)&g_Va00DBA4E4)
@@ -22,7 +25,7 @@ public:
 // Use the linked singleton's established Living World logic pointer name and
 // type; the local view below only describes the target's +0xFC integer read.
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
+
 extern "C" __declspec(dllimport) long __cdecl time(long *value);
 namespace _STL
 {
@@ -74,7 +77,7 @@ unsigned LivingWorldScoreKeeper::rva004EE037()
 int LivingWorldScoreKeeper::rva004EE043()
 {
 	if (m_78 == -1)
-		return ((Rva00DFEF10 *)g_009FEF10)->m_FC;
+		return ((Rva00DFEF10 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->m_FC;
 	return m_78;
 }
 

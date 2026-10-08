@@ -3,6 +3,8 @@
 // ?getCRC@GameLogic@@QAEIH@Z @0x0023CB2C 542B
 // Evidence: LINK BONUS 1 file 51B; donor BFME1 GameLogicCRC.cpp getCRC plus BFME2 BFMECRCWriter ctor 0x00225A2D; callers 0x0024583A 0x00245861 0x002CEA44 0x002CEA8D; neighbours 0x0023CAD2 0x0023CD97 same class GameLogic first at +0xAC.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 void setFPMode();
 unsigned int GetGameLogicRandomSeedCRC();
 
@@ -138,7 +140,6 @@ public:
 	void bfmeClose();
 };
 
-
 class Rva00210C66CmpBoolField
 {
 public:
@@ -164,7 +165,6 @@ extern CollisionManager *g_00DFE754;
 extern TaintManager *g_00DFE750;
 extern SkirmishAIManager *g_00DFEEF8;
 extern class AI *TheAI;
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class GameLogic
 {
@@ -206,7 +206,7 @@ unsigned int GameLogic::getCRC(int mode)
 	if (g_Rva00A02D87 != 0 || g_00E02D84 == 0)
 		xfer->xferSnapshot(TheAI);
 	if ((g_Rva00A02D87 != 0 || g_00E02D88 == 0) && ((Rva00210C66CmpBoolField *)this)->get())
-		xfer->xferSnapshot(g_009FEF10);
+		xfer->xferSnapshot((*(Rva002BA8F1Logic **)&TheLivingWorldLogic));
 	((Gen009D6DD0 *)&writer)->bfmeClose();
 	return writer.m_crc;
 }

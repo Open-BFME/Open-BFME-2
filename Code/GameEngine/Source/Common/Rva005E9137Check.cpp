@@ -2,8 +2,10 @@
 // ?Rva005E9137Check@@YAEPAVRva00318F42@@@Z @0x005E9137 44B
 // Evidence: retail checks g_009FEF10 null then +0xF4 then Rva002B280C::check then tail to 0x00318F42.
 // Callers at 0x005E9169 0x005E9180 test al as bool.
-extern class Rva002BA8F1Logic *g_009FEF10;
 
+class Rva002BA8F1Logic;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 struct Arg54;
 class Rva00318F42
 {
@@ -29,7 +31,7 @@ public:
 };
 unsigned char __cdecl Rva005E9137Check(class Rva00318F42 *a)
 {
-	class Rva002BA8F1Logic *logic = g_009FEF10;
+	class Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
 	if (logic == 0)
 		return 0;
 	if (logic->m_0F4 != 0)

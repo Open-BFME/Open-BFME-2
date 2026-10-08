@@ -17,6 +17,8 @@
 //   selectMatchingAcrossRegion at 0x190, buildRegion at 0x194.
 // - GameText fetch at 0x3C returning UnicodeString by value.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 typedef int Int;
 typedef bool Bool;
 
@@ -46,8 +48,6 @@ class AsciiString;
 
 #include "ascii_string.h"
 #include "unicode_string.h"
-
-
 
 class GameTextInterface
 {
@@ -111,8 +111,6 @@ private:
 	unsigned char m_first;
 	unsigned char m_second;
 };
-
-extern BfmeSelectionState *g_bfmeStateDO;
 
 class InGameUI
 {
@@ -227,7 +225,7 @@ extern InGameUI *TheInGameUI;
 // ?selectMatchingAcrossScreen@InGameUI@@UAEHXZ
 int InGameUI::selectMatchingAcrossScreen()
 {
-	BfmeSelectionState *state = g_bfmeStateDO;
+	BfmeSelectionState *state = (*(BfmeSelectionState **)&TheLivingWorldLogic);
 	if (state != 0 && state->isSelectionLocked() != 0)
 		return 0;
 

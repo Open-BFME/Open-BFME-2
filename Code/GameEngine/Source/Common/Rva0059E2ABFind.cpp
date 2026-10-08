@@ -1,5 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD
 // ?rva0059E2AB@Rva0059E2AB@@QAEPAXPAX@Z @0x0059E2AB 44B: Find-or-default via +0x28 name through Logic+0xb0 manager; neighbours OpaqueScalarDeletingDtorsB13 Rva0059E2FDContains; caller 0x004FCA05.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 
 class Rva002104B6
@@ -14,7 +17,6 @@ public:
 	unsigned char m_pad[0xb0];
 	Rva002104B6 *m_b0;
 };
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class Rva0059E2AB
 {
@@ -31,6 +33,6 @@ void *Rva0059E2AB::rva0059E2AB(void *def)
 {
 	if (m_28.isEmpty())
 		return def;
-	void *found = g_009FEF10->m_b0->rva002104B6(&m_28);
+	void *found = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b0->rva002104B6(&m_28);
 	return found != 0 ? found : def;
 }

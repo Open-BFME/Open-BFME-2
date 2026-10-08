@@ -3,6 +3,9 @@
 // Evidence: rowed rva002104B6 0x002104B6 plus rowed rva002E1001 0x002E1001
 // plus g_009FEF10; caller 0x004FD5F0; prev 0x004FC563 next 0x004FC957;
 // unlocks 0x004FD5C7.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002104B6
 {
 public:
@@ -24,7 +27,6 @@ public:
 	char m_pad00[0xb0];
 	Rva002104B6 *m_b0;
 };
-extern Rva002BA8F1Logic *g_009FEF10;
 
 class Rva004FC8D6
 {
@@ -41,7 +43,7 @@ bool Rva004FC8D6::rva004FC8D6(Rva002E1001 *arg)
 {
 	if (m_14 != 0)
 	{
-		Rva002104B6 *t = g_009FEF10->m_b0;
+		Rva002104B6 *t = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b0;
 		void *q = (void *)((char *)arg + 0x2c);
 		void *p = t->rva002104B6(q);
 		if (p != 0)

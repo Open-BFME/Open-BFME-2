@@ -5,6 +5,9 @@
 // conditional rva003EF041 then logic find and rva002104B6 check gating
 // rva003EE89E vs rva003EE900 else rva003EE884/900. Callers at
 // 0x003EF142/0x003EF1F5/0x003EFE5B. Prev 0x003EF041 same TU family.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva003EE7CA
 {
 public:
@@ -52,7 +55,7 @@ public:
 	char m_pad[0xB0];
 	Rva002104B6 *m_B0;
 };
-extern Rva002BA8F1Logic *g_009FEF10;
+
 struct Rva003EF08BArg
 {
 	char m_pad00[0x13C];
@@ -92,10 +95,10 @@ void LivingWorldRegionEffectsManager::SyncRegion(int argInt)
 		((Rva003EE84A *)this)->rva003EE84A(argInt, (int)&tmp);
 		if (argInt == m_14)
 			((Rva003EF041 *)this)->rva003EF041();
-		Rva002E2903Player *player = g_009FEF10->find(faction, (unsigned int *)0);
+		Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(faction, (unsigned int *)0);
 		bool same = false;
 		if (player) {
-			Rva002104B6 *mid = g_009FEF10->m_B0;
+			Rva002104B6 *mid = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0;
 			void *q = mid->rva002104B6((void *)((char *)player + 0x2C));
 			same = (q == (void *)argInt);
 		}

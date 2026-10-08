@@ -8,6 +8,8 @@
 // callee's argument count is read from its own ret; unnamed callees are
 // pinned by address. Meanings are not recovered.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include <vector>
@@ -117,11 +119,9 @@ public:
 	Rva003EF2FFMid *m_B0;
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
-
 void LivingWorldRegionEffectsManager::rva003EF2FF()
 {
-	Rva003EF2FFHolder *holder = g_009FEF10->m_B0->m_8;
+	Rva003EF2FFHolder *holder = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0->m_8;
 	_STL::vector<Int> *range;
 	if (holder)
 		range = &holder->m_2C;

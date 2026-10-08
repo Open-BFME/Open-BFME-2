@@ -3,6 +3,9 @@
 // Ported from GeneralsMD/Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp.
 // Copyright 2025 Electronic Arts Inc.; GPL-3.0-or-later, as in the vendored source.
 // BFME layout/call witnesses: build/gap_005ade0d/LAYOUTS.md and region_{a,b}.asm.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #include <list>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -620,7 +623,7 @@ extern GameWindowTransitionsHandler* TheTransitionHandler;
 // 0x012F1028 is the one Glo012F1028 global.  Rva003968A0 above is this TU's
 // view of that object (its test() is a pinned callee), so the use casts.
 class Glo012F1028Type;
-extern Glo012F1028Type* Glo012F1028;
+
 extern void* g_va012F71B4;
 extern void* g_va012F4988;
 void rva00511CC0(int);

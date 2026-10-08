@@ -2,6 +2,8 @@
 // ?rva00538CEF@Rva00538CEF@@QAEPAVRva0020E89C@@XZ @0x00538CEF 40B: returns view lookup of last vector element or null.
 // Evidence: retail cmp [ecx] [ecx+4] je null then global g_009FEF10 +0xB0 view call rowed 0x0020EAF6 with [edx-4]; callers at 0x31A5FC 0x538D44.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva0020E89C;
 class Rva0020EAF6View
 {
@@ -16,8 +18,6 @@ public:
 	Rva0020EAF6View *m_B0;
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
-
 class Rva00538CEF
 {
 public:
@@ -30,7 +30,7 @@ private:
 Rva0020E89C *Rva00538CEF::rva00538CEF()
 {
 	if (m_start != m_finish) {
-		Rva002BA8F1Logic *logic = g_009FEF10;
+		Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
 		if (logic) {
 			Rva0020EAF6View *view = logic->m_B0;
 			if (view)

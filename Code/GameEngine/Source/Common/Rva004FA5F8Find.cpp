@@ -2,10 +2,13 @@
 // Chain from the LivingWorld id find at 0x002B51F8: follows this+4 then +0x24
 // and returns null when the inner pointer is null else the find result for id at +0x13C.
 // Callers in 0x004FA83E and 0x004FA9B1 families. TU-local honest-address views.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E2903Player;
 class Rva002BA8F1Logic { public: Rva002E2903Player *find(int, unsigned int *); };
-extern Rva002BA8F1Logic *g_009FEF10;
-#define TheRva00DFEF10 g_009FEF10
+
+#define TheRva00DFEF10 (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)
 struct Rva004FA5F8B { char pad[0x13C]; int id; };
 struct Rva004FA5F8A { char pad[0x24]; Rva004FA5F8B *b; };
 struct LivingWorldBuildingNuggetSpawnArmy { char pad0[4]; Rva004FA5F8A *a; Rva002E2903Player *getOwningPlayer(); };

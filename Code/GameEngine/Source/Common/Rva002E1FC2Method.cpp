@@ -1,6 +1,9 @@
 // cl: /Ireference/shims/bfmelist /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
 // ?CheckForRemovedMultiRegionBonuses@LivingWorldPlayer@@QAEXXZ 0x002E1FC2 139 merge second map minus first via rowed increment fetch and forEach vtable 0x00875590 callers 0x0020F53F
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 #define _STLP_NO_EXCEPTIONS 1
 #include <map>
 
@@ -55,8 +58,6 @@ public:
 	Rva0020E8DBHolder *m_holder;
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
-
 // Target callback VA 0x009CC208 is the slot-two thunk 8B01FF6008.
 // Rowed forEach/walk prove a receiver and three dword arguments;
 // the listener's original class and method names remain unknown.
@@ -86,7 +87,7 @@ void LivingWorldPlayer::CheckForRemovedMultiRegionBonuses()
 	_STL::map<int, int>::iterator it2 = m_map2.begin();
 	while (it2 != m_map2.end()) {
 		if (it1 == m_map1.end() || (*it1).first > (*it2).first) {
-			Rva0020E8DBEntry *entry = g_009FEF10->m_holder->m_db->rva0020E8DB((*it2).first);
+			Rva0020E8DBEntry *entry = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_holder->m_db->rva0020E8DB((*it2).first);
 			if (entry != 0) {
 				m_list.forEach((void (Rva002E1E6FListener::*)(void *, int, int))&Rva002E1FC2Slot2Callback::notify, this, (int)entry, (int)&entry->m_extra);
 			}

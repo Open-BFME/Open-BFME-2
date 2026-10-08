@@ -9,6 +9,9 @@
 // Body (target): once only (flag +0x33F, set even when the player has no
 // living-world counterpart), find the living-world player by this
 // player's living-world id (+0x3AC) and fold the RTS score keeper into it.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class ScoreKeeper;
 
 // ObjectCountMap is a 12-byte tree header. The stride is explicit in the
@@ -51,8 +54,6 @@ public:
 	Rva002E2903Player *find(int id, unsigned int *index);
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
-
 class ScoreKeeper
 {
 	unsigned char m_bytes[4];
@@ -90,7 +91,7 @@ void Player::accumulateRTSBattleStatsIntoLivingWorldScoreKeeper()
 {
 	if (m_accumulatedIntoLivingWorld)
 		return;
-	Rva002E2903Player *lwPlayer = g_009FEF10->find(m_livingWorldPlayerID, 0);
+	Rva002E2903Player *lwPlayer = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(m_livingWorldPlayerID, 0);
 	if (lwPlayer)
 		lwPlayer->getScoreKeeper()->rva004EE950(&m_scoreKeeper);
 	m_accumulatedIntoLivingWorld = true;

@@ -4,6 +4,9 @@
 // pinned base dtor 0x005CF8E3. Evidence: deleting-dtor caller 0x005D0A9F;
 // vtable stores 0x00C75574 0x00C75570 then 0x00C7528C; sibling shape of
 // Rva0056B126/Rva00575125.
+class Rva002BA8F1Logic;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class CreateAHeroData;
 class Rva002B7250
 {
@@ -16,7 +19,7 @@ public:
 	char m_pad[0x6C];
 	Rva002B7250 m_holder6C;
 };
-extern class Rva002BA8F1Logic *g_009FEF10;
+
 class Rva005CF8E3
 {
 public:
@@ -36,5 +39,5 @@ public:
 };
 Rva005D078B::~Rva005D078B()
 {
-	g_009FEF10->m_holder6C.rva002B7250((CreateAHeroData *)(Rva005D078BSecond *)this);
+	(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_holder6C.rva002B7250((CreateAHeroData *)(Rva005D078BSecond *)this);
 }

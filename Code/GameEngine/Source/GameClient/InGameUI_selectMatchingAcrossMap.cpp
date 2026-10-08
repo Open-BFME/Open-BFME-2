@@ -20,6 +20,8 @@
 //   bit 0x80 is STRUCTURE (template kind bytes per isAbleToAttack).
 // - GameText fetch at 0x3C; UnicodeString copy@0x37050/release@0x36E70.
 
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 typedef int Int;
 typedef bool Bool;
 
@@ -30,8 +32,6 @@ class AsciiString;
 
 #include "ascii_string.h"
 #include "unicode_string.h"
-
-
 
 class GameTextInterface
 {
@@ -68,8 +68,6 @@ private:
 	unsigned char m_first;
 	unsigned char m_second;
 };
-
-extern BfmeSelectionState *g_bfmeStateDO;
 
 class ThingTemplate
 {
@@ -204,7 +202,7 @@ extern InGameUI *TheInGameUI;
 // ?selectMatchingAcrossMap@InGameUI@@UAEHXZ
 int InGameUI::selectMatchingAcrossMap()
 {
-	BfmeSelectionState *state = g_bfmeStateDO;
+	BfmeSelectionState *state = (*(BfmeSelectionState **)&TheLivingWorldLogic);
 	if (state != 0 && state->isSelectionLocked() != 0)
 		return 0;
 
@@ -232,11 +230,3 @@ int InGameUI::selectMatchingAcrossMap()
 	return numSelected;
 }
 
-// ?g_bfmeStateDO@@3PAVBfmeSelectionState@@A: the global at this VA is ?g_009FEF10@@3PAVRva002BA8F1Logic@@A; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?g_bfmeStateDO@@3PAVBfmeSelectionState@@A=?g_009FEF10@@3PAVRva002BA8F1Logic@@A")
-#pragma comment(linker, "/alternatename:?Rva00DFEF10@@3PAVRva002B48E1@@A=?g_009FEF10@@3PAVRva002BA8F1Logic@@A")
-#pragma comment(linker, "/alternatename:?Rva00DFEF10@@3PAXA=?g_009FEF10@@3PAVRva002BA8F1Logic@@A")
-#pragma comment(linker, "/alternatename:?g_00DFEF10@@3PAURvaLogicHolder@@A=?g_009FEF10@@3PAVRva002BA8F1Logic@@A")
-#pragma comment(linker, "/alternatename:?Glo012F1028@@3PAVGlo012F1028Type@@A=?g_009FEF10@@3PAVRva002BA8F1Logic@@A")
-// ?g_bfmeStateDO@@3PAVBfmeSelectionState@@A: the global at VA 0xdfef10 is ?g_009FEF10@@3PAVRva002BA8F1Logic@@A.
-#pragma comment(linker, "/alternatename:?g_bfmeStateDO@@3PAVBfmeSelectionState@@A=?g_009FEF10@@3PAVRva002BA8F1Logic@@A")
