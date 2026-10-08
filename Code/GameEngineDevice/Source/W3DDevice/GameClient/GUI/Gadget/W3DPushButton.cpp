@@ -260,9 +260,7 @@ public:
 	Player *m_local;                                       // +0x10
 };
 
-// The same retail singleton as GameClient.cpp defines; the ZH read alias
-// TheGlobalData is a macro over TheWritableGlobalData, not another global.
-class GlobalData
+struct BfmePushButtonGlobalDataView
 {
 public:
 	unsigned char m_unreconstructed00[ 0x1160 ];
@@ -332,6 +330,9 @@ extern GameWindowManager *TheWindowManager;
 extern Display *TheDisplay;
 extern ImageCollection *TheMappedImageCollection;
 extern PlayerList *ThePlayerList;
+// Retail's DIR32 references use the GameClient-owned slot at VA 0x00DFE758.
+// Keep the measured +0x1160/+0x1164 view local and use its canonical provider.
+class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 
 // Coordinates with an empty default constructor; see W3DCheckBox.cpp.
@@ -948,9 +949,9 @@ void W3DGadgetPushButtonImageDrawOne( GameWindow *window, WinInstanceData *instD
 					{
 						LocalPlayerInfo *info = ThePlayerList->m_local->m_info;
 						if( info && info->m_flag1BC )
-							clockColor = TheWritableGlobalData->m_radialClockColorFlagged;
+							clockColor = ((const BfmePushButtonGlobalDataView *)TheWritableGlobalData)->m_radialClockColorFlagged;
 						else
-							clockColor = TheWritableGlobalData->m_radialClockColor;
+							clockColor = ((const BfmePushButtonGlobalDataView *)TheWritableGlobalData)->m_radialClockColor;
 					}
 
 					Real radiusX = size.x * 0.5f;
