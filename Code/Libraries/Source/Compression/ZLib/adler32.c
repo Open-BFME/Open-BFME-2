@@ -1,6 +1,6 @@
 // cl: /MD
 /* zlib 1.1.4 -- pristine upstream source (Jean-loup Gailly, Mark Adler),
-   zlib.net fossil zlib-1.1.4.tar.gz.  Statically linked into lotrbfme.exe;
+   zlib.net fossil zlib-1.1.4.tar.gz.  Statically linked into game.dat (BFME 2);
    EA kept it at Compression/ZLib in the Zero Hour tree (Compression.dsp).
    Retail linked the DLL CRT, so calloc/free/memcpy are __imp__ indirect
    calls -- /MD is what makes those call sites byte-exact. */
