@@ -207,8 +207,8 @@ class Rva00368C7A
 {
 public:
 	Int rva00368B51(Real distance, Bool flag);
-	void rva00368C7A(Real distance, const Coord3D *position, Int a);
-	void rva003681F2(const Coord3D *position, const unsigned char *mask, Int a, Int b);
+	void rva00368C7A(Real distance, const Coord3D *position, Bool a);
+	void rva003681F2(const Coord3D *position, const unsigned char *mask, const Coord3D *lookAhead, Bool b);
 };
 
 // Object +0x10C model condition words (ModelConditionFlags), as in GiantBirdStateSlots.cpp.

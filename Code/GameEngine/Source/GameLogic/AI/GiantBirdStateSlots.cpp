@@ -56,7 +56,7 @@ public:
 class Rva00368C7A
 {
 public:
-	void rva00368C7A(float amount, const Coord3D *position, int argument);
+	void rva00368C7A(float amount, const Coord3D *position, bool argument);
 };
 class Thing
 {

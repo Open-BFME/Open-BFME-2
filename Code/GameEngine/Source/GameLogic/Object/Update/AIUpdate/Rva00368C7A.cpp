@@ -31,9 +31,9 @@ struct Rva00368C7AMetrics
 class Rva00368C7A
 {
 public:
-	void rva00368C7A(float amount, const Coord3D *position, int argument);
+	void rva00368C7A(float amount, const Coord3D *position, bool argument);
 	int rva00368B51(float amount, bool argument);
-	void rva003681F2(const Coord3D *position, const unsigned char *mask, int a, int b);
+	void rva003681F2(const Coord3D *position, const unsigned char *mask, const Coord3D *lookAhead, bool b);
 	unsigned char rva00368271();
 private:
 	char unknown00[8];
@@ -44,7 +44,7 @@ private:
 	Coord3D previous;
 };
 
-void Rva00368C7A::rva00368C7A(float amount, const Coord3D *position, int argument)
+void Rva00368C7A::rva00368C7A(float amount, const Coord3D *position, bool argument)
 {
 	int state = rva00368B51(amount, 0);
 	if (state != 0) {

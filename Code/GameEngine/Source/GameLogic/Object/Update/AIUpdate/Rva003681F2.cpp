@@ -31,16 +31,19 @@ public:
 class Rva0037609C
 {
 public:
+	// The last argument is a bool (retail 0x0037609C tests the byte at
+	// [ebp+0x1C]); GiantBirdFollowPathState passes its look-ahead point as
+	// the one before it.
 	bool rva0037609C(void *object, const Coord3D *position, Rva00312C95 *member,
-		const unsigned char *mask, int a, int b);
+		const unsigned char *mask, const Coord3D *lookAhead, bool b);
 };
 extern Rva0037609C *g_00E01F10;
 class Rva00368C7A
 {
 public:
-	void rva00368C7A(float amount, const Coord3D *position, int argument);
+	void rva00368C7A(float amount, const Coord3D *position, bool argument);
 	int rva00368B51(float amount, bool argument);
-	void rva003681F2(const Coord3D *position, const unsigned char *mask, int a, int b);
+	void rva003681F2(const Coord3D *position, const unsigned char *mask, const Coord3D *lookAhead, bool b);
 private:
 	char unknown00[8];
 	Rva00368C7AObject *object;
@@ -55,9 +58,9 @@ private:
 
 // Native 0x003681F2..0x00368271 RET16. The observed calls initialise the
 // embedded member, refresh it, save its point, and clear the owner's scalars.
-void Rva00368C7A::rva003681F2(const Coord3D *position, const unsigned char *mask, int a, int b)
+void Rva00368C7A::rva003681F2(const Coord3D *position, const unsigned char *mask, const Coord3D *lookAhead, bool b)
 {
-	g_00E01F10->rva0037609C(object, position, &member, mask, a, b);
+	g_00E01F10->rva0037609C(object, position, &member, mask, lookAhead, b);
 	member.slot2(1, 4000, 1000.0f, 1000.0f, 0, 0);
 	member.rva00312118();
 	previous = member.point;
