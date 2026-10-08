@@ -42,6 +42,9 @@ public:
 		void clear();
 		void setNameAndType(int key, DataType type);
 		void copyFrom(DictPair *that);
+        static unsigned int Rva00306B8FNameBits(unsigned int key);
+        unsigned int Rva00306B97TypeBits() const;
+        unsigned int Rva00306B9FNameBits() const;
 		AsciiString *asAsciiString() { return (AsciiString *)&m_value; }
 	};
 
@@ -555,3 +558,22 @@ void Dict::copyPairFrom(const Dict &that, int key)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?bfmeInitUBB@BfmeSubUBB@@QAEXH@Z=??0Dict@@QAE@H@Z")
+
+// Whole BFME1 Dict.cpp/Dict_releaseData.cpp at9cbfb551fe20dae985f91f2319d8997287b6a705
+// emit these three adjacent retail leaves. Their key-bit contract is also
+// present in the verified native getNthKey/getNthType bodies above.
+// Preserve unknown original helper names and key-enum identity explicitly.
+unsigned int Dict::DictPair::Rva00306B8FNameBits(unsigned int key)
+{
+    return key >> 8;
+}
+
+unsigned int Dict::DictPair::Rva00306B97TypeBits() const
+{
+    return (unsigned int)m_key & 0xff;
+}
+
+unsigned int Dict::DictPair::Rva00306B9FNameBits() const
+{
+    return (unsigned int)m_key >> 8;
+}
