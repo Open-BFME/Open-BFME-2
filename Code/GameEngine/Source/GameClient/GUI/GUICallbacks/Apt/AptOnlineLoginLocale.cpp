@@ -40,11 +40,11 @@ public:
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
 // The login screen instance (Rva0056E79EDtor.cpp's g_Va00E062EC); its
-// unrowed 0x0057179D takes the screen's byte flag, pinned by address.
-class BfmeObjELB
+// recovered 0x0057179D takes the screen's byte flag.
+class AptOnlineLogin
 {
 public:
-	void bfmeTailELB(bool flag);
+	void rva0057179D(bool flag);
 };
 
 extern int g_Va00E062EC;
@@ -94,5 +94,5 @@ void AptOnline::Login::AcceptLocale(const char *unused)
 	else
 		g_Va00E062F0 = true;
 	TheRva00222A8BTarget->invoke(m_owner->m_movie, "CallChild", 1, "DoCloseLocale", 0, 0, 0, 0);
-	((BfmeObjELB *)g_Va00E062EC)->bfmeTailELB(m_d0);
+	((AptOnlineLogin *)g_Va00E062EC)->rva0057179D(m_d0);
 }

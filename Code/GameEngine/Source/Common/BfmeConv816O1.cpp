@@ -28,10 +28,11 @@ struct BfmeThingELAb
 };
 
 
-class BfmeObjELB
+class BfmeObjELB;
+class AptOnlineLogin
 {
 public:
-	void bfmeTailELB(int n);
+	void rva0057179D(bool);
 };
 
 extern BfmeObjELB *g_bfmeObjELB;
@@ -40,7 +41,7 @@ void __stdcall bfmeGoELB(int unused)
 {
 	BfmeObjELB *o = g_bfmeObjELB;
 	if (o)
-		o->bfmeTailELB(1);
+		((AptOnlineLogin *)o)->rva0057179D(true);
 }
 
 struct BfmeSubELC

@@ -8691,8 +8691,6 @@ name,address,notes
 ?bfmeTailDDB@BfmeSubDDB@@QAEHXZ,0x00271898,callee of ?bfmeGoDDB@BfmeThingDDB@@QAEHXZ at retail 0x00272C89 read from its REL32 displacement; body unrowed
 ?bfmeTailDTK@BfmeThingDTK@@QAEXXZ,0x004F46A9
 ?bfmeTailDXC@BfmeThingDXC@@QAEXXZ,0x0050C4E8,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?bfmeTailELB@BfmeObjELB@@QAEXH@Z,0x0057179D,address read from the REL32 displacement at a placed body
-?bfmeTailELB@BfmeObjELB@@QAEX_N@Z,0x0057179D,byte-flag spelling of the pinned ?bfmeTailELB@BfmeObjELB@@QAEXH@Z (Ghidra FUN_0097179d; ret 4): AptOnline::Login::AcceptLocale 0x0057261D pushes the screen +0xD0 byte as mov al/push eax with ECX = the login screen g_Va00E062EC
 ?bfmeTailFHG@@YGXPAX0HH@Z,0x001E19E8,callee of ?bfmeGoFHG@@YGXPAX000@Z at retail 0x001E19CE read from its REL32 displacement; donor-carried name; body unrowed
 ?bfmeTailSE@BfmeThingSE@@QAEXXZ,0x001DBAC3
 ?bfmeTailSF@BfmeThingSF@@QAEXXZ,0x001DBAC3

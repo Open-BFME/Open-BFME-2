@@ -32,7 +32,7 @@ extern "C" __declspec(dllimport) void *__stdcall ShellExecuteW(void *,const unsi
 bool GetStringFromRegistry(AsciiString,AsciiString,AsciiString &);
 void GSMessageBoxOk(UnicodeString,UnicodeString,void (*)());
 void bfmeMinimizeCurrentThreadWindow();
-class BfmeObjELB { public: void bfmeTailELB(bool); };
+class BfmeObjELB;
 extern BfmeObjELB *g_bfmeObjELB;
 class GameTextInterface {
 public:
@@ -177,6 +177,7 @@ public:
     void rva00570C64();
     void rva00570D36();
     void rva00571129();
+    void rva0057179D(bool);
     void rva005709D1(AsciiString &,AsciiString &);
     bool rva005706D4();
     bool rva0056EC54(const UnicodeString &,bool);
@@ -247,7 +248,7 @@ void AptOnlineLogin::rva00572632(const char *)
         GameSpyMiscPreferences preferences;
         if(preferences.rva00559782()>=1 && preferences.rva00559782()<=0x25) {
             locale=preferences.rva00559782();
-            g_bfmeObjELB->bfmeTailELB(false);
+            ((AptOnlineLogin *)g_bfmeObjELB)->rva0057179D(false);
             return;
         }
         closeLocale=false;
@@ -308,7 +309,7 @@ void AptOnlineLogin::rva00572768(const char *)
           ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonServiceTerms",0,0,0,0); }
         GameSpyMiscPreferences preferences;
         if(preferences.rva00559782()>=1 && preferences.rva00559782()<=0x25) {
-            g_bfmeObjELB->bfmeTailELB(true);
+            ((AptOnlineLogin *)g_bfmeObjELB)->rva0057179D(true);
             return;
         }
         closeLocale=true;
@@ -513,3 +514,51 @@ void Rva0056DCB2() { b_00042a50(); }
 // Native57179D registers571657; call44BA2A then singleton-gated tail to571129.
 // All21B terminate at57166C independentEHbody. Original callback name unknown.
 void Rva00571657() { b_00042a50(); if(g_bfmeObjELB) ((AptOnlineLogin *)g_bfmeObjELB)->rva00571129(); }
+
+void MessageBoxOkCancel(UnicodeString,UnicodeString,void (*)(),void (*)());
+
+// BFME1 34f59164 OnlineLoginRva00552C40 supplies this boolean login path.
+// Native57179D..571B75 independently verifies byte argument, delete-dialog
+// callback entries, request layout and UI calls. Original spelling unknown.
+void AptOnlineLogin::rva0057179D(bool argument) {
+ if(argument) {
+  MessageBoxOkCancel(UnicodeString(L""),TheGameText->fetch("GUI:SureDeleteNickname"),Rva00571657,Rva0056DCB2);
+  return;
+ }
+ AsciiString login,password;
+ AsciiString email(((Rva0056EBA1 *)this)->rva0056EB15());
+ login.translate(((Rva0056EA91 *)this)->rva0056EA91());
+ password.translate(((Rva0056EBD0 *)this)->rva0056EBD0());
+ if(!email.isEmpty() && !login.isEmpty() && !password.isEmpty()) {
+  loginStartTime=timeGetTime();
+  LoginSubmitRequest req;
+  req.type=0;
+  _mbscpy((unsigned char *)req.nickname,(const unsigned char *)((const StringBase<char> *)&login)->str());
+  _mbscpy((unsigned char *)req.email,(const unsigned char *)((const StringBase<char> *)&email)->str());
+  _mbscpy((unsigned char *)req.password,(const unsigned char *)((const StringBase<char> *)&password)->str());
+  req.hasFirewall=true;
+  AsciiString registryValue;
+  GetStringFromRegistry("\\ergc","",registryValue);
+  _mbscpy((unsigned char *)req.registryKey,(const unsigned char *)((const StringBase<char> *)&registryValue)->str());
+  TheGameSpyInfo->setLocalBaseName(login);
+  TheGameSpyInfo->setLocalEmail(email);
+  TheGameSpyInfo->setLocalPassword(password);
+  req.tail=false;
+  TheGameSpyBuddyMessageQueue->addRequest(req);
+  ((Rva0056DCBF *)this)->rva0056DCBF(false);
+  { void *movie=owner->movie; ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonLogin",0,0,0,0); }
+  { void *movie=owner->movie; ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonDeleteNickname",0,0,0,0); }
+  rva00570C64();
+ } else {
+  const char *message;
+  if(email.isEmpty() && login.isEmpty() && password.isEmpty()) message="GUI:GSNoLoginInfoAll";
+  else if(email.isEmpty() && login.isEmpty()) message="GUI:GSNoLoginInfoEmailNickname";
+  else if(email.isEmpty() && password.isEmpty()) message="GUI:GSNoLoginInfoEmailPassword";
+  else if(login.isEmpty() && password.isEmpty()) message="GUI:GSNoLoginInfoNicknamePassword";
+  else if(email.isEmpty()) message="GUI:GSNoLoginInfoEmail";
+  else if(password.isEmpty()) message="GUI:GSNoLoginInfoPassword";
+  else if(login.isEmpty()) message="GUI:GSNoLoginInfoNickname";
+  else message="GUI:GSNoLoginInfoAll";
+  GSMessageBoxOk(TheGameText->fetch("GUI:GSErrorTitle"),TheGameText->fetch(message),0);
+ }
+}
