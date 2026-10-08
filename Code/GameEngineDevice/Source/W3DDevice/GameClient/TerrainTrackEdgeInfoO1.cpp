@@ -57,19 +57,7 @@ private:
 	char _pad1312[0x131D - 0x1312];
 	unsigned char m_131D;
 };
-// ?rva00083CB2@Rva00083CB2@@QAEXXZ retail 0x00083CB2 37B reset of scattered
-// fields to 0 with +0x131D set to 1. Evidence: unlock lane; callers at
-// 0x00083D4C 0x000840B1 0x00084213 unblock 0x00083CE9 0x00084206.
-void Rva00083CB2::rva00083CB2()
-{
-	m_1310 = 0;
-	m_131D = 1;
-	m_130C = 0;
-	m_1308 = 0;
-	m_30 = 0;
-	m_34 = 0;
-	m_38 = 0;
-}
+// Reset provider (00083CB2) lives in W3DTerrainTracksBind.cpp.
 struct Rva00083CE9Node : public Rva00083CB2
 {
 public:
@@ -99,27 +87,7 @@ private:
 	Rva00083CE9Node *m_10;
 	Rva00083CE9Node *m_14;
 };
-// ?rva00083CE9@Rva00083CE9Host@@QAEXPAURva00083CE9Node@@@Z retail 0x00083CE9
-// 107B unlink node from old list then push at head of this list and reset it.
-// Evidence: chain calls 0x00083CB2; callers at 0x00083EA6 0x00083FDD 0x00084016.
-void Rva00083CE9Host::rva00083CE9(Rva00083CE9Node *p)
-{
-	if (p == 0)
-		return;
-	if (p->m_1320 != 0)
-		p->m_1320->m_1324 = p->m_1324;
-	Rva00083CE9Node *next = p->m_1324;
-	if (next != 0)
-		next->m_1320 = p->m_1320;
-	else
-		m_10 = p->m_1320;
-	p->m_1324 = 0;
-	p->m_1320 = m_14;
-	if (m_14 != 0)
-		m_14->m_1324 = p;
-	m_14 = p;
-	p->rva00083CB2();
-}
+// Release provider (00083CE9) lives in W3DTerrainTracksBind.cpp.
 // ?rva00084002@Rva00083CE9Host@@QAEXXZ retail 0x00084002 34B drain m_10 list
 // via rva00083CE9. Evidence: chain calls 0x00083CE9; caller at 0x00091CE6.
 // ?rva00083E87@Rva00083CE9Host@@QAEXXZ @0x00083E87 136B: unlink-walk m_10 calling

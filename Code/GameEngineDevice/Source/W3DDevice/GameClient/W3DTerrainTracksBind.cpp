@@ -71,11 +71,17 @@ public:
  virtual int boneIndex(const char*);
  virtual const TrackMatrix &boneTransform(TrackMatrix &,int);
 };
+struct TrackEdge {
+ float endpointPositions[6], endpointUVs[4]; int timeAdded; float alpha;
+};
 class Rva00084206Track {
 public:
  Rva00084206Track();
- char pad0[8]; TrackVector endpoints[2]; char pad20[0x12f1];
- bool bound; char pad1312[0xe]; Rva00084206Track *next,*prev;
+ char pad0[8]; TrackVector endpoints[2]; char pad20[0xc];
+ void *texture; int activeEdgeCount, totalEdgesAdded; void *owner;
+ TrackEdge edges[100]; TrackVector lastAnchor;
+ int bottomIndex, topIndex; bool haveAnchor, bound; char pad1312[0xe];
+ Rva00084206Track *next,*prev;
  void init(float,float,const char*);
 };
 static __declspec(noinline) float computeTrackSpacing(Rva00084B18RenderObj *obj,TrackVector *ends,const char *left,const char *right) {
@@ -107,6 +113,7 @@ extern GlobalData *TheWritableGlobalData;
 struct TrackSystemGlobalView {
  char pad[0x10c]; int maxTerrainTracks;
  int maxTankTrackEdges, maxTankTrackOpaqueEdges, maxTankTrackFadeDelay;
+ char pad11c[0x20]; bool makeTrackMarks;
 };
 class Rva00084C05System {
 public:
@@ -116,6 +123,7 @@ public:
  SceneClass *scene;
  int maxTankTrackEdges, maxTankTrackOpaqueEdges, maxTankTrackFadeDelay;
  void setDetail();
+ void update();
  void init(SceneClass *);
  void ReAcquireResources();
  Rva00084206Track *bind(Rva00084B18RenderObj*,float,const char*,const char*,const char*);
@@ -171,4 +179,117 @@ void Rva00084C05System::setDetail() {
  maxTankTrackOpaqueEdges = ((TrackSystemGlobalView *)TheWritableGlobalData)->maxTankTrackOpaqueEdges;
  maxTankTrackFadeDelay = ((TrackSystemGlobalView *)TheWritableGlobalData)->maxTankTrackFadeDelay;
  ReAcquireResources();
+}
+
+class WW3D {
+ static unsigned int SyncTime;
+public: static unsigned int Get_Sync_Time() { return SyncTime; }
+};
+// Existing providers moved from TerrainTrackEdgeInfoO1.cpp so the caller
+// sees their verified register usage. Their native names and bodies remain.
+class Rva00083CB2
+{
+public:
+	void rva00083CB2();
+	friend void __stdcall Rva00083CD7Clear(Rva00083CB2 *p);
+	friend class Rva00083CE9Host;
+private:
+	char _pad00[0x30];
+	int m_30;
+	int m_34;
+	int m_38;
+	char _pad3C[0x1308 - 0x3C];
+	int m_1308;
+	int m_130C;
+	unsigned char m_1310;
+	unsigned char m_1311;
+	char _pad1312[0x131D - 0x1312];
+	unsigned char m_131D;
+};
+// ?rva00083CB2@Rva00083CB2@@QAEXXZ retail 0x00083CB2 37B reset of scattered
+// fields to 0 with +0x131D set to 1. Evidence: unlock lane; callers at
+// 0x00083D4C 0x000840B1 0x00084213 unblock 0x00083CE9 0x00084206.
+void Rva00083CB2::rva00083CB2()
+{
+	m_1310 = 0;
+	m_131D = 1;
+	m_130C = 0;
+	m_1308 = 0;
+	m_30 = 0;
+	m_34 = 0;
+	m_38 = 0;
+}
+struct Rva00083CE9Node : public Rva00083CB2
+{
+public:
+	Rva00083CE9Node *m_1320;
+	Rva00083CE9Node *m_1324;
+};
+
+class Rva00083E87Ref;
+class Rva00083CE9Host
+{
+public:
+	void rva00083CE9(Rva00083CE9Node *p);
+	void rva00084002();
+	void rva00083E87();
+private:
+	Rva00083E87Ref *m_00;
+	Rva00083E87Ref *m_04;
+	Rva00083E87Ref *m_08;
+	char _pad0C[4];
+	Rva00083CE9Node *m_10;
+	Rva00083CE9Node *m_14;
+};
+// ?rva00083CE9@Rva00083CE9Host@@QAEXPAURva00083CE9Node@@@Z retail 0x00083CE9
+// 107B unlink node from old list then push at head of this list and reset it.
+// Evidence: chain calls 0x00083CB2; callers at 0x00083EA6 0x00083FDD 0x00084016.
+void Rva00083CE9Host::rva00083CE9(Rva00083CE9Node *p)
+{
+	if (p == 0)
+		return;
+	if (p->m_1320 != 0)
+		p->m_1320->m_1324 = p->m_1324;
+	Rva00083CE9Node *next = p->m_1324;
+	if (next != 0)
+		next->m_1320 = p->m_1320;
+	else
+		m_10 = p->m_1320;
+	p->m_1324 = 0;
+	p->m_1320 = m_14;
+	if (m_14 != 0)
+		m_14->m_1324 = p;
+	m_14 = p;
+	p->rva00083CB2();
+}
+
+// Semantic donor: TerrainTracksSystemUpdate.cpp at ba7ddda7e8f.
+// Native 00083F0F..00084002 and WB 008C0520 confirm the 30-byte edge stride,
+// time+64 / alpha+68, count+30, bottom+1308, anchor+1310 and global+13C.
+// The native 00083CE9 call supplies the established releaseTrack provider.
+void Rva00084C05System::update() {
+ int iTime = WW3D::Get_Sync_Time();
+ float iDiff;
+ Rva00084206Track *mod = used, *nextMod;
+ while (mod != 0) {
+  nextMod = mod->next;
+  if (!((TrackSystemGlobalView *)TheWritableGlobalData)->makeTrackMarks)
+   mod->haveAnchor = false;
+  int i, index;
+  for (i = 0, index = mod->bottomIndex; i < mod->activeEdgeCount; i++, index++) {
+   if (index >= maxTankTrackEdges) index = 0;
+   iDiff = (float)(iTime - mod->edges[index].timeAdded);
+   iDiff = 1.0f - iDiff / (float)maxTankTrackFadeDelay;
+   if (iDiff < 0.0) iDiff = 0.0f;
+   if (mod->edges[index].alpha > 0.0f) mod->edges[index].alpha = iDiff;
+   if (iDiff == 0.0f) {
+    mod->bottomIndex++;
+    mod->activeEdgeCount--;
+    if (mod->bottomIndex >= maxTankTrackEdges) mod->bottomIndex = 0;
+   }
+   if (mod->activeEdgeCount == 0 && !mod->bound)
+    ((Rva00083CE9Host *)this)->rva00083CE9((Rva00083CE9Node *)mod);
+  }
+  mod = nextMod;
+ }
 }
