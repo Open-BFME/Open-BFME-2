@@ -19,6 +19,7 @@
 #include <set>
 #include <vector>
 #include <math.h>
+#include "../../../Common/PartitionRangeQueryCallView.h"
 // The +0x258 map's comparator: a per-RVA stand-in for less<unsigned short>,
 // so its instance names (operator[] 0x00470041 and the folded callees it
 // reaches) stay placeholders.
@@ -28,9 +29,18 @@ struct Coord3D
 	void zero() { x = 0.0f; y = 0.0f; z = 0.0f; }
 	void add(const Coord3D *a) { x += a->x; y += a->y; z += a->z; }
 	void scale(float s) { x *= s; y *= s; z *= s; }
+	float GetLengthEstimate2D() const;
 	float x;
 	float y;
 	float z;
+};
+// class-gate: allow Coord2D the canonical data-only header cannot declare BFME 2's out-of-line toAngle (rowed 0x00005923) that slot 130 calls; same two floats
+class Coord2D
+{
+public:
+	float x;
+	float y;
+	float toAngle() const;
 };
 enum CommandSourceType
 {
@@ -117,6 +127,8 @@ extern Rva002A8F24 *g_00DFEEF8;
 class Pathfinder
 {
 public:
+	bool IsPointOnWall(int pos, bool flag);
+	bool IsPointOnRamp(const Coord3D *pos);
 	void RemoveObjectFromPathfindMap(Object *object);
 	void RemoveObjectGoalFromPathfindMap(Object *object);
 };
@@ -350,7 +362,9 @@ public:
 	unsigned int m_kindOf[4]; // +0x114
 	unsigned char m_pad124[0x2E4 - 0x124];
 	ModuleInfo m_moduleInfo; // +0x2E4
-	unsigned char m_pad2F0[0x5D8 - 0x2F0];
+	unsigned char m_pad2F0[0x528 - 0x2F0];
+	float m_528; // +0x528 (an angle slot 130 adds to a wall's orientation)
+	unsigned char m_pad52C[0x5D8 - 0x52C];
 	short m_5D8; // +0x5D8
 };
 // The tracker's 0x0039B3D1 entry, under the owner name its pin (read from
@@ -394,6 +408,7 @@ public:
 	float rva002C9B80(void *obj, float bonus);
 };
 enum WeaponSlotType;
+class Module;
 class Object
 {
 public:
@@ -463,6 +478,7 @@ public:
 	bool rva0028C264(int *out, int a2);
 	Player *getControllingPlayer() const;
 	float getVisionRange() const;
+	Module *findModule(NameKeyType key) const;
 	bool addAttributeModifierToPool(const AsciiString &name, int a2);
 	void rva0029041B(Player *player);
 	bool isLocallyControlled() const;
@@ -681,7 +697,7 @@ public:
 	virtual void rva0046DB6D(const AsciiString &name, Rva2225E0Filter *filter, int a3) = 0; virtual void rva0046DC92(const AsciiString &name, Rva2225E0Filter *filter) = 0; virtual void gap120() = 0; virtual void rva0046981C() = 0;
 	virtual void rva00469851() = 0; virtual void rva0046DE2D(const FXList *fx) = 0; virtual void gap124() = 0; virtual bool rva0046992C() = 0;
 	virtual void gap126() = 0; virtual bool rva004698BC() = 0; virtual const void *rva004698D6() = 0; virtual const void *rva004698E2() = 0;
-	virtual void gap130() = 0; virtual void gap131() = 0; virtual void rva004690A9(const Coord3D *pos) = 0; virtual void gap133() = 0;
+	virtual void rva00469967() = 0; virtual void gap131() = 0; virtual void rva004690A9(const Coord3D *pos) = 0; virtual void gap133() = 0;
 	virtual void gap134() = 0; virtual void ClassifyBeforeOnAfterInvalidPortal(_STL::vector<ObjectID> &before, _STL::vector<ObjectID> &on, _STL::vector<ObjectID> &after) = 0; virtual bool rva0046F8CD() = 0; virtual Rva002390CB rva0046EC7C(Object *obj) = 0;
 	virtual ObjectID rva0046DEA1(ObjectID want) = 0; virtual bool rva0046DF9A(Coord3D *center) = 0; virtual bool rva0046E113(Coord3D *center) = 0; virtual void rva004690D0(int value) = 0;
 	virtual bool rva00468C37() = 0; virtual void rva00468BDC(int on) = 0;
@@ -758,6 +774,62 @@ struct HordeBannerCarrierUpdate
 	const HordeBannerCarrierUpdateData *m_data;		// +0x04
 };
 
+// The partition filter base and the KindOf mask filter (vftable 0x00BC2908,
+// allow 0x002610DE: every kind of the first mask and none of the second).
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *m_next;
+};
+class BfmeFixedStorage0004543D
+{
+public:
+	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
+private:
+	unsigned char m_bytes[28];
+};
+class Rva0004584D : public Rva000421C8
+{
+public:
+	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b) throw();
+	virtual bool allow(Object *obj);
+	BfmeFixedStorage0004543D m_08;
+	BfmeFixedStorage0004543D m_24;
+};
+struct Rva00045411BitSet
+{
+	Rva00045411BitSet(int unused, int bit) throw();	// 0x00045411
+	unsigned int m_bits[7];
+};
+template <int N> class BitFlags
+{
+	unsigned int m_bits[7];
+};
+extern BitFlags<116> KINDOFMASK_NONE;
+extern PartitionManager *ThePartitionManager;
+// SiegeDockingBehavior's dock-point count (0x0045A199), under the owner name
+// its row carries.
+class BfmeThingBQA
+{
+public:
+	int bfmeGoBQA() throw();
+};
+// The triple 0x004598F2 and 0x0045992F return (a Coord3D view under the
+// name their unit gives it) and their owner.
+struct Rva004598F2Point : public Coord3D
+{
+};
+class SiegeDockingBehavior
+{
+public:
+	Rva004598F2Point rva004598F2(int index);
+	Rva004598F2Point rva0045992F(int index);
+};
+
 class HordeContain : public TransportContain, public Rva0046BB38Iface11C
 {
 public:
@@ -789,6 +861,7 @@ public:
 	virtual bool rva004698BC();
 	virtual const void *rva004698D6();
 	virtual const void *rva004698E2();
+	virtual void rva00469967();
 	virtual void rva004690A9(const Coord3D *pos);
 	virtual bool rva0046F8CD();
 	virtual bool rva00468C37();
@@ -1074,6 +1147,68 @@ const void *HordeContain::rva004698D6()
 const void *HordeContain::rva004698E2()
 {
 	return fields()->m_18C;
+}
+
+// ?rva00469967@HordeContain@@UAEXXZ @0x00469967: slot 130. On a wall or ramp
+// cell, faces the Object away from the nearest dock point of the closest
+// kind-0x3C Object within 150 that has a SiegeDockingBehavior, else (off a
+// ramp) along that Object's orientation plus its template's +0x528; then raises
+// +0x120 and wakes the module. BFME 1's slot 118 (0x00239E00) is the donor.
+void HordeContain::rva00469967()
+{
+	Object *obj = m_object;
+	bool onRamp = false;
+	if (!TheAI->m_pathfinder->IsPointOnWall((int)(void *)obj->getPosition(), false))
+	{
+		if (!TheAI->m_pathfinder->IsPointOnRamp(obj->getPosition()))
+			return;
+		onRamp = true;
+	}
+	const Coord3D *pos = obj->getPosition();
+
+	Object *wall;
+	{
+		wall = ThePartitionManager->getClosestObject(pos, 150.0f, 1,
+			&Rva0004584D(*(const BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x3C),
+				*(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE));
+	}
+	if (wall)
+	{
+		static NameKeyType key = TheNameKeyGenerator->nameToKey("SiegeDockingBehavior");
+		Module *dock = wall->findModule(key);
+		if (dock && ((BfmeThingBQA *)dock)->bfmeGoBQA())
+		{
+			int best = 0;
+			{
+				float bestDist = 1000000.0f;
+				for (int i = 0; i < ((BfmeThingBQA *)dock)->bfmeGoBQA(); ++i)
+				{
+					Rva004598F2Point delta = ((SiegeDockingBehavior *)dock)->rva004598F2(i);
+					delta.x -= pos->x;
+					delta.y -= pos->y;
+					delta.z -= pos->z;
+					float dist = delta.GetLengthEstimate2D();
+					if (dist < bestDist)
+					{
+						best = i;
+						bestDist = dist;
+					}
+				}
+			}
+			{
+				Coord2D dir;
+				dir.x = -((SiegeDockingBehavior *)dock)->rva0045992F(best).x;
+				dir.y = -((SiegeDockingBehavior *)dock)->rva0045992F(best).y;
+				((Thing *)obj)->setOrientation(dir.toAngle());
+			}
+		}
+		else if (!onRamp)
+		{
+			((Thing *)obj)->setOrientation(wall->m_orientation + wall->m_template->m_528);
+		}
+		m_120 = true;
+	}
+	setWakeFrame(obj, UPDATE_SLEEP_NONE);
 }
 
 // ?rva004690A9@HordeContain@@UAEXPBUCoord3D@@@Z @0x004690A9: slot 132, stores the
