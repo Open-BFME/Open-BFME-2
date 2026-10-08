@@ -604,7 +604,7 @@ public:
 
 extern InGameUI* TheInGameUI;
 extern GameClient* TheGameClient;
-extern MessageStream* TheMessageStream;
+extern MessageStream* MessageStreamSubsystem;
 extern PlayerList* ThePlayerList;
 extern View* TheTacticalView;
 extern GameLogic* TheGameLogic;
@@ -703,7 +703,10 @@ static __declspec(noinline) int canAnyForceAttack(const SelectedDrawableList* al
  return 0;
 }
 
-// ?CommandTranslator::evaluateForceAttack present-unmatched
+// ZH/BFME1 evaluateForceAttack adapted to native429CBB..429E11 (342B),
+// WB00E79A40: target message IDs426/427 and hintsA8/A9/AA,36B voice info,
+// selected-list slot124 and message-create slot48. Both visible static
+// helpers above retain the native compiler-selected internal register ABI.
 int CommandTranslator::evaluateForceAttack(Drawable* draw,const Coord3D* pos,CommandEvaluateType type)
 {
  int retVal=0;
@@ -714,39 +717,39 @@ int CommandTranslator::evaluateForceAttack(Drawable* draw,const Coord3D* pos,Com
   if(!obj) return retVal;
   int result=canAnyForceAttack(allSelected,obj,pos);
   if(result==3 || result==2) {
-   retVal=0x425;
+   retVal=0x426;
    if(type==DO_COMMAND) {
     Rva004D92FE info;
     info.m_drawTarget=draw;
-    pickAndPlayUnitVoiceResponse((const DrawableList*)allSelected,(GameMessage::Type)0x425,(PickAndPlayInfo*)&info);
-    GameMessage* newMsg=TheMessageStream->appendMessage((GameMessage::Type)0x425);
+    pickAndPlayUnitVoiceResponse((const DrawableList*)allSelected,(GameMessage::Type)0x426,(PickAndPlayInfo*)&info);
+    GameMessage* newMsg=MessageStreamSubsystem->appendMessage((GameMessage::Type)0x426);
     newMsg->appendObjectIDArgument(obj->getID());
     newMsg->appendLocationArgument(*pos);
    } else if(type==DO_HINT) {
-    retVal=0x9b;
-    TheMessageStream->appendMessage((GameMessage::Type)0x9b);
+    retVal=0xa9;
+    MessageStreamSubsystem->appendMessage((GameMessage::Type)0xa9);
    }
   } else if(result==1 && type==DO_HINT) {
-   retVal=0x9a;
-   TheMessageStream->appendMessage((GameMessage::Type)0x9a);
+   retVal=0xa8;
+   MessageStreamSubsystem->appendMessage((GameMessage::Type)0xa8);
   }
  } else if(pos) {
   int result=canAnyForceAttack(allSelected,0,pos);
   if(result==3 || result==2) {
-   retVal=0x426;
+   retVal=0x427;
    if(type==DO_COMMAND) {
     Rva004D92FE info;
     info.m_position=*pos;
-    pickAndPlayUnitVoiceResponse((const DrawableList*)allSelected,(GameMessage::Type)0x426,(PickAndPlayInfo*)&info);
-    GameMessage* newMsg=TheMessageStream->appendMessage((GameMessage::Type)0x426);
+    pickAndPlayUnitVoiceResponse((const DrawableList*)allSelected,(GameMessage::Type)0x427,(PickAndPlayInfo*)&info);
+    GameMessage* newMsg=MessageStreamSubsystem->appendMessage((GameMessage::Type)0x427);
     newMsg->appendLocationArgument(*pos);
    } else if(type==DO_HINT) {
-    retVal=0x9c;
-    TheMessageStream->appendMessage((GameMessage::Type)0x9c);
+    retVal=0xaa;
+    MessageStreamSubsystem->appendMessage((GameMessage::Type)0xaa);
    }
   } else if(result==1 && type==DO_HINT) {
-   retVal=0x9a;
-   TheMessageStream->appendMessage((GameMessage::Type)0x9a);
+   retVal=0xa8;
+   MessageStreamSubsystem->appendMessage((GameMessage::Type)0xa8);
   }
  }
  return retVal;
