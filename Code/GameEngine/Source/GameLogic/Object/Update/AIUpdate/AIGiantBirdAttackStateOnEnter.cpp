@@ -19,6 +19,13 @@
 // fail; a missing or dead victim (AI +0x4C0) succeeds; a ready weapon fires at
 // the victim and sets model-condition bit 155 (word +0x11C of the bits at
 // +0x10C) through the inline set-and-notify; an out-of-ammo weapon succeeds.
+//
+// ?onExit@AIGiantBirdAttackState@@UAEXW4StateExitType@@@Z
+// retail 0x0036939B, 111 bytes: slot 5 of the same vtable. The base
+// State::onExit, then the inverse of the update's bit: condition 155 cleared
+// and notified, AI flag bit 5 cleared (rowed 0x0036940A), the current weapon
+// reloaded (Weapon::reloadAmmo 0x002CE1E9), the pinned Object::rva0028ACEE with
+// the owner's position and 1, and AI +0x558 (set by onEnter) reset.
 
 #include "ascii_string.h"
 
@@ -53,6 +60,11 @@ enum ModelConditionFlagType
 	MODELCONDITION_BFME_06 = 0x06,
 	MODELCONDITION_BFME_80 = 0x80,
 	MODELCONDITION_BFME_AC = 0xAC
+};
+
+enum StateExitType
+{
+	EXIT_NORMAL = 0
 };
 
 enum WeaponStatus
@@ -147,6 +159,7 @@ class Weapon
 public:
 	const WeaponTemplate *getTemplate() const { return m_template; }
 	WeaponStatus getStatus() const;
+	void reloadAmmo(const Object *sourceObj);
 private:
 	void *m_vtbl;
 	const WeaponTemplate *m_template; // +4
@@ -260,6 +273,13 @@ public:
 	Int m_mode55C; // +0x55C
 };
 
+// The AI flag-bit setter chain (0x0036940A clears or sets AI flag bit 5).
+class Rva0036748E
+{
+public:
+	void rva0036940A(bool flag);
+};
+
 class BfmeVec3EJ;
 class Gen_000E5A50
 {
@@ -278,6 +298,10 @@ public:
 	void set(Int bit)
 	{
 		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+	}
+	void clear(Int bit)
+	{
+		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
 	}
 private:
 	UnsignedInt m_words[19];
@@ -327,6 +351,15 @@ public:
 			rva0028AE6D();
 		}
 	}
+	__forceinline void clearModelConditionBit(Int bit)
+	{
+		if (m_conditionBits.test(bit) != 0)
+		{
+			m_conditionBits.clear(bit);
+			rva0028AE6D();
+		}
+	}
+	void rva0028ACEE(const Coord3D *pos, Int value);
 protected:
 	Module *findModule(NameKeyType key) const;
 	friend class AIGiantBirdAttackState;
@@ -366,7 +399,7 @@ public:
 	virtual void slot02();
 	virtual void slot03();
 	virtual StateReturnType onEnter();
-	virtual void onExit();
+	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 protected:
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
@@ -378,6 +411,7 @@ class AIGiantBirdAttackState : public State
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 private:
 	unsigned char m_pad1C[4];
@@ -560,4 +594,23 @@ StateReturnType AIGiantBirdAttackState::update()
 		return STATE_SUCCESS;
 	}
 	return STATE_CONTINUE;
+}
+
+//-------------------------------------------------------------------------------------------------
+void AIGiantBirdAttackState::onExit(StateExitType status)
+{
+	State::onExit(status);
+	Object *owner = getMachineOwner();
+	owner->clearModelConditionBit(155);
+	AIUpdateInterface *ai = owner->getAI();
+	if (ai)
+		reinterpret_cast<Rva0036748E *>(ai)->rva0036940A(false);
+
+	Weapon *weapon = const_cast<Weapon *>(owner->getCurrentWeapon());
+	if (weapon)
+		weapon->reloadAmmo(owner);
+
+	owner->rva0028ACEE(owner->getPosition(), 1);
+	if (ai)
+		ai->m_entered558 = false;
 }
