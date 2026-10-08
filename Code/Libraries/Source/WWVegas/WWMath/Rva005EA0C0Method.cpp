@@ -27,11 +27,13 @@ public:
   void rva005EA183();
   void rva005EA5BD();
   void rva005EA0C0();
+  void rva005EA0F6();
 private:
   char m_pad[0x14];
   Rva00575674 m_holder;
 };
 extern const void *const g_00C78174[];
+extern const void *const g_00C78134[];
 struct Rva005EA0C0Link
 {
   const void *m_vptr;
@@ -45,6 +47,14 @@ struct Rva005EA0C0Link
 void Rva005EA183::rva005EA0C0()
 {
   Rva005EA0C0Link *link = new Rva005EA0C0Link(this, (const void *)g_00C78174);
+  m_holder.rva00575674((Object *)link);
+  return m_holder.m_ptr->f1();
+}
+// ?rva005EA0F6@Rva005EA183@@QAEXXZ @0x005EA0F6 47B: same link shape as 0x005EA0C0
+// with the sibling vtable g_00C78134 (slot 1 tail).
+void Rva005EA183::rva005EA0F6()
+{
+  Rva005EA0C0Link *link = new Rva005EA0C0Link(this, (const void *)g_00C78134);
   m_holder.rva00575674((Object *)link);
   return m_holder.m_ptr->f1();
 }
