@@ -1,7 +1,12 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_CSTD_FUNCTION_IMPORTS /Ireference/shims/bfme2_ascii /ICode/Libraries/Include
+// stlport
 //
 // ?updateConstructionTextDisplay@ControlBar@@QAEXPAVObject@@@Z retail 0x0053E3E6 203 bytes. Donor is BFME1 ControlBarContextUI.cpp updateConstructionTextDisplay which pushes the same two literals ControlBar.wnd UnderConstructionDesc and CONTROLBAR UnderConstructionDesc and calls nameToKey winGetWindowFromId fetch format GadgetStaticTextSetText. Identity also from callers 0x0053E4B1 and 0x0053E4F1 comparing this plus 0x78 against obj plus 0x280. Recipe is donor verbatim with extern guard globals for linkability.
 #include "unicode_string.h"
+#include "ascii_string.h"
+#include "Lib/Coord3D.h"
+namespace _STL { void __cdecl free(void *); }
+#include <vector>
 
 typedef int Int;
 
@@ -19,6 +24,11 @@ class Team;
 
 class GameWindow
 {
+public:
+    int winHide(bool);
+    int winEnable(bool);
+    unsigned int winSetStatus(unsigned int);
+    unsigned int winClearStatus(unsigned int);
 };
 
 #define RVA0053EB81_VIRTUAL(name) virtual void name();
@@ -57,11 +67,44 @@ public:
 
 #undef RVA0053EB81_VIRTUAL
 
+class CommandButton;
+class ModuleData;
+
+class ConstructionExitView {
+public:
+    virtual void slot0()=0; virtual void slot1()=0;
+    virtual void slot2()=0; virtual void slot3()=0;
+    virtual void slot4()=0; virtual void slot5()=0;
+    virtual void slot6()=0; virtual void slot7()=0;
+    virtual const Coord3D *getRallyPoint() const=0;
+};
+class ExitInterface;
+class Rva002A7DD0 { public: int rva002A7DD0(); };
+class BfmeMemberRV { public: bool bfmeAskRV(); };
+class PlayerList;
+extern PlayerList *ThePlayerList;
+struct ConstructionPlayerListView { char unknown00[0x10]; BfmeMemberRV *localPlayer; };
+class RadarWindowOverrideSource;
+extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
+class Rva002D368E { public: void rva002D368E(); };
+class Rva002D363EOwner { public: void rva002D363E(int); };
+class WindowList;
+class Rva0053ED1A { public: void rva0053EFC7(WindowList &); };
+// Native portrait dispatch calls the shared empty RET4 at47A69C. This
+// pre-existing opaque ABI binding does not identify ControlBar as its owner.
+class Gen_003bcb40 { public: void m(int); };
+struct ConstructionTemplateView { char unknown00[0x122]; unsigned char flags; };
+struct ConstructionObjectView { char unknown00[4]; ConstructionTemplateView *objectTemplate; };
+class ControlBar;
+extern ControlBar *TheControlBar;
+struct ConstructionOverlayModeView { char unknown00[0x29C]; int mode; };
+
 class Object
 {
 public:
 	bool testStatus(ObjectStatusTypes bit) const;
 	bool isLocallyControlled() const;
+	ExitInterface *getObjectExitInterface() const;
 
 	float getConstructionPercent()
 	{
@@ -101,6 +144,10 @@ class ControlBar
 {
 public:
 	void updateConstructionTextDisplay(Object *obj);
+    void rva0053E4F1(Object *);
+    void rva0031B641(GameWindow *, const CommandButton *);
+    const CommandButton *findCommandButton(const AsciiString &);
+    void showRallyPoint(const Coord3D *);
 	void rva0053E4B1();
 	void updateContextContestedStructureInventory();
 	void rva0053E783(void *object, int flag);
@@ -117,6 +164,10 @@ private:
 	float m_displayedConstructPercent;
 	unsigned char m_pad7c[4];
 	int m_80;
+    unsigned char m_pad084[0x58];
+    GameWindow *commandWindows[32];
+    unsigned char m_pad15c[0x144];
+    Rva0053ED1A *overlaySink;
 };
 
 class Player;
@@ -455,4 +506,61 @@ void ControlBar::updateContextStructureInventory()
 		rva0053E783(object, 0);
 rva0053EAECdone:
 	;
+}
+
+// Native 0x0053E4F1..0x0053E6E1, 496 bytes. WB 0x01123660 names the
+// under-construction workflow; clean BFME1 ba7ddda7 ControlBarUnderConstruction
+// supplies its source structure. Native evidence establishes 32 windows at
+// +0xDC, the template +0x122 flag, overlay mode +0x29C and sink +0x2A0.
+// Address-derived bindings retain unresolved target names and access levels.
+// The real STLport vector owns the temporary window list; its existing
+// pointer-vector push provider is reused through a storage/ABI view.
+void ControlBar::rva0053E4F1(Object *objectUnderConstruction)
+{
+    if (!objectUnderConstruction) {
+        if (theRadarWindowOverrideSource)
+            ((Rva002D368E *)theRadarWindowOverrideSource)->rva002D368E();
+        return;
+    }
+    for (int i=0; i<32; ++i) {
+        if (commandWindows[i]) {
+            commandWindows[i]->winHide(true);
+            rva0031B641(commandWindows[i],0);
+        }
+    }
+    bool overlay=((ConstructionOverlayModeView *)TheControlBar)->mode==1;
+    _STL::vector<GameWindow *> windows;
+    bool locallyControlled=objectUnderConstruction->isLocallyControlled();
+    bool lit=(unsigned char)((Rva002A7DD0 *)ThePlayerList)->rva002A7DD0() || locallyControlled;
+    const CommandButton *commandButton=findCommandButton("Command_CancelConstruction");
+    GameWindow *win=commandWindows[0];
+    if (!(((ConstructionObjectView *)objectUnderConstruction)->objectTemplate->flags&4)
+        && commandButton && win) {
+        win->winHide(false);
+        if (overlay && lit) {
+            win->winSetStatus(0x4000000);
+            ((_STL::vector<const ModuleData *> *)&windows)->push_back(
+                reinterpret_cast<const ModuleData *const &>(win));
+        } else {
+            win->winClearStatus(0x4000000);
+        }
+        rva0031B641(win,commandButton);
+        if (locallyControlled) {
+            win->winEnable(true);
+            win->winClearStatus(0x40000000);
+        } else if (((ConstructionPlayerListView *)ThePlayerList)->localPlayer->bfmeAskRV()) {
+            win->winEnable(false);
+            win->winClearStatus(0x40000000);
+        } else {
+            win->winEnable(false);
+            win->winSetStatus(0x40000000);
+        }
+    }
+    updateConstructionTextDisplay(objectUnderConstruction);
+    ((Gen_003bcb40 *)this)->m((int)objectUnderConstruction);
+    ExitInterface *exit=objectUnderConstruction->getObjectExitInterface();
+    if (exit) showRallyPoint(((ConstructionExitView *)exit)->getRallyPoint());
+    if (theRadarWindowOverrideSource)
+        ((Rva002D363EOwner *)theRadarWindowOverrideSource)->rva002D363E((int)objectUnderConstruction);
+    overlaySink->rva0053EFC7(*(WindowList *)&windows);
 }
