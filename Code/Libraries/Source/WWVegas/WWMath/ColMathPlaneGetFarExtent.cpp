@@ -1,6 +1,8 @@
 // ?get_far_extent@@YAXABVVector3@@0PAV1@@Z
-// cl: /O2 /G7 /MD /arch:SSE /Oy-
+// cl: /O2 /G7 /MD /arch:SSE /Oy- /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath
 //
+// Shared Vector3 view: bfme2_vector3; donor34f59164f6 supplies dependencies.
+// The real out-of-line provider needs no artificial emission wrapper.
 // get_far_extent, retail 0x0007B5C8, 112 bytes: the colmathplane.h helper that
 // picks the extent corner farthest along a plane normal, emitted out of line in
 // BFME2 and called from the AABTree culling code.
@@ -9,20 +11,14 @@
 // and Z are plain dword moves; carrying X through a double temporary is what
 // reproduces that, with the negated arms staying SSE.
 
-class Vector3
-{
-public:
-	float X;
-	float Y;
-	float Z;
-};
+#include "vector3.h"
 
 __forceinline bool Fast_Is_Float_Positive(const float &val)
 {
 	return !((*reinterpret_cast<const int *>(&val) & 0x80000000) != 0);
 }
 
-inline void __cdecl get_far_extent(const Vector3 &normal, const Vector3 &extent, Vector3 *posfarpt)
+void __cdecl get_far_extent(const Vector3 &normal, const Vector3 &extent, Vector3 *posfarpt)
 {
 	if (Fast_Is_Float_Positive(normal.X))
 	{
@@ -42,11 +38,3 @@ inline void __cdecl get_far_extent(const Vector3 &normal, const Vector3 &extent,
 	else
 		posfarpt->Z = -extent.Z;
 }
-
-#pragma inline_depth(0)
-// ?bfmeEmitColMathPlaneGetFarExtent@@YAXABVVector3@@0PAV1@@Z present-unmatched
-void bfmeEmitColMathPlaneGetFarExtent(const Vector3 &a, const Vector3 &b, Vector3 *c)
-{
-	get_far_extent(a, b, c);
-}
-#pragma inline_depth()

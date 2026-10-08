@@ -74,6 +74,7 @@ public:
 	friend class LockClass;
 };
 
+#define COLMATHPLANE_H // use the source-local inline expressions below
 #include "aabtreecull.h"
 #include "chunkio.h"
 #include "iostruct.h"
@@ -81,6 +82,51 @@ public:
 #include "sphere.h"
 #include "colmath.h"
 #include "colmathinlines.h"
+
+// BFME1@34f59164f6 supplies the plane-overlap expressions below.
+// Keep the already-inlined math local: only the existing native providers
+// own out-of-line get_far_extent (0x0007B5C8) and Plane/Point (0x0007B638).
+#include "colmath.h"
+#include "plane.h"
+#include "aabox.h"
+void get_far_extent(const Vector3 &,const Vector3 &,Vector3 *);
+// ?bfmeNativePlanePointInline absent-from-retail
+static __forceinline CollisionMath::OverlapType
+bfmeNativePlanePointInline(const PlaneClass & plane,const Vector3 & point,const float & epsilon)
+{
+	float delta = Vector3::Dot_Product(point,plane.N) - plane.D;
+	if (delta > epsilon) {
+		return CollisionMath::POS;
+	}
+	if (delta < -epsilon) {
+		return CollisionMath::NEG;
+	}
+	return CollisionMath::ON;
+}
+
+
+inline
+CollisionMath::OverlapType
+CollisionMath::Overlap_Test(const PlaneClass & plane,const AABoxClass & box)
+{
+	// First, we determine the the near and far points of the box in the
+	// direction of the plane normal
+	Vector3 posfarpt;
+	Vector3 negfarpt;
+
+	get_far_extent(plane.N,box.Extent,&posfarpt);
+
+	negfarpt = -posfarpt;
+	posfarpt += box.Center;
+	negfarpt += box.Center;
+	if (bfmeNativePlanePointInline(plane,negfarpt,COINCIDENCE_EPSILON) == POS) {
+		return POS;
+	}
+	if (bfmeNativePlanePointInline(plane,posfarpt,COINCIDENCE_EPSILON) == NEG) {
+		return NEG;
+	}
+	return BOTH;
+}
 
 
 

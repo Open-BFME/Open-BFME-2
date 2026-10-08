@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /O1 /DNDEBUG /MD /arch:SSE /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath
 //
 // Three small byte-true bodies (dump range 1). Boundaries verified from
 // retail bytes via the tools (ret-terminated extents). Names are honest
@@ -15,8 +15,8 @@
 // - 0x0007B68E (94B): free triplet over Vector3/PlaneClass: SSE
 //   differences via the rowed get_far_extent, then the rowed static
 //   CollisionMath::Overlap_Test, returning (result == 1) through the
-//   canonical dec/neg/sbb/inc lowering. [ebp+8] serves as PlaneClass for
-//   the test and as Vector3 (base reinterpret) for the extent.
+//   canonical dec/neg/sbb/inc lowering. The plane normal at offset0
+//   supplies the extent direction; the point test also reads distance12.
 // - 0x0007BF5A (29B): cdecl forwarder pushing (a, b, c, uninit flag, 0)
 //   into the rowed Rva0007BF77Copy; the 1-byte flag local matches the
 //   callee's const _STL::__false_type& parameter by address.
@@ -25,29 +25,12 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
-class Vector3
-{
-public:
-	float x;
-	float y;
-	float z;
-};
-
-class PlaneClass
-{
-	unsigned char m_opaque[0x60];
-};
-
-class CollisionMath
-{
-public:
-	enum OverlapType
-	{
-		OT_NO_COLLISION = 0,
-		OT_POSSIBLE = 1,
-	};
-	static OverlapType Overlap_Test(const PlaneClass &a, const Vector3 &b);
-};
+// Reuse the shared Vector3 view and donor34f59164f6 PlaneClass/CollisionMath.
+// Native7B638 reads normal0/4/8 and distance12; native7B5C8 consumes the
+// normal at offset0. No opaque96-byte PlaneClass or partial enum is needed.
+#include "vector3.h"
+#include "plane.h"
+#include "colmath.h"
 
 void get_far_extent(const Vector3 &a, const Vector3 &b, Vector3 *out);
 
@@ -68,7 +51,6 @@ struct __false_type
 
 Region2D *Rva0007BF77Copy(Region2D *a, Region2D *b, Region2D *c, const _STL::__false_type &f, int i);
 
-// ?Rva0007BA09Sub::s06 present-unmatched
 class Rva0007BA09Sub
 {
 public:
@@ -87,7 +69,6 @@ struct Rva0007BA09Result
 	Int m_20;
 };
 
-// ?Rva0007BA09Host::rva0007BA09 present-unmatched
 class Rva0007BA09Host
 {
 public:
@@ -108,7 +89,6 @@ public:
 	Int m_0C;
 };
 
-// ?Rva0007BA09Host::rva0007BA09 present-unmatched
 void Rva0007BA09Host::rva0007BA09()
 {
 	if (m_08)
@@ -124,7 +104,6 @@ void Rva0007BA09Host::rva0007BA09()
 	}
 }
 
-// ?Rva0007B68EObj present-unmatched
 class Rva0007B68EObj
 {
 public:
@@ -136,13 +115,13 @@ public:
 
 Bool rva0007B68E(const PlaneClass *p, const Rva0007B68EObj *o)
 {
-	const Vector3 *pv = reinterpret_cast<const Vector3 *>(p);
+	const Vector3 *pv = &p->N;
 	Vector3 t;
 	get_far_extent(*pv, o->m_vec, &t);
-	t.x = o->x - t.x;
-	t.y = o->y - t.y;
-	t.z = o->z - t.z;
-	return CollisionMath::Overlap_Test(*p, t) == CollisionMath::OT_POSSIBLE;
+	t.X = o->x - t.X;
+	t.Y = o->y - t.Y;
+	t.Z = o->z - t.Z;
+	return CollisionMath::Overlap_Test(*p, t) == CollisionMath::POS;
 }
 
 void rva0007BF5A(Region2D *a, Region2D *b, Region2D *c)

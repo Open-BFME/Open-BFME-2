@@ -6546,7 +6546,6 @@ object_symbol	reverse/functions.csv	0x006CE7D0	1
 object_symbol	reverse/functions.csv	0x006D95E0	1
 object_symbol	reverse/functions.csv	0x00716890	1
 object_symbol	reverse/functions.csv	0x007168F0	1
-object_symbol	reverse/functions.csv	0x00719A20	1
 object_symbol	reverse/functions.csv	0x007248B0	1
 object_symbol	reverse/functions.csv	0x00724970	1
 object_symbol	reverse/functions.csv	0x0073F451	1
@@ -37792,9 +37791,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00078AE
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva0007B851Math::Sqrt	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00069AF5Falloff.cpp	Rva00069AF5Math::Sqrt	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00069AF5Falloff.cpp	rva000670B8@Rva00069AF5Host@@QAEMMM@Z	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0007BA09Bodies.cpp	Rva0007B68EObj	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0007BA09Bodies.cpp	Rva0007BA09Host::rva0007BA09	2
-present_unmatched	Code/GameEngine/Source/Common/Rva0007BA09Bodies.cpp	Rva0007BA09Sub::s06	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp	Rva000BC93DCBase::~Rva000BC93DCBase	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp	bfmeEmitRva000AAD26FamilyDtors@@YAXPAVRva00AAD26@@PAVRva00AB15D@@PAVRva00B6971@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	GDIFileStream::read	1
@@ -42545,7 +42541,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/xsurface.cpp	Fill_Rect@XSu
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/xsurface.cpp	Get_Pixel@XSurface@@UBEHABV?$TPoint2D@H@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/xsurface.cpp	Prep_For_Blit@XSurface@@	2
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/xsurface.cpp	Put_Pixel@XSurface@@UAE_NABV?$TPoint2D@H@@H@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWMath/ColMathPlaneGetFarExtent.cpp	bfmeEmitColMathPlaneGetFarExtent@@YAXABVVector3@@0PAV1@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWMath/LineSegVectorCtor.cpp	bfmeEmitLineSegVectorCtor@@YAXPAVLineSegClass@@ABVVector3@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWMath/QuaternionRandomize.cpp	normalizeForRandomize@Quaternion@@QAEXXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWMath/Rva000FE9E3PointBounds.cpp	add	1

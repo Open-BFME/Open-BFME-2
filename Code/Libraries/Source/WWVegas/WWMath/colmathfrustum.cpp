@@ -49,6 +49,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
+#define COLMATHPLANE_H // use the source-local inline expressions below
 #include "colmath.h"
 #include "colmathinlines.h"
 #include "aaplane.h"
@@ -61,6 +62,67 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "frustum.h"
 #include "wwdebug.h"
 
+// BFME1@34f59164f6 supplies the plane-overlap expressions below.
+// Keep the already-inlined math local: only the existing native providers
+// own out-of-line get_far_extent (0x0007B5C8) and Plane/Point (0x0007B638).
+// ?bfmeNativeFarExtentInline absent-from-retail
+static __forceinline void bfmeNativeFarExtentInline(const Vector3 & normal,const Vector3 & extent,Vector3 * posfarpt)
+{
+	if (WWMath::Fast_Is_Float_Positive(normal.X)) {
+		posfarpt->X = extent.X;
+	} else {
+		posfarpt->X = -extent.X;
+	}
+
+	if (WWMath::Fast_Is_Float_Positive(normal.Y)) {
+		posfarpt->Y = extent.Y;
+	} else {
+		posfarpt->Y = -extent.Y;
+	}
+
+	if (WWMath::Fast_Is_Float_Positive(normal.Z)) {
+		posfarpt->Z = extent.Z;
+	} else {
+		posfarpt->Z = -extent.Z;
+	}
+}
+// ?bfmeNativePlanePointInline absent-from-retail
+static __forceinline CollisionMath::OverlapType
+bfmeNativePlanePointInline(const PlaneClass & plane,const Vector3 & point,const float & epsilon)
+{
+	float delta = Vector3::Dot_Product(point,plane.N) - plane.D;
+	if (delta > epsilon) {
+		return CollisionMath::POS;
+	}
+	if (delta < -epsilon) {
+		return CollisionMath::NEG;
+	}
+	return CollisionMath::ON;
+}
+
+
+// ?bfmeNativePlaneBoxInline absent-from-retail
+static __forceinline CollisionMath::OverlapType
+bfmeNativePlaneBoxInline(const PlaneClass & plane,const AABoxClass & box,const float & epsilon)
+{
+	// First, we determine the the near and far points of the box in the
+	// direction of the plane normal
+	Vector3 posfarpt;
+	Vector3 negfarpt;
+
+	bfmeNativeFarExtentInline(plane.N,box.Extent,&posfarpt);
+
+	negfarpt = -posfarpt;
+	posfarpt += box.Center;
+	negfarpt += box.Center;
+	if (bfmeNativePlanePointInline(plane,negfarpt,epsilon) == CollisionMath::POS) {
+		return CollisionMath::POS;
+	}
+	if (bfmeNativePlanePointInline(plane,posfarpt,epsilon) == CollisionMath::NEG) {
+		return CollisionMath::NEG;
+	}
+	return CollisionMath::BOTH;
+}
 
 // TODO: Most of these overlap functions actually do not catch all cases of when
 // the primitive is outside of the frustum...
@@ -73,7 +135,7 @@ CollisionMath::Overlap_Test(const FrustumClass & frustum,const Vector3 & point)
 	int mask = 0;
 	
 	for (int i = 0; i < 6; i++) {
-		int result = CollisionMath::Overlap_Test(frustum.Planes[i],point);
+		int result = bfmeNativePlanePointInline(frustum.Planes[i],point,COINCIDENCE_EPSILON);
 		if (result == OUTSIDE) {
 			return OUTSIDE;
 		}
@@ -133,7 +195,7 @@ CollisionMath::Overlap_Test(const FrustumClass & frustum,const AABoxClass & box)
 	
 	// TODO: doesn't catch all cases...
 	for (int i = 0; i < 6; i++) {
-		int result = CollisionMath::Overlap_Test(frustum.Planes[i],box);
+		int result = bfmeNativePlaneBoxInline(frustum.Planes[i],box,COINCIDENCE_EPSILON);
 		if (result == OUTSIDE) {
 			return OUTSIDE;
 		}

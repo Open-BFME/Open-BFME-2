@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmerendobj /arch:SSE /G7 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /Ireference/shims/bfme2_vector3 /Ireference/shims/bfmerendobj /arch:SSE /G7 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // WWMath collision-vs-plane tests, verbatim from the Generals reference
 // (Libraries/Source/WWVegas/WWMath/colmathplane.cpp). WWASSERT compiles out in
 // the retail (non-DEBUG_CRASHING) build, matching what BFME shipped.
@@ -13,9 +13,10 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
+#include "vector3.h" // existing BFME2 constructor view must win
+#define COLMATHPLANE_H // use the source-local inline expressions below
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "colmath.h"
-#include "colmathplane.h"
 #include "aaplane.h"
 #include "plane.h"
 #include "lineseg.h"
@@ -25,6 +26,51 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "obbox.h"
 #include "wwdebug.h"
 
+// BFME1@34f59164f6 supplies the plane-overlap expressions below.
+// Keep the already-inlined math local: only the existing native providers
+// own out-of-line get_far_extent (0x0007B5C8) and Plane/Point (0x0007B638).
+// ?bfmeNegateInline absent-from-retail
+static __forceinline Vector3 bfmeNegateInline(const Vector3 & value)
+{
+    Vector3 result;
+    result.Set(-value.X,-value.Y,-value.Z);
+    return result;
+}
+
+// ?bfmeNativeFarExtentInline absent-from-retail
+static __forceinline void bfmeNativeFarExtentInline(const Vector3 & normal,const Vector3 & extent,Vector3 * posfarpt)
+{
+	if (WWMath::Fast_Is_Float_Positive(normal.X)) {
+		posfarpt->X = extent.X;
+	} else {
+		posfarpt->X = -extent.X;
+	}
+
+	if (WWMath::Fast_Is_Float_Positive(normal.Y)) {
+		posfarpt->Y = extent.Y;
+	} else {
+		posfarpt->Y = -extent.Y;
+	}
+
+	if (WWMath::Fast_Is_Float_Positive(normal.Z)) {
+		posfarpt->Z = extent.Z;
+	} else {
+		posfarpt->Z = -extent.Z;
+	}
+}
+// ?bfmeNativePlanePointInline absent-from-retail
+static __forceinline CollisionMath::OverlapType
+bfmeNativePlanePointInline(const PlaneClass & plane,const Vector3 & point,const float & epsilon)
+{
+	float delta = Vector3::Dot_Product(point,plane.N) - plane.D;
+	if (delta > epsilon) {
+		return CollisionMath::POS;
+	}
+	if (delta < -epsilon) {
+		return CollisionMath::NEG;
+	}
+	return CollisionMath::ON;
+}
 
 
 CollisionMath::OverlapType
@@ -117,8 +163,8 @@ CollisionMath::OverlapType
 CollisionMath::Overlap_Test(const PlaneClass & plane,const LineSegClass & line)
 {
 	int mask = 0;
-	mask |= CollisionMath::Overlap_Test(plane,line.Get_P0());
-	mask |= CollisionMath::Overlap_Test(plane,line.Get_P1());
+	mask |= bfmeNativePlanePointInline(plane,line.Get_P0(),COINCIDENCE_EPSILON);
+	mask |= bfmeNativePlanePointInline(plane,line.Get_P1(),COINCIDENCE_EPSILON);
 	return eval_overlap_mask(mask);
 }
 
@@ -126,9 +172,9 @@ CollisionMath::OverlapType
 CollisionMath::Overlap_Test(const PlaneClass & plane,const TriClass & tri)
 {
 	int mask = 0;
-	mask |= CollisionMath::Overlap_Test(plane,*tri.V[0]);
-	mask |= CollisionMath::Overlap_Test(plane,*tri.V[1]);
-	mask |= CollisionMath::Overlap_Test(plane,*tri.V[2]);
+	mask |= bfmeNativePlanePointInline(plane,*tri.V[0],COINCIDENCE_EPSILON);
+	mask |= bfmeNativePlanePointInline(plane,*tri.V[1],COINCIDENCE_EPSILON);
+	mask |= bfmeNativePlanePointInline(plane,*tri.V[2],COINCIDENCE_EPSILON);
 	return eval_overlap_mask(mask);
 }
 
@@ -154,19 +200,19 @@ CollisionMath::Overlap_Test(const PlaneClass & plane,const OBBoxClass & box)
 	Vector3 negfarpt;
 	Matrix3::Transpose_Rotate_Vector(box.Basis,plane.N,&local_normal);
 
-	get_far_extent(local_normal,box.Extent,&posfarpt);
+	bfmeNativeFarExtentInline(local_normal,box.Extent,&posfarpt);
 
 	// transform the two extreme box coordinates into world space
 	Matrix3::Rotate_Vector(box.Basis,posfarpt,&posfarpt);
-	negfarpt = -posfarpt;
+	negfarpt = bfmeNegateInline(posfarpt);
 	posfarpt += box.Center;
 	negfarpt += box.Center;
 
 	// overlap test
-	if (Overlap_Test(plane,negfarpt) == POS) {
+	if (bfmeNativePlanePointInline(plane,negfarpt,COINCIDENCE_EPSILON) == POS) {
 		return POS;
 	}
-	if (Overlap_Test(plane,posfarpt) == NEG) {
+	if (bfmeNativePlanePointInline(plane,posfarpt,COINCIDENCE_EPSILON) == NEG) {
 		return NEG;
 	}
 	return BOTH;
