@@ -12,6 +12,8 @@ struct Rva00368C7AObject
 {
 	char unknown00[0x38];
 	Coord3D position;
+	char unknown44[0xBC - 0x44];
+	float valueBC;
 };
 class Rva0030A92C
 {
@@ -23,6 +25,22 @@ class Thing
 public:
 	float getHeightAboveTerrain() const;
 };
+class Object;
+struct Rva00375A73Coord { float x, y, z; };
+class Rva00375A73Context
+{
+public:
+	unsigned char prefix00[0x24];
+	bool valid24;
+	unsigned char padding25[0x54 - 0x25];
+};
+class AerialPathfinder
+{
+public:
+	bool rva00375A73(Rva00375A73Context *context, float value, Rva00375A73Coord *output);
+	bool rva00375DFF(Object *obj, Rva00375A73Context *context, float distance, float clearance);
+};
+extern AerialPathfinder *TheAerialPathfinder;
 struct Rva00368C7AMetrics
 {
 	char unknown00[0x48];
@@ -40,7 +58,12 @@ private:
 	Rva00368C7AObject *object;
 	char unknown0C[0x1F0 - 0x0C];
 	Rva00368C7AMetrics *metrics;
-	char unknown1F4[0x544 - 0x1F4];
+	char unknown1F4[0x4C8 - 0x1F4];
+	Rva00375A73Context context; // +0x4C8
+	char unknown51C[0x530 - 0x51C];
+	float value530;
+	char unknown534[0x540 - 0x534];
+	float value540;
 	Coord3D previous;
 };
 
@@ -78,4 +101,32 @@ unsigned char Rva00368C7A::rva00368271()
 	int also = obj->position.z > threshold && height > data->value48 * 0.3f;
 	above |= also;
 	return above;
+}
+
+int Rva00368C7A::rva00368B51(float amount, bool argument)
+{
+	Rva00368C7AObject *obj = object;
+	if (!obj || !metrics)
+		return 0;
+	if (!context.valid24)
+		return 2;
+	Object *owner = reinterpret_cast<Object *>(obj);
+	if (argument) {
+		float height = obj->valueBC * 2.0 + value530;
+		if (!TheAerialPathfinder->rva00375DFF(owner, &context, height, amount))
+			return 1;
+	} else {
+		float base = value530 * 2.0f;
+		if (!TheAerialPathfinder->rva00375DFF(owner, &context, base - obj->valueBC * 0.5f, amount)
+			|| !TheAerialPathfinder->rva00375DFF(owner, &context, base, amount))
+			return 1;
+	}
+	if (!rva00368271())
+		return 0;
+	Rva00375A73Coord point;
+	if (!TheAerialPathfinder->rva00375A73(&context, value530 + 10.0f, &point))
+		return 0;
+	if (point.z - 2.0f > obj->position.z && obj->position.z > value540)
+		return 2;
+	return 0;
 }
