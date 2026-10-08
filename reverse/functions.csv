@@ -46409,7 +46409,6 @@ _bfmeVp6ThresholdSelect,,0x001B5AC0,404,Code/GameEngine/Source/Common/Rva009A500
 ?rva00431E95@Rva00431E95@@QAEHPAX@Z,,0x00431E95,65,Code/GameEngine/Source/Common/Rva00431E95.cpp,matched,chain via 0x004319F2 helper new 12B vtable g_00C3C9AC
 ?rva00431E5A@Rva00431E5A@@QAEXXZ,,0x00431E5A,59,Code/GameEngine/Source/Common/Rva00431E5A.cpp,matched,chain via 0x004319F2 helper new 8B vtable g_00C3C97C
 ??1Rva00385333@@QAE@XZ,,0x00385333,62,Code/GameEngine/Source/Common/Rva00385333Dtor.cpp,matched,derived dtor frees 0x19c via rowed free then base 0x3844D7 LINK 0x385371
-??1Gen_uw_00385371@@QAE@XZ,,0x00385371,75,Code/GameEngine/Source/Common/Rva00385371Dtor.cpp,matched,composite dtor via rowed 0x38454E 0x3844D7 0x385333 LINK 8B waiter
 ?rva000D3A17@Rva000D3A17@@QAEXXZ,,0x000D3A17,90,Code/GameEngine/Source/Common/Rva000D3A17.cpp,matched,clears ten Rva000D20A9 trees via rowed 0x000D2294 zeroes 0x08 0x0C stamps 0x7530 0xEA60 releases ten ref slots zeroes 0x90
 ?onCreate@SupplyWarehouseCreate@@UAEXXZ,,0x004B8F22,64,Code/GameEngine/Source/GameLogic/Object/Create/SupplyWarehouseCreate.cpp,matched,Zero Hour body at its vftable slot (the vftable the rowed ctor 0x004B8E78 installs); BFME 2 reads the PlayerList count at +0x14 and the Player resource-gathering manager at +0x2E4
 ??0Rva000D3A17@@QAE@XZ,,0x000D3A8A,157,Code/GameEngine/Source/Common/Rva000D3A8ACtor.cpp,matched,chain from rowed 0x000D3A17 and 0x000D1C83 ehvec 10x0xC arrays caller 0x0006CD0F
