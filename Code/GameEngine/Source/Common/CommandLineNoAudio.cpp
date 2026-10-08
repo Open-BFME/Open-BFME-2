@@ -123,3 +123,11 @@ int bfmeEnableBinaryDeepCRC()
     TheBinaryDeepCRC = true;
     return 1;
 }
+
+// BF1 9cbfb551fe Common/T3CommandLineParsers.cpp Rva000608C0_parse
+// supplies the OR-bit/return-one expression. Target 3B947E..3B9488 is
+// independently complete after RET3B947D and reuses the actual shared
+// BFME2CommandFlags word at DC1170. Native EAX is exactly1 and no stack
+// argument is read. No target option-table address reference was found;
+// original handler name, ignored arguments and bit1 meaning remain unknown.
+int Rva003B947ESetCommandBit() { BFME2CommandFlags |= 1u; return 1; }
