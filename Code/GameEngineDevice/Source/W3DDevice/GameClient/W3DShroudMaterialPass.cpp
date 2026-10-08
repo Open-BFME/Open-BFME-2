@@ -41,6 +41,7 @@ public:
 template <class T> class RefCountPtr
 {
 public:
+	RefCountPtr(const RefCountPtr<T> &rhs);
 	~RefCountPtr()
 	{
 		if (m_ref)
@@ -62,7 +63,15 @@ class Rva00072B3A
 {
 public:
 	RvaTextureHandleView rva00072B3A() const;
+private:
+	char m_pad[0x1c];
+	RvaTextureHandleView m_texture;
 };
+
+RvaTextureHandleView Rva00072B3A::rva00072B3A() const
+{
+	return m_texture;
+}
 
 class BaseHeightMapRenderObjClass
 {
