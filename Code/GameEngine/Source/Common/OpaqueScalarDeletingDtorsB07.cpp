@@ -319,28 +319,44 @@ Rva003B0344::Rva003B0344(EmitVtableTag *tag) : Rva003B00D6(tag)
 {
 }
 
-class Rva003B923BBase0
+// The rowed deleting wrapper and -0xC adjusting thunk establish this
+// owner's two base subobjects. Retail 0x003B923B destroys vector +0x20,
+// frees buffer +0x14, restores Snapshot +0xC and calls the existing
+// subsystem-base destructor at 0x001B4E74. The owner's name is unknown.
+class GameEngineDeletingBase
 {
 public:
-	virtual ~Rva003B923BBase0();
+    virtual ~GameEngineDeletingBase();
 private:
-	char m_unmodelled_04[0xC - 0x04];
+    char unmodelled04[8];
+};
+class Rva003B92A2
+{
+public:
+    void rva003B9132();
+};
+struct BfmeAssignRecord104;
+struct Rva003B923BBuffer
+{
+    void *start;
+    void *finish;
+    void *end;
+    ~Rva003B923BBuffer() { if (start) free(start); }
+};
+class Rva003B923B : public GameEngineDeletingBase, public Snapshot
+{
+public:
+    Rva003B923B(EmitVtableTag *);
+    virtual ~Rva003B923B();
+    unsigned int unmodelled10;
+    Rva003B923BBuffer buffer14;
+    _STL::vector<BfmeAssignRecord104> vector20;
 };
 
-// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0xC) at 0x003B912A in its vtable is target evidence for it.
-class Rva003B923BBaseC
+Rva003B923B::~Rva003B923B()
 {
-public:
-	virtual ~Rva003B923BBaseC();
-};
-class Rva003B923B : public Rva003B923BBase0, public Rva003B923BBaseC
-{
-public:
-	Rva003B923B(EmitVtableTag *);
-public:
-	virtual ~Rva003B923B();
-};
+    ((Rva003B92A2 *)this)->rva003B9132();
+}
 
 // ?<Rva003B923B::Rva003B923B> absent-from-retail
 Rva003B923B::Rva003B923B(EmitVtableTag *)
