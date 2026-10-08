@@ -48,10 +48,18 @@ void Rva005F83B9::rva005F83B9()
 
 // ?rva005F8427@Rva005F8427@@QAEXXZ @0x005F8427 8B member forwarder to rowed
 // ?rva005F83B9@Rva005F83B9@@QAEXXZ (0x005F83B9). No callers. Honest address name.
+// The rowed 0x005F83A9 on the same member object, under its own address class.
+class Rva005F83A9
+{
+public:
+	void rva005F83A9();
+};
+
 class Rva005F8427
 {
 public:
 	int rva005F8408() const;
+	void rva005F841F();
 	void rva005F8427();
 private:
 	char m_pad[4];
@@ -66,4 +74,12 @@ int Rva005F8427::rva005F8408() const
 void Rva005F8427::rva005F8427()
 {
 	return m_member->rva005F83B9();
+}
+
+// ?rva005F841F@Rva005F8427@@QAEXXZ @0x005F841F 8B: the sibling forwarder
+// tail-jumping into the rowed 0x005F83A9 on the +0x04 member (callers include
+// the constructor 0x005E8C54, after a positive 0x005F8408 count).
+void Rva005F8427::rva005F841F()
+{
+	reinterpret_cast<Rva005F83A9 *>(m_member)->rva005F83A9();
 }
