@@ -46,16 +46,56 @@ public:
 private:
 	unsigned int m_words[19];
 };
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_NONE = 0
+};
+enum AbleToAttackType
+{
+	ATTACK_NEW_TARGET = 0,
+	ATTACK_TUNNEL_NETWORK_GUARD = 4
+};
+enum CanAttackResult
+{
+	ATTACKRESULT_NOT_POSSIBLE = 0,
+	ATTACKRESULT_INVALID_SHOT = 1,
+	ATTACKRESULT_POSSIBLE_AFTER_MOVING = 2,
+	ATTACKRESULT_POSSIBLE = 3
+};
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0
+};
+class ContainModuleInterface;
+class AIUpdateInterface;
+class SpawnBehaviorInterface;
 class Object
 {
 public:
 	void rva0028AE6D();
+	bool testStatus(ObjectStatusTypes) const;
+	Object *rva002931F5(bool);
+	float GetRelativeAngle(const Coord3D *) const;
+	bool isAbleToAttack() const;
+	SpawnBehaviorInterface *getSpawnBehaviorInterface() const;
+	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType, const Object *, const Coord3D *, CommandSourceType) const;
 	unsigned char m_pad000[4];
  ThingTemplate *m_template;
- unsigned char m_pad008[0x74-8];
+ unsigned char m_pad008[0x38-8];
+	Coord3D m_position; // +0x38
+	unsigned char m_pad044[0x74-0x44];
  ObjectID m_id;
- unsigned char m_pad078[0x10C-0x78];
+	unsigned char m_pad078[0x94-0x78];
+	unsigned int m_status; // +0x94
+	unsigned char m_pad098[0x10C-0x98];
 	Rva0010CBits m_conditionBits; // +0x10C
+	unsigned char m_pad158[0x250-0x158];
+	ContainModuleInterface *m_contain; // +0x250
+	unsigned char m_pad254[4];
+	AIUpdateInterface *m_ai; // +0x258
+	unsigned char m_pad25C[0x274-0x25C];
+	Object *m_containedBy; // +0x274
 };
 static __forceinline void setModelConditionBit(Object *object, int bit)
 {
@@ -93,7 +133,9 @@ public:
 	bool setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType);
  void updateWeaponSet(const Object *);
  void releaseWeaponLock(WeaponLockType);
+	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType, const Object *, const Object *, const Coord3D *, CommandSourceType) const;
 private:
+	bool isAnyWithinTargetPitch(const Object *, const Object *) const;
 	unsigned char m_pad00[4];
  const WeaponTemplateSet *m_set; // +0x04
  Weapon *m_weapons[6]; // +0x08 through +0x1C
@@ -163,20 +205,26 @@ bool WeaponSet::setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType
 // /O1 /Oy reproduces the biased native frame and preserves setWeaponLock237.
 // Only the existing reference ABI is used; the flag layout is opaque here.
 template<int N> class BitFlags;
+template<> class BitFlags<218> { public: bool any() const; private: unsigned m_bits[7]; };
 class WeaponTemplateSet;
-class ThingTemplate { public: const WeaponTemplateSet *findWeaponTemplateSet(const BitFlags<117> &) const; };
+class ThingTemplate { public: const WeaponTemplateSet *findWeaponTemplateSet(const BitFlags<117> &) const;
+ char pad0[0x108]; unsigned m_kindOf[4]; // +0x108
+};
 class Rva0028B7AELeaGetter { public: void *get() const; };
 class Rva002C9424 { public: Rva002C9424 *rva002C9424(); };
 struct Rva002C943BSrc;
 class Rva002C943B { public: void rva002C943B(const Rva002C943BSrc *); };
 struct SavedWeaponState { int fields[5]; SavedWeaponState() { ((Rva002C9424 *)this)->rva002C9424(); } };
 class WeaponTemplate { public:
- char pad0[0xc]; int m_key; char pad10[0x58-0x10]; int m_damageType;
- char pad5C[0x10c-0x5c]; unsigned m_anti; char pad110[4]; bool m_damage;
+ char pad0[0xc]; int m_key; char pad10[0x2c-0x10]; float m_minTargetAngle; char pad30[0x58-0x30]; int m_damageType;
+ char pad5C[0x10c-0x5c]; unsigned m_anti; char pad110[4]; bool m_damage; char pad115[0x170-0x115]; bool m_noVictimAttack;
 };
 class Weapon { public:
  virtual void *nativeSlot0(unsigned)=0;
  void rva002CE226(const Object *,const SavedWeaponState *);
+ bool isWithinAttackRange(const Object *,const Object *,float,int) const;
+ char isWithinAttackRange(Object *,void *,float,int) const;
+ bool rva002CCED3(const Object *,const Object *);
  WeaponTemplate *m_template; unsigned m_ownerID;
  char padC[0x4c-0xc]; bool m_pitch;
 };
@@ -185,7 +233,7 @@ class WeaponStore { friend class WeaponSet; private:
  Weapon *allocateNewWeapon(const WeaponTemplate *,WeaponSlotType) const;
 }; extern WeaponStore *TheWeaponStore;
 class WeaponTemplateSet { public:
- char pad0[0x14]; const WeaponTemplate *m_weapons[6]; char pad2C[0x35c-0x2c]; bool m_sharedReload,m_sharedLock;
+ char pad0[0x14]; const WeaponTemplate *m_weapons[6]; char pad2C[0xec-0x2c]; BitFlags<218> m_victimKindOf[6]; char pad194[0x35c-0x194]; bool m_sharedReload,m_sharedLock;
 };
 void WeaponSet::updateWeaponSet(const Object *obj)
 {
@@ -252,4 +300,283 @@ void WeaponSet::releaseWeaponLock(WeaponLockType lockType)
 			}
 		}
 	}
+}
+
+// Native 0x002C787F..0x002C7907: 136B. BFME1 WeaponSet.cpp file-static
+// getVictimAntiMask, kind-of bits read straight off the template's words at
+// +0x108 (no override walk in BFME2); the victim is passed in EDX because
+// both callers (getAbleToUseWeaponAgainstTarget, chooseBestWeaponForTarget)
+// live in this unit. Airborne-target status is bit 6 of Object +0x94.
+static int getVictimAntiMask(const Object *victim)
+{
+	const ThingTemplate *tmpl = victim->m_template;
+	if (tmpl->m_kindOf[1] & 0x800000)
+		return 0x12;
+	if (tmpl->m_kindOf[1] & 0x100000)
+		return 8;
+	if (tmpl->m_kindOf[2] & 0x800)
+		return 0x40;
+	if (tmpl->m_kindOf[0] & 0x2000000)
+		return 4;
+	if ((bool)((victim->m_status >> 6) & 1))
+	{
+		if (tmpl->m_kindOf[0] & 0x200)
+			return 1;
+		if (tmpl->m_kindOf[0] & 0x100)
+			return 0x20;
+		if (tmpl->m_kindOf[0] & 0x400)
+			return 0x200;
+		if (tmpl->m_kindOf[2] & 0x4000)
+			return 0x80;
+		return 0;
+	}
+	// Ground victim: 2, plus 0x100 for KindOf bit 7 (retail selects 0x102/2).
+	return (tmpl->m_kindOf[0] & 0x80) ? 0x102 : (tmpl->m_kindOf[0] & 0x80) + 2;
+}
+
+class ContainedItemsListView;
+struct ContainedItemsPair
+{
+	void *m_unknown00;
+	const ContainedItemsListView *m_items; // +4
+};
+struct ContainedItemsNode
+{
+	ContainedItemsNode *m_next;
+	ContainedItemsNode *m_prev;
+	Object *m_data;
+};
+class ContainedItemsListView
+{
+public:
+	ContainedItemsNode *m_node;
+};
+#define CONTAIN_GAP(n) virtual void gap##n();
+class ContainModuleInterface
+{
+public:
+	CONTAIN_GAP(0) CONTAIN_GAP(1) CONTAIN_GAP(2) CONTAIN_GAP(3)
+	virtual bool isGarrisonable() const; // slot 4
+	CONTAIN_GAP(5) CONTAIN_GAP(6) CONTAIN_GAP(7) CONTAIN_GAP(8) CONTAIN_GAP(9)
+	CONTAIN_GAP(10) CONTAIN_GAP(11) CONTAIN_GAP(12) CONTAIN_GAP(13) CONTAIN_GAP(14)
+	CONTAIN_GAP(15) CONTAIN_GAP(16) CONTAIN_GAP(17) CONTAIN_GAP(18) CONTAIN_GAP(19)
+	CONTAIN_GAP(20) CONTAIN_GAP(21) CONTAIN_GAP(22) CONTAIN_GAP(23) CONTAIN_GAP(24)
+	CONTAIN_GAP(25) CONTAIN_GAP(26) CONTAIN_GAP(27) CONTAIN_GAP(28) CONTAIN_GAP(29)
+	CONTAIN_GAP(30) CONTAIN_GAP(31) CONTAIN_GAP(32) CONTAIN_GAP(33) CONTAIN_GAP(34)
+	CONTAIN_GAP(35) CONTAIN_GAP(36) CONTAIN_GAP(37) CONTAIN_GAP(38) CONTAIN_GAP(39)
+	CONTAIN_GAP(40) CONTAIN_GAP(41) CONTAIN_GAP(42) CONTAIN_GAP(43) CONTAIN_GAP(44)
+	virtual bool isPassengerAllowedToFire() const; // slot 45
+	CONTAIN_GAP(46) CONTAIN_GAP(47) CONTAIN_GAP(48) CONTAIN_GAP(49)
+	CONTAIN_GAP(50) CONTAIN_GAP(51) CONTAIN_GAP(52) CONTAIN_GAP(53) CONTAIN_GAP(54)
+	virtual bool getFiringOwner(const Object *source, Object **owner); // slot 55
+	CONTAIN_GAP(56) CONTAIN_GAP(57) CONTAIN_GAP(58) CONTAIN_GAP(59)
+	CONTAIN_GAP(60) CONTAIN_GAP(61) CONTAIN_GAP(62) CONTAIN_GAP(63) CONTAIN_GAP(64)
+	CONTAIN_GAP(65) CONTAIN_GAP(66) CONTAIN_GAP(67) CONTAIN_GAP(68) CONTAIN_GAP(69)
+	virtual void getContainedItemsList(ContainedItemsPair &pair); // slot 70
+	CONTAIN_GAP(71) CONTAIN_GAP(72) CONTAIN_GAP(73) CONTAIN_GAP(74) CONTAIN_GAP(75)
+	virtual bool calcBestGarrisonPosition(Coord3D *goalPos, const Coord3D *targetPos); // slot 76
+};
+class Rva001E46E1
+{
+public:
+	float rva001E4845(Object *);
+};
+class AIUpdateInterface
+{
+public:
+	char m_pad000[0x1F0];
+	Rva001E46E1 *m_1F0;
+};
+class SpawnBehaviorInterface
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02();
+	virtual void slot03(); virtual void slot04(); virtual void slot05();
+	virtual CanAttackResult getCanAnySlavesUseWeaponAgainstTarget(AbleToAttackType attackType,
+		const Object *victim, const Coord3D *pos, CommandSourceType commandSource);
+};
+class Rva002C9B80Owner
+{
+public:
+	bool rva002CB2D1(Object *source, const Coord3D *goalPos, const void *victim, const Coord3D *targetPos);
+};
+class Thing
+{
+public:
+	bool isAnyKindOf(const BitFlags<69> &) const;
+};
+#include <math.h>
+
+// Native 0x002C7907..0x002C7D03: 1020B RET 0x14. BFME1 WeaponSet.cpp
+// getAbleToUseWeaponAgainstTarget transfer for six slots. BFME2 changes:
+// a weapon template flag (+0x170) disables a slot against an object victim;
+// immobile shooters without an AI target (+0x1F0) reject targets outside the
+// weapon's +0x2C angle; passengers are queried with the Object entry point.
+CanAttackResult WeaponSet::getAbleToUseWeaponAgainstTarget(AbleToAttackType attackType,
+	const Object *source, const Object *victim, const Coord3D *pos,
+	CommandSourceType commandSource) const
+{
+	int targetAntiMask;
+	if (victim)
+	{
+		targetAntiMask = getVictimAntiMask(victim);
+		pos = &victim->m_position;
+	}
+	else
+	{
+		targetAntiMask = 2;
+	}
+
+	const Object *containedBy = source->m_containedBy;
+	ContainModuleInterface *contain = containedBy ? containedBy->m_contain : 0;
+
+	if (source->testStatus((ObjectStatusTypes)0x25) && !((int)attackType & 8))
+	{
+		if (!containedBy)
+			return ATTACKRESULT_INVALID_SHOT;
+		if (contain)
+		{
+			Object *owner = 0;
+			if (contain->getFiringOwner(source, &owner))
+			{
+				if (!owner)
+					return ATTACKRESULT_NOT_POSSIBLE;
+				if (owner != victim
+					&& owner->rva002931F5(false) != ((Object *)victim)->rva002931F5(false))
+					return ATTACKRESULT_NOT_POSSIBLE;
+			}
+		}
+	}
+
+	char withinAttackRange = false;
+	bool hasAWeaponInRange = false;
+	bool hasAWeapon = false;
+	for (int slot = 0; slot < 6; ++slot)
+	{
+		Weapon *weapon = m_weapons[slot];
+		if (weapon)
+		{
+			hasAWeapon = true;
+			if ((m_anti & targetAntiMask) == 0)
+				continue;
+			if (victim && weapon->m_template->m_noVictimAttack)
+				continue;
+
+			if (source->testStatus((ObjectStatusTypes)0x25))
+				withinAttackRange = true;
+			else if (contain && contain->isGarrisonable())
+			{
+				Coord3D targetPos;
+				targetPos.x = pos->x;
+				targetPos.y = pos->y;
+				targetPos.z = pos->z;
+				Coord3D goalPos;
+				if (!(source->m_template->m_kindOf[3] & 0x2000)
+					&& contain->calcBestGarrisonPosition(&goalPos, &targetPos))
+					withinAttackRange = ((Rva002C9B80Owner *)weapon)->rva002CB2D1((Object *)source, &goalPos, victim, &targetPos);
+				else if (victim)
+					withinAttackRange = weapon->isWithinAttackRange(source, victim, 0.0f, 1);
+			}
+			else
+				withinAttackRange = victim
+					? weapon->isWithinAttackRange(source, victim, 0.0f, 1)
+					: weapon->isWithinAttackRange((Object *)source, (void *)pos, 0.0f, 1);
+
+			if (withinAttackRange)
+			{
+				if (source->m_template->m_kindOf[0] & 4)
+				{
+					AIUpdateInterface *ai = source->m_ai;
+					if (!ai || !ai->m_1F0)
+					{
+						float angle = weapon->m_template->m_minTargetAngle;
+						if (angle > 0.0f && pos)
+						{
+							if (fabs(source->GetRelativeAngle(pos)) > angle)
+								withinAttackRange = false;
+						}
+					}
+				}
+				if (withinAttackRange)
+				{
+					hasAWeaponInRange = true;
+					break;
+				}
+			}
+		}
+	}
+
+	if ((source->m_template->m_kindOf[0] & 4)
+		|| (source->m_template->m_kindOf[2] & 0x100000)
+		|| (containedBy && !(containedBy->m_template->m_kindOf[3] & 0x2000))
+		|| (source->m_ai && source->m_ai->m_1F0
+			&& source->m_ai->m_1F0->rva001E4845((Object *)source) <= 0.0f))
+	{
+		if (hasAWeapon && !hasAWeaponInRange && attackType != ATTACK_TUNNEL_NETWORK_GUARD)
+			return ATTACKRESULT_INVALID_SHOT;
+	}
+
+	CanAttackResult okResult = withinAttackRange ? ATTACKRESULT_POSSIBLE : ATTACKRESULT_POSSIBLE_AFTER_MOVING;
+
+	if ((m_anti & targetAntiMask) == 0)
+		return ATTACKRESULT_INVALID_SHOT;
+
+	if (!victim)
+		return okResult;
+
+	if (!isAnyWithinTargetPitch(source, victim))
+		return ATTACKRESULT_INVALID_SHOT;
+
+	int first, last;
+	if (m_curWeaponLockedStatus)
+	{
+		first = m_curWeapon;
+		last = m_curWeapon;
+	}
+	else
+	{
+		first = 5;
+		last = PRIMARY_WEAPON;
+	}
+
+	for (int i = first; i >= last; --i)
+	{
+		Weapon *weapon = m_weapons[i];
+		if (weapon && weapon->rva002CCED3(source, victim))
+		{
+			const BitFlags<218> &mask = m_set->m_victimKindOf[i];
+			if (!mask.any() || ((const Thing *)victim)->isAnyKindOf(*(const BitFlags<69> *)&mask))
+				return okResult;
+		}
+	}
+
+	ContainModuleInterface *passengerContain = source->m_contain;
+	if (passengerContain && passengerContain->isPassengerAllowedToFire())
+	{
+		ContainedItemsPair items;
+		passengerContain->getContainedItemsList(items);
+		for (ContainedItemsNode *it = items.m_items->m_node->m_next; it != items.m_items->m_node; it = it->m_next)
+		{
+			Object *passenger = it->m_data;
+			if (passenger->isAbleToAttack())
+			{
+				CanAttackResult result = passenger->getAbleToUseWeaponAgainstTarget(attackType, victim, pos, commandSource);
+				if (result == ATTACKRESULT_POSSIBLE || result == ATTACKRESULT_POSSIBLE_AFTER_MOVING)
+					return result;
+			}
+		}
+	}
+
+	SpawnBehaviorInterface *spawnInterface = source->getSpawnBehaviorInterface();
+	if (spawnInterface
+		&& spawnInterface->getCanAnySlavesUseWeaponAgainstTarget(attackType, victim, pos, commandSource) == ATTACKRESULT_POSSIBLE)
+	{
+		if ((source->m_template->m_kindOf[0] & 4)
+			&& (source->m_template->m_kindOf[2] & 0x100000)
+			&& okResult == ATTACKRESULT_POSSIBLE_AFTER_MOVING)
+			okResult = ATTACKRESULT_POSSIBLE;
+		return okResult;
+	}
+
+	return ATTACKRESULT_INVALID_SHOT;
 }
