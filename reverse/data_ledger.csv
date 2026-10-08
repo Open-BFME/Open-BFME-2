@@ -5796,7 +5796,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008174BC,36,.rdata,string,??_C@_0CB@GODHBEDD@GiantBirdFollowWaypointPathState@,,literal,,0,1
 0x008174E0,64,.rdata,vtable,??_7Rva003677B3@@6B@,,literal,,0,1
 0x00817520,40,.rdata,string,??_C@_0CC@NGEIACJO@AIAttackSwoopThenIdleStateMachin@,,literal,,0,1
-0x00817548,68,.rdata,vtable,??_7Rva0036783F@@6B@,,literal,,0,1
+0x00817548,68,.rdata,vtable,??_7GiantBirdAttackMoveToState@@6B@,,literal,,0,1
 0x0081758C,28,.rdata,string,??_C@_0BL@NIKOFOK@GiantBirdAttackMoveToState?$AA@,,literal,,0,1
 0x008175A8,68,.rdata,global,_Rva003678F7_vftable,Code/GameEngine/Source/Common/Rva003678F7Ctor.cpp,owned,,1,1
 0x008175EC,20,.rdata,string,??_C@_0BC@NHCPKAHN@GiantBirdDieState?$AA@,,literal,,0,1

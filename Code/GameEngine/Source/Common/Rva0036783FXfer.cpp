@@ -1,8 +1,8 @@
 // cl: /MD /Ireference/shims/moduledata
 //
-// ?xfer@Rva0036783F@@MAEXPAVXfer@@@Z, retail 0x0036788E, 72 bytes.
+// ?xfer@GiantBirdAttackMoveToState@@MAEXPAVXfer@@@Z, retail 0x0036788E, 72 bytes.
 //
-// Slot 3 (offset 0xC) of vtable 0x00817548 (class of ??1Rva0036783F in
+// Slot 3 (offset 0xC) of vtable 0x00817548 (GiantBirdAttackMoveToState; dtor in
 // Rva0036783FDtor.cpp). Version1 via rowed 0x000053EE then base
 // Rva0055CA8A::xfer via rowed 0x0055CA8A then IsLightCRC guard then int at
 // +0x2C via Xfer slot 0x7C then Snapshot at +0x28 via slot 0x30 then
@@ -115,7 +115,7 @@ private:
 	bool m_20;
 };
 
-class Rva0036783F : public Rva0055CA8A
+class GiantBirdAttackMoveToState : public Rva0055CA8A
 {
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -127,7 +127,7 @@ private:
 
 void XferCommandSourceType(Xfer *xfer, int *value);
 
-void Rva0036783F::xfer(Xfer *xfer)
+void GiantBirdAttackMoveToState::xfer(Xfer *xfer)
 {
 	xfer->Version1();
 	Rva0055CA8A::xfer(xfer);

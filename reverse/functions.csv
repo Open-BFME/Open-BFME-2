@@ -42441,7 +42441,7 @@ __Locale_strwcmp,,0x00020DF0,58,Code/Libraries/Source/STLport/LocaleUnshiftStrwc
 ??$__pop_heap@PAHHVRva00204BB8@@@_STL@@YAXPAH00HVRva00204BB8@@@Z,,0x002074D4,41,Code/Libraries/Source/WWVegas/WWLib/stlport_pop_heap_rva00204bb8.cpp,matched,chain heap pop via landed adjust heap same flags
 ?xfer@LightningDrawModuleInfo@FXParticleSystem@@MAEXPAVXfer@@@Z,,0x005614D9,78,Code/GameEngine/Source/GameClient/System/FXParticleSystem/LightningDrawModuleInfoXfer.cpp,matched,slot3 Version1 3x xferRandomVariable float plus28 flag plus2c
 ?rva00561527@Rva00561527@@QAEXPAVXfer@@@Z,,0x00561527,28,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00561527.cpp,matched,Version1 then Lightning base xfer at plus0x18 caller jmp 0x003ABBC6
-??1Rva0036783F@@UAE@XZ,,0x0036783F,79,Code/GameEngine/Source/Common/Rva0036783FDtor.cpp,matched,unlock dtor via base WindModuleInfo plus slot00 delete
+??1GiantBirdAttackMoveToState@@UAE@XZ,,0x0036783F,79,Code/GameEngine/Source/Common/Rva0036783FDtor.cpp,matched,unlock dtor via base WindModuleInfo plus slot00 delete
 ?Rva003BC259Remove@@YGXPAVParameter@@@Z,,0x003BC259,34,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC259Remove.cpp,matched,script remove unit scripts via rowed getUnitNamed and 0x20517D
 ?Rva003BC421Do@@YGXPAVParameter@@H@Z,,0x003BC421,69,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003BC421Do.cpp,matched,script unit iface slots via rowed getUnitNamed and bfmeGoBGB
 ??$__make_heap@PAHVRva00204BB8@@@_STL@@YAXPAH0VRva00204BB8@@@Z,,0x002074FD,60,Code/Libraries/Source/WWVegas/WWLib/stlport_make_heap_rva00204bb8.cpp,matched,chain heap make via landed adjust heap same flags
@@ -42512,7 +42512,7 @@ _piRemoveXpingRva00862EF0,,0x006A3DE0,17,Code/GameEngine/Source/GameNetwork/Game
 ?rva005DD88A@Rva005DD88A@@QAEHPAVGameWindow@@HHM@Z,,0x005DD88A,86,Code/GameEngine/Source/Common/Rva005DD772Ctor.cpp,matched,unlock caller 0x005DDC2D same record plus color compare
 ??4Rva000B419E@@QAEAAU0@ABU0@@Z,,0x000B419E,81,Code/Libraries/Source/WWVegas/WWLib/StlportFixedObject32Assign.cpp,matched,copy assign 32B struct via AsciiString op plus tail
 ??0Rva003678F7@@QAE@PAVStateMachine@@@Z,,0x003678F7,29,Code/GameEngine/Source/Common/Rva003678F7Ctor.cpp,matched,State hash 0xA36413A3 vtable 0x008175A8 caller 0x00367DDF
-??_GRva0036783F@@UAEPAXI@Z,,0x003689A8,28,Code/GameEngine/Source/Common/Rva0036783FDtor.cpp,matched,slot 0 vtable 0x00817548 calls rowed 0x0036783F plus delete; rehomed from FamilyDeletingDtors_Rva0036783F.cpp: Rva0036783FDtor.cpp owns ~Rva0036783F and emits this deleting dtor itself (the family placeholder dtor was a duplicate definition)
+??_GGiantBirdAttackMoveToState@@UAEPAXI@Z,,0x003689A8,28,Code/GameEngine/Source/Common/Rva0036783FDtor.cpp,matched,slot 0 vtable 0x00817548 calls rowed 0x0036783F plus delete; rehomed from FamilyDeletingDtors_Rva0036783F.cpp: Rva0036783FDtor.cpp owns ~Rva0036783F and emits this deleting dtor itself (the family placeholder dtor was a duplicate definition)
 ??0Rva002834C4@@QAE@XZ,,0x002834C4,34,Code/GameEngine/Source/Common/Rva002834C4Ctor.cpp,matched,ctor via base member and vector
 ?GadgetButtonSetBorder@@YAXPAVGameWindow@@I_N@Z,,0x00328454,49,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetUserDataHelpers.cpp,matched,BFME1 donor GadgetButtonSetBorder verbatim via _PushButtonData
 ?GadgetButtonDrawClock@@YAXPAVGameWindow@@HI@Z,,0x00328485,52,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetUserDataHelpers.cpp,matched,BFME1 donor DrawClock verbatim via _PushButtonData
@@ -44066,7 +44066,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?Rva002B44C1Destroy@@YAXPAVRva002B2F49@@0@Z,,0x002B44C1,27,Code/GameEngine/Source/Common/Rva002B44C1Destroy.cpp,matched,chain via rowed 0x002B2F49 same flags as neighbours unblocks 0x002B61C5
 ?Rva002B47B1Get@@YAPAXXZ,,0x002B47B1,18,Code/GameEngine/Source/Common/Rva002B47B1Get.cpp,matched,unlock chase via global 0x00E02D6C same shape as rowed Rva003B8BAA
 ?canUnpack@Rva00395F57@@QAE_N_N@Z,,0x00395F57,176,Code/GameEngine/Source/Common/Rva00395F57CanUnpack.cpp,matched,Castle canUnpack via BFME1 donor adapted to retail offsets
-?xfer@Rva0036783F@@MAEXPAVXfer@@@Z,,0x0036788E,72,Code/GameEngine/Source/Common/Rva0036783FXfer.cpp,matched,slot 3 xfer via base Version1 IsLightCRC int Snapshot helper
+?xfer@GiantBirdAttackMoveToState@@MAEXPAVXfer@@@Z,,0x0036788E,72,Code/GameEngine/Source/Common/Rva0036783FXfer.cpp,matched,slot 3 xfer via base Version1 IsLightCRC int Snapshot helper
 ?rva00404AB1@Rva00404AB1@@QAEXPAVXfer@@@Z,,0x00404AB1,82,Code/GameEngine/Source/Common/Rva00404AB1Method.cpp,matched,xfer-pattern Version1 plus 20 float pairs plus 2 uints mirrors Rva00404781 layout
 ?rva00404D70@Rva00404D70@@QAEHABVAsciiString@@@Z,,0x00404D70,117,Code/GameEngine/Source/Common/Rva00404D70Find.cpp,matched,vector find via StringBase compareNoCase row 0x00006A00 callers 0x00404FDB 0x0040502F 0x00405697 returns index or 0x7fffffff
 ?rva0040475C@Rva00404781@@QAEXXZ,,0x0040475C,37,Code/GameEngine/Source/Common/Rva00404781Method.cpp,matched,same layout as 0x00404781 zero m_a m_b flags
@@ -62438,7 +62438,7 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva005EC46F@Rva005EC46F@@QAEXXZ,,0x005EC46F,59,Code/GameEngine/Source/Common/Rva005EC46FState.cpp,matched,unlocks 0x005EC4AF via switch 2 4 5
 ??1Rva005D1129Pointer@@QAE@XZ,,0x005EC4AF,7,Code/GameEngine/Source/Common/Rva005EC4AFDtor.cpp,matched,chain from 0x005EC46F forwarder via m_ptr
 ?rva005E917A@Rva005E917A@@QAEXXZ,,0x005E917A,47,Code/GameEngine/Source/Common/Rva005E9137Check.cpp,matched,chain on 0x005E9137 via MessageStreamSubsystem slot 0x48
-?v1@Rva0036783F@@UAEHXZ,,0x0036960E,63,Code/GameEngine/Source/Common/Rva0036783FDtor.cpp,matched,vslot4 v1 two dispatches plus 143 plus tail pin
+?onEnter@GiantBirdAttackMoveToState@@UAE?AW4StateReturnType@@XZ,,0x0036960E,63,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdNormalFlightStates.cpp,matched,vtable 0x00C17548 slot 4 (class named by slot 2 string); BFME1 donor onEnter: attack machine start and setState(0) then AI slot 143 command source to +0x24 and retry count 5 then tail jmp NormalFlightState::onEnter
 ?rva0025DF01@Rva0025E4CD@@QAEXXZ,,0x0025DF01,160,Code/GameEngine/Source/Common/Rva0025E4CDDtor.cpp,matched,vslot1 Rva0025E4CD donor union plus imports
 ?rva002C108F@Rva0008FF12Host@@QAEXXZ,,0x002C108F,185,Code/GameEngine/Source/Common/Rva0008FF12HostRva002C108F.cpp,matched,vslot41 pin host caller drawWindow TheAudio
 ??$_Construct@VRva00285BEC@@V1@@_STL@@YAXPAVRva00285BEC@@ABV1@@Z,,0x0028625D,45,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva00285bec.cpp,matched,EH placement copy via rowed copy ctor 0x00285C30 same shape as 0x00481514 caller 0x00286693

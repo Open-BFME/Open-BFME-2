@@ -106,6 +106,7 @@ public:
 	virtual void slot140() = 0;
 	virtual void slot141() = 0;
 	virtual void chooseLocomotorSet(int set) = 0;
+	virtual Int getLastCommandSource() = 0;
 
 	Object *checkForCrateToPickup();
 	void rva0026304D(int frame);
@@ -116,7 +117,7 @@ public:
 private:
 	unsigned char m_pad04[0x48 - 4];
 public:
-	Int m_bfme48; // +0x48
+	Int m_lastCommandSource; // +0x48
 private:
 	unsigned char m_pad4C[0x1F0 - 0x4C];
 	Locomotor *m_locomotor; // +0x1F0
@@ -199,7 +200,7 @@ class StateMachine : public GiantBirdFlightSlots<4>
 {
 public:
 	virtual void updateStateMachine() = 0;
-	virtual void slot05() = 0;
+	virtual void start() = 0;
 	virtual void slot06() = 0;
 	virtual void slot07() = 0;
 	virtual void setState(Int id) = 0;
@@ -238,10 +239,12 @@ protected:
 class GiantBirdAttackMoveToState : public GiantBirdNormalFlightState
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 private:
-	Int m_goalHandle; // +0x24
+	Int m_commandSource; // +0x24
 	StateMachine *m_attackMachine; // +0x28
+	Int m_retryCount; // +0x2C
 };
 
 StateReturnType GiantBirdNormalFlightState::onEnter()
@@ -301,6 +304,16 @@ StateReturnType GiantBirdNormalFlightState::update()
 	return STATE_SUCCESS;
 }
 
+StateReturnType GiantBirdAttackMoveToState::onEnter()
+{
+	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	m_attackMachine->start();
+	m_attackMachine->setState(0);
+	m_commandSource = ai->getLastCommandSource();
+	m_retryCount = 5;
+	return GiantBirdNormalFlightState::onEnter();
+}
+
 StateReturnType GiantBirdAttackMoveToState::update()
 {
 	Object *owner = getMachineOwner();
@@ -320,7 +333,7 @@ StateReturnType GiantBirdAttackMoveToState::update()
 			return STATE_CONTINUE;
 		forceRetargetThisFrame = true;
 		shouldRepathThisFrame = true;
-		ai->m_bfme48 = m_goalHandle;
+		ai->m_lastCommandSource = m_commandSource;
 	}
 
 	if (m_attackMachine->isInIdleState())
@@ -339,7 +352,7 @@ StateReturnType GiantBirdAttackMoveToState::update()
 			ai->rva00262AEA();
 			m_attackMachine->setGoalObject(target);
 			m_attackMachine->setState(10);
-			ai->m_bfme48 = 2;
+			ai->m_lastCommandSource = 2;
 			ai->m_bfme3C7 = true;
 			return STATE_CONTINUE;
 		}
