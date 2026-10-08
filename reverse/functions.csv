@@ -58675,7 +58675,7 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?read_vertex_colors@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,,0x00188760,392,Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadVertexColors.cpp,matched,
 ?readLine@INI@@IAEXXZ,,0x0002D669,143,Code/GameEngine/Source/Common/System/INI_readLine.cpp,matched,
 ?rva0027756D@Drawable@@QAE?AVRva002390CB@@H@Z,,0x0027756D,92,Code/GameEngine/Source/GameClient/DrawableRva0027756D.cpp,matched,LINK 3 files via rowed Get and keyed lookups
-?rva005CB26A@Rva005CB26A@@QAEXXZ,,0x005CB26A,5,Code/GameEngine/Source/Common/Rva005CB26AForwarder.cpp,matched,slot4 forwarder LINK BONUS YAXXZ via listener dispatch
+?rva005CB26A@Rva005CB26A@@QAEHXZ,,0x005CB26A,5,Code/GameEngine/Source/Common/Rva005CB26AForwarder.cpp,matched,slot4 forwarder LINK BONUS YAXXZ via listener dispatch; native Checklist Impl Update 0x005CCE7D tests EAX so the slot4 view returns int; void callback bindings intentionally discard the result; same full5B forwarder
 ?rva004B901D@SupplyWarehouseCreate@@UAEXXZ,,0x004B901D,118,Code/GameEngine/Source/GameLogic/Object/Create/SupplyWarehouseCreateRva004B901D.cpp,matched,vslot 12 SupplyWarehouseCreate via barrier for bit2 checks
 ??0Rva0033FC0A@@QAE@PAVObject@@I@Z,,0x00343BC9,213,Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp,matched,derived StateMachine ctor via base 0x004D79E1 three states defineState
 ?rva0039DB31@Team@@QAEXPBX@Z,,0x0039DB31,88,Code/GameEngine/Source/Common/RTS/TeamRva0039DB31.cpp,matched,Team member walk contain slot46 else Object rva00293077

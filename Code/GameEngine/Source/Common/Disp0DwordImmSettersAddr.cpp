@@ -250,7 +250,7 @@ extern "C" void bfmeDisp0Slot_001F01E8(void);
 extern "C" void bfmeDisp0Slot_001FF3A9(void);
 #pragma comment(linker, "/alternatename:_bfmeDisp0Slot_001FF3A9=?rva001FF3A9@Rva001FF3A9@@UAEXXZ")
 extern "C" void bfmeDisp0Slot_005CB26A(void);
-#pragma comment(linker, "/alternatename:_bfmeDisp0Slot_005CB26A=?rva005CB26A@Rva005CB26A@@QAEXXZ")
+#pragma comment(linker, "/alternatename:_bfmeDisp0Slot_005CB26A=?rva005CB26A@Rva005CB26A@@QAEHXZ")
 extern "C" void bfmeDisp0Slot_005CC208(void);
 #pragma comment(linker, "/alternatename:_bfmeDisp0Slot_005CC208=?rva005CC208@Rva005CC208@@UAEXXZ")
 extern "C" void bfmeDisp0Slot_Purecall(void);
