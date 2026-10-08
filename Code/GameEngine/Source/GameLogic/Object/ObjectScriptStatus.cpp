@@ -140,11 +140,21 @@ struct Rva002ED236Pos {
  Rva002ED236Pos(const Rva002ED236Pos &p) { x=p.x;y=p.y;z=p.z; }
  ~Rva002ED236Pos() {}
 };
-class Pathfinder { public: PathfindLayerEnum rva002ED236(Object *,Rva002ED236Pos); };
-class AI;
+class Pathfinder { public:
+ PathfindLayerEnum rva002ED236(Object *,Rva002ED236Pos);
+ bool QuickDoesPathExist(Object *, const Coord3D *, const Coord3D *, int);
+};
+class AI { char unknown00[0x10]; Pathfinder *m_pathfinder; public: Pathfinder *getPathfinder() { return m_pathfinder; } };
 extern AI *TheAI;
-struct Rva0028B98BAI {char opaque[0x10];Pathfinder *pathfinder;};
 
+
+class Rva001E3591 { public: bool rva001E3591(); };
+class AIUpdateInterface {
+public:
+ bool isMoving() const;
+ char unknown00[0x140];
+ Rva001E3591 *path;
+};
 class Object
 {
 public:
@@ -163,6 +173,9 @@ protected:
 public:
  void rva00291EB1();
  void rva0028B98B();
+ char rva00294815();
+ signed char rva0028CE7B() const;
+ bool canCrushOrSquishNoAlly(Object *, int);
 private:
  // Primary vptr at +0; all accessed fields are witnessed in retail.
  unsigned char m_pad04[0x38-4];
@@ -174,9 +187,13 @@ private:
  float initialZ; // +0x1C4
  unsigned char m_pad1C8[0x1F8-0x1C8];
  int m_unk1F8[11];
- unsigned char m_pad224[0x250-0x224];
+ unsigned char m_pad224[0x248-0x224];
+ bool squishable; // +0x248, independently witnessed by the native predicate
+ unsigned char m_pad249[0x250-0x249];
  ObjectTransformContain *contain; // +0x250
- unsigned char m_pad254[0x437-0x254];
+ unsigned char m_pad254[0x258-0x254];
+ AIUpdateInterface *ai; // +0x258
+ unsigned char m_pad25C[0x437-0x25C];
  unsigned char m_scriptStatus; // +0x437
  unsigned char flags438; // +0x438
  unsigned char m_pad439[0x48C-0x439];
@@ -326,9 +343,35 @@ void Object::reactToTransformChange(const Matrix3D *oldMtx,const Coord3D *oldPos
 void Object::rva0028B98B() {
  if(pending && cachedFrame+13<=TheGameLogic->getFrame()) {
   Rva002ED236Pos p(position);
-  if(((Rva0028B98BAI *)TheAI)->pathfinder->rva002ED236(this,p)==1) {
+  if(TheAI->getPathfinder()->rva002ED236(this,p)==1) {
    cachedFrame=(unsigned int)-1;
    pending=false;
   }
  }
+}
+
+// ?canCrushOrSquishNoAlly@Object@@QAE_NPAV1@H@Z
+// Clean BFME1 ObjectCanCrushOrSquish.cpp donor9cbfb551fe20dae985f91f2319d8997287b6a705.
+// Target native294898..29493F RET8, named WB CC40B0 Object.cpp2538 and its
+// path/isMoving call graph independently establish the NoAlly variant.
+// Target fields248/258, signed level comparisons and tests0/1/2 are witnessed;
+// the mode parameter stays an int ABI view rather than asserting an enum name.
+// Getter method names remain address-derived through the existing pins.
+// TheAI real global replaces the old attempt's address-global blocker.
+bool Object::canCrushOrSquishNoAlly(Object *other,int testType) {
+ if(!other) return false;
+ char crusherLevel=rva00294815();
+ if(!crusherLevel) return false;
+ if(other->rva0028CE7B()>=crusherLevel) return false;
+ AIUpdateInterface *update=ai;
+ bool pathOk=false;
+ if(update) {
+  Rva001E3591 *path=update->path;
+  if(update->isMoving() && path) pathOk=path->rva001E3591();
+ }
+ if(!pathOk) pathOk=TheAI->getPathfinder()->QuickDoesPathExist(this,&position,&other->position,0);
+ if(!pathOk) return false;
+ if(testType==1 || testType==2) { if(other->squishable) return true; }
+ if(testType==0 || testType==2) { if(crusherLevel>other->rva0028CE7B()) return true; }
+ return false;
 }
