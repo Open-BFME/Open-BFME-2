@@ -99,6 +99,28 @@ def test_import_libs_run_lib_exe_through_wine_off_windows(tmp_path, monkeypatch,
     assert Path(calls[0][0]).name == first and Path(calls[0][1 if first == "wine" else 0]).name == "lib.exe"
 
 
+def test_link_inputs_are_never_read_as_options_under_wine(tmp_path, monkeypatch):
+    # link.exe under wine reads an absolute POSIX path in the response file as an option (LNK4044) and
+    # drops the input: every input is named relative to the link's working directory instead
+    calls = []
+
+    def run(cmd, **kw):
+        calls.append((cmd, kw.get("cwd")))
+        return subprocess.CompletedProcess(cmd, 0, "", "")
+    monkeypatch.setattr(lc.sys, "platform", "linux")
+    monkeypatch.setattr(lc.subprocess, "run", run)
+    monkeypatch.setattr(lc.build, "vc71_root", lambda: tmp_path)
+    monkeypatch.setattr(lc.build, "compiler_environment", lambda root: {})
+    (tmp_path / "zzobj").mkdir()
+    inputs = [tmp_path / "fill00.obj", tmp_path / "zzobj" / "o00000.obj", tmp_path / "imp_kernel32.lib"]
+    lc.link("base", inputs, tmp_path / "order.txt", "_start", lc.BASE, tmp_path)
+    cmd, cwd = calls[0]
+    assert cmd[0] == "wine" and Path(cwd) == tmp_path
+    listed = [line.strip('"') for line in (tmp_path / "base.rsp").read_text().splitlines()]
+    assert listed == ["fill00.obj", "zzobj/o00000.obj", "imp_kernel32.lib"]
+    assert [(Path(cwd) / p).resolve() for p in listed] == [p.resolve() for p in inputs]
+
+
 def test_coff_round_trip_with_absolute_symbol(tmp_path):
     p = lc.write_coff(tmp_path / "a.obj", [(".text$x", 0x60101020, b"\x90\xc3", 2)],
                       [("_f", 1, 0, lc.EXTERNAL), ("__except_list", -1, 0, lc.EXTERNAL)])
