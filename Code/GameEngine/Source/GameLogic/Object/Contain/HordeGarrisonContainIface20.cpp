@@ -227,3 +227,26 @@ __declspec(noinline) bool GarrisonContain::rva00478629(Object *obj,bool checkCap
 }
 
 
+
+// WB11A7F20 names this override. NativeC463E8 slot38 holds479E62;
+// primary receiver is20 bytes earlier. Capacity dispatch uses primary slot28;
+// the no-argument position getter is secondary slot87 (native479F62 ret0).
+// Local owner/pathfinder/AI views preserve native liveness and target offsets.
+bool HordeGarrisonContain::isValidContainerFor(Object *obj,bool checkCapacity,bool testPath)
+{
+ if(!GarrisonContain::rva00478629(obj,checkCapacity,testPath))return false;
+ if(testPath){
+ Object *container=m_object;
+ if(container){
+  Pathfinder *finder=TheAI->pathfinder;
+  if(!finder->QuickDoesPathExist(obj,&obj->position,rvaExitPosition(),0) &&
+     !TheAI->pathfinder->QuickDoesPathExistToStructure(obj,&obj->position,container,0))return false;
+ }}
+ AdmissionAIView *ai=obj->ai;
+ if(ai && ai->query7C()){
+  if(checkCapacity != true)return true;
+  return rvaPrimary70(obj);
+ }
+ if(obj->testStatus(Status38)==true)return rva00588BF3(this,obj)!=0;
+ return rvaPrimary70(obj);
+}
