@@ -43,6 +43,23 @@ struct Rva002898ACElement
 	AsciiString m_bone;
 };
 
+// The target calls the rowed 0x0048C8C6 constructor for this eight-byte
+// {FX pointer slot, bone string} local. Its member destructor is inline.
+class Rva0048C8C6
+{
+public:
+	Rva0048C8C6();
+	int m_00;
+	AsciiString m_04;
+};
+
+// Retain the established opaque identity of the rowed push_back provider.
+struct Rva0048D628Record
+{
+private:
+	char bytes[8];
+};
+
 namespace _STL
 {
 template <class T> class allocator
@@ -58,12 +75,27 @@ private:
 	Rva002898ACElement *m_finish;
 	Rva002898ACElement *m_endOfStorage;
 };
+template <> class vector<Rva0048D628Record, allocator<Rva0048D628Record> >
+{
+public:
+	void push_back(const Rva0048D628Record &x);
+private:
+	Rva0048D628Record *m_start;
+	Rva0048D628Record *m_finish;
+	Rva0048D628Record *m_endOfStorage;
+};
 }
 
 struct Rva00289C24Owner
 {
 	unsigned char m_unreconstructed_00[0x3C];
 	_STL::vector<Rva002898ACElement, _STL::allocator<Rva002898ACElement> > m_levelUpFX;	// +0x3C
+};
+
+struct Rva0048D65FOwner
+{
+	unsigned char m_unreconstructed_00[0x28];
+	_STL::vector<Rva0048D628Record, _STL::allocator<Rva0048D628Record> > m_fx;
 };
 
 // ?Rva00289C24Parse@@YAXPAVINI@@PAX1PBX@Z
@@ -81,4 +113,23 @@ void Rva00289C24Parse(INI *ini, void *instance, void *, const void *)
 		entry.m_bone.set(ini->getNextTokenOrNull(NULL));
 
 	((Rva00289C24Owner *)instance)->m_levelUpFX.push_back(entry);
+}
+
+// ?Rva0048D65FParse@@YAXPAVINI@@PAX1PBX@Z
+// Native 0x0048D65F..0x0048D72A; WB counterpart 0x011D2AC0 uses
+// the same FX/BONE token grammar and appends the entry at instance +0x28.
+void Rva0048D65FParse(INI *ini, void *instance, void *, const void *)
+{
+	Rva0048C8C6 entry;
+	const char *token = ini->getNextToken(ini->separators());
+	if (_strcmpi(token, "FX") != 0)
+		throw INIException(3, "'fx' expected");
+
+	INI::parseFXList(ini, instance, &entry.m_00, NULL);
+
+	token = ini->getNextTokenOrNull(ini->separators());
+	if (token && _strcmpi(token, "BONE") == 0)
+		entry.m_04.set(ini->getNextTokenOrNull(NULL));
+
+	((Rva0048D65FOwner *)instance)->m_fx.push_back((const Rva0048D628Record &)entry);
 }
