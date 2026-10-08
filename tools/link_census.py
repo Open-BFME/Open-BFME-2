@@ -1445,6 +1445,7 @@ def main(argv=None):
         os.environ.pop("BUILD_RECOMPILE_ONLY", None)
         started = time.time()
         build.ensure_case_shims()
+        build.ensure_reference_current()
         import census_receipts
         _INPUT_RECEIPTS = census_receipts.Receipts(OUT / "compile_inputs.json", collect=True)
         _INPUT_RECEIPTS.path.unlink(missing_ok=True)

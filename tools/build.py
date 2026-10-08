@@ -22,6 +22,34 @@ from portable_lock import lock, unlock
 
 
 ROOT = Path(__file__).resolve().parents[1]
+REFERENCE_SUBMODULE = "reference/open-bfme-1"
+
+
+def ensure_reference_current():
+    """Refuse to compile against a reference checkout that is not the pinned commit.
+
+    `git pull` moves the submodule pin without moving its checkout, so every
+    unit including reference/open-bfme-1 then compiles against stale headers.
+    The failures look like a broken master -- 16 units "failed" a link census
+    on 2026-10-08 and all built exact once the checkout was updated -- so the
+    stale checkout is the error reported, not whatever it breaks downstream.
+    A tree git cannot describe (a seat, an export) is not judged.
+    """
+    try:
+        status = subprocess.run(
+            ["git", "submodule", "status", "--", REFERENCE_SUBMODULE],
+            cwd=ROOT, capture_output=True, text=True, timeout=60)
+    except (OSError, subprocess.TimeoutExpired):
+        return
+    line = status.stdout.strip()
+    if status.returncode == 0 and line[:1] in ("+", "U"):
+        raise SystemExit(
+            f"{REFERENCE_SUBMODULE} is checked out at a commit other than the one "
+            f"this tree pins:\n  {line}\nEvery build against it is suspect. Fix:\n"
+            f"  git submodule update --init {REFERENCE_SUBMODULE}\n"
+            f"(tools/setup_hooks.sh sets submodule.recurse so pulls keep it current.)")
+
+
 MANIFEST = ROOT / "baselines" / "bfme2" / "workshop-vanilla-1.06" / "manifest.json"
 EXE = ROOT / "baselines" / "bfme2" / "workshop-vanilla-1.06" / "files" / "game.dat"
 FUNCTIONS = ROOT / "reverse" / "functions.csv"
@@ -3247,6 +3275,7 @@ def main(only=None):
     # canonical one is committed (case-only-colliding paths break Windows/macOS
     # checkout). Regenerate the alternate spelling here before any compile.
     ensure_case_shims()
+    ensure_reference_current()
     if only:
         # Fast path: compile and byte-compare only the matching sources/functions
         # (a few seconds), skipping the baseline hash and no-op patch. Use this to
