@@ -14,6 +14,13 @@ typedef bool Bool;
 
 #include <vector>
 #include <map>
+#include <list>
+
+class UnicodeString;
+namespace _STL {
+// Existing native specialization: this unit only calls its out-of-line clear.
+template <> void _List_base<UnicodeString, allocator<UnicodeString> >::clear();
+}
 
 class LivingWorldPlayer;
 class LivingWorldLogic;
@@ -457,6 +464,7 @@ class Rva002BA82BBase00
 {
 public:
 	virtual void slot00();
+	virtual void slot04();
 
 private:
 	unsigned char m_pad04[0x10 - 0x4];
@@ -489,6 +497,9 @@ public:
 	void MarkTroopForUpgrades(Int entryID, LivingWorldArmy *army, const Rva004E0632 *upgrades);
 	void CancelTroopUpgrades(Int entryID, LivingWorldArmy *army);
 	void StartAutoResolveBattle(Int battle);
+	void rva002BD544(Int campaign);
+	void rva002B84CD(Int campaign); // native thiscall, ret 4
+	void rva002B47C3(); // native thiscall; WB preserves the receiver
 	void AutoResolveBattle(Int battle);
 	void AutoMarkUnitsForUpgrades();
 	void CalcAttackingDirection(const _STL::vector<Int> &path, Coord2D *direction);
@@ -542,7 +553,7 @@ private:
 	_STL::vector<void *> m_fieldCC;			// +0xCC
 	unsigned char m_padD8[0xf4 - 0xd8];
 	Int m_turnPhase;				// +0xF4 (WB member name)
-	unsigned char m_padF8[0xfc - 0xf8];
+	Int m_fieldF8; // reset to -1 by native 0x002BD544
 	Int m_turn;					// +0xFC
 	UnsignedInt m_field100;				// +0x100
 	UnsignedInt m_field104;				// +0x104
@@ -2086,4 +2097,73 @@ void LivingWorldLogic::PrepareBattleForLoading(LivingWorldBattle *battle)
 			}
 		}
 	}
+}
+
+// Native 0x002BD544..0x002BD603 (191 bytes). WB 0x00D7DD50 carries
+// the same reset sequence and receiver calls; its original method name is
+// unknown. The offsets, argument ABI and dispatch slots below are native
+// facts. No donor layout or method name is inferred from the byte match.
+class GameLogic; extern GameLogic *TheGameLogic;
+class Rva0023D2D8DwordClearer { public: void clear(); };
+class Rva00210C66CmpBoolField { public: Bool get() const; };
+void Rva00437E9C(Int);
+class BfmeAptWindowManager; extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+class Rva00222A8BTarget { public: void rva00222F55(Bool); };
+class Rva002BBBE7 { public: void rva002BC39D(); };
+extern UnsignedInt g_Va00E04544;
+class Rva002D3627Host; extern Rva002D3627Host *g_00DFEF18;
+class LivingWorldResetDispatch
+{
+public:
+    virtual void slot00(); virtual void slot04();
+    virtual void slot08(); virtual void slot0C();
+    virtual void slot10(); virtual void slot14();
+    virtual void slot18(); virtual void slot1C();
+    virtual void slot20(); virtual void slot24();
+    virtual void slot28(); virtual void slot2C();
+    virtual void slot30(); virtual void slot34();
+    virtual void slot38(); virtual void slot3C();
+    virtual void slot40(); virtual void slot44();
+    virtual void slot48(); virtual void slot4C(Bool, Bool);
+};
+void HideControlBar(Bool);
+class Rva0020EE29 { public: void rva0020F483(); };
+class Rva002B6151Listener { public: virtual void notify(void *); };
+class Rva002B6151List
+{
+public:
+    void forEach(void (Rva002B6151Listener::*notify)(void *), void *arg);
+};
+struct TreeHintRef00217D4C;
+class Rva001FF3A9
+{
+public:
+    void rva001FF3A9(const TreeHintRef00217D4C &);
+};
+// The already-pinned 4-byte forwarder at 0x001FF3A9 dispatches slot zero
+// without inspecting its stack argument; reuse the established call view.
+// ?LivingWorldLogic::rva002BD544 present-unmatched
+void LivingWorldLogic::rva002BD544(Int campaign)
+{
+    ((Rva0023D2D8DwordClearer *)TheGameLogic)->clear();
+    if (((Rva00210C66CmpBoolField *)TheGameLogic)->get())
+    {
+        Rva00437E9C(1);
+        ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva00222F55(false);
+    }
+    ((Rva002BBBE7 *)&g_Va00E04544)->rva002BC39D();
+    ((LivingWorldResetDispatch *)g_00DFEF18)->slot1C();
+    ((LivingWorldResetDispatch *)g_00DFEF18)->slot4C(true, true);
+    HideControlBar(true);
+    slot04();
+    rva002B84CD(campaign);
+    rva002B47C3();
+    ((_STL::_List_base<UnicodeString, _STL::allocator<UnicodeString> > *)((char *)this + 0xf0))->clear();
+    ((Rva0020EE29 *)m_field0B0)->rva0020F483();
+    m_turnPhase = 0;
+    m_fieldF8 = -1;
+    ((Rva002B9099 *)&m_autoBattleResolver)->clear();
+    CheckTurnPhaseTransitions();
+    ((Rva002B6151List *)((char *)this + 0x4c))->forEach(
+        (void (Rva002B6151Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
 }
