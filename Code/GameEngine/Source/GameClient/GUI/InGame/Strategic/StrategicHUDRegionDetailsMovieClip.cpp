@@ -340,3 +340,16 @@ void StrategicHUD::RegionDetailsMovieClip::Impl::ShowPage(int page)
   target->OnShown();
  }
 }
+
+// Native5E2EED..5E2F4992B RET4. WB HidePage corroborates the loaded-page
+// guard, false visibility argument and virtual OnHidden slot8 independently.
+void StrategicHUD::RegionDetailsMovieClip::Impl::HidePage(int page)
+{
+ TargetRef00217D4C *target=m_pages[page].m_ptr;
+ if(target) {
+  bool visible=false;
+  const char *id=Rva005E2D26Get(page);
+  Rva0054C83FAptCall(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager),(void*)m_level,m_name.str(),"SetPageVisibility",&id,&visible);
+  target->OnHidden();
+ }
+}
