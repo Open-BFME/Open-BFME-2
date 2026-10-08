@@ -81,6 +81,24 @@ def test_import_def_entries_follow_retail_names():
     assert lc.import_name("GetUserNameA@8") == "GetUserNameA" and lc.import_name("free") == "free"
 
 
+@pytest.mark.parametrize("platform, first", [("linux", "wine"), ("win32", "lib.exe")])
+def test_import_libs_run_lib_exe_through_wine_off_windows(tmp_path, monkeypatch, platform, first):
+    # lib.exe is a Windows binary checked in without an exec bit: off Windows it runs under wine, as link.exe does
+    calls = []
+
+    def run(cmd, **kw):
+        calls.append(cmd)
+        Path(next(a for a in cmd if a.startswith("/OUT:"))[5:]).write_bytes(b"!<arch>\n")
+        return subprocess.CompletedProcess(cmd, 0, "", "")
+    monkeypatch.setattr(lc.sys, "platform", platform)
+    monkeypatch.setattr(lc.subprocess, "run", run)
+    monkeypatch.setattr(lc.build, "vc71_root", lambda: tmp_path)
+    monkeypatch.setattr(lc.build, "compiler_environment", lambda root: {})
+    libs = lc.make_import_libs({"KERNEL32.dll": ["Sleep@4"]}, tmp_path)
+    assert [p.name for p in libs] == ["imp_kernel32.lib"]
+    assert Path(calls[0][0]).name == first and Path(calls[0][1 if first == "wine" else 0]).name == "lib.exe"
+
+
 def test_coff_round_trip_with_absolute_symbol(tmp_path):
     p = lc.write_coff(tmp_path / "a.obj", [(".text$x", 0x60101020, b"\x90\xc3", 2)],
                       [("_f", 1, 0, lc.EXTERNAL), ("__except_list", -1, 0, lc.EXTERNAL)])

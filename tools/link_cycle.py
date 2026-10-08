@@ -455,8 +455,10 @@ def make_import_libs(entries, outdir):
         d = outdir / f"imp_{stem}.def"
         d.write_text(f"LIBRARY {dll}\nEXPORTS\n" + "".join(f"  {n}\n" for n in names), encoding="latin-1")
         lib = outdir / f"imp_{stem}.lib"
-        res = subprocess.run([str(root / "Vc7/bin/lib.exe"), "/NOLOGO", "/MACHINE:X86", f"/DEF:{d}", f"/OUT:{lib}"],
-                             capture_output=True, text=True, errors="replace", env=build.compiler_environment(root))
+        cmd = [str(root / "Vc7/bin/lib.exe"), "/NOLOGO", "/MACHINE:X86", f"/DEF:{d}", f"/OUT:{lib}"]
+        if sys.platform != "win32":
+            cmd.insert(0, "wine")   # as link() runs link.exe: the toolchain's .exe files are not host executables
+        res = subprocess.run(cmd, capture_output=True, text=True, errors="replace", env=build.compiler_environment(root))
         if res.returncode or not lib.exists():
             raise SystemExit(f"link_cycle: lib.exe failed for {dll}:\n{res.stdout}{res.stderr}")
         libs.append(lib)
