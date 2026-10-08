@@ -158,3 +158,39 @@ void PathfindZoneManager::DoXfer(Xfer *xfer)
 	}
 	finalUnion.rva00531BA7(xfer);
 }
+
+// Native97B532104..532165 and WB12D5350 establish a hidden-return
+// iterator pair rather than the older void/out-parameter probe. The table
+// has4001 buckets and next/key/count nodes. Count>1 selects a dynamic
+// four-byte neighbor array; count0/1 retains the embedded singleton view.
+// Neighbor first-word purpose comes from CreateEquivalencySet532708.
+// These view names are structural labels; original template names remain
+// unproven. BF1 reference34f59164f6 has no clean equivalent lookup body.
+// Native532104..532165; WB12D5350 returns an iterator pair by value.
+struct ZoneNeighborRecord { unsigned short zone, unknown; };
+struct ZoneAdjacencyRange {
+ ZoneAdjacencyRange(ZoneNeighborRecord *first, ZoneNeighborRecord *last):begin(first),end(last) {}
+ ZoneNeighborRecord *begin, *end;
+};
+struct ZoneAdjacencyNode {
+ ZoneAdjacencyNode *next;
+ unsigned short key, count;
+ union { ZoneNeighborRecord one; ZoneNeighborRecord *many; } values;
+};
+class ZoneAdjacencyTable {
+public:
+ ZoneAdjacencyRange rva00532104(unsigned short key);
+ ZoneAdjacencyNode *buckets[4001];
+};
+ZoneAdjacencyRange ZoneAdjacencyTable::rva00532104(unsigned short key) {
+ ZoneAdjacencyNode *node = buckets[key % 4001u];
+ for (; node; node=node->next) {
+  if (node->key != key) continue;
+  if (node->count > 1) {
+   ZoneNeighborRecord *first = node->values.many;
+   return ZoneAdjacencyRange(first, first+node->count);
+  }
+  return ZoneAdjacencyRange(&node->values.one, &node->values.one+1);
+ }
+ return ZoneAdjacencyRange(0,0);
+}
