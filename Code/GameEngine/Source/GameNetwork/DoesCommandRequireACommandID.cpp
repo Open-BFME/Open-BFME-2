@@ -63,24 +63,19 @@ Int DoesCommandRequireACommandID(NetCommandType type)
 	return 0;
 }
 
-// ?IsCommandSynchronized@@YAHW4NetCommandType@@@Z, retail 0x005812A0, 36 bytes.
-// BFME2's IsCommandSynchronized: same Int whole-register shape (xor eax,eax / inc eax)
-// as DoesCommandRequireACommandID above. Identity from 2 callers (0x004CF5F5,
-// 0x004CF733) pushing [esi+0x14] (m_commandType) and testing al, matching ZH
-// ConnectionManager::sendLocalCommand's if (IsCommandSynchronized(type)) use.
-// Donor BFME1 NetworkUtil_CommandRequiresAck.cpp has 4 types in this order;
-// BFME2 adds (NetCommandType)30 at the end, read off the chain: 4,3,10,11,30.
-Int IsCommandSynchronized(NetCommandType type)
+// ?IsCommandSynchronized@@YA_NW4NetCommandType@@@Z, retail 0x005812A0, 36 bytes.
+// Native caller 004CF738 tests AL; WB138F529 zero-extends AL. The ZH header
+// declares Bool. A boolean OR chain produces retail's whole-EAX xor/inc under
+// /O1, so that instruction shape does not imply an int return type.
+// BFME1 NetworkUtil_CommandRequiresAck supplies the same semantic predicate;
+// BFME2's ordered types are 4,3,10,11,30. Complete36B and callers agree.
+bool IsCommandSynchronized(NetCommandType type)
 {
-	if ((type == NETCOMMANDTYPE_GAMECOMMAND) ||
-		(type == NETCOMMANDTYPE_FRAMEINFO) ||
-		(type == NETCOMMANDTYPE_PLAYERLEAVE) ||
-		(type == NETCOMMANDTYPE_DESTROYPLAYER) ||
-		(type == (NetCommandType)30))
-	{
-		return 1;
-	}
-	return 0;
+ return (type == NETCOMMANDTYPE_GAMECOMMAND) ||
+        (type == NETCOMMANDTYPE_FRAMEINFO) ||
+        (type == NETCOMMANDTYPE_PLAYERLEAVE) ||
+        (type == NETCOMMANDTYPE_DESTROYPLAYER) ||
+        (type == (NetCommandType)30);
 }
 
 // ?CommandRequiresAck@@YA_NPAVNetCommandMsg@@@Z, retail 0x00581229, 119 bytes.
