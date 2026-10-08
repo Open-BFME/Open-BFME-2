@@ -1,10 +1,10 @@
 // cl: /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
-// SidesList's map-file chunk parsers (BFME2 SidesList.cpp). WorldBuilder's
-// debug build names each body and keeps its statement order; its inline
-// setters are retail's inline stores, except the by-value string setters,
-// which retail calls out of line (rowed under address names below).
+// SidesList's map-file chunk parsers and writer (BFME2 SidesList.cpp).
+// WorldBuilder's debug build names each body and keeps its statement order;
+// its inline setters are retail's inline stores, except the by-value string
+// setters, which retail calls out of line (rowed under address names below).
 //
 // BuildListInfo layout (target): BuildListInfoCtor.cpp, 0x80 bytes, built by
 // the ctor 0x0032A0CE and destroyed by 0x0032A186 on the parser's stack.
@@ -13,8 +13,25 @@
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
-struct DataChunkInfo;
-class Dict;
+enum ErrorCode { ERROR_CORRUPT_FILE_FORMAT = 0xDEAD0005 };
+
+struct DataChunkInfo
+{
+	AsciiString label;
+	AsciiString parentLabel;
+	unsigned short version;				// +0x08
+	int dataSize;
+};
+
+class Dict
+{
+public:
+	~Dict() { releaseData(); }
+
+private:
+	void releaseData();					// 0x0031339C
+	void *m_data;
+};
 
 class DataChunkInput
 {
@@ -24,6 +41,50 @@ public:
 	unsigned char readByte();			// 0x00306E9A
 	NameKeyType readNameKey();			// 0x003077E0
 	AsciiString readAsciiString();		// 0x0030750A
+	Dict readDict();					// 0x00307833
+	bool parse(void *userData);			// 0x00307AC0
+};
+
+// DataChunkInput's parser unregistration (WB DataChunkInput::unregisterParser),
+// rowed under its address-era spelling.
+class Q1Forwardee0000871A
+{
+public:
+	void handle(int token);				// 0x00306D7B
+};
+
+// The parser binding that registers "PlayerScriptsList" on construction and
+// unregisters itself on destruction; its base dtor is inline here (vtable
+// 0x007C9574), its ctor out of line.
+class BfmeParserRegistryVE;
+
+class BfmeParserBindingBaseVE
+{
+public:
+	virtual ~BfmeParserBindingBaseVE() { m_registry->handle(m_token); }
+	virtual void bfmeSlot0();
+	virtual void bfmeSlot1();
+
+private:
+	Q1Forwardee0000871A *m_registry;	// +0x04, the DataChunkInput
+	int m_token;						// +0x08
+};
+
+class Rva003B3417 : public BfmeParserBindingBaseVE
+{
+public:
+	Rva003B3417(void *scripts, void *count, BfmeParserRegistryVE *registry, const AsciiString *parentLabel);	// 0x003B3417
+
+private:
+	void *m_scripts;
+	void *m_count;
+};
+
+class ScriptList
+{
+public:
+	virtual ~ScriptList();
+	void swap(ScriptList *other);		// 0x003B58DF
 };
 
 class DataChunkOutput
@@ -120,28 +181,119 @@ class SidesInfo
 {
 public:
 	BuildListInfo *getBuildList() { return m_pBuildList; }
-	Dict *getDict() { return reinterpret_cast<Dict *>(&m_dict); }
+	Dict *getDict() { return &m_dict; }
+	void addToBuildList(BuildListInfo *buildList, int position);	// 0x003297FB
+	void setScriptList(ScriptList *scriptList) { m_scripts.swap(scriptList); }
 
 private:
 	BuildListInfo *m_pBuildList;		// +0x00
-	void *m_dict;						// +0x04
+	Dict m_dict;						// +0x04
+	ScriptList m_scripts;				// +0x08
+};
+
+class TeamsInfoRec
+{
+public:
+	int addTeam(const Dict *dict);		// 0x0032DA4E
+
+private:
+	char m_data[0x38];
 };
 
 class SidesList
 {
 public:
+	SidesList();						// 0x0032EE24
+	virtual ~SidesList();				// 0x0032EC63
+
+	bool parseSidesDataChunk(DataChunkInput &file, DataChunkInfo *info);
 	bool parseBuildListDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);
 	void writeSidesDataChunk(DataChunkOutput &chunkWriter);
 	void addToFactionBuildListMap(NameKeyType faction, const BfmePod128 &entry, int listType);	// 0x0032CDFE
+	int addSide(const Dict *dict);		// 0x0032D076
 	SidesInfo *getSideInfo(int side);	// 0x002035BA
+	void swap(SidesList *other);		// 0x0032B690
 	void rva0032E02B();					// 0x0032E02B, WB validateSides
 
 private:
-	char m_bases[0x3C];
+	char m_bases[0x3C - 4];
 	int m_numSides;						// +0x3C
-	char m_sides[0xF7C - 0x40];
+	char m_sides[0xF44 - 0x40];
+	TeamsInfoRec m_teamrec;				// +0xF44
 	bool m_cleared;						// +0xF7C
+	char m_factionBuildLists[0x11B0 - 0xF7D];
 };
+
+// SidesList::parseSidesDataChunk, retail 0x0032F13C (820 bytes): the sides,
+// their build lists and (before version 5) the teams and player scripts are
+// read into a scratch SidesList that is then swapped in. Identity (target):
+// WorldBuilder's debug twin wb 0xa82370 (SidesList.cpp:729) makes the same
+// calls; retail's ret 8 drops BFME 1's userData. The scratch list's ctor and
+// dtor are 0x0032EE24 and 0x0032EC63, its +0xF44 TeamsInfoRec takes the
+// teams, and a build count over 9999 reads as none.
+bool SidesList::parseSidesDataChunk(DataChunkInput &file, DataChunkInfo *info)
+{
+	SidesList newSides;
+	if (info->version >= 6)
+		newSides.m_cleared = file.readByte() != 0;
+	else
+		newSides.m_cleared = true;
+	int count = file.readInt();
+	int i, j;
+	for (i = 0; i < count; i++) {
+		if (i >= 20)
+			break;
+		Dict d = file.readDict();
+		newSides.addSide(&d);
+		int numBuildings = file.readInt();
+		if (numBuildings > 9999)
+			numBuildings = 0;
+		for (j = 0; j < numBuildings; j++) {
+			BuildListInfo *pBuildList = new BuildListInfo;
+			reinterpret_cast<Rva0032A438 *>(pBuildList)->rva0032A438(file.readAsciiString());
+			reinterpret_cast<Rva002AAE81 *>(pBuildList)->rva002AAE81(file.readAsciiString());
+			Coord3D loc;
+			loc.x = file.readReal();
+			loc.y = file.readReal();
+			loc.z = file.readReal();
+			loc.z = 0;
+			pBuildList->setLocation(loc);
+			pBuildList->setAngle(file.readReal());
+			pBuildList->setInitiallyBuilt(file.readByte() != 0);
+			pBuildList->setNumRebuilds(file.readInt());
+			if (info->version >= 3) {
+				reinterpret_cast<Rva0032A46C *>(pBuildList)->rva0032A46C(file.readAsciiString());
+				pBuildList->setHealth(file.readInt());
+				pBuildList->setWhiner(file.readByte() != 0);
+				pBuildList->setUnsellable(file.readByte() != 0);
+				pBuildList->setRepairable(file.readByte() != 0);
+			}
+			newSides.getSideInfo(i)->addToBuildList(pBuildList, j);
+		}
+	}
+	if (info->version >= 2 && info->version < 5) {
+		count = file.readInt();
+		for (i = 0; i < count; i++) {
+			Dict d = file.readDict();
+			newSides.m_teamrec.addTeam(&d);
+		}
+	}
+	if (info->version < 5) {
+		ScriptList *scripts[20];
+		count = 0;
+		Rva003B3417 parser(scripts, &count, reinterpret_cast<BfmeParserRegistryVE *>(&file), &info->label);
+		if (!file.parse(0))
+			throw ERROR_CORRUPT_FILE_FORMAT;
+		for (i = 0; i < count; i++) {
+			if (i < newSides.m_numSides)
+				newSides.getSideInfo(i)->setScriptList(scripts[i]);
+			::delete scripts[i];
+			scripts[i] = 0;
+		}
+	}
+	swap(&newSides);
+	return true;
+}
 
 // SidesList::parseBuildListDataChunk, retail 0x0032CE9E (410 bytes): up to 20
 // factions, each a name key and a build list read into one reused entry that

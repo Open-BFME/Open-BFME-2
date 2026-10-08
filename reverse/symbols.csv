@@ -16134,3 +16134,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??BRva0059B036Concat@@QAE?AVUnicodeString@@XZ,0x00513E6F,callee of ?Rva00513ED1@@YA?AVUnicodeString@@ABV1@@Z
 ??H@YA?AURva00513B5BConcat@@ABURva00513B27Concat@@PBG@Z,0x00513B5B,callee of ?Rva00513ED1@@YA?AVUnicodeString@@ABV1@@Z
 ??H@YA?AURva0059B036Concat@@ABURva00513B5BConcat@@ABVUnicodeString@@@Z,0x0059B036,callee of ?Rva00513ED1@@YA?AVUnicodeString@@ABV1@@Z
+??1SidesList@@UAE@XZ,0x0032EC63,destroys the local SidesList that parseSidesDataChunk 0x0032F13C builds with the pinned ctor 0x0032EE24 at ebp-0x1248 (REL32 at 0x0032F459); the virtual dtor its scalar deleting dtor 0x0032EF22 calls
