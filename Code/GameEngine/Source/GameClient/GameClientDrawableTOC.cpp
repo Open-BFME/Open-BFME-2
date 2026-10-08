@@ -182,6 +182,10 @@ public:
 	unsigned int getShroudClearFrame(void) const { return m_shroudClearFrame; }
 	void setFullyObscuredByShroud(bool fullyObscured);
 	void updateDrawable(void);
+	// ZH Drawable::releaseShadows / allocateShadows: each walks the draw
+	// modules at +0x14C calling their slot 13 (+0x34) / slot 14 (+0x38).
+	void rva00272A38(void);
+	void rva00272A51(void);
 
 private:
 	void *m_vtbl;
@@ -201,13 +205,30 @@ public:
 	int m_cullPlane;                                                     // +0x35C
 };
 
+// ZH DrawableID.
+enum DrawableID
+{
+	INVALID_DRAWABLE_ID = 0,
+	FORCE_DRAWABLEID_TO_LONG_SIZE = 0x7ffffff
+};
+
+// A DrawablePtrHash node as findDrawableByID reads it: the drawable at +8.
+struct Rva00239CC9DrawableHashNode
+{
+	Rva00239CC9DrawableHashNode *m_next;
+	DrawableID m_id;                                                    // +0x04
+	Drawable *m_drawable;                                               // +0x08
+};
+
 // ZH GameClient.h DrawablePtrHash: 0x14 bytes at +0x18 torn down by the
 // out-of-line hashtable destructor 0x00239CC9; key and value types unproven.
+// Its lookup is the folded hashtable _M_find at 0x002888D4.
 class Rva00239CC9DrawableHash
 {
 public:
 	Rva00239CC9DrawableHash();
 	~Rva00239CC9DrawableHash();
+	Rva00239CC9DrawableHashNode *rva002888D4(const DrawableID &id) const;
 
 private:
 	unsigned char m_pad[0x14];
@@ -217,6 +238,13 @@ private:
 // 0x00239AF4 clears one and frees its sentinel, and never throws (retail
 // stores no unwind state around it). The ten at +0xF8 are destroyed through
 // the out-of-line copy of this destructor, 0x00239BAB.
+struct Rva00239AF4Node
+{
+	Rva00239AF4Node *m_next;
+	Rva00239AF4Node *m_prev;
+	void *m_data;                                                       // +0x08
+};
+
 class Rva00239AF4
 {
 public:
@@ -225,8 +253,7 @@ public:
 	void rva00239AF4() throw();
 	~Rva00239AF4() { rva00239AF4(); }
 
-private:
-	void *m_head;
+	Rva00239AF4Node *m_head;
 };
 
 class Rva00362862Item;
@@ -287,7 +314,26 @@ private:
 
 typedef unsigned int TranslatorID;
 enum { TRANSLATOR_ID_INVALID = -1 };
-class CommandTranslator;
+
+// ZH MessageStream.h GameMessage: only the type GameClient returns.
+class GameMessage
+{
+public:
+	enum Type
+	{
+		MSG_INVALID = 0
+	};
+};
+
+// ZH CommandXlat.h CommandTranslator: the context-command evaluator
+// GameClient slot 18 forwards to (retail 0x00429E11).
+class CommandTranslator
+{
+public:
+	enum CommandEvaluateType { DO_COMMAND, DO_HINT, EVALUATE_ONLY };
+
+	GameMessage::Type evaluateContextCommand(Drawable *draw, const Coord3D *pos, CommandEvaluateType cmdType);
+};
 class FontLibrary;
 class InGameUI;
 class GameWindowManager;
@@ -380,9 +426,10 @@ public:
 	virtual void vf13();
 	virtual void vf14();
 	virtual void vf15();
-	virtual void vf16();
+	virtual Drawable *findDrawableByID(const DrawableID id);            // slot 16 (+0x40)
 	virtual Drawable *firstDrawable(void);                              // slot 17 (+0x44)
-	virtual void vf18();
+	virtual GameMessage::Type evaluateContextCommand(Drawable *draw, const Coord3D *pos,
+		CommandTranslator::CommandEvaluateType cmdType);                 // slot 18 (+0x48)
 	virtual void vf19();
 	virtual void vf20();
 	virtual void vf21();
@@ -397,10 +444,10 @@ public:
 	virtual void setTimeOfDay(TimeOfDay tod);                           // slot 30 (+0x78)
 	virtual void vf31();
 	virtual void vf32();
-	virtual void vf33();
-	virtual void vf34();
+	virtual void releaseShadows(void);                                  // slot 33 (+0x84)
+	virtual void allocateShadows(void);                                 // slot 34 (+0x88)
 	virtual Drawable *getDrawableList(void);                            // slot 35 (+0x8C)
-	virtual void vf36();
+	virtual void rva00239911(void);                                     // slot 36 (+0x90)
 	// Factories, slots 37-50, named after the global init stores each in.
 	virtual Display *createGameDisplay();                               // +0x94
 	virtual InGameUI *createInGameUI();                                 // +0x98
@@ -1796,7 +1843,7 @@ void GameClient::update()
 	}
 
 	TheInGameUI->update();
-	vf36();
+	rva00239911();
 }
 
 // Drawable helpers under the names their ledger rows carry. 0x00276470
@@ -1923,6 +1970,74 @@ void GameClient::setTimeOfDay(TimeOfDay tod)
 
 		draw = draw->getNextDrawable();
 	}
+}
+
+// Donor: ZH GameClient::findDrawableByID's hash lookup (commented out in ZH
+// for the vector); retail has no INVALID_DRAWABLE_ID test.
+Drawable *GameClient::findDrawableByID(const DrawableID id)
+{
+	Rva00239CC9DrawableHashNode *node = m_drawableHash.rva002888D4(id);
+	if (node == 0)
+		return 0;
+
+	return node->m_drawable;
+}
+
+// Donor: ZH GameClient::evaluateContextCommand.
+GameMessage::Type GameClient::evaluateContextCommand(Drawable *draw, const Coord3D *pos,
+	CommandTranslator::CommandEvaluateType cmdType)
+{
+	if (m_commandTranslator)
+		return m_commandTranslator->evaluateContextCommand(draw, pos, cmdType);
+	else
+		return GameMessage::MSG_INVALID;
+}
+
+// Donor: ZH GameClient::releaseShadows and allocateShadows.
+void GameClient::releaseShadows(void)
+{
+	Drawable *draw;
+	for (draw = firstDrawable(); draw; draw = draw->getNextDrawable())
+		draw->rva00272A38();
+}
+
+void GameClient::allocateShadows(void)
+{
+	Drawable *draw;
+	for (draw = firstDrawable(); draw; draw = draw->getNextDrawable())
+		draw->rva00272A51();
+}
+
+// The objects held in the +0xE4 list: destroyed through the virtual
+// destructor in slot 7 (+0x1C) and freed with the global operator delete.
+class Rva00239911Item
+{
+public:
+	virtual void vf0();
+	virtual void vf1();
+	virtual void vf2();
+	virtual void vf3();
+	virtual void vf4();
+	virtual void vf5();
+	virtual void vf6();
+	virtual ~Rva00239911Item();
+};
+
+class Rva00239380Holder
+{
+public:
+	void rva00239380();
+};
+
+// Slot 36, no ZH counterpart: delete every object in the +0xE4 list, then
+// clear it through 0x00239380.
+void GameClient::rva00239911(void)
+{
+	for (Rva00239AF4Node *node = m_drawableListE4.m_head->m_next;
+		node != m_drawableListE4.m_head; node = node->m_next)
+		::delete (Rva00239911Item *)node->m_data;
+
+	((Rva00239380Holder *)&m_drawableListE4)->rva00239380();
 }
 
 // Callback 3 (0x0023958B): BFME 2's title-screen logo, no ZH counterpart.
