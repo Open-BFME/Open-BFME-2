@@ -2668,6 +2668,30 @@ PUBLIC ?rva007A53E1@@YAXXZ
     jmp ?apply@Rva005E3947DwordImmSetter@@QAEXXZ
 ?rva007A53E1@@YAXXZ ENDP
 
+; Unwind@00ba5449 at RVA 0x007A5449; 20-byte masked-add cleanup adds 8 to [ebp-16] and tail-jumps to the virtual dtor at 0x005E12D1.
+PUBLIC ?rva007A5449@@YAXXZ
+?rva007A5449@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 8
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Rva005E12D1@@UAE@XZ
+?rva007A5449@@YAXXZ ENDP
+
+; Unwind@00ba545d at RVA 0x007A545D; 20-byte masked-add cleanup adds 1Ch to [ebp-16] and tail-jumps to the dword imm-setter at 0x005E3947.
+PUBLIC ?rva007A545D@@YAXXZ
+?rva007A545D@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 1Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva005E3947DwordImmSetter@@QAEXXZ
+?rva007A545D@@YAXXZ ENDP
+
 ; Unwind@00ba559a at RVA 0x007A559A; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-24], then loads the cleanup pointer from [ebp+8] and tail-jumps to UnicodeString at 0x005B804E.
 PUBLIC ?rva007A559A@@YAXXZ
