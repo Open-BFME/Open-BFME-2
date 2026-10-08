@@ -28,7 +28,17 @@
 // g_Va00E01D0C: VA 0x00E01D0C (.bss); retail initial byte 00.
 static bool g_Va00E01D0C;
 
-void Rva0031AB77SetFlag(void)
+// WB 0x00C2D900 retains the receiver at entry; INICommandButton's native
+// 0x001DAFEA loads TheControlBar before its call. The original method name
+// remains unknown, but its thiscall ABI is established independently of the
+// eight-byte optimized body, which does not need to read the receiver.
+class ControlBar
+{
+public:
+	void rva0031AB77SetFlag();
+};
+
+void ControlBar::rva0031AB77SetFlag()
 {
 	g_Va00E01D0C = 1;
 }
