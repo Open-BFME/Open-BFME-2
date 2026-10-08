@@ -111,3 +111,11 @@ void * Rva002CFEA5::rva002CFEA5(const AsciiString *key) {
  { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
  return (void *)(node==0 ? (char *)((Rva002CFB4C *)this)->rva002CFB4C(&static_cast<const WordSlotPair &>(WordSlotPair(*key, 0)))+4 : (char *)node+8);
 }
+
+// 3A3763..3A37DC RET4; rowed Team3A38E9 inserts absent script-state keys then stores true in mapped byte; native byte-zero store and insert3A2F08 establish bool-sized payload; retain existing opaque insert identity.
+bool * Rva00056F61::rva003A3763(const AsciiString *key) {
+ void *node;
+ { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
+ return (bool *)(node==0 ? (char *)((Rva000427195 *)this)->rva003A2F08(*(const StoredPair07343 *)&static_cast<const BoolSlotPair &>(BoolSlotPair(*key, 0)))+4 : (char *)node+8);
+}
+
