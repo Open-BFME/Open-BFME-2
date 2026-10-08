@@ -365,7 +365,6 @@ IMEManager::IMEManager()
 	}
 }
 
-// ?IMEManager::~IMEManager present-unmatched
 IMEManager::~IMEManager()
 {
 	if (m_candidateWindow)

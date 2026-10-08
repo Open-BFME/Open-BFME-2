@@ -20286,3 +20286,4 @@ FUN_0097845c	0x0057845C	183	blocked	Native5 7845C..578513 RET4; temporary4-byte 
 ?rva0037F2C0@Rva0037F2C0@@QAEHPAVObject@@_N@Z	0x0037F2C0	111	partial	single lea esi eax-1 vs mov esi eax plus dec esi scheduling t=22 model=muse-spark score=0.97 stash=reverse/attempts/0x0037f2c0.cpp
 ?rva004DE2ED@Rva004DD843@@QAEXXZ	0x004DE2ED	401	blocked	401B Pathfinder goal with mode neg-sbb wall plus AI second virtual at 228 and template 114 plus float needs donor beyond box variant1 410B 25 regions t=15 model=muse-spark
 ?rva004DE47E@Rva004DD843@@QAEXXZ	0x004DE47E	100	blocked	ebx edi swap persists plus lea early vs late t=20 model=muse-spark (stash 0.98 kept)
+?bfmeRunEYE@BfmeNodeEYE@@QAEXXZ	0x0030DEAE	492	blocked	complex EYE audio body needs full second-half reconstruction t=25 model=muse-spark
