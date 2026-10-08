@@ -35,7 +35,6 @@
 //   0x00306DE9  0x00C07E84  InputChunk
 //   0x0037F57E  0x00C18DFC  Rva0037F57E
 //   0x00381D78  0x00C19230  Rva00381D78
-//   0x003919D9  0x00C1A074  Rva003919D9
 //   0x0039AE75  0x00C1AD60  Rva0039AE75
 //   0x003EE711  0x00C363B8  Rva003EE711
 //   0x003F7BCC  0x00C37298  Rva003F7BCC
@@ -424,24 +423,6 @@ Rva00381D78::Rva00381D78(EmitVtableTag *)
 // ??1Rva00381D78@@UAE@XZ @0x00381D71 7B: the empty dtor, restoring the vtable;
 // the deleting dtor still expands it inline.
 Rva00381D78::~Rva00381D78()
-{
-}
-
-class Rva003919D9
-{
-public:
-	Rva003919D9(EmitVtableTag *);
-	virtual ~Rva003919D9();
-};
-
-// ?<Rva003919D9::Rva003919D9> absent-from-retail
-Rva003919D9::Rva003919D9(EmitVtableTag *)
-{
-}
-
-// ??1Rva003919D9@@UAE@XZ @0x003916A4 7B: the empty dtor, restoring the vtable;
-// the deleting dtor still expands it inline.
-Rva003919D9::~Rva003919D9()
 {
 }
 
