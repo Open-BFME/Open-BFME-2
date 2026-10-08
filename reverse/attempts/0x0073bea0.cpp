@@ -1,61 +1,55 @@
-// ?rva0073BEA0@Rva0073BEA0@@UAEXHH@Z
-// partial score=0.85 date=2026-10-03
-// cl: /O2 /MD /Oy /EHs
-//
-// Address-derived recovery of the 0x0073BEA0 virtual (106B), one of the two
-// sibling cell-to-screen notifier functors whose constructors sit at
-// 0x0073B4E0/0x0073B500 and whose one-slot vtables are 0x00CF13A0/0x00CF13A4.
-// Target evidence: field +4 points at a grid whose float originX/originY sit
-// at +4/+8 and whose float scale sits at +0x1C; field +0xC is an object whose
-// vtable slot 0 takes the two-float point built here; the real literal 0.5 is
-// the qword constant at 0x007C26F8 and the int casts go through the pinned
-// CRT helper 0x00629228 (__ftol2). The class/member names are address-derived:
-// no string names this functor family.
-//
-// PARTIAL: size is exact (106B) and every instruction shape matches, but
-// retail keeps the Y int in the [esp+8] slot and converts both coordinates at
-// the end (point.x then point.y), where this body converts Y to point.y as
-// soon as it is computed. 16 disassembly lines differ, all in that scheduling
-// and the resulting frame offsets.
+// ?rva073BEA0@Rva073BEA0Owner@@QAEXHH@Z
+// partial score=0.4 date=2026-10-08
+// cl: /O1 /MD /EHsc
+// ?rva073BEA0@Rva073BEA0Owner@@QAEXHH@Z retail 0x0073BEA0 106B.
+// Two x87 scale-and-truncate lanes (one per int argument) at the scale block
+// +0x04 with a half-of-scale term, packed as a two-float point and passed to
+// the object at +0x0C through its first virtual slot. Address-derived name;
+// identity unproven.
 
-class BfmeGrid73BE
+typedef float Real;
+
+struct Rva073BEA0Point
+{
+	Real x;
+	Real y;
+};
+
+class Rva073BEA0Sink
+{
+public:
+	virtual void slot00(const Rva073BEA0Point *p);
+};
+
+class Rva073BEA0Scale
 {
 public:
 	char m_pad00[4];
-	float m_originX;		// +0x04
-	float m_originY;		// +0x08
+	Real m_f04;
+	Real m_f08;
 	char m_pad0C[0x10];
-	float m_scale;			// +0x1C
+	Real m_f1c;
 };
 
-class BfmeOut73BE
+class Rva073BEA0Owner
 {
 public:
-	virtual void notify(const void *point);
-};
-
-struct BfmePoint73BE
-{
-	float x;
-	float y;
-	float z;
-};
-
-class Rva0073BEA0
-{
-public:
-	virtual void rva0073BEA0(int a, int b);
+	void rva073BEA0(int a, int b);
 
 private:
-	BfmeGrid73BE *m_grid;	// +0x04
-	int m_8;				// +0x08
-	BfmeOut73BE *m_out;		// +0x0C
+	char m_pad00[4];
+	Rva073BEA0Scale *m_scale; // +0x04
+	char m_pad08[4];
+	Rva073BEA0Sink *m_sink;   // +0x0C
 };
 
-void Rva0073BEA0::rva0073BEA0(int a, int b)
+void Rva073BEA0Owner::rva073BEA0(int a, int b)
 {
-	BfmePoint73BE point;
-	point.y = (int)(b * m_grid->m_scale + m_grid->m_originY + m_grid->m_scale * 0.5);
-	point.x = (int)(a * m_grid->m_scale + m_grid->m_originX + m_grid->m_scale * 0.5);
-	m_out->notify(&point);
+	Rva073BEA0Scale *s = m_scale;
+	int r1 = (int)((Real)b * s->m_f1c + s->m_f08 + s->m_f1c * 0.5);
+	int r2 = (int)((Real)a * s->m_f1c + s->m_f04 + s->m_f1c * 0.5);
+	Rva073BEA0Point pt;
+	pt.x = (Real)r2;
+	pt.y = (Real)r1;
+	m_sink->slot00(&pt);
 }
