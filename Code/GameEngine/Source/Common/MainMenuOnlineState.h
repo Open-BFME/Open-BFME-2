@@ -5,6 +5,9 @@
 // does not assert an original application class. WB158CC80/158DAF0 and the
 // complete native startOnline/MOTD/decline bodies establish each used offset.
 // The first word is the pre-existing startup flag cleared by 79FB9C.
+// End exactly at E06575: the DNS owner independently defines its flag there.
+// Tail padding must not consume the neighbouring owner's two flag bytes.
+#pragma pack(push, 1)
 struct MainMenuOnlineState
 {
     unsigned flags;
@@ -16,4 +19,6 @@ struct MainMenuOnlineState
     char *motd, *config;
     bool cancel;
 };
+#pragma pack(pop)
+typedef char MainMenuOnlineStorageExtent[(sizeof(MainMenuOnlineState) == 29) ? 1 : -1];
 extern MainMenuOnlineState g_mainMenuOnlineState;

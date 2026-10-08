@@ -21,52 +21,14 @@ public:
 	void rva00357DD2(const AsciiString &s);
 };
 extern ScriptEngine *TheScriptEngine;
-// G009C1050: matched DIR32 witness places the pointer table at VA 0x00DC1050
-// (.data). Retail contains 35 string pointers through Cine_Insane; the scalar
-// sequence begins at VA 0x00DC10DC. Preserve the pointed-to text consumed by
-// AsciiString, without asserting retail literal-address identity.
-const char *G009C1050[] = {
-	"ShellMainMenuCampaignPushed",
-	"ShellMainMenuCampaignHighlighted",
-	"ShellMainMenuCampaignUnhighlighted",
-	"ShellMainMenuSkirmishPushed",
-	"ShellMainMenuSkirmishHighlighted",
-	"ShellMainMenuSkirmishUnhighlighted",
-	"ShellMainMenuOptionsPushed",
-	"ShellMainMenuOptionsHighlighted",
-	"ShellMainMenuOptionsUnhighlighted",
-	"ShellMainMenuOnlinePushed",
-	"ShellMainMenuOnlineHighlighted",
-	"ShellMainMenuOnlineUnhighlighted",
-	"ShellMainMenuNetworkPushed",
-	"ShellMainMenuNetworkHighlighted",
-	"ShellMainMenuNetworkUnhighlighted",
-	"ShellMainMenuExitPushed",
-	"ShellMainMenuExitHighlighted",
-	"ShellMainMenuExitUnhighlighted",
-	"ShellGeneralsOnlineLogin",
-	"ShellGeneralsOnlineLogout",
-	"ShellGeneralsOnlineEnteredFromGame",
-	"ShellOptionsOpened",
-	"ShellOptionsClosed",
-	"ShellSkirmishOpened",
-	"ShellSkirmishClosed",
-	"ShellSkirmishEnteredFromGame",
-	"ShellLANOpened",
-	"ShellLANClosed",
-	"ShellLANEnteredFromGame",
-	"Subtle",
-	"Normal",
-	"Strong",
-	"Severe",
-	"Cine_Extreme",
-	"Cine_Insane"
-};
+// Scripts.cpp owns the native29-entry shell table at VA DC1050.
+// The adjacent six pointers are ShakeIntensities and are not shell hooks.
+extern char *TheShellHookNames[];
 
 void __cdecl Rva003B3371Call(int index)
 {
 	if (TheScriptEngine == 0)
 		return;
-	AsciiString tmp(G009C1050[index]);
+	AsciiString tmp(TheShellHookNames[index]);
 	TheScriptEngine->rva00357DD2(tmp);
 }
