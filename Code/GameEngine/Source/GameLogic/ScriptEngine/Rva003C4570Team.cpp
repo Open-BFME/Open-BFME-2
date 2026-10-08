@@ -93,16 +93,16 @@ int __cdecl Rva00288726(Object *obj, void *userData)
 	return 1;
 }
 
-#define TheNameKeyGen TheNameKeyGenerator
-#define TheLevelSys (*(Rva0028951F **)0x00DFECC4)
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 void __stdcall Rva003C4570Do(const AsciiString &teamName, const AsciiString &levelName)
 {
 	Team *team = TheScriptEngine->getTeamNamed(teamName, false);
 	if (!team)
 		return;
-	int key = TheNameKeyGen->nameToKey(levelName);
-	const Overridable *lvl = TheLevelSys->rva0028951F(key);
+	int key = TheNameKeyGenerator->nameToKey(levelName);
+	const Overridable *lvl = reinterpret_cast<Rva0028951F *>(TheExperienceLevelSystem)->rva0028951F(key);
 	if (!lvl)
 		return;
 	team->rva0039DD12(Rva002886A7, (void *)lvl);
