@@ -61,8 +61,9 @@ void Rva00DFE1C8Host::rva00211FA8()
 }
 
 
-// Native callback211396..211494 returns3 with RET0 and no stack input.
-int rva00211396();
+// Native callback211396..211494 returns3 with RET0 and no argument reads.
+// Shared callback thunk211216 forwards float/bool, even when unused.
+int rva00211396(float,bool);
 int Rva003FEC05FadeScreenRegionToMapBlack(int,bool);
 // Native212017..2120A4 RET0: three callback addresses share the existing
 // registration id and constructor; no original owner/method identity claimed.
@@ -78,8 +79,9 @@ void Rva00DFE1C8Host::rva00212017()
 
 int parchmentMapFadeLoadGame(int,bool);
 // Native callback2B513E..2B5195: complete87B endsRET0 and returns2.
+// Shared callback thunk211216 forwards float/bool, even when unused.
 // Entry independently stored by2B6AA2; next2B5195 already rowed.
-int rva002B513E();
+int rva002B513E(float,bool);
 class Rva002B6AA2 { public: void rva002B6AA2(); };
 // Native2B6AA2..2B6AEC RET0; WB d8ba30 saves member receiver but does
 // not use it. Two callback wrappers and the same shared id are measured.

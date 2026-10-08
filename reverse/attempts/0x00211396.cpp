@@ -1,4 +1,4 @@
-// ?rva00211396@@YAHXZ
+// ?rva00211396@@YAHM_N@Z
 // partial score=0.97 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii
 // Native 0x00210DB6..0x00210DC9 (19B), entered by the callback address
@@ -74,7 +74,7 @@ void Rva00DFE1C8Host::rva00211FA8()
 
 
 // Native callback211396..211494 returns3 with RET0 and no stack input.
-int rva00211396();
+int rva00211396(float,bool);
 int Rva003FEC05FadeScreenRegionToMapBlack(int,bool);
 // Native212017..2120A4 RET0: three callback addresses share the existing
 // registration id and constructor; no original owner/method identity claimed.
@@ -116,7 +116,7 @@ public:
     BfmeRectVNH(unsigned,const AsciiString &,char);
     AsciiString text0C;
 };
-int rva00211396()
+int rva00211396(float,bool)
 {
     DefeatWorldLogicView *logic=(DefeatWorldLogicView *)TheLivingWorldLogic;
     Rva0020E89C *lookup=logic->regionManager->rva0020EAF6(logic->regionId);
