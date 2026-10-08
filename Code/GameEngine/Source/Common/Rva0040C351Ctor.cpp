@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /G7 /arch:SSE /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// stlport
 // ??0ArmySummaryEntry@@QAE@XZ @0x0040C351 (77B).
 // Derived of rowed Rva0037DF2C ctor 0x0037DF2C (same this, no offset) with own
 // vtable 0x00C3944C at +0x0 overwriting base vtable, member at +0xAC with base
@@ -35,6 +36,7 @@ public:
 	void Parse(class INI *ini);
 	void MarkForUpgrades(const class Rva004E0632 *a);
 	void CancelUpgrades();
+	void ApplyWorldMapUpgrades();
 private:
 	MemberAC m_ac;
 	int m_b4;
@@ -165,4 +167,99 @@ void ArmySummaryEntry::CancelUpgrades()
 	}
 	((Rva0040C45CSlot4 *)(void *)value)->v4(this);
 	m_bc &= 0;
+}
+
+// ApplyWorldMapUpgrades: WB1091690 names the complete native351B
+// 40C6A5..40C804 routine. No clean BFME1 ArmySummaryEntry donor exists at
+// reference34f59164f6. Target masks10/template404 and modules2E4 agree
+// independently with the WB flow; upgrade module slots30/68 and data
+// masks08/88 plus level limits118/11C are measured target accesses.
+// Existing concrete providers establish the bitset32 OR and predicates,
+// ModuleInfo accessor, template lookup and eight-byte experience handle ABI.
+// A local pointer to the carrier level preserves the native field reads and
+// in-memory update without imposing volatile semantics on the class.
+#include <bitset>
+#include <algorithm>
+class Rva0037DCA5 { public: void *rva0037DC52(); };
+class Rva002AA292 { public: bool rva002AA292(const int *) const; };
+class Rva00406F9C { public: bool rva00406F9C(const void *); };
+struct WorldMapUpgradeDataView {
+ char unknown[8];
+ int required[32];
+ int excluded[32];
+ char unknown108[0x118-0x108];
+ int levels;
+ int maxLevel;
+};
+class WorldMapModuleDataView {
+public:
+#define V(n) virtual void slot##n();
+ V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11)
+ virtual bool isWorldMapUpgrade() const;
+ V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23) V(24) V(25)
+ virtual const WorldMapUpgradeDataView *worldMapUpgradeData() const;
+#undef V
+};
+class ModuleData;
+struct WorldMapModuleRecordView { char name[8]; const ModuleData *data; int flags, unknown; };
+class ModuleInfo {
+public:
+ const ModuleData *getNthData(int) const;
+ int count() const { return end-begin; }
+ const WorldMapModuleRecordView *begin, *end, *capacity;
+};
+class ThingTemplate;
+struct ArmyUpgradeTemplateView {
+ char pad[0x2E4];
+ ModuleInfo modules;
+ char pad2F0[0x404-0x2F0];
+ _STL::_Base_bitset<32> upgrades;
+};
+struct ArmyUpgradeCarryoverView {
+ char pad[8];
+ float experience;
+ int level;
+ _STL::_Base_bitset<32> upgrades;
+};
+struct ExperienceLevelHandle {
+ ExperienceLevelHandle() {}
+ ExperienceLevelHandle(const ExperienceLevelHandle &o): list(o.list), iterator(o.iterator) {}
+ void *list;
+ void *iterator;
+};
+class ExperienceLevelStore {
+public:
+ ExperienceLevelHandle rva00288E21(const ThingTemplate *, int) const;
+ bool IsValid(ExperienceLevelHandle) const;
+ int GetRequiredExperience(ExperienceLevelHandle) const;
+};
+extern ExperienceLevelStore *TheExperienceLevelStore;
+void ArmySummaryEntry::ApplyWorldMapUpgrades() {
+ if (!m_bc) return;
+ const ThingTemplate *thing = (const ThingTemplate *)((Rva0037DCA5 *)this)->rva0037DC52();
+ if (thing) {
+  ArmyUpgradeCarryoverView *carry = (ArmyUpgradeCarryoverView *)this;
+  const ArmyUpgradeTemplateView *view = (const ArmyUpgradeTemplateView *)thing;
+  carry->upgrades._M_do_or(view->upgrades);
+  const ModuleInfo *modules = &view->modules;
+  for (int i=0; i<modules->count(); ++i) {
+   const WorldMapModuleDataView *data = (const WorldMapModuleDataView *)modules->getNthData(i);
+   if (!data || !data->isWorldMapUpgrade()) continue;
+   const WorldMapUpgradeDataView *upgrade = data->worldMapUpgradeData();
+   if (!upgrade) continue;
+   if (!((const Rva002AA292 *)&carry->upgrades)->rva002AA292(upgrade->required)) continue;
+   if (((Rva00406F9C *)&carry->upgrades)->rva00406F9C(upgrade->excluded)) continue;
+   int *level = &carry->level;
+   if (*level >= upgrade->maxLevel) continue;
+   int amount = upgrade->levels;
+   int available = upgrade->maxLevel-*level;
+   amount = _STL::min(amount, available);
+   if (amount < 1) continue;
+   *level += amount;
+   ExperienceLevelHandle handle = TheExperienceLevelStore->rva00288E21(thing, *level);
+   if (TheExperienceLevelStore->IsValid(handle))
+    carry->experience = (float)TheExperienceLevelStore->GetRequiredExperience(handle);
+  }
+ }
+ m_bc=0;
 }
