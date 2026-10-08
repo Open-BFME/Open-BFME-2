@@ -28,16 +28,30 @@ public:
 typedef _STL::list<Rva005CD018Obj *,
 	_STL::allocator<Rva005CD018Obj *> > Rva005CD018ListView;
 
+class ChecklistInlineCountedView {
+public:
+ virtual void destroy();
+ int references;
+};
+class ChecklistTempRef {
+public:
+ ChecklistInlineCountedView *ptr;
+ __forceinline ~ChecklistTempRef() { if(ptr) { ChecklistInlineCountedView *obj=ptr; if(--obj->references==0) obj->destroy(); } }
+};
 class Rva005D1A87Ref
 {
 public:
 	RefCountClass *m_ptr;
-	~Rva005D1A87Ref() { if (m_ptr) m_ptr->Release_Ref(); }
+ Rva005D1A87Ref(ChecklistInlineCountedView *ptr) : m_ptr(reinterpret_cast<RefCountClass*>(ptr)) {
+  if(ptr) ++ptr->references;
+ }
+ ~Rva005D1A87Ref() { if (m_ptr) m_ptr->Release_Ref(); }
 };
 class Rva005D1A87UI
 {
 public:
-	Rva005D1A87Ref rva005D1A87();
+	virtual ChecklistTempRef createNativeItem();
+ Rva005D1A87Ref rva005D1A87();
 };
 
 class ChecklistUIFactory {
@@ -180,4 +194,12 @@ public:
 void Rva005CCEB6::rva005CCEB6()
 {
  implementation->Update();
+}
+
+// Native5D1A87..5D1ADE and WB15A87B0 ChecklistUI CreateNewItem: slot0 returns
+// a temporary counted reference; acquire output ownership then release the temporary.
+Rva005D1A87Ref Rva005D1A87UI::rva005D1A87()
+{
+ ChecklistTempRef result=createNativeItem();
+ return Rva005D1A87Ref(result.ptr);
 }
