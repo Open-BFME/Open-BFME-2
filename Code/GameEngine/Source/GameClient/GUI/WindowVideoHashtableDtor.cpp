@@ -6,18 +6,12 @@
 // Same 57B direct-_free shape as the ArmorStore hashtable dtor at 0x003609BE
 // (clear then free buckets, MALLOC config). Clear resolves to the pinned
 // WindowVideo spelling at 0x001DBCDC, _free is rowed at 0x00030830.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// Use the native 17-byte specialization at RVA 0x00013740 rather than
+// emitting a separately optimized copy from this unit.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
+template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
-}
-#pragma optimize("", on)
 
 #include <hash_map>
 
