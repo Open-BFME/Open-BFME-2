@@ -946,6 +946,54 @@ PUBLIC ?rva0076CD69@@YAXXZ
     jmp ??1Gen_uw_0049b47c@@QAE@XZ
 ?rva0076CD69@@YAXXZ ENDP
 
+; Unwind@00b6d075: 22-byte eh-vector-dtor target passes [ebp-0E4h] with size 4 count 20 and raw destructor VA 0x00607F08.
+PUBLIC ?rva0076D075@@YAXXZ
+?rva0076D075@@YAXXZ PROC
+    push 00607F08h
+    push 14h
+    push 4
+    lea eax, DWORD PTR [ebp-0E4h]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0076D075@@YAXXZ ENDP
+
+; Unwind@00b6d08b: 22-byte eh-vector-dtor target passes [ebp-0E4h] with size 4 count 20 and raw destructor VA 0x00607F08.
+PUBLIC ?rva0076D08B@@YAXXZ
+?rva0076D08B@@YAXXZ PROC
+    push 00607F08h
+    push 14h
+    push 4
+    lea eax, DWORD PTR [ebp-0E4h]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0076D08B@@YAXXZ ENDP
+
+; Unwind@00b6d0a1: 22-byte eh-vector-dtor target passes [ebp-0E4h] with size 4 count 20 and raw destructor VA 0x00607F08.
+PUBLIC ?rva0076D0A1@@YAXXZ
+?rva0076D0A1@@YAXXZ PROC
+    push 00607F08h
+    push 14h
+    push 4
+    lea eax, DWORD PTR [ebp-0E4h]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0076D0A1@@YAXXZ ENDP
+
+; Unwind@00b6d0b7: 22-byte eh-vector-dtor target passes [ebp-0E4h] with size 4 count 20 and raw destructor VA 0x00607F08.
+PUBLIC ?rva0076D0B7@@YAXXZ
+?rva0076D0B7@@YAXXZ PROC
+    push 00607F08h
+    push 14h
+    push 4
+    lea eax, DWORD PTR [ebp-0E4h]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0076D0B7@@YAXXZ ENDP
+
 ; Unwind@00b6d4a7: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
 PUBLIC ?rva0076D4A7@@YAXXZ
 ?rva0076D4A7@@YAXXZ PROC
