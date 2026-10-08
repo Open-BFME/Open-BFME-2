@@ -54,3 +54,45 @@ void iniParseVictorySystemDefinition(INI *ini) {
   stream->Finish(1);
  }else ini->initFromINI(TheVictorySystem,VictorySystemFieldParse);
 }
+
+// WB b6cc70 names iniParseFactionVictoryDefinition and this file:68/81.
+// Native215D0B..215E21 proves neutral -> empty name, parameter lookup405684
+// and the same diagnostic dispatch as the preceding callback. The existing
+// BfmeStringRecord00404BF3 provider establishes the24-byte name/five-float
+// record; field names, parser addresses and offsets below are read from the
+// complete native96-byte table C38760 (including its null16).
+
+struct BfmeStringRecord00404BF3;
+class Rva00404D70 {public:BfmeStringRecord00404BF3 *rva00405684(const AsciiString &);};
+extern "C" const FieldParse FactionVictoryFieldParse[]={
+ {"AllyDeathScaleFactor",INI::parseReal,0,0x4},
+ {"EnemyKillScaleFactor",INI::parseReal,0,0x8},
+ {"VictoryThreshold",INI::parseReal,0,0x10},
+ {"MapToCellVictoryRatio",INI::parseReal,0,0xC},
+ {"MajorUnitValue",INI::parseReal,0,0x14},
+ {0,0,0,0}
+};
+void iniParseFactionVictoryDefinition(INI *ini){
+ AsciiString name;
+ name=ini->getNextToken();
+ if(((const StringBase<char> *)&name)->compareNoCase("neutral")==0)name.clear();
+ if(!TheVictorySystem){
+  _bfme_debugRecordCallsite(1);
+  ((VictoryDiagnosticView*)theDebug)->Begin_Report();
+  const char *text=name.str();
+  VictoryDiagnosticStreamView *stream=((VictoryDiagnosticView*)theDebug)->Get_Stream(0,0,0);
+  stream->Put_String(Debug::Format("TheVictorySystem has not been initialized!.\n",text));
+  stream->Finish(1);
+ }else{
+  BfmeStringRecord00404BF3 *parameters=((Rva00404D70*)TheVictorySystem)->rva00405684(name);
+  if(parameters)ini->initFromINI(parameters,FactionVictoryFieldParse);
+  else{
+   _bfme_debugRecordCallsite(1);
+   ((VictoryDiagnosticView*)theDebug)->Begin_Report();
+   const char *text=name.str();
+   VictoryDiagnosticStreamView *stream=((VictoryDiagnosticView*)theDebug)->Get_Stream(0,0,0);
+   stream->Put_String(Debug::Format("Could not find/create FactionVictoryParameters in iniParseFactionVictoryDefinition!.\n",text));
+   stream->Finish(1);
+  }
+ }
+}

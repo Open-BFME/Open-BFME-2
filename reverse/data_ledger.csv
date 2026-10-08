@@ -8241,7 +8241,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008382C0,616,.rdata,string,??_C@_02EMFKHFLK@?$CFX?$AA@,,literal,,0,1
 0x00838528,56,.rdata,string,??_C@_0DH@PADMNCMD@Invalid?5Category?5encountered?5by?5@,,literal,,0,1
 0x00838560,12,.rdata,vtable,??_7AttributeModifierPoolUpdate@@6B@,,literal,,0,2
-0x0083856C,596,.rdata,vtable,??_7AttributeModifierPoolUpdate@@6BBehaviorModuleBase@@@,,literal,,0,2
+0x0083856C,500,.rdata,vtable,??_7AttributeModifierPoolUpdate@@6BBehaviorModuleBase@@@,,literal,,0,2
+0x00838760,96,.rdata,global,_FactionVictoryFieldParse,Code/GameEngine/Source/Common/INI/INIVictorySystem.cpp,owned,,1,1
 0x008387C0,248,.rdata,global,_VictorySystemFieldParse,Code/GameEngine/Source/Common/INI/INIVictorySystem.cpp,owned,,1,1
 0x008388B8,12,.rdata,string,??_C@_08DJIJBBHL@Civilian?$AA@,,literal,,0,1
 0x008388C4,16,.rdata,vtable,??_7Rva004053C2@@6BSnapshot@@@,,literal,,0,1
@@ -15732,7 +15733,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A02F30,4,.data,global,?TheAttributeModifierPoolUpdatePoolKey@?1??rva000403A61@AttributeModifierPoolUpdate@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdatePoolKey.cpp,owned,,1,2
 0x00A02F34,4,.data,global,?g_Va00E02F34@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Fxx.cpp,provisional,?$S1@?1??rva000403A61@AttributeModifierPoolUpdate@@SA?AW4NameKeyType@@XZ@4IA@Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdatePoolKey.cpp;?g_Va00E02F34@@3IA,2,4
 0x00A02F38,4,.data,global,_s_rva007AFD76,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A02F3C,4,.data,global,?TheVictorySystem@@3PAVVictorySystem@@A,Code/GameEngine/Source/Common/System/SaveGame/GameStateInit.cpp,owned,,1,7
+0x00A02F3C,4,.data,global,?TheVictorySystem@@3PAVVictorySystem@@A,Code/GameEngine/Source/Common/System/SaveGame/GameStateInit.cpp,owned,,1,8
 0x00A02F40,12,.data,global,_s_rva007AFDA0,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A02F4C,4,.data,global,_s_rva007AFDCA,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A02F50,4,.data,global,?s_id@?1??rva004059F6@Rva00406B39@@QAEHXZ@4HA,Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp,owned,,1,2
