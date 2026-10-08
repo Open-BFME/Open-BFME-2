@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /MD
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+#include "Common/BfmeAudioEventPrefix136.h"
 // ?Rva00428EEBIssueFireWeapon@@YGHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z @0x00428EEB 284B: free issue command emitting 0x434/0x433 via MessageStreamSubsystem createMessage plus voice response.
 // Evidence: retail bytes options-7 isValid slot75 then 0x20 ground branch; rowed isValid 0x35B112 appends 0x30F936 0x30F9BB 0x30F979 ctor 0x4D92FE pinned pickAndPlay 0x4DAAFD; TheInGameUI MessageStreamSubsystem names.
 
@@ -14,6 +15,7 @@ enum ObjectID
 	OBJECTID_NONE = 0
 };
 
+struct RGBColor;
 class Drawable;
 class Object;
 
@@ -116,14 +118,25 @@ public:
 	unsigned char m_pad00[0xFC];
 	Object *m_object;
 	void rva00278C7C(int selected);
+    void rva0027541E(const RGBColor*,unsigned int,unsigned int,unsigned int);
     const Coord3D* getPosition() const;
 };
 
+// Target override receiver and SpecialPowerTemplate ID at +0x14, as read
+// by 0x0042994D after the existing const final-override provider.
+class Overridable { public: const Overridable* friend_getFinalOverride() const; };
+class SpecialPowerTemplate : public Overridable { public: char pad[0x14]; int id; };
 class CommandButton
 {
 public:
-	char m_pad00[0x1C];
+	char m_pad00[0x14];
+    int command;
+    char pad18[4];
 	unsigned int m_options;
+    char pad20[0x24];
+    const SpecialPowerTemplate* special;
+    char pad48[0x140];
+    AsciiString *start,*finish,*end;
 	bool isValidObjectTarget(const Drawable *source, const Drawable *target) const;
 };
 
@@ -196,6 +209,7 @@ private:
     int issueCombatDropCommand(const CommandButton *command, int commandType,
                                Drawable *target, const Coord3D *pos);
     int issueMoveToLocationCommand(const Coord3D *pos, Drawable *drawableInWay, int commandType);
+    int issueSpecialPowerCommand(const CommandButton*,int,Drawable*,const Coord3D*,Object*);
     int issueAttackCommand(Drawable*,const Coord3D*,int,int);
     int createAttackMessage(Drawable *draw, Drawable *other, int commandType);
     char m_pad00[8];
@@ -366,6 +380,113 @@ int CommandTranslator::issueAttackCommand(Drawable* target,const Coord3D* pos,in
   info.m_04=target;
   if(pos)info.m_14=*pos;else info.m_14=*target->getPosition();
   pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(),(GameMessage::Type)msgType,(PickAndPlayInfo*)&info);
+ }
+ return msgType;
+}
+
+// Only the observed misc-audio prefix is asserted here. The constructor
+// value argument (0) is pushed before slot138; slot138 itself takes no args.
+struct MiscAudio { char pad[0xF0]; OpaqueRefElement4 special; };
+class AudioManager
+{
+public:
+	virtual void p00(); virtual void p01(); virtual void p02(); virtual void p03(); virtual void p04();
+	virtual void p05(); virtual void p06(); virtual void p07(); virtual void p08(); virtual void p09();
+	virtual void p10(); virtual void p11(); virtual void p12(); virtual void p13(); virtual void p14();
+	virtual void p15(); virtual void p16(); virtual void p17(); virtual void p18(); virtual void p19();
+	virtual void p20(); virtual void p21(); virtual void p22(); virtual void p23(); virtual void p24();
+	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *ev);
+	virtual void p26(); virtual void p27(); virtual void p28(); virtual void p29(); virtual void p30();
+	virtual void p31(); virtual void p32(); virtual void p33(); virtual void p34(); virtual void p35();
+	virtual void p36(); virtual void p37(); virtual void p38(); virtual void p39(); virtual void p40();
+	virtual void p41(); virtual void p42(); virtual void p43(); virtual void p44(); virtual void p45();
+	virtual void p46(); virtual void p47(); virtual void p48(); virtual void p49(); virtual void p50();
+	virtual void p51(); virtual void p52(); virtual void p53(); virtual void p54(); virtual void p55();
+	virtual void p56(); virtual void p57(); virtual void p58(); virtual void p59(); virtual void p60();
+	virtual void p61(); virtual void p62(); virtual void p63(); virtual void p64(); virtual void p65();
+	virtual void p66(); virtual void p67(); virtual void p68(); virtual void p69(); virtual void p70();
+	virtual void p71(); virtual void p72(); virtual void p73(); virtual void p74(); virtual void p75();
+	virtual void p76(); virtual void p77();
+	virtual MiscAudio *slot138();
+};
+
+extern AudioManager *TheAudio;
+
+
+class ControlBar { public: const CommandButton* findCommandButton(const AsciiString&); };
+extern ControlBar* TheControlBar;
+// ZH CommandXlat.cpp::issueSpecialPowerCommand, BFME1 reference34f59164f6.
+// Native0042994D..00429CBB and WB00E78250 establish the three message arms
+// and chained-button vector. Target adds selection flash and a136B audio
+// event, includes position in object messages, and passes the template
+// pointer in voice info rather than ZH special-power enum. Native has no
+// ZH location-angle argument or shortcut-selection tail.
+int CommandTranslator::issueSpecialPowerCommand(const CommandButton* command,int commandType,Drawable* target,const Coord3D* pos,Object* ignoreSelObj) {
+ int msgType=0;
+ if(!command||!command->special)return msgType;
+ Drawable* sourceDraw=ignoreSelObj?ignoreSelObj->getDrawable():TheInGameUI->slot75();
+ ObjectID specificSource=ignoreSelObj?ignoreSelObj->m_id:OBJECTID_NONE;
+ if((command->m_options&7)&&target) {
+  if(!command->isValidObjectTarget(sourceDraw,target))return msgType;
+  msgType=0x412;
+  if(commandType==0) {
+   GameMessage* msg=MessageStreamSubsystem->createMessage(msgType);
+   msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(command->special->friend_getFinalOverride())->id);
+   msg->appendObjectIDArgument(target->m_object->m_id);
+   msg->appendIntegerArgument(command->m_options);
+   msg->appendObjectIDArgument(specificSource);
+   msg->appendLocationArgument(*pos);
+   target->rva0027541E(0,8,0,0);
+   BfmeAudioEventPrefix136 ev(TheAudio->slot138()->special,0);
+   TheAudio->addAudioEvent(&ev);
+   Rva004D92FE info;
+   info.m_04=target;
+   info.m_10=(int)command->special;
+   info.m_14=*pos;
+   pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(),(GameMessage::Type)msgType,(PickAndPlayInfo*)&info);
+  }
+ } else if((command->m_options&0x20)&&pos) {
+  msgType=0x411;
+  if(commandType==0) {
+   GameMessage* msg=MessageStreamSubsystem->createMessage(msgType);
+   msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(command->special->friend_getFinalOverride())->id);
+   msg->appendLocationArgument(*pos);
+   ObjectID targetID=(target&&target->m_object)?target->m_object->m_id:OBJECTID_NONE;
+   msg->appendObjectIDArgument(targetID);
+   msg->appendIntegerArgument(command->m_options);
+   msg->appendObjectIDArgument(specificSource);
+   if(command->start!=command->finish) {
+    for(unsigned int i=0;i<(unsigned int)(command->finish-command->start);++i) {
+     const CommandButton* cb=TheControlBar->findCommandButton(command->start[i]);
+     if(cb&&cb->command==0x18&&cb->special) {
+      msg=MessageStreamSubsystem->createMessage(msgType);
+      msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(cb->special->friend_getFinalOverride())->id);
+      msg->appendLocationArgument(*pos);
+      msg->appendObjectIDArgument(targetID);
+      msg->appendIntegerArgument(cb->m_options);
+      msg->appendObjectIDArgument(specificSource);
+     }
+    }
+   }
+   Rva004D92FE info;
+   info.m_04=target;
+   info.m_10=(int)command->special;
+   info.m_14=*pos;
+   pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(),(GameMessage::Type)msgType,(PickAndPlayInfo*)&info);
+  }
+ } else {
+  msgType=0x410;
+  if(commandType==0) {
+   GameMessage* msg=MessageStreamSubsystem->createMessage(msgType);
+   msg->appendIntegerArgument(static_cast<const SpecialPowerTemplate*>(command->special->friend_getFinalOverride())->id);
+   msg->appendIntegerArgument(command->m_options);
+   msg->appendObjectIDArgument(specificSource);
+   msg->appendObjectIDArgument(OBJECTID_NONE);
+   Rva004D92FE info;
+   info.m_04=target;
+   info.m_10=(int)command->special;
+   pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(),(GameMessage::Type)msgType,(PickAndPlayInfo*)&info);
+  }
  }
  return msgType;
 }
