@@ -106,6 +106,7 @@ class GlobalData;
 extern GlobalData *TheWritableGlobalData;
 struct TrackSystemGlobalView {
  char pad[0x10c]; int maxTerrainTracks;
+ int maxTankTrackEdges, maxTankTrackOpaqueEdges, maxTankTrackFadeDelay;
 };
 class Rva00084C05System {
 public:
@@ -113,6 +114,8 @@ public:
  VertexMaterialClass *material; ShaderClass shader;
  Rva00084206Track *used,*free;
  SceneClass *scene;
+ int maxTankTrackEdges, maxTankTrackOpaqueEdges, maxTankTrackFadeDelay;
+ void setDetail();
  void init(SceneClass *);
  void ReAcquireResources();
  Rva00084206Track *bind(Rva00084B18RenderObj*,float,const char*,const char*,const char*);
@@ -152,4 +155,20 @@ void Rva00084C05System::init(SceneClass *newScene) {
   if (free) free->prev = mod;
   free = mod;
  }
+}
+
+class Rva00084024 { public: void rva00084024(); };
+class Rva00083E5C { public: void rva00083E5C(); };
+// Donor setDetail: TerrainTracksRenderObjClassSystem.cpp at ba7ddda7e8f.
+// Complete native 00084055..00084096 and WB 008C2510 agree on the two
+// cleanup calls and global+110/+114/+118 -> system+1C/+20/+24 copies.
+// ReAcquireResources was the previous attempt's blocker; init now proves
+// that callee independently at 00083D54. The class name stays structural.
+void Rva00084C05System::setDetail() {
+ ((Rva00084024 *)this)->rva00084024();
+ ((Rva00083E5C *)this)->rva00083E5C();
+ maxTankTrackEdges = ((TrackSystemGlobalView *)TheWritableGlobalData)->maxTankTrackEdges;
+ maxTankTrackOpaqueEdges = ((TrackSystemGlobalView *)TheWritableGlobalData)->maxTankTrackOpaqueEdges;
+ maxTankTrackFadeDelay = ((TrackSystemGlobalView *)TheWritableGlobalData)->maxTankTrackFadeDelay;
+ ReAcquireResources();
 }
