@@ -9,14 +9,6 @@
 // No // cl: line (defaults match the frameless 3-byte shape; verified
 // `32c0c3` with zero relocs for `bool Name(void) { return false; }`).
 
-// ?Rva0020D7B9Get@@YA_NXZ @ 0x0020d7b9 (3B): returns false.
-// Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
-// no branch sources. Opaque address-derived name.
-bool Rva0020D7B9Get(void)
-{
-	return false;
-}
-
 // ?Rva005D1F42Get@@YA_NXZ @ 0x005d1f42 (3B): returns false.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
