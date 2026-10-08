@@ -523,11 +523,18 @@ public:
 	// three-argument object/object/source test distinct from the five-argument
 	// canEnterObject above; its name is not evidenced, so it keeps the address.
 	Bool rva000C4080(const Object *, const Object *, CommandSourceType);
-	Bool canGetHealedAt(const Object *, const Object *, CommandSourceType);	///< 0x0041BE93
-	Bool canGetRepairedAt(const Object *, const Object *, CommandSourceType);	///< 0x0041BBE4
 };
 
-extern BFMEActionManager *TheActionManager;
+// The shared singleton uses its defining GameClient.cpp type. These two
+// rowed predicates use the real ActionManager spelling; unrowed interface
+// methods above retain their existing borrowed view until recovered.
+class ActionManager
+{
+public:
+	Bool canGetHealedAt(const Object *, const Object *, CommandSourceType);
+	Bool canGetRepairedAt(const Object *, const Object *, CommandSourceType);
+};
+extern ActionManager *TheActionManager;
 
 // ZH's AIUpdateInterface derives from AICommandInterface at +0x20. The two
 // order issuers here are matched under address names: 0x0026C347 builds
@@ -1292,7 +1299,7 @@ protected:
 // value is one more step; docs/shape_levers.md, "Scratch registers rotate").
 void AIUpdateInterface::privateMoveToObject(Object *obj, CommandSourceType commandSource)
 {
-	if (!TheActionManager->rva000C4080(getObject(), obj, commandSource))
+	if (!reinterpret_cast<BFMEActionManager *>(TheActionManager)->rva000C4080(getObject(), obj, commandSource))
 		return;
 	m_stateMachine->clear();
 	m_stateMachine->setGoalObject(obj);
@@ -1997,7 +2004,7 @@ void AIUpdateInterface::privateEnter(Object *object, CommandSourceType commandSo
 	if (!me->isMobile())
 		return;
 
-	if (TheActionManager->canEnterObject(me, object, commandSource, DONT_CHECK_CAPACITY, 0, 0))
+	if (reinterpret_cast<BFMEActionManager *>(TheActionManager)->canEnterObject(me, object, commandSource, DONT_CHECK_CAPACITY, 0, 0))
 	{
 		m_stateMachine->clear();
 		m_stateMachine->setGoalObject(object);

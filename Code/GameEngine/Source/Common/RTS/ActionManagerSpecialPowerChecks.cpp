@@ -24,6 +24,10 @@ enum CellShroudStatus { ACTION_OBJECT_SHROUD_FOGGED = 3 };
 
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 
+enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2, OBJECT_STATUS_SOLD = 0x13 };
+
+class Thing { public: bool isAboveTerrain() const; };
+
 class Object;
 class Player;
 
@@ -70,9 +74,10 @@ struct Coord3D
 	float z;
 };
 
-class Object
+class Object : public Thing
 {
 public:
+	bool testStatus(ObjectStatusTypes) const;
 	Relationship getRelationship(const Object *) const;
 	Player *getControllingPlayer() const;	// 0x0028AFA9
 	CellShroudStatus getShroudStatusForPlayer(int playerIndex) const;
@@ -135,6 +140,8 @@ public:
 class ActionManager
 {
 public:
+	bool canGetHealedAt(const Object *, const Object *, CommandSourceType);
+	bool canGetRepairedAt(const Object *, const Object *, CommandSourceType);
 	bool canMakeObjectDefector(const Object *, const Object *, CommandSourceType);
 	bool canConvertObjectToCarBomb(const Object *, const Object *, CommandSourceType);
 	bool validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
@@ -238,3 +245,83 @@ bool ActionManager::canMakeObjectDefector(
 		return false;
 	return true;
 }
+
+class ActionRepairBodyView
+{
+public:
+	virtual void slot0() = 0;
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual float getHealth() const = 0;
+	virtual void slot5() = 0;
+	virtual float getMaxHealth() const = 0;
+};
+
+// BFME1 ba7ddda7 canGetRepairedAt is the semantic guide. Native 41BBE4
+// omits the reference's isMobile and KINDOF_VEHICLE checks. Template
+// KINDOF_AIRCRAFT/FS_AIRFIELD/REPAIR_PAD tests occupy +109/10C/10B;
+// Object status and body fields are +438 and +254. No complete layouts
+// or target KindOf enum identities beyond the reference relationship
+// are asserted by these borrowed accesses.
+bool ActionManager::canGetRepairedAt(
+	const Object *obj, const Object *dest, CommandSourceType source)
+{
+	if (!obj || !dest)
+		return false;
+	if (obj->getRelationship(dest) != ALLIES)
+		return false;
+	if (*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(obj) + 0x438) & 1)
+		return false;
+	if (obj->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION) ||
+		dest->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION) || dest->testStatus(OBJECT_STATUS_SOLD))
+		return false;
+	const unsigned char *objTemplate = *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(obj) + 4);
+	const unsigned char *destTemplate;
+	if (objTemplate[0x109] & 0x10) {
+		if (!obj->isAboveTerrain())
+			return false;
+		destTemplate = *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(dest) + 4);
+		if (!(destTemplate[0x10c] & 8))
+			return false;
+	} else {
+		destTemplate = *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(dest) + 4);
+		if (!(destTemplate[0x10b] & 0x80))
+			return false;
+	}
+	ActionRepairBodyView *body = *reinterpret_cast<ActionRepairBodyView *const *>(reinterpret_cast<const char *>(obj) + 0x254);
+	if (body->getHealth() == body->getMaxHealth())
+		return false;
+	if (isObjectShroudedForAction(obj, dest, source))
+		return false;
+	return true;
+}
+
+// BFME1 ba7ddda7 canGetHealedAt; target native status predicate calls,
+// template bits +109 bit0/+10C bit0 and body field +254.
+bool ActionManager::canGetHealedAt(
+	const Object *obj, const Object *dest, CommandSourceType source)
+{
+	if (!obj || !dest)
+		return false;
+	if (obj->getRelationship(dest) != ALLIES)
+		return false;
+	if (*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(dest) + 0x438) & 1)
+		return false;
+	if (obj->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION) ||
+		dest->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION) || dest->testStatus(OBJECT_STATUS_SOLD))
+		return false;
+	const unsigned char *objTemplate = *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(obj) + 4);
+	if (!(objTemplate[0x109] & 1))
+		return false;
+	const unsigned char *destTemplate = *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(dest) + 4);
+	if (!(destTemplate[0x10c] & 1))
+		return false;
+	if (isObjectShroudedForAction(obj, dest, source))
+		return false;
+	ActionRepairBodyView *body = *reinterpret_cast<ActionRepairBodyView *const *>(reinterpret_cast<const char *>(obj) + 0x254);
+	if (body && body->getHealth() == body->getMaxHealth())
+		return false;
+	return true;
+}
+
