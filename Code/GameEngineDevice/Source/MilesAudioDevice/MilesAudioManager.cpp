@@ -543,6 +543,11 @@ extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_occlusion(void
 extern "C" __declspec(dllimport) int __stdcall AIL_3D_sample_playback_rate(void *sample);
 typedef void (__stdcall *MilesSampleCallback)(void *sample);
 extern "C" __declspec(dllimport) void __stdcall AIL_init_sample(void *sample);
+extern "C" __declspec(dllimport) int __stdcall AIL_set_3D_sample_info(void *sample3D, const MilesSoundInfo *info);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_type(void *sample, int format, unsigned int flags);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_address(void *sample, const void *start, unsigned int len);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_playback_rate(void *sample, int rate);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_loop_count(void *sample, int loops);
 extern "C" __declspec(dllimport) MilesSampleCallback __stdcall AIL_register_EOS_callback(void *sample, MilesSampleCallback callback);
 extern "C" __declspec(dllimport) int __stdcall AIL_set_sample_file(void *sample, const void *fileImage, int block);
 extern "C" __declspec(dllimport) void __stdcall AIL_start_sample(void *sample);
@@ -867,6 +872,7 @@ public:
     BfmeEventPositionView Rva0005160FGet(AudioEventRTS *event, bool &valid);
     bool playSample(PlayingAudioRef &playing);
     bool playSample3D(PlayingAudioRef &playing);
+    bool playSample2DOr3DUsingCallbackBuffers(PlayingAudioRef &playing, void *sample, void *sample3D);
 
     void rva000564C0(unsigned int sample);
     void rva0005653C(unsigned int sample3D);
@@ -2870,4 +2876,113 @@ void MilesAudioManager::processPushMusicRequest(Rva00051107AudioRequest *req)
         }
     }
     playAndStoreStream(playing, 0);
+}
+
+// WorldBuilder twin MilesAudioManager::playSample2DOr3DUsingCallbackBuffers
+// (0x7A5710): binds a free loop buffer to the sound and feeds Miles from it.
+bool MilesAudioManager::playSample2DOr3DUsingCallbackBuffers(PlayingAudioRef &playing, void *sample, void *sample3D)
+{
+    bool is3D = sample == 0;
+    int i;
+    for (i = 0; i < m_numLoopBuffers; ++i) {
+        if (!m_loopBuffers[i].m_isValid && ((Rva0005F279Elem *)&m_loopBuffers[i])->rva00051038())
+            break;
+    }
+    if (i == m_numLoopBuffers) {
+        if (is3D)
+            ((Rva000514EB *)this)->rva000514FB();
+        else
+            ((Rva000514EB *)this)->rva000514EB();
+        return false;
+    }
+    playing->m_handle = i;
+    if (is3D)
+        playing->m_type = 3;
+    else
+        playing->m_type = 1;
+    LoopBuffer *loop = &m_loopBuffers[i];
+    if (loop->m_at10)
+        cleanUpLoopBuffer(loop);
+    bool valid = false;
+    BfmeEventPositionView pos;
+    if (is3D) {
+        pos = Rva0005160FGet(playing->m_event.get(), valid);
+        if (!valid)
+            return false;
+    } else {
+        AIL_init_sample(sample);
+    }
+    loop->m_is3D = is3D;
+    loop->m_3DSample = sample3D;
+    loop->m_sample = sample;
+    loop->m_at01 = false;
+    loop->m_at44 = false;
+    (BfmePoolRef10 &)loop->m_source = playing->m_event;
+    loop->m_endOfLastCopy = 0;
+    loop->m_playingAudio = playing.get();
+    loop->m_at10 = true;
+    if (!playing->m_file.isOpen())
+        return false;
+    const MilesSoundInfo *soundInfo = playing->m_file.getMilesSoundInfo();
+    if (is3D && soundInfo->m_channels != 1) {
+        playing->m_file.rva000A8A6C();
+        return false;
+    }
+    loop->m_at3C = soundInfo->m_bits;
+    loop->m_at38 = soundInfo->m_rate;
+    loop->m_at40 = soundInfo->m_channels;
+    putFileIntoLoopBuffer(loop, (const AudioFileContainer &)playing->m_file, 2);
+    playing->m_file.rva000A8A6C();
+    loop->m_playBufferSize = m_audioSettings->m_at8C * loop->m_at40 * loop->m_at38 * loop->m_at3C / 8000;
+    if ((int)loop->m_playBufferSize < 0x8400)
+        loop->m_playBufferSize = 0x8400;
+    unsigned int rem = loop->m_playBufferSize % 4;
+    if (rem)
+        loop->m_playBufferSize += 4 - rem;
+    loop->m_at18 = (unsigned char *)new unsigned int[loop->m_playBufferSize / 4];
+    transferBytesToPlayBuffer(*loop, loop->m_playBufferSize);
+    MilesSoundInfo info = *soundInfo;
+    info.m_dataPtr = loop->m_at18;
+    info.m_dataLen = loop->m_playBufferSize;
+    if (is3D) {
+        AIL_set_3D_sample_info(sample3D, &info);
+        AIL_register_3D_EOS_callback(sample3D, 0);
+        prep3DSample(playing, &pos);
+        AIL_set_3D_sample_loop_count(sample3D, 0);
+    } else {
+        int format;
+        if (info.m_bits == 8) {
+            if (info.m_channels == 1)
+                format = 0;
+            else if (info.m_channels == 2)
+                format = 2;
+            else
+                return false;
+        } else if (info.m_bits == 16) {
+            if (info.m_channels == 1)
+                format = 1;
+            else if (info.m_channels == 2)
+                format = 3;
+            else
+                return false;
+        } else {
+            return false;
+        }
+        AIL_set_sample_type(sample, format, 0);
+        AIL_set_sample_address(sample, info.m_dataPtr, info.m_dataLen);
+        AIL_set_sample_playback_rate(sample, info.m_rate);
+        AIL_register_EOS_callback(sample, 0);
+        prepSample(&playing);
+        AIL_set_sample_loop_count(sample, 0);
+    }
+    rva000535A6(playing);
+    pauseResumeSound(playing);
+    if (loop->m_at44) {
+        if (is3D)
+            AIL_start_3D_sample(sample3D);
+        else
+            AIL_start_sample(sample);
+    }
+    loop->m_isValid = true;
+    return true;
 }
