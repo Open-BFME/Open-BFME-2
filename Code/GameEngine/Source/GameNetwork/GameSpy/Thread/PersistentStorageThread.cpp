@@ -157,6 +157,7 @@ public:
     virtual void rva005550A0(XferStub *);
     virtual void rva00555109(XferStub *);
     virtual void rva00554AF2(const Rva00553E47StatsCore *);
+    friend class Rva00559D0CRankWeights;
 private:
     StatsShortMap m_maps04_0;
     StatsShortMap m_maps04_1;
@@ -1873,4 +1874,34 @@ void Rva005BD910Submit(Rva00385333 *stats)
 	req.password = g_Rva0107301CEmptyString;
 	req.player = player;
 	TheGameSpyPSMessageQueue->addRequest(req);
+}
+
+// Zero Hour's CalculateRank as a member of BFME2's two 0x34-byte rank weight
+// tables (VA 0x00E05FCC used in game mode 1, 0x00E06000 in mode 0, both by
+// HandlePersistentStorageResponses 0x005BDAC1): wins (the +0x04 map) and
+// losses (+0x10) are summed as unsigned words, scaled by the +0x2C and +0x30
+// weights and floored at zero. Native [559D0C,559DA0),148B.
+class Rva00559D0CRankWeights
+{
+public:
+	Int rva00559D0C(const Rva00553E47StatsCore *stats) const;
+private:
+	unsigned char m_00[0x2C];
+	float m_winWeight;
+	float m_lossWeight;
+};
+Int Rva00559D0CRankWeights::rva00559D0C(const Rva00553E47StatsCore *stats) const
+{
+	if (stats->m_id == 0)
+		return 0;
+	Int wins = 0;
+	StatsShortMap::const_iterator it;
+	for (it = stats->m_maps04_0.begin(); it != stats->m_maps04_0.end(); ++it)
+		wins += (unsigned short)it->second;
+	Int winPoints = (Int)((float)wins * m_winWeight);
+	Int losses = 0;
+	for (it = stats->m_maps04_1.begin(); it != stats->m_maps04_1.end(); ++it)
+		losses += (unsigned short)it->second;
+	Int rank = (Int)((float)losses * m_lossWeight + (float)winPoints);
+	return _STL::max(rank, 0);
 }
