@@ -42,7 +42,7 @@ class BannerUI
 	float m_values3C[4];
 public:
 	void SetBannerSlotXOffset(unsigned int index, float value);
-	void rva00216621(void *value);
+	void RemoveBanner(void *value);
 };
 
 void BannerUI::SetBannerSlotXOffset(unsigned int index, float value)
@@ -58,7 +58,7 @@ void BannerUI::SetBannerSlotXOffset(unsigned int index, float value)
 // The target's literal at 0x00BE58A0 is "DeleteBanner". It uses the same
 // owner field at +0x24 and adjacent container view at +0x28 as SetBannerSlotXOffset.
 // The record identity and the meaning of the +0x2C endpoint remain unresolved.
-void BannerUI::rva00216621(void *value)
+void BannerUI::RemoveBanner(void *value)
 {
 	BfmePod28 *end = m_itemsEnd;
 	Rva0021618ARecord *newEnd = _STL::uninitialized_fill_n(

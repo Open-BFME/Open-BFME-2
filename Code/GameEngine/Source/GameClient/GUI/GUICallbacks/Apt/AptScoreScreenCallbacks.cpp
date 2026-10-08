@@ -349,7 +349,7 @@ public:
 	// "NumberFormatter" by index.
 	void Externs(int query, char *value, bool set);
 	// Retail 0x0051DA24: fills the persistent-unit list box.
-	bool rva0051DA24();
+	bool PopulatePersistentUnitsListbox();
 
 private:
 	int m_state; // +0x27C
@@ -560,7 +560,7 @@ AptScoreScreen::AptScoreScreen(void *context)
 // Each living-world army's persistent units with a known template become
 // a row (name, button image, region, four counters, the unit as item
 // data) of the +0x2A0 list box, sorted first.
-bool AptScoreScreen::rva0051DA24()
+bool AptScoreScreen::PopulatePersistentUnitsListbox()
 {
 	if (!TheGameLogic || !TheThingFactory || !m_units)
 		return false;

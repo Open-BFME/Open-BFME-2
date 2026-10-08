@@ -81,7 +81,7 @@ class ControlBar
 public:
 	void updateConstructionTextDisplay(Object *obj);
 	void rva0053E4B1();
-	void rva0053EB81();
+	void updateContextContestedStructureInventory();
 	void rva0053E783(void *object, int flag);
 	void switchToContext(int context, void *object);
 	void rva0031D230();
@@ -247,7 +247,7 @@ void ControlBar::rva0053E4B1()
 // used by matched sibling 0x0053E4B1. The selected object at
 // owner->object+0x250 is only an ABI view; its class and virtual method
 // meanings remain unresolved.
-void ControlBar::rva0053EB81()
+void ControlBar::updateContextContestedStructureInventory()
 {
 	Rva0053E4B1Owner *owner = m_6c;
 	Object *object = owner->m_fc;

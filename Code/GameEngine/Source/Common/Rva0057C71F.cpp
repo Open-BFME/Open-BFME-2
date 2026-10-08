@@ -87,7 +87,7 @@ class AptMapPreview
 	Rva004FCA5AOuter *m_68;
 public:
 	void *GetStartPositionInfoForSlot(int slot);
-	int rva0057C6C7();
+	int GetMaxNumPlayers();
 };
 void *AptMapPreview::GetStartPositionInfoForSlot(int slot)
 {
@@ -122,11 +122,11 @@ void *AptMapPreview::GetStartPositionInfoForSlot(int slot)
 	return 0;
 }
 
-// ?rva0057C6C7@AptMapPreview@@QAEHXZ @0x0057C6C7 88B: the start-position
+// ?GetMaxNumPlayers@AptMapPreview@@QAEHXZ @0x0057C6C7 88B: the start-position
 // count the slot lookup above indexes: the living-world start-region set's
 // +0x20 in mode 1, else the cached map's +0x20 (the bound the lookup
 // checks). Caller 0x00440C66.
-int AptMapPreview::rva0057C6C7()
+int AptMapPreview::GetMaxNumPlayers()
 {
 	int mode = m_1c;
 	GameInfo *info = (GameInfo *)m_18->rva0043DA65();

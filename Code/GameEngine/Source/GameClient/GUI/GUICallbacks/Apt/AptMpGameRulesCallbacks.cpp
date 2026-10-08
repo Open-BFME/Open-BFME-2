@@ -162,7 +162,7 @@ public:
 	void rva0057ED2B();
 
 	void rva0057F0AA();
-    int rva0057E66A(int rule);
+    int GetGadgetValue(int rule);
     bool rva0057E707(int message, GameWindow *window, int unused);
 
 private:
@@ -293,7 +293,7 @@ void AptMpGameRules::rva0057F0AA()
 // representations without asserting a new ICF identity for GameWindow find.
 // Retail 0x0057E66A: combo-box item data or a check-box value, and -1
 // for a missing widget, unsupported style, or absent selection.
-int AptMpGameRules::rva0057E66A(int rule)
+int AptMpGameRules::GetGadgetValue(int rule)
 {
 	GameWindow *window = static_cast<GameWindow **>(m_ruleWindows.m_begin)[rule];
 	if (window)
@@ -325,7 +325,7 @@ bool AptMpGameRules::rva0057E707(int message, GameWindow *window, int unused)
     switch (message) {
     case 0x4008:
     case 0x4026:
-        reinterpret_cast<int *>(m_rules)[rule] = rva0057E66A(rule);
+        reinterpret_cast<int *>(m_rules)[rule] = GetGadgetValue(rule);
         ruleChanged(rule, false);
         break;
     }

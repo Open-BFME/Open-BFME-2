@@ -187,7 +187,7 @@ public:
 	// InitGadgets is empty; it folded into the shared three-argument empty
 	// body 0x000D1407 and is pinned by that address.
 	void rva000D1407(const char *name, void *argument, GameWindow *window);
-	void rva00512948();
+	void DisplayVictoryLevel();
 };
 
 // Retail 0x00512AC8, 442 bytes: the screen's constructor. The first one
@@ -221,14 +221,14 @@ AptCampaignReview::AptCampaignReview(void *context)
 		AsciiString name("playerSideType");
 		m_externHandlers.AddExternHandler(name, 1, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
-	rva00512948();
+	DisplayVictoryLevel();
 	((Rva00224BC9Owner *)g_bfmeAptWindowManager)->check();
 }
 
 // Retail 0x00512948, 356 bytes: "APT:CmpgnRevResult" names the campaign
 // result, total victory, victory or survived, and is empty without a living
 // world or for any other result.
-void AptCampaignReview::rva00512948()
+void AptCampaignReview::DisplayVictoryLevel()
 {
 	if (TheLivingWorldLogic == 0)
 	{

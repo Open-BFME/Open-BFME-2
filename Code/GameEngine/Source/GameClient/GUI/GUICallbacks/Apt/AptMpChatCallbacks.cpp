@@ -158,7 +158,7 @@ public:
 	// Bound as "MpChat::Initialized" and "MpClans::Initialized": one body
 	// or two folded, so it keeps its address.
 	void rva0057FDBF(int query, char *result, bool skip);
-	void rva0057FFB9();
+	void OnInit();
 
 private:
 	unsigned char m_pad00[0x04];
@@ -212,7 +212,7 @@ void AptMpChat::InitGadgets(const char *name, void *argument, GameWindow *window
 // binding in the shared slot (sub esp,0x2C), which needs the trailing scope.
 // The handlers are bound as eight-byte multiple-inheritance member pointers.
 #pragma pointers_to_members(full_generality, multiple_inheritance)
-void AptMpChat::rva0057FFB9()
+void AptMpChat::OnInit()
 {
 	g_Va00E06394 = (int)this;
 	if (m_entry)

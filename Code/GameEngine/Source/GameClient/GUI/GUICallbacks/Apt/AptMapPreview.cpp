@@ -594,18 +594,18 @@ class AptMapPreview : public Rva0086E350Listener
 {
 public:
 	AptMapPreview(Rva0043DA65 *game);
-	Bool rva0057CB7D(Int index);	// may a player start at this index
+	Bool IsValidStartPosition(Int index);	// may a player start at this index
 	virtual void v04(void *a, void *b);
 	virtual void v0C(void *a, void *b, void *c);
 	Bool AllowsStartInRegion(Int region);
 	void SelectCampaign(Int campaign);
 	void UpdateStrategicScenarioDesc();	// 0x0057C99E
-	Int rva0057C621();
+	Int GetCurrentStrategicScenario();
 	void rva0057C5B9(const Coord2D *pos, const Coord2D *size, void *unused3, void *unused4);
 	void GameMapType(int query, char *result, bool skip);
 	void MapGadgetInit(const char *name, void *argument, GameWindow *window);
 	void rva0057E45C();
-	void rva0057D4F3();	// fills the strategic scenario combo box
+	void PopulateStrategicScenario();	// fills the strategic scenario combo box
 	void rva0057E058();	// refreshes the preview
 	void *GetStrategicScenarioComboBoxSelectedCampaign();	// 0x0057C649
 	MapMetaData *rva0057D922(const AsciiString &map);	// looks the map up
@@ -615,11 +615,11 @@ public:
 	void bfmeSetMapDescription(MapMetaData *map);	// 0x0057C892
 	void rva0057D10F(MapMetaData *map);	// the map picture
 	void GetRegionsInOwnershipSet(Int region, _STL::vector<Rva0020E89C *> *regions);
-	void rva0057D746(Rva0020E89C *previous, Rva0020E89C *current);
+	void OnMouseoverRegionChanged_internal(Rva0020E89C *previous, Rva0020E89C *current);
 	void rva0057D85D(Rva0020E89C *region);
 	void rva0057D5E5();
-	void rva0057DA21(MapMetaData *map);
-	void rva0057DB97();
+	void UpdateMapStartSpots(MapMetaData *map);
+	void UpdateStrategicStartSpots();
 
 private:
 	Rva0057C50C m_field04;	// +0x04, handed to the campaign owner
@@ -675,11 +675,11 @@ void AptMapPreview::SelectCampaign(Int campaign)
 	UpdateStrategicScenarioDesc();
 }
 
-// AptMapPreview::rva0057C621, retail 0x0057C621: the selected campaign's
+// AptMapPreview::GetCurrentStrategicScenario, retail 0x0057C621: the selected campaign's
 // index in the campaign manager, -1 without the strategic scenario combo
 // box (+0x50, as GetStrategicScenarioComboBoxSelectedCampaign 0x0057C649
 // reads it) or a selected campaign.
-Int AptMapPreview::rva0057C621()
+Int AptMapPreview::GetCurrentStrategicScenario()
 {
 	if (m_strategicScenarioComboBox != 0 && m_livingWorldWindow != 0 && m_livingWorldWindow->m_info != 0)
 		return TheCampaignManager->rva003B8BC8(m_livingWorldWindow->m_info);
@@ -741,11 +741,11 @@ void AptMapPreview::GameMapType(int query, char *result, bool skip)
 	}
 }
 
-// Retail 0x0057D4F3, 242 bytes. Name unknown. Refills the strategic
+// Retail 0x0057D4F3, 242 bytes. Name from WorldBuilder. Refills the strategic
 // scenario combo box (+0x50) with the campaign manager's labelled
 // campaigns, each entry carrying the campaign's manager index, selects
 // the first and refreshes the description.
-void AptMapPreview::rva0057D4F3()
+void AptMapPreview::PopulateStrategicScenario()
 {
 	if (m_strategicScenarioComboBox == 0)
 		return;
@@ -821,11 +821,11 @@ void AptMapPreview::GetRegionsInOwnershipSet(Int region, _STL::vector<Rva0020E89
 		m_livingWorldWindow->m_info->m_startRegions->rva004FD699(region, regions);
 }
 
-// Retail 0x0057D746, 279 bytes. Name unknown. Moves the region highlight:
+// Retail 0x0057D746, 279 bytes. Name from WorldBuilder. Moves the region highlight:
 // unmarks the previous region's group, marks the current one's when the
 // campaign allows a start there, and lists the current region's name and
 // description in StrategicTerritoryDescription (+0x58).
-void AptMapPreview::rva0057D746(Rva0020E89C *previous, Rva0020E89C *current)
+void AptMapPreview::OnMouseoverRegionChanged_internal(Rva0020E89C *previous, Rva0020E89C *current)
 {
 	if (m_strategicTerritoryDesc != 0)
 		GadgetListBoxReset(m_strategicTerritoryDesc);
@@ -878,7 +878,7 @@ void AptMapPreview::rva0057D85D(Rva0020E89C *region)
 		}
 	}
 	m_regionPicked.invoke((int)picked);
-	rva0057D746(0, picked);
+	OnMouseoverRegionChanged_internal(0, picked);
 }
 
 // Retail 0x0057E058, 499 bytes. Name unknown. Refreshes the preview from
@@ -902,7 +902,7 @@ void AptMapPreview::rva0057E058()
 		{
 			int campaign = info->m_campaign;
 			int selected = (int)GetStrategicScenarioComboBoxSelectedCampaign();
-			int index = rva0057C621();
+			int index = GetCurrentStrategicScenario();
 			if (info->amIHost())
 			{
 				if (info->m_c8 == 0)
@@ -977,7 +977,7 @@ void AptMapPreview::MapGadgetInit(const char *name, void *argument, GameWindow *
 	else if (strcmp(name, "StrategicScenarioType") == 0)
 	{
 		m_strategicScenarioComboBox = window;
-		rva0057D4F3();
+		PopulateStrategicScenario();
 	}
 	else if (strcmp(name, "StrategicScenarioDescription") == 0)
 	{
@@ -1058,11 +1058,11 @@ void AptMapPreview::rva0057E45C()
 	}
 }
 
-// AptMapPreview::rva0057DA21, retail 0x0057DA21 (374 bytes). Name unknown.
+// AptMapPreview::UpdateMapStartSpots, retail 0x0057DA21 (374 bytes). Name from WorldBuilder.
 // The preview's start spot pass, ZH positionStartSpots' shape: a real map
 // places a button on each Player_%d_Start waypoint (multiplayer maps, game
 // mode 3) and blanks the rest; no map or the placeholder map blanks all.
-void AptMapPreview::rva0057DA21(MapMetaData *map)
+void AptMapPreview::UpdateMapStartSpots(MapMetaData *map)
 {
 	if (map != 0 && map != m_defaultMap)
 	{
@@ -1172,15 +1172,15 @@ void AptMapPreview::rva0057DDAE(MapMetaData *map)
 			}
 		}
 	}
-	rva0057DA21(map);
+	UpdateMapStartSpots(map);
 }
 
-// AptMapPreview::rva0057DB97, retail 0x0057DB97 (535 bytes). Name unknown.
+// AptMapPreview::UpdateStrategicStartSpots, retail 0x0057DB97 (535 bytes). Name from WorldBuilder.
 // Strategic mode: hands each player's start region, and the regions the
 // start set groups with it, to that player's slot; every other region
 // loses its holder (and, when start-eligible, goes back to the +0x268
 // object's +0x38 list). Sole caller 0x0057DFFB.
-void AptMapPreview::rva0057DB97()
+void AptMapPreview::UpdateStrategicStartSpots()
 {
 	if (m_mode != 1)
 		return;
@@ -1357,7 +1357,7 @@ AptMapPreview::AptMapPreview(Rva0043DA65 *game)
 // in b to the event's region.
 void AptMapPreview::v04(void *a, void *b)
 {
-	rva0057D746((Rva0020E89C *)b, ((Rva0057D8F5Event *)a)->m_region);
+	OnMouseoverRegionChanged_internal((Rva0020E89C *)b, ((Rva0057D8F5Event *)a)->m_region);
 }
 
 // Listener slot 3, retail 0x0057D908: a region pick when b names a region
@@ -1368,11 +1368,11 @@ void AptMapPreview::v0C(void *a, void *b, void *c)
 		rva0057D85D((Rva0020E89C *)b);
 }
 
-// Retail 0x0057CB7D, 152 bytes. Name unknown. Whether the index is a usable
+// Retail 0x0057CB7D, 152 bytes. Name from WorldBuilder. Whether the index is a usable
 // start position: below the cached map's player count (at most 8) in open
 // play, or a living world region the campaign allows a start in and whose
 // +0x1A2 flag is set in strategic mode.
-Bool AptMapPreview::rva0057CB7D(Int index)
+Bool AptMapPreview::IsValidStartPosition(Int index)
 {
 	GameInfo *info = (GameInfo *)m_18->rva0043DA65();
 	if (info == 0)

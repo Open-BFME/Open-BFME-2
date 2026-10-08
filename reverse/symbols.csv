@@ -15846,7 +15846,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0035C95F@Rva0035C95FView@@QBEPBURva002BFF5AData@@XZ,0x0035C95F,callee of ?rva002BFF5A@Rva002BFF5A@@QAEPAURva002BFF5AEntry@@H@Z
 ?rva002EF3EE@Rva002EF3EEView@@QAE_NPAURva0046E6EAObject@@PBURva0046E6EACoord@@PAU3@_N@Z,0x002EF3EE,callee of ?rva0046E6EA@Rva0046E6EA@@QAE_NPAURva0046E6EAObject@@PBURva0046E6EACoord@@PAU3@_N@Z
 ?rva0046B05B@Rva0046E6EA@@QAEXPAURva0046E6EAObject@@PBURva0046E6EACoord@@PAU3@@Z,0x0046B05B,callee of ?rva0046E6EA@Rva0046E6EA@@QAE_NPAURva0046E6EAObject@@PBURva0046E6EACoord@@PAU3@_N@Z
-?rva0057E66A@AptMpGameRules@@QAEHH@Z,0x0057E66A,callee of ?rva0057E707@AptMpGameRules@@QAE_NHPAVGameWindow@@H@Z
 ?ChangeCellToObjectFlammability@FireLogicSystem@@QAEXHHPBVThingTemplate@@@Z,0x00285F43,callee of ?rva00286373@FireLogicSystem@@QAEXHPBUCoord3D@@PBVThingTemplate@@@Z
 ?rva002ED236@Pathfinder@@QAE?AW4PathfindLayerEnum@@PAVObject@@URva002ED236Pos@@@Z,0x002ED236,callee of ?getLayerForDestination@TerrainLogic@@QAE?AW4PathfindLayerEnum@@PAVObject@@PBUCoord3D@@@Z
 ?rva00359E93@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z,0x00359E93,callee of ?rva0035A238@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z
