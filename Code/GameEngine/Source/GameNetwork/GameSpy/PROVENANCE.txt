@@ -1,21 +1,14 @@
-Open-BFME-2 GameSpy source provenance
-=====================================
+Open-BFME-2 GameSpy SDK provenance — as compiled into game.dat (BFME 2, 1.06)
+==============================================================================
 
-The record below is mirrored verbatim from Open-BFME-1 commit
-9f4139765ead6d02b8a04bbf167b59f1186a964e. Its historical measurements and
-lotrbfme.exe addresses describe BFME 1, not BFME 2. Open-BFME-2's
-docs/matching.md records the owner's confirmation on 2026-08-29 that the
-permission extends to this project, including Chat and Peer.
-
-The initial BFME 2 source is chat/chatCrypt.c, a clean C reconstruction
-carried by that reference commit, rather than pristine 2004 vendor text.
-Its placements are independently compiled and byte-verified against game.dat;
-reverse/functions.csv records only those verified BFME 2 bodies.
-
---- Mirrored Open-BFME-1 provenance record ---
-
-GameSpy SDK (2004 vintage), as compiled into lotrbfme.exe
-=========================================================
+This record describes BFME 2's image (game.dat 1.06, imagebase 0x400000;
+addresses below are RVAs unless marked VA). Until 2026-10-08 it was a verbatim
+mirror of Open-BFME-1's record (commit 9f4139765ead6d02b8a04bbf167b59f1186a964e)
+and quoted lotrbfme.exe addresses and BFME 1 measurements as if they were this
+image's. The owner's permission statement is kept word for word below; every
+measurement is now this image's. chat/PROVENANCE.txt and peer/PROVENANCE.txt
+describe those two directories, which are reconstructions on a different
+footing from the rest.
 
 *** PERMISSION HELD BY THE PROJECT OWNER — SEE BELOW BEFORE JUDGING THIS TREE ***
 
@@ -25,47 +18,119 @@ from these files or from the carrier they came through, which is why an agent
 reading only the tree will conclude the licence is unestablished and should not
 act on that conclusion.
 
-The evidence below is kept exactly as it was measured, because it remains true
-and useful: it records what the sources themselves do and do not say, so that a
-future reader can tell the difference between "no grant is written in the file"
-and "no permission exists". The first is the case here; the second is not.
-
 Scope, asked and answered (2026-08-18). The owner was asked directly whether the
 permission covers the 2007 GameSpy SDK, specifically the Chat and Peer modules,
-and answered that it does. So extending this lane — adding TUs, adding rows,
-vendoring Chat/Peer — is permitted, and does not need to be re-litigated by each
-agent that reads the evidence below and reaches the obvious conclusion from the
-files alone. That conclusion is correct about the FILES and wrong about the
-PROJECT, which is the whole reason this paragraph exists.
+and answered that it does. On 2026-08-29 the owner confirmed that the grant
+extends to this project, Open-BFME-2, Chat and Peer included (docs/matching.md,
+"GameSpy SDK (Chat + Peer included) — permitted"). So extending this lane —
+adding TUs, adding rows, vendoring Chat/Peer — is permitted, and does not need
+to be re-litigated by each agent that reads the evidence below and reaches the
+obvious conclusion from the files alone. That conclusion is correct about the
+FILES and wrong about the PROJECT, which is the whole reason this paragraph
+exists.
 
 Two limits on the paragraph, so it is not read as more than it is. It records
 what the owner stated, not a licence document: no grant text exists in the
 sources, and nothing here creates one. And it covers the GameSpy SDK only —
-other third-party code in this repository is governed by its own record, and
-docs/matching.md still refuses nbench/BYTEmark on the merits.
+other third-party code in this repository is governed by its own record.
 
-What is landed here
--------------------
-Measured at commit af52c2d6f (2026-08-17). These figures move as work lands,
-so re-derive rather than quote:
+Which SDK this is: a later upstream snapshot than BFME 1's, not "2004 vintage"
+------------------------------------------------------------------------------
+Dated by string fences and one code shape, measured in game.dat on 2026-10-08.
+The per-module changelog.txt files shipped with the 2007/2010 public SDKs
+date every feature, so a string retail has or lacks bounds the snapshot:
 
-    483 rows    70,674 bytes    35 source TUs carrying `vendored=gamespy-2004`
-    36 .c and 38 .h files vendored under this directory
+    has   nick-check table `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef...[]\`_^{|}-`
+          at 0x008E60A0                 -> Chat >= 1.11.19 / Peer >= 2.02.22
+                                           ("SDK side nickname checking",
+                                           10-15-2004)
+    has   `CRYPT des %d %s` 0x008E6334  -> Chat >= 1.11.17 (09-15-2004)
+    has   `\cdkeyenc\` 0x008F05A4       -> GP >= 1.09.17 (06-24-2004)
+    lacks `\partnerid\`                 -> GP <  1.09.45 (04-12-2006)
+    lacks `\sdkrevision\`, `natneg%d.gamespy.com`, any `gsi*` / `GSI_` string
+                                        -> pre-2006 core, no NatNeg SDK. The
+                                           only "natneg" in the image is the
+                                           qr2 key name at 0x008E5B40; NAT
+                                           traversal goes through EA DirtySock
+                                           ProtoMangle (`/getPeerAddress?...`
+                                           at .data 0x009D8740).
+    also  `GameSpyHTTP/1.0` 0x008E7828, `HTTP/%d.%d %d%n` 0x008E7864,
+          `ATM %s :%s` / `UTM %s :%s` 0x008E6130 / 0x008E613C, `\lc\2`
+          0x008F0644, `master.gamespy.com` 0x008E5B03, `peerchat.gamespy.com`
+          0x008198D8, `gpcm.gamespy.com` / `gpsp.gamespy.com` at .data
+          0x009DDD80 / 0x009DDDC0.
 
-    re-derive:  grep -c 'vendored=gamespy-2004' reverse/functions.csv
+That is exactly lotrbfme.exe's fence set, so both games' snapshots fall inside
+Oct 2004 – Mar 2006 and strings alone cannot order them. One code shape does:
+ghiParseStatus (ghttp/ghttpProcess.c, 0x006BB4B0, 186 B) tests sscanf's count
+(`rcode != 3`) in its own block, before the version/status-code checks. That
+shape is in neither the Area 51 carrier nor the 2007/2009 public texts; BFME 1's
+ghiParseStatus does not have it; and the ghttp changelog's only ghiParseStatus
+entry is 1.07.11, "find the status string after it checks for correct header
+information", released 06-03-2005. So game.dat's SDK is a snapshot taken after
+BFME 1's (~Oct–Nov 2004) — probably ghttp >= 1.07.11, mid-2005 — and before
+Apr 2006. The attribution to 1.07.11 rests on changelog wording alone (the
+later public texts re-merged the check), so an EA edit at that one site is not
+excluded; the ordering after BFME 1 is what the site establishes.
 
-Artifact
---------
+The ledger tag stays `vendored=gamespy-2004`. Tags are free text to the tools
+(they key on the `vendored=` prefix, never the value), so a rename is
+mechanically possible; it is not done because the only evidence for "2005" is
+the single site above, and a tag renamed on probability reads exactly like
+one that was proven. Read the tag as "the Area 51-carried, pre-common/ SDK
+generation", and read this section for the date.
+
+Carrier
+-------
     github.com/bisc67/Area51, Support/NetworkMgr/GameSpy
     the Area 51 (Inevitable Entertainment / Midway) source release
 
-Chosen as the only public carrier found with the pre-2005 SDK layout (top-level
-nonport.c, no common/), and dated by nonport.h's own marker "Added by Saad Nader
-on 08-02-2004". The vintage is measured, not assumed: against lotrbfme.exe this
-tree scores 440 byte-exact whole functions where the 2007 SDK (nitrocaster/
-GameSpy, GS_Aluigi) scores 51 and 48 on the same TUs. That measurement is good
-evidence about WHICH SDK this is. It is no evidence at all about rights in it,
-and the two questions are answered separately below.
+The only public carrier found with the pre-2006 SDK layout (top-level
+nonport.c, no common/), dated by nonport.h's own marker "Added by Saad Nader
+on 08-02-2004". Its ghttp predates Jan 2004 (it lacks the per-request proxy
+override the changelog dates 01-26-2004), so Area 51 is one licensee's mixed
+snapshot, older than either game's. The .c files under this directory are
+its text with the deltas below; the SDK headers are not duplicated here —
+each TU's `// cl:` line adds `-Ireference/open-bfme-1/.../GameSpy/<module>`,
+so the pinned BFME 1 reference tree's headers (the carrier's, with BFME 1's
+reconciled ghttpConnection.h) are what compile, resolved layout-agnostically
+by tools/build.py.
+
+The "440 byte-exact functions against 51/48 for the 2007 SDK" count that
+dated BFME 1's tree was measured against lotrbfme.exe and is not repeated
+here. What stands for game.dat is the ledger: every SDK row below is
+`matched`, each body compiled from these sources and byte-compared by the
+gate.
+
+What is landed here
+-------------------
+Measured 2026-10-08 at commit 0182f44f41. These figures move as work lands,
+so re-derive rather than quote:
+
+    1,320 rows   192,990 bytes   from .c files under this directory, all matched
+        top-level helpers  92 rows    7,581 B  (available, darray, hashtable,
+                                               md5c, nonport, stringutil, one
+                                               address-named TU)
+        gp/               251        55,272
+        ghttp/            100        12,997
+        qr2/               41         7,705
+        serverbrowsing/   159        15,907
+        gstats/            84        12,442
+        pinger/             7         1,163
+        chat/             223        39,894   reconstructions, chat/PROVENANCE.txt
+        peer/             363        40,029   reconstructions, peer/PROVENANCE.txt
+
+      433 rows    75,414 bytes   25 TUs carry `vendored=gamespy-2004`
+                                 (top-level 79, gp 251, gstats 61, ghttp 34,
+                                 serverbrowsing 8). qr2/'s 41 rows and most of
+                                 ghttp/ and serverbrowsing/ carry descriptive
+                                 notes instead of the tag; same bodies, same
+                                 gate.
+      38 .c files outside chat/ and peer/ (7 + qr2 2 + gp 14 + ghttp 7 +
+                                 serverbrowsing 5 + gstats 2 + pinger 1)
+
+    re-derive:  grep -c 'vendored=gamespy-2004' reverse/functions.csv
+                grep 'GameNetwork/GameSpy/' reverse/functions.csv | grep '\.c,'
 
 Why no grant is readable from the tree itself
 ---------------------------------------------
@@ -74,7 +139,7 @@ is a grant, so nothing in the files can substitute for it.)
 
 1. The sources grant nothing. Every file here carries a bare
    `Copyright 1999-2001 GameSpy Industries, Inc` block with a postal address,
-   phone, fax and a devsupport@gamespy.com line. There is no licence text, no
+   phone, fax and a devsupport address line. There is no licence text, no
    reference to a licence, and no LICENSE/COPYING file anywhere in the SDK.
 
 2. The carrier grants nothing either. The Area 51 repository has no LICENSE
@@ -101,116 +166,153 @@ is a grant, so nothing in the files can substitute for it.)
    726c7851c at 21:22:00Z on 2014-10-15, three minutes BEFORE the sources
    arrive in 1e8bd6fd2 at 21:25:38Z — repository scaffolding, then someone
    else's code. Every apparent corroboration is a copy of that same file.
+   (chat/CHAT-SDK-LICENSE.txt is that file, kept as the carrier's text for
+   the chat module, not as a grant.)
 
 6. Context: Glu Mobile, which bought GameSpy's technology from IGN in 2012,
    publicly declined to open-source it (May 2014).
 
 UNCHECKED, not cleared
 ----------------------
-web.archive.org returned 503 throughout the run that produced this file, so the
-Wayback avenue was never searched. An archived IGN or GameSpy developer-site
-page carrying a real grant would overturn everything above. Nobody should read
-this file as "searched exhaustively" — it is "searched, one avenue unreachable".
-Checking it is the single highest-value thing anyone can do to this question.
+web.archive.org returned 503 throughout the run that produced the original
+record, so the Wayback avenue was never searched. An archived IGN or GameSpy
+developer-site page carrying a real grant would overturn everything above.
+Nobody should read this file as "searched exhaustively" — it is "searched, one
+avenue unreachable". Checking it is the single highest-value thing anyone can
+do to this question.
 
-The same reasoning is why phase 6 REFUSED to vendor GameSpy Chat and Peer
-(83,817 B measured, left on the table). This lane is the older, already-landed
-case of the same problem, kept for now only because removing landed work on a
-legal judgement is the repository owner's call and not an agent's.
+What differs from upstream — this tree is NOT pristine, and the deltas are
+mostly upstream's own later text, not EA's
+-------------------------------------------------------------------------
+Each file carries a header block. On files that are byte-for-byte the
+carrier's text apart from that block and `present-unmatched` /
+`absent-from-retail` markers, the block says so. Ten .c files here (plus
+ghttpConnection.h in the BFME 1 reference tree) are NOT the carrier's text:
+they carry the deltas between the carrier and retail's snapshot, inferred
+from retail's bytes. Open-BFME-1 recorded these as "EA's own edits", and the
+first version of this file repeated that. Diffing the deltas against the 2007
+public SDK (nitrocaster/GameSpy) shows most of them are upstream's text —
+changes the SDK made between the carrier's snapshot and the one EA built —
+re-derived by hand from retail. Counted with comments and blank lines
+excluded, against bisc67/Area51 at master:
 
-What differs from upstream — this tree is NOT wholly pristine
--------------------------------------------------------------
-Each file carries a header block. On files that are byte-for-byte upstream
-apart from that block and `present-unmatched` / `absent-from-retail` markers,
-that block says so. ELEVEN files are NOT upstream: they carry a reconstruction
-of EA's own edits, inferred from retail's bytes, and their header blocks say
-that instead. Counted with comments and blank lines excluded, against
-bisc67/Area51 at master on 2026-08-17:
+    file                       delta vs carrier                      in 2007 upstream?
+    ghttp/ghttpConnection.h    +2  proxyAddress/proxyPort fields     yes (proxyOverrideServer/Port)
+    ghttp/ghttpConnection.c    +3  their init and free               yes
+    ghttp/ghttpProcess.c       +9 -6  per-connection proxy checked   yes; proxy override is
+                                      before the global; WSAETIMEDOUT   ghttp 1.06.21 (01-26-2004),
+                                      in the connect retry              absent from the carrier
+    gp/gpiBuffer.c             +7 -4  WSAETIMEDOUT in two retry      yes
+                                      predicates; two #if 0 blocks on
+    gp/gpiSearch.c             +2  commented-out error check         yes
+                                   restored, with WSAETIMEDOUT
+    gp/gpiPeer.c               -4  `#else assert(FALSE)` branch gone yes (no assert(FALSE) in 2007)
+    gp/gpiConnect.c            -3  `#if 0 ... #else #endif` gone     yes
+    qr2/qr2.c                  -1  `cr->hbsock = INVALID_SOCKET`     yes (2007 has only qrec->)
+                                   initialiser gone
+    ghttp/ghttpBuffer.c        +2 -4  `== SOCKET_ERROR` +            textual: 2007 spells it
+                                      WSAGetLastError()                gsiSocketIsError/GOAGetLastError,
+                                                                       a wrapper over the same call
+    ghttp/ghttpCommon.c        +13 -12  select with NULL-initialised  not comparable: 2007 moved
+                                        fd_set pointers; WSAETIMEDOUT   select to common/
+    ghttp/ghttpCallbacks.c     +25 -38  the three ghiCall*Callback    NO public text has this
+                                        trampolines, reconstructed      shape; EA or intermediate,
+                                        from game.dat (0x006BAE30,      undecidable
+                                        0x006BAE90, 0x006BAEE0)
 
-    ghttp/ghttpCallbacks.c    +25 -38   callback structure reworked
-    ghttp/ghttpCommon.c       +13 -12   GOAGetLastError -> WSAGetLastError;
-                                        WSAETIMEDOUT added to the retry
-                                        predicate; two #if 0 blocks flipped on
-                                        (later: ghiSocketSelect compiled out,
-                                        see "BFME2 ghttp socket select")
-    ghttp/ghttpProcess.c       +9  -6   per-connection proxy override checked
-                                        before the SDK's global ghiProxyAddress
-    gp/gpiBuffer.c             +7  -4   WSAETIMEDOUT added to two retry
-                                        predicates; two #if 0 blocks flipped on
-    ghttp/ghttpConnection.c    +3  -0   proxyAddress/proxyPort init and free
-    ghttp/ghttpBuffer.c        +2  -4   socket-select error path rewritten
-    ghttp/ghttpConnection.h    +2  -0   proxyAddress/proxyPort added to
-                                        GHIConnection
-    gp/gpiSearch.c             +2  -0   a commented-out error check restored
-    gp/gpiPeer.c               +0  -4   an assert(FALSE) branch removed
-    gp/gpiConnect.c            +0  -3   a commented-out assert branch removed
-    qr2/qr2.c                  +0  -1   one initialiser removed
+Three further sites match no public text and stay unattributed: qr2.c's
+`if (ret) inet_ntoa(cr->hbaddr.sin_addr);` after the master lookup
+(qr2_init_socketA 0x00697850; 2007 has `if (ret == 1) gsDebugFormat(...,
+inet_ntoa(...))`), qr2.c's `(len >= ...) && qrec->pa_callback` condition
+order (2007 tests only the callback), and the ghiParseStatus split above.
+"EA edit" versus "intermediate upstream" is undecidable for those.
 
-    re-derive: fetch the Area 51 directory and diff each file with its header
-    block stripped. Guard the fetch — raw.githubusercontent.com served two
-    503 HTML error pages during this run, and read as source those produce
-    hundreds of lines of phantom "drift".
+BFME 2's own deltas against BFME 1's text (comment-stripped diff of the TUs
+both repos carry: qr2.c 12 lines, ghttpProcess.c 12, sb_serverbrowsing.c 14,
+gpiConnect.c 2, gpiBuffer.c 0), each marked in place:
 
-Everything else under this directory is upstream byte-for-byte apart from its
-header block and markers. `Chat.cpp`, `PeerDefs.cpp`, `LobbyUtils.cpp`,
-`GSConfig.cpp`, the `*Thunk.cpp` files and the rest of the C++ here are this
-repository's own code, not SDK sources, and are not covered by any of the above.
+    qr2/qr2.c, gp/gpiConnect.c   `#define ntohs htons`: game.dat imports htons
+                                 for both byte-order directions, so the call
+                                 sites bind to that one import. Import
+                                 binding, not a version signal.
+    serverbrowsing/sb_server.c,  `_strcmpi` for the CRT case-insensitive
+    sb_serverlist.c              compare and htonl/htons for both directions,
+                                 after the retail import table; sb_server.c
+                                 also validates the first digit after an
+                                 optional minus when reading integer keys.
+    serverbrowsing/              the added-server callback treats pending
+    sb_serverbrowsing.c          basic/full queries as updates in progress.
+                                 Note its `htons(port)` calls are the
+                                 UPSTREAM text, present in all three public
+                                 snapshots; it is BFME 1's copy that reads
+                                 `ntohs(port)`, an import-binding artefact
+                                 there. Not a BFME 2 edit.
+    ghttp/ghttpMain.c, ghttpPost.c,  SDK strdup bound to msvcr71.dll!_mbsdup
+    ghttpProcess.c                   (retail IAT 0x00BBA5C8); explicit
+                                     goastrdup calls unchanged.
+    ghttp/ghttpProcess.c         ghiParseStatus's `rcode != 3` block (above);
+                                 the connect state narrows the select answer
+                                 to a byte (retail `movzx eax,al`).
+    ghttp/ghttpCommon.c          ghiSocketSelect compiled out and bound to
+                                 nonport.c's GSISocketSelect (see below);
+                                 proxy parsing factored into a static helper
+                                 with a descriptive name.
+    ghttp/ghttpCallbacks.c       three trampolines reconstructed from
+                                 game.dat (this TU is in no public carrier).
+
+Everything else under this directory outside chat/ and peer/ is the
+carrier's text apart from its header block and markers. `Chat.cpp`,
+`PeerDefs.cpp`, `GSConfig.cpp`, `LadderDefs.cpp`, the `*Thunk.cpp` /
+`Rva*.cpp` files and the rest of the C++ here are this repository's own code,
+not SDK sources, and are not covered by any of the above.
 
 Build flags
 -----------
-`/MD` — retail linked the DLL CRT, so libc calls are `__imp__` indirect; the
-static-CRT direct calls do not byte-match. `__cdecl` (i.e. NOT `/Gz`) — `/Gz`
-collapses the qr2+GP+ghttp core from 108 exact hits to 6. Win32 headers come
-from `reference/shims/gamespy` (see its windows.h): the toolchain ships no
-Platform SDK, and the sweep shim next door is C++-only.
+`/MD` — retail linked the DLL CRT (msvcr71.dll), so libc calls are `__imp__`
+indirect; the static-CRT direct calls do not byte-match. `__cdecl` (i.e. NOT
+`/Gz`) — `/Gz` collapses the qr2+GP+ghttp core (measured in BFME 1; the same
+bodies here). `/DNDEBUG`. Win32 headers come from `reference/shims/gamespy`
+(see its windows.h): the toolchain ships no Platform SDK, and the sweep shim
+next door is C++-only.
 
-Chat and Peer: opened 2026-08-21, and NOT on the same footing as the rest
--------------------------------------------------------------------------
-The refusal recorded above was a licence judgement, and the scope paragraph
-near the top of this file answers it: the owner states the permission covers
-the Chat and Peer modules. On that basis peer/ and chat/ now exist here. What
-is in them is NOT vendored and must not be read as such -- the Area 51 carrier
-ships no chat/ or peer/ directory at all, so there is no 2004 text to vendor.
-These files are RECONSTRUCTIONS: bodies transcribed from the 2007 SDK
-(nitrocaster/GameSpy) with local declarations standing in for the 2004 headers,
-and each one carries a header block saying so and saying what anchors its
-placement. They therefore carry no `vendored=gamespy-2004` note, and the
-measurement that dated the rest of this tree does not cover them.
-
-    peer/peerCallbacks.c   85 rows   the 34 copy/free/call triples reached
-                                     through callbackFuncs[] at 0x00D30D50
-    peer/peerMangle.c      10 rows   room/user name mangling
-    chat/chatCrypt.c        3 rows   gs_prepare_key / gs_crypt / gs_xcode_buf
-
-That the 2007 text reproduces 2004 bytes at all is itself a measurement worth
-keeping: peerCallbacks.c matched 101 of the 102 bodies it emits on the first
-compile, which is the opposite of the 51-vs-440 result the 2007 SDK scored on
-the qr2/GP/ghttp core. Do not generalise it -- peerMain.c and chatMain.c were
-not attempted, and both reach deep into connection structs whose 2004 layout
-is not known.
+Chat and Peer: NOT on the same footing as the rest
+--------------------------------------------------
+The Area 51 carrier ships no chat/ or peer/ directory, so there is no
+2004-2005 text to vendor. chat/ and peer/ are RECONSTRUCTIONS: bodies
+transcribed from the 2007 SDK (nitrocaster/GameSpy) with local declarations
+standing in for the period headers, most of them carried over from
+Open-BFME-1's reconstructions and re-placed here (279 of their 586 rows note a
+BFME 1 donor). They carry no `vendored=` tag. That the 2007 text reproduces
+these bytes says the functions did not change between late 2004 and 2007; it
+does not date them, and nothing in the strings separates a Nov 2004 Peer from
+a 2005 one. Anchors in game.dat: peer's callbackFuncs[] at 0x008E5DD0 (34
+typed rows plus terminator), peerIsAutoMatching 0x006996E0, peerInitialize
+0x00699730; chat's gs_prepare_key / gs_crypt / gs_xcode_buf at 0x006A9ED0 /
+0x006AA030 / 0x006AA100. Details in chat/PROVENANCE.txt and
+peer/PROVENANCE.txt.
 
 BFME2 GHTTP reconciliation, 2026-09-07
 ------------------------------------
-The historical measurements above describe the pinned BFME1 reference tree.
-The BFME2 ghttpMain.c, ghttpPost.c and ghttpProcess.c additionally map SDK
-strdup calls to msvcr71.dll!_mbsdup, identified by the retail PE import at
-0x00BBA5C8; explicit goastrdup calls remain unchanged. ghttpProcess.c also
-rejects an incomplete sscanf result before reading statusStringIndex.
-ghttpCommon.c factors proxy parsing into a static C helper shared by the
-global and per-request setters. The helper/request-setter names are descriptive
-reconstruction names; their original names are absent from the stripped image.
-These are source reconciliations, not pristine upstream functions. Every ledger
-claim still requires its own complete byte match, literal check and callee proof.
+ghttpMain.c, ghttpPost.c and ghttpProcess.c map SDK strdup calls to
+msvcr71.dll!_mbsdup, identified by the retail PE import at 0x00BBA5C8;
+explicit goastrdup calls remain unchanged. ghttpProcess.c also rejects an
+incomplete sscanf result before reading statusStringIndex (the ghiParseStatus
+site discussed above). ghttpCommon.c factors proxy parsing into a static C
+helper shared by the global and per-request setters. The helper/request-setter
+names are descriptive reconstruction names; their original names are absent
+from the stripped image. These are source reconciliations, not pristine
+upstream functions. Every ledger claim still requires its own complete byte
+match, literal check and callee proof.
 
 BFME2 ghttp socket select, 2026-10-02
 -------------------------------------
 Retail's ghttp callers (ghttpBuffer.c, ghttpProcess.c) reach 0x0060A9F0, the
-nonport.c GSISocketSelect body that the 2004 nonport.c itself marks "Formerly
-known as ghiSocketSelect"; their matched call sites verify against it. The
-carrier's ghttpCommon.c still defines the older ghiSocketSelect, whose body is
-not retail's (the link census proves the bytes differ), and being the only
-definition it was the copy every ghttp caller linked to. ghttpCommon.c keeps
-that upstream text under #if 0 and binds the ghiSocketSelect spelling to
+nonport.c GSISocketSelect body that the carrier's nonport.c itself marks
+"Formerly known as ghiSocketSelect"; their matched call sites verify against
+it. The carrier's ghttpCommon.c still defines the older ghiSocketSelect, whose
+body is not retail's (the link census proves the bytes differ), and being the
+only definition it was the copy every ghttp caller linked to. ghttpCommon.c
+keeps that upstream text under #if 0 and binds the ghiSocketSelect spelling to
 GSISocketSelect with an /alternatename, so the callers link to retail's body.
 
 BFME2 server-browsing reconciliation, 2026-09-07
@@ -223,3 +325,11 @@ digit after an optional minus sign when reading integer keys. In
 sb_serverbrowsing.c, the added-server callback treats pending basic/full queries
 as updates already in progress. These ordinary-C changes are inferred from
 complete retail bodies, including the actual callback pointers in their callers.
+
+Where this record is weak
+-------------------------
+- No public SDK snapshot exists between Aug 2004 (Area 51) and Dec 2007
+  (nitrocaster); "upstream by 2007" is inferred from changelog dates plus
+  presence in the 2007 text, not from a dated intermediate release.
+- The 2005 dating rests on one code-shape site matched to changelog wording.
+- The four unattributed sites above are undecidable from public material.

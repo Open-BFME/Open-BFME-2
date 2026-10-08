@@ -1,12 +1,13 @@
 // cl: /MD -Ireference/shims/gamespy -Ireference/open-bfme-1/Code/GameEngine/Source/GameNetwork/GameSpy
-/* GameSpy SDK, 2004 vintage -- pristine upstream C source.
-   Sourced from the Area 51 (Inevitable Entertainment / Midway) source release,
+/* GameSpy SDK, ~2005 snapshot (BFME 2) -- pristine upstream C source.
+   Carrier: the Area 51 (Inevitable Entertainment / Midway) source release,
    github.com/bisc67/Area51, Support/NetworkMgr/GameSpy -- the only public
-   carrier found with the pre-2005 SDK layout (top-level nonport.c, no common/).
-   Dated by nonport.h's own marker "Added by Saad Nader on 08-02-2004".
-   That vintage is not assumed, it is measured: against lotrbfme.exe this tree
-   scores 440 byte-exact whole functions where the 2007 SDK (nitrocaster/GameSpy,
-   GS_Aluigi) scores 51 and 48 on the same TUs.
+   carrier with the pre-2006 SDK layout (top-level nonport.c, no common/),
+   itself dated 08-02-2004 by nonport.h's marker.  game.dat's SDK is a later
+   upstream snapshot than that carrier's and than lotrbfme.exe's (see
+   PROVENANCE.txt, "Which SDK this is"); the 440-vs-51 count that dated
+   BFME 1's tree was measured against lotrbfme.exe, not here.  What stands
+   here is the gate: every row from this TU byte-verifies against game.dat.
    Retail linked the DLL CRT, so libc calls are __imp__ indirect -- /MD is what
    makes those call sites byte-exact -- and built the SDK __cdecl: /Gz collapses
    the qr2+GP+ghttp core from 108 exact hits to 6.
