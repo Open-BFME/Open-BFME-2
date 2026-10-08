@@ -165,6 +165,8 @@ struct PlayingAudio {
     int m_status;                        // +0x18
     BfmePoolRef10 m_event;            // +0x1C
     Rva000A8A6C m_file;                  // +0x20
+    char at24[0x4B - 0x24];
+    bool m_at4B;                         // +0x4B, set by 0x000535A6
 };
 
 class PlayingAudioRef {
@@ -410,6 +412,9 @@ public:
     bool startNextLoop(PlayingAudioRef &looping);
     void getAppropriateSampleHandleForPlayingAudio(PlayingAudioRef &playing, void **sample, void **sample3D);
 
+    void *get3DSampleHandleForPlayingAudio(PlayingAudioRef &playing);
+    void rva000535A6(PlayingAudioRef &playing);
+
     void putPlayingMusicOnStack(int viewType, int arg);
     void rva00059CE6(PlayingAudioRef &looping);
     void rva0005AA72(PlayingAudioRef &playing);
@@ -419,7 +424,9 @@ private:
     Rva00051107AudioRequestList m_audioRequests;    // +0x98
     char at9C[0xBC - 0x9C];
     Rva00059FBBMap m_allAudioEventInfo;  // +0xBC
-    char atD0[0x69C - 0xD0];
+    char atD0[0x678 - 0xD0];
+    int m_at678;                         // +0x678, compared with event view types
+    char at67C[0x69C - 0x67C];
     unsigned short m_maxAmbientStreams;  // +0x69C
     char at69E[0x6A4 - 0x69E];
     bool m_at6A4;                        // +0x6A4
@@ -938,4 +945,30 @@ void MilesAudioManager::rva0005407E(INI *ini)
 {
     INILoadType type = static_cast<INILoadType>(ini->m_at08);
     ini->loadFile(AsciiString("Data\\INI\\AudioSettings.ini"), type, 0);
+}
+
+void *MilesAudioManager::get3DSampleHandleForPlayingAudio(PlayingAudioRef &playing)
+{
+    switch (playing->m_type) {
+    case 2:
+        return (void *)playing->m_handle;
+    case 3:
+        if (m_loopBuffers[playing->m_handle].m_is3D)
+            return m_loopBuffers[playing->m_handle].m_3DSample;
+        return 0;
+    case 5:
+        return 0;
+    }
+    return 0;
+}
+
+// WorldBuilder 0x7A13D0 (unnamed, aligned by score 5.0): flags the playing
+// audio's +0x4B byte unless its event view type is 2 or matches +0x678.
+void MilesAudioManager::rva000535A6(PlayingAudioRef &playing)
+{
+    int viewType = playing->m_event->m_viewType;
+    if (viewType != 2 && viewType != m_at678)
+        playing->m_at4B = true;
+    else
+        playing->m_at4B = false;
 }
