@@ -11,10 +11,12 @@
 // getAiEnemy (slot 12) keeps Zero Hour's 5-second re-acquire, with BFME's
 // logic frame rate read from its global.
 #include "ascii_string.h"
+#include <math.h>
 typedef bool Bool;
 typedef int Int;
 typedef float Real;
 #define NULL 0
+#define PI 3.14159265359f
 
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -28,6 +30,7 @@ class TeamPrototype;
 class WorkOrder;
 class SpecialPowerTemplate;
 class Waypoint;
+class ThingTemplate;
 
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -79,6 +82,7 @@ public:
 	Bool hasAnyUnits() const { return rva002AB312(); }
 	Bool hasAnyBuildFacility() const { return rva002AB3FA(); }
 	Bool isSkirmishAIPlayer();
+	void onStructureUndone(Object *structure);	// 0x0047A69C, empty in BFME 2
 	Int getMpStartIndex() const { return m_mpStartIndex; }
 	Player *getCurrentEnemy() { return (Player *)((Rva002A9BBD *)this)->rva002A9BBD(); }
 
@@ -135,16 +139,74 @@ private:
 	unsigned char m_locomotorSet[4];	// +0x1CC
 };
 
+// KINDOF_COMMANDCENTER is bit 1 of the kind-of byte at ThingTemplate +0x10A
+// (as in the rowed Player::doFindCommandCenter view).
+class ThingTemplate
+{
+public:
+	Bool isKindOfCommandCenter() const { return (m_kindOf10A & 2) != 0; }
+private:
+	unsigned char m_pad000[0x10A];
+	unsigned char m_kindOf10A;		// +0x10A
+};
+
 class Object
 {
 public:
+	const ThingTemplate *getTemplate() const { return m_template; }
+	Bool isKindOfCommandCenter() const { return getTemplate()->isKindOfCommandCenter(); }
 	const Coord3D *getPosition() const { return &m_position; }
+	Object *getNextObject() const { return m_next; }
+	Player *getControllingPlayer() const;
 	AIUpdateInterface *getAI() { return m_ai; }
 private:
-	unsigned char m_pad00[0x38];
+	void *m_vtbl;
+	const ThingTemplate *m_template;	// +0x04
+	unsigned char m_pad08[0x38 - 0x08];
 	Coord3D m_position;			// +0x38
-	unsigned char m_pad44[0x258 - 0x44];
+	unsigned char m_pad44[0x8C - 0x44];
+	Object *m_next;				// +0x8C
+	unsigned char m_pad90[0x258 - 0x90];
 	AIUpdateInterface *m_ai;		// +0x258
+};
+
+// BuildListInfo::getTemplateName is the shared copy-out of the AsciiString at
+// +0x08 (0x000AF1DD), pinned under an address name.
+class BuildListInfo
+{
+public:
+	AsciiString rva000AF1DD() const;	// getTemplateName
+	const Coord3D *getLocation() const { return &m_location; }
+	// Built from components: adjustBuildList keeps the rotated location in
+	// registers and block-copies a filled temporary into place.
+	void setLocation(Real x, Real y, Real z) { Coord3D loc; loc.x = x; loc.y = y; loc.z = z; m_location = loc; }
+	void setInitiallyBuilt(Bool b) { m_isInitiallyBuilt = b; }
+	Real getAngle() const { return m_angle; }
+	void setAngle(Real angle) { m_angle = angle; }
+	BuildListInfo *getNext() const { return m_next; }
+private:
+	unsigned char m_pad00[0x0C];
+	Coord3D m_location;			// +0x0C
+	Real m_angle;				// +0x18
+	unsigned char m_pad1C[0x24 - 0x1C];
+	Bool m_isInitiallyBuilt;		// +0x24
+	unsigned char m_pad25[0x2C - 0x25];
+	BuildListInfo *m_next;			// +0x2C
+};
+
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA
+};
+extern ThingFactory *TheThingFactory;
+
+struct Region3D
+{
+	Coord3D lo;
+	Coord3D hi;
+	Real width() const { return hi.x - lo.x; }
+	Real height() const { return hi.y - lo.y; }
 };
 
 class Waypoint
@@ -164,15 +226,27 @@ class Pathfinder
 public:
 	Bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, Int flags);
 	Int FindBrokenBridge(Rva002E99F9Arg1 *locoSet, const Coord3D * volatile from, const Coord3D *to);
+	void RemoveObjectFromPathfindMap(Object *obj);	// 0x002E718A
+	void removeObjectFromPathfindMap(Object *obj) { RemoveObjectFromPathfindMap(obj); }
+};
+
+class AIData
+{
+public:
+	unsigned char m_pad00[0x66];
+	Bool m_rotateSkirmishBases;		// +0x66
 };
 
 class AI
 {
 public:
 	Pathfinder *pathfinder() { return m_pathfinder; }
+	const AIData *getAiData() const { return m_aiData; }
 private:
 	unsigned char m_pad00[0x10];
 	Pathfinder *m_pathfinder;		// +0x10
+	unsigned char m_pad14[0x18 - 0x14];
+	AIData *m_aiData;			// +0x18
 };
 extern AI *TheAI;
 
@@ -257,7 +331,8 @@ public:
 	virtual void tl03(); virtual void tl04(); virtual void tl05();
 	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = NULL) const;	// +0x18
 	virtual void tl07(); virtual void tl08(); virtual void tl09();
-	virtual void tl10(); virtual void tl11(); virtual void tl12();
+	virtual void tl10(); virtual void tl11();
+	virtual void getMaximumPathfindExtent(Region3D *extent) const;	// +0x30
 	virtual void tl13(); virtual void tl14(); virtual void tl15();
 	virtual void tl16(); virtual void tl17(); virtual void tl18();
 	virtual void tl19(); virtual void tl20(); virtual void tl21();
@@ -347,6 +422,7 @@ protected:
 
 	Int getMyEnemyPlayerIndex();
 	void acquireEnemy();
+	void adjustBuildList(BuildListInfo *list);
 
 	Int m_curFlankBaseDefense;		// +0x78
 	Int m_curFrontBaseDefense;		// +0x7C
@@ -640,4 +716,113 @@ Player *AISkirmishPlayer::getAiEnemy()
 		acquireEnemy();
 	}
 	return m_currentEnemy;
+}
+
+// ?adjustBuildList@AISkirmishPlayer@@IAEXPAVBuildListInfo@@@Z @0x004EF87D 668B
+// Zero Hour's body; the last loop still looks up list (not cur) as in ZH.
+// The command center's removal reaches Player::onStructureUndone, an empty
+// RET 4 in BFME 2 (0x0047A69C).
+void AISkirmishPlayer::adjustBuildList(BuildListInfo *list)
+{
+	Bool foundStart = false;
+	Coord3D startPos;
+
+	// Find our command center location.
+	Object *obj;
+	for( obj = TheGameLogic->getFirstObject(); obj; obj = obj->getNextObject() )
+	{
+		Player *owner = obj->getControllingPlayer();
+		if (owner==m_player) {
+			// See if it's a command center.
+			if (obj->isKindOfCommandCenter()) {
+				foundStart = true;
+				startPos = *obj->getPosition();
+				m_player->onStructureUndone(obj);
+				TheAI->pathfinder()->removeObjectFromPathfindMap(obj);
+				TheGameLogic->destroyObject(obj);
+				break;
+			}
+		}
+	}
+	if (!foundStart) {
+		return;
+	}
+	// Find the location of the command center in the build list.
+	Bool foundInBuildList = false;
+	Coord3D buildPos;
+	BuildListInfo *cur = list;
+	while (cur) {
+		const ThingTemplate *tTemplate = TheThingFactory->findTemplate(cur->rva000AF1DD());
+		if (tTemplate && tTemplate->isKindOfCommandCenter()) {
+			foundInBuildList = true;
+			buildPos = *cur->getLocation();
+			cur->setInitiallyBuilt(true);
+		}
+		cur = cur->getNext();
+	}
+	Region3D bounds;
+	TheTerrainLogic->getMaximumPathfindExtent(&bounds);
+	/* calculate section of 3x3 grid:
+		6 7 8
+		3 4 5
+		0 1 2 */
+
+	Int gridIndex = 0;
+	if (startPos.x > bounds.lo.x + bounds.width()/3) {
+		gridIndex++;
+	}
+	if (startPos.x > bounds.lo.x + 2*bounds.width()/3) {
+		gridIndex++;
+	}
+
+	if (startPos.y > bounds.lo.y + bounds.height()/3) {
+		gridIndex+=3;
+	}
+	if (startPos.y > bounds.lo.y + 2*bounds.height()/3) {
+		gridIndex+=3;
+	}
+
+	Real angle = 0;
+	if (TheAI->getAiData()->m_rotateSkirmishBases) {
+		switch (gridIndex) {
+			case 0 : angle = 0; break;
+			case 1 : angle = PI/4; break;// 45 degrees.
+			case 2 : angle = PI/2; break; // 90 degrees;
+			case 3 : angle = -PI/4; break; // -45 degrees.
+			case 4 : angle = 0; break;
+			case 5 : angle = 3*PI/4; break; // 135 degrees.
+			case 6 : angle = -PI/2; break; // -90 degrees;
+			case 7 : angle = -3*PI/4; break; // -135 degrees.
+			case 8 : angle = PI; break; // 180 degrees.
+		}
+	}
+
+	angle += 3*PI/4;
+
+	Real s = sin(angle);
+	Real c = cos(angle);
+
+	cur = list;
+	while (cur) {
+		const ThingTemplate *tTemplate = TheThingFactory->findTemplate(list->rva000AF1DD());
+		if (tTemplate && tTemplate->isKindOfCommandCenter()) {
+			foundInBuildList = true;
+			const Coord3D *loc = cur->getLocation();
+			Coord3D curPos;
+			curPos.x = loc->x;
+			curPos.y = loc->y;
+			curPos.z = loc->z;
+			// Transform to new coords.
+			curPos.x -= buildPos.x;
+			curPos.y -= buildPos.y;
+			Real newX = curPos.x*c - curPos.y*s;
+			Real newY = curPos.y*c + curPos.x*s;
+			curPos.x = newX + startPos.x;
+			curPos.y = newY + startPos.y;
+			cur->setLocation(curPos.x, curPos.y, curPos.z);
+			cur->setAngle(cur->getAngle());
+		}
+		cur = cur->getNext();
+	}
+
 }

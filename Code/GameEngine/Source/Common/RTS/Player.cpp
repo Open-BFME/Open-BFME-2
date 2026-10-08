@@ -1787,10 +1787,11 @@ void Player::onStructureConstructionComplete( Object *builder, Object *structure
 }  // end onStructureConstructionComplete
 
 //=============================================================================
-// ?Player::onStructureUndone present-unmatched
-void Player::onStructureUndone(Object *structure)
+// BFME 2 dropped the score keeper's removal: the native caller
+// AISkirmishPlayer::adjustBuildList (0x004EF87D) calls the shared empty
+// RET 4 body at 0x0047A69C here, as an independently compiled ICF twin.
+void Player::onStructureUndone(Object *)
 {
-	m_scoreKeeper.removeObjectBuilt(structure);
 } // end onStructureUndone
 
 // Player::addTeamToList and Player::removeTeamFromList are rowed in
