@@ -360,3 +360,19 @@ void ControlBar::rva0053BB16(Object *transport,CommandSet *set)
     }
     lastInventoryCount=contain->getContainCount(0);
 }
+
+// Retail53B946..53B96632B and WB111BFD0/49 prove this callback.
+// Native availability53C040 passes it to the Castle owned-object iterator
+// with a copied seven-word kind mask followed by a boolean result.
+template<int N> class BitFlags;
+class Thing { public: bool isAnyKindOf(const BitFlags<69> &) const; };
+struct CommandCastleKindFilter { unsigned int mask[7]; bool matched; };
+// ?Rva0053B946@@YAHPAVObject@@PAUCommandCastleKindFilter@@@Z
+int __cdecl Rva0053B946(Object *object,CommandCastleKindFilter *filter)
+{
+    if(((Thing *)object)->isAnyKindOf(*(const BitFlags<69> *)filter->mask)){
+        filter->matched=true;
+        return 0;
+    }
+    return 1;
+}
