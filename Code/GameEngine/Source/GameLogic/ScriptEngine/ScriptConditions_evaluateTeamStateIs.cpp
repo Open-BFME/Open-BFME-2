@@ -251,6 +251,15 @@
 // a Coord3D measured by the rowed Coord3D::length 0x00003571, then the
 // six-way comparison against parameter 3's real. The unit's /Op keeps the
 // x/y/z differences in xmm0-2 in order (without it VC7 rotates them).
+//
+// ?evaluateDistanceBetweenTeams@ScriptConditions@@IAE_NPAVCondition@@@Z @ 0x003E7B56 356B
+// The team twin of evaluateDistanceBetweenObjects. Target evidence:
+// jump-table case 114 calls 0x003E7B56, which initConditionTemplates names
+// DISTANCE_BETWEEN_TEAM (team, team, comparison, real). Both teams come
+// from the rowed getTeamNamed (string by value, false) and must pass the
+// rowed hasAnyObjects(false); the first team's centroid (rowed 0x0039DA2A)
+// is reduced in place by the second's, read through the pointer the call
+// returns, before the same Coord3D::length comparison.
 #include <string.h>
 #include <vector>
 #include <list>
@@ -764,6 +773,10 @@ public:
 	}
 	// Zero Hour's Team::hasAnyUnits; the ledger keeps the address name.
 	bool rva0039DEC4();
+	bool hasAnyObjects(bool ignoreBuildings);
+	// The rowed team centroid 0x0039DA2A in its pinned pointer-return
+	// spelling: the body leaves its argument in EAX, which callers use.
+	Coord3D *rva0039DA2A(Coord3D *pos) const;
 	Team *dlink_next_TeamInstanceList() const;
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 private:
@@ -855,6 +868,7 @@ protected:
 	bool evaluatePlayerHasKilledKindOfUnits(Parameter *, Parameter *, Parameter *);
 	bool evaluateCanBuildAtBase(Parameter *, Parameter *);
 	bool evaluateDistanceBetweenObjects(Condition *);
+	bool evaluateDistanceBetweenTeams(Condition *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1596,6 +1610,37 @@ bool ScriptConditions::evaluateDistanceBetweenObjects(Condition *pCondition)
 	delta.x = dx;
 	delta.y = dy;
 	delta.z = dz;
+	float dist = delta.length();
+	float value = pCondition->getParameter(3)->getReal();
+	switch (pCondition->getParameter(2)->getInt())
+	{
+		case 0: return (dist < value) ? true : false;
+		case 1: return (dist <= value) ? true : false;
+		case 2: return (dist == value) ? true : false;
+		case 3: return (dist >= value) ? true : false;
+		case 4: return (dist > value) ? true : false;
+		case 5: return (dist != value) ? true : false;
+	}
+	return false;
+}
+
+bool ScriptConditions::evaluateDistanceBetweenTeams(Condition *pCondition)
+{
+	Team *team1 = TheScriptEngine->getTeamNamed(pCondition->getParameter(0)->getString(), false);
+	Team *team2 = TheScriptEngine->getTeamNamed(pCondition->getParameter(1)->getString(), false);
+	if (team1 == 0 || team2 == 0)
+		return false;
+	if (!team1->hasAnyObjects(false))
+		return false;
+	if (!team2->hasAnyObjects(false))
+		return false;
+	Coord3D delta;
+	Coord3D other;
+	team1->rva0039DA2A(&delta);
+	const Coord3D *pos2 = team2->rva0039DA2A(&other);
+	delta.x -= pos2->x;
+	delta.y -= pos2->y;
+	delta.z -= pos2->z;
 	float dist = delta.length();
 	float value = pCondition->getParameter(3)->getReal();
 	switch (pCondition->getParameter(2)->getInt())
