@@ -69849,3 +69849,5 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?Rva00077F5E@@YAHXZ,,0x00077F5E,17,Code/GameEngine/Source/GameClient/GUI/FileSystemRva00077BF8.cpp,matched,OutputDebugStringA thunk funclet; honest address-derived name; return VA 0x477E53
 ?rva0027532F@Rva0027532F@@QAE_N_N@Z,,0x0027532F,71,Code/GameEngine/Source/GameClient/Rva0027532FFlag.cpp,matched,predicate on object at +0xFC; bit2 of +0x437; BitFlags any at +0x1C8; mask bits 0x24 and 0x40; t=25min model=claude-haiku-5-5
 ?rva0055EECB@Rva0055EECB@@QAEXPAVXfer@@@Z,,0x0055EECB,110,Code/GameEngine/Source/GameClient/Rva0055EECBXfer.cpp,matched,version gated xfer; vslots 0x28 0x70 0x60 0x90; matched xferRandomVariable helper; t=68min model=claude-haiku-5-5
+?zoomIn@View@@UAEXXZ,,0x0025EA2E,39,Code/GameEngine/Source/GameClient/View.cpp,matched,
+?zoomOut@View@@UAEXXZ,,0x0025EA55,39,Code/GameEngine/Source/GameClient/View.cpp,matched,
