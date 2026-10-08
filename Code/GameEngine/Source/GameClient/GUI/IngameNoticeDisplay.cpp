@@ -189,3 +189,27 @@ void IngameNoticeDisplay::rva004E5CCB(NoticeLineInputView *line)
     line->text.clear();
     line->width=0;
 }
+
+// Native 0x004E5DB2..0x004E5EBE; WB 0x0131FCF0 names AddWord,
+// IngameNoticeDisplay.cpp line 383, and proves the input/rendering fields.
+void IngameNoticeDisplay::AddWord(NoticeLineInputView *line,int spaces,const UnicodeString &word)
+{
+    UnicodeString candidate=line->text;
+    for (int count=spaces;count>0;--count) candidate+=(unsigned short)' ';
+    candidate+=word;
+    line->display->setText(candidate);
+    int width,height;
+    line->display->getSize(&width,&height);
+    if (width>line->maxWidth) {
+        if (!line->text.isEmpty()) {
+            rva004E5CCB(line);
+            line->display->setText(word);
+            line->display->getSize(&width,&height);
+        } else if (spaces>0) {
+            AddWord(line,0,word);
+            return;
+        }
+    }
+    line->text=line->display->getText();
+    line->width=width;
+}
