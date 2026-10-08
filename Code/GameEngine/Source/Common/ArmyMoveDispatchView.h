@@ -9,7 +9,6 @@ class Rva002B26D0
 {
 public:
 	void rva002B26D0(Rva00318C79Owner *owner, void *key, Rva002B2858Coord pair, void *extra);
-	void rva002B4F6C(struct Rva002B4F6CVector *ids, Rva002B2858Coord *out);
 
 private:
 	unsigned char m_pad00[0xB0];

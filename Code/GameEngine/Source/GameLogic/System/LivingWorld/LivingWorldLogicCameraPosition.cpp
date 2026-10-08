@@ -8,11 +8,7 @@
 // A contiguous pair of bit views preserves the native F8/FC stack homes.
 // The ordered first word read preserves retail's load before its first store
 // and makes MSVC choose the observed ECX receiver/EAX value registers.
-class Rva0020F27EHost
-{
-public:
-    bool rva0020F27E(int, int);
-};
+#include "../../../Common/RegionCenterPointDispatchView.h"
 struct RvaFloatPair
 {
     float x, y;

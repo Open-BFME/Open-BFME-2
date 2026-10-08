@@ -17,11 +17,7 @@ public:
 	Rva002B3740Item *rva002B2B2D();
 };
 
-class Rva0020F27EHost
-{
-public:
-	bool rva0020F27E(int idx, int v);
-};
+#include "RegionCenterPointDispatchView.h"
 
 class Rva00211075
 {

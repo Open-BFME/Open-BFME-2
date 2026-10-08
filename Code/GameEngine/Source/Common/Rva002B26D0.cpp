@@ -69,38 +69,3 @@ void Rva002B2702::rva002B2702(void *owner, void *key, int extra)
 	((Rva002B26D0 *)this)->rva002B26D0((Rva00318C79Owner *)owner,
 		key, buf, (void *)extra);
 }
-
-struct Rva002B4F6CVector
-{
-	int *begin;
-	int *end;
-	int *storageEnd;
-};
-
-class Rva0020F27EHost
-{
-public:
-	bool rva0020F27E(int index, int out);
-};
-
-// Target 0x002B4F6C..0x002B4FEB, ret 8: fetch the final two indexed
-// pairs through the same +0xB0 helper, then return their difference.
-// The index-forward helper's existing address-derived declaration carries
-// its output pointer as an integer. No semantic name is established here.
-void Rva002B26D0::rva002B4F6C(Rva002B4F6CVector *ids, Rva002B2858Coord *out)
-{
-	int count = ids->end - ids->begin;
-	int lastIndex = count - 1;
-	int previousIndex = count - 2;
-	if (lastIndex < 0 || previousIndex < 0)
-	{
-		lastIndex = 0;
-		previousIndex = 0;
-	}
-	Rva002B2858Coord last, previous;
-	((Rva0020F27EHost *)m_b0)->rva0020F27E(ids->begin[lastIndex], (int)&last);
-	((Rva0020F27EHost *)m_b0)->rva0020F27E(ids->begin[previousIndex], (int)&previous);
-	*out = previous;
-	out->x -= last.x;
-	out->y -= last.y;
-}

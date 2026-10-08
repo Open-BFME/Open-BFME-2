@@ -19,11 +19,7 @@ public:
 private:
 	char m_pad[0xB0];
 };
-class Rva0020F27EHost
-{
-public:
-	bool rva0020F27E(int idx, int v);
-};
+#include "../../../../GameEngine/Source/Common/RegionCenterPointDispatchView.h"
 struct EAF6Elem
 {
 	char m_pad[0xAB];

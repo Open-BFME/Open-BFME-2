@@ -450,6 +450,7 @@ void *__stdcall Rva002B4948Find(void *player, void *region, void *arg);	// 0x002
 // BFME2's Coord2D is (retail 0x002B28B1 builds it in the argument slot), so
 // the TU view carries a user-declared constructor.
 #include "../../../Common/ArmyMoveDispatchView.h"
+#include "../../../Common/RegionCenterPointDispatchView.h"
 
 // LivingWorldLogic's bases: a 0x10-byte primary base, then observer
 // interfaces at +0x10 and +0x14 (and the player observer at +0x18, see
@@ -680,7 +681,6 @@ void LivingWorldLogic::AutoResolveBattle(Int battle)
 // LivingWorldLogic::AutoMarkUnitsForUpgrades, retail 0x002B5334: every owned
 // army is handed to its player's upgrade marking. WB asserts the player
 // exists.
-// ?LivingWorldLogic::AutoMarkUnitsForUpgrades present-unmatched
 void LivingWorldLogic::AutoMarkUnitsForUpgrades()
 {
 	Rva002B5334ArmyList *list = m_field0B0->m_armySet;
@@ -783,7 +783,6 @@ Int AttackOrders::GetMaxHeroLeaderRank()
 // LivingWorldLogic::CalcAttackingDirection, retail 0x002B4F6C: the direction
 // between the centers of the last two regions of a path (both the first
 // region when the path is shorter).
-// ?LivingWorldLogic::CalcAttackingDirection present-unmatched
 void LivingWorldLogic::CalcAttackingDirection(const _STL::vector<Int> &path, Coord2D *direction)
 {
 	Int last = path.size() - 1;
@@ -794,8 +793,8 @@ void LivingWorldLogic::CalcAttackingDirection(const _STL::vector<Int> &path, Coo
 		previous = 0;
 	}
 	Coord2D from, to;
-	m_field0B0->GetRegionCenterPoint(path[last], &from);
-	m_field0B0->GetRegionCenterPoint(path[previous], &to);
+	((Rva0020F27EHost *)m_field0B0)->rva0020F27E(path[last], (int)&from);
+	((Rva0020F27EHost *)m_field0B0)->rva0020F27E(path[previous], (int)&to);
 	*direction = to;
 	direction->x -= from.x;
 	direction->y -= from.y;
@@ -2133,7 +2132,6 @@ public:
 };
 // The already-pinned 4-byte forwarder at 0x001FF3A9 dispatches slot zero
 // without inspecting its stack argument; reuse the established call view.
-// ?LivingWorldLogic::rva002BD544 present-unmatched
 void LivingWorldLogic::rva002BD544(Int campaign)
 {
     ((Rva0023D2D8DwordClearer *)TheGameLogic)->clear();
@@ -2189,7 +2187,6 @@ class Rva0020E9F2Outer { public: void rva0020E9F2(); };
 // reset the five words, start the campaign by global override or argument,
 // refresh the region manager and army ownership while FP mode is scoped.
 // The method name and five word identities remain address-derived.
-// ?LivingWorldLogic::rva002B84CD present-unmatched
 void LivingWorldLogic::rva002B84CD(Int campaign)
 {
     rva002B83E5();

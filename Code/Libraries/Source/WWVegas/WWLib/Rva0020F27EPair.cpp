@@ -12,11 +12,7 @@ class Rva0020EA58
 public:
 	bool rva0020EA58(void *p, int v);
 };
-class Rva0020F27EHost
-{
-public:
-	bool rva0020F27E(int idx, int v);
-};
+#include "../../../../GameEngine/Source/Common/RegionCenterPointDispatchView.h"
 bool Rva0020F27EHost::rva0020F27E(int idx, int v)
 {
 	Rva0020E89C *p = ((Rva0020EAF6View *)this)->rva0020EAF6(idx);
