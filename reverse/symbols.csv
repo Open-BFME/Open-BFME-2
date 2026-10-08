@@ -16391,3 +16391,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??0Rva005A71B1@@QAE@XZ,0x005DC43B,callee of ??0Rva005A734B@@QAE@XZ
 ?checkIdleTeams@Rva0059AC4D@@QAEXXZ,0x0059AA37,Native59AC6E update tail jmp59AA37 RET0 and WB152BA50 AITeamBuilder::checkIdleTeams assertions553..593 independently prove function role and this-only ABI; retain existing address-derived caller receiver.
 ??0Rva0031A257@@QAE@XZ,0x0031A257,callee of ?XferOwningLivingWorldArmyVec@@YAXPAVXfer@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z
+?rva002E34A9@Rva002E34A9@@QAEXABURva0040DD3ARef@@H@Z,0x002E34A9,callee of ?KillSummaryEntry@LivingWorldArmy@@QAEXH@Z

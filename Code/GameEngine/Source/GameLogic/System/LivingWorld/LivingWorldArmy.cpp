@@ -54,16 +54,34 @@ class Rva00318C32Owner { public: int rva00318C32(); };
 class Rva003193EC { public: void rva003198B8(Rva003193EC *); };
 class ArmySummaryEntry { public: void CancelUpgrades(); };
 class Rva004F6093Holder { public: ArmySummaryEntry *entry; };
-class ArmySummary { public: int AddArmyEntry(const Rva004F6093Holder &); };
+struct TargetRef00217D4C { void *vtable; int references; };
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+struct Rva004F69C3Target { char pad00[0xAC]; TargetRef00217D4C ref; };
+struct Rva0040DD3ARef {
+    Rva004F69C3Target *value;
+    Rva0040DD3ARef(Rva004F69C3Target *p) : value(p) { if(value) ++value->ref.references; }
+    Rva0040DD3ARef(const Rva0040DD3ARef &other) : value(other.value) { if(value) ++value->ref.references; }
+    ~Rva0040DD3ARef() { if(value) ReleaseTreeHintRef00217D4C(&value->ref); }
+};
+class Rva002E2903Player;
+class Rva002BA8F1Logic { public: Rva002E2903Player *find(int,unsigned int *); };
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+class Rva002E34A9 { public: void rva002E34A9(const Rva0040DD3ARef &,int); };
+class ArmySummary { public: int AddArmyEntry(const Rva004F6093Holder &); Rva0040DD3ARef RemoveEntry(int); };
+struct HeroTemplateKindView { char pad00[0x113]; unsigned char kind113; };
 class LivingWorldArmy {
 public:
     void UseArmySummary(Rva00319CED *source);
+    void KillSummaryEntry(int index);
     void TakeUnitFromArmy_Internal(LivingWorldArmy *source, const Rva004F6093Holder &entry);
     char pad00[0x20];
     int owner20;
     char pad24[0x4C - 0x24];
     int source4C;
-    char pad50[0x78 - 0x50];
+    char pad50[4];
+    int owner54;
+    char pad58[0x78 - 0x58];
     ArmySummaryView *summary78;
 };
 void LivingWorldArmy::UseArmySummary(Rva00319CED *source)
@@ -163,4 +181,17 @@ void XferOwningLivingWorldArmyVec(Xfer *xfer, _STL::vector<const ModuleData *> *
         for (unsigned int i=0; i<armies->size(); ++i)
             xfer->xferSnapshot(const_cast<ModuleData *>((*armies)[i]));
     }
+}
+
+void LivingWorldArmy::KillSummaryEntry(int index)
+{
+    if (index < 0) return;
+    Rva0040DD3ARef entry(reinterpret_cast<Rva004F69C3Target *>(reinterpret_cast<Rva0040CB2CIndexedField *>(summary78)->get(index)));
+    void *thing = reinterpret_cast<Rva0037DCA5 *>(entry.value)->rva0037DC52();
+    if (thing && (static_cast<HeroTemplateKindView *>(thing)->kind113 & 4)) {
+        Rva002E2903Player *player = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->find(owner54,0);
+        if (!player) return;
+        reinterpret_cast<Rva002E34A9 *>(player)->rva002E34A9(entry,1);
+    }
+    reinterpret_cast<ArmySummary *>(summary78)->RemoveEntry(index);
 }
