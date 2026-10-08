@@ -29,7 +29,10 @@
 // flag +0x44; deleteBridge copies the BridgeInfo out, clears the pathfinder
 // layer, destroys the bridge object and frees the bridge through its slot-0
 // destructor and the global operator delete; updateBridgeDamageStates calls
-// Bridge::updateDamageState (0x00281C13) on each bridge.
+// Bridge::updateDamageState (0x00281C13, defined here) on each bridge. That
+// update reads the bridge object's body module (Object+0x254, slot 8), the
+// object's layer through the rowed 0x0028B511, its id at +0x74 and the next
+// object at +0x8C, and keeps Zero Hour's damageStateChanged at BridgeInfo+0x68.
 #include "Coord2D.h"
 #include "Coord3D.h"
 #include "GameLogicObjectLookupView.h"
@@ -87,16 +90,75 @@ private:
 	Real m_minorRadius; // +0x10
 };
 
+class BodyModuleInterface
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual BodyDamageType getDamageState() const; // +0x20
+};
+
+// The 0x7C-byte damage record; its constructor is the rowed 0x00263895.
+class DamageInfo
+{
+public:
+	DamageInfo();
+	char m_pad00[0x08];
+	ObjectID m_sourceID; // +0x08
+	char m_pad0C[0x10 - 0x0C];
+	Int m_damageType; // +0x10
+	char m_pad14[0x1C - 0x14];
+	Int m_deathType; // +0x1C
+	Real m_amount; // +0x20
+	char m_pad24[0x7C - 0x24];
+};
+
+#define HUGE_DAMAGE_AMOUNT 999999.0f
+
 class Object
 {
 public:
 	const Coord3D *getPosition() const { return &m_pos; }
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
+	ObjectID getID() const { return m_id; }
+	Object *getNextObject() { return m_next; }
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+	Int rva0028B511() const; // the rowed getLayer
+	void attemptDamage(DamageInfo *damageInfo);
 private:
 	char m_pad00[0x38];
 	Coord3D m_pos; // +0x38
-	char m_pad44[0xA8 - 0x44];
+	char m_pad44[0x74 - 0x44];
+	ObjectID m_id; // +0x74
+	char m_pad78[0x8C - 0x78];
+	Object *m_next; // +0x8C
+	char m_pad90[0xA8 - 0x90];
 	GeometryInfo m_geometryInfo; // +0xA8
+	char m_padBC[0x254 - 0xBC];
+	BodyModuleInterface *m_body; // +0x254
+};
+
+class BridgeBehaviorInterface
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual Bool isScaffoldPresent(); // +0x14
+};
+
+class BridgeBehavior
+{
+public:
+	static BridgeBehaviorInterface *getBridgeBehaviorInterfaceFromObject(Object *obj);
 };
 
 // Zero Hour's BridgeInfo, the 0xA8-byte record whose rowed constructor
@@ -118,8 +180,10 @@ public:
 	Int bridgeIndex; // +0x4C
 	BodyDamageType curDamageState; // +0x50
 	ObjectID bridgeObjectID; // +0x54
+	ObjectID towerObjectID[4]; // +0x58
+	Bool damageStateChanged; // +0x68
 private:
-	char m_pad58[0xA8 - 0x58];
+	char m_pad69[0xA8 - 0x69];
 };
 typedef Rva0027C36A BridgeInfo;
 
@@ -482,4 +546,58 @@ PathfindLayerEnum TerrainLogic::getHighestLayerForDestination(const Coord3D *pos
 		}
 	}
 	return(bestLayer);
+}
+
+extern TerrainLogic *TheTerrainLogic;
+
+// ?updateDamageState@Bridge@@QAEXXZ @0x00281C13
+// Zero Hour's update: a bridge that falls to rubble closes its pathfinder
+// layer and kills (damage and death type 11) whatever stands on it; one
+// repaired from rubble reopens the layer unless scaffolding is still up.
+void Bridge::updateDamageState( void )
+{
+	m_bridgeInfo.damageStateChanged = false;
+	if (m_bridgeInfo.bridgeObjectID == INVALID_OBJECT_ID) {
+		return; // no object
+	}
+	Object *bridge = TheGameLogic->findObjectByID(m_bridgeInfo.bridgeObjectID);
+	if (bridge) {
+		BodyDamageType damageState = bridge->getBodyModule()->getDamageState();
+		if (damageState == m_bridgeInfo.curDamageState) {
+			return;
+		}
+		BodyDamageType prevDamageState = m_bridgeInfo.curDamageState;
+		m_bridgeInfo.curDamageState = damageState;
+		if (damageState == BODY_RUBBLE) {
+			// Kill anything on the bridge.
+			((Rva002E7205Owner *)TheAI->pathfinder())->rva002E7205(m_layer, false);
+			m_bridgeInfo.damageStateChanged = true;
+
+			Object *obj;
+			for (obj = TheGameLogic->getFirstObject(); obj; obj=obj->getNextObject()) {
+				if (obj->rva0028B511() == m_layer) {
+					if (TheTerrainLogic->objectInteractsWithBridgeLayer(obj, obj->rva0028B511(), false)) {
+						DamageInfo damageInfo;
+						damageInfo.m_damageType = 11;
+						damageInfo.m_deathType = 11;
+						damageInfo.m_sourceID = obj->getID();
+						damageInfo.m_amount = HUGE_DAMAGE_AMOUNT;
+						obj->attemptDamage( &damageInfo );
+					}
+				}
+			}
+		}
+		if (prevDamageState == BODY_RUBBLE)
+		{
+			// we're repairing from rubble.
+			BridgeBehaviorInterface *bbi = BridgeBehavior::getBridgeBehaviorInterfaceFromObject( bridge );
+			if( bbi == NULL || bbi->isScaffoldPresent() == false )
+			{
+				((Rva002E7205Owner *)TheAI->pathfinder())->rva002E7205(m_layer, true);
+			}
+			m_bridgeInfo.damageStateChanged = true;
+		}
+	} else {
+		m_bridgeInfo.bridgeObjectID = INVALID_OBJECT_ID;
+	}
 }
