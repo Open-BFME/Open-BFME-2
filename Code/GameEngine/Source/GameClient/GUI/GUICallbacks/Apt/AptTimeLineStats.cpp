@@ -58,6 +58,7 @@ void Rva005DE433::rva005DE433(int **focus) {
 struct Widths {int *begin,*end;};
 class Rva005DD7C3 {public:void rva005DD7C3(GameWindow*,const Widths*);};
 class LivingWorldPlayer;
+class Player;
 class AptTimeLineStats {
 public:
  Rva005DE433 *receiver;
@@ -69,6 +70,7 @@ public:
  void InitGadgets(const char*,int,GameWindow*);
  void rva005BF177();
  void CollectPlayerData(int,LivingWorldPlayer*);
+ void CollectPlayerData(int,Player*);
 };
 void AptTimeLineStats::SetPlayerFocus(const char *text) {
  if(numPlayers<1)return;
@@ -156,7 +158,7 @@ class Rva005DD822:public BfmeStringRecord005DDD40 {public:Rva005DD822(unsigned);
 class Rva005DDED5:public BfmeStringRecord005DDD40 {public:Rva005DDED5(unsigned);};
 class Rva005DD8E0:public BfmeStringRecord005DDD40 {public:Rva005DD8E0(float,float);};
 class Rva005DDE01 {public:void rva005DDE01(unsigned,unsigned,const BfmeStringRecord005DDD40&,bool);};
-class GameStats {public:class Row;class StrategicEndGame;};
+class GameStats {public:class Row;class StrategicEndGame;class RealTimeEndGame;};
 class Rva005DE9E3 {
 public:Rva005DE9E3(unsigned);virtual~Rva005DE9E3();
 protected:GameStats::Row *rows,*finish,*capacity;int extra;
@@ -232,5 +234,108 @@ void AptTimeLineStats::CollectPlayerData(int playerIndex,LivingWorldPlayer *play
   case 25: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(25,playerIndex,Rva005DD822((reinterpret_cast<int*>(score->words[0x38/4])-reinterpret_cast<int*>(score->words[0x34/4]))),true);break;
   case 26: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(26,playerIndex,Rva005DD822(score->words[0xF0/4]),true);break;
   }
+ }
+}
+
+class GameStats::RealTimeEndGame:public Rva005DE9E3 {public:RealTimeEndGame(int);};
+// Native accesses establish this consuming ScoreKeeper view: integer fields
+// through0x1C, units70/74, buildingsC8/CC, and a pointer vector at328.
+// WB155A800 confirms their statistics; its Player score offset3C8 differs
+// from retail3BC. The inline integer accessors preserve the getter lifetime
+// before conversion without asserting original names for those getters.
+class ScoreKeeper {
+public:
+ int getTotalUnitsDestroyed();int getTotalBuildingsDestroyed();
+ int value4()const{return words[4/4];}
+ int value8()const{return words[8/4];}
+ int value14()const{return words[20/4];}
+ int value18()const{return words[24/4];}
+ int value1C()const{return words[28/4];}
+ int value70()const{return words[112/4];}
+ int value74()const{return words[116/4];}
+ int words[0x328/4];_STL::vector<int> fortresses;
+};
+class Player {public:char beforeScore[0x3BC];ScoreKeeper score;};
+class Rva0039B709 {public:unsigned rva0039B6EE();unsigned rva0039B709();int rva0039B9D1();};
+// Existing seven-word kind-mask initializer2618FA supplies the favorite-unit
+// filter. The full39BDB8 selection worker and23B39BE95 wrapper are verified.
+class Rva002618A2 {public:unsigned words[7];Rva002618A2*rva002618FA(int,int,int,int,int,int);};
+class Rva0039BDB8 {public:void rva0039BE95(const BitFlags<69>*,UnicodeString*);};
+class Rva0039BF0B {public:int rva0039BF0B(const BitFlags<116>&,const BitFlags<116>&);};
+class Rva0039BF39 {public:int rva0039BF39(const BitFlags<116>&,const BitFlags<116>&);};
+class Rva005DD772:public BfmeStringRecord005DDD40 {public:Rva005DD772(const UnicodeString&,float);};
+// VC7.1 reverses the two overload slots: AsciiString fetch is38, char fetch3C.
+// Retail calls3C with GUI:None and a hidden four-byte UnicodeString result.
+class GameTextInterface {
+public:
+ virtual ~GameTextInterface(){}
+ virtual void slot00()=0;virtual void slot01()=0;virtual void slot02()=0;virtual void slot03()=0;
+ virtual void slot04()=0;virtual void slot05()=0;virtual void slot06()=0;virtual void slot07()=0;
+ virtual void slot08()=0;virtual void slot09()=0;virtual void slot10()=0;virtual void slot11()=0;
+ virtual void slot12()=0;virtual UnicodeString fetch(const char*,bool * =0)=0;
+ virtual UnicodeString fetch(const AsciiString&,bool * =0)=0;
+};
+extern GameTextInterface*TheGameText;
+// WB155A800 names this RTS CollectPlayerData overload (asserts106..292).
+// Native5BEA70..5BF02C is1468 code bytes; its24-entry96B switch table follows
+// and ends at the independently rowed vector constructor5BF08C. Verify the
+// whole1564B extent, every case target, display temporary and unwind state.
+// Cases17/21 have no implementation in either native body.
+void AptTimeLineStats::CollectPlayerData(int playerIndex,Player*player) {
+ if(!player)return;
+ if(!receiver)receiver=reinterpret_cast<Rva005DE433*>(new GameStats::RealTimeEndGame(8));
+ ScoreKeeper *score=&player->score;
+ if(!score)return;
+ ++numPlayers;
+ for(int stat=0;stat<24;++stat) switch(stat) {
+  case 0: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(0,playerIndex,Rva005DDED5(reinterpret_cast<Rva0039B709*>(score)->rva0039B6EE()),true);break;
+  case 1: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(1,playerIndex,Rva005DD822(score->words[0xC8/4]),true);break;
+  case 2: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(2,playerIndex,Rva005DD822(score->words[0xCC/4]),true);break;
+  case 3: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(3,playerIndex,Rva005DD822(score->getTotalBuildingsDestroyed()),true);break;
+  case 4: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(4,playerIndex,Rva005DD822(score->fortresses.size()),true);break;
+  case 5: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(5,playerIndex,Rva005DD822(score->words[0x70/4]),true);break;
+  case 6: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(6,playerIndex,Rva005DD822(score->words[0x74/4]),true);break;
+  case 7: {
+   float killed=float(score->getTotalUnitsDestroyed());float lost=float(score->value74());
+   reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(7,playerIndex,Rva005DD8E0(killed,lost),true);break;
+  }
+  case 8: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(8,playerIndex,Rva005DD822(score->getTotalUnitsDestroyed()),true);break;
+  case 9: {
+   UnicodeString favorite=TheGameText->fetch("GUI:None");
+   Rva002618A2 kinds;
+   reinterpret_cast<Rva0039BDB8*>(score)->rva0039BE95(reinterpret_cast<const BitFlags<69>*>(kinds.rva002618FA(0,109,90,10,11,191)),&favorite);
+   reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(9,playerIndex,Rva005DD772(favorite,0.0f),true);break;
+  }
+  case 10: {
+   float gathered=float(score->value4());float minutes=float(reinterpret_cast<Rva0039B709*>(score)->rva0039B9D1());
+   reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(10,playerIndex,Rva005DD8E0(gathered,minutes),true);break;
+  }
+  case 11: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(11,playerIndex,Rva005DD822(score->words[4/4]),true);break;
+  case 12: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(12,playerIndex,Rva005DD822(score->words[16/4]),true);break;
+  case 13: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(13,playerIndex,Rva005DD822(score->words[12/4]),true);break;
+  case 14: {
+   float spent=float(score->value18());
+   reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(14,playerIndex,Rva005DD822(unsigned(spent)),true);break;
+  }
+  case 15: {
+   float spent=float(score->value14());
+   reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(15,playerIndex,Rva005DD822(unsigned(spent)),true);break;
+  }
+  case 16: {
+   float spent=float(score->value1C());
+   reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(16,playerIndex,Rva005DD822(unsigned(spent)),true);break;
+  }
+  case 18: {
+   float spent=float(score->value8());float kills=float(score->getTotalUnitsDestroyed());
+   kills+=float(score->getTotalBuildingsDestroyed());
+   reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(18,playerIndex,Rva005DD8E0(kills*100.0f,spent),true);break;
+  }
+  case 19: {
+   float lost=float(score->value74());float created=float(score->value70());
+   reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(19,playerIndex,Rva005DD8E0(created,lost),true);break;
+  }
+  case 20: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(20,playerIndex,Rva005DDED5(reinterpret_cast<Rva0039B709*>(score)->rva0039B709()),true);break;
+  case 22: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(22,playerIndex,Rva005DD822(reinterpret_cast<Rva0039BF0B*>(score)->rva0039BF0B(reinterpret_cast<const BitFlags<116>&>(Rva00045411BitSet(0,90)),reinterpret_cast<const BitFlags<116>&>(Rva00045411BitSet(0,179)))),true);break;
+  case 23: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(23,playerIndex,Rva005DD822(reinterpret_cast<Rva0039BF39*>(score)->rva0039BF39(reinterpret_cast<const BitFlags<116>&>(Rva00045411BitSet(0,90)),reinterpret_cast<const BitFlags<116>&>(Rva00045411BitSet(0,179)))),true);break;
  }
 }
