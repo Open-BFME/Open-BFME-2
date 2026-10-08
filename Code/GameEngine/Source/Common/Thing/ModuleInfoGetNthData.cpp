@@ -9,6 +9,13 @@ public:
 	virtual void bfmeReservedV2();
 	virtual void bfmeReservedV3();
 	virtual bool isAiModuleData() const;
+	virtual void bfmeReservedV5();
+	virtual void bfmeReservedV6();
+	virtual void bfmeReservedV7();
+	virtual void bfmeReservedV8();
+	virtual bool rva0033B479Predicate() const;
+	char m_at04[4];
+	int m_value08;
 };
 
 class AIUpdateModuleData;
@@ -46,6 +53,7 @@ class ThingTemplate
 
 public:
 	AIUpdateModuleData *friend_getAIModuleInfo();
+	int rva0033B479() const;
 };
 
 inline const ModuleData *ModuleInfo::getNthData(int i) const
@@ -70,6 +78,22 @@ AIUpdateModuleData *ThingTemplate::friend_getAIModuleInfo()
 			return (AIUpdateModuleData *)m_behaviorModuleInfo.getNthData(j);
 	}
 	return 0;
+}
+
+// Native 33B479..33B4CD RET0. The verified revival-entry caller uses this
+// existing const int callee. Like friend_getAIModuleInfo, it scans the
+// 20-byte behavior records at +2E4, but tests virtual slot +24 and returns
+// the selected module's word at +8, or 1 when none qualifies. The predicate
+// and field remain unnamed target facts; no module subtype is inferred.
+int ThingTemplate::rva0033B479() const
+{
+	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
+	for (int j = 0; j < numModInfos; ++j)
+	{
+		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->rva0033B479Predicate())
+			return m_behaviorModuleInfo.getNthData(j)->m_value08;
+	}
+	return 1;
 }
 
 // Header inlines that the units including the header emit as select-any
