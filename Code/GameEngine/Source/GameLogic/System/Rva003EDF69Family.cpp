@@ -3,7 +3,7 @@
 // the argument-object pointer. Both test masks through 0x003EDE16 and
 // 0x003EDE2A, inspect byte +0xE5, and walk the pointer range at +0x1C/+0x20.
 // 0x003EDFD8 also calls the argument's +0x24/+0x28 vtable slots and compares
-// the latter result with the word at g_00DFE1A8+0x3C. Their callback calls
+// the latter result with the word at TheLargeGroupAudio+0x3C. Their callback calls
 // resolve to 0x005697F7 and 0x00569863. The target extent is the Ghidra span
 // at each start (111 and 128 bytes); the next body begins at 0x003EE058.
 // 0x003EDE44 (293 bytes, ret 4; the 0x0020D8F1 range loop's callee) runs the
@@ -17,9 +17,8 @@
 // 0x00569863 unregisterSubject and 0x00569628 updateSubject. Those pairs
 // come back through hidden pointers and are compared with SSE ucomiss, hence
 // /arch:SSE (the two smaller workers match either way).
-// Structural inference: the argument vtable slot types and callback owners
-// below capture only the observed ABI and dispatch shape. They do not name
-// the underlying game classes.
+// Structural inference: the argument vtable slot types below capture only the
+// observed ABI and dispatch shape.
 
 struct Rva003EDE16
 {
@@ -73,33 +72,27 @@ struct Rva0020DXXXArg
 	virtual int get28() = 0;
 };
 
-struct Rva005697F7
+// The callbacks are LargeGroupAudioSoundKeyPair's subject handlers; the
+// argument object is the subject they read.
+class LargeGroupAudioSubject;
+class LargeGroupAudioSoundKeyPair
 {
-	void rva005697F7(void *arg);
+public:
+	void updateSubject(LargeGroupAudioSubject *subject);	// 0x00569628
+	void rva005697F7(LargeGroupAudioSubject *subject);
+	void unregisterSubject(LargeGroupAudioSubject *subject);	// 0x00569863
 };
 
-struct Rva00569863
+typedef void (LargeGroupAudioSoundKeyPair::*Rva003EDE44Callback)(LargeGroupAudioSubject *subject);
+
+// Only the frame word at +0x3C of the LargeGroupAudio subsystem is read.
+class LargeGroupAudio
 {
-	void rva00569863(void *arg);
-};
-
-struct Rva00569628
-{
-	void rva00569628(void *arg);
-};
-
-// The callbacks share one pointer-to-member type; each pair class above is
-// the address-derived owner of one of them.
-typedef void (Rva00569863::*Rva003EDE44Callback)(void *arg);
-
-class Rva0020D959Host;
-extern Rva0020D959Host *g_00DFE1A8;
-
-struct Rva00DFE1A8ClockView
-{
+public:
 	unsigned char m_pad[0x3C];
 	int m_3C;
 };
+extern LargeGroupAudio *TheLargeGroupAudio;
 
 void Rva0020DXXXElem::rva003EDE44(int x)
 {
@@ -124,7 +117,7 @@ void Rva0020DXXXElem::rva003EDE44(int x)
 			wasIn = false;
 	}
 	int frame = arg->get28();
-	if (frame <= ((Rva00DFE1A8ClockView *)g_00DFE1A8)->m_3C)
+	if (frame <= TheLargeGroupAudio->m_3C)
 		wasIn = false;
 
 	Rva003EDE44Callback callback;
@@ -135,19 +128,19 @@ void Rva0020DXXXElem::rva003EDE44(int x)
 			if (arg->get04().isExactlyEqualTo(arg->get00()))
 				return;
 			else
-				callback = reinterpret_cast<Rva003EDE44Callback>(&Rva00569628::rva00569628);
+				callback = &LargeGroupAudioSoundKeyPair::updateSubject;
 		}
 		else
-			callback = reinterpret_cast<Rva003EDE44Callback>(&Rva005697F7::rva005697F7);
+			callback = &LargeGroupAudioSoundKeyPair::rva005697F7;
 	}
 	else
-		callback = wasIn ? &Rva00569863::rva00569863 : 0;
+		callback = wasIn ? &LargeGroupAudioSoundKeyPair::unregisterSubject : 0;
 
 	if (callback)
 	{
 		for (void **i = *(void ***)((char *)this + 0x1C);
 			i != *(void ***)((char *)this + 0x20); ++i)
-			(((Rva00569863 *)*i)->*callback)(arg);
+			(((LargeGroupAudioSoundKeyPair *)*i)->*callback)((LargeGroupAudioSubject *)arg);
 	}
 }
 
@@ -166,7 +159,7 @@ void Rva0020DXXXElem::rva003EDF69(int x)
 	{
 		for (void **i = *(void ***)((char *)this + 0x1C);
 			i != *(void ***)((char *)this + 0x20); ++i)
-			((Rva005697F7 *)*i)->rva005697F7(arg);
+			((LargeGroupAudioSoundKeyPair *)*i)->rva005697F7((LargeGroupAudioSubject *)arg);
 	}
 }
 
@@ -182,12 +175,12 @@ void Rva0020DXXXElem::rva003EDFD8(int x)
 	if (*(unsigned char *)((char *)this + 0xE5) != 0 && arg->get24())
 		run = false;
 	int frame = arg->get28();
-	if (frame <= ((Rva00DFE1A8ClockView *)g_00DFE1A8)->m_3C)
+	if (frame <= TheLargeGroupAudio->m_3C)
 		run = false;
 	if (run)
 	{
 		for (void **i = *(void ***)((char *)this + 0x1C);
 			i != *(void ***)((char *)this + 0x20); ++i)
-			((Rva00569863 *)*i)->rva00569863(arg);
+			((LargeGroupAudioSoundKeyPair *)*i)->unregisterSubject((LargeGroupAudioSubject *)arg);
 	}
 }
