@@ -15,6 +15,8 @@ public:
  ~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}
  __declspec(noinline) AptRef &operator=(const AptRef &other);
 };
+// The identical inline-visible assignment body retains native null-flow analysis.
+// Its single ledger owner is the concurrently recovered AptPlayer.cpp provider.
 template<class T> AptRef<T> &AptRef<T>::operator=(const AptRef &other){
  if(this!=&other){
   if(other.m_ptr)++other.m_ptr->m_refCount;
