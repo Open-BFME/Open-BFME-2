@@ -69,6 +69,7 @@ public:
 
 class CommandButton;
 class ModuleData;
+class Image;
 
 class ConstructionExitView {
 public:
@@ -157,6 +158,7 @@ public:
 
 protected:
 	void updateContextStructureInventory();
+    static const Image *calculateVeterancyOverlayForObject(const Object *);
 
 private:
 	unsigned char m_pad0[0x6c];
@@ -572,4 +574,14 @@ void ControlBar::rva0053E4F1(Object *objectUnderConstruction)
 void ControlBar::rva0053E6E1()
 {
     rva0031D230();
+}
+
+// The inventory callback's native call53E727 reaches the shared null-return
+// body atD43D0 with one cdecl Object pointer. WB1118900 also returns null.
+// BFME1 ba7ddda7 context UI and the ZH structure-inventory source supply this
+// helper's role, name and const parameter; the historical target declaration
+// is unasserted. The emitted3-byte body is a complete byte/relocation twin.
+__declspec(noinline) const Image *ControlBar::calculateVeterancyOverlayForObject(const Object *)
+{
+    return 0;
 }
