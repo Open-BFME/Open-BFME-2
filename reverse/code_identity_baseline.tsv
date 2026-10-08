@@ -1030,8 +1030,6 @@ Code/GameEngine/Source/Common/Rva009A5800Forward.cpp	?Rva009A5620DecodeFrame@@YA
 Code/GameEngine/Source/Common/Rva009A5800Forward.cpp	?Rva009A5620DecodeFrame@@YAHPAE0I@Z	?d_009acb60@@YAXXZ	0x001BD550	unowned
 Code/GameEngine/Source/Common/Rva009A6130PostFilterDispatch.cpp	?Rva009A6130PostFilterDispatch@@YAXPAURva009A6130Context@@HHHHPAE11HH@Z	?Rva009B2530@@YAXPAURva009A6130Context@@PAE1@Z	0x001C2F20	unowned
 Code/GameEngine/Source/Common/Rva009A6130PostFilterDispatch.cpp	?Rva009A6130PostFilterDispatch@@YAXPAURva009A6130Context@@HHHHPAE11HH@Z	?d_009a8c50@@YAXXZ	0x001B96A0	unowned
-Code/GameEngine/Source/Common/Rva009A6DA0ReleaseBuffers.cpp	?Rva009A6DA0ReleaseBuffers@@YAXPAURva009A6DA0Buffer@@@Z	?bfmeTwoBZB@@YAXPAX@Z	0x001B6410	wrong
-Code/GameEngine/Source/Common/Rva009A6DA0ReleaseBuffers.cpp	?Rva009A6DF0InitializeBuffers@@YAHPAURva009A6DA0Buffer@@@Z	?bfmeTwoBZB@@YAXPAX@Z	0x001B6410	wrong
 Code/GameEngine/Source/Common/Rva009A9070CopyStreams.cpp	?Rva009A9070CopyStreams@@YAXPAURva009A9070Context@@PAURva009A9070Source@@H@Z	?d_009a8c50@@YAXXZ	0x001B96A0	unowned
 Code/GameEngine/Source/Common/Rva009A9AD0Scale2D.cpp	?Rva009A9AD0Scale2D@@YAXPAEHII0HII0EIIIII@Z	?Rva009A9980@@YAXPBEHIIPAEHII@Z	0x001BA3C0	unowned
 Code/GameEngine/Source/Common/Rva009A9AD0Scale2D.cpp	?Rva009A9AD0Scale2D@@YAXPAEHII0HII0EIIIII@Z	?Rva009A9A20@@YAXPBEHIIPAEHII@Z	0x001BA460	unowned
