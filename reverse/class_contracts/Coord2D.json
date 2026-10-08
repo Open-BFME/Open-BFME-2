@@ -31,6 +31,14 @@
     "size": 71,
     "source": "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp",
     "decided_by": "byte-verified owner; native 0x004EFDDC AISkirmishPlayer::computeSuperweaponTarget calls this owner on its eight-byte two-float offset"
+   },
+   {
+    "declaration": "float length() const;",
+    "name": "?length@Coord2D@@QBEMXZ",
+    "rva": "0x00003755",
+    "size": 53,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp",
+    "decided_by": "byte-verified owner; native Coord2D::normalize at RVA 0x0000378A calls this actual 53-byte method at +0x7 on the same two-float receiver"
    }
   ]
  },

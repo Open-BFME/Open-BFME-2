@@ -9,6 +9,7 @@ public:
     float x;
     float y;
     void normalize();
+    float length() const;
 };
 
 #endif // CANONICAL_COORD2D_H
