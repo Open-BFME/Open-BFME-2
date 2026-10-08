@@ -81,3 +81,11 @@ void * Rva000427195::rva000A7B3C(const AsciiString *key) {
  { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
  return (void *)(node==0 ? (char *)((Rva000427195 *)this)->rva000A7A63((const StoredPair4 *)&static_cast<const WordSlotPair &>(WordSlotPair(*key, 0)))+4 : (char *)node+8);
 }
+
+// 1FDE3F..1FDEBC RET4; PlayerTemplate::parseProductionTimeChange at1FDF73 uses map+100 and stores a float through this reference; native xorps/movss default zero and insert58C6F establish payload; WBA79920 supplies structural lead.
+float & Rva001FDE3F::rva001FDE3F(const AsciiString &name) {
+ const AsciiString *key=&name;
+void *node;
+ { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
+ return *(float *)(node==0 ? (char *)((Rva000427195 *)this)->rva00058C6F((const StoredPair5808E *)&static_cast<const FloatSlotPair &>(FloatSlotPair(*key, 0)))+4 : (char *)node+8);
+}
