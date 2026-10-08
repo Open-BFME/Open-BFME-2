@@ -1,5 +1,3 @@
-// ?doTeamHuntWithCommandButton@ScriptActions@@IAEXABVAsciiString@@0@Z
-// partial score=0.98 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs
 //
 // ScriptActions::doTeamHuntWithCommandButton, retail 0x003C3C0A (619B; ret 8)
@@ -24,6 +22,12 @@
 // override chain, and the address-named set lookup. Donor-carried: the
 // special-power / option / AI-update meaning of +0x44, +0x1C and +0x258, and
 // the hunt-update meaning of the 0x0049575A call.
+// Shape: DLINK_ITERATOR<Object>::advance (0x00263526) and
+// Team::iterate_TeamMemberList (0x00263864) are defined inline as in the
+// header, over the virtual-inheritance Object layout of
+// TeamIterateTeamMemberList.cpp; neither is inlined here, but with only their
+// declarations the member's loop-test load lands in ECX and is copied to ESI
+// where retail loads ESI directly.
 #include "ascii_string.h"
 
 typedef int Int;
@@ -95,7 +99,33 @@ private:
 	AsciiString m_name;	// +0x64
 };
 
-class Object
+class Object;
+
+class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+
+class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
+{
+public:
+	unsigned char m_carrier[4];
+};
+
+class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
+
+class BfmeObjectDlinkBase
+{
+public:
+	Object *dlink_next_TeamMemberList() const;
+};
+
+class BfmeObjectDlinkPad
+{
+public:
+	const ThingTemplate *m_template;	// +0x04
+	unsigned char m_pad[0x60];
+};
+
+class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
+	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
@@ -103,27 +133,31 @@ public:
 	const AsciiString *rva00290E67() const;
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 private:
-	void *m_vtbl;
-	const ThingTemplate *m_template;	// +0x04
-	unsigned char m_pad008[0x250];
+	unsigned char m_pad070[0x258 - 0x70];
 	void *m_ai;				// +0x258
 };
 
-template<class OBJ> class DLINK_ITERATOR
+template<class OBJCLASS>
+class DLINK_ITERATOR
 {
 public:
-	void advance();		// 0x00263526
+	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
+	DLINK_ITERATOR(OBJCLASS *cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc) {}
+	void advance() { if (m_cur) m_cur = ((*m_cur).*(m_getNextFunc))(); }
 	bool done() const { return m_cur == 0; }
-	OBJ *cur() const { return m_cur; }
+	OBJCLASS *cur() const { return m_cur; }
 private:
-	OBJ *m_cur;
-	unsigned char m_rest[20];
+	OBJCLASS *m_cur;
+	GetNextFunc m_getNextFunc;
 };
 
 class Team
 {
 public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;	// 0x00263864
+	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_head, &Object::dlink_next_TeamMemberList); }
+private:
+	unsigned char m_pad00[0x38];
+	Object *m_head;
 };
 
 class ScriptEngine
