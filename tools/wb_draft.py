@@ -20,6 +20,10 @@ a draft an RE agent can edit toward a byte match:
     convention and the explicit `this`
   * a header records provenance: game.dat rva and ledger row, WB va, name,
     source file and assert line range, and the match score and evidence.
+  * an advice block follows it: tools/flag_hint.py (compiler-flag tells in
+    the retail body, diffed against the row's source `// cl:`) and
+    tools/sig_check.py (the draft's signature against retail's ret N, ecx
+    use, call-site cleanups and result use). --no-advice omits it.
 
 The output is an UNVERIFIED DRAFT: decompiler types, debug-build inlining
 and control flow all differ from retail. It is never written under Code/.
@@ -39,6 +43,12 @@ from pathlib import Path
 import wb_decompile
 import wb_data
 import wb_show
+
+try:  # advisory extras; a missing capstone or game.dat must not stop a draft
+    import flag_hint
+    import sig_check
+except ImportError:  # pragma: no cover
+    flag_hint = sig_check = None
 
 ROOT = wb_show.ROOT
 DECOMP_DIR = wb_decompile.OUT_DIR
@@ -444,6 +454,30 @@ def squeeze_blank(lines):
     return out
 
 
+def advice(gd_va, text, row_name=None):
+    """flag_hint and sig_check for the draft, as comment lines. Advice only:
+    every failure becomes a one-line note, never a failed draft."""
+    rva = gd_va - IMAGE_BASE
+    out = ["// ---- advice: tools/flag_hint.py and tools/sig_check.py (never a gate) ----"]
+    for label, run in (("flag_hint", lambda: flag_hint.report(f"0x{rva:08X}")),
+                       ("sig_check", lambda: sig_check.report_text(rva, text, row_name))):
+        if flag_hint is None:
+            out.append(f"// {label}: unavailable (import failed)")
+            continue
+        try:
+            out.extend("// " + line for line in run().splitlines())
+        except (Exception, SystemExit) as exc:  # noqa: BLE001 - advice must not break drafting
+            out.append(f"// {label}: unavailable ({exc})")
+    return out
+
+
+def with_advice(text, gd_va, row_name=None):
+    """text with the advice block after its provenance header."""
+    lines = text.split("\n")
+    cut = next((i for i, line in enumerate(lines) if not line.startswith("//")), len(lines))
+    return "\n".join(lines[:cut] + advice(gd_va, text, row_name) + lines[cut:])
+
+
 def write(text, out):
     """Print text, or write it to out (never under Code/)."""
     if out is None:
@@ -462,6 +496,8 @@ def main(argv=None):
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("target", help="game.dat rva/va, ledger name, WB name or wb:0xVA")
     parser.add_argument("--out", help="write here (e.g. build/wb/drafts/<rva>.cpp) instead of stdout")
+    parser.add_argument("--no-advice", action="store_true",
+                        help="omit the flag_hint / sig_check comment block")
     args = parser.parse_args(argv)
     index = wb_show.load_index()
     gd_va, wb_va, note = wb_show.resolve_target(index, args.target)
@@ -469,7 +505,11 @@ def main(argv=None):
         sys.exit(f"{args.target}: no WorldBuilder pairing")
     if note:
         print(f"note: {note}", file=sys.stderr)
-    write(draft(index, gd_va, wb_va), args.out)
+    text = draft(index, gd_va, wb_va)
+    if not args.no_advice and gd_va:
+        rows = index["ledger"].get(gd_va - IMAGE_BASE) or []
+        text = with_advice(text, gd_va, rows[0][0] if rows else None)
+    write(text, args.out)
 
 
 if __name__ == "__main__":

@@ -23,6 +23,12 @@ Sections, in priority order:
 
   --tier wb (or --wb) serves WorldBuilder name leads instead: see wb_candidates.
 
+Every served candidate carries tools/wpo_detect.py's warning when its body (or a
+callee) uses a private register convention plain C++ rarely reproduces (`wpo:`
+line, "wpo" in --json); likely-unreproducible ones sort to the end of their
+queue and are drawn only when nothing else in the pool is left. Cached per RVA
+under build/wpo_detect/.
+
 WorldBuilder leads (reverse/wb_name_leads.csv, via tools/wb_context.py) annotate
 every printed candidate with a `WB:` line and the `tools/wb_show.py <rva> --gd`
 command. Ranking rule: inside every tier, a candidate whose address carries a
@@ -58,6 +64,11 @@ import landability
 import re_log
 import wb_context
 import yield_model
+
+try:  # advisory annotation only; a queue never depends on it
+    import wpo_detect
+except ImportError:  # pragma: no cover
+    wpo_detect = None
 
 ROOT = Path(__file__).resolve().parents[1]
 # drift_report.csv is the shared drift classification — it feeds the
@@ -578,6 +589,44 @@ def wb_lines(candidate):
 def _print_wb(candidate):
     for line in wb_lines(candidate):
         print(line)
+    _print_wpo(candidate)
+
+
+def _print_wpo(candidate):
+    if candidate.get("wpo"):
+        print(f"       wpo: {candidate['wpo']} (tools/wpo_detect.py "
+              f"{candidate.get('candidate_rva') or candidate.get('target_rva')})")
+
+
+def unreproducible(candidate):
+    """True when wpo_detect saw a register-passed call (served last)."""
+    return str(candidate.get("wpo", "")).startswith("likely")
+
+
+def annotate_wpo(candidates):
+    """Hang wpo_detect's warning on each candidate and move the likely
+    unreproducible ones to the end, keeping every candidate and the queue's
+    own order otherwise. Cached per RVA under build/wpo_detect/."""
+    if wpo_detect is None:
+        return candidates
+    fresh = [c for c in candidates
+             if _candidate_rva(c) is not None and not wpo_detect.is_cached(_candidate_rva(c))]
+    if len(fresh) > 200:
+        print(f"wpo_detect: analysing {len(fresh)} uncached candidate(s) once "
+              f"(cached under build/wpo_detect/)", file=sys.stderr)
+    for candidate in candidates:
+        rva = _candidate_rva(candidate)
+        if rva is None:
+            continue
+        try:
+            size = int(candidate.get("size") or candidate.get("target_size") or 0) or None
+        except (TypeError, ValueError):
+            size = None
+        warning = wpo_detect.warning(rva, size)
+        if warning:
+            candidate["wpo"] = warning
+    candidates.sort(key=unreproducible)
+    return candidates
 
 
 def annotate_wb(candidates):
@@ -869,6 +918,11 @@ def weighted_choice(candidates):
         candidates = sorted(candidates, key=lambda c: c["deferred_attempts"])
         fewest = candidates[0]["deferred_attempts"]
         candidates = [c for c in candidates if c["deferred_attempts"] == fewest]
+    # Likely-unreproducible register conventions (wpo_detect) are served last
+    # by the same scheduling rule, never dropped.
+    clear = [c for c in candidates if not unreproducible(c)]
+    if clear:
+        candidates = clear
     weights = [candidate_weight(c) for c in candidates]
     cutoff = secrets.randbelow(sum(weights))
     for candidate, weight in zip(candidates, weights):
@@ -1250,7 +1304,8 @@ def print_cluster(candidate, candidates, buildable=True):
         marker = "->" if sibling is candidate else "  "
         print(f"   {marker} {size:>5}B  "
               f"{int(100 * yield_model.land_rate(size)):>2}% land  "
-              f"{sibling['function'][:88]}")
+              f"{sibling['function'][:88]}"
+              + ("  [wpo: likely unreproducible]" if unreproducible(sibling) else ""))
     if len(siblings) > 12:
         print(f"      ... and {len(siblings) - 12} more in this file")
     print("  If a shared header is involved, edit every dependent body first and "
@@ -1270,6 +1325,7 @@ def print_wb_candidate(candidate, indent="  "):
         print(line)
     for line in wb_lines(candidate)[:1]:
         print(line)
+    _print_wpo(candidate)
     _print_boundary_verdicts(candidate)
     print(f"       start: {candidate['command']}")
 
@@ -1600,6 +1656,9 @@ def main():
     for queue in (named, drifts, structural, ghidra_absent, anchored, wb, similar_q):
         annotate_stashes(queue)
         annotate_wb(queue)
+        annotate_wpo(queue)
+    if wpo_detect is not None:
+        wpo_detect.save_cache()
     for queue in (named, ghidra_absent, anchored):
         repair_queue.annotate_dest(queue)
     shard_meta = (None if args.shard is None else
@@ -1640,7 +1699,9 @@ def main():
 
     packets = (packet_candidates(claimed)
                if args.tier in (None, "packet") else [])
-    packets = annotate_wb(without_busy(packets, busy))
+    packets = annotate_wpo(annotate_wb(without_busy(packets, busy)))
+    if wpo_detect is not None:
+        wpo_detect.save_cache()
     repair_queue.annotate_dest(packets)
     # The packet tier carries its own boundary, so a logged verdict retires it
     # exactly as it does for every other lane. Without this the recommender
