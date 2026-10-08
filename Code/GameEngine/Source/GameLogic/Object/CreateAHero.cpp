@@ -69,6 +69,7 @@ class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const AsciiString &name);		// 0x0009FA65
+	NameKeyType nameToKey(const char *name);		// 0x00148E1A
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -102,12 +103,15 @@ class Xfer;
 
 enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
 
+struct FieldParse;
+
 class INI
 {
 public:
 	INI();							// 0x0002CDB0
 	~INI();							// 0x0002CE5B
 	void loadFile(AsciiString filename, INILoadType loadType, Xfer *pXfer);	// 0x0002DC75
+	void initFromINI(void *what, const FieldParse *parseTable);	// 0x0002DE78
 
 private:
 	unsigned char m_data[0x87c];
@@ -172,6 +176,8 @@ public:
 	virtual ~CreateAHeroManager();
 	virtual void init();
 
+	static void iniParseCreateAHeroSystem(INI *ini);
+
 	Int GetBlingCount(Int blingKey, const CreateAHeroHero *hero) const;
 	Int rva0021BEE0(Int blingKey, UnsignedInt classIndex, UnsignedInt subClassIndex) const;
 	Int GetSubClassDefaultBlingId(Int blingKey, UnsignedInt classIndex, UnsignedInt subClassIndex) const;
@@ -191,7 +197,26 @@ private:
 	std::vector<CreateAHeroClass> m_classes;		// +0x14C
 	unsigned char m_pad158[0x15c - 0x158];
 	std::vector<CreateAHeroBlingEntry> m_blings;		// +0x15C
-	unsigned char m_pad168[0x1dc - 0x168];
+	unsigned char m_pad168[0x188 - 0x168];
+	AsciiString m_mapModeUpgradeName;			// +0x188
+	AsciiString m_gameModeUpgradeName;			// +0x18C
+	AsciiString m_canBuildUpgradeName;			// +0x190
+	NameKeyType m_stratigicDefeatStat;			// +0x194
+	NameKeyType m_stratigicVictoryStat;			// +0x198
+	NameKeyType m_stratigicMPDefeatStat;			// +0x19C
+	NameKeyType m_stratigicMPVictoryStat;			// +0x1A0
+	NameKeyType m_skirmishDefeatStat;			// +0x1A4
+	NameKeyType m_skirmishVictoryStat;			// +0x1A8
+	NameKeyType m_openPlayDefeatStat;			// +0x1AC
+	NameKeyType m_openPlayVictoryStat;			// +0x1B0
+	NameKeyType m_stratigicCampainDefeatStat;		// +0x1B4
+	NameKeyType m_stratigicCampainVictoryStat;		// +0x1B8
+	NameKeyType m_weaponGroupName;				// +0x1BC
+	float m_specialAnimPercentChance;			// +0x1C0
+	AsciiString m_selectedCheerAnimName;			// +0x1C4
+	AsciiString m_examineWeaponAnimName;			// +0x1C8
+	AsciiString m_examineSelfAnimName;			// +0x1CC
+	unsigned char m_pad1D0[0x1dc - 0x1d0];
 	AsciiString m_commandSetName;				// +0x1DC
 };
 
@@ -341,4 +366,81 @@ Int CreateAHeroManager::CreateAHeroSubClass::GetDefaultBlingId(Int blingKey) con
         }
     }
     return 0;
+}
+
+// iniParseCreateAHeroSystem's views. The CreateAHeroSystem block's field table
+// (VA 0x00BE6888) names each manager field it fills; the stat names are
+// checked by the 0x00219453 validator, which throws INIException.
+extern "C" const FieldParse CreateAHeroSystemFieldParse[];
+
+bool Rva00219453Validate(int stat, const char *name);	// 0x00219453
+
+class INIException
+{
+public:
+	INIException(int argCount, const char *format, ...);	// 0x0002F681
+	char *mFailureMessage;
+	int mErrorCode;
+	INIException(const INIException &that);
+	~INIException();
+};
+
+class UpgradeTemplate;
+
+class UpgradeCenter
+{
+public:
+	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;	// 0x0026F26D
+};
+
+extern UpgradeCenter *TheUpgradeCenter;
+
+// isEmpty was header-defined: MSVC keeps the call out of line (0x00001E2F) but,
+// knowing the body, does not reload TheCreateAHeroManager across it.
+template <> inline bool StringBase<char>::isEmpty() const { return m_data == 0 || m_data->length == 0; }
+
+// CreateAHeroManager::iniParseCreateAHeroSystem, retail 0x0022044C (684
+// bytes), the CreateAHeroSystem block parser (BlockParse node VA 0x00DB9D38).
+// WB names it (CreateAHero.cpp:3270..3367): fill the manager from the block,
+// require every stat, clamp the special-animation chance to [0, 100], require
+// a weapon group and the three animation names, and drop a CanBuild upgrade
+// name that no upgrade answers. The DEBUG reports are compiled out.
+void CreateAHeroManager::iniParseCreateAHeroSystem(INI *ini)
+{
+	if (TheCreateAHeroManager == 0)
+		return;
+
+	ini->initFromINI(TheCreateAHeroManager, CreateAHeroSystemFieldParse);
+
+	Rva00219453Validate(TheCreateAHeroManager->m_stratigicDefeatStat, "StratigicDefeatStatName");
+	Rva00219453Validate(TheCreateAHeroManager->m_stratigicVictoryStat, "StratigicVictoryStatName");
+	Rva00219453Validate(TheCreateAHeroManager->m_stratigicMPDefeatStat, "StratigicMPDefeatStatName");
+	Rva00219453Validate(TheCreateAHeroManager->m_stratigicMPVictoryStat, "StratigicMPVictoryStatName");
+	Rva00219453Validate(TheCreateAHeroManager->m_skirmishDefeatStat, "SkirmishDefeatStatName");
+	Rva00219453Validate(TheCreateAHeroManager->m_skirmishVictoryStat, "SkirmishVictoryStatName");
+	Rva00219453Validate(TheCreateAHeroManager->m_openPlayDefeatStat, "OpenPlayDefeatStatName");
+	Rva00219453Validate(TheCreateAHeroManager->m_openPlayVictoryStat, "OpenPlayVictoryStatName");
+
+	TheCreateAHeroManager->m_specialAnimPercentChance = std::min(100.0f, TheCreateAHeroManager->m_specialAnimPercentChance);
+	TheCreateAHeroManager->m_specialAnimPercentChance = std::max(0.0f, TheCreateAHeroManager->m_specialAnimPercentChance);
+
+	static NameKeyType noneKey = TheNameKeyGenerator->nameToKey("None");
+	static NameKeyType emptyKey = TheNameKeyGenerator->nameToKey("");
+	if (TheCreateAHeroManager->m_weaponGroupName == NAMEKEY_INVALID
+		|| TheCreateAHeroManager->m_weaponGroupName == noneKey
+		|| TheCreateAHeroManager->m_weaponGroupName == emptyKey)
+		throw INIException(3, "WeaponGroupName is not a valid in CreateAHeroSystem.ini.");
+
+	if (TheCreateAHeroManager->m_selectedCheerAnimName.isNone() || ((const StringBase<char> *)&TheCreateAHeroManager->m_selectedCheerAnimName)->isEmpty())
+		throw INIException(3, "SelectedCheerAninName is not a valid in CreateAHeroSystem.ini.");
+	if (TheCreateAHeroManager->m_examineWeaponAnimName.isNone() || ((const StringBase<char> *)&TheCreateAHeroManager->m_examineWeaponAnimName)->isEmpty())
+		throw INIException(3, "ExamineWeaponAninName is not a valid in CreateAHeroSystem.ini.");
+	if (TheCreateAHeroManager->m_examineSelfAnimName.isNone() || ((const StringBase<char> *)&TheCreateAHeroManager->m_examineSelfAnimName)->isEmpty())
+		throw INIException(3, "ExamineSelfAninName is not a valid in CreateAHeroSystem.ini.");
+
+	if (!((const StringBase<char> *)&TheCreateAHeroManager->m_canBuildUpgradeName)->isEmpty())
+	{
+		if (TheUpgradeCenter->findUpgrade(TheCreateAHeroManager->m_canBuildUpgradeName) == 0)
+			TheCreateAHeroManager->m_canBuildUpgradeName.clear();
+	}
 }
