@@ -5,6 +5,7 @@
 // retail supplies the bytes. The address pair lands at ConnectionManager
 // +0x12050/+0x12054 (Zero Hour's m_localAddr and m_localPort).
 
+typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned char UnsignedByte;
 typedef unsigned short UnsignedShort;
@@ -24,6 +25,7 @@ public:
 	virtual void slot00(void);
 	virtual void slot01(void);
 	virtual void slot02(void);
+	void sendChat(UnicodeString text, Int playerMask);
 	void sendDisconnectChat(UnicodeString text);
 	void sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID);
 	void rva004D0E8B(void);
@@ -95,6 +97,7 @@ public:
 	// BFME2NativeNetwork::construct 0x0025DB6D installs: 14, 18, 27, 28, 37.
 	virtual void startNewSession(void);
 	virtual void SetLocalAddr(const NetLocalAddress &addr);
+	virtual void sendChat(UnicodeString text, Int playerMask);	// slot 26
 	virtual void sendDisconnectChat(UnicodeString text);
 	virtual void sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID);
 	virtual void quitGame(void);
@@ -196,6 +199,14 @@ void Network::startNewSession(void)
 // temporary, and returns with one stack argument. The Network name and
 // forwarding operation follow Open-BFME-1's Network::sendDisconnectChat; the
 // donor supplies identity, while the target body supplies the layout and ABI.
+// Retail 0x0025E29D, slot 26 of 0x00BF6040 (just before
+// sendDisconnectChat): Zero Hour's Network::sendChat, forwarding the text
+// and player mask to the connection manager's 0x004D17C5.
+void Network::sendChat(UnicodeString text, Int playerMask)
+{
+	m_pConMgr->sendChat(text, playerMask);
+}
+
 void Network::sendDisconnectChat(UnicodeString text)
 {
 	m_pConMgr->sendDisconnectChat(text);

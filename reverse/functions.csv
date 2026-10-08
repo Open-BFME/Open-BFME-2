@@ -71532,3 +71532,8 @@ _VP6_printmodes,,0x001BB830,398,Code/Libraries/Source/VP6/debug.cpp,matched,Clea
 ?insertWindowAheadOf@GameWindowManager@@QAEXPAVGameWindow@@0@Z,,0x002C0B11,129,Code/GameEngine/Source/GameClient/GUI/GameWindowManager_linkWindow.cpp,matched,
 ?rva00272D03@Drawable@@QAEXI@Z,,0x00272D03,58,Code/GameEngine/Source/GameClient/DrawableFadeModes.cpp,matched,
 ?rva00272D3D@Drawable@@QAEXI@Z,,0x00272D3D,58,Code/GameEngine/Source/GameClient/DrawableFadeModes.cpp,matched,
+?getSaveLoadMenuLayout@Shell@@QAEPAVWindowLayout@@XZ,,0x0035C4E6,50,Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp,matched,
+?getPopupReplayLayout@Shell@@QAEPAVWindowLayout@@XZ,,0x0035C518,50,Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp,matched,
+?sendChat@Network@@UAEXVUnicodeString@@H@Z,,0x0025E29D,70,Code/GameEngine/Source/GameNetwork/Network.cpp,matched,
+?rva002724C4@Drawable@@QAEXH@Z,,0x002724C4,57,Code/GameEngine/Source/GameClient/Drawable_rva002724C4.cpp,matched,
+?rva00272545@Drawable@@QAEHH@Z,,0x00272545,54,Code/GameEngine/Source/GameClient/Drawable_rva002724C4.cpp,matched,

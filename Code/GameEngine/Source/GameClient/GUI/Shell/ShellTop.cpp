@@ -78,6 +78,10 @@ public:
 	virtual void update() = 0;
 	void registerGameWindow(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int ms, unsigned int delayMs);
 	void reverseAnimateWindow();
+	Bool isFinished() { return m_isFinished; }
+private:
+	char m_pad04[0x15 - 4];
+	Bool m_isFinished; // +0x15
 };
 
 class GameEngineDeletingBase
@@ -225,12 +229,15 @@ public:
 	WindowLayout *findScreenByFilename(AsciiString filename);
 	void registerWithAnimateManager(GameWindow *win, AnimTypes animType, Bool needsToFinish, unsigned int delayMS);
 	void reverseAnimatewindow();
+	Bool isAnimFinished();
 	void loadScheme(AsciiString name);
 	void rva0035BEC7();
 	void rva0035BF0E();
 	void rva0035C16A();
 	void shutdownComplete(WindowLayout *screen, Bool impendingPush);
 	void push(AsciiString filename, bool shutdownImmediate);
+	WindowLayout *getSaveLoadMenuLayout();
+	WindowLayout *getPopupReplayLayout();
 };
 
 class ShellMenuSchemeManager
@@ -558,3 +565,32 @@ void bfmeEmitShellTop(Shell *p)
 	p->Shell::~Shell();
 }
 #pragma inline_depth()
+
+// ?getSaveLoadMenuLayout@Shell@@QAEPAVWindowLayout@@XZ @0x0035C4E6 50B and
+// ?getPopupReplayLayout@Shell@@QAEPAVWindowLayout@@XZ @0x0035C518 50B: Zero
+// Hour's lazily created popups (Shell.cpp), "Menus/PopupSaveLoad.wnd" at
+// +0x70 and "Menus/PopupReplay.wnd" at +0x74 through winCreateLayout (slot
+// 32). The second name is the layout's, Zero Hour's getPopupReplayLayout.
+WindowLayout *Shell::getSaveLoadMenuLayout()
+{
+	if (m_saveLoadMenuLayout == 0)
+		m_saveLoadMenuLayout = TheWindowManager->winCreateLayout("Menus/PopupSaveLoad.wnd");
+	return m_saveLoadMenuLayout;
+}
+
+WindowLayout *Shell::getPopupReplayLayout()
+{
+	if (m_popupReplayLayout == 0)
+		m_popupReplayLayout = TheWindowManager->winCreateLayout("Menus/PopupReplay.wnd");
+	return m_popupReplayLayout;
+}
+
+// ?isAnimFinished@Shell@@QAE_NXZ @0x0035BEAA 29B: Zero Hour's
+// Shell::isAnimFinished, the animate manager's +0x15 finished flag while
+// animateWindows (+0xB00) is on, else TRUE.
+Bool Shell::isAnimFinished()
+{
+	if (m_animateWindowManager && TheGlobalData->m_animateWindows)
+		return m_animateWindowManager->isFinished();
+	return 1;
+}

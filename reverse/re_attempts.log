@@ -26295,3 +26295,8 @@ parseMod canonical string ownership	0x003BA348	403	blocked	Current BF1 9cb Commo
 ?rva00272D03@Drawable@@QAEXI@Z	0x00272D03	58	landed	add_match verified Code/GameEngine/Source/GameClient/DrawableFadeModes.cpp 58B
 ?rva00272D3D@Drawable@@QAEXI@Z	0x00272D3D	58	landed	add_match verified Code/GameEngine/Source/GameClient/DrawableFadeModes.cpp 58B
 ?loadProgressComplete@ConnectionManager@@QAEXXZ	0x004D02F6	139	partial	EXACT at /O1 /G7 (stash compiles byte-identical) but class_gate refuses the private GameLogic view: needs void processProgressComplete(int) added to Code/GameEngine/Source/Common/GameLogicObjectLookupView.h (full-gate header edit) then land as-is t=12 model=claude-opus-5-5 score=1.0 stash=reverse/attempts/0x004d02f6.cpp
+?getSaveLoadMenuLayout@Shell@@QAEPAVWindowLayout@@XZ	0x0035C4E6	50	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp 50B
+?getPopupReplayLayout@Shell@@QAEPAVWindowLayout@@XZ	0x0035C518	50	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp 50B
+?sendChat@Network@@UAEXVUnicodeString@@H@Z	0x0025E29D	70	landed	add_match verified Code/GameEngine/Source/GameNetwork/Network.cpp 70B
+?rva002724C4@Drawable@@QAEXH@Z	0x002724C4	57	landed	add_match verified Code/GameEngine/Source/GameClient/Drawable_rva002724C4.cpp 57B
+?rva00272545@Drawable@@QAEHH@Z	0x00272545	54	landed	add_match verified Code/GameEngine/Source/GameClient/Drawable_rva002724C4.cpp 54B
