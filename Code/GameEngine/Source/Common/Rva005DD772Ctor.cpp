@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /arch:SSE /G7 /Oi- /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_STLP_USE_STATIC_LIB
 // ??0Rva005DD772@@QAE@XZ @0x005DD772 81B.
 // Default ctor of an 8-byte UnicodeString+float display record: base UnicodeString
 // from narrow "-" at 0x83DD78 via AsciiString temp then float 0.0f at +4 via xmm.
@@ -95,3 +95,36 @@ int Rva005DD88A::rva005DD88A(GameWindow *win, int a, int b, float f)
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.
 #pragma comment(linker, "/alternatename:?g_007C9260@@3QBGB=??_C@_15KNBIKKIN@?$AA?$CF?$AAd?$AA?$AA@")
+
+// Native 0x5DD8E0..0x5DD9F9, WB 0x15D6CA0: two-float display-record
+// constructor. Preserve the ratio at +4 and localize its decimal separator.
+// The original class name is not exposed by the WB lead.
+#include <math.h>
+#pragma function(fabs)
+extern "C" __declspec(dllimport) int __cdecl _snprintf(char *, unsigned int, const char *, ...);
+extern "C" __declspec(dllimport) int __stdcall GetLocaleInfoA(unsigned long, unsigned long, char *, int);
+class Rva005DD8E0 : public Rva005DD772 {
+public:
+    Rva005DD8E0(float value, float divisor);
+};
+Rva005DD8E0::Rva005DD8E0(float value, float divisor) : Rva005DD772() {
+    if (fabs(value) < 0.0001f) {
+        m04 = 0.0f;
+        set(reinterpret_cast<const Wide *>(L"-"));
+        return;
+    }
+    if (fabs(divisor) < 0.0001f)
+        divisor = 1.0f;
+    m04 = value / divisor;
+    char text[256];
+    _snprintf(text, sizeof(text), "%1.2f", m04);
+    char *dot = strchr(text, '.');
+    if (dot) {
+        char separator[10];
+        GetLocaleInfoA(0x400, 0xE, separator, sizeof(separator));
+        *dot = 0;
+        format(reinterpret_cast<const Wide *>(L"%hs%hs%hs"), text, separator, dot + 1);
+    } else {
+        translate(text);
+    }
+}
