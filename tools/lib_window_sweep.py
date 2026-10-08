@@ -123,8 +123,8 @@ DEBUG_VARIANTS = {"libcd", "libcmtd", "libcpd", "libcpmtd", "msvcrtd", "msvcprtd
 # run). msvcrt.lib's objects land in two clusters: SEH/arithmetic/startup
 # ahead of dxerr9, and the /RTC and PDB-lookup support at 0x75A5A2.
 #
-# No d3dx9 run: game.dat links d3dx9_27.dll, and lib_probe.py places none of
-# vendor/d3dx9 (Summer 2003, BFME 1's archive) here.
+# No d3dx9 run: game.dat links d3dx9_27.dll (vendor/d3dx9 is now its August
+# 2005 import library); lib_probe.py placed none of BFME 1's static Summer 2003 lib.
 WINDOWS = {
     "crt": ((0x628F9E, 0x62AFE0), (0x75A4B9, 0x75B4CC)),
     "dxerr9": ((0x62AFE0, 0x6547B0),),
