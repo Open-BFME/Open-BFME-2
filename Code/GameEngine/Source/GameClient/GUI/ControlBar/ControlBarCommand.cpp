@@ -6,6 +6,12 @@
 // retains the template-query side effect before resetting the overlay to0.
 typedef unsigned int UnsignedInt;
 class ThingTemplate;
+class Object;
+class GameWindow;
+void __cdecl Rva0053B98CUpdate(Object *,void *);
+class CommandSet { public: const class CommandButton *getCommandButton(int) const; };
+struct CommandInventoryData { int current,last; GameWindow **windows; Object *transport; };
+
 class GameWindow {
 public:
     int winHide(bool); bool winIsHidden(); int winEnable(bool);
@@ -84,7 +90,7 @@ public:
 class CommandContainView {
 public:
     virtual void slot0();
-    virtual void slot1();
+    virtual void *asOpenContain();
     virtual void slot2();
     virtual void slot3();
     virtual void slot4();
@@ -134,7 +140,7 @@ public:
     virtual void slot48();
     virtual void slot49();
     virtual void slot50();
-    virtual void slot51();
+    virtual int getExtraSlotsInUse();
     virtual void slot52();
     virtual void slot53();
     virtual void slot54();
@@ -151,7 +157,7 @@ public:
     virtual void slot65();
     virtual void slot66();
     virtual void slot67();
-    virtual void slot68();
+    virtual void iterateContained(void (__cdecl *)(Object *,void *),void *,bool);
     virtual int getContainCount(int);
 };
 struct CommandProductionEntry { char unknown00[0x14]; float percent; };
@@ -210,6 +216,8 @@ void Rva003284B9(GameWindow *, int, int);
 class ControlBar {
 public:
     void rva0053CF65();
+    void rva0053BB16(Object *,CommandSet *);
+    void rva0031B641(GameWindow *,const CommandButton *);
     void rva0031D230();
     int rva0053BD66(const CommandButton *, GameWindow *, Object *, float *, bool) const;
 private:
@@ -311,4 +319,44 @@ void ControlBar::rva0053CF65()
             else GadgetCheckLikeButtonSetVisualCheck(win, false);
         }
     }
+}
+
+// ?rva0053BB16@ControlBar@@QAEXPAVObject@@PAVCommandSet@@@Z
+// Whole native53BB16..53BC7E360, WB1116DA0/595 and complete ZH file
+// establish the transport inventory workflow. Native keeps both contain
+// queries for side effects, uses open+DE and32 slots, and passes true to
+// iteration. The callback data's native order is current/last/windows/obj.
+void ControlBar::rva0053BB16(Object *transport,CommandSet *set)
+{
+    if(!transport||!set)return;
+    CommandContainView *contain=((CommandObjectView *)transport)->contain;
+    if(!contain)return;
+    void *open=contain->asOpenContain();
+    if(open&&!*(bool *)((char *)open+0xDE))return;
+    contain->getContainMax();
+    contain->getExtraSlotsInUse();
+    int first=-1,last=-1;
+    for(int i=0;i<32;++i){
+        const CommandButton *button=set->getCommandButton(i);
+        if(button&&button->type()==0x10){
+            if(first==-1)first=i;
+            last=i;
+            if(windows[i]){
+                windows[i]->winHide(false);
+                windows[i]->winEnable(false);
+                windows[i]->winClearStatus(0x200);
+                Rva003284ED(windows[i],0);
+                if(*((unsigned char *)transport+0x1C8)&0x20)windows[i]->winHide(true);
+                rva0031B641(windows[i],button);
+                if(*((unsigned char *)button+0x101))windows[i]->winSetStatus(0x4000000);
+                else windows[i]->winClearStatus(0x4000000);
+            }
+        }
+    }
+    if(last>=0){
+        CommandInventoryData data;
+        data.windows=windows;data.current=first;data.last=last;data.transport=transport;
+        contain->iterateContained(Rva0053B98CUpdate,&data,true);
+    }
+    lastInventoryCount=contain->getContainCount(0);
 }
