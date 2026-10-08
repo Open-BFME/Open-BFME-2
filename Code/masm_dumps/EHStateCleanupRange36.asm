@@ -22,6 +22,7 @@ EXTERN ?rva002115C5@Rva002115C5@@QAEXXZ:PROC
 EXTERN ??1?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@UAE@XZ:PROC
 EXTERN ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ:PROC
 EXTERN ??1Gen_uwm_001f22a3@@QAE@XZ:PROC
+EXTERN ??_M@YGXPAXIHP6EX0@Z@Z:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b5d09b: bit 0 at [ebp-0x14], cleanup pointer at [ebp+8].
@@ -193,6 +194,19 @@ cleanup_done_00760AC2:
     ret
 ?rva00760AC2@@YAXXZ ENDP
 
+; Unwind@00b60b14: 22-byte eh-vector-dtor target passes [ebp-16]+0x14 with size 4 count 3.
+PUBLIC ?rva00760B14@@YAXXZ
+?rva00760B14@@YAXXZ PROC
+    push 00600667h
+    push 3
+    push 4
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 14h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00760B14@@YAXXZ ENDP
+
 ; Unwind@00b60b77: bit 0 at [ebp-0x10], cleanup pointer at [ebp+8].
 PUBLIC ?rva00760B77@@YAXXZ
 ?rva00760B77@@YAXXZ PROC
@@ -218,6 +232,19 @@ PUBLIC ?rva00760BD8@@YAXXZ
 cleanup_done_00760BD8:
     ret
 ?rva00760BD8@@YAXXZ ENDP
+
+; Unwind@00b60c3f: 22-byte eh-vector-dtor target passes [ebp-24]+0x14 with size 4 count 3.
+PUBLIC ?rva00760C3F@@YAXXZ
+?rva00760C3F@@YAXXZ PROC
+    push 00600667h
+    push 3
+    push 4
+    mov eax, DWORD PTR [ebp-24]
+    add eax, 14h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00760C3F@@YAXXZ ENDP
 
 ; Unwind@00b60c80: bit 0 at [ebp-0x10], object address at [ebp+8].
 PUBLIC ?rva00760C80@@YAXXZ
