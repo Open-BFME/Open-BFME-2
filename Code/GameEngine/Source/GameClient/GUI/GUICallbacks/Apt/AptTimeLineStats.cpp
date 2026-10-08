@@ -1,10 +1,14 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /G7
+// cl: /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
+#include <vector>
+#include <string.h>
+extern "C" void __cdecl free(void *);
 // AptTimeLineStats::SetPlayerFocus is named by WB 0x155C540, AptTimeLineStats.cpp
 // asserts 537/543/547. Retail 0x5BE2D2..0x5BE344 proves offsets and RET 4.
 // The callback receiver remains address-named: WB 0x15D6B30 is unnamed;
 // its retail 0x5DE433..0x5DE47B body refills a listbox and restores scrolling.
 // No applicable clean BFME1 timeline source is present at donor 9cbfb551fe20.
-extern "C" __declspec(dllimport) int __cdecl atoi(const char *);
+
 class GameWindow;
 int GadgetListBoxGetTopVisibleEntry(GameWindow *);
 void GadgetListBoxReset(GameWindow *);
@@ -41,6 +45,8 @@ void Rva005DE433::rva005DE433(int **focus) {
   GadgetListBoxSetTopVisibleEntry(window,top);
  }
 }
+struct Widths {int *begin,*end;};
+class Rva005DD7C3 {public:void rva005DD7C3(GameWindow*,const Widths*);};
 class AptTimeLineStats {
 public:
  Rva005DE433 *receiver;
@@ -49,6 +55,7 @@ public:
  int numPlayers;
  bool flag14;
  void SetPlayerFocus(const char *);
+ void InitGadgets(const char*,int,GameWindow*);
 };
 void AptTimeLineStats::SetPlayerFocus(const char *text) {
  if(numPlayers<1)return;
@@ -63,4 +70,20 @@ void AptTimeLineStats::SetPlayerFocus(const char *text) {
  }
  Rva005DE433 *notify=receiver;
  if(notify)notify->rva005DE433(&focusSlots);
+}
+
+// WB 0x155C390 names AptTimeLineStats::InitGadgets (assert line 509).
+// Retail initializes two 50% columns for one player, otherwise four 25% columns.
+// The listbox provider's Widths view is the vector's verified first two words.
+void AptTimeLineStats::InitGadgets(const char *name,int unused,GameWindow *window) {
+ if(strcmp(name,"AptTimeLine::StatsList")==0 && receiver) {
+  if(numPlayers==1) {
+   _STL::vector<int> widths(2,50);
+   reinterpret_cast<Rva005DD7C3*>(receiver)->rva005DD7C3(window,reinterpret_cast<const Widths*>(&widths));
+  } else {
+   _STL::vector<int> widths(4,25);
+   reinterpret_cast<Rva005DD7C3*>(receiver)->rva005DD7C3(window,reinterpret_cast<const Widths*>(&widths));
+  }
+  receiver->rva005DE433(&focusSlots);
+ }
 }
