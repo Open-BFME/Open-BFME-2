@@ -4061,7 +4061,6 @@ name,address,notes
 ??1Rva000D1BA6@@UAE@XZ,0x000D1BA6,opaque dtor; call target of retail scalar-deleting-dtor at 0xD208D (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva000D1E88@@UAE@XZ,0x000D1E88,opaque dtor; call target of retail scalar-deleting-dtor at 0xD1E6C (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva000D3996@@UAE@XZ,0x000D3996,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x665BF; identity unproven, address-derived name
-??1Rva000D402E@@UAE@XZ,0x000D402E,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x665DB; identity unproven, address-derived name
 ??1Rva000DC51D@@UAE@XZ,0x000DC51D,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x665F7; identity unproven, address-derived name
 ??1Rva000DE4EB@@UAE@XZ,0x000DE4EB,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x66613; identity unproven, address-derived name
 ??1Rva000DFDD9@@UAE@XZ,0x000DFDD9,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x6662F; identity unproven, address-derived name
