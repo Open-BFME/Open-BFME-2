@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // InGameUI's on-screen message family: the three ZH formatters (also recovered
 // in BFME 1 donor 847fc2a5406da49baed14adf987ff6830204b9d0, InGameUI.cpp), the
@@ -24,9 +24,17 @@
 // adds per-line offsets, a word display string and timeGetTime pacing to ZH's
 // layout, so the field names past ZH's are descriptive. Retail folded the
 // struct's implicit destructor into ~UnicodeString at 0x005B804E.
+//
+// 0x0029C404 is the subtitle block of ZH's InGameUI::update split into its own
+// non-virtual member (sole caller 0x002A169B), so its name is descriptive. It
+// paces by timeGetTime deltas capped at 100 ms, holds still while TheShell is
+// active (+0x5C), types whole words through the word display string, and plays
+// the typing sound held at TheAudio's misc audio +0xBC instead of ZH's
+// "MilitarySubtitlesTyping" event; the field name there is descriptive.
 
 #include "unicode_string.h"
 #include "ascii_string.h"
+#include "Common/BfmeAudioEventPrefix136.h"
 #include "../Common/GameLogicObjectLookupView.h"
 
 // The gated label formatter expands isEmpty in place, as retail does here.
@@ -127,6 +135,50 @@ extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime( void );
 
 void Rva00433C18( const UnicodeString &text, bool flag );
 
+void GameGetColorComponents( Color color, unsigned char *red, unsigned char *green, unsigned char *blue, unsigned char *alpha );
+
+class Shell
+{
+public:
+	bool isShellActive() const { return m_isShellActive; }
+private:
+	char m_opaque00[ 0x5C ];
+	bool m_isShellActive;						// +0x5C
+};
+extern Shell *TheShell;
+
+struct MiscAudio
+{
+	unsigned char m_unmodelled00[ 0xBC ];
+	OpaqueRefElement4 m_subtitleTypingSound;	// +0xBC
+};
+
+class AudioManager
+{
+public:
+#define AUDIO_SLOT(n) virtual void slot##n();
+	AUDIO_SLOT(0) AUDIO_SLOT(1) AUDIO_SLOT(2) AUDIO_SLOT(3) AUDIO_SLOT(4)
+	AUDIO_SLOT(5) AUDIO_SLOT(6) AUDIO_SLOT(7) AUDIO_SLOT(8) AUDIO_SLOT(9)
+	AUDIO_SLOT(10) AUDIO_SLOT(11) AUDIO_SLOT(12) AUDIO_SLOT(13) AUDIO_SLOT(14)
+	AUDIO_SLOT(15) AUDIO_SLOT(16) AUDIO_SLOT(17) AUDIO_SLOT(18) AUDIO_SLOT(19)
+	AUDIO_SLOT(20) AUDIO_SLOT(21) AUDIO_SLOT(22) AUDIO_SLOT(23) AUDIO_SLOT(24)
+	virtual unsigned int addAudioEvent( const BfmeAudioEventPrefix136 *event );
+	AUDIO_SLOT(26) AUDIO_SLOT(27) AUDIO_SLOT(28) AUDIO_SLOT(29)
+	AUDIO_SLOT(30) AUDIO_SLOT(31) AUDIO_SLOT(32) AUDIO_SLOT(33) AUDIO_SLOT(34)
+	AUDIO_SLOT(35) AUDIO_SLOT(36) AUDIO_SLOT(37) AUDIO_SLOT(38) AUDIO_SLOT(39)
+	AUDIO_SLOT(40) AUDIO_SLOT(41) AUDIO_SLOT(42) AUDIO_SLOT(43) AUDIO_SLOT(44)
+	AUDIO_SLOT(45) AUDIO_SLOT(46) AUDIO_SLOT(47) AUDIO_SLOT(48) AUDIO_SLOT(49)
+	AUDIO_SLOT(50) AUDIO_SLOT(51) AUDIO_SLOT(52) AUDIO_SLOT(53) AUDIO_SLOT(54)
+	AUDIO_SLOT(55) AUDIO_SLOT(56) AUDIO_SLOT(57) AUDIO_SLOT(58) AUDIO_SLOT(59)
+	AUDIO_SLOT(60) AUDIO_SLOT(61) AUDIO_SLOT(62) AUDIO_SLOT(63) AUDIO_SLOT(64)
+	AUDIO_SLOT(65) AUDIO_SLOT(66) AUDIO_SLOT(67) AUDIO_SLOT(68) AUDIO_SLOT(69)
+	AUDIO_SLOT(70) AUDIO_SLOT(71) AUDIO_SLOT(72) AUDIO_SLOT(73) AUDIO_SLOT(74)
+	AUDIO_SLOT(75) AUDIO_SLOT(76) AUDIO_SLOT(77)
+	virtual const MiscAudio *getMiscAudio();
+#undef AUDIO_SLOT
+};
+extern AudioManager *TheAudio;
+
 inline Color GameMakeColor( unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha )
 {
 	return ( alpha << 24 ) | ( red << 16 ) | ( green << 8 ) | blue;
@@ -170,6 +222,7 @@ public:
 	virtual void clearRva0029B060();
 
 protected:
+	void updateMilitarySubtitle();
 	void addMessageText( const UnicodeString &formattedMessage, const RGBColor *rgbColor = 0 );
 
 	struct UIMessage
@@ -392,6 +445,86 @@ static int getLineWidth( DisplayString *ds, const UnicodeString *text, int start
 		return width;
 	}
 	return 0;
+}
+
+void InGameUI::updateMilitarySubtitle()
+{
+	if( !m_militarySubtitle )
+		return;
+
+	unsigned int lastTime = m_militarySubtitle->lastTime;
+	m_militarySubtitle->lastTime = timeGetTime();
+	if( TheShell->isShellActive() )
+		return;
+
+	unsigned int delta = m_militarySubtitle->lastTime - lastTime;
+	if( delta > 100 )
+		delta = 100;
+	m_militarySubtitle->elapsed += delta;
+
+	if( m_militarySubtitle->finished )
+	{
+		if( m_militarySubtitle->elapsed > m_militarySubtitle->lifetime )
+		{
+			unsigned char r, g, b, a;
+			GameGetColorComponents( m_militarySubtitle->color, &r, &g, &b, &a );
+			int amount = (int)( delta * 0.1f + 1.0f );
+			if( a - amount < 0 )
+				removeMilitarySubtitle();
+			else
+			{
+				a -= amount;
+				m_militarySubtitle->color = GameMakeColor( r, g, b, a );
+			}
+		}
+	}
+	else if( m_militarySubtitle->nextCharTime < m_militarySubtitle->elapsed )
+	{
+		WideChar ch = m_militarySubtitle->subtitle.getCharAt( m_militarySubtitle->index );
+		m_militarySubtitle->displayStrings[ m_militarySubtitle->currentDisplayString ]->appendText( m_militarySubtitle->wordString->getText() );
+		m_militarySubtitle->wordString->clearText();
+		while( ch == L' ' )
+		{
+			m_militarySubtitle->displayStrings[ m_militarySubtitle->currentDisplayString ]->appendChar( ch );
+			m_militarySubtitle->index++;
+			if( m_militarySubtitle->index >= m_militarySubtitle->subtitle.getLength() )
+				break;
+			ch = m_militarySubtitle->subtitle.getCharAt( m_militarySubtitle->index );
+		}
+
+		if( ch == L'\n' )
+		{
+			m_militarySubtitle->currentDisplayString++;
+			if( m_militarySubtitle->currentDisplayString < MAX_SUBTITLE_LINES )
+			{
+				DisplayString **ds = &m_militarySubtitle->displayStrings[ m_militarySubtitle->currentDisplayString ];
+				*ds = TheDisplayStringManager->newDisplayString();
+				(*ds)->reset();
+				(*ds)->setFont( TheFontLibrary->getFont( &m_militaryCaptionFont,
+					TheGlobalLanguageData->adjustFontSize( m_militaryCaptionPointSize ), m_militaryCaptionBold ) );
+				m_militarySubtitle->nextCharTime = m_militarySubtitle->elapsed + m_militaryCaptionSpeed;
+				if( m_militaryCaptionCentered )
+					m_militarySubtitle->lineOffsets[ m_militarySubtitle->currentDisplayString ] = getLineWidth( *ds, &m_militarySubtitle->subtitle, m_militarySubtitle->index + 1 ) / -2;
+			}
+			else
+				m_militarySubtitle->index = m_militarySubtitle->subtitle.getLength();
+		}
+		else
+		{
+			m_militarySubtitle->wordString->appendChar( ch );
+			static BfmeAudioEventPrefix136 click( TheAudio->getMiscAudio()->m_subtitleTypingSound, 0 );
+			TheAudio->addAudioEvent( &click );
+			m_militarySubtitle->nextCharTime = m_militarySubtitle->elapsed + m_militaryCaptionSpeed;
+		}
+
+		m_militarySubtitle->index++;
+		if( m_militarySubtitle->index >= m_militarySubtitle->subtitle.getLength() )
+		{
+			if( m_militarySubtitle->elapsed + 2000 > m_militarySubtitle->lifetime )
+				m_militarySubtitle->lifetime = m_militarySubtitle->elapsed + 2000;
+			m_militarySubtitle->finished = true;
+		}
+	}
 }
 
 void InGameUI::militarySubtitle( UnicodeString subtitle, int duration )
