@@ -26,6 +26,7 @@ class Drawable;
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 class Object {
 public:
+ float getCastleValue() const { return *(const float*)((const char*)this+0x324); }
  float GetRelativeAngle(const Coord3D*) const;
  Coord3D* getPlanarDirectionTo(Coord3D*,const Object*) const;
  float getBoundingCircleRadius() const { return *(const float*)((const char*)this+0xb8); }
@@ -45,6 +46,7 @@ public:
 protected:
  Module* findModule(NameKeyType) const;
  friend class CastleBehavior;
+ friend class Rva00399959;
  friend void Rva00396BC5SetCastleId(_STL::vector<ObjectID>*,ObjectID);
 };
 class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
@@ -53,11 +55,12 @@ extern NameKeyGenerator* TheNameKeyGenerator;
 extern GameLogic* TheGameLogic;
 class Rva2225E0Filter { public: bool accepts(Object*,Player*); };
 class Rva00395F0B { public: void rva00395F0B(Object*); };
-class FoundationAIUpdate { protected: virtual void xfer(Xfer*); private: void rva0045527A(ObjectID); friend class CastleBehavior; };
+class FoundationAIUpdate { protected: virtual void xfer(Xfer*); private: void rva0045527A(ObjectID); friend class CastleBehavior;
+ friend class Rva00399959; };
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 inline void* objectTemplate(Object* object) { return field<void*>(object,4); }
 inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); }
-class CastleBehavior { public: void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); };
+class CastleBehavior { public: void* GetArmyIDFromClosestObject(); Object* createOwnedObject(void*); void rva003993F2(bool); void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); };
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
@@ -399,7 +402,7 @@ void Rva00396BC5SetCastleId(_STL::vector<ObjectID>* ids,ObjectID id) {
 // Native RVA0039792B,203B; invoked by unpack after ownership setup.
 // WB confirms Pathfinder::AddObjectToPathfindMap, but leaves this helper
 // unnamed. Native vectors +0x5C/+0x50 and pending ID +0x38, template bit60.
-class Pathfinder { public: void AddObjectToPathfindMap(Object*); };
+class Pathfinder { public: void AddObjectToPathfindMap(Object*); void RemoveObjectFromPathfindMap(Object*); };
 class AI;
 extern AI* TheAI;
 static __forceinline void addCastlePathObject(Object* object) {
@@ -440,6 +443,7 @@ class CastleConditionBits {
  unsigned words[20];
 public:
  unsigned test(int bit) const { return words[bit>>5] & (1U<<(bit&31)); }
+ void clear(int bit) { words[bit>>5] &= ~(1U<<(bit&31)); }
  void set(int bit) { words[bit>>5] |= 1U<<(bit&31); }
 };
 struct CastleConditionView { char pad[0x10c]; CastleConditionBits conditions; };
@@ -499,7 +503,7 @@ bool CastleBehavior::checkForInstantUnPack() {
 // preserving that accessor semantics reproduces its stack slot and EH state.
 // All calls use existing verified rows or previously admitted pins.
 #include <list>
-class Drawable { public: void fadeIn(unsigned); };
+class Drawable { public: void rva00274176(bool); void fadeIn(unsigned); };
 struct FindPositionOptions {
  FindPositionOptions() { flags=0;minRadius=0;maxRadius=0;startAngle=-99999.9f;maxZDelta=1e10f;ignoreObject=0;sourceToPathToDest=0;relationshipObject=0; }
  unsigned flags; float minRadius,maxRadius,startAngle,maxZDelta;
@@ -638,6 +642,87 @@ void CastleBehavior::teleportStragglersFromWallToGround(bool filter) {
      if(object->getDrawable()) object->getDrawable()->fadeIn(10);
     }
    }
+  }
+ }
+}
+
+// WB 0x00EB85E0 names CastleBehavior::unpack; native00399959..00399C6C,
+// 787B. Keep the previously admitted address-derived receiver spelling.
+// Player+0x3BC is an unresolved build-control object; the existing W3DBridge
+// setter supplies its measured +0x110 bool ABI, not a claim of bridge identity.
+// Its typed nested layout preserves the native LEA and flag-load ordering.
+// Native helper3993F2 has an independently admitted136B boundary/call pin.
+// Rehome the already-matched34B height helper here: its visible noinline body
+// lets MSVC preserve EDX across the native call, as retail does. Its own bytes
+// remain exact; this move adds no recovered bytes.
+class W3DBridge { char pad[0x110]; bool enabled; public: void setEnabled(bool); bool isEnabled() const { return enabled; } };
+class Player { char pad[0x3bc]; W3DBridge buildControl; public: W3DBridge* getBuildControl() { return &buildControl; } };
+class Rva00395A60 { public: __declspec(noinline) float rva00395A60(); };
+float Rva00395A60::rva00395A60() { float value=0.0f; void* data=field<void*>(this,4); if(data) value=field<float>(data,0x2c);return value; }
+class TerrainLogic { public: void rva00283262(const Coord3D*,float); };
+extern TerrainLogic* TheTerrainLogic;
+class ScriptEngine { public: void rva00357960(const AsciiString&,Object*); };
+extern void* g_00DFEFF0;
+extern "C" int __cdecl fprintf(void*,const char*,...);
+static __forceinline void castleUnpackedConditions(Object* owner) {
+ CastleConditionView* view=(CastleConditionView*)owner;
+ if(view->conditions.test(94)!=0 || view->conditions.test(96)==0) {
+  view->conditions.clear(94); view->conditions.set(96); owner->rva0028AE6D();
+ }
+}
+void Rva00399959::unpack(bool instant) {
+ Object* owner=field<Object*>(this,8);
+ if(owner) {
+  field<Pathfinder*>(TheAI,0x10)->RemoveObjectFromPathfindMap(owner);
+  field<void*>(this,0x9c)=((CastleBehavior*)this)->GetArmyIDFromClosestObject();
+  field<bool>(this,0x44)=false;
+  AsciiString& name=field<AsciiString>(this,0x98);
+  if(!((StringBase<char>*)&name)->isEmpty()) {
+   const ThingTemplate* type=TheThingFactory->findTemplate(name);
+   if(type) ((CastleBehavior*)this)->createOwnedObject((void*)type);
+   name.setCopyInline(AsciiString::TheEmptyString);
+  } else {
+   W3DBridge* buildControl=owner->getControllingPlayer()->getBuildControl();
+   bool old=buildControl->isEnabled();
+   if(field<int>(owner,0x78)==0) buildControl->setEnabled(false);
+   ((CastleBehavior*)this)->rva003993F2(instant);
+   buildControl->setEnabled(old);
+   ((CastleBehavior*)this)->rva00399370();
+  }
+  if(TheTerrainLogic) TheTerrainLogic->rva00283262(&field<Coord3D>(owner,0x38),((Rva00395A60*)this)->rva00395A60());
+  Rva00396BC5SetCastleId(&field<_STL::vector<ObjectID> >(this,0x50),field<ObjectID>(this,0x38));
+  Rva00396BC5SetCastleId(&field<_STL::vector<ObjectID> >(this,0x5c),field<ObjectID>(this,0x38));
+  Rva00396BC5SetCastleId(&field<_STL::vector<ObjectID> >(this,0x74),field<ObjectID>(this,0x38));
+  field<unsigned>(this,0x48)=TheGameLogic->getFrame();
+  for(_STL::vector<ObjectID>::iterator it=field<_STL::vector<ObjectID> >(this,0x50).begin();it!=field<_STL::vector<ObjectID> >(this,0x50).end();++it) {
+   Object* object=TheGameLogic->findObjectByID(*it);
+   if(object) {
+    static NameKeyType key=TheNameKeyGenerator->nameToKey("CastleMemberBehavior");
+    Module* module=object->findModule(key);
+    if(module) { field<ObjectID>(module,0x14)=field<ObjectID>(this,0x38);field<ObjectID>(module,0x18)=objectID(field<Object*>(this,8)); }
+   }
+  }
+  for(_STL::vector<ObjectID>::iterator it=field<_STL::vector<ObjectID> >(this,0x74).begin();it!=field<_STL::vector<ObjectID> >(this,0x74).end();++it) {
+   Object* object=TheGameLogic->findObjectByID(*it);
+   if(object) {
+    static NameKeyType key=TheNameKeyGenerator->nameToKey("CastleMemberBehavior");
+    Module* module=object->findModule(key);
+    if(module) { field<ObjectID>(module,0x14)=field<ObjectID>(this,0x38);field<ObjectID>(module,0x18)=objectID(field<Object*>(this,8)); }
+   }
+  }
+  castleUnpackedConditions(owner);
+  owner->setStatus((ObjectStatusTypes)3,true);
+  owner->getDrawable()->rva00274176(false);
+  ((CastleBehavior*)this)->rva0039792B();
+  if(field<int>(TheGameLogic,0x1b4)>0 && g_00DFEFF0) {
+   fprintf(g_00DFEFF0,"CAMP: Frame %d: Castle %s(%d) ::unpack() called by %s",TheGameLogic->getFrame(),field<AsciiString>(objectTemplate(owner),0x64).str(),objectID(owner),field<AsciiString>(owner->getControllingPlayer(),0x4c).str());
+  }
+  Object* pending=TheGameLogic->findObjectByID(field<ObjectID>(this,0x38));
+  if(pending && field<Object*>(this,8)) {
+   Object* currentOwner=field<Object*>(this,8);
+   field<float>(pending,0x324)=(float)(int)currentOwner->getCastleValue();
+   TheScriptEngine->rva00357960(field<AsciiString>(currentOwner,0x88),pending);
+   field<AsciiString>(currentOwner,0x88).setCopyInline(AsciiString("No Name"));
   }
  }
 }
