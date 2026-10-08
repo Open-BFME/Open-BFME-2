@@ -8,6 +8,7 @@ assume fs:nothing
 ; to reproduce this standalone frame code, so MASM preserves the SEH behavior.
 
 EXTERN ??_M@YGXPAXIHP6EX0@Z@Z:PROC
+EXTERN ??1Rva004444D2@@UAE@XZ:PROC
 EXTERN ??1AsciiString@@QAE@XZ:PROC
 EXTERN ??1UnicodeString@@QAE@XZ:PROC
 EXTERN ??1Rva00087A93@@QAE@XZ:PROC
@@ -29,6 +30,19 @@ EXTERN ??1Rva002390CB@@QAE@XZ:PROC
 EXTERN ??1Rva004E6A37@@QAE@XZ:PROC
 
 _TEXT SEGMENT
+; Unwind@00b7c75e at RVA 0x0077C75E; 22-byte body ends at RET.
+PUBLIC ?rva0077c75e@@YAXXZ
+?rva0077c75e@@YAXXZ PROC
+    push 0088BA39h
+    push 5
+    push 4
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 7Ch
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0077c75e@@YAXXZ ENDP
+
 ; Unwind@00b7c8c4 at RVA 0x0077C8C4; 24-byte body ends at RET.
 ; Target bytes pass the base at [ebp-16]+0x3c4 to eh-vector-dtor with stride
 ; 20, count 2, and raw destructor VA 0x0046C94B.
@@ -43,6 +57,19 @@ PUBLIC ?rva0077c8c4@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva0077c8c4@@YAXXZ ENDP
+
+; Unwind@00b7c9be at RVA 0x0077C9BE; 22-byte body ends at RET.
+PUBLIC ?rva0077c9be@@YAXXZ
+?rva0077c9be@@YAXXZ PROC
+    push 0088BA39h
+    push 5
+    push 4
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 7Ch
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0077c9be@@YAXXZ ENDP
 
 ; Unwind@00b7cb24 at RVA 0x0077CB24; 24-byte body ends at RET.
 ; Same target helper and array arguments as 0x77C8C4; frame slot is [ebp-20].
@@ -1222,6 +1249,18 @@ cleanup_done_00788e2b:
     ret
 ?rva00788e2b@@YAXXZ ENDP
 
+; Unwind@00b88e8a at RVA 0x00788E8A; 22-byte masked-add funclet tail-jumps to dtor.
+PUBLIC ?rva00788e8a@@YAXXZ
+?rva00788e8a@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-20]
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 27Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Rva004444D2@@UAE@XZ
+?rva00788e8a@@YAXXZ ENDP
+
 ; Unwind@00b88f9e at RVA 0x00788F9E; 25-byte state-bit cleanup ends at RET.
 ; Target clears bit 0 at [ebp-20] and tail-jumps through [ebp+8] to AsciiString dtor.
 PUBLIC ?rva00788f9e@@YAXXZ
@@ -2233,6 +2272,31 @@ PUBLIC ?rva00793094@@YAXXZ
 cleanup_done_00793094:
     ret
 ?rva00793094@@YAXXZ ENDP
+
+; Unwind@00b9322b at RVA 0x0079322B; 22-byte body ends at RET.
+PUBLIC ?rva0079322b@@YAXXZ
+?rva0079322b@@YAXXZ PROC
+    push 009CD0D7h
+    push 10h
+    push 4
+    lea eax, DWORD PTR [ebp-0ACh]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0079322b@@YAXXZ ENDP
+
+; Unwind@00b93312 at RVA 0x00793312; 22-byte body ends at RET.
+PUBLIC ?rva00793312@@YAXXZ
+?rva00793312@@YAXXZ PROC
+    push 008F7D7Fh
+    push 2
+    push 0Ch
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 0Ch
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00793312@@YAXXZ ENDP
 
 ; Unwind@00b93a65 at RVA 0x00793A65; target byte boundary is 25 bytes.
 ; State bit 0 gates [ebp-5c] cleanup through RVA 0x0048BA39; parent
