@@ -1,6 +1,6 @@
 // ?friend_awakenUpdateModule@GameLogic@@QAEXPAVObject@@PAVUpdateModule@@I@Z
 // ?friend_awakenUpdateModule@GameLogic@@QAEXPAVObject@@PAVUpdateModule@@I@Z
-// cl: /Ob2 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfmealloc /Ob2 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 
 // ?friend_awakenUpdateModule@GameLogic@@QAEXPAVObject@@PAVUpdateModule@@I@Z, retail 0x0024297F (323 bytes).
@@ -282,7 +282,7 @@ void GameLogic::friend_awakenUpdateModule(Object *obj, UpdateModule *u, Unsigned
 // vector +0xF8, destroy list +0x108, and update index/phase +0x18/+0x1C.
 void GameLogic::processDestroyList()
 {
-	for (_STL::list<Object *>::iterator it = destroy.begin(); it != destroy.end(); ++it)
+	for (_STL::list<Object *>::iterator it = destroy.begin(); it._M_node != destroy.end()._M_node; it._M_node = it._M_node->_M_next)
 	{
 		Object *obj = *it;
 		for (BehaviorModule **m = obj->m_modules; *m; ++m)
