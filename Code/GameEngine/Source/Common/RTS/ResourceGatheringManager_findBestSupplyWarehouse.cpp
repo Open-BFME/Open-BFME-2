@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /ICode/Libraries/Include
 // stlport
 
 // Source and names are carried from Open-BFME-1 revision
@@ -14,6 +14,7 @@
 // evidence resolves them.
 
 #include <float.h>
+#include "Lib/Coord3D.h"
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
 
@@ -70,7 +71,7 @@ public:
 	virtual void slot0C() = 0;
 	virtual void slot10() = 0;
 	virtual void slot14() = 0;
-	virtual void slot18() = 0;
+	virtual Bool rva18() = 0;
 	virtual void slot1C() = 0;
 	virtual void slot20() = 0;
 	virtual void slot24() = 0;
@@ -80,6 +81,7 @@ public:
 	virtual void slot34() = 0;
 	virtual void slot38() = 0;
 	virtual ObjectIDValue getPreferredDockID() const = 0;
+	virtual Bool rva40(Coord3D *position) = 0;
 };
 
 class AIUpdateInterface
@@ -268,6 +270,7 @@ static Real computeRelativeCost(Object *queryObject, Object *destObject, Real *p
 class ResourceGatheringManager
 {
 public:
+	Bool rva004F5A67(Object *queryObject, Coord3D *result);
 	Object *findBestSupplyWarehouse(Object *queryObject);
 	Object *findBestSupplyCenter(Object *queryObject);
 
@@ -391,4 +394,40 @@ Object *ResourceGatheringManager::findBestSupplyCenter(Object *queryObject)
 	}
 
 	return bestCenter;
+}
+
+// BFME2-only helper, pinned by SupplyTruckWantsToPickUpOrDeliverBoxesState
+// update004A730B. Target boundary004F5A67..004F5AED RET8. The surrounding
+// verified reference transfers establish the query's AI+258/position+38 and
+// truck interface17C/scan-distance28. Slots18 and40 have no original names
+// established here; TerrainLogic returns the witnessed three-float position.
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
+class Rva0027F13CHost
+{
+public:
+    int rva0027F13C(int object, int position, float distance);
+};
+Bool ResourceGatheringManager::rva004F5A67(Object *queryObject, Coord3D *result)
+{
+    if (queryObject == NULL || queryObject->getAI() == NULL)
+        return false;
+    SupplyTruckAIInterface *truck = queryObject->getAI()->getSupplyTruckAIInterface();
+    if (truck == NULL || !truck->rva18())
+        return false;
+    Coord3D position;
+    Coord3D preferredPosition;
+    if (truck->rva40(&preferredPosition))
+        position = preferredPosition;
+    else
+        position = *reinterpret_cast<const Coord3D *>(queryObject->position());
+    const Coord3D *destination = reinterpret_cast<const Coord3D *>(
+        reinterpret_cast<Rva0027F13CHost *>(TheTerrainLogic)->rva0027F13C(
+            reinterpret_cast<int>(queryObject), reinterpret_cast<int>(&position), truck->getWarehouseScanDistance()));
+    if (destination != NULL)
+    {
+        *result = *destination;
+        return true;
+    }
+    return false;
 }
