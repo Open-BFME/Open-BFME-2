@@ -5,7 +5,7 @@
 // (ModuleData parse/ctor/factory, instance factory 0x650B0, pool key and name
 // getter all rowed; this ctor is the factory's sole raw caller, news 0x64).
 //
-// Shape: EH ctor over the rowed Rva000B19A1 intermediate base (DrawableModule
+// Shape: EH ctor over the rowed DrawModule base (DrawableModule
 // 0x306B19 family: m_drawable at +4, proven by that TU), vtable 0x00BCE010,
 // texture member at +0x0C loaded by filename through the pinned
 // BFME2LoadParticleTexture 0x132D89 into a full-expression temp (hidden out
@@ -27,11 +27,11 @@ public:
 	const char *m_prefixedName08; // +8 (length-prefixed string; chars at +8)
 };
 
-class Rva000B19A1
+class DrawModule
 {
 public:
-	Rva000B19A1(Thing *thing, const ModuleData *moduleData);
-	virtual ~Rva000B19A1();
+	DrawModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~DrawModule();
 
 protected:
 	Drawable *m_drawable; // +4
@@ -67,7 +67,7 @@ class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
 
 BFME2ParticleTextureHandle __cdecl BFME2LoadParticleTexture(const char *filename, int a, int b);
 
-class W3DProjectileStreamDraw : public Rva000B19A1
+class W3DProjectileStreamDraw : public DrawModule
 {
 public:
 	W3DProjectileStreamDraw(Thing *thing, const ModuleData *moduleData);
@@ -81,7 +81,7 @@ private:
 
 // ??0W3DProjectileStreamDraw@@QAE@PAVThing@@PBVModuleData@@@Z @0x000D1370
 W3DProjectileStreamDraw::W3DProjectileStreamDraw(Thing *thing, const ModuleData *moduleData)
-	: Rva000B19A1(thing, moduleData)
+	: DrawModule(thing, moduleData)
 	, m_texture()
 {
 	const char *rawName = m_drawable->m_prefixedName08;

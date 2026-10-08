@@ -4,10 +4,9 @@
 // stlport
 //
 // ??0W3DTornadoDraw@@QAE@PAVThing@@PBVModuleData@@@Z at
-// retail 0x000D181D (67B). ClientUpdate intermediate base at 0x000B19A1 is
-// unidentified (also called by LaserUpdate 0x000CA752), so it is modeled
-// opaque (12 bytes: vptr plus pad) and pinned; its ctor resolves through
-// that pin. The trailing bone-index list at +0x0C default-constructs through
+// retail 0x000D181D (67B). Its base is DrawModule, whose ctor is the row at
+// 0x000B19A1 (also called by W3DRopeDraw's ctor 0x000CA752), modeled opaque here
+// (12 bytes: vptr plus pad). The trailing bone-index list at +0x0C default-constructs through
 // the list_base<int> at 0x004EC36C (matched row).
 #include <list>
 
@@ -38,11 +37,11 @@ public:
 
 // Opaque 12-byte ClientUpdate-derived intermediate; ctor resolves to the
 // opaque pin at 0x000B19A1. Single vptr plus pad to the list at +0x0C.
-class Rva000B19A1
+class DrawModule
 {
 public:
-	Rva000B19A1(Thing *thing, const ModuleData *moduleData);
-	virtual ~Rva000B19A1();
+	DrawModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~DrawModule();
 
 protected:
 	unsigned char m_pad04[4];
@@ -57,7 +56,7 @@ public:
 	void update();
 };
 
-class W3DTornadoDraw : public Rva000B19A1
+class W3DTornadoDraw : public DrawModule
 {
 public:
 	W3DTornadoDraw(Thing *thing, const ModuleData *moduleData);
@@ -75,7 +74,7 @@ private:
 };
 
 W3DTornadoDraw::W3DTornadoDraw(Thing *thing, const ModuleData *moduleData)
-	: Rva000B19A1(thing, moduleData)
+	: DrawModule(thing, moduleData)
 {
 }
 
