@@ -1,21 +1,34 @@
-// ?rva005B07C1@Manager@AptCreateAHero@@QAEXHHH@Z
-// partial score=0.72 date=2026-10-07
-// cl: /Ireference/shims/bfme2_ascii -Oy- -GR- -EHsc-
-// ?InitGadgets@Manager@AptCreateAHero@@QAEXPADH0@Z @0x005B6967 158B: two-path validated set.
-// Unless the third arg is null, strcmp it (imported) against two runtime
-// tables; a first-table miss fills a 3-int buffer (9/0x2E/0x2D) for the
-// pinned 3-arg callee, stamps +0x8 and runs the pinned helper, while a
-// second-table miss fills (0x50/0x14) for the same callee plus the pinned
-// 1-arg callee, stamps +0xC and runs the pinned tail body. The middle arg
-// is unused. Targets from retail REL32; strcmp via plain C decl reusing
-// the existing thunk pin; tables as named externs.
+// ?SetBling@AptMyHero@@QAEXHHH@Z
+// partial score=0.85 date=2026-10-08
+// cl: /O1 /G7 /MD /EHsc /arch:SSE2 /Ireference/shims/bfme2_ascii
+// Identity: WB AptMyHero.cpp names SwitchToPendingHero (assert line816),
+// calls the same assignment/view/bling chain, and uses this+144/+148.
+// Native005B1E71..005B1EE2 is the full113-byte standard-thiscall body.
+// CreateAHeroData assignment and the 8-byte GetObjectInfo record are existing
+// providers. The native self guard, flag handling and virtual slot14 are
+// target facts. Unknown helper semantics and virtual names stay address views;
+// their call declarations model witnessed noarg/one-dword ABIs only.
+// No constructor, destructor or vtable layout beyond the used slots is claimed.
 #include "ascii_string.h"
 #include "unicode_string.h"
-
-extern "C" int __cdecl strcmp(const char *a, const char *b);
-extern char g_rva005B6967T0[];
-extern char g_rva005B6967T1[];
-
+class Image;
+class ImageCollection {public: const Image *findImageByName(const AsciiString &);};
+extern ImageCollection *TheMappedImageCollection;
+class BfmeAptWindowManager {public: void bfmeSetText(const AsciiString &,const UnicodeString &,bool);};
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+class Rva00223AC4 {public: Image *rva00223AC4(const char *,const char *);};
+class Rva002239B2 {public: void rva002239E2(const AsciiString &,const Image *);};
+class CreateAHeroData {public: CreateAHeroData &operator=(const CreateAHeroData &);};
+struct BfmePod8 {int a;float b;};
+class Rva005B0E9F {public: BfmePod8 *rva005B0E9F(int);};
+class Rva00406E47 {public: bool rva00406E47(int);};
+struct Rva005B0473View {char opaque[0x60];float field60;int field64,field68;};
+class CreateAHeroHero;
+class CreateAHeroManager {public: const AsciiString &GetBlingNameTag(int,const CreateAHeroHero *,unsigned int); Rva005B0473View *rva00219F36(int,int);};
+extern CreateAHeroManager *TheCreateAHeroManager;
+struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
+struct MyHeroBlingBlock {MyHeroBlingRecord *first,*last,*capacity;};
+int GetGameClientRandomValue(int,int,char *,int);
 class Rva00407E28
 {
 public:
@@ -30,22 +43,11 @@ private:
 	int m_flags;
 };
 
-class Rva00222A8BTarget
-{
-};
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-
-class BfmeAptWindowManager
-{
-public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &value, bool b);
-};
-
 typedef bool Rva005B07C1Bool;
 class GameTextInterface
 {
 public:
-	virtual ~GameTextInterface() {}
+	virtual ~GameTextInterface();
 	virtual void slot00() = 0;
 	virtual void slot04() = 0;
 	virtual void slot08() = 0;
@@ -63,14 +65,6 @@ public:
 };
 extern GameTextInterface *TheGameText;
 
-class CreateAHeroHero;
-class CreateAHeroManager
-{
-public:
-	const AsciiString &GetBlingNameTag(int blingKey, const CreateAHeroHero *hero, unsigned int value);
-};
-extern CreateAHeroManager *TheCreateAHeroManager;
-
 struct Rva005B07C1Entry
 {
 	int key;
@@ -87,66 +81,83 @@ struct Rva005B07C1Vector
 	Rva005B07C1Entry *end;
 };
 
-struct Rva005B6967Buf
-{
-	int x;
-	int y;
-	int z;
-};
 
-namespace AptCreateAHero {
-class Manager;
-}
-
-class AptCreateAHero::Manager
-{
+class AptMyHero {
 public:
-	char pad[8];
-	char *m_8;
-	char *m_C;
-
-	void rva005B6755();
-	void rva005B5F2E();
-	void InitGadgets(char *a, int unused, char *c);
-	void rva005B07C1(int mode, int index, int value);
+ virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
+ void SwitchToPendingHero();
+ bool rva005B0725();
+ void rva005B0923(int);void SetBling(int,int,int);
+ Rva005B0473View *rva005B0473();
+ void BuildBlingData();
+ void rva005B0487();void rva005B1019();void rva005B097F(int);void rva005B0FCD(int);
+private:
+ char pad04[0x0C-4];
+ int field0C,field10;
+ char pad14[0x138-0x14];
+ const Image *image138;
+ char pad13C[4];
+ void *holder140;
+ CreateAHeroData *pending144;
+ bool flag148;
+ char pad149[0x168-0x149];
+ float field168,field16C;
+ char pad170[4];
+ MyHeroBlingBlock blocks174[2];
 };
-
-void Rva005B6967F(char *s, int n, int *p);
-void Rva005B6967G(char *s);
-
-void AptCreateAHero::Manager::InitGadgets(char *a, int unused, char *c)
-{
-	if (c == 0)
-		return;
-	Rva005B6967Buf buf;
-	if (strcmp(a, g_rva005B6967T0) == 0) {
-		buf.x = 9;
-		buf.y = 0x2e;
-		buf.z = 0x2d;
-		Rva005B6967F(c, 3, &buf.x);
-		m_8 = c;
-		rva005B6755();
-	} else {
-		if (strcmp(a, g_rva005B6967T1) != 0)
-			return;
-		buf.y = 0x50;
-		buf.z = 0x14;
-		Rva005B6967F(c, 2, &buf.y);
-		Rva005B6967G(c);
-		m_C = c;
-		rva005B5F2E();
-	}
+void AptMyHero::SwitchToPendingHero(){
+ if(pending144 != reinterpret_cast<CreateAHeroData *>(this) && pending144)
+  *reinterpret_cast<CreateAHeroData *>(this) = *pending144;
+ ((Rva00406E47 *)this)->rva00406E47(((Rva005B0E9F *)this)->rva005B0E9F(rva005B0473()->field68)->a);
+ BuildBlingData();
+ slot14();
+ rva005B0487();
+ rva005B1019();
+ if(flag148){rva005B097F(0);rva005B0FCD(1);flag148=false;}
 }
 
-// ?rva005B07C1@Manager@AptCreateAHero@@QAEXHHH@Z @0x005B07C1 354B.
-// Target evidence: three-int thiscall, two 20-byte vectors at +0x174/+0x180,
-// per-row signed bounds at +8/+0xC, two map calls on the manager prefix, the
-// selected-attribute and point-label strings, and calls to the rowed map,
-// string-format, game-text and name-tag methods plus pinned bfmeSetText.
-// Identity/layout inference: neighboring manager methods and the constructor
-// at 0x005B12C5 support AptCreateAHero::Manager; GetBlingNameTag receives this
-// as its hero argument, but that conversion does not establish inheritance.
-void AptCreateAHero::Manager::rva005B07C1(int mode, int index, int value)
+// Native005B0473..005B0487 forwards fields10 then0C through the existing
+// typed manager global. Named locals preserve the independently observed
+// read order; the getter and returned view retain address-derived names.
+Rva005B0473View *AptMyHero::rva005B0473(){int b=field10;int a=field0C;return TheCreateAHeroManager->rva00219F36(a,b);}
+
+// WB AptMyHero.cpp line1170 and native005B0923..005B097F prove this
+// unnamed record loop. Retail retains the exact diagnostic path and line1203.
+// The category stays constant while the independent index increments.
+void AptMyHero::rva005B0923(int group){
+ MyHeroBlingBlock &block=blocks174[group];
+ int index=0;
+ for(MyHeroBlingRecord *record=block.first;record!=block.last;++record){
+  int value=GetGameClientRandomValue(record->minimum,record->maximum,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\Gui\\GUICallbacks\\Apt\\AptMyHero.cpp",0x4B3);
+  SetBling(group,index++,value);
+ }
+ slot14();
+}
+// Native005B0487..005B04B6 and WB corresponding view access prove the
+// +60 float bound and +168/+16C range. Retail emits SSE2 stores.
+void AptMyHero::rva005B0487(){int b=field10;int a=field0C;float upper=TheCreateAHeroManager->rva00219F36(a,b)->field60;float *range=&field168;range[0]=0.0f;range[1]=upper;}
+
+// WB record-minimum loop and native005B097F..005B09BB; independent index.
+void AptMyHero::rva005B097F(int group){MyHeroBlingBlock &block=blocks174[group];int index=0;for(MyHeroBlingRecord *record=block.first;record!=block.last;++record)SetBling(group,index++,record->minimum);slot14();}
+
+// Native005B0FCD..005B1019 adds a group-zero minimum reset before the
+// WB record-default loop. Preserve that target-specific branch.
+void AptMyHero::rva005B0FCD(int group){MyHeroBlingBlock &block=blocks174[group];int index=0;if(group==0)rva005B097F(group);for(MyHeroBlingRecord *record=block.first;record!=block.last;++record)SetBling(group,index++,record->field10);slot14();}
+
+// Native005B0725..005B07C1 and WB portrait lookup agree on +138,
+// HPGandalf fallback and Cah::Portrait. Existing canonical image global
+// and retained image-store owner are used without a new alias or pin.
+bool AptMyHero::rva005B0725(){
+ const Image *image=image138;
+ if(!image){AsciiString name("HPGandalf");image=TheMappedImageCollection->findImageByName(name);}
+ const char *key="Cah::Portrait";
+ if(reinterpret_cast<Rva00223AC4 *>(g_bfmeAptWindowManager)->rva00223AC4(key,0)==image)return false;
+ AsciiString name(key);
+ reinterpret_cast<Rva002239B2 *>(g_bfmeAptWindowManager)->rva002239E2(name,image);
+ return true;
+}
+
+void AptMyHero::SetBling(int mode, int index, int value)
 {
 	Rva005B07C1Vector *rows = (Rva005B07C1Vector *)((char *)this + (mode + 31) * 12);
 	if ((unsigned int)index >= (unsigned int)(rows->last - rows->first))
@@ -155,21 +166,21 @@ void AptCreateAHero::Manager::rva005B07C1(int mode, int index, int value)
 	int oldValue = ((Rva00407E28 *)this)->rva00407E28(entry->key);
 	if (value < entry->minimum || value > entry->maximum)
 		return;
-	if (mode == 1) {
+	switch(mode){case 1:{
 		AsciiString key;
 		key.format("APT:MyHeroAppearanceVal_%d", index);
 		const AsciiString &name = TheCreateAHeroManager->GetBlingNameTag(entry->key, (const CreateAHeroHero *)this, (unsigned int)value);
 		UnicodeString text = TheGameText->fetch(name, (Rva005B07C1Bool *)0);
-		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, false);
-	} else if (mode == 0) {
-		int points = *(int *)((char *)this + 0x154) + oldValue - value;
+		g_bfmeAptWindowManager->bfmeSetText(key, text, false);
+	}break;case 0:{
+		int points = (oldValue - value) + *(int *)((char *)this + 0x154);
 		if (points < 0 || points > *(int *)((char *)this + 0x158))
 			return;
 		*(int *)((char *)this + 0x154) = points;
 		UnicodeString text;
 		text.format((const unsigned short *)L"%d", points);
 		AsciiString key("APT:MyHeroAttribPoints");
-		((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, text, false);
-	}
+		g_bfmeAptWindowManager->bfmeSetText(key, text, false);
+	}break;}
 	((Rva00407E28 *)this)->rva00407DE0(entry->key, value);
 }
