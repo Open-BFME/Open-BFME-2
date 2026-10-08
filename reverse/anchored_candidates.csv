@@ -11,4 +11,3 @@ target_rva,target_size,zh_source,alternates,confidence,ghidra_name,anchor
 0x00376D49,329,GameLogicDispatch.cpp,2,medium,FUN_00776d49,OptionsMenu.wnd:OptionsMenuParent
 0x003B5994,307,Scripts.cpp,1,medium,FUN_007b5994,ScriptActionFalse
 0x002C2533,263,GUIEdit.cpp,4,medium,FUN_006c2533,Times New Roman
-0x003B7951,160,Scripts.cpp,1,medium,FUN_007b7951,ScriptList
