@@ -84,10 +84,19 @@ Rva00355D66::~Rva00355D66()
 class Rva00355DC5 : public Rva00355D66
 {
 public:
+	Rva00355DC5();
 	virtual ~Rva00355DC5();
 private:
 	int m_extra;
 };
+
+// ??0Rva00355DC5@@QAE@XZ @0x00355DAF 22B: the matching constructor -- the
+// rowed Rva00355D66 constructor 0x00355D4E, +0x10 cleared, vtable
+// 0x00814E74. Nothing after the base can throw, so there is no EH frame.
+Rva00355DC5::Rva00355DC5()
+	: m_extra(0)
+{
+}
 
 Rva00355DC5::~Rva00355DC5()
 {
