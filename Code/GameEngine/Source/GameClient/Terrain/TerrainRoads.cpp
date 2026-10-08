@@ -285,6 +285,10 @@ public:
 	TerrainRoadType *findRoadOrBridge( AsciiString name );
 };
 
+// Native 0x009FF088 is a zero-initialized 4-byte counter. The collection
+// constructor resets it to one; newRoad and newBridge increment the same slot.
+unsigned int TerrainRoadCollection::m_idCounter;
+
 //-------------------------------------------------------------------------------------------------
 /** Search the roads first, then the bridges */
 //-------------------------------------------------------------------------------------------------
