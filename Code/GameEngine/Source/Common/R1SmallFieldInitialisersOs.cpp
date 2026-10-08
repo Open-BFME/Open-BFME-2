@@ -36,3 +36,26 @@ R1DwordPair *Rva000DFB80(R1DwordPair *pair, int first, int second)
 	pair->m_second = second;
 	return pair;
 }
+// Clean BF1 9cbfb551fe Common/MidTwoStoreCtors.cpp supplies two-field
+// initialization semantics only; donor constructor/class identity is not
+// asserted for these target bodies. Actual native ECX receiver/EAX return,
+// complete prior-RET to own-RET extents and accessed offsets are independent.
+// 1D976E..1D9781 writes raw word00=all ones, float04=1.0f; target BBB8D8
+// literal is independently 0000803F. 4689FA..468A04 writes word00=0,
+// word04=all ones. Complete class bounds and field purposes remain unknown.
+// Ordinary address-owned initialize methods preserve this uncertainty.
+// Fixed-field initializer proof; native names remain unknown.
+struct Rva001D976EFields {
+    unsigned int word00; float value04;
+    Rva001D976EFields *initialize();
+};
+Rva001D976EFields *Rva001D976EFields::initialize() {
+    word00 = ~0u; value04 = 1.0f; return this;
+}
+struct Rva004689FAFields {
+    unsigned int word00; unsigned int word04;
+    Rva004689FAFields *initialize();
+};
+Rva004689FAFields *Rva004689FAFields::initialize() {
+    word00 = 0; word04 = ~0u; return this;
+}
