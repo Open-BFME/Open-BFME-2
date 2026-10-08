@@ -5,9 +5,13 @@
 // revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1).
 // Compiled that way each body below places uniquely on unclaimed game.dat
 // .text by masked whole-.text search, and ./build.sh reproduces it byte for
-// byte: bfmeContainedAttackVisitor 0x0041B925 (37B). Callee addresses are read
+// byte: bfmeContainedAttackVisitor originally placed at 0x0041B925 (37B). Callee addresses are read
 // off retail's call sites (reverse/symbols.csv). Only the placed bodies are
 // carried; the donor's other definitions are omitted.
+// Native callback 0x0041B918..0x0041B94A is 50 bytes: the former 37-byte
+// row covered only its fall-through tail. The preceding producer guard calls
+// Object::rva002931BA, and both its taken branch and the callback body share
+// the RET at 0x0041B949. Retarget the row to this complete boundary.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -97,6 +101,7 @@ public:
 		return (*(const unsigned char *)((const char *)this + 0x344) & 1) != 0;
 	}
 
+	Bool rva002931BA();
 	Bool isAbleToAttack() const;
 	CanAttackResult getAbleToAttackSpecificObject( AbleToAttackType attackType,
 		const Object *target, CommandSourceType commandSource ) const;
@@ -137,6 +142,8 @@ public:
 
 void bfmeContainedAttackVisitor( Object *obj, void *userData )
 {
+	if (obj->rva002931BA())
+		return;
 	BfmeContainedAttackContext *context =
 		(BfmeContainedAttackContext *)userData;
 	CanAttackResult result = context->manager->getCanAttackObject(
