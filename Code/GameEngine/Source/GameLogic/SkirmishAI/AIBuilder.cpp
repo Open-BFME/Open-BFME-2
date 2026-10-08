@@ -83,7 +83,7 @@ public:
     virtual void slot01() = 0;
     virtual void reset() = 0;
 };
-class AIDozerManager {public: void DoXfer(Xfer*); void rva00599825(int); void rva00599606();};
+class AIDozerManager {public: void DoXfer(Xfer*); void rva00599825(int); __declspec(noinline) void rva00599606();};
 class AIBaseBuilder {public: void DoXfer(Xfer*); void notifyBuildingDestroyed(Object *);};
 #include "AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
 class AIWallBuilder {public: void DoXfer(Xfer*);};
