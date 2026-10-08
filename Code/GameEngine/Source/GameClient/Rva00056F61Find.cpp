@@ -23,7 +23,9 @@ struct Rva00056F61Node
 class Rva00056F61
 {
 public:
-	void *rva00056F61(const AsciiString *key);
+	// The verified hash/compare chain only reads key and bucket storage. It
+	// allocates nothing and invokes no application callback or C++ throw.
+	__declspec(nothrow) void *rva00056F61(const AsciiString *key);
 	void *m_unused;
 	// The begin field reads twice with different scheduling: the count
 	// computation folds it into a direct `sub ecx,[esi+4]` (single use, no
