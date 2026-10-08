@@ -15,6 +15,7 @@ class StrategicHUD::CommandButtonMovieClip::Impl
 {
 public:
 	void SetImage(const Image *image);
+	void ShowProductionCount(int v);
 };
 
 class Rva005E1158
@@ -75,4 +76,23 @@ public:
 void __fastcall rva005E1170(Rva005F8A7ESub *p)
 {
 	p->m_ptr08->rva005E0FBE();
+}
+
+// ?rva005E1168@Rva005E1168@@QAEXH@Z @0x005E1168 8B
+// Method int-forwarder via +8 to rowed ShowProductionCount, same shape as the
+// 8B method forwarder above. Pin names a free fastcall but the body reads ecx
+// as this with its int already on the stack (no push) and tail-jmps, so
+// honest method name. Evidence: gap in this TU, caller 0x005F8AE2.
+class Rva005E1168
+{
+public:
+	void rva005E1168(int v);
+private:
+	unsigned char m_pad00[8];
+	StrategicHUD::CommandButtonMovieClip::Impl *m_ptr08;
+};
+
+void Rva005E1168::rva005E1168(int v)
+{
+	m_ptr08->ShowProductionCount(v);
 }
