@@ -294,7 +294,6 @@ static void queuePatch(bool mandatory,AsciiString downloadURL){
  downloads.push_back(q);
 }
 
-// ?gamePatchCheckCallback present-unmatched
 GHTTPBool gamePatchCheckCallback(int request,GHTTPResult result,char *buffer,__int64 bufferLen,void *param){
  if((int)param!=online.run)return GHTTPTrue;
  --online.checks;
