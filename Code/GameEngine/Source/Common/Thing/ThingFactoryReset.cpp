@@ -10,6 +10,23 @@
 // at +0x2F0. Each nonnull module's slot 18 returns the cache cleared by the
 // existing 0x000B4AE4 worker. The flag and slot's semantic names remain open.
 #include "ascii_string.h"
+
+class Rva00056F61;
+struct Rva0041534BIter {
+    void *m_node; Rva00056F61 *m_table;
+    Rva0041534BIter(void *n, Rva00056F61 *t) : m_node(n), m_table(t) {}
+};
+class Rva00056F61 { public:
+    __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
+};
+class Rva002CFEA5 { public: void *rva002CFEA5(const AsciiString *); };
+extern bool g_flag1;
+// Retail VA 0x00DBC864 starts FF FF 00 00. The addTemplate body reads
+// its complete storage word but decrements and compares only the low ID.
+// Counter purpose and field names are structural; no original global name is claimed.
+union TemplateReplacementCounter { unsigned short nextID; unsigned int storage; };
+TemplateReplacementCounter g_replacementTemplateCounter = {65535};
+
 #include "Common/INIException.h"
 typedef bool Bool;
 #include "subsystem_interface.h"
@@ -65,7 +82,8 @@ static __forceinline int moduleRecordCount(const ModuleInfo *info)
 class ThingTemplate : public Overridable
 {
 public:
-    char m_pad00C[0x64 - 0x0C];
+    unsigned int m_matchingReplacementCount;
+    char m_pad010[0x64 - 0x10];
     AsciiString m_name;
     char m_pad068[0x11F - 0x68];
     unsigned char m_flags11F;
@@ -74,6 +92,8 @@ public:
     ModuleInfo m_modules;
     char m_pad2FC[0x484 - 0x2FC];
     ThingTemplate *m_nextTemplate;
+    char m_pad488[0x5D8 - 0x488];
+    unsigned short m_templateID;
     void resolveNames();
 };
 
@@ -95,6 +115,7 @@ public:
     virtual void postProcessLoad();
 private:
     void freeDatabase();
+    void addTemplate(ThingTemplate *tmplate);
     ThingTemplate *m_firstTemplate;
     unsigned short m_nextTemplateID, m_unused12;
     Rva000427195 m_templateHashMap;
@@ -181,4 +202,35 @@ void ThingFactory::freeDatabase()
     }
     m_templateHashMap.rva003A2A41();
     bfmeGoEBL();
+}
+
+// BFME1 cac38f/ZH addTemplate supplies insertion semantics; WB a93870 and
+// retail 2D04A3..2D0583 supply replacement path, ID and count behavior.
+void ThingFactory::addTemplate(ThingTemplate *tmplate)
+{
+    const AsciiString *name = &tmplate->m_name;
+    Rva0041534BIter found = ((Rva00056F61 *)&m_templateHashMap)->rva0041534B(name);
+    if (found.m_node && m_flag) {
+        ThingTemplate *old = *(ThingTemplate **)((char *)found.m_node + 8);
+        tmplate->m_templateID = old->m_templateID;
+        unsigned int replacementID = g_replacementTemplateCounter.storage;
+        --g_replacementTemplateCounter.nextID;
+        old->m_templateID = (unsigned short)replacementID;
+        m_templateHashMap.rva00223429(name);
+        *(ThingTemplate **)((Rva002CFEA5 *)&m_templateHashMap)->rva002CFEA5(name) = tmplate;
+        tmplate->m_nextTemplate = m_firstTemplate;
+        m_firstTemplate = tmplate;
+        old->m_matchingReplacementCount = 0;
+        tmplate->m_matchingReplacementCount = 0;
+        ThingTemplate *t=m_firstTemplate;
+        g_flag1 = true;
+        for (; t; t=t->m_nextTemplate) {
+            if (t->m_templateID >= g_replacementTemplateCounter.nextID && t->m_name.compare(*name) == 0)
+                ++t->m_matchingReplacementCount;
+        }
+    } else {
+        tmplate->m_nextTemplate = m_firstTemplate;
+        m_firstTemplate = tmplate;
+        *(ThingTemplate **)((Rva002CFEA5 *)&m_templateHashMap)->rva002CFEA5(name) = tmplate;
+    }
 }

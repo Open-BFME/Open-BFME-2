@@ -78,22 +78,7 @@ ThingFactory *TheThingFactory = NULL;  ///< Thing manager singleton declaration
 //-------------------------------------------------------------------------------------------------
 /** add the thing template passed in, into the databse */
 //-------------------------------------------------------------------------------------------------
-// ?addTemplate@ThingFactory@@ present-unmatched
-void ThingFactory::addTemplate( ThingTemplate *tmplate )
-{
-	ThingTemplateHashMapIt tIt = m_templateHashMap.find(tmplate->getName());
-
-	if (tIt != m_templateHashMap.end()) {
-		DEBUG_CRASH(("Duplicate Thing Template name found: %s\n", tmplate->getName().str()));
-	}
-
-	// Link it to the list
-	tmplate->friend_setNextTemplate(m_firstTemplate);
-	m_firstTemplate = tmplate;
-
-	// Add it to the hash table.
-	m_templateHashMap[tmplate->getName()] = tmplate;
-}  // end addTemplate
+// BFME2 addTemplate, including its replacement path, is recovered in ThingFactoryReset.cpp.
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // PUBLIC METHODS
