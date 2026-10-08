@@ -86,6 +86,7 @@ class AptExternHandler;
 
 namespace _STL
 {
+    template<class I, class T> I find(I, I, const T &);
 	template <class T> class allocator {};
 
 	template <class T, class A = allocator<T> > class vector
@@ -153,6 +154,8 @@ public:
 	void rva0057ED2B();
 
 	void rva0057F0AA();
+    int rva0057E66A(int rule);
+    bool rva0057E707(int message, GameWindow *window, int unused);
 
 private:
 	AptCommandMapAdder m_commandMaps; // +0x04
@@ -161,7 +164,8 @@ private:
 	int m_mode; // +0x60
 	AptMpGameRulesWidgets m_comboBoxes; // +0x64
 	AptMpGameRulesWidgets m_checkBoxes; // +0x70
-	unsigned char m_pad07c[0x89 - 0x7C];
+    AptMpGameRulesWidgets m_ruleWindows; // +0x7C: GameWindow pointer bits
+    bool m_88; // +0x88: native message-input gate
 	bool m_89; // +0x89
 	unsigned char m_pad08a[0x8C - 0x8A];
 	unsigned char m_rules[0x28]; // +0x8C
@@ -273,4 +277,28 @@ void AptMpGameRules::rva0057F0AA()
 			(void)unused;
 		}
 	}
+}
+
+// Native 57E707..57E779 RET12. The rule widget vector is shared with the
+// 57E66A style/selection query; its +7C/+80 span and +88 gate are target facts.
+// The existing integer find specialization compares the same four-byte pointer
+// representations without asserting a new ICF identity for GameWindow find.
+bool AptMpGameRules::rva0057E707(int message, GameWindow *window, int unused)
+{
+    if (!m_88)
+        return false;
+    int *first = static_cast<int *>(m_ruleWindows.m_begin);
+    int token = reinterpret_cast<int>(window);
+    int *found = _STL::find(first, static_cast<int *>(m_ruleWindows.m_end), token);
+    int rule = found - first;
+    if (rule >= 10)
+        return false;
+    switch (message) {
+    case 0x4008:
+    case 0x4026:
+        reinterpret_cast<int *>(m_rules)[rule] = rva0057E66A(rule);
+        ruleChanged(rule, false);
+        break;
+    }
+    return true;
 }
