@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /G7
+// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Source/WWVegas/WWLib /O1 /Ob1 /EHsc /DNDEBUG /MD /arch:SSE /G7
 //
 // UnitRevivalTracker::productionSystemQueueCreateUnit, retail 0x0037EDE0
 // (108B), from the WorldBuilder lead (UnitRevivalTracker.cpp): refuse a
@@ -60,29 +60,127 @@ public:
 	virtual float getFactor(Bool flag); // 0x74
 };
 
+#include "unicode_string.h"
+
+#include "FixedStorage128.h"
+
+struct Rva001EB15A
+{
+	int a, b, c;
+	UnicodeString wide;
+	AsciiString text;
+	bool flag;
+	Rva001EB15A(const Rva001EB15A &);
+};
+
+struct RevivalLevelValue
+{
+	char pad[0xC];
+	int value;
+};
+
+class RevivalExperienceView
+{
+public:
+	int rva000B49A1() const;
+	float getExperienceValue() const { return experience; }
+	int getLevelRank() const { return level; }
+	char pad[0x10];
+	float experience;
+	char pad14[0x10];
+	int level;
+	char pad28[4];
+	RevivalLevelValue *definition;
+};
+
+// Existing folded 7B body, owned by meshgeometry.cpp; no second body row.
+// ?RevivalExperienceView::rva000B49A1 present-unmatched
+int RevivalExperienceView::rva000B49A1() const
+{
+	return definition->value;
+}
+
+enum NameKeyType { INVALID_NAME_KEY = 0 };
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class Module
+{
+public:
+#define SLOT(n) virtual void v##n();
+	SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6)
+	SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13)
+#undef SLOT
+	virtual int v14();
+};
+
+class Rva004AFB01
+{
+public:
+	int rva004AFB01();
+	int rva004AFB16();
+};
+class RespawnUpdate
+{
+public:
+	void *rva004AF25D();
+};
+struct RevivalTemplateView
+{
+	char pad[0x64];
+	AsciiString name;
+};
 class Object
 {
 public:
 	void *rva0028BC94();
+	Module *findModule(NameKeyType) const;
+	RevivalExperienceView *getExperience() const { return experience; }
+	unsigned char pad00[4];
+	RevivalTemplateView *thingTemplate;
+	char pad08[0x264 - 8];
+	RevivalExperienceView *experience;
+	char pad268[0x284 - 0x268];
+	BfmeFixedStorage128 upgrades;
+	char pad304[0x438 - 0x304];
+	unsigned char flags;
+	char pad439[0x45C - 0x439];
+	int field45c, field460;
+	char pad464[4];
+	Rva001EB15A record;
 };
 
 class UnitRevivalEntry
 {
 public:
+	UnitRevivalEntry(Object *object);
 	const Image *calcButtonImage(Int value);
 	Int revivalEntryCalcTimeToBuild(const Player *player, Object *producer);
 	Int revivalEntryCalcCostToBuild(const Player *player, Object *producer);
 
-	unsigned char m_pad00[0x94];
+	int m_moduleID;
+	int m_unknown04;
+	float m_experience;
+	int m_rank;
+	int m_level;
+	BfmeFixedStorage128 m_upgrades;
 	Int m_94;			// +0x94
 	Int m_reviveStartFrame;		// +0x98
 	Int m_9c;			// +0x9C
 	Bool m_a0;			// +0xA0
-	unsigned char m_padA1[0xA4 - 0xA1];
+	Bool m_a1;
+	unsigned char m_padA2[2];
 	Int m_productionID;		// +0xA4
-	unsigned char m_padA8[0xCC - 0xA8];
+	int m_a8;
+	int m_ac;
+	Rva001EB15A m_record;
+	int m_c8;
 	float m_factor;			// +0xCC
-	unsigned char m_padD0[0xD4 - 0xD0];
+	AsciiString m_displayName;
 	AsciiString m_templateName;	// +0xD4
 };
 
@@ -198,4 +296,47 @@ void Rva0037F32F::rva0037F32F(const ThingTemplate *thingTemplate, Player *player
     Rva002E2D10Record entry(thingTemplate);
     entry.rank = thingTemplate->rva0033B479();
     entries.push_back(entry);
+}
+
+// Native 37E94A..37EACA, complete 386-byte constructor from Object*.
+// BFME1 ba7ddda7 UnitRevivalTracker.cpp (Rva000FB210Element::ctor) supplies
+// the same experience/upgrades/record/RespawnUpdate sequence. BFME2's
+// 0xD8 record adds the +A1 flag, +AC value, +C8/+CC state and +D0 display
+// string; all offsets and constructor calls are established by retail.
+// WB lead and the paired constructor at 00EFE320 support this revival
+// record identity through the same calls and fields. The folded
+// experience-level getter has the exact 2C->C access, same 7 bytes and
+// no relocations as the meshgeometry-owned body. Its address name does
+// not assert an original member name. /Ob1 keeps that verified call.
+UnitRevivalEntry::UnitRevivalEntry(Object *object)
+	: m_moduleID(0)
+	, m_unknown04(0)
+	, m_experience(object->getExperience()->getExperienceValue())
+	, m_rank(object->getExperience()->getLevelRank())
+	, m_level(object->getExperience()->rva000B49A1())
+	, m_upgrades(object->upgrades)
+	, m_94(0)
+	, m_reviveStartFrame(-1)
+	, m_9c(0)
+	, m_a0(true)
+	, m_a1((object->flags & 0x10)!=0)
+	, m_productionID(0)
+	, m_a8(object->field45c)
+	, m_ac(object->field460)
+	, m_record(object->record)
+	, m_c8(0)
+	, m_factor(1.0f)
+	, m_displayName(*reinterpret_cast<const AsciiString*>(reinterpret_cast<const char*>(object)+0x88))
+	, m_templateName()
+{
+ RevivalTemplateView *t = object->thingTemplate;
+ static NameKeyType respawnUpdateKey = TheNameKeyGenerator->nameToKey("RespawnUpdate");
+ Module *module = object->findModule(respawnUpdateKey);
+ if (module) {
+  m_moduleID = module->v14();
+  m_94 = reinterpret_cast<Rva004AFB01*>(module)->rva004AFB01();
+  m_9c = reinterpret_cast<Rva004AFB01*>(module)->rva004AFB16();
+  t = static_cast<RevivalTemplateView*>(reinterpret_cast<RespawnUpdate*>(module)->rva004AF25D());
+ }
+ m_templateName.setCopyInline(t ? t->name : AsciiString::TheEmptyString);
 }
