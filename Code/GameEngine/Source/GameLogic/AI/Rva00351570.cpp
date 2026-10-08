@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ?rva00351570@Rva00351570@@QAEXABURva00351570Src@@@Z, RVA 0x00351570, 222 bytes.
 // Copy from template/init struct to instance. Evidence: dword copies +0/+4,
 // 12B via movsd x3 at +8, +0x14/+0x18 via [ptr+0x74] or 0, strings at
@@ -7,6 +7,7 @@
 // +0x30..+0x3c, Rva003427DD at +0x40 via rowed 0x003427DD from src+0x3c,
 // far dwords +0xbc/+0xc0 from src+0xb8/+0xbc. Callers 0x00267B9A 0x0036BCA9.
 #include "ascii_string.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 struct BfmeVec12
 {
 	float x, y, z;
@@ -77,6 +78,7 @@ public:
 	int m_BC;
 	int m_C0;
 	void rva00351570(const Rva00351570Src &src);
+	void rva0035164E(Rva00351570Src &dest) const;
 };
 void Rva00351570::rva00351570(const Rva00351570Src &src)
 {
@@ -105,4 +107,32 @@ void Rva00351570::rva00351570(const Rva00351570Src &src)
 	m_40 = src.m_3C;
 	m_BC = src.m_B8;
 	m_C0 = src.m_BC;
+}
+
+class Team;
+class TeamFactory;
+class Rva0039FE6COwner {
+public: Team *rva003A3E37(const AsciiString &, const AsciiString &);
+};
+extern GameLogic *TheGameLogic;
+extern TeamFactory *TheTeamFactory;
+
+// Reference semantic guide: BFME1 6c1e0b51 AICommandParmsStorage.cpp.
+// Native 35164E..3516F3 RET4: inverse of the existing 351570 store.
+void Rva00351570::rva0035164E(Rva00351570Src &dest) const
+{
+ dest.m_00=m_00;
+ dest.m_04=m_04;
+ dest.m_08=m_08;
+ dest.m_14=reinterpret_cast<Rva00351570_Has74 *>(TheGameLogic->findObjectByID((ObjectID)m_14));
+ dest.m_18=reinterpret_cast<Rva00351570_Has74 *>(TheGameLogic->findObjectByID((ObjectID)m_18));
+ dest.m_1C=reinterpret_cast<Rva00351570_MidA *>(reinterpret_cast<Rva0039FE6COwner *>(TheTeamFactory)->rva003A3E37(m_1C,m_20));
+ dest.m_20.rva0035149F(m_24);
+ dest.m_2C=m_30;
+ dest.m_30=m_34;
+ dest.m_34=m_38;
+ dest.m_38=m_3C;
+ dest.m_3C=m_40;
+ dest.m_B8=m_BC;
+ dest.m_BC=m_C0;
 }
