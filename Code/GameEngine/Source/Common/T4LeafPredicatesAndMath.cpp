@@ -116,9 +116,9 @@ void T4Host00600400::update( void )
 }
 
 // ---------------------------------------------------------------------------
-// 0x005F2FF0
+// Retail 0x0055C41B (BFME1 donor 0x005F2FF0)
 // ---------------------------------------------------------------------------
-class T4Host005F2FF0
+class Rva0055C41B
 {
 public:
 	Int value( void ) const;
@@ -127,8 +127,15 @@ private:
 	Int m_field0C;
 };
 
-// ?value@T4Host005F2FF0@@ present-unmatched
-Int T4Host005F2FF0::value( void ) const
+// Retail 0x0055C41B..0x0055C428 is a complete 13-byte RET0 leaf:
+// test the 32-bit field at +0x0C against 4 and return integer 6 or zero.
+// The preceding leaf ends with RET at 0x55C41A and the next starts 0x55C428.
+// BFME1 donor 9cbfb551fe20dae985f91f2319d8997287b6a705 supplies this C++
+// expression and existing O1/G7/SSE sibling configuration. Its old carrier
+// address 0x5F2FF0 belongs to the donor; this carrier now names the measured
+// target address. The original class, field meaning and method name remain
+// unknown; value() describes only the measured primitive return contract.
+Int Rva0055C41B::value( void ) const
 {
 	return m_field0C == 4 ? 6 : 0;
 }
