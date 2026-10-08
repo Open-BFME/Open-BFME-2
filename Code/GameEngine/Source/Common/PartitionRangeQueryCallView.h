@@ -6,7 +6,6 @@ struct Coord3D;
 struct FindPositionOptions;
 class Rva000421C8;
 class Rva00628770Impl;
-enum CellShroudStatus;
 
 // The native query result has one pointer-sized word, a copy constructor and
 // a destructor (0x0004AA28). Its Object iterator step is rowed at 0x00045623.
@@ -37,6 +36,4 @@ public:
 		int distType, Rva000421C8 *filters, int order);
 	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc,
 		Rva000421C8 *filters);	// 0x00625360
-	// TheShroudManager's this-adjusting forwarder through +0x10.
-	CellShroudStatus getShroudStatusForPlayer(int playerIndex, const Coord3D *pos) const;	// 0x007397F0
 };
