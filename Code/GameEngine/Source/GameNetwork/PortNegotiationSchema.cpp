@@ -33,6 +33,7 @@ class PortNegotiationSchema
 public:
 	void attachSlotList(void *slotList, UnsignedShort slot);
 	void negotiationStarted(UnsignedShort slot1, UnsignedShort slot2, int value, bool setTimeout);
+	void reconnectPlayers(UnsignedShort slot1, UnsignedShort slot2, bool resetRetries);
 
 private:
 	void rva005DB9E4();			// 0x005DB9E4
@@ -97,4 +98,29 @@ void PortNegotiationSchema::negotiationStarted(UnsignedShort slot1,
     m_ping[slot2][slot1].reset();
     m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))&Rva00281A15Listener::notify,
         this, slot1, slot2);
+}
+
+// WB15C70A0: reconnect both directions and notify each directed pair.
+void PortNegotiationSchema::reconnectPlayers(UnsignedShort slot1,
+    UnsignedShort slot2, bool resetRetries)
+{
+    if (slot1 >= 8 || slot2 >= 8 || slot1 == slot2) return;
+    m_tableA[slot2][slot1] = 1;
+    m_tableA[slot1][slot2] = 1;
+    m_tableB[slot2][slot1] = 0;
+    m_tableB[slot1][slot2] = 0;
+    m_tableC[slot2][slot1] = -1;
+    m_tableC[slot1][slot2] = -1;
+    m_ping[slot1][slot2].reset();
+    m_ping[slot2][slot1].reset();
+    if (slot1 == m_slot) m_perSlot[slot2] = 0;
+    if (slot2 == m_slot) m_perSlot[slot1] = 0;
+    if (resetRetries) {
+        m_tableD[slot2][slot1] = 0;
+        m_tableD[slot1][slot2] = 0;
+    }
+    m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))&Rva00281A15Listener::notify,
+        this, slot1, slot2);
+    m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))&Rva00281A15Listener::notify,
+        this, slot2, slot1);
 }
