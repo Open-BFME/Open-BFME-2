@@ -414,3 +414,32 @@ StrategicInGameUI::BuildQueueDetailsPanel::Impl::InProgressIcon::InProgressIcon(
  : Icon(owner,0,(StrategicHUD::BuildQueueIconSlot *)((Rva005F6B0BPtrChaseField *)owner)->get(),0,0,0),
  m_progressSlot((StrategicHUD::BuildQueueIconSlot *)((Rva005F6B0BPtrChaseField *)owner)->get())
 { Init(selected); }
+
+// Native outer146B constructor shares Rva0007DF07 virtually: primary0,
+// vbptr4, owned 52B child8, counted virtual baseC and counter10.
+// Existing exact57B base5CC5E5 makes only field/vtable writes, no calls;
+// its nonthrowing declaration preserves retail's EH state across the call.
+// Native child421B returns this/RET16 and stores its owner at+10;
+// original outer and child names remain unknown, so retain address views.
+class Rva005CC5E5 : public virtual Rva0007DF07 {
+public:
+ Rva005CC5E5() throw();
+ virtual void slot0();
+ virtual ~Rva005CC5E5();
+};
+struct Rva005CE172Context;
+class Rva005E87E0;
+class Rva005E8350 {
+public:
+ Rva005E8350(Rva005E87E0 *,void *,void *,Rva005CE172Context *);
+ virtual void slot0();
+private: char unknown04[0x30];
+};
+class Rva005E87E0 : public Rva005CC5E5 {
+public:
+ Rva005E87E0(void *,void *,Rva005CE172Context *);
+ virtual ~Rva005E87E0();
+private: Rva005E8350 *payload;
+};
+Rva005E87E0::Rva005E87E0(void *a,void *b,Rva005CE172Context *c)
+ : payload(new Rva005E8350(this,a,b,c)) {}
