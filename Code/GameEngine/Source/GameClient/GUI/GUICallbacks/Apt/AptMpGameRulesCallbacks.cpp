@@ -35,8 +35,8 @@ struct AptMpGameRulesWidgets
 	void *m_capacity;
 };
 
-// Unrowed 0x00559FAC (cdecl; resets the 0x28-byte rules block at +0x8C
-// for the mode at +0x60), pinned by address.
+// Rowed 0x00559FAC in Common/RTS/MpGameRules.cpp: resets rules at +0x8C
+// for the mode at +0x60; existing cdecl caller ABI.
 void __cdecl Rva00559FAC(int mode, void *rules);
 
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
@@ -138,6 +138,30 @@ public:
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
+
+int GadgetComboBoxGetLength(GameWindow *);
+void GadgetComboBoxSetSelectedPos(GameWindow *, int, bool);
+void GadgetComboBoxHideDropDown(GameWindow *, bool);
+void GadgetCheckBoxSetChecked(GameWindow *, bool);
+class Rva0043DA65 {public: int rva0043DA65();};
+// Only the caller-proven +0x30 GameInfo dispatch is viewed here.
+class RuleGameInfoHostView {
+public:
+virtual void slot0();
+virtual void slot1();
+virtual void slot2();
+virtual void slot3();
+virtual void slot4();
+virtual void slot5();
+virtual void slot6();
+virtual void slot7();
+virtual void slot8();
+virtual void slot9();
+virtual void slot10();
+virtual void slot11();
+virtual bool amIHost() const;
+};
+
 class AptMpGameRules
 {
 public:
@@ -153,7 +177,7 @@ public:
 	// "MpGameRules::NumCheckBoxes" (query 1), so it keeps its address.
 	void ExternFunc(int query, char *result, bool skip);
 
-	// Unrowed 0x0057E5B5 (refreshes one rule's widget), pinned by address.
+	// Retail 0x0057E5B5: refreshes one rule widget; WB names UpdateRuleGadget.
 	void UpdateRuleGadget(int rule);
 	// Unrowed 0x0057EF46 (files a widget under its index), 0x0057EF18 and
 	// 0x0057ED2B, pinned by address.
@@ -168,7 +192,9 @@ public:
 private:
 	AptCommandMapAdder m_commandMaps; // +0x04
 	AptExternHandlerAdder m_externHandlers; // +0x10
-	unsigned char m_pad01c[0x60 - 0x1C];
+	unsigned char m_pad01c[0x58 - 0x1C];
+    Rva0043DA65 *m_game; // +0x58: native validated GameInfo handle
+    unsigned char m_pad05c[4];
 	int m_mode; // +0x60
 	AptMpGameRulesWidgets m_comboBoxes; // +0x64
 	AptMpGameRulesWidgets m_checkBoxes; // +0x70
@@ -330,4 +356,26 @@ bool AptMpGameRules::rva0057E707(int message, GameWindow *window, int unused)
         break;
     }
     return true;
+}
+
+void AptMpGameRules::UpdateRuleGadget(int rule) {
+    GameWindow *window = ((GameWindow **)m_ruleWindows.m_begin)[rule];
+    if (!window) return;
+    int value = ((int *)m_rules)[rule];
+    m_88 = false;
+    unsigned int style = window->winGetStyle();
+    if (style & 0x8000) {
+        int length = GadgetComboBoxGetLength(window);
+        for (int i = 0; i < length; ++i) {
+            if (value == (int)GadgetComboBoxGetItemData(window, i)) {
+                GadgetComboBoxSetSelectedPos(window, i, false);
+                break;
+            }
+        }
+        RuleGameInfoHostView *info = (RuleGameInfoHostView *)m_game->rva0043DA65();
+        GadgetComboBoxHideDropDown(window, !(info && info->amIHost()));
+    } else if (style & 4) {
+        GadgetCheckBoxSetChecked(window, value != 0);
+    }
+    m_88 = true;
 }
