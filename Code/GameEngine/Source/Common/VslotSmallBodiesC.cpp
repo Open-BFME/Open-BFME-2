@@ -165,20 +165,7 @@ private:
 };
 void Rva0008EF81::rva0008EF81() { m_811 = 1 - m_811; }
 
-// vtable 0x00BC7A88#43: store the argument at +0x7F9 when it differs.
-class Rva0029A841
-{
-public:
-	void rva0029A841(Bool value);
-private:
-	char m_pad00[0x7F9];
-	Bool m_7F9;
-};
-void Rva0029A841::rva0029A841(Bool value)
-{
-	if (m_7F9 != value)
-		m_7F9 = value;
-}
+// InGameUI::setSelecting: defined in InGameUIInputModes.cpp (its row's unit).
 
 // vtable 0x00BC7568#122: 1 when neither +0x8C nor +0x90 is -1.
 class Rva0008BBC7

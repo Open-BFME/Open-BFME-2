@@ -42,6 +42,8 @@
 
 #define NULL 0
 
+#include "../../../Libraries/Include/Lib/Coord2D.h"
+
 class SpecialPowerTemplate;
 
 enum RadiusCursorType { RADIUSCURSOR_NONE = 0 };
@@ -180,13 +182,11 @@ public:
 	V(34) V(35) V(36) V(37) V(38) V(39) V(40)
 #undef V
 	virtual void setScrolling( bool isScrolling );	// slot 41
-#define V(n) virtual void r##n();
-	V(42)
-#undef V
-	virtual void setSelecting( bool selecting );	// slot 43
-#define V(n) virtual void r##n();
-	V(44) V(45) V(46)
-#undef V
+	virtual bool isScrolling( void );				// slot 42
+	virtual void setSelecting( bool isSelecting );	// slot 43
+	virtual bool isSelecting( void );				// slot 44
+	virtual void setScrollAmount( Coord2D amt );	// slot 45
+	virtual void r46();
 	virtual void setGUICommand( const CommandButton *command );	// slot 47
 #define V(n) virtual void r##n();
 	V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55)
@@ -218,10 +218,11 @@ protected:
 	const CommandButton *m_pendingGUICommand;		// +0x238
 	char m_unknown23C[0x7F8 - 0x23C];
 	bool m_isScrolling;								// +0x7F8
-	char m_unknown7F9[0x7FC - 0x7F9];
+	bool m_isSelecting;								// +0x7F9
 	MouseMode m_mouseMode;							// +0x7FC
 	int m_mouseModeCursor;							// +0x800
-	char m_unknown804[0x810 - 0x804];
+	char m_unknown804[0x808 - 0x804];
+	Coord2D m_scrollAmt;							// +0x808
 	bool m_inputEnabled;							// +0x810, BFME 1's virtual setInputEnabled
 	char m_unknown811[0x8B0 - 0x811];
 	bool m_mode0;									// +0x8B0
@@ -343,6 +344,29 @@ void InGameUI::setScrolling( bool isScrolling )
 	}
 
 	m_isScrolling = isScrolling;
+}
+
+bool InGameUI::isScrolling( void )
+{
+	return m_isScrolling;
+}
+
+void InGameUI::setSelecting( bool isSelecting )
+{
+	if( m_isSelecting == isSelecting )
+		return;
+
+	m_isSelecting = isSelecting;
+}
+
+bool InGameUI::isSelecting( void )
+{
+	return m_isSelecting;
+}
+
+void InGameUI::setScrollAmount( Coord2D amt )
+{
+	m_scrollAmt = amt;
 }
 
 void InGameUI::setInputEnabled( bool enabled, bool *gate )

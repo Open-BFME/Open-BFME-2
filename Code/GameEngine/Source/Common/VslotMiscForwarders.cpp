@@ -24,7 +24,7 @@ typedef bool Bool;
 	}
 
 BFME_PAIR_SETTER(Rva0008BBA1PairSlot, 0x8C)	// vtable 0x00BC7568 slot 120
-BFME_PAIR_SETTER(Rva0029A85BPairSlot, 0x808)	// vtable 0x00BC7A88 slot 45
+// InGameUI::setScrollAmount: defined in InGameUIInputModes.cpp (its row's unit).
 
 // --- A one-shot flag: answers whether the global byte at VA 0x00DFF005
 // (ledger g_flag2) was set, clearing it (vtable 0x00BC4858 slot 5).

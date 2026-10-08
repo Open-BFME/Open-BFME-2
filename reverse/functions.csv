@@ -33055,8 +33055,6 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva0026FC5CByteField@@QBEEXZ,,0x0026FC5C,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
 ?get@Rva0026FCE5ByteField@@QBEEXZ,,0x0026FCE5,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
 ?get@Rva0029A268ByteField@@QBEEXZ,,0x0029A268,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
-?get@Rva0029A83AByteField@@QBEEXZ,,0x0029A83A,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
-?get@Rva0029A854ByteField@@QBEEXZ,,0x0029A854,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
 ?get@Rva002A9DA5ByteField@@QBEEXZ,,0x002A9DA5,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
 ?get@Rva002B223DByteField@@QBEEXZ,,0x002B223D,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
 ?get@Rva002B22F3ByteField@@QBEEXZ,,0x002B22F3,7,Code/GameEngine/Source/Common/Disp32ByteGetters.cpp,matched,disp32 byte getter; phase-proven no-branch-to-addr
@@ -51918,7 +51916,6 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva0009C134@Rva0009C134Host@@QAEXXZ,,0x0009C134,16,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,two member calls (the second a tail jump)
 ?rva003FE402@Rva003FE402Host@@QAEXXZ,,0x003FE402,16,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,two member calls (the second a tail jump)
 ?set@Rva0008BBA1PairSlot@@QAEXHH@Z,,0x0008BBA1,23,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
-?set@Rva0029A85BPairSlot@@QAEXHH@Z,,0x0029A85B,23,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
 ?rva002CEF14@Rva002CEF14FlagTest@@QAE_NXZ,,0x002CEF14,22,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
 ?rva000F168B@Rva000F168BHost@@QAEXXZ,,0x000F168B,13,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
 ?rva001074C8@Rva001074C8Host@@QAEXXZ,,0x001074C8,13,Code/GameEngine/Source/Common/VslotMiscForwarders.cpp,matched,vtable-slot body (size corrected)
@@ -54844,7 +54841,6 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
 ?rva00080256@Rva00080256@@QAEXHH@Z,,0x00080256,16,Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp,matched,vtable 0x00BC6FF4 slot 1; address-named slot body
 ?rva00232E2F@Rva00232E2F@@QAEHXZ,,0x00232E2F,14,Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp,matched,vtable 0x00BE82B8 slot 18; address-named slot body
 ?rva0008EF81@Rva0008EF81@@QAEXXZ,,0x0008EF81,20,Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp,matched,vtable 0x00BC7A88 slot 20 (+1 more tables); address-named slot body
-?rva0029A841@Rva0029A841@@QAEX_N@Z,,0x0029A841,19,Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp,matched,vtable 0x00BC7A88 slot 43 (+1 more tables); address-named slot body
 ?rva0008BBC7@Rva0008BBC7@@QAEHXZ,,0x0008BBC7,25,Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp,matched,vtable 0x00BC7568 slot 122 (+1 more tables); address-named slot body
 ?getPlayerMask@Rva0026137EFilter@@UAEHXZ,,0x00261368,22,Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp,matched,vtable 0x00BFAD28 slot 2; address-named slot body; was ?rva00261368@Rva00261368@@QAEHXZ (partition filter vftable slot)
 ?winRelease@GameWindowManager@@UAEHPAVGameWindow@@@Z,,0x002C0E1B,18,Code/GameEngine/Source/GameClient/GUI/GameWindowManagerModal.cpp,matched,ZH/BFME1 winRelease verbatim; m_mouseCaptor +0x1C; W3D window manager vtable 0x00BC7C90 slot 62 (was address-named in VslotSmallBodiesC.cpp)
@@ -70115,3 +70111,7 @@ $L7319,,0x0079A19C,13,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?isPlacementAnchored@InGameUI@@UAE_NXZ,,0x0029AAFC,7,Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp,matched,ZH InGameUI::isPlacementAnchored; vftable 0x7FD410 slot 60 between setPlacementEnd and getPlacementPoints; reads anchor flag +0x554; renamed from Rva0029AAFCByteField
 ?getPlacementPoints@InGameUI@@UAEXPAUICoord2D@@0@Z,,0x0029B45C,104,Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp,matched,ZH InGameUI::getPlacementPoints; vftable 0x7FD410 slot 61; BFME2 projects first place icon position through View::worldToScreen 0x50F29 when template kind-of bit +0x11F&0x10
 ?getPlacementAngle@InGameUI@@UAEMXZ,,0x0029AB0B,23,Code/GameEngine/Source/GameClient/InGameUIPlacement.cpp,matched,ZH InGameUI::getPlacementAngle; vftable 0x7FD410 slot 62; first place icon orientation else 0.0f
+?isScrolling@InGameUI@@UAE_NXZ,,0x0029A83A,7,Code/GameEngine/Source/GameClient/InGameUIInputModes.cpp,matched,InGameUI vftable 0x7FD410 slot 42; ZH InGameUI.h donor; renamed from address-named row
+?setSelecting@InGameUI@@UAEX_N@Z,,0x0029A841,19,Code/GameEngine/Source/GameClient/InGameUIInputModes.cpp,matched,InGameUI vftable 0x7FD410 slot 43; ZH InGameUI.h donor; renamed from address-named row
+?isSelecting@InGameUI@@UAE_NXZ,,0x0029A854,7,Code/GameEngine/Source/GameClient/InGameUIInputModes.cpp,matched,InGameUI vftable 0x7FD410 slot 44; ZH InGameUI.h donor; renamed from address-named row
+?setScrollAmount@InGameUI@@UAEXVCoord2D@@@Z,,0x0029A85B,23,Code/GameEngine/Source/GameClient/InGameUIInputModes.cpp,matched,InGameUI vftable 0x7FD410 slot 45; ZH InGameUI.h donor; renamed from address-named row
