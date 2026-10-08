@@ -78,6 +78,14 @@ public:
 	virtual ~TerrainRoadType();
 	void friend_setName(AsciiString name);
 	void friend_setTexture(AsciiString texture);
+    void friend_setID(unsigned int id) { m_id = id; }
+    void friend_setBridge(Bool bridge) { m_isBridge = bridge; }
+    void friend_setNext(TerrainRoadType *next) { m_next = next; }
+    void friend_setRoadWidth(float width) { m_roadWidth = width; }
+    void friend_setRoadWidthInTexture(float width) { m_roadWidthInTexture = width; }
+    const AsciiString &getTexture() const { return m_texture; }
+    float getRoadWidth() const { return m_roadWidth; }
+    float getRoadWidthInTexture() const { return m_roadWidthInTexture; }
 	static void parseTransitionToOCL( INI *ini, void *instance, void *store, const void *userData );
 	static void parseTransitionToFX( INI *ini, void *instance, void *store, const void *userData );
 
@@ -263,9 +271,15 @@ void TerrainRoadType::friend_setRepairedToFXString( BodyDamageType state, Int in
 // symbols.csv pins. findRoadOrBridge is the Zero Hour body verbatim, placed
 // by compiling the Open-BFME-1 donor at /O1. The calls and adjacency agree
 // with the pinned callees.
+// Native collection list slots are +0x0C/+0x10; the subsystem prefix remains opaque.
 class TerrainRoadCollection
 {
+    char m_subsystemPrefix[0x0C];
+    TerrainRoadType *m_roadList;
+    TerrainRoadType *m_bridgeList;
+    static unsigned int m_idCounter;
 public:
+    TerrainRoadType *newRoad(AsciiString name);
 	TerrainRoadType *findRoad( AsciiString name );
 	TerrainRoadType *findBridge( AsciiString name );
 	TerrainRoadType *findRoadOrBridge( AsciiString name );
@@ -284,3 +298,24 @@ TerrainRoadType *TerrainRoadCollection::findRoadOrBridge( AsciiString name )
 		return findBridge( name );
 
 }  // end findRoadOrBridge
+
+// ZH newRoad at BFME1 ba7ddda7e8. Target differences: ordinary global new
+// allocates 0x14C (not the donor's pool macro); texture access returns a
+// reference. Native code proves all fields copied and the complete list update.
+typedef char TerrainRoadTypeSizeCheck[sizeof(TerrainRoadType) == 0x14C ? 1 : -1];
+TerrainRoadType *TerrainRoadCollection::newRoad(AsciiString name)
+{
+    TerrainRoadType *road = new TerrainRoadType;
+    road->friend_setName(name);
+    road->friend_setID(m_idCounter++);
+    road->friend_setBridge(FALSE);
+    TerrainRoadType *defaultRoad = findRoad(AsciiString("DefaultRoad"));
+    if (defaultRoad) {
+        road->friend_setTexture(defaultRoad->getTexture());
+        road->friend_setRoadWidth(defaultRoad->getRoadWidth());
+        road->friend_setRoadWidthInTexture(defaultRoad->getRoadWidthInTexture());
+    }
+    road->friend_setNext(m_roadList);
+    m_roadList = road;
+    return road;
+}
