@@ -1,5 +1,15 @@
 // ?evaluateNamedBaseUnpackableForPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z
-// partial score=0.93 date=2026-10-07
+// partial score=0.93 date=2026-10-08
+// ?evaluateNamedBaseUnpackableForPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z
+// partial score=0.93 date=2026-10-08
+// Remaining diff is register allocation only: retail splits player (EBX before the
+// loop, spilled to [ebp+8] at its definition) and gives the loop index EBX; this
+// shape keeps player in EBX throughout and the index at [ebp+8]. Dropping one player
+// use (inside or outside the loop) flips VC7 to retail's split, so it is a weight
+// tie. No effect: index/player declaration order, copies, forceinline helpers,
+// nested ifs, continue form, flags (G6, Oy-, no Op), pointer-returning callees.
+// A named `const AsciiString &` for the command-set string flips the loop register
+// to commandSet instead (281 bytes).
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
 // ?evaluateNamedBaseUnpackableForPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z
 // 0x003E4565 276B. Donor: BFME1 ScriptConditionsNamedBaseUnpackableForPlayer.cpp. Retail calls resolve the named base and player, check ownership and castle unpack eligibility, then inspect command buttons.

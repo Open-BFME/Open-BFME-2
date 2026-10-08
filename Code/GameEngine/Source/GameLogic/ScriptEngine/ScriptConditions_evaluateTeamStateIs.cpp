@@ -260,6 +260,23 @@
 // rowed hasAnyObjects(false); the first team's centroid (rowed 0x0039DA2A)
 // is reduced in place by the second's, read through the pointer the call
 // returns, before the same Coord3D::length comparison.
+//
+// ?rva003E61A4@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@11111_N@Z @ 0x003E61A4 553B
+// Donor: BFME 1 ScriptConditionsRva0032A710.cpp (BFME's extension of Zero
+// Hour's evaluatePlayerHasUnitTypeInArea: player-mask loop and upgrade
+// filter), without its custom-data change cache. Target evidence: jump-table
+// case 74 calls 0x003E61A4 with the Condition, parameters 0-4, a null upgrade
+// parameter and false, which initConditionTemplates names
+// PLAYER_HAS_COMPARISON_UNIT_TYPE_IN_TRIGGER_AREA (player, comparison, int,
+// object type, trigger area); the address keeps the name because other
+// callers pass the last two. Per player of the mask (rowed
+// getEachPlayerFromMask), each member of each team of the player's team
+// prototypes (+0x32C list) is counted when it has the upgrade (rowed
+// 0x00290D2B), its template is in the type set (rowed 0x00376A84), it lacks
+// KindOf bit 0x59 (+0x113 bit 1), it is inside the rowed trigger lookup's
+// area (rowed isInside), it is alive or of KindOf bit 0x30 (+0x10E bit 0),
+// and under the flag its float at +0x280 is -1. The count's six-way
+// comparison is returned after the condition's frame stamp is refreshed.
 #include <string.h>
 #include <vector>
 #include <list>
@@ -365,10 +382,19 @@ public:
 	// KindOf bit 0x68 (byte +0x115, bit 0), unnamed: the kinds whose base
 	// state is read from the FoundationAIUpdate module.
 	bool testKindOf68() const { return (m_kindOf115 & 0x01) != 0; }
+	// KindOf bits 0x30 (byte +0x10E, bit 0) and 0x59 (byte +0x113, bit 1),
+	// unnamed: Zero Hour's area counts skip KindOf 88 and keep dead objects of
+	// KindOf 48 (BFME 1's ScriptConditionsRva0032A710.cpp).
+	bool testKindOf30() const { return (m_kindOf10E & 0x01) != 0; }
+	bool testKindOf59() const { return (m_kindOf113 & 0x02) != 0; }
 private:
 	unsigned char m_pad00[0x64];
 	AsciiString m_name; // +0x64
-	unsigned char m_pad68[0x115 - 0x68];
+	unsigned char m_pad68[0x10E - 0x68];
+	unsigned char m_kindOf10E; // +0x10E
+	unsigned char m_pad10F[0x113 - 0x10F];
+	unsigned char m_kindOf113; // +0x113
+	unsigned char m_pad114[0x115 - 0x114];
 	unsigned char m_kindOf115; // +0x115
 	unsigned char m_pad116[0x618 - 0x116];
 	int m_commandPoints; // +0x618
@@ -456,6 +482,8 @@ public:
 };
 
 class Waypoint;
+class PolygonTrigger;
+class UpgradeTemplate;
 
 // ContainModuleInterface::getContainCount(0) is vtable slot +0x114 (as in
 // Object/Contain/Rva00478231Contain.cpp).
@@ -536,6 +564,10 @@ public:
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	Player *getControllingPlayer() const;
+	bool isInside(PolygonTrigger *trigger);
+	// Zero Hour's Object::hasUpgrade, rowed under its address name.
+	bool rva00290D2B(const UpgradeTemplate *upgrade) const;
+	float getRva280() const { return m_280; }
 	// The template's KindOf bit 0x68 read in place: a getTemplate()
 	// temporary swaps retail's ESI/EDI choice in evaluateCanBuildAtBase.
 	bool isKindOf68() const { return m_template->testKindOf68(); }
@@ -554,7 +586,9 @@ private:
 	ContainModuleInterface *m_contain; // +0x250
 	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
-	unsigned char m_pad25C[0x438 - 0x25C];
+	unsigned char m_pad25C[0x280 - 0x25C];
+	float m_280; // +0x280, -1 when unset
+	unsigned char m_pad284[0x438 - 0x284];
 	unsigned char m_privateStatus; // +0x438
 };
 
@@ -611,12 +645,24 @@ public:
 extern InGameUI *TheInGameUI;
 #undef BFME_SLOT
 
+// ObjectTypes::isInSet(const ThingTemplate *) (the template's name; null is
+// false), rowed at 0x00376A84 under its address name.
+class Rva00376A62
+{
+public:
+	bool rva00376A84(const void *thing);
+};
+
 class ObjectTypes
 {
 public:
 	ObjectTypes();
 	virtual ~ObjectTypes();
 	bool isInSet(const AsciiString &name) const;
+	bool isInSet(const ThingTemplate *thing) const
+	{
+		return reinterpret_cast<Rva00376A62 *>(const_cast<ObjectTypes *>(this))->rva00376A84(thing);
+	}
 	bool canBuildAny(Player *player);
 	unsigned int getListSize() const { return m_objectTypes.size(); }
 	AsciiString getNthInList(unsigned int index) const;
@@ -695,9 +741,13 @@ public:
 	int rva003802DF();
 };
 
+class TeamPrototype;
+typedef _STL::list<TeamPrototype *> PlayerTeamList;
+
 class Player
 {
 public:
+	const PlayerTeamList *getPlayerTeams() const { return &m_playerTeamPrototypes; }
 	Rva00380200 *getRva08() { return reinterpret_cast<Rva00380200 *>(m_pad08); }
 	int getRva1C() const { return m_1C; }
 	int getPlayerIndex() const { return m_playerIndex; }
@@ -713,7 +763,9 @@ private:
 	int m_playerIndex; // +0x54
 	unsigned char m_pad58[0x60 - 0x58];
 	Rva002A7461 m_commandPoints; // +0x60
-	unsigned char m_pad6C[0x3BC - 0x6C];
+	unsigned char m_pad6C[0x32C - 0x6C];
+	PlayerTeamList m_playerTeamPrototypes; // +0x32C
+	unsigned char m_pad330[0x3BC - 0x330];
 	Rva0039C0F4 m_kills; // +0x3BC
 };
 
@@ -723,6 +775,13 @@ public:
 	const ThingTemplate *findTemplate(const AsciiString &name);
 };
 extern ThingFactory *TheThingFactory;
+
+class UpgradeCenter
+{
+public:
+	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
+};
+extern UpgradeCenter *TheUpgradeCenter;
 
 int __cdecl Rva003BD46ESum(void *range);
 
@@ -869,6 +928,7 @@ protected:
 	bool evaluateCanBuildAtBase(Parameter *, Parameter *);
 	bool evaluateDistanceBetweenObjects(Condition *);
 	bool evaluateDistanceBetweenTeams(Condition *);
+	bool rva003E61A4(Condition *, Parameter *, Parameter *, Parameter *, Parameter *, Parameter *, Parameter *, bool);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1652,5 +1712,59 @@ bool ScriptConditions::evaluateDistanceBetweenTeams(Condition *pCondition)
 		case 4: return (dist > value) ? true : false;
 		case 5: return (dist != value) ? true : false;
 	}
+	return false;
+}
+
+bool ScriptConditions::rva003E61A4(Condition *pCondition, Parameter *pPlayerParm, Parameter *pComparisonParm,
+	Parameter *pCountParm, Parameter *pTypeParm, Parameter *pTriggerParm, Parameter *pUpgradeParm, bool flag)
+{
+	PolygonTrigger *pTrig = TheScriptEngine->getQualifiedTriggerAreaByName(pTriggerParm->getString());
+	if (pTrig == 0)
+		return false;
+	int playerMask = TheScriptEngine->rva00357B82(pPlayerParm);
+	int count = 0;
+	while (playerMask) {
+		Player *pPlayer = ThePlayerList->getEachPlayerFromMask(playerMask);
+		ObjectTypesTemp types;
+		Script_objectTypesFromParam(pTypeParm, types.m_types);
+		const UpgradeTemplate *upgrade = 0;
+		if (pUpgradeParm)
+			upgrade = TheUpgradeCenter->findUpgrade(pUpgradeParm->getString());
+		for (PlayerTeamList::const_iterator it = pPlayer->getPlayerTeams()->begin(); it != pPlayer->getPlayerTeams()->end(); ++it) {
+			for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
+				Team *team = iter.cur();
+				if (!team)
+					continue;
+				for (DLINK_ITERATOR<Object> oiter = team->iterate_TeamMemberList(); !oiter.done(); oiter.advance()) {
+					Object *pObj = oiter.cur();
+					if (upgrade && !pObj->rva00290D2B(upgrade))
+						continue;
+					if (!types.m_types->isInSet(pObj->getTemplate()))
+						continue;
+					if (pObj->getTemplate()->testKindOf59())
+						continue;
+					if (!pObj->isInside(pTrig))
+						continue;
+					if (pObj->isEffectivelyDead() && !pObj->getTemplate()->testKindOf30())
+						continue;
+					if (flag && pObj->getRva280() != -1.0f)
+						continue;
+					count++;
+				}
+			}
+		}
+	}
+	bool comparison = false;
+	switch (pComparisonParm->getInt()) {
+		case 0: comparison = (count < pCountParm->getInt()); break;
+		case 1: comparison = (count <= pCountParm->getInt()); break;
+		case 2: comparison = (count == pCountParm->getInt()); break;
+		case 3: comparison = (count >= pCountParm->getInt()); break;
+		case 4: comparison = (count > pCountParm->getInt()); break;
+		case 5: comparison = (count != pCountParm->getInt()); break;
+	}
+	pCondition->setCustomFrame(TheScriptEngine->getFrameObjectCountChanged());
+	if (comparison)
+		return true;
 	return false;
 }
