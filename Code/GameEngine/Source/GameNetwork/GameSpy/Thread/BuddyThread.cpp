@@ -56,6 +56,24 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 // the game.
 // Author: Matthew D. Campbell, June 2002
 
+// BFME 2's WWLib thread base (as in PersistentStorageThread.cpp), not ZH's
+// 0x58-byte one: BuddyThreadClass's members start at +0x50 in retail
+// (errorCallback 0x005513E9 writes m_lastErrorCode at +0x58).
+#define THREAD_H
+class ThreadClass
+{
+public:
+	ThreadClass(const char *name);
+	virtual ~ThreadClass();
+	virtual void Execute();
+protected:
+	virtual void Thread_Function() = 0;
+private:
+	char m_name[0x40];
+	unsigned int m_threadId;
+	void *m_handle;
+	int m_priority;
+};
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 #include "GameNetwork/GameSpy/BuddyThread.h"
@@ -121,7 +139,7 @@ class BuddyThreadClass : public ThreadClass
 {
 
 public:
-	BuddyThreadClass() : ThreadClass() { m_isNewAccount = m_isdeleting = m_isConnecting = m_isConnected = false; m_profileID = 0; m_lastErrorCode = 0; }
+	BuddyThreadClass() : ThreadClass(0) { m_isNewAccount = m_isdeleting = m_isConnecting = m_isConnected = false; m_profileID = 0; m_lastErrorCode = 0; }
 
 	void Thread_Function();
 
@@ -239,3 +257,130 @@ Bool GameSpyBuddyMessageQueue::getResponse( BuddyResponse& resp )
 
 
 //-------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------
+
+// Zero Hour's BuddyThreadClass::errorCallback; native [5513E9,55182E),1093B
+// (callbackWrapper case 1). The GameSpy SDK's GPErrorArg and BFME2's error
+// response are read through local views: the sweep shim's GP.h orders
+// GPErrorArg differently, and BFME2's BuddyResponse error arm keeps the
+// GPResult Zero Hour commented out, putting errorCode at +0x10. The error
+// codes are the SDK's values (GP.h's enum here is not). BFME2 also skips the
+// bad-nick/bad-email login errors, reports a forced disconnect as response
+// type 6, and copies the error code's name over the SDK error string.
+struct GPErrorArgSDK
+{
+	GPResult result;
+	GPErrorCode errorCode;
+	char *errorString;
+	GPEnum fatal;
+};
+struct BuddyErrorResponseArm
+{
+	GPResult result;
+	GPErrorCode errorCode;
+	char errorString[MAX_BUDDY_CHAT_LEN];
+	GPEnum fatal;
+};
+struct BfmeOpaqueOwnedRecord492
+{
+	BfmeOpaqueOwnedRecord492();
+	~BfmeOpaqueOwnedRecord492();
+	Int peerRequestType;
+	unsigned char m_04[492 - 4];
+};
+
+void BuddyThreadClass::errorCallback( GPConnection *con, GPErrorArg *errorArg )
+{
+	const GPErrorArgSDK *arg = (const GPErrorArgSDK *)errorArg;
+	m_lastErrorCode = arg->errorCode;
+
+	char errorCodeString[256];
+	char resultString[256];
+
+	switch((Int)arg->result)
+	{
+	case 0: strcpy(resultString, "GP_NO_ERROR"); break;
+	case 1: strcpy(resultString, "GP_MEMORY_ERROR"); break;
+	case 2: strcpy(resultString, "GP_PARAMETER_ERROR"); break;
+	case 3: strcpy(resultString, "GP_NETWORK_ERROR"); break;
+	case 4: strcpy(resultString, "GP_SERVER_ERROR"); break;
+	default:
+		strcpy(resultString, "Unknown result!");
+	}
+
+	switch((Int)arg->errorCode)
+	{
+	case 0x0000: strcpy(errorCodeString, "GP_GENERAL"); break;
+	case 0x0001: strcpy(errorCodeString, "GP_PARSE"); break;
+	case 0x0002: strcpy(errorCodeString, "GP_NOT_LOGGED_IN"); break;
+	case 0x0003: strcpy(errorCodeString, "GP_BAD_SESSKEY"); break;
+	case 0x0004: strcpy(errorCodeString, "GP_DATABASE"); break;
+	case 0x0005: strcpy(errorCodeString, "GP_NETWORK"); break;
+	case 0x0006: strcpy(errorCodeString, "GP_FORCED_DISCONNECT"); break;
+	case 0x0007: strcpy(errorCodeString, "GP_CONNECTION_CLOSED"); break;
+	case 0x0100: strcpy(errorCodeString, "GP_LOGIN"); break;
+	case 0x0101: strcpy(errorCodeString, "GP_LOGIN_TIMEOUT"); break;
+	case 0x0102: strcpy(errorCodeString, "GP_LOGIN_BAD_NICK"); break;
+	case 0x0103: strcpy(errorCodeString, "GP_LOGIN_BAD_EMAIL"); break;
+	case 0x0104: strcpy(errorCodeString, "GP_LOGIN_BAD_PASSWORD"); break;
+	case 0x0105: strcpy(errorCodeString, "GP_LOGIN_BAD_PROFILE"); break;
+	case 0x0106: strcpy(errorCodeString, "GP_LOGIN_PROFILE_DELETED"); break;
+	case 0x0107: strcpy(errorCodeString, "GP_LOGIN_CONNECTION_FAILED"); break;
+	case 0x0108: strcpy(errorCodeString, "GP_LOGIN_SERVER_AUTH_FAILED"); break;
+	case 0x0200: strcpy(errorCodeString, "GP_NEWUSER"); break;
+	case 0x0201: strcpy(errorCodeString, "GP_NEWUSER_BAD_NICK"); break;
+	case 0x0202: strcpy(errorCodeString, "GP_NEWUSER_BAD_PASSWORD"); break;
+	case 0x0204: strcpy(errorCodeString, "GP_NEWUSER_UNIQUENICK_INUSE"); break;
+	case 0x0300: strcpy(errorCodeString, "GP_UPDATEUI"); break;
+	case 0x0301: strcpy(errorCodeString, "GP_UPDATEUI_BAD_EMAIL"); break;
+	case 0x0400: strcpy(errorCodeString, "GP_NEWPROFILE"); break;
+	case 0x0401: strcpy(errorCodeString, "GP_NEWPROFILE_BAD_NICK"); break;
+	case 0x0402: strcpy(errorCodeString, "GP_NEWPROFILE_BAD_OLD_NICK"); break;
+	case 0x0500: strcpy(errorCodeString, "GP_UPDATEPRO"); break;
+	case 0x0501: strcpy(errorCodeString, "GP_UPDATEPRO_BAD_NICK"); break;
+	case 0x0600: strcpy(errorCodeString, "GP_ADDBUDDY"); break;
+	case 0x0601: strcpy(errorCodeString, "GP_ADDBUDDY_BAD_FROM"); break;
+	case 0x0602: strcpy(errorCodeString, "GP_ADDBUDDY_BAD_NEW"); break;
+	case 0x0603: strcpy(errorCodeString, "GP_ADDBUDDY_ALREADY_BUDDY"); break;
+	case 0x0700: strcpy(errorCodeString, "GP_AUTHADD"); break;
+	case 0x0701: strcpy(errorCodeString, "GP_AUTHADD_BAD_FROM"); break;
+	case 0x0702: strcpy(errorCodeString, "GP_AUTHADD_BAD_SIG"); break;
+	case 0x0800: strcpy(errorCodeString, "GP_STATUS"); break;
+	case 0x0900: strcpy(errorCodeString, "GP_BM"); break;
+	case 0x0901: strcpy(errorCodeString, "GP_BM_NOT_BUDDY"); break;
+	case 0x0A00: strcpy(errorCodeString, "GP_GETPROFILE"); break;
+	case 0x0A01: strcpy(errorCodeString, "GP_GETPROFILE_BAD_PROFILE"); break;
+	case 0x0B00: strcpy(errorCodeString, "GP_DELBUDDY"); break;
+	case 0x0B01: strcpy(errorCodeString, "GP_DELBUDDY_NOT_BUDDY"); break;
+	case 0x0C00: strcpy(errorCodeString, "GP_DELPROFILE"); break;
+	case 0x0C01: strcpy(errorCodeString, "GP_DELPROFILE_LAST_PROFILE"); break;
+	case 0x0D00: strcpy(errorCodeString, "GP_SEARCH"); break;
+	case 0x0D01: strcpy(errorCodeString, "GP_SEARCH_CONNECTION_FAILED"); break;
+	default:
+		strcpy(errorCodeString, "Unknown error code!");
+	}
+
+	if (arg->fatal == 1 && arg->errorCode != 0x0102 && arg->errorCode != 0x0103)
+	{
+		BuddyResponse errorResponse;
+		BuddyErrorResponseArm &error = *(BuddyErrorResponseArm *)&errorResponse.arg;
+		*(Int *)&errorResponse.buddyResponseType = (arg->errorCode == 0x0006) ? 6 : BuddyResponse::BUDDYRESPONSE_DISCONNECT;
+		errorResponse.result = arg->result;
+		error.errorCode = arg->errorCode;
+		error.fatal = arg->fatal;
+		strncpy(error.errorString, arg->errorString, MAX_BUDDY_CHAT_LEN);
+		error.errorString[MAX_BUDDY_CHAT_LEN-1] = 0;
+		strncpy(error.errorString, errorCodeString, MAX_BUDDY_CHAT_LEN-1);
+		m_isConnecting = m_isConnected = false;
+		TheGameSpyBuddyMessageQueue->addResponse( errorResponse );
+
+		if (m_isdeleting)
+		{
+			BfmeOpaqueOwnedRecord492 req;
+			req.peerRequestType = PeerRequest::PEERREQUEST_LOGOUT;
+			TheGameSpyPeerMessageQueue->addRequest( *(const PeerRequest *)&req );
+			m_isdeleting = false;
+		}
+	}
+}
