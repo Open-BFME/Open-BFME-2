@@ -143,6 +143,7 @@ struct Rva002ED236Pos {
 class Pathfinder { public:
  PathfindLayerEnum rva002ED236(Object *,Rva002ED236Pos);
  bool QuickDoesPathExist(Object *, const Coord3D *, const Coord3D *, int);
+ void RemoveObjectFromPathfindMap(Object *);
 };
 class AI { char unknown00[0x10]; Pathfinder *m_pathfinder; public: Pathfinder *getPathfinder() { return m_pathfinder; } };
 extern AI *TheAI;
@@ -163,6 +164,25 @@ struct ObjectCrushLevelsView {
  char unknown5fd;
  bool gate5fe;
 };
+
+class Object; class Player; class RadarWindowOverrideSource;
+class Drawable { public: void setDrawableHidden(bool); char pad[0x43c]; bool flag43c; };
+class PlayerList { public: char pad[0x10]; Player *local; };
+extern PlayerList *ThePlayerList;
+class GameMessage { public: enum Type { TYPE_VIEW=0 }; void appendObjectIDArgument(ObjectID); };
+class MessageStream { public:
+ virtual void s00(); virtual void s04(); virtual void s08(); virtual void s0c();
+ virtual void s10(); virtual void s14(); virtual void s18(); virtual void s1c();
+ virtual void s20(); virtual void s24(); virtual void s28(); virtual void s2c();
+ virtual void s30(); virtual void s34(); virtual void s38(); virtual void s3c();
+ virtual void s40(); virtual void s44(); virtual GameMessage *appendMessage(GameMessage::Type);
+};
+extern MessageStream *TheMessageStream;
+struct Rva002D76C6Owner;
+class Radar { public: void removeObject(Rva002D76C6Owner *); };
+extern Radar *TheRadar;
+class Rva002D37Owner { public: void rva002D373E(int); };
+extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
 class Object
 {
@@ -186,6 +206,11 @@ public:
  bool rva00293926(KindOfType);
  signed char rva0028CE7B() const;
  bool canCrushOrSquishNoAlly(Object *, int);
+ bool testStatus(ObjectStatusTypes) const;
+ Player *getControllingPlayer() const;
+ void rva0028BAC0();
+ void rva0029004B();
+ void tempRemoveObjectFromWorld();
 private:
  __forceinline const ObjectCrushLevelsView *getTemplate() const { return m_template; }
  AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
@@ -194,7 +219,9 @@ private:
  unsigned char m_pad08[0x38-8];
  Coord3D position; // +0x38
  float angle; // +0x44
- unsigned char m_pad48[0x84-0x48];
+ unsigned char m_pad48[0x74-0x48];
+ ObjectID id; // +0x74, native message object ID
+ unsigned char m_pad78[0x84-0x78];
  Thing *drawable; // +0x84
  unsigned char m_pad88[0x124-0x88];
  unsigned int mountedFlags; // +0x124, target bit22 selects alternate level
@@ -414,4 +441,27 @@ char Object::rva00294815() {
  level+=(char)(int)bonus;
  if(level<0) return 0;
  return level;
+}
+
+// WB CCB670 names Object.cpp tempRemoveObjectFromWorld at line4548.
+// Native291B7C..291C20 RET0 independently witnesses this receiver, Object74/84,
+// Drawable43C, PlayerList10 and MessageStream slot48. BFME1 Object.cpp9cbfb551
+// supplies the removal-order semantic lead; hidden status51, message1005 and
+// the target-only lifecycle calls are native. Opaque helper meanings stay open.
+// ?tempRemoveObjectFromWorld@Object@@QAEXXZ
+void Object::tempRemoveObjectFromWorld() {
+ if(testStatus((ObjectStatusTypes)0x33)) return;
+ Drawable *draw=(Drawable *)drawable;
+ if(draw) {
+  draw->setDrawableHidden(true);
+  Player *localPlayer=ThePlayerList->local;
+  if(getControllingPlayer()==localPlayer && draw->flag43c) {
+   GameMessage *message=TheMessageStream->appendMessage((GameMessage::Type)0x3ed);
+   message->appendObjectIDArgument(id);
+  }
+ }
+ TheRadar->removeObject((Rva002D76C6Owner *)this);
+ TheAI->getPathfinder()->RemoveObjectFromPathfindMap(this);
+ if(theRadarWindowOverrideSource) ((Rva002D37Owner *)theRadarWindowOverrideSource)->rva002D373E((int)this);
+ rva0028BAC0(); rva0029004B(); setStatus((ObjectStatusTypes)0x33,true);
 }
