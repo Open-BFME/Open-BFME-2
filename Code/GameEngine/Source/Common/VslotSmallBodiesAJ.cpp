@@ -1,4 +1,75 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
+#include <vector>
+#include "GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+class PlayerList;
+extern PlayerList *ThePlayerList;
+class Rva002A7DDEArg;
+class Rva002A7DDE { public: bool rva002A7DDE(Rva002A7DDEArg *); };
+class Rva00005C357FPtrChaseField { public: int get() const; };
+class Rva00005C39A3PtrChaseField { public: int get() const; };
+class Rva0057C22FByteChaseField { public: unsigned char get() const; };
+class Rva005C39AA { public: void rva005C39AA(); };
+class Rva005C3EE0 { public: void rva005C3EE0(); };
+class Rva005C3F02;
+class Rva005677B9 { public: struct Payload { int v[2]; }; };
+void Rva00567B6DAdd(Rva005C3F02 *,const Rva005677B9::Payload *);
+class CommandButton {
+public:
+ int getStance(int);
+ char pad[0x234];
+ _STL::vector<int> stances;
+};
+// Prefix-only factory view: unused vslots specify layout, not signatures.
+// Provider declarations above preserve their existing ABI, not class extents.
+class StanceMenuFactory {
+public:
+ virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
+ virtual Rva005C3F02 *getMenu();
+};
+class InGameToggleStanceCommandButton {
+public:
+ class Impl {
+ public:
+  void OnLeftClicked();
+ private:
+  char pad00[8];
+  Rva00005C357FPtrChaseField *owner08;
+  StanceMenuFactory *factory0C;
+  void *window10;
+  CommandButton *button14;
+ };
+};
+// ?OnLeftClicked@Impl@InGameToggleStanceCommandButton@@QAEXXZ,
+// retail 0x00568021 (181 bytes), named by WorldBuilder 0x01431040.
+// WorldBuilder supplies the menu check, object/relationship guard, three-item
+// limit, and owner/stance payload construction. Retail supplies the accessed
+// prefixes: owner +8, menu factory +0xC, command +0x14, stance vector +0x234.
+// All direct calls use their existing verified signatures; GameLogic uses
+// the canonical lookup view. The two-dword payload is the existing neutral
+// Rva005677B9::Payload; its original class identity is not asserted here.
+void InGameToggleStanceCommandButton::Impl::OnLeftClicked()
+{
+ Rva005C3F02 *menu=factory0C->getMenu();
+ if(!menu) return;
+ Object *object=TheGameLogic->findObjectByID(static_cast<ObjectID>(owner08->get()));
+ if(object && (!ThePlayerList || !reinterpret_cast<Rva002A7DDE *>(ThePlayerList)->rva002A7DDE(reinterpret_cast<Rva002A7DDEArg *>(object)))) return;
+ if(!reinterpret_cast<Rva0057C22FByteChaseField *>(menu)->get()) {
+  int count=(int)button14->stances.size();
+  for(int i=0;i<count && reinterpret_cast<Rva00005C39A3PtrChaseField *>(menu)->get()<3;++i) {
+   Rva005677B9::Payload params;
+   params.v[0]=reinterpret_cast<int>(this);
+   params.v[1]=button14->getStance(i);
+   Rva00567B6DAdd(menu,&params);
+  }
+  reinterpret_cast<Rva005C3EE0 *>(menu)->rva005C3EE0();
+ } else {
+  reinterpret_cast<Rva005C39AA *>(menu)->rva005C39AA();
+ }
+}
+
+
 //
 // Vtable-slot bodies with no ledger owner and no Ghidra entry, batch AJ:
 // each is a single tail jump to a rowed or pinned function on the same
@@ -1469,22 +1540,17 @@ void Rva0053EC3A::rva0053EC3A()
 	m_0C.rva005C674A();
 }
 
-class Rva00568021
-{
-public:
-	void rva00568021();
-};
 class Rva005680D6
 {
 public:
 	void rva005680D6();
 private:
 	char m_pad00[0x0C];
-	Rva00568021 *m_0C;
+	InGameToggleStanceCommandButton::Impl *m_0C;
 };
 void Rva005680D6::rva005680D6()
 {
-	m_0C->rva00568021();
+	m_0C->OnLeftClicked();
 }
 
 class Rva005D2F7E
@@ -1663,3 +1729,4 @@ float Rva0030BCB2::rva0030BCB2()
 {
 	return ((Rva0053863ESub *)((char *)this - 0x28))->rva00538661();
 }
+

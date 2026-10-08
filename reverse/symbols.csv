@@ -12108,7 +12108,6 @@ name,address,notes
 ?rva005659CA@Rva005659CA@@QAEXXZ,0x005659CA,shared clear for 8B virtual overflows
 ?rva00565A42@Rva00565A42@@QAEXXZ,0x00565A42,already rowed tidy
 ?rva00567A6E@Rva00525E55@@QAEXH@Z,0x00567A6E,address-derived callee of matched slot 0x00567D96; retail REL32 targets 0x00567A6E; Ghidra FUN bounds 162 bytes; thiscall one arg ret 4; callee body remains unclaimed; no named identity inferred
-?rva00568021@Rva00568021@@QAEXXZ,0x00568021,address-derived callee of matched slot 0x005680D6; retail jmp rel32 targets 0x00568021; Ghidra FUN bounds 181 bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
 ?rva005686F5@Rva0056956D@@QAEPAXPBURva0056956DElem@@@Z,0x005686F5,"alias pin: same 44B null-guarded lookup body rowed as free __stdcall ?rva005686F5@@YGPAXPBURva005686F5Elem@@@Z; RETAIL REL32 at 0x00569584 (body 0x0056956D) passes ecx=this, so that caller uses a thiscall view (body ignores ecx); honest caller-view spelling"
 ?rva00568939@Rva00568920@@QAEXH@Z,0x00568939,keyed slot notify (banked partial 0x00568939.cpp); caller 0x00568C1A passes outer this as key
 ?rva00568BE2@BitRange@@QAE?AV?$StringBase@D@@XZ,0x00568BE2,alias pin: same 56B AsciiString-getter body rowed as ?rva00568BE2@BitRange@@QAE?AVAsciiString@@XZ; RETAIL REL32 at 0x005691FA (body 0x005691DB) and 0x00569225 (body 0x0056913D) target 0x00568BE2; StringBase-return spelling is the nothrow TU-local codegen view (shim AsciiString dtor path throws and emits an EH frame retail lacks)
