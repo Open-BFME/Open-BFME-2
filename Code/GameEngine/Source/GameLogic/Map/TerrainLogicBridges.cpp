@@ -48,7 +48,8 @@ enum PathfindLayerEnum
 {
 	LAYER_INVALID = 0,
 	LAYER_GROUND = 1,
-	LAYER_LAST = 15
+	LAYER_LAST = 15,
+	LAYER_RAMP = 16 // BFME 2: the pathfinder's ramp test reports it
 };
 
 enum BodyDamageType
@@ -219,10 +220,26 @@ public:
 	Int rva00281BF7();
 };
 
+// 0x002ED236 takes the position by value as a 12-byte type with a
+// non-trivial destructor: its caller copies the three words into the
+// argument and saves the argument's address, the callee-destroyed parameter
+// shape, and the callee passes the argument's address on as a Coord3D. Its
+// real name is unknown.
+struct Rva002ED236Pos
+{
+	Real x;
+	Real y;
+	Real z;
+	Rva002ED236Pos(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }
+	~Rva002ED236Pos() {}
+};
+
 class Pathfinder
 {
 public:
 	Bool rva002E9442(const Vector3 &from, const Vector3 &to, Vector3 *pos);
+	Bool IsPointOnRamp(const Coord3D *pos);
+	PathfindLayerEnum rva002ED236(Object *obj, Rva002ED236Pos pos);
 };
 
 // 0x002E7205: Zero Hour's Pathfinder::changeBridgeState(layer, repaired);
@@ -272,6 +289,7 @@ public:
 class TerrainLogic : public TerrainLogicSlots<TerrainLogicGround, 33>
 {
 public:
+	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
 	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *pos, Bool onlyHealthyBridges = false);
 
 	virtual Bridge *getFirstBridge() const; // +0xA0
@@ -546,6 +564,36 @@ PathfindLayerEnum TerrainLogic::getHighestLayerForDestination(const Coord3D *pos
 		}
 	}
 	return(bestLayer);
+}
+
+// ?getLayerForDestination@TerrainLogic@@QAE?AW4PathfindLayerEnum@@PAVObject@@PBUCoord3D@@@Z @0x002802FE
+// Zero Hour's nearest-deck search; BFME 2 replaces its wall check with the
+// pathfinder's ramp test and, failing that, the pathfinder's own layer
+// choice for the object at a copy of the position (0x002ED236).
+PathfindLayerEnum TerrainLogic::getLayerForDestination(Object *obj, const Coord3D *pos)
+{
+	Bridge *pBridge = getFirstBridge();
+	PathfindLayerEnum bestLayer = LAYER_GROUND;
+	Real bestDistance = fabs(pos->z - getGroundHeight(pos->x, pos->y));
+	while (pBridge ) {
+		if (pBridge->isPointOnBridge(pos) ) {
+			Real bridgeHeight = pBridge->getBridgeHeight(pos, NULL);
+			Real delta = fabs(pos->z-bridgeHeight);
+			if (delta<bestDistance) {
+				bestLayer = (PathfindLayerEnum)pBridge->getLayer();
+				bestDistance = delta;
+			}
+		}
+		pBridge = pBridge->getNext();
+	}
+	if (bestLayer == LAYER_GROUND) {
+		if (TheAI->pathfinder()->IsPointOnRamp(pos)) {
+			bestLayer = LAYER_RAMP;
+		} else if (TheAI && TheAI->pathfinder()) {
+			bestLayer = TheAI->pathfinder()->rva002ED236(obj, *pos);
+		}
+	}
+	return bestLayer;
 }
 
 extern TerrainLogic *TheTerrainLogic;
