@@ -186,3 +186,52 @@ CrateTemplate *CrateSystem::newCrateTemplate(AsciiString name)
 
 	return ct;
 }
+
+// Native 0x0031EB96..0x0031EC03 (109B), a parallel override factory.
+// This is not a CrateTemplate identity claim. Its 0x2CC allocation calls
+// 0x0035B8AA, already named Rva0031AB1ENode by the prepend caller. That
+// constructor initializes the override header at 0/4/8 and the same member
+// offsets copied by the rowed Rva0031E4BA assignment at 0x0031E4BA.
+// The two address-derived names are views of this same target object;
+// the cast below joins those existing ledger views, not donor identities.
+// As in the crate factory, the copy flag brackets assignment, then the
+// new object's +8 flag and the source object's +4 link are set.
+class Rva0031E4BA
+{
+public:
+	Rva0031E4BA &operator=(const Rva0031E4BA &other);
+};
+
+class Rva0031AB1ENode
+{
+public:
+	Rva0031AB1ENode();
+	void *m_vptr;
+	Rva0031AB1ENode *m_nextOverride;
+	unsigned char m_isOverride;
+	unsigned char m_pad09[0x10 - 9];
+	AsciiString m_10;
+	unsigned char m_pad14[0x18 - 0x14];
+	void *m_18;
+	unsigned char m_tail[0x2CC - 0x1C];
+};
+
+class Rva0031EB96
+{
+public:
+	Rva0031AB1ENode *rva0031EB96(Rva0031AB1ENode *source);
+};
+
+Rva0031AB1ENode *Rva0031EB96::rva0031EB96(Rva0031AB1ENode *source)
+{
+	if (source == 0)
+		return 0;
+	Rva0031AB1ENode *fresh = new Rva0031AB1ENode;
+	g_00E01EA8 = 1;
+	*reinterpret_cast<Rva0031E4BA *>(fresh) =
+		*reinterpret_cast<const Rva0031E4BA *>(source);
+	g_00E01EA8 = 0;
+	fresh->m_isOverride = 1;
+	source->m_nextOverride = fresh;
+	return fresh;
+}
