@@ -327,3 +327,28 @@ void Rva00531A44::rva00531B3A(unsigned short n) {
   n = (unsigned short)following;
  } while (true);
 }
+
+// Native109B531C8C..531CF9 repeats the reset with FindSet531C5A.
+// WB12D3B90 GetNextSetMember mapping is refuted by native writes;
+// Update533BEC consumes no result. This remains an address-qualified
+// reset with independently proven20B layout and existing FindSet provider.
+class Rva00531C5A {
+public: unsigned short rva00531C5A(unsigned short);
+ void rva00531C8C(unsigned short);
+ unsigned short capacity, first;
+ unsigned short *parents;
+ unsigned char *ranks;
+ unsigned short *next, *last;
+};
+void Rva00531C5A::rva00531C8C(unsigned short n) {
+ n = rva00531C5A(n);
+ do {
+  int following = next[n];
+  last[n] = n;
+  next[n] = n;
+  parents[n] = n;
+  ranks[n] = 0;
+  if (following == n) break;
+  n = (unsigned short)following;
+ } while (true);
+}
