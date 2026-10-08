@@ -33,7 +33,6 @@ typedef _STL::pair<const int, BfmePod20> IntPod20Pair;
 typedef _STL::pair<const int, BfmePod60> IntPod60Pair;
 
 template void _STL::_Construct<IntPod72Pair, IntPod72Pair>(IntPod72Pair *, const IntPod72Pair &);
-template void _STL::_Construct<IntPod32Pair, IntPod32Pair>(IntPod32Pair *, const IntPod32Pair &);
 template void _STL::_Construct<IntPod20Pair, IntPod20Pair>(IntPod20Pair *, const IntPod20Pair &);
 template void _STL::_Construct<IntPod60Pair, IntPod60Pair>(IntPod60Pair *, const IntPod60Pair &);
 template _STL::pair<const int, BfmePod72>::pair(const int &, const BfmePod72 &);

@@ -18,7 +18,6 @@ name,address,notes
 ??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z,0x0060C9D9,ICF twin of 0x6204B0; map int-int _M_create_node REL32
 ??$_Construct@U?$pair@$$CBHH@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHH@0@ABU10@@Z,0x006204B0,address read from the retail REL32 in hashtable::_M_insert at 0x00620F60
 ??$_Construct@U?$pair@$$CBHUBfmePod20@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod20@@@0@ABU10@@Z,0x004192A4,address read from the REL32 displacement at a placed body
-??$_Construct@U?$pair@$$CBHUBfmePod32@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod32@@@0@ABU10@@Z,0x00418985,address read from the REL32 displacement at a placed body
 ??$_Construct@U?$pair@$$CBHUBfmePod44@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod44@@@0@ABU10@@Z,0x0041072F,address read from the REL32 displacement at a placed body
 ??$_Construct@U?$pair@$$CBHUBfmePod60@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod60@@@0@ABU10@@Z,0x0041985E,address read from the REL32 displacement at a placed body
 ??$_Construct@U?$pair@$$CBHUBfmePod72@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod72@@@0@ABU10@@Z,0x002E00CC,address read from the REL32 displacement at a placed body
@@ -1693,7 +1692,6 @@ name,address,notes
 ??0?$map@W4ScienceType@@_NU?$less@W4ScienceType@@@_STL@@V?$allocator@U?$pair@$$CBW4ScienceType@@_N@_STL@@@3@@_STL@@QAE@XZ,0x001FFA00,address read from the REL32 displacement at a placed body
 ??0?$pair@$$CBGVAsciiString@@@_STL@@QAE@ABGABVAsciiString@@@Z,0x004D04FF,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0?$pair@$$CBHUBfmePod20@@@_STL@@QAE@ABU01@@Z,0x0041922E,pair/record copy constructor: REL32 read at 0x004192C0 in the byte-verified _Construct 0x004192A4; ledger spelling there: none
-??0?$pair@$$CBHUBfmePod32@@@_STL@@QAE@ABU01@@Z,0x0041890F,pair/record copy constructor: REL32 read at 0x004189A1 in the byte-verified _Construct 0x00418985; ledger spelling there: none
 ??0?$pair@$$CBHUBfmePod60@@@_STL@@QAE@ABU01@@Z,0x004197E8,pair/record copy constructor: REL32 read at 0x0041987A in the byte-verified _Construct 0x0041985E; ledger spelling there: none
 ??0?$pair@$$CBHUGen_t_001da900_p12cd@@@_STL@@QAE@ABHABUGen_t_001da900_p12cd@@@Z,0x004F7DDC,callee of ??A?$map@HUGen_t_001da900_p12cd@@ at retail 0x004FA168 read from its REL32 displacement; constructs the 4-byte-key/12-byte-value tree node pair; body unrowed
 ??0?$pair@$$CBHUTreeHintRef00217D4C@@@_STL@@QAE@ABHABUTreeHintRef00217D4C@@@Z,0x00217607,pair ctor for int TreeHintRef00217D4C
@@ -14267,7 +14265,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva0028625DRecord@@QAE@ABU0@@Z,0x00285C30
 ??0?$_Rb_tree_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z,0x002F0C32
 ?resize@?$hashtable@HHU?$hash@H@_STL@@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAEXI@Z,0x00212858
-?insert_unique_noresize@?$hashtable@HHU?$hash@H@_STL@@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$pair@U?$_Ht_iterator@HU?$_Nonconst_traits@H@_STL@@HU?$hash@H@2@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@_N@2@ABH@Z,0x00418A12
 ??$_Construct@U?$pair@$$CBHURva0007989CRecord@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva0007989CRecord@@@0@ABU10@@Z,0x0007975E
 ??$_Construct@U?$pair@$$CBHURva0032EA7FRecord@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva0032EA7FRecord@@@0@ABU10@@Z,0x0032E94B
 ??$_Construct@U?$pair@$$CBHURva004F8CE0Record@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHURva004F8CE0Record@@@0@ABU10@@Z,0x004F868A
