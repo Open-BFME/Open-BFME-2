@@ -62,13 +62,17 @@ public:
 	virtual void v07(const char *value);
 };
 
-// The screen's +0x27C member; its unrowed 0x005B1288 is pinned by address.
-class Rva005B1288
+// The screen's embedded hero object at +0x27C. 0x005B1288 is a member of
+// AptMyHero (rowed in AptMyHero.cpp, which calls AptMyHero's own 0x005B0487
+// on the same receiver); AptMyHero's last known field is +0x18C and the
+// screen's m_mode follows at +0x40C, so it spans exactly 0x190 bytes here.
+class AptMyHero
 {
 public:
 	void rva005B1288();
 
-	unsigned char m_pad[4];
+private:
+	unsigned char m_opaque[0x190];
 };
 
 // Rowed 0x005B23D7 in Code/GameEngine/Source/Common/AptHeroPowerText.cpp.
@@ -98,8 +102,7 @@ private:
 	static AptCreateAHero *s_instance; // 0x00A048D4 (WorldBuilder's s_instance)
 
 	unsigned char m_pad000[0x27C];
-	Rva005B1288 m_27c; // +0x27C
-	unsigned char m_pad280[0x40C - 0x280];
+	AptMyHero m_myHero; // +0x27C
 	int m_mode; // +0x40C, set by OpenScreen
 	AptCreateAHeroPage *m_page; // +0x410
 	AptCreateAHeroPage *m_previousPage; // +0x414
@@ -209,7 +212,7 @@ void AptCreateAHero::OnShowScreen(const char *screen)
 			previous->hide();
 		if (m_page)
 			m_page->show();
-		m_27c.rva005B1288();
+		m_myHero.rva005B1288();
 		Rva005B23D7HeroPowersDescription((void *)0, (int)&AsciiString::TheEmptyString, AsciiString::TheEmptyString);
 	}
 }

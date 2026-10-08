@@ -12211,7 +12211,6 @@ name,address,notes
 ?rva005B09D8@@YAXPAD0PAXABURva004ED3A2Tag@@@Z,0x005B09D8,cdecl helper of the F47 cursor-compaction wrapper 0x004ED3A2; takes (dst, cursor, p, (char*)&p+3); name unknown
 ?rva005B09D8@@YAXPAX000@Z,0x005B09D8,cdecl 4-arg callee of 0x004ED3A2 read from its REL32 displacement; body unrowed
 ?rva005B09D8_i@@YAHHHHPAD@Z,0x005B09D8,cdecl 4-arg int-returning call-spelling alias for the pinned cursor helper (caller passes a2 m_4 a1 and (char*)&a1+3); same address as existing pin
-?rva005B1288@Rva005B1288@@QAEXXZ,0x005B1288,unrowed 23B thiscall (Ghidra FUN_009b1288) on the create-a-hero screen +0x27C member; REL32 read at AptCreateAHero::OnShowScreen 0x00513A2D; address name
 ?rva005B2295@@YAXHHHH@Z,0x005B2295,cdecl 4-arg callee of 0x5B0416 (args r imm a -1 from push order); unrowed chunk start in own lane; signature unproven
 ?rva005B24CDg@@YAXHHH@Z,0x005B24CD,global cdecl-3 call-spelling alias for the rowed (void*,char*,int) member (caller pushes 3 ints); same address as row
 ?rva005B89A1@Rva005B8EBB@@QAEXXZ,0x005B89A1,callees of 0x005B8EBB from retail REL32; names unknown
