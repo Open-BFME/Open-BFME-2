@@ -9,18 +9,23 @@
 // its original type name is not established by this recovery.
 // Keep the established address-derived linker name used by the vtable caller.
 // WorldBuilder establishes the original method identity independently above.
+// The original STLport algorithm header preserves the out-of-line
+// four-argument copy wrapper called at retail 0x0030BA58. The local
+// bfmealloc algorithm shim force-inlines it and adds a fifth argument.
+// Keep the allocator shim for allocation; select only this original header.
+#include "../../../../vendor/stlport/stl/_algobase.h"
 #include <vector>
 
-struct BfmeE8 { float x; float y; };
+struct BfmeE8 {
+    float x, y;
+    BfmeE8() {}
+    BfmeE8(const BfmeE8& value): x(value.x), y(value.y) {}
+};
 
-// Retail calls the out-of-line provider at 0x0030B9F3. Its native body
-// constructs/shifts eight-byte elements or calls _M_insert_overflow, then
-// returns begin()+the saved index. Declare the existing provider rather
-// than emitting a competing implementation of that still-unmatched body.
-namespace _STL {
-template<> vector<BfmeE8, allocator<BfmeE8> >::iterator
-vector<BfmeE8, allocator<BfmeE8> >::insert(iterator, const value_type&);
-}
+// Retail 0x0030B9F3..0x0030BA8C is the STLport insertion provider called
+// below: the explicit float copy constructor reproduces its movss temporary
+// copies. Pointer stride and the point caller establish the eight-byte ABI;
+// the original point type name remains unknown.
 
 struct Rva0030BAD8 {
     _STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_points;

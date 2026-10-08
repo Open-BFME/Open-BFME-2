@@ -16216,3 +16216,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??0BannerUI@@QAE@XZ,0x00217211,callee of ?init@InGameUI@@UAEXXZ
 ?IniLoad@@YA_NPBDP6AXPAVINI@@@Z@Z,0x003397D8,callee of ?init@InGameUI@@UAEXXZ
 ?rva0041EC10@Rva0041F042@@QAEXXZ,0x0041EC10,Native83B dtor41F042 installs C3AF78 then directly calls99B global-registry drain41EC10 before destroying tables20 andC and SubsystemInterface; address-derived member spelling records the destructor call relationship; original manager and table mapped types are unresolved.
+??$__copy_backward_ptrs@PAUBfmeE8@@PAU1@@_STL@@YAPAUBfmeE8@@PAU1@00ABU__false_type@0@@Z,0x0030B378,REL32 at 0x0030BA58 in vector insertion 0x0030B9F3; original STLport 4.5.3 pointer wrapper; fold-proof=Code/GameEngine/Source/Common/AreaPolygon.cpp
