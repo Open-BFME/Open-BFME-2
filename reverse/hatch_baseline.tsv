@@ -3784,7 +3784,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Map/BuildListInfoCtor.cpp	_vtbl_0
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B850TeamRecUpdate_Rva0019BE80TeamRec_updateTeam.cpp	?find@Rva0032C07COwner@@QAEPAUTeamMapNode@@AAURva0002C4FD@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0027FBACDtor.cpp	??1?$StringBase@D@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0032A186Finish.cpp	_vtbl_00BBB554	1
-alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListSwap.cpp	?Rva005CB274@@YAXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	?f1@DBaseM1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	??1Rva0060CC99Member@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	?find@FXListMap@@QBEPAUFXListMapNode@@ABW4NameKeyType@@@Z	1

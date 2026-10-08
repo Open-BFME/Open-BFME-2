@@ -1,6 +1,7 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
 // ?swap@SidesList@@QAEXPAV1@@Z @0x0032B690 279B unlock caller 0x0032F449
+// Native callback uses compiler slot18 member-pointer thunk5CB274; no linker alias.
 // Evidence: prev/next swap TUs name SidesList swap; retail swaps counts SidesInfo arrays teamrecs extra vectors cleared byte then notifier posts both ways via rowed swaps and pin ??_9@$BBI@AE.
 #include <algorithm>
 #include <vector>
@@ -46,12 +47,6 @@ public:
 	void post(void (*callback)(), void *owner, int index);
 };
 
-void Rva005CB274();
-
-// Retail pushes the vcall thunk at 0x005CB274 (rowed ??_9@$BBI@AE, slot +0x18).
-// Bind the honest free-function spelling callers use to that row so the push links.
-#pragma comment(linker, "/alternatename:?Rva005CB274@@YAXXZ=??_9@$BBI@AE")
-
 struct SidesListExtra
 {
 	int m_x;
@@ -80,6 +75,18 @@ private:
 	SidesListExtra m_extra[20];            // +0xF80
 };
 
+class Rva0032B7E3Listener
+{
+public:
+ virtual void slot00();
+ virtual void slot04();
+ virtual void slot08();
+ virtual void slot0C();
+ virtual void slot10();
+ virtual void slot14(SidesList *, SidesList *);
+ virtual void slot18(SidesList *, SidesList *);
+};
+
 void SidesList::swap(SidesList *other)
 {
 	int i;
@@ -97,24 +104,20 @@ void SidesList::swap(SidesList *other)
 		m_extra[i].m_v2.swap(other->m_extra[i].m_v2);
 	}
 	std::swap(m_cleared, other->m_cleared);
-	m_notifier.post(Rva005CB274, this, (int)other);
-	other->m_notifier.post(Rva005CB274, other, (int)this);
+	union {
+        void (Rva0032B7E3Listener::*member)(SidesList *, SidesList *);
+        void (*callback)();
+    } notify;
+    notify.member=&Rva0032B7E3Listener::slot18;
+    m_notifier.post(notify.callback, this, (int)other);
+    other->m_notifier.post(notify.callback, other, (int)this);
 }
 
 // Native 0x0032B7E3..0x0032B831, RET4. SidesList identity and the
 // side/script offsets follow the rowed swap above and SidesInfo::swap.
 // The callback is the already-rowed MSVC virtual-slot-5 thunk; the
 // notifier consumes its four-byte member-pointer representation.
-class Rva0032B7E3Listener
-{
-public:
- virtual void slot00();
- virtual void slot04();
- virtual void slot08();
- virtual void slot0C();
- virtual void slot10();
- virtual void slot14(SidesList *, SidesList *);
-};
+
 
 void SidesList::rva0032B7E3(SidesList *other)
 {
