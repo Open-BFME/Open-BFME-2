@@ -162,18 +162,11 @@ Rva00355F3E::~Rva00355F3E()
 // at +0x14 via rowed releaseBuffer, then calls base 0x00355D66; deleting dtor at
 // 0x00356AFA calls here; chain of 0x00355D66; EH states 1/0/-1 with scope
 // 0x00B7D5F0.
-template <typename T> class StringBase {
-public: StringBase(const StringBase &other);	// 0x000365F0
-	~StringBase() { releaseBuffer(); }
-private: void releaseBuffer();
-	T *m_data;
-};
-
-// Existing public narrow teardown spelling resolves to the verified
-// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
-#pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
-
+// Shared BFME2 one-pointer ownership: retail cleanup calls releaseBuffer,
+// not the source-local public StringBase destructor spelling. The existing
+// constructor parameter remains a StringBase reference; the shared wrapper
+// itself uses this identical one-pointer representation for its copy.
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class DisplayManager {
 public:
@@ -203,7 +196,7 @@ public:
 	void rva00355EE1();
 private:
 	bool m_pad10;
-	StringBase<char> m_str;
+	AsciiString m_str;
 };
 
 Rva003563A7::~Rva003563A7()
@@ -217,7 +210,7 @@ Rva003563A7::~Rva003563A7()
 // through the StringBase copy 0x000365F0. RET 4.
 Rva003563A7::Rva003563A7(const StringBase<char> &name)
 	: m_pad10(false),
-	  m_str(name)
+	  m_str(reinterpret_cast<const AsciiString &>(name))
 {
 }
 

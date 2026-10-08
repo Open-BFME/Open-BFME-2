@@ -5,54 +5,33 @@
 // the existing audited pin; the label object uses AsciiString's format member.
 // cl: /DNDEBUG /MD /EHs
 #include <time.h>
-template<class T> class StringBase;
-void ConvertShortMapPathToLongMapPath(StringBase<char>& mapName,StringBase<char>& fileLabel);
-template<class T> class StringBase {
-    struct Header { int refs; unsigned short length,capacity; T data[1]; };
-    Header *data;
-private:
-    StringBase(const StringBase&);
-    friend void ConvertShortMapPathToLongMapPath(StringBase<char>& mapName,StringBase<char>& fileLabel);
-public:
-    StringBase():data(0){}
-    ~StringBase();
-    bool endsWithNoCase(const T*) const;
-    const T* find(T) const;
-    bool nextToken(StringBase*,const T*);
-    int getLength() const { return data ? data->length : 0; }
-    const T* str() const { return data ? data->data : ""; }
-    void concat(const StringBase&);
-    void concat(const T*);
-    void concat(const T*,int);
-    void concat(T c) { concat(&c,1); }
-    void removeLastChar();
-    void set(const StringBase&);
-};
-class AsciiString:public StringBase<char> {
-public: void __cdecl format(const char*,...);
-};
+// Use the shared one-pointer AsciiString for local ownership; preserve the
+// existing StringBase reference ABI at the independently verified entry.
+// The one-character append uses retail's aligned four-byte argument home;
+// the direct shared find call avoids emitting a non-retail AsciiString thunk.
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 void ConvertShortMapPathToLongMapPath(StringBase<char>& mapName,StringBase<char>& fileLabel) {
     if(!mapName.endsWithNoCase(".map")) return;
-    StringBase<char> path(mapName);
-    StringBase<char> token;
-    StringBase<char> actualpath;
-    if(!path.find('\\') && !path.find('/')) return;
+    AsciiString path(reinterpret_cast<const AsciiString &>(mapName));
+    AsciiString token;
+    AsciiString actualpath;
+    if(!reinterpret_cast<const StringBase<char> &>(path).find('\\') && !reinterpret_cast<const StringBase<char> &>(path).find('/')) return;
     path.nextToken(&token,"\\/");
     while(!token.endsWithNoCase(".map") && token.getLength()>0) {
         actualpath.concat(token);
-        actualpath.concat('\\');
+        { __declspec(align(4)) char slash = '\\'; reinterpret_cast<StringBase<char> &>(actualpath).concat(&slash,1); }
         if(!path.nextToken(&token,"\\/")) break;
     }
     token.removeLastChar(); token.removeLastChar();
     token.removeLastChar(); token.removeLastChar();
     actualpath.concat(token);
-    actualpath.concat('\\');
+    { __declspec(align(4)) char slash = '\\'; reinterpret_cast<StringBase<char> &>(actualpath).concat(&slash,1); }
     actualpath.concat(token);
     actualpath.concat(".map");
-    mapName.set(actualpath);
+    mapName.set(reinterpret_cast<const StringBase<char> &>(actualpath));
     char timestamp[256]={0};
     time_t now;
     time(&now);
     strftime(timestamp,256,"_%Y%m%d-%H%M%S",localtime(&now));
-    static_cast<AsciiString&>(fileLabel).format("_%s%s",token.str(),timestamp);
+    reinterpret_cast<AsciiString&>(fileLabel).format("_%s%s",token.str(),timestamp);
 }
