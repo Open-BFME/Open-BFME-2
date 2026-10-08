@@ -74,3 +74,27 @@ void patchBeforeOnlineCallback()
  TheGameEngine->setQuitting(true);
  MainMenuCRT::exit(123456789);
 }
+
+// BFME1 34f59164 MOTD behavior; WB158DAF0 supplies the proper callback
+// identity and signed64 byte-count ABI. Native5BCA60..5BCAF1 proves the
+// whole145-byte body. The shared-state C++ decrement emits native DEC.
+extern "C" void *__cdecl memcpy(void *,const void *,unsigned);
+void *__cdecl operator new[](unsigned);
+void __cdecl operator delete[](void *);
+void b_00042a50();void startOnline();
+enum GHTTPBool {GHTTPFalse,GHTTPTrue};
+enum GHTTPResult {GHTTPSuccess};
+GHTTPBool motdCallback(int request,GHTTPResult result,char *buffer,__int64 bufferLen,void *param)
+{
+ if((int)param!=online.run)return GHTTPTrue;
+ if(online.motd){delete[] online.motd;online.motd=0;}
+ if(buffer && bufferLen>0){
+  online.motd=new char[(unsigned)bufferLen];
+  memcpy(online.motd,buffer,(unsigned)bufferLen);
+  online.motd[bufferLen-1]=0;
+ }
+ --online.checks;
+ if(online.cancel && online.checks==0){b_00042a50();online.cancel=false;}
+ if(online.checks==0)startOnline();
+ return GHTTPTrue;
+}
