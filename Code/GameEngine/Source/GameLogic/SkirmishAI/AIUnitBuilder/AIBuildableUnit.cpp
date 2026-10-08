@@ -11,12 +11,12 @@
 // interface comes from Object 0x0028BC58 (rowed under a placeholder name);
 // the player's production-quantity table is at Player +0x738.
 #include "ascii_string.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 typedef int Int;
 typedef float Real;
 typedef bool Bool;
 
-enum ObjectID { INVALID_ID = 0 };
 enum CanMakeType { CANMAKE_OK = 0, CANMAKE_NO_PREREQ, CANMAKE_NO_MONEY, CANMAKE_FACTORY_IS_DISABLED, CANMAKE_QUEUE_FULL };
 
 class ThingTemplate;
@@ -51,23 +51,20 @@ public:
 	Rva0037EE4C m_productionQuantities;		// +0x738
 };
 
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);		// 0x00049DC5
-};
 
 extern GameLogic *TheGameLogic;
 
-class ThingFactory
+// Use the verified 2D06CA owner rather than a declaration with no definition.
+// Its target payload is the template consumed by the production interface.
+class Rva002D06CA
 {
 public:
-	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA
+	void *rva002D06CA(const AsciiString *name);
 };
 
-extern ThingFactory *TheThingFactory;
+extern Rva002D06CA *TheThingFactory;
 
-class BuildAssistant
+class Rva00A027B8
 {
 public:
 	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
@@ -79,7 +76,7 @@ public:
 	virtual CanMakeType canMakeUnit(Object *builder, const ThingTemplate *whatToBuild, Int quantity);	// +0x60
 };
 
-extern BuildAssistant *g_00A027B8;	// TheBuildAssistant (0x00E027B8)
+extern Rva00A027B8 *g_00A027B8;	// Existing typed data owner at VA 0x00E027B8
 
 class Rva0055B0CC
 {
@@ -125,7 +122,7 @@ AIBuildableUnit::AIBuildableUnit(Int arg)
 Bool AIBuildableUnit::build(Player *player)
 {
 	Object *factory = TheGameLogic->findObjectByID(m_factoryID);
-	const ThingTemplate *unitType = TheThingFactory->findTemplate(m_templateName);
+	const ThingTemplate *unitType = (const ThingTemplate *)TheThingFactory->rva002D06CA(&m_templateName);
 	if (factory == 0 || unitType == 0)
 		return false;
 	ProductionUpdateInterface *pui = (ProductionUpdateInterface *)factory->rva0028BC58(0);
@@ -144,7 +141,7 @@ CanMakeType AIBuildableUnit::canMake(Player *player)
 		ProductionUpdateInterface *pui = (ProductionUpdateInterface *)factory->rva0028BC58(0);
 		if (pui && pui->queueSize() == 0)
 		{
-			const ThingTemplate *unitType = TheThingFactory->findTemplate(m_templateName);
+			const ThingTemplate *unitType = (const ThingTemplate *)TheThingFactory->rva002D06CA(&m_templateName);
 			Int quantity = player->m_productionQuantities.rva0037EE4C(unitType, -1, 0);
 			return g_00A027B8->canMakeUnit(factory, unitType, quantity);
 		}
