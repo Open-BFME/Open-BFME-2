@@ -97,3 +97,10 @@ void *node;
  { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
  return (void *)(node==0 ? (char *)((Rva000427195 *)this)->rva002234BA((const StoredPair4 *)&static_cast<const WordSlotPair &>(WordSlotPair(*key, 0)))+4 : (char *)node+8);
 }
+
+// 2AE4C5..2AE53E RET4; PlayerProductionSpeed caller2AE8CF uses integer name-map payloads and WB C241A0 agrees on conditional insertion; insert2ADD31 existing owner; original template identity remains opaque.
+int & Rva002AE4C5::rva002AE4C5(const AsciiString *key) {
+ void *node;
+ { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
+ return *(int *)(node==0 ? (char *)((Rva002ADD31 *)this)->rva002ADD31(&static_cast<const WordSlotPair &>(WordSlotPair(*key, 0)))+4 : (char *)node+8);
+}
