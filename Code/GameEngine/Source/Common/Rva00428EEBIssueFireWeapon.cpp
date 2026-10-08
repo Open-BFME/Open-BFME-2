@@ -23,6 +23,8 @@ public:
 	enum Type
 	{
 		MSG_INVALID = 0,
+		MSG_COMBATDROP_AT_LOCATION = 0x421,
+		MSG_COMBATDROP_AT_OBJECT = 0x422,
 		MSG_433 = 0x433,
 		MSG_434 = 0x434
 	};
@@ -149,6 +151,60 @@ int __stdcall Rva00428EEBIssueFireWeapon(const CommandButton *command, int comma
 			GameMessage *msg = TheMessageStream->createMessage(msgType);
 			msg->appendLocationArgument(*pos);
 			msg->appendIntegerArgument(0);
+
+			Rva004D92FE info;
+			info.m_14 = *pos;
+			pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)msgType, (PickAndPlayInfo *)&info);
+		}
+		return msgType;
+	}
+	return GameMessage::MSG_INVALID;
+}
+
+// Donor: GeneralsMD CommandXlat.cpp::issueCombatDropCommand, from the
+// verified Open-BFME-1 reference ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f.
+// Target: full 0x00428DEA..0x00428EEB body; WB 0x00E78830 preserves the
+// same branches and callees. BFME 2 adds explicit PickAndPlayInfo target /
+// position fields, as in matched 0x00428EEB; retail proves message IDs,
+// offsets and virtual slots. CommandTranslator's receiver is unused here.
+class CommandTranslator
+{
+private:
+    int issueCombatDropCommand(const CommandButton *command, int commandType,
+                               Drawable *target, const Coord3D *pos);
+};
+
+int CommandTranslator::issueCombatDropCommand(const CommandButton *command, int commandType, Drawable *target, const struct Coord3D *pos)
+{
+	if (!command)
+		return GameMessage::MSG_INVALID;
+
+	if (target && (command->m_options & 7) != 0)
+	{
+		if (command->isValidObjectTarget(TheInGameUI->slot75(), target))
+		{
+			int msgType = GameMessage::MSG_COMBATDROP_AT_OBJECT;
+			if (commandType == 0)
+			{
+				GameMessage *msg = TheMessageStream->createMessage(msgType);
+				msg->appendObjectIDArgument(target->m_object ? target->m_object->m_id : OBJECTID_NONE);
+
+				Rva004D92FE info;
+				info.m_04 = target;
+				pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), (GameMessage::Type)msgType, (PickAndPlayInfo *)&info);
+			}
+			return msgType;
+		}
+		return GameMessage::MSG_INVALID;
+	}
+
+	if ((command->m_options & 0x20) != 0)
+	{
+		int msgType = GameMessage::MSG_COMBATDROP_AT_LOCATION;
+		if (commandType == 0)
+		{
+			GameMessage *msg = TheMessageStream->createMessage(msgType);
+			msg->appendLocationArgument(*pos);
 
 			Rva004D92FE info;
 			info.m_14 = *pos;
