@@ -18,7 +18,11 @@
 // direction at or past the threshold. ChangeBurnRateInArea (0x002871A4
 // and its directional overload 0x002873DF, WorldBuilder names; assert
 // lines 775 and 827) walks a disc of cells row span by row span with the
-// midpoint circle loop ChangeFuelInArea uses.
+// midpoint circle loop ChangeFuelInArea uses. 0x002872BA (WorldBuilder
+// body unnamed) burns every cell of an area's bounds whose centre lies in
+// the area's shape; the centre test 0x00285B66 is defined here, and only
+// with its body in this unit does the compiler keep the centre's x store
+// out of the inner loop as retail does.
 //
 // Target facts: the fire grid is the 20-byte cell rows at +0x70 with the row
 // and column counts at +0x78/+0x7C (as Rva00285DC5Paint.cpp reads them); a
@@ -115,6 +119,29 @@ struct FireCoord3D : public Coord3D
 	void sub(const Coord3D *o) { x -= o->x; y -= o->y; z -= o->z; }
 	float dot(const Coord3D *o) const { return x * o->x + y * o->y + z * o->z; }
 };
+// The area's shape (PolygonTrigger +8): its bounds come back through
+// 0x0030B6E3 and 0x00285B66 tests a cell centre against it.
+struct Region2D
+{
+	Region2D(const Region2D &that);
+	float x_min;
+	float y_min;
+	float x_max;
+	float y_max;
+};
+class Rva0030B719Shape
+{
+public:
+	Region2D rva0030B6E3();
+};
+bool __cdecl rva00285B66(const void *point, const void *region);
+struct FireCellCentre
+{
+	Int x;
+	Int y;
+};
+class PolygonTrigger;
+
 class FireLogicSystem
 {
 public:
@@ -122,6 +149,7 @@ public:
 	void ChangeBurnRate(const Coord3D *origin, const Coord3D *dir, float threshold, Int x0, Int x1, Int y, Int delta, bool onlyBurning);
 	void ChangeBurnRateInArea(const Coord3D *pos, float radius, Int delta, bool onlyBurning);
 	void ChangeBurnRateInArea(const Coord3D *pos, float radius, const Coord3D *dir, float threshold, Int delta, bool onlyBurning);
+	void rva002872BA(const PolygonTrigger *area, Int delta, bool onlyBurning);
 	void ChangeCellToObjectFlammability(Int x, Int y, const ThingTemplate *tmpl);
     void rva0028641F(unsigned int id, const Coord3D *pos);
     void ResetCellToOriginalFlammability(Int x, Int y);
@@ -451,5 +479,42 @@ void FireLogicSystem::ChangeBurnRateInArea(const Coord3D *pos, float radius, con
 		bot++;
 		top--;
 		err += 2 * d + 1;
+	}
+}
+
+struct Rva0030B7C2Point { float x, y; };
+bool rva0030B7C2(const Rva0030B7C2Point *point, Rva0030B719Shape *shape);
+bool __cdecl rva00285B66(const void *point, const void *region)
+{
+	Rva0030B7C2Point f;
+	f.x = (float)((const int *)point)[0];
+	f.y = (float)((const int *)point)[1];
+	return rva0030B7C2(&f, (Rva0030B719Shape *)region);
+}
+
+void FireLogicSystem::rva002872BA(const PolygonTrigger *area, Int delta, bool onlyBurning)
+{
+	if (delta == 0)
+		return;
+	Rva0030B719Shape *shape = (Rva0030B719Shape *)((char *)area + 8);
+	Region2D bounds = shape->rva0030B6E3();
+	float f = (float)floor(bounds.x_min * 0.1f + 0.5);
+	Int x0 = FloatToLong(f);
+	f = (float)floor(bounds.x_max * 0.1f + 0.5);
+	Int x1 = FloatToLong(f);
+	f = (float)floor(bounds.y_min * 0.1f + 0.5);
+	Int y0 = FloatToLong(f);
+	f = (float)floor(bounds.y_max * 0.1f + 0.5);
+	Int y1 = FloatToLong(f);
+	for (Int x = x0; x <= x1; ++x)
+	{
+		for (Int y = y0; y <= y1; ++y)
+		{
+			FireCellCentre centre;
+			centre.x = x * 10 + 5;
+			centre.y = y * 10 + 5;
+			if (rva00285B66(&centre, shape))
+				ChangeBurnRate(x, x, y, delta, onlyBurning);
+		}
 	}
 }
