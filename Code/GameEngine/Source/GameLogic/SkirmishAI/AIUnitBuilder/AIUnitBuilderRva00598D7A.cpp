@@ -108,6 +108,7 @@ public:
 	Object *Rva005982EA(const AsciiString*,_STL::vector<ObjectID>*,bool);
 	Rva00598C3AItem *createBestHeroToBuild();
 	Rva00598C3AItem *createBestUnitToMake();
+ AsciiString decideWhichTemplateToMake();
 
 private:
 	unsigned char m_pad00[8];
@@ -208,3 +209,31 @@ void AIUnitBuilder::manageConstructingList()
   }
  }
 }
+
+// Existing factory result uses the neutral callback-prefix view Rva00598C3AItem.
+// Provider constructor 0x005DAC38 and allocation44 establish this accessed layout.
+class AIBuildableUnit : public Rva00598C3AItem {
+public:
+ AIBuildableUnit(int);
+ char pad14[0x38-0x14]; int quantity; int productionId; int context;
+};
+struct BuildableUnitTemplateView { char pad[0x618]; int quantity; };
+// WB 0x0152CFC0 names createBestUnitToMake and assert180.
+// Native REL32 at598B8E returns the AsciiString from399B RET4 hidden-result
+// decideWhichTemplateToMake 5987D2; WB152DCA0 asserts354..399 prove the name.
+Rva00598C3AItem *AIUnitBuilder::createBestUnitToMake()
+{
+ AIBuildableUnit *unit=0;
+ AsciiString name=decideWhichTemplateToMake();
+ if (name != AsciiString::TheEmptyString) {
+   unit=new AIBuildableUnit((int)m_30);
+   unit->name0C=name;
+   unit->quantity=((BuildableUnitTemplateView *)TheThingFactory->rva002D06CA(&name))->quantity;
+   unit->field04=((Rva00598007 *)this)->rva0059802E() ? 500.0f : ((Rva00598007 *)this)->rva00598007()->config160->field1C;
+ }
+ return unit;
+}
+
+
+
+

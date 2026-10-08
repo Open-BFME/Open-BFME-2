@@ -16399,3 +16399,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?SetBling@AptMyHero@@QAEXHHH@Z,0x005B07C1,WB AptMyHero.cpp named SetBling; native caller 005B0923 passes three dwords to ECX receiver; callee RET12; full native boundary 005B07C1..005B0923
 ?rva004E3A6E@Rva004E3CD0@@QAEXXZ,0x004E3A6E,callee of ?rva004E3B78@Rva004E3B78@@QAEXXZ
 __vsnprintf,0x00629898,PE msvcr71.dll import _vsnprintf owns IAT BBA5E0; complete6B import thunk629898 is the direct CRT call in EAString format worker6D53F0. C linkage yields __vsnprintf; original ji_629898 row is generated import scaffolding.
+?decideWhichTemplateToMake@AIUnitBuilder@@QAE?AVAsciiString@@XZ,0x005987D2,Native194B factory REL32 at598B8E; hidden AsciiString result of399B RET4 at5987D2; WB152DCA0 names decideWhichTemplateToMake and asserts354..399
