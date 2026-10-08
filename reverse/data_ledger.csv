@@ -15753,7 +15753,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A02FC0,4,.data,global,?g_rva00E02FC0Bits@@3IA,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,owned,,1,4
 0x00A02FC4,8,.data,global,_s_rva007AFEE0,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A02FCC,4,.data,global,_s_rva007AFF0A,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A02FD0,20,.data,global,?g_Va00E02FD0@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?TheBfmeObject_00C70090@@3VGen_00C70090Target@@A;?g_Va00E02FD0@@3IA,1,3
+0x00A02FD0,20,.data,global,?g_aptScreenReferences@@3UBfmeAptScreenRefStorage@@A,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,4
 0x00A02FE4,20,.data,global,?g_Va00E02FE4ComponentTable@@3V?$hashtable@URva0045F0A0Input@@VAsciiString@@U?$hash@VAsciiString@@@rts@@URva0045F0A0ExtractKey@@U?$equal_to@VAsciiString@@@_STL@@V?$allocator@URva0045F0A0Input@@@7@@_STL@@A,,unowned,?TheBfmeObject_00C700A0@@3VGen_00C700A0Target@@A;?g_00E02FE4@@3VRva000427195@@A;?g_Va00E02FE4@@3IA;?g_Va00E02FE4@@3URva004114EFGlobalTable@@A;?g_Va00E02FE4ComponentTable@@3V?$hashtable@URva0045F0A0Input@@VAsciiString@@U?$hash@VAsciiString@@@rts@@URva0045F0A0ExtractKey@@U?$equal_to@VAsciiString@@@_STL@@V?$allocator@URva0045F0A0Input@@@7@@_STL@@A,2,8
 0x00A02FF8,20,.data,global,?g_Va00E02FF8@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_Va00E02FF8@@3IA;?g_Va00E02FF8@@3URva004110DCGlobalTable@@A,2,3
 0x00A0300C,20,.data,global,?g_Va00E0300C@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_Va00E0300C@@3IA;?g_Va00E0300C@@3URva00411112GlobalTable@@A,2,3

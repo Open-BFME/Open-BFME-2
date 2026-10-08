@@ -6452,13 +6452,16 @@ void __cdecl rva007B823D()
 	return p->~Rva004110BETree();
 }
 
-extern unsigned g_Va00E02FD0;
-unsigned int g_Va00E02FD0;
+// Native initializer7AFF1A constructs a20-byte table here; its lookup and
+// insert read buckets+4/+8/+C and count+10. POD storage preserves the existing
+// explicit startup/teardown functions without generating a second initializer.
+struct BfmeAptScreenRefStorage { unsigned int m_words[5]; };
+BfmeAptScreenRefStorage g_aptScreenReferences;
 
-// ?rva007B8247@@YAXXZ @ 0x007B8247 (10B). Tree teardown: ecx=&g_Va00E02FD0 then tail-jmp to the 0x00411453 stub for a tree-dtor-family body (0x004111CC, same prologue as the rowed family). No callers. Honest address name.
+// ?rva007B8247@@YAXXZ @ 0x007B8247 (10B). Tree teardown: ecx=&g_aptScreenReferences then tail-jmp to the 0x00411453 stub for a tree-dtor-family body (0x004111CC, same prologue as the rowed family). No callers. Honest address name.
 void __cdecl rva007B8247()
 {
-	Rva00411453Tree *p = (Rva00411453Tree *)&g_Va00E02FD0;
+	Rva00411453Tree *p = (Rva00411453Tree *)&g_aptScreenReferences;
 	return p->~Rva00411453Tree();
 }
 

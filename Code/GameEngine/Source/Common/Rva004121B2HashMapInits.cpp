@@ -94,7 +94,8 @@ void __cdecl rva007B821F();
 void __cdecl rva007B8229();
 void __cdecl rva007B8233();
 
-extern unsigned g_Va00E02FD0;
+struct BfmeAptScreenRefStorage;
+extern BfmeAptScreenRefStorage g_aptScreenReferences;
 extern unsigned g_Va00E02FE4;
 extern unsigned g_Va00E02FF8;
 extern unsigned g_Va00E0300C;
@@ -110,7 +111,7 @@ struct Rva004121B2HashMapInits
 // 0x007AFF1A (22B): Rva004121B2() on VA 0x00E02FD0, atexit(0x007B8247 -> hashtable dtor 0x004111CC)
 void Rva004121B2HashMapInits::rva007AFF1A()
 {
-	( (Rva004121B2 *)&g_Va00E02FD0 )->Rva004121B2::Rva004121B2();
+	( (Rva004121B2 *)&g_aptScreenReferences )->Rva004121B2::Rva004121B2();
 	atexit( rva007B8247 );
 }
 

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 //
 // Bodies ported from Open-BFME-1's
@@ -80,12 +80,12 @@ struct NameClearFunctor00462540 {
 };
 
 class Gen_00C700A0Target;
-class Gen_00C70090Target;
+struct BfmeAptScreenRefStorage;
 extern Gen_00C700A0Target TheBfmeObject_00C700A0;
-extern Gen_00C70090Target TheBfmeObject_00C70090;
+extern BfmeAptScreenRefStorage g_aptScreenReferences;
 
 WindowTable *const g_windowTable = (WindowTable *)&TheBfmeObject_00C700A0;
-AptScreenRefTable *const g_theAptScreenRefMap = (AptScreenRefTable *)&TheBfmeObject_00C70090;
+AptScreenRefTable *const g_theAptScreenRefMap = (AptScreenRefTable *)&g_aptScreenReferences;
 
 void _bfme_closeAptScreen(const AsciiString &name)
 {
@@ -126,4 +126,27 @@ public:
 Rva00411453Tree::~Rva00411453Tree()
 {
 	((Rva004111CC *)this)->~Rva004111CC();
+}
+
+// Native411458..41149A: register a by-value counted screen callback by name.
+// The now-verified screen subscript41112B and assignment2174A4 retain their
+// existing owners. Native startup7AFF1A and teardown7B8247 establish the
+// existing global's20-byte table storage, not a single unsigned word.
+struct TargetRef00217D4C {virtual void *destroy(unsigned);int references;};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+struct TreeHintRef00217D4C {
+ TargetRef00217D4C *m_ptr;
+ TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
+};
+class AptScreenInitGadgets;
+template<class T>class AptRef {
+public:
+ ~AptRef(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
+ TargetRef00217D4C *m_ptr;
+};
+class Rva000427195 {public:void *rva0041112B(const AsciiString *);};
+void _bfme_setAptScreenRef(const AsciiString &name,AptRef<AptScreenInitGadgets> incoming) {
+ TreeHintRef00217D4C *slot=(TreeHintRef00217D4C *)
+  ((Rva000427195 *)&g_aptScreenReferences)->rva0041112B(&name);
+ *slot=*(const TreeHintRef00217D4C *)&incoming;
 }
