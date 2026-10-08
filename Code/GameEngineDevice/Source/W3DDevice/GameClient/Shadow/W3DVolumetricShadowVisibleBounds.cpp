@@ -14,8 +14,9 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/aabox.h
-struct AABoxClass
+class AABoxClass
 {
+public:
 	Vector3 Center;
 	Vector3 Extent;
 };
