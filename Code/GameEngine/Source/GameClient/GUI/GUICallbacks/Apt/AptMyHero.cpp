@@ -20,7 +20,23 @@ struct BfmePod8 {int a;float b;};
 class Rva005B0E9F {public: BfmePod8 *rva005B0E9F(int);};
 class Rva00406E47 {public: bool rva00406E47(int);};
 struct Rva005B0473View {char opaque[0x60];float field60;int field64,field68;};
-class CreateAHeroManager {public: Rva005B0473View *rva00219F36(int,int);};
+class CreateAHeroManager {public: Rva005B0473View *rva00219F36(int,int);char pad000[0x1E8];AsciiString field1E8;};
+class Display {public: char pad000[0x141];bool field141;};
+extern Display *TheDisplay;
+class GameWindowTransitionsHandler {
+public:
+ virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
+ virtual void slot14();virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();
+ void setGroup(AsciiString groupName,bool immediate);
+};
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+class Rva001DBB82OneSetter {public: void enable();};
+class GameWindowManager {
+public:
+ virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
+ virtual void slot14();virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();virtual void slot28();
+};
+extern GameWindowManager *TheWindowManager;
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
 struct MyHeroBlingBlock {MyHeroBlingRecord *first,*last,*capacity;};
@@ -33,6 +49,7 @@ class AptMyHero {
 public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
  void SwitchToPendingHero();
+ void rva005B21DA(CreateAHeroData *hero,bool flag,int mode);
  void rva005B0416(int);void rva005B0446();
  bool rva005B0725();
  void rva005B0923(int);void SetBling(int,int,int);
@@ -48,10 +65,13 @@ private:
  void *holder140;
  CreateAHeroData *pending144;
  bool flag148;
- char pad149[0x168-0x149];
+ char pad149[3];
+ int field14C;
+ char pad150[0x168-0x150];
  float field168,field16C;
  char pad170[4];
  MyHeroBlingBlock blocks174[2];
+ int field18C;
 };
 void AptMyHero::SwitchToPendingHero(){
  if(pending144 != reinterpret_cast<CreateAHeroData *>(this) && pending144)
@@ -124,3 +144,30 @@ void AptMyHero::rva005B0416(int level){
 // WB twin 0x0156F3D0 (unnamed, AptMyHero.cpp; called from FrameUpdate) and
 // native 0x005B0446..0x005B045D: labels the ten power levels in turn.
 void AptMyHero::rva005B0446(){for(unsigned int level=0;level<10;++level)rva005B0416(level);}
+
+// WB twin 0x01571180 (unnamed, AptMyHero.cpp) and native 0x005B21DA..
+// 0x005B2295, RET 12: a new pending hero records the +0x148 flag and clears
+// +0x18C; without a manager transition group (+0x1E8 empty) mode 1 falls
+// back to 0, which switches heroes at once, while mode 1 runs the group's
+// transition. Retail dispatches through a switch (sub/dec), not if/else.
+void AptMyHero::rva005B21DA(CreateAHeroData *hero,bool flag,int mode){
+ if(pending144==hero)return;
+ pending144=hero;
+ flag148=flag;
+ field18C=0;
+ if(TheCreateAHeroManager->field1E8.isEmpty())mode=0;
+ switch(mode){
+  case 0:
+   SwitchToPendingHero();
+   field14C=0;
+   break;
+  case 1:
+   TheDisplay->field141=true;
+   TheTransitionHandler->slot24();
+   TheTransitionHandler->setGroup(TheCreateAHeroManager->field1E8,false);
+   reinterpret_cast<Rva001DBB82OneSetter *>(TheTransitionHandler)->enable();
+   TheWindowManager->slot28();
+   field14C=1;
+   break;
+ }
+}
