@@ -16,6 +16,8 @@ class Rva002B3A48
 {
 public:
 	int rva002B3A48();
+	int rva002B3A9C();
+	bool rva002B3B07(Rva002B3A48 *other);
 private:
 	char m_pad00[0x8];
 	Rva00318FBE **m_begin;
@@ -38,4 +40,23 @@ int Rva002B3A48::rva002B3A48()
 		sum += v;
 	}
 	return sum;
+}
+
+// 0x002B3B07, 95B RET4. Compare two native summary values from this
+// same receiver, breaking exact ties through the rowed game-logic RNG.
+// Retail's source-path literal and line 6883 corroborate the approved
+// LivingWorldLogic TU map; original class and comparator names unresolved.
+int __cdecl GetGameLogicRandomValue(int low, int high, char *file, int line);
+bool Rva002B3A48::rva002B3B07(Rva002B3A48 *other)
+{
+ int first = rva002B3A48();
+ int second = other->rva002B3A48();
+ if (first != second)
+  return first > second;
+ first = rva002B3A9C();
+ second = other->rva002B3A9C();
+ if (first != second)
+  return first > second;
+ return GetGameLogicRandomValue(0, 1,
+  "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\System\\LivingWorld\\LivingWorldLogic.cpp", 6883) == 0;
 }

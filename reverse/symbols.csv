@@ -16077,3 +16077,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?Rva00600695Get@@YG_NPBD@Z,0x00600695,guarded global virtual forward slot 12 bool (20B); callee pin for Rva003006C4AsciiString.cpp after the merge kept origin's unit without its row
 ?rva005CD8F7@Rva005CD8F7Call@@QAEHPAX@Z,0x005CD8F7,alias pin: same body as ?Translate@ManualPhaseEnder@StrategicInGameUI@@QAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z (both trees claimed this address; upstream_squash kept one row and pins this name here so its callers resolve)
 ?rva002EC9E1@Pathfinder@@QAEHPAVObject@@PBUCoord3D@@PAH@Z,0x002EC9E1,callee of ?rva0046AFDE@Rva0046AFDEReceiver@@QAE_NPAVObject@@@Z
+?rva002B3A9C@Rva002B3A48@@QAEHXZ,0x002B3A9C,callee of ?rva002B3B07@Rva002B3A48@@QAE_NPAV1@@Z
