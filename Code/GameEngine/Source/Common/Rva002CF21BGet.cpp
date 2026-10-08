@@ -103,3 +103,17 @@ void *Rva002CF21B::rva002CF21B(void *a1, int a2, int a3)
 	}
 	return r;
 }
+
+// BF1 9cbfb551fe Common/S1IndirectSlotCalls.cpp Rva00133070 supplies the
+// byte-guarded stdcall pattern. Target 2CEF02..2CEF14 has its own RET after
+// the complete preceding RET4 at 2CEF01; only nonzero g_00DFF004 calls Sleep(0).
+// The native PE import directory independently identifies IAT BBA3B4 as
+// kernel32.dll!Sleep. This source already defines that same byte flag and
+// uses the same import in its 99-byte manager dispatch. No new data/pin is needed.
+// ECX and stack arguments are never read; the original member/free owner,
+// name and guard meaning remain unknown. This is the minimal void contract.
+void Rva002CEF02ConditionalSleep()
+{
+    if (g_00DFF004)
+        Sleep(0);
+}
