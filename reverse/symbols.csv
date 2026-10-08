@@ -16315,3 +16315,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva00599F74@Rva0059AC4D@@QAEPAVTeam@@PAVTeamPrototype@@@Z,0x00599F74,callee of ?rva0059ABC9@Rva0059AC4D@@QAEXPAX@Z
 ?rva0059A499@Rva0059AC4D@@QAEXPAVTeam@@PAHPAVTeamPrototype@@@Z,0x0059A499,callee of ?rva0059ABC9@Rva0059AC4D@@QAEXPAX@Z
 ?rva0059A8D7@Rva0059AC4D@@QAEXPAVTeam@@PAH@Z,0x0059A8D7,callee of ?rva0059ABC9@Rva0059AC4D@@QAEXPAX@Z
+??0Rva005CCC74Record@@QAE@ABUChecklistItemRef@StrategicInGameUI@@PAVImpl@ChecklistItem@2@@Z,0x005CCC74,callee of ?AddItem@Impl@Checklist@StrategicInGameUI@@QAEXABUChecklistItemRef@3@PAV1ChecklistItem@3@@Z
+?rva005CCA0B@Impl@ChecklistItem@StrategicInGameUI@@QAEXABVRva005D1A87Ref@@@Z,0x005CCA0B,callee of ?AddItem@Impl@Checklist@StrategicInGameUI@@QAEXABUChecklistItemRef@3@PAV1ChecklistItem@3@@Z
+?rva005D1A87@Rva005D1A87UI@@QAE?AVRva005D1A87Ref@@XZ,0x005D1A87,callee of ?AddItem@Impl@Checklist@StrategicInGameUI@@QAEXABUChecklistItemRef@3@PAV1ChecklistItem@3@@Z
