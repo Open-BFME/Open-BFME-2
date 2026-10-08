@@ -478,7 +478,7 @@ class GameSpyInfo
 {
 public:
 	GameSpyInfo();			// 0x00385FE1
-	// Virtual slots follow the retail vtable at 0x00C1DD90 so that virtual
+	// Virtual slots follow the retail vtable at 0x00C19300 so that virtual
 	// self-calls encode the right slot offsets; unnamed slots are placeholders.
 	virtual ~GameSpyInfo();
 	virtual void reset(void);
@@ -529,7 +529,7 @@ public:
 	virtual Bool hasStagingRoomListChanged(void);
 	virtual void leaveStagingRoom(void);
 	virtual void slot48(void);
-	virtual void slot49(void);
+	virtual void markAsStagingRoomJoiner(Int id);
 	virtual void slot50(void);
 	virtual void slot51(void);
 	virtual Bool rva00381DC4(void);
@@ -617,7 +617,7 @@ private:
 	Int m_joinedStagingRoom;			// +0x5DC
 	Bool m_isHosting;					// +0x5E0
 	unsigned char m_pad05E1[3];			// +0x5E1..+0x5E3
-	unsigned char m_localStagingRoom[0x1020]; // +0x5E4..+0x1603
+	GameSpyStagingRoom m_localStagingRoom; // +0x5E4..+0x1603
 	Int m_localStagingRoomID;			// +0x1604
 	IgnoreList m_ignoreList;			// +0x1608..+0x1613
 	SavedIgnoreMap m_savedIgnoreMap;	// +0x1614..+0x161F
@@ -1291,7 +1291,7 @@ void GameSpyInfo::reset(void)
 	m_joinedStagingRoom = 0;
 	m_isHosting = false;
 	m_localStagingRoomID = 0;
-	((GameSpyStagingRoom *)m_localStagingRoom)->reset();
+	m_localStagingRoom.reset();
 	m_gotGroupRoomList = false;
 	m_localName = "";
 	m_localProfileID = 0;
@@ -1430,3 +1430,53 @@ void Rva0038357B::rva0038357B()
 	((Rva003820D1 *)this)->~Rva003820D1();
 }
 
+
+typedef char PeerDefsStagingRoomSize[(sizeof(GameSpyStagingRoom)==0x1020)?1:-1];
+typedef char PeerDefsGameSpyInfoSize[(sizeof(GameSpyInfo)==0x1640)?1:-1];
+
+class GameInfo { public: void enterGame(); };
+class Rva00381D02 { public: void rva00381D02(void*); };
+class Rva00381CED { public: void rva00381CED(void*); };
+class Rva00382234 { public: void rva00382234(AsciiString); };
+class Rva003821E2 { public: void assign(UnicodeString); };
+class Rva00235A37 { public: Rva00235A37& operator=(const Rva00235A37&); };
+class Rva0022C4DF { public: UnicodeString rva0022C4DF()const; };
+AsciiString GameInfoToAsciiString(const GameInfo*,Bool);
+Bool ParseAsciiStringToGameInfo(GameInfo*,AsciiString,Bool);
+
+// Native383865..3839B9 RET4; GameSpyInfo vtableC19300 slot49 and WB F84350.
+// ZH PeerDefs.cpp markAsStagingRoomJoiner at committed donor9cbfb551fe20
+// guides join state and game-info transfer. Retail additionally copies the
+// digest atCC, rules at90 and slot data at60 through their existing providers.
+// The embedded staging room is1020B; direct member reset reproduces native
+// alias analysis. Address-derived helper identities remain unchanged.
+void GameSpyInfo::markAsStagingRoomJoiner(Int id)
+{
+    m_localStagingRoomID=id;
+    m_joinedStagingRoom=1;
+    m_isHosting=false;
+    GameSpyStagingRoom* local=&m_localStagingRoom;
+    m_localStagingRoom.reset();
+    ((GameInfo*)local)->enterGame();
+    StagingRoomMap::iterator it=m_stagingRooms.find(id);
+    if(it!=m_stagingRooms.end())
+    {
+        GameSpyStagingRoom* room=it->second;
+        unsigned char digest[16];
+        memcpy(digest,room->m_digest,16);
+        ((Rva00381D02*)local)->rva00381D02(digest);
+        room->cleanUpSlotPointers();
+        AsciiString options=GameInfoToAsciiString((GameInfo*)room,true);
+        ParseAsciiStringToGameInfo((GameInfo*)local,options,true);
+        ((char*)&m_localStagingRoom)[0x10]=true;
+        ((Rva00382234*)local)->rva00382234(m_localName);
+        *(Rva00235A37*)((char*)&m_localStagingRoom+0x90)=*(Rva00235A37*)((char*)room+0x90);
+        *(Int*)((char*)&m_localStagingRoom+0xC0)=*(Int*)((char*)room+0xC0);
+        *(Int*)((char*)&m_localStagingRoom+0xC4)=*(Int*)((char*)room+0xC4);
+        ((char*)&m_localStagingRoom)[0xFED]=*((char*)room+0xFED);
+        ((char*)&m_localStagingRoom)[0xFEC]=*((char*)room+0xFEC);
+        ((Rva003821E2*)local)->assign(((Rva0022C4DF*)room)->rva0022C4DF());
+        *(Int*)((char*)&m_localStagingRoom+0x88)=*(Int*)((char*)room+0x88);
+        ((Rva00381CED*)local)->rva00381CED((char*)room+0x60);
+    }
+}
