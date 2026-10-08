@@ -28,7 +28,20 @@ private: unsigned char opaque[0x14];
 };
 class GroupOrder {
 public:
-    unsigned char opaque[4];
+    virtual void slot0();
+    virtual void slot1();
+    virtual void slot2();
+    virtual void slot3();
+    virtual void slot4();
+    virtual void slot5();
+    virtual void slot6();
+    virtual void slot7();
+    virtual void slot8();
+    virtual void slot9();
+    virtual void slot10();
+    virtual void slot11();
+    virtual void slot12();
+    virtual GroupOrder* slot13();
     _STL::vector<ObjectID> objects;
     int id;
     int unknown14;
@@ -66,11 +79,15 @@ template<> template<> QueueNode* QueueTable::_M_find<ObjectID>(const ObjectID& i
     return node;
 }
 }
+enum NameKeyType { NK_NONE=0 };
+class ArmorTemplate;
+class Rva00355B61 { public: const ArmorTemplate* rva00355155(NameKeyType) const; };
 class Object;
 class ObjectLookupMap { public: Object** findSlot(int*); private: unsigned char opaque[0x14]; };
 class AiOrdersManager {
 public: void addOrderToObjectQueues(int,GroupOrder*);
     void registerOrder(int,GroupOrder*);
+    int cloneOrderForPatrol(int);
 private: unsigned char opaque[0x10]; ObjectLookupMap orders; QueueMap queues;
 };
 void AiOrdersManager::addOrderToObjectQueues(int mode,GroupOrder* order) {
@@ -104,3 +121,30 @@ void AiOrdersManager::registerOrder(int mode,GroupOrder* order) {
         addOrderToObjectQueues(mode,order);
     }
 }
+
+int AiOrdersManager::cloneOrderForPatrol(int id) {
+    int result=0;
+    if (id) {
+        GroupOrder* order=(GroupOrder*)reinterpret_cast<const Rva00355B61*>(this)->rva00355155((NameKeyType)id);
+        if (order) {
+            result=order->unknown14;
+            if (!result) {
+                GroupOrder* clone=order->slot13();
+                if (clone) {
+                    result=clone->id;
+                    order->unknown14=result;
+                    int cloneId=clone->id;
+                    *reinterpret_cast<GroupOrder**>(orders.findSlot(&cloneId))=clone;
+                }
+            }
+        }
+    }
+    return result;
+}
+
+// cloneOrderForPatrol is named by WB 0x00DF84C0 / AiOrdersManager.cpp:504.
+// Native 0x0035560B..0x00355664 returns the stored clone id (+0x14), or invokes
+// the GroupOrder clone slot (+0x34), records the returned id (+0x10), and
+// inserts that pointer in the same id table. The lookup's historical
+// ArmorTemplate return spelling is retained only as a provider ABI view;
+// no ArmorTemplate identity is claimed for the order returned here.
