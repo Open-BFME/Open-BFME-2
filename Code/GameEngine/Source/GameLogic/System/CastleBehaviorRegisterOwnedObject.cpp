@@ -798,6 +798,7 @@ public:
 class PolygonTrigger:public virtual Rva00330C50Interface {
 public:
  PolygonTrigger(int initialAllocation);
+ static void addPolygonTrigger(PolygonTrigger*);
  virtual void* deleteInstance(int);
  virtual void slot0(); virtual void slot1(); virtual void slot2();
  virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6();
@@ -815,4 +816,44 @@ void CastleBehavior::rva00399370() {
   ++index;
  }
  ::operator delete(polygon?polygon->deleteInstance(0):0);
+}
+
+// Native0039865E..003986EF,145B; WB00EB9380 unnamed CastleSystem helper.
+// WB/native establish callback+context, owner's transform at+8, pointer vector
+// at+0x80, generated name at polygon+0x40 and addPolygonTrigger registration.
+// A pointer to virtual member slot10 emits native vcall thunk001F34BA;
+// a direct virtual expression changes that call shape. The transform call
+// view preserves the measured primary-vtable ABI without asserting field types.
+// Typed pointer-vector push_back requires independent recursive ICF proof.
+void Rva00372BA0ConditionalDispatcher(void*,void*,bool);
+class Rva002E3766Holder { public: void set(int,int); };
+class Rva00395E19 { public: void rva00395E19(AsciiString*,int); };
+class CastlePolygonTransformCallView {
+public:
+ virtual void slot0();
+ virtual void slot1();
+ virtual void slot2();
+ virtual void slot3();
+ virtual void slot4();
+ virtual void slot5();
+ virtual void slot6();
+ virtual void slot7();
+ virtual void slot8();
+ virtual void slot9();
+ virtual void setTransform(void*);
+};
+void CastleBehavior::rva0039865E(PolygonTrigger* polygon) {
+ if(polygon) {
+  ((Rva002E3766Holder*)polygon)->set((int)&Rva00372BA0ConditionalDispatcher,(int)this);
+  void* transform=(char*)field<Object*>(this,8)+8;
+  if(transform) {
+   void (CastlePolygonTransformCallView::*method)(void*)=&CastlePolygonTransformCallView::setTransform;
+   (((CastlePolygonTransformCallView*)polygon)->*method)(transform);
+  }
+  field<_STL::vector<PolygonTrigger*> >(this,0x80).push_back(polygon);
+  AsciiString name;
+  ((Rva00395E19*)this)->rva00395E19(&name,field<_STL::vector<PolygonTrigger*> >(this,0x80).size());
+  field<AsciiString>(polygon,0x40).setCopyInline(name);
+  PolygonTrigger::addPolygonTrigger(polygon);
+ }
 }
