@@ -8,7 +8,15 @@
 // query (0x004036B1) is rowed under a placeholder name with the argument
 // types its row carries.
 
+// Keep shared copy helpers at their verified speed/frame-omission settings.
+// The unsigned max body remains supplied by its canonical owner.
+#pragma optimize("ty", on)
+#include <stl/_algobase.h>
+namespace _STL {
+template <> const unsigned &max<unsigned>(const unsigned &a, const unsigned &b);
+}
 #include <vector>
+#pragma optimize("", on)
 #include "ascii_string.h"
 
 typedef int Int;
@@ -26,11 +34,14 @@ public:
 class Rva0040450E;
 class ModuleData;
 
+class INI;
 class AttributeModifierStore
 {
 public:
 	Bool getModifier(Int index, void *key, float *value, const StringBase<char> *name);
 	Rva0040450E *replaceModifier(Int index);
+	Int rva00214713(Int key);
+	static void parseModifierListDefinition(INI *ini);
 
 private:
 	unsigned char m_pad00[0xc];
@@ -153,5 +164,55 @@ Rva002146F7::~Rva002146F7()
     {
         delete m_storageCC;
         m_storageCC = 0;
+    }
+}
+
+struct FieldParse;
+enum NameKeyType { NAMEKEY_INVALID = -1 };
+class NameKeyGenerator { public: NameKeyType nameToKey(const char *name); };
+extern NameKeyGenerator *TheNameKeyGenerator;
+extern AttributeModifierStore *TheAttributeModifierStore;
+int Rva00404715Get();
+class INI {
+public:
+    const char *getNextToken(const char *seps);
+    void initFromINI(void *what, const FieldParse *parseTable);
+    int getLoadType() const { return m_loadType; }
+private:
+    char m_pad[8]; int m_loadType;
+};
+struct Rva004DFCB0Element { unsigned word0; };
+class Rva00214ACC { public: void rva00214ACC(Rva004DFCB0Element value); };
+class ModifierRecordScope {
+public:
+    __forceinline ModifierRecordScope() { ((Rva0040450E *)m_storage)->Rva0040450E::Rva0040450E(); }
+    __forceinline ~ModifierRecordScope() { ((Rva002146F7 *)m_storage)->~Rva002146F7(); }
+private:
+    unsigned m_storage[0xD4 / 4];
+};
+void AttributeModifierStore::parseModifierListDefinition(INI *ini)
+{
+    const char *name = ini->getNextToken(0);
+    bool isNew = true;
+    int key = TheNameKeyGenerator->nameToKey(name);
+    AttributeModifierStore *store = TheAttributeModifierStore;
+    int index = store->rva00214713(key);
+    Rva0040450E *modifier;
+    if (index == -1) {
+        modifier = new Rva0040450E;
+    } else if (ini->getLoadType() == 5) {
+        modifier = store->replaceModifier(index);
+        isNew = false;
+    } else {
+        ModifierRecordScope temporary;
+        ini->initFromINI(&temporary, (const FieldParse *)Rva00404715Get());
+        return;
+    }
+    modifier->rva00214917(AsciiString(name));
+    modifier->m_key14 = key;
+    ini->initFromINI(modifier, (const FieldParse *)Rva00404715Get());
+    if (isNew) {
+        Rva004DFCB0Element slot = { (unsigned)modifier };
+        ((Rva00214ACC *)TheAttributeModifierStore)->rva00214ACC(slot);
     }
 }
