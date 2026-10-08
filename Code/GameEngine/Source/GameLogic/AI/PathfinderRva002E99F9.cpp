@@ -60,9 +60,11 @@ class Rva00531720
 public:
 	unsigned char rva00531720(unsigned int count, unsigned int value);
 };
-// WB12D2AB0 and native531757 establish the predicate owner.
+// WB12D2AB0/12D2C50 and native531757/5317D7 establish predicate owners.
 class PathfindZoneManager {
-public: bool CouldBeInEquivSet(unsigned equivalent, unsigned zone);
+public:
+ bool CouldBeInEquivSet(unsigned equivalent, unsigned zone);
+ bool InEquivSet(unsigned equivalent, unsigned first, unsigned second);
 };
 class Rva002E99F9Sub460
 {
@@ -71,7 +73,6 @@ public:
 	unsigned short rva00531FD4(void *s, unsigned short w);
 	unsigned short rva00531FE6(bool force, void *item, unsigned short value);
 	bool rva005318DB(void *item, void *first, void *second);
-	bool rva005317D7(unsigned int index, unsigned int first, unsigned int second);
 };
 struct Rva002E99F9Arg1
 {
@@ -168,7 +169,7 @@ __declspec(noinline) unsigned short Rva002E99F9Sub460::rva0053241F(void *s, unsi
 // bit 3 returns true; otherwise rowed 0x005310E3 supplies a count and the
 // address-derived 0x0053123A helper supplies an index. Two input records each
 // contribute their word at +8 to the two rowed 0x00531720 checks, then the
-// address-derived 0x00531757 checks and 0x005317D7 final check. The receiver
+// WB-proven CouldBeInEquivSet531757 and InEquivSet5317D7 checks. The receiver
 // association with Rva002E99F9Sub460 is structural; item and record types
 // remain unknown.
 bool Rva002E99F9Sub460::rva005318DB(void *item, void *first, void *second)
@@ -188,6 +189,6 @@ bool Rva002E99F9Sub460::rva005318DB(void *item, void *first, void *second)
 		slot->rva00531720(count, secondValue) &&
 		((PathfindZoneManager *)this)->CouldBeInEquivSet(index, firstValue) &&
 		((PathfindZoneManager *)this)->CouldBeInEquivSet(index, secondValue))
-		return rva005317D7(index, firstValue, secondValue);
+		return ((PathfindZoneManager *)this)->InEquivSet(index, firstValue, secondValue);
 	return 0;
 }

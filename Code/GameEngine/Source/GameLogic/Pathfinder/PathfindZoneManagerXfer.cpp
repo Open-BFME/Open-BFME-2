@@ -107,6 +107,7 @@ public:
 	};
 	void DoXfer(Xfer *);
 	void CreateEquivalencySet(unsigned variant, unsigned equivalent);
+ bool InEquivSet(unsigned equivalent, unsigned first, unsigned second);
  bool CouldBeInEquivSet(unsigned equivalent, unsigned zone);
 
 	// Accessed layout only. Cell storage's full element count is unproven.
@@ -202,10 +203,6 @@ ZoneAdjacencyRange ZoneAdjacencyTable::rva00532104(unsigned short key) {
 class Rva00531720 {
 public: unsigned char rva00531720(unsigned variant, unsigned zone);
 };
-class Rva002E99F9Sub460 {
-public:
- bool rva005317D7(unsigned equivalent, unsigned first, unsigned second);
-};
 class Rva00532165 {
 public: void rva00532431(unsigned short first, unsigned short second);
 };
@@ -214,7 +211,7 @@ public: void rva00532431(unsigned short first, unsigned short second);
 // The target uses the established mask predicates531720/531757/5317D7,
 // MakeSet531ABB and LinkSets532431 and the concrete returned adjacency pair.
 // CouldBeInEquivSet now has its WB-proven owner and exact128B provider.
-// InEquivSet remains a neutral view until its own body is admitted.
+// InEquivSet has its WB-proven owner and exact260B provider.
 void PathfindZoneManager::CreateEquivalencySet(unsigned variant, unsigned equivalent) {
  unions[variant][equivalent].first=0;
  for (unsigned i=0; i<end; ++i)
@@ -226,7 +223,7 @@ void PathfindZoneManager::CreateEquivalencySet(unsigned variant, unsigned equiva
   for (; range.begin != range.end; ++range.begin) {
    unsigned short other=range.begin->zone;
    if (!((Rva00531720 *)this)->rva00531720(variant,other)) continue;
-   if (!((Rva002E99F9Sub460 *)this)->rva005317D7(equivalent,zone,other)) continue;
+   if (!InEquivSet(equivalent,zone,other)) continue;
    ((Rva00532165 *)&unions[variant][equivalent])->rva00532431((unsigned short)zone,other);
   }
  }
@@ -255,6 +252,50 @@ case 3:
  if (c->type != 0 && c->type != 3) return false;
  break;
 case 6:
+ if (c->type != 0 && c->type != 3 && c->type != 4) return false;
+ if (c->type == 4 && !c->bridge) return false;
+ break;
+case 5:
+ if (c->type != 2) return false;
+ break;
+}
+ return true;
+}
+
+// WB12D2C50 names InEquivSet. Native5317D7..5318DB proves type3bits,
+// two6-bit IDs and bridgebit19. Equal type permits the three cross-ID
+// comparisons or two secondary IDs equal16. Modes1/2/3/4/6 additionally
+// require equal primary IDs; mode5 only requires second type2. Default
+// succeeds and mode0 fails after the equal-type early path. Packed fields
+// reproduce native XOR/TEST AX primary-ID checks and full260B body.
+
+bool PathfindZoneManager::InEquivSet(unsigned equivalent, unsigned first, unsigned second) {
+ CellType *a = reinterpret_cast<CellType *>(unknown0C)+first;
+ CellType *c = reinterpret_cast<CellType *>(unknown0C)+second;
+ if (a->type == c->type) {
+ if (a->id == c->id || a->id == c->secondary || a->secondary == c->id || (a->secondary == 16 && c->secondary == 16)) return true;
+ }
+switch (equivalent) {
+case 0:
+ return false;
+case 1:
+ if (a->id != c->id) return false;
+ if (c->type != 0 && c->type != 2) return false;
+ break;
+case 2:
+ if (a->id != c->id) return false;
+ if (c->type != 0 && c->type != 7 && c->type != 1) return false;
+ break;
+case 4:
+ if (a->id != c->id) return false;
+ if (c->type != 7 && c->type != 1) return false;
+ break;
+case 3:
+ if (a->id != c->id) return false;
+ if (c->type != 0 && c->type != 3) return false;
+ break;
+case 6:
+ if (a->id != c->id) return false;
  if (c->type != 0 && c->type != 3 && c->type != 4) return false;
  if (c->type == 4 && !c->bridge) return false;
  break;
