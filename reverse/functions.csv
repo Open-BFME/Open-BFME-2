@@ -60315,7 +60315,7 @@ _Rva007F5790Callback,,0x00661F40,15,Code/GameEngine/Source/GameNetwork/Rva007F70
 ?rva00260F9E@Rva00260F9E@@QAE_NH@Z,,0x00260F9E,50,Code/GameEngine/Source/Common/Rva00260F9EPredicate.cpp,matched,bool byte-direct return; address-derived
 ?rva0028572A@Rva0028572AHost@@QAEXXZ,,0x0028572A,27,Code/GameEngine/Source/Common/Rva0028572A.cpp,matched,guarded refresh via global 0xDFE1A8 callee 0x20D959 then stamp -1
 ?rva00291198@Rva00291198Host@@QAEXPAURva00291198Dest@@@Z,,0x00291198,31,Code/GameEngine/Source/Common/Rva00291198.cpp,matched,forward to 0x2910B7 then copy +0x460 to dest +0xC0
-?rva00287B2A@@YGXPAX0@Z,,0x00287B2A,35,Code/GameEngine/Source/Common/Rva00287B2A.cpp,matched,stdcall 5B out-param forward to 0x286E33 then copy dword plus byte
+?rva00287B2A@Rva00286214@@QAE?AURva00287B2AResult@@PBVRva00285672@@@Z,,0x00287B2A,35,Code/GameEngine/Source/Common/Rva00287B2A.cpp,matched,set insert of m_cellsOnFire: thiscall hidden pair<iterator bool> result forwarding ecx to insert_unique 0x286E33 then rebuilding iterator dword plus bool byte; caller FireLogicSystem::update 0x287FAD sets ecx=this+0x84
 ?rva0028ECDB@Rva0028ECDBHost@@QAE_NPAX@Z,,0x0028ECDB,62,Code/GameEngine/Source/Common/Rva0028ECDB.cpp,matched,flag-gated negated forward to 0x2E9897 via global 0xDFF0F8
 ?rva00279354@Rva00279354Host@@QAEX_N@Z,,0x00279354,39,Code/GameEngine/Source/Common/Rva00279354.cpp,matched,two-phase init via 0x2743D7 plus 0xA8C9B then conditional 0x2783F6 on bool
 ?rva002784AF@Rva002784AFHost@@QAEXXZ,,0x002784AF,60,Code/GameEngine/Source/Common/Rva002784AF.cpp,matched,triple-byte gate plus virtual v20 forward to 0x278440

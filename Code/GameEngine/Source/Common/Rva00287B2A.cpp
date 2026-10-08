@@ -1,15 +1,24 @@
 // cl: /MD
-struct Rva00287B2AOut
+// m_cellsOnFire's insert (0x00287B2A): FireLogicSystem::update calls it
+// with ecx = the set at +0x84 and a hidden pair<iterator,bool> result, and
+// it forwards ecx untouched to the tree's insert_unique (0x00286E33), then
+// rebuilds the pair from that call's result (iterator dword, bool byte).
+class Rva00285672;
+struct Rva00286214Node;
+struct Rva00287B2AResult
 {
-	int m_00;
-	unsigned char m_04;
+	Rva00287B2AResult(Rva00286214Node *node, bool inserted) : m_node(node), m_inserted(inserted) {}
+	Rva00286214Node *m_node;
+	bool m_inserted;
 };
-extern "C" void __stdcall rva00286E33(Rva00287B2AOut *o, void *a);
-// ?rva00287B2A@@YGXPAX0@Z
-void __stdcall rva00287B2A(void *d, void *s)
+class Rva00286214
 {
-	Rva00287B2AOut tmp;
-	rva00286E33(&tmp, s);
-	*(int *)d = tmp.m_00;
-	*((unsigned char *)d + 4) = tmp.m_04;
+public:
+	Rva00287B2AResult rva00286E33(const Rva00285672 *key);
+	Rva00287B2AResult rva00287B2A(const Rva00285672 *key);
+};
+Rva00287B2AResult Rva00286214::rva00287B2A(const Rva00285672 *key)
+{
+	Rva00287B2AResult p = rva00286E33(key);
+	return Rva00287B2AResult(p.m_node, p.m_inserted);
 }

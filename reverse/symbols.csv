@@ -13496,7 +13496,7 @@ _recfields,0x00754DD0
 _recv@16,0x006556E8,PE thunk ff2548a9bb00 jumps through IAT 0x00BBA948 to wsock32.dll!recv; Ghidra independently names same thunk
 _recvfrom@24,0x00655664,PE-verified FF25 import thunk to wsock32.dll!recvfrom via IAT 0x00BBA940; independently read from retail import directory
 _rva0007E394CursorEqual,0x0007E394,Typed 8B cursor equality; full29B exact; byte-identical two-DWORD body already covered by dup_0007e394; original template identity unknown
-_rva00286E33@8,0x00286E33,stdcall out-param 5B writer called from 0x287B2A with out plus arg
+?rva00286E33@Rva00286214@@QAE?AURva00287B2AResult@@PBVRva00285672@@@Z,0x00286E33,m_cellsOnFire insert_unique (thiscall hidden pair result) called from insert 0x287B2A with ecx forwarded
 _rva002D6D63@8,0x002D6D63,stdcall factory reached through the sole REL32 at 0x00275FAD in 0x00275F3F; two pushed args and no caller cleanup
 _rva002f681_fill,0x0002F681,variadic INIException {msg;code} filler (vsnprintf into TLS buf + new[] + memcpy); throw-site helper for AI-kind and INI parsers; true name unknown
 _rva006F97F0Call,0x006F97F0,retail calls at 0x006F9A49 and 0x006F9B14 use EAX input EBX output and one stack output under a custom register ABI; helper identity remains address-derived
