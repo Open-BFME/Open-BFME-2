@@ -16165,3 +16165,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0046AA85@HordeContain@@QAEXXZ,0x0046AA85,REL32 read at 0x0047294F in HordeContain slot 4 (0x00472790); HordeContain this (lea ecx [esi-0x11C]) no arguments; address-named
 ?erase@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAEIABH@Z,0x0046EDEF,REL32 read at 0x0047280B in HordeContain slot 4 (0x00472790) erasing an ID from the +0x170 set<int> (m_170.erase(id)); the same 73-byte erase(const key &) body gatherUnitBack 0x004725D5 calls on that tree; row there is the address-named Rva002EE9B7 placeholder
 ?rva005E652E@Rva005E56FCOuter@@QAEXPAX@Z,0x005E652E,callee of ?rva005E6765@Rva005E56FC@@QAEXXZ
+??0Rva0050ED58@@QAE@HABVAsciiString@@@Z,0x0051066A,callee of ?rva005108EB@Rva005108EB@@QAEXPBD@Z

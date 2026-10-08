@@ -26,6 +26,43 @@
 const char *__cdecl Rva00412845AfterLevel(const char *path);
 int __cdecl Rva004128BBGetLevel(const char *path);
 
+// Retail 005108EB uses the same loaded-movie construction as the HUD below.
+// Its holder at +24 is the rowed 0050F68A/0050F6AD pair, whose pointee is
+// destroyed by 0050ED58. The allocation proves the pointee's 5C-byte extent;
+// constructor 0051066A stores the level at +0 and copies the name at +4.
+// WB's AptPlayerTribute.cpp twin calls this m_enabledContent, but neither
+// that member name nor a retail owner name is established here.
+class Rva0050ED58
+{
+public:
+	Rva0050ED58(int level, const AsciiString &name); // 0051066A
+private:
+	char m_pad[0x5C];
+};
+
+class Rva0050F6AD
+{
+public:
+	void rva0050F68A(Rva0050ED58 *value);
+	Rva0050ED58 *m_ptr;
+};
+
+class Rva005108EB
+{
+public:
+	void rva005108EB(const char *name);
+private:
+	char m_pad00[0x24];
+	Rva0050F6AD m_24;
+};
+
+// Native boundary 005108EB..0051097F (148 bytes), thiscall ret 4.
+void Rva005108EB::rva005108EB(const char *name)
+{
+	if (m_24.m_ptr == 0)
+		m_24.rva0050F68A(new Rva0050ED58(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+}
+
 // "string + text", as rowed in RegistryAsciiPath.cpp: the 12-byte node the
 // constructor converts into each "_level%u_On..." name.
 class Rva000B3F84Pair
