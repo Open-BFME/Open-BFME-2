@@ -82,7 +82,7 @@ public:
  void rva005B21DA(CreateAHeroData *hero,bool flag,int mode);
  void rva005B0416(int);int rva005B0E60(const Object *);void rva005B1A6C();void rva005B0446();
  bool rva005B0725();
- void rva005B0923(int);void SetBling(int,int,int);
+ void rva005B0923(int);void SetBling(int,int,int);void AdjustBling(int,int,int);
  Rva005B0473View *rva005B0473();
  void BuildBlingData();
  void rva005B0487();void rva005B1019();void rva005B1288();void rva005B097F(int);void rva005B0FCD(int);
@@ -265,4 +265,35 @@ void AptMyHero::SetBling(int category,int group,int to){
  }break;
  }
  reinterpret_cast<Rva00407E28 *>(this)->rva00407DE0(record.field00,to);
+}
+
+// AptMyHero::AdjustBling, retail 0x005B0EE6..0x005B0FCB (231 bytes, RET 12).
+// WorldBuilder names it and asserts the slot bound kept here as an early
+// return. A record with a zero +0x04 step is fixed. Category 1 wraps the
+// stepped value into [first, last]; category 0 first trims the delta to
+// what m_availAttribPoints (+0x154, cap +0x158) allows, then clamps the
+// result into [first, last]. SetBling stores it and slot 5 refreshes.
+void AptMyHero::AdjustBling(int category,int group,int delta){
+ MyHeroBlingBlock &block=blocks174[category];
+ if((unsigned int)group>=(unsigned int)(block.last-block.first))return;
+ MyHeroBlingRecord &record=block.first[group];
+ if(record.field04==0)return;
+ int current=reinterpret_cast<Rva00407E28 *>(this)->rva00407E28(record.field00);
+ switch(category){
+ case 1:
+  for(current+=delta;current>record.maximum;current-=record.field04){}
+  for(;current<record.minimum;current+=record.field04){}
+  break;
+ case 0:
+  for(;delta!=0&&availAttribPoints154-delta>maxAttribPoints158;++delta){}
+  for(;delta!=0&&availAttribPoints154-delta<0;--delta){}
+  if(current+delta>record.maximum)delta=record.maximum-current;
+  else if(current+delta<record.minimum)delta=record.minimum-current;
+  current+=delta;
+  break;
+ default:
+  return;
+ }
+ SetBling(category,group,current);
+ slot14();
 }
