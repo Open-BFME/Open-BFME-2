@@ -16404,3 +16404,5 @@ __vsnprintf,0x00629898,PE msvcr71.dll import _vsnprintf owns IAT BBA5E0; complet
 ?rva000AED2E@Rva000AED2EWorldHeightMapView@@QAEPAEHHHHHH@Z,0x000AED2E,Address-derived six-stack-word tile lookup; native EF517 REL32 and WB7722C0 body agree on thiscall ret24; no semantic name inferred for the unrowed provider
 _D3DXFilterTexture@16,0x0062AF62,PE-named d3dx9_27.dll D3DXFilterTexture import thunk FF25 through IAT VA00BBAA18; native EF61D and SDK stdcall16 agree
 _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFromMemory import thunk FF25 through IAT VA00BBAA14; native EF5F7 and SDK stdcall40 agree
+?getTexture@Rva0010BC90ShadowManager@@QAEPAVW3DShadowTexture@@PBD@Z,0x0010BC90,Native10C5CE REL32 and WB8D61F0->8D6CE0 prove same-owner texture lookup taking char pointer; provider remains unrowed and has complete C++ bank
+?create@Rva0010BB11ShadowFactory@@QAEPAVW3DProjectedShadow@@PAVW3DShadowTexture@@PAVRenderObjClass@@HEMMMMMPAXEHE@Z,0x0010BB11,Native10C6B9 REL32 to383B boundary; caller pushes13 words and WB8D5330 ret52 agrees; texture/object/type and five float arguments traced from10C578; factory identity stays address-derived

@@ -211,3 +211,111 @@ check08:
 	m_value250 = 0;
 	((BfmeThing928F *)this)->bfmeTwo928F();
 }
+
+// Native 10C578..10C6C4; WB8D61F0 independently names addShadow.
+// ZH W3DProjectedShadow.cpp supplies the size/offset semantics; BFME2 uses
+// its string handle, force flag, shared texture lookup and13-word factory.
+// TheWritableGlobalData is the owned singleton at VA DFE758. Bounds slot110
+// is witnessed here; this view does not change the reference RenderObj ABI.
+class GlobalData; extern GlobalData *TheWritableGlobalData;
+class RenderObjClass; class Drawable; class W3DProjectedShadow; class W3DShadowTexture;
+struct ShadowNameBuffer {int refs; unsigned short length,capacity; char text[1];};
+struct ShadowInfoView { ShadowNameBuffer *name; int unused; int type; float sizeX,sizeY,offsetX,offsetY,unused1,height; unsigned char force; };
+struct ShadowBounds {float center[3];float extent[3];};
+class ShadowBoundsCall {public:
+virtual void slot0();
+virtual void slot1();
+virtual void slot2();
+virtual void slot3();
+virtual void slot4();
+virtual void slot5();
+virtual void slot6();
+virtual void slot7();
+virtual void slot8();
+virtual void slot9();
+virtual void slot10();
+virtual void slot11();
+virtual void slot12();
+virtual void slot13();
+virtual void slot14();
+virtual void slot15();
+virtual void slot16();
+virtual void slot17();
+virtual void slot18();
+virtual void slot19();
+virtual void slot20();
+virtual void slot21();
+virtual void slot22();
+virtual void slot23();
+virtual void slot24();
+virtual void slot25();
+virtual void slot26();
+virtual void slot27();
+virtual void slot28();
+virtual void slot29();
+virtual void slot30();
+virtual void slot31();
+virtual void slot32();
+virtual void slot33();
+virtual void slot34();
+virtual void slot35();
+virtual void slot36();
+virtual void slot37();
+virtual void slot38();
+virtual void slot39();
+virtual void slot40();
+virtual void slot41();
+virtual void slot42();
+virtual void slot43();
+virtual void slot44();
+virtual void slot45();
+virtual void slot46();
+virtual void slot47();
+virtual void slot48();
+virtual void slot49();
+virtual void slot50();
+virtual void slot51();
+virtual void slot52();
+virtual void slot53();
+virtual void slot54();
+virtual void slot55();
+virtual void slot56();
+virtual void slot57();
+virtual void slot58();
+virtual void slot59();
+virtual void slot60();
+virtual void slot61();
+virtual void slot62();
+virtual void slot63();
+virtual void slot64();
+virtual void slot65();
+virtual void slot66();
+virtual void slot67();
+virtual void getBounds(ShadowBounds&);
+};
+class Rva0010BC90ShadowManager { public: W3DShadowTexture *getTexture(const char*); };
+class Rva0010BB11ShadowFactory {public: W3DProjectedShadow *create(W3DShadowTexture*,RenderObjClass*,int,unsigned char,float,float,float,float,float,void*,unsigned char,int,unsigned char);};
+W3DProjectedShadow *W3DProjectedShadowManager::addShadow(RenderObjClass *object,Shadow::ShadowTypeInfo *raw,Drawable *draw)
+{
+    ShadowInfoView *info=reinterpret_cast<ShadowInfoView*>(raw);
+    if (!info) goto reject;
+    if (!reinterpret_cast<unsigned char*>(TheWritableGlobalData)[0x61] && !info->force) {
+reject:
+        return 0;
+    }
+    const char *name;
+    if ((info->name ? info->name->length : 0) <= 1) name="shadow";
+    else name=info->name ? info->name->text : "";
+    W3DShadowTexture *texture=reinterpret_cast<Rva0010BC90ShadowManager*>(this)->getTexture(name);
+    int type=info->type;
+    float sizeX=info->sizeX, sizeY=info->sizeY;
+    float offsetX=info->offsetX,offsetY=info->offsetY;
+    float height=info->height;
+    if(sizeX==0.0f || sizeY==0.0f) {
+        ShadowBounds bounds;
+        reinterpret_cast<ShadowBoundsCall*>(object)->getBounds(bounds);
+        if(sizeX==0.0f) sizeX=2.0f*bounds.extent[0];
+        if(sizeY==0.0f) sizeY=-2.0f*bounds.extent[1];
+    }
+    return reinterpret_cast<Rva0010BB11ShadowFactory*>(this)->create(texture,object,type,0,sizeX,sizeY,height,0.0f-offsetX,0.0f-offsetY,reinterpret_cast<char*>(this)+4,0,0,0);
+}
