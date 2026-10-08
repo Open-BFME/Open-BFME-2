@@ -43,12 +43,21 @@
 // the campaign manager (pinned 0x001EC9AC, result only logged in WB);
 // otherwise the first army of the selected players that spawns one delayed
 // carryover unit of the types ends the search.
+//
+// ScriptActions::doCreateDelayedCarryoverUnitAtWaypoint, retail 0x003C9F4B
+// (513B; ret 0x10), from WorldBuilder's twin (wb 0x0101A8C0; name, statement
+// order, ArmySummary::SpawnOneDelayedCarryoverUnit): the same type list and
+// player selection, but the campaign manager (pinned 0x001EC99B) or the first
+// army that spawns one (pinned 0x0040E589) yields an ObjectID; the object is
+// placed at the waypoint (TerrainLogic slot 0x88, location +0x0C) and, when a
+// unit name is given, named and cached as in createUnitOnTeamAt.
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "ascii_string.h"
 #include <vector>
 #include <algorithm>
+#include "../../Common/GameLogicObjectLookupView.h"
 
 class Rva0020E89C;
 struct Rva002B488EResult;
@@ -205,6 +214,7 @@ class LinearCampaignManager
 public:
 	bool hasCampaign() const { return m_campaign != 0; }
 	bool rva001EC9AC(ObjectTypes *types, UnitRevivalTracker *tracker, Player *player);
+	ObjectID rva001EC99B(ObjectTypes *types, Player *player);
 
 private:
 	unsigned char m_pad00[0x10];
@@ -218,13 +228,63 @@ class Rva0040D701ArmySummary
 {
 public:
 	bool SpawnOneDelayedCarryoverUnitIntoUnitRevivalTracker(ObjectTypes *types);
+	ObjectID SpawnOneDelayedCarryoverUnit(ObjectTypes *types);
 };
+
+struct Coord3D;
+
+class Thing
+{
+public:
+	void setPosition(const Coord3D *pos);
+};
+
+class Object : public Thing
+{
+public:
+	void setName(const AsciiString &name) { m_name = name; }
+
+private:
+	unsigned char m_pad00[0x88];
+	AsciiString m_name;
+};
+
+extern GameLogic *TheGameLogic;
+
+class Waypoint
+{
+public:
+	const Coord3D *getLocation() const { return (const Coord3D *)m_location; }
+
+private:
+	unsigned char m_pad[0x0C];
+	unsigned char m_location[0x0C];
+};
+
+class TerrainLogic
+{
+public:
+#define TERRAIN_SLOT(n) virtual void slot##n();
+	TERRAIN_SLOT(0) TERRAIN_SLOT(1) TERRAIN_SLOT(2) TERRAIN_SLOT(3) TERRAIN_SLOT(4)
+	TERRAIN_SLOT(5) TERRAIN_SLOT(6) TERRAIN_SLOT(7) TERRAIN_SLOT(8) TERRAIN_SLOT(9)
+	TERRAIN_SLOT(10) TERRAIN_SLOT(11) TERRAIN_SLOT(12) TERRAIN_SLOT(13) TERRAIN_SLOT(14)
+	TERRAIN_SLOT(15) TERRAIN_SLOT(16) TERRAIN_SLOT(17) TERRAIN_SLOT(18) TERRAIN_SLOT(19)
+	TERRAIN_SLOT(20) TERRAIN_SLOT(21) TERRAIN_SLOT(22) TERRAIN_SLOT(23) TERRAIN_SLOT(24)
+	TERRAIN_SLOT(25) TERRAIN_SLOT(26) TERRAIN_SLOT(27) TERRAIN_SLOT(28) TERRAIN_SLOT(29)
+	TERRAIN_SLOT(30) TERRAIN_SLOT(31) TERRAIN_SLOT(32) TERRAIN_SLOT(33)
+#undef TERRAIN_SLOT
+	virtual Waypoint *getWaypointByName(const AsciiString &name); // slot 0x88
+};
+extern TerrainLogic *TheTerrainLogic;
 
 class ScriptEngine
 {
 public:
 	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
 	ObjectTypes *getObjectTypes(const AsciiString &objectTypeList);
+	bool didUnitExist(const AsciiString &name);
+	void rva00357960(const AsciiString &name, Object *obj); // ZH transferObjectName
+	void addObjectToCache(Object *obj, const AsciiString &name);
 	AsciiString *rva00208DB8(AsciiString name);
 	int *rva00208E99(AsciiString name);
 	int *rva00208CF0(AsciiString name);
@@ -263,6 +323,8 @@ protected:
 	void rva003C39B8(const AsciiString &armyRefName, const AsciiString &regionRefName);
 	void doCreateUnitRevivalEntry(const AsciiString &objectTypeName, const AsciiString &playerName, int level);
 	void doCreateUnitRevivalEntryFromDelayedCarryoverHero(const AsciiString &objectTypeName, const AsciiString &playerName);
+	void doCreateDelayedCarryoverUnitAtWaypoint(const AsciiString &objectTypeName, const AsciiString &playerName,
+		const AsciiString &waypointName, const AsciiString &unitName);
 };
 
 void ScriptActions::doLivingWorldSetRegionRefToAdjacentRegion(const AsciiString &destRefName,
@@ -450,5 +512,57 @@ void ScriptActions::doCreateUnitRevivalEntryFromDelayedCarryoverHero(const Ascii
 					return;
 			}
 		}
+	}
+}
+
+void ScriptActions::doCreateDelayedCarryoverUnitAtWaypoint(const AsciiString &objectTypeName,
+	const AsciiString &playerName, const AsciiString &waypointName, const AsciiString &unitName)
+{
+	ObjectTypes tempTypes;
+	ObjectTypes *types = TheScriptEngine->getObjectTypes(objectTypeName);
+	if (!types || types->getListSize() == 0) {
+		tempTypes.addObjectType(objectTypeName);
+		types = &tempTypes;
+	}
+	Waypoint *way = TheTerrainLogic->getWaypointByName(waypointName);
+	if (!way)
+		return;
+	int mask = TheScriptEngine->rva00357475(playerName, 0);
+	ObjectID result = INVALID_OBJECT_ID;
+	if (TheLinearCampaignManager && TheLinearCampaignManager->hasCampaign()) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		if (!player)
+			return;
+		result = TheLinearCampaignManager->rva001EC99B(types, player);
+	} else {
+		if (!TheLivingWorldLogic)
+			return;
+		while (result == INVALID_OBJECT_ID && mask) {
+			Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+			if (!player)
+				continue;
+			int armyID = player->getArmyID();
+			if (armyID == -1)
+				continue;
+			_STL::vector<Rva0040D701ArmySummary *> armies;
+			(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B323C(&armies, armyID);
+			_STL::vector<Rva0040D701ArmySummary *>::iterator it = armies.begin();
+			_STL::vector<Rva0040D701ArmySummary *>::iterator end = armies.end();
+			for (; result == INVALID_OBJECT_ID && it != end; ++it)
+				result = (*it)->SpawnOneDelayedCarryoverUnit(types);
+		}
+	}
+	if (result == INVALID_OBJECT_ID)
+		return;
+	Object *obj = TheGameLogic->findObjectByID(result);
+	if (!obj)
+		return;
+	obj->setPosition(way->getLocation());
+	if (unitName != AsciiString::TheEmptyString) {
+		obj->setName(unitName);
+		if (TheScriptEngine->didUnitExist(unitName))
+			TheScriptEngine->rva00357960(unitName, obj);
+		else
+			TheScriptEngine->addObjectToCache(obj, "");
 	}
 }
