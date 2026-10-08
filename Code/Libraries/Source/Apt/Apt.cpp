@@ -84,6 +84,9 @@ public:
 };
 class Rva006CC380ValuePool : public Rva006DAEB0 {
 public:
+ // The out-of-line copy is also retail6CBC60..6CBCA6 (RET8), surrounded
+ // by padding. WB174D470 proves the same two-argument constructor and
+ // nine-argument base initialization; place_bodies found all70 bytes.
  Rva006CC380ValuePool(unsigned size,int count) : Rva006DAEB0(size,count,g_00E177E1,g_00E177E4,g_00E177E2,1,g_00E177E0,0,g_00E177E8) {}
  static void *operator new(unsigned size) {return g_bfmeAptAllocAtE17728(size);}
  static void operator delete(void *ptr,unsigned size) {rva00ACBC50((Rva006CC4A0 *)ptr,size);}
