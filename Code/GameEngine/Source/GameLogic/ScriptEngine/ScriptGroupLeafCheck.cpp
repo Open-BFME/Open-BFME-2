@@ -97,3 +97,47 @@ public: unsigned char getByte(int index);
 private: char unknown[0x38]; Rva003B4705Element *values;
 };
 unsigned char Rva003B4705Array::getByte(int index) { return values[index].value; }
+
+// Clean BF1 9cbfb551fe Rva003543C0Arr.cpp supplies these indexed field
+// accessor leads. Each native body is independently RET-delimited at
+// 3B4428..3B4439, 3B4439..3B444A and 3B444A..3B445C respectively.
+// Target evidence establishes only receiver+C array pointer, stride20,
+// byte+C / address+8 / signed-short+E and one four-byte stack argument.
+// Separate address-owned receiver views preserve unknown original ownership;
+// a shared byte record denotes the proven physical stride, not class identity.
+class Rva003B4428Holder
+{
+public:
+    unsigned char getByte(int index);
+private:
+    unsigned char unknown[0x0C];
+    Rva003B46E0RecordBytes *items;
+};
+unsigned char Rva003B4428Holder::getByte(int index)
+{
+    return items[index].m_bytes[0x0C];
+}
+class Rva003B4439Holder
+{
+public:
+    void *slotAddress(int index);
+private:
+    unsigned char unknown[0x0C];
+    Rva003B46E0RecordBytes *items;
+};
+void *Rva003B4439Holder::slotAddress(int index)
+{
+    return items[index].m_bytes + 8;
+}
+class Rva003B444AHolder
+{
+public:
+    int getSignedWord(int index);
+private:
+    unsigned char unknown[0x0C];
+    Rva003B46E0RecordBytes *items;
+};
+int Rva003B444AHolder::getSignedWord(int index)
+{
+    return *reinterpret_cast<const short *>(items[index].m_bytes + 0x0E);
+}
