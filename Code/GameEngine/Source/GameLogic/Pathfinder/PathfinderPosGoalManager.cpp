@@ -1,7 +1,7 @@
 // Native 0x004DD8FA..0x004DD9E3, 233 bytes, RET4.
 // Existing 18-byte slot flushes pass this receiver and slots at +04/+1C/+34.
 // Native removal follows cell->info, five heads at info+14, and 12-byte nodes
-// with next/cell/object at 0/4/8; slot layer/cell are +10/+14. The fallback
+// with next/cell/object at 0/4/8; slot list category/cell are +10/+14. The fallback
 // traverses the native AI +10 map, ground cells +0C with dimensions +1C/+20,
 // then sixteen 40-byte layers at +60. All offsets and extents are target facts.
 // WB 01286E90 calls this operation PathfinderPosGoalManager::RemoveObjPtr and
@@ -28,8 +28,10 @@ struct Rva004DD8FAInfo {
 };
 struct Rva004DD843Slot {
     int m_value;
-    unsigned char m_opaque[12];
-    int m_layer;
+    int m_y;
+    int m_angle;
+    int m_pathLayer;
+    int m_listKind;
     PathfindCell *m_cell;
 };
 struct Rva004DD8A6Entry;
@@ -49,7 +51,7 @@ struct Rva004DD8FAMap {
     int m_width;
     int m_height;
     unsigned char m_gap24[0x3c];
-    Rva004DD8FALayer m_layers[16];
+    Rva004DD8FALayer m_listKinds[16];
 };
 struct Rva004DD8FAAIView {
     unsigned char m_prefix[16];
@@ -60,6 +62,8 @@ extern AI *TheAI;
 class Rva004DD843 {
 public:
     void rva004DD8FA(Rva004DD843Slot *slot);
+    void rva004DE109(int position, float angle, int layer);
+    void rva004DDF51(Rva004DD843Slot *slot);
     Object *m_object;
     Rva004DD843Slot m_position;
     Rva004DD843Slot m_goal;
@@ -70,7 +74,7 @@ void Rva004DD843::rva004DD8FA(Rva004DD843Slot *slot)
     PathfindCell *cur = slot->m_cell;
     while (cur) {
         if (!cur->m_info) break;
-        Rva004DD8FANode **p = &cur->m_info->m_heads[slot->m_layer];
+        Rva004DD8FANode **p = &cur->m_info->m_heads[slot->m_listKind];
         for (; *p; p = &(*p)->m_next) {
             if ((*p)->m_object == m_object) break;
         }
@@ -79,7 +83,7 @@ void Rva004DD843::rva004DD8FA(Rva004DD843Slot *slot)
             rva004DD8A6((int)m_object, (Rva004DD8A6Entry *)map->m_cells,
                        (map->m_width + 1) * (map->m_height + 1));
             for (int i = 0; i < 16; ++i) {
-                Rva004DD8FALayer *layer = &map->m_layers[i];
+                Rva004DD8FALayer *layer = &map->m_listKinds[i];
                 if (layer->m_cells) {
                     rva004DD8A6((int)m_object, (Rva004DD8A6Entry *)layer->m_cells,
                                layer->m_width * layer->m_height);
@@ -91,7 +95,7 @@ void Rva004DD843::rva004DD8FA(Rva004DD843Slot *slot)
         Rva004DD8FANode *removed = *p;
         *p = removed->m_next;
         rva004DD890(removed);
-        if (!cur->m_info->m_heads[slot->m_layer]) {
+        if (!cur->m_info->m_heads[slot->m_listKind]) {
             int i;
             for (i = 0; i < 5; ++i) {
                 if (cur->m_info->m_heads[i]) break;
@@ -161,7 +165,7 @@ __declspec(noinline) void __cdecl rva004DD8A6(volatile int key, Rva004DD8A6Entry
 // float multiplies; sequencing the division and scale reproduces that rounding.
 // Original helper name is unknown; use the existing investigation spelling.
 float __cdecl normalizeAngle(float angle);
-int __cdecl Rva004DD6CFGet(float angle)
+__declspec(noinline) int __cdecl Rva004DD6CFGet(float angle)
 {
     angle = normalizeAngle(angle);
     if (angle < 0.0f)
@@ -172,3 +176,59 @@ int __cdecl Rva004DD6CFGet(float angle)
         return 0;
     return (int)(steps + 0.5f);
 }
+
+// Native004DE109..004DE24B, 322B RET12. Existing Object+0xA4 forwarders
+// establish this receiver and (int,float,int) ABI. WB12861F0 SetGoal supports
+// the operation and branch semantics. Template KindOf and Object status/AI
+// offsets below are native; opaque virtual slots preserve the observed ABI.
+// Slot +0C is the path layer; +10 is the node-list category used by removal.
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+struct ICoord2DBase { int x,y; };
+struct ICoord2D : ICoord2DBase { bool operator==(const ICoord2DBase &) const; };
+template<int N> class NativeSlots : public NativeSlots<N-1> { public: virtual void gap(char (*)[N])=0; };
+template<> class NativeSlots<0> {};
+class AIUpdateInterface : public NativeSlots<137> { public: virtual bool isDoingGroundMovement() const=0; bool isAircraftThatAdjustsDestination() const; };
+class NativeGoalContain : public NativeSlots<50> { public: virtual void slot50()=0; };
+struct NativeGoalTemplate { char pad[0x115]; unsigned char kind115; char gap[6]; unsigned kind11C; };
+class Object { public:
+ void *rva0028C197() const;
+ char prefix[4]; NativeGoalTemplate *m_template;
+ char gap08[0x44-8]; float m_angle;
+ char gap48[0x258-0x48]; AIUpdateInterface *m_ai;
+ char gap25C[0x438-0x25c]; unsigned char m_status;
+};
+
+ICoord2D *__cdecl Rva002EBC14Cell(ICoord2D *,void *,const Coord3D *);
+void Rva004DD843::rva004DE109(int position,float angle,int layer)
+{
+ int bin;
+ if (!(m_object->m_template->kind11C & 0x4000000)) bin=0; else bin=Rva004DD6CFGet(angle);
+ if (m_object->m_status & 1) return;
+ ICoord2D cell;
+ Rva002EBC14Cell(&cell,m_object,(const Coord3D *)position);
+ Object *obj=m_object;
+ if ((obj->m_template->kind11C & 0x4000000) && cell==*(ICoord2DBase *)&m_position)
+   bin=Rva004DD6CFGet(obj->m_angle);
+ Rva004DD843Slot *goal=&m_goal;
+ if (cell==*(ICoord2DBase *)goal && bin==m_goal.m_angle && layer==m_goal.m_pathLayer) return;
+ Object *goalObject=m_object;
+ if (goalObject->m_template->kind115 & 0x20) {
+   *(ICoord2DBase *)goal=cell; m_goal.m_angle=bin; m_goal.m_pathLayer=layer;
+   NativeGoalContain *contain=(NativeGoalContain *)goalObject->rva0028C197();
+   if (contain) contain->slot50();
+ } else {
+   AIUpdateInterface *ai=goalObject->m_ai;
+   int mode=0;
+   if (ai && !ai->isDoingGroundMovement()) {
+     if (!ai->isAircraftThatAdjustsDestination()) return;
+     mode=2;
+   }
+   if (goal->m_value!=-666666) rva004DD8FA(goal);
+   *(ICoord2DBase *)goal=cell; m_goal.m_angle=bin; m_goal.m_pathLayer=layer; m_goal.m_listKind=mode;
+   rva004DDF51(goal);
+ }
+}
+
+
+
+
