@@ -52,3 +52,19 @@ int Rva0039BF0B::rva0039BF0B(const BitFlags<116> &mustBeSet, const BitFlags<116>
 	const ObjectCountMap *self_map = &this->m_map;
 	return Rva0039BEC3Count(mustBeSet, mustBeClear, map ? map : self_map);
 }
+
+class Rva0039BF22
+{
+public:
+	int rva0039BF22(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear);
+private:
+	char m_pad[0x1C8];
+	ObjectCountMap m_map;
+};
+
+int Rva0039BF22::rva0039BF22(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear)
+{
+	const ObjectCountMap *map = &m_map;
+	const ObjectCountMap *self_map = &this->m_map;
+	return Rva0039BEC3Count(mustBeSet, mustBeClear, map ? map : self_map);
+}
