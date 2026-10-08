@@ -17,10 +17,24 @@ class Rva00223AC4 {public: Image *rva00223AC4(const char *,const char *);};
 class Rva002239B2 {public: void rva002239E2(const AsciiString &,const Image *);};
 class CreateAHeroData {public: CreateAHeroData &operator=(const CreateAHeroData &);};
 struct BfmePod8 {int a;float b;};
+// The rowed by-value resize 0x005FF96A is spelled on this vector view.
+class BfmePod8Vector {public: void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
 class Rva005B0E9F {public: BfmePod8 *rva005B0E9F(int);};
 class Rva00406E47 {public: bool rva00406E47(int);};
 struct Rva005B0473View {char opaque[0x60];float field60;int field64,field68;};
-class CreateAHeroManager {public: Rva005B0473View *rva00219F36(int,int);char pad000[0x1E8];AsciiString field1E8;};
+struct CreateAHeroClassRecord {char opaque[0x20];};
+struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};
+class CreateAHeroManager {public: Rva005B0473View *rva00219F36(int,int);unsigned int GetClassCount() const {return classes14C.size();}char pad000[0x14C];CreateAHeroClassList classes14C;char pad158[0x1E8-0x158];AsciiString field1E8;};
+class Object;
+class Drawable {public: char pad000[0xFC];Object *object;char pad100[4];Drawable *next;};
+class GameClient {
+public:
+ virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
+ virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();virtual void slot28();virtual void slot2C();
+ virtual void slot30();virtual void slot34();virtual void slot38();virtual void slot3C();virtual void slot40();
+ virtual Drawable *firstDrawable();
+};
+extern GameClient *TheGameClient;
 class Display {public: char pad000[0x141];bool field141;};
 extern Display *TheDisplay;
 class GameWindowTransitionsHandler {
@@ -54,7 +68,7 @@ public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
  void SwitchToPendingHero();
  void rva005B21DA(CreateAHeroData *hero,bool flag,int mode);
- void rva005B0416(int);int rva005B0E60(const Object *);void rva005B0446();
+ void rva005B0416(int);int rva005B0E60(const Object *);void rva005B1A6C();void rva005B0446();
  bool rva005B0725();
  void rva005B0923(int);void SetBling(int,int,int);
  Rva005B0473View *rva005B0473();
@@ -71,7 +85,8 @@ private:
  bool flag148;
  char pad149[3];
  int field14C;
- char pad150[0x168-0x150];
+ char pad150[0x15C-0x150];
+ BfmePod8Vector mapObjectInfo15C;
  float field168,field16C;
  char pad170[4];
  MyHeroBlingBlock blocks174[2];
@@ -185,4 +200,23 @@ int AptMyHero::rva005B0E60(const Object *object){
  const char *suffix=strstr(object->name88.str(),"_");
  if(!suffix)return -1;
  return atoi(suffix+1);
+}
+
+// WB twin 0x0156F220 (unnamed, AptMyHero.cpp) and native 0x005B1A6C..
+// 0x005B1B26: rebuilds the +0x15C location map, one empty record per
+// CreateAHeroManager class, then for every drawable's object whose name
+// encodes a location stores the object's +0x74 and +0x44 there, growing
+// the map when the location is past its end.
+void AptMyHero::rva005B1A6C(){
+ BfmePod8 empty={0,0.0f};
+ mapObjectInfo15C.resize(TheCreateAHeroManager->GetClassCount(),empty);
+ for(Drawable *drawable=TheGameClient->firstDrawable();drawable;drawable=drawable->next){
+  Object *object=drawable->object;
+  if(!object)continue;
+  int location=rva005B0E60(object);
+  if(location<0)continue;
+  if(location>=(int)mapObjectInfo15C.size()){BfmePod8 grown={0,0.0f};mapObjectInfo15C.resize(location+1,grown);}
+  mapObjectInfo15C.first[location].a=object->field74;
+  mapObjectInfo15C.first[location].b=object->field44;
+ }
 }
