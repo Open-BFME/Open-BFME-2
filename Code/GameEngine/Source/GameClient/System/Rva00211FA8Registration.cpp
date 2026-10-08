@@ -1,19 +1,4 @@
 // cl: /O1 /G7 /arch:SSE /MD /EHsc
-// Native 0x00210DB6..0x00210DC9 (19B), entered by the callback address
-// stored at 0x00211FDC in the 0x00211FA8 registration routine.
-// All instructions through RET are measured; the next entry at 0x00210DC9
-// is independently rowed. No incoming stack argument is read or popped.
-// The target calls GameLogic on the named singleton with (true, false)
-// and returns 3. Keep the unknown callback's original identity unresolved.
-#include "../../Common/GameLogicObjectLookupView.h"
-extern GameLogic *TheGameLogic;
-
-int rva00210DB6()
-{
-    TheGameLogic->rva00376E92(true, false);
-    return 3;
-}
-
 // Native 0x00211FA8..0x00212017 (111B), RET0. The existing same-receiver
 // caller pin at 0x0023DA2B identifies only the singleton receiver; its
 // original class and method names are unknown. Two callback addresses,
@@ -34,12 +19,17 @@ private:
     Impl00211E75 *m_impl;
 };
 class Rva00211E75Callback : public Rva00211E75 {
-public: Rva00211E75Callback(int callback) : Rva00211E75(&callback) {}
+public:
+    // The registry owns destruction; suppress an unused competing destructor COMDAT.
+    ~Rva00211E75Callback();
+    Rva00211E75Callback(int callback) : Rva00211E75(&callback) {}
 };
 extern int g_00E02EC4;
 bool Rva003FE7E6(Rva00211E75Callback callback, int *id);
 int rva00565170(int, bool);
-int rva00210DB6();
+// Native callback dispatcher611216 loads a float and forwards its bool flag.
+// The rowed callback owner in Rva00211FA8Controls.cpp preserves that ABI.
+int rva00210DB6(float, bool);
 
 class Mouse;
 extern Mouse *TheMouse;
