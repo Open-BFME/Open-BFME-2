@@ -365,3 +365,31 @@ void TintEnvelope::setAttackFrames(UnsignedInt frames)
 	Vector3 rateScale; rateScale.Set(recipFrames, recipFrames, recipFrames);
 	self->m_attackRate.Scale(rateScale);
 }
+
+// Native 00271B5C..00271BCC lazily allocates the 0x26C-byte manager
+// at Drawable +0x450 then forwards five arguments to 003627F9. WB names
+// the wrapper TurnOnBuff; the target parameter enum/name remain unproven.
+// This field view uses only the measured offset. BuffManager constructor
+// and TurnOnBuff declarations preserve their existing verified spellings.
+class BuffManager
+{
+public:
+    BuffManager(int drawable);
+    void TurnOnBuff(int type, void *thingTemplate, int duration, int color, float intensity);
+private:
+    unsigned char storage[0x26C];
+};
+class Rva00271B5C
+{
+public:
+    void rva00271B5C(int type, void *thingTemplate, int duration, int color, float intensity);
+private:
+    unsigned char pad000[0x450];
+    BuffManager *manager;
+};
+void Rva00271B5C::rva00271B5C(int type, void *thingTemplate, int duration, int color, float intensity)
+{
+    if (!manager)
+        manager = new BuffManager((int)this);
+    manager->TurnOnBuff(type, thingTemplate, duration, color, intensity);
+}
