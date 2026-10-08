@@ -7,6 +7,21 @@
 // getStance and the callers' shared this pointer. Field roles and render-data
 // virtual slot are inferred from retail accesses; the method keeps an address name.
 
+class AsciiString;
+class ThingTemplate;
+class ThingFactory;
+extern ThingFactory *TheThingFactory;
+extern unsigned short g_00DBFDC8; // native template-ID cutoff; original name unknown
+class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
+class LocomotorTemplate;
+template<class T> class OVERRIDE { public: const T *operator->() const; };
+class Overridable {
+public:
+    Overridable *friend_getFinalOverride();
+    void *vptr;
+    Overridable *next;
+};
+
 enum ObjectStatusTypes { STATUS_0035B5C2 = 0x17 };
 enum KindOfType { KIND_0035B5C2_A = 0x91, KIND_0035B5C2_B = 0x92 };
 
@@ -69,6 +84,7 @@ class CommandButton
 {
 public:
 	void rva0035B5C2(Object *object, bool value);
+    const ThingTemplate *rva0035B570() const;
 
 private:
 	unsigned char m_pad00[0x14];
@@ -130,4 +146,27 @@ void CommandButton::rva0035B5C2(Object *object, bool value)
 				m_cachedAvailability = m_value84;
 		}
 	}
+}
+
+// ?rva0035B570@CommandButton@@QBEPBVThingTemplate@@XZ
+// Native35B570..35B5C2 (82B), WB00EFFF60 callgraph and known callers
+// establish the CommandButton template accessor at20, ID5D8/name64,
+// cutoff unsigned wordDBFDC8 and final override4. Original operation name
+// remains address-derived. The existing OVERRIDE<LocomotorTemplate> owner
+// supplies the shared one-word wrapper ABI; that cast does not assert this
+// field stores a locomotor template. It reaches exactly the same 19B owner.
+const ThingTemplate *CommandButton::rva0035B570() const
+{
+    const OVERRIDE<LocomotorTemplate> *ref =
+        (const OVERRIDE<LocomotorTemplate> *)((const char *)this + 0x20);
+    if (!ref->operator->()) return 0;
+    const ThingTemplate *result;
+    if (*(const unsigned short *)((const char *)ref->operator->() + 0x5D8) >= g_00DBFDC8)
+        result = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(
+            (const AsciiString *)((const char *)ref->operator->() + 0x64));
+    else
+        result = (const ThingTemplate *)ref->operator->();
+    Overridable *next = ((const Overridable *)result)->next;
+    if (next) return (const ThingTemplate *)next->friend_getFinalOverride();
+    return result;
 }
