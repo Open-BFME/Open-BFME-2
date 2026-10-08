@@ -92,7 +92,52 @@ public:
 class Rva002BF4F3
 {
 public:
+ virtual void ownerSlot0();
+ virtual void ownerSlot1();
+ virtual void ownerSlot2();
+ virtual void ownerSlot3();
+ virtual void ownerSlot4();
+ virtual void ownerSlot5();
+ virtual void ownerSlot6();
+ virtual void ownerSlot7();
+ virtual void ownerSlot8();
+ virtual void ownerSlot9();
+ virtual void ownerSlot10();
+ virtual void ownerSlot11();
+ virtual void ownerSlot12();
+ virtual void ownerSlot13();
+ virtual void ownerSlot14();
+ virtual void ownerSlot15();
+ virtual void ownerSlot16();
+ virtual void ownerSlot17();
+ virtual void ownerSlot18();
+ virtual void ownerSlot19();
+ virtual void ownerSlot20();
+ virtual void ownerSlot21();
+ virtual void ownerSlot22();
+ virtual void ownerSlot23();
+ virtual void ownerSlot24();
+ virtual void ownerSlot25();
+ virtual void ownerSlot26();
+ virtual void ownerSlot27();
+ virtual void ownerSlot28();
+ virtual void ownerSlot29();
+ virtual void ownerSlot30();
+ virtual void ownerSlot31();
+ virtual void ownerSlot32();
+ virtual void ownerSlot33();
+ virtual void ownerSlot34();
+ virtual void ownerSlot35();
+ virtual void ownerSlot36();
+ virtual void ownerSlot37();
+ virtual void ownerSlot38();
+ virtual void ownerSlot39();
+ virtual void ownerSlot40();
+ virtual void ownerSlot41();
+ virtual RenderObjClass *ownerSlot42();
+
 	bool rva002BF4F3(RenderObjClass *obj, const Vector3 *pt, Vector3 *out, int collisionType, bool checkHidden);
+ bool rva002BF5B0(const Vector3 *,Vector3 *);
  void rva002BEA10(RenderObjClass *,bool);
  void rva002BEF4B(RenderObjClass *);
  bool rva002BF935(void *arg, const Vector3 *pt, Vector3 *out);
@@ -198,4 +243,16 @@ void Rva002BF4F3::rva002BEF4B(RenderObjClass *obj) {
   RenderObjClass *child=obj->v32(name.str(),0);
   if(child) { child->v101(0); if(--child->m_refs==0)child->v00(); }
  }
+}
+
+// WB D272A0 and native2BF5B0..2BF61B RET8; ground source VT A8.
+bool Rva002BF4F3::rva002BF5B0(const Vector3 *pt,Vector3 *out) {
+ out->X=pt->X;out->Y=pt->Y;out->Z=0.0f;
+ RenderObjClass *obj=ownerSlot42();
+ if(!obj)return false;
+ rva002BEA10(obj,false);
+ rva002BEF4B(obj);
+ bool result=rva002BF4F3(obj,pt,out,1,false);
+ rva002BEA10(obj,true);
+ return result;
 }
