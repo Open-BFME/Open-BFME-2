@@ -59,3 +59,26 @@ MetaMapRec *MetaMap::getMetaMapRec(GameMessage::Type t)
 	m_metaMaps = m;
 	return m;
 }
+
+// Native1DB4C4..1DB4CF is a complete11-byte RET-delimited leaf after RET.
+// Clean BF1 9cb MetaMapRecConstructorThunk.cpp and DebugCommandMap.cpp
+// both expose this shape. No direct call, tail jump or stored target address
+// selects either original owner. Preserve only the independently witnessed
+// contract: zero four-byte fields1C/20 and return the receiver in EAX.
+// The nearby actual MetaMapRec allocator and INI tables corroborate the
+// two-word construction pattern, but do not prove this leaf's class identity.
+class Rva001DB4C4Fields
+{
+public:
+    Rva001DB4C4Fields *initialize();
+private:
+    unsigned char unknown[0x1C];
+    unsigned first;
+    unsigned second;
+};
+Rva001DB4C4Fields *Rva001DB4C4Fields::initialize()
+{
+    first = 0;
+    second = 0;
+    return this;
+}
