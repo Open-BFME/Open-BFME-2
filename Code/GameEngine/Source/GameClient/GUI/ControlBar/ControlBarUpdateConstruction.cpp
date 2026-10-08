@@ -141,6 +141,21 @@ struct Rva0053E4B1Owner
 	Object *m_fc;
 };
 
+class ThingTemplate;
+// Reuse the existing lookup provider's eight-byte table-cell ABI. Native
+// inventory callbacks store a window word followed by its contained ObjectID.
+struct Rva0053E754Entry { int m_id, m_mapped; };
+extern Rva0053E754Entry g_00E05E20[32];
+struct PopulateButtonInfo {
+    Object *source;
+    int buttonIndex;
+    ControlBar *self;
+    GameWindow **inventoryButtons;
+};
+const Image *getButtonImage(ThingTemplate *, Object *);
+void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *, const Image *);
+void Rva003284ED(GameWindow *, int);
+
 class ControlBar
 {
 public:
@@ -158,6 +173,7 @@ public:
 
 protected:
 	void updateContextStructureInventory();
+    static void populateButtonProc(Object *, void *);
     static const Image *calculateVeterancyOverlayForObject(const Object *);
 
 private:
@@ -584,4 +600,23 @@ void ControlBar::rva0053E6E1()
 __declspec(noinline) const Image *ControlBar::calculateVeterancyOverlayForObject(const Object *)
 {
     return 0;
+}
+
+// BFME1 ba7ddda7 context UI and the complete ZH structure-inventory source
+// establish the callback role. Named WB1123D30 supplies the same four-field
+// iterator record and image sequence. Native53E6E6..53E754 proves all110
+// bytes, +0x74 ObjectID, +4 template and the shared table atE05E20. The next
+// 47 bytes belong to the already-owned lookup53E754 and are excluded.
+void ControlBar::populateButtonProc(Object *obj, void *userData)
+{
+    PopulateButtonInfo *info = (PopulateButtonInfo *)userData;
+    g_00E05E20[info->buttonIndex].m_id = (int)info->inventoryButtons[info->buttonIndex];
+    g_00E05E20[info->buttonIndex].m_mapped = (int)obj->getID();
+    ThingTemplate *thingTemplate = *(ThingTemplate **)((char *)obj + 4);
+    const Image *image = getButtonImage(thingTemplate, obj);
+    GadgetButtonSetEnabledImage_Rva002C0433(info->inventoryButtons[info->buttonIndex], image);
+    image = calculateVeterancyOverlayForObject(obj);
+    Rva003284ED(info->inventoryButtons[info->buttonIndex], (int)image);
+    info->inventoryButtons[info->buttonIndex]->winEnable(true);
+    ++info->buttonIndex;
 }
