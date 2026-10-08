@@ -46,3 +46,36 @@ Rva00489BC0::Rva00489BC0()
 	m_0C = 0;
 	m_10 = 0;
 }
+
+// BFME 1 R3ScalarFieldConstructors.cpp at 34f59164f6d1, Rva00421C30,
+// supplies the clean initializer lead. Target 0x00309DF6 is a complete 40B
+// body: preceding RET4 at 0x00309DF3; own RET at 0x00309E1D; next entry
+// 0x00309E1E is the separately rowed table-address getter.
+// ECX supplies the destination and EAX returns it. No call or table proves
+// the donor's constructor identity, so retain an explicit initializer and
+// target-address owner. Field labels are offsets; float 1.0 spells the
+// witnessed 0x3F800000 bits. The untouched +0x10..+0x1F span stays opaque.
+class Rva00309DF6Fields
+{
+public:
+    Rva00309DF6Fields *initialize();
+    char m_00;
+    char m_pad01[3];
+    int m_04;
+    float m_08;
+    int m_0C;
+    char m_pad10[0x10];
+    char m_20;
+    char m_21;
+};
+
+Rva00309DF6Fields *Rva00309DF6Fields::initialize()
+{
+    m_00 = 0;
+    m_04 = 0x11;
+    m_08 = 1.0f;
+    m_0C = 0x100;
+    m_20 = 0;
+    m_21 = 0;
+    return this;
+}
