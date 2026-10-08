@@ -16465,3 +16465,6 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?writeINI@ParticleSystemTemplate@FXParticleSystem@@QBEXAAVFile@@I@Z,0x001FB418,callee of ?_writeOutINI@@YAXXZ
 ?rva003EE23C@LargeGroupAudioAudioMap@@QAE_NPAVXfer@@PAUVersionPair@@@Z,0x003EE23C,callee of ?xfer@LargeGroupAudio@@MAEXPAVXfer@@@Z
 ?rva001B4E82@Rva001B4E82@@QAEXPAX@Z,0x001B4E82,callee of ??1LargeGroupAudio@@UAE@XZ
+?push_back@?$vector@PAVLargeGroupAudioAudioMap@@V?$allocator@PAVLargeGroupAudioAudioMap@@@_STL@@@_STL@@QAEXABQAVLargeGroupAudioAudioMap@@@Z,0x004DFCB0,pointer-vector push_back fold; three REL32s in LargeGroupAudio::parseLargeGroupAudioMapDefinition 0x0020E027; fold-proof=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudio.cpp
+??0LargeGroupAudioAudioMap@@QAE@VAsciiString@@@Z,0x003EE0CF,callee of ?parseLargeGroupAudioMapDefinition@LargeGroupAudio@@SAXPAVINI@@@Z
+?rva003EE3FE@LargeGroupAudioAudioMap@@QAEXABV1@@Z,0x003EE3FE,callee of ?parseLargeGroupAudioMapDefinition@LargeGroupAudio@@SAXPAVINI@@@Z

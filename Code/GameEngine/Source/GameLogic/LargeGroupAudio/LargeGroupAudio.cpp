@@ -177,7 +177,6 @@ void LargeGroupAudio::update()
 		((Rva003EDDD4 *)*it)->rva003EDDD4((int)&changed);
 }
 
-// ?parseLargeGroupAudioMapDefinition@LargeGroupAudio@@SAXPAVINI@@@Z present-unmatched
 void LargeGroupAudio::parseLargeGroupAudioMapDefinition(INI *ini)
 {
 	if (TheLargeGroupAudio == NULL)
