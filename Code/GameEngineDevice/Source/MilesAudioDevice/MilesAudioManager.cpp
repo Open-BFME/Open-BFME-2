@@ -27,6 +27,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include <set>
 #include <vector>
 #include "ascii_string.h"
+#include "unicode_string.h"
 
 class Xfer;
 enum INILoadType
@@ -249,6 +250,25 @@ private:
 // so the lookup binds the pinned folded _M_find at 0x002888D4.
 typedef _STL::hash_map<unsigned int, void *> MilesHandleMap;
 
+namespace rts
+{
+	template <class T> struct hash
+	{
+		unsigned int operator()(T value) const;
+	};
+
+	template <class T> struct equal_to
+	{
+		bool operator()(const T &left, const T &right) const;
+	};
+}
+
+// File name -> UnicodeString text map at +0x9E8 (value at node +8 is read
+// with StringBase<unsigned short>::isEmpty and queued into a UnicodeString
+// vector); its find is the folded hashtable helper at 0x0041534B.
+typedef _STL::hash_map<AsciiString, UnicodeString,
+	rts::hash<AsciiString>, rts::equal_to<AsciiString> > MilesFileTextMap;
+
 class MilesMutexGuard {
 public:
     MilesMutexGuard(void *mutex, int defer);
@@ -453,6 +473,7 @@ public:
 
     void rva000564C0(unsigned int sample);
     void rva0005653C(unsigned int sample3D);
+    void rva0005DB6C(const AsciiString &fileName);
     void rva000565B8(unsigned int stream);
 
     void putPlayingMusicOnStack(int viewType, int arg);
@@ -477,7 +498,11 @@ private:
     unsigned int m_at6C0[3];             // +0x6C0
     char at6CC[0x9D4 - 0x6CC];
     void *m_mutex;                       // +0x9D4
-    char at9D8[0xA40 - 0x9D8];
+    char at9D8[0x9E8 - 0x9D8];
+    MilesFileTextMap m_fileText;         // +0x9E8
+    _STL::vector<UnicodeString> m_pendingFileText;  // +0x9FC
+    _STL::vector<AsciiString> m_unknownFileNames;   // +0xA08
+    char atA14[0xA40 - 0xA14];
     PlayingAudioList m_playingSounds;    // +0xA40
     PlayingAudioList m_playing3DSounds;  // +0xA44
     PlayingAudioList m_playingStreams;   // +0xA48
@@ -1089,4 +1114,18 @@ void __stdcall setStreamCompleted(void *streamCompleted)
 {
     if (TheAudio)
         reinterpret_cast<MilesAudioManager *>(TheAudio)->rva000565B8((unsigned int)streamCompleted);
+}
+
+// Queues the text mapped to a played file name (0x0005E24E passes the
+// sample's file name); names with no entry are collected instead.
+void MilesAudioManager::rva0005DB6C(const AsciiString &fileName)
+{
+    if (fileName.isEmpty())
+        return;
+    MilesMutexGuard guard(&m_mutex, 0);
+    MilesFileTextMap::iterator it = m_fileText.find(fileName);
+    if (it == m_fileText.end())
+        m_unknownFileNames.push_back(fileName);
+    else if (!(*it).second.isEmpty())
+        m_pendingFileText.push_back((*it).second);
 }
