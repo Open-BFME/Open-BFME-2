@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -DIN_ADDR=in_addr -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
+// cl: -Ireference/shims/bfme2_ascii -DNDEBUG -DWIN32 -D_WINDOWS -DIN_ADDR=in_addr -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
 /*
@@ -52,11 +52,15 @@ private:
 	unsigned char m_data[0x70];
 };
 
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+// Use BFME 2's canonical, four-byte UnicodeString and prevent the Zero Hour
+// headers below from introducing their older implementation.
+#include "unicode_string.h"
+#define UNICODESTRING_H
+#define __MESSAGEBOX_H_
+#include "PreRTS.h"
 
 #include "GameClient/GadgetListBox.h"
 #include "GameClient/GameText.h"
-#include "GameClient/MessageBox.h"
 #include "GameClient/ShellHooks.h"
 //#include "GameNetwork/GameSpy.h"
 //#include "GameNetwork/GameSpyGP.h"
@@ -65,21 +69,14 @@ private:
 //#include "GameNetwork/GameSpy/PeerDefs.h"
 #include "GameNetwork/GameSpy/BuddyThread.h"
 
+// The two native helpers finish with string teardown and do not preserve a
+// GameWindow return value. Keep their BFME 2 void ABI; MessageBoxOk retains
+// its existing provider declaration until that separate body is recovered.
+GameWindow *MessageBoxOk(UnicodeString, UnicodeString, GameWinMsgBoxFunc);
+void MessageBoxOkCancel(UnicodeString, UnicodeString, GameWinMsgBoxFunc, GameWinMsgBoxFunc);
+void MessageBoxYesNo(UnicodeString, UnicodeString, GameWinMsgBoxFunc, GameWinMsgBoxFunc);
+
 class BFMERetailAsciiString;
-
-template <typename T> class StringBase
-{
-friend class BFMERetailAsciiString;
-
-private:
-	StringBase() : m_data( 0 ) {}
-	StringBase( const T *text );
-	StringBase( const StringBase<T> &other );
-	~StringBase();
-
-	friend class UnicodeString;
-	void *m_data;
-};
 
 void b_00042a50( void );
 static void raiseOverlays( void );
@@ -100,15 +97,6 @@ public:
 	virtual void addWindow( void *window ) {}
 	virtual void removeWindow( void *window ) {}
 	virtual void destroyWindows( void ) {}
-};
-
-class BFMERetailAsciiString : private StringBase<char>
-{
-public:
-	BFMERetailAsciiString( const char *text ) : StringBase<char>( text ) {}
-	BFMERetailAsciiString( const BFMERetailAsciiString &other )
-		: StringBase<char>( other ) {}
-	~BFMERetailAsciiString() {}
 };
 
 class AudioManager;
@@ -174,8 +162,10 @@ public:
 };
 
 // Message boxes -------------------------------------
-static GameWinMsgBoxFunc okFunc = NULL;
-static GameWinMsgBoxFunc cancelFunc = NULL;
+// These storage definitions already belong to Rva00627A50Clear.cpp.
+extern unsigned char g_rva00627A50Flag;
+extern void *g_rva00627A50A;
+extern void *g_rva00627A50B;
 static volatile Bool reOpenPlayerInfoFlag = FALSE;
 
 /**
@@ -241,4 +231,53 @@ void CheckReOpenPlayerInfo(void )
 
 	GameSpyOpenOverlay(GSOVERLAY_PLAYERINFO);
 	reOpenPlayerInfoFlag = FALSE;
+}
+
+// Zero Hour GameSpyOverlay.cpp supplies the callback and wrapper identities.
+// Native 00548B08/00548B22 clear the one-byte open flag at E05F78 and use
+// callback slots E05F7C/E05F80. BFME 2 does not retain a GameWindow pointer.
+static void messageBoxOK()
+{
+	g_rva00627A50Flag = 0;
+	if (g_rva00627A50A) {
+		((GameWinMsgBoxFunc)g_rva00627A50A)();
+		g_rva00627A50A = 0;
+	}
+}
+
+static void messageBoxCancel()
+{
+	g_rva00627A50Flag = 0;
+	if (g_rva00627A50B) {
+		((GameWinMsgBoxFunc)g_rva00627A50B)();
+		g_rva00627A50B = 0;
+	}
+}
+
+void rva00627A50Clear();
+
+void GSMessageBoxOk(UnicodeString title, UnicodeString message, GameWinMsgBoxFunc newOkFunc)
+{
+	rva00627A50Clear();
+	MessageBoxOk(title, message, messageBoxOK);
+	g_rva00627A50Flag = 1;
+	g_rva00627A50A = (void *)newOkFunc;
+}
+
+void GSMessageBoxOkCancel(UnicodeString title, UnicodeString message, GameWinMsgBoxFunc newOkFunc, GameWinMsgBoxFunc newCancelFunc)
+{
+	rva00627A50Clear();
+	MessageBoxOkCancel(title, message, messageBoxOK, messageBoxCancel);
+	g_rva00627A50Flag = 1;
+	g_rva00627A50A = (void *)newOkFunc;
+	g_rva00627A50B = (void *)newCancelFunc;
+}
+
+void GSMessageBoxYesNo(UnicodeString title, UnicodeString message, GameWinMsgBoxFunc newYesFunc, GameWinMsgBoxFunc newNoFunc)
+{
+	rva00627A50Clear();
+	MessageBoxYesNo(title, message, messageBoxOK, messageBoxCancel);
+	g_rva00627A50Flag = 1;
+	g_rva00627A50A = (void *)newYesFunc;
+	g_rva00627A50B = (void *)newNoFunc;
 }
