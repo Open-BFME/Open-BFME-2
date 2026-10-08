@@ -71538,3 +71538,4 @@ _VP6_printmodes,,0x001BB830,398,Code/Libraries/Source/VP6/debug.cpp,matched,Clea
 ?rva002724C4@Drawable@@QAEXH@Z,,0x002724C4,57,Code/GameEngine/Source/GameClient/Drawable_rva002724C4.cpp,matched,
 ?rva00272545@Drawable@@QAEHH@Z,,0x00272545,54,Code/GameEngine/Source/GameClient/Drawable_rva002724C4.cpp,matched,
 ?isAnimReversed@Shell@@QAE_NXZ,,0x0035BEAA,29,Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp,matched,
+?setControlCommand@ControlBar@@QAEXABVAsciiString@@PAVGameWindow@@PBVCommandButton@@@Z,,0x0031BA47,57,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlCommandByName.cpp,matched,
