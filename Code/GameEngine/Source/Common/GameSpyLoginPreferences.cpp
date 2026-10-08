@@ -432,3 +432,12 @@ const _STL::list<AsciiString> &GameSpyLoginPreferences::rva005CA1A0(const AsciiS
     }
     return it->second;
 }
+// Native 5CA201..5CA211 and WB15CA7C0 return the helper's borrowed list.
+// The nickname map is at +2C; native 5709D1 copies this list via 54D800.
+// BFME1 34f59164 getNicksForEmail is a semantic lead; target returns a
+// reference here rather than the donor's by-value list and email argument.
+const _STL::list<AsciiString> &GameSpyLoginPreferences::rva005CA201(const AsciiString &email)
+{
+    return rva005CA1A0(email,m_emailNickMap);
+}
+
