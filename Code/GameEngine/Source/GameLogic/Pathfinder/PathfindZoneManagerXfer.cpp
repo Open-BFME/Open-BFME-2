@@ -623,3 +623,8 @@ template ZoneNeighborRecord *_STL::__lower_bound<ZoneNeighborRecord *,unsigned s
 // The address-derived element label is retained from the existing push_back;
 // its two words follow the block helper's independently observed writes.
 template Rva005334A4Element *_STL::__copy<Rva005334A4Element *,Rva005334A4Element *,int>(Rva005334A4Element *,Rva005334A4Element *,Rva005334A4Element *,const _STL::random_access_iterator_tag &,int *);
+// Full29B25BF40..25BF5D copy_ptrs delegates to the verified forward copy
+// with the real STLport tag-reference and int-distance ABI. The block erase
+// native532803 call fixes this target; every relocation now binds through
+// a verified provider rather than a new pin.
+template Rva005334A4Element *_STL::__copy_ptrs<Rva005334A4Element *,Rva005334A4Element *>(Rva005334A4Element *,Rva005334A4Element *,Rva005334A4Element *,const _STL::__false_type &);
