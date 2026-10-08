@@ -1572,3 +1572,26 @@ void __stdcall Rva0004DB76(const Coord2D *radar, Coord2D *pixel,
 	pixel->x = (radar->x * width / 128.0f) + upperLeftX;
 	pixel->y = ((127.0f - radar->y) * height / 128.0f) + upperLeftY;
 }
+
+// Inferred role name for the four-byte color read by native4E55B at VA DE1CF8.
+// PE section bounds prove its initial storage is zero-filled. Its original
+// historical name remains unknown; the reference donor does not identify it.
+UnsignedInt RadarEndpointColor = 0;
+
+// Native4E55B..4E5A2, RET0: independently rowed legalRadarPoint and
+// SurfaceClass::DrawPixel establish the operation and argument widths.
+// MSVC selects the observed incoming ESI y value for this static helper.
+static __declspec(noinline) void rva0004E55B(Int firstX, Int lastX, Int y,
+ SurfaceClass *surface)
+{
+ if (legalRadarPoint(firstX, y))
+  surface->DrawPixel(firstX, y, RadarEndpointColor);
+ if (legalRadarPoint(lastX, y))
+  surface->DrawPixel(lastX, y, RadarEndpointColor);
+}
+
+// ?rva0004E55BCaller absent-from-retail
+void rva0004E55BCaller(Int firstX, Int lastX, Int y, SurfaceClass *surface)
+{
+ rva0004E55B(firstX, lastX, y, surface);
+}
