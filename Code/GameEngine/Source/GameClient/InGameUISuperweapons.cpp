@@ -22,6 +22,14 @@
 // unwind state -1 before its inline teardown because the game's free 0x00030830
 // is C++-linkage and may throw: the _STL::free spelling (SidesList castle maps
 // idiom) reproduces it; the extern "C" import would be nothrow.
+// objectChangedTeam (0x002A43A0, slot 36): the object's id at +0x74 and its
+// behavior module list at +0x244; each module's special power comes from slot
+// 8 of its BehaviorModuleInterface base at +0xC and the template from slot 6
+// of the power; the name is +0x10 of the template's final override
+// (Overridable::friend_getFinalOverride 0x00288609). Remove and add go through
+// slots 35 and 34. The fallback add tests TheGameLogic's frame (+0x40),
+// Object::testStatus 0x0004E536 with status 2 and KINDOF_COMMANDCENTER, bit 1
+// of the template's kind-of byte at +0x10A.
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block); }
 #define free _STL::free
@@ -30,12 +38,92 @@ namespace _STL { void __cdecl free(void *block); }
 #include <vector>
 #undef free
 #include "ascii_string.h"
-
-enum ObjectID { INVALID_ID = 0 };
+#include "../Common/GameLogicObjectLookupView.h"
 enum ScienceType { SCIENCE_INVALID = -1 };
 typedef _STL::vector<ScienceType> ScienceVec;
 
-class SpecialPowerTemplate;
+class Overridable
+{
+public:
+	const Overridable *friend_getFinalOverride() const;
+};
+
+class SpecialPowerTemplate : public Overridable
+{
+public:
+	const AsciiString &getName() const { return getFO()->m_name; }
+private:
+	const SpecialPowerTemplate *getFO() const { return (const SpecialPowerTemplate *)friend_getFinalOverride(); }
+	char m_opaque000[0x10];
+	AsciiString m_name;						// +0x10
+};
+
+class SpecialPowerModuleInterface
+{
+public:
+	virtual void spmi00() = 0;
+	virtual void spmi04() = 0;
+	virtual void spmi08() = 0;
+	virtual void spmi0C() = 0;
+	virtual void spmi10() = 0;
+	virtual void spmi14() = 0;
+	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const = 0;	// +0x18
+};
+
+class BehaviorModuleInterface
+{
+public:
+	virtual void bmi00() = 0;
+	virtual void bmi04() = 0;
+	virtual void bmi08() = 0;
+	virtual void bmi0C() = 0;
+	virtual void bmi10() = 0;
+	virtual void bmi14() = 0;
+	virtual void bmi18() = 0;
+	virtual void bmi1C() = 0;
+	virtual SpecialPowerModuleInterface *getSpecialPower() const = 0;	// +0x20
+};
+
+class ObjectModule
+{
+public:
+	virtual ~ObjectModule();
+private:
+	char m_opaque004[0xC - 0x4];
+};
+
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+};
+
+enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2 };
+
+class ThingTemplate
+{
+public:
+	bool isKindOfCommandCenter() const { return (m_kindOf10A & 2) != 0; }
+private:
+	char m_opaque000[0x10A];
+	unsigned char m_kindOf10A;				// +0x10A, KINDOF_COMMANDCENTER is bit 1
+};
+
+class Object
+{
+public:
+	ObjectID getID() const { return m_id; }
+	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
+	bool testStatus( ObjectStatusTypes bit ) const;
+	bool isKindOfCommandCenter() const { return m_template->isKindOfCommandCenter(); }
+private:
+	void *m_vtbl;
+	const ThingTemplate *m_template;		// +0x04
+	char m_opaque008[0x74 - 0x8];
+	ObjectID m_id;							// +0x74
+	char m_opaque078[0x244 - 0x78];
+	BehaviorModule **m_behaviors;			// +0x244
+};
+
+extern GameLogic *TheGameLogic;
 
 // Address-named by-value getter of the template's required sciences (rowed
 // in Rva0029FCB4.cpp: final override +0x24).
@@ -91,7 +179,16 @@ class InGameUI
 {
 public:
 	virtual ~InGameUI();
-	virtual void addSuperweapon( int playerIndex, const AsciiString &powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate );
+#define SLOT(N) virtual void slot##N();
+	SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07) SLOT(08)
+	SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16)
+	SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24)
+	SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30) SLOT(31) SLOT(32)
+	SLOT(33)
+#undef SLOT
+	virtual void addSuperweapon( int playerIndex, const AsciiString &powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate );	// slot 34
+	virtual bool removeSuperweapon( int playerIndex, const AsciiString &powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate );
+	virtual void objectChangedTeam( const Object *obj, int oldPlayerIndex, int newPlayerIndex );
 
 protected:
 	SuperweaponInfo *findSWInfo( int playerIndex, const AsciiString &powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate );
@@ -137,4 +234,46 @@ void InGameUI::addSuperweapon( int playerIndex, const AsciiString &powerName, Ob
 		player->getPlayerColor(), (int)powerTemplate );
 
 	m_superweapons[playerIndex][powerName].push_back( info );
+}
+
+// ?objectChangedTeam@InGameUI@@UAEXPBVObject@@HH@Z
+void InGameUI::objectChangedTeam( const Object *obj, int oldPlayerIndex, int newPlayerIndex )
+{
+	// if we already had it listed, remove and re-add it
+	if( obj && oldPlayerIndex >= 0 && newPlayerIndex >= 0 )
+	{
+		ObjectID id = obj->getID();
+		AsciiString powerName;
+		for( BehaviorModule **m = obj->getBehaviorModules(); *m; ++m )
+		{
+			SpecialPowerModuleInterface *sp = (*m)->getSpecialPower();
+			if( !sp )
+				continue;
+
+			const SpecialPowerTemplate *powerTemplate = sp->getSpecialPowerTemplate();
+			powerName = powerTemplate->getName();
+
+			SuperweaponMap::iterator mapIt = m_superweapons[oldPlayerIndex].find( powerName );
+			bool found = false;
+			if( mapIt != m_superweapons[oldPlayerIndex].end() )
+			{
+				for( SuperweaponList::iterator listIt = mapIt->second.begin(); listIt != mapIt->second.end(); ++listIt )
+				{
+					if( (*listIt)->m_id == id )
+					{
+						removeSuperweapon( oldPlayerIndex, powerName, id, powerTemplate );
+						addSuperweapon( newPlayerIndex, powerName, id, powerTemplate );
+						found = true;
+						break;
+					}
+				}
+			}
+			if( !found )
+			{
+				if( TheGameLogic->getFrame() == 0 && !obj->testStatus( OBJECT_STATUS_UNDER_CONSTRUCTION ) &&
+					obj->isKindOfCommandCenter() == false )
+					addSuperweapon( newPlayerIndex, powerName, id, powerTemplate );
+			}
+		}
+	}
 }

@@ -605,47 +605,7 @@ Bool InGameUI::removeSuperweapon(Int playerIndex, const AsciiString& powerName, 
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?InGameUI::objectChangedTeam present-unmatched
-void InGameUI::objectChangedTeam(const Object *obj, Int oldPlayerIndex, Int newPlayerIndex)
-{
-	// if we already had it listed, remove and re-add it
-	if (obj && oldPlayerIndex >= 0 && newPlayerIndex >= 0)
-	{
-		ObjectID id = obj->getID();
-		AsciiString powerName;
-		for (BehaviorModule** m = obj->getBehaviorModules(); *m; ++m)
-		{
-			SpecialPowerModuleInterface* sp = (*m)->getSpecialPower();
-			if (!sp)
-				continue;
-
-			const SpecialPowerTemplate *powerTemplate = sp->getSpecialPowerTemplate();
-			powerName = powerTemplate->getName();
-
-			SuperweaponMap::iterator mapIt = m_superweapons[oldPlayerIndex].find(powerName);
-			Bool found = false;
-			if (mapIt != m_superweapons[oldPlayerIndex].end())
-			{
-				for (SuperweaponList::iterator listIt = mapIt->second.begin(); listIt != mapIt->second.end(); ++listIt)
-				{
-					if ((*listIt)->m_id == id)
-					{
-						removeSuperweapon(oldPlayerIndex, powerName, id, powerTemplate);
-						addSuperweapon(newPlayerIndex, powerName, id, powerTemplate);
-						found = true;
-						break;
-					}
-				}
-			}
-			if (!found)
-			{
-				if( TheGameLogic->getFrame() == 0 && !obj->getStatusBits().test( OBJECT_STATUS_UNDER_CONSTRUCTION ) &&
-					obj->isKindOf( KINDOF_COMMANDCENTER ) == FALSE )
-					addSuperweapon(newPlayerIndex, powerName, id, powerTemplate);
-			}
-		}
-	}
-}
+// InGameUI::objectChangedTeam: defined in InGameUISuperweapons.cpp (its row's unit).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
