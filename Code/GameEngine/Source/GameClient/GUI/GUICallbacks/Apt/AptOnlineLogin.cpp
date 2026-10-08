@@ -505,3 +505,7 @@ void AptOnlineLogin::rva00571129() {
   else GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoAll"),0);
  }
 }
+void b_00042a50();
+// Native57179D references this callback at56DCB2. Complete five-byte jump
+// ends at independent56DCB7. Preserve the distinct callable entry point.
+void Rva0056DCB2() { b_00042a50(); }
