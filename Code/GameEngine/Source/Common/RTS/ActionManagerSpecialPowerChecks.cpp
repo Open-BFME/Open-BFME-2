@@ -140,6 +140,7 @@ public:
 class ActionManager
 {
 public:
+	bool canHijackVehicle(const Object *, const Object *, CommandSourceType);
 	bool canGetHealedAt(const Object *, const Object *, CommandSourceType);
 	bool canGetRepairedAt(const Object *, const Object *, CommandSourceType);
 	bool canMakeObjectDefector(const Object *, const Object *, CommandSourceType);
@@ -196,7 +197,7 @@ class BfmeCarBombCollideView
 public:
 	virtual void slot0() = 0;
 	virtual bool wouldLikeToCollideWith(const Object *) const = 0;
-	virtual void slot2() = 0;
+	virtual bool isHijackedVehicleCrateCollide() const = 0;
 	virtual bool isCarBombCrateCollide() const = 0;
 };
 
@@ -325,3 +326,30 @@ bool ActionManager::canGetHealedAt(
 	return true;
 }
 
+// BFME1 ba7ddda7 canHijackVehicle; native status +438 and modules +244;
+// target template flag +109 bit4 and collision predicate virtual slot +8.
+bool ActionManager::canHijackVehicle(
+	const Object *obj, const Object *target, CommandSourceType source)
+{
+	if (!obj || !target)
+		return false;
+	if (*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(target) + 0x438) & 1)
+		return false;
+	if (isObjectShroudedForAction(obj, target, source))
+		return false;
+	if (obj->getRelationship(target) != ENEMIES)
+		return false;
+	const unsigned char *targetTemplate = *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(target) + 4);
+	if (targetTemplate[0x109] & 0x10)
+		return false;
+	void **modules = *reinterpret_cast<void ***>(
+		reinterpret_cast<char *>(const_cast<Object *>(obj)) + 0x244);
+	for (; *modules; ++modules) {
+		BfmeActionBehaviorView *module = reinterpret_cast<BfmeActionBehaviorView *>(
+			reinterpret_cast<char *>(*modules) + 0x0c);
+		BfmeCarBombCollideView *collide = module->getCollide();
+		if (collide && collide->wouldLikeToCollideWith(target) && collide->isHijackedVehicleCrateCollide())
+			return true;
+	}
+	return false;
+}
