@@ -4,11 +4,7 @@
 // transport through its reset path and the game allocator before installing
 // the new pointer.
 
-class Transport
-{
-public:
-	~Transport(void);
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 void __cdecl operator delete(void *block);
 

@@ -29,11 +29,7 @@ enum
 	MAX_SLOTS = 8
 };
 
-class Transport
-{
-public:
-	~Transport();
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 // Connection, held in the ledger under its destructor's address name.
 class Rva004D060B

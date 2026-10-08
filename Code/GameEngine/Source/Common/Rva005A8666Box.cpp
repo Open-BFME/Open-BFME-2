@@ -18,15 +18,12 @@ struct Rva005A8666Ptr
 	short m_4;
 };
 
-struct Rva005A8666Sub04
-{
-	void Consume(int i, void *p);
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 struct NAT
 {
 	int m_0;
-	Rva005A8666Sub04 *m_04;
+	Transport *m_04;
 	Rva005A8666Obj **m_8;
 	int m_C;
 	int m_10;
@@ -112,7 +109,7 @@ void NAT::gotTargetMangledPort(int a, unsigned short b, int c)
 check24:
 	if (m_24 == 0)
 		return;
-	m_04->Consume(m_18, m_90C[m_18]);
+	m_04->setDestAddrToSocket(m_18, m_90C[m_18]);
 	if (m_94C != 2)
 		return;
 	if ((o2->m_40 & 8) != 0) {

@@ -30,19 +30,6 @@ struct SlotVals
 
 #define NULL 0
 
-// Slot element constructor at 0x004D4A80 (14 bytes, present-unmatched):
-// zeroes the pointer, the int and the short, leaving two pad bytes.
-// The empty destructor folds with the other empty dtors.
-struct Rva004D4A80Slot
-{
-	void *m_object;
-	int m_x;
-	short m_y;
-	char m_pad[2];
-	Rva004D4A80Slot(void);
-	~Rva004D4A80Slot(void) {}
-};
-
 // ?clearBuffer_Rva004D4A59@Transport@@QAEXXZ present-unmatched
 // (declared-only; resolves through the pin at 0x004D4A59)
 
@@ -53,48 +40,10 @@ public:
 	int AllowBroadcasts(bool status);
 };
 
-class Transport
-{
-public:
-	Transport(void);
-	bool allowBroadcasts(bool allowBroadcasts);
-	~Transport(void);
-	void RemoveSocketForSlot(unsigned short index);
-	void Rva004D5496(void);
-	void clearBuffer_Rva004D4A59(void);
-	bool rva004D53B5(void *addr);
-	void setSlotSocket(void *obj, unsigned short index, int *vals);
+#include "../../Include/GameNetwork/Transport.h"
 
-private:
-#pragma pack(push, 1)
-	struct Message
-	{
-		char m_pad[0x404];
-		int m_length; // +0x404
-		char m_tail[6];
-	};
-#pragma pack(pop)
-	Message m_outBuffer[128];
-	Message m_inBuffer[128];
-	bool m_flag40E00;
-	void *m_ptr40E04;
-	bool m_winsockActive;
-	// Eight 12-byte slots at +0x40E0C. The first word holds the slot's
-	// object pointer (the clearer compares and zeroes it); the element
-	// constructor zeroes the first ten bytes and the destructor is an
-	// empty inline, folded with the other empty dtors.
-	Rva004D4A80Slot m_slots[8];
-	int m_int40E6C;
-	int m_int40E70;
-	int m_stats0[30];
-	int m_stats1[30];
-	int m_stats2[30];
-	int m_stats3[30];
-	int m_stats4[30];
-	int m_stats5[30];
-	int m_badPackets;
-};
-
+// Matched slot constructor at 0x004D4A80: zero the pointer, int and short,
+// leaving the two padding bytes untouched.
 Rva004D4A80Slot::Rva004D4A80Slot(void)
 {
 	m_object = NULL;
@@ -192,4 +141,16 @@ bool Transport::rva004D53B5(void *addr)
 	m_int40E6C = 0;
 	m_int40E70 = (int)timeGetTime();
 	return true;
+}
+
+// WB Transport::setDestAddrToSocket, complete native 004D51ED..004D5219.
+// CMP word [esp+4],8 and MOVZX consume only the low 16 index bits.
+// The address consists of two copied dwords; original parameter typedefs
+// are not asserted by this ABI view. Both NAT callers pass a full word.
+void Transport::setDestAddrToSocket(int index, void *address)
+{
+	unsigned short slot = (unsigned short)index;
+	if (slot >= 8)
+		return;
+	*(SlotVals *)&m_slots[slot].m_x = *(SlotVals *)address;
 }

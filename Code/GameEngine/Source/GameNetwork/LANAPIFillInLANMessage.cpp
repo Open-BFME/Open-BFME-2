@@ -48,11 +48,7 @@ public:
 	virtual ~LANAPIInterface(void) {}
 };
 
-class Transport
-{
-public:
-	~Transport(void);
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 struct BfmeNetAddress
 {

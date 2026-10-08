@@ -5774,7 +5774,6 @@ name,address,notes
 ?CommandRequiresAck@@YAHPAVNetCommandMsg@@@Z,0x00581229,callee of ?getAckCommandCount@FrameData@@QAEIXZ at retail 0x005DA621 read from its REL32 displacement; ICF alias onto the matched ?Rva00581229Get@@YAHPAURva00581229Msg@@@Z
 ?Compute_Ram_Size@MeshMatDescClass@@QAEHXZ,0x0015CAE0
 ?ConstructNetCommandMsgFromRawData@NetPacket@@SAPAVNetCommandRef@@PAEG@Z,0x00592607,donor_sweep: call target read from retail at the unique placement of the BFME 1 donor getReadyCommands (0x0058C2AD)
-?Consume@Rva005A8666Sub04@@QAEXHPAX@Z,0x004D51ED,wrapper-call spelling for the 0x5A86C0 +4 sub-object consumer (thiscall 2 args callee cleanup); target REL32 from retail call at 0x005A8762
 ?Consume@Rva005B7DC3Sub@@QAEXPAPAX@Z,0x0005548F,wrapper-call spelling for the 0x5B7DC3 sub-object consumer (thiscall 1 arg); target REL32 from retail call at 0x005B7DF1
 ?Control_Bone@HTreeClass@@QAEXHABVMatrix3D@@_N@Z,0x00162060,address read from the REL32 displacement at a placed body
 ?ConvertShortMapPathToLongMapPath@@YAXAAV?$StringBase@D@@0@Z,0x003BA06E,BFME2 extension of BFME1 CommandLine map normalizer; independently audited complete 453B body through RET3BA232; first string ref receives slash/token/.map reconstructed path; second string ref receives token plus timestamp label via format38150; cdecl two-reference ABI

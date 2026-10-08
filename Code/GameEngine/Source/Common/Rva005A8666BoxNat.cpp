@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva005A7974@NAT@@QAEXGPAX@Z @0x005A7974 290B: NAT PORT request builder.
-// Target evidence: byte gates m_24=1 plus m_04/m_25 plus Consume 0x004D51ED pin,
+// Target evidence: byte gates m_24=1 plus m_04/m_25 plus Transport setter 0x004D51ED,
 // format "PORT%d %d %08X %X" 0x00871C50 plus "NAT/" plus translate 0x00038220,
 // empty fallback g_Rva0107301CEmptyString, OwnedRecord ctor 0x001EF661/dtor
 // 0x001EF723, queue global g_00A02340 slot 6; layout from Rva005A8666Box.cpp.
@@ -9,6 +9,7 @@
 #include "unicode_string.h"
 #include <string>
 #include <vector>
+#include "../../Include/GameNetwork/Transport.h"
 
 
 __forceinline const char *GetStr005A7974(const AsciiString &s)
@@ -65,11 +66,6 @@ struct Global003EF728V6
 
 extern Global003EF728V6 *g_00A02340;
 
-struct Rva005A8666Sub04
-{
-	void Consume(int i, void *p);
-};
-
 struct Rva005A8666Obj
 {
 	char pad[0x40];
@@ -85,7 +81,7 @@ struct Rva005A8666Ptr
 struct NAT
 {
 	int m_0;
-	Rva005A8666Sub04 *m_04;
+	Transport *m_04;
 	Rva005A8666Obj **m_8;
 	int m_C;
 	int m_10;
@@ -104,7 +100,7 @@ void NAT::rva005A7974(unsigned short port, void *info)
 {
 	m_24 = 1;
 	if (m_04 != 0 && m_25 != 0)
-		m_04->Consume(m_18, m_90C[m_18]);
+		m_04->setDestAddrToSocket(m_18, m_90C[m_18]);
 	PeerRequest req;
 	AsciiString portStr;
 	portStr.format("PORT%d %d %08X %X", m_14, port, m_1C, m_20);
