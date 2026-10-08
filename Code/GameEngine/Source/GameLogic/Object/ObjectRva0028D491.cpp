@@ -21,16 +21,27 @@ public:
 	unsigned int m_words[7];
 };
 
+class ThingTemplateStub
+{
+public:
+	char m_pad00[0x108];
+	unsigned char m_108;
+};
+
 class Thing
 {
 public:
 	bool isAnyKindOf(const BitFlags<69> &mask) const;
+protected:
+	char m_pad00[4];
+	const ThingTemplateStub *m_template; // +0x04
 };
 
 class Object : public Thing
 {
 public:
 	bool rva0028D491() const;
+	int rva0028D4C4() const;
 };
 
 bool Object::rva0028D491() const
@@ -41,4 +52,18 @@ bool Object::rva0028D491() const
 	((unsigned int *)&mask)[2] |= 3;
 	((unsigned char *)&mask)[16] |= 0x80;
 	return isAnyKindOf(mask);
+}
+
+// ?rva0028D4C4@Object@@QBEHXZ, retail 0x0028D4C4 (28B): template flag 0x80 at
+// +0x108 gates the KindOf helper above; a false helper result reports true.
+int Object::rva0028D4C4() const
+{
+	if ((m_template->m_108 & 0x80) != 0)
+	{
+		if (!rva0028D491())
+		{
+			return 1;
+		}
+	}
+	return 0;
 }
