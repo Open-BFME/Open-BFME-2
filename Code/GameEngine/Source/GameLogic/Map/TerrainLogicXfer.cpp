@@ -17,8 +17,12 @@
 // pointer: a load deletes the old ones, clears the vector through the folded
 // pointer-vector range erase (rowed for vector<void*>), reserves and appends
 // through the folded reserve and push_back (rowed for vector<const
-// ModuleData*>), each record from the rowed initializer 0x0027C230. A load
-// then rebuilds through 0x0028360C. 2500 shorts at +0x588, an unsigned at
+// ModuleData*>), each record from a new-expression over its constructor
+// (0x0027C230). Retail stores that pointer only after the null-check merge
+// and keeps no unwind state for it, which is how MSVC 7.1 builds the
+// new-expression when the constructor is defined earlier in the same unit
+// and seen not to throw; a constructor declared elsewhere (even throw())
+// sinks the store into both arms. A load then rebuilds through 0x0028360C. 2500 shorts at +0x588, an unsigned at
 // +0x1910, a flag at +0x1914 and, from version 2, the unsigned at +0x48 close
 // the block.
 //
@@ -321,4 +325,113 @@ void Rva0027C230::rva0028002F(Xfer *xfer)
 
 	if (xfer->isLoading() && TheFireLogicSystem() != NULL && m_template != NULL)
 		TheFireLogicSystem()->rva00286373(m_drawableID, &m_pos, m_template);
+}
+
+// ?xfer@TerrainLogic@@MAEXPAVXfer@@@Z @0x00283845
+void TerrainLogic::xfer(Xfer *xfer)
+{
+	if (xfer->isLightCRC())
+		return;
+
+	XferVersion version;
+	version.m_first = 1;
+	version.m_version = 2;
+	xfer->xferVersion(&version);
+
+	xfer->xferBool(&m_field44);
+	xfer->xferBool(&m_field60);
+
+	Int activeBoundary = m_activeBoundary;
+	xfer->xferInt(&activeBoundary);
+	if (xfer->isLoading())
+		setActiveBoundary(activeBoundary);
+
+	xfer->xferInt((Int *)&m_numWaterToUpdate);
+	for (UnsignedInt i = 0; i < m_numWaterToUpdate; ++i)
+	{
+		if (xfer->isStoring())
+		{
+			Int triggerID = m_field50->rva00280ADF(m_waterToUpdate[i].waterTable);
+			xfer->xferInt(&triggerID);
+		}
+		else
+		{
+			Int triggerID;
+			xfer->xferInt(&triggerID);
+			const WaterHandle *water = (const WaterHandle *)((Rva0027F4F8 *)m_field50)->rva0027F4F8(triggerID);
+			if (water == NULL)
+				throw XferException(5, 0);
+			m_waterToUpdate[i].waterTable = water;
+		}
+		xfer->xferReal(&m_waterToUpdate[i].changePerFrame);
+		xfer->xferReal(&m_waterToUpdate[i].targetHeight);
+		xfer->xferReal(&m_waterToUpdate[i].damageAmount);
+		xfer->xferReal(&m_waterToUpdate[i].currentHeight);
+	}
+
+	Int nextID = g_Va00DBB708;
+	XferWaypointID(xfer, &nextID);
+	g_Va00DBB708 = nextID;
+
+	if (xfer->isLoading())
+	{
+		Bool more;
+		xfer->xferBool(&more);
+		if (more)
+		{
+			Coord3D loc;
+			loc.x = 0;
+			loc.y = 0;
+			loc.z = 0;
+			do
+			{
+				Waypoint *way = new Waypoint(INVALID_WAYPOINT_ID, AsciiString::TheEmptyString, &loc,
+					AsciiString::TheEmptyString, AsciiString::TheEmptyString, AsciiString::TheEmptyString,
+					false, 0, AsciiString::TheEmptyString);
+				way->xfer(xfer);
+				xfer->xferBool(&more);
+			} while (more);
+		}
+		for (Waypoint *way = g_waypointListHead; way; way = way->getNext())
+			way->rva0027C330();
+		m_waypointsByID.rva00280AB6();
+	}
+	else
+	{
+		Bool more = true;
+		for (Waypoint *way = g_waypointListHead; way; way = way->getNext())
+		{
+			xfer->xferBool(&more);
+			way->xfer(xfer);
+		}
+		more = false;
+		xfer->xferBool(&more);
+	}
+
+	Int count = m_records.size();
+	xfer->xferInt(&count);
+	if (xfer->isLoading())
+	{
+		for (Rva0027C230 **it = m_records.begin(), **end = m_records.end(); it != end; ++it)
+			if (*it)
+				delete *it;
+		((FoldedEraseVector *)&m_records)->clear();
+		((FoldedAppendVector *)&m_records)->reserve(count);
+		for (Int i = 0; i < count; ++i)
+		{
+			((FoldedAppendVector *)&m_records)->push_back((const ModuleData *)new Rva0027C230(0));
+		}
+	}
+	for (Int j = 0; j < count; ++j)
+		m_records[j]->rva0028002F(xfer);
+
+	if (xfer->isLoading())
+		((Rva0028360CHost *)this)->rva0028360C();
+
+	for (Int k = 0; k < 2500; ++k)
+		xfer->xferShort(&m_words[k]);
+	xfer->xferUnsignedInt(&m_field1910);
+	xfer->xferBool(&m_field1914);
+	if (version.m_version >= 2)
+		xfer->xferUnsignedInt(&m_field48);
 }

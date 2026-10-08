@@ -21411,7 +21411,7 @@ uw_0077385c,,0x0077385C,8,Code/gen_small/uw_gen_000.cpp,matched,gen-funclet;obje
 uw_00773880,,0x00773880,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L544
 uw_00773898,,0x00773898,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L317
 uw_007738aa,,0x007738AA,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L544
-uw_007738bf,,0x007738BF,8,Code/gen_small/uw_gen_007.cpp,matched,gen-funclet;object-symbol=$L320
+uw_007738bf,,0x007738BF,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp,matched,gen-funclet;object-symbol=$L6274;parent=?rva0028002F@Rva0027C230@@QAEXPAVXfer@@@Z;unwind state 0 of FuncInfo 0x0091A760 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_007738ee,,0x007738EE,11,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3751
 uw_007738f9,,0x007738F9,8,Code/gen_small/uw_gen_003.cpp,matched,gen-funclet;object-symbol=$L305
 uw_00773914,,0x00773914,8,Code/gen_small/uw_gen_003.cpp,matched,gen-funclet;object-symbol=$L320
@@ -21456,10 +21456,10 @@ uw_00773b97,,0x00773B97,11,Code/gen_small/uw_gen_009.cpp,matched,gen-funclet;obj
 uw_00773bc0,,0x00773BC0,8,Code/gen_small/uw_gen_004.cpp,matched,gen-funclet;object-symbol=$L1512
 uw_00773bda,,0x00773BDA,8,Code/gen_small/uw_gen_008.cpp,matched,gen-funclet;object-symbol=$L2454
 uw_00773be2,,0x00773BE2,8,Code/gen_small/uw_gen_001.cpp,matched,gen-funclet;object-symbol=$L3606
-uw_00773bfe,,0x00773BFE,8,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3724
-uw_00773c06,,0x00773C06,8,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3750
-uw_00773c0e,,0x00773C0E,8,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3764
-uw_00773c16,,0x00773C16,8,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3774
+uw_00773bfe,,0x00773BFE,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp,matched,gen-funclet;object-symbol=$L6731;parent=?xfer@TerrainLogic@@MAEXPAVXfer@@@Z;unwind state 1 of FuncInfo 0x0091ABE8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00773c06,,0x00773C06,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp,matched,gen-funclet;object-symbol=$L6732;parent=?xfer@TerrainLogic@@MAEXPAVXfer@@@Z;unwind state 2 of FuncInfo 0x0091ABE8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00773c0e,,0x00773C0E,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp,matched,gen-funclet;object-symbol=$L6733;parent=?xfer@TerrainLogic@@MAEXPAVXfer@@@Z;unwind state 3 of FuncInfo 0x0091ABE8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
+uw_00773c16,,0x00773C16,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp,matched,gen-funclet;object-symbol=$L6734;parent=?xfer@TerrainLogic@@MAEXPAVXfer@@@Z;unwind state 4 of FuncInfo 0x0091ABE8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
 uw_00773c28,,0x00773C28,11,Code/gen_small/uw_gen_004.cpp,matched,gen-funclet;object-symbol=$L1584
 uw_00773c33,,0x00773C33,8,Code/gen_small/uw_gen_004.cpp,matched,gen-funclet;object-symbol=$L1323
 uw_00773c57,,0x00773C57,8,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3968
@@ -68855,3 +68855,5 @@ uw_00773b3e,,0x00773B3E,8,Code/GameEngine/Source/GameLogic/Map/TerrainLogicLoadM
 ??0Rva0027C230@@QAE@H@Z,,0x0027C230,75,Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp,matched,TerrainLogic +0x578 record ctor (0x30 bytes): id field +0x10 from the argument; short +0x2E = -1; +0x28 = 1; flags +0x2C/+0x2D set; positions zeroed; defined beside TerrainLogic::xfer whose new-expression stores only after the null-check merge with no unwind state (same-TU nothrow ctor shape)
 ?rva00280ADF@Rva002834C4@@QAEHPBVWaterHandle@@@Z,,0x00280ADF,59,Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp,matched,handle-to-id lookup over the id/handle vector at +0x14 of TerrainLogic's 0x20-byte registry; -1 when absent; found-return lexically last gives retail's block order; caller TerrainLogic::xfer water save
 ?rva0028002F@Rva0027C230@@QAEXPAVXfer@@@Z,,0x0028002F,327,Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp,matched,record xfer version 2: position; drawable id unless CRC; template by name (+0x64) found again via TheThingFactory 0x002D06CA; flag/position/int/short/flags; v2 unsigned +0x10; a loaded record with a template registers with FireLogicSystem 0x00286373
+?xfer@TerrainLogic@@MAEXPAVXfer@@@Z,,0x00283845,970,Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp,matched,TerrainLogic vftable slot 3 (BFME1 TerrainLogic_xferTerrainState structure): version 2; flags +0x44/+0x60; active boundary +0x3C; 64 rising waters at +0x68 saved by registry id (0x00280ADF/0x0027F4F8; unknown id throws XferException 5); waypoints from the auto id 0x009BB708 created empty and xfered then relinked (0x0027C330) and the id cache cleared; records deleted/cleared/reserved via folded vector bodies and rebuilt by new-expression over the same-TU ctor; 0x0028360C rebuild; 2500 shorts +0x588; +0x1910; +0x1914; v2 +0x48
+uw_00773bf4,,0x00773BF4,10,Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp,matched,gen-funclet;object-symbol=$L6730;parent=?xfer@TerrainLogic@@MAEXPAVXfer@@@Z;unwind state 0 of FuncInfo 0x0091ABE8 read from the parent prolog handler stub; emitted by the parent C++ in this TU
