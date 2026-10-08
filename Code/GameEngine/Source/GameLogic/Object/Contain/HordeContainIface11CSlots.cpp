@@ -182,7 +182,13 @@ public:
 	}
 	Vector4 Row[3];
 };
-class Drawable
+// The Drawable's position, under its placeholder pin.
+class Rva00276470Drawable
+{
+public:
+	const Coord3D *rva00276470() const;
+};
+class Drawable : public Rva00276470Drawable
 {
 public:
 	void rva00272BE7();
@@ -677,7 +683,7 @@ public:
 	virtual void gap126() = 0; virtual bool rva004698BC() = 0; virtual const void *rva004698D6() = 0; virtual const void *rva004698E2() = 0;
 	virtual void gap130() = 0; virtual void gap131() = 0; virtual void rva004690A9(const Coord3D *pos) = 0; virtual void gap133() = 0;
 	virtual void gap134() = 0; virtual void ClassifyBeforeOnAfterInvalidPortal(_STL::vector<ObjectID> &before, _STL::vector<ObjectID> &on, _STL::vector<ObjectID> &after) = 0; virtual bool rva0046F8CD() = 0; virtual Rva002390CB rva0046EC7C(Object *obj) = 0;
-	virtual ObjectID rva0046DEA1(ObjectID want) = 0; virtual void gap139() = 0; virtual bool rva0046E113(Coord3D *center) = 0; virtual void rva004690D0(int value) = 0;
+	virtual ObjectID rva0046DEA1(ObjectID want) = 0; virtual bool rva0046DF9A(Coord3D *center) = 0; virtual bool rva0046E113(Coord3D *center) = 0; virtual void rva004690D0(int value) = 0;
 	virtual bool rva00468C37() = 0; virtual void rva00468BDC(int on) = 0;
 	virtual float rva00468B5B(float value) = 0;
 	virtual void rva00468C60(const Coord3D *pos) = 0;
@@ -834,6 +840,8 @@ public:
 	virtual void rva0046C327();
 	virtual void rva0046C20B();
 	virtual ObjectID rva0046DEA1(ObjectID want);
+	virtual bool rva0046DF9A(Coord3D *center);
+	virtual bool rva0046E113(Coord3D *center);
 	virtual void rva0046A78F(const Matrix3D *mtx);
 	virtual void rva00472329(const Coord3D *pos, int unused);
 	virtual void rva00472235();
@@ -2419,6 +2427,86 @@ ObjectID HordeContain::rva0046DEA1(ObjectID want)
 		}
 	}
 	return result;
+}
+
+// ?rva0046DF9A@HordeContain@@UAE_NPAUCoord3D@@@Z @0x0046DF9A: slot 139; the
+// mean Drawable position of the contained Objects and the Objects of the
+// +0x170 keys that have a Drawable; false (and zero) when there are none.
+bool HordeContain::rva0046DF9A(Coord3D *center)
+{
+	float count = 0.0f;
+	center->zero();
+	const _STL::list<Object *> *items = containedItems();
+	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
+	{
+		Object *obj = *it;
+		if (obj && ((Thing *)obj)->getDrawable())
+		{
+			const Coord3D *pos = ((Thing *)obj)->getDrawable()->rva00276470();
+			center->x += pos->x;
+			center->y += pos->y;
+			center->z += pos->z;
+			count += 1.0f;
+		}
+	}
+	for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
+	{
+		Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
+		if (obj && ((Thing *)obj)->getDrawable())
+		{
+			const Coord3D *pos = ((Thing *)obj)->getDrawable()->rva00276470();
+			center->x += pos->x;
+			center->y += pos->y;
+			center->z += pos->z;
+			count += 1.0f;
+		}
+	}
+	if (count == 0.0f)
+		return false;
+	center->x /= count;
+	center->y /= count;
+	center->z /= count;
+	return true;
+}
+
+// ?rva0046E113@HordeContain@@UAE_NPAUCoord3D@@@Z @0x0046E113: slot 140; the
+// mean position of the contained Objects and the Objects of the +0x170 keys;
+// false (and zero) when there are none.
+bool HordeContain::rva0046E113(Coord3D *center)
+{
+	float count = 0.0f;
+	center->zero();
+	const _STL::list<Object *> *items = containedItems();
+	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
+	{
+		Object *obj = *it;
+		if (obj)
+		{
+			const Coord3D *pos = obj->getPosition();
+			center->x += pos->x;
+			center->y += pos->y;
+			center->z += pos->z;
+			count += 1.0f;
+		}
+	}
+	for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
+	{
+		Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
+		if (obj)
+		{
+			const Coord3D *pos = obj->getPosition();
+			center->x += pos->x;
+			center->y += pos->y;
+			center->z += pos->z;
+			count += 1.0f;
+		}
+	}
+	if (count == 0.0f)
+		return false;
+	center->x /= count;
+	center->y /= count;
+	center->z /= count;
+	return true;
 }
 
 // ?rva0046A78F@HordeContain@@UAEXPBVMatrix3D@@@Z @0x0046A78F: slot 109; runs
