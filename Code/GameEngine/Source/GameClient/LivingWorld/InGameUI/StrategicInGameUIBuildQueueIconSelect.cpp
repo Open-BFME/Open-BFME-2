@@ -472,7 +472,6 @@ __declspec(noinline) static UnicodeString rva005E764FGet(Rva005E72B4Queue *queue
  if(!thing) return UnicodeString::TheEmptyString;
  return StrategicInGameUI::GetTooltipText(thing->imageID);
 }
-// ?rva005E7684Get present-unmatched
 __declspec(noinline) static UnicodeString rva005E7684Get(Rva005E72B4Queue *queue,int index)
 { return rva005E764FGet(queue,queue->slot13()->begin[index]); }
 struct RGBColor;
