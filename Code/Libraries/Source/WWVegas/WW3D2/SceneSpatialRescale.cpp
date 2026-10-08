@@ -111,6 +111,7 @@ struct Rva0006FB50List
 class BfmeSceneVector
 {
 public:
+	BfmeSceneVector();
 	void rva00141EF0(Gen_00943CF0_Node **objects);
 	void rva00141F90(const Rva00141F90Bounds &newBounds);
 	void Set_Level(unsigned int level);
@@ -162,4 +163,15 @@ void BfmeSceneVector::Set_Level(unsigned int level)
 	vector_max = count;
 	vector = new Rva00141D00[count];
 	((Gen_00943CF0 *)this)->process(&objects.head);
+}
+
+// Target [142900,14295C)92B initializes the array, count and level mask,
+// passes six zero floats to the matched rescale, then sets level zero.
+// These newly rowed callees resolve the earlier missing-callee blocker.
+BfmeSceneVector::BfmeSceneVector()
+	: vector(0), vector_max(0), level_mask(0)
+{
+	Rva00141F90Bounds initialBounds = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+	rva00141F90(initialBounds);
+	Set_Level(0);
 }
