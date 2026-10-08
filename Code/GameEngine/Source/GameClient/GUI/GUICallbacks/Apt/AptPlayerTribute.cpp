@@ -158,7 +158,7 @@ class MessageStream {public:
 #undef M
  virtual GameMessage *appendMessage(int);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern MessageStream *TheMessageStream;
 void Rva0050F5A6::rva0050EB0A(const char *unused){
  reinterpret_cast<AptTributeWindowManager*>(TheWindowManager)->winSetFocus(0);
  Player *local=ThePlayerList->localPlayer;
@@ -170,7 +170,7 @@ void Rva0050F5A6::rva0050EB0A(const char *unused){
   if(!slot.object)continue;
   unsigned amount=reinterpret_cast<Rva0050F0AB*>(slot.object)->amount;
   if(amount>0){
-   GameMessage *message=MessageStreamSubsystem->appendMessage(0x466);
+   GameMessage *message=TheMessageStream->appendMessage(0x466);
    if(message){
     message->appendIntegerArgument(local->index);
     message->appendIntegerArgument(player->index);
