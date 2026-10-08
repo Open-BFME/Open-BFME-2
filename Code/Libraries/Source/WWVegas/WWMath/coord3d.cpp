@@ -408,7 +408,7 @@ inline void Coord3D::normalize()
 {
     float len = length();
     if (len != 0.0f) {
-        float scale = one / len;
+        float scale = 1.0f / len;
         x *= scale;
         y *= scale;
         z *= scale;
