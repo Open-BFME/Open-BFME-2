@@ -32,13 +32,22 @@ class Rva00222A8BTarget { public:
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 class Rva0056DCBF { public: void rva0056DCBF(bool); };
 struct AptOnlineLoginOwner { unsigned char pad[0x274]; void *movie; };
+class GameWindow;
+void GadgetCheckBoxSetChecked(GameWindow *,bool);
+void GadgetTextEntrySetText(GameWindow *,UnicodeString);
 class AptOnlineLogin {
 public:
     void OnBttnRegisterFESL(const char *);
     void rva00572632(const char *);
+    bool rva0056EC54(const UnicodeString &,bool);
 private:
     unsigned char pad00[0x58]; AptOnlineLoginOwner *owner;
-    unsigned char pad5c[0xD0-0x5C]; bool closeLocale;
+    unsigned char pad5c[0xA4-0x5C];
+    GameWindow *email;
+    GameWindow *nickname;
+    GameWindow *password;
+    GameWindow *remember;
+    unsigned char padB4[0xD0-0xB4]; bool closeLocale;
     unsigned char padD1[3]; int locale;
 };
 void AptOnlineLogin::OnBttnRegisterFESL(const char *)
@@ -56,6 +65,22 @@ void AptOnlineLogin::OnBttnRegisterFESL(const char *)
             GSMessageBoxOk(TheGameText->fetch("GUI:GSErrorTitle"),TheGameText->fetch("GUI:EREGError"),0);
         }
     }
+}
+
+// Native 56EC54..56ECAE verifies password AC and checkbox B0. The
+// purpose follows BFME1 34f59164 OnlineLoginSetText.cpp. Native retains
+// the checkbox pointer across text.isEmpty() rather than loading it again.
+bool AptOnlineLogin::rva0056EC54(const UnicodeString &text,bool updateEnabled)
+{
+    bool textWasSet=false;
+    if(password) {
+        GameWindow *dependent=remember;
+        if(dependent && updateEnabled)
+            GadgetCheckBoxSetChecked(dependent,!text.isEmpty());
+        GadgetTextEntrySetText(password,text);
+        textWasSet=true;
+    }
+    return textWasSet;
 }
 
 // Registered as AptOnline::Login::Login in native 572885. BFME1 donor
