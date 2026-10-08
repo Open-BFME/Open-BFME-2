@@ -25,3 +25,12 @@ int Rva003ECB3DIsAlly(const Player *a, const Player *b)
 	--r;
 	return r == 0;
 }
+
+// ?Rva003ECB2AIsEnemy@@YAHPBVPlayer@@0@Z @0x003ECB2A (19B).
+// Native callback constant in ThreatFinder::getThreatForPlayer case 0;
+// shares the rowed Player::getRelationship callee with the 21B ally twin.
+// The native neg/sbb/inc maps ENEMIES (0) to 1 and every other value to 0.
+int Rva003ECB2AIsEnemy(const Player *a, const Player *b)
+{
+ return a->getRelationship(b) == ENEMIES;
+}
