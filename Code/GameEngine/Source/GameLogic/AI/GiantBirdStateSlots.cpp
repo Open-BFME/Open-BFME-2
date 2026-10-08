@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /arch:SSE
 //
 // onExit overrides of the BFME 2 giant-bird flight states, each named by its
 // vtable's slot-2 name getter (the state's own name literal):
@@ -31,7 +31,9 @@ enum StateExitType
 };
 enum StateReturnType
 {
-	STATE_CONTINUE = 0
+	STATE_CONTINUE = 0,
+	STATE_SUCCESS = -1,
+	STATE_FAILURE = -2
 };
 typedef unsigned int StateID;
 enum ObjectStatusTypes
@@ -41,6 +43,26 @@ enum ObjectStatusTypes
 };
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+
+extern GameLogic *TheGameLogic;
+
+class BfmeVec3EJ;
+class Gen_000E5A50
+{
+public:
+	float bfmeDistanceSquared(const BfmeVec3EJ *point) const;
+};
+class Rva00368C7A
+{
+public:
+	void rva00368C7A(float amount, const Coord3D *position, int argument);
+};
+class Thing
+{
+public:
+	void setPosition(const Coord3D *position);
+};
 
 class Rva0010CBits
 {
@@ -79,12 +101,25 @@ class AIUpdateInterface : public GiantBirdAISlots<142>
 public:
 	virtual void rva00369359Slot142(int value) = 0;
 	void setCurrentVictim(const Object *victim);
+	unsigned char m_unknown04[0x4C0 - 4];
+	ObjectID m_id4C0;
+	unsigned char m_unknown4C4[0x4EC - 0x4C4];
+	unsigned char m_continue4EC;
+	unsigned char m_unknown4ED[0x534 - 0x4ED];
+	unsigned char m_pending534;
+	unsigned char m_unknown535[3];
+	float m_goalRange538;
+	unsigned char m_unknown53C[8];
+	Coord3D m_goalPosition544;
+	unsigned char m_unknown550[4];
+	ObjectID m_id554;
 };
 
 class Object
 {
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
+	__forceinline bool isDead() const { return (m_status438 & 1) != 0; }
 	const Coord3D *getPosition() const { return &m_position; }
 	void setStatus(ObjectStatusTypes status, Bool set);
 	void rva0028ACEE(const Coord3D *pos, int value);
@@ -105,6 +140,8 @@ private:
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x258 - (0x10C + sizeof(Rva0010CBits))];
 	AIUpdateInterface *m_ai; // +0x258
+	unsigned char m_pad25C[0x438 - 0x25C];
+	unsigned char m_status438;
 };
 
 class StateMachine
@@ -115,6 +152,9 @@ public:
 	virtual void slot04(); virtual void slot05(); virtual void slot06();
 	virtual void slot07();
 	virtual StateReturnType setState(StateID newStateID);
+	virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13();
+	virtual void setGoalObject(const Object *object);
 	Object *getOwner() const { return m_owner; }
 private:
 	unsigned char m_pad04[0x14 - 0x04];
@@ -130,6 +170,7 @@ public:
 	virtual void slot03();
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 protected:
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
 	unsigned char m_pad04[0x18 - 0x04];
@@ -192,4 +233,57 @@ void AIGiantBirdSwoopState::onExit(StateExitType status)
 		ai->setCurrentVictim(0);
 	}
 	owner->rva0028ACEE(owner->getPosition(), 1);
+}
+
+// Native table 0xC17418 slot 2 returns "AIGiantBirdFollowThruState";
+// slot 6 is 0x369EA3..0x369FDF (316 bytes). BFME 1 donor ba7ddda7e8f2,
+// AIGiantBirdFollowThruStateUpdate.cpp, supplies the follow-through control
+// flow. All offsets below are independently read from BFME 2's body; the
+// AI receiver's original helper name and the two object ID roles remain
+// unresolved. The distance and routing adapters retain their rowed names.
+class AIGiantBirdFollowThruState : public State
+{
+public:
+	virtual StateReturnType update();
+private:
+	unsigned char m_unknown1C[0x24 - 0x1C];
+	int m_counter24;
+};
+
+StateReturnType AIGiantBirdFollowThruState::update()
+{
+	Object *object = getMachineOwner();
+	if (object->isDead())
+		return STATE_FAILURE;
+	object->clearModelConditionBit(155);
+	if (++m_counter24 > 40)
+		return STATE_FAILURE;
+	AIUpdateInterface *ai = object->getAI();
+	if (!ai)
+		return STATE_FAILURE;
+	reinterpret_cast<Rva00368C7A *>(ai)->rva00368C7A(5.0f, 0, 1);
+	if (!ai->m_continue4EC)
+		return STATE_FAILURE;
+	float goalRange = ai->m_goalRange538;
+	Coord3D goal;
+	const Coord3D *goalPosition = &ai->m_goalPosition544;
+	goal.x = goalPosition->x;
+	goal.y = goalPosition->y;
+	goal.z = goalPosition->z;
+	unsigned char withinGoalRange = static_cast<unsigned char>(
+		reinterpret_cast<Gen_000E5A50 *>(object)->bfmeDistanceSquared(
+			reinterpret_cast<const BfmeVec3EJ *>(&goal)) < goalRange * goalRange);
+	unsigned char pending = ai->m_pending534;
+	if (pending == 0.0f && !withinGoalRange)
+		return STATE_CONTINUE;
+	reinterpret_cast<Thing *>(object)->setPosition(&goal);
+	GameLogic *logic = TheGameLogic;
+	Object *target = logic->findObjectByID(ai->m_id4C0);
+	if (target && !target->isDead())
+		return STATE_FAILURE;
+	Object *otherTarget = logic->findObjectByID(ai->m_id554);
+	m_machine->setGoalObject(0);
+	if (!otherTarget || otherTarget->isDead())
+		return STATE_SUCCESS;
+	return STATE_FAILURE;
 }
