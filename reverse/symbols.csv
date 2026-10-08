@@ -16457,3 +16457,4 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?rva00203693@ScriptEngine@@QAEHXZ,0x00203693,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
 ?rva003B2832@ScriptAction@@QAEHXZ,0x003B2832,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
 ?rva003B3D75@ScriptAction@@QAEXPAX0@Z,0x003B3D75,callee of ?executeActions@ScriptEngine@@IAEXPAVScriptAction@@PAX1@Z
+?rva00358752@ScriptEngine@@QAEPAVObject@@VAsciiString@@@Z,0x00358752,callee of ?setCounterToThreat@ScriptEngine@@IAEXPAVScriptAction@@_N@Z
