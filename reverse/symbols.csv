@@ -12689,7 +12689,6 @@ name,address,notes
 ?setSelectable@Object@@QAEX_N@Z,0x0028B76D,stores byte Object+0x434 then forwards to the drawable; called at the donor setSelectable site of changeObjectPanelFlagForSingleObject 0x003C4C07
 ?setSequentialTimer@ScriptEngine@@QAEXPAVObject@@H@Z,0x00203FCF,BFME2 NAMED_ATTACK_AREA_FOR_SECONDS body at 0x3C83AD calls ScriptEngine with Object* and seconds multiplied by target global factor 5; BFME1 and Zero Hour donors identify ScriptEngine::setSequentialTimer
 ?setShader@Rva00075655@@SAHHH@Z,0x00075655,"Address-derived static cdecl int(int,int) view: target returns 0/1 and reads two stack integers; caller 0x00072EEB pushes (1,0) and cleans the arguments. BFME1 donor identifies the role as setShader."
-?setSize@Shadow@@QAEXMM@Z,0x0010FD5E,callee read from the retail REL32 in placed BFME1-donor body ?bfmeForward@Gen_001D5EE0Target@@QAEXPAX0@Z (0x000A8B0A)
 ?setStatus@Image@@QAEII@Z,0x002D8E63,Image status setter ORs bits into +0x30 and returns previous unsigned status; matches reference Image::setStatus
 ?setStatus@Object@@QAEXW4ObjectStatusTypes@@H@Z,0x0023DB0E,second spelling of the rowed Object::setStatus at 0x0023DB0E used by ?bfmeGoFGE@@YGXPAX00@Z where the flag arrives as a raw int; same target as ?setStatus@Object@@QAEXW4ObjectStatusTypes@@_N@Z (matched)
 ?setString@PooledString@@AAEXPBD@Z,0x006CB7C0,BFME2 export; the private setter both the const char * constructor and assignment forward to

@@ -194,3 +194,28 @@ void Rva0010FE6D::rva0010FE6D(float value, int tag)
 		reinterpret_cast<AudioEventInfo *>(this)), value, tag),
 		((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
 }
+
+// Native10FD5E..10FDE9 allocates20B and calls rowed float-pair ctor10EF14.
+// The callerA8B0A forwards two floats; this is not the donor Shadow::setSize.
+class Rva0010EF14 : public Rva001164D3
+{
+	float m_value0c;
+	float m_value10;
+public:
+	Rva0010EF14(const Rva0036CA00Str &s, float first, float second);
+};
+
+class Rva0010FD5E
+{
+public:
+	void rva0010FD5E(float first, float second);
+};
+
+void Rva0010FD5E::rva0010FD5E(float first, float second)
+{
+	Rva0010EF14 *eventInfo;
+	(eventInfo = new Rva0010EF14(AudioEventInfoRef(
+		reinterpret_cast<AudioEventInfo *>(this)), first, second),
+		((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
+}
+
