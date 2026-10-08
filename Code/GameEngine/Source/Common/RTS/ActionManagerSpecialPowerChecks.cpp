@@ -22,6 +22,10 @@
 // numeric status threshold 3 corresponds to the reference's object fog state.
 enum CellShroudStatus { ACTION_OBJECT_SHROUD_FOGGED = 3 };
 
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
+
+enum ObjectID { INVALID_OBJECT_ID = 0 };
+
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 
 enum ObjectStatusTypes { OBJECT_STATUS_UNDER_CONSTRUCTION = 2, OBJECT_STATUS_SOLD = 0x13 };
@@ -77,6 +81,8 @@ struct Coord3D
 class Object : public Thing
 {
 public:
+	void *rva0028BD17() const;
+	ObjectID getSoleHealingBenefactor() const;
 	bool testStatus(ObjectStatusTypes) const;
 	Relationship getRelationship(const Object *) const;
 	Player *getControllingPlayer() const;	// 0x0028AFA9
@@ -140,6 +146,7 @@ public:
 class ActionManager
 {
 public:
+	bool canRepairObject(const Object *, const Object *, CommandSourceType);
 	bool canHijackVehicle(const Object *, const Object *, CommandSourceType);
 	bool canGetHealedAt(const Object *, const Object *, CommandSourceType);
 	bool canGetRepairedAt(const Object *, const Object *, CommandSourceType);
@@ -352,4 +359,67 @@ bool ActionManager::canHijackVehicle(
 			return true;
 	}
 	return false;
+}
+
+class ActionRepairModuleView
+{
+public:
+	virtual void slot0() = 0; virtual void slot1() = 0;
+	virtual void slot2() = 0; virtual void slot3() = 0;
+	virtual void slot4() = 0; virtual void slot5() = 0;
+	virtual void slot6() = 0; virtual void slot7() = 0;
+	virtual void slot8() = 0;
+	virtual bool slot9() = 0;
+};
+
+// ZH ActionManager::canRepairObject provides the repair algorithm. Native
+// target requires ALLIES, filters MordorWorker, permits dead targets with
+// template+632 set, tests template+11A bit6 and module slot9, then excludes
+// contained builders and a target assigned to another healing benefactor.
+// The module interface identity and extra target flag meanings remain unknown.
+bool ActionManager::canRepairObject(
+	const Object *obj, const Object *target, CommandSourceType source)
+{
+	if (!obj || !target)
+		return false;
+	const unsigned char *objTemplate = *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(obj) + 4);
+	if (objTemplate && reinterpret_cast<const StringBase<char> *>(objTemplate + 0x64)->compare("MordorWorker") == 0)
+		return false;
+	if (obj->getRelationship(target) != ALLIES)
+		return false;
+	if (*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(target) + 0x438) & 1) {
+		const unsigned char *deadTemplate = *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(target) + 4);
+		if (!deadTemplate[0x632])
+			return false;
+	}
+	const unsigned char *targetTemplate = *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(target) + 4);
+	unsigned int kindFlags = *reinterpret_cast<const unsigned int *>(targetTemplate + 0x108);
+	if (kindFlags & 0x01400000)
+		return false;
+	if (obj->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION) || target->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
+		return false;
+	if (targetTemplate[0x10c] & 0x40)
+		return false;
+	objTemplate = *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(obj) + 4);
+	if (!(objTemplate[0x109] & 0x40))
+		return false;
+	if (!(kindFlags & 0x80))
+		return false;
+	ActionRepairBodyView *body = *reinterpret_cast<ActionRepairBodyView *const *>(reinterpret_cast<const char *>(target) + 0x254);
+	if (body->getHealth() == body->getMaxHealth())
+		return false;
+	targetTemplate = *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(target) + 4);
+	if (targetTemplate[0x11a] & 0x40)
+		return false;
+	ActionRepairModuleView *module = static_cast<ActionRepairModuleView *>(target->rva0028BD17());
+	if (module && module->slot9())
+		return false;
+	if (isObjectShroudedForAction(obj, target, source))
+		return false;
+	if (*reinterpret_cast<void *const *>(reinterpret_cast<const char *>(obj) + 0x274))
+		return false;
+	ObjectID benefactor = target->getSoleHealingBenefactor();
+	if (benefactor && benefactor != *reinterpret_cast<const ObjectID *>(reinterpret_cast<const char *>(obj) + 0x74))
+		return false;
+	return true;
 }
