@@ -16419,3 +16419,5 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?rva00136E95@@YAXPAVRenderObjClass@@PAURva00136F5BRange@@11@Z,0x00136E95,callee of ?PostLoad@ModifiedRenderFactory@RenderAsset@@QAEXXZ
 ??0Rva002C5EF0@@QAE@ABVCoord3DBase@@MI@Z,0x002C6234,callee of ?DoXfer@Rva002C6354@@QAEXPAVXfer@@@Z
 ?calcFlightPath@PhysicsBehavior@@QAE_N_NM@Z,0x003901DA,callee of ?rva00390557@PhysicsBehavior@@QAEXPBUCoord3D@@MMHH@Z
+?preEmptivelyBuildDozers@AIDozerManager@@QAEXXZ,0x00599D56,callee of ?rva00599EDC@AIDozerManager@@QAEXXZ
+?rva000544CB@MilesAudioManager@@QAE?AU?$_List_iterator@VPlayingAudioRef@@U?$_Nonconst_traits@VPlayingAudioRef@@@_STL@@@_STL@@HHH@Z,0x000544CB,callee of ?rva00054714@MilesAudioManager@@QAE?AVAsciiString@@XZ

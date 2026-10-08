@@ -797,6 +797,8 @@ public:
     unsigned char rva00054120(INI *ini);
     bool rva00061BD2(int unused);
     void rva0006179C(int opaque);
+    AsciiString rva00054714(void);
+    PlayingAudioList::iterator rva000544CB(int viewType, int musicSystem, int filter);
     void rva00057297(Rva00051107AudioRequest &request);
     bool rva000570C8(AudioEventRTS *event);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
@@ -1596,6 +1598,33 @@ unsigned char MilesAudioManager::rva00054120(INI *ini)
     loaded |= ini->loadFile(AsciiString("Data\\INI\\AmbientStream.ini"), type, 0);
     loaded |= ini->loadFile(AsciiString("Data\\INI\\MiscAudio.ini"), type, 0);
     return loaded;
+}
+
+class Rva002D9AC3 { public: const char *rva002D9AC3(); };
+
+// Native 0x54714 first searches pending play requests for music in the
+// focused view, then uses the current-system stream lookup. The 0x2D9AC3
+// address-derived getter returns info +8 here: the copy-ctor call proves
+// this caller treats that address as an AsciiString, not character storage.
+AsciiString MilesAudioManager::rva00054714(void)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    for (Rva00051107AudioRequestList::iterator it = m_audioRequests.begin();
+         it != m_audioRequests.end(); ++it) {
+        if ((*it)->m_request == 0 && (*it)->m_pendingEvent.get()) {
+            AudioEventRTS *event = (*it)->m_pendingEvent.get();
+            if (event->m_viewType == m_at678) {
+                if (event->m_info->m_atB0 == 0)
+                    return *reinterpret_cast<const AsciiString *>(
+                        reinterpret_cast<Rva002D9AC3 *>((*it)->m_pendingEvent.get())->rva002D9AC3());
+            }
+        }
+    }
+    PlayingAudioList::iterator it = rva000544CB(m_at678, m_activeMusicSystem[m_at678], 1);
+    if (it != m_playingStreams.end())
+        return *reinterpret_cast<const AsciiString *>(
+            reinterpret_cast<Rva002D9AC3 *>((*it)->m_event.get())->rva002D9AC3());
+    return AsciiString::TheEmptyString;
 }
 
 // Target evidence: exact 0x888-byte INI local, ctor/dtor calls, and three
