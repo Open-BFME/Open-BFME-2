@@ -38,7 +38,7 @@ class FoundationAIUpdate { void rva0045527A(ObjectID); friend class CastleBehavi
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 inline void* objectTemplate(Object* object) { return field<void*>(object,4); }
 inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); }
-class CastleBehavior { public: void registerOwnedObject(Object*); bool checkForAutoPack(); };
+class CastleBehavior { public: void registerOwnedObject(Object*); bool checkForAutoPack(); void rva00397B03(ObjectStatusTypes,bool); };
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
@@ -196,4 +196,27 @@ bool CastleBehavior::checkForAutoPack() {
  }
  if(!field<bool>(this,0x3d) || anyCastleProjectile(field<_STL::vector<ObjectID> >(this,0x50)) || anyCastleProjectile(field<_STL::vector<ObjectID> >(this,0x74))) return false;
  return true;
+}
+
+// Native RVA00397B03, 134 bytes; called by checkForInstantUnPack with (79,false).
+// Semantic donor ba7ddda7 CastleBehaviorRva00371EE0StatusBit.cpp, adapted to
+// native pending ID +0x38 and vector +0x5C with the rowed Object status setter.
+// WB leaves the method unnamed, so retain an address-derived identity.
+class ScriptEngine;
+extern ScriptEngine* TheScriptEngine;
+class Rva002039B6Host { public: void rva002039B6(); };
+void CastleBehavior::rva00397B03(ObjectStatusTypes status,bool set) {
+ Object* pending=TheGameLogic->findObjectByID(field<ObjectID>(this,0x38));
+ if(pending) {
+  if(set) pending->setStatus(status,true);
+  else pending->setStatus(status,false);
+ }
+ for(unsigned i=0;i<field<_STL::vector<ObjectID> >(this,0x5c).size();++i) {
+  Object* object=TheGameLogic->findObjectByID(field<_STL::vector<ObjectID> >(this,0x5c)[i]);
+  if(object) {
+   if(set) object->setStatus(status,true);
+   else object->setStatus(status,false);
+  }
+ }
+ ((Rva002039B6Host*)TheScriptEngine)->rva002039B6();
 }
