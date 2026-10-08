@@ -1,4 +1,6 @@
 // ?rva003B7C47@Rva003B573E@@QAEHABV?$StringBase@D@@@Z
+// partial score=0.85 date=2026-10-08
+// ?rva003B7C47@Rva003B573E@@QAEHABV?$StringBase@D@@@Z
 // partial score=0.85 date=2026-10-07
 // Native 3B7C47..3B7D90 329B. Reconstructs sorted-key lookup, free-list reuse, growth, linking and reference increment.
 // Record layout and operation follow BFME1 StringRecord* leads; target-native fields/callees establish offsets.
@@ -53,7 +55,7 @@ int Rva003B573E::rva003B7C47(const StringBase<char>&key)
   index=m_freeHead;
   offset=index*20;
   BfmeStringRecord003B3F78 *record=(BfmeStringRecord003B3F78*)((char*)&m_records[0]+offset);
-  ((StringBase<char>&)record->text)=key;
+  ((StringBase<char>&)record->text).set(key);
   m_sorted.insert(m_sorted.begin()+position, reinterpret_cast<const ModuleData *const&>(index));
   m_freeHead=record->word0;
   if(m_tail!=-1) m_records[m_tail].word1=index;
