@@ -5917,7 +5917,6 @@ name,address,notes
 ?GameGetColorComponents@@YAXHPAE000@Z,0x002D2A9F,BFME1 GameGetColorComponents matched 44B; ours 43B same channel-unpack head (shr 0x18; sar 0x10); call site in InGameUI::drawFloatingText (0x29D200) passes (color; &r; &g; &b; &a)
 ?GameGetColorComponentsReal@@YAXHPAM000@Z,0x002D2ACA,read from the REL32s at 0x000C977C and 0x000C9797 in W3DLaserDraw::doDrawModule (inner and outer laser colors); ledger row there keeps the generic Rva002D2ACAGet name for the same YAXHPAM000 signature
 ?GameSpyCloseOverlay@@YAXW4GSOverlayType@@@Z,0x00548B97,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?GameSpyOpenOverlay@@YAXW4GSOverlayType@@@Z,0x00548DED,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?GdiplusShutdown@Gdiplus@@YGXK@Z,0x00628F6E,GDI+ import thunk identified by official ATL 7.1 call and retail target
 ?GdiplusStartup@Gdiplus@@YG?AW4Status@1@PAKPBUGdiplusStartupInput@1@PAUGdiplusStartupOutput@1@@Z,0x00628F68,GDI+ import thunk; retail target of ATL CImage::CInitGDIPlus::Init
 ?Gen007E9B40@@YAPAURva007E9D70Cached@@PAURva007E9D70Owner@@@Z,0x00656B30

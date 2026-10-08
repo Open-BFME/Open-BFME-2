@@ -68,6 +68,19 @@ private:
 #include "GameNetwork/GameSpyOverlay.h"
 //#include "GameNetwork/GameSpy/PeerDefs.h"
 #include "GameNetwork/GameSpy/BuddyThread.h"
+// BFME 2's 0x88-byte audio event. The canonical header
+// (Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h) pulls in the
+// BFME 2 AsciiString shim, which collides with the Zero Hour AsciiString this
+// unit is built on, so only the constructor/destructor ABI and the size the
+// open-overlay click sound needs are declared here.
+// class-gate: allow BfmeAudioEventPrefix136 Zero-Hour-header unit cannot include the shim-based canonical header
+struct OpaqueRefElement4;
+struct BfmeAudioEventPrefix136
+{
+	BfmeAudioEventPrefix136(const OpaqueRefElement4 &, int);
+	virtual ~BfmeAudioEventPrefix136();
+	unsigned char m_data[0x88 - 4];
+};
 
 // The two native helpers finish with string teardown and do not preserve a
 // GameWindow return value. Keep their BFME 2 void ABI; MessageBoxOk retains
@@ -280,4 +293,130 @@ void GSMessageBoxYesNo(UnicodeString title, UnicodeString message, GameWinMsgBox
 	g_rva00627A50Flag = 1;
 	g_rva00627A50A = (void *)newYesFunc;
 	g_rva00627A50B = (void *)newNoFunc;
+}
+
+// GameSpyOpenOverlay, retail 0x00548DED..0x00548F76 (393 bytes, EH), the
+// Zero Hour GameSpyOverlay.cpp function. BFME 2 differences the bytes show:
+// TheGameText's fetch(const char *) is slot 0x3C, the buddy-overlay click
+// sound is the event at +0xC4 of TheAudio's misc audio (slot 78) built with
+// 2 rather than the "GUICommunicatorOpen" literal and played through slot
+// 25, the layout comes from TheWindowManager slot 0x80, and a new layout's
+// +0x08 window gets its +0x1F4 field cleared before runInit. Each
+// branch's hide/bringForward pair is the compiler's merged tail.
+class GameSpyOverlayTextView
+{
+public:
+	virtual void s00(); virtual void s04(); virtual void s08(); virtual void s0C();
+	virtual void s10(); virtual void s14(); virtual void s18(); virtual void s1C();
+	virtual void s20(); virtual void s24(); virtual void s28(); virtual void s2C();
+	virtual void s30(); virtual void s34(); virtual void s38();
+	virtual UnicodeString fetch(const char *label, Bool *exists = NULL);	// +0x3C
+};
+
+struct GameSpyOverlayMiscAudioView
+{
+	unsigned char m_pad00[0xC4];
+	unsigned char m_sound0C4[4];	// the event's OpaqueRefElement4
+};
+
+class GameSpyOverlayAudioView
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03(); virtual void s04();
+	virtual void s05(); virtual void s06(); virtual void s07(); virtual void s08(); virtual void s09();
+	virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14();
+	virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
+	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23(); virtual void s24();
+	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *event);	// slot 25
+	virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29();
+	virtual void s30(); virtual void s31(); virtual void s32(); virtual void s33(); virtual void s34();
+	virtual void s35(); virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39();
+	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43(); virtual void s44();
+	virtual void s45(); virtual void s46(); virtual void s47(); virtual void s48(); virtual void s49();
+	virtual void s50(); virtual void s51(); virtual void s52(); virtual void s53(); virtual void s54();
+	virtual void s55(); virtual void s56(); virtual void s57(); virtual void s58(); virtual void s59();
+	virtual void s60(); virtual void s61(); virtual void s62(); virtual void s63(); virtual void s64();
+	virtual void s65(); virtual void s66(); virtual void s67(); virtual void s68(); virtual void s69();
+	virtual void s70(); virtual void s71(); virtual void s72(); virtual void s73(); virtual void s74();
+	virtual void s75(); virtual void s76(); virtual void s77();
+	virtual const GameSpyOverlayMiscAudioView *getMiscAudio();	// slot 78
+};
+
+struct GameSpyOverlayWindowView
+{
+	unsigned char m_pad000[0x1F4];
+	Int m_field1F4;
+};
+
+struct GameSpyOverlayLayoutView
+{
+	void *m_vtable;
+	Int m_field04;
+	GameSpyOverlayWindowView *m_window08;
+};
+
+// winCreateLayout takes a BFME 2 AsciiString by value, built in its argument
+// slot through the inline const-char constructor that calls StringBase<char>'s
+// 0x00037BA0. This unit's Zero Hour AsciiString constructor is out of line,
+// so the argument uses the existing AsciiStringYU spelling of 0x00037BA0
+// behind an inline constructor.
+class AsciiStringYU { public: AsciiStringYU(const char *text); AsciiStringYU(const AsciiStringYU &); ~AsciiStringYU(); char *m_data; };
+struct GameSpyOverlayLayoutName : public AsciiStringYU { __forceinline GameSpyOverlayLayoutName(const char *s) : AsciiStringYU(s) {} };
+class GameSpyOverlayWindowManagerView
+{
+public:
+	virtual void s00(); virtual void s04(); virtual void s08(); virtual void s0C();
+	virtual void s10(); virtual void s14(); virtual void s18(); virtual void s1C();
+	virtual void s20(); virtual void s24(); virtual void s28(); virtual void s2C();
+	virtual void s30(); virtual void s34(); virtual void s38(); virtual void s3C();
+	virtual void s40(); virtual void s44(); virtual void s48(); virtual void s4C();
+	virtual void s50(); virtual void s54(); virtual void s58(); virtual void s5C();
+	virtual void s60(); virtual void s64(); virtual void s68(); virtual void s6C();
+	virtual void s70(); virtual void s74(); virtual void s78(); virtual void s7C();
+	virtual WindowLayout *winCreateLayout(GameSpyOverlayLayoutName filename);	// +0x80
+};
+
+// Zero Hour's buddyTryReconnect, rowed at 0x00548B70 under this name.
+void rva00627AA0Call();
+
+void GameSpyOpenOverlay( GSOverlayType overlay )
+{
+	if (overlay == GSOVERLAY_BUDDY)
+	{
+		if (!TheGameSpyBuddyMessageQueue->isConnected())
+		{
+			// not connected - is it because we were disconnected?
+			if (TheGameSpyBuddyMessageQueue->getLocalProfileID())
+			{
+				// used to be connected
+				GSMessageBoxYesNo(((GameSpyOverlayTextView *)TheGameText)->fetch("GUI:GPErrorTitle"), ((GameSpyOverlayTextView *)TheGameText)->fetch("GUI:GPDisconnected"), rva00627AA0Call, NULL);
+			}
+			else
+			{
+				// no profile
+				GSMessageBoxOk(((GameSpyOverlayTextView *)TheGameText)->fetch("GUI:GPErrorTitle"), ((GameSpyOverlayTextView *)TheGameText)->fetch("GUI:GPNoProfile"), NULL);
+			}
+			return;
+		}
+		BfmeAudioEventPrefix136 buttonClick(*(const OpaqueRefElement4 *)((GameSpyOverlayAudioView *)TheAudio)->getMiscAudio()->m_sound0C4, 2);
+
+		if( TheAudio )
+		{
+			((GameSpyOverlayAudioView *)TheAudio)->addAudioEvent( &buttonClick );
+		}  // end if
+	}
+	if (overlayLayouts[overlay])
+	{
+		((BFMEOverlayLayoutCloseView *)overlayLayouts[overlay])->hide( FALSE );
+		((BFMEOverlayLayoutCloseView *)overlayLayouts[overlay])->bringForward();
+	}
+	else
+	{
+		overlayLayouts[overlay] = ((GameSpyOverlayWindowManagerView *)TheWindowManager)->winCreateLayout( GameSpyOverlayLayoutName( gsOverlays[overlay] ) );
+		if (((GameSpyOverlayLayoutView *)overlayLayouts[overlay])->m_window08)
+			((GameSpyOverlayLayoutView *)overlayLayouts[overlay])->m_window08->m_field1F4 = 0;
+		((BFMEOverlayLayoutCloseView *)overlayLayouts[overlay])->runInit( NULL );
+		((BFMEOverlayLayoutCloseView *)overlayLayouts[overlay])->hide( FALSE );
+		((BFMEOverlayLayoutCloseView *)overlayLayouts[overlay])->bringForward();
+	}
 }

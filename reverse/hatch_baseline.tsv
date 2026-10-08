@@ -6179,6 +6179,7 @@ class_gate_allow	Code/GameEngine/Source/GameLogic/Rva00194810Split_Rva0032abda.c
 class_gate_allow	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptBindingsLuaAO1.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Thing/Rva0033BA46Finish.cpp	AsciiString	1
+class_gate_allow	Code/GameEngine/Source/GameNetwork/GameSpyOverlay.cpp	BfmeAudioEventPrefix136	1	allow=1ab8f25aa1b51460bdb86330b896e6afc12338c8
 class_gate_allow	Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp	UnicodeString	1
 class_gate_allow	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	Coord2D	1	allow=76860afc702ba83d37adaa2e73c1a9f603769879
@@ -31709,7 +31710,6 @@ pin	reverse/symbols.csv	0x0054883B	1
 pin	reverse/symbols.csv	0x00548948	3
 pin	reverse/symbols.csv	0x00548B97	1
 pin	reverse/symbols.csv	0x00548C59	1
-pin	reverse/symbols.csv	0x00548DED	1
 pin	reverse/symbols.csv	0x00549001	2
 pin	reverse/symbols.csv	0x005494A0	2
 pin	reverse/symbols.csv	0x00549C6D	1
