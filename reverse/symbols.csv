@@ -16160,3 +16160,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva005B2794@Rva005B486DOwner@@QAEXXZ,0x005B2794,address-named tail member of 0x005B486D (unowned; byte gate is the proof)
 ??$make_pair@VAsciiString@@PAVSidesList@@@_STL@@YA?AU?$pair@VAsciiString@@PAVSidesList@@@0@ABVAsciiString@@ABQAVSidesList@@@Z,0x0032ACCF,callee of ?getSides@LibraryMapCache@@QAEPAVSidesList@@ABVAsciiString@@@Z
 ?push_back@?$vector@U?$pair@VAsciiString@@PAVSidesList@@@_STL@@V?$allocator@U?$pair@VAsciiString@@PAVSidesList@@@_STL@@@2@@_STL@@QAEXABU?$pair@VAsciiString@@PAVSidesList@@@2@@Z,0x0032DC80,callee of ?getSides@LibraryMapCache@@QAEPAVSidesList@@ABVAsciiString@@@Z
+?rva000613A9@MilesAudioManager@@QAE_NI@Z,0x000613A9,"callee of rva000615DA read from its byte-true calls at 0x0006162C and 0x0006163E; Ghidra start FUN_004613a9 (561B; thiscall bool; ret 4); WB unnamed twin 0x794760 erases the +0x9C pending request and walks the +0x98 list; address-named until rowed"

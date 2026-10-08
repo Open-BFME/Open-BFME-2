@@ -26,6 +26,8 @@ public:
     void rva000562A2(int key, const void *value);
     void rva00057530(unsigned int key, float value, int mode);
     void rva0005634C(int key, float value, int mode);
+    bool rva000613A9(unsigned int handle);
+    bool rva000615DA(unsigned int handle);
 private:
     char at00[0x104];
     MilesKeyAliases aliases;
@@ -62,4 +64,26 @@ void MilesAudioManager::rva00057530(unsigned int key, float value, int mode)
             ++it;
         } while (it != aliases.end() && it->first == key);
     }
+}
+
+// Native 000615DA..00061680, RET4. Handles below 5 are refused. Under the
+// +9D4 mutex each equal-key alias of the handle is forwarded to the 561-byte
+// 000613A9 helper (or the handle itself when it has no alias); the result is
+// true when any forward returned true. WorldBuilder's unnamed twin at 795370
+// logs "Processing kill immediately request"; the method name is unknown.
+bool MilesAudioManager::rva000615DA(unsigned int handle)
+{
+    if (handle < 5)
+        return false;
+    MilesMutexGuard guard(&mutex, 0);
+    MilesKeyAliases::iterator it = aliases.find(handle);
+    if (it == aliases.end())
+        return rva000613A9(handle);
+    bool killed = false;
+    do {
+        if (rva000613A9(it->second))
+            killed = true;
+        ++it;
+    } while (it != aliases.end() && it->first == handle);
+    return killed;
 }
