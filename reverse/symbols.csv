@@ -12258,7 +12258,6 @@ name,address,notes
 ?rva005DD22B@Rva005DD22B@@QAEXXZ,0x005DD22B,address-derived callee of matched slot 0x005B7FFA; retail jmp rel32 targets 0x005DD22B; Ghidra FUN bounds 168 bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
 ?rva005DD48C@Rva005B8EBB@@QAEXXZ,0x005DD48C,callees of 0x005B8EBB from retail REL32; names unknown
 ?rva005DD48C@Rva005C1A36@@QAEXXZ,0x005DD48C,unrowed 353B thiscall (Ghidra FUN_009dd48c; EH; plain ret) on Rva005C1A36 (the skirmish screen +0x668 member): starts with its own vslot 1 and reads 0x00DFE0D0; REL32 at 0x005C1ADB in Rva005C1A36::rva005C1ABA after the new user name is handed on; address name
-?rva005DDBAB@Rva005DDBAB@@QAEXHH@Z,0x005DDBAB,this+2 ints void callee for 0x005DE059 loop; address-derived pin
 ?rva005DE926@Rva005DE5B5@@QAEXXZ,0x005DE926,per-element method over Rva005DE5B5 range pushed as fn at 0x005DE96C for Apply 0x005DD6D5; layout vector-plus-flag
 ?rva005E1160@@YIXPAVRva005F8A7ESub@@_N@Z,0x005E1160,sub-object at this+8 bool method called from 0x005F8A7E; identity unproven
 ?rva005E1168@@YIXPAVRva005F8A7ESub@@H@Z,0x005E1168,sub-object at this+8 int method called from 0x005F8A7E; identity unproven

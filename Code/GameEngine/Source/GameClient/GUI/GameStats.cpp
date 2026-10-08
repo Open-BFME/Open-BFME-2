@@ -9,6 +9,8 @@
 //
 // Target facts: the cell vector keeps the ledger's address-derived spelling.
 
+// stlport
+#include <vector>
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -56,6 +58,9 @@ public:
 	private:
 		UnicodeString m_label;
 		Rva005DE7D1Vector m_cells;
+		// The lifecycle and refresh bodies prove the rest of this 24-byte row.
+		float m_maximum;
+		unsigned char m_dirty;
 	};
 };
 
@@ -64,4 +69,44 @@ void GameStats::Row::Init(const char *label, int numCells)
 	m_cells.resize(numCells);
 	if (label)
 		m_label = TheGameText->fetch(label);
+}
+
+class GameWindow;
+int GadgetListBoxAddEntryText(GameWindow*,UnicodeString,int,int,int,bool);
+class Rva005DD88A : public UnicodeString {
+public:
+    float value;
+    int rva005DD88A(GameWindow*,int,int,float);
+};
+inline int RowRefreshWhiteColor() { return -1; }
+class Rva005DDBAB {
+public:
+    void rva005DDBAB(int window,int focus);
+private:
+    UnicodeString m_label;
+    _STL::vector<Rva005DD88A> m_cells;
+    float m_maximum;
+    unsigned char m_dirty;
+};
+// Native 5DDBAB..5DDC6B, 192 bytes; WB 15D7710 is unnamed.
+// The existing 24-byte owner ctor/copy/dtor and updater independently prove
+// label0, 8-byte cells at4, float10 and dirty14. Retain an address-derived
+// spelling until the owner's names and private class views are reconciled.
+// The established two-int ABI carries Window* and vector<int>* addresses.
+// WB packs four 255 channels for the local static white color; ordinary
+// C++ initialization reproduces its guard and storage without address pins.
+void Rva005DDBAB::rva005DDBAB(int window,int focus) {
+    static int color=RowRefreshWhiteColor();
+    if(m_dirty) {
+        GameWindow *win=(GameWindow*)window;
+        const _STL::vector<int> *indices=(const _STL::vector<int>*)focus;
+        int row=GadgetListBoxAddEntryText(win,m_label,color,-1,0,true);
+        int column=1;
+        for(const int *it=indices->begin();it!=indices->end();++column,++it) {
+            unsigned index=*it;
+            if(index<m_cells.size())
+                m_cells[index].rva005DD88A(win,row,column,m_maximum);
+        }
+        GadgetListBoxAddEntryText(win,UnicodeString(L" "),color,-1,0,true);
+    }
 }
