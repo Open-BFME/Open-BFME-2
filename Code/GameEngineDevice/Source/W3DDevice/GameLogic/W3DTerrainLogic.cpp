@@ -90,16 +90,9 @@ void W3DTerrainLogic::init( void )
 //-------------------------------------------------------------------------------------------------
 /** Reset */
 //-------------------------------------------------------------------------------------------------
-// ?reset@W3DTerrainLogic@@ present-unmatched
-void W3DTerrainLogic::reset( void )
-{
-	TerrainLogic::reset();
-	m_mapDX = 0;
-	m_mapDY = 0;
-	m_mapMinZ = 0;
-	m_mapMaxZ = 1;
-	WorldHeightMap::freeListOfMapObjects();
-}  // end reset
+// W3DTerrainLogic::reset (retail 0x00062B44) is defined in
+// W3DTerrainLogicReset.cpp, which uses BFME 2's field offsets rather than the
+// Zero Hour header layout this unit compiles against.
 
 //-------------------------------------------------------------------------------------------------
 /** newMap */
