@@ -38,7 +38,6 @@ struct BfmeStringRecord000B75AE { char m_pad[32]; public: BfmeStringRecord000B75
 // 24-byte element; layout owner stlport_list_create_nodes.cpp.
 struct BfmeStringRecord00415F34 { char m_pad[24]; public: BfmeStringRecord00415F34(const BfmeStringRecord00415F34 &); ~BfmeStringRecord00415F34(); };
 // 28-byte element; layout owner stlport_list_create_nodes.cpp.
-struct BfmeStringRecord005BC576 { char m_pad[28]; public: BfmeStringRecord005BC576(const BfmeStringRecord005BC576 &); ~BfmeStringRecord005BC576(); };
 // 12-byte element; layout owner Coord3DListCreateNode.cpp.
 struct Coord3D { char m_pad[12]; public: Coord3D(const Coord3D &); ~Coord3D(); };
 // 4-byte element; layout owner stlport_list_create_nodes.cpp.
@@ -57,7 +56,6 @@ template <> _STL::_List_node<BfmePod60> *_STL::list<BfmePod60>::_M_create_node(c
 template <> _STL::_List_node<BfmePod72> *_STL::list<BfmePod72>::_M_create_node(const BfmePod72 &);
 template <> _STL::_List_node<BfmeStringRecord000B75AE> *_STL::list<BfmeStringRecord000B75AE>::_M_create_node(const BfmeStringRecord000B75AE &);
 template <> _STL::_List_node<BfmeStringRecord00415F34> *_STL::list<BfmeStringRecord00415F34>::_M_create_node(const BfmeStringRecord00415F34 &);
-template <> _STL::_List_node<BfmeStringRecord005BC576> *_STL::list<BfmeStringRecord005BC576>::_M_create_node(const BfmeStringRecord005BC576 &);
 template <> _STL::_List_node<Coord3D> *_STL::list<Coord3D>::_M_create_node(const Coord3D &);
 template <> _STL::_List_node<Rva0036CA00Str> *_STL::list<Rva0036CA00Str>::_M_create_node(const Rva0036CA00Str &);
 template <> _STL::_List_node<RvaSmartPtr12> *_STL::list<RvaSmartPtr12>::_M_create_node(const RvaSmartPtr12 &);
@@ -88,8 +86,6 @@ template _STL::list<BfmeContainerRecord00462D62>::iterator _STL::list<BfmeContai
 template _STL::list<BfmePod60>::iterator _STL::list<BfmePod60>::insert(_STL::list<BfmePod60>::iterator, const BfmePod60 &);
 // Retail 0x004E7B49 (37B).
 template _STL::list<BfmePod12>::iterator _STL::list<BfmePod12>::insert(_STL::list<BfmePod12>::iterator, const BfmePod12 &);
-// Retail 0x005BC6FE (37B).
-template _STL::list<BfmeStringRecord005BC576>::iterator _STL::list<BfmeStringRecord005BC576>::insert(_STL::list<BfmeStringRecord005BC576>::iterator, const BfmeStringRecord005BC576 &);
 // Retail 0x001B4CEF (26B).
 template void _STL::list<BfmePod72>::push_back(const BfmePod72 &);
 // Retail 0x001F81D2 (26B).

@@ -27,7 +27,6 @@ struct BfmeStringRecord00239B46 { public: unsigned char m_data[8]; };
 struct BfmeStringRecord002B4DC1 { public: unsigned char m_data[12]; };
 struct BfmeStringRecord00415F34 { public: unsigned char m_data[24]; };
 struct BfmeContainerRecord00462D62 { public: unsigned char m_data[32]; };
-struct BfmeStringRecord005BC576 { public: unsigned char m_data[28]; };
 
 // ?_M_create_node@?$list@VRva0036CA00Str@@V?$allocator@VRva0036CA00Str@@@_STL@@@_STL@@IAEPAU?$_List_node@VRva0036CA00Str@@@2@ABVRva0036CA00Str@@@Z
 namespace _STL {
@@ -183,16 +182,3 @@ _STL::_List_node<void *> *_STL::list<void *, _STL::allocator<void *> >::_M_creat
 }
 template _STL::_List_node<void *> *_STL::list<void *, _STL::allocator<void *> >::_M_create_node(void * const &);
 
-// ?_M_create_node@?$list@UBfmeStringRecord005BC576@@V?$allocator@UBfmeStringRecord005BC576@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmeStringRecord005BC576@@@2@ABUBfmeStringRecord005BC576@@@Z
-namespace _STL {
-template <> void _Construct<BfmeStringRecord005BC576>(BfmeStringRecord005BC576 *, BfmeStringRecord005BC576 const &);
-}
-template <>
-_STL::_List_node<BfmeStringRecord005BC576> *_STL::list<BfmeStringRecord005BC576, _STL::allocator<BfmeStringRecord005BC576> >::_M_create_node(BfmeStringRecord005BC576 const &__x)
-{
-	_STL::_List_node<BfmeStringRecord005BC576> *__p =
-		(_STL::_List_node<BfmeStringRecord005BC576> *)_STL::allocator<char>::allocate(sizeof(_STL::_List_node<BfmeStringRecord005BC576>), 0);
-	_STL::_Construct(&__p->_M_data, __x);
-	return __p;
-}
-template _STL::_List_node<BfmeStringRecord005BC576> *_STL::list<BfmeStringRecord005BC576, _STL::allocator<BfmeStringRecord005BC576> >::_M_create_node(BfmeStringRecord005BC576 const &);

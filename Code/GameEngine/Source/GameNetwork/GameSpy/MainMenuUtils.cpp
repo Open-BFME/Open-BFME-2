@@ -1,4 +1,4 @@
-// cl: /O1 /Oa /G7 /arch:SSE /MD /EHs /DNDEBUG /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /ICode/GameEngine/Source/Common
+// cl: /O1 /Oa /G7 /arch:SSE /MD /EHs /DNDEBUG /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /ICode/GameEngine/Source/Common
 // stlport
 // BFME1 34f59164 MainMenuUtils.cpp is the primary reference.
 // WB158CC80 names startOnline and MainMenuUtils.cpp; native5BC887..5BCA60
@@ -10,7 +10,7 @@
 #include "unicode_string.h"
 #include <list>
 #include <string>
-class QueuedDownload { public: AsciiString server,userName,password,file,localFile,regKey;bool tryResume; };
+class QueuedDownload { public: AsciiString server,userName,password,file,localFile,regKey;bool tryResume; QueuedDownload(const QueuedDownload &); ~QueuedDownload(); };
 extern unsigned int g_Va00E0657C;
 #include "MainMenuOnlineState.h"
 #define online g_mainMenuOnlineState
@@ -217,3 +217,14 @@ void CancelPatchCheckCallbackAndReopenDropdown()
  Rva00516E92Enable();
  CancelPatchCheckCallback();
 }
+
+// Complete named list providers5BC6D3/5BC6FE share the MainMenu O1/G7 settings.
+// The former byte-footprint views are removed from the generic list units.
+
+
+namespace _STL {template <> void _Construct<QueuedDownload>(QueuedDownload *,const QueuedDownload &);}
+template <> _STL::_List_node<QueuedDownload> *_STL::list<QueuedDownload>::_M_create_node(const QueuedDownload &x){
+ _STL::_List_node<QueuedDownload> *p=(_STL::_List_node<QueuedDownload> *)_STL::allocator<char>::allocate(sizeof(_STL::_List_node<QueuedDownload>),0);
+ _STL::_Construct(&p->_M_data,x);return p;
+}
+template _STL::list<QueuedDownload>::iterator _STL::list<QueuedDownload>::insert(_STL::list<QueuedDownload>::iterator,const QueuedDownload &);

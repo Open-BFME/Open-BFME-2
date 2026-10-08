@@ -76,13 +76,12 @@ struct BfmeStringRecord0022074B {
 BfmeStringRecord0022074B::BfmeStringRecord0022074B(const BfmeStringRecord0022074B &o) : text0(o.text0), text1(o.text1), word(o.word) {}
 template void _STL::_Construct<BfmeStringRecord0022074B,BfmeStringRecord0022074B>(BfmeStringRecord0022074B*,const BfmeStringRecord0022074B&);
 
-// Complete retail record copy at0x005BC576.
-struct BfmeStringRecord005BC576 {
-    AsciiString text0, text1, text2, text3, text4, text5; unsigned char flag;
-    BfmeStringRecord005BC576(const BfmeStringRecord005BC576 &o);
-};
-BfmeStringRecord005BC576::BfmeStringRecord005BC576(const BfmeStringRecord005BC576 &o) : text0(o.text0), text1(o.text1), text2(o.text2), text3(o.text3), text4(o.text4), text5(o.text5), flag(o.flag) {}
-template void _STL::_Construct<BfmeStringRecord005BC576,BfmeStringRecord005BC576>(BfmeStringRecord005BC576*,const BfmeStringRecord005BC576&);
+// Native5BC576 copies six AsciiString fields and the resume byte at24.
+// WB MainMenuUtils and ZH DownloadManager.h establish QueuedDownload identity.
+// Rename the existing owner rather than adding another name at its address.
+class QueuedDownload { public: AsciiString server,userName,password,file,localFile,regKey; bool tryResume; QueuedDownload(const QueuedDownload &); ~QueuedDownload(); };
+QueuedDownload::QueuedDownload(const QueuedDownload &o) : server(o.server), userName(o.userName), password(o.password), file(o.file), localFile(o.localFile), regKey(o.regKey), tryResume(o.tryResume) {}
+template void _STL::_Construct<QueuedDownload,QueuedDownload>(QueuedDownload*,const QueuedDownload&);
 
 // Complete retail record copy at0x005D511F.
 struct BfmeStringRecord005D511F {
