@@ -16993,3 +16993,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ??1BitChannelClass@@QAE@XZ,0x001960C0,BitChannelClass destructor; its code is byte- and relocation-identical to the rowed MotionChannelClass::Free at 0x001960C0 and ICF-folded onto it (1 tree copies in 1 variant(s)); one of several unaddressed callees of a kept caller definition that reaches it by REL32 there; fold-proof=Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp
 ?rva00629B6E@@YAHH@Z,0x00629B6E,callee of ?Rva006FD5B0@@YAEDD@Z
 ?rva006291C0@@YAKPBDPAXH@Z,0x006291C0,callee of ?Rva006FD5B0@@YAEDD@Z
+?rva003B7EC2@Rva003B7EC2View@@QAEHH@Z,0x003B7EC2,

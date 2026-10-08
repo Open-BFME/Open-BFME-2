@@ -39,9 +39,24 @@ public:
 	Rva003B448C *m_next;
 };
 
+class Rva003B7EC2View
+{
+public:
+	int rva003B7EC2(int key);
+};
+
+struct Rva003B8337Node
+{
+	Rva003B8337Node() : m_data(0), m_index(-1), m_refs(0) {}
+	void *m_data;
+	int m_index;
+	int m_refs;
+};
+
 class Rva003B573E
 {
 public:
+	Rva003B8337Node *rva003B8337(int key);
 	int rva003B573E(const StringBase<char> &key);
 	int rva003B6633(const StringBase<char> &key);
 	void rva003B66D8(int index);
@@ -147,4 +162,17 @@ int Rva003B573E::rva003B820D(Rva003B573E *other, int index)
 	target->m_nodes = node;
 	other->rva003B66D8(index);
 	return destination;
+}
+
+Rva003B8337Node *Rva003B573E::rva003B8337(int key)
+{
+	int index = reinterpret_cast<Rva003B7EC2View *>(&m_records)->rva003B7EC2(key);
+	if (index != -1)
+	{
+		Rva003B8337Node *node = new Rva003B8337Node;
+		node->m_index = index;
+		node->m_refs = *reinterpret_cast<const short *>(m_freeHead + index * 20 + 0xe);
+		return node;
+	}
+	return 0;
 }
