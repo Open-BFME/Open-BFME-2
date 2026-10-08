@@ -112,6 +112,7 @@ An explicit request or assigned lane overrides the queue:
 
 5. `python3 tools/next_work.py` for identity/structural work; it explains its
    own tiers.
+   `--wb` serves bodies by WorldBuilder name lead; proven fixes: `docs/recipes.md`.
 6. `python3 tools/place_bodies.py <sources>` mines the units the ledger already
    compiles. A TU emits far more than the one function it was written to land,
    and the rest was invisible only because the export table had no address for
