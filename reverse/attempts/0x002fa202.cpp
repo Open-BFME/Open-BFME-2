@@ -1,5 +1,5 @@
 // ?AdjustHordeMeleeDestination@Pathfinder@@QAE_NPAVObject@@PAXPAUCoord3D@@@Z
-// partial score=0.93 date=2026-10-07
+// partial score=0.97 date=2026-10-09
 // cl: /O1 /DNDEBUG /MD /arch:SSE /G7
 // wb-lead 2.000 callgraph: Pathfinder::SetBridgeStateRepaired at 0x002E7205.
 // Identity evidence: the GeneralsMD AIPathfind.cpp implementation
@@ -59,7 +59,7 @@ public:
 	char m_pad00[4];
 	const Rva002FA202Template *m_04;	// +0x04
 };
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Code/Libraries/Include/Lib/Coord3D.h"
 struct Rva002E7ED6Info;
 class Pathfinder;
 struct Rva002E93A7Info
@@ -567,14 +567,18 @@ Bool Pathfinder::AdjustHordeMeleeDestination(Object *obj, void *arg, Coord3D *de
 	if (obj->m_04->m_10B & 2)
 		return true;
 	bool center = Rva002EBBFBIsOdd(obj);
-	ICoord2D cell;
-	Rva002E7875WorldToCell(&cell, center, dest);
+	const ICoord2D *cellp;
+	{
+		ICoord2D cell;
+		Rva002E7875WorldToCell(&cell, center, dest);
+		cellp = &cell;
+	}
 	Pathfinder_IsCheckForMeleeHordeAdjust functor(this, obj, arg, *dest,
 		TheTerrainLogic->getLayerHeight(dest->x, dest->y,
 			TheTerrainLogic->getLayerForDestination(obj, dest), 0, true));
 	ICoord2D found;
 	zeroICoord2D(&found);
-	if (rva002F92BC(&cell, TheWritableGlobalData->m_11F4, &found, &functor))
+	if (rva002F92BC(cellp, TheWritableGlobalData->m_11F4, &found, &functor))
 	{
 		*dest = cellCenter(center, (Rva002E8C23Pair *)&found, functor.m_layer);
 		return true;

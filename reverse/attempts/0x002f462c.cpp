@@ -1,5 +1,5 @@
 // ?rva002F462C@Pathfinder@@QAEXXZ
-// partial score=0.95 date=2026-10-07
+// partial score=0.985 date=2026-10-09
 // cl: /DNDEBUG /MD /O1 /arch:SSE /G7
 // ?rva002F462C@Pathfinder@@QAEXXZ @0x002F462C 338B
 // evidence: unlock callers 0x002F6F06 plus 0x002FEB41 via AI plus 0x10; rowed Pathfinder 0x002F40E7 plus 0x002F370D; Path dtor 0x00364A89; layer reset 0x00366DEC 16 layers; zone reset 0x005335D3
@@ -47,13 +47,13 @@ public:
 
 struct ListNode5C
 {
-	virtual void *func(int);
+	virtual ~ListNode5C();
 	ListNode5C *m_next;
 };
 
 struct ListNode3C
 {
-	virtual void *func(int);
+	virtual ~ListNode3C();
 	char m_pad04[0x38];
 	ListNode3C *m_next;
 };
@@ -86,9 +86,7 @@ private:
 	int m_40;
 	int m_44;
 	int m_48;
-	float m_4C;
-	float m_50;
-	float m_54;
+	struct DebugPos { float x, y, z; void zero() { x = 0.0f; y = 0.0f; z = 0.0f; } } m_debugPathPos; // +0x4C
 	Path *m_58;
 	ListNode5C *m_5C;
 	char m_pad60[0x400];
@@ -132,9 +130,7 @@ void Pathfinder::rva002F462C()
 	m_40 = 0;
 	m_44 = 0;
 	m_48 = 0;
-	m_4C = 0.0f;
-	m_50 = 0.0f;
-	m_54 = 0.0f;
+	m_debugPathPos.zero();
 	if (m_58 != 0)
 		delete m_58;
 	ListNode5C *head = m_5C;
@@ -143,7 +139,7 @@ void Pathfinder::rva002F462C()
 	{
 		ListNode5C *next = head->m_next;
 		head->m_next = 0;
-		operator delete(head->func(0));
+		::delete head;
 		head = next;
 	}
 	m_5C = 0;
@@ -163,7 +159,7 @@ void Pathfinder::rva002F462C()
 		{
 			ListNode3C *n = h->m_next;
 			h->m_next = 0;
-			operator delete(h->func(0));
+			::delete h;
 			h = n;
 		}
 		m_1C0BC[i] = 0;
