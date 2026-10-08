@@ -39,6 +39,15 @@
 //    the owner's +0x94 flag is set, clears status 0x4B, restores full speed,
 //    drops the ignored obstacle and, for ground movement (AI slot 137),
 //    snaps the owner onto the +0x20 goal position when within sqrt(12.5).
+//  - AIAttackMeleeHordeApproachTargetState::rva00344D60, retail 0x00344D60
+//    (338 bytes): thiscall (this unused, ret 0xc) called twice by the class's
+//    computePath 0x00348BA4 (slot 17 of 0x00C126C0) with the goal, the source
+//    and the victim or 0. Steps the goal back toward the source by ten units
+//    (count -(int)(len * -0.05f) - 1, the idiom of BFME 1's Rva0016EE00) until
+//    Pathfinder 0x002F1BA2 passes the line from the stepped point with the
+//    AI's locomotor surfaces (+0x1DC) and the rowed Object::rva0028B511 layer;
+//    else the pinned adjustToPossibleDestination and false. Name and
+//    surfaces field are structural inference; the step logic is target fact.
 //  - AIMoveToPositionAndEnterState::onEnter, retail 0x00350020 (198
 //    bytes): slot 4 of 0x00C136A0. Donor: Open-BFME-1
 //    AIMoveToPositionAndEnterState_onEnter.cpp. Takes the goal's contain
@@ -180,6 +189,10 @@ enum
 struct Coord3D;
 class Object;
 
+enum PathfindLayerEnum
+{
+	LAYER_GROUND = 1
+};
 class LocomotorSet;
 class Pathfinder
 {
@@ -188,6 +201,10 @@ public:
 		const Coord3D *groupDest);
 	Bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *dest);
 	Bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int flag);
+	Bool adjustToPossibleDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest);
+	// The rowed Int body at 0x002F1BA2 (PathfinderCoordLineWalk.cpp); its callers
+	// test only al, so this TU calls it through a Bool view.
+	Bool Rva002F1BA2(void *obj, void *surfaces, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
 };
 class AI
 {
@@ -325,10 +342,6 @@ template <class Base, int From> class AIStateSlotFill<Base, From, From> : public
 {
 };
 
-enum PathfindLayerEnum
-{
-	LAYER_GROUND = 1
-};
 class Path
 {
 public:
@@ -457,6 +470,7 @@ public:
 	const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)m_locomotorSet; }
 	Path *getPath() const { return m_path; }
 	Bool getBfmeFlag3B1() const { return m_bfmeFlag3B1; }
+	void *getValidLocomotorSurfaces() const { return m_validLocomotorSurfaces; }
 private:
 	unsigned char m_pad004[0x20 - 0x04];
 public:
@@ -467,7 +481,9 @@ private:
 	unsigned char m_pad144[0x194 - 0x144];
 	int m_currentGoalPathIndex; // +0x194
 	unsigned char m_pad198[0x1CC - 0x198];
-	unsigned char m_locomotorSet[0x1F0 - 0x1CC]; // +0x1CC
+	unsigned char m_locomotorSet[0x1DC - 0x1CC]; // +0x1CC (LocomotorSet, 0x24 bytes)
+	void *m_validLocomotorSurfaces; // +0x1DC (LocomotorSet +0x10)
+	unsigned char m_pad1E0[0x1F0 - 0x1E0];
 	Locomotor *m_curLocomotor; // +0x1F0
 	unsigned char m_pad1F4[0x3B1 - 0x1F4];
 	Bool m_bfmeFlag3B1; // +0x3B1
@@ -515,6 +531,7 @@ struct Coord3D
 	Real x, y, z;
 	Real Normalize();
 	void scale(Real scale) { x *= scale; y *= scale; z *= scale; }
+	void sub(const Coord3D *a) { x -= a->x; y -= a->y; z -= a->z; }
 	void add(const Coord3D *a) { x += a->x; y += a->y; z += a->z; }
 	Real length() const;
 };
@@ -601,6 +618,7 @@ public:
 	void rva0028AD32();
 	void rva0028AE6D();
 	void *rva0028C197() const;
+	int rva0028B511() const;
 	Bool chooseBestWeaponForTarget(const Object *target, WeaponChoiceCriteria criteria, CommandSourceType cmdSource);
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	Bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
@@ -853,6 +871,7 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
+	Bool rva00344D60(Coord3D *goal, Object *source, Object *victim);
 private:
 	Real m_bfmeReal4C; // +0x4C
 	Real m_bfmeReal50; // +0x50
@@ -885,6 +904,47 @@ void AIAttackMeleeHordeApproachTargetState::onExit(StateExitType status)
 				owner->setPosition(&m_goalPosition);
 		}
 	}
+}
+
+// 0x00344D60 338B: walks a melee goal back toward its source in ten-unit
+// steps until the pathfinder's line query from the stepped point passes, then
+// stores that point; with no passing step it falls back to
+// adjustToPossibleDestination and fails. computePath (0x00348BA4) calls it on
+// the goal, its source and the victim (or 0); the victim is unused.
+// Retail loads the goal once into registers for both copies (three movss, no
+// movsd block copy); only a user-written copy constructor reproduces that.
+// The shipped type is not known, so this TU-local view carries just that
+// constructor (as in AIStatesBfmeComputePath.cpp).
+struct MemberwiseCoord3D : public Coord3D
+{
+	MemberwiseCoord3D(const Coord3D &other) { x = other.x; y = other.y; z = other.z; }
+};
+Bool AIAttackMeleeHordeApproachTargetState::rva00344D60(Coord3D *goal, Object *source, Object *victim)
+{
+	AIUpdateInterface *ai = source->getAI();
+	if (!ai)
+		return false;
+	MemberwiseCoord3D direction(*goal);
+	MemberwiseCoord3D candidate(*goal);
+	direction.sub(source->getPosition());
+	direction.z = 0.0f;
+	int count = -(int)(direction.length() * -0.05f) - 1;
+	direction.Normalize();
+	direction.scale(10.0f);
+	for (int i = 0; i < count; ++i)
+	{
+		if (TheAI->pathfinder()->Rva002F1BA2(source, ai->getValidLocomotorSurfaces(),
+				(PathfindLayerEnum)source->rva0028B511(), &candidate, &candidate))
+		{
+			*goal = candidate;
+			return true;
+		}
+		candidate.x -= direction.x;
+		candidate.y -= direction.y;
+		candidate.z -= direction.z;
+	}
+	TheAI->pathfinder()->adjustToPossibleDestination(source, ai->getLocomotorSet(), goal);
+	return false;
 }
 
 class AIMoveToState : public AIInternalMoveToState
