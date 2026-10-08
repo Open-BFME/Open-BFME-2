@@ -1,7 +1,8 @@
 // cl: /O1 /arch:SSE /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 //
-// LargeGroupAudioAudioMap bodies (retail 0x003EE0CF..0x003EE6F6).
+// LargeGroupAudioAudioMap bodies (retail 0x003EDC96..0x003EDD67 and
+// 0x003EE0CF..0x003EE6F6).
 //
 // Identity: WorldBuilder names the unit LargeGroupAudioAudioMap.cpp (the
 // "two Sound blocks within the same LargeGroupAudioMap" string of 0x003EE576)
@@ -17,6 +18,9 @@
 // "AudioMap" block (WB twin 0x1035D30, unnamed): it writes the pair count and
 // each pair's name and id ahead of a "SoundKeyPair" block, and on load reports
 // false when the count differs or a saved pair is missing.
+// 0x003EDC96 compares two maps field by field (the floats at +0x10/+0x14, both
+// 0x4C members, both 128-bit masks, the thresholds and the +0xE4/+0xE5 bytes);
+// nothing in the image references it, so it keeps an address-derived name.
 typedef bool Bool;
 // Retail frees vector storage through the C++-linkage free (0x00030830),
 // which keeps the unwind-state store before each call.
@@ -54,6 +58,10 @@ public:
 };
 
 int Rva0056A983Get();	// LargeGroupAudioSoundKeyPair field-parse table
+
+// memcmp wrappers over the 0x4C members and the 128-bit masks.
+bool Rva00045473Equal(const void *a, const void *b);
+bool Rva002634E0Equal(const void *a, const void *b);
 
 // Retail keeps the minimum/current version bytes in xfer's dead argument slot.
 struct VersionPair
@@ -151,6 +159,7 @@ class LargeGroupAudioAudioMap : public Rva001E3624
 public:
 	LargeGroupAudioAudioMap(AsciiString name);
 	virtual ~LargeGroupAudioAudioMap();
+	bool rva003EDC96(const LargeGroupAudioAudioMap &other) const;
 	bool rva003EE23C(Xfer *xfer, VersionPair *version);
 	void rva003EE3FE(const LargeGroupAudioAudioMap &other);
 	static void parseSoundBlock(INI *ini, void *instance, void *store, const void *userData);
@@ -172,6 +181,20 @@ private:
 	float m_F0;										// +0xF0
 	float m_F4;										// +0xF4
 };
+
+bool LargeGroupAudioAudioMap::rva003EDC96(const LargeGroupAudioAudioMap &other) const
+{
+	return other.m_10 == m_10
+		&& other.m_14 == m_14
+		&& Rva00045473Equal(&other.m_28, &m_28)
+		&& Rva00045473Equal(&other.m_74, &m_74)
+		&& Rva002634E0Equal(&other.m_C0, &m_C0)
+		&& Rva002634E0Equal(&other.m_D0, &m_D0)
+		&& other.m_startThreshold == m_startThreshold
+		&& other.m_stopThreshold == m_stopThreshold
+		&& other.m_E4 == m_E4
+		&& other.m_E5 == m_E5;
+}
 
 LargeGroupAudioAudioMap::LargeGroupAudioAudioMap(AsciiString name)
 	: m_name(name)
