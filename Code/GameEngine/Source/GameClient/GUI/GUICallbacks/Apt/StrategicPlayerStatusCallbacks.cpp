@@ -147,6 +147,13 @@ public:
 	virtual void vslot19(int);
 };
 extern Mouse *TheMouse;
+class Rva005CB260;
+class Rva005CB265
+{
+public:
+	virtual int rva005CB265();
+};
+
 class InGameUI
 {
 public:
@@ -246,6 +253,7 @@ public:
 	virtual void slot93();
 	virtual void vslot94(int);
 	virtual bool vslot95();
+	Rva005CB260 *rva000CF155();
 };
 extern InGameUI *TheInGameUI;
 class Shell
@@ -257,6 +265,8 @@ public:
 extern Shell *TheShell;
 struct GlobalA04934;
 extern GlobalA04934 *g_Va00A04934;
+struct GlobalA046B4;
+extern GlobalA046B4 *g_Va00A046B4;
 extern int g_Va00E048D0;
 void Rva004E855CClose();
 
@@ -359,6 +369,43 @@ void StrategicPlayerStatus::rva005234AD()
 	TheMouse->vslot19(2);
 	TheShell->rva0035C7CF(false);
 	TheShell->push("StrategicPlayerStatus.apt", false);
+	TheInGameUI->vslot94(1);
+}
+
+// Retail 0x0050EC24..0x0050ED1F: cdecl opener called by the rowed
+// AptPalantir::OnBttnObjectives. The target string identifies PlayerTribute;
+// the WorldBuilder twin is AptPlayerTribute::OpenScreen (0x0135B460).
+// Guards and their offsets are independently shared with 0x005234AD above.
+// The extra calls use the existing pinned +0x10 InGameUI view and folded
+// slot-3 forwarder, as in the matched ShowQuitMenu; their target names remain
+// unresolved here. No donor class layout is assumed.
+void Rva0050EC24()
+{
+	if (g_Va00A046B4)
+		return;
+	if (TheInGameUI->vslot95())
+		return;
+	if ((unsigned char)((Rva0023C902 *)TheGameLogic)->rva0023C902())
+		return;
+	if (TheGameLogic->m_6d)
+		return;
+	if (TheScriptEngine->m_1A104 >= 0)
+		return;
+	if (!TheTransitionHandler->isFinished())
+		return;
+	if (TheDisplay) {
+		if (TheDisplay->vslot88())
+			return;
+		if (TheDisplay->vslot87())
+			return;
+	}
+	if (g_Va00E048D0)
+		return;
+	Rva004E855CClose();
+	((Rva005CB265 *)TheInGameUI->rva000CF155())->Rva005CB265::rva005CB265();
+	TheMouse->vslot19(2);
+	TheShell->rva0035C7CF(false);
+	TheShell->push("PlayerTribute.apt", false);
 	TheInGameUI->vslot94(1);
 }
 
