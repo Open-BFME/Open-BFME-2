@@ -10,9 +10,12 @@
 // lines 1361..1367). The material table is four 24-byte entries at +0x10
 // indexed by TheTerrainLogic's slot 0x60 material lookup. ChangeBurnRate
 // (0x00286926, WorldBuilder name; assert line 947) adds a burn delta to one
-// row span of cells, zeroing cells TheTerrainLogic's slot 0x4C reports
-// blocked; a cell burnt out that was not newly lit leaves the m_cellsOnFire
-// set (+0x84) through its find (0x00286214) and erase (0x002860CF).
+// row span of cells, zeroing cells TheTerrainLogic reports underwater
+// (isUnderwater, slot 0x4C); a cell burnt out that was not newly lit leaves
+// the m_cellsOnFire set (+0x84) through its find (0x00286214) and erase
+// (0x002860CF). Its Coord3D overload (0x00286AB4, WorldBuilder name) touches
+// only the cells of the span whose offset from the origin projects onto the
+// direction at or past the threshold.
 //
 // Target facts: the fire grid is the 20-byte cell rows at +0x70 with the row
 // and column counts at +0x78/+0x7C (as Rva00285DC5Paint.cpp reads them); a
@@ -101,10 +104,18 @@ public:
 };
 
 
+// Coord3D's sub and dot as WorldBuilder calls them out of line (WB 0x40b88e
+// and 0x40b7d0); retail inlines both and the canonical header lacks them.
+struct FireCoord3D : public Coord3D
+{
+	void sub(const Coord3D *o) { x -= o->x; y -= o->y; z -= o->z; }
+	float dot(const Coord3D *o) const { return x * o->x + y * o->y + z * o->z; }
+};
 class FireLogicSystem
 {
 public:
 	void ChangeBurnRate(Int x0, Int x1, Int y, Int delta, bool onlyBurning);
+	void ChangeBurnRate(const Coord3D *origin, const Coord3D *dir, float threshold, Int x0, Int x1, Int y, Int delta, bool onlyBurning);
 	void ChangeCellToObjectFlammability(Int x, Int y, const ThingTemplate *tmpl);
     void rva0028641F(unsigned int id, const Coord3D *pos);
     void ResetCellToOriginalFlammability(Int x, Int y);
@@ -205,7 +216,7 @@ public:
  virtual void slot16();
  virtual void slot17();
  virtual void slot18();
- virtual bool IsBlocked(float x, float y, int a, int b, int c);	// slot 0x4C
+ virtual bool isUnderwater(float x, float y, float *waterZ = 0, float *terrainZ = 0, Int unused = 0);	// slot 0x4C
  virtual void slot20();
  virtual void slot21();
  virtual void slot22();
@@ -266,7 +277,7 @@ void FireLogicSystem::ChangeBurnRate(Int x0, Int x1, Int y, Int delta, bool only
 			++x0;
 			continue;
 		}
-		if (TheTerrainLogic->IsBlocked((x0 + 0.5) * 10.0, (y + 0.5) * 10.0, 0, 0, 0))
+		if (TheTerrainLogic->isUnderwater((x0 + 0.5) * 10.0, (y + 0.5) * 10.0))
 		{
 			cell->m_check = 0;
 		}
@@ -297,5 +308,58 @@ void FireLogicSystem::ChangeBurnRate(Int x0, Int x1, Int y, Int delta, bool only
 				cell->m_check = (unsigned short)(cell->m_check + delta);
 		}
 		++x0;
+	}
+}
+
+void FireLogicSystem::ChangeBurnRate(const Coord3D *origin, const Coord3D *dir, float threshold, Int x0, Int x1, Int y, Int delta, bool onlyBurning)
+{
+	if (y < 0 || y >= m_numCols || x0 >= m_numRows || x1 < 0)
+		return;
+	if (x0 < 0)
+		x0 = 0;
+	if (x1 >= m_numRows)
+		x1 = m_numRows - 1;
+	FireCoord3D offset;
+	offset.x = (x0 + 0.5) * 10.0;
+	offset.y = (y + 0.5) * 10.0;
+	offset.z = 0.0f;
+	offset.sub(origin);
+	for (; x0 <= x1; ++x0, offset.x += 10.0f)
+	{
+		Cell *cell = &m_cells[x0][y];
+		if (onlyBurning && cell->m_check < 1)
+			continue;
+		if (offset.dot(dir) < threshold)
+			continue;
+		if (TheTerrainLogic->isUnderwater((x0 + 0.5) * 10.0, (y + 0.5) * 10.0))
+		{
+			cell->m_check = 0;
+		}
+		else if (delta > 0)
+		{
+			if (cell->m_check == 0)
+				cell->m_field30 = 1;
+			Int burn = cell->m_check + delta;
+			if (burn > 0xffff)
+				burn = 0xffff;
+			cell->m_check = (unsigned short)burn;
+		}
+		else if (cell->m_check > 0)
+		{
+			if (cell->m_check <= -delta)
+			{
+				if (!cell->m_field30)
+				{
+					Rva00285BEC key(x0 * 10 + 5, y * 10 + 5);
+					Rva002860CFIterator i = m_cellsOnFire.rva00286214((const Rva00285672 *)&key);
+					if (i.m_node != m_cellsOnFire.m_header)
+						m_cellsOnFire.erase(i);
+				}
+				cell->m_field30 = 0;
+				cell->m_check = 0;
+			}
+			else
+				cell->m_check = (unsigned short)(cell->m_check + delta);
+		}
 	}
 }
