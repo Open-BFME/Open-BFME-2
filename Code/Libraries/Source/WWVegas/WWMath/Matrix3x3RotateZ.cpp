@@ -14,7 +14,7 @@ public:
         Row[1] = r1;
         Row[2] = r2;
     }
-    __forceinline const Vector3 &operator[](int i) const { return Row[i]; }
+    friend Matrix3x3 operator*(const Matrix3x3 &a, const Matrix3x3 &b);
     void Rotate_Z(float s, float c);
 private:
     Vector3 Row[3];
@@ -26,7 +26,7 @@ private:
 // products, the 36-byte hidden return object, and its Vector3 array lifetime.
 Matrix3x3 operator*(const Matrix3x3 &a, const Matrix3x3 &b)
 {
-#define ROWCOL(i,j) a[i][0]*b[0][j] + a[i][1]*b[1][j] + a[i][2]*b[2][j]
+#define ROWCOL(i,j) a.Row[i][0]*b.Row[0][j] + a.Row[i][1]*b.Row[1][j] + a.Row[i][2]*b.Row[2][j]
     // Set preserves the same arithmetic and temporary evaluation order while
     // avoiding a conflicting out-of-line three-float Vector3 constructor.
     Vector3 r2;
