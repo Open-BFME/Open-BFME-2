@@ -30,3 +30,13 @@ BFME_DISP8_WORD_FIELD_GETTER(Rva0011C420WordField, 0x0C)
 BFME_DISP8_WORD_FIELD_GETTER(Rva0011C440WordField, 0x10)
 BFME_DISP8_WORD_FIELD_GETTER(Rva004CEE9CWordField, 0x10)
 BFME_DISP8_WORD_FIELD_GETTER(Rva00568645WordField, 0x44)
+
+// BF1 9cb Rva003D4BD0Word.cpp guides this two-load leaf. Target
+// 531EA5..531EAB follows RET and returns the pointed-to raw word in AX.
+// Original owner, signedness and complete class bounds remain unknown.
+struct Rva00531EA5Fields
+{
+    const unsigned short *pointer;
+    unsigned short get() const;
+};
+unsigned short Rva00531EA5Fields::get() const { return *pointer; }

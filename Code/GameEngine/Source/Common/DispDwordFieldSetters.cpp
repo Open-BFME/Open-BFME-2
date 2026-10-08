@@ -176,3 +176,13 @@ void Rva0027C2A4Fields::subtract(unsigned int value) { value28 -= value; }
 // Original owner and complete bounds unresolved; independent address-owned view.
 struct Rva001F34FEFields { unsigned char unknown[0x1C]; unsigned char value; };
 int isZero_Rva001F34FE(const Rva001F34FEFields *fields) { return fields->value == 0; }
+
+// BF1 9cb Rva005FC2B0Set.cpp guides the raw store/receiver-return pattern.
+// Target 563E5F..563E65 follows RET8 and writes byte0=1, returning this.
+// Original owner and complete class bounds remain unknown.
+struct Rva00563E5FFields
+{
+    unsigned char flag;
+    Rva00563E5FFields *enable();
+};
+Rva00563E5FFields *Rva00563E5FFields::enable() { flag = 1; return this; }

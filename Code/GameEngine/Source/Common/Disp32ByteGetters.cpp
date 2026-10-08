@@ -104,3 +104,14 @@ public: bool get();
 private: char unknown[4]; Rva004B0CFDInner *inner;
 };
 bool Rva004B0CFDFields::get() { return inner->value != -1; }
+
+// BF1 9cb Rva18C170NestedFloatGetter.cpp is a structural guide. Complete
+// target 262356..26235C follows the adjacent getter RET; receiver+8 points
+// to the float loaded into ST0. Original owner and full bounds unknown.
+struct Rva00262356Fields
+{
+    char unknown00[8];
+    const float *pointer;
+    float get() const;
+};
+float Rva00262356Fields::get() const { return *pointer; }
