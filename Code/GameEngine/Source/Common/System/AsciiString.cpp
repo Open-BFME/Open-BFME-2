@@ -27,3 +27,15 @@ bool StringBase<CHAR>::isEmpty() const
 }
 
 template class StringBase<char>;
+
+// Clean BF1 9cbfb551fe System/SaveGame/GameStateRealMapPathToPortableMapPathThunk.cpp
+// stringLength supplies null-safe length semantics. Native052C4..052D2 follows
+// the rowed RGB-color debug body's RET052C3, tests the cdecl pointer, returns
+// full EAX0 for null and otherwise tail-calls the actual strlen import thunk
+// at629170 (IAT BBA6D4). Original helper/template name and return signedness
+// remain unknown; this address-named unsigned view preserves the result bits.
+#include <string.h>
+unsigned int Rva000052C4LengthOrZero(const char *text)
+{
+    return text ? (unsigned int)strlen(text) : 0u;
+}
