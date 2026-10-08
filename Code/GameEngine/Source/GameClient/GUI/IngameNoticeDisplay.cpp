@@ -377,3 +377,17 @@ void IngameNoticeDisplay::Start(const UnicodeString &text,int duration)
     }
     reinterpret_cast<NoticeManager *>(TheDisplayStringManager)->release(display);
 }
+
+// BF1 9cbfb551fe AnimateButtons004B1C80.cpp emits a one-word mem_fun result
+// adapter with these bytes; that template and owner identity are unproven here.
+// Native 004E59D0..004E59DB independently stores stackarg8 through stackarg4
+// and returns that same pointer in EAX with RET0. The preceding body ends in
+// RET at4E59CF and the next starts with a separate PUSH/CALL sequence. No
+// literal function-pointer or direct E8/E9 references were found. Word and
+// pointer types describe only the observed raw operation; original name and
+// semantic type remain unknown, including any hidden result-pointer role.
+unsigned int *__cdecl rva004E59D0(unsigned int *result, unsigned int value)
+{
+    *result = value;
+    return result;
+}
