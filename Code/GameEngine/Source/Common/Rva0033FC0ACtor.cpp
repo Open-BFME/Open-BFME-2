@@ -75,6 +75,9 @@ class Rva0033FC0A : public Rva004D759C
 {
 public:
 	Rva0033FC0A(Object *owner, unsigned int key);
+	// The complete/deleting destructors belong to Rva004D759CDerived.cpp.
+	// Leaving this implicit emits a competing call to the opaque base spelling.
+	virtual ~Rva0033FC0A();
 };
 
 extern void *__cdecl operator new(unsigned int size);
