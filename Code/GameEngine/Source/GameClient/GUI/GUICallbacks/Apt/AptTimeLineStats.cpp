@@ -57,6 +57,7 @@ void Rva005DE433::rva005DE433(int **focus) {
 }
 struct Widths {int *begin,*end;};
 class Rva005DD7C3 {public:void rva005DD7C3(GameWindow*,const Widths*);};
+class LivingWorldPlayer;
 class AptTimeLineStats {
 public:
  Rva005DE433 *receiver;
@@ -67,6 +68,7 @@ public:
  void SetPlayerFocus(const char *);
  void InitGadgets(const char*,int,GameWindow*);
  void rva005BF177();
+ void CollectPlayerData(int,LivingWorldPlayer*);
 };
 void AptTimeLineStats::SetPlayerFocus(const char *text) {
  if(numPlayers<1)return;
@@ -143,5 +145,92 @@ void AptTimeLineStats::rva005BF177() {
  if(receiver) {
   _STL::vector<int> widths;
   reinterpret_cast<Rva005DD7C3*>(receiver)->rva005DD7C3(0,reinterpret_cast<const Widths*>(&widths));
+ }
+}
+
+#include "unicode_string.h"
+struct BfmeStringRecord005DDD40 {UnicodeString text; float word;};
+// Consuming views of the existing eight-byte display constructors. Their
+// first word is the owned UnicodeString; all table calls read the same bits.
+class Rva005DD822:public BfmeStringRecord005DDD40 {public:Rva005DD822(unsigned);};
+class Rva005DDED5:public BfmeStringRecord005DDD40 {public:Rva005DDED5(unsigned);};
+class Rva005DD8E0:public BfmeStringRecord005DDD40 {public:Rva005DD8E0(float,float);};
+class Rva005DDE01 {public:void rva005DDE01(unsigned,unsigned,const BfmeStringRecord005DDD40&,bool);};
+class GameStats {public:class Row;class StrategicEndGame;};
+class Rva005DE9E3 {
+public:Rva005DE9E3(unsigned);virtual~Rva005DE9E3();
+protected:GameStats::Row *rows,*finish,*capacity;int extra;
+};
+class GameStats::StrategicEndGame:public Rva005DE9E3 {public:StrategicEndGame(int);};
+class LivingWorldScoreKeeper {
+public:
+ unsigned rva004EE037();int rva004EE016();int rva004EE043();
+ int GetBuildingsOfTypeBuilt(int);int rva004EE33B();
+ int valueA8()const{return words[0xA8/4];}
+ int valueAC()const{return words[0xAC/4];}
+ int valueD8()const{return words[0xD8/4];}
+ int valueDC()const{return words[0xDC/4];}
+ int words[0xF4/4];
+};
+class LivingWorldPlayer {public:char beforeScore[0x2C8];LivingWorldScoreKeeper score;};
+template<int N>class BitFlags;
+extern BitFlags<116> KINDOFMASK_NONE;
+// The full44B constructor only clears 28 bytes and sets one bit. Native
+// static initialization has no unwind state at this call: it cannot throw.
+struct Rva00045411BitSet {unsigned words[7];Rva00045411BitSet(int,int) throw();};
+class Rva004EE35D {public:int rva004EE35D(const BitFlags<116>&,const BitFlags<116>&);};
+class Rva004EE3AB {public:int rva004EE3AB(const BitFlags<116>&,const BitFlags<116>&);};
+class Rva004EE3F9 {public:int rva004EE3F9(const BitFlags<116>&,const BitFlags<116>&);};
+class Rva004EE447 {public:int rva004EE447();};
+class Rva004EE485 {public:int rva005BE20B();};
+class Rva004EE4C3 {public:int rva004EE4C3();};
+// WB155C340 is an unnamed31B count helper whose body is expanded in retail
+// before the deaths call. Keep its integer result until the float arguments
+// are prepared; a compound caller expression chooses different evaluation.
+__forceinline int countStrategicKills(LivingWorldScoreKeeper *score) {
+ int directKills=score->words[0xB0/4];
+ return reinterpret_cast<Rva004EE4C3*>(score)->rva004EE4C3()+directKills;
+}
+// WB155B550 names CollectPlayerData (Stats.cpp326..480). Native body1564
+// is followed by its own27-entry switch table108; the complete1672B extent
+// ends at the independently verified vector helper5BE9D1. Each stat uses
+// its own verified scalar/display constructor and the full AddStat provider.
+void AptTimeLineStats::CollectPlayerData(int playerIndex,LivingWorldPlayer *player) {
+ if(!player)return;
+ if(!receiver)receiver=reinterpret_cast<Rva005DE433*>(new GameStats::StrategicEndGame(8));
+ LivingWorldScoreKeeper *score=&player->score;
+ ++numPlayers;
+ static const Rva00045411BitSet structures(0,7);
+ const BitFlags<116>&structureKinds=reinterpret_cast<const BitFlags<116>&>(structures);
+ for(int stat=0;stat<27;++stat) {
+  switch(stat) {
+  case 0: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(0,playerIndex,Rva005DDED5(score->rva004EE037()),true);break;
+  case 1: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(1,playerIndex,Rva005DDED5(score->rva004EE016()),true);break;
+  case 2: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(2,playerIndex,Rva005DD822(score->rva004EE043()+1),true);break;
+  case 3: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(3,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE35D*>(score)->rva004EE35D(structureKinds,KINDOFMASK_NONE)),true);break;
+  case 4: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(4,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE3AB*>(score)->rva004EE3AB(structureKinds,KINDOFMASK_NONE)),true);break;
+  case 5: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(5,playerIndex,Rva005DD822(score->words[0x94/4]),true);break;
+  case 6: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(6,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE3F9*>(score)->rva004EE3F9(structureKinds,KINDOFMASK_NONE)),true);break;
+  case 7: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(7,playerIndex,Rva005DD822(score->words[0x98/4]),true);break;
+  case 8: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(8,playerIndex,Rva005DD822(score->GetBuildingsOfTypeBuilt(1)),true);break;
+  case 9: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(9,playerIndex,Rva005DD822(score->GetBuildingsOfTypeBuilt(3)),true);break;
+  case 10: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(10,playerIndex,Rva005DD822(score->GetBuildingsOfTypeBuilt(2)),true);break;
+  case 11: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(11,playerIndex,Rva005DD822(score->GetBuildingsOfTypeBuilt(4)),true);break;
+  case 12: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(12,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE447*>(score)->rva004EE447()+score->rva004EE33B()),true);break;
+  case 13: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(13,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE485*>(score)->rva005BE20B()),true);break;
+  case 14: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(14,playerIndex,Rva005DD8E0(float(countStrategicKills(score)),float(reinterpret_cast<Rva004EE485*>(score)->rva005BE20B())),true);break;
+  case 15: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(15,playerIndex,Rva005DD822(score->valueA8()+score->valueAC()),true);break;
+  case 16: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(16,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE4C3*>(score)->rva004EE4C3()),true);break;
+  case 17: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(17,playerIndex,Rva005DD822(score->words[0xB0/4]),true);break;
+  case 18: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(18,playerIndex,Rva005DD822(score->words[0xD8/4]),true);break;
+  case 19: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(19,playerIndex,Rva005DD822(score->words[0xDC/4]),true);break;
+  case 20: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(20,playerIndex,Rva005DD8E0(float(score->valueD8()),float(score->valueDC())),true);break;
+  case 21: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(21,playerIndex,Rva005DD822(score->words[0xE0/4]),true);break;
+  case 22: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(22,playerIndex,Rva005DD822(score->words[0xE4/4]),true);break;
+  case 23: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(23,playerIndex,Rva005DD822(score->words[0xE8/4]),true);break;
+  case 24: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(24,playerIndex,Rva005DD822(score->words[0xEC/4]),true);break;
+  case 25: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(25,playerIndex,Rva005DD822((reinterpret_cast<int*>(score->words[0x38/4])-reinterpret_cast<int*>(score->words[0x34/4]))),true);break;
+  case 26: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(26,playerIndex,Rva005DD822(score->words[0xF0/4]),true);break;
+  }
  }
 }
