@@ -11,13 +11,7 @@ public:
 
 extern Rva002A8F24 *g_00DFEEF8;
 
-class AIEconomyBuilder
-{
-public:
-	AsciiString getFarmTemplateName();
-	char m_pad00[0x14];
-	void *m_14;
-};
+#include "../GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
 
 AsciiString AIEconomyBuilder::getFarmTemplateName()
 {
