@@ -39,10 +39,10 @@ extern "C" unsigned char __identifier("??_7BfmeParserBindingBaseVE@@6B@");
 #pragma comment(linker, "/alternatename:?bfmeSlot0@BfmeParserBindingBaseVE@@UAEXXZ=?bfmeKillVE@BfmeThingVE@@QAEPAXH@Z")
 #pragma comment(linker, "/alternatename:?bfmeSlot1@BfmeParserBindingBaseVE@@UAEXXZ=__purecall")
 
-class Rva000ABB87View
+class DataChunkParser
 {
 public:
-    Rva000ABB87View(DataChunkInput *input, const AsciiString *name,
+    DataChunkParser(DataChunkInput *input, const AsciiString *name,
         const AsciiString *label);
 private:
     const void *opaque00;
@@ -50,7 +50,7 @@ private:
     UserParser *parser08;
 };
 
-Rva000ABB87View::Rva000ABB87View(DataChunkInput *input,
+DataChunkParser::DataChunkParser(DataChunkInput *input,
     const AsciiString *name, const AsciiString *label)
 {
     opaque00 = &__identifier("??_7BfmeParserBindingBaseVE@@6B@");

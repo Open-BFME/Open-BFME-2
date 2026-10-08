@@ -5,7 +5,7 @@
 // controlling player of m_obj8 must equal p and t non-null, then rowed
 // 0x0033A69A is compared unsigned against p+0x94 via sbb/inc.
 // Callees rowed 0x0028AFA9 plus pinned 0x0033A69A. Callers 0x00296D96
-// 0x00379F43. Prev Disp8CmpBoolGetters next Rva003956C3 flags /O1.
+// 0x00379F43. Prev Disp8CmpBoolGetters next CastleBehavior flags /O1.
 // Retail block layout: the p==0 and t==0 je's and the ctrl!=p fallthrough all
 // reach ONE shared fail block (xor-al / jmp epilogue); only ctrl==p jumps
 // forward past it into the pass body. That is three separate early returns for

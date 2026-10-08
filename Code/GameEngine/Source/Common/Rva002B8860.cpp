@@ -81,10 +81,10 @@ public:
 	void rva005CB260();
 };
 
-class Rva002B5D36
+class LivingWorldLogic
 {
 public:
-	void rva002B5D36();
+	void ShowEndGameSplashScreen();
 };
 
 class Rva002B8860
@@ -124,5 +124,5 @@ void Rva002B8860::rva002B8860()
 	m_175 = 1;
 	Rva00437E9C(1);
 	m_4c.forEach(reinterpret_cast<void (Rva002B6151Listener::*)(void *)>(&Rva005CB260::rva005CB260), this);
-	((Rva002B5D36 *)this)->rva002B5D36();
+	((LivingWorldLogic *)this)->ShowEndGameSplashScreen();
 }

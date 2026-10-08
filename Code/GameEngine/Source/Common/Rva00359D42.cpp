@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /MD
-// ?rva00359D42@Rva00359D42@@QAEXHPAVCb00359D42@@@Z @0x00359D42 87B: iterate circular list at +0x14 over BfmePod12-like entries (id+8 float+0xc byte+0x10); findObjectByID via TheGameLogic; mask test 1<<Player+0x54; virtual slot0 cb(id float byte); callers 0x004E7A85 0x004E7E3A; ret 8.
+// ?enumerateRegisteredClaimants@TerrainResourceManager@@QAEXHPAVCb00359D42@@@Z @0x00359D42 87B: iterate circular list at +0x14 over BfmePod12-like entries (id+8 float+0xc byte+0x10); findObjectByID via TheGameLogic; mask test 1<<Player+0x54; virtual slot0 cb(id float byte); callers 0x004E7A85 0x004E7E3A; ret 8.
 // ?TheGameLogic@@3PAVGameLogic@@A present-unmatched
 enum ObjectID
 {
@@ -43,16 +43,16 @@ struct Entry00359D42
 	char m_pad[3];
 };
 
-class Rva00359D42
+class TerrainResourceManager
 {
 public:
-	void rva00359D42(int mask, Cb00359D42 *cb);
+	void enumerateRegisteredClaimants(int mask, Cb00359D42 *cb);
 private:
 	int m_00[5];
 	Entry00359D42 *m_list;
 };
 
-void Rva00359D42::rva00359D42(int mask, Cb00359D42 *cb)
+void TerrainResourceManager::enumerateRegisteredClaimants(int mask, Cb00359D42 *cb)
 {
 	Entry00359D42 *head = m_list;
 	Entry00359D42 *cur = head->m_next;

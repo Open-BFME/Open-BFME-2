@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /O1
 //
-// ?rva00081E36@Rva00081E36@@QAEXPAXH@Z @ 0x00081E36 (114B), Ghidra boundary.
+// ?onStandingWaterAreaTextureNameChanged@RenderableStandingWaterArea@@QAEXPAXH@Z @ 0x00081E36 (114B), Ghidra boundary.
 // Target bytes show a two-argument thiscall body using the second argument as
 // an index: clear this+0x14+4*index; call 0x0007EDBC on this-0x3C; fetch the
 // indexed AsciiString through the matched lea helper at 0x0030812E; append it
@@ -74,15 +74,15 @@ public:
 
 void bfmeMergeReceiverKeys(int value);
 
-class Rva00081E36
+class RenderableStandingWaterArea
 {
 	char m_pad00[4];
 	Rva0030812E *m_assets;
 public:
-	void rva00081E36(void *unused, int index);
+	void onStandingWaterAreaTextureNameChanged(void *unused, int index);
 };
 
-void Rva00081E36::rva00081E36(void *, int index)
+void RenderableStandingWaterArea::onStandingWaterAreaTextureNameChanged(void *, int index)
 {
 	((BfmeResetTextureRef *)((char *)this + 0x14 + index * 4))->clear();
 	((Rva0007EDBC *)((char *)this - 0x3C))->rva0007EDBC(index);

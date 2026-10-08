@@ -22,10 +22,10 @@ class Rva004E0705
 public:
 	bool rva004E08A9(bool check);
 };
-class Rva004E0A96
+class LivingWorldBuilding
 {
 public:
-	void rva004E0A96();
+	void createGhostObject();
 };
 
 struct Rva004EFour
@@ -164,7 +164,7 @@ bool Rva004E0B60::rva004E0CCB()
 	rva004E0B60(f, (int)this);
 	if (((Rva004E0705 *)this)->rva004E08A9(true))
 	{
-		((Rva004E0A96 *)this)->rva004E0A96();
+		((LivingWorldBuilding *)this)->createGhostObject();
 		return true;
 	}
 	return false;

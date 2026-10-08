@@ -12,7 +12,7 @@
 // WaterSurfaceBubbles.tga Noise0000.tga plus empty-string fallback, global
 // g_00DFF488 with +0x04 override chain via pinned getFinalOverride 0x001E35DF
 // and AsciiString at +0x3C via shared str(), prev/next neighbours and the
-// Rva00081E36/Rva0007EEBE precedents for AssetList and texture slots.
+// RenderableStandingWaterArea/Rva0007EEBE precedents for AssetList and texture slots.
 // Row 0x0006C995 types as Target* but retail passes string literals here;
 // declared as rowed and noted.
 #include "ascii_string.h"

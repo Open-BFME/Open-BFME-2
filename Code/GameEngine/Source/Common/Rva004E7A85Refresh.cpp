@@ -37,16 +37,16 @@ class Rva00359D42Target
 {
 public:
 	char m_pad[0x170];
-	class Rva00359D42 *m_170;
+	class TerrainResourceManager *m_170;
 };
 
-class Rva00359D42;
+class TerrainResourceManager;
 class Cb00359D42;
 
-class Rva00359D42
+class TerrainResourceManager
 {
 public:
-	void rva00359D42(int v, Cb00359D42 *cb);
+	void enumerateRegisteredClaimants(int v, Cb00359D42 *cb);
 };
 
 class ResourceEntryCollector
@@ -83,7 +83,7 @@ void Rva004E7A85::rva004E7A85()
 			int idx = world->m_10->m_54;
 			rel = ((PlayerList *)world)->getPlayersWithRelationship(idx, 3, false);
 		}
-		((Rva00359D42Target *)TheGameLogic)->m_170->rva00359D42(rel, (Cb00359D42 *)c);
+		((Rva00359D42Target *)TheGameLogic)->m_170->enumerateRegisteredClaimants(rel, (Cb00359D42 *)c);
 		((Rva004E54B8 *)c)->rva004E54B8();
 	}
 	++m_4;

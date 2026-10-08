@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??0Rva0041E6BE@@QAE@HHPAVDataChunkInput@@PBVAsciiString@@1@Z @0x0041E6BE 45B
-// __thiscall derived from rowed Rva000ABB87View (12B base at +0) adding int at +0xC
+// __thiscall derived from rowed DataChunkParser (12B base at +0) adding int at +0xC
 // plus int at +0x10 plus vtable g_00C3AF68. Evidence: base call 0x000ABB87 with
 // three pushes from +0x10 +0x14 +0x18 plus stores +0xC +0x10 plus vtable plus ret 0x14;
 // caller at 0x0041F19A.
@@ -9,10 +9,10 @@
 class DataChunkInput;
 class UserParser;
 
-class Rva000ABB87View
+class DataChunkParser
 {
 public:
-	Rva000ABB87View(DataChunkInput *input, const AsciiString *name, const AsciiString *label);
+	DataChunkParser(DataChunkInput *input, const AsciiString *name, const AsciiString *label);
 private:
 	const void *m_opaque00;
 	DataChunkInput *m_input04;
@@ -21,7 +21,7 @@ private:
 
 extern const void *const g_00C3AF68[];
 
-class Rva0041E6BE : public Rva000ABB87View
+class Rva0041E6BE : public DataChunkParser
 {
 public:
 	Rva0041E6BE(int a, int b, DataChunkInput *input, const AsciiString *name, const AsciiString *label);
@@ -31,7 +31,7 @@ private:
 };
 
 Rva0041E6BE::Rva0041E6BE(int a, int b, DataChunkInput *input, const AsciiString *name, const AsciiString *label)
-	: Rva000ABB87View(input, name, label), m_a(a), m_b(b)
+	: DataChunkParser(input, name, label), m_a(a), m_b(b)
 {
 	*(const void **)this = g_00C3AF68;
 }

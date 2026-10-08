@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva002B5D36@Rva002B5D36@@QAEXXZ @0x002B5D36 383B.
+// ?ShowEndGameSplashScreen@LivingWorldLogic@@QAEXXZ @0x002B5D36 383B.
 // End-game UI: PlayerTemplate evil flag at +0x1BC plus victory byte at +0x3C4
 // select Gui_Victory/DefeatScreen, CheerEvil/Good, APT:EndVictorious/Defeat
 // then fetch via TheGameText slot 0x38, bfmeSetText :VictoryDefeat, and
@@ -88,16 +88,16 @@ struct Rva002B5D36Player
 	char m_pad44[0x3C4 - 0x44];
 	unsigned char m_3C4;
 };
-class Rva002B5D36
+class LivingWorldLogic
 {
 public:
-	void rva002B5D36();
+	void ShowEndGameSplashScreen();
 private:
 	char m_pad[0x98];
 	Rva002B5D36Player *m_98;
 };
 
-void Rva002B5D36::rva002B5D36()
+void LivingWorldLogic::ShowEndGameSplashScreen()
 {
 	const PlayerTemplate *tmpl = ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey(m_98->m_40->m_name));
 	if (!tmpl)
