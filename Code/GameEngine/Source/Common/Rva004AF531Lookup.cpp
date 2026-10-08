@@ -2,19 +2,21 @@
 // stlport
 //
 // ?rva004AF531@Rva004AF531@@QAEHH@Z @0x004AF531 123B ret 4.
-// Probe the int map at +0x10C with the argument, then with key 1.
+// Probe the unsigned-key map at +0x10C with the argument, then with key 1.
+// Native find357180 compares keys unsigned; the signed argument preserves
+// its 32-bit representation when constructing the lookup key.
 // A miss returns 1000. A hit returns the dword at node+0x14.
 
 #include <map>
 
 struct Rva004AF531Rec
 {
-	int m_key;
+	unsigned m_key;
 	int m_a;
 	int m_b;
 	float m_one;
 	unsigned char m_flag;
-	Rva004AF531Rec(int key) : m_key(key), m_a(0), m_b(0), m_one(1.0f), m_flag(0) {}
+	Rva004AF531Rec(unsigned key) : m_key(key), m_a(0), m_b(0), m_one(1.0f), m_flag(0) {}
 };
 
 struct RespawnRule
@@ -45,14 +47,14 @@ public:
 	int rva004AF531(int key);
  int rva004AF5AC(unsigned level);
 	char m_pad[0x10C];
-	_STL::map<int, void *> m_map;
+	_STL::map<unsigned, void *> m_map;
 };
 
 int Rva004AF531::rva004AF531(int key)
 {
 	Rva004AF531Rec rec(key);
-	_STL::map<int, void *>::iterator it = m_map.find(rec.m_key);
-	_STL::map<int, void *>::iterator end = m_map.end();
+	_STL::map<unsigned, void *>::iterator it = m_map.find(rec.m_key);
+	_STL::map<unsigned, void *>::iterator end = m_map.end();
 	if (it == end)
 	{
 		Rva004AF531Rec fallback(1);
