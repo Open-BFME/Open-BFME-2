@@ -14,6 +14,7 @@ struct BfmeWideResult
 	BfmeWideResult(const BfmeWideResult &that);
 	~BfmeWideResult();
 	Object *next();
+	void rva00626630(Object *obj, float distance);	// 0x00626630
 };
 
 // ThePartitionManager's native query wrappers at 0x006255D0/0x00625610
