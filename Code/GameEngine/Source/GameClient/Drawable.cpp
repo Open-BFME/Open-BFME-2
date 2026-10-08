@@ -254,23 +254,6 @@ static const char *TheDrawableIconNames[] =
 
 // Dedicated TU: only verified bodies from the donor are defined here.
 
-// BFME's TintEnvelope carries ONE vtable pointer where the reference class
-// derives from both MemoryPoolObject and Snapshot and carries two, so every
-// member sits four bytes earlier: m_attackRate at +0x04, m_decayRate at +0x10,
-// m_peakColor at +0x1c, m_currentColor at +0x28, m_sustainCounter at +0x34,
-// m_envState at +0x38 and m_affect at +0x39 (TintEnvelope::play 0x004156D0).
-struct BfmeTintEnvelopeRates
-{
-	void *m_vtable;
-	Vector3 m_attackRate;						///< retail this+0x04
-	Vector3 m_decayRate;						///< retail this+0x10
-	Vector3 m_peakColor;						///< retail this+0x1c
-	Vector3 m_currentColor;						///< retail this+0x28
-	UnsignedInt m_sustainCounter;				///< retail this+0x34
-	Byte m_envState;							///< retail this+0x38
-	Bool m_affect;								///< retail this+0x39
-};
-
 // Retail calls msvcr71.dll!_strcmpi at this body's only import slot
 // (0x00BBA518). The donor's `stricmp` is a macro, so /MD expands it to a call
 // to __stricmp -- an export retail does not import. Declaring _strcmpi as a
@@ -316,55 +299,7 @@ void Drawable::removeFromList(Drawable **pListHead)
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?setDecayFrames@TintEnvelope@@AAEXI@Z
-void TintEnvelope::setDecayFrames( UnsignedInt frames )
-{
-	BfmeTintEnvelopeRates *self = (BfmeTintEnvelopeRates *)this;
-
-	Real recipFrames = ( -1.0f ) / (Real)MAX(1,frames);
-	self->m_decayRate.Set( self->m_peakColor );
-	Vector3 rateScale; rateScale.Set(recipFrames, recipFrames, recipFrames);
-	self->m_decayRate.Scale(rateScale);
-}
-
-
-// BFME1 donor 6583b3c1ff21db4a561285717028fdafc780b7db; native
-// TintEnvelope call chain and field accesses independently match these bodies.
-const Real FADE_RATE_EPSILON = 0.001f;
-
-void TintEnvelope::play(const RGBColor *peak, UnsignedInt atackFrames, UnsignedInt decayFrames, UnsignedInt sustainAtPeak )    
-{
-	BfmeTintEnvelopeRates *self = (BfmeTintEnvelopeRates *)this;
-
-	Vector3 peakColor; peakColor.Set(peak->red, peak->green, peak->blue);
-	self->m_peakColor = peakColor;
-
-	setAttackFrames( atackFrames );
-	setDecayFrames( decayFrames );
-
-	self->m_envState = ENVELOPE_STATE_ATTACK;
-	self->m_sustainCounter = sustainAtPeak;
-	self->m_affect = TRUE;
-
-	Vector3 delta;
-	Vector3::Subtract(self->m_currentColor, self->m_peakColor, &delta);
-
-	if ( delta.Length() <= FADE_RATE_EPSILON ) // we are practically already at this color
-		self->m_envState = ENVELOPE_STATE_SUSTAIN;
-
-}
-
-// ?setAttackFrames@TintEnvelope@@AAEXI@Z
-void TintEnvelope::setAttackFrames(UnsignedInt frames) 
-{
-	BfmeTintEnvelopeRates *self = (BfmeTintEnvelopeRates *)this;
-
-	Real recipFrames = 1.0f / (Real)MAX(1,frames);
-	self->m_attackRate.Set( self->m_currentColor );
-	Vector3::Subtract( self->m_peakColor, self->m_attackRate, &self->m_attackRate);
-	Vector3 rateScale; rateScale.Set(recipFrames, recipFrames, recipFrames);
-	self->m_attackRate.Scale(rateScale);
-}
+// TintEnvelope bodies live together in Drawable_rva0027541E.cpp.
 
 // Native 00271B5C..00271BCC lazily allocates the 0x26C-byte manager
 // at Drawable +0x450 then forwards five arguments to 003627F9. WB names
