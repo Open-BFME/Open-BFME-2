@@ -69515,3 +69515,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva002A7DDE@Rva002A7DDE@@QAE_NPAVRva002A7DDEArg@@@Z,,0x002A7DDE,54,Code/GameEngine/Source/Common/BfmeThreeHundredTwentyFour.cpp,matched,thiscall ret4 Player ptr at +0x10 null false ask-false true else relationship==2
 ??0Rva0022958D@@QAE@XZ,,0x00229557,26,Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp,matched,thiscall default ctor; base 0x1B4E63; vtable 0xBE73E8; AsciiString pair zeroed
 ?rva00270234@Rva00270234@@QAEXXZ,,0x00270234,44,Code/GameEngine/Source/Common/BfmeConv771.cpp,matched,thiscall no-arg walk of three null-terminated item lists at +0x14C slot20 calls
+?Rva002AA559@@YGXPAVObject@@0@Z,,0x002AA559,136,Code/GameEngine/Source/Common/RTS/PlayerRva002ABD1D.cpp,matched,stdcall pair gate on flags 114 bit 100 and 109 bit 40 dispatch slots 28 and 04
