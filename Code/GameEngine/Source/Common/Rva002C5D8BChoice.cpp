@@ -44,7 +44,7 @@ class AITarget
 public:
 	void rva002C5CF7(const struct Coord3D *pos, float radius, int id);
 	void setTarget(Object *obj, float value);
-    void rva002C590F(const Coord3D *pos);
+    void markApproachHazard(const Coord3D *pos);
 private:
     void *m_owner;
     unsigned int m_04;
@@ -86,7 +86,7 @@ void AITarget::rva002C5CF7(const Coord3D *pos, float radius, int id)
 // Native 2C590F..2C59CE RET4. Trial position uses the same table as the
 // position setter; keep it only when the first result scalar improves, and
 // otherwise restore the three saved components. Original method name unknown.
-void AITarget::rva002C590F(const Coord3D *pos)
+void AITarget::markApproachHazard(const Coord3D *pos)
 {
     struct PositionPair { Coord3D point; Coord3D oldPoint; } positions;
     positions.oldPoint.x = m_table->m_position.x;

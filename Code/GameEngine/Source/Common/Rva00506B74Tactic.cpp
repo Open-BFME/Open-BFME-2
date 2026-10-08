@@ -245,8 +245,8 @@ public:
 	bool rva00506C39(void *arg);
 	Rva005ADA40 *rva00506C64(unsigned int index);
 	void postInit();
-	void rva00506FE9(Object *obj);
-	void rva005073D6(Xfer *xfer);
+	void notifyBuildingDestroyed(Object *obj);
+	void DoXfer(Xfer *xfer);
 private:
 	void *m_08;
 	_STL::vector<Rva005ADA40 *> m_0C;
@@ -333,7 +333,7 @@ void AIBaseBuilder::postInit()
 // 0x00506FE9: collect the owned elements' hits for the object's template name
 // (its rebuild template when it is a rebuild hole), then rescale and re-run
 // every hit that belongs to this object.
-void AIBaseBuilder::rva00506FE9(Object *obj)
+void AIBaseBuilder::notifyBuildingDestroyed(Object *obj)
 {
 	_STL::vector<Rva00506FE9Hit *> hits;
 	AsciiString name;
@@ -362,7 +362,7 @@ void AIBaseBuilder::rva00506FE9(Object *obj)
 // 0x005073D6: save/load. Version 2 added the +0x28 point; on load the owned
 // elements are rebuilt (0x2C bytes each, ctor 0x005AD9FF) before each one
 // transfers itself (0x005AE0AD).
-void AIBaseBuilder::rva005073D6(Xfer *xfer)
+void AIBaseBuilder::DoXfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 2);
 	*xfer == version;

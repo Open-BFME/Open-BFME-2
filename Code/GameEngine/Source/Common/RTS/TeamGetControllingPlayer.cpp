@@ -369,7 +369,7 @@ public:
 	Relationship getRelationship(const Team *that) const;
 	const TeamPrototype *getPrototype() const { return m_proto; }
 	void rva0039DA2A(Coord3D *out) const;
-	Bool rva003A123C(Object **recruit, Real *distSqr, Object *obj, const ThingTemplate *tTemplate, const Coord3D *teamHome);
+	Bool recruitUnit(Object **recruit, Real *distSqr, Object *obj, const ThingTemplate *tTemplate, const Coord3D *teamHome);
 	Object *tryToRecruit(const ThingTemplate *tTemplate, const Coord3D *teamHome, Real maxDist, int a4, int a5, int a6);
 	Bool rva003A1542(const ThingTemplate *tTemplate, int minCount);
 	int rva003A1AA3(const ThingTemplate *tTemplate, ObjectTypes *objectTypes, int maxCount, Real maxDist);
@@ -711,7 +711,7 @@ static Bool isInBuildVariations(const ThingTemplate* ttWithVariations, const Thi
 	return false;
 }
 
-Bool Team::rva003A123C(Object **recruit, Real *distSqr, Object *obj, const ThingTemplate *tTemplate, const Coord3D *teamHome)
+Bool Team::recruitUnit(Object **recruit, Real *distSqr, Object *obj, const ThingTemplate *tTemplate, const Coord3D *teamHome)
 {
 	Player *myPlayer = getControllingPlayer();
 	if (!obj->getTemplate()->isEquivalentTo(tTemplate))
@@ -798,13 +798,13 @@ Object *Team::tryToRecruit(const ThingTemplate *tTemplate, const Coord3D *teamHo
 	for (Object *obj = TheGameLogic->getFirstObject(); obj; obj = obj->getNextObject()) {
 		if (obj->isDestroyed())
 			continue;
-		if (rva003A123C(&recruit, &distSqr, obj, tTemplate, teamHome))
+		if (recruitUnit(&recruit, &distSqr, obj, tTemplate, teamHome))
 			continue;
 		if (!isHorde)
 			continue;
-		if (rva003A123C(&recruit0, &distSqr0, obj, t0, teamHome))
+		if (recruitUnit(&recruit0, &distSqr0, obj, t0, teamHome))
 			continue;
-		rva003A123C(&recruit1, &distSqr1, obj, t1, teamHome);
+		recruitUnit(&recruit1, &distSqr1, obj, t1, teamHome);
 	}
 
 	if (isHorde && recruit0 && recruit1) {

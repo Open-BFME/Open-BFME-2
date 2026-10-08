@@ -11720,7 +11720,6 @@ name,address,notes
 ?rva003A1626@Team@@QAEXPAX0HPAV1@@Z,0x003A1626,Team member taking (two opaque pointers, int, team); REL32 callee of dump-range-18 0x003C21E5; identity unproven
 ?rva003A1D1A@Team@@QAEXXZ,0x003A1D1A,thiscall void() on the getTeamNamed team; callee of dump-range-18 0x003BFD5A
 ?rva003A23A5@Team@@QAEXIH@Z,0x003A23A5,REL32 read at 0x003C20C0 in the byte-verified ScriptActions::rva003C207C (thiscall on the named team with the named unit's ObjectID and the int argument); identity unknown
-?rva003A2FD4@TeamFactory@@QAEPAURva003A2FD4Proto@@ABVAsciiString@@PAXHI@Z,0x003A2FD4,"TheTeamFactory (0x00E028BC): set up a team prototype under the given name for the owner (+0x4C of the player), -1 and an id; null when all 40 slots (+0x10..) are busy; REL32 in StructureCreep slot 6 0x005ABAF6"
 ?rva003A3717@Team@@QAE_NABVAsciiString@@@Z,0x003A3717,"call-site agreement: sole caller, the matched rva003E859E (TEAM_HAS_CUSTOM_STATE handler) 0x003E859E, calls it on the named Team with the state Parameter string; body looks the name up in the +0x48 container via the rowed 0x0041534B"
 ?rva003A37DC@Rva000427195@@QAEXUVideoPair@@@Z,0x003A37DC,video-map pair erase callee of reset at 0x0031E09E; honest address-derived name
 ?rva003A38E9@Team@@QAEXHH@Z,0x003A38E9,thiscall (int,int) on the getTeamNamed team; callee of dump-range-18 0x003BECCD
@@ -13802,7 +13801,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??4ThingTemplate@@QAEAAV0@ABV0@@Z,0x002D1101,ThingTemplate copy assignment (WB 0x00A93F30, 4859B member-wise copy); REL32 at 0x002D1B02 in ThingFactory::newOverride copying the final override into the new template
 ?rva0033AA1F@ThingTemplate@@QBEHPBVPlayer@@HH@Z,0x0033AA1F,unrowed thiscall build-time helper on the ThingTemplate returned by ThingFactory::findTemplate (player then 0 then the entry +0x9C value; ret 0xC); call at 0x0037E255 in UnitRevivalEntry::revivalEntryCalcTimeToBuild; types inferred
 ?teamAttackMove@AITactic@@QAEXHPBUCoord3D@@@Z,0x004ED1FD,AITactic member taking an int and a point (move the team there); REL32 at 0x005A9F32 in the SimpleSiege slot 7
-?teamGarrisonObject@AITactic@@QAEXHPAVObject@@@Z,0x004ED2ED,AITactic: order team n onto a target object; REL32 at 0x005AB699 in ReturnTheRing 0x005AB66A
 ?rva004ED342@AITactic@@QAEXPAX@Z,0x004ED342,AITactic member taking a point; REL32 at 0x005AA66A in the SimpleAttack slot 6
 ?rva004ED372@AITactic@@QAEXPAX@Z,0x004ED372,AITactic member taking a point (sibling of 0x004ED342); REL32 at 0x005A991E in the AIBasePenetrationTroopsTactic slot 6
 ?rva004ED372@AITactic@@QAEXPBUCoord3D@@@Z,0x004ED372,const Coord3D spelling of the AITactic point member pinned as rva004ED372(void *); REL32 at 0x005AB714 in ReturnTheRing 0x005AB6DC
