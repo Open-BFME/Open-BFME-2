@@ -27,10 +27,12 @@ class Rva005CC208Select {public: void rva005CC208(int);};
 namespace StrategicHUD {class BattlePromptPlayerTabsMovieClip {public: void SetTabCount(int);};}
 namespace StrategicHUD {class BattlePromptMovieClip {public: class Impl;};}
 class Rva005F8E37 {public: Rva005F8E37(StrategicHUD::BattlePromptMovieClip::Impl *,int,const AsciiString &);private:char opaque[0x40];};
+class Rva005F8E5A {public: Rva005F8E5A(StrategicHUD::BattlePromptMovieClip::Impl *,int,const AsciiString &);private:char opaque[0x3c];};
+struct BattlePromptEnemyTabsSlot {Rva005F8E5A *ptr;void set(Rva005F8E5A *p){((Rva00575674 *)this)->rva00575674((Object *)p);}};
 struct BattlePromptTabsSlot {Rva005F8E37 *ptr;void set(Rva005F8E37 *p){((Rva00575674 *)this)->rva00575674((Object *)p);}};
 class StrategicHUD::BattlePromptMovieClip::Impl {
 public: void OnAllyTabsLoaded(const char *);void OnEnemyTabsLoaded(const char *);void AddAlly(const Rva005F91F3Src &);void AddEnemy(const Rva005F91F3Src &);
-private: char prefix[0x20];_STL::vector<BfmeStringRecord005F93E3> allies;BattlePromptTabsSlot allyTabs;_STL::vector<BfmeStringRecord005F93E3> enemies;BattlePromptTabsSlot enemyTabs;char allyPages[12];int selectedAlly;char enemyPages[12];int selectedEnemy;
+private: char prefix[0x20];_STL::vector<BfmeStringRecord005F93E3> allies;BattlePromptTabsSlot allyTabs;_STL::vector<BfmeStringRecord005F93E3> enemies;BattlePromptEnemyTabsSlot enemyTabs;char allyPages[12];int selectedAlly;char enemyPages[12];int selectedEnemy;
 };
 
 BfmeStringRecord005F93E3::~BfmeStringRecord005F93E3() {}
@@ -46,4 +48,17 @@ void StrategicHUD::BattlePromptMovieClip::Impl::OnAllyTabsLoaded(const char *pat
  }
  _STL::vector<BfmeStringRecord005F93E3>().swap(allies);
  if(selectedAlly>=0)((Rva005CC208Select *)allyTabs.ptr)->rva005CC208(selectedAlly);
+}
+
+void StrategicHUD::BattlePromptMovieClip::Impl::OnEnemyTabsLoaded(const char *path){
+ if(enemyTabs.ptr)return;
+ enemyTabs.set(new Rva005F8E5A(this,Rva004128BBGetLevel(path),AsciiString(Rva00412845AfterLevel(path))));
+ int count=enemies.size();
+ ((StrategicHUD::BattlePromptPlayerTabsMovieClip *)enemyTabs.ptr)->SetTabCount(count);
+ for(int i=0;i<count;++i){
+  BfmeStringRecord005F93E3 &item=enemies[i];
+  ((Rva005CB260Properties *)enemyTabs.ptr)->rva005CB260(i,item.word0,item.word1,item.text);
+ }
+ _STL::vector<BfmeStringRecord005F93E3>().swap(enemies);
+ if(selectedEnemy>=0)((Rva005CC208Select *)enemyTabs.ptr)->rva005CC208(selectedEnemy);
 }
