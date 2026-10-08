@@ -16,6 +16,7 @@ struct Rva005390AEPoint : Coord3D {
 class LivingWorldArmyLine {
 public:
  void allocatePoints(unsigned count);
+ void rva00539141();
  unsigned m_count;
  Rva005390AEPoint *m_points;
 };
@@ -31,3 +32,12 @@ void LivingWorldArmyLine::allocatePoints(unsigned count) {
  }
 }
 Rva005390AEPoint::Rva005390AEPoint() {}
+
+// WB1434440 preserves this and calls the named allocator with manager+F8.
+// Native539141..539152 RET0 establishes the member wrapper; its name is unknown.
+class LivingWorldManager;
+extern LivingWorldManager *TheLivingWorldManager;
+struct Rva00539141ManagerView { char pad[0xF8]; unsigned pointCount; };
+void LivingWorldArmyLine::rva00539141() {
+ allocatePoints(reinterpret_cast<Rva00539141ManagerView *>(TheLivingWorldManager)->pointCount);
+}
