@@ -93,6 +93,7 @@ class Rva0040450E
 public:
 	Rva0040450E();
 	void rva0040450E(int);
+	void rva00214917(AsciiString name);
 private:
 	ModifierVectorHeader m_values;
 	unsigned int m_word0C;
@@ -105,4 +106,9 @@ private:
 Rva0040450E::Rva0040450E()
 {
 	rva0040450E(0);
+}
+
+void Rva0040450E::rva00214917(AsciiString name)
+{
+	m_name10 = name;
 }
