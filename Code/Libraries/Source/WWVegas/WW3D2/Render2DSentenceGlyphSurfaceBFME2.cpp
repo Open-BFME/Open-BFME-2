@@ -133,7 +133,10 @@ public:
 
 	struct PendingSurfaceStruct : public W3DRadarResetSurface
 	{
-		DynamicVectorClass<Render2DClass *> Renderers;
+		// Retail destruction uses the shared four-byte scalar base table BBB5AC.
+		// This is an ABI view; the renderer-pointer element type is donor
+		// provenance and has not been established independently in the target.
+		DynamicVectorClass<int> rendererStorage;
 
 		bool operator==(const PendingSurfaceStruct &) { return false; }
 		bool operator!=(const PendingSurfaceStruct &) { return true; }
