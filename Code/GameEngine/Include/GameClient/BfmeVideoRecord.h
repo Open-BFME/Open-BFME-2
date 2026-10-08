@@ -29,9 +29,9 @@ struct Video
 
     __forceinline Video &operator=(const Video &other)
     {
-        m_filename.set(other.m_filename);
-        m_internalName.set(other.m_internalName);
-        m_commentForWB.set(other.m_commentForWB);
+        m_filename.setCopyInline(other.m_filename);
+        m_internalName.setCopyInline(other.m_internalName);
+        m_commentForWB.setCopyInline(other.m_commentForWB);
         m_hasSubtitles = other.m_hasSubtitles;
         m_volume = other.m_volume;
         m_isDefault = other.m_isDefault;

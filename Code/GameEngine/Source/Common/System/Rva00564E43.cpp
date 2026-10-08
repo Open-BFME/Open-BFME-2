@@ -40,7 +40,7 @@ void Rva00564E43::rva00564E43()
 	for (unsigned i = 0; i < (unsigned)(((char *)m_end - (char *)m_begin) >> 3); ++i)
 	{
 		_ReadWriteBarrier();
-		tmp.set(m_begin[i].m_4);
+		tmp.setCopyInline(m_begin[i].m_4);
 		Rva002104C7 *h = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b0;
 		_ReadWriteBarrier();
 		h->rva002104C7(&tmp, (void *)1);
