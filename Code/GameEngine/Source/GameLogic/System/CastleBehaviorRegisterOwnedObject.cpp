@@ -60,7 +60,8 @@ class FoundationAIUpdate { protected: virtual void xfer(Xfer*); private: void rv
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 inline void* objectTemplate(Object* object) { return field<void*>(object,4); }
 inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); }
-class CastleBehavior { public: void* GetArmyIDFromClosestObject(); Object* createOwnedObject(void*); void rva003993F2(bool); void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); };
+class BuildListInfo;
+class CastleBehavior { public: Object* buildCastleStructure(BuildListInfo*,bool); void* GetArmyIDFromClosestObject(); Object* createOwnedObject(void*); void rva003993F2(bool); void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); };
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
@@ -725,4 +726,25 @@ void Rva00399959::unpack(bool instant) {
    field<AsciiString>(currentOwner,0x88).setCopyInline(AsciiString("No Name"));
   }
  }
+}
+
+// Native003993F2..0039947A,136B; WB00EB9220 unnamed CastleSystem helper.
+// The WB loop increments the index in the lookup condition, then builds and
+// registers each returned entry. Native BuildListInfo occupies128B with the
+// existing protected virtual destructor. Only its storage extent is needed.
+// Construction identity/ABI is independently witnessed at WB00EBC8C0 and the
+// complete native1041B callee; that body remains a banked partial, not recovery.
+class BuildListInfo {
+public: BuildListInfo();
+protected: virtual ~BuildListInfo(); friend class CastleBehavior;
+private: unsigned char storage[124];
+};
+class SidesList { public: bool rva0032BD25(NameKeyType,int,BuildListInfo*); };
+extern SidesList* TheSidesList;
+class Rva00396B0D { public: int rva00396B0D(); };
+void CastleBehavior::rva003993F2(bool instant) {
+ NameKeyType key=(NameKeyType)((Rva00396B0D*)this)->rva00396B0D();
+ int index=0;
+ BuildListInfo info;
+ while(TheSidesList->rva0032BD25(key,index++,&info)) registerOwnedObject(buildCastleStructure(&info,instant));
 }
