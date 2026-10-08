@@ -7,6 +7,10 @@
 // The generic vendor version uses a different allocation path in retail.
 namespace _STL {
 template <> void deque<int>::_M_reallocate_map(unsigned int, bool);
+template <> void deque<int>::_M_push_back_aux_v(const int &);
+template <> void deque<int>::_M_push_front_aux_v(const int &);
+// Retail uses the shared four-byte allocator at 0x00068E15.
+template <> int *allocator<int>::allocate(size_t, const void *) const;
 }
 
 template class _STL::deque<int, _STL::allocator<int> >;

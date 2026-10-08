@@ -107,6 +107,15 @@ template <> inline void deque<int>::_M_push_back_aux_v(const int &value) {
     _M_finish._M_set_node(_M_finish._M_node + 1);
     _M_finish._M_cur = _M_finish._M_first;
 }
+template <> inline void deque<int>::_M_push_front_aux_v(const int &value) {
+    int copy = value;
+    if (1 > (unsigned)(_M_start._M_node - _M_map._M_data))
+        _M_reallocate_map(1, true);
+    *(_M_start._M_node - 1) = (int *)allocator<char>::allocate(0x80, 0);
+    _M_start._M_set_node(_M_start._M_node - 1);
+    _M_start._M_cur = _M_start._M_last - 1;
+    if (_M_start._M_cur) *_M_start._M_cur = copy;
+}
 template <> inline void deque<int>::_M_pop_front_aux() {
     if (_M_start._M_first) free(_M_start._M_first);
     _M_start._M_set_node(_M_start._M_node + 1);
