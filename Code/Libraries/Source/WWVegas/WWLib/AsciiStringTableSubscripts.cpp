@@ -74,3 +74,10 @@ AudioEventInfo *& Rva00059FBBMap::rva00059FBB(const AsciiString &name) {
  { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
  return *(AudioEventInfo **)(node==0 ? (char *)((Rva000427195 *)this)->rva00058C6F((const StoredPair5808E *)&static_cast<const WordSlotPair &>(WordSlotPair(*key, 0)))+4 : (char *)node+8);
 }
+
+// A7B3C..A7BB5 RET4; full native body copies key365F0 and zero word then calls existing insertA7A63; mapped slot is insert result+4 or node+8; original application identity remains unproven.
+void * Rva000427195::rva000A7B3C(const AsciiString *key) {
+ void *node;
+ { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
+ return (void *)(node==0 ? (char *)((Rva000427195 *)this)->rva000A7A63((const StoredPair4 *)&static_cast<const WordSlotPair &>(WordSlotPair(*key, 0)))+4 : (char *)node+8);
+}
