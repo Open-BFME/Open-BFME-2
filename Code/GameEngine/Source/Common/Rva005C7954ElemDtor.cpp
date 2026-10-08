@@ -49,6 +49,7 @@ class Rva005C7954Elem
 {
 public:
 	~Rva005C7954Elem();
+	void OnInitialized(const char *path);
 private:
 	int m_00;
 	Rva005C31FB *m_04;
@@ -63,6 +64,13 @@ private:
 	bool m_54;
 	bool m_55;
 };
+
+// Constructor 0x005C7D4A binds this callback to "_OnInitialized";
+// retail 0x005C78C9..0x005C78D0 writes the initialized flag and returns 4.
+void Rva005C7954Elem::OnInitialized(const char *path)
+{
+	m_4C = true;
+}
 
 Rva005C7954Elem::~Rva005C7954Elem()
 {
