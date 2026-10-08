@@ -14,6 +14,32 @@ extern "C" void *__cdecl memset(void *dst, int value, unsigned int size);
 enum { MAX_COMMANDS_PER_SET = 32 };
 
 class ThingTemplate;
+class ExperienceLevelList;
+struct ExperienceLevelHandle {
+    ExperienceLevelHandle() {}
+    ExperienceLevelHandle(const ExperienceLevelHandle &other) : m_list(other.m_list), m_iter(other.m_iter) {}
+    ExperienceLevelList *m_list;
+    void *m_iter;
+};
+class ExperienceTracker {
+public:
+    ExperienceLevelHandle rva0039AC0C() const;
+};
+class ExperienceLevelStore {
+public:
+    bool IsValid(ExperienceLevelHandle) const;
+    int GetLevelRank(ExperienceLevelHandle) const;
+};
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
+class Image;
+class Rva0053DB02 { public: void rva0053DB02(); };
+class Gen_003bcb40 { public: void m(int); };
+class RadarWindowOverrideSource;
+extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
+class Rva002D363EOwner { public: void rva002D363E(int); };
+class Rva0053ED1A { public: void rva0053EF2E(); };
+
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
 class Object;
@@ -44,6 +70,7 @@ enum ObjectStatusTypes { MULTISELECT_SOLD = 0x13 };
 class Object {
 public:
     const AsciiString *rva00290E67() const;
+    const Image *getObjectSelectedPortraitImage();
     Object *rva002931F5(bool);
     void *rva0028C197() const;
     bool testStatus(ObjectStatusTypes) const;
@@ -214,6 +241,8 @@ protected:
     void addCommonCommands(Drawable *, bool);
 public:
 	void rva0053DF0A(void);
+    void rva0053DD53();
+    void rva0053D355(Object *, bool);
     void rva0053CF65();
     void rva0031B641(GameWindow *, const CommandButton *);
     Int rva0053BD66(const CommandButton *, GameWindow *, Object *, Real *, Bool) const;
@@ -226,6 +255,8 @@ private:
 	const CommandButton *m_commonCommands[MAX_COMMANDS_PER_SET];	// this+0x15C
 	char m_slice_padE[0x208 - (0x15C + MAX_COMMANDS_PER_SET * 4)];
 	Int m_buildUpClockColor;				// this+0x208
+    char unknown20C[0x2A0-0x20C];
+    Rva0053ED1A *overlaySink; // target2A0
 };
 
 // ?rva0053DF0A@ControlBar@@QAEXXZ
@@ -432,4 +463,74 @@ void ControlBar::addCommonCommands(Drawable *draw, bool firstDrawable)
             }
         }
     }
+}
+
+// ?rva0053DD53@ControlBar@@QAEXXZ
+// Native53DD53..53DF0A439B. WB1124EB0 names populateMultiSelect at
+// ControlBarMultiSelect.cpp270..339. ZH supplies the common-command and
+// portrait pass; target adds a highest-rank selection pass, breaking ties
+// by the lower native ObjectID74. Original access/declaration remain unasserted.
+void ControlBar::rva0053DD53()
+{
+    const BfmeControlBarDrawableList *selected =
+        ((BfmeControlBarInGameUISelectionView *)TheInGameUI)->getAllSelectedDrawables();
+    Drawable *best = 0;
+    int bestRank = 0;
+    for (BfmeControlBarDrawableListNode *it = selected->head->next;
+         it != selected->head; it = it->next) {
+        Drawable *draw = it->value;
+        Object *object = draw->getObject();
+        if (!object) continue;
+        const char *objectTemplate = *(const char *const *)((const char *)object + 4);
+        if (!(*(const unsigned int *)(objectTemplate + 0x110) & 0x04000000) ||
+            (*(const unsigned int *)(objectTemplate + 0x10C) & 0x8000))
+            continue;
+        ExperienceLevelHandle handle = (*(ExperienceTracker *const *)((const char *)object + 0x264))->rva0039AC0C();
+        if (!((ExperienceLevelStore *)TheExperienceLevelSystem)->IsValid(handle)) continue;
+        int rank = ((ExperienceLevelStore *)TheExperienceLevelSystem)->GetLevelRank(handle);
+        if (!best || rank > bestRank) {
+            best = draw;
+            bestRank = rank;
+        } else if (best && rank == bestRank) {
+            Object *oldObject = best->getObject();
+            if (*(const int *)((const char *)object + 0x74) < *(const int *)((const char *)oldObject + 0x74)) {
+                best = draw;
+                bestRank = rank;
+            }
+        }
+    }
+    if (best) {
+        m_currentSelectedDrawable = best;
+        rva0053D355(best->getObject(), false);
+        return;
+    }
+    bool firstDrawable = true;
+    bool portraitSet = false;
+    const Image *portrait = 0;
+    Object *portraitObject = 0;
+    ((Rva0053DB02 *)this)->rva0053DB02();
+    for (int i = 0; i < MAX_COMMANDS_PER_SET; ++i)
+        if (m_commandWindows[i]) m_commandWindows[i]->winHide(true);
+    for (BfmeControlBarDrawableListNode *it = selected->head->next;
+         it != selected->head; it = it->next) {
+        Drawable *draw = it->value;
+        Object *object = draw->getObject();
+        if (*(const unsigned int *)((const char *)*(const void *const *)((const char *)object + 4) + 0x10C) & 0x8000)
+            continue;
+        if (draw && draw->getObject() && !draw->getObject()->testStatus(MULTISELECT_SOLD)) {
+            addCommonCommands(draw, firstDrawable);
+            firstDrawable = false;
+            if (!portraitSet) {
+                portraitObject = draw->getObject();
+                portrait = portraitObject->getObjectSelectedPortraitImage();
+                portraitSet = true;
+            } else if (draw->getObject()->getObjectSelectedPortraitImage() != portrait) {
+                portrait = 0;
+            }
+        }
+    }
+    ((Gen_003bcb40 *)this)->m((int)portraitObject);
+    if (theRadarWindowOverrideSource)
+        ((Rva002D363EOwner *)theRadarWindowOverrideSource)->rva002D363E(0);
+    overlaySink->rva0053EF2E();
 }
