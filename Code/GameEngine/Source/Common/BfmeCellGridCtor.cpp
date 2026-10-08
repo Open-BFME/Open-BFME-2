@@ -90,7 +90,6 @@ private:
 // 56C065..56C0A5 and WB1449F40 independently prove the field accesses and
 // delete[] calls. The rowed BFME2 constructor proves 168-byte cells and
 // the two owned buffers; the original cleanup method name is unresolved.
-// ?rva0056C065@CellGrid@@QAEXXZ present-unmatched
 void CellGrid::rva0056C065()
 {
 	if (m_cells) {
