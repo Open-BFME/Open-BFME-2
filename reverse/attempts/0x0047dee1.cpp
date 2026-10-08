@@ -1,127 +1,116 @@
-// ?rva0047DEE1@TunnelContain@@QAEPAXPAX@Z
-// partial score=0.95 date=2026-09-28
-// ?rva0047DEE1@TunnelContain@@QAEPAXPAX@Z
-// partial score=0.95 date=2026-09-28
-// cl: /O1 /DNDEBUG /MD
-//
-// ?rva0047DEE1@TunnelContain@@QAEPAXPAX@Z retail 0x0047DEE1 99 bytes.
-// TunnelContain secondary vtable slot 32 (offset 0x80) of 0x00847740.
-// Iterates player list via Rva00466398 helper then virtual slot 0x7C and 0x18 test.
-// Evidence: vtable slot 32 class ??1TunnelContain, Object::getControllingPlayer
-// call, Rva00466398 out-pair call, list walk to head, 0x250 filter load.
-// Neighbours share /O1 /DNDEBUG /MD. Honest Rva method name.
+// ?rva0047DEE1@TunnelContain@@UAEPAVRva0047DEE1Rider@@H@Z
+// partial score=0.97 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
+// Retail 0x0047DEE1, 99B: a TunnelContain primary-vtable member (only
+// reference is a vtable entry; the slot's name is not established, hence the
+// address name). It walks the containment list the controlling player's
+// tunnel tracker (+0x2E8) returns (0x00466398, as in the matched sibling
+// TunnelContain::rva0047DF44 0x0047DF44) and returns the first contained
+// object's rider interface (contain module Object+0x250, slot 0x7C) whose
+// slot 0x18 test accepts the argument, else null.
+#include <list>
+#include "../../../../Include/GameLogic/ContainmentListView.h"
+namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
 
 class Player;
+class ModuleData;
+
+class Rva0047DEE1Rider
+{
+public:
+	virtual void x0();
+	virtual void x1();
+	virtual void x2();
+	virtual void x3();
+	virtual void x4();
+	virtual void x5();
+	virtual bool x6( int arg );
+};
+
+class ContainModuleInterface
+{
+public:
+	virtual void c00();
+	virtual void c01();
+	virtual void c02();
+	virtual void c03();
+	virtual void c04();
+	virtual void c05();
+	virtual void c06();
+	virtual void c07();
+	virtual void c08();
+	virtual void c09();
+	virtual void c10();
+	virtual void c11();
+	virtual void c12();
+	virtual void c13();
+	virtual void c14();
+	virtual void c15();
+	virtual void c16();
+	virtual void c17();
+	virtual void c18();
+	virtual void c19();
+	virtual void c20();
+	virtual void c21();
+	virtual void c22();
+	virtual void c23();
+	virtual void c24();
+	virtual void c25();
+	virtual void c26();
+	virtual void c27();
+	virtual void c28();
+	virtual void c29();
+	virtual void c30();
+	virtual Rva0047DEE1Rider *c31();
+};
+
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	ContainModuleInterface *getContain() const { return m_contain; }
+	unsigned char m_pad00[0x250];
+	ContainModuleInterface *m_contain;
 };
 
-struct Holder16
-{
-	void *m_head;
-};
-
-struct Out00466398
-{
-	void *a;
-	Holder16 *b;
-};
 class Rva00466398
 {
 public:
-	void rva00466398(Out00466398 *out);
+	Rva0036AE51ListView rva00466398();
 };
 
-class Res
+class Player
 {
 public:
-	virtual void r0();
-	virtual void r1();
-	virtual void r2();
-	virtual void r3();
-	virtual void r4();
-	virtual void r5();
-	virtual bool isOk(void *arg);
-};
-
-class Filter
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3();
-	virtual void v4();
-	virtual void v5();
-	virtual void v6();
-	virtual void v7();
-	virtual void v8();
-	virtual void v9();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual void v18();
-	virtual void v19();
-	virtual void v20();
-	virtual void v21();
-	virtual void v22();
-	virtual void v23();
-	virtual void v24();
-	virtual void v25();
-	virtual void v26();
-	virtual void v27();
-	virtual void v28();
-	virtual void v29();
-	virtual void v30();
-	virtual Res *v31();
-};
-
-struct ObjWith250
-{
-	char m_pad[0x250];
-	Filter *m_filter;
-};
-
-struct Node
-{
-	Node *m_next;
-	int m_pad4;
-	void *m_val;
+	unsigned char m_pad000[0x2E8];
+	Rva00466398 *m_2E8;
 };
 
 class TunnelContain
 {
 public:
-	void *rva0047DEE1(void *arg);
+	virtual Rva0047DEE1Rider *rva0047DEE1( int arg );
 private:
-	char m_pad[8];
-	Object *m_obj;
+	const ModuleData *m_moduleData;
+	Object *m_object;
 };
 
-// ?rva0047DEE1@TunnelContain@@QAEPAXPAX@Z present-unmatched
-void *TunnelContain::rva0047DEE1(void *arg)
+Rva0047DEE1Rider *TunnelContain::rva0047DEE1( int arg )
 {
-	Player *player = m_obj->getControllingPlayer();
-	Out00466398 out;
-	(*(Rva00466398 **)((char *)player + 0x2e8))->rva00466398(&out);
-	Holder16 *h16 = out.b;
-	Node *cur = *(Node **)h16->m_head;
-	while (cur != (Node *)h16->m_head) {
-		ObjWith250 *o = (ObjWith250 *)cur->m_val;
-		Filter *f = o->m_filter;
-		if (f) {
-			Res *r = f->v31();
-			if (r && r->isOk(arg))
-				return r;
+	Player *player = m_object->getControllingPlayer();
+	Rva0036AE51ListView out = player->m_2E8->rva00466398();
+	ContainmentList *list = out.b;
+	for (ContainmentList::iterator it = list->begin(); it._M_node != list->end()._M_node; ++it)
+	{
+		Object *obj = (Object *)containmentFirstWord(*it);
+		ContainModuleInterface *contain = obj->getContain();
+		if (contain)
+		{
+			Rva0047DEE1Rider *rider = contain->c31();
+			if (rider && rider->x6(arg))
+				return rider;
 		}
-		cur = cur->m_next;
 	}
 	return 0;
 }
