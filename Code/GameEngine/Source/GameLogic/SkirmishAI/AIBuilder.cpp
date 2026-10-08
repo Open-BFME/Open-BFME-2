@@ -64,6 +64,25 @@ public:
     void clear();
 };
 }
+// Existing RvaVector is a four-byte-element vector ABI view with a link
+// provider for the rowed 31BD55 erase; this does not name the element type.
+class RvaVector
+{
+public:
+    void **erase(void **, void **);
+    void clear() { erase(start, finish); }
+private:
+    void **start;
+    void **finish;
+    void **storageEnd;
+};
+class AIBuilderResetView
+{
+public:
+    virtual void slot00() = 0;
+    virtual void slot01() = 0;
+    virtual void reset() = 0;
+};
 class AIDozerManager {public: void DoXfer(Xfer*); void rva00599825(int); void rva00599606();};
 class AIBaseBuilder {public: void DoXfer(Xfer*); void notifyBuildingDestroyed(Object *);};
 #include "AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
@@ -159,13 +178,14 @@ class AIBuilder {
 public: void DoXfer(Xfer*); void moneySaverUpdate();
     void unRegisterProducedObject(Object *);
     void notifyDozerDead(Rva005996FFArg *);
+    void rva004EC51F();
 private:
     Player *owner00;
     unsigned char gap04[0x7c];
     int savingsLimit80;
     unsigned char gap84[0xa8];
     Rva0059761B *component12c;
-    unsigned char opaque130[0xc];
+    RvaVector entries130;
     AIBuilderOrderNode *orders13c;
     unsigned char opaque140[0x14];
     bool flag154; unsigned char gap155[3]; unsigned int value158;
@@ -248,4 +268,27 @@ void AIBuilder::unRegisterProducedObject(Object *object)
 void AIDozerManager::rva00599606()
 {
     reinterpret_cast<_STL::_List_base<int, _STL::allocator<int> > *>(this)->clear();
+}
+
+// Native 4EC51F..4EC59A (123B) and WB136F380 agree on the component reset
+// order and all receiver offsets. The matched AIBuilder::DoXfer establishes
+// the owner through these same components; WB supplies no method name here.
+// Slot +8 is observed, with a null check on native's optional +12C pointer.
+// The +130 vector's element identity remains unknown; the four-byte ABI and
+// its erase target 31BD55 are target facts. +13C uses rowed list-base clear.
+void AIBuilder::rva004EC51F()
+{
+    reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 0x38)->reset();
+    reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 0x90)->reset();
+    reinterpret_cast<AIDozerManager *>(reinterpret_cast<unsigned char *>(this) + 0x140)->rva00599606();
+    reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 0xc0)->reset();
+    // Native compares the pointer's storage, then reads it again on success.
+    Rva0059761B *volatile *optional = &component12c;
+    if (*optional)
+        reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(*optional) + 0x0c)->reset();
+    entries130.clear();
+    reinterpret_cast<_STL::_List_base<int, _STL::allocator<int> > *>(&orders13c)->clear();
+    reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 0xe4)->reset();
+    reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 0x108)->reset();
+    reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 4)->reset();
 }
