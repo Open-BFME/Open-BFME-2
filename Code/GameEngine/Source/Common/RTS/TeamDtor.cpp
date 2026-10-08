@@ -5,7 +5,7 @@
 // "proto should not be null") matched by call graph; the Team vtables
 // 0x00C1AEFC / 0x00C1AEB8 are the ones Team::Team (0x003A39A7) installs.
 // Target facts: TheScriptEngine cleanup through rowed 0x002051B7, the
-// drain of the ObjectID set at +0x130 through the pinned 0x003A23A5, the
+// drain of the ObjectID set at +0x130 through the rowed 0x003A23A5, the
 // per-player relation cleanup (rowed 0x002A9CF0 on getNthPlayer), disband,
 // TheTeamFactory->markTeamDoneForTacticalAI, the prototype instance-list
 // unlink through rowed 0x0039D40F / 0x0039D4D8 on the +0x334 head, the two
@@ -78,7 +78,7 @@ struct Rva002EE9B7Node
 	Rva002EE9B7Node *m_parent;
 	Rva002EE9B7Node *m_left;
 	Rva002EE9B7Node *m_right;
-	unsigned int m_value;
+	int m_value;
 };
 
 class Rva002EE9B7
@@ -86,7 +86,7 @@ class Rva002EE9B7
 public:
 	~Rva002EE9B7();
 	bool empty() const { return m_nodeCount == 0; }
-	const unsigned int &front() const { return m_header->m_left->m_value; }
+	const int &front() const { return m_header->m_left->m_value; }
 private:
 	Rva002EE9B7Node *m_header;
 	unsigned int m_nodeCount;
@@ -173,7 +173,7 @@ class Team : public Snapshot, public Rva0055B0CC
 {
 public:
 	void disband();
-	void rva003A23A5(unsigned int id, int flag);
+	void rva003A23A5(int id, bool add);
 protected:
 	virtual ~Team();
 	virtual void loadPostProcess();
@@ -199,7 +199,7 @@ Team::~Team()
 		TheScriptEngine->rva002051B7((Object *)this);
 
 	while (!m_130.empty())
-		rva003A23A5(m_130.front(), 0);
+		rva003A23A5(m_130.front(), false);
 
 	if (ThePlayerList)
 	{

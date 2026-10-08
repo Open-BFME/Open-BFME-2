@@ -11703,7 +11703,6 @@ name,address,notes
 ?rva003A10FE@Team@@QAEXH@Z,0x003A10FE,thiscall (int) on the getTeamNamed team; callee of dump-range-18 0x003BFAC3
 ?rva003A1626@Team@@QAEXPAX0HPAV1@@Z,0x003A1626,Team member taking (two opaque pointers, int, team); REL32 callee of dump-range-18 0x003C21E5; identity unproven
 ?rva003A1D1A@Team@@QAEXXZ,0x003A1D1A,thiscall void() on the getTeamNamed team; callee of dump-range-18 0x003BFD5A
-?rva003A23A5@Team@@QAEXIH@Z,0x003A23A5,REL32 read at 0x003C20C0 in the byte-verified ScriptActions::rva003C207C (thiscall on the named team with the named unit's ObjectID and the int argument); identity unknown
 ?rva003A3717@Team@@QAE_NABVAsciiString@@@Z,0x003A3717,"call-site agreement: sole caller, the matched rva003E859E (TEAM_HAS_CUSTOM_STATE handler) 0x003E859E, calls it on the named Team with the state Parameter string; body looks the name up in the +0x48 container via the rowed 0x0041534B"
 ?rva003A37DC@Rva000427195@@QAEXUVideoPair@@@Z,0x003A37DC,video-map pair erase callee of reset at 0x0031E09E; honest address-derived name
 ?rva003A38E9@Team@@QAEXHH@Z,0x003A38E9,thiscall (int,int) on the getTeamNamed team; callee of dump-range-18 0x003BECCD
@@ -16218,3 +16217,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva004DD8A6@@YAXHPAURva004DD8A6Entry@@H@Z,0x004DD8A6,
 ?rva004DDF51@Rva004DD843@@QAEXPAURva004DD843Slot@@@Z,0x004DDF51,
 ?rva004DDDA4@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva004DD9E3@@@Z,0x004DDDA4,
+?erase@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAEXU?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@2@@Z,0x005530A8,set<int> spelling of the folded POD tree erase(iterator); REL32 read at 0x003A23EF in Team::rva003A23A5 erasing the found ObjectID node of the +0x130 set; fold-proof=Code/GameEngine/Source/Common/RTS/TeamGateMembership.cpp
