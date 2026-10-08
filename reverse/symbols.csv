@@ -14074,6 +14074,8 @@ rva009C7380WeightPairs,0x009B84E0
 ?method@Rva0054CFB8Target@@QAEXHABVUnicodeString@@0UTreeHintRef00217D4C@@1@Z,0x0054CFB8,callee of ?method@Rva0054D2DDTarget@@QAEXHABVUnicodeString@@0@Z
 ?rva0035C7CF@Shell@@QAEX_N@Z,0x0035C7CF,callee of ??1Rva0043A351@@UAE@XZ
 ?onDelete@OpenContain@@UAEXXZ,0x00464120,callee of ?onDelete@SiegeEngineContain@@UAEXXZ
+?onContaining@OpenContain@@UAEXPAVObject@@_N@Z,0x00463097,slot 22 of the OpenContain +0x20 interface vtable 0x008433B0 installed by the OpenContain ctor 0x004649F8; base call of GarrisonContain::onContaining 0x00478C2C
+?onRemoving@OpenContain@@UAEXPAVObject@@@Z,0x00464D02,slot 23 of the OpenContain +0x20 interface vtable 0x008433B0 installed by the OpenContain ctor 0x004649F8; base call of GarrisonContain::onRemoving 0x00478D0A
 ?Rva000E68C5SwayOffsets@@YAXPAUID3DXEffect@@PBD@Z,0x000E68C5,Vegetation FX SwayOffsets callback (banked partial; IV base); bound by dispatcher 0x000E67E3
 ?Rva001F7888Size@@YAXPAUID3DXEffect@@PBD@Z,0x001F7888,Particle Update FX Size callback (banked partial; frame slot layout); bound by dispatcher 0x001F7740
 ?rva00376E92@GameLogic@@QAEX_N0@Z,0x00376E92,thiscall ret 8 on TheGameLogic (0x00DFE78C) taking two byte flags; called with (false false) by LANAPI slot 43 (0x0024900D) before the transfer check and after startGame; BFME 1's OnGameStart calls clearGameData(Bool Bool) at the same point but the name is not proven here
