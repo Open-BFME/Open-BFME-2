@@ -74,3 +74,14 @@ BFME_DISP8_FLOAT_GETTER(Rva0008BB7DFloatField, 0x68)
 BFME_DISP8_FLOAT_GETTER(Rva0008E10EFloatField, 0x3C)
 BFME_DISP8_FLOAT_GETTER(Rva005D870DFloatField, 0x10)
 BFME_DISP8_FLOAT_GETTER(Rva00318B13FloatField, 0x44)
+
+// Clean BF1 9cbfb551fe Common/Rva00880960Accessors.cpp semantic guide.
+// Native 006C03D0..006C03DB is a complete independently bounded RET leaf.
+// Target behavior: receiver18 plus four-byte element stride; RET4.
+// Original owner and full array bounds remain unknown; address-owned view only.
+struct Rva006C03D0Slot { unsigned char bytes[4]; };
+class Rva006C03D0Fields {
+public: void *at(int index);
+private: unsigned char unknown[0x18]; Rva006C03D0Slot entries[1];
+};
+void *Rva006C03D0Fields::at(int index) { return &entries[index]; }

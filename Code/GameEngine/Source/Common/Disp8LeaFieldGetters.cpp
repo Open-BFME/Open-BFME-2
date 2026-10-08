@@ -94,3 +94,14 @@ BFME_DISP8_LEA_GETTER(Rva0071AE40LeaField, 0x58)
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?get@Rva007EA690FieldAddress@@QAEPADXZ=?get@Rva00657630LeaField@@QBEPAXXZ")
 #pragma comment(linker, "/alternatename:?a_007ea650@@YAXXZ=?get@Rva0066D7D0LeaField@@QBEPAXXZ")
+
+// Clean BF1 9cbfb551fe Common/Rva00880960Accessors.cpp semantic guide.
+// Native 006C03C0..006C03CB is a complete independently bounded RET leaf.
+// Target behavior: receiver8 plus eight-byte element stride; RET4.
+// Original owner and full array bounds remain unknown; address-owned view only.
+struct Rva006C03C0Slot { unsigned char bytes[8]; };
+class Rva006C03C0Fields {
+public: void *at(int index);
+private: unsigned char unknown[8]; Rva006C03C0Slot entries[1];
+};
+void *Rva006C03C0Fields::at(int index) { return &entries[index]; }

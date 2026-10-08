@@ -331,3 +331,9 @@ public:
     int get() const;
 };
 int Rva0026FFF7::get() const { return m_value==1 || m_value==2; }
+
+// Clean BF1 9cbfb551fe Common/Rva87490AtLeastFive.cpp semantic guide.
+// Native 00050D21..00050D2A is a complete independently bounded RET leaf.
+// Target behavior: cdecl unsigned argument at least five; full EAX result 0 or1.
+// Original owner and full array bounds remain unknown; address-owned view only.
+unsigned int atLeastFive_Rva00050D21(unsigned int value) { return value >= 5; }

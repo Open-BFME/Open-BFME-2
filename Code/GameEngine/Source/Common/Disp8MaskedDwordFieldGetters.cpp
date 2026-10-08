@@ -30,3 +30,13 @@ BFME_DISP8_MASKED_DWORD_GETTER(Rva0045D397MaskedDwordField, 0x3C, 0x01)
 BFME_DISP8_MASKED_DWORD_GETTER(Rva00030D00MaskedDwordField, 0x04, 0xFFFFFFFE)
 BFME_DISP8_MASKED_DWORD_GETTER(Rva00742EC0MaskedDwordField, 0x40, 0x02)
 BFME_DISP8_MASKED_DWORD_GETTER(Rva0043315CMaskedDwordField, 0xC4, 0x01)
+
+// Clean BF1 9cbfb551fe Common/Bfme/Rva001B3FB0Decrement.cpp semantic guide.
+// Native 001E353F..001E3549 is a complete independently bounded RET leaf.
+// Target behavior: receiver0 unsigned dword decrements only when nonzero; RET0.
+// Original owner and full array bounds remain unknown; address-owned view only.
+class Rva001E353FFields {
+public: void decrement();
+private: unsigned int value;
+};
+void Rva001E353FFields::decrement() { if (value != 0) --value; }
