@@ -1,36 +1,86 @@
 // ?removeInvalidObjectsFromGarrisonPoints@GarrisonContain@@IAEXXZ
-// partial score=0.94 date=2026-10-08
-// cl: /Ireference/shims/zh_outofline /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
-// stlport
-#include "PreRTS.h"
-#include "GameLogic/GameLogic.h"
-#include "GameLogic/Object.h"
-#include "GameLogic/Module/GarrisonContain.h"
-// BFME1 ba7ddda7: named removal sweep, reconciled against 0x0047933C.
-// Target point table +0x100, 40 twenty-byte ID entries; in-use count +0x420.
+// partial score=0.97 date=2026-10-08
+// 0x0047933C removeInvalidObjectsFromGarrisonPoints, 89 bytes: 7 diffs, point
+// pointer and occupant swap edi/esi (retail point edi, obj esi). The ObjectID
+// local fixes this=ebx (without it this/point/obj rotate, 18 diffs). Tried:
+// do-while/for/while, pointer walk, function-scope locals, nested/continue
+// ifs, inline/forceinline weapon predicate, duplicated remove arm, flags.
+// cl: /O1 /arch:SSE /G7 /MD /DNDEBUG
+enum ObjectID { INVALID_ID = 0 };
+enum WeaponSlotType { PRIMARY_WEAPON = 0 };
+class Object;
 class Rva002C9400ByteField { public: unsigned char get() const; };
-struct GarrisonInvalidPoint { ObjectID objectID; char remaining[16]; };
-struct GarrisonInvalidPointsView {
-    char unknown00[0x100];
-    GarrisonInvalidPoint points[40];
-    int pointsInUse;
-};
-struct GarrisonInvalidWeaponView { void *vtable; Rva002C9400ByteField *data; };
-void GarrisonContain::removeInvalidObjectsFromGarrisonPoints( void )
+class Weapon
 {
-    GarrisonInvalidPointsView *self = reinterpret_cast<GarrisonInvalidPointsView *>(this);
-    if (self->pointsInUse == 0)
+public:
+    const Rva002C9400ByteField *getTemplate() const { return m_template; }
+private:
+    void *m_vtable;
+    const Rva002C9400ByteField *m_template;
+};
+class Object
+{
+public:
+    const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
+};
+class GameLogic
+{
+public:
+    Object *findObjectByID(ObjectID id);
+};
+extern GameLogic *TheGameLogic;
+
+struct GarrisonPointData
+{
+    ObjectID objectID;
+    ObjectID targetID;
+    unsigned int placeFrame;
+    unsigned int lastEffectFrame;
+    void *effect;
+};
+
+class B0 { public: virtual void b0(); int pad4; void *object; };
+class B1 { public: virtual void b1(); };
+class B2 { public: virtual void b2(); private: unsigned char pad[12]; };
+class B3 { public: virtual void b3(); };
+class B4 { public: virtual void b4(); };
+class B5 { public: virtual void b5(); };
+class B6 { public: virtual void b6(); };
+class B7 { public: virtual void b7(); };
+class B8 { public: virtual void b8(); private: unsigned char pad[0xC8 - 4]; };
+
+class OpenContain : public B0, public B1, public B2, public B3, public B4,
+    public B5, public B6, public B7, public B8
+{
+public:
+    virtual ~OpenContain();
+};
+
+class GarrisonContain : public OpenContain
+{
+protected:
+    void removeObjectFromGarrisonPoint(Object *obj, int pointIndex);
+    void removeInvalidObjectsFromGarrisonPoints();
+    static bool removable(Object *obj) { const Weapon *weapon = obj->getCurrentWeapon(0); return weapon && weapon->getTemplate()->get(); }
+private:
+    unsigned char m_padFC100[0x100 - 0xFC];
+    GarrisonPointData m_garrisonPointData[40];
+    int m_garrisonPointsInUse;
+};
+
+void GarrisonContain::removeInvalidObjectsFromGarrisonPoints()
+{
+    if (m_garrisonPointsInUse == 0)
         return;
-    Object *object;
-    GarrisonInvalidPoint *point = self->points;
-    for (int index = 0; index < MAX_GARRISON_POINTS; ++index, ++point)
+    for (int i = 0; i < 40; ++i)
     {
-        object = TheGameLogic->findObjectByID(point->objectID);
-        if (object)
+        ObjectID id = m_garrisonPointData[i].objectID;
+        Object *obj = TheGameLogic->findObjectByID(id);
+        if (obj)
         {
-            const Weapon *weapon = static_cast<const Object *>(object)->getCurrentWeapon(NULL);
-            if (weapon && reinterpret_cast<const GarrisonInvalidWeaponView *>(weapon)->data->get())
-                removeObjectFromGarrisonPoint(object, index);
+            const Weapon *weapon = obj->getCurrentWeapon(0);
+            if (weapon && weapon->getTemplate()->get())
+                removeObjectFromGarrisonPoint(obj, i);
         }
     }
-}  // end removeInvalidObjectsFromGarrisonPoints
+}
