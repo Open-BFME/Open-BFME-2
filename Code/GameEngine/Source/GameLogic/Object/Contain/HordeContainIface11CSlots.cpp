@@ -382,6 +382,8 @@ public:
 	bool rva0039B4EC(int levels, bool flag1, bool flag2);	// 0x0039B4EC
 	unsigned char m_pad00[0x10];
 	float m_10; // +0x10
+	unsigned char m_pad14[0x24 - 0x14];
+	int m_24; // +0x24 (slot 48 compares it across 0x0039B3D1)
 };
 // The Object +0x254 module: slot 5 gives a float.
 class Rva0046B850Module : public Rva00468D11Slots<5>
@@ -676,7 +678,7 @@ public:
 	virtual bool rva00468D11() = 0; virtual bool rva00468D2C() = 0; virtual bool rva0046BB6F(int *out, unsigned int frame) = 0; virtual bool rva0046A2A7() = 0;
 	virtual void gap38() = 0; virtual bool rva0046C65C() = 0; virtual bool rva0046C71E() = 0; virtual bool rva0046C6E7() = 0;
 	virtual void slot42(const Object *obj) = 0; virtual bool rva0046B9DC(int a1) = 0; virtual bool rva0046B95E(int a1) = 0; virtual void rva00468CA3(const Rva00468CA3Arg *arg) = 0;
-	virtual void gap46() = 0; virtual void gap47() = 0; virtual void gap48() = 0; virtual void rva004739B4() = 0;
+	virtual void gap46() = 0; virtual void gap47() = 0; virtual void rva004707DB(Object *obj, float amount) = 0; virtual void rva004739B4() = 0;
 	virtual void gap50() = 0; virtual void rva0046BD70() = 0; virtual void rva0046BE0E() = 0; virtual void rva0046C3FE(Player *player) = 0;
 	virtual void gap54() = 0; virtual void rva0046C4C0() = 0; virtual void rva0046C327() = 0; virtual void rva0046C20B() = 0;
 	virtual bool rva0046C5D7(int value) = 0; virtual bool rva0046F8A5() = 0; virtual bool rva0046F8F4() = 0; virtual void gap61() = 0;
@@ -897,6 +899,7 @@ public:
 	virtual void rva0046BD70();
 	virtual void rva0046BE0E();
 	virtual void rva0046C3FE(Player *player);
+	virtual void rva004707DB(Object *obj, float amount);
 	virtual void rva004739B4();
 	virtual void rva00473799(const _STL::list<Object *> &items);
 	virtual void rva0046D8AE();
@@ -2228,6 +2231,61 @@ void HordeContain::rva00473799(const _STL::list<Object *> &items)
 	((Rva0046E740 *)(UpdateModule *)this)->rva0046E740(0);
 	rva0046981C();
 	rva00472790(0);
+}
+
+// The callback slot 48 hands the +0x20 contain interface's slot 68: hands the
+// value to the +0x264 tracker's 0x0039B3D1 of every contained Object whose
+// template's +0x5D8 matches the key.
+struct Rva00468AECData
+{
+	float m_value; // +0x00
+	short m_key; // +0x04
+};
+
+// ?rva00468AEC@@YAXPAVObject@@PAX@Z @0x00468AEC
+void rva00468AEC(Object *obj, void *userData)
+{
+	if (!obj)
+		return;
+	const ThingTemplate *tmpl = obj->m_template;
+	if (!tmpl)
+		return;
+	Rva00468AECData *data = (Rva00468AECData *)userData;
+	if (tmpl->m_5D8 != data->m_key)
+		return;
+	if (obj->m_264)
+		obj->m_264->rva0039B3D1(data->m_value, false);
+}
+
+// ?rva004707DB@HordeContain@@UAEXPAVObject@@M@Z @0x004707DB: slot 48; adds the
+// amount to the +0x258 map entry under the Object's template +0x5D8 key (a new
+// key starts at 1 plus the amount), hands the total to every contained Object
+// of that key, and when it exceeds the horde Object's tracker +0x10 passes it
+// on there (0x0039B3D1), calling 0x0046E740 (1) if the tracker's +0x24 rose.
+void HordeContain::rva004707DB(Object *obj, float amount)
+{
+	if (!obj)
+		return;
+	unsigned short key = obj->m_template->m_5D8;
+	if (m_258.find(key) == m_258.end())
+		m_258[key] = amount + 1.0f;
+	else
+	{
+		float &total = m_258[key];
+		total = total + amount;
+	}
+	Rva00468AECData data;
+	data.m_value = m_258[key];
+	data.m_key = key;
+	iterateContained(rva00468AEC, &data, 1);
+	ExperienceTracker *tracker = m_object->m_264;
+	if (data.m_value > tracker->m_10)
+	{
+		int level = tracker->m_24;
+		tracker->rva0039B3D1(data.m_value, false);
+		if (m_object->m_264->m_24 > level)
+			((Rva0046E740 *)(UpdateModule *)this)->rva0046E740(1);
+	}
 }
 
 // ?rva004739B4@HordeContain@@UAEXXZ @0x004739B4: slot 49; with anything
