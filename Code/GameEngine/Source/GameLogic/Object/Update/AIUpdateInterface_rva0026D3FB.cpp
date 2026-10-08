@@ -1,9 +1,15 @@
-// ?rva0026D3FB@AIUpdateInterface@@QAEXPAVObject@@@Z
-// partial score=0.95 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
-// ?rva0026D3FB@AIUpdateInterface@@QAEXPAVObject@@@Z @0x0026D3FB 125B.
-// AIUpdate state check then attack or reset path. Flag when current state 0x21 or 0x3D via rowed 0x00260DED; virtual slot 0x24 on machine+4 or true when null; if virtual true or flag then rowed 0x00262B0F plus gate 0x00344EB2 then destroyPath unless gate true; else when +0x34 zero call AICommandInterface +0x20 rowed 0x0026C2D9 with victim 0x7fffffff 2.
-// Evidence: callees rowed 0x00260DED 0x00262B0F destroyPath 0x0026C2D9 pin gate 0x00344EB2; callers 0x00295C5B 0x00587282 push victim; +0x30 machine +0x20 cmd +0x08 owner +0x34 guard.
+//
+// ?rva0026D3FB@AIUpdateInterface@@QAEXPAVObject@@@Z, retail 0x0026D3FB..
+// 0x0026D478 (125 bytes, RET 4): the AI method HordeMeleeAmoeba::AttackUnit
+// (0x00587282) and 0x00295C5B call with a victim. When the current state
+// (rowed 0x00260DED) is 0x21 or 0x3D, or the +0x30 machine's current state is
+// absent or ready (its slot 9), the victim goes to the rowed 0x00262B0F and
+// the path is dropped (rowed destroyPath) unless the pinned 0x00344EB2 gate
+// holds for the +0x08 owner; otherwise, without the +0x34 guard, the +0x20
+// command interface attacks it (rowed 0x0026C2D9, all shots, from the AI).
+// The machine's ready test is an inline helper, which keeps retail's
+// materialised true for an absent state.
 class Object;
 class Thing;
 
@@ -33,6 +39,7 @@ class MiniMachine
 {
 public:
 	virtual void m00();
+	bool isCurrentReady() const { return m_current ? m_current->isReady() : true; }
 	MiniState *m_current;
 };
 
@@ -66,19 +73,13 @@ void AIUpdateInterface::rva0026D3FB(Object *victim)
 {
 	int cur = rva00260DED();
 	bool flag = (cur == 0x21 || cur == 0x3D);
-	MiniMachine *m = m_machine;
-	unsigned char ok = 1;
-	if (m->m_current != 0)
-		ok = m->m_current->isReady();
-	if (!ok && !flag)
+	if (m_machine->isCurrentReady() || flag)
 	{
-		if (m_34 != 0)
-			return;
-		m_cmd.rva0026C2D9(victim, 0x7fffffff, CMD_FROM_AI);
-		return;
+		rva00262B0F((int)victim);
+		Object *owner = m_owner;
+		if (!rva00344EB2Gate(owner, (Thing *)victim))
+			destroyPath();
 	}
-	rva00262B0F((int)victim);
-	Object *owner = m_owner;
-	if (!rva00344EB2Gate(owner, (Thing *)victim))
-		destroyPath();
+	else if (m_34 == 0)
+		m_cmd.rva0026C2D9(victim, 0x7fffffff, CMD_FROM_AI);
 }
