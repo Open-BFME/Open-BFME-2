@@ -1,0 +1,1324 @@
+diff --git a/Code/GameEngine/Source/Common/Rva002E1001.cpp b/Code/GameEngine/Source/Common/Rva002E1001.cpp
+index 30544e8037..e308879994 100644
+--- a/Code/GameEngine/Source/Common/Rva002E1001.cpp
++++ b/Code/GameEngine/Source/Common/Rva002E1001.cpp
+@@ -13,7 +13,6 @@ class Rva002E1001
+ {
+ public:
+ 	int rva002E1001();
+-	bool rva004FC970(int id);
+ private:
+ 	int m_00;
+ 	int m_04;
+@@ -73,25 +72,3 @@ done:
+ 	return c;
+ }
+ 
+-// ?rva004FC970@Rva002E1001@@QAE_NH@Z @0x004FC970 94B.
+-// Chain-lane sum gate: counts players vector at +0x8C of the logic at
+-// 0xDFEF10, filters by Player+0x34 == id, sums rva002E1001 over hits and
+-// fails when the sum exceeds this+0x10. Evidence: chain lane (calls rowed
+-// 0x002B52A8 and 0x002E1001); caller 0x004FD634 passes [esi+0x14] as this;
+-// same sub-sar-2 plus inc loop shape as 0x002E1001; neighbours carry /O1.
+-bool Rva002E1001::rva004FC970(int id)
+-{
+-	Rva002BA8F1Logic *logic = *(Rva002BA8F1Logic **)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
+-	char *pp = (char *)logic + 0x8c;
+-	int n = (*(int *)(pp + 4) - *(int *)pp) >> 2;
+-	int sum = 0;
+-	for (int i = 0; i < n; ++i) {
+-		Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
+-		if (p->m_34 != id)
+-			continue;
+-		sum += ((Rva002E1001 *)p)->rva002E1001();
+-		if (sum > m_10)
+-			return false;
+-	}
+-	return true;
+-}
+diff --git a/Code/GameEngine/Source/Common/Rva003F9258Siblings.cpp b/Code/GameEngine/Source/Common/Rva003F9258Siblings.cpp
+index 831f425c1e..14352d6973 100644
+--- a/Code/GameEngine/Source/Common/Rva003F9258Siblings.cpp
++++ b/Code/GameEngine/Source/Common/Rva003F9258Siblings.cpp
+@@ -98,10 +98,13 @@ private:
+ 	char m_pad[0x20];
+ };
+ 
+-class Rva004FD448
++// Preserve the parser's existing address-derived holder ABI spelling.
++class Rva004FD448;
++class LivingWorldScenario { public: class TeamVictoryCondition; class Scenario; };
++class LivingWorldScenario::Scenario
+ {
+ public:
+-	void rva004FD448(const ModuleData *p);
++    void addTeamVictoryCondition(const TeamVictoryCondition *condition);
+ };
+ 
+ extern const FieldParse g_00C636D0;
+@@ -114,7 +117,7 @@ void Rva004FD7FBParse(INI *ini, Rva004FD448 *holder)
+ 	}
+ 	Rva004FD7FBData *p = new Rva004FD7FBData;
+ 	ini->initFromINI(p, &g_00C636D0);
+-	holder->rva004FD448((const ModuleData *)p);
++	reinterpret_cast<LivingWorldScenario::Scenario *>(holder)->addTeamVictoryCondition(reinterpret_cast<const LivingWorldScenario::TeamVictoryCondition *>(p));
+ }
+ 
+ // 0x0059E436 SpawnGenericBuilding::ParseINI, record size 0x14.
+diff --git a/Code/GameEngine/Source/Common/Rva004FC8D6.cpp b/Code/GameEngine/Source/Common/Rva004FC8D6.cpp
+deleted file mode 100644
+index 474a681e26..0000000000
+--- a/Code/GameEngine/Source/Common/Rva004FC8D6.cpp
++++ /dev/null
+@@ -1,57 +0,0 @@
+-// cl: /DNDEBUG /MD
+-// ?rva004FC8D6@Rva004FC8D6@@QAE_NPAVRva002E1001@@@Z @0x004FC8D6 (71B).
+-// Evidence: rowed rva002104B6 0x002104B6 plus rowed rva002E1001 0x002E1001
+-// plus g_009FEF10; caller 0x004FD5F0; prev 0x004FC563 next 0x004FC957;
+-// unlocks 0x004FD5C7.
+-
+-class LivingWorldLogic;
+-extern LivingWorldLogic *TheLivingWorldLogic;
+-class Rva002104B6
+-{
+-public:
+-	void *rva002104B6(void *a1);
+-};
+-
+-class Rva002E1001
+-{
+-public:
+-	int rva002E1001();
+-	char m_pad00[0x14];
+-	int m_14;
+-	char m_pad18[0x2c - 0x18];
+-};
+-
+-class Rva002BA8F1Logic
+-{
+-public:
+-	char m_pad00[0xb0];
+-	Rva002104B6 *m_b0;
+-};
+-
+-class Rva004FC8D6
+-{
+-public:
+-	bool rva004FC8D6(Rva002E1001 *arg);
+-private:
+-	char m_pad00[0x10];
+-	int m_10;
+-	bool m_14;
+-};
+-
+-// ?rva004FC8D6@Rva004FC8D6@@QAE_NPAVRva002E1001@@@Z
+-bool Rva004FC8D6::rva004FC8D6(Rva002E1001 *arg)
+-{
+-	if (m_14 != 0)
+-	{
+-		Rva002104B6 *t = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_b0;
+-		void *q = (void *)((char *)arg + 0x2c);
+-		void *p = t->rva002104B6(q);
+-		if (p != 0)
+-		{
+-			if (*(int *)((char *)p + 0x13c) != arg->m_14)
+-				return true;
+-		}
+-	}
+-	bool ok = arg->rva002E1001() <= m_10;
+-	return ok;
+-}
+diff --git a/Code/GameEngine/Source/Common/Rva004FD37F.cpp b/Code/GameEngine/Source/Common/Rva004FD37F.cpp
+index f7797d3234..cc39816aeb 100644
+--- a/Code/GameEngine/Source/Common/Rva004FD37F.cpp
++++ b/Code/GameEngine/Source/Common/Rva004FD37F.cpp
+@@ -40,10 +40,11 @@ public:
+ 	int m_key;
+ };
+ 
+-class Rva004FC8D6
++class LivingWorldScenario { public: class PlayerDefeatCondition; };
++class LivingWorldScenario::PlayerDefeatCondition
+ {
+ public:
+-	bool rva004FC8D6(Rva002E1001 *p);
++    bool isPlayerDefeated(Rva002E1001 *p);
+ };
+ 
+ class Rva004FD37F
+@@ -70,8 +71,8 @@ bool Rva004FD37F::rva004FD5C7(Rva002E1001 *p) const
+ 	int key = p->m_key;
+ 	_STL::pair<_STL::multimap<int, int>::const_iterator, _STL::multimap<int, int>::const_iterator> r = m_map.equal_range(key);
+ 	for (_STL::multimap<int, int>::const_iterator it = r.first; it != r.second; ++it) {
+-		Rva004FC8D6 *cand = (Rva004FC8D6 *)(*it).second;
+-		if (cand->rva004FC8D6(p))
++		LivingWorldScenario::PlayerDefeatCondition *cand = (LivingWorldScenario::PlayerDefeatCondition *)(*it).second;
++		if (cand->isPlayerDefeated(p))
+ 			return true;
+ 	}
+ 	return false;
+diff --git a/Code/GameEngine/Source/Common/Rva004FD3E2.cpp b/Code/GameEngine/Source/Common/Rva004FD3E2.cpp
+index b451858a20..ab3ab29c03 100644
+--- a/Code/GameEngine/Source/Common/Rva004FD3E2.cpp
++++ b/Code/GameEngine/Source/Common/Rva004FD3E2.cpp
+@@ -35,11 +35,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+ 
+ class ModuleData;
+ 
+-class Rva002E1001
+-{
+-public:
+-	bool rva004FC970(int id);
+-};
++
+ 
+ struct Rva004FCD49Vec {
+     void *vtbl;
+@@ -50,7 +46,13 @@ struct Rva004FCD49Vec {
+ class LivingWorldScenario
+ {
+ public:
+-	class Scenario;
++    class Scenario;
++    class TeamDefeatCondition;
++};
++class LivingWorldScenario::TeamDefeatCondition
++{
++public:
++    bool isTeamDefeated(int team);
+ };
+ 
+ class LivingWorldScenario::Scenario {
+@@ -93,8 +95,8 @@ bool LivingWorldScenario::Scenario::rva004FD613(int key) const
+ {
+     _STL::pair<_STL::multimap<int, int>::const_iterator, _STL::multimap<int, int>::const_iterator> r = m_map.equal_range(key);
+     for (_STL::multimap<int, int>::const_iterator it = r.first; it != r.second; ++it) {
+-        Rva002E1001 *cand = (Rva002E1001 *)(*it).second;
+-        if (cand->rva004FC970(key))
++        LivingWorldScenario::TeamDefeatCondition *cand = (LivingWorldScenario::TeamDefeatCondition *)(*it).second;
++        if (cand->isTeamDefeated(key))
+             return true;
+     }
+     return false;
+diff --git a/Code/GameEngine/Source/Common/Rva004FD448.cpp b/Code/GameEngine/Source/Common/Rva004FD448.cpp
+index 0d6f6510c3..097bfe180c 100644
+--- a/Code/GameEngine/Source/Common/Rva004FD448.cpp
++++ b/Code/GameEngine/Source/Common/Rva004FD448.cpp
+@@ -38,11 +38,13 @@ class ModuleData;
+ // This name is already present in the ledger as an address-derived partial
+ // row. 0x004FD571's REL32 call proves the target RVA used below; the helper's
+ // owner and semantics remain unresolved.
+-class Rva004FCE73
++class LivingWorldRegion;
++class LivingWorldScenario { public: class TeamVictoryCondition; };
++class LivingWorldScenario::TeamVictoryCondition
+ {
+ public:
+-	void rva004FD013(int key, _STL::vector<const ModuleData *> *records, int *out);
+-	bool rva004FCEB5(int key);
++    void QueryRegionsAndNumbers(int key, _STL::vector<const LivingWorldRegion *> *records, int *out);
++    bool hasTeamAchievedVictory(int key);
+ };
+ 
+ struct Rva004FCD49Vec {
+@@ -53,7 +55,6 @@ struct Rva004FCD49Vec {
+ 
+ class Rva004FD448 {
+ public:
+-    void rva004FD448(const ModuleData *p);
+     void rva004FD571(int key, _STL::vector<const ModuleData *> *records, int *out) const;
+     bool rva004FD656(int key) const;
+ private:
+@@ -63,18 +64,6 @@ private:
+     _STL::vector<const ModuleData *> m_vec;
+ };
+ 
+-void Rva004FD448::rva004FD448(const ModuleData *p)
+-{
+-    if (!p)
+-        return;
+-    const _STL::vector<int> &vec = ((const Rva004FCD49Vec *)p)->m_vec;
+-    for (unsigned int i = 0; i < vec.size(); ++i) {
+-        int v = vec[i];
+-        m_map.insert(_STL::multimap<int, int>::value_type(v, (int)p));
+-    }
+-    m_vec.push_back(p);
+-}
+-
+ // 0x004FD571 86B.
+ // Shares the +0x68 multimap field with the matched 0x004FD448 body. The target
+ // clears the supplied vector, obtains a const equal_range, and calls the
+@@ -90,8 +79,8 @@ void Rva004FD448::rva004FD571(int key, _STL::vector<const ModuleData *> *records
+     _STL::pair<_STL::multimap<int, int>::const_iterator,
+         _STL::multimap<int, int>::const_iterator> range = m_map.equal_range(key);
+     for (_STL::multimap<int, int>::const_iterator it = range.first; it != range.second; ++it) {
+-        Rva004FCE73 *candidate = (Rva004FCE73 *)(*it).second;
+-        candidate->rva004FD013(key, records, out);
++        LivingWorldScenario::TeamVictoryCondition *candidate = (LivingWorldScenario::TeamVictoryCondition *)(*it).second;
++        candidate->QueryRegionsAndNumbers(key, reinterpret_cast<_STL::vector<const LivingWorldRegion *> *>(records), out);
+     }
+ }
+ 
+@@ -104,8 +93,8 @@ bool Rva004FD448::rva004FD656(int key) const
+         _STL::multimap<int, int>::const_iterator> range = m_map.equal_range(key);
+     for (_STL::multimap<int, int>::const_iterator it = range.first; it != range.second; ++it)
+     {
+-        Rva004FCE73 *candidate = (Rva004FCE73 *)(*it).second;
+-        if (candidate->rva004FCEB5(key))
++        LivingWorldScenario::TeamVictoryCondition *candidate = (LivingWorldScenario::TeamVictoryCondition *)(*it).second;
++        if (candidate->hasTeamAchievedVictory(key))
+             return true;
+     }
+     return false;
+diff --git a/Code/GameEngine/Source/Common/Rva005E2CFA.cpp b/Code/GameEngine/Source/Common/Rva005E2CFA.cpp
+deleted file mode 100644
+index 57470a6edf..0000000000
+--- a/Code/GameEngine/Source/Common/Rva005E2CFA.cpp
++++ /dev/null
+@@ -1,23 +0,0 @@
+-// cl: /MD /EHsc
+-// ?Rva005E2CFAGet@@YAPAXPBD@Z @0x005E2CFA 44B
+-// Unlock table lookup: 3-entry {result, name} at 0x00C77B40 searched with strcmp.
+-// Evidence: unlock lane plus callers 0x005E2D52 0x005E2DC8 plus callee strcmp 0x006291C6.
+-extern "C" int __cdecl strcmp(const char *a, const char *b);
+-
+-struct Rva005E2CFAEntry
+-{
+-	void *m_result;
+-	const char *m_name;
+-};
+-
+-extern const Rva005E2CFAEntry g_00C77B40[3];
+-
+-void *Rva005E2CFAGet(const char *s)
+-{
+-	for (unsigned int i = 0; i < 3; ++i)
+-	{
+-		if (strcmp(s, g_00C77B40[i].m_name) == 0)
+-			return g_00C77B40[i].m_result;
+-	}
+-	return 0;
+-}
+diff --git a/Code/GameEngine/Source/Common/Rva005E2D26.cpp b/Code/GameEngine/Source/Common/Rva005E2D26.cpp
+deleted file mode 100644
+index 4c5fbc2014..0000000000
+--- a/Code/GameEngine/Source/Common/Rva005E2D26.cpp
++++ /dev/null
+@@ -1,17 +0,0 @@
+-// cl: /MD /EHsc
+-// ?Rva005E2D26Get@@YAPBDH@Z @0x005E2D26 32B: direct-index table lookup in 3-entry {id result name} at 0x00C77B40 returning name or 0. Evidence: same table as rowed Rva005E2CFA 0x005E2CFA plus callers 0x005E2E3A 0x005E2E91 0x005E2EED 0x005E314B plus LINK bonus.
+-struct Rva005E2CFAEntry
+-{
+-	void *m_result;
+-	const char *m_name;
+-};
+-extern const Rva005E2CFAEntry g_00C77B40[3];
+-const char *Rva005E2D26Get(int key)
+-{
+-	for (unsigned int i = 0; i < 3; ++i)
+-	{
+-		if (key == (int)g_00C77B40[i].m_result)
+-			return g_00C77B40[i].m_name;
+-	}
+-	return 0;
+-}
+diff --git a/Code/GameEngine/Source/Common/Rva005E2D8AGet.cpp b/Code/GameEngine/Source/Common/Rva005E2D8AGet.cpp
+deleted file mode 100644
+index b72a4aaf7c..0000000000
+--- a/Code/GameEngine/Source/Common/Rva005E2D8AGet.cpp
++++ /dev/null
+@@ -1,22 +0,0 @@
+-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+-// ?Rva005E2D8AGet@@YAPAXPBD@Z retail 0x005E2D8A 97B
+-// Evidence: unlock lane; callers 0x005E2F49 and 0x005E3226; callees rowed 0x005E2CFA 0x00036410 plus pin 0x004128F0; string "id" plus empty fallback g_Rva0107301CEmptyString.
+-#include "ascii_string.h"
+-
+-
+-bool __cdecl Rva004128F0GetParam(const char *a, const char *b, AsciiString &out);
+-void *__cdecl Rva005E2CFAGet(const char *s);
+-
+-__forceinline const char *GetStr005E2D8A(const AsciiString &s)
+-{
+-	char *t = *(char * *)(void *)&s;
+-	return t ? t + 8 : "";
+-}
+-
+-void *Rva005E2D8AGet(const char *p)
+-{
+-	AsciiString tmp;
+-	if (!Rva004128F0GetParam(p, "id", tmp))
+-		return 0;
+-	return Rva005E2CFAGet(GetStr005E2D8A(tmp));
+-}
+diff --git a/Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp b/Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp
+index efd4ac5cd3..812ee7a058 100644
+--- a/Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp
++++ b/Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp
+@@ -11,7 +11,9 @@
+ #include "ascii_string.h"
+ 
+ 
+-struct TargetRef00217D4C;
++// Page reference ABI view: retail visibility dispatch uses virtual slots4/8.
++// The original page-reference declaration is not inferred from this view.
++struct TargetRef00217D4C { virtual void slot0(); virtual void OnShown(); virtual void OnHidden(); };
+ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
+ 
+ class AptCommandTarget
+@@ -175,7 +177,9 @@ struct Rva002229E3S12
+ Rva002229E3S12 __cdecl Rva002229E3Build(const char &c, const char *s);
+ class Rva00222A8BTarget;
+ class Rva005E2D74;
+-extern Rva00222A8BTarget *TheRva00222A8BTarget;
++// Use the data ledger provider at RVA9FE4CC; its original type is provisional.
++class BfmeAptWindowManager;
++extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+ int __cdecl Rva005E30E8AptCall(Rva00222A8BTarget *target, void *level, const char *mid, const char *function, Rva005E2D74 *obj);
+ 
+ namespace StrategicHUD {
+@@ -282,7 +286,7 @@ void StrategicHUD::RegionDetailsMovieClip::Impl::OnPageLoaded(const char *path)
+ void StrategicHUD::RegionDetailsMovieClip::Impl::SetTabsState(int page)
+ {
+ 	const char *id = page != -1 ? Rva005E2D26Get(page) : "hide";
+-	Rva005E30E8AptCall(TheRva00222A8BTarget, (void *)m_level, m_name.str(), "SetTabsState", (Rva005E2D74 *)&(const Rva002229E3S12 &)Rva002229E3Build('_', id));
++	Rva005E30E8AptCall(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager), (void *)m_level, m_name.str(), "SetTabsState", (Rva005E2D74 *)&(const Rva002229E3S12 &)Rva002229E3Build('_', id));
+ }
+ 
+ // WorldBuilder Impl::SetCurrentPage: hides the old page, updates the tabs,
+@@ -306,3 +310,69 @@ StrategicHUD::RegionDetailsMovieClip::RegionDetailsMovieClip(int level, const As
+ 	: m_impl(new Impl(this, level, name, arg))
+ {
+ }
++
++int __cdecl Rva0054C83FAptCall(Rva00222A8BTarget *,void *,const char *,const char *,const char **,bool *);
++struct Rva005E2CFAEntry { void *m_result; const char *m_name; };
++extern const Rva005E2CFAEntry g_00C77B40[3];
++// PageSlotToID role from WB; retain the existing address-derived return ABI.
++// Keeping this complete32B helper visible lets the compiler witness that it
++// preserves EDX across the visibility methods, as the native bodies require.
++__declspec(noinline) const char *Rva005E2D26Get(int key)
++{
++ for(unsigned int i=0;i<3;++i) {
++  if(key==(int)g_00C77B40[i].m_result) return g_00C77B40[i].m_name;
++ }
++ return 0;
++}
++
++// Native5E2E91..5E2EED92B RET4. WB ShowPage at15F4E60 identifies the
++// loaded-page guard, true visibility argument and virtual OnShown slot4.
++// The parameter's spare high byte holds the bool naturally; no manual alias.
++// Shared32B slot lookup preserves EDX with its complete body in this TU.
++// WB qualification remains a callgraph lead rather than independent RTTI proof.
++void StrategicHUD::RegionDetailsMovieClip::Impl::ShowPage(int page)
++{
++ TargetRef00217D4C *target=m_pages[page].m_ptr;
++ if(target) {
++  bool visible=true;
++  const char *id=Rva005E2D26Get(page);
++  Rva0054C83FAptCall(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager),(void*)m_level,m_name.str(),"SetPageVisibility",&id,&visible);
++  target->OnShown();
++ }
++}
++
++// Native5E2EED..5E2F4992B RET4. WB HidePage corroborates the loaded-page
++// guard, false visibility argument and virtual OnHidden slot8 independently.
++void StrategicHUD::RegionDetailsMovieClip::Impl::HidePage(int page)
++{
++ TargetRef00217D4C *target=m_pages[page].m_ptr;
++ if(target) {
++  bool visible=false;
++  const char *id=Rva005E2D26Get(page);
++  Rva0054C83FAptCall(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager),(void*)m_level,m_name.str(),"SetPageVisibility",&id,&visible);
++  target->OnHidden();
++ }
++}
++// Native5E2CFA44B cdecl table lookup. WB PageIDToSlot identifies its role;
++// the original slot enum spelling and declaration remain unproven, so this
++// recovered body keeps its existing address-derived four-byte return view.
++void *Rva005E2CFAGet(const char *s)
++{
++	for (unsigned int i = 0; i < 3; ++i)
++	{
++		if (strcmp(s, g_00C77B40[i].m_name) == 0)
++			return g_00C77B40[i].m_result;
++	}
++	return 0;
++}
++
++// Native5E2D8A97B RET: WB ParsePageSlot obtains the id parameter and maps
++// it through PageIDToSlot. Preserve the established address-derived ABI;
++// use the canonical string accessor rather than the old private-layout read.
++void *Rva005E2D8AGet(const char *p)
++{
++	AsciiString tmp;
++	if (!Rva004128F0GetParam(p, "id", tmp))
++		return 0;
++	return Rva005E2CFAGet(tmp.str());
++}
+diff --git a/Code/GameEngine/Source/GameLogic/Map/TerrainLogicFindPositionAround.cpp b/Code/GameEngine/Source/GameLogic/Map/TerrainLogicFindPositionAround.cpp
+new file mode 100644
+index 0000000000..4d456a56c7
+--- /dev/null
++++ b/Code/GameEngine/Source/GameLogic/Map/TerrainLogicFindPositionAround.cpp
+@@ -0,0 +1,181 @@
++// cl: /O1 /arch:SSE /G7 /ICode/Libraries/Include /DNDEBUG /MD /EHsc
++// Retail285202..28562E,1068B, cdecl three pointers. Semantic donor:
++// Open-BFME-1 34f59164f6d1efd413c5fd37f4894ec834c3c0fe
++// game/GameEngine/Source/GameLogic/Map/FindPositionAround001AF610.cpp,
++// whose source derives the ring search from Zero Hour PartitionManager.
++// Target WB and the random-call literal place it in TerrainLogic.cpp and
++// call it FindPositionAround. Keep the existing PartitionManager static
++// call view used by verified consumers; original class/qualification is
++// not established by that ABI view. No receiver is passed or accessed.
++// Retail establishes the trace gate at GameLogic+1B4 (its precise field
++// meaning is unresolved), trace FILE global, and ring-spacing .data word.
++// All diagnostic literals, source path, line4378 and float constants
++// are checked independently by the normal gate. The second success trace
++// deliberately prints the positive angle, as both retail and donor do.
++// The x87 rounding primitive is donor compiler machinery: native FISTP
++// obeys the current rounding mode. MSVC rejects /QIfist with /arch:SSE;
++// a plain C++ integral cast would truncate or call a different helper.
++#include <math.h>
++
++typedef bool Bool;
++typedef float Real;
++typedef int Int;
++typedef unsigned int UnsignedInt;
++
++#define TRUE true
++#define FALSE false
++#define TWO_PI 6.28318530718f
++#define RANDOM_START_ANGLE -99999.9f
++
++#include "Lib/Coord3D.h"
++
++struct Region3D
++{
++	Coord3D lo, hi;
++
++	Bool isInRegionNoZ( const Coord3D *query ) const
++	{
++		return (lo.x < query->x) && (query->x < hi.x) &&
++			(lo.y < query->y) && (query->y < hi.y);
++	}
++};
++
++struct FindPositionOptions
++{
++	UnsignedInt flags;
++	Real minRadius;
++	Real maxRadius;
++	Real startAngle;
++	Real maxZDelta;
++	void *ignoreObject;
++	const void *sourceToPathToDest;
++	void *relationshipObject;
++};
++
++class TerrainLogic
++{
++public:
++	virtual void slot00();
++	virtual void slot04();
++	virtual void slot08();
++	virtual void slot0c();
++	virtual void slot10();
++	virtual void slot14();
++	virtual void slot18();
++	virtual void slot1c();
++	virtual void slot20();
++	virtual void slot24();
++	virtual void slot28();
++	virtual void slot2c();
++	virtual void getMaximumPathfindExtent( Region3D *extent );
++};
++extern TerrainLogic *TheTerrainLogic;
++
++#include "../../Common/GameLogicObjectLookupView.h"
++extern GameLogic *TheGameLogic;
++
++typedef void FILE;
++extern "C" FILE *theLogicRandomLogFile;
++extern bool g_bfmeDockingTraceActive;
++extern "C" int fprintf( FILE *, const char *, ... );
++#define bfmeRetailCritterDesyncLog fprintf
++
++static Real ringSpacing = 5.0f;
++
++Real GetGameLogicRandomValueReal( Real lo, Real hi, char *file, Int line );
++Bool Rva00284AC6TryPosition( const Coord3D *center, Real dist, Real angle,
++	const FindPositionOptions *options, Coord3D *result );
++
++__forceinline long fast_float2long_round(float f) { long i; __asm { fld [f] } __asm { fistp [i] } return i; }
++
++#define DOCKING_TRACE (g_bfmeDockingTraceActive && *(const Int *)((const char *)TheGameLogic + 0x1b4) > 0 && theLogicRandomLogFile)
++
++#include "../../Common/PartitionRangeQueryCallView.h"
++Bool PartitionManager::findPositionAround( const Coord3D *center,
++	const FindPositionOptions *options,
++	Coord3D *result )
++{
++	Region3D extent;
++	TheTerrainLogic->getMaximumPathfindExtent( &extent );
++
++	if (DOCKING_TRACE)
++		bfmeRetailCritterDesyncLog( theLogicRandomLogFile,
++			"    TerrainLogic::FindPositionAround() center=%g,%g,%g, extent=lo:%g,%g,%g hi:%g,%g,%g",
++			center->x, center->y, center->z,
++			extent.lo.x, extent.lo.y, extent.lo.z,
++			extent.hi.x, extent.hi.y, extent.hi.z );
++
++	if (!extent.isInRegionNoZ( center ))
++	{
++		if (DOCKING_TRACE)
++			bfmeRetailCritterDesyncLog( theLogicRandomLogFile,
++				"    !extent.isInRegionNoZ, result = center, return true" );
++		*result = *center;
++		return true;
++	}
++
++	Real startAngle;
++	if (options->startAngle == RANDOM_START_ANGLE)
++		startAngle = GetGameLogicRandomValueReal( 0.0f, TWO_PI,
++			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Map\\TerrainLogic.cpp", 0x111a );
++	else
++		startAngle = options->startAngle;
++
++	if (DOCKING_TRACE)
++		bfmeRetailCritterDesyncLog( theLogicRandomLogFile, "    startAngle=%g", startAngle );
++
++	for (Real dist = options->minRadius; dist <= options->maxRadius; dist += ringSpacing)
++	{
++		Real angleSpacing;
++		if (dist == options->minRadius)
++			angleSpacing = TWO_PI;
++		else
++			angleSpacing = (ringSpacing / (dist + 1.0f)) * (TWO_PI / 6.0f);
++
++		if (DOCKING_TRACE)
++			bfmeRetailCritterDesyncLog( theLogicRandomLogFile, "    angleSpacing=%g", angleSpacing );
++
++		Int samples = fast_float2long_round( (Real)ceil( (TWO_PI / angleSpacing) / 2.0f ) );
++		for (Int i = 0; i < samples; ++i)
++		{
++			if (Rva00284AC6TryPosition( center, dist, startAngle + angleSpacing * i, options, result ) == TRUE)
++			{
++				if (DOCKING_TRACE)
++					bfmeRetailCritterDesyncLog( theLogicRandomLogFile,
++						"    TryPosition1 succeeds - i=%d, center=%g,%g,%g, dist=%g, angle=%g, result=%g,%g,%g",
++						i, center->x, center->y, center->z, dist, startAngle + angleSpacing * i,
++						result->x, result->y, result->z );
++				return TRUE;
++			}
++
++			if (i != 0)
++			{
++				if (Rva00284AC6TryPosition( center, dist, startAngle - angleSpacing * i, options, result ))
++				{
++					if (DOCKING_TRACE)
++						bfmeRetailCritterDesyncLog( theLogicRandomLogFile,
++							"    TryPosition2 succeeds - i=%d, center=%g,%g,%g, dist=%g, angle=%g, result=%g,%g,%g",
++							i, center->x, center->y, center->z, dist, startAngle + angleSpacing * i,
++							result->x, result->y, result->z );
++					return TRUE;
++				}
++			}
++
++			if (DOCKING_TRACE)
++				bfmeRetailCritterDesyncLog( theLogicRandomLogFile,
++					"    TryPosition1&2 both failed - i=%d, center=%g,%g,%g, dist=%g, angle=%g",
++					i, center->x, center->y, center->z, dist, startAngle + angleSpacing * i );
++		}
++	}
++
++	if (DOCKING_TRACE)
++		bfmeRetailCritterDesyncLog( theLogicRandomLogFile,
++			"    TerrainLogic::FindPositionAround() total failure, return FALSE" );
++
++	return FALSE;
++}
++
++
++
++
++
+diff --git a/Code/GameEngine/Source/GameLogic/Map/TerrainLogicLoadAmbientLightmap.cpp b/Code/GameEngine/Source/GameLogic/Map/TerrainLogicLoadAmbientLightmap.cpp
+new file mode 100644
+index 0000000000..4ea1dbbee6
+--- /dev/null
++++ b/Code/GameEngine/Source/GameLogic/Map/TerrainLogicLoadAmbientLightmap.cpp
+@@ -0,0 +1,101 @@
++// cl: /O1 /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
++// Retail2817F2..2819AD443B RET4. WB TerrainLogic::LoadAmbientLightmap
++// at C4DF60..C4E2C6, TerrainLogic.cpp4763, independently corroborates
++// the ambient-map clear, FileSystem open mode41, packed18-byte TGA header,
++// two diagnostics,24-bit uncompressed RGB allocation and descriptor20 row flip.
++// Native offsets: pixels24,width28,height2C; File close slot8/read slotC;
++// theDebug stream slots60/6C/38/4C and StringBase<char> insertion28E8.
++// Preserve the existing address-derived member spelling used by the verified
++// GameLogic loader. Full original declaration is not claimed from a WB title.
++// The explicit array-new declaration keeps the native2FDE0 call; MSVC's
++// undeclared primitive-array allocation otherwise collapses to scalar2FDA0.
++#include "ascii_string.h"
++void * __cdecl operator new[](unsigned int size);
++
++class File
++{
++public:
++ virtual void unused0(); virtual void unused1();
++ virtual void close();
++ virtual int read(void *buffer, int count);
++};
++class FileSystem { public: File *openFile(const char *, int, int); };
++extern FileSystem *TheFileSystem;
++class Debug
++{
++public:
++ virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
++ virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1c();
++ virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2c();
++ virtual void slot30(); virtual void slot34(); virtual Debug &slot38(const char *);
++ virtual void slot3c(); virtual void slot40(); virtual void slot44(); virtual void slot48();
++ virtual void slot4c(int); virtual void slot50(); virtual void slot54(); virtual void slot58();
++ virtual void slot5c(); virtual void slot60(); virtual void slot64(); virtual void slot68();
++ virtual Debug &slot6c(int,int,int);
++};
++extern Debug *theDebug;
++bool bfmeRva000387C0();
++void _bfme_debugRecordCallsite(int);
++#define REPORT(message) if (bfmeRva000387C0()) { _bfme_debugRecordCallsite(1); theDebug->slot60(); (theDebug->slot6c(0,0,0) << *(const StringBase<char> *)&name).slot38(message).slot4c(2); }
++class Rva0062AF7 { public: void Rva0027DA58(); };
++#pragma pack(push,1)
++struct AmbientTgaHeader
++{
++ unsigned char idLength, colorMapType, imageType;
++ unsigned char unused[9];
++ unsigned short width, height;
++ unsigned char bitsPerPixel, descriptor;
++};
++#pragma pack(pop)
++class TerrainLogic
++{
++public:
++ void rva002817F2(const AsciiString &name);
++ char pad[0x24];
++ unsigned char *pixels;
++ unsigned width,height;
++};
++void TerrainLogic::rva002817F2(const AsciiString &name)
++{
++ ((Rva0062AF7 *)this)->Rva0027DA58();
++ File *file=TheFileSystem->openFile(name.str(),0x41,0);
++ if (!file) return;
++ AmbientTgaHeader header;
++ if (file->read(&header,18)!=18)
++ {
++  REPORT(" is damaged");
++  file->close();
++  return;
++ }
++ if (!header.idLength && !header.colorMapType && header.imageType==2 && header.bitsPerPixel==24)
++ {
++  width=header.width;
++  height=header.height;
++  pixels=new unsigned char[width*height*3];
++  file->read(pixels,width*height*3);
++  file->close();
++  if (header.descriptor&0x20)
++  {
++   for (unsigned i=0;i<height/2;++i)
++   {
++    unsigned char *a=pixels+i*width*3;
++    unsigned char *b=pixels+(height-i-1)*width*3;
++    unsigned count=width*3;
++    while (count)
++    {
++     unsigned char temp=*a;
++     *a++=*b;
++     *b++=temp;
++     --count;
++    }
++   }
++  }
++ }
++ else
++ {
++  file->close();
++  REPORT(" is no valid 24 bit RGB TGA");
++ }
++}
++
++
+diff --git a/Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp b/Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
+index b0752ab212..e4d7c21cc6 100644
+--- a/Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
++++ b/Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
+@@ -11,6 +11,7 @@
+ // the 40-byte form without the STLport catch wrapper; ordinary C++ EH remains
+ // enabled for this predicate's temporary-vector destruction on every return.
+ #include <vector>
++#include <map>
+ #include "ascii_string.h"
+ 
+ class Rva002E1001 { public: int rva002E1001(); };
+@@ -36,13 +37,20 @@ public:
+     int word130;
+     int lastOwnershipTurn;
+ };
+-class LivingWorldScenario { public: class TeamVictoryCondition; };
++// The target output element is a four-byte region ID, not ScienceType.
++// This local ABI tag makes no claim about the original enum spelling.
++enum Rva004FD8B8RegionID { RVA004FD8B8_REGION_ZERO = 0 };
++class Rva0020F442 { public: AsciiString *rva0020F442(const AsciiString &name); };
++class Rva00210390 { public: void *rva00210390(const AsciiString *name); };
++class Rva004FD6F9 { public: bool rva004FD6F9(const StringBase<char> &name); };
++class LivingWorldScenario { public: class TeamVictoryCondition; class PlayerDefeatCondition; class TeamDefeatCondition; class Scenario; };
+ class LivingWorldScenario::TeamVictoryCondition {
+ public:
+     virtual ~TeamVictoryCondition();
+     bool hasTeamAchievedVictory(int team);
+     void QueryRegionsAndNumbers(int team, _STL::vector<const LivingWorldRegion *> *out, int *maxOut);
+ private:
++    friend class LivingWorldScenario::Scenario;
+     _STL::vector<int> teams;
+     int requiredRegionCount;
+     _STL::vector<AsciiString> regionNames;
+@@ -110,3 +118,104 @@ void LivingWorldScenario::TeamVictoryCondition::QueryRegionsAndNumbers(
+     if (*maxOut < requiredRegionCount)
+         *maxOut = requiredRegionCount;
+ }
++
++// Native 4FC8D6..4FC91D, 71 bytes, RET4. WorldBuilder's named body and
++// home-region ownership check establish the method identity. The existing
++// address-derived player ABI view is retained; original reference and const
++// qualifications are not claimed by this source spelling.
++class LivingWorldScenario::PlayerDefeatCondition {
++public:
++    virtual ~PlayerDefeatCondition();
++    bool isPlayerDefeated(Rva002E1001 *player);
++private:
++    _STL::vector<int> teams;
++    int requiredRegionCount;
++    bool requireHome;
++};
++bool LivingWorldScenario::PlayerDefeatCondition::isPlayerDefeated(Rva002E1001 *player)
++{
++    if (requireHome) {
++        Rva002104B6 *manager = TheLivingWorldLogic->regions;
++        void *region = manager->rva002104B6((char *)player + 0x2c);
++        if (region && *(int *)((char *)region + 0x13c) != *(int *)((char *)player + 0x14))
++            return true;
++    }
++    bool defeated = player->rva002E1001() <= requiredRegionCount;
++    return defeated;
++}
++
++// Native 4FC970..4FC9CE, 94 bytes, RET4. WB TeamDefeatCondition's
++// callgraph and team-membership assertion establish identity. The target
++// sums owned-region counts for that team and fails above condition+10.
++class LivingWorldScenario::TeamDefeatCondition {
++public:
++    virtual ~TeamDefeatCondition();
++    bool isTeamDefeated(int team);
++private:
++    _STL::vector<int> teams;
++    int requiredRegionCount;
++};
++bool LivingWorldScenario::TeamDefeatCondition::isTeamDefeated(int team)
++{
++    char *players = (char *)TheLivingWorldLogic + 0x8c;
++    int count = (*(int *)(players + 4) - *(int *)players) >> 2;
++    int total = 0;
++    for (int i = 0; i < count; ++i) {
++        Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(i);
++        if (player->team != team)
++            continue;
++        total += ((Rva002E1001 *)player)->rva002E1001();
++        if (total > requiredRegionCount)
++            return false;
++    }
++    return true;
++}
++
++class LivingWorldScenario::Scenario {
++public:
++    void getDefaultStartSpots(const AsciiString &campaignName, _STL::vector<Rva004FD8B8RegionID> &out);
++    void addTeamVictoryCondition(const TeamVictoryCondition *condition);
++private:
++    char pad[0x44];
++    _STL::vector<AsciiString> defaultStartRegions;
++    _STL::multimap<int, int> playerDefeatMap;
++    _STL::multimap<int, int> teamDefeatMap;
++    _STL::multimap<int, int> teamVictoryMap;
++    _STL::vector<void *> playerDefeats;
++    _STL::vector<void *> teamDefeats;
++    _STL::vector<const TeamVictoryCondition *> teamVictories;
++};
++// Native 4FD8B8..4FD94E, 150 bytes, RET8. WB assertions at lines825..836
++// name regionCampaign, default-start names and allowsStartInRegion; native
++// confirms the +44 name vector, +12C output ID and each lookup/filter call.
++// The lookups and restriction helper keep their existing ABI views.
++void LivingWorldScenario::Scenario::getDefaultStartSpots(const AsciiString &campaignName, _STL::vector<Rva004FD8B8RegionID> &out)
++{
++    out.erase(out.begin(), out.end());
++    if (defaultStartRegions.empty())
++        return;
++    AsciiString *campaign = ((Rva0020F442 *)TheLivingWorldLogic->regions)->rva0020F442(campaignName);
++    if (!campaign)
++        return;
++    for (unsigned int i = 0; i < defaultStartRegions.size(); ++i) {
++        void *region = ((Rva00210390 *)campaign)->rva00210390(&defaultStartRegions[i]);
++        if (!region)
++            continue;
++        if (!((Rva004FD6F9 *)this)->rva004FD6F9(reinterpret_cast<const StringBase<char> &>(defaultStartRegions[i])))
++            continue;
++        Rva004FD8B8RegionID id = (Rva004FD8B8RegionID)*(int *)((char *)region + 0x12c);
++        out.push_back(id);
++    }
++}
++
++void LivingWorldScenario::Scenario::addTeamVictoryCondition(const TeamVictoryCondition *condition)
++{
++    if (!condition)
++        return;
++    const _STL::vector<int> &teams = condition->teams;
++    for (unsigned int i = 0; i < teams.size(); ++i) {
++        int team = teams[i];
++        teamVictoryMap.insert(_STL::multimap<int, int>::value_type(team, (int)condition));
++    }
++    teamVictories.push_back(condition);
++}
+diff --git a/reverse/attempts/0x0016e450.cpp b/reverse/attempts/0x0016e450.cpp
+new file mode 100644
+index 0000000000..83893828e0
+--- /dev/null
++++ b/reverse/attempts/0x0016e450.cpp
+@@ -0,0 +1,156 @@
++// ?rva0016E450@Rva0016E450Source@@QAEPAXPAH@Z
++// partial score=0.7 date=2026-10-08
++// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
++// stlport
++// Whole retail GetEdges:16E450..16EAEC,1692B,RET4. WB A0F6A0,
++// meshgeometry.cpp1944 proves vertex welding, directed edge pairing and
++// all three geometry diagnostics. Existing address-derived call view retained.
++// Scratch reconstruction: template callee folds still require verification.
++#define _BFME_RETAIL_TREE_INSERT_LAYOUT
++#include <map>
++#include <vector>
++#include <hash_map>
++struct Gen_p12pod { int a[3]; };
++inline bool compare_tail(const Gen_p12pod &a,const Gen_p12pod &b) {
++ const int a1=a.a[1]; return b.a[1]>a1 || (!(b.a[1]<a1)&&a.a[2]<b.a[2]);
++}
++inline bool operator<(const Gen_p12pod &a,const Gen_p12pod &b) {
++ const int a0=a.a[0]; return b.a[0]>a0 || (!(b.a[0]<a0)&&compare_tail(a,b));
++}
++namespace _STL {
++template<class T,class L,class R>
++static inline bool operator==(const _Rb_tree_iterator<T,L>&a,const _Rb_tree_iterator<T,R>&b)
++ { return a._M_node==b._M_node; }
++}
++typedef _STL::pair<int,int> Rva00928590Key;
++struct Rva00928590Hash {
++ unsigned operator()(const Rva00928590Key &key)const {
++  return (static_cast<unsigned>(key.second)<<16)+static_cast<unsigned>(key.first);
++ }
++};
++struct Rva00928590Eq {
++ bool operator()(const Rva00928590Key&a,const Rva00928590Key&b)const
++ { return a.first==b.first&&a.second==b.second; }
++};
++typedef _STL::hash_map<Rva00928590Key,int,Rva00928590Hash,Rva00928590Eq,
++ _STL::allocator<_STL::pair<const Rva00928590Key,int> > > EdgeMap;
++class Rva0016E400 {
++public:
++ Rva0016E400();
++ EdgeMap table;
++};
++struct MeshGeometrySlot64Element_00923F70 { unsigned char Data[16]; };
++template<class T> class ShareBufferClass {
++public:
++ void Resize(int);
++ void *vptr;
++ int references;
++ T *RawBuffer,*Array;
++ int Count,Alignment;
++};
++struct EdgeRecord { int vertex1,vertex2,triangle1,triangle2; };
++struct VertexPosition { float x,y,z; };
++struct TriangleIndices { unsigned short vertex[3]; };
++class Debug {
++public:
++ virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
++ virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1c();
++ virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2c();
++ virtual void slot30(); virtual void slot34(); virtual Debug &slot38(const char *);
++ virtual void slot3c(); virtual void slot40(); virtual void slot44(); virtual void slot48();
++ virtual void slot4c(int); virtual void slot50(); virtual void slot54(); virtual void slot58();
++ virtual void slot5c(); virtual void slot60(); virtual void slot64(); virtual void slot68();
++ virtual Debug &slot6c(int,int,int);
++};
++extern Debug *theDebug;
++bool bfmeRva000387C0();
++void _bfme_debugRecordCallsite(int);
++#define GEOMETRY_REPORT(message) if(bfmeRva000387C0()) { _bfme_debugRecordCallsite(1); theDebug->slot60(); theDebug->slot6c(0,0,0).slot38("Geometry for model ").slot38(MeshName?MeshName->Array:0).slot38(message).slot4c(2); }
++class Rva0016E450Source {
++public:
++ void *rva0016E450(int *edgeCount);
++ char prefix[0x10];
++ ShareBufferClass<char> *MeshName;
++ char gap14[0x24-0x14];
++ int PolyCount,VertexCount;
++ ShareBufferClass<TriangleIndices> *Polys;
++ ShareBufferClass<VertexPosition> *Vertices;
++ char gap34[0x5c-0x34];
++ ShareBufferClass<MeshGeometrySlot64Element_00923F70> *Edges;
++};
++void *Rva0016E450Source::rva0016E450(int *edgeCount)
++{
++ if(!Edges||!PolyCount||!VertexCount) { *edgeCount=0; return 0; }
++ if(Edges->Count) { *edgeCount=Edges->Count; return Edges->Array; }
++ Edges->Resize(PolyCount*3/2);
++ EdgeRecord *output=(EdgeRecord*)Edges->Array;
++ _STL::vector<int> vertexMap;
++ {
++  _STL::map<Gen_p12pod,int> welded;
++  VertexPosition *vertices=Vertices->Array;
++  for(int i=0;i<VertexCount;++i) {
++   int x=int(float(int(vertices[i].x*100.0f)));
++   int y=int(float(int(vertices[i].y*100.0f)));
++   int z=int(float(int(vertices[i].z*100.0f)));
++   Gen_p12pod key={x,y,z};
++   _STL::map<Gen_p12pod,int>::iterator found=welded.find(key);
++   if(found==welded.end()) {
++    int id=welded.size();
++    vertexMap.push_back(id);
++    Gen_p12pod keyForInsert={x,y,z};
++    welded[keyForInsert]=id;
++   } else vertexMap.push_back(found->second);
++  }
++ }
++ Rva0016E400 edgeTable;
++ TriangleIndices *polys=Polys->Array;
++ bool warned=false;
++ for(int i=0;i<PolyCount;++i) {
++  for(int j=0;j<3;++j) {
++   int a=vertexMap[polys[i].vertex[j]];
++   int b=vertexMap[polys[i].vertex[(j+1)%3]];
++   if(a>b) {
++    Rva00928590Key key(a,b);
++    if(!warned&&edgeTable.table.find(key)!=edgeTable.table.end()) {
++     GEOMETRY_REPORT(" shares an edge with more than two triangles, this will cause shadow bugs.");
++     warned=true;
++    }
++    edgeTable.table[key]=i;
++   }
++  }
++ }
++ polys=Polys->Array;
++ int count=0;
++ warned=false;
++ for(int i=0;i<PolyCount;++i) {
++  for(int j=0;j<3;++j) {
++   int a=vertexMap[polys[i].vertex[j]];
++   int b=vertexMap[polys[i].vertex[(j+1)%3]];
++   if(a<b) {
++    Rva00928590Key key(b,a);
++    EdgeMap::iterator found=edgeTable.table.find(key);
++    if(found==edgeTable.table.end()) {
++     if(!warned) {
++      GEOMETRY_REPORT(" contains at least one triangle that doesn't share an edge with another triangle.\nShadow bugs will occur.");
++      warned=true;
++     }
++    } else if(count>=Edges->Count) warned=true;
++    else {
++     output->vertex1=polys[i].vertex[j];
++     output->vertex2=polys[i].vertex[(j+1)%3];
++     output->triangle1=i;
++     output->triangle2=found->second;
++     ++output;
++     ++count;
++    }
++   }
++  }
++ }
++ if(count!=PolyCount*3/2||warned) {
++  GEOMETRY_REPORT(" is not a valid shadow caster, it may contain T-junctions or not be closed. Shadow bugs are more than likely.");
++  if(count==0) { output->vertex1=0; output->vertex2=0; output->triangle1=0; output->triangle2=0; count=1; }
++  Edges->Resize(count);
++ }
++ *edgeCount=Edges->Count;
++ return Edges->Array;
++}
+diff --git a/reverse/attempts/0x004fd8b8.cpp b/reverse/attempts/0x004fd8b8.cpp
+deleted file mode 100644
+index a2d3719751..0000000000
+--- a/reverse/attempts/0x004fd8b8.cpp
++++ /dev/null
+@@ -1,90 +0,0 @@
+-// ?rva004FD8B8@Rva004FD6F9@@QAEXABVAsciiString@@AAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z
+-// partial score=0.88 date=2026-10-06
+-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+-// ?rva004FD8B8@Rva004FD6F9@@QAEXABVAsciiString@@AAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z @0x004FD8B8 150B
+-// Evidence: same this as rowed rva004FD6F9 0x004FD6F9 (calls it with esi);
+-// this+0x44/+0x48 AsciiString array walk; out vector erase/push_back ScienceType;
+-// TheLivingWorldLogic+0xB0 find 0x0020F442 then per-element 0x00210390 filter.
+-#include "ascii_string.h"
+-
+-enum ScienceType
+-{
+-	SCIENCE_FIRST = 0
+-};
+-
+-namespace _STL
+-{
+-template <class T> class allocator
+-{
+-};
+-template <class T, class A> class vector
+-{
+-public:
+-	T *_M_start;
+-	T *_M_finish;
+-	T *_M_end;
+-	T *erase(T *first, T *last);
+-	void push_back(const T &val);
+-};
+-}
+-
+-class LivingWorldLogic
+-{
+-public:
+-	unsigned char m_pad[0xb0];
+-	class Rva0020F442 *m_ptrB0;
+-};
+-
+-extern LivingWorldLogic *TheLivingWorldLogic;
+-
+-class Rva0020F442
+-{
+-public:
+-	AsciiString *rva0020F442(const AsciiString &key);
+-};
+-
+-class Rva00210390
+-{
+-public:
+-	void *rva00210390(const AsciiString *key);
+-};
+-
+-struct Payload
+-{
+-	unsigned char m_pad[0x12c];
+-	ScienceType m_science;
+-};
+-
+-class Rva004FD6F9
+-{
+-public:
+-	unsigned char m_pad00[0x38];
+-	StringBase<char> *m_begin38;
+-	StringBase<char> *m_end3C;
+-	unsigned char m_pad40[0x44 - 0x40];
+-	StringBase<char> *m_begin44;
+-	StringBase<char> *m_end48;
+-	bool rva004FD6F9(const StringBase<char> &val);
+-	void rva004FD8B8(const AsciiString &name, _STL::vector<ScienceType, _STL::allocator<ScienceType> > &out);
+-};
+-
+-void Rva004FD6F9::rva004FD8B8(const AsciiString &name, _STL::vector<ScienceType, _STL::allocator<ScienceType> > &out)
+-{
+-	out.erase(out._M_start, out._M_finish);
+-	if (m_begin44 == m_end48)
+-		return;
+-	AsciiString *found = TheLivingWorldLogic->m_ptrB0->rva0020F442(name);
+-	if (!found)
+-		return;
+-	unsigned int count = (unsigned int)(m_end48 - m_begin44);
+-	for (unsigned int i = 0; i < count; ++i)
+-	{
+-		Rva00210390 *table = (Rva00210390 *)found;
+-		void *payload = table->rva00210390((const AsciiString *)&m_begin44[i]);
+-		if (!payload)
+-			continue;
+-		if (!rva004FD6F9(m_begin44[i]))
+-			continue;
+-		out.push_back(((Payload *)payload)->m_science);
+-	}
+-}
+diff --git a/reverse/functions.csv b/reverse/functions.csv
+index 17a2da2d4e..32f7dd73a8 100644
+--- a/reverse/functions.csv
++++ b/reverse/functions.csv
+@@ -41071,7 +41071,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
+ ?Rva003C4350Do@@YGXABVAsciiString@@0PAVObject@@@Z,,0x003C4350,83,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C4350Do.cpp,matched,chain via rva002ADFC7 plus sibling Rva003C43A3Do shape and globals
+ ??1Rva002007D5@@QAE@XZ,,0x002007D5,109,Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp,matched,list-of-Rva002006B0 dtor via erase plus delete
+ ?Rva005ED310Get@@YA?AVUnicodeString@@H@Z,,0x005ED310,96,Code/GameEngine/Source/Common/Rva005ED310Get.cpp,matched,same format string as Rva0043A568Get callers NumRegions NumUnits
+-?rva004FC970@Rva002E1001@@QAE_NH@Z,,0x004FC970,94,Code/GameEngine/Source/Common/Rva002E1001.cpp,matched,chain lane vector sum gate
++?isTeamDefeated@TeamDefeatCondition@LivingWorldScenario@@QAE_NH@Z,,0x004FC970,94,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp,matched,chain lane vector sum gate; WB named TeamDefeatCondition callgraph and team assertion; rehomed full94 exact with consumer
+ ??_GRva002006B0@@QAEPAXI@Z,,0x0020078B,28,Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp,matched,scalar deleting dtor via force delete helper
+ ??1Rva0034149B@@UAE@XZ,,0x0034149B,91,Code/GameEngine/Source/Common/Rva0034149BDtor.cpp,matched,vtable plus member slot15 slot0 delete plus base WindModuleInfo
+ ??1Rva0034159A@@UAE@XZ,,0x0034159A,91,Code/GameEngine/Source/Common/Rva0034159ADtor.cpp,matched,vtable plus member slot15 slot0 delete plus base WindModuleInfo
+@@ -43307,7 +43307,7 @@ _piConnectNickErrorCallbackA,,0x006A0180,44,Code/GameEngine/Source/GameNetwork/G
+ ??$copy_backward@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@U10@00@Z,,0x00055825,63,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_owned_copy_backward.cpp,matched,caller erase 0x00057A95 callee aux 0x00054EF1 stock STLport
+ ?rva004E57E6@Rva004E57E6@@QAEXPAURva004E57E6Pair@@M@Z,,0x004E57E6,29,Code/GameEngine/Source/Common/Bfme/Rva004E57E6Method.cpp,matched,unlock lane callee-free caller 0x0029B187 unblocks 0x0029B187 movss arch SSE
+ ?rva005C8F9A@Rva005C8F9A@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@_N@_STL@@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@3@@Z,,0x005C8F9A,35,Code/Libraries/Source/WWVegas/WWLib/Rva005C8F9AInsert.cpp,matched,chain wrapper of rowed tree insert_unique 0x005AD1A7 via named tmp no RVO
+-?rva004FD448@Rva004FD448@@QAEXPBVModuleData@@@Z,,0x004FD448,102,Code/GameEngine/Source/Common/Rva004FD448.cpp,matched,unlock lane unblocks 0x004FD7FB via rowed callees
++?addTeamVictoryCondition@Scenario@LivingWorldScenario@@QAEXPBVTeamVictoryCondition@2@@Z,,0x004FD448,102,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp,matched,unlock lane unblocks 0x004FD7FB via rowed callees; WB addTeamVictoryCondition order lead corroborated by same68 map query callers of proven TeamVictoryCondition350 and199 bodies; full102 rehomed with parser consumer
+ ?rva00041055@MilesMutexGuard@@QAE_NXZ,,0x00041055,35,Code/GameEngine/Source/Common/Rva00041055Guard.cpp,matched,MilesMutexGuard guard query dtor 0x4122F pins it 3 callers O1 MD
+ ??1MilesMutexGuard@@QAE@XZ,,0x0004122F,12,Code/GameEngine/Source/Common/Rva00041055Guard.cpp,matched,LINK BONUS dtor tail-jmps rva00041055 40 callers
+ ?rva00041118@Rva00041078@@QAE_NXZ,,0x00041118,54,Code/GameEngine/Source/Common/Rva00041078Wait.cpp,matched,wait set requery same layout caller 0x4135C O1 MD
+@@ -47093,7 +47093,6 @@ _piConnectFillInUserCallbackA,,0x006A01B0,55,Code/GameEngine/Source/GameNetwork/
+ ?rva005E2439@Rva005E2439@@QAEXXZ,,0x005E2439,39,Code/GameEngine/Source/Common/Rva005E2439.cpp,matched,unlock sibling of 0x005E2460 same table plus virtual slots
+ ?rva005E2540@Rva005E2439@@QAEXXZ,,0x005E2540,12,Code/GameEngine/Source/Common/Rva005E2439.cpp,matched,chain guard calling 0x005E2439 same class plus caller 0x005E25D9
+ ?rva005E25CD@Rva005E21EB@@UAEXXZ,,0x005E25CD,17,Code/GameEngine/Source/Common/Rva005E21EBDtor.cpp,matched,chain slot1 of Rva005E21EB calls markAsOverride plus 0x005E2540
+-?Rva005E2CFAGet@@YAPAXPBD@Z,,0x005E2CFA,44,Code/GameEngine/Source/Common/Rva005E2CFA.cpp,matched,unlock 3-entry strcmp table at 0x00C77B40 plus callers
+ ?rva0041F449@Rva0041F449@@QAEPAV?$StringBase@D@@ABV2@@Z,,0x0041F449,43,Code/GameEngine/Source/Common/Rva0041F449Find.cpp,matched,linear search via compare 0x69D6 caller 0x5DA6BB
+ ?rva003B7096@Rva003B573E@@QAEXH@Z,,0x003B7096,52,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp,matched,chain from 0x003B66D8 twin of rva003B71B4 with Rva003B448C dtor
+ ?rva005F772E@Rva005F772E@@QAEXABVUnicodeString@@@Z,,0x005F772E,8,Code/GameEngine/Source/Common/Rva005F7670Apt.cpp,matched,forwarder to inner UnitName via plus4
+@@ -59780,7 +59779,6 @@ _Rva00023540,,0x00023540,271,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleF
+ ?resize@BfmePod36Vector@@QAEXIUBfmePod36@@@Z,,0x000B06D4,73,Code/Libraries/Source/WWVegas/WWLib/stlport_pod36_resize_byvalue.cpp,matched,Pod36 resize by value erase plus fill-insert neighbours E16 Pod8
+ ?rva005DDE01@Rva005DDE01@@QAEXIIABUBfmeStringRecord005DDD40@@_N@Z,,0x005DDE01,50,Code/GameEngine/Source/Common/Rva005DDE01Finish.cpp,matched,bounds-checked delegate to rowed setValue via sibling Rva005DDE33
+ ??0Rva00573E7C@@QAE@XZ,,0x00573E7C,60,Code/GameEngine/Source/Common/Rva00573E7CCtor.cpp,matched,ctor via rowed base 0x00573A9B plus barrier-pinned store order plus vtable 0086E2C8
+-?Rva005E2D8AGet@@YAPAXPBD@Z,,0x005E2D8A,97,Code/GameEngine/Source/Common/Rva005E2D8AGet.cpp,matched,unlock GetParam id via rowed Get and empty fallback
+ ?rva0043611F@Rva00435B82@@QAEPAV1@PAV1@@Z,,0x0043611F,38,Code/GameEngine/Source/Common/S5HandleHashCompares.cpp,matched,chain from 0x00435D4F via tmp at ebp-8 plus const 0xBA792210 plus caller 0x004361FF
+ ??0Rva00082EF5@@QAE@PAX@Z,,0x00082EF5,117,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00082EF5Ctor.cpp,matched,MI ctor with base at plus8 plus vector float bool plus list append plus init pin
+ ?normAngle@@YAXAAM@Z,,0x000855D1,121,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRotateCamera.cpp,matched,ZH W3DView.cpp file-static normAngle; MSVC7.1 static register pass (angle address in EAX) kept out of line by auto_inline(off); called from rotateCameraTowardPosition 0x00088E30
+@@ -60990,7 +60988,7 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
+ ?insert@?$map@HURva004F90FFMapped@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHURva004F90FFMapped@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva004F90FFMapped@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva004F90FFMapped@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva004F90FFMapped@@@2@@Z,,0x004F9ED6,29,Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp,matched,STLport map insert hint forwarder over rowed tree insert
+ ?insert@?$multimap@HURva00502FAEMapped@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHURva00502FAEMapped@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva00502FAEMapped@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00502FAEMapped@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva00502FAEMapped@@@2@@Z,,0x0050364E,29,Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp,matched,STLport map insert hint forwarder over rowed tree insert
+ ?rva005F4B57@Rva005F4B57@@QAEXXZ,,0x005F4B57,56,Code/GameEngine/Source/Common/Rva005F4B57.cpp,matched,chain on 0x3192B9 via 0x30 gate plus edi forward per packet
+-?rva004FC8D6@Rva004FC8D6@@QAE_NPAVRva002E1001@@@Z,,0x004FC8D6,71,Code/GameEngine/Source/Common/Rva004FC8D6.cpp,matched,rowed rva002104B6 plus rowed rva002E1001 plus g_009FEF10 caller unlock
++?isPlayerDefeated@PlayerDefeatCondition@LivingWorldScenario@@QAE_NPAVRva002E1001@@@Z,,0x004FC8D6,71,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp,matched,rowed rva002104B6 plus rowed rva002E1001 plus g_009FEF10 caller unlock; WB named PlayerDefeatCondition home-region and region-count predicate; original player ABI view retained; rehomed full71 exact with consumer
+ ?rva002E2504@Rva002E2504@@QAE_NPAVRva00318C32Ret@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z,,0x002E2504,116,Code/GameEngine/Source/Common/Rva002E2504.cpp,matched,pin owner plus rowed reserve pushback and callers
+ ??$find@U?$_List_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@_STL@@VAsciiString@@@_STL@@YA?AU?$_List_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@0@U10@0ABVAsciiString@@@Z,,0x001FD9C5,42,Code/Libraries/Source/WWVegas/WWLib/stlport_find_list_asciistring_rva001fd9c5.cpp,matched,STLport list find forwarder over hand-rowed __find 0x1FD837
+ ??$copy@PAUFXBoneInfo@@PAU1@@_STL@@YAPAUFXBoneInfo@@PAU1@00@Z,,0x001D9BD3,27,Code/Libraries/Source/WWVegas/WWLib/StlportCopyWrapperPairsFamily.cpp,matched,STLport copy wrapper over pinned __copy_ptrs 0x255CFA
+@@ -62314,7 +62312,6 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
+ ?rva0004232F@Rva0004232FNullTarget@@QAEXXZ,,0x0004232F,5,Code/GameEngine/Source/Common/Rva0004232FNullTarget.cpp,matched,LINK forwarder to vslot 0x30 new file
+ ??0BfmeAssignRecord36@@QAE@PBDH@Z,,0x001512F1,69,Code/GameEngine/Source/Common/BfmeAssignRecord36Ctor.cpp,matched,BfmeAssignRecord36 ctor via AsciiString defaults plus rowed init and StringBase set
+ ?rva00263077@AIUpdateInterface@@QAE_NPAVObject@@@Z,,0x00263077,126,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_rva00263077.cpp,matched,chain lane neighbours prove AIUpdateInterface m_object at plus 0x08
+-?Rva005E2D26Get@@YAPBDH@Z,,0x005E2D26,32,Code/GameEngine/Source/Common/Rva005E2D26.cpp,matched,direct table lookup via rowed table plus four callers plus LINK bonus
+ ??1Rva0025E4CD@@UAE@XZ,,0x0025E4CD,80,Code/GameEngine/Source/Common/Rva0025E4CDDtor.cpp,matched,global delete of +0xC via pinned non-virtual dtor then inline base and GameEngineDeletingBase dtor
+ ??1Rva005BEA22@@QAE@XZ,,0x005BEA22,78,Code/GameEngine/Source/Common/Rva005BEA22Dtor.cpp,matched,global delete of +0 then inline buffer member dtor freeing with CRT free
+ ??1Rva003516F3@@UAE@XZ,,0x003516F3,96,Code/GameEngine/Source/Common/Rva003516F3Dtor.cpp,matched,guarded global delete of +0x4C then inline buffer member free then pinned Gen_uwm_004d759c base dtor
+@@ -70682,3 +70679,11 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
+ ?rva00464830@OpenContain@@UAEXPAVObject@@@Z,,0x00464830,238,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainAdd.cpp,matched,Whole OpenContain reference transfer; native secondary receiver20 slot39 existing pin retained; independently named WB01193000 containment callback; native bonus frame treeD0 and mask61; O1 G7 make_pair preserves value-temporary schedule; all provider pins pre-existing
+ ?exitObjectViaDoor@GarrisonContain@@UAEXPAVObject@@W4ExitDoorType@@@Z,,0x0047983A,672,Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainExit.cpp,matched,Whole ZH GarrisonContain reference transfer with independently named WB011A5AF0 and native exit receiver30 contain-10 slots41 86 88 20; BFME2 rally and passenger module callbacks; existing providers; O1 G7 SSE canonical Coord3D exact672B
+ ?renameTeam@TeamsInfoRec@@QAEXHABVAsciiString@@0@Z,,0x0032D223,86,Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecMoveTeams.cpp,matched,WB twin TeamsInfoRec::renameTeam wb 0xa89670 (SidesList.cpp asserts 2437..2442); validateSides 0x0032E02B passes both strings by address
++?getDefaultStartSpots@Scenario@LivingWorldScenario@@QAEXABVAsciiString@@AAV?$vector@W4Rva004FD8B8RegionID@@V?$allocator@W4Rva004FD8B8RegionID@@@_STL@@@_STL@@@Z,,0x004FD8B8,150,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp,matched,WB getDefaultStartSpots callgraph and assertions825..836; native4FD8B8..4FD94E RET8; default names44 campaign lookup20F442 region lookup210390 restriction4FD6F9 output region ID12C; original ID enum spelling unknown; full150 exact
++?findPositionAround@PartitionManager@@SA_NPBUCoord3D@@PBUFindPositionOptions@@PAU2@@Z,,0x00285202,1068,Code/GameEngine/Source/GameLogic/Map/TerrainLogicFindPositionAround.cpp,matched,BFME1 donor34f59164 ring search; target WB TerrainLogic FindPositionAround and native cdecl ABI; original class qualification unclaimed; all1068 bytes and diagnostic literals verified
++?rva002817F2@TerrainLogic@@QAEXABVAsciiString@@@Z,,0x002817F2,443,Code/GameEngine/Source/GameLogic/Map/TerrainLogicLoadAmbientLightmap.cpp,matched,WB TerrainLogic LoadAmbientLightmap corroborates native TGA loader and trace literals; native packed18B header24-bit RGB pixels24 width28 height2C plus descriptor20 vertical flip; all443 bytes verified
++?Rva005E2D26Get@@YAPBDH@Z,,0x005E2D26,32,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp,matched,WorldBuilder PageSlotToID role and native three-entry32B table lookup; existing address-derived ABI retained; original slot enum spelling unproven. Reconciled into served home so compiler observes EDX preservation required by native ShowPage/HidePage. All seven existing home bodies remain byte-exact.
++?ShowPage@Impl@RegionDetailsMovieClip@StrategicHUD@@QAEXH@Z,,0x005E2E91,92,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp,matched,wb-name-unverified; WB ShowPage15F4E60 role and callgraph plus native full92B RET4 boundary; loaded reference1C+slot*4; SetPageVisibility true through rowed54C83F; OnShown virtual slot4. Existing complete slot lookup lets compiler witness EDX preservation; bool uses dead parameter byte naturally. Canonical data ledger9FE4CC provider retained with provisional original type.
++?HidePage@Impl@RegionDetailsMovieClip@StrategicHUD@@QAEXH@Z,,0x005E2EED,92,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp,matched,wb-name-unverified; WB HidePage role and callgraph plus independent native full92B RET4; loaded page reference1C+slot*4; SetPageVisibility false through rowed54C83F; OnHidden virtual slot8. Existing full32B slot lookup lets compiler witness EDX preservation without asm; bool occupies dead parameter byte naturally.
++?Rva005E2CFAGet@@YAPAXPBD@Z,,0x005E2CFA,44,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp,matched,Whole-file reconciliation: native44B cdecl three-entry strcmp lookup; WB PageIDToSlot role plus callers5E2D52/5E2DC8. Preserve established address-derived return ABI because original slot enum spelling is unproven. Same proper home and table as PageSlotToID; all existing home bodies remain exact.
++?Rva005E2D8AGet@@YAPAXPBD@Z,,0x005E2D8A,97,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsMovieClip.cpp,matched,Whole-file reconciliation; WB ParsePageSlot role plus native97B cdecl and callers5E2F49/5E3226; id parameter through4128F0 and PageIDToSlot lookup. Existing address-derived ABI retained because original slot enum spelling is unproven. Canonical AsciiString.str replaces inherited private-layout read byte-exactly; same home as callbacks and visibility.
+diff --git a/reverse/hatch_baseline.tsv b/reverse/hatch_baseline.tsv
+index 990cf98e98..1470290278 100644
+--- a/reverse/hatch_baseline.tsv
++++ b/reverse/hatch_baseline.tsv
+@@ -24748,7 +24748,7 @@ pin	reverse/symbols.csv	0x0013623C	1
+ pin	reverse/symbols.csv	0x001364F7	1
+ pin	reverse/symbols.csv	0x0013657F	1
+ pin	reverse/symbols.csv	0x00136768	1
+-pin	reverse/symbols.csv	0x00136E95	1	allow=34f598ce7a45ffd0c5e5e6c4d910c0d82873e6ac
++pin	reverse/symbols.csv	0x00136E95	1
+ pin	reverse/symbols.csv	0x00137364	1
+ pin	reverse/symbols.csv	0x00137590	1
+ pin	reverse/symbols.csv	0x00138130	1
+@@ -26637,6 +26637,7 @@ pin	reverse/symbols.csv	0x00284290	1
+ pin	reverse/symbols.csv	0x002842CD	1
+ pin	reverse/symbols.csv	0x0028449F	1
+ pin	reverse/symbols.csv	0x0028458F	1
++pin	reverse/symbols.csv	0x00284AC6	1	allow=798278090a20fc73409e9dd6de389094b06a4b3f
+ pin	reverse/symbols.csv	0x00284DD2	1
+ pin	reverse/symbols.csv	0x00285177	1
+ pin	reverse/symbols.csv	0x00285202	1
+@@ -27063,7 +27064,7 @@ pin	reverse/symbols.csv	0x002B47C3	1
+ pin	reverse/symbols.csv	0x002B488E	2
+ pin	reverse/symbols.csv	0x002B4948	1
+ pin	reverse/symbols.csv	0x002B49A8	1
+-pin	reverse/symbols.csv	0x002B513E	1	allow=e0658c6f602406ca754d0f27f48f55987c3bea21
++pin	reverse/symbols.csv	0x002B513E	1
+ pin	reverse/symbols.csv	0x002B5390	1
+ pin	reverse/symbols.csv	0x002B5873	1
+ pin	reverse/symbols.csv	0x002B589F	1
+@@ -27435,7 +27436,7 @@ pin	reverse/symbols.csv	0x002DFAD1	1
+ pin	reverse/symbols.csv	0x002DFC1B	1
+ pin	reverse/symbols.csv	0x002DFCF6	3
+ pin	reverse/symbols.csv	0x002E00CC	1
+-pin	reverse/symbols.csv	0x002E01C6	7
++pin	reverse/symbols.csv	0x002E01C6	8
+ pin	reverse/symbols.csv	0x002E0273	1
+ pin	reverse/symbols.csv	0x002E037F	1
+ pin	reverse/symbols.csv	0x002E0427	1
+@@ -30875,7 +30876,7 @@ pin	reverse/symbols.csv	0x004DF7C2	2
+ pin	reverse/symbols.csv	0x004DFAB3	1
+ pin	reverse/symbols.csv	0x004DFB7E	1
+ pin	reverse/symbols.csv	0x004DFBED	1
+-pin	reverse/symbols.csv	0x004DFCB0	45
++pin	reverse/symbols.csv	0x004DFCB0	46
+ pin	reverse/symbols.csv	0x004DFCE6	1
+ pin	reverse/symbols.csv	0x004DFF2C	1
+ pin	reverse/symbols.csv	0x004E007A	1
+@@ -31168,8 +31169,6 @@ pin	reverse/symbols.csv	0x004FCA90	1
+ pin	reverse/symbols.csv	0x004FCCF0	1
+ pin	reverse/symbols.csv	0x004FCD6D	1
+ pin	reverse/symbols.csv	0x004FCE41	1
+-pin	reverse/symbols.csv	0x004FCEB5	1
+-pin	reverse/symbols.csv	0x004FD013	1
+ pin	reverse/symbols.csv	0x004FD1BC	1
+ pin	reverse/symbols.csv	0x004FD37F	1
+ pin	reverse/symbols.csv	0x004FD699	3
+@@ -31567,7 +31566,7 @@ pin	reverse/symbols.csv	0x005322DE	1
+ pin	reverse/symbols.csv	0x00532303	1
+ pin	reverse/symbols.csv	0x0053241F	1
+ pin	reverse/symbols.csv	0x0053249D	1
+-pin	reverse/symbols.csv	0x00532803	5
++pin	reverse/symbols.csv	0x00532803	6
+ pin	reverse/symbols.csv	0x00532ED9	1
+ pin	reverse/symbols.csv	0x00533BEC	1
+ pin	reverse/symbols.csv	0x0053442A	2
+diff --git a/reverse/re_attempts.log b/reverse/re_attempts.log
+index 90c447bf58..743927194e 100644
+--- a/reverse/re_attempts.log
++++ b/reverse/re_attempts.log
+@@ -20126,3 +20126,10 @@ RenderAsset::CreateRenderObj	0x0013682B	502	blocked	Native13682B..136A21; WB9B42
+ ??1Rva0041FA59@@QAE@XZ	0x0041FA59	57	mapped	Native41FA59..41FA92 genuine AsciiString-table destructor reached by MeshInstancingManager dtor41FB13; replaced gen-alias/object-symbol placeholder backed by1FDEDB with independent real C++ and native EH. Whole file57 exact, EH new plus old providers15/15EXACT; existing GameMemory free30830 contract retained without CRT header declaration that selected free thunk628F98 and removed native state-1. Zero new bytes; one object_symbol hatch retired; no new pins. t=9 model=gpt-6.1-sol
+ ?reinitializeAudioSystem@MilesAudioManager@@QAEXXZ	0x0006179C	146	blocked	WB reinitializeAudioSystem twin at0x798C50; native selected146B ends JMP46183C and conditional exits4619BB, both outside extent, so the served Ghidra chunk is not a whole body. Expanded control-flow/SEH boundary proof required before reconstruction; no Code edit or byte claim. t=2 model=gpt-6
+ ?exitObjectViaDoor@OpenContain@@UAEXPAVObject@@W4ExitDoorType@@@Z	0x0046525F	1152	partial	Whole BFME2 OpenContain home plus complete named WB01196CE0 and clean BFME1 34f59164 ExitObjectViaDoor donor read. Substantial target land-exit adaptation compiles1150B vs1152 with existing provider calls resolved; native frame50 vs78 and lexical storage reuse/condition-bit memory update shape remain. O1 G7 SSE and O2 Os/Ob2 repeat same wall. Boundary46525F..4656DF RET8. Banked full body; no Code edit or new pins. t=19 model=gpt-6.1-sol score=0.83 stash=reverse/attempts/0x0046525f.cpp
++?d_00044ff2@@YAXXZ	0x00044FF2	148	blocked	Whole d_0002dfe2.asm reread with all8 surviving rows and current bank histories. Native44FF2..45086 RET12 still has repeatedly measured ECX scheduling residue; donor34f source preserves same call shape. Siblings retain independently documented allocator provider/register, AddHeap INC/store, Unicode argument-slot CSE and lighting SIMD walls. No changed supported dependency; preserve banks, avoid repeating unchanged trials, take independent whole file t=6 model=gpt-6.1-sol
++?findPositionAround@PartitionManager@@SA_NPBUCoord3D@@PBUFindPositionOptions@@PAU2@@Z	0x00285202	1068	solved	BFME1 34f59164 clean ring-search donor; WB TerrainLogic file/name corroborated by all8 traces and source literal line4378. Native285202..28562E cdecl3-pointer ABI retained existing static call view; original class qualification unclaimed. G7 O1 SSE, native trace counter1B4 and FILE global, rounding FISTP donor machinery. Official full source gate1068B exact9literals7floats1import. Pin284AC6 boundary780B five stack inputs RET0 checked and admitted. t=12 model=gpt-6.1-sol
++?rva002817F2@TerrainLogic@@QAEXABVAsciiString@@@Z	0x002817F2	443	solved	WB LoadAmbientLightmap source identity and retail2817F2..2819AD RET4 corroborate18-byte TGA header24-bit RGB and descriptor20 row flip; fields24/28/2C native. Existing member call view retained. Explicit array new declaration preserves2FDE0 native provider. Official full source gate443B exact2literals1empty, no other pins. Other4 served WB siblings already real C++: tree515 and water210/51 plus setter13; no new byte credit or unsupported original-owner rename. t=8 model=gpt-6.1-sol
++?rva0016E450@Rva0016E450Source@@QAEPAXPAH@Z	0x0016E450	1692	partial	WB MeshGeometryClass::GetEdges A0F6A0 source meshgeometry.cpp1944 and native16E450..16EAEC RET4 independently establish welding quantized positions, directed edge pairing,16B original-index records and all3 full diagnostics. Complete ordinary C++ bank: EHs1644B vs retail1692, frame6C vs68; EHsc1664B variant. Retail allocator shim fixes rawfree; separate copied key temporaries improve register shape. Emitted mapctor56 and hashclear86 exact in isolated checks; tree dtor121 at EHs has unresolved recursive erase51 callee, no full fold admission yet. Existing intvector pins688940/6887F0 disagree native4DFCB0/4DFCF6; never rebound. Pairhash insert existing pin still requires full validation. No pins or rows landed; whole servedfile2 remaining real bodies attempted,2 bulk72B siblings alreadyCPP. t=22 model=gpt-6-root score=0.7 stash=reverse/attempts/0x0016e450.cpp
++?read_vertex_influences@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@@Z	0x0016B1A0	538	blocked	Whole meshgeometry file reviewed. Existing complete bank540B recompiled; native538 frame20, first2 tuple words reuse input argument slot34/36; current bank local placement and final run-store scheduling differ. O1 trial511 different frame; O2 tuple-array trial540 no improvement. Pointer-slot trial only changed pointer signature: multiline replacement did not apply, so explicit slot overlay was NOT tested and no invalid aliasing workaround adopted. Preserve existing0.5501858736 bank; target4word SoA and consecutive tuple-run algorithm still supported by WB and native boundaries16B1A0..16B3BA RET4. t=12 model=gpt-6-root
++?ShowPage@Impl@RegionDetailsMovieClip@StrategicHUD@@QAEXH@Z	0x005E2E91	92	solved	Full native5E2E91..5E2EED RET4 and WB ShowPage15F4E60 agree on page ref guard plus visibility=true and virtual shown slot4. Ordinary C++92 exact; full helper32 in sameTU allows compiler EDX preservation; canonical data global9FE4CC removes inherited alias. All9home rows and8literals3emptyrefs verified; original class qualification remains WB callgraph lead. t=15 model=gpt-6-root
++?HidePage@Impl@RegionDetailsMovieClip@StrategicHUD@@QAEXH@Z	0x005E2EED	92	solved	Native5E2EED..5E2F49 RET4 and WB HidePage establish independent loaded-ref guard plus visibility=false and virtual hidden slot8. Ordinary C++92 exact; shared32 lookup preservesEDX; full10home rows9literals4emptyrefs verified; no naked or emit code. Original class qualification remains WBcallgraph lead. t=3 model=gpt-6-root
+diff --git a/reverse/symbols.csv b/reverse/symbols.csv
+index 3f8b433d55..798278090a 100644
+--- a/reverse/symbols.csv
++++ b/reverse/symbols.csv
+@@ -14040,7 +14040,6 @@ rva009C7380WeightPairs,0x009B84E0
+ ?DoAnyMapTransfers@@YA_NPAVGameInfo@@@Z,0x0044D06D,"ZH FileTransfer.cpp DoAnyMapTransfers: cdecl on the game called by LANAPI::OnGameStart (0x002495CC) before MapCache::updateCache; body walks the slots (getConstSlot/isHuman) and transfers GetPreviewFromMap/GetINIFromMap of getMap() as ZH does; BFME 1 donor LANAPIOnGameStart.cpp names it"
+ ?ParseGameOptionsString@@YA_NPAVLANGameInfo@@VAsciiString@@PBXH@Z,0x00449258,"ZH LANGameInfo.cpp ParseGameOptionsString with BFME 2's (data, length) pair: saves each human slot's two names in map<Int,UnicodeString>s, parses through 0x00448423 (game, data, length) when both are set else ParseAsciiStringToGameInfo-shaped 0x0040116B (game, options, 1), then TheLAN AmIHost (+0xD8) / RequestHasMap (+0x50) and restores the names; called by LANAPI slot 46 (0x0024924D)"
+ ?rva0007EDBC@Rva0007EDBC@@QAEXH@Z,0x0007EDBC,callee of ?rva00081E36@Rva00081E36@@QAEXPAXH@Z
+-?rva004FD013@Rva004FCE73@@QAEXHPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAH@Z,0x004FD013,callee of ?rva004FD571@Rva004FD448@@QBEXHPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAH@Z
+ ??1Rva00500D30@@QAE@XZ,0x00500D30,callee of ??1Rva0050292B@@QAE@XZ
+ ??0Rva00527378Payload@@QAE@PAXHABVAsciiString@@00@Z,0x00527378,called by 0x00527767 with ECX=0x1E0 allocation and owner then level/name/+0xC0/+0xF8 arguments; Ghidra boundary 1007; address-derived payload constructor; layout and semantics unknown
+ ?rva00295F05@Object@@QAEX_N@Z,0x00295F05,"callee of matched ?rva00583794@Rva00583794@@QAEXPAVObject@@@Z and GameLogicDestroyAllObjectsImmediate; body reads a Bool parameter and is address-derived until identity is proven"
+@@ -15801,7 +15800,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
+ ?ChangeCellToObjectFlammability@FireLogicSystem@@QAEXHHPBVThingTemplate@@@Z,0x00285F43,callee of ?rva00286373@FireLogicSystem@@QAEXHPBUCoord3D@@PBVThingTemplate@@@Z
+ ?rva002ED236@Pathfinder@@QAE?AW4PathfindLayerEnum@@PAVObject@@URva002ED236Pos@@@Z,0x002ED236,callee of ?getLayerForDestination@TerrainLogic@@QAE?AW4PathfindLayerEnum@@PAVObject@@PBUCoord3D@@@Z
+ ?rva00359E93@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z,0x00359E93,callee of ?rva0035A238@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z
+-?rva004FCEB5@Rva004FCE73@@QAE_NH@Z,0x004FCEB5,callee of ?rva004FD656@Rva004FD448@@QBE_NH@Z
+ ?rva00404C26@Rva00404C26@@QAEPAVRva00404927@@H@Z,0x00404C26,callee of ?rva00404CF5@Rva00404781@@QAEH_N@Z
+ ?rva005EA441@Rva005EAEAF@@QAEXXZ,0x005EA441,callee of ?rva005EAEAF@Rva005EAEAF@@QAEXHH@Z
+ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
+@@ -16417,3 +16415,7 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
+ ?rva005C98C0@Rva005C98C0@@QAEPAXH@Z,0x005C98C0,callee of ?rva005C9ADD@Rva005C9B76@@QAEHHH@Z
+ ??0Rva005E9625@@QAE@PAVImpl@BattlePromptDialog@StrategicInGameUI@@HABVAsciiString@@@Z,0x005E9CC3,Native5E9DA5 constructs the owned20B clip; constructor181B RET12 at5E9CC3 forwards level and AsciiString name into verified StrategicHUD BattlePromptMovieClip5FA7EB; dtor53B5E9625 and guarded assign5E971F establish owner type; application class name unknown
+ ?rva00136E95@@YAXPAVRenderObjClass@@PAURva00136F5BRange@@11@Z,0x00136E95,callee of ?PostLoad@ModifiedRenderFactory@RenderAsset@@QAEXXZ
++?erase@?$vector@W4Rva004FD8B8RegionID@@V?$allocator@W4Rva004FD8B8RegionID@@@_STL@@@_STL@@QAEPAW4Rva004FD8B8RegionID@@PAW43@0@Z,0x00532803,Default-start region ID four-byte ABI view; original enum spelling unknown; fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
++?push_back@?$vector@W4Rva004FD8B8RegionID@@V?$allocator@W4Rva004FD8B8RegionID@@@_STL@@@_STL@@QAEXABW4Rva004FD8B8RegionID@@@Z,0x002E01C6,Default-start region ID four-byte ABI view; original enum spelling unknown; fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
++?push_back@?$vector@PBVTeamVictoryCondition@LivingWorldScenario@@V?$allocator@PBVTeamVictoryCondition@LivingWorldScenario@@@_STL@@@_STL@@QAEXABQBVTeamVictoryCondition@LivingWorldScenario@@@Z,0x004DFCB0,Native Scenario team-victory pointer insertion; fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
++?Rva00284AC6TryPosition@@YA_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU1@@Z,0x00284AC6,Ghidra780B function 284AC6..284DD2 RET0; FindPositionAround 285202 direct REL32 calls pass center dist angle options result; WB aligned helper corroborates same five stack inputs; address-derived callee name

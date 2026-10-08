@@ -45,3 +45,12 @@ Reproduce the full gate at the BFME 2 revision above with each donor checkout;
 use the normal dependency cache so changed headers invalidate their consumers.
 Link-census and runtime tests were not run for this pointer update.
 Completed UTC: 2026-10-08 19:29.
+The fixed BFME 2 comparison predates publication rebases. To preserve it after
+those commit IDs change, fixed-bfme2.patch reconstructs its source tree from
+published master revision cc989ab1801be1e35866f839328aea4444b61276. Apply that
+patch on the named base; the resulting tree is
+1eb461545beda3b290e636a92ae212bc38f8b5d9.
+The patch SHA-256 is 0d8201c26f6cf8d0428e186d67299ab15e727e812ba1dc27a444410b8d5db5b5 (71565 bytes).
+Its reverse applicability was checked against the verified local source tree
+without modifying any files. The patch is reproducibility evidence and adds
+no recovery or coverage credit.
