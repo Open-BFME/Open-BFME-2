@@ -30,6 +30,7 @@ public:
 protected:
  Module* findModule(NameKeyType) const;
  friend class CastleBehavior;
+ friend void Rva00396BC5SetCastleId(_STL::vector<ObjectID>*,ObjectID);
 };
 class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
 extern NameKeyGenerator* TheNameKeyGenerator;
@@ -362,6 +363,20 @@ void CastleBehavior::DoXfer(Xfer* xfer) {
    xfer->signedInt(key); xfer->unsignedInt(value);
    field<_STL::map<int,int> >(this,0xa0).insert(_STL::pair<const int,int>(key,value));
    --count;
+  }
+ }
+}
+
+// Native RVA00396BC5,126B, shared by unpack for vectors +0x50/+0x5C/+0x74.
+// WB leaves the free function unnamed. Native initializes the module key
+// before iteration and writes the supplied ObjectID into module +0x14.
+void Rva00396BC5SetCastleId(_STL::vector<ObjectID>* ids,ObjectID id) {
+ static NameKeyType key=TheNameKeyGenerator->nameToKey("CastleMemberBehavior");
+ for(_STL::vector<ObjectID>::iterator it=ids->begin();it!=ids->end();++it) {
+  Object* object=TheGameLogic->findObjectByID(*it);
+  if(object) {
+   Module* module=object->findModule(key);
+   if(module) field<ObjectID>(module,0x14)=id;
   }
  }
 }
