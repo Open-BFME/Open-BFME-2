@@ -51,7 +51,8 @@ private:
 class SidesList
 {
 public:
-	SidesInfo *findSideInfo(AsciiString name, int *index);
+	SidesInfo *findSideInfo(AsciiString name, int *index = 0);
+	bool validateAllyEnemyList(const AsciiString &tname, AsciiString &allies);
 
 private:
 	unsigned char m_pad[0x3C];
@@ -69,4 +70,41 @@ SidesInfo *SidesList::findSideInfo(AsciiString name, int *index)
 		}
 	}
 	return 0;
+}
+
+// ?validateAllyEnemyList@SidesList@@QAE_NABVAsciiString@@AAV2@@Z @0x0032B2A5
+// 228B. Donor: ZH SidesList.cpp validateAllyEnemyList, unchanged; retail
+// calls findSideInfo above and the rowed StringBase compare, nextToken and
+// concat bodies. Drops the side's own name and unknown players from a
+// space-separated ally/enemy list.
+bool SidesList::validateAllyEnemyList(const AsciiString &tname, AsciiString &allies)
+{
+	bool modified = false;
+
+	AsciiString str, newstr, token;
+
+	str = allies;
+	newstr.clear();
+	while (str.nextToken(&token))
+	{
+		if (token == tname)
+		{
+			modified = true;
+			continue;	// no allies/enemies with self
+		}
+
+		SidesInfo *si = findSideInfo(token);
+		if (!si)
+		{
+			modified = true;
+			continue;	// player not found.
+		}
+
+		if (!newstr.isEmpty())
+			newstr.concat(" ");
+		newstr.concat(token);
+	}
+
+	allies = newstr;
+	return modified;
 }
