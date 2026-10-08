@@ -16217,3 +16217,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?iterateSaveFiles@GameState@@QAEXP6AXVUnicodeString@@PAX@Z1H@Z,0x002DF1F1,GameState::iterateSaveFiles: REL32 at 0x002DF4E1 in populateSaveGameListbox 0x002DF3B0 with ECX=this and pushes (callback 0x002DF0B4 / &m_availableGames +0xE14 / mode); body builds a L* search name plus the 0x002DBC97 mode suffix then lists getSaveDirectory through TheFileSystem and calls the callback with each UnicodeString name and userData; ret 0xC; ZH iterateSaveFiles shape plus the BFME 2 mode argument
 ?rva004DD8A6@@YAXHPAURva004DD8A6Entry@@H@Z,0x004DD8A6,
 ?rva004DDF51@Rva004DD843@@QAEXPAURva004DD843Slot@@@Z,0x004DDF51,
+?rva004DDDA4@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva004DD9E3@@@Z,0x004DDDA4,

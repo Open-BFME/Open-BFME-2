@@ -8,7 +8,7 @@
 // corroborates its loops, failure fallback, ReleaseInfo, and -666666 reset.
 // Preserve the existing receiver/slot names; the original slot and node type
 // names are unknown. BFME1 ba7ddda and ZH provide no clean class implementation.
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Oy-
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Oy- /Ireference/shims/bfme2_ascii
 class Object;
 struct Rva004DD8FAInfo;
 class PathfindCell {
@@ -189,12 +189,13 @@ template<int N> class NativeSlots : public NativeSlots<N-1> { public: virtual vo
 template<> class NativeSlots<0> {};
 class AIUpdateInterface : public NativeSlots<137> { public: virtual bool isDoingGroundMovement() const=0; bool isAircraftThatAdjustsDestination() const; };
 class NativeGoalContain : public NativeSlots<50> { public: virtual void slot50()=0; };
-struct NativeGoalTemplate { char pad[0x115]; unsigned char kind115; char gap[6]; unsigned kind11C; };
+struct NativeGoalTemplate { char pad[0x115]; unsigned char kind115; char gap[6]; union { unsigned kind11C; unsigned char kindBytes[4]; }; };
 class Object { public:
  void *rva0028C197() const;
  char prefix[4]; NativeGoalTemplate *m_template;
  char gap08[0x44-8]; float m_angle;
- char gap48[0x258-0x48]; AIUpdateInterface *m_ai;
+ char gap48[0x250-0x48]; void *m_contain;
+ char gap254[4]; AIUpdateInterface *m_ai;
  char gap25C[0x438-0x25c]; unsigned char m_status;
 };
 
@@ -229,6 +230,55 @@ void Rva004DD843::rva004DE109(int position,float angle,int layer)
  }
 }
 
+
+
+
+
+// Native004DDF51..004DE109, 440B RET4 with native GeometryShape string EH cleanup.
+// WB12872B0 AddObjPtr corroborates geometry sizing, contained fraction, layer
+// fallback and five-word visitor. Slot0C is path layer; slot10 is list category.
+#include "ascii_string.h"
+struct GeometryShape {
+ int type; float height,major,minor; float offsetX,offsetY,offsetZ; AsciiString name; bool enabled,opaque21;
+ GeometryShape() : type(0),height(1.0f),major(1.0f),minor(1.0f),offsetX(0),offsetY(0),offsetZ(0),enabled(true),opaque21(true) {}
+};
+class GeometryInfo { public: void rva006BD9C0(GeometryShape &) const; };
+class NativeContain28 : public NativeSlots<28> { public: virtual int slot28()=0; };
+class NativeContain31 : public NativeSlots<31> { public: virtual void *slot31()=0; };
+class NativeContain69 : public NativeSlots<69> { public: virtual unsigned int slot69(int)=0; };
+class Rva004DD9E3 { public: int rva004DD9E3(int,int,int); Rva004DD843Slot *slot; int category; Object *object; int layer,secondary; };
+class Pathfinder { public: int rva004DDDA4(const ICoord2DBase *,const ICoord2DBase *,float,int,Rva004DD9E3 *); };
+class AI { public: char pad[16]; Pathfinder *map; }; extern AI *TheAI;
+class TerrainLogic : public NativeSlots<44> { public: virtual bool slot44(Object *,int)=0; }; extern TerrainLogic *TheTerrainLogic;
+float __cdecl Rva004DD722Get(int);
+int __cdecl Rva002E9B31Get(void *);
+int __cdecl Rva002E6E6CGet(int);
+void Rva004DD843::rva004DDF51(Rva004DD843Slot *slot)
+{
+ ICoord2DBase diameter;
+ Object *obj=m_object;
+ if (obj->m_template->kindBytes[3] & 4) {
+   GeometryShape shape;
+   ((GeometryInfo *)((char *)obj+0xa8))->rva006BD9C0(shape);
+   diameter.x=(int)((shape.major*2.0f+4.0f)/10.0f);
+   diameter.y=(int)((shape.minor*2.0f+4.0f)/10.0f);
+   void *contain=m_object->m_contain;
+   if (contain && ((NativeContain31 *)contain)->slot31()) {
+     int capacity=((NativeContain28 *)contain)->slot28();
+     if (capacity>0) {
+       float ratio=(float)((NativeContain69 *)contain)->slot69(0)/capacity;
+       diameter.x=(int)((diameter.x-2.0f)*ratio+2.0f);
+       diameter.y=(int)((diameter.y-2.0f)*ratio+2.0f);
+     }
+   }
+ } else diameter.x=diameter.y=Rva002E9B31Get(obj);
+ Object *callbackObject=m_object;
+ Rva004DD9E3 visitor;
+ visitor.slot=slot; visitor.category=slot->m_listKind; visitor.object=callbackObject;
+ visitor.secondary=0; visitor.layer=slot->m_pathLayer;
+ if (!(unsigned char)Rva002E6E6CGet(slot->m_pathLayer) && TheTerrainLogic->slot44(callbackObject,slot->m_pathLayer)) visitor.secondary=1;
+ TheAI->map->rva004DDDA4((ICoord2DBase *)slot,&diameter,Rva004DD722Get(slot->m_angle),slot->m_pathLayer,&visitor);
+}
 
 
 
