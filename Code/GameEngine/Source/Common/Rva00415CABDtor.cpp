@@ -10,6 +10,16 @@
 
 typedef bool Bool;
 #include "subsystem_interface.h"
+#include <hash_map>
+
+// The rowed unsigned-key POD iterator has exactly the native two-word ABI
+// and uses the same 0039FD3E bucket provider. Declare its external increment
+// so the compiler preserves the target's out-of-line call at 0041F99B.
+typedef _STL::hash_map<unsigned int, int>::iterator Rva0041E832PodIterator;
+namespace _STL
+{
+template <> Rva0041E832PodIterator &Rva0041E832PodIterator::operator++();
+}
 
 class Rva00415AE0
 {
@@ -73,4 +83,69 @@ Rva00415CAB::~Rva00415CAB()
         iterator.next();
     }
     table->rva003A2A41();
+}
+
+class Rva001DBCDCTarget
+{
+public:
+    void rva001DBCDC();
+};
+
+struct Rva0041F4A7Buckets
+{
+    ~Rva0041F4A7Buckets();
+    void **begin;
+    void **end;
+    void **storageEnd;
+};
+
+class Rva0041F4A7
+{
+public:
+    ~Rva0041F4A7();
+private:
+    void *unused00;
+    Rva0041F4A7Buckets buckets;
+    unsigned int count;
+};
+
+// The rowed 0041F760 destructor's current name comes from a WorldBuilder
+// lead marked wb-name-unverified. Reuse that provider name without promoting
+// it to a newly established target identity.
+class ArmyDefinition
+{
+public:
+    ~ArmyDefinition();
+};
+
+struct Rva0041F94ANode
+{
+    Rva0041F94ANode *next;
+    unsigned int key;
+    ArmyDefinition *value;
+};
+
+class Rva0041F94A : public SubsystemInterface
+{
+public:
+    virtual ~Rva0041F94A();
+private:
+    Rva0041F4A7 m_table;
+};
+
+// Native 0041F94A..0041F9D2, 136 bytes, vtable 00C3B8C8. Same target-
+// supported ownership algorithm, with independently different providers.
+Rva0041F94A::~Rva0041F94A()
+{
+    Rva000411084 iterator;
+    reinterpret_cast<Rva000427195 *>(&m_table)->first(&iterator);
+    while (iterator.m_current != 0)
+    {
+        ArmyDefinition *value =
+            static_cast<Rva0041F94ANode *>(iterator.m_current)->value;
+        if (value != 0)
+            delete value;
+        ++*reinterpret_cast<Rva0041E832PodIterator *>(&iterator);
+    }
+    reinterpret_cast<Rva001DBCDCTarget *>(&m_table)->rva001DBCDC();
 }
