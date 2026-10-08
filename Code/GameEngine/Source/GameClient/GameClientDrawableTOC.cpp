@@ -37,6 +37,7 @@
 #include "ascii_string.h"
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "GUI/HeaderTemplateView.h"
+#include "../Common/GameLogicObjectLookupView.h"
 
 // The TOC list's out-of-line members fold onto addresses other lists already
 // name, so its allocator is a placeholder class (as GameLogic's ObjectTOC list).
@@ -127,7 +128,28 @@ private:
 	AsciiString m_name;
 };
 
-class Object;
+// ZH ObjectShroudStatus values, under the enum name the matched
+// getShroudStatusForPlayer (0x0028D2A2) row carries.
+enum CellShroudStatus
+{
+	SHROUD_STATUS_INVALID,
+	SHROUD_STATUS_CLEAR,
+	SHROUD_STATUS_PARTIAL_CLEAR,
+	SHROUD_STATUS_FOGGED
+};
+
+// GameClient::update tests bit 0 of the byte at +0x438 where ZH's
+// isEffectivelyDead tests EFFECTIVELY_DEAD in m_privateStatus.
+class Object
+{
+public:
+	CellShroudStatus getShroudStatusForPlayer(int playerIndex) const;
+	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
+
+private:
+	unsigned char m_pad000[0x438];
+	unsigned char m_privateStatus;                                       // +0x438
+};
 
 enum DrawableStatus
 {
@@ -141,6 +163,9 @@ public:
 	Object *getObject(void) const { return m_object; }
 	Drawable *getNextDrawable(void) const { return m_nextDrawable; }
 	bool testDrawableStatus(DrawableStatus bit) const { return (m_status & bit) != 0; }
+	unsigned int getShroudClearFrame(void) const { return m_shroudClearFrame; }
+	void setFullyObscuredByShroud(bool fullyObscured);
+	void updateDrawable(void);
 
 private:
 	void *m_vtbl;
@@ -151,6 +176,8 @@ private:
 	Drawable *m_nextDrawable;                                            // +0x104
 	char m_pad108[0x114 - 0x108];
 	unsigned int m_status;                                               // +0x114
+	char m_pad118[0x138 - 0x118];
+	unsigned int m_shroudClearFrame;                                     // +0x138
 };
 
 // ZH GameClient.h DrawablePtrHash: 0x14 bytes at +0x18 torn down by the
@@ -194,6 +221,7 @@ class Rva0023A039
 {
 public:
 	void clear();
+	void *get() const { return m_ptr; }
 	~Rva0023A039() { clear(); }
 
 private:
@@ -264,7 +292,7 @@ public:
 	virtual void vf14();
 	virtual void vf15();
 	virtual void vf16();
-	virtual void vf17();
+	virtual Drawable *firstDrawable(void);                              // slot 17 (+0x44)
 	virtual void vf18();
 	virtual void vf19();
 	virtual void vf20();
@@ -525,24 +553,39 @@ public:
 	virtual void update();
 	void push(AsciiString name, bool shutdownImmediate = false);
 
-private:
-	unsigned char m_pad[0x78 - 0x0C];
+	// GameClient::update clears +0x6C on its first pass and still updates
+	// the shell while the GameLogic byte +0x125 is set if +0x5C is.
+	unsigned char m_pad0C[0x5c - 0x0C];
+	bool m_byte5C;                                                      // +0x5C
+	unsigned char m_pad5D[0x6c - 0x5D];
+	bool m_byte6C;                                                      // +0x6C
+	unsigned char m_pad6D[0x78 - 0x6D];
 };
 
 class IMEManager : public SubsystemInterface { public: virtual ~IMEManager(); };
 class GameWindowManager : public SubsystemInterface { public: virtual ~GameWindowManager(); };
 
-// GlobalData's screen resolution (ZH m_xResolution, m_yResolution).
+// GlobalData's screen resolution (ZH m_xResolution, m_yResolution), the
+// intro flags GameClient::update returns early on (ZH m_playIntro and
+// m_afterIntro; the logo callback 0x00239539 tests +0xAF2 too) and the
+// millisecond stall it spins for at most every three seconds (+0xC78).
 class GlobalData
 {
 public:
 	unsigned char m_pad[0x30];
 	unsigned int m_xResolution;                                         // +0x30
 	unsigned int m_yResolution;                                         // +0x34
+	unsigned char m_pad38[0xaf2 - 0x38];
+	bool m_playIntro;                                                   // +0xAF2
+	bool m_afterIntro;                                                  // +0xAF3
+	unsigned char m_padAF4[0xc78 - 0xaf4];
+	int m_stallMilliseconds;                                            // +0xC78
 };
 
 // ZH Mouse; BFME 2 keeps parseIni and initCursorResources virtual (slots 14
 // and 15), and init calls slot 22 (+0x58) where ZH sets the mouse limits.
+// update calls slot 16 (+0x40) right after the mouse update, as ZH calls
+// createStreamMessages.
 class Mouse : public SubsystemInterface
 {
 public:
@@ -552,7 +595,7 @@ public:
 	virtual void vf13();
 	virtual void parseIni();                                            // +0x38
 	virtual void initCursorResources();                                 // +0x3C
-	virtual void vf16();
+	virtual void createStreamMessages();                                // +0x40
 	virtual void vf17();
 	virtual void vf18();
 	virtual void vf19();
@@ -591,18 +634,24 @@ public:
 	virtual void vf03();
 	virtual void vf04();                                                // +0x10
 	virtual void vf05();                                                // +0x14
+#define V(n) virtual void vf##n();
+	V(06) V(07) V(08) V(09) V(10) V(11) V(12) V(13) V(14) V(15) V(16)
+	V(17) V(18) V(19) V(20) V(21) V(22) V(23) V(24) V(25) V(26)
+#undef V
+	virtual void vf27();                                                // +0x6C
 };
 
 // TheTerrainVisual: ZH TerrainVisual (Snapshot, SubsystemInterface), the
 // subsystem side at +4.
 class G00DFF080Obj : public Snapshot, public SubsystemInterface { public: virtual ~G00DFF080Obj(); };
 // ZH Display's mode accessors, three slots later than ZH's.
+// GameClient::update redraws through slot 12 (+0x30) where ZH calls draw.
 class Display : public SubsystemInterface
 {
 public:
 	virtual ~Display();
 	virtual void vf11();
-	virtual void vf12();
+	virtual void drawViews();                                           // +0x30
 	virtual void vf13();
 	virtual void setWidth(unsigned int width);                         // +0x38
 	virtual void setHeight(unsigned int height);                       // +0x3C
@@ -642,7 +691,17 @@ private:
 	unsigned char m_pad[0x18 - 4];
 };
 
-class Keyboard : public SubsystemInterface { public: virtual ~Keyboard(); };
+// ZH Keyboard::createStreamMessages follows the update, here slot 15 (+0x3C).
+class Keyboard : public SubsystemInterface
+{
+public:
+	virtual ~Keyboard();
+	virtual void vf11();
+	virtual void vf12();
+	virtual void vf13();
+	virtual void vf14();
+	virtual void createStreamMessages();                                // +0x3C
+};
 class DisplayStringManager : public SubsystemInterface { public: virtual ~DisplayStringManager(); };
 class SnowManager : public SubsystemInterface { public: virtual ~SnowManager(); };
 class Rva0027070CGlobal : public SubsystemInterface { public: virtual ~Rva0027070CGlobal(); };
@@ -765,6 +824,7 @@ class Rva0042CBB6 : public GameMessageTranslator
 public:
 	Rva0042CBB6();
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
+	void rva0042D068();
 
 private:
 	unsigned char m_pad[0x44 - 4];
@@ -815,6 +875,7 @@ class BfmeOwnVVD : public GameMessageTranslator
 public:
 	BfmeOwnVVD();
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
+	void rva0042F213();
 
 private:
 	unsigned char m_pad[0x158 - 4];
@@ -871,6 +932,115 @@ private:
 	unsigned char m_pad[0x20];
 };
 
+// Views GameClient::update calls through. TheTacticalView's slots 54 (+0xD8)
+// and 30 (+0x78) stand where ZH asks isTimeFrozen and
+// isCameraMovementFinished; the two script-engine freeze tests and the
+// frame-period check are matched rows under placeholder names.
+class View
+{
+public:
+	virtual ~View();
+#define V(n) virtual void vf##n();
+	V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(10)
+	V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20)
+	V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
+	virtual bool isCameraMovementFinished();                            // +0x78
+	V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40)
+	V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50)
+	V(51) V(52) V(53)
+#undef V
+	virtual bool isTimeFrozen();                                        // +0xD8
+};
+
+class ScriptEngine;
+class Rva00203B08 { public: bool rva0020424FF(); };
+class Rva00203ACEByteField { public: unsigned char get() const; };
+
+// ZH PlayerList::getLocalPlayer and Player::getPlayerIndex: the local
+// player at +0x10, its index at +0x54.
+class Player
+{
+public:
+	int getPlayerIndex() const { return m_playerIndex; }
+
+private:
+	unsigned char m_pad[0x54];
+	int m_playerIndex;                                                  // +0x54
+};
+
+class PlayerList
+{
+public:
+	Player *getLocalPlayer() const { return m_local; }
+
+private:
+	unsigned char m_pad[0x10];
+	Player *m_local;                                                    // +0x10
+};
+
+class GameEngine
+{
+private:
+	bool rva00225D38();
+	friend class GameClient;
+};
+
+// ZH GhostObjectManager::updateOrphanedObjects, slot 6 (+0x18).
+class GhostObjectManager
+{
+public:
+	virtual ~GhostObjectManager();
+	virtual void vf01();
+	virtual void vf02();
+	virtual void vf03();
+	virtual void vf04();
+	virtual void vf05();
+	virtual void updateOrphanedObjects(int *playerIndexList, int playerIndexCount); // +0x18
+};
+
+// ZH ParticleSystemManager::setLocalPlayerIndex stores +0x64.
+class ParticleSystemManager
+{
+public:
+	void setLocalPlayerIndex(int index) { m_localPlayerIndex = index; }
+
+private:
+	unsigned char m_pad[0x64];
+	int m_localPlayerIndex;                                             // +0x64
+};
+
+class Eva : public SubsystemInterface { public: virtual ~Eva(); };
+// TheScoredKillEvaAnnouncerController, under the placeholder class
+// GameEngine::init creates it with.
+class Rva0022C22CSubsystem : public SubsystemInterface { public: virtual ~Rva0022C22CSubsystem(); };
+
+class Rva005D124D { public: int rva005D124D(); };
+class Rva00239105 { public: void rva00239105(); };
+class Rva00239300 { public: void rva00239300(int frame, int periodFrame); };
+class Rva0004378D { public: void first(); };
+
+// The matched one-int handle ctor 0x00211E75; update passes one by value,
+// built from a callback address, to the unrowed registration 0x003FE7E6,
+// which writes the next id to its second argument. Retail builds each handle
+// in the argument slot and saves its address before loading ECX, which is
+// what an inline forwarding constructor over the out-of-line one emits.
+class Rva00211E75
+{
+public:
+	Rva00211E75(const int *arg);
+	Rva00211E75(const Rva00211E75 &other);
+	~Rva00211E75();
+
+private:
+	void *m_impl;
+};
+
+class Rva00211E75Callback : public Rva00211E75
+{
+public:
+	Rva00211E75Callback(int callback) : Rva00211E75(&callback) {}
+};
+
 extern DrawGroupInfo *TheDrawGroupInfo;
 extern RayEffectSystem *TheRayEffects;
 extern Rva00E01E28Owner *g_00E01E28;                    // TheHotKeyManager
@@ -900,7 +1070,20 @@ extern FireManager *TheFireManager;
 extern MessageStream *MessageStreamSubsystem;           // TheMessageStream
 extern GlobalLanguage *TheGlobalLanguageData;
 extern float g_00DBA4FC;                                // client frame rate
-extern void *g_00E03210;
+extern void *g_00E03210;                                // the Rva0042CBB6 translator
+extern BfmeOwnVVD *g_bfmeSingletonVVD;
+extern Rva00431F61 *g_00E0322C;
+extern Rva0022C22CSubsystem *TheScoredKillEvaAnnouncerController;
+extern Eva *TheEva;
+extern View *TheTacticalView;
+extern ScriptEngine *TheScriptEngine;
+extern GameLogic *TheGameLogic;
+extern PlayerList *ThePlayerList;
+extern GameEngine *TheGameEngine;
+extern GhostObjectManager *TheGhostObjectManager;
+extern ParticleSystemManager *TheParticleSystemManager;
+extern int g_Va00DBA4E4;                                // LogicFramesPerSecond
+extern int g_00E02EC4;
 
 void Rva0038072AClear();
 IMEManager *CreateIMEManagerInterface();
@@ -912,6 +1095,17 @@ void Rva002220DCInit();
 void bfmeReset();
 // Unrowed 0x0041267F (10 bytes: two calls), pinned by address.
 void Rva0041267F();
+// Unrowed 0x0038076D, the per-frame companion of the 0x0038072A clear.
+void Rva0038076DUpdate();
+void bfmeReleaseQueuedDeviceInterfaces();
+bool Rva003FE7E6(Rva00211E75Callback callback, int *id);
+// The four callbacks update registers on its first pass (0x00239539 is the
+// logo-movie gate).
+int rva00239539(void *, bool);
+int rva0023BDD7(void *, bool);
+int rva0023958B(void *, bool);
+int rva00239122(void *, bool);
+extern "C" __declspec(dllimport) unsigned int __stdcall timeGetTime(void);
 
 // The drawable hash's clear (0x001DBCDC) and resize (0x0053F1EC) are folded
 // STLport hashtable bodies; called through their pinned placeholder names.
@@ -1326,4 +1520,158 @@ void GameClient::rva00239759()
 		TheInGameUI->vf108();
 		TheShell->push(AsciiString("MainMenu.apt"));
 	}
+}
+
+// ?update@GameClient@@UAEXXZ
+void GameClient::update()
+{
+	g_bfmeSingletonVVD->rva0042F213();
+	((Rva0042CBB6 *)g_00E03210)->rva0042D068();
+	((Rva005D124D *)g_00E0322C)->rva005D124D();
+
+	if (g_00DFEF18)
+	{
+		g_00DFEF18->vf27();
+		((Rva00239105 *)m_owned13C.get())->rva00239105();
+	}
+
+	static bool firstUpdate = true;
+	if (firstUpdate)
+	{
+		if (TheShell)
+			TheShell->m_byte6C = 0;
+		Rva003FE7E6(Rva00211E75Callback((int)rva00239539), &g_00E02EC4);
+		Rva003FE7E6(Rva00211E75Callback((int)rva0023BDD7), &g_00E02EC4);
+		Rva003FE7E6(Rva00211E75Callback((int)rva0023958B), &g_00E02EC4);
+		Rva003FE7E6(Rva00211E75Callback((int)rva00239122), &g_00E02EC4);
+	}
+	firstUpdate = false;
+
+	if (TheSnowManager)
+		TheSnowManager->update();
+	if (g_00DFE1E4)
+		g_00DFE1E4->update();
+	if (TheCloudBreakEffectManager)
+		TheCloudBreakEffectManager->update();
+	if (TheFireManager)
+		TheFireManager->update();
+
+	TheAnim2DCollection->update();
+
+	if (TheKeyboard)
+	{
+		TheKeyboard->update();
+		TheKeyboard->createStreamMessages();
+	}
+
+	TheScoredKillEvaAnnouncerController->update();
+	TheEva->update();
+
+	if (TheMouse)
+	{
+		TheMouse->update();
+		TheMouse->createStreamMessages();
+	}
+
+	Rva0038076DUpdate();
+
+	if (TheWritableGlobalData->m_playIntro || TheWritableGlobalData->m_afterIntro)
+	{
+		TheDisplay->drawViews();
+		TheDisplay->update();
+		return;
+	}
+
+	TheWindowManager->update();
+	TheVideoPlayer->update();
+	bfmeReleaseQueuedDeviceInterfaces();
+
+	static unsigned int lastStallTime;
+	if (TheWritableGlobalData->m_stallMilliseconds > 0)
+	{
+		unsigned int now = timeGetTime();
+		if (now - lastStallTime > 3000)
+		{
+			while (timeGetTime() < TheWritableGlobalData->m_stallMilliseconds + now)
+				;
+			lastStallTime = timeGetTime();
+		}
+	}
+
+	bool freezeTime = TheTacticalView->isTimeFrozen() && !TheTacticalView->isCameraMovementFinished();
+	freezeTime = freezeTime || ((Rva00203B08 *)TheScriptEngine)->rva0020424FF();
+	freezeTime = freezeTime || ((Rva00203ACEByteField *)TheScriptEngine)->get();
+	freezeTime = freezeTime || TheGameLogic->isGamePaused();
+	int localPlayerIndex = ThePlayerList ? ThePlayerList->getLocalPlayer()->getPlayerIndex() : 0;
+
+	static unsigned int lastFrame = ~0;
+	freezeTime = freezeTime || (lastFrame == m_frame);
+
+	bool shroudOn = TheGameEngine->rva00225D38();
+	if (!freezeTime && !TheGameLogic->getFlag125())
+	{
+		lastFrame = m_frame;
+
+		if (shroudOn)
+			TheGhostObjectManager->updateOrphanedObjects(0, 0);
+
+		Drawable *draw = firstDrawable();
+		while (draw)
+		{
+			Drawable *next = draw->getNextDrawable();
+			if (shroudOn)
+			{
+				Object *object = draw->getObject();
+				if (object)
+				{
+					CellShroudStatus ss = object->getShroudStatusForPlayer(localPlayerIndex);
+					if (ss >= SHROUD_STATUS_FOGGED && draw->getShroudClearFrame() != 0)
+					{
+						unsigned int limit = 2 * g_Va00DBA4E4;
+						if (object->isEffectivelyDead())
+							limit += 3 * g_Va00DBA4E4;
+						if (TheGameLogic->getFrame() < limit + draw->getShroudClearFrame())
+							ss = SHROUD_STATUS_CLEAR;
+					}
+					draw->setFullyObscuredByShroud(ss >= SHROUD_STATUS_FOGGED);
+				}
+			}
+			draw->updateDrawable();
+			draw = next;
+		}
+
+		g_004C9DC9Container->update();
+		if (TheGameEngine->rva00225D38())
+			((Rva00239300 *)this)->rva00239300(TheGameLogic->getFrame(), 1);
+		else
+			((Rva00239300 *)this)->rva00239300(TheGameLogic->getFrame(), 0);
+	}
+
+	TheGameLogic->deleteLoadScreen();
+
+	if (!TheGameLogic->getFlag125())
+	{
+		g_00DFF080->update();
+		TheDisplay->update();
+	}
+	else
+	{
+		((Rva0004378D *)TheDisplay)->first();
+	}
+
+	if (!freezeTime)
+		TheParticleSystemManager->setLocalPlayerIndex(localPlayerIndex);
+
+	TheDisplay->drawViews();
+	TheDisplayStringManager->update();
+
+	if (!TheGameLogic->getFlag125() || TheShell->m_byte5C)
+	{
+		TheShell->update();
+		if (m_displayModePending)
+			rva00239759();
+	}
+
+	TheInGameUI->update();
+	vf36();
 }

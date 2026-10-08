@@ -6376,6 +6376,7 @@ name,address,notes
 ?Rva00361CA5Parse@@YAXPAVINI@@PAX1PBX@Z,0x00361CA5,cdecl filter field parser (ini instance store 0) read from the REL32 at 0x0050889D in the DamageNugget DamageScalar parser 0x00508862
 ?Rva0037D55EGet@@YA?AVUnicodeString@@XZ,0x0037D55E,Address-derived cdecl UnicodeString-returning callee: 0x00434B49 passes a hidden return buffer and the callee returns with ret 4; no source identity established
 ?Rva0037D96B@@YA_NABVUnicodeString@@00@Z,0x0037D96B,Address-derived cdecl helper: target caller 0x00435981 passes replay path name and raw filename as three UnicodeString references; AL selects the replay-save result label
+?Rva0038076DUpdate@@YAXXZ,0x0038076D,unrowed 61B (Ghidra FUN_0078076d); REL32 call from GameClient::update 0x0023C060 with no arguments; null-checked calls on the 0x00E032FC and 0x00E05FAC managers then virtual slot +0x14 calls; address name
 ?Rva003808F0Show@@YAXPAXPAVAsciiString@@HHH@Z,0x003808F0,Apt ShowToolTip firer called from Mouse tooltip update 0x001EF06F (text, font, size, bold, color args plus MoveToolTip positioning); Ghidra boundary 0x003808F0; original name unknown
 ?Rva00381900@@YAXH@Z,0x00381900,"cdecl helper forwarding its int to the object at VA 0x00E02310 (0x003818E3); LANAPI slot 33 0x00248E87 calls it with 1 then 0; identity not recovered"
 ?Rva0038190FCall@@YAXHH@Z,0x0038190F,address-derived callee of matched slot 0x005AFA0E; retail REL32 targets 0x0038190F; Ghidra FUN bounds 440 bytes; cdecl two args ret; caller pops 8; callee body remains unclaimed; no named identity inferred
@@ -6389,6 +6390,7 @@ name,address,notes
 ?Rva003F0AB8Fallback@@YAHHH@Z,0x003F0AB8,__cdecl obfuscated fallback callee of ?Rva003F1DD5Hook@@YAHHH@Z (BigObfHookWrappers.cpp) at retail 0x003F1E25 read from its REL32 displacement; body unrowed
 ?Rva003F0B92Fallback@@YAHHH@Z,0x003F0B92,__cdecl obfuscated fallback callee of ?Rva003F1E2EHook@@YAHHH@Z (BigObfHookWrappers.cpp) at retail 0x003F1E7E read from its REL32 displacement; body unrowed
 ?Rva003F29D2_CopyRange@@YAPAVLivingWorldRegionConnection@@PAV1@00ABU__false_type@_STL@@@Z,0x003F29D2,4-arg tag-ignored twin of rowed 3-arg CopyRange same 38B loop via caller 0x003F2CD6
+?Rva003FE7E6@@YA_NVRva00211E75Callback@@PAH@Z,0x003FE7E6,unrowed 155B cdecl (Ghidra FUN_007fe7e6); GameClient::update 0x0023BF67 passes a by-value 0x00211E75 handle and &0x00E02EC4 then pops 8; the body stores the 0x00DC1984 counter through its second argument and returns BL; address name
 ?Rva0040E269@@YAXPAVXfer0051FFF5@@PAX@Z,0x0040E269,cdecl spelling of the rowed Xfer vector helper for range feed 0x0051FFF5 (REL32 at 0x00520055/0x0052005F/0x00520069); body rowed as ?Rva0040E269Xfer@@YAPAVXfer@@PAV1@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z; address name
 ?Rva0041267F@@YAXXZ,0x0041267F,unrowed 10B (Ghidra FUN_0081267f: two calls); REL32 read at AptMainMenu::ResetResolution 0x00514CD1 with no arguments after the window resize; address name
 ?Rva004128F0GetParam@@YA_NPBD0AAVAsciiString@@@Z,0x004128F0,unrowed 239B cdecl (Ghidra FUN_008128f0) next to the rowed path helpers 0x00412845/0x004128BB; REL32 reads at _OnRowShown 0x0050FB20/0x0050FB82 and _OnRowHidden 0x0050EFA4 with (params and a key string and an AsciiString out) pushed and the bool result tested; address name
@@ -11322,6 +11324,9 @@ name,address,notes
 ?rva00232B7B@Keyboard@@AAEXXZ,0x00232B7B,Keyboard resetKeys direct call at RVA 0x00232BE0; Ghidra boundary 76 bytes; address-qualified unknown helper
 ?rva00237E63@Version@@QAEHPBX_N@Z,0x00237E63,address read from the REL32 displacement at 0x00445944 in the games list box rebuild 0x004457BC (unrowed; TheVersion text colour for a version block)
 ?rva00239099@Rva00239099Slot@@QAEXPAX@Z,0x00239099,thiscall slot method called from 0x002766F8 with pushed arg; 1 stack arg
+?rva00239122@@YAHPAX_N@Z,0x00239122,unrowed 136B cdecl callback; GameClient::update 0x0023BFB5 stores its address for the 0x00211E75 handle as for the matched 0x00239539 callback; reads the bool second argument and returns ESI; address name
+?rva0023958B@@YAHPAX_N@Z,0x0023958B,unrowed 462B cdecl callback (Ghidra FUN_0063958b); GameClient::update 0x0023BF97 stores its address for the 0x00211E75 handle as for the matched 0x00239539 callback; reads the bool second argument; address name
+?rva0023BDD7@@YAHPAX_N@Z,0x0023BDD7,unrowed 273B cdecl callback (Ghidra FUN_0063bdd7); GameClient::update 0x0023BF79 stores its address for the 0x00211E75 handle as for the matched 0x00239539 callback; reads the bool second argument; address name
 ?rva0023C6FD@GameLogic@@QAEDXZ,0x0023C6FD,"GameLogic predicate (rowed as BfmeGlob939D::bfmeCall939D, starts with isInMultiplayerGame) that ExperienceLevelCreate::onBuildComplete 0x004B9231 calls on TheGameLogic"
 ?rva0023C7F5@Rva0023C7F5@@QAEHMH@Z,0x0023C7F5,alias pin: same 70B body already rowed as stdcall ?Rva0023C7F5Get@@YGHHH@Z; it never reads ECX and ends ret 8 and the matched slot 0x0023DAF7 calls it thiscall on its +0x08 member with (float; int); thiscall spelling binds the same bytes; no new identity inferred
 ?rva0023C924@GameLogic@@QAEXPAXHHH@Z,0x0023C924,thiscall (obj,1,1<<index,0) on TheGameLogic; sole tail callee of dump-range-18 0x003BD19C mask loop; sibling mask-loop body with the same PlayerList walk
@@ -11813,6 +11818,8 @@ name,address,notes
 ?rva00423648_init@@YAXPAXH@Z,0x00423648,free cdecl void(void*,int) initializer called by rva00423D0DCreate 0x00423D0D read from REL32
 ?rva0042682B@Rva004266A1@@QAEXHE@Z,0x0042682B,void member (int uchar); call-site pushes (index-1 0/1); callee body stores low byte at struct+5; sibling rowed QAEEH family proves class Rva004266A1
 ?rva00426914@Rva004266A1@@QAEXHE@Z,0x00426914,void member (int uchar); call-site pushes (index-1 0/1); callee body stores low byte at struct+6; sibling rowed QAEEH family proves class Rva004266A1
+?rva0042D068@Rva0042CBB6@@QAEXXZ,0x0042D068,unrowed 1024B (Ghidra FUN_0082d068); REL32 call from GameClient::update 0x0023BF07 with ECX=g_00E03210 which the Rva0042CBB6 ctor stores; no arguments; address name
+?rva0042F213@BfmeOwnVVD@@QAEXXZ,0x0042F213,unrowed 1958B (Ghidra FUN_0082f213); REL32 call from GameClient::update 0x0023BEFC with ECX=g_bfmeSingletonVVD (0x00E03214) and no arguments; address name
 ?rva0042FB60@@YAXHPADHPBD@Z,0x0042FB60,cdecl-4 called from 0x006049D8; identity unproven
 ?rva00431978@Rva00431978@@QAE_NPAUICoord2D@@@Z,0x00431978,bool return proven by caller test al at 0x00431C10 twin of int row
 ?rva00432AA2@Rva0043283C@@QAEXXZ,0x00432AA2,unrowed 35B thiscall (Ghidra; plain ret) on the click-through handler g_Va00E032C8 (Rva0043283CDtor.cpp's singleton): picks an entry from its +0x68/+0x158 tables via rowed Rva00432931Pick and emits it via rowed 0x004328D8; tail of the global Apt callback OnClickThroughPress 0x004127D3; address name

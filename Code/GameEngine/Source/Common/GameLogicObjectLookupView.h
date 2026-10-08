@@ -31,6 +31,9 @@ public:
 // whose call 0x00439E0C takes the disguised object. The spell store's show
 // (finishShowPurchaseScience 0x0043CB48) reads the end flag at +0x6D and
 // the game mode at +0x110.
+// GameClient::update (0x0023BEE8) reads the byte at +0x125, next to the pause
+// byte isGamePaused (0x0023CD97) returns from +0x124, and skips the drawable,
+// terrain and display updates while it is set.
 class GameLogic
 {
 	char pad[0x38];
@@ -51,7 +54,9 @@ public:
 	int m_110; // +0x110
 
 private:
-	char pad114[0x178 - 0x114];
+	char pad114[0x125 - 0x114];
+	bool m_flag125;
+	char pad126[0x178 - 0x126];
 	Rva00439E0C *m_manager178;
 
 public:
@@ -62,6 +67,9 @@ public:
 	void destroyObject(Object *obj);	// 0x00242C09
 	void bindObjectAndDrawable(Object *obj, Drawable *draw);	// 0x0023CD4A
 	void rva00376E92(bool first, bool second);	// 0x00376E92
+	unsigned char isGamePaused();	// 0x0023CD97
+	void deleteLoadScreen();	// 0x002423E3
+	bool getFlag125() const { return m_flag125; }
 	unsigned int getTimestamp() const { return m_timestamp; }
 	unsigned int getFrame() const { return m_frame; }
 	Rva00439E0C *getManager178() const { return m_manager178; }
