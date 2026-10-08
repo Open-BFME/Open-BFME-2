@@ -3,6 +3,7 @@
 enum CellShroudStatus;
 class Object;
 struct Coord3D;
+struct FindPositionOptions;
 class Rva000421C8;
 class Rva00628770Impl;
 
@@ -26,6 +27,7 @@ class PartitionManager
 	char m_pad[0x10];
 	Rva00628770Impl *m_impl;
 public:
+	static bool findPositionAround(const Coord3D*,const FindPositionOptions*,Coord3D*);
 	// Existing native shroud facade; +0x10 forwarder at RVA007397F0.
 	CellShroudStatus getShroudStatusForPlayer(int playerIndex, const Coord3D *pos) const;
 	// Original name unknown: the four-argument range query uses no filters.

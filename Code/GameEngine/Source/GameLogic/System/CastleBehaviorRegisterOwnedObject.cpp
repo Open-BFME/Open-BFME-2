@@ -21,8 +21,21 @@ class Module;
 enum DamageType { DAMAGE_8=8 };
 enum DeathType { DEATH_0=0 };
 class Team;
+struct Coord3D;
+class Drawable;
+enum Relationship { ENEMIES, NEUTRAL, ALLIES };
 class Object {
 public:
+ float GetRelativeAngle(const Coord3D*) const;
+ Coord3D* getPlanarDirectionTo(Coord3D*,const Object*) const;
+ float getBoundingCircleRadius() const { return *(const float*)((const char*)this+0xb8); }
+ Relationship getRelationship(const Object*) const;
+ int rva0028B511() const;
+ bool testStatus(ObjectStatusTypes) const;
+ Object* rva002931F5(bool);
+ void* rva0028C197() const;
+ void teleportTo(const Coord3D*,bool);
+ Drawable* getDrawable() const;
  void* rva0028BCF4() const;
  void kill(DamageType,DeathType);
  void rva0028D282(void*);
@@ -44,7 +57,7 @@ class FoundationAIUpdate { protected: virtual void xfer(Xfer*); private: void rv
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 inline void* objectTemplate(Object* object) { return field<void*>(object,4); }
 inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); }
-class CastleBehavior { public: void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); };
+class CastleBehavior { public: void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); };
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
@@ -475,4 +488,156 @@ bool CastleBehavior::checkForInstantUnPack() {
  return true;
  }
  return false;
+}
+
+// Native 0x003988BF..0x00398BC7,776B; WB 0x00EBEC10 names
+// CastleBehavior::teleportStragglersFromWallToGround (CastleSystem.cpp:2477).
+// Native vector+0x5C, kind flags60/109, status38 and filter temporaries
+// independently establish this target flow. Existing HordeContain slot67
+// (rva0046D1F7) supplies the const Object list interface and folded STL pins.
+// Native radius is captured by value before linking the temporary filters;
+// preserving that accessor semantics reproduces its stack slot and EH state.
+// All calls use existing verified rows or previously admitted pins.
+#include <list>
+class Drawable { public: void fadeIn(unsigned); };
+struct FindPositionOptions {
+ FindPositionOptions() { flags=0;minRadius=0;maxRadius=0;startAngle=-99999.9f;maxZDelta=1e10f;ignoreObject=0;sourceToPathToDest=0;relationshipObject=0; }
+ unsigned flags; float minRadius,maxRadius,startAngle,maxZDelta;
+ const void *ignoreObject,*sourceToPathToDest,*relationshipObject;
+};
+class Rva000421C8 {
+public:
+ Rva000421C8():m_next(0) {}
+ virtual ~Rva000421C8() {}
+ virtual bool allow(Object*)=0;
+ virtual int getPlayerMask();
+ Rva000421C8* link(Rva000421C8*);
+ Rva000421C8* m_next;
+};
+class Rva0026119DFilter:public Rva000421C8 { public: virtual bool allow(Object*); };
+class BfmeFixedStorage0004543D {
+public: BfmeFixedStorage0004543D(int,int); BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D&) throw();
+private: unsigned char bytes[28];
+};
+class Rva0004584D:public Rva000421C8 {
+public:
+ Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&) throw();
+ virtual bool allow(Object*);
+ BfmeFixedStorage0004543D m08,m24;
+};
+extern unsigned char g_00DFEFA4StoragePrototype[28];
+extern PartitionManager* ThePartitionManager;
+class CastleContainListView {
+public:
+ virtual void slot0();
+ virtual void slot1();
+ virtual void slot2();
+ virtual void slot3();
+ virtual void slot4();
+ virtual void slot5();
+ virtual void slot6();
+ virtual void slot7();
+ virtual void slot8();
+ virtual void slot9();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual void slot15();
+ virtual void slot16();
+ virtual void slot17();
+ virtual void slot18();
+ virtual void slot19();
+ virtual void slot20();
+ virtual void slot21();
+ virtual void slot22();
+ virtual void slot23();
+ virtual void slot24();
+ virtual void slot25();
+ virtual void slot26();
+ virtual void slot27();
+ virtual void slot28();
+ virtual void slot29();
+ virtual void slot30();
+ virtual void slot31();
+ virtual void slot32();
+ virtual void slot33();
+ virtual void slot34();
+ virtual void slot35();
+ virtual void slot36();
+ virtual void slot37();
+ virtual void slot38();
+ virtual void slot39();
+ virtual void slot40();
+ virtual void slot41();
+ virtual void slot42();
+ virtual void slot43();
+ virtual void slot44();
+ virtual void slot45();
+ virtual void slot46();
+ virtual void slot47();
+ virtual void slot48();
+ virtual void slot49();
+ virtual void slot50();
+ virtual void slot51();
+ virtual void slot52();
+ virtual void slot53();
+ virtual void slot54();
+ virtual void slot55();
+ virtual void slot56();
+ virtual void slot57();
+ virtual void slot58();
+ virtual void slot59();
+ virtual void slot60();
+ virtual void slot61();
+ virtual void slot62();
+ virtual void slot63();
+ virtual void slot64();
+ virtual void slot65();
+ virtual void slot66();
+ virtual void listObjects(_STL::list<const Object*>&);
+};
+void CastleBehavior::teleportStragglersFromWallToGround(bool filter) {
+ FindPositionOptions options;
+ options.flags=0x80;
+ Coord3D center;
+ Object* owner=field<Object*>(this,8);
+ center.x=field<float>(owner,0x38); center.y=field<float>(owner,0x3c); center.z=field<float>(owner,0x40);
+ for(unsigned i=0;i<field<_STL::vector<ObjectID> >(this,0x5c).size();++i) {
+  Object* wall=TheGameLogic->findObjectByID(field<_STL::vector<ObjectID> >(this,0x5c)[i]);
+  if(!wall || !(field<unsigned char>(objectTemplate(wall),0x10f)&0x10)) continue;
+  const Coord3D* pos=&field<Coord3D>(wall,0x38);
+  Coord3D out; out.x=pos->x;out.y=pos->y;out.z=pos->z;
+  BfmeWideResult result=ThePartitionManager->iterateObjectsInRange(pos,wall->getBoundingCircleRadius(),1,
+   Rva0004584D(*(const BfmeFixedStorage0004543D*)g_00DFEFA4StoragePrototype,BfmeFixedStorage0004543D(0,2)).link(&Rva0026119DFilter()),0);
+  options.startAngle=field<Object*>(this,8)->GetRelativeAngle(pos);
+  Object* object;
+  while((object=result.next())!=0) {
+   if(filter && object->rva0028B511()<17) continue;
+   Coord3D delta;
+   float distance=field<Object*>(this,8)->getPlanarDirectionTo(&delta,wall)->length();
+   if(object->getRelationship(wall)==ENEMIES) { options.minRadius=distance*1.3;options.maxRadius=distance*4.0; }
+   else { options.minRadius=distance*0.4f;options.maxRadius=distance*0.8f; }
+   if(PartitionManager::findPositionAround(&center,&options,&out)) {
+    if(object->testStatus((ObjectStatusTypes)38)) object=object->rva002931F5(false);
+    if(object) {
+     if(field<unsigned char>(objectTemplate(object),0x115)&0x20) {
+      CastleContainListView* contain=(CastleContainListView*)object->rva0028C197();
+      if(contain) {
+       _STL::list<const Object*> objects;
+       contain->listObjects(objects);
+       for(_STL::list<const Object*>::iterator it=objects.begin();it!=objects.end();++it) {
+        Object* member=const_cast<Object*>(*it);
+        member->teleportTo(&out,false);
+        if(member->getDrawable()) member->getDrawable()->fadeIn(10);
+       }
+      }
+     }
+     object->teleportTo(&out,false);
+     if(object->getDrawable()) object->getDrawable()->fadeIn(10);
+    }
+   }
+  }
+ }
 }
