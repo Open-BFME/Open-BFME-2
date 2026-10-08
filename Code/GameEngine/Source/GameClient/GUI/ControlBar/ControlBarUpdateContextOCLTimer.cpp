@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // ControlBar::updateContextOCLTimer, retail 0x0053E2B6 (148 bytes):
 // ?updateContextOCLTimer@ControlBar@@IAEXXZ
 // Identity (target): WorldBuilder's debug ControlBarOCLTimer.cpp
@@ -11,6 +11,7 @@
 // BFME 2 delta (target): nothing when the selected drawable (+0x6C) has no
 // object (Drawable +0xFC). Seconds divide by the logic frame rate global.
 #include "ascii_string.h"
+#include "unicode_string.h"
 
 enum NameKeyType
 {
@@ -193,4 +194,40 @@ void ControlBar::rva0053E34A(int status)
 	sellButton->winSetStatus(0x00200000);
 	updateContextOCLTimer();
 	((Gen_003bcb40 *)this)->m(status);
+}
+
+class GameTextInterface;
+extern GameTextInterface *TheGameText;
+class OCLGameTextView {
+public:
+    virtual void slot00(); virtual void slot01(); virtual void slot02();
+    virtual void slot03(); virtual void slot04(); virtual void slot05();
+    virtual void slot06(); virtual void slot07(); virtual void slot08();
+    virtual void slot09(); virtual void slot10(); virtual void slot11();
+    virtual void slot12(); virtual void slot13(); virtual void slot14();
+    virtual void slot15(); virtual void slot16();
+    virtual const UnicodeString *fetch(const char *, bool *);
+};
+void GadgetStaticTextSetText(GameWindow *, UnicodeString);
+void GadgetProgressBarSetProgress(GameWindow *, int);
+
+// Clean BFME1 ba7ddda7 ContextUI and the complete ZH ControlBarOCLTimer
+// file supply the workflow. Named WB1122F80 and native53E17E..53E2B6
+// establish both local static keys, dispatch slots, labels and +7C cache.
+void ControlBar::updateOCLTimerTextDisplay(unsigned int totalSeconds, float percent)
+{
+    UnicodeString text;
+    static unsigned int descID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:OCLTimerStaticText");
+    GameWindow *descWindow = TheWindowManager->winGetWindowFromId(0, (int)descID);
+    static unsigned int barID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:OCLTimerProgressBar");
+    GameWindow *barWindow = TheWindowManager->winGetWindowFromId(0, (int)barID);
+    int minutes = totalSeconds / 60;
+    int seconds = totalSeconds - minutes * 60;
+    if (seconds < 10)
+        text.format(((OCLGameTextView *)TheGameText)->fetch("CONTROLBAR:OCLTimerDescWithPadding", 0), minutes, seconds);
+    else
+        text.format(((OCLGameTextView *)TheGameText)->fetch("CONTROLBAR:OCLTimerDesc", 0), minutes, seconds);
+    GadgetStaticTextSetText(descWindow, text);
+    GadgetProgressBarSetProgress(barWindow, (int)(percent * 100));
+    m_displayedOCLTimerSeconds = totalSeconds;
 }
