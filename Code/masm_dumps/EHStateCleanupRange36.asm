@@ -456,6 +456,45 @@ PUBLIC ?rva007642A2@@YAXXZ
     ret
 ?rva007642A2@@YAXXZ ENDP
 
+; Unwind@00b642dd: eh-vector-dtor cleanup adds 28h to [ebp-20] and passes it to 004B3FD0h.
+PUBLIC ?rva007642DD@@YAXXZ
+?rva007642DD@@YAXXZ PROC
+    push 004B3FD0h
+    push 4
+    push 8
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 28h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007642DD@@YAXXZ ENDP
+
+; Unwind@00b642f3: eh-vector-dtor cleanup adds 48h to [ebp-20] and passes it to 004B3FD0h.
+PUBLIC ?rva007642F3@@YAXXZ
+?rva007642F3@@YAXXZ PROC
+    push 004B3FD0h
+    push 4
+    push 8
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 48h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007642F3@@YAXXZ ENDP
+
+; Unwind@00b64309: eh-vector-dtor cleanup adds 68h to [ebp-20] and passes it to 004B3FD0h.
+PUBLIC ?rva00764309@@YAXXZ
+?rva00764309@@YAXXZ PROC
+    push 004B3FD0h
+    push 4
+    push 8
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 68h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00764309@@YAXXZ ENDP
+
 ; Unwind@00b646b7: state bit 0 at [ebp-20]; cleanup transfer at [ebp+8].
 PUBLIC ?rva007646B7@@YAXXZ
 ?rva007646B7@@YAXXZ PROC
