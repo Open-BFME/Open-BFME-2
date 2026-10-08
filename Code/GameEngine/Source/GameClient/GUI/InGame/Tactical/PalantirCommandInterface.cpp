@@ -21,6 +21,9 @@ private:
 };
 class Rva00528FE6 {
 public:
+ // ?Rva00528FE6::Rva00528FE6 present-unmatched
+ __forceinline Rva00528FE6():m_ptr(0){}
+ void rva00529009();
  void rva00528FE6(CameraMarker *marker);
 private:
  void *m_ptr;
@@ -91,3 +94,28 @@ void Rva0052991E::rva005297DD(const char *path)
 		return;
 	button->m_subMenu.rva00575674((Object *)new Rva005C3F02((void *)Rva004128BBGetLevel(name.str()), (void *)&AsciiString(Rva00412845AfterLevel(name.str()))));
 }
+
+// The owning slot lifetime is independently established by constructor529FC5:
+// six elements at+64,20B stride, constructor callback2859D7/dtor529318.
+// Target destructor proves owning-pointer cleanup AD6F4 at0/4, camera holder
+// cleanup529009 at8, counted Apt release7DEEF atC;10 is plain zeroed state.
+// Constructor2859D7 has no Ghidra entry, but is an explicit constructor callback
+// in529FC5; the preceding row2859C1 ends exactly at its first byte.
+// Prefix/member views remain address-derived; no donor identity or new pin claimed.
+class Rva000AD6F4 {public:
+// ?Rva000AD6F4::Rva000AD6F4 present-unmatched
+Rva000AD6F4():p(0){}
+~Rva000AD6F4();void*p;};
+struct PalantirToggleHolder: Rva00528FE6 {
+// ?PalantirToggleHolder::~PalantirToggleHolder present-unmatched
+~PalantirToggleHolder(){rva00529009();}};
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+struct PalantirSlotRef {
+// ?PalantirSlotRef::PalantirSlotRef present-unmatched
+PalantirSlotRef():p(0){}
+// ?PalantirSlotRef::~PalantirSlotRef present-unmatched
+~PalantirSlotRef(){if(p)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)p);}void*p;};
+class Rva00529318Slot {public:Rva00529318Slot();~Rva00529318Slot();Rva000AD6F4 command,subMenu;PalantirToggleHolder toggle;PalantirSlotRef callback;int slotState;};
+Rva00529318Slot::Rva00529318Slot():slotState(0){}
+Rva00529318Slot::~Rva00529318Slot(){}
