@@ -34,3 +34,23 @@ int __stdcall Rva000532B7Get(Xfer *xfer)
 	}
 	return 1;
 }
+
+// Native [0x5333F,0x5335x),19B: releases the refcounted object at +0x88 of the
+// holder's +4 target when that pointer is set; the final release is a tail jump.
+// Address-derived names: the holder and its target layouts are not proven.
+struct Rva0005333FTarget
+{
+	unsigned char pad00[0x88];
+	OpaqueRefCounted m_ref88;
+};
+struct Rva0005333FHolder
+{
+	int m_00;
+	Rva0005333FTarget *m_target04;
+	void rva0005333F();
+};
+void Rva0005333FHolder::rva0005333F()
+{
+	if (m_target04)
+		m_target04->m_ref88.Release_Ref();
+}
