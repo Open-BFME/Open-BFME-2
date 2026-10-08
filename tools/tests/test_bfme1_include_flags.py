@@ -2,6 +2,8 @@
 import sys
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 
@@ -84,6 +86,158 @@ def test_explicit_submodule_legacy_include_still_maps_to_current_layout():
     assert build._current_bfme1_include_flag(
         "-Ireference/open-bfme-1/Code/Libraries/Include") == (
             "-Ireference/open-bfme-1/game/Libraries/Include")
+
+
+def test_rootless_cnc_reference_flag_resolves_to_physical_current_reference(
+        tmp_path, monkeypatch):
+    repo = tmp_path / "bfme2"
+    donor = repo / "reference/open-bfme-1"
+    physical = (donor / "inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/"
+                "Code/Libraries/Source/WWVegas/WWDebug")
+    physical.mkdir(parents=True)
+    monkeypatch.setattr(build, "ROOT", repo)
+    monkeypatch.setattr(build, "BFME1_ROOT", donor)
+    source = repo / "Code" / "sample.cpp"
+
+    assert build._current_bfme1_include_flag(
+        "-Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/"
+        "Libraries/Source/WWVegas/WWDebug", source) == (
+            "-Ireference/open-bfme-1/inputs/reference/"
+            "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/"
+            "WWVegas/WWDebug")
+
+
+def test_legacy_cnc_library_family_moves_under_wwvegas_only_when_present(
+        tmp_path, monkeypatch):
+    repo = tmp_path / "bfme2"
+    donor = repo / "reference/open-bfme-1"
+    physical = (donor / "inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/"
+                "Code/Libraries/Source/WWVegas/WWSaveLoad")
+    physical.mkdir(parents=True)
+    monkeypatch.setattr(build, "ROOT", repo)
+    monkeypatch.setattr(build, "BFME1_ROOT", donor)
+    source = donor / "game" / "sample.cpp"
+
+    assert build._current_bfme1_include_flag(
+        "-Iinputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/"
+        "Libraries/Source/WWSaveLoad", source) == (
+            "-Ireference/open-bfme-1/inputs/reference/"
+            "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/"
+            "WWVegas/WWSaveLoad")
+
+
+@pytest.mark.parametrize("old,new", [
+    ("GeneralsMD/Code/Compression",
+     "GeneralsMD/Code/Libraries/Source/Compression"),
+    ("GeneralsMD/Code/WWDebug",
+     "GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug"),
+    ("GeneralsMD/GeneralsMD/Code/GameEngine/Source",
+     "GeneralsMD/Code/GameEngine/Source"),
+])
+def test_verified_cnc_directory_moves_use_existing_physical_target(
+        tmp_path, monkeypatch, old, new):
+    repo = tmp_path / "bfme2"
+    donor = repo / "reference/open-bfme-1"
+    physical = (donor / "inputs/reference/CnC_Generals_Zero_Hour" / new)
+    physical.mkdir(parents=True)
+    monkeypatch.setattr(build, "ROOT", repo)
+    monkeypatch.setattr(build, "BFME1_ROOT", donor)
+    source = donor / "game" / "sample.cpp"
+
+    assert build._current_bfme1_include_flag("-Iinputs/reference/"
+        "CnC_Generals_Zero_Hour/" + old, source) == (
+            "-Ireference/open-bfme-1/inputs/reference/"
+            "CnC_Generals_Zero_Hour/" + new)
+
+
+def test_legacy_toolchain_alias_resolves_only_to_packaged_tree(tmp_path, monkeypatch):
+    repo = tmp_path / "bfme2"
+    donor = repo / "reference/open-bfme-1"
+    physical = (donor / "inputs/toolchains/vs2003/Program Files/"
+                "Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include")
+    physical.mkdir(parents=True)
+    monkeypatch.setattr(build, "ROOT", repo)
+    monkeypatch.setattr(build, "BFME1_ROOT", donor)
+    source = donor / "game" / "sample.cpp"
+
+    assert build._current_bfme1_include_flag(
+        "-Iinputs/toolchains/vs2003/PROG~FBU/MICR~2RR.NET/"
+        "Vc7/PLAT~MIB/Include", source) == (
+            "-Ireference/open-bfme-1/inputs/toolchains/vs2003/Program Files/"
+            "Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include")
+
+
+def test_bfme2_code_path_stays_local_when_present_and_unknown_paths_stay_visible(
+        tmp_path, monkeypatch):
+    repo = tmp_path / "bfme2"
+    donor = repo / "reference/open-bfme-1"
+    (repo / "Code/GameEngine/Include/Precompiled").mkdir(parents=True)
+    (donor / "game/GameEngine/Include/Precompiled").mkdir(parents=True)
+    monkeypatch.setattr(build, "ROOT", repo)
+    monkeypatch.setattr(build, "BFME1_ROOT", donor)
+    source = repo / "Code" / "sample.cpp"
+
+    assert build._current_bfme1_include_flag(
+        "-ICode/GameEngine/Include/Precompiled", source) == (
+            "-ICode/GameEngine/Include/Precompiled")
+    assert build._current_bfme1_include_flag(
+        "-Ireference/unknown/include", source) == "-Ireference/unknown/include"
+
+
+def test_missing_legacy_code_path_maps_only_to_existing_bfme1_directory(
+        tmp_path, monkeypatch):
+    repo = tmp_path / "bfme2"
+    donor = repo / "reference/open-bfme-1"
+    (donor / "game/GameEngine/Include/Precompiled").mkdir(parents=True)
+    monkeypatch.setattr(build, "ROOT", repo)
+    monkeypatch.setattr(build, "BFME1_ROOT", donor)
+    source = repo / "Code" / "sample.cpp"
+
+    assert build._current_bfme1_include_flag(
+        "-ICode/GameEngine/Include/Precompiled", source) == (
+            "-Ireference/open-bfme-1/game/GameEngine/Include/Precompiled")
+    assert build._current_bfme1_include_flag(
+        "-ICode/NoSuchDirectory", source) == "-ICode/NoSuchDirectory"
+
+
+def test_unqualified_cnc_code_root_uses_one_sibling_variant_from_cl_flags(
+        tmp_path, monkeypatch):
+    repo = tmp_path / "bfme2"
+    donor = repo / "reference/open-bfme-1"
+    for variant in ("Generals", "GeneralsMD"):
+        (donor / "inputs/reference/CnC_Generals_Zero_Hour" / variant /
+         "Code/Libraries/Source/WWVegas/WWMath").mkdir(parents=True)
+        (donor / "inputs/reference/CnC_Generals_Zero_Hour" / variant /
+         "Code/GameEngine/Include").mkdir(parents=True)
+    monkeypatch.setattr(build, "ROOT", repo)
+    monkeypatch.setattr(build, "BFME1_ROOT", donor)
+    source = repo / "Code" / "sample.cpp"
+    source.parent.mkdir(parents=True)
+    source.write_text(
+        "// cl: /Ireference/open-bfme-1/inputs/reference/"
+        "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include "
+        "/Ireference/open-bfme-1/inputs/reference/"
+        "CnC_Generals_Zero_Hour/Code/Libraries/Source/WWVegas/WWMath\n")
+
+    flags = build.source_extra_flags(source)
+    assert ("-Ireference/open-bfme-1/inputs/reference/"
+            "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath") in flags
+
+
+def test_unqualified_cnc_code_root_stays_unresolved_when_variant_is_ambiguous(
+        tmp_path, monkeypatch):
+    repo = tmp_path / "bfme2"
+    donor = repo / "reference/open-bfme-1"
+    monkeypatch.setattr(build, "ROOT", repo)
+    monkeypatch.setattr(build, "BFME1_ROOT", donor)
+    source = repo / "Code" / "sample.cpp"
+
+    assert build._current_bfme1_include_flag(
+        "-Ireference/open-bfme-1/inputs/reference/"
+        "CnC_Generals_Zero_Hour/Code/Libraries/Source/WWVegas/WWMath",
+        source) == (
+            "-Ireference/open-bfme-1/inputs/reference/"
+            "CnC_Generals_Zero_Hour/Code/Libraries/Source/WWVegas/WWMath")
 
 
 def test_source_flag_tokens_preserve_existing_bare_flags():

@@ -678,13 +678,135 @@ def _is_bfme1_donor(source):
         return False
 
 
-def _current_bfme1_include_flag(flag, source=None):
+_BFME1_CNC_WW_FAMILIES = {
+    "WWAudio", "WWDebug", "WWDownload", "WWLib", "WWMath", "WWSaveLoad",
+    "WW3D2", "Wwutil", "wwshade",
+}
+_BFME1_VS2003_ROOT = (
+    "inputs/toolchains/vs2003/Program Files/"
+    "Microsoft Visual Studio .NET 2003"
+)
+_BFME1_VS2003_ROOT_ALIASES = (
+    "inputs/toolchains/vs2003/PROG~FBU/MICR~2RR.NET",
+    "inputs/toolchains/vs2003/PROGRA~1/MICROS~1.NET",
+    "inputs/toolchains/vs2003/native",
+)
+
+
+def _bfme1_physical_include(relative, cnc_variant=None):
+    """Return the exact on-disk spelling of a supported BFME1 include dir.
+
+    Windows accepts case-insensitive path components, while the inventory and
+    this resolver run on a case-sensitive host. Resolve case-only spelling
+    differences only when one physical component matches. Known pre-migration
+    WWVegas and VS2003 directory spellings are handled explicitly below;
+    arbitrary missing paths are never guessed.
+    """
+    relative = relative.replace("\\", "/")
+
+    # Older CnC include lists put the WWVegas family directories directly under
+    # Libraries/Source. The checked-in reference keeps them under WWVegas/.
+    marker = "/Code/Libraries/Source/"
+    if relative.startswith("inputs/reference/CnC_Generals_Zero_Hour/"):
+        cnc = "inputs/reference/CnC_Generals_Zero_Hour/"
+        unqualified_code = cnc + "Code/"
+        if relative.startswith(unqualified_code) and cnc_variant in ("Generals", "GeneralsMD"):
+            target = cnc + cnc_variant + "/Code/" + relative[len(unqualified_code):]
+            if (BFME1_ROOT / target).is_dir():
+                relative = target
+
+        migrations = (
+            ("GeneralsMD/Code/Compression", "GeneralsMD/Code/Libraries/Source/Compression"),
+            ("GeneralsMD/Code/WWDebug", "GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug"),
+        )
+        for old, current in migrations:
+            old_root = cnc + old
+            if relative == old_root or relative.startswith(old_root + "/"):
+                target = cnc + current + relative[len(old_root):]
+                if (BFME1_ROOT / target).is_dir():
+                    relative = target
+                    break
+
+        duplicated = cnc + "GeneralsMD/GeneralsMD/Code/"
+        if relative.startswith(duplicated):
+            target = cnc + "GeneralsMD/Code/" + relative[len(duplicated):]
+            if (BFME1_ROOT / target).is_dir():
+                relative = target
+
+        before, sep, tail = relative.partition(marker)
+        if sep:
+            family, slash, remainder = tail.partition("/")
+            if family in _BFME1_CNC_WW_FAMILIES:
+                direct = BFME1_ROOT / before / "Code/Libraries/Source" / family
+                nested = (BFME1_ROOT / before / "Code/Libraries/Source/WWVegas" /
+                          family)
+                if not direct.is_dir() and nested.is_dir():
+                    relative = (before + marker + "WWVegas/" + family +
+                                (slash + remainder if slash else ""))
+
+    # A few legacy source directives captured DOS 8.3 directory aliases (and
+    # one local VS2003 install root). Resolve those only to the packaged VS7.1
+    # tree in this BFME1 checkout, whose actual directory was verified.
+    for alias in _BFME1_VS2003_ROOT_ALIASES:
+        if relative == alias or relative.startswith(alias + "/"):
+            suffix = relative[len(alias):].lstrip("/")
+            suffix = suffix.replace("PLAT~MIB/", "PlatformSDK/")
+            relative = _BFME1_VS2003_ROOT + ("/" + suffix if suffix else "")
+            break
+    if relative.startswith("../../../inputs/vendor/"):
+        # This donor's legacy project-relative include points at the moved
+        # vendor tree, not at a directory three levels above BFME2's checkout.
+        relative = "inputs/vendor/" + relative[len("../../../inputs/vendor/"):]
+
+    candidate = BFME1_ROOT
+    actual_parts = []
+    for part in Path(relative).parts:
+        if part in ("", "."):
+            continue
+        if part == "..":
+            if not actual_parts:
+                return None
+            actual_parts.pop()
+            candidate = BFME1_ROOT.joinpath(*actual_parts)
+            continue
+        if candidate.is_dir() and not (candidate / part).exists():
+            folded = [entry.name for entry in candidate.iterdir()
+                      if entry.name.casefold() == part.casefold()]
+            if len(folded) != 1:
+                return None
+            part = folded[0]
+        candidate = candidate / part
+        actual_parts.append(part)
+    if candidate.is_dir():
+        return Path(*actual_parts).as_posix()
+    return None
+
+
+def _bfme1_layout_relative(relative):
+    """Translate a BFME1-root-relative include through the layout table."""
+    relative = relative.replace("\\", "/")
+    layouts = (
+        ("game/", "game"), ("Code/", "game"), ("code/", "game"),
+        ("inputs/reference/", "reference"), ("reference/", "reference"),
+        ("inputs/toolchains/", "toolchains"), ("build/toolchains/", "toolchains"),
+        ("inputs/baselines/", "baselines"), ("baselines/", "baselines"),
+        ("inputs/vendor/", "vendor"), ("vendor/", "vendor"),
+    )
+    for spelling, kind in layouts:
+        if relative.startswith(spelling):
+            return bfme1_subtree(kind) + "/" + relative[len(spelling):]
+    return relative
+
+
+def _current_bfme1_include_flag(flag, source=None, cnc_variant=None):
     """Resolve Open-BFME-1 ``// cl: /I...`` paths from either checkout layout.
 
-    BFME2 sources already name the submodule explicitly. A BFME1 donor compiled
-    in BFME2 carries paths relative to the donor checkout (``/Igame/...`` or
-    ``/Iinputs/reference/...``), so prefix those only when the source itself is
-    inside the submodule. Never reinterpret a BFME2-local ``/Igame/...`` path.
+    BFME2-local paths remain local. Explicit submodule paths are migrated from
+    old to current upstream layout, and the old rootless CnC reference spelling
+    is rooted at BFME1's physical ``inputs/reference`` tree. For a BFME2 source,
+    an unqualified legacy ``Code/`` include is redirected only when that BF2
+    directory is absent and the corresponding BF1 ``game/`` directory exists.
+    A BFME1 donor's own source-relative paths are always rooted at that donor.
     """
     prefix = "-I" if flag.startswith("-I") else "/I" if flag.startswith("/I") else None
     if prefix is None:
@@ -693,26 +815,46 @@ def _current_bfme1_include_flag(flag, source=None):
     root = "reference/open-bfme-1/"
     in_donor = source is not None and _is_bfme1_donor(source)
 
-    relative = include[len(root):] if include.startswith(root) else include
+    if include.startswith(root):
+        relative = _bfme1_layout_relative(include[len(root):])
+        physical = _bfme1_physical_include(relative, cnc_variant)
+        if physical is not None:
+            relative = physical
+        return prefix + root + relative
+
+    # BF2 TUs retain donor-era include flags using this rootless CnC spelling.
+    # Other BF2 ``reference/`` flags name local shims and must remain untouched.
+    legacy_cnc = "reference/CnC_Generals_Zero_Hour/"
+    if not in_donor and include.startswith(legacy_cnc):
+        relative = _bfme1_layout_relative(include)
+        physical = _bfme1_physical_include(relative, cnc_variant)
+        if physical is not None:
+            return prefix + root + physical
+        return prefix + root + relative
+
     if not include.startswith(root) and not in_donor:
+        # Some BF2 sources retained the old Code/ root for BF1 headers. Keep a
+        # real BF2 directory first; otherwise translate only to an existing BF1
+        # directory and leave unknown Code/ paths unchanged.
+        if include.startswith("Code/"):
+            local = ROOT / include
+            if local.is_dir():
+                return flag
+            relative = _bfme1_layout_relative(include)
+            physical = _bfme1_physical_include(relative, cnc_variant)
+            if physical is not None:
+                return prefix + root + physical
         return flag
 
-    layouts = (
-        ("game/", "game"), ("Code/", "game"),
-        ("inputs/reference/", "reference"), ("reference/", "reference"),
-        ("inputs/toolchains/", "toolchains"), ("build/toolchains/", "toolchains"),
-        ("inputs/baselines/", "baselines"), ("baselines/", "baselines"),
-        ("inputs/vendor/", "vendor"), ("vendor/", "vendor"),
-    )
-    for spelling, kind in layouts:
-        if relative.startswith(spelling):
-            mapped = bfme1_subtree(kind) + "/" + relative[len(spelling):]
-            return prefix + root + mapped
     if in_donor:
-        if ":" in relative or relative.startswith(("/", "\\")):
+        if ":" in include or include.startswith(("/", "\\")):
             return flag
-        # These directives are relative to the BFME1 checkout root. Preserve
-        # their subpath under the submodule so the compiler resolves that tree.
+        relative = _bfme1_layout_relative(include)
+        physical = _bfme1_physical_include(relative, cnc_variant)
+        if physical is not None:
+            return prefix + root + physical
+        # Keep unresolved legacy operands visible to the inventory rather than
+        # inventing a directory or dropping the path.
         return prefix + root + relative
     return flag
 
@@ -751,6 +893,29 @@ def _source_flag_tokens(text):
     return tokens
 
 
+def _bfme1_cnc_variant_from_flags(flags):
+    """Return one explicit CnC source variant named by sibling include flags."""
+    variants = set()
+    index = 0
+    while index < len(flags):
+        token = flags[index]
+        if token in ("-I", "/I") and index + 1 < len(flags):
+            index += 1
+            include = flags[index]
+        elif token.startswith(("-I", "/I")):
+            include = token[2:]
+        else:
+            index += 1
+            continue
+        parts = include.replace("\\", "/").split("/")
+        for position, part in enumerate(parts[:-1]):
+            if (part == "CnC_Generals_Zero_Hour" and
+                    parts[position + 1] in ("Generals", "GeneralsMD")):
+                variants.add(parts[position + 1])
+        index += 1
+    return next(iter(variants)) if len(variants) == 1 else None
+
+
 def source_extra_flags(source):
     # A source that needs different compiler flags (e.g. /EHsc for functions the
     # original built with exception handling) declares them in its first lines:
@@ -781,8 +946,10 @@ def source_extra_flags(source):
                 # leading '/' arguments as Windows paths.
                 flags = [f.replace("/", "-", 1) if f.startswith("/") else f
                          for f in _source_flag_tokens(line[len("// cl:") :])]
+                cnc_variant = _bfme1_cnc_variant_from_flags(flags)
                 return flag_defaults.apply(
-                    source, [_current_bfme1_include_flag(flag, source) for flag in flags])
+                    source, [_current_bfme1_include_flag(flag, source, cnc_variant)
+                             for flag in flags])
     # The region decides /O, /arch and /G for Code/ sources (tools/flag_defaults.py).
     return flag_defaults.apply(source, [])
 
