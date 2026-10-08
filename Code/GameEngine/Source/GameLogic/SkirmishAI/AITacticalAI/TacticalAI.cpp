@@ -107,7 +107,7 @@ class Rva002C5EF0
 public:
     Rva002C5EF0(const Coord3DBase &,float,Player *);
     void rva002C5EF0(Xfer *);
-private:
+public:
     unsigned int id;
     float position[3];
     unsigned int state;
@@ -122,10 +122,13 @@ public:
     void rva005059A1(Team *);
     void rva00505A56(Team *);
 };
+class Rva002C5FE8 { public: void rva002C60A9(unsigned int); };
+
 class TacticalAI
 {
 public:
     void DoXfer(Xfer *);
+    void rva002C64D0(const Coord3DBase *, int);
     __declspec(noinline) void Register(Team *);
     __declspec(noinline) void UnRegister(Team *);
 private:
@@ -172,4 +175,46 @@ void TacticalAI::Register(Team *team)
 void TacticalAI::UnRegister(Team *team)
 {
     generator->rva00505A56(team);
+}
+
+// Complete native 002C64D0..002C65EB, 283 bytes. Caller 002C677E uses an
+// object's coordinate and -1; recursion preserves an existing zone's id.
+// Native constants bound the vector to 20 zones, merge within 600 squared,
+// and initialize a newly allocated zone with radius 300. Purpose inferred.
+void TacticalAI::rva002C64D0(const Coord3DBase *position, int id)
+{
+    if (interestZones.size() >= 20)
+    {
+        Rva002C5EF0 *old=*interestZones.begin();
+        if(old) delete old;
+        interestZones.erase(interestZones.begin());
+    }
+    int nearestId=-1;
+    float nearestDistance=-1.0f;
+    Rva002C5EF0 **end=interestZones.end();
+    for(Rva002C5EF0 **i=interestZones.begin();i!=end;++i)
+    {
+        float dx=(*i)->position[0]-position->x;
+        float dy=(*i)->position[1]-position->y;
+        float distance=dx*dx+dy*dy;
+        if(distance<nearestDistance || nearestDistance<0.0f)
+        {
+            nearestDistance=distance;
+            nearestId=(*i)->id;
+        }
+    }
+    if(!(nearestDistance>=360000.0f || nearestDistance==-1.0f))
+    {
+        if(nearestId!=-1)
+        {
+            reinterpret_cast<Rva002C5FE8 *>(this)->rva002C60A9(nearestId);
+            rva002C64D0(position,nearestId);
+        }
+    }
+    else
+    {
+        Rva002C5EF0 *zone=new Rva002C5EF0(*position,300.0f,player);
+        if(id!=-1) zone->id=id;
+        interestZones.push_back(zone);
+    }
 }
