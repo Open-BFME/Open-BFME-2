@@ -69850,3 +69850,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva0027532F@Rva0027532F@@QAE_N_N@Z,,0x0027532F,71,Code/GameEngine/Source/GameClient/Rva0027532FFlag.cpp,matched,predicate on object at +0xFC; bit2 of +0x437; BitFlags any at +0x1C8; mask bits 0x24 and 0x40; t=25min model=claude-haiku-5-5
 ?rva0055EECB@Rva0055EECB@@QAEXPAVXfer@@@Z,,0x0055EECB,110,Code/GameEngine/Source/GameClient/Rva0055EECBXfer.cpp,matched,version gated xfer; vslots 0x28 0x70 0x60 0x90; matched xferRandomVariable helper; t=68min model=claude-haiku-5-5
 ?rva003B9EC4@@YAHPAURva003B9EC4Arg@@H@Z,,0x003B9EC4,108,Code/GameEngine/Source/Common/Rva003B9EC4.cpp,matched,address-derived; timing-log enable byte global
+?rva003F8052@Rva003F8052@@QAE_NXZ,,0x003F8052,21,Code/Libraries/Source/WWVegas/WW3D2/WaterRenderObjRva003F802B.cpp,matched,Null-guarded negated grid predicate 0x003F7D29 via +0x14 pointer; retail 21B
