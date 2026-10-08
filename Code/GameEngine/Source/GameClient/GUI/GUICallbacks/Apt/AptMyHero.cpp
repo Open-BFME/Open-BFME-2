@@ -27,10 +27,24 @@ class Rva00407E28 {public: int rva00407E28(int id);bool rva00407DE0(int id,int v
 class CreateAHeroHero;
 class Rva00223AC4 {public: Image *rva00223AC4(const char *,const char *);};
 class Rva002239B2 {public: void rva002239E2(const AsciiString &,const Image *);};
-class CreateAHeroData {public: CreateAHeroData &operator=(const CreateAHeroData &);};
+// AptMyHero's base: vtable 0x00C38D88's five slots, the rowed assignment
+// and destructor, and the fields the screen reads.
+class CreateAHeroData {
+public:
+ virtual ~CreateAHeroData();
+ virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();
+ CreateAHeroData &operator=(const CreateAHeroData &);
+protected:
+ char pad04[0x0C-4];
+ int field0C,field10;
+ char pad14[0x138-0x14];
+ const Image *image138;
+ char pad13C[4];
+};
+void free(void *);
 struct BfmePod8 {int a;float b;};
 // The rowed by-value resize 0x005FF96A is spelled on this vector view.
-class BfmePod8Vector {public: void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
+class BfmePod8Vector {public: ~BfmePod8Vector(){if(first)free(first);}void resize(unsigned int,BfmePod8);unsigned int size() const {return last-first;}BfmePod8 *first,*last,*capacity;};
 class Rva005B0E9F {public: BfmePod8 *rva005B0E9F(int);};
 class Rva00406E47 {public: bool rva00406E47(int);};
 struct Rva005B0473View {char opaque[0x60];float field60;int field64,field68;};
@@ -65,7 +79,7 @@ public:
 extern GameWindowManager *TheWindowManager;
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
-struct MyHeroBlingBlock {MyHeroBlingRecord *first,*last,*capacity;};
+struct MyHeroBlingBlock {~MyHeroBlingBlock();MyHeroBlingRecord *first,*last,*capacity;};
 int GetGameClientRandomValue(int,int,char *,int);
 extern "C" __declspec(dllimport) char *__cdecl strstr(const char *,const char *);
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *);
@@ -75,9 +89,14 @@ class CommandButton;
 class Rva00406ED7 {public: const CommandButton *rva00406ED7(int);};
 void __cdecl Rva005B24CDHeroPowerText(void *,const char *,int);
 bool __cdecl rva005B2295(const CommandButton *button,const char *prefix,int index,int page);
-class AptMyHero {
+class Rva00223A94 {public: int rva00223A94(const AsciiString *);};
+class Rva005241DF {public: void rva005241DF(const StringBase<char> &);};
+class Rva005B1830 {public: void rva005B1830();};
+const AsciiString &rva005B0A53(const char *kind,int index);
+class AptMyHero : public CreateAHeroData {
 public:
- virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
+ virtual ~AptMyHero();
+ virtual void slot14();
  void SwitchToPendingHero();
  void rva005B21DA(CreateAHeroData *hero,bool flag,int mode);
  void rva005B0416(int);int rva005B0E60(const Object *);void rva005B1A6C();void rva005B0446();
@@ -87,11 +106,6 @@ public:
  void BuildBlingData();
  void rva005B0487();void rva005B1019();void rva005B1288();void rva005B097F(int);void rva005B0FCD(int);
 private:
- char pad04[0x0C-4];
- int field0C,field10;
- char pad14[0x138-0x14];
- const Image *image138;
- char pad13C[4];
  void *holder140;
  CreateAHeroData *pending144;
  bool flag148;
@@ -306,4 +320,22 @@ const AsciiString &rva005B0A53(const char *kind,int index){
  static AsciiString key;
  key.format("MyHero::%sAttrib_%d",kind,index);
  return key;
+}
+
+// AptMyHero::~AptMyHero, retail 0x005B190D..0x005B1A07 (250 bytes): drops
+// the Base/Cur/Max attribute keys of five slots from the +0x140 holder's
+// +0x228 registry, clears the Cah::Portrait image key, runs 0x005B1830,
+// then the members (two bling vectors at +0x174, the location map at
+// +0x15C) and the CreateAHeroData base are destroyed.
+AptMyHero::~AptMyHero(){
+ for(int i=0;i<5;++i){
+  reinterpret_cast<Rva005241DF *>((char *)holder140+0x228)->rva005241DF(*(const StringBase<char> *)&rva005B0A53("Base",i));
+  reinterpret_cast<Rva005241DF *>((char *)holder140+0x228)->rva005241DF(*(const StringBase<char> *)&rva005B0A53("Cur",i));
+  reinterpret_cast<Rva005241DF *>((char *)holder140+0x228)->rva005241DF(*(const StringBase<char> *)&rva005B0A53("Max",i));
+ }
+ {
+  AsciiString key("Cah::Portrait");
+  reinterpret_cast<Rva00223A94 *>(g_bfmeAptWindowManager)->rva00223A94(&key);
+ }
+ reinterpret_cast<Rva005B1830 *>(this)->rva005B1830();
 }
