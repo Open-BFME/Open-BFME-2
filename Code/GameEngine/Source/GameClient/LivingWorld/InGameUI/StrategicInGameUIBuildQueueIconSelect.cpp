@@ -274,7 +274,6 @@ class Rva005F7480 { public: void rva005F7480(); };
 class Rva005F7488 { public: void rva005F7488(int); };
 class Rva005F7490 { public: void rva005F7490(); };
 struct Rva005EThing { char pad[0x618]; int m_commandPoints; };
-// ?ShowUnitStats@Impl@BuildQueueDetailsPanel@StrategicInGameUI@@QAEXH@Z present-unmatched
 void StrategicInGameUI::BuildQueueDetailsPanel::Impl::ShowUnitStats(int index)
 {
  if(index>=0) {
