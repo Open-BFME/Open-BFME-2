@@ -1,6 +1,8 @@
 // ?update@AIGuardRetaliateAttackAggressorState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.99 date=2026-10-09
+// ?update@AIGuardRetaliateAttackAggressorState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.8 date=2026-10-04
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /G7 /O1 /DNDEBUG /MD /arch:SSE
 //
 // AIGuardRetaliate state bodies ported from Zero Hour's
 // GameEngine/Source/GameLogic/AI/AIGuardRetaliate.cpp (GeneralsMD tree
@@ -527,7 +529,9 @@ StateReturnType AIGuardRetaliateAttackAggressorState::update( void )
 		getMachine()->setGoalObject(nemesis);
 	}
 	AttackExitConditionsInterface *conditions = &m_exitConditions;
-	if (conditions->shouldExit(getMachine()) || m_attackState == NULL)
+	if (conditions->shouldExit(getMachine()))
+		return STATE_SUCCESS;
+	if (m_attackState == NULL)
 		return STATE_SUCCESS;
 
 	Bool extend = owner->testStatus(OBJECT_STATUS_BFME_1C);
@@ -539,7 +543,8 @@ StateReturnType AIGuardRetaliateAttackAggressorState::update( void )
 		{
 			if (controller->bfmeIsTarget(nemesis))
 				extend = true;
-			if (nemesis->getID() == controller->bfmeTargetID(nemesis->getID()))
+			int reportedID = controller->bfmeTargetID(nemesis->getID());
+			if (reportedID == nemesis->getID())
 				extend = true;
 		}
 	}
