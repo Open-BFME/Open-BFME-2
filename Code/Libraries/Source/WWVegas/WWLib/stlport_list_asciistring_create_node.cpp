@@ -50,7 +50,7 @@ _STL::_List_node<AsciiString> *_STL::list<AsciiString, _STL::allocator<AsciiStri
 	return __p;
 }
 
-// Explicit instantiation so the class's inline callers (insert) odr-use the
-// specialization above and cl emits its body; explicit-instantiation-only
-// members are invisible to find_declared_unmatched.
-template class _STL::list<AsciiString, _STL::allocator<AsciiString> >;
+// Emit only the admitted node operation. Whole-class instantiation also
+// emitted an incompatible list-base constructor used by other exact callers.
+template _STL::_List_node<AsciiString> *
+_STL::list<AsciiString, _STL::allocator<AsciiString> >::_M_create_node(const AsciiString &);

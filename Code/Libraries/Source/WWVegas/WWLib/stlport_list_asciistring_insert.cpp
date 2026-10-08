@@ -63,7 +63,16 @@ inline bool operator!=(const AsciiString &a, const AsciiString &b) { return a.co
 inline bool operator<(const AsciiString &a, const AsciiString &b) { return a.compare(b) < 0; }
 #pragma optimize("", on)
 
-template class _STL::list<AsciiString, _STL::allocator<AsciiString> >;
+// Keep the verified operations and reuse their existing base providers.
+// A whole-class instantiation emits incompatible copies of unused members.
+extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::_List_base(const _STL::allocator<AsciiString> &);
+extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::~_List_base();
+typedef _STL::list<AsciiString,_STL::allocator<AsciiString> > AsciiList;
+template _STL::list<AsciiString,_STL::allocator<AsciiString> >::list(const AsciiList &);
+template AsciiList &AsciiList::operator=(const AsciiList &);
+template AsciiList::iterator AsciiList::insert(AsciiList::iterator,const AsciiString &);
+template void AsciiList::push_back(const AsciiString &);
+template AsciiList::iterator AsciiList::erase(AsciiList::iterator);
 
 // Retail comparison spelling names the verified worker at RVA 0x69D6.
 #pragma comment(linker, "/alternatename:?compare@AsciiString@@QBEHABV1@@Z=?compare@?$StringBase@D@@QBEHABV1@@Z")
