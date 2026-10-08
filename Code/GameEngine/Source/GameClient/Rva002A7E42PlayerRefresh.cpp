@@ -13,7 +13,7 @@ class ControlBar
 {
 public:
     void rva0031BAC3(Player *);
-    void rva0031C40E(Player *);
+    void setControlBarSchemeByPlayer(Player *);
 };
 extern ControlBar *TheControlBar;
 class ClientFrameSubsystem;
@@ -46,7 +46,7 @@ void Rva002A7E42::rva002A7E42(Player *player)
         if (TheShroudManager)
             reinterpret_cast<Rva007397D0 *>(TheShroudManager)->rva007397D0();
         TheControlBar->rva0031BAC3(player);
-        TheControlBar->rva0031C40E(player);
+        TheControlBar->setControlBarSchemeByPlayer(player);
         Rva002A7E42Client *client = reinterpret_cast<Rva002A7E42Client *>(TheGameClient);
         Rva002A7E42Entry *entry = client->vtable->first(client);
         while (entry)

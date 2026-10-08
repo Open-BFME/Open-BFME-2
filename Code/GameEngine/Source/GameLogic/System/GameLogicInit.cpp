@@ -1980,7 +1980,7 @@ class ControlBar
 public:
 	void rva0031D64F(void);
 	void rva0031AD48(bool flag);
-	void rva0031C40E(Player *player);
+	void setControlBarSchemeByPlayer(Player *player);
 	void rva0031BAC3(Player *player);
 
 	char m_pad000[0x210];
@@ -2705,12 +2705,12 @@ void GameLogic::rva0023F52C(bool loadingSaveGame)
 			((Rva007397D0 *)TheShroudManager)->rva007397D0();
 			if (g_Va00DFE750)
 				((Rva006C0820 *)g_Va00DFE750)->rva006C0820();
-			TheControlBar->rva0031C40E(ThePlayerList->getLocalPlayer());
+			TheControlBar->setControlBarSchemeByPlayer(ThePlayerList->getLocalPlayer());
 		} else {
 			Player *localPlayer = ThePlayerList->getLocalPlayer();
 			ThePlayerList->setLocalPlayer(ThePlayerList->getNeutralPlayer());
 			ThePlayerList->setLocalPlayer(localPlayer);
-			TheControlBar->rva0031C40E(ThePlayerList->getLocalPlayer());
+			TheControlBar->setControlBarSchemeByPlayer(ThePlayerList->getLocalPlayer());
 			TheControlBar->m_210 = 0;
 		}
 	}

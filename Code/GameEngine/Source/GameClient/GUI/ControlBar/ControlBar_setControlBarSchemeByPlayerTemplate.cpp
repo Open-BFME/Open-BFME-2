@@ -27,6 +27,11 @@ enum ControlBarContext
 };
 
 class PlayerTemplate;
+class Player
+{
+public:
+	bool isPlayerActive() const;
+};
 class NameKeyGenerator;
 class GameWindow;
 class GameWindowManager;
@@ -102,12 +107,14 @@ extern GameInfo *TheGameInfo;
 class ControlBarSchemeManager
 {
 public:
+	void setControlBarSchemeByPlayer(Player *p);
 	void setControlBarSchemeByPlayerTemplate(const PlayerTemplate *pt, bool useSmall);
 };
 
 class ControlBar
 {
 public:
+	void setControlBarSchemeByPlayer(Player *p);
 	void setControlBarSchemeByPlayerTemplate(const PlayerTemplate *pt);
 	void switchToContext(int ctx, void *param);
 	void switchControlBarStage(ControlBarStages stage);
@@ -162,4 +169,53 @@ void ControlBar::setControlBarSchemeByPlayerTemplate(const PlayerTemplate *pt)
 	switchControlBarStage(CONTROL_BAR_STAGE_DEFAULT);
 
 	Rva0043C96FEnable();
+}
+
+// ZH ControlBar.cpp setControlBarSchemeByPlayer at the verified BFME 1
+// reference ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f. Target 31C40E..31C5C8
+// has the same three button names and observer/active control flow. Layouts
+// come from the matched template overload above; native calls independently
+// reach manager 31FE49 and the Player active predicate 2AA231. No BFME 1
+// lifted body is used. The game's original method name is donor evidence.
+void ControlBar::setControlBarSchemeByPlayer(Player *p)
+{
+	if (m_controlBarSchemeManager)
+		m_controlBarSchemeManager->setControlBarSchemeByPlayer(p);
+
+	static NameKeyType buttonPlaceBeaconID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonPlaceBeacon");
+	static NameKeyType buttonIdleWorkerID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonIdleWorker");
+	static NameKeyType buttonGeneralID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonGeneral");
+	GameWindow *buttonPlaceBeacon = TheWindowManager->winGetWindowFromId(0, buttonPlaceBeaconID);
+	GameWindow *buttonIdleWorker = TheWindowManager->winGetWindowFromId(0, buttonIdleWorkerID);
+	GameWindow *buttonGeneral = TheWindowManager->winGetWindowFromId(0, buttonGeneralID);
+
+	if (!p->isPlayerActive())
+	{
+		m_isObserverCommandBar = true;
+		switchToContext(CB_CONTEXT_OBSERVER_LIST, 0);
+
+		if (buttonPlaceBeacon)
+			buttonPlaceBeacon->winHide(true);
+		if (buttonIdleWorker)
+			buttonIdleWorker->winHide(true);
+		if (buttonGeneral)
+			buttonGeneral->winEnable(false);
+	}
+	else
+	{
+		switchToContext(CB_CONTEXT_NONE, 0);
+		m_isObserverCommandBar = false;
+
+		if (buttonPlaceBeacon)
+			buttonPlaceBeacon->winHide((TheGameLogic->m_gameMode != GAME_LAN && TheGameLogic->m_gameMode != GAME_INTERNET) || !TheGameInfo->isMultiPlayer());
+		if (buttonIdleWorker)
+			buttonIdleWorker->winHide(false);
+		if (buttonGeneral)
+		{
+			buttonGeneral->winHide(false);
+			buttonGeneral->winEnable(true);
+		}
+	}
+	switchControlBarStage(CONTROL_BAR_STAGE_DEFAULT);
+
 }
