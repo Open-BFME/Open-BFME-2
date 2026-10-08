@@ -169,6 +169,7 @@ public:
  EAStringC(const char *);
  ~EAStringC();
  bool IsEqualTo(const EAStringC *) const;
+ int rva006D36C0(const EAStringC *) const;
  void *data;
 };
 struct Rva006D0280 {
@@ -179,6 +180,9 @@ struct Rva006D0280 {
 };
 class Rva006D07E0Key {
 public:
+ Rva006D07E0Key(Rva006D0280 *p=0):m_object(p) {
+  if(p) ++p->m_useCount;
+ }
  Rva006D07E0Key(const Rva006D07E0Key &other) {
   m_object=other.m_object;
   if(m_object) ++m_object->m_useCount;
@@ -315,4 +319,25 @@ Rva006D1130Iterator __cdecl Rva006D0540Copy(BfmeRefVGO *first,
   } while(first!=last);
  }
  return result;
+}
+
+// Native6D0A30..6D0A82: same counted-owner family as6D07E0.
+// Head0 nodes carry owner0/next4. Its existing compare provider6D36C0
+// is the signed zero-equality string operation at owner8. Returned
+// counted value supplies the construction slot that the old out-pointer
+// reconstruction had to force with a volatile local.
+struct Rva006D0A30Node { Rva006D0280 *entry; Rva006D0A30Node *next; };
+class Rva006D0A30List {
+public:
+ Rva006D07E0Key find(const EAStringC *key);
+ Rva006D0A30Node *head;
+};
+Rva006D07E0Key Rva006D0A30List::find(const EAStringC *key) {
+ Rva006D0A30Node *node=head;
+ while(node) {
+  if(node->entry->name8.rva006D36C0(key)==0)
+   return Rva006D07E0Key(node->entry);
+  node=node->next;
+ }
+ return Rva006D07E0Key();
 }
