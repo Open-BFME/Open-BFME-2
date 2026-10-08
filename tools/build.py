@@ -1943,6 +1943,19 @@ def compile_function(row, symbol_map, output):
 
     resolved, unresolved, covered = resolve(lib_member)
     masked = lib_member
+    if lib_member:
+        # A masked REL32 site is proven, not merely hidden, when the member's
+        # own call (addend 0) names a callee the ledger places exactly where
+        # retail's displacement lands. Count such a site as concrete, so a short
+        # CRT body whose only call goes to its rowed sibling is evidence; a call
+        # landing anywhere else, or naming a callee with no address, stays masked.
+        for offset, rtype, sym_name in relocs:
+            if (rtype != 0x0014 or offset + 4 > target_size or sym_name not in symbol_map
+                    or compiled[offset : offset + 4] != b"\0\0\0\0"):
+                continue
+            lands = (target_rva + offset + 4 + struct.unpack_from("<i", target, offset)[0]) & 0xFFFFFFFF
+            if lands in symbol_map[sym_name]:
+                covered[offset : offset + 4] = b"\0" * 4
     if gen_alias and not lib_member and bytes(resolved) != target:
         alt_resolved, alt_unresolved, alt_covered = resolve(True)
         # The mask is admitted only where it hides a call to a TWIN of the
