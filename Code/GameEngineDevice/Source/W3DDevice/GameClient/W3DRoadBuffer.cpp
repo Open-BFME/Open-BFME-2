@@ -1090,7 +1090,6 @@ void W3DRoadBuffer::preloadRoadsInVertexAndIndexBuffers()
 //=============================================================================
 /** Loads the roads into the vertex buffer for drawing. */
 //=============================================================================
-// ?loadRoadsInVertexAndIndexBuffers@W3DRoadBuffer@@IAEXXZ present-unmatched
 void W3DRoadBuffer::loadRoadsInVertexAndIndexBuffers()
 {
 	if ( !m_initialized) {
@@ -1114,19 +1113,15 @@ void W3DRoadBuffer::loadRoadsInVertexAndIndexBuffers()
 
 	Int curRoad;
 
-	// Do road segments.
+	// Do road segments.  BFME 2 drops Zero Hour's try/IndexBufferExceptionFunc
+	// wrapper here.
 	TCorner corner;
-	try {
 	for (corner = SEGMENT; corner < NUM_JOINS; corner = (TCorner)(corner+1)) {
 		for (curRoad=0; curRoad<m_numRoads; curRoad++) {
 			if (m_roads[curRoad].m_type == corner) {
 				loadRoadSegment(ib, vb, &m_roads[curRoad]);
 			}
 		}		
-	}
-	IndexBufferExceptionFunc();
-	} catch(...) {
-		IndexBufferExceptionFunc();
 	}
 	this->m_roadTypes[m_curRoadType].setNumVertices(m_curNumRoadVertices);
 	this->m_roadTypes[m_curRoadType].setNumIndices(m_curNumRoadIndices);
@@ -1216,21 +1211,31 @@ void W3DRoadBuffer::loadLitRoadsInVertexAndIndexBuffers(RefRenderObjListIterator
 //=============================================================================
 /** Loads a road segment into the vertex buffer for drawing. */
 //=============================================================================
-// ?loadRoadSegment@W3DRoadBuffer@@ present-unmatched
+// Retail 0x000D487E. BFME 2's road vertex is 0x24 bytes (position, normal,
+// diffuse, uv), so the destination is stepped in that stride; the ledger
+// keeps Zero Hour's VertexFormatXYZDUV1 spelling for the parameter. Compiled
+// here, ahead of its callers, because retail's loaders allocate registers
+// around this callee's known register use.
+struct BfmeRoadVertex
+{
+	char m_bytes[0x24];
+};
+
 void W3DRoadBuffer::loadRoadSegment(UnsignedShort *ib, VertexFormatXYZDUV1 *vb, RoadSegment *pRoad)
 {
-	if (pRoad->m_uniqueID != m_curUniqueID) {
+	if (pRoad->m_uniqueID != m_curUniqueID)
 		return;
-	}
-	if (!pRoad->m_visible) {
+	if (!pRoad->m_visible)
 		return;
-	}
 	Int curVertex = m_curNumRoadVertices;
-	if (curVertex+pRoad->GetNumVertex() >= m_maxRoadVertex) return;
-	if (m_curNumRoadIndices+pRoad->GetNumIndex() >= m_maxRoadIndex) return;
-	m_curNumRoadVertices += pRoad->GetVertices(vb+curVertex, pRoad->GetNumVertex());
-	m_curNumRoadIndices += pRoad->GetIndices(ib+m_curNumRoadIndices, pRoad->GetNumIndex(), curVertex);
-
+	if (curVertex + pRoad->GetNumVertex() >= m_maxRoadVertex)
+		return;
+	Int numIndex = pRoad->GetNumIndex();
+	if (numIndex + m_curNumRoadIndices >= m_maxRoadIndex)
+		return;
+	m_curNumRoadVertices += pRoad->GetVertices((VertexFormatXYZDUV1 *)((BfmeRoadVertex *)vb + curVertex), pRoad->GetNumVertex());
+	numIndex = pRoad->GetNumIndex();
+	m_curNumRoadIndices += pRoad->GetIndices(ib + m_curNumRoadIndices, numIndex, curVertex);
 }
 
 

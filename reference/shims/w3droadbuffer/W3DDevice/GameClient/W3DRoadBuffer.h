@@ -243,29 +243,28 @@ protected:
 	Bool		m_initialized;		///< True if the subsystem initialized.
 	WorldHeightMap *m_map;		///< Pointer to the height map data.
 	RefRenderObjListIterator *m_lightsIterator;	///< Lighting iterator.
-	// BFME-only fields inserted here vs ZH (TU-scoped shim). Matched
-	// loadRoadSegment places m_curUniqueID at target this+0x28, while
+	// BFME-only fields inserted here vs ZH (TU-scoped shim).
 	// addMapObject, insertCrossTypeJoins, insertTee and insert4Way compare
 	// m_numRoads with m_maxRoadSegments at target this+0x34. The target
 	// adjustStacking body reads m_maxRoadTypes at this+0x40, so the test-only
 	// m_curOpenRoad slot follows the capacity fields, unlike the donor header.
 	//
-	// The 0x704610 loadRoadSegment body compares pRoad->m_uniqueID against
-	// m_curUniqueID at target this+0x28. The four dwords before that field
-	// remain opaque; their identities and the intervening capacity layout
-	// are inferred only where the target reads them above.
+	// The three dwords after m_ref18 remain opaque; their identities and the
+	// intervening capacity layout are inferred only where the target reads
+	// them above.
 	W3DRoadBufferRef18 m_ref18;	// +0x18: freeRoadBuffers clears it (0x0004D75B)
 	Int m__bfmeUnk1;
 	Int m__bfmeUnk2;
 	Int m__bfmeUnk3;
 
+	// BFME 2: both road loaders filter on m_curUniqueID at +0x2C, as Zero
+	// Hour's do (loadRoadSegment 0x000D487E, loadLit4PtSection 0x000D869C),
+	// and the road-type index is +0x30 (loadLitRoadsInVertexAndIndexBuffers
+	// 0x000D9A5D indexes m_roadTypes by it; the constructor 0x000DC568 zeroes
+	// only it). The +0x28 word's identity is open; Zero Hour's test-only
+	// m_maxUID has no slot.
+	Int m_int28;
 	Int m_curUniqueID;				///< Road type we are rendering at this pass.
-	// BFME 2: the lit pass filters roads on a second unique ID at +0x2C
-	// (loadLit4PtSection 0x000D869C), and the road-type index is +0x30
-	// (loadLitRoadsInVertexAndIndexBuffers 0x000D9A5D indexes m_roadTypes by
-	// it; the constructor 0x000DC568 zeroes only it). Zero Hour's test-only
-	// m_maxUID has no slot. The +0x2C name is descriptive.
-	Int m_litUniqueID;
 	Int m_curRoadType;
 
 	Int m_maxRoadSegments;  ///< Size of m_roads.
@@ -322,7 +321,11 @@ protected:
 	void loadLit4PtSection(RoadSegment *pRoad, UnsignedShort *ib, VertexFormatXYZDUV1 *vb, RefRenderObjListIterator *pDynamicLightsIterator);
 	void loadRoadsInVertexAndIndexBuffers(void); ///< Fills the index and vertex buffers for drawing.
 	void loadLitRoadsInVertexAndIndexBuffers(RefRenderObjListIterator *pDynamicLightsIterator); ///< Fills the index and vertex buffers for drawing.
+public:
+	// Public under the ledger's established name (rowed 0x000D487E in
+	// W3DRoadBufferLoadRoadSegment.cpp).
 	void loadRoadSegment(UnsignedShort *ib, VertexFormatXYZDUV1 *vb, RoadSegment *pRoad); ///< Fills the index and vertex buffers for drawing 1 segment.
+protected:
 	void allocateRoadBuffers(void);							 ///< Allocates the buffers.
 	void freeRoadBuffers(void);									 ///< Frees the index and vertex buffers.
 	Bool visibilityChanged(const IRegion2D &bounds);								///< Returns true if some roads are now visible that weren't, or vice versa.
