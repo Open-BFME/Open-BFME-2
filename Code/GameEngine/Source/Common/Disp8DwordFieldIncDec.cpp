@@ -59,3 +59,12 @@ BFME_DISP8_DWORD_DEC(Rva00050D14DwordCounter, 0x14)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?attach@NetCommandMsg@@QAEXXZ=?inc@Rva004D55B8DwordCounter@@QAEXXZ")
+
+// Native6272D0..6272D5 lies between INT3 padding and ends RET:
+// subtract24 from raw word4. Clean BF1 9cb Rva009F5B10VectorPushBack24.cpp
+// supplies the expression only; no vector identity or element type is claimed.
+// Unsigned storage preserves the native32-bit wrap semantics.
+
+// ?subtract24@Rva006272D0Fields@@QAEXXZ
+struct Rva006272D0Fields { char pad[4]; unsigned int word4; void subtract24(); };
+void Rva006272D0Fields::subtract24() { word4 -= 24u; }
