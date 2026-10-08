@@ -36,6 +36,7 @@ namespace StrategicInGameUI
 class ManualPhaseEnder
 {
 public:
+	void Update();
 	GameMessageDisposition Translate(const GameMessage *msg); // 0x005CD8F7
 
 private:
@@ -65,6 +66,7 @@ class StrategicInGameUI::ResolveBattlesBehavior::Impl : public UserInputTranslat
 public:
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
 	void rva00576AF3();
+ void Update();
  void CreateResolveRegionOwnershipChecklistItems();
  int rva00576946(void *, unsigned);
 
@@ -290,4 +292,66 @@ int StrategicInGameUI::ResolveBattlesBehavior::Impl::rva00576946(void *regionWor
   }
  }
  return 0;
+}
+
+class Rva0057539C { public: void rva0057539C(); };
+class Rva005CD010 { public: void rva005CD010(); };
+class Rva005CCEB6 { public: void rva005CCEB6(); };
+class Rva005CD708 { public: void rva005CD708(); };
+class Rva005D14AB { public: void rva005D14AB(); };
+class Rva000AD6F4 { public: void clear(); };
+class Rva002B5EB5 { public: bool rva002B5EB5(); };
+class Rva0042D6AEPtrChaseField { public: int get() const; };
+class ResolveUpdateAction {
+public:
+ virtual void slot0();
+ virtual void slot1();
+ virtual void Update();
+};
+struct ResolveUpdateUIHolder { void *unknown00; Rva00328A83PtrChaseField *impl; };
+struct ResolveUpdateWorldView { char unknown00[0x98]; void *localPlayer; };
+struct ResolveUpdateImplView {
+ char unknown00[0x10];
+ ResolveUpdateUIHolder *ui;
+ void *viewer;
+ void *localPlayer;
+ ResolveUpdateAction *battleState;
+ char phaseEnder[16];
+ char statusDisplayer[16];
+ Rva005D14AB *ownershipState;
+ bool endPhaseRequested;
+};
+// Native576D0D..576DCD and WB14D0900: update UI, rebuild player-dependent
+// checklist/state holders after a player change, then update phase controls.
+// The two neutral outer wrappers57539C and5CD010 independently load their
+// implementation at+4 and tail-call5750C7 /5CCFD1; the latter clears a list.
+// The WB suggestion for5750C7 contradicts its native no-argument body and is
+// deliberately not promoted to a semantic name.
+void StrategicInGameUI::ResolveBattlesBehavior::Impl::Update()
+{
+ ResolveUpdateImplView *state=reinterpret_cast<ResolveUpdateImplView *>(this);
+ reinterpret_cast<Rva0057539C *>(state->ui)->rva0057539C();
+ void *player=reinterpret_cast<ResolveUpdateWorldView *>(TheLivingWorldLogic)->localPlayer;
+ if(player!=state->localPlayer) {
+  reinterpret_cast<Rva000AD6F4 *>(&state->battleState)->clear();
+  reinterpret_cast<Rva000AD6F4 *>(&state->ownershipState)->clear();
+  Rva005CD010 *checklist=reinterpret_cast<Rva005CD010 *>(reinterpret_cast<char *>(this)+4);
+  checklist->rva005CD010();
+  Rva00576753Func(reinterpret_cast<int>(state->localPlayer),reinterpret_cast<int>(checklist),reinterpret_cast<int>(state->viewer));
+  CreateResolveRegionOwnershipChecklistItems();
+  state->localPlayer=player;
+ }
+ if(state->ownershipState) state->ownershipState->rva005D14AB();
+ if(state->battleState) state->battleState->Update();
+ reinterpret_cast<Rva005CCEB6 *>(reinterpret_cast<char *>(this)+4)->rva005CCEB6();
+ reinterpret_cast<StrategicInGameUI::ManualPhaseEnder *>(state->phaseEnder)->Update();
+ reinterpret_cast<Rva005CD708 *>(state->statusDisplayer)->rva005CD708();
+ if(!state->endPhaseRequested && !state->battleState && reinterpret_cast<Rva002B5EB5 *>(TheLivingWorldLogic)->rva002B5EB5()) {
+  int hud=state->ui->impl->get();
+  int button=reinterpret_cast<Rva0042D6AEPtrChaseField *>(hud)->get();
+  if(button) {
+   reinterpret_cast<ResolveUpdateAction *>(button)->Update();
+   state->endPhaseRequested=true;
+  }
+ }
 }
