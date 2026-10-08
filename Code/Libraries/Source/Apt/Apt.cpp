@@ -44,3 +44,11 @@ void AptGetInternalVariable(const char *name,char *out) {
  ((Rva006DCD20 *)value)->rva006DE870(out);
  value->Release();
 }
+
+// Native6CBC40..6CBC46 is the standalone allocation-hook forwarder called
+// by allocator setup6CC380. Keep its call boundary; the next pool's allocation
+// is separately inlined in retail. Original function identity is unresolved.
+extern void *(__cdecl *g_bfmeAptAllocAtE17728)(unsigned int);
+__declspec(noinline) void *Rva006CBC40Allocate(unsigned int bytes) {
+ return g_bfmeAptAllocAtE17728(bytes);
+}
