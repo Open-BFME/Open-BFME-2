@@ -47,8 +47,11 @@ public:
 	virtual bool rva004625BB(void *a, int b);
 	virtual void rva004625F0(void *a);
 	void rva0046255E(const Coord3D0046255E *pos);
+	void rva0046261B(bool inc);
 
-	char m_pad9C[0x9C];
+	char m_pad04[0x14];
+	int m_18;
+	char m_pad1C[0x84];
 	Coord3D0046255E m_posA0;
 	bool m_flagAC;
 	char m_padAD[0xC1 - 0xAD];
@@ -112,4 +115,17 @@ void SlaughterHordeContain::rva00462504()
 {
 	m_flagC1 = false;
 	s20(2);
+}
+
+// ?rva0046261B@SlaughterHordeContain@@QAEX_N@Z, retail 0x0046261B, 18 bytes.
+// Stdcall-style one-bool forwarder that steps the int counter at +0x18:
+// true increments, false decrements, then ret 4. Address-derived name; the
+// counter's meaning at +0x18 is unproven and the method is not known to be
+// virtual, so no slot is claimed.
+void SlaughterHordeContain::rva0046261B(bool inc)
+{
+	if (inc)
+		++m_18;
+	else
+		--m_18;
 }
