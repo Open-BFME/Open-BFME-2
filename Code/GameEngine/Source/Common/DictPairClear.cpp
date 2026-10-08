@@ -577,3 +577,18 @@ unsigned int Dict::DictPair::Rva00306B9FNameBits() const
 {
     return (unsigned int)m_key >> 8;
 }
+
+// BF1 9cbfb551fe clean Dict.cpp emits the key-building expression under the
+// named Common O1/x87/G6 sweep. Private/public createKey spellings both place
+// here, so placement does not choose a target access spelling or class owner.
+// Native 31312F..31313B lies exactly between the already rowed 92-byte append
+// ending 31312F and Dict::findPairByKey starting 31313B. It shifts the first
+// stack dword by 8, ORs the unmasked second dword, and returns all 32 bits in EAX.
+// ECX is unused, with no calls/globals/literals or witnessed direct callers.
+// This is also the operation used by the native dictionary key encoding, so
+// the existing key-bits home is appropriate; original helper identity remains
+// unknown. The unsigned minimal contract preserves every input bit pattern.
+unsigned int Rva0031312FCombineBits(unsigned int shiftedValue, unsigned int otherValue)
+{
+    return (shiftedValue << 8) | otherValue;
+}
