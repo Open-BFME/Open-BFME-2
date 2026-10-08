@@ -33,7 +33,7 @@ int Rva00404D70::rva00404D70(const AsciiString &s)
 	int result = 0x7fffffff;
 	for (unsigned int i = 0; i < m_vec.size() && !found; ++i)
 	{
-		if (m_vec[i].text.compareNoCase(s) == 0)
+		if (((const StringBase<char> *)&m_vec[i].text)->compareNoCase(*(const StringBase<char> *)&s) == 0)
 		{
 			result = (int)i;
 			found = true;
