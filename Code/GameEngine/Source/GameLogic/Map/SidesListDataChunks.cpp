@@ -1,5 +1,6 @@
-// cl: /Ireference/shims/bfme2_ascii
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// stlport
 //
 // SidesList's map-file chunk parsers and writer (BFME2 SidesList.cpp).
 // WorldBuilder's debug build names each body and keeps its statement order;
@@ -8,6 +9,12 @@
 //
 // BuildListInfo layout (target): BuildListInfoCtor.cpp, 0x80 bytes, built by
 // the ctor 0x0032A0CE and destroyed by 0x0032A186 on the parser's stack.
+
+#include <stdlib.h>
+namespace _STL { void __cdecl free(void *block) throw(...); }
+#define free _STL::free
+#include <vector>
+#undef free
 
 #include "ascii_string.h"
 
@@ -118,6 +125,9 @@ struct Coord3D
 // The 128-byte entry SidesList::addToFactionBuildListMap 0x0032CDFE copies.
 struct BfmePod128 { int a[32]; };
 
+// A castle path point: two reals (vector<BfmeE8>::push_back 0x00539A2E).
+struct BfmeE8 { float x; float y; };
+
 // By-value AsciiString setters at BuildListInfo +0x04, +0x08 and +0x30. The
 // first and last sit beside BuildListInfo's ctor and dtor; +0x08 is folded
 // with another class's setter at 0x002AAE81.
@@ -214,6 +224,9 @@ public:
 	SidesInfo *getSideInfo(int side);	// 0x002035BA
 	void swap(SidesList *other);		// 0x0032B690
 	void rva0032E02B();					// 0x0032E02B, WB validateSides
+	bool parseCastleTemplateDataChunk(DataChunkInput &file, DataChunkInfo *info);
+	void rva0032E6F4(int key, const BfmePod128 &entry);	// 0x0032E6F4, castle build entry add
+	void rva0032ED75(int key, const _STL::vector<BfmeE8> &path);	// 0x0032ED75, castle path add
 
 private:
 	char m_bases[0x3C - 4];
@@ -374,4 +387,62 @@ void SidesList::writeSidesDataChunk(DataChunkOutput &chunkWriter)
 		}
 	}
 	chunkWriter.closeDataChunk();
+}
+
+// SidesList::parseCastleTemplateDataChunk, retail 0x0032F664 (491 bytes): one
+// faction key, its castle build entries read into one reused BuildListInfo,
+// then (version 2 on) its paths, each a count of two-real points. Identity
+// (target): WorldBuilder's debug twin wb 0xa8a7c0 (SidesList.cpp:2666
+// atEndOfChunk assert) aligns read for read and hands each entry and path to
+// the out-of-line adds 0x0032E6F4 and 0x0032ED75. Version 4 adds two ignored
+// ints per entry, version 5 an ignored path name; before version 3 a point was
+// three ints, the last ignored. The path's inline destructor frees through
+// the C++-linkage free (state 1 to 0 before the call), as in
+// SidesListCastleBuildLists.cpp.
+bool SidesList::parseCastleTemplateDataChunk(DataChunkInput &file, DataChunkInfo *info)
+{
+	NameKeyType faction = file.readNameKey();
+	BuildListInfo buildInfo;
+	int count = file.readInt();
+	int i;
+	for (i = 0; i < count; i++) {
+		reinterpret_cast<Rva0032A438 *>(&buildInfo)->rva0032A438(file.readAsciiString());
+		reinterpret_cast<Rva002AAE81 *>(&buildInfo)->rva002AAE81(file.readAsciiString());
+		Coord3D loc;
+		loc.x = file.readReal();
+		loc.y = file.readReal();
+		loc.z = file.readReal();
+		buildInfo.setLocation(loc);
+		buildInfo.setAngle(file.readReal());
+		if (info->version >= 4) {
+			file.readInt();
+			file.readInt();
+		}
+		rva0032E6F4(faction, reinterpret_cast<const BfmePod128 &>(buildInfo));
+	}
+	if (info->version >= 2) {
+		int numPaths = file.readInt();
+		for (i = 0; i < numPaths; i++) {
+			if (info->version >= 5)
+				file.readAsciiString();
+			int numPoints = file.readInt();
+			if (numPoints != 0) {
+				_STL::vector<BfmeE8> path;
+				for (int j = 0; j < numPoints; j++) {
+					BfmeE8 pt;
+					if (info->version >= 3) {
+						pt.x = file.readReal();
+						pt.y = file.readReal();
+					} else {
+						pt.x = (float)file.readInt();
+						pt.y = (float)file.readInt();
+						file.readInt();
+					}
+					path.push_back(pt);
+				}
+				rva0032ED75(faction, path);
+			}
+		}
+	}
+	return true;
 }
