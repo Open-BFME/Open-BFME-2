@@ -1,6 +1,18 @@
+// ?CanBeActivatedFor@EmotionNugget@@QAE_NHHPAURva004DD018Arg@@@Z
+// partial score=0.9 date=2026-10-09
+// Retail/WB pass 2026-10-09: reconstructed from the complete target body
+// and WorldBuilder's EmotionNugget.cpp sibling. Member offsets, vtable slots,
+// frame comparisons, and call targets are retail evidence. Method identity is
+// the WB assertion/callgraph lead; the entry's original getter names remain
+// unresolved. The BFME 1 emotion unit at 0bef414b5 was compiled and placed no
+// new target bodies. This is a near match, not recovered coverage.
+// Corrected the old bank's terrain-flag branch, successful early returns,
+// provider null behavior, and floating comparison (including unordered input).
+// The ushort-key map now uses the actual standard less comparator. Its erase
+// still needs a whole-byte/relocation fold proof before a new callee pin.
 // ?rva004DD018@Emotion@@QAE_NHHPAURva004DD018Arg@@@Z
 // partial score=0.89 date=2026-10-04
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHs /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva004DD018@Emotion@@QAE_NHHPAURva004DD018Arg@@@Z @ 0x004DD018 (494B).
@@ -15,7 +27,6 @@
 #include <map>
 #include "ascii_string.h"
 
-struct Gen_lt_00940b40 : public _STL::less<unsigned short> {};
 
 enum ObjectStatusTypes
 {
@@ -31,11 +42,10 @@ class GameLogic
 {
 public:
 	char m_pad00[0x40];
-	int m_frame;
+	unsigned int m_frame;
 };
 
 extern GameLogic *TheGameLogic;
-extern float g_Va007C26F0;
 
 class AttributeModifierPoolUpdate
 {
@@ -152,125 +162,109 @@ public:
 	int m_4C;
 };
 
-class Emotion
+class EmotionNugget
 {
 public:
-	bool rva004DD018(int a, int b, Rva004DD018Arg *arg);
+	bool CanBeActivatedFor(int a, int b, Rva004DD018Arg *arg);
 private:
 	Object *m_object;
 	EmotionEntry *m_entry;
 	int m_id08;
 	unsigned short m_key0C;
 	char m_pad0E[2];
-	int m_frame10;
+	unsigned int m_frame10;
 	_STL::map<int, int> m_map14x;
-	_STL::map<unsigned short, int, Gen_lt_00940b40> m_map20x;
+	_STL::map<unsigned short, int, _STL::less<unsigned short> > m_map20x;
 	int m_2C;
 	int m_start30;
 };
 
 // ?rva004DD018@Emotion@@QAE_NHHPAURva004DD018Arg@@@Z present-unmatched
-bool Emotion::rva004DD018(int a, int b, Rva004DD018Arg *arg)
+bool EmotionNugget::CanBeActivatedFor(int a, int b, Rva004DD018Arg *arg)
 {
+	{
 	Object *obj = m_object;
 	if (obj->testStatus(STATUS_46))
-		return false;
+		goto denied;
 	if (m_entry->m_08 || m_entry->m_09)
 	{
 		AIUpdateInterface *ai = *(AIUpdateInterface **)((char *)obj + 0x258);
 		if (!ai)
-			return false;
-		if (!ai->v110())
-		{
-			if (m_entry->m_09)
-				return false;
-		}
-		else if (ai->v91())
-		{
-			if (m_entry->m_09)
-				return false;
-		}
-		else
+			goto denied;
+		if (ai->v110() && !ai->v91())
 		{
 			if (m_entry->m_08)
-				return false;
-			goto check2c;
+				goto denied;
 		}
+		else if (m_entry->m_09)
+			goto denied;
 	}
-check2c:
-	if (!m_entry->m_2C)
+	if (m_entry->m_2C || m_entry->m_2D)
 	{
-		if (m_entry->m_2D)
+		if (m_object->rva0028AFBB())
 		{
-			if (!obj->rva0028AFBB())
-				return false;
 			if (m_entry->m_2D)
-				return true;
-			return false;
+				goto denied;
 		}
+		else if (m_entry->m_2C)
+			goto denied;
 	}
-	else
-	{
-		if (!obj->rva0028AFBB())
-			return false;
-		if (!m_entry->m_2D)
-			return false;
-	}
-	if (m_entry->m_1C * a + m_entry->m_20 >= 0)
-		return false;
-	if (m_entry->m_24 * b + m_entry->m_28 >= 0)
-		return false;
-	int frame = TheGameLogic->m_frame;
+	EmotionEntry *entry = m_entry;
+	if (entry->m_1C * a + entry->m_20 >= 0)
+		goto denied;
+	if (entry->m_24 * b + entry->m_28 >= 0)
+		goto denied;
+	unsigned int frame = TheGameLogic->m_frame;
 	if (frame < m_frame10)
-		return false;
+		goto denied;
 	b = frame;
 	if (!arg)
 		goto attr;
 	{
-		int key = arg->m_74;
-		_STL::map<int, int>::iterator it = m_map14x.find(key);
+		a = arg->m_74;
+		_STL::map<int, int>::iterator it = m_map14x.find(a);
 		if (it._M_node != m_map14x.end()._M_node)
 		{
-			if (b < it->second)
-				return false;
+			if ((unsigned int)b < (unsigned int)it->second)
+				goto denied;
 			m_map14x.erase(it);
 		}
 	}
 	{
 		unsigned short key = arg->m_04->m_5D8;
-		_STL::map<unsigned short, int, Gen_lt_00940b40>::iterator it = m_map20x.find(key);
+		_STL::map<unsigned short, int, _STL::less<unsigned short> >::iterator it = m_map20x.find(key);
 		if (it._M_node != m_map20x.end()._M_node)
 		{
-			if (TheGameLogic->m_frame < it->second)
-				return false;
+			if (TheGameLogic->m_frame < (unsigned int)it->second)
+				goto denied;
 			m_map20x.erase(it);
 		}
 	}
 attr:
 	if (m_entry->m_04 < 4 || m_entry->m_04 > 7)
-		return false;
+		goto allowed;
+	*(float *)&a = 0.0f;
+	int attrKind = 4 + (m_entry->m_04 == 6 ? 1 : 0);
+	bool use = true;
 	Object *target = m_object;
+	if (!target) goto allowed;
 	{
 		void *tpl = *(void **)((char *)target + 4);
 		if (*(unsigned char *)((char *)tpl + 0x115) & 0x20)
 		{
 			void *prov = target->rva0028C197();
-			if (prov)
-				target = ((Rva0028C197Provider *)prov)->v68();
+			target = ((Rva0028C197Provider *)prov)->v68();
 		}
 	}
 	if (!target)
-		return false;
-	*(float *)&a = 0.0f;
-	int attrKind = 4 + (m_entry->m_04 == 6 ? 1 : 0);
+		goto allowed;
 	bool ok = target->rva0028C149(attrKind, (float *)&a, 0);
-	bool use = true;
 	if (ok)
 	{
-		if (g_Va007C26F0 <= *(float *)&a)
-			use = false;
-		else
+		if (0.5f > *(float *)&a)
 			use = true;
+		else
+			use = false;
 	}
 	AIUpdateInterface *aai = *(AIUpdateInterface **)((char *)target + 0x258);
 	if (aai)
@@ -279,6 +273,12 @@ attr:
 			use = false;
 	}
 	if (!use)
-		return false;
+		goto denied;
+	goto allowed;
+
+	}
+denied:
+	return false;
+allowed:
 	return true;
 }
