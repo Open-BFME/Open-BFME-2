@@ -139,6 +139,30 @@ template <> void _STL::vector<char, _STL::allocator<char> >::_M_insert_overflow(
     this->_M_set(new_start, new_finish, new_start + new_len);
 }
 
+// Target 0x000AFB2E/136 is the byte-vector overflow sibling of 0x0007EA1F.
+// Retail calls the independently rowed unsigned-char fill_n at 0x000AD829;
+// allocation, trivial copying and checked free match the char specialization.
+// The unsigned-byte template view follows that typed fill helper; the containing
+// application type remains unknown. The zero-allocation guard is target evidence.
+template <> void _STL::vector<unsigned char, _STL::allocator<unsigned char> >::_M_insert_overflow(
+    unsigned char *position, const unsigned char &value, const _STL::__true_type &,
+    unsigned int fill_len, bool at_end)
+{
+    const unsigned int old_size = this->_M_finish - this->_M_start;
+    unsigned char *new_start;
+    const unsigned int new_len = old_size + (max)(old_size, fill_len);
+    if (new_len != 0)
+        new_start = (unsigned char *)_STL::allocator<char>::allocate(new_len, 0);
+    else
+        new_start = 0;
+    unsigned char *new_finish = (unsigned char *)_STL::__copy_trivial(this->_M_start, position, new_start);
+    new_finish = _STL::fill_n(new_finish, fill_len, value);
+    if (!at_end)
+        new_finish = (unsigned char *)_STL::__copy_trivial(position, this->_M_finish, new_finish);
+    this->_M_clear();
+    this->_M_set(new_start, new_finish, new_start + new_len);
+}
+
 // Target boundary 0x00307641/63 is _Vector_base<char>::_Vector_base(count, alloc):
 // ??0?$_Vector_base@DV?$allocator@D@_STL@@@_STL@@QAE@IABV?$allocator@D@1@@Z,
 // pinned name, called at 0x00307C51 by vector<char> ctor 0x00307C43 (rowed
@@ -161,6 +185,7 @@ template <> _STL::_Vector_base<char, _STL::allocator<char> >::_Vector_base(unsig
     _M_end_of_storage._M_data = tmp + __n;
 }
 
+template class _STL::vector<unsigned char, _STL::allocator<unsigned char> >;
 template class _STL::vector<char, _STL::allocator<char > >;
 template class _STL::vector<BfmePod20, _STL::allocator<BfmePod20 > >;
 template class _STL::vector<BfmePod24, _STL::allocator<BfmePod24 > >;
