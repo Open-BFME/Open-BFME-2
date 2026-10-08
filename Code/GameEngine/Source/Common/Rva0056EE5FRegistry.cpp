@@ -20,7 +20,7 @@ Bool8 Rva0056EE5F::rva0056EE5F()
 // using this, then compare the matched 0x0056EE5F result with the byte at
 // +0xD2. Offsets and call relationships are target evidence; field meanings
 // and the containing class identity remain unknown.
-class Rva00571B75Call
+class AptOnlineLogin
 {
 public:
 	void rva00571B75();
@@ -44,7 +44,7 @@ private:
 void Rva00571C60::rva00571C60()
 {
 	if (m_c5) {
-		((Rva00571B75Call *)this)->rva00571B75();
+		((AptOnlineLogin *)this)->rva00571B75();
 		((Rva005706D4Call *)this)->rva005706D4();
 	}
 	Bool8 *cached = &m_d2;

@@ -57,22 +57,33 @@ void Rva00325388Send(GameWindow *,int,int,int);
 void GadgetListBoxSetSelected(GameWindow *,int);
 void GadgetCheckBoxSetChecked(GameWindow *,bool);
 void GadgetTextEntrySetText(GameWindow *,UnicodeString);
+class GameSpyLoginPreferences { public: AsciiString rva005C9FC4(); };
+struct SkirmishFindNode { unsigned char pad[0x14]; AsciiString value; };
+class SkirmishFindMap { public:
+    SkirmishFindNode *find(const AsciiString &) const throw();
+    SkirmishFindNode *end() const { return head; }
+    SkirmishFindNode *head; unsigned char remainder[8];
+};
+class Rva005709D1Call { public: void rva005709D1(AsciiString &,AsciiString &); };
 class AptOnlineLogin {
 public:
     void OnBttnRegisterFESL(const char *);
     void rva00572632(const char *);
     void rva00572768(const char *);
+    void rva00571B75();
     bool rva0056EC54(const UnicodeString &,bool);
     void rva0056FEA8();
 private:
     unsigned char pad00[0x58]; AptOnlineLoginOwner *owner;
-    unsigned char pad5c[0xA4-0x5C];
+    unsigned char pad5c[8]; SkirmishFindMap loginPreferences;
+    unsigned char pad70[0xA4-0x70];
     GameWindow *email;
     GameWindow *nickname;
     GameWindow *password;
     GameWindow *remember;
     unsigned char padB4[4]; GameWindow *m_countryList;
-    unsigned char padBC[0xD0-0xBC]; bool closeLocale;
+    unsigned char padBC[9]; bool needsRefresh;
+    unsigned char padC6[10]; bool closeLocale;
     unsigned char padD1[3]; int locale;
 };
 void AptOnlineLogin::OnBttnRegisterFESL(const char *)
@@ -197,3 +208,22 @@ void AptOnlineLogin::rva00572768(const char *)
     }
 }
 
+
+// BFME1 34f59164 BfmeAptScreenOnlineLoginRefreshState.cpp supplies purpose.
+// Native 571B75..571C60 uses the added login-preferences last-email getter
+// at this+60 instead of the donor's map/registry fallback. Base map+64;
+// lastName node value+14; cached-login helper receives two AsciiString refs.
+void AptOnlineLogin::rva00571B75()
+{
+    if(!password || !email || !nickname || !remember) return;
+    GadgetTextEntrySetText(password,UnicodeString::TheEmptyString);
+    AsciiString lastEmail=((GameSpyLoginPreferences *)((char *)this+0x60))->rva005C9FC4();
+    AsciiString lastName;
+    SkirmishFindNode *it=loginPreferences.find(AsciiString("lastName"));
+    if(it!=loginPreferences.end()) {
+        const AsciiString *nameValue=&it->value;
+        lastName=*nameValue;
+    }
+    ((Rva005709D1Call *)this)->rva005709D1(lastEmail,lastName);
+    needsRefresh=false;
+}
