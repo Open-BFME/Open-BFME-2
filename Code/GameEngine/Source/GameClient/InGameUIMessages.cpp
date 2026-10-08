@@ -31,6 +31,13 @@
 // active (+0x5C), types whole words through the word display string, and plays
 // the typing sound held at TheAudio's misc audio +0xBC instead of ZH's
 // "MilitarySubtitlesTyping" event; the field name there is descriptive.
+//
+// Vtable slot 86 (0x0029AD12) draws the subtitle: the block ZH keeps inside
+// InGameUI::postDraw, split out like the update step, so its name is
+// descriptive. The caption position (+0x84C) scales by TheDisplay's size and
+// floors through msvcr71; the typing word trails the last line by up to 30
+// pixels and fades in with the time left until the next character. The word
+// position is a coordinate pair: retail keeps its unused x slot in the frame.
 
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -72,8 +79,13 @@ public:
 	virtual void reset() = 0;
 	virtual void setFont( GameFont *font ) = 0;
 #define SLOT(N) virtual void slot##N() = 0;
-	SLOT(07) SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14)
+	SLOT(07) SLOT(08) SLOT(09)
 #undef SLOT
+	virtual void setColors( Color textColor, Color dropColor ) = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual void draw( int x, int y, int w, int h ) = 0;
 	virtual void getSize( int *width, int *height ) = 0;
 #define SLOT(N) virtual void slot##N() = 0;
 	SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20)
@@ -132,6 +144,42 @@ public:
 #define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime( void );
+extern "C" __declspec(dllimport) double __cdecl floor( double );
+
+// BaseType.h's inline fld/fistp rounding; retail floors through msvcr71.
+__forceinline long fast_float2long_round( float f )
+{
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
+}
+
+__forceinline float fast_float_floor( float f )
+{
+	return (float)floor( (double)f );
+}
+
+#define REAL_TO_INT_FLOOR(x) (fast_float2long_round(fast_float_floor(x)))
+
+struct ICoord2D
+{
+	int x, y;
+};
+
+class Display
+{
+public:
+#define SLOT(N) virtual void slot##N();
+	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
+	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
+#undef SLOT
+	virtual unsigned int getWidth();
+	virtual unsigned int getHeight();
+};
+extern Display *TheDisplay;
 
 void Rva00433C18( const UnicodeString &text, bool flag );
 
@@ -214,7 +262,9 @@ public:
 	SLOT(50) SLOT(51) SLOT(52) SLOT(53) SLOT(54) SLOT(55) SLOT(56) SLOT(57) SLOT(58) SLOT(59)
 	SLOT(60) SLOT(61) SLOT(62) SLOT(63) SLOT(64) SLOT(65) SLOT(66) SLOT(67) SLOT(68) SLOT(69)
 	SLOT(70) SLOT(71) SLOT(72) SLOT(73) SLOT(74) SLOT(75) SLOT(76) SLOT(77) SLOT(78) SLOT(79)
-	SLOT(80) SLOT(81) SLOT(82) SLOT(83) SLOT(84) SLOT(85) SLOT(86) SLOT(87) SLOT(88) SLOT(89)
+	SLOT(80) SLOT(81) SLOT(82) SLOT(83) SLOT(84) SLOT(85)
+	virtual void drawMilitarySubtitle();
+	SLOT(87) SLOT(88) SLOT(89)
 	SLOT(90) SLOT(91) SLOT(92) SLOT(93) SLOT(94) SLOT(95) SLOT(96) SLOT(97) SLOT(98) SLOT(99)
 	SLOT(100) SLOT(101) SLOT(102) SLOT(103) SLOT(104) SLOT(105) SLOT(106) SLOT(107) SLOT(108)
 #undef SLOT
@@ -264,7 +314,8 @@ protected:
 	bool m_messageBold;							// +0x834
 	char m_opaque838[ 0x83C - 0x838 ];
 	RGBAColorInt m_militaryCaptionColor;		// +0x83C
-	char m_opaque84C[ 0x854 - 0x84C ];
+	float m_militaryCaptionPositionX;			// +0x84C
+	float m_militaryCaptionPositionY;			// +0x850
 	bool m_militaryCaptionCentered;				// +0x854
 	AsciiString m_militaryCaptionTitleFont;		// +0x858
 	int m_militaryCaptionTitlePointSize;		// +0x85C
@@ -525,6 +576,39 @@ void InGameUI::updateMilitarySubtitle()
 			m_militarySubtitle->finished = true;
 		}
 	}
+}
+
+void InGameUI::drawMilitarySubtitle()
+{
+	if( !m_militarySubtitle )
+		return;
+
+	float progress = 1.0f - (float)( m_militarySubtitle->nextCharTime - m_militarySubtitle->elapsed ) / m_militaryCaptionSpeed;
+	ICoord2D pos;
+	pos.x = REAL_TO_INT_FLOOR( TheDisplay->getWidth() * m_militaryCaptionPositionX + 0.5f );
+	pos.y = REAL_TO_INT_FLOOR( TheDisplay->getHeight() * m_militaryCaptionPositionY + 0.5f );
+
+	unsigned char r, g, b, a;
+	GameGetColorComponents( m_militarySubtitle->color, &r, &g, &b, &a );
+	Color dropColor = GameMakeColor( 0, 0, 0, a );
+
+	int width = 0;
+	int y = pos.y;
+	ICoord2D wordPos;
+	for( unsigned int i = 0; i <= m_militarySubtitle->currentDisplayString; i++ )
+	{
+		wordPos.y = y;
+		int height;
+		m_militarySubtitle->displayStrings[ i ]->getSize( &width, &height );
+		m_militarySubtitle->displayStrings[ i ]->setColors( m_militarySubtitle->color, dropColor );
+		m_militarySubtitle->displayStrings[ i ]->draw( pos.x + m_militarySubtitle->lineOffsets[ i ], y, 1, 1 );
+		y += height;
+	}
+
+	wordPos.x = (int)( m_militarySubtitle->lineOffsets[ m_militarySubtitle->currentDisplayString ] + width + ( 1.0f - progress ) * 30.0f + pos.x );
+	a = (unsigned char)( a * progress );
+	m_militarySubtitle->wordString->setColors( GameMakeColor( r, g, b, a ), GameMakeColor( 0, 0, 0, a ) );
+	m_militarySubtitle->wordString->draw( wordPos.x, wordPos.y, 1, 1 );
 }
 
 void InGameUI::militarySubtitle( UnicodeString subtitle, int duration )
