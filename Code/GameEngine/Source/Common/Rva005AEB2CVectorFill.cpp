@@ -97,20 +97,11 @@ Rva005AEB2C::Rva005AEB2C()
 	}
 }
 
-// Native 0x005D66E7..0x005D6799: same two GameSpyInfo map walks as
-// the rowed constructor above. This receiver is polymorphic (vtable VA
-// 0x00C75B8C) with its eight-byte-entry vector base at +4, not +0.
-// Base initialization precedes the vptr store, as the native order proves.
-// The maps' second-field addresses and per-map flag bytes are target facts;
-// their application purpose and the receiver's original class name are unknown.
-class Rva005D66E7 : public _STL::vector<BfmeE8>
-{
-public:
-    Rva005D66E7();
-    virtual ~Rva005D66E7();
-};
-
-Rva005D66E7::Rva005D66E7()
+// Retail 0x005D66E7 constructs the vector base at +4 before writing the
+// established vtable 0x00875B8C; both map loops agree with 0x005AEB2C.
+// The opaque owner name is retained from the verified destructor 0x005D639A.
+#include "../../Include/Common/Rva005D639A.h"
+Rva005D639A::Rva005D639A()
 {
 	if (TheGameSpyInfo)
 	{

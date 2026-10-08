@@ -1,0 +1,56 @@
+{
+ "bases": [
+  "_STL::vector<BfmeE8,_STL::allocator<BfmeE8> >"
+ ],
+ "bases_by": "majority",
+ "class": "Rva005D639A",
+ "evidence": {
+  "census": 2,
+  "identity": "opaque existing destructor owner; no semantic class identity claimed",
+  "retail_access": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x875b8c": {
+    "slots": {
+     "0": "??_GRva005D639A@@UAEPAXI@Z"
+    },
+    "stores": 1
+   }
+  },
+  "target_constructor": {
+   "base_constructor_rva": "0x00211E58",
+   "initialization_order": "vector base constructed before vtable store; source and EH bytes verified",
+   "push_back_rva": "0x00539A2E",
+   "rva": "0x005D66E7",
+   "size": 178,
+   "vector_base_offset": 4
+  },
+  "target_destructor": {
+   "basis": "automatic vector base destruction byte matches the existing null-checked free body",
+   "rva": "0x005D639A",
+   "size": 21
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "16": 2
+  },
+  "views": 2,
+  "vtable_slot_source": "retail DWORD at RVA 0x00875B8C is VA 0x009D63AF; scalar deleting destructor is independently matched at RVA 0x005D63AF; vtables.tsv has no entry for this table",
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 16,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "retail-vtable",
+   "member": "virtual ~Rva005D639A()"
+  }
+ }
+}

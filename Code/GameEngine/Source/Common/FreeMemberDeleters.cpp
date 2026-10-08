@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
 //
 // Opaque destructors that free a heap member at +0x04 (null-checked), the
 // same shape seven times with distinct vtables. The free target at
@@ -98,20 +99,13 @@ Rva0057BCEC::~Rva0057BCEC()
 		free(m_ptr04);
 }
 
-class Rva005D639A
-{
-public:
-	virtual ~Rva005D639A();
+// The constructor 0x005D66E7 proves a vector base at +4. Its automatic
+// destruction emits the already verified null-checked free at 0x005D639A.
+#include <vector>
+struct BfmeE8 { void *p; unsigned char flag; char pad[3]; };
+#include "../../Include/Common/Rva005D639A.h"
 
-private:
-	void *m_ptr04;
-};
-
-Rva005D639A::~Rva005D639A()
-{
-	if (m_ptr04)
-		free(m_ptr04);
-}
+Rva005D639A::~Rva005D639A() {}
 
 class Rva004FCA9C
 {
