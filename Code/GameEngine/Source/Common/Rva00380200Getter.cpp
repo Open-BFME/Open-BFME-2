@@ -151,3 +151,32 @@ void Rva00380200::rva00380499(Xfer *xfer)
     if (xfer->IsLoading())
         rva0038020D();
 }
+
+// Complete native RET4 body 0x0058AE53..0x0058AEB6. The same Xfer slots
+// as matched 0x00380499 establish Version {1,2}, unsigned int +0x0C,
+// floats +0x10/+0x14 and bool +0x18. Retail repeats the +0x0C transfer
+// within the version-2 arm. Original receiver/member names are unknown.
+class Rva0058AE53
+{
+    char m_pad00[0x0C];
+    unsigned int m_0C;
+    float m_10;
+    float m_14;
+    bool m_18;
+public:
+    void rva0058AE53(Xfer *xfer);
+};
+
+void Rva0058AE53::rva0058AE53(Xfer *xfer)
+{
+    Xfer::Version version(1, 2);
+    *xfer == version;
+    *xfer == m_0C;
+    if (version.m_minor >= 2)
+    {
+        *xfer == m_10;
+        *xfer == m_14;
+        *xfer == m_18;
+        *xfer == m_0C;
+    }
+}
