@@ -16464,3 +16464,4 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?updateFades@ScriptEngine@@IAEXXZ,0x002036CC,callee of ?update@ScriptEngine@@UAEXXZ
 ?writeINI@ParticleSystemTemplate@FXParticleSystem@@QBEXAAVFile@@I@Z,0x001FB418,callee of ?_writeOutINI@@YAXXZ
 ?rva003EE23C@LargeGroupAudioAudioMap@@QAE_NPAVXfer@@PAUVersionPair@@@Z,0x003EE23C,callee of ?xfer@LargeGroupAudio@@MAEXPAVXfer@@@Z
+?rva001B4E82@Rva001B4E82@@QAEXPAX@Z,0x001B4E82,callee of ??1LargeGroupAudio@@UAE@XZ

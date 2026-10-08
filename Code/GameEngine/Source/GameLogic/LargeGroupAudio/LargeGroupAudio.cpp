@@ -137,7 +137,6 @@ Rva0020D98D::Rva0020D98D()
 {
 }
 
-// ??1LargeGroupAudio@@UAE@XZ present-unmatched
 LargeGroupAudio::~LargeGroupAudio()
 {
 	if (TheSubsystemList)
