@@ -174,6 +174,8 @@ public:
 	bool rva0041BA61(const Object *obj);
 	bool rva0041CE27(Object *obj, Object *target, int);
 	bool canTransferSuppliesAt(const Object *obj, const Object *transferDest);
+	bool canDockAt(const Object *obj, const Object *dockDest, CommandSourceType commandSource,
+		bool checkDockUpdate);
 };
 
 bool ActionManager::validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
@@ -1041,4 +1043,51 @@ bool ActionManager::canTransferSuppliesAt(const Object *obj, const Object *trans
 	}
 
 	return true;
+}
+
+// canDockAt's views: the behavior module's dock interface getter at slot
+// 0x58 and the dock interface's one-argument docker test at slot 0x40.
+class ActionDockUpdateView
+{
+public:
+	virtual void d00(); virtual void d01(); virtual void d02(); virtual void d03();
+	virtual void d04(); virtual void d05(); virtual void d06(); virtual void d07();
+	virtual void d08(); virtual void d09(); virtual void d10(); virtual void d11();
+	virtual void d12(); virtual void d13(); virtual void d14(); virtual void d15();
+	virtual bool canDocker(const Object *docker);	// +0x40
+};
+
+class ActionDockBehaviorView
+{
+public:
+	virtual void b00(); virtual void b01(); virtual void b02(); virtual void b03();
+	virtual void b04(); virtual void b05(); virtual void b06(); virtual void b07();
+	virtual void b08(); virtual void b09(); virtual void b10(); virtual void b11();
+	virtual void b12(); virtual void b13(); virtual void b14(); virtual void b15();
+	virtual void b16(); virtual void b17(); virtual void b18(); virtual void b19();
+	virtual void b20(); virtual void b21();
+	virtual ActionDockUpdateView *getDockUpdateInterface();	// +0x58
+};
+
+// ZH/BFME1 ba7ddda7 ActionManager::canDockAt: the dock-interface scan and
+// the supply-transfer test survive; BFME2 drops the railed-transport check
+// and adds a fourth argument (InGameUI 0x29C88C passes 1 or 0) that gates
+// the dock interface's own test of the docker.
+bool ActionManager::canDockAt(const Object *obj, const Object *dockDest, CommandSourceType commandSource,
+	bool checkDockUpdate)
+{
+	ActionDockUpdateView *di = 0;
+	void *const *modules = *reinterpret_cast<void *const *const *>(reinterpret_cast<const char *>(dockDest) + 0x244);
+	for (; *modules; ++modules) {
+		if ((di = reinterpret_cast<ActionDockBehaviorView *>(
+				reinterpret_cast<char *>(*modules) + 0x0c)->getDockUpdateInterface()) != 0)
+			break;
+	}
+	if (di != 0) {
+		if (canTransferSuppliesAt(obj, dockDest) == true)
+			return true;
+		if (checkDockUpdate)
+			return di->canDocker(obj);
+	}
+	return false;
 }
