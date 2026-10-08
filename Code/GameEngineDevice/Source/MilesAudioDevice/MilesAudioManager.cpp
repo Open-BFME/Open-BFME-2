@@ -931,3 +931,11 @@ void MilesAudioManager::rva000540A7(INI *ini)
     ini->loadFile(AsciiString("Data\\INI\\Default\\SoundEffects.ini"), type, 0);
     ini->loadFile(AsciiString("Data\\INI\\Default\\AmbientStream.ini"), type, 0);
 }
+
+// Same orchestration receiver and INI +8 load type as 0x000540A7.
+// The native single-file wrapper uses the audio settings filename.
+void MilesAudioManager::rva0005407E(INI *ini)
+{
+    INILoadType type = static_cast<INILoadType>(ini->m_at08);
+    ini->loadFile(AsciiString("Data\\INI\\AudioSettings.ini"), type, 0);
+}
