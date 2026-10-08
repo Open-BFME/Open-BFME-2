@@ -69437,3 +69437,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?sumUnflagged@Rva0040CF55Owner@@QBEHXZ,,0x0040CF55,60,Code/GameEngine/Source/Common/ArmySummaryCommandPoints.cpp,matched,army sum of +0x90 over entries with clear +0xC5 flag; owner address-derived
 ?rva00308DF0@Rva00308DF0@@QAEPAVRva00308DF0Ref@@XZ,,0x00308DF0,60,Code/Libraries/Source/WWVegas/WWLib/Rva00308DF0Release.cpp,matched,address-derived release-if-flag member; callee pin 0x308C31
 ?rva003B92A2@Rva003B92A2@@QAEXXZ,,0x003B92A2,23,Code/GameEngine/Source/Common/Rva003B92A2Clear.cpp,matched,address-derived; clears vec20 after callee pin 0x3B9132
+?rva002C025A@@YGXPAXI_N@Z,,0x002C025A,33,Code/GameEngine/Source/Common/Rva002C025AForward.cpp,matched,address-derived stdcall forwarder; callee pin 0x2C00E0
