@@ -9,6 +9,12 @@
 // Instantiate the recovered operations only. Retail's single insertion calls
 // the node creator; the forced-inline list shim would emit another body here.
 namespace _STL {
+// Compare the iterator nodes locally, as in the canonical list provider;
+// avoid emitting another externally selected iterator-base wrapper.
+template<class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits> &a,
+                              const _List_iterator<T, Traits> &b)
+{ return a._M_node != b._M_node; }
 template<> list<Rva0036ADF9Element>::iterator list<Rva0036ADF9Element>::insert(list<Rva0036ADF9Element>::iterator, const Rva0036ADF9Element &);
 template list<Rva0036ADF9Element>::list(const list<Rva0036ADF9Element> &);
 template _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
