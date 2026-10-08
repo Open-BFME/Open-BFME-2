@@ -149,3 +149,83 @@ Int W3DBridge::getModelVertices(VertexFormatXYZNDUV1 *destination_vb, Int curVer
 }
 
 //=============================================================================
+
+// ?getIndicesNVertices@W3DBridge@@QAEXPAGPAUVertexFormatXYZNDUV1@@PAH2PAV?$RefMultiListIterator@VRenderObjClass@@@@@Z @0x000DF11E
+// Zero Hour's body less its vertex/index overflow returns. BFME 2 floors the
+// span count with the CRT floor and an x87 round (retail calls floor and
+// fistp) where Zero Hour's REAL_TO_INT_FLOOR uses its bit trick.
+#undef REAL_TO_INT_FLOOR
+#define REAL_TO_INT_FLOOR(x) (fast_float2long_round((Real)floor(x)))
+void W3DBridge::getIndicesNVertices(UnsignedShort *destination_ib, VertexFormatXYZNDUV1 *destination_vb, 
+																		Int *curIndexP, Int *curVertexP, RefRenderObjListIterator *pLightsIterator)
+{
+	Int numI;
+	Int numV;
+	m_firstVertex = *curVertexP;
+	m_firstIndex = *curIndexP;
+	m_numVertex = 0;
+	m_numPolygons = 0;
+	if (m_sectionMesh == NULL) {
+		numV = getModelVerticesFixed(destination_vb, *curVertexP, m_leftMtx, m_leftMesh, pLightsIterator);
+		numI = getModelIndices( destination_ib, *curIndexP, *curVertexP, m_leftMesh);
+		*curIndexP += numI;
+		*curVertexP += numV;
+		m_numVertex += numV;
+		m_numPolygons += numI/3;
+		return;
+	}
+
+	Vector3 vec = m_end - m_start;
+	if (vec.Length2() < 1.0f) {
+		vec.Normalize();
+	}
+
+	Vector3 vecNormal(-vec.Y, vec.X, 0);
+	vecNormal.Normalize();
+	vecNormal *= m_scale;
+
+	Real deltaZ = m_end.Z - m_start.Z;
+	Real desiredLength = vec.Length();
+	deltaZ /= desiredLength;
+	Real deltaX = sqrt(1.0 - deltaZ*deltaZ);
+	Vector3 vecZ(-deltaZ, 0, deltaX);
+	vecZ *= m_scale;
+
+	Real spanLength = m_rightMinX - m_leftMaxX; 
+	Int numSpans = 1;
+	if (m_bridgeType != FIXED_BRIDGE) {
+		Real spannable = desiredLength - (m_length-spanLength);
+		numSpans = REAL_TO_INT_FLOOR( (spannable + spanLength/2)/spanLength);
+		if (numSpans<0) numSpans = 0;
+	}
+
+	Real bridgeLength = m_length + (numSpans-1)*spanLength;
+	Real xOffset = -m_leftMinX;
+
+	vec /= bridgeLength;
+	numV = getModelVertices(destination_vb, *curVertexP, xOffset, vec, vecNormal, vecZ, m_start, 
+		m_leftMtx, m_leftMesh, pLightsIterator);
+	numI = getModelIndices( destination_ib, *curIndexP, *curVertexP, m_leftMesh);
+	*curIndexP += numI;
+	*curVertexP += numV;
+	m_numVertex += numV;
+	m_numPolygons += numI/3;
+
+	Int i;
+	for (i=0; i<numSpans; i++) {
+		numV = getModelVertices(destination_vb, *curVertexP, xOffset+i*spanLength, vec, vecNormal, vecZ, m_start, 
+			m_sectionMtx, m_sectionMesh, pLightsIterator);
+		numI = getModelIndices( destination_ib, *curIndexP, *curVertexP, m_sectionMesh);
+		*curIndexP += numI;
+		*curVertexP += numV;
+		m_numVertex += numV;
+		m_numPolygons += numI/3;
+	}
+	numV = getModelVertices(destination_vb, *curVertexP, xOffset+(numSpans-1)*spanLength, vec, vecNormal, vecZ, m_start, 
+		m_rightMtx, m_rightMesh, pLightsIterator);
+	numI = getModelIndices( destination_ib, *curIndexP, *curVertexP, m_rightMesh);
+	*curIndexP += numI;
+	*curVertexP += numV;
+	m_numVertex += numV;
+	m_numPolygons += numI/3;
+}
