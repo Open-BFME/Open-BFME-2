@@ -27,3 +27,27 @@ int Rva00404927::rva00404927(Rva00404781 *p, int idx)
 		return 1;
 	return 0;
 }
+
+// Complete native 0x00404901..0x00404927 RET8, following RET8 at0x4048FE.
+// Semantic donor: BF1 34f59164 Common/S3FloatPredicates.cpp,
+// Gen_001de230::bfmeAbove. Target MULSS/SUBSS/COMISS establishes
+// second*field08 - first*field04 > field10 and the full int0/1 return.
+// The two float arguments and coefficient offsets come from target bytes;
+// an application name and common ownership with the indexed sibling above
+// are not established. Keep an independent address-owned receiver view.
+class Rva00404901Coefficients
+{
+public:
+    int above(float first, float second) const;
+private:
+    char unknown0[4];
+    float field04,field08;
+    char unknown0C[4];
+    float field10;
+};
+int Rva00404901Coefficients::above(float first, float second) const
+{
+    if (second*field08 - first*field04 > field10)
+        return 1;
+    return 0;
+}
