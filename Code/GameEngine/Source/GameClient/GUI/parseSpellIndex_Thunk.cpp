@@ -38,17 +38,39 @@ enum ScienceType
 
 class ModuleData;
 
+// STLport's vector storage, spelled as its _vector.h and _alloc.h do so
+// the empty vector's base and allocation-proxy constructors emit the
+// shared bodies at 0x00211E58 and 0x0014F3C4.
 namespace _STL
 {
-template <class T> class allocator;
-template <class T, class A> class vector
+template <class T> class allocator
 {
 public:
-	void push_back(const T &value);
+	allocator() {}
+	allocator(const allocator<T> &) {}
+	~allocator() {}
+};
+template <class Value, class T, class Alloc> class _STLP_alloc_proxy : public Alloc
+{
+public:
+	Value m_data;
+	_STLP_alloc_proxy(const Alloc &a, Value p) : Alloc(a), m_data(p) {}
+};
+template <class T, class A> class _Vector_base
+{
+public:
+	_Vector_base(const A &a) : m_start(0), m_finish(0), m_end(a, 0) {}
+	~_Vector_base();
 
 	T *m_start;
 	T *m_finish;
-	T *m_end;
+	_STLP_alloc_proxy<T *, T, A> m_end;
+};
+template <class T, class A> class vector : public _Vector_base<T, A>
+{
+public:
+	explicit vector(const A &a = A()) : _Vector_base<T, A>(a) {}
+	void push_back(const T &value);
 };
 }
 
@@ -66,14 +88,30 @@ public:
 	bool rva002AB855(CreateAHeroData *science) const;
 };
 
-class Rva0043D3A8
+// Its rowed constructor 0x0043D16F (Rva0043D16FCtor.cpp's view) builds the
+// vftable, the player, the science vector and the count; the rowed views
+// split the class by name, so Rva0043D3A8 adds no vftable of its own.
+// The destructor is 0x0043D193 (state 2 of AptSpellStore's unwind map);
+// retail never stores state 1 before the constructor call, so the spell
+// store's constructor treats it as unable to throw.
+class Rva0043D16F
 {
 public:
+	Rva0043D16F() throw();
+	~Rva0043D16F();
 	virtual bool v00(ScienceType science);
 	virtual int v04();
-	void rva0043D5CB(ScienceType science);
 
 	Player *m_player; // +0x04, the local player the store buys for
+
+private:
+	unsigned char m_pad08[0x18 - 0x08];
+};
+
+class __declspec(novtable) Rva0043D3A8 : public Rva0043D16F
+{
+public:
+	void rva0043D5CB(ScienceType science);
 };
 
 class ScienceStore
@@ -225,15 +263,135 @@ public:
 	void rva002239E2(const AsciiString &name, const Image *image);
 };
 
+// The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
+// AptQuitMenuCallbacks.cpp): a binding of an object and an eight-byte
+// multiple-inheritance member pointer, and the refcounted holder rowed
+// 0x0057BC63 builds from it.
+class __multiple_inheritance FunctorTarget;
+typedef void (FunctorTarget::*FunctorMethod)(void);
+
+struct FunctorBinding
+{
+	FunctorBinding(FunctorMethod method, FunctorTarget *target) : m_target(target), m_method(method) {}
+
+	FunctorTarget *m_target;
+	unsigned int m_pad;
+	FunctorMethod m_method;
+};
+
+class FunctorWrapperHead
+{
+public:
+	void *m_vtbl;
+	int m_refCount; // +0x04
+};
+
+class Rva0057BC63FunctorHolder
+{
+public:
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
+	Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : m_ptr(other.m_ptr)
+	{
+		if (m_ptr)
+			++m_ptr->m_refCount;
+	}
+
+	FunctorWrapperHead *m_ptr;
+};
+
+__forceinline FunctorBinding MakeBinding(FunctorMethod method, FunctorTarget *target)
+{
+	FunctorBinding binding(method, target);
+	return binding;
+}
+
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
+
+template <class T> class AptRef : public Rva0057BC63FunctorHolder
+{
+public:
+	AptRef(const FunctorBinding &binding) : Rva0057BC63FunctorHolder(binding) {}
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+};
+
+class AptCommandMap;
+class AptExternHandler;
+
+// The adders (AptCallbackAdders.cpp, both rowed).
+class AptCommandMapAdder
+{
+public:
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+
+private:
+	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_names;
+};
+
+class AptExternHandlerAdder
+{
+public:
+	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
+
+private:
+	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_names;
+};
+
+// The Apt screen base (BfmeAptGameWindowDestructor.cpp): a 0x218-byte
+// GameWindow and, at +0x218, the 0x58-byte callback registry whose adders
+// sit at +0x04 and +0x10.
+class GameWindow
+{
+protected:
+	virtual ~GameWindow();
+
+private:
+	unsigned char m_pad004[0x218 - 4];
+};
+
+class Rva005248D0
+{
+public:
+	virtual ~Rva005248D0();
+
+	AptCommandMapAdder m_commandMaps; // +0x04
+	AptExternHandlerAdder m_externHandlers; // +0x10
+
+private:
+	unsigned char m_pad01C[0x58 - 0x1C];
+};
+
+class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
+{
+public:
+	_bfme_AptGameWindow(void *context);
+	virtual ~_bfme_AptGameWindow();
+
+private:
+	AsciiString m_filename; // +0x270
+	int m_274;
+	char m_278;
+};
+
+// A spell button slot; the folded pair constructor 0x0007E81F clears it.
 struct SpellStoreSlot
 {
+	SpellStoreSlot();
+
 	const ModuleData *m_entry;
 	int m_04;
 };
 
-class AptSpellStore
+class AptSpellStore : public _bfme_AptGameWindow
 {
 public:
+	AptSpellStore(void *context);
+	virtual ~AptSpellStore();
+
 	void OnInitialized(const char *unused);
 	void OnRollOverBttnSpell(const char *name);
 	void OnRollOutBttnSpell(const char *name);
@@ -244,13 +402,12 @@ public:
 	void rva0043CD3C();
 
 private:
-	unsigned char m_pad000[0x27C];
 	_STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > m_chosen; // +0x27C
 	Rva0043D3A8 m_sciences; // +0x288
-	unsigned char m_pad290[0x2A0 - 0x290];
 	bool m_2a0; // +0x2A0
 	bool m_2a1;
 	bool m_2a2; // +0x2A2
+	bool m_2a3; // +0x2A3, the window manager's background is still to switch
 	int m_2a4; // +0x2A4
 	SpellStoreSlot m_slots[20]; // +0x2A8
 	int m_348; // +0x348
@@ -566,6 +723,7 @@ class Rva0043D3DA
 {
 public:
 	void rva0043C7C9(int unused);
+	void rva0043D3DA(int unused);
 };
 
 int Rva0043C933Get(void);
@@ -592,6 +750,7 @@ class Rva00222A8BTarget
 public:
 	int invoke(void *window, const char *function, int argc, const char *arg,
 		void *arg1, void *arg2, void *arg3, void *arg4);
+	void rva002233A6(int mode);
 };
 
 // Retail 0x0043CD3C, 1059 bytes: the store's frame update; BFME 1's
@@ -869,4 +1028,73 @@ void rva0043D467(void)
 		}
 		++index;
 	}
+}
+
+// Retail 0x0043D686, 917 bytes: the screen's constructor, called by the
+// 0x35C-byte factory 0x0043DA1B. It becomes the open spell store, binds
+// the OnInitialized, OnClosed, OnBttnClose, OnBttnReset, OnBttnSpell and
+// roll over/out commands and the InputEnabled query, switches the window
+// manager's background once and fills the buttons.
+#pragma pointers_to_members(full_generality, multiple_inheritance)
+AptSpellStore::AptSpellStore(void *context)
+	: _bfme_AptGameWindow(context),
+	  m_2a0(false),
+	  m_2a1(true),
+	  m_2a2(false),
+	  m_2a3(true),
+	  m_2a4(0),
+	  m_348(-1),
+	  m_34c(-1),
+	  m_350(-1),
+	  m_hovered(-1),
+	  m_358(false),
+	  m_359(false)
+{
+	g_Va00E03314 = (int)this;
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptSpellStore::OnInitialized);
+		AsciiString name("AptSpellStore::OnInitialized");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptSpellStore::OnClosed);
+		AsciiString name("AptSpellStore::OnClosed");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&Rva0043D3DA::rva0043C7C9);
+		AsciiString name("AptSpellStore::OnBttnClose");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&Rva0043D3DA::rva0043D3DA);
+		AsciiString name("AptSpellStore::OnBttnReset");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptSpellStore::OnBttnSpell);
+		AsciiString name("AptSpellStore::OnBttnSpell");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptSpellStore::OnRollOverBttnSpell);
+		AsciiString name("AptSpellStore::OnRollOverBttnSpell");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptSpellStore::OnRollOutBttnSpell);
+		AsciiString name("AptSpellStore::OnRollOutBttnSpell");
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptSpellStore::InputEnabled);
+		AsciiString name("AptSpellStore::InputEnabled");
+		m_externHandlers.AddExternHandler(name, 0, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	if (m_2a3)
+	{
+		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva002233A6(2);
+		m_2a3 = false;
+	}
+	rva0043C9FD();
 }
