@@ -16,9 +16,12 @@ enum { MAX_COMMANDS_PER_SET = 32 };
 class ThingTemplate;
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
+class Object;
 class CommandButton
 {
 public:
+    void rva0035B5C2(Object *, bool);
+    Int getCommandType() const { return *(const Int *)((const char *)this + 0x14); }
 	Int getOptions() const
 	{
 		return *(const Int *)((const char *)this + 0x1C);
@@ -36,7 +39,90 @@ public:
 	Int winEnable(Bool enable);
 };
 
-class Object;
+class AsciiString;
+enum ObjectStatusTypes { MULTISELECT_SOLD = 0x13 };
+class Object {
+public:
+    const AsciiString *rva00290E67() const;
+    Object *rva002931F5(bool);
+    void *rva0028C197() const;
+    bool testStatus(ObjectStatusTypes) const;
+};
+class CommandSet {
+public:
+    const CommandButton *getCommandButton(int) const;
+};
+class Rva0031D5F8 {
+public:
+    void *rva0031D5F8(const AsciiString *);
+};
+class Rva0035B424 {
+public:
+    void rva0035B424(int);
+};
+class MultiSelectModeView {
+public:
+    virtual void slot0();
+    virtual void slot1();
+    virtual void slot2();
+    virtual void slot3();
+    virtual void slot4();
+    virtual void slot5();
+    virtual void slot6();
+    virtual void slot7();
+    virtual void slot8();
+    virtual void slot9();
+    virtual void slot10();
+    virtual void slot11();
+    virtual void slot12();
+    virtual void slot13();
+    virtual void slot14();
+    virtual void slot15();
+    virtual void slot16();
+    virtual void slot17();
+    virtual void slot18();
+    virtual void slot19();
+    virtual void slot20();
+    virtual void slot21();
+    virtual void slot22();
+    virtual void slot23();
+    virtual void slot24();
+    virtual void slot25();
+    virtual void slot26();
+    virtual void slot27();
+    virtual void slot28();
+    virtual void slot29();
+    virtual void slot30();
+    virtual void slot31();
+    virtual void slot32();
+    virtual void slot33();
+    virtual void slot34();
+    virtual void slot35();
+    virtual void slot36();
+    virtual void slot37();
+    virtual void slot38();
+    virtual void slot39();
+    virtual void slot40();
+    virtual void slot41();
+    virtual void slot42();
+    virtual void slot43();
+    virtual void slot44();
+    virtual void slot45();
+    virtual void slot46();
+    virtual void slot47();
+    virtual void slot48();
+    virtual void slot49();
+    virtual void slot50();
+    virtual void slot51();
+    virtual void slot52();
+    virtual void slot53();
+    virtual void slot54();
+    virtual void slot55();
+    virtual void slot56();
+    virtual void slot57();
+    virtual void slot58();
+    virtual bool currentMode(); // target vslot59, original name/type unasserted
+};
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Drawable.h
 class Drawable
@@ -124,9 +210,12 @@ void GadgetButtonSetDisallowed(GameWindow *, Int);
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
 class ControlBar
 {
+protected:
+    void addCommonCommands(Drawable *, bool);
 public:
 	void rva0053DF0A(void);
     void rva0053CF65();
+    void rva0031B641(GameWindow *, const CommandButton *);
     Int rva0053BD66(const CommandButton *, GameWindow *, Object *, Real *, Bool) const;
 
 private:
@@ -266,4 +355,81 @@ void ControlBar::rva0053DF0A(void)
 		else
 			win->winEnable(false);
 	}
+}
+
+// ?addCommonCommands@ControlBar@@IAEXPAVDrawable@@_N@Z
+// Native53DB2D..53DD53 (550B), WB1124A40 names ControlBarMultiSelect.cpp;
+// ZH supplies common-command intersection. Target adds the type24 selection
+// vote through the owned Object helpers and vslot59, then chooses index0/1
+// through the owned 35B424 setter. Those operation names remain unasserted.
+void ControlBar::addCommonCommands(Drawable *draw, bool firstDrawable)
+{
+    Int i;
+    const CommandButton *command;
+    if (draw == 0) return;
+    Object *obj = draw->getObject();
+    if (!obj) return;
+    if (*(const unsigned int *)((const char *)*(const void *const *)((const char *)obj + 4) + 0x10C) & 0x8000)
+        return;
+    const CommandSet *commandSet = (const CommandSet *)((Rva0031D5F8 *)this)->rva0031D5F8(obj->rva00290E67());
+    if (commandSet == 0) {
+        for (i = 0; i < MAX_COMMANDS_PER_SET; i++) {
+            m_commonCommands[i] = 0;
+            if (m_commandWindows[i]) m_commandWindows[i]->winHide(true);
+        }
+        return;
+    }
+    if (firstDrawable == true) {
+        for (i = 0; i < MAX_COMMANDS_PER_SET; i++) {
+            command = commandSet->getCommandButton(i);
+            if (command && (command->getOptions() & 0x100) != 0) {
+                m_commonCommands[i] = command;
+                if (m_commandWindows[i]) {
+                    m_commandWindows[i]->winHide(false);
+                    m_commandWindows[i]->winEnable(true);
+                    if (command->getCommandType() == 0x24) {
+                        int modeVote = 0;
+                        const BfmeControlBarDrawableList *selected =
+                            ((BfmeControlBarInGameUISelectionView *)TheInGameUI)->getAllSelectedDrawables();
+                        for (BfmeControlBarDrawableListNode *it = selected->head->next;
+                             it != selected->head; it = it->next) {
+                            Drawable *selectedDraw = it->value;
+                            if (!selectedDraw || !selectedDraw->getObject()) continue;
+                            Object *selectedObject = selectedDraw->getObject();
+                            if (*(const unsigned int *)((const char *)*(const void *const *)((const char *)selectedObject + 4) + 0x10C) & 0x8000)
+                                continue;
+                            if (selectedObject->testStatus(MULTISELECT_SOLD)) continue;
+                            Object *resolved = selectedObject->rva002931F5(false);
+                            if (!resolved) continue;
+                            MultiSelectModeView *mode = (MultiSelectModeView *)resolved->rva0028C197();
+                            if (!mode) continue;
+                            if (mode->currentMode()) --modeVote;
+                            else ++modeVote;
+                        }
+                        ((Rva0035B424 *)command)->rva0035B424(modeVote >= 0);
+                    } else {
+                        const_cast<CommandButton *>(command)->rva0035B5C2(obj, false);
+                    }
+                    rva0031B641(m_commandWindows[i], command);
+                }
+            }
+        }
+    } else {
+        for (i = 0; i < MAX_COMMANDS_PER_SET; i++) {
+            command = commandSet->getCommandButton(i);
+            bool attackMove = (command && command->getCommandType() == 0xA) ||
+                (m_commonCommands[i] && m_commonCommands[i]->getCommandType() == 0xA);
+            if (attackMove && !m_commonCommands[i]) {
+                m_commonCommands[i] = command;
+                if (m_commandWindows[i]) {
+                    m_commandWindows[i]->winHide(false);
+                    m_commandWindows[i]->winEnable(true);
+                    rva0031B641(m_commandWindows[i], command);
+                }
+            } else if (command != m_commonCommands[i] && !attackMove) {
+                m_commonCommands[i] = 0;
+                if (m_commandWindows[i]) m_commandWindows[i]->winHide(true);
+            }
+        }
+    }
 }
