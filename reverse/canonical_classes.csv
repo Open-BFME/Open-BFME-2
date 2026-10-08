@@ -66,3 +66,6 @@ Rva0036ADF9Element,Code/GameEngine/Include/GameLogic/ContainmentListView.h,Opaqu
 Rva0036AE51ListView,Code/GameEngine/Include/GameLogic/ContainmentListView.h,Full40B helper36AE51 and26B descriptor return466398 establish two4B fields and one-word list return; ten consumer views reconciled and all26 affected bodies byte-verified
 Rva0028C6D6,Code/GameEngine/Include/Common/Rva0028C6D6.h,existing header; contract class_contracts/Rva0028C6D6.json; 1/1 sampled units adopt
 Transport,Code/GameEngine/Include/GameNetwork/Transport.h,existing header; contract class_contracts/Transport.json; 5/22 sampled units adopt
+Rva0040CFC7Pred,Code/GameEngine/Source/Common/BattlePromptCounterView.h,retail 005FEF11 constructor and C7A460 slot 005FED99 prove one-slot predicate and eight counters; 0040CFC7 visitor preserves entry ABI
+Rva0040CFC7,Code/GameEngine/Source/Common/BattlePromptCounterView.h,retail 005FEF11 constructor and C7A460 slot 005FED99 prove one-slot predicate and eight counters; 0040CFC7 visitor preserves entry ABI
+Rva005FED61,Code/GameEngine/Source/Common/BattlePromptCounterView.h,retail 005FEF11 constructor and C7A460 slot 005FED99 prove one-slot predicate and eight counters; 0040CFC7 visitor preserves entry ABI

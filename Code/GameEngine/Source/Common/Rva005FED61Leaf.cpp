@@ -7,6 +7,7 @@
 // rva002D06CA 0x002D06CA plus global g_009FF000, neighbours Rva005FED59 and
 // Disp8 getters in same dir, caller 0x005FEDA7, ret 8 two-arg shape.
 #include "ascii_string.h"
+#include "BattlePromptCounterView.h"
 
 class Rva002D06CA
 {
@@ -20,14 +21,6 @@ struct Rva005FED61Payload
 {
 	char m_pad00[0x5C4];
 	int m_idx5C4;
-};
-
-class Rva005FED61
-{
-	int m_00;
-	int m_counts04[7];
-public:
-	void rva005FED61(const AsciiString *key, int delta);
 };
 
 void Rva005FED61::rva005FED61(const AsciiString *key, int delta)

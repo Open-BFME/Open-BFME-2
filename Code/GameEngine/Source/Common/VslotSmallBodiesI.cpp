@@ -119,23 +119,3 @@ Bool Rva005D8BFC::rva005D8BFC(const Object *obj)
 		return false;
 	return true;
 }
-
-// slot at VA 0x00C7A460: runs the rowed 0x005FED61 on this object with the
-// argument's +0x04 string and +0x90 value; answers true.
-struct Rva005FED99Arg
-{
-	char m_pad00[0x04];
-	char m_04[0x90 - 0x04];
-	Int m_90;
-};
-class Rva005FED61
-{
-public:
-	void rva005FED61(const AsciiString *name, Int value);
-	Bool rva005FED99(const Rva005FED99Arg *arg);
-};
-Bool Rva005FED61::rva005FED99(const Rva005FED99Arg *arg)
-{
-	rva005FED61((const AsciiString *)arg->m_04, arg->m_90);
-	return true;
-}
