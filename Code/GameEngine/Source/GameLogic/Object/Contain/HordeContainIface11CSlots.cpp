@@ -426,6 +426,32 @@ public:
 };
 enum WeaponSlotType;
 class Module;
+// Retail's shared 76-byte copy constructor at 0x00045455. Object's
+// verified 0x0028CFB2 uses this same storage view for model conditions.
+class WeaponTemplateSetHead
+{
+public:
+	WeaponTemplateSetHead(const WeaponTemplateSetHead &other);
+	unsigned int m_words[19];
+};
+struct Rva00469F3AFlags
+{
+	unsigned int m_words[19];
+	__forceinline void set(unsigned int bit)
+	{
+		m_words[bit >> 5] |= 1U << (bit & 31);
+	}
+	__forceinline void intersect(const unsigned int *words)
+	{
+		for (unsigned int i = 0; i < 19; ++i)
+			m_words[i] &= words[i];
+	}
+	__forceinline void flip()
+	{
+		for (unsigned int i = 0; i < 19; ++i)
+			m_words[i] = ~m_words[i];
+	}
+};
 class Object
 {
 public:
@@ -492,6 +518,7 @@ public:
 	unsigned char rva00290FBB() const;
 	int rva0028B511() const;
 	void rva0028AE6D();
+	void rva0028CFB2(const int *a, const int *b);
 	void setTransformMatrix(const Matrix3D *mtx);
 	float GetRelativeAngle(const Coord3D *pos) const;
 	bool rva0028C264(int *out, int a2);
@@ -902,6 +929,7 @@ public:
 	virtual void rva0046F7C9(Object *obj);
 	virtual void rva00469F2F(Object *obj);
 	void rva00469886(Object *obj);
+	void rva00469F3A(Object *obj);
 	virtual int rva0046979B();
 	virtual void *rva004696CD();
 	virtual void rva004696E5();
@@ -1109,6 +1137,45 @@ void HordeContain::rva00469886(Object *obj)
 void HordeContain::rva00469F2F(Object *obj)
 {
 	rva00469886(obj);
+}
+
+// Retail 0x00469F3A..0x0046A024, ret 4 (234 bytes). The primary
+// HordeContain this supplies Object at +8; its condition mask is +0x10C.
+// WB's BitFlags.h lead supplies the set/intersect/flip structure, while
+// the bit indices, four 76-byte temporaries and callees follow retail.
+// No enum names or the enclosing method's original name are claimed.
+void HordeContain::rva00469F3A(Object *obj)
+{
+	if (!obj)
+		return;
+	Rva00469F3AFlags mask;
+	memset(&mask, 0, sizeof(mask));
+	((unsigned char *)mask.m_words)[31] |= 2;
+	((unsigned char *)mask.m_words)[29] |= 0x80;
+	mask.set(203);
+	mask.set(204);
+	mask.set(63);
+	mask.set(64);
+	mask.set(201);
+	mask.set(205);
+	mask.set(170);
+	mask.set(65);
+	mask.set(200);
+	mask.set(314);
+	mask.set(37);
+	mask.set(118);
+	mask.set(336);
+	mask.set(240);
+	mask.set(326);
+	Rva00469F3AFlags set;
+	memcpy(&set, &mask, sizeof(set));
+	WeaponTemplateSetHead current(*(const WeaponTemplateSetHead *)m_object->m_conditionWords);
+	set.intersect(current.m_words);
+	Rva00469F3AFlags clear;
+	memcpy(&clear, &current, sizeof(clear));
+	clear.flip();
+	clear.intersect(mask.m_words);
+	obj->rva0028CFB2((const int *)clear.m_words, (const int *)set.m_words);
 }
 
 // ?rva0046979B@HordeContain@@UAEHXZ @0x0046979B: slot 10, module data +0x98.
