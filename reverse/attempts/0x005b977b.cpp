@@ -1,6 +1,6 @@
 // ?rva005B977B@OnlineHome@AptOnline@@QAEXXZ
-// partial score=0.95 date=2026-10-08
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /O1 /EHsc /arch:SSE /G6
+// partial score=0.96 date=2026-10-08
+// cl: /O1 /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's online home screen Apt callbacks, bound as member pointers by
 // the screen's registration under three spellings of its name
@@ -62,8 +62,8 @@ public:
 	// Unrowed 0x005B977B (366 bytes) and 0x005B98E9 (refills the message of
 	// the day), pinned by address.
 	void rva005B977B();
+ void rva005B95B8();
 	void rva005B98E9();
-	void rva005B95B8();
 
 private:
 	unsigned char m_pad00[0x60];
@@ -114,47 +114,47 @@ void AptOnline::OnlineHome::NumTickerFields(int query, char *result, bool skip)
 		_snprintf(result, 0xFF, "%d", 12);
 }
 
+// Native5B977B..5B98E9 RET0;366B. TimeZone172B and512B conversion
+// buffer measured from native Win32 arguments. BF1 9cb wholehome has
+// same zone abbreviation loop, embedded in a larger player-stat refresh.
+// Target resets12 ticker rows and calls the separately rowed PS request.
 struct HomeSystemTime { unsigned short field[8]; };
-struct HomeTimeZone {
- long bias; unsigned short standardName[32]; HomeSystemTime standardDate;
- long standardBias; unsigned short daylightName[32]; HomeSystemTime daylightDate; long daylightBias;
-};
+struct HomeTimeZone { long bias; unsigned short standardName[32]; HomeSystemTime standardDate;
+ long standardBias; unsigned short daylightName[32]; HomeSystemTime daylightDate; long daylightBias; };
+typedef char HomeZoneSize[sizeof(HomeTimeZone)==172 ? 1:-1];
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTimeZoneInformation(HomeTimeZone *);
-extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(unsigned, unsigned long, const unsigned short *, int, char *, int, const char *, int *);
-class Rva005B9378 { public: void rva005B9378(int, const UnicodeString &); };
-class BfmeAptWindowManager { public: void bfmeSetText(const AsciiString &, const UnicodeString &, bool); };
-class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(unsigned,unsigned long,const unsigned short *,int,char *,int,const char *,int *);
+class Rva005B9378 { public: void rva005B9378(int,const UnicodeString &); };
+class BfmeAptWindowManager { public: void bfmeSetText(const AsciiString &,const UnicodeString &,bool); };
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 void rva005BD64D();
-// The donor in 9cbfb551 has this inline template in its home-screen unit.
-template <> inline unsigned short StringBase<unsigned short>::getCharAt(int i) const throw() {
- return m_data ? m_data->data[i] : 0;
+// getCharAt(0) is inlined in native; canonical header declares it out of
+// line. Shared string header layout proves the data pointer/text+8 view.
+static inline unsigned short onlineHomeFirst(const UnicodeString &text)
+{
+ const unsigned char *data=*reinterpret_cast<const unsigned char *const *>(&text);
+ return data ? *reinterpret_cast<const unsigned short *>(data+8):0;
 }
-
 void AptOnline::OnlineHome::rva005B977B()
 {
- for (int i=0; i<12; ++i)
-  ((Rva005B9378 *)this)->rva005B9378(i, UnicodeString(L"-"));
+ for(int i=0;i<12;++i)
+  reinterpret_cast<Rva005B9378 *>(this)->rva005B9378(i,L"-");
  HomeTimeZone zone;
- unsigned long zoneResult=GetTimeZoneInformation(&zone);
+ unsigned long result=GetTimeZoneInformation(&zone);
  UnicodeString zoneText;
  char buffer[512];
- if (zoneResult==0xffffffff)
-  zoneText.format(UnicodeString::TheEmptyString.str());
+ if(result==0xffffffff) zoneText.format(UnicodeString::TheEmptyString.str());
  else {
-  if(zoneResult==2)
-   WideCharToMultiByte(0,0,zone.daylightName,-1,buffer,512,0,0);
-  else
-   WideCharToMultiByte(0,0,zone.standardName,-1,buffer,512,0,0);
+  if(result==2) WideCharToMultiByte(0,0,zone.daylightName,-1,buffer,512,0,0);
+  else WideCharToMultiByte(0,0,zone.standardName,-1,buffer,512,0,0);
   zoneText.translate(buffer);
  }
  UnicodeString token,initials;
  while(zoneText.nextToken(&token,L" ")) {
-  unsigned short c=token.getCharAt(0);
+  unsigned short c=onlineHomeFirst(token);
   initials.concat(&c,1);
  }
- ((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(AsciiString("APT:TimeZone"),initials,false);
+ g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:TimeZone"),initials,false);
  rva005BD64D();
  rva005B95B8();
 }
-
