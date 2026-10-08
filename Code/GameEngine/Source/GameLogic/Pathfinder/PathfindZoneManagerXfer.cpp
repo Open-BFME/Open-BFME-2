@@ -111,6 +111,7 @@ public:
 	};
 	void DoXfer(Xfer *);
 	void CreateEquivalencySet(unsigned variant, unsigned equivalent);
+ void rva005324D8(unsigned char incremental,unsigned short first,unsigned short second);
  bool InEquivSet(unsigned equivalent, unsigned first, unsigned second);
  bool CouldBeInEquivSet(unsigned equivalent, unsigned zone);
 
@@ -351,4 +352,43 @@ void Rva00531C5A::rva00531C8C(unsigned short n) {
   if (following == n) break;
   n = (unsigned short)following;
  } while (true);
+}
+
+class Rva005321D1 { public: void rva00532455(unsigned short,unsigned short); };
+
+// Full native560B5324D8..532708 and WB12D0B40 establish the typed
+// cell-pair masks and eight-by-seven union dispatch. Incremental is tested
+// as a byte boolean; starting variants0/1 and stepping2 preserves native.
+// Shared type/ID/secondary/bridge bitfields reproduce the entire routine
+// on the first direct trial, including repeated mode2 and mode6 merges.
+// Original method name unknown; manager receiver follows independently
+// verified cell/union layout and Update533BEC callers. No new pins.
+void PathfindZoneManager::rva005324D8(unsigned char incremental,unsigned short first,unsigned short second) {
+ CellType *a=reinterpret_cast<CellType *>(unknown0C)+first;
+ CellType *b=reinterpret_cast<CellType *>(unknown0C)+second;
+ unsigned mask=(1u<<a->type)|(1u<<b->type);
+ for(int variant=incremental ? 1:0;variant<8;variant+=2) {
+  if(!((Rva00531720 *)this)->rva00531720(variant,first) || !((Rva00531720 *)this)->rva00531720(variant,second))continue;
+  bool joined=false;
+  if(a->type==b->type && (a->id==b->id || a->id==b->secondary || a->secondary==b->id || (a->secondary==16 && b->secondary==16))) {
+   joined=true;
+   ((Rva00532165 *)&unions[variant][0])->rva00532431(first,second);
+  }
+  if(a->id==b->id || joined) {
+   if(!(mask & ~5u)) ((Rva00532165 *)&unions[variant][1])->rva00532431(first,second);
+   if(!(mask & ~3u)) ((Rva00532165 *)&unions[variant][2])->rva00532431(first,second);
+   if(!(mask & ~0x81u)) ((Rva00532165 *)&unions[variant][2])->rva00532431(first,second);
+   if(!(mask & ~0x82u)) ((Rva00532165 *)&unions[variant][2])->rva00532431(first,second);
+   if(!(mask & ~0x82u)) ((Rva00532165 *)&unions[variant][4])->rva00532431(first,second);
+   if(!(mask & ~9u)) {
+    ((Rva00532165 *)&unions[variant][3])->rva00532431(first,second);
+    ((Rva00532165 *)&unions[variant][6])->rva00532431(first,second);
+   }
+   if(!(mask & ~0x11u) && (a->type!=4 || a->bridge) && (b->type!=4 || b->bridge))
+    ((Rva00532165 *)&unions[variant][6])->rva00532431(first,second);
+  }
+  if(mask==4) ((Rva00532165 *)&unions[variant][5])->rva00532431(first,second);
+ }
+ if(incremental && a->id==b->id && !(mask & ~0x11u))
+  ((Rva005321D1 *)&finalUnion)->rva00532455(first,second);
 }
