@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // WorldBuilder callgraph lead: PalantirCommandInterface::Impl::OnToggleFlashLoaded
 // at VA 0x013CC080, PalantirCommandInterface.cpp:1188. Target ABI and
 // offsets below come from native bytes; the class name remains a donor lead.
@@ -119,3 +119,124 @@ PalantirSlotRef():p(0){}
 class Rva00529318Slot {public:Rva00529318Slot();~Rva00529318Slot();Rva000AD6F4 command,subMenu;PalantirToggleHolder toggle;PalantirSlotRef callback;int slotState;};
 Rva00529318Slot::Rva00529318Slot():slotState(0){}
 Rva00529318Slot::~Rva00529318Slot(){}
+
+// Constructor529FC5 supplies owner0 and integer UI level4. Its seven callback
+// strings and existing callback provider rows establish Palantir command UI use;
+// original owner/class identity remains a lead, so retain Rva0052936C spelling.
+// BFME1 callback-registration units and verified BFME2 CommandButtonMovieClip
+// supply the reference pattern: AddCommandMapDelegate builds the reference in
+// outgoing argument storage, preserving exact lifetime and unwind metadata.
+// Target members: map names8; over-button name vectors14; flags2C/2D;
+// pointer30; string34; rank38/24B; cost50/16B; state60; six20B slots64.
+// Rank initialization is the independently rowed non-throwing straight-store38B
+// provider528B72. Over-button level is reference-bound to delay its native load.
+// The two-vector storage and cleanup retain existing address-derived provider
+// views; these wrappers do not assert original C++ type names.
+class AptCommandTarget
+{
+};
+
+struct DelegateDesc
+{
+	// ?DelegateDesc::DelegateDesc present-unmatched
+	template <class T> DelegateDesc(T *object, void (T::*method)(const char *path))
+		: m_object(reinterpret_cast<AptCommandTarget *>(object)), m_method(reinterpret_cast<void (AptCommandTarget::*)(const char *path)>(method)) {}
+
+	// ?DelegateDesc::DelegateDesc present-unmatched
+	template <class T> DelegateDesc(T *object, void (T::*method)(int))
+		: m_object(reinterpret_cast<AptCommandTarget *>(object)), m_method(reinterpret_cast<void (AptCommandTarget::*)(const char *path)>(method)) {}
+
+	AptCommandTarget *m_object;
+	void (AptCommandTarget::*m_method)(const char *path);
+};
+
+class AptCommandMap
+{
+public:
+	void *m_vtbl;
+	int m_refCount;
+};
+
+template <class T> class AptRef
+{
+public:
+	// ?AptRef::AptRef present-unmatched
+	AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
+	AptRef &rva00579E47(const DelegateDesc *desc); // 0x00579E47
+	// ?AptRef::AptRef present-unmatched
+	AptRef(const AptRef &that) : m_ptr(that.m_ptr)
+	{
+		if (m_ptr)
+			m_ptr->m_refCount++;
+	}
+	// ?AptRef::~AptRef present-unmatched
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+
+private:
+	T *m_ptr;
+};
+
+// The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
+// AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
+class AptCommandMapAdder
+{
+public:
+	AptCommandMapAdder();
+	~AptCommandMapAdder();
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+
+	// ?AptCommandMapAdder::AddCommandMapDelegate present-unmatched
+	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
+	{
+		AddCommandMap(name, &desc);
+	}
+
+private:
+	char m_pad[0xC];
+};
+
+
+class AptOverButtonHandler {public:void*m_vtbl;int m_refCount;};
+// ?AptRef::AptRef present-unmatched
+template<> __forceinline AptRef<AptOverButtonHandler>::AptRef(const DelegateDesc*desc){((AptRef<AptCommandMap>*)this)->rva00579E47(desc);}
+class Rva00524415 {public:Rva00524415();char data[24];};
+class Rva00524436 {public:~Rva00524436();};
+struct PalantirOverStorage {Rva00524415 vectors;
+// ?PalantirOverStorage::~PalantirOverStorage present-unmatched
+~PalantirOverStorage(){((Rva00524436*)this)->Rva00524436::~Rva00524436();}};
+class AptOverButtonHandlerAdder:public PalantirOverStorage {public:
+ void AddOverButtonHandler(int,const AsciiString&,AptRef<AptOverButtonHandler>);
+ // ?AptOverButtonHandlerAdder::AddOverButtonHandlerDelegate present-unmatched
+ __forceinline void AddOverButtonHandlerDelegate(const int&level,const AsciiString&name,DelegateDesc desc){AddOverButtonHandler(level,name,&desc);}
+};
+class Rva00528B72 {public:Rva00528B72*rva00528B72(void*) throw();char data[24];};
+class Rva00528B98 {public:void rva00528B98();};
+struct PalantirRankInterface {Rva00528B72 state;
+// ?PalantirRankInterface::PalantirRankInterface present-unmatched
+__forceinline PalantirRankInterface(void*p) throw(){state.rva00528B72(p);}
+// ?PalantirRankInterface::~PalantirRankInterface present-unmatched
+__forceinline ~PalantirRankInterface(){((Rva00528B98*)this)->rva00528B98();}};
+class Rva00528BC1 {public:Rva00528BC1*rva00528BC1(void*);char data[16];};
+struct PalantirCostInterface {Rva00528BC1 state;
+// ?PalantirCostInterface::PalantirCostInterface present-unmatched
+__forceinline PalantirCostInterface(void*p){state.rva00528BC1(p);}};
+class Rva00529F3D {public:void rva00529F3D(int);};
+class Rva0052936C {public:
+ Rva0052936C(void*,int);void rva00529698(const char*);void rva005297A0(const char*);void rva005298E0(const char*);void rva00529A21(const char*);
+ void*owner;int frame;AptCommandMapAdder maps;AptOverButtonHandlerAdder over;bool flag2c,flag2d;void*current;AsciiString label;PalantirRankInterface rank;PalantirCostInterface cost;int value60;Rva00529318Slot slots[6];
+};
+class Rva00528F30Target {public:void reset();};
+Rva0052936C::Rva0052936C(void*p,int f):owner(p),frame(f),flag2c(false),flag2d(false),current(0),rank((void*)f),cost((void*)f),value60(0) {
+ over.AddOverButtonHandlerDelegate(frame,AsciiString("CommandUI/PortraitBackground"),DelegateDesc((Rva00529F3D*)this,&Rva00529F3D::rva00529F3D));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnButtonFrameLoaded"),DelegateDesc(this,&Rva0052936C::rva00529698));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnButtonFrameUnloaded"),DelegateDesc(this,&Rva0052936C::rva005297A0));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnSubMenuLoaded"),DelegateDesc((Rva0052991E*)this,&Rva0052991E::rva005297DD));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnSubMenuUnloaded"),DelegateDesc(this,&Rva0052936C::rva005298E0));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnToggleFlashLoaded"),DelegateDesc((Rva0052991E*)this,&Rva0052991E::rva0052991E));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnToggleFlashUnloaded"),DelegateDesc(this,&Rva0052936C::rva00529A21));
+ ((Rva00528F30Target*)this)->reset();
+}
