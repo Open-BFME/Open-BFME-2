@@ -41,7 +41,7 @@ public:
 	Rva000421C8() : m_next(0) {}
 	virtual ~Rva000421C8() {}
 	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
+	virtual int getPlayerMask() { return -1; }
 	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
 	Rva000421C8 *m_next;
 };
@@ -67,9 +67,9 @@ public:
 	bool m_match;
 };
 
-// The base filter's slot 2 is the trivial virtual retail shares across many
-// vftable slots (0x0036CC7A); bind the declaration to that row.
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
+// Both retail filter tables (VA BFAD10 and BCECF0) have 76CC7A in slot 2.
+// The four-byte body returns -1. Define the all-players mask directly; its
+// byte-identical ICF owner is FileClass::Get_File_Handle.
 
 struct Coord3D
 {
