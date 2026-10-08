@@ -494,7 +494,6 @@ void Anim2D::tryNextFrame( void )
 // ------------------------------------------------------------------------------------------------
 /** Set status bit */
 // ------------------------------------------------------------------------------------------------
-// ?setStatus@Anim2D@@QAEXE@Z present-unmatched
 void Anim2D::setStatus( UnsignedByte statusBits )
 {
 
