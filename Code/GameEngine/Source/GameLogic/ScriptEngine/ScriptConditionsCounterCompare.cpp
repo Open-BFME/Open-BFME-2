@@ -20,8 +20,8 @@
 
 class Parameter
 {
+    friend class ScriptConditions; // Native conditions read the +0x08 word inline.
 public:
-	int getInt() const { return m_integer; }
 	float getReal() const { return m_real; }
 	const AsciiString &getString() const { return m_string; }
 private:
@@ -90,7 +90,7 @@ bool ScriptConditions::evaluateCounterCounter(Condition *condition)
 	if (counter)
 		right = counter->m_value;
 
-	switch (condition->getParameter(1)->getInt()) {
+	switch (condition->getParameter(1)->m_integer) {
 	case 0: return left < right;
 	case 1: return left <= right;
 	case 2: return left == right;
@@ -109,7 +109,7 @@ bool ScriptConditions::evaluateCounterSeconds(Condition *pCondition)
 		count = counter->m_value;
 	float frames = g_parseDurationMsecScale * pCondition->getParameter(2)->getReal() * 1000.0f;
 	int value = fast_float2long_round((float)ceil(frames));
-	switch (pCondition->getParameter(1)->getInt()) {
+	switch (pCondition->getParameter(1)->m_integer) {
 	case 0: return count < value;
 	case 1: return count <= value;
 	case 2: return count == value;

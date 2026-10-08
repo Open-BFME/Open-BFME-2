@@ -11,7 +11,6 @@ class Parameter
 {
 public:
     const AsciiString &getString() const { return m_string; }
-    int getInt() const { return m_int; }
     unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
     unsigned char m_afterString[8];
 };
@@ -34,5 +33,5 @@ bool ScriptConditions::evaluateTeamExitedAreaPartially(Parameter *teamParm, Para
     PolygonTrigger *trigger = TheScriptEngine->getQualifiedTriggerAreaByName(triggerParm->getString());
     if (!trigger)
         return false;
-    return team->didPartialExit(trigger, (unsigned int)typeParm->getInt());
+    return team->didPartialExit(trigger, (unsigned int)typeParm->m_int);
 }

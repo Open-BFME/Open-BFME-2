@@ -8,7 +8,6 @@ enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
 class Parameter
 {
 public:
-    int getInt() const { return m_int; }
     unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
     unsigned char m_afterString[8];
 };
@@ -33,5 +32,5 @@ bool ScriptConditions::evaluateUnitHasObjectStatus(Parameter *unitParm, Paramete
     Object *object = TheScriptEngine->getUnitNamed(unitParm);
     if (!object)
         return false;
-    return object->testStatus((ObjectStatusTypes)statusParm->getInt());
+    return object->testStatus((ObjectStatusTypes)statusParm->m_int);
 }

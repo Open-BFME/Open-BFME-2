@@ -10,7 +10,6 @@
 class Parameter
 {
 public:
-    int getInt() const { return m_int; }
     unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
     unsigned char m_afterString[8];
 };
@@ -77,7 +76,7 @@ bool ScriptConditions::rva003E4A63(Condition *pCondition, Parameter *pPlayerParm
     while (mask)
     {
         Player *player = ThePlayerList->getEachPlayerFromMask(mask);
-        if (player && player->rva002A9CA4(pValueParm->getInt()))
+        if (player && player->rva002A9CA4(pValueParm->m_int))
         {
             pCondition->setCustomData(1);
             return true;

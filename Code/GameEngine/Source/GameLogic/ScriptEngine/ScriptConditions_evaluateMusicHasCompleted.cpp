@@ -9,7 +9,6 @@ class Parameter
 {
 public:
     const AsciiString &getString() const { return m_string; }
-    int getInt() const { return m_int; }
     unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
     unsigned char m_afterString[8];
 };
@@ -59,5 +58,6 @@ protected:
 bool ScriptConditions::evaluateMusicHasCompleted(Parameter *musicParm, Parameter *intParm)
 {
     AsciiString str = musicParm->getString();
-    return TheAudio->hasMusicTrackCompleted(str, intParm->getInt(), 0, 1);
+    int numberOfTimes = intParm->m_int;
+    return TheAudio->hasMusicTrackCompleted(str, numberOfTimes, 0, 1);
 }

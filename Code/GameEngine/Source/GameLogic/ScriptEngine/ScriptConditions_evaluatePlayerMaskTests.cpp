@@ -12,7 +12,6 @@
 class Parameter
 {
 public:
-    int getInt() const { return m_int; }
     unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
     unsigned char m_afterString[8];
 };
@@ -47,7 +46,7 @@ protected:
 };
 bool ScriptConditions::evaluateSciencePurchasePoints(Parameter *pPlayerParm, Parameter *pSciencePointParm)
 {
-    int pointsNeeded = pSciencePointParm->getInt();
+    int pointsNeeded = pSciencePointParm->m_int;
     PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);
     while (mask) {
         Player *pPlayer = ThePlayerList->getEachPlayerFromMask(mask);
@@ -62,7 +61,7 @@ bool ScriptConditions::evaluateSkirmishStartPosition(Parameter *pSkirmishPlayerP
     PlayerMaskType mask = TheScriptEngine->rva00357B82(pSkirmishPlayerParm);
     while (mask) {
         Player *player = ThePlayerList->getEachPlayerFromMask(mask);
-        if (player && pStartNdx->getInt() - 1 == player->getMpStartIndex()) {
+        if (player && pStartNdx->m_int - 1 == player->getMpStartIndex()) {
             return true;
         }
     }
