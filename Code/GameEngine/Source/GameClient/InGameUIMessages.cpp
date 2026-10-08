@@ -48,6 +48,10 @@
 // 0x0031E94C) adds a vslot-119 call, a 0x44-byte BannerUI (0x00217211, its
 // init and SubsystemInterface::loadIniFilesFromLegend), two singleton getters
 // and a zeroed +0x980. createControlBar passes HideControlBar an explicit true.
+//
+// Vtable slot 108 (0x0029F7EA) is ZH's recreateControlBar as written: window
+// lookup through TheWindowManager slot 60, m_idleWorkerWin at +0x978, and both
+// deletions run the virtual destructor in place before the global delete.
 
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -249,8 +253,23 @@ typedef void (*INIBlockParse)( INI *ini );
 // inihelp.cpp: loads every INI file the legend lists under the name.
 bool IniLoad( const char *name, INIBlockParse parse );
 
-class GameWindow;
+// Deleting a window runs its virtual destructor in place and frees through the
+// global operator delete (0x0002FD60).
+class GameWindow
+{
+public:
+	virtual ~GameWindow();
+	__forceinline void deleteInstance() { ::delete this; }
+};
 struct WindowLayoutInfo;
+
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey( const AsciiString &name );
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
 
 class GameWindowManager
 {
@@ -262,6 +281,13 @@ public:
 	SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30)
 #undef SLOT
 	virtual GameWindow *winCreateFromScript( AsciiString filename, WindowLayoutInfo *info = 0, void *unused = 0 );
+#define SLOT(N) virtual void slot##N();
+	SLOT(32) SLOT(33) SLOT(34) SLOT(35) SLOT(36) SLOT(37) SLOT(38) SLOT(39)
+	SLOT(40) SLOT(41) SLOT(42) SLOT(43) SLOT(44) SLOT(45) SLOT(46) SLOT(47)
+	SLOT(48) SLOT(49) SLOT(50) SLOT(51) SLOT(52) SLOT(53) SLOT(54) SLOT(55)
+	SLOT(56) SLOT(57) SLOT(58) SLOT(59)
+#undef SLOT
+	virtual GameWindow *winGetWindowFromId( GameWindow *window, int id );
 };
 extern GameWindowManager *TheWindowManager;
 
@@ -398,7 +424,8 @@ public:
 	SLOT(90) SLOT(91) SLOT(92) SLOT(93) SLOT(94) SLOT(95)
 	virtual const FieldParse *getFieldParse() const;
 	SLOT(97) SLOT(98) SLOT(99)
-	SLOT(100) SLOT(101) SLOT(102) SLOT(103) SLOT(104) SLOT(105) SLOT(106) SLOT(107) SLOT(108)
+	SLOT(100) SLOT(101) SLOT(102) SLOT(103) SLOT(104) SLOT(105) SLOT(106) SLOT(107)
+	virtual void recreateControlBar();
 	virtual void setRva0029B04D( int value );
 	virtual void clearRva0029B060();
 	SLOT(111) SLOT(112) SLOT(113) SLOT(114) SLOT(115) SLOT(116) SLOT(117)
@@ -482,7 +509,9 @@ protected:
 	int m_militaryCaptionPointSize;				// +0x868
 	bool m_militaryCaptionBold;					// +0x86C
 	int m_militaryCaptionSpeed;					// +0x870
-	char m_opaque874[ 0x980 - 0x874 ];
+	char m_opaque874[ 0x978 - 0x874 ];
+	GameWindow *m_idleWorkerWin;				// +0x978
+	char m_opaque97C[ 0x980 - 0x97C ];
 	int m_unknown980;							// +0x980
 };
 extern InGameUI *TheInGameUI;
@@ -943,4 +972,22 @@ void InGameUI::init()
 	Rva004E4312GetRoute();
 
 	m_unknown980 = 0;
+}
+
+void InGameUI::recreateControlBar()
+{
+	GameWindow *win = TheWindowManager->winGetWindowFromId( 0, TheNameKeyGenerator->nameToKey( AsciiString( "ControlBar.wnd" ) ) );
+	if( win )
+		win->deleteInstance();
+
+	m_idleWorkerWin = 0;
+
+	createControlBar();
+
+	if( TheControlBar )
+	{
+		::delete TheControlBar;
+		TheControlBar = new ControlBar;
+		TheControlBar->init();
+	}
 }

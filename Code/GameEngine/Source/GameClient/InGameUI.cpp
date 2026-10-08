@@ -5409,45 +5409,11 @@ void InGameUI::resetIdleWorker( void )
 
 }
 
-// ?InGameUI::recreateControlBar present-unmatched
-void InGameUI::recreateControlBar( void )
-{
-	GameWindow *win = TheWindowManager->winGetWindowFromId(NULL, TheNameKeyGenerator->nameToKey(AsciiString("ControlBar.wnd")));
-	if(win)
-		win->deleteInstance();
-	
-	m_idleWorkerWin = NULL;	
-	
-	createControlBar();
-		
-	if(TheControlBar)
-	{
-		delete TheControlBar;
-		TheControlBar = NEW ControlBar;
-		TheControlBar->init();
-	}
+// InGameUI::recreateControlBar: defined in InGameUIMessages.cpp (its row's unit).
 
-
-}
-
-// ?InGameUI::disableTooltipsUntil present-unmatched
-void InGameUI::disableTooltipsUntil(UnsignedInt frameNum)
-{
-	if (frameNum > m_tooltipsDisabledUntil) 
-		m_tooltipsDisabledUntil = frameNum;
-}
-
-// ?InGameUI::clearTooltipsDisabled present-unmatched
-void InGameUI::clearTooltipsDisabled()
-{
-	m_tooltipsDisabledUntil = 0;
-}
-
-// ?InGameUI::areTooltipsDisabled present-unmatched
-Bool InGameUI::areTooltipsDisabled() const
-{
-	return (TheGameLogic->getFrame() < m_tooltipsDisabledUntil);
-}
+// InGameUI::areTooltipsDisabled: defined in InGameUI_Rva0029B04D.cpp (its row's
+// unit), beside the disableTooltipsUntil/clearTooltipsDisabled slot bodies rowed
+// there under address names.
 
 
 WindowMsgHandledType IdleWorkerSystem( GameWindow *window, UnsignedInt msg, 
