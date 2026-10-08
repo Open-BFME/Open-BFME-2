@@ -16227,3 +16227,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?xferSaveData@GameState@@QAEXPAVXfer@@W4SnapshotType@@@Z,0x002DCE24,friend_xferSaveDataForCRC 0x002DDD0B calls here (decode_calls); callee body stashed at reverse/attempts/0x002dce24.cpp with SAVE branch exact; pin retires when the xferSaveData row lands
 
 ?rva002DF3B0@GameState@@QAEXPAVGameWindow@@0_NH@Z,0x002DF3B0,callee of ?rva00436FF6@AptSaveLoad@@QAEXXZ
+?rva004E00D9@Rva004E02D7Owner@@QAEXXZ,0x004E00D9,address-named callee of 0x004E02D7 (unnamed follow-up member; byte gate is the proof)
