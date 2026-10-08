@@ -70785,3 +70785,8 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva0078582c@@YAXXZ,,0x0078582C,20,Code/masm_dumps/EHStateCleanupRange38.asm,matched,Ghidra Unwind@00b8582c; masked-add cleanup
 ?rva00794e32@@YAXXZ,,0x00794E32,22,Code/masm_dumps/EHStateCleanupRange38.asm,matched,Ghidra Unwind@00b94e32; masked-add cleanup with imm32 218h
 ?rva007A0AF4@@YAXXZ,,0x007A0AF4,20,Code/masm_dumps/EHStateCleanupRange39.asm,matched,Ghidra Unwind@00ba0af4; jmp to SecondaryBase dtor add 0Ch
+?rva00792ab6@@YAXXZ,,0x00792AB6,20,Code/masm_dumps/EHStateCleanupRange38.asm,matched,Ghidra Unwind@00b92ab6; masked-add cleanup adds 10h and tail-jumps to 0x004EDFFF
+?rva00792aca@@YAXXZ,,0x00792ACA,20,Code/masm_dumps/EHStateCleanupRange38.asm,matched,Ghidra Unwind@00b92aca; masked-add cleanup adds 14h and tail-jumps to 0x002B221A
+?rva00792ade@@YAXXZ,,0x00792ADE,20,Code/masm_dumps/EHStateCleanupRange38.asm,matched,Ghidra Unwind@00b92ade; masked-add cleanup adds 18h and tail-jumps to 0x002B228D
+?rva00792af2@@YAXXZ,,0x00792AF2,20,Code/masm_dumps/EHStateCleanupRange38.asm,matched,Ghidra Unwind@00b92af2; masked-add cleanup adds 1Ch and tail-jumps to 0x00238D97
+?rva00792b06@@YAXXZ,,0x00792B06,20,Code/masm_dumps/EHStateCleanupRange38.asm,matched,Ghidra Unwind@00b92b06; masked-add cleanup adds 20h and tail-jumps to 0x004EE006

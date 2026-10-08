@@ -43,6 +43,9 @@ EXTERN ??1Gen_uw_0049b47c@@QAE@XZ:PROC
 EXTERN ?apply@Rva004EDFF8DwordImmSetter@@QAEXXZ:PROC
 EXTERN ?clear@Rva003B4071@@QAEXXZ:PROC
 EXTERN ?apply@Rva002B2294DwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva0002B221ADwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva002B228DDwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva004EE006DwordImmSetter@@QAEXXZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b7c75e at RVA 0x0077C75E; 22-byte body ends at RET.
@@ -2583,6 +2586,66 @@ PUBLIC ?rva00792aa2@@YAXXZ
     and ecx, eax
     jmp ?apply@Rva004EDFF8DwordImmSetter@@QAEXXZ
 ?rva00792aa2@@YAXXZ ENDP
+
+; Unwind@00b92ab6: masked-add cleanup adds 10h to [ebp-16] and tail-jumps to 0x004EDFFF.
+PUBLIC ?rva00792ab6@@YAXXZ
+?rva00792ab6@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 10h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ
+?rva00792ab6@@YAXXZ ENDP
+
+; Unwind@00b92aca: masked-add cleanup adds 14h to [ebp-16] and tail-jumps to 0x002B221A.
+PUBLIC ?rva00792aca@@YAXXZ
+?rva00792aca@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 14h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva0002B221ADwordImmSetter@@QAEXXZ
+?rva00792aca@@YAXXZ ENDP
+
+; Unwind@00b92ade: masked-add cleanup adds 18h to [ebp-16] and tail-jumps to 0x002B228D.
+PUBLIC ?rva00792ade@@YAXXZ
+?rva00792ade@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 18h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva002B228DDwordImmSetter@@QAEXXZ
+?rva00792ade@@YAXXZ ENDP
+
+; Unwind@00b92af2: masked-add cleanup adds 1Ch to [ebp-16] and tail-jumps to 0x00238D97.
+PUBLIC ?rva00792af2@@YAXXZ
+?rva00792af2@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 1Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva00238D97DwordImmSetter@@QAEXXZ
+?rva00792af2@@YAXXZ ENDP
+
+; Unwind@00b92b06: masked-add cleanup adds 20h to [ebp-16] and tail-jumps to 0x004EE006.
+PUBLIC ?rva00792b06@@YAXXZ
+?rva00792b06@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 20h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva004EE006DwordImmSetter@@QAEXXZ
+?rva00792b06@@YAXXZ ENDP
 
 ; Unwind@00b92a7a: masked-add cleanup adds 04h to [ebp-16] and tail-jumps to 0x004EDFFF.
 PUBLIC ?rva00792a7a@@YAXXZ
