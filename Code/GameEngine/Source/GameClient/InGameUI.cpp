@@ -3282,88 +3282,8 @@ Bool InGameUI::canSelectedObjectsDoSpecialPower( const CommandButton *command, c
 // InGameUI_selectMatchingAcrossScreen.cpp with target-proven virtual/Drawable access.
 
 //------------------------------------------------------------------------------
-// ?InGameUI::canSelectedObjectsEffectivelyUseWeapon present-unmatched
-Bool InGameUI::canSelectedObjectsEffectivelyUseWeapon( const CommandButton *command, const Object *objectToInteractWith, const Coord3D *position, SelectionRules rule ) const
-{
-	//Get the special power template.
-	WeaponSlotType slot = command->getWeaponSlot();
+// InGameUI::canSelectedObjectsEffectivelyUseWeapon: native body in InGameUICanSelectedObjectsDoAction.cpp.
 
-	//Order of precendence:
-	//1) NO TARGET OR POS
-	//2) COMMAND_OPTION_NEED_OBJECT_TARGET
-	//3) NEED_TARGET_POS
-	Bool doAtPosition = BitTest( command->getOptions(), NEED_TARGET_POS );
-	Bool doAtObject = BitTest( command->getOptions(), COMMAND_OPTION_NEED_OBJECT_TARGET );
-
-	//Sanity checks
-	if( doAtObject && !objectToInteractWith )
-	{
-		return false;
-	}
-	if( doAtPosition && !position )
-	{
-		return false;		
-	}
-
-	// get selected list of drawables
-	const DrawableList *selected = TheInGameUI->getAllSelectedDrawables();
-
-	// set up counters for rule checking
-	Int count = 0;
-	Int qualify = 0;
-
-	// loop through all the selected drawables
-	Drawable *other;
-	for( DrawableListCIt it = selected->begin(); it != selected->end(); ++it )
-	{
-	
-		// get this drawable
-		other = *it;
-		count++;
-
-		if( !doAtObject && !doAtPosition )
-		{
-			if( TheActionManager->canFireWeapon( other->getObject(), slot, CMD_FROM_PLAYER ) )
-			{
-				//This is the no target version
-				if( rule == SELECTION_ANY )
-				{
-					return true;
-				}
-				qualify++;
-			}
-		}
-		else if( doAtObject )
-		{
-			if( TheActionManager->canFireWeaponAtObject( other->getObject(), objectToInteractWith, CMD_FROM_PLAYER, slot ) )
-			{
-				//This requires a object target
-				if( rule == SELECTION_ANY )
-				{
-					return true;
-				}
-				qualify++;
-			}
-		}
-		else if( doAtPosition )
-		{
-			if( TheActionManager->canFireWeaponAtLocation( other->getObject(), position, CMD_FROM_PLAYER, slot, objectToInteractWith ) )
-			{
-				//This requires a valid location.
-				if( rule == SELECTION_ANY )
-				{
-					return true;
-				}
-				qualify++;
-			}
-		}
-	}
-	if( rule == SELECTION_ALL && count > 0 && qualify == count )
-	{
-		return true;
-	}
-	return false;
-}
 
 // ------------------------------------------------------------------------------------------------
 // ?InGameUI::selectAllUnitsByTypeAcrossRegion present-unmatched

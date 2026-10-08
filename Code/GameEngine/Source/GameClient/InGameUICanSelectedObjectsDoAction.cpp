@@ -17,6 +17,10 @@
 // The truth byte preserves the existing byte-return helpers without normalizing
 // them differently from retail; their established returns are already 0 or 1.
 // The address-named ActionManager methods retain uncertain original names.
+// Native command accessed-prefix: options+1C, weapon slot+80; bit5 location, low3 bits object.
+struct Coord3D;
+enum WeaponSlotType { PRIMARY_WEAPON=0 };
+class CommandButton { public: char unknown00[0x1c]; unsigned options; char unknown20[0x80-0x20]; WeaponSlotType slot; };
 enum CanAttackResult { ATTACKRESULT_NOT_POSSIBLE=0,ATTACKRESULT_INVALID_SHOT=1,ATTACKRESULT_POSSIBLE_AFTER_MOVING=2,ATTACKRESULT_POSSIBLE=3 };
 enum AbleToAttackType { ATTACK_NEW_TARGET=0,ATTACK_NEW_TARGET_FORCED=1 };
 enum KindOfType { KINDOF_INVALID=0 };
@@ -69,6 +73,9 @@ class Rva0041B8D2Obj;
 
 
 class ActionManager { public:
+ unsigned char rva0041BB26(const Object*,WeaponSlotType,CommandSourceType);
+ bool rva0041BAD2(const Object*,const Object*,CommandSourceType,WeaponSlotType);
+ bool canFireWeaponAtLocation(const Object*,const Coord3D*,CommandSourceType,WeaponSlotType,const Object*);
  CanAttackResult getCanAttackObject(const Object*,const Object*,CommandSourceType,AbleToAttackType);
  unsigned char Rva0041BB87IsRelated(Object*,Object*,int);
  bool Rva0041CE27Check(Object*,Object*,int);
@@ -177,6 +184,7 @@ class InGameUI { public:
  virtual void slot71();
  virtual void slot72();
  virtual const DrawableList *getAllSelectedDrawables()const;
+ bool canSelectedObjectsEffectivelyUseWeapon(const CommandButton*,const Object*,const Coord3D*,SelectionRules)const;
  bool canSelectedObjectsDoAction(ActionType,const Object*,SelectionRules,bool)const;
  CanAttackResult getCanSelectedObjectsAttack(ActionType,const Object*,SelectionRules,bool)const;
 };
@@ -271,4 +279,45 @@ CanAttackResult InGameUI::getCanSelectedObjectsAttack(ActionType action,const Ob
  }
  if(count>0) {if(rule==SELECTION_ANY)return bestResult;return worstResult;}
  return ATTACKRESULT_NOT_POSSIBLE;
+}
+
+// ZH InGameUI.cpp and BFME1 c1f3b5af79 semantic guide: selected-object weapon query.
+// Target Ghidra29CDD2..29CEB1 establishes complete223B RET16. Target command
+// options+1C (bit5 location, low3 bits object) and weapon slot+80 are measured.
+// Target UI slot73 returns the selected list; Drawable+FC and sentinel/node
+// fields match the independently rowed adjacent selection walkers above.
+// Native ECX loads establish the ActionManager call view; the two leaf helper
+// names remain address-derived. Every provider is owned and all relocations
+// resolve through the real ledger; no inferred method pin or alias is used.
+bool InGameUI::canSelectedObjectsEffectivelyUseWeapon(const CommandButton *command,const Object *target,const Coord3D *position,SelectionRules rule)const {
+ WeaponSlotType slot=command->slot;
+ bool doAtPosition=(command->options & 0x20)!=0;
+ bool doAtObject=(command->options & 7)!=0;
+ if(doAtObject && !target) return false;
+ if(doAtPosition && !position) return false;
+ const DrawableList *selected=TheInGameUI->getAllSelectedDrawables();
+ int count=0,qualify=0;
+ Drawable *other;
+ for(DrawableList::const_iterator it=selected->begin();it!=selected->end();++it) {
+  other=*it;
+  count++;
+  if(!doAtObject && !doAtPosition) {
+   if(TheActionManager->rva0041BB26(other->getObject(),slot,CMD_FROM_PLAYER)) {
+    if(rule==SELECTION_ANY) return true;
+    qualify++;
+   }
+  } else if(doAtObject) {
+   if(TheActionManager->rva0041BAD2(other->getObject(),target,CMD_FROM_PLAYER,slot)) {
+    if(rule==SELECTION_ANY) return true;
+    qualify++;
+   }
+  } else if(doAtPosition) {
+   if(TheActionManager->canFireWeaponAtLocation(other->getObject(),position,CMD_FROM_PLAYER,slot,target)) {
+    if(rule==SELECTION_ANY) return true;
+    qualify++;
+   }
+  }
+ }
+ if(rule==SELECTION_ALL && count>0 && qualify==count) return true;
+ return false;
 }
