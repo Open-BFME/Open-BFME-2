@@ -450,3 +450,69 @@ AsciiString AudioEventRTS::rva002DA867(void)
 		return AsciiString::TheEmptyString;
 	}
 }
+
+// Native 0x002DA8AF..0x002DAAD5 (550B), AudioEventRTS::generatePlayInfo.
+// ZH AudioEventRTS.cpp and BFME1 AudioEventRTSWeightedChoice.cpp establish
+// the pitch/volume randomization and attack/decay weighted-selection purpose.
+// BFME1 donor revision: 9cbfb551fe20dae985f91f2319d8997287b6a705.
+// Target deltas: percent pitch scale, bare-name control bit 6, and the fallback
+// from missing attack to sound, decay, or done. The +0x54/+0x5C, +0x1C/+0x20
+// and +0x74 stores and calls to the matched weighted/prefix/extension workers
+// independently establish these fields. Cache weights before getter calls;
+// the shared StringBase clear worker joins the temporary's cleanup tail.
+void AudioEventRTS::generatePlayInfo(void)
+{
+	m_pitchShift = GetGameAudioRandomValueReal(m_eventInfo->m_pitchShiftMin * 0.01f + 1.0f, m_eventInfo->m_pitchShiftMax * 0.01f + 1.0f, AUDIO_EVENT_RTS_FILE, 0x243);
+	m_volumeShift = GetGameAudioRandomValueReal(m_eventInfo->m_volumeShift + 1.0f, 1.0f, AUDIO_EVENT_RTS_FILE, 0x244);
+
+	bool bare = (m_eventInfo->m_control >> 6) & 1;
+	if (m_eventInfo->m_soundType == AT_SoundEffect)
+	{
+		m_portionToPlayNext = PP_Attack;
+		unsigned attackWeight = m_eventInfo->m_attackTotalWeight;
+		int which = getRandomSoundIndexByWeight(attackWeight, m_eventInfo->getAttackSounds());
+		if (which >= 0)
+		{
+			if (bare)
+			{
+				const WeightedSound *soundArray = m_eventInfo->getAttackSounds()->m_begin;
+				m_attackName = soundArray[which].m_name;
+			}
+			else
+			{
+				m_attackName = *Rva002D9622Get(m_eventInfo->m_soundType);
+				const WeightedSound *soundArray = m_eventInfo->getAttackSounds()->m_begin;
+				m_attackName.concat(soundArray[which].m_name);
+				m_attackName.concat(Rva002DA398Get(retainAudioType(peekEventInfo()->m_soundType)));
+			}
+		}
+		else
+		{
+			if (!m_eventInfo->getSounds()->empty())
+				m_portionToPlayNext = PP_Sound;
+			else
+				m_portionToPlayNext = m_eventInfo->getDecaySounds()->empty() ? PP_Done : PP_Decay;
+		}
+		unsigned decayWeight = m_eventInfo->m_decayTotalWeight;
+		which = getRandomSoundIndexByWeight(decayWeight, m_eventInfo->getDecaySounds());
+		if (which >= 0)
+		{
+			if (bare)
+			{
+				const WeightedSound *soundArray = m_eventInfo->getDecaySounds()->m_begin;
+				m_decayName = soundArray[which].m_name;
+			}
+			else
+			{
+				m_decayName = *Rva002D9622Get(m_eventInfo->m_soundType);
+				const WeightedSound *soundArray = m_eventInfo->getDecaySounds()->m_begin;
+				m_decayName.concat(soundArray[which].m_name);
+				m_decayName.concat(Rva002DA398Get(retainAudioType(peekEventInfo()->m_soundType)));
+			}
+		}
+		else
+			((StringBase<char> *)&m_decayName)->clear();
+	}
+	else
+		m_portionToPlayNext = PP_Sound;
+}
