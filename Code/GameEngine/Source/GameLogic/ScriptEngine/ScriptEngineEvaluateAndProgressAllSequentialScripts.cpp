@@ -222,7 +222,7 @@ private:
 	TeamPrototype *m_proto;	// +0x30
 };
 
-class ScriptConditionsInterface
+class ScriptConditions
 {
 public:
 	virtual void slot00();
@@ -244,7 +244,7 @@ public:
 	virtual Bool evaluateTeamIsContained(Parameter *pTeamParm, Bool allContained);	// +0x40
 	virtual Bool slot17(Parameter *pParm);	// +0x44
 };
-extern ScriptConditionsInterface *TheScriptConditions;
+extern ScriptConditions *TheScriptConditions;
 
 // Restores the engine's scope string (+0x1A10C) when it goes out of scope.
 struct Rva002048A2
