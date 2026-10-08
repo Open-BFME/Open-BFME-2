@@ -11,6 +11,7 @@ struct Coord3D {
     float length() const;
     void normalize();
     bool operator==(const Coord3D &r);
+    float GetLengthSqrd() const;
 };
 
 #endif // CANONICAL_COORD3D_H

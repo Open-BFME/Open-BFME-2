@@ -500,13 +500,20 @@ struct Rva0005BA08InfoRef;
 
 // AudioSettings view (Zero Hour's MilesAudioManager reads it through
 // m_audioSettings at +0x10): +0x74 is an int distance, +0xB8 a float limit.
-// Per-view record of AudioSettings, indexed by the manager's +0x678 view
-// type; setOcclusionLevels divides the listener distance by +0x00 when it is
-// within +0x04 (squared).
-struct AudioViewSettings {
-    float m_at00;
-    float m_at04;
-    char at08[0x48 - 0x08];
+// Per-view microphone record of AudioSettings (WorldBuilder's assert names
+// m_microphoneSettings), indexed by the manager's +0x678 view type.
+// setOcclusionLevels divides the listener distance by +0x30 when it is within
+// +0x34 (squared); the 0x5213E volume update reads +0x1C..+0x2C.
+struct MicrophoneSettings {
+    char at00[0x1C];
+    float m_at1C;                        // +0x1C, attenuation start distance
+    float m_at20;                        // +0x20, squared distance below which nothing attenuates
+    float m_at24;                        // +0x24, attenuation end distance
+    float m_at28;                        // +0x28, squared end distance
+    float m_at2C;                        // +0x2C, maximum attenuation
+    float m_at30;                        // +0x30
+    float m_at34;                        // +0x34
+    char at38[0x48 - 0x38];
 };
 
 struct AudioSettings {
@@ -530,8 +537,8 @@ struct AudioSettings {
     bool m_atBC;                         // +0xBC, disables occlusion
     char atBD[0xC0 - 0xBD];
     float m_atC0;                        // +0xC0, occlusion floor
-    char atC4[0x15C - 0xC4];
-    AudioViewSettings m_viewSettings[3]; // +0x15C
+    char atC4[0x12C - 0xC4];
+    MicrophoneSettings m_microphoneSettings[3]; // +0x12C
 };
 
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_distances(void *sample, float maxDistance, float minDistance);
@@ -802,7 +809,11 @@ public:
     public:
         void reset(void);
         void rva00052048(int index);
+        void rva00052015(int arg);
         void refreshAll(void);
+        // Distance attenuation of +0x94 (WB 0x77A260, unnamed) from the
+        // per-view microphone settings and the camera-to-microphone offset.
+        void rva0005213E(const MicrophoneSettings *settings, const Coord3D *delta);
 
         int m_myViewFocus;                         // +0x00 (WB assert name)
         float m_volumes[6][2];                     // +0x04
@@ -2216,10 +2227,10 @@ void MilesAudioManager::setOcclusionLevels(PlayingAudioRef &playing, const Coord
     if (m_at8C > 0.0f && playing->m_event->m_info->m_atA4 > 0.0f) {
         float distSqr = rva00053854(pos);
         float scale;
-        if (distSqr > m_audioSettings->m_viewSettings[m_at678].m_at04)
+        if (distSqr > m_audioSettings->m_microphoneSettings[m_at678].m_at34)
             scale = 1.0f;
         else
-            scale = sqrt(distSqr) / m_audioSettings->m_viewSettings[m_at678].m_at00;
+            scale = sqrt(distSqr) / m_audioSettings->m_microphoneSettings[m_at678].m_at30;
         occlusion *= 1.0 - scale * m_at8C * playing->m_event->m_info->m_atA4;
     }
     float finalOcclusion = 1.0f - occlusion;
@@ -2985,4 +2996,26 @@ bool MilesAudioManager::playSample2DOr3DUsingCallbackBuffers(PlayingAudioRef &pl
     }
     loop->m_isValid = true;
     return true;
+}
+
+// WorldBuilder 0x77A260 (unnamed) has the same three settings copies, the
+// Coord3D::GetLengthSqrd call, the sqrt and the trailing column refresh.
+void MilesAudioManager::GlobalVolumeData::rva0005213E(const MicrophoneSettings *settings, const Coord3D *delta)
+{
+    float maxAttenuation = settings->m_at2C;
+    float endSqr = settings->m_at28;
+    if (maxAttenuation > 0.0f) {
+        float distSqr = delta->GetLengthSqrd();
+        if (distSqr < settings->m_at20)
+            m_at94 = 1.0f;
+        else if (distSqr < endSqr) {
+            float dist = sqrt(distSqr);
+            float start = settings->m_at1C;
+            float end = settings->m_at24;
+            float fraction = (dist - start) / (end - start);
+            m_at94 = 1.0f - fraction * maxAttenuation;
+        } else
+            m_at94 = 1.0f - maxAttenuation;
+    }
+    rva00052015(1);
 }

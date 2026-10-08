@@ -51,6 +51,14 @@
     "size": 57,
     "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
     "decided_by": "byte-verified owner ??8Coord3D@@QBE_NABV0@@Z; this nonconst struct spelling is the existing symbols.csv pin the struct-key callers use; Weapon::getPreAttackDelay 0x002CCFF0 and DockUpdate 0x00589A86 call it on two three-float positions"
+   },
+   {
+    "declaration": "float GetLengthSqrd() const;",
+    "name": "?GetLengthSqrd@Coord3D@@QBEMXZ",
+    "rva": "0x00005A51",
+    "size": 31,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
+    "decided_by": "byte-verified owner; MilesAudioManager 0x0005213E calls it on the camera-to-microphone delta (WB 0x77A260 calls Coord3D::GetLengthSqrd there)"
    }
   ]
  },
