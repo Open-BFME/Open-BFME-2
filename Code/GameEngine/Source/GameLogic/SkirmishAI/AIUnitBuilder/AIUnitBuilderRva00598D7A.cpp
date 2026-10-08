@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc
 // stlport
 // Native598052..5980F3 is161B, RET0; WB152E690 has the same seven calls.
 // The independently rowed AIUnitBuilder598D7A tail-calls this body with
@@ -32,16 +32,28 @@ class Rva003F4DCA {public: int rva003F4DCA(int,int);};
 struct Rva00598052Metadata {char unknown00[0x1C];int id;char unknown20[12];int state;};
 struct Rva00598052Entry {char unknown00[0x78]; Rva00598052Metadata *metadata;};
 
+struct Rva00598961Config {char pad00[0x1C];float field1C;};
+struct Rva002A8AB1Record {char pad00[0x160];Rva00598961Config *config160;};
+class Rva00598007 {public:Rva002A8AB1Record *rva00598007();bool rva0059802E();};
+class Rva002D06CA {public:void *rva002D06CA(const AsciiString*);};
+extern Rva002D06CA *TheThingFactory;
+struct Rva00598961Template {char pad00[0x113];unsigned char field113;};
+class Rva00506FE9Hit {public:void rva0055ADBA(void*);};
 class Rva00598C3AItem
 {
 public:
-	virtual void slot0();
+	virtual ~Rva00598C3AItem();
 	virtual void slot1();
 	virtual void slot2();
 	virtual void slot3();
 	virtual void slot4();
 	virtual void slot5();
 	virtual void slot6(int value, int flags);
+	virtual void slot7(int);
+	float field04;
+	char pad08[4];
+	AsciiString name0C;
+	int state10;
 };
 
 enum NameKeyType { NAMEKEY_INVALID=0 };
@@ -89,7 +101,7 @@ class AIUnitBuilder
 {
 public:
 	void Rva00598A3D();
-	void Rva00598961();
+	void manageConstructingList();
 	void build();
 	void Rva00598052();
 	void Rva00598D7A();
@@ -133,7 +145,7 @@ void AIUnitBuilder::Rva00598D7A()
 		Rva00598A3D();
 		m_2C = false;
 	}
-	Rva00598961();
+	manageConstructingList();
 	build();
 	return Rva00598052();
 }
@@ -166,4 +178,33 @@ Object *AIUnitBuilder::Rva005982EA(const AsciiString *name, _STL::vector<ObjectI
  }
  }
  return 0;
+}
+
+// WB152E310 names manageConstructingList at AIUnitBuilder.cpp:440.
+// Native598961..598A3D is220B. Item float04/name0C/state10 and slots0/7
+// are observed; slot0 follows scalar deleting-dtor ABI. Global ::delete
+// preserves the native flags0 call and separate operator delete. Template
+// byte113 bit04 clears builder34; its full type and flag meaning are open.
+// The observed500 float sentinel and config160/word1C are preserved.
+void AIUnitBuilder::manageConstructingList()
+{
+ for (_STL::list<Rva00598C3AItem*>::iterator i=m_items.begin();i._M_node!=m_items.end()._M_node;) {
+  Rva00598C3AItem *item=*i;
+  switch(item->state10) {
+  case 0:
+   if (!Rva005982EA(&item->name0C,0,true)) item->slot7(3);
+   else if(item->field04==500.0f&&!((Rva00598007*)this)->rva0059802E())
+    item->field04=((Rva00598007*)this)->rva00598007()->config160->field1C;
+   ++i;
+   break;
+  case 1: ++i;break;
+  case 2: case 3:
+   Rva00598961Template *thing=(Rva00598961Template*)TheThingFactory->rva002D06CA(&item->name0C);
+   if(thing->field113&4)m_34=false;
+   ((Rva00506FE9Hit*)item)->rva0055ADBA(m_30);
+   ::delete item;
+   i=m_items.erase(i);
+   break;
+  }
+ }
 }
