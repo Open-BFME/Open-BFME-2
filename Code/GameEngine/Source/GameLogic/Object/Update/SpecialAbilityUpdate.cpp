@@ -30,11 +30,50 @@ private:
 };
 enum ObjectStatusTypes
 {
-	OBJECT_STATUS_18 = 0x18
+	OBJECT_STATUS_18 = 0x18,
+	OBJECT_STATUS_46 = 0x46
 };
-class Object
+enum KindOfType
+{
+	KINDOF_INVALID = -1
+};
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+class NameKeyGenerator
 {
 public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+class Module;
+class Drawable
+{
+public:
+	void rva002723C0(int frames);		// rowed: the animation length in frames
+};
+class Thing
+{
+public:
+	Drawable *getDrawable() const;
+};
+enum CommandSourceType
+{
+	CMD_FROM_AI = 2
+};
+class AICommandInterface
+{
+public:
+	void rva0045003E(int value, CommandSourceType cmdSource);
+};
+class Object : public Thing
+{
+	friend class SpecialAbilityUpdate;
+public:
+	bool isKindOf(KindOfType kindOf) const;
+	// rowed 0x0028CFB2: clears the first mask's conditions, sets the second's
+	void rva0028CFB2(const int *clearMask, const int *setMask);
 	void setStatus(ObjectStatusTypes status, bool set);
 	void rva0028AE6D();
 	void setSpecialModelConditionState(ModelConditionFlagType mc, unsigned int frames);
@@ -59,6 +98,15 @@ public:
 	unsigned char *m_base4; // +0x04 status base (bytes +0x108/+0x114 read)
 	unsigned char m_pad008[0x10C - 8];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
+	unsigned char m_pad158[0x258 - 0x158];
+	unsigned char *m_ai; // +0x258 AIUpdateInterface (command interface at +0x20)
+protected:
+	Module *findModule(NameKeyType key) const;
+};
+class SpecialDisguiseUpdate
+{
+public:
+	void rva004B05F5(bool disguise);
 };
 struct Rva004CE41ECondition
 {
@@ -78,10 +126,32 @@ public:
 	unsigned char m_pad[0x18];
 	ModelConditionFlagType m_18; // +0x18
 	unsigned int m_1C; // +0x1C
-	unsigned char m_pad20[0x38 - 0x20];
+	unsigned int m_20; // +0x20
+	unsigned char m_pad24[0x38 - 0x24];
 	Overridable *m_specialPowerTemplate; // +0x38
+	unsigned char m_pad3C[0x54 - 0x3C];
+	float m_packUnpackVariationFactor; // +0x54
+	unsigned char m_pad58[0x6C - 0x58];
+	int m_6C; // +0x6C ability condition selector (1..6)
+	unsigned char m_pad70[0x84 - 0x70];
+	unsigned int m_packTime; // +0x84
+	unsigned int m_unpackTime; // +0x88
 };
+float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 typedef unsigned int AudioHandle;
+enum ObjectID
+{
+	INVALID_OBJECT_ID = 0
+};
+
+class GameLogic
+{
+public:
+	Object *findObjectByID(ObjectID id);
+	unsigned char m_pad00[0x40];
+	unsigned int m_frame; // +0x40
+	unsigned int getFrame() const { return m_frame; }
+};
 class AudioManager
 {
 public:
@@ -128,13 +198,19 @@ public:
 	void rva0044EE07();
 	void rva0044EE80();
 	void rva0044F72E();
+	virtual void startUnpacking();
 protected:
 	void endPreparation();
 private:
-	unsigned char m_pad0C[0x34 - 0x0C];
+	unsigned char m_pad0C[0x28 - 0x0C];
+	unsigned int m_animFrames; // +0x28
+	unsigned char m_pad2C[0x30 - 0x2C];
+	int m_packingState; // +0x30
 	AudioHandle m_prepSoundLoop; // +0x34
-	unsigned char m_pad38[0x84 - 0x38];
-	int m_84; // +0x84
+	unsigned char m_pad38[0x40 - 0x38];
+	ObjectID m_targetID; // +0x40
+	unsigned char m_pad44[0x84 - 0x44];
+	unsigned int m_84; // +0x84
 };
 
 struct Rva0044EF2CHolder
@@ -151,16 +227,6 @@ public:
 	int rva0044EF2C();
 };
 
-enum ObjectID
-{
-	INVALID_OBJECT_ID = 0
-};
-
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
-};
 
 extern GameLogic *TheGameLogic;
 
@@ -290,4 +356,68 @@ void SpecialAbilityUpdate::endPreparation()
 		rva0044F72E();
 		break;
 	}
+}
+
+// SpecialAbilityUpdate::startUnpacking, retail 0x004508B7 (562 bytes, vtable
+// slot 22; WeaponFireSpecialAbilityUpdate overrides it under the same name).
+// Zero Hour's startUnpacking reached through the matched BFME1 donor
+// (SpecialAbilityUpdate_startUnpacking.cpp): unpack state 2, a randomised
+// unpack time, conditions 94 -> 96, and a selector-chosen ability condition.
+// BFME2 adds the module-data condition (+0x18) set now or timed from +0x20,
+// a target-dependent condition for power type 0x28 and the disguise drop for
+// power type 0x84.
+void SpecialAbilityUpdate::startUnpacking()
+{
+	const SpecialAbilityUpdateModuleData *d = (const SpecialAbilityUpdateModuleData *)m_moduleData;
+	Object *self = m_object;
+	m_packingState = 2;
+	float variation = GetGameLogicRandomValueReal(1.0f - d->m_packUnpackVariationFactor,
+		1.0f + d->m_packUnpackVariationFactor,
+		"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\SpecialAbilityUpdate.cpp",
+		1370);
+	m_animFrames = (unsigned int)(d->m_unpackTime * variation);
+	self->rva0028CFB2((const int *)&Rva0028F59A(0, 0x5e), (const int *)&Rva0028F59A(0, 0x60));
+	self->setStatus(OBJECT_STATUS_46, true);
+	if (d->m_6C)
+	{
+		switch (d->m_6C)
+		{
+		case 1: self->setModelConditionState((ModelConditionFlagType)97); break;
+		case 2: self->setModelConditionState((ModelConditionFlagType)98); break;
+		case 3: self->setModelConditionState((ModelConditionFlagType)99); break;
+		case 4: self->setModelConditionState((ModelConditionFlagType)585); break;
+		case 5: self->setModelConditionState((ModelConditionFlagType)586); break;
+		case 6: self->setModelConditionState((ModelConditionFlagType)587); break;
+		}
+	}
+	if (d->m_18 != MODELCONDITION_INVALID)
+	{
+		if (d->m_20 == 0)
+			rva0044EE80();
+		else
+			m_84 = d->m_20 + TheGameLogic->getFrame();
+	}
+	Object *target = TheGameLogic->findObjectByID(m_targetID);
+	int type = d->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C;
+	if (type == 0x28)
+	{
+		if (target && (target->m_base4[0x118] & 0x10))
+			self->setModelConditionState((ModelConditionFlagType)176);
+	}
+	else if (type == 0x84)
+	{
+		if (self->isKindOf((KindOfType)0x12c))
+		{
+			static NameKeyType key = TheNameKeyGenerator->nameToKey("SpecialDisguiseUpdate");
+			SpecialDisguiseUpdate *disguise = (SpecialDisguiseUpdate *)self->findModule(key);
+			if (disguise)
+				disguise->rva004B05F5(false);
+		}
+	}
+	Drawable *draw = self->getDrawable();
+	if (draw)
+		draw->rva002723C0(m_animFrames);
+	unsigned char *ai = self->m_ai;
+	if (ai)
+		((AICommandInterface *)(ai + 0x20))->rva0045003E(0, CMD_FROM_AI);
 }
