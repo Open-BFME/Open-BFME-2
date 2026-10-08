@@ -162,6 +162,7 @@ public:
 	void rva005CABF9(AsciiString email);
 	AsciiString rva005C9FC4(void);
 	const _STL::list<AsciiString> &rva005CA201(const AsciiString &);
+	const _STL::list<AsciiString> &rva005CA211(const AsciiString &);
 	const _STL::list<AsciiString> &rva005CA1A0(const AsciiString &,NickMap &);
 
 private:
@@ -440,5 +441,13 @@ const _STL::list<AsciiString> &GameSpyLoginPreferences::rva005CA1A0(const AsciiS
 const _STL::list<AsciiString> &GameSpyLoginPreferences::rva005CA201(const AsciiString &email)
 {
     return rva005CA1A0(email,m_emailNickMap);
+}
+
+// Native 5CA211..5CA221 and WB15CA7E0 independently prove the +38
+// list-map sibling. Existing load/write establish that map's clan purpose.
+// Original accessor spelling is unproven; preserve the address-derived name.
+const _STL::list<AsciiString> &GameSpyLoginPreferences::rva005CA211(const AsciiString &email)
+{
+    return rva005CA1A0(email,m_emailClanMap);
 }
 
