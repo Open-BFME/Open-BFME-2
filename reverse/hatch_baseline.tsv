@@ -24505,6 +24505,7 @@ pin	reverse/symbols.csv	0x000F3D23	1
 pin	reverse/symbols.csv	0x000F4017	2
 pin	reverse/symbols.csv	0x000F42FF	1
 pin	reverse/symbols.csv	0x000F4AB7	1
+pin	reverse/symbols.csv	0x000F630C	1	allow=4e2a5452f79920b68df9c357e2d8f8003f82f4ad
 pin	reverse/symbols.csv	0x000F633A	1
 pin	reverse/symbols.csv	0x000F82F5	1
 pin	reverse/symbols.csv	0x000F9BD7	1

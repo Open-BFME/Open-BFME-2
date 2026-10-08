@@ -16444,3 +16444,4 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ??0Rva005FA0C9@@QAE@PAVImpl@BattlePromptMovieClip@StrategicHUD@@HABURva005F91F3Src@@@Z,0x005FA0C9,callee of ?AddAlly@Impl@BattlePromptMovieClip@StrategicHUD@@QAEXABURva005F91F3Src@@@Z
 ??0Rva005FA0F7@@QAE@PAVImpl@BattlePromptMovieClip@StrategicHUD@@HABURva005F91F3Src@@@Z,0x005FA0F7,callee of ?AddEnemy@Impl@BattlePromptMovieClip@StrategicHUD@@QAEXABURva005F91F3Src@@@Z
 ?rva005FEE8C@Rva005FEF11@@QAEXPAURva005FEF11Arg@@@Z,0x005FEE8C,callee of ??0Rva005FEF11@@QAE@PAURva005FEF11Arg@@@Z
+?canRenderToTexture@W3DShaderManager@@SA_NXZ,0x000F630C,callee of ?init@ScreenBWFilter@@UAEHXZ
