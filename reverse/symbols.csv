@@ -4769,7 +4769,7 @@ name,address,notes
 ??1Rva005DB221@@UAE@XZ,0x005DB221,opaque dtor called by the scalar deleting dtor at 0x005DB319 (vtable 0x00C766B8#0); identity unproven; address-derived name
 ??1Rva005DB681@@UAE@XZ,0x005DB681,opaque dtor called by the scalar deleting dtor at 0x005DB7F2 (vtable 0x00C76798#0); identity unproven; address-derived name
 ??1Rva005DC73C@@UAE@XZ,0x005DC73C,opaque base dtor; 3 derived dtors tail-call it; identity unproven
-??1Rva005DCFC9@@UAE@XZ,0x005DCFC9,opaque dtor called by the scalar deleting dtor at 0x005DF160 (vtable 0x00C76DD4#0); identity unproven; address-derived name
+??1StrategicEndGame@GameStats@@UAE@XZ,0x005DCFC9,WB15D5180 named constructor stores C76DD4 whose scalar5DF160 calls full5B inherited destructor5DCFC9 tail-jump to rowed table destructor5DE9E3; rename of prior sole opaque owner; not an alias
 ??1Rva005DDD60@@UAE@XZ,0x003A5817,"callee of ??1Rva005E2D20@@UAE@XZ at retail 0x003ABC21 read from its REL32 displacement; ICF alias onto ??1Rva003AEEB3@@UAE@XZ (matched)"
 ??1Rva005E12D1@@UAE@XZ,0x005E12D1,opaque dtor called by the scalar deleting dtor at 0x005E1350 (vtable 0x00C779B4#0); identity unproven; address-derived name
 ??1Rva005E1BD5@@UAE@XZ,0x005E1BD5,opaque dtor called by the scalar deleting dtor at 0x005E1CDC (vtable 0x00C77A60#0); identity unproven; address-derived name
