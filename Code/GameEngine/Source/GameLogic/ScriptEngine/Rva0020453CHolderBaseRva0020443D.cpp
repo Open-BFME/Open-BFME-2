@@ -57,6 +57,27 @@ private:
 	_STL::vector<AsciiString> m_vec870;
 };
 
+// The 0xD4-byte particle system template (rowed copy constructor 0x001FCE6B)
+// and TheParticleSystemManager's 0x001FCF11, which takes a name and a new
+// template (not yet rowed; pinned).
+namespace FXParticleSystem
+{
+class ParticleSystemTemplate
+{
+public:
+	ParticleSystemTemplate(const ParticleSystemTemplate &other);
+private:
+	unsigned char m_body[0xD4];
+};
+}
+
+class ParticleSystemManager
+{
+public:
+	void rva001FCF11(const AsciiString &name, FXParticleSystem::ParticleSystemTemplate *tmpl);
+};
+extern ParticleSystemManager *TheParticleSystemManager;
+
 class Rva0020453CHolderBase
 {
 public:
@@ -69,6 +90,7 @@ public:
 	virtual void dummy6() = 0;
 	virtual void dummy7() = 0;
 	virtual void rva0020443D(const char *name);
+	virtual void rva002044C7(const char *name, const FXParticleSystem::ParticleSystemTemplate &source);
 };
 
 void Rva0020453CHolderBase::rva0020443D(const char *name)
@@ -76,4 +98,17 @@ void Rva0020453CHolderBase::rva0020443D(const char *name)
 	dummy7();
 	INI ini;
 	ini.loadBlock("Data\\INI\\FXParticleSystem.ini", "FXParticleSystem", name, INI_LOAD_OVERWRITE, 0);
+}
+
+// ?rva002044C7@Rva0020453CHolderBase@@UAEXPBDABVParticleSystemTemplate@FXParticleSystem@@@Z
+// @0x002044C7 117B, slot 9 of the same vtable: after slot 7 it hands
+// TheParticleSystemManager the name and a new copy of the given template
+// (rowed copy constructor 0x001FCE6B). The name's AsciiString is built in the
+// template argument's slot once the copy is made. WorldBuilder's twin
+// (0x00B302E0) is unnamed.
+void Rva0020453CHolderBase::rva002044C7(const char *name, const FXParticleSystem::ParticleSystemTemplate &source)
+{
+	dummy7();
+	FXParticleSystem::ParticleSystemTemplate *copy = new FXParticleSystem::ParticleSystemTemplate(source);
+	TheParticleSystemManager->rva001FCF11(name, copy);
 }

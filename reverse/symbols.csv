@@ -16505,3 +16505,4 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ??0Rva005CDE89@@QAE@HHPAX@Z,0x005CDE89,callee of ?rva005CDF8B@Rva005CDF6C@@QAE?AV?$Rva005F4C8ERef@VRva005CDE89Iface@@@@HH@Z
 ?rva0025E75F@Rva0025E4CD@@QAEXXZ,0x0025E75F,callee of ?rva0025E970@Rva0025E4CD@@QAEXH@Z
 ?rva0025E5F4@Rva0025E4CD@@QAEXXZ,0x0025E5F4,callee of ?rva0025E970@Rva0025E4CD@@QAEXH@Z
+?rva001FCF11@ParticleSystemManager@@QAEXABVAsciiString@@PAVParticleSystemTemplate@FXParticleSystem@@@Z,0x001FCF11,callee of ?rva002044C7@Rva0020453CHolderBase@@UAEXPBDABVParticleSystemTemplate@FXParticleSystem@@@Z
