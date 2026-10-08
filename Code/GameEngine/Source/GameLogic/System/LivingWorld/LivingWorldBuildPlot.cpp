@@ -32,6 +32,7 @@ public:
     virtual void slot18();
     virtual void slot1C();
     virtual void slot20(bool occupied, bool immediate);
+    virtual void slot24(bool pending, bool immediate);
 private:
     char m_unrecovered[0x38];
 };
@@ -40,6 +41,7 @@ class Rva00575674
 public:
     void rva00575674(Object *object);
     LivingWorldBuildPlotIcon *get() const { return m_icon; }
+    bool isBound() const { return m_icon != 0; }
 private:
     LivingWorldBuildPlotIcon *m_icon;
 };
@@ -65,4 +67,82 @@ void LivingWorldBuildPlot::CreateIcon(const AsciiString &iconName)
         m_icon.rva00575674((Object *)new LivingWorldBuildPlotIcon(templ, this, m_position));
         m_icon.get()->slot20(m_structure != 0, true);
     }
+}
+
+// The existing callee pin names ConstructBuilding by its address-derived
+// receiver. Keep that provider spelling; WorldBuilder 0x013118C0 supplies
+// the source identity while retail alone supplies the fields below.
+struct Rva003F1BD3TemplateView
+{
+    char m_unknown[0x28];
+    int m_buildFrames;
+};
+class LivingWorldRegion;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+class Rva002B315BBumpCounter
+{
+public:
+    int bump();
+};
+class LivingWorldBuilding
+{
+public:
+    LivingWorldBuilding(LivingWorldRegion *region, const Coord2D &position,
+                       const Rva003F1BD3TemplateView *templ, int id);
+private:
+    char m_unrecovered[0x54];
+};
+class Rva004E0705
+{
+public:
+    bool rva004E0A58();
+};
+class Rva004FC320Listener
+{
+public:
+    virtual void notify(void *arg);
+};
+class Rva004FC320List
+{
+public:
+    void forEach(void (Rva004FC320Listener::*notify)(void *), void *arg);
+private:
+    char m_storage[0x10];
+};
+struct TreeHintRef00217D4C;
+class Rva001FF3A9
+{
+public:
+    void rva001FF3A9(const TreeHintRef00217D4C &arg);
+};
+class Rva003F1C56Plot
+{
+public:
+    void rva004FC33E(const Rva003F1BD3TemplateView *templ);
+private:
+    char m_unknown00[8];
+    Rva004FC320List m_listeners;
+    int m_unknown18;
+    LivingWorldRegion *m_region;
+    Rva00575674 m_building;
+    Rva00575674 m_icon;
+    Coord2D m_position;
+    int m_buildFrames;
+    bool m_hidden;
+};
+
+void Rva003F1C56Plot::rva004FC33E(const Rva003F1BD3TemplateView *templ)
+{
+    if (m_building.isBound())
+        return;
+    m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position,
+        templ, ((Rva002B315BBumpCounter *)TheLivingWorldLogic)->bump()));
+    bool pending = ((Rva004E0705 *)m_building.get())->rva004E0A58();
+    m_buildFrames = templ->m_buildFrames;
+    m_hidden = true;
+    if (m_icon.get())
+        m_icon.get()->slot24(pending, true);
+    m_listeners.forEach((void (Rva004FC320Listener::*)(void *))
+        &Rva001FF3A9::rva001FF3A9, this);
 }
