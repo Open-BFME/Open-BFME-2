@@ -1,4 +1,6 @@
 // ?GadgetListBoxInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
+// partial score=0.9 date=2026-10-08
+// ?GadgetListBoxInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
 // partial score=0.9 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /DNDEBUG /MD /EHsc
 // List box hit testing, the Zero Hour GadgetListBox.cpp statics BFME2 keeps:
