@@ -28,3 +28,24 @@ int Rva0040A7F1::rva0040A7F1(int index) const
 		return 0;
 	return vb()[index];
 }
+
+// ?rva0040A80F@Rva0040A80F@@QBEHH@Z @0x0040A80F 30B: the same accessor for
+// the range at +0x10/+0x14, same recipe (callers in the 0x00409B73 family).
+class Rva0040A80F
+{
+public:
+	int rva0040A80F(int index) const;
+private:
+	const int *vb() const { return *(const int *volatile *)&m_begin; }
+	int m_pad[4];
+	const int *m_begin;
+	const int *m_end;
+};
+
+int Rva0040A80F::rva0040A80F(int index) const
+{
+	unsigned int count = (unsigned int)(((const char *)m_end - (const char *)m_begin) >> 2);
+	if ((unsigned int)index >= count)
+		return 0;
+	return vb()[index];
+}
