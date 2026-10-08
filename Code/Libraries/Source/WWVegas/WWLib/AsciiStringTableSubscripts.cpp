@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Oy- /Ob2 /EHsc /MD /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /Oy /Ob2 /EHsc /MD /Ireference/shims/bfme2_ascii
 // Name-keyed table subscripts recovered from their complete native bodies.
 // Native call sites establish each existing lookup/insert provider and payload
 // access. Application names remain unknown except where the rowed callers say
@@ -125,4 +125,47 @@ void * Rva000427195::rva004112A0(const AsciiString *key) {
  void *node;
  { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
  return (void *)(node==0 ? (char *)((Rva000427195 *)this)->rva00410E67((const StoredPair10B17 *)&static_cast<const WordSlotPair &>(WordSlotPair(*key, 0)))+4 : (char *)node+8);
+}
+
+// stlport
+#include <map>
+// Declaration-only mirror of the existing 221B8D provider's reference holder;
+// none of its lifetime operations is defined or invoked by this float client.
+// The 5808E family's verified node allocation/copy proves its four-byte
+// opaque payload; only the actual FloatSlotPair temporary is constructed here.
+struct TargetRef00217D4C;
+struct TreeHintRef00217D4C
+{
+    TargetRef00217D4C *m_ptr;
+    TreeHintRef00217D4C();
+    TreeHintRef00217D4C(const TreeHintRef00217D4C &);
+    TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
+    ~TreeHintRef00217D4C();
+};
+struct TreeHintPayload0005808E { char m_body[4]; };
+typedef _STL::pair<const AsciiString, TreeHintRef00217D4C> RefLookupPair;
+typedef _STL::_Rb_tree<AsciiString, RefLookupPair, _STL::_Select1st<RefLookupPair>, _STL::less<AsciiString>, _STL::allocator<RefLookupPair> > RefLookupTree;
+typedef _STL::map<AsciiString, TreeHintPayload0005808E, _STL::less<AsciiString>, _STL::allocator<StoredPair5808E> > ExistingHintMap;
+namespace _STL
+{
+template<> RefLookupTree::_Link_type RefLookupTree::_M_lower_bound(const AsciiString &) const;
+template<> ExistingHintMap::iterator ExistingHintMap::insert(ExistingHintMap::iterator, const StoredPair5808E &);
+
+// Native5B67C..5B6FC has the float default-slot semantics of the clean
+// BFME1 34f59164f6 PlayerTemplate.cpp donor. Its actual lookup221B8D and
+// hinted insert5A261 retain their established opaque provider identities;
+// no opaque mapped value is constructed or treated as a target type here.
+template<>
+float &map<AsciiString, float, less<AsciiString>, allocator<pair<const AsciiString, float> > >::operator[](const AsciiString &key)
+{
+    _Rb_tree_node_base *node = reinterpret_cast<RefLookupTree *>(this)->lower_bound(key)._M_node;
+    if (node == _M_t.end()._M_node || key < *reinterpret_cast<const AsciiString *>(reinterpret_cast<const char *>(node) + 16))
+    {
+        node = reinterpret_cast<ExistingHintMap *>(this)->insert(
+            ExistingHintMap::iterator(reinterpret_cast<_Rb_tree_node<StoredPair5808E> *>(node)),
+            reinterpret_cast<const StoredPair5808E &>(static_cast<const FloatSlotPair &>(FloatSlotPair(key, 0.0f))))._M_node;
+    }
+    return *reinterpret_cast<float *>(reinterpret_cast<char *>(node) + 20);
+}
+template float &map<AsciiString, float, less<AsciiString>, allocator<pair<const AsciiString, float> > >::operator[](const AsciiString &);
 }
