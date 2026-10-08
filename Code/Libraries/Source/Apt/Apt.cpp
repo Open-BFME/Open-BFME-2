@@ -126,7 +126,7 @@ class Rva006CD650 {public:void *rva006CD650();};
 struct TickMovie {char pad[0x24];unsigned interval;};
 struct TickState {char pad[0xc];TickMovie *movie;char pad10[0x20];unsigned remainder;};
 struct TickNode {char pad[0x54];void *cih;};
-class Rva006E34D0 {public:char pad[0x30];TickNode **nodes;char pad34[8];int count;};
+class Rva006E34D0 {public:void rva006E34D0(int);char pad[0x30];TickNode **nodes;char pad34[8];int count;};
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 class AptAnimationPoolData {public:void tickIntervalTimers(int);void rva006E6540();};
 class Rva006F7A30 {public:void rva006F7A30();};
@@ -197,3 +197,107 @@ void Rva006CF040Tick(unsigned elapsed) {
 
 
 
+
+// Native6CEC90..6CF02B RET:923 code bytes; four-entry jump table at6CF030
+// maps cases0/1 to6CED8D,2 to6CEDA9,3 to6CEE24. WB174E830 Apt.cpp912..986.
+// WB174EE80/174EEA0 prove readiness states4/2; WB1750C60 stores the iterator
+// cursor/begin/end pointers. Its compatibility and dereference checks call
+// WB1750B80, an empty5B function even in debug. Preserve those expressions:
+// removing them changes compiler loop/register allocation despite no runtime
+// work. WB1750B30/1750B90 supply the exact diagnostic strings.
+// Native6CF956..6CF9A3 allocates28B: count/capacity/data and two8B entries;
+// checkpoint6CEB43 calls EAStringC::IsEqualTo on each entry and state is+4.
+// Existing playback-word providers are retained; the pointer reference views
+// reflect native cursor arithmetic and do not introduce duplicate storage.
+#define tickAssert(good,test,file,line) do {if(!(good)){g_bfmeAptAssertAtE17734(test,file,line);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}} while(0)
+extern "C" unsigned strlen(const char *);
+extern "C" int sprintf(char *,const char *,...);
+struct Rva00891FA0Record {int value,kind;};
+extern "C" void (__cdecl *Rva00891FA0SendRecord)(Rva00891FA0Record *,int);
+extern "C" void (__cdecl *Rva00891FA0SendText)(const char *);
+void Rva006CC110Log(int,const char *,...);
+extern unsigned g_rva00A176D8,g_rva00A176DC,g_rva00A176E4;
+struct PlaybackItem {EAStringC name;int state;};
+inline void iteratorCheck(bool,const char *){}
+class PlaybackIterator {
+ PlaybackItem *cur,*first,*last;
+public:
+ PlaybackIterator(PlaybackItem *c,PlaybackItem *f,PlaybackItem *l):cur(c),first(f),last(l){}
+ PlaybackIterator &operator++(){++cur;return *this;}
+ PlaybackItem &operator*(){iteratorCheck(cur>=first && cur<last,"Trying to dereference an invalid iterator");return *cur;}
+ bool operator!=(const PlaybackIterator &other){iteratorCheck(first==other.first && last==other.last,"Iterators are not in same range");return cur!=other.cur;}
+};
+class PlaybackRange {
+ PlaybackItem *first,*last;
+public:
+ PlaybackRange(PlaybackItem *f,PlaybackItem *l):first(f),last(l){}
+ PlaybackIterator begin(){return PlaybackIterator(first,first,last);}
+ PlaybackIterator end(){return PlaybackIterator(last,first,last);}
+};
+class Rva006CEB10Playback {
+public:
+ int size,capacity;PlaybackItem *items;PlaybackItem inlineItems[2];
+ void rva006CEB10(const EAStringC &);
+ PlaybackIterator begin(){return PlaybackRange(items,items+size).begin();}
+ PlaybackIterator end(){return PlaybackRange(items,items+size).end();}
+ __forceinline bool readyFor(int a,int b) {
+  for(PlaybackIterator it=begin();it!=end();++it)
+   if((*it).state!=a && (*it).state!=b)return false;
+  return true;
+ }
+ __forceinline bool ready(){return readyFor(4,2);}
+};
+// Native6CF9A3 stores the new28B checkpoint container in this four-byte
+// cell. Retail E176EC initially contains00000000; no existing owner found.
+Rva006CEB10Playback *g_aptPlaybackCheckpoints=0;
+#define PLAYCUR reinterpret_cast<char *&>(g_rva00A176D8)
+#define PLAYBASE reinterpret_cast<char *&>(g_bfmeAptFlagAtE176D4)
+void Rva006CEC90Tick() {
+ unsigned target=g_rva00A176E4+1;
+ while(PLAYBASE) {
+  tickAssert(g_rva00A176E4<=target,"gSIPlayback.nCurTick <= nTargetTime","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",0x390);
+  if(g_rva00A176E4==target)break;
+  if(g_aptPlaybackCheckpoints->ready())while(true) {
+   unsigned tick=*(unsigned *)PLAYCUR;
+   if(tick>g_rva00A176E4)break;
+   tickAssert(tick==g_rva00A176E4,"nTick == gSIPlayback.nCurTick","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",0x39a);
+   PLAYCUR+=4;
+   switch(*(unsigned char *)PLAYCUR & 3) {
+    case 0:case 1:{unsigned input=*(unsigned *)PLAYCUR;PLAYCUR+=4;g_bfmeAptPtrAtE176D0->rva006E34D0(input);break;}
+    case 2:{
+     tickAssert((*(unsigned char *)PLAYCUR & 3)==2,"INPUT_IS_CHECKPOINT(&*gSIPlayback.pCurSavedInput)","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",0x3ab);
+     ++PLAYCUR;const char *name=PLAYCUR;PLAYCUR+=strlen(name)+1;
+     g_aptPlaybackCheckpoints->rva006CEB10(EAStringC(name));break;
+    }
+    case 3:{
+     ++PLAYCUR;
+     if(!g_rva00891FA0Ready){char text[16];sprintf(text,"%06d",g_rva00A176E4);Rva00891FA0SendText(text);}break;
+    }
+    default:tickAssert(0,"false && \"Unknown Saved Input Type Reached!!!\"","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",0x3d6);break;
+   }
+   tickAssert(PLAYCUR-PLAYBASE<=(int)g_rva00A176DC,"(gSIPlayback.pCurSavedInput - gSIPlayback.pSavedInputs) <= gSIPlayback.nInputFileSize","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",0x3da);
+  }
+  if(PLAYCUR-PLAYBASE>=(int)g_rva00A176DC) {
+   Rva006CC110Log(0,"Playback of inputs completed.\n");PLAYBASE=0;PLAYCUR=0;
+   if(g_rva00891FA0Ready){Rva006CC110Log(0,"  Turning off saved inputs too.\n");g_rva00891FA0Ready=0;}break;
+  }
+  void *p;
+  if(g_aptPlaybackCheckpoints->ready() && (p=currentTickCIH())!=0 && ((Rva006DBB30SarDwordField *)p)->get()==0x12 && !((BfmeAptValue006DCD20 *)p)->isUndefined()) {
+   if(Rva006CD7A0Tick(1) && g_rva00891FA0Ready) {
+    char text[16];Rva00891FA0Record record;
+    sprintf(text,"%06d",g_rva00891FA0Value);Rva00891FA0SendText(text);
+    record.value=g_rva00891FA0Value;record.kind=3;Rva00891FA0SendRecord(&record,5);
+   }
+   ++g_rva00A176E4;
+  }else{g_bfmeAptLinkerAtE176F8->rva006D17F0();break;}
+ }
+}
+
+
+
+
+
+
+#undef tickAssert
+#undef PLAYCUR
+#undef PLAYBASE

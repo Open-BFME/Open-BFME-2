@@ -34200,6 +34200,7 @@ pin	reverse/symbols.csv	0x006CE570	3
 pin	reverse/symbols.csv	0x006CE7E0	1
 pin	reverse/symbols.csv	0x006CE7F0	2
 pin	reverse/symbols.csv	0x006CEAD0	1
+pin	reverse/symbols.csv	0x006CEB10	1	allow=fcedc7902431a5ebb9200a4e8af8aa27cea053a1
 pin	reverse/symbols.csv	0x006CEC42	1
 pin	reverse/symbols.csv	0x006CEC90	1	allow=274ca5bc7db4fb63357c18527c972c0191f10307
 pin	reverse/symbols.csv	0x006CF1B0	1
