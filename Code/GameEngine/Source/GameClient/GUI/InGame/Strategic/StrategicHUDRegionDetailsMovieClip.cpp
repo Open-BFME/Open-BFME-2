@@ -177,7 +177,9 @@ struct Rva002229E3S12
 Rva002229E3S12 __cdecl Rva002229E3Build(const char &c, const char *s);
 class Rva00222A8BTarget;
 class Rva005E2D74;
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+// Use the data ledger provider at RVA9FE4CC; its original type is provisional.
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva005E30E8AptCall(Rva00222A8BTarget *target, void *level, const char *mid, const char *function, Rva005E2D74 *obj);
 
 namespace StrategicHUD {
@@ -284,7 +286,7 @@ void StrategicHUD::RegionDetailsMovieClip::Impl::OnPageLoaded(const char *path)
 void StrategicHUD::RegionDetailsMovieClip::Impl::SetTabsState(int page)
 {
 	const char *id = page != -1 ? Rva005E2D26Get(page) : "hide";
-	Rva005E30E8AptCall(TheRva00222A8BTarget, (void *)m_level, m_name.str(), "SetTabsState", (Rva005E2D74 *)&(const Rva002229E3S12 &)Rva002229E3Build('_', id));
+	Rva005E30E8AptCall(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager), (void *)m_level, m_name.str(), "SetTabsState", (Rva005E2D74 *)&(const Rva002229E3S12 &)Rva002229E3Build('_', id));
 }
 
 // WorldBuilder Impl::SetCurrentPage: hides the old page, updates the tabs,
@@ -321,4 +323,20 @@ __declspec(noinline) const char *Rva005E2D26Get(int key)
   if(key==(int)g_00C77B40[i].m_result) return g_00C77B40[i].m_name;
  }
  return 0;
+}
+
+// Native5E2E91..5E2EED92B RET4. WB ShowPage at15F4E60 identifies the
+// loaded-page guard, true visibility argument and virtual OnShown slot4.
+// The parameter's spare high byte holds the bool naturally; no manual alias.
+// Shared32B slot lookup preserves EDX with its complete body in this TU.
+// WB qualification remains a callgraph lead rather than independent RTTI proof.
+void StrategicHUD::RegionDetailsMovieClip::Impl::ShowPage(int page)
+{
+ TargetRef00217D4C *target=m_pages[page].m_ptr;
+ if(target) {
+  bool visible=true;
+  const char *id=Rva005E2D26Get(page);
+  Rva0054C83FAptCall(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager),(void*)m_level,m_name.str(),"SetPageVisibility",&id,&visible);
+  target->OnShown();
+ }
 }
