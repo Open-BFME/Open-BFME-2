@@ -1,6 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
-// ?rva0039D4B5@Rva0039D4B5@@QAEXPAVRva0039D40F@@@Z @0x0039D4B5 (35B).
+// ?prependTo_TeamInstanceList@TeamPrototype@@QAEXPAVRva0039D40F@@@Z @0x0039D4B5 (35B).
 // 0x0039D4B5 (35B) chain of the 0x39D40F/0x39D429 pair: when the node is not
 // already in the +0x334 head list, prepends it. Retail shape is head lea
 // plus isInList test plus conditional prepend plus pop plus ret 4. Caller
@@ -21,17 +21,17 @@ public:
 	void rva0039D429(Rva0039D429 **head);
 };
 
-class Rva0039D4B5
+class TeamPrototype
 {
 public:
-	void rva0039D4B5(Rva0039D40F *obj);
+	void prependTo_TeamInstanceList(Rva0039D40F *obj);
 
 private:
 	char m_pad00[0x334];
 	Rva0039D40F *m_head334; // +0x334
 };
 
-void Rva0039D4B5::rva0039D4B5(Rva0039D40F *obj)
+void TeamPrototype::prependTo_TeamInstanceList(Rva0039D40F *obj)
 {
 	Rva0039D40F **head = &m_head334;
 	if (obj->rva0039D40F(head)) {

@@ -1,5 +1,5 @@
 // cl: -GR- -EHsc-
-// ?Run@Rva0059EB6FBox@@QAE_NH@Z @0x0059EB6F 64B: gated notify-set-go. With
+// ?MpOwnerSelectStrategicScenario@AptOnlineCustomMatch@@QAE_NH@Z @0x0059EB6F 64B: gated notify-set-go. With
 // the info singleton present and its flag word nonzero, fire the slot-0xDC
 // virtual on the info, forward the arg to the pinned 1-arg callee 0x44D5EE
 // (matched as GameModePreferences::setStrategicScenario) on the +0x40C
@@ -74,18 +74,18 @@ struct Rva0059EB6FSub
 	void SetScenario(int mode);
 };
 
-struct Rva0059EB6FBox
+struct AptOnlineCustomMatch
 {
 	char pad[0x40c];
 	Rva0059EB6FSub m_40C;
 
-	bool Run(int mode);
+	bool MpOwnerSelectStrategicScenario(int mode);
 };
 
 extern class GameSpyInfoInterface *TheGameSpyInfo;
 extern int g_rva0059EB6FFlag;
 
-bool Rva0059EB6FBox::Run(int mode)
+bool AptOnlineCustomMatch::MpOwnerSelectStrategicScenario(int mode)
 {
 	Rva0059EB6FInfo *info = (*(Rva0059EB6FInfo **)&TheGameSpyInfo);
 	if (info == 0)

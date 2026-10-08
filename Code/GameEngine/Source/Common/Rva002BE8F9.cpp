@@ -1,6 +1,6 @@
 // cl: /O1 /arch:SSE /G7 /MD
 //
-// ?rva002BE8F9@Rva002BE8F9@@QAEXPAX@Z @0x002BE8F9 279B.
+// ?ZoomInTo@LivingWorld@@QAEXPAX@Z @0x002BE8F9 279B.
 // Branch on +0x18/+0x14: +0x18==0 returns; +0x14==1 runs the living-world
 // item gate plus mouse/manager notifies; +0x14==0 runs the v38 fill plus the
 // 8-key lookup and v58/v4c tails with a float pair to the manager.
@@ -110,7 +110,7 @@ struct Rva002BE8F9Pair
 	float b;
 };
 
-class Rva002BE8F9
+class LivingWorld
 {
 public:
 	virtual void v00();
@@ -154,7 +154,7 @@ public:
 	virtual void v38();
 	virtual void v39();
 	virtual void v40(int a);
-	void rva002BE8F9(void *arg);
+	void ZoomInTo(void *arg);
 private:
 	char m_pad04[0x14 - 0x04];
 	int m_14;
@@ -163,8 +163,8 @@ private:
 	int m_1c;
 };
 
-// ?rva002BE8F9@Rva002BE8F9@@QAEXPAX@Z
-void Rva002BE8F9::rva002BE8F9(void *arg)
+// ?ZoomInTo@LivingWorld@@QAEXPAX@Z
+void LivingWorld::ZoomInTo(void *arg)
 {
 	if (m_18 == 0)
 		return;

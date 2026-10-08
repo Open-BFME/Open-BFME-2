@@ -1,6 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 
-// ?rva0039D4FB@Rva0039D4FB@@QAEXP6AXPAVRva0039D40F@@@Z@Z @0x0039D4FB (42B).
+// ?removeAll_TeamInstanceList@TeamPrototype@@QAEXP6AXPAVRva0039D40F@@@Z@Z @0x0039D4FB (42B).
 // List-drain: while the +0x334 head holds a node, unlinks it via the rowed
 // 0x0039D4D8 conditional remove then invokes the callback on it when present.
 // Retail shape is head-load loop plus remove call plus null-gated indirect
@@ -22,17 +22,17 @@ public:
 	void rva0039D4D8(Rva0039D40F *obj);
 };
 
-class Rva0039D4FB
+class TeamPrototype
 {
 public:
-	void rva0039D4FB(void (*cb)(Rva0039D40F *));
+	void removeAll_TeamInstanceList(void (*cb)(Rva0039D40F *));
 
 private:
 	char m_pad00[0x334];
 	Rva0039D40F *m_head334; // +0x334
 };
 
-void Rva0039D4FB::rva0039D4FB(void (*cb)(Rva0039D40F *))
+void TeamPrototype::removeAll_TeamInstanceList(void (*cb)(Rva0039D40F *))
 {
 	Rva0039D40F *node;
 	while( (node = m_head334) != 0 )
