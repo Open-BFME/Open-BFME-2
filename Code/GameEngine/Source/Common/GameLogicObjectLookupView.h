@@ -88,6 +88,7 @@ public:
 	bool rva001DCD1C();	// 0x001DCD1C, mode 8 or mode 9 with +0x114 != 3
 	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);	// 0x0023CD9E
 	Object *findObjectByID(ObjectID id);
+	void rva0023D033(); // 0x0023D033, native +0x184 cleanup forwarder
 	int rva0023D08B(int value);	// 0x0023D08B, existing +0x184 forwarder
 	void rva0023D0C2(Object *obj, int handle);	// 0x0023D0C2
 	Object *getFirstObject();	// 0x0023CAD2
