@@ -46,7 +46,7 @@ class InGameUI;
 extern InGameUI *TheInGameUI;
 class Rva0029B380 { public: void rva0029B34B(); };
 
-class Rva00DFE1C8Host { public: void rva00211FA8(); };
+class Rva00DFE1C8Host { public: void rva00211FA8(); void rva00212017(); };
 void Rva00DFE1C8Host::rva00211FA8()
 {
     {
@@ -60,3 +60,18 @@ void Rva00DFE1C8Host::rva00211FA8()
     reinterpret_cast<Rva0029B380 *>(TheInGameUI)->rva0029B34B();
 }
 
+
+// Native callback211396..211494 returns3 with RET0 and no stack input.
+int rva00211396();
+int Rva003FEC05FadeScreenRegionToMapBlack(int,bool);
+// Native212017..2120A4 RET0: three callback addresses share the existing
+// registration id and constructor; no original owner/method identity claimed.
+void Rva00DFE1C8Host::rva00212017()
+{
+    { Rva003FE7E6(Rva00211E75Callback(reinterpret_cast<int>(&rva00565170)), &g_00E02EC4); }
+    { Rva003FE7E6(Rva00211E75Callback(reinterpret_cast<int>(&rva00211396)), &g_00E02EC4); }
+    { Rva003FE7E6(Rva00211E75Callback(reinterpret_cast<int>(&Rva003FEC05FadeScreenRegionToMapBlack)), &g_00E02EC4); }
+    reinterpret_cast<MouseVisibilityView *>(TheMouse)->s19(true);
+    theRadarWindowOverrideSource->rva002D4240(true);
+    reinterpret_cast<Rva0029B380 *>(TheInGameUI)->rva0029B34B();
+}
