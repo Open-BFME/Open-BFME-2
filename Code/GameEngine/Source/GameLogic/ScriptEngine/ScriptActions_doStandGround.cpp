@@ -1,19 +1,21 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
 // stlport
 //
+// ScriptActions::doUnitStandGround, retail 0x003C60E8 (169B; ret 8)
 // ScriptActions::doTeamStandGround, retail 0x003C6191 (232B; ret 8)
-// Target identity: executeAction case 501 (TEAM_STAND_GROUND) calls it on
-// the ScriptActions instance (ecx = edi) with parameters 0 and 1 themselves,
-// beside case 500 (UNIT_STAND_GROUND, 0x003C60E8); BFME 1's
-// ScriptActions_doTeamStandGround.cpp is the donor for the name and flow.
-// Target body: each member of the team named by parameter 0's string
-// (getTeamNamed 0x003584E9, iterate_TeamMemberList 0x00263864, advance
-// 0x00263526) gets status 0x44 set from parameter 1's int (setStatus
-// 0x0023DB0E) and, for a template with KindOf bit 0x6D (byte +0x115, bit 5),
-// the same status goes to every object the 0x0028C197 interface lists through
-// its slot 67 (+0x10C) into a stack list (rowed _List_base<int> ctor
-// 0x004EC36C, dtor 0x004EC395; the element type is int in the ledger and used
-// as Object* here).
+// Target identity: executeAction case 500 (UNIT_STAND_GROUND) and case 501
+// (TEAM_STAND_GROUND) call them on the ScriptActions instance (ecx = edi)
+// with parameters 0 and 1 themselves; BFME 1's
+// ScriptActions_doUnitStandGround.cpp and ScriptActions_doTeamStandGround.cpp
+// are the donors for the names and flow.
+// Target body: the unit by parameter (getUnitNamed 0x003588E7), or each
+// member of the team named by parameter 0's string (getTeamNamed 0x003584E9,
+// iterate_TeamMemberList 0x00263864, advance 0x00263526), gets status 0x44
+// set from parameter 1's int (setStatus 0x0023DB0E) and, for a template with
+// KindOf bit 0x6D (byte +0x115, bit 5), the same status goes to every object
+// the 0x0028C197 interface lists through its slot 67 (+0x10C) into a stack
+// list (rowed _List_base<int> ctor 0x004EC36C, dtor 0x004EC395; the element
+// type is int in the ledger and used as Object* here).
 // Target differences from the donor: setStatus takes the status index, the
 // horde test is the template's KindOf byte with no override lookup, and the
 // member interface comes from 0x0028C197. Donor-carried: the stand-ground
@@ -105,6 +107,7 @@ public:
 class ScriptEngine
 {
 public:
+	Object *getUnitNamed(Parameter *unitParameter);	// 0x003588E7
 	Team *getTeamNamed(AsciiString name, bool exact);	// 0x003584E9
 };
 extern ScriptEngine *TheScriptEngine;
@@ -112,8 +115,27 @@ extern ScriptEngine *TheScriptEngine;
 class ScriptActions
 {
 protected:
+	void doUnitStandGround(Parameter *unitParameter, Parameter *standGroundParameter);
 	void doTeamStandGround(Parameter *teamParameter, Parameter *standGroundParameter);
 };
+
+void ScriptActions::doUnitStandGround(Parameter *unitParameter, Parameter *standGroundParameter)
+{
+	Object *obj = TheScriptEngine->getUnitNamed(unitParameter);
+	if (!obj)
+		return;
+
+	obj->setStatus(OBJECT_STATUS_STAND_GROUND, standGroundParameter->getInt() != 0);
+	if (!obj->getTemplate()->isHorde())
+		return;
+	Rva0028C197Members *horde = (Rva0028C197Members *)obj->rva0028C197();
+	if (!horde)
+		return;
+	_STL::list<int> members;
+	horde->getMembers(&members);
+	for (_STL::list<int>::iterator it = members.begin(); it._M_node != members.end()._M_node; ++it)
+		((Object *)*it)->setStatus(OBJECT_STATUS_STAND_GROUND, standGroundParameter->getInt() != 0);
+}
 
 void ScriptActions::doTeamStandGround(Parameter *teamParameter, Parameter *standGroundParameter)
 {
