@@ -1,7 +1,30 @@
-// ?doTeamGarrisonNearestBuilding@ScriptActions@@IAEXABVAsciiString@@@Z
-// partial score=0.93 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+//
+// ScriptActions::doTeamGarrisonNearestBuilding, retail 0x003C8CCD (350B; ret 4)
+// Target identity: the action dispatcher 0x003CA4BE calls it at 0x003CC18B;
+// Zero Hour's ScriptActions::doTeamGarrisonNearestBuilding is the donor for
+// the name and flow. Target body: the team by name (getTeamNamed 0x003584E9),
+// its first member (iterate_TeamMemberList 0x00263864) as the leader, then
+// the objects near to far (iterateObjectsInRange 0x00625610, distance mode 3,
+// order 1) passing the garrisonable-by-player filter for the team's
+// controlling player (getControllingPlayer 0x0039D7CF) and the leader's
+// same-map filter; each building with a contain module (+0x250) takes
+// getContainMax (slot 28) - getContainCount(0) (slot 69) members that have an
+// AI (+0x258) and are kind 72 and not kind 91 (the AI enter command
+// 0x0026C347, from script). Running out of members ends the action.
+// Target differences from the donor: no money-hacker internet-centre
+// switch and the filter chain is BFME 2's linked one. Donor-carried: the
+// infantry / no-garrison meaning of kinds 72 and 91.
+// Shape: the kind test is STLport's bitset::test over 32-bit words with its
+// range check (dead for constant kinds). A byte-mask view folds kind 72 to
+// an int constant 1 that, with the in-loop CMD_FROM_SCRIPT push, takes EBX
+// from retail's 0; without the range check the two tests share one dword
+// load. DLINK_ITERATOR<Object>::advance and Team::iterate_TeamMemberList are
+// inline over the virtual-inheritance Object layout of
+// TeamIterateTeamMemberList.cpp, as in ScriptActions_doMoveTeamTowardsNearest.cpp.
 #include "ascii_string.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/PartitionRangeQueryCallView.h"
 
 class Object;
 class Player;
@@ -42,13 +65,6 @@ public:
 	Player *m_player;
 	bool m_match;
 	int m_source;
-};
-
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
 };
 
 enum CommandSourceType
@@ -145,61 +161,96 @@ public:
 	AICommandInterface m_commands;	// +0x20
 };
 
-struct ThingTemplate
+void __cdecl __stl_throw_out_of_range(const char *msg);
+
+struct BfmeKindOfBits
 {
-	bool isKindOf(int bit) const { return (m_kindOf[bit >> 3] >> (bit & 7)) & 1; }
-	char m_pad000[0x100];
-	unsigned char m_kindOf[28];	// +0x100
+	__forceinline static unsigned int whichword(unsigned int pos) { return pos / 32; }
+	__forceinline static unsigned int whichbit(unsigned int pos) { return pos % 32; }
+	__forceinline static unsigned long maskbit(unsigned int pos) { return ((unsigned long)1) << whichbit(pos); }
+	__forceinline unsigned long getword(unsigned int pos) const { return m_w[whichword(pos)]; }
+	__forceinline bool test(unsigned int pos) const
+	{
+		if (pos >= 224)
+			__stl_throw_out_of_range("bitset");
+		return (getword(pos) & maskbit(pos)) != (unsigned long)0;
+	}
+	unsigned long m_w[7];
 };
 
-class Object
+struct ThingTemplate
+{
+	__forceinline bool isKindOf(int t) const { return m_kindOf.test(t); }
+	char m_pad000[0x100];
+	BfmeKindOfBits m_kindOf;	// +0x100
+};
+
+class Object;
+
+class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+
+class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
 {
 public:
-	bool isKindOf(int bit) const { return m_template->isKindOf(bit); }
+	unsigned char m_carrier[4];
+};
+
+class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
+
+class BfmeObjectDlinkBase
+{
+public:
+	Object *dlink_next_TeamMemberList() const;
+};
+
+class BfmeObjectDlinkPad
+{
+public:
+	const ThingTemplate *m_template;	// +0x04
+	unsigned char m_pad08[0x38 - 8];
+	Coord3D m_pos;			// +0x38
+	unsigned char m_pad44[0x24];
+};
+
+class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
+	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
+{
+public:
+	__forceinline bool isKindOf(int bit) const { return m_template->isKindOf(bit); }
 	AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
 	ContainModuleInterface *getContain() const { return m_contain; }
 	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[4];
-	const ThingTemplate *m_template;	// +0x04
-	char m_pad008[0x38 - 8];
-	Coord3D m_pos;			// +0x38
-	char m_pad044[0x250 - 0x44];
+private:
+	unsigned char m_pad070[0x250 - 0x70];
 	ContainModuleInterface *m_contain;	// +0x250
-	char m_pad254[0x258 - 0x254];
+	unsigned char m_pad254[0x258 - 0x254];
 	AIUpdateInterface *m_ai;	// +0x258
 };
 
-template<class OBJ> class DLINK_ITERATOR
+template<class OBJCLASS>
+class DLINK_ITERATOR
 {
 public:
-	void advance();						// 0x00263526
+	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
+	DLINK_ITERATOR(OBJCLASS *cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc) {}
+	void advance() { if (m_cur) m_cur = ((*m_cur).*(m_getNextFunc))(); }
 	bool done() const { return m_cur == 0; }
-	OBJ *cur() const { return m_cur; }
+	OBJCLASS *cur() const { return m_cur; }
 private:
-	OBJ *m_cur;
-	char m_pad[20];
+	OBJCLASS *m_cur;
+	GetNextFunc m_getNextFunc;
 };
 
 class Team
 {
 public:
 	Player *getControllingPlayer() const;			// 0x0039D7CF
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;	// 0x00263864
+	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_head, &Object::dlink_next_TeamMemberList); }
+private:
+	unsigned char m_pad00[0x38];
+	Object *m_head;
 };
 
-struct BfmeWideResult
-{
-	Object *next() throw();	// 0x00045623
-	~BfmeWideResult();	// 0x0004AA28
-	void *m_value;
-};
-
-class PartitionManager
-{
-public:
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
-		Rva000421C8 *filters, int order);	// 0x00625610
-};
 extern PartitionManager *ThePartitionManager;
 
 class ScriptEngine
@@ -224,12 +275,12 @@ void ScriptActions::doTeamGarrisonNearestBuilding(const AsciiString &teamName)
 		return;
 
 	DLINK_ITERATOR<Object> diter = theTeam->iterate_TeamMemberList();
-	Object *obj = diter.cur();
-	if (!obj)
+	Object *leader = diter.cur();
+	if (!leader)
 		return;
 
-	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(obj->getPosition(), REALLY_FAR, 3,
-		Rva00261478Filter(theTeam->getControllingPlayer(), true, CMD_FROM_SCRIPT).link(&Rva002611BFFilter(obj)), 1);
+	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(leader->getPosition(), REALLY_FAR, 3,
+		Rva00261478Filter(theTeam->getControllingPlayer(), true, CMD_FROM_SCRIPT).link(&Rva002611BFFilter(leader)), 1);
 
 	for (Object *theBuilding = iter.next(); theBuilding; theBuilding = iter.next()) {
 		ContainModuleInterface *cmi = theBuilding->getContain();
@@ -238,7 +289,8 @@ void ScriptActions::doTeamGarrisonNearestBuilding(const AsciiString &teamName)
 
 		int slotsAvailable = cmi->getContainMax() - cmi->getContainCount(0);
 		for (int i = 0; i < slotsAvailable; ) {
-			if (!obj)
+			Object *obj = diter.cur();
+			if (diter.done() || !obj)
 				return;
 
 			AIUpdateInterface *ai = obj->getAIUpdateInterface();
@@ -247,8 +299,6 @@ void ScriptActions::doTeamGarrisonNearestBuilding(const AsciiString &teamName)
 				++i;
 			}
 			diter.advance();
-			obj = diter.cur();
 		}
 	}
 }
-
