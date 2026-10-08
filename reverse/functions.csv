@@ -42861,7 +42861,6 @@ _piRemoveXpingRva00862EF0,,0x006A3DE0,17,Code/GameEngine/Source/GameNetwork/Game
 ?Rva00317C68Append@@YAAAVAsciiString@@AAV1@PBD@Z,,0x00317C68,56,Code/GameEngine/Source/Common/Rva00317C68Concat.cpp,matched,free concat helper via global CharSource plus concat row; same EH shape as setter
 ?rva00156640@Rva001553C0@@QAEXXZ,,0x00156640,50,Code/Libraries/Source/WWVegas/WW3D2/Rva001553C0Clear.cpp,matched,chain from 0x001553C0 rowed callee prev Reset same dir
 ??0Rva000F0AF7@@QAE@XZ,,0x000F0AF7,110,Code/GameEngine/Source/Common/Rva000F0AF7Ctor.cpp,matched,ctor two HashTableClass 0x800 caller 0x000F1A32
-?rva000F0803@Rva000F26DC@@QAEXH@Z,,0x000F0803,47,Code/GameEngine/Source/Common/Rva000F26DCFree.cpp,matched,slot free via dtor 0x000F26DC loop 160 caller 0x000F16B4
 ?rva0043821C@Rva0043821C@@QAEXXZ,,0x0043821C,18,Code/GameEngine/Source/Common/Rva0043821C.cpp,matched,leaf movss 1.0f plus and-zero caller 0x00244120
 ?scan_is@?$ctype@D@_STL@@QBEPBDW4mask@ctype_base@2@PBD1@Z,,0x00017270,35,Code/stlport/CtypeCharFindIf.cpp,matched,BFME1 byte-identical donor (Open-BFME-1 5cae4bdff); ambiguous by bytes (2 candidate placements); resolved by cross-game callee agreement: only this placement calls the BFME2 __find_if<const char * _Ctype_c_is_mask> row 0x00016EA0
 ?Rva00840D70@@YAPBDPBD0V?$unary_negate@U_Ctype_c_is_mask@_STL@@@_STL@@@Z,,0x00017110,35,Code/stlport/CtypeCharFindIfNot.cpp,matched,BFME1 byte-identical donor (Open-BFME-1 5cae4bdff) at b1 0x00840D70; ambiguous by bytes (4 candidate placements); resolved by cross-game callee agreement: only this placement calls the BFME2 __find_if<const char * unary_negate<_Ctype_c_is_mask>> row
@@ -42871,7 +42870,6 @@ _piRemoveXpingRva00862EF0,,0x006A3DE0,17,Code/GameEngine/Source/GameNetwork/Game
 ?Rva0043822ESet@@YGXPAURva0043822EParam@@I@Z,,0x0043822E,27,Code/GameEngine/Source/Common/Rva0043822E.cpp,matched,leaf unsigned max via TheGameLogic callers 0x00439809 0x00439ED9
 ?rva00438268@Rva002542F3Member@@QBEHABV1@@Z,,0x00438268,148,Code/GameEngine/Source/GameLogic/Object/Update/Rva00438268Equal.cpp,matched,finish equality via shared fail goto caller 0x00439DB5
 ?rva0035EDA1@Rva0035EE66@@UAEXPAVGameWindow@@@Z,,0x0035EDA1,68,Code/GameEngine/Source/Common/Rva0035EDA1Init.cpp,matched,vtable 0x0081661C slot 1 plus rowed winGetSize Position
-?rva000F07C3@Rva000F26DC@@QAE_NHH@Z,,0x000F07C3,64,Code/GameEngine/Source/Common/Rva000F26DCAlloc.cpp,matched,alloc slot via caller 0x000F16B4 same class as 0x000F0803
 ??1Rva0027FBAC@@UAE@XZ,,0x0027FBAC,82,Code/GameEngine/Source/GameLogic/Map/Rva0027FBACDtor.cpp,matched,vtable 0x00BFB1E0 AsciiString at +8 virtual delete at +0xC8 caller 0x00280C05
 ??_GRva0027FBAC@@UAEPAXI@Z,,0x00280C05,28,Code/GameEngine/Source/GameLogic/Map/Rva0027FBACDtor.cpp,matched,deleting dtor for 0x0027FBAC auto-emitted with dtor
 ?rva0027F4F8@Rva0027F4F8@@QAEPAXH@Z,,0x0027F4F8,33,Code/GameEngine/Source/GameLogic/Map/Rva0027F4F8Find.cpp,matched,linear search 8B entries caller 0x00283845
