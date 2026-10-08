@@ -2,18 +2,11 @@
 // stlport
 // ?Rva0055C18BWriteHeader@@YAXPBXPAVFile@@PAI@Z @0x0055C18B 216B: module header File INI key-string line via oss Pad str Write for category 0.
 // Evidence: calls rowed oss ctor 0x001FA85C then virtual getClass name+4 then rowed GetKey 0x003AFD16 cat0 then rowed Pad 0x001F6951 then rowed _M_put_nowiden x3 then rowed _M_put_char then rowed str 0x001FA473 then rowed Write 0x001F458B then free 0x30830 then indent+=2 then rowed oss dtor and ios_base dtor; precedent Rva0055C9A0Write.cpp cat6; chain via 0x001F6951.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// Use the existing byte-verified STLport max<unsigned> provider at 0x13740.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
+template <> const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b);
 }
-}
-#pragma optimize("", on)
 
 #include <sstream>
 
