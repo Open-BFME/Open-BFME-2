@@ -34,8 +34,3 @@ Rva003FE792::Rva003FE792(TreeHintRef00217D4C hint, int value)
 	, m_i14(value)
 {
 }
-
-Rva003FE792::~Rva003FE792()
-{
-	m_vtable = g_00C37E88;
-}

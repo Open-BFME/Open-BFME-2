@@ -48033,8 +48033,6 @@ _rva0062AF4AD3DXVec4Transform@12,,0x0062AF4A,6,Code/GameEngine/Source/Common/Rva
 ?rva004FC2A6@Rva004FC275@@QAEXXZ,,0x004FC2A6,13,Code/GameEngine/Source/Common/Rva004FC275Set.cpp,matched,slot2 notify same class as 0x004FC299 caller 0x005CEFA7
 ??1Rva00425CE2@@UAE@XZ,,0x00425CE2,196,Code/GameEngine/Source/Common/Rva00425CE2Dtor.cpp,matched,finish 0.97 via Oy-minus removal direct Rva00360D26Member dtor
 ??_GRva00425CE2@@UAEPAXI@Z,,0x00425DA6,28,Code/GameEngine/Source/Common/Rva00425CE2Dtor.cpp,matched,deleting dtor from same dtor TU
-??1Rva003FE792@@QAE@XZ,,0x003FE6D5,19,Code/GameEngine/Source/Common/Rva003FE792.cpp,matched,TreeHint dtor with vtable and Release tail
-??_GRva003FE792@@QAEPAXI@Z,,0x003FE7CA,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva003FE792.cpp,matched,deleting dtor via rowed dtor and delete
 ?Rva003FECCASetPlayerFaction@@YAXPAPAX@Z,,0x003FECCA,52,Code/GameEngine/Source/GameClient/Rva003FECCA.cpp,matched,UI firer SetPlayerFaction via empty-or-label and invoke
 ?rva0059E848@Rva0059E848@@QAEXXZ,,0x0059E848,25,Code/GameEngine/Source/Common/Rva0059E848Flush.cpp,matched,single-element vector flush via G7 and-al plus barrier reload
 ?rva0014D405@Rva0014D405@@QAEXXZ,,0x0014D405,18,Code/GameEngine/Source/Common/Rva0014D405Clear.cpp,matched,caller 0x0014A880 honest address name lea shape
