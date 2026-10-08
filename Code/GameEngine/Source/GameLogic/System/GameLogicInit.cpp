@@ -1180,7 +1180,9 @@ public:
 	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
 	virtual void v08();
 	virtual void slot24();
+	virtual void slot28();
 	void rva001DC5EC(void);
+	void reverse(AsciiString groupName);
 };
 
 class Rva0023C7D2
@@ -3067,6 +3069,71 @@ void GameLogic::rva002469A5(bool loadingSaveGame, int *progress)
 				((Rva00739780 *)TheShroudManager)->rva00739780(player->getPlayerIndex());
 		}
 	}
+}
+
+// ---------------------------------------------------------------------------
+// 0x0023E323 (171B): the timed transition reverse. startNewGame's stage
+// 0x002423E3 packs a transition group name and a frame into this 8-byte
+// value (0x00242731 and 0x00242901, through 0x002419AB), which the
+// ref-counted holder 0x0023FC98 (vtable 0x00BEDC94) copies to its +0x08 and
+// whose slot 1 (0x0023FCD3) forwards its (float, int) arguments here.
+// Target evidence: until TheGameLogic's frame (+0x40) reaches the stored
+// frame it answers 1; then, under the handler lock 0x0023C565 (the
+// destructor inline: unlock 0x001DBBC8 when TheTransitionHandler is set), it
+// clears the handler's byte flag (the folded setter 0x001DBB87), runs the
+// handler's slot 10, reverses the named group (0x001DC345) and runs slot
+// 10 again; in game modes 2 and 3 (+0x110) it shows the engine cursor and
+// answers 3. The answer codes and the unused arguments are not identified.
+class Rva001DBB87ZeroSetter
+{
+public:
+	void disable(void);
+};
+
+class Rva001DBAA4
+{
+public:
+	void unlock(void);
+};
+
+class Rva0023C565
+{
+public:
+	Rva0023C565();
+	~Rva0023C565()
+	{
+		if (TheTransitionHandler)
+			((Rva001DBAA4 *)TheTransitionHandler)->unlock();
+	}
+};
+
+class Rva0023E323
+{
+public:
+	int rva0023E323(float, int);
+
+private:
+	AsciiString m_groupName;                                             // +0x00
+	unsigned int m_frame;                                                // +0x04
+};
+
+int Rva0023E323::rva0023E323(float, int)
+{
+	int result = 1;
+	if (TheGameLogic->getFrame() >= m_frame) {
+		{
+			Rva0023C565 lock;
+			((Rva001DBB87ZeroSetter *)TheTransitionHandler)->disable();
+			TheTransitionHandler->slot28();
+			TheTransitionHandler->reverse(m_groupName);
+			TheTransitionHandler->slot28();
+		}
+
+		if (TheGameLogic->m_110 >= 2 && TheGameLogic->m_110 <= 3)
+			TheMouse->_bfme_setEngineVisibility(true);
+		result = 3;
+	}
+	return result;
 }
 
 // ---------------------------------------------------------------------------
