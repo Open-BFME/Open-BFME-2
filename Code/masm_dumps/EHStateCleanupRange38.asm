@@ -1585,6 +1585,30 @@ PUBLIC ?rva0078a681@@YAXXZ
     ret
 ?rva0078a681@@YAXXZ ENDP
 
+; Unwind@00b8a813 at RVA 0x0078A813; 22-byte eh-vector-dtor lea target passes [ebp-216] with size 12 count 16 and raw dtor VA 0x004B3FD0.
+PUBLIC ?rva0078a813@@YAXXZ
+?rva0078a813@@YAXXZ PROC
+    push 004B3FD0h
+    push 10h
+    push 0Ch
+    lea eax, [ebp-216]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0078a813@@YAXXZ ENDP
+
+; Unwind@00b8a84b at RVA 0x0078A84B; 22-byte eh-vector-dtor lea target passes [ebp-260] with size 12 count 16 and raw dtor VA 0x004B3FD0.
+PUBLIC ?rva0078a84b@@YAXXZ
+?rva0078a84b@@YAXXZ PROC
+    push 004B3FD0h
+    push 10h
+    push 0Ch
+    lea eax, [ebp-260]
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0078a84b@@YAXXZ ENDP
+
 ; Unwind@00b8b58e at RVA 0x0078B58E; 24-byte vector cleanup ends at RET.
 ; Target passes [ebp-16]+0x338 to the rowed iterator with element size 16 count 60 and raw dtor VA 0x004B3FD0.
 PUBLIC ?rva0078b58e@@YAXXZ
