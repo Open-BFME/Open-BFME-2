@@ -335,3 +335,82 @@ void bfmeEmitStringRecord005DDD40Copy(BfmeStringRecord005DDD40 *p, const BfmeStr
 	p->BfmeStringRecord005DDD40::BfmeStringRecord005DDD40(*q);
 }
 #pragma inline_depth()
+
+// Target strings/xrefs at 0x007E5E28 and 0x007E5E60 name AwardSystemManager
+// validation; data xrefs identify its manager at 0x00A02F74. The exact method
+// names are not established, so retain address-derived callback names.
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+
+class INI;
+class Rva0014921EVector;
+void __cdecl rva00149002(int ini, int instance, Rva0014921EVector *store, int userData);
+
+class NameKeyGenerator
+{
+public:
+	const AsciiString &keyToName(NameKeyType key);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+struct BfmePod40;
+class Rva0040BAD0
+{
+public:
+	int rva0040AAF8(int key);
+};
+class Rva0040AAD5 : public Rva0040BAD0
+{
+public:
+	BfmePod40 *rva0040AAD5(int key);
+};
+extern Rva0040AAD5 *g_00E02F74;
+
+struct _s__ThrowInfo;
+struct INIException
+{
+	char *mFailureMessage;
+	int m_argCount;
+	INIException(int argCount, const char *format, ...);
+};
+extern "C" void __stdcall _CxxThrowException(void *exceptionObject, const _s__ThrowInfo *throwInfo);
+extern "C" const _s__ThrowInfo __identifier("_TI1?AVINIException@@");
+
+// Standalone callbacks at 0x0021A7A3 and 0x0021A859 share the same checked
+// NameKey vector walk. The target strings and method calls distinguish Award
+// from Stat; all other layout details below are read from the retail bodies.
+void rva0021A7A3(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
+{
+	bool parsed = true;
+	rva00149002((int)ini, 0, (Rva0014921EVector *)store, (int)&parsed);
+	std::vector<NameKeyType> *keys = (std::vector<NameKeyType> *)store;
+	for (unsigned int i = 0; i < keys->size(); ++i)
+	{
+		if (g_00E02F74->rva0040AAD5(keys->begin()[i]) == 0)
+		{
+			AsciiString name(TheNameKeyGenerator->keyToName(keys->begin()[i]));
+			INIException e(3, "The Award %s does not exist in the AwardSystemManager.", name.str());
+			_CxxThrowException(&e, &__identifier("_TI1?AVINIException@@"));
+			__assume(0);
+		}
+	}
+}
+
+void rva0021A859(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
+{
+	bool parsed = true;
+	rva00149002((int)ini, 0, (Rva0014921EVector *)store, (int)&parsed);
+	std::vector<NameKeyType> *keys = (std::vector<NameKeyType> *)store;
+	for (unsigned int i = 0; i < keys->size(); ++i)
+	{
+		if (g_00E02F74->rva0040AAF8(keys->begin()[i]) == 0)
+		{
+			AsciiString name(TheNameKeyGenerator->keyToName(keys->begin()[i]));
+			INIException e(3, "The Stat %s does not exist in the AwardSystemManager.", name.str());
+			_CxxThrowException(&e, &__identifier("_TI1?AVINIException@@"));
+			__assume(0);
+		}
+	}
+}
