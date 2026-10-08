@@ -36,6 +36,9 @@
 // BitFlags<304>::setBitByName, so the 591-bit set calls it under that name.
 // Donor-carried: the names and the Zero Hour body.
 
+// Loading clears the words here. The old unused clear() definition emitted
+// a competing one-word COMDAT; the eight transfer/count bodies stay exact
+// when the same memset is written directly in the load path.
 #include <string.h>
 #include "ascii_string.h"
 
@@ -241,7 +244,6 @@ public:
 	const char *getBitNameIfSet(Int i) const;
 	Bool setBitByName(const char *token);
 	void xferRawBits(Xfer *xfer);
-	void clear() { memset(m_bits, 0, sizeof(m_bits)); }
 	void xfer(Xfer *xfer);
 
 private:
@@ -318,7 +320,7 @@ void BitFlags<NUMBITS>::xfer(Xfer *xfer)
 	}
 	else
 	{
-		clear();
+		memset(m_bits, 0, sizeof(m_bits));
 		Int c;
 		*xfer == c;
 		AsciiString string;
