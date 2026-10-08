@@ -78,7 +78,7 @@ class TeamsInfoRec
 public:
 	void renameTeam(int id, const AsciiString &owner, const AsciiString &name);
 	void moveTeamsToNewOwner(const AsciiString &oldOwner, const AsciiString &newOwner);
-	void bfmePrepareRelease(int id);	// 0x0032C1F7, WB removeFromIndex
+	void removeFromIndex(int id);	// 0x0032C1F7, WB removeFromIndex
 	void addToIndex(int id);	// 0x0032D103
 
 private:
@@ -95,7 +95,7 @@ private:
 // SidesList::validateSides passes both strings by address.
 void TeamsInfoRec::renameTeam(int id, const AsciiString &owner, const AsciiString &name)
 {
-	bfmePrepareRelease(id);
+	removeFromIndex(id);
 	Dict *d = &m_entries[id].m_dict;
 	d->setAsciiString(TheKey_teamOwner, owner);
 	d->setAsciiString(TheKey_teamName, name);

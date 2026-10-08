@@ -10587,7 +10587,6 @@ name,address,notes
 ?prefMapIncrement@@YAPAUPrefMapNodeShim@@PAU1@@Z,0x00024250,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?prepFile@INI@@IAE_NABVAsciiString@@W4INILoadType@@@Z,0x0002D2C1,thiscall (&filename loadType) called once at the head of each INI load variant 0x0002DA4B/0x0002DC75/0x0002DD38 before the readLine loop; name and signature carried from BFME1 ini.cpp prepFile (donor); body unrowed
 ?prepare@Rva0010BA61@@AAEXXZ,0x00109D64,REL32 helper decoded from target call bytes of helper-member step 0x0010BA61; identity unproven
-?prepare@Rva0019BC00Owner@@QAEXH@Z,0x0032C1F7,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?prepare@Rva002BC470StateAction@@QAEXPAX0@Z,0x00265667,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?prepare@Rva005962E7@@AAEXXZ,0x0025C010,opaque alias: same body as rowed Rva0025C010::rva0025C010; helper of step 0x005962E7
 ?prepare@Rva005E549EHelper@@QAEXXZ,0x005E549E,REL32 helper decoded from target call bytes of helper-member step 0x005E5554; identity unproven

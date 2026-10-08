@@ -1,61 +1,40 @@
-// cl: /O1 /EHsc
+// cl: /O1 /G7 /arch:SSE /EHsc /Ireference/shims/bfme2_ascii
 // stlport
-// Releases one indexed 16-byte node, repairs its two reciprocal short links,
-// and moves the retired index onto the owner's free-list head.
+// Team entries: genuine pair<AsciiString, AsciiString> index, 16-byte entry
+// vector, two reciprocal short links, Dict, and free-list head.
+// Typed views match the already verified SidesListTeamsInfoRecMoveTeams.cpp.
 
 #include <map>
 
-// Reuse the verified 0x00196D30 tree-erase instantiation. Its payload's
-// original identity remains unknown; retail updates its second dword at
-// tree-node+0x18 to the new chain head. No new payload identity is claimed.
-struct Gen_t_00196d30_p8cd {
-	int a[2];
-	Gen_t_00196d30_p8cd();
-	Gen_t_00196d30_p8cd(const Gen_t_00196d30_p8cd &);
-	~Gen_t_00196d30_p8cd();
-	Gen_t_00196d30_p8cd &operator=(const Gen_t_00196d30_p8cd &);
-};
-typedef _STL::pair<const int, Gen_t_00196d30_p8cd> BfmeIndexedTreePair;
-typedef _STL::_Rb_tree<int, BfmeIndexedTreePair,
-	_STL::_Select1st<BfmeIndexedTreePair>, _STL::less<int>,
-	_STL::allocator<BfmeIndexedTreePair> > BfmeIndexedTree;
-template<> void BfmeIndexedTree::erase(BfmeIndexedTree::iterator);
-typedef char CheckIndexedTreeSize[(sizeof(BfmeIndexedTree) == 12) ? 1 : -1];
+#include <vector>
+#include "ascii_string.h"
 
-class BfmeMapObjectExtra
-{
-public:
-	void bfmeReset(void);
+typedef _STL::pair<AsciiString, AsciiString> TeamKey;
+typedef _STL::pair<const TeamKey, int> TeamIndexValue;
+typedef _STL::map<TeamKey, int> TeamIndex;
+typedef _STL::_Rb_tree<TeamKey, TeamIndexValue, _STL::_Select1st<TeamIndexValue>, _STL::less<TeamKey>, _STL::allocator<TeamIndexValue> > TeamTree;
+template<> void TeamTree::erase(TeamTree::iterator);
 
-private:
-	int m_state;
-};
-
-// Retail pins this zero-argument thiscall reset to Dict::clear at 0x00313574;
-// bind the alias without changing either call site's ECX or stack bytes.
-#pragma comment(linker, "/alternatename:?bfmeReset@BfmeMapObjectExtra@@QAEXXZ=?clear@Dict@@QAEXXZ")
-
+class Dict { public: void clear(); private: void *m_data; };
 struct BfmeIndexedNodeFM
 {
 	short m_previous;
 	short m_next;
 	short m_chainNext;
 	short m_chainPrevious;
-	_STL::_Rb_tree_node<BfmeIndexedTreePair> *m_entry;
-	BfmeMapObjectExtra m_extra;
+	TeamIndex::iterator m_entry;
+	Dict m_extra;
 };
 
 class TeamsInfoRec
 {
 public:
-	__declspec(noinline) void bfmePrepareRelease(int index);
+	__declspec(noinline) void removeFromIndex(int index);
 	void bfmeRelease(int index);
-	void clearChainedNodesAt00197860();
 
 private:
-	BfmeIndexedTree m_tree;
-	BfmeIndexedNodeFM *m_nodes;
-	char m_gap[8];
+	TeamIndex m_tree;
+	_STL::vector<BfmeIndexedNodeFM> m_nodes;
 	short m_count;
 	short m_freeHead;
 };
@@ -63,10 +42,10 @@ private:
 // ?bfmeRelease@TeamsInfoRec@@QAEXH@Z
 void TeamsInfoRec::bfmeRelease(int index)
 {
-	bfmePrepareRelease(index);
+	removeFromIndex(index);
 
 	BfmeIndexedNodeFM *node = &m_nodes[index];
-	node->m_extra.bfmeReset();
+	node->m_extra.clear();
 	m_nodes[node->m_previous].m_next = node->m_next;
 	m_nodes[node->m_next].m_previous = node->m_previous;
 	short oldFreeHead = m_freeHead;
@@ -75,37 +54,15 @@ void TeamsInfoRec::bfmeRelease(int index)
 	m_freeHead = static_cast<short>(index);
 }
 
-// Retail 0x00197860, 130 bytes: traverse the live-index list, preserving
-// the next index before releasing entries with a nonzero +6 chain link.
-// The owner/layout and release sequence are shared with bfmeRelease above;
-// the original method name is unknown. The +4/+6 reciprocal chain links
-// are independently visible in bfmePrepareRelease at 0x00197750.
-// ?clearChainedNodesAt00197860@TeamsInfoRec@@QAEXXZ present-unmatched
-void TeamsInfoRec::clearChainedNodesAt00197860()
-{
-	int index = m_nodes[0].m_previous;
-	while (index)
-	{
-		int next = m_nodes[index].m_previous;
-		if (m_nodes[index].m_chainPrevious)
-		{
-			bfmePrepareRelease(index);
-			BfmeIndexedNodeFM *node = &m_nodes[index];
-			node->m_extra.bfmeReset();
-			m_nodes[node->m_previous].m_next = node->m_next;
-			m_nodes[node->m_next].m_previous = node->m_previous;
-			short oldFreeHead = m_freeHead;
-			--m_count;
-			node->m_previous = oldFreeHead;
-			m_freeHead = static_cast<short>(index);
-		}
-		index = next;
-	}
-}
-
-// Retail 0x00197750, 125 bytes. Unlink from the per-key chain; if removing
-// its head, update the tree payload or erase the now-empty tree entry.
-void TeamsInfoRec::bfmePrepareRelease(int index)
+// Target 0x0032C1F7, 118 bytes. WorldBuilder TeamsInfoRec::removeFromIndex
+// at 0x00A888C0 (SidesList.cpp:2285..2316) proves the method and override links.
+// The map key and iterator agree with SidesListTeamsInfoRecMoveTeams.cpp;
+// replacing the old opaque payload puts the actual team ID in iterator->second.
+// Donor provenance: the original BFME 1 indexed-node transfer; target types
+// and identity are independently established by the WB twin and matched siblings.
+// The separately rowed 0x0032C2C4 outlines removeTeam; the BFME 1-only inline
+// clearChainedNodesAt00197860 copy is not a separate BFME 2 recovery.
+void TeamsInfoRec::removeFromIndex(int index)
 {
 	BfmeIndexedNodeFM *node = &m_nodes[index];
 	short previous = node->m_chainPrevious;
@@ -113,12 +70,12 @@ void TeamsInfoRec::bfmePrepareRelease(int index)
 	{
 		if (node->m_chainNext)
 		{
-			node->m_entry->_M_value_field.second.a[1] = node->m_chainNext;
+			node->m_entry->second = node->m_chainNext;
 			m_nodes[node->m_chainNext].m_chainPrevious = 0;
 		}
 		else
 		{
-			m_tree.erase(BfmeIndexedTree::iterator(node->m_entry));
+			m_tree.erase(node->m_entry);
 		}
 	}
 	else
