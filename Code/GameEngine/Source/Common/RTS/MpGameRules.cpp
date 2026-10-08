@@ -1,4 +1,4 @@
-// cl: /O1 /MD /DNDEBUG
+// cl: /O1 /MD /DNDEBUG /Ireference/shims/bfme2_ascii
 // MpGameRules defaults: WB GetDefaults at 0x013FC240 and AptMpGameRules callers.
 // Descriptor and option tables reproduce retail data; preserve the existing caller ABI.
 extern "C" void *__cdecl memset(void *, int, unsigned int);
@@ -126,4 +126,33 @@ void Rva00559FAC(int mode, void *store) {
         if (((int *)store)[0] != -1)
             ((int *)store)[0] = 0;
     }
+}
+
+#include "unicode_string.h"
+class GameTextInterface;
+extern GameTextInterface *TheGameText;
+// Only the proven dispatch slot is viewed; TheGameText retains its established type.
+class RuleTextInterfaceView {
+public:
+ virtual void slot0();
+ virtual void slot1();
+ virtual void slot2();
+ virtual void slot3();
+ virtual void slot4();
+ virtual void slot5();
+ virtual void slot6();
+ virtual void slot7();
+ virtual void slot8();
+ virtual void slot9();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual UnicodeString fetch(const char *, bool *);
+};
+static const char *ruleStringTags[]={"RULE:AllowCustomHeroes","RULE:ClanGame","RULE:AllowRingHeroes","RULE:CommandPointFactor","RULE:InitialResources","RULE:MapRevealMode","RULE:StrategicPhaseTimer","RULE:BattleType","RULE:BattleChoice","RULE:AutoResolveType"};
+UnicodeString Rva0055A04C(int rule) {
+ if((unsigned int)rule>=10)return UnicodeString((const unsigned short*)L"Invalid Rule");
+ return ((RuleTextInterfaceView*)TheGameText)->fetch(ruleStringTags[rule],0);
 }
