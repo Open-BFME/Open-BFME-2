@@ -15,6 +15,7 @@
 //   0x001EC98E +0x10 -> Rva001EC63DNullTarget::rva001EC63D (0 arg)
 //   0x00068061 +0x3854 -> Rva000E7734NullTarget::rva000E7734 (1 arg)
 //   0x00068283 +0x3850 -> Rva000EA2C0NullTarget::rva000EA2C0 (1 arg)
+//   0x00068395 +0x3860 -> Rva000E6005NullTarget::rva000E6005 (5 arg)
 //   0x005CD9F2 +0x1C -> Rva005E58EDNullTarget::rva005E58ED (0 arg)
 //   0x005CDD25 +0x24 -> Rva005E58EDNullTarget::rva005E58ED (0 arg)
 //   0x005CE9F7 +0x10 -> Rva005E88DDNullTarget::rva005E88DD (0 arg)
@@ -393,4 +394,27 @@ bool Rva001EC9AC::rva001EC9AC(Int a0, Int a1, Int a2)
 	if (m_member)
 		return m_member->rva001EC8C0(a0, a1, a2);
 	return false;
+}
+
+class AsciiString;
+
+class Rva000E6005NullTarget
+{
+public:
+	void rva000E6005(Int a0, AsciiString *a1, AsciiString *a2, bool a3, bool a4);
+};
+
+class BaseHeightMapRenderObjClass
+{
+public:
+	void rva00068395(Int a0, AsciiString *a1, AsciiString *a2, bool a3, bool a4);
+private:
+	char m_lead[0x3860];
+	Rva000E6005NullTarget *m_member;
+};
+
+void BaseHeightMapRenderObjClass::rva00068395(Int a0, AsciiString *a1, AsciiString *a2, bool a3, bool a4)
+{
+	if (m_member)
+		m_member->rva000E6005(a0, a1, a2, a3, a4);
 }
