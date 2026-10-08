@@ -600,43 +600,10 @@ TerrainTracksRenderObjClassSystem::~TerrainTracksRenderObjClassSystem( void )
 
 }
 
-//=============================================================================
-// TerrainTracksRenderObjClassSystem::ReAcquireResources
-//=============================================================================
-/** (Re)allocates all W3D assets after a reset.. */
-//=============================================================================
-// ?ReAcquireResources@TerrainTracksRenderObjClassSystem@@QAEXXZ present-unmatched
-void TerrainTracksRenderObjClassSystem::ReAcquireResources(void)
-{
-	Int i;
-	const Int numModules=TheGlobalData->m_maxTerrainTracks;
-
-	// just for paranoia's sake.
-	REF_PTR_RELEASE(m_indexBuffer);
-	REF_PTR_RELEASE(m_vertexBuffer);
-
-	//Create static index buffers.  These will index the vertex buffers holding the track segments
-	m_indexBuffer=NEW_REF(DX8IndexBufferClass,((m_maxTankTrackEdges-1)*6));
-
-	// Fill up the IB
-	{
-		DX8IndexBufferClass::WriteLockClass lockIdxBuffer(m_indexBuffer);
-		UnsignedShort *ib=lockIdxBuffer.Get_Index_Array();
-
-		for (i=0; i<(m_maxTankTrackEdges-1); i++)
-		{
-			ib[3]=ib[0]=i*2;
-			ib[1]=i*2+1;
-			ib[4]=ib[2]=(i+1)*2+1;
-			ib[5]=(i+1)*2;
-			ib+=6;	//skip the 6 indices we just filled
-		}
-	}
-
-	DEBUG_ASSERTCRASH(numModules*m_maxTankTrackEdges*2 < 65535, ("Too many terrain track edges"));
-
-	m_vertexBuffer=NEW_REF(DX8VertexBufferClass,(DX8_FVF_XYZDUV1,numModules*m_maxTankTrackEdges*2,DX8VertexBufferClass::USAGE_DYNAMIC));
-}
+// TerrainTracksRenderObjClassSystem::ReAcquireResources is in
+// W3DTerrainTracksReAcquire.cpp: it needs BFME's 12-byte buffer locks, and
+// taking those headers here changes how this unit's bounding-volume copies
+// compile.
 
 //=============================================================================
 // TerrainTracksRenderObjClassSystem::ReleaseResources

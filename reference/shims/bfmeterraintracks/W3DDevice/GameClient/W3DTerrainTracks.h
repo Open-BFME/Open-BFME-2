@@ -158,14 +158,18 @@ protected:
 	TerrainTracksRenderObjClass *m_freeModules;	//<unused modules that are free to use again
 	SceneClass	*m_TerrainTracksScene;		///<scene that will contain all the TerrainTracks
 
-	Int	m_edgesToFlush;			///< number of edges to flush on next render.
-
 	void releaseTrack( TerrainTracksRenderObjClass *mod );	///<returns track object to free store.
 	void clearTracks(void);	///<reset the amount of visible track marks of each object.
 
+	// BFME 2 keeps the edge limits directly after the scene pointer:
+	// ReAcquireResources (0x00083D54) sizes the index buffer from +0x1C and
+	// flush (0x00084DAC) reads +0x1C/+0x20.  Zero Hour's m_edgesToFlush is
+	// not at +0x1C; it is kept after the limits only so the Zero Hour bodies
+	// still compile -- its BFME 2 position is unproven.
 	Int m_maxTankTrackEdges;	///<maximum length of tank track
 	Int m_maxTankTrackOpaqueEdges;	///<maximum length of tank track before it starts fading.
 	Int m_maxTankTrackFadeDelay;	///<maximum amount of time a tank track segment remains visible.
+	Int	m_edgesToFlush;			///< number of edges to flush on next render.
 
 };  // end class TerrainTracksRenderObjClassSystem
 

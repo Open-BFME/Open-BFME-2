@@ -247,6 +247,10 @@ public:
 
 protected:
 	IDirect3DVertexBuffer8*		VertexBuffer;
+	// BFME 2's DX8VertexBufferClass is 0x20 bytes, one dword more than Zero
+	// Hour's (TerrainTracksRenderObjClassSystem::ReAcquireResources 0x00083D54
+	// news 0x20 before the 0x0013AC00 constructor).  Its use is unproven.
+	unsigned int				m_bfmeUnk1C;
 
 	void Create_Vertex_Buffer(UsageType usage);
 };
