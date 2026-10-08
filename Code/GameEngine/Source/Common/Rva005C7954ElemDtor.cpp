@@ -13,6 +13,20 @@ public:
 	void rva005C3209();
 };
 
+// Owner vtable installed by the factory at 0x005C802B. Callback bodies
+// 0x005C78D0 and 0x005C790D prove the seven-slot prefix used here.
+class Rva005C802B
+{
+public:
+	virtual ~Rva005C802B();
+	virtual void vslot1();
+	virtual void vslot2();
+	virtual void vslot3();
+	virtual void vslot4();
+	virtual void vslot5();
+	virtual void vslot6();
+};
+
 class Rva0052413E
 {
 public:
@@ -50,8 +64,9 @@ class Rva005C7954Elem
 public:
 	~Rva005C7954Elem();
 	void OnInitialized(const char *path);
+	void OnOverButton(const char *path);
 private:
-	int m_00;
+	Rva005C802B *m_00;
 	Rva005C31FB *m_04;
 	void *m_08;
 	AsciiString m_0C;
@@ -70,6 +85,13 @@ private:
 void Rva005C7954Elem::OnInitialized(const char *path)
 {
 	m_4C = true;
+}
+
+// Bound by the constructor to the over-button handler. The body ends at
+// 0x005C7917; the following getter is a separate, already-owned body.
+void Rva005C7954Elem::OnOverButton(const char *path)
+{
+	m_00->vslot2();
 }
 
 Rva005C7954Elem::~Rva005C7954Elem()
