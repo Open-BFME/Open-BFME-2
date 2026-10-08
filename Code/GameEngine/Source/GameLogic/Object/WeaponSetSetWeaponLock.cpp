@@ -218,3 +218,38 @@ void WeaponSet::updateWeaponSet(const Object *obj)
    m_set=set; m_ownerID=obj->m_id;
  }
 }
+
+// Native 0x002C8B9B..0x002C8C06: 107B RET4. Zero Hour WeaponSet.cpp
+// releaseWeaponLock (PERMANENTLY always clears, TEMPORARILY only a temporary
+// lock); called by the matched Object::releaseWeaponLock 0x0028D8B6 and by
+// updateWeaponSet above. BFME2 addition, as in setWeaponLock: look the owner
+// up first and clear its five weapon-slot model conditions 0x90..0x94 when
+// the lock is released.
+static __forceinline void clearSlotConditions(Object *owner)
+{
+	if (owner)
+	{
+		Rva000B6253 mask;
+		((Rva001E42F2 *)owner)->rva001E42F2((const int *)mask.rva000B6253(0, 0x90, 0x91, 0x92, 0x93, 0x94));
+	}
+}
+void WeaponSet::releaseWeaponLock(WeaponLockType lockType)
+{
+	Object *owner = TheGameLogic->findObjectByID(m_ownerID);
+	if (m_curWeaponLockedStatus != NOT_LOCKED)
+	{
+		if (lockType == LOCKED_PERMANENTLY)
+		{
+			m_curWeaponLockedStatus = NOT_LOCKED;
+			clearSlotConditions(owner);
+		}
+		else if (lockType == LOCKED_TEMPORARILY)
+		{
+			if (m_curWeaponLockedStatus == LOCKED_TEMPORARILY)
+			{
+				m_curWeaponLockedStatus = NOT_LOCKED;
+				clearSlotConditions(owner);
+			}
+		}
+	}
+}
