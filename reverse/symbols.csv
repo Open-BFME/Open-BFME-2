@@ -16116,3 +16116,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??0SelectionTranslator@@QAE@XZ,0x0042FD9E,callee of ?init@GameClient@@UAEXXZ: new(0x40) attached at ZH's priority 50; abuts pinned ?selectFriends@SelectionTranslator 0x0042FE7F
 ?Rva002210CFInit@@YAXXZ,0x002210CF,callee of ?init@GameClient@@UAEXXZ: free call after the Apt window manager setup
 ?Rva00380B0CInit@@YAXXZ,0x00380B0C,callee of ?init@GameClient@@UAEXXZ: free call after the Apt window manager setup
+?rva00276470@Rva00276470Drawable@@QBEPBUCoord3D@@XZ,0x00276470,callee of GameClient slot 26 (0x002391AA) read from its REL32 at 0x002391FC: thiscall on the drawable returning a Coord3D pointer (+0x38 without an object; else lerp +0x418 toward +0x424); body unrowed

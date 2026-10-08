@@ -33,8 +33,10 @@
 // the weather/effect managers, and drops TheCampaignManager, TheEva and
 // TheChallengeGenerals.
 #include <list>
+#include <map>
 #include <vector>
 #include "ascii_string.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "GUI/HeaderTemplateView.h"
 #include "../Common/GameLogicObjectLookupView.h"
@@ -51,7 +53,11 @@ class PooledString;
 struct XferUnknown11;
 class Coord3DBase;
 class ICoord3D;
-class Region3D;
+struct Region3D
+{
+	Coord3D lo;
+	Coord3D hi;
+};
 class IRegion3D;
 class Coord2D;
 class ICoord2D;
@@ -123,9 +129,16 @@ class ThingTemplate
 public:
 	const AsciiString &getName(void) const { return m_name; }
 
+	// GameClient slot 26 (0x002391AA) passes drawables whose object's
+	// template has bit 0x40 of the byte at +0x118 set without a cull test;
+	// the mask the selection code reads at +0x10C..+0x11F.
+	bool testKindOfByte118(unsigned char bit) const { return (m_kindOfByte118 & bit) != 0; }
+
 private:
 	char m_pad00[0x64];
 	AsciiString m_name;
+	char m_pad68[0x118 - 0x68];
+	unsigned char m_kindOfByte118;                                       // +0x118
 };
 
 // ZH ObjectShroudStatus values, under the enum name the matched
@@ -145,9 +158,12 @@ class Object
 public:
 	CellShroudStatus getShroudStatusForPlayer(int playerIndex) const;
 	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
+	const ThingTemplate *getTemplate() const { return m_template; }
 
 private:
-	unsigned char m_pad000[0x438];
+	void *m_vtbl;
+	const ThingTemplate *m_template;                                     // +0x04
+	unsigned char m_pad008[0x438 - 0x08];
 	unsigned char m_privateStatus;                                       // +0x438
 };
 
@@ -178,6 +194,11 @@ private:
 	unsigned int m_status;                                               // +0x114
 	char m_pad118[0x138 - 0x118];
 	unsigned int m_shroudClearFrame;                                     // +0x138
+	char m_pad13C[0x35c - 0x13c];
+public:
+	// The frustum plane (1-4) that last culled this drawable, 0 when it
+	// passed: written by GameClient slot 26 (0x002391AA), read by slot 27.
+	int m_cullPlane;                                                     // +0x35C
 };
 
 // ZH GameClient.h DrawablePtrHash: 0x14 bytes at +0x18 torn down by the
@@ -270,6 +291,61 @@ class CloudBreakEffectManager;
 class FireManager;
 class Rva002D3627Host;
 
+typedef void (*GameClientFuncPtr)(Drawable *draw, void *userData);
+
+// ZH TimeOfDay; Drawable::setTimeOfDay sets MODELCONDITION_NIGHT for 4.
+enum TimeOfDay
+{
+	TIME_OF_DAY_INVALID,
+	TIME_OF_DAY_MORNING,
+	TIME_OF_DAY_AFTERNOON,
+	TIME_OF_DAY_EVENING,
+	TIME_OF_DAY_NIGHT
+};
+
+// WW3D FrustumClass: CameraTransform (a Matrix3D, 0x30 bytes), then six
+// planes of normal and distance. Slot 26's only caller passes
+// CameraClass +0x100 right after CameraClass::Update_Frustum.
+class Vector3
+{
+public:
+	float X, Y, Z;
+	Vector3(void) {}
+	Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
+	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
+	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
+	static float Dot_Product(const Vector3 &a, const Vector3 &b) { return a.X * b.X + a.Y * b.Y + a.Z * b.Z; }
+};
+
+class SphereClass
+{
+public:
+	SphereClass(void) {}
+	SphereClass(const Vector3 &center, float radius) { Init(center, radius); }
+	void Init(const Vector3 &pos, float radius) { Center = pos; Radius = radius; }
+	Vector3 Center;
+	float Radius;
+};
+
+class PlaneClass
+{
+public:
+	Vector3 N;
+	float D;
+	bool In_Front(const SphereClass &sphere) const
+	{
+		float dist = Vector3::Dot_Product(sphere.Center, N);
+		return ((dist - D) >= sphere.Radius);
+	}
+};
+
+class FrustumClass
+{
+public:
+	unsigned char CameraTransform[0x30];
+	PlaneClass Planes[6];                                                // +0x30
+};
+
 class GameClient : public SubsystemInterface, public Snapshot
 {
 public:
@@ -300,12 +376,12 @@ public:
 	virtual void vf22();
 	virtual void vf23();
 	virtual void vf24();
-	virtual void vf25();
-	virtual void vf26();
-	virtual void vf27();
+	virtual void iterateDrawablesInRegion(Region3D *region, GameClientFuncPtr userFunc, void *userData); // slot 25 (+0x64)
+	virtual void rva002391AA(const FrustumClass *frustum, float radiusPad, GameClientFuncPtr userFunc, void *userData); // slot 26 (+0x68)
+	virtual void rva00238EBF(GameClientFuncPtr userFunc, void *userData); // slot 27 (+0x6C)
 	virtual void vf28();
 	virtual void destroyDrawable(Drawable *draw);                       // slot 29 (+0x74)
-	virtual void vf30();
+	virtual void setTimeOfDay(TimeOfDay tod);                           // slot 30 (+0x78)
 	virtual void vf31();
 	virtual void vf32();
 	virtual void vf33();
@@ -552,6 +628,7 @@ public:
 	virtual void reset();
 	virtual void update();
 	void push(AsciiString name, bool shutdownImmediate = false);
+	void rva0035C7CF(bool);
 
 	// GameClient::update clears +0x6C on its first pass and still updates
 	// the shell while the GameLogic byte +0x125 is set if +0x5C is.
@@ -561,6 +638,8 @@ public:
 	bool m_byte6C;                                                      // +0x6C
 	unsigned char m_pad6D[0x78 - 0x6D];
 };
+
+class Rva0035C194 { public: bool rva0035C194(bool, bool); };
 
 class IMEManager : public SubsystemInterface { public: virtual ~IMEManager(); };
 class GameWindowManager : public SubsystemInterface { public: virtual ~GameWindowManager(); };
@@ -575,11 +654,18 @@ public:
 	unsigned char m_pad[0x30];
 	unsigned int m_xResolution;                                         // +0x30
 	unsigned int m_yResolution;                                         // +0x34
-	unsigned char m_pad38[0xaf2 - 0x38];
+	unsigned char m_pad38[0xabc - 0x38];
+	AsciiString m_initialFile;                                          // +0xABC
+	unsigned char m_padAC0[0xaf0 - 0xac0];
+	bool m_shellMapOn;                                                  // +0xAF0
+	unsigned char m_padAF1[1];
 	bool m_playIntro;                                                   // +0xAF2
 	bool m_afterIntro;                                                  // +0xAF3
-	unsigned char m_padAF4[0xc78 - 0xaf4];
+	bool m_byteAF4;                                                     // +0xAF4
+	unsigned char m_padAF5[0xc78 - 0xaf5];
 	int m_stallMilliseconds;                                            // +0xC78
+	unsigned char m_padC7C[0xd36 - 0xc7c];
+	bool m_byteD36;                                                     // +0xD36
 };
 
 // ZH Mouse; BFME 2 keeps parseIni and initCursorResources virtual (slots 14
@@ -663,6 +749,36 @@ public:
 	virtual bool getWindowed();                                         // +0x54
 	virtual bool setDisplayMode(unsigned int xres, unsigned int yres,
 		unsigned int bitDepth, bool windowed);                          // +0x58
+	virtual void vf23(); virtual void vf24(); virtual void vf25(); virtual void vf26();
+	virtual void vf27(); virtual void vf28(); virtual void vf29(); virtual void vf30();
+	virtual void vf31(); virtual void vf32(); virtual void vf33(); virtual void vf34();
+	virtual void vf35(); virtual void vf36(); virtual void vf37(); virtual void vf38();
+	virtual void vf39(); virtual void vf40(); virtual void vf41(); virtual void vf42();
+	virtual void vf43(); virtual void vf44(); virtual void vf45(); virtual void vf46();
+	virtual void vf47(); virtual void vf48(); virtual void vf49(); virtual void vf50();
+	virtual void vf51(); virtual void vf52(); virtual void vf53(); virtual void vf54();
+	virtual void vf55(); virtual void vf56(); virtual void vf57(); virtual void vf58();
+	virtual void vf59(); virtual void vf60(); virtual void vf61(); virtual void vf62();
+	virtual void vf63(); virtual void vf64(); virtual void vf65(); virtual void vf66();
+	virtual void vf67(AsciiString movie, int, int);                     // +0x10C
+	virtual void vf68();
+	virtual bool isMoviePlaying();                                      // +0x114
+
+	unsigned char m_pad0C[0x114 - 0x0C];
+	bool m_byte114;                                                     // +0x114
+};
+
+class W3DDisplay : public Display
+{
+public:
+	void rva0025D2F6();
+};
+
+class BfmeStrVM0
+{
+public:
+	void rva0025C72C(int image, int arg, float x0, float y0, float x1, float y1);
+	void rva0025C776(int image, float x0, float y0, float x1, float y1, int a, int b);
 };
 class LanguageFilter : public SubsystemInterface { public: virtual ~LanguageFilter(); };
 class VideoPlayerInterface : public SubsystemInterface { public: virtual ~VideoPlayerInterface(); };
@@ -680,12 +796,14 @@ private:
 	unsigned char m_pad[0x14 - 0x0C];
 };
 
+class Image;
 class ImageCollection
 {
 public:
 	ImageCollection();
 	virtual ~ImageCollection();
 	void load(int textureSize);
+	const Image *findImageByName(const AsciiString &name);
 
 private:
 	unsigned char m_pad[0x18 - 4];
@@ -980,6 +1098,14 @@ private:
 
 class GameEngine
 {
+public:
+	virtual void vf00(); virtual void vf01(); virtual void vf02(); virtual void vf03();
+	virtual void vf04(); virtual void vf05(); virtual void vf06(); virtual void vf07();
+	virtual void vf08(); virtual void vf09(); virtual void vf10(); virtual void vf11();
+	virtual void vf12(); virtual void vf13(); virtual void vf14(); virtual void vf15();
+	virtual void vf16(); virtual void vf17(); virtual void vf18(); virtual void vf19();
+	virtual void vf20(); virtual void vf21(); virtual void vf22();
+	virtual void serviceWindowsOS();                                    // +0x5C
 private:
 	bool rva00225D38();
 	friend class GameClient;
@@ -1106,6 +1232,7 @@ int rva0023BDD7(void *, bool);
 int rva0023958B(void *, bool);
 int rva00239122(void *, bool);
 extern "C" __declspec(dllimport) unsigned int __stdcall timeGetTime(void);
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds);
 
 // The drawable hash's clear (0x001DBCDC) and resize (0x0053F1EC) are folded
 // STLport hashtable bodies; called through their pinned placeholder names.
@@ -1674,4 +1801,75 @@ void GameClient::update()
 
 	TheInGameUI->update();
 	vf36();
+}
+
+// Drawable helpers under the names their ledger rows carry. 0x00276470
+// lerps +0x418 toward +0x424 and returns +0x38 for a drawable without an
+// object.
+class Rva00276470Drawable { public: const Coord3D *rva00276470() const; };
+class Rva00270FEE { public: float rva00271008(); };
+class Rva00270260 { public: bool rva00270260(); };
+class Rva002707FA { public: void rva002707FA(unsigned char value); };
+
+// GameClient slot 26 (0x002391AA): BFME 2 has no ZH counterpart. Target
+// evidence: the only caller hands it the frustum of the camera it just
+// updated; each drawable is bounded by a sphere around 0x00276470 padded by
+// the argument (25 when negative) plus 0x00271008, tested against planes
+// 1-4 of the frustum's six, and the plane
+// that rejects it is cached at +0x35C. The sphere and plane test follow
+// WW3D SphereClass and PlaneClass::In_Front.
+void GameClient::rva002391AA(const FrustumClass *frustum, float radiusPad, GameClientFuncPtr userFunc, void *userData)
+{
+	if (radiusPad < 0.0f)
+		radiusPad = 25.0f;
+
+	Drawable *draw, *nextDrawable;
+	for (draw = m_drawableList; draw; draw = nextDrawable)
+	{
+		nextDrawable = draw->getNextDrawable();
+
+		bool visible;
+		Object *obj = draw->getObject();
+		if (obj && obj->getTemplate()->testKindOfByte118(0x40))
+			visible = true;
+		else
+		{
+			const Coord3D *pos = ((Rva00276470Drawable *)draw)->rva00276470();
+			Vector3 center(pos->x, pos->y, pos->z);
+			SphereClass sphere(Vector3(center.X, center.Y, center.Z), radiusPad);
+			sphere.Radius += ((Rva00270FEE *)draw)->rva00271008();
+
+			// The plane that culled the drawable last time is tried first.
+			int cullPlane = draw->m_cullPlane;
+			if (cullPlane >= 1 && cullPlane <= 4)
+			{
+				const PlaneClass &plane = frustum->Planes[cullPlane];
+				if (plane.In_Front(sphere))
+					continue;
+			}
+
+			visible = !((Rva00270260 *)draw)->rva00270260();
+			for (int i = 1; i <= 4; ++i)
+			{
+				if (cullPlane == i)
+					continue;
+				const PlaneClass &plane = frustum->Planes[i];
+				if (plane.In_Front(sphere))
+				{
+					draw->m_cullPlane = i;
+					visible = false;
+					break;
+				}
+			}
+		}
+
+		if (visible)
+		{
+			(*userFunc)(draw, userData);
+			draw->m_cullPlane = 0;
+			((Rva002707FA *)draw)->rva002707FA(1);
+		}
+		else
+			((Rva002707FA *)draw)->rva002707FA(0);
+	}
 }
