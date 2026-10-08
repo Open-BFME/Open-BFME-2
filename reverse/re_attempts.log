@@ -20050,3 +20050,17 @@ FUN_009E9CC3	0x005E9CC3	181	blocked	Native EH constructor5E9CC3..5E9D78 RET12 in
 ?stencil@Rva00785FD0Renderer@@QAEXXZ	0x001103D6	118	solved	Whole native1103D6..11044C boundary and existing flushAA5E1 actual owner pin reconcile cleanBFME1 donor34f59164 GUI/Rva0078B280StencilGeneration.cpp O1/SSE/G7. Signedcounter0C max255/wrap1, actualrowedHas_Stencil11CDC0 and 7argClear11D330; unchanged existingrenderer ctor453/setMode12 exact, all3home rows583B; no addedpins or aliases; placementfixpoint0. t=6 model=gpt-6.1-sol
 ?rva00211396@@YAHXZ	0x00211396	254	partial	native211396..211494 RET0; WB b5ebd0 and BF1 Fade0060F010.cpp34f59164 semantic guide; full254 target vs251 C++: first regionId/receiver lookup uses push-memory+ECX rather than native EDX-load/EAX-receiver then push; later two new16 event arms/string EH match shape after branch-local enqueue; five receiver/helper shapes unchanged; no Code body landed t=12 model=gpt-6 score=0.97 stash=reverse/attempts/0x00211396.cpp
 ?rva00211396@@YAHM_N@Z	0x00211396	254	partial	native211216 shared callback impl BE5128 proves cdecl float/bool contract; both params unused in211396..211494; corrected ABI recompiles251B, unchanged first lookup argument/receiver scheduling mismatch vs254B; WB b5ebd0 and BF1 Fade0060F010.cpp34f59164 semantic guide; no Code body landed t=14 model=gpt-6 score=0.97 stash=reverse/attempts/0x00211396.cpp
+?rva002612C6@Rva002612C6@@QAE_NPAVObject@@@Z	0x002612C6	141	blocked	EBP frame sub-vs-push plus register wall 15 and shared-false shape needs donor t=12 model=muse-spark
+?rva00574A98@Rva00574A98@@QAEIXZ	0x00574A98	13	blocked	mov-ecx-plus-mov-add vs mov-eax-plus-lea 4 spellings tried t=18 model=muse-spark (stash 0.9 kept)
+?rva003ECAB3@Rva003ECAB3@@QAEXM@Z	0x003ECAB3	45	blocked	register rotation missing mov eax ecx 6 spellings tried t=15 model=muse-spark (stash 0.92 kept)
+?rva0020F1F3@Rva0020F1F3@@QAEXABVAsciiString@@@Z	0x0020F1F3	139	blocked	index-signed-vs-unsigned plus m8-offset wall needs layout triangulation t=10 model=muse-spark
+?rva005B5F2E@Manager@AptCreateAHero@@QAEXXZ	0x005B5F2E	292	blocked	wide string wall UnicodeString format plus GadgetListBox by-value needs wall layout t=5 model=muse-spark
+?rva0033AA1F@ThingTemplate@@QBEHPBVPlayer@@HH@Z	0x0033AA1F	608	blocked	address-named global g_Va00DBA4E4 plus floor IAT needs hatch t=5 model=muse-spark
+?rva003F2150@Rva003F2150@@QAEXH@Z	0x003F2150	480	blocked	narrow plus wide StringBase wall with x87 plus STL vector plus EH needs shared delta t=5 model=muse-spark
+?rva0023D007@GameLogic@@QAEXH@Z	0x0023D007	11	blocked	thiscall int to fastcall unused plus pointer needs dirty garbage edx plus int-to-pointer cast t=5 model=muse-spark
+?rva0023D05F@Rva0023D05F@@QAEXH@Z	0x0023D05F	11	blocked	dead ecx adjustment to global stdcall needs dirty to keep dead add t=5 model=muse-spark
+?rva0033A2E9@Rva0033A2E9@@QAEXI@Z	0x0033A2E9	39	blocked	mismatched Vector_base PlayerAITypeEntry for SciVec value needs dirty reinterpret t=8 model=muse-spark
+?rva0023D06A@Rva0023D06A@@QAEXH@Z	0x0023D06A	11	blocked	dead ecx to global stdcall same as 0x0023D05F needs dirty t=3 model=muse-spark
+?rva0023D049@Rva0023D049@@QAEXH@Z	0x0023D049	22	blocked	two dead ecx forwarders to globals same wall as 0x0023D05F t=3 model=muse-spark
+?rva003F3749@Rva003F3749@@QAEXXZ	0x003F3749	542	blocked	WARN byte FF may be mid-function plus Ghidra missed needs boundary proof t=3 model=muse-spark
+?rva0032B2A5@Rva0032B2A5@@QAEXXZ	0x0032B2A5	228	blocked	WARN byte D8 may be mid-function plus AsciiString narrow wall t=3 model=muse-spark

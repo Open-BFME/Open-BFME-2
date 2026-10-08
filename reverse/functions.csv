@@ -70627,3 +70627,4 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva005C9ADD@Rva005C9B76@@QAEHHH@Z,,0x005C9ADD,47,Code/GameEngine/Source/GameLogic/Object/Rva005C9AB4.cpp,matched,thiscall setter two int args second unused; helper 0x005C98C0 pinned by banked partial name; forEach 0x005C9A64 rowed; callback 0x005CB260 rowed
 ?rva005C9B0C@Obj005C9B0C@@QAEHHHH@Z,,0x005C9B0C,37,Code/GameEngine/Source/GameLogic/Object/Rva005C9AB4.cpp,matched,
 ?rva005C9B31@Obj005C9B0C@@QAEHHHH@Z,,0x005C9B31,37,Code/GameEngine/Source/GameLogic/Object/Rva005C9AB4.cpp,matched,
+?Helper0056BABF@@YA?AURvaF6Ret@@H@Z,,0x0056BABF,205,Code/GameEngine/Source/Common/RvaFamily6Helper0056BABF.cpp,matched,callers linkbonus GetArmySummaryName InGameSimpleHelp
