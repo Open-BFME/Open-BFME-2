@@ -1,7 +1,9 @@
-// cl: /O1 /EHsc /MD /arch:SSE /ICode/Libraries/Include/Lib /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /EHsc /MD /arch:SSE /ICode/Libraries/Include/Lib /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 #include <vector>
 #include "Coord2D.h"
+#include "Coord3D.h"
+#include "ascii_string.h"
 // LivingWorldRegion.cpp -- LivingWorldRegion queries recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names each
 // function and the member m_buildPlots at +0x170; retail supplies the bytes.
@@ -74,10 +76,18 @@ public:
     bool rva002E071E(const Rva002E071E *other) const;
 };
 
+class Rva00318C32Ret;
+class Rva0020E89C;
+class LivingWorldRegionManager { public:
+    Rva00318C32Ret *rva0020FAEA(const Coord2D *,Rva00318C32Ret *);
+    Bool GetRegionCenterPoint(Rva0020E89C *,Coord2D *);
+};
 class LivingWorldLogic
 {
 public:
     void *rva002B4948(void *owner, void *region, void *exclude);
+    char beforeB0[0xb0];
+    LivingWorldRegionManager *regions;
 };
 
 class Rva00318FBE
@@ -92,6 +102,7 @@ class LivingWorldRegion
 public:
 	void CreateBuildPlots();
     void PrepareSkirmishOpponents(LivingWorldBattle *battle);
+    Bool DebugValidatePlacementSpot(const Coord2D &spot,Coord2D *out,const char *kind);
     Bool IsOwnedByTeam(Int teamID) const;
 	Bool CanSpawnUnitWithinCPLimit(Rva00319CED *unit) const;
 	LivingWorldBuilding *GetBuildingByIndex(Int index) const;
@@ -104,7 +115,9 @@ private:
 	Int rva003EFD6F(Rva002E2903Player *owner) const;	// 0x003EFD6F, command-point limit
 	Int usedCommandPoints(Rva002E2903Player *owner) const { return rva003EFDB3(owner); }
 
-	unsigned char m_pad00[0xa9];
+	unsigned char m_pad00[0x14];
+    AsciiString m_name;
+    char m_pad18[0xa9-0x18];
     bool m_reservedA9;
     char m_padAA[0xfc-0xaa];
     _STL::vector<Coord2D> m_plotPositions;
@@ -285,3 +298,25 @@ void LivingWorldRegion::PrepareSkirmishOpponents(LivingWorldBattle *battle)
     }
 }
 
+
+// WB 0x0103D540 names the validator; native 3F0DCB..3F0E8A RET12.
+// Input x/y become an escaped Coord3D at height 100. The +14 name and +B0
+// manager access are retail facts; existing neutral manager ABIs are retained.
+Bool LivingWorldRegion::DebugValidatePlacementSpot(const Coord2D &spot,Coord2D *out,const char *kind)
+{
+    float y=spot.y;
+    float x=spot.x;
+    LivingWorldLogic *logic=TheLivingWorldLogic;
+    Coord3D pos;
+    pos.y=y;
+    pos.x=x;
+    pos.z=100.0f;
+    LivingWorldRegionManager *manager=logic->regions;
+    if (manager->rva0020FAEA(reinterpret_cast<const Coord2D *>(&pos),reinterpret_cast<Rva00318C32Ret *>(this)) != reinterpret_cast<Rva00318C32Ret *>(this)) {
+    AsciiString message;
+    message.format("Bad INI data! Region %s has a %s placement spot (%.0f, %.0f) outside its bounds (remember, extra offset points are generated for overlapping opposing armies)! Using region center point",m_name.str(),kind,pos.x,pos.y);
+    TheLivingWorldLogic->regions->GetRegionCenterPoint(reinterpret_cast<Rva0020E89C *>(this),out);
+    return false;
+    }
+    return true;
+}
