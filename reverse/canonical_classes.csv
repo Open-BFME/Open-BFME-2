@@ -82,3 +82,4 @@ StrategicHUD::BattlePromptArmyPanelMovieClip::Impl,Code/GameEngine/Source/Common
 Rva002B2858Coord,Code/GameEngine/Source/Common/ArmyMoveCoordinateView.h,native2B2858 hidden result and2B28B1/2B2702 outgoing SSE copies prove eight-byte nontrivial coordinate; original type name unasserted
 Rva002B26D0,Code/GameEngine/Source/Common/ArmyMoveDispatchView.h,existing neutral receiver view shared by provider and armyMoveRequest; dispatcher leaves this untouched; rowed2B4F6C proves region-manager pointerB0
 Rva0020F27EHost,Code/GameEngine/Source/Common/RegionCenterPointDispatchView.h,native36B RET8 indexed region-center output; WB names GetRegionCenterPoint; original class name and output spelling remain neutral; provider and all consumers share observed call ABI
+Rva005EEF2F,Code/GameEngine/Source/Common/RegionArmyIconSlotView.h,native64B icon slot proven by ctor5EF669 factory5EFE87 callbacksEEE74/EEEA8/EEEBE and dtorEEF2F same two vtables

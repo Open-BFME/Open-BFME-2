@@ -888,3 +888,13 @@ AsciiStringRefWithChar::operator AsciiString()
  write(tmp.getBufferForRead(m_string->getLength() + 1));
  return tmp;
 }
+
+// Native005EEFA9..005EEFD2 copies the complete16-byte concatenation node
+// and appends a borrowed AsciiString reference at+10. Constructor005EF669
+// supplies the prefix/name/event node and decimal icon index; WB16190D0.
+Rva005EF5CA operator+(const AsciiStringPlusStringText &left,const AsciiString &right) {
+ Rva005EF5CA out;
+ static_cast<AsciiStringPlusStringText &>(out)=left;
+ out.m_fourth.m_string=&right;
+ return out;
+}

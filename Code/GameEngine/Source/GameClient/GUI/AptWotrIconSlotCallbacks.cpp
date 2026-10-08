@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // Apt callbacks of the War of the Ring icon slot widgets, bound as member
 // pointers under "<movie>_On..." names (a movie name plus a fixed suffix)
@@ -44,17 +44,7 @@ public:
 	void rva000A4875(float a, float b, float c, float d, float e, int f);
 };
 
-class Rva005EEE74Listener
-{
-public:
-	virtual void v00();
-	virtual void v01(void *slot);
-	virtual void v02(void *slot);
-	virtual void v03(void *slot);
-	virtual void v04(void *slot);
-	virtual void v05(void *slot);
-	virtual void v06(void *slot);
-};
+#include "../../Common/RegionArmyIconSlotView.h"
 
 class Rva005F0570Target
 {
@@ -67,23 +57,9 @@ public:
 
 // ---- bound by 0x005EF669
 
-class Rva005EF669
-{
-public:
-	void OnIconSlotClicked(const char *unused);
-	void OnIconSlotRollOut(const char *unused);
-	void OnIconSlotRollOver(const char *unused);
-
-private:
-	unsigned char m_pad00[0x2C];
-	bool m_rolledOver; // +0x2C
-	unsigned char m_pad2d[0x30 - 0x2D];
-	Rva005EEE74Listener *m_listener; // +0x30
-};
-
 // Retail 0x005EEE74, 52 bytes: bound as "<movie>_OnIconSlotClicked"
 // (0x005EF725).
-void Rva005EF669::OnIconSlotClicked(const char *unused)
+void Rva005EEF2F::OnIconSlotClicked(const char *unused)
 {
 	if (m_listener)
 	{
@@ -97,7 +73,7 @@ void Rva005EF669::OnIconSlotClicked(const char *unused)
 
 // Retail 0x005EEEA8, 22 bytes: bound as "<movie>_OnIconSlotRollOut"
 // (0x005EF82D).
-void Rva005EF669::OnIconSlotRollOut(const char *unused)
+void Rva005EEF2F::OnIconSlotRollOut(const char *unused)
 {
 	m_rolledOver = false;
 	if (m_listener)
@@ -106,7 +82,7 @@ void Rva005EF669::OnIconSlotRollOut(const char *unused)
 
 // Retail 0x005EEEBE, 22 bytes: bound as "<movie>_OnIconSlotRollOver"
 // (0x005EF7A8).
-void Rva005EF669::OnIconSlotRollOver(const char *unused)
+void Rva005EEF2F::OnIconSlotRollOver(const char *unused)
 {
 	m_rolledOver = true;
 	if (m_listener)
