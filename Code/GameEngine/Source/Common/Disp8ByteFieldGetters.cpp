@@ -157,3 +157,11 @@ void *Rva001DCD05::rva001DCD05()
 // ?setBit2@Rva0030000CFields@@QAEXXZ
 struct Rva0030000CFields { char pad[0x44]; unsigned int flags44; void setBit2(); };
 void Rva0030000CFields::setBit2() { flags44 |= 4; }
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?matches@Rva0056AB88Fields@@QBE_NI@Z
+struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsigned int value) const; };
+bool Rva0056AB88Fields::matches(unsigned int value) const { return wordC==value; }
