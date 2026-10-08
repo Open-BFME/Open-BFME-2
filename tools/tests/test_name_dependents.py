@@ -117,6 +117,41 @@ def test_only_units_whose_objects_carry_the_exact_name_are_dependents(tmp_path):
     assert found == {"Code/caller.cpp"}
 
 
+def test_parallel_scan_agrees_with_serial_for_mixed_evidence(tmp_path):
+    calls = "void f() { x->baseConstruct(); }\n"
+    current = compiled(tmp_path, "Code/current.cpp", [OLD], "void f();\n")
+    lookalike = compiled(tmp_path, "Code/lookalike.cpp", ["?" + OLD], "void g();\n")
+    stale = compiled(tmp_path, "Code/stale.cpp", [NEW], calls, built_from="void f();\n")
+    unsettled = compiled(tmp_path, "Code/unsettled.cpp", [NEW], "void g();\n")
+    missing = tmp_path / "Code/missing.cpp"
+    missing.write_text(calls)
+    objects = {"Code/current.cpp": [current], "Code/lookalike.cpp": [lookalike],
+               "Code/stale.cpp": [stale], "Code/unsettled.cpp": [unsettled],
+               "Code/missing.cpp": [tmp_path / "missing.obj"]}
+    expected = {"Code/current.cpp", "Code/stale.cpp", "Code/unsettled.cpp", "Code/missing.cpp"}
+    for workers in (1, 2, 8):
+        assert nd.dependents({OLD: {0x1000}}, objects, tmp_path, workers=workers,
+                             unsettled={"Code/unsettled.cpp"},
+                             committed=lambda _: calls.encode()) == expected
+
+
+@pytest.mark.parametrize("workers", [1, 8])
+def test_scan_propagates_object_read_failure(tmp_path, monkeypatch, workers):
+    bad = compiled(tmp_path, "Code/bad.cpp", [OLD], "void f();\n")
+    other = compiled(tmp_path, "Code/other.cpp", [NEW], "void g();\n")
+    read_bytes = Path.read_bytes
+
+    def unreadable(path):
+        if path == bad:
+            raise OSError("object became unreadable")
+        return read_bytes(path)
+
+    monkeypatch.setattr(Path, "read_bytes", unreadable)
+    with pytest.raises(OSError, match="object became unreadable"):
+        nd.dependents({OLD: {0x1000}}, {"Code/bad.cpp": [bad], "Code/other.cpp": [other]},
+                      tmp_path, workers=workers)
+
+
 def test_rename_breaking_a_dependent_lists_it_and_updated_dependent_does_not(tmp_path):
     old_rows = rows((OLD, "0x1000", "Code/home.cpp"), ("?c@@YAXXZ", "0x9000", "Code/caller.cpp"))
     new_rows = rows((NEW, "0x1000", "Code/home.cpp"), ("?c@@YAXXZ", "0x9000", "Code/caller.cpp"))

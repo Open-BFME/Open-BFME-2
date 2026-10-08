@@ -36,6 +36,7 @@ against, keyed per source, so it never needs a second cache to go stale.
   --range A B     committed A vs committed B (pre-push)
 """
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import csv
 import io
 import json
@@ -173,7 +174,8 @@ def compiled_from(obj, digest):
     return isinstance(meta, dict) and meta.get("source") == digest
 
 
-def dependents(lost, source_objects, root=ROOT, *, unsettled=frozenset(), committed=None):
+def dependents(lost, source_objects, root=ROOT, *, unsettled=frozenset(), committed=None,
+               workers=8):
     """Sources whose objects (or, failing those, whose text) reference a lost name.
 
     `unsettled` names sources whose working copy is not the state being
@@ -188,8 +190,8 @@ def dependents(lost, source_objects, root=ROOT, *, unsettled=frozenset(), commit
     # be called from any text: then every source without a usable object is listed.
     word_re = (None if None in words
                else re.compile(r"\b(?:%s)\b" % "|".join(map(re.escape, sorted(words)))))
-    found = set()
-    for source, objects in source_objects.items():
+    def references_lost_name(item):
+        source, objects = item
         settled = source not in unsettled
         present = [p for p in objects if p.exists()] if settled else []
         if present and not source.lower().endswith(build.LIB_SUFFIX):
@@ -199,8 +201,7 @@ def dependents(lost, source_objects, root=ROOT, *, unsettled=frozenset(), commit
         if not present:
             # No object to trust: widen on doubt rather than skip.
             if word_re is None:
-                found.add(source)
-                continue
+                return True
             if settled or committed is None:
                 try:
                     data = (root / source).read_bytes()
@@ -209,17 +210,26 @@ def dependents(lost, source_objects, root=ROOT, *, unsettled=frozenset(), commit
             else:
                 data = committed(source)
             if data is None:
-                continue  # build/check_csv report a missing source on their own
-            if word_re.search(data.decode("utf-8", errors="replace")):
-                found.add(source)
-            continue
+                return False  # build/check_csv report a missing source on their own
+            return bool(word_re.search(data.decode("utf-8", errors="replace")))
         for path in present:
             data = path.read_bytes()
             hits = [name for name, needle in needles if needle in data]
             if hits and set(hits) & coff_symbol_names(data):
-                found.add(source)
-                break
-    return found
+                return True
+        return False
+
+    # Each source keeps the same currency and exact COFF-name checks. Overlap
+    # only their file reads: opening tens of thousands of files serially is
+    # expensive on Windows. map propagates read failures rather than dropping
+    # a source, and the context waits for every submitted read before returning.
+    items = list(source_objects.items())
+    if workers == 1 or len(items) < 2:
+        results = map(references_lost_name, items)
+        return {source for (source, _), hit in zip(items, results) if hit}
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        results = executor.map(references_lost_name, items)
+        return {source for (source, _), hit in zip(items, results) if hit}
 
 
 def ledger_dicts(spec, root=ROOT):
