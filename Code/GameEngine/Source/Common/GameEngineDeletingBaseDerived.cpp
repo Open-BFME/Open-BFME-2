@@ -1,19 +1,14 @@
-// cl: /O1 /MD
+// cl: /O1 /MD /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii
 //
-// Opaque derived destructors that tail-call GameEngineDeletingBase::~
-// GameEngineDeletingBase at 0x001B4E74 (vtable store, tail jump, no member
-// of their own). Each class below is a distinct retail vtable whose owner
-// identity is unproven. One ledger row per destructor, landed one commit at
-// a time; the base declaration is shared and defined once in
-// GameEngineDeletingBaseDtor.cpp (its row resolves the tail calls).
+// Opaque derived destructors that tail-call the verified SubsystemInterface
+// destructor at 0x001B4E74. Its vtable and name member at +0x08 establish
+// the base identity; derived owner names remain unknown. Use the existing
+// native header, including its full base layout and virtual interface.
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-};
+typedef bool Bool;
+#include "subsystem_interface.h"
 
-class Rva00221027 : public GameEngineDeletingBase
+class Rva00221027 : public SubsystemInterface
 {
 public:
 	virtual ~Rva00221027();
@@ -23,7 +18,7 @@ Rva00221027::~Rva00221027()
 {
 }
 
-class Rva00225ACA : public GameEngineDeletingBase
+class Rva00225ACA : public SubsystemInterface
 {
 public:
 	virtual ~Rva00225ACA();
@@ -33,7 +28,7 @@ Rva00225ACA::~Rva00225ACA()
 {
 }
 
-class Rva00232D7B : public GameEngineDeletingBase
+class Rva00232D7B : public SubsystemInterface
 {
 public:
 	virtual ~Rva00232D7B();
@@ -43,7 +38,7 @@ Rva00232D7B::~Rva00232D7B()
 {
 }
 
-class Rva0025DB46 : public GameEngineDeletingBase
+class Rva0025DB46 : public SubsystemInterface
 {
 public:
 	virtual ~Rva0025DB46();
@@ -53,7 +48,7 @@ Rva0025DB46::~Rva0025DB46()
 {
 }
 
-class Rva0026201C : public GameEngineDeletingBase
+class Rva0026201C : public SubsystemInterface
 {
 public:
 	virtual ~Rva0026201C();
@@ -63,7 +58,7 @@ Rva0026201C::~Rva0026201C()
 {
 }
 
-class Rva002D22CA : public GameEngineDeletingBase
+class Rva002D22CA : public SubsystemInterface
 {
 public:
 	virtual ~Rva002D22CA();
@@ -73,7 +68,7 @@ Rva002D22CA::~Rva002D22CA()
 {
 }
 
-class Rva002E55D8 : public GameEngineDeletingBase
+class Rva002E55D8 : public SubsystemInterface
 {
 public:
 	virtual ~Rva002E55D8();
@@ -83,7 +78,7 @@ Rva002E55D8::~Rva002E55D8()
 {
 }
 
-class Rva003BA6A9 : public GameEngineDeletingBase
+class Rva003BA6A9 : public SubsystemInterface
 {
 public:
 	virtual ~Rva003BA6A9();
@@ -93,7 +88,7 @@ Rva003BA6A9::~Rva003BA6A9()
 {
 }
 
-class Rva003E3BD4 : public GameEngineDeletingBase
+class Rva003E3BD4 : public SubsystemInterface
 {
 public:
 	virtual ~Rva003E3BD4();
@@ -103,7 +98,7 @@ Rva003E3BD4::~Rva003E3BD4()
 {
 }
 
-class Rva00419CD4 : public GameEngineDeletingBase
+class Rva00419CD4 : public SubsystemInterface
 {
 public:
 	virtual ~Rva00419CD4();
@@ -113,7 +108,7 @@ Rva00419CD4::~Rva00419CD4()
 {
 }
 
-class Rva0041B8C7 : public GameEngineDeletingBase
+class Rva0041B8C7 : public SubsystemInterface
 {
 public:
 	virtual ~Rva0041B8C7();
@@ -123,7 +118,7 @@ Rva0041B8C7::~Rva0041B8C7()
 {
 }
 
-class Rva0041FE0E : public GameEngineDeletingBase
+class Rva0041FE0E : public SubsystemInterface
 {
 public:
 	virtual ~Rva0041FE0E();
@@ -133,7 +128,7 @@ inline Rva0041FE0E::~Rva0041FE0E()
 {
 }
 
-class Rva0044954D : public GameEngineDeletingBase
+class Rva0044954D : public SubsystemInterface
 {
 public:
 	virtual ~Rva0044954D();

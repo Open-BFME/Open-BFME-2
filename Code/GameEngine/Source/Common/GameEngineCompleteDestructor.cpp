@@ -1,18 +1,15 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii
 //
 // GameEngine::~GameEngine, retail 0x00225B9B, 11 bytes.
 // Dedicated TU so GameEngineDestructor.cpp's scalar deleting wrapper cannot
-// see this body (that TU inlines the empty local base into a 7-byte ret).
-// Retail installs the GameEngine vtable then tail-jumps the deleting-base
-// destructor at 0x001B4E74.
+// see this body while emitting its deleting wrapper.
+// Retail installs the GameEngine vtable then tail-jumps the
+// SubsystemInterface destructor at 0x001B4E74, using its native header.
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-};
+typedef bool Bool;
+#include "subsystem_interface.h"
 
-class GameEngine : public GameEngineDeletingBase
+class GameEngine : public SubsystemInterface
 {
 public:
 	virtual ~GameEngine();
