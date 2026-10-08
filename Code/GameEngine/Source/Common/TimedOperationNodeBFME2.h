@@ -29,6 +29,8 @@ public:
 	Rva003FE792(TreeHintRef00217D4C hint, int value);
 	virtual ~Rva003FE792();
  __declspec(noinline) void append(Rva003FE792 *node);
+ __declspec(noinline) void remove(Rva003FE792 *node);
+ friend int Rva003FE66C(void *id);
 };
 
 

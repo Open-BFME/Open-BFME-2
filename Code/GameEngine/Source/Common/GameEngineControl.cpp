@@ -43,3 +43,26 @@ bool Rva003FE7E6(Rva00211E75Callback callback, int *id) {
  }
  return node != 0;
 }
+
+// Native3FE63C..3FE66C RET4 and3FE66C..3FE6A0 RET0 supply the boundaries.
+// Preserve retail: descendant removal rewrites this node's next pointer;
+// removing the head advances the global without destroying that node here.
+// Explicit global delete uses the virtual destructor's returned allocation;
+// splitting destruction and deallocation into two expressions keeps the old
+// pointer live and was the previous bank's register-allocation blocker.
+void Rva003FE792::remove(Rva003FE792 *node) {
+ Rva003FE792 *current = m_next;
+ while (current && current != node) current = current->m_next;
+ if (current) { m_next = current->m_next; ::delete current; }
+}
+class BfmeEntryCK;
+BfmeEntryCK *bfmeFind(void *id);
+int Rva003FE66C(void *id) {
+ Rva003FE792 *node = reinterpret_cast<Rva003FE792 *>(bfmeFind(id));
+ if (node) {
+  Rva003FE792 *head = reinterpret_cast<Rva003FE792 *>(g_timedOperationHead);
+  if (node == head) g_timedOperationHead = reinterpret_cast<TimedOp *>(node->m_next);
+  else head->remove(node);
+ }
+ return node != 0;
+}
