@@ -38,6 +38,7 @@
 
 #include <list>
 #include <string.h>
+#include <math.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -184,17 +185,27 @@ public:
 
 // Zero Hour's GeometryInfo name for the radius its clearRemovableForConstruction
 // queries with; BFME2's template keeps it at geometry +0x14.
+enum GeometryType
+{
+	GEOMETRY_SPHERE = 0,
+	GEOMETRY_CYLINDER,
+	GEOMETRY_BOX
+};
+
 class GeometryInfo
 {
 public:
+	GeometryInfo(GeometryType type, Bool isSmall, Real height, Real majorRadius, Real minorRadius);
+	virtual ~GeometryInfo();
 	Real getMajorRadius() const { return m_majorRadius; }
 	Real getBoundingCircleRadius() const { return m_boundingCircleRadius; }
 	Real getMaxHeightAbovePosition() const;
 
 private:
-	unsigned char m_pad00[0x10];
+	unsigned char m_pad04[0x10 - 0x04];
 	Real m_majorRadius;		// +0x10
 	Real m_boundingCircleRadius;	// +0x14
+	unsigned char m_pad18[0x5C - 0x18];
 };
 
 class ThingTemplate
@@ -214,7 +225,7 @@ private:
 	AsciiString m_nameString;		// +0x64
 	unsigned char m_pad068[0xA0 - 0x68];
 	GeometryInfo m_geometryInfo;	// +0xA0
-	unsigned char m_pad0B8[0x108 - 0xB8];
+	unsigned char m_pad0FC[0x108 - 0xFC];
 	UnsignedInt m_kindOf[8];		// +0x108
 	unsigned char m_pad128[0x4AC - 0x128];
 	Real m_visionRange;			// +0x4AC, ZH's name for addBibs' base range
@@ -380,6 +391,7 @@ class AICommandInterface
 {
 public:
 	void aiIdle(CommandSourceType cmdSource);
+	void aiMoveToPositionEvenIfSleeping(const Coord3D *pos, CommandSourceType cmdSource);
 };
 
 class DozerAIInterface
@@ -435,6 +447,8 @@ public:
 	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags);	// +0x1F8
 
 	__forceinline void aiIdle(CommandSourceType cmdSource) { m_command.aiIdle(cmdSource); }
+	__forceinline void aiMoveToPositionEvenIfSleeping(const Coord3D *pos, CommandSourceType cmdSource) { m_command.aiMoveToPositionEvenIfSleeping(pos, cmdSource); }
+	Bool isMoving() const;
 
 private:
 	unsigned char m_pad04[0x20 - 0x04];
@@ -542,6 +556,8 @@ public:
 	Real getBuildCost() const { return m_buildCost; }
 	Bool rva0028C264(Int *killerID, Int which);
 	void kill(DamageType damageType, DeathType deathType);
+	Team *getTeam() const { return m_team; }
+	void *rva0029439D();
 
 private:
 	unsigned char m_pad008[0x38 - 8];
@@ -550,7 +566,7 @@ private:
 	ObjectID m_id;				// +0x074
 	unsigned char m_pad078[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo;		// +0x0A8
-	unsigned char m_pad0C0[0x244 - 0xC0];
+	unsigned char m_pad104[0x244 - 0x104];
 	BehaviorModule **m_behaviors;		// +0x244, null-terminated
 	unsigned char m_pad248[0x250 - 0x248];
 	ContainModuleInterface *m_contain;	// +0x250
@@ -558,7 +574,9 @@ private:
 	AIUpdateInterface *m_ai;		// +0x258
 	unsigned char m_pad25C[0x280 - 0x25C];
 	Real m_constructionPercent;		// +0x280
-	unsigned char m_pad284[0x324 - 0x284];
+	unsigned char m_pad284[0x304 - 0x284];
+	Team *m_team;				// +0x304
+	unsigned char m_pad308[0x324 - 0x308];
 	Real m_buildCost;			// +0x324
 	unsigned char m_pad328[0x437 - 0x328];
 	unsigned char m_scriptStatus;		// +0x437
@@ -627,6 +645,7 @@ public:
 	Bool rva002AB87D(const UpgradeTemplate *upgrade) const;
 	Color getPlayerColor() const { return m_color; }
 	ScoreKeeper *getScoreKeeper() { return &m_scoreKeeper; }
+	Relationship getRelationship(const Team *that) const;
 
 	unsigned char m_pad000[0x60];
 	Rva002A7461 m_rva060;			// +0x060
@@ -780,6 +799,7 @@ public:
 	virtual ~Rva000421C8() {}
 	virtual Bool allow(Object *obj) = 0;
 	virtual int getPlayerMask();
+	Rva000421C8 *link(Rva000421C8 *filter);
 	Rva000421C8 *m_next;
 };
 
@@ -815,7 +835,7 @@ public:
 class Rva00261603Filter : public Rva000421C8
 {
 public:
-	Rva00261603Filter(const Coord3D &pos, const GeometryInfo &geom, Real angle, Bool desired);
+	Rva00261603Filter(const Coord3D &pos, const GeometryInfo &geom, Real angle, Bool desired) throw();
 	virtual Bool allow(Object *objOther);
 
 private:
@@ -823,6 +843,208 @@ private:
 	const GeometryInfo &m_geom;	// +0x14
 	Real m_angle;				// +0x18
 	Bool m_desiredCollisionResult;	// +0x1C
+};
+
+// What Object::rva0029439D returns: its vslot 114 (+0x1C8) excuses an
+// object from being moved off a build site.
+class Rva0029439DModule
+{
+public:
+	virtual void slot000();
+	virtual void slot001();
+	virtual void slot002();
+	virtual void slot003();
+	virtual void slot004();
+	virtual void slot005();
+	virtual void slot006();
+	virtual void slot007();
+	virtual void slot008();
+	virtual void slot009();
+	virtual void slot010();
+	virtual void slot011();
+	virtual void slot012();
+	virtual void slot013();
+	virtual void slot014();
+	virtual void slot015();
+	virtual void slot016();
+	virtual void slot017();
+	virtual void slot018();
+	virtual void slot019();
+	virtual void slot020();
+	virtual void slot021();
+	virtual void slot022();
+	virtual void slot023();
+	virtual void slot024();
+	virtual void slot025();
+	virtual void slot026();
+	virtual void slot027();
+	virtual void slot028();
+	virtual void slot029();
+	virtual void slot030();
+	virtual void slot031();
+	virtual void slot032();
+	virtual void slot033();
+	virtual void slot034();
+	virtual void slot035();
+	virtual void slot036();
+	virtual void slot037();
+	virtual void slot038();
+	virtual void slot039();
+	virtual void slot040();
+	virtual void slot041();
+	virtual void slot042();
+	virtual void slot043();
+	virtual void slot044();
+	virtual void slot045();
+	virtual void slot046();
+	virtual void slot047();
+	virtual void slot048();
+	virtual void slot049();
+	virtual void slot050();
+	virtual void slot051();
+	virtual void slot052();
+	virtual void slot053();
+	virtual void slot054();
+	virtual void slot055();
+	virtual void slot056();
+	virtual void slot057();
+	virtual void slot058();
+	virtual void slot059();
+	virtual void slot060();
+	virtual void slot061();
+	virtual void slot062();
+	virtual void slot063();
+	virtual void slot064();
+	virtual void slot065();
+	virtual void slot066();
+	virtual void slot067();
+	virtual void slot068();
+	virtual void slot069();
+	virtual void slot070();
+	virtual void slot071();
+	virtual void slot072();
+	virtual void slot073();
+	virtual void slot074();
+	virtual void slot075();
+	virtual void slot076();
+	virtual void slot077();
+	virtual void slot078();
+	virtual void slot079();
+	virtual void slot080();
+	virtual void slot081();
+	virtual void slot082();
+	virtual void slot083();
+	virtual void slot084();
+	virtual void slot085();
+	virtual void slot086();
+	virtual void slot087();
+	virtual void slot088();
+	virtual void slot089();
+	virtual void slot090();
+	virtual void slot091();
+	virtual void slot092();
+	virtual void slot093();
+	virtual void slot094();
+	virtual void slot095();
+	virtual void slot096();
+	virtual void slot097();
+	virtual void slot098();
+	virtual void slot099();
+	virtual void slot100();
+	virtual void slot101();
+	virtual void slot102();
+	virtual void slot103();
+	virtual void slot104();
+	virtual void slot105();
+	virtual void slot106();
+	virtual void slot107();
+	virtual void slot108();
+	virtual void slot109();
+	virtual void slot110();
+	virtual void slot111();
+	virtual void slot112();
+	virtual void slot113();
+	virtual Bool slot114();
+};
+
+// vftable 0x00BFAD10: accepts a living object (allow 0x0026119D).
+class Rva0026119DFilter : public Rva000421C8
+{
+public:
+	virtual Bool allow(Object *obj);
+};
+
+// vftable 0x00C17F08 (allow 0x0026118B).
+class Rva0026118BFilter : public Rva000421C8
+{
+public:
+	virtual Bool allow(Object *obj);
+};
+
+// The 224-bit KindOf mask with four kinds set (0x0006EEBC).
+struct Rva0006EE7A
+{
+	Rva0006EE7A(int unused, int b1, int b2, int b3, int b4) throw();
+	unsigned int m_bits[7];
+};
+
+// vftable 0x00C1A078: moveObjectsForConstruction's site filter, whose allow
+// (0x00391D25) moves each allowed object off the site.
+class Rva00391D25Filter : public Rva000421C8
+{
+public:
+	Rva00391D25Filter(const Coord3D *pos, Real radius) : m_pos(pos), m_radius(radius) {}
+	virtual Bool allow(Object *obj);
+
+private:
+	const Coord3D *m_pos;	// +0x08
+	Real m_radius;		// +0x0C
+};
+
+struct BfmeResultA
+{
+	void *m_value;
+	~BfmeResultA();
+};
+
+// ThePartitionManager's filtered all-objects query (0x006256F0).
+class BfmeResultForwardB
+{
+public:
+	BfmeResultA bfmeForwardResultB(int value);
+};
+
+// GeometryInfo's assignment (0x00064605).
+struct BfmeCopyElementA
+{
+	BfmeCopyElementA *bfmeAssign(BfmeCopyElementA *source);
+};
+
+// Whether the geometry is a single box (0x006BE160).
+class BfmeThingTemplateShadowSelector
+{
+public:
+	Bool usePluralShadowName() const;
+};
+
+Real GetGameLogicRandomValueReal(Real low, Real high, char *file, Int line);
+#define BUILDASSISTANT_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\Common\\System\\BuildAssistant.cpp"
+
+#define PI 3.14159265359f
+
+class Vector3
+{
+public:
+	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
+	__forceinline void Rotate_Z(float angle) { Rotate_Z(sinf(angle), cosf(angle)); }
+	void Rotate_Z(float s_angle, float c_angle)
+	{
+		float tmp_x = X;
+		float tmp_y = Y;
+		X = c_angle * tmp_x - s_angle * tmp_y;
+		Y = s_angle * tmp_x + c_angle * tmp_y;
+	}
+	float X, Y, Z;
 };
 
 class DrawableList : public _STL::list<Drawable *>
@@ -1407,4 +1629,70 @@ Object *BuildAssistant::buildObjectNow( Object *constructorObject, const ThingTe
 
 	}
 
+}
+
+// BuildAssistant::moveObjectsForConstruction, retail 0x00394FA7.
+Bool BuildAssistant::moveObjectsForConstruction( const ThingTemplate *whatToBuild, const Coord3D *pos,
+												 Real angle, Player *playerToBuild )
+{
+	GeometryInfo gi( GEOMETRY_BOX, FALSE, 10.0f, whatToBuild->getTemplateGeometryInfo().getMajorRadius(),
+		whatToBuild->getTemplateGeometryInfo().getMajorRadius() );
+	if( ((const BfmeThingTemplateShadowSelector *)&whatToBuild->getTemplateGeometryInfo())->usePluralShadowName() )
+		((BfmeCopyElementA *)&gi)->bfmeAssign( (BfmeCopyElementA *)&whatToBuild->getTemplateGeometryInfo() );
+
+	Real radius = gi.getMajorRadius() * 1.4f;
+	((BfmeResultForwardB *)ThePartitionManager)->bfmeForwardResultB( (int)&Rva00391D25Filter( pos, radius ) );
+
+	Bool anyUnmovables = FALSE;
+	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange( pos,
+		gi.getBoundingCircleRadius() * 1.1f, FROM_BOUNDINGSPHERE_3D,
+		Rva0026119DFilter().link( &Rva0026118BFilter() )->link(
+			&Rva0004584D( *(BfmeFixedStorage0004543D *)&Rva00045411BitSet( 0, 1 ),
+				*(BfmeFixedStorage0004543D *)&Rva0006EE7A( 0, 0x59, 0x86, 0x68, 0x3c ) ) )->link(
+			&Rva00261603Filter( *pos, gi, angle, TRUE ) ), 0 );
+	for( Object *them = iter.next(); them; them = iter.next() )
+	{
+		if( them->isKindOf( KINDOF_2 ) )
+			continue;
+		if( them->isKindOf( KINDOF_58 ) )
+			continue;
+		if( isRemovableForConstruction( them ) )
+			continue;
+
+		Relationship rel = playerToBuild->getRelationship( them->getTeam() );
+		if( rel == NEUTRAL || rel == ALLIES )
+		{
+			Rva0029439DModule *module = (Rva0029439DModule *)them->rva0029439D();
+			if( module && module->slot114() )
+				continue;
+
+			AIUpdateInterface *ai = them->getAI();
+			if( ai )
+			{
+				Real variedRadius = GetGameLogicRandomValueReal( 0.5f, 1.5f, BUILDASSISTANT_FILE, 3604 ) * radius;
+
+				Coord3D destPos;
+				Real dir = GetGameLogicRandomValueReal( -PI, PI, BUILDASSISTANT_FILE, 3607 );
+				Vector3 vec( variedRadius, 0, 0 );
+				vec.Rotate_Z( dir );
+
+				destPos.x = pos->x + vec.X;
+				destPos.y = pos->y + vec.Y;
+				destPos.z = pos->z + vec.Z;
+
+				if( !ai->isMoving() )
+					ai->aiMoveToPositionEvenIfSleeping( &destPos, CMD_FROM_AI );
+			}
+			else
+			{
+				anyUnmovables = TRUE;
+			}
+		}
+		else
+		{
+			anyUnmovables = TRUE;
+		}
+	}
+
+	return !anyUnmovables;
 }
