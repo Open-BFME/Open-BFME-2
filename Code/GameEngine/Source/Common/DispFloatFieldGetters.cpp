@@ -87,3 +87,11 @@ BFME_DISP_FLOAT_GETTER(Rva004BB96FFloatField, 0x60C)
 BFME_DISP_FLOAT_GETTER(Rva004CBBC5FloatField, 0x1D4)
 BFME_DISP_FLOAT_GETTER(Rva004D92F7FloatField, 0x524)
 BFME_DISP_FLOAT_GETTER(Rva0055F4B5FloatField, 0x180)
+
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 donor
+// game/GameEngine/Source/Common/DispFloatFieldGetters.cpp at /O1 /arch:SSE /G7
+// supplied the expression; retail independently proves ecx+0x80 float load,
+// x87 return and the complete 0x00094AF6..0x00094AFD leaf. The preceding
+// adjustment thunk ends at 0x00094AF6 and the next begins at 0x00094AFD.
+// Original receiver class and field purpose remain unknown.
+BFME_DISP_FLOAT_GETTER(Rva00094AF6FloatField, 0x80)
