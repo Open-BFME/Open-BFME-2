@@ -16105,7 +16105,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0015D5B0@MeshMatDescClass@@QAEXH@Z,0x0015D5B0,thiscall (int); called from 0x199FA5 with (0)
 ?rva0051B90B@@YAXXZ,0x0051B90B,callee of the 0x0051BED7 poll with no ecx setup; true start verified by ret-4 fall-through at 0x0051B90A; 468B EH body unrecovered so arity is the call-site reading
 ?rva00200A40@@YIXPAURva00200A40Sub@@HH@Z,0x00600A40,fastcall mid-function entry called from 0x00600BFB/0x00600F76 with fwd untouched in edx; identity unproven
-
 ?rva00600991@Rva00600991@@QAEXPAX0@Z,0x00600991,thiscall-2 helper for 0x00600BC6 wrapper; forwards this plus tmp out and arg; identity unproven
 ?rva00107961@Rva00107E76Elem@@QAEXXZ,0x00107961,callee of ?rva00107E76@Rva00107E76Mgr@@QAEXXZ
 ?rva00107A50@Rva00107E76Elem@@QAEXPAX@Z,0x00107A50,callee of ?rva00107E76@Rva00107E76Mgr@@QAEXXZ
@@ -16210,7 +16209,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva003F0588@Rva003F07CEOwner@@QAEHXZ,0x003F0588,callee of ?rva003F07CE@Rva003F07CEOwner@@QAE_NXZ
 ?rva0023C58B@Rva00275327Bits@@QBE_NXZ,0x0023C58B,callee pin: BitFlags any at +0x1C8 of the predicate object (same body as the rowed ?any BitFlags row)
 ?xferSaveData@GameState@@QAEXPAVXfer@@W4SnapshotType@@@Z,0x002DCE24,friend_xferSaveDataForCRC 0x002DDD0B calls here (decode_calls); callee body stashed at reverse/attempts/0x002dce24.cpp with SAVE branch exact; pin retires when the xferSaveData row lands
-
 ?rva002DF3B0@GameState@@QAEXPAVGameWindow@@0_NH@Z,0x002DF3B0,callee of ?rva00436FF6@AptSaveLoad@@QAEXXZ
 ??$__copy_backward_ptrs@PAURva00504755Record@@PAU1@@_STL@@YAPAURva00504755Record@@PAU1@00ABU__false_type@0@@Z,0x005B2B1E,Native REL32 at 0x00504DC1 in 161-byte vector insertion 0x00504D57; original STLport 4.5.3 wrapper; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlHelperRva00504755.cpp
 ??$__copy_backward@PAURva00504755Record@@PAU1@H@_STL@@YAPAURva00504755Record@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x0042195E,Native REL32 in pointer wrapper 0x005B2B1E; full46-byte copy loop checked independently; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlHelperRva00504755.cpp
