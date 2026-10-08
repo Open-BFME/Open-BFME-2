@@ -71,12 +71,15 @@ public:
 	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002F1BD5Info *callbackInfo);
 	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002F18D4Info *callbackInfo);
 	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *destination, PathfindLayerEnum layer, Rva002F4D8BInfo *callbackInfo);
-	// Unproven-identity line-query wrappers at 0x002F1AF4/32/66/A2: build the
-	// callback query via the pinned init above, walk it, bool-convert the hit.
-	Int Rva002F1AF4(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c, Int a20, Int a24);
-	Int Rva002F1B32(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18);
-	Int Rva002F1B66(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c);
-	Int Rva002F1BA2(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18);
+	// Line-query wrappers at 0x002F1AF4/32/66/A2: build the callback query via
+	// the pinned init above, walk it, bool-convert the hit. Names from the
+	// WorldBuilder debug build's asserts (pathfinder.cpp 3706/3713/3720/3727,
+	// the same order as these addresses); each calls the same walk overload
+	// and pops the same argument bytes as its WB twin.
+	Int IsLinePassable(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c, Int a20, Int a24);
+	Int IsLineBlocked(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18);
+	Int IsLinePassableForOptimize(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c);
+	Int IsHordeMeleeLinePassable(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18);
 private:
 	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002ED15AInfo *callbackInfo);
 	Int iterateCellsAlongLine(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002ECE6AInfo *callbackInfo);
@@ -131,28 +134,28 @@ Int Pathfinder::iterateCellsAlongLine(const Coord3D *start, const Coord3D *desti
 }
 
 // 0x002F1AF4 62B: 8-arg wrapper, helper1 0x002ECD63 with trailing imm 0, !logic.
-Int Pathfinder::Rva002F1AF4(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c, Int a20, Int a24)
+Int Pathfinder::IsLinePassable(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c, Int a20, Int a24)
 {
 	Rva002ECE6AInfo info;
 	return !iterateCellsAlongLine(a14, a18, a10, info.init(this, a8, ac, a1c, a20, a24, 0));
 }
 
 // 0x002F1B32 52B: 5-arg wrapper, helper1 0x002E931F, !!logic.
-Int Pathfinder::Rva002F1B32(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18)
+Int Pathfinder::IsLineBlocked(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18)
 {
 	Rva002ED01EInfo info;
 	return iterateCellsAlongLine(a14, a18, a10, info.init(this, a8, ac)) != 0;
 }
 
 // 0x002F1B66 60B: 6-arg wrapper, helper1 0x002ECD63 with imms 0,1,1, !logic.
-Int Pathfinder::Rva002F1B66(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c)
+Int Pathfinder::IsLinePassableForOptimize(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c)
 {
 	Rva002ECE6AInfo info;
 	return !iterateCellsAlongLine(a14, a18, a10, info.init(this, a8, ac, a1c, 0, 1, 1));
 }
 
 // 0x002F1BA2 51B: 5-arg wrapper, helper1 0x002ED0CC, !logic.
-Int Pathfinder::Rva002F1BA2(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18)
+Int Pathfinder::IsHordeMeleeLinePassable(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18)
 {
 	Rva002ED15AInfo info;
 	return !iterateCellsAlongLine(a14, a18, a10, info.init(this, a8, ac));
