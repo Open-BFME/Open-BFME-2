@@ -18,6 +18,103 @@ typedef int Int;
 
 extern "C" void *memset(void *s, int c, unsigned n);
 
+struct Coord3DBase;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+// BFME 2's Xfer: operator== overloads, grouped by cl at the first overload
+// slot in reverse declaration order (AITacticsGenerator.cpp has the same
+// view): Version +0x28, AsciiString +0x6C, Real +0x70, UnsignedInt +0x78,
+// Int +0x7C, Bool +0x90.
+class Xfer
+{
+public:
+	class Version;
+
+	Xfer();
+	virtual ~Xfer();
+
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3DBase &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+
+	virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+
+protected:
+	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+// The +0x17C AsciiString -> int variable map; its rowed STLport spelling
+// (clear 0x001F8927, operator[] 0x002C6F8C) keeps the established payload
+// name from Rva002C717EMethod.cpp.
+struct TreeHintPayload001F8ACB
+{
+	int m_val;
+	TreeHintPayload001F8ACB() : m_val(0) {}
+	TreeHintPayload001F8ACB(const TreeHintPayload001F8ACB &o) : m_val(o.m_val) {}
+};
+
+typedef _STL::pair<const AsciiString, TreeHintPayload001F8ACB> TreeHintPair001F8ACB;
+typedef _STL::map<AsciiString, TreeHintPayload001F8ACB, _STL::less<AsciiString>, _STL::allocator<TreeHintPair001F8ACB> > Map001F8ACB;
+
 // Rowed byte getter at 0x002AA22A reads Player+0x734; rowed dword getter at
 // 0x005C4AF5 reads Team+0x40 (next team in the prototype's instance list).
 class Rva002AA22AByteField
@@ -117,6 +214,7 @@ public:
 	~AIBuilder();
 	void onUnitCreated(Object *object, Object *other, bool isHorde);	// 0x004EC3AC
 	void update(); // WB 0x0136EAF0; native 0x004ECB19
+	void DoXfer(Xfer *xfer);					// 0x004EC1D9
 private:
 	unsigned char m_prefix[0x15C];
 };
@@ -144,6 +242,7 @@ class TacticalAI
 public:
     __declspec(noinline) void Register(Team *team);
     __declspec(noinline) void UnRegister(Team *team);
+    void DoXfer(Xfer *xfer);					// 0x002C63A1
 private:
     unsigned char m_pad00[0x10];
     Rva00506909 *m_generator;
@@ -171,6 +270,7 @@ public:
 	void doSpecialSlaveAIUpdate();				// 0x002C6879
 	void update();
 	void updatePhase();
+	void DoXfer(Xfer *xfer);
 
 private:
 	Player *m_player;					// +0x15C
@@ -182,7 +282,7 @@ private:
 	float m_time170;
 	unsigned int m_frame174;
 	Int m_masterPlayerIndex;				// +0x178
-	_STL::map<AsciiString, Int> m_values17C;
+	Map001F8ACB m_values17C;				// +0x17C (size at +0x180)
 };
 
 // WB E8A420 and native 2C6EE0 agree on base/player/master/first arguments.
@@ -334,4 +434,52 @@ void TacticalAI::Register(Team *team)
 void TacticalAI::UnRegister(Team *team)
 {
     m_generator->rva00505A56(team);
+}
+
+// SkirmishAI::DoXfer, retail 0x002C7008 (374 bytes). WB names it in
+// SkirmishAI.cpp (callgraph lead; assert "numberOfVariables ==
+// m_variables.size()"), with callees AIBuilder::DoXfer and TacticalAI::DoXfer
+// on the +0x164 member. Version 1/1, the +0x168 flag, the +0x16C value
+// through a copy, +0x170, +0x174 and the +0x178 master index; then the
+// AsciiString -> int variables at +0x17C, cleared and rebuilt on load.
+void SkirmishAI::DoXfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+	*xfer == m_disabled168;
+	unsigned int difficulty = m_difficulty16C;
+	*xfer == difficulty;
+	m_difficulty16C = difficulty;
+	*xfer == m_time170;
+	*xfer == m_frame174;
+	*xfer == m_masterPlayerIndex;
+	AIBuilder::DoXfer(xfer);
+	m_tacticalAI->DoXfer(xfer);
+	unsigned int numberOfVariables = m_values17C.size();
+	*xfer == numberOfVariables;
+	if (xfer->IsStoring())
+	{
+		Map001F8ACB::iterator it = m_values17C.begin();
+		Map001F8ACB::iterator end = m_values17C.end();
+		while (it != end)
+		{
+			AsciiString name(it->first);
+			Int value = it->second.m_val;
+			*xfer == name;
+			*xfer == value;
+			++it;
+		}
+	}
+	else if (xfer->IsLoading())
+	{
+		m_values17C.clear();
+		for (unsigned int i = 0; i < numberOfVariables; ++i)
+		{
+			AsciiString name;
+			Int value;
+			*xfer == name;
+			*xfer == value;
+			m_values17C[name].m_val = value;
+		}
+	}
 }
