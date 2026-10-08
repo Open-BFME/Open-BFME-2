@@ -70512,3 +70512,7 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?apply@Rva0028A9F2Flag@@QAEXXZ,,0x0028A9F2,12,Code/GameEngine/Source/Common/RvaTinyLeafBodies.cpp,matched,
 ?increment@Rva0053B90FCounterRef@@QAEXXZ,,0x0053B90F,5,Code/GameEngine/Source/Common/RvaTinyLeafBodies.cpp,matched,
 ?rva005CB283@Rva005CB283@@QAEXXZ,,0x005CB283,5,Code/GameEngine/Source/Common/RvaTinyLeafBodies.cpp,matched,
+?rva0052A65A@Rva0052A4B5@@QAEXH@Z,,0x0052A65A,16,Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp,matched,
+?rva00132D5B@BfmeThing937B@@QAEXXZ,,0x00132D5B,21,Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp,matched,
+?rva005FAF9F@Rva005FED59@@QAEXXZ,,0x005FAF9F,19,Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp,matched,
+?rva00409EA0@CreateAHeroHero@@QAEHXZ,,0x00409EA0,19,Code/GameEngine/Source/Common/RvaPinnedCallWrappers.cpp,matched,

@@ -16409,3 +16409,6 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?rva002BF61B@Rva002BF6A7@@QAEXH@Z,0x002BF61B,callees of 0x002BF6A7/0x005F83A9 forwarders
 ?rva00578513@Rva005F83A9@@QAEXH@Z,0x00578513,callees of 0x002BF6A7/0x005F83A9 forwarders
 ??0Rva005D1DCB@@QAE@PAXPAVLivingWorldPendingBattle@@@Z,0x005D1DCB,Native visitor callback5766D3 call at57670C: ECX allocation24 and two pointer arguments with callee RET8; WB15B6700 constructor ResolveBattleChecklistItem maps by strings and call graph; opaque first pointer and address-derived class preserve unresolved original ABI types
+?rva0052A4B5@Rva0052A4B5@@QAEXXZ,0x0052A4B5,callees of small member wrappers
+?rva001321A7@BfmeThing937B@@QAEXPAX@Z,0x001321A7,callees of small member wrappers
+?rva005FADEF@Rva005FAF9FOwner@@QAEXPAVRva005FED59@@@Z,0x005FADEF,callees of small member wrappers
