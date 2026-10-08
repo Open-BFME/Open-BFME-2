@@ -117,3 +117,11 @@ void Rva002C5EF0::rva002C5EF0(Xfer *xfer)
 	if (version.m_minimum >= 3)
 		*xfer == m_1c;
 }
+
+// Complete native2A8808..2A8810 follows RET2A8807 and clears the same
+// existing unsigned global used by the verified serializer above. The
+// original function spelling and higher-level reset role remain unknown.
+void Rva002A8808Clear()
+{
+    g_00DFEFC8=0;
+}

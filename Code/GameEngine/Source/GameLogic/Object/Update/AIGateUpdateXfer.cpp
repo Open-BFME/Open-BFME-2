@@ -155,3 +155,11 @@ void AIGateUpdate::xfer(Xfer *xfer)
 		*xfer == Rva00A03D80;
 	}
 }
+
+// Complete native2A8810..2A8818 follows RET2A880F and precedes the
+// independently bounded2A8818 initializer. It clears this existing data
+// owner; original function spelling and higher-level purpose are unknown.
+void Rva002A8810Clear()
+{
+    Rva00A03D80=0;
+}
