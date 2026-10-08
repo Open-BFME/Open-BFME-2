@@ -69839,3 +69839,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva004697E1@Rva004697E1Contain@@QAEXXZ,,0x004697E1,59,Code/GameEngine/Source/GameLogic/Object/Contain/Rva004697E1Gate.cpp,matched,Retail 0x004697E1 59B virtual slot33 then member call 0x004783D7 then owner flag compare with tail slot24 jump
 ?rva00461DB5@Rva00461DB5Owner@@QAEXXZ,,0x00461DB5,18,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00461DB5Gate.cpp,matched,Retail 0x00461DB5 18B two flag gates then tail-jmp 0x00461C1F address-derived
 ?rva003F07CE@Rva003F07CEOwner@@QAE_NXZ,,0x003F07CE,23,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003F07CEGate.cpp,matched,Retail 0x003F07CE 23B flag at +0x1A3 gate then normalised call 0x003F0588 address-derived
+?rva004DD8A6@@YAXIPAURva004DD8A6Rec@@H@Z,,0x004DD8A6,84,Code/GameEngine/Source/GameLogic/Object/Rva004DD8A6Remove.cpp,matched,Retail 0x004DD8A6 84B cdecl bucket-slot unlink-and-free sweep over 16-byte records
