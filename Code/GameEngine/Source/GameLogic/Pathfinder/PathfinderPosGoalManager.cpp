@@ -154,3 +154,21 @@ __declspec(noinline) void __cdecl rva004DD8A6(volatile int key, Rva004DD8A6Entry
 		entries = (Rva004DD8A6Entry *)((char *)entries + 0x10);
 	} while (--remaining != 0);
 }
+
+// Native004DD6CF..004DD722, 83B cdecl float-to-bin helper called by SetGoal.
+// WB12875C0 corroborates normalizeAngle, positive wrap, twelve bins, half-up
+// rounding, and wrap-to-zero above eleven. Native SSE retains two distinct
+// float multiplies; sequencing the division and scale reproduces that rounding.
+// Original helper name is unknown; use the existing investigation spelling.
+float __cdecl normalizeAngle(float angle);
+int __cdecl Rva004DD6CFGet(float angle)
+{
+    angle = normalizeAngle(angle);
+    if (angle < 0.0f)
+        angle += 6.2831855f;
+    float steps = angle / 6.2831855f;
+    steps *= 12.0f;
+    if (steps > 11.0f)
+        return 0;
+    return (int)(steps + 0.5f);
+}
