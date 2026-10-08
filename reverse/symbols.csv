@@ -16400,3 +16400,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva004E3A6E@Rva004E3CD0@@QAEXXZ,0x004E3A6E,callee of ?rva004E3B78@Rva004E3B78@@QAEXXZ
 __vsnprintf,0x00629898,PE msvcr71.dll import _vsnprintf owns IAT BBA5E0; complete6B import thunk629898 is the direct CRT call in EAString format worker6D53F0. C linkage yields __vsnprintf; original ji_629898 row is generated import scaffolding.
 ?decideWhichTemplateToMake@AIUnitBuilder@@QAE?AVAsciiString@@XZ,0x005987D2,Native194B factory REL32 at598B8E; hidden AsciiString result of399B RET4 at5987D2; WB152DCA0 names decideWhichTemplateToMake and asserts354..399
+?rva004DFBED@Rva004DFBED@@QAEHABVAsciiString@@@Z,0x004DFBED,callee of ?getHeroIndex@AIUnitBuilder@@QAEHXZ

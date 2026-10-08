@@ -108,6 +108,7 @@ public:
 	Object *Rva005982EA(const AsciiString*,_STL::vector<ObjectID>*,bool);
 	Rva00598C3AItem *createBestHeroToBuild();
 	Rva00598C3AItem *createBestUnitToMake();
+ int getHeroIndex();
  AsciiString decideWhichTemplateToMake();
 
 private:
@@ -119,6 +120,7 @@ private:
 	unsigned char m_pad2D[0x30 - 0x2D];
 	Rva00598052Owner *m_30; // +0x30
 	bool m_34; // +0x34
+ char pad35[3]; int heroIndex; _STL::vector<int> removedHeroes; int cost48; _STL::vector<AsciiString> heroNames;
 };
 
 void AIUnitBuilder::Rva00598052()
@@ -236,4 +238,34 @@ Rva00598C3AItem *AIUnitBuilder::createBestUnitToMake()
 
 
 
+
+
+class Player;
+class Rva002A8F24 { public: void *rva002A8F24(Player *); };
+extern Rva002A8F24 *g_00DFEEF8;
+// Native51B at4DFBED returns the keyed count at node+8 or0; RET4.
+// WB129B860 reads the same AsciiString reference; identity stays address-named.
+class Rva004DFBED { public: int rva004DFBED(const AsciiString &); };
+class Rva00598192 { public: int rva00598192(const AsciiString &); };
+int GetGameLogicRandomValue(int,int,char *,int);
+// WB152D170 names getHeroIndex; assertions200..225 and native165B agree.
+int AIUnitBuilder::getHeroIndex()
+{
+ Rva004DFBED *stats=(Rva004DFBED *)g_00DFEEF8->rva002A8F24((Player *)m_30);
+ if (!removedHeroes.empty()) {
+   _STL::vector<int>::iterator i=removedHeroes.begin(),end=removedHeroes.end();
+   while (i!=end) {
+     int index=*i;
+     AsciiString *name=&heroNames[index];
+     if (!stats->rva004DFBED(*name) && !((Rva00598192 *)this)->rva00598192(*name)) {
+       ((_STL::vector<void *> *)&removedHeroes)->erase((void **)i);
+       heroIndex=index;
+       break;
+     }
+     ++i;
+   }
+ }
+ if (heroIndex==-1) heroIndex=GetGameLogicRandomValue(0,heroNames.size()-1,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIUnitBuilder\\AIUnitBuilder.cpp",225);
+ return heroIndex;
+}
 
