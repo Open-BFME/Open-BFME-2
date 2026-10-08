@@ -1,17 +1,18 @@
-// ?killTeam@Team@@QAEXXZ
-// partial score=0.9 date=2026-10-07
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-//
-// ?rva003A1C3A@Team@@QAEX_N@Z @0x003A1C3A (224B).
-// Team::rva003A1C3A(bool): builds a local list<int> of filtered member
-// Objects then notifies each entry's +0x250 target. Retail filters are
-// Object+0x94 bit0, Object+0x438 bit0, null +0x250, flag-gated virtual +8,
-// virtual +0x114 returning 0 to skip, then list<int> insert via rowed
-// 0x005925E2. Second walk reads node data at +8 then target at +0x250 and
-// calls virtual +0xA8 with 0. Uses rowed iterate_TeamMemberList 0x00263864,
-// pinned DLINK advance at 0x00263526, rowed list insert/clear/base. Callers
-// at 0x002AB4A6 0x002AEB1D 0x003A1D63. Honest Team method name.
+// ?killTeam@Team@@QAEXXZ @0x003A1D1A 587B.
+// Identity: Zero Hour Team.cpp Team::killTeam (donor for flow, list names and
+// the kill / neutral / release split); the one call into the rowed
+// Team::rva003A1C3A (0x003A1C3A) with false matches deleteTeam's sibling.
+// BFME 2 deltas (target): members equivalent to the player template's beacon
+// (ThingFactory 0x002D06CA on PlayerTemplate +0x17C) are kept even when dead;
+// KindOf 209 members go neutral with Lua event 15 "neutral" and clear
+// model-condition bit 119 (0x0028AE6D); status-62 members are released
+// through 0x0029A12B on their horde container when there is one; lists hold
+// the members as ints through the rowed list<int> calls. Shape: the DLINK
+// iterator and Team::iterate_TeamMemberList are defined in-TU over the
+// virtual-inheritance Object skeleton (TeamUpdateState.cpp); with the
+// declared-only iterator the first loop swapped this/member registers.
 #include <list>
 #include "ascii_string.h"
 #include "../GameLogicObjectLookupView.h"
@@ -28,19 +29,6 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 class Rva003A1C3AInner;
 
 class Object;
-
-template<class OBJCLASS>
-class DLINK_ITERATOR
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-
-public:
-	void advance();
-	bool done() const { return m_cur == 0; }
-	OBJCLASS *cur() const { return m_cur; }
-};
 
 class Rva003A1C3AInner
 {
@@ -155,7 +143,31 @@ enum DamageType { DAMAGE_RVA003A1D1A = 8 };
 enum DeathType { DEATH_NORMAL = 0 };
 enum ObjectStatusTypes { OBJECT_STATUS_RVA0029A12B = 62 };
 
-class Object
+class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+
+class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
+{
+public:
+	unsigned char m_carrier[4];
+};
+
+class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
+
+class BfmeObjectDlinkBase
+{
+public:
+	Object *dlink_next_TeamMemberList() const;
+};
+
+class BfmeObjectDlinkPad
+{
+public:
+	const ThingTemplate *m_template;	// +0x04
+	unsigned char m_pad[0x60];
+};
+
+class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
+	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
@@ -170,9 +182,7 @@ public:
 	void rva0029A12B();
 	void rva0028AE6D();
 
-	void *m_vtbl;
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x94 - 0x08];
+	unsigned char m_pad070[0x94 - 0x70];
 	unsigned char m_flag94;
 	unsigned char m_pad95[0x10C - 0x95];
 	ModelConditionBits m_conditionBits; // +0x10C
@@ -184,6 +194,23 @@ public:
 	Team *m_team; // +0x304
 	unsigned char m_pad308[0x438 - 0x308];
 	unsigned char m_flag438;
+};
+
+// DLINK_ITERATOR<Object>::advance (0x00263526) and
+// Team::iterate_TeamMemberList (0x00263864) are defined as in the header;
+// neither is inlined here.
+template<class OBJCLASS>
+class DLINK_ITERATOR
+{
+public:
+	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
+	DLINK_ITERATOR(OBJCLASS *cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc) {}
+	void advance() { if (m_cur) m_cur = ((*m_cur).*(m_getNextFunc))(); }
+	bool done() const { return m_cur == 0; }
+	OBJCLASS *cur() const { return m_cur; }
+private:
+	OBJCLASS *m_cur;
+	GetNextFunc m_getNextFunc;
 };
 
 class PlayerTemplate
@@ -256,92 +283,14 @@ class Team
 {
 public:
 	Player *getControllingPlayer() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	void deleteTeam(bool ignoreDead);
+	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_head, &Object::dlink_next_TeamMemberList); }
 	void rva003A1C3A(bool flag);
 	void killTeam();
+private:
+	unsigned char m_pad00[0x38];
+	Object *m_head; // +0x38
 };
 
-// Team::deleteTeam, retail 0x003A10FE (259 bytes), ported from Zero Hour's
-// GameEngine/Source/Common/RTS/Team.cpp. Target evidence: the controlling
-// player's default team is Player +0x2EC; the evacuation list calls the
-// rowed list<int> base ctor/insert/base dtor (0x004EC36C, 0x005925E2,
-// 0x004EC395), so the members are held as ints exactly as rva003A1C3A
-// does; getContain is Object +0x250 with getContainCount at vslot +0x114
-// and removeAllContained at +0xA8; isEffectivelyDead is Object +0x438 bit 0;
-// TheGameLogic->destroyObject is the rowed 0x00242C09.
-void Team::deleteTeam(bool ignoreDead)
-{
-	if (this == getControllingPlayer()->getDefaultTeam()) {
-		_STL::list<int> guysToMakeEvacuate;
-		for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
-			Object *obj = iter.cur();
-			int objVal = (int)obj;
-			if (!obj)
-				continue;
-			Rva003A1C3AInner *contain = obj->m_inner250;
-			if (contain && contain->v69(0) > 0)
-				guysToMakeEvacuate.push_back(objVal);
-		}
-		for (_STL::list<int>::iterator it = guysToMakeEvacuate.begin(); it != guysToMakeEvacuate.end(); ) {
-			Object *obj = (Object *)(*it);
-			it++;
-			Rva003A1C3AInner *contain = obj->m_inner250;
-			if (contain)
-				contain->v42(0);
-		}
-	}
-
-	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
-		Object *obj = iter.cur();
-		if (!obj)
-			continue;
-		if (ignoreDead && (obj->m_flag438 & 1) != 0)
-			continue;
-		TheGameLogic->destroyObject(obj);
-	}
-}
-
-void Team::rva003A1C3A(bool flag)
-{
-	_STL::list<int> tmp;
-	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
-		Object *cur = iter.cur();
-		int curVal = (int)cur;
-		if (cur == 0)
-			continue;
-		if ((cur->m_flag94 & 1) != 0)
-			continue;
-		if ((cur->m_flag438 & 1) != 0)
-			continue;
-		Rva003A1C3AInner *inner = cur->m_inner250;
-		if (inner == 0)
-			continue;
-		if (flag) {
-			if (inner->v02() == 0)
-				continue;
-		}
-		if (inner->v69(0) <= 0)
-			continue;
-		tmp.push_back(curVal);
-	}
-	for (_STL::list<int>::iterator it = tmp.begin(); it != tmp.end(); ++it) {
-		Object *obj = (Object *)(*it);
-		Rva003A1C3AInner *inner = obj->m_inner250;
-		if (inner == 0)
-			continue;
-		inner->v42(0);
-	}
-	tmp.clear();
-}
-
-// Team::killTeam, retail 0x003A1D1A (587 bytes), from Zero Hour Team.cpp.
-// NEAR MISS (595 bytes): only the member-classification loop differs --
-// retail keeps this in EDI and the member in ESI straight from the loop
-// test; this source keeps this in ESI and copies the member from EAX to
-// EDI. Everything after that loop (kill, neutral capture with Lua event 15
-// "neutral" and model-condition bit 119, horde-aware release via
-// 0x0029A12B) is byte-exact.
 void Team::killTeam()
 {
 	_STL::list<int> objectsToKill;
