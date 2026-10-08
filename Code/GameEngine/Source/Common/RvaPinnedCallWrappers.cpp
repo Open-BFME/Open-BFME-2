@@ -83,3 +83,47 @@ int CreateAHeroHero::rva00409EA0()
 	InitButtonList();
 	return m_end - m_begin;
 }
+
+// Native 0x004ECE93, 21B: the +0x20 source's 0x002C59CE value for the
+// argument, else 0.
+class Rva002C59CE
+{
+public:
+	float rva002C59CE(int key);
+};
+
+class Rva004ECE93
+{
+public:
+	float rva004ECE93(int key);
+
+private:
+	char m_pad00[0x20];
+	Rva002C59CE *m_source;
+};
+float Rva004ECE93::rva004ECE93(int key)
+{
+	if (m_source)
+		return m_source->rva002C59CE(key);
+	return 0.0f;
+}
+
+extern int g_Va00DE1B40;
+
+// Native 0x000C0386, 19B: run 0x000BFDFE unless +0xB8 already equals the
+// global at 0x00DE1B40.
+class Rva000BFDFE
+{
+public:
+	void rva000BFDFE();
+	void rva000C0386();
+
+private:
+	char m_pad00[0xB8];
+	int m_b8;
+};
+void Rva000BFDFE::rva000C0386()
+{
+	if (g_Va00DE1B40 != m_b8)
+		rva000BFDFE();
+}

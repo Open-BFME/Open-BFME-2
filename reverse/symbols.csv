@@ -16410,3 +16410,5 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?rva001321A7@BfmeThing937B@@QAEXPAX@Z,0x001321A7,callees of small member wrappers
 ?rva005FADEF@Rva005FAF9FOwner@@QAEXPAVRva005FED59@@@Z,0x005FADEF,callees of small member wrappers
 ?rva0052A4B5@Rva0052A470@@QAEXXZ,0x0052A4B5,callee of ?rva0052A66A@Rva0052A470@@QAEXXZ
+?rva002C59CE@Rva002C59CE@@QAEMH@Z,0x002C59CE,tail callees of small member wrappers
+?rva000BFDFE@Rva000BFDFE@@QAEXXZ,0x000BFDFE,tail callees of small member wrappers
