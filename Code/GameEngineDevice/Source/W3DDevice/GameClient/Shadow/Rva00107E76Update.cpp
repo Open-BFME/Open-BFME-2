@@ -1,11 +1,20 @@
-// ?rva00107E76@Rva00107E76Mgr@@QAEXXZ
-// partial score=0.85 date=2026-10-08
 // cl: /DNDEBUG /MD /EHsc
 // ?rva00107E76@Rva00107E76Mgr@@QAEXXZ @0x00107E76 277B: walk the 0x18-byte shadow
 // entries from the back; an entry flagged, or whose vslot 0x190 reports true while
 // the manager flag at +0x9C is set, gets its update sequence. Projected budget at
 // the global's +0x14/+0x18 is charged by the 0x18-entry size.
 class W3DProjectedShadowManager;
+class W3DVolumetricShadowManagerV2
+{
+public:
+	void drawAndRelease(int flag);
+};
+
+class Rva00106CF0
+{
+public:
+	void rva00106CF0();
+};
 extern W3DProjectedShadowManager *TheW3DProjectedShadowManager;
 
 class Rva00107E76Sub
@@ -132,7 +141,7 @@ public:
 	void rva00107961();
 	void rva00107A50(void *block);
 	void rva00106CF0();
-	void rva00107B41(int d, int c, int b, void *block);
+	void rva00107B41(int d, short c, int b, void *block);
 
 	Rva00107E76Obj *m_obj;
 	char m_pad04[0x0C];
@@ -191,20 +200,20 @@ void Rva00107E76Mgr::rva00107E76()
 		}
 		elem->rva00107961();
 		elem->rva00107A50((void *)m_90);
-		elem->rva00106CF0();
+		reinterpret_cast<Rva00106CF0 *>(elem)->rva00106CF0();
 		int edi = elem->m_obj->m_c4->m_24;
 		int eax = (edi + elem->m_10 * 2) * 3;
 		if (eax > limit)
 			continue;
 		if (TheW3DProjectedShadowManager->m_0C != 0)
 		{
-			if (TheW3DProjectedShadowManager->m_18 < eax)
-				TheW3DProjectedShadowManager->drawAndRelease(1);
+			if ((unsigned int)TheW3DProjectedShadowManager->m_18 < (unsigned int)eax)
+				reinterpret_cast<W3DVolumetricShadowManagerV2 *>(TheW3DProjectedShadowManager)->drawAndRelease(1);
 		}
 		if (TheW3DProjectedShadowManager->m_0C == 0)
 			TheW3DProjectedShadowManager->rva001072C9();
 		int x2 = (int)TheW3DProjectedShadowManager->m_10->m_04 + (limit - TheW3DProjectedShadowManager->m_18) * 2;
-		int x3 = (unsigned short)(limit - TheW3DProjectedShadowManager->m_14);
+		short x3 = (short)(limit - TheW3DProjectedShadowManager->m_14);
 		int x4 = (limit - TheW3DProjectedShadowManager->m_14) * 0xc + (int)TheW3DProjectedShadowManager->m_0C->m_04;
 		elem->rva00107B41(x4, x3, x2, (void *)m_90);
 		TheW3DProjectedShadowManager->m_14 += elem->m_obj->m_c4->m_28 * -2;
