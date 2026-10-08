@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// stlport
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // InGameHeroSelectInterface.cpp -- InGameHeroSelectInterface::Impl members
 // recovered from WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug
 // build names the function and asserts a valid hero id and template; retail
@@ -9,6 +10,17 @@
 // ObjectID (+0x00 of the payload) and its flash countdown (+0x08). The hero
 // template's name is at ThingTemplate+0x64.
 #include "ascii_string.h"
+#include <list>
+#include "Rva00525119.h"
+#include "Coord3D.h"
+struct Rva00525951Less
+{
+	bool operator()(Rva00525119 &, Rva00525119 &) const;
+};
+namespace _STL
+{
+	template<> void _S_sort(list<Rva00525119, allocator<Rva00525119> > &, Rva00525951Less);
+}
 
 typedef int Int;
 
@@ -32,6 +44,9 @@ public:
 private:
 	void *m_vtbl;
 	const ThingTemplate *m_template;		// +0x04
+public:
+	unsigned char m_pad08[0x38 - 8];
+	Coord3D m_pos; // +0x38, retail distance calculation reads x and y
 };
 
 class GameLogic
@@ -44,7 +59,7 @@ extern GameLogic *TheGameLogic;
 
 // IsBuilderOnScreen's view of the tactical view (VA 0x00DFEA3C, a View*):
 // the slot +0x120 screen test takes a world position and a 1.0 scale.
-struct Coord3D;
+
 typedef float Real;
 typedef bool Bool;
 
@@ -75,7 +90,9 @@ public:
 	HERO_VIEW_SLOT(56) HERO_VIEW_SLOT(57) HERO_VIEW_SLOT(58) HERO_VIEW_SLOT(59)
 	HERO_VIEW_SLOT(60) HERO_VIEW_SLOT(61) HERO_VIEW_SLOT(62) HERO_VIEW_SLOT(63)
 	HERO_VIEW_SLOT(64) HERO_VIEW_SLOT(65) HERO_VIEW_SLOT(66) HERO_VIEW_SLOT(67)
-	HERO_VIEW_SLOT(68) HERO_VIEW_SLOT(69) HERO_VIEW_SLOT(70) HERO_VIEW_SLOT(71)
+	HERO_VIEW_SLOT(68) HERO_VIEW_SLOT(69)
+	virtual void rvaSlot70(Coord3D *); // +0x118, camera-position output
+	HERO_VIEW_SLOT(71)
 #undef HERO_VIEW_SLOT
 	virtual Bool isPointOnScreen(const Coord3D *pos, Real scale);	// +0x120, unnamed in WB
 };
@@ -119,6 +136,7 @@ public:
 	public:
 		void FlashHeroButton(const AsciiString &templateName, Int frames);
 		Bool IsBuilderOnScreen(const Object *builder);
+		void rva00526E8B(_STL::list<Rva00525119> *list);
 
 	private:
 		unsigned char m_pad00[0x10];
@@ -150,4 +168,38 @@ void InGameHeroSelectInterface::Impl::FlashHeroButton(const AsciiString &templat
 Bool InGameHeroSelectInterface::Impl::IsBuilderOnScreen(const Object *builder)
 {
 	return TheTacticalView->isPointOnScreen(builder->getDrawable()->getPosition(), 1.0f);
+}
+
+// The verified sort/comparator use a one-word Rva00525119 handle. Retail
+// reaches the builder state at handle->m_ptr +8; its original type is unknown.
+struct BuilderSelectionData
+{
+	ObjectID id;
+	bool used;
+	unsigned char m_pad05[3];
+	float distance;
+};
+
+// Native 526E8B..526F0B (128B); WB13C1A90 establishes this Impl's camera
+// distance sort. The earlier list<short> provider was replaced by the verified
+// pointer/float sort at 52611D. Keep the unnamed method address-derived.
+void InGameHeroSelectInterface::Impl::rva00526E8B(_STL::list<Rva00525119> *list)
+{
+	Coord3D camera;
+	TheTacticalView->rvaSlot70(&camera);
+	for (_STL::list<Rva00525119>::iterator j = list->begin(); j._M_node != list->end()._M_node; ++j)
+	{
+		BuilderSelectionData *entry = reinterpret_cast<BuilderSelectionData *>((char *)j->m_ptr + 8);
+		Object *builder = TheGameLogic->findObjectByID(entry->id);
+		if (builder)
+		{
+			float dx = builder->m_pos.x - camera.x;
+			float dy = builder->m_pos.y - camera.y;
+			float square = dx * dx;
+			square += dy * dy;
+			entry->distance = square;
+		}
+	}
+	Rva00525951Less compare;
+	_STL::_S_sort(*list, compare);
 }
