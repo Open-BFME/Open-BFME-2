@@ -4655,7 +4655,6 @@ name,address,notes
 ??1Rva00576803@@UAE@XZ,0x00576803,opaque dtor called by the scalar deleting dtor at 0x005767E7 (vtable 0x00C6E7A4#0); identity unproven; address-derived name
 ??1Rva0057682F@@UAE@XZ,0x0057682F,opaque dtor called by the scalar deleting dtor at 0x00576813 (vtable 0x00C6E7B0#0); identity unproven; address-derived name
 ??1Rva00576B5E@@UAE@XZ,0x00576B5E,opaque dtor called by the scalar deleting dtor at 0x00576BC1 (vtable 0x00C6E7D4#0); identity unproven; address-derived name
-??1Rva00576F48@@UAE@XZ,0x00576F48,opaque dtor called by the scalar deleting dtor at 0x00577073 (vtable 0x00C6E858#4); identity unproven; address-derived name
 ??1Rva00576FCE@@UAE@XZ,0x00576FCE,opaque dtor called by the scalar deleting dtor at 0x005E5A66 (vtable 0x00C6E3E8#0 0x00C6E620#0 0x00C6E8A8#0 0x00C77D90#0); identity unproven; address-derived name
 ??1Rva00577010@@QAE@XZ,0x00577010,member destructor at +0x8 called by the destructor 0x00575D45 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
 ??1Rva005770F2@@UAE@XZ,0x005770F2,opaque dtor called by the scalar deleting dtor at 0x005770D6 (vtable 0x00C6E884#0); identity unproven; address-derived name
