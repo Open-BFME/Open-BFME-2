@@ -105,6 +105,7 @@ public:
 	void rva00548700();
     void rva00548464(int flags,int id);
     void rva005482E9(int flags);
+    void rva00548527();
 private:
 	ObjectID m_00;
 	ListInt m_list04;
@@ -232,4 +233,42 @@ void Rva0054840A::rva005482E9(int flags)
         if (*i == (int)m_10) m_10 = 0;
     }
     m_list04.erase(first, last);
+}
+
+// WB ObjectOrderQueue::commitPlannedOrders; native 0x00548527..0x00548632.
+// The target removes orders after the planned iterator up to the active
+// iterator or sentinel, then promotes the next planned ID and reactivates
+// the front order when appropriate. Layout is the existing queue layout.
+void Rva0054840A::rva00548527()
+{
+    if (m_list04.empty() || !m_08)
+        return;
+    if (m_0c) {
+        ListInt::iterator active = _STL::find(m_list04.begin(), m_list04.end(), reinterpret_cast<const int &>(m_08));
+        ListInt::iterator planned = _STL::find(m_list04.begin(), m_list04.end(), reinterpret_cast<const int &>(m_0c));
+        if (planned != m_list04.end() && planned != active) {
+            ++planned;
+            ListInt::iterator i = planned;
+            while (i != m_list04.end() && i != active) {
+                ObjectID object = m_00;
+                rva005480E8((void *)object, (NameKeyType)*i, 1);
+                ++i;
+            }
+            if (i == m_list04.end())
+                m_list04.erase(planned, m_list04.end());
+            else
+                m_list04.erase(planned, active);
+        }
+    }
+    m_0c = 0;
+    if (m_10) {
+        m_0c = m_10;
+        m_10 = 0;
+    }
+    if (m_08 == (UnsignedInt)m_list04.front()) {
+        const ArmorTemplate *order = ((Rva00355B61 *)TheAiOrdersManager)->rva00355155((NameKeyType)m_list04.front());
+        if (order)
+            ((OrderActivationView *)order)->slot4(m_00);
+    }
+    m_08 = 0;
 }
