@@ -1,4 +1,4 @@
-// AptMyHero::BuildBlingData
+// ?BuildBlingData@AptMyHero@@QAEXXZ
 // partial score=0.95 date=2026-10-09
 // ?BuildBlingData@AptMyHero@@QAEXXZ
 // partial score=0.95 date=2026-10-08

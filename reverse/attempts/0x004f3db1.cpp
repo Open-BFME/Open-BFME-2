@@ -1,4 +1,4 @@
-// ?Rva004F3DB1Get@@YAHXZ
+// ?selectTeamToReinforce@AIPlayer@@MAE_NH@Z
 // partial score=0.9 date=2026-10-09
 // ?selectTeamToReinforce@AIPlayer@@MAE_NH@Z
 // partial score=0.9 date=2026-10-08
