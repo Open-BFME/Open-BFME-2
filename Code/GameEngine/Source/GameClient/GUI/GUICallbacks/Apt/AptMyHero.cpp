@@ -71,3 +71,7 @@ void AptMyHero::rva005B0487(){int b=field10;int a=field0C;float upper=TheCreateA
 
 // WB record-minimum loop and native005B097F..005B09BB; independent index.
 void AptMyHero::rva005B097F(int group){MyHeroBlingBlock &block=blocks174[group];int index=0;for(MyHeroBlingRecord *record=block.first;record!=block.last;++record)SetBling(group,index++,record->minimum);slot14();}
+
+// Native005B0FCD..005B1019 adds a group-zero minimum reset before the
+// WB record-default loop. Preserve that target-specific branch.
+void AptMyHero::rva005B0FCD(int group){MyHeroBlingBlock &block=blocks174[group];int index=0;if(group==0)rva005B097F(group);for(MyHeroBlingRecord *record=block.first;record!=block.last;++record)SetBling(group,index++,record->field10);slot14();}
