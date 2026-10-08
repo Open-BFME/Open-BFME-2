@@ -1,7 +1,8 @@
+// Native singleton VA 0x00DFE77C is GameClient.cpp's class GameClient pointer.
 // cl: /MD
 // ?rva002DA153@Rva002DA153@@QAEMXZ @0x002DA153 121B: float getter with mode branches.
 // Evidence: TheGameLogic findObjectByID row 0x49DC5, TheGameClient virtual 0x40,
-// BfmeZeroRange, g_00BBB9AC -1.0f, call sites 0x00059B4C and 0x0005C974,
+// BfmeZeroRange, native -1.0f literal at VA 0x00BBB9AC, call sites 0x00059B4C and 0x0005C974,
 // neighbour stlport_stringtailrecord144 /O1.
 // Mode 1 asks the client slot 0x40 for the id at +0x34 and yields 0 when its
 // byte +0x44A is clear; mode 2 yields 0 when the logic object's bit 20 at
@@ -52,8 +53,7 @@ public:
 	virtual void *slot40(void *a);
 };
 
-extern ClientFrameSubsystem *TheGameClient;
-extern const float g_00BBB9AC;
+extern class GameClient *TheGameClient;
 
 struct Sub08
 {
@@ -98,14 +98,14 @@ float Rva002DA153::rva002DA153()
 	}
 	else
 	{
-		void *p = TheGameClient->slot40((void *)m_34);
+		void *p = reinterpret_cast<ClientFrameSubsystem *>(TheGameClient)->slot40((void *)m_34);
 		if (p != 0)
 		{
 			if (*(unsigned char *)((char *)p + 0x44A) == 0)
 				return 0.0f;
 		}
 	}
-	if (m_28 == g_00BBB9AC)
+	if (m_28 == -1.0f)
 	{
 		if (m_08 != 0)
 			return m_08->m_1C * m_2C;
@@ -113,5 +113,3 @@ float Rva002DA153::rva002DA153()
 	}
 	return m_2C * m_28;
 }
-// ?g_00BBB9AC@@3MB: the global at VA 0xbbb9ac is ?g_00BBB9AC@@3MA.
-#pragma comment(linker, "/alternatename:?g_00BBB9AC@@3MB=?g_00BBB9AC@@3MA")

@@ -1,3 +1,4 @@
+// Native singleton VA 0x00DFE77C is GameClient.cpp's class GameClient pointer.
 // cl: /O1 /G7 /arch:SSE2 /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_STLP_NO_CSTD_FUNCTION_IMPORTS
 // BFME1 donor: game/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp
 // at ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f. Its display-resource owner
@@ -224,9 +225,9 @@ void IngameNoticeDisplay::AddWord(NoticeLineInputView *line,int spaces,const Uni
     line->width=width;
 }
 
-class Display; class ClientFrameSubsystem;
+class Display; class GameClient;
 extern Display *TheDisplay;
-extern ClientFrameSubsystem *TheGameClient;
+extern class GameClient *TheGameClient;
 extern int g_009BA4E8;
 class NoticeScreenView {
 public:

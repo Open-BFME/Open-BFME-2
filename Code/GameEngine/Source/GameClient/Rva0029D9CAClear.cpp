@@ -1,9 +1,10 @@
+// Native singleton VA 0x00DFE77C is GameClient.cpp's class GameClient pointer.
 // cl: /MD
 // InGameUI::FormationPreviewPoolObject::releaseAssets (WorldBuilder name, InGameUI.cpp line 8176: release the +0x00 drawable through its slot 0x74, then destroy and delete the +0x04 holder).
 // was ?rva0029D9CA@Rva0029D9CA@@QAEXXZ @0x0029D9CA 47B.
 // Chain from 0x0029A407: if m_0 free via global 0xDFE77C slot 0x74 then clear m_4 via that row plus operator delete 0x2FD60.
 // Caller 0x002A3E3F. Unlocks 0x002A3E24.
-extern class ClientFrameSubsystem *TheGameClient;
+extern class GameClient *TheGameClient;
 
 class Rva0029A407 {
 public: void rva0029A407();

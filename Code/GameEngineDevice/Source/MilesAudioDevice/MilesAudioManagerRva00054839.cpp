@@ -1,3 +1,4 @@
+// Native singleton VA 0x00DFE77C is GameClient.cpp's class GameClient pointer.
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc
 // ?rva00054839@MilesAudioManager@@QAE_NPAVAudioEventRTS@@@Z @0x00054839 96B unlock: two-list search by event id
 // Evidence: calls rowed ?isPositionalAudio@AudioEventRTS@@QBE_NXZ 0x002D9C37; lists at +0xA40/+0xA44 as consecutive pointers; compare [event+8]; callers 0x0005D56C in 0x0005D425; prev 0x000547F3 next 0x0005492A MilesAudioManager.
@@ -92,7 +93,7 @@ struct AudioObjectContext
 	AudioObjectID *m_object;
 };
 
-extern ClientFrameSubsystem *TheGameClient;
+extern class GameClient *TheGameClient;
 
 bool MilesAudioManager::rva00054839(AudioEventRTS *event)
 {
@@ -150,7 +151,7 @@ bool MilesAudioManager::rva00055426(int arg)
 	if (arg == 0)
 		return false;
 
-	AudioObjectContext *context = TheGameClient->slot16(arg);
+	AudioObjectContext *context = reinterpret_cast<ClientFrameSubsystem *>(TheGameClient)->slot16(arg);
 	ObjectID objectID = ObjectID_Zero;
 	if (context != 0 && context->m_object != 0)
 		objectID = context->m_object->m_id;

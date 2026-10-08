@@ -1,3 +1,4 @@
+// Native singleton VA 0x00DFE77C is GameClient.cpp's class GameClient pointer.
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /Ireference/shims/moduledata
 // ??1Rva00362E1C@@UAE@XZ @0x00362E1C 87B.
 // Virtual dtor: erases this from TheGameClient via rowed rva00239A10, zeroes
@@ -18,7 +19,7 @@ class ClientFrameSubsystem : public Rva00239A10
 {
 };
 
-extern ClientFrameSubsystem *TheGameClient;
+extern class GameClient *TheGameClient;
 
 class Rva00362D6C
 {
@@ -39,6 +40,6 @@ private:
 
 Rva00362E1C::~Rva00362E1C()
 {
-	TheGameClient->rva00239A10(this);
+	reinterpret_cast<ClientFrameSubsystem *>(TheGameClient)->rva00239A10(this);
 	m_04 = 0;
 }
