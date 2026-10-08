@@ -1,6 +1,12 @@
 // cl: /ICode/Libraries/Include/Lib /O1 /arch:SSE /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
+// The game C++ free linkage preserves native EH state resets before
+// local vector destruction; complete existing vector proofs remain exact.
+#include <stdlib.h>
+namespace _STL { void __cdecl free(void *); }
+#define free _STL::free
 #include <vector>
+#undef free
 #include "ascii_string.h"
 #include "Coord3D.h"
 // Existing bfmealloc shim and no-exception STL configuration reproduce the
@@ -92,7 +98,10 @@ private:
 	unsigned char m_pad[0x4C];
     AsciiString m_ownerName;
     unsigned char m_pad50[4];
-	int m_index;						// +0x54
+	int m_index; // +0x54
+    unsigned char m_pad58[0x2EC - 0x58];
+public: int commandTagForAssist() const { return m_commandTag; }
+    int m_commandTag; // +0x2EC
 };
 
 class PlayerList
@@ -113,7 +122,38 @@ public:
     bool done() const { return m_cur == 0; }
     T *cur() const { return m_cur; }
 };
-class Object { public: bool isKindOf(KindOfType) const; };
+struct AITacticAssistTemplate { unsigned char pad[0x115]; unsigned char kindByte; };
+class Object {
+public:
+    bool isKindOf(KindOfType) const;
+    Object *rva0028ACA0() const;
+    unsigned char pad0[4]; AITacticAssistTemplate *m_template;
+    unsigned char pad8[0x38-8]; Coord3D position;
+    unsigned char pad44[0x304-0x44]; int m_commandTag;
+};
+template<int N> class BitFlags {
+public: __declspec(nothrow) BitFlags(const BitFlags &);
+private: unsigned int words[7];
+};
+// Existing native Object-vector push provider; declaration only prevents a
+// different header instantiation from replacing its established COMDAT.
+namespace _STL { template<> void vector<Object *>::push_back(Object *const &); }
+extern BitFlags<116> KINDOFMASK_NONE;
+enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
+class AIGroup { public: void groupAttackMoveToPosition(const Coord3D *, int, CommandSourceType); };
+class BfmeC986 { public: void rva00372C74(int, int, int, int); };
+class AI { public: AIGroup *createGroup(); void destroyGroup(AIGroup *); };
+extern AI *TheAI;
+class Rva0025BFF8 { public: Object *rva0025BFF8(int); };
+namespace _STL {
+template<class T> struct hash;
+template<class T> struct equal_to;
+template<class K, class V, class H, class E, class A> class hash_map {
+public: unsigned int bucket_count() const;
+};
+}
+typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > AITacticAssistIndex;
+
 
 class TeamFactory
 {
@@ -130,6 +170,8 @@ class Team
 {
 public:
 	void disband(); // 0x0039E9E0
+    void getTeamAsAIGroup(AIGroup *);
+    int rva0039DC9E(BitFlags<116>, BitFlags<116>) const;
 	unsigned char m_pad00[0x30];
     TeamPrototype *m_prototype;
     unsigned int m_teamID;
@@ -150,6 +192,7 @@ class Rva002A8F24
 public:
 	unsigned char m_pad00[0x870];
     float m_movementThreshold;
+    void *rva002A8F24(Player *);
     void *rva002A8B73(void *owner, int id);
     Rva002A8AB1Record *rva002A8AB1(void *owner);		// 0x002A8AB1
 };
@@ -211,7 +254,8 @@ public:
 	virtual void slot07();
 	virtual void slot08();
 
-	void end(bool a, bool b);
+	Player *playerForAssist() const { return (Player *)m_24; }
+    void end(bool a, bool b);
 	void preUpdate();
     bool start(Rva00506909Request *request, void *owner);
     bool start(void *owner);
@@ -219,7 +263,7 @@ public:
 	void updateTeamInfos();
 	void calcLastTeamPos();
 	void cohereTeams();
-	void sendTeamToAssistAnotherHorde(Team *team);		// 0x004ED52E
+	bool sendTeamToAssistAnotherHorde(Team *team);		// 0x004ED52E
 
 private:
 	std::vector<TeamPrototype *> m_protos;
@@ -506,7 +550,6 @@ bool AITactic::start(Rva00506909Request *request, void *owner)
 
 
 
-
 // FACT: native 0x004ED955..0x004EDA60, WB owner-only start overload.
 // Owner name is +0x4C; TARGETLESS is entry 4 of the existing five-name table.
 bool AITactic::start(void *owner)
@@ -532,4 +575,46 @@ bool AITactic::start(void *owner)
         }
     } else m_51 = true;
     return true;
+}
+
+// Native 0x004ED52E..0x004ED69B; WB names sendTeamToAssistAnotherHorde.
+// Objects selected by native kind bit 109 and differing command tag; the first
+// with a victim supplies the attack position. Every field is a native access.
+bool AITactic::sendTeamToAssistAnotherHorde(Team *team)
+{
+    void *stats = g_00DFEEF8->rva002A8F24((Player *)m_24);
+    Rva0025BFF8 *holder = *(Rva0025BFF8 **)stats;
+    int count = ((AITacticAssistIndex *)holder)->bucket_count();
+    if (count > 0) {
+        std::vector<Object *> objects;
+        int tag = playerForAssist()->commandTagForAssist();
+        for (int i = 0; i < count; ++i) {
+            Object *object = holder->rva0025BFF8(i);
+            if ((object->m_template->kindByte & 0x20) && object->m_commandTag != tag) {
+                Object *candidate = object;
+                objects.push_back(candidate);
+            }
+        }
+        Object *selected = 0;
+        std::vector<Object *>::iterator it = objects.begin();
+        while (!selected && it != objects.end()) {
+            if ((*it)->rva0028ACA0()) selected = *it;
+            ++it;
+        }
+        if (selected) {
+            AIGroup *group = TheAI->createGroup();
+            team->getTeamAsAIGroup(group);
+            int members = team->rva0039DC9E(KINDOFMASK_NONE, KINDOFMASK_NONE);
+            if (members > 1) {
+                Object *victim = selected->rva0028ACA0();
+                ((BfmeC986 *)group)->rva00372C74((int)&victim->position, 0, 0, 1);
+            } else {
+                Object *victim = selected->rva0028ACA0();
+                group->groupAttackMoveToPosition(&victim->position, 0x7FFFFFFF, CMD_FROM_PLAYER);
+            }
+            TheAI->destroyGroup(group);
+            return true;
+        }
+    }
+    return false;
 }
