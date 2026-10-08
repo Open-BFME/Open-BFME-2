@@ -1,7 +1,7 @@
-// ?rva00222E29@Rva00222E29@@QAE_NI@Z
+// ?LoadLevel@AptPlayer@@QAE_NI@Z
 // partial score=0.95 date=2026-10-07
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
-// ?rva00222E29@Rva00222E29@@QAE_NH@Z @0x00222E29 225 bytes.
+// ?LoadLevel@AptPlayer@@QAE_NH@Z @0x00222E29 225 bytes.
 // Target evidence: rejects indices >= 14, addresses 0x28-byte records from
 // this+0xCC, requires flag bit 0 and rejects bit 1. It strips the extension,
 // formats a /_level%d suffix, calls the rowed path helper and sets bit 1.
@@ -11,10 +11,10 @@
 
 void Rva006CC600(const char *path, char *suffix);
 
-class Rva00222E29
+class AptPlayer
 {
 public:
-	bool rva00222E29(unsigned int index);
+	bool LoadLevel(unsigned int index);
 
 private:
 	char m_unknown[0xCC];
@@ -27,7 +27,7 @@ private:
 	} m_records[14];
 };
 
-bool Rva00222E29::rva00222E29(unsigned int index)
+bool AptPlayer::LoadLevel(unsigned int index)
 {
 	if (index >= 14)
 		return false;

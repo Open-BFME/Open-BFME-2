@@ -71,17 +71,17 @@ struct AutoFreePtr
 	~AutoFreePtr() { if (p) free(p); }
 };
 
-class __multiple_inheritance Rva00523775
+class __multiple_inheritance AptStrategicPlayerStatus
 	: public _bfme_AptGameWindow
 {
 public:
-	virtual ~Rva00523775();
+	virtual ~AptStrategicPlayerStatus();
 private:
 	char m_pad27C[0x288 - 0x27C];
 	AutoFreePtr m_288;
 };
 
-Rva00523775::~Rva00523775()
+AptStrategicPlayerStatus::~AptStrategicPlayerStatus()
 {
 	if ((void *)this == (void *)g_Va00A04934) {
 		g_Va00A04934 = (GlobalA04934 *)0;

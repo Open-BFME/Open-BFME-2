@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
-// ?rva00423AEC@Rva00423AEC@@QAE_NPAVPlayer@@PAVRva0029FB3BMember@@@Z @0x00423AEC 147B.
+// ?getValidSelectedObjectsForPlayer@FormationAssistant@@QAE_NPAVPlayer@@PAVRva0029FB3BMember@@@Z @0x00423AEC 147B.
 // Unlock: collects matching roster Objects into out list via rowed reset/append
 // and filter at this+0x20. Evidence: callees 0x0026549E 0x004D6CAC 0x0028AFA9
 // 0x00362437 0x002A1B6F, Player+0x730 roster, Object+0x74 id +0x438 flag.
@@ -62,16 +62,16 @@ public:
 	bool accepts(Object *obj, Player *player);
 };
 
-class Rva00423AEC
+class FormationAssistant
 {
 public:
-	bool rva00423AEC(Player *player, Rva0029FB3BMember *out);
+	bool getValidSelectedObjectsForPlayer(Player *player, Rva0029FB3BMember *out);
 private:
 	char m_pad[0x20];
 	Rva2225E0Filter m_filter;
 };
 
-bool Rva00423AEC::rva00423AEC(Player *player, Rva0029FB3BMember *out)
+bool FormationAssistant::getValidSelectedObjectsForPlayer(Player *player, Rva0029FB3BMember *out)
 {
 	out->reset();
 	if (!player)

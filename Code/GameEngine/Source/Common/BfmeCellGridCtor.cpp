@@ -1,7 +1,7 @@
 // cl: /O1 /Oy- /DNDEBUG /MD /GX /arch:SSE
-// ??0BfmeCellGrid@@QAE@HHMM@Z @0x0056C266 383B. BfmeCellGrid ctor (width,height,cellSize,offset).
-// Evidence: donor reference/open-bfme-1/game/GameEngine/Source/GameLogic/System/BfmeCellGrid.cpp
-// BfmeCellGrid::BfmeCellGrid plus CELL_GRID_ALLOCATION_FAILURE string
+// ??0BfmeCellGrid@@QAE@HHMM@Z @0x0056C266 383B. CellGrid ctor (width,height,cellSize,offset).
+// Evidence: donor reference/open-bfme-1/game/GameEngine/Source/GameLogic/System/CellGrid.cpp
+// CellGrid::CellGrid plus CELL_GRID_ALLOCATION_FAILURE string
 // "Could not create Cell Grid for VictorySystem!"; layout width+0 height+4 count+8
 // size+0xC offset+0x10 cells+0x14 values+0x18 matches donor; element stride 0xA8
 // is Rva00404781 (float[20]+float[20]+2 uints, ctor 0x00404AA5 via vector ctor,
@@ -70,10 +70,10 @@ public:
 
 extern Debug *theDebug;
 
-class BfmeCellGrid
+class CellGrid
 {
 public:
-	BfmeCellGrid(int width, int height, float cellSize, float offset);
+	CellGrid(int width, int height, float cellSize, float offset);
 private:
 	int m_width;
 	int m_height;
@@ -84,7 +84,7 @@ private:
 	unsigned int *m_cellValues;
 };
 
-BfmeCellGrid::BfmeCellGrid(int width, int height, float cellSize, float offset)
+CellGrid::CellGrid(int width, int height, float cellSize, float offset)
 {
 	m_width = width;
 	m_height = height;

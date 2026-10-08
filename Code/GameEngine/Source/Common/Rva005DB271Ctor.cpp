@@ -77,17 +77,17 @@ public:
 };
 extern Rva002D3627Host *g_00DFEF18;
 
-class Rva005DB271 : public Rva005C4B56 {
+class LivingWorldBuildPlotIconSubObject : public Rva005C4B56 {
 public:
 	Arg1Host005DB271 *m_bc; // +0xbc
 	int m_padC0;            // +0xc0
 	int m_c0;               // +0xc4
 
-	Rva005DB271(void *arg0, Arg1Host005DB271 *arg1);
-	virtual ~Rva005DB271();
+	LivingWorldBuildPlotIconSubObject(void *arg0, Arg1Host005DB271 *arg1);
+	virtual ~LivingWorldBuildPlotIconSubObject();
 };
 
-Rva005DB271::Rva005DB271(void *arg0, Arg1Host005DB271 *arg1)
+LivingWorldBuildPlotIconSubObject::LivingWorldBuildPlotIconSubObject(void *arg0, Arg1Host005DB271 *arg1)
 	: Rva005C4B56(Helper005C4D4B(arg0), 1, 0)
 {
 	m_bc = arg1;

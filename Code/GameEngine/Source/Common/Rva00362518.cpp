@@ -1,5 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /GX /arch:SSE /Ireference/shims/bfme2_ascii
-// ?rva00362518@Rva00362518@@QAE_NHHPAX0H@Z retail 0x00362518 171 bytes. Chain from 0x0030682A which this calls. Evidence: callers 0x0036284D, callees rowed rva00419BA5 and rva0030682A, float 1.0f, TheGameLogic, g_00DFF190.
+// ?MakeNormalBuff@BuffInstance@@QAE_NHHPAX0H@Z retail 0x00362518 171 bytes. Chain from 0x0030682A which this calls. Evidence: callers 0x0036284D, callees rowed rva00419BA5 and rva0030682A, float 1.0f, TheGameLogic, g_00DFF190.
 class Rva0030682A
 {
 public:
@@ -30,10 +30,10 @@ struct DrawObj
 	float m_0C;
 };
 
-class Rva00362518
+class BuffInstance
 {
 public:
-	bool rva00362518(int a, int b, void *c, void *d, int e);
+	bool MakeNormalBuff(int a, int b, void *c, void *d, int e);
 private:
 	char m_pad0[4];
 	bool m_04;
@@ -46,7 +46,7 @@ private:
 	void *m_1C;
 };
 
-bool Rva00362518::rva00362518(int a, int b, void *c, void *d, int e)
+bool BuffInstance::MakeNormalBuff(int a, int b, void *c, void *d, int e)
 {
 	if (a >= 9 || a < 1)
 		return false;
