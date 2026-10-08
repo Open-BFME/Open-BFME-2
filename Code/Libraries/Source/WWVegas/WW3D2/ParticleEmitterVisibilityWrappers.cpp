@@ -81,6 +81,28 @@ void ParticleEmitterClass::Set_Visible(int onoff, int sceneToken)
 	Update_On_Visibilty();
 }
 
+// ?Set_Hidden@ParticleEmitterClass@@UAEXH@Z
+void ParticleEmitterClass::Set_Hidden(int onoff)
+{
+	if (onoff) {
+		Bits &= ~0x2000UL;
+	} else {
+		Bits |= 0x2000UL;
+	}
+	Update_On_Visibilty();
+}
+
+// ?Set_Animation_Hidden@ParticleEmitterClass@@UAEXH@Z
+void ParticleEmitterClass::Set_Animation_Hidden(int onoff)
+{
+	if (onoff) {
+		Bits &= ~0x4000UL;
+	} else {
+		Bits |= 0x4000UL;
+	}
+	Update_On_Visibilty();
+}
+
 inline void ParticleEmitterClass::Set_Force_Visible(int onoff)
 {
 	RenderObjClass::Set_Force_Visible(onoff);
