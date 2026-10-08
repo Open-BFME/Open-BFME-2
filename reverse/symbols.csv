@@ -16221,3 +16221,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva00337DEF@LuaScriptEngine@@QAEPAURva00336283Element@@ABVAsciiString@@@Z,0x00337DEF,REL32 call at 0x0039F18E in Team::updateState with ecx = TheLuaScriptEngine (VA 0x00E01DBC) and the template info +0xC4 string; Ghidra function start 0x337DEF (187B) sorted record vector lookup by name; address-derived name
 ?rva00464120@TunnelContain@@QAEXXZ,0x00464120,callee of ?rva0047DFFF@TunnelContain@@QAEXXZ
 ?rva004783D7@Rva004697E1Contain@@QAEXXZ,0x004783D7,callee of ?rva004697E1@Rva004697E1Contain@@QAEXXZ
+?rva00461C1F@Rva00461DB5Owner@@QAEXXZ,0x00461C1F,callee of ?rva00461DB5@Rva00461DB5Owner@@QAEXXZ
