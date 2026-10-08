@@ -107,6 +107,30 @@ void Rva005C33DD::rva005C33DD()
                             window->winGetWindowId());
 }
 
+// Native 5C3453..5C349D RET0; the matched 5C3596 slot tail-calls this
+// method on its +08 child. The same target getters, receiver field and
+// owner field as 5C33DD dispatch message 4009 instead of 4008. The existing
+// address-derived callee name preserves the unresolved application identity.
+class Rva005C3453
+{
+public:
+    void rva005C3453();
+private:
+    char prefix[0x0C];
+    GameWindow *window;
+};
+void Rva005C3453::rva005C3453()
+{
+    WinInstanceData *instance = window->winGetInstanceData();
+    if (instance == 0)
+        return;
+    TheControlBar->rva00405D77();
+    GameWindow *owner = instance->owner;
+    TheWindowManager->slot58(owner, 0x4009,
+                            window,
+                            window->winGetWindowId());
+}
+
 // The native 405D77 wrapper tail-jumps to the already verified 34-byte
 // cleanup at 405AA7 with the same receiver. Supply that provider rather
 // than leaving the notification bound only through a pin.
