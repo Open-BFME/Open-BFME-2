@@ -16281,7 +16281,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva005D1A87@Rva005D1A87UI@@QAE?AVRva005D1A87Ref@@XZ,0x005D1A87,callee of ?AddItem@Impl@Checklist@StrategicInGameUI@@QAEXABUChecklistItemRef@3@PAV1ChecklistItem@3@@Z
 ??0Rva00084206Track@@QAE@XZ,0x000840F1,Native init84D01 and WorldBuilder init8BFFE0 both allocate1328 then call constructor840F1; and call resources83D54 on the same track-system receiver; WB names ReAcquireResources; class views remain address-derived and partial
 ?ReAcquireResources@Rva00084C05System@@QAEXXZ,0x00083D54,Native init84D01 and WorldBuilder init8BFFE0 both allocate1328 then call constructor840F1; and call resources83D54 on the same track-system receiver; WB names ReAcquireResources; class views remain address-derived and partial
-?UpdateButtonVisiblity@Impl@AptInGameSideCommandBar@@QAE_NPAVObject@@@Z,0x005285EF,callee of ?Update@Impl@AptInGameSideCommandBar@@QAEXXZ
 ?rva002B84CD@LivingWorldLogic@@QAEXH@Z,0x002B84CD,callee of ?rva002BD544@LivingWorldLogic@@QAEXH@Z
 ?rva002B47C3@LivingWorldLogic@@QAEXXZ,0x002B47C3,callee of ?rva002BD544@LivingWorldLogic@@QAEXH@Z
 ?rva002B83E5@LivingWorldLogic@@QAEXXZ,0x002B83E5,callee of ?rva002B84CD@LivingWorldLogic@@QAEXH@Z
