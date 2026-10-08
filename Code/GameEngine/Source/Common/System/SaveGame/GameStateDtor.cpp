@@ -1,5 +1,5 @@
 // cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
-// ??1Rva002DE58D@@UAE@XZ @0x002DE58D 180B: GameState destructor. Identity: vtable
+// ??1GameState@@UAE@XZ @0x002DE58D 180B: GameState destructor (was ??1Rva002DE58D). Identity: vtable
 // 0x00C0402C#0 (scalar deleting dtor at 0x002DF2DA calls it), member offsets shared
 // with Rva002DEE9AOwner (E0C/E10/E14/E18 in Rva002DEE9AClear.cpp), save-info member
 // 0xDE8 bytes at +0x24 (BfmeSubobject0022CE19 row at 0x002DD1E9), Snapshot base at +0xC
@@ -61,10 +61,10 @@ public:
 	void rva002DE311();
 };
 
-class Rva002DE58D : public GameEngineDeletingBase, public Rva002DE58DBaseC
+class GameState : public GameEngineDeletingBase, public Rva002DE58DBaseC
 {
 public:
-	virtual ~Rva002DE58D();
+	virtual ~GameState();
 private:
 	_STL::_List_base<CameraMarker, _STL::allocator<CameraMarker> > m_cameraLists[5];
 	BfmeSubobject0022CE19 m_saveInfo;
@@ -72,8 +72,8 @@ private:
 	_STL::_List_base<int, _STL::allocator<int> > m_intListB;
 };
 
-// ??1Rva002DE58D@@UAE@XZ
-Rva002DE58D::~Rva002DE58D()
+// ??1GameState@@UAE@XZ
+GameState::~GameState()
 {
 	_STL::_List_base<CameraMarker, _STL::allocator<CameraMarker> > *cameraLists = m_cameraLists;
 	for (int i = 0; i < 5; ++i)

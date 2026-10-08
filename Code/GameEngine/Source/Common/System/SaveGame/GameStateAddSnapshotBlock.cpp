@@ -22,6 +22,7 @@ class GameState
     char m_opaque00[0x10];
     _STL::list<SnapshotBlock> m_snapshotBlockList[5];
     void addSnapshotBlock(AsciiString blockName, Snapshot *snapshot, SnapshotType which);
+    SnapshotBlock *findBlockInfoByToken(AsciiString token, SnapshotType which);
 };
 void GameState::addSnapshotBlock(AsciiString blockName, Snapshot *snapshot, SnapshotType which)
 {
@@ -31,4 +32,22 @@ void GameState::addSnapshotBlock(AsciiString blockName, Snapshot *snapshot, Snap
     blockInfo.snapshot = snapshot;
     blockInfo.blockName = blockName;
     m_snapshotBlockList[which].push_back(blockInfo);
+}
+// Native 2DCDBF is the ZH lookup: empty-token early out, then a walk of
+// m_snapshotBlockList[which] comparing each record's name (+4) against the
+// by-value token through compare 0x69D6. Callers 2DCE24 and the save-file
+// reader 2DEEC3 pass the chunk token read from the file.
+GameState::SnapshotBlock *GameState::findBlockInfoByToken(AsciiString token, SnapshotType which)
+{
+    if (token.isEmpty())
+        return 0;
+    SnapshotBlock *blockInfo;
+    _STL::list<SnapshotBlock>::iterator it;
+    for (it = m_snapshotBlockList[which].begin(); it != m_snapshotBlockList[which].end(); ++it)
+    {
+        blockInfo = &(*it);
+        if (blockInfo->blockName == token)
+            return blockInfo;
+    }
+    return 0;
 }

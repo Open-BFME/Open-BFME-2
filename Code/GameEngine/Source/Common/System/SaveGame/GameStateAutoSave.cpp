@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // GameState auto-save (0x002DD7E6), populateSaveGameListbox (0x002DF3B0) and
 // the file-static map display-name helper both call (0x002DC16A). They share
 // this unit because retail passes the helper's map label in ESI: cl 7.1's
@@ -23,6 +23,7 @@
 // Single caller: AptSaveLoad 0x00436FF6 with TheGameState.
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "Common/Snapshot.h"
 // Retail expands this header test inline here; the shim keeps it out of line.
 template<> inline bool StringBase<unsigned short>::isEmpty() const { return !m_data || m_data->length == 0; }
 
@@ -87,15 +88,25 @@ typedef void (__cdecl *Rva007BA4ECProc)(const WideChar *path, WideChar *drive,
 extern "C" Rva007BA4ECProc rva007BA4EC;
 
 // BFME 2 SaveGameInfo (0xDE8 bytes; layout from its copy constructor and
-// xfer in SaveGameInfoCopyBFME2.cpp). Only the fields read here are named.
-struct SaveGameInfo
+// xfer in SaveGameInfoCopyBFME2.cpp, where its rows keep the opaque class
+// name). Only the fields read here are named.
+struct SaveDate
 {
-	void *m_vtable;
+	bool isNewerThan(SaveDate *other);
+	unsigned short year, month, day, dayOfWeek;
+	unsigned short hour, minute, second, milliseconds;
+};
+
+struct BfmeSubobject0022CE19
+{
+	BfmeSubobject0022CE19();
+	virtual ~BfmeSubobject0022CE19();
+	BfmeSubobject0022CE19 &operator=(const BfmeSubobject0022CE19 &that);
+
 	AsciiString saveGameMapName;	// +0x04
 	AsciiString pristineMapName;	// +0x08
 	AsciiString mapLabel;	// +0x0C
-	unsigned short year, month, day, dayOfWeek;	// +0x10
-	unsigned short hour, minute, second, milliseconds;
+	SaveDate date;	// +0x10
 	UnicodeString description;	// +0x20
 	int saveFileType;	// +0x24
 	int isAutoSave;	// +0x28, xfer'd through "IsAutoSaveOrNot"
@@ -106,17 +117,100 @@ struct SaveGameInfo
 	bool flagDE0;	// +0xDE0, SaveGameInfo+0x44 sub-object byte +0xD9C
 	char m_padDE1[0xDE8 - 0xDE1];
 };
+typedef BfmeSubobject0022CE19 SaveGameInfo;
 
-struct AvailableGameInfo
+// 0xDF4 bytes: new'd by addGameToAvailableList and built by the default
+// constructor at 0x00229811, which keeps its address name there.
+struct Rva00229811
 {
+	Rva00229811();
+
 	UnicodeString filename;
 	SaveGameInfo saveGameInfo;	// +0x04
-	AvailableGameInfo *next;	// +0xDEC
-	AvailableGameInfo *prev;	// +0xDF0
+	Rva00229811 *next;	// +0xDEC
+	Rva00229811 *prev;	// +0xDF0
 };
+typedef Rva00229811 AvailableGameInfo;
 
 typedef void (*IterateSaveFileCallback)(UnicodeString filename, void *userData);
 void addGameToAvailableList(UnicodeString filename, void *userData);	// 0x002DF0B4
+
+// Xfer as the save reader calls it. Each slot keeps its own name: cl 7.1
+// lays overloaded virtuals out in reverse.
+class Xfer
+{
+public:
+	virtual ~Xfer();
+	virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
+	virtual int beginBlock(const char *name);	// slot 5
+	virtual void endBlock();	// slot 6
+	virtual void skipBlock(const char *name);	// slot 7
+	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+	virtual void xferSnapshot(Snapshot *snapshot);	// slot 12 (+0x30)
+	virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16();
+	virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20();
+	virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24();
+	virtual void v25(); virtual void v26();
+	virtual void xferAsciiString(AsciiString *asciiStringData);	// slot 27 (+0x6C)
+};
+
+// The reader: an Xfer with its own vtable, built from three null pointers
+// (same view as ConnectionManager_heroData.cpp).
+struct Rva0060C3C3Stream;
+class Rva0060C5FA : public Xfer
+{
+public:
+	Rva0060C5FA(void *a1, void *a2, void *a3);
+
+private:
+	char m_pad04[0x20 - 4];
+};
+
+class XferLoad
+{
+public:
+	bool Open(Rva0060C3C3Stream *stream, int *version);
+};
+
+class Rva0060C45E
+{
+public:
+	void clear();
+};
+
+class XferException
+{
+public:
+	XferException(int tag, const char *format, ...);
+	XferException(const XferException &that);
+	~XferException();
+
+private:
+	char *text;
+	int tag;
+};
+
+class File
+{
+public:
+	virtual ~File();
+	virtual bool open(const char *filename, int access);
+	virtual void close();
+};
+
+// TheFileSystem (VA 0x00E06A48); 0x00600676 forwards to the archive file
+// system's slot 2 without reading this.
+class FileSystem
+{
+public:
+	File *rva00600676(const WideChar *filename, int access, int bufferSize);
+};
+extern FileSystem *TheFileSystem;
+
+extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
+
+// VA 0x00DBD038, ZH's SAVE_FILE_EOF token.
+extern const char *SAVE_FILE_EOF;
 
 // clearAvailableGames 0x002DE311 keeps the address spelling it is pinned
 // under (Rva002DEE9AClear.cpp, GameStateDtor.cpp).
@@ -126,22 +220,47 @@ public:
 	void rva002DE311();
 };
 
-class GameState
+class SubsystemInterface
 {
 public:
+	virtual ~SubsystemInterface();
+
+private:
+	char m_pad04[0xC - 4];
+};
+
+enum SnapshotType { SNAPSHOT_SAVELOAD = 0 };
+
+class GameState : public SubsystemInterface, public Snapshot
+{
+public:
+	GameState();
+	virtual ~GameState();
+
 	int determineCurrentGameSaveFileMode();
 	void *rva002DBC97Get(int mode);
 	int saveGame(UnicodeString filename, const UnicodeString &desc, int which, bool showMessage, int param5);
 	int rva002DD7E6AutoSave();
+	bool getSaveGameInfoFromFile(UnicodeString filename, SaveGameInfo *saveGameInfo);
 	void iterateSaveFiles(IterateSaveFileCallback callback, void *userData, int mode);
 	void populateSaveGameListbox(GameWindow *listbox, GameWindow *autoSaveListbox, bool newSave, int filter);
 
+protected:
+	virtual void loadPostProcess();
+	virtual void crc(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
+
 private:
-	char m_pad0[0x2C];
-	AsciiString m_pristineMapName;	// +0x2C
-	char m_pad30[0xE14 - 0x30];
+	struct SnapshotBlock;
+	SnapshotBlock *findBlockInfoByToken(AsciiString token, SnapshotType which);
+
+	char m_pad10[0x24 - 0x10];	// m_snapshotBlockList[5]
+	SaveGameInfo m_gameInfo;	// +0x24
+	char m_padE0C[0xE14 - 0xE0C];
 	AvailableGameInfo *m_availableGames;	// +0xE14
+	char m_padE18[0xE1C - 0xE18];
 };
+extern GameState *TheGameState;
 
 // ?getMapDisplayName@@YA?AVUnicodeString@@ABVAsciiString@@@Z @0x002DC16A 253B
 static UnicodeString getMapDisplayName(const AsciiString &mapLabel)
@@ -170,7 +289,7 @@ int GameState::rva002DD7E6AutoSave()
 	UnicodeString nameFormat(TheAutoSaveFileNameBase);
 	if (TheGameText)
 		nameFormat = TheGameText->fetch("GUI:AutoSaveName");
-	UnicodeString mapName = getMapDisplayName(m_pristineMapName);
+	UnicodeString mapName = getMapDisplayName(m_gameInfo.pristineMapName);
 	UnicodeString filename;
 	filename.format(nameFormat.str(), mapName.str());
 	filename.concat((const WideChar *)rva002DBC97Get(mode));
@@ -236,14 +355,14 @@ void GameState::populateSaveGameListbox(GameWindow *listbox, GameWindow *autoSav
 			continue;
 
 		SYSTEMTIME systemTime;
-		systemTime.wYear = save->year;
-		systemTime.wMonth = save->month;
-		systemTime.wDayOfWeek = save->dayOfWeek;
-		systemTime.wDay = save->day;
-		systemTime.wHour = save->hour;
-		systemTime.wMinute = save->minute;
-		systemTime.wSecond = save->second;
-		systemTime.wMilliseconds = save->milliseconds;
+		systemTime.wYear = save->date.year;
+		systemTime.wMonth = save->date.month;
+		systemTime.wDayOfWeek = save->date.dayOfWeek;
+		systemTime.wDay = save->date.day;
+		systemTime.wHour = save->date.hour;
+		systemTime.wMinute = save->date.minute;
+		systemTime.wSecond = save->date.second;
+		systemTime.wMilliseconds = save->date.milliseconds;
 		UnicodeString mapName = getMapDisplayName(save->mapLabel);
 
 		int color;
@@ -318,4 +437,63 @@ void GameState::populateSaveGameListbox(GameWindow *listbox, GameWindow *autoSav
 		GadgetListBoxSetSelected(listbox, -1);
 		GadgetListBoxSetSelected(autoSaveListbox, -1);
 	}
+}
+
+// ?getSaveGameInfoFromFile@GameState@@QAE_NVUnicodeString@@PAUBfmeSubobject0022CE19@@@Z @0x002DEEC3 497B
+bool GameState::getSaveGameInfoFromFile(UnicodeString filename, SaveGameInfo *saveGameInfo)
+{
+	bool done = false;
+	if (filename.isEmpty() || saveGameInfo == 0)
+		return false;
+
+	bool result;
+	File *file = TheFileSystem->rva00600676(filename.str(), 0x41, 0);
+	if (file == 0)
+		result = false;
+	else
+	{
+		Rva0060C5FA xferLoad(0, 0, 0);
+		unsigned int version;
+		if (!((XferLoad *)&xferLoad)->Open((Rva0060C3C3Stream *)file, (int *)&version))
+			result = false;
+		else if (version > 1)
+			result = false;
+		else
+		{
+			while (!done)
+			{
+				AsciiString token;
+				((Xfer *)&xferLoad)->xferAsciiString(&token);
+				if (token.compareNoCase(SAVE_FILE_EOF) == 0)
+					done = true;
+				else
+				{
+					if (findBlockInfoByToken(token, SNAPSHOT_SAVELOAD) == 0)
+						throw XferException(0, 0);
+					if (_strcmpi(token.str(), "CHUNK_GameState") == 0)
+					{
+						GameState gameState;
+						try
+						{
+							xferLoad.beginBlock("?");
+							((Xfer *)&xferLoad)->xferSnapshot(&gameState);
+							xferLoad.endBlock();
+						}
+						catch (...)
+						{
+							throw;
+						}
+						*saveGameInfo = gameState.m_gameInfo;
+						done = true;
+					}
+					else
+						xferLoad.skipBlock("?");
+				}
+			}
+			((Rva0060C45E *)&xferLoad)->clear();
+			result = true;
+		}
+		file->close();
+	}
+	return result;
 }
