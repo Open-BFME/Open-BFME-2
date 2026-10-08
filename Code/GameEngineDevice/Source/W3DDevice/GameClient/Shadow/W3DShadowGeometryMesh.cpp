@@ -60,7 +60,7 @@ class Vector3
 {
 public:
 	Vector3(void) {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
+	Vector3(Real x, Real y, Real z);
 	__forceinline Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
 	__forceinline Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
 	__forceinline Real Length2(void) const { return X*X + Y*Y + Z*Z; }
@@ -69,7 +69,8 @@ public:
 	static __forceinline void Normalized_Cross_Product(const Vector3 &a, const Vector3 &b, Vector3 *set_result);
 	Real X, Y, Z;
 };
-__forceinline Vector3 operator-(const Vector3 &a, const Vector3 &b) { return Vector3(a.X-b.X, a.Y-b.Y, a.Z-b.Z); }
+// Inline component arithmetic avoids emitting unused, conflicting Vector3 COMDAT copies.
+static __forceinline Vector3 ShadowSubtract(const Vector3 &a, const Vector3 &b) { Vector3 result; result.X=a.X-b.X; result.Y=a.Y-b.Y; result.Z=a.Z-b.Z; return result; }
 
 class WWMath
 {
@@ -216,8 +217,8 @@ protected:
 		const Vector3& v0=GetVertex(indexList[0]);
 		const Vector3& v1=GetVertex(indexList[1]);
 		const Vector3& v2=GetVertex(indexList[2]);
-		Vector3 edge1=v1-v0;
-		Vector3 edge2=v1-v2;
+		Vector3 edge1=ShadowSubtract(v1,v0);
+		Vector3 edge2=ShadowSubtract(v1,v2);
 		Vector3::Normalized_Cross_Product(edge2,edge1, pvNorm);
 		return pvNorm;
 	}

@@ -38,13 +38,14 @@ class Vector3
 {
 public:
 	Vector3(void) {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
+	Vector3(Real x, Real y, Real z);
 	__forceinline Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
 	__forceinline Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
 	static __forceinline Real Dot_Product(const Vector3 &a, const Vector3 &b) { return a.X*b.X + a.Y*b.Y + a.Z*b.Z; }
 	Real X, Y, Z;
 };
-__forceinline Vector3 operator-(const Vector3 &a, const Vector3 &b) { return Vector3(a.X-b.X, a.Y-b.Y, a.Z-b.Z); }
+// Inline component arithmetic avoids emitting unused, conflicting Vector3 COMDAT copies.
+static __forceinline Vector3 ShadowSubtract(const Vector3 &a, const Vector3 &b) { Vector3 result; result.X=a.X-b.X; result.Y=a.Y-b.Y; result.Z=a.Z-b.Z; return result; }
 
 struct NeighborEdge
 {
@@ -186,7 +187,7 @@ void W3DVolumetricShadow::buildSilhouette(Int meshIndex, Vector3 *lightPosObject
 		const Vector3& normal=geomMesh->GetPolygonNormal(i);
 		geomMesh->GetPolygonIndex( i, poly );
 		const Vector3& vertex=geomMesh->m_verts[poly[ 0 ]];
-		lightVector= vertex - *lightPosObject;
+		lightVector= ShadowSubtract(vertex,*lightPosObject);
 		if( Vector3::Dot_Product( lightVector, normal ) < 0.0f )
 			polyNeighbor->status = POLY_VISIBLE;
 	}
