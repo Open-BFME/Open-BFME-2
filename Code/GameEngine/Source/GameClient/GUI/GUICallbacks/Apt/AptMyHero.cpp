@@ -68,3 +68,6 @@ void AptMyHero::rva005B0923(int group){
 // Native005B0487..005B04B6 and WB corresponding view access prove the
 // +60 float bound and +168/+16C range. Retail emits SSE2 stores.
 void AptMyHero::rva005B0487(){int b=field10;int a=field0C;float upper=TheCreateAHeroManager->rva00219F36(a,b)->field60;float *range=&field168;range[0]=0.0f;range[1]=upper;}
+
+// WB record-minimum loop and native005B097F..005B09BB; independent index.
+void AptMyHero::rva005B097F(int group){MyHeroBlingBlock &block=blocks174[group];int index=0;for(MyHeroBlingRecord *record=block.first;record!=block.last;++record)SetBling(group,index++,record->minimum);slot14();}
