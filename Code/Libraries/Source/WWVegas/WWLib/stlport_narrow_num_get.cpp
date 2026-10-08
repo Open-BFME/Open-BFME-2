@@ -5,6 +5,13 @@
 // Canonical default construction is supplied by retail7850.
 namespace _STL { template <> basic_string<char>::basic_string(); }
 #include <locale>
+// Use the complete retail scanner at 0x00007C90 rather than a competing
+// generic header implementation.
+namespace _STL {
+template <> int _M_get_base_or_zero<istreambuf_iterator<char, char_traits<char> >, char>(
+    istreambuf_iterator<char, char_traits<char> > &,
+    istreambuf_iterator<char, char_traits<char> > &, ios_base &, char *);
+}
 
 template class _STL::num_get<char, _STL::istreambuf_iterator<char, _STL::char_traits<char> > >;
 

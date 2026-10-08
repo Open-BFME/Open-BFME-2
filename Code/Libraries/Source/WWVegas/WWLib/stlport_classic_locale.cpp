@@ -41,6 +41,17 @@
 namespace _STL { template <> basic_string<char>::basic_string(); }
 namespace _STL { template<> basic_string<char>::basic_string(const char*, const allocator<char>&); template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t); }
 #include <locale>
+// Use the complete retail scanner at 0x00007C90; the generic header copy
+// has a different iterator/locale implementation in this build.
+namespace _STL {
+template <> int _M_get_base_or_zero<istreambuf_iterator<char, char_traits<char> >, char>(
+    istreambuf_iterator<char, char_traits<char> > &,
+    istreambuf_iterator<char, char_traits<char> > &, ios_base &, char *);
+// The corresponding complete wide scanner is rowed at 0x0000A0F0.
+template <> int _M_get_base_or_zero<istreambuf_iterator<wchar_t, char_traits<wchar_t> >, wchar_t>(
+    istreambuf_iterator<wchar_t, char_traits<wchar_t> > &,
+    istreambuf_iterator<wchar_t, char_traits<wchar_t> > &, ios_base &, wchar_t *);
+}
 #include <ctime>
 namespace _STL {
 class _Messages {
