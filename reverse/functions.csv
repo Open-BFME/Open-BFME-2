@@ -70966,3 +70966,4 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva002B85B1@Rva002B85B1@@QAE_NPAVRva003190A5@@@Z,,0x002B85B1,59,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002B8573Method.cpp,matched,REF table 0x007FDFF0 plus sibling rva002B8573
 ?Rva002D7682Check@@YIEPAX@Z,,0x002D7682,36,Code/GameEngine/Source/Common/Rva002D7682Check.cpp,matched,finish caller 0x000501B1 rowed getDrawable and rva00270260 shared true
 ?isValidContainerFor@SlaughterHordeContain@@UAE_NPAVObject@@_N1@Z,,0x00480661,114,Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainIsValidContainerFor.cpp,matched,slot 38 vtable 0x00848918 fallback base 0x00479E62 filter at 0xD8 bits at 0xDC holder at Object+0x94
+??0W3DDisplayString@@QAE@XZ,,0x00106088,203,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringCtor.cpp,matched,BFME1 donor W3DDisplayString plus Dtor layout and reset twin
