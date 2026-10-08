@@ -55,11 +55,25 @@ public:
 	void rva005F83A9();
 };
 
+// The impl's 0x005F888C (not yet rowed; pinned) takes a counted handle: a
+// pointer to an object whose reference count sits at +0x04.
+struct Rva005F888CRef
+{
+	void *m_object;
+};
+
+class Rva005F888C
+{
+public:
+	void rva005F888C(const Rva005F888CRef &ref);
+};
+
 class Rva005F8427
 {
 public:
 	int rva005F8408() const;
 	void rva005F841F();
+	void rva005F88CE(const Rva005F888CRef &ref);
 	void rva005F8427();
 private:
 	char m_pad[4];
@@ -82,4 +96,12 @@ void Rva005F8427::rva005F8427()
 void Rva005F8427::rva005F841F()
 {
 	reinterpret_cast<Rva005F83A9 *>(m_member)->rva005F83A9();
+}
+
+// ?rva005F88CE@Rva005F8427@@QAEXABURva005F888CRef@@@Z @0x005F88CE 8B: the
+// same +0x04 forwarder into the impl's 0x005F888C, handing a counted handle
+// on (caller 0x005E8F6F, then 0x005E8ADF).
+void Rva005F8427::rva005F88CE(const Rva005F888CRef &ref)
+{
+	reinterpret_cast<Rva005F888C *>(m_member)->rva005F888C(ref);
 }
