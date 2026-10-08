@@ -1,12 +1,16 @@
 // cl: /O1 /arch:SSE /G7 /MD /EHs /EHc- /D_STLP_USE_MALLOC /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /DNDEBUG
 // stlport
 // ?rva005E56FC@Rva005E56FC@@QAEPAXXZ @0x005E56FC 78B.
-// View then player then stdcall chain with redundant mov ecx before stdcall.
+// View then player then singleton member query with its native ECX receiver.
 // Evidence: thiscall ret 0 no args returning void pointer; global g_009FEF10
 // view at +0xB0 rowed 0x0020EAF6 with this+8; id chain this+4 then +0x18 +0x54;
-// find rowed 0x002B51F8; stdcall rowed 0x002B4948; shared xor eax null path.
+// find rowed 0x002B51F8; member query rowed 0x002B4948; shared xor eax null path.
 
-class LivingWorldLogic;
+class LivingWorldLogic
+{
+public:
+    void *rva002B4948(void *a1, void *a2, void *a3);
+};
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include <vector>
 #include <map>
@@ -58,7 +62,6 @@ public:
 	Rva0020EAF6View *m_B0;
 };
 
-void *__stdcall Rva002B4948Find(void *a1, void *a2, void *a3);
 struct Rva005E56FCIdInner
 {
 	char m_pad[0x54];
@@ -90,8 +93,7 @@ void *Rva005E56FC::rva005E56FC()
 		Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(id, 0);
 		if (player != 0)
 		{
-			(void)*(Rva002BA8F1Logic * volatile *)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
-			return Rva002B4948Find(player, view, 0);
+			return TheLivingWorldLogic->rva002B4948(player, view, 0);
 		}
 	}
 	return 0;
