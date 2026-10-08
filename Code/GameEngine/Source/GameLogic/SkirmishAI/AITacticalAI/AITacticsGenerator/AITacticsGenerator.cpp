@@ -208,7 +208,7 @@ class Team
 {
 public:
 	Player *getControllingPlayer() const;
-	void rva0039E9E0();
+	void disband();
 	char m_pad00[0x30];
 	Rva005059A1Team *m_team;	// +0x30
 };
@@ -479,7 +479,7 @@ void Rva00506909::rva005059A1(Team *unit)
 			return;
 		}
 	}
-	unit->rva0039E9E0();
+	unit->disband();
 }
 
 void Rva00506909::rva00505A56(Team *unit)

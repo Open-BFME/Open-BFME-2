@@ -36,7 +36,7 @@ class EmotionTrackerUpdate
 public:
 	void rva004B0D4C(int index, void *source);
 	void PulseEmotion(int index, void *source, int delay);
-	void rva004B0DAC(int index, float value, int arg);
+	void ForceEmotion(int index, float value, int arg);
 };
 
 // Rowed owner of the 12B indexed byte-clear at 0x004B0DA0
@@ -119,5 +119,5 @@ void Object::rva0028ECA8(int index, float value, int arg)
 		if (!obj)
 			return;
 	}
-	obj->m_emotionTracker24C->rva004B0DAC(index, value, arg);
+	obj->m_emotionTracker24C->ForceEmotion(index, value, arg);
 }

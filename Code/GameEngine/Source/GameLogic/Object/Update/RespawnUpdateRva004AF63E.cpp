@@ -1,4 +1,4 @@
-// ?rva004AF63E@RespawnUpdate@@QAEXXZ @0x004AF63E 350B.
+// ?triggerDeathBeforeRespawn@RespawnUpdate@@QAEXXZ @0x004AF63E 350B.
 // RespawnUpdate death entry called by RespawnBody::apply. State 0 or 4
 // looks the object's experience level up in the module-data rule tree at
 // +0x10C (the same RespawnRule ctor the parser uses: cost 0 time 0 health
@@ -134,7 +134,7 @@ protected:
 class RespawnUpdate : public UpdateModule
 {
 public:
-	void rva004AF63E();
+	void triggerDeathBeforeRespawn();
 
 private:
 	float m_20;
@@ -149,7 +149,7 @@ private:
 	unsigned char m_41;
 };
 
-void RespawnUpdate::rva004AF63E()
+void RespawnUpdate::triggerDeathBeforeRespawn()
 {
 	const RespawnUpdateModuleData *data = m_moduleData;
 	Object *obj = m_object;

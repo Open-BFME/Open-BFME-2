@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva0039E9E0@Team@@QAEXXZ @0x0039E9E0 47B
+// ?disband@Team@@QAEXXZ @0x0039E9E0 47B
 // Unit teardown via Team transfer or Object fallback. If the +0x30 team's
 // +8 link carries a +0x2EC unit different from this transfer to it via rowed
 // Team::transferUnitsTo else drain +0x38 via pinned Object::setTeam.
@@ -24,13 +24,13 @@ class Team
 {
 public:
     void transferUnitsTo(Team *other);
-    void rva0039E9E0();
+    void disband();
     char m_pad00[0x30];
     Rva0039Mid *m30;
     char m_pad34[4];
     Object *m38;
 };
-void Team::rva0039E9E0()
+void Team::disband()
 {
     Team *t = m30->m_team08;
     if (t) {

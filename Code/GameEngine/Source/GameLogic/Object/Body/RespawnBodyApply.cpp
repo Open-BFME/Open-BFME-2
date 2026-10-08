@@ -39,7 +39,7 @@ public:
     unsigned char before2C[0x2C];
     unsigned int state;
     void rva004AF182();
-    void rva004AF63E();
+    void triggerDeathBeforeRespawn();
 };
 struct Rva004BF005Owner { void apply(float, DamageInfo *); };
 struct Rva004C1395Owner {
@@ -78,7 +78,7 @@ void Rva004C1395Owner::apply(float amount, DamageInfo *info)
                     respawn->rva004AF182();
                     respawn->state = 0;
                 } else {
-                    respawn->rva004AF63E();
+                    respawn->triggerDeathBeforeRespawn();
                 }
                 obj->onDie(info);
             }

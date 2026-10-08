@@ -19,11 +19,11 @@ public:
 
 extern TeamFactory *TheTeamFactory;
 
-// Team::disband per WorldBuilder; the ledger row keeps its placeholder name.
+// Team::disband per WorldBuilder (rowed at 0x0039E9E0).
 class Team
 {
 public:
-	void rva0039E9E0();					// 0x0039E9E0
+	void disband();					// 0x0039E9E0
 };
 
 struct Rva002A8AB1Record
@@ -129,7 +129,7 @@ void AITactic::end(bool a, bool b)
 		{
 			if (!m_50)
 				sendTeamToAssistAnotherHorde(team);
-			team->rva0039E9E0();
+			team->disband();
 		}
 	}
 
