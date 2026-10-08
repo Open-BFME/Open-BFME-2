@@ -193,6 +193,14 @@
 // The percentage is truncated from current * 100 / maximum when the maximum
 // is positive and compared six ways with the int parameter; retail
 // multiplies before dividing only with the product kept in its own local.
+//
+// ?rva003E4519@ScriptConditions@@IAE_NPAVParameter@@@Z @ 0x003E4519 76B
+// Target evidence: jump-table case 173 calls 0x003E4519, which
+// initConditionTemplates names PLAYER_HAS_REACHED_LEVEL_CAP (player). Each
+// player of the parameter's mask (rowed rva00357B82 plus
+// getEachPlayerFromMask 0x002A7BC9) passes when its int at +0x1C reaches
+// what the rowed 0x003802DF returns for the object at Player+0x08. BFME
+// 2-only condition with no donor body, so the method keeps an address name.
 #include <vector>
 #include <list>
 #include "ascii_string.h"
@@ -555,15 +563,27 @@ public:
 	int rva0039C0F4(const AsciiString &objectType);
 };
 
+// The object at Player+0x08 whose rowed 0x003802DF answers the level cap.
+class Rva00380200
+{
+public:
+	int rva003802DF();
+};
+
 class Player
 {
 public:
+	Rva00380200 *getRva08() { return reinterpret_cast<Rva00380200 *>(m_pad08); }
+	int getRva1C() const { return m_1C; }
 	int getPlayerIndex() const { return m_playerIndex; }
 	Rva002A7461 *getCommandPoints() { return &m_commandPoints; }
 	Rva0039C0F4 *getKills() { return &m_kills; }
 	void countObjectsByThingTemplate(int numThingTemplates, const ThingTemplate *const *things, bool ignoreDead, int *counts, bool ignoreUnderConstruction) const;
 private:
-	unsigned char m_pad00[0x54];
+	unsigned char m_pad00[0x08];
+	unsigned char m_pad08[0x1C - 0x08];
+	int m_1C; // +0x1C
+	unsigned char m_pad20[0x54 - 0x20];
 	int m_playerIndex; // +0x54
 	unsigned char m_pad58[0x60 - 0x58];
 	Rva002A7461 m_commandPoints; // +0x60
@@ -708,6 +728,7 @@ protected:
 	bool evaluateTeamReachedWaypointsEnd(Parameter *, Parameter *);
 	bool evaluateUnitHasEmptied(Parameter *);
 	bool evaluateUnitHealth(Parameter *, Parameter *, Parameter *);
+	bool rva003E4519(Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1313,6 +1334,17 @@ bool ScriptConditions::evaluateUnitHealth(Parameter *pUnitParm, Parameter *pComp
 		case 3: return healthPercent >= pHealthPercent->getInt();
 		case 4: return healthPercent > pHealthPercent->getInt();
 		case 5: return healthPercent != pHealthPercent->getInt();
+	}
+	return false;
+}
+
+bool ScriptConditions::rva003E4519(Parameter *pPlayerParm)
+{
+	int playerMask = TheScriptEngine->rva00357B82(pPlayerParm);
+	while (playerMask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(playerMask);
+		if (player && player->getRva1C() >= player->getRva08()->rva003802DF())
+			return true;
 	}
 	return false;
 }
