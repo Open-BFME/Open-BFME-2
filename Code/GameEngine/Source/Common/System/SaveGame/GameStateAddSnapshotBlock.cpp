@@ -15,6 +15,28 @@
 #include <list>
 #include "ascii_string.h"
 class Snapshot;
+// Xfer as xferSaveData calls it (slot 2 returns the save/load mode as a bool;
+// each named slot is read off retail 0x002DCE24's call offsets).
+class Xfer
+{
+public:
+    virtual ~Xfer();
+    virtual void v1();
+    virtual bool isSaving();	// slot 2 (+0x08)
+    virtual void v3(); virtual void v4();
+    virtual int beginBlock(const char *name);	// slot 5 (+0x14)
+    virtual void endBlock();	// slot 6 (+0x18)
+    virtual void skipBlock(const char *name);	// slot 7 (+0x1C)
+    virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+    virtual void xferSnapshot(Snapshot *snapshot);	// slot 12 (+0x30)
+    virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16();
+    virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20();
+    virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24();
+    virtual void v25(); virtual void v26();
+    virtual void xferAsciiString(AsciiString *asciiStringData);	// slot 27 (+0x6C)
+};
+// VA 0x00DBD038, ZH's SAVE_FILE_EOF token pointer.
+extern const char *SAVE_FILE_EOF;
 enum SnapshotType { SNAPSHOT_SAVELOAD=0, SNAPSHOT_DEEPCRC_LOGICONLY=1, SNAPSHOT_NATIVE3=3, SNAPSHOT_NATIVE4=4 };
 class GameState
 {
@@ -23,6 +45,8 @@ class GameState
     _STL::list<SnapshotBlock> m_snapshotBlockList[5];
     void addSnapshotBlock(AsciiString blockName, Snapshot *snapshot, SnapshotType which);
     SnapshotBlock *findBlockInfoByToken(AsciiString token, SnapshotType which);
+public:
+    void xferSaveData(Xfer *xfer, SnapshotType which);
 };
 void GameState::addSnapshotBlock(AsciiString blockName, Snapshot *snapshot, SnapshotType which)
 {
@@ -50,4 +74,69 @@ GameState::SnapshotBlock *GameState::findBlockInfoByToken(AsciiString token, Sna
             return blockInfo;
     }
     return 0;
+}
+// Native 2DCE24 is ZH's xferSaveData without the null-xfer check: the save
+// branch writes each block's name then the block inside a rethrowing try and
+// ends with the SAVE_FILE_EOF token; the load branch reads tokens until EOF,
+// skipping unknown blocks. Callers: saveGame 2DD38D, the CRC friend 2DDD0B.
+// Both catch (...) trys share the rethrow funclet 2DCF62 (inside the extent).
+void GameState::xferSaveData(Xfer *xfer, SnapshotType which)
+{
+    if (xfer->isSaving())
+    {
+        SnapshotBlock *blockInfo;
+        _STL::list<SnapshotBlock>::iterator it;
+        AsciiString blockName;
+        for (it = m_snapshotBlockList[which].begin(); it != m_snapshotBlockList[which].end(); ++it)
+        {
+            blockInfo = &(*it);
+            blockName = blockInfo->blockName;
+            xfer->xferAsciiString(&blockName);
+            try
+            {
+                xfer->beginBlock("Snapshot");
+                xfer->xferSnapshot(blockInfo->snapshot);
+                xfer->endBlock();
+            }
+            catch (...)
+            {
+                throw;
+            }
+        }
+        AsciiString eofToken = SAVE_FILE_EOF;
+        xfer->xferAsciiString(&eofToken);
+    }
+    else
+    {
+        AsciiString token;
+        bool done = false;
+        SnapshotBlock *blockInfo;
+        while (done == false)
+        {
+            xfer->xferAsciiString(&token);
+            if (token.compareNoCase(SAVE_FILE_EOF) == 0)
+            {
+                done = true;
+            }
+            else
+            {
+                blockInfo = findBlockInfoByToken(token, which);
+                if (blockInfo == 0)
+                {
+                    xfer->skipBlock("Snapshot");
+                    continue;
+                }
+                try
+                {
+                    xfer->beginBlock("Snapshot");
+                    xfer->xferSnapshot(blockInfo->snapshot);
+                    xfer->endBlock();
+                }
+                catch (...)
+                {
+                    throw;
+                }
+            }
+        }
+    }
 }
