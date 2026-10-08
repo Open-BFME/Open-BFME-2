@@ -117,6 +117,14 @@ void TerrainRoadType::friend_setName(AsciiString name)
     slot = name;
 }
 
+// Native calls at 0x002DB60D and 0x002DB6E5 set the texture at +0x38.
+// Keep the existing 52-byte body while reconciling its real owner and home unit.
+void TerrainRoadType::friend_setTexture(AsciiString texture)
+{
+    AsciiString &slot = m_texture;
+    slot = texture;
+}
+
 AsciiString TerrainRoadType::getDamageToOCLString( BodyDamageType state, Int index )
 {
 	return m_damageToOCLString[ state ][ index ];
