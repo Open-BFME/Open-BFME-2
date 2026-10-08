@@ -62965,7 +62965,6 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?Rva0042FE3BForward@@YAXXZ,,0x0042FE3B,5,Code/GameEngine/Source/Common/Rva0042FE3B.cpp,matched,tail-jmp to rowed dup_0042fd1c
 ?CanSelectDrawable@@YA_NPBVDrawable@@_N@Z,,0x0042FA63,300,Code/GameEngine/Source/GameClient/GUI/SelectionCanSelectDrawable.cpp,matched,donor SelectionXlatCanSelectDrawable with BFME2 layouts
 ??1Rva004638E7@@QAE@XZ,,0x004638E7,5,Code/Libraries/Source/WWVegas/WWLib/Rva004638E7Dtor.cpp,matched,5B novtable jmp to rowed Rb_tree dtor 0x004636C6 Unwind callers
-?rva004D70D5@Rva004D70D5@@QAEXPAX@Z,,0x004D70D5,82,Code/GameEngine/Source/Common/Rva004D70D5.cpp,matched,REF table 0x007F91AC prev 0x004D6F86 pattern triple chain
 ??1Rva00577EB2@@QAE@XZ,,0x00577EB2,63,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp,matched,vector dtor member +0x44 of Rva00577FA7 caller 0x00577FC5 via rowed 0x005F97BC and free
 ?rva002B269E@Rva002B269E@@QAE_NH@Z,,0x002B269E,50,Code/GameEngine/Source/Common/Rva002B269ECheck.cpp,matched,leaf null-gated id compare plus rowed 0x2E0BC0 and byte 0x10b
 ?rva002B2B2D@Rva002BA8F1Logic@@QAEPAURva002B3740Item@@XZ,,0x002B2B2D,18,Code/GameEngine/Source/Common/Rva002B2B2DForward.cpp,matched,leaf view forward via rowed 0x0020EAF6 plus 0xB0 0xB8
