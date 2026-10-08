@@ -34,6 +34,13 @@ struct Coord3D
 	float y;
 	float z;
 };
+// The float triple whose length is the address-owned copy 0x00003571.
+class Rva0055A627Difference
+{
+public:
+	float x, y, z;
+	float length() const;
+};
 // class-gate: allow Coord2D the canonical data-only header cannot declare BFME 2's out-of-line toAngle (rowed 0x00005923) that slot 130 calls; same two floats
 class Coord2D
 {
@@ -124,10 +131,12 @@ public:
 	Rva002A8AB1Record *rva002A8AB1(void *owner);
 };
 extern Rva002A8F24 *g_00DFEEF8;
+class LocomotorSet;
 class Pathfinder
 {
 public:
 	bool IsPointOnWall(int pos, bool flag);
+	bool adjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest, const Coord3D *groupDest);
 	bool IsPointOnRamp(const Coord3D *pos);
 	void RemoveObjectFromPathfindMap(Object *object);
 	void RemoveObjectGoalFromPathfindMap(Object *object);
@@ -211,6 +220,7 @@ class Thing
 {
 public:
 	void setOrientation(float angle);
+	void setPosition(const Coord3D *pos);
 	Drawable *getDrawable() const;
 };
 class GlobalData
@@ -328,8 +338,11 @@ public:
 	void aiIdle(CommandSourceType cmdSource) { m_command.aiIdle(cmdSource); }
 	unsigned char m_pad024[0x140 - 0x24];
 	Rva003638BA *m_140; // +0x140
-	unsigned char m_pad144[0x1F0 - 0x144];
+	unsigned char m_pad144[0x1CC - 0x144];
+	unsigned char m_1CC[0x1F0 - 0x1CC]; // +0x1CC (the LocomotorSet slot 4 hands the pathfinder)
 	Rva00468C37Holder *m_1F0; // +0x1F0
+	const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)m_1CC; }
+	void rva0026594F(const Coord3D *a1, const Coord3D *a2, int a3, int layer, const Coord3D *a5, const Coord3D *a6);
 	unsigned char m_pad1F4[0x1FC - 0x1F4];
 	int m_1FC; // +0x1FC
 };
@@ -358,7 +371,9 @@ public:
 	}
 	unsigned char m_pad000[0x64];
 	AsciiString m_64; // +0x64 (template name)
-	unsigned char m_pad068[0x114 - 0x68];
+	unsigned char m_pad068[0x109 - 0x68];
+	unsigned char m_109; // +0x109 (bit 1 keeps slot 4 from re-commanding members)
+	unsigned char m_pad10A[0x114 - 0x10A];
 	unsigned int m_kindOf[4]; // +0x114
 	unsigned char m_pad124[0x2E4 - 0x124];
 	ModuleInfo m_moduleInfo; // +0x2E4
@@ -475,6 +490,7 @@ public:
 	void rva001E42F2(const int *value);
 	void rva0028B95F();
 	unsigned char rva00290FBB() const;
+	int rva0028B511() const;
 	void rva0028AE6D();
 	void setTransformMatrix(const Matrix3D *mtx);
 	float GetRelativeAngle(const Coord3D *pos) const;
@@ -695,7 +711,7 @@ class Rva0046BB38Iface6 : public Rva0046BB38Slots<0>
 {
 public:
 	virtual void rva00472329(const Coord3D *pos, int unused) = 0;
-	virtual void gap1() = 0; virtual void rva00472235() = 0; virtual void rva0046E253() = 0; virtual void rva00472790(int a1) = 0; virtual void gap5() = 0;
+	virtual void gap1() = 0; virtual void rva00472235() = 0; virtual void rva0046E253() = 0; virtual void rva00472790(bool reposition) = 0; virtual void gap5() = 0;
 	virtual bool rva0046BB38(Object *other) = 0;
 	virtual Coord3D slot7(Object *obj, float *angle) = 0;
 	virtual void rva0046F7C9(Object *obj) = 0;
@@ -764,6 +780,7 @@ public:
 	virtual bool rva00470B21() = 0;
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
+	Object *getObject() const { return m_object; }
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 };
@@ -967,6 +984,8 @@ public:
 	virtual float rva0046B850();
 	virtual void rva0046D1F7(_STL::list<const Object *> &out);
 	virtual void rva0046E253();
+	virtual void rva00472790(bool reposition);
+	void rva0046AA85();
 	virtual bool rva0046CDC9();
 	virtual bool rva0046CCEF(const ThingTemplate *tmpl);
 	virtual bool slot38(Object *obj, int a2, int a3);
@@ -2528,6 +2547,110 @@ void HordeContain::rva0046E253()
 	rva0046D1F7(objects);
 	for (_STL::list<const Object *>::iterator it = objects.begin(); it != objects.end(); ++it)
 		const_cast<Object *>(*it)->rva0028B95F();
+}
+
+// ?rva00472790@HordeContain@@UAEX_N@Z @0x00472790: slot 4. Unless our Object
+// lacks an AI, gathers back up to 100 of the +0x170 Objects (an ID with no live
+// Object is erased through the STLport set<int> erase at 0x0046EDEF), each
+// through primary slot 38; with our
+// Object at status 2 and template +0x109 bit 1 clear, a gathered member with an
+// AI farther than 10 from us gets the rowed 0x0045003E command and the
+// unnamed AI member 0x0026594F. Any gathered member whose 0x0028B511 is not 1
+// (or ours, on entry) clears the flag. After a gather: primary slot 37 until
+// it answers false, performReform and 0x0046AA85; with the flag still set, slot
+// 51, then a pathfinder-adjusted position between 10 and 150 away is applied.
+// +0x120 and +0x121 record whether anything was gathered.
+void HordeContain::rva00472790(bool reposition)
+{
+	if (getObject()->rva0028B511() != 1 && reposition)
+		reposition = false;
+	Object *me = getObject();
+	if (!me->m_ai)
+		return;
+	int tries = 100;
+	bool gathered = false;
+	while (m_170.size() != 0)
+	{
+		int id = *m_170.begin();
+		if (--tries < 0)
+			break;
+		Object *obj = TheGameLogic->findObjectByID((ObjectID)id);
+		if (!obj)
+		{
+			m_170.erase(id);
+			continue;
+		}
+		if (!obj->rva00290FBB())
+			continue;
+		m_194.size();
+		gatherUnitBack(obj);
+		if (me->testStatus((ObjectStatusTypes)2) && !(me->m_template->m_109 & 2))
+		{
+			AIUpdateInterface *ai = obj->m_ai;
+			if (ai)
+			{
+				ai->m_command.rva0045003E(0, CMD_FROM_AI);
+				Coord3D mine;
+				mine.x = me->getPosition()->x;
+				mine.y = me->getPosition()->y;
+				mine.z = me->getPosition()->z;
+				Coord3D theirs;
+				theirs.x = obj->getPosition()->x;
+				theirs.y = obj->getPosition()->y;
+				theirs.z = obj->getPosition()->z;
+				Rva0055A627Difference diff;
+				diff.x = mine.x;
+				diff.y = mine.y;
+				diff.z = mine.z;
+				diff.x -= theirs.x;
+				diff.y -= theirs.y;
+				diff.z -= theirs.z;
+				if (diff.length() > 10.0f)
+					ai->rva0026594F(&theirs, &theirs, 0x7fffffff, obj->rva0028B511(), &mine, &mine);
+			}
+		}
+		{
+			int layer = obj->rva0028B511();
+			if (layer != 1)
+				reposition = false;
+		}
+		gathered = true;
+	}
+	if (gathered)
+	{
+		while (rva00470B21())
+			;
+		performReform();
+		rva0046AA85();
+		if (reposition)
+		{
+			rva0046BD70();
+			Object *obj = getObject();
+			Coord3D pos;
+			pos.x = obj->getPosition()->x;
+			pos.y = obj->getPosition()->y;
+			pos.z = obj->getPosition()->z;
+			AIUpdateInterface *ai = obj->m_ai;
+			if (!ai)
+				return;
+			TheAI->m_pathfinder->adjustDestination(obj, ai->getLocomotorSet(), &pos, 0);
+			float dist;
+			{
+				Rva0055A627Difference diff;
+				diff.x = obj->getPosition()->x;
+				diff.y = obj->getPosition()->y;
+				diff.z = obj->getPosition()->z;
+				diff.x -= pos.x;
+				diff.y -= pos.y;
+				diff.z -= pos.z;
+				dist = diff.length();
+			}
+			if (dist > 10.0f && 150.0f > dist)
+				((Thing *)obj)->setPosition(&pos);
+		}
+	}
+	m_120 = gathered;
+	m_121 = gathered;
 }
 
 // ?rva0046CDC9@HordeContain@@UAE_NXZ @0x0046CDC9: slot 23; with at least one

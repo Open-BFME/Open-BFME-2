@@ -16164,3 +16164,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?getMinMaxAndCenter@AIGroup@@QAE_NPAVCoord2D@@0PAUCoord3D@@@Z,0x0036D14F,callee of ?computeGroundPath@AIGroup@@QAE_NPBUCoord3D@@W4CommandSourceType@@@Z
 ?FindGroundPath@Pathfinder@@QAEPAVPath@@PAVObject@@PBUCoord3D@@1H@Z,0x002F95F6,callee of ?computeGroundPath@AIGroup@@QAE_NPBUCoord3D@@W4CommandSourceType@@@Z
 ?rva002D9893@BfmeAudioEventPrefix136@@QAEXABU1@@Z,0x002D9893,"Native136-byte view alias of rowed copy worker ?rva002D9893@Rva002D9893@@QAEXABV1@@Z (336B, ret4, skips the vptr); copy ctor2D99E3 calls it at 0x002D9A1B"
+?rva0026594F@AIUpdateInterface@@QAEXPBUCoord3D@@0HH00@Z,0x0026594F,REL32 read at 0x00472905 in HordeContain slot 4 (0x00472790); ret 0x18 six-argument AI member; address-named
+?rva0046AA85@HordeContain@@QAEXXZ,0x0046AA85,REL32 read at 0x0047294F in HordeContain slot 4 (0x00472790); HordeContain this (lea ecx [esi-0x11C]) no arguments; address-named
+?erase@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAEIABH@Z,0x0046EDEF,REL32 read at 0x0047280B in HordeContain slot 4 (0x00472790) erasing an ID from the +0x170 set<int> (m_170.erase(id)); the same 73-byte erase(const key &) body gatherUnitBack 0x004725D5 calls on that tree; row there is the address-named Rva002EE9B7 placeholder
