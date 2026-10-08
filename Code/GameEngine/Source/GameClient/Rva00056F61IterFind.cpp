@@ -20,10 +20,14 @@ class Rva00056F61
 {
 public:
 	void *rva00056F61(const AsciiString *key);
-	Rva0041534BIter rva0041534B(const AsciiString *key);
+	// The 0x56F61 lookup only hashes and compares existing bytes: its callees
+	// are 0x55041 -> 0x2BA61 and 0x69D6 -> 0x6733 -> memcmp. No allocation,
+	// callbacks, or C++ throws occur. This exception contract also lets callers
+	// reuse the iterator return buffer for their later conditional pair.
+	__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *key);
 };
 
-Rva0041534BIter Rva00056F61::rva0041534B(const AsciiString *key)
+__declspec(nothrow) Rva0041534BIter Rva00056F61::rva0041534B(const AsciiString *key)
 {
 	return Rva0041534BIter(rva00056F61(key), this);
 }
