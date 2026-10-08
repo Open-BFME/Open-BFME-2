@@ -98,7 +98,13 @@ class Rva0059AC4D
 {
 public:
 	void rva0059AC4D(void *object);
-	void rva0059ABC9(void *object);
+	__declspec(noinline) void rva0059ABC9(void *object);
+	class Team *rva00599F74(class TeamPrototype *);
+	void rva0059A499(class Team *, int *, class TeamPrototype *);
+	void rva0059A8D7(class Team *, int *);
+private:
+	char prefix00[0x14];
+	class Player *owner14;
 };
 
 void Rva0059AC4D::rva0059AC4D(void *object)
@@ -270,4 +276,78 @@ void Rva0059AED2::rva0059AED2()
 	m_value10 = m_value0C;
 	m_value14 = ((Rva0059AEBC *)this)->rva0059AEBC();
 	m_flag18 = 0;
+}
+
+// Native 59ABC9..59AC4D (132B), RET4. WB15294A0 names the same sequence
+// AITeamBuilder::defineUnitsNormal, but the existing caller's address-derived
+// owner and ABI are retained. Native proves owner14, Team flags110/111 and
+// prototype subobject12C. The two recruitment callees and prototype lookup
+// retain address names; WB corroborates their roles and argument order.
+class Team
+{
+public:
+    char prefix00[0x110];
+    bool flag110;
+    bool flag111;
+};
+class TeamPrototype;
+class TeamFactory
+{
+public:
+    Team *createTeamOnPrototype(TeamPrototype *, bool);
+};
+class AITeamBuilder
+{
+public:
+    int getCurNumUnits(Team *);
+};
+class Rva0039D5A9
+{
+public:
+    int rva0039D5A9();
+};
+class Rva002A8F24
+{
+public:
+    void *rva002A8F24(Player *);
+};
+// ABI-only view of the existing rowed cardinality helper at 2BEDAB. Its
+// target body subtracts the range words at +4/+8 and divides by four;
+// no actual hash-table identity is assigned to the statistics pointee.
+namespace _STL {
+template <class T> struct hash;
+template <class T> struct equal_to;
+template <class T> class allocator;
+template <class A, class B> struct pair;
+template <class K, class T, class H, class E, class A> class hash_map
+{
+public:
+    unsigned int bucket_count() const;
+};
+}
+typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>,
+    _STL::allocator<_STL::pair<const int, int> > > Rva002BEDABRangeView;
+extern TeamFactory *TheTeamFactory;
+extern Rva002A8F24 *g_00DFEEF8;
+
+void Rva0059AC4D::rva0059ABC9(void *object)
+{
+    TeamPrototype *prototype = static_cast<TeamPrototype *>(object);
+    Team *team = rva00599F74(prototype);
+    if (!team) {
+        team = TheTeamFactory->createTeamOnPrototype(prototype, false);
+        team->flag110 = true;
+        team->flag111 = true;
+    }
+    void *stats = g_00DFEEF8->rva002A8F24(owner14);
+    Rva002BEDABRangeView *range = *static_cast<Rva002BEDABRangeView **>(stats);
+    if (range->bucket_count() > 0) {
+        int count = reinterpret_cast<AITeamBuilder *>(this)->getCurNumUnits(team);
+        Rva0039D5A9 *requirements = reinterpret_cast<Rva0039D5A9 *>(
+            static_cast<char *>(object) + 0x12c);
+        if (requirements->rva0039D5A9() > 0)
+            rva0059A499(team, &count, prototype);
+        else
+            rva0059A8D7(team, &count);
+    }
 }
