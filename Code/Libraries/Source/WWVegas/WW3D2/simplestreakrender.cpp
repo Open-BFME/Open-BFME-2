@@ -25,6 +25,12 @@ struct Rva0007BB16Record
 	BfmeAssignRecord36 m_record;
 };
 
+// Use the already matched destructor provider instead of emitting a second
+// COMDAT under this unit's size-optimization settings.
+namespace _STL {
+template <> vector<Rva0007BB16Record>::~vector();
+}
+
 struct Rva00082EB8Rec;
 class Rva00082EB8 : public _STL::vector<Rva0007BB16Record>
 {
