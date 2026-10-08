@@ -1,9 +1,10 @@
 // cl: /O1 /MD /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii
 //
-// Opaque derived destructors that tail-call the verified SubsystemInterface
-// destructor at 0x001B4E74. Its vtable and name member at +0x08 establish
-// the base identity; derived owner names remain unknown. Use the existing
-// native header, including its full base layout and virtual interface.
+// Opaque derived constructors and destructors. The destructors tail-call the
+// verified SubsystemInterface destructor at 0x001B4E74. Its vtable and name
+// member at +0x08 establish the base identity; derived owner names remain
+// unknown. Use the existing native header, including its full base layout and
+// virtual interface.
 
 typedef bool Bool;
 #include "subsystem_interface.h"
@@ -21,8 +22,13 @@ Rva00221027::~Rva00221027()
 class Rva00225ACA : public SubsystemInterface
 {
 public:
+	Rva00225ACA();
 	virtual ~Rva00225ACA();
 };
+
+Rva00225ACA::Rva00225ACA()
+{
+}
 
 Rva00225ACA::~Rva00225ACA()
 {
@@ -31,8 +37,13 @@ Rva00225ACA::~Rva00225ACA()
 class Rva0025DB46 : public SubsystemInterface
 {
 public:
+	Rva0025DB46();
 	virtual ~Rva0025DB46();
 };
+
+Rva0025DB46::Rva0025DB46()
+{
+}
 
 Rva0025DB46::~Rva0025DB46()
 {
@@ -91,8 +102,13 @@ Rva003E3BD4::~Rva003E3BD4()
 class Rva00419CD4 : public SubsystemInterface
 {
 public:
+	Rva00419CD4();
 	virtual ~Rva00419CD4();
 };
+
+Rva00419CD4::Rva00419CD4()
+{
+}
 
 Rva00419CD4::~Rva00419CD4()
 {
