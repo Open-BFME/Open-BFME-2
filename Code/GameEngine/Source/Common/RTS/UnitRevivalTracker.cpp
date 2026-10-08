@@ -36,6 +36,7 @@ class ThingTemplate
 {
 public:
 	Int rva0033AA1F(const Player *player, Int a, Int b) const;
+	int rva0033B479() const;
 	Int rva0033A69A(const Player *player, Int a, Int b) const;	// 0x0033A69A, build cost
 };
 
@@ -167,4 +168,34 @@ Int UnitRevivalEntry::revivalEntryCalcCostToBuild(const Player *player, Object *
 	if (tmpl)
 		return (Int)(tmpl->rva0033A69A(player, 0, m_94) * factor);
 	return 0;
+}
+
+// stlport
+#include <vector>
+struct Rva002E2D10Record {
+    Rva002E2D10Record(const ThingTemplate *);
+    ~Rva002E2D10Record();
+    unsigned char pad00[0x0C];
+    int rank;
+    unsigned char pad10[0xD8-0x10];
+};
+namespace _STL {
+    template<> void vector<Rva002E2D10Record>::push_back(const Rva002E2D10Record &);
+}
+class Rva0037F32F {
+public:
+    void rva0037F32F(const ThingTemplate *, Player *);
+private:
+    unsigned char pad00[4];
+    _STL::vector<Rva002E2D10Record> entries;
+};
+// WB 0x00F5FC20 names addInitialBuildUnit; native 0x0037F32F..0x0037F38F
+// independently establishes a complete 96-byte EH body (ret 8). It constructs
+// the existing 0xD8 record from the template, puts template rank at +0x0C,
+// and appends it to the tracker vector at +4. Retain the established caller
+// symbol and pointer ABI; the WB ownership assertion is absent in retail.
+void Rva0037F32F::rva0037F32F(const ThingTemplate *thingTemplate, Player *player) {
+    Rva002E2D10Record entry(thingTemplate);
+    entry.rank = thingTemplate->rva0033B479();
+    entries.push_back(entry);
 }
