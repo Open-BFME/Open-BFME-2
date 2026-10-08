@@ -12,6 +12,8 @@ enum ObjectID
 class Object;
 class Drawable;
 class Rva00439E0C;
+class AsciiString;
+class CommandButton;
 
 struct ObjectIdNode
 {
@@ -75,6 +77,7 @@ public:
 	void deleteLoadScreen();	// 0x002423E3
 	void processDestroyList();	// 0x002413DF
 	void prepareLogicForObjectLoad();	// 0x00242C86
+	void setControlBarOverride(const AsciiString &commandSetName, int slot, const CommandButton *commandButton);	// 0x0024792F
 	bool getFlag125() const { return m_flag125; }
 	unsigned int getTimestamp() const { return m_timestamp; }
 	unsigned int getFrame() const { return m_frame; }
