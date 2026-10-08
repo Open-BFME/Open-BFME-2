@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // BuildAssistant.cpp -- BuildAssistant members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names the function;
@@ -857,6 +857,100 @@ public:
 /** Update phase for the build assistant.  BFME2 sells at once: the refund, scaled by the
   * body's fraction, floats up from the structure as cash text, and the structure is killed
   * and scored instead of being destroyed */
+//-------------------------------------------------------------------------------------------------
+void BuildAssistant::update( void )
+{
+	ObjectSellInfo *sellInfo;
+	Object *obj;
+
+	// remove any objects from the sell list
+	ObjectSellListIterator it, thisIterator;
+	for( it = m_sellList.begin(); it != m_sellList.end(); /*empty*/ )
+	{
+
+		// get this object info
+		sellInfo = (*it);
+
+		// increment the iterator to the next as we may remove it
+		thisIterator = it;
+		++it;
+
+		// find the object
+		obj = TheGameLogic->findObjectByID( sellInfo->m_id );
+		if( obj == NULL )
+		{
+
+			sellInfo->deleteInstance();
+			m_sellList.erase( thisIterator );
+			continue;
+
+		}  // end if
+
+		// refund the money to the controlling player
+		Player *player = obj->getControllingPlayer();
+		if( player )
+		{
+			UnsignedInt sellValue;
+			if( obj->getTemplate()->getRefundValue() != 0 )
+				sellValue = obj->getTemplate()->getRefundValue();
+			else
+				sellValue = (UnsignedInt)( obj->getBuildCost() * TheWritableGlobalData->m_sellPercentage );
+
+			Real fraction = 1.0f;
+			BodyModuleInterface *body = obj->getBodyModule();
+			if( body )
+				fraction = body->slot05();
+			sellValue = (UnsignedInt)( sellValue * fraction );
+
+			player->getMoney()->rva003B0D7C( sellValue, NULL, TRUE );
+
+			UnicodeString moneyString;
+			moneyString.format( TheGameText->fetch( "GUI:AddCash", NULL ), sellValue );
+			Coord3D pos;
+			pos.x = obj->getPosition()->x;
+			pos.y = obj->getPosition()->y;
+			pos.z = obj->getPosition()->z;
+			pos.z += obj->getGeometryInfo().getMaxHeightAbovePosition();
+
+			Color color = obj->getControllingPlayer()->getPlayerColor() | GameMakeColor( 0, 0, 0, 230 );
+			TheInGameUI->addFloatingText( moneyString, &pos, color );
+
+		}  // end if
+
+		// cancel any of the production items and refund to the controlling player
+		ProductionUpdateInterface *pui = (ProductionUpdateInterface *)obj->rva0028BC58( 0 );
+		if( pui )
+			pui->cancelAndRefundAllProduction();
+
+		// a damaged structure credits whoever last hurt it with the kill
+		Bool scored = FALSE;
+		if( obj->isKindOf( KINDOF_STRUCTURE ) && obj->getBodyModule()->getDamageState() > BODY_DAMAGED )
+		{
+			ObjectID killerID = INVALID_OBJECT_ID;
+			if( obj->rva0028C264( (Int *)&killerID, 4 ) )
+			{
+				Object *killer = TheGameLogic->findObjectByID( killerID );
+				if( killer )
+				{
+					reinterpret_cast< Rva00294D61 * >( killer )->report( obj, 1 );
+					scored = TRUE;
+				}
+			}
+		}
+		if( !scored )
+			obj->getControllingPlayer()->getScoreKeeper()->addObjectLost( obj );
+
+		// destroy the object
+		obj->kill( DAMAGE_UNRESISTABLE, DEATH_8 );
+
+		// remove this object from the sell list
+		sellInfo->deleteInstance();
+		m_sellList.erase( thisIterator );
+
+	}  // end for
+
+}  // end update
+
 // ------------------------------------------------------------------------------------------------
 struct ProductionCountData
 {
