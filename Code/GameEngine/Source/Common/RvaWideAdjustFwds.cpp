@@ -94,6 +94,7 @@ class GameLogic
 public:
 	void __fastcall rva0023CFFC(int unused, Rva0040E6D6Arg *arg);
 	const AsciiString *rva0023D05F(int value);
+ const AsciiString *rva0023D06A(int value);
 	int rva0023D075(int value);
 	int rva0023D080(int value);
 	int rva0023D08B(int value);
@@ -171,4 +172,10 @@ void Rva004EC072Owner::fwd(void *arg)
 //than retaining a second alias at the same address.
 const AsciiString *GameLogic::rva0023D05F(int value) {
  return ((ArmySummarySystem*)((char*)this+0x184))->GetArmyNameByID(value);
+}
+
+// WB D0B980 calls named ArmySummarySystem::GetArmyBannerByID. Retail
+//23D06A..23D075 uses the same GameLogic+184 member and26B provider40D366.
+const AsciiString *GameLogic::rva0023D06A(int value) {
+ return ((ArmySummarySystem*)((char*)this+0x184))->GetArmyBannerByID(value);
 }
