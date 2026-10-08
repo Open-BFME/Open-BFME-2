@@ -31,4 +31,17 @@ void *__cdecl operator new(unsigned int size, void *place);
 
 #include <vector>
 
+namespace _STL
+{
+template <> inline vector<void *, allocator<void *> >::iterator
+vector<void *, allocator<void *> >::insert(iterator position)
+{
+    // The retail wrapper retains one more word than the header's discarded
+    // inline expansion. This slot models that frame, not an original variable.
+    pointer compilerStackSlot;
+    value_type value = value_type();
+    return insert(position, value);
+}
+}
+
 template class _STL::vector<void *, _STL::allocator<void *> >;
