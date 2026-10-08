@@ -40,6 +40,7 @@ EXTERN ??1Rva0024A797@@UAE@XZ:PROC
 EXTERN ??1Rva005248D0@@UAE@XZ:PROC
 EXTERN ??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ:PROC
 EXTERN ??1Gen_uw_0049b47c@@QAE@XZ:PROC
+EXTERN ?apply@Rva004EDFF8DwordImmSetter@@QAEXXZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b7c75e at RVA 0x0077C75E; 22-byte body ends at RET.
@@ -1026,6 +1027,18 @@ cleanup_done_00785e8a:
     ret
 ?rva00785e8a@@YAXXZ ENDP
 
+; Unwind@00b860ce: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva007860ce@@YAXXZ
+?rva007860ce@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva007860ce@@YAXXZ ENDP
+
 ; Unwind@00b862be at RVA 0x007862BE; 25-byte state-bit cleanup ends at RET.
 ; Target clears bit 0 at [ebp-20] and tail-jumps through [ebp+8] to AsciiString dtor.
 PUBLIC ?rva007862be@@YAXXZ
@@ -1039,6 +1052,18 @@ PUBLIC ?rva007862be@@YAXXZ
 cleanup_done_007862be:
     ret
 ?rva007862be@@YAXXZ ENDP
+
+; Unwind@00b86a1b: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva00786a1b@@YAXXZ
+?rva00786a1b@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva00786a1b@@YAXXZ ENDP
 
 ; Unwind@00b86c20 at RVA 0x00786C20; 25-byte state-bit cleanup ends at RET.
 ; Target clears bit 1 at [ebp-16] and tail-jumps with [ebp-28] to the rowed folded destructor at 0x0007FAB3.
@@ -1067,6 +1092,30 @@ PUBLIC ?rva00786c39@@YAXXZ
 cleanup_done_00786c39:
     ret
 ?rva00786c39@@YAXXZ ENDP
+
+; Unwind@00b86f3c: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva00786f3c@@YAXXZ
+?rva00786f3c@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva00786f3c@@YAXXZ ENDP
+
+; Unwind@00b872bb: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva007872bb@@YAXXZ
+?rva007872bb@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva007872bb@@YAXXZ ENDP
 
 ; Unwind@00b87397 at RVA 0x00787397; 25-byte state-bit cleanup ends at RET.
 ; Target clears bit 0 at [ebp-16] and tail-jumps with [ebp-20] to AsciiString dtor.
@@ -2447,6 +2496,18 @@ PUBLIC ?rva00792364@@YAXXZ
 cleanup_done_00792364:
     ret
 ?rva00792364@@YAXXZ ENDP
+
+; Unwind@00b92aa2: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x004EDFF8.
+PUBLIC ?rva00792aa2@@YAXXZ
+?rva00792aa2@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva004EDFF8DwordImmSetter@@QAEXXZ
+?rva00792aa2@@YAXXZ ENDP
 
 ; Unwind@00b92eb6 at RVA 0x00792EB6; target byte boundary is 25 bytes.
 ; State bit 0 gates [ebp+8] cleanup through RVA 0x005B804E; parent
