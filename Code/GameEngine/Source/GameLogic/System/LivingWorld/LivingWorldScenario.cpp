@@ -12,6 +12,7 @@
 // enabled for this predicate's temporary-vector destruction on every return.
 #include "../../../../../../reference/shims/bfme_stlport_unsigned_max_link/unsigned_max.h"
 #include <vector>
+#include <map>
 #include "ascii_string.h"
 
 class Rva002E1001 { public: int rva002E1001(); };
@@ -50,6 +51,7 @@ public:
     bool hasTeamAchievedVictory(int team);
     void QueryRegionsAndNumbers(int team, _STL::vector<const LivingWorldRegion *> *out, int *maxOut);
 private:
+    friend class LivingWorldScenario::Scenario;
     _STL::vector<int> teams;
     int requiredRegionCount;
     _STL::vector<AsciiString> regionNames;
@@ -191,9 +193,16 @@ bool LivingWorldScenario::TeamDefeatCondition::isTeamDefeated(int team)
 class LivingWorldScenario::Scenario {
 public:
     void getDefaultStartSpots(const AsciiString &campaignName, _STL::vector<Rva004FD8B8RegionID> &out);
+    void addTeamVictoryCondition(const TeamVictoryCondition *condition);
 private:
     char pad[0x44];
     _STL::vector<AsciiString> defaultStartRegions;
+    _STL::multimap<int, int> playerDefeatMap;
+    _STL::multimap<int, int> teamDefeatMap;
+    _STL::multimap<int, int> teamVictoryMap;
+    _STL::vector<void *> playerDefeats;
+    _STL::vector<void *> teamDefeats;
+    _STL::vector<const TeamVictoryCondition *> teamVictories;
 };
 // Native 4FD8B8..4FD94E, 150 bytes, RET8. WB assertions at lines825..836
 // name regionCampaign, default-start names and allowsStartInRegion; native
@@ -216,4 +225,16 @@ void LivingWorldScenario::Scenario::getDefaultStartSpots(const AsciiString &camp
         Rva004FD8B8RegionID id = (Rva004FD8B8RegionID)*(int *)((char *)region + 0x12c);
         out.push_back(id);
     }
+}
+
+void LivingWorldScenario::Scenario::addTeamVictoryCondition(const TeamVictoryCondition *condition)
+{
+    if (!condition)
+        return;
+    const _STL::vector<int> &teams = condition->teams;
+    for (unsigned int i = 0; i < teams.size(); ++i) {
+        int team = teams[i];
+        teamVictoryMap.insert(_STL::multimap<int, int>::value_type(team, (int)condition));
+    }
+    teamVictories.push_back(condition);
 }

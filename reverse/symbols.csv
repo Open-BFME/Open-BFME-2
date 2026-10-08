@@ -13963,7 +13963,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?DoAnyMapTransfers@@YA_NPAVGameInfo@@@Z,0x0044D06D,"ZH FileTransfer.cpp DoAnyMapTransfers: cdecl on the game called by LANAPI::OnGameStart (0x002495CC) before MapCache::updateCache; body walks the slots (getConstSlot/isHuman) and transfers GetPreviewFromMap/GetINIFromMap of getMap() as ZH does; BFME 1 donor LANAPIOnGameStart.cpp names it"
 ?ParseGameOptionsString@@YA_NPAVLANGameInfo@@VAsciiString@@PBXH@Z,0x00449258,"ZH LANGameInfo.cpp ParseGameOptionsString with BFME 2's (data, length) pair: saves each human slot's two names in map<Int,UnicodeString>s, parses through 0x00448423 (game, data, length) when both are set else ParseAsciiStringToGameInfo-shaped 0x0040116B (game, options, 1), then TheLAN AmIHost (+0xD8) / RequestHasMap (+0x50) and restores the names; called by LANAPI slot 46 (0x0024924D)"
 ?rva0007EDBC@Rva0007EDBC@@QAEXH@Z,0x0007EDBC,callee of ?rva00081E36@Rva00081E36@@QAEXPAXH@Z
-?rva004FD013@Rva004FCE73@@QAEXHPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAH@Z,0x004FD013,callee of ?rva004FD571@Rva004FD448@@QBEXHPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAH@Z
 ??1Rva00500D30@@QAE@XZ,0x00500D30,callee of ??1Rva0050292B@@QAE@XZ
 ??0Rva00527378Payload@@QAE@PAXHABVAsciiString@@00@Z,0x00527378,called by 0x00527767 with ECX=0x1E0 allocation and owner then level/name/+0xC0/+0xF8 arguments; Ghidra boundary 1007; address-derived payload constructor; layout and semantics unknown
 ?rva00295F05@Object@@QAEX_N@Z,0x00295F05,"callee of matched ?rva00583794@Rva00583794@@QAEXPAVObject@@@Z and GameLogicDestroyAllObjectsImmediate; body reads a Bool parameter and is address-derived until identity is proven"
@@ -15701,7 +15700,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?ChangeCellToObjectFlammability@FireLogicSystem@@QAEXHHPBVThingTemplate@@@Z,0x00285F43,callee of ?rva00286373@FireLogicSystem@@QAEXHPBUCoord3D@@PBVThingTemplate@@@Z
 ?rva002ED236@Pathfinder@@QAE?AW4PathfindLayerEnum@@PAVObject@@URva002ED236Pos@@@Z,0x002ED236,callee of ?getLayerForDestination@TerrainLogic@@QAE?AW4PathfindLayerEnum@@PAVObject@@PBUCoord3D@@@Z
 ?rva00359E93@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z,0x00359E93,callee of ?rva0035A238@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z
-?rva004FCEB5@Rva004FCE73@@QAE_NH@Z,0x004FCEB5,callee of ?rva004FD656@Rva004FD448@@QBE_NH@Z
 ?rva00404C26@Rva00404C26@@QAEPAVRva00404927@@H@Z,0x00404C26,callee of ?rva00404CF5@Rva00404781@@QAEH_N@Z
 ?rva005EA441@Rva005EAEAF@@QAEXXZ,0x005EA441,callee of ?rva005EAEAF@Rva005EAEAF@@QAEXHH@Z
 ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
@@ -17036,3 +17034,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?push_back@?$vector@VRva0037F8AC@@V?$allocator@VRva0037F8AC@@@_STL@@@_STL@@QAEXABVRva0037F8AC@@@Z,0x0037FFDD,Native380014 typed pair storage; fold-proof=Code/GameEngine/Source/GameLogic/System/ArmyPlacerPairStorage.cpp
 ?erase@?$vector@W4Rva004FD8B8RegionID@@V?$allocator@W4Rva004FD8B8RegionID@@@_STL@@@_STL@@QAEPAW4Rva004FD8B8RegionID@@PAW43@0@Z,0x00532803,Default-start region ID four-byte ABI view; original enum spelling unknown; fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
 ?push_back@?$vector@W4Rva004FD8B8RegionID@@V?$allocator@W4Rva004FD8B8RegionID@@@_STL@@@_STL@@QAEXABW4Rva004FD8B8RegionID@@@Z,0x002E01C6,Default-start region ID four-byte ABI view; original enum spelling unknown; fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
+?push_back@?$vector@PBVTeamVictoryCondition@LivingWorldScenario@@V?$allocator@PBVTeamVictoryCondition@LivingWorldScenario@@@_STL@@@_STL@@QAEXABQBVTeamVictoryCondition@LivingWorldScenario@@@Z,0x004DFCB0,Native Scenario team-victory pointer insertion; fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp

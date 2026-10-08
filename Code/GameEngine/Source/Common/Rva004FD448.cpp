@@ -38,11 +38,13 @@ class ModuleData;
 // This name is already present in the ledger as an address-derived partial
 // row. 0x004FD571's REL32 call proves the target RVA used below; the helper's
 // owner and semantics remain unresolved.
-class Rva004FCE73
+class LivingWorldRegion;
+class LivingWorldScenario { public: class TeamVictoryCondition; };
+class LivingWorldScenario::TeamVictoryCondition
 {
 public:
-	void rva004FD013(int key, _STL::vector<const ModuleData *> *records, int *out);
-	bool rva004FCEB5(int key);
+    void QueryRegionsAndNumbers(int key, _STL::vector<const LivingWorldRegion *> *records, int *out);
+    bool hasTeamAchievedVictory(int key);
 };
 
 struct Rva004FCD49Vec {
@@ -53,7 +55,6 @@ struct Rva004FCD49Vec {
 
 class Rva004FD448 {
 public:
-    void rva004FD448(const ModuleData *p);
     void rva004FD571(int key, _STL::vector<const ModuleData *> *records, int *out) const;
     bool rva004FD656(int key) const;
 private:
@@ -62,18 +63,6 @@ private:
     char m_pad1[0x8c - 0x68 - sizeof(_STL::multimap<int, int>)];
     _STL::vector<const ModuleData *> m_vec;
 };
-
-void Rva004FD448::rva004FD448(const ModuleData *p)
-{
-    if (!p)
-        return;
-    const _STL::vector<int> &vec = ((const Rva004FCD49Vec *)p)->m_vec;
-    for (unsigned int i = 0; i < vec.size(); ++i) {
-        int v = vec[i];
-        m_map.insert(_STL::multimap<int, int>::value_type(v, (int)p));
-    }
-    m_vec.push_back(p);
-}
 
 // 0x004FD571 86B.
 // Shares the +0x68 multimap field with the matched 0x004FD448 body. The target
@@ -90,8 +79,8 @@ void Rva004FD448::rva004FD571(int key, _STL::vector<const ModuleData *> *records
     _STL::pair<_STL::multimap<int, int>::const_iterator,
         _STL::multimap<int, int>::const_iterator> range = m_map.equal_range(key);
     for (_STL::multimap<int, int>::const_iterator it = range.first; it != range.second; ++it) {
-        Rva004FCE73 *candidate = (Rva004FCE73 *)(*it).second;
-        candidate->rva004FD013(key, records, out);
+        LivingWorldScenario::TeamVictoryCondition *candidate = (LivingWorldScenario::TeamVictoryCondition *)(*it).second;
+        candidate->QueryRegionsAndNumbers(key, reinterpret_cast<_STL::vector<const LivingWorldRegion *> *>(records), out);
     }
 }
 
@@ -104,8 +93,8 @@ bool Rva004FD448::rva004FD656(int key) const
         _STL::multimap<int, int>::const_iterator> range = m_map.equal_range(key);
     for (_STL::multimap<int, int>::const_iterator it = range.first; it != range.second; ++it)
     {
-        Rva004FCE73 *candidate = (Rva004FCE73 *)(*it).second;
-        if (candidate->rva004FCEB5(key))
+        LivingWorldScenario::TeamVictoryCondition *candidate = (LivingWorldScenario::TeamVictoryCondition *)(*it).second;
+        if (candidate->hasTeamAchievedVictory(key))
             return true;
     }
     return false;

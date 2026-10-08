@@ -98,10 +98,13 @@ private:
 	char m_pad[0x20];
 };
 
-class Rva004FD448
+// Preserve the parser's existing address-derived holder ABI spelling.
+class Rva004FD448;
+class LivingWorldScenario { public: class TeamVictoryCondition; class Scenario; };
+class LivingWorldScenario::Scenario
 {
 public:
-	void rva004FD448(const ModuleData *p);
+    void addTeamVictoryCondition(const TeamVictoryCondition *condition);
 };
 
 extern const FieldParse g_00C636D0;
@@ -114,7 +117,7 @@ void Rva004FD7FBParse(INI *ini, Rva004FD448 *holder)
 	}
 	Rva004FD7FBData *p = new Rva004FD7FBData;
 	ini->initFromINI(p, &g_00C636D0);
-	holder->rva004FD448((const ModuleData *)p);
+	reinterpret_cast<LivingWorldScenario::Scenario *>(holder)->addTeamVictoryCondition(reinterpret_cast<const LivingWorldScenario::TeamVictoryCondition *>(p));
 }
 
 // 0x0059E436 SpawnGenericBuilding::ParseINI, record size 0x14.
