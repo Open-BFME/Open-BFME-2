@@ -73,6 +73,7 @@ public:
     Rva005FAF5D(int, int, Rva005FA89CC *);
     virtual ~Rva005FAF5D();
     void rva005FAF9F();
+    void rva005FA8C5(bool);
 private:
     Rva005FAF9FOwner *m_owner28;
 };

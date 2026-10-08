@@ -24,3 +24,11 @@ void Rva005FAF5D::rva005FAF9F()
     ((Rva005FED59 *)this)->rva005FED59();
     m_owner28->rva005FADEF((Rva005FED59 *)this);
 }
+
+// Native005FA8C5..005FA8CD: the constructor ends at this entry,
+// followed by the20-byte roll-over callback. The proven panel clip at+08
+// forwards its Boolean selection argument to the matched005FF4CD wrapper.
+void Rva005FAF5D::rva005FA8C5(bool flag)
+{
+    setClipSelected(flag);
+}
