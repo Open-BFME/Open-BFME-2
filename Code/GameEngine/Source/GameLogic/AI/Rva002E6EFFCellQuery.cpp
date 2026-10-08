@@ -31,6 +31,7 @@ class Rva002E6EFFGrid
 {
 public:
     bool rva002E6EFF(const Rva002E6EFFPosition *position, unsigned int unused);
+    unsigned int rva00285860(const Rva002E6EFFPosition *position);
 private:
     unsigned char prefix70[0x70];
     Rva002E6EFFCell **columns;
@@ -47,4 +48,17 @@ bool Rva002E6EFFGrid::rva002E6EFF(const Rva002E6EFFPosition *position,
     if (x < 0 || x >= width || y < 0 || y >= height)
         return false;
     return columns[x][y].value06 > 0;
+}
+
+// Native 00285860..002858E5 shares the exact rounding path and grid accesses
+// with 002E6EFF, but returns the zero-extended cell word and consumes one
+// stack argument (RET 4). This establishes the same structural grid view;
+// the original class and method names remain unknown.
+unsigned int Rva002E6EFFGrid::rva00285860(const Rva002E6EFFPosition *position)
+{
+    int x = fast_float2long_round((float)floor((position->x + 0.5f) * 0.1f));
+    int y = fast_float2long_round((float)floor((position->y + 0.5f) * 0.1f));
+    if (x < 0 || x >= width || y < 0 || y >= height)
+        return 0;
+    return columns[x][y].value06;
 }
