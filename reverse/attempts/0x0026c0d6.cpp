@@ -1,4 +1,6 @@
 // ?bfmePrivateCommand49@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z
+// partial score=0.9 date=2026-10-08
+// ?bfmePrivateCommand49@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z
 // partial score=0.9 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD
 //
@@ -931,11 +933,12 @@ void AIUpdateInterface::bfmePrivateCommand49(Object *obj, CommandSourceType comm
 
 	m_stateMachine->clear();
 	m_stateMachine->setGoalObject(obj);
+	const Coord3D *voicePosition = obj->getPosition();
 	m_blockedFrames = 0;
-	m_bfmeByte3B8 = 0;
+	m_bfmeByte3B8 = false;
 	m_lastCommandSource = commandSource;
 	m_stateMachine->setState(BFME_AI_ATTACK_MOVE_TO);
 
 	if (commandSource == CMD_FROM_PLAYER || commandSource == CMD_FROM_SCRIPT)
-		rva0026B37F(obj->getPosition());
+		rva0026B37F(voicePosition);
 }
