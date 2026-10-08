@@ -33,7 +33,7 @@ public:
 class AICommandInterface
 {
 public:
-	void aiMoveToPosition(const Coord3D *pos, int cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface

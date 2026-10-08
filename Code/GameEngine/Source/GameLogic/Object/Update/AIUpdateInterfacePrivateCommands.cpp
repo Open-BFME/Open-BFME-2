@@ -555,7 +555,7 @@ public:
 	void rva0026C411(Object *obj, const Coord3D *pos, CommandSourceType commandSource);
 	// Matched 0x0026C26D: the position order joinTeam gives where Zero Hour
 	// calls aiMoveToPosition(pos, CMD_FROM_AI).
-	void aiMoveToPosition(const Coord3D *pos, Int commandSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType commandSource);
 };
 
 // The 24-byte team-member iterator (Common/RTS/TeamIterateTeamMemberList.cpp

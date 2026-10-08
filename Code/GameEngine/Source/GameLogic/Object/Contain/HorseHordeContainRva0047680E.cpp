@@ -16,10 +16,12 @@ struct Coord3D
 	float z;
 };
 
+// Zero Hour's AICommandInterface takes a CommandSourceType (row 0x0026C26D).
+enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI, CMD_FROM_DOZER, CMD_DEFAULT_SWITCH_WEAPON };
 class AICommandInterface
 {
 public:
-	void aiMoveToPosition(const Coord3D *pos, int cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
 };
 
 class AIUpdateInterfaceHead
@@ -70,5 +72,5 @@ public:
 // ?rva0047680E@HorseHordeContain@@UAEXPBUCoord3D@@H@Z @0x0047680E
 void HorseHordeContain::rva0047680E(const Coord3D *pos, int cmdSource)
 {
-	getObject()->getAI()->aiMoveToPosition(pos, cmdSource);
+	getObject()->getAI()->aiMoveToPosition(pos, (CommandSourceType)cmdSource);
 }

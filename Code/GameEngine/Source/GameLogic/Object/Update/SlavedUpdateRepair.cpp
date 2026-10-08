@@ -595,7 +595,7 @@ public:
 	void rva0036F400(const class Rva003427DD *info, CommandSourceType cmdSource);
 	// Retail 0x0026C26D; visible here (as in BFME1's twin) so VC7.1 sees it
 	// does not retain the position.
-	__declspec(noinline) void aiMoveToPosition(const Coord3D *pos, Int cmdSource)
+	__declspec(noinline) void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource)
 	{
 		AICommandParms parms(AICMD_MOVE_TO_POSITION, (CommandSourceType)cmdSource);
 		parms.m_pos = *pos;

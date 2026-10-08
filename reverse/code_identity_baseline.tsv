@@ -1992,7 +1992,6 @@ Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainUpdate.cpp	
 Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainModuleDataCtor.cpp	??0TransportContainModuleData@@QAE@XZ	??0OpenContainModuleData@@QAE@XZ	0x00465124	unowned
 Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainModuleDataDtor.cpp	??1TransportContainModuleData@@UAE@XZ	??1?$_List_base@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@QAE@XZ	0x002FECBC	divergent
 Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainXfer.cpp	?xfer@TransportContain@@MAEXPAVXfer@@@Z	?xfer@OpenContain@@MAEXPAVXfer@@@Z	0x00465EF1	unowned
-Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainScatter.cpp	?scatterToNearbyPosition@TunnelContain@@IAEXPAVObject@@@Z	?aiMoveToPosition@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z	0x0026C26D	divergent
 Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateOnBuildComplete.cpp	?onBuildComplete@InheritUpgradeCreate@@UAEXXZ	?rva004B959C@InheritUpgradeCreate@@QAEXXZ	0x004B959C	unowned
 Code/GameEngine/Source/GameLogic/Object/Damage/DamageModuleDeletingDtors.cpp	??_GCallHelpOnDamage@@UAEPAXI@Z	??1CallHelpOnDamage@@UAE@XZ	0x004BB4D1	unowned
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp	??0EvacuateDamage@@QAE@PAVThing@@PBVModuleData@@@Z	??0?$_List_base@UEvacuationRecord@@V?$allocator@UEvacuationRecord@@@_STL@@@_STL@@QAE@ABV?$allocator@UEvacuationRecord@@@1@@Z	0x0035C9A6	wrong

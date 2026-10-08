@@ -164,7 +164,7 @@ class AICommandInterface
 {
 public:
 	void aiMoveToPositionAmphibious(const Coord3D *position, CommandSourceType cmdSource);
-	void aiMoveToPosition(const Coord3D *pos, int cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface
@@ -300,6 +300,6 @@ void MoveToGroupOrder::rva0054764C(Object *obj, AIUpdateInterface *aiUpdate, Coo
 		if (m_flag24)
 			((Rva00295A0FCommands *)&aiUpdate->m_commands)->Rva00295A0FCommand(pos, 0x7FFFFFFF, 0);
 		else
-			aiUpdate->m_commands.aiMoveToPosition(pos, 0);
+			aiUpdate->m_commands.aiMoveToPosition(pos, (CommandSourceType)0);
 	}
 }

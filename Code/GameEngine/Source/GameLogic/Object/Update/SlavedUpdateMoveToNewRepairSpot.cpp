@@ -100,7 +100,7 @@ class AICommandInterface
 {
 public:
 	virtual void aiDoCommand(const void *parms);
-	void aiMoveToPosition(const Coord3D *pos, Int v);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType v);
 };
 
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>

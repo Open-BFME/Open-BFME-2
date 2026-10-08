@@ -327,11 +327,13 @@ public:
 	char m_unknown004[0x20 - 4];
 };
 
+// Zero Hour's AICommandInterface takes a CommandSourceType (row 0x0026C26D).
+enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI, CMD_FROM_DOZER, CMD_DEFAULT_SWITCH_WEAPON };
 class AICommandInterface
 {
 public:
 	virtual void aiDoCommand(const void *parms);
-	void aiMoveToPosition(const Coord3D *pos, Int cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface : public AIUpdatePrimaryView, public AICommandInterface
@@ -924,7 +926,7 @@ UpdateSleepTime FlammableUpdate::update()
 								m_flag4C = true;
 							}
 						}
-						ai->aiMoveToPosition(&best, 1);
+						ai->aiMoveToPosition(&best, (CommandSourceType)1);
 						m_fleeing = true;
 						TheGameLogic->deselectObject(me, 0xFFFFF, true);
 						me->setStatus(OBJECT_STATUS_STATUS_3, true);
