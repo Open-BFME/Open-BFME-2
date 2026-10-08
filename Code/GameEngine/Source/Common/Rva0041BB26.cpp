@@ -1,22 +1,17 @@
-// cl: /MD
-// ?Rva0041BB26Check@@YGEPAVRva0041BB26Obj@@HH@Z @0x0041BB26 35B
-// Free function at 0x0041BB26 (35B): null-check then MaterialPassClass::Peek_Texture.
-// Evidence: rowed callee ?Peek_Texture@MaterialPassClass@@QBEPAVTextureClass@@H@Z; caller 0x0029CE57; ret 0xc with third arg unused like neighbours Rva0041B8D2 and Rva0041BB87.
-class TextureClass;
-class MaterialPassClass
-{
-public:
-	TextureClass *Peek_Texture(int i) const;
-};
-class Rva0041BB26Obj
-{
-public:
-	char m_pad[0x330];
-	MaterialPassClass m_pass;
-};
-unsigned char __stdcall Rva0041BB26Check(Rva0041BB26Obj *a, int b, int unused)
-{
-	if (a == 0)
-		return 0;
-	return a->m_pass.Peek_Texture(b) != 0;
+// Native 41BB26..41BB49 RET12: Object+330 WeaponSet availability query.
+// InGameUI native29CE45/29CE57 loads TheActionManager in ECX before this call.
+// The receiver is unused by the leaf; preserve that observed member-call view.
+// Existing WeaponSet getter2C7469 is established by independent Object attack calls.
+// Reference ActionManager::canFireWeapon supplies semantics; original leaf name is unknown.
+// cl: /O1 /arch:SSE /G7 /MD
+class Object;
+class Weapon;
+enum WeaponSlotType { PRIMARY_WEAPON=0 };
+enum CommandSourceType { CMD_FROM_PLAYER=0 };
+class WeaponSet { public: Weapon *getWeaponInWeaponSlot(WeaponSlotType) const; };
+class ActionManager { public: unsigned char rva0041BB26(const Object*,WeaponSlotType,CommandSourceType); };
+unsigned char ActionManager::rva0041BB26(const Object *object,WeaponSlotType slot,CommandSourceType unused) {
+ if(!object) return 0;
+ const WeaponSet *weapons=reinterpret_cast<const WeaponSet*>(reinterpret_cast<const char*>(object)+0x330);
+ return weapons->getWeaponInWeaponSlot(slot)!=0;
 }
