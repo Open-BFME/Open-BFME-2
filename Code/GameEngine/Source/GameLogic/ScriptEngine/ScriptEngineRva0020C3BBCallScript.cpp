@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Os
+// cl: /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /DNDEBUG /MD /EHsc /Os
 //
 // ?callSubroutine@ScriptEngine@@QAEXPAVScriptAction@@@Z @0x0020C3BB 524B: the
 // script-call action; ?rva0020C140@ScriptEngine@@QAEXABVAsciiString@@0PAVTeam@@@Z
@@ -18,6 +18,7 @@
 // (ctor 0x002048A2, dtor 0x002048EC) and the debug-line join is the rowed
 // Rva0032B389Join. BFME 1's own labels for these are not carried over.
 #include "ascii_string.h"
+#include "Common/LatchRestore.h"
 
 class Rva00355950Arr;
 struct Rva003412E0Node;
@@ -82,31 +83,6 @@ struct Rva002048A2
 	AsciiString m_str;
 	AsciiString *m_alias;
 	Rva002048A2(AsciiString *a1, const AsciiString &a2);
-};
-
-// Calling-team latch (vtable g_00BE39EC): saves *alias at +4, installs the new
-// team, restores on destruction. The destructor body is the 15-byte row at
-// 0x00203CC7 (Rva00203CC7Dtor.cpp); retail inlines it at the normal exit and
-// calls the row from the unwind funclet, which a definition here reproduces.
-extern const void *const g_00BE39EC[];
-struct Rva00203CC7
-{
-	void *m00;
-	void *m04;
-	void *m08;
-	Rva00203CC7(Team **alias, Team *value)
-	{
-		m00 = (void *)g_00BE39EC;
-		m04 = *alias;
-		m08 = alias;
-		*alias = value;
-	}
-	~Rva00203CC7()
-	{
-		void *next = m08;
-		m00 = (void *)g_00BE39EC;
-		*(void **)next = m04;
-	}
 };
 
 class BfmeRoomZC
@@ -225,7 +201,7 @@ void ScriptEngine::rva0020C140(const AsciiString &scopeName, const AsciiString &
 	BfmeOwnZC *lookup = (BfmeOwnZC *)this;
 	Player *savedPlayer = *(Player **)((char *)this + 0x1A130);
 	Team **callingTeam = (Team **)((char *)this + 0x1A110);
-	Rva00203CC7 callingTeamLatch(callingTeam, pThisTeam);
+	LatchRestore<Team*> callingTeamLatch(*callingTeam, pThisTeam);
 	Rva002048A2 scope((AsciiString *)((char *)this + 0x1A10C), scopeName);
 	Team *activeTeam = *callingTeam;
 	*(Team **)((char *)this + 0x1A118) = 0;

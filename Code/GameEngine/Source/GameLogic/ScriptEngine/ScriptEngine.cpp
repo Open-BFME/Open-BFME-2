@@ -19,6 +19,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "StringInline.h"
+#include "Common/LatchRestore.h"
 
 typedef float Real;
 
@@ -67,12 +68,47 @@ public:
 	}
 	ConditionType getConditionType() const { return m_conditionType; }
 	int rva003B275A();	// 0x003B275A, the condition template's mode mask
+	Condition *getNext() const { return m_nextAndCondition; }
+	bool isEnabled() const { return m_enabled; }
 
 private:
 	char m_unknown[4];
 	ConditionType m_conditionType;	// +0x04
 	int m_numParms;
 	Parameter *m_parms[12];
+	Condition *m_nextAndCondition;	// +0x3C
+	char m_unknown40[0x4C - 0x40];
+	bool m_enabled;		// +0x4C, Script::getUiText shows " (DISABLED) " when clear
+};
+
+class OrCondition
+{
+public:
+	OrCondition *getNextOrCondition() const { return m_nextOr; }
+	Condition *getFirstAndCondition() const { return m_firstAnd; }
+
+private:
+	void *m_vtable;
+	OrCondition *m_nextOr;			// +0x04
+	Condition *m_firstAnd;			// +0x08
+};
+
+class Script
+{
+public:
+	OrCondition *getOrCondition() const { return m_condition; }
+
+private:
+	char m_unknown[0x30];
+	OrCondition *m_condition;		// +0x30
+};
+
+class Player;
+
+class Team
+{
+public:
+	Player *getControllingPlayer() const;
 };
 
 // TheScriptConditions 0x00A02E04: slot 14 evaluates the other condition types
@@ -129,6 +165,7 @@ class ScriptEngine
 {
 public:
 	AsciiString getStats( Real *curTimePtr, Real *script1Time, Real *script2Time );
+	bool evaluateConditions(Script *pScript, Team *thisTeam, Player *player);
 	bool evaluateTimer(Condition *condition);
 	bool evaluateFlag(Condition *condition);
 	int rva00203693();	// 0x00203693, current mode mask (2 or 1)
@@ -147,7 +184,11 @@ protected:
 private:
 	unsigned char m_unreconstructed[0x17604];
 	BreezeInfo m_breezeInfo;
-	unsigned char m_unreconstructed17620[0x1a264 - 0x17620];
+	unsigned char m_unreconstructed17620[0x1a110 - 0x17620];
+	Team *m_callingTeam;						// +0x1A110
+	unsigned char m_unreconstructed1A114[0x1a130 - 0x1a114];
+	Player *m_currentPlayer;					// +0x1A130
+	unsigned char m_unreconstructed1A134[0x1a264 - 0x1a134];
 	ScriptFlagKeyNode *m_flagKeys;				// +0x1A264, list header
 };
 
@@ -212,4 +253,45 @@ bool ScriptEngine::evaluateCondition(Condition *pCondition)
 		case Condition::FLAG: return evaluateFlag(pCondition);
 		case Condition::TIMER_EXPIRED: return evaluateTimer(pCondition);
 	}
+}
+
+// The script latches' out-of-line members: LatchRestore<Team *> ctor 0x00203CA8,
+// dtor 0x00203CC7 and scalar deleting dtor 0x00203D04 (vtable 0x00BE39EC);
+// LatchRestore<Player *> ctor 0x00203CD6, dtor 0x00203CF5 and scalar deleting
+// dtor 0x00203D29 (vtable 0x00BE39F0).
+template class LatchRestore<Team*>;
+template class LatchRestore<Player*>;
+
+// ScriptEngine::evaluateConditions, retail 0x00209748 (201B): Zero Hour's
+// (ScriptEngine.cpp:7582) with BFME2's test that skips a disabled condition.
+// The latches' vtables are LatchRestore<Team *> 0x00BE39EC and
+// LatchRestore<Player *> 0x00BE39F0.
+bool ScriptEngine::evaluateConditions(Script *pScript, Team *thisTeam, Player *player)
+{
+	LatchRestore<Team*> latch(m_callingTeam, thisTeam);
+	if (thisTeam) player = thisTeam->getControllingPlayer();
+	if (player==0) player=m_currentPlayer;
+	LatchRestore<Player*> latch2(m_currentPlayer, player);
+	OrCondition *pConditionHead = pScript->getOrCondition();
+	bool testValue = false;
+
+	OrCondition *pCurCondition;
+	for (pCurCondition = pConditionHead; pCurCondition; pCurCondition = pCurCondition->getNextOrCondition()) {
+		Condition *pCondition = pCurCondition->getFirstAndCondition();
+		if (!pCondition) continue; // No conditions, so go to the next or.
+		bool andTerm = true;
+		while (pCondition && andTerm) {
+			if (pCondition->isEnabled() && !evaluateCondition(pCondition)) {
+				andTerm = false;
+				break; // Short circuit the and evauation - after the first false, we can quit.
+			}
+			pCondition = pCondition->getNext();
+		}
+		if (andTerm) { // The outer list is OR'ed - so any true inner means we are true.
+			testValue = true;
+			break;
+		}
+	}
+
+	return testValue; // If none of the or's fired, then it is false.
 }
