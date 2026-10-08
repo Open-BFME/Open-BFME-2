@@ -85,6 +85,18 @@
 // Retail calls 0x0039DA2A on the ecx that getControllingPlayer preserved, so
 // the recruit bodies joined this TU; they are unchanged by its knowledge, and
 // the earlier bodies are unchanged by the recruit bodies' STLport shims.
+//
+// ?rva003A1626@Team@@QAEHPBVThingTemplate@@PAVRva00376A62@@HPAV1@@Z, retail
+// 0x003A1626 (359 bytes). Same recruit selection as 0x003A1AA3, but the pool
+// is the members of every team instance of srcTeam's prototype (+0x334 list,
+// then each team's member list) instead of the player's objects, with no
+// team or distance checks. Identity (target): WorldBuilder twin 0x00EF9380 by
+// call graph; it calls isInBuildVariations with its custom register args, so
+// it must live in this TU. Object uses the virtual-inheritance skeleton of
+// TeamIterateTeamMemberList.cpp with an inline PMF DLINK_ITERATOR and
+// iterate_TeamMemberList: with the opaque iterator cl kept 0 in esi and
+// spilled the match flag, while retail keeps team, member and flag in
+// edi/esi/bl. The other rows of this TU are unchanged by it.
 #include <vector>
 #include <hash_map>
 #include "ascii_string.h"
@@ -215,7 +227,33 @@ private:
 	Bool m_isRecruitable; // +0x3BE
 };
 
-class Object
+class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+
+class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
+{
+public:
+	unsigned char m_carrier[4];
+};
+
+class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
+
+class BfmeObjectDlinkBase
+{
+public:
+	Object *dlink_next_TeamMemberList() const;
+};
+
+class BfmeObjectDlinkPad
+{
+public:
+	const ThingTemplate *m_template; // +0x04
+	unsigned char m_pad08[0x38 - 0x08];
+	Coord3D m_pos; // +0x38
+	unsigned char m_pad44[0x68 - 0x44];
+};
+
+class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
+	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
@@ -231,11 +269,7 @@ public:
 	void rva00346C53(ObjectStatusTypes status, Bool set);
 	void setTeam(Team *team);
 private:
-	void *m_vtbl;
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_pos; // +0x38
-	unsigned char m_pad44[0x74 - 0x44];
+	unsigned char m_pad70[0x74 - 0x70];
 public:
 	unsigned int m_id; // +0x74
 private:
@@ -322,14 +356,15 @@ public:
 template<class OBJCLASS>
 class DLINK_ITERATOR
 {
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-
 public:
-	void advance();
+	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
+	DLINK_ITERATOR(OBJCLASS *cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc) {}
+	void advance() { if (m_cur) m_cur = ((*m_cur).*(m_getNextFunc))(); }
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
+private:
+	OBJCLASS *m_cur;
+	GetNextFunc m_getNextFunc;
 };
 
 class BfmeTab1026
@@ -362,7 +397,7 @@ public:
 	Object *getFirstItemIn_TeamMemberList() const { return m_dlinkhead_TeamMemberList; }
 	Bool isActive() const { return m_active; }
 	Player *getControllingPlayer() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
+	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList); }
 	void rva0039D84A(Object *obj);
 	bool rva0039DF87(BfmeTab1026 *tab);
 	int getTeamKey() const { return m_key34; }
@@ -373,6 +408,7 @@ public:
 	Object *tryToRecruit(const ThingTemplate *tTemplate, const Coord3D *teamHome, Real maxDist, int a4, int a5, int a6);
 	Bool rva003A1542(const ThingTemplate *tTemplate, int minCount);
 	int rva003A1AA3(const ThingTemplate *tTemplate, ObjectTypes *objectTypes, int maxCount, Real maxDist);
+	int rva003A1626(const ThingTemplate *tTemplate, Rva00376A62 *filter, int maxCount, Team *srcTeam);
 
 private:
 	unsigned char m_pad08[0x30 - 0x08];
@@ -873,6 +909,55 @@ Bool Team::rva003A1542(const ThingTemplate *tTemplate, int minCount)
 		count++;
 	}
 	return count >= minCount;
+}
+
+int Team::rva003A1626(const ThingTemplate *tTemplate, Rva00376A62 *filter, int maxCount, Team *srcTeam)
+{
+	int count = 0;
+	Coord3D home;
+	rva0039DA2A(&home);
+	while (count < maxCount) {
+		Object *best = NULL;
+		Real bestDistSqr = 0.0f;
+		for (TeamInstanceIterator<Team> teamIt = srcTeam->getPrototype()->iterate_TeamInstanceList(); !teamIt.done(); teamIt.advance()) {
+			Team *team = teamIt.cur();
+			if (!team)
+				continue;
+			if (count >= maxCount)
+				break;
+			for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance()) {
+				Object *obj = iter.cur();
+				if (!obj)
+					continue;
+				Bool match = false;
+				if (tTemplate) {
+					if (obj->getTemplate()->isEquivalentTo(tTemplate))
+						match = true;
+					if (isInBuildVariations(tTemplate, obj->getTemplate()))
+						match = true;
+				}
+				if (filter && filter->rva00376A84(obj->getTemplate()))
+					match = true;
+				if (!match)
+					continue;
+				if (obj->getAIUpdateInterface() && !obj->getAIUpdateInterface()->isRecruitable())
+					continue;
+				if (obj->isDisabledByType_HELD())
+					continue;
+				Real dx = home.x - obj->getPosition()->x;
+				Real dy = home.y - obj->getPosition()->y;
+				if (best != NULL && dx*dx+dy*dy > bestDistSqr)
+					continue;
+				bestDistSqr = dx*dx+dy*dy;
+				best = obj;
+			}
+		}
+		if (best == NULL)
+			break;
+		count++;
+		best->setTeam(this);
+	}
+	return count;
 }
 
 int Team::rva003A1AA3(const ThingTemplate *tTemplate, ObjectTypes *objectTypes, int maxCount, Real maxDist)
