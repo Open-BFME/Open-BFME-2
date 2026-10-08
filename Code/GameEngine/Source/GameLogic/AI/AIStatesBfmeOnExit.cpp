@@ -176,6 +176,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_BFME_3 = 3,
 	OBJECT_STATUS_BFME_19 = 0x19,
 	OBJECT_STATUS_BFME_26 = 0x26,
+	OBJECT_STATUS_BFME_33 = 0x33,
 	OBJECT_STATUS_BFME_4B = 0x4B,
 	OBJECT_STATUS_BFME_4E = 0x4E,
 	OBJECT_STATUS_BFME_5D = 0x5D
@@ -455,7 +456,9 @@ public:
 	virtual void slot141() = 0;
 	virtual void rva0034BEF9Slot142(int value) = 0;
 	virtual CommandSourceType getLastCommandSource() const = 0;
+	virtual void notifyVictimIsDead() = 0;
 	void rva00263EA2(ObjectID id);
+	void setCurrentVictim(const Object *victim);
 	void ignoreObstacle(const Object *obj);
 	Object *getCurrentVictim() const;
 	unsigned int getMoodMatrixActionAdjustment(MoodMatrixAction action) const;
@@ -524,7 +527,9 @@ private:
 };
 
 Real normalizeAngle(Real angle);
-extern "C" float __cdecl fabs(double); // CRT fabs; x87 result compared as float (as in AIFaceStateUpdate.cpp)
+// math.h: its sqrt declaration is what keeps the x87 result store after the
+// argument pops, and its float fabs overload is the CRT fabs compared as float.
+#include <math.h>
 
 struct Coord3D
 {
@@ -555,9 +560,23 @@ class ContainModuleSlot17 : public AIStateAISlots<17>
 public:
 	virtual void onObjectWantsToEnterOrExit(Object *obj, ObjectEnterExitType wants) = 0;
 };
-class ContainModuleSlot32 : public AIStateSlotFill<ContainModuleSlot17, 17, 31>
+// The horde contain behind the contain module's slot 31 (as in BFME 1's
+// AIAttackMeleeHordeApproachTargetState sources, BFME 2 slot numbers).
+class HordeContainInterfaceHead : public AIStateAISlots<85>
 {
 public:
+	virtual Bool isMeleeTargetReady(Object *target) = 0;
+	virtual void slot86(Object *target) = 0;
+};
+class HordeContainInterface : public AIStateGapSlots<HordeContainInterfaceHead, 3>
+{
+public:
+	virtual void setMeleeFormation(ObjectID id) = 0;
+};
+class ContainModuleSlot32 : public AIStateSlotFill<ContainModuleSlot17, 17, 30>
+{
+public:
+	virtual HordeContainInterface *getHordeContainInterface() = 0;
 	virtual void slot32(CommandSourceType cmdSource) = 0;
 };
 class ContainModuleSlot39 : public AIStateSlotFill<ContainModuleSlot32, 32, 38>
@@ -577,6 +596,24 @@ public:
 	virtual const Coord3D *getEnterPosition() = 0;
 };
 
+// Object +0xA8 and its rowed element accessor 0x006BD980; the element's
+// +0x08 real is the BFME 1 donor's m_height.
+struct BfmeShapeE15
+{
+	unsigned char m_pad00[0x08];
+	Real m_height; // +0x08
+};
+class BfmeObjE15
+{
+public:
+	BfmeShapeE15 *bfmeAtE15(int index);
+};
+struct Rva0028AC4EEntry;
+class Rva001E46E1
+{
+public:
+	Real rva001E46E1(Object *obj);
+};
 class Thing
 {
 public:
@@ -604,6 +641,12 @@ public:
 	Bool testBfmeFlag94() const { return (m_bfmeFlags94 & 1) != 0; }
 	void setBfmeAngle1C0(Real angle) { m_bfmeAngle1C0 = angle; }
 	Bool testStatus(ObjectStatusTypes status) const;
+	Bool rva002943B2(const Player *player);
+	Real rva002615E3(const Coord3D *pos) const;
+	Real rva0028AC7D() const;
+	const Rva0028AC4EEntry *rva0028AC4E() const;
+	Object *rva002931F5(Bool b);
+	BfmeObjE15 *getShapes() { return &m_shapes; }
 	Player *getControllingPlayer() const;
 	Relationship getRelationship(const Object *that) const;
 	Real getBoundingCircleRadius() const { return m_boundingCircleRadius; }
@@ -644,7 +687,9 @@ private:
 	ObjectID m_id; // +0x74
 	unsigned char m_pad078[0x94 - 0x78];
 	unsigned char m_bfmeFlags94; // +0x94
-	unsigned char m_pad095[0xB8 - 0x95];
+	unsigned char m_pad095[0xA8 - 0x95];
+	BfmeObjE15 m_shapes; // +0xA8
+	unsigned char m_pad0A9[0xB8 - 0xA9];
 	Real m_boundingCircleRadius; // +0xB8 (geometry info)
 	unsigned char m_pad0BC[0x10C - 0xBC];
 	Rva0010CBits m_conditionBits; // +0x10C
@@ -664,6 +709,13 @@ private:
 	unsigned char m_privateStatus; // +0x438 (bit 0: effectively dead)
 };
 
+// The rowed goal-destroyed test 0x004D7ADD (Zero Hour's
+// StateMachine::isGoalObjectDestroyed), rowed under this class name.
+class TurretStateMachine
+{
+public:
+	bool rva004D7ADD();
+};
 class StateMachine
 {
 public:
@@ -710,6 +762,11 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
+	virtual void slot07(); virtual void slot08(); virtual void slot09();
+	virtual void slot10(); virtual void slot11(); virtual void slot12();
+	virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot16();
+	virtual Bool computePath();
 	StateReturnType rva0034612C();
 protected:
 	void setAdjustsDestination(Bool b) { m_adjustDestination = b; }
@@ -1462,4 +1519,89 @@ StateReturnType AIBusyState::onEnter()
 		&& !owner->chooseBestWeaponForTarget(goal, WEAPON_CHOICE_BFME_5, ai->getLastCommandSource()))
 		return (StateReturnType)STATE_FAILURE;
 	return (StateReturnType)STATE_SUCCESS;
+}
+
+Bool rva00344EB2Gate(Object *source, Thing *target);
+
+// AIAttackMeleeHordeApproachTargetState::update, retail 0x00349013 (516
+// bytes): slot 6 of 0x00C126C0. Donor: Open-BFME-1
+// AIAttackMeleeHordeApproachTargetState_update.cpp. A destroyed goal fails;
+// otherwise for a gated (special) target the approach speed is the surface
+// gap clamped at zero and status 0x4B marks being within the locomotor speed,
+// a horde contain gets the melee formation (and, for a special target, slot
+// 86) or succeeds once the melee target is ready, and the base move runs.
+StateReturnType AIAttackMeleeHordeApproachTargetState::update()
+{
+	Object *source = getMachineOwner();
+	AIUpdateInterface *ai = source->getAI();
+
+	if (((TurretStateMachine *)getMachine())->rva004D7ADD())
+	{
+		ai->notifyVictimIsDead();
+		ai->setCurrentVictim(0);
+		return (StateReturnType)STATE_FAILURE;
+	}
+
+	{
+	Object *target = getMachine()->getGoalObject();
+	if (!target)
+		return (StateReturnType)STATE_FAILURE;
+
+	Bool specialTarget = false;
+	if (rva00344EB2Gate(source, target))
+	{
+		specialTarget = true;
+		Real distance = (Real)sqrt(source->rva002615E3(target->getPosition()));
+		Real sourceHeight = source->getShapes()->bfmeAtE15(0)->m_height;
+		Real gap = distance - (sourceHeight + target->getShapes()->bfmeAtE15(0)->m_height);
+		Real range = target->rva0028AC7D() + gap;
+		if (range < 0.0f)
+			range = 0.0f;
+
+		Real speed = FAST_AS_POSSIBLE;
+		if (source->rva0028AC4E())
+			speed = ((Rva001E46E1 *)source->rva0028AC4E())->rva001E46E1(source);
+		ai->setDesiredSpeed(range);
+		Bool closeEnough = (range < speed) ? true : false;
+		source->rva00346C53(OBJECT_STATUS_BFME_4B, closeEnough);
+	}
+	else if (source->testStatus(OBJECT_STATUS_BFME_4B))
+		source->rva00346C53(OBJECT_STATUS_BFME_4B, false);
+
+	ContainModuleInterface *contain = source->getContain();
+	if (contain)
+	{
+		HordeContainInterface *horde = contain->getHordeContainInterface();
+		if (horde)
+		{
+			ObjectID formation = target->getID();
+			if (target->testStatus(OBJECT_STATUS_BFME_26))
+			{
+				Object *resolved = target->rva002931F5(false);
+				if (resolved)
+					formation = resolved->getID();
+			}
+			horde->setMeleeFormation(formation);
+			if (specialTarget)
+				horde->slot86(target);
+			else if (horde->isMeleeTargetReady(target))
+			{
+				ai->rva0034A82DSlot136();
+				return (StateReturnType)STATE_SUCCESS;
+			}
+		}
+	}
+
+	if (target->testStatus(OBJECT_STATUS_BFME_33))
+		return (StateReturnType)STATE_FAILURE;
+	if (target->rva002943B2(source->getControllingPlayer()))
+		return (StateReturnType)STATE_FAILURE;
+
+	ai->setCurrentVictim(target);
+	if (!computePath())
+		return (StateReturnType)STATE_SUCCESS;
+	if (AIInternalMoveToState::update() != STATE_CONTINUE)
+		return (StateReturnType)STATE_SUCCESS;
+	return STATE_CONTINUE;
+	}
 }
