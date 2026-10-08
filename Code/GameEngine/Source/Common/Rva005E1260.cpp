@@ -26,7 +26,16 @@ class Rva005E1260
 	Rva005E1260Body *m_ptr;
 public:
 	Rva005E1260 &rva005E1260(const Init005E1260 *p);
+	Rva005E1260(Init005E1260 init);
 };
+
+// Native 0x005C7D37..0x005C7D4A (19B): forwards the two-word by-value
+// payload to the existing timer binder and returns this. The binder's
+// reference return is ignored; the wrapper owns the constructor return.
+Rva005E1260::Rva005E1260(Init005E1260 init)
+{
+	rva005E1260(&init);
+}
 
 Rva005E1260 &Rva005E1260::rva005E1260(const Init005E1260 *p)
 {
