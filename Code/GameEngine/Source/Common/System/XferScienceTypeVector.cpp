@@ -201,3 +201,63 @@ Xfer *Rva001ECA2DXfer(Xfer *xfer, void *storage)
 	}
 	return xfer;
 }
+
+// Native 0x005334DB..0x005335B0 transfers four-byte records through the
+// rowed 0x00531F79 helper, which transfers two adjacent unsigned shorts.
+// The fields and their zero initialization are independently visible in
+// this body and the rowed record append wrapper at 0x005335B0.
+struct Rva005334A4Element
+{
+	unsigned short x;
+	unsigned short y;
+};
+
+namespace _STL
+{
+template <> void vector<Rva005334A4Element, allocator<Rva005334A4Element> >::push_back(const Rva005334A4Element &);
+}
+
+class Rva00532844Vector
+{
+	Rva005334A4Element *start, *finish, *end;
+public:
+	void reserve(unsigned int n);
+};
+
+class Rva00531F79;
+extern Rva00531F79 *Rva00531F79Chain(Rva00531F79 *, unsigned short *);
+
+Xfer *Rva005334DBXfer(Xfer *xfer, void *storage)
+{
+	_STL::vector<Rva005334A4Element> *vec = static_cast<_STL::vector<Rva005334A4Element> *>(storage);
+	XferVersion version;
+	version.m_version = 1;
+	version.m_currentVersion = 1;
+	xfer->xferVersion(version);
+
+	UnsignedInt count = (UnsignedInt)vec->size();
+	xfer->xferTypeName("std::vector").xferUnsignedInt(count);
+
+	if (xfer->isSaving()) {
+		Rva005334A4Element *end = vec->end();
+		Rva005334A4Element *cur = vec->begin();
+		while (cur != end) {
+			Rva00531F79Chain((Rva00531F79 *)xfer, (unsigned short *)cur);
+			++cur;
+		}
+	} else {
+		if (!vec->empty()) {
+			throw XferException(4, "Vector must be empty on load");
+		}
+		((Rva00532844Vector *)vec)->reserve(count);
+		Rva005334A4Element value;
+		value.x = 0;
+		value.y = 0;
+		while (count != 0) {
+			--count;
+			vec->push_back(value);
+			Rva00531F79Chain((Rva00531F79 *)xfer, (unsigned short *)&vec->back());
+		}
+	}
+	return xfer;
+}
