@@ -93,6 +93,7 @@ private:
 
 struct OpaqueRefElement4 {
     OpaqueRefCounted *referent;
+    OpaqueRefElement4() : referent(0) {}
     ~OpaqueRefElement4() { if (referent) referent->Release_Ref(); }
     OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);
 };
@@ -133,10 +134,13 @@ public:
 
 // Owning AudioEventRTS reference (its refcount base sits at event +0x88);
 // the ledger's established name, assignment rowed at 0x00051971.
+struct BfmePoolHolder88;
+
 class BfmePoolRef10 {
 public:
     AudioEventRTS *operator->(void) const { return m_ptr; }
     BfmePoolRef10 &operator=(const BfmePoolRef10 &other);
+    void rva00053D26(BfmePoolHolder88 *p);  // assign from a raw event (0x00053D26)
 private:
     AudioEventRTS *m_ptr;
 };
@@ -183,6 +187,20 @@ struct Rva00051107AudioRequest {
 };
 
 typedef _STL::list<Rva00051107AudioRequest *> Rva00051107AudioRequestList;
+
+// 0x90-byte refcounted audio event built by the music requests below; its
+// (reference, value) constructor is rowed at 0x00051D22.
+class Rva0051D93 {
+public:
+    Rva0051D93(const OpaqueRefElement4 &reference, int value30);
+private:
+    char opaque[0x90];
+};
+
+// Event field setters rowed by address: 0x002D94CE stores the view type at
+// +0x30 and the ICF-folded Weapon::setLeechRangeActive (0x002D95FE) a flag.
+class Rva002D94CE { public: void rva002D94CE(int value); };
+class Weapon { public: void setLeechRangeActive(bool value); };
 
 struct Rva0005A084Element { int m_value; };
 typedef _STL::vector<Rva0005A084Element> Rva0005A084Vector;
@@ -373,6 +391,8 @@ public:
     void rva0005774F(int viewType, int musicSystem, int arg);
     void rva0005876E(int viewType, int musicSystem, int arg, int resume);
     bool addAudioEventMusic(BfmePoolRef10 &event, int requestType, int append);
+    void rva00055A58(int viewType, int musicSystem, int arg, int flag);
+    void rva00055B40(int viewType, int musicSystem, int arg);
     Rva00051107AudioRequest *rva00051107(void);
     void onPlayingAudioDeleted(PlayingAudio &playingAudioBeingDeleted);
     void releaseMilesHandles(PlayingAudio &playing);
@@ -595,6 +615,36 @@ bool MilesAudioManager::addAudioEventMusic(BfmePoolRef10 &event, int requestType
     else
         m_audioRequests.push_back(request);
     return true;
+}
+
+// Vtable slots 34 and 35 (0x007C5638/0x007C563C): queue request 4 or 2 for
+// a fresh event carrying the view type, music system and flags. WorldBuilder
+// 0x788B70 has the same order; the request names stay address-derived.
+void MilesAudioManager::rva00055A58(int viewType, int musicSystem, int arg, int flag)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    Rva00051107AudioRequest *request = rva00051107();
+    request->m_request = 4;
+    request->m_at10 = arg == 0;
+    request->m_pendingEvent.rva00053D26(
+        reinterpret_cast<BfmePoolHolder88 *>(new Rva0051D93(OpaqueRefElement4(), 0)));
+    ((Weapon *)request->m_pendingEvent.operator->())->setLeechRangeActive(flag == 0);
+    ((Rva002D94CE *)request->m_pendingEvent.operator->())->rva002D94CE(viewType);
+    request->m_pendingEvent->m_musicSystem = (MusicSystem)musicSystem;
+    m_audioRequests.push_back(request);
+}
+
+void MilesAudioManager::rva00055B40(int viewType, int musicSystem, int arg)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    Rva00051107AudioRequest *request = rva00051107();
+    request->m_request = 2;
+    request->m_at10 = arg == 0;
+    request->m_pendingEvent.rva00053D26(
+        reinterpret_cast<BfmePoolHolder88 *>(new Rva0051D93(OpaqueRefElement4(), 0)));
+    ((Rva002D94CE *)request->m_pendingEvent.operator->())->rva002D94CE(viewType);
+    request->m_pendingEvent->m_musicSystem = (MusicSystem)musicSystem;
+    m_audioRequests.push_back(request);
 }
 
 void MilesAudioManager::getAppropriateSampleHandleForPlayingAudio(PlayingAudioRef &playing, void **sample, void **sample3D)
