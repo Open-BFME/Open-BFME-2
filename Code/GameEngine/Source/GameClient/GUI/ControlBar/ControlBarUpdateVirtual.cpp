@@ -82,12 +82,13 @@ public:
     void switchToContext(int,void *);
     void rva0053DF0A();
     void rva0053E6E1();
-    void rva0053EAEC();
     void rva0053CF65();
     void rva0053E4B1();
     void updateContextContestedStructureInventory();
 protected:
     void updateContextOCLTimer();
+    // The home construction unit owns the exact149-byte provider at53EAEC.
+    void updateContextStructureInventory();
 private:
     char unknown04[8];
     ControlBarManagerUpdateView *videoManager;
@@ -165,7 +166,7 @@ void ControlBar::update()
     switch (context)
     {
     case 1: rva0053CF65(); break;
-    case 2: rva0053EAEC(); break;
+    case 2: updateContextStructureInventory(); break;
     case 3: updateContextContestedStructureInventory(); break;
     case 4: rva0053E6E1(); break;
     case 5: ((Rva000B3FD0Nop *)this)->noop(); break;
