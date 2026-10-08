@@ -9,6 +9,7 @@ struct Coord3D {
     float y;
     float z;
     float length() const;
+    void normalize();
 };
 
 #endif // CANONICAL_COORD3D_H

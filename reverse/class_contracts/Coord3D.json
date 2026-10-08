@@ -35,6 +35,14 @@
     "size": 69,
     "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
     "decided_by": "byte-verified owner; native 0x00494599 consumer calls this owner on a twelve-byte three-float delta"
+   },
+   {
+    "declaration": "void normalize();",
+    "name": "?normalize@Coord3D@@QAEXXZ",
+    "rva": "0x000035B6",
+    "size": 86,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
+    "decided_by": "byte-verified owner; Bridge::isCellOnEnd 0x0027C79C and its two siblings call it on their stack end vector"
    }
   ]
  },

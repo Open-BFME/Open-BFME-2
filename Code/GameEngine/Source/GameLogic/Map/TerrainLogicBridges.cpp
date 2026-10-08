@@ -33,6 +33,9 @@
 // update reads the bridge object's body module (Object+0x254, slot 8), the
 // object's layer through the rowed 0x0028B511, its id at +0x74 and the next
 // object at +0x8C, and keeps Zero Hour's damageStateChanged at BridgeInfo+0x68.
+// The Bridge cell tests isCellOnEnd, isCellOnSide and isCellEntryPoint
+// (0x0027C79C..0x0027CD63) follow LineInRegion (0x0027C4F4) in retail and are
+// defined after it here; their frames need it in the same unit.
 #include "Coord2D.h"
 #include "Coord3D.h"
 #include "GameLogicObjectLookupView.h"
@@ -81,6 +84,159 @@ struct Region2D
 	Coord2D lo;
 	Coord2D hi;
 };
+
+// LineInRegion (0x0027C4F4) is defined here, ahead of the Bridge cell tests
+// that call it, as retail's adjacent layout has it: Zero Hour's TerrainLogic.cpp
+// body, verbatim. Seen from another unit it leaves those callers' frames and
+// xmm allocation unlike retail's.
+// ?LineInRegion@@YA_NPBVCoord2D@@0PBURegion2D@@@Z @0x0027C4F4
+Bool LineInRegion( const Coord2D *p1, const Coord2D *p2, const Region2D *clipRegion )
+{
+	enum { CLIP_LEFT  = 0x01,
+				CLIP_RIGHT  = 0x02,
+				CLIP_BOTTOM = 0x04,
+				CLIP_TOP	  = 0x08 };
+	Real x1, y1, x2, y2;
+	Real clipLeft;
+	Real clipRight;
+	Real clipTop;
+	Real clipBottom;
+	Int clipCode1;
+	Int clipCode2;
+	Real diff;
+
+	// Use clip window that includes bottom right pixel
+	clipLeft = clipRegion->lo.x;
+	clipRight = clipRegion->hi.x;
+	clipTop = clipRegion->lo.y;
+	clipBottom = clipRegion->hi.y;
+
+	x1 = p1->x;
+	y1 = p1->y;
+	x2 = p2->x;
+	y2 = p2->y;
+		
+	// Test first point
+	clipCode1 = 0;
+
+	if (x1 < clipLeft)
+		clipCode1 = CLIP_LEFT;
+	else
+	if (x1 > clipRight)
+		clipCode1 = CLIP_RIGHT;
+
+	if (y1 < clipTop)
+		clipCode1 |= CLIP_TOP;
+	else
+	if (y1 > clipBottom)
+		clipCode1 |= CLIP_BOTTOM;
+
+
+	// Test second point
+	clipCode2 = 0;
+
+	if (x2 < clipLeft)
+		clipCode2 = CLIP_LEFT;
+	else
+	if (x2 > clipRight)
+		clipCode2 = CLIP_RIGHT;
+
+	if (y2 < clipTop)
+		clipCode2 |= CLIP_TOP;
+	else
+	if (y2 > clipBottom)
+		clipCode2 |= CLIP_BOTTOM;
+
+
+	// Both points inside window?
+	if ((clipCode1 | clipCode2) == 0)
+	{
+		return true;
+	}  // end if
+
+	// Both points outside window?
+	if (clipCode1 & clipCode2)
+		return false;
+
+	// First point outside window?
+	if (clipCode1)
+	{
+		if (clipCode1 & CLIP_TOP)
+		{
+			if ((diff = (y2 - y1)) == 0)
+				return false;
+			x1 += (x2 - x1) * (clipTop - y1) / diff;
+			y1 = clipTop;
+		}
+		else
+		if (clipCode1 & CLIP_BOTTOM)
+		{
+			if ((diff = (y2 - y1)) == 0)
+				return false;
+			x1 += (x2 - x1) * (clipBottom - y1) / diff;
+			y1 = clipBottom;
+		}
+
+		if (x1 > clipRight)
+		{
+			if ((diff = (x2 - x1)) == 0)
+				return false;
+			y1 += (y2 - y1) * (clipRight - x1) / diff;
+			x1 = clipRight;
+		}
+		else
+		if (x1 < clipLeft)
+		{
+			if ((diff = (x2 - x1)) == 0)
+				return false;
+			y1 += (y2 - y1) * (clipLeft - x1) / diff;
+			x1 = clipLeft;
+		}
+	}
+
+	// Second point outside window?
+	if (clipCode2)
+	{
+		if (clipCode2 & CLIP_TOP)
+		{
+			if ((diff = (y2 - y1)) == 0)
+				return false;
+			x2 += (x2 - x1) * (clipTop - y2) / diff;
+			y2 = clipTop;
+		}
+		else
+		if (clipCode2 & CLIP_BOTTOM)
+		{
+			if ((diff = (y2 - y1)) == 0)
+				return false;
+			x2 += (x2 - x1) * (clipBottom - y2) / diff;
+			y2 = clipBottom;
+		}
+
+		if (x2 > clipRight)
+		{
+			if ((diff = (x2 - x1)) == 0)
+				return false;
+			y2 += (y2 - y1) * (clipRight - x2) / diff;
+			x2 = clipRight;
+		}
+		else
+		if (x2 < clipLeft)
+		{
+			if ((diff = (x2 - x1)) == 0)
+				return false;
+			y2 += (y2 - y1) * (clipLeft - x2) / diff;
+			x2 = clipLeft;
+		}
+	}
+
+	// Line is visible
+	return (x1 >= clipLeft && x1 <= clipRight &&
+		    y1 >= clipTop && y1 <= clipBottom &&
+			x2 >= clipLeft && x2 <= clipRight &&
+			y2 >= clipTop && y2 <= clipBottom);
+
+}  // end LineInRegion
 
 class GeometryInfo
 {
@@ -202,13 +358,16 @@ public:
 	Bool pickBridge(const Vector3 &from, const Vector3 &to, Vector3 *pos);
 	Int getLayer() const { return m_layer; }
 	Bool isCellOnEnd(const Region2D *cell);
+	Bool isCellOnSide(const Region2D *cell);
+	Bool isCellEntryPoint(const Region2D *cell, Real *z);
 	Real getBridgeHeight(const Coord3D *loc, Coord3D *normal);
 private:
 	Bridge *m_next; // +0x04
 	char m_pad08[0x0C - 0x08];
 	BridgeInfo m_bridgeInfo; // +0x0C
-	char m_padB4[0xC4 - 0xB4];
+	Region2D m_bounds; // +0xB4
 	Int m_layer; // +0xC4
+	void *m_outline; // +0xC8, the polygon isPointOnBridge tests when set
 };
 
 // 0x00281BF7: the bridge object's drawable (Zero Hour's tail of
@@ -648,4 +807,260 @@ void Bridge::updateDamageState( void )
 	} else {
 		m_bridgeInfo.bridgeObjectID = INVALID_OBJECT_ID;
 	}
+}
+
+// Inline here as in Zero Hour's BaseType.h. The cell tests still call the
+// out-of-line normalize (rowed in coord3d.cpp with length, 0x000035B6 and
+// 0x00003571), but isCellEntryPoint's frame and xmm allocation match retail
+// only while both bodies are visible.
+inline float Coord3D::length() const
+{
+	return (float)sqrt(x * x + y * y + z * z);
+}
+
+inline void Coord3D::normalize()
+{
+	float len = length();
+	if (len != 0.0f) {
+		float scale = 1.0f / len;
+		x *= scale;
+		y *= scale;
+		z *= scale;
+	}
+}
+
+// ?isCellOnEnd@Bridge@@QAE_NPBURegion2D@@@Z @0x0027C79C
+// Zero Hour's cell tests (isCellOnEnd, isCellOnSide, isCellEntryPoint). The
+// corners are copied member-wise: an aggregate copy emits movsd and homes the
+// unused z. BFME 2 offsets a bridge with an outline polygon (+0xC8) at its far
+// end along that end's own vector, and isCellEntryPoint reports the near (or
+// far) left corner's height through a second argument.
+Bool Bridge::isCellOnEnd(const Region2D *cell)
+{
+	Coord3D endVector;
+	endVector.x = m_bridgeInfo.fromRight.x;
+	endVector.y = m_bridgeInfo.fromRight.y;
+	endVector.z = m_bridgeInfo.fromRight.z;
+	endVector.x -= m_bridgeInfo.fromLeft.x;
+	endVector.y -= m_bridgeInfo.fromLeft.y;
+	endVector.z -= m_bridgeInfo.fromLeft.z;
+	endVector.normalize();
+	// Offset by 1 pathfind cell.
+	endVector.x *= PATHFIND_CELL_SIZE_F;
+	endVector.y *= PATHFIND_CELL_SIZE_F;
+
+	Coord3D fromLeft;
+	fromLeft.x = m_bridgeInfo.fromLeft.x;
+	fromLeft.y = m_bridgeInfo.fromLeft.y;
+	fromLeft.z = m_bridgeInfo.fromLeft.z;
+	fromLeft.x += endVector.x;
+	fromLeft.y += endVector.y;
+
+	Coord3D fromRight;
+	fromRight.x = m_bridgeInfo.fromRight.x;
+	fromRight.y = m_bridgeInfo.fromRight.y;
+	fromRight.z = m_bridgeInfo.fromRight.z;
+	fromRight.x -= endVector.x;
+	fromRight.y -= endVector.y;
+
+	if (m_outline) {
+		endVector = m_bridgeInfo.toRight;
+		endVector.x -= m_bridgeInfo.toLeft.x;
+		endVector.y -= m_bridgeInfo.toLeft.y;
+		endVector.z -= m_bridgeInfo.toLeft.z;
+		endVector.normalize();
+		endVector.x *= PATHFIND_CELL_SIZE_F;
+		endVector.y *= PATHFIND_CELL_SIZE_F;
+	}
+
+	Coord3D toLeft;
+	toLeft.x = m_bridgeInfo.toLeft.x;
+	toLeft.y = m_bridgeInfo.toLeft.y;
+	toLeft.z = m_bridgeInfo.toLeft.z;
+	toLeft.x += endVector.x;
+	toLeft.y += endVector.y;
+
+	Coord3D toRight;
+	toRight.x = m_bridgeInfo.toRight.x;
+	toRight.y = m_bridgeInfo.toRight.y;
+	toRight.z = m_bridgeInfo.toRight.z;
+	toRight.x -= endVector.x;
+	toRight.y -= endVector.y;
+
+	Coord2D line1, line2;
+	line1.x = fromLeft.x;
+	line1.y = fromLeft.y;
+	line2.x = fromRight.x;
+	line2.y = fromRight.y;
+	if (LineInRegion(&line1, &line2, cell)) {
+		return true;
+	}
+	line1.x = toLeft.x;
+	line1.y = toLeft.y;
+	line2.x = toRight.x;
+	line2.y = toRight.y;
+	if (LineInRegion(&line1, &line2, cell)) {
+		return true;
+	}
+	return(false);
+}
+
+// ?isCellOnSide@Bridge@@QAE_NPBURegion2D@@@Z @0x0027C95B
+Bool Bridge::isCellOnSide(const Region2D *cell)
+{
+	Coord3D endVector;
+	endVector.x = m_bridgeInfo.fromRight.x - m_bridgeInfo.fromLeft.x;
+	endVector.y = m_bridgeInfo.fromRight.y - m_bridgeInfo.fromLeft.y;
+	endVector.z = m_bridgeInfo.fromRight.z - m_bridgeInfo.fromLeft.z;
+	endVector.normalize();
+	// Offset by 1 pathfind cell.
+	endVector.x *= PATHFIND_CELL_SIZE_F*0.51f;
+	endVector.y *= PATHFIND_CELL_SIZE_F*0.51f;
+
+	Coord3D fromLeft;
+	fromLeft.x = m_bridgeInfo.fromLeft.x;
+	fromLeft.y = m_bridgeInfo.fromLeft.y;
+	fromLeft.z = m_bridgeInfo.fromLeft.z;
+	fromLeft.x -= endVector.x;
+	fromLeft.y -= endVector.y;
+
+	Coord3D fromRight;
+	fromRight.x = m_bridgeInfo.fromRight.x;
+	fromRight.y = m_bridgeInfo.fromRight.y;
+	fromRight.z = m_bridgeInfo.fromRight.z;
+	fromRight.x += endVector.x;
+	fromRight.y += endVector.y;
+
+	Coord3D toLeft;
+	toLeft.x = m_bridgeInfo.toLeft.x;
+	toLeft.y = m_bridgeInfo.toLeft.y;
+	toLeft.z = m_bridgeInfo.toLeft.z;
+	toLeft.x -= endVector.x;
+	toLeft.y -= endVector.y;
+
+	Coord3D toRight;
+	toRight.x = m_bridgeInfo.toRight.x;
+	toRight.y = m_bridgeInfo.toRight.y;
+	toRight.z = m_bridgeInfo.toRight.z;
+	toRight.x += endVector.x;
+	toRight.y += endVector.y;
+
+	Coord2D line1, line2;
+	line1.x = fromLeft.x;
+	line1.y = fromLeft.y;
+	line2.x = toLeft.x;
+	line2.y = toLeft.y;
+	if (LineInRegion(&line1, &line2, cell)) {
+		return true;
+	}
+	line1.x = fromRight.x;
+	line1.y = fromRight.y;
+	line2.x = toRight.x;
+	line2.y = toRight.y;
+	if (LineInRegion(&line1, &line2, cell)) {
+		return true;
+	}
+	fromLeft.x -= endVector.x;
+	fromLeft.y -= endVector.y;
+
+	fromRight.x += endVector.x;
+	fromRight.y += endVector.y;
+
+	toLeft.x -= endVector.x;
+	toLeft.y -= endVector.y;
+
+	toRight.x += endVector.x;
+	toRight.y += endVector.y;
+
+	line1.x = fromLeft.x;
+	line1.y = fromLeft.y;
+	line2.x = toLeft.x;
+	line2.y = toLeft.y;
+	if (LineInRegion(&line1, &line2, cell)) {
+		return true;
+	}
+	line1.x = fromRight.x;
+	line1.y = fromRight.y;
+	line2.x = toRight.x;
+	line2.y = toRight.y;
+	if (LineInRegion(&line1, &line2, cell)) {
+		return true;
+	}
+	return(false);
+}
+
+// ?isCellEntryPoint@Bridge@@QAE_NPBURegion2D@@PAM@Z @0x0027CB7F
+Bool Bridge::isCellEntryPoint(const Region2D *cell, Real *z)
+{
+	Coord3D endVector;
+	endVector.x = m_bridgeInfo.fromRight.x - m_bridgeInfo.fromLeft.x;
+	endVector.y = m_bridgeInfo.fromRight.y - m_bridgeInfo.fromLeft.y;
+	endVector.z = m_bridgeInfo.fromRight.z - m_bridgeInfo.fromLeft.z;
+	endVector.normalize();
+	// Offset by 1 pathfind cell.
+	endVector.x *= PATHFIND_CELL_SIZE_F;
+	endVector.y *= PATHFIND_CELL_SIZE_F;
+	Coord3D bridgeVector;
+	bridgeVector.x = m_bridgeInfo.to.x - m_bridgeInfo.from.x;
+	bridgeVector.y = m_bridgeInfo.to.y - m_bridgeInfo.from.y;
+	bridgeVector.z = m_bridgeInfo.to.z - m_bridgeInfo.from.z;
+	bridgeVector.normalize();
+	// Offset by 1/2 pathfind cell.
+	bridgeVector.x *= PATHFIND_CELL_SIZE_F/2;
+	bridgeVector.y *= PATHFIND_CELL_SIZE_F/2;
+
+	Coord3D fromLeft;
+	fromLeft.x = m_bridgeInfo.fromLeft.x;
+	fromLeft.y = m_bridgeInfo.fromLeft.y;
+	fromLeft.z = m_bridgeInfo.fromLeft.z;
+	fromLeft.x -= bridgeVector.x;
+	fromLeft.y -= bridgeVector.y;
+	fromLeft.x += endVector.x;
+	fromLeft.y += endVector.y;
+
+	Coord3D fromRight;
+	fromRight.x = m_bridgeInfo.fromRight.x;
+	fromRight.y = m_bridgeInfo.fromRight.y;
+	fromRight.z = m_bridgeInfo.fromRight.z;
+	fromRight.x -= bridgeVector.x;
+	fromRight.y -= bridgeVector.y;
+	fromRight.x -= endVector.x;
+	fromRight.y -= endVector.y;
+
+	Coord3D toLeft;
+	toLeft.x = m_bridgeInfo.toLeft.x;
+	toLeft.y = m_bridgeInfo.toLeft.y;
+	toLeft.z = m_bridgeInfo.toLeft.z;
+	toLeft.x += bridgeVector.x;
+	toLeft.y += bridgeVector.y;
+	toLeft.x += endVector.x;
+	toLeft.y += endVector.y;
+
+	Coord3D toRight;
+	toRight.x = m_bridgeInfo.toRight.x;
+	toRight.y = m_bridgeInfo.toRight.y;
+	toRight.z = m_bridgeInfo.toRight.z;
+	toRight.x += bridgeVector.x;
+	toRight.y += bridgeVector.y;
+	toRight.x -= endVector.x;
+	toRight.y -= endVector.y;
+
+	Coord2D line1, line2;
+	line1.x = fromLeft.x;
+	line1.y = fromLeft.y;
+	line2.x = fromRight.x;
+	line2.y = fromRight.y;
+	if (LineInRegion(&line1, &line2, cell)) {
+		*z = fromLeft.z;
+		return true;
+	}
+	line1.x = toLeft.x;
+	line1.y = toLeft.y;
+	line2.x = toRight.x;
+	line2.y = toRight.y;
+	if (LineInRegion(&line1, &line2, cell)) {
+		*z = toLeft.z;
+		return true;
+	}
+	return(false);
 }
