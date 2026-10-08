@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
 //
 // ?updateConstructionTextDisplay@ControlBar@@QAEXPAVObject@@@Z retail 0x0053E3E6 203 bytes. Donor is BFME1 ControlBarContextUI.cpp updateConstructionTextDisplay which pushes the same two literals ControlBar.wnd UnderConstructionDesc and CONTROLBAR UnderConstructionDesc and calls nameToKey winGetWindowFromId fetch format GadgetStaticTextSetText. Identity also from callers 0x0053E4B1 and 0x0053E4F1 comparing this plus 0x78 against obj plus 0x280. Recipe is donor verbatim with extern guard globals for linkability.
 #include "unicode_string.h"
@@ -9,6 +9,13 @@ enum ObjectStatusTypes
 {
 	Rva0053E4B1Status = 2
 };
+
+enum ObjectID
+{
+	Rva0053EAECObjectIDValue0 = 0
+};
+
+class Team;
 
 class GameWindow
 {
@@ -42,7 +49,8 @@ public:
 	RVA0053EB81_VIRTUAL(pad57) RVA0053EB81_VIRTUAL(pad58) RVA0053EB81_VIRTUAL(pad59) RVA0053EB81_VIRTUAL(pad60)
 	RVA0053EB81_VIRTUAL(pad61) RVA0053EB81_VIRTUAL(pad62) RVA0053EB81_VIRTUAL(pad63) RVA0053EB81_VIRTUAL(pad64)
 	RVA0053EB81_VIRTUAL(pad65) RVA0053EB81_VIRTUAL(pad66) RVA0053EB81_VIRTUAL(pad67) RVA0053EB81_VIRTUAL(pad68)
-	RVA0053EB81_VIRTUAL(pad69) RVA0053EB81_VIRTUAL(pad70) RVA0053EB81_VIRTUAL(pad71) RVA0053EB81_VIRTUAL(pad72)
+	virtual int slot69(bool enabled);
+	RVA0053EB81_VIRTUAL(pad70) RVA0053EB81_VIRTUAL(pad71) RVA0053EB81_VIRTUAL(pad72)
 	RVA0053EB81_VIRTUAL(pad73) RVA0053EB81_VIRTUAL(pad74)
 	virtual int rva0053EB81Slot12C();
 };
@@ -53,6 +61,7 @@ class Object
 {
 public:
 	bool testStatus(ObjectStatusTypes bit) const;
+	bool isLocallyControlled() const;
 
 	float getConstructionPercent()
 	{
@@ -60,7 +69,14 @@ public:
 	}
 
 private:
-	unsigned char m_pad000[0x250];
+	unsigned char m_pad000[0x74];
+
+public:
+	ObjectID m_74;
+	ObjectID getID() const { return m_74; }
+
+private:
+	unsigned char m_pad078[0x1d8];
 
 public:
 	Rva0053EB81Subject *m_250;
@@ -68,6 +84,11 @@ public:
 private:
 	unsigned char m_pad254[0x2c];
 	float m_constructionPercent;
+	unsigned char m_pad284[0x80];
+
+public:
+	const Team *m_304;
+	const Team *getTeam() const { return m_304; }
 };
 
 struct Rva0053E4B1Owner
@@ -86,6 +107,9 @@ public:
 	void switchToContext(int context, void *object);
 	void rva0031D230();
 
+protected:
+	void updateContextStructureInventory();
+
 private:
 	unsigned char m_pad0[0x6c];
 	Rva0053E4B1Owner *m_6c;
@@ -95,14 +119,150 @@ private:
 	int m_80;
 };
 
+class Player;
+
 class PlayerList
 {
 public:
 	unsigned char m_pad00[0x10];
-	int m_10;
+	union
+	{
+		int m_10;
+		Player *m_localPlayer;
+	};
 };
 
 extern PlayerList *ThePlayerList;
+
+enum Relationship
+{
+	Rva0053EAECRelationshipValue0 = 0
+};
+
+class Team
+{
+};
+
+class Player
+{
+public:
+	Relationship getRelationship(const Team *team) const;
+};
+
+class BuildListInfo
+{
+public:
+	int getDesiredGatherers();
+};
+
+class GameMessage
+{
+public:
+	void appendObjectIDArgument(ObjectID objectID);
+};
+
+class MessageStream
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual GameMessage *appendMessage(int type);
+};
+
+extern MessageStream *TheMessageStream;
+
+class InGameUI;
+
+class Rva0053EAECInGameUIView
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void slot38();
+	virtual void slot39();
+	virtual void slot40();
+	virtual void slot41();
+	virtual void slot42();
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual void slot52();
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
+	virtual void slot57();
+	virtual void slot58();
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67(Int value);
+};
+
+extern InGameUI *TheInGameUI;
 
 enum NameKeyType
 {
@@ -263,4 +423,34 @@ void ControlBar::updateContextContestedStructureInventory()
 		return rva0031D230();
 	if (m_80 != subject->rva0053EB81Slot12C())
 		rva0053E783(object, 1);
+}
+
+// Target 0x0053EAEC..0x0053EB80, 149 bytes. The same-name BFME1
+// updateContextStructureInventory is the semantic donor. Target bytes support
+// the +0x74 ObjectID argument, +0x304 Team pointer, +0x250 contain interface,
+// player-locality and relationship checks, gatherer query, and virtual calls.
+// The donor supplies the method name and high-level operation; these target
+// offsets, callee identities, and slot numbers are independently observed.
+void ControlBar::updateContextStructureInventory()
+{
+	Object *object = m_6c->m_fc;
+	Player *localPlayer = ThePlayerList->m_localPlayer;
+	if (!object->isLocallyControlled() &&
+		localPlayer->getRelationship(object->getTeam()) != (Relationship)1)
+	{
+		Int desiredGatherers = ((BuildListInfo *)object)->getDesiredGatherers();
+		if (desiredGatherers)
+		{
+			GameMessage *message = TheMessageStream->appendMessage(0x3ed);
+			message->appendObjectIDArgument(object->getID());
+			((Rva0053EAECInGameUIView *)TheInGameUI)->slot67(desiredGatherers);
+		}
+		goto rva0053EAECdone;
+	}
+
+	Rva0053EB81Subject *contain = object->m_250;
+	if (contain && m_80 != contain->slot69(false))
+		rva0053E783(object, 0);
+rva0053EAECdone:
+	;
 }
