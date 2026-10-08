@@ -378,10 +378,10 @@ template class SubsystemSlot<Rva0022B46BSubsystem>;
 class Rva0022B4E0Subsystem : public SubsystemInterface {};
 template void initSubsystem<Rva0022B4E0Subsystem>(Rva0022B4E0Subsystem *&, AsciiString, Rva0022B4E0Subsystem *, Xfer *, const char *, const char *, const char *);
 template class SubsystemSlot<Rva0022B4E0Subsystem>;
-// Rva0022BA67Subsystem: site 0x0022F7DC registers "TheMeshInstancingManager" (global 0x00A03134); slot vtable 0xbe7394.
-class Rva0022BA67Subsystem : public SubsystemInterface {};
-template void initSubsystem<Rva0022BA67Subsystem>(Rva0022BA67Subsystem *&, AsciiString, Rva0022BA67Subsystem *, Xfer *, const char *, const char *, const char *);
-template class SubsystemSlot<Rva0022BA67Subsystem>;
+// Rva0041FB13: site 0x0022F7DC registers "TheMeshInstancingManager" (global 0x00A03134); slot vtable 0xbe7394.
+class Rva0041FB13 : public SubsystemInterface {};
+template void initSubsystem<Rva0041FB13>(Rva0041FB13 *&, AsciiString, Rva0041FB13 *, Xfer *, const char *, const char *, const char *);
+template class SubsystemSlot<Rva0041FB13>;
 // Rva0022BADCSubsystem: site 0x0022F820 registers "TheLivingWorldCampaignManager" (global 0x00A02D6C); slot vtable 0xbe7398.
 class Rva0022BADCSubsystem : public SubsystemInterface {};
 template void initSubsystem<Rva0022BADCSubsystem>(Rva0022BADCSubsystem *&, AsciiString, Rva0022BADCSubsystem *, Xfer *, const char *, const char *, const char *);

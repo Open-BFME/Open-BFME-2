@@ -22,6 +22,18 @@
 #include "ascii_string.h"
 #include <string.h>
 #include <hash_map>
+unsigned int __stdcall Rva00055041AsciiHash(const AsciiString *name);
+struct MeshInstancingAsciiHashView
+{
+    unsigned operator()(const AsciiString &name) const
+    {
+        return Rva00055041AsciiHash(&name);
+    }
+};
+typedef _STL::hash_map<AsciiString, int, MeshInstancingAsciiHashView> MeshNameMap;
+// Emit only the real default constructor and its dependent helpers. Pin admission
+// checks this complete chain against the existing folded retail owners.
+template _STL::hash_map<AsciiString, int, MeshInstancingAsciiHashView>::hash_map();
 typedef _STL::pair<const AsciiString, int> MeshNamePair;
 typedef _STL::_Ht_iterator<
     MeshNamePair, _STL::_Nonconst_traits<MeshNamePair>, AsciiString,
@@ -32,10 +44,10 @@ typedef bool Bool;
 #include "subsystem_interface.h"
 class Rva00056F61 { public: __declspec(nothrow) void *rva00056F61(const AsciiString *); };
 class Rva000427195 { public: void rva003A2A41(); };
-class Rva0041FA59
+class Rva0041FA59 : public MeshNameMap
 {
 public:
-    Rva0041FA59();
+    Rva0041FA59() {}
     ~Rva0041FA59();
     MeshNameIterator find(const AsciiString &key)
     {
@@ -43,12 +55,11 @@ public:
             reinterpret_cast<MeshNameIterator::_Hashtable *>(this));
     }
     MeshNameIterator end() { return MeshNameIterator(0,reinterpret_cast<MeshNameIterator::_Hashtable *>(this)); }
-private:
-    // Twenty-byte table ABI; actual field ownership is defined in MeshInstancingTable.cpp.
-    unsigned opaque[5];
+// The inherited hash_map occupies the same native twenty-byte table.
 };
 class MeshInstancingInterfaceView { public: virtual int rva0041FB69(const char *) = 0; };
 void Rva0018C0F1Clear();
+void Rva0018C0E7Set(void *interfaceView);
 class Rva0041FB13 : public SubsystemInterface, public MeshInstancingInterfaceView
 {
 public:
@@ -61,6 +72,10 @@ public:
 private:
     Rva0041FA59 table;
 };
+Rva0041FB13::Rva0041FB13()
+{
+    Rva0018C0E7Set(static_cast<MeshInstancingInterfaceView *>(this));
+}
 Rva0041FB13::~Rva0041FB13() { Rva0018C0F1Clear(); }
 
 int Rva0041FB13::rva0041FB69(const char *arg)
@@ -81,5 +96,10 @@ int Rva0041FB13::rva0041FB69(const char *arg)
     }
     return 1;
 }
+
+// GameEngine::init stores this primary-base pointer at native RVA A03134;
+// its retail initial data is four zero bytes. The secondary interface is
+// registered separately by Rva0018C0E7Set.
+Rva0041FB13 *TheMeshInstancingManager = 0;
 
 typedef char MeshInstancingSubsystemSize[(sizeof(Rva0041FB13) == 0x24) ? 1 : -1];
