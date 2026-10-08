@@ -70494,3 +70494,5 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva0035BD5D@Shell@@QAE_NXZ,,0x0035BD5D,33,Code/GameEngine/Source/GameClient/GUI/Shell/ShellAudioPredicate.cpp,matched,Whole native 33B Bool Shell audio predicate; Ghidra 35BD5D..35BD7E and rowed update plus CreditsExit call sites establish receiver; actual TheAudio DFE6E8 and handle68 virtualD0; logical and preserves Boolean ABI and retail EAX normalization; BFME1 34f ZH AudioManager query is semantic lead only
 ?rva003F08D7@Rva003F08D7@@QAEHH@Z,,0x003F08D7,23,Code/GameEngine/Source/Common/System/Rva003F08D7Check.cpp,matched,linkbody caller 0x0020EF1E callee pin 0x003F083A
 ?rva00068395@BaseHeightMapRenderObjClass@@QAEXHPAVAsciiString@@0_N1@Z,,0x00068395,23,Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp,matched,null-checked member forwarder tail-jumps to pinned callee 0x000E6005 with ret 20
+?rva002EF3D9@Rva002EF3D9Host@@QAEHPADH@Z,,0x002EF3D9,21,Code/GameEngine/Source/Common/Rva002EF3D9Forwards.cpp,matched,
+?rva002F2865@Rva002F2865Host@@QAEHPADH@Z,,0x002F2865,21,Code/GameEngine/Source/Common/Rva002EF3D9Forwards.cpp,matched,
