@@ -141,3 +141,13 @@ const FieldParse CreditsManager::m_creditsFieldParseTable[] = {
  {"Text", bfmeParseD780, 0, 0},
  {0,0,0,0}
 };
+
+// Retail 0x005B72A5..0x005B72BE. Credits load passes this fourth argument
+// to INI::load. The null check, Credits singleton and native field table
+// reproduce the corresponding INI::parseCredits donor callback.
+void INI::parseCredits(INI *ini)
+{
+    if (!g_bfmeSinkBOE)
+        return;
+    ini->initFromINI(g_bfmeSinkBOE, CreditsManager::m_creditsFieldParseTable);
+}
