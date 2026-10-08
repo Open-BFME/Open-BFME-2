@@ -118,6 +118,7 @@ BfmeSubobject00229875::BfmeSubobject00229875()
 class GameEngineDeletingBase
 {
 public:
+	GameEngineDeletingBase() throw();
 	virtual ~GameEngineDeletingBase();
 private:
 	int m_pad04;
@@ -127,11 +128,19 @@ private:
 class Rva0022958D : public GameEngineDeletingBase
 {
 public:
+	Rva0022958D();
 	virtual ~Rva0022958D();
 private:
 	AsciiString m_0c;
 	AsciiString m_10;
 };
+
+// Retail 0x00229557 (26 bytes): default constructor. Base constructor at
+// 0x1B4E63, vtable store, then both AsciiString members zeroed at +0x0C and +0x10.
+Rva0022958D::Rva0022958D()
+	: GameEngineDeletingBase()
+{
+}
 
 Rva0022958D::~Rva0022958D()
 {
