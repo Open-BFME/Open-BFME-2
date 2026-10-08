@@ -25,10 +25,11 @@ class ModuleData;
 class Player;
 class Object;
 typedef void (__cdecl *Rva004F553FCb)(void *data, void *user);
-class Rva004F553F
+typedef void (__cdecl *ContainIterateFunc)(Object *object, void *user);
+class TunnelTracker
 {
 public:
-	void rva004F553F(Rva004F553FCb cb, void *user, bool flag);
+	void iterateContained(ContainIterateFunc cb, void *user, bool reverse);
 };
 class Rva004F56FC
 {
@@ -44,7 +45,7 @@ class Player
 {
 public:
 	unsigned char m_pad000[0x2E8];
-	Rva004F553F *m_2E8; // also reached as the Rva004F56FC manager (0x0047DE30)
+	TunnelTracker *m_2E8; // WB names the list visitor; the sibling manager is the same tracker.
 };
 struct B00 { virtual void f00(); const ModuleData *m_moduleData; Object *m_object; };
 struct B0C { virtual void f0C(); };
@@ -149,7 +150,7 @@ void TunnelContain::rva0047DCDF(Rva004F553FCb cb, void *user, unsigned int flags
 	if (!(flags & 1))
 		return;
 	Player *player = m_1C->getControllingPlayer();
-	player->m_2E8->rva004F553F(cb, user, (flags >> 3) & 1);
+	player->m_2E8->iterateContained((ContainIterateFunc)cb, user, (flags >> 3) & 1);
 }
 
 // ?rva0047DE30@TunnelContain@@UAEXXZ, retail 0x0047DE30, 60 bytes.

@@ -40915,7 +40915,6 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?rva0058D461@NetPacket@@IAE_NPAVNetCommandRef@@@Z,,0x0058D461,89,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,NetPacket capacity check charges 2 1+1 5 1+1 plus 1 unblocks 0058F5E3 0058FE15
 ??1Rva003AB9FF@@UAE@XZ,,0x003AB9FF,55,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AB9FFDtor.cpp,matched,MI dtor via guarded base plus throw base
 ??1Rva003ABA36@@UAE@XZ,,0x003ABA36,22,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABA36Dtor.cpp,matched,dtor via guarded BBB554 plus base tail-jmp
-?rva004F553F@Rva004F553F@@QAEXP6AXPAX0@Z0_N@Z,,0x004F553F,77,Code/GameEngine/Source/Common/Thing/Rva004F553FEnum.cpp,matched,unlock lane circular list visitor forward backward via callback
 ?rva0058D4BA@NetPacket@@IAE_NPAVNetCommandRef@@@Z,,0x0058D4BA,89,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,NetPacket capacity check charges 2 1+1 5 1+1 plus 2 unblocks 0058F7D8
 ?rva005358C3@UserPreferences@@QAEHVAsciiString@@@Z,,0x005358C3,74,Code/GameEngine/Source/Common/UserPreferencesRva00535CE4.cpp,matched,UserPreferences Points getter via slot18 same TU
 ?rva00535BF6@UserPreferences@@QAEHVAsciiString@@@Z,,0x00535BF6,74,Code/GameEngine/Source/Common/UserPreferencesRva00535CE4.cpp,matched,UserPreferences Wins getter via slot18 same TU
@@ -40926,7 +40925,6 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ??1?$_Rb_tree@HU?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@QAE@XZ,,0x00425FB4,56,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_pod52_tree_dtor.cpp,matched,chain via landed clear plus rowed free
 ??0?$map@W4NameKeyType@@UPristineBoneInfo@@U?$less@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@UPristineBoneInfo@@@_STL@@@4@@_STL@@QAE@XZ,,0x004260FD,25,Code/Libraries/Source/WWVegas/WWLib/stlport_map_namekey_pristinebone.cpp,matched,chain via rowed tree ctor plus map anchor
 ??0Rva00550083@@QAE@XZ,,0x00550083,21,Code/Libraries/Source/WWVegas/WWLib/Rva00550083Ctor.cpp,matched,two member slots prove wrapper; callee base rowed
-?rva004F558C@Rva004F553F@@QAEXH@Z,,0x004F558C,20,Code/GameEngine/Source/Common/Thing/Rva004F553FEnum.cpp,matched,chain lane visitor forward with fixed callback
 ??0Rva00265254@@QAE@IIII@Z,,0x00265254,88,Code/GameEngine/Source/GameLogic/AI/Rva00265254Ctor.cpp,matched,unlock via rowed callers same this memset plus bitsets
 ?rva00535C40@UserPreferences@@QAEHXZ,,0x00535C40,93,Code/GameEngine/Source/Common/UserPreferencesRva00535CE4.cpp,matched,UserPreferences total wins sum factions chain
 ??1Rva005A71B1@@UAE@XZ,,0x005A71B1,79,Code/GameEngine/Source/Common/System/Rva005A71B1Dtor.cpp,matched,dtor vstore 0x00871BF8 ehvec 0x40 array at 0x218 plus base free 0x00030830 unblocks 0x005A7200
