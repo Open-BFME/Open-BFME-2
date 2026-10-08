@@ -1,42 +1,37 @@
 // ?init@OrnamentData@@QAEXXZ
-// partial score=0.4291 date=2026-10-06
-// ?init@OrnamentData@@QAEXXZ
-// cl: /O2 /DNDEBUG /MD /G7 /arch:SSE
-// partial score=0.96 date=2026-09-25
-// Probe: OrnamentData::init.
-class OrnamentData
-{
-public:
-	void init();
+// partial score=0.9 date=2026-10-08
+// cl: /O1 /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
+// OrnamentData envelope init: the 53-byte leaf that W3DLaserDrawModuleData and
+// FadeAndDieOrnamentUpdate call at +0x4C and +0x28.
+// ?init@OrnamentData@@QAEXXZ @0x000C9251
 
-private:
-	float m_00;
-	float m_04;
-	float m_08;
-	int m_0C;
-	int m_10;
-	int m_14;
-	int m_18;
-	int m_1C;
-	int m_20;
-	int m_24;
+extern float g_Va00BBB8D8;
+
+struct OrnamentData
+{
+	void init() throw();
+	float m_f00, m_f04, m_f08;
+	int m_reset0C;
+	int m_i10, m_i14, m_i18;
+	int m_i1C, m_i20;
+	int m_reset24;
 };
 
-void OrnamentData::init()
+// ?init@OrnamentData@@QAEXXZ @0x000C9251
+void OrnamentData::init() throw()
 {
-	m_00 = 1.0f;
-	m_04 = 1.0f;
-	m_08 = 1.0f;
-	m_0C = 0;
-	m_10 = 1;
-	m_14 = 1;
-	m_18 = 1;
-	m_1C = -1;
-	m_20 = -1;
-	m_24 = 0;
-}
-
-void useIt(OrnamentData *p)
-{
-	p->init();
+	float one = g_Va00BBB8D8;
+	OrnamentData *self = this;
+	int ione = 1;
+	self->m_reset0C = 0;
+	self->m_i1C = -1;
+	self->m_i20 = -1;
+	self->m_reset24 = 0;
+	self->m_f00 = one;
+	self->m_f04 = one;
+	self->m_f08 = one;
+	self->m_i10 = ione;
+	self->m_i14 = ione;
+	self->m_i18 = ione;
 }
