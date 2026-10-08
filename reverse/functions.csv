@@ -70498,3 +70498,5 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva002F2865@Rva002F2865Host@@QAEHPADH@Z,,0x002F2865,21,Code/GameEngine/Source/Common/Rva002EF3D9Forwards.cpp,matched,
 ?rva003F8FF3@Rva003F8101@@QAEXXZ,,0x003F8FF3,17,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,
 ?rva003F9037@Rva003F81FDProxy@@QAEXXZ,,0x003F9037,17,Code/GameEngine/Source/Common/Rva003F81B0Chain.cpp,matched,
+?rva002BF6A7@Rva002BF6A7@@QAEXH@Z,,0x002BF6A7,16,Code/GameEngine/Source/Common/Rva002BF6A7Forward.cpp,matched,
+?rva005F83A9@Rva005F83A9@@QAEXXZ,,0x005F83A9,16,Code/GameEngine/Source/Common/Rva002BF6A7Forward.cpp,matched,
