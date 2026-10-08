@@ -751,6 +751,51 @@ Rva00238C34::operator AsciiString()
 	return tmp;
 }
 
+// Native 0x000BDC6D..0x000BDCD6 and 0x0059B2EC..0x0059B355 use the
+// same owning-string materialization as Rva00238C34 above. Their own
+// length/write callees are independently rowed; target loads establish
+// additional lengths at +0x18 and +0x10 respectively. The caller returns
+// through StringBase<char>'s copy constructor and direct releaseBuffer.
+// Address-derived receiver names retain the unknown template identity.
+class Rva000B65FD {
+public:
+	int rva000B65FD();
+};
+struct Rva000BD268 {
+	int write(char *dst);
+};
+class Rva000BDC6D {
+	char m_prefix[0x18];
+	int m_extra18;
+public:
+	AsciiString rva000BDC6D();
+};
+AsciiString Rva000BDC6D::rva000BDC6D()
+{
+	AsciiString tmp;
+	int extra = m_extra18;
+	((Rva000BD268 *)this)->write(tmp.getBufferForRead(extra + ((Rva000B65FD *)this)->rva000B65FD()));
+	return tmp;
+}
+
+class Rva0059B1A2 {
+public:
+	int rva0059B1A2(char *dst);
+};
+class Rva0059B2EC {
+	char m_prefix[0x10];
+	int m_extra10;
+public:
+	AsciiString rva0059B2EC();
+};
+AsciiString Rva0059B2EC::rva0059B2EC()
+{
+	AsciiString tmp;
+	int extra = m_extra10;
+	((Rva0059B1A2 *)this)->rva0059B1A2(tmp.getBufferForRead(extra + ((AsciiStringPlusText *)this)->length()));
+	return tmp;
+}
+
 // Complete native 0x5EF449..0x5EF46B and 0x5EF607..0x5EF669 bodies.
 // The existing writer proves two string refs, a text span, then the string
 // ref at +0x10; the length body reads span length +0x0C and string +0x10,
