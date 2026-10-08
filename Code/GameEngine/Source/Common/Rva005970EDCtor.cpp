@@ -178,6 +178,63 @@ Rva005970ED::~Rva005970ED()
  rva00597123();
 }
 
+// Native atexit thunks7B957C/7B9586 both tail-call the rowed seven-byte
+// reset5970E6. Reuse that provider for the static holders' cleanup; the
+// holder constructor names are target address names, not recovered identities.
+class Rva0005970E6DwordImmSetter {
+public:
+ void apply();
+};
+class Rva005DAA48 : public Rva0059710EHelper {
+public:
+ Rva005DAA48(void *held);
+ ~Rva005DAA48() { reinterpret_cast<Rva0005970E6DwordImmSetter *>(this)->apply(); }
+ void *held;
+};
+class Rva005DAA5A : public Rva0059710EHelper {
+public:
+ Rva005DAA5A(void *held);
+ ~Rva005DAA5A() { reinterpret_cast<Rva0005970E6DwordImmSetter *>(this)->apply(); }
+ void *held;
+};
+class Rva005DA64B : public Rva0059710EHelper {
+public:
+ Rva005DA64B(void *held);
+ void *held;
+};
+class Rva005DA831 : public Rva0059710EHelper {
+public:
+ Rva005DA831(void *held);
+ void *held;
+ int value08, value0C;
+};
+class AIUpgradeHeuristicFactoryUnlock : public Rva0059710EHelper {
+public:
+ AIUpgradeHeuristicFactoryUnlock(void *held);
+ void *held;
+ void *begin, *end, *limit;
+};
+
+// Native complete RET4 body59717F..59728F. Matched helper constructors
+// establish allocation sizes8/20/16; switch mapping is read from native
+// branches, since WB's unnamed selector uses a different case order.
+// Helper inheritance here expresses the two-slot dispatch ABI already
+// established by cleanup597123; original child class relationships remain unknown.
+void Rva005970ED::rva0059717F(int id)
+{
+ static Rva005DAA5A fallback(0);
+ static Rva005DAA48 none(0);
+ rva00597123();
+ switch (id) {
+ default: m_38 = &fallback; break;
+ case 0: m_38 = &none; break;
+ case 1: m_38 = new Rva005DA64B(this); break;
+ case 2: m_38 = new AIUpgradeHeuristicFactoryUnlock(this); break;
+ case 3: m_38 = new Rva005DA831(this); break;
+ }
+ m_3C = id;
+}
+
 // Native complete RET8 body 0x0059728F..0x00597315. Matched owning
 // constructor and destructor establish +34 flag / +3C id / +40 result.
 // WB 15377F0 is an unnamed callgraph lead, corroborating version1/2 and
