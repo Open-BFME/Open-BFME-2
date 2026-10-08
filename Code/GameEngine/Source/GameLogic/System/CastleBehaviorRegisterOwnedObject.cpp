@@ -11,6 +11,8 @@
 // The one local-static key and shared ID temporary preserve retail EH
 // and stack-slot reuse. No new callee pins are needed.
 #include <vector>
+#include <map>
+class Xfer;
 enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../Common/GameLogicObjectLookupView.h"
 enum ObjectStatusTypes { OBJECT_STATUS_5=5, OBJECT_STATUS_79=79 };
@@ -35,11 +37,11 @@ extern NameKeyGenerator* TheNameKeyGenerator;
 extern GameLogic* TheGameLogic;
 class Rva2225E0Filter { public: bool accepts(Object*,Player*); };
 class Rva00395F0B { public: void rva00395F0B(Object*); };
-class FoundationAIUpdate { void rva0045527A(ObjectID); friend class CastleBehavior; };
+class FoundationAIUpdate { protected: virtual void xfer(Xfer*); private: void rva0045527A(ObjectID); friend class CastleBehavior; };
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 inline void* objectTemplate(Object* object) { return field<void*>(object,4); }
 inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); }
-class CastleBehavior { public: void registerOwnedObject(Object*); bool checkForAutoPack(); void rva00397B03(ObjectStatusTypes,bool); };
+class CastleBehavior { public: void registerOwnedObject(Object*); bool checkForAutoPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); };
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
@@ -250,6 +252,116 @@ void Rva0039585A::mapLoadPostProcess(int context) {
    int index=field<int>(field<Player*>(ThePlayerList,0x10),0x54);
    if(TheShroudManager->getShroudStatusForPlayer(index,&field<Coord3D>(object,0x38))==CELL_NATIVE_1)
     object->rva0028D282((void*)index);
+  }
+ }
+}
+
+// CastleBehavior::DoXfer: WB named identity and native630B boundary.
+// Existing vector<ScienceType> serialization provider is a measured 4-byte
+// ABI view: these caller fields contain ObjectIDs, not established sciences.
+// Field +0x98 is AsciiString, independently witnessed by unpack.
+// One shared ObjectID temporary preserves native stack-slot reuse.
+class AsciiString;
+struct CastleXferVersion { unsigned char first,second; CastleXferVersion(unsigned char a,unsigned char b):first(a),second(b){} };
+class Xfer {
+public:
+ virtual ~Xfer();
+ virtual bool isLoading();
+ virtual bool isSaving();
+ virtual void slot3();
+ virtual void slot4();
+ virtual void slot5();
+ virtual void slot6();
+ virtual void slot7();
+ virtual void slot8();
+ virtual Xfer& raw(void*,unsigned);
+ virtual Xfer& version(CastleXferVersion&);
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual void slot15();
+ virtual void slot16();
+ virtual void slot17();
+ virtual void slot18();
+ virtual void slot19();
+ virtual void slot20();
+ virtual void slot21();
+ virtual void slot22();
+ virtual void slot23();
+ virtual void slot24();
+ virtual void slot25();
+ virtual void slot26();
+ virtual Xfer& xferAsciiString(AsciiString&);
+ virtual Xfer& real28(float&);
+ virtual void slot29();
+ virtual Xfer& unsignedInt(unsigned&);
+ virtual Xfer& signedInt(int&);
+ virtual void slot32();
+ virtual void slot33();
+ virtual void slot34();
+ virtual void slot35();
+ virtual Xfer& boolean(bool&);
+
+};
+enum ScienceType { SCIENCE_0=0 };
+Xfer* Rva00398280Xfer(Xfer*,_STL::vector<ScienceType>*);
+void XferObjectID(Xfer*,ObjectID*);
+void XferLivingWorldArmyID(Xfer*,int*);
+void CastleBehavior::DoXfer(Xfer* xfer) {
+ CastleXferVersion version(1,2);
+ ObjectID id;
+ xfer->version(version);
+ xfer->raw(&field<int>(this,0x34),4);
+ XferObjectID(xfer,&field<ObjectID>(this,0x38));
+ xfer->boolean(field<bool>(this,0x3c));
+ xfer->boolean(field<bool>(this,0x3d));
+ xfer->real28(field<float>(this,0x40));
+ Rva00398280Xfer(xfer,&field<_STL::vector<ScienceType> >(this,0x50));
+ XferLivingWorldArmyID(xfer,&field<int>(this,0x9c));
+ unsigned countA=field<_STL::vector<ObjectID> >(this,0x50).size();
+ xfer->signedInt((int&)countA);
+ if(xfer->isSaving()) {
+  for(_STL::vector<ObjectID>::iterator it=field<_STL::vector<ObjectID> >(this,0x50).begin();it!=field<_STL::vector<ObjectID> >(this,0x50).end();++it) {
+   id=*it;
+   XferObjectID(xfer,&id);
+  }
+ } else {
+  _STL::vector<ObjectID>& foundations=field<_STL::vector<ObjectID> >(this,0x50);
+  foundations.erase(foundations.begin(),foundations.end());
+  for(unsigned i=0;i<countA;++i) { XferObjectID(xfer,&id); field<_STL::vector<ObjectID> >(this,0x50).push_back(id); }
+ }
+ unsigned countB=field<_STL::vector<ObjectID> >(this,0x5c).size();
+ xfer->signedInt((int&)countB);
+ if(xfer->isSaving()) {
+  for(_STL::vector<ObjectID>::iterator it=field<_STL::vector<ObjectID> >(this,0x5c).begin();it!=field<_STL::vector<ObjectID> >(this,0x5c).end();++it) {
+   id=*it; XferObjectID(xfer,&id);
+  }
+ } else {
+  for(unsigned i=0;i<countB;++i) { XferObjectID(xfer,&id); field<_STL::vector<ObjectID> >(this,0x5c).push_back(id); }
+ }
+ Rva00398280Xfer(xfer,&field<_STL::vector<ScienceType> >(this,0x68));
+ xfer->unsignedInt(field<unsigned>(this,0x48));
+ if(version.second>=2) xfer->boolean(field<bool>(this,0x44));
+ if(xfer->isLoading() && field<int>(this,0x34)!=0) rva00399370();
+ ((FoundationAIUpdate*)this)->FoundationAIUpdate::xfer(xfer);
+ Rva00398280Xfer(xfer,&field<_STL::vector<ScienceType> >(this,0x74));
+ xfer->xferAsciiString(field<AsciiString>(this,0x98));
+ if(xfer->isSaving()) {
+  unsigned count=field<_STL::map<int,int> >(this,0xa0).size();
+  xfer->signedInt((int&)count);
+  for(_STL::map<int,int>::iterator it=field<_STL::map<int,int> >(this,0xa0).begin();it!=field<_STL::map<int,int> >(this,0xa0).end();++it) {
+   int key=it->first; xfer->signedInt(key);
+   unsigned value=it->second; xfer->unsignedInt(value);
+  }
+ } else {
+  unsigned count;
+  xfer->signedInt((int&)count);
+  while(count) {
+   int key; unsigned value;
+   xfer->signedInt(key); xfer->unsignedInt(value);
+   field<_STL::map<int,int> >(this,0xa0).insert(_STL::pair<const int,int>(key,value));
+   --count;
   }
  }
 }
