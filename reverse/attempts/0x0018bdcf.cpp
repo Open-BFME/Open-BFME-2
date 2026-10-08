@@ -1,3 +1,5 @@
+// ?Rva0018BDCFFogColor@@YAXPAUID3DXEffect@@PBD@Z
+// partial score=0.55 date=2026-10-08
 // cl: /O1 /EHsc /MD
 // Target identity: WorldBuilder fxshadernamespaceww3d.cpp:102 names
 // FXShaderParameterSourceNamespaceWW3D::SourceNamespace_Fog::ResolveBindings.
@@ -82,8 +84,18 @@ void Rva0018BE65FogRangeEnd(ID3DXEffect *effect, D3DXHANDLE handle);
 class DX8Wrapper {
 public:
     __forceinline static bool Get_Fog_Enable() { return FogEnable; }
+    __forceinline static unsigned long Get_Fog_Color() { return FogColor; }
+    __forceinline static FogVector Convert_Color(unsigned color) {
+        FogVector col;
+        col.w = ((color & 0xff000000) >> 24) / 255.0f;
+        col.x = ((color & 0xff0000) >> 16) / 255.0f;
+        col.y = ((color & 0xff00) >> 8) / 255.0f;
+        col.z = ((color & 0xff) >> 0) / 255.0f;
+        return col;
+    }
 protected:
     static bool FogEnable;
+    static unsigned long FogColor;
 };
 // The existing range-start alias had consumers but no definition. Retail's
 // initial .data value is zero; this provider lets those consumers link.
@@ -93,6 +105,16 @@ extern float g_Va00DEDA2C;
 void Rva0018BDB8FogIsEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
 {
     effect->SetBool(handle, DX8Wrapper::Get_Fog_Enable());
+}
+
+void Rva0018BDCFFogColor(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+    // BFME 1 ba7ddda7e8, game/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h:
+    // Convert_Color(unsigned) supplies the channel order and division shape.
+    // Retail independently proves the packed global, four channels, unsigned
+    // blue conversion and SetVector slot at +0x88.
+    const FogVector &col = DX8Wrapper::Convert_Color(DX8Wrapper::Get_Fog_Color());
+    effect->SetVector(handle, &col);
 }
 
 void Rva0018BE4CFogRangeStart(ID3DXEffect *effect, D3DXHANDLE handle)
