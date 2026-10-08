@@ -10940,7 +10940,6 @@ name,address,notes
 ?run@Rva003EF264Sub@@QAEXHH@Z,0x003EF264,REL32 callee decoded from target call bytes of same-shape count-note-run member; identity unproven
 ?run@Rva0040F7E5Runner@@QAEXXZ,0x0040F7E5,REL32 callee decoded from target call bytes of find-then-run 0x0040FAFE; identity unproven
 ?run@Rva0042B068Host@@QAEHHHHPAD@Z,0x0042B038,thiscall 4-arg runner called by Rva0042B068Host::wrap 0x0042B068 read from REL32
-?run@Rva004E5EBERun@@QAEXHH@Z,0x004E5EBE,REL32 callee decoded from target call bytes of null-checked forward 0x0029B16A; identity unproven
 ?run@Rva004F0819Run@@QAEXH@Z,0x004F0819,REL32 callee decoded from target call bytes of null-checked forward 0x002A9CF0; identity unproven
 ?run@Rva004F2ABCRun@@QAEXHH@Z,0x004F2ABC,REL32 callee decoded from target call bytes of null-checked forward 0x002A9CDE; identity unproven
 ?run@Rva004F2C14Run@@QAEXH@Z,0x004F2C14,REL32 callee decoded from target call bytes of null-checked forward 0x002A9DEC; identity unproven
@@ -11984,8 +11983,6 @@ name,address,notes
 ?rva004E3B78@Rva004E3B78@@QAEXXZ,0x004E3B78,thiscall void(); tail target of dump-range-18 0x003EED9D on this+8
 ?rva004E476C@AptPlayerStatus@@QAEXXZ,0x004E476C,unrowed player-row refresh of the player status screen (Ghidra FUN_008e476c; EH frame; checks +0x288 == 1 itself); REL32 read at the screen's OnInitialized callback 0x004E4A3D with ECX = this; address name
 ?rva004E50C8@Rva004E50C8@@QAEXXZ,0x004E50C8,thiscall void callee of 0x004E52DC read from its REL32 displacement; body unrowed
-?rva004E5EBE@Rva004E5EBE@@QAEXHH@Z,0x004E5EBE,tail-call target of the byte-verified Rva0029B16A::rva0029B16A 0x0029B16A on its +0x7F4 member read from its REL32 displacement; name unknown
-?rva004E5EBE@Rva004E5EBENullTarget@@QAEXHH@Z,0x004E5EBE,null-checked tail jmp target of 18B forwarder; original name unknown
 ?rva004E701E@Rva004E7277@@QAEXXZ,0x004E701E,thiscall void callee of 0x004E7277 read from its REL32 displacement (same this); body unrowed
 ?rva004E72C0@Rva004E7277@@QAEXPAX@Z,0x004E72C0,thiscall void callee of 0x004E7392 read from its REL32 displacement (same this plus arg); body unrowed
 ?rva004E7B0C@Rva004E7B0CHolder@@QAEXXZ,0x004E7B0C,"forwarder (mov ecx, [ecx] / jmp 0x004E7A85) of the holder at TheInGameUI +0x58C; TerrainResourceClientBehavior slot 17 0x004CC5FA calls it before raising its +0x0C flag"

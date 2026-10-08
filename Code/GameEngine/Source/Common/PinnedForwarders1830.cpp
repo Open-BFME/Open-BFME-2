@@ -397,10 +397,13 @@ void Rva0020EB41::rva0020EB41()
 		m_8->rva0020E9A1();
 }
 
-class Rva004E5EBE
+// Retail 0x004E5EBE is now the owned IngameNoticeDisplay::Start.
+// The historical integer argument view carries its UnicodeString address.
+class UnicodeString;
+class IngameNoticeDisplay
 {
 public:
-	void rva004E5EBE(int a, int b);
+    void Start(const UnicodeString &text, int duration);
 };
 
 class Rva0029B16A
@@ -409,13 +412,13 @@ public:
 	void rva0029B16A(int a, int b);
 private:
 	unsigned char m_pad00[0x7F4];
-	Rva004E5EBE *m_7F4;
+	IngameNoticeDisplay *m_7F4;
 };
 
 void Rva0029B16A::rva0029B16A(int a, int b)
 {
 	if (m_7F4)
-		m_7F4->rva004E5EBE(a, b);
+		m_7F4->Start(*reinterpret_cast<const UnicodeString *>(a), b);
 }
 
 class Rva004F2ABC
