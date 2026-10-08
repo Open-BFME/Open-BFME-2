@@ -28,3 +28,12 @@ lookup and Object status provider are reused. No data address is invented.
 
 This is byte and relocation verification, not a fresh link census or runtime
 result. The existing unowned base pin remains an explicit dependency.
+
+The related served lead `SiegeEngineContain::LoadPostProcess`, WB `011ABDE0`
+with vtable score 18, was independently reconstructed in its complete existing
+home. Native `0047C173..0047C21D` establishes list +11C, saved IDs +134 and
+the unchanged-receiver base call to +4783D7; owner +8, object +274, status 3D
+and virtual slot 24 are separately verified there. Its 170 bytes and emitted
+alignment byte match exactly, as do both existing home bodies (60 and 75 bytes).
+It uses the existing base provider pin and adds no pins. The sibling is banked
+in its own normal commit.

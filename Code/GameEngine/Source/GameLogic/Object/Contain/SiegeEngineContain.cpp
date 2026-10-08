@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /ICode/GameEngine/Source/Common /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
 // Target evidence: SiegeEngineContain ctor 0x0047C21E installs primary vtable
 // 0x00C470F8, whose slot 8 is this body. The same primary slot in OpenContain
@@ -20,17 +20,17 @@ class Object;
 class Thing;
 class ModuleData;
 
+enum ObjectStatusTypes;
 class Object
 {
 public:
 	void rva00298979(Object *source, bool wasSelected);
+	bool testStatus(ObjectStatusTypes) const;
+	unsigned char unknown00[0x274];
+	Object *m_containedBy274;
 };
 
-class GameLogic
-{
-public:
-	void destroyObject(Object *object);
-};
+#include "GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -39,8 +39,10 @@ class OpenContain
 public:
 	virtual void onDelete();
 
-private:
-	unsigned char m_padding[0xFC];
+protected:
+	const ModuleData *m_moduleData;
+	Object *m_object;
+	unsigned char m_padding0C[0x100 - 0x0C];
 };
 
 class TransportContain : public OpenContain
@@ -56,9 +58,12 @@ class SiegeEngineContain : public TransportContain
 {
 public:
 	virtual void onDelete();
+	virtual void LoadPostProcess();
 
 private:
 	_STL::list<int> m_riderObjects;
+	unsigned char m_pad120[0x134 - 0x120];
+	_STL::list<int> m_restoreIDs134;
 };
 
 void SiegeEngineContain::onDelete()
@@ -126,4 +131,50 @@ void Rva0047BEF8::rva0047BEF8(Object *rider, bool wasSelected)
 	}
 
 	((TransportContain *)this)->TransportContain::onContaining(rider, wasSelected);
+}
+
+class XferException
+{
+public:
+    XferException(int tag, const char *format, ...);
+    XferException(const XferException &);
+    ~XferException();
+    char *text;
+    int tag;
+};
+class Rva004697E1Contain { public: void rva004783D7(); };
+template <int N> class Rva0047D19CSlots : public Rva0047D19CSlots<N - 1>
+{
+public:
+    virtual void gap(char (*)[N]) = 0;
+};
+template <> class Rva0047D19CSlots<0> {};
+class Rva0047D19CInterface : public Rva0047D19CSlots<24>
+{
+public:
+    virtual void slot24(Object *, int, int) = 0;
+};
+void SiegeEngineContain::LoadPostProcess()
+{
+    // WB 011ABDE0 independently names this method and establishes crew-ID
+    // restoration plus XferException(5). Native 0047C173..0047C21D proves
+    // owner+8, crew list11C, restore-ID list134, Object field274 and slot24.
+    // WB layouts differ (+120/+138/+27C); target offsets take precedence.
+    // The unchanged-receiver base wrapper uses the existing004783D7 pin.
+    // Native ends after the noreturn throw call; emitted alignment byte at
+    // 0047C21D also matches retail. No donor class layout is asserted here.
+    Object *owner = m_object;
+    reinterpret_cast<Rva004697E1Contain *>(this)->rva004783D7();
+    if (!m_riderObjects.empty())
+        throw XferException(5, 0);
+    for (_STL::list<int>::iterator it = m_restoreIDs134.begin(); it != m_restoreIDs134.end(); ++it) {
+        Object *rider = TheGameLogic->findObjectByID((ObjectID)*it);
+        if (!rider)
+            throw XferException(5, 0);
+        m_riderObjects.push_back(reinterpret_cast<const int &>(rider));
+        if (rider->testStatus((ObjectStatusTypes)0x3D))
+            reinterpret_cast<Rva0047D19CInterface *>(this)->slot24(rider, 0, 0);
+        rider->m_containedBy274 = owner;
+    }
+    m_restoreIDs134.clear();
 }
