@@ -910,15 +910,7 @@ const FieldParse InGameUI::s_fieldParseTable[] =
 //-------------------------------------------------------------------------------------------------
 /** Parse MouseCursor entry */
 //-------------------------------------------------------------------------------------------------
-// ?INI::parseInGameUIDefinition present-unmatched
-void INI::parseInGameUIDefinition( INI* ini )
-{
-	if( TheInGameUI )
-	{
-		// parse the ini weapon definition
-		ini->initFromINI( TheInGameUI, TheInGameUI->getFieldParse() );
-	}
-}
+// INI::parseInGameUIDefinition: defined in InGameUIMessages.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -1128,100 +1120,7 @@ InGameUI::~InGameUI()
 //-------------------------------------------------------------------------------------------------
 /** Initialize the in game user interface */
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::init present-unmatched
-void InGameUI::init( void )
-{
-	INI ini;
-	ini.load( AsciiString( "Data\\INI\\InGameUI.ini" ), INI_LOAD_OVERWRITE, NULL );
-
-	//override INI values with language localized values:
-	if (TheGlobalLanguageData)
-	{
-		if (TheGlobalLanguageData->m_drawableCaptionFont.name.isNotEmpty())
-		{	m_drawableCaptionFont = TheGlobalLanguageData->m_drawableCaptionFont.name;
-			m_drawableCaptionPointSize = TheGlobalLanguageData->m_drawableCaptionFont.size;
-			m_drawableCaptionBold = TheGlobalLanguageData->m_drawableCaptionFont.bold;
-		}
-
-		if (TheGlobalLanguageData->m_messageFont.name.isNotEmpty())
-		{	m_messageFont = TheGlobalLanguageData->m_messageFont.name;
-			m_messagePointSize = TheGlobalLanguageData->m_messageFont.size;
-			m_messageBold = TheGlobalLanguageData->m_messageFont.bold;
-		}
-
-		if (TheGlobalLanguageData->m_militaryCaptionTitleFont.name.isNotEmpty())
-		{	m_militaryCaptionTitleFont = TheGlobalLanguageData->m_militaryCaptionTitleFont.name;
-			m_militaryCaptionTitlePointSize = TheGlobalLanguageData->m_militaryCaptionTitleFont.size;
-			m_militaryCaptionTitleBold = TheGlobalLanguageData->m_militaryCaptionTitleFont.bold;
-		}
-
-		if (TheGlobalLanguageData->m_militaryCaptionFont.name.isNotEmpty())
-		{	m_militaryCaptionFont = TheGlobalLanguageData->m_militaryCaptionFont.name;
-			m_militaryCaptionPointSize = TheGlobalLanguageData->m_militaryCaptionFont.size;
-			m_militaryCaptionBold = TheGlobalLanguageData->m_militaryCaptionFont.bold;
-		}
-
-		if (TheGlobalLanguageData->m_superweaponCountdownNormalFont.name.isNotEmpty())
-		{	m_superweaponNormalFont = TheGlobalLanguageData->m_superweaponCountdownNormalFont.name;
-			m_superweaponNormalPointSize = TheGlobalLanguageData->m_superweaponCountdownNormalFont.size;
-			m_superweaponNormalBold = TheGlobalLanguageData->m_superweaponCountdownNormalFont.bold;
-		}
-
-		if (TheGlobalLanguageData->m_superweaponCountdownReadyFont.name.isNotEmpty())
-		{	m_superweaponReadyFont = TheGlobalLanguageData->m_superweaponCountdownReadyFont.name;
-			m_superweaponReadyPointSize = TheGlobalLanguageData->m_superweaponCountdownReadyFont.size;
-			m_superweaponReadyBold = TheGlobalLanguageData->m_superweaponCountdownReadyFont.bold;
-		}
-
-		if (TheGlobalLanguageData->m_namedTimerCountdownNormalFont.name.isNotEmpty())
-		{	m_namedTimerNormalFont = TheGlobalLanguageData->m_namedTimerCountdownNormalFont.name;
-			m_namedTimerNormalPointSize = TheGlobalLanguageData->m_namedTimerCountdownNormalFont.size;
-			m_namedTimerNormalBold = TheGlobalLanguageData->m_namedTimerCountdownNormalFont.bold;
-		}
-
-		if (TheGlobalLanguageData->m_namedTimerCountdownReadyFont.name.isNotEmpty())
-		{	m_namedTimerReadyFont = TheGlobalLanguageData->m_namedTimerCountdownReadyFont.name;
-			m_namedTimerReadyPointSize = TheGlobalLanguageData->m_namedTimerCountdownReadyFont.size;
-			m_namedTimerReadyBold = TheGlobalLanguageData->m_namedTimerCountdownReadyFont.bold;
-		}
-	}
-
-	/**@ todo we used to put in the hint spy translator, but it's difficult
-	to order the translators when the code is not centralized so it has
-	been moved to where all the other translators are attached in game client */
-
-	// create the tactical view
-	if (TheDisplay)
-	{
-		TheTacticalView = createView();
-		TheTacticalView->init();
-		TheDisplay->attachView( TheTacticalView );
-
-		// make the tactical display the full screen width for now
-		TheTacticalView->setWidth( TheDisplay->getWidth());
-		// make the tactical display 0.76 of full screen so no drawing under GUI.
-		TheTacticalView->setHeight( TheDisplay->getHeight() * 0.77f);
-	}
-	TheTacticalView->setDefaultView(0.0f, 0.0f, 1.0f);
-
-	/** @todo this may be the wrong place to create the sidebar, but for now
-	this is where it lives */
-	createControlBar();
-
-	/** @todo This may be the wrong place to create the replay menu, but for now
-	this is where it lives */
-	createReplayControl();
-
-	// create the command bar
-	TheControlBar = NEW ControlBar;
-	TheControlBar->init();
-
-	m_windowLayouts.clear();
-
-	m_soloNexusSelectedDrawableID = INVALID_DRAWABLE_ID;
-
-
-}  // end init
+// InGameUI::init: defined in InGameUIMessages.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -3834,26 +3733,12 @@ void InGameUI::expireHint( HintType type, UnsignedInt hintIndex )
 //-------------------------------------------------------------------------------------------------
 /** Create the control user interface GUI */
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::createControlBar present-unmatched
-void InGameUI::createControlBar( void )
-{
-
-	TheWindowManager->winCreateFromScript( AsciiString("ControlBar.wnd") );
-	HideControlBar();
-/*	
-	// hide all windows created from this layout
-	GameWindow *window = TheWindowManager->winGetWindowList();
-	for( ; window; window = window->winGetPrev() )
-		window->winHide( TRUE );
-*/
-
-}  // end createControlBar
+// InGameUI::createControlBar: defined in InGameUIMessages.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** Create the replay control GUI */
 //-------------------------------------------------------------------------------------------------
-// InGameUI::createReplayControl: defined in InGameUICreateReplayControl.cpp (its row's unit).
-  // end createReplayControl
+// InGameUI::createReplayControl: defined in InGameUIMessages.cpp (its row's unit).
 
 // ------------------------------------------------------------------------------------------------
 // InGameUI::playMovie

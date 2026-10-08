@@ -38,6 +38,16 @@
 // floors through msvcr71; the typing word trails the last line by up to 30
 // pixels and fades in with the time left until the next character. The word
 // position is a coordinate pair: retail keeps its unused x slot in the frame.
+//
+// Vtable slot 1 (0x0029E2DE) is ZH's InGameUI::init. BFME 2 loads the
+// definition through IniLoad 0x003397D8 ("InGameUI" plus the block parser
+// INI::parseInGameUIDefinition 0x0029A627), applies nine GlobalLanguage font
+// overrides (12-byte name/size/bold triples from +0x38; their InGameUI targets
+// are retail-measured), and after ZH's tactical view, createControlBar
+// 0x0029C23E, createReplayControl 0x0029C269 and `new ControlBar` (0x2B4 B,
+// 0x0031E94C) adds a vslot-119 call, a 0x44-byte BannerUI (0x00217211, its
+// init and SubsystemInterface::loadIniFilesFromLegend), two singleton getters
+// and a zeroed +0x980. createControlBar passes HideControlBar an explicit true.
 
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -126,10 +136,30 @@ public:
 };
 extern FontLibrary *TheFontLibrary;
 
+struct FontDesc
+{
+	AsciiString name;
+	int size;
+	bool bold;
+};
+
+// Font override offsets are retail-measured from init: ZH's order plus one
+// unidentified FontDesc at +0x5C.
 class GlobalLanguage
 {
 public:
 	int adjustFontSize( int theFontSize );
+
+	char m_opaque00[ 0x38 ];
+	FontDesc m_messageFont;							// +0x38
+	FontDesc m_militaryCaptionTitleFont;			// +0x44
+	FontDesc m_militaryCaptionFont;					// +0x50
+	FontDesc m_unknownFont5C;						// +0x5C
+	FontDesc m_superweaponCountdownNormalFont;		// +0x68
+	FontDesc m_superweaponCountdownReadyFont;		// +0x74
+	FontDesc m_namedTimerCountdownNormalFont;		// +0x80
+	FontDesc m_namedTimerCountdownReadyFont;		// +0x8C
+	FontDesc m_drawableCaptionFont;					// +0x98
 };
 extern GlobalLanguage *TheGlobalLanguageData;
 
@@ -169,6 +199,26 @@ struct ICoord2D
 	int x, y;
 };
 
+class View
+{
+public:
+#define SLOT(N) virtual void slot##N();
+	SLOT(00) SLOT(01) SLOT(02) SLOT(03)
+	virtual void init();
+	SLOT(05) SLOT(06) SLOT(07) SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13)
+	virtual void setWidth( int width );
+	SLOT(15)
+	virtual void setHeight( int height );
+	SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25)
+	SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30) SLOT(31) SLOT(32) SLOT(33) SLOT(34)
+	SLOT(35) SLOT(36) SLOT(37) SLOT(38) SLOT(39) SLOT(40) SLOT(41) SLOT(42) SLOT(43)
+	SLOT(44) SLOT(45) SLOT(46) SLOT(47) SLOT(48) SLOT(49) SLOT(50) SLOT(51) SLOT(52)
+	SLOT(53) SLOT(54) SLOT(55) SLOT(56)
+#undef SLOT
+	virtual void setDefaultView( float pitch, float angle, float maxHeight );
+};
+extern View *TheTacticalView;
+
 class Display
 {
 public:
@@ -178,8 +228,86 @@ public:
 #undef SLOT
 	virtual unsigned int getWidth();
 	virtual unsigned int getHeight();
+#define SLOT(N) virtual void slot##N();
+	SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26)
+	SLOT(27) SLOT(28) SLOT(29) SLOT(30) SLOT(31) SLOT(32) SLOT(33) SLOT(34)
+#undef SLOT
+	virtual void attachView( View *view );
 };
 extern Display *TheDisplay;
+
+struct FieldParse;
+
+class INI
+{
+public:
+	void initFromINI( void *what, const FieldParse *parseTable );
+	static void parseInGameUIDefinition( INI *ini );
+};
+typedef void (*INIBlockParse)( INI *ini );
+
+// inihelp.cpp: loads every INI file the legend lists under the name.
+bool IniLoad( const char *name, INIBlockParse parse );
+
+class GameWindow;
+struct WindowLayoutInfo;
+
+class GameWindowManager
+{
+public:
+#define SLOT(N) virtual void slot##N();
+	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
+	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
+	SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23)
+	SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30)
+#undef SLOT
+	virtual GameWindow *winCreateFromScript( AsciiString filename, WindowLayoutInfo *info = 0, void *unused = 0 );
+};
+extern GameWindowManager *TheWindowManager;
+
+extern GameWindow *m_replayWindow;
+
+void HideControlBar( bool hide );
+
+class ControlBar
+{
+public:
+	ControlBar();
+	virtual ~ControlBar();
+	virtual void init();
+private:
+	char m_opaque04[ 0x2B4 - 0x4 ];
+};
+extern ControlBar *TheControlBar;
+
+class BannerUI
+{
+public:
+	BannerUI();
+	virtual ~BannerUI();
+	virtual void init();
+	virtual bool loadIniFilesFromLegend();
+private:
+	char m_opaque04[ 0x44 - 0x4 ];
+};
+extern BannerUI *g_00DFE32C;
+
+void *Rva0043CCC2Get();
+void *Rva004E4312GetRoute();
+
+// STLport's list base: retail folded list<WindowLayout*>::clear into the rowed
+// int instantiation at 0x0023DAA5, so the member view names that one.
+namespace _STL
+{
+	template <class _Tp> class allocator;
+	template <class _Tp, class _Alloc> class _List_base
+	{
+	public:
+		void clear();
+	protected:
+		void *_M_node;
+	};
+}
 
 void Rva00433C18( const UnicodeString &text, bool flag );
 
@@ -241,7 +369,9 @@ class InGameUI
 {
 public:
 #define SLOT(N) virtual void vslot##N();
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
+	SLOT(00)
+	virtual void init();
+	SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
 	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13)
 #undef SLOT
 	virtual void __cdecl rva0029E99F( const RGBColor *rgbColor, UnicodeString format, ... );
@@ -265,13 +395,20 @@ public:
 	SLOT(80) SLOT(81) SLOT(82) SLOT(83) SLOT(84) SLOT(85)
 	virtual void drawMilitarySubtitle();
 	SLOT(87) SLOT(88) SLOT(89)
-	SLOT(90) SLOT(91) SLOT(92) SLOT(93) SLOT(94) SLOT(95) SLOT(96) SLOT(97) SLOT(98) SLOT(99)
+	SLOT(90) SLOT(91) SLOT(92) SLOT(93) SLOT(94) SLOT(95)
+	virtual const FieldParse *getFieldParse() const;
+	SLOT(97) SLOT(98) SLOT(99)
 	SLOT(100) SLOT(101) SLOT(102) SLOT(103) SLOT(104) SLOT(105) SLOT(106) SLOT(107) SLOT(108)
-#undef SLOT
 	virtual void setRva0029B04D( int value );
 	virtual void clearRva0029B060();
+	SLOT(111) SLOT(112) SLOT(113) SLOT(114) SLOT(115) SLOT(116) SLOT(117)
+#undef SLOT
+	virtual View *createView() = 0;
+	virtual void vslot119() = 0;
 
 protected:
+	void createControlBar();
+	void createReplayControl();
 	void updateMilitarySubtitle();
 	void addMessageText( const UnicodeString &formattedMessage, const RGBColor *rgbColor = 0 );
 
@@ -301,9 +438,30 @@ protected:
 		bool finished;											// +0x44
 	};
 
-	char m_opaque004[ 0x5D0 - 0x4 ];
+	char m_opaque004[ 0x18 - 0x4 ];
+	_STL::_List_base<int, _STL::allocator<int> > m_windowLayouts;	// +0x18
+	char m_opaque01C[ 0x5D0 - 0x1C ];
 	UIMessage m_uiMessages[ MAX_UI_MESSAGES ];	// +0x5D0
-	char m_opaque630[ 0x7F0 - 0x630 ];
+	char m_opaque630[ 0x72C - 0x630 ];
+	AsciiString m_superweaponNormalFont;		// +0x72C
+	int m_superweaponNormalPointSize;			// +0x730
+	bool m_superweaponNormalBold;				// +0x734
+	AsciiString m_superweaponReadyFont;			// +0x738
+	int m_superweaponReadyPointSize;			// +0x73C
+	bool m_superweaponReadyBold;				// +0x740
+	char m_opaque744[ 0x77C - 0x744 ];
+	AsciiString m_namedTimerNormalFont;			// +0x77C
+	int m_namedTimerNormalPointSize;			// +0x780
+	bool m_namedTimerNormalBold;				// +0x784
+	char m_opaque788[ 0x78C - 0x788 ];
+	AsciiString m_namedTimerReadyFont;			// +0x78C
+	int m_namedTimerReadyPointSize;				// +0x790
+	bool m_namedTimerReadyBold;					// +0x794
+	char m_opaque798[ 0x79C - 0x798 ];
+	AsciiString m_drawableCaptionFont;			// +0x79C
+	int m_drawableCaptionPointSize;				// +0x7A0
+	bool m_drawableCaptionBold;					// +0x7A4
+	char m_opaque7A8[ 0x7F0 - 0x7A8 ];
 	MilitarySubtitleData *m_militarySubtitle;	// +0x7F0
 	char m_opaque7F4[ 0x814 - 0x7F4 ];
 	Color m_messageColor1;						// +0x814
@@ -324,6 +482,8 @@ protected:
 	int m_militaryCaptionPointSize;				// +0x868
 	bool m_militaryCaptionBold;					// +0x86C
 	int m_militaryCaptionSpeed;					// +0x870
+	char m_opaque874[ 0x980 - 0x874 ];
+	int m_unknown980;							// +0x980
 };
 extern InGameUI *TheInGameUI;
 
@@ -671,4 +831,116 @@ void InGameUI::removeMilitarySubtitle()
 
 	delete m_militarySubtitle;
 	m_militarySubtitle = 0;
+}
+
+void InGameUI::createControlBar()
+{
+	TheWindowManager->winCreateFromScript( AsciiString( "ControlBar.wnd" ) );
+	HideControlBar( true );
+}
+
+void InGameUI::createReplayControl()
+{
+	m_replayWindow = TheWindowManager->winCreateFromScript( AsciiString( "ReplayControl.wnd" ) );
+}
+
+void INI::parseInGameUIDefinition( INI *ini )
+{
+	if( TheInGameUI )
+		ini->initFromINI( TheInGameUI, TheInGameUI->getFieldParse() );
+}
+
+// isEmpty was header-defined: MSVC keeps the call out of line (0x00001E2F) but,
+// knowing the body, keeps TheGlobalLanguageData in edi across it.
+template <> inline bool StringBase<char>::isEmpty() const { return m_data == 0 || m_data->length == 0; }
+template <> inline bool StringBase<char>::isNotEmpty() const { return !isEmpty(); }
+
+void InGameUI::init()
+{
+	IniLoad( "InGameUI", INI::parseInGameUIDefinition );
+
+	// override INI values with language localized values
+	if( TheGlobalLanguageData )
+	{
+		if( TheGlobalLanguageData->m_drawableCaptionFont.name.isNotEmpty() )
+		{
+			m_drawableCaptionFont = TheGlobalLanguageData->m_drawableCaptionFont.name;
+			m_drawableCaptionPointSize = TheGlobalLanguageData->m_drawableCaptionFont.size;
+			m_drawableCaptionBold = TheGlobalLanguageData->m_drawableCaptionFont.bold;
+		}
+		if( TheGlobalLanguageData->m_messageFont.name.isNotEmpty() )
+		{
+			m_messageFont = TheGlobalLanguageData->m_messageFont.name;
+			m_messagePointSize = TheGlobalLanguageData->m_messageFont.size;
+			m_messageBold = TheGlobalLanguageData->m_messageFont.bold;
+		}
+		if( TheGlobalLanguageData->m_militaryCaptionTitleFont.name.isNotEmpty() )
+		{
+			m_militaryCaptionTitleFont = TheGlobalLanguageData->m_militaryCaptionTitleFont.name;
+			m_militaryCaptionTitlePointSize = TheGlobalLanguageData->m_militaryCaptionTitleFont.size;
+			m_militaryCaptionTitleBold = TheGlobalLanguageData->m_militaryCaptionTitleFont.bold;
+		}
+		if( TheGlobalLanguageData->m_militaryCaptionFont.name.isNotEmpty() )
+		{
+			m_militaryCaptionFont = TheGlobalLanguageData->m_militaryCaptionFont.name;
+			m_militaryCaptionPointSize = TheGlobalLanguageData->m_militaryCaptionFont.size;
+			m_militaryCaptionBold = TheGlobalLanguageData->m_militaryCaptionFont.bold;
+		}
+		if( TheGlobalLanguageData->m_superweaponCountdownNormalFont.name.isNotEmpty() )
+		{
+			m_superweaponNormalFont = TheGlobalLanguageData->m_superweaponCountdownNormalFont.name;
+			m_superweaponNormalPointSize = TheGlobalLanguageData->m_superweaponCountdownNormalFont.size;
+			m_superweaponNormalBold = TheGlobalLanguageData->m_superweaponCountdownNormalFont.bold;
+		}
+		if( TheGlobalLanguageData->m_superweaponCountdownReadyFont.name.isNotEmpty() )
+		{
+			m_superweaponReadyFont = TheGlobalLanguageData->m_superweaponCountdownReadyFont.name;
+			m_superweaponReadyPointSize = TheGlobalLanguageData->m_superweaponCountdownReadyFont.size;
+			m_superweaponReadyBold = TheGlobalLanguageData->m_superweaponCountdownReadyFont.bold;
+		}
+		if( TheGlobalLanguageData->m_namedTimerCountdownNormalFont.name.isNotEmpty() )
+		{
+			m_namedTimerNormalFont = TheGlobalLanguageData->m_namedTimerCountdownNormalFont.name;
+			m_namedTimerNormalPointSize = TheGlobalLanguageData->m_namedTimerCountdownNormalFont.size;
+			m_namedTimerNormalBold = TheGlobalLanguageData->m_namedTimerCountdownNormalFont.bold;
+		}
+		if( TheGlobalLanguageData->m_namedTimerCountdownReadyFont.name.isNotEmpty() )
+		{
+			m_namedTimerReadyFont = TheGlobalLanguageData->m_namedTimerCountdownReadyFont.name;
+			m_namedTimerReadyPointSize = TheGlobalLanguageData->m_namedTimerCountdownReadyFont.size;
+			m_namedTimerReadyBold = TheGlobalLanguageData->m_namedTimerCountdownReadyFont.bold;
+		}
+	}
+
+	if( TheDisplay )
+	{
+		// make the tactical display the full screen width and height
+		TheTacticalView = createView();
+		TheTacticalView->init();
+		TheDisplay->attachView( TheTacticalView );
+
+		TheTacticalView->setWidth( TheDisplay->getWidth() );
+		// keep the tactical view from rendering underneath the control bar
+		TheTacticalView->setHeight( TheDisplay->getHeight() * 0.77f );
+	}
+	TheTacticalView->setDefaultView( 0.0f, 0.0f, 1.0f );
+
+	createControlBar();
+	createReplayControl();
+
+	TheControlBar = new ControlBar;
+	TheControlBar->init();
+
+	m_windowLayouts.clear();
+
+	vslot119();
+
+	g_00DFE32C = new BannerUI;
+	g_00DFE32C->init();
+	g_00DFE32C->loadIniFilesFromLegend();
+
+	Rva0043CCC2Get();
+	Rva004E4312GetRoute();
+
+	m_unknown980 = 0;
 }
