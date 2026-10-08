@@ -60,6 +60,10 @@ class Rva00531720
 public:
 	unsigned char rva00531720(unsigned int count, unsigned int value);
 };
+// WB12D2AB0 and native531757 establish the predicate owner.
+class PathfindZoneManager {
+public: bool CouldBeInEquivSet(unsigned equivalent, unsigned zone);
+};
 class Rva002E99F9Sub460
 {
 public:
@@ -67,7 +71,6 @@ public:
 	unsigned short rva00531FD4(void *s, unsigned short w);
 	unsigned short rva00531FE6(bool force, void *item, unsigned short value);
 	bool rva005318DB(void *item, void *first, void *second);
-	bool rva00531757(unsigned int count, unsigned int value);
 	bool rva005317D7(unsigned int index, unsigned int first, unsigned int second);
 };
 struct Rva002E99F9Arg1
@@ -183,8 +186,8 @@ bool Rva002E99F9Sub460::rva005318DB(void *item, void *first, void *second)
 	Rva00531720 *slot = (Rva00531720 *)this;
 	if (slot->rva00531720(count, firstValue) &&
 		slot->rva00531720(count, secondValue) &&
-		rva00531757(index, firstValue) &&
-		rva00531757(index, secondValue))
+		((PathfindZoneManager *)this)->CouldBeInEquivSet(index, firstValue) &&
+		((PathfindZoneManager *)this)->CouldBeInEquivSet(index, secondValue))
 		return rva005317D7(index, firstValue, secondValue);
 	return 0;
 }

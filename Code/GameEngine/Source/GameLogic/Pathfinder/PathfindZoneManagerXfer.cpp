@@ -93,7 +93,7 @@ public:
 	{
 	public:
 		void DoXfer(Xfer *);
-		unsigned value;
+		union { unsigned value; struct { unsigned type:3, id:6, secondary:6, unknown15:4, bridge:1, unknown20:12; }; };
 	};
 	class Block
 	{
@@ -107,6 +107,7 @@ public:
 	};
 	void DoXfer(Xfer *);
 	void CreateEquivalencySet(unsigned variant, unsigned equivalent);
+ bool CouldBeInEquivSet(unsigned equivalent, unsigned zone);
 
 	// Accessed layout only. Cell storage's full element count is unproven.
 	char unknown0C[0x1B594 - 0xC];
@@ -203,7 +204,6 @@ public: unsigned char rva00531720(unsigned variant, unsigned zone);
 };
 class Rva002E99F9Sub460 {
 public:
- bool rva00531757(unsigned equivalent, unsigned zone);
  bool rva005317D7(unsigned equivalent, unsigned first, unsigned second);
 };
 class Rva00532165 {
@@ -213,15 +213,15 @@ public: void rva00532431(unsigned short first, unsigned short second);
 // Existing transfer bodies establish end+6 and unions1B594[8][7].
 // The target uses the established mask predicates531720/531757/5317D7,
 // MakeSet531ABB and LinkSets532431 and the concrete returned adjacency pair.
-// Original predicate owners remain neutral views with their existing pins;
-// their observed calling conventions and receiver offset are preserved.
+// CouldBeInEquivSet now has its WB-proven owner and exact128B provider.
+// InEquivSet remains a neutral view until its own body is admitted.
 void PathfindZoneManager::CreateEquivalencySet(unsigned variant, unsigned equivalent) {
  unions[variant][equivalent].first=0;
  for (unsigned i=0; i<end; ++i)
   unions[variant][equivalent].rva00531ABB((unsigned short)i);
  for (unsigned zone=0; zone<end; ++zone) {
   if (!((Rva00531720 *)this)->rva00531720(variant,zone)) continue;
-  if (!((Rva002E99F9Sub460 *)this)->rva00531757(equivalent,zone)) continue;
+  if (!CouldBeInEquivSet(equivalent,zone)) continue;
   ZoneAdjacencyRange range=((ZoneAdjacencyTable *)((char *)this+0x1770C))->rva00532104((unsigned short)zone);
   for (; range.begin != range.end; ++range.begin) {
    unsigned short other=range.begin->zone;
@@ -230,4 +230,37 @@ void PathfindZoneManager::CreateEquivalencySet(unsigned variant, unsigned equiva
    ((Rva00532165 *)&unions[variant][equivalent])->rva00532431((unsigned short)zone,other);
   }
  }
+}
+
+// WB12D2AB0 names CouldBeInEquivSet. Native531757..5317D7 proves
+// the4B cell type[0:2] and bridge bit19; native CellType::DoXfer531978
+// independently transfers the3/6/6-bit fields. Names type/id/secondary/bridge
+// describe their uses; original bitfield names remain unproven. A packed
+// bitfield view reproduces every byte including shared true/false tails.
+bool PathfindZoneManager::CouldBeInEquivSet(unsigned equivalent, unsigned zone) {
+ CellType *c = reinterpret_cast<CellType *>(unknown0C)+zone;
+switch (equivalent) {
+case 0:
+ break;
+case 1:
+ if (c->type != 0 && c->type != 2) return false;
+ break;
+case 2:
+ if (c->type != 0 && c->type != 7 && c->type != 1) return false;
+ break;
+case 4:
+ if (c->type != 7 && c->type != 1) return false;
+ break;
+case 3:
+ if (c->type != 0 && c->type != 3) return false;
+ break;
+case 6:
+ if (c->type != 0 && c->type != 3 && c->type != 4) return false;
+ if (c->type == 4 && !c->bridge) return false;
+ break;
+case 5:
+ if (c->type != 2) return false;
+ break;
+}
+ return true;
 }
