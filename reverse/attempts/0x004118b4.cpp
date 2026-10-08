@@ -1,5 +1,5 @@
 // ?Rva004118B4@@YAPAXPBD0@Z
-// partial score=0.99 date=2026-10-08
+// partial score=0.995 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /O1 /arch:SSE /G7
 // ?Rva004118B4@@YAPAXPBD0@Z @0x004118B4 319B
 // Apt asset creator called by Rva004120B3 with path and parameters: resolves
@@ -9,7 +9,7 @@
 // the Rva000427195 table at 0xA02FF8. Evidence: caller 0x004120D3 passes
 // path+params; strings _RenderObj _KeepAspectRatio _AnimMode; callees
 // bfmePathLeafAfterMarker GetParam find Create GetLevel SlashPath2DotPath
-// rva004112A0 releaseBuffer StringBase ctor; global g_Va00E02FF8;
+// rva004112A0 releaseBuffer StringBase ctor; global g_00E02FF8;
 // sbb-inc is unsigned char per shape guide.
 #include "ascii_string.h"
 
@@ -39,7 +39,7 @@ class Rva000427195
 public:
 	void *rva004112A0(const AsciiString *key);
 };
-extern unsigned int g_Va00E02FF8;
+extern unsigned int g_00E02FF8;
 
 void *Rva004118B4(const char *path, const char *params)
 {
@@ -51,18 +51,15 @@ void *Rva004118B4(const char *path, const char *params)
 		return 0;
 	AsciiString keepStr;
 	Rva004128F0GetParam(params, "_KeepAspectRatio", keepStr);
-	register unsigned char keep = (unsigned char)(keepStr.find('f') == 0);
+	unsigned char keep = (unsigned char)(keepStr.find('f') == 0);
 	AsciiString animMode;
 	Rva004128F0GetParam(params, "_AnimMode", animMode);
 	Rva00789900Init *obj = Rva00740A45Create(keep);
 	obj->f1();
 	obj->m_04 = Rva004128BBGetLevel(path);
-	{
-		AsciiString dotPath = AptUtils::SlashPath2DotPath(path);
-		obj->f2(dotPath, renderObj, animMode);
-	}
+	obj->f2(AptUtils::SlashPath2DotPath(path), renderObj, animMode);
 	AsciiString leafStr(leaf);
-	void **slot = (void **)((Rva000427195 *)&g_Va00E02FF8)->rva004112A0(&leafStr);
+	void **slot = (void **)((Rva000427195 *)&g_00E02FF8)->rva004112A0(&leafStr);
 	*slot = obj;
 	return obj;
 }

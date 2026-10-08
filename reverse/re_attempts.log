@@ -20648,3 +20648,11 @@ FUN_008331c6	0x004331C6	458	blocked	identity unprovable: packet has no donor or 
 ?rva002BF2B7@Rva002BF4F3@@QAE_NHPAVVector3@@@Z	0x002BF2B7	129	partial	missing mov ecx esi reload t=15 model=muse-02 score=0.98 stash=reverse/attempts/0x002bf2b7.cpp
 ?rva00409EB3@CreateAHeroHero@@QAEPBVCommandButton@@I@Z	0x00409EB3	53	partial	array base in esi vs eax t=14 model=muse-02 score=0.96 stash=reverse/attempts/0x00409eb3.cpp
 ?rva0036DA02@AIGroup@@QAE_NIPBUCoord3D@@PBVObject@@IH@Z	0x0036DA02	440	landed	add_match verified Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036DA02.cpp 440B; AIGroup flank plus rank ID74 via ControlBar precedent plus rowed callees
+?Rva004118B4@@YAPAXPBD0@Z	0x004118B4	319	partial	sub esp 14 vs 10 and cmp al bl vs test al al t=15 model=muse-05 score=0.995 stash=reverse/attempts/0x004118b4.cpp
+?bfmeCallFBC@BfmeObjFBC@@QAEDPAX0H0@Z	0x0035B2C3	292	blocked	pins disagree on param types PAX0H0 vs PAXHPBVCoord3D H t=5 model=muse-05
+?onContaining@HordeContain@@UAEXPAVObject@@_N@Z	0x0046FA46	469	blocked	MI base offsets for negative this plus opencontain pads unprovable in box t=10 model=muse-05
+?Rva00411B52@@YAXXZ	0x00411B52	814	blocked	prologue globals g_00E03020 map container types unprovable in box t=10 model=muse-05
+?Rva0053FE64Eval@@YAXPAXM0H0H0H0H@Z	0x0053FE64	185	blocked	three inner member calls share one this across three classes needs unrelated casts t=10 model=muse-05
+?CreateContentMovieClip@AptMovieClipFrame@@QAE_NABVAsciiString@@0PAHPAV2@@Z	0x005C329B	311	blocked	apt callee PADI plus handler signatures unprovable in box t=10 model=muse-05
+?rva002E0298@Rva002E02F0@@QAEXPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z	0x002E0298	88	landed	add_match verified Code/GameEngine/Source/Common/Rva002E0298.cpp 88B; sibling Rva002E02F0 layout plus erase reserve begin Check push_back inc
+?rva002E0298@Rva002E02F0@@QAEXPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z	0x002E0298	88	blocked	false-reject check_csv: add_match verified OK plus staged D plus disk gone plus hook still demands deletion t=10 model=muse-05
