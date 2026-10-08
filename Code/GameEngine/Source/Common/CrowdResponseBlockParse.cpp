@@ -1,16 +1,17 @@
-// ?Rva00415D33Parse@@YAXPAVINI@@@Z
-// partial score=0.99 date=2026-10-07
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /arch:SSE /G7
 // stlport
-// ?Rva00415D33Parse@@YAXPAVINI@@@Z @0x00415D33 314B chain via rowed 0x00415B54 ctor.
-// CrowdResponse INI block parse: null-store and map.ini guards then tokenize,
-// new Rva00415B54, hashtable insert at store+0xC via rowed 0x0041557A, duplicate
-// override through rowed assignMembers 0x00415C84 when load type is 5 else throw,
-// then rowed parseFromINI 0x00415C56. Evidence: callers none (BlockParse
-// CrowdResponse node VA 0x00DC20E0 parse 0x00415D33), strings at 0x0083A3A0
-// 0x0083A35C 0x0083A334, ThrowInfo 0x00CFE2FC, rowed getNextToken 0x0002DF97
-// set 0x000055F5 new 0x0002FDA0 StringBase copy 0x000365F0 releaseBuffer
-// 0x00036410 dtor 0x00415AE0 delete 0x0002FD60.
+// CrowdResponse INI block parse (retail 0x00415D33, 314 bytes): the parse
+// function of theCrowdResponseBlockParse (VA 0x00DC20E0 "CrowdResponse").
+// Target evidence: the three INIException texts at 0x0083A3A0, 0x0083A35C and
+// 0x0083A334 with ThrowInfo 0x00CFE2FC; TheCrowdResponseStore is the global
+// GameEngine::init registers under that name (0x00A0307C, SubsystemInterface.cpp);
+// rowed callees getNextToken 0x0002DF97, new 0x0002FDA0, the entry ctor
+// 0x00415B54, hashtable insert 0x0041557A on the store's table at +0xC, the
+// override copy 0x00415C84, entry dtor 0x00415AE0 and parseFromINI 0x00415C56.
+// WorldBuilder places the body in CrowdResponseSystem.cpp (strings only, no
+// name). Structure carried from the banked 0.99 attempt; the insert goes
+// through an inline table member, which puts the hidden return push ahead of
+// the +0xC this adjustment as retail has it.
 #include "ascii_string.h"
 #include <set>
 
@@ -38,10 +39,11 @@ class INI
 {
 public:
 	const char *getNextToken(const char *seps);
-	int getLoadType() const { return m_type; }
+	int getLoadType() const { return m_loadType; }
+private:
 	int m_00;
 	int m_04;
-	int m_type;
+	int m_loadType;
 };
 
 class CrowdResponseTemplate
@@ -65,18 +67,20 @@ public:
 #pragma pack(push, 1)
 struct InsertRet0041539F
 {
-	InsertRet0041539F(void *node, void *owner, unsigned char found)
-		: m_node(node), m_owner(owner), m_found(found) {}
 	void *m_node;
 	void *m_owner;
 	unsigned char m_found;
 };
 #pragma pack(pop)
 
+typedef _STL::pair<const AsciiString, Rva00415B54 *> CrowdResponseEntry;
+
 class Rva000427195
 {
 public:
 	InsertRet0041539F rva0041557A(const void *key);
+	InsertRet0041539F insert(const CrowdResponseEntry &entry) { return rva0041557A(&entry); }
+private:
 	void *m_unused00;
 	void **m_beginBuckets;
 	void **m_endBuckets;
@@ -84,13 +88,16 @@ public:
 	unsigned int m_numElements;
 };
 
-struct CrowdResponseStore00415D33
+class Rva0022A809Subsystem
 {
-	char _00[0xC];
+public:
+	Rva000427195 &getTable() { return m_table0C; }
+private:
+	char m_base[0xC];
 	Rva000427195 m_table0C;
 };
 
-extern CrowdResponseStore00415D33 *g_00E0307C;
+extern Rva0022A809Subsystem *TheCrowdResponseStore;
 
 struct INIException
 {
@@ -99,13 +106,15 @@ struct INIException
 	INIException(int argCount, const char *format, ...);
 };
 
+// Retail throws the constructed local itself (no copy into a throw temporary),
+// which a throw expression does not reproduce.
 struct _s__ThrowInfo;
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVINIException@@");
 
 void __cdecl Rva00415D33Parse(INI *ini)
 {
-	if (g_00E0307C == 0)
+	if (TheCrowdResponseStore == 0)
 	{
 		INIException e(8, "Attemping to parse a CrowdResponse block before TheCrowdResponseStore is set up");
 		_CxxThrowException(&e, &__identifier("_TI1?AVINIException@@"));
@@ -119,12 +128,12 @@ void __cdecl Rva00415D33Parse(INI *ini)
 	}
 	AsciiString name;
 	const char *token = ini->getNextToken(0);
-	((StringBase<char> *)&name)->set(token);
+	name.set(token);
 	Rva00415B54 *fresh = new Rva00415B54(name);
-	InsertRet0041539F res = g_00E0307C->m_table0C.rva0041557A((const void *)&_STL::pair<const AsciiString, Rva00415B54 *>(name, fresh));
+	InsertRet0041539F res = TheCrowdResponseStore->getTable().insert(CrowdResponseEntry(name, fresh));
 	if (!res.m_found)
 	{
-		if (ini->m_type == 5)
+		if (ini->getLoadType() == 5)
 		{
 			Rva00415B54 *existing = *(Rva00415B54 **)((char *)res.m_node + 8);
 			((Rva00415C84 *)existing)->assignMembers(*(Rva00415C84 *)fresh);
