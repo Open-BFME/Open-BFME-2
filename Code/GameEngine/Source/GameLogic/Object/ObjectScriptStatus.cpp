@@ -155,6 +155,15 @@ public:
  char unknown00[0x140];
  Rva001E3591 *path;
 };
+class AttributeModifierPoolUpdate { public: bool rva00403382(int,float *,int); };
+enum KindOfType { KINDOF_VIEW_UNKNOWN = 0 };
+struct ObjectCrushLevelsView {
+ char unknown00[0x5f9];
+ char crusher,crushable,alternateCrusher,alternateCrushable;
+ char unknown5fd;
+ bool gate5fe;
+};
+
 class Object
 {
 public:
@@ -174,16 +183,22 @@ public:
  void rva00291EB1();
  void rva0028B98B();
  char rva00294815();
+ bool rva00293926(KindOfType);
  signed char rva0028CE7B() const;
  bool canCrushOrSquishNoAlly(Object *, int);
 private:
+ __forceinline const ObjectCrushLevelsView *getTemplate() const { return m_template; }
+ AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
  // Primary vptr at +0; all accessed fields are witnessed in retail.
- unsigned char m_pad04[0x38-4];
+ const ObjectCrushLevelsView *m_template; // +0x04
+ unsigned char m_pad08[0x38-8];
  Coord3D position; // +0x38
  float angle; // +0x44
  unsigned char m_pad48[0x84-0x48];
  Thing *drawable; // +0x84
- unsigned char m_pad88[0x1C4-0x88];
+ unsigned char m_pad88[0x124-0x88];
+ unsigned int mountedFlags; // +0x124, target bit22 selects alternate level
+ unsigned char m_pad128[0x1C4-0x128];
  float initialZ; // +0x1C4
  unsigned char m_pad1C8[0x1F8-0x1C8];
  int m_unk1F8[11];
@@ -374,4 +389,29 @@ bool Object::canCrushOrSquishNoAlly(Object *other,int testType) {
  if(testType==1 || testType==2) { if(other->squishable) return true; }
  if(testType==0 || testType==2) { if(crusherLevel>other->rva0028CE7B()) return true; }
  return false;
+}
+
+// ?rva00294815@Object@@QAEDXZ
+// BFME1 Object.cpp crusher/mounted-level donor9cbfb551 with native BFME2 deltas.
+// Native294815..294898 RET0 and the rowed no-ally predicate establish Object
+// receiver and signed-byte level role; the original getter name is unproved.
+// Template5F9/5FB/5FE and Object124 bit22 are native witnesses. The target adds
+// KindOf query132 when5FE is set, then pool attribute23 as a truncating bonus
+// and clamps negative signed-byte sums. Attribute/mode names stay numeric.
+// Byte extraction and an explicit hasBonus value reproduce the complete131B.
+char Object::rva00294815() {
+ const ObjectCrushLevelsView *tpl=getTemplate();
+ if(tpl->gate5fe && !rva00293926((KindOfType)0x84)) return 0;
+ char level;
+ if(((unsigned char)(mountedFlags>>22)&1) && tpl->alternateCrusher != -1)
+  level=tpl->alternateCrusher;
+ else level=tpl->crusher;
+ float bonus=0.0f;
+ AttributeModifierPoolUpdate *pool=findAttributeModifierPoolUpdate();
+ bool hasBonus=false;
+ if(pool) hasBonus=pool->rva00403382(0x17,&bonus,0);
+ if(!hasBonus) return level;
+ level+=(char)(int)bonus;
+ if(level<0) return 0;
+ return level;
 }
