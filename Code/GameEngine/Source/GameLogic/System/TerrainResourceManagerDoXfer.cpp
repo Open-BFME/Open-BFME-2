@@ -1,10 +1,13 @@
 // cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
+// Type evidence: retail Xfer vtable BBB910 slot22 names Region3D transfer
+// at60B9C9; slot28 is float554C; slot36 is bool54A4. Region3D is24B,
+// exactly covering1C..34; list records use4-byte float at4 and bool at8.
 // WB E62590 identifies TerrainResourceManager::DoXfer and its vtable context.
-// Native35ABE0..35AEBB proves list14, flags18/3C, origin1C, dimensions34/38
+// Native35ABE0..35AEBB proves list14, floats18/3C, region1C, dimensions34/38
 // and 16-byte cell array40. BF1 ba7ddda and ZH contain no clean matching
 // manager unit. Payloads retain the existing providers' provisional names:
-// BfmePod12 carries ID/bool/float; BfmePod8 carries int/ObjectID bits.
+// BfmePod12 carries ID/float/bool; BfmePod8 carries int/ObjectID bits.
 // Rva0035A18D is the existing array-lifecycle ABI view, whose original
 // application type is unknown. Retail cell access and resize35ABC0 prove
 // its vector-of-eight-byte-record layout; the earlier string view was only
@@ -21,6 +24,7 @@ template<class T,class Traits> static inline bool operator!=(const _List_iterato
 #include <vector>
 enum ObjectID { INVALID_ID = 0 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+struct Region3D { Coord3D lo, hi; };
 struct XferVersion { XferVersion(unsigned char low,unsigned char high):version(low),current(high){} unsigned char version,current; };
 class Xfer {
 public:
@@ -46,13 +50,13 @@ virtual void slot18();
 virtual void slot19();
 virtual void slot20();
 virtual void slot21();
-virtual void xferCoord3D(Coord3D *);
+virtual void xferRegion3D(Region3D *);
 virtual void slot23();
 virtual void slot24();
 virtual void slot25();
 virtual void slot26();
 virtual void slot27();
-virtual void xferBool(bool *);
+virtual void xferFloat(float *);
 virtual void slot29();
 virtual void slot30();
 virtual void xferInt(int *);
@@ -60,10 +64,10 @@ virtual void slot32();
 virtual void slot33();
 virtual void slot34();
 virtual void slot35();
-virtual void xferFloat(float *);
+virtual void xferBool(bool *);
 };
 void XferObjectID(Xfer *, ObjectID *);
-struct BfmePod12 { ObjectID id; bool active; char pad[3]; float value; };
+struct BfmePod12 { ObjectID id; float value; bool active; char pad[3]; };
 struct BfmePod8 { int a[2]; };
 namespace _STL { template<> void list<BfmePod12>::push_back(const BfmePod12 &); }
 class Rva0035ABC0 { public: void rva0035ABC0(unsigned int); };
@@ -79,11 +83,10 @@ public:
     virtual void DoXfer(Xfer *);
     unsigned char opaque04[0x10];
     _STL::list<BfmePod12> entries;
-    bool flag18;
-    Coord3D origin;
-    unsigned char opaque28[0x34-0x28];
+    float value18;
+    Region3D region;
     int width,height;
-    bool flag3C;
+    float value3C;
     Rva0035A18D *cells;
 };
 // ?DoXfer@TerrainResourceManager@@UAEXPAVXfer@@@Z
@@ -99,8 +102,8 @@ void TerrainResourceManager::DoXfer(Xfer *xfer)
         for(int i=0;i<count;++i)
         {
             XferObjectID(xfer,&entry.id);
-            xfer->xferBool(&entry.active);
-            if(version.current>=2)xfer->xferFloat(&entry.value);
+            xfer->xferFloat(&entry.value);
+            if(version.current>=2)xfer->xferBool(&entry.active);
             entries.push_back(entry);
         }
     }
@@ -110,15 +113,15 @@ void TerrainResourceManager::DoXfer(Xfer *xfer)
         {
             BfmePod12 *entry=&*it;
             XferObjectID(xfer,&entry->id);
-            xfer->xferBool(&entry->active);
-            if(version.current>=2)xfer->xferFloat(&entry->value);
+            xfer->xferFloat(&entry->value);
+            if(version.current>=2)xfer->xferBool(&entry->active);
         }
     }
-    xfer->xferCoord3D(&origin);
+    xfer->xferRegion3D(&region);
     xfer->xferInt(&width);
     xfer->xferInt(&height);
-    xfer->xferBool(&flag3C);
-    xfer->xferBool(&flag18);
+    xfer->xferFloat(&value3C);
+    xfer->xferFloat(&value18);
     int cellCount=width*height;
     xfer->xferInt(&cellCount);
     if(xfer->IsLoading())

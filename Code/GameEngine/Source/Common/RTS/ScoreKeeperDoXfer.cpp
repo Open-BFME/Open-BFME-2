@@ -1,5 +1,7 @@
 // cl: /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
+// Retail Xfer vtable BBB910 slot28 is operator==(float&) at554C.
+// updateFrame39D1F1 independently reads +F8/+FC as floats.
 // Clean BF1 ba7ddda Common/RTS/ScoreKeeperXfer.cpp semantic guide.
 // WBFA4540 names ScoreKeeper::DoXfer; native39C7B8..39CADA804 proves target fields,
 // version12 compatibility branches and all helper addresses. Member purpose
@@ -42,7 +44,7 @@ public:
  virtual void slot25();
  virtual void slot26();
  virtual void slot27();
- virtual Xfer &xferBool(bool*);
+ virtual Xfer &xferFloat(float*);
  virtual void slot29();
  virtual Xfer &xferUnsignedInt(unsigned int*);
  virtual Xfer &xferInt(int*);
@@ -76,7 +78,7 @@ private:
  int heroesVetted,unitsVetted,powerPoints,fieldDC;
  int regionCommandPoints,regionResources,regionPowerPoints,currentScore;
  unsigned int frameOverride,fieldF4;
- bool flagF8;char padF9[3];bool flagFC;char padFD[3];
+ float realF8, realFC;
  int field100,field104,field108,field10C;
  char opaque110[0xD4];
  ObjectCountMap map1E4,objectsBuilt,objectsDestroyed[20],objectsLost,objectsCaptured;
@@ -150,13 +152,13 @@ void ScoreKeeper::DoXfer(Xfer *xfer)
  xferThingTemplateCountMap(xfer,&objectsLost);
  xferThingTemplateCountMap(xfer,&objectsCaptured);
  if(version.current>=5)Rva0039C4F7XferSnapshotVector(xfer,reinterpret_cast<Rva0039C1C3*>(&stats));
- if(version.current>=6)xfer->xferBool(&flagF8);
+ if(version.current>=6)xfer->xferFloat(&realF8);
  if(version.current>=7){xfer->xferUnsignedInt(&fieldF4);
  xfer->xferInt(&field0C);
  xfer->xferInt(&field10);}
  if(version.current>=10)xferThingTemplateCountMap(xfer,&map1E4);
  if(version.current>=11){xfer->xferInt(&field104);
- xfer->xferBool(&flagFC);}
+ xfer->xferFloat(&realFC);}
  if(version.current>=12){xfer->xferInt(&field14);
  xfer->xferInt(&field18);
  xfer->xferInt(&field1C);}
