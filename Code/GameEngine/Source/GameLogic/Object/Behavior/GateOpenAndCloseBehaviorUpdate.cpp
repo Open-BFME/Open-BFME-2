@@ -265,7 +265,7 @@ public:
 
 private:
 	void rva00498FAA();
-	void rva00498AB2(int state);
+	void setOpenCloseState(int state);
 	void rva0049924B(bool flag);
 	void rva004989F5();
 
@@ -366,7 +366,7 @@ UpdateSleepTime GateOpenAndCloseBehavior::update()
 		Real elapsedFrames = (Real)elapsed;
 		m_percent = elapsedFrames / (Real)data->m_resetTime * 100.0f;
 		if (m_percent >= 100.0f)
-			rva00498AB2(3);
+			setOpenCloseState(3);
 		if (m_percent > (Real)(100 - data->m_percentOpen))
 			rva0049924B(true);
 		if ((UnsignedInt)elapsed > (UnsignedInt)((Rva00498716 *)data)->rva00498716() && !m_soundPlayed)
@@ -389,7 +389,7 @@ UpdateSleepTime GateOpenAndCloseBehavior::update()
 		Real elapsedFrames = (Real)elapsed;
 		m_percent = elapsedFrames / (Real)data->m_resetTime * 100.0f;
 		if (m_percent >= 100.0f)
-			rva00498AB2(1);
+			setOpenCloseState(1);
 		if (m_percent > (Real)data->m_percentOpen)
 			rva004992D5Inline(false, true);
 		if ((UnsignedInt)elapsed > (UnsignedInt)((Rva00498707 *)data)->rva00498707() && !m_soundPlayed)

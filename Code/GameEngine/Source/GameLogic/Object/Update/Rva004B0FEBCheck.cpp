@@ -52,7 +52,7 @@ class Pathfinder
 {
 public:
 	bool IsPointOnWall(int point, bool flag);
-	bool rva002ED219(const Coord3D *a, const Coord3D *b);
+	bool IsGroundLineOnly(const Coord3D *a, const Coord3D *b);
 };
 
 class Rva2225E0Filter
@@ -179,7 +179,7 @@ body:
 		if (other->rva0028B511() == 1)
 		{
 			path = *(Pathfinder **)((char *)g_00DFF0F8 + 0x10);
-			if (!path->rva002ED219(&m_c->m_pos, &other->m_pos))
+			if (!path->IsGroundLineOnly(&m_c->m_pos, &other->m_pos))
 				return false;
 		}
 	}

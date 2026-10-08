@@ -54,7 +54,7 @@ class Pathfinder
 {
 public:
 	bool QuickDoesPathExist(class Object *obj, const struct Coord3D *from, const struct Coord3D *to, int v);
-	bool rva002ED219(const struct Coord3D *a, const struct Coord3D *b);
+	bool IsGroundLineOnly(const struct Coord3D *a, const struct Coord3D *b);
 };
 
 class AI
@@ -109,7 +109,7 @@ void Rva0027D244::rva0027D276(Rva0027D244 *a, Rva0027D244 *b)
 		return;
 	pf = TheAI->m_10;
 	obj = (Object *)m_18;
-	if (!pf->rva002ED219(&obj->m_38, (const Coord3D *)a))
+	if (!pf->IsGroundLineOnly(&obj->m_38, (const Coord3D *)a))
 		return;
 	m_0C = a->m_0C;
 	m_pos00 = a->m_pos00;

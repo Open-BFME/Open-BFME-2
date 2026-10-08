@@ -1,5 +1,5 @@
 // cl: /O1
-// ?rva0029660C@Object@@QAEXPBUCoord3D@@_N@Z @0x0029660C 148B.
+// ?teleportTo@Object@@QAEXPBUCoord3D@@_N@Z @0x0029660C 148B.
 // Object thiscall (Coord3D*, bool, ret 8): re-emit position via Thing
 // setPosition (rowed 0x0030AA80), notify twice through rowed 0x0023D3AF on
 // the GameLogic +0x40 pointer, poke the +0x84 helper (pinned 0x002747F9),
@@ -84,7 +84,7 @@ class Object
 {
 public:
 	void rva0023D3AF(void *p);
-	void rva0029660C(const Coord3D *pos, bool flag);
+	void teleportTo(const Coord3D *pos, bool flag);
 	void updateShroudNow();
 
 private:
@@ -96,7 +96,7 @@ private:
 	AIUpdateInterface *m_ai258;
 };
 
-void Object::rva0029660C(const Coord3D *pos, bool flag)
+void Object::teleportTo(const Coord3D *pos, bool flag)
 {
 	((Thing *)this)->setPosition(pos);
 	rva0023D3AF(TheGameLogic->m_40);

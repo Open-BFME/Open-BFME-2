@@ -106,7 +106,7 @@ public:
 	virtual void rva00498806();
 private:
 	void rva00498FAA();
-	void rva00498AB2(int state);
+	void setOpenCloseState(int state);
 	int m_24;
 	int m_28; // +0x28
 	int m_2C; // +0x2C
@@ -137,7 +137,7 @@ void GateOpenAndCloseBehavior::open()
 	if (slot10() && !slot6())
 	{
 		rva00498FAA();
-		rva00498AB2(0);
+		setOpenCloseState(0);
 		m_30 = false;
 		m_34 = 0.0f;
 		m_3C = TheGameLogic->getFrame();
@@ -150,7 +150,7 @@ void GateOpenAndCloseBehavior::close()
 	if (slot10() && slot6())
 	{
 		rva00498FAA();
-		rva00498AB2(2);
+		setOpenCloseState(2);
 		m_30 = false;
 		m_34 = 0.0f;
 		m_3C = TheGameLogic->getFrame();

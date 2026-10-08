@@ -186,7 +186,7 @@ public:
 	void rva001E42F2(const int *clear);
 	void rva0028AE6D();
 	Bool rva0006F039(Int bit) const;
-	void rva0029660C(const Coord3D *pos, Bool preserve);
+	void teleportTo(const Coord3D *pos, Bool preserve);
 
 	Bool testModelConditionFlag(ModelConditionFlagType mc) const { return rva0006F039(mc); }
 	Real getConstructionPercent() const { return m_constructionPercent; }
@@ -474,7 +474,7 @@ void StructureCollapseUpdate::beginStructureCollapse(const DamageInfo *damageInf
 		pos.x = base->x;
 		pos.y = base->y;
 		pos.z = base->z + m_currentHeight;
-		building->rva0029660C(&pos, false);
+		building->teleportTo(&pos, false);
 	}
 
 	setWakeFrame(getObject(), UPDATE_SLEEP_NONE);

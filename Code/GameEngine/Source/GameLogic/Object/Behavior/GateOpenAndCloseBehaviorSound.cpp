@@ -95,7 +95,7 @@ class GateOpenAndCloseBehavior : public GatePrimary, public UpdateModule
 {
 private:
 	void rva004989F5();
-	void rva00498AB2(Int state);
+	void setOpenCloseState(Int state);
 
 	const GateOpenAndCloseBehaviorModuleData *getGateModuleData() const
 	{
@@ -143,8 +143,8 @@ void GateOpenAndCloseBehavior::rva004989F5()
 	m_soundPlayed = true;
 }
 
-// ?rva00498AB2@GateOpenAndCloseBehavior@@AAEXH@Z @0x00498AB2 215B
-void GateOpenAndCloseBehavior::rva00498AB2(Int state)
+// ?setOpenCloseState@GateOpenAndCloseBehavior@@AAEXH@Z @0x00498AB2 215B
+void GateOpenAndCloseBehavior::setOpenCloseState(Int state)
 {
 	if (m_state == state)
 		return;
