@@ -1,12 +1,14 @@
-// ?rva005AD243@Rva005ACCE4@@QAEPAVObject@@PAVPlayer@@@Z
+// ?findProductionTarget@AIFarmKillSquad@@QAEPAVObject@@PAX@Z
+// partial score=0.75 date=2026-10-09
+// ?findProductionTarget@AIFarmKillSquad@@QAEPAVObject@@PAX@Z
 // partial score=0.75 date=2026-10-04
 // cl: /O1 /G7 /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE /Ireference/shims/bfme2_ascii
 // stlport
 //
 // The "FarmKillSquad" skirmish-AI tactic (vtable 0x00872474; ctor 0x005ACF38
-// in Rva004ECECDTacticCtors.cpp, dtor 0x005ACCE4 and ??_G, slot 9 0x005ACFAB
-// in Rva004ECECDTacticCreate.cpp). Base chain, all address-derived:
-// Rva005DCC24 over Rva005DC73C over the AITactic.cpp object Rva004ECECD.
+// in AITacticTacticCtors.cpp, dtor 0x005ACCE4 and ??_G, slot 9 0x005ACFAB
+// in AITacticTacticCreate.cpp). Base chain, all address-derived:
+// Rva005DCC24 over Rva005DC73C over the AITactic.cpp object AITactic.
 // Layout: +0x58 and +0x5C object ids, +0x60 "farm" (the ctor's one-in-five
 // roll). The owner's TheSkirmishAIManager record keeps
 // AIFarmKillSquad_IsRunning and AIFarmKillSquad_FrameNextRun.
@@ -136,7 +138,7 @@ enum ObjectID
 };
 void XferObjectID(Xfer *xfer, ObjectID *id);
 
-struct Rva005ACCE4Template
+struct AIFarmKillSquadTemplate
 {
 	char m_pad000[0x108];
 	unsigned char m_108;
@@ -150,7 +152,7 @@ class Object
 {
 public:
 	char m_pad000[4];
-	Rva005ACCE4Template *m_04;	// +0x04
+	AIFarmKillSquadTemplate *m_04;	// +0x04
 	char m_pad008[0x38 - 8];
 	Coord3D m_pos;			// +0x38
 	char m_pad044[0x438 - 0x44];
@@ -190,7 +192,7 @@ extern GameLogic *TheGameLogic;
 class Pathfinder
 {
 public:
-	bool rva002F4B33(Object *from, const Coord3D *fromPos, Object *to, int flags);
+	bool QuickDoesPathExistToStructure(Object *from, const Coord3D *fromPos, Object *to, int flags);
 };
 
 class AI
@@ -208,7 +210,7 @@ public:
 	void *get() const;
 };
 
-struct Rva005ACCE4Holder
+struct AIFarmKillSquadHolder
 {
 	char m_pad00[8];
 	Rva005C4AD1LeaField *m_08;	// +0x08
@@ -235,7 +237,7 @@ public:
 };
 extern Rva002A8F24 *g_00DFEEF8;
 
-struct Rva005ACCE4Flags
+struct AIFarmKillSquadFlags
 {
 	unsigned int m_00;
 	unsigned int m_04;
@@ -244,7 +246,7 @@ struct Rva005ACCE4Flags
 	unsigned int m_10;
 };
 
-struct Rva005ACCE4Team
+struct AIFarmKillSquadTeam
 {
 	char m_pad000[0x21C];
 	int m_21C;			// +0x21C
@@ -252,13 +254,13 @@ struct Rva005ACCE4Team
 	int m_2D0;			// +0x2D0
 	int m_2D4;			// +0x2D4
 	char m_pad2D8[0x2FC - 0x2D8];
-	Rva005ACCE4Flags m_flags;	// +0x2FC
+	AIFarmKillSquadFlags m_flags;	// +0x2FC
 };
 
-class Rva004ECECD
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
+	virtual ~AITactic();
 	virtual void v2();
 	virtual bool v3(void *unit, int count);
 	virtual void v4();
@@ -266,11 +268,11 @@ public:
 	virtual void v6();
 	virtual void v7();
 	virtual void v8();
-	virtual Rva004ECECD *create();
+	virtual AITactic *create();
 	Team *rva004ECECD(int index);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class Rva005DC73C : public AITactic
 {
 public:
 	virtual ~Rva005DC73C();
@@ -279,25 +281,25 @@ public:
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005ACCE4 : public Rva005DC73C
+class AIFarmKillSquad : public Rva005DC73C
 {
 public:
-	virtual ~Rva005ACCE4();
+	virtual ~AIFarmKillSquad();
 	virtual void v2();
 	virtual bool v3(void *unit, int count);
 	virtual void xfer(Xfer *xfer);
 	float rva005ACDD2(const Coord3D *a, const Coord3D *b);
-	Object *rva005AD0E6();
+	Object *getFarmFinder();
 	float rva005ACE15(const Coord3D *point, const Coord3D *from, const Coord3D *to);
-	Object *rva005AD152(Player *player);
-	Object *rva005AD243(Player *player);
+	Object *findEnemyFortress(Player *player);
+	Object *findProductionTarget(void *player);
 private:
 	ObjectID m_58;		// +0x58
 	ObjectID m_5C;		// +0x5C
 	bool m_farm;		// +0x60
 };
 
-void Rva005ACCE4::v2()
+void AIFarmKillSquad::v2()
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	record->rva002C717E(AIFarmKillSquad_IsRunning, 0);
@@ -307,7 +309,7 @@ void Rva005ACCE4::v2()
 			337));
 }
 
-float Rva005ACCE4::rva005ACDD2(const Coord3D *a, const Coord3D *b)
+float AIFarmKillSquad::rva005ACDD2(const Coord3D *a, const Coord3D *b)
 {
 	Coord3D d;
 	d.x = a->x;
@@ -319,20 +321,20 @@ float Rva005ACCE4::rva005ACDD2(const Coord3D *a, const Coord3D *b)
 	return d.length();
 }
 
-void Rva005ACCE4::xfer(Xfer *xfer)
+void AIFarmKillSquad::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	Rva004ECECD::xfer(xfer);
+	AITactic::xfer(xfer);
 	XferObjectID(xfer, &m_58);
 	XferObjectID(xfer, &m_5C);
 }
 
-bool Rva005ACCE4::v3(void *unit, int count)
+bool AIFarmKillSquad::v3(void *unit, int count)
 {
-	Rva005ACCE4Team *team = (Rva005ACCE4Team *)unit;
-	Rva004ECECD::v3(unit, count);
-	Rva005ACCE4Flags *flags = &team->m_flags;
+	AIFarmKillSquadTeam *team = (AIFarmKillSquadTeam *)unit;
+	AITactic::v3(unit, count);
+	AIFarmKillSquadFlags *flags = &team->m_flags;
 	flags->m_08 |= 0x04000000;
 	flags->m_10 |= 0x20;
 	flags->m_00 |= 0x800;
@@ -349,7 +351,7 @@ bool Rva005ACCE4::v3(void *unit, int count)
 	return true;
 }
 
-Object *Rva005ACCE4::rva005AD0E6()
+Object *AIFarmKillSquad::getFarmFinder()
 {
 	Object *target = TheGameLogic->findObjectByID(m_5C);
 	if (!target) {
@@ -367,10 +369,10 @@ Object *Rva005ACCE4::rva005AD0E6()
 	return target;
 }
 
-Object *Rva005ACCE4::rva005AD152(Player *player)
+Object *AIFarmKillSquad::findEnemyFortress(Player *player)
 {
 	Object *found = 0;
-	_STL::vector<ObjectID> *ids = (_STL::vector<ObjectID> *)((Rva005ACCE4Holder *)g_00DFEEF8->rva002A8F24(player))->m_08->get();
+	_STL::vector<ObjectID> *ids = (_STL::vector<ObjectID> *)((AIFarmKillSquadHolder *)g_00DFEEF8->rva002A8F24(player))->m_08->get();
 	ObjectID *end = ids->end();
 	for (ObjectID *it = ids->begin(); it != end; ++it) {
 		if (found)
@@ -382,27 +384,27 @@ Object *Rva005ACCE4::rva005AD152(Player *player)
 	return found;
 }
 
-Object *Rva005ACCE4::rva005AD243(Player *player)
+Object *AIFarmKillSquad::findProductionTarget(void *player)
 {
-	Rva005ACCE4Holder *holder = (Rva005ACCE4Holder *)g_00DFEEF8->rva002A8F24(player);
+	AIFarmKillSquadHolder *holder = (AIFarmKillSquadHolder *)g_00DFEEF8->rva002A8F24(static_cast<Player *>(player));
 	Coord3D center;
 	center.x = 0.0f;
 	center.y = 0.0f;
 	center.z = 0.0f;
 	rva004ECECD(0)->rva0039E5B9(&center);
 	_STL::vector<ObjectID> ids(*(const _STL::vector<ObjectID> *)holder->m_08->get());
-	Object *building = rva005AD152(player);
+	Object *building = findEnemyFortress(static_cast<Player *>(player));
 	if (building) {
 		Coord3D base;
 		base.x = building->m_pos.x;
 		base.y = building->m_pos.y;
 		base.z = building->m_pos.z;
-		Object *farm = rva005AD0E6();
+		Object *farm = getFarmFinder();
 		_STL::map<float, Object *> byDistance;
 		for (ObjectID *it = ids.begin(); it != ids.end(); ++it) {
 			Object *obj = TheGameLogic->findObjectByID(*it);
 			if (obj && !(obj->m_04->m_10E & 4) && building != obj
-				&& TheAI->pathfinder()->rva002F4B33(farm, &farm->m_pos, obj, 0)) {
+				&& TheAI->pathfinder()->QuickDoesPathExistToStructure(farm, &farm->m_pos, obj, 0)) {
 				float distance = rva005ACE15(&obj->m_pos, &center, &base);
 				byDistance.insert(_STL::pair<const float, Object *>(distance, obj));
 			}
