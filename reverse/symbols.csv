@@ -15854,3 +15854,5 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?insert@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAXABQAX@Z,0x000291D0,Full native Ghidra291D0..29328 344B RET8: STLport4.5.3 pointer-element insertion; iterator minus begin computes index; placement-new6EE0/copy_backward shift4B elements; rowed overflow29010 grows storage; returns begin plus saved index. Default-value wrapper29350 pushes zero-value reference and iterator then calls291D0. Canonical vector<void*> ABI view used by rowed sibling family; emitted header body has matching algorithm and calls but retains smaller inline-expansion frame.
 ?rva00472620@Rva00472620@@QAEPAUCoord3D@@PAU2@PAVObject@@H@Z,0x00472620,callee of ?rva00474B51@Rva00474B51@@QAEPAUCoord3D@@PAU2@PAVObject@@H@Z
+?rva004F571B@TunnelTracker@@QAE_NPAVObject@@@Z,0x004F571B,callee of ?rva0047DF81@TunnelContain@@QAEXXZ
+?rva0047DE6C@@YAXPAVObject@@0@Z,0x0047DE6C,callee of ?rva0047DF81@TunnelContain@@QAEXXZ
