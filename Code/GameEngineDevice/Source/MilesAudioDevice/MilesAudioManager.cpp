@@ -189,6 +189,7 @@ public:
     AudioEventRTS *operator->(void) const { return m_ptr; }
     BfmePoolRef10 &operator=(const BfmePoolRef10 &other);
     void rva00053D26(BfmePoolHolder88 *p);  // assign from a raw event (0x00053D26)
+    void rva000519BD(void);                 // release then null (0x000519BD)
 private:
     AudioEventRTS *m_ptr;
 };
@@ -536,6 +537,7 @@ class AILMutexScope {
 public:
     AILMutexScope() { AIL_lock_mutex(); m_locked = true; }
     ~AILMutexScope() { if (m_locked) AIL_unlock_mutex(); }
+    void unlock(void) { if (m_locked) { AIL_unlock_mutex(); m_locked = false; } }
 private:
     bool m_locked;
 };
@@ -802,6 +804,10 @@ public:
     void transferBytesToPlayBuffer(LoopBuffer &buffer, unsigned int position);
     // WorldBuilder name; binds a cached file to a loop buffer.
     void putFileIntoLoopBuffer(LoopBuffer *buffer, const AudioFileContainer &file, int arg);
+    // WorldBuilder name; hands a finished loop buffer's handles back.
+    void cleanUpLoopBuffer(LoopBuffer *buffer);
+    // WorldBuilder name (retail 0x0005DD40).
+    void checkForNaturalSoundCompletion(PlayingAudioRef &playing);
     void rva0005EFE9(void);
     void putPlayingMusicOnStack(int viewType, int arg);
     void rva00059CE6(PlayingAudioRef &looping);
@@ -837,7 +843,8 @@ private:
     MilesFileTextMap m_fileText;         // +0x9E8
     _STL::vector<UnicodeString> m_pendingFileText;  // +0x9FC
     _STL::vector<AsciiString> m_unknownFileNames;   // +0xA08
-    char atA14[0xA3C - 0xA14];
+    char atA14[0xA38 - 0xA14];
+    _STL::list<void *> m_availableSamples;    // +0xA38 (Zero Hour's name)
     _STL::list<void *> m_available3DSamples;  // +0xA3C (Zero Hour's name)
     PlayingAudioList m_playingSounds;    // +0xA40
     PlayingAudioList m_playing3DSounds;  // +0xA44
@@ -861,7 +868,11 @@ private:
 
 // Rowed under address-derived names at 0x00051038 (pinned) and 0x00050FE3;
 // the destructor below hands its Miles handles back through them.
-class Rva0005F279Elem { public: bool rva00051038() throw(); };
+class Rva0005F279Elem { public: bool rva00051038() throw(); bool rva0005106A(); };
+// The guarded 2D and 3D playing-sample count decrements (WorldBuilder's
+// notifyOf2DSampleCompletion/notifyOf3DSampleCompletion), rowed at 0x000514EB
+// and 0x000514FB under an address-derived owner.
+class Rva000514EB { public: void rva000514EB(); void rva000514FB(); };
 class Rva00050FE3 { public: void rva00050FE3() throw(); };
 // The loop buffer's play position, start and loop count, rowed at 0x00050FFD,
 // 0x00050FC9 and 0x00051017 under address-derived names.
@@ -891,7 +902,7 @@ struct MilesAudioManager::LoopBuffer {
     bool m_isValid;                      // +0x00 (WB assert name)
     char at01;
     bool m_is3D;                         // +0x02 selects the handle below
-    char at03;
+    bool m_at03;                         // +0x03, completion check pending
     void *m_3DSample;                    // +0x04
     void *m_sample;                      // +0x08
     LoopBufferSourceRef m_source;        // +0x0C
@@ -914,7 +925,7 @@ struct MilesAudioManager::LoopBuffer {
 // Retail 0x00052568, the element constructor init()'s new[] hands to the
 // vector constructor iterator: an empty, invalid 3D buffer.
 MilesAudioManager::LoopBuffer::LoopBuffer()
-    : m_isValid(false), at01(0), m_is3D(true), at03(0), m_3DSample(0), m_sample(0),
+    : m_isValid(false), at01(0), m_is3D(true), m_at03(false), m_3DSample(0), m_sample(0),
       m_at10(false), m_playingAudio(0), m_at18(0), m_playBufferSize(0),
       m_at2C(0), m_at30(0), m_endOfLastCopy(0), m_at38(0), m_at3C(0), m_at40(0), m_at44(false)
 {
@@ -968,6 +979,69 @@ void MilesAudioManager::putFileIntoLoopBuffer(LoopBuffer *buffer, const AudioFil
     buffer->m_at30 = (const char *)soundInfo->m_dataPtr - (const char *)buffer->m_at20.getFileImage();
     buffer->m_at2C = soundInfo->m_dataLen + buffer->m_at30;
     rva0005DB6C(file.getFileName());
+}
+
+// Retail 0x0005EA8F (WorldBuilder twin 0x0077B710, names from its asserts):
+// once 0x5106A says the buffer may go, runs the pending completion check,
+// unmaps its Miles sample under the Miles mutex and returns the handle to the
+// available list, then drops the buffer's data, files, playing audio and
+// source.
+void MilesAudioManager::cleanUpLoopBuffer(LoopBuffer *buffer)
+{
+    if (!((Rva0005F279Elem *)buffer)->rva0005106A())
+        return;
+    if (buffer->m_at03) {
+        checkForNaturalSoundCompletion(PlayingAudioRef(buffer->m_playingAudio));
+        buffer->m_at03 = false;
+    }
+    if (buffer->m_is3D) {
+        if (buffer->m_3DSample) {
+            if (buffer->m_playingAudio) {
+                AILMutexScope lock;
+                MilesHandleMap::iterator it = m_3DSampleMap.find(reinterpret_cast<unsigned int &>(buffer->m_3DSample));
+                if (it == m_3DSampleMap.end())
+                    lock.unlock();
+                else if ((*it).second != buffer->m_playingAudio)
+                    lock.unlock();
+                else
+                    m_3DSampleMap.erase(it);
+            }
+            m_available3DSamples.push_back(buffer->m_3DSample);
+            buffer->m_3DSample = 0;
+            ((Rva000514EB *)this)->rva000514FB();
+        }
+    } else if (buffer->m_sample) {
+        if (buffer->m_playingAudio) {
+            AILMutexScope lock;
+            MilesHandleMap::iterator it = m_sampleMap.find(reinterpret_cast<unsigned int &>(buffer->m_sample));
+            if (it == m_sampleMap.end())
+                lock.unlock();
+            else if ((*it).second != buffer->m_playingAudio)
+                lock.unlock();
+            else
+                m_sampleMap.erase(it);
+        }
+        m_availableSamples.push_back(buffer->m_sample);
+        buffer->m_sample = 0;
+        ((Rva000514EB *)this)->rva000514EB();
+    }
+    if (buffer->m_at18) {
+        delete[] buffer->m_at18;
+        buffer->m_at18 = 0;
+    }
+    ((Rva000A8A6C *)&buffer->m_at20)->rva000A8A6C();
+    buffer->m_at30 = 0;
+    buffer->m_at2C = 0;
+    buffer->m_endOfLastCopy = 0;
+    ((Rva000A8A6C *)&buffer->m_at24)->rva000A8A6C();
+    ((Rva000A8A6C *)&buffer->m_at28)->rva000A8A6C();
+    if (buffer->m_playingAudio) {
+        buffer->m_playingAudio->m_status = 1;
+        buffer->m_playingAudio->m_type = 5;
+        buffer->m_playingAudio = 0;
+    }
+    ((BfmePoolRef10 &)buffer->m_source).rva000519BD();
+    buffer->m_at10 = false;
 }
 
 // Retail 0x0005EC7A (WorldBuilder twin 0x0077D5F0, names from its asserts):
@@ -1158,7 +1232,7 @@ void MilesAudioManager::rva0005EFE9(void)
             }
             if (!keepGoing) {
                 if (!source->m_at4C)
-                    buffer->at03 = 1;
+                    buffer->m_at03 = true;
                 buffer->m_isValid = false;
             } else if (buffer->m_at44 && !wasFull) {
                 ((Rva00050FC9 *)buffer)->rva00050FC9();
