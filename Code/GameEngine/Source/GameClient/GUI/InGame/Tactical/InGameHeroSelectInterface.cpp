@@ -67,6 +67,8 @@ class Drawable
 {
 public:
 	const Coord3D *getPosition() const;		// 0x002763E6
+	unsigned char m_pad00[0x43C];
+	bool selected; // native readiness filter reads Drawable +0x43C
 };
 
 class View
@@ -128,6 +130,27 @@ struct HeroSelectData
 	HeroButtonList m_heroButtons;			// +0x10
 };
 
+struct BuilderSelectionData;
+class InGameUI;
+extern InGameUI *TheInGameUI;
+struct SelectedNode {SelectedNode *next,*prev;};
+struct SelectedList {SelectedNode *head;};
+class BuilderUISelectionView {public:
+#define BUILDER_SLOT(N) virtual void slot##N();
+ BUILDER_SLOT(0) BUILDER_SLOT(1) BUILDER_SLOT(2) BUILDER_SLOT(3) BUILDER_SLOT(4) BUILDER_SLOT(5) BUILDER_SLOT(6) BUILDER_SLOT(7)
+ BUILDER_SLOT(8) BUILDER_SLOT(9) BUILDER_SLOT(10) BUILDER_SLOT(11) BUILDER_SLOT(12) BUILDER_SLOT(13) BUILDER_SLOT(14) BUILDER_SLOT(15)
+ BUILDER_SLOT(16) BUILDER_SLOT(17) BUILDER_SLOT(18) BUILDER_SLOT(19) BUILDER_SLOT(20) BUILDER_SLOT(21) BUILDER_SLOT(22) BUILDER_SLOT(23)
+ BUILDER_SLOT(24) BUILDER_SLOT(25) BUILDER_SLOT(26) BUILDER_SLOT(27) BUILDER_SLOT(28) BUILDER_SLOT(29) BUILDER_SLOT(30) BUILDER_SLOT(31)
+ BUILDER_SLOT(32) BUILDER_SLOT(33) BUILDER_SLOT(34) BUILDER_SLOT(35) BUILDER_SLOT(36) BUILDER_SLOT(37) BUILDER_SLOT(38) BUILDER_SLOT(39)
+ BUILDER_SLOT(40) BUILDER_SLOT(41) BUILDER_SLOT(42) BUILDER_SLOT(43) BUILDER_SLOT(44) BUILDER_SLOT(45) BUILDER_SLOT(46) BUILDER_SLOT(47)
+ BUILDER_SLOT(48) BUILDER_SLOT(49) BUILDER_SLOT(50) BUILDER_SLOT(51) BUILDER_SLOT(52) BUILDER_SLOT(53) BUILDER_SLOT(54) BUILDER_SLOT(55)
+ BUILDER_SLOT(56) BUILDER_SLOT(57) BUILDER_SLOT(58) BUILDER_SLOT(59) BUILDER_SLOT(60) BUILDER_SLOT(61) BUILDER_SLOT(62) BUILDER_SLOT(63)
+ BUILDER_SLOT(64) BUILDER_SLOT(65) BUILDER_SLOT(66) BUILDER_SLOT(67) BUILDER_SLOT(68) BUILDER_SLOT(69) BUILDER_SLOT(70) BUILDER_SLOT(71)
+ BUILDER_SLOT(72)
+#undef BUILDER_SLOT
+ virtual const SelectedList *selection();
+};
+unsigned char __stdcall Rva00524FEDCheck(Object *);
 class InGameHeroSelectInterface
 {
 public:
@@ -137,6 +160,7 @@ public:
 		void FlashHeroButton(const AsciiString &templateName, Int frames);
 		Bool IsBuilderOnScreen(const Object *builder);
 		void rva00526E8B(_STL::list<Rva00525119> *list);
+		BuilderSelectionData *FindReadyLocalBuilder(_STL::list<Rva00525119> *list);
 
 	private:
 		unsigned char m_pad00[0x10];
@@ -202,4 +226,40 @@ void InGameHeroSelectInterface::Impl::rva00526E8B(_STL::list<Rva00525119> *list)
 	}
 	Rva00525951Less compare;
 	_STL::_S_sort(*list, compare);
+}
+
+// WB13C1BD0 names FindReadyLocalBuilder. Native526008..5260B1 is169B.
+// The existing validity provider is recorded as a stdcall free function and
+// does not read ECX. Retail nevertheless supplies Impl in ECX at this call.
+// VC7's four-byte single-inheritance member-pointer adapter preserves that
+// observed call setup without assigning another name to the provider.
+BuilderSelectionData *InGameHeroSelectInterface::Impl::FindReadyLocalBuilder(_STL::list<Rva00525119> *list)
+{
+	BuilderSelectionData *result = 0;
+	bool oneSelected = false;
+	const SelectedList *selected = reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selection();
+	unsigned int count = 0;
+	for (SelectedNode *j = selected->head->next; j != selected->head; j = j->next)
+		++count;
+	if (count == 1)
+		oneSelected = true;
+	for (_STL::list<Rva00525119>::iterator j = list->begin(); j._M_node != list->end()._M_node; ++j)
+	{
+		BuilderSelectionData *entry = reinterpret_cast<BuilderSelectionData *>((char *)j->m_ptr + 8);
+		if (entry->used)
+			continue;
+		Object *builder = TheGameLogic->findObjectByID(entry->id);
+		union
+		{
+			unsigned char (__stdcall *fn)(Object *);
+			unsigned char (Impl::*method)(Object *);
+		} ready = { Rva00524FEDCheck };
+		if (!(this->*ready.method)(builder))
+			continue;
+		if (oneSelected && builder->getDrawable()->selected && IsBuilderOnScreen(builder))
+			continue;
+		result = entry;
+		break;
+	}
+	return result;
 }
