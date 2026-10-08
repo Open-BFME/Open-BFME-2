@@ -181,6 +181,18 @@
 // count +0x10), matching Zero Hour's TransportStatus. The object's id is
 // Object+0x74, its contain module Object+0x250 (getContainCount(0) at
 // +0x114) and the frame TheGameLogic+0x40.
+//
+// ?evaluateUnitHealth@ScriptConditions@@IAE_NPAVParameter@@00@Z @ 0x003E5587 318B
+// Zero Hour's evaluateUnitHealth with a BFME 2 horde branch. Target
+// evidence: jump-table case 53 calls 0x003E5587, which initConditionTemplates
+// names UNIT_HEALTH (unit, comparison, int). An object without a body
+// (Object+0x254) fails; a template with KindOf bit 0x6D (byte +0x115 bit 5)
+// takes current and maximum health as unsigned counts from slots +0x188 and
+// +0x17C of the interface the rowed Object::rva0028C197 returns (staying at
+// 0 and 1.0f without one), any other object from body slots +0x10 and +0x1C.
+// The percentage is truncated from current * 100 / maximum when the maximum
+// is positive and compared six ways with the int parameter; retail
+// multiplies before dividing only with the product kept in its own local.
 #include <vector>
 #include <list>
 #include "ascii_string.h"
@@ -265,7 +277,9 @@ class BodyModuleInterface
 {
 public:
 	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual float getHealth() const; // +0x10
+	virtual void s05(); virtual void s06();
+	virtual float getMaxHealth() const; // +0x1C
 	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
 	virtual void s12(); virtual void s13(); virtual void s14();
 	virtual const DamageInfo *getLastDamageInfo() const; // +0x3C
@@ -276,10 +290,15 @@ class ThingTemplate
 public:
 	const AsciiString &getName() const { return m_name; }
 	int getCommandPoints() const { return m_commandPoints; }
+	// KindOf bit 0x6D (byte +0x115, bit 5), unnamed: the horde kinds whose
+	// health lives in the contain interface.
+	bool testKindOf6D() const { return (m_kindOf115 & 0x20) != 0; }
 private:
 	unsigned char m_pad00[0x64];
 	AsciiString m_name; // +0x64
-	unsigned char m_pad68[0x618 - 0x68];
+	unsigned char m_pad68[0x115 - 0x68];
+	unsigned char m_kindOf115; // +0x115
+	unsigned char m_pad116[0x618 - 0x116];
 	int m_commandPoints; // +0x618
 };
 
@@ -360,6 +379,35 @@ public:
 	BFME_SLOT(65); BFME_SLOT(66); BFME_SLOT(67); BFME_SLOT(68);
 	virtual unsigned int getContainCount(int unused) = 0; // +0x114
 };
+
+// The interface rowed Object::rva0028C197 returns (the +0x250 module's slot
+// +0x7C answer); slots +0x17C and +0x188 return unsigned counts.
+class Rva0028C197Iface
+{
+public:
+	BFME_SLOT(00); BFME_SLOT(01); BFME_SLOT(02); BFME_SLOT(03); BFME_SLOT(04);
+	BFME_SLOT(05); BFME_SLOT(06); BFME_SLOT(07); BFME_SLOT(08); BFME_SLOT(09);
+	BFME_SLOT(10); BFME_SLOT(11); BFME_SLOT(12); BFME_SLOT(13); BFME_SLOT(14);
+	BFME_SLOT(15); BFME_SLOT(16); BFME_SLOT(17); BFME_SLOT(18); BFME_SLOT(19);
+	BFME_SLOT(20); BFME_SLOT(21); BFME_SLOT(22); BFME_SLOT(23); BFME_SLOT(24);
+	BFME_SLOT(25); BFME_SLOT(26); BFME_SLOT(27); BFME_SLOT(28); BFME_SLOT(29);
+	BFME_SLOT(30); BFME_SLOT(31); BFME_SLOT(32); BFME_SLOT(33); BFME_SLOT(34);
+	BFME_SLOT(35); BFME_SLOT(36); BFME_SLOT(37); BFME_SLOT(38); BFME_SLOT(39);
+	BFME_SLOT(40); BFME_SLOT(41); BFME_SLOT(42); BFME_SLOT(43); BFME_SLOT(44);
+	BFME_SLOT(45); BFME_SLOT(46); BFME_SLOT(47); BFME_SLOT(48); BFME_SLOT(49);
+	BFME_SLOT(50); BFME_SLOT(51); BFME_SLOT(52); BFME_SLOT(53); BFME_SLOT(54);
+	BFME_SLOT(55); BFME_SLOT(56); BFME_SLOT(57); BFME_SLOT(58); BFME_SLOT(59);
+	BFME_SLOT(60); BFME_SLOT(61); BFME_SLOT(62); BFME_SLOT(63); BFME_SLOT(64);
+	BFME_SLOT(65); BFME_SLOT(66); BFME_SLOT(67); BFME_SLOT(68); BFME_SLOT(69);
+	BFME_SLOT(70); BFME_SLOT(71); BFME_SLOT(72); BFME_SLOT(73); BFME_SLOT(74);
+	BFME_SLOT(75); BFME_SLOT(76); BFME_SLOT(77); BFME_SLOT(78); BFME_SLOT(79);
+	BFME_SLOT(80); BFME_SLOT(81); BFME_SLOT(82); BFME_SLOT(83); BFME_SLOT(84);
+	BFME_SLOT(85); BFME_SLOT(86); BFME_SLOT(87); BFME_SLOT(88); BFME_SLOT(89);
+	BFME_SLOT(90); BFME_SLOT(91); BFME_SLOT(92); BFME_SLOT(93); BFME_SLOT(94);
+	virtual unsigned int rvaSlot17C() = 0; // +0x17C
+	BFME_SLOT(96); BFME_SLOT(97);
+	virtual unsigned int rvaSlot188() = 0; // +0x188
+};
 #undef BFME_SLOT
 
 // AIUpdateInterface keeps the last completed waypoint at +0x13C.
@@ -376,6 +424,7 @@ class Object
 {
 public:
 	Module *findModule(NameKeyType key) const;
+	void *rva0028C197() const;
 	const ThingTemplate *getTemplate() const { return m_template; }
 	ObjectID getID() const { return m_id; }
 	const AsciiString &getName() const { return m_name; }
@@ -658,6 +707,7 @@ protected:
 	bool evaluateNamedReachedWaypointsEnd(Parameter *, Parameter *);
 	bool evaluateTeamReachedWaypointsEnd(Parameter *, Parameter *);
 	bool evaluateUnitHasEmptied(Parameter *);
+	bool evaluateUnitHealth(Parameter *, Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1228,5 +1278,41 @@ bool ScriptConditions::evaluateUnitHasEmptied(Parameter *pUnitParm)
 	// perform the update.
 	stats->m_frameNumber = frameNum;
 	stats->m_unitCount = numPeeps;
+	return false;
+}
+
+bool ScriptConditions::evaluateUnitHealth(Parameter *pUnitParm, Parameter *pComparisonParm, Parameter *pHealthPercent)
+{
+	Object *theObj = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!theObj)
+		return false;
+	if (!theObj->getBodyModule())
+		return false;
+	float curHealth = 0.0f;
+	float maxHealth = 1.0f;
+	int healthPercent = 0;
+	if (theObj->getTemplate()->testKindOf6D()) {
+		Rva0028C197Iface *horde = (Rva0028C197Iface *)theObj->rva0028C197();
+		if (horde) {
+			curHealth = (float)horde->rvaSlot188();
+			maxHealth = (float)horde->rvaSlot17C();
+		}
+	} else {
+		curHealth = theObj->getBodyModule()->getHealth();
+		maxHealth = theObj->getBodyModule()->getMaxHealth();
+	}
+	if (maxHealth > 0.0f) {
+		float pct = curHealth * 100.0f;
+		healthPercent = (int)(pct / maxHealth);
+	}
+	switch (pComparisonParm->getInt())
+	{
+		case 0: return healthPercent < pHealthPercent->getInt();
+		case 1: return healthPercent <= pHealthPercent->getInt();
+		case 2: return healthPercent == pHealthPercent->getInt();
+		case 3: return healthPercent >= pHealthPercent->getInt();
+		case 4: return healthPercent > pHealthPercent->getInt();
+		case 5: return healthPercent != pHealthPercent->getInt();
+	}
 	return false;
 }
