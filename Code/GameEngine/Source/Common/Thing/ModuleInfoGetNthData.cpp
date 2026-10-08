@@ -24,17 +24,20 @@ struct BfmeModuleNugget
 
 class ModuleInfo
 {
+public:
 	const void *m_begin;
 	const void *m_end;
 	const void *m_storage;
 
 public:
-	int getCount() const
-	{
-		return ((const char *)m_end - (const char *)m_begin) / 20;
-	}
 	__declspec(noinline) const ModuleData *getNthData(int i) const;
 };
+
+// Local stride calculation avoids emitting a competing ModuleInfo::getCount.
+static __forceinline int moduleRecordCount(const ModuleInfo *info)
+{
+    return ((const char *)info->m_end - (const char *)info->m_begin) / 20;
+}
 
 class ThingTemplate
 {
@@ -60,7 +63,7 @@ inline const ModuleData *ModuleInfo::getNthData(int i) const
 
 AIUpdateModuleData *ThingTemplate::friend_getAIModuleInfo()
 {
-	int numModInfos = m_behaviorModuleInfo.getCount();
+	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
 	for (int j = 0; j < numModInfos; ++j)
 	{
 		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->isAiModuleData())
