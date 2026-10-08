@@ -10016,7 +10016,6 @@ name,address,notes
 ?helper@Rva004152BC@@AAEXH@Z,0x004151C4,unrowed member callee of self-link init 0x004152BC read from its REL32
 ?helper@Rva005258F8@@AAEXPBUTwoInts005258F8@@@Z,0x00525407,unrowed member callee of two-int pack wrapper 0x005258F8 read from its REL32
 ?helper@Rva007FA2C0@@QAEXPAXH@Z,0x006666C0
-?helperAux@Rva00082C98Vec@@QAEXPAHIPAX@Z,0x00082719,pin for 0x82C98 helper
 ?hide@Shell@@QAEX_N@Z,0x0035BF4C,callee of ??1BfmeAptScreenCampaignReview@@UAE@XZ at retail 0x005128ED read from its REL32 displacement; Shell hide(bool shutdownImmediate); body unrowed
 ?hidePurchaseScience@ControlBar@@QAEXXZ,0x0031AD8F,callee of ?GeneralsExpPointsSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z at retail 0x0050DE08 read from its REL32 displacement; ILT thunk route=0x0043C96F; body unrowed
 ?imbue@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@QAE?AVlocale@2@ABV32@@Z,0x00016110,STLport 4.5.3 basic_ios char imbue; address read from retail basic_ios char init REL32 at 0x00016341
@@ -14203,7 +14202,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??$_Destroy@PAURva002BB6D7Record@@@_STL@@YAXPAURva002BB6D7Record@@0@Z,0x002BB6A5
 ??$__find_if@PBDU?$_Not_within_traits@V?$char_traits@D@_STL@@@_STL@@@_STL@@YAPBDPBD0U?$_Not_within_traits@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,0x0040A283
 ??$__copy_backward@PAURva00063C72Record@@PAU1@H@_STL@@YAPAURva00063C72Record@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x00063BB2
-??$__copy_backward@PAURva0007EB51Record@@PAU1@H@_STL@@YAPAURva0007EB51Record@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x0007E4B5
 ??$__copy_backward@PAURva002161A5Record@@PAU1@H@_STL@@YAPAURva002161A5Record@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x00215FEF
 ??$__copy_backward@PAURva005B09D8Record@@PAU1@H@_STL@@YAPAURva005B09D8Record@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x005B04D3
 ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva00079ED4Record@@@2@@Z,0x00079D14

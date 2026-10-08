@@ -19,11 +19,7 @@ namespace _STL
 	};
 }
 
-class Rva00082C98Vec
-{
-public:
-	void helperAux(int *a, unsigned int b, void *c);
-};
+class Rva00082719Vector { public: void fillInsert(Coord3D*,unsigned int,const Coord3D&); };
 
 class Rva00082C98Host
 {
@@ -46,6 +42,6 @@ void Rva00082C98Host::rva00082C98(unsigned int a0, int a1, int a2, int a3)
 	}
 	else
 	{
-		((Rva00082C98Vec *)this)->helperAux((int *)m_end, a0 - ((char *)m_end - (char *)m_begin) / 12, &a1);
+		((Rva00082719Vector *)this)->fillInsert((Coord3D *)m_end, a0 - ((char *)m_end - (char *)m_begin) / 12, *(const Coord3D *)&a1);
 	}
 }
