@@ -211,6 +211,15 @@
 // Script_objectTypesFromParam 0x00566E6C) and tests its template's name
 // with the rowed isInSet 0x00376A62. BFME 2-only condition with no donor
 // body, so the method keeps an address name.
+//
+// ?evaluateSkirmishPlayerHasPrereqsToBuild@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E49B8 171B
+// Zero Hour's evaluateSkirmishPlayerHasPrereqsToBuild over a player mask.
+// Target evidence: jump-table case 92 calls 0x003E49B8, which
+// initConditionTemplates names SKIRMISH_PLAYER_HAS_PREREQUISITE_TO_BUILD
+// (player, object type). The type list is parsed first (ObjectTypesTemp,
+// Script_objectTypesFromParam), then each player of the mask (rowed
+// rva00357B82 plus getEachPlayerFromMask) passes when the rowed
+// ObjectTypes::canBuildAny 0x00376988 accepts it.
 #include <vector>
 #include <list>
 #include "ascii_string.h"
@@ -526,6 +535,7 @@ public:
 	ObjectTypes();
 	virtual ~ObjectTypes();
 	bool isInSet(const AsciiString &name) const;
+	bool canBuildAny(Player *player);
 	unsigned int getListSize() const { return m_objectTypes.size(); }
 	AsciiString getNthInList(unsigned int index) const;
 	int prepForPlayerCounting(_STL::vector<const ThingTemplate *> &templates, _STL::vector<int> &counts);
@@ -740,6 +750,7 @@ protected:
 	bool evaluateUnitHealth(Parameter *, Parameter *, Parameter *);
 	bool rva003E4519(Parameter *);
 	bool rva003E6BC5(Condition *, Parameter *);
+	bool evaluateSkirmishPlayerHasPrereqsToBuild(Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1402,4 +1413,18 @@ bool ScriptConditions::rva003E6BC5(Condition *pCondition, Parameter *pTypeParm)
 		pCondition->setCustomData(1);
 	pCondition->setCustomFrame(TheInGameUI->getFrameSelectionChanged());
 	return isSelected;
+}
+
+bool ScriptConditions::evaluateSkirmishPlayerHasPrereqsToBuild(Parameter *pSkirmishPlayerParm, Parameter *pObjectTypeParm)
+{
+	ObjectTypesTemp types;
+	Script_objectTypesFromParam(pObjectTypeParm, types.m_types);
+
+	int playerMask = TheScriptEngine->rva00357B82(pSkirmishPlayerParm);
+	while (playerMask) {
+		Player *player = ThePlayerList->getEachPlayerFromMask(playerMask);
+		if (player && types.m_types->canBuildAny(player))
+			return true;
+	}
+	return false;
 }
