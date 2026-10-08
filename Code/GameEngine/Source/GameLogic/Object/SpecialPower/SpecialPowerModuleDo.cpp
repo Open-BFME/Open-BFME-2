@@ -131,7 +131,7 @@ public:
 	virtual void doSpecialPowerAtObject(Object *obj, UnsignedInt commandOptions);
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, UnsignedInt commandOptions);
 
-	Bool initiateIntentToDoSpecialPower(const Object *targetObj, const Coord3D *targetPos,
+	void initiateIntentToDoSpecialPower(const Object *targetObj, const Coord3D *targetPos,
 		UnsignedInt commandOptions, const Waypoint *way);
 	void triggerSpecialPower(const Coord3D *location);
 

@@ -75,7 +75,7 @@ public:
 	virtual void doSpecialPower(UnsignedInt commandOptions);
 	virtual void doSpecialPowerAtObject(Object *obj, UnsignedInt commandOptions);
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, UnsignedInt commandOptions);
-	Bool initiateIntentToDoSpecialPower(const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way);
+	void initiateIntentToDoSpecialPower(const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way);
 	void triggerSpecialPower(const Coord3D *location);
 private:
 	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return m_moduleData; }

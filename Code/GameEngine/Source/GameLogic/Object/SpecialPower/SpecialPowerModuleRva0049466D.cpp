@@ -36,15 +36,132 @@
 // damage record (slot 15) has a nonzero +0x20 float and a +0x10 word other than
 // 7. Slots 15/16 follow Zero Hour's getLastDamageInfo/getLastDamageTimestamp
 // order; that naming is inferred.
+//
+// 0x004946F3 is initiateIntentToDoSpecialPower, called by doSpecialPower /
+// AtObject / AtLocation (0x0049490F, 0x0049495B, 0x004949D8) with the options
+// third; no caller reads a result and the body leaves eax unset, so it is
+// void here (Zero Hour's returns Bool). The name follows Zero Hour's
+// initiateIntentToDoSpecialPower, which also hands the template, target and
+// options to the first behavior module's update interface that claims the
+// power; the rest is BFME 2 only and read from retail: the target's ID
+// (Object+0x74) goes to +0x2C; template types 0x33 and 0x88 poke each other's
+// rowed Object::rva0028BD92 module (rowed Rva0044E6AE::rva0049C8FC), type
+// 0x8D sends the AI (Object+0x258) to harvest at the controlling player's
+// resource manager (Player+0x2E4, pinned 0x004F5A67) pick and clears AI byte
+// +0x3CC; data byte +0x5D idles the AI. Once an interface took the power, the
+// template's rowed 0x00493313 name (if any) goes to the pinned
+// BfmeSinkBLD::bfmeDoBLD on the 0x00DFF028 global, interface slot 2 plus
+// options 0x40000 set +0x28, the data's +0x44 FXList plays on owner and
+// target, and the owner's drawable voices message 0x7EC through the pinned
+// pickAndPlayUnitVoiceResponse with the template (+0x10), target drawable and
+// position in a PickAndPlayInfo. Retail keeps the name in the dead way slot
+// only when that tail is a nested if (found) block, and pushes the s7
+// template from a register only through an inline data getter.
 // Offsets are target evidence; field and slot meanings are inferred.
 
 #include <stddef.h>
+#include <list>
 #include <vector>
 
+#include "ascii_string.h"
 #include "Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
+typedef unsigned int UnsignedInt;
+
 extern GameLogic *TheGameLogic;
+
+enum CommandSourceType
+{
+	CMD_FROM_AI = 2
+};
+
+class Waypoint;
+class Drawable;
+
+// Retail calls the shared pointer-list destructor 0x00239AF4 out of line.
+class DrawableList : public _STL::list<Drawable *>
+{
+public:
+	~DrawableList() throw();
+};
+
+class SpecialPowerTemplate;
+
+class PickAndPlayInfo
+{
+public:
+	PickAndPlayInfo();
+
+	bool m_air;
+	Drawable *m_drawTarget; // +0x04
+	void *m_weaponSlot;
+	int m_specialPowerType;
+	const SpecialPowerTemplate *m_specialPowerTemplate; // +0x10
+	Coord3D m_position; // +0x14
+	unsigned int m_unmodelled_20;
+};
+
+class GameMessage
+{
+public:
+	enum Type
+	{
+		MSG_BFME2_0x7EC = 0x7EC
+	};
+};
+
+void pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
+	PickAndPlayInfo *info);
+
+class FXList
+{
+public:
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
+};
+
+class AICommandInterface
+{
+public:
+	void aiIdle(CommandSourceType cmdSource);
+	void aiHarvest(const Coord3D *pos, CommandSourceType cmdSource);
+};
+
+class AIUpdateInterface
+{
+public:
+	char m_pad[0x20];
+	AICommandInterface m_command; // +0x20
+	char m_pad21[0x3CC - 0x21];
+	bool m_3cc; // +0x3CC
+};
+
+class ResourceGatheringManager
+{
+public:
+	bool rva004F5A67(Object *obj, Coord3D *pos);
+};
+
+class Rva0044E6AE
+{
+public:
+	void rva0049C8FC();
+};
+
+class Rva00493313
+{
+public:
+	AsciiString rva00493313() const;
+};
+
+class RadarWindowOverrideSource;
+extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
+
+class BfmeSinkBLD
+{
+public:
+	void bfmeDoBLD(void *name, int flag);
+};
 
 struct Rva00493251GameLogicView
 {
@@ -65,6 +182,10 @@ class Player
 public:
 	void rva002AF614(void *points);
 	bool rva002AB2D9(BfmeTab1026 *tab, bool flag) const;
+	ResourceGatheringManager *getResourceGatheringManager() const { return m_resourceGatheringManager; }
+private:
+	char m_pad[0x2E4];
+	ResourceGatheringManager *m_resourceGatheringManager; // +0x2E4
 };
 
 class ObjectFilter
@@ -102,13 +223,20 @@ class Object
 public:
 	Player *getControllingPlayer() const;
 	bool rva0028C1CC() const;
+	void *rva0028BD92(int key);
+	Drawable *getDrawable() const;
+	int getID() const { return m_id; }
 	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
+	AIUpdateInterface *getAI() const { return m_ai; }
 private:
-	char m_pad[0x244];
+	char m_pad[0x74];
+	int m_id; // +0x74
+	char m_pad78[0x244 - 0x78];
 	BehaviorModule **m_behaviors; // +0x244
 	char m_pad248[0x254 - 0x248];
 	BodyModuleInterface *m_body; // +0x254
+	AIUpdateInterface *m_ai; // +0x258
 };
 
 class Overridable
@@ -133,10 +261,15 @@ public:
 	void *m_vtable;
 	int m_04;
 	const SpecialPowerTemplate *m_specialPowerTemplate; // +0x08
+	const SpecialPowerTemplate *getTemplate() const { return m_specialPowerTemplate; }
 	char m_pad0C[0x38 - 0x0C];
 	ObjectFilter m_filter38;
 	ObjectFilter m_filter3C;
-	char m_pad40[0x74 - 0x40];
+	char m_pad40[0x44 - 0x40];
+	const FXList *m_fx44; // +0x44
+	char m_pad48[0x5D - 0x48];
+	bool m_5d; // +0x5D
+	char m_pad5E[0x74 - 0x5E];
 	bool m_74;
 	char m_pad75[0x78 - 0x75];
 	float m_78;
@@ -146,7 +279,9 @@ public:
 class Rva0049466DUpdateInterface
 {
 public:
-	virtual void s0() = 0; virtual void s1() = 0; virtual void s2() = 0; virtual void s3() = 0;
+	virtual bool initiateIntentToDoSpecialPower(const SpecialPowerTemplate *power, const Object *targetObj,
+		const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way) = 0;
+	virtual void s1() = 0; virtual bool s2() = 0; virtual void s3() = 0;
 	virtual void s4() = 0; virtual void s5() = 0; virtual void s6() = 0;
 	virtual bool s7(const SpecialPowerTemplate *power) = 0;
 	virtual bool s8(const Coord3D *loc) = 0;
@@ -209,7 +344,13 @@ public:
 	bool rva004932DC();
 	bool rva00493620();
 	bool rva00494599(const Coord3D *pos);
+	void initiateIntentToDoSpecialPower(const Object *targetObj, const Coord3D *targetPos,
+		UnsignedInt commandOptions, const Waypoint *way);
 	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return m_moduleData; }
+private:
+	char m_pad14[0x28 - 0x14];
+	bool m_28; // +0x28
+	int m_2c; // +0x2C
 };
 
 // ?rva00493251@SpecialPowerModule@@QAE_NXZ @0x00493251
@@ -323,4 +464,100 @@ bool SpecialPowerModule::rva0049466D(const Coord3D *loc)
 			return update->s8(loc);
 	}
 	return true;
+}
+
+// ?initiateIntentToDoSpecialPower@SpecialPowerModule@@QAEXPBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z @0x004946F3
+void SpecialPowerModule::initiateIntentToDoSpecialPower(const Object *targetObj, const Coord3D *targetPos,
+	UnsignedInt commandOptions, const Waypoint *way)
+{
+	if (targetObj)
+		m_2c = targetObj->getID();
+	const SpecialPowerModuleData *data = getSpecialPowerModuleData();
+	switch (((const SpecialPowerTemplate *)data->m_specialPowerTemplate->friend_getFinalOverride())->getType())
+	{
+	case 0x33:
+	{
+		void *other = m_object->rva0028BD92(0x88);
+		if (other)
+			((Rva0044E6AE *)other)->rva0049C8FC();
+		break;
+	}
+	case 0x88:
+	{
+		void *other = m_object->rva0028BD92(0x33);
+		if (other)
+			((Rva0044E6AE *)other)->rva0049C8FC();
+		break;
+	}
+	case 0x8D:
+	{
+		Object *obj = m_object;
+		AIUpdateInterface *ai = obj->getAI();
+		if (ai)
+		{
+			ResourceGatheringManager *manager = obj->getControllingPlayer()->getResourceGatheringManager();
+			if (manager)
+			{
+				Coord3D pos;
+				if (manager->rva004F5A67(obj, &pos))
+				{
+					ai->m_command.aiHarvest(&pos, CMD_FROM_AI);
+					ai->m_3cc = false;
+				}
+			}
+		}
+		break;
+	}
+	}
+
+	Rva0049466DUpdateInterface *found = 0;
+	for (BehaviorModule **m = getObject()->getBehaviorModules(); *m; ++m)
+	{
+		Rva0049466DUpdateInterface *update = (*m)->getRva0049466DUpdateInterface();
+		if (update && update->s7(getSpecialPowerModuleData()->getTemplate()))
+		{
+			update->initiateIntentToDoSpecialPower(getSpecialPowerModuleData()->m_specialPowerTemplate,
+				targetObj, targetPos, commandOptions, way);
+			found = update;
+			break;
+		}
+	}
+
+	if (getSpecialPowerModuleData()->m_5d)
+	{
+		AIUpdateInterface *ai = getObject()->getAI();
+		if (ai)
+			ai->m_command.aiIdle(CMD_FROM_AI);
+	}
+
+	if (found)
+	{
+
+		const SpecialPowerTemplate *power = getSpecialPowerModuleData()->m_specialPowerTemplate;
+		AsciiString name = ((const Rva00493313 *)power)->rva00493313();
+		if (!name.isEmpty())
+			((BfmeSinkBLD *)theRadarWindowOverrideSource)->bfmeDoBLD(&name, 0);
+
+		if (found->s2() && (commandOptions & 0x40000))
+			m_28 = true;
+
+		Object *obj = m_object;
+		if (obj)
+		{
+			FXList::doFXObj(data->m_fx44, obj, targetObj);
+			Drawable *drawable = obj->getDrawable();
+			if (drawable)
+			{
+				DrawableList list;
+				list.push_back(drawable);
+				PickAndPlayInfo info;
+				info.m_specialPowerTemplate = power;
+				if (targetObj)
+					info.m_drawTarget = targetObj->getDrawable();
+				if (targetPos)
+					info.m_position = *targetPos;
+				pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_BFME2_0x7EC, &info);
+			}
+		}
+	}
 }
