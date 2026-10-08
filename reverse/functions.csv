@@ -69502,3 +69502,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva005F9567@Rva005F94C2@@QAEXXZ,,0x005F9567,165,Code/GameEngine/Source/Common/Rva005F94C2Fade.cpp,matched,target-derived APT fade-out callback builds FadeOutPage from prefix text and fires through rowed Rva0052519DFire; class identity unresolved
 ?set@Rva0028A5D5BlobSlot@@QAEXPBURva0028A5D5BlobSlotBlob@@@Z,,0x0028A5D5,19,Code/GameEngine/Source/Common/DispBlobCopySetters.cpp,matched,Disp blob copy setter 128-byte rep movsd; identity unrecoverable address-derived class
 ?indexedCall@Rva003F4ABBOwner@@QAEPAXHH@Z,,0x003F4ABB,29,Code/Libraries/Source/WWVegas/WWLib/Rva003F4ABBIndexedCall.cpp,matched,indexed table call tail-calls Rva003F44A9 method; owner class address-derived
+?sumUnflagged@Rva0040CF55Owner@@QBEHXZ,,0x0040CF55,60,Code/GameEngine/Source/Common/ArmySummaryCommandPoints.cpp,matched,army sum of +0x90 over entries with clear +0xC5 flag; owner address-derived
