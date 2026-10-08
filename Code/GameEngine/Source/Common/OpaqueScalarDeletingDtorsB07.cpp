@@ -37,6 +37,8 @@
 //   0x003FD173  0x003FCE38  0x00C37C30#0
 //   0x003FE5F3  0x003FE58A  0x00C37E48#0
 
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
+
 struct EmitVtableTag;
 
 class Rva00362E1C
@@ -426,13 +428,41 @@ Rva003F9D08::Rva003F9D08(EmitVtableTag *)
 {
 }
 
+// Target 0x003FCE38 assigns the shared empty string at +4, calls the
+// existing unresolved operation 0x003FCD71, unregisters this pointer from
+// the 0x00DFE1C8 singleton, and conditionally unlinks its +0x1C handle.
+// The owner name is deliberately retained from the rowed deleting wrapper.
+class RvaSmartPtr12 { public: __declspec(nothrow) void rva0004CBC0(); };
+struct Rva003FCE38Handle
+{
+    void *system, *previous, *next;
+    ~Rva003FCE38Handle() throw()
+    {
+        if (system) ((RvaSmartPtr12 *)this)->rva0004CBC0();
+    }
+};
+class Rva003FCD71 { public: void rva003FCD71(); };
+class CreateAHeroData;
+class Rva00211541 { public: void rva00211541(CreateAHeroData *); };
+class Rva00DFE1C8Host;
+extern Rva00DFE1C8Host *g_00DFE1C8;
 class Rva003FCE38
 {
 public:
-	Rva003FCE38(EmitVtableTag *);
-public:
-	virtual ~Rva003FCE38();
+    Rva003FCE38(EmitVtableTag *);
+    virtual ~Rva003FCE38();
+    AsciiString string04;
+    char unmodelled08[0x1C-8];
+    Rva003FCE38Handle handle1C;
 };
+
+Rva003FCE38::~Rva003FCE38()
+{
+    string04 = AsciiString::TheEmptyString;
+    ((Rva003FCD71 *)this)->rva003FCD71();
+    if (g_00DFE1C8)
+        ((Rva00211541 *)g_00DFE1C8)->rva00211541((CreateAHeroData *)this);
+}
 
 // ?<Rva003FCE38::Rva003FCE38> absent-from-retail
 Rva003FCE38::Rva003FCE38(EmitVtableTag *)
