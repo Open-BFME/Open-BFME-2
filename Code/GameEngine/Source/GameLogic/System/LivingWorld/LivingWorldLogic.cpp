@@ -255,6 +255,8 @@ class LivingWorldCampaignManager
 {
 public:
 	void *UseGenericSpawnArmyForPlayer(Int a, Int b);	// 0x003B8CE0
+	void StartNewCampaign(const AsciiString &name);
+	void StartNewCampaign(Int campaign);
 };
 
 // The generic spawn army's id at +0x4C and the player's id at +0x14, the
@@ -500,6 +502,8 @@ public:
 	void rva002BD544(Int campaign);
 	void rva002B84CD(Int campaign); // native thiscall, ret 4
 	void rva002B47C3(); // native thiscall; WB preserves the receiver
+	void rva002B83E5();
+	void rva002B49A8();
 	void AutoResolveBattle(Int battle);
 	void AutoMarkUnitsForUpgrades();
 	void CalcAttackingDirection(const _STL::vector<Int> &path, Coord2D *direction);
@@ -543,7 +547,7 @@ private:
 	unsigned char m_pad4C[0x8c - 0x4c];
 	_STL::vector<LivingWorldPlayer *> m_players;	// +0x8C
 	LivingWorldPlayer *m_localPlayer;		// +0x98 (WB member name)
-	unsigned char m_pad9C[0xb0 - 0x9c];
+	Int m_field9C, m_fieldA0, m_fieldA4, m_fieldA8, m_fieldAC; // native reset words
 	LivingWorldRegionManager *m_field0B0;		// +0xB0, region manager
 	unsigned char m_padB4[0xb6 - 0xb4];
 	Bool m_fieldB6;					// +0xB6, set when a tactical battle completes
@@ -2166,4 +2170,54 @@ void LivingWorldLogic::rva002BD544(Int campaign)
     CheckTurnPhaseTransitions();
     ((Rva002B6151List *)((char *)this + 0x4c))->forEach(
         (void (Rva002B6151Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
+}
+
+// FP-mode scope guard shared with GameLogicInit.cpp. Native 0x0004224C
+// increments nesting through 0x000421FD; the target unwind map and normal
+// return both decrement GameLogic+0x1B4. Seeing the empty guard's ctor and
+// dtor lets MSVC reuse the campaign argument's slot, as in GameLogic::reset.
+class Rva000421FD { public: void rva000421FD(); };
+struct LivingWorldFPModeCount
+{
+    unsigned char m_pad[0x1b4];
+    Int m_count;
+};
+class Rva0004224C
+{
+public:
+    Rva0004224C()
+    {
+        if (TheGameLogic)
+            ((Rva000421FD *)TheGameLogic)->rva000421FD();
+    }
+    ~Rva0004224C()
+    {
+        if (TheGameLogic)
+            ((LivingWorldFPModeCount *)TheGameLogic)->m_count--;
+    }
+};
+class GlobalData; extern GlobalData *TheWritableGlobalData;
+class Rva0020E9F2Outer { public: void rva0020E9F2(); };
+// Native 0x002B84CD..0x002B8573 (166 bytes), WB 0x00D7DC20:
+// reset the five words, start the campaign by global override or argument,
+// refresh the region manager and army ownership while FP mode is scoped.
+// The method name and five word identities remain address-derived.
+// ?LivingWorldLogic::rva002B84CD present-unmatched
+void LivingWorldLogic::rva002B84CD(Int campaign)
+{
+    rva002B83E5();
+    Rva0004224C fpMode;
+    m_field9C = 0;
+    m_fieldA0 = 0;
+    m_fieldA4 = 0;
+    m_fieldA8 = 0;
+    m_fieldAC = -1;
+    const StringBase<char> &overrideName = *(const StringBase<char> *)((char *)TheWritableGlobalData + 0x8c);
+    if (!overrideName.isEmpty())
+        ((LivingWorldCampaignManager *)TheCampaignManager)->StartNewCampaign((const AsciiString &)overrideName);
+    else
+        ((LivingWorldCampaignManager *)TheCampaignManager)->StartNewCampaign(campaign);
+    ((Rva0020E9F2Outer *)m_field0B0)->rva0020E9F2();
+    rva002B49A8();
+    EnforceArmyRegionOwnership();
 }

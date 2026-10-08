@@ -16323,3 +16323,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?UpdateButtonVisiblity@Impl@AptInGameSideCommandBar@@QAE_NPAVObject@@@Z,0x005285EF,callee of ?Update@Impl@AptInGameSideCommandBar@@QAEXXZ
 ?rva002B84CD@LivingWorldLogic@@QAEXH@Z,0x002B84CD,callee of ?rva002BD544@LivingWorldLogic@@QAEXH@Z
 ?rva002B47C3@LivingWorldLogic@@QAEXXZ,0x002B47C3,callee of ?rva002BD544@LivingWorldLogic@@QAEXH@Z
+?rva002B83E5@LivingWorldLogic@@QAEXXZ,0x002B83E5,callee of ?rva002B84CD@LivingWorldLogic@@QAEXH@Z
+?rva002B49A8@LivingWorldLogic@@QAEXXZ,0x002B49A8,callee of ?rva002B84CD@LivingWorldLogic@@QAEXH@Z
