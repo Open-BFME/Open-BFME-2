@@ -302,3 +302,40 @@ void AssetRegistry::Queue_Keys_00622680(bool front, const Rva001408C0Set &keys)
 	}
 }
 
+
+// Clean donor: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
+// game/GameEngine/Source/Common/Bfme/Rva009EC4B0SetMerge.cpp (133 bytes).
+// Target: native 0x0061F720..0x0061F7A3, 131 bytes, thiscall RET 4.
+// Native accesses establish the header/count at +0/+4 and changed flag +0x10.
+// The pointer-key type follows the rowed insert_unique at 0x00422047;
+// duplicate nodes are erased via 0x00025620 and freed via 0x00030830,
+// then iteration advances through 0x00024250. The donor provides the public
+// STLport insert/erase expression; the original holder name is unknown.
+// ?merge@Rva0061F720SetHolder@@QAEAAV1@AAV1@@Z
+class Rva0061F720SetHolder
+{
+public:
+	Rva0061F720SetHolder &merge(Rva0061F720SetHolder &other);
+
+	Rva001408C0Set m_values;
+	unsigned int m_treeLayoutPad;
+	volatile bool m_changed;
+};
+
+Rva0061F720SetHolder &Rva0061F720SetHolder::merge(Rva0061F720SetHolder &other)
+{
+	if (other.m_values.size() == 0)
+		return *this;
+
+	Rva001408C0Set::iterator it = other.m_values.begin();
+	while (it != other.m_values.end())
+	{
+		_STL::pair<Rva001408C0Set::iterator, bool> result =
+			m_values.insert(*it);
+		if (!result.second)
+			m_values.erase(result.first);
+		++it;
+	}
+	m_changed = true;
+	return *this;
+}
