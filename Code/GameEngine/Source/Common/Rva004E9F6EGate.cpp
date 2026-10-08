@@ -5,7 +5,9 @@
 // 0x00DFEEF8 world; when the returned record's +0x28 name compares equal to
 // AsciiString::TheEmptyString, set the +0x04 flag. When the global
 // 0x00E04484/0x00E04488 bounds agree, clear the 0x00E044A0 counter and
-// tail-call the pinned 0x004E9C13 on this.
+// tail-call rowed AIWallBuilder::loadWallLibrary at 0x004E9C13 on this.
+// WB1380060 and the full library body prove that callee identity; the
+// previous address-named pin is retired instead of leaving a second owner.
 #include "ascii_string.h"
 
 struct Rva002A8B59Data
@@ -32,10 +34,10 @@ struct RvaVector
 extern RvaVector g_00E04484;
 extern int g_00E044A0;
 
-class Rva004E9C13
+class AIWallBuilder
 {
 public:
-	void rva004E9C13();
+	void loadWallLibrary();
 };
 
 class Rva004E9F6E
@@ -56,6 +58,6 @@ void Rva004E9F6E::rva004E9F6E()
 		m_4 = 1;
 	if (g_00E04484.m_begin == g_00E04484.m_end) {
 		g_00E044A0 = 0;
-		((Rva004E9C13 *)this)->rva004E9C13();
+		reinterpret_cast<AIWallBuilder *>(this)->loadWallLibrary();
 	}
 }

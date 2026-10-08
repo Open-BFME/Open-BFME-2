@@ -10,7 +10,7 @@ namespace _STL { void __cdecl free(void *); }
 #define free _STL::free
 #include <vector>
 #undef free
-class AsciiString;
+#include "ascii_string.h"
 // Retail Version stores minimum/current bytes and has an inline constructor;
 // that constructor form also reproduces the independent stack homes in DoXfer.
 struct WallVersion
@@ -67,6 +67,7 @@ class AIWallBuilder {
 public: void DoXfer(Xfer *); float rva004E98B4(AIWall *);
     unsigned char canBuildAnyWall();
     void tryToStartWallProduction();
+    void loadWallLibrary();
 private: unsigned char m_prefix[8]; void *m_owner;
     _STL::vector<AIWallIDView*> m_walls;
 };
@@ -133,6 +134,7 @@ class Rva004EABB9 { public: bool rva004EABB9(); };
 // its original type spelling is retained as an opaque caller ABI here.
 class AIWall {
 public:
+    bool init();
     bool rva004EB7CC(void *owner);
     void activate(void *owner, float delay, const void *name);
 };
@@ -178,4 +180,68 @@ void **__cdecl rva004E99D6(void **first, void **last, const void *key)
 {
     char category;
     return rva004E98F7(first, last, key, &category);
+}
+
+// Native 4E9C13/405 and WB1380060/1385 name loadWallLibrary and prove
+// the map-list traversal, flag bit5 at44, group-key finder, allocations4C/5C,
+// position copy40, duplicate-node deletion and init/erase loop. The boolean
+// flag accessor follows the ZH MapObject runtime-flag pattern at BFME1 donor
+// 9cbfb551fe20dae985f91f2319d8997287b6a705; offset44/mask20 are retail facts.
+// These are caller-only views: each constructor is supplied by its already-
+// rowed owner. No constructor, destructor or vtable definition is added here.
+// Node slot0 and size5C are independently proven by its rowed provider and
+// native ::delete call (scalar flags0 then global operator delete).
+class BfmeRetBWF {public:float x,y,z;};
+class MapObject {
+public:
+    void *unknown00;
+    MapObject *next;
+    unsigned char unknown08[0x3c];
+    unsigned int flags;
+    bool isWall() const { return (flags & 0x20) != 0; }
+};
+class BfmeMapObjectListHolder {public: MapObject *m_head;};
+extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
+class Rva0030D4F2 {public:int rva0030D4F2();int rva0030D50C();};
+class Rva0030D808 {public:AsciiString rva0030D808();};
+class Rva0030D631 {public:BfmeRetBWF *rva0030D631();};
+enum NameKeyType {NAMEKEY_INVALID=0,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
+class NameKeyGenerator {
+public:NameKeyType nameToKey(const AsciiString &);const AsciiString &keyToName(NameKeyType);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+class Rva004EB583 {
+public:Rva004EB583(int);unsigned char storage[0x4c];
+};
+class Rva00596CDF {
+public:Rva00596CDF(unsigned int);virtual ~Rva00596CDF();
+unsigned char unknown04[0x3c];BfmeRetBWF position;unsigned char unknown4c[0x10];
+};
+class Rva004EB794 {public:bool rva004EB794(const ModuleData *);};
+
+void AIWallBuilder::loadWallLibrary()
+{
+    for(MapObject *obj=BfmeTheMapObjectListHolder->m_head;obj;obj=obj->next) {
+        if (obj->isWall() && !reinterpret_cast<Rva0030D4F2 *>(obj)->rva0030D4F2()) {
+            NameKeyType key=TheNameKeyGenerator->nameToKey(reinterpret_cast<Rva0030D808 *>(obj)->rva0030D808());
+            void **found=rva004E99D6(g_00E04484.begin,g_00E04484.end,&key);
+            const ModuleData *wall;
+            if(found==g_00E04484.end) {
+                wall=reinterpret_cast<const ModuleData *>(new Rva004EB583(key));
+                reinterpret_cast<_STL::vector<const ModuleData *> &>(g_00E04484).push_back(wall);
+            }else wall=reinterpret_cast<const ModuleData *>(*found);
+            Rva00596CDF *node=new Rva00596CDF(reinterpret_cast<Rva0030D4F2 *>(obj)->rva0030D50C());
+            node->position=*reinterpret_cast<Rva0030D631 *>(obj)->rva0030D631();
+            if(!reinterpret_cast<Rva004EB794 *>(const_cast<ModuleData *>(wall))->rva004EB794(reinterpret_cast<const ModuleData *>(node))) {
+                ::delete node;
+                AsciiString unused(TheNameKeyGenerator->keyToName(key));
+            }
+        }
+    }
+    void **it=g_00E04484.begin;
+    while(it!=g_00E04484.end) {
+        if(!reinterpret_cast<AIWall *>(*it)->init())
+            it=reinterpret_cast<_STL::vector<void *> &>(g_00E04484).erase(it);
+        else ++it;
+    }
 }
