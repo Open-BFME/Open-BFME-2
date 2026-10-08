@@ -350,26 +350,6 @@ Int RoadSegment::GetIndices(UnsignedShort *destination_ib, Int numToCopy, Int of
 	return(numToCopy);
 }
 
-//=============================================================================
-// RoadSegment::updateSegLighting
-//=============================================================================
-/** Updates the diffuse lighting in the vertex buffer. */
-//=============================================================================
-// byte-exact reconstruction: Code/GameEngine/Source/Common/RoadSegment_updateSegLightingMethodThunk.cpp
-// ?updateSegLighting@RoadSegment@@QAEXXZ present-unmatched
-void RoadSegment::updateSegLighting(void)
-{
-	Int i;
-	Int borderSizeInLine=TheTerrainRenderObject->getMap()->getBorderSizeInline();
-	for (i=0; i<m_numVertex; i++) {
-		Int x = m_vb[i].x/MAP_XY_FACTOR+0.5;
-		Int y = m_vb[i].y/MAP_XY_FACTOR+0.5;
-		x += borderSizeInLine;
-		y += borderSizeInLine;
-		m_vb[i].diffuse = (255<<24)|TheTerrainRenderObject->getStaticDiffuse(x, y);
-	}
-}
-
 //-----------------------------------------------------------------------------
 //         Private Methods                                               
 //-----------------------------------------------------------------------------
