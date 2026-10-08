@@ -72088,3 +72088,4 @@ _VP6_GetYUVConfig,,0x001B5C60,1147,Code/Libraries/Source/VP6/GetYUVConfig.cpp,ma
 ?rva006E3530@Rva006E34D0@@QAEXHHH@Z,,0x006E3530,77,Code/Libraries/Source/Apt/Rva006E3530Pack.cpp,matched,bit-pack three ints into append value; thiscall ret 12
 ?Set_Hidden@ParticleEmitterClass@@UAEXH@Z,,0x001A1450,37,Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterVisibilityWrappers.cpp,matched,override: Bits 0x2000 set or clear then virtual Update_On_Visibilty slot 132; w4-T7-H1
 ?Set_Animation_Hidden@ParticleEmitterClass@@UAEXH@Z,,0x001A14B0,37,Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterVisibilityWrappers.cpp,matched,override: Bits 0x4000 set or clear then virtual Update_On_Visibilty slot 132; w4-T7-H1
+?rva005DBDA0@@YAPAURva005DBDA0Item@@PAU1@00@Z,,0x005DBDA0,58,Code/GameEngine/Source/Common/Rva005DBDA0Copy.cpp,matched,copy two words of each 8B item in range; returns advanced dst
