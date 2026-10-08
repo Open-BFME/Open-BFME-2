@@ -235,6 +235,10 @@ class Rva000A8B04 {
 public:
     void rva000A8B04(float first, float second);
 };
+// The same +0x0C receiver's loop-count setter and restart, rowed at
+// 0x000A8B23 and 0x000A8AB4 under their own address-derived owners.
+class Rva000A8B23 { public: void rva000A8B23(int loopCount); };
+class Rva000A8AB4 { public: void rva000A8AB4(void); };
 
 struct PlayingAudio {
     void *vfptr;
@@ -809,6 +813,8 @@ public:
     void cleanUpLoopBuffer(LoopBuffer *buffer);
     // WorldBuilder name (retail 0x0005DD40).
     void checkForNaturalSoundCompletion(PlayingAudioRef &playing);
+    // WorldBuilder name; restarts, requeues or retires a finished sound.
+    void processAudioCompletion(PlayingAudioRef &completedAudio);
     void rva0005EFE9(void);
     void putPlayingMusicOnStack(int viewType, int arg);
     void rva00059CE6(PlayingAudioRef &looping);
@@ -1183,6 +1189,59 @@ int __fastcall getAppropriateStreamLoopCount(void *unusedEcx, const AudioEventRT
     default:
         return 1;
     }
+}
+
+// Retail 0x0005DF9D (WorldBuilder twin 0x0079C1D0, names from its asserts):
+// a looping sound restarts its next loop, a stream whose type keeps looping
+// restarts in place, anything else with portions left is requeued, and the
+// rest is checked for natural completion and marked done.
+void MilesAudioManager::processAudioCompletion(PlayingAudioRef &completedAudio)
+{
+    if (!completedAudio.get())
+        return;
+    unsigned int viewBit = 1 << completedAudio->m_event->m_viewType;
+    // Retail tests the bits in memory but clears them with a fresh RMW.
+    volatile unsigned int *viewBits = &m_at698;
+    if ((*viewBits & viewBit) && completedAudio->m_event->m_info->m_atB0 == 1)
+        m_at698 &= ~viewBit;
+    if (completedAudio->m_event->m_info->m_control & 1) {
+        if (completedAudio->m_event->m_portionToPlayNext == 0)
+            ((Rva002D94FEDwordSlot *)completedAudio->m_event.operator->())->set(1);
+        if (completedAudio->m_event->m_portionToPlayNext == 1 && startNextLoop(completedAudio))
+            return;
+    }
+    completedAudio->m_event->advanceNextPlayPortion();
+    if (completedAudio->m_event->m_portionToPlayNext != 3 && completedAudio->m_type != 4) {
+        completedAudio->m_event->rva002D9ADC();
+        rva00059CE6(completedAudio);
+        return;
+    }
+    if (completedAudio->m_type == 4 && !completedAudio->m_event->m_at4C) {
+        bool restart;
+        switch (completedAudio->m_event->m_info->m_atB0) {
+        case 0:
+            restart = completedAudio->m_event->m_loopCount == -12345;
+            break;
+        case 1:
+        case 4:
+            restart = (completedAudio->m_event->m_info->m_control & 1) != 0;
+            break;
+        case 3:
+            restart = true;
+            break;
+        default:
+            restart = false;
+            break;
+        }
+        if (restart) {
+            AudioEventRTS *event = completedAudio->m_event.operator->();
+            ((Rva000A8B23 *)&completedAudio->m_at0C)->rva000A8B23(getAppropriateStreamLoopCount(event, event));
+            ((Rva000A8AB4 *)&completedAudio->m_at0C)->rva000A8AB4();
+            return;
+        }
+    }
+    checkForNaturalSoundCompletion(completedAudio);
+    completedAudio->m_status = 1;
 }
 
 class File;
