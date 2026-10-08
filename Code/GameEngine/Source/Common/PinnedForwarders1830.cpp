@@ -311,24 +311,27 @@ void Rva000A8B4B::rva000A8B4B(int a)
 		m_ptr->rva0010FEF3(a);
 }
 
+// Native callee10FFA2 reads packet dwords0/4 and float8; A8C6E forwards
+// the packet unchanged. Its original owner and packet identities are unknown.
+struct Rva0010FFA2Packet;
 class Rva0010FFA2
 {
 public:
-	void rva0010FFA2(int a);
+	void rva0010FFA2(const Rva0010FFA2Packet *packet);
 };
 
 class Rva000A8C6E
 {
 public:
-	void rva000A8C6E(int a);
+	void rva000A8C6E(const Rva0010FFA2Packet *packet);
 private:
 	Rva0010FFA2 *m_ptr;
 };
 
-void Rva000A8C6E::rva000A8C6E(int a)
+void Rva000A8C6E::rva000A8C6E(const Rva0010FFA2Packet *packet)
 {
 	if (m_ptr)
-		m_ptr->rva0010FFA2(a);
+		m_ptr->rva0010FFA2(packet);
 }
 
 class Rva001EB68A

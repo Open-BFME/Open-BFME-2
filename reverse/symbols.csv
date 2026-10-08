@@ -10924,7 +10924,6 @@ name,address,notes
 ?run@Rva0010FBDERun@@QAEXXZ,0x0010FBDE,REL32 callee decoded from target call bytes of null-checked forward 0x000A8ACC; identity unproven
 ?run@Rva0010FDE9Run@@QAEXI@Z,0x0010FDE9,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8B23; identity unproven
 ?run@Rva0010FEF3Run@@QAEXI@Z,0x0010FEF3,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8B4B; identity unproven
-?run@Rva0010FFA2Run@@QAEXI@Z,0x0010FFA2,REL32 callee decoded from target call bytes of null-guarded forward 0x000A8C6E; identity unproven
 ?run@Rva001BE790@@QAEXXZ,0x0028FF9E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?run@Rva001EB68ARun@@QAEXXZ,0x001EB68A,REL32 callee decoded from target call bytes of null-checked forward 0x001EB72F; identity unproven
 ?run@Rva001EB6FERun@@QAEXXZ,0x001EB6FE,REL32 callee decoded from target call bytes of null-checked forward 0x001EB75C; identity unproven
@@ -11133,7 +11132,6 @@ name,address,notes
 ?rva0010FCDB@Rva000A8AEETarget@@QAEXM@Z,0x0010FCDB,float-taking callee: REL32 read at the forward call site in 0x000A8AEE; unrowed EH factory body; owner identity unproven
 ?rva0010FDE9@Rva0010FDE9@@QAEXH@Z,0x0010FDE9,tail-call target of the byte-verified Rva000A8B23::rva000A8B23 0x000A8B23 on its +0x0 member read from its REL32 displacement; name unknown
 ?rva0010FEF3@Rva0010FEF3@@QAEXH@Z,0x0010FEF3,tail-call target of the byte-verified Rva000A8B4B::rva000A8B4B 0x000A8B4B on its +0x0 member read from its REL32 displacement; name unknown
-?rva0010FFA2@Rva0010FFA2@@QAEXH@Z,0x0010FFA2,tail-call target of the byte-verified Rva000A8C6E::rva000A8C6E 0x000A8C6E on its +0x0 member read from its REL32 displacement; name unknown
 ?rva0010e580MapPathCode@GameState@@QBE?AVAsciiString@@ABV2@@Z,0x002DC340,donor_sweep: call target read from retail at the unique placement of the BFME 1 donor _Rva00621350GameInfoMapPath (0x00400898); BFME 1 donor name
 ?rva0010f820MapPathCode@GameState@@QBE?AVAsciiString@@ABV2@@Z,0x002DCB9C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?rva00112898@Rva00113110Holder@@QAEXHHPAX@Z,0x00112898,"retail REL32 at 0x00113148 in 0x00113110 targets 0x00112898 (ecx=esi Holder thiscall 3 stack args [esi+0x58] plus 0 plus 0; 569B Ghidra body sharing +0x5C holder); opaque candidate not identity"

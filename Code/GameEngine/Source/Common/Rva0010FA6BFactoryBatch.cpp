@@ -352,3 +352,35 @@ void Rva0010FEF3::rva0010FEF3(int value)
 		((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
 }
 
+// Native10FFA2..110094 reads packet int0/int4/float8, stores int4 at+1C,
+// then submits a16B integer event and a20B float/integer event with6000.
+// Target calls10EF42/10EF61 and temporary ref releases prove these fields
+// and lifetimes; matched sibling factories supply only the C++ shape.
+// Original owner, packet and event identities remain unknown.
+struct Rva0010FFA2Packet
+{
+	int m_event0;
+	int m_value4;
+	float m_value8;
+};
+
+class Rva0010FFA2
+{
+	char m_pad00[0x1c];
+	int m_value1c;
+public:
+	void rva0010FFA2(const Rva0010FFA2Packet *packet);
+};
+
+void Rva0010FFA2::rva0010FFA2(const Rva0010FFA2Packet *packet)
+{
+	m_value1c = packet->m_value4;
+	Rva0010EF42 *first;
+	(first = new Rva0010EF42(AudioEventInfoRef(
+		reinterpret_cast<AudioEventInfo *>(this)), packet->m_event0),
+		((Rva0010F8D0 *)this)->rva0010F8D0(first));
+	Rva0010EF61 *second;
+	(second = new Rva0010EF61(AudioEventInfoRef(
+		reinterpret_cast<AudioEventInfo *>(this)), packet->m_value8, 6000),
+		((Rva0010F8D0 *)this)->rva0010F8D0(second));
+}
