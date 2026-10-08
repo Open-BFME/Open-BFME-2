@@ -154,7 +154,8 @@ Rva00355F3E::~Rva00355F3E()
 // 0x00356AFA calls here; chain of 0x00355D66; EH states 1/0/-1 with scope
 // 0x00B7D5F0.
 template <typename T> class StringBase {
-public: ~StringBase() { releaseBuffer(); }
+public: StringBase(const StringBase &other);	// 0x000365F0
+	~StringBase() { releaseBuffer(); }
 private: void releaseBuffer();
 	T *m_data;
 };
@@ -188,6 +189,7 @@ extern DisplayManager *TheDisplay;
 class Rva003563A7 : public Rva00355D66
 {
 public:
+	Rva003563A7(const StringBase<char> &name);
 	virtual ~Rva003563A7();
 	void rva00355EE1();
 private:
@@ -198,6 +200,16 @@ private:
 Rva003563A7::~Rva003563A7()
 {
 	TheDisplay->slot68();
+}
+
+// ??0Rva003563A7@@QAE@ABV?$StringBase@D@@@Z @0x00356367 64B: the matching
+// constructor. Base 0x00355D4E (rowed Rva00355D66 ctor, EH state 0 once it
+// is built), vtable 0x00814ED4, +0x10 cleared and the +0x14 name copied
+// through the StringBase copy 0x000365F0. RET 4.
+Rva003563A7::Rva003563A7(const StringBase<char> &name)
+	: m_pad10(false),
+	  m_str(name)
+{
 }
 
 void Rva003563A7::rva00355EE1()
