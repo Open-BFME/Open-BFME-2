@@ -126,12 +126,12 @@ private:
 	unsigned char m_bytes[28];
 };
 
-// vftable 0x00C1A268, allow 0x0026115D: reject what has any of the first
-// mask's kinds (ZH's PartitionFilterRejectByKindOf).
-class Rva00395A35 : public Rva000421C8
+// vftable 0x00C1A268, allow 0x0026115D: reject objects satisfying the
+// set/clear masks (ZH's PartitionFilterRejectByKindOf).
+class PartitionFilterRejectByKindOf : public Rva000421C8
 {
 public:
-	Rva00395A35(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
+	PartitionFilterRejectByKindOf(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
 	virtual bool allow(Object *obj);
 	BfmeFixedStorage0004543D m_08;
 	BfmeFixedStorage0004543D m_24;
@@ -289,9 +289,9 @@ bool AIPlayer::isLocationSafe(const Coord3D *pos, const ThingTemplate *tthing)
 			.link(Rva0026119DFilter()
 			.link(Rva00261058(m_player, false)
 			.link(Rva00261246Filter(true, false)
-			.link(Rva00395A35(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 16),
+			.link(PartitionFilterRejectByKindOf(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 16),
 				*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype)
-			.link(&Rva00395A35(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 14),
+			.link(&PartitionFilterRejectByKindOf(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 14),
 				*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype)))))));
 	if (enemy != 0)
 		return false;

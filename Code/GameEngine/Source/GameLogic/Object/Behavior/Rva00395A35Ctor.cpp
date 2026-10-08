@@ -1,35 +1,33 @@
 // cl: /DNDEBUG /MD /EHsc
-//
-// ??0Rva00395A35@@QAE@ABVBfmeFixedStorage0004543D@@0@Z, retail 0x00395A35, 43 bytes.
-// Two-arg ctor over BfmeFixedStorage0004543D (28B, rowed copy at 0x0004543D):
-// vtable g_00C1A268 at +0, int at +4 cleared, members at +8/+0x24 copied from
-// the two args, returns this. Prev CastleMemberBehaviorPoolKey and next
-// Rva00395A60 share the 00395xxx page; flags match FixedStorageCopyBFME2.
-extern const void *const g_00C1A268[];
-class BfmeFixedStorage0004543D
-{
-	char m_bytes[28];
+// Native C1A268 slots are deleting dtor 395A19, the already rowed
+// PartitionFilterRejectByKindOf::allow 26115D, and all-players mask 36CC7A.
+// Its 395A35 constructor copies two 28-byte masks to +8/+24. Reconcile the
+// former neutral constructor view with the existing named predicate, using
+// the ZH PartitionManager.h reject-filter definition as the semantic guide.
+// Derived ordinary/deleting dtors are the same 7/28B native folds as the
+// other kind filters; preserve their real three-slot interface.
+class Object;
+class Rva000421C8 {
 public:
-	__declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other);
+ Rva000421C8() : m_next(0) {}
+ virtual ~Rva000421C8() {}
+ virtual bool allow(Object *) = 0;
+ virtual int getPlayerMask() { return -1; }
+ Rva000421C8 *m_next;
 };
-class Rva00395A35
-{
+class BfmeFixedStorage0004543D {
+ char m_bytes[28];
 public:
-	virtual void anchor();
-	Rva00395A35(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
+ __declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
+};
+class PartitionFilterRejectByKindOf : public Rva000421C8 {
+public:
+ PartitionFilterRejectByKindOf(const BfmeFixedStorage0004543D &,const BfmeFixedStorage0004543D &);
+ __declspec(noinline) virtual ~PartitionFilterRejectByKindOf();
+ virtual bool allow(Object *);
 private:
-	int m_04;
-	BfmeFixedStorage0004543D m_08;
-	BfmeFixedStorage0004543D m_24;
+ BfmeFixedStorage0004543D m_08,m_24;
 };
-Rva00395A35::Rva00395A35(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b)
-	: m_04(0)
-	, m_08(a)
-	, m_24(b)
-{
-}
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?anchor@Rva00395A35@@UAEXXZ=?rva00395A19@Rva00395A19@@QAEPAXI@Z")
+PartitionFilterRejectByKindOf::PartitionFilterRejectByKindOf(const BfmeFixedStorage0004543D &a,const BfmeFixedStorage0004543D &b)
+ : m_08(a),m_24(b) {}
+inline PartitionFilterRejectByKindOf::~PartitionFilterRejectByKindOf() {}

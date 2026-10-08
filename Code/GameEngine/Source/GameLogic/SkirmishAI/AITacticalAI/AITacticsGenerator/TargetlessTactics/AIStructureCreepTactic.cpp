@@ -303,12 +303,12 @@ struct Rva00045411BitSet
 };
 extern unsigned char g_00DFEFA4StoragePrototype[28];
 
-// vftable 0x00C1A268, allow 0x0026115D: reject what has any of the first
-// mask's kinds (ZH's PartitionFilterRejectByKindOf).
-class Rva00395A35 : public Rva000421C8
+// vftable 0x00C1A268, allow 0x0026115D: reject objects satisfying the
+// set/clear masks (ZH's PartitionFilterRejectByKindOf).
+class PartitionFilterRejectByKindOf : public Rva000421C8
 {
 public:
-	Rva00395A35(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
+	PartitionFilterRejectByKindOf(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
 	virtual bool allow(Object *obj);
 	BfmeFixedStorage0004543D m_08;
 	BfmeFixedStorage0004543D m_24;
@@ -383,7 +383,9 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);	// the thing template by name
 };
-extern class ThingFactory *TheThingFactory;
+// Use the ledger-defined factory view at DFF000; avoid a second
+// external spelling of the same factory pointer.
+extern Rva002D06CA *TheThingFactory;
 
 struct BfmeWideResult
 {
@@ -620,7 +622,7 @@ bool AIStructureCreepTactic::findBestInterestZone()
 				site->m_radius, 0,
 				Rva0026119DFilter().link(&Rva00261409Filter(m_owner, true, 2))
 					->link(&Rva003959FA(*(BfmeFixedStorage0004543D *)&mask))
-					->link(&Rva00395A35(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 7),
+					->link(&PartitionFilterRejectByKindOf(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 7),
 						*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype)), 0);
 			if ((unsigned int)(hits.m_value->m_end - hits.m_value->m_begin) > 15) {
 				m_68 = site->m_id;
@@ -665,7 +667,7 @@ bool AIStructureCreepTactic::validateTemplateName(const AsciiString &name)
 		}
 	}
 	if (objects.size() < 3) {
-		Rva005AC0B5Template *tmpl = (Rva005AC0B5Template *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
+		Rva005AC0B5Template *tmpl = (Rva005AC0B5Template *)TheThingFactory->rva002D06CA(&name);
 		if (tmpl->m_108 & 8)
 			return true;
 		if (names.find(name) == names.end())
