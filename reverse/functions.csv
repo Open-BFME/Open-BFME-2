@@ -40649,7 +40649,6 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?rva00444462@Rva00444462@@QAEXXZ,,0x00444462,11,Code/GameEngine/Source/Common/Rva00444462.cpp,matched,tail jmp enable at plus288
 ?rva00206255@Rva00206255@@QAEPAXHABVAsciiString@@@Z,,0x00206255,83,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00206255.cpp,matched,ThePlayerList getNthPlayer plus bfmeAskRV plus CRC plus map find at 0x1A164
 ??1Rva00573B23@@UAE@XZ,,0x00573B23,59,Code/GameEngine/Source/Common/Rva00573B23Dtor.cpp,matched,vptr plus StringBase member plus virtual base dtor unlocks 2
-?rva002399EB@Rva002399EB@@QAEPAXG@Z,,0x002399EB,37,Code/GameEngine/Source/Common/Rva002399EBFind.cpp,matched,circular list find key at +0xC return node+8
 ??0Rva004382FC@@QAE@ABVRva002542F3Member@@H@Z,,0x004383BA,49,Code/GameEngine/Source/GameLogic/Object/Update/Rva004382FCWrapper.cpp,matched,wrapper param ctor via member copy and TheGameLogic frame
 ??1Rva00573F03@@UAE@XZ,,0x00573F03,11,Code/GameEngine/Source/Common/Rva00573B23Dtor.cpp,matched,derived dtor vptr store plus tail jump to base dtor
 ?rva00357E14@Rva00357E14@@QAEXABUBfmeFloat4Record00469C61@@@Z,,0x00357E14,28,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357E14.cpp,matched,rowed list insert plus begin double deref
@@ -40832,7 +40831,6 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?doFXObj@TintDrawableFXNugget@@UBEXPBVObject@@0@Z,,0x001E09D8,99,Code/GameEngine/Source/GameClient/TintDrawableFXNuggetDoFXObj.cpp,matched,chain calls 0x00271779 now rowed vtable slot 2 donor doFXObj
 ??$__pop_heap_aux@PAHHVRva00422CA8@@@_STL@@YAXPAH00VRva00422CA8@@@Z,,0x00423F9F,30,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_rva00422ca8.cpp,matched,chain heap aux via pinned 6-arg pop heap
 ?rva0039C190@Rva0039C190@@QAEPAVRva0039B893@@PAV2@0@Z,,0x0039C190,51,Code/GameEngine/Source/Common/Rva0039C190Assign.cpp,matched,chain lane callers at 0x0039C40F and twin 0x0015068C
-?rva00239C5E@Rva00239C5E@@QAEPAXV?$StringBase@D@@@Z,,0x00239C5E,89,Code/GameEngine/Source/Common/Rva00239C5EFind.cpp,matched,circular list find via compare 0x69D6 same head as 0x2399EB callers 0x23ACB3 0x23B5D5
 ?rva00239C38@Rva00239C38@@QAEXPBVRva0055A88BDwordField@@@Z,,0x00239C38,38,Code/GameEngine/Source/Common/Rva00239C38Erase.cpp,matched,nullable erase via get 0x55A88B erase 0x54883B callers 0x239F86 0x271075
 ?rva00239FA0@Rva00239FA0@@QAEXPBVRva0055A88BDwordField@@@Z,,0x00239FA0,44,Code/GameEngine/Source/Common/Rva00239FA0Store.cpp,matched,nullable store via get 0x55A88B findSlot 0x41F4E5 caller 0x27108B
 ?rva00239057@OpaqueRefElement4@@QAEAAU1@PBU1@@Z,,0x00239057,46,Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp,matched,opaque ref assign from pointer via AddRef Release caller 0x23B431
