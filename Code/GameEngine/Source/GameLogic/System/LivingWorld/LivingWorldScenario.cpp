@@ -31,7 +31,9 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 class LivingWorldRegion {
 public:
     bool IsOwnedByTeam(int team) const;
-    char pad[0x134];
+    char pad[0x12c];
+    int regionID;
+    int word130;
     int lastOwnershipTurn;
 };
 class LivingWorldScenario { public: class TeamVictoryCondition; };
@@ -81,4 +83,30 @@ bool LivingWorldScenario::TeamVictoryCondition::hasTeamAchievedVictory(int team)
         }
     }
     return true;
+}
+
+// WorldBuilder's same named method and native 4FD013..4FD0DA, RET 12.
+// Retail deduplicates by the region's +12C word, then appends its pointer;
+// maxOut is updated from condition+10. Keep the otherwise unused temporary
+// vector: its construction and EH cleanup are present in both target builds.
+void LivingWorldScenario::TeamVictoryCondition::QueryRegionsAndNumbers(
+    int team, _STL::vector<const LivingWorldRegion *> *out, int *maxOut)
+{
+    (void)team;
+    _STL::vector<const LivingWorldRegion *> unusedRegions;
+    for (unsigned int i = 0; i < regionNames.size(); ++i) {
+        AsciiString *names = &regionNames[0];
+        Rva002104B6 *manager = TheLivingWorldLogic->regions;
+        const LivingWorldRegion *region = (const LivingWorldRegion *)manager->rva002104B6(&names[i]);
+        if (!region)
+            continue;
+        for (unsigned int j = 0; j < out->size(); ++j) {
+            if ((*out)[j]->regionID == region->regionID)
+                goto next;
+        }
+        out->push_back(region);
+    next:;
+    }
+    if (*maxOut < requiredRegionCount)
+        *maxOut = requiredRegionCount;
 }
