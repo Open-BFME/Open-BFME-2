@@ -332,6 +332,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 struct TreeHintRef00217D4C
 {
+	TreeHintRef00217D4C() : m_ptr(0) {}
 	// ??1TreeHintRef00217D4C@@QAE@XZ present-unmatched
 	__forceinline ~TreeHintRef00217D4C()
 	{
@@ -374,6 +375,7 @@ public:
 class Rva0057B993
 {
 public:
+	Rva0057B993() { m_ptr = 0; }
 	void reset(Rva005D4FFC *p);
 	// ??1Rva0057B993@@QAE@XZ present-unmatched
 	__forceinline ~Rva0057B993() { ((Rva0057B9B6 *)this)->clear(); }
@@ -381,26 +383,138 @@ public:
 	Rva005D4FFC *m_ptr;
 };
 
-// The rowed 0x0052413E's object, at +0x1C.
-class Rva0052413E
-{
-public:
-	~Rva0052413E();
+// Command-map binding (the shape 0x0057BC63's rowed holder takes): the
+// target, an unused word, then the member pointer in its two-word
+// (multiple-inheritance) form.
+class __multiple_inheritance FunctorTarget;
+typedef void (FunctorTarget::*FunctorMethod)(void);
 
-private:
-	unsigned char m_pad[0xC];
+struct FunctorBinding
+{
+	template <class T> FunctorBinding(T *target, void (T::*method)(const char *))
+		: m_target(reinterpret_cast<FunctorTarget *>(target)), m_method(reinterpret_cast<FunctorMethod>(method)) {}
+
+	FunctorTarget *m_target;
+	unsigned int m_pad;
+	FunctorMethod m_method;
 };
 
+class Rva0057BC63FunctorHolder
+{
+public:
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding); // 0x0057BC63
+
+	void *m_ptr;
+};
+
+class AptCommandMap;
+
+// The reference-counted command map AptCommandMapAdder::AddCommandMap
+// takes by value, built in the argument slot from a binding.
+template <class T> class AptRef
+{
+public:
+	AptRef(const FunctorBinding &binding) : m_holder(binding) {}
+	AptRef(const AptRef &that);
+	~AptRef()
+	{
+		if (m_holder.m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_holder.m_ptr);
+	}
+
+private:
+	Rva0057BC63FunctorHolder m_holder;
+};
+
+// The 12-byte command-map name list at +0x1C: ctor 0x001F81BF (ICF fold,
+// pinned), AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
+class AptCommandMapAdder
+{
+public:
+	AptCommandMapAdder();
+	~AptCommandMapAdder();
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+
+	__forceinline void AddCommandMapBinding(const AsciiString &name, FunctorBinding binding)
+	{
+		AddCommandMap(name, binding);
+	}
+
+private:
+	char m_pad[0xC];
+};
+
+// "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
+class Rva000B3F84Pair
+{
+public:
+	Rva000B3F84Pair() {}
+	Rva000B3F84Pair *init(const char *src); // 0x000B3F84
+
+	const char *m_ptr;
+	int m_len;
+};
+
+struct AsciiStringRef
+{
+	const AsciiString *m_string;
+};
+
+struct AsciiStringPlusString : AsciiStringRef
+{
+	AsciiStringRef m_second;
+};
+
+struct AsciiStringPlusStringText : AsciiStringPlusString
+{
+	operator AsciiString(); // 0x0050F74B
+
+	Rva000B3F84Pair m_right;
+};
+
+static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
+{
+	AsciiStringPlusString result;
+	result.m_string = &left;
+	result.m_second.m_string = &right;
+	return result;
+}
+
+// ?operator+(AsciiStringPlusString, text) present-unmatched (inline, emitted out of line; ICF-folded at 0x00109CFD; pinned)
+inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
+{
+	Rva000B3F84Pair text;
+	text.init(right);
+	AsciiStringPlusStringText result;
+	static_cast<AsciiStringPlusString &>(result) = left;
+	result.m_right = text;
+	return result;
+}
+
 // The listener-list interface (vtable 0x00C6F248, nine pure slots and no
-// destructor slot): its rowed destructor frees the list storage at +4.
+// destructor slot), then the listener list at +4 as a second base: the
+// callbacks are bound as two-word (multiple-inheritance) member pointers.
+// The ledger rows its constructor (0x0057BCD7, which installs that vtable)
+// and its destructor (0x0057BCEC, which frees the list storage) under two
+// address names; the destructor is reached through a cast, as elsewhere in
+// this unit.
 class Rva0057BCEC
 {
 public:
-	virtual void slot00() = 0;
 	~Rva0057BCEC();
+};
 
-protected:
-	Rva0057BC45List m_listeners; // +0x04
+class __declspec(novtable) Rva0057BCD7Base0
+{
+public:
+	virtual void slot00() = 0;
+};
+
+class __declspec(novtable) Rva0057BCD7 : public Rva0057BCD7Base0, public Rva0057BC45List
+{
+public:
+	Rva0057BCD7();
+	__forceinline ~Rva0057BCD7() { ((Rva0057BCEC *)this)->~Rva0057BCEC(); }
 };
 
 class Rva001FF3A9
@@ -426,9 +540,10 @@ namespace StrategicHUD {
 class SelectionDetailsUIImpl;
 }
 
-class StrategicHUD::SelectionDetailsUIImpl : public Rva0057BCEC
+class StrategicHUD::SelectionDetailsUIImpl : public Rva0057BCD7
 {
 public:
+	SelectionDetailsUIImpl(int level, const AsciiString &name);
 	~SelectionDetailsUIImpl();
 	void OnPanelFrameLoaded(const char *name);
 	void OnPanelFrameUnloaded(const char *name);
@@ -441,15 +556,34 @@ public:
 	void SetToggleButtonEnabled(bool enabled);
 
 private:
-	int m_14;
-	AsciiString m_18;
-	Rva0052413E m_1C;
+	int m_level; // +0x14
+	AsciiString m_name; // +0x18
+	AptCommandMapAdder m_commandMaps; // +0x1C
 	int m_state; // +0x28
 	bool m_2C; // +0x2C: the toggle button may be used
-	unsigned char m_pad2d[0x30 - 0x2D];
+	bool m_2D;
+	unsigned char m_pad2e[0x30 - 0x2E];
 	TreeHintRef00217D4C m_hint; // +0x30
 	Rva0057B993 m_panelFrame; // +0x34
 };
+
+// Retail 0x0057BD79, 706 bytes: the constructor (the HUD's
+// OnSelectionDetailsLoaded news it). After the rowed interface ctor it
+// stores the level and copies the name, zeroes the state, flags, hint and
+// panel frame, and binds five <_level%u.><name>_On... callbacks (retail
+// strings) to the handlers below through AptCommandMapAdder::AddCommandMap,
+// each reference built in place by the rowed functor holder 0x0057BC63.
+StrategicHUD::SelectionDetailsUIImpl::SelectionDetailsUIImpl(int level, const AsciiString &name)
+	: m_level(level), m_name(name), m_state(0), m_2C(false), m_2D(false)
+{
+	AsciiString prefix;
+	prefix.format("_level%u.", m_level);
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnClosed", FunctorBinding(this, &SelectionDetailsUIImpl::OnClosed));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnOpened", FunctorBinding(this, &SelectionDetailsUIImpl::OnOpened));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnPanelFrameLoaded", FunctorBinding(this, &SelectionDetailsUIImpl::OnPanelFrameLoaded));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnPanelFrameUnloaded", FunctorBinding(this, &SelectionDetailsUIImpl::OnPanelFrameUnloaded));
+	m_commandMaps.AddCommandMapBinding(prefix + m_name + "_OnToggleButtonClicked", FunctorBinding(this, &SelectionDetailsUIImpl::OnToggleButtonClicked));
+}
 
 // Retail 0x0057B9F1, 148 bytes: bound as "<movie>_OnPanelFrameLoaded"
 // (0x0057BEE4).
@@ -484,7 +618,7 @@ void StrategicHUD::SelectionDetailsUIImpl::OnClosed(const char *unused)
 	if (m_state == 3)
 	{
 		m_state = 0;
-		m_listeners.forEach(reinterpret_cast<void (Rva0057BC45Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initReverseAnimateWindow), this);
+		forEach(reinterpret_cast<void (Rva0057BC45Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initReverseAnimateWindow), this);
 	}
 }
 
@@ -495,7 +629,7 @@ void StrategicHUD::SelectionDetailsUIImpl::OnOpened(const char *unused)
 	if (m_state == 1)
 	{
 		m_state = 2;
-		m_listeners.forEach(reinterpret_cast<void (Rva0057BC45Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initAnimateWindow), this);
+		forEach(reinterpret_cast<void (Rva0057BC45Listener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::initAnimateWindow), this);
 	}
 }
 
@@ -529,5 +663,5 @@ void StrategicHUD::SelectionDetailsUIImpl::rva0057BBBB()
 // (slot 0, through the shared forwarder 0x001FF3A9).
 StrategicHUD::SelectionDetailsUIImpl::~SelectionDetailsUIImpl()
 {
-	m_listeners.forEach((void (Rva0057BC45Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
+	forEach((void (Rva0057BC45Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
 }
