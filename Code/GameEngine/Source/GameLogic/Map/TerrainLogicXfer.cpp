@@ -508,6 +508,51 @@ void TerrainLogic::rva00280176(const ThingTemplate *tmpl, const Coord3D *pos, co
 		&tmpl->getShadowTextureName(), &tmpl->getName());
 }
 
+// ?rva00283642@TerrainLogic@@QAEXPBVThingTemplate@@PBUCoord3D@@PBVMatrix3D@@M@Z @0x00283642
+void TerrainLogic::rva00283642(const ThingTemplate *tmpl, const Coord3D *pos, const Matrix3D *mtx, Real scale)
+{
+	m_field1910 = TheGameLogic->getFrame();
+	const ModuleInfo &mi = tmpl->getDrawModuleInfo();
+	const W3DTreeDrawModuleData *md = NULL;
+	for (Int i = 0; i < mi.getCount(); ++i)
+	{
+		const ModuleData *mdd = mi.getNthData(0);
+		if (mdd)
+		{
+			const W3DTreeDrawModuleData *data = mdd->getAsW3DTreeDrawModuleData();
+			if (data)
+				md = data;
+		}
+	}
+	if (!md)
+	{
+		if (bfmeRva000387C0())
+		{
+			_bfme_debugRecordCallsite(1);
+			theDebug->beginReport();
+			theDebug->getReport(0, 0, 0)->setText("Tree ")->setText(tmpl->getName().str())
+				->setText(" requires a W3DTreeDrawModule.\n")->show(2);
+		}
+		return;
+	}
+	DrawableID id = (DrawableID)((Rva00238E1B *)TheGameClient)->rva00238E1B();
+	short *bucket = &m_words[(short)getPartitionBucket((float *)pos)];
+	short next = *bucket;
+	*bucket = (short)m_records.size();
+	Int v = TheWritableGlobalData->m_A60;
+	if (tmpl->get5B8() > 0)
+		v = tmpl->get5B8();
+	Rva0027D02F *rec = new Rva0027D02F((const unsigned int *)pos, id, m_field48++, (int)tmpl, next, v,
+		tmpl->get5EB(), tmpl->get5EC());
+	((FoldedAppendVector *)&m_records)->push_back((const ModuleData *)rec);
+	m_584->rva002834E6(rec);
+	Int shadowType = tmpl->getShadowType();
+	g_00DFF080->addTree(id, *pos, scale, mtx, 0.0f, md, shadowType,
+		&tmpl->getShadowTextureName(), &tmpl->getName());
+	if (TheFireLogicSystem())
+		TheFireLogicSystem()->rva00286373(id, pos, tmpl);
+}
+
 // ?xfer@TerrainLogic@@MAEXPAVXfer@@@Z @0x00283845
 void TerrainLogic::xfer(Xfer *xfer)
 {
