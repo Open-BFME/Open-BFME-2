@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 //
 // Opaque scalar deleting destructors, batch B09: the 28-byte wrappers of the
 // classes OpaqueScalarDeletingDtors.cpp modelled with a stand-in three-vptr
@@ -31,6 +31,8 @@
 //   0x0008E533  0x0008E4EC  +0x8 @ 0x0008E52B
 //   0x0008F379  0x0008F00D  +0xC @ 0x0008F371
 //   0x00092123  0x0009203A  +0x4 @ 0x00092032
+
+#include "Common/BfmeAudioEventPrefix136.h"
 
 struct EmitVtableTag;
 
@@ -144,31 +146,32 @@ Rva005109D::Rva005109D(EmitVtableTag *)
 {
 }
 
-class Rva0051D93Base0
+// Native51D62 copies the canonical 136B event prefix, then initializes
+// the secondary virtual base at +88 and its counter at +8C. Native51D93
+// restores both derived tables, the secondary base table BC5128, then
+// tail-calls the canonical prefix destructor2D9A43. The one-slot secondary
+// table BC5128 belongs to the already rowed Rva00051E4D deleting destructor.
+class Rva00051E4D
 {
 public:
-	virtual ~Rva0051D93Base0();
+    virtual ~Rva00051E4D() {}
 private:
-	char m_unmodelled[0x84];
+    int m_count;
 };
-
-// Secondary base at +0x88: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0x88) at 0x00051D57 in its vtable is target evidence for it.
-class Rva0051D93Base88
+class Rva0051D93 : public BfmeAudioEventPrefix136, public Rva00051E4D
 {
 public:
-	virtual ~Rva0051D93Base88();
-};
-class Rva0051D93 : public Rva0051D93Base0, public Rva0051D93Base88
-{
-public:
-	Rva0051D93(EmitVtableTag *);
-public:
-	virtual ~Rva0051D93();
+    Rva0051D93(EmitVtableTag *);
+    __declspec(noinline) virtual ~Rva0051D93();
 };
 
 // ?<Rva0051D93::Rva0051D93> absent-from-retail
-Rva0051D93::Rva0051D93(EmitVtableTag *)
+Rva0051D93::Rva0051D93(EmitVtableTag *tag)
+    : BfmeAudioEventPrefix136(*reinterpret_cast<OpaqueRefElement4 *>(tag), 0)
+{
+}
+
+Rva0051D93::~Rva0051D93()
 {
 }
 
