@@ -210,7 +210,8 @@ def test_a_lost_name_without_an_identifier_widens_every_objectless_source(tmp_pa
     assert nd.dependents({OLD: {0x1000}, operator: {0x2000}}, objects, tmp_path) == {"Code/silent.cpp"}
 
 
-def test_states_read_the_checked_ledgers_and_refuse_an_unreadable_one(tmp_path):
+@pytest.mark.parametrize("newline", [b"\n", b"\r\n"])
+def test_states_read_the_checked_ledgers_and_refuse_an_unreadable_one(tmp_path, newline):
     repo = tmp_path / "repo"
     repo.mkdir()
 
@@ -221,12 +222,15 @@ def test_states_read_the_checked_ledgers_and_refuse_an_unreadable_one(tmp_path):
     sh("init", "-q")
     sh("config", "user.name", "Fixture")
     sh("config", "user.email", "fixture@example.invalid")
+    sh("config", "core.autocrlf", "false")
+    old_call = b"old call" + newline
+    new_call = b"new call" + newline
     header = "name,export_rva,target_rva,target_size,source,status,notes\n"
     (repo / "reverse").mkdir()
     (repo / "Code").mkdir()
     (repo / "reverse/functions.csv").write_text(header + f"{OLD},,0x1000,8,Code/a.cpp,matched,\n")
     (repo / "reverse/symbols.csv").write_text("name,address,notes\n")
-    (repo / "Code/caller.cpp").write_text("old call\n")
+    (repo / "Code/caller.cpp").write_bytes(old_call)
     sh("add", "-A")
     sh("commit", "-qm", "base")
     base = sh("rev-parse", "HEAD")
@@ -235,18 +239,18 @@ def test_states_read_the_checked_ledgers_and_refuse_an_unreadable_one(tmp_path):
 
     (repo / "reverse/functions.csv").write_text(header + f"{NEW},,0x1000,8,Code/a.cpp,matched,\n")
     sh("add", "reverse/functions.csv")
-    (repo / "Code/caller.cpp").write_text("new call\n")  # left unstaged
+    (repo / "Code/caller.cpp").write_bytes(new_call)  # left unstaged
     assert nd.ledgers_differ(staged, repo)
     (old_rows, _), (new_rows, _) = nd.states(staged, repo)
     assert [r["name"] for r in old_rows] == [OLD] and [r["name"] for r in new_rows] == [NEW]
     unsettled, committed = nd.working_copy(staged, repo)
-    assert unsettled == {"Code/caller.cpp"} and committed("Code/caller.cpp") == b"old call\n"
+    assert unsettled == {"Code/caller.cpp"} and committed("Code/caller.cpp") == old_call
 
     sh("commit", "-qm", "rename")
     ranged = argparse.Namespace(staged=False, range=[base, sh("rev-parse", "HEAD")])
     assert nd.ledgers_differ(ranged, repo)
     unsettled, committed = nd.working_copy(ranged, repo)
-    assert unsettled == {"Code/caller.cpp"} and committed("Code/caller.cpp") == b"old call\n"
+    assert unsettled == {"Code/caller.cpp"} and committed("Code/caller.cpp") == old_call
     sh("rm", "-q", "reverse/symbols.csv")
     sh("commit", "-qm", "no pins")
     with pytest.raises(SystemExit, match="cannot read"):
