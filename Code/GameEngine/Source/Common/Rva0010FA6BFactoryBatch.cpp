@@ -307,3 +307,48 @@ void Rva0010FBDE::rva0010FBDE()
         reinterpret_cast<AudioEventInfo *>(this))),
         ((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
 }
+
+// Native10FEF3..10FFA2 atomically replaces the dword at+24 and clears
+// Miles stream user-data0 when the input is zero. Stream08 is reread before
+// the imported API call. The20B event records the input and address24 via
+// rowed ctor10EF8B; the original record and owner identities remain unknown.
+extern "C" __declspec(dllimport) long __stdcall InterlockedExchange(
+	volatile long *target, long value);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_stream_user_data(
+	void *stream, unsigned int index, int value);
+
+class Rva0010EF8B : public Rva001164D3
+{
+	int m_value0c;
+	int m_value10;
+public:
+	Rva0010EF8B(const Rva0036CA00Str &s, int first, int second);
+};
+
+class Rva0010FEF3
+{
+	char m_pad00[8];
+	void *m_stream08;
+	char m_pad0c[0x18];
+	volatile long m_value24;
+public:
+	void rva0010FEF3(int value);
+};
+
+void Rva0010FEF3::rva0010FEF3(int value)
+{
+	if (value == 0) {
+		InterlockedExchange(&m_value24, 0);
+		if (*reinterpret_cast<void *volatile *>(&m_stream08))
+			AIL_set_stream_user_data(
+				*reinterpret_cast<void *volatile *>(&m_stream08), 0, 0);
+	} else {
+		InterlockedExchange(&m_value24, 1);
+	}
+	Rva0010EF8B *eventInfo;
+	(eventInfo = new Rva0010EF8B(AudioEventInfoRef(
+		reinterpret_cast<AudioEventInfo *>(this)), value,
+		reinterpret_cast<int>(&m_value24)),
+		((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
+}
+
