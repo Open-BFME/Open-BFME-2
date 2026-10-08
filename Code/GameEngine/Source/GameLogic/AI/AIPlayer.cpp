@@ -49,6 +49,12 @@
 // (max radius 300) for special power types 0x7C and 0x7B, reading the type
 // at +0x1C of friend_getFinalOverride (0x00288609), and returns nothing
 // (retail never loads eax).
+//
+// AIPlayer::guardSupplyCenter (306B @0x004F2ABC) follows findSupplyCenter:
+// Zero Hour's body, non-virtual in BFME 2 (absent from the AIPlayer vtable),
+// with the check frame at +0x6C and the attacked centre at +0x70. It guards
+// 0.8 bounding radii short of the warehouse on the side facing the skirmish
+// enemy's structure bounds.
 
 typedef bool Bool;
 typedef int Int;
@@ -115,6 +121,30 @@ struct Coord3D
 		y = ay;
 		z = az;
 	}
+	void normalize();	// 0x000035B6
+};
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+enum GuardMode
+{
+	GUARDMODE_NORMAL
+};
+
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER,
+	CMD_FROM_SCRIPT,
+	CMD_FROM_AI
+};
+
+class AIGroup
+{
+public:
+	void groupGuardPosition(const Coord3D *pos, GuardMode guardMode, CommandSourceType cmdSource);	// 0x003703CF
 };
 
 // What Object +0x04 points at: the KindOf mask at +0x108 (bit 7
@@ -214,6 +244,7 @@ class Team : public MemoryPoolObject, public Snapshot
 {
 public:
 	Team *dlink_next_TeamInstanceList() const;
+	void getTeamAsAIGroup(AIGroup *group);	// 0x003A0F62
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;	// 0x00263864
 };
 
@@ -322,6 +353,7 @@ class GameLogic
 {
 public:
 	Object *getFirstObject();	// 0x0023CAD2
+	Object *findObjectByID(ObjectID id);	// 0x00049DC5
 };
 extern GameLogic *TheGameLogic;
 
@@ -452,6 +484,7 @@ class AI
 {
 public:
 	TAiData *getAiData() const { return m_aiData; }
+	AIGroup *createGroup();	// 0x002FEC4B
 
 private:
 	unsigned char m_pre[0x18];
@@ -461,6 +494,13 @@ private:
 // Matched DIR32 references in AIPlayer, Object and GettingBuiltBehavior place
 // TheAI at VA 0x00DFF0F8; the retail image's zero-filled slot starts null.
 extern class AI *TheAI;
+
+class ScriptEngine
+{
+public:
+	Player *getSkirmishEnemyPlayer();	// 0x00356F6E
+};
+extern ScriptEngine *TheScriptEngine;
 
 class Player;
 
@@ -501,6 +541,8 @@ public:
 	virtual Player *getAiEnemy();				// +0x30
 	static void getPlayerStructureBounds(Region2D *bounds, Int playerIndex);	// 0x004F1B8C
 	bool isLocationSafe(const Coord3D *pos, const ThingTemplate *tmpl);
+	Bool isSupplySourceAttacked();	// 0x004F1138
+	void guardSupplyCenter(Team *team, Int minSupplies);
 
 protected:
 	static Int getPlayerSuperweaponValue(Coord3D *center, Int playerNdx, Real radius);
@@ -515,6 +557,9 @@ private:
 	GameDifficulty m_difficulty;				// +0x2C
 	unsigned char m_pad30[0x34 - 0x30];
 	Coord3D m_baseCenter;					// +0x34
+	unsigned char m_pad40[0x6C - 0x40];
+	unsigned int m_supplySourceAttackCheckFrame;		// +0x6C
+	ObjectID m_attackedSupplyCenter;			// +0x70
 };
 
 // ?checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z
@@ -847,4 +892,33 @@ bool AIPlayer::rva004F2BEE(int minimumCash)
 	if (supply == 0)
 		return true;
 	return isLocationSafe(supply->getPosition(), (const ThingTemplate *)supply->m_template);
+}
+
+void AIPlayer::guardSupplyCenter(Team *team, Int minSupplies)
+{
+	m_supplySourceAttackCheckFrame = 0;
+	Object *warehouse = 0;
+	if (isSupplySourceAttacked())
+		warehouse = TheGameLogic->findObjectByID(m_attackedSupplyCenter);
+	if (warehouse == 0)
+		warehouse = findSupplyCenter(minSupplies);
+	if (warehouse) {
+		AIGroup *theGroup = TheAI->createGroup();
+		if (!theGroup)
+			return;
+		team->getTeamAsAIGroup(theGroup);
+		Coord3D location = *warehouse->getPosition();
+		Region2D bounds;
+		Int enemyNdx = TheScriptEngine->getSkirmishEnemyPlayer()->getPlayerIndex();
+		getPlayerStructureBounds(&bounds, enemyNdx);
+		Coord3D offset;
+		offset.zero();
+		offset.x = location.x - (bounds.lo.x + bounds.hi.x) * 0.5f;
+		offset.y = location.y - (bounds.lo.y + bounds.hi.y) * 0.5f;
+		offset.normalize();
+		Real radius = warehouse->getBoundingCircleRadius() * 0.8f;
+		location.x -= offset.x * radius;
+		location.y -= offset.y * radius;
+		theGroup->groupGuardPosition(&location, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
+	}
 }
