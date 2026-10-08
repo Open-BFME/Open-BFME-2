@@ -58,7 +58,7 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva0056DCBF { public: void rva0056DCBF(bool); };
 struct AptOnlineLoginOwner { unsigned char pad[0x274]; void *movie; };
-class GameWindow;
+class GameWindow { public: void *winGetUserData(); };
 // The country callback reads only this ledger-owned first word.
 extern int g_00DB9198;
 AsciiString GetRegistryLanguage();
@@ -82,6 +82,33 @@ void GadgetComboBoxSetIsEditable(GameWindow *,bool);
 int GadgetComboBoxAddEntry(GameWindow *,UnicodeString,int);
 void GadgetComboBoxSetSelectedPos(GameWindow *,int,bool);
 void GadgetComboBoxSetText(GameWindow *,UnicodeString);
+// InitGadgets 0x0057047F: gadget setup calls, the user-data byte at +0x12
+// and the window manager's tab-list slots 44/45 (+0xB0/+0xB4).
+class BfmeKeyLC;
+extern "C" int __cdecl strcmp(const char *,const char *);
+void GadgetListBoxReset(GameWindow *);
+void GadgetComboBoxSetMaxChars(GameWindow *,int);
+void GadgetComboBoxSetValidationFlags(GameWindow *,int);
+void GadgetTextEntrySetMaxChars(BfmeKeyLC *,unsigned short);
+void GadgetTextEntrySetValidationFlags(GameWindow *,int);
+struct GadgetUserData { unsigned char pad[0x12]; unsigned char m_field12; };
+// Retail copies the tab list through 0x00445E8B, the four-byte list copy
+// whose range insert is 0x000BB975 (list<int>); the ledger's list<GameWindow *>
+// range insert is the distinct body 0x00423890. The window pointers are
+// therefore carried in the list<int> instantiation, as the rowed workers name it.
+typedef _STL::list<int> GameWindowList;
+class GameWindowManager { public:
+#define V(n) virtual void unusedSlot##n();
+    V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
+    V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+    V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
+    V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
+    V(40) V(41) V(42) V(43)
+#undef V
+    virtual void registerTabList(GameWindowList);
+    virtual void clearTabList();
+};
+extern GameWindowManager *TheWindowManager;
 static bool g_cachedLoginPopulationBusy;
 struct SkirmishFindNode { unsigned char pad[0x14]; AsciiString value; };
 class SkirmishFindMap { public:
@@ -249,6 +276,7 @@ public:
     bool rva005706D4();
     bool rva0056EC54(const UnicodeString &,bool);
     void rva0056FEA8();
+    void InitGadgets(const char *,void *,GameWindow *);
 private:
     unsigned char pad00[0x58]; AptOnlineLoginOwner *owner;
     unsigned char pad5c[8]; SkirmishFindMap loginPreferences;
@@ -258,9 +286,9 @@ private:
     GameWindow *password;
     GameWindow *remember;
     unsigned char padB4[4]; GameWindow *m_countryList;
-    unsigned char padBC[8]; bool loggedIn; bool needsRefresh;
+    int m_pendingButtonState; int m_fieldMask; bool loggedIn; bool needsRefresh;
     unsigned char padC6[2]; unsigned long loginStartTime;
-    unsigned char padCC[4]; bool closeLocale;
+    bool m_tabListRegistered; unsigned char padCD[3]; bool closeLocale;
     unsigned char padD1[3]; int locale;
     AsciiString m_deleteNickname;
 };
@@ -720,4 +748,77 @@ int AptOnlineLogin::rva0057166C( void *arg0, unsigned int msg, void *control, vo
 	}
 
 	return 1;
+}
+
+// ?InitGadgets@AptOnlineLogin@@QAEXPBDPAXPAVGameWindow@@@Z @0x0057047F 597B.
+// WB 0x01508940 names InitGadgets in AptOnlineLogin.cpp; BFME1 34f59164 is the
+// semantic donor. Each named gadget is stored at +0xA4..+0xB8 and sets its
+// bit in the field mask (+0xC0); once email, nickname, password and remember
+// are all known the tab list is registered once (+0xCC). The TOSText compare
+// is kept although its result is unused. The tab list calls are the
+// four-byte list bodies 0x00392076, 0x0005548F and 0x00445E8B.
+void AptOnlineLogin::InitGadgets(const char *name,void *,GameWindow *window)
+{
+    if (g_bfmeObjELB && window)
+    {
+        GadgetListBoxReset(window);
+
+        if (strcmp(name,"OnlineLogin::Password") == 0)
+        {
+            password = window;
+            ((GadgetUserData *)window->winGetUserData())->m_field12 = 1;
+            GadgetTextEntrySetMaxChars((BfmeKeyLC *)window,0x10);
+            GadgetTextEntrySetValidationFlags(window,0x40);
+            rva0056EC54(UnicodeString::TheEmptyString,true);
+            m_fieldMask |= 4;
+        }
+        else if (strcmp(name,"OnlineLogin::Nickname") == 0)
+        {
+            GadgetComboBoxReset(window);
+            GadgetComboBoxSetMaxChars(window,0xf);
+            GadgetComboBoxSetValidationFlags(window,4);
+            nickname = window;
+            m_fieldMask |= 2;
+        }
+        else if (strcmp(name,"OnlineLogin::Email") == 0)
+        {
+            GadgetComboBoxReset(window);
+            GadgetComboBoxSetMaxChars(window,0x10);
+            email = window;
+            m_fieldMask |= 1;
+        }
+        else if (strcmp(name,"OnlineLogin::RememberInfo") == 0)
+        {
+            remember = window;
+            m_fieldMask |= 8;
+        }
+        else if (strcmp(name,"OnlineLogin::CountryList") == 0)
+        {
+            m_countryList = window;
+            rva0056FEA8();
+            m_fieldMask |= 0x100;
+        }
+        else
+        {
+            strcmp(name,"OnlineLogin::TOSText");
+        }
+
+        if (!m_tabListRegistered && email && nickname && password && remember)
+        {
+            GameWindowList tabList;
+            m_tabListRegistered = true;
+            tabList.push_front((const int &)email);
+            tabList.push_back((const int &)password);
+            tabList.push_back((const int &)nickname);
+            tabList.push_back((const int &)remember);
+            TheWindowManager->clearTabList();
+            TheWindowManager->registerTabList(tabList);
+        }
+
+        if (m_pendingButtonState == 1 && m_fieldMask == 0x10f)
+            m_pendingButtonState = 0;
+        void *movie = owner->movie;
+        ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,
+            "EnableButtonDeleteNickname",0,0,0,0);
+    }
 }
