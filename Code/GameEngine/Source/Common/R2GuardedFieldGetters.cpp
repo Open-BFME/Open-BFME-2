@@ -56,3 +56,11 @@ BFME_R2_NULL_HEAD_BITS(Rva00050DE3, 0x3C)
 BFME_R2_NULL_HEAD_BITS(Rva002E6AE1, 0x14)
 // Previous RET4 at2E6B2D; local RETs2E6B39/2E6B3C; next entry2E6B3D.
 BFME_R2_NULL_HEAD_BITS(Rva002E6B30, 0x0C)
+
+// Native 2E6AD4..2E6AE1 is a complete 13-byte leaf, independently aligned
+// from known 2E6A82 and prior RET 2E6AD3; both local returns and the next
+// already rowed sibling at 2E6AE1 confirm its full extent.
+// Current BFME1 9cbfb551 PathfindCell::getObstacleID is a source lead only;
+// target facts are receiver pointer+0, null-to-zero and raw pointee word+20.
+// Original receiver, field meaning and signedness remain unresolved.
+BFME_R2_NULL_HEAD_BITS(Rva002E6AD4, 0x20)
