@@ -98,6 +98,7 @@ public:
 	Bool IsOwnedByTeam(Int teamID) const;
 	Bool CanSpawnUnitWithinCPLimit(Rva00319CED *unit) const;
 	LivingWorldBuilding *GetBuildingByIndex(Int index) const;
+	Int rva003F05CE();
 	Int rva003F0614(CreateAHeroData *key) const;
     LivingWorldBuildPlot *rva003F088C(Int key) const;
 
@@ -205,4 +206,18 @@ LivingWorldBuildPlot *LivingWorldRegion::rva003F088C(Int key) const
         if (m_buildPlots[i]->m_key18 == key)
             return m_buildPlots[i];
     return 0;
+}
+
+// Unnamed WB 0x01040060; native 0x003F05CE / 70 B. The named
+// GetBuildingByIndex and HasArmyQueuedInAnyBuilding corroborate that this
+// counts the same visible buildings in the +0x170 plot collection.
+Int LivingWorldRegion::rva003F05CE()
+{
+    Int count = 0;
+    for (UnsignedInt i = 0; i < m_buildPlots.size(); ++i)
+    {
+        if (m_buildPlots[i]->HasBuilding())
+            ++count;
+    }
+    return count;
 }
