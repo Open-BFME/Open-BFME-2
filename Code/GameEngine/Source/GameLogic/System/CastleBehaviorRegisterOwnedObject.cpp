@@ -42,7 +42,7 @@ class FoundationAIUpdate { protected: virtual void xfer(Xfer*); private: void rv
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 inline void* objectTemplate(Object* object) { return field<void*>(object,4); }
 inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); }
-class CastleBehavior { public: void registerOwnedObject(Object*); bool checkForAutoPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); };
+class CastleBehavior { public: void registerOwnedObject(Object*); bool checkForAutoPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); };
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
@@ -379,4 +379,22 @@ void Rva00396BC5SetCastleId(_STL::vector<ObjectID>* ids,ObjectID id) {
    if(module) field<ObjectID>(module,0x14)=id;
   }
  }
+}
+
+// Native RVA0039792B,203B; invoked by unpack after ownership setup.
+// WB confirms Pathfinder::AddObjectToPathfindMap, but leaves this helper
+// unnamed. Native vectors +0x5C/+0x50 and pending ID +0x38, template bit60.
+class Pathfinder { public: void AddObjectToPathfindMap(Object*); };
+class AI;
+extern AI* TheAI;
+static __forceinline void addCastlePathObject(Object* object) {
+ if(object && (field<unsigned>(objectTemplate(object),0x10c)&0x10000000))
+  field<Pathfinder*>(TheAI,0x10)->AddObjectToPathfindMap(object);
+}
+void CastleBehavior::rva0039792B() {
+ for(unsigned i=0;i<field<_STL::vector<ObjectID> >(this,0x5c).size();++i)
+  addCastlePathObject(TheGameLogic->findObjectByID(field<_STL::vector<ObjectID> >(this,0x5c)[i]));
+ for(unsigned i=0;i<field<_STL::vector<ObjectID> >(this,0x50).size();++i)
+  addCastlePathObject(TheGameLogic->findObjectByID(field<_STL::vector<ObjectID> >(this,0x50)[i]));
+ addCastlePathObject(TheGameLogic->findObjectByID(field<ObjectID>(this,0x38)));
 }
