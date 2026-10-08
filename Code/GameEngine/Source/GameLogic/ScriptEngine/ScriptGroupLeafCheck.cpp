@@ -50,3 +50,39 @@ Int Rva003B483DHolder::rva003B4826(const void *arg) const
 	Int index = *(const Int *)(p + 4);
 	return m_table[index].m_val10 + 4;
 }
+
+// Clean BFME 1 Rva003543C0Arr.cpp at 34f59164f6d1 supplies the keyed
+// address and indexed-byte accessor leads. Native +0x18 table access and
+// 20-byte stride independently establish each layout below. Keyed20 starts
+// immediately after RET at 0x003B46DF and ends RET4 at 0x003B46F1;
+// indexed17 starts 0x003B46F4 and ends RET4 at 0x003B4702 before 0x003B4705.
+// Independent address-owned receiver views. The bytes establish the same
+// physical offsets and stride, not a shared original class identity.
+struct Rva003B46E0RecordBytes { unsigned char m_bytes[20]; };
+
+class Rva003B46E0Holder
+{
+public:
+    void *atKey(const void *arg) const;
+    unsigned char m_pad[0x18];
+    Rva003B46E0RecordBytes *m_table;
+};
+
+void *Rva003B46E0Holder::atKey(const void *arg) const
+{
+    int index = *(const int *)((const unsigned char *)arg + 4);
+    return m_table[index].m_bytes + 8;
+}
+
+class Rva003B46F4Holder
+{
+public:
+    unsigned char atIndex(int index) const;
+    unsigned char m_pad[0x18];
+    Rva003B46E0RecordBytes *m_table;
+};
+
+unsigned char Rva003B46F4Holder::atIndex(int index) const
+{
+    return m_table[index].m_bytes[0x0C];
+}
