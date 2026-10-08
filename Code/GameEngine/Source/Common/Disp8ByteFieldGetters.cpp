@@ -165,3 +165,18 @@ void Rva0030000CFields::setBit2() { flags44 |= 4; }
 // ?matches@Rva0056AB88Fields@@QBE_NI@Z
 struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsigned int value) const; };
 bool Rva0056AB88Fields::matches(unsigned int value) const { return wordC==value; }
+// Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
+// Address-derived class; the stored byte's meaning is unproven.
+class Rva0065D7C0ByteSetter
+{
+public:
+	void set(unsigned char value);
+	char m_lead[0x1D];
+	unsigned char m_value;
+};
+
+// ?set@Rva0065D7C0ByteSetter@@QAEXE@Z
+void Rva0065D7C0ByteSetter::set(unsigned char value)
+{
+	m_value = value;
+}
