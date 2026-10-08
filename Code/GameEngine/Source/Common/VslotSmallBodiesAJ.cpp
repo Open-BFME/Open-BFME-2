@@ -29,20 +29,58 @@ public:
  virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
  virtual Rva005C3F02 *getMenu();
 };
+class StancesBehavior;
+// Neutral observer-base identity: retail restores table VA 0x00C6CE84.
+// Two slots, and no destructor slot: RET4 at RVA 0x0047A69C and RET12 at
+// 0x000D1407. The derived table at VA 0x00C6CF6C has the named unregister
+// callback 0x00568143 and the changed-stance callback 0x00567B10. WorldBuilder
+// supplies the behavior reference and signed old/new stance arguments; their
+// original enum spelling remains unresolved, so this view uses integer ABI.
+class Rva0086CE84Observer {
+public:
+ virtual void onDestroyingStancesBehavior(StancesBehavior&) {}
+ virtual void onStancesBehaviorStanceChanged(StancesBehavior&, int, int) {}
+ __forceinline ~Rva0086CE84Observer() {}
+};
+class CreateAHeroData;
+class Rva002B7250 { public: void rva002B7250(CreateAHeroData*); };
+struct StanceBehaviorPrefix { char pad[0x20]; Rva002B7250 observers; };
+struct TargetRef00217D4C;
+struct Rva002BED91 { TargetRef00217D4C *p; void clear(); };
+struct Rva003591F4Arg {
+ Rva003591F4Arg(const Rva003591F4Arg &other):m_id(other.m_id),m_flag(other.m_flag){}
+ int m_id; bool m_flag;
+};
+// The existing release provider touches only the 12-byte prefix (ref +8).
+// Retail's hotkey vector advances 16 bytes and tests its active flag at +12.
+// Keep that extra flag in a distinct record instead of widening the prefix.
+struct Rva004F691E { Rva003591F4Arg action; Rva002BED91 ref; ~Rva004F691E(); };
+struct StanceHotKeyRecord : Rva004F691E { bool active; };
+struct Rva005681CE : _STL::vector<StanceHotKeyRecord> { ~Rva005681CE(); };
+class Rva005C3E79 { public: void rva005C3E79(); };
+class Rva00E01E28Owner { public: void rva003591F4(Rva003591F4Arg); };
+extern Rva00E01E28Owner *g_00E01E28;
+class Rva003593D8 { public: unsigned int rva003593D8(int); };
+int GetAssociatedMessageType(int);
 class InGameToggleStanceCommandButton {
 public:
- class Impl {
+ class Impl : public Rva0086CE84Observer {
  public:
   void OnLeftClicked();
+  ~Impl();
+  virtual void onDestroyingStancesBehavior(StancesBehavior&);
+  virtual void onStancesBehaviorStanceChanged(StancesBehavior&, int, int);
  private:
-  char pad00[8];
+  _STL::list<int>::iterator listPosition;
   Rva00005C357FPtrChaseField *owner08;
   StanceMenuFactory *factory0C;
   void *window10;
   CommandButton *button14;
+  StanceBehaviorPrefix *behavior18;
+  Rva005681CE hotKeys;
  };
 };
-// ?OnLeftClicked@Impl@InGameToggleStanceCommandButton@@QAEXXZ,
+// ?OnLeftClicked@Impl@InGameToggleStanceCommandButton@@QAEXXZ
 // retail 0x00568021 (181 bytes), named by WorldBuilder 0x01431040.
 // WorldBuilder supplies the menu check, object/relationship guard, three-item
 // limit, and owner/stance payload construction. Retail supplies the accessed
@@ -1754,4 +1792,41 @@ Rva00200667 *Rva005680F9GetInstances()
 {
  static Rva00200667 instances;
  return &instances;
+}
+
+// ??1Impl@InGameToggleStanceCommandButton@@QAE@XZ
+// Retail 0x0056820D, 278 bytes. WorldBuilder 0x014307B0 names this destructor
+// and asserts its saved instance-list iterator (source line 478). It removes
+// its observer, hides an open menu, unregisters hotkeys/messages, erases the
+// saved list node and destroys the hotkey vector. Native accesses establish
+// the +4 iterator, +0x18 behavior and +0x1C vector prefixes. Both native
+// observer tables lack a destructor slot, so destruction is nonvirtual.
+// The compiler's complete unwind graph matches retail, including both
+// member/base cleanup handlers; no hand-written table addresses are used.
+InGameToggleStanceCommandButton::Impl::~Impl()
+{
+ if(behavior18) behavior18->observers.rva002B7250(reinterpret_cast<CreateAHeroData*>(this));
+ Rva005C3F02 *menu=factory0C->getMenu();
+ if(menu && reinterpret_cast<Rva0057C22FByteChaseField*>(menu)->get())
+  reinterpret_cast<Rva005C3E79*>(menu)->rva005C3E79();
+ if(g_00E01E28) {
+  int count=(int)button14->stances.size();
+  for(int i=0;i<count;++i) {
+   StanceHotKeyRecord &key=hotKeys[i];
+   if(key.active) g_00E01E28->rva003591F4(key.action);
+   int message=GetAssociatedMessageType(button14->getStance(i));
+   if(message) reinterpret_cast<Rva003593D8*>(g_00E01E28)->rva003593D8(message);
+   key.ref.clear();
+  }
+ }
+ Rva005680F9GetInstances()->erase(listPosition);
+}
+
+// Retail 0x00568143, 23 bytes; WB 0x014311F0 names this callback and asserts
+// &behavior == m_stancesBehavior at source line 624. The release body removes
+// this observer from behavior +0x20 and clears the saved behavior pointer.
+void InGameToggleStanceCommandButton::Impl::onDestroyingStancesBehavior(StancesBehavior &)
+{
+ behavior18->observers.rva002B7250(reinterpret_cast<CreateAHeroData*>(this));
+ behavior18=0;
 }
