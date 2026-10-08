@@ -26,10 +26,17 @@ public:
 };
 extern SpecialPowerStore *TheSpecialPowerStore;
 
+class Xfer;
+enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
 class INI
 {
 public:
 	const char *getNextTokenOrNull(const char *seps = 0);
+ INI();
+ ~INI();
+ void load(AsciiString, INILoadType, Xfer*, void(*)(INI*));
+private:
+ char m_body[0x87C];
 };
 
 void iniParseSpecialPowerTemplateVector(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
@@ -43,4 +50,22 @@ void iniParseSpecialPowerTemplateVector(INI *ini, void * /*instance*/, void *sto
 		if (sp)
 			v->push_back(sp);
 	}
+}
+
+// WB E66400 IniLoad; native3397D8..33987B including catch and cleanup.
+// EH state is reset for each file: catch(...) surrounds each load call.
+// The6B entry33984F returns the continuation339855; it is a catch stub,
+// not a standalone constant getter. INI size87C follows its rowed ctor.
+struct IniLoadFileList {AsciiString name;AsciiString *begin,*end,*capacity;};
+class SubsystemLegend {public:IniLoadFileList *rva001B49C4(AsciiString);};
+extern SubsystemLegend *TheSubsystemLegend;
+bool IniLoad(const char *block,void(*parse)(INI*))
+{
+ IniLoadFileList *files=TheSubsystemLegend->rva001B49C4(AsciiString(block));
+ if(!files) return false;
+ INI ini;
+ for(AsciiString *p=files->begin;p!=files->end;++p) {
+  try {ini.load(*p,INI_LOAD_OVERWRITE,0,parse);} catch(...) {return false;}
+ }
+ return true;
 }
