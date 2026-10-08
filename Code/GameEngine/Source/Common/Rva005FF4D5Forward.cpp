@@ -1,4 +1,5 @@
-// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ob0
+// cl: /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ob0
+// stlport
 // ?rva005FF4D5@Rva005FF4D5@@QAEX_N@Z at 0x005FF4D5 (8B). Forwarder via this+4 to rowed Impl::SetMouseOver 0x005FF38D. Evidence: callers 0x005FA8DA 0x005FA8EE; prev 0x005FF4BD same +4 forwarder precedent; callee rowed.
 #include "ascii_string.h"
 #include "unicode_string.h"

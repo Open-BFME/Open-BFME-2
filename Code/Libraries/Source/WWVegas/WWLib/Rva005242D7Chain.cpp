@@ -14,13 +14,7 @@ public:
 	void rva00524021();
 };
 
-class Rva005242D7
-{
-public:
-	~Rva005242D7();
-private:
-	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_00;
-};
+#include "../../../../GameEngine/Source/Common/BattlePromptArmyPanelClipImplView.h"
 
 Rva005242D7::~Rva005242D7()
 {

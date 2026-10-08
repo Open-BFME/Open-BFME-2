@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
 //
 // ?rva005FFA4E@Rva005FFA4E@@QAEXH@Z @ 0x005FFA4E 8B
 // Forwarder: this+4 holds StrategicHUD::BattlePromptArmyPanelMovieClip::Impl object; tail-jmps to its 0x005FF9D8 SetUnitIconCount.

@@ -2674,7 +2674,6 @@ name,address,notes
 ??0Rva005F830AHeap@@QAE@PAX0000@Z,0x005F7F21,0x68-byte heap class init for 0x005F830A member +4 taking (owner,a1,a2,a3,a4): ghidra 1001B; called on operator-new result like 0x005F39D6
 ??0Rva005F86FEHeap@@QAE@PAX0@Z,0x005F8671,0x2C-byte heap class init for 0x005F86FE member +4 taking (a1,a2): ghidra 82B; installs vtable 0x00C79CBC with float words from 0x00BC6EA0; called on operator-new result
 ??0Rva005FEA50Base@FXParticleSystem@@QAE@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@1@PBX@Z,0x003A5856,donor_sweep: call target read from retail at the unique placement of the BFME 1 donor Wind module ctor (0x003A58A6); base ctor building WindModuleInfo at +0x1C via 0x003A53C4
-??0Rva005FF912Child@@QAE@PAVRva005FF912@@HH@Z,0x005FF675,child constructor taking owner and two ints: REL32 read at the new-trap-guarded call site in ctor 0x005FF912; owner identity unproven
 ??0Rva00600F9CElement@@QAE@ABU0@@Z,0x00600F76,element copy constructor: REL32 read at the copy call site in the 45B EH _Construct 0x00600F9C; element identity unproven; address-derived name
 ??0Rva0060FE2@@QAE@XZ,0x0005CF5F,"constructor storing vtable 0x00BC55B0 (scalar deleting dtor ??_GRva0060FE2); REL32 in Win32GameEngine slot 36 factory 0x0005E97D after new 0xC08"
 ??0Rva0061ED40Base@@QAE@XZ,0x0061ED40,base ctor called by the 18B derived ctor at 0x00180E40; installs vtable 0x00C7C584 and initialises the +4 bitfield; address read from the REL32 displacement of the sibling body; body not yet converted

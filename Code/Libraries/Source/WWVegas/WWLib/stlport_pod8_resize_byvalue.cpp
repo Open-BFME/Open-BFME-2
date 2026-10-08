@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 //
 // Pod8 vector resize with the fill value taken BY VALUE (retail 0x005FF96A,
@@ -25,17 +25,7 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 
 #include <vector>
 
-struct BfmePod8
-{
-	int a[2];
-};
-
-class BfmePod8Vector : public _STL::vector<BfmePod8, _STL::allocator<BfmePod8> >
-{
-public:
-	void resize(unsigned int n, BfmePod8 x);
-	void resize(unsigned int n);
-};
+#include "../../../../GameEngine/Source/Common/BattlePromptArmyPanelClipImplView.h"
 
 void BfmePod8Vector::resize(unsigned int n, BfmePod8 x)
 {
