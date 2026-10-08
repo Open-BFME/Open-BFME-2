@@ -1,11 +1,14 @@
-// ?Rva002D7682Check@@YIEPAX@Z
-// partial score=0.93 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 
-class Drawable
+class Rva00270260
 {
 public:
-	unsigned char rva00270260();
+	bool rva00270260();
+};
+
+class Drawable : public Rva00270260
+{
+public:
 	char m_padToType[0x164];
 	int m_type;
 };
@@ -24,11 +27,7 @@ unsigned char __fastcall Rva002D7682Check(void *object)
 {
 	Thing *thing = *(Thing **)((char *)object + 4);
 	Drawable *drawable = thing->getDrawable();
-	if (drawable == 0)
-		return true;
-	if (drawable->m_type == 5)
-		return true;
-	if (drawable->rva00270260())
-		return true;
-	return false;
+	if (drawable == 0 || drawable->m_type == 5 || drawable->rva00270260())
+		return 1;
+	return 0;
 }
