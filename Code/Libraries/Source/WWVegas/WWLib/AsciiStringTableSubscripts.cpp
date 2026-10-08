@@ -119,3 +119,10 @@ bool * Rva00056F61::rva003A3763(const AsciiString *key) {
  return (bool *)(node==0 ? (char *)((Rva000427195 *)this)->rva003A2F08(*(const StoredPair07343 *)&static_cast<const BoolSlotPair &>(BoolSlotPair(*key, 0)))+4 : (char *)node+8);
 }
 
+
+// 4112A0..411319 RET4; native calls41534B/365F0/410E67/36410 and mapped addresses+4/+8 establish conditional copied-key zero-word insertion; original application identity remains unproven.
+void * Rva000427195::rva004112A0(const AsciiString *key) {
+ void *node;
+ { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
+ return (void *)(node==0 ? (char *)((Rva000427195 *)this)->rva00410E67((const StoredPair10B17 *)&static_cast<const WordSlotPair &>(WordSlotPair(*key, 0)))+4 : (char *)node+8);
+}
