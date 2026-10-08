@@ -725,6 +725,7 @@ public:
     // WorldBuilder names its destructor MilesAudioManager::LoopBuffer::~LoopBuffer.
     struct LoopBuffer;
 
+    void rva0005EFE9(void);
     void putPlayingMusicOnStack(int viewType, int arg);
     void rva00059CE6(PlayingAudioRef &looping);
     void rva0005AA72(PlayingAudioRef &playing);
@@ -854,6 +855,31 @@ MilesAudioManager::LoopBuffer::~LoopBuffer()
 void deleteLoopBuffers(MilesAudioManager::LoopBuffer *loopBuffers)
 {
     delete[] loopBuffers;
+}
+
+class File;
+class FileSystem {
+public:
+    File *openFile(const char *fileName, int access, int bufferSize);
+};
+extern FileSystem *TheFileSystem;
+
+// Retail 0x000518B8, the open callback init() hands AIL_set_file_callbacks
+// first (Zero Hour's streamingFileOpen). 0x141 is Zero Hour's
+// File::READ | File::BINARY | File::STREAMING.
+unsigned int __stdcall streamingFileOpen(const char *fileName, unsigned int *fileHandle)
+{
+    *fileHandle = (unsigned int)TheFileSystem->openFile(fileName, 0x141, 0);
+    return *fileHandle != 0;
+}
+
+// Retail 0x0005F267, the loop-buffer thread init() starts with CreateThread.
+unsigned long __stdcall rva0005F267(void *param)
+{
+    MilesAudioManager *manager = (MilesAudioManager *)param;
+    if (manager)
+        manager->rva0005EFE9();
+    return 0;
 }
 
 unsigned char MilesAudioManager::rva00054120(INI *ini)
