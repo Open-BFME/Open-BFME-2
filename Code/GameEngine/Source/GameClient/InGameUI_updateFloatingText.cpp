@@ -12,6 +12,16 @@
 // +0x8A4, moveUp +0x8A8, vanish +0x8AC; GameEngine rate at +0x38.
 #include <list>
 
+namespace _STL {
+// Retail calls the verified list<int> eraser at 0x00438539.
+template <> list<int>::iterator list<int>::erase(list<int>::iterator);
+
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned char UnsignedByte;
@@ -39,7 +49,8 @@ public:
 	virtual UnsignedInt getFrame();
 };
 
-extern ClientFrameSubsystem *TheGameClient;
+class GameClient;
+extern GameClient *TheGameClient;
 
 class GameEngine
 {
@@ -79,7 +90,7 @@ void InGameUI::updateFloatingText()
 {
 	register InGameUI *self = this;
 	FloatingTextData *ftd;
-	UnsignedInt currLogicFrame = TheGameClient->getFrame();
+	UnsignedInt currLogicFrame = reinterpret_cast<ClientFrameSubsystem *>(TheGameClient)->getFrame();
 	UnsignedByte r, g, b, a;
 	Int amount;
 	static UnsignedInt lastLogicFrameUpdate = currLogicFrame;
