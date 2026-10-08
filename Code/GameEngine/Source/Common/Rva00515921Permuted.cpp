@@ -16,3 +16,12 @@ int goodCampaignRva00515921(float time,bool start) {
  static AsciiString campaign("GOOD_CAMPAIGN");
  return AptMainMenu::LinearCampaignStart(campaign,time,start);
 }
+
+// ?evilCampaignRva005158C2@@YAHM_N@Z, retail 0x005158C2, 95 bytes: the
+// EVIL_CAMPAIGN twin of the body above (local-static guard 0x00E048F8,
+// object 0x00E048F4, atexit cleanup 0x007B919E), the other caller of
+// LinearCampaignStart.
+int evilCampaignRva005158C2(float time,bool start) {
+ static AsciiString campaign("EVIL_CAMPAIGN");
+ return AptMainMenu::LinearCampaignStart(campaign,time,start);
+}
