@@ -1,4 +1,4 @@
-// ?rva0021386C@Rva00056F61@@QAEAAPAXPBVAsciiString@@@Z
+// ?rva0021386C@Rva00056F61@@QAEPAXPBVAsciiString@@@Z
 // partial score=0.97 date=2026-10-08
 // cl: /O1 /G7 /Oy- /Ob2 /EHsc /MD /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
@@ -29,9 +29,9 @@ struct SoundPair21386C {
 class Rva00056F61 {
 public:
  Rva0041534BIter rva0041534B(const AsciiString*);
- void *&rva0021386C(const AsciiString*);
+ void *rva0021386C(const AsciiString*);
 };
-void *&Rva00056F61::rva0021386C(const AsciiString *key)
+void *Rva00056F61::rva0021386C(const AsciiString *key)
 {
  void *node;
  {
@@ -39,8 +39,8 @@ void *&Rva00056F61::rva0021386C(const AsciiString *key)
   node=found.m_node;
  }
  return !node
-  ? *(void**)((char*)&((InsertTable*)this)->_M_insert(
-    *(const InsertPair*)&static_cast<const SoundPair21386C&>(SoundPair21386C(*key,0)))+4)
-  : *(void**)((char*)node+8);
+  ? (char*)&((InsertTable*)this)->_M_insert(
+    *(const InsertPair*)&static_cast<const SoundPair21386C&>(SoundPair21386C(*key,0)))+4
+  : (char*)node+8;
 }
 
