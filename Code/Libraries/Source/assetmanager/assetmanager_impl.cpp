@@ -1,3 +1,6 @@
+#define _STLP_USE_MALLOC 1
+#define _STLP_NO_CSTD_FUNCTION_IMPORTS 1
+namespace _STL { void __cdecl free(void *); }
 // Recovered asset-manager bodies grouped by reciprocal WorldBuilder placement.
 // Retail RVA 0x009F0D40, 265 bytes; identity is address-derived.
 // The matched Rva009EBB20 forwarder in Q1GlobalGuardedForwarders.cpp proves
@@ -9,7 +12,7 @@
 // The copy constructor is 0x009EE8E0; the tree destructor is called through
 // ILT 0x00015D7A -> 0x00140950. Existing Gen_t names describe those ABI types.
 
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/sweep /D_CRTIMP=
 // stlport
 
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
@@ -100,7 +103,7 @@ struct Q1ReceiverSetGroup198
 	volatile bool m_active;
 };
 
-struct CRITICAL_SECTION;
+#include <windows.h>
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(
 	CRITICAL_SECTION *lock);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(
@@ -365,3 +368,139 @@ unsigned char BfmeThingXS::bfmeMarkXS(int which) const
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?bfmeAskEME@BfmeObjEME@@QAE_NPAX@Z=?bfmeMarkXS@BfmeThingXS@@QBEEH@Z")
+
+// Whole-file reference transfer: clean BFME1 BfmeConv1024.cpp
+// Clean BFME1 90fffa62857c131831171802121eef7e6604eb58 BfmeConv1024.cpp
+// UnloadAsset semantic donor. WB1679210 independently names UnloadAsset.
+// Preserve existing BfmeP1024 binding called by the already owned forwarder.
+// Native widened counter20/24 shifts lock68 and seven40-byte queues80.
+// TLS scope uses owned30980/309B0; DX8 recursive lock release/reacquire is
+// present in both native and WB. Complete native RET4 ends622169; switch
+// table62216C..622188 follows three bytes of padding: full extent1320.
+
+#include <deque>
+
+int bfmeRva0011F600();
+bool BFME_DX8_Thread_Assert();
+void BFME_DX8_Thread_Lock();
+
+class Rva000309B0 {
+    void *m_previous;
+public:
+    Rva000309B0 *rva00030980(void *value);
+    void rva000309B0();
+};
+class AssetHeapScope {
+    Rva000309B0 m_slot;
+public:
+    __forceinline AssetHeapScope(unsigned value) { m_slot.rva00030980((void *)value); }
+    __forceinline ~AssetHeapScope() { m_slot.rva000309B0(); }
+};
+
+class BfmeE1024 {
+public:
+    virtual void slot00();
+    virtual void slot04();
+    virtual void slot08();
+    virtual void slot0C();
+    virtual void slot10();
+    virtual void slot14();
+    virtual void slot18();
+    virtual void slot1C();
+    virtual void slot20();
+    virtual void slot24();
+    virtual void slot28();
+    virtual void slot2C();
+    virtual void slot30();
+    virtual void slot34();
+    virtual unsigned slot38();
+    union { unsigned m_bfmeFlags; volatile unsigned m_bfmeFlagsShared; };
+    void *m_bfmeEntry;
+};
+
+class BfmeP1024 {
+public:
+    void bfmeReg1024(BfmeE1024 *item);
+    char m_unmodelled_000[0x20];
+    __int64 m_bfmeCount;
+    char m_unmodelled_028[0x40];
+    CRITICAL_SECTION m_bfmeLock;
+    _STL::deque<int> m_bfmeQueues[7];
+};
+
+void BfmeP1024::bfmeReg1024(BfmeE1024 *item)
+{
+	if (!item->m_bfmeEntry || (item->m_bfmeFlagsShared & 0xff0000) == 0x70000)
+		return;
+
+	EnterCriticalSection(&m_bfmeLock);
+	while (((item->m_bfmeFlagsShared & 0xff0000) == 0x10000 ||
+		(item->m_bfmeFlagsShared & 0xff0000) == 0x50000) &&
+		m_bfmeQueues[(item->m_bfmeFlagsShared >> 16) & 0xff].front() == (int)item)
+	{
+		int held = 0;
+        if ((unsigned char)bfmeRva0011F600())
+            do { ++held; } while (!BFME_DX8_Thread_Assert());
+        LeaveCriticalSection(&m_bfmeLock);
+        Sleep(1);
+        EnterCriticalSection(&m_bfmeLock);
+        while (held) { BFME_DX8_Thread_Lock(); --held; }
+	}
+	while ((item->m_bfmeFlagsShared & 0xff0000) == 0x80000)
+	{
+		int held = 0;
+        if ((unsigned char)bfmeRva0011F600())
+            do { ++held; } while (!BFME_DX8_Thread_Assert());
+        LeaveCriticalSection(&m_bfmeLock);
+        Sleep(1);
+        EnterCriticalSection(&m_bfmeLock);
+        while (held) { BFME_DX8_Thread_Lock(); --held; }
+	}
+
+	unsigned int i = 0;
+	for (; i < m_bfmeQueues[(item->m_bfmeFlagsShared >> 16) & 0xff].size(); ++i)
+	{
+		if (m_bfmeQueues[(item->m_bfmeFlagsShared >> 16) & 0xff].begin()[i] == (int)item)
+			break;
+	}
+	m_bfmeQueues[(item->m_bfmeFlagsShared >> 16) & 0xff][i] = m_bfmeQueues[(item->m_bfmeFlagsShared >> 16) & 0xff][m_bfmeQueues[(item->m_bfmeFlagsShared >> 16) & 0xff].size() - 1];
+	m_bfmeQueues[(item->m_bfmeFlagsShared >> 16) & 0xff].pop_back();
+	LeaveCriticalSection(&m_bfmeLock);
+
+	item->m_bfmeFlags &= 0xfdffffff;
+    AssetHeapScope heap(0x61737374);
+	if ((item->m_bfmeFlagsShared & 0xff0000) == 0x30000)
+	{
+		m_bfmeCount -= item->slot38();
+		item->m_bfmeFlags = (item->m_bfmeFlagsShared & 0xff04ffff) | 0x40000;
+		if (m_bfmeCount < 0)
+			m_bfmeCount = 0;
+	}
+
+	switch ((item->m_bfmeFlagsShared >> 16) & 0xff)
+	{
+	case 0:
+		item->slot04();
+		item->m_bfmeFlags = (item->m_bfmeFlagsShared & 0xff01ffff) | 0x10000;
+	case 1:
+		item->slot08();
+		item->m_bfmeFlags = (item->m_bfmeFlagsShared & 0xff02ffff) | 0x20000;
+		m_bfmeCount += item->slot38();
+	case 2:
+		item->slot0C();
+		item->m_bfmeFlags = (item->m_bfmeFlagsShared & 0xff04ffff) | 0x40000;
+		m_bfmeCount -= item->slot38();
+		if (m_bfmeCount < 0)
+			m_bfmeCount = 0;
+	case 4:
+		item->slot14();
+		item->m_bfmeFlags = (item->m_bfmeFlagsShared & 0xff05ffff) | 0x50000;
+	case 5:
+		item->slot18();
+		item->m_bfmeFlags = (item->m_bfmeFlagsShared & 0xff06ffff) | 0x60000;
+	case 6:
+		item->slot1C();
+		item->m_bfmeFlags = (item->m_bfmeFlagsShared & 0xff07ffff) | 0x70000;
+	}
+}
+
