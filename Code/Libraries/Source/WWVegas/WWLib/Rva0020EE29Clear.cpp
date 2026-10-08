@@ -151,41 +151,58 @@ void *Rva0020EE29::rva0020F9F6(void *a1, void *a2, void *filter)
 	return 0;
 }
 
-// ?OnTurnEnding@LivingWorldRegionManager@@QAEXHH@Z @0x0020FB41 74B
-// Resets the +0x8/+0xC state and runs every entry of the inner pointer
-// vector at +0x4 (+0x2c/+0x30) through rowed-pending ?rva003F20E5 (two
-// stack args, this = entry). The rowed-pending ?rva0020F685 runs first on
-// the enclosing object at this-4. Evidence: retail lea ecx,[esi-4] call;
-// the zero register doubles as the loop counter; reload-each-iteration
-// count loop over [esi+0x2c] like rva0020EE29 above. Argument meanings are
-// unproven (passed opaquely to the entry method).
+// ?OnTurnEnding@LivingWorldRegionManager@@UAEXHH@Z @0x0020FB41 74B
+// Resets the +0xC/+0x10 state and runs every entry of the inner pointer
+// vector at +0x8 (+0x2c/+0x30) through rowed ?rva003F20E5 (two stack args,
+// this = entry), after the pinned ?rva0020F685 on the whole object.
+// A virtual of the two-slot table 0x00BE4350 that the manager's ctor and dtor
+// (0x0021042D, 0x00210B38) store at +4, slot 1; WorldBuilder's dtor stores
+// the twin table 0x01E25EBC at +4 too, whose slot 1 is its
+// LivingWorldRegionManager::OnTurnEnding (own assert name). MSVC passes such
+// an override the +4 subobject as this, hence retail's lea ecx,[esi-4] for
+// the whole-object call and the members read 4 below their offsets. Evidence:
+// the zero register doubles as the loop counter; reload-each-iteration count
+// loop over [esi+0x2c] like rva0020EE29 above. Argument meanings are unproven
+// (passed opaquely to the entry method).
 class Rva0020FB41Outer
 {
 public:
 	void rva0020F685();
 };
 
-class LivingWorldRegionManager
+class Rva0020FB41Primary
 {
 public:
-	void OnTurnEnding(int a1, int a2);
+	virtual void v00();
+};
+
+class Rva00BE4350Turn
+{
+public:
+	virtual void rva0020EB07(int a1, int a2);
+	virtual void OnTurnEnding(int a1, int a2);
+};
+
+class LivingWorldRegionManager : public Rva0020FB41Primary, public Rva00BE4350Turn
+{
+public:
+	virtual void OnTurnEnding(int a1, int a2);
 
 private:
-	int m_00;
-	Rva0020EE29Inner *m_04;
-	int m_08;
+	Rva0020EE29Inner *m_08;
 	int m_0C;
+	int m_10;
 };
 
 void LivingWorldRegionManager::OnTurnEnding(int a1, int a2)
 {
-	((Rva0020FB41Outer *)((char *)this - 4))->rva0020F685();
-	m_08 = 0;
+	((Rva0020FB41Outer *)this)->rva0020F685();
 	m_0C = 0;
+	m_10 = 0;
 	// Retail advances past the inner header once and reads begin/end from
 	// the advanced pointer ([esi]/[esi+4]), so the traversal below addresses
 	// the begin/end pair through &m_begin rather than re-adding +0x2c.
-	Rva003F209C ***bounds = &m_04->m_begin;
+	Rva003F209C ***bounds = &m_08->m_begin;
 	for (unsigned i = 0; i < (unsigned)(((char *)bounds[1] - (char *)bounds[0]) >> 2); ++i)
 		bounds[0][i]->rva003F20E5(a1, a2);
 }
