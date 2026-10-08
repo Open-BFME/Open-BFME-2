@@ -8,22 +8,119 @@
 // ?rva0057C094@Rva0057C04F@@QAEXH@Z @0x0057C094 190B: vslot 1 of vtable 0x0086F2D4 TurnNumber setter.
 // Formats APT:_level%u.%s_TurnNumber from +4 level and +8 prefix str then Unicode int format then bfmeSetText false
 // then AptCall Go then flag at +0x18. Evidence: same literals and globals as free Rva0057A51CSet plus Go plus slot 1.
-//
-// ?rva0057C042@Rva0057C04F@@QAEXPBD@Z @0x0057C042 13B: clears +0x18 flag when set.
-// Takes const char* to match sibling OnUnload delegates (ret 4, unused arg).
-// Evidence: cmp byte [ecx+0x18] je clear; delegate target for _OnDone in ctor 0x0057C152.
 #include "ascii_string.h"
 #include "unicode_string.h"
 #pragma comment(linker, "/alternatename:??_7Base00@@6B@=_s_first0C")
 #pragma comment(linker, "/alternatename:?g_Va007C9260@@3QBGB=??_C@_15KNBIKKIN@?$AA?$CF?$AAd?$AA?$AA@")
 
-class Rva0052413E
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
+
+// Delegate payload (object, member) handed to the command-map reference
+// (as in Common/Rva0042DB21Method.cpp).
+class AptCommandTarget
+{
+};
+
+struct DelegateDesc
+{
+	template <class T> DelegateDesc(T *object, void (T::*method)(const char *path))
+		: m_object(reinterpret_cast<AptCommandTarget *>(object)), m_method(reinterpret_cast<void (AptCommandTarget::*)(const char *path)>(method)) {}
+
+	AptCommandTarget *m_object;
+	void (AptCommandTarget::*m_method)(const char *path);
+};
+
+class AptCommandMap
 {
 public:
-	~Rva0052413E();
+	void *m_vtbl;
+	int m_refCount;
+};
+
+template <class T> class AptRef
+{
+public:
+	AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
+	AptRef &rva00579E47(const DelegateDesc *desc); // 0x00579E47
+	AptRef(const AptRef &that) : m_ptr(that.m_ptr)
+	{
+		if (m_ptr)
+			m_ptr->m_refCount++;
+	}
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+
+private:
+	T *m_ptr;
+};
+
+// The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
+// AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
+class AptCommandMapAdder
+{
+public:
+	AptCommandMapAdder();
+	~AptCommandMapAdder();
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+
+	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
+	{
+		AddCommandMap(name, &desc);
+	}
+
 private:
 	char m_pad[12]; // +0x0C size 12 so +0x18 flag follows
 };
+
+// "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
+class Rva000B3F84Pair
+{
+public:
+	Rva000B3F84Pair() {}
+	Rva000B3F84Pair *init(const char *src); // 0x000B3F84
+
+	const char *m_ptr;
+	int m_len;
+};
+
+struct AsciiStringRef
+{
+	const AsciiString *m_string;
+};
+
+struct AsciiStringPlusString : AsciiStringRef
+{
+	AsciiStringRef m_second;
+};
+
+struct AsciiStringPlusStringText : AsciiStringPlusString
+{
+	operator AsciiString(); // 0x0050F74B
+
+	Rva000B3F84Pair m_right;
+};
+// ?operator+(AsciiStringPlusString, text) present-unmatched (inline, emitted out of line; ICF-folded at 0x00109CFD; pinned)
+inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
+{
+	Rva000B3F84Pair text;
+	text.init(right);
+	AsciiStringPlusStringText result;
+	static_cast<AsciiStringPlusString &>(result) = left;
+	result.m_right = text;
+	return result;
+}
+
+static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
+{
+	AsciiStringPlusString result;
+	result.m_string = &left;
+	result.m_second.m_string = &right;
+	return result;
+}
 extern "C" int s_first0C;
 
 class BfmeAptWindowManager
@@ -47,16 +144,31 @@ struct Base00
 class Rva0057C04F : public Base00
 {
 public:
+	Rva0057C04F(int level, const AsciiString &name);
 	~Rva0057C04F();
 	virtual void dummy();
-	void rva0057C042(const char *name);
 	void rva0057C094(int turn);
+	void OnDone(const char *path);
 private:
 	int m_level04;
 	AsciiString m_08; // +0x08
-	Rva0052413E m_0C; // +0x0C
+	AptCommandMapAdder m_0C; // +0x0C
 	unsigned char m_flag18; // +0x18
 };
+
+Rva0057C04F::Rva0057C04F(int level, const AsciiString &name)
+	: m_level04(level), m_08(name), m_flag18(0)
+{
+	AsciiString prefix;
+	prefix.format("_level%u.", m_level04);
+	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnDone", DelegateDesc(this, &Rva0057C04F::OnDone));
+}
+
+void Rva0057C04F::OnDone(const char *path)
+{
+	if (m_flag18 != 0)
+		m_flag18 = 0;
+}
 
 Rva0057C04F::~Rva0057C04F()
 {
@@ -70,12 +182,6 @@ void Base00::dummy()
 // ?dummy@Rva0057C04F@@UAEXXZ present-unmatched
 void Rva0057C04F::dummy()
 {
-}
-
-void Rva0057C04F::rva0057C042(const char *name)
-{
-	if (m_flag18 != 0)
-		m_flag18 = 0;
 }
 
 void Rva0057C04F::rva0057C094(int turn)

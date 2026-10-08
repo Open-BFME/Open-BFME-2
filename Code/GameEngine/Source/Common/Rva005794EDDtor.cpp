@@ -10,20 +10,120 @@ struct TargetRef00217D4C
 };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-class Rva0052413E
+// Delegate payload (object, member) handed to the command-map reference
+// (as in Rva0042DB21Method.cpp).
+class AptCommandTarget
+{
+};
+
+struct DelegateDesc
+{
+	template <class T> DelegateDesc(T *object, void (T::*method)(const char *path))
+		: m_object(reinterpret_cast<AptCommandTarget *>(object)), m_method(reinterpret_cast<void (AptCommandTarget::*)(const char *path)>(method)) {}
+
+	AptCommandTarget *m_object;
+	void (AptCommandTarget::*m_method)(const char *path);
+};
+
+class AptCommandMap
 {
 public:
-	~Rva0052413E();
+	void *m_vtbl;
+	int m_refCount;
+};
+
+template <class T> class AptRef
+{
+public:
+	AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
+	AptRef &rva00579E47(const DelegateDesc *desc); // 0x00579E47
+	AptRef(const AptRef &that) : m_ptr(that.m_ptr)
+	{
+		if (m_ptr)
+			m_ptr->m_refCount++;
+	}
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+
+private:
+	T *m_ptr;
+};
+
+// The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
+// AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
+class AptCommandMapAdder
+{
+public:
+	AptCommandMapAdder();
+	~AptCommandMapAdder();
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+
+	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
+	{
+		AddCommandMap(name, &desc);
+	}
+
 private:
 	char m_pad[0xC];
 };
 
+// "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
+class Rva000B3F84Pair
+{
+public:
+	Rva000B3F84Pair() {}
+	Rva000B3F84Pair *init(const char *src); // 0x000B3F84
+
+	const char *m_ptr;
+	int m_len;
+};
+
+struct AsciiStringRef
+{
+	const AsciiString *m_string;
+};
+
+struct AsciiStringPlusString : AsciiStringRef
+{
+	AsciiStringRef m_second;
+};
+
+struct AsciiStringPlusStringText : AsciiStringPlusString
+{
+	operator AsciiString(); // 0x0050F74B
+
+	Rva000B3F84Pair m_right;
+};
+
+static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
+{
+	AsciiStringPlusString result;
+	result.m_string = &left;
+	result.m_second.m_string = &right;
+	return result;
+}
+
+// ?operator+(AsciiStringPlusString, text) present-unmatched (inline, emitted out of line; ICF-folded at 0x00109CFD; pinned)
+inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
+{
+	Rva000B3F84Pair text;
+	text.init(right);
+	AsciiStringPlusStringText result;
+	static_cast<AsciiStringPlusString &>(result) = left;
+	result.m_right = text;
+	return result;
+}
+
 extern const void *const g_00C6ECBC[];
 extern const void *const g_00C6EE28[];
 
-class Rva005794EDBase
+class __declspec(novtable) Rva005794EDBase
 {
 public:
+	Rva005794EDBase() {}
 	virtual ~Rva005794EDBase();
 };
 
@@ -33,47 +133,54 @@ inline Rva005794EDBase::~Rva005794EDBase()
 	*(const void **)this = g_00C6EE28;
 }
 
-struct Rva005794EDHolder18
-{
-	TargetRef00217D4C *m_ptr;
-	__forceinline ~Rva005794EDHolder18() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
-};
-
-class __declspec(novtable) Rva005794ED : public Rva005794EDBase
-{
-public:
-	virtual ~Rva005794ED();
-	virtual void rva00579435(bool newState);
-	virtual void PlayAlertFlash();
-	virtual void HaltAlertFlash();
-	void OnClicked(const char *unused);
-private:
-	int m_04;
-	AsciiString m_08;
-	Rva0052413E m_0C;
-	Rva005794EDHolder18 m_18;
-	bool m_1C;
-};
-
-Rva005794ED::~Rva005794ED()
-{
-	*(const void **)this = g_00C6ECBC;
-}
-
-// The +0x18 holder's action, rowed at 0x0044BD79.
+// Click callback holder; invoking it is the rowed 0x0044BD79.
 class BfmeA1042N
 {
 public:
 	void bfmeGo1042D();
+
+	TargetRef00217D4C *m_ptr;
 };
 
-// ?OnClicked@Rva005794ED@@QAEXPBD@Z @0x005794DD 16B: the button's
-// "_level%u." + path + "_OnClicked" delegate, bound by the constructor
-// 0x00579575; fires the +0x18 target when one is set.
-void Rva005794ED::OnClicked(const char *unused)
+struct Rva005794EDHolder18 : BfmeA1042N
+{
+	Rva005794EDHolder18() { m_ptr = 0; }
+	__forceinline ~Rva005794EDHolder18() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
+};
+
+class Rva005794ED : public Rva005794EDBase
+{
+public:
+	Rva005794ED(int level, const AsciiString &name);
+	virtual ~Rva005794ED();
+	virtual void rva00579435(bool newState);
+	virtual void DoPlayAlertFlash();
+	virtual void DoHaltAlertFlash();
+	void OnClicked(const char *path);
+private:
+	int m_04;
+	AsciiString m_08;
+	AptCommandMapAdder m_0C;
+	Rva005794EDHolder18 m_18;
+	bool m_1C;
+};
+
+Rva005794ED::Rva005794ED(int level, const AsciiString &name)
+	: m_04(level), m_08(name), m_1C(true)
+{
+	AsciiString prefix;
+	prefix.format("_level%u.", m_04);
+	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnClicked", DelegateDesc(this, &Rva005794ED::OnClicked));
+}
+
+void Rva005794ED::OnClicked(const char *path)
 {
 	if (m_18.m_ptr != 0)
-		((BfmeA1042N *)&m_18)->bfmeGo1042D();
+		m_18.bfmeGo1042D();
+}
+
+Rva005794ED::~Rva005794ED()
+{
 }
 
 class Rva00222A8BTarget;
@@ -98,16 +205,15 @@ void Rva005794ED::rva00579435(bool newState)
 	m_1C = newState;
 }
 
-// ?PlayAlertFlash@Rva005794ED@@UAEXXZ @0x0057948B 41B: vtable slot 2;
-// calls the movie's "PlayAlertFlash".
-void Rva005794ED::PlayAlertFlash()
+// Vtable 0x0086ECBC slots 2 and 3: WorldBuilder
+// StrategicHUD::EndTurnButtonImpl::DoPlayAlertFlash / DoHaltAlertFlash
+// (retail strings "PlayAlertFlash" / "HaltAlertFlash").
+void Rva005794ED::DoPlayAlertFlash()
 {
 	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_04, Rva005794EDGetStr(m_08), "PlayAlertFlash");
 }
 
-// ?HaltAlertFlash@Rva005794ED@@UAEXXZ @0x005794B4 41B: vtable slot 3;
-// calls the movie's "HaltAlertFlash".
-void Rva005794ED::HaltAlertFlash()
+void Rva005794ED::DoHaltAlertFlash()
 {
 	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_04, Rva005794EDGetStr(m_08), "HaltAlertFlash");
 }
