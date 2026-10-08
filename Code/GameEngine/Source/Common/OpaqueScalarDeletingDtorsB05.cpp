@@ -1,4 +1,6 @@
-// cl: /O1 /DNDEBUG /MD /EHs
+// cl: /O1 /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// stlport
+#include <vector>
 //
 // Opaque scalar deleting destructors, batch B05: 28-byte wrappers that
 // call the destructor, test bit 0 of the flags, conditionally free through
@@ -398,6 +400,42 @@ Rva002C5398::Rva002C5398(EmitVtableTag *)
 // Target destructor proves cleanup on this, then free of the vector's first
 // pointer and an external base destructor. Original owner identity is unknown.
 extern "C" void __cdecl free(void *);
+// Pointer-only transfer ABI established by native calls and the existing
+// entry serializer. Coordinate temporary lifetime is visible in the EH flags.
+class Xfer {
+public:
+ class Version { public: Version(unsigned char a,unsigned char b):current(a),minimum(b){} unsigned char current,minimum; };
+ virtual ~Xfer(); virtual bool IsLoading(); virtual bool IsStoring();
+ virtual void v03(); virtual void v04(); virtual void v05();
+ virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09();
+ virtual void v10(void *);
+ virtual void v11(); virtual void v12(); virtual void v13();
+ virtual void v14(); virtual void v15(); virtual void v16();
+ virtual void v17(); virtual void v18(); virtual void v19();
+ virtual void v20(); virtual void v21(); virtual void v22();
+ virtual void v23(); virtual void v24(); virtual void v25();
+ virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29();
+ virtual void v30(unsigned &);
+ virtual void v31(); virtual void v32(); virtual void v33();
+ virtual void v34(); virtual void v35(); virtual void v36(bool &);
+};
+class Coord3DBase {
+public:
+ Coord3DBase(float a, float b, float c) : x(a), y(b), z(c) {}
+ ~Coord3DBase() {}
+ float x,y,z;
+};
+class Rva002C5EF0 {
+public:
+ Rva002C5EF0(const Coord3DBase &, float, unsigned);
+ void rva002C5EF0(Xfer *);
+private:
+ unsigned m_0; Coord3DBase m_4;
+ unsigned m_10; float m_14,m_18; unsigned m_1C;
+};
+class AITargetChooser { public: void xfer(Xfer *); };
+class Rva00506909 { public: void xfer(Xfer *); };
+class ModuleData;
 struct Rva002C6354Buffer
 {
     void *begin, *end, *capacity;
@@ -418,8 +456,12 @@ public:
 	Rva002C6354(EmitVtableTag *);
 public:
 	virtual ~Rva002C6354();
+    void DoXfer(Xfer *x);
 private:
-    char m_unmodelled[24];
+    unsigned m_08;
+    AITargetChooser *m_0C;
+    Rva00506909 *m_10;
+    char m_unmodelled14[12];
     Rva002C6354Buffer m_buffer;
 };
 
@@ -564,4 +606,34 @@ Rva002D5333::~Rva002D5333()
 Rva002C6354::~Rva002C6354()
 {
     ((Rva002C61AF *)this)->rva002C61AF();
+}
+
+// Native 0x002C63A1..0x002C64D0; WB TacticalAI::DoXfer at 0x00E894D0
+// corroborates the chooser/generator calls and interest-zone save/load loops.
+// Keep the established address owner until its complete class identity is
+// reconciled. The ModuleData vector spelling supplies the existing four-byte
+// pointer insertion ABI only; it is not a claim about the entry's identity.
+void Rva002C6354::DoXfer(Xfer *x)
+{
+ Xfer::Version version(1,1);
+ x->v10(&version);
+ bool hasChooser = m_0C != 0;
+ x->v36(hasChooser);
+ if (m_0C) m_0C->xfer(x);
+ m_10->xfer(x);
+ _STL::vector<const ModuleData *> &entries =
+     *reinterpret_cast<_STL::vector<const ModuleData *> *>(&m_buffer);
+ unsigned count = entries.size();
+ x->v30(count);
+ if (x->IsStoring()) {
+  const ModuleData **last = (const ModuleData **)m_buffer.end;
+  for (const ModuleData **it = (const ModuleData **)m_buffer.begin; it != last; ++it)
+   ((Rva002C5EF0 *)*it)->rva002C5EF0(x);
+ } else if (x->IsLoading()) {
+  for (unsigned i=0; i<count; ++i) {
+   const ModuleData *slot = (const ModuleData *)new Rva002C5EF0(Coord3DBase(0,0,0), 0.0f, m_08);
+   ((Rva002C5EF0 *)slot)->rva002C5EF0(x);
+   entries.push_back(slot);
+  }
+ }
 }
