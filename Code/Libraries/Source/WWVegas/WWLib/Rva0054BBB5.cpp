@@ -46,6 +46,35 @@ public:
 	virtual int next() = 0;
 };
 
+
+#include <algorithm>
+struct Foo00549DCB;
+struct BfmeCopyRecord8 {
+ Foo00549DCB *a; float b;
+ BfmeCopyRecord8() {}
+ BfmeCopyRecord8(const BfmeCopyRecord8 &o): a(o.a),b(o.b) {}
+};
+struct BfmeCopyRecord8Cmp { bool operator()(const BfmeCopyRecord8 &, const BfmeCopyRecord8 &) const; };
+struct BfmeCopyRecord8CmpDescending { bool operator()(const BfmeCopyRecord8 &, const BfmeCopyRecord8 &) const; };
+struct BfmeCopyRecord8KeyAscending { bool operator()(const BfmeCopyRecord8 &, const BfmeCopyRecord8 &) const; };
+struct BfmeCopyRecord8KeyDescending { bool operator()(const BfmeCopyRecord8 &, const BfmeCopyRecord8 &) const; };
+typedef _STL::_Deque_iterator<BfmeCopyRecord8,_STL::_Nonconst_traits<BfmeCopyRecord8> > CopyRecord8Iterator;
+namespace _STL {
+template<> void sort(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8Cmp);
+template<> void sort(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8CmpDescending);
+template<> void sort(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8KeyAscending);
+template<> void sort(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8KeyDescending);
+}
+// Zero Hour ObjectIter.h supplies the order names. Native 54C64A dispatches
+// 1..4 to the four already-owned float/key sorts in that order.
+enum IterOrderType {
+ ITER_FASTEST,
+ ITER_SORTED_NEAR_TO_FAR,
+ ITER_SORTED_FAR_TO_NEAR,
+ ITER_SORTED_CHEAP_TO_EXPENSIVE,
+ ITER_SORTED_EXPENSIVE_TO_CHEAP
+};
+
 class SimpleObjectIterator : public Rva00549C74
 {
 public:
@@ -54,6 +83,7 @@ public:
 	virtual int first();
 	virtual int next();
 	void insert(int a, float b);
+ void sort(IterOrderType);
 	void rva0054B414();
 
 private:
@@ -61,7 +91,6 @@ private:
 	_STL::deque<BfmeTrivialDequeElement8> m_deque;
 };
 
-// ?SimpleObjectIterator::SimpleObjectIterator present-unmatched
 SimpleObjectIterator::SimpleObjectIterator() {}
 
 // Native 54B81A..54B850: the deque cleanup at +14 and the base-vtable
@@ -99,4 +128,18 @@ int SimpleObjectIterator::first() {
 // Vtable slot 2 at C6A6A0; native 54B7FC..54B804 delegates without resetting.
 int SimpleObjectIterator::next() {
 	return reinterpret_cast<Rva0054A82C *>(this)->rva0054A82C(0);
+}
+
+// Native 54C64A..54C729: the same 8-byte record view as the owned sort
+// providers. Declare their specializations externally to use those providers
+// without emitting competing algorithm copies under this allocator shim.
+void SimpleObjectIterator::sort(IterOrderType mode) {
+ if(reinterpret_cast<_STL::deque<BfmeCopyRecord8>&>(m_deque).empty()) return;
+ switch(mode) {
+ case ITER_SORTED_NEAR_TO_FAR: _STL::sort(reinterpret_cast<_STL::deque<BfmeCopyRecord8>&>(m_deque).begin(),reinterpret_cast<_STL::deque<BfmeCopyRecord8>&>(m_deque).end(),BfmeCopyRecord8Cmp()); break;
+ case ITER_SORTED_FAR_TO_NEAR: _STL::sort(reinterpret_cast<_STL::deque<BfmeCopyRecord8>&>(m_deque).begin(),reinterpret_cast<_STL::deque<BfmeCopyRecord8>&>(m_deque).end(),BfmeCopyRecord8CmpDescending()); break;
+ case ITER_SORTED_CHEAP_TO_EXPENSIVE: _STL::sort(reinterpret_cast<_STL::deque<BfmeCopyRecord8>&>(m_deque).begin(),reinterpret_cast<_STL::deque<BfmeCopyRecord8>&>(m_deque).end(),BfmeCopyRecord8KeyAscending()); break;
+ case ITER_SORTED_EXPENSIVE_TO_CHEAP: _STL::sort(reinterpret_cast<_STL::deque<BfmeCopyRecord8>&>(m_deque).begin(),reinterpret_cast<_STL::deque<BfmeCopyRecord8>&>(m_deque).end(),BfmeCopyRecord8KeyDescending()); break;
+ }
+ m_cursor=m_deque.begin();
 }
