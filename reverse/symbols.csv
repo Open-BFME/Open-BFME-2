@@ -16257,3 +16257,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0023D049@Rva0023D049@@QAEPAXH@Z,0x0023D049,callee of ?rva00406BF3@Rva00406BB0@@QAE?AUTreeHintRef00217D4C@@XZ
 ?Rva00220E30@@YA?AVUnicodeString@@PAX_N@Z,0x00220E30,callee of ?rva00406BF3@Rva00406BB0@@QAE?AUTreeHintRef00217D4C@@XZ
 ?rva00399370@CastleBehavior@@QAEXXZ,0x00399370,Native REL32 at CastleBehavior DoXfer RVA00399665 calls00399370 with the unchanged CastleBehavior receiver. Ghidra130B boundary VA00799370..007993F2 ends RET0; WorldBuilder equivalent unnamed eb9110. No existing owner name. PolygonTrigger loading role evidenced by constructor2E3EB8 and registration39865E; semantic method name unresolved.
+?calculateThreatLevel@ThreatFinder@@QAEXXZ,0x003ECFBC,callee of ?getThreatForPlayer@ThreatFinder@@QAE?AUThreatInfo@@PAVPlayer@@H0@Z
+?rva003ECA81@Rva003ECA4BElement@@QAEXPBV1@@Z,0x003ECA81,callee of ?getThreatForPlayer@ThreatFinder@@QAE?AUThreatInfo@@PAVPlayer@@H0@Z
+?Rva003ECB2AIsEnemy@@YAHPBVPlayer@@0@Z,0x003ECB2A,callee of ?getThreatForPlayer@ThreatFinder@@QAE?AUThreatInfo@@PAVPlayer@@H0@Z
