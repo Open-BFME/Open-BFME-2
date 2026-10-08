@@ -1,7 +1,5 @@
 // ?init@Transport@@QAE_NPBUTransportAddress@@@Z
-// partial score=0.99 date=2026-10-07
-// ?init@Transport@@QAE_NPBUTransportAddress@@@Z
-// partial score=0.98 date=2026-10-05
+// partial score=0.9878640776699029 date=2026-10-08
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -20,18 +18,15 @@
 **	You should have received a copy of the GNU General Public License
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-// Bank: native Ghidra [4D5219,4D53B5),412B. BFME1 6583b3c1
-// Transport::init supplies WSA version check / UDP bind retry / cleanup
-// semantics. Target adds eight slots and measured first-slot address8
-// at40E10, with packet/statistics layout from exact sibling4D53B5.
-// Opaque UDP allocation32 is independently measured; ctor35/dtor69
-// and local-address getter25 are rowed. Bind188B594B56 remains unrowed.
-// Correct412B extent but native frame19C vs compiled1A0: unused localPort
-// at-1C vs retail retired parameter storage+0A; WSA data consequently
-// shifted4B. Startup result TEST instead of retail CMP against zero EBX.
-// No forced pointer-parameter overlap or persistent new pins retained.
-// ?rva004D53B5@Transport@@QAE_NPAX@Z @0x004D53B5 225B: Transport winsock init plus buffer clear.
-// Original matched sibling layout evidence: WSAStartup IAT 0x00BBA96C plus WSACleanup 0x00BBA970 plus timeGetTime 0x00BBA918 plus clearSlot 0x004D5133 plus offsets +0x40E00/+0x40E04/+0x40E08/+0x40E6C/+0x40E70 plus ret 4; caller 0x005A6B28; neighbours Transport.cpp and TransportRva004D5046.cpp.
+// BFME1 Transport.cpp rev9cbfb551fe20 is the semantic guide.
+// Native complete [004D5219,004D53B5) and WB callgraph witness the
+// eight-slot adaptation. Existing proper Bind188 provider now landed.
+// WSAData has the actual190B/align4 extent including vendor pointer;
+// the earlier bank shortened this to18C and hid four frame bytes.
+// Current412B body preserves the API buffer size, but native reuses
+// dead parameter storage for localPort; compiler uses a separate slot.
+// UDP ctor/dtor ABI comes from existing address pins; owner identities
+// still need reconciliation before this could become linking source.
 extern "C" {
 __declspec(dllimport) int __stdcall WSACleanup(void);
 __declspec(dllimport) int __stdcall WSAStartup(unsigned short wVersionRequired, void *lpWSAData);
@@ -43,6 +38,7 @@ struct WSAData40E
 	unsigned char m_versionLow;
 	unsigned char m_versionHigh;
 	char m_pad[0x18c - 2];
+	void *m_vendorInfo;
 };
 
 class UDP {
@@ -53,34 +49,70 @@ private: char consumed[32];
 struct TransportAddress {unsigned int ip;unsigned short port; TransportAddress(unsigned int a,unsigned short b):ip(a),port(b) {}};
 void* __cdecl operator new(unsigned int);
 void __cdecl operator delete(void*);
+
+#ifndef BFME2_NETWORK_TRANSPORT_H
+#define BFME2_NETWORK_TRANSPORT_H
+
+// BFME 2 Transport layout retained from the byte-verified home unit.
+// Target evidence: 0x004D53B5 clears two 128-entry rings at stride 0x40E,
+// eight 12-byte slots at +0x40E0C, and six 30-word statistics arrays.
+// 0x004D51A7 and 0x004D51ED independently witness both address words.
+// WorldBuilder Transport.cpp supplies the class/setter identity; private
+// field labels below describe offsets, without asserting original names.
+// Header adoption is gated per unit; incompatible views remain queued.
+
+class Rva00594DC0;
+struct TransportAddress;
+struct NetPacketAddress;
+
 struct Rva004D4A80Slot
 {
-	UDP *m_object;
-	TransportAddress address;
+	void *m_object;
+	int m_x;
+	short m_y;
+	char m_pad[2];
+	Rva004D4A80Slot(void);
+	~Rva004D4A80Slot(void) {}
 };
-
-#pragma pack(push, 1)
-struct TransportMessage
-{
-	char m_pad[0x404];
-	int m_length;
-	char m_tail[6];
-};
-#pragma pack(pop)
 
 class Transport
 {
 public:
-	bool init(const TransportAddress *addr);
-	void clearSlot_Rva004D5133(unsigned short index);
+	Transport(void);
+	bool allowBroadcasts(bool allowBroadcasts);
+	~Transport(void);
+	void RemoveSocketForSlot(unsigned short index);
+	void Rva004D5496(void);
+	void clearBuffer_Rva004D4A59(void);
+	bool rva004D53B5(void *addr);
+	void setSlotSocket(void *obj, unsigned short index, int *vals);
+	void setDestAddrToSocket(int index, void *address);
+	bool doRecv(Rva00594DC0 *receiver);
+	bool update(Rva00594DC0 *receiver);
+	bool doSend();
+	bool init(const TransportAddress *);
+	bool queueSend(NetPacketAddress *, const unsigned char *, int);
+
 private:
-	TransportMessage m_outBuffer[128];
-	TransportMessage m_inBuffer[128];
+#pragma pack(push, 1)
+	struct Message
+	{
+		unsigned int m_crc;
+		unsigned char m_data[0x400];
+		int m_length; // +0x404
+		unsigned long m_addr;
+		unsigned short m_port;
+	};
+#pragma pack(pop)
+	Message m_outBuffer[128];
+	Message m_inBuffer[128];
 	bool m_flag40E00;
-	char m_pad40E01[3];
-	union {void *m_ptr40E04;unsigned int m_localIP;};
+	union { void *m_ptr40E04; unsigned int m_localIP; };
 	bool m_winsockActive;
-	char m_pad40E09[3];
+	// Eight 12-byte slots at +0x40E0C. The first word holds the slot's
+	// object pointer (the clearer compares and zeroes it); the element
+	// constructor zeroes the first ten bytes and the destructor is an
+	// empty inline, folded with the other empty dtors.
 	Rva004D4A80Slot m_slots[8];
 	int m_int40E6C;
 	int m_int40E70;
@@ -93,30 +125,35 @@ private:
 	int m_badPackets;
 };
 
+typedef char TransportSizeWitness[(sizeof(Transport) == 0x41148) ? 1 : -1];
+
+#endif
 
 bool Transport::init(const TransportAddress *addr) {
+ unsigned short localPort;
  if(!m_winsockActive) {
   WSAData40E wsadata;
-  if(WSAStartup(0x202,&wsadata)!=0) return false;
+  int err=WSAStartup(0x202,&wsadata);
+  if(err!=0) return false;
   if(wsadata.m_versionLow!=2 || wsadata.m_versionHigh!=2) {
    WSACleanup(); return false;
   }
   m_winsockActive=true;
  }
  m_flag40E00=true;
- for(int i=0;i<8;++i) clearSlot_Rva004D5133((unsigned short)i);
+ for(int i=0;i<8;++i) RemoveSocketForSlot((unsigned short)i);
  m_slots[0].m_object=new UDP();
  if(!m_slots[0].m_object) return false;
  int result=-1; unsigned now=timeGetTime();
  while((result!=0) && ((timeGetTime()-now)<1000)) {
-  result=m_slots[0].m_object->Bind(addr->ip,addr->port);
+  result=((UDP *)m_slots[0].m_object)->Bind(addr->ip,addr->port);
  }
  if(result!=0) {
-  delete m_slots[0].m_object; m_slots[0].m_object=0; return false;
+  delete (UDP *)m_slots[0].m_object; m_slots[0].m_object=0; return false;
  }
- m_slots[0].address=TransportAddress(0,0);
- unsigned short localPort;
- m_slots[0].m_object->getLocalAddr(m_localIP,localPort);
+ *(TransportAddress *)&m_slots[0].m_x=TransportAddress(0,0);
+
+ ((UDP *)m_slots[0].m_object)->getLocalAddr(m_localIP,localPort);
  for(int i=0;i<128;++i) {
   m_outBuffer[i].m_length=0; m_inBuffer[i].m_length=0;
  }
