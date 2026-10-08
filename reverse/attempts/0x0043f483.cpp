@@ -1,5 +1,5 @@
-// ?rva004424E7@AptMpGameSetup@@QAEXH@Z
-// partial score=0.9 date=2026-10-08
+// ?rva0043F483@AptMpGameSetup@@QAEXH@Z
+// partial score=0.86 date=2026-10-08
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
@@ -14,7 +14,6 @@
 // MpGameSetupOnInitGadget.cpp); +0x2C4 is a dirty flag.
 
 #include <vector>
-#include <map>
 
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -374,8 +373,6 @@ public:
 class PlayerTemplate
 {
 public:
- char pad00[0x18]; AsciiString m_side;
- char pad1c[0x150-0x1c];bool m_150;bool m_151;
 	int rva001FD234() const;
 	UnicodeString getDisplayName() const;
 };
@@ -383,7 +380,6 @@ public:
 class PlayerTemplateStore
 {
 public:
- char pad00[0x18];_STL::map<int,int> m_map;
 	const PlayerTemplate *getNthPlayerTemplate(int index) const;
 };
 
@@ -399,7 +395,6 @@ struct Rva0057C71FEntry
 {
 	int m_00;
 	int m_team; // +0x04
- int m_08;int m_0c;
 };
 
 // The member at +0x60 (0x70 bytes, destroyed through ??1Rva0057E3DB).
@@ -587,10 +582,12 @@ UnicodeString Rva0055A04C(int kind);
 struct LANGameInfo;
 extern LANGameInfo *g_Rva00E02EEC;
 
+class MapMetaData;
 class MapCache
 {
 public:
 	void updateCache();
+	const MapMetaData* findMap(AsciiString);
 };
 
 extern MapCache *TheMapCache;
@@ -649,7 +646,6 @@ public:
 class AptMapPreview
 {
 public:
- void *GetStartPositionInfoForSlot(int);
 	void rva0057C597(bool enable);
 	// Rowed 0x0057C57B: the start position a button window shows, or -1.
 	int rva0057C57B(int window);
@@ -1003,85 +999,94 @@ private:
 
 // Retail 0x0043DD02, 50 bytes: the item data of slot's selected player
 // template, or -1 without a combo box.
-class GlobalData {public:char pad[0x9d4];int m_9d4;};
-extern GlobalData *TheGlobalData;
-bool Rva00441E4DFaction(void*,const AsciiString&);
-void AptMpGameSetup::rva004424E7(int slot)
+struct PlayerComboMapPosition { unsigned char flags[3]; char pad; int value; unsigned char names[12]; };
+class MapMetaData { public: unsigned char pad0[0x20]; int numPlayers; unsigned char pad24[0x54-0x24]; PlayerComboMapPosition positions[8]; };
+class GlobalData { public: unsigned char pad[0x9d4]; int modeFlags; };
+extern GlobalData* TheGlobalData;
+extern int AptLobbyRandomColorTint;
+GameWindow* GadgetComboBoxGetListBox(GameWindow*);
+void GadgetComboBoxSetItemData(GameWindow*,int,void*);
+int GadgetComboBoxAddEntry(GameWindow*,UnicodeString,int);
+void AptMpPlayerComboTooltip(GameWindow*,WinInstanceData*,unsigned int);
+void AptMpGameSetup::rva0043F483(int slot)
 {
-	GameInfo *game = (GameInfo *)m_game->rva0043DA65();
-	if (!game)
-		return;
-	GameSlot *gameSlot = game->getSlot(slot);
-	if (!gameSlot)
-		return;
-	GameWindow *comboBox = m_playerTemplate[slot];
-	if (!comboBox)
-		return;
-
-	MultiplayerColorDefinition *color = TheMultiplayerSettings->getColor(-1);
-	int previous = -1;
-	int index = 0;
-	GadgetComboBoxGetSelectedPos(comboBox, &index);
-	if (index >= 0)
-		previous = (int)GadgetComboBoxGetItemData(comboBox, index);
-	GadgetComboBoxReset(comboBox);
-
-	int mode = m_60.m_mode;
-	bool mode1 = mode == 1;
-	bool allowObserver = !gameSlot->isAI() && !(m_flags & 4) && !mode1;
-	bool local = slot == game->v13();
-	bool hostAI = m_owner->v01() && gameSlot->isAI();
-	if (!local && !hostAI)
-	{
-		int playerTemplate = gameSlot->m_playerTemplate;
-		index = GadgetComboBoxAddEntry(comboBox, UnicodeString(L"-"), color->m_color);
-		GadgetComboBoxSetItemData(comboBox, index, (void *)playerTemplate);
-		GadgetComboBoxSetSelectedPos(comboBox, 0, false);
-		return;
-	}
-
-	bool addRandom = true;
-	Rva0057C71FEntry *entry = (Rva0057C71FEntry*)((AptMapPreview*)&m_60)->GetStartPositionInfoForSlot(slot);
-	if (entry)
-	{
-		if (mode1)
-			addRandom = false;
-		else
-			addRandom = entry->m_0c != 1;
-	}
-	if (TheGlobalData->m_9d4 & 3)
-		addRandom = false;
-	if (addRandom)
-	{
-		index = GadgetComboBoxAddEntry(comboBox, TheGameText->fetch("GUI:Random"), color->m_color);
-		GadgetComboBoxSetItemData(comboBox, index, (void *)-1);
-	}
-
-	int select = 0;
-	_STL::map<int, int> &templates = ThePlayerTemplateStore->m_map;
-	for (_STL::map<int, int>::iterator it = templates.begin(); it != templates.end(); ++it)
-	{
-		int templateIndex = it->first;
-		const PlayerTemplate *pt = ThePlayerTemplateStore->getNthPlayerTemplate(templateIndex);
-		if (pt && pt->m_151 && !pt->m_150)
-		{
-			if (!entry || Rva00441E4DFaction(entry, pt->m_side))
-			{
-				UnicodeString name = pt->getDisplayName();
-				index = GadgetComboBoxAddEntry(comboBox, name, color->m_color);
-				GadgetComboBoxSetItemData(comboBox, index, (void *)templateIndex);
-				if (previous == templateIndex)
-					select = index;
-			}
-		}
-	}
-	if (!entry && allowObserver)
-	{
-		index = GadgetComboBoxAddEntry(comboBox, TheGameText->fetch("GUI:Observer"), TheMultiplayerSettings->getColor(-2)->m_color);
-		GadgetComboBoxSetItemData(comboBox, index, (void *)-2);
-		if (previous == -2)
-			select = index;
-	}
-	GadgetComboBoxSetSelectedPos(comboBox, select, false);
-	GadgetComboBoxSetMaxDisplay(comboBox, Rva0043DDF8(slot));
+    GameWindow** combo = &m_player[slot];
+    if (!*combo) return;
+    int mode=m_60.m_mode;
+    bool mode1=mode==1;
+    bool allowAI;
+    bool allowOpen;
+    UnicodeString previousText;
+    int previous = Rva00322910(*combo);
+    if (previous == -1) previousText = GadgetComboBoxGetText(*combo);
+    else previous = (int)GadgetComboBoxGetItemData(*combo,previous);
+    GadgetComboBoxReset(*combo);
+    GadgetComboBoxGetListBox(*combo)->winSetTooltipFunc(AptMpPlayerComboTooltip);
+    allowAI=true;
+    GameInfo* game=(GameInfo*)m_game->rva0043DA65();
+    if(game && !mode1) {
+        const MapMetaData* map=TheMapCache->findMap(game->getMap());
+        if(map) {
+            allowAI=false;
+            for(int i=0;i<map->numPlayers;++i) {
+                if(map->positions[i].flags[1]) { allowAI=true; break; }
+            }
+        }
+    }
+    if(m_rules.m_04==1) allowAI=false;
+    int selected=-1;
+    if(game && game->v13()==slot) {
+        UnicodeString empty;
+        int index=GadgetComboBoxAddEntry(*combo,empty,AptLobbyRandomColorTint);
+        GadgetComboBoxSetItemData(*combo,index,(void*)0);
+    } else {
+        allowOpen=!(m_flags&2);
+        if(m_owner->v01() && mode1) {
+            if(allowOpen && game) {
+                for(int i=1;i<8;++i) {
+                    GameSlot* g=game->getSlot(i);
+                    if(g) {
+                        if(g->m_state==0) {allowOpen=i==slot;break;}
+                        if(g->isHuman() && !g->isObserver()) {allowOpen=false;break;}
+                    }
+                }
+            }
+        }
+        int index;
+        if(allowOpen) {
+            index=GadgetComboBoxAddEntry(*combo,TheGameText->fetch("GUI:Open"),AptLobbyRandomColorTint);
+            GadgetComboBoxSetItemData(*combo,index,(void*)0);
+            if(previous==0) selected=index;
+        } else if(previous==0) previous=1;
+        index=GadgetComboBoxAddEntry(*combo,TheGameText->fetch("GUI:Closed"),AptLobbyRandomColorTint);
+        GadgetComboBoxSetItemData(*combo,index,(void*)1);
+        if(previous==1) selected=index;
+        if(allowAI) {
+            if(TheGlobalData->modeFlags&1) allowAI=false;
+            if(TheGlobalData->modeFlags&2) {
+                allowAI=false;
+                index=GadgetComboBoxAddEntry(*combo,TheGameText->fetch("GUI:EasyAI"),AptLobbyRandomColorTint);
+                GadgetComboBoxSetItemData(*combo,index,(void*)2);
+                if(previous==2) selected=index;
+            }
+        }
+        if(allowAI) {
+            index=GadgetComboBoxAddEntry(*combo,TheGameText->fetch("GUI:EasyAI"),AptLobbyRandomColorTint);
+            GadgetComboBoxSetItemData(*combo,index,(void*)2);
+            if(previous==2) selected=index;
+            index=GadgetComboBoxAddEntry(*combo,TheGameText->fetch("GUI:MediumAI"),AptLobbyRandomColorTint);
+            GadgetComboBoxSetItemData(*combo,index,(void*)3);
+            if(previous==3) selected=index;
+            index=GadgetComboBoxAddEntry(*combo,TheGameText->fetch("GUI:HardAI"),AptLobbyRandomColorTint);
+            GadgetComboBoxSetItemData(*combo,index,(void*)4);
+            if(previous==4) selected=index;
+            index=GadgetComboBoxAddEntry(*combo,TheGameText->fetch("GUI:BrutalAI"),AptLobbyRandomColorTint);
+            GadgetComboBoxSetItemData(*combo,index,(void*)5);
+            if(previous==5) selected=index;
+        }
+    }
+    if(selected==-1) {
+        if(previousText.compare((const unsigned short*)L"")) GadgetComboBoxSetText(*combo,previousText);
+        else GadgetComboBoxSetSelectedPos(*combo,0,false);
+    } else GadgetComboBoxSetText(*combo,previousText);
 }
