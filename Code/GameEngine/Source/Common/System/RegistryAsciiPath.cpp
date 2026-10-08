@@ -123,6 +123,7 @@ struct AsciiStringRef
 struct AsciiStringRefWithChar : AsciiStringRef
 {
 	int write(char *dst);
+	operator AsciiString();
 
 	char m_char;
 };
@@ -873,3 +874,17 @@ private:
  _STL::vector<Rva005F9813Record> records50;
 };
 Rva005F9877::~Rva005F9877() {}
+
+// Native005C7CC9..005C7D37 is a complete110B materializer, RET4 at5C7D34.
+// The inventory extent129B also contains a distinct19B timer-delegate
+// constructor at5C7D37..5C7D4A (RET8), so it is not this body's boundary.
+// Caller5C7F5B supplies a {string-ref, char} node and a hidden string result;
+// existing writer2C7A7 and copy/release workers prove the conversion ABI.
+// WB5E1760 independently sizes the left string plus one and returns a copy.
+// Semantic source: this unit's verified string-expression materializers.
+AsciiStringRefWithChar::operator AsciiString()
+{
+ AsciiString tmp;
+ write(tmp.getBufferForRead(m_string->getLength() + 1));
+ return tmp;
+}
