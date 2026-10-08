@@ -6581,16 +6581,6 @@ void __cdecl rva007B9702()
 	return p->Rva005C47A3::~Rva005C47A3();
 }
 
-extern unsigned g_Va00E062D8;
-unsigned int g_Va00E062D8;
-
-// ?rva007B945A@@YAXXZ @ 0x007B945A (10B). Global Rva00200667 dtor thunk: ecx=&g_Va00E062D8 then tail-jmp to pinned ??1Rva00200667@@QAE@XZ (0x00200667; deleting dtor 0x002821B3). No callers. Honest address name.
-void __cdecl rva007B945A()
-{
-	Rva00200667 *p = (Rva00200667 *)&g_Va00E062D8;
-	return p->~Rva00200667();
-}
-
 extern unsigned g_Va00E06654;
 unsigned int g_Va00E06654;
 
