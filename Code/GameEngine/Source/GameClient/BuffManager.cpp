@@ -23,6 +23,7 @@ class BuffInstance
 {
 public:
 	void TurnOff(bool immediate);
+	bool MakeNormalBuff(int type, int subtype, void *thingTemplate, void *drawable, int duration);
 	bool MakeGlowOutlineBuff(int type, int subtype, void *drawable, int duration, int color, float intensity);
 
 private:
@@ -39,9 +40,11 @@ class BuffManager
 {
 public:
 	void TurnOffBuff(int type, bool immediate);
+	void TurnOnBuff(int type, void *thingTemplate, int duration, int color, float intensity);
 
 private:
-	char m_pad00[0x08];
+	char m_pad00[0x04];
+	void *m_drawable;
 	BuffInstance m_buffs[9]; // +0x08, by buff type (1..8)
 };
 
@@ -113,4 +116,33 @@ bool BuffInstance::MakeGlowOutlineBuff(int type, int subtype, void *drawable, in
 		(theDebug->CrashBegin(0, 0, 0) << "GlowOutline buffs are no longer supported. They need to be removed from an INI file.").CrashDone(2);
 	}
 	return 0;
+}
+
+// Retail uses nine 8-byte mask/subtype records at VA 0x00DC0138.
+// Field meanings follow the named WB wrapper and its unnamed update callee;
+// the original table symbol and update method name remain unknown.
+struct BuffTypeConfig {
+    unsigned int mask;
+    int subtype;
+};
+extern BuffTypeConfig g_00DC0138[9];
+class Rva0036276F {
+public:
+    void rva0036276F();
+};
+void BuffManager::TurnOnBuff(int type, void *thingTemplate, int duration, int color, float intensity)
+{
+    if (type < 9 && type >= 1) {
+        switch (g_00DC0138[type].subtype) {
+        case 1:
+            if (m_buffs[type].MakeNormalBuff(type, 1, thingTemplate, m_drawable, duration))
+                reinterpret_cast<Rva0036276F *>(this)->rva0036276F();
+            break;
+        case 2:
+            m_buffs[type].MakeGlowOutlineBuff(type, 2, m_drawable, duration, color, intensity);
+            break;
+        default:
+            break;
+        }
+    }
 }
