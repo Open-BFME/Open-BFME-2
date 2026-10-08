@@ -9,7 +9,8 @@ extern "C" __declspec(dllimport) void *__stdcall ShellExecuteW(void *,const unsi
 bool GetStringFromRegistry(AsciiString,AsciiString,AsciiString &);
 void GSMessageBoxOk(UnicodeString,UnicodeString,void (*)());
 void bfmeMinimizeCurrentThreadWindow();
-extern int g_Va00E062EC;
+class BfmeObjELB { public: void bfmeTailELB(bool); };
+extern BfmeObjELB *g_bfmeObjELB;
 class GameTextInterface {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
@@ -24,7 +25,7 @@ public: void OnBttnRegisterFESL(const char *);
 };
 void AptOnlineLogin::OnBttnRegisterFESL(const char *)
 {
-    if(g_Va00E062EC) {
+    if(g_bfmeObjELB) {
         AsciiString path("");
         if(GetStringFromRegistry("","InstallPath",path) && !path.isEmpty()) {
             path.concat("\\SUPPORT\\EREG.EXE");
