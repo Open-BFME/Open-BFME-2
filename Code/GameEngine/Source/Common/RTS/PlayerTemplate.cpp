@@ -47,6 +47,7 @@ class PlayerTemplate : public Overridable
 public:
 	PlayerTemplate();
     virtual ~PlayerTemplate();
+    static void parseStartMoney(INI *ini, void *instance, void *store, const void *userData);
     NameKeyType m_nameKey; // +0x10
     char display14[4];
     AsciiString side;
@@ -119,7 +120,7 @@ const PlayerTemplate *PlayerTemplateStore::getNthPlayerTemplate(int index) const
 	return 0;
 }
 
-class INI { public: const char *getNextToken(const char *); char prefix[8]; int mode; };
+class INI { public: const char *getNextToken(const char *); static void parseInt(INI *ini, void *instance, void *store, const void *userData); char prefix[8]; int mode; };
 class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern PlayerTemplateStore *ThePlayerTemplateStore;
@@ -190,4 +191,31 @@ void PlayerTemplateStore::parsePlayerTemplateDefinition(INI *ini)
         }
         if(index!=-1) ThePlayerTemplateStore->playableIndices.insert(index);
     }
+}
+
+// ?parseStartMoney@PlayerTemplate@@SAXPAVINI@@PAX1PBX@Z, retail 0x001FD1B7..
+// 0x001FD1E8 (49 bytes): Zero Hour's PlayerTemplate::parseStartMoney. The
+// money is parsed as a plain int (rowed INI::parseInt), the Money object is
+// initialised inline (+0x04 cleared) and the amount deposited through the
+// rowed 0x003B0D7C with no player and its sound flag set. WorldBuilder's twin
+// (0x00A76C10) is unnamed.
+class Rva0039B7AD;
+
+class Rva003B0D7C
+{
+public:
+	void init() { m_money = 0; }
+	void rva003B0D7C(int amount, Rva0039B7AD *player, bool playSound);	// Money::deposit
+private:
+	int m_pad00;
+	int m_money;		// +0x04
+};
+
+void PlayerTemplate::parseStartMoney(INI *ini, void *instance, void *store, const void * /*userData*/)
+{
+	int money = 0;
+	INI::parseInt(ini, instance, &money, 0);
+	Rva003B0D7C *theMoney = (Rva003B0D7C *)store;
+	theMoney->init();
+	theMoney->rva003B0D7C(money, 0, true);
 }
