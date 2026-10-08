@@ -979,6 +979,108 @@ Bool BuildAssistant::isRemovableForConstruction(Object *obj)
 	return false;
 }
 
+// BuildAssistant::isPossibleToMakeUnit, retail 0x00392AD7 (vslot 25).
+Bool BuildAssistant::isPossibleToMakeUnit( Object *builder, const ThingTemplate *whatToBuild, Int revivalIndex ) const
+{
+	if( builder == NULL )
+		return FALSE;
+	if( whatToBuild == NULL && revivalIndex == -1 )
+		return FALSE;
+
+	Bool isRevival = (revivalIndex != -1);
+
+	if( whatToBuild )
+	{
+		for( BehaviorModule **m = builder->getBehaviorModules(); *m; ++m )
+		{
+			Rva00392B10Interface *bi = (*m)->slot11();
+			if( bi == NULL )
+				continue;
+			if( bi->slot00() == whatToBuild->getName() )
+				return TRUE;
+		}
+	}
+
+	const CommandSet *commandSet = TheControlBar->findCommandSet( builder->rva00290E67() );
+	if( commandSet == NULL )
+		return FALSE;
+
+	const CommandButton *commandButton = NULL;
+	Int revivalCount = 0;
+	for( Int i = 0; i < MAX_COMMANDS_PER_SET; i++ )
+	{
+		const CommandButton *button = commandSet->getCommandButton( i );
+		if( button == NULL )
+			continue;
+
+		if( !isRevival )
+		{
+			if( (button->getCommandType() == GUI_COMMAND_UNIT_BUILD ||
+				 button->getCommandType() == GUI_COMMAND_53 ||
+				 button->getCommandType() == GUI_COMMAND_DOZER_CONSTRUCT) &&
+				button->rva0035B570()->isEquivalentTo( whatToBuild ) )
+			{
+				Bool ok = TRUE;
+				Bool needUpgrade = (button->getOptions() & NEED_UPGRADE) != 0;
+				if( needUpgrade )
+				{
+					const UpgradeTemplateList &upgrades = button->getNeededUpgrades();
+					Int count = 0;
+					for( UnsignedInt j = 0; j < upgrades.size(); j++ )
+					{
+						const UpgradeTemplate *upgrade = upgrades[j];
+						if( upgrade == NULL )
+							continue;
+
+						Bool has;
+						if( upgrade->getUpgradeType() == UPGRADE_TYPE_OBJECT )
+							has = builder->rva00290D2B( upgrade );
+						else if( upgrade->getUpgradeType() == UPGRADE_TYPE_PLAYER )
+							has = builder->getControllingPlayer()->rva002AB87D( upgrade );
+						else
+							continue;
+
+						if( has )
+						{
+							count++;
+							if( button->isAnyUpgradeEnough() )
+								break;
+						}
+					}
+					if( button->isAnyUpgradeEnough() )
+						ok = count > 0;
+					else
+						ok = count == upgrades.size();
+				}
+				if( ok )
+				{
+					commandButton = button;
+					break;
+				}
+			}
+		}
+		else if( button->getCommandType() == GUI_COMMAND_46 )
+		{
+			if( revivalCount == revivalIndex )
+			{
+				commandButton = button;
+				break;
+			}
+			revivalCount++;
+		}
+	}
+
+	if( commandButton == NULL )
+		return FALSE;
+
+	Player *player = builder->getControllingPlayer();
+	if( !isRevival && !player->canBuild( commandButton->rva0035B570() ) )
+		return FALSE;
+	if( isRevival && !player->m_revivalTracker.rva0037E7BC( revivalIndex ) )
+		return FALSE;
+	return TRUE;
+}
+
 // BuildAssistant::clearRemovableForConstruction, retail 0x003940B8.
 void BuildAssistant::clearRemovableForConstruction( const ThingTemplate *whatToBuild,
 													const Coord3D *pos, Real angle )
