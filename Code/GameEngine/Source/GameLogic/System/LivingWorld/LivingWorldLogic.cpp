@@ -499,6 +499,8 @@ public:
 	void MarkTroopForUpgrades(Int entryID, LivingWorldArmy *army, const Rva004E0632 *upgrades);
 	void CancelTroopUpgrades(Int entryID, LivingWorldArmy *army);
 	void StartAutoResolveBattle(Int battle);
+	void rva002BD90D(UnsignedInt flags, Int battle);
+	Bool rva002B89E1(Int battle);
 	void rva002BD544(Int campaign);
 	void rva002B84CD(Int campaign); // native thiscall, ret 4
 	void rva002B47C3(); // native thiscall; WB preserves the receiver
@@ -1254,8 +1256,12 @@ struct Rva002B4C35Player
 {
 	unsigned char m_pad00[0x14];
 	Int m_id;						// +0x14
-	unsigned char m_pad18[0x1b8 - 0x18];
+	unsigned char m_pad18[0x44 - 0x18];
+	Int m_field44;
+	unsigned char m_pad48[0x1b8 - 0x48];
 	_STL::vector<LivingWorldArmy *> m_armies;		// +0x1B8
+	unsigned char m_pad1C4[0x2b4 - 0x1c4];
+	Int m_field2B4;
 };
 
 // The two callees, rowed and pinned under placeholder names: the unowned
@@ -2220,4 +2226,31 @@ void LivingWorldLogic::rva002B84CD(Int campaign)
     ((Rva0020E9F2Outer *)m_field0B0)->rva0020E9F2();
     rva002B49A8();
     EnforceArmyRegionOwnership();
+}
+
+// Native 0x002BD90D..0x002BD9B4: flags 2 and 8 select the battle path.
+// Each selected path first clears player +0x2B4 when player +0x44 is zero.
+// These field meanings and the public method name remain unresolved.
+void LivingWorldLogic::rva002BD90D(UnsignedInt flags, Int battle)
+{
+	if (flags & 2)
+	{
+		for (UnsignedInt i = 0; i < m_players.size(); ++i)
+		{
+			Rva002B4C35Player *player = (Rva002B4C35Player *)m_players[i];
+			if (player != 0 && player->m_field44 == 0)
+				player->m_field2B4 = 0;
+		}
+		StartAutoResolveBattle(battle);
+	}
+	else if (flags & 8)
+	{
+		for (UnsignedInt i = 0; i < m_players.size(); ++i)
+		{
+			Rva002B4C35Player *player = (Rva002B4C35Player *)m_players[i];
+			if (player != 0 && player->m_field44 == 0)
+				player->m_field2B4 = 0;
+		}
+		rva002B89E1(battle);
+	}
 }
