@@ -52,10 +52,13 @@ class BannerUI
 {
 public:
 	static void ParseBannerTypeInfo(INI *ini);
+ void init();
  const AsciiString &GetBannerIconImageName(const AsciiString &key);
 private:
  unsigned char m_pad00[0x0C];
  Rva00056F61 m_types;
+ unsigned char m_unmodelled20[4];
+ int m_windowIndex;
 };
 
 void BannerUI::ParseBannerTypeInfo(INI *ini)
@@ -115,4 +118,39 @@ void *Rva00217194Types::rva00216F91(const AsciiString &name) {
  {Rva0041534BIter it=((Rva00056F61 *)this)->rva0041534B(&name);node=it.m_node;}
  return !node ? (char*)((Rva000427195*)this)->rva00216D5C(
   BannerTypePair(name,Gen_003A8BE0()))+4 : (char*)node+8;
+}
+
+// BFME1 BannerUI::init at donor ba7ddda is the semantic lead. BFME2 WB
+// B6D600 and native216035..216094 prove the guard, slot20, two by-value
+// strings, two zero arguments, and returned window index at+24. BFME1's
+// third argument and separate callback registration are absent in BFME2.
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+class BannerWindowLoader {
+public:
+ virtual void unusedSlot0()=0;
+ virtual void unusedSlot1()=0;
+ virtual void unusedSlot2()=0;
+ virtual void unusedSlot3()=0;
+ virtual void unusedSlot4()=0;
+ virtual void unusedSlot5()=0;
+ virtual void unusedSlot6()=0;
+ virtual void unusedSlot7()=0;
+ virtual void unusedSlot8()=0;
+ virtual void unusedSlot9()=0;
+ virtual void unusedSlot10()=0;
+ virtual void unusedSlot11()=0;
+ virtual void unusedSlot12()=0;
+ virtual void unusedSlot13()=0;
+ virtual void unusedSlot14()=0;
+ virtual void unusedSlot15()=0;
+ virtual void unusedSlot16()=0;
+ virtual void unusedSlot17()=0;
+ virtual void unusedSlot18()=0;
+ virtual void unusedSlot19()=0;
+ virtual int loadWindow(AsciiString directory,AsciiString movie,int arg1,int arg2)=0;
+};
+void BannerUI::init() {
+ if(g_00DFE32C)
+  m_windowIndex=((BannerWindowLoader*)g_bfmeAptWindowManager)->loadWindow("Apt\\","BannerUI.apt",0,0);
 }
