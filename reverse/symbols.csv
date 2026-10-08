@@ -16219,3 +16219,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva004DDDA4@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva004DD9E3@@@Z,0x004DDDA4,
 ?erase@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAEXU?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@2@@Z,0x005530A8,set<int> spelling of the folded POD tree erase(iterator); REL32 read at 0x003A23EF in Team::rva003A23A5 erasing the found ObjectID node of the +0x130 set; fold-proof=Code/GameEngine/Source/Common/RTS/TeamGateMembership.cpp
 ?rva00337DEF@LuaScriptEngine@@QAEPAURva00336283Element@@ABVAsciiString@@@Z,0x00337DEF,REL32 call at 0x0039F18E in Team::updateState with ecx = TheLuaScriptEngine (VA 0x00E01DBC) and the template info +0xC4 string; Ghidra function start 0x337DEF (187B) sorted record vector lookup by name; address-derived name
+?rva00464120@TunnelContain@@QAEXXZ,0x00464120,callee of ?rva0047DFFF@TunnelContain@@QAEXXZ
