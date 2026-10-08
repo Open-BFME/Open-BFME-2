@@ -213,7 +213,7 @@ public:
 	virtual UpdateSleepTime update();
 	void computeAggregateStates();
 	Bool shouldTryToSpawn();
-	Bool rva0045F9D8();
+	Bool reclaimOrphanSpawn();
 
 private:
 	Bool createSpawn();
@@ -292,7 +292,7 @@ UpdateSleepTime SpawnBehavior::update()
 		{
 			if (TheGameLogic->getFrame() > (UnsignedInt)*it)
 			{
-				if (rva0045F9D8())
+				if (reclaimOrphanSpawn())
 					it = m_replacementTimes.erase(it);
 				else if (createSpawn())
 					it = m_replacementTimes.erase(it);

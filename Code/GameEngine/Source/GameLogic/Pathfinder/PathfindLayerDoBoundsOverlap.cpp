@@ -22,7 +22,7 @@ struct IRegion2D
 class PolygonTrigger
 {
 public:
-	void rva002E3978(int *bounds); // getBounds, rowed under its address name
+	void getBounds(int *bounds); // rowed 0x002E3978
 	PolygonTrigger *getNext() { return m_nextPolygonTrigger; }
 
 private:
@@ -45,7 +45,7 @@ bool PathfindLayer::DoBoundsOverlap(const IRegion2D *bounds)
 	for (PolygonTrigger *trigger = m_triggers; trigger; trigger = trigger->getNext())
 	{
 		IRegion2D triggerBounds;
-		trigger->rva002E3978((int *)&triggerBounds);
+		trigger->getBounds((int *)&triggerBounds);
 		if (bounds->hi.x + 10 > triggerBounds.lo.x && bounds->hi.y + 10 > triggerBounds.lo.y &&
 			bounds->lo.x - 10 < triggerBounds.hi.x && bounds->lo.y - 10 < triggerBounds.hi.y)
 			return true;

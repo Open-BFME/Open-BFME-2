@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 //
-// ?rva0045F9D8@SpawnBehavior@@QAE_NXZ, retail 0x0045F9D8, 127 bytes.
+// ?reclaimOrphanSpawn@SpawnBehavior@@QAE_NXZ, retail 0x0045F9D8, 127 bytes.
 // Identity: BFME 2 moves Zero Hour's orphan reclaiming out of createSpawn
 // (whose rowed BFME 2 body 0x0045FA57 has none) into this helper: with the
 // module data's m_canReclaimOrphans (+0x15) set it asks the rowed orphan
@@ -85,7 +85,7 @@ public:
 class SpawnBehavior
 {
 public:
-	Bool rva0045F9D8();
+	Bool reclaimOrphanSpawn();
 	Object *rva0045F4D7();
 
 private:
@@ -100,8 +100,8 @@ private:
 	_STL::list<ObjectID> m_spawnIDs;
 };
 
-// ?rva0045F9D8@SpawnBehavior@@QAE_NXZ
-Bool SpawnBehavior::rva0045F9D8()
+// ?reclaimOrphanSpawn@SpawnBehavior@@QAE_NXZ
+Bool SpawnBehavior::reclaimOrphanSpawn()
 {
 	Object *parent = getObject();
 	if (parent == NULL)

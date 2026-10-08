@@ -52,7 +52,7 @@ public:
 class SpawnBehavior : public SpawnBehaviorUpdateBase, public SpawnBehaviorInterface
 {
 public:
-	Bool rva0045F9D8();
+	Bool reclaimOrphanSpawn();
 	virtual void rva004601CC();
 
 private:
@@ -65,7 +65,7 @@ void SpawnBehavior::rva004601CC()
 {
 	for (_STL::list<Int>::iterator it = m_replacementTimes.begin(); it != m_replacementTimes.end();)
 	{
-		if (TheGameLogic->getFrame() > *it && rva0045F9D8())
+		if (TheGameLogic->getFrame() > *it && reclaimOrphanSpawn())
 			it = m_replacementTimes.erase(it);
 		else
 			++it;

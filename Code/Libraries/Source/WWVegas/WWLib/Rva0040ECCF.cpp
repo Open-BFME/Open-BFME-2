@@ -129,7 +129,7 @@ class ArmySummaryEntry : public Rva0040F454Target
 {
 public:
 	ArmySummaryEntry();
-	void rva0040C5FA(INI *ini);
+	void Parse(INI *ini);
 
 private:
 	char m_padB4[0xC8 - 0xB4];
@@ -197,7 +197,7 @@ void ArmySummary::parseArmyEntry(INI *ini, void *instance, void *store, const vo
 {
 	ArmySummaryEntry *army = new ArmySummaryEntry;
 	Rva004F6093Holder holder(army);
-	army->rva0040C5FA(ini);
+	army->Parse(ini);
 	((ArmySummary *)instance)->AddArmyEntry(holder);
 }
 

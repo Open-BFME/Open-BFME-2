@@ -51,7 +51,7 @@ public:
 	PolygonTrigger *getNext() { return m_nextPolygonTrigger; }
 	Region2D rva0007E03A();
 	void getBounds(FloatRect0073CE30 *rect);
-	void rva002E3978(int *out);
+	void getBounds(int *out);
 
 private:
 	unsigned char m_pad00[0x08];
@@ -98,12 +98,12 @@ __forceinline long fast_float2long_round(float f)
 	return i;
 }
 
-// ?rva002E3978@PolygonTrigger@@QAEXPAH@Z retail 0x002E3978 155B
+// ?getBounds@PolygonTrigger@@QAEXPAH@Z retail 0x002E3978 155B
 // PolygonTrigger int-bounds: null-checked; region via rowed rva0007E03A then
 // floor x_min/y_min and ceil x_max/y_max into 4 ints. Callers 0x003665E3
 // 0x0027F196 name PolygonTrigger this. floor/ceil come from <math.h> (the
 // CRT import declarations); a hand prototype missed retail's codegen.
-void PolygonTrigger::rva002E3978(int *out)
+void PolygonTrigger::getBounds(int *out)
 {
 	if (!out)
 		return;

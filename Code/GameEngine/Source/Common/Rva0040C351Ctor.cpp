@@ -32,7 +32,7 @@ class ArmySummaryEntry : public Rva0037DF2C
 public:
 	ArmySummaryEntry();
 	ArmySummaryEntry(const ArmySummaryEntry &o);
-	void rva0040C5FA(class INI *ini);
+	void Parse(class INI *ini);
 	void MarkForUpgrades(const class Rva004E0632 *a);
 	void CancelUpgrades();
 private:
@@ -105,7 +105,7 @@ ArmySummaryEntry::ArmySummaryEntry(const ArmySummaryEntry &o) : Rva0037DF2C(o), 
 	m_c5 = o.m_c5;
 }
 
-void ArmySummaryEntry::rva0040C5FA(INI *ini)
+void ArmySummaryEntry::Parse(INI *ini)
 {
 	MultiIniFieldParse parse;
 	parse.add(&g_00C39474, 0);
