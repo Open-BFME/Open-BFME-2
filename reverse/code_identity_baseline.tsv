@@ -2423,7 +2423,6 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp	?rva00338317R
 Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp	?rva00338317RegisterScriptFunctions@LuaScriptEngine@@QAEXXZ	?ObjectCapturingObjectPlayerSide@@YAHPAUlua_State@@@Z	0x00334F2E	unowned
 Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp	?rva00338317RegisterScriptFunctions@LuaScriptEngine@@QAEXXZ	?ObjectChangeAllegianceFromNonPlayablePlayer@@YAHPAUlua_State@@@Z	0x00334C9F	unowned
 Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp	?rva00338317RegisterScriptFunctions@LuaScriptEngine@@QAEXXZ	?ObjectTestCanSufferFear@@YAHPAUlua_State@@@Z	0x0033508F	unowned
-Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp	?rva00338317RegisterScriptFunctions@LuaScriptEngine@@QAEXXZ	_luaV_Cclosure	0x00747640	wrong
 Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISPecialPowerTargetAoE.cpp	?rva005EE5D7@Rva005EE816@@QAEIPAVObject@@_NPAV?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@@Z	?push_back@?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAEXABQAVObject@@@Z	0x001F211B	unowned
 Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISPecialPowerTargetAoE.cpp	?rva005EE816@Rva005EE816@@QAE_NPAXPBVCoord3D@@@Z	?rva0035B2C3@Rva0035B2C3@@QAE_NPAXHPBVCoord3D@@H@Z	0x0035B2C3	unowned
 Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpecialPowerPickers.cpp	?rva005D75BE@Rva005EE816@@QAE_NPAVObject@@@Z	?rva005EE8DD@Rva005EE816@@QAE_NPBUCoord3D@@PAVObject@@@Z	0x005EE8DD	unowned
