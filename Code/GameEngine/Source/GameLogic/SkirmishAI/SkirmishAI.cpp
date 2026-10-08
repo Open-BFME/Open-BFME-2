@@ -107,7 +107,17 @@ class AIBuilder
 {
 public:
 	void onUnitCreated(Object *object, Object *other, bool isHorde);	// 0x004EC3AC
+	void update(); // WB 0x0136EAF0; native 0x004ECB19
 };
+
+class Rva004E93A8 { public: int rva004E93A8(); };
+class Rva004E9600;
+class Rva002A8F24 {
+public:
+ Rva004E9600 *rva002A8B24(void *key);
+};
+extern Rva002A8F24 *g_00DFEEF8;
+class Rva00506B1B { public: void rva00506B2F(); };
 
 // Native TacticalAI +0x10 is the tactics generator. WB names the two
 // forwarding members; their retail tails reach its established Team methods.
@@ -135,21 +145,54 @@ public:
 	void UnRegister(Team *team);
 	void onUnitCreated(Object *object, Object *other);
 	void onHordeCreated(Object *object, Object *other);
-	void doSpecialSlaveAIDying();
-	void doSpecialMasterAIDying();
+	__declspec(noinline) void doSpecialSlaveAIDying();
+	__declspec(noinline) void doSpecialMasterAIDying();
 	void transferUnitsToPlayer(Player *player);		// 0x002C6AFA
 	Int resetMaster();					// 0x002C68CE
 	void doSpecialSlaveAIUpdate();				// 0x002C6879
+	void update();
+	void updatePhase();
 
 private:
 	unsigned char m_pad000[0x15C];
 	Player *m_player;					// +0x15C
-	unsigned char m_pad160[4];
+	Int m_specialMaster160; // native update tests +0x160 after count == 1
 	TacticalAI *m_tacticalAI;			// +0x164
 	bool m_disabled168;					// +0x168, set: creations are ignored
 	unsigned char m_pad169[0x178 - 0x169];
 	Int m_masterPlayerIndex;				// +0x178
 };
+
+// WB E8A830 names update and its special slave/master paths. Native
+// 002C6BFF..002C6C8E fixes the 143-byte extent and the release-build shape:
+// disabled flag +168, master index +178, player +15C, tactical delegate +164.
+// The registry lookup returns the same receiver immediately passed to the
+// rowed count provider 4E93A8; its semantic class name remains unresolved.
+// The tactical delegate is passed unchanged to the rowed +4-flag dispatcher
+// 506B2F. These casts preserve the existing address-named provider contracts.
+void SkirmishAI::update()
+{
+ if (!m_disabled168) {
+  if (!m_player->get()) {
+   if (m_masterPlayerIndex != -1)
+    doSpecialSlaveAIUpdate();
+   updatePhase();
+   AIBuilder::update();
+   reinterpret_cast<Rva00506B1B *>(m_tacticalAI)->rva00506B2F();
+  } else {
+   if (m_masterPlayerIndex == -1)
+    doSpecialMasterAIDying();
+   else
+    doSpecialSlaveAIDying();
+   m_disabled168 = true;
+  }
+ } else {
+  unsigned int count = reinterpret_cast<Rva004E93A8 *>(
+   g_00DFEEF8->rva002A8B24(m_player))->rva004E93A8();
+  if (count > 1 || (count == 1 && m_specialMaster160 != 0))
+   reinterpret_cast<Rva00506B1B *>(m_tacticalAI)->rva00506B2F();
+ }
+}
 
 // SkirmishAI::doSpecialSlaveAIDying, retail 0x002C6BE1.
 void SkirmishAI::doSpecialSlaveAIDying()
