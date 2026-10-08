@@ -16154,3 +16154,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0020C5C7@Rva0020D451Engine@@QAEXPAX00@Z,0x0020C5C7,unrowed thiscall callee of 0x20D451 (retail 0x20C5C7)
 ?rva00329339@@YAXPAURva003294B3Obj@@H@Z,0x00329339,callee of ?rva003294B3@@YAXPAURva003294B3Obj@@HH@Z
 ?rva0032927A@@YAXPAURva003294B3Obj@@H@Z,0x0032927A,callee of ?rva003294B3@@YAXPAURva003294B3Obj@@HH@Z
+?rva004E00D9@Rva004E02D7Owner@@QAEXXZ,0x004E00D9,address-named callee of 0x004E02D7 (unnamed follow-up member; byte gate is the proof)
