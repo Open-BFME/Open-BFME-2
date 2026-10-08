@@ -42,13 +42,14 @@ struct Rva000C14BDTarget
 {
 	virtual void v00();
 	virtual void v01();
-	virtual void v02();
+	virtual const char *v02();
 	virtual void *v03();
 };
 
 class Rva000B8F5A
 {
 public:
+	AsciiString rva000C146D(int i);
 	void rva000B8F5A(char *a, AsciiString b);
 	void rva000BFD77();
 	void rva000BFD9F();
@@ -151,4 +152,20 @@ void *Rva000B8F5A::rva000C14BD(int i)
 	if (ve->m_ptr00 == 0)
 		return 0;
 	return ((Rva000C14BDTarget *)ve->m_ptr00)->v03();
+}
+
+// ?rva000C146D@Rva000B8F5A@@QAE?AVAsciiString@@H@Z @0x000C146D 80B
+// Returns a string by value: runs the outer 0xC0386 probe; when the index hits
+// a live +0x104 entry, builds it from the entry target's slot-2 text (0x37BA0),
+// otherwise returns an empty string. The return-object flag at [ebp-4] is the
+// by-value return; indexing the entry twice keeps retail's test-then-reload.
+AsciiString Rva000B8F5A::rva000C146D(int i)
+{
+	((Rva000B8F5AOuter *)((char *)this - 12))->rva000C0386();
+	if (i >= 0 && (unsigned)i < 3)
+	{
+		if (m_entries104[i].m_ptr00 != 0)
+			return AsciiString(((Rva000C14BDTarget *)m_entries104[i].m_ptr00)->v02());
+	}
+	return AsciiString();
 }
