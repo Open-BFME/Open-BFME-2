@@ -26291,3 +26291,7 @@ parseMod canonical string ownership	0x003BA348	403	blocked	Current BF1 9cb Commo
 ?disconnectedCallback@@YAXPAXPBD0@Z	0x0038A324	227	landed	add_match verified Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp 227B
 ?QRCountCallback@@YAHPAXW4qr2_key_type@@0@Z	0x0038DEA6	40	landed	add_match verified Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp 40B
 ?globalKeyChangedCallback@@YAXPAXPBD110@Z	0x0038C5C5	231	landed	add_match verified Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp 231B
+?insertWindowAheadOf@GameWindowManager@@QAEXPAVGameWindow@@0@Z	0x002C0B11	129	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/GameWindowManager_linkWindow.cpp 129B
+?rva00272D03@Drawable@@QAEXI@Z	0x00272D03	58	landed	add_match verified Code/GameEngine/Source/GameClient/DrawableFadeModes.cpp 58B
+?rva00272D3D@Drawable@@QAEXI@Z	0x00272D3D	58	landed	add_match verified Code/GameEngine/Source/GameClient/DrawableFadeModes.cpp 58B
+?loadProgressComplete@ConnectionManager@@QAEXXZ	0x004D02F6	139	partial	EXACT at /O1 /G7 (stash compiles byte-identical) but class_gate refuses the private GameLogic view: needs void processProgressComplete(int) added to Code/GameEngine/Source/Common/GameLogicObjectLookupView.h (full-gate header edit) then land as-is t=12 model=claude-opus-5-5 score=1.0 stash=reverse/attempts/0x004d02f6.cpp

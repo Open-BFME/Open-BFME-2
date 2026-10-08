@@ -71529,3 +71529,6 @@ _VP6_printmodes,,0x001BB830,398,Code/Libraries/Source/VP6/debug.cpp,matched,Clea
 ?disconnectedCallback@@YAXPAXPBD0@Z,,0x0038A324,227,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,
 ?QRCountCallback@@YAHPAXW4qr2_key_type@@0@Z,,0x0038DEA6,40,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,
 ?globalKeyChangedCallback@@YAXPAXPBD110@Z,,0x0038C5C5,231,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,
+?insertWindowAheadOf@GameWindowManager@@QAEXPAVGameWindow@@0@Z,,0x002C0B11,129,Code/GameEngine/Source/GameClient/GUI/GameWindowManager_linkWindow.cpp,matched,
+?rva00272D03@Drawable@@QAEXI@Z,,0x00272D03,58,Code/GameEngine/Source/GameClient/DrawableFadeModes.cpp,matched,
+?rva00272D3D@Drawable@@QAEXI@Z,,0x00272D3D,58,Code/GameEngine/Source/GameClient/DrawableFadeModes.cpp,matched,

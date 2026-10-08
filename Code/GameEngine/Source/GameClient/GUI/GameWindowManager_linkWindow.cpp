@@ -1,6 +1,8 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD
 // GameWindowManager::linkWindow @0x002C0A89 136B, unlinkWindow @0x002C0B92 69B,
-// unlinkChildWindow @0x002C0BD7 110B: the master window list and child links.
+// unlinkChildWindow @0x002C0BD7 110B, insertWindowAheadOf @0x002C0B11 129B:
+// the master window list and child links. Built /O1: insertWindowAheadOf
+// needs its shared exit, and the other three are identical either way.
 // Evidence: neighbours GadgetButtonImageHelpers 0x002C0505 and GameWindowManager_enableWindowsInRange 0x002C0CED same flags; GameWindow next +0x1F8 prev +0x1FC from GameWindowManager_enableWindowsInRange; window list head +0xC tail +0x10, modal head +0x24; callers 0x002C25A6 0x00314083 0x003147B1 and winDestroy 0x002C1173; no callees.
 // Identity: ZH/BFME1 GameWindowManager.cpp linkWindow (insert behind the last
 // modal window, else push front), unlinkWindow and unlinkChildWindow bodies;
@@ -13,6 +15,7 @@ public:
 	GameWindow *m_prev;
 	GameWindow *m_parent;
 	GameWindow *m_child;
+	GameWindow *winGetParent();
 };
 struct ModalWindow
 {
@@ -26,6 +29,7 @@ public:
 	void linkWindow(GameWindow *win);
 	void unlinkWindow(GameWindow *win);
 	void unlinkChildWindow(GameWindow *win);
+	void insertWindowAheadOf(GameWindow *window, GameWindow *aheadOf);
 private:
 	unsigned char m_pad0[0xC];
 	GameWindow *m_windowList;
@@ -64,6 +68,43 @@ void GameWindowManager::linkWindow(GameWindow *win)
 	found->m_next = win;
 	if (win->m_next)
 		win->m_next->m_prev = win;
+}
+// GameWindowManager::insertWindowAheadOf @0x002C0B11 129B: ZH's body
+// unchanged; the parent comes from the pinned out-of-line winGetParent
+// (0x003140A4) and the child head is +0x204.
+void GameWindowManager::insertWindowAheadOf(GameWindow *window, GameWindow *aheadOf)
+{
+	if (window == 0)
+		return;
+
+	if (aheadOf == 0)
+	{
+		linkWindow(window);
+		return;
+	}
+
+	GameWindow *aheadOfParent = aheadOf->winGetParent();
+	if (aheadOfParent == 0)
+	{
+		window->m_prev = aheadOf->m_prev;
+		if (aheadOf->m_prev)
+			aheadOf->m_prev->m_next = window;
+		else
+			m_windowList = window;
+		aheadOf->m_prev = window;
+		window->m_next = aheadOf;
+	}
+	else
+	{
+		window->m_prev = aheadOf->m_prev;
+		if (aheadOf->m_prev)
+			aheadOf->m_prev->m_next = window;
+		else
+			aheadOfParent->m_child = window;
+		aheadOf->m_prev = window;
+		window->m_parent = aheadOfParent;
+		window->m_next = aheadOf;
+	}
 }
 void GameWindowManager::unlinkWindow(GameWindow *win)
 {
