@@ -10,6 +10,9 @@ int __cdecl Rva00527925Fire(void *target, void *level, const char *prefix, const
 int __cdecl Rva0052519DFire(void *target, void *level, const char *prefix, const char *function, int *val);
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
+int __cdecl Rva005F2A52AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *index, float *x, float *y);
+int __cdecl Rva00577C23AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *index, bool *flag);
+
 struct Rva005F2FEFTeam
 {
 	char m_pad[8];
@@ -255,6 +258,7 @@ public:
 	void SetupScrollBar();
 	void OnScrollBarLoaded(const char *name);
 	void rva005F2E85();
+ void Update();
 private:
 	char m_pad00[8];
 	void *m_level08;
@@ -430,4 +434,45 @@ StrategicHUD::ArmyDetailsMovieClip::Impl::IconSlot::IconSlot(Impl *owner, int ap
 	team = m_owner->m_team0C ? m_owner->m_team0C->m_name : "";
 	name.format("_level%u.%s_OnUnitIconSlotLoaded%d", m_owner->m_level08, team, m_aptIndex);
 	AddCommandMapDelegate(name, DelegateDesc(this, &IconSlot::OnLoaded));
+}
+
+void StrategicHUD::ArmyDetailsMovieClip::Impl::Update()
+{
+	if (m_iconSlots._M_start == m_iconSlots._M_finish)
+		return;
+	rva005F2E85();
+	int slotsPerRow = fast_float2long_round(floor(m_iconStageWidth / m_slotWidth));
+	int count = m_iconSlots._M_finish - m_iconSlots._M_start;
+	float x = 0.0f;
+	float y = 0.0f;
+	int column = 0;
+	float lo=1.0f-m_iconStageY;float h=m_slotHeight+y;bool visible=h>lo && m_iconStageHeight-m_iconStageY-1.0f>y;
+	for (int i = 0; i < count; ++i)
+	{
+		IconSlot *slot = (IconSlot *)m_iconSlots._M_start[i];
+		if (slot->m_x != x || slot->m_y != y)
+		{
+			const char *team = m_team0C ? m_team0C->m_name : "";
+			Rva005F2A52AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level08, team, "MoveUnitIconSlot", &slot->m_aptIndex, &x, &y);
+			slot->m_x = x;
+			slot->m_y = y;
+		}
+		if (slot->m_visible != visible)
+		{
+			const char *team = m_team0C ? m_team0C->m_name : "";
+			Rva00577C23AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level08, team, "SetUnitIconSlotVisibility", &slot->m_aptIndex, &visible);
+			slot->m_visible = visible;
+		}
+		if (++column >= slotsPerRow)
+		{
+			column = 0;
+			x = 0.0f;
+			y += m_slotHeight;
+			visible = m_slotHeight + y > 1.0f - m_iconStageY && m_iconStageHeight - m_iconStageY - 1.0f > y;
+		}
+		else
+		{
+			x += m_slotWidth;
+		}
+	}
 }
