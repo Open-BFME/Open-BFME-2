@@ -1,7 +1,33 @@
-// ?doMoveTeamTowardsNearest@ScriptActions@@IAEXABVAsciiString@@0V2@@Z
-// partial score=0.95 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX
+//
+// ScriptActions::doMoveTeamTowardsNearest, retail 0x003C967C (342B; ret 0xC)
+// Target identity: the action dispatcher 0x003CA4BE calls it at 0x003CD301;
+// BFME 1's ScriptActions_doMoveTeamTowardsNearest.cpp and Zero Hour's
+// ScriptActions::doMoveTeamTowardsNearest are the donors for the name and
+// flow. Target body: the team by name (getTeamNamed 0x003584E9), the
+// template (findTemplate 0x002D06CA) and the trigger area
+// (getQualifiedTriggerAreaByName 0x0035768D) are resolved first, then every
+// member (iterate_TeamMemberList 0x00263864, advance 0x00263526) with an AI
+// (+0x258) moves (aiMoveToObject 0x00352ECA, from script) to the closest
+// object (getClosestObject 0x00625360, 3D centre) passing the same three
+// filters as the sibling doMoveUnitTowardsNearest (0x003C9404); a member
+// that finds none ends the action.
+// Target differences from the donor: no object-type-list fallback and the
+// filter chain is BFME 2's linked one. Donor-carried: the thing /
+// polygon-trigger / same-map meaning of the three filters.
+// Shape: DLINK_ITERATOR<Object>::advance and Team::iterate_TeamMemberList are
+// defined inline over the virtual-inheritance Object layout of
+// TeamIterateTeamMemberList.cpp (neither is inlined); with only their
+// declarations the member lands in EAX and is copied to EDI where retail
+// loads EDI directly.
+//
+// The filters are BFME2's partition filter chain as in
+// ScriptActions_doMoveUnitTowardsNearest.cpp: a vptr, the +0x04 link to the
+// next filter (PartitionFilter::link 0x00625790), then each filter's members;
+// address-derived names after allow (slot 1), the ctors being inline.
 #include "ascii_string.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/PartitionRangeQueryCallView.h"
 
 class Object;
 class Player;
@@ -54,13 +80,6 @@ public:
 	bool m_match;
 };
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
-
 enum CommandSourceType
 {
 	CMD_FROM_SCRIPT = 1
@@ -84,14 +103,40 @@ public:
 	AICommandInterface m_commands;	// +0x20
 };
 
-class Object
+class Object;
+
+class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+
+class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
+{
+public:
+	unsigned char m_carrier[4];
+};
+
+class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
+
+class BfmeObjectDlinkBase
+{
+public:
+	Object *dlink_next_TeamMemberList() const;
+};
+
+class BfmeObjectDlinkPad
+{
+public:
+	unsigned char m_pad04[0x34];
+	Coord3D m_pos;			// +0x38
+	unsigned char m_pad44[0x24];
+};
+
+class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
+	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
 {
 public:
 	AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
 	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad000[0x38];
-	Coord3D m_pos;			// +0x38
-	char m_pad044[0x258 - 0x44];
+private:
+	unsigned char m_pad070[0x258 - 0x70];
 	AIUpdateInterface *m_ai;	// +0x258
 };
 
@@ -102,21 +147,27 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-template<class OBJ> class DLINK_ITERATOR
+template<class OBJCLASS>
+class DLINK_ITERATOR
 {
 public:
-	void advance();						// 0x00263526
+	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
+	DLINK_ITERATOR(OBJCLASS *cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc) {}
+	void advance() { if (m_cur) m_cur = ((*m_cur).*(m_getNextFunc))(); }
 	bool done() const { return m_cur == 0; }
-	OBJ *cur() const { return m_cur; }
+	OBJCLASS *cur() const { return m_cur; }
 private:
-	OBJ *m_cur;
-	char m_pad[20];
+	OBJCLASS *m_cur;
+	GetNextFunc m_getNextFunc;
 };
 
 class Team
 {
 public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;	// 0x00263864
+	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_head, &Object::dlink_next_TeamMemberList); }
+private:
+	unsigned char m_pad00[0x38];
+	Object *m_head;
 };
 
 class ScriptEngine
@@ -127,12 +178,6 @@ public:
 };
 extern ScriptEngine *TheScriptEngine;
 
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc,
-		Rva000421C8 *filters);	// 0x00625360
-};
 extern PartitionManager *ThePartitionManager;
 
 #define REALLY_FAR (100000 * 10.0f)
@@ -159,8 +204,8 @@ void ScriptActions::doMoveTeamTowardsNearest(const AsciiString &teamName, const 
 	if (!trig)
 		return;
 
-	DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList();
-	for (Object *obj = iter.cur(); obj; obj = iter.cur()) {
+	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance()) {
+		Object *obj = iter.cur();
 		AIUpdateInterface *ai = obj->getAIUpdateInterface();
 		if (ai) {
 			Object *bestObj = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, FROM_CENTER_3D,
@@ -169,7 +214,6 @@ void ScriptActions::doMoveTeamTowardsNearest(const AsciiString &teamName, const 
 				return;
 			ai->m_commands.aiMoveToObject(bestObj, CMD_FROM_SCRIPT);
 		}
-		iter.advance();
 	}
 }
 
