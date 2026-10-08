@@ -5,35 +5,11 @@
 // The36-byte layout and memberwise copy are read directly from the complete
 // retail body. Its string member calls the established copy at0x365F0.
 // The placement-copy caller at0x63C8F independently links the same value.
-struct BfmeStringRecord00404BF3;
-template <typename T> class StringBase
-{
-public:
-	~StringBase();
-	void set(const StringBase<T> &that);
-	int compare(const StringBase<T> &that) const;
-private:
-	StringBase(const StringBase<T> &);
-	friend class AsciiString;
-	friend struct BfmeStringRecord00404BF3;
-	friend struct S4Name;
-	void *m_data;
-};
-class AsciiString
-{
-public:
-	__forceinline AsciiString(const AsciiString &that)
-	{
-		((StringBase<char> *)this)->StringBase<char>::StringBase(*(const StringBase<char> *)&that);
-	}
-	AsciiString &operator=(const AsciiString &);
-	~AsciiString();
-	static const AsciiString TheEmptyString;
-protected:
-	void releaseBuffer();
-private:
-	void *m_data;
-};
+// Canonical BF2 AsciiString preserves retail's one-pointer string layout and
+// names cleanup through the real releaseBuffer provider instead of the false
+// public StringBase destructor spelling. BF1 revision9cbfb551 record-copy TUs
+// also use the shared header; BF2's releaseBuffer ABI is established separately.
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 struct BfmeStringRecord00063BE4 {
     unsigned int word0, word1, word2, word3, word4, word5, word6;
     AsciiString text;
@@ -129,9 +105,9 @@ template void _STL::_Construct<BfmeStringRecord0040360E,BfmeStringRecord0040360E
 
 // Retail copy 0x00404BF3: the 0x00404BC5 sibling ctor establishes an
 // AsciiString at +0 and five floats at +4..+0x14; their meanings are unknown.
-// StringBase<char> below is the layout-equivalent codegen view for the copy.
+// The shared one-pointer AsciiString now owns the observed string field.
 struct BfmeStringRecord00404BF3 {
-    StringBase<char> text; float f0, f1, f2, f3, f4;
+    AsciiString text; float f0, f1, f2, f3, f4;
     BfmeStringRecord00404BF3(const BfmeStringRecord00404BF3 &o) : text(o.text), f0(o.f0), f1(o.f1), f2(o.f2), f3(o.f3), f4(o.f4) {}
 };
 template void _STL::_Construct<BfmeStringRecord00404BF3,BfmeStringRecord00404BF3>(BfmeStringRecord00404BF3*,const BfmeStringRecord00404BF3&);
@@ -255,7 +231,7 @@ template void _STL::_Construct<BfmeStringRecord00239B46,BfmeStringRecord00239B46
 
 // Retail dtor 0x001EA443 (53B) and deleting dtor 0x001EA4B5 (28B): two
 // narrow-string members at +0/+4 destroyed in reverse order through the
-// pinned StringBase dtor at 0x36410, with /EHsc states. Identity unproven
+// shared string releaseBuffer at 0x36410, with /EHsc states. Identity unproven
 // beyond the string-pair layout shared with BfmeStringRecord001EA478, so
 // both land under an honest Rva address name in this TU (same flags).
 class Rva001EA443
@@ -263,14 +239,14 @@ class Rva001EA443
 public:
 	~Rva001EA443();
 private:
-	StringBase<char> m_text0;
-	StringBase<char> m_text1;
+	AsciiString m_text0;
+	AsciiString m_text1;
 };
 Rva001EA443::~Rva001EA443() {}
 void famgenDelete001EA443(Rva001EA443 *p) { delete p; }
 
 // Retail dtor 0x00395D77 (53B): two narrow-string members at +0/+4 destroyed
-// in reverse order through the pinned StringBase dtor at 0x36410 with /EHsc
+// in reverse order through the shared string releaseBuffer at 0x36410 with /EHsc
 // states. Same 53B shape as 0x001EA443 in this TU (mov eax scope-table reloc
 // plus EH prolog plus two releaseBuffer calls). Callers at 0x3962CE 0x396EF2
 // 0x396F22 0x39933F 0x39A618 plus jmp tail at 0x39698F prove dtor role.
@@ -281,13 +257,13 @@ class Rva00395D77
 public:
 	~Rva00395D77();
 private:
-	StringBase<char> m_text0;
-	StringBase<char> m_text1;
+	AsciiString m_text0;
+	AsciiString m_text1;
 };
 Rva00395D77::~Rva00395D77() {}
 
 // Retail dtor 0x00568C4E (53B): two narrow-string members at +0/+4 destroyed
-// in reverse order through the pinned StringBase dtor at 0x36410 with /EHsc
+// in reverse order through the shared string releaseBuffer at 0x36410 with /EHsc
 // states. Same 53B shape as 0x001EA443 and 0x00395D77 in this TU (mov eax
 // scope-table reloc plus EH prolog plus two releaseBuffer calls). Destroy loop
 // at 0x569A5B steps 0x14 (20-byte BfmeStringRecord00568CE0) plus deleting-dtor
@@ -298,8 +274,8 @@ class Rva00568C4E
 public:
 	~Rva00568C4E();
 private:
-	StringBase<char> m_text0;
-	StringBase<char> m_text1;
+	AsciiString m_text0;
+	AsciiString m_text1;
 };
 Rva00568C4E::~Rva00568C4E() {}
 void famgenDelete00568C4E(Rva00568C4E *p) { delete p; }
@@ -354,10 +330,10 @@ struct S4Name
     ~S4Name(void) {}
     S4Name &operator=(const S4Name &other)
     {
-        m_base.set(other.m_base);
+        ((StringBase<char> &)m_base).set((const StringBase<char> &)other.m_base);
         return *this;
     }
-    StringBase<char> m_base;
+    AsciiString m_base;
 };
 
 struct S4SortElem12

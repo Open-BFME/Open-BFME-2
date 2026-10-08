@@ -12,23 +12,17 @@
 // Open-BFME5: _STL::__unguarded_insertion_sort_aux<S4SortElem20 *,
 // S4SortElem20, S4Cmp002EB8E0>, retail 0x002EA750.
 
-template <class T>
-class StringBase
-{
-private:
-	StringBase(const StringBase<T> &other);
-	~StringBase(void);
-	T *m_bfmeData;
-
-	friend struct S4Name;
-};
+// Canonical one-pointer string ownership matches the S4Name helper used by
+// StringRecordCopyBFME2.cpp and S4SortElem12Swap.cpp. Retail call/field/EH
+// verification below establishes applicability independently of the donor.
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 struct S4Name
 {
 	S4Name(const S4Name &other) : m_bfmeName(other.m_bfmeName) {}
 	~S4Name(void) {}
 
-	StringBase<char> m_bfmeName;
+	AsciiString m_bfmeName;
 };
 
 class BfmeSortElem20Tail
