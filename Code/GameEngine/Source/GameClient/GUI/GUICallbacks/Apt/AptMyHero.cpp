@@ -25,10 +25,15 @@ extern CreateAHeroManager *TheCreateAHeroManager;
 struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
 struct MyHeroBlingBlock {MyHeroBlingRecord *first,*last,*capacity;};
 int GetGameClientRandomValue(int,int,char *,int);
+class CommandButton;
+class Rva00406ED7 {public: const CommandButton *rva00406ED7(int);};
+void __cdecl Rva005B24CDHeroPowerText(void *,const char *,int);
+void rva005B2295(int button,int name,int index,int page);
 class AptMyHero {
 public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
  void SwitchToPendingHero();
+ void rva005B0416(int);
  bool rva005B0725();
  void rva005B0923(int);void SetBling(int,int,int);
  Rva005B0473View *rva005B0473();
@@ -105,3 +110,13 @@ bool AptMyHero::rva005B0725(){
 // SwitchToPendingHero -- with the last call a tail jump. AptCreateAHero
 // calls it on its embedded hero at +0x27C (OnShowScreen 0x00513A2D).
 void AptMyHero::rva005B1288(){rva005B0487();slot14();rva005B1019();}
+
+// WB twin 0x0156F380 (unnamed, AptMyHero.cpp) and native 0x005B0416..
+// 0x005B0446, RET 4: a thiscall whose receiver passes straight through to
+// the hero's level button lookup 0x00406ED7; that button then labels the
+// "MyPowerLevel" text and the "MyPowerIcon" icon for the level.
+void AptMyHero::rva005B0416(int level){
+ const CommandButton *button=reinterpret_cast<Rva00406ED7 *>(this)->rva00406ED7(level);
+ Rva005B24CDHeroPowerText((void *)button,"MyPowerLevel",level);
+ rva005B2295((int)button,(int)"MyPowerIcon",level,-1);
+}

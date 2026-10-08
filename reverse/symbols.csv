@@ -11760,7 +11760,6 @@ name,address,notes
 ?rva00403448@AttributeModifierPoolUpdate@@QAE_NHPAMHH@Z,0x00403448,REL32 read at the tail jmp of Object::rva0028C15E 0x0028C16E (after findAttributeModifierPoolUpdate returns the pool in ecx); native body 0x00403448..0x004034D4 ret 0x10 mirrors pinned sibling 0x00403382 but seeds *value with a constant and multiplies matches; identity unknown
 ?rva004047E3@Rva004047E3@@QAEXMM@Z,0x004047E3,float-pair probe on 0xA8-stride array called by 0x0056C21B fan-out; honest address-derived name
 ?rva00404B03@Rva00404B03@@QAEXXZ,0x00404B03,address-derived callee of matched slot 0x00404B6C; retail jmp rel32 targets 0x00404B03; Ghidra FUN bounds 105 bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
-?rva00406ED7g@@YGHH@Z,0x00406ED7,global stdcall-1 call-spelling alias for the rowed member (caller sets no ecx and does NOT clean it: batched add covers only 7 pushes, so the callee cleans its own arg); same address as row
 ?rva004074CF@Rva0021937DTarget@@QAEXXZ,0x004074CF,final call of the 0x0021937D triple forward: REL32 read there; address already pins a CreateAHeroData file writer name which is not adopted here; owner identity unproven
 ?rva00407E94@Rva0021937DTarget@@QAEXXZ,0x00407E94,first call of the 0x0021937D triple forward: REL32 read there; owner identity unproven
 ?rva004083FF@Rva005B023A@@QAEXH@Z,0x004083FF,address-derived callee of matched slot 0x005B023A; retail REL32 targets 0x004083FF; Ghidra FUN bounds 1082 bytes; thiscall on the caller object one arg ret 4; callee body remains unclaimed; no named identity inferred
@@ -12212,7 +12211,6 @@ name,address,notes
 ?rva005B09D8@@YAXPAX000@Z,0x005B09D8,cdecl 4-arg callee of 0x004ED3A2 read from its REL32 displacement; body unrowed
 ?rva005B09D8_i@@YAHHHHPAD@Z,0x005B09D8,cdecl 4-arg int-returning call-spelling alias for the pinned cursor helper (caller passes a2 m_4 a1 and (char*)&a1+3); same address as existing pin
 ?rva005B2295@@YAXHHHH@Z,0x005B2295,cdecl 4-arg callee of 0x5B0416 (args r imm a -1 from push order); unrowed chunk start in own lane; signature unproven
-?rva005B24CDg@@YAXHHH@Z,0x005B24CD,global cdecl-3 call-spelling alias for the rowed (void*,char*,int) member (caller pushes 3 ints); same address as row
 ?rva005B89A1@Rva005B8EBB@@QAEXXZ,0x005B89A1,callees of 0x005B8EBB from retail REL32; names unknown
 ?rva005B8A40@Rva005B8EBB@@QAEXXZ,0x005B8A40,callees of 0x005B8EBB from retail REL32; names unknown
 ?rva005B8D1C@Rva005B8EBB@@QAEXXZ,0x005B8D1C,callees of 0x005B8EBB from retail REL32; names unknown
