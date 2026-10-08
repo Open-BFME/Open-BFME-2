@@ -41005,7 +41005,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?Rva003C4350Do@@YGXABVAsciiString@@0PAVObject@@@Z,,0x003C4350,83,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C4350Do.cpp,matched,chain via rva002ADFC7 plus sibling Rva003C43A3Do shape and globals
 ??1Rva002007D5@@QAE@XZ,,0x002007D5,109,Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp,matched,list-of-Rva002006B0 dtor via erase plus delete
 ?Rva005ED310Get@@YA?AVUnicodeString@@H@Z,,0x005ED310,96,Code/GameEngine/Source/Common/Rva005ED310Get.cpp,matched,same format string as Rva0043A568Get callers NumRegions NumUnits
-?rva004FC970@Rva002E1001@@QAE_NH@Z,,0x004FC970,94,Code/GameEngine/Source/Common/Rva002E1001.cpp,matched,chain lane vector sum gate
+?isTeamDefeated@TeamDefeatCondition@LivingWorldScenario@@QAE_NH@Z,,0x004FC970,94,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp,matched,chain lane vector sum gate; WB named TeamDefeatCondition callgraph and team assertion; rehomed full94 exact with consumer
 ??_GRva002006B0@@QAEPAXI@Z,,0x0020078B,28,Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp,matched,scalar deleting dtor via force delete helper
 ??1Rva0034149B@@UAE@XZ,,0x0034149B,91,Code/GameEngine/Source/Common/Rva0034149BDtor.cpp,matched,vtable plus member slot15 slot0 delete plus base WindModuleInfo
 ??1Rva0034159A@@UAE@XZ,,0x0034159A,91,Code/GameEngine/Source/Common/Rva0034159ADtor.cpp,matched,vtable plus member slot15 slot0 delete plus base WindModuleInfo

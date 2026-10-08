@@ -35,11 +35,7 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 
 class ModuleData;
 
-class Rva002E1001
-{
-public:
-	bool rva004FC970(int id);
-};
+
 
 struct Rva004FCD49Vec {
     void *vtbl;
@@ -50,7 +46,13 @@ struct Rva004FCD49Vec {
 class LivingWorldScenario
 {
 public:
-	class Scenario;
+    class Scenario;
+    class TeamDefeatCondition;
+};
+class LivingWorldScenario::TeamDefeatCondition
+{
+public:
+    bool isTeamDefeated(int team);
 };
 
 class LivingWorldScenario::Scenario {
@@ -93,8 +95,8 @@ bool LivingWorldScenario::Scenario::rva004FD613(int key) const
 {
     _STL::pair<_STL::multimap<int, int>::const_iterator, _STL::multimap<int, int>::const_iterator> r = m_map.equal_range(key);
     for (_STL::multimap<int, int>::const_iterator it = r.first; it != r.second; ++it) {
-        Rva002E1001 *cand = (Rva002E1001 *)(*it).second;
-        if (cand->rva004FC970(key))
+        LivingWorldScenario::TeamDefeatCondition *cand = (LivingWorldScenario::TeamDefeatCondition *)(*it).second;
+        if (cand->isTeamDefeated(key))
             return true;
     }
     return false;

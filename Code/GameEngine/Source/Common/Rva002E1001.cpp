@@ -13,7 +13,6 @@ class Rva002E1001
 {
 public:
 	int rva002E1001();
-	bool rva004FC970(int id);
 private:
 	int m_00;
 	int m_04;
@@ -73,25 +72,3 @@ done:
 	return c;
 }
 
-// ?rva004FC970@Rva002E1001@@QAE_NH@Z @0x004FC970 94B.
-// Chain-lane sum gate: counts players vector at +0x8C of the logic at
-// 0xDFEF10, filters by Player+0x34 == id, sums rva002E1001 over hits and
-// fails when the sum exceeds this+0x10. Evidence: chain lane (calls rowed
-// 0x002B52A8 and 0x002E1001); caller 0x004FD634 passes [esi+0x14] as this;
-// same sub-sar-2 plus inc loop shape as 0x002E1001; neighbours carry /O1.
-bool Rva002E1001::rva004FC970(int id)
-{
-	Rva002BA8F1Logic *logic = *(Rva002BA8F1Logic **)&(*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
-	char *pp = (char *)logic + 0x8c;
-	int n = (*(int *)(pp + 4) - *(int *)pp) >> 2;
-	int sum = 0;
-	for (int i = 0; i < n; ++i) {
-		Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
-		if (p->m_34 != id)
-			continue;
-		sum += ((Rva002E1001 *)p)->rva002E1001();
-		if (sum > m_10)
-			return false;
-	}
-	return true;
-}

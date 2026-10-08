@@ -37,7 +37,7 @@ public:
     int word130;
     int lastOwnershipTurn;
 };
-class LivingWorldScenario { public: class TeamVictoryCondition; class PlayerDefeatCondition; };
+class LivingWorldScenario { public: class TeamVictoryCondition; class PlayerDefeatCondition; class TeamDefeatCondition; };
 class LivingWorldScenario::TeamVictoryCondition {
 public:
     virtual ~TeamVictoryCondition();
@@ -153,4 +153,31 @@ bool LivingWorldScenario::PlayerDefeatCondition::isPlayerDefeated(Rva002E1001 *p
     }
     bool defeated = player->rva002E1001() <= requiredRegionCount;
     return defeated;
+}
+
+// Native 4FC970..4FC9CE, 94 bytes, RET4. WB TeamDefeatCondition's
+// callgraph and team-membership assertion establish identity. The target
+// sums owned-region counts for that team and fails above condition+10.
+class LivingWorldScenario::TeamDefeatCondition {
+public:
+    virtual ~TeamDefeatCondition();
+    bool isTeamDefeated(int team);
+private:
+    _STL::vector<int> teams;
+    int requiredRegionCount;
+};
+bool LivingWorldScenario::TeamDefeatCondition::isTeamDefeated(int team)
+{
+    char *players = (char *)TheLivingWorldLogic + 0x8c;
+    int count = (*(int *)(players + 4) - *(int *)players) >> 2;
+    int total = 0;
+    for (int i = 0; i < count; ++i) {
+        Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(i);
+        if (player->team != team)
+            continue;
+        total += ((Rva002E1001 *)player)->rva002E1001();
+        if (total > requiredRegionCount)
+            return false;
+    }
+    return true;
 }
