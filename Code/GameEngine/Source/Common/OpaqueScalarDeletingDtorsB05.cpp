@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /EHs
 //
 // Opaque scalar deleting destructors, batch B05: 28-byte wrappers that
 // call the destructor, test bit 0 of the flags, conditionally free through
@@ -395,12 +395,32 @@ Rva002C5398::Rva002C5398(EmitVtableTag *)
 {
 }
 
-class Rva002C6354
+// Target destructor proves cleanup on this, then free of the vector's first
+// pointer and an external base destructor. Original owner identity is unknown.
+extern "C" void __cdecl free(void *);
+struct Rva002C6354Buffer
+{
+    void *begin, *end, *capacity;
+    ~Rva002C6354Buffer() { if (begin != 0) free(begin); }
+};
+class Rva00506B1B
+{
+public:
+    virtual ~Rva00506B1B();
+private:
+    char m_unmodelled04[4];
+};
+class Rva002C61AF { public: void rva002C61AF(); };
+
+class Rva002C6354 : public Rva00506B1B
 {
 public:
 	Rva002C6354(EmitVtableTag *);
 public:
 	virtual ~Rva002C6354();
+private:
+    char m_unmodelled[24];
+    Rva002C6354Buffer m_buffer;
 };
 
 // ?<Rva002C6354::Rva002C6354> absent-from-retail
@@ -539,4 +559,9 @@ Rva002D5333::~Rva002D5333()
 {
 	if (!m_done15)
 		rva002D4BA5();
+}
+
+Rva002C6354::~Rva002C6354()
+{
+    ((Rva002C61AF *)this)->rva002C61AF();
 }
