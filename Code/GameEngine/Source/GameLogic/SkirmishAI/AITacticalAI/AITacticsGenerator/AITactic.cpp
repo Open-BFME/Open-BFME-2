@@ -11,6 +11,17 @@ int __cdecl GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
 class Team;
 class TeamPrototype;
+class Object;
+enum KindOfType;
+template<class T> class DLINK_ITERATOR {
+    T *m_cur;
+    unsigned char m_targetAbiState[20];
+public:
+    void advance();
+    bool done() const { return m_cur == 0; }
+    T *cur() const { return m_cur; }
+};
+class Object { public: bool isKindOf(KindOfType) const; };
 
 class TeamFactory
 {
@@ -24,8 +35,11 @@ extern TeamFactory *TheTeamFactory;
 class Team
 {
 public:
-	void disband();
-	bool hasAnyObjects(bool flag);					// 0x0039E9E0
+	void disband(); // 0x0039E9E0
+	bool hasAnyObjects(bool flag);
+    void rva0039E5B9(Coord3D *position);
+    DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
+    bool rva0039DAF4() const; // 0x0039DAF4
 };
 
 struct Rva002A8AB1Record
@@ -36,7 +50,9 @@ struct Rva002A8AB1Record
 class Rva002A8F24
 {
 public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);		// 0x002A8AB1
+	unsigned char m_pad00[0x870];
+    float m_movementThreshold;
+    Rva002A8AB1Record *rva002A8AB1(void *owner);		// 0x002A8AB1
 };
 
 extern Rva002A8F24 *g_00DFEEF8;
@@ -201,3 +217,35 @@ void AITactic::preUpdate()
         slot08();
     }
 }
+
+// FACT: native 0x004ECF9C..0x004ED08A, void member ABI; WB names updateTeamInfos.
+// FACT: each 20-byte record stores id +0, last position +4, stale frames +0x10.
+// Native reads the AI configuration float at +0x870 and compares squared XY
+// movement. KindOf value 0x70 and the final Team predicate retain their proven
+// call signatures without guessing the unresolved predicate's semantics.
+void AITactic::updateTeamInfos()
+{
+    AITacticTeamRecord *end = m_teams.m_end;
+    for (AITacticTeamRecord *rec = m_teams.m_begin; rec != end; ++rec) {
+        Team *team = TheTeamFactory->findTeamByID(rec->m_teamID);
+        Coord3D position;
+        team->rva0039E5B9(&position);
+        float dx = position.x - rec->m_lastPosition.x;
+        float dy = position.y - rec->m_lastPosition.y;
+        float threshold = g_00DFEEF8->m_movementThreshold;
+        bool moved = false;
+        if (dx * dx + dy * dy > threshold * threshold) {
+            rec->m_lastPosition = position;
+            moved = true;
+        }
+        bool hasKind = false;
+        DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList();
+        while (!iter.done() && !hasKind) {
+            if (iter.cur()->isKindOf((KindOfType)0x70)) hasKind = true;
+            iter.advance();
+        }
+        if (!moved && !hasKind && !team->rva0039DAF4()) ++rec->m_staleFrames;
+        else rec->m_staleFrames = 0;
+    }
+}
+
