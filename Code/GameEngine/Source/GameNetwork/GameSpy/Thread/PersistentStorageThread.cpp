@@ -1815,6 +1815,17 @@ void Rva005BD5F3Add()
 		TheGameSpyPSMessageQueue->addRequest(req);
 }
 
+// Native [5BD64D,5BD6A7),90B: the type-10 twin of Rva005BD5F3Add. The
+// patch check (0x005BD6A7) calls it then Rva005BD5F3Add where ZH's
+// reallyStartPatchCheck calls CheckOverallStats and CheckNumPlayersOnline.
+void Rva005BD64DAdd()
+{
+	BfmeOpaqueOwnedRecord1432 req;
+	req.requestType = 10;
+	if (TheGameSpyPSMessageQueue != 0)
+		TheGameSpyPSMessageQueue->addRequest(req);
+}
+
 // TheGameSpyInfo's local email and base name (vtable 0x00C1DD90 slots 32 and
 // 37, rowed in PeerDefs.cpp); the earlier slots are not used here.
 class GameSpyInfoInterface

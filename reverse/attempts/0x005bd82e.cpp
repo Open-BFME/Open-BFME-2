@@ -1,3 +1,5 @@
+// ?StartPatchCheck@@YAXXZ
+// partial score=0.97 date=2026-10-08
 // cl: /O1 /Oa /G7 /arch:SSE /MD /EHs /DNDEBUG /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /ICode/GameEngine/Source/Common
 // stlport
 // BFME1 34f59164 MainMenuUtils.cpp is the primary reference.
@@ -216,4 +218,45 @@ void CancelPatchCheckCallbackAndReopenDropdown()
 {
  Rva00516E92Enable();
  CancelPatchCheckCallback();
+}
+
+// BFME1 34f59164 StartPatchCheck; native 5BD82E..5BD910 (226B). BFME2 shows
+// the checking dialog as an untitled MessageBoxOk, takes the host to look up
+// from the registry's online server URL (InternetCrackUrlA) and runs the
+// async lookup through Rva005BC4CEStart.
+struct MainMenuUrlComponents {
+ unsigned long dwStructSize; char *lpszScheme; unsigned long dwSchemeLength; int nScheme;
+ char *lpszHostName; unsigned long dwHostNameLength; unsigned short nPort;
+ char *lpszUserName; unsigned long dwUserNameLength; char *lpszPassword; unsigned long dwPasswordLength;
+ char *lpszUrlPath; unsigned long dwUrlPathLength; char *lpszExtraInfo; unsigned long dwExtraInfoLength;
+};
+extern "C" __declspec(dllimport) int __stdcall InternetCrackUrlA(const char *url,unsigned long length,unsigned long flags,MainMenuUrlComponents *components);
+extern "C" void *__cdecl memset(void *,int,unsigned);
+const char *GetRegistryOnlineServer();
+int Rva005BC4CEStart(int hostName);
+void reallyStartPatchCheck();
+void StartPatchCheck()
+{
+ online.run++;
+ online.cancel=true;
+ online.checking=true;
+ online.cantConnect=false;
+ online.checks=0;
+ MessageBoxOk(UnicodeString(L""),TheGameText->fetch("GUI:CheckingForPatches"),CancelPatchCheckCallbackAndReopenDropdown);
+ g_00E06576=1;
+ MainMenuUrlComponents components;
+ char hostName[512];
+ memset(&components,0,sizeof(components));
+ components.dwStructSize=sizeof(components);
+ components.lpszHostName=hostName;
+ components.dwHostNameLength=sizeof(hostName);
+ if(InternetCrackUrlA(GetRegistryOnlineServer(),0,0,&components)){
+  switch(Rva005BC4CEStart((int)hostName)){
+  case 1: break;
+  case 2: reallyStartPatchCheck(); return;
+  default: return;
+  }
+ }
+ online.cantConnect=true;
+ startOnline();
 }
