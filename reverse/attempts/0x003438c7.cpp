@@ -1,130 +1,117 @@
-// ??0Rva003438C7@@QAE@PAVObject@@HVAsciiString@@@Z
-// partial score=0.6 date=2026-10-06
-// cl: /O1 /DNDEBUG /MD /EHsc
-// class-gate: allow AsciiString 4-byte trivial view to pass VAsciiString by value to rowed base 0x004D79E1 with no copy-ctor call like the base TU's own view
-// ??0Rva003438C7@@QAE@PAVObject@@HVAsciiString@@@Z @0x003438C7 419B.
-// StateMachine-family ctor (thiscall): base-constructs the rowed
-// Rva004D759C from (owner, name, 0), stores vtable g_00C11C90, defines three
-// states, redefines the third, then defines one of three flag-gated states
-// sharing a merged define tail. New-expressions into dead param slots with
-// post-call eax feeding rowed defineState directly. The 0x259/0x270F/0xC131A0
-// words CSE into ebx/esi/edi; single-use words stay immediate; the tail
-// conditions pointer rides as a retail-pinned address.
-class AsciiString
+// ??0Rva003438C7@@QAE@PAVObject@@PAVRva003438C7Host@@I@Z
+// partial score=0.95 date=2026-10-09
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+//
+// Rva003438C7::Rva003438C7, retail 0x3438c7: a BFME 2 state machine constructor. The base
+// is the rowed StateMachine constructor 0x004D79E1 with the caller's name key
+// (its unsigned spelling is pinned); each state comes from plain operator
+// new and its rowed constructor, registered with the IDs and transitions
+// read from the retail call sequence (Zero Hour's defineState pattern).
+#include "../../../Code/Libraries/Include/Lib/Coord3D.h"
+typedef bool Bool;
+typedef unsigned int UnsignedInt;
+typedef UnsignedInt StateID;
+typedef UnsignedInt ObjectID;
+#define NULL 0
+class Object;
+struct StateConditionInfo
+{
+	void *m_test;
+	StateID m_toStateID;
+	void *m_userData;
+};
+struct State
 {
 public:
-	void *m_data;
+	virtual ~State();
 };
-
-class Object;
-struct State;
-struct StateConditionInfo;
-
 class StateMachine
 {
 public:
-	void defineState(unsigned int id, State *state, unsigned int successID, unsigned int failureID, const StateConditionInfo *conditions);
+	virtual ~StateMachine();
+	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
+protected:
+	unsigned char m_pad04[0x3C - 0x04];
 };
-
-class Rva004D759C
+// BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
+class Rva004D759C : public StateMachine
 {
 public:
-	Rva004D759C(Object *owner, AsciiString name, bool flag);
+	Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
 	virtual ~Rva004D759C();
 };
+// Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
+static __forceinline void zeroCoord3D(Coord3D &c)
+{
+	c.x = 0.0f;
+	c.y = 0.0f;
+	c.z = 0.0f;
+}
 
-class Rva0033F3EF
+class Rva0033F3EF : public State
 {
 public:
 	Rva0033F3EF(StateMachine *machine);
 private:
-	void *m_vtbl;
-	char m_pad[0x24 - 4];
+	unsigned char m_pad04[0x24 - 0x04];
 };
-
-class Rva0033F4B1
+class Rva0033F4B1 : public State
 {
 public:
-	Rva0033F4B1(StateMachine *machine, int arg0);
+	Rva0033F4B1(StateMachine *machine, int a0);
 private:
-	void *m_vtbl;
-	char m_pad[0x28 - 4];
+	unsigned char m_pad04[0x28 - 0x04];
 };
-
-class Rva0033F43D
+class Rva0033F43D : public State
 {
 public:
 	Rva0033F43D(StateMachine *machine);
 private:
-	void *m_vtbl;
-	char m_pad[0x20 - 4];
+	unsigned char m_pad04[0x20 - 0x04];
 };
-
-class Rva004D74AC
-{
-public:
-	Rva004D74AC(StateMachine *machine);
-private:
-	void *m_vtbl;
-	char m_pad[0x20 - 4];
-};
-
-class Rva004D7491
+class Rva004D7491 : public State
 {
 public:
 	Rva004D7491(StateMachine *machine);
 private:
-	void *m_vtbl;
-	char m_pad[0x20 - 4];
+	unsigned char m_pad04[0x20 - 0x04];
 };
-
-class Rva00342978
+// The host passed in: its +0x20 base is what the 0x0033F4B1 state gets.
+class Rva003438C7HostHead
 {
 public:
-	Rva00342978(StateMachine *machine);
-private:
-	void *m_vtbl;
-	char m_pad[0x64 - 4];
+	virtual void v00();
+	unsigned char m_pad04[0x20 - 0x04];
 };
-
-struct Rva003438C7Flags
+class Rva003438C7HostInterface
 {
-	volatile char m_pad[0x110];
+public:
+	virtual void v00();
 };
-
-extern const void *const g_00C11C90[];
-
+class Rva003438C7Host : public Rva003438C7HostHead, public Rva003438C7HostInterface
+{
+};
 class Rva003438C7 : public Rva004D759C
 {
 public:
-	Rva003438C7(Object *owner, int x, AsciiString name);
+	Rva003438C7(Object *owner, Rva003438C7Host *host, UnsignedInt nameKey);
+	virtual ~Rva003438C7();
+
 };
+// condition 0x0033FD98 (retail .rdata table entry)
+Bool rva0033FD98(State *thisState, void *userData);
 
-Rva003438C7::Rva003438C7(Object *owner, int x, AsciiString name)
-	: Rva004D759C(owner, name, false)
+Rva003438C7::Rva003438C7(Object *owner, Rva003438C7Host *host, UnsignedInt nameKey) : Rva004D759C(owner, nameKey, false)
 {
-	*(const void **)this = g_00C11C90;
-	Rva0033F3EF *s0 = new Rva0033F3EF((StateMachine *)this);
-	((StateMachine *)this)->defineState(0x259, (State *)s0, 0x25A, 0x270F, (const StateConditionInfo *)0xC131A0);
-	Rva0033F4B1 *s1 = new Rva0033F4B1((StateMachine *)this, x != 0 ? x + 0x20 : 0);
-	((StateMachine *)this)->defineState(0x25A, (State *)s1, 0x25B, 0x258, (const StateConditionInfo *)0xC131A0);
-	Rva0033F43D *s2 = new Rva0033F43D((StateMachine *)this);
-	((StateMachine *)this)->defineState(0x25B, (State *)s2, 0x259, 0x270F, 0);
-	Rva003438C7Flags *gf = *(Rva003438C7Flags **)((char *)owner + 4);
-	if (((gf->m_pad[0x108] & 4) == 0)) {
-		if ((((gf->m_pad[0x10F] & 2) != 0) && ((gf->m_pad[0x108] & 8) != 0))) {
-			Rva004D74AC *sy = new Rva004D74AC((StateMachine *)this);
-			((StateMachine *)this)->defineState(0x258, (State *)sy, 0x270F, 0x270F, (const StateConditionInfo *)0xC13188);
-		} else {
-			Rva00342978 *sz = new Rva00342978((StateMachine *)this);
-			((StateMachine *)this)->defineState(0x258, (State *)sz, 0x259, 0x270F, (const StateConditionInfo *)0);
-		}
-	} else {
-		Rva004D7491 *sx = new Rva004D7491((StateMachine *)this);
-		((StateMachine *)this)->defineState(0x258, (State *)sx, 0x270F, 0x270F, (const StateConditionInfo *)0);
-	}
-}
+	static const StateConditionInfo g_condC131A0[] =
+	{
+		{ (void *)rva0033FD98, 600, NULL },
+		{ NULL, 0, NULL }	// keep last
+	};
 
-// The global below is defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_00C11C90@@3QBQBXB=??_7Rva003438C7@@6B@")
+	// order matters: first state is the default state.
+	defineState( 601, new Rva0033F3EF( this ), 602, 9999, g_condC131A0 );
+	defineState( 602, new Rva0033F4B1( this, (int)static_cast<Rva003438C7HostInterface *>(host) ), 603, 600, g_condC131A0 );
+	defineState( 603, new Rva0033F43D( this ), 601, 9999 );
+	defineState( 600, new Rva004D7491( this ), 9999, 9999 );
+}
