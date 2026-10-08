@@ -1,6 +1,7 @@
 // ?queueCreateUnit@ProductionUpdate@@UAE_NPBVThingTemplate@@HW4ProductionID@@H_NABVAsciiString@@2@Z
-// partial score=0.7 date=2026-10-07
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /ICode/Libraries/Include /Ireference/shims/bfme2_ascii
+// partial score=0.75 date=2026-10-09
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /ICode/Libraries/Include /Ireference/shims/bfme2_ascii
+// stlport
 //
 // ProductionUpdate queue members (BFME 2), from the Generals Zero Hour
 // ProductionUpdate.cpp and ProductionUpdate.h.
@@ -35,6 +36,14 @@
 //   +0x18 set, the cost is also stored as a float at object +0x324.
 // - addUpgrade and removeUpgrade take a trailing 0.
 // - unit matches go through ThingTemplate::isEquivalentTo.
+// - xfer is at version 7. Each entry also carries +0x18, +0x1C, quantities
+//   +0x20/+0x24, the cost, the +0x34 flag and the slot; versions 4 and 5 add
+//   a dummy Real, list<int> and Bool per entry. The tail keeps an unused
+//   uint, the +0x118..+0x120 fields, the doors, both flag sets (0x000BB710)
+//   and the version 2/3/6/7 fields.
+// The STL containers come from STLport with the bfmelist/bfmealloc shims; a
+// hand-written list view puts the dummy list's allocator temporary in a new
+// frame slot, where retail reuses the dead parameter slot.
 
 #include "ascii_string.h"
 
@@ -55,25 +64,139 @@ class Upgrade;
 class Image;
 
 
-namespace _STL
-{
-template <class T> class allocator
-{
-};
-template <class T, class A = allocator<T> > class vector
+#include <list>
+#include <vector>
+
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+class Xfer
 {
 public:
-	typedef const T *const_iterator;
-	const_iterator begin() const { return m_start; }
-	const_iterator end() const { return m_finish; }
-	void push_back(const T &x);
+	class Version;
+
+	Xfer();
+	virtual ~Xfer();
+
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3DBase &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+
+	virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+
+protected:
+	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+struct XferException
+{
+	char *text;
+	int tag;
+};
+
+extern "C" XferException *__cdecl bfmeFormatText(XferException *result, int tag, const char *format, ...);
+extern int g_guardTargetTypeThrowInfo;
+extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
+
+Xfer *Rva00460216XferList(Xfer *xfer, _STL::list<int> *list);
+Xfer *xferAsciiStringVector(Xfer *xfer, _STL::vector<AsciiString> *vec);
+
+typedef unsigned int AudioHandle;
+
+class AudioManager
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04();
+	virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09();
+	virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
+	virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24();
+	virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29();
+	virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34();
+	virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
+	virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44();
+	virtual void v45(); virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49();
+	virtual void v50(); virtual void v51(); virtual void v52(); virtual void v53(); virtual void v54();
+	virtual void v55(); virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59();
+	virtual void v60(); virtual void v61(); virtual void v62(); virtual void v63(); virtual void v64();
+	virtual void v65(); virtual void v66(); virtual void v67(); virtual void v68(); virtual void v69();
+	virtual void v70(); virtual void v71(); virtual void v72(); virtual void v73(); virtual void v74();
+	virtual void v75(); virtual void v76(); virtual void v77(); virtual void v78(); virtual void v79();
+	virtual void v80(); virtual void v81(); virtual void v82(); virtual void v83(); virtual void v84();
+	virtual void v85(); virtual void v86(); virtual void v87();
+	virtual void xferAudioHandle(Xfer *xfer, AudioHandle *handle) = 0; // slot 88
+};
+
+extern AudioManager *TheAudio;
+
+// ModelConditionFlags-sized bit set (0x4C bytes) with the rowed member xfer.
+class Rva000BB710
+{
+public:
+	void xfer(Xfer *xfer);
 
 private:
-	T *m_start;
-	T *m_finish;
-	T *m_end;
+	char m_unknown00[0x4C];
 };
-}
 
 enum CanMakeType
 {
@@ -99,27 +222,43 @@ struct Rva0049D0DEMask
 	UnsignedInt m_bits[1];
 };
 
-class ThingTemplate
+// ZH Overridable: the next override is at +4 (rowed chain walk 0x001E35DF).
+class Rva001E35DFView
 {
 public:
-	Bool isEquivalentTo(const ThingTemplate *tt) const;
-	const AsciiString &getName() const { return m_name; }
-	Int rva0033A69A(const Player *player, Object *obj, Int flag) const; // calcCostToBuild
-	const Image *getButtonImage();
+	const Rva001E35DFView *getFinalOverride() const
+	{
+		if (m_nextOverride)
+			return m_nextOverride->getFinalOverride();
+		return this;
+	}
 
-private:
-	char m_unknown00[0x64];
-	AsciiString m_name; // +0x64
-	char m_unknown68[0x118 - 0x68];
-public:
-	UnsignedInt m_bfme118; // +0x118; bit 29 makes the unit free
+	void *m_vtable;
+	Rva001E35DFView *m_nextOverride;
+	Bool m_isOverride;
 };
 
-// ThingFactory.
+class ThingTemplate : public Rva001E35DFView
+{
+public:
+	Int rva0033A69A(const Player *player, Int obj, Int flag) const;
+ const Image *getButtonImage();
+ unsigned int freeKindWord118() const { return m_kindFlags[4]; }
+ Bool isEquivalentTo(const ThingTemplate *tt) const;
+	const AsciiString &getName() const { return m_name; }
+	UnsignedInt getProductionPriorityKind() const { return m_kindFlags[0] & (1 << 14); }
+
+private:
+	char m_unknown0C[0x64 - 0xC];
+	AsciiString m_name; // +0x64
+	char m_unknown68[0x108 - 0x68];
+	UnsignedInt m_kindFlags[7]; // +0x108, 218 KindOfType bits
+};
+
 class Rva002D06CA
 {
 public:
-	void *rva002D06CA(const AsciiString *name); // findTemplate
+	void *rva002D06CA(const AsciiString *key); // findTemplate
 };
 
 extern Rva002D06CA *TheThingFactory;
@@ -150,16 +289,20 @@ public:
 	UpgradeType getUpgradeType() const { return m_type; }
 	UnsignedInt rva0026EF50(Player *player, Object *obj) const; // calcCostToBuild
 
+	const AsciiString &getUpgradeName() const { return m_name; }
+
 	char m_unknown00[4];
 	UpgradeType m_type; // +4
-	char m_unknown08[0x70 - 8];
-	const Image *m_buttonImage; // +0x70
+	AsciiString m_name; // +8
+	char m_unknown0C[0x70 - 0xC];
+	Int m_bfme70; // +0x70
 };
 
 class UpgradeCenter
 {
 public:
 	Bool rva0026F11A(Player *player, const UpgradeTemplate *upgrade, Object *obj, Bool displayReason); // canAffordUpgrade
+	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
 };
 
 extern UpgradeCenter *TheUpgradeCenter;
@@ -175,40 +318,30 @@ class Rva0039B7AD;
 class Rva003B0D7C
 {
 public:
+ unsigned int countMoney() const { return *reinterpret_cast<const unsigned int *>(m_unknown00+4); }
 	UnsignedInt rva003B0CB3(UnsignedInt amount, Rva0039B795 *tracker, bool flag); // withdraw
 	void rva003B0D7C(Int amount, Rva0039B7AD *tracker, bool flag); // deposit
-	UnsignedInt countMoney() const { return m_money; }
 
 private:
-	char m_unknown00[4];
-	UnsignedInt m_money; // +4
-	char m_unknown08[4];
+	char m_unknown00[0xC];
 };
 
-struct Rva0039BAD2Input;
-
-class Rva0039BAD2
+// The lookup's existing address-derived owner is retained: neither WB helper
+// carries an original name. Native GetEntryToProcess passes Player+0x738 to
+// both this RET12 lookup and the RET8, float-returning progress query.
+class Rva0037EE4C
 {
 public:
-	void rva0039BAD2(Rva0039BAD2Input *what, Int amount);
-};
-
-class UnitRevivalTracker
-{
-public:
-	Int rva0037E649(Int index, Object *producer); // revival cost
-	Bool productionSystemQueueCreateUnit(Int index, Int productionID, const Image **outImage);
-
-private:
+	Int rva0037EE4C(const ThingTemplate *, Int, Int);
+	Real rva0037E815(Int, Object *);
 	char m_unknown00[0x14];
 };
 
-class Rva0037E421
-{
-public:
-	void *rva0037E7A5(Int index); // the entry's template
-};
-
+struct Rva0039BAD2Input;
+class Rva0039BAD2 { public: void rva0039BAD2(Rva0039BAD2Input *,Int); };
+class Rva0037E6E8 { public: int rva0037E649(int,Object *); };
+class UnitRevivalTracker { public: bool productionSystemQueueCreateUnit(int,int,const Image **); };
+class Rva0037E421 { public: void *rva0037E7A5(int); };
 class Player
 {
 public:
@@ -223,19 +356,83 @@ public:
 	char m_unknown9C[0x3BC - 0x9C];
 	Rva0039B795 m_tracker; // +0x3BC
 	char m_unknown3C0[0x738 - 0x3C0];
-	UnitRevivalTracker m_revivalTracker; // +0x738
+	Rva0037EE4C m_revivalTracker; // +0x738 (WB uses +0x740)
 };
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+enum ExitDoorType
+{
+	DOOR_1 = 0
+};
+
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+#define NAMEKEY(x) (TheNameKeyGenerator->nameToKey(x))
+
+class GameLogic
+{
+public:
+	Object *findObjectByID(ObjectID id);
+};
+extern GameLogic *TheGameLogic;
+
+class Module;
+
+// ZH ExitInterface slots 0..10 (BFME 1 UpdateModule.h); BFME 2 adds slot 11.
+class ExitInterface
+{
+public:
+	virtual Bool isExitBusy() const = 0;
+	virtual ExitDoorType reserveDoorForExit(const ThingTemplate *objType, Object *specificObject) = 0;
+	virtual void exitObjectViaDoor(Object *newObj, ExitDoorType exitDoor) = 0;
+	virtual void exitObjectByBudding(Object *newObj, Object *budHost) = 0;
+	virtual void unreserveDoorForExit(ExitDoorType exitDoor) = 0;
+	virtual void exitObjectInAHurry(Object *newObj) = 0;
+	virtual void setRallyPoint(const void *pos) = 0;
+	virtual const void *getRallyPoint() const = 0;
+	virtual Bool useSpawnRallyPoint() const = 0;
+	virtual Bool getNaturalRallyPoint(void *rallyPoint, Bool offset) const = 0;
+	virtual Bool getExitPosition(void *exitPosition) const = 0;
+	virtual void exitSlot11() = 0;
+};
+
+class BehaviorModule;
+class ProductionUpdateInterface;
 
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	ExitInterface *getObjectExitInterface() const;
+	Module *findUpdateModule(NameKeyType key) const { return findModule(key); }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Bool rva00290D2B(const UpgradeTemplate *upgrade) const; // hasUpgrade
 	Bool rva002940B9(const UpgradeTemplate *upgrade); // affectedByUpgrade
+	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
 
-	char m_unknown00[0x324];
+	char m_unknown00[0x244];
+	BehaviorModule **m_behaviors; // +0x244, null-terminated
+	char m_unknown248[0x324 - 0x248];
 	Real m_bfme324; // +0x324
+
+protected:
+	Module *findModule(NameKeyType key) const;
 };
 
 struct Rva00395708Data
@@ -281,50 +478,31 @@ public:
 	const UpgradeTemplate *m_upgradeToResearch; // +0xC
 	Int m_productionID; // +0x10
 	Real m_percentComplete; // +0x14
-	char m_unknown18[0x20 - 0x18];
+	Real m_bfme18; // +0x18
+	Int m_bfme1C; // +0x1C
 	Int m_productionQuantityTotal; // +0x20
 	Int m_productionQuantityProduced; // +0x24
 	Int m_cost; // +0x28
-	Int m_exitDoor; // +0x2C
+	ExitDoorType m_exitDoor; // +0x2C
 	Int m_bfme30; // +0x30
-	char m_unknown34[0x38 - 0x34];
-	const Image *m_buttonImage; // +0x38
+	Bool m_bfme34; // +0x34
+	union { Int m_bfme38; const Image *m_buttonImage; }; // +0x38
 	Int m_bfme3C; // +0x3C
-	AsciiString m_bfme40; // +0x40
-	Bool m_bfme44; // +0x44
+	AsciiString m_bfme40;
+ Bool m_bfme44;
 	Rva0049D1B1 *m_next; // +0x48
 	Rva0049D1B1 *m_prev; // +0x4C
 	char m_unknown50[0x54 - 0x50];
 };
 
-struct QuantityModifier
-{
-	AsciiString m_templateName;
-	Int m_quantity;
-};
-
+struct QuantityModifier { AsciiString m_templateName; Int m_quantity; };
 class ProductionUpdateModuleData
 {
 public:
 	char m_unknown00[0x1C];
-	_STL::vector<QuantityModifier> m_quantityModifiers; // +0x1C
+ _STL::vector<QuantityModifier> m_quantityModifiers;
 	UnsignedInt m_maxQueueEntries; // +0x28
 };
-
-// TheBuildAssistant.
-class Rva00A027B8
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
-	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
-	virtual CanMakeType canMakeUnit(Object *builder, const ThingTemplate *whatToBuild, Int revivalIndex); // +0x60
-};
-
-extern Rva00A027B8 *g_00A027B8;
 
 class BehaviorModuleBase
 {
@@ -334,10 +512,40 @@ public:
 	Object *m_object;
 };
 
+// BehaviorModuleInterface: the per-module interface queries; retail reads
+// getProductionUpdateInterface from slot 28 (+0x70).
 class BehaviorModuleOther
 {
 public:
 	virtual void behaviorModuleOtherAnchor();
+	virtual void bmi01();
+	virtual void bmi02();
+	virtual void bmi03();
+	virtual void bmi04();
+	virtual void bmi05();
+	virtual void bmi06();
+	virtual void bmi07();
+	virtual void bmi08();
+	virtual void bmi09();
+	virtual void bmi10();
+	virtual void bmi11();
+	virtual void bmi12();
+	virtual void bmi13();
+	virtual void bmi14();
+	virtual void bmi15();
+	virtual void bmi16();
+	virtual void bmi17();
+	virtual void bmi18();
+	virtual void bmi19();
+	virtual void bmi20();
+	virtual void bmi21();
+	virtual void bmi22();
+	virtual void bmi23();
+	virtual void bmi24();
+	virtual void bmi25();
+	virtual void bmi26();
+	virtual void bmi27();
+	virtual ProductionUpdateInterface *getProductionUpdateInterface();	// +0x70
 };
 
 class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
@@ -354,12 +562,25 @@ public:
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
+public:
+	void xfer(Xfer *xfer);
+
 protected:
 	unsigned m_nextCallFrameAndPhase;
 	int m_indexInLogic;
 	int m_bfmeReserved;
 };
 
+class Rva00A027B8 { public:
+ virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+ virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+ virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+ virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+ virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
+ virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
+ virtual CanMakeType canMakeUnit(Object *, const ThingTemplate *, Int);
+};
+extern Rva00A027B8 *g_00A027B8;
 class ProductionUpdateInterface
 {
 public:
@@ -371,15 +592,16 @@ public:
 	virtual void rva0049CC9D(const ThingTemplate *unitType, Bool five);
 	virtual Bool isUpgradeInQueue(const UpgradeTemplate *upgrade) const;
 	virtual UnsignedInt countUnitTypeInQueue(const ThingTemplate *unitType) const;
-	virtual Bool queueCreateUnit(const ThingTemplate *unitType, Int revivalIndex, ProductionID productionID,
-		Int slot, Bool five, const AsciiString &name, Bool flag);
+	virtual Bool queueCreateUnit(const ThingTemplate *unitType, Int revivalIndex, ProductionID productionID, Int slot, Bool five, const AsciiString &name, Bool flag);
 	virtual Bool rva0049CC36(ProductionID productionID) const;
 	virtual void cancelUnitCreate(ProductionID productionID);
 	virtual void rva0049CC61(const ThingTemplate *unitType);
 	virtual void i12();
 	virtual void rva0049F8A9(const ThingTemplate *unitType, Bool cancel);
 	virtual void rva0049CC15(ProductionID productionID, Int value);
-	virtual void i15(); virtual void i16(); virtual void i17();
+	virtual void cancelAndRefundAllProduction();
+	virtual void rva0049DEC8();
+	virtual void i17();
 	virtual UnsignedInt rva0049CEAE(const ThingTemplate *unitType) const;
 	virtual UnsignedInt rva0049CEE1(Int value) const;
 	virtual UnsignedInt rva0049D0DE(const Rva0049D0DEMask *mask) const;
@@ -400,9 +622,23 @@ public:
 	void rva0049D57F(void *entry); // removeFromProductionQueue
 };
 
+enum
+{
+	DOOR_COUNT_MAX = 4
+};
+
+struct DoorInfo
+{
+	UnsignedInt m_doorOpenedFrame;
+	UnsignedInt m_doorWaitOpenFrame;
+	UnsignedInt m_doorClosedFrame;
+	Bool m_holdOpen;
+};
+
 class ProductionUpdate : public UpdateModule, public ProductionUpdateInterface, public DieModuleInterface
 {
 public:
+ virtual Bool queueCreateUnit(const ThingTemplate *unitType, Int revivalIndex, ProductionID productionID, Int slot, Bool five, const AsciiString &name, Bool flag);
 	virtual CanMakeType rva0049CFCD() const;
 	virtual CanMakeType canQueueUpgrade(const UpgradeTemplate *upgrade) const;
 	virtual ProductionID requestUniqueUnitID();
@@ -411,18 +647,23 @@ public:
 	virtual void rva0049CC9D(const ThingTemplate *unitType, Bool five);
 	virtual Bool isUpgradeInQueue(const UpgradeTemplate *upgrade) const;
 	virtual UnsignedInt countUnitTypeInQueue(const ThingTemplate *unitType) const;
-	virtual Bool queueCreateUnit(const ThingTemplate *unitType, Int revivalIndex, ProductionID productionID,
-		Int slot, Bool five, const AsciiString &name, Bool flag);
 	virtual Bool rva0049CC36(ProductionID productionID) const;
 	virtual void rva0049CC61(const ThingTemplate *unitType);
 	virtual void rva0049F8A9(const ThingTemplate *unitType, Bool cancel);
 	virtual void rva0049CC15(ProductionID productionID, Int value);
+	virtual void cancelAndRefundAllProduction();
+	virtual void rva0049DEC8();
 	virtual UnsignedInt rva0049CEAE(const ThingTemplate *unitType) const;
 	virtual UnsignedInt rva0049CEE1(Int value) const;
 	virtual UnsignedInt rva0049D0DE(const Rva0049D0DEMask *mask) const;
 	virtual const Rva0049D1B1 *nextProduction(const Rva0049D1B1 *p) const;
 
+	static ProductionUpdateInterface *getProductionUpdateInterfaceFromObject(Object *obj);
+	const Rva0049D1B1 *GetEntryToProcess();
+
 protected:
+	virtual void xfer(Xfer *xfer);
+
 	const ProductionUpdateModuleData *getProductionUpdateModuleData() const
 	{
 		return (const ProductionUpdateModuleData *)m_moduleData;
@@ -440,10 +681,46 @@ protected:
 	Rva0049D1B1 *m_productionQueueTail; // +0x2C
 	ProductionID m_uniqueID; // +0x30
 	UnsignedInt m_productionCount; // +0x34
-	char m_unknown38[0x130 - 0x38];
+	UnsignedInt m_constructionCompleteFrame; // +0x38
+	DoorInfo m_doors[DOOR_COUNT_MAX]; // +0x3C
+	Rva000BB710 m_clearFlags; // +0x7C
+	Rva000BB710 m_setFlags; // +0xC8
+	Bool m_flagsDirty; // +0x114
+	UnsignedInt m_bfme118; // +0x118
+	Bool m_bfme11C; // +0x11C
+	ObjectID m_bfme120; // +0x120
+	char m_unknown124[0x128 - 0x124];
+	UnsignedInt m_bfme128; // +0x128
+	AudioHandle m_bfme12C; // +0x12C
 	_STL::vector<AsciiString> m_bfme130; // +0x130
 	Bool m_bfme13C; // +0x13C
 };
+
+// WB 0x1203E30 names this routine. Native 49CFEB..49D07A first prefers
+// unit entries with KindOfType bit14, then horde entries whose revival
+// progress is at least one, otherwise the head. Both walks use the native
+// interface's slot22 (+0x58); WB's corresponding slot is +0x54.
+const Rva0049D1B1 *ProductionUpdate::GetEntryToProcess()
+{
+	const Rva0049D1B1 *entry;
+	for (entry = m_productionQueue; entry; entry = nextProduction(entry))
+	{
+		if (entry->isUnit() && entry->getProductionObject()->getProductionPriorityKind())
+			return entry;
+	}
+	for (entry = m_productionQueue; entry; entry = nextProduction(entry))
+	{
+		if (entry->getProductionType() == PRODUCTION_HORDE_UNIT)
+		{
+			Rva0037EE4C *tracker = &getObject()->getControllingPlayer()->m_revivalTracker;
+			Int productionID = entry->m_productionID;
+			Int index = tracker->rva0037EE4C(entry->getProductionObject(), productionID, 0);
+			if (tracker->rva0037E815(index, getObject()) >= 1.0f)
+				return entry;
+		}
+	}
+	return m_productionQueue;
+}
 
 // ?queueUpgrade@ProductionUpdate@@UAE_NPBVUpgradeTemplate@@@Z @0x0049D867 315B
 Bool ProductionUpdate::queueUpgrade( const UpgradeTemplate *upgrade )
@@ -487,7 +764,7 @@ Bool ProductionUpdate::queueUpgrade( const UpgradeTemplate *upgrade )
 	production->m_productionID = 0;
 	production->m_type = PRODUCTION_UPGRADE;
 	production->m_upgradeToResearch = upgrade;
-	production->m_buttonImage = upgrade->m_buttonImage;
+	production->m_bfme38 = upgrade->m_bfme70;
 
 	// take the cost for the build away from the player
 	production->m_cost = upgrade->rva0026EF50( player, getObject() );
@@ -640,102 +917,6 @@ UnsignedInt ProductionUpdate::countUnitTypeInQueue( const ThingTemplate *unitTyp
 
 }  // end countUnitTypeInQueue
 
-// ?queueCreateUnit@ProductionUpdate@@UAE_NPBVThingTemplate@@HW4ProductionID@@H_NABVAsciiString@@2@Z @0x0049DA34 540B
-// BFME 2 adds a revival index (-1 for a fresh unit; revivals are type 3 and
-// take their template and image from the player's revival tracker), a slot
-// index kept at +0x30, a queue-five flag, a name and a byte flag.
-Bool ProductionUpdate::queueCreateUnit( const ThingTemplate *unitType, Int revivalIndex, ProductionID productionID,
-																				Int slot, Bool five, const AsciiString &name, Bool flag )
-{
-	const ProductionUpdateModuleData *data = getProductionUpdateModuleData();
-	Bool revival = revivalIndex != -1;
-	if( revival )
-		unitType = NULL;
-
-	// if we can't create the unit do nothing
-	if( g_00A027B8->canMakeUnit( getObject(), unitType, revivalIndex ) != CANMAKE_OK )
-		return FALSE;
-
-	if (m_productionCount >= getProductionUpdateModuleData()->m_maxQueueEntries)
-		return FALSE;
-
-	Player *player = getObject()->getControllingPlayer();
-	UnsignedInt cost = 0;
-	if( revival )
-		cost = player->m_revivalTracker.rva0037E649( revivalIndex, getObject() );
-	else if( (unitType->m_bfme118 & 0x20000000) == 0 )
-		cost = unitType->rva0033A69A( player, getObject(), -1 );
-
-	Bool first = TRUE;
-	Int count = five ? 5 : 1;
-	while( count )
-	{
-		if (m_productionCount >= getProductionUpdateModuleData()->m_maxQueueEntries)
-			break;
-
-		// take the cost for the build away from the player
-		player->getMoney()->rva003B0CB3( cost, &player->m_tracker, true );
-		((Rva0039BAD2 *)&player->m_tracker)->rva0039BAD2( (Rva0039BAD2Input *)unitType, cost );
-
-		// allocate a new production entry
-		Rva0049D1B1 *production = new Rva0049D1B1;
-
-		ProductionID id;
-		if( first )
-		{
-			id = productionID;
-			first = FALSE;
-		}
-		else
-			id = requestUniqueUnitID();
-
-		production->m_productionQuantityProduced = 0;
-		production->m_productionID = id;
-		production->m_productionQuantityTotal = 1;
-		if( !revival )
-		{
-			for( _STL::vector<QuantityModifier>::const_iterator it = data->m_quantityModifiers.begin(); it != data->m_quantityModifiers.end(); ++it )
-			{
-				const ThingTemplate* productionTemplate = (const ThingTemplate *)TheThingFactory->rva002D06CA( &it->m_templateName );
-				if( productionTemplate && productionTemplate->isEquivalentTo( unitType ) )
-				{
-					production->m_productionQuantityTotal = it->m_quantity;
-					break;
-				}
-			}
-			production->m_type = PRODUCTION_UNIT;
-			production->m_objectToProduce = unitType;
-			production->m_buttonImage = ((ThingTemplate *)unitType)->getButtonImage();
-		}
-		else
-		{
-			production->m_type = PRODUCTION_HORDE_UNIT;
-			if( !player->m_revivalTracker.productionSystemQueueCreateUnit( revivalIndex, production->m_productionID, &production->m_buttonImage ) )
-			{
-				::delete production;
-				return FALSE;
-			}
-			production->m_objectToProduce = (const ThingTemplate *)((Rva0037E421 *)&player->m_revivalTracker)->rva0037E7A5( revivalIndex );
-		}
-
-		production->m_exitDoor = -1;
-		production->m_bfme30 = slot;
-		production->m_cost = cost;
-		production->m_bfme40 = name;
-		production->m_bfme44 = flag;
-
-		// tie to the end of the production queue
-		addToProductionQueue( production );
-
-		--count;
-		if( player->getMoney()->countMoney() < cost )
-			break;
-	}
-
-	return TRUE;  // unit queued
-
-}  // end queueCreateUnit
-
 // ?rva0049CC36@ProductionUpdate@@UBE_NW4ProductionID@@@Z @0x0049CC36 43B
 // Is a unit with this production id in the queue.
 Bool ProductionUpdate::rva0049CC36( ProductionID productionID ) const
@@ -825,6 +1006,24 @@ UnsignedInt ProductionUpdate::rva0049CEE1( Int value ) const
 	return count;
 }
 
+// ?getProductionUpdateInterfaceFromObject@ProductionUpdate@@SAPAVProductionUpdateInterface@@PAVObject@@@Z @0x0049CEFC 41B
+// ZH's static lookup: the first behavior module that answers
+// getProductionUpdateInterface.
+ProductionUpdateInterface *ProductionUpdate::getProductionUpdateInterfaceFromObject( Object *obj )
+{
+	if( obj == NULL )
+		return NULL;
+
+	for( BehaviorModule **u = obj->getBehaviorModules(); *u; ++u )
+	{
+		ProductionUpdateInterface *pui = (*u)->getProductionUpdateInterface();
+		if( pui )
+			return pui;
+	}
+
+	return NULL;
+}
+
 // ?rva0049D0DE@ProductionUpdate@@UBEIPBURva0049D0DEMask@@@Z @0x0049D0DE 54B
 // Counts the entries whose +0x30 index (-1 for none) is set in the mask.
 UnsignedInt ProductionUpdate::rva0049D0DE( const Rva0049D0DEMask *mask ) const
@@ -844,3 +1043,322 @@ const Rva0049D1B1 *ProductionUpdate::nextProduction( const Rva0049D1B1 *p ) cons
 {
 	return p ? p->m_next : NULL;
 }
+
+// ?rva0049DEC8@ProductionUpdate@@UAEXXZ @0x0049DEC8 154B
+// Slot 16: cancels and refunds the queue, then sends the object held at
+// +0x120 out through door 1 unless it has a RespawnUpdate, and finally
+// calls the exit interface's slot 11.
+void ProductionUpdate::rva0049DEC8()
+{
+	cancelAndRefundAllProduction();
+	ExitInterface *exitInterface = getObject()->getObjectExitInterface();
+	ObjectID id = m_bfme120;
+	if( id != INVALID_ID )
+	{
+		Object *obj = TheGameLogic->findObjectByID( id );
+		if( obj )
+		{
+			static NameKeyType key_RespawnUpdate = NAMEKEY( "RespawnUpdate" );
+			if( obj->findUpdateModule( key_RespawnUpdate ) == NULL )
+				exitInterface->exitObjectViaDoor( obj, DOOR_1 );
+		}
+	}
+	if( exitInterface )
+		exitInterface->exitSlot11();
+}
+
+// ?xfer@ProductionUpdate@@MAEXPAVXfer@@@Z @0x0049F91A 1192B
+// The ZH xfer at version 7. Over ZH it adds the entry's +0x18/+0x1C, cost,
+// +0x34 flag and slot, the object's +0x118/+0x11C/+0x120 and four gated
+// tails; version 4 and 5 entries carry a dead float, int list and flag.
+void ProductionUpdate::xfer( Xfer *xfer )
+{
+	// extend base class
+	UpdateModule::xfer( xfer );
+	if( xfer->IsLightCRC() )
+		return;
+
+	// version
+	Xfer::Version version( 1, 7 );
+	*xfer == version;
+
+	// production queue count
+	Rva0049D1B1 *production;
+	unsigned short productionCount = 0;
+	for( production = m_productionQueue; production; production = production->m_next )
+		productionCount++;
+	*xfer == productionCount;
+
+	// production queue data
+	if( xfer->IsStoring() )
+	{
+		AsciiString name;
+
+		// write all queue data
+		for( production = m_productionQueue; production; production = production->m_next )
+		{
+
+			// type
+			xfer->XferRawBytes( &production->m_type, sizeof( ProductionType ) );
+
+			// thing/upgrade template name
+			switch( production->m_type )
+			{
+				case PRODUCTION_UNIT:
+				case PRODUCTION_HORDE_UNIT:
+					name = production->m_objectToProduce->getName();
+					break;
+				case PRODUCTION_UPGRADE:
+					name = production->m_upgradeToResearch->getUpgradeName();
+					break;
+				default:
+					XferException error;
+					bfmeFormatText( &error, 5, 0 );
+					_CxxThrowException( &error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo ); __assume(0);
+			}
+			*xfer == name;
+
+			xfer->XferRawBytes( &production->m_productionID, sizeof( ProductionID ) );
+			*xfer == production->m_percentComplete;
+			*xfer == production->m_bfme18;
+			*xfer == production->m_bfme1C;
+			*xfer == production->m_productionQuantityTotal;
+			*xfer == production->m_productionQuantityProduced;
+			*xfer == production->m_cost;
+			*xfer == production->m_bfme34;
+			xfer->XferRawBytes( &production->m_exitDoor, sizeof( ExitDoorType ) );
+			Int slot = production->m_bfme30;
+			*xfer == slot;
+			if( version.m_minimum >= 4 )
+			{
+				Real unusedReal = 0.0f;
+				*xfer == unusedReal;
+				_STL::list<Int> unusedList;
+				Rva00460216XferList( xfer, &unusedList );
+			}
+			if( version.m_minimum >= 5 )
+			{
+				Bool unusedBool = FALSE;
+				*xfer == unusedBool;
+			}
+
+		}  // end for
+
+	}  // end if, save
+	else
+	{
+		AsciiString name;
+
+		// the queue should be emtpy now
+		if( m_productionQueue != NULL )
+		{
+			XferException error;
+			bfmeFormatText( &error, 5, 0 );
+			_CxxThrowException( &error, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo ); __assume(0);
+		}
+
+		// read each element
+		for( unsigned short i = 0; i < productionCount; ++i )
+		{
+
+			// allocate new production entry
+			production = new Rva0049D1B1;
+
+			// tie to list at end
+			if( m_productionQueue == NULL )
+				m_productionQueue = production;
+
+			// make any existing tail pointer now point to us, and we point back to them
+			if( m_productionQueueTail )
+			{
+				m_productionQueueTail->m_next = production;
+				production->m_prev = m_productionQueueTail;
+			}
+
+			// this production entry is now the new tail at the end of the list
+			m_productionQueueTail = production;
+
+			// type
+			xfer->XferRawBytes( &production->m_type, sizeof( ProductionType ) );
+
+			// thing/upgrade template name
+			*xfer == name;
+			switch( production->m_type )
+			{
+				case PRODUCTION_UNIT:
+				case PRODUCTION_HORDE_UNIT:
+					production->m_objectToProduce = (const ThingTemplate *)TheThingFactory->rva002D06CA( &name );
+					production->m_objectToProduce = production->m_objectToProduce ?
+						(const ThingTemplate *)production->m_objectToProduce->getFinalOverride() : NULL;
+					break;
+				case PRODUCTION_UPGRADE:
+					production->m_upgradeToResearch = TheUpgradeCenter->findUpgrade( name );
+					break;
+			}
+
+			xfer->XferRawBytes( &production->m_productionID, sizeof( ProductionID ) );
+			*xfer == production->m_percentComplete;
+			*xfer == production->m_bfme18;
+			*xfer == production->m_bfme1C;
+			*xfer == production->m_productionQuantityTotal;
+			*xfer == production->m_productionQuantityProduced;
+			*xfer == production->m_cost;
+			*xfer == production->m_bfme34;
+			xfer->XferRawBytes( &production->m_exitDoor, sizeof( ExitDoorType ) );
+			Int slot;
+			*xfer == slot;
+			production->m_bfme30 = slot;
+			if( version.m_minimum >= 4 )
+			{
+				Real unusedReal = 0.0f;
+				*xfer == unusedReal;
+				_STL::list<Int> unusedList;
+				Rva00460216XferList( xfer, &unusedList );
+			}
+			if( version.m_minimum >= 5 )
+			{
+				Bool unusedBool = FALSE;
+				*xfer == unusedBool;
+			}
+
+		}  // end for, i
+
+	}  // end else, load
+
+	// unique id
+	xfer->XferRawBytes( &m_uniqueID, sizeof( ProductionID ) );
+
+	// production count
+	*xfer == m_productionCount;
+
+	// construction complete frame
+	*xfer == m_constructionCompleteFrame;
+
+	UnsignedInt unused = 0;
+	*xfer == unused;
+	XferObjectID( xfer, &m_bfme120 );
+	*xfer == m_bfme118;
+	*xfer == m_bfme11C;
+
+	// door info
+	for( Int i = 0; i < DOOR_COUNT_MAX; ++i )
+	{
+		*xfer == m_doors[ i ].m_doorOpenedFrame;
+		*xfer == m_doors[ i ].m_doorWaitOpenFrame;
+		*xfer == m_doors[ i ].m_doorClosedFrame;
+		*xfer == m_doors[ i ].m_holdOpen;
+	}
+
+	// clear flags
+	m_clearFlags.xfer( xfer );
+
+	// set flags
+	m_setFlags.xfer( xfer );
+
+	// flags dirty
+	*xfer == m_flagsDirty;
+
+	if( version.m_minimum >= 2 )
+		*xfer == m_bfme128;
+	if( version.m_minimum >= 3 && TheAudio )
+		TheAudio->xferAudioHandle( xfer, &m_bfme12C );
+	if( version.m_minimum >= 6 )
+		xferAsciiStringVector( xfer, &m_bfme130 );
+	if( version.m_minimum >= 7 )
+		*xfer == m_bfme13C;
+
+}  // end xfer
+
+// ?queueCreateUnit@ProductionUpdate@@UAE_NPBVThingTemplate@@HW4ProductionID@@H_NABVAsciiString@@2@Z present-unmatched
+Bool ProductionUpdate::queueCreateUnit( const ThingTemplate *unitType, Int revivalIndex, ProductionID productionID,
+																				Int slot, Bool five, const AsciiString &name, Bool flag )
+{
+	const ProductionUpdateModuleData *data = getProductionUpdateModuleData();
+	Bool revival = revivalIndex != -1;
+	if( revival )
+		unitType = NULL;
+
+	// if we can't create the unit do nothing
+	if( g_00A027B8->canMakeUnit( getObject(), unitType, revivalIndex ) != CANMAKE_OK )
+		return FALSE;
+
+	if (m_productionCount >= getProductionUpdateModuleData()->m_maxQueueEntries)
+		return FALSE;
+
+	Player *player = getObject()->getControllingPlayer();
+	UnsignedInt cost = 0;
+	if( revival )
+		cost = reinterpret_cast<Rva0037E6E8 *>(&player->m_revivalTracker)->rva0037E649( revivalIndex, getObject() );
+	else if( (unitType->freeKindWord118() & 0x20000000) == 0 )
+		cost = unitType->rva0033A69A( player, reinterpret_cast<Int>(getObject()), -1 );
+
+	Bool first = TRUE;
+	Int count = five ? 5 : 1;
+	if (count) do
+	{
+		if (m_productionCount >= getProductionUpdateModuleData()->m_maxQueueEntries)
+			break;
+
+		// take the cost for the build away from the player
+		player->getMoney()->rva003B0CB3( cost, &player->m_tracker, true );
+		((Rva0039BAD2 *)&player->m_tracker)->rva0039BAD2( (Rva0039BAD2Input *)unitType, cost );
+
+		// allocate a new production entry
+		Rva0049D1B1 *production = new Rva0049D1B1;
+
+		ProductionID id;
+		if( first )
+		{
+			id = productionID;
+			first = FALSE;
+		}
+		else
+			id = requestUniqueUnitID();
+
+		production->m_productionQuantityProduced = 0;
+		production->m_productionID = id;
+		production->m_productionQuantityTotal = 1;
+		if( !revival )
+		{
+			for( _STL::vector<QuantityModifier>::const_iterator it = data->m_quantityModifiers.begin(); it != data->m_quantityModifiers.end(); ++it )
+			{
+				const ThingTemplate* productionTemplate = (const ThingTemplate *)TheThingFactory->rva002D06CA( &it->m_templateName );
+				if( productionTemplate && productionTemplate->isEquivalentTo( unitType ) )
+				{
+					production->m_productionQuantityTotal = it->m_quantity;
+					break;
+				}
+			}
+			production->m_type = PRODUCTION_UNIT;
+			production->m_objectToProduce = unitType;
+			production->m_buttonImage = ((ThingTemplate *)unitType)->getButtonImage();
+		}
+		else
+		{
+			production->m_type = PRODUCTION_HORDE_UNIT;
+			if( !reinterpret_cast<UnitRevivalTracker *>(&player->m_revivalTracker)->productionSystemQueueCreateUnit( revivalIndex, production->m_productionID, &production->m_buttonImage ) )
+			{
+				::delete production;
+				return FALSE;
+			}
+			production->m_objectToProduce = (const ThingTemplate *)((Rva0037E421 *)&player->m_revivalTracker)->rva0037E7A5( revivalIndex );
+		}
+
+		production->m_exitDoor = (ExitDoorType)-1;
+		production->m_bfme30 = slot;
+		production->m_cost = cost;
+		production->m_bfme40 = name;
+		production->m_bfme44 = flag;
+
+		// tie to the end of the production queue
+		addToProductionQueue( production );
+
+		--count;
+		if( player->getMoney()->countMoney() < cost )
+			break;
+	} while(count);
+
+	return TRUE;  // unit queued
+
+}  // end queueCreateUnit
+
