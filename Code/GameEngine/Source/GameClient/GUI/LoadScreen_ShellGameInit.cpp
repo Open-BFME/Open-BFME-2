@@ -1,13 +1,15 @@
-// ?init@Rva00355DC5@@UAEXPAVGameInfo@@@Z
-// partial score=0.95 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
-// ?init@Rva00355DC5@@UAEXPAVGameInfo@@@Z @0x00356541 455B
-// vslot 2 (offset 0x8) of vtable 0x00814E74 (class of ??1Rva00355DC5@@UAE@XZ).
-// Evidence: ShellGameLoadScreen strings (Menus/ShellGameLoadScreen.wnd,
-// ProgressLoad, StaticTextLegal, TitleScreen, FadeWholeScreen), m_win +8 and
-// m_progressBar +0x10 layout matching LoadScreenUpdates ShellGame view,
-// wait loop calling pinned LoadScreen::update 0x00355FF9 with Sleep(100) for
-// 3000ms, firstLoad global 0x009BFAA4, LOD byte getter 0x002026C7.
+// ?init@Rva00355DC5@@UAEXPAVGameInfo@@@Z @0x00356541 455B: Zero Hour's
+// ShellGameLoadScreen::init (LoadScreen.cpp), vslot 2 of vtable 0x00814E74
+// (class of ??1Rva00355DC5@@UAE@XZ, so the class keeps its address name).
+// Target evidence: the ShellGameLoadScreen.wnd literals (ProgressLoad,
+// StaticTextLegal, TitleScreen, FadeWholeScreen), m_win +8 and m_progressBar
+// +0x10 as in LoadScreenUpdates' view, the wait loop calling LoadScreen::update
+// 0x00355FF9 with Sleep(100) for 3000ms, and the LOD byte getter 0x002026C7
+// in place of didMemPass. BFME2's winCreateFromScript (TheWindowManager slot
+// 31) takes two more pointer arguments, passed null here; the donor's
+// function-static firstLoad (TRUE) is data at 0x009BFAA4. BFME2 also runs
+// the FadeWholeScreen transition in reverse once the title image is set.
 #include "ascii_string.h"
 
 class GameWindow;
@@ -20,7 +22,7 @@ class GameWindow
 {
 public:
 	int winHide(bool hide);
-	int rva0031475A();
+	int winBringToTop();
 	int winSetEnabledImage(int index, const Image *image);
 };
 
@@ -35,7 +37,7 @@ public:
 	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
 	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
 	virtual void s28(); virtual void s29(); virtual void s30();
-	virtual GameWindow *winCreateFromScript(AsciiString file); // +0x7c slot31
+	virtual GameWindow *winCreateFromScript(AsciiString file, void *info = 0, void *extra = 0); // +0x7c slot31
 	virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35();
 	virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39();
 	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
@@ -60,7 +62,7 @@ class ImageCollection
 public:
 	const Image *findImageByName(const AsciiString &name);
 };
-extern ImageCollection *g_00DFF078;
+extern ImageCollection *TheMappedImageCollection;
 
 class GameWindowTransitionsHandler
 {
@@ -68,8 +70,7 @@ public:
 	void reverse(AsciiString groupName);
 };
 
-class AudioManager;
-extern AudioManager *TheAudio;
+extern GameWindowTransitionsHandler *TheTransitionHandler;
 
 class Rva002026C7ByteField
 {
@@ -87,8 +88,6 @@ public:
 	bool m_breakTheMovie;
 };
 extern GlobalData *TheWritableGlobalData;
-
-extern int g_00DBFAA4;
 
 void GadgetProgressBarSetProgress(GameWindow *g, int progress);
 
@@ -126,25 +125,25 @@ private:
 	GameWindow *m_progressBar;
 };
 
-// ?init@Rva00355DC5@@UAEXPAVGameInfo@@@Z present-unmatched
 void Rva00355DC5::init(GameInfo *game)
 {
+	static int firstLoad = 1;
 	GameWindow *win = 0;
 	unsigned int showTime = 0;
 	m_win = TheWindowManager->winCreateFromScript(AsciiString("Menus/ShellGameLoadScreen.wnd"));
 	m_win->winHide(false);
-	m_win->rva0031475A();
+	m_win->winBringToTop();
 	m_progressBar = TheWindowManager->winGetWindowFromId(m_win, TheNameKeyGenerator->nameToKey(AsciiString("ShellGameLoadScreen.wnd:ProgressLoad")));
 	GadgetProgressBarSetProgress(m_progressBar, 0);
 	m_progressBar->winHide(true);
-	if (m_win && g_00DBFAA4 && TheGameLODManager && ((Rva002026C7ByteField *)TheGameLODManager)->get()) {
-		m_win->winSetEnabledImage(0, g_00DFF078->findImageByName(AsciiString("TitleScreen")));
-		((GameWindowTransitionsHandler *)TheAudio)->reverse(AsciiString("FadeWholeScreen"));
+	if (m_win && firstLoad && TheGameLODManager && ((Rva002026C7ByteField *)TheGameLODManager)->get()) {
+		m_win->winSetEnabledImage(0, TheMappedImageCollection->findImageByName(AsciiString("TitleScreen")));
+		TheTransitionHandler->reverse(AsciiString("FadeWholeScreen"));
 		TheWritableGlobalData->m_breakTheMovie = false;
 		win = TheWindowManager->winGetWindowFromId(m_win, TheNameKeyGenerator->nameToKey(AsciiString("ShellGameLoadScreen.wnd:StaticTextLegal")));
 		if (win)
 			win->winHide(false);
-		g_00DBFAA4 = 0;
+		firstLoad = 0;
 		showTime = timeGetTime();
 		while (showTime + 3000 > timeGetTime()) {
 			((LoadScreen *)this)->LoadScreen::update(0);

@@ -71523,3 +71523,4 @@ _VP6_printmodes,,0x001BB830,398,Code/Libraries/Source/VP6/debug.cpp,matched,Clea
 ?PopulateColorComboBox@@YAXHQAPAVGameWindow@@PAVGameInfo@@_N@Z,,0x00446EC9,614,Code/GameEngine/Source/GameNetwork/GUIUtil.cpp,matched,ZH GUIUtil PopulateColorComboBox; BFME2 vector<bool>(count; true) ctor and early return; bfmealloc teardown through the throwing C free
 ?MessageBoxSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,,0x0044BA8B,491,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/MessageBox.cpp,matched,ZH GUICallbacks/MessageBox.cpp MessageBoxSystem; BFME2 leaves GWM_CREATE to the ignored default; function-static name keys (guard bits VA 0x00E0337C); WindowMessageBoxData yes/no/ok/cancel callbacks
 ?rva005BA02B@Rva005B9378@@QAEXXZ,,0x005BA02B,466,Code/GameEngine/Source/Common/AptHeroPowerText.cpp,matched,
+?init@Rva00355DC5@@UAEXPAVGameInfo@@@Z,,0x00356541,455,Code/GameEngine/Source/GameClient/GUI/LoadScreen_ShellGameInit.cpp,matched,
