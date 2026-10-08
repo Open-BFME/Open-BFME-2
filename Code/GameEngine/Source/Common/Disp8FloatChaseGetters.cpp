@@ -7,6 +7,7 @@
 // emits the disp8 loads `8B 41 XX` + `D9 40 XX`, plus `ret`, for seven bytes.
 // Identity is not recovered: every name is derived from its address.
 // No // cl: line (defaults match the frameless seven-byte shape).
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 #define BFME_DISP8_FLOATCHASE_GETTER(NAME, DISP1, DISP2) \
 	class NAME \
 	{ \
@@ -98,3 +99,17 @@ BFME_DISP8_FLOATCHASE_GETTER(Rva00460C73FloatChase32Field, 0x4, 0x150)
 BFME_DISP8_FLOATCHASE_GETTER(Rva004BB976FloatChase32Field, 0x4, 0x608)
 BFME_DISP8_FLOATCHASE_GETTER(Rva0026FDCAFloatChase32Field, 0x4, 0x120)
 BFME_DISP8_FLOATCHASE_GETTER(Rva004BB980FloatChase32Field, 0x4, 0x60C)
+
+class Object
+{
+public:
+	float rva0028ED19(const Coord3D *a, const void *other, const Coord3D *b) const;
+	float rva0044E6B8(const Object *other) const;
+	char m_pad000[0x38];
+	Coord3D m_position;
+};
+
+float Object::rva0044E6B8(const Object *other) const
+{
+	return rva0028ED19(&m_position, other, &other->m_position);
+}
