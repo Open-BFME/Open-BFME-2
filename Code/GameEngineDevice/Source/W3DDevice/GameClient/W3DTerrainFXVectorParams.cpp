@@ -347,7 +347,8 @@ struct Rva001530E9Path
 	const char *m_rest;
 };
 
-extern int (__cdecl *g_TerrainBinderCompare)(const char *, const char *);
+// Retail loads the msvcr71.dll _strcmpi import from IAT slot 0x00BBA518.
+extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
 
 class Rva00080221
 {
@@ -401,7 +402,7 @@ void Rva000E2DFD::rva000E2DFD(const char *name, const char *handle, FXShaderPara
 	{
 		Rva001530E9Path path;
 		Rva001530E9Parse(name, &path);
-		int (__cdecl *compare)(const char *, const char *) = g_TerrainBinderCompare;
+		int (__cdecl *compare)(const char *, const char *) = _strcmpi;
 		if (compare(path.m_name, "Size") == 0)
 			registry->AddBinding(Rva000E2EB7, handle);
 		else if (compare(path.m_name, "CellSize") == 0)
