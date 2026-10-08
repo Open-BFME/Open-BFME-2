@@ -1610,47 +1610,8 @@ void WeaponStore::setDelayedDamage(const WeaponTemplate *weapon, const Coord3D* 
 // WeaponStore::postProcessLoad is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/WeaponStorePostProcessLoad.cpp (0x002CADFA).
 
 //-------------------------------------------------------------------------------------------------
-/*static*/ void WeaponStore::parseWeaponTemplateDefinition(INI* ini)
-{
-	AsciiString name;
-
-	// read the weapon name
-	const char* c = ini->getNextToken();
-	name.set(c);	
-
-	// find existing item if present
-	WeaponTemplate *weapon = TheWeaponStore->findWeaponTemplatePrivate( TheNameKeyGenerator->nameToKey( name ) );
-	if (weapon)
-	{
-		if (ini->getLoadType() == INI_LOAD_CREATE_OVERRIDES)
-			weapon = TheWeaponStore->newOverride(weapon);
-		else 
-		{
-			DEBUG_CRASH(("Weapon '%s' already exists, but OVERRIDE not specified", c));
-			return;
-		}
-
-	}
-	else
-	{
-		// no item is present, create a new one
-		weapon = TheWeaponStore->newWeaponTemplate(name);
-	} 
-
-	// parse the ini weapon definition
-	ini->initFromINI(weapon, weapon->getFieldParse());
-
-	if (weapon->m_projectileName.isNone())
-		weapon->m_projectileName.clear();
-
-#if defined(_DEBUG) || defined(_INTERNAL)
-	if (!weapon->getFireSound().getEventName().isEmpty() && weapon->getFireSound().getEventName().compareNoCase("NoSound") != 0) 
-	{ 
-		DEBUG_ASSERTCRASH(TheAudio->isValidAudioEvent(&weapon->getFireSound()), ("Invalid FireSound %s in Weapon '%s'.", weapon->getFireSound().getEventName().str(), weapon->getName().str())); 
-	}
-#endif
-
-}
+// WeaponStore::parseWeaponTemplateDefinition has its BFME 2 retail body in
+// WeaponStoreNewOverride.cpp (0x002CE102).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------

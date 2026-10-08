@@ -20,6 +20,23 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
+struct FieldParse;
+// Retail Weapon FieldParse table; its original linker symbol is unestablished.
+extern const FieldParse g_00C00B48[];
+enum INILoadType;
+// Target-only INI view: the retail parser reads its load type at +0x08.
+// This declaration does not assert the size or the other fields of INI.
+class INI
+{
+public:
+    const char *getNextToken(const char *seps = 0);
+    void initFromINI(void *object, const FieldParse *fields);
+    INILoadType getLoadType() const { return m_loadType; }
+private:
+    unsigned char m_pad00[8];
+    INILoadType m_loadType;
+};
+
 class NameKeyGenerator
 {
 public:
@@ -58,6 +75,7 @@ class WeaponStore
 public:
 	WeaponTemplate *newOverride(WeaponTemplate *weaponTemplate);
     void rva002CDB0E(const WeaponTemplate *weaponTemplate);
+    static void parseWeaponTemplateDefinition(INI *ini);
 
 protected:
     WeaponTemplate *findWeaponTemplatePrivate(NameKeyType key) const;
@@ -147,4 +165,36 @@ void WeaponStore::rva002CDB0E(const WeaponTemplate *arg)
             return;
         }
     }
+}
+
+extern WeaponStore *TheWeaponStore;
+// Target identity: the INI Weapon block, mapped WB Weapon.cpp:2151 and its
+// complete 170-byte retail handler agree on lookup/create/override dispatch.
+// BFME 2 also handles numeric load type 5 by moving the old template aside;
+// its original enum label is not established here. The parser retains its
+// store receiver across the lookup because the exact helper is visible above.
+// 0x00C00B48 is retail's descriptor input: independently decoded as 124
+// 16-byte FieldParse records followed by an all-zero terminator at 0x00C01308.
+// This function owns no descriptor data; the existing table is its input.
+void WeaponStore::parseWeaponTemplateDefinition(INI *ini)
+{
+    AsciiString name;
+    name.set(ini->getNextToken());
+    WeaponTemplate *weapon = TheWeaponStore->findWeaponTemplatePrivate(TheNameKeyGenerator->nameToKey(name));
+    if (weapon)
+    {
+        if (ini->getLoadType() == 2)
+            weapon = TheWeaponStore->newOverride(weapon);
+        else if (ini->getLoadType() == 5)
+        {
+            TheWeaponStore->rva002CDB0E(weapon);
+            weapon = TheWeaponStore->newWeaponTemplate(name);
+            weapon->m_retired = 0;
+        }
+        else
+            return;
+    }
+    else
+        weapon = TheWeaponStore->newWeaponTemplate(name);
+    ini->initFromINI(weapon, g_00C00B48);
 }
