@@ -37,12 +37,33 @@ void Rva005A66B8Elem::rva005DB86E()
     m_10 = 0;
 }
 
+// Call view of the already rowed 16-byte vector-and-flags constructor.
+// Its first pointer is released by this owner's native cleanup.
+class Rva00330757Member
+{
+public:
+    Rva00330757Member();
+    char *m_begin;
+    char *m_end;
+    char *m_capacity;
+    int m_flags;
+};
+
 class Rva005A71B1Base
 {
 public:
-    ~Rva005A71B1Base() { if (m_ptr) free(m_ptr); }
+    ~Rva005A71B1Base() { if (m_items.m_begin) free(m_items.m_begin); }
 protected:
-    char *m_ptr;
+    Rva00330757Member m_items;
+};
+
+class Rva005A71B1;
+// The rowed reset's name is carried from the PortNegotiationSchema WB
+// evidence. The native constructor calls it on this exact receiver.
+class PortNegotiationSchema
+{
+    friend class Rva005A71B1;
+    void rva005DB9E4() throw();
 };
 
 class Rva005A71B1 : public Rva005A71B1Base
@@ -51,12 +72,24 @@ public:
     Rva005A71B1();
     virtual ~Rva005A71B1();
 private:
-    unsigned char m_pad[0x210];
+    unsigned char m_pad[0x204];
     Rva005A66B8Elem m_arr[0x40];
+    int m_perSlot[8];
+    int m_tableC[8][8];
+    unsigned short m_tableD[8][8];
+    void *m_slotList;
 };
 
 Rva005A71B1::~Rva005A71B1()
 {
+}
+
+// Native83B 5DC43B..5DC48E constructs the vector member, installs the
+// destructor-established C71BF8 vtable, builds the 64 elements, then resets
+// the full 8BC-byte schema. That extent ends at the outer owner's flags.
+Rva005A71B1::Rva005A71B1()
+{
+    reinterpret_cast<PortNegotiationSchema *>(this)->rva005DB9E4();
 }
 
 // 0x005A734B 119B: dtor stores vtable 0x00871BFC, frees 8 pointers at +0x90C
@@ -95,7 +128,6 @@ private:
     int m_04, m_08, m_0C, m_10, m_14, m_18, m_1C, m_20;
     bool m_24, m_25;
     Rva005A71B1 m_mid;
-    unsigned char m_mid2[0x8E4 - 0x740];
     bool m_8E4[8];
     int m_8EC[8];
     void *m_ptrs[8];
