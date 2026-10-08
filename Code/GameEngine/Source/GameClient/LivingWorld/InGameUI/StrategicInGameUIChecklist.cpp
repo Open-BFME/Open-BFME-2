@@ -155,3 +155,15 @@ void StrategicInGameUI::Checklist::Impl::Update()
  }
 }
 
+
+// Native5CCC74..5CCC8F ends in ret8; the following nine bytes form a separate getter.
+// Counted reference acquisition precedes the implementation store, matching AddItem ownership.
+struct CountedChecklistItemView { void *vtable; int references; };
+Rva005CCC74Record::Rva005CCC74Record(
+ const StrategicInGameUI::ChecklistItemRef &item,
+ StrategicInGameUI::ChecklistItem::Impl *impl)
+ : m_ptr(item.m_ptr)
+{
+ if(m_ptr) ++reinterpret_cast<CountedChecklistItemView*>(m_ptr)->references;
+ m_impl=impl;
+}
