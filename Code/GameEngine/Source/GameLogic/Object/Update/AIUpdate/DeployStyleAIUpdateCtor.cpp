@@ -1,5 +1,7 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /GX
 #include "GameLogic/BfmeStoredAICommandView.h"
+#include "Common/BfmeAudioEventPrefix136.h"
+#include "../../../../Common/GameLogicObjectLookupView.h"
 
 extern "C" void free(void *);
 enum AICommandType { AICMD_NO_COMMAND=-1 };
@@ -8,6 +10,30 @@ struct AICommandParms : public Rva00351570Src {
  AICommandParms(AICommandType,CommandSourceType);
  ~AICommandParms() { if(m_20.m_start) free(m_20.m_start); }
 };
+
+typedef bool Bool;
+typedef unsigned int UnsignedInt;
+enum WhichTurretType { TURRET_INVALID=-1 };
+enum DeployStateTypes { READY_TO_MOVE, DEPLOY, READY_TO_ATTACK, UNDEPLOY, ALIGNING_TURRETS };
+class Drawable;
+class Object {
+public:
+	Drawable *getDrawable() const;
+	void rva0028CFB2(const int *,const int *);
+	bool addAttributeModifierToPool(const AsciiString &,int);
+	void removeAttributeModifierFromPool(const AsciiString &);
+	ObjectID getID() const { return m_id; }
+	char pad00[0x74]; ObjectID m_id;
+};
+class AICommandInterface { public: void aiIdle(CommandSourceType); };
+class AIUpdateInterface {
+public:
+	WhichTurretType getWhichTurretForCurWeapon() const;
+	void setTurretEnabled(WhichTurretType,Bool);
+	void recenterTurret(WhichTurretType);
+};
+class Rva0048E61F { public: int rva0048E61F(); };
+extern GameLogic *TheGameLogic;
 
 // Native primary vtable dispatch at +0x268 (154 preceding slots).
 // Pointer-only view: no instances, constructors or vtable providers are emitted.
@@ -222,6 +248,14 @@ public:
 	DeployStyleAIUpdate(Thing *thing, const ModuleData *moduleData);
 	void reset();
 	void doLastOutsideCommand();
+ void rva0048EB53(DeployStateTypes);
+ Object *getObject() const { return *reinterpret_cast<Object *const *>(reinterpret_cast<const char *>(this)+8); }
+ const void *getModuleData() const { return *reinterpret_cast<const void *const *>(reinterpret_cast<const char *>(this)+4); }
+ Bool shouldDoLastOutsideCommand() { return (unsigned char)reinterpret_cast<Rva0048E61F *>(this)->rva0048E61F()!=0; }
+ void aiIdle(CommandSourceType source) { reinterpret_cast<AICommandInterface *>(&m_p20)->aiIdle(source); }
+ WhichTurretType getWhichTurretForCurWeapon() const { return reinterpret_cast<const AIUpdateInterface *>(this)->getWhichTurretForCurWeapon(); }
+ void setTurretEnabled(WhichTurretType turret,Bool enabled) { reinterpret_cast<AIUpdateInterface *>(this)->setTurretEnabled(turret,enabled); }
+ void recenterTurret(WhichTurretType turret) { reinterpret_cast<AIUpdateInterface *>(this)->recenterTurret(turret); }
 
 protected:
 	Rva0026AFDAMember m_member3E4;		// +0x3E4 (init 0x26AFDA via TU method pin)
@@ -298,3 +332,108 @@ void DeployStyleAIUpdate::doLastOutsideCommand()
 	m_flag4A9=false;
 	reinterpret_cast<DeployStyleCommandDispatchView *>(this)->doCommand(&parms,true);
 }
+
+class Rva0028F59A {
+public:
+ Rva0028F59A(int,int);
+ operator const int *() const { return bits; }
+ int bits[19];
+};
+class Rva001E4912 {
+public:
+ Rva001E4912 *rva001E4912(int,unsigned int,unsigned int);
+ int bits[19];
+};
+class Rva001E42F2 { public: void rva001E42F2(const int *); };
+class Rva002D9531 { public: void rva002D9531(int); };
+class Rva0036CA00Str {
+public:
+ OpaqueRefCounted *referent;
+ ~Rva0036CA00Str() { if(referent) referent->Release_Ref(); }
+};
+class Rva002390CB { public: int id; Rva0036CA00Str ref; };
+class Drawable {
+public:
+ void setAnimationLoopDuration(UnsignedInt);
+ Rva002390CB rva00274CD8(const AsciiString &);
+};
+class AudioManager {
+public:
+#define SLOT(n) virtual void slot##n();
+ SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7) SLOT(8) SLOT(9)
+ SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18) SLOT(19)
+ SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24)
+#undef SLOT
+ virtual unsigned int addAudioEvent(const BfmeAudioEventPrefix136 *);
+};
+extern AudioManager *TheAudio;
+
+
+// Native48EB53..48EE8C: full five-state transition and EH lifetime.
+// BFME1 6c1e0b51 setMyState is the semantic guide; WB11D9AA0 preserves
+// DeployStyleAIUpdate.cpp context but does not name this target method.
+// Keep its target method label neutral. Modifier enters on READY_TO_ATTACK.
+void DeployStyleAIUpdate::rva0048EB53(DeployStateTypes stateID)
+{
+ m_4B4=stateID;
+ Object *self=getObject();
+ Drawable *draw=self->getDrawable();
+ switch(stateID) {
+ case DEPLOY: {
+  aiIdle(CMD_FROM_AI);
+  self->rva0028CFB2(reinterpret_cast<const int *>(&static_cast<const Rva0028F59A &>(Rva0028F59A(0,0x5e))),reinterpret_cast<const int *>(&static_cast<const Rva0028F59A &>(Rva0028F59A(0,0x60))));
+  m_4B8=*reinterpret_cast<const unsigned int *>(reinterpret_cast<const char *>(getModuleData())+0x64);
+  if(draw) {
+   draw->setAnimationLoopDuration(m_4B8);
+   BfmeAudioEventPrefix136 sound(reinterpret_cast<const OpaqueRefElement4 &>(draw->rva00274CD8(AsciiString("Deploy")).ref),0);
+   reinterpret_cast<Rva002D9531 *>(&sound)->rva002D9531((int)self->getID());
+   TheAudio->addAudioEvent(&sound);
+  }
+  m_4B8+=TheGameLogic->getFrame();
+  break;
+ }
+ case UNDEPLOY: {
+  aiIdle(CMD_FROM_AI);
+  Rva001E4912 both;
+  self->rva0028CFB2(reinterpret_cast<const int *>(both.rva001E4912(0,0x60,0x64)),reinterpret_cast<const int *>(&static_cast<const Rva0028F59A &>(Rva0028F59A(0,0x5e))));
+  m_4B8=*reinterpret_cast<const unsigned int *>(reinterpret_cast<const char *>(getModuleData())+0x68);
+  if(draw) {
+   draw->setAnimationLoopDuration(m_4B8);
+   BfmeAudioEventPrefix136 sound(reinterpret_cast<const OpaqueRefElement4 &>(draw->rva00274CD8(AsciiString("Undeploy")).ref),0);
+   reinterpret_cast<Rva002D9531 *>(&sound)->rva002D9531((int)self->getID());
+   TheAudio->addAudioEvent(&sound);
+  }
+  m_4B8+=TheGameLogic->getFrame();
+  if(*(reinterpret_cast<const unsigned char *>(getModuleData())+0x6d)) {
+   WhichTurretType tur=getWhichTurretForCurWeapon();
+   if(tur!=TURRET_INVALID) setTurretEnabled(tur,false);
+  }
+  if(!reinterpret_cast<const AsciiString *>(reinterpret_cast<const char *>(getModuleData())+0x70)->isEmpty())
+   self->removeAttributeModifierFromPool(*reinterpret_cast<const AsciiString *>(reinterpret_cast<const char *>(getModuleData())+0x70));
+  break;
+ }
+ case READY_TO_MOVE:
+  m_4B8=0;
+  if(shouldDoLastOutsideCommand()) doLastOutsideCommand();
+  reinterpret_cast<Rva001E42F2 *>(self)->rva001E42F2(reinterpret_cast<const int *>(&static_cast<const Rva0028F59A &>(Rva0028F59A(0,0x5e))));
+  break;
+ case READY_TO_ATTACK:
+  m_4B8=0;
+  if(!m_4D0 && shouldDoLastOutsideCommand()) doLastOutsideCommand();
+  self->rva0028CFB2(reinterpret_cast<const int *>(&static_cast<const Rva0028F59A &>(Rva0028F59A(0,0x60))),reinterpret_cast<const int *>(&static_cast<const Rva0028F59A &>(Rva0028F59A(0,0x64))));
+  if(*(reinterpret_cast<const unsigned char *>(getModuleData())+0x6d)) {
+   WhichTurretType tur=getWhichTurretForCurWeapon();
+   if(tur!=TURRET_INVALID) setTurretEnabled(tur,true);
+  }
+  if(!reinterpret_cast<const AsciiString *>(reinterpret_cast<const char *>(getModuleData())+0x70)->isEmpty())
+   self->addAttributeModifierToPool(*reinterpret_cast<const AsciiString *>(reinterpret_cast<const char *>(getModuleData())+0x70),-1);
+  break;
+ case ALIGNING_TURRETS: {
+  m_4B8=0;
+  WhichTurretType tur=getWhichTurretForCurWeapon();
+  if(tur!=TURRET_INVALID) recenterTurret(tur);
+  break;
+ }
+ }
+}
+
