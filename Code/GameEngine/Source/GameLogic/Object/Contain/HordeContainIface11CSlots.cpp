@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /G7
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /D_CRTIMP= /arch:SSE /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /G7
 // stlport
 //
 // Overrides of the interface HordeContain carries at +0x11C (vtable
@@ -426,6 +426,7 @@ public:
 	}
 	bool test110(int bit) const { return ((m_110 >> bit) & 1) != 0; }
 	const Coord3D *getPosition() const { return &m_position; }
+	bool isEquivalentTemplate(const ThingTemplate *t) const { return m_template->isEquivalentTo(t); }
 	__forceinline unsigned int isKindOf(int kind) const
 	{
 		return m_template->m_kindOf[kind >> 5] & (1U << (kind & 0x1f));
@@ -518,12 +519,46 @@ class Rva00469294
 {
 public:
 	void *rva00469294(int key);
+	char *findEntry(int key) { return (char *)rva00469294(key); }
 };
 // A +0x188 record: the key the module data's +0x1B8 map is searched for.
 struct Rva00472329Record
 {
 	int m_key; // +0x00
 	unsigned char m_pad04[0x1C - 0x04];
+};
+// HordeContain's out-of-line Object tests, defined below ahead of their caller
+// performReform: 0x004693AD matches the Object's ID against +0x264/+0x26C or
+// its template flag, 0x0046ACF6 finds an ID's +0x188 record index in +0x17C.
+struct Rva004693ADFlag109
+{
+	unsigned char m_pad[0x109];
+	unsigned char m_flags;
+};
+struct Rva004693ADArg
+{
+	char m_pad00[4];
+	Rva004693ADFlag109 *m_04;
+	char m_pad08[0x6C];
+	int m_74;
+};
+class Rva004693AD
+{
+public:
+	bool rva004693AD(Rva004693ADArg *arg);
+private:
+	char m_pad[0x264];
+	int m_264;
+	int m_pad268;
+	int m_26C;
+};
+class Rva0046ACF6
+{
+public:
+	int rva0046ACF6(int key);
+private:
+	char m_pad[0x17C];
+	_STL::map<int, int> m_map;
 };
 class Rva004695DA
 {
@@ -670,7 +705,7 @@ class Rva0046BB38Iface11C : public Rva0046BB38Iface6
 {
 public:
 	virtual int rva0046979B() = 0; virtual void assignSpotToUnit(Object *obj) = 0; virtual void gap12() = 0; virtual void gap13() = 0;
-	virtual void gap14() = 0; virtual void gap15() = 0; virtual void slot16() = 0; virtual void rva0046FE99(_STL::list<Object *> &out) = 0;
+	virtual void gap14() = 0; virtual void gap15() = 0; virtual void performReform() = 0; virtual void rva0046FE99(_STL::list<Object *> &out) = 0;
 	virtual void gap18() = 0; virtual Object *rva0046CB2C() = 0; virtual Object *rva0046CC09() = 0; virtual Object *rva0046CBCA() = 0;
 	virtual void *rva004696CD() = 0; virtual bool rva0046CDC9() = 0; virtual void rva004696E5() = 0; virtual bool rva0046CCEF(const ThingTemplate *tmpl) = 0;
 	virtual void rva00472D43(void *thingTemplate) = 0; virtual bool rva0046970D(Object *obj, int a2, const Rva00469851Names *names, bool sameGroup) = 0; virtual void gap28() = 0; virtual void gap29() = 0;
@@ -715,7 +750,8 @@ public:
 	virtual float rva0046B850() = 0;
 	virtual void endMove() = 0;
 };
-// Primary vtable 0x00C45050: 37 gap slots, the dtor and slot 38, the matched
+// Primary vtable 0x00C45050: gap slots, slot 37 (HordeContain's 0x00470B21,
+// the bool performReform repeats until false) and slot 38, the matched
 // HordeContainRva004725D5.cpp override (indices only matter for the calls).
 class UpdateModule : public Rva00468D11Slots<32>
 {
@@ -725,7 +761,7 @@ public:
 	virtual void rva0046AF85() = 0;
 	virtual void gap35() = 0;
 	virtual void gap36() = 0;
-	virtual ~UpdateModule();
+	virtual bool rva00470B21() = 0;
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
 	const ModuleData *m_moduleData; // +0x04
@@ -940,6 +976,9 @@ public:
 	virtual Rva0046247DPair &rva0046F7FF(Rva0046247DPair &p);
 	virtual Rva002390CB rva0046EC7C(Object *obj);
 	Rva0046D158Record *rva0046D158(AsciiString name);
+	virtual void performReform();
+	virtual bool rva00470B21();
+	Coord2D *rva0046A5B1(Coord2D *offset, int index);
 private:
 	__forceinline const _STL::list<Object *> *containedItems()
 	{
@@ -953,6 +992,9 @@ private:
 	unsigned char m_pad122[0x170 - 0x122];
 	_STL::set<int> m_170; // +0x170 (Object IDs)
 	_STL::map<int, int> m_17C; // +0x17C
+	// The +0x188 vector's begin() and operator[] (base evaluated first).
+	Rva00472329Record *begin188() { return m_188Begin; }
+	Rva00472329Record &rec188(unsigned int n) { return *(begin188() + n); }
 	Rva00472329Record *m_188Begin; // +0x188 (vector of 0x1C-byte records)
 	Rva00472329Record *m_188End;
 	Rva00472329Record *m_188Cap;
@@ -1760,7 +1802,7 @@ void HordeContain::rva0046DE2D(const FXList *fx)
 // slot 7 gives for it (the pinned 0x0029660C, then Thing::setOrientation).
 void HordeContain::rva0046A712(int)
 {
-	slot16();
+	performReform();
 	const _STL::list<Object *> *items = containedItems();
 	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
 	{
@@ -2708,7 +2750,7 @@ bool HordeContain::rva0046E113(Coord3D *center)
 // setTransformMatrix 0x0028D412).
 void HordeContain::rva0046A78F(const Matrix3D *mtx)
 {
-	slot16();
+	performReform();
 	const _STL::list<Object *> *items = containedItems();
 	Matrix3D transform = *mtx;
 	for (_STL::list<Object *>::const_iterator it = items->begin(); it != items->end(); ++it)
@@ -2817,7 +2859,7 @@ void HordeContain::startMeleeAttack(Object *target)
 	float angle = self->GetRelativeAngle(aim->getPosition());
 	((Thing *)self)->setOrientation(angle + self->m_orientation);
 	if (fabs(angle) > 0.5235f)
-		slot16();
+		performReform();
 	m_2C8->slot3(target);
 }
 
@@ -3102,4 +3144,120 @@ void HordeContain::ClassifyBeforeOnAfterInvalidPortal(_STL::vector<ObjectID> &be
 		}
 		after.push_back((ObjectID)obj->getID());
 	}
+}
+
+// ?rva004693AD@Rva004693AD@@QAE_NPAURva004693ADArg@@@Z 0x004693AD 44B: true when
+// the Object's ID (+0x74) is HordeContain's +0x264 or +0x26C, or the Object's
+// +0x04 record has flag bit 3 at +0x109; callers 0x00470517 0x00470731
+// 0x00474C9F. Defined here, ahead of performReform, because retail's register
+// choice there needs the callee's body in the same unit.
+bool Rva004693AD::rva004693AD(Rva004693ADArg *arg)
+{
+	int value = arg->m_74;
+	if (m_264 == value || m_26C == value || (arg->m_04->m_flags & 8) != 0)
+		return true;
+	return false;
+}
+
+// ?rva0046ACF6@Rva0046ACF6@@QAEHH@Z 0x0046ACF6 34B: the +0x17C map lookup via
+// the rowed _M_find 0x00388F63, the found second at node+0x14 else 0. 12
+// callers push the Object ID (+0x74) and index the 0x1C/0x54 records with the
+// result (e.g. 0x0046BCA7 0x005845D6 0x005860F6); BFME1 donor
+// BfmeAODHordeContainOwner::bfmeGetMemberIndex does the same find-or-zero.
+// Honest address name; owner unproven.
+int Rva0046ACF6::rva0046ACF6(int key)
+{
+	_STL::map<int, int>::iterator it = m_map.find(key);
+	if (it != m_map.end())
+		return (*it).second;
+	return 0;
+}
+
+struct Coord3DInit : public Coord3D
+{
+	Coord3DInit(float ix, float iy, float iz) { x = ix; y = iy; z = iz; }
+	Coord3DInit(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }
+	void sub(const Coord3D &c) { x -= c.x; y -= c.y; z -= c.z; }
+	float lengthSqr2D() const { return x * x + y * y; }
+};
+// ?performReform@HordeContain@@UAEXXZ @0x00474BDA: slot 16 of the +0x11C
+// interface (WB HordeContain::performReform). Builds each +0x188 record's
+// world position from the 0x0046A5B1 offset, collects the contained members
+// that 0x004693AD does not exclude and that own a record (0x0046ACF6) into the
+// +0x194 free list, then repeatedly assigns the member whose nearest
+// template-compatible free record is farthest away (+0x17C), and finally runs
+// the primary vtable's slot 37 (0x00470B21) until it returns false.
+void HordeContain::performReform()
+{
+	_STL::vector<Coord3D> positions;
+	for (unsigned int i = 0; i < (unsigned int)(m_188End - m_188Begin); ++i)
+	{
+		Coord2D offset;
+		rva0046A5B1(&offset, i);
+		positions.push_back(Coord3DInit(m_object->getPosition()->x + offset.x, m_object->getPosition()->y + offset.y, 0.0f));
+	}
+
+	_STL::vector<Object *> members;
+	Rva0046247DPair p;
+	rva0046D27ASlot70(p);
+	for (_STL::list<Object *>::const_iterator it = p.m04->begin(); it != p.m04->end(); ++it)
+	{
+		Object *obj = *it;
+		if (!((Rva004693AD *)(UpdateModule *)this)->rva004693AD((Rva004693ADArg *)obj))
+		{
+			int index = ((Rva0046ACF6 *)(UpdateModule *)this)->rva0046ACF6(obj->getID());
+			if (index >= 0 && (unsigned int)index < (unsigned int)(m_188End - m_188Begin))
+			{
+				m_194.push_back(index);
+				members.push_back(*it);
+			}
+		}
+	}
+
+	while (!members.empty())
+	{
+		int bestIndex = -1;
+		_STL::list<int>::iterator bestSlot = m_194.end();
+		float bestDist = -1.0f;
+		for (unsigned int i = 0; i < members.size(); ++i)
+		{
+			_STL::list<int>::iterator closest = m_194.end();
+			float closestDist = 1e10f;
+			for (_STL::list<int>::iterator it = m_194.begin(); it != m_194.end(); ++it)
+			{
+				char *entry = (char *)((Rva00469294 *)m_moduleData)->findEntry(rec188(*it).m_key);
+				if (!entry || members[i]->isEquivalentTemplate(
+					(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)(entry + 4))))
+				{
+					Coord3DInit delta(*members[i]->getPosition());
+					delta.sub(positions[*it]);
+					float dist = delta.lengthSqr2D();
+					if (closestDist > dist)
+					{
+						closest = it;
+						closestDist = dist;
+					}
+				}
+			}
+			if (closest == m_194.end())
+			{
+				closest = m_194.begin();
+				closestDist = 0.0f;
+			}
+			if (closestDist > bestDist)
+			{
+				bestIndex = i;
+				bestSlot = closest;
+				bestDist = closestDist;
+			}
+		}
+		Object **victim = &members[bestIndex];
+		m_17C[(*victim)->getID()] = *bestSlot;
+		m_194.erase(bestSlot);
+		*victim = members.back();
+		members.pop_back();
+	}
+
+	while (rva00470B21())
+		;
 }

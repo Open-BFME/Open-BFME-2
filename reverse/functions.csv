@@ -39605,7 +39605,6 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?Pop_Material_Pass@RenderInfoClass@@QAEXXZ,,0x00142BE0,52,Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp,matched,ZH rinfo.cpp body on the BFME2 layout; inlined into the dtor 0x00142FE0 pop loop
 ?Rva002ACF9CInsert@@YGPAPAXPAPAXPAX0@Z,,0x002ACF9C,37,Code/GameEngine/Source/Common/Rva002ACF9CInsert.cpp,matched,Freelist node insert via rowed Rva002AC04EAlloc same as Rva00239D02Insert
 ?rva004695DA@Rva004695DA@@QAEEXZ,,0x004695DA,40,Code/GameEngine/Source/Common/Rva004695DAGet.cpp,matched,flag 0x80 at obj plus4 plus116 then weapon null gives 1 else byte get
-?rva004693AD@Rva004693AD@@QAE_NPAURva004693ADArg@@@Z,,0x004693AD,44,Code/GameEngine/Source/Common/Rva004693ADCheck.cpp,matched,int at arg74 vs this 264 26c or flag109 bit8
 ?rva00469B73@Rva00469B73@@QAEXPAX@Z,,0x00469B73,44,Code/GameEngine/Source/Common/Rva00469B73Call.cpp,matched,null-guarded slot58 with arg and slot0C via ptr at 250
 ?rva00469C07@Rva00469C07@@QAEXPAURva00469C07Node@@@Z,,0x00469C07,45,Code/GameEngine/Source/Common/Rva00469C07Free.cpp,matched,child sibling tree free via rowed free plus self recursion
 ?rva00469C34@Rva00469C34@@QAEXPAURva00469C34Node@@@Z,,0x00469C34,45,Code/GameEngine/Source/Common/Rva00469C07Free.cpp,matched,twin of 0x469C07 child sibling free caller 0x46A94C
@@ -39696,7 +39695,6 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?_M_clear@?$vector@VRva00151DAB@@V?$allocator@VRva00151DAB@@@_STL@@@_STL@@IAEXXZ,,0x0015218A,30,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00151dab_clear.cpp,matched,vector clear via rowed Destroy 0x15209B and free
 ??1?$vector@VRva00151DAB@@V?$allocator@VRva00151DAB@@@_STL@@@_STL@@QAE@XZ,,0x00152118,63,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00151dab_dtor.cpp,matched,vector dtor EH via rowed Destroy 0x15209B and free
 ??0Rva0057416B@@QAE@XZ,,0x0057416B,19,Code/GameEngine/Source/Common/Rva0057416BCtor.cpp,matched,default ctor timeGetTime init member at esi+8 in 0x5CF8A1 0x5E9FC1 and new8 at 0x42C4F1 0x42C598
-?rva0046ACF6@Rva0046ACF6@@QAEHH@Z,,0x0046ACF6,34,Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046ACF6MapFind.cpp,matched,12 callers push ObjectID at +0x74 and use return as slot index; BFME1 bfmeGetMemberIndex donor
 ?rva00111F0E@Rva00111F0E@@QAEXXZ,,0x00111F0E,97,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00111F0EClear.cpp,matched,unlock 4 ref releases plus 4 int zeroes proven by 4 callers
 ?get@Rva002E0CD4@@QBEHXZ,,0x002E0CD4,46,Code/GameEngine/Source/Common/Rva002E0CD4Get.cpp,matched,honest Rva getter 7 callers min via ptr-ternary /O1
 ?get@Rva002E063B@@QBEHXZ,,0x002E063B,13,Code/GameEngine/Source/Common/Rva002E063BGet.cpp,matched,honest Rva sum getter 2 callers /O1
@@ -69443,3 +69441,6 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?redeployOccupants@GarrisonContain@@MAEXXZ,,0x00479395,157,Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainGetObjectGarrisonPointIndex.cpp,matched,BFME1/ZH donor redeployOccupants; slot 18 of primary vtable 0x8461F8; contain-list pair 0x46247D; snapshot loop gives rep movsd; removeInvalidObjectsFromGarrisonPoints pinned 0x47933C
 ?xfer@OpenContain@@MAEXPAVXfer@@@Z,,0x00465EF1,1191,Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainXfer.cpp,matched,slot3 OpenContain vftable; UpdateModule::xfer 0x44DF9F Version1/1; contain list +0x54 erase 0x438539 destroyObject 0x242C09 clear 0x23DAA5 push_back 0x5548F; maps via 0x4650A0 and 0x28932C; XferException(5) 0x60C36E; BitFlags<591>::xfer 0xBB710; BFME1 donor ba7ddda7 OpenContain.cpp; /G7
 ?xfer@HordeContain@@MAEXPAVXfer@@@Z,,0x00474EA8,2081,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainXfer.cpp,matched,HordeContain snapshot xfer Version 13/1; no BFME1 donor; offset-labelled members; subscripts 0x473F81/0x470041 pinned address-derived
+?rva004693AD@Rva004693AD@@QAE_NPAURva004693ADArg@@@Z,,0x004693AD,44,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,
+?rva0046ACF6@Rva0046ACF6@@QAEHH@Z,,0x0046ACF6,34,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,
+?performReform@HordeContain@@UAEXXZ,,0x00474BDA,718,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp,matched,interface-this (+0x11C) reform pass; same-TU callees 0x4693AD/0x46ACF6 and begin()-accessor indexing fix register allocation
