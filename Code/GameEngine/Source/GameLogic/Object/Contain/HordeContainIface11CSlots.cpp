@@ -301,7 +301,9 @@ public:
 	{
 		return m_kindOf[kind >> 5] & (1U << (kind & 0x1f));
 	}
-	unsigned char m_pad000[0x114];
+	unsigned char m_pad000[0x64];
+	AsciiString m_64; // +0x64 (template name)
+	unsigned char m_pad068[0x114 - 0x68];
 	unsigned int m_kindOf[4]; // +0x114
 	unsigned char m_pad124[0x2E4 - 0x124];
 	ModuleInfo m_moduleInfo; // +0x2E4
@@ -448,10 +450,35 @@ class Rva004695DA
 public:
 	unsigned char rva004695DA();
 };
+// The 8-byte record slot 137 hands back by value.
+class Rva002390CB
+{
+	void *m_00;
+	void *m_04;
+public:
+	Rva002390CB();
+	__declspec(nothrow) Rva002390CB(const Rva002390CB &other);
+	~Rva002390CB();
+};
+// A module data +0x198 entry: found by its leading name, carries the record
+// slot 137 copies out at +8.
+struct Rva0046D158Record
+{
+	AsciiString m_name; // +0x00
+	unsigned char m_pad04[0x08 - 0x04];
+	Rva002390CB m_08; // +0x08
+};
+// Returns its argument (eax after the stores), which slot 62 consumes.
 class Rva0046247D
 {
 public:
-	void rva0046247D(Rva0046247DPair &p);
+	void *rva0046247D(Rva0046247DPair &p);
+};
+// Counts the nodes of the pair's +4 list.
+class Rva00291793
+{
+public:
+	int rva00291793();
 };
 // The +0x2C8 helper: slot 4 resets it, slot 14 answers for an Object.
 class Rva00468FDCHelper : public Rva00468D11Slots<3>
@@ -498,7 +525,7 @@ struct HordeContainModuleDataFields
 	int m_98; // +0x98
 	unsigned char m_pad09C[0x18C - 0x9C];
 	unsigned char m_18C[0x0C]; // +0x18C (address handed out by slot 129)
-	unsigned char m_pad198[0x1A4 - 0x198];
+	_STL::vector<Rva0046D158Record *> m_198; // +0x198
 	Rva004698BCVector m_1A4; // +0x1A4
 	AsciiString m_1B0; // +0x1B0
 	unsigned char m_pad1B4[0x1B8 - 0x1B4];
@@ -567,7 +594,7 @@ public:
 	virtual void gap50() = 0; virtual void rva0046BD70() = 0; virtual void rva0046BE0E() = 0; virtual void gap53() = 0;
 	virtual void gap54() = 0; virtual void rva0046C4C0() = 0; virtual void rva0046C327() = 0; virtual void rva0046C20B() = 0;
 	virtual bool rva0046C5D7(int value) = 0; virtual bool rva0046F8A5() = 0; virtual bool rva0046F8F4() = 0; virtual void gap61() = 0;
-	virtual void gap62() = 0; virtual void gap63() = 0; virtual void gap64() = 0; virtual void gap65() = 0;
+	virtual bool rva0046AAB8() = 0; virtual void gap63() = 0; virtual void gap64() = 0; virtual void gap65() = 0;
 	virtual void gap66() = 0; virtual void rva0046D1F7(_STL::list<const Object *> &out) = 0; virtual Object *rva0046D27A() = 0; virtual void gap69() = 0;
 	virtual Object *rva0046D372() = 0; virtual void gap71() = 0; virtual void gap72() = 0; virtual void gap73() = 0;
 	virtual void rva0046F8B2() = 0; virtual void gap75() = 0; virtual void gap76() = 0; virtual void startMeleeAttack(Object *target) = 0;
@@ -585,7 +612,7 @@ public:
 	virtual void rva00469851() = 0; virtual void rva0046DE2D(const FXList *fx) = 0; virtual void gap124() = 0; virtual bool rva0046992C() = 0;
 	virtual void gap126() = 0; virtual bool rva004698BC() = 0; virtual const void *rva004698D6() = 0; virtual const void *rva004698E2() = 0;
 	virtual void gap130() = 0; virtual void gap131() = 0; virtual void rva004690A9(const Coord3D *pos) = 0; virtual void gap133() = 0;
-	virtual void gap134() = 0; virtual void ClassifyBeforeOnAfterInvalidPortal(_STL::vector<ObjectID> &before, _STL::vector<ObjectID> &on, _STL::vector<ObjectID> &after) = 0; virtual bool rva0046F8CD() = 0; virtual void gap137() = 0;
+	virtual void gap134() = 0; virtual void ClassifyBeforeOnAfterInvalidPortal(_STL::vector<ObjectID> &before, _STL::vector<ObjectID> &on, _STL::vector<ObjectID> &after) = 0; virtual bool rva0046F8CD() = 0; virtual Rva002390CB rva0046EC7C(Object *obj) = 0;
 	virtual ObjectID rva0046DEA1(ObjectID want) = 0; virtual void gap139() = 0; virtual bool rva0046E113(Coord3D *center) = 0; virtual void rva004690D0(int value) = 0;
 	virtual bool rva00468C37() = 0; virtual void rva00468BDC(int on) = 0;
 	virtual float rva00468B5B(float value) = 0;
@@ -755,6 +782,9 @@ public:
 	virtual bool slot38(Object *obj, int a2, int a3);
 	virtual bool rva0046B9DC(int a1);
 	virtual bool rva0046B95E(int a1);
+	virtual bool rva0046AAB8();
+	virtual Rva002390CB rva0046EC7C(Object *obj);
+	Rva0046D158Record *rva0046D158(AsciiString name);
 private:
 	__forceinline const _STL::list<Object *> *containedItems()
 	{
@@ -1261,6 +1291,45 @@ bool HordeContain::rva0046A677()
 		}
 	}
 	return true;
+}
+
+// ?rva0046AAB8@HordeContain@@UAE_NXZ @0x0046AAB8: slot 62; whether the
+// contained list is empty.
+bool HordeContain::rva0046AAB8()
+{
+	Rva0046247DPair p;
+	return ((Rva00291793 *)((Rva0046247D *)(UpdateModule *)this)->rva0046247D(p))->rva00291793() == 0 ? true : false;
+}
+
+// ?rva0046D158@HordeContain@@QAEPAURva0046D158Record@@VAsciiString@@@Z
+// @0x0046D158: the first module data +0x198 entry named the argument, else
+// null.
+Rva0046D158Record *HordeContain::rva0046D158(AsciiString name)
+{
+	const _STL::vector<Rva0046D158Record *> &records = fields()->m_198;
+	for (_STL::vector<Rva0046D158Record *>::const_iterator it = records.begin(); it != records.end(); ++it)
+	{
+		Rva0046D158Record *record = *it;
+		if (record->m_name.compare(name) == 0)
+			return record;
+	}
+	return 0;
+}
+
+// ?rva0046EC7C@HordeContain@@UAE?AVRva002390CB@@PAVObject@@@Z @0x0046EC7C:
+// slot 137; the +8 record of the +0x198 entry named for the argument's
+// template (or that of the Object its rowed rva002931F5(false) hands back),
+// else a default record.
+Rva002390CB HordeContain::rva0046EC7C(Object *obj)
+{
+	if (!obj)
+		return Rva002390CB();
+	Object *other = obj->rva002931F5(false);
+	Object *named = other ? other : obj;
+	Rva0046D158Record *record = rva0046D158(named->m_template->m_64);
+	if (!record)
+		return Rva002390CB();
+	return record->m_08;
 }
 
 // ?rva0046D27A@HordeContain@@UAEPAVObject@@XZ @0x0046D27A: slot 68; the first
