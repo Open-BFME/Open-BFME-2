@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Op
 // stlport
 // ZH donor: GeneralsMD ScriptConditions.cpp evaluateTeamStateIs and
 // evaluateTeamStateIsNot. Target evidence: the evaluateCondition jump table
@@ -241,6 +241,16 @@
 // otherwise a KindOf 0x68 unit asks its FoundationAIUpdate module's +0x20
 // interface (slot 3, negated). The early returns for the unit and the mask
 // follow the sibling CAN_BUILD_OBJECTTYPE_AT_BASE body 0x003E5017.
+//
+// ?evaluateDistanceBetweenObjects@ScriptConditions@@IAE_NPAVCondition@@@Z @ 0x003E4C8D 262B
+// WorldBuilder name lead (banked attempt); BFME2-only condition. Target
+// evidence: jump-table case 113 calls 0x003E4C8D with the Condition, which
+// initConditionTemplates names DISTANCE_BETWEEN_OBJ (unit, unit, comparison,
+// real). Both units come from Condition::getParameter (+0x08 count, +0x0C
+// array) through the rowed getUnitNamed; their positions (+0x38) differ into
+// a Coord3D measured by the rowed Coord3D::length 0x00003571, then the
+// six-way comparison against parameter 3's real. The unit's /Op keeps the
+// x/y/z differences in xmm0-2 in order (without it VC7 rotates them).
 #include <string.h>
 #include <vector>
 #include <list>
@@ -250,6 +260,7 @@ class Parameter
 {
 public:
 	int getInt() const { return m_int; }
+	float getReal() const { return m_real; }
 	const AsciiString &getString() const { return m_string; }
 	unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
 	unsigned char m_afterString[8];
@@ -500,9 +511,13 @@ private:
 	const Waypoint *m_completedWaypoint; // +0x13C
 };
 
+// Zero Hour's Coord3D; length is the rowed out-of-line 0x00003571.
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+
 class Object
 {
 public:
+	const Coord3D *getPosition() const { return &m_pos; }
 	Module *findModule(NameKeyType key) const;
 	void *rva0028C197() const;
 	const ThingTemplate *getTemplate() const { return m_template; }
@@ -520,7 +535,9 @@ private:
 	enum { EFFECTIVELY_DEAD = 0x01 };
 	void *m_vtbl;
 	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x74 - 0x08];
+	unsigned char m_pad08[0x38 - 0x08];
+	Coord3D m_pos; // +0x38
+	unsigned char m_pad44[0x74 - 0x44];
 	ObjectID m_id; // +0x74
 	unsigned char m_pad78[0x88 - 0x78];
 	AsciiString m_name; // +0x88
@@ -703,12 +720,16 @@ int __cdecl Rva003BD46ESum(void *range);
 class Condition
 {
 public:
+	Parameter *getParameter(int ndx) const { if (ndx >= 0 && ndx < m_numParms) return m_parms[ndx]; return 0; }
 	int getCustomData() const { return m_customData; }
 	unsigned int getCustomFrame() const { return m_customFrame; }
 	void setCustomData(int value) { m_customData = value; }
 	void setCustomFrame(unsigned int value) { m_customFrame = value; }
 private:
-	unsigned char m_pad00[0x44];
+	unsigned char m_pad00[0x08];
+	int m_numParms; // +0x08
+	Parameter *m_parms[12]; // +0x0C
+	unsigned char m_pad3C[0x44 - 0x3C];
 	int m_customData; // +0x44
 	unsigned int m_customFrame; // +0x48
 };
@@ -833,6 +854,7 @@ protected:
 	bool evaluateSkirmishPlayerHasPrereqsToBuild(Parameter *, Parameter *);
 	bool evaluatePlayerHasKilledKindOfUnits(Parameter *, Parameter *, Parameter *);
 	bool evaluateCanBuildAtBase(Parameter *, Parameter *);
+	bool evaluateDistanceBetweenObjects(Condition *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1557,6 +1579,33 @@ bool ScriptConditions::evaluateCanBuildAtBase(Parameter *pPlayerParm, Parameter 
 				}
 			}
 		}
+	}
+	return false;
+}
+
+bool ScriptConditions::evaluateDistanceBetweenObjects(Condition *pCondition)
+{
+	Object *obj1 = TheScriptEngine->getUnitNamed(pCondition->getParameter(0));
+	Object *obj2 = TheScriptEngine->getUnitNamed(pCondition->getParameter(1));
+	if (obj1 == 0 || obj2 == 0)
+		return false;
+	float dx = obj1->getPosition()->x - obj2->getPosition()->x;
+	float dy = obj1->getPosition()->y - obj2->getPosition()->y;
+	float dz = obj1->getPosition()->z - obj2->getPosition()->z;
+	Coord3D delta;
+	delta.x = dx;
+	delta.y = dy;
+	delta.z = dz;
+	float dist = delta.length();
+	float value = pCondition->getParameter(3)->getReal();
+	switch (pCondition->getParameter(2)->getInt())
+	{
+		case 0: return (dist < value) ? true : false;
+		case 1: return (dist <= value) ? true : false;
+		case 2: return (dist == value) ? true : false;
+		case 3: return (dist >= value) ? true : false;
+		case 4: return (dist > value) ? true : false;
+		case 5: return (dist != value) ? true : false;
 	}
 	return false;
 }
