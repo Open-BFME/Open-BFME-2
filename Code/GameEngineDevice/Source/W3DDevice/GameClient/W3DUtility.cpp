@@ -30,8 +30,8 @@ template<> vector<Rva0007BB16Record>::~vector();
 struct BfmeAssignRecord36 {
     BfmeAssignRecord36(const char *,int);
     unsigned char prefix[12];
-    float value;
-    unsigned char rest[20];
+    float value,green,blue;
+    unsigned char rest[12];
 };
 // Keep the native 36-byte object's lifetime local. Other historical size views
 // emit an incomplete BfmeAssignRecord36 destructor, so this wrapper delegates
@@ -56,10 +56,14 @@ struct OpacitySetupView {
         OpacityParameterView *p=reinterpret_cast<OpacityParameterView *>(reinterpret_cast<Rva00199FCC *>(&parameters)->rva00199FCC(name));
         return p && p->type==2;
     }
+    __forceinline bool hasColor(const AsciiString &name) {
+        OpacityParameterView *p=reinterpret_cast<OpacityParameterView *>(reinterpret_cast<Rva00199FCC *>(&parameters)->rva00199FCC(name));
+        return p && p->type==4;
+    }
 };
 struct OpacityShaderView { unsigned char pad0[0xb8]; OpacitySetupView *setup; };
 struct OpacityMeshModelView { unsigned char pad0[0x94]; OpacityShaderView *shader; };
-class VertexMaterialClass { public: void Set_Opacity(float); };
+class VertexMaterialClass { public: void Set_Opacity(float); void Set_Diffuse(float,float,float); void Set_Emissive(float,float,float); };
 class MaterialInfoClass { public: VertexMaterialClass *Get_Vertex_Material(int); };
 class OpacityReferenceView {
 public:
@@ -195,6 +199,100 @@ bool Rva0010E87A_SetOpacity(RenderObjClass *object,float opacity)
         for (int i=0;i<count;++i) {
             RenderObjClass *child=render->child(i);
             bool childChanged=Rva0010E87A_SetOpacity(child,opacity);
+            changed=changed || childChanged;
+            if (child) reinterpret_cast<OpacityReferenceView *>(child)->release();
+        }
+    }
+    return changed;
+}
+
+// 0x0010E676..0x0010E87A; WB 0x00962FE0 W3DUtility::_SetEmissive (516 bytes).
+// Independent native evidence confirms the color tag 4 and three values at
+// +C/+10/+14; the material setters and recursive calls pass all three floats.
+bool Rva0010E676_SetEmissive(RenderObjClass *object,float red,float green,float blue)
+{
+    if (!object) return false;
+    bool changed=false;
+    OpacityRenderView *render=reinterpret_cast<OpacityRenderView *>(object);
+    MaterialInfoClass *materials=render->materials();
+    if (materials) {
+        if (render->classId()==0 && render->model) {
+            OpacityShaderView **shader=&render->model->shader;
+            if (static_cast<unsigned char>(reinterpret_cast<Rva0010E482 *>(*shader)->rva0010E482(0))) {
+                OpacityDeviceLock lock;
+                OpacitySetupView *setup=(*shader)->setup;
+                if (setup && setup->hasColor(AsciiString("ColorEmissive"))) {
+                    _STL::vector<Rva0007BB16Record> parameters(setup->parameters);
+                    OpacityOwnedParameter parameter("ColorEmissive",4);
+                    parameter.record.value=red;
+                    parameter.record.green=green;
+                    parameter.record.blue=blue;
+                    reinterpret_cast<Rva00082EB8 *>(&parameters)->rva00082EB8(*reinterpret_cast<const Rva00082EB8Rec *>(&parameter));
+                    reinterpret_cast<FXShaderSetup *>(setup)->UpdateParameterList(parameters);
+                }
+            }
+        }
+        for (int i=0;i<reinterpret_cast<const int *>(materials)[6];++i) {
+            VertexMaterialClass *vertex=materials->Get_Vertex_Material(i);
+            if (vertex) {
+                vertex->Set_Emissive(red,green,blue);
+                reinterpret_cast<OpacityReferenceView *>(vertex)->release();
+                changed=true;
+            }
+        }
+        reinterpret_cast<OpacityReferenceView *>(materials)->release();
+    } else {
+        int count=render->childCount();
+        for (int i=0;i<count;++i) {
+            RenderObjClass *child=render->child(i);
+            bool childChanged=Rva0010E676_SetEmissive(child,red,green,blue);
+            changed=changed || childChanged;
+            if (child) reinterpret_cast<OpacityReferenceView *>(child)->release();
+        }
+    }
+    return changed;
+}
+
+// 0x0010EA49..0x0010EC4D; WB 0x00963A30 W3DUtility::_SetDiffuse (516 bytes).
+// Independent native evidence confirms the color tag 4 and three values at
+// +C/+10/+14; the material setters and recursive calls pass all three floats.
+bool Rva0010EA49_SetDiffuse(RenderObjClass *object,float red,float green,float blue)
+{
+    if (!object) return false;
+    bool changed=false;
+    OpacityRenderView *render=reinterpret_cast<OpacityRenderView *>(object);
+    MaterialInfoClass *materials=render->materials();
+    if (materials) {
+        if (render->classId()==0 && render->model) {
+            OpacityShaderView **shader=&render->model->shader;
+            if (static_cast<unsigned char>(reinterpret_cast<Rva0010E482 *>(*shader)->rva0010E482(0))) {
+                OpacityDeviceLock lock;
+                OpacitySetupView *setup=(*shader)->setup;
+                if (setup && setup->hasColor(AsciiString("ColorDiffuse"))) {
+                    _STL::vector<Rva0007BB16Record> parameters(setup->parameters);
+                    OpacityOwnedParameter parameter("ColorDiffuse",4);
+                    parameter.record.value=red;
+                    parameter.record.green=green;
+                    parameter.record.blue=blue;
+                    reinterpret_cast<Rva00082EB8 *>(&parameters)->rva00082EB8(*reinterpret_cast<const Rva00082EB8Rec *>(&parameter));
+                    reinterpret_cast<FXShaderSetup *>(setup)->UpdateParameterList(parameters);
+                }
+            }
+        }
+        for (int i=0;i<reinterpret_cast<const int *>(materials)[6];++i) {
+            VertexMaterialClass *vertex=materials->Get_Vertex_Material(i);
+            if (vertex) {
+                vertex->Set_Diffuse(red,green,blue);
+                reinterpret_cast<OpacityReferenceView *>(vertex)->release();
+                changed=true;
+            }
+        }
+        reinterpret_cast<OpacityReferenceView *>(materials)->release();
+    } else {
+        int count=render->childCount();
+        for (int i=0;i<count;++i) {
+            RenderObjClass *child=render->child(i);
+            bool childChanged=Rva0010EA49_SetDiffuse(child,red,green,blue);
             changed=changed || childChanged;
             if (child) reinterpret_cast<OpacityReferenceView *>(child)->release();
         }
