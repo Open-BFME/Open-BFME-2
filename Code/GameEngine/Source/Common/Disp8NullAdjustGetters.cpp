@@ -50,3 +50,18 @@ BFME_DISP8_NULL_ADJUST_GLOBAL_GETTER(Rva0020E3EFNullAdjustGlobalField, 0x08, 0x5
 #pragma comment(linker, "/alternatename:?g_bfmeNullAdjustDE0878@@3UBfmeNullAdjustDefault@@A=?TheEmptyString@AsciiString@@2V1@B")
 // ?g_bfmeNullAdjustBBAC1C@@3UBfmeNullAdjustDefault@@A: the global at VA 0xbbac1c is ?g_Rva0107301CEmptyString@@3QBDB (data_ledger.csv).
 #pragma comment(linker, "/alternatename:?g_bfmeNullAdjustBBAC1C@@3UBfmeNullAdjustDefault@@A=?g_Rva0107301CEmptyString@@3QBDB")
+
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705
+// game/GameEngine/Source/Common/R1MemberValueReads.cpp /O1 /arch:SSE /G7
+// supplies the nullable interior-pointer expression. Independently, retail
+// 0x00661610..0x0066161B is INT3-bracketed, tests incoming ECX, returns ECX+4
+// when nonnull and zero otherwise, with no memory reads or stack arguments.
+// A free fastcall ABI view represents that one ECX input without invoking a
+// member through a null receiver. It does not recover an original member or
+// free-function signature, class identity, inheritance or pointed-at type.
+void *__fastcall Rva00661610Adjust(void *owner)
+{
+    if (owner)
+        return (char *)owner + 4;
+    return 0;
+}
