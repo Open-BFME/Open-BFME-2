@@ -38,7 +38,7 @@ class FoundationAIUpdate { void rva0045527A(ObjectID); friend class CastleBehavi
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 inline void* objectTemplate(Object* object) { return field<void*>(object,4); }
 inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); }
-class CastleBehavior { public: void registerOwnedObject(Object*); };
+class CastleBehavior { public: void registerOwnedObject(Object*); bool checkForAutoPack(); };
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
@@ -130,4 +130,70 @@ int Rva00395A9FKill(Object* object,int context) {
   if(object) object->kill(DAMAGE_8,DEATH_0);
  }
  return 1;
+}
+
+// CastleBehavior::checkForAutoPack, native RVA003975B7, 415 bytes.
+// Semantic donor: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
+// game/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00371B00.cpp.
+// Native layouts, timer scale, disposal flag and callbacks verified independently.
+class GlobalData { public: char pad[0x110c]; float secondsBeforeBaseCheckActive; };
+extern GlobalData* TheWritableGlobalData;
+extern int g_Va00DBA4E4;
+class Rva003975B7Projectile {
+public:
+ virtual void unused0(); virtual void unused1(); virtual void unused2();
+ virtual bool query();
+};
+static __forceinline bool castleBit(Object* object,int wordOffset,int bit) {
+ return ((field<unsigned>(object,wordOffset)>>bit)&1)!=0;
+}
+static __forceinline bool anyCastleProjectile(const _STL::vector<ObjectID>& ids) {
+ for(_STL::vector<ObjectID>::const_iterator it=ids.begin();it!=ids.end();++it) {
+  Object* object=TheGameLogic->findObjectByID(*it);
+  if(!object) continue;
+  if(field<unsigned>(objectTemplate(object),0x118)&0x400000) continue;
+  Rva003975B7Projectile* projectile=(Rva003975B7Projectile*)object->rva0028BCF4();
+  if(projectile && projectile->query()) return true;
+ }
+ return false;
+}
+bool CastleBehavior::checkForAutoPack() {
+ GlobalData* global=TheWritableGlobalData;
+ GameLogic* logic=TheGameLogic;
+ unsigned frame=logic->getFrame();
+ unsigned threshold=(unsigned)(int)(global ? global->secondsBeforeBaseCheckActive*(float)g_Va00DBA4E4 : 25.0f);
+ if(frame<threshold) return false;
+ void* data=field<void*>(this,4);
+ Object* object=logic->findObjectByID(field<ObjectID>(this,0x38));
+ if(!object) {
+  if(field<bool>(data,0x3d)) {
+    ((Rva003974CE*)this)->apply(Rva00395A9FKill,0);
+    ((Rva003974CE*)this)->apply(Rva00395AD2Destroy,0);
+    field<bool>(this,0x3d)=true;
+    TheGameLogic->destroyObject(field<Object*>(this,8));
+    return false;
+  }
+  field<bool>(this,0x3d)=true;
+ } else {
+  field<bool>(this,0x3d)=false;
+  if(field<unsigned char>(object,0x438)&1) {
+   if(field<bool>(data,0x3d)) {
+    ((Rva003974CE*)this)->apply(Rva00395A9FKill,0);
+    ((Rva003974CE*)this)->apply(Rva00395AD2Destroy,0);
+    field<bool>(this,0x3d)=true;
+    TheGameLogic->destroyObject(field<Object*>(this,8));
+    return false;
+   }
+   field<bool>(this,0x3d)=true;
+  }
+  if(castleBit(object,0x114,3)) field<bool>(this,0x3d)=true;
+  if(castleBit(object,0x114,4)) {
+   Object* builder=TheGameLogic->findObjectByID(field<ObjectID>(object,0x7c));
+   if(!builder || ((field<unsigned char>(builder,0x438)&1) && (field<unsigned char>(objectTemplate(builder),0x109)&0x40)))
+    field<bool>(this,0x3d)=true;
+  }
+  if(castleBit(object,0x110,28)) field<bool>(this,0x3d)=true;
+ }
+ if(!field<bool>(this,0x3d) || anyCastleProjectile(field<_STL::vector<ObjectID> >(this,0x50)) || anyCastleProjectile(field<_STL::vector<ObjectID> >(this,0x74))) return false;
+ return true;
 }
