@@ -1814,3 +1814,52 @@ void Rva005BD5F3Add()
 	if (TheGameSpyPSMessageQueue != 0)
 		TheGameSpyPSMessageQueue->addRequest(req);
 }
+
+// TheGameSpyInfo's local email and base name (vtable 0x00C1DD90 slots 32 and
+// 37, rowed in PeerDefs.cpp); the earlier slots are not used here.
+class GameSpyInfoInterface
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
+	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
+	virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
+	virtual AsciiString getLocalEmail(void);
+	virtual void slot33(); virtual void slot34(); virtual void slot35(); virtual void slot36();
+	virtual AsciiString getLocalBaseName(void);
+};
+extern GameSpyInfoInterface *TheGameSpyInfo;
+extern int g_009C0758;
+extern int g_009C075C;
+
+// Native [5BD910,5BDAC1),433B, cdecl, name unknown. Folds the two session
+// values g_009C0758 and g_009C075C into a tournament stats block's +0x194
+// and +0x198, each kept when positive and below the stored value or when
+// none is stored; when either changes it submits the block as a type-11
+// persistent request under the local email and base name with an empty
+// password (the literal, not str()'s null character).
+void Rva005BD910Submit(Rva00385333 *stats)
+{
+	if (!TheGameSpyInfo || !TheGameSpyPSMessageQueue)
+		return;
+	Int low = (g_009C0758 > 0 && (stats->m_194 <= 0 || g_009C0758 < stats->m_194)) ? g_009C0758 : stats->m_194;
+	Int high = (g_009C075C > 0 && (stats->m_198 <= 0 || g_009C075C < stats->m_198)) ? g_009C075C : stats->m_198;
+	if (low == stats->m_194 && high == stats->m_198)
+		return;
+	stats->m_194 = low;
+	stats->m_198 = high;
+	PSPlayerAllStats player(0);
+	player.setID(stats->m_id);
+	player.setTournamentStats(*stats);
+	BfmeOpaqueOwnedRecord1432 req;
+	req.requestType = 11;
+	req.email = TheGameSpyInfo->getLocalEmail().str();
+	req.nick = TheGameSpyInfo->getLocalBaseName().str();
+	req.password = g_Rva0107301CEmptyString;
+	req.player = player;
+	TheGameSpyPSMessageQueue->addRequest(req);
+}
