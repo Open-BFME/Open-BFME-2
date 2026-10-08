@@ -193,20 +193,30 @@ class Rva00577302Target
 public:
 	virtual Int v00(Int a);
 };
+class GameMessage;
+class Rva005E6817Mid
+{
+public:
+	Int fwd(GameMessage *msg);
+};
 class Rva00577302
 {
 public:
 	void rva00577302(Int a);
-	void rva005753A4(Int a);
+	__declspec(noinline) void rva005753A4(Int a);
 private:
 	Int m_00;
-	Int m_04;
+	Rva005E6817Mid *m_04;
 	Rva00577302Target *m_08;
 };
 void Rva00577302::rva00577302(Int a)
 {
 	if (m_08->v00(a) != 1)
 		rva005753A4(a);
+}
+void Rva00577302::rva005753A4(Int a)
+{
+	m_04->fwd((GameMessage *)a);
 }
 
 // 0x00584A7D and 0x00587057: the pinned 0x00584A3D resp. 0x0058702C with
