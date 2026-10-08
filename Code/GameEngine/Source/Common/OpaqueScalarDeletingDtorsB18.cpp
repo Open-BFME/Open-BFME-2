@@ -1,4 +1,5 @@
-// cl: /O1 /Ob2 /EHsc /DNDEBUG /MD
+// cl: /O1 /Ob2 /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+#include "ascii_string.h"
 #include "../../Include/Common/Rva00041004Lock.h"
 //
 // Opaque scalar deleting destructors, batch B18: 28-byte wrappers that
@@ -175,6 +176,7 @@ class Rva005FCF0E : public Rva005FCF0EBase
 {
 public:
 	Rva005FCF0E(EmitVtableTag *);
+    Rva005FCF0E(unsigned int level, const AsciiString &name);
 public:
 	virtual ~Rva005FCF0E();
 private:
@@ -190,16 +192,17 @@ Rva005FCF0E::Rva005FCF0E(EmitVtableTag *)
 
 Rva005FCF0E::~Rva005FCF0E() {}
 
-class Rva005FCFE5
+class Rva005FCFE5 : public Rva005FCF0E
 {
 public:
 	Rva005FCFE5(EmitVtableTag *);
+    Rva005FCFE5(unsigned int level);
 public:
 	virtual ~Rva005FCFE5();
 };
 
 // ?<Rva005FCFE5::Rva005FCFE5> absent-from-retail
-Rva005FCFE5::Rva005FCFE5(EmitVtableTag *)
+Rva005FCFE5::Rva005FCFE5(EmitVtableTag *) : Rva005FCF0E((EmitVtableTag *)0)
 {
 }
 
@@ -346,5 +349,14 @@ public:
 
 // ?<Rva0073EF24::Rva0073EF24> absent-from-retail
 Rva0073EF24::Rva0073EF24(EmitVtableTag *)
+{
+}
+
+// Target5FCF75-5FCFC9 calls5FCEA9 with the input level and ArmyHeroIcon
+// temporary then installs C7A1D0 matching the existing deleting destructor.
+// WorldBuilder provides the ArmyMemberIconMovieClip base lead; the original
+// derived owner identity remains unknown so retain its established name.
+Rva005FCFE5::Rva005FCFE5(unsigned int level)
+    : Rva005FCF0E(level, AsciiString("ArmyHeroIcon"))
 {
 }

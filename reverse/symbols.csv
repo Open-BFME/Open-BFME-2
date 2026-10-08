@@ -16204,3 +16204,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva00493620@SpecialPowerModule@@QAE_NXZ,0x00493620,callee of ?rva0049466D@SpecialPowerModule@@UAE_NPBUCoord3D@@@Z
 ??0Rva005FD628@@QAE@PAVRva005FD9FF@@IABVAsciiString@@ABURva005FDA39Factory@@2@Z,0x005FDA39,callee of ??0Rva005FD9FF@@QAE@IABVAsciiString@@ABURva005FDA39Factory@@1@Z
 ?rva002C61AF@Rva002C61AF@@QAEXXZ,0x002C61AF,callee of ??1Rva002C6354@@UAE@XZ
+??0Rva005FCF0E@@QAE@IABVAsciiString@@@Z,0x005FCEA9,callee of ??0Rva005FCFE5@@QAE@I@Z
