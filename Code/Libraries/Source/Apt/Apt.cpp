@@ -179,7 +179,6 @@ extern AptValueVector *g_releaseVectorAtE17710;
 void Rva006CEC90Tick();
 void d_00891fa0();
 void Rva006E6E20Collect();
-// ?Rva006CF040Tick present-unmatched
 void Rva006CF040Tick(unsigned elapsed) {
  tickAssert(g_bfmeAptInitAtE17700,"bInitialized","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",0x422);
  Rva004A9DF3Element entries[96];
