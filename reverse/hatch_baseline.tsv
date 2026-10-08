@@ -31414,10 +31414,11 @@ pin	reverse/symbols.csv	0x0050EC24	1
 pin	reverse/symbols.csv	0x0050EDB3	2
 pin	reverse/symbols.csv	0x0050F263	1
 pin	reverse/symbols.csv	0x0050F306	1
+pin	reverse/symbols.csv	0x0050F4D0	1	allow=bfb791e6bdf4c58b7f0d8e0be0900441094ba16d
 pin	reverse/symbols.csv	0x0050F81F	1
 pin	reverse/symbols.csv	0x0050F909	1
 pin	reverse/symbols.csv	0x0050FDDC	1
-pin	reverse/symbols.csv	0x0050FFC0	1	allow=f4c12840796f4be6677609c23b46625c16f533b6
+pin	reverse/symbols.csv	0x0050FFC0	1
 pin	reverse/symbols.csv	0x00510278	1
 pin	reverse/symbols.csv	0x0051030C	1
 pin	reverse/symbols.csv	0x005103A3	1
