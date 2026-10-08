@@ -14,6 +14,7 @@ EXTERN ??1UnicodeString@@QAE@XZ:PROC
 EXTERN ??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ:PROC
 EXTERN ?call@Rva002E3A80Holder@@QAEXXZ:PROC
 EXTERN ??_M@YGXPAXIHP6EX0@Z@Z:PROC
+EXTERN ?apply@Rva003F7BC5DwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva0057A243DwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva003F3F7CDwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva0002B221ADwordImmSetter@@QAEXXZ:PROC
@@ -526,6 +527,18 @@ PUBLIC ?rva0079A179@@YAXXZ
 cleanup_done_0079A179:
     ret
 ?rva0079A179@@YAXXZ ENDP
+
+; Unwind@00b9a389 at RVA 0x0079A389; 20-byte masked-add cleanup adds 8 to [ebp-16] and tail-jumps to the dword imm-setter at 0x003F7BC5.
+PUBLIC ?rva0079A389@@YAXXZ
+?rva0079A389@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 8
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva003F7BC5DwordImmSetter@@QAEXXZ
+?rva0079A389@@YAXXZ ENDP
 
 ; Unwind@00b9a457 at RVA 0x0079A457; 20-byte masked-add cleanup adds 14h to [ebp-16] and tail-jumps to the dword imm-setter at 0x003F3F7C.
 PUBLIC ?rva0079A457@@YAXXZ
@@ -1566,6 +1579,18 @@ cleanup_done_007A0EAE:
     ret
 ?rva007A0EAE@@YAXXZ ENDP
 
+; Unwind@00ba0f4b at RVA 0x007A0F4B; 20-byte masked-add cleanup adds 4 to [ebp-16] and tail-jumps to the folded vector dtor at 0x0007FAB3.
+PUBLIC ?rva007A0F4B@@YAXXZ
+?rva007A0F4B@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 4
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ
+?rva007A0F4B@@YAXXZ ENDP
+
 ; Unwind@00ba0f79 at RVA 0x007A0F79; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
 PUBLIC ?rva007A0F79@@YAXXZ
@@ -2471,6 +2496,19 @@ PUBLIC ?rva007A4374@@YAXXZ
     ret
 ?rva007A4374@@YAXXZ ENDP
 
+; Unwind@00ba43b2 at RVA 0x007A43B2; 22-byte eh-vector-dtor passes [ebp-32]+1Ch with size 12 count 2 and raw dtor VA 0x009EB28A.
+PUBLIC ?rva007A43B2@@YAXXZ
+?rva007A43B2@@YAXXZ PROC
+    push 009EB28Ah
+    push 2
+    push 0Ch
+    mov eax, DWORD PTR [ebp-32]
+    add eax, 1Ch
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva007A43B2@@YAXXZ ENDP
+
 ; Unwind@00ba4694 at RVA 0x007A4694; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to UnicodeString at 0x005B804E.
 PUBLIC ?rva007A4694@@YAXXZ
@@ -2484,6 +2522,18 @@ PUBLIC ?rva007A4694@@YAXXZ
 cleanup_done_007A4694:
     ret
 ?rva007A4694@@YAXXZ ENDP
+
+; Unwind@00ba48ea at RVA 0x007A48EA; 20-byte masked-add cleanup adds 4 to [ebp-16] and tail-jumps to the dword imm-setter at 0x004E84A4.
+PUBLIC ?rva007A48EA@@YAXXZ
+?rva007A48EA@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 4
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva0004E84A4DwordImmSetter@@QAEXXZ
+?rva007A48EA@@YAXXZ ENDP
 
 ; Unwind@00ba497e at RVA 0x007A497E; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
