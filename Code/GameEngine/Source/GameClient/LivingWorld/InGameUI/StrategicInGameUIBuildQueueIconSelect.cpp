@@ -249,7 +249,6 @@ __declspec(noinline) static void *rva005E7322Get(Rva005E72B4Queue *queue,int id)
  if(name->isEmpty()) return 0;
  return TheThingFactory->rva002D06CA(name);
 }
-// ?rva005E7582Get@@YAHPAVRva005E72B4Queue@@H@Z present-unmatched
 __declspec(noinline) static int rva005E7582Get(Rva005E72B4Queue *queue,int index)
 {
  int id=queue->slot13()->begin[index];
