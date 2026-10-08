@@ -72102,3 +72102,5 @@ _VP6_GetYUVConfig,,0x001B5C60,1147,Code/Libraries/Source/VP6/GetYUVConfig.cpp,ma
 ?rva004D73AD@StateMachine@@QAEXPBX@Z,,0x004D73AD,23,Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp,matched,Copies +0x74 of src into m_unk34 with null zeroing; w4-T7-H1
 ?rva004D7427@StateMachine@@QAEXPBX@Z,,0x004D7427,14,Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp,matched,Lock-gated forwarder on m_locked tail to rva004D73AD; 14B to setGoalObject 0x4D7435; w4-T7-H1
 ?rva0005333F@Rva0005333FHolder@@QAEXXZ,,0x0005333F,19,Code/GameEngineDevice/Source/MilesAudioDevice/Rva000532B7EventXfer.cpp,matched,holder +4 target release_ref at +0x88 tail jmp
+?rva005892F6@Rva005892F6@@QAEMXZ,,0x005892F6,183,Code/GameEngine/Source/GameLogic/Object/Update/Rva005892F6.cpp,matched,address-derived ratio helper over rowed timer/override getters
+?rva004618D4@FakePathfindPortalBehaviour@@QAEXXZ,,0x004618D4,54,Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp,matched,address-derived FakePathfind waypoint forward; local thiscall view of 0x2E7023

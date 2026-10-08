@@ -51,6 +51,7 @@ class FakePathfindPortalBehaviour : public Rva0024A797, public MiBase1, public F
 public:
 	virtual ~FakePathfindPortalBehaviour();
 	void rva0046183B();
+	void rva004618D4();
 private:
 	char m_28[8];
 	bool m_30;
@@ -62,6 +63,40 @@ private:
 FakePathfindPortalBehaviour::~FakePathfindPortalBehaviour()
 {
 	rva0046183B();
+}
+
+class AI;
+extern AI *TheAI;
+
+class Rva002E9042
+{
+public:
+	void rva002E9042(void *arg);
+};
+
+class Rva004618D4Caller
+{
+public:
+	void rva002E7023();
+};
+
+struct Rva004618D4AI
+{
+	char m_pad00[0x10];
+	Rva002E9042 *m_p10;
+};
+
+// ?rva004618D4@FakePathfindPortalBehaviour@@QAEXXZ, retail 0x004618D4 (54B): forwards the two
+// waypoints at +0x28/+0x2C to the TheAI+0x10 object, calls its no-argument helper through the
+// local thiscall view, then clears the +0x32 flag.
+void FakePathfindPortalBehaviour::rva004618D4()
+{
+	Rva002E9042 *obj = (*reinterpret_cast<Rva004618D4AI **>(&TheAI))->m_p10;
+	obj->rva002E9042(*reinterpret_cast<void **>(m_28));
+	obj = (*reinterpret_cast<Rva004618D4AI **>(&TheAI))->m_p10;
+	obj->rva002E9042(*reinterpret_cast<void **>(m_28 + 4));
+	reinterpret_cast<Rva004618D4Caller *>((*reinterpret_cast<Rva004618D4AI **>(&TheAI))->m_p10)->rva002E7023();
+	m_32 = false;
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
