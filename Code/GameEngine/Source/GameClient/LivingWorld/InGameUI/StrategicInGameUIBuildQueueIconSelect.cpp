@@ -57,6 +57,7 @@ class BuildQueueDetailsPanel::Impl
 {
 public:
 	class Icon;
+	class InProgressIcon;
 	friend class Icon;
 	friend class ::Rva005E7ED7;
 
@@ -397,3 +398,19 @@ Rva005E7ED7::Rva005E7ED7(Owner *owner,int index)
  int time=rva005E7582Get(owner->m_queue,index);
  ((Rva005E7E05QueuedSlot *)slot)->SetNumTurns(time);
 }
+
+// WorldBuilder names the native91B constructor's only non-base callee
+// InProgressIcon::Init(bool). Retail+8 owner/+C bool and RET8 agree;
+// both slot reads use the already rowed integer getter at5F6B0B.
+// Icon24 + the in-progress slot pointer24 gives the native28B allocation.
+class Rva005F6B0BPtrChaseField { public: int get() const; };
+class StrategicInGameUI::BuildQueueDetailsPanel::Impl::InProgressIcon : public StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon {
+public:
+ InProgressIcon(Impl *,bool);
+ void Init(bool);
+private: StrategicHUD::BuildQueueIconSlot *m_progressSlot;
+};
+StrategicInGameUI::BuildQueueDetailsPanel::Impl::InProgressIcon::InProgressIcon(Impl *owner,bool selected)
+ : Icon(owner,0,(StrategicHUD::BuildQueueIconSlot *)((Rva005F6B0BPtrChaseField *)owner)->get(),0,0,0),
+ m_progressSlot((StrategicHUD::BuildQueueIconSlot *)((Rva005F6B0BPtrChaseField *)owner)->get())
+{ Init(selected); }
