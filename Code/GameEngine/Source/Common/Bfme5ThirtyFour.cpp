@@ -1,3 +1,4 @@
+// cl: /MD /EHsc
 // A counted-handle getter and a doubly-linked unlink.
 //
 // BFME1 byte-identical donor (reference/open-bfme-1
@@ -148,4 +149,49 @@ void Rva006D1130::grow(int capacity)
 	const Rva006D1130Item empty;
 	m_begin[m_count].bfmeAssignVGO(empty);
 	__assume(empty.m_bfmeP == 0);
+}
+
+// Target 6D07E0..6D085B: head at0; entry key at4; by-value counted
+// owner parameter released through independently rowed pool providers.
+// BFME1 ba7ddda7 Rva008951B0Find supplies the linked-list search guide;
+// target uses a counted key instead of the donor's borrowed void pointer.
+class Rva006DB270 { public: void freeBlock(void *, int); };
+extern Rva006DB270 *g_pChainBlockAllocator;
+struct Rva006D0280 {
+ void teardown();
+ int m_useCount;
+};
+class Rva006D07E0Key {
+public:
+ Rva006D07E0Key(const Rva006D07E0Key &other) {
+  m_object=other.m_object;
+  if(m_object) ++m_object->m_useCount;
+ }
+ ~Rva006D07E0Key() {
+  Rva006D0280 *p=m_object;
+  if(p && --p->m_useCount==0) {
+   p->teardown();
+   g_pChainBlockAllocator->freeBlock(p,0x1c);
+  }
+ }
+ Rva006D0280 *m_object;
+};
+struct Rva006D07E0Entry { int unknown0; Rva006D0280 *key4; };
+struct Rva006D07E0Node { Rva006D07E0Entry *entry; Rva006D07E0Node *next; };
+struct Rva006D07E0Iterator {
+ Rva006D07E0Iterator(Rva006D07E0Node *p):node(p) {}
+ Rva006D07E0Node *node;
+};
+class Rva006D07E0List {
+public:
+ Rva006D07E0Iterator find(Rva006D07E0Key key);
+ Rva006D07E0Node *head;
+};
+Rva006D07E0Iterator Rva006D07E0List::find(Rva006D07E0Key key) {
+ Rva006D07E0Node *node=head;
+ while(node) {
+  if(node->entry->key4==key.m_object) return Rva006D07E0Iterator(node);
+  node=node->next;
+ }
+ return Rva006D07E0Iterator(0);
 }
