@@ -150,3 +150,20 @@ RvaF1Handle Rva005E5DA1::rva005E5DA1(void *argument)
 {
 	return RvaF1Handle(new Rva005F5F2B(argument, &m_context));
 }
+class Rva005E93FF
+{
+	char m_storage[0x28];
+public:
+	Rva005E93FF(unsigned int argument, void *context);
+};
+struct Rva005CEB03
+{
+	char m_prefix[8];
+	Rva005E5CF9In m_context;
+	RvaF1Handle rva005CEB03(unsigned int argument);
+};
+
+RvaF1Handle Rva005CEB03::rva005CEB03(unsigned int argument)
+{
+	return RvaF1Handle(new Rva005E93FF(argument, &m_context));
+}
