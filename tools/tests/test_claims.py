@@ -147,3 +147,30 @@ def test_scope_claims_are_exclusive_and_invisible_to_pickers(hosts):
     hosts("a")
     assert sorted(claims.release(["class:RenderObjClass", "file:Code/A/B.cpp"])) == \
         sorted(["class/RenderObjClass", claims.key_of("file:Code/A/B.cpp")])
+
+
+def test_qualified_class_claim_round_trips_and_is_exclusive(hosts):
+    scope = "class:StrategicHUD::BattlePromptArmyPanelMovieClip::Impl"
+    key = claims.key_of(scope)
+    assert ":" not in claims.ref_of(key)
+    assert key != claims.key_of("class:StrategicHUD__BattlePromptArmyPanelMovieClip__Impl")
+    hosts("a")
+    assert claims.claim([scope]) == ([key], [])
+    hosts("b")
+    live = claims.active()
+    assert live[key]["scope"] == scope[6:]
+    assert claims.label(key, live[key]) == scope
+    assert claims.busy_rvas() == set()
+    assert claims.claim([scope]) == ([], [key])
+    assert claims.release([scope]) == []
+    hosts("a")
+    assert claims.claim([scope]) == ([key], [])
+    assert claims.release([scope]) == [key]
+    assert claims.active() == {}
+
+
+@pytest.mark.parametrize("name", ["", "::Impl", "HUD::", "HUD:::Impl", "HUD:Impl",
+                                  "HUD::A/B", "HUD::A.lock", "HUD::A%3A%3AB"])
+def test_invalid_qualified_names_cannot_escape_the_ref_namespace(name):
+    with pytest.raises(ValueError):
+        claims.key_of("class:" + name)

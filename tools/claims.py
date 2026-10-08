@@ -93,9 +93,12 @@ def key_of(text):
         return "file/" + hashlib.sha1(path.encode("utf-8")).hexdigest()[:16]
     if text.startswith("class:"):
         name = text[6:]
-        if not name.replace("_", "a").isalnum():
+        if not all(part.replace("_", "a").isalnum() for part in name.split("::")):
             raise ValueError(f"bad class name {name!r}")
-        return "class/" + name
+        # ':' is forbidden in Git refs; '%' cannot occur in an admitted class
+        # identifier, so this keeps qualified scopes distinct without changing
+        # existing unqualified claim keys. The record retains the readable name.
+        return "class/" + name.replace("::", "%3A%3A")
     return int(text, 16)
 
 
