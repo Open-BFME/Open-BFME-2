@@ -32020,7 +32020,7 @@ pin	reverse/symbols.csv	0x0057428C	1
 pin	reverse/symbols.csv	0x00574293	1
 pin	reverse/symbols.csv	0x00574338	1
 pin	reverse/symbols.csv	0x005746D2	1
-pin	reverse/symbols.csv	0x00574B2D	4
+pin	reverse/symbols.csv	0x00574B2D	5	allow=46f2a1eab88868da84ed5836893b302173372dec
 pin	reverse/symbols.csv	0x00574BA0	1
 pin	reverse/symbols.csv	0x00574C1B	1
 pin	reverse/symbols.csv	0x00574C6E	1

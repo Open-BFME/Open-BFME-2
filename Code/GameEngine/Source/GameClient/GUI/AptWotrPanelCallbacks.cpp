@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/shims/bfmelist /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 //
 // Apt callbacks of two War of the Ring in-game panels, bound as member
 // pointers under "<movie>_On..." names (the movie name each constructor is
@@ -9,6 +10,7 @@
 // 3 closing, 0 closed) and call their rowed open and close bodies, which
 // the ledger names after their own addresses.
 #include "ascii_string.h"
+#include <list>
 
 // BfmePathLeafAfterMarker.cpp's path helpers.
 const char *__cdecl Rva00412845AfterLevel(const char *path);
@@ -226,7 +228,7 @@ public:
 	void OnScrollBarLoaded(const char *name);
 	void rva0057B499();
 
-	// Unrowed 0x0057B16D (170 bytes) and 0x0057B217, pinned by address.
+	// Scroll layout at 0x0057B16D and stable priority sort at 0x0057B217.
 	void rva0057B16D();
 	void rva0057B217();
 	// Rowed in Rva0057A961Apt.cpp.
@@ -244,8 +246,8 @@ private:
 	unsigned char m_pad27;
 	Rva000AD6F4 m_scrollBar; // +0x28
 	unsigned char m_pad2c[0x30 - 0x2C];
-	Rva0057B499Node *m_items; // +0x30
-	unsigned char m_pad34[0x38 - 0x34];
+	_STL::list<int> items; // +0x30: pointer-sized item payloads
+	_STL::list<int>::iterator current; // +0x34
 	bool m_38; // +0x38: rva0057B217 pending
 };
 
@@ -302,7 +304,7 @@ void StrategicHUD::ChecklistUIImpl::rva0057B499()
 		((Rva0057A92D *)this)->rva0057A92D();
 		m_26 = false;
 	}
-	Rva0057B499Node *end = m_items;
+	Rva0057B499Node *end = reinterpret_cast<Rva0057B499Node*>(items.end()._M_node);
 	for (Rva0057B499Node *node = end->m_next; node != end; node = node->m_next)
 		node->m_item->m_08.rva005D4769();
 }
@@ -694,4 +696,40 @@ void Rva0057AD26::rva0057AD26()
  }
  owner->SetCurrentItem(position);
  if(observer) observer->select(this);
+}
+
+// Native 0x0057B217..0x0057B328; WorldBuilder 0x014BE5B0.
+// Stable descending priority*2+enabled order. Four-byte node payloads
+// are item pointers; the existing list/iterator storage is at +0x30/+0x34.
+class Rva0057A24A {public: float rva0057A24A() const;};
+extern unsigned g_Va00E06360;
+class Rva005D3FE4 {public:void rva005D3FE4(float);};
+struct ChecklistSortItem {char prefix[0x38];float height;char pad3c[0x58-0x3c];int priority;bool enabled;int rank()const{return priority*2+(enabled?1:0);}};
+void StrategicHUD::ChecklistUIImpl::rva0057B217()
+{
+ {
+  _STL::list<int> sorted;
+  while(!items.empty()) {
+   int rank=reinterpret_cast<ChecklistSortItem*>(items.front())->rank();
+   _STL::list<int>::iterator pos=sorted.end();
+   while(pos._M_node!=sorted.begin()._M_node) {
+    _STL::list<int>::iterator prev=pos; --prev;
+    if(rank<=reinterpret_cast<ChecklistSortItem*>(*prev)->rank()) break;
+    pos=prev;
+   }
+   sorted.splice(pos,items,items.begin());
+  }
+  items.swap(sorted);
+  if(current._M_node==sorted.end()._M_node) current=items.end();
+ }
+ float gap=reinterpret_cast<Rva0057A24A*>(&g_Va00E06360)->rva0057A24A();
+ float y=0;
+ _STL::list<int>::iterator end=items.end();
+ for(_STL::list<int>::iterator it=items.begin();it._M_node!=end._M_node;++it) {
+  ChecklistSortItem *item=reinterpret_cast<ChecklistSortItem*>(*it);
+  y+=gap;
+  reinterpret_cast<Rva005D3FE4*>(reinterpret_cast<char*>(item)+8)->rva005D3FE4(y);
+  y+=item->height;
+ }
+ rva0057B16D(); m_38=false;
 }
