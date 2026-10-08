@@ -1,4 +1,7 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /O1 /EHsc /MD /arch:SSE /ICode/Libraries/Include/Lib /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
+#include <vector>
+#include "Coord2D.h"
 // LivingWorldRegion.cpp -- LivingWorldRegion queries recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names each
 // function and the member m_buildPlots at +0x170; retail supplies the bytes.
@@ -26,9 +29,11 @@ public:
     Rva003F0614BuildingLink *field28;
 };
 
+class LivingWorldRegion;
 struct LivingWorldBuildPlot
 {
-	Bool HasBuilding() const { return m_building != 0 && !m_hidden; }
+	LivingWorldBuildPlot(Int id, LivingWorldRegion *region, const Coord2D &position);
+    Bool HasBuilding() const { return m_building != 0 && !m_hidden; }
 
 	unsigned char m_pad00[0x18];
     Int m_key18;
@@ -38,18 +43,7 @@ struct LivingWorldBuildPlot
 	Bool m_hidden;				// +0x34
 };
 
-// STLport vector<LivingWorldBuildPlot *> view.
-class BuildPlotVector
-{
-public:
-	UnsignedInt size() const { return m_finish - m_start; }
-	LivingWorldBuildPlot *operator[](UnsignedInt i) const { return m_start[i]; }
-
-private:
-	LivingWorldBuildPlot **m_start;
-	LivingWorldBuildPlot **m_finish;
-	LivingWorldBuildPlot **m_endOfStorage;
-};
+typedef _STL::vector<LivingWorldBuildPlot *> BuildPlotVector;
 
 class Rva002E2903Player
 {
@@ -95,7 +89,8 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 class LivingWorldRegion
 {
 public:
-	Bool IsOwnedByTeam(Int teamID) const;
+	void CreateBuildPlots();
+    Bool IsOwnedByTeam(Int teamID) const;
 	Bool CanSpawnUnitWithinCPLimit(Rva00319CED *unit) const;
 	LivingWorldBuilding *GetBuildingByIndex(Int index) const;
 	Int rva003F05CE();
@@ -107,13 +102,17 @@ private:
 	Int rva003EFD6F(Rva002E2903Player *owner) const;	// 0x003EFD6F, command-point limit
 	Int usedCommandPoints(Rva002E2903Player *owner) const { return rva003EFDB3(owner); }
 
-	unsigned char m_pad00[0x108];
+	unsigned char m_pad00[0xfc];
+    _STL::vector<Coord2D> m_plotPositions;
     Int m_limit108;
     Int m_limit10C;
     unsigned char m_pad110[0x13c - 0x110];
 	Int m_ownerPlayerID;			// +0x13C
 	unsigned char m_pad140[0x170 - 0x140];
-	BuildPlotVector m_buildPlots;		// +0x170
+	BuildPlotVector m_buildPlots;
+    int m_plotIndex;
+    char m_unknown180[0x1a3-0x180];
+    bool m_plotFlag;
 };
 
 // LivingWorldRegion::IsOwnedByTeam, retail 0x003EFD3D.
@@ -221,3 +220,22 @@ Int LivingWorldRegion::rva003F05CE()
     }
     return count;
 }
+
+class Rva003F3F27 { public: void rva003F2106(); };
+class Rva002B3166BumpCounter { public: int bump(); };
+void LivingWorldRegion::CreateBuildPlots()
+{
+    if (m_buildPlots.size() != 0)
+        reinterpret_cast<Rva003F3F27 *>(this)->rva003F2106();
+    m_buildPlots.reserve(m_plotPositions.size());
+    for (unsigned i=0; i<m_plotPositions.size(); ++i) {
+        int id = reinterpret_cast<Rva002B3166BumpCounter *>(TheLivingWorldLogic)->bump();
+        LivingWorldBuildPlot *plot = new LivingWorldBuildPlot(id, this, m_plotPositions[i]);
+        m_buildPlots.push_back(plot);
+    }
+    m_plotIndex=0;
+    m_plotFlag=false;
+}
+
+
+
