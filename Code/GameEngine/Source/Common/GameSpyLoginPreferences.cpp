@@ -122,6 +122,7 @@ typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiStri
 typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiString> > > ClanMap;
 // Reuse the native list-base destructor shared by the existing list providers.
 extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::~_List_base();
+extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::_List_base(const _STL::allocator<AsciiString> &);
 
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 AsciiString QuotedPrintableToAsciiString(AsciiString original);
