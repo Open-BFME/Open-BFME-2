@@ -69407,3 +69407,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva00107E76@Rva00107E76Mgr@@QAEXXZ,,0x00107E76,277,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva00107E76Update.cpp,matched,shadow entry update walk with short 16-bit arg; retail 277B
 ?rva003BA4DB@@YAHPAURva003BA4DBArg@@H@Z,,0x003BA4DB,92,Code/GameEngine/Source/GameLogic/System/Rva003BA4DBArgs.cpp,matched,argc-gated append of argument text into holder vector; retail 92B
 ?rva003BA537@@YAHPAURva003BA537Arg@@H@Z,,0x003BA537,101,Code/GameEngine/Source/GameLogic/System/Rva003BA537Args.cpp,matched,argc-gated append into the second holder vector; else sets flag byte; returns 2; retail 101B
+?rva047E59E@Rva047E59E@@QAEXXZ,,0x0047E59E,54,Code/GameEngine/Source/GameLogic/Object/Rva047E59EKill.cpp,matched,kill-if-under-limit then tail member; retail 54B
