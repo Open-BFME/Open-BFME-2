@@ -200,9 +200,10 @@ private:
 	void *m_ptr;
 };
 
-// BFME 2 SubsystemInterface: nine vtable slots; init sits in slot 1 (+4) and
-// postProcessLoad in slot 3 (+0xC) for every subsystem GameClient::init
-// creates, and setName is the out-of-line 0x0006F3CC.
+// BFME 2 SubsystemInterface: eleven vtable slots; init sits in slot 1 (+4)
+// and postProcessLoad in slot 3 (+0xC) for every subsystem GameClient::init
+// creates, GameClient::reset calls reset in slot 9 (+0x24) and its vftable
+// 0x007ED850 keeps update in slot 10. setName is the out-of-line 0x0006F3CC.
 class SubsystemInterface
 {
 public:
@@ -210,11 +211,13 @@ public:
 	virtual void init() = 0;
 	virtual bool loadIniFilesFromLegend();
 	virtual void postProcessLoad();
-	virtual void reset() = 0;
-	virtual void update() = 0;
+	virtual void vf04();
+	virtual void vf05();
 	virtual void draw();
 	virtual void vf07();
 	virtual void vf08();
+	virtual void reset() = 0;                                           // +0x24
+	virtual void update() = 0;                                          // +0x28
 
 	void setName(AsciiString name);
 
@@ -255,8 +258,6 @@ public:
 	virtual void init();
 	virtual void reset();
 	virtual void update();
-	virtual void vf09();
-	virtual void vf10();
 	virtual void vf11();
 	virtual void vf12();
 	virtual void vf13();
@@ -323,14 +324,16 @@ private:
 	CommandTranslator *m_commandTranslator;                             // +0xB4
 	unsigned char m_padB8[0xbc - 0xb8];
 	AsciiString m_stringBC;                                             // +0xBC
-	unsigned char m_padC0[0xe4 - 0xc0];
+	unsigned char m_byteC0;                                             // +0xC0
+	unsigned char m_byteC1;                                             // +0xC1
+	unsigned char m_padC2[0xe4 - 0xc2];
 	Rva00239AF4 m_drawableListE4;                                       // +0xE4
 	_STL::vector<Rva00362862Item *> m_vectorE8;                         // +0xE8
 	DrawableTOCList m_drawableTOC;                                      // +0xF4
 	Rva00239AF4 m_drawableListsF8[10];                                  // +0xF8
 	_STL::vector<void *> m_vector120;                                   // +0x120
 	Rva00239E25 m_vector12C;                                            // +0x12C
-	unsigned char m_pad138[0x13c - 0x138];
+	int m_count138;                                                     // +0x138
 	Rva0023A039 m_owned13C;                                             // +0x13C
 };
 
@@ -505,8 +508,6 @@ class Mouse : public SubsystemInterface
 {
 public:
 	virtual ~Mouse();
-	virtual void vf09();
-	virtual void vf10();
 	virtual void vf11();
 	virtual void vf12();
 	virtual void vf13();
@@ -547,6 +548,7 @@ public:
 	virtual void vf02();
 	virtual void vf03();
 	virtual void vf04();                                                // +0x10
+	virtual void vf05();                                                // +0x14
 };
 
 // TheTerrainVisual: ZH TerrainVisual (Snapshot, SubsystemInterface), the
@@ -846,6 +848,12 @@ void Rva00380B0CInit();
 void Rva00220DCDInit();
 void Rva002210CFInit();
 void Rva002220DCInit();
+void bfmeReset();
+
+// The drawable hash's clear (0x001DBCDC) and resize (0x0053F1EC) are folded
+// STLport hashtable bodies; called through their pinned placeholder names.
+class Rva001DBCDCTarget { public: void rva001DBCDC(); };
+class Rva00057D38 { public: int rva0053F1EC(unsigned int); };
 
 GameClient::~GameClient()
 {
@@ -1161,4 +1169,52 @@ void GameClient::init()
 	Rva00220DCDInit();
 	Rva002210CFInit();
 	Rva002220DCInit();
+}
+
+// ?reset@GameClient@@UAEXXZ
+void GameClient::reset()
+{
+	Drawable *draw, *nextDraw;
+
+	((Rva001DBCDCTarget *)&m_drawableHash)->rva001DBCDC();
+	((Rva00057D38 *)&m_drawableHash)->rva0053F1EC(0x2000);
+	m_frame = 0;
+
+	// need to reset the in game UI to clear drawables before they are destroyed
+	TheInGameUI->reset();
+
+	// destroy all Drawables
+	for (draw = m_drawableList; draw; draw = nextDraw)
+	{
+		nextDraw = draw->getNextDrawable();
+		destroyDrawable(draw);
+	}
+	m_drawableList = 0;
+
+	TheDisplay->reset();
+	g_00DFF080->reset();
+	TheRayEffects->reset();
+	TheVideoPlayer->reset();
+	if (g_00DFEF18)
+		g_00DFEF18->vf05();
+	g_004C9DC9Container->reset();
+	bfmeReset();
+
+	if (TheSnowManager)
+		TheSnowManager->reset();
+	if (g_00DFE1E4)
+		g_00DFE1E4->reset();
+	if (TheCloudBreakEffectManager)
+		TheCloudBreakEffectManager->reset();
+	if (TheFireManager)
+		TheFireManager->reset();
+
+	// clear any drawable TOC we might have
+	m_drawableTOC.clear();
+
+	m_stringBC = "";
+	m_byteC1 = 0;
+	m_byteC0 = 0;
+	rva0023ABDD();
+	m_count138 = 0;
 }
