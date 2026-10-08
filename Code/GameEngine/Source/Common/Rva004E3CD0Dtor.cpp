@@ -44,7 +44,7 @@ extern LivingWorldManager *TheLivingWorldManager;
 class Rva003EEC63
 {
 public:
-    void rva003EEC63(void *p, AsciiString s, int a, int b);
+    void rva003EEC63(void *p, AsciiString s, bool a, bool b);
 };
 
 class Rva0021294A

@@ -11726,7 +11726,7 @@ name,address,notes
 ?rva003EE083@Rva003EE083@@QAEPAXABVAsciiString@@@Z,0x003EE083,AsciiString scan called by 0x005686F5 on the Rva0020DB91 hit with the element second string; identity unproven; address-derived signature
 ?rva003EE7CA@Rva003EE7CA@@QAEHHH@Z,0x003EE7CA,thiscall int(int int): pushes (a1 a2) then virtual slot1 on [this+0x48]; returns its second arg; shared first call of 0x003EEE8E/0x003EEF13/0x003EE8D8; b carries the task-block pointer as int
 ?rva003EE9F1@Rva003EF14A@@QAEXXZ,0x003EE9F1,Address-derived thiscall cleanup; independently proven41B Ghidra body reads this+4 and cleans container+8; caller3EF175 passes unchanged ECX with no stack arguments
-?rva003EEC63@Rva003EEC63@@QAEXPAXVAsciiString@@HH@Z,0x003EEC63,thiscall (ptr,str-by-value,0,0); stack-balance proves four args; string-copy callee of dump-range-18 0x003EED9D
+?rva003EEC63@Rva003EEC63@@QAEXPAXVAsciiString@@_N2@Z,0x003EEC63,thiscall pointer/string-value/bool/bool; native BYTE arg+14 and bool forwarding arg+10; callers 3EED9D/4E3A6E; replaces inferred int owner
 ?rva003EEE64@Rva003EEE64@@QAEXH@Z,0x003EEE64,thiscall void(int); home-TU chain lane; called with the 0x003EE7CA return from 0x003EF041
 ?rva003EF08B@Rva003EF13E@@QAEXH@Z,0x003EF08B,callee of ?rva003EF13E@Rva003EF13E@@QAEXHHH@Z at retail 0x003EF142 read from its REL32 displacement; argument count from the callee ret
 ?rva003EF264@Rva003EF34A@@QAEXII@Z,0x003EF264,indexed set through a pointer table at this+4: REL32 read at the two-arg call site in 0x003EF34A; owner identity unproven
