@@ -1,5 +1,5 @@
 // Retail 0x007592E0 (?UnRegisterObject@CollisionManagerImpl@@QAEXPAVRva009A36F0Param@@@Z).
-// BFME1 donor: reference/open-bfme-1/Code/GameEngine/Source/Common/CollisionManagerImpl.cpp
+// BFME1 donor: reference/open-bfme-1/game/Libraries/Source/collisionmanager/collisionmanager_impl.cpp
 // (b1 0x009A36F0, // cl: /O2 /Ob0). The b2 body at 0x007592E0 is the same
 // function: this = ebx (list-head pointer at +8, flag byte at +0xC06D),
 // param = edi (virtual +0x18 void f(int), +0x1c returns a thing pointer).
@@ -12,7 +12,13 @@
 // Adaptation vs the donor: the donor calls destroyDirect() on the thing, but
 // the b2 retail call target 0x00758500 is the ledger-rowed
 // ??1Rva009A45A0CollisionData@@QAE@XZ, so this TU calls that dtor directly.
-// cl: /Ob1
+// cl: /O2 /Ob1
+// Counter removal 0x00759220: WorldBuilder _RemoveObjectCounters lead,
+// native190B RET4. Original unlinkChain spelling is kept for the established
+// caller ABI. The inline key wrapper materializes the two ids through the
+// existing 0x00759030 provider; its scheduling matches the retail key loads.
+// BFME1 donor revision 34f59164f6d1efd413c5fd37f4894ec834c3c0fe supplies
+// the already-landed unregister body; counter removal is target reconstruction.
 
 class Rva009A36F0Thing
 {
@@ -22,6 +28,8 @@ public:
 	unsigned char m_pad8[8];
 	void *m_10;
 	Rva009A36F0Thing *m_14;
+	unsigned char m_pad18[8];
+	void *m_queueHead;
 };
 
 class Rva009A36F0Param
@@ -45,6 +53,40 @@ public:
 
 void __cdecl operator delete(void *block);
 
+struct Rva009A3300Node
+{
+	char m_pad0[8];
+	unsigned int m_key0;
+	unsigned int m_key1;
+	char m_pad10[0x1c];
+};
+
+class Rva009A3300HashTable
+{
+public:
+	void remove(Rva009A3300Node *entry);
+ __forceinline void removeKey(unsigned a, unsigned b) { Rva009A3300Node key; key.m_key0=a; key.m_key1=b; remove(&key); }
+};
+
+struct PairNode3630
+{
+	struct Link
+	{
+		Link **backlink;
+		Link *next;
+	};
+	char pad00[8];
+	unsigned key0;
+	unsigned key1;
+	unsigned counter;
+	Link first;
+	unsigned pad1c;
+	Link second;
+	unsigned pad28;
+	PairNode3630 **backlink;
+	PairNode3630 *next;
+};
+
 class CollisionManagerImpl
 {
 public:
@@ -54,7 +96,11 @@ public:
 private:
 	unsigned char m_pad0[8];
 	Rva009A36F0Thing *m_listHead;
-	unsigned char m_padToFlag[0xc06d - 0xc];
+	unsigned char m_pad0C_AE04[0xae04 - 0xc];
+	void *m_freeHead;
+	unsigned char m_padAE08[4];
+	void *m_cursor;
+	unsigned char m_padAE10_C06D[0xc06d - 0xae10];
 	unsigned char m_flag;
 };
 
@@ -92,4 +138,32 @@ void CollisionManagerImpl::UnRegisterObject(Rva009A36F0Param *param)
 	unlinkChain(thing);
 	((Rva009A45A0CollisionData *)thing)->~Rva009A45A0CollisionData();
 	operator delete(thing);
+}
+
+// ?unlinkChain@CollisionManagerImpl@@QAEXPAVRva009A36F0Thing@@@Z @ 0x00759220 (190B). Donor BFME1 collisionmanager_impl unlinkChain 0x009A3630 plus attempt 0x009A3630: queueHead+8 node first/second Link unlinks hash remove cursor freeHead; caller apply 0x007592E0; callee remove 0x00759030 rowed.
+void CollisionManagerImpl::unlinkChain(Rva009A36F0Thing *thing)
+{
+	while (thing->m_queueHead)
+	{
+		PairNode3630 *node = *(PairNode3630 **)((char *)thing->m_queueHead + 8);
+		if (node->first.next)
+			node->first.next->backlink = node->first.backlink;
+		*node->first.backlink = node->first.next;
+		PairNode3630::Link *next = node->second.next;
+		node->first.backlink = 0;
+		if (next)
+			next->backlink = node->second.backlink;
+		*node->second.backlink = node->second.next;
+		node->second.backlink = 0;
+		((Rva009A3300HashTable *)((char *)this + 0xae10))->removeKey(node->key0, node->key1);
+		PairNode3630 *cursor = (PairNode3630 *)m_cursor;
+		if (cursor == node)
+			m_cursor = cursor->next;
+		if (node->next)
+			node->next->backlink = node->backlink;
+		*node->backlink = node->next;
+		node->backlink = 0;
+		node->next = (PairNode3630 *)m_freeHead;
+		m_freeHead = node;
+	}
 }
