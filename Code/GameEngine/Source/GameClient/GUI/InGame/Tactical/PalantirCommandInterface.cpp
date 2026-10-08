@@ -5,6 +5,20 @@
 #include "ascii_string.h"
 
 struct CameraMarker;
+class Object;
+class Rva00575674 {
+public:
+ void rva00575674(Object *object);
+private:
+ void *m_ptr;
+};
+class Rva005C3F02 {
+public:
+ Rva005C3F02(void *level, void *name);
+ virtual ~Rva005C3F02();
+private:
+ void *m_impl;
+};
 class Rva00528FE6 {
 public:
  void rva00528FE6(CameraMarker *marker);
@@ -30,7 +44,8 @@ class Rva0052991E
 {
 	struct Slot
 	{
-		char m_pad00[8];
+		char m_pad00[4];
+		Rva00575674 m_subMenu;
 		Rva00528FE6 m_toggleFlash;
 		char m_pad0C[0x14 - 0x0C];
 	};
@@ -38,6 +53,7 @@ class Rva0052991E
 	Slot m_slots[6];
 public:
 	void rva0052991E(const char *path);
+	void rva005297DD(const char *path);
 };
 void Rva0052991E::rva0052991E(const char *path)
 {
@@ -54,4 +70,24 @@ void Rva0052991E::rva0052991E(const char *path)
 	if (*(void **)&button->m_toggleFlash)
 		return;
 	button->m_toggleFlash.rva00528FE6((CameraMarker *)new Rva005C3932(Rva004128BBGetLevel(name.str()), AsciiString(Rva00412845AfterLevel(name.str()))));
+}
+
+// Native 0x005297DD..0x005298E0, RET4; same slot/lifetime as 52991E,
+// holder +4 and the rowed clip-base constructor at 5C40E7. WorldBuilder
+// 0x013CBE00 names this operation OnSubMenuLoaded in the same source home.
+void Rva0052991E::rva005297DD(const char *path)
+{
+	AsciiString name;
+	Slot *button;
+	{
+		int slot;
+		if (!Rva00529628Get(path, &slot))
+			return;
+		if (!Rva00528C30Get(path, name))
+			return;
+		button = &m_slots[slot];
+	}
+	if (*(void **)&button->m_subMenu)
+		return;
+	button->m_subMenu.rva00575674((Object *)new Rva005C3F02((void *)Rva004128BBGetLevel(name.str()), (void *)&AsciiString(Rva00412845AfterLevel(name.str()))));
 }
