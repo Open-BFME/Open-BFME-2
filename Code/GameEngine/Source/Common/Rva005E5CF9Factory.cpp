@@ -41,3 +41,58 @@ RvaF1Handle Rva005E5CF9::rva005E5CF9(int a1)
 {
 	return RvaF1Handle(new Rva005F589E(a1, (void *)&m_in));
 }
+
+// Widened queue: three independently witnessed members of this factory
+// pattern. Each has a hidden one-word result, AddRef at object +4 and a
+// context pointer at receiver +8. Constructor arguments are opaque words:
+// target callees forward them without interpreting them here. These names
+// and storage-only views do not claim an application class or enum identity.
+class Rva005E8DCF
+{
+	char m_pad[0x24];
+public:
+	Rva005E8DCF(unsigned int argument, void *context);
+};
+class Rva005E91ED
+{
+	char m_pad[0x20];
+public:
+	Rva005E91ED(unsigned int argument, void *context);
+};
+class Rva006004C1
+{
+	char m_pad[0x28];
+public:
+	Rva006004C1(unsigned int first, unsigned int second, void *context);
+};
+struct Rva005CE2D3
+{
+	char m_prefix[8];
+	Rva005E5CF9In m_context;
+	RvaF1Handle rva005CE2D3(unsigned int argument);
+};
+struct Rva005CEA92
+{
+	char m_prefix[8];
+	Rva005E5CF9In m_context;
+	RvaF1Handle rva005CEA92(unsigned int argument);
+};
+struct Rva005FB418
+{
+	char m_prefix[8];
+	Rva005E5CF9In m_context;
+	RvaF1Handle rva005FB418(unsigned int first, unsigned int second);
+};
+
+RvaF1Handle Rva005CE2D3::rva005CE2D3(unsigned int argument)
+{
+	return RvaF1Handle(new Rva005E8DCF(argument, &m_context));
+}
+RvaF1Handle Rva005CEA92::rva005CEA92(unsigned int argument)
+{
+	return RvaF1Handle(new Rva005E91ED(argument, &m_context));
+}
+RvaF1Handle Rva005FB418::rva005FB418(unsigned int first, unsigned int second)
+{
+	return RvaF1Handle(new Rva006004C1(first, second, &m_context));
+}
