@@ -11951,7 +11951,6 @@ name,address,notes
 ?rva004E8FF6@Rva004E8FF6@@QAEXPAX@Z,0x004E8FF6,thiscall single-arg callee of 0x004E9710 read from its REL32 displacement; body unrowed
 ?rva004E9040@Rva004E8FF6@@QAEXPAX@Z,0x004E9040,same-object single-arg callee of 0x004E9710 (global plus 0x940) read from REL32; in-range target, provisional class
 ?rva004E9446@Rva004E94FB@@QAEXXZ,0x004E9446,thiscall no-arg callee of 0x004E9710 read from its REL32 displacement (same this); in-range target, provisional class
-?rva004E98F7@@YAXHHHPAX@Z,0x004E98F7,cdecl 4-arg callee of 0x004E99D6 read from its REL32 displacement; body unrowed
 ?rva004E9C13@Rva004E9C13@@QAEXXZ,0x004E9C13,tail-call target of 0x004E9F6E (mov ecx esi then jmp); Ghidra range size 405B; body unrowed
 ?rva004EAFBD@Rva004EAFBD@@QAE?AUCoord3D@@XZ,0x004EAFBD,"wall planner position (asserts in AIWall.cpp; Coord3D by hidden pointer); REL32 in 0x004EB962"
 ?rva004EBF4B@Rva004EBF4B@@QAE?AUCoord3D@@XZ,0x004EBF4B,the same body as the rowed void(Coord3D *) spelling: it returns the Coord3D by value through the hidden pointer (eax = out); REL32 at 0x005AB70C in ReturnTheRing 0x005AB6DC uses the returned pointer
@@ -14252,7 +14251,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??$__uninitialized_fill_n@PAURva000AF1C2Record@@HU1@@_STL@@YAPAURva000AF1C2Record@@PAU1@HABU1@ABU__false_type@0@@Z,0x000ADF1B
 ??$__uninitialized_fill_n@PAURva002D3978Record@@HU1@@_STL@@YAPAURva002D3978Record@@PAU1@HABU1@ABU__false_type@0@@Z,0x002D3489
 ??$__uninitialized_fill_n@PAURva0040A34BRecord@@HU1@@_STL@@YAPAURva0040A34BRecord@@PAU1@HABU1@ABU__false_type@0@@Z,0x0040A1D7
-??$__uninitialized_fill_n@PAURva004E99D6Record@@HU1@@_STL@@YAPAURva004E99D6Record@@PAU1@HABU1@ABU__false_type@0@@Z,0x004E98F7
 ??$__uninitialized_fill_n@PAURva005243FARecord@@HU1@@_STL@@YAPAURva005243FARecord@@PAU1@HABU1@ABU__false_type@0@@Z,0x0052408B
 ??$__uninitialized_fill_n@PAURva00569450Record@@HU1@@_STL@@YAPAURva00569450Record@@PAU1@HABU1@ABU__false_type@0@@Z,0x00569109
 ??$__uninitialized_fill_n@PAURva005AE78ARecord@@HU1@@_STL@@YAPAURva005AE78ARecord@@PAU1@HABU1@ABU__false_type@0@@Z,0x005AE6F8
@@ -16530,3 +16528,4 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ??0Rva005E362F@@QAE@PAX00@Z,0x005E38EB,RegionDetailsPanel CreatePage5CC81F full237B/WB15BF010936B direct calls. Complete children5CC4B3/39 and5CC4FB/39 RET16 tablesC74E70/C74E8C bind existing deleting-dtor ownersRva005CC656/Rva005CC677; complete5E38EB/92 RET12/WB15F6AA0162B tableC77BD0 binds existing ownerRva005E362F. Constructor argument spellings remain opaque ABI views; no folded aliases. Source caller uses allocation sizes20/20/16; explicit count4 view; child virtual contracts remain unreconciled.
 ?activate@AIWall@@QAEXPAXMPBX@Z,0x004EAF18,Native4EAF18/165 and namedWB137BB30/420 prove AIWall::activate on ECX with owner float string-reference words and ret12. Whole bodies inspected: stores owner18 flags34/3C forwards float to rowed4EAC8C strings to rowedStringBase::set and creates rowed5970ED timer. Opaque caller argument types do not assert original spellings. Caller4E9DA8 uses same selected wall. No donor identity claim.
 ?rva004EB7CC@AIWall@@QAE_NPAX@Z,0x004EB7CC,Native4EB7CC/310 and WB137BE20/419 prove bool member on AIWall selected by namedbuilder4E9DA8; owner argument one word ret4. Full bodies inspect owner position vector and every wall node squared-distance comparison with C6292C. Original method and owner type unknown; address method and opaque owner pointer preserve that uncertainty. No competing owner or donor identity asserted.
+?rva004E98F7@@YAPAPAXPAPAX0PBXPAX@Z,0x004E98F7,Full native4E98F7/186 and WB1381340/371 prove cdecl pointer-range first last key-reference unused-category words returning matching iterator or last in EAX. Seven rowed4EAB9F comparisons read wall48 and key0. Caller4E9C13 consumes iterator. Replaces disproven void ABI and uninitialized-fill pin; full helper has no construction or stores. Original template and element spelling unknown.

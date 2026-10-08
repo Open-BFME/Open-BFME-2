@@ -167,3 +167,15 @@ void AIWallBuilder::tryToStartWallProduction()
         reinterpret_cast<_STL::vector<const ModuleData *> &>(m_walls).push_back(wall);
     }
 }
+
+// Full native 4E98F7/186 and WB1381340/371 search a four-byte pointer
+// range in groups of four, comparing each wall's key+48 through rowed
+// Rva004EAB9FCmp. They return the matching iterator or the end in EAX.
+// This 27-byte wrapper and WB1381310 pass an unused one-byte category
+// object address. The original template/type spellings remain unknown.
+void **__cdecl rva004E98F7(void **first, void **last, const void *key, void *category);
+void **__cdecl rva004E99D6(void **first, void **last, const void *key)
+{
+    char category;
+    return rva004E98F7(first, last, key, &category);
+}

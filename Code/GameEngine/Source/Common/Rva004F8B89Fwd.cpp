@@ -1,22 +1,16 @@
 // cl: /MD
 // stlport
 //
-// Three small dump-range forwarders/walkers: 0x4F8B89 repacks three ints
-// plus a stack byte into the pinned stdcall 0x4F7EE9, 0x4E99D6 forwards
-// three ints plus a stack byte into the pinned cdecl 0x4E98F7, and
+// Small dump-range forwarders/walkers: 0x4F8B89 repacks three ints
+// plus a stack byte into the pinned stdcall 0x4F7EE9, and
 // 0x4E94FB walks a node list through the pinned 0x2C6845 plus the rowed
-// _M_increment. Retail 0x004F8B89 25B, 0x004E99D6 27B, 0x004E94FB 33B.
+// _M_increment. Retail 0x004F8B89 25B and 0x004E94FB 33B.
 // Pins are honest address-derived candidates.
 
 void __stdcall rva004F7EE9(int a, int b, int c, void *d);
-void __cdecl rva004E98F7(int a, int b, int c, void *d);
-
-// ?rva004E99D6@@YAXHHH@Z @0x004E99D6 27B.
-void __cdecl rva004E99D6(int a, int b, int c)
-{
-	char tmp;
-	rva004E98F7(a, b, c, &tmp);
-}
+// The iterator-return finder at 4E99D6 now lives in AIWallBuilder.cpp.
+// Its full helper and caller prove a pointer range and key reference, rather
+// than the former three-int/void ABI used here.
 
 namespace _STL
 {
