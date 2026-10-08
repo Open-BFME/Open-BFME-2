@@ -152,23 +152,34 @@ Rva005109D::Rva005109D(EmitVtableTag *)
 // restores both derived tables, the secondary base table BC5128, then
 // tail-calls the canonical prefix destructor2D9A43. The one-slot secondary
 // table BC5128 belongs to the already rowed Rva00051E4D deleting destructor.
+// Release_Ref50ED3 passes its +4 count to InterlockedDecrement; the native
+// constructor clears that count after the base vptr is initialized.
 class Rva00051E4D
 {
 public:
+    Rva00051E4D() { m_count = 0; }
     virtual ~Rva00051E4D() {}
 private:
-    int m_count;
+    volatile int m_count;
 };
 class Rva0051D93 : public BfmeAudioEventPrefix136, public Rva00051E4D
 {
 public:
     Rva0051D93(EmitVtableTag *);
+    Rva0051D93(const OpaqueRefElement4 &reference, int value30);
     __declspec(noinline) virtual ~Rva0051D93();
 };
 
 // ?<Rva0051D93::Rva0051D93> absent-from-retail
 Rva0051D93::Rva0051D93(EmitVtableTag *tag)
     : BfmeAudioEventPrefix136(*reinterpret_cast<OpaqueRefElement4 *>(tag), 0)
+{
+}
+
+// Native51D22..51D57 RET8; caller51DF9 passes the event reference and zero.
+// Prefix constructor2D97D6 then secondary base vptr/counter initialization.
+Rva0051D93::Rva0051D93(const OpaqueRefElement4 &reference, int value30)
+    : BfmeAudioEventPrefix136(reference, value30)
 {
 }
 
