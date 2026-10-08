@@ -92,8 +92,13 @@ Rva003BA6A9::~Rva003BA6A9()
 class Rva003E3BD4 : public SubsystemInterface
 {
 public:
+	Rva003E3BD4();
 	virtual ~Rva003E3BD4();
 };
+
+Rva003E3BD4::Rva003E3BD4()
+{
+}
 
 Rva003E3BD4::~Rva003E3BD4()
 {
@@ -137,8 +142,13 @@ inline Rva0041FE0E::~Rva0041FE0E()
 class Rva0044954D : public SubsystemInterface
 {
 public:
+	Rva0044954D();
 	virtual ~Rva0044954D();
 };
+
+Rva0044954D::Rva0044954D()
+{
+}
 
 Rva0044954D::~Rva0044954D()
 {
