@@ -175,7 +175,42 @@ void AIWallBuilder::tryToStartWallProduction()
 // Rva004EAB9FCmp. They return the matching iterator or the end in EAX.
 // This 27-byte wrapper and WB1381310 pass an unused one-byte category
 // object address. The original template/type spellings remain unknown.
-void **__cdecl rva004E98F7(void **first, void **last, const void *key, void *category);
+// Native4E98F7/186 and WB1381340/371 prove this four-element unrolled
+// iterator search and its seven rowed4EAB9F comparisons. The fourth word is
+// unused, matching the category argument in STLport's __find. The algorithm
+// below follows inputs/vendor/stlport/stl/_algobase.c at BFME1 revision
+// 9cbfb551fe20dae985f91f2319d8997287b6a705. That reference establishes the
+// control-flow lead, not the original template or element spelling. Keep the
+// default return in the switch: it reproduces the retail shared return blocks.
+bool __cdecl Rva004EAB9FCmp(const void *, const void *);
+void **__cdecl rva004E98F7(void **first, void **last, const void *key, void *)
+{
+    int trip_count = (last - first) >> 2;
+    for (; trip_count > 0; --trip_count) {
+        if (Rva004EAB9FCmp(*first, key)) return first;
+        ++first;
+        if (Rva004EAB9FCmp(*first, key)) return first;
+        ++first;
+        if (Rva004EAB9FCmp(*first, key)) return first;
+        ++first;
+        if (Rva004EAB9FCmp(*first, key)) return first;
+        ++first;
+    }
+    switch (last - first) {
+    case 3:
+        if (Rva004EAB9FCmp(*first, key)) return first;
+        ++first;
+    case 2:
+        if (Rva004EAB9FCmp(*first, key)) return first;
+        ++first;
+    case 1:
+        if (Rva004EAB9FCmp(*first, key)) return first;
+        ++first;
+    case 0:
+    default:
+        return last;
+    }
+}
 void **__cdecl rva004E99D6(void **first, void **last, const void *key)
 {
     char category;
