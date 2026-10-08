@@ -57,3 +57,24 @@ void Rva0052A287::rva0052A287(Obj0052A22C *obj)
 {
 	m_holder->rva0052A22C(obj);
 }
+
+// ?rva00529FB7@Rva00529FB7@@QAEXXZ @0x00529FB7 7B
+// Tail-forwarding wrapper holding Holder00529E19* at +0: loads it and jmps
+// to rowed 0x00529E19 with no args.
+// Evidence: unlock lane all callees rowed; caller at 0x002D66B1 in 0x002D65F6;
+// neighbours share /MD; same 7B pattern as rva0052A287 above.
+struct Holder00529E19
+{
+	void Rva00529E19();
+};
+
+struct Rva00529FB7
+{
+	Holder00529E19 *m_holder;
+	void rva00529FB7();
+};
+
+void Rva00529FB7::rva00529FB7()
+{
+	m_holder->Rva00529E19();
+}
