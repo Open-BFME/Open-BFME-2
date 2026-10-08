@@ -62,3 +62,12 @@ void HeaderTemplateManager::init()
 	ini.loadFile("HeaderTemplate.ini", INI_LOAD_OVERWRITE, NULL);
 	populateGameFonts();
 }
+
+// Retail 0x00201C34, 5 bytes: a jump to populateGameFonts. ZH
+// HeaderTemplate.cpp's headerNotifyResolutionChange; its one caller is the
+// GameClient display mode switch 0x00239759 (GameClientDisplayModeChange.cpp),
+// which calls it where ZH's OptionsMenu.cpp does.
+void HeaderTemplateManager::headerNotifyResolutionChange()
+{
+	populateGameFonts();
+}

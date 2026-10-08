@@ -28,6 +28,7 @@ public:
 	GameFont *getFontFromTemplate(AsciiString name);
 	void populateGameFonts();
 	void init();
+	void headerNotifyResolutionChange();
 	static const FieldParse m_headerFieldParseTable[];
 	const FieldParse *getFieldParse() const { return m_headerFieldParseTable; }
 private:
