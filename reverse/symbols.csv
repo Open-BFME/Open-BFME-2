@@ -16279,3 +16279,7 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0044C2C6@@YAXXZ,0x0044C2C6,callee of ?InitCreateAHeroOnStartGame@AptSkirmish@@QAEXXZ
 ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z,0x0031D85D,callee of ?rva0031DAF8@ControlBar@@QAEXXZ
 ?rva0053BD66@ControlBar@@QBEHPBVCommandButton@@PAVGameWindow@@PAVObject@@PAM_N@Z,0x0053BD66,callee of ?rva0031B210@ControlBar@@QAEXXZ
+?rva0053CF65@ControlBar@@QAEXXZ,0x0053CF65,callee of ?update@ControlBar@@UAEXXZ
+?rva0053DF0A@ControlBar@@QAEXXZ,0x0053DF0A,callee of ?update@ControlBar@@UAEXXZ
+?rva0053E6E1@ControlBar@@QAEXXZ,0x0053E6E1,callee of ?update@ControlBar@@UAEXXZ
+?rva0053EAEC@ControlBar@@QAEXXZ,0x0053EAEC,callee of ?update@ControlBar@@UAEXXZ
