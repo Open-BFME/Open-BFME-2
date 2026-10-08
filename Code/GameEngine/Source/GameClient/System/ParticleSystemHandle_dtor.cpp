@@ -86,3 +86,20 @@ void Rva000985D2HandlePrefix::unlinkAndClear() {
         handle.m_system=0;
     }
 }
+
+// Native 1FD016..1FD022 is a complete RET0 leaf after the prior RET8 at
+// 1FD013, before independently rowed 1FD022. Its first word is returned
+// when non-null; otherwise it tail-calls the actual null ParticleSystem
+// factory 1FCBD7. BF1 9cbfb551fe20 LivingWorldManagerParticleSystem.cpp
+// operator-> is a semantic source guide. The original handle identity
+// and method name are not independently established for this address.
+ParticleSystem *Make001FCBD7();
+struct Rva001FD016HandlePrefix
+{
+    ParticleSystem *system;
+    ParticleSystem *getOrNullSystem() const;
+};
+ParticleSystem *Rva001FD016HandlePrefix::getOrNullSystem() const
+{
+    return system ? system : Make001FCBD7();
+}
