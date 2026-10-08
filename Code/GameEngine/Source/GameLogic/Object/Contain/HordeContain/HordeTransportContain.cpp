@@ -1,11 +1,26 @@
-// ?rva004779F9@HordeTransportContain@@QAEXXZ
-// partial score=0.99 date=2026-10-08
+// BFME1 ba7ddda7 Rva0024CAE0MaintainNestedRiders.cpp supplies the nested
+// rider-maintenance algorithm. BFME2's update at477AF3 calls4779F9 first;
+// its ctor and interface wrappers establish the primary receiver, +11D
+// helper, and +20 removal-notification view. Native body4779F9..477AF3
+// establishes list-descriptor slot108, removal slotsA8/A4, and owned
+// Object::kill/GetDrawable calls. The original method name is unresolved.
+// Both lists use the shared four-byte opaque element whose insertion chain
+// is independently recovered. Declared virtual slots are ABI views only;
+// this unit creates no interface objects or invented vtable data.
 // cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <list>
-typedef _STL::list<int> IntList;
-namespace _STL {template<> _List_base<int,allocator<int> >::~_List_base();}
-class Rva0036AE51ListView { public:void *a,*b;IntList rva0036AE51(); };
+extern "C" void *__cdecl memcpy(void *,const void *,unsigned int);
+#pragma intrinsic(memcpy)
+#include "../../../../../Include/GameLogic/ContainmentListView.h"
+typedef ContainmentList IntList;
+// Local comparison keeps this consumer from emitting a competing iterator.
+namespace _STL {
+template<class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>&a,const _List_iterator<T, Traits>&b)
+{ return a._M_node != b._M_node; }
+template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
+
 struct Rva0046247DPair {void *a; IntList *objects;};
 class Rva0046247D {public:void rva0046247D(Rva0046247DPair &);};
 class Rva0047A040Base9E0 {public:void *rva00588B8A(void *);};
@@ -39,11 +54,14 @@ void HordeTransportContain::rva004779F9()
     Rva0046247DPair outer;
     ((Rva0046247D*)this)->rva0046247D(outer);
     for (IntList::iterator i=outer.objects->begin();i!=outer.objects->end();++i) {
-        RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A((void*)*i);
+        void *outerObject;
+        memcpy(&outerObject,&*i,4);
+        RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A(outerObject);
         if (!contain) continue;
         IntList nested=contain->s108().rva0036AE51();
         for(IntList::iterator j=nested.begin();j!=nested.end();++j) {
-            Object *object=(Object*)*j;
+            Object *object;
+            memcpy(&object,&*j,4);
             Drawable *drawable=object->getDrawable();
             if(!drawable || ((Rva00270260*)drawable)->rva00270260()) {
                 contain->sA8(object);
