@@ -1421,7 +1421,6 @@ Code/GameEngine/Source/Common/Rva004A82BADamage.cpp	?Rva004A82BAAttemptDamage@@Y
 Code/GameEngine/Source/Common/Rva004ABFD9Copy.cpp	??0Rva004ABFD9@@QAE@ABV0@@Z	??0Rva001408C0Target@@QAE@ABU0@@Z	0x004ABCE6	unowned
 Code/GameEngine/Source/Common/Rva004ABFD9Dtor.cpp	??1Rva004ABFD9@@UAE@XZ	??1Rva003ED94FDtor@@QAE@XZ	0x003ED94F	unowned
 Code/GameEngine/Source/Common/Rva004BF951Derived.cpp	?xfer@StructureBody@@MAEXPAVXfer@@@Z	?xfer@ActiveBody@@MAEXPAVXfer@@@Z	0x004BF1E8	unowned
-Code/GameEngine/Source/Common/Rva004D3942Rva004D3942.cpp	?rva004D3942@Rva004D3942@@QAEXPAVConnectionManager@@@Z	?GenerateNextCommandID@@YAGXZ	0x005811A8	unowned
 Code/GameEngine/Source/Common/Rva004D3942Rva004D3942.cpp	?rva004D3942@Rva004D3942@@QAEXPAVConnectionManager@@@Z	?sendLocalCommandDirect@ConnectionManager@@QAEXPAVNetCommandMsg@@E@Z	0x004CF6E4	unowned
 Code/GameEngine/Source/Common/Rva004D6C9CAdd.cpp	?rva004D6D95@Rva004D6C9C@@QAEXPAVTeam@@_N@Z	?advance@?$DLINK_ITERATOR@VObject@@@@QAEXXZ	0x00263526	wrong
 Code/GameEngine/Source/Common/Rva004D759CDerived.cpp	??1Rva0033FAE9@@UAE@XZ	??1Rva004D759C@@UAE@XZ	0x004D759C	unowned
@@ -4977,14 +4976,10 @@ Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp	?insert@?$map@GVAsciiSt
 Code/GameEngine/Source/GameNetwork/ConnectionManager_processAck.cpp	?processAck@BFMEConnectionManager@@QAEXPAVNetCommandMsg@@@Z	?processAckCommand@BFMEConnectionManager@@QAEXPAX@Z	0x004D0815	unowned
 Code/GameEngine/Source/GameNetwork/ConnectionManager_processGameSpyStatsAuthKey_Rva004CFE24.cpp	?processGameSpyStatsAuthKeyCommand@BFMEConnectionManager@@QAEXPAX@Z	??1?$StringBase@D@@AAE@XZ	0x00036410	wrong
 Code/GameEngine/Source/GameNetwork/ConnectionManager_processGameSpyStatsAuthKey_Rva004CFE24.cpp	?processGameSpyStatsAuthKeyCommand@BFMEConnectionManager@@QAEXPAX@Z	?getGameSpySlot@GameSpyStagingRoom@@QAEPAVGameSpyGameSlot@@H@Z	0x004FDA3D	unowned
-Code/GameEngine/Source/GameNetwork/ConnectionManager_rva004D0A0A.cpp	?rva004D0A0A@ConnectionManager@@QAEXXZ	?GenerateNextCommandID@@YAGXZ	0x005811A8	unowned
 Code/GameEngine/Source/GameNetwork/ConnectionManager_rva004D0A0A.cpp	?rva004D0A0A@ConnectionManager@@QAEXXZ	?sendLocalCommand@ConnectionManager@@QAEXPAVNetCommandMsg@@E@Z	0x004CFF21	unowned
-Code/GameEngine/Source/GameNetwork/ConnectionManager_rva004D0E06.cpp	?rva004D0E06@ConnectionManager@@QAEXPAVGameMessage@@@Z	?GenerateNextCommandID@@YAGXZ	0x005811A8	unowned
 Code/GameEngine/Source/GameNetwork/ConnectionManager_rva004D0E06.cpp	?rva004D0E06@ConnectionManager@@QAEXPAVGameMessage@@@Z	?sendLocalCommand@ConnectionManager@@QAEXPAVNetCommandMsg@@E@Z	0x004CFF21	unowned
-Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp	?sendDisconnectCommand@DisconnectManager@@IAEXHPAVConnectionManager@@@Z	?GenerateNextCommandID@@YAGXZ	0x005811A8	unowned
 Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp	?sendDisconnectCommand@DisconnectManager@@IAEXHPAVConnectionManager@@@Z	?sendLocalCommand@ConnectionManager@@QAEXPAVNetCommandMsg@@E@Z	0x004CFF21	unowned
 Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp	?sendDisconnectCommand@DisconnectManager@@IAEXHPAVConnectionManager@@@Z	?setDisconnectFrame@NetDisconnectPlayerCommandMsg@@QAEXI@Z	0x005739F6	wrong
-Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp	?sendPlayerDestruct@DisconnectManager@@IAEXHPAVConnectionManager@@@Z	?GenerateNextCommandID@@YAGXZ	0x005811A8	unowned
 Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp	?sendPlayerDestruct@DisconnectManager@@IAEXHPAVConnectionManager@@@Z	?sendLocalCommandDirect@ConnectionManager@@QAEXPAVNetCommandMsg@@E@Z	0x004CF6E4	unowned
 Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp	?turnOnScreen@DisconnectManager@@IAEXPAVConnectionManager@@@Z	?bfmeShowDisconnectScreen@@YAXXZ	0x00512DE1	unowned
 Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp	?turnOnScreen@DisconnectManager@@IAEXPAVConnectionManager@@@Z	?populateDisconnectScreen@DisconnectManager@@IAEXPAVConnectionManager@@@Z	0x004D40DB	unowned

@@ -21,7 +21,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // adjacent reader/incrementer confirms a 16-bit command ID. Retail bytes: 64 00.
 unsigned short g_00DD2DB4 = 100;
 
-// present-unmatched: BFME-only helper, no Zero Hour counterpart.
+// SeedNextCommandIDFromPlayerCount: BFME-only helper, no Zero Hour counterpart.
 //
 // Retail: 0x00581194, 20 bytes. mov eax,[esp+4]; add eax,0Ah; imul eax,eax,3E8h;
 // mov word ptr [00DD2DB4h],ax; ret. (BFME1 donor b1 0x00682CF0 stores to
@@ -43,4 +43,15 @@ unsigned short g_00DD2DB4 = 100;
 void SeedNextCommandIDFromPlayerCount(Int numPlayers)
 {
 	g_00DD2DB4 = static_cast<unsigned short>((numPlayers + 10) * 1000);
+}
+
+// Retail: 0x005811A8, 13 bytes. mov eax,[00DD2DB4h]; inc word ptr [00DD2DB4h];
+// ret -- the post-increment of BFME 1's NetworkUtil.cpp GenerateNextCommandID
+// (b1 0x00682D10, same 13 bytes, its function-local `static UnsignedShort
+// commandID = 100; return commandID++;`). BFME 2's counter is the file-scope
+// g_00DD2DB4 above because the seeding store shares it. 24 matched call sites
+// in ConnectionManager and the network command code call this address.
+UnsignedShort GenerateNextCommandID()
+{
+	return g_00DD2DB4++;
 }

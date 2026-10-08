@@ -5943,7 +5943,6 @@ name,address,notes
 ?Gen008B8510@@YAHPBDI@Z,0x006D8B60
 ?Gen008D42C0@@YAHPBDI@Z,0x00710C70
 ?GenPush002609A0@@YAXPAUGen8ByteElement@@HHU1@P6A_NABU1@2@Z@Z,0x004C7009,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?GenerateNextCommandID@@YAGXZ,0x005811A8,address read from the REL32 displacement at a placed body
 ?Generate_Texture_Categories@DX8FVFCategoryContainer@@QAEXAAVVertex_Split_Table@@I@Z,0x00146BA0,ret-8 thiscall reached from 0x146EE0 with (Vertex_Split_Table&,0); 785B body walking the split table; ZH dx8renderer.cpp has the same member; Ghidra FUN_00546ba0; identity supported by call shape
 ?Get@Base64Straw@@UAEHPAXH@Z,0x0061B350,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Get@Straw@@UAEHPAXH@Z,0x00615560,address read from the REL32 displacement at a placed body
