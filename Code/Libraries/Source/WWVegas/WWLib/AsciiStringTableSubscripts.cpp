@@ -104,3 +104,10 @@ int & Rva002AE4C5::rva002AE4C5(const AsciiString *key) {
  { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
  return *(int *)(node==0 ? (char *)((Rva002ADD31 *)this)->rva002ADD31(&static_cast<const WordSlotPair &>(WordSlotPair(*key, 0)))+4 : (char *)node+8);
 }
+
+// 2CFEA5..2CFF1E RET4; full native boundary and calls41534B/365F0/2CFB4C/36410 prove find-or-copy-default-insert slot; original application identity remains unproven.
+void * Rva002CFEA5::rva002CFEA5(const AsciiString *key) {
+ void *node;
+ { Rva0041534BIter found=((Rva00056F61 *)this)->rva0041534B(key); node=found.m_node; }
+ return (void *)(node==0 ? (char *)((Rva002CFB4C *)this)->rva002CFB4C(&static_cast<const WordSlotPair &>(WordSlotPair(*key, 0)))+4 : (char *)node+8);
+}
