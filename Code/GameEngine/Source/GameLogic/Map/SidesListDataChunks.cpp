@@ -384,6 +384,8 @@ public:
 class TeamsInfoRec
 {
 public:
+	void swap(TeamsInfoRec *other);		// 0x0032B651
+	int getNumTeams() const { return m_count; }
 	int addTeam(const Dict *dict);		// 0x0032DA4E
 	void rva0032C2C4();					// 0x0032C2C4, WB discards overridden teams
 	void removeTeam(int id);			// 0x0032C26D, WB removeTeam
@@ -394,7 +396,8 @@ public:
 private:
 	char m_index[0x0C];
 	_STL::vector<TeamsInfoEntry> m_teams;	// +0x0C
-	char m_rest[0x38 - 0x18];
+	short m_count;						// +0x18, signed test at 0x0032E48C
+	char m_rest[0x38 - 0x1A];
 };
 
 class LibraryMapCache;
@@ -432,6 +435,7 @@ public:
 	void rva0032D554();
 	bool rva0032F0AA(DataChunkInput &file, void *info);	// 0x0032F0AA, the "Teams" callback
 	void discardOverriddenScriptsAndTeams();
+	void rva0032E474(SidesInfo *side, ScriptList *scripts, TeamsInfoRec *teams);
 	void linkLibraryMaps(int sideIndex, LibraryMapCache *cache, const _STL::vector<AsciiString> &libraryMaps,
 		AsciiStringNoCaseSet &visited, ScriptList *scripts, TeamsInfoRec *teams);
 
@@ -1046,5 +1050,19 @@ void SidesList::linkLibraryMaps(int sideIndex, LibraryMapCache *cache, const _ST
 			teamDict.setAsciiString(TheKey_teamLibraryMapName, name);
 			teams->addTeam(&teamDict);
 		}
+	}
+}
+
+// Native 0x0032E474..0x0032E4CA, RET 12. WorldBuilder 0x00A86A30
+// performs the same script merge, team swap and team-copy loop. The owner,
+// count at +0x18 and node stride/links are independently used by the callers
+// and existing TeamsInfoRec bodies. The original method name is unknown.
+void SidesList::rva0032E474(SidesInfo *side, ScriptList *scripts, TeamsInfoRec *teams)
+{
+	((BfmeThingGE *)&side->m_scripts)->rva003B89A7((BfmeSubGE *)scripts);
+	if (teams->getNumTeams() > 0) {
+		m_teamrec.swap(teams);
+		for (int id = teams->getFirstTeamID(); id; id = teams->getNextTeamID(id))
+			m_teamrec.addTeam(teams->getTeamInfo(id));
 	}
 }
