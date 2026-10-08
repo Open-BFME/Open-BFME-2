@@ -16224,7 +16224,3 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva00461C1F@Rva00461DB5Owner@@QAEXXZ,0x00461C1F,callee of ?rva00461DB5@Rva00461DB5Owner@@QAEXXZ
 ?rva003F0588@Rva003F07CEOwner@@QAEHXZ,0x003F0588,callee of ?rva003F07CE@Rva003F07CEOwner@@QAE_NXZ
 ?rva0023C58B@Rva00275327Bits@@QBE_NXZ,0x0023C58B,callee pin: BitFlags any at +0x1C8 of the predicate object (same body as the rowed ?any BitFlags row)
-?rva00295CA6@Object@@QAEXXZ,0x00295CA6,callee at 0x00295F9F; Ghidra boundary 0x00295CA6..0x00295F05; thiscall void with no arguments; address-derived until rowed
-?rva002ED313@Pathfinder@@QAE_NPAVObject@@@Z,0x002ED313,callee at 0x00295F7B; ECX is TheAI+0x10 and stack argument is Object*; Ghidra boundary 0x002ED313..0x002ED484 returns AL; Pathfinder is an address-derived structural inference
-?rva0027CE80@Rva0027CE80@@QAEXXZ,0x0027CE80,REL32 callee at 0x00283575 in TerrainLogic::reset; helper identity unresolved; GeneralsMD deleteWaypoints is semantic context only
-?rva0027D5AD@Rva0027D5AD@@QAEXXZ,0x0027D5AD,REL32 callee at 0x0028357C in TerrainLogic::reset; address-derived identity; GeneralsMD deleteBridges is semantic context only
