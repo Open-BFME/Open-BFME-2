@@ -58,6 +58,9 @@ EXTERN ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ:PROC
 EXTERN ??1Rva005EB753@@UAE@XZ:PROC
 EXTERN ?apply@Rva005CF843DwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva005CF84ADwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva005E211FDwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva005E3947DwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva004EE006DwordImmSetter@@QAEXXZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b96a09 at RVA 0x00796A09; 25-byte interval ends at RET.
@@ -2074,6 +2077,30 @@ cleanup_done_007A34D3:
     ret
 ?rva007A34D3@@YAXXZ ENDP
 
+; Unwind@00ba34fe at RVA 0x007A34FE; 20-byte funclet adds 8 to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x005E211F.
+PUBLIC ?rva007A34FE@@YAXXZ
+?rva007A34FE@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 8
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva005E211FDwordImmSetter@@QAEXXZ
+?rva007A34FE@@YAXXZ ENDP
+
+; Unwind@00ba3512 at RVA 0x007A3512; 20-byte funclet adds 0Ch to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x00238D97.
+PUBLIC ?rva007A3512@@YAXXZ
+?rva007A3512@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva00238D97DwordImmSetter@@QAEXXZ
+?rva007A3512@@YAXXZ ENDP
+
 ; Unwind@00ba3648 at RVA 0x007A3648; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to AsciiString at 0x0048BA39.
 PUBLIC ?rva007A3648@@YAXXZ
@@ -2147,6 +2174,18 @@ cleanup_done_007A37D1:
     ret
 ?rva007A37D1@@YAXXZ ENDP
 
+; Unwind@00ba3872 at RVA 0x007A3872; 20-byte funclet adds 4 to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x005E3947.
+PUBLIC ?rva007A3872@@YAXXZ
+?rva007A3872@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 4
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva005E3947DwordImmSetter@@QAEXXZ
+?rva007A3872@@YAXXZ ENDP
+
 ; Unwind@00ba38f9 at RVA 0x007A38F9; 25-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-20], then loads the cleanup pointer from [ebp+8] and tail-jumps to matched SBServer destructor at 0x005E3B83.
 PUBLIC ?rva007A38F9@@YAXXZ
@@ -2205,6 +2244,18 @@ cleanup_done_007A3A31:
     ret
 ?rva007A3A31@@YAXXZ ENDP
 
+; Unwind@00ba3a70 at RVA 0x007A3A70; 20-byte funclet adds 8 to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x003F3F7C.
+PUBLIC ?rva007A3A70@@YAXXZ
+?rva007A3A70@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 8
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva003F3F7CDwordImmSetter@@QAEXXZ
+?rva007A3A70@@YAXXZ ENDP
+
 ; Unwind@00ba3c1f at RVA 0x007A3C1F; 28-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-16], then uses [ebp-20] + 36 as ECX and tail-jumps to matched Rva0004E84A4DwordImmSetter::apply at 0x004E84A4.
 PUBLIC ?rva007A3C1F@@YAXXZ
@@ -2261,6 +2312,30 @@ PUBLIC ?rva007A3D2C@@YAXXZ
 cleanup_done_007A3D2C:
     ret
 ?rva007A3D2C@@YAXXZ ENDP
+
+; Unwind@00ba3ddc at RVA 0x007A3DDC; 20-byte funclet adds 8 to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x002B2294.
+PUBLIC ?rva007A3DDC@@YAXXZ
+?rva007A3DDC@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 8
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva002B2294DwordImmSetter@@QAEXXZ
+?rva007A3DDC@@YAXXZ ENDP
+
+; Unwind@00ba3df0 at RVA 0x007A3DF0; 20-byte funclet adds 0Ch to [ebp-10h] (zero stays zero) and tail-jumps to apply at 0x004EE006.
+PUBLIC ?rva007A3DF0@@YAXXZ
+?rva007A3DF0@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-10h]
+    mov eax, DWORD PTR [ebp-10h]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva004EE006DwordImmSetter@@QAEXXZ
+?rva007A3DF0@@YAXXZ ENDP
 
 ; Unwind@00ba3eda at RVA 0x007A3EDA; 28-byte interval ends at RET.
 ; Retail tests and clears bit 0 at [ebp-16], then uses [ebp-20] + 12 as ECX and tail-jumps to matched Rva0004E84A4DwordImmSetter::apply at 0x004E84A4.
