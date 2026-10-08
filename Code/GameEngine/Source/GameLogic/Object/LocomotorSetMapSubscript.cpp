@@ -78,3 +78,31 @@ template<> BfmeIntegerMapVector &BfmeIntegerVectorMap::operator[](const int &key
 }
 
 template class _STL::map<int, BfmeIntegerMapVector, _STL::less<int>, _STL::allocator<_STL::pair<const int, BfmeIntegerMapVector> > >;
+
+// Native 0x0007A26E orders keys unsigned and uses the same twelve-byte
+// vector header and four-byte trivial element copy. Unsigned storage names
+// those observed bits; the application's element identity remains unknown.
+// The formerly missing 0x00079ED4 forwarder is now independently rowed under
+// its opaque-record view. Reuse that established iterator/pair ABI without
+// adding a second pin or asserting its inferred signed key as a target fact.
+typedef _STL::map<unsigned int, BfmeIntegerMapVector, _STL::less<unsigned int>, _STL::allocator<_STL::pair<const unsigned int, BfmeIntegerMapVector> > > BfmeUnsignedVectorMap;
+struct Rva00079ED4Record { char bytes[1]; };
+typedef _STL::map<int, Rva00079ED4Record, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00079ED4Record> > > Rva0007A26EInsertMap;
+namespace _STL {
+template <> Rva0007A26EInsertMap::iterator Rva0007A26EInsertMap::insert(Rva0007A26EInsertMap::iterator, const Rva0007A26EInsertMap::value_type &);
+}
+
+template<> BfmeIntegerMapVector &BfmeUnsignedVectorMap::operator[](const unsigned int &key)
+{
+ BfmeUnsignedVectorMap::iterator it = lower_bound(key);
+ if (it == end() || key_comp()(key, (*it).first)) {
+  BfmeIntegerMapVector value;
+  it = BfmeUnsignedVectorMap::iterator(reinterpret_cast<BfmeUnsignedVectorMap::iterator::_Link_type>(
+    reinterpret_cast<Rva0007A26EInsertMap *>(this)->insert(
+     Rva0007A26EInsertMap::iterator(reinterpret_cast<Rva0007A26EInsertMap::iterator::_Link_type>(it._M_node)),
+     reinterpret_cast<const Rva0007A26EInsertMap::value_type &>(BfmeUnsignedVectorMap::value_type(key, value)))._M_node));
+ }
+ return (*it).second;
+}
+
+template class _STL::map<unsigned int, BfmeIntegerMapVector, _STL::less<unsigned int>, _STL::allocator<_STL::pair<const unsigned int, BfmeIntegerMapVector> > >;
