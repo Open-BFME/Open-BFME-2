@@ -809,6 +809,7 @@ public:
     float rva00059AD0(void *event, int a);
     void unmapPhysicalHandle(unsigned int handle);  // WorldBuilder name (0x000578B3)
     void rva00057948(const void *input);
+    void rva000577E3(unsigned int affect, unsigned int viewMask, bool value);
     // Ledger rows name it (refreshAll/rva00052048 share its this).
     class GlobalVolumeData {
     public:
@@ -2092,6 +2093,39 @@ void MilesAudioManager::rva00057948(const void *input)
     MilesMutexGuard guard(&m_mutex, 0);
     unmapPhysicalHandle(*reinterpret_cast<const unsigned int *>(
         reinterpret_cast<const char *>(input) + 0x0C));
+}
+
+// Native 000577E3..000578B3, RET12. Every pending request (the +0x9C set,
+// then the +0x98 queue, whose events must also carry an info) whose event's
+// view type is in viewMask and whose sound class meets affect gets value in
+// its +0x13 flag when affect has bit 0x20, else in its +0x12 flag.
+void MilesAudioManager::rva000577E3(unsigned int affect, unsigned int viewMask, bool value)
+{
+    Rva00051107AudioRequestSet::iterator it;
+    for (it = m_requestSet.begin(); it != m_requestSet.end(); ++it) {
+        Rva00051107AudioRequest *req = *it;
+        if (req && req->m_pendingEvent.get()
+            && (viewMask & (1 << req->m_pendingEvent->m_viewType))
+            && (req->m_pendingEvent->getSoundClass() & affect)) {
+            if (affect & 0x20)
+                req->m_at13 = value;
+            else
+                req->m_at12 = value;
+        }
+    }
+    for (Rva00051107AudioRequestList::iterator node = m_audioRequests.begin();
+         node != m_audioRequests.end(); ++node) {
+        Rva00051107AudioRequest *req = *node;
+        if (req && req->m_pendingEvent.get()
+            && (viewMask & (1 << req->m_pendingEvent->m_viewType))
+            && req->m_pendingEvent->m_info
+            && (req->m_pendingEvent->getSoundClass() & affect)) {
+            if (affect & 0x20)
+                req->m_at13 = value;
+            else
+                req->m_at12 = value;
+        }
+    }
 }
 
 bool __cdecl Rva000515E4Less(const Rva000515E4Key *x, const Rva000515E4Key *y)
