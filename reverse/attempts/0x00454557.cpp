@@ -1,36 +1,24 @@
 // ?xfer@GettingBuiltBehavior@@MAEXPAVXfer@@@Z
-// partial score=0.8665 date=2026-10-05
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
-//
-// ?xfer@GettingBuiltBehavior@@MAEXPAVXfer@@@Z, retail 0x00454557, 551 bytes:
-// slot 3 of GettingBuiltBehavior's primary vtable 0x00C404FC (ctor 0x004542FA;
-// slot 4 is its pool key 0x004543EB). Version (1, 9) through Xfer slot 0x28,
-// the rowed UpdateModule::xfer 0x0044DF9F, then the fields the ctor lays out:
-// bools +0x30..+0x33 and the float +0x28, the +0x24 audio handle through
-// TheAudio (0x009FE6E8) slot 0x160 as in FoundationAIUpdateXfer.cpp; from
-// version 2 the +0x2C count and +0x34; 3: +0x35, +0x36; 4: the +0x38 int;
-// 5: +0x3C; 6: the work list at +0x40 (version 6 wrote a list<int> through
-// the rowed 0x0036ABAF, read and dropped; from 7 a count then per entry the
-// ObjectID via the rowed XferObjectID, its position and float, loaded
-// entries appended through push_back 0x00453B06), and within it 8: +0x3D,
-// 9: +0x3E. Field names are by offset; the entry type is the Rva004530ED of
-// GettingBuiltBehaviorListSlots.cpp, its default ctor inline here as retail
-// zeroes the entry in place.
-//
-// NEAR MISS: all calls, offsets and block order line up; cl here keeps
-// `this` in ebx and the counts in a frame slot, where retail keeps `this`
-// in edi, the loop register in ebx and both counts (and the version-6
-// list<int>) in the dead `xfer` parameter slot [ebp+8].
+// partial score=0.95 date=2026-10-09
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// Retail 0x00454557, 551B: GettingBuiltBehavior::xfer.
+// Version (1, 9) through Xfer slot 0x28, the UpdateModule base xfer
+// (0x0044DF9F), then the members in retail order: bool +0x30, float +0x28,
+// bools +0x31/+0x32/+0x33, the audio handle +0x24 through TheAudio slot 0x160;
+// v2 uint +0x2C and bool +0x34; v3 bools +0x35/+0x36; v4 int +0x38; v5 bool
+// +0x3C; v6 a discarded int list (Rva0036ABAFXfer 0x0036ABAF) or, from v7, the
+// work list at +0x40 (count, then each entry's object id, Coord3D and float;
+// loads push_back through 0x00453B06); v8 bool +0x3D; v9 bool +0x3E.
+// The Xfer view and its MSVC-grouped operator== slots follow the matched
+// AutoHealBehaviorXfer.cpp (slot 0x28 Version, 0x60 Coord3D, 0x70 float,
+// 0x78 unsigned int, 0x7C int, 0x90 bool). The work-list layout follows the
+// matched destructor 0x0045448F (list at +0x40, 20-byte entries).
 
 class AsciiString;
 class UnicodeString;
 class PooledString;
 struct XferUnknown11;
-class Coord3DBase
-{
-public:
-	float x, y, z;
-};
+class Coord3DBase;
 class ICoord3D;
 class Region3D;
 class IRegion3D;
@@ -43,9 +31,6 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
-class Thing;
-class ModuleData;
-class Object;
 
 class Xfer
 {
@@ -112,285 +97,281 @@ public:
 	unsigned char m_minimum;
 };
 
-typedef unsigned int AudioHandle;
-
-class AudioManager
-{
-public:
-	virtual void _pad00() = 0;
-	virtual void _pad01() = 0;
-	virtual void _pad02() = 0;
-	virtual void _pad03() = 0;
-	virtual void _pad04() = 0;
-	virtual void _pad05() = 0;
-	virtual void _pad06() = 0;
-	virtual void _pad07() = 0;
-	virtual void _pad08() = 0;
-	virtual void _pad09() = 0;
-	virtual void _pad10() = 0;
-	virtual void _pad11() = 0;
-	virtual void _pad12() = 0;
-	virtual void _pad13() = 0;
-	virtual void _pad14() = 0;
-	virtual void _pad15() = 0;
-	virtual void _pad16() = 0;
-	virtual void _pad17() = 0;
-	virtual void _pad18() = 0;
-	virtual void _pad19() = 0;
-	virtual void _pad20() = 0;
-	virtual void _pad21() = 0;
-	virtual void _pad22() = 0;
-	virtual void _pad23() = 0;
-	virtual void _pad24() = 0;
-	virtual void _pad25() = 0;
-	virtual void _pad26() = 0;
-	virtual void removeAudioEvent(AudioHandle handle) = 0;
-	virtual void _pad28() = 0;
-	virtual void _pad29() = 0;
-	virtual void _pad30() = 0;
-	virtual void _pad31() = 0;
-	virtual void _pad32() = 0;
-	virtual void _pad33() = 0;
-	virtual void _pad34() = 0;
-	virtual void _pad35() = 0;
-	virtual void _pad36() = 0;
-	virtual void _pad37() = 0;
-	virtual void _pad38() = 0;
-	virtual void _pad39() = 0;
-	virtual void _pad40() = 0;
-	virtual void _pad41() = 0;
-	virtual void _pad42() = 0;
-	virtual void _pad43() = 0;
-	virtual void _pad44() = 0;
-	virtual void _pad45() = 0;
-	virtual void _pad46() = 0;
-	virtual void _pad47() = 0;
-	virtual void _pad48() = 0;
-	virtual void _pad49() = 0;
-	virtual void _pad50() = 0;
-	virtual void _pad51() = 0;
-	virtual void _pad52() = 0;
-	virtual void _pad53() = 0;
-	virtual void _pad54() = 0;
-	virtual void _pad55() = 0;
-	virtual void _pad56() = 0;
-	virtual void _pad57() = 0;
-	virtual void _pad58() = 0;
-	virtual void _pad59() = 0;
-	virtual void _pad60() = 0;
-	virtual void _pad61() = 0;
-	virtual void _pad62() = 0;
-	virtual void _pad63() = 0;
-	virtual void _pad64() = 0;
-	virtual void _pad65() = 0;
-	virtual void _pad66() = 0;
-	virtual void _pad67() = 0;
-	virtual void _pad68() = 0;
-	virtual void _pad69() = 0;
-	virtual void _pad70() = 0;
-	virtual void _pad71() = 0;
-	virtual void _pad72() = 0;
-	virtual void _pad73() = 0;
-	virtual void _pad74() = 0;
-	virtual void _pad75() = 0;
-	virtual void _pad76() = 0;
-	virtual void _pad77() = 0;
-	virtual void _pad78() = 0;
-	virtual void _pad79() = 0;
-	virtual void _pad80() = 0;
-	virtual void _pad81() = 0;
-	virtual void _pad82() = 0;
-	virtual void _pad83() = 0;
-	virtual void _pad84() = 0;
-	virtual void _pad85() = 0;
-	virtual void _pad86() = 0;
-	virtual void _pad87() = 0;
-	virtual void xferAudioHandle(Xfer *xfer, AudioHandle *handle) = 0;
-};
-
-extern AudioManager *TheAudio;
 
 enum ObjectID
 {
 	INVALID_ID = 0
 };
 
-void XferObjectID(Xfer *xfer, ObjectID *objectID);
+void XferObjectID( Xfer *xfer, ObjectID *value );
 
-class Coord3D : public Coord3DBase
+class Coord3DBase
 {
+public:
+	float x;
+	float y;
+	float z;
 };
 
+typedef unsigned int AudioHandle;
+
+class AudioManager
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void slot38();
+	virtual void slot39();
+	virtual void slot40();
+	virtual void slot41();
+	virtual void slot42();
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual void slot52();
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
+	virtual void slot57();
+	virtual void slot58();
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67();
+	virtual void slot68();
+	virtual void slot69();
+	virtual void slot70();
+	virtual void slot71();
+	virtual void slot72();
+	virtual void slot73();
+	virtual void slot74();
+	virtual void slot75();
+	virtual void slot76();
+	virtual void slot77();
+	virtual void slot78();
+	virtual void slot79();
+	virtual void slot80();
+	virtual void slot81();
+	virtual void slot82();
+	virtual void slot83();
+	virtual void slot84();
+	virtual void slot85();
+	virtual void slot86();
+	virtual void slot87();
+	virtual void xferAudioHandle( Xfer *xfer, AudioHandle *handle );
+};
+
+extern AudioManager *TheAudio;
+
+// GettingBuiltBehavior work-list entry (20 bytes; copy ctor 0x004530ED).
 class Rva004530ED
 {
 public:
-	Rva004530ED()
-	{
-		m_id = INVALID_ID;
-		m_pos.x = 0.0f;
-		m_pos.y = 0.0f;
-		m_pos.z = 0.0f;
-		m_10 = 0.0f;
-	}
-	Rva004530ED(const Rva004530ED &rhs);
-	ObjectID m_id; // +0x00
-	Coord3D m_pos; // +0x04
-	float m_10; // +0x10
+	ObjectID m_id;
+	Coord3DBase m_pos;
+	float m_value;
 };
 
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-
-template <class T> struct _List_node
-{
-	_List_node *_M_next;
-	_List_node *_M_prev;
-	T _M_data;
-};
-
-template <class T, class A> class _List_base
-{
-public:
-	_List_base(const A &a);
-	~_List_base();
-protected:
-	_List_node<T> *m_node;
-};
-
-// STLport 4.5.3 list<T>: one pointer to the sentinel node.
-template <class T, class A = allocator<T> > class list : public _List_base<T, A>
-{
-public:
-	typedef _List_node<T> *iterator;
-	list(const A &a = A()) : _List_base<T, A>(a) {}
-	iterator begin() const { return this->m_node->_M_next; }
-	iterator end() const { return this->m_node; }
-	unsigned int size() const
+	template <class T> class allocator
 	{
-		unsigned int n = 0;
-		for (iterator it = begin(); it != end(); it = it->_M_next)
+	public:
+		allocator() {}
+	};
+
+	template <class T, class Alloc> class _List_base
+	{
+	public:
+		_List_base( const Alloc &a );
+		~_List_base();
+		void *m_node;
+	};
+
+	template <class T, class Alloc = allocator<T> > class list : public _List_base<T, Alloc>
+	{
+	public:
+		list() : _List_base<T, Alloc>( Alloc() ) {}
+		void push_back( const T &value );
+	};
+}
+
+Xfer *Rva0036ABAFXfer( Xfer *xfer, _STL::list<int, _STL::allocator<int> > *list );
+
+struct GettingBuiltWorkNode
+{
+	GettingBuiltWorkNode *m_next;
+	GettingBuiltWorkNode *m_prev;
+	Rva004530ED m_value;
+};
+
+struct GettingBuiltWorkList
+{
+	int size() const
+	{
+		int n = 0;
+		for( const GettingBuiltWorkNode *it = m_node->m_next; it != m_node; it = it->m_next )
 			++n;
 		return n;
 	}
-	void push_back(const T &x);
-};
-}
-
-Xfer *Rva0036ABAFXfer(Xfer *xfer, _STL::list<int> *values);
-
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
+	GettingBuiltWorkNode *m_node;
 };
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
-class UpdateModuleInterface { public: virtual void updateSlot(); };
-
-class UpdateModule : public ObjectModule,
-	public BehaviorModuleInterface, public UpdateModuleInterface
+class UpdateModule
 {
 public:
 	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
+	void xfer( Xfer *xfer );
 private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
+	unsigned char m_pad[0x20];
 };
 
-class GettingBuiltBehaviorInterface { public: virtual void interfaceSlot(); };
-
-class GettingBuiltBehavior : public UpdateModule, public GettingBuiltBehaviorInterface
+class GettingBuiltBehavior : public UpdateModule
 {
 protected:
-	virtual void xfer(Xfer *xfer);
+	virtual void xfer( Xfer *xfer );
 private:
-	AudioHandle m_24; // +0x24
-	float m_28; // +0x28
-	unsigned int m_2C; // +0x2C
-	bool m_30; // +0x30
-	bool m_31; // +0x31
-	bool m_32; // +0x32
-	bool m_33; // +0x33
-	bool m_34; // +0x34
-	bool m_35; // +0x35
-	bool m_36; // +0x36
-	int m_38; // +0x38
-	bool m_3C; // +0x3C
-	bool m_3D; // +0x3D
-	bool m_3E; // +0x3E
-	_STL::list<Rva004530ED> m_40; // +0x40
+	AudioHandle m_audio24;
+	float m_f28;
+	unsigned int m_x2C;
+	bool m_b30;
+	bool m_b31;
+	bool m_b32;
+	bool m_b33;
+	bool m_b34;
+	bool m_b35;
+	bool m_b36;
+	int m_x38;
+	bool m_b3C;
+	bool m_b3D;
+	bool m_b3E;
+	GettingBuiltWorkList m_workList;
 };
 
-void GettingBuiltBehavior::xfer(Xfer *xfer)
+void GettingBuiltBehavior::xfer( Xfer *xfer )
 {
-	Xfer::Version version(1, 9);
+	Xfer::Version version( 1, 9 );
 	*xfer == version;
-	UpdateModule::xfer(xfer);
-	*xfer == m_30;
-	*xfer == m_28;
-	*xfer == m_31;
-	*xfer == m_32;
-	*xfer == m_33;
-	TheAudio->xferAudioHandle(xfer, &m_24);
-	if (version.m_minimum >= 2)
+
+	UpdateModule::xfer( xfer );
+
+	*xfer == m_b30;
+	*xfer == m_f28;
+	*xfer == m_b31;
+	*xfer == m_b32;
+	*xfer == m_b33;
+	TheAudio->xferAudioHandle( xfer, &m_audio24 );
+
+	if( version.m_minimum >= 2 )
 	{
-		*xfer == m_2C;
-		*xfer == m_34;
+		*xfer == m_x2C;
+		*xfer == m_b34;
 	}
-	if (version.m_minimum >= 3)
+
+	if( version.m_minimum >= 3 )
 	{
-		*xfer == m_35;
-		*xfer == m_36;
+		*xfer == m_b35;
+		*xfer == m_b36;
 	}
-	if (version.m_minimum >= 4)
-		*xfer == m_38;
-	if (version.m_minimum >= 5)
-		*xfer == m_3C;
-	if (version.m_minimum >= 6)
+
+	if( version.m_minimum >= 4 )
+		*xfer == m_x38;
+
+	if( version.m_minimum >= 5 )
+		*xfer == m_b3C;
+
+	if( version.m_minimum >= 6 )
 	{
-		if (version.m_minimum >= 7)
+		if( version.m_minimum >= 7 )
 		{
-			if (xfer->IsLoading())
+			if( xfer->IsLoading() )
 			{
 				int count = 0;
 				*xfer == count;
 				Rva004530ED entry;
-				for (int i = 0; i < count; ++i)
+				entry.m_id = INVALID_ID;
+				entry.m_pos.x = 0.0f;
+				entry.m_pos.y = 0.0f;
+				entry.m_pos.z = 0.0f;
+				entry.m_value = 0.0f;
+				for( int i = 0; i < count; ++i )
 				{
-					XferObjectID(xfer, &entry.m_id);
+					XferObjectID( xfer, &entry.m_id );
 					*xfer == entry.m_pos;
-					*xfer == entry.m_10;
-					m_40.push_back(entry);
+					*xfer == entry.m_value;
+					((_STL::list<Rva004530ED, _STL::allocator<Rva004530ED> > *)&m_workList)->push_back( entry );
 				}
 			}
 			else
 			{
-				int count = m_40.size();
+				int count = m_workList.size();
 				*xfer == count;
-				for (_STL::list<Rva004530ED>::iterator it = m_40.begin(); it != m_40.end(); it = it->_M_next)
+				for( GettingBuiltWorkNode *node = m_workList.m_node->m_next; node != m_workList.m_node; node = node->m_next )
 				{
-					XferObjectID(xfer, &it->_M_data.m_id);
-					*xfer == it->_M_data.m_pos;
-					*xfer == it->_M_data.m_10;
+					XferObjectID( xfer, &node->m_value.m_id );
+					*xfer == node->m_value.m_pos;
+					*xfer == node->m_value.m_value;
 				}
 			}
 		}
 		else
 		{
-			_STL::list<int> dropped;
-			Rva0036ABAFXfer(xfer, &dropped);
+			_STL::list<int, _STL::allocator<int> > unused;
+			Rva0036ABAFXfer( xfer, &unused );
 		}
-		if (version.m_minimum >= 8)
-			*xfer == m_3D;
-		if (version.m_minimum >= 9)
-			*xfer == m_3E;
 	}
+
+	if( version.m_minimum >= 8 )
+		*xfer == m_b3D;
+
+	if( version.m_minimum >= 9 )
+		*xfer == m_b3E;
 }
