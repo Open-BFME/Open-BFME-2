@@ -45,7 +45,7 @@ public:
 	EAStringC &clear();
 	EAStringC &operator=(const EAStringC &other);
 	~EAStringC();
-	void rva006D5FE0(void *payload, int count);
+	EAStringC &rva006D5FE0(void *payload, int count);
 };
 
 class AptString
