@@ -73,3 +73,5 @@ Rva005FF912,Code/GameEngine/Source/Common/BattlePromptMovieClipView.h,native cto
 Rva005FED2A,Code/GameEngine/Source/Common/BattlePromptMovieClipView.h,native ctor and dtor vtables plus every provider body verify this view; 005FF912/005FF95C C7A530; 005FED2A/005FED4D C7A448; 005FEFCC/005FEF65 C7A464
 Rva005FEF65Base,Code/GameEngine/Source/Common/BattlePromptArmyPanelView.h,native ctor and dtor vtables plus every provider body verify this view; 005FF912/005FF95C C7A530; 005FED2A/005FED4D C7A448; 005FEFCC/005FEF65 C7A464
 Rva005FEF65,Code/GameEngine/Source/Common/BattlePromptArmyPanelView.h,native ctor and dtor vtables plus every provider body verify this view; 005FF912/005FF95C C7A530; 005FED2A/005FED4D C7A448; 005FEFCC/005FEF65 C7A464
+Rva005FF13A,Code/GameEngine/Source/Common/BattlePromptArmyPanelView.h,native constructor and destructor share C7A478 or C79E30; inherited clip +08 and owner +28 proven by full bodies
+Rva005FAF5D,Code/GameEngine/Source/Common/BattlePromptArmyPanelView.h,native constructor and destructor share C7A478 or C79E30; inherited clip +08 and owner +28 proven by full bodies

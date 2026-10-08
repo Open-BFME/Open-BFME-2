@@ -7,6 +7,14 @@
 // stlport
 #include "string_base.h"
 
+// Ghidra's 68-byte boundary ends at the existing 005FF13A destructor.
+// C7A478 identifies the derived object; +08 is its inherited 12-byte clip.
+Rva005FF13A::Rva005FF13A(int a, int b, const Rva005FEF11Input **inputs)
+    : Rva005FEF65(a, b, inputs)
+{
+    m_08.rva005FF4BD(0);
+}
+
 Rva005FED61::Rva005FED61(const Rva005FEF11Input *panel)
 {
     Rva0040CFC7 *summary = panel->m_78;

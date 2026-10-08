@@ -5,12 +5,6 @@
 // Evidence: pin names the dtor; deleting dtor 0x005FF145 calls it; vtable 0x00C7A478 slot0; base vtable 0x00C7A464.
 #include "BattlePromptArmyPanelView.h"
 
-class Rva005FF13A : public Rva005FEF65
-{
-public:
-	virtual ~Rva005FF13A();
-};
-
 Rva005FF13A::~Rva005FF13A()
 {
 }

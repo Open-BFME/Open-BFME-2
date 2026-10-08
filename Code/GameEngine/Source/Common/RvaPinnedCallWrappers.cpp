@@ -39,32 +39,6 @@ void BfmeThing937B::rva00132D5B()
 	rva001321A7(m_40);
 }
 
-// Native 0x005FAF9F, 19B: run 0x005FED59 on this, then hand this to
-// 0x005FADEF on the +0x28 owner.
-class Rva005FED59;
-
-class Rva005FAF9FOwner
-{
-public:
-	void rva005FADEF(Rva005FED59 *child);
-};
-
-class Rva005FED59
-{
-public:
-	void rva005FED59() const;
-	void rva005FAF9F();
-
-private:
-	char m_pad00[0x28];
-	Rva005FAF9FOwner *m_owner;
-};
-void Rva005FED59::rva005FAF9F()
-{
-	rva005FED59();
-	m_owner->rva005FADEF(this);
-}
-
 // Native 0x00409EA0, 19B: InitButtonList, then the 4-byte element count of
 // the +0x3C/+0x40 range.
 class CreateAHeroHero

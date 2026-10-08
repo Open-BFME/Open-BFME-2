@@ -4840,7 +4840,6 @@ name,address,notes
 ??1Rva005F9877@@QAE@XZ,0x005F9877,destructor called by the unreferenced scalar deleting dtor 0x005F9B32 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva005FA141@@UAE@XZ,0x005FA141,opaque dtor called by the scalar deleting dtor at 0x005FA125 (vtable 0x00C79D78#0); identity unproven; address-derived name
 ??1Rva005FAD8D@@QAE@XZ,0x005FAD8D,pointee destructor called by the owning-pointer reset 0x005FAFB2 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
-??1Rva005FAF5D@@UAE@XZ,0x005FAF5D,opaque dtor called by the scalar deleting dtor at 0x005FAFCC (vtable 0x00C79E30#0); identity unproven; address-derived name
 ??1Rva005FAFB2@@QAE@XZ,0x005FAFB2,member destructor at +0x20 called by the destructor 0x005FB1AD (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
 ??1Rva005FB1AD@@UAE@XZ,0x005FB1AD,opaque dtor called by the scalar deleting dtor at 0x005FB1E8 (vtable 0x00C79EDC#0); identity unproven; address-derived name
 ??1Rva005FBBA6ReleaseView@@QAE@XZ,0x005FBBA6,Call-only member destructor ABI view; 26B rowed owning-pointer reset nulls slot then runs pointee dtor 0x005FB615 and delete; native owner 0x005FBBEE calls it at plus4
@@ -4855,7 +4854,6 @@ name,address,notes
 ??1Rva005FD9FF@@UAE@XZ,0x005FD9FF,opaque dtor called by the scalar deleting dtor at 0x005FDA1D (vtable 0x00C7A2E8#0); identity unproven; address-derived name
 ??1Rva005FED52@@UAE@XZ,0x005FED52,"destructor the scalar deleting destructor 0x003F4261 calls (REL32 at 0x003F4264; vtable 0x00C37064#1); opaque address name"
 ??1Rva005FEF65@@UAE@XZ,0x005FEF65,opaque dtor called by the scalar deleting dtor at 0x005FEFB0 (vtable 0x00C7A464#0); identity unproven; address-derived name
-??1Rva005FF13A@@UAE@XZ,0x005FF13A,opaque dtor called by the scalar deleting dtor at 0x005FF145 (vtable 0x00C7A478#0); identity unproven; address-derived name
 ??1Rva005FF5F6@@QAE@XZ,0x005FF5F6,pointee destructor called by the owning-pointer reset 0x005FF8F8 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005FFBCBElem@@QAE@XZ,0x005FFBCB,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
 ??1Rva00600379@@UAE@XZ,0x00600379,opaque dtor called by the scalar deleting dtor at 0x006003D3 (vtable 0x00C7A620#0); identity unproven; address-derived name
@@ -12335,7 +12333,6 @@ name,address,notes
 ?rva005FE640@@YIXPAVRva005FE640Obj@@HHH@Z,0x005FE640,fastcall chained init called from 0x005F8E5A with fwd-passthrough edx; identity unproven
 ?rva005FE7A7@@YIXPAVRva005FE7A7Obj@@HHH@Z,0x005FE7A7,fastcall chained init called from 0x005F8E37 with fwd-passthrough edx; identity unproven
 ?rva005FEC0C@Rva005FA854Inner@@QAEXXZ,0x005FEC0C,thiscall-0 method on m_00 called from 0x005FA854 with ecx already set; EH-prolog body; identity unproven
-?rva005FF0F6@@YIXPAVRva005FF0F6Obj@@HHHH@Z,0x005FF0F6,fastcall chained init called from 0x005FA89C with fwd-passthrough edx; identity unproven
 ?rva006000AE@@YIHPAVRva006000AENew@@HPAVRva00600305@@HHH@Z,0x006000AE,fastcall newobj-init called from 0x00600305 with fwd untouched in edx; identity unproven
 ?rva00600305@@YIXPAVRva00600305Obj@@HHHH@Z,0x00600305,fastcall chained init called from 0x00600352 with fwd untouched in edx; identity unproven
 ?rva00600991@Rva00600991@@QAE?AURva00600991Pair@@ABURva00600991Element@@@Z,0x00600991,Retail strcmp-key unique insertion; pointer/bool sret reconciled with matched 0x600BC6 consumer; native calls allocator4ABCC9 helper600854 comparator6038D4 and decrement242C0

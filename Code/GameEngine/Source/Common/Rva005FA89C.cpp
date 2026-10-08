@@ -1,30 +1,26 @@
-// cl: /DNDEBUG /MD
-// ?rva005FA89CInit@@YIPAVRva005FA89C@@PAV1@HHHPAURva005FA89CC@@@Z @0x005FA89C
-// 41B evidence: fastcall init (this, fwd-passthrough-in-edx, a, b, c)
-// chaining to pinned ?rva005FF0F6@@YIXPAVRva005FF0F6Obj@@HHHH@Z @0x005FF0F6
-// with (this, fwd, a, b, c); installs vtable 0x00C79E30 by literal store;
-// m_28 = c->m_04 (c kept in edi across the call); returns this; ret 0xC.
-// Same fastcall family as 0x005FA0C9. TU-local view only.
-struct Rva005FA89CC
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /EHc- /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// stlport
+// Native 005FA89C..005FA8C5: three-stack-argument thiscall constructor.
+// C79E30 connects it to the destructor at 005FAF5D; +28 stores input +04.
+// Replaces the fastcall surrogate and literal vtable store with real C++.
+#include "BattlePromptArmyPanelView.h"
+class Rva005FED59 { public: void rva005FED59() const; };
+Rva005FAF5D::Rva005FAF5D(int a, int b, Rva005FA89CC *input)
+    : Rva005FF13A(a, b, (const Rva005FEF11Input **)input), m_owner28(input->m_04)
 {
-	int m_00;
-	int m_04;
-};
-
-class Rva005FA89C
+}
+// Native 005FAF5D..005FAF9F, 66 bytes. Clears the owning controller only
+// when its +14 active-panel pointer still refers to this panel.
+Rva005FAF5D::~Rva005FAF5D()
 {
-public:
-	char m_pad[0x28];
-	int m_28;
-};
+    if (m_owner28->m_active14 == this)
+        m_owner28->rva005FADEF(0);
+}
 
-class Rva005FF0F6Obj;
-void __fastcall rva005FF0F6(Rva005FF0F6Obj *o, int fwd, int s1, int s2, int s3);
-
-Rva005FA89C *__fastcall rva005FA89CInit(Rva005FA89C *o, int fwd, int a, int b, Rva005FA89CC *c)
+// Native 005FAF9F returns this panel to its owning controller after the
+// established +08 validation wrapper. The callee's parameter type is opaque.
+void Rva005FAF5D::rva005FAF9F()
 {
-	rva005FF0F6((Rva005FF0F6Obj *)o, fwd, a, b, (int)c);
-	((int *)o)[0] = 0x00C79E30;
-	o->m_28 = c->m_04;
-	return o;
+    ((Rva005FED59 *)this)->rva005FED59();
+    m_owner28->rva005FADEF((Rva005FED59 *)this);
 }

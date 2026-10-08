@@ -159,3 +159,11 @@ private: char m_pad[4]; StrategicHUD::BattlePromptArmyPanelMovieClip::Impl *m_04
 };
 void Rva005FF5EE::rva005FF5EE(const UnicodeString &text)
 { m_04->rva005FF5C0(text); }
+
+#include "../../../../Common/BattlePromptMovieClipView.h"
+class Rva005FF267 { public: void rva005FF267(int); };
+// Native 005FF4BD is the +04 child forwarder used by panel ctor 005FF0F6.
+void Rva005FED2A::rva005FF4BD(int state)
+{
+    ((Rva005FF267 *)m_04)->rva005FF267(state);
+}
