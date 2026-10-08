@@ -16305,3 +16305,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??0Rva004E6C34@@QAE@XZ,0x004E6C34,callee of ??0InGameUI@@QAE@XZ
 ??1Rva0029B5E3@@QAE@XZ,0x0029B5E3,owning-pointer member dtor folded with its reset body at this address: retail InGameUI ctor/dtor funclets 0x0077513D/0x007753AF jump here; placeholder class name
 ??1Rva0029B620@@QAE@XZ,0x0029B620,owning-pointer member dtor folded with its reset body at this address: retail InGameUI ctor/dtor funclets 0x007752E3/0x0077555F jump here; placeholder class name
+?rva0037E815@Rva0037EE4C@@QAEMHPAVObject@@@Z,0x0037E815,callee of ?GetEntryToProcess@ProductionUpdate@@QAEPBVRva0049D1B1@@XZ

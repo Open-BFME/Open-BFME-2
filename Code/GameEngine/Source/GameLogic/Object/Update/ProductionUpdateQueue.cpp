@@ -240,10 +240,13 @@ class ThingTemplate : public Rva001E35DFView
 public:
 	Bool isEquivalentTo(const ThingTemplate *tt) const;
 	const AsciiString &getName() const { return m_name; }
+	UnsignedInt getProductionPriorityKind() const { return m_kindFlags[0] & (1 << 14); }
 
 private:
 	char m_unknown0C[0x64 - 0xC];
 	AsciiString m_name; // +0x64
+	char m_unknown68[0x108 - 0x68];
+	UnsignedInt m_kindFlags[7]; // +0x108, 218 KindOfType bits
 };
 
 class Rva002D06CA
@@ -316,6 +319,17 @@ private:
 	char m_unknown00[0xC];
 };
 
+// The lookup's existing address-derived owner is retained: neither WB helper
+// carries an original name. Native GetEntryToProcess passes Player+0x738 to
+// both this RET12 lookup and the RET8, float-returning progress query.
+class Rva0037EE4C
+{
+public:
+	Int rva0037EE4C(const ThingTemplate *, Int, Int);
+	Real rva0037E815(Int, Object *);
+	char m_unknown00[0x14];
+};
+
 class Player
 {
 public:
@@ -329,6 +343,8 @@ public:
 	Rva003B0D7C m_money; // +0x90
 	char m_unknown9C[0x3BC - 0x9C];
 	Rva0039B795 m_tracker; // +0x3BC
+	char m_unknown3C0[0x738 - 0x3C0];
+	Rva0037EE4C m_revivalTracker; // +0x738 (WB uses +0x740)
 };
 
 enum ObjectID
@@ -617,6 +633,7 @@ public:
 	virtual const Rva0049D1B1 *nextProduction(const Rva0049D1B1 *p) const;
 
 	static ProductionUpdateInterface *getProductionUpdateInterfaceFromObject(Object *obj);
+	const Rva0049D1B1 *GetEntryToProcess();
 
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -652,6 +669,32 @@ protected:
 	_STL::vector<AsciiString> m_bfme130; // +0x130
 	Bool m_bfme13C; // +0x13C
 };
+
+// WB 0x1203E30 names this routine. Native 49CFEB..49D07A first prefers
+// unit entries with KindOfType bit14, then horde entries whose revival
+// progress is at least one, otherwise the head. Both walks use the native
+// interface's slot22 (+0x58); WB's corresponding slot is +0x54.
+const Rva0049D1B1 *ProductionUpdate::GetEntryToProcess()
+{
+	const Rva0049D1B1 *entry;
+	for (entry = m_productionQueue; entry; entry = nextProduction(entry))
+	{
+		if (entry->isUnit() && entry->getProductionObject()->getProductionPriorityKind())
+			return entry;
+	}
+	for (entry = m_productionQueue; entry; entry = nextProduction(entry))
+	{
+		if (entry->getProductionType() == PRODUCTION_HORDE_UNIT)
+		{
+			Rva0037EE4C *tracker = &getObject()->getControllingPlayer()->m_revivalTracker;
+			Int productionID = entry->m_productionID;
+			Int index = tracker->rva0037EE4C(entry->getProductionObject(), productionID, 0);
+			if (tracker->rva0037E815(index, getObject()) >= 1.0f)
+				return entry;
+		}
+	}
+	return m_productionQueue;
+}
 
 // ?queueUpgrade@ProductionUpdate@@UAE_NPBVUpgradeTemplate@@@Z @0x0049D867 315B
 Bool ProductionUpdate::queueUpgrade( const UpgradeTemplate *upgrade )
