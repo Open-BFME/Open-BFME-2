@@ -11,6 +11,7 @@ public:
 	void rva0056FD46(short v);
 	void rva0056FD14(int v);
 	void rva0056FD2D(int v);
+	Rva0056FAA5 *rva0057042F(Rva0056FAA5 *dst);
 private:
 	char m_head[4];
 	int m_04;
@@ -60,4 +61,16 @@ int Rva0056F79BHook(int left, int right);
 void Rva0056FAA5::rva0056FD2D(int v)
 {
 	m_04 = Rva0056F79BHook(v, v);
+}
+
+// Native 57042F..570455: update through the existing 56FCF3 worker,
+// copy the resulting +4 word to the caller's output, and leave that
+// output pointer in EAX. The former bank declared void and lost this ABI.
+Rva0056FAA5 *Rva0056FAA5::rva0057042F(Rva0056FAA5 *dst)
+{
+    Rva0056FAA5 increment;
+    increment.m_04=0x352D2FF1;
+    rva0056FCF3(&increment);
+    dst->m_04=m_04;
+    return dst;
 }
