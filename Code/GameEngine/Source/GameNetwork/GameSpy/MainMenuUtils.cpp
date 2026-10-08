@@ -54,3 +54,23 @@ void noPatchBeforeOnlineCallback() {
  if(online.mustDownload || online.cantConnect) Rva00516E92Enable();
  else startOnline();
 }
+
+// WB158D390 is the callback passed by native startOnline.
+// Native5BC495..5BC4AE quits through GameEngine slot50 then exits with
+// launcher code123456789; its noreturn terminator is the final INT3.
+class GameEngine { public:
+#define SLOT(N) virtual void slot##N();
+ SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07) SLOT(08) SLOT(09)
+ SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18)
+#undef SLOT
+ virtual int getFramesPerSecondLimit();virtual void setQuitting(bool);
+};
+extern GameEngine *TheGameEngine;
+namespace MainMenuCRT {
+extern "C" __declspec(dllimport) __declspec(noreturn) void __cdecl exit(int);
+}
+void patchBeforeOnlineCallback()
+{
+ TheGameEngine->setQuitting(true);
+ MainMenuCRT::exit(123456789);
+}
