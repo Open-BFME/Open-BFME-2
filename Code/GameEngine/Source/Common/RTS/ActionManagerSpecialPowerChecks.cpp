@@ -183,9 +183,19 @@ public:
 	float m_7C;		// +0x7C
 };
 
+class DrawableList;
+class GameMessage
+{
+public:
+	// BFME2's message-name table (MessageStreamCommandName) calls 175 and 176
+	// MSG_ENTER_HINT and MSG_CONTEST_HINT; 193 and 194 are not in it.
+	enum Type { MSG_ENTER_HINT = 175, MSG_CONTEST_HINT = 176, MSG_TYPE_193 = 193, MSG_TYPE_194 = 194 };
+};
+
 class ActionManager
 {
 public:
+	GameMessage::Type getEnterMessage(const Object *obj, const DrawableList *allDraws);
 	bool canRepairObject(const Object *, const Object *, CommandSourceType);
  bool rva0041C79C(const Object *, const Object *, CommandSourceType, class CapturePowerView *);
 	bool canHijackVehicle(const Object *, const Object *, CommandSourceType);
@@ -756,7 +766,8 @@ public:
 	virtual void c07();
 	virtual bool slot20();	// +0x20
 	virtual void c09(); virtual void c10(); virtual void c11();
-	virtual void c12(); virtual void c13();
+	virtual bool slot30();	// +0x30
+	virtual void c13();
 	virtual bool slot38();	// +0x38
 	virtual void c15();
 	virtual void c16(); virtual void c17(); virtual void c18(); virtual void c19();
@@ -1582,3 +1593,56 @@ bool ActionManager::rva0041CC65(const SpecialPowerTemplate *sp, const Coord3D *p
 	return false;
 }
 
+// getEnterMessage's views: a Drawable holds its Object at +0xFC and the
+// drawable list is STLport's list<Drawable *>, one pointer to its sentinel.
+class Drawable
+{
+public:
+	Object *getObject() const { return m_object; }
+	char m_pad00[0xFC];
+	Object *m_object;	// +0xFC
+};
+
+struct DrawableListNode
+{
+	DrawableListNode *m_next;
+	DrawableListNode *m_prev;
+	Drawable *m_data;
+};
+
+class DrawableList
+{
+public:
+	bool empty() const { return m_node->m_next == m_node; }
+	DrawableListNode *m_node;
+};
+
+// WorldBuilder's debug ActionManager.cpp (assert at line 874) names this
+// ActionManager::getEnterMessage. Retail drops the assert and inlines the
+// template's KindOf 0x11 test (template +0x108 bitset byte 2 bit 1).
+GameMessage::Type ActionManager::getEnterMessage(const Object *obj, const DrawableList *allDraws)
+{
+	if (!allDraws || allDraws->empty())
+		return GameMessage::MSG_ENTER_HINT;
+	ActionContainView *contain = actionContain(obj);
+	if (contain) {
+		if ((unsigned int)contain->slot114(0) > 0) {
+			Object *other = allDraws->m_node->m_next->m_data->getObject();
+			if (obj->getControllingPlayer() != other->getControllingPlayer()) {
+				if (other->testStatus((ObjectStatusTypes)0x5d) || contain->slot20())
+					return GameMessage::MSG_CONTEST_HINT;
+			}
+		}
+		if (actionTemplate(obj)[0x10a] & 2) {
+			DrawableListNode *end = allDraws->m_node;
+			for (DrawableListNode *it = end->m_next; it != end; it = it->m_next) {
+				Object *o = it->m_data->getObject();
+				if (o && o->testStatus((ObjectStatusTypes)0x5e))
+					return GameMessage::MSG_TYPE_194;
+			}
+		}
+		if (contain->slot30())
+			return GameMessage::MSG_TYPE_193;
+	}
+	return GameMessage::MSG_ENTER_HINT;
+}
