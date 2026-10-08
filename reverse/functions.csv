@@ -70772,3 +70772,4 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?set@Rva00094BC5Byte@@QAEXE@Z,,0x00094BC5,10,Code/GameEngine/Source/Common/Bfme5SmallBodies.cpp,matched,Native94BC5..94BCF RET4; byteargument to69; target class owner unknown
 ?set@Rva00094BCFByte@@QAEXE@Z,,0x00094BCF,10,Code/GameEngine/Source/Common/Bfme5SmallBodies.cpp,matched,Native94BCF..94BD9 RET4; byteargument to6A; target class owner unknown
 ?valueIsHundred@Rva00094BD9Float@@QBE_NXZ,,0x00094BD9,25,Code/GameEngine/Source/Common/Bfme5SmallBodies.cpp,matched,Native94BD9..94BF2 with RET0 at94BEE and94BF1; UCOMISS field40 vs100 literal; BF1 34f59164 Rva006E1990FloatEq.cpp donor; target class owner unknown
+?Rva004119F3Get@@YAPAXPAXPBVAsciiString@@H@Z,,0x004119F3,88,Code/Libraries/Source/WWVegas/WWLib/Rva004119F3.cpp,matched,free helper via make plus virtual plus table plus releaseBuffer via caller 0x0041215B
