@@ -24,7 +24,25 @@ enum UpdateSleepTime
 
 class Thing;
 class ModuleData;
-class Object;
+class Rva00390557Template
+{
+public:
+	unsigned char m_pad[0x115];
+	unsigned char m_flags115;
+};
+class Object
+{
+public:
+	void rva0023D3AF(void *frame);
+	unsigned char m_pad00[4];
+	Rva00390557Template *m_template;
+	unsigned char m_pad08[0x38 - 8];
+	Coord3D m_position;
+	unsigned char m_pad44[0x274 - 0x44];
+	Object *m_holder274;
+};
+#include "../../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
 
 class BehaviorModuleBase
 {
@@ -56,6 +74,9 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+protected:
+	void setWakeFrame(Object *object, UpdateSleepTime delay);
+public:
 	virtual ~UpdateModule();
 private:
 	unsigned m_nextCallFrameAndPhase;
@@ -70,6 +91,8 @@ public:
 	virtual ~PhysicsBehavior();
 	UpdateSleepTime rva00390601();
 	bool rva0039051E() const;
+	bool rva003901DA(int option, float strength);
+	void rva00390557(const Coord3D *where, float strength, float value44, int value60, int value64);
 private:
 	_STL::vector<Gen_p12pod> m_elements;
 	Coord3D m_bfme2C;
@@ -106,4 +129,37 @@ UpdateSleepTime PhysicsBehavior::rva00390601()
 bool PhysicsBehavior::rva0039051E() const
 {
 	return m_elements.size() > 0;
+}
+
+// Native 0x00390557..0x00390601 RET20. BFME1 donor 34f59164f6d1
+// PhysicsBehaviorRva0029AB10.cpp supplies the force/wake transition lead.
+// Target proves Object holder +0x274, holder template +4 flag byte +0x115
+// bit0x20, vectors +0x38/+0x2C, scalar +0x44 and optional +0x60/+0x64.
+// The target drops the donor override walk and has two additional optional
+// words. Slot0 at the UpdateModuleInterface subobject +0x10 is called twice;
+// frame recording and wake use their existing byte-verified target providers.
+// The method name, optional word meanings and template flag remain opaque.
+void PhysicsBehavior::rva00390557(const Coord3D *where, float strength,
+                                float value44, int value60, int value64)
+{
+	Object *object = m_object;
+	Object *holder = object->m_holder274;
+	if (holder && !(holder->m_template->m_flags115 & 0x20))
+	{
+		setWakeFrame(object, UPDATE_SLEEP_FOREVER);
+		return;
+	}
+	m_bfme38 = *where;
+	m_bfme2C = object->m_position;
+	m_bfme44 = value44;
+	if (rva003901DA(1, strength))
+	{
+		m_bfme50 = 0;
+		if (value60) m_bfme60 = value60;
+		if (value64) m_bfme64 = value64;
+		static_cast<UpdateModuleInterface *>(this)->update();
+		m_object->rva0023D3AF(reinterpret_cast<void *>(TheGameLogic->getFrame()));
+		static_cast<UpdateModuleInterface *>(this)->update();
+		setWakeFrame(m_object, UPDATE_SLEEP_NONE);
+	}
 }
