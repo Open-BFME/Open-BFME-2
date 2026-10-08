@@ -1679,3 +1679,52 @@ void Rva00601452::rva00601452()
 
 
 
+
+// October 2026 family resweep: four uncovered native56B bodies. Each
+// clear REL32 names an already-rowed owner with head+0/count+4 layout.
+// Native RET0 and owning-header unwind cleanup independently confirm
+// complete-destructor boundaries; payload/comparator types remain unknown.
+
+// ??1Rva00204136@@QAE@XZ @0x002055e4 native56B.
+class Rva00204136
+{
+public:
+ RvaTreeFamilyHolder m_header;
+ int m_count;
+ void rva00204984();
+ ~Rva00204136();
+};
+Rva00204136::~Rva00204136() { rva00204984(); }
+
+// ??1Rva0043B2E2@@QAE@XZ @0x0043b4b4 native56B.
+class Rva0043B2E2
+{
+public:
+ RvaTreeFamilyHolder m_header;
+ int m_count;
+ void rva0043B334();
+ ~Rva0043B2E2();
+};
+Rva0043B2E2::~Rva0043B2E2() { rva0043B334(); }
+
+// ??1Rva004FF408@@QAE@XZ @0x004ff630 native56B.
+class Rva004FF408
+{
+public:
+ RvaTreeFamilyHolder m_header;
+ int m_count;
+ void rva004FF4C8();
+ ~Rva004FF408();
+};
+Rva004FF408::~Rva004FF408() { rva004FF4C8(); }
+
+// ??1Rva00534641@@QAE@XZ @0x0053470b native56B.
+class Rva00534641
+{
+public:
+ RvaTreeFamilyHolder m_header;
+ int m_count;
+ void rva00534693();
+ ~Rva00534641();
+};
+Rva00534641::~Rva00534641() { rva00534693(); }
