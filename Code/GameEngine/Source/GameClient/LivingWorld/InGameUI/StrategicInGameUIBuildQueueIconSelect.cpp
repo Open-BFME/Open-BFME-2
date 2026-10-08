@@ -367,11 +367,13 @@ __declspec(noinline) static int rva005E77F0Get(Rva005E72B4Queue *queue,int index
  return 0;
 }
 class Rva005F6B12 { public: int rva005F6B12(int) const; };
-struct RvaSmallVtableZeroBase { void *m_04; RvaSmallVtableZeroBase() : m_04(0) {} };
-class Rva0007DF07 : public RvaSmallVtableZeroBase {
+// Native reference-count writes occur at base+4 (queued object+28).
+// Its own direct member initializer preserves the ctor EH-state/store order.
+class Rva0007DF07 {
 public:
- inline Rva0007DF07() {}
+ inline Rva0007DF07() : m_refCount(0) {}
  virtual ~Rva0007DF07() {}
+private: int m_refCount;
 };
 class Rva005E7ED7 : public StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon, public Rva0007DF07 {
 public:
@@ -386,7 +388,6 @@ public:
  virtual void v4();virtual void v5();virtual void v6();virtual void v7();
  virtual void v8();virtual void v9();virtual void v10();virtual void SetNumTurns(int);
 };
-// ??0Rva005E7ED7@@QAE@PAVImpl@BuildQueueDetailsPanel@StrategicInGameUI@@H@Z present-unmatched
 Rva005E7ED7::Rva005E7ED7(Owner *owner,int index)
  : Icon(owner,index,(StrategicHUD::BuildQueueIconSlot *)((Rva005F6B12 *)owner)->rva005F6B12(index-1),
         (void *)rva005E7607Get(owner->m_context,owner->m_queue,index),
