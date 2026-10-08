@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1
 // AptLoadMovieFrame, the strategic HUD's load-dialog frame.
 //
 // The class name is WorldBuilder's (AptLoadMovieFrame.cpp, Impl::UnloadContent
@@ -16,12 +16,114 @@
 const char *__cdecl Rva00412845AfterLevel(const char *path);
 int __cdecl Rva004128BBGetLevel(const char *path);
 
-// The +0x08 member: the 12-byte list of bound callback names
-// (AptCommandMapAdder, AptCallbackAdders.cpp; constructor 0x001F81BF).
+// Adopt the verified Rva0057C04F constructor delegate/concat pattern.
+// AddCommandMapDelegate gives retail temporary lifetimes; source9cb BFME1
+// donor is not used for this compiler delta, which is established by BFME2
+// matched sibling57C152 and native57C3C4 full bytes.
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+class AptCommandTarget
+{
+};
+
+struct DelegateDesc
+{
+	template <class T> DelegateDesc(T *object, void (T::*method)(const char *path))
+		: m_object(reinterpret_cast<AptCommandTarget *>(object)), m_method(reinterpret_cast<void (AptCommandTarget::*)(const char *path)>(method)) {}
+
+	AptCommandTarget *m_object;
+	void (AptCommandTarget::*m_method)(const char *path);
+};
+
+class AptCommandMap
+{
+public:
+	void *m_vtbl;
+	int m_refCount;
+};
+
+template <class T> class AptRef
+{
+public:
+	AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
+	AptRef &rva00579E47(const DelegateDesc *desc); // 0x00579E47
+	AptRef(const AptRef &that) : m_ptr(that.m_ptr)
+	{
+		if (m_ptr)
+			m_ptr->m_refCount++;
+	}
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+
+private:
+	T *m_ptr;
+};
+
+// The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
+// AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
 class AptCommandMapAdder
 {
-	unsigned char m_pad[0xC];
+public:
+	AptCommandMapAdder();
+	~AptCommandMapAdder();
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+
+	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
+	{
+		AddCommandMap(name, &desc);
+	}
+
+private:
+	char m_pad[12]; // +0x0C size 12 so +0x18 flag follows
 };
+
+class Rva000B3F84Pair
+{
+public:
+	Rva000B3F84Pair() {}
+	Rva000B3F84Pair *init(const char *src); // 0x000B3F84
+
+	const char *m_ptr;
+	int m_len;
+};
+
+struct AsciiStringRef
+{
+	const AsciiString *m_string;
+};
+
+struct AsciiStringPlusString : AsciiStringRef
+{
+	AsciiStringRef m_second;
+};
+
+struct AsciiStringPlusStringText : AsciiStringPlusString
+{
+	operator AsciiString(); // 0x0050F74B
+
+	Rva000B3F84Pair m_right;
+};
+// ?operator+(AsciiStringPlusString, text) present-unmatched (inline, emitted out of line; ICF-folded at 0x00109CFD; pinned)
+inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
+{
+	Rva000B3F84Pair text;
+	text.init(right);
+	AsciiStringPlusStringText result;
+	static_cast<AsciiStringPlusString &>(result) = left;
+	result.m_right = text;
+	return result;
+}
+
+static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
+{
+	AsciiStringPlusString result;
+	result.m_string = &left;
+	result.m_second.m_string = &right;
+	return result;
+}
 
 // The +0x14 content callback: a reference-counted functor released by the
 // rowed holder destructor 0x005F8F96 and fired through the rowed two-argument
@@ -82,3 +184,13 @@ AptLoadMovieFrame::AptLoadMovieFrame(int level, const AsciiString &name)
 	: m_impl(new Impl(level, name))
 {
 }
+
+// Retail 0x0057C3C4, 213 bytes.
+AptLoadMovieFrame::Impl::Impl(int level, const AsciiString &name)
+	: m_level(level), m_name(name), m_loaded(false)
+{
+	AsciiString prefix;
+	prefix.format("_level%u.", m_level);
+	m_bindings.AddCommandMapDelegate(prefix + m_name + "_OnContentLoaded", DelegateDesc(this, &AptLoadMovieFrame::Impl::OnContentLoaded));
+}
+
