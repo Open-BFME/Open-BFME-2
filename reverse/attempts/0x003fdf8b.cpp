@@ -1,4 +1,4 @@
-// ?rva003FDF1B@Rva003FDEAD@@QAEXXZ
+// ?rva003FDF8B@Rva003FDEAD@@QAEXXZ
 // partial score=0.96 date=2026-10-08
 // cl: /O1 /G7 /Oy- /arch:SSE /EHsc /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // Native callers211C68 and WB10737B0/10738A0/1073990 establish the
