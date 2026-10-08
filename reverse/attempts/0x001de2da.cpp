@@ -1,5 +1,8 @@
 // ?reportEvaEvent@Eva@@QAE_NW4EvaEventID@@PBUCoord3D@@1@Z
 // partial score=0.99 date=2026-10-08
+// Integration: retain the served Eva.cpp file and its newly rowed 0x001DCD3C/0x001DF1A4 bodies.
+// This materialization was byte-compared before those bodies landed; transplant the report
+// body and required declarations rather than replacing newer matched source wholesale.
 // Whole-file Eva.cpp candidate; restore under Code/GameEngine/Source/GameClient.
 // Native STLport delayed-report tree; the helper below owns 0x001DD468.
 // cl: /O1 /G7 /EHsc /DNDEBUG /MD /arch:SSE
