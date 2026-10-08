@@ -1,38 +1,48 @@
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /EHs /MD /G7 /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
-#include <set>
-struct Rva0056FB0BRecord {
- Rva0056FB0BRecord(); Rva0056FB0BRecord(const Rva0056FB0BRecord&);
- ~Rva0056FB0BRecord(); Rva0056FB0BRecord&operator=(const Rva0056FB0BRecord&);
- char bytes[8];
-};
-bool operator<(const Rva0056FB0BRecord&,const Rva0056FB0BRecord&);
-
-
+// Native country population 56FEA8..5700A0 and subscript 56FE2C..56FEA8
+// establish a Unicode key at node+10 and a four-byte locale at node+14.
+// The int value is an ABI/semantic view; the original enum name is unknown.
+// BFME1 34f59164 OnlineLoginPopulateCountryList.cpp supplies the map purpose.
+// Existing retail-shaped hinted insertion is retained with Select1st of
+// the established pair rather than an opaque eight-byte set record.
+// The compiler emits 18 reachable bodies with exact bytes and call targets.
+// _Destroy releases the pair's sole nontrivial member through its existing
+// UnicodeString dtor owner. No alternate-name linker directives are needed.
+#include <map>
+#include "unicode_string.h"
+// ?unicodeKeyLess present-unmatched
+bool operator<(const UnicodeString &a,const UnicodeString &b) { return a.compare(b)<0; }
+namespace _STL { template<> struct less<UnicodeString> {
+ bool operator()(const UnicodeString &a,const UnicodeString &b)const {return a<b;}
+}; }
+typedef _STL::pair<const UnicodeString,int> CountryPair;
+typedef _STL::map<UnicodeString,int> CountryMap;
+typedef _STL::_Rb_tree<UnicodeString,CountryPair,_STL::_Select1st<CountryPair>,_STL::less<UnicodeString>,_STL::allocator<CountryPair> > CountryTree;
+namespace _STL { template<> inline void _Destroy(CountryPair *p) {
+    const_cast<UnicodeString &>(p->first).~UnicodeString();
+} }
 namespace _STL {
-typedef _Rb_tree<Rva0056FB0BRecord,Rva0056FB0BRecord,_Identity<Rva0056FB0BRecord>,less<Rva0056FB0BRecord>,allocator<Rva0056FB0BRecord> > R3WideTree;
-template<> pair<R3WideTree::iterator,bool> R3WideTree::insert_unique(const Rva0056FB0BRecord& __v) {
+template<> pair<CountryTree::iterator,bool> CountryTree::insert_unique(const CountryPair& __v) {
  _Link_type __header = this->_M_header._M_data;
  _Link_type __y = __header;
  _Link_type __x = static_cast<_Link_type>(__header->_M_parent);
  bool __comp = true;
  while (__x != 0) {
   __y = __x;
-  __comp = _M_key_compare(__v, _S_key(__x));
+  __comp = _M_key_compare(_Select1st<CountryPair>()(__v), _S_key(__x));
   __x = __comp ? _S_left(__x) : _S_right(__x);
  }
  iterator __j(__y);
  if (__comp && __j == iterator(static_cast<_Link_type>(__header->_M_left)))
   return _STL::pair<iterator,bool>(_M_insert(__y,__y,__v),true);
  if (__comp) --__j;
- if (_M_key_compare(_S_key(__j._M_node),__v))
+ if (_M_key_compare(_S_key(__j._M_node),_Select1st<CountryPair>()(__v)))
   return _STL::pair<iterator,bool>(_M_insert(__x,__y,__v),true);
  return _STL::pair<iterator,bool>(__j,false);
 }
 
-template<> R3WideTree::iterator R3WideTree::insert_unique(iterator __position,const Rva0056FB0BRecord& __v)
+template<> CountryTree::iterator CountryTree::insert_unique(iterator __position,const CountryPair& __v)
 {
   if (__position._M_node == this->_M_header._M_data->_M_left) { // begin()
 
@@ -40,12 +50,12 @@ template<> R3WideTree::iterator R3WideTree::insert_unique(iterator __position,co
     if (size() <= 0)
       return insert_unique(__v).first;
 
-    if ( _M_key_compare(_Identity<Rva0056FB0BRecord>()(__v), _S_key(__position._M_node)))
+    if ( _M_key_compare(_Select1st<CountryPair>()(__v), _S_key(__position._M_node)))
       return _M_insert(__position._M_node, __position._M_node, __v);
     // first argument just needs to be non-null 
     else
       {
-	bool __comp_pos_v = _M_key_compare( _S_key(__position._M_node), _Identity<Rva0056FB0BRecord>()(__v) );
+	bool __comp_pos_v = _M_key_compare( _S_key(__position._M_node), _Select1st<CountryPair>()(__v) );
 	
 	if (__comp_pos_v == false)  // compare > and compare < both false so compare equal
 	  return __position;
@@ -69,7 +79,7 @@ template<> R3WideTree::iterator R3WideTree::insert_unique(iterator __position,co
 	
 	// Optimization to catch insert-equivalent -- save comparison results,
 	// and we get this for free.
-	if(_M_key_compare( _Identity<Rva0056FB0BRecord>()(__v), _S_key(__after._M_node) )) {
+	if(_M_key_compare( _Select1st<CountryPair>()(__v), _S_key(__after._M_node) )) {
 	  if (_S_right(__position._M_node) == 0)
 	    return _M_insert(0, __position._M_node, __v, __position._M_node);
 	  else
@@ -81,7 +91,7 @@ template<> R3WideTree::iterator R3WideTree::insert_unique(iterator __position,co
 
   } else if (__position._M_node == this->_M_header._M_data) { // end()
     _Link_type __rightmost = _M_rightmost();
-    if (_M_key_compare(_S_key(__rightmost), _Identity<Rva0056FB0BRecord>()(__v)))
+    if (_M_key_compare(_S_key(__rightmost), _Select1st<CountryPair>()(__v)))
       // pass along to _M_insert that it can skip comparing
       // v, Key ; since compare Key, v was true, compare v, Key must be false.
       return _M_insert(0, __rightmost, __v, __position._M_node); // Last argument only needs to be non-null
@@ -91,10 +101,10 @@ template<> R3WideTree::iterator R3WideTree::insert_unique(iterator __position,co
     iterator __before = __position;
     --__before;
     
-    bool __comp_v_pos = _M_key_compare(_Identity<Rva0056FB0BRecord>()(__v), _S_key(__position._M_node));
+    bool __comp_v_pos = _M_key_compare(_Select1st<CountryPair>()(__v), _S_key(__position._M_node));
 
     if (__comp_v_pos
-      && _M_key_compare( _S_key(__before._M_node), _Identity<Rva0056FB0BRecord>()(__v) )) {
+      && _M_key_compare( _S_key(__before._M_node), _Select1st<CountryPair>()(__v) )) {
 
       if (_S_right(__before._M_node) == 0)
         return _M_insert(0, __before._M_node, __v, __before._M_node); // Last argument only needs to be non-null
@@ -113,12 +123,12 @@ template<> R3WideTree::iterator R3WideTree::insert_unique(iterator __position,co
 	// performed because it must be false.  However, if the earlier comparison
 	// was false, we need to perform this one because in the equal case, both will
 	// be false.
-	if (!__comp_v_pos) __comp_pos_v = _M_key_compare(_S_key(__position._M_node), _Identity<Rva0056FB0BRecord>()(__v));
+	if (!__comp_v_pos) __comp_pos_v = _M_key_compare(_S_key(__position._M_node), _Select1st<CountryPair>()(__v));
 	
 	if ( (!__comp_v_pos) // comp_v_pos true implies comp_v_pos false
 	     && __comp_pos_v
 	     && (__after._M_node == this->_M_header._M_data ||
-	        _M_key_compare( _Identity<Rva0056FB0BRecord>()(__v), _S_key(__after._M_node) ))) {
+	        _M_key_compare( _Select1st<CountryPair>()(__v), _S_key(__after._M_node) ))) {
 	  
 	  if (_S_right(__position._M_node) == 0)
 	    return _M_insert(0, __position._M_node, __v, __position._M_node);
@@ -135,8 +145,5 @@ template<> R3WideTree::iterator R3WideTree::insert_unique(iterator __position,co
   }
 }
 }
-template class _STL::set<Rva0056FB0BRecord>;
-
-// This caller's native REL32 already names the kept provider at 0x00448D3C.
-// Compatible calling convention and argument/return ABI; binding is address-proven.
-#pragma comment(linker, "/alternatename:??M@YA_NABURva0056FB0BRecord@@0@Z=??M@YA_NABUBfmeStringRecord00448113@@0@Z")
+template class _STL::map<UnicodeString,int>;
+template class _STL::_Rb_tree<UnicodeString,CountryPair,_STL::_Select1st<CountryPair>,_STL::less<UnicodeString>,_STL::allocator<CountryPair> >;

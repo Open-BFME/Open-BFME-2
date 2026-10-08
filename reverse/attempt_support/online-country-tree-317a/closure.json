@@ -1,0 +1,110 @@
+[
+  {
+    "symbol": "??A?$map@VUnicodeString@@HU?$less@VUnicodeString@@@_STL@@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@QAEAAHABVUnicodeString@@@Z",
+    "rva": "0x0056FE2C",
+    "size": 124,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "??1?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@QAE@XZ",
+    "rva": "0x0056F9D4",
+    "size": 56,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "??0?$map@VUnicodeString@@HU?$less@VUnicodeString@@@_STL@@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@QAE@XZ",
+    "rva": "0x0033C432",
+    "size": 25,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "?_M_lower_bound@?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVUnicodeString@@H@_STL@@@2@ABVUnicodeString@@@Z",
+    "rva": "0x00448D65",
+    "size": 49,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "??M@YA_NABVUnicodeString@@0@Z",
+    "rva": "0x00448D3C",
+    "size": 23,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "?insert@?$map@VUnicodeString@@HU?$less@VUnicodeString@@@_STL@@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVUnicodeString@@H@_STL@@@2@@2@U32@ABU?$pair@$$CBVUnicodeString@@H@2@@Z",
+    "rva": "0x0056FD5E",
+    "size": 29,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "?clear@?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@QAEXXZ",
+    "rva": "0x0056F503",
+    "size": 41,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "??0?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@QAE@ABU?$less@VUnicodeString@@@1@ABV?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@1@@Z",
+    "rva": "0x001F068F",
+    "size": 42,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "?insert_unique@?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVUnicodeString@@H@_STL@@@2@@2@U32@ABU?$pair@$$CBVUnicodeString@@H@2@@Z",
+    "rva": "0x0056FB0B",
+    "size": 439,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "?_M_erase@?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBVUnicodeString@@H@_STL@@@2@@Z",
+    "rva": "0x0056F43E",
+    "size": 53,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "??0?$_Rb_tree_base@U?$pair@$$CBVUnicodeString@@H@_STL@@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@1@@Z",
+    "rva": "0x001F0534",
+    "size": 36,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "?_M_insert@?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVUnicodeString@@H@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVUnicodeString@@H@2@0@Z",
+    "rva": "0x0056F8A6",
+    "size": 148,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "?insert_unique@?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVUnicodeString@@H@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVUnicodeString@@H@2@@Z",
+    "rva": "0x0056F93A",
+    "size": 154,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "??1UnicodeString@@QAE@XZ",
+    "rva": "0x005B804E",
+    "size": 5,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBVUnicodeString@@H@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVUnicodeString@@H@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVUnicodeString@@H@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBVUnicodeString@@H@_STL@@@1@@Z",
+    "rva": "0x0014F3C4",
+    "size": 11,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "?_M_create_node@?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVUnicodeString@@H@_STL@@@2@ABU?$pair@$$CBVUnicodeString@@H@2@@Z",
+    "rva": "0x0056F473",
+    "size": 34,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "??$_Construct@U?$pair@$$CBVUnicodeString@@H@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVUnicodeString@@H@0@ABU10@@Z",
+    "rva": "0x0056EE16",
+    "size": 45,
+    "exploratory_bytes_and_callees_exact": true
+  },
+  {
+    "symbol": "??0?$pair@$$CBVUnicodeString@@H@_STL@@QAE@ABU01@@Z",
+    "rva": "0x005DDD40",
+    "size": 27,
+    "exploratory_bytes_and_callees_exact": true
+  }
+]

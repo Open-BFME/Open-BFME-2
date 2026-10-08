@@ -50,15 +50,3 @@ VArmorTemplateSetSetTree::_Link_type VArmorTemplateSetSetTree::_M_create_node(co
 }
 template VArmorTemplateSetSetTree::_Link_type VArmorTemplateSetSetTree::_M_create_node(const VArmorTemplateSetSetTree::value_type &);
 
-// ?_M_create_node@?$_Rb_tree@UBfmeStringRecord005DDD40@@U1@U?$_Identity@UBfmeStringRecord005DDD40@@@_STL@@U?$less@UBfmeStringRecord005DDD40@@@3@V?$allocator@UBfmeStringRecord005DDD40@@@3@@_STL@@IAEPAU?$_Rb_tree_node@UBfmeStringRecord005DDD40@@@2@ABUBfmeStringRecord005DDD40@@@Z
-typedef _STL::_Rb_tree<BfmeStringRecord005DDD40, BfmeStringRecord005DDD40, _STL::_Identity<BfmeStringRecord005DDD40>, _STL::less<BfmeStringRecord005DDD40>, _STL::allocator<BfmeStringRecord005DDD40> > UBfmeStringRecord005DDD40SetTree;
-void __cdecl dup_0056EE16(void);
-typedef void (__cdecl *UBfmeStringRecord005DDD40SetTreeConstructFn)(BfmeStringRecord005DDD40 *, BfmeStringRecord005DDD40 const &);
-template <>
-UBfmeStringRecord005DDD40SetTree::_Link_type UBfmeStringRecord005DDD40SetTree::_M_create_node(const UBfmeStringRecord005DDD40SetTree::value_type &value)
-{
-	_Link_type node = (_Link_type)_STL::allocator<char>::allocate(sizeof(_STL::_Rb_tree_node<UBfmeStringRecord005DDD40SetTree::value_type>), 0);
-	((UBfmeStringRecord005DDD40SetTreeConstructFn)&dup_0056EE16)(&node->_M_value_field, value);
-	return node;
-}
-template UBfmeStringRecord005DDD40SetTree::_Link_type UBfmeStringRecord005DDD40SetTree::_M_create_node(const UBfmeStringRecord005DDD40SetTree::value_type &);

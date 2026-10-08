@@ -5720,7 +5720,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00482A4D.cpp	??1R
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004F715B.cpp	??0Rva004F715BRecord@@QAE@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00502EA4.cpp	??$_Construct@URva00502EA4Record@@U1@@_STL@@YAXPAURva00502EA4Record@@ABU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0052BBD7.cpp	??1Rva0052BBD7Record@@QAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0056FB0B.cpp	??M@YA_NABURva0056FB0BRecord@@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00587752.cpp	??1Rva00587752Record@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005CE7CE.cpp	??1Rva005CE7CERecord@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005DA663.cpp	??1Rva005DA663Record@@QAE@XZ	1
@@ -6490,7 +6489,6 @@ object_symbol	reverse/functions.csv	0x00557C36	1
 object_symbol	reverse/functions.csv	0x00564DF2	1
 object_symbol	reverse/functions.csv	0x00564E28	1
 object_symbol	reverse/functions.csv	0x00567B4D	1
-object_symbol	reverse/functions.csv	0x0056EE16	1
 object_symbol	reverse/functions.csv	0x005739F6	1
 object_symbol	reverse/functions.csv	0x005796FC	1
 object_symbol	reverse/functions.csv	0x005838F8	1
@@ -28231,7 +28229,7 @@ pin	reverse/symbols.csv	0x0033C176	2
 pin	reverse/symbols.csv	0x0033C247	1
 pin	reverse/symbols.csv	0x0033C259	1
 pin	reverse/symbols.csv	0x0033C3BC	1
-pin	reverse/symbols.csv	0x0033C432	17
+pin	reverse/symbols.csv	0x0033C432	19	allow=2ac8afd4ea1097af27d39d8a2d79c74fe2dfae9e
 pin	reverse/symbols.csv	0x0033C646	1
 pin	reverse/symbols.csv	0x0033CA81	1
 pin	reverse/symbols.csv	0x0033CB90	1
@@ -30043,7 +30041,8 @@ pin	reverse/symbols.csv	0x00447CA9	1
 pin	reverse/symbols.csv	0x004481A7	1
 pin	reverse/symbols.csv	0x004482FB	1
 pin	reverse/symbols.csv	0x00448352	1
-pin	reverse/symbols.csv	0x00448D3C	3
+pin	reverse/symbols.csv	0x00448D3C	4	allow=2ac8afd4ea1097af27d39d8a2d79c74fe2dfae9e
+pin	reverse/symbols.csv	0x00448D65	1	allow=2ac8afd4ea1097af27d39d8a2d79c74fe2dfae9e
 pin	reverse/symbols.csv	0x00448E64	1
 pin	reverse/symbols.csv	0x00448EF8	1
 pin	reverse/symbols.csv	0x00449258	1
@@ -32000,7 +31999,6 @@ pin	reverse/symbols.csv	0x0056E336	1
 pin	reverse/symbols.csv	0x0056E40C	1
 pin	reverse/symbols.csv	0x0056E4E2	1
 pin	reverse/symbols.csv	0x0056E5BC	1
-pin	reverse/symbols.csv	0x0056EE16	1
 pin	reverse/symbols.csv	0x0056F473	2
 pin	reverse/symbols.csv	0x0056F52C	1
 pin	reverse/symbols.csv	0x0056F585	1
@@ -32805,6 +32803,7 @@ pin	reverse/symbols.csv	0x005DD48C	2
 pin	reverse/symbols.csv	0x005DD6F7	1
 pin	reverse/symbols.csv	0x005DD714	1
 pin	reverse/symbols.csv	0x005DDBAB	1
+pin	reverse/symbols.csv	0x005DDD40	1	allow=2ac8afd4ea1097af27d39d8a2d79c74fe2dfae9e
 pin	reverse/symbols.csv	0x005DDD5B	1
 pin	reverse/symbols.csv	0x005DDD78	1
 pin	reverse/symbols.csv	0x005DDDA5	1
@@ -36675,9 +36674,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00551B02.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00569450.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00569450.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00569450.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0056FD5E.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0056FD5E.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0056FD5E.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00577EB2.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00577EB2.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00577EB2.cpp	"t",on	1
