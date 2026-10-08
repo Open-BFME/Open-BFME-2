@@ -39,6 +39,7 @@ struct Rva0020EE29Inner
 {
 public:
 	void rva0020F5B3();
+	_STL::vector<Rva0020F5B3Elem *> &entries() { return m_2C; }
 private:
 	char m_pad00[0x2C];
 	_STL::vector<Rva0020F5B3Elem *> m_2C;
@@ -65,4 +66,35 @@ void Rva0020EE29Inner::rva0020F5B3()
 			((Rva003EF7DF *)m_4C)->rva003EF7DF((Rva003EF7DFDest *)e->m_ptr198, e->m_arrBegin[k].value);
 		}
 	}
+}
+
+// Native 0x0052C161..0x0052C1D6 and the pinned same-receiver call in
+// Rva0052C036::rva0052C9F9 establish this owner and 117-byte extent.
+// WB 0x0133C2F0 is unnamed, but corroborates the +0x1C campaign and
+// region-manager reset / indexed activation / effects / pathfinder order.
+// The singleton chains and the four-byte collection slots are native facts;
+// the owner and slot meanings remain address-derived views.
+class Rva0020EB41 {public: void rva0020EB41();};
+class Rva002104C7 {public: bool rva002104C7(void*,void*);};
+class Rva003EF008 {public: void rva003EF008();};
+struct Rva0052C161RegionManager: Rva0020EB41 {
+ char unknown00[8]; Rva0020EE29Inner *campaign;
+};
+struct Rva0052C161World {char unknown00[0xB0]; Rva0052C161RegionManager *regions;};
+struct Rva0052C161Manager {char unknown00[0x268]; Rva003EF008 *effects;};
+class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
+class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
+class Rva0052C036 {
+ char unknown00[0x1C]; Rva0020EE29Inner *campaign;
+ public: void rva0052C161();
+};
+void Rva0052C036::rva0052C161() {
+ reinterpret_cast<Rva0052C161World*>(TheLivingWorldLogic)->regions->rva0020EB41();
+ if(campaign) {
+  _STL::vector<Rva0020F5B3Elem *> &entries=campaign->entries();
+  for(unsigned i=0;i<entries.size();++i)
+   reinterpret_cast<Rva002104C7*>(reinterpret_cast<Rva0052C161World*>(TheLivingWorldLogic)->regions)->rva002104C7(&entries[i],0);
+ }
+ reinterpret_cast<Rva0052C161Manager*>(TheLivingWorldManager)->effects->rva003EF008();
+ reinterpret_cast<Rva0052C161World*>(TheLivingWorldLogic)->regions->campaign->rva0020F5B3();
 }
