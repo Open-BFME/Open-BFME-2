@@ -91,3 +91,33 @@ void RenderableStandingWaterArea::onStandingWaterAreaTextureNameChanged(void *, 
 	assets << *(const AsciiString *)m_assets->rva0030812E(index);
 	bfmeMergeReceiverKeys((int)&assets);
 }
+
+// Native 0x000820CA..0x00082140, RET8. The same AssetList lifetime and
+// merge as the rowed standing-water callback; this receiver is the +0x3C
+// view of the RiverArea accepted by the rowed createTexture provider.
+// Callback name and first argument identity are unresolved. Reads +4,
+// clears the indexed holder at +8, and writes the dirty byte at +0x1C.
+class RenderableRiverArea {
+public:
+ void createTexture(int index);
+};
+class Rva0030BBA9 {
+public:
+ void *rva0030BBA9(int index);
+};
+class Rva000820CA {
+ char m_pad00[4];
+ Rva0030BBA9 *m_assets;
+ char m_pad08[0x1C-8];
+ bool m_dirty;
+public:
+ void rva000820CA(void *unused, int index);
+};
+void Rva000820CA::rva000820CA(void *, int index) {
+ ((BfmeResetTextureRef *)((char *)this + 8 + index * 4))->clear();
+ ((RenderableRiverArea *)((char *)this - 0x3C))->createTexture(index);
+ AssetList assets;
+ assets << *(const AsciiString *)m_assets->rva0030BBA9(index);
+ bfmeMergeReceiverKeys((int)&assets);
+ m_dirty = true;
+}
