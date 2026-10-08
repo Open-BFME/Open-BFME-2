@@ -16234,3 +16234,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?setOcclusionLevels@MilesAudioManager@@QAEXAAVPlayingAudioRef@@PBUCoord3D@@@Z,0x000545C1,WB twin MilesAudioManager::setOcclusionLevels 0x797c60 called from initFilters3D; thiscall ret 8
 ?rva00055C5D@MilesAudioManager@@QAEXAAVPlayingAudioRef@@PA_N@Z,0x00055C5D,initFilters3D callee (WB 0x78b740 unnamed); playing ref plus bool out-param; thiscall ret 8
 ?rva00052FA0@MilesAudioManager@@QAEXAAVPlayingAudioRef@@@Z,0x00052FA0,initFilters3D callee (WB 0x78b4f0 unnamed); playing ref only; thiscall ret 4
+?pauseResumeSound@MilesAudioManager@@QAEXAAVPlayingAudioRef@@@Z,0x00053113,WB twin MilesAudioManager::pauseResumeSound 0x78e1e0 called from playSample and playSample3D; thiscall ret 4; same spelling as the banked attempt 0x00053113

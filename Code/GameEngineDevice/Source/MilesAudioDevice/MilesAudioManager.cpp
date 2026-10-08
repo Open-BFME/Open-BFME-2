@@ -148,7 +148,9 @@ public:
     int m_viewType;          // +0x30
     char at34[0x4B - 0x34];
     bool m_at4B;             // +0x4B
-    char at4C[0x78 - 0x4C];
+    char at4C[0x50 - 0x4C];
+    bool m_at50;             // +0x50, set once a sample starts playing
+    char at51[0x78 - 0x51];
     MusicSystem m_musicSystem; // +0x78
 };
 
@@ -165,12 +167,32 @@ private:
     AudioEventRTS *m_ptr;
 };
 
-// Release-then-null holder at PlayingAudio +0x20 (ledger 0x000A8A6C).
+// Open audio file the holder below points at. WorldBuilder names its getters
+// (OpenAudioFile::getMilesSoundInfo, getFileImage): the file name sits at +0,
+// Miles' AILSOUNDINFO at +0x08 (channels at +0x14) and the file image at +0x2C.
+struct MilesSoundInfo {
+    char at00[0x14];
+    int m_channels;                      // +0x14
+    char at18[0x24 - 0x18];
+};
+struct OpenAudioFile {
+    AsciiString m_fileName;              // +0x00
+    char at04[0x08 - 0x04];
+    MilesSoundInfo m_soundInfo;          // +0x08
+    void *m_fileImage;                   // +0x2C
+};
+
+// Release-then-null holder at PlayingAudio +0x20 (ledger 0x000A8A6C); its
+// inline accessors fall back to null or the empty name when no file is open.
 class Rva000A8A6C {
 public:
     void rva000A8A6C(void);
+    bool isOpen(void) const { return m_ptr != 0; }
+    const AsciiString &getFileName(void) const { return m_ptr ? m_ptr->m_fileName : AsciiString::TheEmptyString; }
+    const MilesSoundInfo *getMilesSoundInfo(void) const { return m_ptr ? &m_ptr->m_soundInfo : 0; }
+    void *getFileImage(void) const { return m_ptr ? m_ptr->m_fileImage : 0; }
 private:
-    void *m_ptr;
+    OpenAudioFile *m_ptr;
 };
 
 struct PlayingAudio {
@@ -247,6 +269,9 @@ class Rva002DA153 { public: float rva002DA153(void); };
 // Event pitch-shift multiplier (rowed 0x002D94DD, a const float product
 // getter); initFilters3D scales the 3D playback rate by it when non-zero.
 class Rva002D94DD { public: float rva002D94DD(void) const; };
+// Event position returned by the rowed 0x0005160F (zeros and false when the
+// event is not positional); playSample3D hands it to prep3DSample.
+struct BfmeEventPositionView : public Coord3D {};
 // Info-reference parameter type of the split-out 0x000581FA.
 struct Rva0005BA08InfoRef;
 
@@ -263,6 +288,15 @@ extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_distances(void
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_position(void *sample, float x, float y, float z);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_volume(void *sample, float volume);
 extern "C" __declspec(dllimport) int __stdcall AIL_3D_sample_playback_rate(void *sample);
+typedef void (__stdcall *MilesSampleCallback)(void *sample);
+extern "C" __declspec(dllimport) void __stdcall AIL_init_sample(void *sample);
+extern "C" __declspec(dllimport) MilesSampleCallback __stdcall AIL_register_EOS_callback(void *sample, MilesSampleCallback callback);
+extern "C" __declspec(dllimport) int __stdcall AIL_set_sample_file(void *sample, const void *fileImage, int block);
+extern "C" __declspec(dllimport) void __stdcall AIL_start_sample(void *sample);
+extern "C" __declspec(dllimport) int __stdcall AIL_set_3D_sample_file(void *sample, const void *fileImage);
+extern "C" __declspec(dllimport) MilesSampleCallback __stdcall AIL_register_3D_EOS_callback(void *sample, MilesSampleCallback callback);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_loop_count(void *sample, int loops);
+extern "C" __declspec(dllimport) void __stdcall AIL_start_3D_sample(void *sample);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_playback_rate(void *sample, int rate);
 extern float g_00DBA4FC;
 extern float g_Va00BBDA30;
@@ -514,6 +548,11 @@ public:
     void rva00052FA0(PlayingAudioRef &playing);
     void rva000581FA(const Rva0005BA08InfoRef &info, int viewType);
     void rva000535A6(PlayingAudioRef &playing);
+    void pauseResumeSound(PlayingAudioRef &playing);
+    void prepSample(void *playing);
+    BfmeEventPositionView Rva0005160FGet(AudioEventRTS *event, bool &valid);
+    bool playSample(PlayingAudioRef &playing);
+    bool playSample3D(PlayingAudioRef &playing);
 
     void rva000564C0(unsigned int sample);
     void rva0005653C(unsigned int sample3D);
@@ -1210,4 +1249,52 @@ void MilesAudioManager::initFilters3D(PlayingAudioRef &playing, const Coord3D *p
         rva00055C5D(playing, &result);
     }
     rva00052FA0(playing);
+}
+
+void __stdcall setSampleCompleted(void *sampleCompleted);
+void __stdcall set3DSampleCompleted(void *sample3DCompleted);
+
+// WorldBuilder twin MilesAudioManager::playSample (0x7A4CB0).
+bool MilesAudioManager::playSample(PlayingAudioRef &playing)
+{
+    void *sample = (void *)playing->m_handle;
+    BfmePoolRef10 &event = playing->m_event;
+    AIL_init_sample(sample);
+    AIL_register_EOS_callback(sample, setSampleCompleted);
+    if (playing->m_file.isOpen()) {
+        prepSample(&playing);
+        AIL_set_sample_file(sample, playing->m_file.getFileImage(), 0);
+        AIL_start_sample(sample);
+        event->m_at50 = true;
+        rva000535A6(playing);
+        pauseResumeSound(playing);
+        rva0005DB6C(playing->m_file.getFileName());
+        return true;
+    }
+    return false;
+}
+
+// WorldBuilder twin MilesAudioManager::playSample3D (0x7A5130): only mono
+// files play in 3D.
+bool MilesAudioManager::playSample3D(PlayingAudioRef &playing)
+{
+    BfmePoolRef10 &event = playing->m_event;
+    void *sample3D = get3DSampleHandleForPlayingAudio(playing);
+    bool valid;
+    BfmeEventPositionView pos = Rva0005160FGet(event.operator->(), valid);
+    if (valid && playing->m_file.isOpen()) {
+        rva0005DB6C(playing->m_file.getFileName());
+        if (playing->m_file.getMilesSoundInfo()->m_channels == 1) {
+            AIL_set_3D_sample_file(sample3D, playing->m_file.getFileImage());
+            AIL_register_3D_EOS_callback(sample3D, set3DSampleCompleted);
+            prep3DSample(playing, &pos);
+            AIL_set_3D_sample_loop_count(sample3D, 1);
+            AIL_start_3D_sample(sample3D);
+            event->m_at50 = true;
+            rva000535A6(playing);
+            pauseResumeSound(playing);
+            return true;
+        }
+    }
+    return false;
 }
