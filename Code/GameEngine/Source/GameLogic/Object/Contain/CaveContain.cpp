@@ -18,6 +18,10 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 // 0x00466A50 copies the tracker list into an owned list view, advances before
 // each removal, and dispatches each entry through slot +0xA4. The CaveContain
 // index is at +0x104 complete-object offset, hence +0xE4 from this view.
+// The same target vftable at 0x00843A70 has recalcApparentControllingPlayer
+// at +0x50 and onContaining at +0x58 (0x00466977 and 0x004664BB). The latter
+// calls rowed OpenContain::onContaining (0x00463097), rowed
+// Object::setDisabled (0x00291C9B), then dispatches recalc through +0x50.
 //
 // Donor provenance: Open-BFME-1 revision
 // 6583b3c1ff21db4a561285717028fdafc780b7db, GameEngine/Include/
@@ -25,9 +29,20 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 // immediately before removeAllContained(Bool). The donor declarations support
 // these names; target slots, index access, list operations and call flow are
 // established independently from BFME2 evidence.
+// Its CaveContainOnContaining.cpp also supports the call sequence; target
+// vtable placement, rowed callees, and body bytes establish this identity/ABI.
 
-class Object;
 typedef bool Bool;
+enum DisabledType
+{
+	DISABLED_HELD = 3
+};
+
+class Object
+{
+public:
+	void setDisabled(DisabledType type);
+};
 
 
 class Rva00466398
@@ -50,7 +65,7 @@ public:
 // engine code declares the same SAGE global as TheCaveSystem.
 extern CaveSystem *TheCaveSystem;
 
-class CaveContainBaseView
+class OpenContain
 {
 public:
 	virtual void slot00() = 0;
@@ -73,9 +88,9 @@ public:
 	virtual void slot17() = 0;
 	virtual void slot18() = 0;
 	virtual void slot19() = 0;
-	virtual void slot20() = 0;
+	virtual void recalcApparentControllingPlayer() = 0;
 	virtual void slot21() = 0;
-	virtual void slot22() = 0;
+	virtual void onContaining(Object *, Bool);
 	virtual void slot23() = 0;
 	virtual void slot24() = 0;
 	virtual void slot25() = 0;
@@ -96,11 +111,12 @@ public:
 	virtual void slot40() = 0;
 };
 
-// This view preserves the target secondary vtable slot order and derived
-// cave-index offset; the preceding slots are intentionally opaque.
-class CaveContain : public CaveContainBaseView
+// This interface view preserves the target secondary vtable slot order and
+// derived cave-index offset; unrelated slots remain intentionally opaque.
+class CaveContain : public OpenContain
 {
 public:
+	virtual void onContaining(Object *, Bool);
 	virtual void removeFromContain(Object *obj, Bool exposeStealthUnits) = 0;
 	virtual void removeAllContained(Bool exposeStealthUnits);
 
@@ -111,6 +127,14 @@ private:
 
 template <> void _STL::_List_base<Rva0036ADF9Element, _STL::allocator<Rva0036ADF9Element> >::clear();
 template <> _STL::_List_base<Rva0036ADF9Element, _STL::allocator<Rva0036ADF9Element> >::~_List_base();
+
+// ?onContaining@CaveContain@@UAEXPAVObject@@_N@Z
+void CaveContain::onContaining(Object *obj, Bool wasSelected)
+{
+	OpenContain::onContaining(obj, wasSelected);
+	obj->setDisabled(DISABLED_HELD);
+	recalcApparentControllingPlayer();
+}
 
 // ?removeAllContained@CaveContain@@UAEX_N@Z
 void CaveContain::removeAllContained(Bool exposeStealthUnits)
