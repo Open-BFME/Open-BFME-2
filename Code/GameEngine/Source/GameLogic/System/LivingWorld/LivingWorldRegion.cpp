@@ -29,6 +29,7 @@ public:
     Rva003F0614BuildingLink *field28;
 };
 
+class LivingWorldBattle;
 class LivingWorldRegion;
 struct LivingWorldBuildPlot
 {
@@ -90,6 +91,7 @@ class LivingWorldRegion
 {
 public:
 	void CreateBuildPlots();
+    void PrepareSkirmishOpponents(LivingWorldBattle *battle);
     Bool IsOwnedByTeam(Int teamID) const;
 	Bool CanSpawnUnitWithinCPLimit(Rva00319CED *unit) const;
 	LivingWorldBuilding *GetBuildingByIndex(Int index) const;
@@ -102,7 +104,9 @@ private:
 	Int rva003EFD6F(Rva002E2903Player *owner) const;	// 0x003EFD6F, command-point limit
 	Int usedCommandPoints(Rva002E2903Player *owner) const { return rva003EFDB3(owner); }
 
-	unsigned char m_pad00[0xfc];
+	unsigned char m_pad00[0xa9];
+    bool m_reservedA9;
+    char m_padAA[0xfc-0xaa];
     _STL::vector<Coord2D> m_plotPositions;
     Int m_limit108;
     Int m_limit10C;
@@ -238,4 +242,46 @@ void LivingWorldRegion::CreateBuildPlots()
 }
 
 
+
+
+int Rva003F1E2EHook(int,int);
+class Gen_00528EC0 {
+public:
+    Gen_00528EC0(short index) { rva003F2968(index); }
+    void rva003F2968(short);
+    bool bfmeDiffers(const Gen_00528EC0 &) const;
+    Gen_00528EC0 rva003F3133();
+    int index() const { return (short)Rva003F1E2EHook(value,value); }
+private:
+    int head;
+    int value;
+};
+class GameSlot;
+class GameInfo { public: GameSlot *getSlot(int); };
+extern GameInfo *TheGameInfo;
+struct RegionGameSlotPrefix {
+    char before4C[0x4c];
+    int armyID;
+    char before1A4[0x1a4-0x50];
+    bool participating;
+};
+class LivingWorldBattle { public: bool rva003F486C(int); };
+struct Rva003EFDDBOut;
+class Rva003EFDDBHolder { public: void rva003EFDDB(int,Rva003EFDDBOut *); };
+void LivingWorldRegion::PrepareSkirmishOpponents(LivingWorldBattle *battle)
+{
+    if (!battle || m_reservedA9 || !TheGameInfo) return;
+    Gen_00528EC0 i(0);
+    while (true) {
+        Gen_00528EC0 end(8);
+        if (!i.bfmeDiffers(end)) break;
+        GameSlot *slot=TheGameInfo->getSlot(i.index());
+        RegionGameSlotPrefix *fields=reinterpret_cast<RegionGameSlotPrefix *>(slot);
+        int id=fields->armyID;
+        fields->participating=battle->rva003F486C(id);
+        if (fields->participating)
+            reinterpret_cast<Rva003EFDDBHolder *>(this)->rva003EFDDB(id,reinterpret_cast<Rva003EFDDBOut *>(slot));
+        i.rva003F3133();
+    }
+}
 
