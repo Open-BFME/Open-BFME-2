@@ -81,6 +81,8 @@ struct Coord3D
 enum KindOfType { CAPTURE_FORBIDDEN_KIND = 0x6f };
 enum SpecialPowerType { CAPTURE_POWER = 0x1d };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
+enum WeaponSlotType { PRIMARY_WEAPON = 0 };
+struct Rva0028AC4EEntry;
 class Module;
 class SpecialPowerModuleInterface;
 class SpecialPowerTemplate;
@@ -97,6 +99,8 @@ public:
 	Player *getControllingPlayer() const;	// 0x0028AFA9
 	CellShroudStatus getShroudStatusForPlayer(int playerIndex) const;
 	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *) const;	// 0x0028BB9E
+	const Rva0028AC4EEntry *rva0028AC4E() const;	// 0x0028AC4E
+	float GetRelativeAngle(const Coord3D *pos) const;	// 0x000B4542
 	friend class ActionManager;
 protected:
 	Module *findModule(NameKeyType) const;	// 0x0028B6D6
@@ -176,6 +180,8 @@ public:
 	bool canTransferSuppliesAt(const Object *obj, const Object *transferDest);
 	bool canDockAt(const Object *obj, const Object *dockDest, CommandSourceType commandSource,
 		bool checkDockUpdate);
+	bool canFireWeaponAtLocation(const Object *obj, const Coord3D *loc, CommandSourceType commandSource,
+		WeaponSlotType slot, const Object *objectInWay);
 };
 
 bool ActionManager::validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
@@ -1090,4 +1096,66 @@ bool ActionManager::canDockAt(const Object *obj, const Object *dockDest, Command
 			return di->canDocker(obj);
 	}
 	return false;
+}
+
+// canFireWeaponAtLocation's views: the weapon set at Object+0x330, the
+// weapon's template at +4 with its float at +0x2C, and the Coord3D overload
+// of Weapon::isWithinAttackRange.
+extern "C" double __cdecl fabs(double);
+
+struct ActionWeaponTemplateView
+{
+	char m_pad00[0x2C];
+	float m_2C;	// +0x2C
+};
+
+class Weapon
+{
+public:
+	char isWithinAttackRange(Object *source, void *pos, float extra, int flag) const;	// 0x002CB902
+	char m_pad00[4];
+	const ActionWeaponTemplateView *m_template;	// +0x04
+};
+
+class WeaponSet
+{
+public:
+	Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const;	// 0x002C7469
+};
+
+class Rva001E46E1
+{
+public:
+	float rva001E46E1(Object *obj);
+};
+
+// ZH/BFME1 ba7ddda7 ActionManager::canFireWeaponAtLocation keeps only the
+// weapon lookup; BFME2 then passes when the 0x28AC4E entry's 0x1E46E1 value
+// is nonzero, otherwise requires attack range and, for KindOf 2 objects
+// with a positive template arc, a relative angle within it.
+bool ActionManager::canFireWeaponAtLocation(const Object *obj, const Coord3D *loc, CommandSourceType commandSource,
+	WeaponSlotType slot, const Object *objectInWay)
+{
+	if (obj == 0 || loc == 0)
+		return false;
+
+	Weapon *weapon = reinterpret_cast<const WeaponSet *>(
+		reinterpret_cast<const char *>(obj) + 0x330)->getWeaponInWeaponSlot(slot);
+	if (!weapon)
+		return false;
+
+	const Rva0028AC4EEntry *entry = obj->rva0028AC4E();
+	if (entry && ((Rva001E46E1 *)entry)->rva001E46E1(const_cast<Object *>(obj)) != 0.0f)
+		return true;
+
+	if (!weapon->isWithinAttackRange(const_cast<Object *>(obj), (void *)loc, 0.0f, 1))
+		return false;
+
+	float arc = weapon->m_template->m_2C;
+	if (arc > 0.0f && (actionTemplate(obj)[0x108] & 4)) {
+		double angle = fabs(obj->GetRelativeAngle(loc));
+		if (angle > arc)
+			return false;
+	}
+	return true;
 }
