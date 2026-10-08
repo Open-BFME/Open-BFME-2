@@ -360,7 +360,6 @@ __declspec(noinline) static const Image *rva005E7625Get(Rva005E72B4Queue *queue,
  return Rva005F01C7Get(thing->imageID);
 }
 class Rva0037E07C { public: int rva0037E07C(); };
-// ?rva005E77F0Get@@YAHPAVRva005E72B4Queue@@H@Z present-unmatched
 __declspec(noinline) static int rva005E77F0Get(Rva005E72B4Queue *queue,int index)
 {
  void *summary=rva005E72B4Get(queue,queue->slot13()->begin[index]);
