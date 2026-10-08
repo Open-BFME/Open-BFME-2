@@ -16085,3 +16085,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva003449C5@@YA_NPAUCoord3D@@PAVObject@@1@Z,0x003449C5,cdecl melee fallback goal helper (goal; source; victim) called at 0x345AB7 and 0x348E9F; position of BFME1 donor gen 0x1752A0; unrowed 923B EH body
 ?Rva002F1BA2@Pathfinder@@QAE_NPAX0W4PathfindLayerEnum@@PBUCoord3D@@2@Z,0x002F1BA2,callee of ?rva00344D60@AIAttackMeleeHordeApproachTargetState@@QAE_NPAUCoord3D@@PAVObject@@1@Z
 ?init@Rva00084206Track@@QAEXMMPBD@Z,0x00084206,Native84206..84271 RET12; ECX track; width/length stores1314/1318 and texture input at stack10; reference terrain-track init semantic lead; address-derived partial ABI view
+?rva00547CB6@MoveToFormationGroupOrder@@QAEXXZ,0x00547CB6,callee of ?rva00547F37@MoveToFormationGroupOrder@@UAEXW4ObjectID@@@Z
+?rva00547E5C@MoveToFormationGroupOrder@@QAEXPAVObject@@PBUCoord3D@@@Z,0x00547E5C,callee of ?rva00547F37@MoveToFormationGroupOrder@@UAEXW4ObjectID@@@Z

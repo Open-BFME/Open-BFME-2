@@ -1,4 +1,4 @@
-// cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /ICode/Libraries/Include/Lib
 //
 // Small virtual slots of the two MoveTo group orders (vftables 0x00C6A478 /
 // 0x00C6A4CC; layouts in MoveToGroupOrderCtor.cpp). No Zero Hour or BFME 1
@@ -17,12 +17,18 @@
 //   13    0x00547A77  0x005480B1  new copy (0x40 / 0x48 bytes) through the
 //                                 copy ctor 0x00547A18 / 0x0054804C
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
+#include "Coord3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+#include <hash_map>
+// stlport
+namespace rts {
+template <typename T> struct hash {
+    size_t operator()(const T &value) const { return (size_t)value; }
 };
+}
+typedef _STL::hash_map<ObjectID, Coord3D, rts::hash<ObjectID>,
+                      _STL::equal_to<ObjectID> > ObjectCoord3DMap;
+extern GameLogic *TheGameLogic;
 
 // The three native calls target the rowed predicate in Rva0028ECDB.cpp
 // at 0x0028ECDB, passing the complete Object as this and the unchanged
@@ -50,7 +56,7 @@ public:
 	virtual void slot01();
 	virtual void slot02();
 	virtual void slot03();
-	virtual void slot04();
+	virtual void rva00547F37(ObjectID id);
 	virtual void slot05();
 	virtual void slot06();
 	virtual void slot07Set(int unused) = 0;
@@ -90,6 +96,9 @@ class MoveToFormationGroupOrder : public GroupOrder
 public:
 	MoveToFormationGroupOrder(const MoveToFormationGroupOrder &other);
 
+	virtual void rva00547F37(ObjectID id);
+	void rva00547CB6();
+	void rva00547E5C(Object *object, const Coord3D *position);
 	virtual void slot07Set(int unused);
 	virtual Coord3D *getDestination(int unused);
 	virtual bool isNearDestination(const Coord3D *pos);
@@ -101,7 +110,7 @@ private:
 	Coord3D m_destination;             // +0x1C
 	float m_angle;                     // +0x28
 	bool m_flag2C;                     // +0x2C
-	unsigned int m_map30[5];            // +0x30 hash_map<ObjectID, Coord3D>
+	ObjectCoord3DMap m_map30;            // +0x30 hash_map<ObjectID, Coord3D>
 	bool m_flag44;                     // +0x44
 };
 
@@ -174,4 +183,22 @@ bool MoveToFormationGroupOrder::slot11Command(int *outType, GroupOrderCommand *c
 GroupOrder *MoveToFormationGroupOrder::clone()
 {
 	return new MoveToFormationGroupOrder(*this);
+}
+
+// Native00547F37..00547F88 RET4, slot4 of MoveToFormationGroupOrder
+// vtable00C6A4CC installed by the matched constructor. The established map
+// at30 holds ObjectID/Coord3D; count40 controls lazy population307B547CB6.
+// Lookup then GameLogic49DC5 supplies the Object to219B547E5C, which reads
+// the mapped three-float position and configures the object's AI/movement.
+void MoveToFormationGroupOrder::rva00547F37(ObjectID id)
+{
+    if (m_map30.empty())
+        rva00547CB6();
+    ObjectCoord3DMap *map = &m_map30;
+    ObjectCoord3DMap::const_iterator it = map->find(id);
+    if (it != map->end()) {
+        Object *object = TheGameLogic->findObjectByID(id);
+        if (object)
+            rva00547E5C(object, &it->second);
+    }
 }
