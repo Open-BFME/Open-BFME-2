@@ -1928,3 +1928,146 @@ void GameClient::setTimeOfDay(TimeOfDay tod)
 		draw = draw->getNextDrawable();
 	}
 }
+
+// Callback 3 (0x0023958B): BFME 2's title-screen logo, no ZH counterpart.
+// It shows the mapped image TitleScreenLogo through the display's 0x0025C72C,
+// plays the FadeInGameMovie transition and pumps the window loop for five
+// seconds, then either fades the image out over the shell map (0x0025C776)
+// or replays the transition.
+class GameWindowTransitionsHandler : public SubsystemInterface
+{
+public:
+	virtual ~GameWindowTransitionsHandler();
+	void setGroup(AsciiString groupName, bool immediate);
+	void reverse(AsciiString groupName);
+	void rva001DC5EC();
+};
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+void setFPMode();
+
+int rva0023958B(void *, bool allowLegal)
+{
+	int result = 1;
+	TheGameEngine->serviceWindowsOS();
+	if (allowLegal)
+	{
+		TheWritableGlobalData->m_byteD36 = false;
+		TheWritableGlobalData->m_byteAF4 = true;
+		TheWritableGlobalData->m_byteD36 = false;
+		AsciiString name("TitleScreenLogo");
+		const Image *image = TheMappedImageCollection->findImageByName(name);
+		if (image)
+		{
+			((BfmeStrVM0 *)TheDisplay)->rva0025C72C((int)image, 2, 0.0f, 0.0f, 1.0f, 1.0f);
+			TheTransitionHandler->reverse(AsciiString("FadeInGameMovie"));
+			TheTransitionHandler->rva001DC5EC();
+			int beginTime = timeGetTime();
+			while (beginTime + 5000 > timeGetTime())
+			{
+				TheGameEngine->serviceWindowsOS();
+				TheWindowManager->update();
+				TheDisplay->drawViews();
+				Sleep(100);
+			}
+			setFPMode();
+			TheDisplay->m_byte114 = true;
+			TheTransitionHandler->reset();
+			if (TheWritableGlobalData->m_shellMapOn)
+			{
+				((W3DDisplay *)TheDisplay)->rva0025D2F6();
+				((BfmeStrVM0 *)TheDisplay)->rva0025C776((int)image, 0.0f, 0.0f, 1.0f, 1.0f, 10, 0x2d);
+			}
+			else
+			{
+				TheTransitionHandler->setGroup(AsciiString("FadeInGameMovie"), false);
+				TheTransitionHandler->rva001DC5EC();
+				((W3DDisplay *)TheDisplay)->rva0025D2F6();
+			}
+		}
+		TheWritableGlobalData->m_byteD36 = false;
+	}
+	else
+		result = 6;
+	return result;
+}
+
+// Callback 4 (0x00239122): the tail of ZH GameClient::update's intro
+// handling. A pending intro is dropped; once no movie plays the shell comes
+// up (0x0035C194 and 0x0035C7CF where ZH shows the shell map and the shell,
+// skipped when an initial file is set) and m_afterIntro is cleared.
+int rva00239122(void *, bool allowIntro)
+{
+	int result = 5;
+	TheGameEngine->serviceWindowsOS();
+	if (allowIntro && TheWritableGlobalData->m_playIntro)
+	{
+		TheWritableGlobalData->m_playIntro = false;
+	}
+	else if (!TheDisplay->isMoviePlaying())
+	{
+		result = 7;
+		if (((const StringBase<char> *)&TheWritableGlobalData->m_initialFile)->isEmpty())
+		{
+			((Rva0035C194 *)TheShell)->rva0035C194(true, false);
+			TheShell->rva0035C7CF(true);
+		}
+		TheShell->m_byte6C = 1;
+		TheWritableGlobalData->m_afterIntro = false;
+	}
+	return result;
+}
+
+bool operator<(const AsciiString &left, const AsciiString &right);
+
+namespace _STL
+{
+template <> struct less<AsciiString>
+{
+	bool operator()(const AsciiString &left, const AsciiString &right) const
+	{
+		return left < right;
+	}
+};
+template <> AsciiString &map<AsciiString, AsciiString, less<AsciiString>, allocator<pair<const AsciiString, AsciiString> > >::operator[](const AsciiString &key);
+}
+
+class UserPreferences : public _STL::map<AsciiString, AsciiString>
+{
+public:
+	virtual ~UserPreferences();
+	virtual bool write();
+};
+
+class OptionPreferences : public UserPreferences
+{
+public:
+	OptionPreferences();
+	virtual ~OptionPreferences();
+	unsigned char m_rest[0x14 - 0x10];
+};
+
+// Callback 2 (0x0023BDD7): BFME 2's logo movies in place of ZH's EALogoMovie.
+// Three movies play through display slot 67 (+0x10C, where ZH has
+// playLogoMovie), the HasSeenLogoMovies option is written and m_afterIntro
+// set.
+int rva0023BDD7(void *, bool allowIntro)
+{
+	int result = 5;
+	TheGameEngine->serviceWindowsOS();
+	if (allowIntro)
+	{
+		if (TheWritableGlobalData->m_playIntro)
+		{
+			OptionPreferences prefs;
+			TheDisplay->vf67(AsciiString("NewLineLogo"), 0, 8);
+			TheDisplay->vf67(AsciiString("TolkienLogo"), 0, 8);
+			TheDisplay->vf67(AsciiString("Overall_Game_Intro"), 1, 0x30);
+			prefs[AsciiString("HasSeenLogoMovies")] = "yes";
+			prefs.write();
+		}
+		TheWritableGlobalData->m_afterIntro = true;
+	}
+	else
+		result = 7;
+	return result;
+}
