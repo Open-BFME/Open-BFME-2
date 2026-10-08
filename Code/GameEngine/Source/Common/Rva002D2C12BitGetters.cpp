@@ -26,3 +26,12 @@ unsigned char Rva005248D0::rva002D2C18() const
 {
 	return m_b2;
 }
+
+// Lead: current BFME1 9cbfb551 WeaponSetGetAbleToAttackSpecificObject.cpp
+// isForcedAttack predicate. Native 2C71E1..2C71E9 is a complete caller-clean
+// leaf after RET at 2C71DE and returns full EAX argument&1. Preserve a neutral
+// raw-word interface because the original enum/predicate identity is unknown.
+unsigned int Rva002C71E1LowBit(unsigned int flags)
+{
+    return flags & 1U;
+}
