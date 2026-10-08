@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /GX
 //
 // FoundationAIUpdate overrides. Two sit on vtables only its matched ctor 0x004551B3
 // and dtor ??1Rva00455050 install: the primary 0x00C40608 and the
@@ -39,10 +39,14 @@
 // 0x3ED with the owner's ID and passes the drawable to TheInGameUI slot 67.
 // Clearing the ID reverses the hiding (fade in over 30 frames).
 
+class Matrix3D { public: float Get_Z_Rotation() const; };
+
 class ModuleData;
 class Team;
 class ThingTemplate;
-struct Coord3D;
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
+class GeometryInfo { public: char m_pad00[0x14]; float m_radius; };
 
 enum ObjectID
 {
@@ -60,6 +64,10 @@ public:
 class ThingTemplate
 {
 public:
+ const GeometryInfo &getGeometryInfo() const { return *reinterpret_cast<const GeometryInfo *>(m_pad000 + 0xA0); }
+ unsigned int constructionWord118() const { return m_kindOf[1]; }
+ float getBoundingCircleRadius() const { return getGeometryInfo().m_radius; }
+ __forceinline bool constructionKind(unsigned int bit) const { return (m_pad000[0x108 + (bit >> 3)] & (1U << (bit & 7))) != 0; }
 	unsigned char m_pad000[0x114];
 	unsigned int m_kindOf[4]; // +0x114
 };
@@ -81,6 +89,11 @@ class Object : public Thing
 {
 public:
 	ObjectID getID() const { return m_id; }
+ const ThingTemplate *getTemplate() const { return m_template; }
+ const Matrix3D *getTransformMatrix() const { return reinterpret_cast<const Matrix3D *>(m_pad008); }
+ const Coord3D *getPosition() const { return reinterpret_cast<const Coord3D *>(m_pad008 + 0x30); }
+ void setProducer(Object *obj);
+ bool isEffectivelyDead() const { return m_effectivelyDead; }
 	__forceinline unsigned int isKindOf(int kind) const
 	{
 		return m_template->m_kindOf[kind >> 5] & (1U << (kind & 0x1f));
@@ -94,6 +107,8 @@ private:
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad008[0x74 - 0x08];
 	ObjectID m_id; // +0x74
+ unsigned char m_pad078[0x438-0x78];
+ bool m_effectivelyDead : 1;
 };
 
 class PlayerList
@@ -167,6 +182,7 @@ class GameLogic
 {
 public:
 	Object *findObjectByID(ObjectID id);
+ void destroyObject(Object *obj);
 };
 extern GameLogic *TheGameLogic;
 
@@ -247,6 +263,8 @@ class FoundationAIUpdate : public UpdateModule, public Rva00C1A690Iface
 {
 public:
 	virtual void rva00455B67(Player *oldOwner, Player *newOwner);
+ bool isRemovableForConstruction(Object *obj);
+ virtual void rva0045537F();
 	virtual void rva00455B42(int value);
 	virtual Object *rva00456134(void *unused, const ThingTemplate *tmpl, const Coord3D *pos, float angle,
 		Player *owner, int a6);
@@ -351,4 +369,86 @@ void FoundationAIUpdate::rva0045527A(ObjectID id)
 			draw->fadeIn(30);
 		}
 	}
+}
+
+// Same provider as the former AIUpdate/FoundationAIUpdate.cpp home. Keep it
+// before the removal loop: MSVC records that it preserves EDX, as retail does.
+bool FoundationAIUpdate::isRemovableForConstruction(Object *obj)
+{
+ if (!obj) return false;
+ if (obj->getTemplate()->constructionKind(89)) return false;
+ if (obj->getTemplate()->constructionKind(6)) return true;
+ if (obj->getTemplate()->constructionKind(51)) return true;
+ if (obj->isEffectivelyDead()) return true;
+ return false;
+}
+
+class Rva000421C8 {
+public:
+ Rva000421C8() : m_next(0) {}
+ virtual ~Rva000421C8() {}
+ virtual bool allow(Object *)=0;
+ virtual int getPlayerMask();
+ Rva000421C8 *link(Rva000421C8 *next);
+ Rva000421C8 *m_next;
+};
+class Rva00261603Filter : public Rva000421C8 {
+public:
+ Rva00261603Filter(const Coord3D &, const GeometryInfo &, float, bool);
+ virtual bool allow(Object *);
+ char m_data[0x18];
+};
+#include "../../../Common/PartitionRangeQueryCallView.h"
+extern PartitionManager *ThePartitionManager;
+
+// Native187B entry; ZH BuildAssistant removal search and filter are semantic
+// ancestors. WB body corroborates kind bit58 protects removable objects.
+void FoundationAIUpdate::rva00455BDD(const ThingTemplate *tmpl, const Coord3D *pos, float angle)
+{
+ BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos, tmpl->getBoundingCircleRadius() * 1.1F, 3, &Rva00261603Filter(*pos, tmpl->getGeometryInfo(), angle, true), 0);
+ Object *obj;
+ while ((obj = hits.next()) != 0) {
+  if (isRemovableForConstruction(obj) == true && !obj->getTemplate()->constructionKind(58))
+   TheGameLogic->destroyObject(obj);
+ }
+}
+
+class BfmeFixedStorage0004543D {
+public:
+ BfmeFixedStorage0004543D(int, int);
+ BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &) throw();
+ unsigned char m_bytes[28];
+};
+extern unsigned char g_00DFEFA4StoragePrototype[28];
+class Rva0004584D : public Rva000421C8 {
+public:
+ Rva0004584D(const BfmeFixedStorage0004543D &, const BfmeFixedStorage0004543D &);
+ virtual bool allow(Object *);
+ BfmeFixedStorage0004543D m_08, m_24;
+};
+static __forceinline Rva000421C8 *linkKeepingRadius(Rva000421C8 *first, Rva000421C8 *second, const GeometryInfo &geom, float &radius)
+{
+ radius = geom.m_radius;
+ return first->link(second);
+}
+// Primary vtable slot16; FoundationAIUpdate searches an overlapping kind105
+// object and links it as its produced structure if the two native kind tests agree.
+// The ZH partition search and WB paired body corroborate the filter-chain algorithm.
+void FoundationAIUpdate::rva0045537F()
+{
+ if (m_28 != INVALID_ID) return;
+ Object *self = m_object;
+ const GeometryInfo &geom = self->getTemplate()->getGeometryInfo();
+ const Coord3D *pos = self->getPosition();
+ float radius = geom.m_radius;
+ Object *obj = ThePartitionManager->getClosestObject(pos, radius * 1.1F, 1,
+  linkKeepingRadius(&Rva0004584D(BfmeFixedStorage0004543D(0, 105), *reinterpret_cast<const BfmeFixedStorage0004543D *>(g_00DFEFA4StoragePrototype)),
+   &Rva00261603Filter(*pos, geom, self->getTransformMatrix()->Get_Z_Rotation(), true), geom, radius));
+ if (obj) {
+  bool kind = (self->getTemplate()->constructionWord118() & 0x02000000U) != 0;
+  if (kind == obj->getTemplate()->constructionKind(64)) {
+   rva0045527A(obj->getID());
+   obj->setProducer(self);
+  }
+ }
 }
