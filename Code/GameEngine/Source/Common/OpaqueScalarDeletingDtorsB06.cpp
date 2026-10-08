@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /EHsc /Ireference/shims/bfmelist /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /EHsc /Ireference/shims/bfmelist /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // Opaque scalar deleting destructors, batch B06: 28-byte wrappers that
@@ -600,4 +600,64 @@ int GameState::rva002DF2F6(const UnicodeString &filename)
     if (!getSaveGameInfoFromFile(filepath, &gameInfo.saveGameInfo))
         return 1;
     return rva002DE3C1(gameInfo);
+}
+
+// 0x002D638E..0x002D644C constructs the owner whose matched destructor
+// is Rva002D3573 at 0x002D3573. That destructor proves the MI bases,
+// vtables and +0x10 owned holder. WB Palantir::Palantir and Impl::Impl are
+// source-name leads only. Retail allocates a 0x154-byte implementation after
+// loading Apt\\ with the empty AsciiString cell at VA DFF030.
+#include "Common/Snapshot.h"
+class GameEngineDeletingBase
+{
+public:
+    GameEngineDeletingBase();
+    virtual ~GameEngineDeletingBase();
+private:
+    char opaque04[8];
+};
+class Rva000AD6F4
+{
+public:
+    // ?Rva000AD6F4::Rva000AD6F4 absent-from-retail
+    Rva000AD6F4() : pointer(0) {}
+    ~Rva000AD6F4();
+private:
+    void *pointer;
+    unsigned int opaque04;
+};
+class Rva002D3573 : public GameEngineDeletingBase, public Snapshot
+{
+public:
+    Rva002D3573();
+    virtual ~Rva002D3573();
+private:
+    Rva000AD6F4 holder;
+};
+class Rva002D57B6
+{
+public:
+    Rva002D57B6(Rva002D3573 *owner, int level);
+private:
+    char opaque[0x154];
+};
+class Rva00575674Sub { public: void rva00575674(void *); };
+class Rva002D638EMovieSource
+{
+public:
+    virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+    virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+    virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+    virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+    virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+    virtual int load(AsciiString path, AsciiString prefix, int flags, int mode);
+};
+extern unsigned int g_Va00DFF030;
+void setUiCallbackOwner(void *);
+Rva002D3573::Rva002D3573()
+{
+    int level = reinterpret_cast<Rva002D638EMovieSource *>(g_bfmeAptWindowManager)->load(
+        AsciiString("Apt\\"), reinterpret_cast<const AsciiString &>(g_Va00DFF030), 0, 0);
+    setUiCallbackOwner(reinterpret_cast<void *>(level));
+    reinterpret_cast<Rva00575674Sub *>(&holder)->rva00575674(new Rva002D57B6(this, level));
 }
