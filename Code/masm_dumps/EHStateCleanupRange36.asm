@@ -1017,5 +1017,65 @@ PUBLIC ?rva007764EF@@YAXXZ
     and ecx, eax
     jmp ??1Gen_uw_0049b47c@@QAE@XZ
 ?rva007764EF@@YAXXZ ENDP
+
+; Unwind@00b773f7: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva007773f7@@YAXXZ
+?rva007773f7@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva007773f7@@YAXXZ ENDP
+
+; Unwind@00b7835b: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva0077835b@@YAXXZ
+?rva0077835b@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva0077835b@@YAXXZ ENDP
+
+; Unwind@00b7918e: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva0077918e@@YAXXZ
+?rva0077918e@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva0077918e@@YAXXZ ENDP
+
+; Unwind@00b7a855: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva0077a855@@YAXXZ
+?rva0077a855@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva0077a855@@YAXXZ ENDP
+
+; Unwind@00b7b9ce: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva0077b9ce@@YAXXZ
+?rva0077b9ce@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva0077b9ce@@YAXXZ ENDP
 _TEXT ENDS
 END

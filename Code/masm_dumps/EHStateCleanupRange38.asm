@@ -39,6 +39,7 @@ EXTERN ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ:PROC
 EXTERN ??1Rva0024A797@@UAE@XZ:PROC
 EXTERN ??1Rva005248D0@@UAE@XZ:PROC
 EXTERN ??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ:PROC
+EXTERN ??1Gen_uw_0049b47c@@QAE@XZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b7c75e at RVA 0x0077C75E; 22-byte body ends at RET.
@@ -95,6 +96,17 @@ PUBLIC ?rva0077cb24@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva0077cb24@@YAXXZ ENDP
+; Unwind@00b7d4f8: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva0077d4f8@@YAXXZ
+?rva0077d4f8@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva0077d4f8@@YAXXZ ENDP
 ; Unwind@00b7d884 at RVA 0x0077D884; 25-byte state-bit cleanup ends at RET.
 ; Retail clears bit 0 at [ebp-16] and conditionally tail-jumps through [ebp+8].
 PUBLIC ?rva0077d884@@YAXXZ
@@ -447,6 +459,18 @@ cleanup_done_007819a3:
     ret
 ?rva007819a3@@YAXXZ ENDP
 
+; Unwind@00b819ce: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva007819ce@@YAXXZ
+?rva007819ce@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva007819ce@@YAXXZ ENDP
+
 ; Unwind@00b81ee6 at RVA 0x00781EE6; 25-byte state-bit cleanup ends at RET.
 ; Retail clears bit 0 at [ebp-16] and tail-jumps to [ebp-20] via the rowed dtor.
 PUBLIC ?rva00781ee6@@YAXXZ
@@ -765,6 +789,18 @@ PUBLIC ?rva00784ac6@@YAXXZ
     call ??_M@YGXPAXIHP6EX0@Z@Z
     ret
 ?rva00784ac6@@YAXXZ ENDP
+
+; Unwind@00b84e61: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
+PUBLIC ?rva00784e61@@YAXXZ
+?rva00784e61@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Gen_uw_0049b47c@@QAE@XZ
+?rva00784e61@@YAXXZ ENDP
 
 ; Unwind@00b84f0c at RVA 0x00784F0C; 25-byte state-bit cleanup ends at RET.
 ; Target clears bit 0 at [ebp-16] and tail-jumps through [ebp+8] to the rowed holder call.
