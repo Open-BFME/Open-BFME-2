@@ -13,7 +13,7 @@ static __forceinline Elem216 &VecAt(Vec216 *v, int i) { return v->m_start[i]; }
 class Player;
 class Object;
 class Image;
-class UnitRevivalEntry { public: void *getThingTemplate(); int revivalEntryCalcTimeToBuild(const Player *player, Object *producer); int revivalEntryCalcCostToBuild(const Player *player, Object *producer); const Image *calcButtonImage(int value); };
+class UnitRevivalEntry { public: void *getThingTemplate(); int revivalEntryCalcTimeToBuild(const Player *player, Object *producer); int revivalEntryCalcCostToBuild(const Player *player, Object *producer); const Image *calcButtonImage(const Player *player); };
 class Rva0037E421 {
     int m_00;
     Vec216 m_vec;
@@ -159,15 +159,16 @@ int Rva0037E787::rva0037E787(void *extra, void *object)
 // ?rva0037EDC6@Rva0037EDC6@@QAEPBVImage@@H@Z @0x0037EDC6 26B
 // Leaf body between 0x0037EBEA calcButtonImage and 0x0037EDE0 productionSystem.
 // Entry lookup via Rva0037E421::rva0037E421 then UnitRevivalEntry::
-// calcButtonImage with this+0x10 value. Same +0x10 Int layout as
+// calcButtonImage with the this+0x10 Player pointer; native37ECB0 and37ED3B
+// establish this use. Same +0x10 layout as
 // UnitRevivalTracker::productionSystemQueueCreateUnit in UnitRevivalTracker.cpp
-// which passes m_10 to calcButtonImage. Callees rowed 0x0037E421 plus pin
-// 0x0037EBEA. Honest-address name: owner unknown so Rva0037EDC6 class,
+// which passes its Player to calcButtonImage. Both callees are now rowed.
+// Honest-address name: owner unknown so Rva0037EDC6 class,
 // const Image* return, int index.
 class Rva0037EDC6 : public Rva0037E421
 {
 public:
-    int m_10;
+    Player *m_10;
     const Image *rva0037EDC6(int index);
 };
 const Image *Rva0037EDC6::rva0037EDC6(int index)

@@ -9,8 +9,9 @@
 // production id, optionally reporting its button image
 // (UnitRevivalEntry::calcButtonImage with the tracker's +0x10 value).
 //
-// Target facts: entry fields beyond the ones used, the image type and the
-// +0x10 value are not established.
+// The native image query below establishes the +0x10 Player receiver and
+// the Image pointers stored in entry +0/+4. Pointer field names are
+// descriptive; original member names are not established.
 //
 // UnitRevivalEntry::revivalEntryCalcTimeToBuild, retail 0x0037E1FD (115B),
 // from the WorldBuilder lead: the entry's template (name at +0xD4, found by
@@ -28,7 +29,6 @@ typedef bool Bool;
 typedef int Int;
 
 class Image;
-class Player;
 class Object;
 class Team;
 class Drawable;
@@ -37,8 +37,6 @@ struct CreateMask { unsigned int words[4]; };
 enum ScienceType { SCIENCE_INVALID=-1 };
 class Player { public: bool hasScience(ScienceType) const; };
 
-
-
 #include "ascii_string.h"
 class ScienceStore { public: ScienceType getScienceFromInternalName(const AsciiString&) const; };
 extern ScienceStore *TheScienceStore;
@@ -46,6 +44,7 @@ extern ScienceStore *TheScienceStore;
 class ThingTemplate
 {
 public:
+	const Image *getButtonImage();
 	Int rva0033AA1F(const Player *player, Int a, Int b) const;
 	int rva0033B479() const;
 	Int rva0033A69A(const Player *player, Int a, Int b) const;	// 0x0033A69A, build cost
@@ -129,7 +128,7 @@ public:
 	SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6)
 	SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13)
 #undef SLOT
-	virtual int v14();
+	virtual const Image *v14();
 };
 
 class Rva004AFB01
@@ -152,7 +151,12 @@ class Rva001EAFC1 { public: Rva001EAFC1 &operator=(const Rva001EAFC1&); };
 class ScriptEngine { public: void rva00357960(const AsciiString&,Object*); };
 extern ScriptEngine *TheScriptEngine;
 class CreateAHeroData;
-class CreateAHeroManager { public: CreateAHeroData *rva002197A6(int); };
+class CreateAHeroHero;
+class CreateAHeroManager { public:
+ CreateAHeroData *rva002197A6(int);
+ const CreateAHeroHero *GetHeroForPlayer(const Player*);
+ const AsciiString &GetButtonImageName(const CreateAHeroHero*);
+};
 extern CreateAHeroManager *TheCreateAHeroManager;
 class CreateAHeroHero { public: bool UpdateCommandSet(int); };
 class Drawable { public: void rva00274176(bool); };
@@ -189,12 +193,12 @@ public:
 	UnitRevivalEntry(const UnitRevivalEntry &other);
 	~UnitRevivalEntry();
 	void *getThingTemplate();
-	const Image *calcButtonImage(Int value);
+	const Image *calcButtonImage(const Player *player);
 	Int revivalEntryCalcTimeToBuild(const Player *player, Object *producer);
 	Int revivalEntryCalcCostToBuild(const Player *player, Object *producer);
 
-	int m_moduleID;
-	int m_unknown04;
+	const Image *m_reviveImage;
+	const Image *m_cachedImage;
 	float m_experience;
 	int m_rank;
 	int m_level;
@@ -244,7 +248,7 @@ public:
 
 private:
 	unsigned char m_pad00[0x10];
-	Int m_10;
+	Player *m_player;
 };
 
 Bool UnitRevivalTracker::productionSystemQueueCreateUnit(Int index, Int productionID, const Image **outImage)
@@ -260,7 +264,7 @@ Bool UnitRevivalTracker::productionSystemQueueCreateUnit(Int index, Int producti
 				entry->m_reviveStartFrame = TheGameLogic->getFrame();
 				entry->m_productionID = productionID;
 				if (outImage)
-					*outImage = entry->calcButtonImage(m_10);
+					*outImage = entry->calcButtonImage(m_player);
 				return true;
 			}
 		}
@@ -344,8 +348,8 @@ void Rva0037F32F::rva0037F32F(const ThingTemplate *thingTemplate, Player *player
 // no relocations as the meshgeometry-owned body. Its address name does
 // not assert an original member name. /Ob1 keeps that verified call.
 UnitRevivalEntry::UnitRevivalEntry(Object *object)
-	: m_moduleID(0)
-	, m_unknown04(0)
+	: m_reviveImage(0)
+	, m_cachedImage(0)
 	, m_experience(object->getExperience()->getExperienceValue())
 	, m_rank(object->getExperience()->getLevelRank())
 	, m_level(object->getExperience()->rva000B49A1())
@@ -368,7 +372,7 @@ UnitRevivalEntry::UnitRevivalEntry(Object *object)
  static NameKeyType respawnUpdateKey = TheNameKeyGenerator->nameToKey("RespawnUpdate");
  Module *module = object->findModule(respawnUpdateKey);
  if (module) {
-  m_moduleID = module->v14();
+  m_reviveImage = module->v14();
   m_94 = reinterpret_cast<Rva004AFB01*>(module)->rva004AFB01();
   m_9c = reinterpret_cast<Rva004AFB01*>(module)->rva004AFB16();
   t = static_cast<RevivalTemplateView*>(reinterpret_cast<RespawnUpdate*>(module)->rva004AF25D());
@@ -378,8 +382,8 @@ UnitRevivalEntry::UnitRevivalEntry(Object *object)
 
 // Native2E134C..2E1451 complete261B copy of the same D8 revival record.
 UnitRevivalEntry::UnitRevivalEntry(const UnitRevivalEntry &other)
-	: m_moduleID(other.m_moduleID)
-	, m_unknown04(other.m_unknown04)
+	: m_reviveImage(other.m_reviveImage)
+	, m_cachedImage(other.m_cachedImage)
 	, m_experience(other.m_experience)
 	, m_rank(other.m_rank)
 	, m_level(other.m_level)
@@ -414,7 +418,7 @@ Object *UnitRevivalTracker::productionSystemNewObject(unsigned int productionID,
             if (!thingTemplate) return 0;
             CreateMask mask;
             memset(&mask,0,sizeof(mask));
-            Player *player=reinterpret_cast<Player*>(m_10);
+            Player *player=m_player;
             Team *team=*reinterpret_cast<Team**>(reinterpret_cast<char*>(player)+0x2EC);
             Object *object=TheThingFactory->newObject(thingTemplate,team,&mask,false);
             object->teleportTo(position,false);
@@ -445,17 +449,70 @@ Object *UnitRevivalTracker::productionSystemNewObject(unsigned int productionID,
             if (module) reinterpret_cast<unsigned char*>(module)[0x41]=!entry.m_a0;
             if (object->getDrawable()) object->getDrawable()->rva00274176(true);
             ScienceType science=TheScienceStore->getScienceFromInternalName(AsciiString("SCIENCE_GandalftheWhite"));
-            if (reinterpret_cast<Player*>(m_10)->hasScience(science) && (reinterpret_cast<const unsigned char*>(object->thingTemplate)[0x11D]&1)) {
+            if (m_player->hasScience(science) && (reinterpret_cast<const unsigned char*>(object->thingTemplate)[0x11D]&1)) {
                 object->addAttributeModifierToPool(AsciiString("SpellBookGandalfWhite"),-1);
                 object->rva0028B265();
             }
             science=TheScienceStore->getScienceFromInternalName(AsciiString("SCIENCE_Anduril"));
-            if (reinterpret_cast<Player*>(m_10)->hasScience(science) && (reinterpret_cast<const unsigned char*>(object->thingTemplate)[0x11D]&2)) {
+            if (m_player->hasScience(science) && (reinterpret_cast<const unsigned char*>(object->thingTemplate)[0x11D]&2)) {
                 object->addAttributeModifierToPool(AsciiString("SpellBookAnduril"),-1);
             }
             rva0037EF2D(productionID);
             return object;
         }
+    }
+    return 0;
+}
+
+// Retail statics clean up through the existing 5B out-of-line destructor,
+// whereas ordinary AsciiString temporaries expand releaseBuffer directly.
+// This four-byte string ABI view keeps that observed lifetime distinction.
+class Rva0048BA39StringElement { public: ~Rva0048BA39StringElement(); };
+class RevivalStaticAsciiString {
+    char *m_text;
+public:
+    __forceinline RevivalStaticAsciiString(const char *text) {
+        reinterpret_cast<AsciiString*>(this)->AsciiString::AsciiString(text);
+    }
+    ~RevivalStaticAsciiString() {
+        reinterpret_cast<Rva0048BA39StringElement*>(this)->~Rva0048BA39StringElement();
+    }
+    const AsciiString &value() const { return *reinterpret_cast<const AsciiString*>(this); }
+};
+class BfmeGlob939D { public: char bfmeCall939D(); };
+class ImageCollection { public: const Image *findImageByName(const AsciiString&); };
+extern ImageCollection *TheMappedImageCollection;
+// Native 37EBEA..37EDC6: complete476B image query; WB F5ED20
+// UnitRevivalEntry::calcButtonImage establishes the file and method lead.
+// Its argument is used as the Player receiver and hero lookup argument.
+const Image *UnitRevivalEntry::calcButtonImage(const Player *player)
+{
+    if (m_a0) return m_reviveImage;
+    if (reinterpret_cast<BfmeGlob939D*>(TheGameLogic)->bfmeCall939D()) {
+        static RevivalStaticAsciiString gandalf("GondorGandalf");
+        if (m_templateName==gandalf.value()) {
+            static RevivalStaticAsciiString white("SCIENCE_GandalftheWhite");
+            ScienceType science=TheScienceStore->getScienceFromInternalName(white.value());
+            if (science!=SCIENCE_INVALID && !player->hasScience(science)) {
+                static const Image *grey=0;
+                if (!grey) grey=TheMappedImageCollection->findImageByName(AsciiString("HIGandalTheGrey"));
+                if (grey) return grey;
+            }
+        }
+    }
+    ThingTemplate *thingTemplate=const_cast<ThingTemplate*>(TheThingFactory->findTemplate(m_templateName));
+    if (thingTemplate) {
+        if (reinterpret_cast<const unsigned char*>(thingTemplate)[0x11F]&0x40) {
+            if (!m_cachedImage) {
+                const CreateAHeroHero *hero=TheCreateAHeroManager->GetHeroForPlayer(player);
+                if (hero) {
+                    m_cachedImage=TheMappedImageCollection->findImageByName(TheCreateAHeroManager->GetButtonImageName(hero));
+                    if (!m_cachedImage) m_cachedImage=TheMappedImageCollection->findImageByName(AsciiString("BuildingNoArt"));
+                }
+            }
+            if (m_cachedImage) return m_cachedImage;
+        }
+        if (thingTemplate->getButtonImage()) return thingTemplate->getButtonImage();
     }
     return 0;
 }
