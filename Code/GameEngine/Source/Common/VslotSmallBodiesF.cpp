@@ -182,3 +182,21 @@ Int Rva00567793::rva00567793()
 	static Int s_id = g_00DFEE18++;
 	return s_id;
 }
+
+// ?GetAssociatedMessageType@@YAHH@Z, retail 0x00567700 (32 bytes).
+// WorldBuilder 0x01430A50 names this helper in
+// InGameToggleStanceCommandButton.cpp:95. Its caller at retail 0x005682BD
+// pushes CommandButton::getStance's result and uses the returned message.
+// The retail table at RVA 0x0086CE8C is exactly these three eight-byte
+// stance/message records: (1,149), (2,147), (3,148). The 0..3 unsigned scan,
+// success return and missing-stance zero return all byte-match; no data pin.
+struct StanceMessageEntry { int stance; int message; };
+static const StanceMessageEntry stanceMessages[3] = {{1,149},{2,147},{3,148}};
+int GetAssociatedMessageType(int stance)
+{
+    for (unsigned int i = 0; i < 3; ++i)
+        if (stanceMessages[i].stance == stance)
+            return stanceMessages[i].message;
+    return 0;
+}
+
