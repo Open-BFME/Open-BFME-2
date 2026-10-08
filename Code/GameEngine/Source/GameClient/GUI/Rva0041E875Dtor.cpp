@@ -7,18 +7,11 @@
 // Retail calls E7F2, frees [0x1C], frees [0xC], releases +8/+4/+0 with EH
 // states 4>3>2>1>0>-1. Evidence: callees rowed E7F2, _free 0x00030830,
 // releaseBuffer 0x00036410; caller dtor chain via 0x0041E8F6/0x0041EC73.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// Reuse the existing native 17-byte unsigned max specialization.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
+template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
-}
-#pragma optimize("", on)
 
 #include "ascii_string.h"
 #include <vector>
@@ -30,6 +23,15 @@ public:
 };
 
 class ModuleData;
+
+// Reuse the existing 49-byte native push-back provider at 0x004DFCB0
+// (stlport_moduledatavector_push.cpp), which calls the 140-byte growth
+// provider at 0x002DFCF6 (ModuleFactory.cpp). The application element
+// identity remains unresolved outside the established caller contexts.
+namespace _STL {
+template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(
+    const ModuleData *const &);
+}
 
 struct BfmeE16
 {
