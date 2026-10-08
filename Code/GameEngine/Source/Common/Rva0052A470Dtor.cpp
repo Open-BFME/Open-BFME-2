@@ -71,3 +71,19 @@ void Rva0052A470::rva0052A66A()
         m_08.clear();
     }
 }
+
+// ?rva0052A765@Rva0052A765Owner@@QAEXXZ @0x0052A765 7B.
+// Tail-jump wrapper loads +0 pointer and jumps to rowed rva0052A66A.
+// Evidence: caller 0x002D42B5 plus LINK BONUS plus pin.
+class Rva0052A765Owner
+{
+public:
+    void rva0052A765();
+private:
+    Rva0052A470 *m_ptr;
+};
+
+void Rva0052A765Owner::rva0052A765()
+{
+    m_ptr->rva0052A66A();
+}
