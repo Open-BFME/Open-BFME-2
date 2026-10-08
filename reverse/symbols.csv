@@ -16163,3 +16163,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0046A5B1@HordeContain@@QAEPAVCoord2D@@PAV2@H@Z,0x0046A5B1,HordeContain +0x188 record offset getter: rotates record +0xC Coord2D by the Object orientation via 0x00468E98; returns Coord2D through the hidden pointer (out-param ABI view); callers 0x00474C22 performReform
 ?getMinMaxAndCenter@AIGroup@@QAE_NPAVCoord2D@@0PAUCoord3D@@@Z,0x0036D14F,callee of ?computeGroundPath@AIGroup@@QAE_NPBUCoord3D@@W4CommandSourceType@@@Z
 ?FindGroundPath@Pathfinder@@QAEPAVPath@@PAVObject@@PBUCoord3D@@1H@Z,0x002F95F6,callee of ?computeGroundPath@AIGroup@@QAE_NPBUCoord3D@@W4CommandSourceType@@@Z
+?rva002D9893@BfmeAudioEventPrefix136@@QAEXABU1@@Z,0x002D9893,"Native136-byte view alias of rowed copy worker ?rva002D9893@Rva002D9893@@QAEXABV1@@Z (336B, ret4, skips the vptr); copy ctor2D99E3 calls it at 0x002D9A1B"

@@ -164,6 +164,7 @@ class Rva0051D93 : public BfmeAudioEventPrefix136, public Rva00051E4D
 public:
     Rva0051D93(EmitVtableTag *);
     Rva0051D93(const OpaqueRefElement4 &reference, int value30);
+    Rva0051D93(const BfmeAudioEventPrefix136 &source);
     __declspec(noinline) virtual ~Rva0051D93();
 };
 
@@ -177,6 +178,13 @@ Rva0051D93::Rva0051D93(EmitVtableTag *tag)
 // Prefix constructor2D97D6 then secondary base vptr/counter initialization.
 Rva0051D93::Rva0051D93(const OpaqueRefElement4 &reference, int value30)
     : BfmeAudioEventPrefix136(reference, value30)
+{
+}
+
+// Native51D62..51D93 RET4; callers51DD3, 5F830 and 5C92CC. The prefix copy
+// constructor2D99E3, then the secondary base vptr with a fresh zero count.
+Rva0051D93::Rva0051D93(const BfmeAudioEventPrefix136 &source)
+    : BfmeAudioEventPrefix136(source)
 {
 }
 
@@ -200,11 +208,18 @@ class Rva005813E : public Rva0051D93
 {
 public:
     Rva005813E(EmitVtableTag *);
+    Rva005813E(const BfmeAudioEventPrefix136 &source);
     __declspec(noinline) virtual ~Rva005813E();
 };
 
 // ?<Rva005813E::Rva005813E> absent-from-retail
 Rva005813E::Rva005813E(EmitVtableTag *tag) : Rva0051D93(tag)
+{
+}
+
+// Native51DCC..51DEE RET4; its one caller5289C wraps a fresh 0x90-byte copy
+// of the played event (the AudioManager::addAudioEvent copy in GeneralsMD).
+Rva005813E::Rva005813E(const BfmeAudioEventPrefix136 &source) : Rva0051D93(source)
 {
 }
 

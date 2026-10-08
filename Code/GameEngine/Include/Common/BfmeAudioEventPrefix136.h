@@ -65,6 +65,8 @@ struct BfmeAudioEventPrefix136
     // CurDrawablePlaySound prove the corresponding ID domains.
     BfmeAudioEventPrefix136(const OpaqueRefElement4 &, ObjectID);
     BfmeAudioEventPrefix136(const OpaqueRefElement4 &, DrawableID);
+    // Native copy constructor2D99E3: default member stores, then copy worker2D9893.
+    BfmeAudioEventPrefix136(const BfmeAudioEventPrefix136 &);
     virtual ~BfmeAudioEventPrefix136();
     AsciiString m_string04;
     BfmePoolRef08 m_pool08;
@@ -107,6 +109,8 @@ struct BfmeAudioEventPrefix136
     int m_int80;
     AsciiString m_string84;
     void rva002D96D3(const OpaqueRefElement4 &);
+    // Rowed copy worker2D9893 (skips the vptr); operator= 2D9A31 wraps it.
+    void rva002D9893(const BfmeAudioEventPrefix136 &);
     // Non-virtual xfer 0x002D9FD9 (W3DTruckDraw::xfer calls it on both events).
     void rva002D9FD9(Xfer *xfer);
     BfmeEventPositionView rva002DA1CC(bool &valid);
@@ -115,4 +119,5 @@ struct BfmeAudioEventPrefix136
 #pragma comment(linker, "/alternatename:??1BfmeAudioEventPrefix136@@UAE@XZ=??1BfmeStringTailRecord144@@UAE@XZ")
 #pragma comment(linker, "/alternatename:??_GBfmeAudioEventPrefix136@@UAEPAXI@Z=??_GBfmeStringTailRecord144@@UAEPAXI@Z")
 #pragma comment(linker, "/alternatename:?rva002D96D3@BfmeAudioEventPrefix136@@QAEXABUOpaqueRefElement4@@@Z=?rva002D96D3@BfmeStringTailRecord144@@QAEXABUOpaqueRefElement4@@@Z")
+#pragma comment(linker, "/alternatename:?rva002D9893@BfmeAudioEventPrefix136@@QAEXABU1@@Z=?rva002D9893@Rva002D9893@@QAEXABV1@@Z")
 typedef char VerifyAudioPrefixSize[(sizeof(BfmeAudioEventPrefix136) == 0x88) ? 1 : -1];

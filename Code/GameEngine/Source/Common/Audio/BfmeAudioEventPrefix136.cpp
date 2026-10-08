@@ -8,3 +8,11 @@ BfmeAudioEventPrefix136::BfmeAudioEventPrefix136(const OpaqueRefElement4 &arg, i
     rva002D96D3(arg);
     m_int30 = value30;
 }
+
+// Native boundary2D99E3-2D9A31 (ret4). The same six default member stores as
+// 2D97D6, then the rowed copy worker2D9893; the vector copy51B40 and the
+// derived copy constructor51D62 call it for the prefix.
+BfmeAudioEventPrefix136::BfmeAudioEventPrefix136(const BfmeAudioEventPrefix136 &other)
+{
+    rva002D9893(other);
+}
