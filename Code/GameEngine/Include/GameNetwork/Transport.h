@@ -10,6 +10,7 @@
 // Header adoption is gated per unit; incompatible views remain queued.
 
 class Rva00594DC0;
+struct NetPacketAddress;
 
 struct Rva004D4A80Slot
 {
@@ -36,6 +37,7 @@ public:
 	bool doRecv(Rva00594DC0 *receiver);
 	bool update(Rva00594DC0 *receiver);
 	bool doSend();
+	bool queueSend(NetPacketAddress *, const unsigned char *, int);
 
 private:
 #pragma pack(push, 1)

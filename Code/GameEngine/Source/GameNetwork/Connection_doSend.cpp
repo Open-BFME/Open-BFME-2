@@ -106,11 +106,7 @@ private:
 	UnsignedByte m_pad1F0[0x204 - 0x1f0];
 };
 
-class Transport
-{
-public:
-	Bool queueSend(NetPacketAddress *addr, const UnsignedByte *buf, Int len);
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 class GlobalData
 {

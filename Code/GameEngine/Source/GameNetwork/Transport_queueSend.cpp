@@ -42,25 +42,13 @@ extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long net
 
 UnsignedInt ComputeCRC(const UnsignedByte *data, UnsignedInt length, UnsignedInt crc);
 
-#pragma pack(push, 1)
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/NetworkDefs.h
-struct TransportMessage
-{
-	UnsignedInt crc;								// +0x000
-	UnsignedByte data[0x400];						// +0x004
-	Int length;										// +0x404
-	UnsignedInt addr;								// +0x408
-	UnsignedShort port;								// +0x40C
-};
-#pragma pack(pop)
-
 struct NetPacketAddress
 {
 	UnsignedInt ip;
 	UnsignedShort port;
 };
 
-static void obfuscate(TransportMessage *msg, Int numBytes)
+static void obfuscate(void *msg, Int numBytes)
 {
 	UnsignedInt key = 0x38D9B7D4;
 	UnsignedInt *p = (UnsignedInt *)msg;
@@ -74,13 +62,7 @@ static void obfuscate(TransportMessage *msg, Int numBytes)
 	}
 }
 
-class Transport
-{
-public:
-	Bool queueSend(NetPacketAddress *addr, const UnsignedByte *data, Int len);
-
-	TransportMessage m_outBuffer[MAX_MESSAGES];		// this+0x000
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 Bool Transport::queueSend(NetPacketAddress *addr, const UnsignedByte *data, Int len)
 {
@@ -90,7 +72,7 @@ Bool Transport::queueSend(NetPacketAddress *addr, const UnsignedByte *data, Int 
 
 	Int i = 0;
 	do {
-		if (m_outBuffer[i].length == 0) {
+		if (m_outBuffer[i].m_length == 0) {
 			goto found;
 		}
 
@@ -103,17 +85,16 @@ found:
 
 	UnsignedInt crc = ComputeCRC(data, len, 0);
 
-	m_outBuffer[i].addr = addr->ip;
-	m_outBuffer[i].port = addr->port;
-	m_outBuffer[i].length = len;
-	memcpy(m_outBuffer[i].data, data, len);
-	m_outBuffer[i].crc = crc;
+	m_outBuffer[i].m_addr = addr->ip;
+	m_outBuffer[i].m_port = addr->port;
+	m_outBuffer[i].m_length = len;
+	memcpy(m_outBuffer[i].m_data, data, len);
+	m_outBuffer[i].m_crc = crc;
 
 	obfuscate(&m_outBuffer[i], len + 4);
 
 	return TRUE;
 }
 
-// Other units call this body (pinned at its address) under the spelling(s)
-// below, with the same calling convention and stack arguments; bind them.
-#pragma comment(linker, "/alternatename:?rva004D4EC6@Transport@@QAE_NPBURva004495A2Addr@@PBULANMessage@@H@Z=?queueSend@Transport@@QAE_NPAUNetPacketAddress@@PBEH@Z")
+// Uses the shared byte-verified Transport layout. The obfuscation helper
+// consumes the serialized word buffer; it does not need a private message view.

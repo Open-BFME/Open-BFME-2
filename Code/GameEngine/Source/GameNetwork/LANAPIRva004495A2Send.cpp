@@ -10,8 +10,9 @@
 //     {ip, port} at GameSlot+0x38 of every human slot but the local one;
 //   - else: broadcast to m_broadcastAddr (+0x54) on each of the eight lobby
 //     ports 0x1F96..0x1F9D.
-// Every send goes through the transport at +0x50 (0x004D4EC6, unrowed) with
-// the 0x1D8-byte LANMessage. Callee identities beyond the rowed
+// Every send goes through the transport at +0x50 (queueSend at 0x004D4EC6) with
+// the 0x1D8-byte LANMessage. Native queueSend reads the same ip/port
+// pair as the local address view; it copies the message as bytes. Callee identities beyond the rowed
 // GameInfo::getSlot / GameSlot::isHuman stay address-derived.
 
 typedef int Int;
@@ -33,11 +34,7 @@ struct Rva004495A2Addr
 	UnsignedShort port;
 };
 
-class Transport
-{
-public:
-	Bool rva004D4EC6( const Rva004495A2Addr *to, const LANMessage *msg, Int len );
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 class GameSlot
 {
@@ -89,7 +86,7 @@ void LANAPI::Rva004495A2( LANMessage *msg, UnsignedInt ip )
 	const Rva004495A2Addr *to = (const Rva004495A2Addr *)ip;
 	if (to != 0 && (to->ip != 0 || to->port != 0))
 	{
-		m_transport->rva004D4EC6(to, msg, sizeof(LANMessage));
+		m_transport->queueSend((NetPacketAddress *)to, (const unsigned char *)msg, sizeof(LANMessage));
 	}
 	else if (m_currentGame != 0 && m_currentGame->getIsDirectConnect())
 	{
@@ -100,7 +97,7 @@ void LANAPI::Rva004495A2( LANMessage *msg, UnsignedInt ip )
 			{
 				GameSlot *slot = m_currentGame->getSlot(i);
 				if (slot != 0 && slot->isHuman())
-					m_transport->rva004D4EC6(&slot->m_addr, msg, sizeof(LANMessage));
+					m_transport->queueSend((NetPacketAddress *)&slot->m_addr, (const unsigned char *)msg, sizeof(LANMessage));
 			}
 		}
 	}
@@ -111,7 +108,7 @@ void LANAPI::Rva004495A2( LANMessage *msg, UnsignedInt ip )
 			Rva004495A2Addr broadcast;
 			broadcast.ip = m_broadcastAddr;
 			broadcast.port = port;
-			m_transport->rva004D4EC6(&broadcast, msg, sizeof(LANMessage));
+			m_transport->queueSend((NetPacketAddress *)&broadcast, (const unsigned char *)msg, sizeof(LANMessage));
 		}
 	}
 }
