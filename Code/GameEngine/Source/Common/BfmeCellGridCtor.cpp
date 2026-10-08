@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /DNDEBUG /MD /GX /arch:SSE
+// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
 // ??0BfmeCellGrid@@QAE@HHMM@Z @0x0056C266 383B. CellGrid ctor (width,height,cellSize,offset).
 // Evidence: donor reference/open-bfme-1/game/GameEngine/Source/GameLogic/System/CellGrid.cpp
 // CellGrid::CellGrid plus CELL_GRID_ALLOCATION_FAILURE string
@@ -8,6 +8,7 @@
 // empty dtor folded at 0xB3FD0); callers at 0x00404EF4/0x00404F45.
 
 void *__cdecl operator new[](unsigned int size);
+void __cdecl operator delete[](void *block);
 extern "C" void *__cdecl memset(void *dst, int val, unsigned int n);
 void _bfme_debugRecordCallsite(int kind);
 
@@ -74,6 +75,7 @@ class CellGrid
 {
 public:
 	CellGrid(int width, int height, float cellSize, float offset);
+	void rva0056C065();
 private:
 	int m_width;
 	int m_height;
@@ -83,6 +85,28 @@ private:
 	Rva00404781 *m_cells;
 	unsigned int *m_cellValues;
 };
+
+// BFME1 9cbfb551 BfmeCellGrid::_bfme_reset supplies the operation. Native
+// 56C065..56C0A5 and WB1449F40 independently prove the field accesses and
+// delete[] calls. The rowed BFME2 constructor proves 168-byte cells and
+// the two owned buffers; the original cleanup method name is unresolved.
+// ?rva0056C065@CellGrid@@QAEXXZ present-unmatched
+void CellGrid::rva0056C065()
+{
+	if (m_cells) {
+		delete[] m_cells;
+		m_cells = 0;
+	}
+	m_width = 0;
+	m_height = 0;
+	m_cellCount = 0;
+	m_offset = 0.0f;
+	m_cellSize = 0.0f;
+	if (m_cellValues) {
+		delete[] m_cellValues;
+		m_cellValues = 0;
+	}
+}
 
 CellGrid::CellGrid(int width, int height, float cellSize, float offset)
 {
