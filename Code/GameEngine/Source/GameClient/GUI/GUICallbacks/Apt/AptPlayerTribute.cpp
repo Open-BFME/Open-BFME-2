@@ -17,13 +17,13 @@ class Player;
 class PlayerList {public: char unknown00[0x10]; Player *localPlayer;};
 extern PlayerList *ThePlayerList;
 class Money {public: char unknown00[4];unsigned amount;};
-class Player {public: bool isLocalPlayer() const; char unknown00[0x90];Money money;};
+class Player {public: bool isLocalPlayer() const; char unknown00[0x54];int index;char unknown58[0x38];Money money;};
 class BfmeMemberRV {public: bool bfmeAskRV();};
 class Rva0050F0AB {public: char unknown00[0x6c];unsigned amount;void rva0050F2AF(unsigned);};
 inline const unsigned &minAmount(const unsigned &a,const unsigned &b){return a<b?a:b;}
 class Rva0050F041 { public: void rva0050FF1C(); };
 class Rva0050F5A6 { public:
- void rva0050FFC0(); void rva0050F4D0(); void rva0050FFEC(const char*);
+ void rva0050FFC0(); void rva0050F4D0(); void rva0050FFEC(const char*); void rva0050EB0A(const char*);
  int level;char unknown04[0x1c];int count;
  struct Entry { Player *player;Rva0050F041 *object; };
  Entry *entries() { return reinterpret_cast<Entry *>((char *)this+0x24); }
@@ -129,4 +129,53 @@ int Rva0050FF55::rva0050EAC1(){
    total-=reinterpret_cast<Rva0050F0AB*>(slot.object)->amount;
  }
  return total;
+}
+
+// Native50EB0A..50EBBD 179B RET4; WB13591B0 tribute assertions1275..1306
+// corroborates focus clear and per-recipient tribute messages. Its apparent
+// native260B twin at50EAC1 crosses the earlier65B debit and rowed8B helper.
+// Player54 is the native integer passed with recipient54 and amount6C; window
+// focus is vslot49 and MessageStream appendMessage vslot18 takes message466.
+// ABI views below name only this measured virtual surface, not complete types.
+class GameWindow;
+class GameWindowManager;
+extern GameWindowManager *TheWindowManager;
+class AptTributeWindowManager {public:
+#define W(n) virtual void slot##n();
+ W(0) W(1) W(2) W(3) W(4) W(5) W(6) W(7) W(8) W(9)
+ W(10) W(11) W(12) W(13) W(14) W(15) W(16) W(17) W(18) W(19)
+ W(20) W(21) W(22) W(23) W(24) W(25) W(26) W(27) W(28) W(29)
+ W(30) W(31) W(32) W(33) W(34) W(35) W(36) W(37) W(38) W(39)
+ W(40) W(41) W(42) W(43) W(44) W(45) W(46) W(47) W(48)
+#undef W
+ virtual int winSetFocus(GameWindow*);
+};
+class GameMessage {public:void appendIntegerArgument(int);};
+class MessageStream {public:
+#define M(n) virtual void slot##n();
+ M(0) M(1) M(2) M(3) M(4) M(5) M(6) M(7) M(8) M(9)
+ M(10) M(11) M(12) M(13) M(14) M(15) M(16) M(17)
+#undef M
+ virtual GameMessage *appendMessage(int);
+};
+extern MessageStream *MessageStreamSubsystem;
+void Rva0050F5A6::rva0050EB0A(const char *unused){
+ reinterpret_cast<AptTributeWindowManager*>(TheWindowManager)->winSetFocus(0);
+ Player *local=ThePlayerList->localPlayer;
+ if(!reinterpret_cast<BfmeMemberRV*>(local)->bfmeAskRV())return;
+ for(int i=0;i<count;++i){
+  Entry &slot=entries()[i];
+  Player *player=slot.player;
+  if(player==local || !reinterpret_cast<BfmeMemberRV*>(player)->bfmeAskRV())continue;
+  if(!slot.object)continue;
+  unsigned amount=reinterpret_cast<Rva0050F0AB*>(slot.object)->amount;
+  if(amount>0){
+   GameMessage *message=MessageStreamSubsystem->appendMessage(0x466);
+   if(message){
+    message->appendIntegerArgument(local->index);
+    message->appendIntegerArgument(player->index);
+    message->appendIntegerArgument(amount);
+   }
+  }
+ }
 }
