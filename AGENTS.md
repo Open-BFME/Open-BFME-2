@@ -16,7 +16,13 @@ The step-3 gate checks are live in the hooks. They refuse:
   case to the wrong target, or compiled bytes past a row's extent that differ
   from retail (a body longer than its row: raise the extent);
 - a new `symbols.csv` pin that is not an in-image RVA in code, or that puts a
-  second real name on an address that already has one (rename the owner);
+  second real name on an address that already has one (rename the owner; an
+  ICF-folded template instantiation is admitted only with
+  `fold-proof=<ledger source>` in its notes, when that unit compiles the name
+  to retail's whole body there with every owner row's relocations -- same
+  vtables, globals and strings -- and the name has no address of its own, a
+  gen-alias twin included; `tools/pin_admission.py --add`). A row or pin that
+  later gives a fold-pinned name another address is refused too;
 - `gen-alias` other than as an exact notes token whose masked callee is a
   byte-and-relocation twin; new `object-symbol=` alias rows.
 
