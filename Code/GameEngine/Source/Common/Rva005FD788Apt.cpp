@@ -145,47 +145,43 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, co
 // The rowed TreeHintRef assignment (0x002174A4).
 struct TreeHintRef00217D4C
 {
+	__forceinline TreeHintRef00217D4C() : m_ptr(0) {}
 	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
+	__forceinline ~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 
 	TargetRef00217D4C *m_ptr;
 };
 
-// Native 5FD5D4 destroys wide strings at +C/+8, the owned handle at +4,
-// then clears its last EH state before null-checked release of the +0 ref.
-// A reference base and three RAII members model that observed cleanup order;
-// this is an address-derived compiler/ABI view, not an original class claim.
-struct Rva005FD5D4ReferenceBase
-{
-    TreeHintRef00217D4C m_ref;
-    // ?Rva005FD5D4ReferenceBase::Rva005FD5D4ReferenceBase present-unmatched
-    Rva005FD5D4ReferenceBase() { m_ref.m_ptr = 0; }
-    // ?Rva005FD5D4ReferenceBase::~Rva005FD5D4ReferenceBase present-unmatched
-    ~Rva005FD5D4ReferenceBase()
-    {
-        if (m_ref.m_ptr)
-            ReleaseTreeHintRef00217D4C(m_ref.m_ptr);
-    }
-};
-struct Rva005F4AD7Inner;
-struct Rva005F4AD7
-{
-    Rva005F4AD7Inner *m_ptr;
-    // ?Rva005F4AD7::Rva005F4AD7 present-unmatched
-    Rva005F4AD7() : m_ptr(0) {}
-    ~Rva005F4AD7();
-};
-class Rva005FD5D4UnitSlot : public Rva005FD5D4ReferenceBase
+// The 24-byte HUD slot has two reference handles and two Unicode strings.
+// Its zeroing constructor folds with 0x00286297; its distinct destructor is
+// 0x005FD5D4 (84 bytes including the native EH frame).
+class Rva005F4AD7
 {
 public:
-    // ?Rva005FD5D4UnitSlot::Rva005FD5D4UnitSlot present-unmatched
-    Rva005FD5D4UnitSlot() : m_10(0), m_14(0) {}
-    ~Rva005FD5D4UnitSlot();
-    Rva005F4AD7 m_handle; // +4, own complete 22B destructor at 5F4AD7.
-    UnicodeString m_text8;
-    UnicodeString m_textC;
-    int m_10, m_14;
+	__forceinline Rva005F4AD7() : m_ptr(0) {}
+	~Rva005F4AD7();
+	void *m_ptr;
 };
-Rva005FD5D4UnitSlot::~Rva005FD5D4UnitSlot() {}
+
+class Rva005FD5D4UnitSlot
+{
+public:
+	Rva005FD5D4UnitSlot();
+	~Rva005FD5D4UnitSlot();
+	TreeHintRef00217D4C m_ref; // +0x00
+	Rva005F4AD7 m_second; // +0x04
+	UnicodeString m_text8, m_textC;
+	int m_unknown10, m_unknown14;
+};
+
+Rva005FD5D4UnitSlot::Rva005FD5D4UnitSlot()
+	: m_ref(), m_second(), m_text8(), m_textC(), m_unknown10(0), m_unknown14(0)
+{
+}
+
+Rva005FD5D4UnitSlot::~Rva005FD5D4UnitSlot()
+{
+}
 
 // The Apt window manager's +0x318 mode (0: idle).
 struct Rva00578A7EAptMode
