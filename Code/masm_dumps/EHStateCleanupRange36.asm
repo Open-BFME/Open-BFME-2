@@ -1184,6 +1184,18 @@ PUBLIC ?rva00773F56@@YAXXZ
     jmp ??1Gen_uw_0049b47c@@QAE@XZ
 ?rva00773F56@@YAXXZ ENDP
 
+PUBLIC ?rva00773F6A@@YAXXZ
+?rva00773F6A@@YAXXZ PROC
+    push 0069D7C2h
+    push 4
+    push 18h
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 10h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva00773F6A@@YAXXZ ENDP
+
 ; Unwind@00b75816: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
 PUBLIC ?rva00775816@@YAXXZ
 ?rva00775816@@YAXXZ PROC
@@ -1220,6 +1232,18 @@ PUBLIC ?rva007773f7@@YAXXZ
     jmp ??1Gen_uw_0049b47c@@QAE@XZ
 ?rva007773f7@@YAXXZ ENDP
 
+PUBLIC ?rva0077831A@@YAXXZ
+?rva0077831A@@YAXXZ PROC
+    push 00695983h
+    push 5
+    push 4
+    mov eax, DWORD PTR [ebp-20]
+    add eax, 10h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0077831A@@YAXXZ ENDP
+
 ; Unwind@00b7835b: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
 PUBLIC ?rva0077835b@@YAXXZ
 ?rva0077835b@@YAXXZ PROC
@@ -1231,6 +1255,18 @@ PUBLIC ?rva0077835b@@YAXXZ
     and ecx, eax
     jmp ??1Gen_uw_0049b47c@@QAE@XZ
 ?rva0077835b@@YAXXZ ENDP
+
+PUBLIC ?rva0077836F@@YAXXZ
+?rva0077836F@@YAXXZ PROC
+    push 00695983h
+    push 5
+    push 4
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 10h
+    push eax
+    call ??_M@YGXPAXIHP6EX0@Z@Z
+    ret
+?rva0077836F@@YAXXZ ENDP
 
 ; Unwind@00b7918e: masked-add cleanup adds 0Ch to [ebp-16] and tail-jumps to 0x0049B47C.
 PUBLIC ?rva0077918e@@YAXXZ
