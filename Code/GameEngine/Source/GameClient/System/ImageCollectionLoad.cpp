@@ -20,7 +20,7 @@ class INI
 public:
 	INI();
 	~INI();
-	void loadDirectory(AsciiString dirpath, bool recursive, INILoadType loadType, Xfer *xfer, int extra);
+	bool loadDirectory(AsciiString dirpath, bool recursive, INILoadType loadType, Xfer *xfer, int extra);
 
 private:
 	char m_unported[0x87C];

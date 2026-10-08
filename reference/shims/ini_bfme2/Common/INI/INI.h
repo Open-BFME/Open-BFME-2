@@ -22,7 +22,7 @@ public:
 	unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer* xfer);
 	// BFME's loadDirectory takes a fifth argument ZH's does not; the legend path
 	// calls it as loadDirectory(dir, TRUE, INI_LOAD_OVERWRITE, xfer, 0).
-	void loadDirectory(AsciiString dirpath, bool recursive, INILoadType loadType, Xfer* xfer, int extra);
+	bool loadDirectory(AsciiString dirpath, bool recursive, INILoadType loadType, Xfer* xfer, int extra);
 	static bool loadSubsystemFiles(const char* subsystem, void* xfer);
 	const char* getNextToken(const char* seps = 0);
 	void initFromINI(void* what, const struct FieldParse* parseTable);
