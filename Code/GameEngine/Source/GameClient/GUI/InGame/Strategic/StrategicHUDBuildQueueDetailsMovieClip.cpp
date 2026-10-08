@@ -32,3 +32,8 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F688B
 // Constructor binding: _OnQueuedIconSlotTurnsRemainingRollOver.
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6892(void*) { turnsHover=true; }
 
+
+class Rva005F6A30 {public:void rva005F6A30();};
+// Constructor binding: _OnQueuedIconSlotRollOut.
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6A90(void*) { ((Rva005F6A30*)this)->rva005F6A30(); }
+
