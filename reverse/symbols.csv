@@ -16152,3 +16152,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva002BFF9F@Rva002C021A@@QAEXXZ,0x002BFF9F,unrowed thiscall callees of 0x2C021A
 ?rva002BF77B@Rva002C021A@@QAEXXZ,0x002BF77B,unrowed thiscall callees of 0x2C021A
 ?rva002BEBE3@Rva002C021A@@QAEXXZ,0x002BEBE3,unrowed thiscall callees of 0x2C021A
+?rva0020C5C7@Rva0020D451Engine@@QAEXPAX00@Z,0x0020C5C7,unrowed thiscall callee of 0x20D451 (retail 0x20C5C7)
