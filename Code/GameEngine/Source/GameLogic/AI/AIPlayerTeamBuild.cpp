@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // AIPlayer's factory search and team-build feasibility, Zero Hour's
@@ -74,7 +74,13 @@
 //    +0x21C, home-location flag +0x1E8 and the random pick at AIPlayer.cpp
 //    line 1841. The list base ctor/dtor are the pool copies 0x002AC026 and
 //    0x002ABB44; the timer scales by TAiData's poor/wealthy mods +0x24/+0x1C.
+//  - onUnitProduced 0x004F4962 (523 bytes, vtable +0x1C): BFME 1's matched
+//    body (ZH plus the isMoving test before the goal-position push). BFME 2
+//    hands the order's string and int (+0x20/+0x1C) to Object 0x00291298
+//    before marking the order found. /D_CRTIMP= makes the inline vector
+//    free a direct call, as retail has it.
 #include <list>
+#include <vector>
 
 // GameLogic comes from the canonical GameLogicObjectLookupView.h.
 #include "ascii_string.h"
@@ -156,9 +162,31 @@ template <> inline _List_base<TeamPrototype *, allocator<TeamPrototype *> >::~_L
 }
 typedef _STL::list<TeamPrototype *> PlayerTeamList;
 
+class BuildListInfo
+{
+public:
+	BuildListInfo *getNext() const { return m_next; }
+	ObjectID getObjectID() const { return m_objectID; }
+	Bool isSupplyBuilding() const { return m_isSupplyBuilding; }
+	Int getDesiredGatherers() const { return m_desiredGatherers; }
+	Int getCurrentGatherers() const { return m_currentGatherers; }
+	void setCurrentGatherers(Int count) { m_currentGatherers = count; }
+
+	unsigned char m_pad00[0x2C];
+	BuildListInfo *m_next;			// +0x2C
+	unsigned char m_pad30[0x46 - 0x30];
+	Bool m_isSupplyBuilding;		// +0x46
+	unsigned char m_pad47[0x48 - 0x47];
+	ObjectID m_objectID;			// +0x48
+	unsigned char m_pad4C[0x78 - 0x4C];
+	Int m_desiredGatherers;			// +0x78
+	Int m_currentGatherers;			// +0x7C
+};
+
 class Player
 {
 public:
+	BuildListInfo *getBuildList() const { return m_buildList; }
 	const PlayerTeamList *getPlayerTeams() const { return &m_playerTeamPrototypes; }
 	Int getSciencePurchasePoints() const { return m_sciencePurchasePoints; }
 	NameKeyType getPlayerNameKey() const { return m_playerNameKey; }
@@ -174,7 +202,9 @@ public:
 	AsciiString m_side;			// +0x58
 	unsigned char m_pad05C[0x94 - 0x5C];
 	unsigned int m_money;				// +0x94
-	unsigned char m_pad098[0x2EC - 0x98];
+	unsigned char m_pad098[0x278 - 0x98];
+	BuildListInfo *m_buildList;		// +0x278
+	unsigned char m_pad27C[0x2EC - 0x27C];
 	Team *m_defaultTeam;			// +0x2EC
 	unsigned char m_pad2F0[0x32C - 0x2F0];
 	PlayerTeamList m_playerTeamPrototypes;	// +0x32C
@@ -220,13 +250,45 @@ public:
 	virtual void slot20();
 	virtual void slot24();
 	virtual void slot28();
-	virtual void slot2c();
+	virtual void setForceWantingState(Bool forceWanting);	// +0x2C
 	virtual Bool isForcedIntoWantingState();	// +0x30
+};
+
+enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_AI = 2 };
+
+// The rowed wrapper at 0x0047971C takes the exit path by reference; its
+// placeholder class is this vector of points.
+class Rva0035149F : public _STL::vector<Coord3D>
+{
+};
+
+class Object;
+
+class AICommandInterface
+{
+public:
+	void rva0047971C(const Rva0035149F &path, Object *ignoreObject, CommandSourceType cmdSource);
+	void rva0026C3AC(Object *obj, CommandSourceType cmdSource);
+};
+
+class StateMachine
+{
+public:
+	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
+
+	unsigned char m_pad00[0x24];
+	Coord3D m_goalPosition;			// +0x24
 };
 
 class AIUpdateInterface
 {
 public:
+	// The AICommandInterface base sits at +0x20.
+	AICommandInterface *getCommandInterface() { return (AICommandInterface *)((char *)this + 0x20); }
+	Bool isMoving() const;
+	StateMachine *getStateMachine() const { return m_stateMachine; }
+	const Coord3D *getGoalPosition() const { return getStateMachine()->getGoalPosition(); }
+
 	virtual void slot000();
 	virtual void slot004();
 	virtual void slot008();
@@ -339,7 +401,9 @@ public:
 	virtual void slot1b4();
 	virtual Bool isIdle() const;					// +0x1B8
 
-	unsigned char m_pad004[0x3BE - 0x04];
+	unsigned char m_pad004[0x30 - 0x04];
+	StateMachine *m_stateMachine;			// +0x30
+	unsigned char m_pad034[0x3BE - 0x34];
 	Bool m_bfme3BE;					// +0x3BE
 };
 
@@ -366,6 +430,10 @@ public:
 	Bool testStatus(ObjectStatusTypes bit) const;
 	void *rva0028BC58(Int which);
 	AIUpdateInterface *getAI() const { return m_ai; }
+	const ThingTemplate *getTemplate() const { return m_template; }
+	Bool isKindOfDozer() const { return (getTemplate()->m_kindOf109 & 0x40) != 0; }
+	void setTeam(Team *team);
+	void rva00291298(AsciiString name, Int value);
 
 	void *m_vtable;
 	ThingTemplate *m_template;			// +0x04
@@ -574,7 +642,7 @@ public:
 	char m_pad018[0x130 - 0x18];
 	TCreateUnitsInfo m_unitsInfo[7];	// +0x130
 	Int m_numUnitsInfo;			// +0x1D8
-	char m_pad1DC[0x1E8 - 0x1DC];
+	Coord3D m_homeLocation;			// +0x1DC
 	Bool m_hasHomeLocation;			// +0x1E8
 	char m_pad1E9[0x210 - 0x1E9];
 	Bool m_bfme210;				// +0x210
@@ -736,7 +804,9 @@ protected:
 	virtual void slot04();
 	virtual void slot05();
 	virtual void slot06();
-	virtual void slot07();
+public:
+	virtual void onUnitProduced(Object *factory, Object *unit);	// +0x1C
+protected:
 	virtual void slot08();
 public:
 	virtual void buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild);	// +0x24
@@ -787,9 +857,9 @@ private:
 	Player *m_player;		// +0x0C
 	Bool m_readyToBuildTeam;	// +0x10
 	Int m_teamTimer;		// +0x14
-	unsigned char m_pad18[0x1C - 0x18];
+	Int m_structureTimer;		// +0x18
 	Int m_teamSeconds;		// +0x1C
-	unsigned char m_pad20[0x24 - 0x20];
+	Int m_buildDelay;		// +0x20
 	Int m_teamDelay;		// +0x24
 	unsigned char m_pad28[0x30 - 0x28];
 	Int m_skillsetSelector;		// +0x30
@@ -798,6 +868,7 @@ private:
 	ObjectID m_repairDozer;		// +0x50
 	Coord3D m_repairDozerOrigin;	// +0x54
 	Int m_structuresInQueue;	// +0x60
+	Bool m_dozerQueuedForRepair;	// +0x64
 };
 
 enum { DOZER_TASK_BUILD = 0 };
@@ -1478,4 +1549,99 @@ void AIPlayer::checkReadyTeams()
 			}
 		}
 	}
+}
+
+void AIPlayer::onUnitProduced(Object *factory, Object *unit)
+{
+	Bool found = false;
+	Bool supplyTruck = false;
+
+	// factory could be NULL at the start of the game.
+	if (factory == NULL)
+		return;
+
+	for (DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamBuildQueue(); !iter.done(); iter.advance())
+	{
+		TeamInQueue *team = iter.cur();
+		// find work order entry and delete it
+		WorkOrder *order;
+		if (found)
+			break;
+		for (order = team->m_workOrders; order; order = order->m_next)
+		{
+			if (order->m_factoryID == factory->getID() && order->m_numCompleted < order->m_numRequired &&
+				unit->getTemplate()->isEquivalentTo(order->m_thing))
+			{
+				// found associated order, mark it complete.
+				order->m_numCompleted++;
+				// put new unit into the team under construction
+				if (team->m_team)
+					unit->setTeam(team->m_team);
+				if (team->m_reinforcement)
+					team->m_reinforcementID = unit->getID();
+				AIUpdateInterface *ai = unit->getAI();
+				if (team->m_team->getPrototype()->m_hasHomeLocation)
+				{
+					if (ai)
+					{
+						Rva0035149F path;
+						if (ai->isMoving())
+							path.push_back(*ai->getGoalPosition());
+						path.push_back(team->m_team->getPrototype()->m_homeLocation);
+						ai->getCommandInterface()->rva0047971C(path, NULL, CMD_FROM_AI);
+					}
+				}
+
+				order->m_factoryID = INVALID_OBJECT_ID; // no longer using this factory.
+				if (ai)
+				{
+					// tell it to start gathering resources.
+					SupplyTruckAIInterface *supplyTruckAI = ai->getSupplyTruckAIInterface();
+					if (supplyTruckAI)
+					{
+						if (order->m_isResourceGatherer)
+							supplyTruck = true;
+						else
+							supplyTruck = false;
+						supplyTruckAI->setForceWantingState(supplyTruck);
+						if (supplyTruck)
+						{
+							// assign to a supply depot.
+							for (BuildListInfo *info = m_player->getBuildList(); info; info = info->getNext())
+							{
+								if (info->isSupplyBuilding() && info->getDesiredGatherers() > 0 &&
+									info->getDesiredGatherers() > info->getCurrentGatherers())
+								{
+									Object *obj = TheGameLogic->findObjectByID(info->getObjectID());
+									if (obj)
+									{
+										info->setCurrentGatherers(info->getCurrentGatherers() + 1);
+										ai->getCommandInterface()->rva0026C3AC(obj, CMD_FROM_PLAYER);
+									}
+								}
+							}
+						}
+					}
+				}
+				unit->rva00291298(order->m_bfmeString20, order->m_bfmeInt1C);
+				found = true;
+				break;
+			}
+		}
+	}
+	if (!supplyTruck && unit->isKindOfDozer())
+	{
+		if (m_dozerQueuedForRepair)
+		{
+			m_repairDozer = unit->getID();
+			m_dozerQueuedForRepair = false;
+		}
+		else
+		{
+			m_buildDelay = 0;
+			m_structureTimer = 1;
+		}
+	}
+
+	m_teamDelay = 0; // Cause the update queues & selection to happen immediately.
 }
