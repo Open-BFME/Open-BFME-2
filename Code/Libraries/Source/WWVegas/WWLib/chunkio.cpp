@@ -123,9 +123,46 @@ uint32 ChunkLoadClass::Read(void *buffer, uint32 byte_count)
 }
 
 
-// Seek is declared in chunkio.h; the BFME2 body lives in its owning TU once
-// recovered. Defining it here emits a wrong COMDAT copy, so keep it
-// declaration-only in this file.
+// BFME2 Seek accepts negative counts: each sign gets its own chunk bounds
+// check, and the micro-chunk check is chosen by a direction flag set in each
+// arm, which the compiler threads into per-sign blocks (retail 0x006150C0).
+// PositionStack is indexed inline rather than cached in a local; caching it
+// changes the register allocation.
+uint32 ChunkLoadClass::Seek(uint32 byte_count)
+{
+	BFMEChunkLoadLayout *layout = (BFMEChunkLoadLayout *)this;
+	int count = (int)byte_count;
+	bool forward;
+	if (count >= 0) {
+		forward = true;
+		if ((uint32)(layout->PositionStack[layout->StackIndex - 1] + count) > (layout->HeaderStack[layout->StackIndex - 1].ChunkSize & 0x7FFFFFFF))
+			return 0;
+	} else {
+		forward = false;
+		if (layout->PositionStack[layout->StackIndex - 1] + count < 0)
+			return 0;
+	}
+	if (forward) {
+		if (layout->InMicroChunk && layout->MicroChunkPosition + count > (int)layout->MCHeader.ChunkSize)
+			return 0;
+	} else {
+		if (layout->InMicroChunk && layout->MicroChunkPosition + count < 0)
+			return 0;
+	}
+	if (layout->File) {
+		int before = layout->File->Tell();
+		if (layout->File->Seek(byte_count, SEEK_CUR) - before != (int)byte_count)
+			return 0;
+	} else {
+		int before = layout->Input->Seek(0, SEEK_CUR);
+		if (layout->Input->Seek(byte_count, SEEK_CUR) - before != (int)byte_count)
+			return 0;
+	}
+	layout->PositionStack[layout->StackIndex - 1] += byte_count;
+	if (layout->InMicroChunk)
+		layout->MicroChunkPosition += byte_count;
+	return byte_count;
+}
 
 
 uint32 ChunkLoadClass::Cur_Chunk_ID()
