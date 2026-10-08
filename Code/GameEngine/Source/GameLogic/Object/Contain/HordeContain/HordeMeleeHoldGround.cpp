@@ -72,7 +72,7 @@ class Object
 public:
 	Object *rva002931F5(bool flag);
 	Bool testStatus(ObjectStatusTypes status) const;
-	void rva00295F05(int value);
+	void rva00295F05(bool value);
 };
 
 struct Rva00583794Node

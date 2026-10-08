@@ -16,7 +16,7 @@ class Object
 {
 public:
 	Object *getNextObject() const { return m_next; }
-	void rva00295F05(int flags);
+	void rva00295F05(bool flags);
 
 private:
 	unsigned char m_pad00[0x8C];

@@ -69514,3 +69514,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?rva004fcb85@Rva004FCB85@@QAE?AVUnicodeString@@XZ,,0x004FCB85,36,Code/GameEngine/Source/Common/INI/Rva004FCB61Fetch.cpp,matched,address-derived UnicodeString fetch wrapper; this+0x14 AsciiString label to TheGameText slot 0x38; same 36B shape as 0x001EB382
 ?rva004fcba9@Rva004FCBA9@@QAE?AVUnicodeString@@XZ,,0x004FCBA9,36,Code/GameEngine/Source/Common/INI/Rva004FCB61Fetch.cpp,matched,address-derived UnicodeString fetch wrapper; this+0x1C AsciiString label to TheGameText slot 0x38; same 36B shape as 0x001EB382
 ?rva005e755e@Rva005E755E@@QAE?AVUnicodeString@@XZ,,0x005E755E,36,Code/GameEngine/Source/Common/Bfme/Rva005E755EFetch.cpp,matched,address-derived UnicodeString fetch wrapper; this+0x0C AsciiString label to TheGameText slot 0x38; same 36B shape as 0x001EB382
+?rva00295F05@Object@@QAEX_N@Z,,0x00295F05,164,Code/GameEngine/Source/GameLogic/Object/ObjectRva00295FA9.cpp,matched,

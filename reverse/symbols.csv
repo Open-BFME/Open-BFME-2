@@ -14073,7 +14073,7 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva004FD013@Rva004FCE73@@QAEXHPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAH@Z,0x004FD013,callee of ?rva004FD571@Rva004FD448@@QBEXHPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@PAH@Z
 ??1Rva00500D30@@QAE@XZ,0x00500D30,callee of ??1Rva0050292B@@QAE@XZ
 ??0Rva00527378Payload@@QAE@PAXHABVAsciiString@@00@Z,0x00527378,called by 0x00527767 with ECX=0x1E0 allocation and owner then level/name/+0xC0/+0xF8 arguments; Ghidra boundary 1007; address-derived payload constructor; layout and semantics unknown
-?rva00295F05@Object@@QAEXH@Z,0x00295F05,callee of ?rva00583794@Rva00583794@@QAEXPAVObject@@@Z
+?rva00295F05@Object@@QAEX_N@Z,0x00295F05,"callee of matched ?rva00583794@Rva00583794@@QAEXPAVObject@@@Z and GameLogicDestroyAllObjectsImmediate; body reads a Bool parameter and is address-derived until identity is proven"
 ?onContaining@HordeContain@@UAEXPAVObject@@_N@Z,0x0046FA46,callee of ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z
 ?rva00489039@Rva00489913@@QAE_NPAVObject@@0PAUCoord3D@@@Z,0x00489039,callee of ?rva00489913@Rva00489913@@QAEPAVObject@@PAV2@0PAUCoord3D@@@Z
 ?rva0039C3AC@Rva0039C3AC@@QAEPAUObjectCountMap@@H@Z,0x0039C3AC,callee of ?rva004EE950@LivingWorldScoreKeeper@@QAEXPAVScoreKeeper@@@Z
@@ -16481,3 +16481,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?rva0052A765@Rva0052A765Owner@@QAEXXZ,0x0052A765,callee of ?rva002D4240@RadarWindowOverrideSource@@QAEX_N@Z
 ??$__copy_ptrs@PBURva002821CFElem@@PAU1@@_STL@@YAPAURva002821CFElem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00281AB7,erase copy
 ??1Rva002821CFDtor@@QAE@XZ,0x0027EA49,dtor for erase 0x002821CF
+?rva00295CA6@Object@@QAEXXZ,0x00295CA6,callee at 0x00295F9F; Ghidra boundary 0x00295CA6..0x00295F05; thiscall void with no arguments; address-derived until rowed
+?rva002ED313@Pathfinder@@QAE_NPAVObject@@@Z,0x002ED313,callee at 0x00295F7B; ECX is TheAI+0x10 and stack argument is Object*; Ghidra boundary 0x002ED313..0x002ED484 returns AL; Pathfinder is an address-derived structural inference

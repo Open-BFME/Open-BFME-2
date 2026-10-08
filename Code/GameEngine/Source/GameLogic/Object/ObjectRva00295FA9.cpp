@@ -16,6 +16,9 @@
 // +0x115), containedBy +0x274; Weapon +0x04 byte field. The 0x1E48CF arg
 // is this, the 0x1E415F args are (float, LogicFrames). Identity unproven:
 // honest address-derived names; neighbour range bodies reuse this TU.
+typedef int Int;
+typedef bool Bool;
+
 enum Relationship
 {
 	ENEMIES = 0,
@@ -70,6 +73,13 @@ public:
 
 extern int g_Va00DBA4E4;
 
+class AIUpdateInterface;
+struct Rva00295F05ContainView;
+enum ObjectStatusTypes
+{
+	RVA_OBJECT_STATUS_1C = 0x1C
+};
+
 class Object
 {
 public:
@@ -78,13 +88,56 @@ public:
 	Weapon *getCurrentWeapon(WeaponSlotType *slot);
 	void rva00295A84(Object *other);
 	void rva00295FA9(Object *other);
+	void rva00295F05(Bool force);
+	Object *rva002931F5(Bool checkProducer);
+	Bool testStatus(ObjectStatusTypes status) const;
+	void rva00295CA6();
 
 private:
 	unsigned char m_pad00[4];
 	ThingTemplate *m_template;
-	unsigned char m_pad08[0x274 - 0x08];
+	unsigned char m_pad08[0x258 - 0x08];
+	AIUpdateInterface *m_ai;
+	Rva00295F05ContainView *m_containView;
+	unsigned char m_pad260[0x274 - 0x260];
 	Object *m_containedBy;
+	unsigned char m_pad278[0x438 - 0x278];
+	unsigned char m_flags438;
 };
+
+// Target-side view used by 0x00295F05. The vslot offset is 0x1C4 (slot
+// 113); the second helper is the already matched AIUpdateInterface method
+// at 0x002632C7. This does not assert a donor class layout.
+template <int N> class Rva00295F05AISlots : public Rva00295F05AISlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+
+template <> class Rva00295F05AISlots<0>
+{
+};
+
+class AIUpdateInterface : public Rva00295F05AISlots<113>
+{
+public:
+	virtual Bool rva00295F05Guard();
+	Int rva002632C7() const;
+};
+
+class Pathfinder
+{
+public:
+	Bool rva002ED313(Object *object);
+};
+
+struct Rva00295F05ContainView
+{
+	unsigned char m_pad00[0x5C];
+	Bool m_busy;
+};
+
+extern void *g_00DFF0F8;
 
 // ?rva00295FA9@Object@@QAEXPAV1@@Z
 void Object::rva00295FA9(Object *other)
@@ -114,4 +167,43 @@ void Object::rva00295FA9(Object *other)
 		float f = ((Rva001E46E1 *)e)->rva001E48CF(this);
 		((Rva001E415F *)e)->rva001E415F(f, g_Va00DBA4E4);
 	}
+}
+
+// ?rva00295F05@Object@@QAEX_N@Z, retail 0x00295F05, 164 bytes.
+// The matched caller at 0x00583794 passes zero while visiting the objects in
+// a HordeMeleeHoldGround list. The body gates on the AI vslot at +0x1C4,
+// object status 0x1C, containment state, a related object, and the pathfinder
+// member at TheAI+0x10 before the final Object helper. These offsets and
+// calls come from BFME2's body; GeneralsMD Object.cpp was reviewed for the
+// shared Object behavior but does not supply this BFME2 helper by name.
+void Object::rva00295F05(Bool force)
+{
+	AIUpdateInterface *ai = m_ai;
+	if (ai != 0 && ai->rva00295F05Guard())
+		return;
+	if ((m_flags438 & 1) != 0)
+		return;
+	if (testStatus(RVA_OBJECT_STATUS_1C) && force == 0)
+		return;
+	if (m_containView != 0 && m_containView->m_busy)
+		return;
+
+	Object *related = rva002931F5(false);
+	if (related != 0)
+	{
+		AIUpdateInterface *relatedAI = related->m_ai;
+		if (relatedAI != 0 && (unsigned char)relatedAI->rva002632C7() != 0)
+			return;
+	}
+
+	Pathfinder *pathfinder = *(Pathfinder **)((unsigned char *)g_00DFF0F8 + 0x10);
+	if (!pathfinder->rva002ED313(this))
+	{
+		if (related == 0)
+			return;
+		unsigned int flags = related->m_template->m_flags114;
+		if ((((unsigned char *)&flags)[1] & 0x40) == 0 || (flags & 0x800000) != 0)
+			return;
+	}
+	rva00295CA6();
 }
