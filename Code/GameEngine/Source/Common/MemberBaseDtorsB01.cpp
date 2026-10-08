@@ -162,10 +162,16 @@ private:
 	void *m_value;
 };
 
+class Object;
+
+// The base's rowed slot 1 (0x006003AD) and the one body its slots 2-4 fold
+// to (0x006003A5).
 class Rva006003FC
 {
 public:
 	virtual ~Rva006003FC();
+	void rva006003AD();
+	void rva006003A5(Object *value);
 };
 
 class Rva005FAFB2
@@ -173,7 +179,6 @@ class Rva005FAFB2
 public:
 	~Rva005FAFB2();
 
-private:
 	void *m_value;
 };
 
@@ -470,6 +475,10 @@ class Rva005FB1AD : public Rva006003FC
 {
 public:
 	virtual ~Rva005FB1AD();
+	void rva005FAA90();
+	void rva005FA9E0(int value);
+	void rva005FA9FC(int value);
+	void rva005FAA15(int value);
 
 private:
 	char m_unmodelled_04[0x1C];
@@ -478,6 +487,63 @@ private:
 
 Rva005FB1AD::~Rva005FB1AD()
 {
+}
+
+// Slots 1-4 of Rva005FB1AD's vtable 0x00C79EDC: each runs the base's own slot
+// (rowed 0x006003AD, or 0x006003A5 that slots 2-4 fold to) and then hands the
+// value to the object the +0x20 member holds: its 0x005FAA4D refresh (not
+// yet rowed; pinned), its rowed 0x005FA91C and 0x005FA97C, or straight into
+// its +0x50 (the int 0x005FAA4D tests).
+class Rva005FAA4D
+{
+public:
+	void rva005FAA4D();
+};
+
+class Rva005FA91C
+{
+public:
+	void rva005FA91C(int value);
+};
+
+class Rva005FA97C
+{
+public:
+	void rva005FA97C(int value);
+};
+
+struct Rva005FA9FCTarget
+{
+	unsigned char m_pad00[0x50];
+	int m_50;
+};
+
+// ?rva005FAA90@Rva005FB1AD@@QAEXXZ @0x005FAA90 17B, slot 1.
+void Rva005FB1AD::rva005FAA90()
+{
+	rva006003AD();
+	reinterpret_cast<Rva005FAA4D *>(m_member.m_value)->rva005FAA4D();
+}
+
+// ?rva005FA9E0@Rva005FB1AD@@QAEXH@Z @0x005FA9E0 28B, slot 2.
+void Rva005FB1AD::rva005FA9E0(int value)
+{
+	rva006003A5((Object *)value);
+	reinterpret_cast<Rva005FA91C *>(m_member.m_value)->rva005FA91C(value);
+}
+
+// ?rva005FA9FC@Rva005FB1AD@@QAEXH@Z @0x005FA9FC 25B, slot 3.
+void Rva005FB1AD::rva005FA9FC(int value)
+{
+	rva006003A5((Object *)value);
+	reinterpret_cast<Rva005FA9FCTarget *>(m_member.m_value)->m_50 = value;
+}
+
+// ?rva005FAA15@Rva005FB1AD@@QAEXH@Z @0x005FAA15 28B, slot 4.
+void Rva005FB1AD::rva005FAA15(int value)
+{
+	rva006003A5((Object *)value);
+	reinterpret_cast<Rva005FA97C *>(m_member.m_value)->rva005FA97C(value);
 }
 
 class Rva005CC26E
