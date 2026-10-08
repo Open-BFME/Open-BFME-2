@@ -1,3 +1,5 @@
+// ?rva000FC04C@Rva000FBA4ASecondary@@UAE_NW4FilterModes@@AAVCoord2D@@AA_NPAV3@@Z
+// partial score=0.82 date=2026-10-08
 // cl: /O1 /Oy /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/shims/bfmestages /Ireference/shims/sweep /ICode/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // Retail 0x000FBA57, vtable slot 3 of the object installed by 0x000FBA4A.
 // BFME1's ScreenBWFilter::postRender is the semantic donor. Retail confirms
@@ -71,12 +73,43 @@ struct IDirect3DDevice8
 };
 
 extern unsigned number_of_DX8_calls;
+extern unsigned g_Va00DEC174;
+
+class DX8Caps
+{
+public:
+	bool Support_Dot3() const
+	{
+		return *((const unsigned char *)this + 0x2a8) != 0;
+	}
+};
+
+class ShaderClass
+{
+public:
+	enum DepthCompareType { PASS_ALWAYS = 7 };
+	ShaderClass(const ShaderClass &other) : ShaderBits(other.ShaderBits) {}
+	void Set_Depth_Compare(DepthCompareType mode)
+	{
+		ShaderBits = (ShaderBits & ~7u) | mode;
+	}
+	static void Invalidate() { ShaderDirty = true; }
+	static ShaderClass _PresetAlphaShader;
+
+protected:
+	unsigned ShaderBits;
+	static bool ShaderDirty;
+};
 
 class DX8Wrapper
 {
 public:
 	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-	static void Invalidate_Cached_Render_States();
+	static DX8Caps *Get_Current_Caps() { return CurrentCaps; }
+	static void Set_DX8_Render_State(unsigned long, unsigned);
+	static void Set_DX8_Texture_Stage_State(unsigned, unsigned long, unsigned);
+	static void Set_Shader(const ShaderClass &);
+	static void Apply_Render_State_Changes();
 	static __forceinline void Set_DX8_Texture(unsigned stage, IDirect3DBaseTexture8 *texture)
 	{
 		if (stage >= 16) {
@@ -104,6 +137,7 @@ protected:
 	static IDirect3DBaseTexture8 *Textures[16];
 	static unsigned texture_changes;
 	static IDirect3DDevice8 *D3DDevice;
+	static DX8Caps *CurrentCaps;
 };
 
 class W3DShaderManager
@@ -214,19 +248,96 @@ enum FilterModes { FM_NULL_MODE = 0 };
 class Rva000FBA4ASecondary
 {
 public:
-	virtual int slot00() = 0;
+	virtual bool slot00() = 0;
 	virtual int slot04() = 0;
 	virtual bool slot08(bool *, int) = 0;
-	virtual bool slot0C(FilterModes, Coord2D &, bool &, Coord2D *) = 0;
-	virtual int slot10(FilterModes) = 0;
-	virtual int set(FilterModes) = 0;
-	virtual void reset();
+	virtual bool rva000FC04C(FilterModes mode, Coord2D &scrollDelta,
+		bool &doExtraRender,
+		Coord2D *viewportSize);
+	virtual void slot10() = 0;
+	virtual int set(int mode) = 0;
+	virtual void reset() = 0;
 };
 
-// The secondary vtable at 0x00BCF380 points slot 6 to 0x000FD551. Its
-// cleanup tail-calls the rowed DX8Wrapper state invalidation routine.
-void Rva000FBA4ASecondary::reset()
+// Retail points the object's secondary vptr at 0x00BCF380; slot 3 there is
+// 0x000FC04C, with set/reset at +0x14/+0x18. The DOT3 donor supplies the
+// two-pass blend semantics. The class and DOT3 names remain unresolved.
+bool Rva000FBA4ASecondary::rva000FC04C(FilterModes mode,
+	Coord2D &scrollDelta, bool &doExtraRender, Coord2D *viewportSize)
 {
-	DX8Wrapper::Set_DX8_Texture(0, 0);
-	DX8Wrapper::Invalidate_Cached_Render_States();
+	IDirect3DTexture8 *texture = W3DShaderManager::endRenderToTexture();
+	if (!texture)
+		return false;
+	if (!set(mode))
+		return false;
+
+	IDirect3DDevice8 *device = DX8Wrapper::_Get_D3D_Device8();
+	int x;
+	int y;
+	int width;
+	int height;
+	struct TransLitTexVertex
+	{
+		D3DXVECTOR4 position;
+		unsigned long color;
+		float u;
+		float v;
+	} vertices[4];
+	TheTacticalView->getOrigin(&x, &y);
+	width = TheTacticalView->getWidth();
+	height = TheTacticalView->getHeight();
+
+	vertices[0].position = D3DXVECTOR4(x + width - 0.5f, y + height - 0.5f, 0.0f, 1.0f);
+	vertices[0].u = (float)(x + width) / viewportSize->x;
+	vertices[0].v = (float)(y + height) / viewportSize->y;
+	vertices[1].position = D3DXVECTOR4(x + width - 0.5f, y - 0.5f, 0.0f, 1.0f);
+	vertices[1].u = (float)(x + width) / viewportSize->x;
+	vertices[1].v = (float)y / viewportSize->y;
+	vertices[2].position = D3DXVECTOR4(x - 0.5f, y + height - 0.5f, 0.0f, 1.0f);
+	vertices[2].u = (float)x / viewportSize->x;
+	vertices[2].v = (float)(y + height) / viewportSize->y;
+	vertices[3].position = D3DXVECTOR4(x - 0.5f, y - 0.5f, 0.0f, 1.0f);
+	vertices[3].u = (float)x / viewportSize->x;
+	vertices[3].v = (float)y / viewportSize->y;
+
+	unsigned long currentFade = (((int)((1.0f - *(float *)((char *)&g_Va00DEC174 + 0x2c)) * 255.0f)) << 24) | 0x00ffffff;
+	vertices[0].color = currentFade;
+	vertices[1].color = currentFade;
+	vertices[2].color = currentFade;
+	vertices[3].color = currentFade;
+
+	DX8Wrapper::_Get_D3D_Device8()->SetVertexShader(0x144);
+	++number_of_DX8_calls;
+
+	if (DX8Wrapper::Get_Current_Caps()->Support_Dot3()) {
+		DX8Wrapper::Set_DX8_Render_State(60, 0x80a5ca8e);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 26, 35);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 2, 2);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 3, 35);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 1, 25);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(1, 2, 1);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(1, 3, 3);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(1, 1, 24);
+	} else {
+		DX8Wrapper::Set_DX8_Render_State(60, 0x60606060);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 2, 2);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 3, 3);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 1, 4);
+	}
+
+	DX8Wrapper::Set_DX8_Texture(0, (IDirect3DBaseTexture8 *)texture);
+	device->DrawPrimitiveUP(5, 2, vertices, sizeof(TransLitTexVertex));
+
+	ShaderClass::Invalidate();
+	// Retail reuses the dead mode argument slot for its ShaderClass word before
+	// the Set_Shader call; the view is one dword at this point in the body.
+	ShaderClass &shader = *(ShaderClass *)&mode;
+	shader = ShaderClass::_PresetAlphaShader;
+	shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
+	DX8Wrapper::Set_Shader(shader);
+	DX8Wrapper::Apply_Render_State_Changes();
+	DX8Wrapper::Set_DX8_Texture_Stage_State(0, 4, 3);
+	device->DrawPrimitiveUP(5, 2, vertices, sizeof(TransLitTexVertex));
+	reset();
+	return true;
 }
