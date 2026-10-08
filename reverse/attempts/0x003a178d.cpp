@@ -1,5 +1,5 @@
 // ?rva003A178D@Team@@QAEHPAVObjectTypes@@HPAV1@@Z
-// partial score=0.97 date=2026-10-07
+// partial score=0.97113 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 
@@ -87,6 +87,18 @@
 // Retail calls 0x0039DA2A on the ecx that getControllingPlayer preserved, so
 // the recruit bodies joined this TU; they are unchanged by its knowledge, and
 // the earlier bodies are unchanged by the recruit bodies' STLport shims.
+//
+// ?rva003A1626@Team@@QAEHPBVThingTemplate@@PAVRva00376A62@@HPAV1@@Z, retail
+// 0x003A1626 (359 bytes). Same recruit selection as 0x003A1AA3, but the pool
+// is the members of every team instance of srcTeam's prototype (+0x334 list,
+// then each team's member list) instead of the player's objects, with no
+// team or distance checks. Identity (target): WorldBuilder twin 0x00EF9380 by
+// call graph; it calls isInBuildVariations with its custom register args, so
+// it must live in this TU. Object uses the virtual-inheritance skeleton of
+// TeamIterateTeamMemberList.cpp with an inline PMF DLINK_ITERATOR and
+// iterate_TeamMemberList: with the opaque iterator cl kept 0 in esi and
+// spilled the match flag, while retail keeps team, member and flag in
+// edi/esi/bl. The other rows of this TU are unchanged by it.
 #include <vector>
 #include <hash_map>
 #include "ascii_string.h"
@@ -162,16 +174,10 @@ public:
 };
 extern Rva002D06CA *TheThingFactory;
 
-enum KindOfType
-{
-	KINDOF_HORDE = 109,
-	KINDOF_COMBO_HORDE = 110
-};
-
+enum KindOfType { KINDOF_HORDE = 109, KINDOF_COMBO_HORDE = 110 };
 class ThingTemplate
 {
 public:
-	// Only KindOf word 3 (bits 96..127, +0x114) is viewed through this.
 	Bool isKindOf(KindOfType t) const { return (m_kindOfWord3 & (1UL << ((unsigned)t & 31))) != 0; }
 	const ModuleInfo &getBehaviorModuleInfo() const { return m_behaviorModuleInfo; }
 	Bool isEquivalentTo(const ThingTemplate *tt) const;
@@ -184,7 +190,7 @@ private:
 public:
 	UnsignedInt m_kind0; // +0x108
 	unsigned char m_pad10C[0x114 - 0x10C];
-	UnsignedInt m_kindOfWord3; // +0x114
+	UnsignedInt m_kindOfWord3;
 	unsigned char m_pad118[0x11A - 0x118];
 	unsigned char m_kindByte11a; // +0x11A
 private:
@@ -227,7 +233,33 @@ private:
 	Bool m_isRecruitable; // +0x3BE
 };
 
-class Object
+class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+
+class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
+{
+public:
+	unsigned char m_carrier[4];
+};
+
+class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
+
+class BfmeObjectDlinkBase
+{
+public:
+	Object *dlink_next_TeamMemberList() const;
+};
+
+class BfmeObjectDlinkPad
+{
+public:
+	const ThingTemplate *m_template; // +0x04
+	unsigned char m_pad08[0x38 - 0x08];
+	Coord3D m_pos; // +0x38
+	unsigned char m_pad44[0x68 - 0x44];
+};
+
+class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
+	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
@@ -242,14 +274,10 @@ public:
 	void *rva0028C197() const;
 	void rva00346C53(ObjectStatusTypes status, Bool set);
 	Real rva00263763(const void *other) const;
-	void rva0029660C(const Coord3D *pos, Bool flag);
+	void teleportTo(const Coord3D *pos, Bool flag);
 	void setTeam(Team *team);
 private:
-	void *m_vtbl;
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_pos; // +0x38
-	unsigned char m_pad44[0x74 - 0x44];
+	unsigned char m_pad70[0x74 - 0x70];
 public:
 	unsigned int m_id; // +0x74
 private:
@@ -336,14 +364,15 @@ public:
 template<class OBJCLASS>
 class DLINK_ITERATOR
 {
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-
 public:
-	void advance();
+	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
+	DLINK_ITERATOR(OBJCLASS *cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc) {}
+	void advance() { if (m_cur) m_cur = ((*m_cur).*(m_getNextFunc))(); }
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
+private:
+	OBJCLASS *m_cur;
+	GetNextFunc m_getNextFunc;
 };
 
 class BfmeTab1026
@@ -355,11 +384,11 @@ public:
 class ObjectTypes
 {
 public:
-	unsigned int getListSize() const { return m_objectTypes.size(); }
-	AsciiString getNthInList(unsigned int index) const;
+ unsigned int getListSize() const { return m_objectTypes.size(); }
+ AsciiString getNthInList(unsigned int index) const;
 private:
-	unsigned char m_pad00[0x08];
-	_STL::vector<AsciiString> m_objectTypes; // +0x08
+ unsigned char m_pad00[0x08];
+ _STL::vector<AsciiString> m_objectTypes;
 };
 class Rva00376A62
 {
@@ -384,18 +413,19 @@ public:
 	Object *getFirstItemIn_TeamMemberList() const { return m_dlinkhead_TeamMemberList; }
 	Bool isActive() const { return m_active; }
 	Player *getControllingPlayer() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
+	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList); }
 	void rva0039D84A(Object *obj);
 	bool rva0039DF87(BfmeTab1026 *tab);
 	int getTeamKey() const { return m_key34; }
 	Relationship getRelationship(const Team *that) const;
 	const TeamPrototype *getPrototype() const { return m_proto; }
 	void rva0039DA2A(Coord3D *out) const;
-	Bool rva003A123C(Object **recruit, Real *distSqr, Object *obj, const ThingTemplate *tTemplate, const Coord3D *teamHome);
+	Bool recruitUnit(Object **recruit, Real *distSqr, Object *obj, const ThingTemplate *tTemplate, const Coord3D *teamHome);
 	Object *tryToRecruit(const ThingTemplate *tTemplate, const Coord3D *teamHome, Real maxDist, int a4, int a5, int a6);
 	Bool rva003A1542(const ThingTemplate *tTemplate, int minCount);
 	int rva003A1AA3(const ThingTemplate *tTemplate, ObjectTypes *objectTypes, int maxCount, Real maxDist);
 	int rva003A178D(ObjectTypes *types, int maxCount, Team *srcTeam);
+	int rva003A1626(const ThingTemplate *tTemplate, Rva00376A62 *filter, int maxCount, Team *srcTeam);
 
 private:
 	unsigned char m_pad08[0x30 - 0x08];
@@ -435,6 +465,47 @@ public:
 };
 extern Rva002A8F24 *g_00DFEEF8;
 
+class Script
+{
+public:
+	Script *duplicate() const;
+	Bool isEasy() const { return m_easy; }
+	Bool isNormal() const { return m_normal; }
+	Bool isHard() const { return m_hard; }
+	int getDelayEvalSeconds() const { return m_delayEvaluationSeconds; }
+	unsigned int getFrameToEvaluate() const { return m_frameToEvaluate; }
+	void setFrameToEvaluate(unsigned int frame) { m_frameToEvaluate = frame; }
+
+private:
+	unsigned char m_pad00[0x20];
+	int m_delayEvaluationSeconds; // +0x20
+	unsigned char m_pad24[0x2B - 0x24];
+	Bool m_easy; // +0x2B
+	Bool m_normal; // +0x2C
+	Bool m_hard; // +0x2D
+	unsigned char m_pad2E[0x3C - 0x2E];
+	unsigned int m_frameToEvaluate; // +0x3C
+};
+
+class ScriptEngine
+{
+public:
+	Script *rva003573C4(const AsciiString &owner, const AsciiString &name, AsciiString *outName);
+	Bool rva0020A1D0(const AsciiString &scope, Script *pScript, Team *thisTeam, Player *player);
+};
+
+extern ScriptEngine *TheScriptEngine;
+extern int g_Va00DBA4E4;	// logic frames per second
+extern unsigned g_Va00E028C4;	// static AsciiString "<!TRUE!>"
+
+enum GameDifficulty
+{
+	DIFFICULTY_EASY,
+	DIFFICULTY_NORMAL,
+	DIFFICULTY_HARD,
+	DIFFICULTY_BRUTAL
+};
+
 class TeamPrototype
 {
 public:
@@ -448,16 +519,24 @@ public:
 	void updateState();
 	void teamAboutToBeDeleted(Team *team);
 	void rva003A0CD1();
+	Bool evaluateProductionCondition();
 
 private:
 	unsigned char m_pad00[0x04];
 	TeamFactory *m_factory; // +0x04
 	Player *m_owningPlayer; // +0x08
-	unsigned char m_pad0C[0x18 - 0x0C];
+	unsigned char m_pad0C[0x10 - 0x0C];
+	AsciiString m_owner; // +0x10
+	unsigned char m_pad14[0x18 - 0x14];
 	int m_flags; // +0x18
-	unsigned char m_pad1C[0x1E8 - 0x1C];
+	Bool m_productionConditionAlwaysFalse; // +0x1C
+	AsciiString m_productionConditionScope; // +0x20
+	Script *m_productionConditionScript; // +0x24
+	unsigned char m_pad28[0x1E8 - 0x28];
 	TeamTemplateInfo m_teamTemplate; // +0x1E8
-	unsigned char m_pad220[0x334 - 0x220];
+	unsigned char m_pad220[0x23C - 0x220];
+	AsciiString m_productionCondition; // +0x23C
+	unsigned char m_pad240[0x334 - 0x240];
 	Team *m_dlinkhead_TeamInstanceList; // +0x334
 };
 
@@ -604,6 +683,73 @@ void TeamPrototype::rva003A0CD1()
 		m_factory->removeTeamPrototypeFromList(this);
 }
 
+// ?evaluateProductionCondition@TeamPrototype@@QAE_NXZ, retail 0x003A0E6E
+// (244 bytes). Identity (target): AIPlayer::isAGoodIdeaToBuildTeam
+// (0x004F1566) calls it first on the prototype, where Zero Hour's
+// AIPlayer.cpp calls TeamPrototype::evaluateProductionCondition.
+// Donor (Zero Hour Team.cpp): always-false latch, periodic re-evaluation
+// gated on the script's frame, script lookup by name with the difficulty
+// filter, then a private duplicate. BFME 2 deltas (target): a condition
+// equal to the static "<!TRUE!>" string (0x00E028C4) is always true; the
+// lookup takes the owner name and returns a scope string (+0x20) that the
+// evaluation (0x0020A1D0) installs around ScriptEngine's condition test;
+// the frames-per-second factor is the global at 0x00DBA4E4; the fourth
+// difficulty shares the hard flag.
+Bool TeamPrototype::evaluateProductionCondition()
+{
+	if (m_productionConditionAlwaysFalse)
+		return false;
+	if (m_productionCondition.compare(*(const AsciiString *)&g_Va00E028C4) == 0)
+		return true;
+	if (m_productionConditionScript)
+	{
+		if (TheGameLogic->getFrame() < m_productionConditionScript->getFrameToEvaluate())
+			return false;
+		int delaySeconds = m_productionConditionScript->getDelayEvalSeconds();
+		if (delaySeconds > 0)
+			m_productionConditionScript->setFrameToEvaluate(TheGameLogic->getFrame() + delaySeconds * g_Va00DBA4E4);
+		return TheScriptEngine->rva0020A1D0(m_productionConditionScope, m_productionConditionScript, 0, getControllingPlayer());
+	}
+	if (((const StringBase<char> *)&m_productionCondition)->isEmpty())
+	{
+		m_productionConditionAlwaysFalse = true;
+		return false;
+	}
+	Script *pScript = TheScriptEngine->rva003573C4(m_owner, m_productionCondition, &m_productionConditionScope);
+	if (pScript)
+	{
+		switch ((int)((Rva002A9BF2 *)getControllingPlayer())->rva002A9BF2())
+		{
+		case DIFFICULTY_EASY:
+			if (!pScript->isEasy())
+			{
+				m_productionConditionAlwaysFalse = true;
+				return false;
+			}
+			break;
+		case DIFFICULTY_NORMAL:
+			if (!pScript->isNormal())
+			{
+				m_productionConditionAlwaysFalse = true;
+				return false;
+			}
+			break;
+		case DIFFICULTY_HARD:
+		case DIFFICULTY_BRUTAL:
+			if (!pScript->isHard())
+			{
+				m_productionConditionAlwaysFalse = true;
+				return false;
+			}
+			break;
+		}
+		m_productionConditionScript = pScript->duplicate();
+		return TheScriptEngine->rva0020A1D0(m_productionConditionScope, m_productionConditionScript, 0, getControllingPlayer());
+	}
+	m_productionConditionAlwaysFalse = true;
+	return false;
+}
+
 static Bool isInBuildVariations(const ThingTemplate* ttWithVariations, const ThingTemplate* b)
 {
 	const _STL::vector<AsciiString>& bv = ttWithVariations->getBuildVariations();
@@ -618,7 +764,7 @@ static Bool isInBuildVariations(const ThingTemplate* ttWithVariations, const Thi
 	return false;
 }
 
-Bool Team::rva003A123C(Object **recruit, Real *distSqr, Object *obj, const ThingTemplate *tTemplate, const Coord3D *teamHome)
+Bool Team::recruitUnit(Object **recruit, Real *distSqr, Object *obj, const ThingTemplate *tTemplate, const Coord3D *teamHome)
 {
 	Player *myPlayer = getControllingPlayer();
 	if (!obj->getTemplate()->isEquivalentTo(tTemplate))
@@ -705,13 +851,13 @@ Object *Team::tryToRecruit(const ThingTemplate *tTemplate, const Coord3D *teamHo
 	for (Object *obj = TheGameLogic->getFirstObject(); obj; obj = obj->getNextObject()) {
 		if (obj->isDestroyed())
 			continue;
-		if (rva003A123C(&recruit, &distSqr, obj, tTemplate, teamHome))
+		if (recruitUnit(&recruit, &distSqr, obj, tTemplate, teamHome))
 			continue;
 		if (!isHorde)
 			continue;
-		if (rva003A123C(&recruit0, &distSqr0, obj, t0, teamHome))
+		if (recruitUnit(&recruit0, &distSqr0, obj, t0, teamHome))
 			continue;
-		rva003A123C(&recruit1, &distSqr1, obj, t1, teamHome);
+		recruitUnit(&recruit1, &distSqr1, obj, t1, teamHome);
 	}
 
 	if (isHorde && recruit0 && recruit1) {
@@ -780,6 +926,55 @@ Bool Team::rva003A1542(const ThingTemplate *tTemplate, int minCount)
 		count++;
 	}
 	return count >= minCount;
+}
+
+int Team::rva003A1626(const ThingTemplate *tTemplate, Rva00376A62 *filter, int maxCount, Team *srcTeam)
+{
+	int count = 0;
+	Coord3D home;
+	rva0039DA2A(&home);
+	while (count < maxCount) {
+		Object *best = NULL;
+		Real bestDistSqr = 0.0f;
+		for (TeamInstanceIterator<Team> teamIt = srcTeam->getPrototype()->iterate_TeamInstanceList(); !teamIt.done(); teamIt.advance()) {
+			Team *team = teamIt.cur();
+			if (!team)
+				continue;
+			if (count >= maxCount)
+				break;
+			for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance()) {
+				Object *obj = iter.cur();
+				if (!obj)
+					continue;
+				Bool match = false;
+				if (tTemplate) {
+					if (obj->getTemplate()->isEquivalentTo(tTemplate))
+						match = true;
+					if (isInBuildVariations(tTemplate, obj->getTemplate()))
+						match = true;
+				}
+				if (filter && filter->rva00376A84(obj->getTemplate()))
+					match = true;
+				if (!match)
+					continue;
+				if (obj->getAIUpdateInterface() && !obj->getAIUpdateInterface()->isRecruitable())
+					continue;
+				if (obj->isDisabledByType_HELD())
+					continue;
+				Real dx = home.x - obj->getPosition()->x;
+				Real dy = home.y - obj->getPosition()->y;
+				if (best != NULL && dx*dx+dy*dy > bestDistSqr)
+					continue;
+				bestDistSqr = dx*dx+dy*dy;
+				best = obj;
+			}
+		}
+		if (best == NULL)
+			break;
+		count++;
+		best->setTeam(this);
+	}
+	return count;
 }
 
 int Team::rva003A1AA3(const ThingTemplate *tTemplate, ObjectTypes *objectTypes, int maxCount, Real maxDist)
@@ -932,7 +1127,7 @@ int Team::rva003A178D(ObjectTypes *types, int maxCount, Team *srcTeam)
 									++count;
 									recruited = true;
 									if (distSqr > 22500.0f)
-										combined->rva0029660C(combined->getPosition(), false);
+										combined->teleportTo(combined->getPosition(), false);
 								}
 							}
 							if (count >= maxCount)
