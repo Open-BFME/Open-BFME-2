@@ -130,7 +130,7 @@ public:
 	virtual void xfer(Xfer *xfer);	// slot 5
 	void rva004EDF03();
 	void rva004ECE1C();
-	void start(Rva00506909Request *request, void *arg);
+	bool start(Rva00506909Request *request, void *arg);
 	void start(void *owner);
 	void rva004ED6D2(class Team *unit);
 	void NotifyTeamCancelled(class Team *unit);

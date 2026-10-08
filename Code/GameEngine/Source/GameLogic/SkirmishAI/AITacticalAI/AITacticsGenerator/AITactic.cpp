@@ -1,4 +1,4 @@
-// cl: /ICode/Libraries/Include/Lib /O1 /MD /Ireference/shims/bfme2_ascii /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /ICode/Libraries/Include/Lib /O1 /arch:SSE /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
 #include "ascii_string.h"
@@ -14,6 +14,9 @@
 // ?GetGameLogicRandomValue@@YAHHHPADH@Z with file/line 0x182; vtable slot 3 refs.
 int __cdecl GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
+struct Rva00506909Request;
+struct Rva003A2FD4Proto;
+extern const char *AITargetTypeNames[];
 class Team;
 class TeamPrototype
 {
@@ -21,7 +24,12 @@ public:
 	unsigned int snapshotID() const { return m_id; }
 private:
 	unsigned char m_pad[0xC];
-	unsigned int m_id;					// +0x0C
+	unsigned int m_id; // +0x0C
+    unsigned char m_pad10[0x2CC - 0x10];
+public:
+    int m_tacticKind; // +0x2CC
+    unsigned char m_pad2D0[0x2DC - 0x2D0];
+    unsigned int m_tacticOrdinal; // +0x2DC
 };
 
 class Xfer
@@ -79,8 +87,11 @@ class Player
 {
 public:
 	int getPlayerIndex() const { return m_index; }
+    const AsciiString &nameForTeamCreation() const { return m_ownerName; }
 private:
-	unsigned char m_pad[0x54];
+	unsigned char m_pad[0x4C];
+    AsciiString m_ownerName;
+    unsigned char m_pad50[4];
 	int m_index;						// +0x54
 };
 
@@ -107,7 +118,8 @@ class Object { public: bool isKindOf(KindOfType) const; };
 class TeamFactory
 {
 public:
-	TeamPrototype *findTeamPrototypeByID(unsigned int id);
+	Rva003A2FD4Proto *initTeamForTacticalAI(const AsciiString &name, void *ownerName, int targetID, unsigned int tacticID);
+    TeamPrototype *findTeamPrototypeByID(unsigned int id);
 	Team *findTeamByID(unsigned int id);			// 0x0039F761
 };
 
@@ -151,7 +163,8 @@ class Rva002C589B
 public:
 	void rva002C5843(bool flag);				// 0x002C5843
 	void markApproachHazard(void *area);			// 0x002C590F
-	void removeTactic() { --m_numTactics; }
+	int rva0030F2C7() const;
+    void removeTactic() { --m_numTactics; }
 
 	unsigned char m_pad00[4];
 	int m_04;						// +0x04
@@ -159,7 +172,8 @@ public:
 	bool m_19;
 	unsigned char m_pad1A[2];
 	int m_numTactics; // +0x1C
-    unsigned char m_pad20[0x38 - 0x20];
+    int m_tacticLimit; // +0x20
+    unsigned char m_pad24[0x38 - 0x24];
     unsigned int m_id; // +0x38
     unsigned int getID() const { return m_id; }
 };
@@ -199,6 +213,7 @@ public:
 
 	void end(bool a, bool b);
 	void preUpdate();
+    bool start(Rva00506909Request *request, void *owner);
     void NotifyTeamCreated(Team *team);
 	void updateTeamInfos();
 	void calcLastTeamPos();
@@ -450,4 +465,43 @@ void AITactic::xfer(Xfer *xfer)
 		xfer->xferUnsignedInt(&m_54);
 	}
 }
+
+
+// FACT: WB request-based AITactic::start; native 004ED81D..004ED955.
+// AL true/false and RET8 establish bool; target count/limit +1C/+20 and
+// owner AsciiString +4C agree with the existing factory provider.
+bool AITactic::start(Rva00506909Request *request, void *owner)
+{
+    // The generator retains an opaque legacy request handle; native stores
+    // exactly this same target into +0x20 and accesses its established fields.
+    Rva002C589B *target = (Rva002C589B *)request;
+    int limit = target->m_tacticLimit;
+    if (target->rva0030F2C7() < limit) {
+        m_20 = target;
+        m_24 = owner;
+        unsigned int created = 0;
+        for (unsigned int i = 0; i < getNumberOfTeamsNeeded(); ++i) {
+            AsciiString name;
+            const char *kind = target->m_04 != -1 ? AITargetTypeNames[target->m_04] : "INVALID";
+            name.format("%s_%s_%u_%u", kind, m_name.str(), m_30, i);
+            TeamPrototype *proto = (TeamPrototype *)TheTeamFactory->initTeamForTacticalAI(
+                name, (void *)&((Player *)owner)->nameForTeamCreation(), (int)target->getID(), m_30);
+            if (proto) {
+                m_protos.push_back(proto);
+                proto->m_tacticKind = target->m_04;
+                proto->m_tacticOrdinal = i;
+                if (initializeTeamTemplate(proto, i)) ++created;
+            }
+        }
+        if (created == getNumberOfTeamsNeeded()) {
+            ++target->m_numTactics;
+            return true;
+        }
+    }
+    m_20 = 0;
+    end(false, false);
+    return false;
+}
+
+
 

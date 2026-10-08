@@ -13606,7 +13606,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00442BCC@AptMpGameSetup@@QAE_NXZ,0x00442BCC,unrowed 208B thiscall (Ghidra FUN_00842bcc; returns al) on the LAN lobby MpGameSetup panel; walks the slots through the S5 handle iterator and checks the six widget arrays at +0x2D4..+0x374; tail-jumped from 0x00442CAE; address name
 ?rva00442C9C@AptMpGameSetup@@QAE_NXZ,0x00442C9C,unrowed 23B thiscall (Ghidra FUN_00842c9c; returns al; false unless +0x7C or +0x394 is set then tail-jumps to 0x00442BCC) on the LAN lobby MpGameSetup panel; called from 0x00442FA7 and 0x004467C7; address name
 ?rva00443538@AptMpGameSetup@@QAEXH@Z,0x00443538,unrowed 1723B thiscall (Ghidra FUN_00843538; ret 4; argument tested as a flag mask e.g. 0x40) on the LAN lobby MpGameSetup panel; called from 0x00443C14 with 0x1B; address name
-?start@AITactic@@QAEXPAURva00506909Request@@PAX@Z,0x004ED81D,new item setup with the request and argument; REL32s in the three Rva00506909 pickers (first at 0x00506220); WB AITactic::start (two-argument overload; initTeamForTacticalAI)
 ?start@AITactic@@QAEXPAX@Z,0x004ED955,new item setup for the owner; REL32 at 0x005064D8 in Rva00506909::rva00506411; WB AITactic::start (one-argument overload; initTeamForTacticalAI)
 ?rva0057B16D@ChecklistUIImpl@StrategicHUD@@QAEXXZ,0x0057B16D,unrowed 170B thiscall (Ghidra FUN_0097b16d) on the WOTR panel built by 0x0057B5AA; REL32 read at its _OnScrollBarLoaded 0x0057B595 with ECX=the panel; address name
 ?allowOffensiveTactic@AIDifficulty@@QAE_NPAVRva002A9BF2@@@Z,0x0058AFB3,accept test on the object 0x0058AEB6 returns; REL32 at 0x00506193 in Rva00506909::rva00506178
@@ -16326,3 +16325,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva002B83E5@LivingWorldLogic@@QAEXXZ,0x002B83E5,callee of ?rva002B84CD@LivingWorldLogic@@QAEXH@Z
 ?rva002B49A8@LivingWorldLogic@@QAEXXZ,0x002B49A8,callee of ?rva002B84CD@LivingWorldLogic@@QAEXH@Z
 ?push_back@?$vector@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAEXABQAVTeamPrototype@@@Z,0x004DFCB0,Native AITactic prototype vector push call; whole bytes and recursive relocation proof verified; fold-proof=Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp
+?start@AITactic@@QAE_NPAURva00506909Request@@PAX@Z,0x004ED81D,WB AITactic start request overload; native312B 004ED81D..004ED955 returns AL bool and RET8; corrects old void caller declaration
