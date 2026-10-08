@@ -91,6 +91,62 @@ struct BfmeHeroElement005C39DE
 	BfmeHeroElement005C39DE &operator=(const BfmeHeroElement005C39DE &);
 };
 
+// Target offsets read by native4078A8; WB names the command-button,
+// special-power and upgrade paths. The two command values remain numeric.
+class Overridable
+{
+public:
+	const Overridable *friend_getFinalOverride() const;
+private:
+	void *m_vtbl;
+};
+class SpecialPowerTemplate : public Overridable
+{
+public:
+	unsigned char m_pad04[0x10 - 4];
+	AsciiString m_name;
+};
+class UpgradeTemplate
+{
+public:
+	const AsciiString &getName() const { return m_name; }
+	unsigned char m_pad00[8];
+	AsciiString m_name;
+};
+class CommandButton
+{
+public:
+	const UpgradeTemplate *getNeededUpgrade() const { return m_neededBegin[0]; }
+	unsigned char m_pad00[0x14];
+	Int m_command;
+	unsigned char m_pad18[4];
+	UnsignedInt m_options;
+	unsigned char m_pad20[8];
+	const UpgradeTemplate **m_neededBegin, **m_neededEnd, **m_neededCapacity;
+	unsigned char m_pad34[0x44 - 0x34];
+	const SpecialPowerTemplate *m_power;
+};
+class ControlBar
+{
+public:
+	const CommandButton *findCommandButton(const AsciiString &);
+};
+extern ControlBar *TheControlBar;
+class Object
+{
+public:
+	const AsciiString &rva00292330(const AsciiString &);
+};
+class Rva004076EE { public: Object *rva004076EE(); };
+class ExperienceLevelStore
+{
+public:
+	Bool CreateNewExpLevel(const AsciiString &source, const AsciiString &name,
+		const AsciiString &experience, const AsciiString &upgrades, const AsciiString &attributes);
+};
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
+
 // WorldBuilder's CAH_MAX_EXP_LEVELS (the SetButtonForLevel assert).
 enum { CAH_MAX_EXP_LEVELS = 15 };
 
@@ -110,6 +166,8 @@ public:
 	Int GetBlingId(Int blingKey, UnsignedInt index) const;
 	Bool SetButtonForLevel(const AsciiString &button, UnsignedInt experienceLevel, UnsignedInt value);
 	void UpdateAwardEarnedFlags();
+	Bool AddCommandButtonLevel(UnsignedInt index, const AsciiString &source,
+		const AsciiString &name, const AsciiString &experience);
 
 private:
 	Bool rva004079D5(Int blingKey, CreateAHeroBlingNode **found) const;	// 0x004079D5
@@ -205,4 +263,42 @@ Bool CreateAHeroHero::SetButtonForLevel(const AsciiString &button, UnsignedInt e
 		m_buttons[experienceLevel] = record;
 	}
 	return true;
+}
+
+// WB107E250 supplies the identity; native4078A8..4079D0 supplies this
+// RET16 body and every field offset. CreateNewExpLevel's native28A473
+// RET20 and WB BE9C10 show five string references: the third is pushed into
+// vector<AsciiString>, and the last two go to SplitUpgrades/SplitString.
+Bool CreateAHeroHero::AddCommandButtonLevel(UnsignedInt index, const AsciiString &source,
+	const AsciiString &name, const AsciiString &experience)
+{
+	Object *object = ((Rva004076EE *)this)->rva004076EE();
+	const CommandButton *button = TheControlBar->findCommandButton(m_buttons[index].text);
+	if (!button)
+		return false;
+	if (button->m_command == 0x18 || button->m_command == 0x25)
+	{
+		const SpecialPowerTemplate *power = button->m_power;
+		if (!power)
+			return false;
+		power = (const SpecialPowerTemplate *)power->friend_getFinalOverride();
+		AsciiString upgradeName = object->rva00292330(power->m_name);
+		if (upgradeName.isEmpty())
+			return false;
+		((ExperienceLevelStore *)TheExperienceLevelSystem)->CreateNewExpLevel(
+			source, name, experience, upgradeName, AsciiString());
+		return true;
+	}
+	if (button->m_options & 0x40)
+	{
+		if ((UnsignedInt)(button->m_neededEnd - button->m_neededBegin) != 1)
+			return false;
+		const AsciiString &upgradeName = button->getNeededUpgrade()->getName();
+		if (((const StringBase<char> *)&upgradeName)->isEmpty())
+			return false;
+		((ExperienceLevelStore *)TheExperienceLevelSystem)->CreateNewExpLevel(
+			source, name, experience, upgradeName, AsciiString());
+		return true;
+	}
+	return false;
 }
