@@ -182,6 +182,7 @@ public:
 		bool checkDockUpdate);
 	bool canFireWeaponAtLocation(const Object *obj, const Coord3D *loc, CommandSourceType commandSource,
 		WeaponSlotType slot, const Object *objectInWay);
+	bool rva0041C138(const Object *obj, const Object *target, CommandSourceType commandSource);
 };
 
 bool ActionManager::validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
@@ -703,7 +704,8 @@ class ActionContainView
 {
 public:
 	virtual void c00(); virtual void c01(); virtual void c02(); virtual void c03();
-	virtual void c04(); virtual void c05(); virtual void c06(); virtual void c07();
+	virtual bool slot10();	// +0x10
+	virtual void c05(); virtual void c06(); virtual void c07();
 	virtual void c08(); virtual void c09(); virtual void c10(); virtual void c11();
 	virtual void c12(); virtual void c13(); virtual void c14(); virtual void c15();
 	virtual void c16(); virtual void c17(); virtual void c18(); virtual void c19();
@@ -721,7 +723,9 @@ public:
 	virtual void c55(); virtual void c56(); virtual void c57(); virtual void c58();
 	virtual void c59(); virtual void c60(); virtual void c61(); virtual void c62();
 	virtual void c63(); virtual void c64(); virtual void c65(); virtual void c66();
-	virtual void c67(); virtual void c68(); virtual void c69(); virtual void c70();
+	virtual void c67(); virtual void c68();
+	virtual int slot114(int);	// +0x114
+	virtual void c70();
 	virtual void c71(); virtual void c72(); virtual void c73(); virtual void c74();
 	virtual void c75(); virtual void c76(); virtual void c77(); virtual void c78();
 	virtual void c79(); virtual void c80(); virtual void c81(); virtual void c82();
@@ -1158,4 +1162,42 @@ bool ActionManager::canFireWeaponAtLocation(const Object *obj, const Coord3D *lo
 			return false;
 	}
 	return true;
+}
+
+// 0x0041C138's player view: Player::getRelationship(const Team *) is the
+// matched 0x002AD0C6 row; the target's team sits at Object+0x304.
+class Player
+{
+public:
+	Relationship getRelationship(const Team *that) const;	// 0x002AD0C6
+};
+
+// Retail 0x0041C138..0x0041C21B RET12, no REL32 callers. Target evidence:
+// the object's KindOf dword has bit 8 set and bit 27 clear, the target is
+// KindOf 7, both carry a contain module at +0x250 and the target's +0x10
+// slot passes; the same controlling player defers to the +0x98 slot, a
+// NEUTRAL player-to-team relationship also needs the +0x114 slot to be 0.
+bool ActionManager::rva0041C138(const Object *obj, const Object *target, CommandSourceType commandSource)
+{
+	if (obj == 0 || target == 0)
+		return false;
+	unsigned int kindof = *reinterpret_cast<const unsigned int *>(actionTemplate(obj) + 0x108);
+	if (!(kindof & 0x100) || (kindof & 0x8000000))
+		return false;
+	if (!(actionTemplate(target)[0x108] & 0x80))
+		return false;
+	if (actionContain(obj) == 0)
+		return false;
+	ActionContainView *contain = actionContain(target);
+	if (contain == 0)
+		return false;
+	if (!contain->slot10())
+		return false;
+	if (obj->getControllingPlayer() == target->getControllingPlayer())
+		return contain->allow(obj, true, true);
+	if (obj->getControllingPlayer()->getRelationship(
+			*reinterpret_cast<const Team *const *>(reinterpret_cast<const char *>(target) + 0x304)) == NEUTRAL) {
+		return contain->slot114(0) == 0 && contain->allow(obj, true, true) ? 1 : 0;
+	}
+	return false;
 }
