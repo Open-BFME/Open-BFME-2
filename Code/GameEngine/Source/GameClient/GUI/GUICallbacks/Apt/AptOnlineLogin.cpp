@@ -20,8 +20,26 @@ public:
     virtual UnicodeString fetch(const char *,bool *exists=0);
 };
 extern GameTextInterface *TheGameText;
+class UserPreferences { public: virtual ~UserPreferences(); virtual bool write(); };
+class GameSpyMiscPreferences: public UserPreferences {
+public: GameSpyMiscPreferences(); virtual ~GameSpyMiscPreferences();
+    int rva00559782();
+    unsigned char rest[0x10];
+};
+class Rva00222A8BTarget { public:
+    int invoke(void *,const char *,int,const char *,void *,void *,void *,void *);
+};
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+class Rva0056DCBF { public: void rva0056DCBF(bool); };
+struct AptOnlineLoginOwner { unsigned char pad[0x274]; void *movie; };
 class AptOnlineLogin {
-public: void OnBttnRegisterFESL(const char *);
+public:
+    void OnBttnRegisterFESL(const char *);
+    void rva00572632(const char *);
+private:
+    unsigned char pad00[0x58]; AptOnlineLoginOwner *owner;
+    unsigned char pad5c[0xD0-0x5C]; bool closeLocale;
+    unsigned char padD1[3]; int locale;
 };
 void AptOnlineLogin::OnBttnRegisterFESL(const char *)
 {
@@ -37,5 +55,33 @@ void AptOnlineLogin::OnBttnRegisterFESL(const char *)
         } else {
             GSMessageBoxOk(TheGameText->fetch("GUI:GSErrorTitle"),TheGameText->fetch("GUI:EREGError"),0);
         }
+    }
+}
+
+// Registered as AptOnline::Login::Login in native 572885. BFME1 donor
+// 34f59164 OnlineLoginLogin.cpp supplies purpose and control flow;
+// native 572632..572766 verifies fields 58/D0/D4 and all callees.
+// The target callback's method name remains address-derived.
+void AptOnlineLogin::rva00572632(const char *)
+{
+    if(g_bfmeObjELB) {
+        { void *movie=owner->movie;
+          TheRva00222A8BTarget->invoke(movie,"CallChild",1,"DisableButtonDeleteNickname",0,0,0,0); }
+        { void *movie=owner->movie;
+          TheRva00222A8BTarget->invoke(movie,"CallChild",1,"DisableButtonCreate",0,0,0,0); }
+        { void *movie=owner->movie;
+          TheRva00222A8BTarget->invoke(movie,"CallChild",1,"DisableButtonLogin",0,0,0,0); }
+        { void *movie=owner->movie;
+          TheRva00222A8BTarget->invoke(movie,"CallChild",1,"DisableButtonServiceTerms",0,0,0,0); }
+        GameSpyMiscPreferences preferences;
+        if(preferences.rva00559782()>=1 && preferences.rva00559782()<=0x25) {
+            locale=preferences.rva00559782();
+            g_bfmeObjELB->bfmeTailELB(false);
+            return;
+        }
+        closeLocale=false;
+        void *movie=owner->movie;
+        TheRva00222A8BTarget->invoke(movie,"CallChild",1,"DoOpenLocale",0,0,0,0);
+        ((Rva0056DCBF *)this)->rva0056DCBF(false);
     }
 }
