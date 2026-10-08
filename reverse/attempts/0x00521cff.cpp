@@ -1,4 +1,6 @@
 // ?rva00521CFF@AptSkirmish@@QAEXXZ
+// partial score=0.8 date=2026-10-08
+// ?rva00521CFF@AptSkirmish@@QAEXXZ
 // partial score=0.8 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
@@ -72,11 +74,11 @@ public:
 // The skirmish screen instance (Rva0052192DInit.cpp's g_00E04930).
 extern int g_00E04930;
 
-class Rva00222A8BTarget;
-extern class Rva00222A8BTarget *TheRva00222A8BTarget;
+class AptPlayer;
+extern class AptPlayer *TheAptPlayer;
 
 // MpGameSetupSlots.cpp's 0x0043DB23 runs an Apt function on a movie.
-void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
+void Rva0043DB23(AptPlayer *target, void *owner, const char *name);
 
 class Rva00222479ByteOneSetter
 {
@@ -131,7 +133,7 @@ void Rva00521643Enable()
 {
 	if (g_00E04930 == 0)
 		return;
-	((Rva00222479ByteOneSetter *)TheRva00222A8BTarget)->enable();
+	((Rva00222479ByteOneSetter *)TheAptPlayer)->enable();
 }
 
 // Retail 0x00521741, 13 bytes: "AptSkirmish::OnInitialized".
@@ -237,13 +239,14 @@ extern GlobalData *TheWritableGlobalData;
 void InitGameLogicRandom(unsigned int seed);
 
 // The Apt window manager's rowed 0x00222F55 and unrowed 0x00222A33 (pinned).
-class Rva00222A8BTarget
+class AptPlayer
 {
 public:
-	void rva00222A33(int value);
-	void rva00222F55(bool value);
+	void PopFocus(class AptFocusTarget *value);
+	
 };
 
+class Rva00222A8BTarget { public: void rva00222F55(bool); };
 class Shell
 {
 public:
@@ -276,7 +279,7 @@ public:
 extern VideoPlayerInterface *TheVideoPlayer;
 
 // The object at 0x00DFEF18 (Rva003BCC94Do.cpp's view): slot 10 with 1.
-class Rva00521CFFHost
+class Rva002D3627Host
 {
 public:
 #define V(n) virtual void pad##n() = 0;
@@ -286,8 +289,7 @@ public:
 	virtual void slot10(int value) = 0;
 };
 
-extern Rva00521CFFHost *g_00DFEF18;
-#pragma comment(linker, "/alternatename:?g_00DFEF18@@3PAVRva00521CFFHost@@A=?g_00DFEF18@@3PAVRva002D3627Host@@A")
+extern Rva002D3627Host *g_00DFEF18;
 
 class GameMessage
 {
@@ -295,7 +297,7 @@ public:
 	void appendIntegerArgument(int arg);
 };
 
-// Zero Hour's TheMessageStream (the ledger's MessageStreamSubsystem at
+// Zero Hour's TheMessageStream (the ledger's TheMessageStream at
 // 0x00E00950): appendMessage is slot 18.
 class MessageStream
 {
@@ -308,7 +310,7 @@ public:
 	virtual GameMessage *appendMessage(int type) = 0;
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern MessageStream *TheMessageStream;
 
 class MapMetaData
 {
@@ -340,14 +342,14 @@ void AptSkirmish::rva00521CFF()
 		return;
 	if (screen->m_304 == 1)
 	{
-		TheRva00222A8BTarget->rva00222A33(-1);
-		TheRva00222A8BTarget->rva00222F55(false);
+		TheAptPlayer->PopFocus((AptFocusTarget*)-1);
+		((Rva00222A8BTarget*)TheAptPlayer)->rva00222F55(false);
 		TheShell->rva0035BF4C(true);
 		TheDisplay->m_114 = true;
 		TheVideoPlayer->v28();
 		TheGameLogic->rva00376E92(0, 0);
 		g_00DFEF18->slot10(1);
-		GameMessage *msg = MessageStreamSubsystem->appendMessage(0x1F);
+		GameMessage *msg = TheMessageStream->appendMessage(0x1F);
 		if (msg)
 		{
 			msg->appendIntegerArgument(TheSkirmishGameInfo->m_58);
@@ -360,234 +362,9 @@ void AptSkirmish::rva00521CFF()
 		const MapMetaData *map = TheMapCache->findMap(TheSkirmishGameInfo->getMap());
 		if (map)
 			flagged = map->m_24;
-		GameMessage *msg = MessageStreamSubsystem->appendMessage(0x1E);
+		GameMessage *msg = TheMessageStream->appendMessage(0x1E);
 		msg->appendIntegerArgument(flagged ? 2 : 0);
 		msg->appendIntegerArgument(1);
 		msg->appendIntegerArgument(0);
-	}
-}
-
-// Retail 0x00521763, 13 bytes: "AptSkirmish::OnStatsMenu".
-void AptSkirmish::OnStatsMenu(const char *unused)
-{
-	m_state = 8;
-}
-
-// Retail 0x00521770, 158 bytes: state machine for stats/profile screens.
-// Cases 2/3/4 on m_state; case 2 checks SkirmishPreferences at +0x698,
-// tears down TheSkirmishGameInfo, notifies g_Va00E0333C panel and re-enables.
-void AptSkirmish::rva00521770(const char *unused)
-{
-	(void)unused;
-	switch (m_state) {
-	case 2: {
-		m_6c1 = true;
-		m_state = 7;
-		SkirmishPreferences *prefs = (SkirmishPreferences *)((char *)this + 0x698);
-		if (prefs->Rva0043B9E8())
-			return;
-		prefs->v3slotC();
-		GameInfo *g = TheSkirmishGameInfo;
-		void *toFree;
-		if (g != 0)
-			toFree = g->v0slot0(0);
-		else
-			toFree = 0;
-		operator delete(toFree);
-		TheSkirmishGameInfo = 0;
-		Panel00E0333C *panel = (Panel00E0333C *)(void *)g_Va00E0333C;
-		if (panel != 0)
-			panel->p1slot4();
-		Rva00521643Enable();
-		break;
-	}
-	case 3:
-		m_6c1 = true;
-		m_state = 5;
-		break;
-	case 4:
-		m_6c1 = true;
-		m_state = 7;
-		break;
-	}
-}
-
-// Retail 0x00521826, 27 bytes: "AptSkirmish::OnExitStatsScreen".
-void AptSkirmish::OnExitStatsScreen(const char *unused)
-{
-	if (m_state == 8 || m_state == 9)
-		m_state = 7;
-}
-
-// Retail 0x00521E65, 17 bytes: "AptSkirmish::OnClosed".
-void AptSkirmish::OnClosed(const char *unused)
-{
-	if (m_state == 11)
-		rva00521CFF();
-}
-
-// Retail 0x00521E76, 76 bytes: "AptSkirmish::OnNewProfileMenu" focuses
-// and clears the profile name entry.
-void AptSkirmish::OnNewProfileMenu(const char *unused)
-{
-	m_state = 2;
-	TheWindowManager->winSetFocus(m_nameEntry.m_window);
-	GadgetTextEntrySetText(m_nameEntry.m_window, UnicodeString::TheEmptyString);
-	m_6c2 = true;
-}
-
-// Retail 0x0052266B, 22 bytes: "AptSkirmish::OnDeleteProfileMenu".
-void AptSkirmish::OnDeleteProfileMenu(const char *unused)
-{
-	rva00522556();
-	m_state = 3;
-}
-
-// Retail 0x00522681, 22 bytes: "AptSkirmish::OnChangeProfileMenu".
-void AptSkirmish::OnChangeProfileMenu(const char *unused)
-{
-	rva00522556();
-	m_state = 4;
-}
-
-// Retail 0x00522918, 187 bytes: "AptSkirmish::InitGadgets" links the
-// emptied "Skirmish::CreatePersonaEntry" (11 characters) and keeps the
-// "Skirmish::SelectProfile" list, refilling it (0x00522556).
-void AptSkirmish::InitGadgets(const char *name, void *argument, GameWindow *window)
-{
-	if (!window)
-		return;
-	if (strcmp(name, "Skirmish::CreatePersonaEntry") == 0)
-	{
-		m_nameEntry.attach(window);
-		UnicodeString text = UnicodeString::TheEmptyString;
-		GameWindow *entry = m_nameEntry.m_window;
-		bfmeGo924F((BfmeKeyLC *)entry, 11);
-		GadgetTextEntrySetText(m_nameEntry.m_window, text);
-	}
-	else if (strcmp(name, "Skirmish::SelectProfile") == 0)
-	{
-		bfmeGoENK((BfmeObjENK *)window, 1);
-		m_profiles = window;
-		rva00522556();
-	}
-}
-
-// Retail 0x00522697, 182 bytes. Name unknown: the profile selected in the
-// "Skirmish::SelectProfile" list, read from the preferences' user names
-// (the empty string with no list or no selection).
-UnicodeString AptSkirmish::rva00522697()
-{
-	if (!m_profiles)
-		return UnicodeString::TheEmptyString;
-	int selected;
-	GadgetListBoxGetSelected(m_profiles, &selected);
-	if (selected == -1)
-		return UnicodeString::TheEmptyString;
-	_STL::list<UnicodeString> names = ((SkirmishPreferences *)((char *)this + 0x698))->getUserNames_Rva0043C2D0();
-	_STL::list<UnicodeString>::iterator it = names.begin();
-	_STL::advance(it, selected);
-	if (it == names.end())
-		return UnicodeString::TheEmptyString;
-	return *it;
-}
-
-// Retail 0x005229D3, 190 bytes: "AptSkirmish::OnChangeProfile" makes the
-// selected profile the current user when it is another one.
-void AptSkirmish::OnChangeProfile(const char *unused)
-{
-	UnicodeString name = rva00522697();
-	SkirmishPreferences *prefs = (SkirmishPreferences *)((char *)this + 0x698);
-	if (name.compare(prefs->Rva0043B9F5()) != 0)
-	{
-		prefs->rva0043BE7C();
-		prefs->v3slotC();
-		prefs->setCurrentUserName(name);
-		prefs->v3slotC();
-		((Rva005C1ABA *)((char *)this + 0x668))->rva005C1ABA(prefs->Rva0043B9F5());
-		m_state = 5;
-	}
-	m_6c1 = true;
-}
-
-// Retail 0x00522556, 277 bytes: refills the "Skirmish::SelectProfile" list
-// with the user names, selecting the current one, and disables the select
-// button when there is none.
-void AptSkirmish::rva00522556()
-{
-	if (!m_profiles)
-		return;
-	GadgetListBoxReset(m_profiles);
-	_STL::list<UnicodeString> names = ((SkirmishPreferences *)((char *)this + 0x698))->getUserNames_Rva0043C2D0();
-	_STL::list<UnicodeString>::iterator it = names.begin();
-	UnicodeString name;
-	int count = 0;
-	int selected = 0;
-	for (; it != names.end(); ++it)
-	{
-		name = *it;
-		GadgetListBoxAddEntryText(m_profiles, name, -1, -1, -1, true);
-		if (name.compareNoCase(((SkirmishPreferences *)((char *)this + 0x698))->Rva0043B9F5()) == 0)
-			selected = count;
-		++count;
-	}
-	if (count == 0)
-	{
-		void *movie = m_274;
-		Rva0043DB23(TheRva00222A8BTarget, movie, "PopupSelectBttnDisable");
-	}
-	GadgetListBoxSetSelected(m_profiles, selected);
-}
-
-// Retail 0x00522833, 229 bytes: "AptSkirmish::OnDeleteProfile" deletes the
-// selected profile; deleting the current user switches to the one the
-// preferences answer next. The list is refilled either way.
-void AptSkirmish::OnDeleteProfile(const char *unused)
-{
-	UnicodeString name = rva00522697();
-	SkirmishPreferences *prefs = (SkirmishPreferences *)((char *)this + 0x698);
-	bool current = prefs->Rva0043B9F5().compare(name) == 0;
-	prefs->Rva0043C2EB(name);
-	if (current && prefs->Rva0043B9E8())
-	{
-		name = prefs->Rva0043BB88();
-		prefs->setCurrentUserName(name);
-		prefs->v3slotC();
-		((Rva005C1ABA *)((char *)this + 0x668))->rva005C1ABA(prefs->Rva0043B9F5());
-	}
-	rva00522556();
-}
-
-// Retail expands UnicodeString::isEmpty inline as the header test
-// (m_data == 0 || m_data->length == 0); the shared shim keeps it out of
-// line (as MpGameSetupSlots.cpp notes).
-static inline bool unicodeIsEmpty(const UnicodeString &text)
-{
-	const unsigned char *data = *(const unsigned char *const *)&text;
-	return data == 0 || *(const unsigned short *)(data + 4) == 0;
-}
-
-// Retail 0x00521B56, 260 bytes: "AptSkirmish::OnAddProfileAccept" adds the
-// trimmed name typed in the profile entry as a new user and makes it the
-// current one, unless it is empty or already known.
-void AptSkirmish::OnAddProfileAccept(const char *unused)
-{
-	if (m_state != 2)
-		return;
-	UnicodeString name = UnicodeString::TheEmptyString;
-	if (m_nameEntry.m_window)
-		name = GadgetTextEntryGetText(m_nameEntry.m_window);
-	name.trim();
-	if (unicodeIsEmpty(name))
-		return;
-	if (((SkirmishPreferences *)((char *)this + 0x698))->Rva0043BBB6(name) < 0)
-	{
-		SkirmishPreferences *prefs = (SkirmishPreferences *)((char *)this + 0x698);
-		prefs->rva0043C612(name);
-		prefs->setCurrentUserName(name);
-		prefs->v3slotC();
-		((Rva005C1ABA *)((char *)this + 0x668))->rva005C1ABA(prefs->Rva0043B9F5());
-		m_6c1 = true;
-		m_state = 5;
 	}
 }
