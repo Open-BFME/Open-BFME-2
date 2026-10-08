@@ -503,20 +503,6 @@ private:
     bool m_held;
 };
 
-// 72-byte retail record (WB's debug record is 84 bytes); +0x14 named by the
-// WB assert in onPlayingAudioDeleted.
-struct LoopBuffer {
-    bool m_isValid;                      // +0x00 (WB assert name)
-    char at01;
-    bool m_is3D;                         // +0x02 selects the handle below
-    char at03;
-    void *m_3DSample;                    // +0x04
-    void *m_sample;                      // +0x08
-    char at0C[0x14 - 0x0C];
-    PlayingAudio *m_playingAudio;        // +0x14
-    char at18[0x48 - 0x18];
-};
-
 // TheGameLODManager (0x00DFE144): +0x1770 audio LOD level, per-level
 // 8-byte settings at +0x218 whose first word is the ambient stream cap.
 struct AudioLODSettings {
@@ -735,6 +721,9 @@ public:
     void rva0005DB6C(const AsciiString &fileName);
     void rva000565B8(unsigned int stream);
 
+    // WorldBuilder names its destructor MilesAudioManager::LoopBuffer::~LoopBuffer.
+    struct LoopBuffer;
+
     void putPlayingMusicOnStack(int viewType, int arg);
     void rva00059CE6(PlayingAudioRef &looping);
     void rva0005AA72(PlayingAudioRef &playing);
@@ -787,6 +776,68 @@ private:
     MilesHandleMap m_streamMap;          // +0xBC0
     LoopBuffer *m_loopBuffers;           // +0xBD4 (WB assert name)
 };
+
+// Rowed under address-derived names at 0x00051038 (pinned) and 0x00050FE3;
+// the destructor below hands its Miles handles back through them.
+class Rva0005F279Elem { public: bool rva00051038() throw(); };
+class Rva00050FE3 { public: void rva00050FE3() throw(); };
+
+// Reference at +0x0C that drops the referent's count at +0x88 on destruction.
+struct LoopBufferSource {
+    char at00[0x88];
+    OpaqueRefCounted m_ref;              // +0x88
+};
+class LoopBufferSourceRef {
+public:
+    ~LoopBufferSourceRef() { if (m_source) m_source->m_ref.Release_Ref(); }
+private:
+    LoopBufferSource *m_source;
+};
+
+// 72-byte retail record (WB's debug record is 84 bytes); +0x14 named by the
+// WB assert in onPlayingAudioDeleted, m_isValid by the one in ~LoopBuffer.
+struct MilesAudioManager::LoopBuffer {
+    LoopBuffer();
+    ~LoopBuffer();
+
+    bool m_isValid;                      // +0x00 (WB assert name)
+    char at01;
+    bool m_is3D;                         // +0x02 selects the handle below
+    char at03;
+    void *m_3DSample;                    // +0x04
+    void *m_sample;                      // +0x08
+    LoopBufferSourceRef m_source;        // +0x0C
+    char at10[0x14 - 0x10];
+    PlayingAudio *m_playingAudio;        // +0x14
+    unsigned char *m_at18;               // +0x18, freed with delete[]
+    char at1C[0x20 - 0x1C];
+    Rva00690FF0Handle m_at20;            // +0x20
+    Rva00690FF0Handle m_at24;            // +0x24
+    Rva00690FF0Handle m_at28;            // +0x28
+    char at2C[0x48 - 0x2C];
+};
+
+// Retail 0x000525E5 (WorldBuilder twin 0x0077AF80, which asserts !m_isValid
+// first): release the Miles handles unless 0x51038 already has, then free the
+// +0x18 buffer.
+MilesAudioManager::LoopBuffer::~LoopBuffer()
+{
+    if (!((Rva0005F279Elem *)this)->rva00051038())
+        ((Rva00050FE3 *)this)->rva00050FE3();
+    if (m_at18) {
+        delete[] m_at18;
+        m_at18 = 0;
+    }
+}
+
+// ?deleteLoopBuffers@@YAXPAULoopBuffer@MilesAudioManager@@@Z absent-from-retail
+// Emits the vector deleting destructor (retail 0x0005277C) that
+// ~MilesAudioManager's delete[] m_loopBuffers calls; that destructor is not
+// rowed yet.
+void deleteLoopBuffers(MilesAudioManager::LoopBuffer *loopBuffers)
+{
+    delete[] loopBuffers;
+}
 
 unsigned char MilesAudioManager::rva00054120(INI *ini)
 {
