@@ -188,3 +188,16 @@ bool Rva005766B3::Visit(LivingWorldPendingBattle *battle) {
  }
  return true;
 }
+
+// Native576753..5767A4 and WB14D05B0 construct one16-byte visitor for both
+// lists. Slot0 is the rowed callback5766D3; inline nonvirtual cleanup preserves
+// the native EH scope without adding the false virtual-destructor call.
+// Original helper name and argument types remain unresolved pointer words.
+void Rva00576753Func(int a, int b, int c)
+{
+    LivingWorldRegionManager *manager =
+        reinterpret_cast<ResolveBattleWorldView *>(TheLivingWorldLogic)->regionManager;
+    Rva005766B3 visitor(a, b, c);
+    manager->EnumeratePendingBattles(visitor);
+    manager->EnumerateCompletedBattles(reinterpret_cast<Rva0020E7E8Callback *>(&visitor));
+}
