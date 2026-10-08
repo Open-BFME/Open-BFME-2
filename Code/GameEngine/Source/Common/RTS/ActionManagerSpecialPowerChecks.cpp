@@ -80,6 +80,10 @@ struct Coord3D
 
 enum KindOfType { CAPTURE_FORBIDDEN_KIND = 0x6f };
 enum SpecialPowerType { CAPTURE_POWER = 0x1d };
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+class Module;
+class SpecialPowerModuleInterface;
+class SpecialPowerTemplate;
 class Object : public Thing
 {
 public:
@@ -92,6 +96,10 @@ public:
 	Relationship getRelationship(const Object *) const;
 	Player *getControllingPlayer() const;	// 0x0028AFA9
 	CellShroudStatus getShroudStatusForPlayer(int playerIndex) const;
+	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *) const;	// 0x0028BB9E
+	friend class ActionManager;
+protected:
+	Module *findModule(NameKeyType) const;	// 0x0028B6D6
 };
 
 struct BfmeWideHit
@@ -138,8 +146,10 @@ public:
 	char m_pad00[0x18];
 	bool flag2() const { return (m_flags >> 2) & 1; }
 	bool flag4() const { return (m_flags >> 4) & 1; }
+	SpecialPowerType getSpecialPowerType() const { return getFinalOverride()->m_type; }
 	unsigned int m_flags;	// +0x18
-	char m_pad1C[0x54 - 0x1C];
+	SpecialPowerType m_type;	// +0x1C
+	char m_pad20[0x54 - 0x20];
 	float m_54;		// +0x54
 	char m_pad58[0x60 - 0x58];
 	char m_60[4];		// +0x60
@@ -159,6 +169,10 @@ public:
 	bool canMakeObjectDefector(const Object *, const Object *, CommandSourceType);
 	bool canConvertObjectToCarBomb(const Object *, const Object *, CommandSourceType);
 	bool validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp);
+	bool canDoSpecialPowerAtObject(const Object *obj, const Object *target, CommandSourceType commandSource,
+		const SpecialPowerTemplate *spTemplate, unsigned int commandOptions, bool checkSourceRequirements);
+	bool rva0041BA61(const Object *obj);
+	bool rva0041CE27(Object *obj, Object *target, int);
 };
 
 bool ActionManager::validateLocationForForbiddenObjects(const Object *obj, const Coord3D *pos, const SpecialPowerTemplate *sp)
@@ -645,5 +659,236 @@ bool Rva0041C96C::rva0041C96C(
 	unsigned char flags = *reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(target) + 0x1c8);
 	if (static_cast<unsigned char>(~static_cast<unsigned char>(flags >> 5)) & 1)
 		return true;
+	return false;
+}
+
+// canDoSpecialPowerAtObject's views. Object +0x250 is the contain module
+// (the same interface rva0041C79C reads through VisIface), +0x274 the
+// object containing this one; the contain list's slot 0x48 picks a rider.
+// BFME1 ba7ddda7 calls the three contain slots list(), allow() and
+// slot15c(); BFME2 moved them to 0x7C, 0x98 and 0x170.
+class ActionSpecialPowerModuleView
+{
+public:
+	virtual void s00(); virtual void s01();
+	virtual float getPercentReady() const;	// +0x08
+	virtual void s03(); virtual void s04(); virtual void s05(); virtual void s06();
+	virtual void s07(); virtual void s08(); virtual void s09(); virtual void s10();
+	virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14();
+	virtual void s15(); virtual void s16(); virtual void s17();
+	virtual bool isReady(int);	// +0x48
+};
+
+class ActionContainListView
+{
+public:
+	virtual void l00(); virtual void l01(); virtual void l02(); virtual void l03();
+	virtual void l04(); virtual void l05(); virtual void l06(); virtual void l07();
+	virtual void l08(); virtual void l09(); virtual void l10(); virtual void l11();
+	virtual void l12(); virtual void l13(); virtual void l14(); virtual void l15();
+	virtual void l16(); virtual void l17();
+	virtual Object *pick(int, int, float, int, int);	// +0x48
+};
+
+class ActionContainView
+{
+public:
+	virtual void c00(); virtual void c01(); virtual void c02(); virtual void c03();
+	virtual void c04(); virtual void c05(); virtual void c06(); virtual void c07();
+	virtual void c08(); virtual void c09(); virtual void c10(); virtual void c11();
+	virtual void c12(); virtual void c13(); virtual void c14(); virtual void c15();
+	virtual void c16(); virtual void c17(); virtual void c18(); virtual void c19();
+	virtual void c20(); virtual void c21(); virtual void c22(); virtual void c23();
+	virtual void c24(); virtual void c25(); virtual void c26(); virtual void c27();
+	virtual void c28(); virtual void c29(); virtual void c30();
+	virtual ActionContainListView *getList();	// +0x7C
+	virtual void c32(); virtual void c33(); virtual void c34(); virtual void c35();
+	virtual void c36(); virtual void c37();
+	virtual bool allow(const Object *, bool, bool);	// +0x98
+	virtual void c39(); virtual void c40(); virtual void c41(); virtual void c42();
+	virtual void c43(); virtual void c44(); virtual void c45(); virtual void c46();
+	virtual void c47(); virtual void c48(); virtual void c49(); virtual void c50();
+	virtual void c51(); virtual void c52(); virtual void c53(); virtual void c54();
+	virtual void c55(); virtual void c56(); virtual void c57(); virtual void c58();
+	virtual void c59(); virtual void c60(); virtual void c61(); virtual void c62();
+	virtual void c63(); virtual void c64(); virtual void c65(); virtual void c66();
+	virtual void c67(); virtual void c68(); virtual void c69(); virtual void c70();
+	virtual void c71(); virtual void c72(); virtual void c73(); virtual void c74();
+	virtual void c75(); virtual void c76(); virtual void c77(); virtual void c78();
+	virtual void c79(); virtual void c80(); virtual void c81(); virtual void c82();
+	virtual void c83(); virtual void c84(); virtual void c85(); virtual void c86();
+	virtual void c87(); virtual void c88(); virtual void c89(); virtual void c90();
+	virtual void c91();
+	virtual bool canAccept(const Object *, bool);	// +0x170
+};
+
+struct ActionModuleView
+{
+	char m_pad00[4];
+	const unsigned char *m_data;	// +0x04
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *);	// 0x00148E1A
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+static inline const unsigned char *actionTemplate(const Object *o)
+{
+	return *reinterpret_cast<const unsigned char *const *>(reinterpret_cast<const char *>(o) + 4);
+}
+
+static inline ActionContainView *actionContain(const Object *o)
+{
+	return *reinterpret_cast<ActionContainView *const *>(reinterpret_cast<const char *>(o) + 0x250);
+}
+
+// WorldBuilder's debug ActionManager.cpp (lines 2380..2718) names this
+// ActionManager::canDoSpecialPowerAtObject; the pinned REL32 caller in
+// CommandButtonHuntUpdate::scanClosestTarget confirms it. BFME1 ba7ddda7
+// supplies the case bodies; BFME2 adds the template's +0x60 object filter,
+// the capture-power exception for dead targets and the 0x0041BA61 veto
+// ahead of the switch. The case values follow retail's tables at 0x0041D387
+// (targets) and 0x0041D3AB (index); the enumerator names are not recovered.
+bool ActionManager::canDoSpecialPowerAtObject(const Object *obj, const Object *target,
+	CommandSourceType commandSource, const SpecialPowerTemplate *spTemplate,
+	unsigned int commandOptions, bool checkSourceRequirements)
+{
+	if (!spTemplate)
+		return false;
+
+	if (checkSourceRequirements && !obj->hasSpecialPower(spTemplate->getSpecialPowerType()))
+		return false;
+
+	ActionSpecialPowerModuleView *module =
+		reinterpret_cast<ActionSpecialPowerModuleView *>(obj->getSpecialPowerModule(spTemplate));
+
+	bool capturePower = false;
+	bool isCapture = spTemplate->getSpecialPowerType() == CAPTURE_POWER ||
+		spTemplate->getSpecialPowerType() == 0x1a;
+	bool filterValid = reinterpret_cast<const ObjectFilter *>(spTemplate->getFinalOverride()->m_60)->isValid();
+	if (filterValid) {
+		Rva2225E0Filter *filter =
+			reinterpret_cast<Rva2225E0Filter *>(const_cast<char *>(spTemplate->getFinalOverride()->m_60));
+		if (!filter->accepts(const_cast<Object *>(target), obj->getControllingPlayer()))
+			return false;
+	}
+
+	if (isCapture) {
+		if (filterValid)
+			capturePower = true;
+		else
+			capturePower = rva0041C79C(obj, target, commandSource,
+				reinterpret_cast<CapturePowerView *>(module));
+	}
+	bool canCapture = capturePower && isCapture;
+
+	if (!target ||
+		((*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(target) + 0x438) & 1) && !canCapture))
+		return false;
+
+	if (rva0041BA61(obj))
+		return false;
+
+	Relationship r = obj->getRelationship(target);
+	if (module) {
+		if (checkSourceRequirements) {
+			if (module->getPercentReady() < 1.0f)
+				return false;
+			if (!module->isReady(0))
+				return false;
+		}
+
+		if (isObjectShroudedForAction(obj, target, commandSource))
+			return false;
+
+		switch (spTemplate->getSpecialPowerType()) {
+		case 39:
+		case 40: {
+			int id = *reinterpret_cast<const int *>(reinterpret_cast<const char *>(target) + 0x74);
+			if (id >= 0x05f5e0fc && id <= 0x05f5e0ff) {
+				static const NameKeyType key = TheNameKeyGenerator->nameToKey("GrabPassengerSpecialPower");
+				ActionModuleView *grab = reinterpret_cast<ActionModuleView *>(obj->findModule(key));
+				if (grab && grab->m_data[0x80] && actionTemplate(target)[0x5eb])
+					return true;
+				return false;
+			}
+			if (target->testStatus((ObjectStatusTypes)0x63))
+				return false;
+			ActionContainView *contain = actionContain(obj);
+			if ((commandOptions & 2) && (commandOptions & 1) && !obj->testStatus((ObjectStatusTypes)0x26)) {
+				if (!contain->canAccept(target, true))
+					return false;
+			}
+			if (!contain)
+				return false;
+			const Object *container = *reinterpret_cast<const Object *const *>(reinterpret_cast<const char *>(target) + 0x274);
+			if (container) {
+				ActionContainListView *list = actionContain(container) ? actionContain(container)->getList() : 0;
+				if (!list)
+					return false;
+			}
+			if (actionTemplate(target)[0x115] & 0x20) {
+				ActionContainListView *list = actionContain(target) ? actionContain(target)->getList() : 0;
+				if (!list)
+					return false;
+				target = list->pick(0, 0, 0.0f, 0, 0);
+				if (!target)
+					return false;
+			} else if (target->testStatus((ObjectStatusTypes)0x3f))
+				return false;
+			bool allowed = true;
+			unsigned int kindFlags = *reinterpret_cast<const unsigned int *>(actionTemplate(target) + 0x118);
+			if ((kindFlags & 0x10) && spTemplate->getSpecialPowerType() != 40)
+				allowed = false;
+			if ((kindFlags & 0x100) && spTemplate->getSpecialPowerType() != 39)
+				allowed = false;
+			if (allowed && contain->allow(target, true, false))
+				return true;
+			return false;
+		}
+		case 32: case 42: case 45: case 49: case 59: case 64: case 71: case 129:
+		case 132: case 151:
+			return true;
+		case 130:
+			if (r == ENEMIES)
+				return true;
+			if ((r == ALLIES || r == NEUTRAL) && (actionTemplate(target)[0x11d] & 0x10))
+				return true;
+			return false;
+		case 147:
+			return true;
+		case 57: case 68: case 69: case 144: {
+			unsigned char bit = (unsigned char)(*reinterpret_cast<const unsigned int *>(reinterpret_cast<const char *>(target) + 0x94) >> 6);
+			bit = (unsigned char)~bit;
+			bit &= 1;
+			return bit;
+		}
+		case 138:
+			if (actionTemplate(target)[0x108] & 0x80)
+				return canRepairObject(obj, target, commandSource);
+			return false;
+		case 29:
+			return rva0041C79C(obj, target, commandSource, reinterpret_cast<CapturePowerView *>(module));
+		case 51:
+			if (rva0041CE27(const_cast<Object *>(obj), const_cast<Object *>(target), 0))
+				return *reinterpret_cast<void *const *>(reinterpret_cast<const char *>(target) + 0x258) &&
+					!(actionTemplate(target)[0x108] & 4);
+			return false;
+		case 16: case 28: case 35: case 47: case 50: case 52: case 53: case 54:
+		case 58: case 60: case 61: case 62: case 63: case 65: case 66: case 67:
+		case 70: case 72: case 73: case 74: case 75: case 76: case 77: case 78:
+		case 79: case 80: case 82: case 84: case 85: case 86: case 87: case 89:
+		case 90: case 91: case 92: case 93: case 94: case 95: case 96: case 97:
+		case 99: case 100: case 101: case 103: case 104: case 106: case 107: case 111:
+		case 112: case 113: case 115: case 118: case 119: case 120: case 121: case 123:
+		case 124: case 126: case 128: case 133: case 134: case 135: case 136: case 137:
+		case 140: case 141: case 142: case 143: case 145: case 146: case 148: case 149:
+		case 150: case 152: case 153:
+			return false;
+		}
+	}
 	return false;
 }
