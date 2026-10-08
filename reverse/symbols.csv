@@ -16907,3 +16907,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?rva000AF1DD@Bridge@@QBE?AVAsciiString@@XZ,0x000AF1DD,callee of BridgeBehavior::createScaffolding (0x00457777 REL32): ZH Bridge::getBridgeTemplateName - the folded by-value getter of the AsciiString at +8
 ?rva002DB4DA@Rva002DB4DA@@QAEPAURva002DB4DANode@@VAsciiString@@@Z,0x002DB4DA,callee of BridgeBehavior::createScaffolding (0x0045779E REL32): ZH TheTerrainRoads->findBridge(AsciiString) by value; the AsciiString spelling of the rowed StringBase<char> key
 ??0Rva00045455Flags@@QAE@ABV0@@Z,0x00045455,ModelConditionFlags (0x4C) copy-ctor view spelling used by GarrisonContain::loadGarrisonPoints 0x0047907C; the rowed 0x4C memcpy wrapper
+?rva000B3FA5@ModelConditionFlags@@QAEXHH@Z,0x000B3FA5,ModelConditionFlags set(bit; value) spelling of the 0x4C flag-set setter; callee of CrushDie::onDie 0x0048645E and 0x00486478
