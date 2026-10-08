@@ -19,6 +19,12 @@ typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
 class CreateAHeroData;
+class Xfer;
+class ModuleData;
+enum ScienceType { RegionOpaqueScienceValue=0 };
+// WB DoXfer treats each 12-byte hero slot as an army-vector. The existing
+// rowed transfer helper retains its neutral ModuleData pointer element ABI.
+struct RegionHeroSlot { _STL::vector<const ModuleData *> armies; };
 struct Rva003F0614BuildingLink
 {
     unsigned char prefix[0x2C];
@@ -27,7 +33,9 @@ struct Rva003F0614BuildingLink
 class LivingWorldBuilding
 {
 public:
-    unsigned char prefix[0x28];
+    unsigned char prefix[0x18];
+    int id;
+    char before28[0xc];
     Rva003F0614BuildingLink *field28;
 };
 
@@ -67,6 +75,7 @@ public:
 class Rva002BA8F1Logic
 {
 public:
+	void rva002B8D06(Xfer *,_STL::vector<const ModuleData *> *);
 	Rva002E2903Player *find(Int id, UnsignedInt *outIndex);	// 0x002B51F8
 };
 
@@ -103,6 +112,7 @@ public:
 	void CreateBuildPlots();
     void PrepareSkirmishOpponents(LivingWorldBattle *battle);
     Bool DebugValidatePlacementSpot(const Coord2D &spot,Coord2D *out,const char *kind);
+    void DoXfer(Xfer *);
     Bool IsOwnedByTeam(Int teamID) const;
 	Bool CanSpawnUnitWithinCPLimit(Rva00319CED *unit) const;
 	LivingWorldBuilding *GetBuildingByIndex(Int index) const;
@@ -123,12 +133,20 @@ private:
     _STL::vector<Coord2D> m_plotPositions;
     Int m_limit108;
     Int m_limit10C;
-    unsigned char m_pad110[0x13c - 0x110];
+    unsigned char m_pad110[0x12c-0x110];
+    int m_regionID;
+    int unknown130;
+    int value134,value138;
 	Int m_ownerPlayerID;			// +0x13C
-	unsigned char m_pad140[0x170 - 0x140];
+	int m_player140;
+    Coord2D m_position;
+    int value14C,value150,value154;
+    _STL::vector<ScienceType> values158,values164;
 	BuildPlotVector m_buildPlots;
-    int m_plotIndex;
-    char m_unknown180[0x1a3-0x180];
+    LivingWorldBuildPlot *m_plotIndex;
+    _STL::vector<RegionHeroSlot> m_heroSlots;
+    char m_unknown18C[0x1a0-0x18c];
+    bool flag1A0,flag1A1,flag1A2;
     bool m_plotFlag;
 };
 
@@ -238,7 +256,7 @@ Int LivingWorldRegion::rva003F05CE()
     return count;
 }
 
-class Rva003F3F27 { public: void rva003F2106(); };
+class Rva003F3F27 { public: void rva003F2106(); void rva003F3B4F(); };
 class Rva002B3166BumpCounter { public: int bump(); };
 void LivingWorldRegion::CreateBuildPlots()
 {
@@ -319,4 +337,117 @@ Bool LivingWorldRegion::DebugValidatePlacementSpot(const Coord2D &spot,Coord2D *
     return false;
     }
     return true;
+}
+
+struct RegionXferVersionFields { unsigned char minimum,current; };
+union RegionXferVersion { RegionXferVersionFields fields; unsigned value; };
+class Xfer {
+public:
+    virtual void slot00();
+    virtual bool IsLoading() const;
+    virtual void slot02();
+    virtual void slot03();
+    virtual void slot04();
+    virtual void slot05();
+    virtual void slot06();
+    virtual void slot07();
+    virtual void slot08();
+    virtual void slot09();
+    virtual void Version(RegionXferVersion *);
+    virtual void slot11();
+    virtual void Snapshot(void *);
+    virtual void slot13();
+    virtual void slot14();
+    virtual void slot15();
+    virtual void slot16();
+    virtual void slot17();
+    virtual void slot18();
+    virtual void slot19();
+    virtual void Coord(Coord2D *);
+    virtual void slot21();
+    virtual void slot22();
+    virtual void slot23();
+    virtual void slot24();
+    virtual void slot25();
+    virtual void slot26();
+    virtual void slot27();
+    virtual void slot28();
+    virtual void slot29();
+    virtual void slot30();
+    virtual void Int(int *);
+    virtual void slot32();
+    virtual void slot33();
+    virtual void slot34();
+    virtual void slot35();
+    virtual void Bool(bool *);
+    virtual void slot37();
+};
+struct Rva003EFE82Obj;
+int Rva003EFE82Get(Rva003EFE82Obj *,void *);
+void XferLivingWorldPlayerID(Xfer *,int *);
+Xfer *Rva003F2394Xfer(Xfer *,_STL::vector<ScienceType> *);
+class Rva004E075FObj;
+int Rva004E075FGet(Rva004E075FObj *,int);
+class Rva003F1093 { public: CreateAHeroData *rva003F083A(void *); };
+class Rva003F3B28View { public: void rva003F3B28(int); };
+// Native construction tracks an eight-byte zero coordinate temporary in the
+// EH bitmap and then clears its bit without a cleanup call. Keep that lifetime
+// here while using the canonical Coord2D layout and plot-constructor ABI.
+class RegionPlacementCoordTemporary : public Coord2D { public: RegionPlacementCoordTemporary() { x=0; y=0; } ~RegionPlacementCoordTemporary() {} };
+// WB 0x01041590 names DoXfer; native 3F3BFF..3F3F03 RET4. Slot numbers,
+// field addresses, version branches and helper ABIs come from retail.
+// Region/building IDs and nested vector element identities remain neutral.
+void LivingWorldRegion::DoXfer(Xfer *xfer)
+{
+    RegionXferVersion version;
+    version.fields.minimum=1; version.fields.current=3;
+    xfer->Version(&version);
+    Rva003EFE82Get(reinterpret_cast<Rva003EFE82Obj *>(xfer),&m_regionID);
+    xfer->Bool(&flag1A2);
+    XferLivingWorldPlayerID(xfer,&m_ownerPlayerID);
+    XferLivingWorldPlayerID(xfer,&m_player140);
+    if(version.fields.current<2) { int zero=0; xfer->Int(&zero); }
+    xfer->Coord(&m_position);
+    xfer->Bool(&flag1A0);
+    xfer->Bool(&flag1A1);
+    xfer->Int(&value14C);
+    xfer->Int(&value150);
+    xfer->Int(&value154);
+    if(version.fields.current<2) { Coord2D zero={0,0}; xfer->Coord(&zero); }
+    Rva003F2394Xfer(xfer,&values164);
+    Rva003F2394Xfer(xfer,&values158);
+    if(xfer->IsLoading()) {
+        reinterpret_cast<Rva003F3F27 *>(this)->rva003F2106();
+        m_plotIndex=0; m_plotFlag=false;
+        if(m_ownerPlayerID!=-1) {
+            int count;
+            xfer->Int(&count);
+            for(int i=0;i<count;++i) {
+                LivingWorldBuildPlot *plot=new LivingWorldBuildPlot(0,this,RegionPlacementCoordTemporary());
+                xfer->Snapshot(plot);
+                m_buildPlots.push_back(plot);
+            }
+            int buildingID;
+            Rva004E075FGet(reinterpret_cast<Rva004E075FObj *>(xfer),reinterpret_cast<int>(&buildingID));
+            if(!buildingID) m_plotIndex=0;
+            else m_plotIndex=reinterpret_cast<LivingWorldBuildPlot *>(reinterpret_cast<Rva003F1093 *>(this)->rva003F083A(reinterpret_cast<void *>(buildingID)));
+        }
+    } else if(m_ownerPlayerID!=-1) {
+        int count=m_buildPlots.size();
+        xfer->Int(&count);
+        for(int i=0;i<count;++i) xfer->Snapshot(m_buildPlots[i]);
+        int buildingID=(m_plotIndex && m_plotIndex->m_building) ? m_plotIndex->m_building->id : 0;
+        Rva004E075FGet(reinterpret_cast<Rva004E075FObj *>(xfer),reinterpret_cast<int>(&buildingID));
+    }
+    xfer->Bool(&m_plotFlag);
+    int spots=m_heroSlots.size();
+    xfer->Int(&spots);
+    if(xfer->IsLoading()) {
+        reinterpret_cast<Rva003F3F27 *>(this)->rva003F3B4F();
+        reinterpret_cast<Rva003F3B28View *>(&m_heroSlots)->rva003F3B28(spots);
+    }
+    if(TheLivingWorldLogic) {
+        for(int i=0;i<spots;++i) reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->rva002B8D06(xfer,&m_heroSlots[i].armies);
+    }
+    if(version.fields.current>=3) { xfer->Int(&value134); xfer->Int(&value138); }
 }
