@@ -1,11 +1,17 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /O1 /EHsc /MD /arch:SSE
 // ArmyPlacer.cpp -- helpers recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv): WB's debug build names the function; retail
 // supplies the bytes. TheTerrainLogic (0x00DFEC50) answers waypoint-by-name
 // through vtable slot 34 (+0x88; see GameLogic/Map/TerrainLogic.cpp).
 #include "ascii_string.h"
+#include "Coord3D.h"
 
-class Waypoint;
+class Waypoint
+{
+public:
+	char m_pad[12];
+	Coord3D m_position;
+};
 
 class TerrainLogic
 {
@@ -30,4 +36,29 @@ Waypoint *findNamedWaypoint(const AsciiString &name)
 	if (TheTerrainLogic)
 		return TheTerrainLogic->getWaypointByName(name);
 	return 0;
+}
+
+// Retail 0x0037F62D, 189B; WB ArmyPlacer::GetStartPosWaypointLocations
+// identifies the waypoint strings and argument roles. Native fallback copies
+// start to rally before adding ten to start.x, as the WB body also does.
+bool __stdcall Rva0037F62DGet(int player, Coord3D *start, Coord3D *rally)
+{
+	AsciiString startName;
+	startName.format("Player_%d_Start", player + 1);
+	Waypoint *startWaypoint = findNamedWaypoint(startName);
+	if (!startWaypoint)
+		return false;
+	*start = startWaypoint->m_position;
+	AsciiString rallyName;
+	rallyName.format("Player_%d_Start_Rally", player + 1);
+	Coord3D *rallyOutput = rally;
+	Waypoint *rallyWaypoint = findNamedWaypoint(rallyName);
+	if (rallyWaypoint)
+		*rallyOutput = rallyWaypoint->m_position;
+	else
+	{
+		*rallyOutput = *start;
+		start->x += 10.0f;
+	}
+	return true;
 }
