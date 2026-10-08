@@ -8,7 +8,14 @@
 // (Remove_Render_Object plus REF_PTR_RELEASE loop plus vector clear). Callers 0x000CA8BC dtor plus
 // 0x000CA916 plus 0x000CAC25 call this site. Scene Remove at +0xC and Line Release at slot 0 with
 // refcount at +4 per W3DLaserDraw dtor precedent. Vector clear calls rowed BfmePod16 erase 0x002BF70F.
+// ?buildSegments@W3DRopeDraw@@AAEXXZ @0x000CA9F1 564B: donor BFME1 W3DRopeDraw.cpp buildSegments; it
+// rebuilds the wobbling line pairs. Retail evidence: ceil through the IAT, getPosition 0x002763E6,
+// GameClientRandomValueReal 0x00234111 with retail's W3DRopeDraw.cpp path and line 0x4A, Cos/Sin
+// 0x2FBC0/0x2FBB0, Line3DClass ctor 0x001673D0 (0x144 bytes), scene Add_Render_Object at +8 and
+// push_back through BfmeE16 0x0059D2A3. Vector3 takes its components by reference: by value the
+// compiler loads them into other xmm registers than retail does.
 #include <vector>
+#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
 enum NameKeyType
 {
@@ -24,19 +31,49 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 struct BfmePod16 { int a[4]; };
+struct BfmeE16 { float x, y, z, w; };
+
+
+class BFMERopeDrawable
+{
+public:
+	const Coord3D *getPosition() const;
+};
+
+class Vector3
+{
+public:
+	Vector3(const float &x, const float &y, const float &z) : X(x), Y(y), Z(z) {}
+
+	float X;
+	float Y;
+	float Z;
+};
 
 class Line3DClass
 {
 public:
+	Line3DClass(const Vector3 &start, const Vector3 &end, float width, float r, float g, float b, float opacity);
 	virtual void Release();
+
+private:
+	unsigned char m_pad04[0x144 - 4];
 };
+
+void *operator new(unsigned int size);
+
+extern "C" __declspec(dllimport) double __cdecl ceil(double value);
+
+float Cos(float value);
+float Sin(float value);
+float GetGameClientRandomValueReal(float lo, float hi, char *file, int line);
 
 class BfmeScene
 {
 public:
 	virtual void slot0();
 	virtual void slot1();
-	virtual void slot2();
+	virtual void Add_Render_Object(Line3DClass *obj);
 	virtual void Remove_Render_Object(Line3DClass *obj);
 };
 
@@ -56,7 +93,7 @@ class DrawableModule
 protected:
 	virtual ~DrawableModule();
 	void *m_moduleData;
-	void *m_drawable;
+	BFMERopeDrawable *m_drawable;
 };
 
 class DrawModule : public DrawableModule
@@ -86,8 +123,67 @@ public:
 
 private:
 	_STL::vector<BfmePod16> m_segments;
+	float m_curLen;
+	float m_maxLen;
+	float m_width;
+	struct RGBColor
+	{
+		float red;
+		float green;
+		float blue;
+	} m_color;
+	float m_curSpeed;
+	float m_maxSpeed;
+	float m_accel;
+	float m_wobbleLen;
+	float m_wobbleAmp;
+	float m_wobbleRate;
+	float m_curWobblePhase;
+	float m_curZOffset;
+
+	void buildSegments();
 	void tossSegments();
 };
+
+void W3DRopeDraw::buildSegments()
+{
+	m_segments.clear();
+
+	int numSegs = (int)ceil(m_maxLen / m_wobbleLen);
+	float eachLen = m_maxLen / (float)numSegs;
+	const Coord3D *srcPos = m_drawable->getPosition();
+	Coord3D pos;
+	pos.x = srcPos->x;
+	pos.y = srcPos->y;
+	pos.z = srcPos->z;
+	for (int i = 0; i < numSegs; ++i, pos.z += eachLen)
+	{
+		SegInfo info;
+
+		float axis = GetGameClientRandomValueReal(0.0f, 6.283185307179586f, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Drawable\\W3DRopeDraw.cpp", 0x4A);
+		info.wobbleAxisX = Cos(axis);
+		info.wobbleAxisY = Sin(axis);
+		info.line = new Line3DClass(Vector3(pos.x, pos.y, pos.z),
+			Vector3(pos.x, pos.y, pos.z + eachLen),
+			m_width * 0.5f,
+			m_color.red,
+			m_color.green,
+			m_color.blue,
+			1.0f);
+
+		info.softLine = new Line3DClass(Vector3(pos.x, pos.y, pos.z),
+			Vector3(pos.x, pos.y, pos.z + eachLen),
+			m_width,
+			m_color.red,
+			m_color.green,
+			m_color.blue,
+			0.5f);
+
+		W3DDisplay::m_3DScene->Add_Render_Object(info.line);
+		W3DDisplay::m_3DScene->Add_Render_Object(info.softLine);
+		reinterpret_cast<_STL::vector<BfmeE16> &>(m_segments).push_back(reinterpret_cast<const BfmeE16 &>(info));
+	}
+}
 
 void W3DRopeDraw::tossSegments()
 {
