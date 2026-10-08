@@ -75,3 +75,45 @@ void Rva005F2792::rva005F27F8(const char *path)
         rva005F2792();
     }
 }
+
+// Native 0x00577A2A..0x00577ACD, RET4; WB 0x014C7120 independently
+// identifies the same SkipLevelN/LevelIndexFromTarget allocation sequence.
+// This callback installs the rowed 16-byte Rva00528B06 panel in owner +0x14,
+// then passes its stored pointer and index +0x0C to [receiver+8]->+0x3C slot3.
+// The callback's original name and enclosing class remain unknown.
+class Rva00528B06 : public Rva005C31FB
+{
+public:
+    Rva00528B06(int level, const AsciiString &name);
+    virtual ~Rva00528B06();
+};
+class Rva00577A2ADispatch
+{
+public:
+    virtual void slot0() = 0;
+    virtual void slot1() = 0;
+    virtual void slot2() = 0;
+    virtual void install(int index, Object *panel) = 0;
+};
+struct Rva00577A2AMid
+{
+    char pad[0x3C];
+    Rva00577A2ADispatch *dispatch;
+};
+class Rva00577A2A
+{
+public:
+    void rva00577A2A(const char *path);
+private:
+    char pad[8];
+    Rva00577A2AMid *mid08;
+    int index0C;
+    int unknown10;
+    Object *panel14;
+};
+void Rva00577A2A::rva00577A2A(const char *path)
+{
+    ((Rva00575674 *)&panel14)->rva00575674((Object *)new Rva00528B06(
+        Rva004128BBGetLevel(path), AsciiString(Rva00412845AfterLevel(path))));
+    mid08->dispatch->install(index0C, panel14);
+}
