@@ -551,20 +551,7 @@ void InGameUI::loadPostProcess( void )
 
 }  // end loadPostProcess
 
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ?InGameUI::setMouseCursor present-unmatched
-void InGameUI::setMouseCursor(Mouse::MouseCursor c)
-{
-	if (!TheMouse)
-		return;
-
-	TheMouse->setCursor(c);
-
-	if (m_mouseMode == MOUSEMODE_GUI_COMMAND && c != Mouse::ARROW && c != Mouse::SCROLL)
-		m_mouseModeCursor = c;
-
-}
+// InGameUI::setMouseCursor: defined in InGameUIInputModes.cpp (its row's unit).
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -1855,15 +1842,7 @@ void InGameUI::removeMessageAtIndex( Int i )
 
 }  // end removeMessageAtIndex
 
-//-------------------------------------------------------------------------------------------------
-/** An area selection is occurring, start graphical "hint". */
-//-------------------------------------------------------------------------------------------------
-// ?InGameUI::beginAreaSelectHint present-unmatched
-void InGameUI::beginAreaSelectHint( const GameMessage *msg )
-{
-	m_isDragSelecting = true;
-	m_dragSelectRegion = msg->getArgument( 0 )->pixelRegion;
-}
+// InGameUI::beginAreaSelectHint: defined in InGameUIInputModes.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** An area selection has occurred, finish graphical "hint". */
@@ -1928,18 +1907,7 @@ void InGameUI::createForceAttackHint( const GameMessage *msg )
 
 }
 
-//-------------------------------------------------------------------------------------------------
-/** An garrison command has occurred, start graphical "hint". */
-//-------------------------------------------------------------------------------------------------
-// ?InGameUI::createGarrisonHint present-unmatched
-void InGameUI::createGarrisonHint( const GameMessage *msg )
-{
-	Drawable *draw = TheGameClient->findDrawableByID( msg->getArgument(0)->drawableID );
-	if( draw )
-	{
-		draw->onSelected();
-	}
-}
+// InGameUI::createGarrisonHint: defined in InGameUIInputModes.cpp (its row's unit).
 
 #if defined(_DEBUG) || defined(_INTERNAL)
 #define AI_DEBUG_TOOLTIPS		1
@@ -2527,35 +2495,7 @@ DrawableID InGameUI::getMousedOverDrawableID( void ) const
 
 }
 
-//-------------------------------------------------------------------------------------------------
-/// set right-click scroll mode
-//-------------------------------------------------------------------------------------------------
-// ?InGameUI::setScrolling present-unmatched
-void InGameUI::setScrolling( Bool isScrolling )
-{
-	if (m_isScrolling == isScrolling)
-	{
-		return;
-	}
-
-	if (isScrolling)
-	{
-		TheMouse->capture();
-		setMouseCursor( Mouse::SCROLL );
-
-		// break any camera locks
-		TheTacticalView->setCameraLock( INVALID_ID );
-		TheTacticalView->setCameraLockDrawable( NULL );
-	}
-	else
-	{
-		setMouseCursor( Mouse::ARROW );
-		TheMouse->releaseCapture();
-	}
-
-	m_isScrolling = isScrolling;
-
-}
+// InGameUI::setScrolling: defined in InGameUIInputModes.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /// are we scrolling?
@@ -2608,67 +2548,7 @@ Coord2D InGameUI::getScrollAmount( void )
 	return m_scrollAmt;
 }
 
-//-------------------------------------------------------------------------------------------------
-/** Like the building "placement" mode, clicking on some buttons in the UI require us to
-	* provide additional data by clicking on a target object/location in the world.  This
-	* is where we enable that "mode" so that we can get the additional data needed for a
-	* command from the user */
-//-------------------------------------------------------------------------------------------------
-// ?InGameUI::setGUICommand present-unmatched
-void InGameUI::setGUICommand( const CommandButton *command )
-{
-	if (TheRecorder->getMode() == RECORDERMODETYPE_PLAYBACK)
-		return;
-
-	// sanity
-	if( command )
-	{
-
-		if( BitTest( command->getOptions(), COMMAND_OPTION_NEED_TARGET ) == FALSE )
-		{
-
-			DEBUG_ASSERTCRASH( 0, ("setGUICommand: Command '%s' does not need additional user interaction\n",	
-														command->getName().str()) );
-			m_pendingGUICommand = NULL;
-			m_mouseMode = MOUSEMODE_DEFAULT;
-			return;
-
-		}  // end if
-
-		m_mouseMode = MOUSEMODE_GUI_COMMAND;
-
-	}  // end if
-	else
-	{
-		m_mouseMode = MOUSEMODE_DEFAULT;
-	}
-
-	// set the command
-	m_pendingGUICommand = command;
-
-	// set the mouse cursor for commands that need a targeting or to normal with no command
-	if( command && BitTest( command->getOptions(), COMMAND_OPTION_NEED_TARGET ) && !command->isContextCommand() )
-	{
-		setMouseCursor( Mouse::ARROW );// This occurs on the mouse-up of a panel button, so make an arrow
-		// the mouseoverhint code will take care of the cursor context, once the mouse leaves the panel
-		// but we will set the radius cursor here, so you can see it bleeding out from beneath the panel
-
-		setRadiusCursor(command->getRadiusCursorType(), //*****************************************************************
-										command->getSpecialPowerTemplate(),
-										command->getWeaponSlot());
-	}
-	else
-	{
-		if (TheMouse)
-		{
-			setMouseCursor( Mouse::ARROW );
-		}
-		setRadiusCursorNone();
-	}
-
-	m_mouseModeCursor = TheMouse->getMouseCursor();
-
-}  // end setGUICommand
+// InGameUI::setGUICommand: defined in InGameUIInputModes.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** Get the pending gui command */

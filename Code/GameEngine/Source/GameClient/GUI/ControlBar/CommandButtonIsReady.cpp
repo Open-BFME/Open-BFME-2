@@ -91,13 +91,16 @@ class CommandButton
 {
 public:
 	Bool isReady(const Object *sourceObj) const;
+	Bool isContextCommand() const;
 	const Image *rva0035B19E() const;
 	const AsciiString &rva0035B1E9() const;
 	const AsciiString &rva0035B26F() const;
 private:
 	char m_pad00[0x14];
 	int m_commandType;                         // +0x14
-	char m_pad18[0x24 - 0x18];
+	char m_pad18[0x1C - 0x18];
+	unsigned int m_options;                    // +0x1C
+	char m_pad20[0x24 - 0x20];
 	const UpgradeTemplate *m_upgradeTemplate;  // +0x24
 	char m_pad28[0x44 - 0x28];
 	const SpecialPowerTemplate *m_specialPower; // +0x44
@@ -132,6 +135,18 @@ Bool CommandButton::isReady(const Object *sourceObj) const
 		return true;
 
 	return false;
+}
+
+// Retail 0x0035B140, 36 bytes: BFME 1's CommandButton::isContextCommand
+// (0x0049AE80, GUI/ControlBar/ControlBar.cpp), ZH's CONTEXTMODE_COMMAND
+// option test (bit 9 of +0x1C) behind command-type special cases; BFME 2's
+// are 0x18, 0x20, 0x26 and 0x17. InGameUI::setGUICommand (0x0029A889) calls
+// it between its need-target test and the radius cursor, as in ZH.
+Bool CommandButton::isContextCommand() const
+{
+	if( m_commandType == 0x18 || m_commandType == 0x20 || m_commandType == 0x26 || m_commandType == 0x17 )
+		return true;
+	return ((m_options >> 9) & 1) != 0;
 }
 
 // Retail 0x0035B19E, 37 bytes: the image the button's +0xFC index selects
