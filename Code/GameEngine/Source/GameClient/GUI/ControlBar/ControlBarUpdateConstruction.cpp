@@ -22,6 +22,8 @@ enum ObjectID
 
 class Team;
 
+class Object;
+
 class GameWindow
 {
 public:
@@ -29,6 +31,7 @@ public:
     int winEnable(bool);
     unsigned int winSetStatus(unsigned int);
     unsigned int winClearStatus(unsigned int);
+    unsigned int winGetStatus();
 };
 
 #define RVA0053EB81_VIRTUAL(name) virtual void name();
@@ -46,7 +49,7 @@ public:
 	RVA0053EB81_VIRTUAL(pad16) RVA0053EB81_VIRTUAL(pad17) RVA0053EB81_VIRTUAL(pad18) RVA0053EB81_VIRTUAL(pad19)
 	RVA0053EB81_VIRTUAL(pad20) RVA0053EB81_VIRTUAL(pad21) RVA0053EB81_VIRTUAL(pad22) RVA0053EB81_VIRTUAL(pad23)
 	RVA0053EB81_VIRTUAL(pad24) RVA0053EB81_VIRTUAL(pad25) RVA0053EB81_VIRTUAL(pad26) RVA0053EB81_VIRTUAL(pad27)
-	RVA0053EB81_VIRTUAL(pad28) RVA0053EB81_VIRTUAL(pad29) RVA0053EB81_VIRTUAL(pad30) RVA0053EB81_VIRTUAL(pad31)
+	virtual int constructionContainMax(); RVA0053EB81_VIRTUAL(pad29) RVA0053EB81_VIRTUAL(pad30) RVA0053EB81_VIRTUAL(pad31)
 	RVA0053EB81_VIRTUAL(pad32) RVA0053EB81_VIRTUAL(pad33) RVA0053EB81_VIRTUAL(pad34) RVA0053EB81_VIRTUAL(pad35)
 	RVA0053EB81_VIRTUAL(pad36) RVA0053EB81_VIRTUAL(pad37) RVA0053EB81_VIRTUAL(pad38) RVA0053EB81_VIRTUAL(pad39)
 	RVA0053EB81_VIRTUAL(pad40) RVA0053EB81_VIRTUAL(pad41) RVA0053EB81_VIRTUAL(pad42) RVA0053EB81_VIRTUAL(pad43)
@@ -58,10 +61,10 @@ public:
 	virtual int rva0053EB81SlotE0();
 	RVA0053EB81_VIRTUAL(pad57) RVA0053EB81_VIRTUAL(pad58) RVA0053EB81_VIRTUAL(pad59) RVA0053EB81_VIRTUAL(pad60)
 	RVA0053EB81_VIRTUAL(pad61) RVA0053EB81_VIRTUAL(pad62) RVA0053EB81_VIRTUAL(pad63) RVA0053EB81_VIRTUAL(pad64)
-	RVA0053EB81_VIRTUAL(pad65) RVA0053EB81_VIRTUAL(pad66) RVA0053EB81_VIRTUAL(pad67) RVA0053EB81_VIRTUAL(pad68)
+	RVA0053EB81_VIRTUAL(pad65) RVA0053EB81_VIRTUAL(pad66) RVA0053EB81_VIRTUAL(pad67) virtual void constructionIterate(void (__cdecl *)(Object *, void *), void *, int);
 	virtual int slot69(bool enabled);
 	RVA0053EB81_VIRTUAL(pad70) RVA0053EB81_VIRTUAL(pad71) RVA0053EB81_VIRTUAL(pad72)
-	RVA0053EB81_VIRTUAL(pad73) RVA0053EB81_VIRTUAL(pad74)
+	RVA0053EB81_VIRTUAL(pad73) virtual int constructionContestedMax();
 	virtual int rva0053EB81Slot12C();
 };
 
@@ -69,7 +72,6 @@ public:
 
 class CommandButton;
 class ModuleData;
-class Image;
 
 class ConstructionExitView {
 public:
@@ -141,7 +143,20 @@ struct Rva0053E4B1Owner
 	Object *m_fc;
 };
 
-class ThingTemplate;
+class Image;
+class ThingTemplate { public: const Image *getButtonImage(); };
+class Rva002A7DDEArg;
+class Rva002A7DDE { public: bool rva002A7DDE(Rva002A7DDEArg *); };
+class Rva0053B914 { public: void rva0053B914(); };
+class HotKeyManager;
+extern HotKeyManager *TheHotKeyManager;
+class ConstructionResetDispatchView {
+public:
+    virtual void slot0()=0; virtual void slot1()=0; virtual void slot2()=0;
+    virtual void slot3()=0; virtual void slot4()=0; virtual void slot5()=0;
+    virtual void slot6()=0; virtual void slot7()=0; virtual void slot8()=0;
+    virtual void reset()=0;
+};
 // Reuse the existing lookup provider's eight-byte table-cell ABI. Native
 // inventory callbacks store a window word followed by its contained ObjectID.
 struct Rva0053E754Entry { int m_id, m_mapped; };
@@ -619,4 +634,80 @@ void ControlBar::populateButtonProc(Object *obj, void *userData)
     Rva003284ED(info->inventoryButtons[info->buttonIndex], (int)image);
     info->inventoryButtons[info->buttonIndex]->winEnable(true);
     ++info->buttonIndex;
+}
+
+// ZH's complete ControlBarStructureInventory.cpp is the semantic source.
+// Named WB1123F50 and native53E783..53EAEC establish BFME2's contested
+// branch, 32-window array, contain dispatch, overlay list and callback record.
+// Keep the established void-pointer/int callee binding; only the low byte of
+// the flag is observed by this target, without asserting a historical type.
+void ControlBar::rva0053E783(void *objectPointer, int flag)
+{
+    Object *building = (Object *)objectPointer;
+    if (!building) return;
+    ((ConstructionResetDispatchView *)overlaySink)->reset();
+    ((Rva0053B914 *)this)->rva0053B914();
+    if (TheHotKeyManager)
+        ((ConstructionResetDispatchView *)TheHotKeyManager)->reset();
+    Rva0053EB81Subject *contain = building->m_250;
+    if (!contain) return;
+
+    const CommandButton *evacuateCommand;
+    if ((unsigned char)flag)
+        evacuateCommand = findCommandButton("Command_Evacuate_Contested");
+    else
+        evacuateCommand = findCommandButton("Command_Evacuate");
+    rva0031B641(commandWindows[11], evacuateCommand);
+    commandWindows[11]->winEnable(false);
+    const CommandButton *exitCommand = findCommandButton("Command_StructureExit");
+    int containMax = (unsigned char)flag ? contain->constructionContestedMax() : contain->constructionContainMax();
+    int containCount = (unsigned char)flag ? contain->rva0053EB81Slot12C() : contain->slot69(false);
+    bool overlay = ((ConstructionOverlayModeView *)TheControlBar)->mode == 1;
+    const Image *buttonImage = ((ThingTemplate *)((ConstructionObjectView *)building)->objectTemplate)->getButtonImage();
+    _STL::vector<GameWindow *> windows;
+    ((_STL::vector<const ModuleData *> *)&windows)->reserve(32);
+    bool ally = ((Rva002A7DDE *)ThePlayerList)->rva002A7DDE((Rva002A7DDEArg *)building);
+    bool disableUnavailable = !((Rva002A7DD0 *)ThePlayerList)->rva002A7DD0();
+    AsciiString windowName;
+    int i;
+    for (i = 0; i < containMax; ++i) {
+        commandWindows[i]->winHide(false);
+        if (overlay && ally) {
+            commandWindows[i]->winSetStatus(0x4000000);
+            ((_STL::vector<const ModuleData *> *)&windows)->push_back(
+                reinterpret_cast<const ModuleData *const &>(commandWindows[i]));
+        } else commandWindows[i]->winClearStatus(0x4000000);
+        commandWindows[i]->winEnable(false);
+        commandWindows[i]->winSetStatus(0x1000000);
+        commandWindows[i]->winClearStatus(0x400000);
+        commandWindows[i]->winClearStatus(0x80000000);
+        rva0031B641(commandWindows[i], exitCommand);
+        if (buttonImage) GadgetButtonSetEnabledImage_Rva002C0433(commandWindows[i], buttonImage);
+        Rva003284ED(commandWindows[i], 0);
+        if (disableUnavailable && (commandWindows[i]->winGetStatus() & 8)) {
+            commandWindows[i]->winEnable(false);
+            commandWindows[i]->winSetStatus(0x40000000);
+        }
+    }
+    for (i = containMax; i < 32; ++i)
+        if (commandWindows[i]) commandWindows[i]->winHide(true);
+    commandWindows[11]->winHide(false);
+    if (overlay && ally) {
+        commandWindows[11]->winSetStatus(0x4000000);
+        ((_STL::vector<const ModuleData *> *)&windows)->push_back(
+            reinterpret_cast<const ModuleData *const &>(commandWindows[11]));
+        if (disableUnavailable && (commandWindows[11]->winGetStatus() & 8)) {
+            commandWindows[11]->winEnable(false);
+            commandWindows[11]->winSetStatus(0x40000000);
+        }
+    } else commandWindows[11]->winClearStatus(0x4000000);
+    if (ally) overlaySink->rva0053EFC7(*(WindowList *)&windows);
+    if (containCount) commandWindows[11]->winEnable(true);
+    PopulateButtonInfo info;
+    info.source = building;
+    info.buttonIndex = 0;
+    info.self = this;
+    info.inventoryButtons = commandWindows;
+    contain->constructionIterate(populateButtonProc, &info, ((unsigned char)flag != 0) + 1);
+    m_80 = containCount;
 }
