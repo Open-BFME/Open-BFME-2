@@ -206,6 +206,7 @@ public:
 class Rva00239CC9DrawableHash
 {
 public:
+	Rva00239CC9DrawableHash();
 	~Rva00239CC9DrawableHash();
 
 private:
@@ -219,6 +220,8 @@ private:
 class Rva00239AF4
 {
 public:
+	explicit Rva00239AF4(const _STL::allocator<Drawable *> &a = _STL::allocator<Drawable *>()) { rva00239BB0(a); }
+	void rva00239BB0(const _STL::allocator<Drawable *> &a);
 	void rva00239AF4() throw();
 	~Rva00239AF4() { rva00239AF4(); }
 
@@ -227,13 +230,19 @@ private:
 };
 
 class Rva00362862Item;
-class Rva00239E25
+class Rva0023BC36Element;
+struct OpaqueRefElement4
+{
+	void *m_ref;
+};
+class Rva00239E25 : public _STL::_Vector_base<OpaqueRefElement4, _STL::allocator<OpaqueRefElement4> >
 {
 public:
+	explicit Rva00239E25(const _STL::allocator<OpaqueRefElement4> &a = _STL::allocator<OpaqueRefElement4>())
+		: _STL::_Vector_base<OpaqueRefElement4, _STL::allocator<OpaqueRefElement4> >(a)
+	{
+	}
 	~Rva00239E25();
-
-private:
-	unsigned char m_pad[0x0C];
 };
 
 // Owning pointer at +0x13C: clear 0x0023A039 nulls the slot and deletes the
@@ -241,6 +250,7 @@ private:
 class Rva0023A039
 {
 public:
+	Rva0023A039() : m_ptr(0) {}
 	void clear();
 	void *get() const { return m_ptr; }
 	~Rva0023A039() { clear(); }
@@ -256,6 +266,7 @@ private:
 class SubsystemInterface
 {
 public:
+	SubsystemInterface();
 	virtual ~SubsystemInterface();
 	virtual void init() = 0;
 	virtual bool loadIniFilesFromLegend();
@@ -275,6 +286,7 @@ private:
 };
 
 typedef unsigned int TranslatorID;
+enum { TRANSLATOR_ID_INVALID = -1 };
 class CommandTranslator;
 class FontLibrary;
 class InGameUI;
@@ -358,6 +370,7 @@ public:
 	typedef _STL::list<DrawableTOCEntry, Rva0023AC36Allocator<DrawableTOCEntry> > DrawableTOCList;
 	typedef DrawableTOCList::iterator DrawableTOCListIterator;
 
+	GameClient();
 	virtual ~GameClient();
 	virtual void init();
 	virtual void reset();
@@ -427,11 +440,13 @@ private:
 	TranslatorID m_translators[MAX_CLIENT_TRANSLATORS];                 // +0x30
 	unsigned int m_numTranslators;                                      // +0xB0
 	CommandTranslator *m_commandTranslator;                             // +0xB4
-	unsigned char m_padB8[0xbc - 0xb8];
+	unsigned int m_dwordB8;                                             // +0xB8
 	AsciiString m_stringBC;                                             // +0xBC
 	unsigned char m_byteC0;                                             // +0xC0
 	unsigned char m_byteC1;                                             // +0xC1
-	unsigned char m_padC2[0xc9 - 0xc2];
+	unsigned char m_padC2[2];
+	unsigned int m_dwordC4;                                             // +0xC4
+	unsigned char m_byteC8;                                             // +0xC8
 	unsigned char m_displayModePending;                                 // +0xC9
 	unsigned char m_byteCA;                                             // +0xCA
 	unsigned char m_padCB;
@@ -445,7 +460,7 @@ private:
 	_STL::vector<Rva00362862Item *> m_vectorE8;                         // +0xE8
 	DrawableTOCList m_drawableTOC;                                      // +0xF4
 	Rva00239AF4 m_drawableListsF8[10];                                  // +0xF8
-	_STL::vector<void *> m_vector120;                                   // +0x120
+	_STL::vector<Rva0023BC36Element *> m_vector120;                                   // +0x120
 	Rva00239E25 m_vector12C;                                            // +0x12C
 	int m_count138;                                                     // +0x138
 	Rva0023A039 m_owned13C;                                             // +0x13C
@@ -532,9 +547,12 @@ void GameClient::xferDrawableTOC(Xfer *xfer)
 // TheCloudEffectManager); 0x009FEF18 is created without one.
 struct DrawGroupInfo
 {
+	DrawGroupInfo();
+
 	AsciiString m_fontName;
 	int m_fontSize;                                                     // +0x04
 	bool m_fontIsBold;                                                  // +0x08
+	unsigned char m_pad09[0x2c - 0x09];
 };
 
 // ZH GlobalLanguage FontDesc; init reads the draw-group font at +0xD4.
@@ -1238,6 +1256,27 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long milliseconds
 // STLport hashtable bodies; called through their pinned placeholder names.
 class Rva001DBCDCTarget { public: void rva001DBCDC(); };
 class Rva00057D38 { public: int rva0053F1EC(unsigned int); };
+
+// ZH GameClient::GameClient. Retail 0x0023BC36: Snapshot vptr 0xBBB554 is
+// stored first, then the GameClient vptrs 0x00BED850/0x00BED840, unwind states
+// 0..0xB over the members; the 32 translator slots at +0x30 are filled with -1,
+// the TOC is cleared through the fold 0x00239D49 and a new(0x2C) built by
+// 0x00317B35 is stored in TheDrawGroupInfo (data ledger 0x00A01CD8).
+GameClient::GameClient()
+	: m_frame(0), m_drawableList(0), m_nextDrawableID(1), m_numTranslators(0),
+	  m_commandTranslator(0), m_dwordB8(0), m_stringBC(""), m_byteC0(0), m_byteC1(0), m_dwordC4(0),
+	  m_byteC8(0), m_displayModePending(0), m_byteCA(0), m_pendingXRes(0),
+	  m_pendingYRes(0), m_pendingBitDepth(0), m_previousWidth(0), m_previousHeight(0),
+	  m_previousBitDepth(0), m_count138(0)
+{
+	// zero our translator list
+	for (int i = 0; i < MAX_CLIENT_TRANSLATORS; i++)
+		m_translators[i] = TRANSLATOR_ID_INVALID;
+
+	m_drawableTOC.clear();
+
+	TheDrawGroupInfo = new DrawGroupInfo;
+}
 
 GameClient::~GameClient()
 {

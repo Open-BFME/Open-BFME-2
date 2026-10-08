@@ -16115,3 +16115,7 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?Rva002210CFInit@@YAXXZ,0x002210CF,callee of ?init@GameClient@@UAEXXZ: free call after the Apt window manager setup
 ?Rva00380B0CInit@@YAXXZ,0x00380B0C,callee of ?init@GameClient@@UAEXXZ: free call after the Apt window manager setup
 ?rva00276470@Rva00276470Drawable@@QBEPBUCoord3D@@XZ,0x00276470,callee of GameClient slot 26 (0x002391AA) read from its REL32 at 0x002391FC: thiscall on the drawable returning a Coord3D pointer (+0x38 without an object; else lerp +0x418 toward +0x424); body unrowed
+??0Rva00239CC9DrawableHash@@QAE@XZ,0x0023BC17,callee of ??0GameClient@@QAE@XZ
+?rva00239BB0@Rva00239AF4@@QAEXABV?$allocator@PAVDrawable@@@_STL@@@Z,0x00239BB0,callee of ??0GameClient@@QAE@XZ
+??0?$_List_base@UDrawableTOCEntry@GameClient@@V?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@_STL@@QAE@ABV?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@Z,0x0035C9A6,callee of ??0GameClient@@QAE@XZ
+??0DrawGroupInfo@@QAE@XZ,0x00317B35,callee of ??0GameClient@@QAE@XZ
