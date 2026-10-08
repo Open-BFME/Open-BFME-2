@@ -27,3 +27,8 @@ private:
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F688B(void*) {
  turnsHover=false;
 }
+
+
+// Constructor binding: _OnQueuedIconSlotTurnsRemainingRollOver.
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6892(void*) { turnsHover=true; }
+
