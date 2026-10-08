@@ -18,6 +18,17 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "tri.h"
 #include "vector2.h"
 
+// The normal projection uses the IEEE sign-bit operation in WWMath::Fabs.
+// Keep this file's inlined calculation local; the shared out-of-line Fabs
+// provider has a different compiler frame setting.
+static inline float normal_component_magnitude(float value)
+{
+    union { float value; unsigned int bits; } magnitude;
+    magnitude.value = value;
+    magnitude.bits &= 0x7fffffffU;
+    return magnitude.value;
+}
+
 
 static inline void find_dominant_plane(const TriClass & tri, int * axis1,int * axis2,int * axis3)
 {
@@ -25,9 +36,9 @@ static inline void find_dominant_plane(const TriClass & tri, int * axis1,int * a
 	** Find the largest component of the normal
 	*/
 	int ni = 0;
-	float x = WWMath::Fabs(tri.N->X);
-	float y = WWMath::Fabs(tri.N->Y);
-	float z = WWMath::Fabs(tri.N->Z);
+	float x = normal_component_magnitude(tri.N->X);
+	float y = normal_component_magnitude(tri.N->Y);
+	float z = normal_component_magnitude(tri.N->Z);
 	float val = x;
 
 	if (y > val) {
@@ -72,9 +83,9 @@ void TriClass::Find_Dominant_Plane(int * axis1,int * axis2) const
 	** Find the largest component of the normal
 	*/
 	int ni = 0;
-	float x = WWMath::Fabs(N->X);
-	float y = WWMath::Fabs(N->Y);
-	float z = WWMath::Fabs(N->Z);
+	float x = normal_component_magnitude(N->X);
+	float y = normal_component_magnitude(N->Y);
+	float z = normal_component_magnitude(N->Z);
 	float val = x;
 
 	if (y > val) {
