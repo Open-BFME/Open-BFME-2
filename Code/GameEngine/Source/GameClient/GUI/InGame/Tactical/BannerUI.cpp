@@ -87,3 +87,32 @@ const AsciiString &BannerUI::GetBannerIconImageName(const AsciiString &key) {
  }
  return *(const AsciiString*)((char*)node+0x10);
 }
+
+// Native216F91..217031 constructs a12-byte three-string default value and
+// a16-byte key/value record. Existing21613D copy and2160C4/216108 cleanup
+// prove those layouts independently; application field names remain unknown.
+class Rva002160C4 {public:~Rva002160C4();};
+class Rva00216108 {public:~Rva00216108();};
+class Gen_003A8BE0 {
+ unsigned int m_words[3];
+public:
+ __forceinline Gen_003A8BE0(){m_words[0]=0;m_words[1]=0;m_words[2]=0;}
+ Gen_003A8BE0(const Gen_003A8BE0 &);
+ __forceinline ~Gen_003A8BE0(){((Rva002160C4*)this)->~Rva002160C4();}
+};
+namespace _STL {
+template<class A,class B>struct pair;
+template<>struct pair<const AsciiString,Gen_003A8BE0> {
+ pair(const AsciiString &,const Gen_003A8BE0 &);
+ __forceinline ~pair(){((Rva00216108*)this)->~Rva00216108();}
+ union {unsigned int m_alignment;unsigned char m_native[16];};
+};
+}
+typedef _STL::pair<const AsciiString,Gen_003A8BE0> BannerTypePair;
+class Rva000427195 {public:BannerTypePair *rva00216D5C(const BannerTypePair &);};
+void *Rva00217194Types::rva00216F91(const AsciiString &name) {
+ void *node;
+ {Rva0041534BIter it=((Rva00056F61 *)this)->rva0041534B(&name);node=it.m_node;}
+ return !node ? (char*)((Rva000427195*)this)->rva00216D5C(
+  BannerTypePair(name,Gen_003A8BE0()))+4 : (char*)node+8;
+}
