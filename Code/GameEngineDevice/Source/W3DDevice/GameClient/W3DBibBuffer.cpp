@@ -231,13 +231,8 @@ void W3DBibBuffer::loadBibsInVertexAndIndexBuffers(void)
 //=============================================================================
 /** Destructor. Releases w3d assets. */
 //=============================================================================
-// ??1W3DBibBuffer@@QAE@XZ present-unmatched
-W3DBibBuffer::~W3DBibBuffer(void)
-{
-	freeBibBuffers();
-	REF_PTR_RELEASE(m_bibTexture);
-	REF_PTR_RELEASE(m_highlightBibTexture);
-}
+// Native destructor and deleting wrapper: W3DBibBufferDtor.cpp.
+// Owning texture members provide the target exception cleanup states.
 
 //=============================================================================
 // W3DBibBuffer::W3DBibBuffer
