@@ -70000,3 +70000,4 @@ $L7319,,0x0079A19C,13,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?get@Rva003673BBByteFloatField@@QBEMXZ,,0x003673BB,19,Code/GameEngine/Source/Common/DispByteFloatFieldGetters.cpp,matched,
 ?rva002C6A4E@Rva002A8AB1Record@@QAEXPAVObject@@@Z,,0x002C6A4E,17,Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp,matched,
 ?rva005EA125@Rva005EA183@@QAEXXZ,,0x005EA125,17,Code/Libraries/Source/WWVegas/WWMath/Rva005EA183Method.cpp,matched,
+?forgetStaleCommandSet@ControlBar@@QAEXABVAsciiString@@@Z,,0x0031E879,92,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp,matched,WB ControlBar.cpp 1551 identifies stale-set removal; native 31E879..31E8D5 verifies map cursor +30 and removed pointer vector +230; existing iterator and erase ABI owners retained; pointer append uses the rowed ICF implementation without claiming its original instantiation; t=12 model=gpt-6
