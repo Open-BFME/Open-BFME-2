@@ -42,3 +42,8 @@ class Rva005F6A44 {public:void rva005F6A44();};
 // Constructor binding: _OnQueuedIconSlotRollOver.
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6A98(void*) { ((Rva005F6A44*)this)->rva005F6A44(); }
 
+
+class Rva005F69A0 {public:void rva005F69A0();};
+// Constructor binding: _OnQueuedIconSlotTypeRollOut.
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6AA0(void*) { ((Rva005F69A0*)this)->rva005F69A0(); }
+
