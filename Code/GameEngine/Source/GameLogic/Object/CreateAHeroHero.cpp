@@ -35,6 +35,49 @@ struct CreateAHeroBlingNode
 
 class CreateAHeroHero;
 
+// Same witnessed STLport bit-vector ABI as the rowed award-reset provider.
+// operator[] returns the eight-byte bit reference by value (native6BE1F).
+namespace _STL
+{
+struct _Bit_reference
+{
+	unsigned int *_M_p, _M_mask;
+	operator bool() const { return (*_M_p & _M_mask) != 0; }
+	_Bit_reference &operator=(bool x)
+	{
+		if (x) *_M_p |= _M_mask;
+		else *_M_p &= ~_M_mask;
+		return *this;
+	}
+};
+template<class T> class allocator {};
+template<class T, class A = allocator<T> > class vector;
+template<> class vector<bool, allocator<bool> >
+{
+public:
+	_Bit_reference operator[](unsigned int);
+private:
+	unsigned int storage[5];
+};
+}
+class Rva0021937DTarget { public: void rva00407E94(); };
+class Rva00406E7D { public: int rva00406E7D(); };
+class Rva00406E8F { public: int rva00406E8F(unsigned int); };
+struct BfmePod40;
+class Rva0040AAD5 { public: BfmePod40 *rva0040AAD5(int); };
+extern Rva0040AAD5 *g_00E02F74;
+class InGameUI
+{
+public:
+	void notifyHeroEarnedAward(CreateAHeroHero *, int);
+};
+extern InGameUI *TheInGameUI;
+// Retain the timeline provider's existing scalar ABI spelling. Its ScienceType
+// label is provisional: this call's word is the rowed GetAwardNameKey result,
+// not independent evidence that award keys are science identifiers.
+enum ScienceType { SCIENCE_FIRST = 0, SCIENCE_FORCE_LONG = 0x7fffffff };
+void Rva005200C5Add(void *, ScienceType);
+
 // The twelve-byte per-level button record (CreateAHeroElementCopy.cpp's
 // BfmeHeroElement005C39DE): the button name, its experience level and a
 // third word. SetButtonForLevel 0x0040737F stores one into the fifteen at
@@ -66,15 +109,49 @@ public:
 	Int GetBlingCount(Int blingKey) const;
 	Int GetBlingId(Int blingKey, UnsignedInt index) const;
 	Bool SetButtonForLevel(const AsciiString &button, UnsignedInt experienceLevel, UnsignedInt value);
+	void UpdateAwardEarnedFlags();
 
 private:
 	Bool rva004079D5(Int blingKey, CreateAHeroBlingNode **found) const;	// 0x004079D5
 
-	unsigned char m_pad00[0x74];
+	unsigned char m_pad00[0x38];
+	UnsignedInt m_state38;
+	unsigned char m_pad3C[0x5C - 0x3C];
+	_STL::vector<bool> m_awardEarnedFlags; // +0x5C
+	Bool m_flag70, m_updateAwards; // +0x70, +0x71
+	unsigned char m_pad72[2];
 	CreateAHeroBlingNode *m_blingHeader;	// +0x74, map end node
 	unsigned char m_pad78[0x80 - 0x78];
 	BfmeHeroElement005C39DE m_buttons[CAH_MAX_EXP_LEVELS];	// +0x80
 };
+
+// WB10828C0 identifies this member; native407F05..407FB2 supplies the
+// incremental award loop, state bit9 reset and both notification calls.
+void CreateAHeroHero::UpdateAwardEarnedFlags()
+{
+	if (!m_updateAwards)
+		return;
+	if (m_state38 & 0x200)
+	{
+		m_state38 &= ~0x200;
+		((Rva0021937DTarget *)this)->rva00407E94();
+	}
+	UnsignedInt count = ((Rva00406E7D *)this)->rva00406E7D();
+	for (UnsignedInt i = 0; i < count; ++i)
+	{
+		if (m_awardEarnedFlags[i])
+			continue;
+		Int key = ((Rva00406E8F *)this)->rva00406E8F(i);
+		BfmePod40 *award = g_00E02F74->rva0040AAD5(key);
+		if (award && HasEarnedAward((const CreateAHeroAward *)award))
+		{
+			m_awardEarnedFlags[i] = true;
+			if (TheInGameUI)
+				TheInGameUI->notifyHeroEarnedAward(this, key);
+			Rva005200C5Add(this, (ScienceType)key);
+		}
+	}
+}
 
 // CreateAHeroHero::HasEarnedAward, retail 0x00406EA7.
 Bool CreateAHeroHero::HasEarnedAward(const CreateAHeroAward *award) const
