@@ -317,7 +317,7 @@ Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp,-O1,1,1,region default lo
 Code/GameEngine/Source/GameClient/Open2Twins006.cpp,,16,1,region default loses rows
 Code/GameEngine/Source/GameClient/Rva006883F0Finish.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameClient/VideoPlayerAddVideo.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp,,4,1,region default loses rows
+Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp,-O2,5,2,region default loses rows
 Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameLogic/AI/Rva0033F364Update.cpp,-O1 -G7,1,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,-G7 -arch:SSE,5,1,region default loses rows
