@@ -1,4 +1,8 @@
-// cl: /O1 /G7 /EHsc /DNDEBUG /MD /arch:SSE
+// cl: /O1 /G7 /EHsc /DNDEBUG /MD /arch:SSE /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// stlport
+#include <vector>
+#include <hash_map>
+#include <list>
 // Eva.cpp -- Eva event-status queries recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv). WB's debug Eva.cpp names each member and its
 // diagnostics (Eva.cpp:1408..1447): an invalid EvaEventID, and a status array
@@ -28,6 +32,8 @@ public:
 	UnsignedInt size() const { return UnsignedInt(m_finish - m_start); }
 	T &operator[](UnsignedInt i) { return m_start[i]; }
 	const T &operator[](UnsignedInt i) const { return m_start[i]; }
+	T *begin() const { return m_start; }
+	T *end() const { return m_finish; }
 
 private:
 	T *m_start;
@@ -139,9 +145,28 @@ struct EvaEventReport
 	Vec001DCDAF m_secondPosition;				// +0x14
 };
 
+// The existing STLport owners define these opaque record spellings. Their
+// vector and hash-table assignments are rowed at 0x001DEF89 and 0x001DE3E3;
+// call those owners directly rather than adding container aliases.
+struct Rva001DEF89Record { Rva001DEF89Record(); Rva001DEF89Record(const Rva001DEF89Record&); ~Rva001DEF89Record(); Rva001DEF89Record&operator=(const Rva001DEF89Record&); char bytes[48]; };
+struct Rva001DE3E3Record { Rva001DE3E3Record(); Rva001DE3E3Record(const Rva001DE3E3Record&); ~Rva001DE3E3Record(); Rva001DE3E3Record&operator=(const Rva001DE3E3Record&); char bytes[1]; bool operator<(const Rva001DE3E3Record&)const; bool operator==(const Rva001DE3E3Record&)const; };
+typedef _STL::vector<Rva001DEF89Record, _STL::allocator<Rva001DEF89Record> > EvaInfoRecords;
+typedef _STL::hashtable<_STL::pair<const int,Rva001DE3E3Record>, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<const int,Rva001DE3E3Record> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int,Rva001DE3E3Record> > > EvaEventTable;
+namespace _STL {
+template<> EvaInfoRecords &EvaInfoRecords::operator=(const EvaInfoRecords &);
+template<> EvaEventTable &EvaEventTable::operator=(const EvaEventTable &);
+template<> void _List_base<int, allocator<int> >::clear();
+}
+class Rva001DEE92Member { public: void rva001DEE92(int count); char *m_begin; char *m_end; char *m_storage; };
+class Rva001DD70F { public: void rva001DD846(); };
+typedef char EvaInfoRecordsWidth[(sizeof(EvaInfoRecords)==12)?1:-1];
+typedef char EvaEventTableWidth[(sizeof(EvaEventTable)==20)?1:-1];
+typedef char EvaListWidth[(sizeof(_STL::_List_base<int,_STL::allocator<int> >)==4)?1:-1];
+
 class Eva
 {
 public:
+	void rva001DF1A4();
 	Bool internalReportEvaEvent(const EvaEventReport *report);	// 0x001DD468
 	void countEvaEventAsPlayed(EvaEventID eventID);
 	Bool isEventBlockedByTimeout(EvaEventID eventID) const;
@@ -153,6 +178,12 @@ private:
 	EvaVectorView<Arg001DCDAF> m_allEventInfos;		// +0x1C (WB name)
 	unsigned char m_pad28[0x5c - 0x28];
 	EvaVectorView<Rva001DCDAF> m_eventStatus;		// +0x5C
+	_STL::_List_base<int, _STL::allocator<int> > m_queue; // +0x68
+	int m_queuePosition; // +0x6C
+	int m_70;
+	int m_74;
+	int m_78;
+	Bool m_7C;
 };
 
 // Eva::countEvaEventAsPlayed, retail 0x001DD4E3 (90 bytes).
@@ -372,4 +403,30 @@ void Rva001DCD3C::rva001DCD3C()
     m_28 = zero;
     m_2C = zero;
     m_30 = 0;
+}
+
+// Retail 0x001DF1A4, 120 bytes; WorldBuilder Eva.cpp vtable lead.
+// The method name is unrecovered. Retail copies the 48-byte info-record vector
+// and its event table, sizes and clears the 52-byte status records, clears the
+// delayed-report tree and queue, then resets the observed flags/queue position.
+// The visible status clearer preserves ECX/EDX across the element loop.
+void Eva::rva001DF1A4()
+{
+ EvaInfoRecords &records = *reinterpret_cast<EvaInfoRecords *>(&m_allEventInfos);
+ records = *reinterpret_cast<const EvaInfoRecords *>(reinterpret_cast<char *>(this)+0x28);
+ *reinterpret_cast<EvaEventTable *>(reinterpret_cast<char *>(this)+0x34) = *reinterpret_cast<const EvaEventTable *>(reinterpret_cast<char *>(this)+0x48);
+ int count = (int)records.size();
+ Rva001DEE92Member *status = reinterpret_cast<Rva001DEE92Member *>(&m_eventStatus);
+ status->rva001DEE92(count);
+ reinterpret_cast<Rva001DD70F *>(reinterpret_cast<char *>(this)+0x10)->rva001DD846();
+ Rva001DCD3C *p = reinterpret_cast<Rva001DCD3C *>(status->m_begin);
+ Rva001DCD3C *end = reinterpret_cast<Rva001DCD3C *>(m_eventStatus.end());
+ for (; p != end; ++p)
+  p->rva001DCD3C();
+ if (m_78 == 0)
+  m_74 = 1;
+ m_7C = true;
+ m_queue.clear();
+ m_queuePosition = *reinterpret_cast<int *>(&m_queue);
+ m_70 = 0;
 }
