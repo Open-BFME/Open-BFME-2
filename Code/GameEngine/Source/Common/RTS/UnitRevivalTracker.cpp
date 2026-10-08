@@ -75,12 +75,21 @@ public:
 
 #include "FixedStorage128.h"
 
+class Rva001EAE6FHelper { public: Rva001EAE6FHelper *clear80(); };
+// The established storage copy remains a direct member-constructor call.
+// Its default is inlined into the template constructor and calls the
+// independently rowed clear80 helper; no standalone default body is emitted.
+// ?BfmeFixedStorage128::BfmeFixedStorage128 absent-from-retail
+__forceinline BfmeFixedStorage128::BfmeFixedStorage128() {
+    reinterpret_cast<Rva001EAE6FHelper*>(this)->clear80();
+}
 struct Rva001EB15A
 {
 	int a, b, c;
 	UnicodeString wide;
 	AsciiString text;
 	bool flag;
+	__declspec(noinline) Rva001EB15A();
 	Rva001EB15A(const Rva001EB15A &);
 };
 
@@ -190,6 +199,7 @@ class UnitRevivalEntry
 {
 public:
 	UnitRevivalEntry(Object *object);
+	UnitRevivalEntry(const ThingTemplate *thingTemplate);
 	UnitRevivalEntry(const UnitRevivalEntry &other);
 	~UnitRevivalEntry();
 	void *getThingTemplate();
@@ -205,7 +215,7 @@ public:
 	BfmeFixedStorage128 m_upgrades;
 	Int m_94;			// +0x94
 	Int m_reviveStartFrame;		// +0x98
-	Int m_9c;			// +0x9C
+	unsigned int m_9c;		// +0x9C: unsigned conversion emits retail x87/_ftol2
 	Bool m_a0;			// +0xA0
 	Bool m_a1;
 	unsigned char m_padA2[2];
@@ -515,4 +525,29 @@ const Image *UnitRevivalEntry::calcButtonImage(const Player *player)
         if (thingTemplate->getButtonImage()) return thingTemplate->getButtonImage();
     }
     return 0;
+}
+
+struct RevivalTemplateInitView {
+    char pad[0x64];
+    AsciiString name;
+    char pad68[0x4DC-0x68];
+    float time;
+    char pad4e0[0x5DA-0x4E0];
+    unsigned short cost;
+};
+// Native 37E289..37E352: complete 201B ThingTemplate constructor.
+// Target calls clear80 for +14, the independently established 24B default
+// record at +B0, and StringBase copy for the template name at +64. The
+// unsigned stored build-time override is load-bearing: signed storage lets
+// VC7.1 reduce the conversion to CVTTSS2SI instead of retail FLD/_ftol2.
+UnitRevivalEntry::UnitRevivalEntry(const ThingTemplate *thingTemplate)
+    : m_reviveImage(0),m_cachedImage(0),m_experience(0.0f),m_rank(1),m_level(1)
+    , m_upgrades()
+    , m_94(reinterpret_cast<const RevivalTemplateInitView*>(thingTemplate)->cost)
+    , m_reviveStartFrame(-1)
+    , m_9c(static_cast<unsigned int>(reinterpret_cast<const RevivalTemplateInitView*>(thingTemplate)->time))
+    , m_a0(false),m_a1(false),m_productionID(0),m_a8(0),m_ac(0)
+    , m_record(),m_c8(0),m_factor(1.0f),m_displayName()
+    , m_templateName(reinterpret_cast<const RevivalTemplateInitView*>(thingTemplate)->name)
+{
 }
