@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /arch:SSE /G7
+// cl: /O1 /EHsc /MD /arch:SSE /G7 /D_STLP_USE_STATIC_LIB
 // stlport
 #include <vector>
 // LivingWorldBattle.cpp -- battle-player members recovered from WorldBuilder
@@ -8,6 +8,16 @@
 // through 0x003F40EF (unnamed).
 
 typedef int Int;
+
+class CreateAHeroData;
+class Rva003F4DCA { public: int rva003F4DCA(int,int); };
+class Rva002B7250 { public: void rva002B7250(CreateAHeroData*); };
+struct Rva003B8B61Elem { virtual void destroy(int); char pad04[0x68-4]; };
+namespace _STL {
+ template<> void** vector<void*,allocator<void*> >::erase(void**);
+ template<> Rva003B8B61Elem*vector<Rva003B8B61Elem,allocator<Rva003B8B61Elem> >::erase(Rva003B8B61Elem*);
+}
+
 
 
 #include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
@@ -95,6 +105,7 @@ public:
 		int counters[5]; // +0x1C
 	};
 	void rva003F5397(Int a0, Int a1, Int a2, Int a3);
+ void RemoveArmy(LivingWorldArmy*);
  void ComputeBattleResultsForPlayersAfterAutoBattle(Rva003F4E07Results*);
 
 private:
@@ -171,4 +182,43 @@ void LivingWorldBattle::ComputeBattleResultsForPlayersAfterAutoBattle(Rva003F4E0
    }
   }
  }
+}
+
+// WB 104C2E0 assertions1175/1178 and native 3F5647..3F5724 RET4 prove
+// removal from the parallel army and starting-record vectors. Reuse the
+// independently verified side28/player48/record104 layouts and all five owned
+// direct callees. The side cursor addresses the player-vector member (+4),
+// advancing by the enclosing side stride. Native increment order is retained.
+// The listener view at army+8 and observer at battle+4 are opaque ABI views.
+// Explicit vector-erase declarations use the existing library implementations.
+void LivingWorldBattle::RemoveArmy(LivingWorldArmy *army)
+{
+    int side = 0;
+    if (side >= (int)m_table18.size()) return;
+    std::vector<BattlePlayer>*players = &m_table18[0].m_players;
+    do {
+        int player = 0;
+        if (player < ((Rva003F468D *)this)->rva003F4DAE(side)) {
+            BattlePlayer *entry = players->begin();
+            do {
+                int index = 0;
+                if (index < ((Rva003F4DCA *)this)->rva003F4DCA(side, player)) {
+                    LivingWorldArmy **position = entry->m_armies.begin();
+                    do {
+                        if (*position == army) {
+                            ((Rva002B7250 *)((char *)army + 8))->rva002B7250((CreateAHeroData *)((char *)this + 4));
+                            ((_STL::vector<void *, _STL::allocator<void *> > *)&entry->m_armies)->erase((void **)&entry->m_armies[index]);
+                            ((_STL::vector<Rva003B8B61Elem, _STL::allocator<Rva003B8B61Elem> > *)&entry->m_records)->erase((Rva003B8B61Elem *)&entry->m_records[index]);
+                            return;
+                        }
+                        ++position;
+                    } while (++index < ((Rva003F4DCA *)this)->rva003F4DCA(side, player));
+                }
+                ++player;
+                entry = (BattlePlayer *)((char *)entry + 0x30);
+            } while (player < ((Rva003F468D *)this)->rva003F4DAE(side));
+        }
+        ++side;
+        players = (std::vector<BattlePlayer>*)((char*)players + sizeof(Rva003F5397Slot));
+    } while (side < (int)m_table18.size());
 }
