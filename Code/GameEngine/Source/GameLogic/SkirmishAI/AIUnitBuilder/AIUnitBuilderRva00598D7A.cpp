@@ -57,7 +57,20 @@ public:
 };
 
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString&); };
+class Rva005983EE;
+class NameKeyGenerator {
+public:
+ NameKeyType nameToKey(const AsciiString&);
+ class KeyToBucketMap {
+  friend class ::Rva005983EE;
+ public:
+  struct Slot {void *node;KeyToBucketMap *table;};
+  struct value_type {int first;void *second;};
+  Slot *find(Slot &,const int *);
+ private:
+  int *insertNode(const value_type &);
+ };
+};
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva005982EAInterface {
 public:
@@ -335,10 +348,22 @@ class ArmorTemplate;
 namespace rts { template<class T> struct hash; template<class T>struct equal_to; }
 namespace _STL {
 template<class V> struct _Hashtable_node;
+template<class V,class Traits,class K,class H,class X,class E,class A> struct _Ht_iterator {
+ void *node;void *table;
+ _Ht_iterator &operator++();
+};
+template<class T> struct hash;
+
 struct ArmyFindNodePrefix {ArmyFindNodePrefix *next;unsigned int key;};
 template<class V,class K,class H,class X,class E,class A> class hashtable {
  friend class ::AIUnitBuilder;
+ template<class VV,class KK,class HH,class XX,class EE,class AA> friend class hashtable;
  friend class ::Rva004DFBED;
+public:
+ typedef _Ht_iterator<V,_Nonconst_traits<V>,K,H,X,E,A> iterator;
+ template<class T> __declspec(noinline) iterator find(const T &);
+ iterator begin();
+private:
  unsigned int unknown00;
  vector<_Hashtable_node<V>*> buckets;
  unsigned int unknown10;
@@ -352,6 +377,13 @@ template<class V,class K,class H,class X,class E,class A> class hashtable {
 }
 typedef _STL::pair<const NameKeyType,ArmorTemplate> ArmyLookupProviderValue;
 typedef _STL::hashtable<ArmyLookupProviderValue,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<ArmyLookupProviderValue>,rts::equal_to<NameKeyType>,_STL::allocator<ArmyLookupProviderValue> > ArmyLookupProvider;
+namespace _STL {
+template<class V,class K,class H,class X,class E,class A> template<class T>
+typename hashtable<V,K,H,X,E,A>::iterator hashtable<V,K,H,X,E,A>::find(const T &key) {
+ iterator result={((const ArmyLookupProvider*)this)->_M_find(*(const NameKeyType*)&key),this};
+ return result;
+}
+}
 struct ArmyPercentageNodeView {void *next;NameKeyType key;float percentage;};
 class Rva00598016 {public:void *rva00598016();};
 class Rva002A7461 {public:int rva002A7461();};
@@ -401,4 +433,24 @@ int Rva004DFBED::rva004DFBED(const AsciiString &name)
  const ArmyLookupProvider &table=*(const ArmyLookupProvider*)((char*)this+0x14);
  ArmyPercentageNodeView *node=(ArmyPercentageNodeView*)table._M_find(key);
  return node?*(int*)((char*)node+8):0;
+}
+
+// Existing canonical integer-key find provider reads only node/table pointers.
+// Its payload stays incomplete; no payload identity is inferred for this table.
+struct Rva00148B27Element;
+typedef _STL::pair<const int,Rva00148B27Element> IntegerLookupProviderValue;
+typedef _STL::hashtable<IntegerLookupProviderValue,int,_STL::hash<int>,_STL::_Select1st<IntegerLookupProviderValue>,_STL::equal_to<int>,_STL::allocator<IntegerLookupProviderValue> > IntegerLookupProvider;
+class Rva005983EE {public:float &lookup(const NameKeyType &);};
+// Native5983EE..598431: hash-map subscript over key4/percentage8, RET4.
+// Existing find148B27 returns node/table; blind insertion53F3B1 copies8 bytes
+// and returns the key slot. The float payload uses that storage ABI by bits.
+float &Rva005983EE::lookup(const NameKeyType &key)
+{
+ NameKeyGenerator::KeyToBucketMap *table=(NameKeyGenerator::KeyToBucketMap*)this;
+ IntegerLookupProvider::iterator it=((IntegerLookupProvider*)this)->find(*(const int*)&key);
+ if (!it.node) {
+  struct FloatValue {NameKeyType first;float second;} value={key,0.0f};
+  return *(float*)(table->insertNode(*(const NameKeyGenerator::KeyToBucketMap::value_type*)&value)+1);
+ }
+ return ((ArmyPercentageNodeView*)it.node)->percentage;
 }
