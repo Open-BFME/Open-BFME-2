@@ -145,41 +145,16 @@ View *View::prependViewToList( View *list )
 	return this;
 }
 
-// BFME retail View carries 12 more leading virtuals than this header, so its
-// height accessors sit at vtable slots 75/76 (+0x12C/+0x130), not 63/64.
-// Calls go through those retail slots directly; the header layout is unchanged.
-// TU-local layout view: 75 placeholder virtuals, then the retail height slots.
-struct RetailViewLayout
-{
-	virtual void p00( void ) {} virtual void p01( void ) {} virtual void p02( void ) {} virtual void p03( void ) {} virtual void p04( void ) {}
-	virtual void p05( void ) {} virtual void p06( void ) {} virtual void p07( void ) {} virtual void p08( void ) {} virtual void p09( void ) {}
-	virtual void p10( void ) {} virtual void p11( void ) {} virtual void p12( void ) {} virtual void p13( void ) {} virtual void p14( void ) {}
-	virtual void p15( void ) {} virtual void p16( void ) {} virtual void p17( void ) {} virtual void p18( void ) {} virtual void p19( void ) {}
-	virtual void p20( void ) {} virtual void p21( void ) {} virtual void p22( void ) {} virtual void p23( void ) {} virtual void p24( void ) {}
-	virtual void p25( void ) {} virtual void p26( void ) {} virtual void p27( void ) {} virtual void p28( void ) {} virtual void p29( void ) {}
-	virtual void p30( void ) {} virtual void p31( void ) {} virtual void p32( void ) {} virtual void p33( void ) {} virtual void p34( void ) {}
-	virtual void p35( void ) {} virtual void p36( void ) {} virtual void p37( void ) {} virtual void p38( void ) {} virtual void p39( void ) {}
-	virtual void p40( void ) {} virtual void p41( void ) {} virtual void p42( void ) {} virtual void p43( void ) {} virtual void p44( void ) {}
-	virtual void p45( void ) {} virtual void p46( void ) {} virtual void p47( void ) {} virtual void p48( void ) {} virtual void p49( void ) {}
-	virtual void p50( void ) {} virtual void p51( void ) {} virtual void p52( void ) {} virtual void p53( void ) {} virtual void p54( void ) {}
-	virtual void p55( void ) {} virtual void p56( void ) {} virtual void p57( void ) {} virtual void p58( void ) {} virtual void p59( void ) {}
-	virtual void p60( void ) {} virtual void p61( void ) {} virtual void p62( void ) {} virtual void p63( void ) {} virtual void p64( void ) {}
-	virtual void p65( void ) {} virtual void p66( void ) {} virtual void p67( void ) {} virtual void p68( void ) {} virtual void p69( void ) {}
-	virtual void p70( void ) {} virtual void p71( void ) {} virtual void p72( void ) {} virtual void p73( void ) {} virtual void p74( void ) {}
-	virtual Real getHeightAboveGround( void );
-	virtual void setHeightAboveGround( Real z );
-};
-
+// ?View::zoomIn present-unmatched
 void View::zoomIn( void )
 {
-	RetailViewLayout *view = reinterpret_cast<RetailViewLayout *>(this);
-	view->setHeightAboveGround(view->getHeightAboveGround() * 0.96f - 1.0f);
+	setHeightAboveGround(getHeightAboveGround() - 10.0f);
 }
 
+// ?View::zoomOut present-unmatched
 void View::zoomOut( void )
 {
-	RetailViewLayout *view = reinterpret_cast<RetailViewLayout *>(this);
-	view->setHeightAboveGround(view->getHeightAboveGround() * 1.05f + 1.0f);
+	setHeightAboveGround(getHeightAboveGround() + 10.0f);
 }
 
 /**
