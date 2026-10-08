@@ -1,0 +1,852 @@
+class,member,offset,size,kind,occurrences,conflict,example_function,example_condition
+?,m_DX8IndexBuffer,0x10,dword,assert,1,n/a,W3DBufferManager::ReAcquireResources@0x961e50,[ib] ib->m_DX8IndexBuffer == NULL
+?,m_DX8VertexBuffer,0x14,dword,assert,1,n/a,W3DBufferManager::ReAcquireResources@0x961e50,[vb] vb->m_DX8VertexBuffer == NULL
+?,m_NumberOfBones,0x118,dword,assert,1,n/a,DynamicPortalBehaviour::IsEndPortalAboveWall@0x10ad000,[portalData] portalData->m_NumberOfBones < cMaxBones
+?,m_RenderingMethodStackSize,0x4,dword,assert,1,n/a,FXShaderRenderer::PerformRendering@0xa21e40,[batchBegin] !(batchBegin->m_RenderingMethodStackSize <= 0)
+?,m_bound,0x3c,byte,assert,1,n/a,WaterTracksRenderSystem::releaseTrack@0x827210,[mod] mod->m_bound == false
+?,m_bound,0x1311,byte,assert,1,n/a,TerrainTracksRenderObjClassSystem::releaseTrack@0x8bf730,[mod] mod->m_bound == false
+?,m_control,0x8,dword,assert,10,n/a,AnimationTrackControl::remove@0x436a00,[tick] tick.m_control == this
+?,m_control,0x14,dword,assert,2,n/a,ListControl::insert@0x5253b0,[insertBefore] insertBefore->m_control == this
+?,m_control,0x1c,dword,assert,2,n/a,ListControl::insert@0x5240b0,[insertBefore] insertBefore->m_control == this
+?,m_control,0x20,dword,assert,9,n/a,TreeControl::getSelectedItem@0x627c40,[result] result->m_control == this
+?,m_currentTarget,0xc,dword,assert,2,n/a,LargeGroupAudioSoundKeyPair::removeDuckingTarget@0x143f3d0,[it] it->m_currentTarget == SKPToRemove
+?,m_damageType,0x10,dword,assert,2,n/a,CrushDie::onDie@0x11c2020,[in] damageInfo->in.m_damageType == DAMAGE_CRUSH
+?,m_factory,0x4,dword,assert,1,n/a,AIDozerManager::preEmptivelyBuildDozers@0x1530980,[it)] (*it).m_factory
+?,m_hWnd,0x20,dword,assert,18,n/a,AnimationSliderControl::create@0x432810,[parent] parent.m_hWnd != NULL
+?,m_handle,0x24,dword,assert,6,n/a,TreeControl::getItemAtPoint@0x627a80,[result] result->m_handle == handle
+?,m_impl,0x14,dword,assert,1,n/a,TextureAsset::GetSurfaceLevel@0x9d4260,[factory] !(factory->m_impl->m_textureType != TYPE_2D)
+?,m_index,0x18,dword,assert,1,n/a,ListControl::validate@0x5236a0,[item] item.m_index == i
+?,m_index,0x20,dword,assert,1,n/a,ListControl::validate@0x5236a0,[column] column.m_index == i
+?,m_info,0x0,dword,assert,2,n/a,PathfinderPosGoalManager::RemoveObjPtr@0x1286e90,[cur] !(!cur->m_info)
+?,m_invisibilityType,0x18,dword,assert,1,n/a,InvisibilityManager::addRecord@0x127fea0,[nugget] nugget->m_invisibilityType < IT_INVALID
+?,m_isOverride,0x160,byte,assert,1,n/a,WeaponStore::newOverride@0xbb39e0,[weaponTemplate] !(weaponTemplate->m_isOverride)
+?,m_itemImpl,0x4,dword,assert,7,n/a,StrategicInGameUI::Checklist::Impl::RemoveItem@0x15b4540,[entry] entry.m_itemImpl != NULL
+?,m_iter,0xc,dword,assert,10,n/a,AnimationTrackControl::remove@0x436a00,[tick] tick.m_iter->second.GetPtr() == &tick
+?,m_lastBling,0xc,dword,assert,1,n/a,AptMyHero::SetBling@0x15721e0,[group] !(to > group.m_lastBling)
+?,m_level,0xc,dword,assert,1,n/a,AptPlayer::RemoveLevel@0xb94410,[animData] !(animData.m_level == NO_LEVEL)
+?,m_listPos,0xc,dword,assert,3,n/a,Palantir::Impl::~Impl@0xf43790,[ping] ping->m_listPos == pingIt
+?,m_listPos,0x4c,dword,assert,4,n/a,StrategicHUD::ChecklistUIImpl::Item::OnHeightChanged@0x14bada0,[otherItem] otherItem->m_listPos == itemIt
+?,m_load,0x24,byte,assert,1,n/a,AptPlayer::LoadLevel@0xb94690,[animData] !(!animData.m_load)
+?,m_loaded,0x24,byte,assert,2,n/a,AptPlayer::LoadLevel@0xb94690,[animData] !(animData.m_loaded)
+?,m_method,0xc,dword,assert,10,n/a,TerrainDragSelector::activate@0x6203c0,[selector] selector.m_method == TERRAIN_SELECTION_METHOD_DRAG
+?,m_next,0xc,dword,assert,1,n/a,DisplayStringManager::link@0xd2e1a0,[string] string->m_next == NULL
+?,m_nextModule,0x14,dword,assert,1,n/a,AnimationSoundModuleManager::ValidateLists@0x12bd150,[currentEndPointer] currentEndPointer == NULL || currentEndPointer->m_nextModule == NULL
+?,m_numObjBelow,0x0,dword,assert,1,n/a,SimpleSceneClass::VisQuadtree::_RemoveObjectFromTree@0x9b8760,[node] node->m_numObjBelow>0
+?,m_objectFilter,0x0,dword,assert,1,n/a,Player::getProductionCostChangeBasedOnTemplate@0xc1fc70,[tof] tof->m_objectFilter->getID() == firstFilterFound
+?,m_observer,0x54,dword,assert,1,n/a,StrategicHUD::ChecklistUIImpl::~ChecklistUIImpl@0x14bc640,[item] item->m_observer != NULL
+?,m_owner,0x8,dword,assert,2,n/a,Palantir::Impl::~Impl@0xf43790,[ping] ping->m_owner == this
+?,m_parent,0x28,dword,assert,4,n/a,TreeControlItemParent::insertChild@0x5c34d0,[insertBefore] insertBefore == NULL || insertBefore->m_parent == this
+?,m_passedThrough,0x14,byte,assert,1,n/a,AptTranslator::CreatePassThroughMessage@0x12c9fd0,[rawMessage] !(rawMessage.m_passedThrough)
+?,m_pos,0x10,dword,assert,1,n/a,StrategicHUD::ArmyDetailsMovieClip::Impl::Update@0x1622fa0,[slot] slot->m_pos == slotNum
+?,m_prev,0x10,dword,assert,1,n/a,DisplayStringManager::link@0xd2e1a0,[string] string->m_prev == NULL
+?,m_prevDirty,0x14,dword,assert,1,n/a,ShroudManagerImpl::AppendToDirtyList@0x17e26f0,[data] !data->m_prevDirty
+?,m_prevModule,0x18,dword,assert,1,n/a,AnimationSoundModuleManager::ValidateLists@0x12bd150,[currentStartPointer] currentStartPointer == NULL || currentStartPointer->m_prevModule == NULL
+?,m_request,0x0,dword,assert,2,n/a,MilesAudioManager::processPushMusicRequest@0x792360,[request] request.m_request == AR_PushMusic
+?,m_selected,0x14,byte,assert,1,n/a,AptCreateAHero::Powers::AddMyPower@0x15767c0,[newPower] !(newPower->m_selected)
+?,m_size,0x0,dword,assert,2,n/a,W3DVolumetricShadow::RenderMeshVolume@0x801f00,[vbSlot] vbSlot->m_size >= numVerts
+?,m_toppleState,0x80,dword,assert,1,n/a,W3DTreeBuffer::updateTopplingTree@0x8a1cb0,[tree] tree->m_toppleState != TOPPLE_UPRIGHT
+?,m_useHalfHeightMap,0x4d,byte,assert,1,n/a,CWorldBuilderApp::InitInstance@0x68f740,[TheGlobalData] !TheGlobalData->m_useHalfHeightMap
+?,m_usedSlots,0x0,dword,assert,1,n/a,W3DBufferManager::freeAllBuffers@0x9616a0,[ib] ib->m_usedSlots == NULL
+?,m_usedSlots,0x4,dword,assert,1,n/a,W3DBufferManager::freeAllBuffers@0x9616a0,[vb] vb->m_usedSlots == NULL
+?,m_whichSpecialWeapon,0xcc,dword,assert,2,n/a,WeaponFireSpecialAbilityUpdate::startUnpacking@0x11e44a0,[data] !data->m_whichSpecialWeapon
+AIAttackFireWeaponState,m_att,0x24,dword,assert,1,,AIAttackFireWeaponState::onEnter@0xe20780,m_att != NULL
+AIAttackPositionFireWeaponState,m_att,0x24,dword,assert,1,,AIAttackPositionFireWeaponState::onEnter@0xe21780,m_att != NULL
+AIAttackState,m_machineType,0x50,dword,assert,1,,AIAttackState::createAttackMachine@0xe22790,m_machineType==ATTACK
+AIBase,m_player,0x14,dword,assert,1,,AIBase::DoXfer@0x15369a0,m_player
+AIBaseBuilder,m_bases,0xc,addr,assert,2,,AIBaseBuilder::update@0x1375ce0,!m_bases.empty()
+AIBaseBuilder,m_isInit,0x24,byte,assert,2,,AIBaseBuilder::postInit@0x13742c0,!m_isInit
+AIBuildable,ProducedObjectID,0x24,dword,accessor,1,,AIBuildable::setProducedObjectID@0x1506d30,
+AIBuildableStructure,m_producerID,0x8,dword,assert,1,,AIBuildableStructure::build@0x1506950,m_producerID != INVALID_ID
+AIBuildableUnit,m_owningPlayer,0x40,dword,assert,1,,AIBuildableUnit::updatePriority@0x15d22f0,m_owningPlayer->getCommand()->GetCommandPointsTotal() > 0.0f
+AIBuildableWallSegment,m_totalCost,0x54,dword,assert,1,,AIBuildableWallSegment::getTotalCost@0x1538930,m_totalCost > 0
+AIEconomyBuilder,m_inProductionFarms,0x1c,dword,assert,1,,AIEconomyBuilder::update@0x1382c30,m_inProductionFarms > 0
+AIEconomyStats,m_player,0x10,dword,assert,1,,AIEconomyStats::getTotalMoney@0x148cfd0,m_player
+AIEconomyStats,m_savedMoney,0x14,dword,assert,1,,AIEconomyStats::withdrawSavedAmount@0x148d0a0,m_savedMoney >= amount
+AIFarm,m_owningPlayer,0x68,dword,assert,1,,AIFarm::updatePriority@0x1538bd0,m_owningPlayer
+AIFlankAttackTacticImp,m_positions,0x4,addr,assert,1,,AIFlankAttackTacticImp::DoXfer@0x151b560,m_positions.size() == numPos
+AIGateUpdate,Opener,0x20,dword,accessor,1,,AIGateUpdate::getOpener@0x122edf0,
+AIGateUpdate,m_triggerID,0x24,dword,assert,1,,AIGateUpdate::update@0x122ef60,PolygonTrigger::getPolygonTriggerByID(m_triggerID)
+AIHuntState,m_huntMachine,0x24,dword,assert,1,,AIHuntState::update@0xe2fb00,m_huntMachine
+AIPlayer,FirstItemIn_TeamBuildQueue,0x4,dword,accessor,1,,AIPlayer::getFirstItemIn_TeamBuildQueue@0x10ffbb0,
+AIPlayer,FirstItemIn_TeamReadyQueue,0x8,dword,accessor,1,,AIPlayer::getFirstItemIn_TeamReadyQueue@0x10ffc60,
+AIPlayer,m_player,0xc,dword,assert,1,,AIPlayer::doRuntimeDebugOutput@0x1100b50,m_player
+AIPlayer,m_skillsetSelector,0x30,dword,assert,1,,AIPlayer::selectSkillset@0x10fbf50,m_skillsetSelector == INVALID_SKILLSET_SELECTION
+AIPlayer::DLINKHEAD_TeamBuildQueue,m_head,0x0,dword,assert,1,,AIPlayer::DLINKHEAD_TeamBuildQueue::~DLINKHEAD_TeamBuildQueue@0x10f5aa0,!m_head
+AIPlayer::DLINKHEAD_TeamReadyQueue,m_head,0x0,dword,assert,1,,AIPlayer::DLINKHEAD_TeamReadyQueue::~DLINKHEAD_TeamReadyQueue@0x10f5b40,!m_head
+AIRingHeroTactic,m_playerWithTheRingHeroUpgrade,0x5c,dword,assert,2,,AIRingHeroTactic::run@0x1522e90,m_playerWithTheRingHeroUpgrade
+AISimpleExpansionTactic,m_newFortress,0x58,dword,assert,1,,AISimpleExpansionTactic::run@0x151c010,m_newFortress == NULL
+AISpecialPowerTargetEnemy,m_targetObject,0x1c,dword,assert,1,,AISpecialPowerTargetEnemy::activate@0x15dd840,TheGameLogic->findObjectByID( m_targetObject )
+AISpellBookShroudReveal,m_numPlaces,0x28,dword,assert,1,,AISpellBookShroudReveal::shouldActivate@0x1596c10,m_numPlaces > 0
+AIStatCollector,m_infoReceivers,0x2c,addr,assert,1,,AIStatCollector::~AIStatCollector@0x129aed0,m_infoReceivers.empty()
+AITactic,m_isDone,0x28,byte,assert,2,,AITactic::NotifyTeamCreated@0x1377800,!m_isDone
+AITactic,m_isRunning,0x10,byte,assert,2,,AITactic::calcLastTeamPos@0x1379ae0,m_isRunning
+AITactic,m_teams,0x14,addr,assert,1,,AITactic::end@0x1377cc0,m_teams.size() <= getNumberOfTeamsNeeded()
+AITarget,m_player,0x0,dword,assert,2,,AITarget::markApproachHazard@0xe87910,m_player
+AITarget,m_threatFinder,0x24,dword,assert,2,,AITarget::markApproachHazard@0xe87910,m_threatFinder
+AITargetChooser,m_enemyManager,0x4,dword,assert,1,,AITargetChooser::getPrimaryPlayerTarget@0x136d9c0,m_enemyManager
+AITeamBuilder,m_player,0x14,dword,assert,1,,AITeamBuilder::checkIdleTeams@0x152ba50,m_player
+AIUpdateInterface,PathExtraDistance,0x168,dword,accessor,1,,AIUpdateInterface::setPathExtraDistance@0xe5a4d0,
+AIUpdateInterface,m_nextMoodCheckTime,0x21c,dword,assert,1,,AIUpdateInterface::getNextMoodTarget@0xe55e40,m_nextMoodCheckTime != 0
+AIUpdateInterface,m_preDefectionMachine,0x38,dword,assert,1,,AIUpdateInterface::BeginDefectedStateMachine@0xe582e0,m_preDefectionMachine == NULL
+AIUpdateInterface,m_stashedMachine,0x34,dword,assert,1,,AIUpdateInterface::BeginTemporaryStateMachine@0xe580e0,m_stashedMachine == NULL
+AIUpgrade,m_commandButton,0x30,dword,assert,1,,AIUpgrade::DoXfer@0x1538030,m_commandButton
+AIWall,m_curPlayer,0x18,dword,assert,2,,AIWall::activate@0x137bb30,m_curPlayer == NULL && isUnused()
+AIWall,m_wallSegments,0x8,addr,assert,1,,AIWall::calcGatePosition@0x137e4d0,otherIndex < m_wallSegments.size()
+AIWallBuilder,m_constructingWalls,0xc,addr,assert,1,,AIWallBuilder::DoXfer@0x1380a80,m_constructingWalls.empty()
+AODHordeContain,m_numRows,0x8e0,dword,assert,1,,AODHordeContain::initOffsets@0x1161f80,m_numRows<MAX_ROWS
+AddObjectUndoable,m_addedToList,0x14,byte,assert,1,,AddObjectUndoable::Undo@0x4a8280,m_addedToList
+AddObjectUndoable,m_objectToAdd,0xc,dword,assert,1,,AddObjectUndoable::Undo@0x4a8280,m_objectToAdd == MapObject::TheMapObjectListPtr
+AddPlayerByTemplateToSidesListUndoable,m_sideIndex,0xc,dword,assert,2,,AddPlayerByTemplateToSidesListUndoable::Do@0x5f1aa0,m_sideIndex < 0
+AiOrdersManager,m_OrderLookup,0x10,addr,assert,1,,AiOrdersManager::registerOrder@0xdf7f50,m_OrderLookup.find(pOrder->getId()) == m_OrderLookup.end()
+AnchorControl,m_anchorBottom,0x80,dword,assert,1,,AnchorControl::OnInitDialog@0x4311a0,!m_anchorTop || !m_anchorBottom
+AnchorControl,m_anchorLeft,0x74,dword,assert,1,,AnchorControl::OnInitDialog@0x4311a0,!m_anchorLeft || !m_anchorRight
+AnchorControl,m_anchorRight,0x78,dword,assert,1,,AnchorControl::OnInitDialog@0x4311a0,!m_anchorLeft || !m_anchorRight
+AnchorControl,m_anchorTop,0x7c,dword,assert,1,,AnchorControl::OnInitDialog@0x4311a0,!m_anchorTop || !m_anchorBottom
+Anim2D,m_template,0xc,dword,assert,4,,Anim2D::setCurrentFrame@0xc342b0,m_template != NULL
+Anim2DTemplate,m_images,0xc,dword,assert,1,,Anim2DTemplate::getFrame@0xc33dc0,m_images != NULL
+AnimConditionInfo,m_validStuff,0xf8,byte,assert,1,,AnimConditionInfo::findPristineBone@0x920190,(m_validStuff & PRISTINE_BONES_VALID)
+AnimationSliderControl,m_hWnd,0x20,dword,assert,2,,AnimationSliderControl::create@0x432810,m_hWnd == NULL
+AnimationSliderControl::Impl,m_draggingThumb,0x18,byte,assert,1,,AnimationSliderControl::Impl::dragThumb@0x431760,m_draggingThumb
+AnimationSoundModuleManager,m_ActiveListStart,0xc,dword,assert,2,,AnimationSoundModuleManager::RemoveModuleFromLists@0x12be460,moduleToRemove->m_prevModule != NULL || m_ActiveListStart == moduleToRemove || m_InactiveListStart == moduleToRemove
+AnimationSoundModuleManager,m_InactiveListStart,0x14,dword,assert,2,,AnimationSoundModuleManager::RemoveModuleFromLists@0x12be460,moduleToRemove->m_prevModule != NULL || m_ActiveListStart == moduleToRemove || m_InactiveListStart == moduleToRemove
+AnimationTrackControl,m_hWnd,0x20,dword,assert,1,,AnimationTrackControl::create@0x4361a0,m_hWnd == NULL
+AnimationTrackControl::Impl,m_mouseCaptureCount,0x1c,dword,assert,2,,AnimationTrackControl::Impl::captureMouse@0x435490,m_mouseCaptureCount >= 0
+AnimationTrackControlKeyFrameTick,m_control,0x8,dword,assert,12,,AnimationTrackControlKeyFrameTick::onDeslected@0x438d30,&control == m_control
+AptCreateAHero::Powers,m_nextHeroLevel,0x50,dword,assert,1,,AptCreateAHero::Powers::AddMyPower@0x15767c0,!(m_nextHeroLevel >= NUM_HERO_POWERS)
+AptCreateAHero::Powers,m_nextPalantirSlot,0x54,dword,assert,1,,AptCreateAHero::Powers::AddMyPower@0x15767c0,!(m_nextPalantirSlot >= (NUM_PALANITR_SLOTS - reservedButtons))
+AptCreateAHero::Powers,m_powerMatrix,0x14,addr,assert,2,,AptCreateAHero::Powers::BuildPowersData@0x1575640,!(row >= m_powerMatrix.size())
+AptCreateAHero::Powers::SpecialPowersDataGroup,m_column,0x0,dword,assert,1,,AptCreateAHero::Powers::SpecialPowersDataGroup::Add@0x1575f40,!(m_column[col])
+AptInGameSideCommandBar::Impl,m_state,0x14,dword,assert,1,,AptInGameSideCommandBar::Impl::OnButtonFrameLoaded@0x13c8490,!(m_state == STATE_NOT_LOADED)
+AptLanLobby,m_currentState,0x69c,dword,assert,2,,AptLanLobby::OnGameCreate@0x14119c0,!(m_currentState != CS_HOST_SETUP_WAIT)
+AptLanLobby,m_listboxGames,0x6a0,dword,assert,1,,AptLanLobby::GetValidSelectedGameInfo@0x140ea20,!(!m_listboxGames)
+AptMapPreview,m_comboBoxStrategicScenario,0x50,dword,assert,2,,AptMapPreview::GetCurrentStrategicScenario@0x1492d80,!(!m_comboBoxStrategicScenario)
+AptMapPreview,m_gameTypeEnum,0x1c,dword,assert,1,,AptMapPreview::UpdateStrategicStartSpots@0x14920a0,!(m_gameTypeEnum != MP_GAME_TYPE_STRATEGIC)
+AptMapPreview,m_livingWorldWindow,0x68,dword,assert,8,,AptMapPreview::OnMouseoverRegionChanged_internal@0x148f0f0,m_livingWorldWindow != NULL
+AptMessageBoxMovieClip::Impl,m_messageBoxType,0x18,dword,assert,5,,AptMessageBoxMovieClip::Impl::Show@0x13d8800,m_messageBoxType == MBT_NUMOF
+AptMovieClipFrame,m_hasContent,0xc,byte,assert,2,,AptMovieClipFrame::CreateContentMovieClip@0x1558520,!(m_hasContent)
+AptMpClans,m_comboboxName,0xa0,dword,assert,2,,AptMpClans::OnBttnDelete@0x15a1230,!(!m_comboboxName)
+AptMpGameRules,m_comboBoxes,0x64,addr,assert,1,,AptMpGameRules::PopulateComboBoxes@0x159e9e0,!(lp >= m_comboBoxes.size())
+AptMpGameRules,m_ruleGadgetState,0xb4,addr,assert,1,,AptMpGameRules::SetRulesState@0x159fa60,!((UnsignedInt)rule >= m_ruleGadgetState.size())
+AptMpGameSetup,m_comboBoxPlayer,0x2d0,dword,assert,1,,AptMpGameSetup::PopulatePlayerCombo@0x14a04b0,!(!m_comboBoxPlayer[slotIdx])
+AptMpGameSetup,m_doPopulateSlots,0x2be,byte,assert,1,,AptMpGameSetup::OnUpdate@0x1498ab0,!m_doPopulateSlots
+AptMpGameSetup,m_doUpdateClans,0x2ba,byte,assert,1,,AptMpGameSetup::OnUpdate@0x1498ab0,!m_doUpdateClans
+AptMpGameSetup,m_doUpdateGameRules,0x2b9,byte,assert,1,,AptMpGameSetup::OnUpdate@0x1498ab0,!m_doUpdateGameRules
+AptMpGameSetup,m_doUpdateMapList,0x2bb,byte,assert,1,,AptMpGameSetup::OnUpdate@0x1498ab0,!m_doUpdateMapList
+AptMpGameSetup,m_doUpdateMapPreview,0x2bc,byte,assert,1,,AptMpGameSetup::OnUpdate@0x1498ab0,!m_doUpdateMapPreview
+AptMpGameSetup,m_doUpdateMapStartSpots,0x2bd,byte,assert,1,,AptMpGameSetup::OnUpdate@0x1498ab0,!m_doUpdateMapStartSpots
+AptMpGameSetup,m_doUpdateMatrixForMapChange,0x2bf,byte,assert,1,,AptMpGameSetup::OnUpdate@0x1498ab0,!m_doUpdateMatrixForMapChange
+AptMpGameSetup,m_doUpdateSlotList,0x2b8,byte,assert,1,,AptMpGameSetup::OnUpdate@0x1498ab0,!m_doUpdateSlotList
+AptMyHero,m_availAttribPoints,0x154,dword,assert,1,,AptMyHero::SetBling@0x15721e0,!((m_availAttribPoints + diff) < 0)
+AptMyHero,m_mapObjectInfo,0x15c,addr,assert,1,,AptMyHero::GetObjectInfo@0x1571520,!(location >= m_mapObjectInfo.size())
+AptObjectivesMenu,m_playerList,0x27c,addr,assert,1,,AptObjectivesMenu::ExternsPlayerColor@0x1326a60,!(m_playerList.empty())
+AptObjectivesMenu,m_screenMode,0x288,dword,assert,4,,AptObjectivesMenu::Externs@0x1325ee0,!(m_screenMode != SM_PLAYER_STATUS)
+AptOnlineCustomMatch,m_comboboxLobbies,0x488,dword,assert,1,,AptOnlineCustomMatch::PopulateLobbyComboBox@0x14f0b60,!(!m_comboboxLobbies)
+AptOnlineCustomMatch,m_connectionsScreenOpen,0x4d0,byte,assert,2,,AptOnlineCustomMatch::OnOpenConnectionsScreen@0x14ed890,!(m_connectionsScreenOpen)
+AptOnlineCustomMatch,m_textentryGameName,0x490,dword,assert,1,,AptOnlineCustomMatch::FillGameNameTextEntry@0x14f84a0,!(!m_textentryGameName)
+AptPlayer,m_commandMap,0xc,addr,assert,1,,AptPlayer::RemoveCommandMap@0xb91860,m_commandMap.find(command) != m_commandMap.end()
+AptPlayer,m_customRenderMap,0x34,addr,assert,1,,AptPlayer::RemoveCustomRender@0xb92be0,m_customRenderMap.find(renderType) != m_customRenderMap.end()
+AptPlayer,m_externMap,0x20,addr,assert,1,,AptPlayer::RemoveExternHandler@0xb91cf0,m_externMap.find(externName) != m_externMap.end()
+AptPlayer,m_overButtonFuncMap,0xa4,addr,assert,1,,AptPlayer::RemoveOverButtonHandler@0xb920e0,m_overButtonFuncMap.find(trueName) != m_overButtonFuncMap.end()
+AptPlayer::AnimData,m_gameWindow,0x8,dword,assert,1,,AptPlayer::AnimData::Init@0xb98200,!m_gameWindow
+AptPlayer::AnimData,m_load,0x24,byte,assert,1,,AptPlayer::AnimData::Init@0xb98200,!(m_load)
+AptRadialMenu::Impl,m_buttonShells,0x44,addr,assert,2,,AptRadialMenu::Impl::PositionButton@0x14c65b0,index >= 0 && index < m_buttonShells.size()
+AptRadialMenuStage::Impl,m_numButtons,0x10,dword,assert,1,,AptRadialMenuStage::Impl::~Impl@0x14c5d70,m_numButtons == 0
+AptSaveLoad,m_nameTextEntry,0x290,dword,assert,1,,AptSaveLoad::SetDefaultFileName@0x12aebc0,!(!m_nameTextEntry)
+AptSaveLoad,m_saveLoadMode,0x294,dword,assert,2,,AptSaveLoad::OnButtonLoad@0x12adcf0,m_saveLoadMode == SLLT_LOAD_ONLY
+AptScoreScreen,m_persistentUnitsListbox,0x2a0,dword,assert,1,,AptScoreScreen::PopulatePersistentUnitsListbox@0x1461cc0,!(!TheGameLogic || !TheThingFactory || !m_persistentUnitsListbox)
+AptScoreScreen,m_preCollectedGameData,0x288,dword,assert,3,,AptScoreScreen::Externs@0x1460190,!(!m_preCollectedGameData)
+AptScoreScreen,m_screenMode,0x280,dword,assert,2,,AptScoreScreen::OnButtonRenameAccept@0x145fee0,m_screenMode == SM_CAMPAIGN
+AptScoreScreen,m_unitToRename,0x2a8,dword,assert,1,,AptScoreScreen::OnButtonRenameAccept@0x145fee0,!(!m_unitToRename)
+AptSkirmish,m_listboxProfiles,0x6c0,dword,assert,1,,AptSkirmish::GetListboxProfileSelectedName@0x1468670,!(!m_listboxProfiles)
+AptSkirmishStats,m_populate,0x2c,dword,assert,1,,AptSkirmishStats::GetRankPointValue@0x1591590,!(!m_populate)
+AptStats,m_factionToTemplate,0x20,addr,assert,1,,AptStats::AptStats@0x15d8a50,m_factionToTemplate.size() == FACTION_COUNT_PLAYABLE
+AptStrategicPlayerStatus,m_colors,0x288,addr,assert,1,,AptStrategicPlayerStatus::ExternsPlayerColor@0x146a630,!(callbackId >= m_colors.size())
+AptTexturedShape,m_matrixScaled,0x15,byte,assert,1,,AptTexturedShape::scaleTransformToTexture@0x8a9090,!(m_matrixScaled)
+AptTimeLine,m_playerGraphOpacity,0x2b8,addr,assert,1,,AptTimeLine::ExternsGraphFocus@0x13ddcd0,!(m_playerGraphOpacity.empty())
+AptTimeLine,m_playerInfoList,0x288,addr,assert,2,,AptTimeLine::ExternsPlayerColor@0x13dd910,!(m_playerInfoList.empty())
+AptTimeLineStats,m_numPlayers,0x10,dword,assert,2,,AptTimeLineStats::SetPlayerFocus@0x155c540,!(m_numPlayers < 1)
+AreaSet<class RiverArea>,m_areaEntries,0x14,addr,assert,2,,AreaSet<class RiverArea>::remove@0x546a90,it.m_index < this->m_areaEntries.size()
+AreaSet<class RiverArea>,m_nextID,0x10,dword,assert,2,,AreaSet<class RiverArea>::validate@0x54c2a0,this->m_nextID >= 0
+AreaSet<class RiverArea>::const_iterator,m_set,0x0,dword,assert,1,,AreaSet<class RiverArea>::const_iterator::getPtr@0x4e9de0,this->m_set != NULL
+AreaSet<class RiverArea>::iterator,m_set,0x0,dword,assert,1,,AreaSet<class RiverArea>::iterator::getPtr@0x5471b0,this->m_set != NULL
+AreaSet<class StandingWaterArea>,m_areaEntries,0x14,addr,assert,2,,AreaSet<class StandingWaterArea>::remove@0x547430,it.m_index < this->m_areaEntries.size()
+AreaSet<class StandingWaterArea>,m_nextID,0x10,dword,assert,2,,AreaSet<class StandingWaterArea>::validate@0x54c640,this->m_nextID >= 0
+AreaSet<class StandingWaterArea>::const_iterator,m_set,0x0,dword,assert,1,,AreaSet<class StandingWaterArea>::const_iterator::getPtr@0x4e9a10,this->m_set != NULL
+AreaSet<class StandingWaterArea>::iterator,m_set,0x0,dword,assert,1,,AreaSet<class StandingWaterArea>::iterator::getPtr@0x547bf0,this->m_set != NULL
+AreaSet<class StandingWaveArea>,m_areaEntries,0x14,addr,assert,2,,AreaSet<class StandingWaveArea>::remove@0x547e70,it.m_index < this->m_areaEntries.size()
+AreaSet<class StandingWaveArea>,m_nextID,0x10,dword,assert,2,,AreaSet<class StandingWaveArea>::validate@0x54c9e0,this->m_nextID >= 0
+AreaSet<class StandingWaveArea>::const_iterator,m_set,0x0,dword,assert,1,,AreaSet<class StandingWaveArea>::const_iterator::getPtr@0x4ea1b0,this->m_set != NULL
+AreaSet<class StandingWaveArea>::iterator,m_set,0x0,dword,assert,1,,AreaSet<class StandingWaveArea>::iterator::getPtr@0x548630,this->m_set != NULL
+AreaSet<class WaterArea>,m_areaEntries,0x14,addr,assert,1,,AreaSet<class WaterArea>::remove@0x6bbb00,it.m_index < this->m_areaEntries.size()
+AreaSet<class WaterArea>,m_nextID,0x10,dword,assert,3,,AreaSet<class WaterArea>::validate@0x6bc0a0,this->m_nextID >= 0
+AreaSet<class WaterArea>::const_iterator,m_set,0x0,dword,assert,1,,AreaSet<class WaterArea>::const_iterator::getPtr@0x511570,this->m_set != NULL
+AreaSet<class WaterArea>::iterator,m_set,0x0,dword,assert,1,,AreaSet<class WaterArea>::iterator::getPtr@0xc53270,this->m_set != NULL
+ArmySummary,m_entries,0x40,addr,assert,2,,ArmySummary::GetEntryID@0x1088520,index >= 0 && index < m_entries.size()
+ArmySummaryEntry,m_upgradingBuildingID,0xbc,dword,assert,1,,ArmySummaryEntry::MarkForUpgrades@0x10914a0,m_upgradingBuildingID == INVALID_BUILDING_ID
+AudioEventInfo,AttackSoundsVector,0x60,addr,accessor,1,,AudioEventInfo::getAttackSoundsVector@0xabe6f0,
+AudioEventInfo,DecaySoundsVector,0x70,addr,accessor,1,,AudioEventInfo::getDecaySoundsVector@0xabe7a0,
+AudioEventInfo,Filename,0xc,addr,accessor,1,,AudioEventInfo::getFilename@0xabe110,
+AudioEventInfo,SoundsVector,0x50,addr,accessor,1,,AudioEventInfo::getSoundsVector@0xabe640,
+AudioEventInfo,SubsoundVector,0x80,addr,accessor,1,,AudioEventInfo::getSubsoundVector@0xabe850,
+AudioEventInfo,m_soundType,0xb0,dword,assert,8,,AudioEventInfo::getFilename@0xabe110,m_soundType != AT_SoundEffect
+AudioEventRTS,ExtraVolumeMultiplier,0x2c,dword,accessor,1,,AudioEventRTS::setExtraVolumeMultiplier@0xbd6070,
+AudioEventRTS,NumberOfTimesToPlayMusicOrMultisound,0x7c,dword,accessor,1,,AudioEventRTS::setNumberOfTimesToPlayMusicOrMultisound@0x786c10,
+AudioEventRTS,m_ownerType,0x38,dword,assert,1,,AudioEventRTS::internalXfer@0xbd6c40,m_ownerType <= std::numeric_limits<Byte>::max() && m_ownerType >= std::numeric_limits<Byte>::min()
+AudioFileCache,m_currentUnlockedSize,0x3c,dword,assert,1,,AudioFileCache::eraseFromUnusedList@0x8e4f60,m_currentUnlockedSize >= fileRecord->getFileSize()
+AudioFileContainer,m_file,0x0,dword,assert,1,,AudioFileContainer::assertFileIsReady@0x77b650,m_file == 0 || m_file->isFileReady()
+BannerUI,m_aptMovieInitialized,0x20,byte,assert,1,,BannerUI::OnAptMovieInitialized@0xb6dc60,!(m_aptMovieInitialized)
+BannerUI,m_isHidden,0x34,byte,assert,1,,BannerUI::CreateBanner@0xb6e140,!m_isHidden
+BaseHeightMapRenderObjClass,m_map,0x37c0,dword,assert,1,,BaseHeightMapRenderObjClass::EstimateMaxHeightAlongLine@0x7570d0,!(m_map==0)
+BoolControl,m_hWnd,0x20,dword,assert,1,,BoolControl::create@0x43f4b0,m_hWnd == NULL
+BooleanBitmapSet,m_curBitDiv32,0xc,dword,assert,2,,BooleanBitmapSet::DoEnum@0x12cefd0,(m_curBitDiv32&(32-1))>0
+BooleanBitmapSet,m_numBitsDiv32,0x0,dword,assert,1,,BooleanBitmapSet::SetBit@0x12ceef0,bit<m_numBitsDiv32*32
+BridgeBehavior,m_scaffoldObjectIDList,0x100,addr,assert,1,,BridgeBehavior::DoXfer@0x11392a0,m_scaffoldObjectIDList.size() == 0
+BuffInfo,m_drawable,0x0,dword,assert,1,,BuffInfo::getPosition@0xdf67c0,m_drawable
+BuffInstance,m_buff,0x18,dword,assert,1,,BuffInstance::TurnOff@0xf144e0,m_buff
+BuffInstance,m_glowMaterial,0x30,addr,assert,1,,BuffInstance::TurnOff@0xf144e0,!m_glowMaterial.IsActive()
+CMainFrame,m_sizing,0x1130,byte,assert,3,,CMainFrame::onSized@0x52d7c0,!m_sizing
+CRCVerification,m_startCRC,0x0,dword,assert,1,,CRCVerification::~CRCVerification@0xc97f10,!TheGameLogic->isPlayingGame() || m_startCRC == endCRC
+CTeamsDialog,m_curTeamID,0x1234,dword,assert,1,,CTeamsDialog::OnDeleteTeam@0x60cfc0,m_curTeamID != SidesList::INVALID_TEAM_ID
+CTeamsDialog,m_observingSidesList,0x7d,byte,assert,6,,CTeamsDialog::OnInitDialog@0x60c4e0,!m_observingSidesList
+CWB3dFrameWnd,m_hWnd,0x20,dword,assert,5,,CWB3dFrameWnd::OnCreateClient@0x6369a0,m_hWnd != NULL
+CWB3dFrameWnd,m_interfaceState,0x1140,dword,assert,3,,CWB3dFrameWnd::onCameraAnimationEditingModeEntered@0x636ed0,&state == &m_interfaceState
+CWB3dFrameWnd,m_observingCameraAnimationInterface,0x1148,byte,assert,4,,CWB3dFrameWnd::OnCreate@0x6363d0,!m_observingCameraAnimationInterface
+CWB3dFrameWnd,m_view,0x1144,dword,assert,1,,CWB3dFrameWnd::OnCreateClient@0x6369a0,m_view == NULL
+CWorldBuilderApp,m_impl,0xa4,addr,assert,2,,CWorldBuilderApp::setActiveTool@0x694260,m_impl->m_mainFrame->getView() != NULL
+CWorldBuilderDoc,m_numWaypointLinks,0x3e8c4,dword,assert,1,,CWorldBuilderDoc::addWaypointLink@0x6b1a70,m_numWaypointLinks<MAX_WAYPOINTS-1
+CameraAnimation,m_refCount,0x14,dword,assert,2,,CameraAnimation::AddReference@0xa9ff90,m_refCount >= 0
+CameraAnimation3dInterface::Impl,m_interfaceState,0x8,dword,assert,6,,CameraAnimation3dInterface::Impl::onCameraAnimationCameraIconTranformDirtied@0x450ec0,&state == &m_interfaceState
+CameraAnimationCameraPanel,m_hWnd,0x20,dword,assert,1,,CameraAnimationCameraPanel::create@0x45c150,m_hWnd == NULL
+CameraAnimationCameraPanel::Impl,m_panelDisableCount,0x18,dword,assert,2,,CameraAnimationCameraPanel::Impl::disablePanel@0x45b2c0,m_panelDisableCount >= 0
+CameraAnimationCameraViewWindow,m_hWnd,0x20,dword,assert,1,,CameraAnimationCameraViewWindow::create@0x4662e0,m_hWnd == NULL
+CameraAnimationCameraViewWindow::Impl,m_interfaceState,0x8,dword,assert,4,,CameraAnimationCameraViewWindow::Impl::onCameraAnimationCameraPreviewFarClipDistanceChanged@0x465c20,&state == &m_interfaceState
+CameraAnimationCameraViewWindow::Impl,m_observingInterfaceState,0xc,byte,assert,4,,CameraAnimationCameraViewWindow::Impl::onCameraAnimationCameraPreviewFarClipDistanceChanged@0x465c20,m_observingInterfaceState
+CameraAnimationCapturedScenePlayer::Impl,m_interfaceState,0xc,dword,assert,4,,CameraAnimationCapturedScenePlayer::Impl::onCameraAnimationFrameSelectionChanged@0x469d60,&state == &m_interfaceState
+CameraAnimationCapturedScenePlayer::Impl,m_selectedAnim,0x2c,dword,assert,2,,CameraAnimationCapturedScenePlayer::Impl::onCameraAnimationCapturedSceneFrameOffsetChanged@0x469b00,&anim == m_selectedAnim
+CameraAnimationInterfaceState::Impl,m_animPlaybackUpdater,0x2c,addr,assert,2,,CameraAnimationInterfaceState::Impl::validate@0x46ad30,!m_animPlaybackUpdater.isActive()
+CameraAnimationInterfaceState::Impl,m_cameraAnimationList,0x10,dword,assert,2,,CameraAnimationInterfaceState::Impl::onDestroyingCameraAnimationList@0x46d360,&list == m_cameraAnimationList
+CameraAnimationInterfaceState::Impl,m_iconSelection,0x40,dword,assert,2,,CameraAnimationInterfaceState::Impl::validate@0x46ad30,m_iconSelection >= 0 && m_iconSelection < NUM_ICON_SELECTIONS
+CameraAnimationInterfaceState::Impl,m_playingAnim,0x24,byte,assert,2,,CameraAnimationInterfaceState::Impl::validate@0x46ad30,!m_playingAnim
+CameraAnimationInterpolationMethodPanel,m_hWnd,0x20,dword,assert,1,,CameraAnimationInterpolationMethodPanel::create@0x472050,m_hWnd == NULL
+CameraAnimationLookAtPanel,m_hWnd,0x20,dword,assert,1,,CameraAnimationLookAtPanel::create@0x473cc0,m_hWnd == NULL
+CameraAnimationLookAtPanel::Impl,m_panelDisableCount,0x1c,dword,assert,2,,CameraAnimationLookAtPanel::Impl::disablePanel@0x472fa0,m_panelDisableCount >= 0
+CameraAnimationLookAtPanel::Impl,m_selectedAnim,0x14,dword,assert,1,,CameraAnimationLookAtPanel::Impl::onLookAtTrackChanged@0x473280,m_selectedAnim != NULL
+CameraAnimationOptionsPanel::Impl,m_interfaceState,0x8,dword,assert,2,,CameraAnimationOptionsPanel::Impl::onCameraAnimationCoordinateSystemModeChanged@0x483560,&state == &m_interfaceState
+CameraAnimationPositionPanel,m_hWnd,0x20,dword,assert,1,,CameraAnimationPositionPanel::create@0x483ec0,m_hWnd == NULL
+CameraAnimationTimelinePanel,m_hWnd,0x20,dword,assert,1,,CameraAnimationTimelinePanel::create@0x492fd0,m_hWnd == NULL
+CameraAnimationTimelinePanel::Impl,m_interfaceState,0xc,dword,assert,6,,CameraAnimationTimelinePanel::Impl::onCameraAnimationFrameSelectionChanged@0x492390,&state == &m_interfaceState
+CameraAnimationTimelinePanel::Impl,m_observingInterfaceState,0x10,byte,assert,6,,CameraAnimationTimelinePanel::Impl::onCameraAnimationFrameSelectionChanged@0x492390,m_observingInterfaceState
+CameraAnimationTimelinePanel::Impl,m_selectedAnim,0x18,dword,assert,4,,CameraAnimationTimelinePanel::Impl::onCameraAnimationDurationChanged@0x4921c0,&anim == m_selectedAnim
+CameraAnimationTimelineSliderPanel,m_hWnd,0x20,dword,assert,1,,CameraAnimationTimelineSliderPanel::create@0x498f30,m_hWnd == NULL
+CameraAnimationTimelineSliderPanel::Impl,m_interfaceState,0xc,dword,assert,3,,CameraAnimationTimelineSliderPanel::Impl::onCameraAnimationFrameSelectionChanged@0x498740,&state == &m_interfaceState
+CameraAnimationTimelineSliderPanel::Impl,m_observingInterfaceState,0x10,byte,assert,3,,CameraAnimationTimelineSliderPanel::Impl::onCameraAnimationFrameSelectionChanged@0x498740,m_observingInterfaceState
+CameraAnimationTimelineSliderPanel::Impl,m_selectedAnim,0x18,dword,assert,3,,CameraAnimationTimelineSliderPanel::Impl::onCameraAnimationDurationChanged@0x498540,&anim == m_selectedAnim
+CameraAnimationsDialog::Impl,m_interfaceState,0x10,dword,assert,6,,CameraAnimationsDialog::Impl::onCameraAnimationCameraPathVisibilityChanged@0x486e10,&state == &m_interfaceState
+CastleBehavior,m_foundations,0x50,addr,assert,2,,CastleBehavior::checkForAutoPack@0xebe3e0,(m_foundations.size() <= 1)
+CastleBehavior,m_miscObjects,0x5c,addr,assert,1,,CastleBehavior::DoXfer@0xec1540,m_miscObjects.size()==numMiscObjects
+CellGrid,m_cellCount,0x8,dword,assert,1,,CellGrid::GetCell@0x144a430,cellIndex < m_cellCount
+Command,m_commandPointsMax,0x14,dword,assert,1,,Command::Init@0xe9b810,m_commandPointsTotal && m_commandPointsMax
+Command,m_commandPointsTotal,0x8,dword,assert,1,,Command::Init@0xe9b810,m_commandPointsTotal && m_commandPointsMax
+CommandButton,m_stances,0x238,addr,assert,1,,CommandButton::getStance@0xf00300,index >= 0 && index < m_stances.size()
+CommandSet,m_creationSource,0x98,dword,assert,2,,CommandSet::ResetCommandSet@0xc29010,m_creationSource == CS_SOURCE_DYNAMIC
+ConnectionManager,m_frameDataMgr,0x12104,dword,assert,1,,ConnectionManager::processPlayerLeave@0x1389dd0,m_frameDataMgr[playerID]->getIsQuitting() == FALSE
+ConnectionManager,m_localSlot,0x12028,dword,assert,1,,ConnectionManager::processNetCommand@0x1386560,m_localSlot != m_packetRouterSlot
+ConnectionManager,m_maxReadyFrame,0x1205c,dword,assert,1,,ConnectionManager::processNetCommand@0x1386560,pMsg->getLogicFrame() < m_maxReadyFrame+20
+ConnectionManager,m_packetRouterSlot,0x1202c,dword,assert,2,,ConnectionManager::processNetCommand@0x1386560,m_localSlot != m_packetRouterSlot
+CreateAHeroHero,m_awardEarnedFlags,0x5c,addr,assert,1,,CreateAHeroHero::UpdateAwardEarnedFlags@0x10828c0,m_awardEarnedFlags.size() == awardCount
+CreateAHeroManager,m_blingBinderList,0x168,addr,assert,1,,CreateAHeroManager::GetBlingBinder@0xb7bf70,blingBinderIndex < m_blingBinderList.size()
+CreateAHeroManager,m_blingList,0x15c,addr,assert,1,,CreateAHeroManager::GetBling@0xb79e90,blingId < m_blingList.size()
+CreateAHeroManager,m_localHero,0x1e0,dword,assert,1,,CreateAHeroManager::OnDie@0xb7e5b0,m_localHero
+CrowdResponseTemplate,m_weight,0x4,dword,assert,1,,CrowdResponseTemplate::parseFromINI@0xc65a40,m_weight > 0
+DataChunkInput,m_chunkStack,0x1c,dword,assert,7,,DataChunkInput::readReal@0xbda700,m_chunkStack->dataLeft>=sizeof(Real)
+DeleteInfo,m_didDelete,0x0,byte,assert,2,,DeleteInfo::DoDelete@0x4ab300,!m_didDelete
+DeleteInfo,m_objectToDelete,0x4,dword,assert,1,,DeleteInfo::DoDelete@0x4ab300,MapObject::TheMapObjectListPtr == m_objectToDelete
+DisplayStringManager,m_stringList,0xc,dword,assert,2,,DisplayStringManager::unLink@0xd2e4a0,!(!m_stringList)
+DozerAIUpdate,m_phantomStructureID,0x4a8,dword,assert,4,,DozerAIUpdate::makePhantomStructureReal@0x11ce0d0,INVALID_ID != m_phantomStructureID
+Drawable,ID,0x108,dword,accessor,1,,Drawable::getID@0xcaef30,
+Drawable,m_buffManager,0x458,dword,assert,1,,Drawable::TurnOnBuff@0xcb8440,m_buffManager
+Drawable,m_id,0x108,dword,assert,1,,Drawable::getID@0xcaef30,m_id != 0
+DualShadow,m_shadow,0x58,dword,assert,5,,DualShadow::getAngle@0x8d3110,m_shadow[which] != NULL
+DynamicShroudClearingRangeUpdate,m_growStartDeadline,0x2c,dword,assert,1,,DynamicShroudClearingRangeUpdate::DynamicShroudClearingRangeUpdate@0x11cf720,(m_growStartDeadline >= m_shrinkStartDeadline)
+DynamicShroudClearingRangeUpdate,m_shrinkStartDeadline,0x34,dword,assert,1,,DynamicShroudClearingRangeUpdate::DynamicShroudClearingRangeUpdate@0x11cf720,(m_growStartDeadline >= m_shrinkStartDeadline)
+EmotionTrackerUpdate,m_emotionVector,0x90,addr,assert,2,,EmotionTrackerUpdate::~EmotionTrackerUpdate@0x12304c0,m_emotionVector.empty()
+EmotionTrackerUpdate::TauntPointFilter,m_obj,0x10,dword,assert,2,,EmotionTrackerUpdate::TauntPointFilter::AllowPlayer@0x1230970,!(!m_obj||!m_player)
+EmotionTrackerUpdate::TauntPointFilter,m_player,0x14,dword,assert,1,,EmotionTrackerUpdate::TauntPointFilter::AllowPlayer@0x1230970,!(!m_obj||!m_player)
+Energy,m_energyConsumption,0x8,dword,assert,3,,Energy::getEnergySupplyRatio@0x10ae410,m_energyProduction >= 0 && m_energyConsumption >= 0
+Energy,m_energyProduction,0x4,dword,assert,3,,Energy::getEnergySupplyRatio@0x10ae410,m_energyProduction >= 0 && m_energyConsumption >= 0
+EventParameter,m_type,0x14,dword,assert,4,,EventParameter::GetReal@0xbfe340,m_type==FLOAT
+FXParticleSystem::CPUParticle,m_lifetimeLeft,0x54,dword,assert,1,,FXParticleSystem::CPUParticle::update@0xb0d4b0,m_lifetimeLeft
+FXParticleSystem::ParticleSystem,StorageModule,0xa4,dword,accessor,1,,FXParticleSystem::ParticleSystem::getStorageModule@0x7fafa0,
+FXParticleSystem::ParticleSystem,m_masterSystem,0x16c,addr,assert,1,,FXParticleSystem::ParticleSystem::~ParticleSystem@0xb0f2a0,m_masterSystem->getSlave() == Ptr(this)
+FXParticleSystem::ParticleSystem,m_slaveSystem,0x15c,addr,assert,1,,FXParticleSystem::ParticleSystem::~ParticleSystem@0xb0f2a0,m_slaveSystem->getMaster() == Ptr(this)
+FXParticleSystem::ParticleSystem,m_storageModule,0xa4,dword,assert,1,,FXParticleSystem::ParticleSystem::getStorageModule@0x7fafa0,m_storageModule
+FXParticleSystem::ParticleSystemManager,m_allParticlesHead,0x10,dword,assert,2,,FXParticleSystem::ParticleSystemManager::init@0xb15be0,m_allParticlesHead[ i ] == NULL
+FXParticleSystem::ParticleSystemManager,m_allParticlesTail,0x2c,dword,assert,2,,FXParticleSystem::ParticleSystemManager::init@0xb15be0,m_allParticlesTail[ i ] == NULL
+FXShaderAsset::Factory,m_impl,0x14,dword,assert,1,,FXShaderAsset::Factory::PreLoad@0x9f7060,m_impl == NULL
+FXShaderAsset::Impl,m_effect,0x4,dword,assert,2,,FXShaderAsset::Impl::PostLoad@0x9f6160,!m_effect
+FXShaderGeometry,m_IndexBuffer,0x10,dword,assert,2,,FXShaderGeometry::Init@0xa39110,!m_IndexBuffer
+FXShaderGeometry,m_VertexBuffer,0xc,dword,assert,1,,FXShaderGeometry::Init@0xa39110,!m_VertexBuffer
+FXShaderGeometry,m_VertexDeclaration,0x8,dword,assert,1,,FXShaderGeometry::Init@0xa39110,!m_VertexDeclaration
+FXShaderParameterBinder,m_Effect,0x0,dword,assert,1,,FXShaderParameterBinder::UpdateParameters@0x9e94b0,!(!m_Effect)
+FXShaderParameterBinder,m_ParsingData,0x10,dword,assert,5,,FXShaderParameterBinder::~FXShaderParameterBinder@0x9e8b50,!m_ParsingData
+FXShaderParameterBinder,m_TechniqueBindings,0x4,addr,assert,1,,FXShaderParameterBinder::UpdateParameters@0x9e94b0,!(tb == m_TechniqueBindings.end())
+FXShaderParameterSourceNamespaceSAS,m_SourceNamespace_Shadow,0x5c,addr,assert,1,,FXShaderParameterSourceNamespaceSAS::SetShadowMapInfo@0x9f87c0,!(shadowMapIndex < 0 || shadowMapIndex >= m_SourceNamespace_Shadow.GetSize())
+FXShaderParameterSourceNamespace_Array<struct FXShaderParameterSourceNamespaceSAS::SourceNamespace_AmbientLight>,m_Elements,0x4,addr,assert,1,,FXShaderParameterSourceNamespace_Array<struct FXShaderParameterSourceNamespaceSAS::SourceNamespace_AmbientLight>::GrowArray@0x9fd0e0,!(totalNumElements < m_Elements.size())
+FXShaderParameterSourceNamespace_Array<struct FXShaderParameterSourceNamespaceSAS::SourceNamespace_DirectionalLight>,m_Elements,0x4,addr,assert,1,,FXShaderParameterSourceNamespace_Array<struct FXShaderParameterSourceNamespaceSAS::SourceNamespace_DirectionalLight>::GrowArray@0x9fd1a0,!(totalNumElements < m_Elements.size())
+FXShaderParameterSourceNamespace_Array<struct FXShaderParameterSourceNamespaceSAS::SourceNamespace_PointLight>,m_Elements,0x4,addr,assert,1,,FXShaderParameterSourceNamespace_Array<struct FXShaderParameterSourceNamespaceSAS::SourceNamespace_PointLight>::GrowArray@0x9fd260,!(totalNumElements < m_Elements.size())
+FXShaderParameterSourceNamespace_Array<struct FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow>,m_Elements,0x4,addr,assert,1,,FXShaderParameterSourceNamespace_Array<struct FXShaderParameterSourceNamespaceSAS::SourceNamespace_Shadow>::GrowArray@0x9fd320,!(totalNumElements < m_Elements.size())
+FXShaderSetup,m_ShaderAsset,0x8,addr,assert,7,,FXShaderSetup::Begin_Rendering@0x9df260,!(!m_ShaderAsset.IsBound() || !m_ShaderAsset.PeekEffect())
+FXShaderSetup,m_Technique,0x20,dword,assert,1,,FXShaderSetup::Begin_Rendering@0x9df260,!(!m_Technique)
+FakePathfindPortalBehaviour,m_wp,0x28,dword,assert,1,,FakePathfindPortalBehaviour::regWaypointsWithPathfinder@0x118fc50,m_wp[i]
+FireLogicNugget,m_damageArc,0x138,float,assert,2,,FireLogicNugget::doEffectPosition@0x10aa320,m_damageArc == PI
+FireLogicSystem,m_height,0x7c,dword,assert,2,,FireLogicSystem::ChangeCellToObjectFlammability@0xc3a8e0,x>=0&&x<m_width&&y>=0&&y<m_height
+FireLogicSystem,m_width,0x78,dword,assert,2,,FireLogicSystem::ChangeCellToObjectFlammability@0xc3a8e0,x>=0&&x<m_width&&y>=0&&y<m_height
+FireWeaponCollide,m_collideWeapon,0x14,dword,assert,1,,FireWeaponCollide::DoXfer@0x124a8e0,m_collideWeapon == NULL
+FloatingPointEditControl,m_maxVal,0x78,float,assert,2,,FloatingPointEditControl::setValue@0x579f80,newVal >= m_minVal && newVal <= m_maxVal
+FloatingPointEditControl,m_minVal,0x74,float,assert,2,,FloatingPointEditControl::setValue@0x579f80,newVal >= m_minVal && newVal <= m_maxVal
+FormationSquad,m_numUnits,0x120,dword,assert,1,,FormationSquad::AddUnit@0x13b9080,m_numUnits<MAX_UNITS
+FormationTranslator::WaitForSecondButtonDownStateHandler,m_firstButtonDownMsgType,0x8,dword,assert,1,,FormationTranslator::WaitForSecondButtonDownStateHandler::IsFirstButtonStillDown@0x12c7320,m_firstButtonDownMsgType == GameMessage::MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN
+GameClient,m_priorBitDepth,0xe0,dword,assert,1,,GameClient::restorePriorDisplayMode@0xd20460,m_priorXRes > 0 && m_priorYRes > 0 && m_priorBitDepth > 0
+GameClient,m_priorXRes,0xd8,dword,assert,1,,GameClient::restorePriorDisplayMode@0xd20460,m_priorXRes > 0 && m_priorYRes > 0 && m_priorBitDepth > 0
+GameClient,m_priorYRes,0xdc,dword,assert,1,,GameClient::restorePriorDisplayMode@0xd20460,m_priorXRes > 0 && m_priorYRes > 0 && m_priorBitDepth > 0
+GameClient::LivingWorldInGameUIManager,m_livingWorld,0xc,dword,assert,2,,GameClient::LivingWorldInGameUIManager::OnDestroyingLivingWorld@0xd17ed0,&world == m_livingWorld
+GameEngine,m_headlessClients,0x14,dword,assert,1,,GameEngine::startHeadlessClients@0xdd6c70,!(m_headlessClients>0)
+GameInfo,m_inGame,0x10,byte,assert,6,,GameInfo::enterGame@0x1065890,!m_inGame && !m_inProgress
+GameInfo,m_inProgress,0x11,byte,assert,4,,GameInfo::enterGame@0x1065890,!m_inGame && !m_inProgress
+GameInfo,m_slot,0x18,dword,assert,2,,GameInfo::setSlot@0x1065d00,m_slot[slotNum]
+GameLODManager,m_cpuFreq,0x17c0,dword,assert,1,,GameLODManager::findAudioLODLevel@0xb2edb0,m_cpuFreq != 0
+GameLogic,m_notifyPathfindCellChangedQueue,0x168,addr,assert,1,,GameLogic::updatePhase@0xd03aa0,m_notifyPathfindCellChangedQueue.size()==0
+GameLogic,m_previousPhase,0x180,dword,assert,1,,GameLogic::updatePhase@0xd03aa0,m_previousPhase==SubsystemInterface::LAST_LOGIC_PHASE && currentPhase==SubsystemInterface::PRIMARY_LOGIC_PHASE
+GameLogic,m_sleepingUpdateModules,0xf8,addr,assert,1,,GameLogic::friend_awakenUpdateModule@0xd03410,idx<(Int)m_sleepingUpdateModules.size()
+GameSpyStagingRoom,m_inGame,0x10,byte,assert,2,,GameSpyStagingRoom::getLocalSlotNum@0x1315d60,m_inGame
+GameSpyStagingRoom,m_transport,0xfb8,dword,assert,1,,GameSpyStagingRoom::startGame@0x1315f60,m_transport == NULL
+GameStats::Row,m_statColumns,0x4,addr,assert,1,,GameStats::Row::AddStat@0x15d7610,!(playerIndex >= m_statColumns.size())
+GameStats::Table,m_rows,0x4,addr,assert,5,,GameStats::Table::AddStat@0x15d6770,!((UnsignedInt)statIdx >= m_rows.size())
+GameTextManager,m_initialized,0x1d,byte,assert,1,,GameTextManager::fetchptr@0xbf1a10,m_initialized
+GarrisonContain,m_garrisonPointsInitialized,0x9e0,byte,assert,3,,GarrisonContain::findClosestFreeGarrisonPointIndex@0x11a1f40,m_garrisonPointsInitialized
+GateOpenAndCloseBehavior,Position,0xc,dword,accessor,1,,GateOpenAndCloseBehavior::getPosition@0x11f7480,
+GateOpenAndCloseBehavior,m_proxyID,0x24,dword,assert,1,,GateOpenAndCloseBehavior::LoadPostProcess@0x11f9cb0,m_proxyID != INVALID_ID
+GenericObjectCreationNugget,m_debrisToGenerate,0x28,dword,assert,1,,GenericObjectCreationNugget::reallyCreate@0xb050f0,m_debrisToGenerate == 1
+GenericObjectCreationNugget,m_names,0x4,addr,assert,1,,GenericObjectCreationNugget::canCreate@0xb04a00,m_names.size() == 1
+GlobalTextureClass,m_isLoading,0x58,byte,assert,2,,GlobalTextureClass::abortLoading@0x66a230,m_isLoading
+GlobalTextureClass,m_tiles,0x28,addr,assert,1,,GlobalTextureClass::getTile@0x66dd60,i >= 0 && i < m_tiles.size()
+GlowMaterial,m_fadeMaterial,0x4,dword,assert,1,,GlowMaterial::Create@0xf136b0,m_fadeMaterial == NULL
+GlowMaterial,m_solidMaterial,0x8,dword,assert,1,,GlowMaterial::Create@0xf136b0,m_solidMaterial == NULL
+HierarchicalPath,m_pathOrderMapDirty,0x10,byte,assert,1,,HierarchicalPath::lookUpPositionOnPath@0x12e5af0,!m_pathOrderMapDirty
+HordeContain,PorcupineFormation,0x4,dword,accessor,1,,HordeContain::isPorcupineFormation@0x10b26f0,
+HordeContain,m_lockedItem,0x54,dword,assert,3,,HordeContain::removeMemberFromHorde@0x10b48a0,unit!=m_lockedItem
+HordeContain,m_memberOffsets,0x18c,addr,assert,1,,HordeContain::_getUnitsIntendedPosition@0x10c0ea0,offsetIndex <= m_memberOffsets.size()
+HordeContain,m_memberOffsetsFree,0x198,addr,assert,1,,HordeContain::performReform@0x10c4c40,m_memberOffsetsFree.size()>=todo.size()
+HordeMeleeAmoeba,m_attackInfo,0x8,addr,assert,1,,HordeMeleeAmoeba::setUnitNeedsNewAttackPos@0x1470dd0,!(index<0||index>=m_attackInfo.size())
+HordeMeleeFormation,m_attackInfo,0x8,addr,assert,6,,HordeMeleeFormation::isUnitMoving@0x14746a0,!(index<0||index>=m_attackInfo.size())
+HordeMeleeHoldGround,m_AttackInfo,0x8,addr,assert,3,,HordeMeleeHoldGround::isUnitRotating@0x147ce80,!(index<0||index>=m_AttackInfo.size())
+HordeMeleeSwarm,m_attackInfo,0x8,addr,assert,6,,HordeMeleeSwarm::isUnitMoving@0x147ad60,!(index<0||index>=m_attackInfo.size())
+HordeSiegeEngineContain,m_lockCount,0x38,dword,assert,2,,HordeSiegeEngineContain::addToContainList@0x11adc50,!m_lockCount
+IMEManager,m_compositionStringLength,0x302c,dword,assert,1,,IMEManager::updateCompositionString@0x12bf8a0,m_compositionStringLength < MAX_COMPSTRINGLEN
+InGameCommandButtonHelp::Impl,m_width,0x18,dword,assert,1,,InGameCommandButtonHelp::Impl::Render@0x144b470,m_width == REAL_TO_INT( size.x + 0.5f )
+InGameCommandSubMenu::Impl,m_buttonCount,0x1c,dword,assert,2,,InGameCommandSubMenu::Impl::AppendButton@0x1558ed0,m_buttonCount < MAX_BUTTON_COUNT
+InGameCommandSubMenu::Impl,m_visible,0x18,byte,assert,2,,InGameCommandSubMenu::Impl::AppendButton@0x1558ed0,!m_visible
+InGameHelpBoxMovieClip,m_contentWidth,0x18,dword,assert,1,,InGameHelpBoxMovieClip::Update@0x13d04b0,m_contentWidth > 0
+InGameHotSpotSimpleHelp,m_hotSpot,0x8,dword,assert,3,,InGameHotSpotSimpleHelp::OnDestroyingHotSpot@0x15dde80,&hotSpot == &m_hotSpot
+InGameNotificationBoxMovieClip,m_displayString,0x4c,dword,assert,3,,InGameNotificationBoxMovieClip::InGameNotificationBoxMovieClip@0x1321690,m_displayString != NULL
+InGameNotificationBoxMovieClip,m_messageWidth,0x3c,float,assert,2,,InGameNotificationBoxMovieClip::ExternMessageWidth@0x1323380,m_messageWidth == 0.0f
+InGameNotificationBoxMovieClip,m_state,0x8,dword,assert,4,,InGameNotificationBoxMovieClip::CheckForTimeout@0x1322ba0,m_state == STATE_OPEN
+InGamePlanningModeInterface::Impl,m_state,0x8,dword,assert,2,,InGamePlanningModeInterface::Impl::OnOpened@0x13d1830,m_state == STATE_OPENING
+InGameToggleStanceCommandButton::Impl,m_stancesBehavior,0x18,dword,assert,2,,InGameToggleStanceCommandButton::Impl::onDestroyingStancesBehavior@0x14311f0,&behavior == m_stancesBehavior
+InGameUI,m_missionTextDisplay,0x7f4,dword,assert,4,,InGameUI::setMissionHelpText@0xdbf840,!(!m_missionTextDisplay)
+IntegerEditControl,m_maxVal,0x78,dword,assert,2,,IntegerEditControl::setValue@0x577f00,newVal >= m_minVal && newVal <= m_maxVal
+IntegerEditControl,m_minVal,0x74,dword,assert,2,,IntegerEditControl::setValue@0x577f00,newVal >= m_minVal && newVal <= m_maxVal
+LANAPI,m_currentGame,0x44,dword,assert,3,,LANAPI::OnHostLeave@0x12a5b90,!m_inLobby && m_currentGame
+LANAPI,m_games,0x10,dword,assert,1,,LANAPI::removeGame@0x14b7290,m_games
+LANAPI,m_inLobby,0x41,byte,assert,3,,LANAPI::OnHostLeave@0x12a5b90,!m_inLobby && m_currentGame
+LANGameInfo,m_inGame,0x10,byte,assert,2,,LANGameInfo::getSlotNum@0x14a71c0,m_inGame
+LargeGroupAudio,m_needsToRegenerateAfterReload,0x3a,byte,assert,1,,LargeGroupAudio::onLevelLoad@0xb50720,m_waitingForLevelLoad || m_needsToRegenerateAfterReload
+LargeGroupAudio,m_waitingForLevelLoad,0x38,byte,assert,1,,LargeGroupAudio::onLevelLoad@0xb50720,m_waitingForLevelLoad || m_needsToRegenerateAfterReload
+LargeGroupAudioAudioMap,m_startThreshold,0xe0,word,assert,1,,LargeGroupAudioAudioMap::update@0x1035460,m_startThreshold >= m_stopThreshold
+LargeGroupAudioAudioMap,m_stopThreshold,0xe2,word,assert,1,,LargeGroupAudioAudioMap::update@0x1035460,m_startThreshold >= m_stopThreshold
+LargeGroupAudioGridCell,m_edgeCount,0x47,byte,assert,1,,LargeGroupAudioGridCell::initOverlappingCells@0x1568460,m_edgeCount == LGAS_OVERLAPPING_CELL_COUNT
+LargeGroupAudioGridCell,m_overlappingCells,0xc,dword,assert,1,,LargeGroupAudioGridCell::initOverlappingCells@0x1568460,m_overlappingCells[i] == NULL
+LargeGroupAudioSoundKeyPair,m_grids,0x2c,dword,assert,2,,LargeGroupAudioSoundKeyPair::update@0x1440080,m_grids[gridID] == NULL
+LargeGroupAudioSoundKeyPair,m_playingCells,0x40,addr,assert,1,,LargeGroupAudioSoundKeyPair::update@0x1440080,m_playingCells.empty()
+LargeGroupAudioSoundKeyPair,m_touchedCells,0x4c,addr,assert,1,,LargeGroupAudioSoundKeyPair::update@0x1440080,m_touchedCells.empty()
+LinearCampaign,m_currentMissionLost,0xc1,byte,assert,2,,LinearCampaign::onMissionComplete@0xaf8260,!m_currentMissionLost || !m_currentMissionWon
+LinearCampaign,m_currentMissionWon,0xc0,byte,assert,2,,LinearCampaign::onMissionComplete@0xaf8260,!m_currentMissionLost || !m_currentMissionWon
+LinearCampaign,m_numberOfCarryoverHeroes,0xb0,dword,assert,1,,LinearCampaign::onCurrentMissionWon@0xaf6700,m_numberOfCarryoverHeroes == currentHeroCount
+ListControl,m_columns,0x74,addr,assert,3,,ListControl::insert@0x5240b0,insertBefore->m_index >= 0 && insertBefore->m_index < m_columns.size()
+ListControl,m_items,0x80,addr,assert,7,,ListControl::insert@0x5253b0,insertBefore->m_index >= 0 && insertBefore->m_index < m_items.size()
+ListControlColumn,m_control,0x1c,dword,assert,2,,ListControlColumn::onClicked@0x523430,m_control != NULL
+LivingWorldArmy,m_armyID,0x20,dword,assert,1,,LivingWorldArmy::GetID@0xcfcef0,m_armyID != INVALID_ARMY_ID
+LivingWorldArmy,m_armyIcon,0x88,dword,assert,1,,LivingWorldArmy::UnlinkArmyIcon@0x102aae0,m_armyIcon != NULL
+LivingWorldArmyLine,m_points,0x4,dword,assert,1,,LivingWorldArmyLine::computePath@0x1434460,!(m_points == 0)
+LivingWorldAutoResolveBattle,m_roundNumber,0x7c,dword,assert,1,,LivingWorldAutoResolveBattle::completeRound@0x12ef840,m_roundNumber < ROUND_NUMBER_TO_SUSPEND_REGEN_ON
+LivingWorldAutoResolveHandicap,m_armorMultiplier,0x8,float,assert,1,,LivingWorldAutoResolveHandicap::parseBlockFromINI@0x12e5cf0,m_armorMultiplier >= 1.0f
+LivingWorldAutoResolveHandicap,m_experienceMultiplier,0xc,float,assert,1,,LivingWorldAutoResolveHandicap::parseBlockFromINI@0x12e5cf0,m_experienceMultiplier <= 1.0f
+LivingWorldAutoResolveResourceBonus,m_armorMultiplier,0x8,float,assert,1,,LivingWorldAutoResolveResourceBonus::parseBonusIniSubBlock@0x12e82e0,m_armorMultiplier <= 1.0
+LivingWorldAutoResolveResourceBonus,m_weaponMultiplier,0x4,float,assert,1,,LivingWorldAutoResolveResourceBonus::parseBonusIniSubBlock@0x12e82e0,m_weaponMultiplier >= 1.0
+LivingWorldAutoResolveSciencePurchasePointBonus,m_armorMultiplier,0x8,float,assert,1,,LivingWorldAutoResolveSciencePurchasePointBonus::parseBonusIniSubBlock@0x12e6a60,m_armorMultiplier <= 1.0
+LivingWorldAutoResolveSciencePurchasePointBonus,m_weaponMultiplier,0x4,float,assert,1,,LivingWorldAutoResolveSciencePurchasePointBonus::parseBonusIniSubBlock@0x12e6a60,m_weaponMultiplier >= 1.0
+LivingWorldBattle,m_sides,0x18,addr,assert,4,,LivingWorldBattle::SetWinningSide@0xd0e130,sideIndex >= 0 && sideIndex < m_sides.size()
+LivingWorldBattle,m_winningSide,0x38,dword,assert,1,,LivingWorldBattle::ComputeBattleResultsForPlayersAfterAutoBattle@0x104b1d0,m_winningSide >= 0
+LivingWorldBattle::BattlePlayer,m_armies,0x4,addr,assert,3,,LivingWorldBattle::BattlePlayer::SwapArmies@0x1048f00,armyIndex1 >= 0 && armyIndex1 < m_armies.size()
+LivingWorldBattle::BattlePlayer,m_startingArmies,0x10,addr,assert,2,,LivingWorldBattle::BattlePlayer::SwapArmies@0x1048f00,armyIndex1 < m_startingArmies.size()
+LivingWorldBattle::BattleSide,m_players,0x4,addr,assert,5,,LivingWorldBattle::BattleSide::RetreatPlayer@0x1049ac0,playerIndex >= 0 && playerIndex < m_players.size()
+LivingWorldBuildPlot,m_turnsUntilConstructionComplete,0x30,dword,assert,1,,LivingWorldBuildPlot::WorkOnUnderConstructionBuilding@0x1311be0,m_turnsUntilConstructionComplete > 0
+LivingWorldCampaignManager,m_campaignVector,0x14,addr,assert,2,,LivingWorldCampaignManager::GetCampaign@0x1031720,index >=0 && index < m_campaignVector.size()
+LivingWorldLogic,m_localPlayer,0x98,dword,assert,1,,LivingWorldLogic::SwitchPlayer@0xd8d120,m_localPlayer
+LivingWorldLogic,m_turnPhase,0xf4,dword,assert,1,,LivingWorldLogic::AutoResolveBattle@0xd86850,m_turnPhase == TurnPhase_ResolveBattles
+LivingWorldManager,m_sounds,0x204,addr,assert,1,,LivingWorldManager::CreateSound@0xb5f3f0,!(m_sounds.find(name) != m_sounds.end())
+LivingWorldRegion,m_buildPlots,0x170,addr,assert,1,,LivingWorldRegion::GetBuildPlotByIndex@0xd81650,index >= 0 && index < m_buildPlots.size()
+LivingWorldRegionManager,m_battleVec,0x14,addr,assert,2,,LivingWorldRegionManager::OnTurnEnding@0xb564c0,m_battleVec.empty()
+LivingWorldScoreKeeper,m_lastTurnPlayed,0x78,dword,assert,1,,LivingWorldScoreKeeper::OnPlayerDefeated@0x10f0c90,m_lastTurnPlayed == LAST_TURN_PLAYED_INVALID
+LivingWorldScoreKeeper,m_lastTurnStatsWereCollectedFor,0x7c,dword,assert,1,,LivingWorldScoreKeeper::collectEndOfTurnStats@0x10f1230,turnToCollectFor == m_lastTurnStatsWereCollectedFor + 1 || m_lastTurnStatsWereCollectedFor == LAST_TURN_STATS_WERE_COLLECTED_FOR_INVALID
+LivingWorldScoreKeeper,m_lastWOTREnterTime,0x70,dword,assert,1,,LivingWorldScoreKeeper::OnLivingWorldRTSBattleCompleted@0x10f0910,m_lastWOTREnterTime == 0
+LivingWorldScoreKeeper,m_ownerID,0xf4,dword,assert,1,,LivingWorldScoreKeeper::collectEndOfTurnStats@0x10f1230,m_ownerID != INVALID_LW_PLAYER_ID
+LivingWorldScoreKeeper,m_perTurnStats,0x28,addr,assert,1,,LivingWorldScoreKeeper::collectEndOfTurnStats@0x10f1230,turnToCollectFor == m_perTurnStats.size()
+LivingWorldTutorial::SessionTask,m_taskParams,0xc,addr,assert,4,,LivingWorldTutorial::SessionTask::getRealParam@0x10519b0,paramIndex < m_taskParams.size()
+LivingWorldVisual,m_pickboxObj,0x14,dword,assert,1,,LivingWorldVisual::createPickboxObject@0x106f750,m_pickboxObj == NULL
+LivingWorldVisual,m_primaryRObj,0x8,dword,assert,3,,LivingWorldVisual::createRenderObject@0x106e830,m_primaryRObj == NULL
+LivingWorldVisual,m_shadow,0xc,dword,assert,2,,LivingWorldVisual::createRenderObject@0x106e830,m_shadow == NULL
+Locomotor,MaxFormationSpeed,0x2c,dword,accessor,1,,Locomotor::setMaxFormationSpeed@0xe17800,
+Locomotor,m_instances,0x0,dword,assert,1,,Locomotor::~Locomotor@0xaddfc0,m_instances>0
+LocomotorSet,m_downhillOnly,0x14,byte,assert,1,,LocomotorSet::addLocomotor@0xaf2110,!m_downhillOnly
+LocomotorSet,m_scalesWalls,0x15,byte,assert,1,,LocomotorSet::addLocomotor@0xaf2110,!m_scalesWalls
+LookAtTranslator,m_isChangingFOV,0x3c,byte,assert,2,,LookAtTranslator::translateGameMessage@0x12c30d0,!m_isChangingFOV
+LookAtTranslator,m_isPitching,0x3b,byte,assert,2,,LookAtTranslator::translateGameMessage@0x12c30d0,!m_isPitching
+LookAtTranslator,m_isScrolling,0x38,byte,assert,1,,LookAtTranslator::setScrolling@0x12c2aa0,!m_isScrolling
+LuaScriptEngine,m_luaState,0xc,dword,assert,2,,LuaScriptEngine::RegisterObject@0xbfcee0,lua_gettop(m_luaState)==0
+LuaScriptEngine,m_xmlMapOverride,0x11c,byte,assert,1,,LuaScriptEngine::ProcessInternalEvent@0xbffbc0,!m_xmlMapOverride
+MapCellSelection,m_height,0x4,dword,assert,2,,MapCellSelection::validate@0x52fcb0,m_height >= 0
+MapCellSelection,m_numCellsSelected,0x1c,dword,assert,6,,MapCellSelection::validate@0x52fcb0,m_numCellsSelected >= 0
+MapCellSelection,m_width,0x0,dword,assert,2,,MapCellSelection::validate@0x52fcb0,m_width >= 0
+MapPreviewTextureAssetFactory,m_impl,0x14,dword,assert,1,,MapPreviewTextureAssetFactory::PreLoad@0x1157bb0,m_impl==NULL
+MilesAudioManager,m_activeMusicSystem,0xb3c,dword,assert,2,,MilesAudioManager::moveUpMusicSystems@0x792070,newMusicSystem > m_activeMusicSystem[viewType]
+MilesAudioManager,m_loopBuffers,0xbd4,dword,assert,1,,MilesAudioManager::init@0x789160,m_loopBuffers == 0
+MilesAudioManager,m_numPlaying2DSamples,0x684,dword,assert,1,,MilesAudioManager::notifyOf2DSampleCompletion@0x797440,m_numPlaying2DSamples > 0
+MilesAudioManager,m_numPlaying3DSamples,0x688,dword,assert,1,,MilesAudioManager::notifyOf3DSampleCompletion@0x797510,m_numPlaying3DSamples > 0
+MilesAudioManager,m_numberOfKnownAudioRequests,0xc10,dword,assert,1,,MilesAudioManager::~MilesAudioManager@0x780fc0,m_numberOfKnownAudioRequests == 0
+MilesAudioManager::GlobalVolumeData,MyViewFocus,0x0,dword,accessor,1,,MilesAudioManager::GlobalVolumeData::setMyViewFocus@0x7793b0,
+MilesAudioManager::GlobalVolumeData,m_myViewFocus,0x0,dword,assert,1,,MilesAudioManager::GlobalVolumeData::setMyViewFocus@0x7793b0,m_myViewFocus == AUDIO_VIEW_TYPE_COUNT
+MilesAudioManager::LoopBuffer,m_isValid,0x0,byte,assert,1,,MilesAudioManager::LoopBuffer::~LoopBuffer@0x77af80,!m_isValid
+MilesStreamHandleWrapperImplementation,m_pendingOperationCount,0x10,dword,assert,1,,MilesStreamHandleWrapperImplementation::friend_notifyOfMilesStreamHandleWrapperOperationDestruction@0x985020,m_pendingOperationCount > 0
+MineshaftPortalBehaviour,m_arrivingObjects,0x28,addr,assert,1,,MineshaftPortalBehaviour::DoXfer@0xf3d290,numArrivingObjects == m_arrivingObjects.size()
+Money,m_money,0x4,dword,assert,1,,Money::withdraw@0xed6820,amountToWithdraw <= m_money
+MotionChannelAdaptiveDelta,m_vectorLen,0x10,dword,assert,1,,MotionChannelAdaptiveDelta::DoLoadFromW3D@0xa5edf0,m_vectorLen<=4
+MotionChannelAdaptiveDelta4,m_vectorLen,0x10,dword,assert,3,,MotionChannelAdaptiveDelta4::GetScalar@0xa5ef10,m_vectorLen == 1
+MotionChannelAdaptiveDelta8,m_vectorLen,0x10,dword,assert,3,,MotionChannelAdaptiveDelta8::GetScalar@0xa5f360,m_vectorLen == 1
+MotionChannelTimeCoded,m_vectorLen,0x10,dword,assert,2,,MotionChannelTimeCoded::GetVector@0xa5e9c0,m_vectorLen>=3
+MovieWindowPlayback,m_videoStream,0xc,dword,assert,1,,MovieWindowPlayback::DeleteVideoSteam@0x13cf580,m_videoStream==NULL
+MultiIterator<class PolygonalArea>,m_sequences,0x4,addr,assert,1,,MultiIterator<class PolygonalArea>::doAdvance@0x599380,this->m_sequences.empty()
+MultiplayerPositionSettingsDlg,m_curPositionInfo,0x78,dword,assert,4,,MultiplayerPositionSettingsDlg::OnChangeAllowedPlayerType@0x5744f0,m_curPositionInfo != NULL
+NAT,m_NATHostIndex,0xc,dword,assert,1,,NAT::notifyNATHostSlot@0x14e35d0,m_localSlotIndex == m_NATHostIndex
+NAT,m_connectionToTargetState,0x94c,dword,assert,1,,NAT::processManglerResponse@0x14ddd40,NATCONNECTIONSTATE_WAITINGFOR_MY_PORT_OR_TARGET_PORT == m_connectionToTargetState
+NAT,m_localSlotIndex,0x14,dword,assert,2,,NAT::attachSlotList@0x14dbb90,!(m_localSlotIndex < 0 || m_localSlotIndex >= MAX_SLOTS)
+NAT,m_transport,0x4,dword,assert,1,,NAT::SetUDPSocketForSlot@0x14e58f0,!(!m_transport)
+NetCommandMsg,m_referenceCount,0x18,dword,assert,1,,NetCommandMsg::detach@0x139ea20,m_referenceCount > 0
+NetCommandRef,m_next,0x4,dword,assert,1,,NetCommandRef::~NetCommandRef@0x13a24c0,m_next == NULL
+NetCommandRef,m_prev,0x8,dword,assert,1,,NetCommandRef::~NetCommandRef@0x13a24c0,m_prev == NULL
+NetCommandWrapperListNode,m_numChunks,0x18,dword,assert,1,,NetCommandWrapperListNode::copyChunkData@0x1539340,msg->getChunkNumber() < m_numChunks
+Network,m_localStatus,0x10,dword,assert,1,,Network::startNewSession@0xe951c0,m_localStatus == NETLOCALSTATUS_INGAME
+Network,m_pConMgr,0xc,dword,assert,4,,Network::ParseUserList@0xe93c00,m_pConMgr
+Object,m_containedByModule,0x280,dword,assert,2,,Object::debugSetContainedBy@0xce8950,m_containedByModule==NULL
+Object,m_firingTracker,0x248,dword,assert,1,,Object::fireCurrentWeapon@0xcc7b20,m_firingTracker
+Object,m_hasDiedAlready,0x443,byte,assert,1,,Object::onDie@0xcd98c0,m_hasDiedAlready == false
+Object,m_id,0x7c,dword,assert,1,,Object::friend_setID@0xcd0f80,m_id == INVALID_ID
+Object,m_isInDestructor,0x469,byte,assert,1,,Object::setTeam@0xcc0420,team!=NULL || m_isInDestructor
+Object,m_pfPosAndGoal,0xac,dword,assert,5,,Object::GetGoalPosition@0xcc1930,!(!m_pfPosAndGoal)
+Object,m_smData,0x4d8,dword,assert,1,,Object::ShroudHideIfFogged@0xce13c0,!(!m_smData)
+Object::DLINK_TeamMemberList,m_next,0x4,dword,assert,1,,Object::DLINK_TeamMemberList::~DLINK_TeamMemberList@0xcbc9c0,!m_prev && !m_next
+Object::DLINK_TeamMemberList,m_prev,0x0,dword,assert,1,,Object::DLINK_TeamMemberList::~DLINK_TeamMemberList@0xcbc9c0,!m_prev && !m_next
+ObjectDataChunkParser,m_objectLink,0xc,dword,assert,1,,ObjectDataChunkParser::parse@0xa7f570,m_objectLink != NULL && m_objectLink->getNext() == NULL
+ObjectFilter,m_id,0x0,dword,assert,2,,ObjectFilter::isForbidden@0xed2460,m_id < (Int)s_objectFilters.size()
+ObjectGuardingHelper,CurrentlyGuardingUnit,0x20,dword,accessor,1,,ObjectGuardingHelper::isCurrentlyGuardingUnit@0x1285b80,
+ObjectGuardingHelper,m_objectGuarded,0x20,dword,assert,3,,ObjectGuardingHelper::notifyStartGuardingUnit@0x12858e0,m_objectGuarded == INVALID_ID
+ObjectOptions,m_curObject,0x80,dword,assert,2,,ObjectOptions::updateLabel@0x57eb60,!m_curObject || TheSidesList->getNumTeams()==0
+Observable<class AnimationPlaybackCameraControllerObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class AnimationPlaybackCameraControllerObserver>::dispatchNotice@0xaa0840,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class AptScrollBarObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class AptScrollBarObserver>::dispatchNotice@0x15a9920,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class AreaSetObserver<class RiverArea> >,m_nextIndex,0xc,dword,assert,2,,Observable<class AreaSetObserver<class RiverArea> >::dispatchNotice@0x54cf90,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class AreaSetObserver<class StandingWaterArea> >,m_nextIndex,0xc,dword,assert,2,,Observable<class AreaSetObserver<class StandingWaterArea> >::dispatchNotice@0x54cd80,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class AreaSetObserver<class StandingWaveArea> >,m_nextIndex,0xc,dword,assert,2,,Observable<class AreaSetObserver<class StandingWaveArea> >::dispatchNotice@0x54d1a0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class AreaSetObserver<class WaterArea> >,m_nextIndex,0xc,dword,assert,2,,Observable<class AreaSetObserver<class WaterArea> >::dispatchNotice@0x6bce90,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class CameraAnimationInterfaceObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class CameraAnimationInterfaceObserver>::dispatchNotice@0x471780,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class CameraAnimationListObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class CameraAnimationListObserver>::dispatchNotice@0xa9f8b0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class CameraAnimationObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class CameraAnimationObserver>::dispatchNotice@0xaa03b0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class ChatSystem::Observer>,m_nextIndex,0xc,dword,assert,2,,Observable<class ChatSystem::Observer>::dispatchNotice@0xf8e9c0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldArmyObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class LivingWorldArmyObserver>::dispatchNotice@0x102e810,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldArmySwapObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class LivingWorldArmySwapObserver>::dispatchNotice@0xd9fe00,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldAutoResolveEventObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class LivingWorldAutoResolveEventObserver>::dispatchNotice@0xd9ece0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldBattleObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class LivingWorldBattleObserver>::dispatchNotice@0x10506d0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldBuildPlotObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class LivingWorldBuildPlotObserver>::dispatchNotice@0x1312ce0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldBuildingNuggetUpgradeTroopsObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class LivingWorldBuildingNuggetUpgradeTroopsObserver>::dispatchNotice@0x1500e50,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldBuildingObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class LivingWorldBuildingObserver>::dispatchNotice@0x10da910,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldIconObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class LivingWorldIconObserver>::dispatchNotice@0x14354d0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldLogicObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class LivingWorldLogicObserver>::dispatchNotice@0xd9f0d0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class LivingWorldObserver>::dispatchNotice@0xd2a7d0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldPhaseObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class LivingWorldPhaseObserver>::dispatchNotice@0xd9faa0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldPlayerObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class LivingWorldPlayerObserver>::dispatchNotice@0xde9960,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldRTSEventObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class LivingWorldRTSEventObserver>::dispatchNotice@0xd9f620,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldRegionAwardDisputeObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class LivingWorldRegionAwardDisputeObserver>::dispatchNotice@0xd9f7d0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class LivingWorldRetreatEventObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class LivingWorldRetreatEventObserver>::dispatchNotice@0xd9ffc0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class PortNegotiationSchemaObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class PortNegotiationSchemaObserver>::dispatchNotice@0x15c84f0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class RiverAreaInterfaceObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class RiverAreaInterfaceObserver>::dispatchNotice@0x5a7820,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class RiverAreaObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class RiverAreaObserver>::dispatchNotice@0xbab340,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class StancesBehaviorObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class StancesBehaviorObserver>::dispatchNotice@0x118b330,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class StandingWaterAreaObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class StandingWaterAreaObserver>::dispatchNotice@0xbe0b20,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class StandingWaveAreaObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class StandingWaveAreaObserver>::dispatchNotice@0xbdc8c0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class StrategicHUD::ArmyMemberIconMovieClipObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class StrategicHUD::ArmyMemberIconMovieClipObserver>::dispatchNotice@0x163ef40,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class StrategicHUD::ObjectivesButtonObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class StrategicHUD::ObjectivesButtonObserver>::dispatchNotice@0x14c4900,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class StrategicHUD::OptionsButtonObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class StrategicHUD::OptionsButtonObserver>::dispatchNotice@0x14c4ab0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class StrategicHUD::SelectionDetailsUIObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class StrategicHUD::SelectionDetailsUIObserver>::dispatchNotice@0x14ba680,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class StrategicInGameUI::ArmySummaryEntryIDSetObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class StrategicInGameUI::ArmySummaryEntryIDSetObserver>::dispatchNotice@0x1625c00,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class TerrainResourceManagerObserver>,m_nextIndex,0xc,dword,assert,2,,Observable<class TerrainResourceManagerObserver>::dispatchNotice@0xe639b0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class WaterAreaObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class WaterAreaObserver>::dispatchNotice@0xbf99b0,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+Observable<class WorldBuilderDocObserver>,m_nextIndex,0xc,dword,assert,1,,Observable<class WorldBuilderDocObserver>::dispatchNotice@0x6bc470,this->m_nextIndex == std::numeric_limits< ObserverIndex >::max()
+OpenAudioFile,FileImage,0x2c,dword,accessor,1,,OpenAudioFile::getFileImage@0x77b530,
+OpenAudioFile,FileSize,0x30,dword,accessor,1,,OpenAudioFile::getFileSize@0x8e5110,
+OpenAudioFile,MilesSoundInfo,0x8,addr,accessor,1,,OpenAudioFile::getMilesSoundInfo@0x77b5c0,
+OpenContain,m_alreadyDidOnDelete,0xe3,byte,assert,1,,OpenContain::onDelete@0x11961a0,!m_alreadyDidOnDelete
+OpenContain,m_contained,0x58,addr,assert,2,,OpenContain::~OpenContain@0x1192050,m_contained.empty()
+OpenContain,m_lockCount,0x38,dword,assert,5,,OpenContain::~OpenContain@0x1192050,m_lockCount==0
+OpenContain,m_lockedItem,0x54,dword,assert,1,,OpenContain::removeFromContainList@0x1194060,m_lockedItem!=rider
+OpenContain,m_xferContainIDList,0x78,addr,assert,1,,OpenContain::~OpenContain@0x1192050,m_xferContainIDList.empty()
+OpenMap,m_browsable,0x78,byte,assert,1,,OpenMap::OnBrowse@0x586610,m_browsable
+Palantir::Impl,m_closing,0x60,byte,assert,1,,Palantir::Impl::OnClosed@0xf459f0,m_closing
+Palantir::Impl,m_isHidden,0x60,byte,assert,2,,Palantir::Impl::OnInitialized@0xf458d0,m_isHidden
+Palantir::Impl,m_opening,0x60,byte,assert,1,,Palantir::Impl::OnInitialized@0xf458d0,m_opening
+PalantirCommandInterface::Impl,m_populated,0x2c,byte,assert,1,,PalantirCommandInterface::Impl::Show@0x13cb140,m_populated && !m_visible
+PalantirCommandInterface::Impl,m_visible,0x2d,byte,assert,1,,PalantirCommandInterface::Impl::Show@0x13cb140,m_populated && !m_visible
+PalantirRadarPing,m_refCount,0x4,dword,assert,2,,PalantirRadarPing::AddReference@0xf471f0,m_refCount >= 0
+Parameter,m_paramType,0x0,dword,assert,3,,Parameter::getCoord3D@0xaab280,m_paramType==COORD3D
+Path,m_curNode,0x10,dword,assert,4,,Path::AdvancePastPortal@0xf1d170,!(!m_curNode)
+Path,m_lockCount,0x0,dword,assert,2,,Path::Unlock@0xaef3a0,!(!m_lockCount)
+Path,m_pathHead,0x4,dword,assert,6,,Path::PeekAlongPath@0xf1ca10,!(!m_pathHead)
+Path,m_pathTail,0x8,dword,assert,1,,Path::SetLastNodePortal@0xf25eb0,!(!m_pathTail)
+PathfindCell,m_info,0x0,dword,assert,19,,PathfindCell::SetCostSoFar@0xd353d0,m_info
+PathfindCell,m_portal,0x4,dword,assert,2,,PathfindCell::SetPortal@0x12d6cf0,!(m_portal)
+PathfindCell::Info,m_nextInfo,0x34,dword,assert,1,,PathfindCell::Info::Alloc@0xd351e0,m_nextInfo==NULL
+PathfindCell::Info,m_prevInfoPtr,0x38,dword,assert,2,,PathfindCell::Info::Alloc@0xd351e0,m_prevInfoPtr==NULL
+PathfindCell::Info,m_ptr,0x14,dword,assert,1,,PathfindCell::Info::Free@0x12d62f0,m_ptr[k]==NULL
+PathfindLayer,m_areas,0x38,dword,assert,3,,PathfindLayer::AddArea@0xf27f30,m_areas
+PathfindLayer,m_bridge,0x34,dword,assert,1,,PathfindLayer::ClassifyBridgeCells@0xf28d20,m_bridge
+PathfindLayer,m_layer,0x28,dword,assert,1,,PathfindLayer::ClassifyBridgeCells@0xf28d20,groundCell->GetConnectLayer()==m_layer
+PathfindLayer,m_layerCells,0x4,dword,assert,2,,PathfindLayer::GetCell@0xf28870,m_layerCells
+PathfindLayer,m_yOrigin,0x14,dword,assert,1,,PathfindLayer::AllocateCells@0xf280c0,m_yOrigin >= extent.lo.y
+PathfindZoneManager,m_terrainEquiv,0x1b9f4,addr,assert,1,,PathfindZoneManager::Update@0x12cdde0,m_terrainEquiv.IsSingleSet(id)
+PathfindZoneManager::Block,m_numPortals,0x0,dword,assert,1,,PathfindZoneManager::Block::SetInteractsWithPortal@0x12cd290,!(k>=m_numPortals)
+PathfindZoneManager::Parameter,m_slopeLimitIndex,0x8,dword,assert,1,,PathfindZoneManager::Parameter::GetVariantIndex@0x12cf6f0,m_slopeLimitIndex<PathfindZoneManager::NUM_SLOPE_LIMITS
+Pathfinder,m_closedList,0x34,dword,assert,1,,Pathfinder::ProcessPathfindQueue@0xd30070,m_closedList==NULL
+Pathfinder,m_destMineshaft,0x1c1dc,dword,assert,1,,Pathfinder::internal_findHierarchicalPath@0xd4fae0,m_destMineshaft == NULL
+PathfinderPosGoalManager,m_obj,0x0,dword,assert,1,,PathfinderPosGoalManager::~PathfinderPosGoalManager@0x1285f00,cur->m_obj!=&m_obj
+PlaceTerrainResourceClaimantFeedback::Impl,m_displayString,0x10,dword,assert,1,,PlaceTerrainResourceClaimantFeedback::Impl::updateStringPos@0x13249a0,m_displayString != NULL
+PlaceTerrainResourceClaimantFeedback::Impl,m_potentialClaimDecal,0x1c,dword,assert,1,,PlaceTerrainResourceClaimantFeedback::Impl::createPotentialClaimDecal@0x13246c0,m_potentialClaimDecal == NULL
+Player,m_hasAccumulatedInLivingWorldScoreKeeper,0x343,byte,assert,1,,Player::accumulateRTSBattleStatsIntoLivingWorldScoreKeeper@0xc12740,!m_hasAccumulatedInLivingWorldScoreKeeper
+PlayerAITypeSet,m_data,0xc,addr,assert,2,,PlayerAITypeSet::get@0x58eca0,id >= 0 && id < m_data.size()
+PlayerList,LocalPlayer,0x10,dword,accessor,1,,PlayerList::getLocalPlayer@0x736d90,
+PlayerList,NeutralPlayer,0x18,dword,accessor,1,,PlayerList::getNeutralPlayer@0xc162c0,
+PlayerList,m_local,0x10,dword,assert,1,,PlayerList::getLocalPlayer@0x736d90,m_local != NULL
+PlayerListDlg,m_curPlayerIdx,0x1228,dword,assert,2,,PlayerListDlg::OnSelchangeAIType@0x58ea40,m_curPlayerIdx > 0
+PlayerTemplate,NameKey,0x10,dword,accessor,1,,PlayerTemplate::getNameKey@0xa78450,
+PlayerTemplate,m_nameKey,0x10,dword,assert,1,,PlayerTemplate::getNameKey@0xa78450,m_nameKey != NAMEKEY_INVALID
+PointerTool::Impl,m_interfaceState,0x14,dword,assert,2,,PointerTool::Impl::onDestroyingCameraAnimationInterfaceState@0x592c20,&state == &m_interfaceState
+PolygonTriggerDataChunkParserBase,m_linkPtr,0xc,dword,assert,1,,PolygonTriggerDataChunkParserBase::add@0xabb2a0,m_linkPtr != NULL
+PolygonTriggerIterator,m_current,0x4,dword,assert,1,,PolygonTriggerIterator::doGet@0x59ed90,m_current != NULL
+PolygonalArea,m_boundary,0x8,addr,assert,4,,PolygonalArea::setBoundaryPoint@0xab8c50,index >= 0 && index <= m_boundary.getNumPoints()
+ProductionEntry,ProductionUpgrade,0xc,dword,accessor,1,,ProductionEntry::getProductionUpgrade@0xeff8e0,
+ProfileId,m_valueMode,0x50,dword,assert,2,,ProfileId::Increment@0x1745570,!(m_valueMode!=Unknown&&m_valueMode!=ModeIncrement)
+ProjectileNugget,m_warheadTemplate,0x128,dword,assert,1,,ProjectileNugget::canAffectObject@0x10a4630,!(m_warheadTemplate==0)
+Radar,m_radarWindow,0x1430,dword,assert,1,,Radar::InitGameWindow@0x110a690,m_radarWindow
+RadarMarker,m_refCount,0x8,dword,assert,2,,RadarMarker::AddReference@0x1107620,m_refCount >= 0
+RadialWindowController,m_gameWindows,0x48,addr,assert,3,,RadialWindowController::ShouldButtonFlash@0x1116260,index >= 0 && index < m_gameWindows.size()
+RankInfoStore,m_rankInfos,0xc,addr,assert,1,,RankInfoStore::init@0xb26f70,m_rankInfos.empty()
+RecolorColor,m_numColors,0x0,dword,assert,4,,RecolorColor::SetColor@0x944270,colorIndex < m_numColors
+RecorderClass,m_file,0x10,dword,assert,1,,RecorderClass::startRecording@0xf57070,m_file == NULL
+RegionAwardDispute,m_players,0x8,addr,assert,2,,RegionAwardDispute::GetResolvableBy@0x13137b0,!(m_players.empty())
+Render2DClass,m_curShader2D,0x0,dword,assert,1,,Render2DClass::_AddVertices@0x9c20a0,cur.firstVtx[m_curShader2D]<0
+Render2DClass,m_idx,0x24,addr,assert,1,,Render2DClass::Render@0x9c07a0,destIdx-ibLock.Get_Index_Array()==m_idx.Length()
+RenderableRiverArea,m_area,0x40,dword,assert,2,,RenderableRiverArea::onDestroyingRiverArea@0x742a20,&m_area == &area
+RenderableStandingWaterArea,m_area,0x40,dword,assert,2,,RenderableStandingWaterArea::onDestroyingStandingWaterArea@0x73f250,&m_area == &area
+RenderableStandingWaterArea::AllocateAndFillBuffers::CachedVertexAdder,m_maxVertexX,0x10,dword,assert,1,,RenderableStandingWaterArea::AllocateAndFillBuffers::CachedVertexAdder::getOrAddVertex@0x740340,x >= 0 && x < m_maxVertexX
+RenderableStandingWaterArea::AllocateAndFillBuffers::CachedVertexAdder,m_maxVertexY,0x14,dword,assert,1,,RenderableStandingWaterArea::AllocateAndFillBuffers::CachedVertexAdder::getOrAddVertex@0x740340,y >= 0 && y < m_maxVertexY
+RenderableWaterArea,m_area,0xc,dword,assert,2,,RenderableWaterArea::onDestroyingWaterArea@0x73e530,&m_area == &area
+RiverArea,m_strip,0x68,addr,assert,6,,RiverArea::getStripEdge@0xba8f30,index >= 0 && index < m_strip.getNumEdges()
+RiverAreaInterfaceState,RiverAreaSet,0x18,dword,accessor,2,,RiverAreaInterfaceState::getRiverAreaSet@0x4e6930,
+RiverAreaInterfaceState,m_riverAreas,0x18,dword,assert,2,,RiverAreaInterfaceState::getRiverAreaSet@0x4e6930,m_riverAreas != NULL
+RiverAreaInterfaceState,m_selectedRiverArea,0x1c,dword,assert,5,,RiverAreaInterfaceState::select@0x5a6860,m_selectedRiverArea == area
+RiverAreaOptionsPanel::Impl,m_interfaceState,0x10,dword,assert,2,,RiverAreaOptionsPanel::Impl::onDestroyingRiverAreaInterfaceState@0x5a99c0,&state == &m_interfaceState
+RiverAreaOptionsPanel::Impl,m_riverAreas,0x14,dword,assert,4,,RiverAreaOptionsPanel::Impl::onDestroyingAreaSet@0x5a9ef0,&set == m_riverAreas
+RiverPicker::Impl,m_interfaceState,0x8,dword,assert,1,,RiverPicker::Impl::onDestroyingRiverAreaInterfaceState@0x5afb80,&state == &m_interfaceState
+ScienceStore,m_sciences,0xc,addr,assert,1,,ScienceStore::init@0xb24640,m_sciences.empty()
+ScriptDialog::Impl,m_observingSidesList,0x11d4,byte,assert,5,,ScriptDialog::Impl::onDestroyingSidesList@0x5d0d80,m_observingSidesList
+ScriptDialog::Impl,m_treePlayerItems,0x11ec,dword,assert,1,,ScriptDialog::Impl::populateTree@0x5ce870,m_treePlayerItems[ sideNum ] == playerItem.GetPtr()
+ScriptEngine,m_allObjectTypeLists,0x1a448,addr,assert,1,,ScriptEngine::reset@0xb33190,m_allObjectTypeLists.empty() == TRUE
+ScriptEngine,m_sequentialScriptsLock,0x1c,dword,assert,2,,ScriptEngine::appendSequentialScript@0xb3ebb0,!m_sequentialScriptsLock
+ScriptProperties,m_updating,0x98,byte,assert,2,,ScriptProperties::populateSeqScriptTargetTypeBox@0x5e73e0,m_updating
+ScriptSearchOptionsDlg,m_hWnd,0x20,dword,assert,1,,ScriptSearchOptionsDlg::create@0x5ebbf0,m_hWnd == NULL
+ScriptSearchResultsDlg,m_hWnd,0x20,dword,assert,2,,ScriptSearchResultsDlg::create@0x5ec6c0,m_hWnd == NULL
+ScriptSetBase<class Script>,m_entries,0xc,addr,assert,1,,ScriptSetBase<class Script>::validate@0x4ad790,id >= 0 && id < this->m_entries.size()
+ScriptSetBase<class ScriptGroup>,m_entries,0xc,addr,assert,1,,ScriptSetBase<class ScriptGroup>::validate@0x540310,id >= 0 && id < this->m_entries.size()
+ScriptTracker,m_ai,0x0,dword,assert,1,,ScriptTracker::setCurScript@0xe35840,static_cast<const AIUpdateInterface*>(m_ai)->getObject()
+ScriptsDataChunkParser,m_count,0x10,dword,assert,1,,ScriptsDataChunkParser::parse@0xaa6730,m_count == 0
+SelectColorButton,m_hWnd,0x20,dword,assert,1,,SelectColorButton::create@0x5eed80,m_hWnd == NULL
+Shell,m_pendingPop,0x51,byte,assert,1,,Shell::shutdownComplete@0xf03070,m_pendingPush == FALSE || m_pendingPop == FALSE
+Shell,m_pendingPush,0x50,byte,assert,1,,Shell::shutdownComplete@0xf03070,m_pendingPush == FALSE || m_pendingPop == FALSE
+Shell,m_popupReplayLayout,0x74,dword,assert,1,,Shell::getPopupReplayLayout@0xf03720,m_popupReplayLayout
+Shell,m_saveLoadMenuLayout,0x70,dword,assert,1,,Shell::getSaveLoadMenuLayout@0xf035c0,m_saveLoadMenuLayout
+Shell,m_screenStack,0xc,dword,assert,1,,Shell::update@0xf011f0,m_screenStack[ i ]
+ShroudManager::Data,m_COI,0x1c,dword,assert,4,,ShroudManager::Data::AllocCOI@0x17df770,!m_COI
+ShroudManager::Data,m_ghostObj,0x8,dword,assert,1,,ShroudManager::Data::UpdateCellsTouched@0x17e0c10,!(!m_owningObj&&!m_ghostObj)
+ShroudManager::Data,m_owningObj,0x4,dword,assert,2,,ShroudManager::Data::KeepAsGhost@0x17df5d0,m_owningObj
+ShroudManager::Data,m_prevDirty,0x14,dword,assert,1,,ShroudManager::Data::RemoveFromDirtyList@0x17df6e0,m_prevDirty
+ShroudManagerImpl,m_cellSize,0x1c,float,assert,1,,ShroudManagerImpl::_ReallocCells@0x17e7500,m_cellSize>0
+SidesList,m_numSides,0x3c,dword,assert,7,,SidesList::addSide@0xa848b0,m_numSides < MAX_PLAYER_COUNT
+SiegeEngineContain,m_lockCount,0x38,dword,assert,2,,SiegeEngineContain::addToContainList@0x11aa2b0,!m_lockCount
+SkirmishAI,m_master,0x178,dword,assert,2,,SkirmishAI::doSpecialSlaveAIUpdate@0xe8abb0,m_master != PLAYER_INDEX_INVALID
+SkirmishAI,m_player,0x15c,dword,assert,1,,SkirmishAI::update@0xe8a830,team->getControllingPlayer() == m_player
+SkirmishAIManager,m_aiGameTeams,0x914,addr,assert,1,,SkirmishAIManager::newMap@0xe8d0a0,m_aiGameTeams.empty()
+SquadRow,m_numUnits,0x0,dword,assert,1,,SquadRow::AddUnit@0x13b8b80,m_numUnits<MAX_UNITS
+StandingWaterAreaOptionsPanel::Impl,m_waterAreas,0xc,dword,assert,5,,StandingWaterAreaOptionsPanel::Impl::onDestroyingAreaSet@0x5f4cd0,&set == m_waterAreas
+StandingWaterTool,m_doc,0x6c,dword,assert,2,,StandingWaterTool::createAddPolygonUndoable@0x5fbb20,m_doc != NULL
+StandingWaveAreaOptionsPanel::Impl,m_currentSelection,0x14,dword,assert,2,,StandingWaveAreaOptionsPanel::Impl::GetPopSliderInfo@0x5fe340,m_currentSelection
+StandingWaveAreaOptionsPanel::Impl,m_waveAreas,0x10,dword,assert,5,,StandingWaveAreaOptionsPanel::Impl::onDestroyingAreaSet@0x5fddb0,&set == m_waveAreas
+StandingWaveTool,m_doc,0x6c,dword,assert,2,,StandingWaveTool::createAddPolygonUndoable@0x601f80,m_doc != NULL
+State,m_uTransitionCount,0x14,dword,assert,1,,State::friend_onCondition@0x127aa50,!m_uTransitionCount
+StateMachine,m_locked,0x38,byte,assert,1,,StateMachine::initDefaultState@0x127d1f0,!m_locked
+"StaticQueue<enum ObjectID,512>",m_nextFree,0x804,dword,assert,1,,"StaticQueue<enum ObjectID,512>::ReleaseSlot@0xd672c0",m_nextUsed!=m_nextFree
+"StaticQueue<enum ObjectID,512>",m_nextUsed,0x800,dword,assert,1,,"StaticQueue<enum ObjectID,512>::ReleaseSlot@0xd672c0",m_nextUsed!=m_nextFree
+StopSpecialPower,m_stopModule,0x34,dword,assert,1,,StopSpecialPower::isReady@0x1266650,!(!m_stopModule)
+StrategicConflictResults::Impl,m_battle,0xc,dword,assert,3,,StrategicConflictResults::Impl::ExternPlayerColor@0x15e87d0,!(!m_battle)
+StrategicConflictResults::Impl,m_state,0x8,dword,assert,1,,StrategicConflictResults::Impl::OnInitialized@0x15e8700,!(m_state != STATE_LOADING)
+StrategicHUD::ArmyDetailsMemberIconSlot,m_refCount,0x4,dword,assert,2,,StrategicHUD::ArmyDetailsMemberIconSlot::DeleteReference@0x15f77b0,m_refCount > 0
+StrategicHUD::ArmyDetailsMovieClip::Impl,m_iconSlots,0x24,addr,assert,1,,StrategicHUD::ArmyDetailsMovieClip::Impl::CreateMemberIconSlot@0x16219a0,position >= 0 && position <= m_iconSlots.size()
+StrategicHUD::ArmyDetailsMovieClip::Impl,m_iconStageHeight,0x34,float,assert,2,,StrategicHUD::ArmyDetailsMovieClip::Impl::SetupScrollBar@0x1623710,m_iconStageHeight > 0.0f
+StrategicHUD::ArmyDetailsMovieClip::Impl,m_iconStageWidth,0x30,float,assert,1,,StrategicHUD::ArmyDetailsMovieClip::Impl::Update@0x1622fa0,m_iconStageWidth >= m_slotWidth
+StrategicHUD::ArmyDetailsMovieClip::Impl,m_slotHeight,0x40,float,assert,4,,StrategicHUD::ArmyDetailsMovieClip::Impl::Update@0x1622fa0,m_slotWidth > 0.0f && m_slotHeight > 0.0f
+StrategicHUD::ArmyDetailsMovieClip::Impl,m_slotWidth,0x3c,float,assert,5,,StrategicHUD::ArmyDetailsMovieClip::Impl::Update@0x1622fa0,m_iconStageWidth >= m_slotWidth
+StrategicHUD::ArmyMemberIconMovieClip::Impl,m_initialized,0x34,byte,assert,2,,StrategicHUD::ArmyMemberIconMovieClip::Impl::Update@0x163e3a0,m_initialized
+StrategicHUD::ArmyUnitSwapperMovieClip::Impl,m_state,0x18,dword,assert,3,,StrategicHUD::ArmyUnitSwapperMovieClip::Impl::FadeOut@0x1641170,m_state == STATE_OPEN
+StrategicHUD::BattlePromptArmyPanelMovieClip::Impl,m_unitIconProperties,0x30,addr,assert,3,,StrategicHUD::BattlePromptArmyPanelMovieClip::Impl::SetUnitIconProperties@0x16393e0,iconNum >= 0 && iconNum < m_unitIconProperties.size()
+StrategicHUD::BattlePromptMovieClip::Impl,m_allyPageFrames,0x40,addr,assert,1,,StrategicHUD::BattlePromptMovieClip::Impl::OnAllyTabClicked@0x160bb00,tabNum >= 0 && tabNum < m_allyPageFrames.size()
+StrategicHUD::BattlePromptMovieClip::Impl,m_autoResolveButtonEnabled,0x60,byte,assert,1,,StrategicHUD::BattlePromptMovieClip::Impl::OnAutoResolveButtonClicked@0x160d420,m_autoResolveButtonEnabled
+StrategicHUD::BattlePromptMovieClip::Impl,m_enemyPageFrames,0x50,addr,assert,1,,StrategicHUD::BattlePromptMovieClip::Impl::OnEnemyTabClicked@0x160be20,tabNum >= 0 && tabNum < m_enemyPageFrames.size()
+StrategicHUD::BattlePromptMovieClip::Impl,m_realTimeButtonEnabled,0x61,byte,assert,1,,StrategicHUD::BattlePromptMovieClip::Impl::OnRealTimeButtonClicked@0x160d4b0,m_realTimeButtonEnabled
+StrategicHUD::BattlePromptMovieClip::Impl,m_retreatButtonEnabled,0x62,byte,assert,1,,StrategicHUD::BattlePromptMovieClip::Impl::OnRetreatButtonClicked@0x160d540,m_retreatButtonEnabled
+StrategicHUD::BattlePromptMovieClip::Impl,m_state,0x18,dword,assert,3,,StrategicHUD::BattlePromptMovieClip::Impl::FadeOut@0x160c440,m_state == STATE_OPEN
+StrategicHUD::BattlePromptPlayerPageMovieClip::Impl,m_layout,0x18,dword,assert,2,,StrategicHUD::BattlePromptPlayerPageMovieClip::Impl::SetSwapButtonVisibility@0x163b830,m_layout == LAYOUT_LOCAL_PLAYER
+StrategicHUD::BattlePromptPlayerPageMovieClip::Impl,m_numHeroArmies,0x48,dword,assert,3,,StrategicHUD::BattlePromptPlayerPageMovieClip::Impl::AddHeroArmyPanel@0x163b580,m_numHeroArmies < MAX_HERO_ARMIES
+StrategicHUD::BattlePromptPlayerTabsMovieClip,m_playerNameHideCount,0x34,dword,assert,2,,StrategicHUD::BattlePromptPlayerTabsMovieClip::ShowPlayerName@0x1635690,m_playerNameHideCount > 0
+StrategicHUD::BattlePromptPlayerTabsMovieClip,m_tabProperties,0x28,addr,assert,6,,StrategicHUD::BattlePromptPlayerTabsMovieClip::SetTabProperties@0x1635490,tabNum >= 0 && tabNum < m_tabProperties.size()
+StrategicHUD::ChecklistUIImpl,m_itemListViewHeight,0x3c,float,assert,1,,StrategicHUD::ChecklistUIImpl::SetupScrollBar@0x14be440,m_itemListViewHeight > 0.0f
+StrategicHUD::ChecklistUIImpl,m_items,0x30,addr,assert,1,,StrategicHUD::ChecklistUIImpl::~ChecklistUIImpl@0x14bc640,m_items.empty()
+StrategicHUD::ChecklistUIImpl,m_state,0x14,dword,assert,4,,StrategicHUD::ChecklistUIImpl::Close@0x14bdb40,m_state == STATE_OPEN
+StrategicHUD::ChecklistUIImpl::Item,m_observer,0x54,dword,assert,1,,StrategicHUD::ChecklistUIImpl::Item::DoSetObserver@0x14bb210,( observer != NULL ) != ( m_observer != NULL )
+StrategicHUD::ChecklistUIItem,m_refCount,0x4,dword,assert,2,,StrategicHUD::ChecklistUIItem::AddReference@0x15a81f0,m_refCount >= 0
+StrategicHUD::CommandButtonMovieClip::Impl,m_initialized,0x40,byte,assert,1,,StrategicHUD::CommandButtonMovieClip::Impl::OnInitialized@0x15defe0,!m_initialized
+StrategicHUD::DynamicAutoResolveMovieClip::Impl,m_state,0x1c,dword,assert,3,,StrategicHUD::DynamicAutoResolveMovieClip::Impl::FadeOut@0x1614160,m_state == STATE_OPEN
+StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl,m_playingHitAnim,0x4c,byte,assert,4,,StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayHitAnim@0x16122f0,!m_playingHitAnim && !m_playingReinforceAnim
+StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl,m_playingReinforceAnim,0x4d,byte,assert,3,,StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayHitAnim@0x16122f0,!m_playingHitAnim && !m_playingReinforceAnim
+StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl,m_state,0x24,dword,assert,2,,StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::PlayHitAnim@0x16122f0,m_state == STATE_ACTIVE
+StrategicHUD::HUD::Impl,m_state,0x8,dword,assert,2,,StrategicHUD::HUD::Impl::OnInitialized@0x12b7fe0,!(m_state != STATE_LOADING)
+StrategicHUD::NewTurnIndicatorMovieClip,m_playing,0x18,byte,assert,1,,StrategicHUD::NewTurnIndicatorMovieClip::OnDone@0x14b8ef0,!(!m_playing)
+StrategicHUD::RadialMenu::Impl,m_buttonSlots,0x20,addr,assert,2,,StrategicHUD::RadialMenu::Impl::CreateButton@0x16330a0,!(index < 0 || index >= m_buttonSlots.size())
+StrategicHUD::RegionAwardMovieClip::Impl,m_players,0x44,addr,assert,8,,StrategicHUD::RegionAwardMovieClip::Impl::SetPlayerName@0x15ed650,playerNum >= 0 && playerNum < m_players.size()
+StrategicHUD::RegionAwardMovieClip::Impl,m_state,0x24,dword,assert,3,,StrategicHUD::RegionAwardMovieClip::Impl::FadeOut@0x15ede40,m_state == STATE_OPEN
+StrategicHUD::RegionDetailsMovieClip::Impl,m_currentPageSlot,0x28,dword,assert,2,,StrategicHUD::RegionDetailsMovieClip::Impl::ShowPage@0x15f4e60,slot == m_currentPageSlot
+StrategicHUD::RegionDetailsPage,m_visible,0x8,byte,assert,2,,StrategicHUD::RegionDetailsPage::OnShown@0x15f5120,!m_visible
+StrategicHUD::SelectionDetailsUIImpl,m_enabled,0x2c,byte,assert,2,,StrategicHUD::SelectionDetailsUIImpl::DoOpen@0x14b9b70,m_enabled
+StrategicHUD::SelectionDetailsUIImpl,m_state,0x28,dword,assert,4,,StrategicHUD::SelectionDetailsUIImpl::OnClosed@0x14b9c70,!(m_state != STATE_CLOSING)
+StrategicHUD::SelectionUIImpl,m_mouseOver,0x32,byte,assert,2,,StrategicHUD::SelectionUIImpl::OnRollOver@0x15aad60,!(!m_visible || m_mouseOver)
+StrategicHUD::SelectionUIImpl,m_visible,0x30,byte,assert,1,,StrategicHUD::SelectionUIImpl::OnRollOver@0x15aad60,!(!m_visible || m_mouseOver)
+StrategicInGameUI::ArmyDetailsPanel::Impl,m_populated,0x2c,byte,assert,4,,StrategicInGameUI::ArmyDetailsPanel::Impl::Populate@0x15f8d00,!m_populated
+StrategicInGameUI::ArmyDetailsPanel::Impl,m_selectedEntryIDs,0x14,dword,assert,3,,StrategicInGameUI::ArmyDetailsPanel::Impl::OnArmySummaryEntryIDAddedToSet@0x15f9e60,&entryIDs == &m_selectedEntryIDs
+StrategicInGameUI::ArmyUnitIcon,m_upgradeIDs,0x10,addr,assert,1,,StrategicInGameUI::ArmyUnitIcon::AddUpgradeIcons@0x1627540,m_upgradeIDs.empty()
+StrategicInGameUI::ArmyUnitSwapperDialog::Impl::ArmyHandler,m_selectedMemberIDs,0x14,addr,assert,2,,StrategicInGameUI::ArmyUnitSwapperDialog::Impl::ArmyHandler::OnArmySummaryEntryIDAddedToSet@0x1627ff0,&entryIDs == &m_selectedMemberIDs
+StrategicInGameUI::BattlePromptArmyPanelBase,m_unitTypes,0x18,addr,assert,1,,StrategicInGameUI::BattlePromptArmyPanelBase::BattlePromptArmyPanelBase@0x1637ab0,m_unitTypes.size() == iconCount
+StrategicInGameUI::BattlePromptLocalPlayerPage::Impl,m_numHeroArmies,0x4c,dword,assert,4,,StrategicInGameUI::BattlePromptLocalPlayerPage::Impl::FindHeroArmyStuffByArmyIndex@0x160f6c0,!(i >= m_numHeroArmies)
+StrategicInGameUI::BattleResolver::Impl,m_battle,0x14,dword,assert,1,,StrategicInGameUI::BattleResolver::Impl::OnDestroyingLivingWorldBattle@0x15baa20,&battle == &m_battle
+StrategicInGameUI::BattleResolver::Impl,m_veterancyData,0x18,dword,assert,1,,StrategicInGameUI::BattleResolver::Impl::OnLivingWorldAutoResolveBattleCompleted@0x15baab0,!(m_veterancyData)
+StrategicInGameUI::BuildQueueDetailsPanel::Impl,m_building,0x18,dword,assert,1,,StrategicInGameUI::BuildQueueDetailsPanel::Impl::OnDestroyingBuilding@0x1605630,&building == &m_building
+StrategicInGameUI::BuildQueueDetailsPanel::Impl,m_queuedIcons,0x24,addr,assert,1,,StrategicInGameUI::BuildQueueDetailsPanel::Impl::GetIconAtQueueIndex@0x1605040,queueIndex <= m_queuedIcons.size()
+StrategicInGameUI::BuildQueueDetailsPanel::Impl,m_spawnArmyNugget,0x1c,dword,assert,3,,StrategicInGameUI::BuildQueueDetailsPanel::Impl::onDestroyingLivingWorldBuildingNuggetSpawnArmy@0x1605740,&nugget == &m_spawnArmyNugget
+StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon,m_slot,0xc,dword,assert,1,,StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::GetIconSlot@0x1602bc0,m_slot != NULL
+StrategicInGameUI::CancelArmyMemberMoveButton,m_selectedMemberIDs,0x24,dword,assert,1,,StrategicInGameUI::CancelArmyMemberMoveButton::OnDestroyingArmySummaryEntryIDSet@0x162a660,&entryIDs == &m_selectedMemberIDs
+StrategicInGameUI::Checklist::Impl,m_checklistUI,0x4,dword,assert,1,,StrategicInGameUI::Checklist::Impl::SelectAnItem@0x15b4ea0,m_checklistUI != NULL && m_checklistUI->GetSelectedItem() == NULL
+StrategicInGameUI::CommonBehavior::Impl,m_objectivesButton,0x74,dword,assert,3,,StrategicInGameUI::CommonBehavior::Impl::OnDestroyingObjectivesButton@0x14cb920,&button == m_objectivesButton
+StrategicInGameUI::CommonBehavior::Impl,m_optionsButton,0x6c,dword,assert,3,,StrategicInGameUI::CommonBehavior::Impl::OnDestroyingOptionsButton@0x14cb6a0,&button == m_optionsButton
+StrategicInGameUI::CommonBehavior::Impl,m_selectionDetailsUI,0x24,dword,assert,3,,StrategicInGameUI::CommonBehavior::Impl::OnDestroyingSelectionDetailsUI@0x14cbba0,&ui == m_selectionDetailsUI
+StrategicInGameUI::CommonBehavior::Impl::ArmyPointee,m_armyIcon,0x14,dword,assert,1,,StrategicInGameUI::CommonBehavior::Impl::ArmyPointee::OnDestroyingLivingWorldIcon@0x14c91c0,&icon == &m_armyIcon
+StrategicInGameUI::CommonBehavior::Impl::BuildingPointee,m_buildingIcon,0x14,dword,assert,1,,StrategicInGameUI::CommonBehavior::Impl::BuildingPointee::OnDestroyingLivingWorldIcon@0x14c94b0,&icon == &m_buildingIcon
+StrategicInGameUI::DisbandArmyMemberButton,m_selectedMemberIDs,0x24,dword,assert,1,,StrategicInGameUI::DisbandArmyMemberButton::OnDestroyingArmySummaryEntryIDSet@0x162bcd0,&entryIDs == &m_selectedMemberIDs
+StrategicInGameUI::DynamicAutoResolveDialog::Impl,m_battleManager,0x10,dword,assert,1,,StrategicInGameUI::DynamicAutoResolveDialog::Impl::OnLivingWorldAutoResolveBattleCompleted@0x15e6a60,m_battleManager->getInputData().playerData[ player.battlePlayerID ].playerID_externalUseOnly == player.player->GetID()
+StrategicInGameUI::DynamicAutoResolveDialog::Impl::PlayerPanelMovieClip,m_numBanners,0x1c,dword,assert,1,,StrategicInGameUI::DynamicAutoResolveDialog::Impl::PlayerPanelMovieClip::DequeueBanner@0x15e53e0,m_numBanners > 0
+StrategicInGameUI::DynamicAutoResolveDialog::Impl::PlayerPanelMovieClip,m_side,0x14,dword,assert,1,,StrategicInGameUI::DynamicAutoResolveDialog::Impl::PlayerPanelMovieClip::GetPlayerData@0x15e5590,m_side >= 0 && m_side < NUM_SIDES
+StrategicInGameUI::DynamicAutoResolveDialog::Impl::ShowBattleStepStateHandler,m_numHitAnimsToComplete,0x8,dword,assert,4,,StrategicInGameUI::DynamicAutoResolveDialog::Impl::ShowBattleStepStateHandler::OnChainHitAnim@0x15e3a10,m_numHitAnimsToComplete > 0
+StrategicInGameUI::DynamicAutoResolveDialog::Impl::ShowBattleStepStateHandler,m_numReinforceAnimsToComplete,0xc,dword,assert,4,,StrategicInGameUI::DynamicAutoResolveDialog::Impl::ShowBattleStepStateHandler::OnReinforceAnimDone@0x15e3fe0,m_numReinforceAnimsToComplete > 0
+StrategicInGameUI::DynamicAutoResolveDialog::Impl::StartupStateHandler,m_numPlayerPanelsToLoad,0x8,dword,assert,1,,StrategicInGameUI::DynamicAutoResolveDialog::Impl::StartupStateHandler::OnPlayerPanelLoaded@0x15e2970,m_numPlayerPanelsToLoad > 0
+StrategicInGameUI::HeroArmyDetailsPanel::Impl,m_leaderEntry,0x18,dword,assert,1,,StrategicInGameUI::HeroArmyDetailsPanel::Impl::Impl@0x1600ab0,m_leaderEntry != NULL
+StrategicInGameUI::HeroArmyDetailsPanel::Impl,m_selectedEntryIDs,0x10,dword,assert,2,,StrategicInGameUI::HeroArmyDetailsPanel::Impl::OnDestroyingArmySummaryEntryIDSet@0x16018d0,&entryIDs == &m_selectedEntryIDs
+StrategicInGameUI::PauseMenuOpener,m_button,0x8,dword,assert,2,,StrategicInGameUI::PauseMenuOpener::OnDestroyingOptionsButton@0x15b1e40,&button == m_button
+StrategicInGameUI::PlanRetreatChecklistItem,m_army,0x14,dword,assert,2,,StrategicInGameUI::PlanRetreatChecklistItem::PlanRetreatChecklistItem@0x15b2c10,TheLivingWorldLogic->ArmyIsRetreating( m_army )
+StrategicInGameUI::PlanningPhaseArmySelection::Impl,m_army,0x18,dword,assert,2,,StrategicInGameUI::PlanningPhaseArmySelection::Impl::MoveArmyMembers@0x15feac0,&destArmy != &m_army
+StrategicInGameUI::PlanningPhaseArmySelection::Impl::UnitSwapperDialog,m_otherArmy,0x10,dword,assert,1,,StrategicInGameUI::PlanningPhaseArmySelection::Impl::UnitSwapperDialog::OnDestroyingArmy@0x15fe430,&army == &m_otherArmy
+StrategicInGameUI::PlanningPhaseBehavior::Impl::PendingArmySelector,m_army,0xc,dword,assert,1,,StrategicInGameUI::PlanningPhaseBehavior::Impl::PendingArmySelector::OnDestroyingArmy@0x14d27b0,&army == &m_army
+StrategicInGameUI::PlanningPhaseBehavior::Impl::PendingBuildPlotSelector,m_buildPlot,0xc,dword,assert,1,,StrategicInGameUI::PlanningPhaseBehavior::Impl::PendingBuildPlotSelector::OnDestroyingBuildPlot@0x14d2d50,&buildPlot == &m_buildPlot
+StrategicInGameUI::PlanningPhaseBehavior::Impl::PendingBuildingSelector,m_building,0xc,dword,assert,1,,StrategicInGameUI::PlanningPhaseBehavior::Impl::PendingBuildingSelector::OnDestroyingBuilding@0x14d2a60,&building == &m_building
+StrategicInGameUI::PlanningPhaseBuildPlotSelection,m_buildPlot,0x18,dword,assert,1,,StrategicInGameUI::PlanningPhaseBuildPlotSelection::OnDestroyingBuildPlot@0x15c2650,&buildPlot == &m_buildPlot
+StrategicInGameUI::PlanningPhaseBuildingSelection,m_building,0x18,dword,assert,2,,StrategicInGameUI::PlanningPhaseBuildingSelection::OnDestroyingBuilding@0x15c1a60,&building == &m_building
+StrategicInGameUI::PlanningPhaseBuildingSelection::DetailsPanel,m_owner,0xc,dword,assert,2,,StrategicInGameUI::PlanningPhaseBuildingSelection::DetailsPanel::ClearOwner@0x15c11c0,m_owner != NULL
+StrategicInGameUI::PlanningPhaseGarrisonSelection::DetailsPanel,m_owner,0x1c,dword,assert,2,,StrategicInGameUI::PlanningPhaseGarrisonSelection::DetailsPanel::ClearOwner@0x15bfed0,m_owner != NULL
+StrategicInGameUI::PlanningPhaseHeroArmySelection::DetailsPanel,m_owner,0x24,dword,assert,2,,StrategicInGameUI::PlanningPhaseHeroArmySelection::DetailsPanel::ClearOwner@0x15c0800,m_owner != NULL
+StrategicInGameUI::PlanningPhaseRegionSelection::Impl,m_region,0x18,dword,assert,1,,StrategicInGameUI::PlanningPhaseRegionSelection::Impl::OnRegionChangingOwnership@0x15c3da0,&region == &m_region
+StrategicInGameUI::PlanningPhaseRegionSelection::Impl::ArmySubselection,m_army,0xc,dword,assert,1,,StrategicInGameUI::PlanningPhaseRegionSelection::Impl::ArmySubselection::OnDestroyingArmy@0x15c2ab0,&army == &m_army
+StrategicInGameUI::PlanningPhaseRegionSelection::Impl::BuildPlotSubselection,m_buildPlot,0xc,dword,assert,1,,StrategicInGameUI::PlanningPhaseRegionSelection::Impl::BuildPlotSubselection::OnDestroyingBuildPlot@0x15c36a0,&buildPlot == &m_buildPlot
+StrategicInGameUI::PlanningPhaseRegionSelection::Impl::BuildingSubselection,m_building,0xc,dword,assert,1,,StrategicInGameUI::PlanningPhaseRegionSelection::Impl::BuildingSubselection::OnDestroyingBuilding@0x15c2f90,&building == &m_building
+StrategicInGameUI::PlayerStatusDisplayer,m_button,0x8,dword,assert,2,,StrategicInGameUI::PlayerStatusDisplayer::OnDestroyingObjectivesButton@0x15b5e70,&button == m_button
+StrategicInGameUI::RegionDetailsArmiesPage::Impl,m_armyIcons,0x14,addr,assert,1,,StrategicInGameUI::RegionDetailsArmiesPage::Impl::CreateArmyIcons@0x15f0a60,m_armyIcons.empty()
+StrategicInGameUI::RegionDetailsArmiesPage::Impl,m_selectedArmyIcon,0x24,dword,assert,1,,StrategicInGameUI::RegionDetailsArmiesPage::Impl::SetUpSubUIs@0x15f11c0,m_selectedArmyIcon != NULL
+StrategicInGameUI::RegionDetailsArmiesPage::Impl::ArmyIcon,m_army,0x14,dword,assert,1,,StrategicInGameUI::RegionDetailsArmiesPage::Impl::ArmyIcon::OnDestroyingArmy@0x15f03d0,&army == &m_army
+StrategicInGameUI::RegionDetailsArmiesPage::Impl::ArmyIcon,m_slot,0x18,dword,assert,5,,StrategicInGameUI::RegionDetailsArmiesPage::Impl::ArmyIcon::OnDestroyingRegionDetailsArmiesIconSlot@0x15f0460,&slot == m_slot
+StrategicInGameUI::RegionDetailsStructuresPage::Impl,m_icons,0x14,addr,assert,1,,StrategicInGameUI::RegionDetailsStructuresPage::Impl::SetSelectedIconIndex@0x15f3790,iconIndex >= 0 && iconIndex < m_icons.size()
+StrategicInGameUI::RegionDetailsStructuresPage::Impl,m_selectedIconIndex,0x20,dword,assert,2,,StrategicInGameUI::RegionDetailsStructuresPage::Impl::SetUpSubUIs@0x15f3470,m_selectedIconIndex >= 0
+StrategicInGameUI::RegionDisplay::Impl,m_helpBox,0xc,dword,assert,1,,StrategicInGameUI::RegionDisplay::Impl::CreateHotSpotHelp@0x15af9b0,m_helpBox != NULL
+StrategicInGameUI::RegionDisplay::Impl,m_regionUI,0x8,dword,assert,1,,StrategicInGameUI::RegionDisplay::Impl::CreateHotSpotHelp@0x15af9b0,m_regionUI != NULL
+StrategicInGameUI::ResolveBattleChecklistItem,m_battle,0x14,dword,assert,1,,StrategicInGameUI::ResolveBattleChecklistItem::OnDestroyingLivingWorldBattle@0x15b6c10,&battle == m_battle
+StrategicInGameUI::ResolveBattlesBehavior::Impl,m_localPlayer,0x18,dword,assert,1,,StrategicInGameUI::ResolveBattlesBehavior::Impl::CreateChecklistItem@0x14d0b40,dispute.GetResolvableBy() == m_localPlayer->GetID()
+StrategicInGameUI::UpgradeUnitButton,m_selectedMemberIDs,0x24,dword,assert,1,,StrategicInGameUI::UpgradeUnitButton::OnDestroyingArmySummaryEntryIDSet@0x162b430,&entryIDs == &m_selectedMemberIDs
+StrategicVeterancy::Impl,m_state,0x8,dword,assert,1,,StrategicVeterancy::Impl::OnInitialized@0x15e9fa0,!(m_state != STATE_LOADING)
+StringBase<char>,m_data,0x0,dword,assert,1,,StringBase<char>::peek@0x42e750,m_data
+StringBase<unsigned short>,m_data,0x0,dword,assert,1,,StringBase<unsigned short>::peek@0x42e820,m_data
+StringCompose::CharPtr<class AsciiString>,m_length,0x4,dword,assert,2,,StringCompose::CharPtr<class AsciiString>::copyToBuffer@0x5e4e40,pos >= 0 && pos <= this->m_length
+StringCompose::CharPtr<class UnicodeString>,m_length,0x4,dword,assert,2,,StringCompose::CharPtr<class UnicodeString>::copyToBuffer@0xdcaa40,pos >= 0 && pos <= this->m_length
+"StringCompose::Substring<class AsciiString,class StringCompose::StringRef<class AsciiString> >",m_length,0x8,dword,assert,2,,"StringCompose::Substring<class AsciiString,class StringCompose::StringRef<class AsciiString> >::copyToBuffer@0x5e5000",pos >= 0 && pos <= this->m_length
+StringEditControl,m_hWnd,0x20,dword,assert,1,,StringEditControl::create@0x602900,m_hWnd == NULL
+SurfaceClass,m_D3DSurface,0x0,dword,assert,6,,SurfaceClass::Lock@0x9cf7a0,!(!m_D3DSurface)
+SwapSidesListUndoableBase,m_done,0x8,byte,assert,2,,SwapSidesListUndoableBase::Do@0x5f1660,!m_done
+SymbioticStructuresBody,m_symbioteID,0x104,dword,assert,1,,SymbioticStructuresBody::LoadPostProcess@0x12580a0,m_symbioteID!=INVALID_ID
+TacticalAI,m_interestZones,0x20,addr,assert,1,,TacticalAI::DoXfer@0xe894d0,numIZones == m_interestZones.size()
+Team,FirstItemIn_TeamMemberList,0x38,dword,accessor,1,,Team::getFirstItemIn_TeamMemberList@0xef30c0,
+Team,Name,0x30,dword,accessor,1,,Team::getName@0xaaf150,
+Team,Scope,0x30,dword,accessor,1,,Team::getScope@0xaaf0c0,
+Team,m_proto,0x30,dword,assert,8,,Team::getScope@0xaaf0c0,!(!m_proto)
+Team::DLINKHEAD_TeamMemberList,m_head,0x0,dword,assert,1,,Team::DLINKHEAD_TeamMemberList::~DLINKHEAD_TeamMemberList@0xef3e50,!m_head
+Team::DLINK_TeamInstanceList,m_next,0x4,dword,assert,1,,Team::DLINK_TeamInstanceList::~DLINK_TeamInstanceList@0xef3ef0,!m_prev && !m_next
+Team::DLINK_TeamInstanceList,m_prev,0x0,dword,assert,1,,Team::DLINK_TeamInstanceList::~DLINK_TeamInstanceList@0xef3ef0,!m_prev && !m_next
+TeamInQueue::DLINK_TeamBuildQueue,m_next,0x4,dword,assert,1,,TeamInQueue::DLINK_TeamBuildQueue::~DLINK_TeamBuildQueue@0x10ffe80,!m_prev && !m_next
+TeamInQueue::DLINK_TeamBuildQueue,m_prev,0x0,dword,assert,1,,TeamInQueue::DLINK_TeamBuildQueue::~DLINK_TeamBuildQueue@0x10ffe80,!m_prev && !m_next
+TeamInQueue::DLINK_TeamReadyQueue,m_next,0x4,dword,assert,1,,TeamInQueue::DLINK_TeamReadyQueue::~DLINK_TeamReadyQueue@0x10fff30,!m_prev && !m_next
+TeamInQueue::DLINK_TeamReadyQueue,m_prev,0x0,dword,assert,1,,TeamInQueue::DLINK_TeamReadyQueue::~DLINK_TeamReadyQueue@0x10fff30,!m_prev && !m_next
+TeamPrototype,FirstItemIn_TeamInstanceList,0x334,dword,accessor,1,,TeamPrototype::getFirstItemIn_TeamInstanceList@0xdf0cf0,
+TeamPrototype,m_owningPlayer,0x8,dword,assert,1,,TeamPrototype::addToLists@0xef1740,!(m_owningPlayer == NULL)
+TeamPrototype::DLINKHEAD_TeamInstanceList,m_head,0x0,dword,assert,1,,TeamPrototype::DLINKHEAD_TeamInstanceList::~DLINKHEAD_TeamInstanceList@0xef1670,!m_head
+TeamsInfoRec,m_entries,0xc,addr,assert,8,,TeamsInfoRec::getNextTeamID@0x534980,id > 0 && id < m_entries.size()
+TeamsInfoRec,m_numTeams,0x18,word,assert,1,,TeamsInfoRec::addTeam@0xa88c00,m_numTeams < 30000
+TerrainCopyToolImpl,m_curModeHandler,0x8c,dword,assert,1,,TerrainCopyToolImpl::getMode@0x613440,m_curModeHandler != NULL
+TerrainCopyToolImpl,m_doc,0x94,dword,assert,3,,TerrainCopyToolImpl::initializeSelection@0x613e10,m_doc != NULL
+TerrainResourceBehavior,m_needToRunOnBuildComplete,0x29,byte,assert,1,,TerrainResourceBehavior::update@0x11b96c0,!m_needToRunOnBuildComplete
+TerrainResourceClaimFeedback::Impl,m_showCount,0x4,dword,assert,2,,TerrainResourceClaimFeedback::Impl::show@0x131c5b0,m_showCount >= 0
+TerrainResourceClientBehavior,m_feedbackOn,0xc,byte,assert,1,,TerrainResourceClientBehavior::createSelectionFeedback@0x12753a0,!(m_feedbackOn)
+TerrainResourceManager,m_claimedCellArray,0x40,dword,assert,1,,TerrainResourceManager::DoXfer@0xe62590,NULL != m_claimedCellArray
+TerrainSelector,Mode,0x8,dword,accessor,1,,TerrainSelector::setMode@0x621d20,
+TerrainSelector,m_doc,0x1c,dword,assert,4,,TerrainSelector::deactivate@0x622270,pDoc == m_doc
+TerrainSelector,m_view,0x18,dword,assert,4,,TerrainSelector::deactivate@0x622270,pView == m_view
+TerrainTracksRenderObjClassSystem,m_maxTankTrackEdges,0x1c,dword,assert,1,,TerrainTracksRenderObjClassSystem::ReAcquireResources@0x8bf9b0,numModules*m_maxTankTrackEdges*2 > 0
+TerrainTracksRenderObjClassSystem,m_usedModules,0x10,dword,assert,2,,TerrainTracksRenderObjClassSystem::shutdown@0x8c01a0,m_usedModules == NULL
+TextureAsset::Factory,m_impl,0x14,dword,assert,1,,TextureAsset::Factory::PreLoad@0x9d2a40,m_impl==NULL
+TextureAsset::Impl,m_D3DTexture,0x8,dword,assert,2,,TextureAsset::Impl::CreateRawTexture@0x9d0790,!(m_D3DTexture)
+TextureAsset::Impl,m_file,0x10,dword,assert,1,,TextureAsset::Impl::PreLoad@0x9d0b30,m_file==NULL
+TextureAsset::Impl,m_fileAlpha,0x1c,dword,assert,2,,TextureAsset::Impl::~Impl@0x9d0610,m_fileAlpha==NULL
+TextureAsset::Impl,m_fileData,0x14,dword,assert,2,,TextureAsset::Impl::~Impl@0x9d0610,m_fileData==NULL
+TextureAsset::Impl,m_fileDataAlpha,0x20,dword,assert,1,,TextureAsset::Impl::~Impl@0x9d0610,m_fileDataAlpha==NULL
+TextureAsset::Impl,m_textureType,0xc,dword,assert,1,,TextureAsset::Impl::LoadFromSeparateColorAndAlphaData@0x9d0ed0,m_textureType == TYPE_2D
+TextureAsset::MissingFactory,m_impl,0x14,dword,assert,1,,TextureAsset::MissingFactory::PreLoad@0x9d2b40,m_impl==NULL
+TextureAsset::RecolorFactoryDecal,m_impl,0x14,dword,assert,3,,TextureAsset::RecolorFactoryDecal::PreLoad@0x9d2ea0,m_impl==NULL
+Thing,Template,0x4,dword,accessor,1,,Thing::getTemplate@0x72e1a0,
+Thing,m_bTemplateGuard,0xc,byte,assert,1,,Thing::getTemplate@0x72e1a0,!m_bTemplateGuard
+Thing,m_instances,0x0,dword,assert,1,,Thing::~Thing@0xcec4a0,m_instances>0
+ToppleUpdate,m_toppleState,0x38,dword,assert,1,,ToppleUpdate::update@0x121eb00,m_toppleState != TOPPLE_UPRIGHT
+TrackingPtr<class FXParticleSystem::ParticleSystem>,m_obj,0x0,dword,assert,2,,TrackingPtr<class FXParticleSystem::ParticleSystem>::AddTrackingPtr@0x7fbb40,m_obj
+Transport,m_isWinSockInit,0x40e08,byte,assert,3,,Transport::update@0x139ac80,m_isWinSockInit
+Transport,m_shareOneSocket,0x40e00,byte,assert,1,,Transport::allowBroadcasts@0x139ce70,m_shareOneSocket
+TreeControl,m_draggingItem,0xd4,dword,assert,9,,TreeControl::onDrag@0x628750,m_draggingItem == &item
+TreeControl,m_scrolling,0xd8,byte,assert,3,,TreeControl::OnTimer@0x629060,m_scrolling
+TreeControlItem,m_control,0x20,dword,assert,16,,TreeControlItem::getRect@0x626300,( m_control != NULL ) == ( m_handle != NULL )
+TreeControlItem,m_handle,0x24,dword,assert,7,,TreeControlItem::~TreeControlItem@0x625df0,m_handle == NULL
+TunnelTracker,m_lockCount,0xc,dword,assert,3,,TunnelTracker::addToContainList@0x11036c0,!m_lockCount
+TunnelTracker,m_lockedItem,0x28,dword,assert,1,,TunnelTracker::removeFromContain@0x11037a0,obj!=m_lockedItem
+"UnionFind<unsigned short,struct UnionFindDefaultPolicy<unsigned short> >",m_curMax,0x2,word,assert,3,,"UnionFind<unsigned short,struct UnionFindDefaultPolicy<unsigned short> >::FindSet@0x12d3900",n>=0&&n<m_curMax
+"UnionFind<unsigned short,struct UnionFindDefaultPolicy<unsigned short> >",m_maxInt,0x0,word,assert,1,,"UnionFind<unsigned short,struct UnionFindDefaultPolicy<unsigned short> >::MakeSet@0x12d3810",n>=0&&n<m_maxInt
+"UnionFind<unsigned short,struct UnionFindLowerIdPolicy<unsigned short> >",m_curMax,0x2,word,assert,4,,"UnionFind<unsigned short,struct UnionFindLowerIdPolicy<unsigned short> >::FindSet@0x12d3ff0",n>=0&&n<m_curMax
+"UnionFind<unsigned short,struct UnionFindLowerIdPolicy<unsigned short> >",m_maxInt,0x0,word,assert,1,,"UnionFind<unsigned short,struct UnionFindLowerIdPolicy<unsigned short> >::MakeSet@0x12d3f00",n>=0&&n<m_maxInt
+UniqueLowIdMap<unsigned short>,m_maxInt,0x0,word,assert,1,,UniqueLowIdMap<unsigned short>::GetAndUseNew@0x12d46d0,m_maxUsed<m_maxInt
+UniqueLowIdMap<unsigned short>,m_maxUsed,0x6,word,assert,5,,UniqueLowIdMap<unsigned short>::GetAndUseNew@0x12d46d0,m_maxUsed<m_maxInt
+UniqueLowIdMap<unsigned short>,m_nextFree,0x2,word,assert,1,,UniqueLowIdMap<unsigned short>::GetAndUseNew@0x12d46d0,m_nextFree==m_maxUsed
+UnitRevivalTracker,m_player,0x10,dword,assert,2,,UnitRevivalTracker::addInitialBuildUnit@0xf5fc20,m_player == &player
+UnitRevivalTracker,m_revivableUnits,0x4,addr,assert,1,,UnitRevivalTracker::DoXfer@0xf61160,m_revivableUnits.empty()
+W3DAptComponentView3D,m_scene,0x10,dword,assert,2,,W3DAptComponentView3D::AddRenderObj@0x17edeb0,!(!m_scene)
+W3DAptComponentView3D::AnimInfo,m_animControl,0x4,dword,assert,2,,W3DAptComponentView3D::AnimInfo::Init@0x17eeb30,!(m_animControl)
+W3DAptComponentView3D::AnimInfo,m_rObj,0x0,dword,assert,1,,W3DAptComponentView3D::AnimInfo::SetFrame@0x17eee70,!(!m_rObj || !m_animControl)
+W3DAptDisplayString,m_displayString,0x8,dword,assert,1,,W3DAptDisplayString::SetText@0x8ab7c0,m_displayString
+W3DAptRenderer,m_vertexBuffer,0xd0,dword,assert,2,,W3DAptRenderer::BeginTriangleList@0x979290,!(numNewVertices > MAX_BUFFER_SIZE || !m_vertexBuffer)
+W3DBufferManager,m_numEmptyIndexBuffersAllocated,0x42658,dword,assert,1,,W3DBufferManager::freeAllBuffers@0x9616a0,m_numEmptyIndexBuffersAllocated==0
+W3DBufferManager,m_numEmptyIndexSlotsAllocated,0x423d4,dword,assert,2,,W3DBufferManager::freeAllSlots@0x961340,m_numEmptyIndexSlotsAllocated==0
+W3DBufferManager,m_numEmptySlotsAllocated,0x25048,dword,assert,2,,W3DBufferManager::freeAllSlots@0x961340,m_numEmptySlotsAllocated==0
+W3DDualProjectedShadow,m_shadow,0x58,dword,assert,4,,W3DDualProjectedShadow::setTexture@0x8d8b40,m_shadow[which] != NULL
+W3DFloorBuffer,m_numFloors,0x1c,dword,assert,1,,W3DFloorBuffer::addFloor@0x8844d0,m_numFloors < MAX_FLOORS-1
+W3DHordeModelDraw,m_managerHandle,0x2e8,dword,assert,1,,W3DHordeModelDraw::onDrawableBoundToObject@0x919fc0,!m_managerHandle
+W3DProjectedShadowManager,m_decalList,0x8,dword,assert,2,,W3DProjectedShadowManager::~W3DProjectedShadowManager@0x8c72a0,m_decalList == NULL
+W3DProjectedShadowManager,m_dualList,0x14,dword,assert,2,,W3DProjectedShadowManager::~W3DProjectedShadowManager@0x8c72a0,m_dualList == NULL
+W3DProjectedShadowManager,m_freeDualList,0x18,dword,assert,2,,W3DProjectedShadowManager::~W3DProjectedShadowManager@0x8c72a0,m_freeDualList == NULL
+W3DProjectedShadowManager,m_freeList,0x10,dword,assert,2,,W3DProjectedShadowManager::~W3DProjectedShadowManager@0x8c72a0,m_freeList == NULL
+W3DProjectedShadowManager,m_indexBuffer,0x258,dword,assert,1,,W3DProjectedShadowManager::ReAcquireResources@0x8c8430,m_indexBuffer == NULL && m_vertexBuffer == NULL
+W3DProjectedShadowManager,m_mergeDecalList,0x1c,dword,assert,2,,W3DProjectedShadowManager::~W3DProjectedShadowManager@0x8c72a0,m_mergeDecalList == NULL
+W3DProjectedShadowManager,m_shadowList,0x4,dword,assert,2,,W3DProjectedShadowManager::~W3DProjectedShadowManager@0x8c72a0,m_shadowList == NULL
+W3DProjectedShadowManager,m_vertexBuffer,0x254,dword,assert,1,,W3DProjectedShadowManager::ReAcquireResources@0x8c8430,m_indexBuffer == NULL && m_vertexBuffer == NULL
+W3DRoadBuffer,m_maxRoadTypes,0x40,dword,assert,2,,W3DRoadBuffer::adjustStacking@0x871940,i<m_maxRoadTypes
+W3DRopeDraw,m_segments,0x10,addr,assert,1,,W3DRopeDraw::buildSegments@0x95a990,m_segments.empty()
+W3DScriptedModelDraw,m_lastAnimationSyncTime,0xb8,dword,assert,1,,W3DScriptedModelDraw::processAnimations@0x944c80,m_lastAnimationSyncTime != W3DDisplay::GetCurSyncTime()
+W3DScriptedModelDraw,m_whichAnimInCurState,0x44,dword,assert,1,,W3DScriptedModelDraw::adjustAnimation@0x92be60,m_whichAnimInCurState != -1
+W3DShadowGeometryMesh,m_numPolyNeighbors,0x28,dword,assert,2,,W3DShadowGeometryMesh::allocateNeighbors@0x8005e0,m_numPolyNeighbors == 0
+W3DShadowGeometryMesh,m_polyNeighbors,0x24,dword,assert,2,,W3DShadowGeometryMesh::allocateNeighbors@0x8005e0,m_polyNeighbors == NULL
+W3DShadowGeometryMesh,m_polygonNormals,0x10,dword,assert,1,,W3DShadowGeometryMesh::GetPolygonNormal@0x7ff940,m_polygonNormals
+W3DShroud,m_numCellsX,0x0,dword,assert,1,,W3DShroud::setShroudLevel@0x7fd2c0,x >= 0 && x < m_numCellsX && y >= 0 && y < m_numCellsY
+W3DShroud,m_numCellsY,0x4,dword,assert,1,,W3DShroud::setShroudLevel@0x7fd2c0,x >= 0 && x < m_numCellsX && y >= 0 && y < m_numCellsY
+W3DShroud,m_pDstTexture,0x1c,addr,assert,1,,W3DShroud::ReAcquireResources@0x7fcdb0,m_pDstTexture.PeekD3DBaseTexture() != NULL
+W3DShroud,m_shroudData,0x18,dword,assert,3,,W3DShroud::init@0x7fc650,m_shroudData == NULL
+W3DShrubBuffer,m_numShrubs,0x4fb58,dword,assert,2,,W3DShrubBuffer::loadShrubsInVertexAndIndexBuffers@0x8930d0,curShrub >= m_numShrubs
+W3DTaint,m_pDstTexture,0x1c,addr,assert,1,,W3DTaint::ReAcquireResources@0x82d030,m_pDstTexture.PeekD3DBaseTexture() != NULL
+W3DTaint,m_taintData,0x18,dword,assert,1,,W3DTaint::init@0x82c800,m_taintData == NULL
+W3DTerrainBackground,m_curNumTerrainVertices,0x48,dword,assert,1,,W3DTerrainBackground::updateGeoMorphing@0x7cc640,numTerrainVertices <= m_curNumTerrainVertices
+W3DTreeBuffer,m_numTreeTypes,0x45c58,dword,assert,1,,W3DTreeBuffer::forceStartTreeSink@0x8a1ab0,!(tree->treeType>=m_numTreeTypes)
+W3DTreeBuffer,m_numTrees,0x44540,dword,assert,2,,W3DTreeBuffer::loadTreesInVertexAndIndexBuffers@0x89b530,curTree >= m_numTrees
+W3DView,m_cameraConstraintValid,0x241c,byte,assert,1,,W3DView::setCameraTransform@0x9886f0,m_cameraConstraintValid
+W3DVolumetricShadow,RenderObject,0x70,dword,accessor,1,,W3DVolumetricShadow::setRenderObject@0x817630,
+W3DVolumetricShadow,m_maxSilhouetteEntries,0x4540,word,assert,1,,W3DVolumetricShadow::addSilhouetteIndices@0x80daa0,m_numSilhouetteIndices[meshIndex] < m_maxSilhouetteEntries[meshIndex]
+W3DVolumetricShadow,m_numSilhouetteIndices,0x4400,word,assert,2,,W3DVolumetricShadow::addSilhouetteIndices@0x80daa0,m_numSilhouetteIndices[meshIndex] < m_maxSilhouetteEntries[meshIndex]
+W3DVolumetricShadow,m_robj,0x70,dword,assert,1,,W3DVolumetricShadow::setRenderObject@0x817630,m_robj==NULL
+W3DVolumetricShadow,m_silhouetteIndex,0x4180,dword,assert,1,,W3DVolumetricShadow::allocateSilhouette@0x813340,m_silhouetteIndex[meshIndex] == NULL && m_numSilhouetteIndices[meshIndex] == 0 && numEntries > 0
+W3DVolumetricShadowManagerV2,m_firstShadow,0x8,dword,assert,1,,W3DVolumetricShadowManagerV2::~W3DVolumetricShadowManagerV2@0x8e18a0,m_firstShadow==NULL
+W3DVolumetricShadowManagerV2,m_ibEntriesLeft,0x18,dword,assert,1,,W3DVolumetricShadowManagerV2::FlushVBandIB@0x8e3820,(MAX_SHADOW_VERTICES-m_ibEntriesLeft)%3==0
+W3DVolumetricShadowManagerV2,m_ibLock,0x10,dword,assert,5,,W3DVolumetricShadowManagerV2::RenderShadowsNoInitialFill@0x8e1b70,!m_ibLock
+W3DVolumetricShadowManagerV2,m_vbLock,0xc,dword,assert,2,,W3DVolumetricShadowManagerV2::LockVBandIB@0x8e36b0,!m_vbLock
+W3DVolumetricShadowV2,m_renderObj,0x74,dword,assert,1,,W3DVolumetricShadowV2::W3DVolumetricShadowV2@0x8dfda0,m_renderObj
+W3DVolumetricShadowV2::Submesh,m_mesh,0x0,dword,assert,4,,W3DVolumetricShadowV2::Submesh::UpdateWorldSpaceVertices@0x8dda20,m_mesh
+WaterAreaPropertiesPane::Impl,m_waterArea,0x8,dword,assert,5,,WaterAreaPropertiesPane::Impl::onDestroyingWaterArea@0x62eca0,&area == m_waterArea
+WaterRenderObjClass,m_sourceRiverAreas,0x114,dword,assert,4,,WaterRenderObjClass::reset@0x743b00,( m_sourceStandingWaterAreas != NULL ) == ( m_sourceRiverAreas != NULL )
+WaterRenderObjClass,m_sourceStandingWaterAreas,0x104,dword,assert,7,,WaterRenderObjClass::~WaterRenderObjClass@0x742cf0,( m_sourceStandingWaterAreas != NULL ) == ( m_sourceStandingWaveAreas != NULL )
+WaterRenderObjClass,m_sourceStandingWaveAreas,0x124,dword,assert,3,,WaterRenderObjClass::~WaterRenderObjClass@0x742cf0,( m_sourceStandingWaterAreas != NULL ) == ( m_sourceStandingWaveAreas != NULL )
+Waypoint,m_intermediate,0x44,dword,assert,1,,Waypoint::setIntermediate@0x10ac8a0,!m_intermediate
+Waypoint,m_portalCell,0xac,dword,assert,2,,Waypoint::setPortalCell@0xc3e100,!m_portalCell
+Waypoint,m_type,0x60,dword,assert,1,,Waypoint::Waypoint@0xc3dc60,m_type>=Normal&&m_type<TypeMax
+WbView3d,m_hWnd,0x20,dword,assert,4,,WbView3d::onCameraAnimationEditingModeEntered@0x6654f0,m_hWnd != NULL
+WbView3d,m_heightMapRenderObj,0x184,dword,assert,1,,WbView3d::redraw@0x65a0e0,m_heightMapRenderObj
+WbView3d,m_interfaceState,0x168,dword,assert,4,,WbView3d::onCameraAnimationEditingModeEntered@0x6654f0,&state == &m_interfaceState
+WbView3d,m_observingCameraAnimationInterface,0x2a0,byte,assert,4,,WbView3d::onCameraAnimationEditingModeEntered@0x6654f0,m_observingCameraAnimationInterface
+Weapon,m_status,0x10,dword,assert,1,,Weapon::getActualReloadTime@0xbb5310,m_status==RELOADING_CLIP
+Weapon,m_template,0x4,dword,assert,2,,Weapon::privateFireWeapon@0xbb7c40,!(whileCount++==m_template->getLinearTargetsVector().size())
+Weapon,m_whenLastReloadStarted,0x28,dword,assert,1,,Weapon::getPercentReadyToFire@0xbb7390,nextShot >= m_whenLastReloadStarted
+WinInstanceData,m_text,0x19c,dword,assert,1,,WinInstanceData::setText@0x1329bc0,m_text
+WinInstanceData,m_tooltip,0x1a0,dword,assert,1,,WinInstanceData::setTooltipText@0x1329a20,m_tooltip
+WindowLayout,m_windowTail,0xc,dword,assert,1,,WindowLayout::~WindowLayout@0x146ad50,m_windowTail == NULL
+WorldBuilderAppImpl,m_mainFrame,0x10,dword,assert,1,,WorldBuilderAppImpl::createTools@0x697430,m_mainFrame != NULL
+WorldHeightMapEdit,m_height,0xc,dword,assert,4,,WorldHeightMapEdit::globalBlendOut@0x672b90,!(pt.x<0||pt.x>=m_width|| pt.y<0||pt.y>=m_height)
+WorldHeightMapEdit,m_numTextureClasses,0x80c8,dword,assert,1,,WorldHeightMapEdit::remapTextures@0x66d1f0,newIndices.size() == m_numTextureClasses
+WorldHeightMapEdit,m_width,0x8,dword,assert,4,,WorldHeightMapEdit::globalBlendOut@0x672b90,!(pt.x<0||pt.x>=m_width|| pt.y<0||pt.y>=m_height)
+XferMD5CRC,m_isfinalized,0x58,byte,assert,2,,XferMD5CRC::XferImpl@0x1353a30,!(m_isfinalized)

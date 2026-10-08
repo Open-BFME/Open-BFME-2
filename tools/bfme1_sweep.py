@@ -62,6 +62,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build
 import ledger_io
 import claims as shared_claims
+import wb_context
 
 ROOT = build.ROOT
 BFME1 = ROOT / "reference" / "open-bfme-1"
@@ -1088,6 +1089,37 @@ def bfme1_siblings():
 TIER_ORDER = {"T1": 0, "T2": 1, "T3": 2, "T4": 3}
 
 
+def wb_lead_for(record):
+    """(WB lead at the body's game.dat address, how the donor agrees with it).
+
+    Agreement ("name": the donor's own name normalizes to WB's Class::method;
+    "file": only the donor's file stem matches WB's) is a second, independent
+    identity witness on top of the byte placement -- the one thing a T3 ICF
+    guess lacks. Disagreement refutes nothing: a BFME 1 file can move.
+    """
+    lead = wb_context.lead(record["bfme2_rva"])
+    return lead, wb_context.agreement(lead, name=record.get("name"),
+                                      source=record.get("source"))
+
+
+def wb_summary(bodies):
+    """Per-donor-file WB agreement: the strongest any body reaches, plus counts."""
+    agrees = [wb_lead_for(body) for body in bodies]
+    names = sum(1 for _, agree in agrees if agree == "name")
+    files = sum(1 for _, agree in agrees if agree == "file")
+    return {"agree": "name" if names else "file" if files else None,
+            "name": names, "file": files,
+            "leads": sum(1 for lead, _ in agrees if lead)}
+
+
+def wb_marker(summary):
+    """Short ranked-table suffix, or '' when no body has a lead."""
+    if not summary or not summary["leads"]:
+        return ""
+    return (f"  [WB {summary['leads']} lead(s); agree: name {summary['name']}, "
+            f"file {summary['file']}]")
+
+
 def group_files(payload, include_refused=False, tiers=("T1", "T2", "T3"),
                 include_held=False, busy_rvas=()):
     claims = Claims(ledger_claims(BFME2_LEDGER))
@@ -1137,8 +1169,13 @@ def group_files(payload, include_refused=False, tiers=("T1", "T2", "T3"),
             "best_tier": min(body["tier"] for body in bodies),
             "bodies": bodies,
             "held": bucket["held"],
+            "wb": wb_summary(bodies),
         })
+    # Byte tier stays first. Within it, a donor whose name or file agrees with
+    # the WorldBuilder lead at its placement outranks one without: two
+    # independent identity witnesses beat one.
     served.sort(key=lambda entry: (TIER_ORDER[entry["best_tier"]],
+                                   wb_context.AGREE_RANK[entry["wb"]["agree"]],
                                    COPY_ORDER[entry["copy_tier"]],
                                    -entry["bytes"]))
     return served
@@ -1163,7 +1200,7 @@ def do_ranked(args):
     for entry in served[: args.limit]:
         flag = "!" if entry["policy"] != "ok" else " "
         print(f"{entry['bytes']:>7}  {len(entry['bodies']):>3}  {entry['best_tier']:>4}  "
-              f"{entry['copy_tier']:>4}{flag} {entry['source']}")
+              f"{entry['copy_tier']:>4}{flag} {entry['source']}{wb_marker(entry.get('wb'))}")
     if len(served) > args.limit:
         print(f"... {len(served) - args.limit} more (--limit)")
     if served:
@@ -1204,6 +1241,16 @@ def packet_text(entry):
         lines.append(f"| `{body['name']}` | 0x{body['bfme1_rva']:08X} | {body['size']} | "
                      f"0x{body['bfme2_rva']:08X} | {body['tier']} | {evidence} |")
     lines.append("")
+    led = [(body, *wb_lead_for(body)) for body in entry["bodies"]]
+    led = [item for item in led if item[1]]
+    if led:
+        lines.append("## WorldBuilder leads (identity evidence, not a byte match)")
+        lines.append("")
+        for body, lead, agree in led:
+            lines.append(f"- 0x{body['bfme2_rva']:08X} {wb_context.line(lead)}"
+                         f"{f'  [agrees: {agree}]' if agree else '  [disagrees]'}")
+            lines.append(f"  `{wb_context.show_command(body['bfme2_rva'])}`")
+        lines.append("")
 
     pins = sorted({(name, address) for body in entry["bodies"]
                    for name, address in body["pins"]})
@@ -1381,12 +1428,18 @@ def near_candidates(payload, include_held=False, limit=None, busy_rvas=()):
         kind, hint = classify_near(donor, window, fields, scratch)
         if kind not in NEAR_SERVED:
             continue
+        lead, agree = wb_lead_for(record)
         served.append(dict(record, klass=kind, hint=hint, copy_tier=tier,
                            copy_note=copy_note, cl=cl_line, stlport=stlport,
                            policy=verdict, policy_note=policy_note,
-                           donor=donor, window=window, fields=fields))
+                           donor=donor, window=window, fields=fields,
+                           wb=wb_context.line(lead), wb_agree=agree))
         if limit is not None and len(served) >= limit:
             break
+    # Alignment ranks, but a near miss whose donor name or file agrees with the
+    # WorldBuilder lead is the same function with far more confidence: serve
+    # those first (stable, so alignment order holds inside each group).
+    served.sort(key=lambda e: wb_context.AGREE_RANK[e["wb_agree"]])
     return served
 
 
@@ -1523,6 +1576,10 @@ def near_packet(entry):
         lines.append(f"    ghidra   {agree}")
     lines.append(f"    cl:      {entry['cl'] or '(none -- build.py base flags)'}")
     lines.append(f"    why      {entry['hint']}")
+    if entry.get("wb"):
+        agree = entry.get("wb_agree")
+        lines.append(f"    {entry['wb']}  [{f'agrees: {agree}' if agree else 'disagrees'}]")
+        lines.append(f"    wb_show  {wb_context.show_command(entry['bfme2_rva'])}")
     if entry["copy_tier"] in HELD_COPY_TIERS:
         lines.append(f"    HELD     {entry['copy_note']}")
     lines.append("")
@@ -1592,6 +1649,9 @@ def do_near(args):
     for entry in served:
         print(f"{entry['alignment'] * 100:5.1f}%  {entry['size']:>5}  {entry['klass']:<15} "
               f"0x{entry['bfme2_rva']:08X} {entry['source']}")
+        if entry.get("wb"):
+            agree = entry.get("wb_agree")
+            print(f"{'':>8}{entry['wb']}  [{f'agrees: {agree}' if agree else 'disagrees'}]")
     if served:
         print()
         print(f"next: python3 tools/bfme1_sweep.py near --show '{served[0]['name']}'")

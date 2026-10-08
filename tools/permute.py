@@ -38,6 +38,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 import build  # noqa: E402
+import wb_context  # noqa: E402
 
 ATTEMPTS = ROOT / "reverse" / "attempts"
 LOG = ROOT / "reverse" / "re_attempts.log"
@@ -59,8 +60,25 @@ def attempt_sizes():
     return sizes
 
 
+def wb_priority(rva):
+    """Ordering multiplier: wb_context.BOOST when WorldBuilder names this body.
+
+    A banked body with a WB lead has its original name and a near-source debug
+    body one `tools/wb_show.py <rva> --gd` away, which is what a seat closing
+    the last few bytes by hand starts from. Ordering only; the mutation search
+    never reads it.
+    """
+    return wb_context.BOOST if wb_context.named(wb_context.lead(rva)) else 1.0
+
+
+def wb_note(rva):
+    """The one-line WB lead for a banked rva, or ''."""
+    return wb_context.line(wb_context.lead(rva))
+
+
 def queue(min_score=0.9):
-    """[(score, size, rva, symbol)] for banked attempts, highest score x size first."""
+    """[(score, size, rva, symbol)] for banked attempts, highest score x size
+    (x wb_priority, preferring bodies with a WorldBuilder name lead) first."""
     sizes = attempt_sizes()
     out = []
     for path in ATTEMPTS.glob("0x*.cpp"):
@@ -73,7 +91,7 @@ def queue(min_score=0.9):
         size = sizes.get((symbol.group(1), rva))
         if size and float(score.group(1)) >= min_score:
             out.append((float(score.group(1)), size, rva, symbol.group(1)))
-    return sorted(out, key=lambda item: (-item[0] * item[1], item[2]))
+    return sorted(out, key=lambda item: (-item[0] * item[1] * wb_priority(item[2]), item[2]))
 
 
 # ----------------------------------------------------------------- scoring
@@ -1061,6 +1079,9 @@ def main(argv=None):
     if args.list:
         for score, size, rva, symbol in items:
             print(f"{score:.2f} {size:6d} {rva} {symbol}")
+            note = wb_note(rva)
+            if note:
+                print(f"     {note}")
         print(f"{len(items)} banked attempt(s) at score >= {args.min_score}")
         return 0
     claimed = []
@@ -1105,6 +1126,9 @@ def main(argv=None):
                 wins += bool(result.get("exact"))
                 if result.get("exact"):
                     won.add(result["rva"])
+                note = wb_note(result.get("rva"))
+                if note:
+                    result["wb"] = note
                 print(json.dumps(result), flush=True)
     finally:
         if claimed:

@@ -38,6 +38,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import boundary_validator
 import build
 import ledger_io
+import wb_context
 
 ROOT = build.ROOT
 ZH = build.ZH_REFERENCE_ROOT
@@ -844,6 +845,25 @@ def header_lines(rva, bounds, best):
     return [wrap(line, indent="  ") for line in lines]
 
 
+def wb_lines(rva, group):
+    """The packet's WorldBuilder section: the lead at this address and whether
+    each Zero Hour candidate's name or file agrees with it. [] with no lead.
+
+    Agreement is a second identity witness the byte alignment cannot give --
+    in particular it can separate tied candidates. It is not a byte match."""
+    lead = wb_context.lead(rva)
+    if not lead:
+        return []
+    lines = ["## WorldBuilder lead", "", f"- {wb_context.line(lead)}"]
+    for record in group:
+        agree = wb_context.agreement(lead, name=record["sym"], source=record["source"])
+        if agree:
+            lines.append(f"- agrees ({agree}) with candidate {record['sym']}")
+    lines += ["", "WB's near-source debug body beside retail's:", "",
+              "```", wb_context.show_command(rva), "```", ""]
+    return lines
+
+
 def packet_text(rva, bounds, group, body, relocs, sources):
     best = group[0]
     candidates = [f"- `{r['sym']}`\n  in `{r['source']}` "
@@ -867,6 +887,7 @@ def packet_text(rva, bounds, group, body, relocs, sources):
         *ambiguous,
         "\n".join(candidates),
         "",
+        *wb_lines(rva, group),
         "## What this is",
         "",
         "The vendored Zero Hour tree contains a body that nearly reproduces these retail",

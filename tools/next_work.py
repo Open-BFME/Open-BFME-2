@@ -21,8 +21,19 @@ Sections, in priority order:
       tools/similar.py; served on request only, never by the default pick)
   5. Rest of the ladder (pointer commands only, nothing computed)
 
+  --tier wb (or --wb) serves WorldBuilder name leads instead: see wb_candidates.
+
+WorldBuilder leads (reverse/wb_name_leads.csv, via tools/wb_context.py) annotate
+every printed candidate with a `WB:` line and the `tools/wb_show.py <rva> --gd`
+command. Ranking rule: inside every tier, a candidate whose address carries a
+named WB lead scoring >= wb_context.HIGH_SCORE (4.0) has its selection weight
+multiplied by wb_context.BOOST (1.5); ranked views keep their own order. The
+packet tier also breaks landability ties toward packets whose Zero Hour name or
+file agrees with the lead. A lead is identity evidence only, never a match.
+
 Usage:
   python3 tools/next_work.py [--tier structural]
+  python3 tools/next_work.py --wb [--claim] [--ranked]
   python3 tools/next_work.py --ranked [--limit 10] [--json]
 
 Exit codes: 0 ok, 1 missing/bad inputs, 2 ledger corrupt.
@@ -45,6 +56,7 @@ import boundary_validator
 import claims
 import landability
 import re_log
+import wb_context
 import yield_model
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -68,6 +80,8 @@ POINTERS = [
      "land string-anchored exact-ambiguous drift copies"),
     ("python3 tools/list_naked_candidates.py Code",
      "choose one naked-asm function worth decompiling to C++"),
+    ("python3 tools/next_work.py --wb",
+     "serve bodies by WorldBuilder lead (original name + source file)"),
 ]
 
 FIX_INSTRUCTIONS = """\
@@ -543,6 +557,39 @@ def _print_stash(candidate):
     line = stash_line(candidate)
     if line:
         print(line)
+    _print_wb(candidate)
+
+
+def wb_lines(candidate):
+    """The WorldBuilder lead for this candidate's address, as printable lines.
+
+    Printed beside the stash pointer for every candidate in every tier, so a
+    seat starts from WB's near-source debug body rather than from retail's
+    optimised one. Empty when WB has no lead at this address.
+    """
+    rva = _candidate_rva(candidate)
+    found = wb_context.lead(rva) if rva is not None else None
+    if not found:
+        return []
+    return [f"       {wb_context.line(found)}",
+            f"       wb_show: {wb_context.show_command(rva)}"]
+
+
+def _print_wb(candidate):
+    for line in wb_lines(candidate):
+        print(line)
+
+
+def annotate_wb(candidates):
+    """Hang the WB lead on every candidate (for --json); never filters."""
+    for candidate in candidates:
+        rva = _candidate_rva(candidate)
+        found = wb_context.lead(rva) if rva is not None else None
+        if found:
+            candidate["wb"] = {key: found[key] for key in
+                               ("wb_name", "wb_path", "score", "evidence", "kind")}
+            candidate["wb"]["show"] = wb_context.show_command(rva)
+    return candidates
 
 
 def _candidate_rva(candidate):
@@ -768,14 +815,21 @@ def candidate_weight(candidate):
     """Selection weight for one candidate: see tools/yield_model.weight.
 
     The queues already rank themselves and the selector used to throw that
-    ranking away, so every draw was worth the pool average."""
+    ranking away, so every draw was worth the pool average.
+
+    A high-score named WorldBuilder lead (wb_context.is_high) multiplies the
+    weight by wb_context.BOOST: knowing the body's original name and file is
+    what the first hour of an unnamed body goes on. Modest on purpose -- it is
+    identity evidence, not landing evidence -- so the measured size curve still
+    dominates the draw. The similar tier keeps its resemblance order in the
+    draw (score 1.0 keeps the full weight, 0.5 a quarter of it)."""
     weight = yield_model.weight(
         candidate.get("size") or candidate.get("target_size") or 1)
     if "similarity" in candidate:
-        # The similar tier ranks by resemblance to matched code; keep that order
-        # in the draw (score 1.0 keeps the full weight, 0.5 a quarter of it).
         weight = max(1, round(weight * candidate["similarity"] ** 2))
-    return weight
+    rva = _candidate_rva(candidate)
+    factor = wb_context.boost(wb_context.lead(rva)) if rva is not None else 1.0
+    return max(1, int(round(weight * factor)))
 
 
 def deferred_note(candidates):
@@ -976,8 +1030,137 @@ def packet_candidates(claimed):
                 function, served, start_ok, start_why, pins.group(1) if pins else "",
                 resolves=callee_resolves),
         })
-    out.sort(key=lambda c: (c["landability"]["rank"], -c["size"]))
+    # A packet whose Zero Hour name (or file) agrees with the WorldBuilder lead
+    # at the same address has two independent identity witnesses; within one
+    # landability rank it goes first. Never across ranks: the lead says nothing
+    # about boundary or callee provenance, which is what the rank measures.
+    for candidate in out:
+        candidate["wb_agree"] = wb_context.agreement(
+            wb_context.lead(int(candidate["target_rva"], 16)),
+            name=candidate["function"], source=candidate["source"])
+    out.sort(key=lambda c: (c["landability"]["rank"],
+                            wb_context.AGREE_RANK[c["wb_agree"]], -c["size"]))
     return out
+
+
+# Ledger kinds (as tools/wb_match.py classified them) whose row still lacks a
+# real identity: a gen-* placeholder, a real class with an invented method name,
+# or a symbols.csv pin with no source. A WB name is exactly what these need.
+WB_ROWED_KINDS = ("PLACEHOLDER", "PARTIAL", "PIN_ONLY")
+WB_BANDS = {0: "rowed, needs its name", 1: "unrowed, WB names its file"}
+WB_NO_FILE = "(WB file unknown)"
+
+
+def wb_real_rvas(rows):
+    """Addresses a matched row already holds under a REAL (non-invented) name.
+
+    reverse/wb_name_leads.csv is a snapshot; this is the live check that a
+    lead's address has not been named since it was written. Uses wb_gold's
+    classifier, the one wb_match.py used to write the snapshot's kinds.
+    """
+    import wb_gold
+    real = set()
+    for row in rows:
+        if row.get("status") != "matched" or not row.get("target_rva"):
+            continue
+        try:
+            info = wb_gold.describe(row["name"], row.get("source", ""))
+        except Exception:  # DemangleError: outside the demangler's subset
+            continue
+        if info and info["kind"] == "REAL":
+            real.add(int(row["target_rva"], 16))
+    return real
+
+
+def wb_candidates(sourced_ranges, real_rvas, sizes, leads=None):
+    """Bodies served by WorldBuilder lead, best-evidenced band first.
+
+    Band 0: rows whose identity is still invented (PLACEHOLDER / PARTIAL /
+    PIN_ONLY) and whose lead carries a WB function name -- recovering the name
+    and writing the real C++ is the work, and wb_show prints the debug body.
+    Band 1: functions nothing rows yet (UNROWED) whose lead names a WB source
+    file; the name may still be unknown.
+
+    Within a band candidates are grouped by WB file, then class, then address,
+    so the ranked view reads as files to drain. `sourced_ranges` are ledger
+    rows with source (not gen dumps): an UNROWED lead inside one is stale.
+    `real_rvas` (wb_real_rvas) retires any lead whose address is named since.
+    `sizes` maps rva -> body size (ledger extent, else the Ghidra inventory).
+    """
+    leads = wb_context.leads() if leads is None else leads
+    ranges = sorted(sourced_ranges)
+    starts = [start for start, _ in ranges]
+
+    def inside_any(point):
+        index = bisect.bisect_right(starts, point) - 1
+        return index >= 0 and ranges[index][0] <= point < ranges[index][1]
+
+    out = []
+    for rva, lead in leads.items():
+        if rva in real_rvas:
+            continue
+        if lead["kind"] in WB_ROWED_KINDS and lead["wb_name"]:
+            band = 0
+        elif lead["kind"] == "UNROWED" and lead["wb_path"]:
+            if inside_any(rva):
+                continue
+            band = 1
+        else:
+            continue
+        name = lead["wb_name"] or lead["current_name"] or f"sub_{rva:08X}"
+        out.append({
+            "target_rva": f"0x{rva:08X}",
+            "size": sizes.get(rva, 0),
+            "function": name,
+            "current_name": lead["current_name"],
+            "kind": lead["kind"],
+            "band": band,
+            "source": lead["wb_path"] or WB_NO_FILE,
+            "wb_class": lead["wb_class"],
+            "wb_score": lead["score"],
+            "evidence": lead["evidence"],
+            "command": wb_context.show_command(rva),
+        })
+    out.sort(key=lambda c: (c["band"], c["source"] == WB_NO_FILE,
+                            c["source"].casefold(), c["wb_class"],
+                            int(c["target_rva"], 16)))
+    return out
+
+
+def wb_band(candidates):
+    """(the best non-empty band, how many candidates the other bands hold)."""
+    for band in sorted(WB_BANDS):
+        served = [c for c in candidates if c["band"] == band]
+        if served:
+            return served, len(candidates) - len(served)
+    return [], 0
+
+
+def wb_local_source(candidate):
+    """Where this WB file's bodies live in Code/, as a short note.
+
+    The exact basename when Code/ has it; otherwise the split units this repo
+    carved from it (ScriptActions.cpp -> ScriptActionsRva003BB6C0.cpp, ...),
+    matched as basename prefix followed by a non-lowercase character.
+    """
+    if candidate["source"] == WB_NO_FILE:
+        return "unknown (WB recorded no file)"
+    base = candidate["source"].rsplit("/", 1)[-1]
+    if not base.casefold().endswith((".cpp", ".c")):
+        return f"{base} is a header: an inline body, defined with its class there"
+    hits = source_index().get(base.casefold(), [])
+    if hits:
+        return hits[0].relative_to(ROOT).as_posix()
+    stem = base.rsplit(".", 1)[0]
+    split = sorted(path for name, paths in source_index().items()
+                   if name.startswith(stem.casefold()) for path in paths
+                   if len(path.stem) > len(stem) and not path.stem[len(stem)].islower()
+                   and path.stem[:len(stem)].casefold() == stem.casefold())
+    if split:
+        first = split[0].relative_to(ROOT).as_posix()
+        more = f" (+{len(split) - 1} more)" if len(split) > 1 else ""
+        return f"no {base} yet; split unit(s) {first}{more}"
+    return f"no {base} in Code/ yet"
 
 
 def similar_candidates(claimed, claimed_ranges):
@@ -995,7 +1178,7 @@ def similar_candidates(claimed, claimed_ranges):
 
 
 def selected_queue(tier, drifts, structural, ghidra_absent, anchored, named,
-                   packets=(), similar=(), repair=(), link=(), repair_turn=True):
+                   packets=(), similar=(), repair=(), link=(), repair_turn=True, wb=()):
     queues = {
         "repair": ("gate-debt repair", repair),
         "link": ("link-cycle repair", link),
@@ -1005,6 +1188,7 @@ def selected_queue(tier, drifts, structural, ghidra_absent, anchored, named,
         "structural": ("structural reconciliation", structural),
         "ghidra": ("Ghidra-anchored absent function", ghidra_absent),
         "anchored": ("string-anchored unclaimed function", anchored),
+        "wb": ("WorldBuilder lead", wb),
         "similar": ("similar to matched code", similar),
     }
     if tier:
@@ -1012,7 +1196,7 @@ def selected_queue(tier, drifts, structural, ghidra_absent, anchored, named,
     if not repair_turn:
         # Repairs are capped (repair_queue.repair_turn): off-turn they wait unless
         # nothing else is servable, so no seat is ever left idle.
-        order = [name for name in queues if name not in ("repair", "link", "similar")]
+        order = [name for name in queues if name not in ("repair", "link", "similar", "wb")]
         for name in order + ["repair", "link"]:
             label, candidates = queues[name]
             if candidates:
@@ -1047,16 +1231,20 @@ def cluster_of(candidate, candidates):
     return same
 
 
-def print_cluster(candidate, candidates):
+def print_cluster(candidate, candidates, buildable=True):
     siblings = cluster_of(candidate, candidates)
     if len(siblings) < 2:
         return
     total = sum(c.get("size") or c.get("target_size") or 0 for c in siblings)
     print(f"\n  == the rest of {candidate['source']} ({len(siblings)} queued, "
           f"{total:,}B) ==")
-    print("  Take the whole file, not just the row above: recover the layout once, "
-          f"verify siblings together with one `./build.sh {candidate['source']}`, "
-          "commit each body separately.")
+    if buildable:
+        print("  Take the whole file, not just the row above: recover the layout once, "
+              f"verify siblings together with one `./build.sh {candidate['source']}`, "
+              "commit each body separately.")
+    else:  # a WB file path, not a Code/ unit: nothing for build.sh to take yet
+        print("  Take the whole WB file, not just the row above: its class layout and "
+              "callee names carry over; land each body into its Code/ home separately.")
     for sibling in siblings[:12]:
         size = sibling.get("size") or sibling.get("target_size") or 0
         marker = "->" if sibling is candidate else "  "
@@ -1067,6 +1255,23 @@ def print_cluster(candidate, candidates):
         print(f"      ... and {len(siblings) - 12} more in this file")
     print("  If a shared header is involved, edit every dependent body first and "
           "pay the full gate once.")
+
+
+def print_wb_candidate(candidate, indent="  "):
+    """One WB-tier candidate: name, address, file, and what to run first."""
+    now = (f"  (ledger: {candidate['kind']} {candidate['current_name']})"
+           if candidate["current_name"] else f"  ({candidate['kind']})")
+    print(f"{indent}{candidate['size']:>5}B  {candidate['function']}{now}")
+    print(f"       {candidate['target_rva']}  WB file: {candidate['source']}"
+          + (f"  class {candidate['wb_class']}" if candidate["wb_class"] else ""))
+    print(f"       local source: {wb_local_source(candidate)}")
+    line = stash_line(candidate)
+    if line:
+        print(line)
+    for line in wb_lines(candidate)[:1]:
+        print(line)
+    _print_boundary_verdicts(candidate)
+    print(f"       start: {candidate['command']}")
 
 
 def print_candidate(label, candidate, meta, candidates=()):
@@ -1082,6 +1287,16 @@ def print_candidate(label, candidate, meta, candidates=()):
         return
     if candidate.get("dest_basis"):
         print(f"  goes in: {candidate.get('dest') or '(no unit yet)'}  <- {candidate['dest_basis']}")
+    if label == "WorldBuilder lead":
+        print_wb_candidate(candidate)
+        if candidate["kind"] in ("PLACEHOLDER", "PARTIAL"):
+            print("       name it: write real C++ at its home, then "
+                  "tools/add_match.py <real-name> <rva> <size> <source> --replace-rva <rva>")
+        elif candidate["kind"] == "PIN_ONLY":
+            print("       pinned but unrowed: write real C++ at its home, then "
+                  "tools/add_match.py <real-name> <rva> <size> <source>")
+        print_cluster(candidate, candidates, buildable=False)
+        return
     if label == "Zero Hour work packet":
         print(f"  {candidate['size']:>5}B  {candidate['function']}")
         print(f"       {candidate['target_rva']} — Zero Hour's own body for this "
@@ -1165,12 +1380,15 @@ def print_candidate(label, candidate, meta, candidates=()):
 
 
 def print_ranked(args, ledger, drifts, structural, ghidra_meta, ghidra_absent,
-                 suppressed=0, named=(), named_note="", structural_meta=None):
+                 suppressed=0, named=(), named_note="", structural_meta=None, wb=()):
     print("== 0. ledger health ==")
     print(f"  {ledger}")
     if suppressed:
         print(f"  re_attempts: {suppressed} candidate(s) hidden as already "
               f"investigated (--include-logged to show)")
+    if args.tier == "wb":
+        print_ranked_wb(args, wb)
+        return
     if structural_meta and validator_note(structural_meta):
         print(f"  {validator_note(structural_meta)}")
 
@@ -1192,6 +1410,7 @@ def print_ranked(args, ledger, drifts, structural, ghidra_meta, ghidra_absent,
                   f"{candidate['function']}")
             print(f"       {candidate['source']} @ {candidate['candidate_rva']}  "
                   f"hint: {candidate['hint']}")
+            _print_wb(candidate)
             print("       fix the literal in source, then byte-verify: "
                   f"{candidate['command']}")
 
@@ -1233,6 +1452,36 @@ def print_ranked(args, ledger, drifts, structural, ghidra_meta, ghidra_absent,
         print(f"  {command:<55} # {why}")
 
 
+def print_ranked_wb(args, wb):
+    """The WB tier, band by band, grouped by WB file (limit = files per band)."""
+    for band, title in sorted(WB_BANDS.items()):
+        members = [c for c in wb if c["band"] == band]
+        files = {}
+        for candidate in members:
+            files.setdefault(candidate["source"], []).append(candidate)
+        print(f"\n== WB band {band}: {title} ({len(members)} bodies in "
+              f"{len(files)} WB file(s)) ==")
+        for source, group in list(files.items())[:args.limit]:
+            total = sum(c["size"] for c in group)
+            print(f"\n  -- {source} ({len(group)} bodies, {total:,}B) --")
+            for candidate in group[:args.limit]:
+                print_wb_candidate(candidate, indent="  ")
+            if len(group) > args.limit:
+                print(f"      ... and {len(group) - args.limit} more in this file")
+
+
+def wb_sizes(rows):
+    """{rva: size}: the ledger's own extent where a row has one, else Ghidra's."""
+    sizes = dict(_ghidra_sizes())
+    for row in rows:
+        if row.get("target_rva") and row.get("target_size"):
+            try:
+                sizes[int(row["target_rva"], 16)] = int(row["target_size"])
+            except ValueError:
+                pass
+    return sizes
+
+
 def main():
     import build
     ap = argparse.ArgumentParser(description=__doc__,
@@ -1247,8 +1496,10 @@ def main():
                     help="claim the selected RVA on origin before serving it; retry a raced selection")
     ap.add_argument("--tier",
                     choices=("repair", "link", "packet", "named", "harvest", "structural", "ghidra", "anchored",
-                             "similar"),
+                             "similar", "wb"),
                     help="choose from only this task lane")
+    ap.add_argument("--wb", action="store_const", const="wb", dest="tier",
+                    help="shorthand for --tier wb: serve bodies by WorldBuilder name lead")
     ap.add_argument("--shard", type=parse_shard, metavar="INDEX/COUNT",
                     help="stable zero-based partition for concurrent workers")
     ap.add_argument("--big", action="store_true",
@@ -1267,7 +1518,7 @@ def main():
     global repair_queue
     import repair_queue  # after the health check: a corrupt ledger exits first
     drifts = (drift_quick_wins()
-              if args.tier not in ("packet", "named", "structural", "ghidra", "similar") else [])
+              if args.tier not in ("packet", "named", "structural", "ghidra", "similar", "wb") else [])
     # Every tier below asks "is this address still open work?", and a gen-dump
     # row answers yes: it pins retail's bytes and holds no source. That rule
     # lives in build.load_claim_rows and nowhere else -- deriving it here a
@@ -1283,7 +1534,7 @@ def main():
     structural = (structural_candidates(claimed, claimed_names, claimed_ranges,
                                         big=args.big)
                   if args.tier not in ("packet", "named", "harvest", "ghidra", "anchored",
-                                       "similar")
+                                       "similar", "wb")
                   else [])
     if args.tier in (None, "named"):
         named, named_note = reloc_named_candidates(claimed, claimed_ranges)
@@ -1296,11 +1547,17 @@ def main():
         anchored, anchored_note = [], "anchored tier not requested"
     similar_q = (similar_candidates(claimed, claimed_ranges)
                  if args.tier == "similar" else [])
-    if args.tier not in ("packet", "named", "harvest", "structural", "anchored", "similar"):
+    if args.tier not in ("packet", "named", "harvest", "structural", "anchored", "similar",
+                         "wb"):
         ghidra_absent, ghidra_meta = ghidra_absent_candidates(
             claimed, claimed_names)
     else:
         ghidra_absent, ghidra_meta = [], "Ghidra tier not requested"
+
+    wb, wb_aside = [], 0
+    if args.tier == "wb":
+        every_row = build.load_claim_rows(counting_dumps=True, matched_only=False)
+        wb = wb_candidates(claimed_ranges, wb_real_rvas(every_row), wb_sizes(every_row))
 
     # A `no-match` row is a finished investigation, not a pending task; serving
     # one again is pure rework. ~20% of the structural queue is in that state.
@@ -1311,9 +1568,10 @@ def main():
         structural, dropped_structural = drop_logged(structural)
         ghidra_absent, dropped_ghidra = drop_logged(ghidra_absent)
         anchored, dropped_anchored = drop_logged(anchored)
+        wb, dropped_wb = drop_logged(wb)
         similar_q, dropped_similar = drop_logged(similar_q)
         suppressed = (dropped_named + dropped_drift + dropped_structural
-                      + dropped_ghidra + dropped_anchored + dropped_similar)
+                      + dropped_ghidra + dropped_anchored + dropped_wb + dropped_similar)
 
     repair = repair_queue.all_repair_items() if args.tier in (None, "repair") else []
     link, link_note = repair_queue.link_items() if args.tier in (None, "link") else ([], "")
@@ -1325,6 +1583,7 @@ def main():
     structural = without_busy(structural, busy)
     ghidra_absent = without_busy(ghidra_absent, busy)
     anchored = without_busy(anchored, busy)
+    wb = without_busy(wb, busy)
     similar_q = without_busy(similar_q, busy)
 
     # After the log filter, so one dead name cannot retire a whole address, and
@@ -1336,9 +1595,11 @@ def main():
     structural = apply_shard(structural, args.shard)
     ghidra_absent = apply_shard(ghidra_absent, args.shard)
     anchored = apply_shard(anchored, args.shard)
+    wb = apply_shard(wb, args.shard)
     similar_q = apply_shard(similar_q, args.shard)
-    for queue in (named, drifts, structural, ghidra_absent, anchored, similar_q):
+    for queue in (named, drifts, structural, ghidra_absent, anchored, wb, similar_q):
         annotate_stashes(queue)
+        annotate_wb(queue)
     for queue in (named, ghidra_absent, anchored):
         repair_queue.annotate_dest(queue)
     shard_meta = (None if args.shard is None else
@@ -1352,6 +1613,7 @@ def main():
             "structural": structural,
             "ghidra_meta": ghidra_meta, "ghidra_absent": ghidra_absent,
             "anchored_meta": anchored_note, "anchored": anchored,
+            "wb_leads": wb,
             "similar": similar_q,
             "repair": repair, "link_meta": link_note, "link": link,
             "structural_meta": structural_meta,
@@ -1373,12 +1635,12 @@ def main():
                 print(f"  {link_note}")
             print()
         print_ranked(args, ledger, drifts, structural, ghidra_meta,
-                     ghidra_absent, suppressed, named, named_note, structural_meta)
+                     ghidra_absent, suppressed, named, named_note, structural_meta, wb)
         return
 
     packets = (packet_candidates(claimed)
                if args.tier in (None, "packet") else [])
-    packets = without_busy(packets, busy)
+    packets = annotate_wb(without_busy(packets, busy))
     repair_queue.annotate_dest(packets)
     # The packet tier carries its own boundary, so a logged verdict retires it
     # exactly as it does for every other lane. Without this the recommender
@@ -1397,16 +1659,22 @@ def main():
     if args.tier is None and not landability.preempts(packets):
         withheld = len(packets)
         packets = []
+    # One WB band at a time, like landability: a body that only needs its
+    # name never waits behind an unrowed one.
+    if args.tier == "wb":
+        wb, wb_aside = wb_band(wb)
     turn = args.tier is not None or repair_queue.repair_turn(args.repair_every)
     label, candidates = selected_queue(args.tier, drifts, structural, ghidra_absent,
                                        anchored, named, packets, similar_q, repair=repair, link=link,
-                                       repair_turn=turn)
+                                       repair_turn=turn, wb=wb)
     candidate, acquired = (claim_choice(candidates, label) if args.claim else
                            (weighted_choice(candidates) if candidates else None, []))
     deferred = sum(1 for c in candidates if c.get("deferred_attempts"))
     meta = {"pool": len(candidates), "suppressed_logged": suppressed,
             "packets_set_aside": set_aside, "packets_withheld": withheld,
             "deferred_pool": deferred, "shard": shard_meta}
+    if args.tier == "wb":
+        meta["wb_set_aside"] = wb_aside
     if args.json:
         meta = dict(meta, cluster=[
             c["function"] for c in cluster_of(candidate, candidates)]) \
@@ -1426,6 +1694,9 @@ def main():
     if withheld:
         print(f"landability: {withheld} packet(s) withheld from the default pick — "
               f"the inventory places none of them; use --tier packet to work one")
+    if wb_aside:
+        print(f"wb: {wb_aside} lead(s) in later bands set aside — serving bodies "
+              f"that only need their name first")
     note = deferred_note(candidates)
     if note:
         print(note)
