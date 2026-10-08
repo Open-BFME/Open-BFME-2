@@ -1,6 +1,7 @@
 // ?rva005706D4@AptOnlineLogin@@QAE_NXZ
-// partial score=0.9 date=2026-10-08
+// partial score=0.975 date=2026-10-08
 #define _WCTYPE_INLINE_DEFINED
+#define iswgraph iswgraph_unimported
 // cl: /O1 /EHsc /MD /arch:SSE /G7 /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // BFME1 OnlineLoginRegister.cpp34f59164 supplies registration-tool behavior.
 // BFME2 WB150B150 names OnBttnRegisterFESL and AptOnlineLogin.cpp.
@@ -9,8 +10,14 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 // stlport
+// Native string cleanup calls the existing STL allocator free, not CRT free.
+#include <stdlib.h>
+namespace _STL { void __cdecl free(void *block); }
+#define free _STL::free
 #include <map>
 #include <list>
+#include <string>
+#undef free
 extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::~_List_base();
 bool operator<(const UnicodeString &,const UnicodeString &);
 namespace _STL { template<> struct less<UnicodeString> {
@@ -29,7 +36,7 @@ extern "C" __declspec(dllimport) void *__stdcall ShellExecuteW(void *,const unsi
 bool GetStringFromRegistry(AsciiString,AsciiString,AsciiString &);
 void GSMessageBoxOk(UnicodeString,UnicodeString,void (*)());
 void bfmeMinimizeCurrentThreadWindow();
-class BfmeObjELB { public: void bfmeTailELB(bool); };
+class BfmeObjELB;
 extern BfmeObjELB *g_bfmeObjELB;
 class GameTextInterface {
 public:
@@ -63,6 +70,11 @@ void GadgetListBoxSetSelected(GameWindow *,int);
 void GadgetCheckBoxSetChecked(GameWindow *,bool);
 void GadgetTextEntrySetText(GameWindow *,UnicodeString);
 class GameSpyLoginPreferences { public:
+    virtual void slot0();virtual void slot4();virtual void slot8();
+    virtual bool write();
+    void deleteNick(const AsciiString &,const AsciiString &);
+    void rva005CA53E(const AsciiString &);
+    void rva005CACDE(AsciiString,AsciiString,AsciiString,AsciiString);
     AsciiString rva005C9FC4();
     _STL::list<AsciiString> rva005CA07D();
     AsciiString getPasswordForEmail(AsciiString);
@@ -81,11 +93,153 @@ class SkirmishFindMap { public:
     SkirmishFindNode *head; unsigned char remainder[8];
 };
 
-extern "C" __declspec(dllimport) int __cdecl iswgraph(unsigned short);
-class Rva0056EE5F { public: unsigned char rva0056EE5F(); };
+class GameSpyConfigInterface { public:
+    virtual ~GameSpyConfigInterface();
+    virtual _STL::list<AsciiString> getPingServers()=0;
+    virtual int getNumPingRepetitions()=0;
+    virtual int getPingTimeoutInMs()=0;
+};
+extern GameSpyConfigInterface *TheGameSpyConfig;
+class PingRequest { public: _STL::string hostname;int repetitions,timeout; };
+class PingerInterface { public:
+    virtual ~PingerInterface();
+    virtual void startThreads()=0;
+    virtual void endThreads()=0;
+    virtual bool areThreadsRunning()=0;
+    virtual void addRequest(const PingRequest &)=0;
+    virtual void slot14();virtual void slot18();virtual void slot1C();
+    virtual bool arePingsInProgress();virtual void slot24();virtual void slot28();
+    virtual AsciiString getPingString(int);
+};
+extern PingerInterface *ThePinger;
+struct LoginPingStringData { int refs;unsigned short length,capacity;char text[1]; };
+
+
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
+extern "C" unsigned char *__cdecl _mbscpy(unsigned char *,const unsigned char *);
 class Rva0056EBA1 { public: UnicodeString rva0056EB15(); };
 class Rva0056EA91 { public: UnicodeString rva0056EA91(); };
 class Rva0056EBD0 { public: UnicodeString rva0056EBD0(); };
+// Donor request fields retained only where retail accesses them. Native
+// proves this request's prefix and 0x2B8 stack extent; remaining bytes opaque.
+struct LoginSubmitRequest {
+ int type;
+ char nickname[31],email[51],password[31];bool hasFirewall;
+ unsigned char opaque[0x200];char registryKey[65];unsigned char tail;
+};
+class GameSpyBuddyMessageQueueInterface { public:
+ virtual void slot00();virtual void slot04();virtual void slot08();
+ virtual void slot0C();virtual void slot10();virtual void slot14();
+ virtual void addRequest(const LoginSubmitRequest &);
+};
+extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
+
+typedef _STL::map<AsciiString,AsciiString> LoginPreferenceMap;
+extern template AsciiString &LoginPreferenceMap::operator[](const AsciiString &);
+class OptionPreferences { public:
+    OptionPreferences();virtual ~OptionPreferences();
+    bool hasGotOnline();
+    LoginPreferenceMap settings;AsciiString filename;
+};
+class PSPlayerAllStats { public:
+    PSPlayerAllStats(const PSPlayerAllStats &);~PSPlayerAllStats();
+    void setID(int);
+    // 0x548 native extent independently corroborated by the recovered
+    // PersistentStorageThread provider. No fields reconstructed here.
+    unsigned opaque[0x548/4];
+};
+PSPlayerAllStats rva00556DFF();
+void Rva003B3371Call(int);
+bool GadgetCheckBoxIsChecked(GameWindow *);
+class AptOnlineShell { public:void LoadChildScreen(const char *); };
+class FirewallHelperClass { public:
+    virtual ~FirewallHelperClass();
+    bool behaviorDetectionUpdate();void writeFirewallBehavior();
+    void flagNeedToRefresh(bool);
+};
+// Existing owning unit models the native slot0 allocation-release result.
+struct Rva00A063B0Obj { virtual void *Unknown00(int); };
+extern Rva00A063B0Obj *g_a063b0;
+
+class GameSpyInfoInterface { public:
+ virtual void slot00();
+ virtual void slot04();
+ virtual void clearGroupRoomList();
+ virtual void slot0C();
+ virtual void slot10();
+ virtual void slot14();
+ virtual void slot18();
+ virtual void slot1C();
+ virtual void slot20();
+ virtual void slot24();
+ virtual void slot28();
+ virtual void slot2C();
+ virtual void slot30();
+ virtual void slot34();
+ virtual void slot38();
+ virtual void slot3C();
+ virtual void slot40();
+ virtual void slot44();
+ virtual void slot48();
+ virtual void slot4C();
+ virtual void slot50();
+ virtual void slot54();
+ virtual void slot58();
+ virtual void slot5C();
+ virtual void slot60();
+ virtual void slot64();
+ virtual void slot68();
+ virtual void slot6C();
+ virtual void slot70();
+ virtual void slot74();
+ virtual void slot78();
+ virtual int getLocalProfileID();
+ virtual void slot80();
+
+ virtual void setLocalEmail(AsciiString);
+ virtual void slot88();
+ virtual void setLocalPassword(AsciiString);
+ virtual void setLocalBaseName(AsciiString);
+ virtual void slot94();virtual void setCachedLocalPlayerStats(PSPlayerAllStats);
+ virtual void slot9C();
+ virtual void slotA0();
+ virtual void slotA4();
+ virtual void slotA8();
+ virtual void slotAC();
+ virtual void slotB0();
+ virtual void slotB4();
+ virtual void slotB8();
+ virtual void slotBC();
+ virtual void slotC0();
+ virtual void slotC4();
+ virtual void slotC8();
+ virtual void slotCC();
+ virtual void slotD0();
+ virtual void slotD4();
+ virtual void slotD8();
+ virtual void slotDC();
+ virtual void slotE0();
+ virtual void slotE4();
+ virtual void slotE8();
+ virtual void slotEC();
+ virtual void slotF0();
+ virtual void slotF4();
+ virtual void slotF8();
+ virtual void slotFC();
+ virtual void slot100();
+ virtual void slot104();
+ virtual void slot108();
+ virtual void slot10C();
+ virtual void slot110();
+ virtual void slot114();
+ virtual void setPingString(const AsciiString &);
+};
+extern GameSpyInfoInterface *TheGameSpyInfo;
+
+
+#undef iswgraph
+extern "C" __declspec(dllimport) int __cdecl iswgraph(unsigned short);
+class Rva0056EE5F { public: unsigned char rva0056EE5F(); };
 class Gen_0054EC50 { public: Gen_0054EC50() {} bool bfmeDiffers(const Gen_0054EC50 &)const; unsigned head,value; };
 class Gen_0054EC80 { public: Gen_0054EC80() {} bool bfmeDiffers(const Gen_0054EC80 &)const; unsigned head,value; };
 class Rva0056FA50 { public: Rva0056FA50() {} bool rva0056FA50(const Rva0056FA50 &)const; unsigned head,value; };
@@ -97,15 +251,11 @@ class Rva0056FAA5 { public: Rva0056FAA5() {}
     unsigned head,value;
 };
 int Rva0056F84DHook(int,int);
-class OptionPreferences { public:
-    OptionPreferences(); virtual ~OptionPreferences(); bool hasGotOnline();
-    unsigned char remainder[16];
-};
 template<class T> struct BfmeStringData { int refs;unsigned short length,capacity;T text[1]; };
 template<class T> struct LoginApplyStringView {
     BfmeStringData<T> *data;
-    __forceinline short shortLength()const { return data?(short)data->length:0; }
-    __forceinline T charAt(int i)const { return data?data->text[i]:0; }
+    __forceinline short shortLength()const { if(data) return (short)data->length;return 0; }
+    __forceinline T charAt(int i)const { if(data) return data->text[i];return 0; }
 };
 
 class AptOnlineLogin {
@@ -114,6 +264,12 @@ public:
     void rva00572632(const char *);
     void rva00572768(const char *);
     void rva00571B75();
+    void rva00570C64();
+    void rva00570D36();
+    void rva00571129();
+    void OnAccountDeleted(bool);
+    void rva0057179D(bool);
+    void rva005700A0();
     void rva005709D1(AsciiString &,AsciiString &);
     bool rva005706D4();
     bool rva0056EC54(const UnicodeString &,bool);
@@ -127,9 +283,11 @@ private:
     GameWindow *password;
     GameWindow *remember;
     unsigned char padB4[4]; GameWindow *m_countryList;
-    unsigned char padBC[9]; bool needsRefresh;
-    unsigned char padC6[7]; bool loginEnabled,gadgetsReady,registerEnabled; bool closeLocale;
+    unsigned char padBC[8]; bool loggedIn; bool needsRefresh;
+    unsigned char padC6[2]; unsigned long loginStartTime;
+    unsigned char padCC[1]; bool loginEnabled,gadgetsReady,registerEnabled; bool closeLocale;
     unsigned char padD1[3]; int locale;
+    AsciiString deleteNickname;
 };
 void AptOnlineLogin::OnBttnRegisterFESL(const char *)
 {
@@ -182,7 +340,7 @@ void AptOnlineLogin::rva00572632(const char *)
         GameSpyMiscPreferences preferences;
         if(preferences.rva00559782()>=1 && preferences.rva00559782()<=0x25) {
             locale=preferences.rva00559782();
-            g_bfmeObjELB->bfmeTailELB(false);
+            ((AptOnlineLogin *)g_bfmeObjELB)->rva0057179D(false);
             return;
         }
         closeLocale=false;
@@ -243,7 +401,7 @@ void AptOnlineLogin::rva00572768(const char *)
           ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonServiceTerms",0,0,0,0); }
         GameSpyMiscPreferences preferences;
         if(preferences.rva00559782()>=1 && preferences.rva00559782()<=0x25) {
-            g_bfmeObjELB->bfmeTailELB(true);
+            ((AptOnlineLogin *)g_bfmeObjELB)->rva0057179D(true);
             return;
         }
         closeLocale=true;
@@ -320,8 +478,252 @@ void AptOnlineLogin::rva005709D1(AsciiString &lastEmail,AsciiString &lastName)
     rva005706D4();
 }
 
+// ZH WOLLoginMenu.cpp startPings supplies the semantic source. BFME1
+// 34f59164 PingThread.h retains the 20-byte request and virtual interfaces.
+// Native570C64..570D36 independently proves config slots4/C/8 and pinger10.
+// Original target method spelling is unknown.
+void AptOnlineLogin::rva00570C64()
+{
+    _STL::list<AsciiString> servers=TheGameSpyConfig->getPingServers();
+    int timeout=TheGameSpyConfig->getPingTimeoutInMs();
+    int repetitions=TheGameSpyConfig->getNumPingRepetitions();
+    for(_STL::list<AsciiString>::iterator it=servers.begin();it!=servers.end();++it) {
+        AsciiString server=*it;
+        PingRequest request;
+        const LoginPingStringData *data=*(const LoginPingStringData *const *)&server;
+        request.hostname=data?data->text:"";
+        request.repetitions=repetitions;
+        request.timeout=timeout;
+        ThePinger->addRequest(request);
+    }
+}
+
+// BFME1 34f59164 OnlineLoginSubmit00551620.cpp supplies login-request behavior.
+// Native570D36..571129 independently proves all target offsets and slots;
+// BFME2 removes the donor's UI disables and nickname persistence here.
+// Original method spelling and the untouched request fields remain unknown.
+void AptOnlineLogin::rva00570D36() {
+ AsciiString login,password,email;
+ email.translate(((Rva0056EBA1 *)this)->rva0056EB15());
+ login.translate(((Rva0056EA91 *)this)->rva0056EA91());
+ password.translate(((Rva0056EBD0 *)this)->rva0056EBD0());
+ if(!email.isEmpty() && !login.isEmpty() && !password.isEmpty()) {
+  loginStartTime=timeGetTime();
+  LoginSubmitRequest req;
+  req.type=4;
+  _mbscpy((unsigned char *)req.nickname,(const unsigned char *)((const StringBase<char> *)&login)->str());
+  _mbscpy((unsigned char *)req.email,(const unsigned char *)((const StringBase<char> *)&email)->str());
+  _mbscpy((unsigned char *)req.password,(const unsigned char *)((const StringBase<char> *)&password)->str());
+  req.hasFirewall=true;
+  AsciiString registryValue;
+  GetStringFromRegistry("\\ergc","",registryValue);
+  _mbscpy((unsigned char *)req.registryKey,(const unsigned char *)((const StringBase<char> *)&registryValue)->str());
+  TheGameSpyInfo->setLocalBaseName(login);
+  TheGameSpyInfo->setLocalEmail(email);
+  TheGameSpyInfo->setLocalPassword(password);
+  TheGameSpyBuddyMessageQueue->addRequest(req);
+  ((Rva0056DCBF *)this)->rva0056DCBF(false);
+  rva00570C64();
+ } else {
+  if(email.isEmpty() && login.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoAll"),0);
+  else if(email.isEmpty() && login.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmailNickname"),0);
+  else if(email.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmailPassword"),0);
+  else if(login.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoNicknamePassword"),0);
+  else if(email.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmail"),0);
+  else if(password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoPassword"),0);
+  else if(login.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoNickname"),0);
+  else GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoAll"),0);
+ }
+}
+// BFME1 34f59164 OnlineLoginSubmit00551620.cpp primary semantic donor.
+// Native571129..571593 owns this separate request path: disables three
+// controls, stores nickname at D8 and sets the byte at request+2B7.
+// The sibling570D36 differs; its exactness is not evidence for this body.
+void AptOnlineLogin::rva00571129() {
+ AsciiString login,password,email;
+ email.translate(((Rva0056EBA1 *)this)->rva0056EB15());
+ login.translate(((Rva0056EA91 *)this)->rva0056EA91());
+ password.translate(((Rva0056EBD0 *)this)->rva0056EBD0());
+
+ { void *movie=owner->movie;
+   ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonDeleteNickname",0,0,0,0); }
+ { void *movie=owner->movie;
+   ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonLogin",0,0,0,0); }
+ { void *movie=owner->movie;
+   ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonServiceTerms",0,0,0,0); }
+ if(!email.isEmpty() && !login.isEmpty() && !password.isEmpty()) {
+  deleteNickname=login;
+  loginStartTime=timeGetTime();
+  LoginSubmitRequest req;
+  req.type=0;
+  req.tail=1;
+  _mbscpy((unsigned char *)req.nickname,(const unsigned char *)((const StringBase<char> *)&login)->str());
+  _mbscpy((unsigned char *)req.email,(const unsigned char *)((const StringBase<char> *)&email)->str());
+  _mbscpy((unsigned char *)req.password,(const unsigned char *)((const StringBase<char> *)&password)->str());
+  req.hasFirewall=true;
+  AsciiString registryValue;
+  GetStringFromRegistry("\\ergc","",registryValue);
+  _mbscpy((unsigned char *)req.registryKey,(const unsigned char *)((const StringBase<char> *)&registryValue)->str());
+  TheGameSpyInfo->setLocalBaseName(login);
+  TheGameSpyInfo->setLocalEmail(email);
+  TheGameSpyInfo->setLocalPassword(password);
+  TheGameSpyBuddyMessageQueue->addRequest(req);
+  ((Rva0056DCBF *)this)->rva0056DCBF(false);
+  rva00570C64();
+ } else {
+  if(email.isEmpty() && login.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoAll"),0);
+  else if(email.isEmpty() && login.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmailNickname"),0);
+  else if(email.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmailPassword"),0);
+  else if(login.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoNicknamePassword"),0);
+  else if(email.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmail"),0);
+  else if(password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoPassword"),0);
+  else if(login.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoNickname"),0);
+  else GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoAll"),0);
+ }
+}
+// WB150F770 names OnAccountDeleted, asserts m_deleteNickname and its D8
+// access. Native571593..571657 verifies success-byte ABI and preference60.
+void AptOnlineLogin::OnAccountDeleted(bool success)
+{
+    if (!((const StringBase<char> *)&deleteNickname)->isEmpty()) {
+        if (success) {
+            AsciiString email;
+            email.translate(((Rva0056EBA1 *)this)->rva0056EB15());
+            GameSpyLoginPreferences *preferences=(GameSpyLoginPreferences *)((char *)this+0x60);
+            preferences->deleteNick(email,deleteNickname);
+            preferences->write();
+            AsciiString empty=AsciiString::TheEmptyString;
+            rva005709D1(email,empty);
+        }
+        deleteNickname=AsciiString::TheEmptyString;
+    }
+}
+
+void b_00042a50();
+// Native57179D references this callback at56DCB2. Complete five-byte jump
+// ends at independent56DCB7. Preserve the distinct callable entry point.
+void Rva0056DCB2() { b_00042a50(); }
+
+// Native57179D registers571657; call44BA2A then singleton-gated tail to571129.
+// All21B terminate at57166C independentEHbody. Original callback name unknown.
+void Rva00571657() { b_00042a50(); if(g_bfmeObjELB) ((AptOnlineLogin *)g_bfmeObjELB)->rva00571129(); }
+
+void MessageBoxOkCancel(UnicodeString,UnicodeString,void (*)(),void (*)());
+
+// BFME1 34f59164 OnlineLoginRva00552C40 supplies this boolean login path.
+// Native57179D..571B75 independently verifies byte argument, delete-dialog
+// callback entries, request layout and UI calls. Original spelling unknown.
+void AptOnlineLogin::rva0057179D(bool argument) {
+ if(argument) {
+  MessageBoxOkCancel(UnicodeString(L""),TheGameText->fetch("GUI:SureDeleteNickname"),Rva00571657,Rva0056DCB2);
+  return;
+ }
+ AsciiString login,password;
+ AsciiString email(((Rva0056EBA1 *)this)->rva0056EB15());
+ login.translate(((Rva0056EA91 *)this)->rva0056EA91());
+ password.translate(((Rva0056EBD0 *)this)->rva0056EBD0());
+ if(!email.isEmpty() && !login.isEmpty() && !password.isEmpty()) {
+  loginStartTime=timeGetTime();
+  LoginSubmitRequest req;
+  req.type=0;
+  _mbscpy((unsigned char *)req.nickname,(const unsigned char *)((const StringBase<char> *)&login)->str());
+  _mbscpy((unsigned char *)req.email,(const unsigned char *)((const StringBase<char> *)&email)->str());
+  _mbscpy((unsigned char *)req.password,(const unsigned char *)((const StringBase<char> *)&password)->str());
+  req.hasFirewall=true;
+  AsciiString registryValue;
+  GetStringFromRegistry("\\ergc","",registryValue);
+  _mbscpy((unsigned char *)req.registryKey,(const unsigned char *)((const StringBase<char> *)&registryValue)->str());
+  TheGameSpyInfo->setLocalBaseName(login);
+  TheGameSpyInfo->setLocalEmail(email);
+  TheGameSpyInfo->setLocalPassword(password);
+  req.tail=false;
+  TheGameSpyBuddyMessageQueue->addRequest(req);
+  ((Rva0056DCBF *)this)->rva0056DCBF(false);
+  { void *movie=owner->movie; ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonLogin",0,0,0,0); }
+  { void *movie=owner->movie; ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonDeleteNickname",0,0,0,0); }
+  rva00570C64();
+ } else {
+  const char *message;
+  if(email.isEmpty() && login.isEmpty() && password.isEmpty()) message="GUI:GSNoLoginInfoAll";
+  else if(email.isEmpty() && login.isEmpty()) message="GUI:GSNoLoginInfoEmailNickname";
+  else if(email.isEmpty() && password.isEmpty()) message="GUI:GSNoLoginInfoEmailPassword";
+  else if(login.isEmpty() && password.isEmpty()) message="GUI:GSNoLoginInfoNicknamePassword";
+  else if(email.isEmpty()) message="GUI:GSNoLoginInfoEmail";
+  else if(password.isEmpty()) message="GUI:GSNoLoginInfoPassword";
+  else if(login.isEmpty()) message="GUI:GSNoLoginInfoNickname";
+  else message="GUI:GSNoLoginInfoAll";
+  GSMessageBoxOk(TheGameText->fetch("GUI:GSErrorTitle"),TheGameText->fetch(message),0);
+ }
+}
+
+// BFME1 34f59164 OnlineLoginCheckLogin.cpp semantic donor. Native700A0
+// adds the firewall completion phase and uses PSPlayerAllStats (0x548).
+// Complete native evidence supplies offsets and virtual slots independently.
+void AptOnlineLogin::rva005700A0()
+{
+    if(g_a063b0) {
+        if(!((FirewallHelperClass *)g_a063b0)->behaviorDetectionUpdate()) return;
+        ((FirewallHelperClass *)g_a063b0)->writeFirewallBehavior();
+        ((FirewallHelperClass *)g_a063b0)->flagNeedToRefresh(false);
+        void *allocation=g_a063b0?g_a063b0->Unknown00(0):0;
+        operator delete(allocation);
+        g_a063b0=0;
+    }
+    if(loggedIn && ThePinger && !ThePinger->arePingsInProgress()) {
+        OptionPreferences preferences;
+        preferences.settings["HasGotOnline"]="yes";
+        ((UserPreferences *)&preferences)->UserPreferences::write();
+        AsciiString ping=ThePinger->getPingString(TheGameSpyConfig->getPingTimeoutInMs());
+        TheGameSpyInfo->setPingString(ping);
+        loggedIn=false;loginStartTime=0;
+        TheGameSpyInfo->clearGroupRoomList();
+        Rva003B3371Call(0x12);
+        PSPlayerAllStats stats=rva00556DFF();
+        stats.setID(TheGameSpyInfo->getLocalProfileID());
+        TheGameSpyInfo->setCachedLocalPlayerStats(stats);
+        AsciiString email;
+        email.translate(((Rva0056EBA1 *)this)->rva0056EB15());
+        AsciiString login,password;
+        login.translate(((Rva0056EA91 *)this)->rva0056EA91());
+        if(remember && GadgetCheckBoxIsChecked(remember))
+            password.translate(((Rva0056EBD0 *)this)->rva0056EBD0());
+        else password.clear();
+        (*(LoginPreferenceMap *)&loginPreferences)["lastName"]=login;
+        GameSpyLoginPreferences *preferences2=(GameSpyLoginPreferences *)((char *)this+0x60);
+        preferences2->rva005CA53E(email);
+        (*(LoginPreferenceMap *)&loginPreferences)["useProfiles"]="yes";
+        AsciiString date("01/01/1970");
+        preferences2->rva005CACDE(email,login,password,date);
+        preferences2->write();
+        ((AptOnlineShell *)owner)->LoadChildScreen("OnlineHome");
+    }
+}
+
 // BFME1 34f59164 OnlineLoginApplyGadgets0054FB10 is the semantic donor.
 // Native 5706D4..5709CC establishes all fields and encoded-word operations.
+
+unsigned bfmeHash0002BB70(unsigned,unsigned);
+unsigned bfmeHash00013412(unsigned,unsigned);
+int Rva0056F5DEHook(int,int),Rva0056F637Hook(int,int);
+int Rva0056F690Hook(int,int),Rva0056F7F4Hook(int,int);
+int Rva0056F742Hook(int,int),Rva0056F79BHook(int,int);
+inline __declspec(noinline) bool Gen_0054EC50::bfmeDiffers(const Gen_0054EC50 &o)const
+{ unsigned b=o.value,a=value;return bfmeHash0002BB70(a,b)!=0xA69B3F6A; }
+inline __declspec(noinline) bool Gen_0054EC80::bfmeDiffers(const Gen_0054EC80 &o)const
+{ unsigned b=o.value,a=value;return bfmeHash00013412(a,b)!=0x342C2BE0; }
+inline __declspec(noinline) bool Rva0056FA50::rva0056FA50(const Rva0056FA50 &o)const
+{ int b=o.value,a=value;return Rva0056F5DEHook(a,b)!=(int)0xAA37ACC2; }
+inline __declspec(noinline) bool Rva0056FA72::rva0056FA72(const Rva0056FA72 &o)const
+{ int b=o.value,a=value;return Rva0056F637Hook(a,b)!=(int)0xAA37ACC2; }
+inline __declspec(noinline) void Rva0056FCDB::rva0056FCDB(short x)
+{value=Rva0056F690Hook(x,x);}
+inline __declspec(noinline) void Rva0056FAA5::rva0056FD46(short x)
+{value=Rva0056F7F4Hook(x,x);}
+inline __declspec(noinline) void Rva0056FAA5::rva0056FD14(int x)
+{value=Rva0056F742Hook(x,x);}
+inline __declspec(noinline) void Rva0056FAA5::rva0056FD2D(int x)
+{value=Rva0056F79BHook(x,x);}
+
 bool AptOnlineLogin::rva005706D4()
 {
     if(needsRefresh || !gadgetsReady || !email || !nickname || !password) return false;
@@ -329,14 +731,10 @@ bool AptOnlineLogin::rva005706D4()
     loginEnabled=false;
     registerEnabled=!((Rva0056EE5F *)this)->rva0056EE5F();
     AsciiString emailText(((Rva0056EBA1 *)this)->rva0056EB15());
-    bool nonemptyEmail;
-    {
-        Gen_0054EC50 length,zero;
-        ((Rva0056FCDB *)&length)->rva0056FCDB(((const LoginApplyStringView<char> *)&emailText)->shortLength());
-        zero.value=0x858A1A56;
-        nonemptyEmail=length.bfmeDiffers(zero);
-    }
-    if(nonemptyEmail) {
+    Gen_0054EC50 length,zero;
+    ((Rva0056FCDB *)&length)->rva0056FCDB(((const LoginApplyStringView<char> *)&emailText)->shortLength());
+    zero.value=0x858A1A56;
+    if(length.bfmeDiffers(zero)) {
             int count=0;
             UnicodeString nicknameText=((Rva0056EA91 *)this)->rva0056EA91();
             Gen_0054EC80 index;
@@ -361,10 +759,12 @@ bool AptOnlineLogin::rva005706D4()
             }
     }
     if(oldLogin!=loginEnabled) {
-        { void *movie=owner->movie;
-          ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,loginEnabled?"EnableButtonLogin":"DisableButtonLogin",0,0,0,0); }
-        { void *movie=owner->movie;
-          ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,loginEnabled?"EnableButtonDeleteNickname":"DisableButtonDeleteNickname",0,0,0,0); }
+        { const char *label=loginEnabled?"EnableButtonLogin":"DisableButtonLogin";
+          void *movie=owner->movie;
+          ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,label,0,0,0,0); }
+        { const char *label=loginEnabled?"EnableButtonDeleteNickname":"DisableButtonDeleteNickname";
+          void *movie=owner->movie;
+          ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,label,0,0,0,0); }
     }
     if(oldRegister!=registerEnabled) {
         if(registerEnabled) {
