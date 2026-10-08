@@ -80,17 +80,18 @@ void Rva003FBA58::rva003FBA58()
 // Native 003FBAE4..003FBB80, 156B, RET4. The receiver and slot +30
 // agree with the rowed sibling above; the +A0/+A4/+A8 values are float
 // components in retail. Original class and method names remain unknown.
-void rva0010E87A(int object, float amount);
-void rva0010E676(void *object, float x, float y, float z);
+class RenderObjClass;
+bool Rva0010E87A_SetOpacity(RenderObjClass *,float);
+bool Rva0010E676_SetEmissive(RenderObjClass *,float,float,float);
 
 void Rva003FBA58::rva003FBAE4(bool enabled)
 {
 	if (m_2c != 0) {
 		float amount = enabled ? 1.0f : 0.0f;
 		if (m_30 == 0)
-			rva0010E87A(reinterpret_cast<int>(m_08), amount);
+			Rva0010E87A_SetOpacity(reinterpret_cast<RenderObjClass *>(m_08), amount);
 		else if (m_30 == 1)
-			rva0010E676(m_08, m_a0 * amount, m_a4 * amount, m_a8 * amount);
+			Rva0010E676_SetEmissive(reinterpret_cast<RenderObjClass *>(m_08), m_a0 * amount, m_a4 * amount, m_a8 * amount);
 		s12(enabled);
 		m_2c = 0;
 	}

@@ -11121,7 +11121,6 @@ name,address,notes
 ?rva001091A8@Rva00108660ResourceManager@@QAEXPAX@Z,0x001091A8,"Rva00108660ResourceManager member taking an owner, called from vtable slot 0x00109DA6; opaque address name"
 ?rva0010B9E5@Rva00108660ResourceManager@@QAEXPAX@Z,0x0010B9E5,"Rva00108660ResourceManager member taking an owner, called from vtable slot 0x0010BB04; opaque address name"
 ?rva0010E4F6@@YAXPAXH@Z,0x0010E4F6,172B cdecl helper taking (acquired pointer, 0) from 0x0009C0EB; caller-popped; original name unknown
-?rva0010E87A@@YAXHM@Z,0x0010E87A,463B callee of 0x0009AACF (int plus float on stack, caller-popped); frameless shared-frame body; original name unknown
 ?rva0010F9F1@Rva0010F9F1@@QAEXXZ,0x0010F9F1,122B no-arg thiscall method on the +0x0 member called from 0x000A8CC9; member carries an int at +0x20; original name unknown
 ?rva0010FA6B@Rva0010FA6B@@QAEXH@Z,0x0010FA6B,tail-call target of the byte-verified Rva000A8AA6::rva000A8AA6 0x000A8AA6 on its +0x0 member read from its REL32 displacement; name unknown
 ?rva0010FAEA@Rva0010FAEA@@QAEXXZ,0x0010FAEA,tail-call target of the byte-verified Rva000A8AB4::rva000A8AB4 0x000A8AB4 on its +0x0 member read from its REL32 displacement; name unknown
@@ -15769,7 +15768,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0046781F@Rva0046781F@@QAEXPAVObject@@_N@Z,0x0046781F,callee of ?rva0047BA10@Rva0047BA10@@QAEXPAVObject@@_N@Z
 ?rva0023C9F8@Rva0047BA10SelectionView@@QAEXPAVObject@@I_N@Z,0x0023C9F8,callee of ?rva0047BA10@Rva0047BA10@@QAEXPAVObject@@_N@Z
 ?rva0023C924@Rva0047BA10SelectionView@@QAEXPAVObject@@_NI1@Z,0x0023C924,callee of ?rva0047BA10@Rva0047BA10@@QAEXPAVObject@@_N@Z
-?rva0010E676@@YAXPAXMMM@Z,0x0010E676,callee of ?rva003FBAE4@Rva003FBA58@@QAEX_N@Z
 ?rva001ECDB3@Rva001EBAEA@@QAEXXZ,0x001ECDB3,callee of ?rva001ECF03@Rva0023D607Holder@@QAEXHH@Z
 ?Rva004166DB@@YA_NABVUnicodeString@@PAVGameWindow@@@Z,0x004166DB,callee of ?Rva00381458@@YA_NHABVUnicodeString@@PAVGameWindow@@@Z
 ?rva002C58B3@Rva002C589B@@QAEXXZ,0x002C58B3,callee of ?rva002C5CF7@AITarget@@QAEXPBUCoord3D@@MH@Z
