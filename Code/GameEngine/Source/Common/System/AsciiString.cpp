@@ -1,32 +1,16 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 
-// The shared, reference-counted buffer behind every StringBase. isEmpty tests a
-// 16-bit field at offset 4 rather than the first character, so the length lives
-// beside the refcount and the allocation size, not in the character data.
-struct StringDataBase
-{
-    unsigned short m_refCount;
-    unsigned short m_numCharsAllocated;
-    unsigned short m_numChars;
-};
-
-template <class CHAR>
-class StringBase
-{
-public:
-    bool isEmpty() const;
-
-protected:
-    StringDataBase *m_data;
-};
+// Keep the shared one-pointer string layout. The retail emptiness test reads
+// the canonical header's 16-bit length at offset 4.
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 template <class CHAR>
 bool StringBase<CHAR>::isEmpty() const
 {
-    return m_data == 0 || m_data->m_numChars == 0;
+    return m_data == 0 || m_data->length == 0;
 }
 
-template class StringBase<char>;
+template bool StringBase<char>::isEmpty() const;
 
 // Clean BF1 9cbfb551fe System/SaveGame/GameStateRealMapPathToPortableMapPathThunk.cpp
 // stringLength supplies null-safe length semantics. Native052C4..052D2 follows
@@ -38,4 +22,19 @@ template class StringBase<char>;
 unsigned int Rva000052C4LengthOrZero(const char *text)
 {
     return text ? (unsigned int)strlen(text) : 0u;
+}
+
+// Native 3B180F..3B1820 forwards this and one string reference to the rowed
+// StringBase<char>::compareNoCase at 6A00, then returns whether its result is
+// zero. BF1 9cbfb551fe20 TerrainRoads_find.cpp supplies a semantic lead; its
+// equality spelling does not establish the original target class or name.
+class Rva003B180FStringQuery
+{
+public:
+    bool equalsNoCase(const StringBase<char> &other) const;
+};
+
+bool Rva003B180FStringQuery::equalsNoCase(const StringBase<char> &other) const
+{
+    return reinterpret_cast<const StringBase<char> *>(this)->compareNoCase(other) == 0;
 }
