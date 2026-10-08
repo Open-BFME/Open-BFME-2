@@ -1,4 +1,10 @@
 // cl: /O2 /MD /EHsc
+
+class Rva006DB160 {public:void *allocBlock(int);};
+class Rva006DB270 {public:void freeBlock(void*,int);};
+extern Rva006DB270 *g_pChainBlockAllocator;
+#define POOL_ALLOC static void *operator new(unsigned n){return ((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(n);} static void operator delete(void*p,unsigned n){g_pChainBlockAllocator->freeBlock(p,n);}
+
 // WorldBuilder174F1C0 identifies AptSetInternalVariable in Apt.cpp through
 // its own debug refcount label. Native6CCA50..6CCAE1 is 145 bytes.
 // Retail passes seven interpreter arguments; _AptGetAnimationAtLevel(0)
@@ -7,6 +13,9 @@
 class EAStringC {
  void *data;
 public:
+ EAStringC();
+ bool rva006CD4A0() const;
+ void rva006D3C60();
  EAStringC(const char *);
  ~EAStringC();
 };
@@ -20,7 +29,9 @@ class AptCIH : public AptValue {};
 class AptString : public AptValue {public:static AptString *Create();};
 class BfmeAptValue006DCD20;
 class AptBasePtrStack {public:int count,capacity;BfmeAptValue006DCD20 **elements;};
+struct AptInitParmsT;
 struct AptActionInterpreter {
+ void rva006FEAF0(const AptInitParmsT &);
  AptBasePtrStack stack;
  AptValue *getVariable(AptValue *,AptValue *,const EAStringC *,int,int,int);
  bool setVariable(AptValue *,AptValue *,const EAStringC *,AptValue *,int,int,int);
@@ -172,9 +183,9 @@ static int Rva006CD7A0Tick(unsigned elapsed) {
 }
 class BfmeRefVGO {unsigned *value;public:BfmeRefVGO():value(0){} ~BfmeRefVGO();};
 class Rva004A9DF3Element : public BfmeRefVGO {public:Rva004A9DF3Element(){} ~Rva004A9DF3Element();};
-class Rva00893030Manager {public:void rva006CDE50(Rva004A9DF3Element *,int);};
+class Rva00893030Manager {int head;public:Rva00893030Manager():head(0){} POOL_ALLOC void rva006CDE50(Rva004A9DF3Element *,int);};
 extern Rva00893030Manager *g_rva00893030Manager;
-class AptValueVector {public:void ReleaseValues();};
+class AptValueVector {int capacity,count;AptValue **values;int high;public:AptValueVector(int);void ReleaseValues();POOL_ALLOC};
 extern AptValueVector *g_releaseVectorAtE17710;
 void Rva006CEC90Tick();
 void d_00891fa0();
@@ -217,7 +228,10 @@ extern "C" void (__cdecl *Rva00891FA0SendRecord)(Rva00891FA0Record *,int);
 extern "C" void (__cdecl *Rva00891FA0SendText)(const char *);
 void Rva006CC110Log(int,const char *,...);
 extern unsigned g_rva00A176D8,g_rva00A176DC,g_rva00A176E4;
-struct PlaybackItem {EAStringC name;int state;};
+// Native6CF96D/6CF972 use the existing AptValueNameEntry destructor/constructor.
+// Its shared EAStringC+0/int+4 layout is also used by the checkpoint lookup.
+class AptValueNameEntry {public:AptValueNameEntry();~AptValueNameEntry();EAStringC m_name;int m_value;};
+typedef AptValueNameEntry PlaybackItem;
 inline void iteratorCheck(bool,const char *){}
 class PlaybackIterator {
  PlaybackItem *cur,*first,*last;
@@ -237,12 +251,13 @@ public:
 class Rva006CEB10Playback {
 public:
  int size,capacity;PlaybackItem *items;PlaybackItem inlineItems[2];
+ Rva006CEB10Playback():size(0),capacity(0),items(inlineItems){} POOL_ALLOC
  void rva006CEB10(const EAStringC &);
  PlaybackIterator begin(){return PlaybackRange(items,items+size).begin();}
  PlaybackIterator end(){return PlaybackRange(items,items+size).end();}
  __forceinline bool readyFor(int a,int b) {
   for(PlaybackIterator it=begin();it!=end();++it)
-   if((*it).state!=a && (*it).state!=b)return false;
+   if((*it).m_value!=a && (*it).m_value!=b)return false;
   return true;
  }
  __forceinline bool ready(){return readyFor(4,2);}
@@ -302,12 +317,127 @@ void Rva006CEC90Tick() {
 #undef PLAYCUR
 #undef PLAYBASE
 
-// Native6CC150..6CC15D. Initializer6CF369 installs this in pfnMemFreeSize
-// atE17730; pool caller6DB2C3..6DB2CB passes pointer and size, then cleans8B.
-// WB174CEA0 confirms forwarding only the pointer to the unsized callback.
-// The unused size is established by that indirect ABI, not an emission aid.
-// pfnMemFree atE1772C is an unowned four-byte writable slot, initially zero.
+// Native6CF369 installs6CC150 in the size-aware free callback atE17730.
+// DogmaPool::freeBlock6DB2C3..6DB2CB passes size then pointer and cleans8B.
+// WB174CEA0 forwards only the pointer to the unsized free callback.
+// This resolves the earlier lack of ABI evidence for the ignored second arg.
+// NativeE1772C is an unowned four-byte zero-filled writable callback slot.
 void (__cdecl *g_aptFreeCallback)(void *) = 0;
 void Rva006CC150FreeWithSize(void *block,unsigned int) {
  g_aptFreeCallback(block);
 }
+
+// Native6CF230..6CFA2E is the complete2046B initializer; WB174C390 gives
+// Apt.cpp357..438. The existing89B parameter constructor supplies14 ints and
+// two flags. Original initializer/type names remain unresolved. Its optional
+// vector cellE17714, flagsE1771C/1D and new callback cells below are native
+// zero-filled storage. Callback assertion strings establish their roles;
+// opaque slots do not claim callable signatures that this body never uses.
+struct Rva00222343 {Rva00222343();int fields[14];bool flag38,flag39;};
+#define CHECK(e,s,l) do{if(!(e)){g_bfmeAptAssertAtE17734(s,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",l);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}}while(0)
+extern EAStringC g_eaStringAtE177D4;
+unsigned char g_00E1771C=0;
+unsigned char g_aptInitFlag39=0;
+extern void (__cdecl *g_bfmeAptFreeSizeAtE17730)(void*,unsigned);
+extern void (__cdecl *g_aptBackgroundCallback)(int);
+extern "C" void (__cdecl *g_bfmeAptLogAtE1773C)(const char*,const char*);
+extern void (__cdecl *g_bfmeAptCommandAtE17758)(const char*,const char*);
+extern AptValue *(__cdecl *g_bfmeAptLoadVariablesAtE1775C)(const char*);
+extern void (__cdecl *g_bfmeAptSetExternAtE17764)(const char*,const char*);
+extern AptValue *(__cdecl *g_bfmeAptGetExternAtE17768)(const char*);
+extern void (__cdecl *g_00E17774)(void*,int);
+extern void (__cdecl *g_bfmeAptFreeAtE17784)(void*,int);
+extern void (__cdecl *g_AptBindTexture)(void*,int,void*);
+struct AptMatrix;
+extern void (__cdecl *g_bfmeAptMatrixCallbackAtE177A0)(AptMatrix*);
+extern "C" void (__cdecl *bfmeNotify1209Callback)(void*);
+void Rva006CF852FoldedEmptyInit();
+void Rva006D37E0Set(int);
+void Rva0070B670Initialize(int);
+AptValueVector *g_aptOptionalValueVector=0;
+void Rva006DF470Initialize();
+// Preserve the existing constructor provider's full24B/alignment4 layout.
+class Rva008947A0Elem {public:Rva008947A0Elem();~Rva008947A0Elem();int m_data;};
+class Rva008947A0Head {public:Rva008947A0Head();~Rva008947A0Head();int m_a;};
+class Rva008947A0Owner {
+public:Rva008947A0Owner();POOL_ALLOC
+ Rva008947A0Head m_head;int m_b,m_c;Rva008947A0Elem *m_items;Rva008947A0Elem m_array[2];
+};
+// Opaque B4-byte root allocation; only size/alignment and constructor ABI
+// are modeled here. Its native constructor returns this with RET4.
+class Rva006E6060Root {union{unsigned alignment;char bytes[0xb4];};public:Rva006E6060Root(const Rva00222343*);POOL_ALLOC};
+class AptMath {public:static void ClipStackInit(unsigned);};
+void *g_aptLoadAnimationSlot=0; // Native00E17748; callback ABI unmodeled.
+void *g_aptFreeConstantTableSlot=0; // Native00E17750; callback ABI unmodeled.
+void *g_aptFreeAnimationSlot=0; // Native00E1774C; callback ABI unmodeled.
+void *g_aptAllocateStringSlot=0; // Native00E17770; callback ABI unmodeled.
+void *g_aptDrawStringSlot=0; // Native00E17778; callback ABI unmodeled.
+void *g_aptLoadSoundSlot=0; // Native00E1777C; callback ABI unmodeled.
+void *g_aptFreeSoundSlot=0; // Native00E17780; callback ABI unmodeled.
+void *g_aptStartSoundStreamSlot=0; // Native00E17788; callback ABI unmodeled.
+void *g_aptLoadTextureSlot=0; // Native00E1778C; callback ABI unmodeled.
+void *g_aptFreeTextureSlot=0; // Native00E17790; callback ABI unmodeled.
+void *g_aptLoadRenderingUnitSlot=0; // Native00E17798; callback ABI unmodeled.
+void *g_aptFreeRenderingUnitSlot=0; // Native00E1779C; callback ABI unmodeled.
+void *g_aptDrawRenderingUnitSlot=0; // Native00E177A8; callback ABI unmodeled.
+void *g_aptCustomControlRenderSlot=0; // Native00E177AC; callback ABI unmodeled.
+void *g_aptGetStageHeightSlot=0; // Native00E177C8; callback ABI unmodeled.
+void *g_aptGetStageWidthSlot=0; // Native00E177CC; callback ABI unmodeled.
+void Rva006CF230Initialize(const Rva00222343 *input) {
+ CHECK(!g_bfmeAptInitAtE17700,"!bInitialized",357);
+ Rva00222343 defaults;
+ const Rva00222343 *parms=input?input:&defaults;
+ CHECK(parms->fields[12]>4,"(initParms.iRegArraySize > 4) && \"Register Array Size must be at least 4. Flash regularly uses these\"",362);
+ if(!g_eaStringAtE177D4.rva006CD4A0())g_eaStringAtE177D4.rva006D3C60();
+ g_00E1771C=parms->flag38;g_aptInitFlag39=parms->flag39;
+ CHECK(g_bfmeAptAssertAtE17734,"gAptFuncs.pfnAssertFail",375);
+ CHECK(g_bfmeAptAllocAtE17728,"gAptFuncs.pfnMemAlloc",376);
+ CHECK(g_aptFreeCallback,"gAptFuncs.pfnMemFree",377);
+ if(!g_bfmeAptFreeSizeAtE17730)g_bfmeAptFreeSizeAtE17730=Rva006CC150FreeWithSize;
+ CHECK(g_aptBackgroundCallback,"gAptFuncs.pfnSetBackgroundColour",382);
+ CHECK(g_bfmeAptLogAtE1773C,"gAptFuncs.pfnDebugPrint",383);
+ CHECK(Rva00891FA0SendRecord,"gAptFuncs.pfnDebugAddSavedInput",384);
+ CHECK(Rva00891FA0SendText,"gAptFuncs.pfnDebugSetScreenGrabPending",385);
+ CHECK(g_aptLoadAnimationSlot,"gAptFuncs.pfnLoadAnimation",386);
+ CHECK(g_aptFreeConstantTableSlot,"gAptFuncs.pfnFreeConstantTable",387);
+ CHECK(g_aptFreeAnimationSlot,"gAptFuncs.pfnFreeAnimation",388);
+ CHECK(g_bfmeAptCommandAtE17758,"gAptFuncs.pfnCommand",389);
+ CHECK(g_bfmeAptLoadVariablesAtE1775C,"gAptFuncs.pfnLoadVariables",390);
+ CHECK(g_bfmeAptSetExternAtE17764,"gAptFuncs.pfnSetExternVariable",391);
+ CHECK(g_bfmeAptGetExternAtE17768,"gAptFuncs.pfnGetExternVariable",392);
+ CHECK(g_aptAllocateStringSlot,"gAptFuncs.pfnAllocateString",393);
+ CHECK(g_00E17774,"gAptFuncs.pfnDeallocateString",394);
+ CHECK(g_aptDrawStringSlot,"gAptFuncs.pfnDrawString",395);
+ CHECK(g_aptLoadSoundSlot,"gAptFuncs.pfnLoadSound",397);
+ CHECK(g_aptFreeSoundSlot,"gAptFuncs.pfnFreeSound",398);
+ CHECK(g_bfmeAptFreeAtE17784,"gAptFuncs.pfnStartSound",399);
+ CHECK(g_aptStartSoundStreamSlot,"gAptFuncs.pfnStartSoundStream",400);
+ CHECK(g_aptLoadTextureSlot,"gAptFuncs.pfnLoadTexture",402);
+ CHECK(g_aptFreeTextureSlot,"gAptFuncs.pfnFreeTexture",403);
+ CHECK(g_AptBindTexture,"gAptFuncs.pfnBindTexture",404);
+ CHECK(g_bfmeAptMatrixCallbackAtE177A0,"gAptFuncs.pfnSetVertexMatrix",405);
+ CHECK(bfmeNotify1209Callback,"gAptFuncs.pfnSetColourTransform",406);
+ CHECK(g_aptLoadRenderingUnitSlot,"gAptFuncs.pfnLoadRenderingUnit",407);
+ CHECK(g_aptFreeRenderingUnitSlot,"gAptFuncs.pfnFreeRenderingUnit",408);
+ CHECK(g_aptDrawRenderingUnitSlot,"gAptFuncs.pfnDrawRenderingUnit",409);
+ CHECK(g_aptCustomControlRenderSlot,"gAptFuncs.pfnCustomControlRender",410);
+ CHECK(g_aptGetStageHeightSlot,"gAptFuncs.pfnGetStageHeight",411);
+ CHECK(g_aptGetStageWidthSlot,"gAptFuncs.pfnGetStageWidth",412);
+ Rva006CF852FoldedEmptyInit();
+ Rva006D37E0Set((int)&g_bfmeAptAllocAtE17728);
+ Rva0070B670Initialize(parms->fields[11]);
+ g_releaseVectorAtE17710=new AptValueVector(parms->fields[10]);
+ if(!parms->fields[13])g_aptOptionalValueVector=0;
+ else g_aptOptionalValueVector=new AptValueVector(parms->fields[13]);
+ Rva006DF470Initialize();
+ g_aptDateInterpreter.rva006FEAF0(*(const AptInitParmsT*)parms);
+ g_rva00893030Manager=new Rva00893030Manager;
+ g_bfmeAptLinkerAtE176F8=(AptLinker*)new Rva008947A0Owner;
+ g_aptPlaybackCheckpoints=new Rva006CEB10Playback;
+ CHECK(g_bfmeAptPtrAtE176D0==0,"gpPool == 0",438);
+ g_bfmeAptPtrAtE176D0=(Rva006E34D0*)new Rva006E6060Root(parms);
+ AptMath::ClipStackInit(0x80);
+ g_bfmeAptInitAtE17700=1;
+}
+#undef CHECK
+#undef POOL_ALLOC
