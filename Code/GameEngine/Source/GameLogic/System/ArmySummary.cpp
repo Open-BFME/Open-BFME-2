@@ -11,6 +11,7 @@
 // stlport
 #include <vector>
 #include "ascii_string.h"
+#define BFME_SNAPSHOT_NAME_SLOT 1
 #include "Common/Snapshot.h"
 extern "C" void __cdecl free(void*);
 struct TargetRef00217D4C { void* vtable; int references; };

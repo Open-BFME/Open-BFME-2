@@ -73,8 +73,14 @@ protected:
 	run using XferLoad mode, and then all systems each have their post process run */
 	virtual void loadPostProcess( void ) = 0;
 
-	/// slot 2: retail GetSnapshotName (see above)
+	// Named BFME2 snapshot getters use the proven retail slot-2 signature.
+	// Other imported units retain the Zero Hour crc spelling described above.
+	// Both declarations occupy the same single slot, never an added fifth one.
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+	virtual const char *GetSnapshotName( void ) const = 0;
+#else
 	virtual void crc( Xfer *xfer ) = 0;
+#endif
 
 	/** run save, load, or deep CRC check on this data structure, the type depends on the
 	setup of the Xfer pointer */
