@@ -1,13 +1,14 @@
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 //
 // Opaque scalar deleting destructors, batch B09: the 28-byte wrappers of the
 // classes OpaqueScalarDeletingDtors.cpp modelled with a stand-in three-vptr
 // MI layout, moved here because their this-adjusting deleting-destructor
 // thunks (sub ecx, N; jmp to the wrapper) prove the real secondary-base
 // offsets. Each class now carries exactly those bases (a virtual destructor
-// at each proven +N) so this unit emits the thunks beside the wrapper. Each
-// destructor is declared, not defined, so the wrapper's call resolves to its
-// pin in reverse/symbols.csv; the dummy tag constructors (no retail
+// at each proven +N) so this unit emits the thunks beside the wrapper. The
+// 51D93 and 5813E destructors are recovered below using the canonical audio
+// prefix. Other destructors remain declared so their wrapper calls resolve
+// to their pins in reverse/symbols.csv; the dummy tag constructors (no retail
 // counterpart) only make this TU emit each vtable. Owner identities are not
 // recovered and the declarations model no layout beyond those offsets
 // (docs/reconstruction/deleting-destructor-identity-audit.md).
@@ -175,32 +176,34 @@ Rva0051D93::~Rva0051D93()
 {
 }
 
-class Rva005813EBase0
+class AudioManager;
+extern AudioManager *TheAudio;
+class MilesAudioManager
 {
 public:
-	virtual ~Rva005813EBase0();
-private:
-	char m_unmodelled[0x84];
+    void rva00057948(const void *input);
 };
 
-// Secondary base at +0x88: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0x88) at 0x00051DEE in its vtable is target evidence for it.
-class Rva005813EBase88
+// Native5813E..5818B (77B): both derived vptrs, nullable TheAudio,
+// same-this callback57948 and the verified51D93 base destructor. Table
+// BC5324 owns rowed deleting dtor58122; secondary BC5320 owns rowed
+// -88 adjusting thunk51DEE. No additional data fields are accessed.
+class Rva005813E : public Rva0051D93
 {
 public:
-	virtual ~Rva005813EBase88();
-};
-class Rva005813E : public Rva005813EBase0, public Rva005813EBase88
-{
-public:
-	Rva005813E(EmitVtableTag *);
-public:
-	virtual ~Rva005813E();
+    Rva005813E(EmitVtableTag *);
+    __declspec(noinline) virtual ~Rva005813E();
 };
 
 // ?<Rva005813E::Rva005813E> absent-from-retail
-Rva005813E::Rva005813E(EmitVtableTag *)
+Rva005813E::Rva005813E(EmitVtableTag *tag) : Rva0051D93(tag)
 {
+}
+
+Rva005813E::~Rva005813E()
+{
+    if (TheAudio)
+        reinterpret_cast<MilesAudioManager *>(TheAudio)->rva00057948(this);
 }
 
 class Rva0060FE2Base0

@@ -253,3 +253,6 @@ _io_writeto
 
 # Root5CC5E5 vbase vftable C74E68 points to5CC7E4; unique masked5E3E60 hit is another owner.
 ??_GRva005CC5E5@@UAEPAXI@Z
+
+# Native51DCC calls copy constructor51D62; absent-from-retail tag anchor uses a different prefix-construction path.
+??0Rva005813E@@QAE@PAUEmitVtableTag@@@Z
