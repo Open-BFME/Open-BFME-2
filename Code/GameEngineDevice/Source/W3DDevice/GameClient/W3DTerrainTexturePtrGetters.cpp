@@ -323,3 +323,41 @@ void Rva000E236D::rva000E236D(const char *name, const char *handle, FXShaderPara
 			registry->AddBinding(Rva000E249DObjectShroudStatus, handle);
 	}
 }
+
+void Rva000E26CFIsEnabled(ID3DXEffect *, const char *);
+void Rva000E2700Offset(ID3DXEffect *, const char *);
+void Rva000E2763Scale(ID3DXEffect *, const char *);
+// Target identity: native BCE4D8 slot 1 in the Terrain binder's +0C subobject,
+// WB 7C1080 names SourceNamespace_Taint::ResolveBindings and the full six-arm CFG.
+// Native E25DE..E26CF RET12; six named parameter callbacks. Qualified name follows WorldBuilder; storage is the proven four-byte polymorphic base.
+void Rva000E27D9MaskTexture(ID3DXEffect *, const char *);
+void Rva000E28C3LowTexture(ID3DXEffect *, const char *);
+void Rva000E29A2HighTexture(ID3DXEffect *, const char *);
+// Scope-only containing type; no storage or extent claim is made for it.
+class TerrainFXShaderParameterSourceNamespace
+{
+public:
+ class SourceNamespace_Taint;
+};
+class TerrainFXShaderParameterSourceNamespace::SourceNamespace_Taint : public FXShaderParameterSourceNamespace_Struct
+{
+public:
+ ~SourceNamespace_Taint() {}
+ virtual void ResolveBindings(const char *name,const char *handle,FXShaderParameterBinder *registry);
+};
+void TerrainFXShaderParameterSourceNamespace::SourceNamespace_Taint::ResolveBindings(const char *name,const char *handle,FXShaderParameterBinder *registry)
+{
+ FXShaderParameterSourceNamespace_Struct::ResolveBindings(name,handle,registry);
+ if(name)
+ {
+  Rva001530E9Path path;
+  Rva001530E9Parse(name,&path);
+  int (__cdecl *compare)(const char *,const char *)=_strcmpi;
+  if(compare(path.m_name,"IsEnabled")==0) registry->AddBinding(Rva000E26CFIsEnabled,handle);
+  else if(compare(path.m_name,"MaskTexture")==0) registry->AddBinding(Rva000E27D9MaskTexture,handle);
+  else if(compare(path.m_name,"LowTexture")==0) registry->AddBinding(Rva000E28C3LowTexture,handle);
+  else if(compare(path.m_name,"HighTexture")==0) registry->AddBinding(Rva000E29A2HighTexture,handle);
+  else if(compare(path.m_name,"Offset")==0) registry->AddBinding(Rva000E2700Offset,handle);
+  else if(compare(path.m_name,"Scale")==0) registry->AddBinding(Rva000E2763Scale,handle);
+ }
+}

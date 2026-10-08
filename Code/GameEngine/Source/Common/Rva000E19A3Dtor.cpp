@@ -167,9 +167,17 @@ struct Rva000E236DBinder : public FXShaderParameterSourceNamespace_Struct
 	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 };
 
-struct Rva000E25DEBinder : public FXShaderParameterSourceNamespace_Struct
+// Scope-only containing type; this view makes no storage claim for it.
+class TerrainFXShaderParameterSourceNamespace
 {
-	~Rva000E25DEBinder() {}
+public:
+	class SourceNamespace_Taint;
+};
+
+class TerrainFXShaderParameterSourceNamespace::SourceNamespace_Taint : public FXShaderParameterSourceNamespace_Struct
+{
+public:
+	~SourceNamespace_Taint() {}
 	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 };
 
@@ -220,7 +228,7 @@ public:
 	void Rva000E21BENormalTexture(ID3DXEffect *effect, D3DXHANDLE handle);
 private:
 	Rva000E236DBinder m_08;
-	Rva000E25DEBinder m_0C;
+	TerrainFXShaderParameterSourceNamespace::SourceNamespace_Taint m_0C;
 	Rva000E2A81Binder m_10;
 	Rva000E2CA7Binder m_14;
 	Rva000E2DFDBinder m_18;
