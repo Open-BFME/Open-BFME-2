@@ -240,7 +240,7 @@ Int CreateAHeroHero::GetBlingId(Int blingKey, UnsignedInt index) const
 
 // Retail 0x00406DE3 (WorldBuilder pairs it unnamed, CreateAHeroHero.cpp line
 // 160): a client-random percent roll against the manager's chance.
-Int rva00406DE3RollChance()
+Bool rva00406DE3RollChance()
 {
 	Real roll = GetGameClientRandomValueReal(0.0f, 100.0f, CREATEAHEROHERO_FILE, 160);
 	return roll <= TheCreateAHeroManager->m_rollChance;
