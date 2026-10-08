@@ -405,7 +405,7 @@ class Rva004E7F29
 public:
 	Rva004E7DC8 *m_ptr;
 	void clear();
-	void rva004E7F7E();
+	~Rva004E7F29();
 };
 
 void Rva004E7F29::clear()
@@ -420,9 +420,10 @@ void Rva004E7F29::clear()
 }
 
 // Target identity: retail's five-byte entry at 0x004E7F7E forwards the
-// unchanged this pointer into the matched reset at 0x004E7F29. Keep the
-// wrapper name address-derived.
-void Rva004E7F29::rva004E7F7E()
+// unchanged this pointer into the matched reset at 0x004E7F29. It is the
+// holder's destructor: InGameUI::~InGameUI (0x002A5B30) calls it on its
+// +0x58C member under EH state 0xA, between the +0x590 and +0x588 members.
+Rva004E7F29::~Rva004E7F29()
 {
 	clear();
 }

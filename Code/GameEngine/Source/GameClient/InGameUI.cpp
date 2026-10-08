@@ -926,36 +926,7 @@ InGameUI::InGameUI()
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::~InGameUI present-unmatched
-InGameUI::~InGameUI()
-{
-	delete TheControlBar;
-	TheControlBar = NULL;
-
-	// free all the display strings if we're
-	removeMilitarySubtitle();
-
-	stopMovie();
-	stopCameoMovie();
-
-	// remove any build available status
-	placeBuildAvailable( NULL, NULL );
-	setRadiusCursorNone();
-
-	// delete the message resources
-	freeMessageResources();
-
-	// delete the array for the drawbles
-	delete [] m_placeIcon;
-	m_placeIcon = NULL;
-
-	// clear floating text
-	clearFloatingText();
-
-	// clear world animations
-	clearWorldAnimations();
-	resetIdleWorker();
-}
+// InGameUI::~InGameUI: defined in InGameUIDtor.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
 /** Initialize the in game user interface */
