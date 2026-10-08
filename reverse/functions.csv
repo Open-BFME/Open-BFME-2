@@ -70628,3 +70628,4 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva005C9B0C@Obj005C9B0C@@QAEHHHH@Z,,0x005C9B0C,37,Code/GameEngine/Source/GameLogic/Object/Rva005C9AB4.cpp,matched,
 ?rva005C9B31@Obj005C9B0C@@QAEHHHH@Z,,0x005C9B31,37,Code/GameEngine/Source/GameLogic/Object/Rva005C9AB4.cpp,matched,
 ?Helper0056BABF@@YA?AURvaF6Ret@@H@Z,,0x0056BABF,205,Code/GameEngine/Source/Common/RvaFamily6Helper0056BABF.cpp,matched,callers linkbonus GetArmySummaryName InGameSimpleHelp
+?rva002241D6@Rva002241D6@@QAEXPAVINI@@@Z,,0x002241D6,109,Code/GameEngine/Source/Common/System/ArchiveDirInfoO1.cpp,matched,gap between rows via operator[] and setCopyInline

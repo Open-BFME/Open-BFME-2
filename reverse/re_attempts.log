@@ -20064,3 +20064,6 @@ FUN_009E9CC3	0x005E9CC3	181	blocked	Native EH constructor5E9CC3..5E9D78 RET12 in
 ?rva0023D049@Rva0023D049@@QAEXH@Z	0x0023D049	22	blocked	two dead ecx forwarders to globals same wall as 0x0023D05F t=3 model=muse-spark
 ?rva003F3749@Rva003F3749@@QAEXXZ	0x003F3749	542	blocked	WARN byte FF may be mid-function plus Ghidra missed needs boundary proof t=3 model=muse-spark
 ?rva0032B2A5@Rva0032B2A5@@QAEXXZ	0x0032B2A5	228	blocked	WARN byte D8 may be mid-function plus AsciiString narrow wall t=3 model=muse-spark
+?rva0054CA4A@Rva0054CA4A@@QAEXXZ	0x0054CA4A	358	blocked	ADDRESS-NAMED g_Va00E032C8 requires escape hatch skip t=5 model=muse-01
+?rva00298979@Object@@QAEXPAV1@_N@Z	0x00298979	308	blocked	ADDRESS-NAMED g_Va00DFED7C requires escape hatch skip t=5 model=muse-01
+?rva00278440@Rva00278440Host@@QAEXH@Z	0x00278440	111	partial	two slots raw+hold vs one extra push ecx and mov copy t=35 model=muse-01 score=0.95 stash=reverse/attempts/0x00278440.cpp

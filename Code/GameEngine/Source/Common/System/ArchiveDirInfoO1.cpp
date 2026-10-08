@@ -114,5 +114,33 @@ void Rva0022424D::rva0022424D()
 	((ArchivedFileTree *)this)->ArchivedFileTree::~_Rb_tree();
 }
 
+// ?rva002241D6@Rva002241D6@@QAEXPAVINI@@@Z, retail 0x002241D6, 109B: INI key/value
+// pair inserted into the +0xC location map via its operator[] (rowed 0x002240CB)
+// then set from the second token. Evidence: gap between 0x002241D1 and
+// 0x00224243 in this TU, callers 0x00224A39, flags /O1 /arch:SSE /G7,
+// callees INI::getNextAsciiString StringBase::set releaseBuffer all rowed.
+class Rva002240CB
+{
+public:
+	AsciiString &rva002240CB(const AsciiString &key);
+};
+
+class Rva002241D6
+{
+public:
+	void rva002241D6(INI *ini);
+private:
+	unsigned char m_pad0[0xC];
+	Rva002240CB m_map;
+};
+
+void Rva002241D6::rva002241D6(INI *ini)
+{
+	AsciiString key = ini->getNextAsciiString();
+	AsciiString value = ini->getNextAsciiString();
+	AsciiString &slot = m_map.rva002240CB(key);
+	slot.setCopyInline(value);
+}
+
 
 
