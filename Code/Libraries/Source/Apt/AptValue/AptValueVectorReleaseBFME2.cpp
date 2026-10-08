@@ -44,7 +44,7 @@ public:
     void ReleaseValues();
     void rva006E6C00(AptValue *pValue);
     void rva006E6D50();
-    AptValueVector *rva006E6CF0(int capacity);
+    AptValueVector(int capacity);
 };
 AptValue *AptValueVector::PopValue()
 {
@@ -105,12 +105,14 @@ void AptValueVector::rva006E6D50()
     }
     g_pChainBlockAllocator->freeBlock(mpValues, mCapacity * 4);
 }
-// ?rva006E6CF0@AptValueVector@@QAEPAV1@H@Z, retail 0x006E6CF0 (82B).
-// AptValueVector init: sets capacity then allocs array via pool allocBlock.
+// ??0AptValueVector@@QAE@H@Z, retail 0x006E6CF0 (82B).
+// Constructor: native6CF230 allocates16B and invokes this under new-expression
+// unwind protection twice; WB174CA29/174CA92 call its counterpart176F640.
+// Sets capacity then allocates the array via pool allocBlock.
 // Evidence: AptValueVector.cpp:62 cond mpValues!=NULL; layout capacity+0
 // count+4 pointer+8 highwater+0xC from siblings; callee allocBlock at
 // 0x006DB160 via pool at 0x00E176E8; 2 callers.
-AptValueVector *AptValueVector::rva006E6CF0(int capacity)
+AptValueVector::AptValueVector(int capacity)
 {
     mCapacity = capacity;
     mCurrentNum = 0;
@@ -121,5 +123,4 @@ AptValueVector *AptValueVector::rva006E6CF0(int capacity)
         if (g_bfmeAptBreakOnAssertAtDDC01C)
             __asm int 3
     }
-    return this;
 }
