@@ -26288,3 +26288,4 @@ parseMod canonical string ownership	0x003BA348	403	blocked	Current BF1 9cb Commo
 ?init@Rva00355DC5@@UAEXPAVGameInfo@@@Z	0x00356541	455	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/LoadScreen_ShellGameInit.cpp 455B
 ?setCurrentFilename@MapTransferLoadScreen@@QAEXVAsciiString@@@Z	0x00356E8E	198	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/LoadScreen_MapTransferProcessProgress.cpp 198B
 ?QRKeyListCallback@@YAXPAXW4qr2_key_type@@00@Z	0x00388A13	249	landed	add_match verified Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp 249B
+?disconnectedCallback@@YAXPAXPBD0@Z	0x0038A324	227	landed	add_match verified Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp 227B

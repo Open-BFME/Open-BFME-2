@@ -221,6 +221,7 @@ struct BfmePeerThreadStatusView {
 	Bool m_isConnected;
 	Bool isConnecting( void ) { return m_isConnecting; }
 	Bool isConnected( void ) { return m_isConnected; }
+	void markAsDisconnected( void ) { m_isConnecting = m_isConnected = false; }
 };
 struct Rva0009990D {
 	void *pointer;
@@ -2849,11 +2850,15 @@ void disconnectedCallback(PEER peer, const char * reason, void * param)
 	PeerThreadClass *t = (PeerThreadClass *)param;
 	DEBUG_ASSERTCRASH(t, ("No Peer thread!"));
 	if (t)
-		t->markAsDisconnected();
+		((BfmePeerThreadStatusView *)t)->markAsDisconnected();
 	//updateBuddyStatus( BUDDY_OFFLINE );
 	PeerResponse resp;
 	resp.peerResponseType = PeerResponse::PEERRESPONSE_DISCONNECT;
-	resp.discon.reason = DISCONNECT_LOSTCON;
+	// BFME2 reports a drop naming the CD-key server with its own reason
+	// (21, past Zero Hour's DISCONNECT_MAX).
+	std::string reasonStr = reason;
+	Int pos = reasonStr.find("CDKEYSERVER");
+	resp.discon.reason = (pos >= 0) ? (DisconnectReason)21 : DISCONNECT_LOSTCON;
 	SerialAuthResult res = TheGameSpyPeerMessageQueue->getSerialAuthResult();
 	switch (res)
 	{
