@@ -3,6 +3,9 @@
 
 #include <vector>
 
+// RVA6D52A has a verified external provider; do not offer a wrong incidental copy.
+namespace _STL { template<> void vector<bool>::clear(); }
+
 template class _STL::vector<bool, _STL::allocator<bool> >;
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
