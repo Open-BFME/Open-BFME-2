@@ -135,3 +135,18 @@ Rva002A8818Fields *Rva002A8818Fields::initialize()
     m_04=1;
     return this;
 }
+
+// BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 AptDisplayStringAllocation_ctor.cpp
+// Rect00787710 zero constructor is a source guide only. Native26FCF9..26FD07
+// is a complete indexed getter ending RET4; the next body26FD07..26FD20
+// independently clears four floats at0/4/8/C and returns this, before the
+// next predicate begins26FD20. Original owner and constructor role unknown.
+class Rva0026FD07Fields {
+public:
+ Rva0026FD07Fields *initialize();
+ float m_00,m_04,m_08,m_0C;
+};
+Rva0026FD07Fields *Rva0026FD07Fields::initialize() {
+ m_00=0.0f; m_04=0.0f; m_08=0.0f; m_0C=0.0f;
+ return this;
+}
