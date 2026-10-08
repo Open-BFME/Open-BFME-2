@@ -51,12 +51,15 @@ class PlayerList { public: Player *getPlayerFromMask(int mask); };
 extern PlayerList *ThePlayerList;
 struct Rva00414EA1Vector { void *begin, *end, *capacity; };
 Xfer *Rva00414C92(Xfer *xfer, Rva00414EA1Vector *values);
+// DoXfer is a virtual: slot 3 of vtable 0x00C3A09C, which the ctors 0x004147CF
+// and 0x004148C0 store at +0; WorldBuilder's twin is slot 3 of the table its
+// twin ctors install.
 class ScoredKillEvaAnnouncer
 {
 public:
-    void DoXfer(Xfer *xfer);
+    virtual void DoXfer(Xfer *xfer);
 private:
-    char unknown00[0x1C];
+    char unknown04[0x18];
     Rva00414EA1Vector values;
     Player *player;
     int value;

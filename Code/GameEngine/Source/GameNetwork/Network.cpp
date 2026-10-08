@@ -91,11 +91,13 @@ extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64 *
 class Network
 {
 public:
+	// Declared in retail slot order; slots of vtable 0x00BF6040, which
+	// BFME2NativeNetwork::construct 0x0025DB6D installs: 14, 18, 27, 28, 37.
+	virtual void startNewSession(void);
 	virtual void SetLocalAddr(const NetLocalAddress &addr);
 	virtual void sendDisconnectChat(UnicodeString text);
 	virtual void sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID);
-	void quitGame(void);
-	void startNewSession(void);
+	virtual void quitGame(void);
 
 private:
 	unsigned char m_pad04[8];

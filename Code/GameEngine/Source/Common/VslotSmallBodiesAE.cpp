@@ -450,12 +450,13 @@ struct Rva00597426Arg
 	char m_pad00[0x94];
 	UnsignedInt m_94;
 };
+// A virtual: slot 16 of the three tables 0x00C70B88, 0x00C70BD0 (installed by
+// AIUpgrade's ctor 0x00597331) and 0x00C76640 that inherit it.
 class AIUpgrade
 {
 public:
-	Int canMake(const Rva00597426Arg *arg);
+	virtual Int canMake(const Rva00597426Arg *arg);
 private:
-	Int m_00;
 	Int m_04;
 	ObjectID m_08;
 	char m_pad0C[0x20];

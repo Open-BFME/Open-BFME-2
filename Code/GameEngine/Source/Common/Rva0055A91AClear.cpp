@@ -29,14 +29,16 @@ public:
 	void add(const ModuleData *data);
 };
 
+// LoadPostProcess is a virtual: slot 1 of vtable 0x00C3A08C, which the dtor
+// 0x00414520 and the copy ctor 0x0055AB99 store at +0.
 class ScoredKillTracker
 {
 public:
 	void rva0055A91A();
 	void hookToKeeper(Rva0039BCF8 *p);
-	void LoadPostProcess();
+	virtual void LoadPostProcess();
 private:
-	char m_pad00[0x10];
+	char m_pad04[0xC];
 	Rva0039BCF8 *m_10; // +0x10
 	int m_14; // +0x14
 	_STL::list<int, _STL::allocator<int> > m_list; // +0x18

@@ -1,9 +1,12 @@
 // cl: -GR- -EHsc-
-// ?MpOwnerSelectStrategicScenario@AptOnlineCustomMatch@@QAE_NH@Z @0x0059EB6F 64B: gated notify-set-go. With
+// ?MpOwnerSelectStrategicScenario@AptOnlineCustomMatch@@UAE_NH@Z @0x0059EB6F 64B: gated notify-set-go. With
 // the info singleton present and its flag word nonzero, fire the slot-0xDC
 // virtual on the info, forward the arg to the pinned 1-arg callee 0x44D5EE
 // (matched as GameModePreferences::setStrategicScenario) on the +0x40C
 // sub-object, then fire that sub-object's slot-0xC virtual. Else false.
+// A virtual: slot 8 of vtable 0x00C713B8 among the rowed AptOnlineCustomMatch
+// virtuals, and of two more retail tables that inherit it; its WB twin sits
+// in three WB tables (CustomMatch, OpenPlay, Strategic). +0x0 is the vptr.
 struct Rva0059EB6FInfo
 {
 	virtual void d00();
@@ -76,10 +79,10 @@ struct Rva0059EB6FSub
 
 struct AptOnlineCustomMatch
 {
-	char pad[0x40c];
-	Rva0059EB6FSub m_40C;
+	virtual bool MpOwnerSelectStrategicScenario(int mode);
 
-	bool MpOwnerSelectStrategicScenario(int mode);
+	char pad[0x408];
+	Rva0059EB6FSub m_40C;
 };
 
 extern class GameSpyInfoInterface *TheGameSpyInfo;
