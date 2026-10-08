@@ -69,6 +69,7 @@ struct Rva005E56FCIdInner
 };
 struct Rva005E56FCOuter
 {
+	void rva005E652E(void *garrison);
 	char m_pad[0x18];
 	Rva005E56FCIdInner *m_ptr18;
 	char m_pad1[0x10];
@@ -79,6 +80,7 @@ class Rva005E56FC
 public:
 	void *rva005E56FC();
 	int rva005E61A8();
+	void rva005E6765();
 private:
 	int m_00;
 	Rva005E56FCOuter *m_04;
@@ -114,4 +116,20 @@ int Rva005E56FC::rva005E61A8()
             (int)m_04->m_ptr18, (int)&values, (int)result))
         return 14;
     return -1;
+}
+
+// Native 0x005E6765..0x005E67E2 (125B). Shares the receiver, tree range,
+// range constructor and query with the rowed cursor routine above. Retail
+// calls 0x005E652E with the +4 owner in ECX and the garrison as its one
+// stack argument only after the query succeeds. The WB callgraph twin
+// calls the named MoveArmyMembers at the corresponding point; that is
+// semantic evidence for the operation, not a name claim for this method.
+void Rva005E56FC::rva005E6765()
+{
+    void *result = rva005E56FC();
+    _STL::vector<int> values(Rva005E59FCKeyIterator(m_04->m_keyView.begin()),
+        Rva005E59FCKeyIterator(m_04->m_keyView.end()), _STL::allocator<int>());
+    if (result && ((Rva002B6C9F *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->rva002B6CE5(
+            (int)m_04->m_ptr18, (int)&values, (int)result))
+        m_04->rva005E652E(result);
 }
