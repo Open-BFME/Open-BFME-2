@@ -386,7 +386,7 @@ class TeamsInfoRec
 public:
 	int addTeam(const Dict *dict);		// 0x0032DA4E
 	void rva0032C2C4();					// 0x0032C2C4, WB discards overridden teams
-	void bfmeRelease(int id);			// 0x0032C26D, WB removeTeam
+	void removeTeam(int id);			// 0x0032C26D, WB removeTeam
 	int getFirstTeamID() const { return m_teams[0].m_next; }
 	int getNextTeamID(int id) const { return m_teams[id].m_next; }
 	Dict *getTeamInfo(int id) { return &m_teams[id].m_dict; }
@@ -821,7 +821,7 @@ void SidesList::rva0032C88F(int index)
 		Dict *team = m_teamrec.getTeamInfo(id);
 		if (team->getType(TheKey_teamLibraryMapName) == Dict::DICT_ASCIISTRING
 				&& team->getAsciiString(TheKey_teamOwner) == name)
-			m_teamrec.bfmeRelease(id);
+			m_teamrec.removeTeam(id);
 		id = nextID;
 	}
 }

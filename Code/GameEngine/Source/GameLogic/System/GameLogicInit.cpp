@@ -344,7 +344,7 @@ class Dict;
 
 // One 16-byte record of the indexed team list at SidesList+0xF44: +0 links
 // the live list (record 0 heads it), +6 is the per-key chain link that
-// TeamsInfoRec::bfmeRelease (0x0032C26D) repairs.
+// TeamsInfoRec::removeTeam (0x0032C26D) repairs.
 struct TeamsInfoNode
 {
 	short m_previous;
@@ -358,7 +358,7 @@ struct TeamsInfoNode
 class TeamsInfoRec
 {
 public:
-	void bfmeRelease(int index);
+	void removeTeam(int index);
 	TeamsInfoNode *getNode(int index) { return &m_nodes[index]; }
 	int addTeam(const Dict *d);
 
@@ -2979,7 +2979,7 @@ void GameLogic::rva002469A5(bool loadingSaveGame, int *progress)
 		while (index) {
 			int next = TheSidesList->getTeamInfo()->getNode(index)->m_previous;
 			if (TheSidesList->getTeamInfo()->getNode(index)->m_chainPrevious)
-				TheSidesList->getTeamInfo()->bfmeRelease(index);
+				TheSidesList->getTeamInfo()->removeTeam(index);
 			index = next;
 		}
 		if (TheGameEngine->isMultiplayerSession() || isSkirmish)

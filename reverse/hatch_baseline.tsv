@@ -2186,7 +2186,6 @@ alternatename	Code/GameEngine/Source/Common/Bfme/T_009F4FB0.cpp	?m@T_009f4fb0@@Q
 alternatename	Code/GameEngine/Source/Common/Bfme5DictStringPresence.cpp	??1Rva00329EE9StringValue@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme5DictStringPresence.cpp	?getAsciiString@Rva00329EE9Dict@@QBE?AVRva00329EE9StringValue@@HPA_N@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme5DictStringPresence.cpp	?isEmpty@Rva00329EE9StringValue@@QBE_NXZ	1
-alternatename	Code/GameEngine/Source/Common/Bfme5IndexedNodeRelease.cpp	?bfmeReset@BfmeMapObjectExtra@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme5NinetyOne.cpp	?randwc@@YAJJ@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp	?unlink@PartitionData@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyTwo.cpp	?rva007F76D0@Rva00801670Host@@QAEPAHPAVBfmeVecCZ@@H@Z	1
@@ -37522,7 +37521,6 @@ present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Rva0
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Rva00739C70::update	1
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Rva00739C70::~Rva00739C70	1
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00885980.cpp	Rva00885980Class::d_00885980	1
-present_unmatched	Code/GameEngine/Source/Common/Bfme5IndexedNodeRelease.cpp	clearChainedNodesAt00197860@TeamsInfoRec@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeCellGridCtor.cpp	0Rva00404781@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeCellGridCtor.cpp	1Rva00404781@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeConv1050.cpp	bfmeGo1050A@BfmeA1050@@QAEXXZ	1

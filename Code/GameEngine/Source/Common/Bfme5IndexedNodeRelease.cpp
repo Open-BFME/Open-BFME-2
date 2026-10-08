@@ -30,7 +30,7 @@ class TeamsInfoRec
 {
 public:
 	__declspec(noinline) void removeFromIndex(int index);
-	void bfmeRelease(int index);
+	void removeTeam(int index);
 
 private:
 	TeamIndex m_tree;
@@ -39,8 +39,11 @@ private:
 	short m_freeHead;
 };
 
-// ?bfmeRelease@TeamsInfoRec@@QAEXH@Z
-void TeamsInfoRec::bfmeRelease(int index)
+// ?removeTeam@TeamsInfoRec@@QAEXH@Z
+// Target 0x0032C26D, 87 bytes; WB 0x00A89110 TeamsInfoRec::removeTeam,
+// SidesList.cpp:2369, same index argument and override unlink/Dict clear/free
+// list sequence. The method name is independently established by the WB twin.
+void TeamsInfoRec::removeTeam(int index)
 {
 	removeFromIndex(index);
 

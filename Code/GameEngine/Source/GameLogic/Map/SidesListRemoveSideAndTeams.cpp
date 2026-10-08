@@ -65,7 +65,7 @@ public:
 class TeamsInfoRec
 {
 public:
-	void bfmeRelease(int index);	// 0x0032C26D, WB removeTeam
+	void removeTeam(int index);	// 0x0032C26D, WB removeTeam
 	int getFirstTeamID() const { return m_teams[0].m_next; }
 	int getNextTeamID(int id) const { return m_teams[id].m_next; }
 	Dict *getTeamInfo(int id) { return &m_teams[id].m_dict; }
@@ -117,7 +117,7 @@ void SidesList::removeSideAndTeams(int index)
 			Dict *team = m_teamrec.getTeamInfo(id);
 			AsciiString owner = team->getAsciiString(g_00DBD9FC.get(), &exists);
 			if (exists && owner.compare(name) == 0)
-				m_teamrec.bfmeRelease(id);
+				m_teamrec.removeTeam(id);
 		}
 	}
 	removeSide(index);
