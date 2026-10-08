@@ -164,3 +164,32 @@ void *Rva000210A0TableSlot(T2TableOwner6C *owner, int index)
 {
 	return owner->m_slots[index];
 }
+
+// BFME1 9cbfb551 Weapon.cpp's emitted getFireOCL body is the source lead.
+// Native10E4A4..10E4B2 and10E4B2..10E4C6 are complete RET4 entries after
+// the preceding RET4. They read raw four-byte slots at +B8, directly or
+// through the pointer at +94. These accessed-prefix views assert neither
+// original receiver identity nor slot value type or complete array bounds.
+struct Rva0010E4A4Words
+{
+	char unknown00[0xB8];
+	unsigned slots[1];
+	unsigned rva0010E4A4(unsigned index) const;
+};
+
+unsigned Rva0010E4A4Words::rva0010E4A4(unsigned index) const
+{
+	return slots[index];
+}
+
+struct Rva0010E4B2Words
+{
+	char unknown00[0x94];
+	const Rva0010E4A4Words *table;
+	unsigned rva0010E4B2(unsigned index) const;
+};
+
+unsigned Rva0010E4B2Words::rva0010E4B2(unsigned index) const
+{
+	return table->slots[index];
+}
