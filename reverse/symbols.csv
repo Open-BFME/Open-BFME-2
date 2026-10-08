@@ -16100,3 +16100,12 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ??1HeaderTemplateManager@@QAE@XZ,0x00201B64,callee of ??1GameClient@@UAE@XZ
 ??1?$_List_base@UDrawableTOCEntry@GameClient@@V?$Rva0023AC36Allocator@UDrawableTOCEntry@GameClient@@@@@_STL@@QAE@XZ,0x002FECBC,callee of ??1GameClient@@UAE@XZ
 ??1Rva00239CC9DrawableHash@@QAE@XZ,0x00239CC9,callee of ??1GameClient@@UAE@XZ
+??0Anim2DCollection@@QAE@XZ,0x002D6C02,callee of ?init@GameClient@@UAEXXZ: new(0x14) then init and setName("TheAnim2DCollection") as ZH; placeholder row ??0Rva002D6C02@@QAE@XZ
+??0HeaderTemplateManager@@QAE@XZ,0x00201B51,callee of ?init@GameClient@@UAEXXZ: new(4) then init as ZH; abuts the pinned ??1HeaderTemplateManager 0x00201B64; placeholder row ??0Rva00201B64@@QAE@XZ
+??0MetaEventTranslator@@QAE@XZ,0x001DB432,callee of ?init@GameClient@@UAEXXZ: new(0x28) attached at ZH's priority 20; builds 3 8-byte ICoord2D at +0xC as ZH m_mouseDownPosition
+??0RayEffectSystem@@QAE@XZ,0x002CEE96,callee of ?init@GameClient@@UAEXXZ: new(0xE0C) then init and setName as ZH TheRayEffects
+??0Rva00432987@@QAE@XZ,0x00432987,callee of ?init@GameClient@@UAEXXZ: new(0x204) translator attached at priority 5
+??0Rva00E01E28Owner@@QAE@XZ,0x0035973D,callee of ?init@GameClient@@UAEXXZ: new(0x30) stored to 0x00E01E28 and named TheHotKeyManager
+??0SelectionTranslator@@QAE@XZ,0x0042FD9E,callee of ?init@GameClient@@UAEXXZ: new(0x40) attached at ZH's priority 50; abuts pinned ?selectFriends@SelectionTranslator 0x0042FE7F
+?Rva002210CFInit@@YAXXZ,0x002210CF,callee of ?init@GameClient@@UAEXXZ: free call after the Apt window manager setup
+?Rva00380B0CInit@@YAXXZ,0x00380B0C,callee of ?init@GameClient@@UAEXXZ: free call after the Apt window manager setup

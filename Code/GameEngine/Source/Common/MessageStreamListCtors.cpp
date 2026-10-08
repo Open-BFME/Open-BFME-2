@@ -223,8 +223,7 @@ void MessageStream::removeTranslator(unsigned int id)
 	}
 }
 
-// ?attachTranslator@MessageStream@@QAEIPAVGameMessageTranslator@@I@Z present-unmatched
-// 0x0030F738 159B, retracted from its address-named row for this rename.
+// ?attachTranslator@MessageStream@@QAEIPAVGameMessageTranslator@@I@Z @0x0030F738 159B
 // MessageStream translator attach sorted by priority from ZH donor (MessageStream.cpp attachTranslator);
 // GameClient::init 0x0023A1BB calls it once per translator with ZH's priorities.
 // Evidence: packet disasm with rowed operator new 0x0002FDA0; prev/next in this TU; TranslatorData 0x14 plus first/last/nextID at +0x14/+0x18/+0x1C; 14 callers in 0x0023A1BB.

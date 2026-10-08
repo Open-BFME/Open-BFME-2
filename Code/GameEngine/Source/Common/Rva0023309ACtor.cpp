@@ -84,8 +84,7 @@ Rva0023309A::Rva0023309A()
 	}
 }
 
-// ?CreateIMEManagerInterface@@YAPAVIMEManager@@XZ present-unmatched
-// 0x002331BB 53B, retracted from its address-named row for this rename.
+// ?CreateIMEManagerInterface@@YAPAVIMEManager@@XZ @0x002331BB 53B.
 // The retail body allocates 0x3064 bytes then invokes the ctor immediately;
 // that size matches this object's modeled extent. Its sole caller,
 // GameClient::init 0x0023A1BB, calls it with no this pointer where ZH calls
