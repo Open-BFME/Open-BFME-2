@@ -59,7 +59,16 @@ class Rva005B35E8
 public:
 	void rva005B35E8();
 };
-class Rva00222A8BTarget;
+class Rva00222A8BTarget
+{
+public:
+	int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
+};
+AsciiString Rva00222834Get(int value);
+static inline const char *Rva005B2F42Str(const AsciiString &value)
+{
+	return ((const StringBase<char> *)&value)->str();
+}
 int Rva002D4531Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const int &arg);
 
 // The power grid's cell: its command button at +0x00, the grid row and
@@ -329,4 +338,16 @@ void AptCreateAHero::Powers::PalantirToolTip(const char *path)
 				button = TheCreateAHeroManager->GetRequiredButton(i);
 	}
 	m_name = Rva005B2376Describe((void *)button, "TOOLTIP:CAH_IN_PALANTIR", "TOOLTIP:CAH_PALANTIR_EMPTY_SLOT");
+}
+
+static inline const char *Rva005B2F42Pass(const char *value) { return value; }
+
+// Native 0x005B2F42..0x005B2FDC: six cdecl parameters; two integer
+// references become temporary strings, while the third argument is a string
+// held by reference. Callers pass UpdateSelectPowerIcon with row/column/state.
+// The original template/helper name is unknown. The pass-through preserves
+// evaluation of the third argument before str() on the temporary strings.
+int Rva005B2F42Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const int &a, const int &b, const char *const &c)
+{
+	return target->invoke(owner, name, 3, Rva005B2F42Str(Rva00222834Get(a)), (void *)Rva005B2F42Str(Rva00222834Get(b)), (void *)Rva005B2F42Pass(c), 0, 0);
 }
