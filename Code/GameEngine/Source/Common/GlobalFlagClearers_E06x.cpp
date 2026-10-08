@@ -1,4 +1,4 @@
-// Eighteen B2-native flag-word clearers on thirteen .data flag words
+// B2-native flag-word clearers on .data flag words
 // (0x00E06220-0x00E06938):
 //
 //     mov eax,[<address>] / and al,<mask8> / mov [<address>],eax / ret
@@ -12,9 +12,6 @@
 extern unsigned int g_Va00E06220;
 // g_Va00E06220: matched references place it at VA 0xe06220 (zero-filled .bss).
 unsigned int g_Va00E06220;
-extern unsigned int g_Va00E062DC;
-// g_Va00E062DC: matched references place it at VA 0xe062dc (zero-filled .bss).
-unsigned int g_Va00E062DC;
 extern unsigned int g_Va00E062E4;
 // g_Va00E062E4: matched references place it at VA 0xe062e4 (zero-filled .bss).
 unsigned int g_Va00E062E4;
@@ -58,11 +55,6 @@ unsigned int g_Va00E06938;
 unsigned int Rva00799992ClearFlag(void)
 {
 	return g_Va00E06220 &= 0xFFFFFFFEu;
-}
-
-unsigned int Rva0079A19CClearFlag(void)
-{
-	return g_Va00E062DC &= 0xFFFFFFFEu;
 }
 
 unsigned int Rva0079A20FClearFlag(void)
