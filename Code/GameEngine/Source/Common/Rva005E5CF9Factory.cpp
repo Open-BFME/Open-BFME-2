@@ -96,3 +96,57 @@ RvaF1Handle Rva005FB418::rva005FB418(unsigned int first, unsigned int second)
 {
 	return RvaF1Handle(new Rva006004C1(first, second, &m_context));
 }
+
+// Native 005E5D4D..005E5DA1 and 005E5DA1..005E5DF5 each return a
+// one-word handle through a hidden pointer (ret 8). Both allocate 40 bytes,
+// forward the explicit pointer and receiver+8 to the independently rowed
+// constructors, and increment the result's reference count at +4.
+// The constructor providers establish the three-word context layouts;
+// factory/application names remain unknown. Earlier attempts lacked these
+// providers; no donor identity is inferred from the matching instruction shape.
+class Rva005A0B4CList;
+struct Rva005F5C77In
+{
+	void *m_00;
+	int m_04;
+	Rva005A0B4CList *m_08;
+};
+struct Rva005F5F2BIn
+{
+	void *m_00;
+	int m_04;
+	Rva005A0B4CList *m_08;
+};
+class Rva005F5C77
+{
+	char m_storage[0x28];
+public:
+	Rva005F5C77(void *argument, Rva005F5C77In *context);
+};
+class Rva005F5F2B
+{
+	char m_storage[0x28];
+public:
+	Rva005F5F2B(void *argument, Rva005F5F2BIn *context);
+};
+struct Rva005E5D4D
+{
+	char m_prefix[8];
+	Rva005F5C77In m_context;
+	RvaF1Handle rva005E5D4D(void *argument);
+};
+struct Rva005E5DA1
+{
+	char m_prefix[8];
+	Rva005F5F2BIn m_context;
+	RvaF1Handle rva005E5DA1(void *argument);
+};
+
+RvaF1Handle Rva005E5D4D::rva005E5D4D(void *argument)
+{
+	return RvaF1Handle(new Rva005F5C77(argument, &m_context));
+}
+RvaF1Handle Rva005E5DA1::rva005E5DA1(void *argument)
+{
+	return RvaF1Handle(new Rva005F5F2B(argument, &m_context));
+}
