@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
-// ?rva00497A4B@BattlePlanUpdate@@QAEXXZ @0x00497A4B 157B.
+// ?createVisionObject@BattlePlanUpdate@@QAEXXZ @0x00497A4B 157B.
 // BattlePlanUpdate lazy vision-object creation: if m_visionObjectID (+0x88)
 // is already set do nothing; otherwise find the template named at
 // payload+0xa4 via ThingFactory lookup 0x002D06CA, build an empty 0x10-byte
@@ -90,7 +90,7 @@ struct Payload00497A4B
 class BattlePlanUpdate
 {
 public:
-	void rva00497A4B();
+	void createVisionObject();
 
 private:
 	void *m_vtable; // +0x00
@@ -100,7 +100,7 @@ private:
 	int m_visionID; // +0x88
 };
 
-void BattlePlanUpdate::rva00497A4B()
+void BattlePlanUpdate::createVisionObject()
 {
 	if (m_visionID != 0)
 		return;

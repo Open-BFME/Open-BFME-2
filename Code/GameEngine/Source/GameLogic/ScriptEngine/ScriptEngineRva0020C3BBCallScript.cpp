@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Os
 //
-// ?rva0020C3BB@ScriptEngine@@QAEXPAVScriptAction@@@Z @0x0020C3BB 524B: the
+// ?callSubroutine@ScriptEngine@@QAEXPAVScriptAction@@@Z @0x0020C3BB 524B: the
 // script-call action; ?rva0020C140@ScriptEngine@@QAEXABVAsciiString@@0PAVTeam@@@Z
 // @0x0020C140 635B: its scoped sibling taking explicit scope name, script name
 // and calling team (below the first body). Takes the name from the action's first parameter, looks
@@ -139,7 +139,7 @@ public:
 	void walkNamed(Rva00355950Arr *array, Rva003412E0Node *node, bool filter);
 	void rva0020A586(void *object, void *slot);
 	void AppendDebugMessage(const AsciiString &message, bool forcePause);
-	void rva0020C3BB(ScriptAction *action);
+	void callSubroutine(ScriptAction *action);
 	void rva0020C140(const AsciiString &scopeName, const AsciiString &scriptName, Team *pThisTeam);
 	bool evaluateConditions(Script *pScript, Team *thisTeam, Player *player);
 	bool rva0020A1D0(const AsciiString &scope, Script *pScript, Team *thisTeam, Player *player);
@@ -162,8 +162,8 @@ bool ScriptEngine::rva0020A1D0(const AsciiString &scope, Script *pScript, Team *
 		AppendDebugMessage(Rva0032B389Join(canonical, NAME), false); \
 	} while (0)
 
-// ?rva0020C3BB@ScriptEngine@@QAEXPAVScriptAction@@@Z
-void ScriptEngine::rva0020C3BB(ScriptAction *action)
+// ?callSubroutine@ScriptEngine@@QAEXPAVScriptAction@@@Z
+void ScriptEngine::callSubroutine(ScriptAction *action)
 {
 	BfmeOwnZC *lookup = (BfmeOwnZC *)this;
 	AsciiString name = action->getParameter(0)->getString();

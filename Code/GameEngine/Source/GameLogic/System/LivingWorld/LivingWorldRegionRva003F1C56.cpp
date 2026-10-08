@@ -35,7 +35,7 @@ class LivingWorldRegion
 public:
     bool rva003F1B7C(CreateAHeroData *hero,
         const Rva003F1BD3TemplateView *record, int *reason);
-    void rva003F1C56(Rva003F1C56Plot *plot,
+    void BuildBuilding(Rva003F1C56Plot *plot,
         const Rva003F1BD3TemplateView *record);
 private:
     char unknown00[0x17C];
@@ -44,7 +44,7 @@ private:
     bool active;
 };
 
-void LivingWorldRegion::rva003F1C56(Rva003F1C56Plot *plot,
+void LivingWorldRegion::BuildBuilding(Rva003F1C56Plot *plot,
     const Rva003F1BD3TemplateView *record)
 {
     if (rva003F1B7C(reinterpret_cast<CreateAHeroData *>(plot), record, 0)
