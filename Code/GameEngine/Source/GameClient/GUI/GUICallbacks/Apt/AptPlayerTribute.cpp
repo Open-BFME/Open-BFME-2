@@ -90,7 +90,7 @@ bool Rva004128F0GetParam(const char*,const char*,AsciiString&);
 int Rva004128BBGetLevel(const char*);
 const char *Rva00412845AfterLevel(const char*);
 class Rva0050FC54 {public: Rva0050FC54(int,const AsciiString&,Player*);char opaque[0x80];};
-class Rva0050FF55 {public: Rva0050FF55(Rva0050F5A6*,int,const AsciiString&,Player*);char opaque[0x84];};
+class Rva0050FF55 {public: Rva0050FF55(Rva0050F5A6*,int,const AsciiString&,Player*);int rva0050EAC1();char opaque[0x80];Rva0050F5A6 *parent;};
 class Object;
 class Rva00575674 {public:void rva00575674(Object*);};
 // Native50FFEC..5101C0 468B RET4; WB1358B70/tribute.cpp1203 corroborates
@@ -114,4 +114,19 @@ void Rva0050F5A6::rva0050FFEC(const char *params) {
   reinterpret_cast<Rva00575674*>(&slot.object)->rva00575674(reinterpret_cast<Object*>(new Rva0050FF55(this,rowLevel,AsciiString(Rva00412845AfterLevel(name.str())),slot.player)));
  else
   reinterpret_cast<Rva00575674*>(&slot.object)->rva00575674(reinterpret_cast<Object*>(new Rva0050FC54(rowLevel,AsciiString(Rva00412845AfterLevel(name.str())),slot.player)));
+}
+
+// Native50EAC1..50EB02 65B RET0, not the served260B extent which crosses
+// three following independent bodies. Local-row constructor50FF55 proves
+// parent80; the exact walkers prove count20 and paired player24/UI28.
+// Slot1 of local-row vtableC655C4 points here. Native computes the negative
+// total of amounts belonging to other players, skipping absent row objects.
+int Rva0050FF55::rva0050EAC1(){
+ int total=0;
+ for(int i=0;i<parent->count;++i){
+  Rva0050F5A6::Entry &slot=parent->entries()[i];
+  if(!slot.player->isLocalPlayer() && slot.object)
+   total-=reinterpret_cast<Rva0050F0AB*>(slot.object)->amount;
+ }
+ return total;
 }
