@@ -61,6 +61,7 @@ class AptOnlineLogin {
 public:
     void OnBttnRegisterFESL(const char *);
     void rva00572632(const char *);
+    void rva00572768(const char *);
     bool rva0056EC54(const UnicodeString &,bool);
     void rva0056FEA8();
 private:
@@ -171,3 +172,28 @@ void AptOnlineLogin::rva0056FEA8()
 
 	GadgetListBoxSetSelected( m_countryList, selectedRow );
 }
+
+// BFME1 34f59164 OnlineLoginRva005536F0 supplies this sibling state flow.
+// Native 572768..572871 verifies the true tail argument and D0 byte;
+// no callback registration or original method spelling is asserted.
+void AptOnlineLogin::rva00572768(const char *)
+{
+    if(g_bfmeObjELB) {
+        { void *movie=owner->movie;
+          ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonCreate",0,0,0,0); }
+        { void *movie=owner->movie;
+          ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonLogin",0,0,0,0); }
+        { void *movie=owner->movie;
+          ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonServiceTerms",0,0,0,0); }
+        GameSpyMiscPreferences preferences;
+        if(preferences.rva00559782()>=1 && preferences.rva00559782()<=0x25) {
+            g_bfmeObjELB->bfmeTailELB(true);
+            return;
+        }
+        closeLocale=true;
+        void *movie=owner->movie;
+        ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DoOpenLocale",0,0,0,0);
+        ((Rva0056DCBF *)this)->rva0056DCBF(false);
+    }
+}
+
