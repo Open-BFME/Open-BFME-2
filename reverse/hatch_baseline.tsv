@@ -1005,7 +1005,6 @@ address_global	Code/GameEngine/Source/Common/Rva00434160Init.cpp	g_Va00E032E0	8
 address_global	Code/GameEngine/Source/Common/Rva00437E72Dtor.cpp	g_Va00E032FC	4	allow=cb5888473f8fd6a365d0636ceb6aae7f8d923c7b
 address_global	Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp	g_Va00E032FC	2
 address_global	Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp	g_Va009FE78C	3
-address_global	Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp	g_Va009FEDF0	3
 address_global	Code/GameEngine/Source/Common/Rva0043DB3DGlobalSet.cpp	g_Va00E03340	2
 address_global	Code/GameEngine/Source/Common/Rva004421E1Dtor.cpp	g_Va00E0333C	3
 address_global	Code/GameEngine/Source/Common/Rva00444165.cpp	g_Va009FE958	1
@@ -1030,7 +1029,6 @@ address_global	Code/GameEngine/Source/Common/Rva00503D26Bezier.cpp	g_Va00863BF8	
 address_global	Code/GameEngine/Source/Common/Rva00503E17BezierCall.cpp	g_Va00863BFC	3
 address_global	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	g_Va009FE4CC	11
 address_global	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	g_Va009FE78C	4
-address_global	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	g_Va009FEDF0	6
 address_global	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	g_Va009FEEE8	4
 address_global	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	g_Va00A01E48	5
 address_global	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	g_Va00A03314	5
@@ -1047,7 +1045,6 @@ address_global	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	g_Va00A04934	
 address_global	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	g_Va00E03314	1
 address_global	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	g_Va00E04450	1
 address_global	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	g_Va00E046B4	1
-address_global	Code/GameEngine/Source/Common/Rva00512C88Shutdown.cpp	g_Va009FEDF0	3
 address_global	Code/GameEngine/Source/Common/Rva00512C88Shutdown.cpp	g_Va00A048CC	9
 address_global	Code/GameEngine/Source/Common/Rva0051318EVotes.cpp	g_Va007C9260	3
 address_global	Code/GameEngine/Source/Common/Rva005169E0Wrap.cpp	g_Va009FE958	1
@@ -1821,7 +1818,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	g_Rva009
 address_global	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	g_Va009FE758	1
 address_global	Code/GameEngine/Source/GameClient/GUI/SkirmishScreenShowError.cpp	g_Rva01088AF4EmptyWideString	2
 address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va009FE78C	4
-address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va009FEDF0	4
 address_global	Code/GameEngine/Source/GameClient/InGameUIUpdateAndDrawWorldAnimations.cpp	g_Va00DBA4E4	2
 address_global	Code/GameEngine/Source/GameClient/InGameUI_selectMatchingAcrossScreen.cpp	g_Va009FEA3C	1
 address_global	Code/GameEngine/Source/GameClient/Rva0002C025.cpp	g_Rva0107301CEmptyString	1
@@ -3317,7 +3313,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00431E95.cpp	?g_00C3C9AC@@3QBQBXB
 alternatename	Code/GameEngine/Source/Common/Rva00432FA7Ctor.cpp	?g_00C3CA30@@3QBQBXB	1
 alternatename	Code/GameEngine/Source/Common/Rva00432FA7Ctor.cpp	?g_00E032D0@@3PAVRva00432FA7@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp	?g_Va009FE78C@@3HA	1
-alternatename	Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp	?g_Va009FEDF0@@3HA	1
 alternatename	Code/GameEngine/Source/Common/Rva00444165.cpp	?g_00DFE958@@3PAVLANAPI@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva00446A77Enable.cpp	?g_00DFE958@@3PAVLANAPI@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva00446A77Enable.cpp	?g_Va00A03354@@3PAUOuter00446A77@@A	1
@@ -3402,14 +3397,10 @@ alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va009FE4CC@
 alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va009FE4CC@@3PAVRva00223A94@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va009FE4CC@@3PAVRva00224705@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va009FE78C@@3PAUGlobal9FE78C@@A	1
-alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va009FEDF0@@3HA	1
-alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va009FEDF0@@3PAUGlobal9FEDF0@@A	2
-alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va009FEDF0@@3PAVRva00512C88ObjB@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va009FEEE8@@3PAURva0043C933Outer@@A	2
 alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va00E03314@@3HA	1
 alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va00E04450@@3HA	1
 alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va00E046B4@@3HA	1
-alternatename	Code/GameEngine/Source/Common/Rva00512C88Shutdown.cpp	?g_Va009FEDF0@@3PAVRva00512C88ObjB@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva0051318EVotes.cpp	?g_Va007C9260@@3QBGB	1
 alternatename	Code/GameEngine/Source/Common/Rva005169E0Wrap.cpp	?g_Va012F7730@@3PAVGen00024B7C@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva005183A0Finish.cpp	??1OptionPreferences@@UAE@XZ	1
@@ -3958,7 +3949,6 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	?g_Va009F
 alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	?g_rampageGlobal@@3PAUGlobalWithB8@@A	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	?reverseAnimatewindow@Shell@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	?g_Va009FE78C@@3HA	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	?g_Va009FEDF0@@3HA	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	?TheDisplay@@3PAVDisplayInterface@@A	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	?first@Rva000427195@@QAEPAXPAVRva000411084@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GameTextStringLookUpBound.cpp	??RRva002E5C15Comp@@QBE_NPBUStringLookUp@@PBD@Z	1

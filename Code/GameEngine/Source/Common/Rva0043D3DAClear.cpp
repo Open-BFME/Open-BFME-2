@@ -7,6 +7,8 @@
 // outer+0x27C; globals 0x009FE78C+0x110 and 0x009FEDF0+0x16 gate the clear.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
+class InGameUI;
+extern InGameUI *TheInGameUI;
 #include <stl/_algobase.h>
 #pragma optimize("s", off)
 #pragma optimize("t", on)
@@ -46,7 +48,6 @@ public:
 extern ScienceStore *TheScienceStore;
 
 extern int g_Va009FE78C;
-extern int g_Va009FEDF0;
 
 class Rva0043D3DA
 {
@@ -65,7 +66,7 @@ void Rva0043D3DA::rva0043D3DA(int unused)
 {
 	(void)unused;
 	if (*(int *)(g_Va009FE78C + 0x110) == 6) {
-		if (*(unsigned char *)(g_Va009FEDF0 + 0x16) == 0)
+		if (*(unsigned char *)((reinterpret_cast<int>(TheInGameUI)) + 0x16) == 0)
 			return;
 	}
 	if (m_flag)
@@ -82,7 +83,5 @@ void Rva0043D3A8::rva0043D5CB(ScienceType science)
 	m_sciences.push_back(science);
 	m_unk14 += cost;
 }
-// ?g_Va009FEDF0@@3HA: the global at VA 0xdfedf0 is ?TheInGameUI@@3PAVInGameUI@@A.
-#pragma comment(linker, "/alternatename:?g_Va009FEDF0@@3HA=?TheInGameUI@@3PAVInGameUI@@A")
 // ?g_Va009FE78C@@3HA: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
 #pragma comment(linker, "/alternatename:?g_Va009FE78C@@3HA=?TheGameLogic@@3PAVGameLogic@@A")

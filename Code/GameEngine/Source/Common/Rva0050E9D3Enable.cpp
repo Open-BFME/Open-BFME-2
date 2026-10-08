@@ -5,6 +5,8 @@
 // tail-jmp to rowed enable 0x00222479 on global 0x009FE4CC. Callers at
 // 0x00376D56 0x0043CC61 0x0050EBBD 0x0050EC17 0x0051B46C. /O1 for the tail
 // jmp; /GX- matches the frameless ColdGlobal neighbours.
+class InGameUI;
+extern InGameUI *TheInGameUI;
 struct GlobalA046B4 { char pad[0x278]; unsigned char flag; };
 extern GlobalA046B4 *g_Va00A046B4;
 struct GlobalA01E48 { char pad[0x54]; unsigned char flag; };
@@ -51,10 +53,10 @@ void Rva004E400DEnable(void)
 struct Global9FE78C { char m_pad[0x110]; int m_val; };
 extern Global9FE78C *g_Va009FE78C;
 struct Global9FEDF0 { char m_pad[0x16]; unsigned char m_flag; };
-extern Global9FEDF0 *g_Va009FEDF0;
+
 void __stdcall Rva004E40A6Enable(int unused)
 {
-	if (g_Va009FE78C->m_val != 6 || g_Va009FEDF0->m_flag != 0)
+	if (g_Va009FE78C->m_val != 6 || (*(Global9FEDF0 **)&TheInGameUI)->m_flag != 0)
 		Rva004E400DEnable();
 }
 
@@ -323,14 +325,8 @@ GlobalA04450 * g_Va00A04450 = 0;
 // ?g_Va00A046B4@@3PAUGlobalA046B4@@A: matched references place it at VA 0xe046b4; also referenced as ?g_Va00E046B4@@3HA.
 GlobalA046B4 * g_Va00A046B4 = 0;
 #pragma comment(linker, "/alternatename:?g_Va00E046B4@@3HA=?g_Va00A046B4@@3PAUGlobalA046B4@@A")
-// ?g_Va009FEDF0@@3PAUGlobal9FEDF0@@A: the global at this VA is ?TheInGameUI@@3PAVInGameUI@@A; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?g_Va009FEDF0@@3PAUGlobal9FEDF0@@A=?TheInGameUI@@3PAVInGameUI@@A")
-#pragma comment(linker, "/alternatename:?g_Va009FEDF0@@3PAVRva00512C88ObjB@@A=?TheInGameUI@@3PAVInGameUI@@A")
-#pragma comment(linker, "/alternatename:?g_Va009FEDF0@@3HA=?TheInGameUI@@3PAVInGameUI@@A")
 // ?g_Va009FE4CC@@3PAVRva00222479ByteOneSetter@@A: the global at VA 0xdfe4cc is ?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A.
 #pragma comment(linker, "/alternatename:?g_Va009FE4CC@@3PAVRva00222479ByteOneSetter@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
-// ?g_Va009FEDF0@@3PAUGlobal9FEDF0@@A: the global at VA 0xdfedf0 is ?TheInGameUI@@3PAVInGameUI@@A.
-#pragma comment(linker, "/alternatename:?g_Va009FEDF0@@3PAUGlobal9FEDF0@@A=?TheInGameUI@@3PAVInGameUI@@A")
 // ?g_Va009FEEE8@@3PAURva0043C933Outer@@A: the global at VA 0xdfeee8 is ?ThePlayerList@@3PAVPlayerList@@A.
 #pragma comment(linker, "/alternatename:?g_Va009FEEE8@@3PAURva0043C933Outer@@A=?ThePlayerList@@3PAVPlayerList@@A")
 // ?g_Va009FE78C@@3PAUGlobal9FE78C@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.

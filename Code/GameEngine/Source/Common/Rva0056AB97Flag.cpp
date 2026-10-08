@@ -4,6 +4,8 @@
 // Guarded flag-set: false when the +0x14 record fails pinned 0x0056A989,
 // else set byte +0x20 on the +0x10 record, notify the rowed 0x0029B1A1
 // singleton, and return true. Honest address-derived names.
+class InGameUI;
+extern InGameUI *TheInGameUI;
 class Rva0056A989
 {
 public:
@@ -15,8 +17,6 @@ class Rva0029B1A1
 public:
 	void rva0029B1A1();
 };
-
-extern Rva0029B1A1 *g_00DFEDF0;
 
 struct Rva0056AB97Inner
 {
@@ -38,7 +38,7 @@ bool Rva0056AB97::rva0056AB97()
 {
 	if (m_14->rva0056A989()) {
 		m_10->m_flag20 = true;
-		g_00DFEDF0->rva0029B1A1();
+		(*(Rva0029B1A1 **)&TheInGameUI)->rva0029B1A1();
 		return true;
 	}
 	return false;

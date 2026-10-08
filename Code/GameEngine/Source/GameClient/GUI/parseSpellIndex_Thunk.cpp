@@ -4,6 +4,8 @@
 // 0x00599180 and 0x005991E0, each of which spells the same test inline.
 // Nothing in the image calls this copy, so it keeps a descriptive free name.
 
+class InGameUI;
+extern InGameUI *TheInGameUI;
 extern "C" __declspec(dllimport) int __cdecl atoi( const char * );
 extern "C" __declspec(dllimport) int __cdecl strncmp(
 	const char *, const char *, unsigned int );
@@ -69,7 +71,6 @@ public:
 extern ScienceStore *TheScienceStore;
 
 extern int g_Va009FE78C;
-extern int g_Va009FEDF0;
 
 extern "C" char *__cdecl _mbscpy(char *dest, const char *src);
 
@@ -155,7 +156,7 @@ void AptSpellStore::OnRollOutBttnSpell(const char *name)
 void AptSpellStore::InputEnabled(int query, char *result, bool skip)
 {
 	if (query == 0 && !skip)
-		_mbscpy(result, *(int *)(g_Va009FE78C + 0x110) == 6 || *(unsigned char *)(g_Va009FEDF0 + 0x16) ? "1" : "0");
+		_mbscpy(result, *(int *)(g_Va009FE78C + 0x110) == 6 || *(unsigned char *)((reinterpret_cast<int>(TheInGameUI)) + 0x16) ? "1" : "0");
 }
 
 // Retail 0x0043C9E5, 24 bytes: "AptSpellStore::OnClosed".
@@ -175,7 +176,7 @@ void AptSpellStore::OnBttnSpell(const char *name)
 {
 	if (*(int *)(g_Va009FE78C + 0x110) == 6)
 	{
-		if (*(unsigned char *)(g_Va009FEDF0 + 0x16) == 0)
+		if (*(unsigned char *)((reinterpret_cast<int>(TheInGameUI)) + 0x16) == 0)
 			return;
 	}
 	int index = parseSpellIndex(name);
@@ -194,7 +195,5 @@ void AptSpellStore::OnBttnSpell(const char *name)
 	}
 }
 
-// ?g_Va009FEDF0@@3HA: the global at VA 0xdfedf0 is ?TheInGameUI@@3PAVInGameUI@@A.
-#pragma comment(linker, "/alternatename:?g_Va009FEDF0@@3HA=?TheInGameUI@@3PAVInGameUI@@A")
 // ?g_Va009FE78C@@3HA: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
 #pragma comment(linker, "/alternatename:?g_Va009FE78C@@3HA=?TheGameLogic@@3PAVGameLogic@@A")

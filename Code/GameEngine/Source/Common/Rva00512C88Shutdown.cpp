@@ -6,6 +6,8 @@
 // Evidence: callers 0x004D23BB 0x004D390F; unblocks 0x004D3906;
 // rowed operator delete 0x0002FD60; virtual slots only.
 
+class InGameUI;
+extern InGameUI *TheInGameUI;
 class Rva00512C88ObjA
 {
 public:
@@ -48,7 +50,6 @@ public:
 extern Rva00512C88ObjA *g_Va00A048CC;
 // g_Va00A048CC: matched references place it at VA 0xe048cc (zero-filled .bss).
 Rva00512C88ObjA * g_Va00A048CC;
-extern Rva00512C88ObjB *g_Va009FEDF0;
 
 void Rva00512C88Shutdown()
 {
@@ -62,7 +63,7 @@ void Rva00512C88Shutdown()
 		p = 0;
 	operator delete(p);
 	g_Va00A048CC = 0;
-	g_Va009FEDF0->v94(0);
+	(*(Rva00512C88ObjB **)&TheInGameUI)->v94(0);
 }
 
 // ?Rva00512CCDShutdown@@YAXXZ @0x00512CCD (18B):
@@ -73,5 +74,3 @@ void Rva00512CCDShutdown()
 	if (g_Va00A048CC != 0)
 		g_Va00A048CC->v2(0);
 }
-// ?g_Va009FEDF0@@3PAVRva00512C88ObjB@@A: the global at VA 0xdfedf0 is ?TheInGameUI@@3PAVInGameUI@@A.
-#pragma comment(linker, "/alternatename:?g_Va009FEDF0@@3PAVRva00512C88ObjB@@A=?TheInGameUI@@3PAVInGameUI@@A")
