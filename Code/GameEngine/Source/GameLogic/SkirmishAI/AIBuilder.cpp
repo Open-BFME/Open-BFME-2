@@ -56,7 +56,15 @@ virtual Xfer &xferBool(bool *);
 };
 
 
-class AIDozerManager {public: void DoXfer(Xfer*); void rva00599825(int);};
+namespace _STL {
+template <class T> class allocator {};
+template <class T, class A> class _List_base
+{
+public:
+    void clear();
+};
+}
+class AIDozerManager {public: void DoXfer(Xfer*); void rva00599825(int); void rva00599606();};
 class AIBaseBuilder {public: void DoXfer(Xfer*); void notifyBuildingDestroyed(Object *);};
 #include "AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
 class AIWallBuilder {public: void DoXfer(Xfer*);};
@@ -231,4 +239,13 @@ void AIBuilder::unRegisterProducedObject(Object *object)
     }
     if ((object->template04->kindOf109 & 0x40) && (object->flags438 & 1))
         notifyDozerDead(reinterpret_cast<Rva005996FFArg *>(object));
+}
+
+// Native 599606..59960B is a five-byte tail jump to the rowed list-base clear
+// at 23DAA5. Native 4EC53B supplies AIBuilder's +140 AIDozerManager receiver,
+// also established by the matched DoXfer and produced-object calls above.
+// The helper's purpose follows the target callee; its name remains opaque.
+void AIDozerManager::rva00599606()
+{
+    reinterpret_cast<_STL::_List_base<int, _STL::allocator<int> > *>(this)->clear();
 }
