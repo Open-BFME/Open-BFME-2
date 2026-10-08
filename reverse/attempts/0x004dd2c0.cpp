@@ -1,3 +1,16 @@
+// ?OnDeactivation@EmotionNugget@@QAEXXZ
+// partial score=0.9 date=2026-10-09
+// Retail/WB pass 2026-10-09: reconstructed from the complete target body
+// and WorldBuilder's EmotionNugget.cpp sibling. Member offsets, vtable slots,
+// frame comparisons, and call targets are retail evidence. Method identity is
+// the WB assertion/callgraph lead; the entry's original getter names remain
+// unresolved. The BFME 1 emotion unit at 0bef414b5 was compiled and placed no
+// new target bodies. This is a near match, not recovered coverage.
+// Real StringBase::isEmpty template definition from string_base.cpp makes
+// its nonthrowing implementation visible. Direct condition temporaries then
+// reproduce retail's cleanup-state pattern. The old bank's cached FX pointer,
+// unguarded null-AI tail, and signed expiry comparison were target divergences.
+// A word at Object+0x124 owns the cleared 0x100 model-condition mask.
 // ?rva004DD2C0@Emotion@@QAEXXZ
 // partial score=0.93 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
@@ -11,12 +24,18 @@
 // callees rowed map<int,int>::operator[] 0x0028932C, map<ushort,int> 0x004DD277,
 // Object::rva0029439D, GameLogic::findObjectByID 0x00049DC5,
 // FXList::doFXObj 0x000B2235, AIUpdateInterface::rva002632E1,
-// Object::rva00293C77/0x0028CFB2/0x0028AE6D, AsciiField::get 0x004DC8E7,
+// Object::clearAndSetModelConditionFlagsForHorde/0x0028CFB2/0x0028AE6D, AsciiField::get 0x004DC8E7,
 // StringBase::isEmpty 0x00001E2F/releaseBuffer 0x00036410,
-// Object::rva0028EA91 (pin); TheGameLogic 0x009FE78C.
+// Object::addAttributeModifierToPool (pin); TheGameLogic 0x009FE78C.
 
 #include <map>
 #include "ascii_string.h"
+template <typename T>
+inline bool StringBase<T>::isEmpty() const
+{
+    return m_data == 0 || m_data->length == 0;
+}
+
 
 struct Gen_lt_00940b40 : public _STL::less<unsigned short> {};
 
@@ -35,7 +54,7 @@ public:
 	Object *findObjectByID(ObjectID id);
 public:
 	char m_pad00[0x40];
-	int m_frame;
+	unsigned int m_frame;
 };
 
 extern GameLogic *TheGameLogic;
@@ -85,14 +104,14 @@ class Object
 {
 public:
 	void *rva0029439D();
-	void rva00293C77(const int *a, const int *b);
+	void clearAndSetModelConditionFlagsForHorde(const int *a, const int *b);
 	void rva0028CFB2(const int *a, const int *b);
 	void rva0028AE6D();
-	bool rva0028EA91(const AsciiString &name, int value);
+	bool addAttributeModifierToPool(const AsciiString &name, int value);
 public:
-	char m_pad00[0x125];
-	volatile unsigned char m_byte125;
-	char m_pad126[0x258 - 0x126];
+	char m_pad00[0x124];
+	unsigned int m_conditionWord124;
+	char m_pad128[0x258 - 0x128];
 	AIUpdateInterface *m_ai258;
 };
 
@@ -121,47 +140,53 @@ public:
 	unsigned char m_184;
 };
 
-class Emotion
+class EmotionNugget
 {
 public:
-	void rva004DD2C0();
+	void OnDeactivation();
 private:
 	Object *m_object;
 	Rva004DC8E7AsciiField *m_entry;
 	int m_id08;
 	unsigned short m_key0C;
 	char m_pad0E[2];
-	int m_frame10;
+	unsigned int m_frame10;
 	_STL::map<int, int> m_map14;
 	_STL::map<unsigned short, int, Gen_lt_00940b40> m_map20;
 	int m_2C;
-	int m_start30;
+	unsigned int m_start30;
 };
 
 // ?rva004DD2C0@Emotion@@QAEXXZ present-unmatched
-void Emotion::rva004DD2C0()
+void EmotionNugget::OnDeactivation()
 {
 	if (m_entry->m_10)
-		m_frame10 = m_entry->m_10 + TheGameLogic->m_frame;
+		m_frame10 = TheGameLogic->m_frame + m_entry->m_10;
 	if (m_entry->m_14 && m_id08)
-		m_map14[m_id08] = m_entry->m_14 + TheGameLogic->m_frame;
+	{
+		int duration = m_entry->m_14;
+		unsigned frame = TheGameLogic->m_frame;
+		m_map14[m_id08] = frame + duration;
+	}
 	if (m_entry->m_18 && m_key0C)
-		m_map20[m_key0C] = m_entry->m_18 + TheGameLogic->m_frame;
+	{
+		int duration = m_entry->m_18;
+		unsigned frame = TheGameLogic->m_frame;
+		m_map20[m_key0C] = frame + duration;
+	}
 	if (m_entry->m_fx38)
 	{
-		const FXList *fx = m_entry->m_fx38;
 		Object *obj = m_object;
 		void *iface = obj->rva0029439D();
-		Object *who = obj;
 		if (iface)
-			who = ((Rva0029439DIface *)iface)->v19();
+			obj = ((Rva0029439DIface *)iface)->v19();
 		int id = m_id08;
 		Object *found = TheGameLogic->findObjectByID((ObjectID)id);
 		if (found || !id)
 		{
-			if (!who)
-				who = m_object;
-			FXList::doFXObj(fx, who, found);
+			if (!obj)
+				obj = m_object;
+			FXList::doFXObj(m_entry->m_fx38, obj, found);
 		}
 	}
 	AIUpdateInterface *ai = m_object->m_ai258;
@@ -174,27 +199,22 @@ void Emotion::rva004DD2C0()
 			if (m_entry->m_184)
 				ai->m_byte3C5 = 0;
 		}
-	}
 	{
-		Object *obj = m_object;
-		void *iface = obj->rva0029439D();
+		void *iface = m_object->rva0029439D();
 		if (iface)
-			obj->rva00293C77(&m_entry->m_a0, &m_entry->m_138);
+			m_object->clearAndSetModelConditionFlagsForHorde(&m_entry->m_a0, &m_entry->m_138);
 		else
-			obj->rva0028CFB2(&m_entry->m_a0, &m_entry->m_138);
-		if (m_object->m_byte125 & 1)
+			m_object->rva0028CFB2(&m_entry->m_a0, &m_entry->m_138);
+		Object *object = m_object;
+		if (object->m_conditionWord124 & 0x100)
 		{
-			m_object->m_byte125 &= ~1;
-			m_object->rva0028AE6D();
+			object->m_conditionWord124 &= ~0x100;
+			object->rva0028AE6D();
 		}
 	}
-	AsciiString name = m_entry->get();
-	bool doApply = true;
-	if (((StringBase<char> *)&name)->isEmpty() || TheGameLogic->m_frame < m_start30 + m_entry->m_40 || !m_entry->m_flag44)
-		doApply = false;
-	if (doApply)
+	if (!((const StringBase<char> &)(m_entry->get())).isEmpty() && TheGameLogic->m_frame >= m_start30 + m_entry->m_40 && m_entry->m_flag44)
 	{
-		AsciiString name2 = m_entry->get();
-		m_object->rva0028EA91(name2, m_entry->m_48);
+		m_object->addAttributeModifierToPool(m_entry->get(), m_entry->m_48);
+	}
 	}
 }
