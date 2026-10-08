@@ -9,6 +9,10 @@
 
 #include <map>
 
+// Constructor placement at 0x004AEF23 is bounded by the preceding setter's
+// ret 4 and RespawnUpdate's next entry at 0x004AEF46. The 35-byte body
+// independently establishes the argument at +0, zeros at +4/+8, float 1
+// at +12, and byte zero at +16. This remains an opaque record identity.
 struct Rva004AF531Rec
 {
 	unsigned m_key;
