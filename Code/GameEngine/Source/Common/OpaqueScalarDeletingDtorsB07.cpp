@@ -38,6 +38,7 @@
 //   0x003FE5F3  0x003FE58A  0x00C37E48#0
 
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 struct EmitVtableTag;
 
@@ -312,6 +313,9 @@ public:
 	T *_M_finish;
 	T *_M_end_of_storage;
 	T *erase(T *);
+    T *erase(T *, T *);
+    T *begin() { return _M_start; }
+    T *end() { return _M_finish; }
 };
 }
 
@@ -415,13 +419,36 @@ Rva003F8E20::Rva003F8E20(EmitVtableTag *)
 {
 }
 
-class Rva003F9D08
+// Retail performs an explicit clear before ordinary member destruction.
+// releaseBuffer nulls each string pointer; the subsequent automatic release
+// is consequently safe. The final vptr store proves the Snapshot base.
+extern "C" void __cdecl free(void *);
+struct BfmePod8 { unsigned int words[2]; };
+namespace _STL {
+template <> inline vector<BfmePod8>::~vector()
+{
+    if (_M_start) free(_M_start);
+}
+}
+class Rva003F9D08 : public Snapshot
 {
 public:
-	Rva003F9D08(EmitVtableTag *);
-public:
-	virtual ~Rva003F9D08();
+    Rva003F9D08(EmitVtableTag *);
+    virtual ~Rva003F9D08();
+    AsciiString string04, string08, string0C, string10;
+    char unmodelled14[0x3C-0x14];
+    _STL::vector<BfmePod8> vector3C;
 };
+
+Rva003F9D08::~Rva003F9D08()
+{
+    string04.clear();
+    string08.clear();
+    string0C.clear();
+    string10.clear();
+    _STL::vector<BfmePod8> *vector = &vector3C;
+    vector->erase(vector->begin(), vector->end());
+}
 
 // ?<Rva003F9D08::Rva003F9D08> absent-from-retail
 Rva003F9D08::Rva003F9D08(EmitVtableTag *)
@@ -444,8 +471,8 @@ struct Rva003FCE38Handle
 class Rva003FCD71 { public: void rva003FCD71(); };
 class CreateAHeroData;
 class Rva00211541 { public: void rva00211541(CreateAHeroData *); };
-class Rva00DFE1C8Host;
-extern Rva00DFE1C8Host *g_00DFE1C8;
+class LivingWorldManager;
+extern LivingWorldManager *TheLivingWorldManager;
 class Rva003FCE38
 {
 public:
@@ -460,8 +487,8 @@ Rva003FCE38::~Rva003FCE38()
 {
     string04 = AsciiString::TheEmptyString;
     ((Rva003FCD71 *)this)->rva003FCD71();
-    if (g_00DFE1C8)
-        ((Rva00211541 *)g_00DFE1C8)->rva00211541((CreateAHeroData *)this);
+    if (TheLivingWorldManager)
+        ((Rva00211541 *)TheLivingWorldManager)->rva00211541((CreateAHeroData *)this);
 }
 
 // ?<Rva003FCE38::Rva003FCE38> absent-from-retail
