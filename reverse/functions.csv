@@ -72038,3 +72038,4 @@ _VP6_GetYUVConfig,,0x001B5C60,1147,Code/Libraries/Source/VP6/GetYUVConfig.cpp,ma
 ?rva0058D408@NetPacket@@IAE_NPAVNetCommandRef@@@Z,,0x0058D408,89,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,
 ?writeINI@?$DefaultModuleTemplate@$06@FXParticleSystem@@UBEXAAVFile@@I@Z,,0x003A5E78,675,Code/GameEngine/Source/GameClient/System/FXParticleSystem/WindModuleTemplateWriteINI.cpp,matched,
 ?writeINI@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@UBEXAAVFile@@I@Z,0x0055C263,0x0055B735,302,Code/GameEngine/Source/GameClient/System/FXParticleSystem/AlphaModuleTemplateWriteINI.cpp,matched,
+?writeINI@RenderObjectDrawModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z,0x00563655,0x00563655,675,Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleTemplateWriteINI.cpp,matched,
