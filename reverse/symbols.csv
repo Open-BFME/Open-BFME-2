@@ -2439,7 +2439,6 @@ name,address,notes
 ??0Rva00342BAE@@QAE@PAVStateMachine@@_N@Z,0x00342BAE,AIInternalMoveToState-derived ctor (machine flag) with float/int/bool members; true size 70 (ghidra 33B extent is short); base for leaf ctors 0x00342C47 0x00342D19
 ??0Rva0034301B@@QAE@PAVStateMachine@@@Z,0x0034301B,unrowed 0x58 AI-state ctor called from 0x3444CE; RETAIL REL32 at 0x00344518
 ??0Rva00343042@@QAE@PAVStateMachine@@@Z,0x00343042,unrowed 0x58 AI-state ctor called from 0x343838; RETAIL REL32 at 0x00343877
-??0Rva003525E0Pair@@QAE@ABV0@@Z,0x003B3FCD,Rva003525E0Pair copy ctor called by Rva003529B0 clone ctor 0x003B410E; donor Rva003529B0Clone.cpp member-without-body
 ??0Rva003529B0@@QAE@PBV0@@Z,0x003B410E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0Rva00355D66@@QAE@XZ,0x00355D4E,ICF twin of Rva00490470 ctor for Rva00355F3E base at retail 0x00355EFF read from its REL32 displacement; body unrowed
 ??0Rva00360BB8Store@@QAE@XZ,0x00360BB8,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence

@@ -16,15 +16,60 @@
 
 extern int Gen00C1F470;
 
+// The pair's two leaf chains (copy constructors and the first chain's clear
+// rowed in Rva003BCopyLeaves.cpp and Rva003BClearLeaves.cpp).
+class Rva003B31DF
+{
+public:
+	Rva003B31DF(const Rva003B31DF &other);
+	~Rva003B31DF() { clear(); }
+	void clear();
+
+private:
+	Rva003B31DF *m_next;
+	int m_a;
+	int m_b;
+};
+
+class Rva003B3204
+{
+public:
+	Rva003B3204(const Rva003B3204 &other);
+
+private:
+	Rva003B3204 *m_next;
+	int m_a;
+	int m_b;
+};
+
 class Rva003525E0Pair
 {
 public:
 	Rva003525E0Pair(const Rva003525E0Pair &other);
 
 private:
-	void *m_a;
-	void *m_b;
+	Rva003B31DF *m_a;
+	Rva003B3204 *m_b;
 };
+
+// ??0Rva003525E0Pair@@QAE@ABV0@@Z, retail 0x003B3FCD..0x003B4071 (164 bytes,
+// EH, RET 4; Ghidra stops at its inline catch funclet, 108 bytes in): the
+// pair copy the clone constructor 0x003B410E runs. Each chain is deep-copied
+// when present; if the second copy throws, the first chain is cleared and
+// freed and the exception rethrown.
+Rva003525E0Pair::Rva003525E0Pair(const Rva003525E0Pair &other)
+{
+	m_a = other.m_a ? new Rva003B31DF(*other.m_a) : 0;
+	try
+	{
+		m_b = other.m_b ? new Rva003B3204(*other.m_b) : 0;
+	}
+	catch (...)
+	{
+		delete m_a;
+		throw;
+	}
+}
 
 class Rva003529B0
 {
