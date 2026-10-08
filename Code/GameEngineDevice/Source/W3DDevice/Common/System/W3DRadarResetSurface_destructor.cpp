@@ -28,3 +28,21 @@ W3DRadarResetSurface::~W3DRadarResetSurface()
 		release( surface );
 	}
 }
+
+// BF1 9cb DX8WebBrowserInitialize.cpp COM-pointer AddRef is a semantic lead.
+// Target 176CC0..176CCCD is independently INT3-bounded: conditional stdcall
+// slot 1 invocation on the held pointer. Original holder identity unknown.
+typedef void (__stdcall *Rva00176CC0Slot)(void *);
+struct Rva00176CC0Holder
+{
+    void *pointer;
+    void invokeSlot1();
+};
+void Rva00176CC0Holder::invokeSlot1()
+{
+    void *p = pointer;
+    if (p) {
+        void **vtable = *(void ***)p;
+        ((Rva00176CC0Slot)vtable[1])(p);
+    }
+}

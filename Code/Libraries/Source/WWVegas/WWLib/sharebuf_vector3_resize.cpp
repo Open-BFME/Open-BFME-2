@@ -68,3 +68,17 @@ void ShareBufferClass<T>::Resize(int newsize)
 }
 
 template void ShareBufferClass<Vector3>::Resize(int);
+
+// BF1 9cb Rva009239F0Accessors.cpp supplies the scalar expression. Native
+// 169460..16946B has independent INT3 bounds and multiplies receiver+10 by
+// twelve. Preserve unknown original owner and complete class bounds.
+struct Rva00169460Fields
+{
+    char unknown00[0x10];
+    unsigned int count;
+    unsigned int scaledCount() const;
+};
+unsigned int Rva00169460Fields::scaledCount() const
+{
+    return count * 12u;
+}
