@@ -16,6 +16,7 @@
 class BaseA
 {
 public:
+	BaseA() : m_04(2), m_08(1) {}
 	virtual void a0();
 	virtual void a1();
 	virtual ~BaseA() {}
@@ -27,21 +28,39 @@ private:
 class Rva00506B1B
 {
 public:
+	Rva00506B1B();
 	virtual ~Rva00506B1B();
 	virtual void b1();
 	virtual void rva004EA33A();
 private:
-	unsigned char m_pad04[0x18 - 0x04];
+	bool m_04;
 };
 
 class Rva004EA3B8 : public BaseA, public Rva00506B1B
 {
 public:
+	Rva004EA3B8(void *owner);
 	virtual ~Rva004EA3B8();
 	virtual void rva004EA33A();
+	void rva004EA420();
 private:
+	void *m_owner14;						// +0x14
+	int m_18;
+	int m_1C;
+	int m_20;
 	_STL::vector<int> m_items24;			// +0x24
 };
+
+// ??0Rva004EA3B8@@QAE@PAX@Z, retail 0x004EAAF3..0x004EAB6E (123 bytes, EH,
+// RET 4): BaseA (fields 2 and 1; EH state 0), the rowed Rva00506B1B
+// constructor 0x00506B1B, the owner and the three scalar fields, both
+// vtables, the vector (rowed _Vector_base<int> 0x00211E58; state 2), then the
+// class's 0x004EA420 set-up (not yet rowed; pinned).
+Rva004EA3B8::Rva004EA3B8(void *owner)
+	: m_owner14(owner), m_18(0), m_1C(0), m_20(-1)
+{
+	rva004EA420();
+}
 
 Rva004EA3B8::~Rva004EA3B8()
 {
