@@ -131,7 +131,7 @@ public:
 	void rva004EDF03();
 	void rva004ECE1C();
 	bool start(Rva00506909Request *request, void *arg);
-	void start(void *owner);
+	bool start(void *owner);
 	void rva004ED6D2(class Team *unit);
 	void NotifyTeamCancelled(class Team *unit);
 	char m_pad04[0x2C - 4];

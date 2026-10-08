@@ -214,6 +214,7 @@ public:
 	void end(bool a, bool b);
 	void preUpdate();
     bool start(Rva00506909Request *request, void *owner);
+    bool start(void *owner);
     void NotifyTeamCreated(Team *team);
 	void updateTeamInfos();
 	void calcLastTeamPos();
@@ -505,3 +506,30 @@ bool AITactic::start(Rva00506909Request *request, void *owner)
 
 
 
+
+// FACT: native 0x004ED955..0x004EDA60, WB owner-only start overload.
+// Owner name is +0x4C; TARGETLESS is entry 4 of the existing five-name table.
+bool AITactic::start(void *owner)
+{
+    m_24 = owner;
+    if (getNumberOfTeamsNeeded() > 0) {
+        unsigned int created = 0;
+        for (unsigned int i = 0; i < getNumberOfTeamsNeeded(); ++i) {
+            AsciiString name;
+            name.format("%s_%s_%u_%u", AITargetTypeNames[4], m_name.str(), m_30, i);
+            TeamPrototype *proto = (TeamPrototype *)TheTeamFactory->initTeamForTacticalAI(
+                name, (void *)&((Player *)owner)->nameForTeamCreation(), -1, m_30);
+            if (proto) {
+                m_protos.push_back(proto);
+                proto->m_tacticKind = 4;
+                if (initializeTeamTemplate(proto, i)) ++created;
+            }
+        }
+        if (created != getNumberOfTeamsNeeded()) {
+            m_20 = 0;
+            end(false, false);
+            return false;
+        }
+    } else m_51 = true;
+    return true;
+}
