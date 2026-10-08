@@ -101,3 +101,11 @@ int Rva003974CE::apply(CastleObjectCallback callback,int context) {
  if(!applyCastleRange(field<_STL::vector<ObjectID> >(this,0x5c),callback,context)) return 0;
  return 1;
 }
+
+// Native cdecl callback VA795AD2..795AF2 (32B), embedded at 0x0039763C.
+// Its second word is unused; the witnessed traversal call supplies zero.
+int Rva00395AD2Destroy(Object* object,int context) {
+ if(field<unsigned char>(objectTemplate(object),0x115)&1)
+  TheGameLogic->destroyObject(object);
+ return 1;
+}
