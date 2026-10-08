@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Reference: Open-BFME-1 968ca36c3265b295297e6aed45a6bd89ffe59c40,
 // game/GameEngine/Source/GameLogic/AI/PathfindLayerResetFull.cpp.
 // Target identity: the adjacent verified PathfindLayer::getCell and
@@ -6,6 +6,8 @@
 // Target adaptation: bridge +34, triggers +38, trigger ID +3C; +2C becomes
 // -1 and +30 is retained. The original name of this 66-byte wrapper and its
 // 105-byte allocation-clear helper remain unknown.
+
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 void __cdecl operator delete(void *pointer);
 void __cdecl operator delete[](void *pointer);
@@ -67,8 +69,12 @@ class PathfindCell
 public:
 	void rva0052DED3();
 	void rva0052D84C(Xfer *xfer);
-private:
-	unsigned char m_storage[0x10];
+public:
+	unsigned char m_storage[8];
+	unsigned short m_zone;
+	unsigned short m_padding;
+	unsigned int m_flags;
+	bool SetType_Dirty(int);
 };
 
 // Reuse the established provider's linker spelling for the native 75-byte
@@ -100,6 +106,7 @@ public:
 class PathfindLayer
 {
 public:
+	void ClassifyWallCells();
 	void rva00366DEC();
 	void rva003667D4();
 	void rva003666FD(Xfer *xfer);
@@ -192,4 +199,41 @@ void PathfindLayer::rva003666FD(Xfer *xfer)
 	xfer->xferInt(m_zone);
 	xfer->xferBool(m_destroyed);
 	xfer->xferInt(m_triggerObjectID);
+}
+
+// Native 0x00366B77..0x00366CEA, RET0. WB F29A70 names
+// PathfindLayer::ClassifyWallCells and carries the same corner tests and
+// reset/type classification. Target cell zone +8 and layer/zone flags +C
+// are read from native stores and the already verified setter providers.
+// Native tests nonzero in the branch reached when the count is not positive.
+// Bitfield setter providers are already verified under their ledger owner.
+class Rva00366500 { public: bool rva00366500(int);bool rva0036652D(int);};
+class Rva00366B30 { public: bool rva00366B30(const Coord3D*);};
+void PathfindLayer::ClassifyWallCells()
+{
+ m_startCell.x=-1;m_startCell.y=-1;m_endCell.x=-1;m_endCell.y=-1;
+ for(int x=0;x<m_width;++x) {
+  for(int y=0;y<m_height;++y) {
+   PathfindCell *cell=&m_layerCells[x][y];
+   reinterpret_cast<Rva00366500*>(cell)->rva0036652D(0);
+   reinterpret_cast<Rva00366500*>(cell)->rva00366500(m_layer);
+   int worldX=x+m_xOrigin, worldY=y+m_yOrigin;
+   Coord3D lo,hi,point;
+   lo.y=worldY*10.0f;hi.y=lo.y+10.0f;
+   lo.x=worldX*10.0f;hi.x=lo.x+10.0f;
+   int inside=0;
+   if(reinterpret_cast<Rva00366B30*>(this)->rva00366B30(&lo)) ++inside;
+   point=lo;point.y=hi.y;
+   if(reinterpret_cast<Rva00366B30*>(this)->rva00366B30(&point)) ++inside;
+   if(reinterpret_cast<Rva00366B30*>(this)->rva00366B30(&hi)) ++inside;
+   point=lo;point.x=hi.x;
+   if(reinterpret_cast<Rva00366B30*>(this)->rva00366B30(&point)) ++inside;
+   cell->rva0052DED3();
+   reinterpret_cast<Rva00366500*>(cell)->rva00366500(m_layer);
+   cell->m_zone=static_cast<unsigned short>(m_zone);
+   cell->SetType_Dirty(5);
+   if(inside>0)cell->SetType_Dirty(0);
+   else if(inside!=0)cell->SetType_Dirty(6);
+  }
+ }
 }
