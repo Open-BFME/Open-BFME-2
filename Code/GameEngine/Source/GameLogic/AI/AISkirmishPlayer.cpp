@@ -173,6 +173,62 @@ private:
 };
 extern AI *TheAI;
 
+class TeamPrototype
+{
+public:
+	Bool evaluateProductionCondition();
+	Int countTeamInstances();
+	const AsciiString &getName() const { return m_name; }
+
+	char m_pad000[0x14];
+	AsciiString m_name;			// +0x14
+	char m_pad018[0x218 - 0x18];
+	Int m_maxInstances;			// +0x218
+};
+
+class Team
+{
+public:
+	TeamPrototype *getPrototype() const { return m_proto; }
+private:
+	char m_pad000[0x30];
+	TeamPrototype *m_proto;			// +0x30
+};
+
+class TeamInQueue
+{
+public:
+	TeamInQueue *dlink_next_TeamBuildQueue() const { return m_next; }
+
+	TeamInQueue *m_prev;			// +0x04 (after the vfptr)
+	TeamInQueue *m_next;			// +0x08
+	char m_pad0C[0x1C - 0x0C];
+	Team *m_team;				// +0x1C
+private:
+	virtual ~TeamInQueue();
+};
+
+template <class OBJCLASS> class DLINK_ITERATOR
+{
+public:
+	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
+	DLINK_ITERATOR(OBJCLASS *cur, GetNextFunc getNextFunc) : m_cur(cur), m_getNextFunc(getNextFunc) {}
+	void advance() { if (m_cur) m_cur = (m_cur->*m_getNextFunc)(); }
+	Bool done() const { return m_cur == 0; }
+	OBJCLASS *cur() const { return m_cur; }
+private:
+	OBJCLASS *m_cur;
+	GetNextFunc m_getNextFunc;
+};
+
+class GlobalData
+{
+public:
+	char m_pad000[0x9B8];
+	Int m_debugAI;				// +0x9B8
+};
+extern GlobalData *TheWritableGlobalData;
+
 class AIPlayer
 {
 protected:
@@ -207,10 +263,18 @@ protected:
 	virtual Bool startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName);	// +0x60
 	virtual Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);	// +0x64
 
+	Bool isPossibleToBuildTeam(TeamPrototype *proto, Bool requireIdleFactory, Bool &notEnoughMoney);
+	Bool rva004F13D8(TeamPrototype *proto);	// BFME 2 on-field shortcut
+	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
+	{
+		return DLINK_ITERATOR<TeamInQueue>(m_teamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
+	}
+
 public:
 	static void getPlayerStructureBounds(Region2D *bounds, Int playerNdx);
 protected:
-	unsigned char m_pad04[0x0C - 0x04];
+	TeamInQueue *m_teamBuildQueue;		// +0x04
+	TeamInQueue *m_teamReadyQueue;		// +0x08
 	Player *m_player;			// +0x0C
 	unsigned char m_pad10[0x34 - 0x10];
 	Coord3D m_baseCenter;			// +0x34
@@ -233,6 +297,7 @@ protected:
 	virtual Bool selectTeamToBuild();
 	virtual Bool selectTeamToReinforce(Int minPriority);
 	virtual Bool startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName);
+	virtual Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);
 
 	Int getMyEnemyPlayerIndex();
 	void acquireEnemy();
@@ -349,6 +414,48 @@ Bool AISkirmishPlayer::checkBridges(Object *unit, Waypoint *way)
 		}
 	}
 	return false;
+}
+
+// ?isAGoodIdeaToBuildTeam@AISkirmishPlayer@@MAE_NPAVTeamPrototype@@@Z @0x004EF73A 323B
+// BFME 2 adds AIPlayer's on-field shortcut (rva004F13D8) before the
+// factory and money test.
+Bool AISkirmishPlayer::isAGoodIdeaToBuildTeam(TeamPrototype *proto)
+{
+	// Check condition.
+	if (!proto->evaluateProductionCondition()) {
+		return false;
+	}
+	// check build limit
+	if (proto->countTeamInstances() >= proto->m_maxInstances) {
+		if (TheWritableGlobalData->m_debugAI) {
+			AsciiString str;
+			str.format("Team %s not chosen - %d already exist.", proto->getName().str(), proto->countTeamInstances());
+			TheScriptEngine->AppendDebugMessage(str, false);
+		}
+		return false;	// Max already built.
+	}
+
+	for (DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamBuildQueue(); !iter.done(); iter.advance())
+	{
+		TeamInQueue *team = iter.cur();
+		if (team->m_team->getPrototype() == proto) {
+			return false; // currently building one of these.
+		}
+	}
+	Bool needMoney;
+	if (!rva004F13D8(proto) && !isPossibleToBuildTeam(proto, true, needMoney)) {
+		if (TheWritableGlobalData->m_debugAI) {
+			AsciiString str;
+			if (needMoney) {
+				str.format("Team %s not chosen - Not enough money.", proto->getName().str());
+			} else {
+				str.format("Team %s not chosen - Factory/tech missing or busy.", proto->getName().str());
+			}
+			TheScriptEngine->AppendDebugMessage(str, false);
+		}
+		return false;
+	}
+	return true;
 }
 
 // ?acquireEnemy@AISkirmishPlayer@@IAEXXZ @0x004EFB3D 622B
