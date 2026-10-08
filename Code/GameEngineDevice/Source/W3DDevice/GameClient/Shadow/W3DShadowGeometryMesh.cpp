@@ -179,6 +179,7 @@ class W3DShadowGeometryMesh
 	friend class W3DVolumetricShadow;
 
 public:
+	W3DShadowGeometryMesh(void);
 	~W3DShadowGeometryMesh( void );
 
 	const Vector3& GetPolygonNormal(long dwPolyNormId) const
@@ -373,4 +374,16 @@ PolyNeighbor *W3DShadowGeometryMesh::GetPolyNeighbor( Int polyIndex )
 	if( polyIndex < 0 || polyIndex >= m_numPolyNeighbors )
 		return NULL;
 	return &m_polyNeighbors[ polyIndex ];
+}
+
+// Native EFD4B..EFD77: W3DShadowGeometry ctor F1E48 passes this entry to
+// the array ctor iterator at F1E85, stride 0x34, count 160. It initializes
+// the same record whose fields initFromMesh and the mesh methods establish.
+// BFME 1 donor ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f supplies the
+// mesh-constructor purpose; the extra stores and sentinel come from retail.
+W3DShadowGeometryMesh::W3DShadowGeometryMesh(void)
+{
+ m_polygonArray=0; m_vertexArray=0; m_verts=0; m_meshRobjIndex=-1;
+ m_polygonNormals=0; m_numVerts=0; m_numVertsTotal=0; m_numPolygons=0;
+ m_parentVerts=0; m_polyNeighbors=0; m_numPolyNeighbors=0; m_parentGeometry=0; m_skinned=false;
 }

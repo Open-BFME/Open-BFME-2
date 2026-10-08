@@ -1,5 +1,8 @@
 // cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
-// Open-BFME5: lift MASM dump to standalone C++ thunk.
+// W3DShadowGeometry constructor and virtual key accessor.
+// BFME 1 donor ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f supplies Get_Key
+// semantics; retail constructor establishes AsciiString at complete this+0x10.
+// Native F1EC2..F1ED3 is a full 17-byte accessor with two terminal returns.
 
 #define MAX_SHADOW_CASTER_MESHES 160
 
@@ -57,7 +60,9 @@ public:
 	W3DShadowGeometry(void);
 	~W3DShadowGeometry(void) {}
 
-	virtual const char *Get_Key(void);
+	// Secondary HashableClass vftable 0x00BCEFF4 slot 1 points to F1EC2.
+	// MSVC receives this as the Hashable subobject: m_namebuf is then +8.
+	virtual const char *Get_Key(void) { return m_namebuf.str(); }
 
 private:
 	AsciiString m_namebuf;
