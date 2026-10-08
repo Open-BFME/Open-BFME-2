@@ -129,6 +129,9 @@ extern BuffTypeConfig g_00DC0138[9];
 class Rva0036276F {
 public:
     void rva0036276F();
+private:
+    char m_pad00[8];
+    BuffInstance m_buffs[9];
 };
 void BuffManager::TurnOnBuff(int type, void *thingTemplate, int duration, int color, float intensity)
 {
@@ -144,5 +147,69 @@ void BuffManager::TurnOnBuff(int type, void *thingTemplate, int duration, int co
         default:
             break;
         }
+    }
+}
+
+class Rva00362693
+{
+public:
+	bool rva00362693();
+private:
+	char m_00[4];
+	unsigned char m_04;
+	char m_05[0x18 - 0x05];
+	void *m_18;
+};
+
+struct Rva00362693Target
+{
+	char m_00[0x45];
+	unsigned char m_45;
+};
+
+bool Rva00362693::rva00362693()
+{
+	Rva00362693Target *target = (Rva00362693Target *)m_18;
+	return target != 0 && m_04 != 0 && target->m_45 == 0;
+}
+
+class Rva0036265E
+{
+public:
+	void rva0036265E(bool value);
+private:
+	char m_00[0xC];
+	int m_0C;
+	char m_10[0x18 - 0x10];
+	void *m_18;
+};
+
+struct Rva0036265ETarget
+{
+	char m_00[0x45];
+	unsigned char m_45;
+};
+
+void Rva0036265E::rva0036265E(bool value)
+{
+	Rva0036265ETarget *target = (Rva0036265ETarget *)m_18;
+	if (target == 0)
+		return;
+	if (m_0C != 1)
+		return;
+	target->m_45 = value;
+}
+
+// WB 0xF154F0 is unnamed; retained the existing neutral pin spelling.
+// Retail uses this+8, nine 68-byte buff instances and the table's mask word.
+void Rva0036276F::rva0036276F()
+{
+    unsigned int activeMask = 0;
+    for (int i = 0; i < 9; ++i) {
+        if (reinterpret_cast<Rva00362693 *>(&m_buffs[i])->rva00362693())
+            activeMask |= g_00DC0138[i].mask;
+    }
+    for (int i = 0; i < 9; ++i) {
+        reinterpret_cast<Rva0036265E *>(&m_buffs[i])->rva0036265E((activeMask & (1u << i)) != 0);
     }
 }
