@@ -93,6 +93,7 @@ rva	size	name	ledger_status	difficulty	depends_on
 001ba320	53	HorizontalLine_1_2_Scale_C	matched(placeholder Rva009A98E0)	1	
 001ba360	56	VerticalBand_1_2_Scale_C	matched(placeholder Rva009A9920Average)	1	
 001ba3a0	28	LastVerticalBand_1_2_Scale_C	matched(placeholder Rva009A9960CopyBytes)	1	
+001ba3c0	155	Scale1D_c	unlisted	2	
 001ba460	98	Scale1D_2t1_i	unlisted	1	
 001ba4d0	53	Scale1D_2t1_ps	matched(placeholder bfmeCopyColAA90)	1	
 001ba510	697	Scale2D	matched(placeholder Rva009A9AD0Scale2D)	3	001ba3c0 001ba460 001ba4d0
@@ -127,6 +128,7 @@ rva	size	name	ledger_status	difficulty	depends_on
 001bcf40	40	VP6_bitread	matched(placeholder bfmeGoUSC)	1	001c4f80
 001bcf70	5	VP6_bitread1	unlisted	1	001c4f80
 001bcf80	60	InitHeaderBuffer	matched(placeholder bfmeReadWordXF)	1	
+001bcfc0	129	ReadHeaderBits	matched(placeholder Rva009AC5D0ReadBits)	2	
 001bd050	1279	LoadFrameHeader	matched(placeholder Rva009AC660ReadHeader)	3	001bcfc0 001b7050 001bcee0 001b6900 001b6910 001bcf40 001b9410 001c4f00 001b71c0
 001bd550	28	VP6_LoadFrame	unlisted	1	001bd050
 001bd570	15	VP6_SetFrameType	unlisted	1	
@@ -204,12 +206,15 @@ rva	size	name	ledger_status	difficulty	depends_on
 001c74b0	204	ClampLevels_C	placeholder(Rva009B6BB0)	1	
 001c7580	183	CFastDeInterlace	placeholder(bfmeBlurRows)	1	
 001c7640	53	SetupDeblockValueArray_ForMMX	placeholder(Rva009B6D40)	1	
+001c7680	5028	DeblockLoopFilteredBand_MMX	none	3	
 001c8a30	5572	DeblockNonFilteredBand_MMX	none	3	
 001ca000	4240	DeblockNonFilteredBandNewFilter_MMX	placeholder(Rva001CA000Vp6WideAccum)	3	
 001cb090	11476	PlaneAddNoise_mmx	placeholder(Rva009BA790)	2	ext:001b6970,00629228
 001cdd70	253	ClampLevels_wmt	placeholder(Rva009BD470Vp6FilterSse)	1	
 001cde70	232	ClampLevels_mmx	none	1	
 001cdf60	232	MmxFastDeInterlace	placeholder(bfmeBlurRowsMmx)	1	
+001ce050	2596	DeringBlockStrong_MMX	placeholder(Rva009BD750Vp6FilterWide)	3	
+001cea80	2608	DeringBlockWeak_MMX	placeholder(Rva009BE180Vp6FilterWideV2)	3	
 001cf4b0	3721	DeblockLoopFilteredBand_WMT	none	3	
 001d0340	4068	DeblockNonFilteredBand_WMT	none	3	
 001d1330	524	PlaneAddNoise_wmt	none	2	ext:001b6970,00629228
@@ -236,6 +241,7 @@ rva	size	name	ledger_status	difficulty	depends_on
 001d3270	551	FilterHoriz_MMX	placeholder(bfmeFilterBlockMmx)	2	
 001d34a0	317	FilterVert_MMX	placeholder(bfmeFilterPairMmx)	2	
 001d35e0	2374	MMX_idct	none	3	
+001d3f30	1724	MMX_idct10	none	3	
 001d45f0	88	MMX_idct1	placeholder(Rva009C3CF0)	1	
 001d4650	1777	MMX_idct_DX	none	3	
 001d4d50	1034	MMX_idct10_DX	none	3	
