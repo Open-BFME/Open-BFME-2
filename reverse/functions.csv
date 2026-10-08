@@ -47797,8 +47797,8 @@ _rva0075B4C6D3DXQuaternionSlerp@16,,0x0075B4C6,6,Code/Libraries/Source/WWVegas/W
 ??E?$_Deque_iterator@UBfmePod840@@U?$_Nonconst_traits@UBfmePod840@@@_STL@@@_STL@@QAEAAU01@XZ,,0x00389011,12,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_large_bodies.cpp,matched,placed STLport deque iterator pre-increment; target 0x348 node stride
 ??E?$_Deque_iterator@VBuddyRequest@@U?$_Nonconst_traits@VBuddyRequest@@@_STL@@@_STL@@QAEAAU01@XZ,,0x00550B34,12,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_large_bodies.cpp,matched,placed STLport deque iterator pre-increment; target 0x2B8 node stride
 ??E?$_Deque_iterator@UBfmeOpaque2148@@U?$_Nonconst_traits@UBfmeOpaque2148@@@_STL@@@_STL@@QAEAAU01@XZ,,0x00550B40,12,Code/Libraries/Source/WWVegas/WWLib/StlportDeque2148Cleanup.cpp,matched,placed STLport deque iterator pre-increment; target 0x864 node stride
-?Rva00559F7EGet@@YAHH@Z,,0x00559F7E,23,Code/GameEngine/Source/Common/Rva00559F7ESwitchGetters.cpp,matched,2-case int switch returning 2 or 4; callers 0x00559FCE 0x00559FD4
-?Rva00559F95Get@@YAHH@Z,,0x00559F95,23,Code/GameEngine/Source/Common/Rva00559F7ESwitchGetters.cpp,matched,2-case int switch returning 3 or 2; callers 0x00559FCE 0x00559FD4
+?Rva00559F7EGet@@YAHH@Z,,0x00559F7E,23,Code/GameEngine/Source/Common/RTS/MpGameRules.cpp,matched,2-case int switch returning 2 or 4; callers 0x00559FCE 0x00559FD4
+?Rva00559F95Get@@YAHH@Z,,0x00559F95,23,Code/GameEngine/Source/Common/RTS/MpGameRules.cpp,matched,2-case int switch returning 3 or 2; callers 0x00559FCE 0x00559FD4
 ??0Rva003429B9@@QAE@PAVStateMachine@@@Z,,0x003429B9,59,Code/GameEngine/Source/Common/Rva003429B9Ctor.cpp,matched,AIInternalMoveToState-derived ctor hash 0xFA014ECE vtable 0x008126C0
 ?rva00336B88@Rva00336B88@@QAEXW4CommandSourceType@@@Z,,0x00336B88,92,Code/GameEngine/Source/Common/Rva00336B88AICommand.cpp,matched,AICommandParms 0x3A via 0x00351BD0 slot0 free 0x00030830 caller 0x003371A8
 ?rva00336B23@Rva00336B23@@QAEXPAXW4CommandSourceType@@@Z,,0x00336B23,101,Code/GameEngine/Source/Common/Rva00336B23AICommand.cpp,matched,caller 0x00337119 ctor 0x00351BD0 free 0x00030830

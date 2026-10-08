@@ -76,8 +76,24 @@ static const RuleCheck *mode0Checks[]={&ruleChecks[0],&ruleChecks[1],&ruleChecks
 static const RuleCombo *mode1Combos[]={&ruleCombo2,&ruleCombo3,&ruleCombo4,&ruleCombo5};
 static const RuleCheck *mode1Checks[]={&ruleChecks[0],&ruleChecks[1]};
 
-int Rva00559F7EGet(int);
-int Rva00559F95Get(int);
+__declspec(noinline) int Rva00559F7EGet(int a)
+{
+	switch (a) {
+	case 0: return 2;
+	case 1: return 4;
+	default: return 0;
+	}
+}
+
+__declspec(noinline) int Rva00559F95Get(int a)
+{
+	switch (a) {
+	case 0: return 3;
+	case 1: return 2;
+	default: return 0;
+	}
+}
+
 
 __declspec(noinline) const RuleCombo * const *Rva00559F48Get(int mode) {
     switch (mode) {
