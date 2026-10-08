@@ -61,7 +61,8 @@ template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 inline void* objectTemplate(Object* object) { return field<void*>(object,4); }
 inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); }
 class BuildListInfo;
-class CastleBehavior { public: Object* buildCastleStructure(BuildListInfo*,bool); void* GetArmyIDFromClosestObject(); Object* createOwnedObject(void*); void rva003993F2(bool); void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); };
+class ThingTemplate;
+class CastleBehavior { public: Object* buildCastleStructure(BuildListInfo*,bool); void* GetArmyIDFromClosestObject(); Object* createOwnedObject(void*); void rva003993F2(bool); void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); void initiateUnpack(bool,const ThingTemplate*); };
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
@@ -747,4 +748,33 @@ void CastleBehavior::rva003993F2(bool instant) {
  int index=0;
  BuildListInfo info;
  while(TheSidesList->rva0032BD25(key,index++,&info)) registerOwnedObject(buildCastleStructure(&info,instant));
+}
+
+// Native 00399C6C..00399D54 (232B), WB 00EB9B60. The native trace
+// names initiateUnpack; the BFME 1 ba7ddda7 donor at
+// game/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorInitiateUnpack.cpp
+// supplies the const template signature and transition purpose. Target bytes
+// establish the ASCII name at +98, state at +34, condition bit 218 and
+// type-dependent payment helpers; those differ from the donor layout/flow.
+// Calls retain the already-rowed address-derived provider identities.
+class Rva0039561F { public: int rva0039561F(ThingTemplate*); };
+class Rva00396B25 { public: void rva00396B25(); };
+class Rva00395CEB { public: void rva0039611E(); };
+void CastleBehavior::initiateUnpack(bool instant,const ThingTemplate* type) {
+ Object* owner=field<Object*>(this,8);
+ if(type) field<AsciiString>(this,0x98).set(field<AsciiString>((void*)type,0x64));
+ field<float>(this,0x4c)=0.0f;
+ if(instant) {
+  ((Rva00399959*)this)->unpack(true);
+  castleSetCondition(owner,218);
+  field<int>(this,0x34)=4;
+ } else {
+  field<int>(this,0x34)=1;
+  if(type) ((Rva0039561F*)this)->rva0039561F((ThingTemplate*)type);
+  else ((Rva00396B25*)this)->rva00396B25();
+ }
+ ((Rva00395CEB*)((char*)this+0xa0))->rva0039611E();
+ if(field<int>(TheGameLogic,0x1b4)>0 && g_00DFEFF0) {
+  fprintf(g_00DFEFF0,"CAMP: Frame %d: Castle %s(%d) ::initiateUnpack() called by %s",TheGameLogic->getFrame(),field<AsciiString>(objectTemplate(owner),0x64).str(),objectID(owner),field<AsciiString>(owner->getControllingPlayer(),0x4c).str());
+ }
 }

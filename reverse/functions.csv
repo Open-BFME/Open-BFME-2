@@ -70300,3 +70300,4 @@ _Rva001117E3Downsample,,0x001117E3,109,Code/GameEngineDevice/Source/W3DDevice/Ga
 ?onEnter@AIGiantBirdSwoopState@@UAE?AW4StateReturnType@@XZ,,0x0036BDF2,1039,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp,matched,BFME1 donor ba7ddda7e AIGiantBirdSwoopStateOnEnter.cpp; vtable 0xC17360 slot 4
 ?rva0036C438@AIGiantBirdSwoopState@@QAEX_N@Z,,0x0036C438,603,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp,matched,
 ?update@AIGiantBirdSwoopState@@UAE?AW4StateReturnType@@XZ,,0x0036C201,567,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdSwoopStateOnEnter.cpp,matched,
+?initiateUnpack@CastleBehavior@@QAEX_NPBVThingTemplate@@@Z,,0x00399C6C,232,Code/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp,matched,Native trace names initiateUnpack; WB00EB9B60 and BFME1 ba7ddda7 const-template donor; target ASCII state condition and payment ABI from bytes
