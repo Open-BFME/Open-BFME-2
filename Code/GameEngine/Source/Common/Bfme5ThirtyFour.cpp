@@ -256,3 +256,32 @@ BfmeRefVGO *__cdecl Rva006D0460Copy(BfmeRefVGO *first,
  }
  return result;
 }
+
+// Native6D04D0..6D0537. Two three-word source iterators and raw
+// output start proven by the two12-byte pushes at native caller6D1306;
+// walks backward over the pointer difference, retaining
+// each replacement exactly as6D0460. Original algorithm name unknown.
+BfmeRefVGO *__cdecl Rva006D04D0CopyBackward(Rva006D1130Iterator first,
+ Rva006D1130Iterator last, BfmeRefVGO *result) {
+ int count=last.position-first.position;
+ --last.position;
+ result+=count-1;
+ while(count) {
+  if(last.position!=result) {
+   unsigned *old=result->m_bfmeP;
+   if(old && --*old==0) {
+    Rva006D0280 *p=(Rva006D0280 *)result->m_bfmeP;
+    if(p) {
+     p->teardown();
+     g_pChainBlockAllocator->freeBlock(p,0x1c);
+    }
+   }
+   result->m_bfmeP=last.position->m_bfmeP;
+   if(result->m_bfmeP) ++*result->m_bfmeP;
+  }
+  --last.position;
+  --result;
+  --count;
+ }
+ return result;
+}
