@@ -23,6 +23,7 @@ class EAStringC
 public:
 	unsigned int GetInternalMaxSize() const { return m_rep->m_maxSize; }
 	void SetSize(int uSize);
+	void setCapacityWord_Rva006D2E00(unsigned int value);
 
 private:
 	EAStringRep *m_rep;
@@ -38,4 +39,14 @@ void EAStringC::SetSize(int uSize)
 		}
 	}
 	m_rep->m_size = (unsigned short)uSize;
+}
+
+// Clean BF1 9cbfb551fe Rva0089CompactHelpers.cpp setField04 supplies a
+// structural lead, not the original name. Target 6D2E00..6D2E0E has complete
+// INT3 boundaries and stores the argument low word at rep+4. The adjacent
+// verified GetInternalMaxSize and SetSize establish this real capacity field;
+// the original setter name and argument type remain unknown.
+void EAStringC::setCapacityWord_Rva006D2E00(unsigned int value)
+{
+    m_rep->m_maxSize = (unsigned short)value;
 }
