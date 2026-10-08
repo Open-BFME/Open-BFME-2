@@ -16185,3 +16185,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva004DFCE6@Rva004DFCE6@@QAEXPAXP6APAX0@Z@Z,0x004DFCE6,Native caller4DFE4F passes key and cdecl pointer-return callback; 361B callee uses both arguments in indirect callback and returns ret8; member identity stays address-derived
 ?prompt@Rva0054D438Prompt@@QAE_NHABVUnicodeString@@0UTreeHintRef00217D4C@@1@Z,0x0054D438,callee of ?prompt@Rva0054D4CDPrompt@@QAE_NHABVUnicodeString@@0UTreeHintRef00217D4C@@1@Z
 ?rva0033D3E8@Rva00239435@@QAE?AVRva002390CB@@ABVAsciiString@@@Z,0x0033D3E8,callee of ?rva00274CD8@Drawable@@QAE?AVRva002390CB@@ABVAsciiString@@@Z
+?rva002B31F2@Rva002B31F2@@QAEXPAV?$vector@IV?$allocator@I@_STL@@@_STL@@@Z,0x002B31F2,callee of ?rva0040DBA9@Rva0040DBA9@@QAE?AV?$vector@IV?$allocator@I@_STL@@@_STL@@XZ

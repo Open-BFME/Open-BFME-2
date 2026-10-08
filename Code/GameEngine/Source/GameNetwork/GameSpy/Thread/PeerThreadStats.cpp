@@ -15,11 +15,13 @@ void Rva00030830FreeAllocation(void *);
 #define free Rva00030830FreeAllocation
 #include <string>
 #include <map>
+#include <vector>
 #undef free
 #pragma comment(linker, "/alternatename:?Rva00030830FreeAllocation@@YAXPAX@Z=_free")
 namespace _STL {
 template <> string &string::append(const char *);
 template <> unsigned int &map<string, unsigned int>::operator[](const string &);
+template <> vector<unsigned int>::vector(const vector<unsigned int> &);
 }
 struct BfmePeerStats { unsigned char unknown[0x98]; std::map<std::string, unsigned int> group, staging; };
 enum RoomType { TitleRoom, GroupRoom, StagingRoom };
@@ -38,4 +40,33 @@ void PeerThreadClass::trackStatsForPlayer(RoomType roomType, const char *nick, c
     case 1: state->group[packStatKey(nick, key)] = atoi(val); break;
     case 2: state->staging[packStatKey(nick, key)] = atoi(val); break;
     }
+}
+
+class GameLogic;
+extern GameLogic *TheGameLogic;
+struct Rva0059E647World;
+extern Rva0059E647World *g_rva0059E647World;
+class Rva002034E9Host { public: bool rva002034E9(); };
+class Rva002B31F2 {
+public:
+ void rva002B31F2(_STL::vector<unsigned int> *out);
+};
+class Rva0040DBA9 {
+public:
+ _STL::vector<unsigned int> rva0040DBA9();
+};
+
+// Ghidra [40DBA9,40DC1F)118B RET4, hidden vector result. Caller2401C0
+// invokes this on GameLogic+184. The receiver is unused: this constructs
+// an empty vector, conditionally fills it through the world pointer's
+// 2B31F2 visitor, then returns a counted copy and frees the local allocation.
+// The verified scalar copy2CFAB9 establishes four-byte elements; unsigned
+// words preserve their bits without claiming the application's element type.
+// No PeerThread identity is inferred from the compiled sibling lead.
+_STL::vector<unsigned int> Rva0040DBA9::rva0040DBA9()
+{
+ _STL::vector<unsigned int> values;
+ if (reinterpret_cast<Rva002034E9Host *>(TheGameLogic)->rva002034E9())
+  reinterpret_cast<Rva002B31F2 *>(g_rva0059E647World)->rva002B31F2(&values);
+ return values;
 }
