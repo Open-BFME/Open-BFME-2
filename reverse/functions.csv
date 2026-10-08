@@ -63276,7 +63276,6 @@ _Rva0043802B,,0x0043802B,88,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp,
 ?rva0006842B@Rva0006842B@@QAEXW4ObjectID@@@Z,,0x0006842B,11,Code/GameEngine/Source/Common/Rva0006840ABodies.cpp,matched,tail jmp via +0x385C to rowed removeBib same offset as 0x000683FF
 ?rva000448CF@Rva000448CF@@QAEXMMMMMK@Z,,0x000448CF,89,Code/GameEngine/Source/Common/Rva000448CF.cpp,matched,ref slot forwarder via Render2DClass Add_Line
 ?rva002654E9@Rva002654E9@@QAEXXZ,,0x002654E9,19,Code/GameEngine/Source/GameLogic/Object/Rva002654E9Apply.cpp,matched,caller jmp at 0x0026893A abuts 0x002654FC via rowed Object setStatus
-?Rva0027C313Get@@YGHH@Z,,0x0027C313,29,Code/GameEngine/Source/Common/Rva0027C313Get.cpp,matched,INT_MAX clamp else TerrainLogic slot35 tail
 ?rva005CE10A@Rva005CE10A@@QAEXXZ,,0x005CE10A,27,Code/GameEngine/Source/Common/Rva005CE10A.cpp,matched,VTABLE slot4 table 0x00875158 helper validate tail
 ??0Rva0040FB1A@@QAE@XZ,,0x0040FB1A,20,Code/GameEngine/Source/Common/Rva0040FB1A.cpp,matched,frameless zeroing ctor with -1 at +0x10
 ?rva005C7C75@Rva005C7C75@@QAEXH@Z,,0x005C7C75,8,Code/GameEngine/Source/Common/Rva005C7A29Overlay.cpp,matched,plus4 tail to rowed Rva005C7B96
