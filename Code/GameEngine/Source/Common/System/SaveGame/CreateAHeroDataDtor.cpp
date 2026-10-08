@@ -130,3 +130,36 @@ void Rva0021B7B6::rva0021B7B6(INI *ini, void *extra)
 		}
 	}
 }
+
+class GameState;
+extern GameState *TheGameState;
+class Rva002DC74A {
+public: UnicodeString rva002DC74A(const UnicodeString &) const;
+};
+class CreateAHeroManager {
+public: unsigned char pad[0x1D8]; bool statsChanged;
+};
+extern CreateAHeroManager *TheCreateAHeroManager;
+struct _iobuf;
+extern "C" {
+__declspec(dllimport) _iobuf *__cdecl _wfopen(const unsigned short *,const unsigned short *);
+__declspec(dllimport) int __cdecl fprintf(_iobuf *, const char *,...);
+__declspec(dllimport) int __cdecl fclose(_iobuf *);
+}
+// Native 4074CF..4075A3 and the already-owned destructor caller 409285:
+// build a wide save path, set manager +1D8, write map50 key/value pairs,
+// and close the stream. Keep the established address-derived member identity;
+// WorldBuilder's same-string SaveStats lead does not reconcile the class name.
+bool CreateAHeroData::WriteNamedHeroAtRva004074CF() {
+ UnicodeString path=((const Rva002DC74A *)TheGameState)->rva002DC74A(UnicodeString(text4C));
+ TheCreateAHeroManager->statsChanged=true;
+ _iobuf *file=_wfopen(path.str(),(const unsigned short *)L"w");
+ if(file) {
+ for(StringPayloadMap::iterator it=map50.begin();it!=map50.end();++it) {
+  fprintf(file,"%s = %d\n",it->first.str(),it->second.value);
+ }
+ fclose(file);
+ return true;
+ }
+ return false;
+}
