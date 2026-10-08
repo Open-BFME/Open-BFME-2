@@ -1,4 +1,4 @@
-// cl: /O1 /MD
+// cl: /O1 /G7 /arch:SSE /MD
 // ?Rva00428EEBIssueFireWeapon@@YGHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z @0x00428EEB 284B: free issue command emitting 0x434/0x433 via MessageStreamSubsystem createMessage plus voice response.
 // Evidence: retail bytes options-7 isValid slot75 then 0x20 ground branch; rowed isValid 0x35B112 appends 0x30F936 0x30F9BB 0x30F979 ctor 0x4D92FE pinned pickAndPlay 0x4DAAFD; TheInGameUI MessageStreamSubsystem names.
 
@@ -107,6 +107,7 @@ public:
     char m_pad78[0x274 - 0x78];
     Object *m_containedBy274;
     Drawable *getDrawable() const;
+    bool isUsingAirborneLocomotor() const;
 };
 
 class Drawable
@@ -115,6 +116,7 @@ public:
 	unsigned char m_pad00[0xFC];
 	Object *m_object;
 	void rva00278C7C(int selected);
+    const Coord3D* getPosition() const;
 };
 
 class CommandButton
@@ -194,6 +196,7 @@ private:
     int issueCombatDropCommand(const CommandButton *command, int commandType,
                                Drawable *target, const Coord3D *pos);
     int issueMoveToLocationCommand(const Coord3D *pos, Drawable *drawableInWay, int commandType);
+    int issueAttackCommand(Drawable*,const Coord3D*,int,int);
     int createAttackMessage(Drawable *draw, Drawable *other, int commandType);
     char m_pad00[8];
     bool m_teamExists;
@@ -251,6 +254,7 @@ class StatsCollector
 public:
     char m_pad00[0x10];
     int m_moveCount;
+    int m_attackCount;
 };
 // Existing ledger provider at VA 0x00E032F8; donor calls it TheStatsCollector.
 extern StatsCollector *g_00E032F8;
@@ -318,4 +322,50 @@ int CommandTranslator::createAttackMessage(Drawable *draw, Drawable *other, int 
             target->rva00278C7C(0);
     }
     return 0x425;
+}
+
+// Native selected-list node layout: links at0/4 and Drawable pointer at8.
+struct SelectedDrawableNode { SelectedDrawableNode *next,*prev; Drawable* value; };
+class DrawableList { public: SelectedDrawableNode* sentinel; };
+// ZH CommandXlat.cpp issueAttackCommand (BFME1 reference34f59164f6).
+// WB00E77DD0 and native004297F0..0042994D establish four arguments: target,
+// optional position, evaluation mode and GUI command. BFME2 adds location,
+// contained-object selection redirection, and the voice-response position.
+// The if/else coordinate copy preserves retail's load and copy ordering.
+int CommandTranslator::issueAttackCommand(Drawable* target,const Coord3D* pos,int commandType,int command) {
+ int msgType=0;
+ if(!target)return msgType;
+ Object* targetObj=target->m_object;
+ if(!targetObj)return msgType;
+ if(m_teamExists) {
+  if(command!=0)return msgType;
+  msgType=0x425;
+  if(commandType==0) {
+   GameMessage* attackMsg=MessageStreamSubsystem->createMessage(msgType);
+   Coord3D attackPos={0,0,0};
+   if(pos)attackPos=*pos;
+   attackMsg->appendObjectIDArgument(targetObj->m_id);
+   attackMsg->appendLocationArgument(attackPos);
+   Drawable* draw=target;
+   Object* container=targetObj->m_containedBy274;
+   if(container&&(container->m_template->m_kind115&0x20)!=0)draw=container->getDrawable();
+   if(draw)draw->rva00278C7C(0);
+   if(g_00E032F8)++g_00E032F8->m_attackCount;
+  }
+ } else {
+  const DrawableList* selected=TheInGameUI->slot73();
+  Drawable* draw;
+  for(SelectedDrawableNode* it=selected->sentinel->next;it!=selected->sentinel;it=it->next) {
+   draw=it->value;
+   msgType=createAttackMessage(draw,target,commandType);
+  }
+ }
+ if(commandType==0) {
+  Rva004D92FE info;
+  info.m_00=targetObj->isUsingAirborneLocomotor();
+  info.m_04=target;
+  if(pos)info.m_14=*pos;else info.m_14=*target->getPosition();
+  pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(),(GameMessage::Type)msgType,(PickAndPlayInfo*)&info);
+ }
+ return msgType;
 }
