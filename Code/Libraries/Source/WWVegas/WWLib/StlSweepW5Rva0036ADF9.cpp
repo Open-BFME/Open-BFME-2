@@ -6,7 +6,14 @@
 #include <memory>
 
 #include "../../../../GameEngine/Include/GameLogic/ContainmentListView.h"
-template class _STL::list<Rva0036ADF9Element>;
+// Instantiate the recovered operations only. Retail's single insertion calls
+// the node creator; the forced-inline list shim would emit another body here.
+namespace _STL {
+template<> list<Rva0036ADF9Element>::iterator list<Rva0036ADF9Element>::insert(list<Rva0036ADF9Element>::iterator, const Rva0036ADF9Element &);
+template list<Rva0036ADF9Element>::list(const list<Rva0036ADF9Element> &);
+template _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
+template list<Rva0036ADF9Element>::_Node *list<Rva0036ADF9Element>::_M_create_node(const Rva0036ADF9Element &);
+}
 
 // Retail 36AE51 (40B): clear the descriptor's first word before copying
 // its source, otherwise copy the existing empty-list sentinel at E0362C.
