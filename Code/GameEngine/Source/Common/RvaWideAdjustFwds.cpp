@@ -89,10 +89,17 @@ public:
 	void __fastcall forwardFrom(int unused, Rva0040E6D6Arg *arg);
 };
 
+class Rva0040E0B7
+{
+public:
+	void rva0040E0B7();
+};
+
 class GameLogic
 {
 public:
 	void __fastcall rva0023CFFC(int unused, Rva0040E6D6Arg *arg);
+	void rva0023D033();
 	const AsciiString *rva0023D05F(int value);
  const AsciiString *rva0023D06A(int value);
 	int rva0023D075(int value);
@@ -125,6 +132,15 @@ public:
 void __fastcall GameLogic::rva0023CFFC(int unused, Rva0040E6D6Arg *arg)
 {
 	((Rva0040E6D6Host *)((char *)this + 0x184))->forwardFrom(unused, arg);
+}
+
+// ?rva0023D033@GameLogic@@QAEXXZ @0x0023D033 11B.
+// Chain of freshly landed 0x0040E0B7: GameLogic+0x184 holds the ScienceType
+// vector owner; tail-jump clears it. Evidence: pin GameLogic from chain,
+// rowed callee rva0040E0B7, jmp caller 0x0023D039, sibling 11B forwarders.
+void GameLogic::rva0023D033()
+{
+	((Rva0040E0B7 *)((char *)this + 0x184))->rva0040E0B7();
 }
 
 int GameLogic::rva0023D075(int value)
