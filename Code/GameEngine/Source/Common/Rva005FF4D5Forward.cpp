@@ -1,18 +1,8 @@
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ob0
 // ?rva005FF4D5@Rva005FF4D5@@QAEX_N@Z at 0x005FF4D5 (8B). Forwarder via this+4 to rowed Impl::SetMouseOver 0x005FF38D. Evidence: callers 0x005FA8DA 0x005FA8EE; prev 0x005FF4BD same +4 forwarder precedent; callee rowed.
-namespace StrategicHUD {
-class BattlePromptArmyPanelMovieClip
-{
-public:
-	class Impl;
-};
-}
-
-class StrategicHUD::BattlePromptArmyPanelMovieClip::Impl
-{
-public:
-	void SetMouseOver(bool flag);
-};
+#include "ascii_string.h"
+#include "unicode_string.h"
+#include "BattlePromptArmyPanelClipImplView.h"
 
 class Rva005FF4D5
 {
