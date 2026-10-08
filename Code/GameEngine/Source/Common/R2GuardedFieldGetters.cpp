@@ -64,3 +64,25 @@ BFME_R2_NULL_HEAD_BITS(Rva002E6B30, 0x0C)
 // target facts are receiver pointer+0, null-to-zero and raw pointee word+20.
 // Original receiver, field meaning and signedness remain unresolved.
 BFME_R2_NULL_HEAD_BITS(Rva002E6AD4, 0x20)
+
+// Nullable argument word getter, reference lead from BF1 revision9cbfb551:
+// game/Libraries/Source/WWVegas/WWLib/Rva006A43D0PointerHashResize.cpp,
+// Rva006A43D0ExtractKey::operator(). Preserve its typed conditional shape;
+// original receiver/functor, payload identity and field meaning are unknown.
+// Native full50E0E..50E1C: argument load, null guard, raw word+8, RET4.
+// Decoding from known50DF0 ends RET50E04; next9-byte arg-deref leaf ends
+// RET4 at50E0B, proving this entry; next known body starts50E1C.
+struct Rva00050E0ERawWord
+{
+    unsigned prefix[2];
+    unsigned word8;
+};
+class Rva00050E0ENullArg
+{
+public:
+    unsigned getBits(Rva00050E0ERawWord *value) const;
+};
+unsigned Rva00050E0ENullArg::getBits(Rva00050E0ERawWord *value) const
+{
+    return value==0 ? 0 : value->word8;
+}
