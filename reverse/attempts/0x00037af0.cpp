@@ -1,4 +1,6 @@
 // ?compareNoCase@?$StringBase@G@@QBEHG@Z
+// partial score=0.97 date=2026-10-08
+// ?compareNoCase@?$StringBase@G@@QBEHG@Z
 // partial score=0.97 date=2026-10-07
 // cl: /O2 /G7 /MD /ICode/Libraries/Source/WWVegas/WWLib
 typedef unsigned short wchar_t;
