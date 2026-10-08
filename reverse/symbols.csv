@@ -16223,3 +16223,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva004783D7@Rva004697E1Contain@@QAEXXZ,0x004783D7,callee of ?rva004697E1@Rva004697E1Contain@@QAEXXZ
 ?rva00461C1F@Rva00461DB5Owner@@QAEXXZ,0x00461C1F,callee of ?rva00461DB5@Rva00461DB5Owner@@QAEXXZ
 ?rva003F0588@Rva003F07CEOwner@@QAEHXZ,0x003F0588,callee of ?rva003F07CE@Rva003F07CEOwner@@QAE_NXZ
+?rva0023C58B@Rva00275327Bits@@QBE_NXZ,0x0023C58B,callee pin: BitFlags any at +0x1C8 of the predicate object (same body as the rowed ?any BitFlags row)
