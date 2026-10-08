@@ -182,6 +182,7 @@ public:
     void Start(const UnicodeString &,int);
     void rva004E5CCB(NoticeLineInputView *);
     void AddWord(NoticeLineInputView *,int,const UnicodeString &);
+    void rva004E59F4();
 private:
     unsigned char unknown04[8];
     Rva004E594EDescriptor *descriptor;
@@ -412,4 +413,24 @@ void Rva004E5B0A::rva004E59DB()
         reinterpret_cast<Rva004E59AE **>(const_cast<ModuleData **>(lines.begin())),
         reinterpret_cast<Rva004E59AE **>(const_cast<ModuleData **>(lines.end())),
         reinterpret_cast<NoticeObservedMember>(&Rva004E583D::rva004E583D));
+}
+
+// Complete native4E59F4..4E5A24 follows the row-group dispatch RET. Its
+// vtable pointer atVA C623FC lies in the same C623CC table established by
+// the owned4E5A24 constructor; descriptor+C and vector+10/+14 agree with
+// this existing notice view. Original method and field meanings are unknown.
+// Retail resets four descriptor words before dispatching each group through
+// the actual owned4E59DB method via the existing4E59AE foreach provider.
+void IngameNoticeDisplay::rva004E59F4()
+{
+    unsigned int *words = reinterpret_cast<unsigned int *>(descriptor);
+    words[5] = ~0u;
+    words[4] = ~0u;
+    words[3] = 0xffffu;
+    words[2] = 0xffffu;
+    NoticeObservedMember result;
+    Rva004E59AEFunc(&result,
+        reinterpret_cast<Rva004E59AE **>(const_cast<ModuleData **>(groups.begin())),
+        reinterpret_cast<Rva004E59AE **>(const_cast<ModuleData **>(groups.end())),
+        reinterpret_cast<NoticeObservedMember>(&Rva004E5B0A::rva004E59DB));
 }
