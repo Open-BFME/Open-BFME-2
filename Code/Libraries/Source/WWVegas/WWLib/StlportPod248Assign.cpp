@@ -37,10 +37,23 @@ struct BfmePod32 { char m[32]; BfmePod32(const BfmePod32 &); ~BfmePod32(); };
 struct Gen_p64cd;
 struct Rva000B419E;
 
+// Native default construction zeros the same76-byte storage through the
+// rowed opaque bulk-zero constructor0x42526. Its copy uses the existing
+// memory-copy provider0x45455. These are ABI views, not application names.
+class Rva0042526Member {
+	unsigned int m[19];
+public:
+	Rva0042526Member();
+};
+
 class WeaponTemplateSetHead
 {
 	unsigned int w[19];
-public: WeaponTemplateSetHead(const WeaponTemplateSetHead &);
+public:
+	__forceinline WeaponTemplateSetHead() {
+		((Rva0042526Member *)this)->Rva0042526Member::Rva0042526Member();
+	}
+	WeaponTemplateSetHead(const WeaponTemplateSetHead &);
 };
 
 struct BfmePod248
@@ -67,11 +80,19 @@ struct BfmePod248
 	unsigned char m_atF4;
 	unsigned char m_padF5[3];
 
+	BfmePod248();
 	BfmePod248(const BfmePod248 &rhs);
     BfmePod248 &operator=(const BfmePod248 &rhs);
 };
 
 typedef char Pod248Size[(sizeof(BfmePod248) == 0xF8) ? 1 : -1];
+
+// Native boundary0xC6A4D..0xC6B17,202B. The leading canonical string
+// supplies the native cleanup state without synthetic base classes.
+BfmePod248::BfmePod248():
+ m_at5C(0), m_at60(0), m_at64(0), m_at68(0), m_at70(-1),
+ m_at9C(0), m_at9D(0), m_atF4(0)
+{}
 
 BfmePod248::BfmePod248(const BfmePod248 &rhs):
  m_s00(rhs.m_s00), m_pod(rhs.m_pod), m_v50(rhs.m_v50),
