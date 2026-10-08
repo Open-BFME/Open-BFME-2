@@ -5718,7 +5718,6 @@ _rva0060E7F0,0x00211245,address,placeholder
 ?get@Rva002722BD@@QBEPAXXZ,0x002722BD,address,placeholder
 ?set@Rva00412FC0@@QAEXPBVVector3@@@Z,0x002722D0,address,placeholder
 ?rva002722F4@Rva002722F4NullForwarder@@QAEXH@Z,0x002722F4,address,placeholder
-?rva00272393@Drawable@@QAEXH@Z,0x00272393,address,placeholder
 ?rva002723C0@Drawable@@QAEXH@Z,0x002723C0,address,placeholder
 ?rva002723ED@Drawable@@QAEXXZ,0x002723ED,address,placeholder
 ?rva00272414@Drawable@@QAEXH@Z,0x00272414,address,placeholder

@@ -1,13 +1,18 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ?rva00272393@Drawable@@QAEXH@Z, retail 0x00272393, 45 bytes.
-// Draw-module walk at this+0x14C via slot 0xA8, forwarding int arg to
-// slot 0x64 targets. Evidence: same +0x14C/slot-0xA8 walk as landed
+// ?setAnimationLoopDuration@Drawable@@QAEXI@Z, retail 0x00272393, 45 bytes.
+// Draw-module walk at this+0x14C via slot 0xA8, forwarding the frame count
+// to slot 0x64 targets. Evidence: same +0x14C/slot-0xA8 walk as landed
 // rva002723ED/rva002724FD/rva00272414 in neighbour
 // Drawable_rva002724FD.cpp (// cl: /O1 /DNDEBUG /MD /EHsc /Oy- /G7);
 // this body is frameless (push [esp+8], ret 4) so /Oy- dropped.
-// Unblocks 0x0048EB53 0x003941FD 0x00497FF3; callers pass one int
-// (0x0039430F 0x0048EC0E 0x00498199 plus 6).
+// Name and UnsignedInt parameter: Zero Hour's (and BFME 1's)
+// Drawable::setAnimationLoopDuration has this exact walk, and
+// BuildAssistant::sellObject (0x003941FD, WB-named) calls this address
+// where the donor calls draw->setAnimationLoopDuration(
+// TOTAL_FRAMES_TO_SELL_OBJECT / 2), converting the float through __ftol2,
+// which /arch:SSE emits only for an unsigned target.
+// Callers pass one int (0x0039430F 0x0048EC0E 0x00498199 plus 6).
 
 class BfmeObjectDrawForRva272393
 {
@@ -25,7 +30,7 @@ public:
 	virtual void slot50() = 0; virtual void slot54() = 0;
 	virtual void slot58() = 0; virtual void slot5C() = 0;
 	virtual void slot60() = 0;
-	virtual void rva00272393Target(int arg) = 0;
+	virtual void setAnimationLoopDuration(unsigned int numFrames) = 0;
 };
 
 class BfmeDrawModuleForRva272393
@@ -58,24 +63,24 @@ public:
 class Drawable
 {
 public:
-	void rva00272393(int arg);
+	void setAnimationLoopDuration(unsigned int numFrames);
 	void rva002723C0(int arg);
 };
 
-void Drawable::rva00272393(int arg)
+void Drawable::setAnimationLoopDuration(unsigned int numFrames)
 {
 	BfmeDrawModuleForRva272393 **modules =
 		*reinterpret_cast<BfmeDrawModuleForRva272393 ***>((unsigned char *)this + 0x14C);
 	for (BfmeDrawModuleForRva272393 **dm = modules; *dm; ++dm) {
 		BfmeObjectDrawForRva272393 *di = (*dm)->getObjectDrawInterface();
 		if (di)
-			di->rva00272393Target(arg);
+			di->setAnimationLoopDuration(numFrames);
 	}
 }
 
 // ?rva002723C0@Drawable@@QAEXH@Z — RVA 0x002723C0, 45B.
 // Draw-module walk at this+0x14C via slot 0xA8, forwarding int arg to
-// slot 0x68 targets. Evidence: same walk/flags as rva00272393 above in
+// slot 0x68 targets. Evidence: same walk/flags as setAnimationLoopDuration above in
 // this TU; ret 4 single int arg; unblocks 0x00450635 0x004508B7.
 class BfmeObjectDrawForRva2723C0
 {

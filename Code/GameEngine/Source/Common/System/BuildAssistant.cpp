@@ -179,7 +179,7 @@ struct Rva002A7557In;
 class Drawable
 {
 public:
-	void rva00272393(Int numFrames);		// ZH's setAnimationLoopDuration
+	void setAnimationLoopDuration(UnsignedInt numFrames);
 };
 
 // Zero Hour's GeometryInfo name for the radius its clearRemovableForConstruction
