@@ -1,5 +1,6 @@
 // ?rva004FB382@Rva004FB382@@QAE_NXZ
-// partial score=0.8 date=2026-10-08
+// partial score=0.92 date=2026-10-08
+// cl: /O2 /DNDEBUG /MD
 // cl: /O2 /DNDEBUG /MD
 //
 // ?rva004FB382@Rva004FB382@@QAE_NXZ @0x004FB382 112B: thiscall, no args, bool.
@@ -34,12 +35,17 @@ public:
 };
 
 // Re-read on every test: the id callee may change the list.
+struct Rva004FB382Range
+{
+	Rva002E2903Player **begin;
+	Rva002E2903Player **end;
+};
+
 static int playerCount()
 {
 	char *base = (char *)TheLivingWorldLogic;
-	Rva002E2903Player **begin = *(Rva002E2903Player ***)(base + 0x8C);
-	Rva002E2903Player **end = *(Rva002E2903Player ***)(base + 0x90);
-	return end - begin;
+	Rva004FB382Range *range = (Rva004FB382Range *)(base + 0x8C);
+	return range->end - range->begin;
 }
 
 class Rva004FB382
@@ -52,15 +58,15 @@ public:
 // ?rva004FB382@Rva004FB382@@QAE_NXZ
 bool Rva004FB382::rva004FB382()
 {
-	if (owner == 0)
-		return true;
-	for (int i = 0; i < playerCount(); ++i) {
-		Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
-		int id = p->at14;
-		if ((unsigned char)owner->rva002E0BC0(id) == 0) {
-			p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
-			if (!p->m_3C4)
-				return false;
+	if (owner != 0) {
+		for (int i = 0; i < playerCount(); ++i) {
+			Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
+			int id = p->at14;
+			if ((unsigned char)owner->rva002E0BC0(id) == 0) {
+				p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
+				if (!p->m_3C4)
+					return false;
+			}
 		}
 	}
 	return true;
