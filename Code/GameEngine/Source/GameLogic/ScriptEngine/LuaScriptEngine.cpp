@@ -55,6 +55,7 @@ public:
 class Object
 {
 public:
+	bool rva0028C149(int,float*,int);
 	__forceinline Bool testStatus(int bit) const
 	{
 		return (m_status[(unsigned int)bit >> 5] & (1u << (bit & 31))) != 0;
@@ -64,7 +65,9 @@ public:
 	ThingTemplate *m_template;	// +0x04
 	char m_pad08[0x94 - 0x08];
 	unsigned int m_status[2];	// +0x94, tested with BitFlags<101> bits
-	char m_pad9C[0x398 - 0x9C];
+	char m_pad9C[0x258 - 0x9C];
+	void *m_ai258;
+	char m_pad25C[0x398-0x25C];
 	int m_currentTargetID;	// +0x398, passed to findObjectByID
 };
 
@@ -304,4 +307,37 @@ int CurDrawableIsCurrentTargetKindof(lua_State *state)
 
 	bfmeGo1039E((BfmeQ1039 *)state, 0);
 	return 1;
+}
+
+extern "C" int lua_type(lua_State*,int);
+struct Rva00990030Range;
+unsigned int Rva00990030Lookup(Rva00990030Range*,int);
+class AIUpdateInterface {public: int getCurrentStateID() const;};
+int GetGameLogicRandomValue(int,int,char*,int);
+
+// Lua global registered at 0x00338317 as ObjectTestCanSufferFear; WB
+// LuaScriptEngine.cpp names the same callback. Retail 0x0033508F/187 passes
+// attribute4 to the rowed Object query; AI pointer +0x258 and state45 are
+// independently read from its instructions. Source probability semantics are
+// reconstructed from this callback; ZH has no fear binding and BFME1 only
+// retains the registration. Lua miss handling follows the retail branches.
+// The random-value filename is the same LuaScriptEngine.cpp literal used
+// by the other callbacks; the native call passes line2138. Bool is a byte.
+int ObjectTestCanSufferFear(lua_State *L)
+{
+ unsigned int id = Rva00990030Lookup((Rva00990030Range *)L,1);
+ if (!id && lua_type(L,1)!=1) { lua_pushnil(L); return 0; }
+ Object *obj=TheGameLogic->findObjectByID((ObjectID)id);
+ if(obj) {
+  Bool doPush=1;
+  float v=0.0f;
+  if(obj->rva0028C149(4,&v,0)) {
+   int r=GetGameLogicRandomValue(0,1,(char*)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\ScriptEngine\\LuaScriptEngine.cpp",0x85A);
+   doPush = ((float)r > v);
+  }
+  AIUpdateInterface *ai=(AIUpdateInterface*)obj->m_ai258;
+  if(ai && ai->getCurrentStateID()==0x2D) doPush=0;
+  bfmeGo1039E((BfmeQ1039*)L,doPush);
+ } else lua_pushnil(L);
+ return 1;
 }
