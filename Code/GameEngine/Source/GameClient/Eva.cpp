@@ -1,8 +1,78 @@
 // cl: /O1 /G7 /EHsc /DNDEBUG /MD /arch:SSE /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
-#include <vector>
+// Existing 80-byte status clearer at 0x001DCD3C, moved here so Eva's
+// element reset loop can see its register effects. Retail writes the 0x34-byte
+// status layout; retain the observed write order and the existing barrier.
+// -1 is the immutable float at .rdata RVA 0x007BB9AC (data_ledger.csv), so use
+// the verified compiler literal rather than an address-named global.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+class Rva001DCD3C
+{
+public:
+    void rva001DCD3C();
+private:
+    volatile float m_00;
+    volatile float m_04;
+    volatile float m_08;
+    volatile float m_0C;
+    volatile float m_10;
+    volatile float m_14;
+    volatile float m_18;
+    volatile float m_1C;
+    volatile unsigned char m_20;
+    volatile unsigned char m_21;
+    volatile unsigned char m_22;
+    volatile unsigned char m_pad23;
+    volatile float m_24;
+    volatile float m_28;
+    volatile float m_2C;
+    volatile int m_30;
+};
+void Rva001DCD3C::rva001DCD3C()
+{
+    float v = -1.0f;
+    float zero = 0.0f;
+    m_00 = v;
+    m_04 = v;
+    _ReadWriteBarrier();
+    m_20 = 0;
+    m_08 = zero;
+    m_0C = zero;
+    m_10 = zero;
+    m_21 = 0;
+    m_14 = zero;
+    m_18 = zero;
+    m_1C = zero;
+    m_22 = 0;
+    m_24 = zero;
+    m_28 = zero;
+    m_2C = zero;
+    m_30 = 0;
+}
+
+// Eva status is a non-owning 52-byte value. Its default construction calls
+// the rowed clearer; its out-of-line copy is the existing 0x001DD0A0 pin.
+// The empty destructor and nontrivial copy reproduce retail temporary lifetime.
+struct BfmePod52 {
+ BfmePod52() { reinterpret_cast<Rva001DCD3C*>(this)->rva001DCD3C(); }
+ BfmePod52(const BfmePod52 &other);
+ ~BfmePod52() {}
+ int a[13];
+};
+namespace _STL {
+template<class T> struct _EvaResizeArgument { typedef const T& type; };
+template<> struct _EvaResizeArgument<BfmePod52> { typedef BfmePod52 type; };
+}
+#include "../../../../reference/shims/eva_vector/EvaVectorABI.h"
 #include <hash_map>
 #include <list>
+
+namespace _STL {
+template<> vector<BfmePod52, allocator<BfmePod52> >::iterator vector<BfmePod52, allocator<BfmePod52> >::erase(iterator first, iterator last);
+template<> void vector<BfmePod52, allocator<BfmePod52> >::_M_fill_insert(iterator position, size_type count, const BfmePod52 &value);
+}
+
 // Eva.cpp -- Eva event-status queries recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv). WB's debug Eva.cpp names each member and its
 // diagnostics (Eva.cpp:1408..1447): an invalid EvaEventID, and a status array
@@ -354,57 +424,6 @@ Bool Eva::internalReportEvaEvent(const EvaEventReport *report)
 		report->m_hasSecondPosition ? &report->m_secondPosition : 0);
 }
 
-// Existing 80-byte status clearer at 0x001DCD3C, moved here so Eva's
-// element reset loop can see its register effects. Retail writes the 0x34-byte
-// status layout; retain the observed write order and the existing barrier.
-// -1 is the immutable float at .rdata RVA 0x007BB9AC (data_ledger.csv), so use
-// the verified compiler literal rather than an address-named global.
-extern "C" void _ReadWriteBarrier(void);
-#pragma intrinsic(_ReadWriteBarrier)
-class Rva001DCD3C
-{
-public:
-    void rva001DCD3C();
-private:
-    volatile float m_00;
-    volatile float m_04;
-    volatile float m_08;
-    volatile float m_0C;
-    volatile float m_10;
-    volatile float m_14;
-    volatile float m_18;
-    volatile float m_1C;
-    volatile unsigned char m_20;
-    volatile unsigned char m_21;
-    volatile unsigned char m_22;
-    volatile unsigned char m_pad23;
-    volatile float m_24;
-    volatile float m_28;
-    volatile float m_2C;
-    volatile int m_30;
-};
-void Rva001DCD3C::rva001DCD3C()
-{
-    float v = -1.0f;
-    float zero = 0.0f;
-    m_00 = v;
-    m_04 = v;
-    _ReadWriteBarrier();
-    m_20 = 0;
-    m_08 = zero;
-    m_0C = zero;
-    m_10 = zero;
-    m_21 = 0;
-    m_14 = zero;
-    m_18 = zero;
-    m_1C = zero;
-    m_22 = 0;
-    m_24 = zero;
-    m_28 = zero;
-    m_2C = zero;
-    m_30 = 0;
-}
-
 // Retail 0x001DF1A4, 120 bytes; WorldBuilder Eva.cpp vtable lead.
 // The method name is unrecovered. Retail copies the 48-byte info-record vector
 // and its event table, sizes and clears the 52-byte status records, clears the
@@ -429,4 +448,18 @@ void Eva::rva001DF1A4()
  m_queue.clear();
  m_queuePosition = *reinterpret_cast<int *>(&m_queue);
  m_70 = 0;
+}
+
+// Retail 0x001DED5E (73 bytes) and 0x001DEE92 (33 bytes).
+// The value-resize ABI is proven by the outgoing 52-byte argument and
+// the rowed erase/fill callees. Use the full STLport vector API.
+namespace _STL {
+template void vector<BfmePod52,allocator<BfmePod52> >::resize(unsigned int,BfmePod52);
+
+}
+
+// BfmePod52 is a provisional name shared by distinct record views elsewhere.
+// Retain the served address identity until Eva's real status type is reconciled.
+void Rva001DEE92Member::rva001DEE92(int count) {
+ reinterpret_cast<_STL::vector<BfmePod52,_STL::allocator<BfmePod52> >*>(this)->resize((unsigned int)count, BfmePod52());
 }
