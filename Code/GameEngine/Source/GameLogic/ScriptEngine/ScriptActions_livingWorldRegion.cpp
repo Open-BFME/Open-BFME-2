@@ -24,6 +24,16 @@
 // once a candidate is found it spins, so cl drops the final reference
 // assignment (it is reachable only with an empty list, where nothing is
 // found). Retail is the result of compiling that loop as written.
+//
+// ScriptActions::doCreateUnitRevivalEntry, retail 0x003C62F4 (323B; ret 0xC),
+// from WorldBuilder's ScriptActions.cpp twin (wb 0x0101B750; name, parameter
+// and statement order; its unknown-type, no-player and no-tracker branches
+// only log). Target facts: the template by name (pinned findTemplate
+// 0x002D06CA), the player through the rowed mask lookups, the tracker at
+// player+0x738 (WB +0x740), and a 0xD8-byte revival record (pinned ctor
+// 0x0037E289, dtor 0x001EB63C) whose +0x08/+0x0C/+0x10 get the level's
+// required experience and rank twice, or the template's own rank (pinned
+// 0x0033B479) when no level is given or the store (g_00DFECC4) has none.
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -82,9 +92,91 @@ private:
 	void *m_regionManager;
 };
 
+class ThingTemplate
+{
+public:
+	int rva0033B479() const;
+};
+
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
+};
+extern ThingFactory *TheThingFactory;
+
+class Player;
+class PlayerList
+{
+public:
+	Player *getEachPlayerFromMask(int &mask);
+};
+extern PlayerList *ThePlayerList;
+
+// ExperienceLevelSystem.cpp's handle: list and iterator, passed by value.
+class ExperienceLevelList;
+class ExperienceLevelIterator
+{
+public:
+	ExperienceLevelIterator() {}
+	ExperienceLevelIterator(const ExperienceLevelIterator &that) : m_node(that.m_node) {}
+
+private:
+	void *m_node;
+};
+
+struct ExperienceLevelHandle
+{
+	ExperienceLevelHandle() {}
+	ExperienceLevelHandle(const ExperienceLevelHandle &that) : m_list(that.m_list), m_iter(that.m_iter) {}
+	bool isValid() const { return m_list != 0; }
+
+	ExperienceLevelList *m_list;
+	ExperienceLevelIterator m_iter;
+};
+
+class ExperienceLevelStore
+{
+public:
+	int GetLevelRank(ExperienceLevelHandle levelHandle) const;
+	int GetRequiredExperience(ExperienceLevelHandle levelHandle) const;
+	ExperienceLevelHandle rva00288E21(const ThingTemplate *thingTemplate, int level) const;
+};
+extern ExperienceLevelStore *g_00DFECC4;
+
+// The 0xD8-byte revival record (WB UnitRevivalEntry) built from a template.
+struct Rva002E2D10Record
+{
+	Rva002E2D10Record(const ThingTemplate *thingTemplate);
+	~Rva002E2D10Record();
+
+	unsigned char m_pad00[0x08];
+	float m_requiredExperience;	// +0x08
+	int m_rank;			// +0x0C
+	int m_levelRank;		// +0x10
+	unsigned char m_pad14[0xD8 - 0x14];
+};
+
+class UnitRevivalTracker
+{
+public:
+	void addRevivableUnit(const Rva002E2D10Record &entry, Player *player);
+};
+
+class Player
+{
+public:
+	UnitRevivalTracker *getUnitRevivalTracker() { return &m_unitRevivalTracker; }
+
+private:
+	unsigned char m_pad00[0x738];
+	UnitRevivalTracker m_unitRevivalTracker;
+};
+
 class ScriptEngine
 {
 public:
+	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
 	AsciiString *rva00208DB8(AsciiString name);
 	int *rva00208E99(AsciiString name);
 	int *rva00208CF0(AsciiString name);
@@ -121,6 +213,7 @@ protected:
 	void rva003C6279(const AsciiString &refName, const AsciiString &playerName);
 	void rva003C3943(const AsciiString &regionRefName, const AsciiString &armyRefName);
 	void rva003C39B8(const AsciiString &armyRefName, const AsciiString &regionRefName);
+	void doCreateUnitRevivalEntry(const AsciiString &objectTypeName, const AsciiString &playerName, int level);
 };
 
 void ScriptActions::doLivingWorldSetRegionRefToAdjacentRegion(const AsciiString &destRefName,
@@ -244,4 +337,32 @@ void ScriptActions::rva003CA418(const AsciiString &armyRefName, int n, const Asc
 	}
 	if (it != end)
 		*armyRef = (*it)->m_20;
+}
+
+void ScriptActions::doCreateUnitRevivalEntry(const AsciiString &objectTypeName, const AsciiString &playerName, int level)
+{
+	const ThingTemplate *objectType = TheThingFactory->findTemplate(objectTypeName);
+	if (!objectType)
+		return;
+	int mask = TheScriptEngine->rva00357475(playerName, 0);
+	Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+	if (!player)
+		return;
+	UnitRevivalTracker *tracker = player->getUnitRevivalTracker();
+	if (!tracker)
+		return;
+	Rva002E2D10Record entry(objectType);
+	if (level == -1) {
+		entry.m_rank = objectType->rva0033B479();
+	} else {
+		ExperienceLevelHandle levelHandle = g_00DFECC4->rva00288E21(objectType, level);
+		if (levelHandle.isValid()) {
+			entry.m_requiredExperience = (float)g_00DFECC4->GetRequiredExperience(levelHandle);
+			entry.m_rank = g_00DFECC4->GetLevelRank(levelHandle);
+			entry.m_levelRank = g_00DFECC4->GetLevelRank(levelHandle);
+		} else {
+			entry.m_rank = objectType->rva0033B479();
+		}
+	}
+	tracker->addRevivableUnit(entry, player);
 }
