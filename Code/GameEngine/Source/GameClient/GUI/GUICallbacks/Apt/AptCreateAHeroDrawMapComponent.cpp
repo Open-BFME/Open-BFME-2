@@ -1,10 +1,19 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7 /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 //
 // BFME2's create-a-hero screen map render callback, bound by the string
 // "AptCreateAHero::DrawMapComponent" (WorldBuilder's matching body sits at
 // 0x01454570 there). It needs an EH frame, which the screen's other
 // callbacks in AptCreateAHeroCallbacks.cpp must not get, so it lives here.
 
+// The picture name's scratch vector frees through the C++-linkage free at
+// 0x00030830; that declaration is what makes the caller emit the unwind state
+// store retail carries before the call.
+#define free bfmeUnusedCRTFree
+#include <cstdlib>
+#undef free
+void free(void *);
+#include <vector>
 #include "unicode_string.h"
 #include "ascii_string.h"
 #include "../../../../../../Libraries/Include/Lib/Coord2D.h"
@@ -115,9 +124,103 @@ void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
 class GameWindow;
 GameWindow *MessageBoxOk(UnicodeString title, UnicodeString body, void (*okCallback)());
 
-// 0x00513ED1: the picture file name, the hero's name stamped with the date
-// and time, every character a file name cannot take replaced by '-'.
-UnicodeString Rva00513ED1(const UnicodeString &name);
+struct SYSTEMTIME
+{
+	unsigned short wYear;
+	unsigned short wMonth;
+	unsigned short wDayOfWeek;
+	unsigned short wDay;
+	unsigned short wHour;
+	unsigned short wMinute;
+	unsigned short wSecond;
+	unsigned short wMilliseconds;
+};
+extern "C" __declspec(dllimport) void __stdcall GetLocalTime(SYSTEMTIME *st);
+extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
+
+// 0x002DBFAD formats the date, 0x002DC081 the time (Rva002DC081Format.cpp).
+UnicodeString Rva002DC081(SYSTEMTIME date, int flag);
+UnicodeString Rva002DBFAD(SYSTEMTIME date);
+bool GadgetTextEntryValidateCharacter(unsigned short character, signed char flags);
+
+// The wide string-concatenation nodes (WinMainPairUnicode.cpp's (pointer,
+// length) reference). The empty constructors keep every node non-POD, so
+// each operator+ returns through a hidden slot as retail shows.
+class Rva000B3F84Pair
+{
+public:
+	Rva000B3F84Pair() {}
+	Rva000B3F84Pair *initWide(const unsigned short *src);
+
+	const char *m_ptr;
+	int m_len;
+};
+
+// wide text + string
+struct Rva00513B27Concat
+{
+	Rva00513B27Concat() {}
+
+	Rva000B3F84Pair m_left;
+	const UnicodeString *m_right;
+};
+
+// (wide text + string) + wide text; built by 0x00513B5B.
+struct Rva00513B5BConcat
+{
+	Rva00513B5BConcat() {}
+
+	Rva00513B27Concat m_left;
+	Rva000B3F84Pair m_right;
+};
+
+// ((wide text + string) + wide text) + string; built by 0x0059B036 and
+// turned into a UnicodeString by 0x00513E6F.
+struct Rva0059B036Concat
+{
+	Rva0059B036Concat() {}
+	operator UnicodeString();
+
+	Rva00513B5BConcat m_left;
+	const UnicodeString *m_right;
+};
+
+Rva00513B5BConcat operator+(const Rva00513B27Concat &left, const unsigned short *right);
+Rva0059B036Concat operator+(const Rva00513B5BConcat &left, const UnicodeString &right);
+
+// Retail 0x00513B27, 52 bytes.
+Rva00513B27Concat operator+(const unsigned short *left, const UnicodeString &right)
+{
+	Rva000B3F84Pair wide;
+	wide.initWide(left);
+	Rva00513B27Concat result;
+	result.m_left = wide;
+	result.m_right = &right;
+	return result;
+}
+
+// Retail 0x00513ED1, 415 bytes: the picture file name, the hero's name
+// stamped with the local date and time, every character a file name cannot
+// take (the text-entry filter's flag 8) replaced by '-'.
+UnicodeString Rva00513ED1(const UnicodeString &name)
+{
+	UnicodeString result(name);
+	SYSTEMTIME st;
+	GetLocalTime(&st);
+	UnicodeString stamp = L" " + Rva002DBFAD(st) + L" " + Rva002DC081(st, 1);
+	result.concat(stamp);
+	int len = result.getLength();
+	_STL::vector<short> buf(len + 1);
+	unsigned short *p = (unsigned short *)&buf[0];
+	memcpy(&buf[0], result.str(), (len + 1) * sizeof(unsigned short));
+	for (; *p; ++p)
+	{
+		if (!GadgetTextEntryValidateCharacter(*p, 8))
+			*p = L'-';
+	}
+	result.set((unsigned short *)&buf[0]);
+	return result;
+}
 
 class AptCreateAHero
 {
