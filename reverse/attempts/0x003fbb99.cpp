@@ -1,8 +1,10 @@
+// ?rva003FBB99@Rva003FBA58@@QAEXXZ
+// partial score=0.97 date=2026-10-07
 // ?d_003fbb99@@YAXXZ
 // partial score=0.94 date=2026-10-07
 // ?d_003fbb99@@YAXXZ
 // partial score=0.8 date=2026-10-07
-// cl: /DNDEBUG /MD /Op
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 // ?rva003FBA58@Rva003FBA58@@QAEXXZ @0x003FBA58 140B
 // Chain lane: calls 0x003FB9C8 just landed; vtable slot 10 of 0x008747B8
 // (class of ??1Rva005C4B1B). Prev 0x003FBA0E in Rva003FBA0ERva003FBA0E.cpp
@@ -107,47 +109,6 @@ private:
 	float m_a0, m_a4, m_a8;
 };
 
-void Rva003FBA58::rva003FBA58()
-{
-	if (m_50 == 0) {
-		if (m_08 != 0) {
-			if (m_2c == 2 || (m_2c == 3 && m_54 == 0.0f)) {
-				this->s12(0);
-			}
-		}
-		m_2c = 0;
-	} else if (m_50 == 1) {
-		if (m_2c == 1) {
-			((Rva003FB9C8 *)this)->rva003FB9C8(m_34, 1);
-			return;
-		} else if (m_2c == 2) {
-			((Rva003FB9C8 *)this)->rva003FB9EB(m_34, 1);
-			return;
-		} else if (m_2c == 3) {
-			((Rva003FBA0E *)this)->rva003FBA0E(m_3c, m_40, m_44, m_48, 1, m_54);
-		}
-	}
-}
-
-// Native 003FBAE4..003FBB80, 156B, RET4. The receiver and slot +30
-// agree with the rowed sibling above; the +A0/+A4/+A8 values are float
-// components in retail. Original class and method names remain unknown.
-void rva0010E87A(int object, float amount);
-void rva0010E676(void *object, float x, float y, float z);
-
-void Rva003FBA58::rva003FBAE4(bool enabled)
-{
-	if (m_2c != 0) {
-		float amount = enabled ? 1.0f : 0.0f;
-		if (m_30 == 0)
-			rva0010E87A(reinterpret_cast<int>(m_08), amount);
-		else if (m_30 == 1)
-			rva0010E676(m_08, m_a0 * amount, m_a4 * amount, m_a8 * amount);
-		s12(enabled);
-		m_2c = 0;
-	}
-}
-
 // Native 3FBB99..3FBC4D RET0. The rowed siblings establish the receiver,
 // +08 child and +4C mode; this body adds the +58 enable byte and vectors
 // +5C/+68. Snapshot helper3FB793 is already rowed; original names unknown.
@@ -172,7 +133,7 @@ void Rva003FBA58::rva003FBB99()
 apply:
     float x = position.x + delta.x;
     Vec3 next;
-    next.y = position.y + delta.y;
+    *(volatile float *)&next.y = position.y + delta.y;
     next.x = x;
     next.z = position.z + delta.z;
     s07(&next);
