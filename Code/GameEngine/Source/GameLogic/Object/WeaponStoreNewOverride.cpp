@@ -46,7 +46,9 @@ private:
 	NameKeyType m_nameKey; // +0x0C
 	unsigned char m_pad010[0x160 - 0x10];
 	bool m_isOverride; // +0x160
-	unsigned char m_pad161[0x180 - 0x161];
+    unsigned char m_pad161[0x174 - 0x161];
+    mutable int m_retired; // +0x174
+    unsigned char m_pad178[0x180 - 0x178];
 };
 
 typedef _STL::vector<WeaponTemplate *, _STL::allocator<WeaponTemplate *> > WeaponTemplateVector;
@@ -55,6 +57,7 @@ class WeaponStore
 {
 public:
 	WeaponTemplate *newOverride(WeaponTemplate *weaponTemplate);
+    void rva002CDB0E(const WeaponTemplate *weaponTemplate);
 
 protected:
     WeaponTemplate *findWeaponTemplatePrivate(NameKeyType key) const;
@@ -63,6 +66,7 @@ protected:
 private:
 	unsigned char m_pad00[0x0C];
 	WeaponTemplateVector m_weaponTemplateVector; // +0x0C
+    _STL::vector<const WeaponTemplate *> m_retiredTemplates; // +0x18
 };
 
 WeaponTemplate *WeaponStore::newOverride(WeaponTemplate *weaponTemplate)
@@ -120,4 +124,27 @@ WeaponTemplate *WeaponStore::newWeaponTemplate(const AsciiString &name)
     wt->m_nameKey = TheNameKeyGenerator->nameToKey(name);
     m_weaponTemplateVector.push_back(wt);
     return wt;
+}
+
+// Complete 69-byte helper formerly assigned to Weapon/ModuleData. Target WB
+// parser bb475a and retail 0x002CE160 pass TheWeaponStore and the selected
+// WeaponTemplate. The helper moves that template from the +0x0C active vector
+// to +0x18 and sets its +0x174 flag, which the parser clears on its replacement.
+// Receiver, argument and fields are target facts; the original method name is
+// still unknown, so retain the RVA spelling rather than invent a semantic name.
+void WeaponStore::rva002CDB0E(const WeaponTemplate *arg)
+{
+    if (!arg)
+        return;
+    WeaponTemplate **finish = m_weaponTemplateVector.end();
+    for (WeaponTemplate **it = m_weaponTemplateVector.begin(); it != finish; ++it)
+    {
+        if (arg == *it)
+        {
+            arg->m_retired = 1;
+            m_weaponTemplateVector.erase(it);
+            m_retiredTemplates.push_back(arg);
+            return;
+        }
+    }
 }
