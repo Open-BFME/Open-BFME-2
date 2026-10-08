@@ -2604,6 +2604,15 @@ def stale_sources(sources, source_outputs, workers=1, *, strict=False):
                 for source in part]
 
 
+def _full_compile_lock_path():
+    # Native cl.exe writes objects and receipts in this cache. Resolve junctions
+    # too, so two worktrees sharing one physical cache still serialize.
+    if os.name == "nt":
+        return resolved(BUILD_DIR) / ".compile.lock"
+    # Wine's compiler processes share host resources across independent caches.
+    return Path.home() / ".cache" / "open-bfme-build.lock"
+
+
 def compile_rows(rows, sources, *, input_proof=None, strict=False):
     """Compile every source whose object is not current; return {source: object}.
     The compile phase of verify_functions, callable on its own (link_census).
@@ -2645,21 +2654,17 @@ def compile_rows(rows, sources, *, input_proof=None, strict=False):
     # oversubscribe the cores into a stall. Only the full-suite periodic audit,
     # which runs alone, sets BUILD_POOL=8 to compile all 260+ TUs in parallel.
     pool_size = _pool_size()
-    # Host-wide wine/cl mutex: concurrent FULL builds thrash each other (and wine
-    # cl fails at high concurrency), so a full build (>8 TUs) takes the lock
-    # EXCLUSIVELY and they serialize against each other. Small per-file verifies
-    # take NO lock: they must never wait behind a sibling clone's full gate — that
-    # stall serialized every worker to a crawl. A full build compiles one cl.exe
-    # at a time here (BUILD_POOL=1), so unlocked per-file verifies running
-    # alongside it stay within the core count.
-    lock_dir = Path.home() / ".cache"
-    lock_dir.mkdir(parents=True, exist_ok=True)
+    # Full builds (>8 stale TUs) serialize writers to a native Windows cache,
+    # or Wine processes across the host. Independent native worktrees can build
+    # concurrently. Small per-file verifies retain their existing unlocked path.
     exclusive = len(to_compile) > 8
     lock_file = None
     if exclusive:
-        lock_file = (lock_dir / "open-bfme-build.lock").open("a")
+        lock_path = _full_compile_lock_path()
+        lock_path.parent.mkdir(parents=True, exist_ok=True)
+        lock_file = lock_path.open("a")
         lock(lock_file, exclusive=True,
-             wait_notice="waiting for build lock (another clone is running a full build)...")
+             wait_notice="waiting for build lock (another full build shares this compiler scope)...")
     try:
         proof = {"input_proof": input_proof, "inventory": True} if strict or input_proof is not None else {}
         if pool_size == 1 or len(to_compile) <= 1:
