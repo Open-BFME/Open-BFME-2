@@ -16132,5 +16132,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva002888D4@Rva00239CC9DrawableHash@@QBEPAURva00239CC9DrawableHashNode@@ABW4DrawableID@@@Z,0x002888D4,callee of ?findDrawableByID@GameClient@@UAEPAVDrawable@@W4DrawableID@@@Z; folded hashtable _M_find
 ?rva00239057@Rva00239057Ref@@QAEAAU1@PBU1@@Z,0x00239057,callee of ?rva0023B383@GameClient@@QAEXPAVDict@@PAVThingTemplate@@PBUCoord3D@@@Z
 ?rva00433796@@YAXPAVDict@@PAVDrawable@@PAVThingTemplate@@PA_NPAVRva000A8C9B@@3@Z,0x00433796,callee of ?rva0023B383@GameClient@@QAEXPAVDict@@PAVThingTemplate@@PBUCoord3D@@@Z
-?rva0007C18E@Rva0007DA23ResourceManager@@QAEXXZ,0x0007C18E,callee of ?DrawMapComponent@AptCreateAHero@@QAEXPBVCoord2D@@0PAX1@Z
 ?Rva00513ED1@@YA?AVUnicodeString@@ABV1@@Z,0x00513ED1,callee of ?DrawMapComponent@AptCreateAHero@@QAEXPBVCoord2D@@0PAX1@Z
+?rva00134A80@CameraClass@@QAEXPAVMatrix4@@@Z,0x00134A80,callee of ?rva0007C18E@Rva0007DA23ResourceManager@@QAEXXZ
+?rva0007BB4B@Rva0007DA23ResourceManager@@QAE?AV?$RefCountPtr@VTextureClass@@@@XZ,0x0007BB4B,callee of ?rva0007C18E@Rva0007DA23ResourceManager@@QAEXXZ
