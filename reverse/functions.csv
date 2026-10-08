@@ -42853,7 +42853,6 @@ _piRemoveXpingRva00862EF0,,0x006A3DE0,17,Code/GameEngine/Source/GameNetwork/Game
 ??1Rva003F7EC7@@UAE@XZ,,0x003F7EC7,105,Code/Libraries/Source/WWVegas/WW3D2/Rva003F7EC7Dtor.cpp,matched,Derived base vtables with holder08 string and deleteinner
 ??0Rva006D6500@@QAE@H@Z,,0x006D6500,104,Code/Libraries/Source/Apt/Rva006D6360Ctor.cpp,matched,derived from Rva006D6360 with 9 8 bits at 0x1C arg at 0x20 vtable 0x008EA2A0
 ?xfer@Rva00340D1F@@MAEXPAVXfer@@@Z,,0x00340CB0,111,Code/GameEngine/Source/Common/Rva00340CB0Xfer.cpp,matched,rowed base xfer plus Xfer slots 0x28 0x10 0x7C 0x90 plus caller
-?Rva0020DA21Load@@YGXPAVINI@@@Z,,0x0020DA21,40,Code/GameEngine/Source/Common/Rva0020DA21Load.cpp,matched,unlock INI loader LargeGroupAudio via rowed ctor plus loadFile
 ??0Rva00108A0B@@QAE@XZ,,0x00108A0B,110,Code/GameEngine/Source/Common/Rva00108A0BCtor.cpp,matched,default ctor with two HashTableClass 0x800 tables via rowed new
 ??_GRva003F7EC7@@UAEPAXI@Z,,0x003F845C,28,Code/Libraries/Source/WWVegas/WW3D2/Rva003F7EC7Dtor.cpp,matched,Chain deleting dtor calling rowed 0x003F7EC7; rehomed from FamilyDeletingDtors_Rva003F7EC7.cpp: Rva003F7EC7Dtor.cpp owns ~Rva003F7EC7 and emits this deleting dtor itself (the family placeholder dtor was a duplicate definition)
 ?xfer@Rva00345CAB@@MAEXPAVXfer@@@Z,,0x00340E97,142,Code/GameEngine/Source/Common/Rva00340E97Xfer.cpp,matched,vtable 0x00813548 slot 3 plus rowed base xfer plus Xfer slots
