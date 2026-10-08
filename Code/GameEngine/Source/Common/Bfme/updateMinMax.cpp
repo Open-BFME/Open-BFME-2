@@ -64,3 +64,19 @@ template const float &max<float>(const float &, const float &);
 template const int &min<int>(const int &, const int &);
 template const int &max<int>(const int &, const int &);
 
+
+// BF1 9cbfb551fe20dae985f91f2319d8997287b6a705
+// GameLogic/Object/Behavior/RampageBehaviorCtorThunk.cpp maxRef expression
+// under /O1 /arch:SSE /G7 supplies the clean semantic lead, not its name.
+// Native7B763..7B776 is a full prior-RET/own-RET leaf: two stack pointers,
+// MOVSS from the second referent, COMISS against the first, CMOVBE first.
+// Return the second address only for an ordered strictly greater value;
+// ties and unordered comparisons retain the first. This differs from this
+// file's existing max<float> whose expression defaults to the second.
+// Original callable identity remains unknown; this pointer view states only
+// the independently witnessed ABI and floating selection behavior.
+const float *Rva0007B763SelectFloatAddress(const float *first,
+    const float *second)
+{
+    return *second > *first ? second : first;
+}
