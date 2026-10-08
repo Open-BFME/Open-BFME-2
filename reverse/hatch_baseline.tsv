@@ -2311,7 +2311,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv730.cpp	?bfmeVecDtorDMC@@YGX
 alternatename	Code/GameEngine/Source/Common/BfmeConv771.cpp	?bfmeVecDtorDSE@@YGXPAXIHP6AX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv789.cpp	?g_bfmeCsDWC@@3UBfmeCsDWA@@A	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv793.cpp	?bfmeFailDXE@@YGXH@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv794.cpp	?g_bfmeDropDXH@@3P6AXPAVBfmeSubDXH@@@ZA	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv803O1.cpp	?g_bfmeObjEBL@@3VBfmeObjEBL@@A	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv804.cpp	?Rva00959410Dispatch@@3URva00959410Ptr@@A	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv804.cpp	?g_bfmeObjECF@@3VBfmeObjECFPtr@@A	1

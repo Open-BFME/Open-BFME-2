@@ -19751,7 +19751,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A17774,16,.data,global,?g_00E17774@@3P6AXPAXH@ZA,,unowned,,0,2
 0x00A17784,16,.data,global,?g_bfmeAptFreeAtE17784@@3P6AXPAXH@ZA,Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,owned,,1,2
 0x00A17794,12,.data,global,?g_AptBindTexture@@3P6AXPAXH0@ZA,Code/Libraries/Source/Apt/AptCharacterAnimationSwfVersion.cpp,owned,,1,1
-0x00A177A0,4,.data,global,?g_bfmeDropDXH@@3P6AXPAVBfmeSubDXH@@@ZA,,unowned,?g_bfmeAptMatrixCallbackAtE177A0@@3P6AXPAUAptMatrix@@@ZA;?g_bfmeDropDXH@@3P6AXPAVBfmeSubDXH@@@ZA,1,2
+0x00A177A0,4,.data,global,?g_bfmeAptMatrixCallbackAtE177A0@@3P6AXPAUAptMatrix@@@ZA,Code/Libraries/Source/Apt/AptRenderingContextStacks.cpp,owned,,1,3
 0x00A177A4,48,.data,global,_bfmeNotify1209Callback,Code/GameEngine/Source/Common/BfmeConv1209.cpp,owned,,1,1
 0x00A177D4,12,.data,global,?g_eaStringAtE177D4@@3VEAStringC@@A,,unowned,,0,4
 0x00A177E0,1,.data,global,?g_00E177E0@@3EA,Code/GameEngine/Source/Common/Rva006D29E0Cluster.cpp,owned,,1,12
