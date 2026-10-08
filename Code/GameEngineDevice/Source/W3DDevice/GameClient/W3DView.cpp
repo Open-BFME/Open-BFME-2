@@ -111,7 +111,9 @@
 #include "W3DDevice/GameClient/W3DAssetManager.h"
 #include "W3DDevice/GameClient/W3DDisplay.h"
 #include "W3DDevice/GameClient/W3DScene.h"
+#define moveCameraAlongWaypointPath(a, b, c, d, e, f) moveCameraAlongWaypointPath(a, b, c, d, e, f); void moveCameraOrLocatorAlongSplinePathInit(Waypoint *, Int, Int, Real, Real, Real, Bool)
 #include "W3DDevice/GameClient/W3DView.h"
+#undef moveCameraAlongWaypointPath
 #include "D3dx8math.h"
 #include "W3DDevice/GameClient/W3DShaderManager.h"
 #include "W3DDevice/GameClient/Module/W3DModelDraw.h"
@@ -569,3 +571,58 @@ void W3DView::shake( const Coord3D *epicenter, CameraShakeType shakeType )
 		fields->m_shakeIntensity = BFME_SHAKE_DATA->m_maxShakeIntensity;
 }
 #undef BFME_SHAKE_DATA
+
+// Retail 0x00089E2A..0x00089ED4; WB 0x009977A0 names this initializer
+// and corroborates both embedded spline paths and their control sequence.
+// BFME2's spline classes are absent from the ZH headers. These views retain
+// the retail offsets and unnamed virtual slots without assigning new names.
+struct Bfme89E2APathNode
+{
+	unsigned char m_unknown[0xB4];
+	unsigned int m_control;
+};
+
+class Rva00312C95
+{
+public:
+	virtual void slot0() = 0;
+	virtual void setWaypoint(Waypoint *) = 0;
+	virtual void initialize(int enabled, int duration, float easeIn, float easeOut, int extra, int flag) = 0;
+	void rva00312118();
+	unsigned char m_unknown04[0x2C - 4];
+	std::vector<Bfme89E2APathNode> m_nodes;
+};
+
+template <int N> class Bfme89E2AViewSlots : public Bfme89E2AViewSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class Bfme89E2AViewSlots<0> {};
+class Bfme89E2AViewVtable : public Bfme89E2AViewSlots<28>
+{
+public:
+	virtual void setControl(unsigned int value) = 0;
+};
+
+void W3DView::moveCameraOrLocatorAlongSplinePathInit(Waypoint *way, Int duration, Int,
+	Real easeIn, Real easeOut, Real extra, Bool locator)
+{
+	if (way == 0 || *(int *)((char *)way + 0x60) != 6)
+		return;
+	Rva00312C95 *path = locator ? (Rva00312C95 *)((char *)this + 0x2368)
+		: (Rva00312C95 *)((char *)this + 0x22F4);
+	path->setWaypoint(way);
+	path->initialize(*(int *)((char *)this + 0x23D4), duration, easeIn, easeOut, (int)extra, 1);
+	if (locator)
+		*(bool *)((char *)this + 0x23C8) = true;
+	else {
+		*(int *)((char *)this + 0x2354) = 2;
+		unsigned int count = path->m_nodes.size();
+		if (count > 3)
+			((Bfme89E2AViewVtable *)this)->setControl(path->m_nodes[1].m_control);
+		else
+			((Bfme89E2AViewVtable *)this)->setControl(0);
+	}
+	path->rva00312118();
+}
