@@ -39,6 +39,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / "build" / "class_layouts"
+PARSER_HASH = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:16]
 
 # A namespace-scope class head opening a body (class_views.HEAD's rule).
 HEAD = re.compile(r"^[ \t]*(?:class|struct)[ \t]+(?:__declspec\([^)]*\)\s+)?([A-Za-z_]\w*(?:::[A-Za-z_]\w*)*)\s*(?::(?!:)[^{;]*)?\{", re.M)
@@ -120,6 +121,14 @@ class TypeStream:
             self.records[index] = (kind, stream[pos + 4:pos + 2 + length])
             pos += 2 + length
             index += 1
+        self.complete_sizes = {}
+        for kind, blob in self.records.values():
+            if kind not in CLASS_KINDS or struct.unpack_from("<H", blob, 2)[0] & 0x80:
+                continue
+            size, pos = numeric(blob, 16)
+            name, _ = name_at(blob, pos, CLASS_KINDS[kind])
+            key = (kind in (0x1004, 0x1504), name)
+            self.complete_sizes.setdefault(key, set()).add(size)
 
     def name(self, ti):
         if ti < 0x1000:
@@ -149,7 +158,12 @@ class TypeStream:
         if kind in (0x1003, 0x1503):
             return numeric(blob, 8)[0]
         if kind in CLASS_KINDS:
-            return numeric(blob, 16)[0]
+            size, pos = numeric(blob, 16)
+            if struct.unpack_from("<H", blob, 2)[0] & 0x80:
+                name, _ = name_at(blob, pos, CLASS_KINDS[kind])
+                sizes = self.complete_sizes.get((kind in (0x1004, 0x1504), name), set())
+                return next(iter(sizes)) if len(sizes) == 1 else 0
+            return size
         return 0
 
     def signature(self, ti):
@@ -295,6 +309,11 @@ def file_sha(path):
         return "missing"
 
 
+def parsed_path(digest):
+    # Parsed evidence depends on the reader as well as the compiler's bytes.
+    return CACHE / (f"types_{digest}_{PARSER_HASH}.json")
+
+
 def compile_layouts(source, builder=None, use_cache=True, extra_flags=()):
     """{class: layout} for every class in the unit's type stream; raises on compile error."""
     builder = builder or build_module()
@@ -307,12 +326,18 @@ def compile_layouts(source, builder=None, use_cache=True, extra_flags=()):
     command = [a for a in command if not a.startswith(("-Fo", "/Fo"))]
     command[-1:-1] = [*extra_flags, "-Fo" + obj.relative_to(ROOT).as_posix(), "-Z7", "-showIncludes"]
     key = sha("\0".join(command).encode() + source.read_bytes())
-    if use_cache and meta.exists():
+    if use_cache and REVERSED_GROUPS and meta.exists():
         cached = json.loads(meta.read_text(encoding="utf-8"))
         if cached.get("key") == key and all(file_sha(p) == h for p, h in cached["headers"].items()):
-            parsed = CACHE / ("types_" + cached["types"] + ".json")
+            parsed = parsed_path(cached["types"])
             if parsed.exists():
                 return json.loads(parsed.read_text(encoding="utf-8"))
+            if obj.exists():
+                stream = type_stream(obj.read_bytes())
+                if sha(stream) == cached["types"]:
+                    result = TypeStream(stream).classes() if stream else {}
+                    parsed.write_text(json.dumps(result), encoding="utf-8")
+                    return result
     done = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, text=True, errors="replace")
     if done.returncode:
         errors = re.findall(r"error (C\d+)[^\n]*", done.stdout + done.stderr)
@@ -325,8 +350,8 @@ def compile_layouts(source, builder=None, use_cache=True, extra_flags=()):
             headers[path] = file_sha(path)
     stream = type_stream(obj.read_bytes())
     digest = sha(stream)
-    parsed = CACHE / ("types_" + digest + ".json")
-    if use_cache and parsed.exists():
+    parsed = parsed_path(digest)
+    if use_cache and REVERSED_GROUPS and parsed.exists():
         result = json.loads(parsed.read_text(encoding="utf-8"))
     else:
         result = TypeStream(stream).classes() if stream else {}
