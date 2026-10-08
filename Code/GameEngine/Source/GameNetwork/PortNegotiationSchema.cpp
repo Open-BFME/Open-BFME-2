@@ -25,8 +25,10 @@ struct Rva005DB86EPingStats {
     int prefix;
     float sampleA, sampleB, sampleC;
     int count;
-    void reset() { count = 0; sampleA = 0.0f; sampleB = 0.0f; sampleC = 0.0f; }
+    void reset() { sampleA = 0.0f; sampleB = 0.0f; sampleC = 0.0f; count = 0; }
 };
+
+class GameSlot { public: bool isHuman() const; };
 
 class PortNegotiationSchema
 {
@@ -34,6 +36,8 @@ public:
 	void attachSlotList(void *slotList, UnsignedShort slot);
 	void negotiationStarted(UnsignedShort slot1, UnsignedShort slot2, int value, bool setTimeout);
 	void reconnectPlayers(UnsignedShort slot1, UnsignedShort slot2, bool resetRetries);
+	void playerJoin(UnsignedShort slot);
+	void playerLeave(UnsignedShort slot);
 
 private:
 	void rva005DB9E4();			// 0x005DB9E4
@@ -123,4 +127,52 @@ void PortNegotiationSchema::reconnectPlayers(UnsignedShort slot1,
         this, slot1, slot2);
     m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))&Rva00281A15Listener::notify,
         this, slot2, slot1);
+}
+
+// WB15C72E0: start peer negotiations for human slots; clear other peers.
+void PortNegotiationSchema::playerJoin(UnsignedShort slot)
+{
+    if (slot >= 8) return;
+    for (int i = 0; i < MAX_PORT_SLOTS; ++i) {
+        if (i == slot) continue;
+        if (((GameSlot **)m_slotList)[i] && ((GameSlot **)m_slotList)[i]->isHuman()) {
+            m_tableA[i][slot] = 1;
+            m_tableA[slot][i] = 1;
+            m_tableC[i][slot] = -1;
+            m_tableC[slot][i] = -1;
+            m_ping[slot][i].reset();
+            m_ping[i][slot].reset();
+            m_tableB[i][slot] = 0;
+            m_tableB[slot][i] = 0;
+            m_tableD[i][slot] = 0;
+            m_tableD[slot][i] = 0;
+        } else {
+            m_tableA[i][slot] = 0;
+            m_tableA[slot][i] = 0;
+        }
+        m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))&Rva00281A15Listener::notify,
+            this, slot, i);
+    }
+    m_perSlot[slot] = 0;
+}
+
+// WB15C6EA0: clear both directions for the departing slot and notify peers.
+void PortNegotiationSchema::playerLeave(UnsignedShort slot)
+{
+    if (slot >= 8) return;
+    for (int i = 0; i < MAX_PORT_SLOTS; ++i) {
+        m_tableA[i][slot] = 0;
+        m_tableA[slot][i] = 0;
+        m_tableB[i][slot] = 0;
+        m_tableB[slot][i] = 0;
+        m_tableC[i][slot] = 0;
+        m_tableC[slot][i] = 0;
+        m_ping[slot][i].reset();
+        m_ping[i][slot].reset();
+        m_tableD[i][slot] = 0;
+        m_tableD[slot][i] = 0;
+        m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))&Rva00281A15Listener::notify,
+            this, slot, i);
+    }
+    m_perSlot[slot] = 0;
 }
