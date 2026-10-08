@@ -52,6 +52,7 @@ body itself; the build.py thunk scan is not consulted.
 import argparse
 import bisect
 import collections
+import copy
 import concurrent.futures
 import csv
 import hashlib
@@ -265,6 +266,10 @@ class Identity:
         self.defs = defs
         self.truth = census.RetailTruth(self.rows)
         self._objcache, self._certified, self._extents, self._gstarts = {}, {}, {}, None
+        self._local_data_cache = {}
+        self._rows_by_object = collections.defaultdict(list)
+        for row in self.rows:
+            self._rows_by_object[str(row_object(row))].append(row)
 
     # retail
     def read(self, rva, size):
@@ -321,6 +326,59 @@ class Identity:
             o = self._objcache[path] = Obj(path)
         return o
 
+    def local_data_addresses(self, path):
+        """Per-object writable-static addresses proved by complete matched callers.
+
+        A local name has no global linker address. An independent caller can
+        still establish it: its entire masked body must reproduce its ledger
+        extent, and a DIR32 operand binds that local data symbol to retail data.
+        Conflicting placements provide no receipt. Read-only literals and
+        external names continue through RetailTruth's existing checks.
+        """
+        if path in self._local_data_cache:
+            return self._local_data_cache[path]
+        o = self.obj(path)
+        found = collections.defaultdict(set)
+        for row in self._rows_by_object.get(path, ()):
+            sym = o.by_name.get(build.ledger_object_symbol(row))
+            if sym is None or not o.is_code(sym):
+                continue
+            raw, size, relocs = o.body(sym)
+            rva, extent = int(row["target_rva"], 16), int(row["target_size"])
+            retail = self.read(rva, extent)
+            if raw is None or retail is None:
+                continue
+            if size > extent and not raw[extent:].strip(b"\xcc\x90"):
+                raw, size = raw[:extent], extent
+            if size != extent:
+                continue
+            mask, valid = bytearray(raw), True
+            for where, kind, _ in relocs:
+                width = 2 if kind == 0x000A else 4
+                if where < 0 or where + width > extent:
+                    valid = False
+                    break
+                mask[where:where + width] = retail[where:where + width]
+            if not valid or bytes(mask) != retail:
+                continue
+            for where, kind, ref in relocs:
+                sec = ref["section"]
+                if (kind != DIR32 or ref["storage"] != STATIC
+                        or not 0 < sec <= len(o.sections)):
+                    continue
+                flags = o.sections[sec - 1][4]
+                if flags & CODE or not flags & 0x80000000:  # writable data only
+                    continue
+                target = (struct.unpack_from("<I", retail, where)[0]
+                          - struct.unpack_from("<I", raw, where)[0] - BASE) & 0xFFFFFFFF
+                if not any(s["name"] in (".data", ".bss") and s["rva"] <= target < s["rva"] + s["size"]
+                           for s in self.secs):
+                    continue
+                found[ref["name"]].add(target)
+        out = {name: next(iter(targets)) for name, targets in found.items() if len(targets) == 1}
+        self._local_data_cache[path] = out
+        return out
+
     def certify(self, path, name, t):
         """'retail' when object `path`'s definition of `name`, placed at t, has t's
         retail extent and equals retail in bytes and resolved relocations;
@@ -345,7 +403,21 @@ class Identity:
                     base = sym["value"]
                     relocs = [(w, k, {**r, "value": r["value"] - base} if r["section"] == sym["section"] else r)
                               for w, k, r in relocs]
-                    v = self.truth._judge(t, {**sym, "value": 0}, raw, relocs, size)
+                    # Scoped receipts resolve local data only in this object. NUL
+                    # keys cannot collide with any actual COFF external name.
+                    local = self.local_data_addresses(path)
+                    bindings, resolved = {}, []
+                    for w, k, ref in relocs:
+                        if k == DIR32 and ref["storage"] == STATIC and ref["name"] in local:
+                            local_key = "\0local-data:" + ref["name"]
+                            bindings[local_key] = {local[ref["name"]]}
+                            ref = {**ref, "name": local_key, "storage": EXTERNAL}
+                        resolved.append((w, k, ref))
+                    truth = self.truth
+                    if bindings:
+                        truth = copy.copy(truth)
+                        truth.ledger = {**truth.ledger, **bindings}
+                    v = truth._judge(t, {**sym, "value": 0}, raw, resolved, size)
                     self._certified[key] = {"retail": "retail", "wrong": "bytes"}.get(v, "unknown")
         return self._certified[key]
 

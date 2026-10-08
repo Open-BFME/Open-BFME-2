@@ -144,5 +144,121 @@ class TierTests(unittest.TestCase):
         self.assertEqual(self.tier("?update@Foo@@UAEXXZ"), "unverified")
 
 
+class LocalDataReceiptTests(unittest.TestCase):
+    """Exercise actual COFF statics and RetailTruth's resolved-relocation check."""
+
+    def certificate(self, *, data_storage=allowed.STATIC, writable=True,
+                    bad_caller=False, bad_callback=False, conflicting=False,
+                    foreign=False, missing=False, bad_callee=False,
+                    truncated=False, code_data=False, outside=False):
+        import struct
+        import tempfile
+        from unittest.mock import patch
+        from test_gate_exploits import coff, TEXT
+
+        caller = b"\xb9" + b"\0" * 4 + b"\xc3"
+        callback = b"\xb9" + b"\0" * 4 + b"\xe9" + b"\0" * 4
+        if bad_callback:
+            callback = b"\xb8" + callback[1:]
+        sections = [
+            (".text", TEXT, caller, [(1, 2, allowed.DIR32)]),
+            (".text", TEXT, callback,
+             [(1, 2, allowed.DIR32), (6, 3, allowed.REL32)]),
+            (".data", TEXT if code_data else (0xC0300040 if writable else 0x40301040), b"\0" * 4, []),
+        ]
+        symbols = [
+            ("?caller@@YAXXZ", 0, 1, 32, allowed.EXTERNAL, 0),
+            ("_$E4", 0, 2, 32, allowed.STATIC, 0),
+            ("texture", 0, 3, 0, data_storage, 0),
+            ("?release@@YAXXZ", 0, 0, 32, allowed.EXTERNAL, 0),
+        ]
+        rows = [{"name": "?caller@@YAXXZ", "source": "own.cpp",
+                 "target_rva": "0x1000", "target_size": "6", "notes": ""}]
+        memory = {
+            0x1000: b"\xb9" + struct.pack("<I", allowed.BASE + 0x4000) + b"\xc3",
+            0x2000: b"\xb9" + struct.pack("<I", allowed.BASE + 0x4000)
+                    + b"\xe9" + struct.pack("<i", (0x3010 if bad_callee else 0x3000) - 0x200A),
+        }
+        if outside:
+            memory[0x1000] = b"\xb9" + struct.pack("<I", allowed.BASE + 0x9000) + b"\xc3"
+        if truncated:
+            rows[0]["target_size"] = "5"
+        if bad_caller:
+            memory[0x1000] = b"\xb8" + memory[0x1000][1:]
+        if conflicting:
+            sections.append((".text", TEXT, caller, [(1, 2, allowed.DIR32)]))
+            symbols.append(("?other@@YAXXZ", 0, 4, 32, allowed.EXTERNAL, 0))
+            rows.append({"name": "?other@@YAXXZ", "source": "own.cpp",
+                         "target_rva": "0x1100", "target_size": "6", "notes": ""})
+            memory[0x1100] = b"\xb9" + struct.pack("<I", allowed.BASE + 0x4004) + b"\xc3"
+        if foreign:
+            rows[0]["source"] = "foreign.cpp"
+        if missing:
+            rows = []
+        read = lambda rva, size: memory.get(rva, b"")[:size] or None
+        truth = allowed.census.RetailTruth.__new__(allowed.census.RetailTruth)
+        truth.ledger = {"?release@@YAXXZ": {0x3000}}
+        truth.pinned, truth.import_routes, truth.import_thunks, truth.slots = {}, {}, {}, {}
+        truth.shared = set()
+        truth.sections = []
+        truth._read = read
+        ident = allowed.Identity.__new__(allowed.Identity)
+        ident.rows = rows
+        ident.secs = [{"name": ".text", "rva": 0x1000, "size": 0x2000},
+                      {"name": ".data", "rva": 0x4000, "size": 0x1000}]
+        ident._objcache, ident._certified, ident._extents, ident._local_data_cache = {}, {}, {}, {}
+        ident.truth, ident.read = truth, read
+        ident.extent = lambda target, size=None: 10
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "own.obj"
+            path.write_bytes(coff(sections, symbols))
+            ident._rows_by_object = {str(path): [row for row in rows if row["source"] == "own.cpp"]}
+            with patch.object(allowed, "row_object",
+                              lambda row: path if row["source"] == "own.cpp" else Path(temp) / "foreign.obj"):
+                verdict = ident.certify(str(path), "_$E4", 0x2000)
+                self.assertEqual(ident._certified, {(str(path), "_$E4", 0x2000): verdict})
+                self.assertEqual(ident.certify(str(path), "_$E4", 0x2000), verdict)
+                # A receipt must not leak a synthetic/local binding into the
+                # shared truth used to check external names in other objects.
+                self.assertEqual(truth.ledger, {"?release@@YAXXZ": {0x3000}})
+                return verdict
+
+    def test_complete_matching_caller_certifies_local_shutdown_callback(self):
+        self.assertEqual(self.certificate(), "retail")
+
+    def test_same_local_name_in_another_object_supplies_no_receipt(self):
+        self.assertEqual(self.certificate(foreign=True), "unknown")
+
+    def test_missing_matching_caller_supplies_no_receipt(self):
+        self.assertEqual(self.certificate(missing=True), "unknown")
+
+    def test_conflicting_local_placements_supply_no_receipt(self):
+        self.assertEqual(self.certificate(conflicting=True), "unknown")
+
+    def test_nonmatching_caller_supplies_no_receipt(self):
+        self.assertEqual(self.certificate(bad_caller=True), "unknown")
+
+    def test_external_data_cannot_use_a_local_receipt(self):
+        self.assertEqual(self.certificate(data_storage=allowed.EXTERNAL), "unknown")
+
+    def test_readonly_data_cannot_use_a_writable_static_receipt(self):
+        self.assertEqual(self.certificate(writable=False), "unknown")
+
+    def test_truncated_caller_supplies_no_receipt(self):
+        self.assertEqual(self.certificate(truncated=True), "unknown")
+
+    def test_code_symbol_cannot_supply_a_data_receipt(self):
+        self.assertEqual(self.certificate(code_data=True), "unknown")
+
+    def test_out_of_image_data_address_supplies_no_receipt(self):
+        self.assertEqual(self.certificate(outside=True), "unknown")
+
+    def test_wrong_callback_instruction_is_still_refused(self):
+        self.assertEqual(self.certificate(bad_callback=True), "bytes")
+
+    def test_wrong_external_callee_is_still_refused(self):
+        self.assertEqual(self.certificate(bad_callee=True), "bytes")
+
+
 if __name__ == "__main__":
     unittest.main()
