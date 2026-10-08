@@ -156,16 +156,18 @@ public:
 	~RoadType(void);
 protected:
 	TextureClass *m_roadTexture;	///<Roads texture
+	// BFME 2 keeps a second texture handle at +0x04: ~RoadType (0x000D4F4F)
+	// releases +0x08/+0x0C as the render buffers and +0x04/+0x00 as textures,
+	// and loadLitRoadsInVertexAndIndexBuffers (0x000D9A5D) locks +0x0C/+0x08
+	// and stores the counts at +0x10/+0x14.
+	TextureClass *m_roadTexture2;
 	DX8VertexBufferClass	*m_vertexRoad;	///<Road vertex buffer.
 	DX8IndexBufferClass			*m_indexRoad;	///<indices defining a triangles for the road drawing.
 	Int			m_numRoadVertices; ///<Number of vertices used in m_vertexRoad.
 	Int			m_numRoadIndices;	///<Number of indices used in b_indexRoad;
-	// BFME 2 places the 4-byte test payload before the ID: uniqueID at
-	// +0x18, stacking at +0x20 in a 0x24 stride (adjustStacking 0x000D4941,
-	// clearAllRoads 0x000D7942, vector deleting dtor 0x0018E830).
-#ifdef LOAD_TEST_ASSETS
-	AsciiString		m_texturePath;
-#endif
+	// uniqueID at +0x18, stacking at +0x20 in a 0x24 stride (adjustStacking
+	// 0x000D4941, clearAllRoads 0x000D7942, vector deleting dtor 0x0018E830).
+	// The donor's test-only texture path has no slot in BFME 2.
 	Int					  m_uniqueID;     ///< ID of the road type in INI.
 	Bool					m_isAutoLoaded;
 	Int						m_stackingOrder; ///< Order in the drawing.  0 drawn first, then 1 and so on.
@@ -184,8 +186,6 @@ public:
 #ifdef LOAD_TEST_ASSETS
 	void setAutoLoaded(void) {m_isAutoLoaded = true;};
 	Bool isAutoLoaded(void) {return m_isAutoLoaded;};
-	AsciiString getPath(void) {return(m_texturePath);};
-	void loadTestTexture(void);
 #endif
 }	;
 
@@ -260,10 +260,13 @@ protected:
 	Int m__bfmeUnk3;
 
 	Int m_curUniqueID;				///< Road type we are rendering at this pass.
+	// BFME 2: the lit pass filters roads on a second unique ID at +0x2C
+	// (loadLit4PtSection 0x000D869C), and the road-type index is +0x30
+	// (loadLitRoadsInVertexAndIndexBuffers 0x000D9A5D indexes m_roadTypes by
+	// it; the constructor 0x000DC568 zeroes only it). Zero Hour's test-only
+	// m_maxUID has no slot. The +0x2C name is descriptive.
+	Int m_litUniqueID;
 	Int m_curRoadType;
-#ifdef LOAD_TEST_ASSETS
-	Int m_maxUID;				///< Maximum UID.
-#endif
 
 	Int m_maxRoadSegments;  ///< Size of m_roads.
 	Int m_maxRoadVertex;		///< Size of m_vertexRoad.

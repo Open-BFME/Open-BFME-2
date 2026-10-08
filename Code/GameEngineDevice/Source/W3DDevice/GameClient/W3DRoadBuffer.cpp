@@ -1,4 +1,4 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /arch:SSE /DNDEBUG /DWIN32 /MD /EHsc /Ireference/shims/w3droadbuffer /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /arch:SSE /DNDEBUG /DWIN32 /MD /EHsc /Ireference/shims/w3droadbuffer /Ireference/shims/indexbuffercount /Ireference/shims/vertexbufferlock /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 // stlport
 
 // BFME 2 has no W3D memory pools (see Code/Libraries/Source/WWVegas/WWLib/always.h).
@@ -204,31 +204,9 @@ void RoadType::loadTexture(AsciiString path, Int ID)
 	m_numRoadVertices=0;
 	m_numRoadIndices=0;
 
-#ifdef LOAD_TEST_ASSETS
-	m_texturePath = path;
-#endif
 	m_uniqueID = ID;
 }
 
-#ifdef LOAD_TEST_ASSETS
-//=============================================================================
-// RoadType loadTexture
-//=============================================================================
-/** Sets the W3D texture. */
-//=============================================================================
-// ?loadTestTexture@RoadType@@QAEXXZ present-unmatched
-void RoadType::loadTestTexture(void)
-{
-	if (m_isAutoLoaded && m_uniqueID>0 && !m_texturePath.isEmpty()) {
-		/// @todo - delay loading textures and only load textures referenced by map.
-		m_roadTexture = NEW_REF(TextureClass, (m_texturePath.str(), m_texturePath.str(), MIP_LEVELS_3));
-		m_roadTexture->Get_Filter().Set_Mip_Mapping( TextureFilterClass::FILTER_TYPE_BEST );
-
-		m_roadTexture->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_REPEAT);
-		m_roadTexture->Get_Filter().Set_V_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_REPEAT);
-	}
-}
-#endif
 
 //=============================================================================
 // RoadSegment constructor
@@ -1202,7 +1180,6 @@ Bool W3DRoadBuffer::visibilityChanged(const IRegion2D &bounds)
 //=============================================================================
 /** Loads the roads into the vertex buffer for drawing. */
 //=============================================================================
-// ?loadLitRoadsInVertexAndIndexBuffers@W3DRoadBuffer@@IAEXPAV?$RefMultiListIterator@VRenderObjClass@@@@@Z present-unmatched
 void W3DRoadBuffer::loadLitRoadsInVertexAndIndexBuffers(RefRenderObjListIterator *pDynamicLightsIterator)
 {
 	if ( !m_initialized) {
@@ -1218,22 +1195,16 @@ void W3DRoadBuffer::loadLitRoadsInVertexAndIndexBuffers(RefRenderObjListIterator
 	vb=(VertexFormatXYZDUV1*)lockVtxBuffer.Get_Vertex_Array();
 	ib = lockIdxBuffer.Get_Index_Array();
 	// Add to the index buffer & vertex buffer.
+	// BFME 2 drops Zero Hour's try/IndexBufferExceptionFunc wrapper here.
 
 	Int curRoad;
-	if (true) {
-		// Do road segments.
-		TCorner corner;
-		try {
-		for (corner = SEGMENT; corner < NUM_JOINS; corner = (TCorner)(corner+1)) {
-			for (curRoad=0; curRoad<m_numRoads; curRoad++) {
-				if (m_roads[curRoad].m_type == corner) {
-					loadLit4PtSection(&m_roads[curRoad], ib, vb, pDynamicLightsIterator);
-				}
-			}		
-		}
-		IndexBufferExceptionFunc();
-		} catch(...) {
-			IndexBufferExceptionFunc();
+	// Do road segments.
+	TCorner corner;
+	for (corner = SEGMENT; corner < NUM_JOINS; corner = (TCorner)(corner+1)) {
+		for (curRoad=0; curRoad<m_numRoads; curRoad++) {
+			if (m_roads[curRoad].m_type == corner) {
+				loadLit4PtSection(&m_roads[curRoad], ib, vb, pDynamicLightsIterator);
+			}
 		}
 	}
 	this->m_roadTypes[m_curRoadType].setNumVertices(m_curNumRoadVertices);
@@ -1543,26 +1514,6 @@ void W3DRoadBuffer::addMapObjects()
 				curRoad.m_uniqueID = road->getID();
 				found = TRUE;
 			}  // end if
-#ifdef LOAD_TEST_ASSETS
-			const Real DEFAULT_SCALE = 30;
-			if (!found) {
-				Int i;
-				for (i=0; i<m_maxRoadTypes; i++) {
-					if (pMapObj->getName() == m_roadTypes[i].getPath()) {
-						curRoad.m_scale = DEFAULT_SCALE; 
-						curRoad.m_uniqueID = m_roadTypes[i].getUniqueID();
-						found = true;
-					}
-				}
-			}
-			if (!found && m_curOpenRoad<m_maxRoadTypes) {
-				m_maxUID++;
-				curRoad.m_scale = DEFAULT_SCALE; 
-				curRoad.m_uniqueID = m_maxUID;
-				m_roadTypes[m_curOpenRoad].loadTexture(pMapObj->getName(), m_maxUID);
-				m_curOpenRoad++;
-			}
-#endif
 			curRoad.m_pt1.loc = loc1;
 			curRoad.m_pt1.isAngled = pMapObj->getFlag(FLAG_ROAD_CORNER_ANGLED);
 			curRoad.m_pt1.isJoin = pMapObj->getFlag(FLAG_ROAD_JOIN);
@@ -3031,16 +2982,15 @@ W3DRoadBuffer::~W3DRoadBuffer(void)
 //=============================================================================
 /** Constructor.  */
 //=============================================================================
-// Retail 0x000DC568. BFME 2 drops the m_curRoadType reset and starts with the
-// dirty flag and the new +0x4D flag set.
+// Retail 0x000DC568. BFME 2 drops the m_maxUID reset (it zeroes only the
+// +0x30 current road type) and starts with the dirty flag and the new +0x4D
+// flag set.
 W3DRoadBuffer::W3DRoadBuffer(void)	:
 	m_roads(NULL),
 	m_numRoads(0),
 	m_initialized(false),
 	m_map(NULL),
-#ifdef LOAD_TEST_ASSETS
-	m_maxUID(0),
-#endif // LOAD_TEST_ASSETS
+	m_curRoadType(0),
 	m_lightsIterator(NULL),
 	m_maxRoadSegments(500),
 	m_maxRoadTypes(8),
@@ -3055,16 +3005,8 @@ W3DRoadBuffer::W3DRoadBuffer(void)	:
 
 // BFME 2 holds the DX8 device mutex while it drops the road vertex and index
 // buffers: retail takes it on entry (0x0011F520) and releases it from the
-// unwind-tracked scope exit (0x00120F50).
-void BFME_DX8_Thread_Lock();
-bool BFME_DX8_Thread_Assert();
-
-class BFMEDX8DeviceLock
-{
-public:
-	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
-	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
-};
+// unwind-tracked scope exit (0x00120F50). BFMEDX8DeviceLock comes from the
+// BFME index-buffer header (reference/shims/indexbuffercount).
 
 //=============================================================================
 // W3DRoadBuffer::freeRoadBuffers
@@ -3124,19 +3066,12 @@ void W3DRoadBuffer::allocateRoadBuffers(void)
 		{
 			Int id = road->getID();
 			m_roadTypes[ i++ ].loadTexture( road->getTexture(), id );
-#ifdef LOAD_TEST_ASSETS
-			if( m_maxUID < id )
-				m_maxUID = id;
-#endif // LOAD_TEST_ASSETS
 
 		}  // end if
 
 	}  // end for road
 
 #ifdef LOAD_TEST_ASSETS
-	while (i<m_maxRoadTypes && m_roadTypes[i].isAutoLoaded()) {
-		m_roadTypes[i++].loadTestTexture();
-	}
 	m_curOpenRoad = i;
 #endif
 

@@ -8,7 +8,7 @@
 // Basis. Structure, the ambient-written-into-diffuse-temporary quirk, the Int i,j,k
 // ordering and the receiver idea come from the BFME1 donor (game/.../W3DRoadBuffer.cpp);
 // the ZH source is the fallback for everything BFME1 lacks. Target-measured deltas
-// against the donor: the road-ID compare reads this+0x2c (m_curRoadType); the height query
+// against the donor: the road-ID compare reads this+0x2c (m_litUniqueID); the height query
 // dispatches through TheTerrainRenderObject's vtable slot +0x248; the lit vertex is 0x24
 // bytes with a normal; the light-slot NULL fill is min(numLights,8) shaped; the shade clamps
 // are plain sequential ifs; the diffuse conversion is x87 (_ftol) with a float 255.0f pool
@@ -219,7 +219,7 @@ void W3DRoadBuffer::loadLit4PtSection(RoadSegment *pRoad, UnsignedShort *ib, Ver
 	const Real MAX_ERROR = MAP_HEIGHT_SCALE*1.1f;
 
 	
-	if (pRoad->m_uniqueID != m_curRoadType) return;
+	if (pRoad->m_uniqueID != m_litUniqueID) return;
 	if (!pRoad->m_visible) {
 		return;
 	}
