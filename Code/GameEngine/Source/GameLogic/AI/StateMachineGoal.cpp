@@ -172,6 +172,8 @@ public:
 	Bool rva0026220D() const;
 	void lock(const char *msg);
 	void rva004D7395();
+	void rva004D73AD(const void *src);
+	void rva004D7427(const void *src);
 };
 
 // ?internalSetGoalPosition@StateMachine@@QAEXPBUCoord3D@@M@Z
@@ -216,6 +218,28 @@ void StateMachine::halt()
 {
 	m_locked = true;
 	m_currentState = 0; // don't exit current state, just clear it.
+}
+
+// ?rva004D73AD@StateMachine@@QAEXPBX@Z @0x004D73AD 23B
+// Copies the Int at +0x74 of src into m_unk34, zeroing it for a null src.
+// Address-derived name; what the +0x74 field is remains unproven.
+void StateMachine::rva004D73AD(const void *src)
+{
+	if (src)
+		m_unk34 = *(const Int *)((const char *)src + 0x74);
+	else
+		m_unk34 = 0;
+}
+
+// ?rva004D7427@StateMachine@@QAEXPBX@Z @0x004D7427 17B
+// Lock-gated forwarder: returns while m_locked is set, otherwise tail-jumps
+// to rva004D73AD with the same argument. Retail's byte shape is
+// cmp [ecx+0x38],0 / jne ret / jmp 0x004D73AD / ret 4.
+void StateMachine::rva004D7427(const void *src)
+{
+	if (m_locked)
+		return;
+	rva004D73AD(src);
 }
 
 // ?internalGetState@StateMachine@@QAEPAUState@@H@Z
