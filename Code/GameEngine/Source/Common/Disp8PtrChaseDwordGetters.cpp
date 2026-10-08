@@ -187,3 +187,25 @@ void *Rva005FC745PtrChaseField::get() const
 // ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
 struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
 Rva002D2CDCFields *Rva002D2CDCFields::clear() { byte0=0; return this; }
+
+// Current BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 ambiguous-min5 leads.
+// Rva00537850IndirectGet.cpp suggests the first operation; list iterator
+// dereference in Rva006CCCA0LoadSchemeVariant.cpp suggests the second.
+// Several donor names share each shape, so no donor owner/type is asserted.
+// Each native entry follows INT3 padding and ends its own RET: 1CD70..1CD76
+// and6F6830..6F6836. They read raw words through independently proved offsets.
+class Rva0001CD70Word
+{
+public:
+ unsigned int get() const;
+ char m_pad00[4];
+ unsigned int *m_ptr;
+};
+unsigned int Rva0001CD70Word::get() const { return *m_ptr; }
+class Rva006F6830Word
+{
+public:
+ unsigned int get() const;
+ unsigned int *m_ptr;
+};
+unsigned int Rva006F6830Word::get() const { return m_ptr[2]; }
