@@ -11,21 +11,36 @@
 
 class Drawable;
 
+class SubsystemInterface
+{
+public:
+    SubsystemInterface();
+    virtual ~SubsystemInterface();
+
+private:
+    char m_baseFields[8];
+};
+
 struct RayEffectData
 {
+    // ??0RayEffectData@@QAE@XZ present-unmatched
+    __declspec(noinline) RayEffectData() {}
+    // ??1RayEffectData@@QAE@XZ present-unmatched
+    __declspec(noinline) ~RayEffectData() {}
+
     const Drawable *draw;
     Coord3D startLoc;
     Coord3D endLoc;
 };
 
-class RayEffectSystem
+class RayEffectSystem : public SubsystemInterface
 {
 public:
+    RayEffectSystem();
     virtual ~RayEffectSystem();
-    virtual void init();
+    virtual __declspec(noinline) void init();
 
 private:
-    char m_baseFields[8];
     RayEffectData m_effectData[128];
 };
 
@@ -34,6 +49,14 @@ static inline void clearCoordinates(Coord3D *loc)
     loc->x = 0.0f;
     loc->y = 0.0f;
     loc->z = 0.0f;
+}
+
+// BFME 1 donor RayEffectSystemConstructor.cpp uses the same empty record
+// callbacks. Target 0x002CEE96 constructs the array at +0x0C and calls init
+// rather than inlining it; init's visible body proves it cannot throw.
+RayEffectSystem::RayEffectSystem()
+{
+    init();
 }
 
 void RayEffectSystem::init()
