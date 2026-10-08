@@ -117,3 +117,21 @@ Rva0030F2ABFields *Rva0030F2ABFields::initialize(float value)
     m_value=value;
     return this;
 }
+
+// BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 Rva000FA610GetPortrait.cpp
+// OneBlock constructor is the source lead only. Complete native2A8818..2A8823
+// is independently bounded by preceding RET2A8817 and the known tuning ctor
+// at2A8823; it writes two raw words to1 and returns this without arguments.
+// The original owner, field purposes and constructor role remain unknown.
+class Rva002A8818Fields
+{
+public:
+    Rva002A8818Fields *initialize();
+    unsigned int m_00,m_04;
+};
+Rva002A8818Fields *Rva002A8818Fields::initialize()
+{
+    m_00=1;
+    m_04=1;
+    return this;
+}
