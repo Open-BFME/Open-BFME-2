@@ -109,9 +109,30 @@ public:
 	void onUnitCreated(Object *object, Object *other, bool isHorde);	// 0x004EC3AC
 };
 
+// Native TacticalAI +0x10 is the tactics generator. WB names the two
+// forwarding members; their retail tails reach its established Team methods.
+class Rva00506909
+{
+public:
+    void rva005059A1(Team *team);
+    void rva00505A56(Team *team);
+};
+
+class TacticalAI
+{
+public:
+    __declspec(noinline) void Register(Team *team);
+    __declspec(noinline) void UnRegister(Team *team);
+private:
+    unsigned char m_pad00[0x10];
+    Rva00506909 *m_generator;
+};
+
 class SkirmishAI : public AIBuilder
 {
 public:
+	void Register(Team *team);
+	void UnRegister(Team *team);
 	void onUnitCreated(Object *object, Object *other);
 	void onHordeCreated(Object *object, Object *other);
 	void doSpecialSlaveAIDying();
@@ -123,7 +144,8 @@ public:
 private:
 	unsigned char m_pad000[0x15C];
 	Player *m_player;					// +0x15C
-	unsigned char m_pad160[0x168 - 0x160];
+	unsigned char m_pad160[4];
+	TacticalAI *m_tacticalAI;			// +0x164
 	bool m_disabled168;					// +0x168, set: creations are ignored
 	unsigned char m_pad169[0x178 - 0x169];
 	Int m_masterPlayerIndex;				// +0x178
@@ -209,4 +231,31 @@ void SkirmishAI::transferUnitsToPlayer(Player *player)
 		}
 		cur = cur->m_next;
 	} while (cur != head);
+}
+
+// WB SkirmishAI.cpp lines 339/348 name these Team overloads and show the
+// +0x168 creation guard and +0x164 TacticalAI delegate. Native complete
+// extents: 002C6A5F..002C6A76 and 002C6A76..002C6A8D (RET4 each).
+void SkirmishAI::Register(Team *team)
+{
+    if (!m_disabled168)
+        m_tacticalAI->Register(team);
+}
+
+void SkirmishAI::UnRegister(Team *team)
+{
+    if (!m_disabled168)
+        m_tacticalAI->UnRegister(team);
+}
+
+// Complete eight-byte member tails at 002C5FAA and 002C5FB2. The retail
+// targets are the rowed generator Team registration/cancellation bodies.
+void TacticalAI::Register(Team *team)
+{
+    m_generator->rva005059A1(team);
+}
+
+void TacticalAI::UnRegister(Team *team)
+{
+    m_generator->rva00505A56(team);
 }
