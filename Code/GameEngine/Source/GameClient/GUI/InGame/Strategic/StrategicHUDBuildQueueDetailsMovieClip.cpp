@@ -1,5 +1,6 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /arch:SSE /ICode/Libraries/Include/Lib
 #include "ascii_string.h"
+#include "Coord2D.h"
 // Whole-file recovery from retail's QueuedIconSlot ctor 0x005F7B25 and
 // WorldBuilder 0x0162EB00, StrategicHUDBuildQueueDetailsMovieClip.cpp:685.
 // Its seven command-map bindings capture this and prove the callback owners.
@@ -71,10 +72,10 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6AE8
 // Native81B state setter; WB owner and vtable8797F4 slot24 agree.
 extern const char *g_00C78D64[];
 int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget*,void*,const char*,const char*,const char**);
-struct IconOwner { char unknown[4]; void *level; AsciiString name; };
+struct IconOwner { char unknown[4]; void *level; AsciiString name; char unknownC[4]; int overlayArg; };
 class StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot {
-public:virtual void DoSetState(int);
-private:char unknown[0x10];int state;char gap[4];IconOwner *owner;
+public:virtual void DoSetState(int); void rva005F6899(const Coord2D*,const Coord2D*,void*,void*);
+private:char unknown[0x10];int state;char gap[4];IconOwner *owner; int total,remaining;
 };
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::DoSetState(int index) {
  if(index==state)return;
@@ -84,3 +85,14 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::DoSetSt
  state=index;
 }
 
+
+class Display;
+extern Display *TheDisplay;
+class Rva000A4826 {public:void rva000A4875(float,float,float,float,float,int);};
+// Ctor5F775E binds this receiver under _ProgressOverlay. Native101B RET16.
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::rva005F6899(const Coord2D *position,const Coord2D *size,void*,void*) {
+ float progress;
+ if(total) progress=(float)(total-remaining)/(float)total;
+ else progress=0.0f;
+ ((Rva000A4826*)TheDisplay)->rva000A4875(position->x,position->y,size->x,size->y,progress*100.0f,owner->overlayArg);
+}
