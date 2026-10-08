@@ -1,47 +1,26 @@
-// cl: /MD /Oy-
-// Native Ghidra 0041BAD2..0041BB26 RET16. Source/target null checks,
-// WeaponSet at Object+330, attack results 3 or 2, then the measured
-// 244-byte Weapon helper 002CCED3 with source and target. The original
-// wrapper and the helper's precise purpose remain address-derived.
-enum WeaponSlotType { Rva0041BAD2SlotZero };
-enum AbleToAttackType { Rva0041BAD2AttackZero };
-enum CommandSourceType { Rva0041BAD2CommandZero };
-enum CanAttackResult { Rva0041BAD2Impossible, Rva0041BAD2Invalid,
-                       Rva0041BAD2AfterMoving, Rva0041BAD2Possible };
+// Native Ghidra41BAD2..41BB26 RET16: source/target guards, Object+330 WeaponSet,
+// attack results3 or2, then the established Weapon helper2CCED3.
+// InGameUI29CE45/29CE67 loads TheActionManager into ECX before this member call.
+// ECX is unused by the leaf. Reference canFireWeaponAtObject guides semantics;
+// the original wrapper/helper names remain uncertain and address-derived.
+// cl: /O1 /arch:SSE /G7 /MD /Oy-
+enum WeaponSlotType { PRIMARY_WEAPON = 0 };
+enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+enum AbleToAttackType { ATTACK_NEW_TARGET = 0 };
+enum CanAttackResult { ATTACKRESULT_NOT_POSSIBLE=0, ATTACKRESULT_INVALID_SHOT=1, ATTACKRESULT_POSSIBLE_AFTER_MOVING=2, ATTACKRESULT_POSSIBLE=3 };
 class Object;
-class Weapon
-{
-public:
-    bool rva002CCED3(const Object *source, const Object *target);
-};
-class WeaponSet
-{
-public:
-    Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const;
-};
-class Object
-{
-public:
-    CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType attack,
-                                                const Object *target,
-                                                CommandSourceType command) const;
-};
-
-bool __stdcall Rva0041BAD2(const Object *source, const Object *target,
-                           CommandSourceType command, WeaponSlotType slot)
-{
-    if (source && target)
-    {
-        const WeaponSet *weapons = reinterpret_cast<const WeaponSet *>(
-            reinterpret_cast<const char *>(source) + 0x330);
-        Weapon *weapon = weapons->getWeaponInWeaponSlot(slot);
-        if (weapon)
-        {
-            CanAttackResult result = source->getAbleToAttackSpecificObject(
-                Rva0041BAD2AttackZero, target, command);
-            if (result == Rva0041BAD2Possible || result == Rva0041BAD2AfterMoving)
-                return weapon->rva002CCED3(source, target);
-        }
-    }
-    return false;
+class Weapon { public: bool rva002CCED3(const Object*,const Object*); };
+class WeaponSet { public: Weapon *getWeaponInWeaponSlot(WeaponSlotType) const; };
+class Object { public: CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType,const Object*,CommandSourceType) const; };
+class ActionManager { public: bool rva0041BAD2(const Object*,const Object*,CommandSourceType,WeaponSlotType); };
+bool ActionManager::rva0041BAD2(const Object *source,const Object *target,CommandSourceType command,WeaponSlotType slot) {
+ if(source && target) {
+  const WeaponSet *weapons=reinterpret_cast<const WeaponSet*>(reinterpret_cast<const char*>(source)+0x330);
+  Weapon *weapon=weapons->getWeaponInWeaponSlot(slot);
+  if(weapon) {
+   CanAttackResult result=source->getAbleToAttackSpecificObject(ATTACK_NEW_TARGET,target,command);
+   if(result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) return weapon->rva002CCED3(source,target);
+  }
+ }
+ return false;
 }
