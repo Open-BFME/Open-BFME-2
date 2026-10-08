@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /arch:SSE /DNDEBUG /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /O1 /G7 /GX /MD /arch:SSE /DNDEBUG /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 #include <utility>
 #include "ascii_string.h"
@@ -16,7 +16,14 @@ struct Rva0041534BIter {
 	void *m_node; Rva00056F61 *m_table;
 	Rva0041534BIter(void *n,Rva00056F61*t) : m_node(n), m_table(t) {}
 };
-class Rva00056F61 { public: __declspec(nothrow) void *rva00056F61(const AsciiString *); Rva0041534BIter rva0041534B(const AsciiString *); };
+class Rva00056F61 {
+public:
+ __declspec(nothrow) void *rva00056F61(const AsciiString *);
+ Rva0041534BIter rva0041534B(const AsciiString *);
+ __declspec(nothrow) __forceinline Rva0041534BIter find(const AsciiString &key) {
+  return Rva0041534BIter(rva00056F61(&key),this);
+ }
+};
 struct Rva002236F2Value;
 class Rva002236F2 { public: Rva002236F2Value &rva002236F2(const Rva002236F2Value &); };
 struct Rva00223F4BNode { Rva00223F4BNode *next; Rva00223F4BPair value; };
@@ -111,26 +118,51 @@ template<class T> AptRef<T> &AptRef<T>::operator=(const AptRef &other) {
  return *this;
 }
 
+// Existing callee owners. The native records are 0x28 bytes, with two
+// canonical strings, the parameter/index words and flag byte at +0x24.
+class Rva00223CDB {public: int rva00223CDB(const AsciiString *);};
+class Rva00222F0A {public: int rva00222F0A();};
+class Rva002235F3 {public: void *rva002235F3(const void *);};
+class Rva00062908Host {public:
+ struct Slot {
+  void rva00222647(int,const AsciiString &,const AsciiString &,int);
+  AsciiString m_s0,m_s4;
+  int m_8,m_c;
+  unsigned char m_pad10[0x14],m_flags,m_tail[3];
+ };
+};
+struct AptLevelOverrideNode {void *next; AsciiString key; int index;};
 class AptPlayer
 {
 public:
 	void PopFocus(AptFocusTarget *target);
  void SetExtern(const char *name,int value);
+// Native vtable BE6E80 has AddLevel at +50 (entry 20). Earlier slots
+ // are declaration-only positions; their original names and hierarchy remain unknown.
+#define APT_PLAYER_SLOT(n) virtual void aptPlayerSlot##n();
+ APT_PLAYER_SLOT(0) APT_PLAYER_SLOT(1) APT_PLAYER_SLOT(2) APT_PLAYER_SLOT(3) APT_PLAYER_SLOT(4)
+ APT_PLAYER_SLOT(5) APT_PLAYER_SLOT(6) APT_PLAYER_SLOT(7) APT_PLAYER_SLOT(8) APT_PLAYER_SLOT(9)
+ APT_PLAYER_SLOT(10) APT_PLAYER_SLOT(11) APT_PLAYER_SLOT(12) APT_PLAYER_SLOT(13) APT_PLAYER_SLOT(14)
+ APT_PLAYER_SLOT(15) APT_PLAYER_SLOT(16) APT_PLAYER_SLOT(17) APT_PLAYER_SLOT(18) APT_PLAYER_SLOT(19)
+#undef APT_PLAYER_SLOT
+ virtual int AddLevel(AsciiString directory,AsciiString file,bool show,int parameter);
  void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
  void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);
  void AddTimer(const AsciiString &name, AptRef<AptTimer> timer);
  void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
 
 private:
-	unsigned char m_pad000[0xc];
+	unsigned char m_pad004[8]; // two observed words after the virtual pointer
  unsigned char m_commandMap[0x28]; // observed member start +0x0C
  unsigned char m_customRenderMap[0x28]; // observed member start +0x34
  unsigned char m_pad05c[0xa4-0x5c];
  unsigned char m_overButtonMap[0x14]; // +0xA4
  unsigned char m_timerMap[0x14]; // +0xB8
- unsigned char m_pad0cc[0x2fc-0xcc];
+ Rva00062908Host::Slot m_levelData[14]; // +0xCC
 	AptFocusStack m_focusStack;		// +0x2FC
 	Bool m_focusChanged;			// +0x308
+ unsigned char m_pad309[8];
+ bool m_levelsDirty; // +0x311
 };
 
 // AptPlayer::PopFocus, retail 0x00222A33.
@@ -209,6 +241,29 @@ void AptPlayer::SetExtern(const char *name,int value)
  node->handle.invoke(node->context,value,1);
 }
 
-
-
-
+// Semantic guide: BFME1 9cbfb551fe20dae985f91f2319d8997287b6a705,
+// game/GameEngine/Source/GameClient/GUI/WindowManager_loadAptWindow.cpp.
+// WB B93C90 names AddLevel; native 224710..224818 proves the 14 records,
+// two name maps, existing helper owners and target-specific selection logic.
+// The archive-loading tail in the BFME1 guide is absent from this target.
+int AptPlayer::AddLevel(AsciiString directory,AsciiString file,bool show,int parameter)
+{
+ if(reinterpret_cast<Rva00223CDB *>(this)->rva00223CDB(&file)!=-1) return -1;
+ AptLevelOverrideNode *overrideNode=static_cast<AptLevelOverrideNode *>(reinterpret_cast<Rva00056F61 *>(m_pad05c+0x14)->find(file).m_node);
+ int level;
+ if(overrideNode) level=overrideNode->index;
+ else {
+  level=reinterpret_cast<Rva00222F0A *>(this)->rva00222F0A();
+  if(level==-1) return -1;
+ }
+ if(static_cast<unsigned>(level)>=14) return 0;
+ if(m_levelData[level].m_c!=-1) return -1;
+ if(!directory.endsWith("\\") && !directory.endsWith("/")) directory.concat("\\");
+ m_levelData[level].rva00222647(level,directory,file,parameter);
+ *static_cast<int *>(reinterpret_cast<Rva002235F3 *>(m_pad05c)->rva002235F3(&file))=level;
+ if(show) {
+  m_levelsDirty=true;
+  m_levelData[level].m_flags|=1;
+ }
+ return level;
+}
