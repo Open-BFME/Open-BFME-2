@@ -9227,7 +9227,6 @@ name,address,notes
 ?dispatch@Rva006E2010Dispatcher@@QAEXHHH@Z,0x006E2010,address decoded from retail calls at 0x006F7F80 and 0x006F7F94; three integer arguments follow stack pushes; callee name remains address-derived
 ?dispatch@Rva007FA2C0@@QAEXPAX0@Z,0x00666810
 ?dispatch@SidesListNotifier@@QAEXPBUPost@1@@Z,0x0032AE25,retail REL32 from SidesListNotifier::post 0x32B537; notifier dispatch taking callback-owner pair
-?dispatchCampaignRva00514D05@@YAHABVAsciiString@@M_N@Z,0x00514D05,"auto-pin (permute --pins): REL32 call target read from retail in 0x00515921, whose banked body is byte-exact once this call resolves"
 ?dispatchFactory@Rva0078F770Owner@@QAEPAVGameWindow@@PAURva0078F950Record@@PAURva0078F770Secondary@@HH@Z,0x002C1395,callee of ?selectFactory@Rva0078F770Owner@@QAEXPAURva0078F950Record@@PAURva0078F770Secondary@@HH@Z at retail 0x0008FDC6 read from its REL32 displacement; body unrowed
 ?dispatchFactory@Rva0078F830Owner@@QAEHPAURva0078F950Record@@HHH@Z,0x002C1485,callee of ?selectFactory@Rva0078F830Owner@@QAEHPAURva0078F950Record@@HHH@Z at retail 0x0008FE14 read from its REL32 displacement at call 0x0008FE76; body unrowed
 ?dispatchIndexed@SidesListNotifier@@QAEXPBUPostIndexed@1@@Z,0x0032AE92,retail REL32 from SidesListNotifier::post 0x32B55C; notifier dispatch taking callback owner and index

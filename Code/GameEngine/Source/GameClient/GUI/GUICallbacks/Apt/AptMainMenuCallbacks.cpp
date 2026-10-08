@@ -101,9 +101,12 @@ public:
 	void rva0035BEC7();
 	bool rva0035BD5D();
 	void rva0035C2B9();
+	void rva0035BF4C(bool hide);	// rowed; Zero Hour's Shell::hide
 
 	unsigned char m_pad00[0x5D];
 	bool m_5d; // +0x5D
+	unsigned char m_pad5E[0x6C - 0x5E];
+	bool m_6c; // +0x6C, set when a campaign starts
 };
 
 // The shell's rowed 0x0035BD3F (its own address class).
@@ -206,7 +209,12 @@ private:
 	unsigned char m_pad00[0x48];
 };
 
-class GameMessage;
+// Zero Hour's GameMessage; appendIntegerArgument is rowed (0x0030F936).
+class GameMessage
+{
+public:
+	void appendIntegerArgument(int arg);
+};
 
 // Zero Hour's TheMessageStream (VA 0x00E00950, the ledger's
 // MessageStreamSubsystem); appendMessage is vslot 18.
@@ -224,7 +232,7 @@ public:
 extern class MessageStream *TheMessageStream;
 
 // The game mode TheGameLogic (0x00DFE78C) keeps at +0x110.
-class GameLogic;
+#include "../../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 struct AptMainMenuGameLogic
@@ -268,6 +276,22 @@ public:
 	virtual int getHeight();
 	virtual void v18(); virtual void v19(); virtual void v20();
 	virtual bool getWindowed();
+	virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25();
+	virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29();
+	virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33();
+	virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37();
+	virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41();
+	virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45();
+	virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49();
+	virtual void v50(); virtual void v51(); virtual void v52(); virtual void v53();
+	virtual void v54(); virtual void v55(); virtual void v56(); virtual void v57();
+	virtual void v58(); virtual void v59(); virtual void v60(); virtual void v61();
+	virtual void v62(); virtual void v63(); virtual void v64(); virtual void v65();
+	virtual void v66(); virtual void v67(); virtual void v68();
+	virtual bool rva_slot69();		// +0x114, consulted when a campaign is not started
+
+	unsigned char m_pad04[0x114 - 0x04];
+	bool m_114;						// +0x114, set when a campaign starts
 };
 
 extern Display *TheDisplay;
@@ -328,6 +352,8 @@ public:
 	void CreditsExit(const char *unused);
 
 	void ResetResolution(const char *unused);
+
+	static int LinearCampaignStart(const AsciiString &campaign, float time, bool start);
 
 	// Bound without a name by the LAN and online openers (0x00515C64,
 	// 0x005160DE) and the tutorial prompt (0x00515980); they keep their
@@ -591,4 +617,76 @@ void AptMainMenu::ResetResolution(const char *unused)
 		Rva0041267F();
 		TheInGameUI->v108();
 	}
+}
+
+// AptMainMenu::LinearCampaignStart, retail 0x00514D05..0x00514DC0 (187 bytes,
+// cdecl static). WorldBuilder names it in AptMainMenu.cpp and asserts
+// "Cannot find campaign '...' to start. Ignoring" on a failed lookup. Without
+// start it answers 1, or 3 when TheDisplay's slot 69 says no. With start the
+// Apt focus and background are dropped, the shell hidden and flagged (+0x6C),
+// TheDisplay's +0x114 set, video stopped (TheVideoPlayer slot 28), the logic
+// cleared (GameLogic 0x00376E92) and, for a campaign TheLinearCampaignManager
+// knows, a message 0x20 carries its index and the global at 0x00DD1538.
+// Callers 0x0051590C/0x0051596B pass the float second argument; it is unused.
+class AptFocusTarget;
+class AptPlayer
+{
+public:
+	void PopFocus(AptFocusTarget *target);	// 0x00222A33
+};
+extern AptPlayer *TheAptPlayer;
+
+class Rva00222A8BTarget
+{
+public:
+	void rva00222F55(bool show);			// 0x00222F55, AptPlayer::HideBackground
+};
+
+class VideoPlayerInterface
+{
+public:
+#define V(n) virtual void pad##n();
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
+	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27)
+#undef V
+	virtual void stopAllVideo();			// slot 28
+};
+extern VideoPlayerInterface *TheVideoPlayer;
+
+class Rva001EB8D7
+{
+public:
+	int rva001EB8D7(const StringBase<char> &name);	// campaign index, -1 if unknown
+};
+class LinearCampaignManager;
+extern LinearCampaignManager *TheLinearCampaignManager;
+
+extern int g_Va00DD1538;
+
+int AptMainMenu::LinearCampaignStart(const AsciiString &campaign, float time, bool start)
+{
+	int result = 1;
+	if (start)
+	{
+		TheAptPlayer->PopFocus((AptFocusTarget *)-1);
+		reinterpret_cast<Rva00222A8BTarget *>(TheAptPlayer)->rva00222F55(false);
+		TheShell->rva0035BF4C(true);
+		TheShell->m_6c = true;
+		TheDisplay->m_114 = true;
+		TheVideoPlayer->stopAllVideo();
+		TheGameLogic->rva00376E92(false, false);
+		int index = reinterpret_cast<Rva001EB8D7 *>(TheLinearCampaignManager)->rva001EB8D7(*(const StringBase<char> *)&campaign);
+		if (index != -1)
+		{
+			GameMessage *msg = TheMessageStream->appendMessage(0x20);
+			msg->appendIntegerArgument(index);
+			msg->appendIntegerArgument(g_Va00DD1538);
+		}
+	}
+	else if (!TheDisplay->rva_slot69())
+	{
+		result = 3;
+	}
+	return result;
 }
