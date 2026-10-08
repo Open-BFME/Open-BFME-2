@@ -1,3 +1,5 @@
+// AptMyHero::BuildBlingData
+// partial score=0.95 date=2026-10-09
 // ?BuildBlingData@AptMyHero@@QAEXXZ
 // partial score=0.95 date=2026-10-08
 // cl: /O1 /G7 /MD /EHsc /arch:SSE2 /Ireference/shims/bfme2_ascii

@@ -1,4 +1,6 @@
 // ?CreateMemberIconSlot@Impl@ArmyDetailsMovieClip@StrategicHUD@@QAE?AVRva005F2577Holder@@H@Z
+// partial score=0.9 date=2026-10-09
+// ?CreateMemberIconSlot@Impl@ArmyDetailsMovieClip@StrategicHUD@@QAE?AVRva005F2577Holder@@H@Z
 // partial score=0.9 date=2026-10-07
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // ?rva005F2CBA@Rva005F2FEF@@QAEXM@Z @0x005F2CBA 135B

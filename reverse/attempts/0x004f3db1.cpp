@@ -1,3 +1,5 @@
+// ?Rva004F3DB1Get@@YAHXZ
+// partial score=0.9 date=2026-10-09
 // ?selectTeamToReinforce@AIPlayer@@MAE_NH@Z
 // partial score=0.9 date=2026-10-08
 // Bank for AIPlayer::selectTeamToReinforce (0x4F3DB1, 985 B), 996 B / 307 diff lines.
