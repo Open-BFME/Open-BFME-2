@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /Ireference/shims/bfme2_ascii
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/vendor/stlport /Ireference/shims/bfme2_ascii
 // ?getXFromAlignment@GameSubTitle@@SAHHHHMM@Z @0x0025FF8F 175B.
 // WB 0x00DA61E0 names GameSubTitle::getXFromAlignment in GameSubTitles.cpp;
 // the full retail boundary ends at 0x0026003E. Five stack arguments, caller
@@ -244,3 +244,61 @@ GameSubTitle::GameSubTitle(GameFont *font,
 		++m_displayStringCount;
 	}
 }
+
+// ?rva002602DA@BfmeItemKA@@AAE_NXZ @0x002602DA 247B.
+// WB 0x00DA5800 identifies SubTitleWindow::UpdateDraw in this source file.
+// Retain the existing BfmeItemKA ABI view and private callee spelling used by
+// BfmeConv902.cpp; this is the same receiver and native callee, not a new alias.
+// Native bytes establish the five states, signed opacity/wait arithmetic,
+// vector of eight-byte records at +8, count +24, display array +34, flag +3C.
+// Record member meanings remain opaque. The real STLport size() expression and
+// /GX preserve retail scheduling and the by-value empty UnicodeString lifetime.
+// Complete native boundary 0x002602DA..0x002603D1, including the diagnostic.
+#include <vector>
+struct SubtitleRecord { unsigned a,b; };
+class BfmeItemKA {
+private:
+ bool rva002602DA();
+ void *mainText, *font;
+ _STL::vector<SubtitleRecord> records;
+ int state, field18, wait, field20, count, opacity, color, field30;
+ DisplayString **lines;
+ int field38, displayed;
+};
+bool BfmeItemKA::rva002602DA() {
+ bool draw=true;
+ switch(state) {
+ case 0:
+  opacity+=18;
+  if(opacity>=255) { opacity=255; state=3; }
+  break;
+ case 1:
+ case 4:
+  draw=false;
+  break;
+ case 2:
+  opacity-=18;
+  if(opacity<=0) {
+   opacity=0; state=1; draw=false;
+   for(int i=0;i<count;++i) lines[i]->setText(UnicodeString());
+   displayed=0;
+  }
+  break;
+ case 3:
+  opacity=255;
+  if(records.size()==0) {
+   wait-=33;
+   if(wait<=0) { wait=0; state=2; }
+  }
+  break;
+ default:
+  _bfme_debugRecordCallsite(1);
+  ((BfmeDebugManager*)theDebug)->slot60();
+  ((BfmeDebugManager*)theDebug)->slot6C(0,0,0)->slot38("Unrecognized SubTitleRenderState!")->slot4C(1);
+  return false;
+ }
+ return draw;
+}
+
+
+
