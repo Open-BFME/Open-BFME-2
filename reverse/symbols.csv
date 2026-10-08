@@ -11234,8 +11234,6 @@ name,address,notes
 ?rva001EF83A@Rva001EF83A@@QAEXHHPAD@Z,0x001EF83A,thiscall callee of the F22 ebp-frame forwarder 0x001EFC42; takes the wrapper's first two args plus (char*)&arg2+3 in a vestigial third slot; name unknown
 ?rva001F0247@@YAXMMMMPAX@Z,0x001F0247,cdecl 5-arg vector helper at Rva001F01F1 site: plain ret proves caller cleanup; 5th param is the out-vector written through (12B stores at its tail); REL32 read from placed 0x001F01F1 body
 ?rva001F073A@Rva001F073AHolder@@QAEPAXPAVAsciiString@@@Z,0x001F073A,20B holder init at Rva001F0C0B site (vector-base + flag + AsciiString name, returns its own this); REL32 read from placed 0x001F0C0B body
-?rva001F4002@Rva001F4002@@QAEHXZ,0x001F4002,address-derived callee of matched slot 0x003AFE24; retail REL32 targets 0x001F4002; Ghidra FUN bounds 173 bytes; thiscall no args; ret; callee body remains unclaimed; no named identity inferred
-?rva001F40AF@Rva001F4002@@QAEHXZ,0x001F40AF,address-derived callee of matched slot 0x003AFE36; retail REL32 targets 0x001F40AF; Ghidra FUN bounds 189 bytes; thiscall no args; ret; callee body remains unclaimed; no named identity inferred
 ?rva001F50BC@@YAXPAXHHH@Z,0x001F50BC,cdecl 4-arg worker called by Rva001F5A6A forwarder (caller cleanup); REL32 read from placed 0x001F5A6A body
 ?rva001FAF60@EnragedBehavior@@QAEXXZ,0x004590E6,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?rva001FD28E@Rva001FD28E@@QAEXPAX@Z,0x001FD28E,placeholder base-assign twin for 5B ICF fold; caller 0x1FFEE9

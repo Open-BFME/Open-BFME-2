@@ -112,14 +112,18 @@ Int Rva00359729::rva00359729(Int a)
 	return 0;
 }
 
-// 0x003AFE24 and 0x003AFE36: the pinned 0x001F4002 resp. 0x001F40AF of the
-// manager at VA 0x00DFDD04, 0 without it.
-class Rva001F4002
-{
+// 0x003AFE24 and 0x003AFE36: GPU resource access through the manager
+// at VA 0x00DFDD04; return zero if it is absent. Providers are byte-verified
+// in ParticleSystemManagerGetShaderSetup.cpp (1F4002 and 1F40AF).
+struct IDirect3DVertexDeclaration9;
+class DX8IndexBufferClass;
+namespace FXParticleSystem {
+class ParticleSystemManager {
 public:
-	Int rva001F4002();
-	Int rva001F40AF();
+	IDirect3DVertexDeclaration9 *GetVertexDeclaration();
+	DX8IndexBufferClass *rva001F40AF();
 };
+}
 extern class ParticleSystemManager *TheParticleSystemManager;
 class Rva003AFE24
 {
@@ -129,14 +133,14 @@ public:
 };
 Int Rva003AFE24::rva003AFE24()
 {
-	if ((*(Rva001F4002 **)&TheParticleSystemManager))
-		return (*(Rva001F4002 **)&TheParticleSystemManager)->rva001F4002();
+	if ((*(FXParticleSystem::ParticleSystemManager **)&TheParticleSystemManager))
+		return reinterpret_cast<Int>((*(FXParticleSystem::ParticleSystemManager **)&TheParticleSystemManager)->GetVertexDeclaration());
 	return 0;
 }
 Int Rva003AFE24::rva003AFE36()
 {
-	if ((*(Rva001F4002 **)&TheParticleSystemManager))
-		return (*(Rva001F4002 **)&TheParticleSystemManager)->rva001F40AF();
+	if ((*(FXParticleSystem::ParticleSystemManager **)&TheParticleSystemManager))
+		return reinterpret_cast<Int>((*(FXParticleSystem::ParticleSystemManager **)&TheParticleSystemManager)->rva001F40AF());
 	return 0;
 }
 
