@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // ZH donor: GeneralsMD TerrainLogic.cpp isBridgeRepaired and isBridgeBroken.
 // ?isBridgeRepaired@TerrainLogic@@QAE_NPBVObject@@@Z @0x0027D40B 60B and
 // ?isBridgeBroken@TerrainLogic@@QAE_NPBVObject@@@Z @0x0027D447 60B.
@@ -15,7 +15,12 @@
 typedef int ObjectID;
 enum BodyDamageType { BODY_PRISTINE, BODY_DAMAGED, BODY_REALLYDAMAGED, BODY_RUBBLE };
 
-struct Coord3D { float x, y, z; };
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+// Retail 0x0027D3D9: placement manager slot 20 takes template and position
+// plus Matrix3D::Get_Z_Rotation() and template scale. ElvenWood calls this
+// for non-tree, non-shrub terrain templates. The manager uses its ledger global.
+class ThingTemplate;
+class Matrix3D {public: float Get_Z_Rotation() const;};
 
 struct BridgeInfo
 {
@@ -98,6 +103,7 @@ public:
 	virtual void s38();
 	virtual void s39();
 	virtual Bridge *getFirstBridge() const; // +0xA0
+	void rva0027D3D9(const ThingTemplate*,const Coord3D*,const Matrix3D*,float);
 	bool isBridgeRepaired(const Object *bridge);
 	bool isBridgeBroken(const Object *bridge);
 };
@@ -141,3 +147,34 @@ bool TerrainLogic::isBridgeBroken(const Object *bridge)
 	}
 	return false;
 }
+
+class G00DFF080Obj;
+extern G00DFF080Obj *g_00DFF080;
+class TerrainPlacementManagerView {public:
+ virtual void p0();
+ virtual void p1();
+ virtual void p2();
+ virtual void p3();
+ virtual void p4();
+ virtual void p5();
+ virtual void p6();
+ virtual void p7();
+ virtual void p8();
+ virtual void p9();
+ virtual void p10();
+ virtual void p11();
+ virtual void p12();
+ virtual void p13();
+ virtual void p14();
+ virtual void p15();
+ virtual void p16();
+ virtual void p17();
+ virtual void p18();
+ virtual void p19();
+ virtual void p20(const ThingTemplate*,const Coord3D*,float,float);
+};
+void TerrainLogic::rva0027D3D9(const ThingTemplate *templ,const Coord3D *position,const Matrix3D *matrix,float scale)
+{
+ reinterpret_cast<TerrainPlacementManagerView*>(g_00DFF080)->p20(templ,position,matrix->Get_Z_Rotation(),scale);
+}
+
