@@ -1,44 +1,72 @@
-// ?rva00538D17@Rva00538D17@@QAE_NPAURva00538D17Out@@@Z
-// partial score=0.92 date=2026-10-02
-// cl: /O1 /DNDEBUG /MD
-//
-// ?rva00538D17@Rva00538D17@@QAE_NPAURva00538D17Out@@@Z, retail 0x00538D17, 36 bytes.
-// Vector-tail copy: begin at +0 and end at +4 of 16-byte records, last record
-// fields +4/+8 to 8-byte out, false when empty. Evidence: callers 0x003190BB
-// 0x003197B7 0x0031986B all check (end-begin)>>4 emptiness the same way then
-// delegate with out param, fallback copies +0x44/+0x48; getWheelInfo row.
+// ?rva00538D17@Rva00538CEF@@QAE_NPAURva00538CEFPair@@@Z
+// partial score=0.8 date=2026-10-08
+// cl: /DNDEBUG /MD /EHsc
+// ?rva00538CEF@Rva00538CEF@@QAEPAVRva0020E89C@@XZ @0x00538CEF 40B: returns view lookup of last vector element or null.
+// Evidence: retail cmp [ecx] [ecx+4] je null then global g_009FEF10 +0xB0 view call rowed 0x0020EAF6 with [edx-4]; callers at 0x31A5FC 0x538D44.
 
-struct Rva00538D17Out
-{
-	int m00;
-	int m04;
-};
-
-struct Rva00538D17Entry
-{
-	int m00;
-	int m04;
-	int m08;
-	int m0C;
-};
-
-class Rva00538D17
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+class Rva0020E89C;
+class Rva0020EAF6View
 {
 public:
-	bool rva00538D17(Rva00538D17Out *out);
-private:
-	Rva00538D17Entry *m_begin;
-	Rva00538D17Entry *m_end;
+	Rva0020E89C *rva0020EAF6(int index);
 };
 
-// ?rva00538D17@Rva00538D17@@QAE_NPAURva00538D17Out@@@Z present-unmatched
-bool Rva00538D17::rva00538D17(Rva00538D17Out *out)
+class Rva002BA8F1Logic
 {
-	Rva00538D17Entry *end = m_end;
-	if (end - m_begin != 0) {
-		out->m00 = (end - 1)->m04;
-		out->m04 = (end - 1)->m08;
-		return true;
+public:
+	char m_pad00[0xB0];
+	Rva0020EAF6View *m_B0;
+};
+
+struct Rva00538CEFElement
+{
+	int m_00;
+	int m_04;
+	int m_08;
+	int m_0C;
+};
+
+struct Rva00538CEFPair
+{
+	int m_00;
+	int m_04;
+};
+
+class Rva00538CEF
+{
+public:
+	Rva0020E89C *rva00538CEF();
+	bool rva00538D17(Rva00538CEFPair *out);
+private:
+	int *m_start;
+	int *m_finish;
+};
+
+Rva0020E89C *Rva00538CEF::rva00538CEF()
+{
+	if (m_start != m_finish) {
+		Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
+		if (logic) {
+			Rva0020EAF6View *view = logic->m_B0;
+			if (view)
+				return view->rva0020EAF6(m_finish[-1]);
+		}
 	}
-	return false;
+	return 0;
+}
+
+// Retail 0x00538D17, 36 bytes: copies the last element's two dwords at +4 and
+// +8 into the out pair; false when the vector is empty. Element size 16.
+bool Rva00538CEF::rva00538D17(Rva00538CEFPair *out)
+{
+	Rva00538CEFElement *begin = (Rva00538CEFElement *)m_start;
+	Rva00538CEFElement *end = (Rva00538CEFElement *)m_finish;
+	int count = (int)(end - begin);
+	if (count == 0)
+		return false;
+	out->m_00 = end[-1].m_04;
+	out->m_04 = end[-1].m_08;
+	return true;
 }
