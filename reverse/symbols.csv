@@ -12717,7 +12717,6 @@ name,address,notes
 ?squadFromTeam@Squad@@QAEXPBVTeam@@_N@Z,0x004D6D95,Zero Hour Squad::squadFromTeam spelling of the rowed Rva004D6C9C::rva004D6D95 (team iteration plus push_back after an optional clear): AIStateMachine::setGoalTeam 0x0035042D calls it at 0x00350459 on the goal squad with (team / true)
 ?squash@Rva0084E030Buffer@@QAEXXZ,0x00021290,Frameless digit-squash loop called from numeric/monetary create buf sites
 ?startRenderToTexture@W3DShaderManager@@SAXXZ,0x00075BD8
-?startRotOrPitchSound@TurretAI@@AAEXXZ,0x004D8B50,Zero Hour TurretAI::startRotOrPitchSound (private): updateTurretAI 0x004D8DEA calls it at 0x004D8E7D when m_playRotSound (+0x38) or m_playPitchSound (+0x39) is set (else the rowed stop 0x004D82F6); body skips when TheAudio still plays the handle at +0x20 and otherwise builds the turret-move audio event for the owner and stores the new handle
 ?startsWith@AsciiString@@QBE_NABV1@@Z,0x00035FB0,AsciiString view of StringBase<char>::startsWith; call at 0x00205543 in _adjustVariable
 ?startsWithNoCase@?$StringBase@D@@QBE_NPBDH@Z,0x000359B0,BFME2 export and retail call target; the body is banked as a near miss on one register choice
 ?startsWithNoCase@AsciiString@@QBE_NABV1@@Z,0x000362B0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
