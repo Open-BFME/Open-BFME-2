@@ -176,6 +176,7 @@ public:
     void rva00571B75();
     void rva00570C64();
     void rva00570D36();
+    void rva00571129();
     void rva005709D1(AsciiString &,AsciiString &);
     bool rva005706D4();
     bool rva0056EC54(const UnicodeString &,bool);
@@ -434,6 +435,52 @@ void AptOnlineLogin::rva00570D36() {
   loginStartTime=timeGetTime();
   LoginSubmitRequest req;
   req.type=4;
+  _mbscpy((unsigned char *)req.nickname,(const unsigned char *)((const StringBase<char> *)&login)->str());
+  _mbscpy((unsigned char *)req.email,(const unsigned char *)((const StringBase<char> *)&email)->str());
+  _mbscpy((unsigned char *)req.password,(const unsigned char *)((const StringBase<char> *)&password)->str());
+  req.hasFirewall=true;
+  AsciiString registryValue;
+  GetStringFromRegistry("\\ergc","",registryValue);
+  _mbscpy((unsigned char *)req.registryKey,(const unsigned char *)((const StringBase<char> *)&registryValue)->str());
+  TheGameSpyInfo->setLocalBaseName(login);
+  TheGameSpyInfo->setLocalEmail(email);
+  TheGameSpyInfo->setLocalPassword(password);
+  TheGameSpyBuddyMessageQueue->addRequest(req);
+  ((Rva0056DCBF *)this)->rva0056DCBF(false);
+  rva00570C64();
+ } else {
+  if(email.isEmpty() && login.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoAll"),0);
+  else if(email.isEmpty() && login.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmailNickname"),0);
+  else if(email.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmailPassword"),0);
+  else if(login.isEmpty() && password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoNicknamePassword"),0);
+  else if(email.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoEmail"),0);
+  else if(password.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoPassword"),0);
+  else if(login.isEmpty()) GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoNickname"),0);
+  else GSMessageBoxOk(TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:GSNoLoginInfoAll"),0);
+ }
+}
+// BFME1 34f59164 OnlineLoginSubmit00551620.cpp primary semantic donor.
+// Native571129..571593 owns this separate request path: disables three
+// controls, stores nickname at D8 and sets the byte at request+2B7.
+// The sibling570D36 differs; its exactness is not evidence for this body.
+void AptOnlineLogin::rva00571129() {
+ AsciiString login,password,email;
+ email.translate(((Rva0056EBA1 *)this)->rva0056EB15());
+ login.translate(((Rva0056EA91 *)this)->rva0056EA91());
+ password.translate(((Rva0056EBD0 *)this)->rva0056EBD0());
+
+ { void *movie=owner->movie;
+   ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonDeleteNickname",0,0,0,0); }
+ { void *movie=owner->movie;
+   ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonLogin",0,0,0,0); }
+ { void *movie=owner->movie;
+   ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonServiceTerms",0,0,0,0); }
+ if(!email.isEmpty() && !login.isEmpty() && !password.isEmpty()) {
+  m_deleteNickname=login;
+  loginStartTime=timeGetTime();
+  LoginSubmitRequest req;
+  req.type=0;
+  req.tail=1;
   _mbscpy((unsigned char *)req.nickname,(const unsigned char *)((const StringBase<char> *)&login)->str());
   _mbscpy((unsigned char *)req.email,(const unsigned char *)((const StringBase<char> *)&email)->str());
   _mbscpy((unsigned char *)req.password,(const unsigned char *)((const StringBase<char> *)&password)->str());
