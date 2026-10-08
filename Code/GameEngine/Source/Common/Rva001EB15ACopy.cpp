@@ -15,6 +15,7 @@ template <typename T>
 class StringBase
 {
 public:
+	__forceinline StringBase() : m_data(0) {}
 	StringBase<T> &operator=(const StringBase<T> &src);
 	~StringBase();
 private:
@@ -33,6 +34,7 @@ private:
 class UnicodeString
 {
 public:
+	__forceinline UnicodeString() : m_data() {}
 	UnicodeString(const UnicodeString &o) : m_data(o.m_data) {}
 	~UnicodeString();
 private:
@@ -47,6 +49,7 @@ struct Rva001EB15A
 	UnicodeString m_wstr0C;
 	StringBase<char> m_str10;
 	unsigned char m_14;
+	Rva001EB15A();
 	Rva001EB15A(const Rva001EB15A &o);
 };
 
@@ -59,3 +62,9 @@ Rva001EB15A::Rva001EB15A(const Rva001EB15A &o)
 	, m_14(o.m_14)
 {
 }
+
+// Native callers 37E308/37E3AD construct this subrecord at revival entry+B0.
+// Its two default StringBase members are null; the complete 22B constructor
+// folds with the existing 4E04FD zero constructor. The record name is provisional.
+Rva001EB15A::Rva001EB15A()
+ : m_00(0),m_04(0),m_08(0),m_wstr0C(),m_str10(),m_14(0) {}
