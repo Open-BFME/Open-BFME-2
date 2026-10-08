@@ -65,6 +65,11 @@ template class _STL::map<LocomotorSetType, BfmeLocomotorTemplateVector, _STL::le
 // constructor are folded helpers; no Locomotor application identity is claimed
 // for this integer-keyed specialization.
 typedef _STL::vector<unsigned int> BfmeIntegerMapVector;
+// The native pair constructors call the complete copy provider at 0x002CFAB9.
+// Reuse it rather than emitting this unit's incompatible allocator variant.
+namespace _STL {
+template <> BfmeIntegerMapVector::vector(const BfmeIntegerMapVector &);
+}
 typedef _STL::map<int, BfmeIntegerMapVector, _STL::less<int>, _STL::allocator<_STL::pair<const int, BfmeIntegerMapVector> > > BfmeIntegerVectorMap;
 
 template<> BfmeIntegerMapVector &BfmeIntegerVectorMap::operator[](const int &key)
