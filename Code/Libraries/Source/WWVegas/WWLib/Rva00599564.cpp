@@ -70,7 +70,8 @@ public:
 };
 
 extern Rva002A8F24 *g_00DFEEF8;
-extern class Rva002D06CA *TheThingFactory;
+class ThingFactory;
+extern ThingFactory *TheThingFactory;
 
 class AIDozerManager
 {
@@ -103,7 +104,7 @@ void AIDozerManager::buildDozer(Object *obj)
 				goto done;
 docall:
 			void *r = s->v02();
-			void *q = TheThingFactory->rva002D06CA(&m_str);
+			void *q = reinterpret_cast<Rva002D06CA *>(TheThingFactory)->rva002D06CA(&m_str);
 			s->v08(q, -1, r, -1, zero, &AsciiString::TheEmptyString, zero);
 		}
 	}

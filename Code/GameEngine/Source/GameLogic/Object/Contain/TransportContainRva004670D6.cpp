@@ -15,7 +15,8 @@ public:
 	void *rva002D06CA(const AsciiString *key);
 };
 
-extern class Rva002D06CA *TheThingFactory;
+class ThingFactory;
+extern ThingFactory *TheThingFactory;
 
 class PClass
 {
@@ -164,7 +165,7 @@ void TransportContain::createPayload()
 		int count = *(int *)((char *)aname + 4);
 		if (count <= 0)
 			return;
-		void *res = TheThingFactory->rva002D06CA(aname);
+		void *res = reinterpret_cast<Rva002D06CA *>(TheThingFactory)->rva002D06CA(aname);
 		if (res == 0)
 			return;
 		Object *obj = m_8;
