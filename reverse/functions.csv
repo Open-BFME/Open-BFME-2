@@ -70471,3 +70471,4 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?release@Rva005E7461Ref@@QAEXXZ,,0x005E7461,15,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
 ?release@Rva005F0624Ref@@QAEXXZ,,0x005F0624,15,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
 ?get@Rva005EE258Source@@QAE?AURva005EE258Result@@XZ,,0x005EE258,23,Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp,matched,
+?rva00479D68@Rva00479D68@@QAEXXZ,,0x00479D68,5,Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainXfer.cpp,matched,native00479D68-00479D6D complete5B jump forwarder; WB011A1210 no-argument full-receiver call; uses existing004783D7 ABI provider pin from Rva004697E1Gate; folded class identity remains address-derived

@@ -123,3 +123,14 @@ void HordeGarrisonContain::xfer(Xfer *xfer)
 	if (version.m_minimum >= 2)
 		*xfer == m_9E0;
 }
+
+// Native 00479D68..00479D6D forwards the unchanged full-object receiver to
+// 004783D7, whose existing ABI spelling is used by Rva004697E1Gate.cpp.
+// WB 011A1210 confirms a no-argument member call, also used by the independently
+// named HordeSiegeEngineContain::LoadPostProcess. The folded class name is unknown.
+class Rva004697E1Contain { public: void rva004783D7(); };
+class Rva00479D68 { public: void rva00479D68(); };
+void Rva00479D68::rva00479D68()
+{
+    reinterpret_cast<Rva004697E1Contain *>(this)->rva004783D7();
+}
