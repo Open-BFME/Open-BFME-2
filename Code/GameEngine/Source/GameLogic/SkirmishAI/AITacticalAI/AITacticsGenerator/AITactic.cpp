@@ -1,4 +1,5 @@
-// cl: /O1 /MD
+// cl: /ICode/Libraries/Include/Lib /O1 /MD
+#include "Coord3D.h"
 // AITactic::initializeTeamTemplate @ 0x004ECE61, 50 bytes: slot 3 of the AITactic
 // vtable, which WorldBuilder names initializeTeamTemplate in every tactic that
 // overrides it (the AIRingHero/AIRoamingDefense/AITacticDefensive overrides
@@ -23,7 +24,8 @@ extern TeamFactory *TheTeamFactory;
 class Team
 {
 public:
-	void disband();					// 0x0039E9E0
+	void disband();
+	bool hasAnyObjects(bool flag);					// 0x0039E9E0
 };
 
 struct Rva002A8AB1Record
@@ -49,14 +51,33 @@ public:
 
 	unsigned char m_pad00[4];
 	int m_04;						// +0x04
-	unsigned char m_pad08[0x1c - 8];
+	unsigned char m_pad08[0x19 - 8];
+	bool m_19;
+	unsigned char m_pad1A[2];
 	int m_numTactics;					// +0x1C
 };
 
 struct AITacticTeamRecord
 {
 	unsigned int m_teamID;					// +0x00
-	unsigned char m_pad04[0x14 - 4];
+	Coord3D m_lastPosition;
+	int m_staleFrames;
+};
+
+// Existing 20-byte-record erase provider at 0x004ED3A2.
+class Rva004ED3A2
+{
+public:
+    void *rva004ED3A2(void *position);
+};
+
+// Retail uses the same begin/end/capacity aggregate for the team records.
+struct AITacticTeams
+{
+    AITacticTeamRecord *m_begin;
+    AITacticTeamRecord *m_end;
+    AITacticTeamRecord *m_cap;
+    bool empty() const { return m_begin == m_end; }
 };
 
 class AITactic
@@ -67,8 +88,16 @@ public:
 	virtual void slot02();
 	virtual bool initializeTeamTemplate(void *p, int dummy);
 	virtual unsigned int getNumberOfTeamsNeeded();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
 
 	void end(bool a, bool b);
+	void preUpdate();
+	void updateTeamInfos();
+	void calcLastTeamPos();
+	void cohereTeams();
 	void sendTeamToAssistAnotherHorde(Team *team);		// 0x004ED52E
 
 private:
@@ -76,14 +105,13 @@ private:
 	TeamPrototype **m_protoEnd;				// +0x08
 	TeamPrototype **m_protoCap;				// +0x0C
 	bool m_10;						// +0x10
-	AITacticTeamRecord *m_teamsBegin;			// +0x14
-	AITacticTeamRecord *m_teamsEnd;				// +0x18
-	AITacticTeamRecord *m_teamsCap;				// +0x1C
+	AITacticTeams m_teams;
 	Rva002C589B *m_20;					// +0x20
 	void *m_24;						// +0x24
 	bool m_ended;						// +0x28
 	unsigned char m_pad29[0x38 - 0x29];
-	unsigned char m_38[0x50 - 0x38];			// +0x38
+	Coord3D m_38;
+	Coord3D m_44;			// +0x38
 	bool m_50;						// +0x50
 };
 
@@ -121,8 +149,8 @@ void AITactic::end(bool a, bool b)
 			record->rva004EC07D(*it);
 	}
 
-	AITacticTeamRecord *teamsEnd = m_teamsEnd;
-	for (AITacticTeamRecord *rec = m_teamsBegin; rec != teamsEnd; ++rec)
+	AITacticTeamRecord *teamsEnd = m_teams.m_end;
+	for (AITacticTeamRecord *rec = m_teams.m_begin; rec != teamsEnd; ++rec)
 	{
 		Team *team = TheTeamFactory->findTeamByID(rec->m_teamID);
 		if (team)
@@ -138,9 +166,38 @@ void AITactic::end(bool a, bool b)
 		if (a)
 			m_20->rva002C5843(true);
 		else if (!b && getNumberOfTeamsNeeded() > 0)
-			m_20->markApproachHazard(m_38);
+			m_20->markApproachHazard(&m_38);
 		m_20->removeTactic();
 		m_20 = 0;
 	}
 	m_10 = false;
+}
+
+// ?preUpdate@AITactic@@QAEXXZ retail 0x004EDF03, 211 bytes.
+// FACT: native range ends at 0x004EDFD6; WB identifies AITactic::preUpdate
+// with the same findTeamByID, hasAnyObjects, record erase and end callees.
+// FACT: record stride 0x14, target flag +0x19, current/previous points +0x38/+0x44.
+// The vector aggregate retains retail's [edi+4] empty test after vslot 4.
+// The final indirect call is vslot 8; its method name remains unresolved.
+void AITactic::preUpdate()
+{
+    AITacticTeamRecord *it = m_teams.m_begin;
+    while (it != m_teams.m_end) {
+        Team *team = TheTeamFactory->findTeamByID(it->m_teamID);
+        if (team && team->hasAnyObjects(false))
+            ++it;
+        else
+            it = (AITacticTeamRecord *)((Rva004ED3A2 *)&m_teams.m_begin)->rva004ED3A2(it);
+    }
+    if ((!m_10 && m_20 && m_20->m_19) ||
+        (m_10 && getNumberOfTeamsNeeded() > 0 && m_teams.empty()))
+        end(false, false);
+    else if (m_10) {
+        updateTeamInfos();
+        calcLastTeamPos();
+        if (m_44.x == 0.0f && m_44.y == 0.0f && m_44.z == 0.0f)
+            m_44 = m_38;
+        cohereTeams();
+        slot08();
+    }
 }
