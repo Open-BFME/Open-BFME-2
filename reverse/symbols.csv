@@ -16370,3 +16370,9 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?addHotKey@HotKeyManager@@QAE?AURva00359302Result@@ABUTreeHintRef00217D4C@@ABVAsciiString@@_N@Z,0x00359302,callee of ?rva0031B641@ControlBar@@QAEXPAVGameWindow@@PBVCommandButton@@@Z
 ?rva0031ABD9@ControlBar@@QAEXPAVGameWindow@@H@Z,0x0031ABD9,callee of ?rva0031B641@ControlBar@@QAEXPAVGameWindow@@PBVCommandButton@@@Z
 ?rva00358CCD@HotKeyManager@@QAE?AVAsciiString@@ABV2@@Z,0x00358CCD,callee of ?rva0031B641@ControlBar@@QAEXPAVGameWindow@@PBVCommandButton@@@Z
+?rva0050DBE6@ControlBar@@QAEXPAVObject@@@Z,0x0050DBE6,callee of ?switchToContext@ControlBar@@QAEXHPAX@Z
+?rva0050E08E@ControlBar@@QAEXXZ,0x0050E08E,callee of ?switchToContext@ControlBar@@QAEXHPAX@Z
+?rva0053D355@ControlBar@@QAEXPAVObject@@_N@Z,0x0053D355,callee of ?switchToContext@ControlBar@@QAEXHPAX@Z
+?rva0053DD53@ControlBar@@QAEXXZ,0x0053DD53,callee of ?switchToContext@ControlBar@@QAEXHPAX@Z
+?rva0053E4F1@ControlBar@@QAEXPAVObject@@@Z,0x0053E4F1,callee of ?switchToContext@ControlBar@@QAEXHPAX@Z
+?showRallyPoint@ControlBar@@QAEXPBUCoord3D@@@Z,0x0031B892,callee of ?switchToContext@ControlBar@@QAEXHPAX@Z

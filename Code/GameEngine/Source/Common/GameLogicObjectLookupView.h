@@ -78,6 +78,8 @@ private:
 
 public:
 	bool isInMultiplayerGame();	// 0x00042235
+	bool rva0042219();	// 0x00042219, mode gate rejecting 9, 4 and 7
+	bool rva001DCD1C();	// 0x001DCD1C, mode 8 or mode 9 with +0x114 != 3
 	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);	// 0x0023CD9E
 	Object *findObjectByID(ObjectID id);
 	int rva0023D08B(int value);	// 0x0023D08B, existing +0x184 forwarder
