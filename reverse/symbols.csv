@@ -12209,7 +12209,6 @@ name,address,notes
 ?rva005B09D8@@YAXPAD0PAXABURva004ED3A2Tag@@@Z,0x005B09D8,cdecl helper of the F47 cursor-compaction wrapper 0x004ED3A2; takes (dst, cursor, p, (char*)&p+3); name unknown
 ?rva005B09D8@@YAXPAX000@Z,0x005B09D8,cdecl 4-arg callee of 0x004ED3A2 read from its REL32 displacement; body unrowed
 ?rva005B09D8_i@@YAHHHHPAD@Z,0x005B09D8,cdecl 4-arg int-returning call-spelling alias for the pinned cursor helper (caller passes a2 m_4 a1 and (char*)&a1+3); same address as existing pin
-?rva005B2295@@YAXHHHH@Z,0x005B2295,cdecl 4-arg callee of 0x5B0416 (args r imm a -1 from push order); unrowed chunk start in own lane; signature unproven
 ?rva005B89A1@Rva005B8EBB@@QAEXXZ,0x005B89A1,callees of 0x005B8EBB from retail REL32; names unknown
 ?rva005B8A40@Rva005B8EBB@@QAEXXZ,0x005B8A40,callees of 0x005B8EBB from retail REL32; names unknown
 ?rva005B8D1C@Rva005B8EBB@@QAEXXZ,0x005B8D1C,callees of 0x005B8EBB from retail REL32; names unknown

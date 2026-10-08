@@ -44,7 +44,7 @@ int GetGameClientRandomValue(int,int,char *,int);
 class CommandButton;
 class Rva00406ED7 {public: const CommandButton *rva00406ED7(int);};
 void __cdecl Rva005B24CDHeroPowerText(void *,const char *,int);
-void rva005B2295(int button,int name,int index,int page);
+bool __cdecl rva005B2295(const CommandButton *button,const char *prefix,int index,int page);
 class AptMyHero {
 public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
@@ -138,7 +138,7 @@ void AptMyHero::rva005B1288(){rva005B0487();slot14();rva005B1019();}
 void AptMyHero::rva005B0416(int level){
  const CommandButton *button=reinterpret_cast<Rva00406ED7 *>(this)->rva00406ED7(level);
  Rva005B24CDHeroPowerText((void *)button,"MyPowerLevel",level);
- rva005B2295((int)button,(int)"MyPowerIcon",level,-1);
+ rva005B2295(button,"MyPowerIcon",level,-1);
 }
 
 // WB twin 0x0156F3D0 (unnamed, AptMyHero.cpp; called from FrameUpdate) and

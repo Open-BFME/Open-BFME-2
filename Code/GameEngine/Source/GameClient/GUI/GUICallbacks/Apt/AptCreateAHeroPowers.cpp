@@ -96,9 +96,9 @@ public:
 };
 extern CreateAHeroManager *TheCreateAHeroManager;
 
-// Existing address-named cdecl helper: four machine-word arguments. Its
-// unclaimed body's parameter names and source types remain unproven.
-void rva005B2295(int button, int name, int index, int page);
+// Rowed in AptHeroPowerText.cpp: points the Apt image key "%s_%d" (or
+// "%s_%d_%d") at the button's image and returns whether it changed.
+bool __cdecl rva005B2295(const CommandButton *button, const char *prefix, int index, int page);
 
 namespace AptCreateAHero
 {
@@ -138,17 +138,17 @@ void AptCreateAHero::Powers::UpdatePalantirButtons()
 	for (int i = 0; i < required; ++i)
 	{
 		const CommandButton *button = TheCreateAHeroManager->GetRequiredButton(i);
-		rva005B2295((int)button, (int)name, i, -1);
+		rva005B2295(button, name, i, -1);
 	}
 	for (unsigned int i = 0; i < (unsigned int)m_numPowers; ++i)
 	{
 		Rva005B2E09Cell *cell = m_cells[i];
 		if (cell)
-			rva005B2295((int)cell->m_button, (int)name,
+			rva005B2295((const CommandButton *)cell->m_button, name,
 				cell->m_index0c + required, -1);
 	}
 	for (int i = m_numPalantir; i < 6 - required; ++i)
-		rva005B2295(0, (int)name, i + required, -1);
+		rva005B2295(0, name, i + required, -1);
 }
 
 // ?ExternFunc@Powers@AptCreateAHero@@QAEXPBVCommandButton@@@Z @0x005B2E65 187B.

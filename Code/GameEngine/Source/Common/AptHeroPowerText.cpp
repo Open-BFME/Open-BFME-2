@@ -13,6 +13,10 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
+#ifndef NULL
+#define NULL 0
+#endif
+
 class BfmeAptWindowManager
 {
 public:
@@ -40,6 +44,68 @@ void __cdecl Rva005B24CDHeroPowerText(void *power, const char *prefix, int index
 	AsciiString key;
 	key.format("APT:%s_%d", prefix, index + 1);
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, Rva005B2446Describe(power), false);
+}
+
+// ?rva005B2295@@YA_NPBVCommandButton@@PBDHH@Z @0x005B2295 225B: points the
+// Apt image key "%s_%d" (or "%s_%d_%d" for a page >= 0; both 1-based) at the
+// button's image, falling back to CircleRed_42x42, and returns whether the
+// key changed; with no button the key is cleared. Callers: the level labeller
+// AptMyHero::rva005B0416 and the AptCreateAHero power panel. WorldBuilder's
+// twin 0x0157F330 is unnamed; the name is address-derived.
+class Image;
+class CommandButton
+{
+public:
+	const Image *rva0035B19E() const;
+};
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+extern ImageCollection *TheMappedImageCollection;
+class Rva00223A9F
+{
+public:
+	void *rva00223A9F(const AsciiString *key);
+};
+class Rva00223A94
+{
+public:
+	int rva00223A94(const AsciiString *key);
+};
+class Rva002239B2
+{
+public:
+	void rva002239E2(const AsciiString &key, const Image *image);
+};
+
+bool __cdecl rva005B2295(const CommandButton *button, const char *prefix, int index, int page)
+{
+	AsciiString key;
+	++index;
+	if (page >= 0)
+		key.format("%s_%d_%d", prefix, index, ++page);
+	else
+		key.format("%s_%d", prefix, index);
+	bool changed = false;
+	if (button != NULL)
+	{
+		const Image *image = button->rva0035B19E();
+		if (image == NULL)
+			image = TheMappedImageCollection->findImageByName(AsciiString("CircleRed_42x42"));
+		if (((Rva00223A9F *)TheRva00222A8BTarget)->rva00223A9F(&key) != image)
+		{
+			((Rva002239B2 *)TheRva00222A8BTarget)->rva002239E2(key, image);
+			changed = true;
+		}
+	}
+	else
+	{
+		((Rva00223A94 *)TheRva00222A8BTarget)->rva00223A94(&key);
+		changed = true;
+	}
+	return changed;
 }
 
 // ?rva005B9378@Rva005B9378@@QAEXHABVUnicodeString@@@Z @0x005B9378 178B: one
