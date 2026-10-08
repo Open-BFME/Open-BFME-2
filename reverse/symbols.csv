@@ -16492,3 +16492,4 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ?OnRollOut@Impl@BattlePromptArmyPanelMovieClip@StrategicHUD@@QAEXPBD@Z,0x005F057A,Native005FF675 binds these exact10-byte callbacks to _OnRollOver and _OnRollOut; WB01638760 constructor stores the corresponding roll-event member pointers; full emitted bodies carry every retail-owner relocation; no separate retail address; fold-proof=Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptArmyPanelMovieClip.cpp
 ??0Rva005CF27A@@QAE@PAVRva005CF7BF@@HHHHHHHH@Z,0x005CF27A,callee of ??0Rva005CF7BF@@QAE@PAXHHHHHHHH@Z
 ?rva00575038@Rva00575038@@QAEXXZ,0x00575038,callee of ?rva005750C7@Rva005750C7@@QAEXXZ
+??0Rva0050CBA2@@QAE@PAX@Z,0x0050CBA2,callee of ?rva002CEF6C@W3DFontLibrary@@QAE_NPAX@Z
