@@ -556,3 +556,48 @@ void Rva002D62AB::updateButtonFlash()
         }
     }
 }
+
+// Whole retail 0x002DF2F6..0x002DF3B0: resolve a wide save-file path,
+// read metadata, return code 1 when that fails, otherwise dispatch a copied
+// available-game record to 0x002DE3C1. ZH GameState::loadGame supplies the
+// semantic lead; the record's DF4-byte extent and ownership come from the
+// rowed 229811/229840/22D106 constructors and destructor, not ZH's layout.
+#include "unicode_string.h"
+struct BfmeSubobject0022CE19
+{
+    virtual ~BfmeSubobject0022CE19();
+    unsigned char opaque04[0xDE4];
+    BfmeSubobject0022CE19(const BfmeSubobject0022CE19 &);
+};
+struct TreeHintOpaque0043671B
+{
+    TreeHintOpaque0043671B();
+    TreeHintOpaque0043671B(const TreeHintOpaque0043671B &);
+    ~TreeHintOpaque0043671B();
+    UnicodeString filename;
+    BfmeSubobject0022CE19 saveGameInfo;
+    unsigned int next, prev;
+};
+class Rva002DC74A
+{
+public:
+    UnicodeString rva002DC74A(const UnicodeString &) const;
+};
+class GameState
+{
+public:
+    bool getSaveGameInfoFromFile(UnicodeString filename, BfmeSubobject0022CE19 *);
+    int rva002DE3C1(TreeHintOpaque0043671B gameInfo);
+    int rva002DF2F6(const UnicodeString &filename);
+};
+int GameState::rva002DF2F6(const UnicodeString &filename)
+{
+    UnicodeString filepath = reinterpret_cast<const Rva002DC74A *>(this)->rva002DC74A(filename);
+    TreeHintOpaque0043671B gameInfo;
+    gameInfo.filename = filename;
+    gameInfo.next = 0;
+    gameInfo.prev = 0;
+    if (!getSaveGameInfoFromFile(filepath, &gameInfo.saveGameInfo))
+        return 1;
+    return rva002DE3C1(gameInfo);
+}
