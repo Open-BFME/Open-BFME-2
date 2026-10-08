@@ -421,10 +421,17 @@ struct AudioViewSettings {
 };
 
 struct AudioSettings {
-    char at00[0x74];
+    char at00[0x30];
+    float m_at30[5];                     // +0x30, init()'s per-index 0x524EE volumes
+    char at44[0x64 - 0x44];
+    int m_at64;                          // +0x64, with +0x68 init()'s loop-buffer count
+    int m_at68;                          // +0x68
+    char at6C[0x74 - 0x6C];
     int m_at74;
     int m_at78;                          // +0x78, compared with a loop's +0x30 (0x59CE6)
-    char at7C[0xB0 - 0x7C];
+    char at7C[0x80 - 0x7C];
+    unsigned int m_at80;                 // +0x80, handed to the file cache's 0xA77D9
+    char at84[0xB0 - 0x84];
     float m_atB0;                        // +0xB0, position change 0x55C5D ignores
     int m_atB4;                          // +0xB4, processRequest's preload limit
     float m_atB8;
@@ -596,7 +603,7 @@ class MilesAudioManager {
 public:
     // Virtual slots 0..74 are not named here; slot 75 (+0x12C) looks an
     // event info up by name.
-    virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03(); virtual void slot04();
+    virtual void slot00(); virtual void init(); virtual void slot02(); virtual void slot03(); virtual void slot04();
     virtual void slot05(); virtual void slot06(); virtual void slot07(); virtual void slot08(); virtual void slot09();
     virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14();
     virtual void slot15(); virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
@@ -622,6 +629,9 @@ public:
     virtual void slot101(); virtual void slot102(); virtual void slot103(); virtual void slot104(); virtual void slot105();
     virtual void slot106();
     virtual bool rva000516EF(const Coord3D *pos);
+    virtual void slot108(); virtual void slot109();
+    // Slot 110 (+0x1B8), the first call init() makes.
+    virtual void rva000541DB(void);
     bool rva00055FCA(int key, void **result, int flags);
     bool rva0005623E(int key, void **result, int flags);
     bool rva00054899(ObjectID objectID, int otherID);
@@ -638,7 +648,6 @@ public:
     // These audio INI calls use the manager receiver and an explicit INI*.
     // The receiver type is supported by 0x61BD2's +0x9D4 mutex access; names
     // for 0x5407E/0x540A7 remain address-derived, with helper identity open.
-    void rva000541DB(void);
     void rva0005407E(INI *ini);
     void rva000540A7(INI *ini);
     unsigned char rva00054120(INI *ini);
@@ -673,6 +682,7 @@ public:
     };
 
     void setMaxAmbientStreams(void);
+    void openDevice(void);
     void removeCurrentlyPlayingMusic(int viewType, int arg);
     void rva00057151(int viewType, int musicSystem, int resume);
     void moveDownMusicSystems(int viewType, MusicSystem newMusicSystem, int arg, int resume);
@@ -777,6 +787,9 @@ private:
     MilesHandleMap m_3DSampleMap;        // +0xBAC
     MilesHandleMap m_streamMap;          // +0xBC0
     LoopBuffer *m_loopBuffers;           // +0xBD4 (WB assert name)
+    int m_numLoopBuffers;                // +0xBD8
+    void *m_loopBufferThread;            // +0xBDC, CreateThread handle
+    bool m_atBE0;                        // +0xBE0, stops the 0x5EFE9 thread loop
 };
 
 // Rowed under address-derived names at 0x00051038 (pinned) and 0x00050FE3;
@@ -880,6 +893,46 @@ unsigned long __stdcall rva0005F267(void *param)
     if (manager)
         manager->rva0005EFE9();
     return 0;
+}
+
+// The close, seek and read callbacks are rowed under BFME 1 donor names.
+typedef unsigned int (__stdcall *MilesFileOpenCallback)(const char *fileName, unsigned int *fileHandle);
+typedef void (__stdcall *MilesFileCloseCallback)(unsigned int fileHandle);
+typedef int (__stdcall *MilesFileSeekCallback)(unsigned int fileHandle, int offset, unsigned int type);
+typedef unsigned int (__stdcall *MilesFileReadCallback)(unsigned int fileHandle, void *buffer, unsigned int bytes);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_file_callbacks(MilesFileOpenCallback open,
+    MilesFileCloseCallback close, MilesFileSeekCallback seek, MilesFileReadCallback read);
+void __stdcall Rva000518E0Thunk(void *file);
+struct Rva006963B0Receiver;
+struct Rva006963D0Receiver;
+int __stdcall rva006963B0ForwardSlot5(Rva006963B0Receiver *file, int a, int b);
+int __stdcall rva006963D0ForwardSlot3(Rva006963D0Receiver *file, int a, int b);
+extern "C" __declspec(dllimport) void *__stdcall CreateThread(void *attributes, unsigned long stackSize,
+    unsigned long (__stdcall *start)(void *), void *param, unsigned long flags, unsigned long *threadId);
+void rva000524EE(int index, float volume);
+// AudioFileCache's guarded setter, rowed under an address-derived name.
+class Rva000A77D9 {
+public:
+    void rva000A77D9(void *value);
+};
+
+// Retail 0x00061ABD (WorldBuilder twin 0x00789160, named by its asserts):
+// set the five system volumes, allocate the loop buffers and start their
+// thread, then open the device and hand Miles the file callbacks.
+void MilesAudioManager::init()
+{
+    rva000541DB();
+    for (int i = 0; i < 5; ++i)
+        rva000524EE(i, m_audioSettings ? m_audioSettings->m_at30[i] : 0.55f);
+    m_numLoopBuffers = m_audioSettings->m_at68 + m_audioSettings->m_at64;
+    m_loopBuffers = new LoopBuffer[m_numLoopBuffers];
+    m_atBE0 = false;
+    m_loopBufferThread = CreateThread(0, 0, rva0005F267, this, 0, 0);
+    openDevice();
+    ((Rva000A77D9 *)m_audioFileCache)->rva000A77D9((void *)m_audioSettings->m_at80);
+    AIL_set_file_callbacks(streamingFileOpen, (MilesFileCloseCallback)Rva000518E0Thunk,
+        (MilesFileSeekCallback)rva006963B0ForwardSlot5, (MilesFileReadCallback)rva006963D0ForwardSlot3);
+    setMaxAmbientStreams();
 }
 
 unsigned char MilesAudioManager::rva00054120(INI *ini)
