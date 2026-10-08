@@ -4764,18 +4764,7 @@ Object *InGameUI::findIdleWorker( Object *obj)
 	return NULL;
 }
 
-// ?InGameUI::addIdleWorker present-unmatched
-void InGameUI::addIdleWorker( Object *obj )
-{
-	if(!obj)
-		return;
-
-	if(findIdleWorker(obj))
-		return;
-
-	Int index = obj->getControllingPlayer()->getPlayerIndex();
-	m_idleWorkers[index].push_back(obj);
-}
+// InGameUI::addIdleWorker: defined in InGameUIIdleWorker.cpp (its row's unit).
 
 // ?InGameUI::removeIdleWorker present-unmatched
 void InGameUI::removeIdleWorker( Object *obj, Int playerNumber )
@@ -4803,79 +4792,7 @@ void InGameUI::removeIdleWorker( Object *obj, Int playerNumber )
 	return;
 }
 
-// ?InGameUI::selectNextIdleWorker present-unmatched
-void InGameUI::selectNextIdleWorker( void )
-{
-	Int index = ThePlayerList->getLocalPlayer()->getPlayerIndex();
-	if(m_idleWorkers[index].empty())
-	{
-		DEBUG_ASSERTCRASH(FALSE, ("InGameUI::selectNextIdleWorker We're trying to select a worker when our list is empty for player %ls", ThePlayerList->getLocalPlayer()->getPlayerDisplayName().str()));
-		return;
-	}
-	Object *selectThisObject = NULL;
-	
-	if(getSelectCount() == 0 || getSelectCount() > 1)
-	{
-		selectThisObject = *m_idleWorkers[index].begin();
-	}
-	else
-	{
-		Drawable *selectedDrawable = TheInGameUI->getFirstSelectedDrawable();	
-		
-		ObjectListIt it = m_idleWorkers[index].begin();
-		while(it != m_idleWorkers[index].end())
-		{
-			Object *itObj = *it;
-			if(itObj == selectedDrawable->getObject())
-			{
-				++it;
-				if(it != m_idleWorkers[index].end())
-					selectThisObject = *it;
-				else
-					selectThisObject = *m_idleWorkers[index].begin();
-				break;
-			}
-			++it;
-		}
-		// if we had something selected that wasn't a worker, we'll get here
-		if(!selectThisObject)
-			selectThisObject = *m_idleWorkers[index].begin();
-
-	}
-	DEBUG_ASSERTCRASH(selectThisObject, ("InGameUI::selectNextIdleWorker Could not select the next IDLE worker"));
-	if(selectThisObject)
-	{	
-		
-		//If our idle worker is contained by anything, we need to select the container instead.
-		Object *containedBy = selectThisObject->getContainedBy();
-		if( containedBy )
-		{
-			selectThisObject = containedBy;
-		}
-
-		deselectAllDrawables();
-		GameMessage *teamMsg = TheMessageStream->appendMessage( GameMessage::MSG_CREATE_SELECTED_GROUP );
-
-
-		//New group or add to group? Passed in value is true if we are creating a new group.
-		teamMsg->appendBooleanArgument( TRUE );
-
-		teamMsg->appendObjectIDArgument( selectThisObject->getID() );
-		
-		selectDrawable( selectThisObject->getDrawable() );
-
-		/*// removed becuase we're already playing a select sound... left in, just in case i"m wrong.
-		// play the units sound
-				const AudioEventRTS *soundEvent = selectThisObject->getTemplate()->getVoiceSelect();
-				if (soundEvent)
-				{
-					TheAudio->addAudioEvent( soundEvent );
-				}*/
-		
-		// center on the unit
-		TheTacticalView->lookAt(selectThisObject->getPosition());
-	}
-}
+// InGameUI::selectNextIdleWorker: defined in InGameUIIdleWorker.cpp (its row's unit).
 
 // ?InGameUI::getIdleWorkerCount present-unmatched
 Int InGameUI::getIdleWorkerCount( void )

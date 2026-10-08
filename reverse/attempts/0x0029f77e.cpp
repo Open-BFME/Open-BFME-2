@@ -1,3 +1,5 @@
+// ?removeIdleWorker@InGameUI@@UAEXPAVObject@@H@Z
+// partial score=0.95 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 //
@@ -17,9 +19,6 @@
 // m_idleWorkerWin +0x978, m_currentIdleWorkerDisplay +0x97C. getInputEnabled()
 // tests both +0x15 (setEngineInputEnabled's flag) and +0x16
 // (setInputEnabled's flag). Player index at Player +0x54.
-//
-// addIdleWorker (0x002A3D98, slot +0x1A4) is ZH's: findIdleWorker +0x1C4
-// guards a push_back (0x001EC03C) onto the controlling player's list.
 //
 // selectNextIdleWorker (0x0029D64F, slot +0x1AC) is ZH's body: the local
 // player (ThePlayerList +0x10) indexes the lists, getSelectCount +0x118 is
@@ -260,6 +259,26 @@ void InGameUI::addIdleWorker(Object *obj)
 		return;
 
 	m_idleWorkers[obj->getControllingPlayer()->getPlayerIndex()].push_back(obj);
+}
+
+void InGameUI::removeIdleWorker(Object *obj, int playerNumber)
+{
+	if(!obj || playerNumber < 0 || playerNumber >= MAX_PLAYER_COUNT)
+		return;
+
+	if(m_idleWorkers[playerNumber].empty())
+		return;
+
+	ObjectListIt it = m_idleWorkers[playerNumber].begin();
+	while(it != m_idleWorkers[playerNumber].end())
+	{
+		if(*it == obj)
+		{
+			m_idleWorkers[playerNumber].erase(it);
+			return;
+		}
+		++it;
+	}
 }
 
 extern InGameUI *TheInGameUI;
