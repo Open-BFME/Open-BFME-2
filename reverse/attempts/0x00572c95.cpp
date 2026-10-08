@@ -1,12 +1,16 @@
 // ?Rva00572C95Get@@YGHPAVThing@@PAX@Z
-// partial score=0.98 date=2026-10-07
+// partial score=0.9799 date=2026-10-08
+// ?Rva00572C95Get@@YGHPAVThing@@PAX@Z
+// Scratch: native 149B predicate; correct first-mask true branch.
+// Provider ABI uses the existing seven-dword BitFlags<69> view.
 // cl: /O1 /arch:SSE /G7 /MD
 // ?Rva00572C95Get@@YGHPAVThing@@PAX@Z @0x00572C95 149B
 // Tests the candidate object's two inhibit bits and two kind-of masks; the
 // ignored second stdcall argument is retained from the direct caller.
 template <int N>
-struct BitFlags
+class BitFlags
 {
+public:
 	union
 	{
 		unsigned int words[7];
@@ -17,7 +21,7 @@ struct BitFlags
 class Thing
 {
 public:
-	bool isAnyKindOf(const BitFlags<239> &mask) const;
+	bool isAnyKindOf(const BitFlags<69> &mask) const;
 
 	char m_pad000[0x94];
 	unsigned char m_flag94;
@@ -29,8 +33,8 @@ extern "C" void *__cdecl memset(void *destination, int value, unsigned int size)
 
 int __stdcall Rva00572C95Get(Thing *thing, void *unused)
 {
-	BitFlags<239> mask1;
-	BitFlags<239> mask2;
+	BitFlags<69> mask1;
+	BitFlags<69> mask2;
 	unsigned int firstGroup = 0x10000000;
 	unsigned int secondGroup = 0x20000000;
 	memset(&mask1, 0, sizeof(mask1));
@@ -47,12 +51,7 @@ int __stdcall Rva00572C95Get(Thing *thing, void *unused)
 	mask2.m_bits.bytes[6] |= 4;
 	if (thing == 0 || (thing->m_flag94 & 1) != 0 || (thing->m_flag438 & 1) != 0)
 		return 0;
-	if (thing->isAnyKindOf(mask1))
-		return 0;
-	int result;
-	if (thing->isAnyKindOf(mask2))
-		result = 0;
-	else
-		result = 1;
-	return result;
+	if (thing->isAnyKindOf(mask1) || !thing->isAnyKindOf(mask2))
+		return 1;
+	return 0;
 }
