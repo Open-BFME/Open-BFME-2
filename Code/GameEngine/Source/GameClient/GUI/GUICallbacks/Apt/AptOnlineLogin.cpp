@@ -17,6 +17,9 @@ typedef _STL::_Rb_tree<UnicodeString,CountryPair,_STL::_Select1st<CountryPair>,_
 // Use the reconciled /EHs provider's native 56-byte destructor. This /EHsc
 // callback unit must not emit a different definition of that same member.
 extern template CountryTree::~_Rb_tree();
+extern template CountryLocaleMap::map();
+extern template CountryTree::iterator CountryTree::insert_unique(CountryTree::iterator,const CountryPair &);
+extern template _STL::pair<CountryTree::iterator,bool> CountryTree::insert_unique(const CountryPair &);
 extern "C" __declspec(dllimport) void *__stdcall ShellExecuteW(void *,const unsigned short *,const unsigned short *,const unsigned short *,const unsigned short *,int);
 bool GetStringFromRegistry(AsciiString,AsciiString,AsciiString &);
 void GSMessageBoxOk(UnicodeString,UnicodeString,void (*)());
@@ -41,11 +44,13 @@ public: GameSpyMiscPreferences(); virtual ~GameSpyMiscPreferences();
 class Rva00222A8BTarget { public:
     int invoke(void *,const char *,int,const char *,void *,void *,void *,void *);
 };
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva0056DCBF { public: void rva0056DCBF(bool); };
 struct AptOnlineLoginOwner { unsigned char pad[0x274]; void *movie; };
 class GameWindow;
-extern int GameSpyColor[];
+// The country callback reads only this ledger-owned first word.
+extern int g_00DB9198;
 AsciiString GetRegistryLanguage();
 int GadgetListBoxAddEntryText(GameWindow *,UnicodeString,int,int,int,bool);
 void Rva00325388Send(GameWindow *,int,int,int);
@@ -110,13 +115,13 @@ void AptOnlineLogin::rva00572632(const char *)
 {
     if(g_bfmeObjELB) {
         { void *movie=owner->movie;
-          TheRva00222A8BTarget->invoke(movie,"CallChild",1,"DisableButtonDeleteNickname",0,0,0,0); }
+          ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonDeleteNickname",0,0,0,0); }
         { void *movie=owner->movie;
-          TheRva00222A8BTarget->invoke(movie,"CallChild",1,"DisableButtonCreate",0,0,0,0); }
+          ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonCreate",0,0,0,0); }
         { void *movie=owner->movie;
-          TheRva00222A8BTarget->invoke(movie,"CallChild",1,"DisableButtonLogin",0,0,0,0); }
+          ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonLogin",0,0,0,0); }
         { void *movie=owner->movie;
-          TheRva00222A8BTarget->invoke(movie,"CallChild",1,"DisableButtonServiceTerms",0,0,0,0); }
+          ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DisableButtonServiceTerms",0,0,0,0); }
         GameSpyMiscPreferences preferences;
         if(preferences.rva00559782()>=1 && preferences.rva00559782()<=0x25) {
             locale=preferences.rva00559782();
@@ -125,7 +130,7 @@ void AptOnlineLogin::rva00572632(const char *)
         }
         closeLocale=false;
         void *movie=owner->movie;
-        TheRva00222A8BTarget->invoke(movie,"CallChild",1,"DoOpenLocale",0,0,0,0);
+        ((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(movie,"CallChild",1,"DoOpenLocale",0,0,0,0);
         ((Rva0056DCBF *)this)->rva0056DCBF(false);
     }
 }
@@ -138,7 +143,7 @@ void AptOnlineLogin::rva0056FEA8()
 	AsciiString label;
 	label.format( "WOL:Locale%2.2d", 1 );
 	int row = GadgetListBoxAddEntryText( m_countryList,
-		TheGameText->fetch( label.str() ), GameSpyColor[ 0 ], -1, -1, true );
+		TheGameText->fetch( label.str() ), g_00DB9198, -1, -1, true );
 	Rva00325388Send( m_countryList, 1, row, 0 );
 
 	CountryLocaleMap locales;
@@ -158,7 +163,7 @@ void AptOnlineLogin::rva0056FEA8()
 	for( CountryLocaleMap::iterator it = locales.begin(); it != locales.end(); ++it )
 	{
 		row = GadgetListBoxAddEntryText( m_countryList, it->first,
-			GameSpyColor[ 0 ], -1, -1, true );
+			g_00DB9198, -1, -1, true );
 		Rva00325388Send( m_countryList, it->second, row, 0 );
 		if( language.compareNoCase( it->first ) == 0 )
 			selectedRow = row;
