@@ -5,14 +5,10 @@
 // store, this-adjust, tail jump). Each class below is a distinct retail
 // vtable whose owner identity is unproven; the member offset is retail
 // measured per body. One ledger row per destructor, landed one commit at
-// a time; the AsciiStringMember declaration is shared and never defined
-// (it resolves to the 0x36410 fold via symbols.csv).
+// a time. The member view uses the existing shared AsciiString header;
+// every destructor keeps its verified cleanup call to the 0x36410 worker.
 
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
+#include "ascii_string.h"
 
 class Rva00217537
 {
@@ -21,7 +17,7 @@ public:
 
 private:
 	char m_pad04[4];
-	AsciiStringMember m_member08;
+	AsciiString m_member08;
 };
 
 Rva00217537::~Rva00217537()
@@ -35,7 +31,7 @@ public:
 
 private:
 	char m_pad04[4];
-	AsciiStringMember m_member08;
+	AsciiString m_member08;
 };
 
 Rva0030714F::~Rva0030714F()
@@ -45,10 +41,11 @@ Rva0030714F::~Rva0030714F()
 class Rva004E156B
 {
 public:
+	Rva004E156B();
 	virtual ~Rva004E156B();
 
 private:
-	AsciiStringMember m_member04;
+	AsciiString m_member04;
 };
 
 Rva004E156B::~Rva004E156B()
@@ -62,7 +59,7 @@ public:
 
 private:
 	char m_pad04[8];
-	AsciiStringMember m_member0C;
+	AsciiString m_member0C;
 };
 
 Rva004E194E::~Rva004E194E()
@@ -75,7 +72,7 @@ public:
 	virtual ~Rva004FA830();
 
 private:
-	AsciiStringMember m_member04;
+	AsciiString m_member04;
 };
 
 inline Rva004FA830::~Rva004FA830()
@@ -97,14 +94,13 @@ public:
 	virtual ~Rva00538C5F();
 
 private:
-	AsciiStringMember m_member04;
+	AsciiString m_member04;
 };
 
 Rva00538C5F::~Rva00538C5F()
 {
 }
 
-#include "ascii_string.h"
 
 class Rva005C31FB
 {
@@ -149,3 +145,12 @@ void Rva005C31FB::rva005C3209()
 	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), (void *)m_level, s, "DeleteContent");
 	m_flag0C = false;
 }
+
+// Native4E155E..4E156B is a complete ctor between INT3 and the existing
+// Rva004E156B dtor. Both store vtableC61A20; the ctor zeros the member at4
+// whose dtor reaches the verified AsciiString cleanup at36410. This target
+// evidence establishes the existing address-owned class and its empty string
+// state; BF1 9cb Rva003AA980VectorCopy only supplies the default-ctor pattern.
+// Original semantic class name and complete class bounds remain unresolved.
+// ??0Rva004E156B@@QAE@XZ
+Rva004E156B::Rva004E156B() {}
