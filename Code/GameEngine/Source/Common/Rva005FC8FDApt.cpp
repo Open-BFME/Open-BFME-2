@@ -325,6 +325,7 @@ public:
 	virtual void notifyClicked();
 	virtual void notifyRollOut();
 	virtual void notifyRollOver();
+	void rva005FC9E0(const Image *image);
 
 private:
 	Impl *m_impl; // +0x18 (owning; reset by the rowed 0x005FCB2D)
@@ -474,4 +475,9 @@ StrategicHUD::ArmyMemberIconMovieClip::ArmyMemberIconMovieClip(AptMovieClipFrame
 StrategicHUD::ArmyHeroIconMovieClip::ArmyHeroIconMovieClip(AptMovieClipFrame *frame)
 	: ArmyMemberIconMovieClip(frame, AsciiString("ArmyHeroIcon"))
 {
+}
+
+void StrategicHUD::ArmyMemberIconMovieClip::rva005FC9E0(const Image *image)
+{
+	m_impl->SetPortraitImage(image);
 }

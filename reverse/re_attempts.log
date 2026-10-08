@@ -20201,3 +20201,6 @@ StrategicHUD::ChecklistUIImpl::ChecklistUIImpl	0x0057B5AA	916	blocked	Native57B5
 ?rva004DE47E@Rva004DD843@@QAEXXZ	0x004DE47E	100	partial	ebx edi swap for sentinel vs goal slot t=18 model=muse-spark score=0.98 stash=reverse/attempts/0x004de47e.cpp
 ?rva005CD625@PlayerStatusDisplayer@StrategicInGameUI@@QAE_NXZ	0x005CD625	36	partial	extra xor ecx for second call this plus test eax vs al t=10 model=muse-spark score=0.94 stash=reverse/attempts/0x005cd625.cpp
 ?rva002BEACD@BfmeStateDF@@QAEXPAURva002BEACDTriple@@00M@Z	0x002BEACD	162	blocked	triple lerp 162B needs SSE shape; variant1 x87 115B -47B 15 regions; retail SSE movss for lerp with factor spilled to ebp slots reusing arg slots; single 33B x87 matched in same TU frameless; t=10 model=muse-spark
+?Rva0056815AGet@@YAHXZ	0x0056815A	40	blocked	free function no pin no vtable callers unclaimed identity unprovable t=5 model=muse-spark
+?rva0037E07C@Rva0037E07C@@QAEHXZ	0x0037E07C	30	blocked	boundary WARN may be mid-function and pin-only callee t=5 model=muse-spark
+??1Rva002C6E4E@@QAE@XZ	0x002C6E4E	86	blocked	needs TreeHintPayload map type and pin-only AIBuilder and unknown pointee virtual t=10 model=muse-spark
