@@ -1,5 +1,8 @@
 // cl: /O2 /MD
-// ?rva006DAEB0@Rva006DAEB0@@QAEPAV1@IHHIEEEEE@Z @0x006DAEB0 226B
+// ??0Rva006DAEB0@@QAE@IHHIEEEEE@Z @0x006DAEB0 226B
+// Native6CC380 allocates28B and invokes this in two EH-protected new
+// expressions. WB174D320 calls constructor1776790 and its derived wrapper.
+// Re-expressing the former method as a real constructor preserves all226B.
 // Target evidence: two calls through the allocator at 0x00E17728 followed by
 // table zero-fill, a 0x0D pool fill and initialization of the pool header.
 // Structural inference: the state prefix agrees with matched allocBlock
@@ -24,11 +27,11 @@ class Rva006DAEB0 {
     int m_used;
     int m_count;
 public:
-    Rva006DAEB0 *rva006DAEB0(unsigned int a1, int a2, int dummy, unsigned int maxSize, unsigned char off0, unsigned char flag0, unsigned char off1, unsigned char flag1, unsigned char off2);
+    Rva006DAEB0(unsigned int a1, int a2, int dummy, unsigned int maxSize, unsigned char off0, unsigned char flag0, unsigned char off1, unsigned char flag1, unsigned char off2);
 };
 // Keep the pool byte stores ordered as retail before computing the pool size.
 // The volatile lvalues preserve the two ordered writes without changing the field layout.
-Rva006DAEB0 *Rva006DAEB0::rva006DAEB0(unsigned int a1, int a2, int dummy, unsigned int maxSize, unsigned char off0, unsigned char flag0, unsigned char off1, unsigned char flag1, unsigned char off2)
+Rva006DAEB0::Rva006DAEB0(unsigned int a1, int a2, int dummy, unsigned int maxSize, unsigned char off0, unsigned char flag0, unsigned char off1, unsigned char flag1, unsigned char off2)
 {
     m_table = 0;
     m_firstPool = 0;
@@ -53,5 +56,4 @@ Rva006DAEB0 *Rva006DAEB0::rva006DAEB0(unsigned int a1, int a2, int dummy, unsign
     pool->mnPoolSize = inner;
     pool->mnPoolFree = inner;
     m_cfg = (m_cfg & ~0x0f000000) | ((maxSize << 24) & 0x0f000000);
-    return this;
 }
