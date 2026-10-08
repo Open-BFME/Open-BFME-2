@@ -289,6 +289,16 @@
 // maximum and current totals, otherwise one to each unless the rowed
 // testStatus reports status 0x26. The percentage (0 without members) is
 // compared six ways with the int parameter; other comparisons fail.
+//
+// ?rva003E4D93@ScriptConditions@@IAE_NPAVParameter@@000@Z @ 0x003E4D93 215B
+// Target evidence: jump-table case 115 calls 0x003E4D93 with parameters 0-3;
+// initConditionTemplates never fills template 115, so the name is unproven.
+// With all four parameters present, the named unit (rowed getUnitNamed)
+// returns the rowed Object::rva002972B1 total for parameter 3's real as its
+// range (the template +0x51C threat sum), which is compared six ways with
+// parameter 2's real; other comparisons fail. The reals are read in place:
+// the unit's /Op loads an inline getReal() result into a register, retail
+// compares against memory.
 #include <string.h>
 #include <vector>
 #include <list>
@@ -596,6 +606,7 @@ public:
 	bool isKindOf68() const { return m_template->testKindOf68(); }
 	bool isEffectivelyDead() const { return (m_privateStatus & EFFECTIVELY_DEAD) != 0; }
 	bool testStatus(ObjectStatusTypes bit) const;
+	float rva002972B1(float range);
 private:
 	enum { EFFECTIVELY_DEAD = 0x01 };
 	void *m_vtbl;
@@ -954,6 +965,7 @@ protected:
 	bool evaluateDistanceBetweenTeams(Condition *);
 	bool rva003E61A4(Condition *, Parameter *, Parameter *, Parameter *, Parameter *, Parameter *, Parameter *, bool);
 	bool rva003E8D01(Parameter *, Parameter *, Parameter *);
+	bool rva003E4D93(Parameter *, Parameter *, Parameter *, Parameter *);
 };
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
@@ -1839,6 +1851,25 @@ bool ScriptConditions::rva003E8D01(Parameter *pTeamParm, Parameter *pComparisonP
 		}
 		if (comparison)
 			return true;
+	}
+	return false;
+}
+
+bool ScriptConditions::rva003E4D93(Parameter *pUnitParm, Parameter *pComparisonParm, Parameter *pValueParm, Parameter *pRangeParm)
+{
+	if (!pUnitParm || !pRangeParm || !pComparisonParm || !pValueParm)
+		return false;
+	Object *pObj = TheScriptEngine->getUnitNamed(pUnitParm);
+	if (!pObj)
+		return false;
+	float threat = pObj->rva002972B1(pRangeParm->m_real);
+	switch (pComparisonParm->getInt()) {
+	case 0: return threat < pValueParm->m_real;
+	case 1: return threat <= pValueParm->m_real;
+	case 2: return threat == pValueParm->m_real;
+	case 3: return threat >= pValueParm->m_real;
+	case 4: return threat > pValueParm->m_real;
+	case 5: return threat != pValueParm->m_real;
 	}
 	return false;
 }
