@@ -46,3 +46,11 @@ bool W3DShaderManager::testMinimumRequirements(ChipsetType *videoChipType,
         RunBenchmark(0, 0, floatBenchIndex, intBenchIndex, memBenchIndex);
     return true;
 }
+
+bool Rva000768F5(ChipsetType *videoChipType, CpuType *cpuType, int *cpuFreq,
+    unsigned __int64 *numRAM, float *intBenchIndex, float *floatBenchIndex,
+    float *memBenchIndex)
+{
+    return W3DShaderManager::testMinimumRequirements(videoChipType, cpuType, cpuFreq,
+        numRAM, intBenchIndex, floatBenchIndex, memBenchIndex);
+}
