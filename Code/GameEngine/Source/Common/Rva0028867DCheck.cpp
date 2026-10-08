@@ -72,6 +72,8 @@ class ExperienceLevel : public Overridable
 public:
     char unknown08[0x18-8];
     int required;
+    char unknown1C[0xFC-0x1C];
+    int rank;
 };
 struct ExperienceLevelNode
 {
@@ -101,10 +103,12 @@ struct ExperienceLevelHandle
     ExperienceLevelIterator iter;
 };
 extern "C" bool rva0007E394CursorEqual(const ExperienceLevelHandle &a, const ExperienceLevelHandle &b);
+class ThingTemplate;
 class ExperienceLevelStore
 {
 public:
     ExperienceLevelHandle rva00288D88(int object, int limit);
+    ExperienceLevelHandle rva00288E21(const ThingTemplate *object, int rank) const;
     ExperienceLevelList *rva00288C68(int object);
 };
 ExperienceLevelHandle ExperienceLevelStore::rva00288D88(int object, int limit)
@@ -130,4 +134,27 @@ ExperienceLevelHandle ExperienceLevelStore::rva00288D88(int object, int limit)
         }
     }
     return best;
+}
+
+// Native00288E21..00288E8D RET12: existing template/rank handle pin from
+// ScriptActions::doCreateUnitRevivalEntry003C6381 establishes the argument
+// domains and result ABI. The GetLevelRank provider0028879C independently
+// proves +FC; this body's final override and eligibility calls establish the
+// same loop representation as the verified sibling00288D88.
+ExperienceLevelHandle ExperienceLevelStore::rva00288E21(const ThingTemplate *object, int rank) const
+{
+    ExperienceLevelList *list = const_cast<ExperienceLevelStore *>(this)->rva00288C68(reinterpret_cast<int>(object));
+    if (!list) return ExperienceLevelHandle(0);
+    ExperienceLevelNode *end = list->sentinel;
+    for (ExperienceLevelNode *node=end->next; node!=end; node=node->next)
+    {
+        ExperienceLevel *level = static_cast<ExperienceLevel *>(node->data.getFinalOverride());
+        if (level && Rva0028867DCheck(level) && level->rank == rank)
+        {
+            ExperienceLevelIterator iter;
+            iter.node = node;
+            return ExperienceLevelHandle(list, iter);
+        }
+    }
+    return ExperienceLevelHandle(0);
 }
