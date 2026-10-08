@@ -2799,3 +2799,40 @@ void AIUpdateInterface::appendPositionToLocomotorPath(const Coord3D &pos, Int va
 	m_path->SetLastNodePortal(value);
 	m_path->rva002655E3(&pos, TheTerrainLogic->getLayerForDestination(getObject(), &pos), value);
 }
+
+// Retail 0x00264DF8: the guard-area handler behind BFME2's status-bit,
+// mobility and projectile guards. The guard target type AREA goes in the free
+// slot of the two-deep stack, and with no position given the guard location is
+// the area's centre. The state machine is loaded before the m_lastCommandSource
+// store, which is the tail order retail keeps.
+void AIUpdateInterface::privateGuardAreaFromPosition(const PolygonTrigger *area, GuardMode guardMode,
+	CommandSourceType commandSource, const Coord3D *position)
+{
+	Coord3D pos;
+	Object *obj = getObject();
+	if (obj->testStatus(BFME_OBJECT_STATUS_26))
+		return;
+	if (!obj->isMobile())
+		return;
+	if (m_object->isKindOf(KINDOF_PROJECTILE))
+		return;
+
+	if (m_guardTargetType[1] == GUARDTARGET_NONE)
+		m_guardTargetType[1] = GUARDTARGET_AREA;
+	else
+		m_guardTargetType[0] = GUARDTARGET_AREA;
+	m_areaToGuard = area;
+	m_guardMode = guardMode;
+
+	if (position == 0)
+		area->getCenterPoint(&pos);
+	else
+		pos = *position;
+	m_objectToGuard = INVALID_ID;
+	m_locationToGuard = pos;
+
+	m_stateMachine->clear();
+	StateMachine *sm = m_stateMachine;
+	m_lastCommandSource = commandSource;
+	sm->setState(BFME_AI_GUARD);
+}
