@@ -303,8 +303,9 @@ class Weapon { public:
  WeaponTemplate *m_template; unsigned m_ownerID;
  char padC[0x4c-0xc]; bool m_pitch;
 };
-class WeaponStore { friend class WeaponSet; private:
- const WeaponTemplate *Rva002CADBE(int) const; public:
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+class WeaponStore { friend class WeaponSet; protected:
+ WeaponTemplate *findWeaponTemplatePrivate(NameKeyType) const; public:
  Weapon *allocateNewWeapon(const WeaponTemplate *,WeaponSlotType) const;
 }; extern WeaponStore *TheWeaponStore;
 class WeaponTemplateSet { public:
@@ -326,7 +327,7 @@ void WeaponSet::updateWeaponSet(const Object *obj)
    for(int i=5;i>=0;--i) {
      if(m_weapons[i]) { ::operator delete(m_weapons[i]->nativeSlot0(0)); m_weapons[i]=0; }
      if(set->m_weapons[i]) {
-       const WeaponTemplate *weaponTemplate=TheWeaponStore->Rva002CADBE(set->m_weapons[i]->m_key);
+       const WeaponTemplate *weaponTemplate=TheWeaponStore->findWeaponTemplatePrivate((NameKeyType)set->m_weapons[i]->m_key);
        if(weaponTemplate) {
          m_weapons[i]=TheWeaponStore->allocateNewWeapon(weaponTemplate,(WeaponSlotType)i);
          m_weapons[i]->m_ownerID=obj->m_id;

@@ -47,6 +47,9 @@ class WeaponStore
 public:
 	WeaponTemplate *newOverride(WeaponTemplate *weaponTemplate);
 
+protected:
+    WeaponTemplate *findWeaponTemplatePrivate(NameKeyType key) const;
+
 private:
 	unsigned char m_pad00[0x0C];
 	WeaponTemplateVector m_weaponTemplateVector; // +0x0C
@@ -75,4 +78,18 @@ WeaponTemplate *WeaponStore::newOverride(WeaponTemplate *weaponTemplate)
 	}
 	m_weaponTemplateVector.push_back(wt);
 	return wt;
+}
+
+// Target: retail 0x002CADBE is the complete 60-byte key search; the mapped
+// WorldBuilder Weapon.cpp body indexes the vector at +0x0C and compares the
+// template key at +0x0C. WeaponStore callers establish the receiver and role.
+// Name, protected access and mutable return follow Zero Hour Weapon.h/source.
+// Keep the genuine STLport size/index operations: a hand-written pointer range
+// hoists the count and differs from retail's loop-bottom recomputation.
+WeaponTemplate *WeaponStore::findWeaponTemplatePrivate(NameKeyType key) const
+{
+    for (int i = 0; i < m_weaponTemplateVector.size(); ++i)
+        if (m_weaponTemplateVector[i]->getNameKey() == key)
+            return m_weaponTemplateVector[i];
+    return 0;
 }

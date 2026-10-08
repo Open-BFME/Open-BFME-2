@@ -6311,7 +6311,7 @@ name,address,notes
 ?Rva002ADCE1Worker@@YGXPAUVideoPair@@@Z,0x002ADCE1,REL32 worker decoded from target call bytes of pair-copy-call 0x003A37DC; identity unproven
 ?Rva002B3E7ECheck@@YA_NXZ,0x002B3E7E,zero-arg bool check with candidate pointer arriving in EAX (retail mov ebp,eax then bare call then test al,al); callers 0x2B3EEA 0x2B3F1A 0x2B3F62; Ghidra FUN_006b3e7e 88B
 ?Rva002BFA86Worker@@YGXPAUVideoPair@@@Z,0x002BFA86,REL32 worker decoded from target call bytes of pair-copy-call 0x002BFCF5; identity unproven
-?Rva002CADBE@WeaponStore@@ABEPBVWeaponTemplate@@H@Z,0x002CADBE,linear key search over the +0xC/+0x10 pointer range comparing element+0xC; 3 WeaponStore-method callers (0x2C8D9A/0x2CB8F8/0x2CE141); blocks findWeaponTemplate 0x2CB8BF; 0.85 partial banked
+?findWeaponTemplatePrivate@WeaponStore@@IBEPAVWeaponTemplate@@W4NameKeyType@@@Z,0x002CADBE,WB Weapon.cpp indexed key search and WeaponStore caller graph; donor protected NameKeyType ABI; byte-exact genuine STLport vector body
 ?Rva002CE1AC@Weapon@@QAEXPAVObject@@@Z,0x002CE1AC,opaque Weapon arming call from WeaponFireSpecialAbilityUpdate ctor plus 12 weapon-family callers; do-not-name without donor
 ?Rva002D0BB8Copy5@@YAPADPAD000H@Z,0x002D0BB8,twin 5-arg of rowed 3-arg same bytes via wrapper 0x002D0D5E 5 pushes
 ?Rva002DBEFFUninitCopy@@YAPAVSaveMapPreview@@PAV1@00ABU__false_type@_STL@@@Z,0x002DBEFF,hand insert 0x002DDD48 uninit-copy helper
