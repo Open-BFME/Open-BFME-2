@@ -227,7 +227,15 @@ __forceinline long fast_float2long_round(float f)
 	return i;
 }
 
-class StrategicHUD::ArmyDetailsMovieClip::Impl
+// Native base C6EE20: two empty callbacks, with int and (int,float) ABI
+// independently used by the scrollbar listener walk 5D4A66 and Checklist.
+class Rva0086EE20 {
+public: Rva0086EE20(){} ~Rva0086EE20(){}
+ virtual void slot0(int); virtual void rva005F267E(int,float);
+};
+void Rva0086EE20::slot0(int) {}
+void Rva0086EE20::rva005F267E(int,float) {}
+class StrategicHUD::ArmyDetailsMovieClip::Impl :public Rva0086EE20
 {
 public:
 	// Retail vtable 0x00C78618 = { Dispose 0x005F3544, 0x005DB09D,
@@ -259,8 +267,9 @@ public:
 	void OnScrollBarLoaded(const char *name);
 	void rva005F2E85();
  void Update();
+ virtual void rva005F267E(int,float);
 private:
-	char m_pad00[8];
+	char m_pad04[4];
 	void *m_level08;
 	Rva005F2FEFTeam *m_team0C;
 	char m_pad10[0x1C - 0x10];
@@ -475,4 +484,15 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::Update()
 			x += m_slotWidth;
 		}
 	}
+}
+
+class Rva005D48FEFloatChaseField {public:float get()const;};
+void StrategicHUD::ArmyDetailsMovieClip::Impl::rva005F267E(int,float value)
+{
+ int slotsPerRow=fast_float2long_round(floor(m_iconStageWidth/m_slotWidth));
+ int rows=((unsigned)(m_iconSlots._M_finish-m_iconSlots._M_start)+slotsPerRow-1)/slotsPerRow;
+ float page=((Rva005D48FEFloatChaseField*)m_scrollBar)->get();
+ if(fabs(page-1.0f)>=0.0001f) {
+  m_scrollRow=_STL::min(_STL::max((int)fast_float2long_round(floor(rows*value/(1.0f-page))),0),rows-1);
+ }else m_scrollRow=0;
 }
