@@ -16441,3 +16441,4 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?rva005CC208@Rva005CC208Select@@QAEXH@Z,0x005CC208,callee of ?OnAllyTabsLoaded@Impl@BattlePromptMovieClip@StrategicHUD@@QAEXPBD@Z
 ?SetTabCount@BattlePromptPlayerTabsMovieClip@StrategicHUD@@QAEXH@Z,0x005FEA02,callee of ?OnAllyTabsLoaded@Impl@BattlePromptMovieClip@StrategicHUD@@QAEXPBD@Z
 ??0Rva005F8E5A@@QAE@PAVImpl@BattlePromptMovieClip@StrategicHUD@@HABVAsciiString@@@Z,0x005F8E5A,callee of ?OnEnemyTabsLoaded@Impl@BattlePromptMovieClip@StrategicHUD@@QAEXPBD@Z
+??0Rva005FA0C9@@QAE@PAVImpl@BattlePromptMovieClip@StrategicHUD@@HABURva005F91F3Src@@@Z,0x005FA0C9,callee of ?AddAlly@Impl@BattlePromptMovieClip@StrategicHUD@@QAEXABURva005F91F3Src@@@Z

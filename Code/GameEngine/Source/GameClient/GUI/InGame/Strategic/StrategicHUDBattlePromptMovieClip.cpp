@@ -12,7 +12,11 @@ struct BfmeStringRecord005F93E3 {unsigned int word0,word1;UnicodeString text;~Bf
 struct Rva005F91F3Src {unsigned int header,word0,word1;UnicodeString text;};
 struct Rva005F91F3 {unsigned int word0,word1;UnicodeString text;Rva005F91F3(const Rva005F91F3Src &);};
 void Rva00030830FreeAllocation(void *);
+class Rva005FA0C9;
+struct Rva005FA197Element {Rva005FA0C9 *ptr;Rva005FA197Element(Rva005FA0C9 *);Rva005FA197Element(const Rva005FA197Element &);~Rva005FA197Element();};
+struct Rva005FA1CEElement {int a[1];};
 namespace _STL {
+template<> void vector<Rva005FA1CEElement>::push_back(const Rva005FA1CEElement &);
 template<> inline void allocator<BfmeStringRecord005F93E3>::deallocate(BfmeStringRecord005F93E3 *p,size_t) const {if(p)::Rva00030830FreeAllocation(p);}
 template<> void vector<BfmeStringRecord005F93E3>::push_back(const BfmeStringRecord005F93E3 &);
 }
@@ -32,7 +36,7 @@ struct BattlePromptEnemyTabsSlot {Rva005F8E5A *ptr;void set(Rva005F8E5A *p){((Rv
 struct BattlePromptTabsSlot {Rva005F8E37 *ptr;void set(Rva005F8E37 *p){((Rva00575674 *)this)->rva00575674((Object *)p);}};
 class StrategicHUD::BattlePromptMovieClip::Impl {
 public: void OnAllyTabsLoaded(const char *);void OnEnemyTabsLoaded(const char *);void AddAlly(const Rva005F91F3Src &);void AddEnemy(const Rva005F91F3Src &);
-private: char prefix[0x20];_STL::vector<BfmeStringRecord005F93E3> allies;BattlePromptTabsSlot allyTabs;_STL::vector<BfmeStringRecord005F93E3> enemies;BattlePromptEnemyTabsSlot enemyTabs;char allyPages[12];int selectedAlly;char enemyPages[12];int selectedEnemy;
+private: char prefix[0x20];_STL::vector<BfmeStringRecord005F93E3> allies;BattlePromptTabsSlot allyTabs;_STL::vector<BfmeStringRecord005F93E3> enemies;BattlePromptEnemyTabsSlot enemyTabs;_STL::vector<Rva005FA197Element> allyPages;int selectedAlly;_STL::vector<Rva005FA1CEElement> enemyPages;int selectedEnemy;
 };
 
 BfmeStringRecord005F93E3::~BfmeStringRecord005F93E3() {}
@@ -61,4 +65,21 @@ void StrategicHUD::BattlePromptMovieClip::Impl::OnEnemyTabsLoaded(const char *pa
  }
  _STL::vector<BfmeStringRecord005F93E3>().swap(enemies);
  if(selectedEnemy>=0)((Rva005CC208Select *)enemyTabs.ptr)->rva005CC208(selectedEnemy);
+}
+
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+class Rva005FA0C9 {public:Rva005FA0C9(StrategicHUD::BattlePromptMovieClip::Impl *,int,const Rva005F91F3Src &);unsigned int vtable;int refs;char rest[0x28];};
+// ?Rva005FA197Element::Rva005FA197Element present-unmatched
+inline Rva005FA197Element::Rva005FA197Element(Rva005FA0C9 *p):ptr(p){if(p)++p->refs;}
+// ?Rva005FA197Element::Rva005FA197Element present-unmatched
+inline Rva005FA197Element::Rva005FA197Element(const Rva005FA197Element &other):ptr(other.ptr){if(ptr)++ptr->refs;}
+// ?Rva005FA197Element::~Rva005FA197Element present-unmatched
+inline Rva005FA197Element::~Rva005FA197Element(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)ptr);}
+void StrategicHUD::BattlePromptMovieClip::Impl::AddAlly(const Rva005F91F3Src &item) {
+ allies.push_back((const BfmeStringRecord005F93E3 &)Rva005F91F3(item));
+ try {
+  Rva005FA197Element page(new Rva005FA0C9(this,allyPages.size(),item));
+  allyPages.push_back(page);
+ } catch(...) {allies.pop_back();throw;}
 }
