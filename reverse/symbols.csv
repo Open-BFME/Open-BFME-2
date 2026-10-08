@@ -4692,7 +4692,6 @@ name,address,notes
 ??1Rva005AE30A@@UAE@XZ,0x005AE30A,opaque dtor called by the scalar deleting dtor at 0x005AE38A (vtable 0x00C726A0#0); identity unproven; address-derived name
 ??1Rva005AE66B@@UAE@XZ,0x005AE66B,opaque dtor called by the scalar deleting dtor at 0x005AE76E (vtable 0x00C72760#0); identity unproven; address-derived name
 ??1Rva005AFE3F@@UAE@XZ,0x005AFE3F,opaque base dtor; 3 derived dtors tail-call it; identity unproven
-??1Rva005B190D@@UAE@XZ,0x005B190D,opaque dtor called by the scalar deleting dtor at 0x005B1A50 (vtable 0x00C72A80#0); identity unproven; address-derived name
 ??1Rva005B3D94@@UAE@XZ,0x005B3D94,opaque dtor called by the scalar deleting dtor at 0x005B4541 (vtable 0x00C72F3C#0); identity unproven; address-derived name
 ??1Rva005B5420@@UAE@XZ,0x005B5420,opaque dtor called by the scalar deleting dtor at 0x005B576B (vtable 0x00C73450#0); identity unproven; address-derived name
 ??1Rva005B5CF4@@UAE@XZ,0x005B5CF4,opaque dtor called by the scalar deleting dtor at 0x005B6166 (vtable 0x00C735C0#0); identity unproven; address-derived name
