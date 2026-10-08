@@ -153,6 +153,62 @@ extern "C" __declspec(dllimport) void *__stdcall HeapAlloc(void *heap, unsigned 
 extern "C" __declspec(dllimport) int __stdcall HeapFree(void *heap, unsigned long flags, void *memory);
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char *text);
 
+// Target 0x00077C19: paired file/heap/error flow with the matched loader below;
+// this variant calls device slot 91. Keep its address-derived identity: neither
+// the device interface spelling nor a donor loader name is a target fact.
+// The separately rowed 0x00077CFE catch is emitted and tail-verified here too.
+long __cdecl Rva00077C19Load(const char *strFilePath, unsigned int *pHandle)
+{
+	try
+	{
+		{
+		File *file = TheFileSystem->openFile(strFilePath, File::READ | File::BINARY, 0);
+		if (file == 0) {
+			// The retail shared error call receives each string as an immediate
+			// stack argument. MSVC folds a C++ message phi through EAX instead.
+			__asm { push 0x00BC66EC }
+			goto reportFailure;
+		}
+
+		FileInfo fileInfo;
+		{
+			AsciiString filename(strFilePath);
+			TheFileSystem->getFileInfo(filename, &fileInfo);
+		}
+		unsigned long fileSize = fileInfo.sizeLow;
+
+		unsigned long *shader = (unsigned long *)HeapAlloc(GetProcessHeap(), 8, fileSize);
+		if (shader == 0) {
+			__asm { push 0x00BC66C0 }
+			goto reportFailure;
+		}
+
+		((Rva00077D0FFileView *)file)->read(shader, fileSize);
+		((Rva00077D0FFileView *)file)->close();
+
+		long hr = DX8Wrapper::_Get_D3D_Device8()->m_vtable->m_createShaderA(
+			DX8Wrapper::_Get_D3D_Device8(), shader, (unsigned long *)pHandle);
+		HeapFree(GetProcessHeap(), 0, shader);
+		if (hr < 0) {
+			__asm { push 0x00BC66A4 }
+			goto reportFailure;
+		}
+		}
+		return 0;
+
+	reportFailure:
+		((void (__stdcall *)(void))OutputDebugStringA)();
+		return (long)0x80004005L;
+	}
+	catch (...)
+	{
+		OutputDebugStringA("Error opening file \n");
+		return (long)0x80004005L;
+	}
+
+	return 0;
+}
+
 long __cdecl Rva00077D0FLoad(const char *strFilePath, unsigned long *pHandle)
 {
 	try
