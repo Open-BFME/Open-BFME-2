@@ -65,22 +65,22 @@ struct Rva0053ECD1ButtonData
 	char m_pad00[0xF8];
 	Int m_F8;
 };
-class Rva0053EC7D
+class RadialWindowController
 {
 public:
-	void rva0053EC7D(Int i, const Rva0053EC7DPair *pos, const Rva0053EC7DPair *size);
+	void PositionButton(Int i, const Rva0053EC7DPair *pos, const Rva0053EC7DPair *size);
 	bool rva0053ECD1(Int i);
 private:
 	char m_pad00[0x3C];
 	GameWindow **m_3C;
 };
-void Rva0053EC7D::rva0053EC7D(Int i, const Rva0053EC7DPair *pos, const Rva0053EC7DPair *size)
+void RadialWindowController::PositionButton(Int i, const Rva0053EC7DPair *pos, const Rva0053EC7DPair *size)
 {
 	GameWindow *w = m_3C[i];
 	w->winSetPosition(pos->x, pos->y);
 	w->winSetSize(size->x, size->y);
 }
-bool Rva0053EC7D::rva0053ECD1(Int i)
+bool RadialWindowController::rva0053ECD1(Int i)
 {
 	GameWindow *w = m_3C[i];
 	if (!w->winIsHidden())

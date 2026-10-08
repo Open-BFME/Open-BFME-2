@@ -38,17 +38,17 @@ public:
 	void reset();
 };
 
-class BfmeD1191 : public Rva0013A820
+class INIStatsRecord : public Rva0013A820
 {
 public:
-	BfmeD1191(const char *filename);
-	~BfmeD1191();
+	INIStatsRecord(const char *filename);
+	~INIStatsRecord();
 	void bfmeDump1191(void);
 	void rva0050C90D();
 	char *m_bfme48;
 };
 
-BfmeD1191::BfmeD1191(const char *filename)
+INIStatsRecord::INIStatsRecord(const char *filename)
 {
 	reset();
 	m_bfme48 = (char *)fopen(filename, "w+");
@@ -57,12 +57,12 @@ BfmeD1191::BfmeD1191(const char *filename)
 }
 
 // ??1BfmeD1191@@QAE@XZ @0x0050C688
-BfmeD1191::~BfmeD1191()
+INIStatsRecord::~INIStatsRecord()
 {
 	fclose(m_bfme48);
 }
 
-void BfmeD1191::bfmeDump1191(void)
+void INIStatsRecord::bfmeDump1191(void)
 {
 	const char *s0 = m_00.str();
 	int (__cdecl *fn)(void *dst, const char *fmt, ...) = fprintf;
@@ -91,7 +91,7 @@ void BfmeD1191::bfmeDump1191(void)
 // on the same receiver. Both complete callees already verify in their homes.
 // This establishes dump/reset behavior and the consumed existing record view;
 // the wrapper's original name is unknown. No adjacency-based type claim.
-void BfmeD1191::rva0050C90D()
+void INIStatsRecord::rva0050C90D()
 {
     bfmeDump1191();
     reset();

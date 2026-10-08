@@ -1,6 +1,6 @@
 // cl: /O1 /MD
 int __cdecl BFME2Utf8ToWide(const char* src, int srclen, unsigned short* dst, int dstlen);
-struct Rva00604xx {
+struct Win32LocalFileSystem {
   virtual void _v0();
   virtual void _v1();
   virtual int Virt8(unsigned short* buf, void* a2, void* a3);
@@ -20,30 +20,30 @@ struct Rva00604xx {
   int M7F3(const char* src, void* a2, int a3);
   bool M831(const char* src);
   int M948(const char* src, void* a2);
-  void rva00604895(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6);
+  void getFileListInDirectory(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6);
 };
-int Rva00604xx::M7F3(const char* src, void* a2, int a3) {
+int Win32LocalFileSystem::M7F3(const char* src, void* a2, int a3) {
   unsigned short buf[260];
   BFME2Utf8ToWide(src, -1, buf, 260);
   return Virt8(buf, a2, (void*)a3);
 }
-bool Rva00604xx::M831(const char* src) {
+bool Win32LocalFileSystem::M831(const char* src) {
   if (!src) return false;
   unsigned short buf[260];
   BFME2Utf8ToWide(src, -1, buf, 260);
   return Virt10(buf);
 }
-int Rva00604xx::M948(const char* src, void* a2) {
+int Win32LocalFileSystem::M948(const char* src, void* a2) {
   unsigned short buf[260];
   BFME2Utf8ToWide(src, -1, buf, 260);
   return Virt24(buf, a2);
 }
 
-// ?rva00604895@Rva00604xx@@QAEXPBD000PAX1@Z @0x00604895 179B.
+// ?getFileListInDirectory@Win32LocalFileSystem@@QAEXPBD000PAX1@Z @0x00604895 179B.
 // Four-string helper through table slot 0x0087A9C0 (neighbours M831): require
 // a2-a4, optionally convert a1, convert a2-a4 via BFME2Utf8ToWide, then call
 // the 0x3C virtual with the four wide buffers plus a5-a6.
-void Rva00604xx::rva00604895(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6)
+void Win32LocalFileSystem::getFileListInDirectory(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6)
 {
 	if (a2 == 0 || a3 == 0 || a4 == 0)
 		return;

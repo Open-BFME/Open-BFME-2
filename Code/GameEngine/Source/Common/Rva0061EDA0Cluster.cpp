@@ -5,7 +5,7 @@
 // bfmeAdvanceStages), but the BFME2 tail diverges (it deletes the bfmeStage7(0)
 // result), so the row keeps an address-derived method name on the donor class.
 
-class BfmeFlagStageSequence
+class AssetFactoryBase
 {
 public:
 	virtual void bfmeSlot00();
@@ -20,14 +20,14 @@ public:
 	virtual void *bfmeStage7(unsigned int finalStage);
 	virtual bool bfmeCanAdvanceStages();
 
-	void rva0061EDA0();
+	void Delete();
 
 private:
 	volatile unsigned int m_flags;
 };
 
-// ?rva0061EDA0@BfmeFlagStageSequence@@QAEXXZ
-void BfmeFlagStageSequence::rva0061EDA0()
+// ?Delete@AssetFactoryBase@@QAEXXZ
+void AssetFactoryBase::Delete()
 {
 	if (bfmeCanAdvanceStages()) {
 		m_flags = (m_flags & 0xFF04FFFF) | 0x00040000;

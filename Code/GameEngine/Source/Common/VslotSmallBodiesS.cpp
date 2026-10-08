@@ -229,15 +229,15 @@ public:
 	UnsignedInt winSetStatus(UnsignedInt status);
 	UnsignedInt winClearStatus(UnsignedInt status);
 };
-class Rva0053ECAC
+class RadialWindowController
 {
 public:
-	void rva0053ECAC(Int i, bool clear);
+	void EnableButtonInput(Int i, bool clear);
 private:
 	char m_pad00[0x3C];
 	GameWindow **m_3C;
 };
-void Rva0053ECAC::rva0053ECAC(Int i, bool clear)
+void RadialWindowController::EnableButtonInput(Int i, bool clear)
 {
 	GameWindow *w = m_3C[i];
 	if (clear)

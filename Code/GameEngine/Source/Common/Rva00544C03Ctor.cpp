@@ -235,29 +235,29 @@ struct XferVersion
 	unsigned char m_currentVersion;
 };
 
-class Rva00544C03 : public State
+class AIHarvestPrepareSiteState : public State
 {
 public:
-	Rva00544C03(StateMachine *machine);
+	AIHarvestPrepareSiteState(StateMachine *machine);
 	virtual void xfer(Xfer *xfer);
 	virtual StateReturnType onEnter();
 private:
 	UnsignedInt m_20;
 };
 
-Rva00544C03::Rva00544C03(StateMachine *machine) : State(machine, 0xA2C0BF2Bu)
+AIHarvestPrepareSiteState::AIHarvestPrepareSiteState(StateMachine *machine) : State(machine, 0xA2C0BF2Bu)
 {
 	m_20 = 0;
 	*(const void **)this = g_00C69C98;
 }
 
-void Rva00544C03::xfer(Xfer *xfer)
+void AIHarvestPrepareSiteState::xfer(Xfer *xfer)
 {
 	xfer->Version1();
 	xfer->xferUnsignedInt(m_20);
 }
 
-StateReturnType Rva00544C03::onEnter()
+StateReturnType AIHarvestPrepareSiteState::onEnter()
 {
 	Object *owner = m_machine->getOwner();
 	AIUpdateInterface *ai = owner->m_ai;

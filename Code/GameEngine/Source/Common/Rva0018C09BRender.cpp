@@ -1,6 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
-// ?rva0018C09B@Rva0018C09B@@QAEXG@Z @0x0018C09B 76B
+// ?Begin_Rendering@FXShaderGeometry@@QAEXG@Z @0x0018C09B 76B
 // Render setup: unless byte at +0 set vb at +0xC via Set_Vertex 0, then ib at
 // +0x10 via Set_Index with WORD arg, then Draw via D3DDevice slot 87 with
 // count at +8 unless zero, inc number_of_DX8_calls. Evidence: unlock lane,
@@ -10,7 +10,7 @@ class VertexBufferClass;
 class IndexBufferClass;
 struct IDirect3DDevice8;
 
-class Rva0018C09B;
+class FXShaderGeometry;
 
 class DX8Wrapper
 {
@@ -19,17 +19,17 @@ public:
 	static void Set_Index_Buffer(const IndexBufferClass *ib, unsigned short index);
 protected:
 	static struct IDirect3DDevice8 *D3DDevice;
-	friend class Rva0018C09B;
+	friend class FXShaderGeometry;
 };
 
 extern unsigned int number_of_DX8_calls;
 
 typedef void (__stdcall *Rva0018C09BDrawFunc)(struct IDirect3DDevice8 *, int);
 
-class Rva0018C09B
+class FXShaderGeometry
 {
 public:
-	void rva0018C09B(unsigned short idx);
+	void Begin_Rendering(unsigned short idx);
 private:
 	unsigned char m_flag0;
 	char m_pad01[7];
@@ -38,7 +38,7 @@ private:
 	IndexBufferClass *m_ib10;
 };
 
-void Rva0018C09B::rva0018C09B(unsigned short idx)
+void FXShaderGeometry::Begin_Rendering(unsigned short idx)
 {
 	if (m_flag0 == 0) {
 		VertexBufferClass *vb = m_vb0C;

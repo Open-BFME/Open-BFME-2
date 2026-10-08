@@ -28,10 +28,10 @@ struct Rva0041F760FreePtr
 	}
 };
 
-class Rva0041F760
+class ArmyDefinition
 {
 public:
-	~Rva0041F760();
+	~ArmyDefinition();
 	void *rva0041F855(unsigned int flags);
 private:
 	AsciiString m_00;
@@ -48,7 +48,7 @@ private:
 	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_98;
 };
 
-Rva0041F760::~Rva0041F760()
+ArmyDefinition::~ArmyDefinition()
 {
 	for (_STL::vector<void *, _STL::allocator<void *> >::iterator it = m_04.begin(); it != m_04.end(); ++it)
 	{
@@ -64,9 +64,9 @@ Rva0041F760::~Rva0041F760()
 	pv98->erase(pv98->begin(), pv98->end());
 }
 
-void *Rva0041F760::rva0041F855(unsigned int flags)
+void *ArmyDefinition::rva0041F855(unsigned int flags)
 {
-	this->~Rva0041F760();
+	this->~ArmyDefinition();
 	if (flags & 1)
 		operator delete(this);
 	return this;

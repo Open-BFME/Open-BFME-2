@@ -269,8 +269,8 @@ void Rva00525783::rva00525783()
 
 // Apt window close requests: in the open states 2 and 3, run the window's
 // Apt "Close" callback through the rowed Rva0043DB23 and move to state 4.
-// ?rva004E67D0@Rva004E67D0@@QAEXH@Z @0x004E67D0 49B (argument unused)
-// ?rva004E6B9B@Rva004E67D0@@QAEXXZ  @0x004E6B9B 55B (first clears the owned
+// ?rva004E67D0@InGameNotificationBoxMovieClip@@QAEXH@Z @0x004E67D0 49B (argument unused)
+// ?DoClose@InGameNotificationBoxMovieClip@@QAEXXZ  @0x004E6B9B 55B (first clears the owned
 //   pointer at +0x40 through the rowed Rva004E6A1D::clear)
 void Rva0043DB23(Rva00222A8BTarget *target, void *owner, const char *name);
 
@@ -281,11 +281,11 @@ public:
 	void *m_ptr;
 };
 
-class Rva004E67D0
+class InGameNotificationBoxMovieClip
 {
 public:
 	void rva004E67D0(int unused);
-	void rva004E6B9B();
+	void DoClose();
 private:
 	char m_pad00[4];
 	void *m_owner;				// +0x04
@@ -294,7 +294,7 @@ private:
 	Rva004E6A1D m_child;		// +0x40
 };
 
-void Rva004E67D0::rva004E67D0(int unused)
+void InGameNotificationBoxMovieClip::rva004E67D0(int unused)
 {
 	(void)unused;
 	if (m_state == 2 || m_state == 3)
@@ -304,7 +304,7 @@ void Rva004E67D0::rva004E67D0(int unused)
 	}
 }
 
-void Rva004E67D0::rva004E6B9B()
+void InGameNotificationBoxMovieClip::DoClose()
 {
 	m_child.clear();
 	if (m_state == 2 || m_state == 3)
