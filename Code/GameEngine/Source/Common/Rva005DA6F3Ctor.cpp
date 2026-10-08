@@ -5,6 +5,13 @@
 // Identity inference: calls the rowed Rva005DAA36 base constructor and
 // installs a derived vptr. Member offsets and filtering follow target loads.
 #include "ascii_string.h"
+// The native17B unsigned-max provider is owned by stlport_narrow_istream.cpp
+// at0x13740. Declare it here instead of emitting a private compiler variant.
+#include <stl/_algobase.h>
+namespace _STL {
+template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
+}
+
 #include <vector>
 
 enum ObjectID { Rva005DA6F3_ObjectID = 0 };
@@ -26,6 +33,11 @@ public:
 };
 
 typedef const ModuleData *PlayerAITypeEntry;
+
+// Native49B provider at4DFCB0 is owned by stlport_moduledatavector_push.cpp.
+namespace _STL {
+template <> void vector<const ModuleData *>::push_back(const ModuleData *const &);
+}
 
 class ThingTemplate : public ModuleData
 {

@@ -6,21 +6,20 @@
 // vector AsciiString push_back; caller 0x002D1DE6 in FUN_006D1C01;
 // prev Rva0033DCD1 and next vector ContainerRecord share STL flags.
 
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// The native17B unsigned-max provider is owned by stlport_narrow_istream.cpp
+// at0x13740. Declare it here instead of emitting a private compiler variant.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
+template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
-}
-#pragma optimize("", on)
 
 #include "ascii_string.h"
 #include <vector>
+
+// Native55B push_back is owned by Upgrade.cpp at0x2DBE6.
+namespace _STL {
+template <> void vector<AsciiString>::push_back(const AsciiString &);
+}
 
 struct Rva0033E06AArg
 {

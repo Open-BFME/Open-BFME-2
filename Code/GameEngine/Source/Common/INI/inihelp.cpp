@@ -9,6 +9,13 @@
 // ERROR_BUG (0xDEAD0001) as Zero Hour's INI parsers do.
 
 #include "ascii_string.h"
+// The native17B unsigned-max provider is owned by stlport_narrow_istream.cpp
+// at0x13740. Declare it here instead of emitting a private compiler variant.
+#include <stl/_algobase.h>
+namespace _STL {
+template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
+}
+
 #include <vector>
 
 enum ErrorCode

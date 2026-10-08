@@ -10,20 +10,19 @@
 // GameInfo+0x58; callees rowed Rva003B8B2A 0x003B8B2A plus reserve/push_back;
 // flags from stlport_pod_vector_bodies.cpp; unsigned loop gives sar-je plus jb,
 // unsigned char cast gives test al.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// The native17B unsigned-max provider is owned by stlport_narrow_istream.cpp
+// at0x13740. Declare it here instead of emitting a private compiler variant.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
+template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
-}
-#pragma optimize("", on)
 
 #include <vector>
+
+// Existing native49B long-vector fold is supplied by WeaponRebuildScatterTargets.
+namespace _STL {
+template <> void vector<long>::push_back(const long &);
+}
 
 class Rva003B8B2A
 {
