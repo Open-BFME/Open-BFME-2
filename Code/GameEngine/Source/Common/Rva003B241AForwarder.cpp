@@ -1,27 +1,15 @@
-// ?rva003B241A@Rva003B241A@@QAEXXZ @0x003B241A 18B
 // cl: /MD
-// Leaf forwarder: vtable store plus handle call. Evidence: vtable VA 0x00BC9574 no name yet; callee 0x00306D7B rowed Q1Forwardee handle; offsets 0x4 0x8; callers 40 plus unclaimed; prev 0x003B23F7 next 0x003B242C.
-extern const void *const g_00BC9574[];
-
-class Q1Forwardee0000871A
-{
-public:
-	void handle(int value);
+// Native3B241A..3B242C complete18B destructor. Verified30D8B1 EH callback
+//77A2D8 calls this target; ABB87 registration proves input4/token8 and
+// BC9574 two-slot table. Existing consumer compatibility class spelling
+// retained; original retail class name remains unknown. Explicit table
+// store reproduces native cleanup without emitting a competing vtable.
+// Namespace scope separates the external compatibility table declaration
+// from MSVC's synthetic class vtable declaration. The linker name is unchanged.
+namespace ParserBindingTable { extern "C" const void *const __identifier("??_7BfmeParserBindingBaseVE@@6B@")[]; }
+class Q1Forwardee0000871A {public: void handle(int);};
+class BfmeParserBindingBaseVE {
+public: virtual ~BfmeParserBindingBaseVE(); virtual void bfmeSlot1()=0;
+private: Q1Forwardee0000871A *m_4; int m_8;
 };
-
-class Rva003B241A
-{
-public:
-	void rva003B241A();
-private:
-	char m_pad0[4];
-	Q1Forwardee0000871A *m_4;
-	int m_8;
-};
-
-void Rva003B241A::rva003B241A()
-{
-	int arg = m_8;
-	*(const void **)this = g_00BC9574;
-	m_4->handle(arg);
-}
+BfmeParserBindingBaseVE::~BfmeParserBindingBaseVE() { int arg=m_8; *(const void **)this=ParserBindingTable::__identifier("??_7BfmeParserBindingBaseVE@@6B@"); m_4->handle(arg); }
