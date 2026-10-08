@@ -9445,7 +9445,6 @@ name,address,notes
 ?eraseAux@Rva00082C98Vec@@QAEXPAX0@Z,0x00081A24,pin for 0x82C98 erase
 ?erasePrereqVec@Rva0033EB77Vec@@QAEPAXPAX0@Z,0x0033EB77,prereq-vector erase at the CREATE_OVERRIDES clear site in parsePrerequisites 0x33EBB5 (takes begin plus end; finish-store plus destroy-range body); true class unknown so address-tokenized holder
 ?eraseSlot@ObjectLookupMap@@QAEXPAH@Z,0x0054883B,GameLogic lookup map erase; sole caller removeObjectFromLookupTable 0x240144
-?evaluateBezSegmentAtT@BezierSegment@@QBEXMPAUCoord3D@@@Z,0x0010FE6D,callee read from the retail REL32 in placed BFME1-donor body ?forward@Rva000059EDBezierSegmentThunk@@QBEXMPAUCoord3D@@@Z (0x000A8B37)
 ?evaluateNamedInsideArea@ScriptConditions@@IAE_NPAVParameter@@0@Z,0x003E5EFF,target 0x3E66D5 wrapper directly calls the named-inside-area handler at this exact boundary
 ?evaluateSkirmishPlayerHasUnitsInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z,0x003E782D,"call-site agreement: matched evaluateSkirmishPlayerIsOutsideArea 0x003E79AF returns its negation with the same three arguments, as the BFME1 donor does"
 ?expandPrototypeValues@Rva00700170@@QAEXPAX0@Z,0x00700170,BFME1 donor method name is provisional; target call from 0x702B40 and thiscall signature support this address but owner identity remains RVA-derived

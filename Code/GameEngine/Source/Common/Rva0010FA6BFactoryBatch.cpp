@@ -168,3 +168,29 @@ void Rva0010FDE9::rva0010FDE9(int value)
 		reinterpret_cast<AudioEventInfo *>(this)), value),
 		((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
 }
+
+// Native 0x0010FE6D..0x0010FEF3 takes a float and an integer (ret 8).
+// Its 20-byte caller at0x000A8B37 forwards those two stack words unchanged.
+// The rowed ctor0x0010EF61 stores them at +0x0C/+0x10 in a20-byte event.
+// These target facts supersede the caller's former Bezier donor-name guess.
+class Rva0010EF61 : public Rva001164D3
+{
+	float m_value0c;
+	int m_value10;
+public:
+	Rva0010EF61(const Rva0036CA00Str &s, float value, int tag);
+};
+
+class Rva0010FE6D
+{
+public:
+	void rva0010FE6D(float value, int tag);
+};
+
+void Rva0010FE6D::rva0010FE6D(float value, int tag)
+{
+	Rva0010EF61 *eventInfo;
+	(eventInfo = new Rva0010EF61(AudioEventInfoRef(
+		reinterpret_cast<AudioEventInfo *>(this)), value, tag),
+		((Rva0010F8D0 *)this)->rva0010F8D0(eventInfo));
+}
