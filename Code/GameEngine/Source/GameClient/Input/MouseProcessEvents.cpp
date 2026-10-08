@@ -56,8 +56,9 @@ public:
 	virtual void slot16(); virtual void slot17();
 	virtual GameMessage *appendMessage( Int type );	// slot 18 (+0x48)
 };
-// The data ledger's name for TheMessageStream at 0x00A00950.
-extern MessageStream *MessageStreamSubsystem;
+// The singleton is defined by Common/MessageStream.cpp. Native accesses
+// read the same cell (RVA 0x00A00950, VA 0x00E00950).
+extern MessageStream *TheMessageStream;
 
 class Keyboard
 {
@@ -447,7 +448,7 @@ void Mouse::update( void )
 void Mouse::createStreamMessages( void )
 {
 	// santiy
-	if( MessageStreamSubsystem == 0 )
+	if( TheMessageStream == 0 )
 		return;  // no place to put messages
 
 	GameMessage *msg;
@@ -460,7 +461,7 @@ void Mouse::createStreamMessages( void )
 		switch( m_currMouse.leftEvent )
 		{
 			case GWM_LEFT_DOWN:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_LEFT_BUTTON_DOWN );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_LEFT_BUTTON_DOWN );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
@@ -468,14 +469,14 @@ void Mouse::createStreamMessages( void )
 				break;
 
 			case GWM_LEFT_DOUBLE_CLICK:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_LEFT_DOUBLE_CLICK );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_LEFT_DOUBLE_CLICK );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
 				break;
 
 			case GWM_LEFT_UP:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_LEFT_BUTTON_UP );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_LEFT_BUTTON_UP );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
@@ -483,7 +484,7 @@ void Mouse::createStreamMessages( void )
 				break;
 
 			case GWM_LEFT_DRAG:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_LEFT_DRAG );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_LEFT_DRAG );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendPixelArgument( m_currMouse.deltaPos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
@@ -493,28 +494,28 @@ void Mouse::createStreamMessages( void )
 		switch( m_currMouse.middleEvent )
 		{
 			case GWM_MIDDLE_DOWN:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_MIDDLE_BUTTON_DOWN );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_MIDDLE_BUTTON_DOWN );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
 				break;
 
 			case GWM_MIDDLE_DOUBLE_CLICK:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_MIDDLE_DOUBLE_CLICK );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_MIDDLE_DOUBLE_CLICK );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
 				break;
 
 			case GWM_MIDDLE_UP:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_MIDDLE_BUTTON_UP );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_MIDDLE_BUTTON_UP );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
 				break;
 
 			case GWM_MIDDLE_DRAG:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_MIDDLE_DRAG );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_MIDDLE_DRAG );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendPixelArgument( m_currMouse.deltaPos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
@@ -524,7 +525,7 @@ void Mouse::createStreamMessages( void )
 		switch( m_currMouse.rightEvent )
 		{
 			case GWM_RIGHT_DOWN:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_RIGHT_BUTTON_DOWN );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
@@ -532,14 +533,14 @@ void Mouse::createStreamMessages( void )
 				break;
 
 			case GWM_RIGHT_DOUBLE_CLICK:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_RIGHT_DOUBLE_CLICK );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_RIGHT_DOUBLE_CLICK );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
 				break;
 
 			case GWM_RIGHT_UP:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_RIGHT_BUTTON_UP );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_RIGHT_BUTTON_UP );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 				msg->appendIntegerArgument( m_currMouse.time );
@@ -547,7 +548,7 @@ void Mouse::createStreamMessages( void )
 				break;
 
 			case GWM_RIGHT_DRAG:
-				msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_RIGHT_DRAG );
+				msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_RIGHT_DRAG );
 				msg->appendPixelArgument( m_currMouse.pos );
 				msg->appendPixelArgument( m_currMouse.deltaPos );
 				msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
@@ -557,7 +558,7 @@ void Mouse::createStreamMessages( void )
 		// mouse wheel
 		if( m_currMouse.wheelPos != 0 )
 		{
-			msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_WHEEL );
+			msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_WHEEL );
 			msg->appendPixelArgument( m_currMouse.pos );
 			msg->appendIntegerArgument( m_currMouse.wheelPos / 120 );	// wheel delta
 			msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
@@ -572,7 +573,7 @@ void Mouse::createStreamMessages( void )
 
 	if( m_leftClickAge >= CLICK_SENSITIVITY )
 	{
-		msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_LEFT_CLICK );
+		msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_LEFT_CLICK );
 		msg->appendPixelArgument( m_currMouse.pos );
 		msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 		msg->appendIntegerArgument( m_currMouse.time );
@@ -581,7 +582,7 @@ void Mouse::createStreamMessages( void )
 
 	if( m_rightClickAge >= CLICK_SENSITIVITY )
 	{
-		msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_RIGHT_CLICK );
+		msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_RIGHT_CLICK );
 		msg->appendPixelArgument( m_currMouse.pos );
 		msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 		msg->appendIntegerArgument( m_currMouse.time );
@@ -589,7 +590,7 @@ void Mouse::createStreamMessages( void )
 	}
 
 	// the raw position is always sent
-	msg = MessageStreamSubsystem->appendMessage( MSG_RAW_MOUSE_POSITION );
+	msg = TheMessageStream->appendMessage( MSG_RAW_MOUSE_POSITION );
 	msg->appendPixelArgument( m_currMouse.pos );
 	msg->appendIntegerArgument( TheKeyboard->getModifierFlags() );
 

@@ -52,3 +52,47 @@ the same subsystem's callers to its already matched member-release
 provider. BFME 2 already uses that call spelling; that part is inherited.
 Its remaining local defect is the competing definition, proven by this
 target's census and ledger ownership rather than donor addresses.
+
+## Mouse singleton name
+
+`MouseProcessEvents.cpp` called its singleton `MessageStreamSubsystem`,
+which has no provider. Restore `TheMessageStream`, already defined by
+`Common/MessageStream.cpp`. Target initialization names the subsystem
+`TheMessageStream`; the mouse's native loads read RVA `0x00A00950`
+(VA `0x00E00950`), in the PE `.data` loader-zero tail. BFME 1's
+`bde8f7a746` singleton repair and its
+`Mouse_createStreamMessages.cpp` supply corroborating name/usage evidence;
+the BFME 1 data-ledger implementation is inapplicable to this repository.
+
+Pristine and changed gates pass all six consumer rows. The unchanged
+message-stream provider passes all 13 rows. The repaired consumer previews
+clean: `LINKED 0 -> 2,020` bytes. Its placement rescan serves zero bodies
+and zero pins.
+
+The shadow data check's `wrong-name` warning uses a stale provisional
+`data_ledger.csv` row that attributes `MessageStreamSubsystem` to
+`GameEngineClientSubsystems.cpp`. That source now declares `TheMessageStream`
+extern and has no definition of the former name. Refreshing its object
+through the normal eight-row gate with the button unit, then deriving a
+scratch ledger with `data_ledger.py --out`, chooses `TheMessageStream` and
+its sole owner `MessageStream.cpp` at the same RVA. No new global is defined
+by this change. The committed generated index and its baseline are untouched.
+
+## Deferred button renderer
+
+BFME 1's `745fed6271` const-view repair also applies to the unresolved
+struct-typed `TheGlobalData` in `W3DPushButton.cpp`. Binding its radial-clock
+reads to `TheWritableGlobalData` preserves all seven rows. However, the
+unit also privately defines retail initialization word VA `0x00DE6128`,
+which six matched clearers reset through another definition. That existing
+data-identity defect would remain behind a clean linking preview.
+
+A direct shared-guard repair for the seven image caches changes the native
+nested EH state pairs and leaves two colour-static guard bits unreconciled.
+Restore the original source, record the blocker through `re_log.py`, and
+exclude this unit from the published gain. No verifier workaround is used.
+
+Across the three edited source files, the previews identify 37 newly clean
+units covering 18,014 non-padding matched bytes. No census records were
+rewritten, and no new alias, pin, function row, baseline, header or compiler
+flag was added.
