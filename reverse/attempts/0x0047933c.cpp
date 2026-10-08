@@ -1,5 +1,7 @@
 // ?removeInvalidObjectsFromGarrisonPoints@GarrisonContain@@IAEXXZ
 // partial score=0.97 date=2026-10-08
+// ?removeInvalidObjectsFromGarrisonPoints@GarrisonContain@@IAEXXZ
+// partial score=0.97 date=2026-10-08
 // 0x0047933C removeInvalidObjectsFromGarrisonPoints, 89 bytes: 7 diffs, point
 // pointer and occupant swap edi/esi (retail point edi, obj esi). The ObjectID
 // local fixes this=ebx (without it this/point/obj rotate, 18 diffs). Tried:

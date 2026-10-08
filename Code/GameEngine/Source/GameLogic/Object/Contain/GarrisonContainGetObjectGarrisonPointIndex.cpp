@@ -16,6 +16,22 @@
 // a member's ID at Object +0x74. Carried from the donor: the method name, the
 // record walk and the -1 sentinel. The member list is STLport's
 // list<Object *>, whose sentinel the pair's second word points to.
+//
+// GarrisonContain::redeployOccupants (0x00479395, 157 bytes), slot 18 of the
+// primary vtable 0x008461F8, after BFME1's GarrisonContain_redeployOccupants.cpp
+// donor and Zero Hour's body. Target facts: it fetches the contained-list pair
+// from 0x0046247D on the unadjusted this and, when the STLport list at its
+// second word is non-empty, sets model condition 10 on the owner (word +0x10C,
+// mask 0x400; notifier 0x0028AE6D when it was clear). It then copies the 40
+// garrison records (rep movsd, 0xC8 dwords), calls
+// removeInvalidObjectsFromGarrisonPoints 0x0047933C and
+// addValidObjectsToGarrisonPoints 0x0047894C, and restores each surviving
+// occupant's place frame (+0x08) at the index slot +0x6C now reports. Carried
+// from the donor: the method name, the condition refresh and the
+// snapshot/remove/add/restore order. 0x0047933C is named from that order (it is
+// the call between the snapshot and addValidObjectsToGarrisonPoints, as in the
+// donor), and its body walks the records through removeObjectFromGarrisonPoint
+// 0x00477E82.
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include <list>
 
@@ -25,6 +41,12 @@ struct Rva0046247DPair
 {
     void *m00;
     const _STL::list<Object *> *m04;
+};
+
+class Rva0046247D
+{
+public:
+    void rva0046247D(Rva0046247DPair &result);
 };
 
 class HordeContainInterface
@@ -64,17 +86,40 @@ public:
     virtual HordeContainInterface *getHordeContainInterface(); // +0x7C
 };
 
+class ConditionBits
+{
+public:
+    unsigned int test(int bit) const { return m_words[bit >> 5] & (1U << (bit & 31)); }
+    void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 31); }
+private:
+    unsigned int m_words[4];
+};
+
 class Object
 {
 public:
     ObjectID getID() const { return m_id; }
     ContainModuleInterface *getContain() const { return m_contain; }
+    void rva0028AE6D();
+    ConditionBits *getConditionBits() { return &m_conditionBits; }
 private:
     unsigned char m_pad000[0x74];
     ObjectID m_id; // +0x74
-    unsigned char m_pad078[0x250 - 0x78];
+    unsigned char m_pad078[0x10C - 0x78];
+    ConditionBits m_conditionBits; // +0x10C
+    unsigned char m_pad11C[0x250 - 0x11C];
     ContainModuleInterface *m_contain; // +0x250
 };
+
+static __forceinline void setCondition(Object *obj, int bit)
+{
+    ConditionBits *bits = obj->getConditionBits();
+    if (bits->test(bit) == 0)
+    {
+        bits->set(bit);
+        obj->rva0028AE6D();
+    }
+}
 
 extern GameLogic *TheGameLogic;
 
@@ -87,7 +132,10 @@ enum
 struct GarrisonPointData
 {
     ObjectID objectID; // +0x00
-    unsigned char m_pad04[0x14 - 0x04];
+    ObjectID targetID; // +0x04
+    unsigned int placeFrame; // +0x08
+    unsigned int lastEffectFrame; // +0x0C
+    void *effect; // +0x10
 };
 
 class B0
@@ -97,12 +145,14 @@ public:
     virtual void b04(); virtual void b05(); virtual void b06(); virtual void b07();
     virtual void b08(); virtual void b09(); virtual void b10(); virtual void b11();
     virtual void b12(); virtual void b13(); virtual void b14(); virtual void b15();
-    virtual void b16(); virtual void b17(); virtual void b18(); virtual void b19();
+    virtual void b16(); virtual void b17();
+    virtual void redeployOccupants();
+    virtual void b19();
     virtual void b20(); virtual void b21(); virtual void b22(); virtual void b23();
     virtual void b24(); virtual void b25(); virtual void b26();
     virtual Int getObjectGarrisonPointIndex(ObjectID id);
     int pad4;
-    void *object;
+    Object *m_object;
 };
 class B1 { public: virtual void b1(); };
 class B2 { public: virtual void b2(); private: unsigned char pad[12]; };
@@ -118,12 +168,17 @@ class OpenContain : public B0, public B1, public B2, public B3, public B4,
 {
 public:
     virtual ~OpenContain();
+    Object *getObject() const { return m_object; }
 };
 
 class GarrisonContain : public OpenContain
 {
 public:
     virtual Int getObjectGarrisonPointIndex(ObjectID id);
+protected:
+    virtual void redeployOccupants();
+    void addValidObjectsToGarrisonPoints();
+    void removeInvalidObjectsFromGarrisonPoints();
 private:
     ObjectID m_originalTeamID; // +0xFC
     GarrisonPointData m_garrisonPointData[MAX_GARRISON_POINTS]; // +0x100
@@ -165,4 +220,34 @@ Int GarrisonContain::getObjectGarrisonPointIndex(ObjectID objectID)
         }
     }
     return GARRISON_INDEX_INVALID;
+}
+
+void GarrisonContain::redeployOccupants()
+{
+    Rva0046247DPair contained;
+    reinterpret_cast<Rva0046247D *>(this)->rva0046247D(contained);
+    if (contained.m04->size() > 0)
+        setCondition(getObject(), 10);
+
+    GarrisonPointData garrisonPointDataCopy[MAX_GARRISON_POINTS];
+    Int i;
+
+    // copy the current set of garrison point data sets
+    for (i = 0; i < MAX_GARRISON_POINTS; ++i)
+        garrisonPointDataCopy[i] = m_garrisonPointData[i];
+
+    removeInvalidObjectsFromGarrisonPoints();
+    addValidObjectsToGarrisonPoints();
+
+    // restore the frame markers that things were recorded as entering their point
+    Int index;
+    for (i = 0; i < MAX_GARRISON_POINTS; ++i)
+    {
+        if (garrisonPointDataCopy[i].objectID)
+        {
+            index = getObjectGarrisonPointIndex(garrisonPointDataCopy[i].objectID);
+            if (index != GARRISON_INDEX_INVALID)
+                m_garrisonPointData[index].placeFrame = garrisonPointDataCopy[i].placeFrame;
+        }
+    }
 }
