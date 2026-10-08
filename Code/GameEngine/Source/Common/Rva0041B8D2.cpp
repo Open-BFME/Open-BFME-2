@@ -1,5 +1,8 @@
 // cl: /MD
-// ?Rva0041B8D2Check@@YGEPAVRva0041B8D2Obj@@0H@Z @0x0041B8D2 70B
+// ABI repair: retail 29C823 and named WB DBA3A0 dispatch through TheActionManager.
+// The unused manager this is still part of the calling convention. Existing
+// return representations are preserved. No additional name or pin is introduced.
+// ?Rva0041B8D2Check@ActionManager@@QAEEPAVRva0041B8D2Obj@@0H@Z @0x0041B8D2 70B
 // Evidence: caller 0x0029C8B9 in 0x0029C823; unblocks 0x0029C823; offsets +4/+0x5ec/+0x258; virtual slots +0x178/+0x18.
 struct Rva0041B8D2Inner { char pad[0x5ec]; unsigned char flag; };
 struct Rva0041B8D2Holder {
@@ -115,7 +118,9 @@ public:
  char _8[0x258-8];
  Rva0041B8D2Holder *m_holder;
 };
-unsigned char __stdcall Rva0041B8D2Check(Rva0041B8D2Obj *a, Rva0041B8D2Obj *b, int unused)
+class ActionManager { public: unsigned char Rva0041B8D2Check(Rva0041B8D2Obj*, Rva0041B8D2Obj*, int); };
+
+unsigned char ActionManager::Rva0041B8D2Check(Rva0041B8D2Obj *a, Rva0041B8D2Obj *b, int unused)
 {
  if (b != 0) {
   if (b->m_inner->flag != 0) {

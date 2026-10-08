@@ -1,5 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /GX
-// ?Rva0041CE27Check@@YG_NPAVObject@@0H@Z @0x0041CE27 114B: enemy-relationship plus upgrade-template gated check; callers 0x0029CA95 and 0x0041D356
+// ABI repair: retail 29C823 and named WB DBA3A0 dispatch through TheActionManager.
+// The unused manager this is still part of the calling convention. Existing
+// return representations are preserved. No additional name or pin is introduced.
+// ?Rva0041CE27Check@ActionManager@@QAE_NPAVObject@@0H@Z @0x0041CE27 114B: enemy-relationship plus upgrade-template gated check; callers 0x0029CA95 and 0x0041D356
 #include "ascii_string.h"
 
 enum Relationship {
@@ -36,7 +39,9 @@ public:
     bool rva0049C6E1(Object *obj);
 };
 
-bool __stdcall Rva0041CE27Check(Object *a, Object *b, int)
+class ActionManager { public: bool Rva0041CE27Check(Object*, Object*, int); };
+
+bool ActionManager::Rva0041CE27Check(Object *a, Object *b, int)
 {
     if (a == 0)
         return false;
