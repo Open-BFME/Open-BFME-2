@@ -79,6 +79,13 @@
 //    hands the order's string and int (+0x20/+0x1C) to Object 0x00291298
 //    before marking the order found. /D_CRTIMP= makes the inline vector
 //    free a direct call, as retail has it.
+//  - onStructureProduced 0x004F33EC (441 bytes, vtable +0x20): BFME 1's
+//    matched body (ZH minus the hole search). The Dict keys are the
+//    StaticNameKeys at VA 0x00DBDCC4 "objectName" (read the same way by
+//    Object::updateObjValuesFromMapProperties 0x002951AB), 0x00DBDCD4 and
+//    0x00DBDCFC; BuildListInfo's name getters are the folded by-value copies
+//    of +4 (0x00564DF2) and +8 (0x000AF1DD). BFME 2 caches the building in
+//    the script engine (0x0020A5FF) under an empty name.
 #include <list>
 #include <vector>
 
@@ -100,7 +107,8 @@ extern GameLogic *TheGameLogic;
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_UNDER_CONSTRUCTION = 2,
-	OBJECT_STATUS_SOLD = 0x13
+	OBJECT_STATUS_SOLD = 0x13,
+	OBJECT_STATUS_RECONSTRUCTING = 0x15
 };
 
 template <int N>
@@ -162,9 +170,42 @@ template <> inline _List_base<TeamPrototype *, allocator<TeamPrototype *> >::~_L
 }
 typedef _STL::list<TeamPrototype *> PlayerTeamList;
 
+class StaticNameKey
+{
+public:
+	NameKeyType key() const;
+	operator NameKeyType() const { return key(); }
+private:
+	mutable NameKeyType m_key;
+	const char *m_name;
+};
+extern const StaticNameKey TheKey_objectName;
+extern const StaticNameKey TheKey_objectInitialHealth;
+extern const StaticNameKey TheKey_objectUnsellable;
+
+class Dict
+{
+public:
+	Dict(Int numPairsToPreAllocate = 0);
+	~Dict() { releaseData(); }
+	void setBool(Int key, Bool value);
+	void setInt(Int key, Int value);
+	void setAsciiString(Int key, const AsciiString &value);
+private:
+	void releaseData();
+	void *m_data;
+};
+
 class BuildListInfo
 {
 public:
+	// getBuildingName and getTemplateName: retail calls the folded by-value
+	// AsciiString copies of +4 and +8.
+	AsciiString rva00564DF2() const;
+	AsciiString rva000AF1DD() const;
+	Int getHealth() const { return m_health; }
+	Bool getUnsellable() const { return m_unsellable; }
+	void setUnderConstruction(Bool construction) { m_underConstruction = construction; }
 	BuildListInfo *getNext() const { return m_next; }
 	ObjectID getObjectID() const { return m_objectID; }
 	Bool isSupplyBuilding() const { return m_isSupplyBuilding; }
@@ -174,7 +215,12 @@ public:
 
 	unsigned char m_pad00[0x2C];
 	BuildListInfo *m_next;			// +0x2C
-	unsigned char m_pad30[0x46 - 0x30];
+	unsigned char m_pad30[0x34 - 0x30];
+	Int m_health;				// +0x34
+	unsigned char m_pad38[0x39 - 0x38];
+	Bool m_unsellable;			// +0x39
+	unsigned char m_pad3A[0x45 - 0x3A];
+	Bool m_underConstruction;		// +0x45
 	Bool m_isSupplyBuilding;		// +0x46
 	unsigned char m_pad47[0x48 - 0x47];
 	ObjectID m_objectID;			// +0x48
@@ -434,6 +480,9 @@ public:
 	Bool isKindOfDozer() const { return (getTemplate()->m_kindOf109 & 0x40) != 0; }
 	void setTeam(Team *team);
 	void rva00291298(AsciiString name, Int value);
+	void updateObjValuesFromMapProperties(Dict *properties);
+	void setStatus(ObjectStatusTypes status, Bool set);
+	void clearStatus(ObjectStatusTypes status) { setStatus(status, false); }
 
 	void *m_vtable;
 	ThingTemplate *m_template;			// +0x04
@@ -525,6 +574,7 @@ class Rva002D06CA
 {
 public:
 	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name) { return (const ThingTemplate *)rva002D06CA(&name); }
 	ThingTemplate *firstTemplate() const { return m_firstTemplate; }
 private:
 	char m_pad00[0x0C];
@@ -787,6 +837,7 @@ class ScriptEngine
 {
 public:
 	void AppendDebugMessage(const AsciiString &message, Bool forcePause);
+	void addObjectToCache(Object *obj, const AsciiString &name);
 	Script *rva003573C4(const AsciiString &owner, const AsciiString &name, AsciiString *outName);
 	void rva0020D451(AsciiString &scope, void *action, Script *script, const AsciiString &scriptName, int flags);
 };
@@ -806,9 +857,7 @@ protected:
 	virtual void slot06();
 public:
 	virtual void onUnitProduced(Object *factory, Object *unit);	// +0x1C
-protected:
-	virtual void slot08();
-public:
+	virtual void onStructureProduced(Object *factory, Object *bldg);	// +0x20
 	virtual void buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild);	// +0x24
 protected:
 	virtual void slot10();
@@ -836,6 +885,7 @@ protected:
 	Bool isPossibleToBuildTeam(TeamPrototype *proto, Bool requireIdleFactory, Bool &notEnoughMoney);
 	Bool rva004F13D8(TeamPrototype *proto);
 	Bool dozerInQueue();
+	void checkForSupplyCenter(BuildListInfo *info, Object *bldg);
 	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
 	{
 		return DLINK_ITERATOR<TeamInQueue>(m_teamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
@@ -1644,4 +1694,44 @@ void AIPlayer::onUnitProduced(Object *factory, Object *unit)
 	}
 
 	m_teamDelay = 0; // Cause the update queues & selection to happen immediately.
+}
+
+void AIPlayer::onStructureProduced(Object *factory, Object *bldg)
+{
+	m_teamDelay = 0;
+	m_buildDelay = 0;
+	BuildListInfo *info;
+	for (info = m_player->getBuildList(); info; info = info->getNext())
+	{
+		if (info->getObjectID() != bldg->getID())
+			continue;
+		Dict d;
+		d.setAsciiString(TheKey_objectName, info->rva00564DF2());
+		d.setInt(TheKey_objectInitialHealth, info->getHealth());
+		d.setBool(TheKey_objectUnsellable, info->getUnsellable());
+
+		info->setUnderConstruction(false);
+		bldg->updateObjValuesFromMapProperties(&d);
+		bldg->clearStatus(OBJECT_STATUS_UNDER_CONSTRUCTION);
+		bldg->clearStatus(OBJECT_STATUS_RECONSTRUCTING);
+
+		TheScriptEngine->addObjectToCache(bldg, AsciiString(""));
+		if (TheWritableGlobalData->m_debugAI)
+		{
+			AsciiString bldgName = bldg->getTemplate()->getName();
+			bldgName.concat(" - Building completed.");
+			TheScriptEngine->AppendDebugMessage(bldgName, false);
+		}
+		checkForSupplyCenter(info, bldg);
+		return;
+	}
+
+	for (info = m_player->getBuildList(); info; info = info->getNext())
+	{
+		const ThingTemplate *bldgPlan = TheThingFactory->findTemplate(info->rva000AF1DD());
+		if (!bldgPlan)
+			continue;
+		if (!bldgPlan->isEquivalentTo(bldg->getTemplate()))
+			continue;
+	}
 }
