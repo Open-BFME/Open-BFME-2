@@ -56,10 +56,11 @@ struct Rva005D0C87Source
 	int m_24;								// +0x24
 };
 
-class __declspec(novtable) Rva005D0C87Interface
+class Rva005D0C87Interface
 {
 public:
-	virtual ~Rva005D0C87Interface();
+	~Rva005D0C87Interface() {}
+	virtual void i0();
 };
 
 class Rva005D06CBB2
@@ -90,20 +91,38 @@ public:
 	virtual void c2();
 };
 
+// The owning holder's teardown is the rowed Rva000AD6F4::clear.
+class Rva000AD6F4
+{
+public:
+	void clear();
+};
+
 class Rva005D0C87CallbackHolder
 {
 public:
 	Rva005D0C87CallbackHolder(Rva005D0C87Callback *callback) : m_callback(callback) {}
-	~Rva005D0C87CallbackHolder();
+	~Rva005D0C87CallbackHolder() { reinterpret_cast<Rva000AD6F4 *>(this)->clear(); }
 private:
 	Rva005D0C87Callback *m_callback;
 };
+
+class CreateAHeroData;
+
+// The rowed list removal 0x002B7250 (the counterpart of the append).
+class Rva002B7250
+{
+public:
+	void rva002B7250(CreateAHeroData *who);
+};
+
+void Rva005EC135Delete(void **object);
 
 class Rva005D0C87 : public Rva005D0C87Interface, public Rva005D06CBB2
 {
 public:
 	Rva005D0C87(Rva005D0D85 *owner, int a, int b, int c);
-	virtual ~Rva005D0C87();
+	~Rva005D0C87();
 	virtual void s0();
 	virtual void s2();
 
@@ -127,4 +146,20 @@ Rva005D0C87::Rva005D0C87(Rva005D0D85 *owner, int a, int b, int c)
 	m_b10->rva005CB84A(m_c14->m_24);
 	m_c14->m_listeners08.append((Rva002BA8F1Listener *)this);
 	((Rva005A0B4CList *)((char *)TheLivingWorldLogic + 0x2C))->append((Rva002BA8F1Listener *)static_cast<Rva005D06CBB2 *>(this));
+}
+
+// ??1Rva005D0C87@@QAE@XZ, retail 0x005D07E1..0x005D0863 (130 bytes, EH): the
+// matching destructor, which the owning pointer's reset 0x005D0ABB calls
+// directly (pinned there as Rva005D07E1). This leaves the +0x14 object's list
+// and the listener base leaves TheLivingWorldLogic's (rowed removal
+// 0x002B7250), the +0x10 object is told 0 (rowed 0x005CB84A), the +0x18 object
+// is deleted through the rowed 0x005EC135 when set, then the callback holder
+// clears (rowed 0x000AD6F4) and both bases restore their vtables.
+Rva005D0C87::~Rva005D0C87()
+{
+	reinterpret_cast<Rva002B7250 *>(&m_c14->m_listeners08)->rva002B7250((CreateAHeroData *)this);
+	reinterpret_cast<Rva002B7250 *>((char *)TheLivingWorldLogic + 0x2C)->rva002B7250((CreateAHeroData *)static_cast<Rva005D06CBB2 *>(this));
+	m_b10->rva005CB84A(0);
+	if (m_18)
+		Rva005EC135Delete(&m_18);
 }
