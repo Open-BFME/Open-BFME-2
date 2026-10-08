@@ -16,7 +16,7 @@ public:
 	~EmptyBase00431F61();
 };
 
-class Rva00431F61 : public EmptyBase00431F61
+class FormationTranslator : public EmptyBase00431F61
 {
 	void *m_vptr;
 	unsigned char m_04;
@@ -25,16 +25,16 @@ class Rva00431F61 : public EmptyBase00431F61
 	Rva00431F61Helper *m_08;
 
 public:
-	Rva00431F61();
+	FormationTranslator();
 };
 
-class Rva00431F61;
+class FormationTranslator;
 // g_00E0322C: matched references place it at VA 0xe0322c (retail .data initial value 0).
-Rva00431F61 * g_00E0322C = 0;
+FormationTranslator * g_00E0322C = 0;
 
 void *__cdecl operator new(unsigned int size);
 
-Rva00431F61::Rva00431F61()
+FormationTranslator::FormationTranslator()
 {
 	m_vptr = (void *)g_00C3C9B8;
 	m_04 = 0;

@@ -340,12 +340,12 @@ void Rva00567B42::rva00567B42()
 }
 
 // 0x00573E74: counts +0x5C and tail-calls the rowed 0x0055AD91.
-class Rva0055AD91
+class AIBuildable
 {
 public:
-	void rva0055AD91(void *a, bool b);
+	void registerWithBuilder(void *a, bool b);
 };
-class Rva00573E74 : public Rva0055AD91
+class Rva00573E74 : public AIBuildable
 {
 public:
 	void rva00573E74(void *a, bool b);
@@ -356,7 +356,7 @@ private:
 void Rva00573E74::rva00573E74(void *a, bool b)
 {
 	m_5C++;
-	rva0055AD91(a, b);
+	registerWithBuilder(a, b);
 }
 
 // 0x005D99E4: sets bit 7 of the +0x20 byte.

@@ -1,6 +1,6 @@
 // cl: /O1 /DNDEBUG /MD
 //
-// ?rva002E7205@Rva002E7205Owner@@QAEXH_N@Z @0x002E7205 62B: shl/lea pair
+// ?SetBridgeStateRepaired@Pathfinder@@QAEXH_N@Z @0x002E7205 62B: shl/lea pair
 // (thiscall, void(int,bool)). Indexes a 64-byte slot at this+0x60 by the int
 // arg (shl 6, lea); returns when rowed 0x0036666B on the slot is false, or
 // when pinned 0x0036736E on the slot with (flag==0) is false; otherwise
@@ -31,10 +31,10 @@ public:
 	void rva00531481();
 };
 
-class Rva002E7205Owner
+class Pathfinder
 {
 public:
-	void rva002E7205(int idx, bool flag);
+	void SetBridgeStateRepaired(int idx, bool flag);
 private:
 	char m_pad00[0x60];
 	Rva002E7205Slot m_slots[1]; // +0x60, 64-byte stride
@@ -42,8 +42,8 @@ private:
 	PathfindZoneManager m_s460; // +0x460
 };
 
-// ?rva002E7205@Rva002E7205Owner@@QAEXH_N@Z
-void Rva002E7205Owner::rva002E7205(int idx, bool flag)
+// ?SetBridgeStateRepaired@Pathfinder@@QAEXH_N@Z
+void Pathfinder::SetBridgeStateRepaired(int idx, bool flag)
 {
 	Rva002E7205Slot *slot = &m_slots[idx];
 	if (!slot->view.rva0036666B())

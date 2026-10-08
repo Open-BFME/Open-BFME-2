@@ -1,12 +1,12 @@
 // cl: /O1 /DNDEBUG /MD /GX /arch:SSE /Ireference/shims/bfme2_ascii
-// ?MakeNormalBuff@BuffInstance@@QAE_NHHPAX0H@Z retail 0x00362518 171 bytes. Chain from 0x0030682A which this calls. Evidence: callers 0x0036284D, callees rowed rva00419BA5 and rva0030682A, float 1.0f, TheGameLogic, g_00DFF190.
-class Rva0030682A
+// ?MakeNormalBuff@BuffInstance@@QAE_NHHPAX0H@Z retail 0x00362518 171 bytes. Chain from 0x0030682A which this calls. Evidence: callers 0x0036284D, callees rowed rva00419BA5 and addBuff, float 1.0f, TheGameLogic, g_00DFF190.
+class BuffLogic
 {
 public:
-	void *rva0030682A(void *a, void *b);
+	void *addBuff(void *a, void *b);
 };
 
-extern class Rva0030682A *g_00DFF190;
+extern class BuffLogic *g_00DFF190;
 
 class Rva00419BA5
 {
@@ -59,7 +59,7 @@ bool BuffInstance::MakeNormalBuff(int a, int b, void *c, void *d, int e)
 		m_08 = a;
 		m_0C = b;
 		m_1C = c;
-		m_18 = (DrawObj *)((Rva0030682A *)g_00DFF190)->rva0030682A(c, d);
+		m_18 = (DrawObj *)((BuffLogic *)g_00DFF190)->addBuff(c, d);
 	}
 	else
 	{
@@ -70,7 +70,7 @@ bool BuffInstance::MakeNormalBuff(int a, int b, void *c, void *d, int e)
 			m_08 = a;
 			m_0C = b;
 			m_1C = c;
-			m_18 = (DrawObj *)((Rva0030682A *)g_00DFF190)->rva0030682A(c, d);
+			m_18 = (DrawObj *)((BuffLogic *)g_00DFF190)->addBuff(c, d);
 		}
 		else if (m_18->m_08 == 2)
 		{

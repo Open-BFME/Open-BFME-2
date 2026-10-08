@@ -1021,10 +1021,10 @@ private:
 	unsigned char m_pad[0x18 - 4];
 };
 
-class Rva00431F61 : public GameMessageTranslator
+class FormationTranslator : public GameMessageTranslator
 {
 public:
-	Rva00431F61();
+	FormationTranslator();
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
 
 private:
@@ -1261,7 +1261,7 @@ extern GlobalLanguage *TheGlobalLanguageData;
 extern float g_00DBA4FC;                                // client frame rate
 extern void *g_00E03210;                                // the Rva0042CBB6 translator
 extern BfmeOwnVVD *g_bfmeSingletonVVD;
-extern Rva00431F61 *g_00E0322C;
+extern FormationTranslator *g_00E0322C;
 extern Rva0022C22CSubsystem *TheScoredKillEvaAnnouncerController;
 extern Eva *TheEva;
 extern View *TheTacticalView;
@@ -1479,7 +1479,7 @@ void GameClient::init()
 	m_translators[m_numTranslators++] = MessageStreamSubsystem->attachTranslator(new HotKeyTranslator, 25);
 	m_translators[m_numTranslators++] = MessageStreamSubsystem->attachTranslator(new Rva0042CBB6, 27);
 	m_translators[m_numTranslators++] = MessageStreamSubsystem->attachTranslator(new Rva0043216D, 30);
-	m_translators[m_numTranslators++] = MessageStreamSubsystem->attachTranslator(new Rva00431F61, 35);
+	m_translators[m_numTranslators++] = MessageStreamSubsystem->attachTranslator(new FormationTranslator, 35);
 	m_translators[m_numTranslators++] = MessageStreamSubsystem->attachTranslator(new Rva005B1A00, 40);
 	m_translators[m_numTranslators++] = MessageStreamSubsystem->attachTranslator(new SelectionTranslator, 50);
 	m_translators[m_numTranslators++] = MessageStreamSubsystem->attachTranslator(new BfmeOwnVVD, 60);

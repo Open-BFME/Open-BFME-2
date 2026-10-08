@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Os /DNDEBUG /MD /EHsc
-// ?rva0030682A@Rva0030682A@@QAEPAXPAX0@Z retail 0x0030682A 230 bytes. Buff draw helper returning draw object via manager. Evidence: callers 0x00362561 0x00362A3B pass global 0x00DFF190 as this with two pointer args ret 8, callee reuses arg slot for AsciiString, virtual 0x44 on ModuleData then manager virtual 0x60, debug via theDebug SkipNext CrashBegin operator<< CrashDone like Rva0033BA46.
+// ?addBuff@BuffLogic@@QAEPAXPAX0@Z retail 0x0030682A 230 bytes. Buff draw helper returning draw object via manager. Evidence: callers 0x00362561 0x00362A3B pass global 0x00DFF190 as this with two pointer args ret 8, callee reuses arg slot for AsciiString, virtual 0x44 on ModuleData then manager virtual 0x60, debug via theDebug SkipNext CrashBegin operator<< CrashDone like Rva0033BA46.
 #include "ascii_string.h"
 
 class ModuleData
@@ -71,13 +71,13 @@ extern Debug *theDebug;
 bool bfmeRva000387C0();
 void _bfme_debugRecordCallsite(int kind);
 
-class Rva0030682A
+class BuffLogic
 {
 public:
-	void *rva0030682A(void *a, void *b);
+	void *addBuff(void *a, void *b);
 };
 
-void *Rva0030682A::rva0030682A(void *a, void *b)
+void *BuffLogic::addBuff(void *a, void *b)
 {
 	BuffArg *arg = (BuffArg *)a;
 	ModuleInfo &mi = arg->m_moduleInfo;

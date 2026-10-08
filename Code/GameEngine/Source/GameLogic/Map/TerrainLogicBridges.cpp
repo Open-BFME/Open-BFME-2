@@ -399,14 +399,9 @@ public:
 	Bool rva002E9442(const Vector3 &from, const Vector3 &to, Vector3 *pos);
 	Bool IsPointOnRamp(const Coord3D *pos);
 	PathfindLayerEnum rva002ED236(Object *obj, Rva002ED236Pos pos);
-};
-
-// 0x002E7205: Zero Hour's Pathfinder::changeBridgeState(layer, repaired);
-// the row keeps its address-derived name.
-class Rva002E7205Owner
-{
-public:
-	void rva002E7205(Int layer, Bool repaired);
+	// 0x002E7205: Zero Hour's changeBridgeState(layer, repaired), named
+	// SetBridgeStateRepaired in WorldBuilder.
+	void SetBridgeStateRepaired(Int layer, Bool repaired);
 };
 
 // TheAI's pathfinder at +0x10.
@@ -663,7 +658,7 @@ void TerrainLogic::deleteBridge( Bridge *bridge )
 	// delete object associated with bridge if present
 	BridgeInfo bridgeInfo;
 	bridge->getBridgeInfo( &bridgeInfo );
-	((Rva002E7205Owner *)TheAI->pathfinder())->rva002E7205(bridge->getLayer(), false);
+	TheAI->pathfinder()->SetBridgeStateRepaired(bridge->getLayer(), false);
 
 	GameLogic *logic = TheGameLogic;
 	Object *bridgeObj = logic->findObjectByID( bridgeInfo.bridgeObjectID );
@@ -777,7 +772,7 @@ void Bridge::updateDamageState( void )
 		m_bridgeInfo.curDamageState = damageState;
 		if (damageState == BODY_RUBBLE) {
 			// Kill anything on the bridge.
-			((Rva002E7205Owner *)TheAI->pathfinder())->rva002E7205(m_layer, false);
+			TheAI->pathfinder()->SetBridgeStateRepaired(m_layer, false);
 			m_bridgeInfo.damageStateChanged = true;
 
 			Object *obj;
@@ -800,7 +795,7 @@ void Bridge::updateDamageState( void )
 			BridgeBehaviorInterface *bbi = BridgeBehavior::getBridgeBehaviorInterfaceFromObject( bridge );
 			if( bbi == NULL || bbi->isScaffoldPresent() == false )
 			{
-				((Rva002E7205Owner *)TheAI->pathfinder())->rva002E7205(m_layer, true);
+				TheAI->pathfinder()->SetBridgeStateRepaired(m_layer, true);
 			}
 			m_bridgeInfo.damageStateChanged = true;
 		}
