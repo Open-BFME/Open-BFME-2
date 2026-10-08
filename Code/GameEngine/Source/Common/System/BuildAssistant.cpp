@@ -1,4 +1,5 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// stlport
 // BuildAssistant.cpp -- BuildAssistant members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names the function;
 // retail supplies the bytes. Zero Hour's isRemovableForConstruction
@@ -22,26 +23,72 @@
 // mask once and tests both templates against it. The two leading NULL checks
 // are separate statements as in WB (two "return 1" blocks); joined with ||
 // they share one return and retail's late push ebx no longer reproduces.
+//
+// buildObjectNow follows Zero Hour's (same file) with the line-build kinds
+// tested inline and BFME2's changes read off retail and WB's body: only a
+// non-dozer builder of neither kind 30 nor 149 clears and moves the site (the
+// move result is ignored); a kind-104 builder hands the build to the
+// interface WB asserts as getFoundationAIInterface (rowed rva0028BCF4, vslot
+// 7, same arguments as the AI's construct, vslot 126); the new object takes
+// the builder's +0x45C value (GameLogic::rva0023D0C2), its pathfind layer
+// unless kind 2 and a pathfind map entry unless kind 189; a kind-156 builder
+// skips onStructureConstructionComplete; and units announce themselves
+// through the one-drawable voice hand-off (message 0x7DA) instead of ZH's
+// VoiceCreated sound.
+
+#include <list>
+#include <string.h>
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../GameLogicObjectLookupView.h"
 
 typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
+typedef float Real;
 
 #ifndef NULL
 #define NULL 0
 #endif
 
+#ifndef FALSE
+#define FALSE 0
+#endif
+
 enum KindOfType
 {
+	KINDOF_2 = 2,
 	KINDOF_SHRUBBERY = 6,
+	KINDOF_STRUCTURE = 7,
 	KINDOF_DOZER = 14,
 	KINDOF_15 = 15,
+	KINDOF_30 = 30,
 	KINDOF_CLEARED_BY_BUILD = 51,
 	KINDOF_INERT = 89,
+	KINDOF_104 = 104,
+	KINDOF_149 = 149,
 	KINDOF_152 = 152,
 	KINDOF_156 = 156,
-	KINDOF_157 = 157
+	KINDOF_157 = 157,
+	KINDOF_189 = 189
+};
+
+// BFME2's object status bit names (the name table at .rdata 0x009A5F30).
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_UNDER_CONSTRUCTION = 2
+};
+
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER,
+	CMD_FROM_SCRIPT,
+	CMD_FROM_AI
+};
+
+enum PathfindLayerEnum
+{
+	LAYER_INVALID = 0
 };
 
 enum CanMakeType
@@ -64,6 +111,8 @@ enum ObjectScriptStatusBit
 
 class Player;
 class Object;
+class Team;
+class Drawable;
 struct Rva002A7557In;
 
 class ThingTemplate
@@ -101,6 +150,12 @@ public:
 	virtual void slot00(); virtual void slot01(); virtual void slot02();
 	virtual void slot03(); virtual void slot04(); virtual void slot05();
 	virtual Bool slot06();						// +0x18
+};
+
+class AICommandInterface
+{
+public:
+	void aiIdle(CommandSourceType cmdSource);
 };
 
 class DozerAIInterface
@@ -145,9 +200,56 @@ public:
 	virtual void slot88(); virtual void slot89(); virtual void slot90(); virtual void slot91();
 	virtual void slot92();
 	virtual DozerAIInterface *getDozerAIInterface();		// +0x174
+	virtual void slot94(); virtual void slot95(); virtual void slot96(); virtual void slot97();
+	virtual void slot98(); virtual void slot99(); virtual void slot100(); virtual void slot101();
+	virtual void slot102(); virtual void slot103(); virtual void slot104(); virtual void slot105();
+	virtual void slot106(); virtual void slot107(); virtual void slot108(); virtual void slot109();
+	virtual void slot110(); virtual void slot111(); virtual void slot112(); virtual void slot113();
+	virtual void slot114(); virtual void slot115(); virtual void slot116(); virtual void slot117();
+	virtual void slot118(); virtual void slot119(); virtual void slot120(); virtual void slot121();
+	virtual void slot122(); virtual void slot123(); virtual void slot124(); virtual void slot125();
+	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags);	// +0x1F8
+
+	__forceinline void aiIdle(CommandSourceType cmdSource) { m_command.aiIdle(cmdSource); }
+
+private:
+	unsigned char m_pad04[0x20 - 0x04];
+	AICommandInterface m_command;		// +0x20
 };
 
-class Object
+// What WB asserts as getFoundationAIInterface: its vslot 7 takes the AI
+// construct's arguments.
+class FoundationAIInterface
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06();
+	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags);	// +0x1C
+};
+
+// What ThingFactory::newObject takes: the initial status bits.
+struct CreateMask
+{
+	CreateMask() { memset(m_words, 0, sizeof(m_words)); }
+	void setBit(Int bit) { m_words[bit >> 5] |= 1U << (bit & 31); }
+
+	UnsignedInt m_words[4];
+};
+
+class Thing
+{
+public:
+	virtual ~Thing();
+	const ThingTemplate *getTemplate() const { return m_template; }
+	Drawable *getDrawable() const;
+	void setPosition(const Coord3D *pos);
+	void setOrientation(Real angle);
+
+protected:
+	const ThingTemplate *m_template;	// +0x004
+};
+
+class Object : public Thing
 {
 public:
 	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
@@ -157,15 +259,19 @@ public:
 	void *rva0028BD17() const;
 	void *rva0028BC58(Int which);
 	Player *getControllingPlayer() const;
+	void setProducer(Object *obj);
+	void *rva0028BCF4() const;
+	void rva0028B4CE(PathfindLayerEnum layer);
+	Int get45C() const { return m_45C; }
 
 private:
-	unsigned char m_pad000[4];
-	const ThingTemplate *m_template;	// +0x004
 	unsigned char m_pad008[0x258 - 8];
 	AIUpdateInterface *m_ai;		// +0x258
 	unsigned char m_pad25C[0x437 - 0x25C];
 	unsigned char m_scriptStatus;		// +0x437
 	Bool m_isEffectivelyDead : 1;		// +0x438 bit 0
+	unsigned char m_pad439[0x45C - 0x439];
+	Int m_45C;				// +0x45C
 };
 
 class Rva002A7461
@@ -202,12 +308,18 @@ public:
 	Money *getMoney() { return &m_money; }
 	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate * const *things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
 	Int iterateObjects(Int (*func)(Object *, void *), void *userData) const;
+	Team *getDefaultTeam() const { return m_defaultTeam; }
+	void onStructureCreated(Object *builder, Object *structure);
+	void onStructureConstructionComplete(Object *builder, Object *structure, Bool isRebuild);
+	void onUnitCreated(Object *factory, Object *unit);
 
 	unsigned char m_pad000[0x60];
 	Rva002A7461 m_rva060;			// +0x060
 	unsigned char m_pad061[0x90 - 0x61];
 	Money m_money;				// +0x090
-	unsigned char m_pad098[0x738 - 0x98];
+	unsigned char m_pad098[0x2EC - 0x98];
+	Team *m_defaultTeam;			// +0x2EC
+	unsigned char m_pad2F0[0x738 - 0x2F0];
 	union
 	{
 		Rva0037E6E8 m_revivalCost;	// +0x738
@@ -221,13 +333,85 @@ public:
 	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
 	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
 	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot12(); virtual void slot13();
+	virtual Object *buildObjectNow(Object *constructorObject, const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer);	// +0x38
+	virtual void slot15();
 	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
 	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
 	virtual CanMakeType canMakeUnit(Object *builder, const ThingTemplate *whatToBuild, Int revivalIndex) const;	// +0x60
 	virtual Bool isPossibleToMakeUnit(Object *builder, const ThingTemplate *whatToBuild, Int revivalIndex) const;	// +0x64
 
 	Bool isRemovableForConstruction(Object *obj);
+	void clearRemovableForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle);
+	Bool moveObjectsForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle, Player *owningPlayer);
+};
+
+class ThingFactory
+{
+public:
+	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *statusBits, Bool flag);
+};
+
+extern ThingFactory *TheThingFactory;
+
+class TerrainLogic
+{
+public:
+	virtual void t00(); virtual void t01(); virtual void t02(); virtual void t03();
+	virtual void t04(); virtual void t05();
+	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const;	// +0x18
+	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
+};
+
+extern TerrainLogic *TheTerrainLogic;
+
+class Pathfinder
+{
+public:
+	void AddObjectToPathfindMap(Object *object);
+};
+
+class AI
+{
+public:
+	Pathfinder *pathfinder() { return m_pathfinder; }
+
+private:
+	unsigned char m_pad00[0x10];
+	Pathfinder *m_pathfinder;		// +0x10
+};
+
+extern AI *TheAI;
+extern GameLogic *TheGameLogic;
+
+// Retail calls the list destructor out of line (the shared pointer-list
+// destructor 0x00239AF4).
+class DrawableList : public _STL::list<Drawable *>
+{
+public:
+	~DrawableList() throw();
+};
+
+class PickAndPlayInfo;
+
+class GameMessage
+{
+public:
+	enum Type
+	{
+		MSG_BFME2_0x7DA = 0x7DA
+	};
+};
+
+void pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
+	PickAndPlayInfo *info);
+
+// The rowed member every newly made object ends with (ZH's
+// handlePartitionCellMaintenance).
+class Rva0028CBFD
+{
+public:
+	void rva0028CBFD();
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -350,4 +534,94 @@ Bool BuildAssistant::isRemovableForConstruction(Object *obj)
 	if (obj->isEffectivelyDead())
 		return true;
 	return false;
+}
+
+// BuildAssistant::buildObjectNow, retail 0x003952D8 (vslot 14).
+Object *BuildAssistant::buildObjectNow( Object *constructorObject, const ThingTemplate *what,
+										const Coord3D *pos, Real angle, Player *owningPlayer )
+{
+
+	// sanity
+	if( what == NULL || pos == NULL )
+		return NULL;
+
+	if( owningPlayer == NULL )
+		return NULL;
+
+	if( !constructorObject->isKindOf( KINDOF_DOZER ) && !what->isKindOf( KINDOF_30 ) && !what->isKindOf( KINDOF_149 ) )
+	{
+
+		// clear out any objects from the building area that are "auto-clearable" when building
+		clearRemovableForConstruction( what, pos, angle );
+
+		moveObjectsForConstruction( what, pos, angle, owningPlayer );
+
+	}
+
+	// do the build
+	if( constructorObject->isKindOf( KINDOF_DOZER ) )
+	{
+		AIUpdateInterface *ai = constructorObject->getAI();
+
+		if( ai )
+		{
+			ai->aiIdle( CMD_FROM_AI ); // stop any current behavior.
+			return ai->construct( what, pos, angle, owningPlayer, FALSE, 0 );
+		}
+		return NULL;
+
+	}
+	else if( constructorObject->isKindOf( KINDOF_104 ) )
+	{
+		FoundationAIInterface *foundation = (FoundationAIInterface *)constructorObject->rva0028BCF4();
+		return foundation->construct( what, pos, angle, owningPlayer, FALSE, 0 );
+	}
+	else
+	{
+
+		CreateMask startingStatus;
+		if( what->isKindOf( KINDOF_STRUCTURE ) )
+			startingStatus.setBit( OBJECT_STATUS_UNDER_CONSTRUCTION );
+
+		Object *obj = TheThingFactory->newObject( what, owningPlayer->getDefaultTeam(), &startingStatus, false );
+		obj->setProducer( constructorObject );
+		TheGameLogic->rva0023D0C2( obj, constructorObject->get45C() );
+
+		// place on terrain surface
+		Coord3D groundPos;
+		groundPos.x = pos->x;
+		groundPos.y = pos->y;
+		groundPos.z = TheTerrainLogic->getGroundHeight( groundPos.x, groundPos.y );
+		obj->setPosition( &groundPos );
+
+		obj->setOrientation( angle );
+
+		if( !obj->isKindOf( KINDOF_2 ) )
+			obj->rva0028B4CE( TheTerrainLogic->getLayerForDestination( obj, pos ) );
+
+		if( !obj->isKindOf( KINDOF_189 ) )
+			TheAI->pathfinder()->AddObjectToPathfindMap( obj );
+
+		// notify the player that this thing has come into existence
+		if( obj->isKindOf( KINDOF_STRUCTURE ) )
+		{
+			owningPlayer->onStructureCreated( constructorObject, obj );
+			if( !constructorObject->isKindOf( KINDOF_156 ) )
+				owningPlayer->onStructureConstructionComplete( constructorObject, obj, FALSE );
+		}
+		else
+		{
+			owningPlayer->onUnitCreated( constructorObject, obj );
+
+			DrawableList list;
+			list.push_back( obj->getDrawable() );
+			pickAndPlayUnitVoiceResponse( &list, GameMessage::MSG_BFME2_0x7DA, 0 );
+		}
+
+		reinterpret_cast<Rva0028CBFD *>( obj )->rva0028CBFD();
+
+		return obj;
+
+	}
+
 }

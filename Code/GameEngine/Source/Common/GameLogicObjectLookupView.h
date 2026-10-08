@@ -69,8 +69,10 @@ public:
 	bool isInMultiplayerGame();	// 0x00042235
 	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);	// 0x0023CD9E
 	Object *findObjectByID(ObjectID id);
+	void rva0023D0C2(Object *obj, int handle);	// 0x0023D0C2
 	Object *getFirstObject();	// 0x0023CAD2
 	void destroyObject(Object *obj);	// 0x00242C09
+	void deselectObject(Object *obj, unsigned int playerMask, bool affectClient);	// 0x0023C9F8
 	void bindObjectAndDrawable(Object *obj, Drawable *draw);	// 0x0023CD4A
 	void rva00376E92(bool first, bool second);	// 0x00376E92
 	unsigned char isGamePaused();	// 0x0023CD97
