@@ -13,6 +13,12 @@
 // Callees still under address-derived ledger names are reached through
 // alias pins in reverse/symbols.csv.
 #include <math.h>
+// STLport frees through the game's C++-linkage free at 0x00030830 (pinned as
+// ?free@_STL@@YAXPAX@Z): a callee that may throw is what keeps the unwind
+// state reset retail stores before a local hash_set's destructor.
+#include <stdlib.h>
+namespace _STL { void __cdecl free(void *block); }
+#define free _STL::free
 #include <deque>
 #include <list>
 
@@ -25,8 +31,10 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 }
 
 #include <hash_map>
+#include <hash_set>
 #include <set>
 #include <vector>
+#undef free
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
@@ -270,6 +278,28 @@ struct Rva00051107AudioRequest {
 };
 
 typedef _STL::list<Rva00051107AudioRequest *> Rva00051107AudioRequestList;
+
+// Request set at +0x9C keyed by the +0x08 handle: retail's bucket helper
+// 0x00051B89 inlines this hash and its erase calls the equality at
+// 0x00050E1C out of line; both fall back to the pointer when it is null.
+struct Rva00051B89Hash {
+    unsigned int operator()(const Rva00051107AudioRequest *req) const
+    {
+        return req ? req->m_at08 : 0;
+    }
+};
+
+struct Rva00050E1CEqualTo {
+    bool operator()(const Rva00051107AudioRequest *left, const Rva00051107AudioRequest *right) const
+    {
+        if (left && right)
+            return left->m_at08 == right->m_at08;
+        return left == right;
+    }
+};
+
+typedef _STL::hash_set<Rva00051107AudioRequest *, Rva00051B89Hash, Rva00050E1CEqualTo>
+    Rva00051107AudioRequestSet;
 
 // File handle AudioFileCache::requestFile returns (WorldBuilder name and
 // MilesAudioCache.cpp asserts). The ledger rows its destructor (0x000A8A37)
@@ -651,6 +681,8 @@ public:
     void rva000569A8(int viewType, int musicSystem, int arg, int flag);
     Rva00051107AudioRequest *rva00051107(void);
     void processRequest(Rva00051107AudioRequest *req, bool *removeRequest);
+    void processRequestList(void);
+    void deleteAudioRequest(void *req);
     bool rva00053606(Rva00051107AudioRequest *req);
     void rva00053646(Rva00051107AudioRequest *req, bool *removeRequest);
     void playAudioEvent(Rva00051107AudioRequest *req);
@@ -697,7 +729,8 @@ private:
     float m_at8C;                        // +0x8C, distance occlusion scale
     char at90[0x98 - 0x90];
     Rva00051107AudioRequestList m_audioRequests;    // +0x98
-    char at9C[0xBC - 0x9C];
+    Rva00051107AudioRequestSet m_requestSet;        // +0x9C
+    char atB0[0xBC - 0xB0];
     Rva00059FBBMap m_allAudioEventInfo;  // +0xBC
     char atD0[0x678 - 0xD0];
     int m_at678;                         // +0x678, compared with event view types
@@ -1721,6 +1754,49 @@ void MilesAudioManager::processRequest(Rva00051107AudioRequest *req, bool *remov
         if (req->m_pendingEvent->hasMoreLoops()) {
             *removeRequest = false;
             req->m_pendingEvent->m_at4B = true;
+        }
+    }
+}
+
+// Processes the queued requests, dropping each one that is done, then the
+// request set: a request kept alive goes back into the emptied set and is
+// deleted if an equal one is already there.
+void MilesAudioManager::processRequestList(void)
+{
+    bool removeRequest;
+    Rva00051107AudioRequestList::iterator it = m_audioRequests.begin();
+    while (it != m_audioRequests.end()) {
+        Rva00051107AudioRequest *req = *it;
+        if (req == NULL) {
+            it = m_audioRequests.erase(it);
+            continue;
+        }
+        removeRequest = true;
+        processRequest(req, &removeRequest);
+        if (removeRequest) {
+            deleteAudioRequest(req);
+            it = m_audioRequests.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
+    {
+        Rva00051107AudioRequestSet pending(m_requestSet);
+        m_requestSet.clear();
+        while (pending.size() != 0) {
+            Rva00051107AudioRequest *req = *pending.begin();
+            pending.erase(req);
+            removeRequest = true;
+            if (req)
+                processRequest(req, &removeRequest);
+            if (removeRequest) {
+                deleteAudioRequest(req);
+            } else {
+                _STL::pair<Rva00051107AudioRequestSet::iterator, bool> result = m_requestSet.insert(req);
+                if (!result.second)
+                    deleteAudioRequest(req);
+            }
         }
     }
 }
