@@ -1585,6 +1585,18 @@ PUBLIC ?rva0078a681@@YAXXZ
     ret
 ?rva0078a681@@YAXXZ ENDP
 
+; Unwind@00b8a729 at RVA 0x0078A729; 20-byte masked-add cleanup adds 20h to [ebp-16] and tail-jumps to the folded vector dtor at 0x0007FAB3.
+PUBLIC ?rva0078a729@@YAXXZ
+?rva0078a729@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 20h
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ
+?rva0078a729@@YAXXZ ENDP
+
 ; Unwind@00b8a813 at RVA 0x0078A813; 22-byte eh-vector-dtor lea target passes [ebp-216] with size 12 count 16 and raw dtor VA 0x004B3FD0.
 PUBLIC ?rva0078a813@@YAXXZ
 ?rva0078a813@@YAXXZ PROC
