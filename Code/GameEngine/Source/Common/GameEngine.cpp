@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX /arch:SSE /G7
+// cl: /O1 /Ob1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX /arch:SSE /G7 /Ireference/shims/bfme2_ascii
 //
 // GameEngine.cpp: GameEngine bodies retail links from this TU (tu_map
 // approved), folded from the frame-admission and stopHeadlessClients split
@@ -15,6 +15,8 @@
 
 #include <windows.h>
 #include <string.h>
+#include "ascii_string.h"
+#include "GameLogicObjectLookupView.h"
 extern "C" __declspec(dllimport) char *__stdcall GetEnvironmentStrings(void);
 extern "C" void __cdecl free(void *);
 extern "C" void *__cdecl memset(void *,int,unsigned int);
@@ -34,7 +36,7 @@ extern class NetworkInterface *TheNetwork;
 class NetworkInterface
 {
 public:
-	virtual void slot00(void);
+	virtual void *cleanup(unsigned int);
 	virtual void slot01(void);
 	virtual void slot02(void);
 	virtual void slot03(void);
@@ -77,11 +79,103 @@ struct AsciiStringLayout
 extern "C" __declspec(dllimport) BOOL __stdcall TerminateProcess(
 	HANDLE hProcess, unsigned int uExitCode);
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/GameEngine.h
-class GameEngine
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindow.h
+class GameWindow
+{
+public:
+	unsigned int winClearStatus(unsigned int status);
+};
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/WindowLayout.h
+class WindowLayout
+{
+public:
+
+	virtual void slot00(void);
+	virtual void *cleanup(unsigned int);
+	virtual void slot02(void);
+	virtual void slot03(void);
+	virtual void hide(int hide);
+	virtual void bringForward(void);
+	virtual void slot06(void);
+	virtual void slot07(void);
+	virtual void destroyWindows(void);
+
+	char m_unknown04[4];
+	GameWindow *m_windowList;
+};
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindowManager.h
+class GameWindowManager
 {
 public:
 	virtual void slot00(void);
+	virtual void slot01(void);
+	virtual void slot02(void);
+	virtual void slot03(void);
+	virtual void slot04(void);
+	virtual void slot05(void);
+	virtual void slot06(void);
+	virtual void slot07(void);
+	virtual void slot08(void);
+	virtual void slot09(void);
+	virtual void slot10(void);
+	virtual void slot11(void);
+	virtual void slot12(void);
+	virtual void slot13(void);
+	virtual void slot14(void);
+	virtual void slot15(void);
+	virtual void slot16(void);
+	virtual void slot17(void);
+	virtual void slot18(void);
+	virtual void slot19(void);
+	virtual void slot20(void);
+	virtual void slot21(void);
+	virtual void slot22(void);
+	virtual void slot23(void);
+	virtual void slot24(void);
+	virtual void slot25(void);
+	virtual void slot26(void);
+	virtual void slot27(void);
+	virtual void slot28(void);
+	virtual void slot29(void);
+	virtual void slot30(void);
+	virtual void slot31(void);
+	virtual WindowLayout *winCreateLayout(AsciiString filename);
+};
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/GameLogic.h
+
+class Rva00210C66CmpBoolField { public: bool get() const; };
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SubsystemInterface.h
+class SubsystemInterfaceList
+{
+public:
+	void resetAll(void);
+};
+
+class Rva002CEC0A
+{
+public:
+	void rva002CEC34(void);
+};
+
+extern int g_Va00DBA4E4;
+extern int g_009BA4E8;
+
+extern GameWindowManager *TheWindowManager;
+extern GameLogic *TheGameLogic;
+extern SubsystemInterfaceList *TheSubsystemList;
+
+extern "C" void *theLogicRandomLogFile;
+
+
+// GameEngine accessed layout, checked against retail member offsets.
+class GameEngine
+{
+public:
+	virtual void reset(void);
 	void startHeadlessClients(int numClients);
 
 private:
@@ -99,8 +193,15 @@ private:
 	int m_clientFramePeriod; // 0x34
 	int m_clientFrameCounter; // 0x38
 	float m_clientFrameRatio; // 0x3C
-	char m_gap40[4];
+	bool m_clientFrameRatioPending; // 0x40
+	char m_gap41[3];
 	float m_clientFrameLimit; // 0x44
+	float m_metric44; // 0x48
+	unsigned int m_metric48; // 0x4C
+	unsigned int m_metric4C; // 0x50
+	unsigned int m_metric50; // 0x54
+	float m_metric54; // 0x58
+	unsigned int m_metric58; // 0x5C
 };
 
 
@@ -216,4 +317,52 @@ void GameEngine::startHeadlessClients(int numClients)
 
 	m_childProcessCount = count;
 	free(environmentCopy);
+}
+
+// Clean BFME1 donor GameEngineReset.cpp at
+// 9cbfb551fe20dae985f91f2319d8997287b6a705, adapted to native 0x00229708
+// (265 bytes). Native window creation uses vslot +0x80; both multiplayer
+// predicates retain the same GameLogic pointer. Explicit flag-zero cleanup
+// returns the allocation for operator delete, matching the two native calls.
+// Offsets +0x40 and +0x48..0x5C are established by the complete retail body.
+// The diagnostic global keeps its existing provisional name: its pointee
+// type is not established; retail invokes the rowed clear at 0x002CEC34.
+// ?GameEngine::reset present-unmatched
+void GameEngine::reset(void)
+{
+	WindowLayout *background =
+		TheWindowManager->winCreateLayout(AsciiString("Menus/BlankWindow.wnd"));
+	background->hide(false);
+	background->bringForward();
+	background->m_windowList->winClearStatus(0x80);
+
+	bool deleteNetwork = false;
+	GameLogic *logic = TheGameLogic;
+	if (logic->isInMultiplayerGame() && !reinterpret_cast<const Rva00210C66CmpBoolField *>(logic)->get())
+		deleteNetwork = true;
+
+	
+	TheSubsystemList->resetAll();
+
+	if (deleteNetwork)
+	{
+		if (TheNetwork) ::operator delete(TheNetwork->cleanup(0));
+		TheNetwork = 0;
+	}
+
+	background->destroyWindows();
+	::operator delete(background->cleanup(0));
+
+	stopHeadlessClients();
+	m_clientFrameRatioPending = false;
+	m_clientFrameCounter = g_009BA4E8/g_Va00DBA4E4;
+	m_clientFrameLimit = (float)m_clientFrameCounter;
+	m_metric44 = 0;
+	if (theLogicRandomLogFile != 0)
+		reinterpret_cast<Rva002CEC0A *>(theLogicRandomLogFile)->rva002CEC34();
+	m_metric48 = 0;
+	m_metric54 = 0;
+	m_metric4C = 0;
+	m_metric58 = 0;
+	m_metric50 = timeGetTime();
 }
