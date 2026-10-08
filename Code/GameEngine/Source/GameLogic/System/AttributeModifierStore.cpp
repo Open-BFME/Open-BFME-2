@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /O1 /EHsc /MD /arch:SSE /G7 /Ireference/shims/bfme2_ascii
 // stlport
 // AttributeModifierStore.cpp -- AttributeModifierStore members recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names the
@@ -9,6 +9,7 @@
 // types its row carries.
 
 #include <vector>
+#include "ascii_string.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -38,4 +39,70 @@ Bool AttributeModifierStore::getModifier(Int index, void *key, float *value, con
 	if (index < 0 || index > m_modifiers.size() - 1 || m_modifiers[index] == 0)
 		return false;
 	return m_modifiers[index]->rva004036B1(key, value, name);
+}
+
+// Native 0x00214B61..0x00214BB0 and caller 0x00214C4E's 0xD4 allocation
+// prove this modifier record constructor. Native 0x00214917 assigns its
+// by-value name at +0x10; 0x004043FF releases that name before vector cleanup.
+// The 0x4C bulk-zero members are trivial. EH state 1 owns the name.
+// These vector views call existing owners for the native three-pointer header;
+// they do not identify the modifier vector's element type or its stride.
+struct BfmeE16 { unsigned char bytes[16]; };
+struct Rva00214B22Record;
+namespace _STL
+{
+template <> class vector<Rva00214B22Record, allocator<Rva00214B22Record> >
+{
+public:
+	~vector();
+private:
+	unsigned int m_words[3];
+};
+}
+
+class ModifierVectorHeader
+{
+public:
+	__forceinline ModifierVectorHeader(
+		const _STL::allocator<BfmeE16> &alloc = _STL::allocator<BfmeE16>())
+	{
+		// A valid constructor receiver is nonnull. Placement construction
+		// uses this existing member storage and allocates no memory.
+		__assume(this != 0);
+		typedef _STL::_Vector_base<BfmeE16, _STL::allocator<BfmeE16> > Base;
+		new(this) Base(alloc);
+	}
+	__forceinline ~ModifierVectorHeader()
+	{
+		((_STL::vector<Rva00214B22Record> *)this)->~vector();
+	}
+private:
+	unsigned int m_words[3];
+};
+
+class Rva0042526Member
+{
+public:
+	Rva0042526Member();
+private:
+	unsigned char m_bytes[0x4C];
+};
+
+class Rva0040450E
+{
+public:
+	Rva0040450E();
+	void rva0040450E(int);
+private:
+	ModifierVectorHeader m_values;
+	unsigned int m_word0C;
+	AsciiString m_name10;
+	unsigned int m_key14, m_word18;
+	Rva0042526Member m_1C, m_68;
+	unsigned char m_tailB4[0x20];
+};
+
+Rva0040450E::Rva0040450E()
+{
+	rva0040450E(0);
 }
