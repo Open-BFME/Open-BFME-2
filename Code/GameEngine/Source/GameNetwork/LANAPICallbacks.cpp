@@ -634,7 +634,7 @@ public:
 		const UnicodeString &message, LANAPIInterface::ChatType format );
 	virtual void rva00249B08( LivingWorldBattle *battle );
 	virtual void OnGameStart( void );
-	virtual void rva0024900D( void );
+	virtual void OnWOTRGameStart( void );
 	BFME_VSLOT(44)
 	virtual void rva0024A348( const BfmeNetAddress &sender, Int playerSlot, AsciiString options );
 	virtual Bool rva0024924D( const BfmeNetAddress &sender, Int playerSlot, const void *data, Int length );
@@ -996,7 +996,7 @@ void LANAPI::OnGameStart( void )
 	}
 }
 
-void LANAPI::rva0024900D( void )
+void LANAPI::OnWOTRGameStart( void )
 {
 	if( m_currentGame )
 	{

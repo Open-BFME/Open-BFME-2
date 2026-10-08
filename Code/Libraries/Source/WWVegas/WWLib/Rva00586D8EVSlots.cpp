@@ -61,8 +61,8 @@ class HordeMeleeFormation : public Rva005D6FCC
 public:
 	virtual ~HordeMeleeFormation();
 	virtual bool isUnitMoving(int idx);
-	virtual bool Rva00584F37(int idx);
-	virtual void Rva00584FBF(int idx);
+	virtual bool isUnitRotating(int idx);
+	virtual void setUnitRotating(int idx);
 	virtual void setUnitArrived(int idx);
 	virtual void setUnitNeedsNewAttackPos(void *arg, int idx);
 private:
@@ -78,14 +78,14 @@ bool HordeMeleeFormation::isUnitMoving(int idx)
 	return m_vec[idx].m_00 == 1;
 }
 
-bool HordeMeleeFormation::Rva00584F37(int idx)
+bool HordeMeleeFormation::isUnitRotating(int idx)
 {
 	if (idx < 0 || (unsigned)idx >= m_vec.size())
 		return false;
 	return m_vec[idx].m_00 == 2;
 }
 
-void HordeMeleeFormation::Rva00584FBF(int idx)
+void HordeMeleeFormation::setUnitRotating(int idx)
 {
 	if (idx < 0)
 		return;

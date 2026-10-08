@@ -94,7 +94,7 @@ public:
 	virtual void SetLocalAddr(const NetLocalAddress &addr);
 	virtual void sendDisconnectChat(UnicodeString text);
 	virtual void sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort commandID);
-	void rva0025E233(void);
+	void quitGame(void);
 	void startNewSession(void);
 
 private:
@@ -215,7 +215,7 @@ void Network::sendFile(AsciiString path, UnsignedByte playerMask, UnsignedShort 
 // Network_update.cpp donor carries the disconnect-transition semantics
 // (manager disconnect plus message 0x1D and state 3); the target method name
 // and the condition's absolute 0x114 read remain unresolved.
-void Network::rva0025E233(void)
+void Network::quitGame(void)
 {
 	if (m_pConMgr)
 		m_pConMgr->rva004D0E8B();

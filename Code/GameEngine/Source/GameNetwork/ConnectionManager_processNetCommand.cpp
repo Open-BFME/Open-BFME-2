@@ -146,7 +146,7 @@ class ConnectionManager;
 class DisconnectManager
 {
 public:
-	void rva004D46AF(void *ref, ConnectionManager *conMgr);
+	void processDisconnectCommand(void *ref, ConnectionManager *conMgr);
 };
 
 class BFMEConnectionManager
@@ -295,7 +295,7 @@ Bool ConnectionManager::processNetCommand(NetCommandRef *ref)
 			msg->getNetCommandType() < NETCOMMANDTYPE_DISCONNECTEND)
 		{
 			if (m_disconnectManager != 0)
-				m_disconnectManager->rva004D46AF(ref, this);
+				m_disconnectManager->processDisconnectCommand(ref, this);
 			goto ignored;
 		}
 		return true;

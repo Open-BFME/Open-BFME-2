@@ -46,7 +46,7 @@
 // the seed at +0x50.
 //
 // GameSpyStagingRoom::launchWOTRMPGame @ 0x004FE126 (569 bytes), named by
-// address: the GameSpy twin of the rowed LANAPI::rva0024900D (its only caller
+// address: the GameSpy twin of the rowed LANAPI::OnWOTRGameStart (its only caller
 // is 0x005A63E3) and shaped like Zero Hour's GameSpyStagingRoom::launchGame.
 // Carried from Zero Hour: game in progress and preorder marks, a new network
 // whose local address is the room's (+0x38) with, while the global in TheNAT's

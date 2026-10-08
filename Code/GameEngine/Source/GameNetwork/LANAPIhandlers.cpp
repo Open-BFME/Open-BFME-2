@@ -485,7 +485,7 @@ public:
 		const UnicodeString &message, LANAPIInterface::ChatType format );	// slot 40
 	BFME_VSLOT(41)
 	virtual void OnGameStart( void );		// slot 42
-	virtual void rva0024900D( void );		// slot 43
+	virtual void OnWOTRGameStart( void );		// slot 43
 	BFME_VSLOT(44) BFME_VSLOT(45)
 	virtual Bool rva0024924D( const BfmeNetAddress &sender, Int playerSlot, const void *data, Int length );	// slot 46
 	BFME_VSLOT(47)
@@ -707,7 +707,7 @@ void LANAPI::handleGameOptions( LANMessage *msg, const BfmeNetAddress *sender, B
 				}
 				rva00248E2F( false );
 				if( flag )
-					rva0024900D();
+					OnWOTRGameStart();
 				else
 					OnGameStart();
 			}

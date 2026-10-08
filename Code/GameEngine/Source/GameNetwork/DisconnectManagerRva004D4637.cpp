@@ -27,7 +27,7 @@ extern "C" const float length_estimate_factor;
 class DisconnectManager
 {
 public:
-	void rva004D4637(NetCommandMsg *msg, ConnectionManager *conMgr);
+	void processDisconnectPlayer(NetCommandMsg *msg, ConnectionManager *conMgr);
 	void rva004D41B3(Int slot, ConnectionManager *conMgr);
 };
 
@@ -39,7 +39,7 @@ public:
 // The BFME1 DisconnectManager source at donor revision
 // 6583b3c1ff21db4a561285717028fdafc780b7db supplies related ratio semantics,
 // but its command mapping and callees differ; the target method stays RVA-named.
-void DisconnectManager::rva004D4637(NetCommandMsg *msg, ConnectionManager *conMgr)
+void DisconnectManager::processDisconnectPlayer(NetCommandMsg *msg, ConnectionManager *conMgr)
 {
 	rva004D41B3(((NetProgressCommandMsg *)msg)->getPercentage(), conMgr);
 	if (!((Rva004D38D8 *)this)->rva004D38D8(g_Va00BC2424)) {
