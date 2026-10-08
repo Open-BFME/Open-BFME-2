@@ -67,3 +67,37 @@ void CastleBehavior::registerOwnedObject(Object* object) {
  }
  TheGameLogic->rva0023D0C2(object,field<int>(this,0x9c));
 }
+
+// Native 0x003974CE..0x003975B7, 233B. CastleSystem auto-pack 0x003975B7
+// passes two native callbacks with an opaque zero context. The helper visits
+// owner +8, factory +0x20 slot +0x18, then ID vectors +0x74/+0x50/+0x68/+0x5c.
+// Callback and helper source identities remain address-derived.
+class Rva003974CEFactory {
+public:
+ virtual void unused0(); virtual void unused1(); virtual void unused2();
+ virtual void unused3(); virtual void unused4(); virtual void unused5();
+ virtual Object* getObject();
+};
+typedef int (__cdecl *CastleObjectCallback)(Object*,int);
+class Rva003974CE {
+public:
+ Object* getOwner() const { return *(Object* const*)((const char*)this+8); }
+ int apply(CastleObjectCallback callback,int context);
+};
+static __forceinline bool applyCastleRange(const _STL::vector<ObjectID>& ids,CastleObjectCallback callback,int context) {
+ for(_STL::vector<ObjectID>::const_iterator it=ids.begin(); it!=ids.end(); ++it) {
+  Object* object=TheGameLogic->findObjectByID(*it);
+  if(object && !callback(object,context)) return false;
+ }
+ return true;
+}
+int Rva003974CE::apply(CastleObjectCallback callback,int context) {
+ if(!callback(getOwner(),context)) return 0;
+ Object* object=((Rva003974CEFactory*)((char*)this+0x20))->getObject();
+ if(object && !callback(object,context)) return 0;
+ if(!applyCastleRange(field<_STL::vector<ObjectID> >(this,0x74),callback,context)) return 0;
+ if(!applyCastleRange(field<_STL::vector<ObjectID> >(this,0x50),callback,context)) return 0;
+ if(!applyCastleRange(field<_STL::vector<ObjectID> >(this,0x68),callback,context)) return 0;
+ if(!applyCastleRange(field<_STL::vector<ObjectID> >(this,0x5c),callback,context)) return 0;
+ return 1;
+}
