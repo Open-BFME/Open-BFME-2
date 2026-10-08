@@ -16262,3 +16262,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?Rva003ECB2AIsEnemy@@YAHPBVPlayer@@0@Z,0x003ECB2A,callee of ?getThreatForPlayer@ThreatFinder@@QAE?AUThreatInfo@@PAVPlayer@@H0@Z
 ?rva00282135@Rva00282135@@QAEXXZ,0x00282135,callee of ?parseWaterAreasChunkImpl@Impl@OldPolygonTriggerDataChunkParserBase@@QAE_NAAVDataChunkInput@@PBUDataChunkInfo@@@Z
 ??0Out@@QAE@XZ,0x0032912D,callee of ?parseWaterAreasChunkImpl@Impl@OldPolygonTriggerDataChunkParserBase@@QAE_NAAVDataChunkInput@@PBUDataChunkInfo@@@Z
+?Rva00328E96Parse@@YAXAAVDataChunkInput@@HPAX@Z,0x00328E96,callee of ?parsePolygonTriggersChunkImpl@Impl@OldPolygonTriggerDataChunkParserBase@@QAE_NAAVDataChunkInput@@PBUDataChunkInfo@@@Z
+?Rva00328DE4Add@@YAXPAXPAPAX@Z,0x00328DE4,callee of ?parsePolygonTriggersChunkImpl@Impl@OldPolygonTriggerDataChunkParserBase@@QAE_NAAVDataChunkInput@@PBUDataChunkInfo@@@Z
