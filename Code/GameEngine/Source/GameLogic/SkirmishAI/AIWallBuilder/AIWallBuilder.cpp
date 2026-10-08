@@ -58,8 +58,9 @@ class ModuleData;
 namespace _STL {template<>void vector<const ModuleData*>::push_back(const ModuleData *const&);}
 void *rva004E99B1(void *key);
 struct AIWallIDView { unsigned char unknown[0x44]; unsigned int id; };
+class AIWall;
 class AIWallBuilder {
-public: void DoXfer(Xfer *);
+public: void DoXfer(Xfer *); float rva004E98B4(AIWall *);
 private: unsigned char m_prefix[0x0c]; _STL::vector<AIWallIDView*> m_walls;
 };
 void AIWallBuilder::DoXfer(Xfer *xfer) {
@@ -89,7 +90,10 @@ void AIWallBuilder::DoXfer(Xfer *xfer) {
     }
 }
 
-// ?Rva004E98B4Get@@YGMH@Z @0x004E98B4 42B free stdcall float Get(int unused) wraps rowed GetGameLogicRandomValueReal 0x00234092 with globals file-line 180 caller 0x004E9DA8
+// Retail 4E98B4/42 and WB13809B0/44: member float result, unused wall
+// argument and ret 4. Caller 4E9DA8 passes its builder in ECX and the selected
+// wall on the stack. The prior free-stdcall spelling hid this member ABI.
+// The address name remains because the original method name is unknown.
 float __cdecl GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 extern float g_00C62800;
 // g_00C62800: matched references place it at VA 0xc62800 (retail .rdata value 1.1e+02f).
@@ -99,7 +103,7 @@ extern float g_00C62804;
 float g_00C62804 = 7e+01f;
 // Retail filename at RVA862808 is preserved in full below.
 
-float __stdcall Rva004E98B4Get(int unused)
+float AIWallBuilder::rva004E98B4(AIWall *unused)
 {
     return GetGameLogicRandomValueReal(g_00C62804, g_00C62800, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIWallBuilder\\AIWallBuilder.cpp", 0xB4);
 }
