@@ -85,47 +85,62 @@ inline Real calcDistSqr(const Coord3D& a, const Coord3D& b)
 	return sqr(a.x - b.x) + sqr(a.y - b.y) + sqr(a.z - b.z);
 }
 
-// ------------------------------------------------------------------------------------------------
-/** Given the target position, find the garrison point that is closest to it */
-// ------------------------------------------------------------------------------------------------
+// Target evidence: matched calcBestGarrisonPosition 0x00478547 calls this with
+// the condition index and target position. Retail checks the occupied count at
+// +0x420, the 40 object slots at +0x100 (0x14 stride), per-condition point
+// count at +0x9C4, and coordinates at +0x424. GeneralsMD supports the
+// closest-free-point purpose; the target adds its equal-to-owner first-free
+// path and BFME2 offsets.
 // ?GarrisonContain::findClosestFreeGarrisonPointIndex present-unmatched
 Int GarrisonContain::findClosestFreeGarrisonPointIndex( Int conditionIndex, 
 																												const Coord3D *targetPos )
 {
-	DEBUG_ASSERTCRASH(m_garrisonPointsInitialized, ("garrisonPoints are not inited"));
-
-	// sanity
-	if( targetPos == NULL || m_garrisonPointsInUse == MAX_GARRISON_POINTS )
-		return GARRISON_INDEX_INVALID;
-
-	Int closestIndex = GARRISON_INDEX_INVALID;
-	Real closestDistSq = -1.0f;
-	Real distSq;
-	for( Int i = 0; i < MAX_GARRISON_POINTS; ++i )
+	const char *base = (const char *)this;
+	if( targetPos != NULL )
 	{
-
-		// only consider free garrison points
-		if( m_garrisonPointData[ i ].object == NULL )
+		Int pointsInUse = *(const Int *)(base + 0x420);
+		if( pointsInUse != MAX_GARRISON_POINTS )
 		{
-
-			// compute the squared distance between these two points
-			distSq = calcDistSqr(*targetPos, m_garrisonPoint[ conditionIndex ][ i ]);
-
-			if( distSq < closestDistSq || closestDistSq == -1.0f )
+			Int pointCount = *(const Int *)(base + 0x9C4 + conditionIndex * sizeof(Int));
+			if( pointsInUse < pointCount )
 			{
+				const Object *owner = *(Object *const *)(base + 0x08);
+				const Coord3D *ownerPos = (const Coord3D *)((const char *)owner + 0x38);
+				if( targetPos->x == ownerPos->x && targetPos->y == ownerPos->y &&
+					targetPos->z == ownerPos->z )
+				{
+					for( Int i = 0; i < MAX_GARRISON_POINTS; ++i )
+					{
+						const Object *occupied = *(Object *const *)(base + 0x100 + i * 0x14);
+						if( occupied == NULL )
+							return i;
+					}
+					return conditionIndex;
+				}
 
-				closestDistSq = distSq;
-				closestIndex = i;
-
-			}  // end if
-
-		}  // end if
-
-	}  // end for i
-
-	return closestIndex;
-
-}  // end findClosestFreeGarrisonPointIndex
+				Int closestIndex = GARRISON_INDEX_INVALID;
+				Real closestDistSq = 3.402823466e+38F;
+				for( Int i = 0; i < pointCount; ++i )
+				{
+					const Object *occupied = *(Object *const *)(base + 0x100 + i * 0x14);
+					if( occupied == NULL )
+					{
+						Int pointIndex = conditionIndex * MAX_GARRISON_POINTS + i;
+						const Coord3D *point = (const Coord3D *)(base + 0x424 + pointIndex * sizeof(Coord3D));
+						Real distSq = calcDistSqr(*targetPos, *point);
+						if( distSq < closestDistSq )
+						{
+							closestDistSq = distSq;
+							closestIndex = i;
+						}
+					}
+				}
+				return closestIndex;
+		}
+	}
+	}
+	return GARRISON_INDEX_INVALID;
+}
 
 // ------------------------------------------------------------------------------------------------
 /** Given the object, return the garrison point index the object is placed at ... if any */
