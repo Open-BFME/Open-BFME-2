@@ -16201,3 +16201,5 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0041CE27@ActionManager@@QAE_NPAVObject@@0H@Z,0x0041CE27,callee of ?canDoSpecialPowerAtObject@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@PBVSpecialPowerTemplate@@I_N@Z
 ??0AptTimerAdder@@QAE@XZ,0x001F81BF,ICF-folded vector default ctor for the 12-byte timer name list whose AddTimer is rowed at 0x005247A9; REL32 read at 0x005E13AB in CommandButtonMovieClip::Impl::Impl 0x005E136C constructing its +0x1C member; fold-proof=Code/GameEngine/Source/Common/Rva005E10A8Method.cpp
 ?rva004B04B2@SpecialDisguiseUpdate@@QAEX_N@Z,0x004B04B2,thiscall one-byte-arg member of SpecialDisguiseUpdate called with push 1 plus ecx=this from rva004B05F5 0x4B05F5; WB debug body 0x1106BA0 (323B retail unrowed) reads module data +0xDC and sets model condition 0xD6 on the owner; name not recovered
+?rva00493251@SpecialPowerModule@@QAE_NXZ,0x00493251,callee of ?rva0049466D@SpecialPowerModule@@UAE_NPBUCoord3D@@@Z
+?rva00493620@SpecialPowerModule@@QAE_NXZ,0x00493620,callee of ?rva0049466D@SpecialPowerModule@@UAE_NPBUCoord3D@@@Z
