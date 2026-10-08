@@ -141,22 +141,15 @@ Rva004C9F61::Rva004C9F61(const Rva004C9F61 &other)
 	m_field04 = other.m_field04;
 }
 
-// -------------------- vptr + two ints + a byte (retail 0x0028C6D6)
+// -------------------- vptr + two scalar words + a byte (retail 0x0028C6D6)
 // B2 body-address name: same 33-byte shape as 0x003AE315 with a different
 // vtable so a different class. Retail caller 0x0028F6B0 is itself a ret-4
 // copy-ctor tail so this is the base-class copy.
-class Rva0028C6D6
-{
-public:
-	Rva0028C6D6(const Rva0028C6D6 &other);
-	virtual ~Rva0028C6D6();
+// The shared header also covers the default constructor at 0x00262093 and
+// the real virtual transfer slot at 0x004D70D5. These stores cannot throw.
+#include "../../Include/Common/Rva0028C6D6.h"
 
-	Int m_field04;
-	Int m_field08;
-	char m_field0C;
-};
-
-Rva0028C6D6::Rva0028C6D6(const Rva0028C6D6 &other)
+Rva0028C6D6::Rva0028C6D6(const Rva0028C6D6 &other) throw()
 {
 	m_field04 = other.m_field04;
 	m_field08 = other.m_field08;

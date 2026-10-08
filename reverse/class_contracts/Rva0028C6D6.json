@@ -1,0 +1,90 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Rva0028C6D6",
+ "evidence": {
+  "census": 1,
+  "retail_access": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {
+   "0x7f91ac": {
+    "slots": {},
+    "stores": 1
+   }
+  },
+  "view_errors": 0,
+  "view_sizes": {
+   "16": 1
+  },
+  "views": 1,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field04",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i4",
+   "name": "m_field08",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "i1",
+   "name": "m_field0C",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 1,
+   "type": "char",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [
+  {
+   "attribute": "slot0",
+   "candidates": {
+    "__vecDelDtor(uint)": 1
+   },
+   "class": "Rva0028C6D6",
+   "why": "beyond the retail vftable's 0 slots"
+  }
+ ],
+ "size": 16,
+ "size_by": "majority",
+ "vslots": {}
+}

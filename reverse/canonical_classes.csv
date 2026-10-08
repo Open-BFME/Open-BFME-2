@@ -64,3 +64,4 @@ Rva003FE792,Code/GameEngine/Source/Common/TimedOperationNodeBFME2.h,target24B no
 Rva005D639A,Code/GameEngine/Include/Common/Rva005D639A.h,existing header; contract class_contracts/Rva005D639A.json; 2/2 sampled units adopt
 Rva0036ADF9Element,Code/GameEngine/Include/GameLogic/ContainmentListView.h,Opaque4B element established by retail allocation/insertion chain BB975->2C526D->5925E2->B6447; copier wrapper alone cannot prove width; first dword carries pointer or identifier bits; original identity unresolved
 Rva0036AE51ListView,Code/GameEngine/Include/GameLogic/ContainmentListView.h,Full40B helper36AE51 and26B descriptor return466398 establish two4B fields and one-word list return; ten consumer views reconciled and all26 affected bodies byte-verified
+Rva0028C6D6,Code/GameEngine/Include/Common/Rva0028C6D6.h,existing header; contract class_contracts/Rva0028C6D6.json; 1/1 sampled units adopt
