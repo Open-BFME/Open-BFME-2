@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// cl: /G7 /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// stlport
 // AptCallbackAdders.cpp -- Apt callback adders recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names each adder and the
 // AptPlayer method it forwards to; retail supplies the bytes.
@@ -10,6 +11,7 @@
 // releases through the out-of-line worker at 0x0007DEEF (rowed under a
 // placeholder name). Callback class names are inferred from the adder names.
 #include "ascii_string.h"
+#include <utility>
 
 typedef int Int;
 
@@ -71,6 +73,7 @@ public:
 	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);		// 0x002243E3
 	void AddExternHandler(const AsciiString &name, Int arg, AptRef<AptExternHandler> handler);	// 0x0022445D
 	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);	// 0x002244D2
+	void AddOverButtonHandler(unsigned level, const AsciiString &name, AptRef<AptOverButtonHandler> handler);
 	void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);		// 0x0022464C
 	void AddTimer(const AsciiString &name, AptRef<AptTimer> timer);			// 0x002246B9
 };
@@ -118,13 +121,22 @@ private:
 	_STL::vector<AsciiString> m_names;
 };
 
+struct TreeKey00242F5E { int level; AsciiString name; };
+// ?NativeOverButtonKey absent-from-retail
+// The rowed vector uses the legacy key spelling; native and its provider
+// establish the same int-plus-one-pointer-string layout as the donor pair.
+static __forceinline const TreeKey00242F5E &NativeOverButtonKey(const _STL::pair<int, AsciiString> &key) {
+ return reinterpret_cast<const TreeKey00242F5E &>(key);
+}
 class AptOverButtonHandlerAdder
 {
 public:
 	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
+	void AddOverButtonHandler(int level, const AsciiString &name, AptRef<AptOverButtonHandler> handler);
 
 private:
 	_STL::vector<AsciiString> m_names;
+	_STL::vector<TreeKey00242F5E> m_levelNames;
 };
 
 class AptCustomRenderAdder
@@ -216,4 +228,17 @@ void AptTimerAdder::AddTimer(const AsciiString &name, AptRef<AptTimer> timer)
 		TheAptPlayer->AddTimer(name, timer);
 		m_names.push_back(name);
 	}
+}
+
+// Native524845..5248D0/139B RET12; WB AptCallbackAdders.cpp:183.
+// The second vector at+0C stores (level,name) keys. The first three-way
+// argument is a hidden result, not an explicit int-return factory API:
+// BFME1 donor make_pair and native27B23FC23 prove its owning return type.
+// Return-by-value lifetime preserves native PUSH EAX and EH state without
+// changing the existing explicit-out helper declarations used elsewhere.
+void AptOverButtonHandlerAdder::AddOverButtonHandler(int level, const AsciiString &name, AptRef<AptOverButtonHandler> handler) {
+ if (TheAptPlayer) {
+  TheAptPlayer->AddOverButtonHandler(level, name, handler);
+  m_levelNames.push_back(NativeOverButtonKey(_STL::make_pair(level, name)));
+ }
 }
