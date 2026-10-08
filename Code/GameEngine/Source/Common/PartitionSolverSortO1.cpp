@@ -24,3 +24,12 @@ void _bfmePartitionUnguardedAnchor(PairObjectIDAndUInt *first, PairObjectIDAndUI
 	_STL::__unguarded_insertion_sort(first, last, cmp);
 }
 #pragma inline_depth()
+
+// Native 0x00567627 passes this callback to the rowed pair sort. Its median
+// helper copies two eight-byte records onto the stack and cleans up 16 bytes.
+// BFME 1 partition_solver.cpp (9cbfb551fe20) supplies the semantic lead; the
+// original callback name is unproven. Retail compares the unsigned second words.
+Bool Rva00566EDDCompareSecondWords(PairObjectIDAndUInt left, PairObjectIDAndUInt right)
+{
+	return left.second > right.second;
+}
