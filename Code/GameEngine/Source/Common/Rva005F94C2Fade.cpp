@@ -48,7 +48,8 @@ Rva005D2F96S24 __cdecl Rva005D2F96Build(
 AsciiString __cdecl Rva002D56C3(const Rva005D2F96Base24 &node);
 int __cdecl Rva0052519DFire(
 	void *target, void *owner, const char *prefix, const char *event, int *result);
-extern int g_00DFE4CC;
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva005F94C2
 {
@@ -68,7 +69,7 @@ private:
 
 void Rva005F94C2::rva005F94C2()
 {
-	Rva0052519DFire((void *)g_00DFE4CC, m_owner, m_prefix.str(),
+	Rva0052519DFire((void *)g_bfmeAptWindowManager, m_owner, m_prefix.str(),
 		Rva002D56C3((Rva005D2F96Base24 &)Rva005D2F96Build(
 			(const Rva005D2F96S16 &)operator+(
 				(const AsciiStringRefWithChar &)Rva00108B93Make("FadeIn"),
@@ -79,7 +80,7 @@ void Rva005F94C2::rva005F94C2()
 
 void Rva005F94C2::rva005F9567()
 {
-	Rva0052519DFire((void *)g_00DFE4CC, m_owner, m_prefix.str(),
+	Rva0052519DFire((void *)g_bfmeAptWindowManager, m_owner, m_prefix.str(),
 		Rva002D56C3((Rva005D2F96Base24 &)Rva005D2F96Build(
 			(const Rva005D2F96S16 &)operator+(
 				(const AsciiStringRefWithChar &)Rva00108B93Make("FadeOut"),
