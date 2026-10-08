@@ -12,6 +12,9 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
+// Credits load and field-parse adaptation: native vtable slot 2 at RVA
+// 5B736E returns bool; INI is 0x87C bytes; font lookup takes name by pointer,
+// float size and bool. Native table/callbacks establish the scalar offsets.
 class GameTextInterface
 {
 public:
@@ -30,11 +33,47 @@ virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
 
 extern GameTextInterface *TheGameText;
 
-class CreditsManager
-{
-	UnicodeString getUnicodeString(AsciiString str);
+class INI;
+class Xfer;
+typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
+struct FieldParse { const char *token; INIFieldParseProc parse; const void *userData; int offset; };
+struct LookupListRec { const char *name; int value; };
+enum INILoadType { INI_LOAD_OVERWRITE=1 };
+class INI {
+public:
+ INI(); ~INI();
+ void load(AsciiString, INILoadType, Xfer *, void (*)(INI *));
+ void initFromINI(void *, const FieldParse *);
+ static void parseCredits(INI *);
+ static void parseInt(INI *, void *, void *, const void *);
+ static void parseBool(INI *, void *, void *, const void *);
+ static void parseColorInt(INI *, void *, void *, const void *);
+ static void parseLookupList(INI *, void *, void *, const void *);
+private: char m_storage[0x87C];
 };
-
+class GameFont { public: char pad00[0x10]; int height; };
+class GlobalLanguage {
+public: int adjustFontSize(int);
+ char pad00[0xF8]; AsciiString m_creditsFontName; int m_creditsFontSize; bool m_creditsFontBold;
+};
+class FontLibrary {public: GameFont *getFont(const AsciiString *, float, bool);};
+extern GlobalLanguage *TheGlobalLanguageData;
+extern FontLibrary *TheFontLibrary;
+class BfmeSinkBOE;
+extern BfmeSinkBOE *g_bfmeSinkBOE;
+class CreditsManager {
+public:
+ virtual ~CreditsManager();
+ virtual void init();
+ virtual bool load();
+ static const FieldParse m_creditsFieldParseTable[];
+ static void parseBlank(INI *, void *, void *, const void *);
+private:
+ UnicodeString getUnicodeString(AsciiString);
+ char pad04[0x14]; int m_scrollRate,m_scrollRatePerFrames; bool m_scrollDown;
+ char pad21[3]; int m_titleColor,m_positionColor,m_normalColor,m_currentStyle;
+ bool m_isFinished; char pad35[3]; int m_framesSinceStarted,m_normalFontHeight;
+};
 UnicodeString CreditsManager::getUnicodeString(AsciiString str)
 {
 	UnicodeString uStr;
@@ -50,3 +89,55 @@ UnicodeString CreditsManager::getUnicodeString(AsciiString str)
 }
 
 
+
+// The already verified addBlank provider still has its address-based name.
+// Preserve its complete existing call view; this parser supplies instance as
+// the same object pointer and reads no fields itself.
+struct Rva005B7DC3Block
+{
+	Rva005B7DC3Block *Xform();
+};
+
+struct Rva005B7DC3Sub
+{
+	void Consume(void **pp);
+};
+
+struct Rva005B7DC3Box
+{
+	char pad[0xc];
+	Rva005B7DC3Sub m_0C;
+
+	void Run();
+};
+
+
+void CreditsManager::parseBlank(INI *, void *instance, void *, const void *)
+{
+ static_cast<Rva005B7DC3Box *>(instance)->Run();
+}
+
+// Existing data-ledger name at RVA A06474. Retail initializes the pointer to
+// zero. Preserve the established spelling used by Credits draw callers.
+BfmeSinkBOE *g_bfmeSinkBOE = 0;
+
+void bfmeParseD780(INI *, void *, void *, const void *);
+static const LookupListRec CreditsStyleNames[] = {
+ {"TITLE",0}, {"MINORTITLE",1}, {"NORMAL",2}, {"COLUMN",3}, {0,0}
+};
+
+// Every token, parser RVA, userdata pointer and offset was read from retail's
+// ten 16-byte records at RVA 8737E8. The donor supplies the corresponding
+// meaning; the BFME2 object prefix moves its scalar offsets by four bytes.
+const FieldParse CreditsManager::m_creditsFieldParseTable[] = {
+ {"ScrollRate", INI::parseInt, 0, 0x18},
+ {"ScrollRateEveryFrames", INI::parseInt, 0, 0x1C},
+ {"ScrollDown", INI::parseBool, 0, 0x20},
+ {"TitleColor", INI::parseColorInt, 0, 0x24},
+ {"MinorTitleColor", INI::parseColorInt, 0, 0x28},
+ {"NormalColor", INI::parseColorInt, 0, 0x2C},
+ {"Style", INI::parseLookupList, CreditsStyleNames, 0x30},
+ {"Blank", CreditsManager::parseBlank, 0, 0},
+ {"Text", bfmeParseD780, 0, 0},
+ {0,0,0,0}
+};
