@@ -16475,3 +16475,4 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ?Rva002D56C3@@YA?AVAsciiString@@ABURva005D2F96Base24@@@Z,0x002D56C3,address-derived cdecl returning AsciiString from a 24-byte concat-node view; target calls push the node address and hidden result buffer; body/call-site support the ABI but not original identity
 ?rva00308C31@Rva00308DF0@@QAEXXZ,0x00308C31,unrowed member callee of 0x308DF0 (retail 0x308C31)
 ?rva003B9132@Rva003B92A2@@QAEXXZ,0x003B9132,unrowed member callee of 0x3B92A2 (retail 0x3B9132)
+?rva002C00E0@@YGXPAXPAURva002C025APair@@@Z,0x002C00E0,unrowed stdcall callee of 0x2C025A (retail 0x2C00E0)
