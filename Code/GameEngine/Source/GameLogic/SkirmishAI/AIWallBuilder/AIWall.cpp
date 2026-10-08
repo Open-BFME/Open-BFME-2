@@ -1,7 +1,9 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /O1 /arch:SSE /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
 //
-// AIWall.cpp (the unit 0x004EAFBD's asserts name). The wall planner class is
-// not established, hence the address name after that asserting member.
+// AIWall.cpp. Named WB137E130/137E4D0 and the complete native bodies
+// establish buildGate and calcGatePosition. The original coordinate-return
+// and wall-order type spellings remain unknown; caller views are labeled below.
 //
 //   0x004EB902  among the alive objects the planner's player (+0x18) finds
 //               allied (relationship flag 2) within 25 of 0x004EAFBD's
@@ -13,6 +15,8 @@
 //               plan and hand it on (slot 6). The scan is BFME2's partition
 //               filter chain (the view AIStructureCreepTactic.cpp documents).
 #include "ascii_string.h"
+#include <vector>
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object;
 class Player;
@@ -51,12 +55,41 @@ public:
 
 #pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
+float __cdecl GetGameLogicRandomValueReal(float, float, char *, int);
+// Native4EAFBD/213 and WB137E4D0/747 prove a hidden twelve-byte result,
+// float addition/scaling and component-wise return copying. This value view
+// reuses the canonical twelve-byte coordinate base. Its explicit copy and
+// arithmetic follow WWMath vector3.h at BFME1 revision
+// 9cbfb551fe20dae985f91f2319d8997287b6a705. That donor is the semantic/codegen
+// guide, not proof of the original return-type spelling. The virtual slot13
+// result and key50 are separately witnessed in the native/debug bodies and
+// supported by the already-rowed wall-order constructor and transfer sibling.
+// No vtable definition or assertion about unobserved slots is made here.
+struct WallPositionValue : Coord3D {
+    WallPositionValue() {}
+    WallPositionValue(const WallPositionValue &other) {
+        x=other.x; y=other.y; z=other.z;
+    }
+    WallPositionValue &operator+=(const WallPositionValue &other) {
+        x+=other.x; y+=other.y; z+=other.z; return *this;
+    }
+    WallPositionValue &operator*=(float scale) {
+        x=x*scale; y=y*scale; z=z*scale; return *this;
+    }
 };
+class WallPositionOrderView {
+public:
+    virtual void slot00(); virtual void slot01(); virtual void slot02();
+    virtual void slot03(); virtual void slot04(); virtual void slot05();
+    virtual void slot06(); virtual void slot07(); virtual void slot08();
+    virtual void slot09(); virtual void slot10(); virtual void slot11();
+    virtual void slot12();
+    virtual WallPositionValue position();
+    unsigned char unknown04[0x4c];
+    unsigned key50;
+    unsigned getKey() const { return key50; }
+};
+
 
 struct BfmeWideResult
 {
@@ -146,17 +179,19 @@ public:
 class AIWall
 {
 public:
-	Coord3D rva004EAFBD();	// 0x004EAFBD (asserts in AIWall.cpp)
+	WallPositionValue calcGatePosition();	// 0x004EAFBD: WB names calcGatePosition; hidden value result
 	void buildGate();
 private:
-	char m_pad00[0x14];
+	void *unknown00;
+	WallPositionOrderView *selected04;
+	_STL::vector<WallPositionOrderView *> orders08;
 	Rva004EB902Plan *m_14;	// +0x14
 	Player *m_18;		// +0x18
 };
 
 void AIWall::buildGate()
 {
-	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&rva004EAFBD(), 25.0f, 0,
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&calcGatePosition(), 25.0f, 0,
 		Rva0026119DFilter().link(&Rva00261409Filter(m_18, true, 2)), 1);
 	Object *other;
 	while ((other = hits.next()) != 0) {
@@ -187,4 +222,26 @@ void AIWall::buildGate()
 			}
 		}
 	}
+}
+
+// Native4EAFBD..4EB092 chooses the adjacent order, randomizing only an
+// interior start key (full retail filename, line560), then returns the mean
+// of both virtual slot13 positions. STLport's real size/index accessors are
+// required for the observed repeated reads and virtual-call register flow.
+WallPositionValue AIWall::calcGatePosition()
+{
+    unsigned startIndex = selected04->getKey();
+    WallPositionValue position = selected04->position();
+    unsigned otherIndex;
+    if (startIndex == 0)
+        otherIndex = 1;
+    else if (startIndex == orders08.size() - 1)
+        otherIndex = orders08.size() - 2;
+    else
+        otherIndex = GetGameLogicRandomValueReal(0.0f, 1.0f,
+            "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIWallBuilder\\AIWall.cpp", 560) > 0.5f
+            ? startIndex + 1 : startIndex - 1;
+    position += orders08[otherIndex]->position();
+    position *= 0.5f;
+    return position;
 }

@@ -11951,7 +11951,6 @@ name,address,notes
 ?rva004E8FF6@Rva004E8FF6@@QAEXPAX@Z,0x004E8FF6,thiscall single-arg callee of 0x004E9710 read from its REL32 displacement; body unrowed
 ?rva004E9040@Rva004E8FF6@@QAEXPAX@Z,0x004E9040,same-object single-arg callee of 0x004E9710 (global plus 0x940) read from REL32; in-range target, provisional class
 ?rva004E9446@Rva004E94FB@@QAEXXZ,0x004E9446,thiscall no-arg callee of 0x004E9710 read from its REL32 displacement (same this); in-range target, provisional class
-?rva004EAFBD@Rva004EAFBD@@QAE?AUCoord3D@@XZ,0x004EAFBD,"wall planner position (asserts in AIWall.cpp; Coord3D by hidden pointer); REL32 in 0x004EB962"
 ?rva004EBF4B@Rva004EBF4B@@QAE?AUCoord3D@@XZ,0x004EBF4B,the same body as the rowed void(Coord3D *) spelling: it returns the Coord3D by value through the hidden pointer (eax = out); REL32 at 0x005AB70C in ReturnTheRing 0x005AB6DC uses the returned pointer
 ?rva004EC072@Player@@QAEXPAVTeamPrototype@@@Z,0x004EC072,Player entry taking this; read from REL32 at 0x003A2C06 in rva003A2BD4 0x003A2BD4
 ?rva004EC072@Rva004EC072@@QAEXPAUArg@@@Z,0x004EC072,second name for the 11-byte forwarder rowed at 0x004EC072 as ?fwd@Rva004EC072Owner@@QAEXPAX@Z (263b7dc5b1 dropped this row as a duplicate); TeamPrototype::rva003A2BD4 0x003A2BD4 still calls it by this name
@@ -13677,7 +13676,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva002C5CF7@AITarget@@QAEXPBUCoord3D@@MH@Z,0x002C5CF7,"choice setter taking (position, radius, object id): REL32 at 0x005734C4 in heuristic slot 1 0x0057327E with the chosen waypoint position, the AI data +0x884 and 0; 0x002C5D8B forwards an object's +0x38 position and +0x74 id to it"
 ?setTarget@AITarget@@QAEXPAVObject@@M@Z,0x002C5D8B,"thiscall (object, float) forwarding the object's +0x38 position, the float and its +0x74 id to 0x002C5CF7 (ret 8): REL32 at 0x005739CE in AITargetHeuristicBaseDefense slot 1 0x005737D6 with 200.0 and the picked object"
 ?rva00376A62Contains@ObjectTypes@@QAE_NABV?$StringBase@D@@@Z,0x00376A62,Native ObjectTypes prefix contains ABI alias; 376B25 directcall reaches existing34B contains row; same thiscall bool with const4B StringBase char reference; linker alias resolves real provider; address-view owner not original method identity
-?rva004EAFBD@AIWall@@QAE?AUCoord3D@@XZ,0x004EAFBD,"wall planner position (asserts in AIWall.cpp; Coord3D by hidden pointer); REL32 in 0x004EB962"
 ?clear@AptDisplayList@@QAEX_N@Z,0x006F80C0,"BfmeWrapper1279 chain clear called by ctor/dtor paths 0x006F8190 and 0x006F84F0; walks m_query->m_root->next freeing each node; body unrowed"
 ?rva00208CF0@ScriptEngine@@QAEPAHVAsciiString@@@Z,0x00208CF0,ScriptEngine by-value name lookup returning an int reference variable; REL32 at 0x003C6294; WB 0x00B375E0 unnamed
 ?rva002949AE@Object@@QAEXHHM@Z,0x002949AE,Object member (flag index frames float); REL32 at 0x003C59EA after a ModelConditionNames lookup; WB 0x00CC6920 calls BitFlags<591>::SetBit
