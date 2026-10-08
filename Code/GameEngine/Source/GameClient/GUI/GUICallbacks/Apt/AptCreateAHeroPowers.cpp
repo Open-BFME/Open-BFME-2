@@ -34,14 +34,12 @@ public:
 };
 
 // TheCreateAHeroManager 0x009FE344 and its rowed 0x00219309 count.
-class CreateAHeroManager;
-extern CreateAHeroManager *TheCreateAHeroManager;
-
-class Rva00219309
+class CreateAHeroManager
 {
 public:
-	int rva00219309();
+	int GetRequiredButtonCount();
 };
+extern CreateAHeroManager *TheCreateAHeroManager;
 
 namespace AptCreateAHero
 {
@@ -83,7 +81,7 @@ int AptCreateAHero::Powers::CalculateFlashState(Rva005B2E09Cell *cell)
 		return 2;
 	if ((unsigned int)count >= MAX_POWERS)
 		return 6;
-	if (m_numPalantir >= MAX_PALANTIR_POWERS - ((Rva00219309 *)TheCreateAHeroManager)->rva00219309())
+	if (m_numPalantir >= MAX_PALANTIR_POWERS - TheCreateAHeroManager->GetRequiredButtonCount())
 	{
 		prereq = FindPrereq(cell);
 		if (!prereq || prereq->m_row < 0 || prereq->m_column < 0)

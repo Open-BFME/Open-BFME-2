@@ -1,5 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
-// ?rva00219309@Rva00219309@@QAEHXZ @0x00219309 53B
+// ?GetRequiredButtonCount@CreateAHeroManager@@QAEHXZ @0x00219309 53B. The
+// class is TheCreateAHeroManager's (AptCreateAHeroPowers calls it there), and
+// WorldBuilder's CreateAHeroManager::GetRequiredButton asserts
+// "buttonIndex >= GetRequiredButtonCount()" on the result of its call here.
 // Honest-address count of leading non-null CommandButtons for the CommandSet
 // looked up by the AsciiString at this+0x1dc via g_bfmeWorldRV.
 // Evidence: retail add ecx,0x1dc plus rowed Rva0031D5F8 lookup 0x0031D5F8
@@ -23,15 +26,15 @@ public:
 	const CommandButton *getCommandButton(int i) const;
 };
 
-class Rva00219309
+class CreateAHeroManager
 {
 public:
-	int rva00219309();
+	int GetRequiredButtonCount();
 	char m_pad[0x1dc];
 	AsciiString m_name;
 };
 
-int Rva00219309::rva00219309()
+int CreateAHeroManager::GetRequiredButtonCount()
 {
 	void *p = ((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(&m_name);
 	if (p == 0)
