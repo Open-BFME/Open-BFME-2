@@ -60,7 +60,6 @@ protected:
 	void rva003C0E87(const AsciiString &unitName, int value);
 	void doUnitStartSequentialScript(const AsciiString &unitName,
 		const AsciiString &scriptName, int loopVal);
-	void rva003C0F44(const AsciiString &teamName, int mode, int value);
 	void rva003C49AE(Parameter *srcTeamParam, Parameter *dstTeamParam);
 	void rva003C4751(Parameter *teamParam);
 	void doSetUnitReferenceToHomeBaseOfPlayer(const AsciiString &playerName,
@@ -954,38 +953,6 @@ void ScriptActions::rva003C606C(Parameter *playerParam, bool flag)
 				player->rva002ACEDF((const ThingTemplate *)tmpl);
 		}
 	}
-}
-
-// WB 0x0100F1D0 unnamed ScriptActions member @0x003C0F44 (166B): attack-move
-// a team; in modes 3 and 4 toward the nearest shroud group of its enemies
-// (TheShroudManager 0x00739820, relationship 4) from the group centre.
-// Other modes leave the target as WorldBuilder's debug build initialised it.
-class ShroudManager
-{
-public:
-	void rva00739820(const Coord3D *from, int playerMask, int a, int value, Coord3D *out);
-};
-extern ShroudManager *TheShroudManager;
-
-void ScriptActions::rva003C0F44(const AsciiString &teamName, int mode, int value)
-{
-	Team *theTeam = TheScriptEngine->getTeamNamed(teamName, false);
-	if (!theTeam)
-		return;
-	AIGroup *theGroup = TheAI->createGroup();
-	theTeam->getTeamAsAIGroup(theGroup);
-	Player *player = theTeam->getControllingPlayer();
-	if (!player)
-		return;
-	Coord3D target;
-	Coord3D center;
-	theGroup->getCenter(&center);
-	if (mode == 3 || mode == 4) {
-		TheShroudManager->rva00739820(&center,
-			ThePlayerList->getPlayersWithRelationship(player->getPlayerIndex(), 4, false),
-			0, value, &target);
-	}
-	theGroup->groupAttackMoveToPosition(&target, 0x7FFFFFFF, CMD_FROM_SCRIPT);
 }
 
 // WB 0x01014BA0 unnamed ScriptActions member @0x003C49AE (194B): when the
