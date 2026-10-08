@@ -1,4 +1,5 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /O1 /EHsc /MD /arch:SSE /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 // SkirmishAI.cpp -- SkirmishAI members recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv): WB's debug build names the function and its
 // callee SkirmishAI::transferUnitsToPlayer (0x002C6AFA); retail supplies the
@@ -6,6 +7,12 @@
 // +0x178.
 
 #pragma pointers_to_members(full_generality, multiple_inheritance)
+
+#include <map>
+#include <new>
+#include "ascii_string.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
 
 typedef int Int;
 
@@ -106,8 +113,12 @@ public:
 class AIBuilder
 {
 public:
+	AIBuilder(Player *);
+	~AIBuilder();
 	void onUnitCreated(Object *object, Object *other, bool isHorde);	// 0x004EC3AC
 	void update(); // WB 0x0136EAF0; native 0x004ECB19
+private:
+	unsigned char m_prefix[0x15C];
 };
 
 class Rva004E93A8 { public: int rva004E93A8(); };
@@ -138,9 +149,17 @@ private:
     Rva00506909 *m_generator;
 };
 
+class Rva002C60E4 {
+public:
+ Rva002C60E4(void *, bool);
+private:
+ unsigned char m_storage[0x2C];
+};
+
 class SkirmishAI : public AIBuilder
 {
 public:
+	SkirmishAI(Player *player, void *master, bool first);
 	void Register(Team *team);
 	void UnRegister(Team *team);
 	void onUnitCreated(Object *object, Object *other);
@@ -154,14 +173,28 @@ public:
 	void updatePhase();
 
 private:
-	unsigned char m_pad000[0x15C];
 	Player *m_player;					// +0x15C
-	Int m_specialMaster160; // native update tests +0x160 after count == 1
+	void *m_specialMaster160; // native constructor stores second argument
 	TacticalAI *m_tacticalAI;			// +0x164
 	bool m_disabled168;					// +0x168, set: creations are ignored
-	unsigned char m_pad169[0x178 - 0x169];
+	unsigned char m_pad169[3];
+	Int m_difficulty16C;
+	float m_time170;
+	unsigned int m_frame174;
 	Int m_masterPlayerIndex;				// +0x178
+	_STL::map<AsciiString, Int> m_values17C;
 };
+
+// WB E8A420 and native 2C6EE0 agree on base/player/master/first arguments.
+// Native constructor fixes all field initializers and the 0x2C allocation;
+// 2C717E and 2C7196 independently establish the string-to-int map at +17C.
+SkirmishAI::SkirmishAI(Player *player, void *master, bool first)
+ : AIBuilder(player), m_player(player), m_specialMaster160(master),
+   m_tacticalAI(0), m_disabled168(false), m_difficulty16C(0), m_time170(0),
+   m_frame174(TheGameLogic->getFrame()), m_masterPlayerIndex(-1)
+{
+ m_tacticalAI = reinterpret_cast<TacticalAI *>(new Rva002C60E4(player, first));
+}
 
 // WB E8A830 names update and its special slave/master paths. Native
 // 002C6BFF..002C6C8E fixes the 143-byte extent and the release-build shape:
