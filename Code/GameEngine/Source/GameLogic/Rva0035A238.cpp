@@ -4,6 +4,11 @@
 // key/value/flag/zero at +0/+4/+8/+9. Existing footprint list callees supply
 // the container ABI; BfmePod12 describes storage rather than target identity.
 
+#include "../Common/GameLogicObjectLookupView.h"
+#include "../Common/RTS/XYDistanceCallView.h"
+
+extern GameLogic *TheGameLogic;
+
 struct BfmePod12
 {
 	int key;
@@ -19,10 +24,18 @@ namespace _STL
 	template<class T, class A = allocator<T> > class list
 	{
 	public:
+		struct Node
+		{
+			Node *next;
+			Node *previous;
+			T data;
+		};
+		Node *begin() const { return head->next; }
+		Node *end() const { return head; }
 		void push_front(const T &);
 		void push_back(const T &);
 	private:
-		void *head;
+		Node *head;
 	};
 }
 
@@ -37,6 +50,7 @@ class Rva0035A238
 public:
 	void rva0035A238(Rva0035A238Argument *argument, float value, bool flag, bool front);
 	void rva00359E93(Rva0035A238Argument *argument, float value, bool front, bool extra);
+	void rva00359D99(Rva000CBA20 *center, float radius);
 private:
 	char unknown00[0x14];
 	_STL::list<BfmePod12> records;
@@ -54,4 +68,18 @@ void Rva0035A238::rva0035A238(Rva0035A238Argument *argument, float value, bool f
 	else
 		records.push_back(record);
 	rva00359E93(argument, value, front, false);
+}
+
+// Native 0x00359D99, 107 bytes, RET 8. Shares the +14 list and callback
+// with 0x0035A238. Key lookup establishes Object identity; the distance
+// call view and +38 position are target evidence, not an asserted layout.
+void Rva0035A238::rva00359D99(Rva000CBA20 *center, float radius)
+{
+	radius *= radius;
+	for (_STL::list<BfmePod12>::Node *item = records.begin(); item != records.end(); item = item->next)
+	{
+		Object *object = TheGameLogic->findObjectByID(static_cast<ObjectID>(item->data.key));
+		if (object && center->distSq(reinterpret_cast<const Rva000CBA20Point *>(reinterpret_cast<char *>(object) + 0x38)) <= radius)
+			rva00359E93(reinterpret_cast<Rva0035A238Argument *>(object), item->data.value, false, item->data.zero);
+	}
 }
