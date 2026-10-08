@@ -48,10 +48,11 @@ struct Rva00A063B0Obj
     virtual void *Unknown00(int x);
 };
 
-// Named provider: AptOptions::RefreshNat independently accesses this same
-// VA 0x00E063B0 as TheFirewallHelper. Preserve the observed slot ABI below.
-class FirewallHelperClass;
-extern FirewallHelperClass *TheFirewallHelper;
+// The existing data-ledger owner at VA 0x00E063B0 is shared with
+// AptOptions::RefreshNat. Preserve its symbol until provider and consumers
+// can adopt the donor firewall name together.
+extern Rva00A063B0Obj *g_a063b0;
+Rva00A063B0Obj *g_a063b0;
 
 struct Rva005A721CSlot
 {
@@ -93,10 +94,10 @@ Rva005A734B::~Rva005A734B()
         if (m_ptrs[i])
             operator delete(m_ptrs[i]);
     }
-    if (TheFirewallHelper) {
-        void *q = reinterpret_cast<Rva00A063B0Obj *>(TheFirewallHelper)->Unknown00(0);
+    if (g_a063b0) {
+        void *q = g_a063b0->Unknown00(0);
         operator delete(q);
-        TheFirewallHelper = 0;
+        g_a063b0 = 0;
     }
 }
 
@@ -137,6 +138,6 @@ Rva005A734B::Rva005A734B()
         m_8EC[i] = 0;
         m_ptrs[i] = new Rva005A721CSlot;
     }
-    if (!TheFirewallHelper)
-        TheFirewallHelper = Rva00595143Get();
+    if (!g_a063b0)
+        g_a063b0 = reinterpret_cast<Rva00A063B0Obj *>(Rva00595143Get());
 }
