@@ -1,8 +1,7 @@
 // ?rva005CA07D@GameSpyLoginPreferences@@QAE?AV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@XZ
-// partial score=0.99 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// partial score=0.98 date=2026-10-08
+// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
-#define _STLP_USE_MALLOC 1
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -32,7 +31,25 @@
 // is the one recovered in Code/GameEngine/Source/Common/UserPreferences.cpp.
 
 #include <map>
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 #include <list>
+
+
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+
 #include <stdlib.h>
 #include <string.h>
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
@@ -106,6 +123,8 @@ typedef _STL::map<AsciiString, AsciiString> PassMap;
 typedef _STL::map<AsciiString, AsciiString> DateMap;
 typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiString> > > NickMap;
 typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiString> > > ClanMap;
+// Keep the existing native 23-byte list-base destructor provider.
+extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::~_List_base();
 
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 AsciiString QuotedPrintableToAsciiString(AsciiString original);
@@ -132,9 +151,15 @@ public:
 
 	// Removes one nick from one email's clan list; retail guards with find
 	// before subscripting (sibling 0x005CADD3 is the nick-map twin at +0x2c).
-	void rva005CAE72(const AsciiString &email, const AsciiString &nick);
-	// Nick-map twin of rva005CAE72 at +0x2c (retail 0x005CADD3).
-	void rva005CADD3(const AsciiString &email, const AsciiString &nick);
+	void deleteClan(const AsciiString &email, const AsciiString &nick);
+	// Nick-map twin of deleteClan at +0x2c (retail 0x005CADD3).
+	void deleteNick(const AsciiString &email, const AsciiString &nick);
+	// Adds one nick to one email's clan list at +0x38 when absent (retail
+	// 0x005CAE04, 110B); returns true when appended.
+	bool rva005CAE04(const AsciiString &email, const AsciiString &nick);
+	// Adds one nick to nick list at +0x2c when absent and sets pass/date at
+	// +0x14/+0x20 (retail 0x005CACDE, 245B).
+	void rva005CACDE(AsciiString email, AsciiString nick, AsciiString pass, AsciiString date);
 	// Erases one email key from nick/pass/date maps at +0x2c/+0x14/+0x20 (retail 0x005CABF9).
 	void rva005CABF9(AsciiString email);
 	AsciiString rva005C9FC4(void);
@@ -169,7 +194,7 @@ void GameSpyLoginPreferences::Write_Rva005C9DA8(NickMap &emails, const char *pre
 		NickMap::mapped_type::iterator listIt = it->second.begin();
 		while (listIt != it->second.end())
 		{
-			nicks.concat(*listIt);
+			((StringBase<char> *)&nicks)->concat(*(const StringBase<char> *)&*listIt);
 			char comma = ',';	// operator+=(char), expanded in place as retail does
 			((StringBase<char> *)&nicks)->concat(&comma, 1);
 			++listIt;
@@ -283,23 +308,50 @@ Bool GameSpyLoginPreferences::load(AsciiString fname)
 	return true;
 }
 
-// ?rva005CADD3@GameSpyLoginPreferences@@QAEXABVAsciiString@@0@Z 0x005CADD3 49B
+// ?deleteNick@GameSpyLoginPreferences@@QAEXABVAsciiString@@0@Z 0x005CADD3 49B
 // Evidence: nick-map (+0x2c) twin of clan remove 0x005CAE72; same find
 // 0x001F8437 subscript 0x005CAC49 remove 0x005C9E90; caller 0x00571593.
-void GameSpyLoginPreferences::rva005CADD3(const AsciiString &email, const AsciiString &nick)
+void GameSpyLoginPreferences::deleteNick(const AsciiString &email, const AsciiString &nick)
 {
 	if (m_emailNickMap.find(email) != m_emailNickMap.end())
 		m_emailNickMap[email].remove(nick);
 }
 
-// ?rva005CAE72@GameSpyLoginPreferences@@QAEXABVAsciiString@@0@Z 0x005CAE72 49B
+// ?deleteClan@GameSpyLoginPreferences@@QAEXABVAsciiString@@0@Z 0x005CAE72 49B
 // Evidence: chain from landed list remove 0x005C9E90; find 0x001F8437 and
 // list-map operator[] 0x005CAC49 rowed; map at +0x38 is m_emailClanMap;
 // caller 0x0057F920; sibling 0x005CADD3 is the +0x2c nick twin.
-void GameSpyLoginPreferences::rva005CAE72(const AsciiString &email, const AsciiString &nick)
+void GameSpyLoginPreferences::deleteClan(const AsciiString &email, const AsciiString &nick)
 {
 	if (m_emailClanMap.find(email) != m_emailClanMap.end())
 		m_emailClanMap[email].remove(nick);
+}
+
+// ?rva005CAE04@GameSpyLoginPreferences@@QAE_NABVAsciiString@@0@Z 0x005CAE04 110B
+// Evidence: gap between 0x005CADD3 and 0x005CAE72 in same TU with same flags;
+// four list-map operator[] 0x005CAC49 plus list find 0x001FD9C5 and push_back
+// rowed; map at +0x38 is m_emailClanMap; caller 0x0057FA6D; unblocks 0x0057FA1C.
+bool GameSpyLoginPreferences::rva005CAE04(const AsciiString &email, const AsciiString &nick)
+{
+	if (_STL::find(m_emailClanMap[email].begin(), m_emailClanMap[email].end(), nick) == m_emailClanMap[email].end())
+	{
+		m_emailClanMap[email].push_back(nick);
+		return true;
+	}
+	return false;
+}
+
+// ?rva005CACDE@GameSpyLoginPreferences@@QAEXVAsciiString@@000@Z 0x005CACDE 245B
+// Evidence: nick map +0x2c plus pass +0x14 date +0x20 same TU same flags;
+// four list-map operator[] 0x005CAC49 plus list find 0x001FD9C5 push_back
+// 0x001FD868 plus scalar map operator[] 0x002031FB plus set 0x000366F0;
+// callers 0x00570387 0x00571F04; unblocks 0x005700A0.
+void GameSpyLoginPreferences::rva005CACDE(AsciiString email, AsciiString nick, AsciiString pass, AsciiString date)
+{
+	if (_STL::find(m_emailNickMap[email].begin(), m_emailNickMap[email].end(), nick) == m_emailNickMap[email].end())
+		m_emailNickMap[email].push_back(nick);
+	m_emailPasswordMap[email].setCopyInline(pass);
+	m_emailDateMap[email].setCopyInline(date);
 }
 
 void GameSpyLoginPreferences::rva005CABF9(AsciiString email)
@@ -316,7 +368,6 @@ void GameSpyLoginPreferences::rva005CABF9(AsciiString email)
 // lookup via throw() shim (shape-lever: no EH state across find) pinned to
 // shared _M_find worker 0x001F8437 like SkirmishPreferences.
 bool GetStringFromRegistry(AsciiString path, AsciiString key, AsciiString &val);
-extern const char g_Rva0107301CEmptyString[];
 struct SkirmishFindNode
 {
 	unsigned char m_pad[0x14];
@@ -344,24 +395,9 @@ AsciiString GameSpyLoginPreferences::rva005C9FC4(void)
 	}
 	PreferenceMap::iterator it = *(PreferenceMap::iterator *)&rawIt;
 	if (it == this->end())
-		GetStringFromRegistry(g_Rva0107301CEmptyString, "MemberName", result);
+		GetStringFromRegistry("", "MemberName", result);
 	else
 		result = it->second;
-	return result;
-}
-
-// ?rva005CA07D@GameSpyLoginPreferences@@QAE?AV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@XZ present-unmatched
-_STL::list<AsciiString> GameSpyLoginPreferences::rva005CA07D()
-{
-	_STL::list<AsciiString> result;
-	for (NickMap::iterator it = m_emailNickMap.begin(); it != m_emailNickMap.end(); ++it)
-		result.push_back(it->first);
-	if (result.size() == 0)
-	{
-		AsciiString val;
-		GetStringFromRegistry(g_Rva0107301CEmptyString, "MemberName", val);
-		result.insert(result.end(), val);
-	}
 	return result;
 }
 
@@ -385,4 +421,22 @@ AsciiString obfuscate( AsciiString in )
 	AsciiString out = buf;
 	delete[] buf;
 	return out;
+}
+
+// BFME1 34f59164 GameSpyLoginPreferencesGetEmails.cpp supplies the behavior.
+// Native 5CA07D..5CA16A walks nick-map+2C keys, falls back to MemberName,
+// and returns a copied AsciiString list. The target method name is unknown.
+_STL::list<AsciiString> GameSpyLoginPreferences::rva005CA07D()
+{
+    _STL::list<AsciiString> emails;
+    for(NickMap::iterator it=m_emailNickMap.begin();it!=m_emailNickMap.end();++it)
+        emails.push_back(it->first);
+    if(emails.size()==0) {
+        _STL::list<AsciiString>::iterator position;
+        position._M_node=emails.end()._M_node;
+        AsciiString memberName;
+        GetStringFromRegistry("",AsciiString("MemberName"),memberName);
+        emails.insert(position,memberName);
+    }
+    return emails;
 }
