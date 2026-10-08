@@ -20,6 +20,38 @@
 #include "ascii_string.h"
 
 class AIStatCollector;
+class Object;
+
+class Rva0025C061
+{
+public:
+	bool rva00596472(void *holder);
+	bool rva005960C1(void *holder);
+};
+
+class AIUnitStats
+{
+public:
+	bool Register(void *holder);
+};
+
+class Rva004E00BAOwner
+{
+public:
+	void rva004E00BA(Object *holder);
+};
+
+class Rva004DF9B9
+{
+public:
+	void rva004DF9B9(void *holder, int mask);
+};
+
+class ObjectLookupMap
+{
+public:
+	Object **findSlot(int *key);
+};
 
 enum NameKeyType
 {
@@ -91,6 +123,7 @@ public:
 class AIStructureStats
 {
 public:
+	bool Register(Object *holder);
 	bool UnRegister(void *holder);
 };
 
@@ -123,6 +156,8 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class AIStatCollector : private Rva004DF9E4
 {
 public:
+	void Register(Object *holder);
+	bool rva004DFB7E(void *holder);
 	void UnRegister(void *holder);
 
 private:
@@ -133,6 +168,47 @@ private:
 	Rva004E02D7 *m_10;
 	char m_map14[0x18];
 };
+
+// Native 004E01E3..004E02B8 (213 bytes); WB names the callgraph twin
+// AIStatCollector::Register. Receiver slots and the template name at
+// holder->+4 then +64 agree with the rowed UnRegister below. The +14 map
+// stores counts: its rowed find-or-insert body is reached via the existing
+// ObjectLookupMap spelling, but its returned four-byte slot holds an int.
+void AIStatCollector::Register(Object *holder)
+{
+	bool done = false;
+	unsigned char any = 0;
+	if (((Rva0025C061 *)m_0C)->rva00596472(holder))
+	{
+		((Rva004DF9B9 *)this)->rva004DF9B9(holder, 2);
+		++any;
+		done = true;
+	}
+	if (m_08->Register(holder))
+	{
+		((Rva004DF9B9 *)this)->rva004DF9B9(holder, 1);
+		any = 1;
+		done = (any != 0);
+	}
+	if (any != 0 && !rva004DFB7E(holder))
+		((Rva004E00BAOwner *)m_10)->rva004E00BA(holder);
+	if (((AIUnitStats *)m_00)->Register(holder) || ((Rva0025C061 *)m_04)->rva005960C1(holder))
+	{
+		((Rva004DF9B9 *)this)->rva004DF9B9(holder, 4);
+		done = true;
+	}
+	if (done)
+	{
+		void *inner = *(void **)((char *)holder + 4);
+		NameKeyType key = TheNameKeyGenerator->nameToKey(*(const AsciiString *)((char *)inner + 0x64));
+		_STL::_Hashtable_node<_STL::pair<const NameKeyType, ArmorTemplate> > *node =
+			((ArmorHashtable *)m_map14)->_M_find(key);
+		if (node != 0)
+			++*(int *)((char *)node + 8);
+		else
+			*(int *)((ObjectLookupMap *)m_map14)->findSlot((int *)&key) = 1;
+	}
+}
 
 // ?UnRegister@AIStatCollector@@QAEXPAX@Z
 void AIStatCollector::UnRegister(void *holder)
