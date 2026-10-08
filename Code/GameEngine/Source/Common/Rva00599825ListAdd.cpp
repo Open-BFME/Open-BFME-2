@@ -7,16 +7,18 @@
 // object+0x304 to equal cmp+0x2EC, skip when the id is already in the list
 // at +0, else push it. Evidence: rowed findObjectByID 0x00049DC5 and list
 // push_back 0x0005548F; TheGameLogic at 0x00DFE78C; unblocks 4.
-enum ObjectID
-{
-	OBJECTID_INVALID = 0
-};
+#include "GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
 
 class Object
 {
 public:
-	unsigned char m_pad[0x304];
+	unsigned char m_pad00[0x94];
+	unsigned char m_flag94;
+	unsigned char m_pad95[0x304 - 0x95];
 	int m_key;
+	unsigned char m_pad308[0x438 - 0x308];
+	unsigned char m_flag438;
 };
 
 struct Rva599825Cmp
@@ -25,16 +27,15 @@ struct Rva599825Cmp
 	int m_key;
 };
 
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
-};
-
-extern GameLogic *TheGameLogic;
-
 namespace _STL
 {
+template <class T> struct _Nonconst_traits;
+template <class T, class Traits> struct _List_iterator
+{
+	_List_iterator(void *node) : m_node(node) {}
+	_List_iterator(const _List_iterator &other) : m_node(other.m_node) {}
+	void *m_node;
+};
 template <class T> class allocator
 {
 };
@@ -42,11 +43,16 @@ template <class T, class A = allocator<T> > class _List_base
 {
 public:
 	void clear();
+protected:
+	void *m_node; // native sentinel pointer at list offset +0
 };
 template <class T, class A = allocator<T> > class list : public _List_base<T, A>
 {
 public:
+	typedef _List_iterator<T, _Nonconst_traits<T> > iterator;
 	void push_back(const T &x);
+	iterator erase(iterator position);
+	void pop_front();
 };
 }
 
@@ -140,7 +146,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 struct Rva599825Node
 {
 	Rva599825Node *m_next;
-	int m_prev;
+	Rva599825Node *m_prev;
 	int m_value;
 };
 
@@ -149,6 +155,8 @@ class AIDozerManager
 public:
 	void rva00599825(int id);
 	void DoXfer(Xfer *xfer);
+	void rva00599EDC();
+	void rva00599D56();
 private:
 	_STL::list<int> m_ids;
 	unsigned char m_pad[0xC - sizeof(_STL::list<int>)];
@@ -206,4 +214,33 @@ void AIDozerManager::DoXfer(Xfer *xfer)
 			m_ids.push_back(tmp);
 		}
 	}
+}
+
+// Native 0x00599EDC..0x00599F51: discard missing objects and entries whose
+// object flags at +0x94 or +0x438 have bit 0. The first node is removed after
+// iteration; other nodes are erased while retaining their predecessor.
+// Target identity comes from this unit's manager list and GameLogic lookup;
+// WB 0x01530830 supplies the same iterator flow. Its subsequent call is named
+// preEmptivelyBuildDozers at WB 0x01530980; retain an address-derived name for
+// native 0x00599D56, whose no-argument receiver and RET are independently seen.
+void AIDozerManager::rva00599EDC()
+{
+    bool removeFirst = false;
+    Rva599825Node *head = *(Rva599825Node **)&m_ids;
+    for (Rva599825Node *node = head->m_next; node != head;
+         node = node->m_next, head = *(Rva599825Node **)&m_ids) {
+        Object *obj = TheGameLogic->findObjectByID((ObjectID)node->m_value);
+        if (obj == 0 || (obj->m_flag94 & 1) || (obj->m_flag438 & 1)) {
+            if (node != head->m_next) {
+                node = node->m_prev;
+                _STL::list<int>::iterator position(node->m_next);
+                m_ids.erase(position);
+            } else {
+                removeFirst = true;
+            }
+        }
+    }
+    if (removeFirst)
+        m_ids.pop_front();
+    rva00599D56();
 }
