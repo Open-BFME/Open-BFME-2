@@ -262,6 +262,52 @@ def test_excluded_root_candidate_cannot_shadow_a_later_header(tmp_path, monkeypa
         assert not build.compile_is_current(source, output, strict=True)
 
 
+def test_bytecode_cache_written_mid_run_keeps_receipts_current(tmp_path, monkeypatch):
+    # link_census imports tools lazily, so Python writes tools/__pycache__
+    # under a "." search root after the receipts were taken: six StlSweep TUs
+    # were "not current for their source" on every fresh checkout.
+    source, output, early, original, command, env = _fixture(tmp_path, monkeypatch)
+    root = build.ROOT
+    (root / "tools").mkdir()
+    command.insert(1, "-I" + str(root))
+    build._write_deps_sidecar(source, output, "command",
+                              "Note: including file: " + str(original), True,
+                              command, env, build.search_inventory(source, command, env), [])
+    assert build.compile_is_current(source, output, strict=True)
+    cache = {}
+    build.search_inventory(source, command, env, inventory_cache=cache)
+    nested = build._directory_inventory(early)
+    for directory in (root / "tools", early / "Common"):
+        (directory / "__pycache__").mkdir()
+        (directory / "__pycache__" / "progress.cpython-312.pyc").write_bytes(b"bytecode")
+    assert build._directory_inventory(early) == nested
+    assert build.compile_is_current(source, output, strict=True)
+    assert build._inventory_cache_still_current(cache)
+    (early / "Common" / "Shadow.h").write_text("// still watched\n")
+    assert build._directory_inventory(early) != nested
+    assert not build.compile_is_current(source, output, strict=True)
+    assert not build._inventory_cache_still_current(cache)
+
+
+def test_header_in_a_bytecode_cache_refuses_a_census_receipt(tmp_path, monkeypatch, capsys):
+    source, output, early, _, command, env = _fixture(tmp_path, monkeypatch)
+    header = early / "Common" / "__pycache__" / "MessageStream.h"
+    header.parent.mkdir()
+    header.write_text("#define PACKET_RANGE 7\n")
+    # Named by an include: an unwatched cache in an earlier root could shadow it.
+    source.write_text('#include "Common/__pycache__/MessageStream.h"\n')
+    build._write_deps_sidecar(source, output, "command", "Note: including file: " + str(header), True,
+                              command, env, build.search_inventory(source, command, env), [])
+    assert not _census_grade(output)
+    assert "unknown search roots" in capsys.readouterr().err
+    # Reached some other way, it still lies outside every walked directory.
+    monkeypatch.setattr(build, "_include_escapes_search_roots", lambda *a, **k: False)
+    build._write_deps_sidecar(source, output, "command", "Note: including file: " + str(header), True,
+                              command, env, build.search_inventory(source, command, env), [])
+    assert not _census_grade(output)
+    assert "outside the inventoried search roots" in capsys.readouterr().err
+
+
 def test_explicit_nested_worktree_search_root_is_still_watched(tmp_path, monkeypatch):
     monkeypatch.setattr(build, "ROOT", tmp_path)
     nested = tmp_path / ".claude" / "worktrees" / "independent"

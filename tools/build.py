@@ -1139,6 +1139,17 @@ def _include_search_roots(source, command, env):
 # explicitly searched directories still get their own complete inventory.
 _UNWATCHED_ROOT_DIRS = ("build", ".git", ".claude")
 
+# Python bytecode caches are never include targets, and Python writes them
+# mid-run: link_census lazily imports tools, adding tools/__pycache__/*.pyc
+# under a "." search root after its objects' receipts were taken. Every walk
+# skips them at any depth; an include naming one, or a header found in one,
+# refuses a reusable receipt instead (as Open-BFME-1 does).
+_UNWATCHED_GENERATED_DIRS = ("__pycache__",)
+
+
+def _in_generated_dir(relative):
+    return any(part.lower() in _UNWATCHED_GENERATED_DIRS for part in relative)
+
 
 def _unwatched_tops():
     return {ROOT.resolve(), BFME1_ROOT.resolve()}
@@ -1164,6 +1175,7 @@ def _directory_inventory(root):
                 return None  # os.walk would miss additions below a symlink.
             if top and Path(directory).resolve() == root.resolve():
                 subdirs[:] = [name for name in subdirs if name not in _UNWATCHED_ROOT_DIRS]
+            subdirs[:] = [name for name in subdirs if not _in_generated_dir((name,))]
             subdirs.sort()
             # Accepted TUs cannot include .cpp, so sibling source additions do not affect them.
             directories.append((_root_key(Path(directory)), subdirs[:],
@@ -1313,6 +1325,8 @@ def _include_escapes_search_roots(path, stlport, roots=None, anchored=None):
             if local is not None and local.is_file():
                 anchored.add(local)
                 continue
+        if _in_generated_dir(include.split("/")):
+            return True  # no inventory watches what a bytecode cache holds
         if ".." in include.split("/"):
             if roots is None:
                 return True
@@ -1370,6 +1384,8 @@ def _inventory_problems(source, command, env, dep_paths, inventory_before):
                 continue
             if top and any(target.is_relative_to(root / name) for name in _UNWATCHED_ROOT_DIRS):
                 continue  # this whole-checkout root skips generated/state trees
+            if _in_generated_dir(target.relative_to(root).parts[:-1]):
+                continue  # every walk skips bytecode caches below its root
             return True
         return False
 
