@@ -1,6 +1,8 @@
 // ?rva002AC43F@Player@@QAE_NPAH@Z
+// partial score=0.86225 date=2026-10-09
+// ?rva002AC43F@Player@@QAE_NPAH@Z
 // partial score=0.97 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc
+// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHs
 //
 // ?rva002AC43F@Player@@QAE_NPAH@Z @0x002AC43F (149B): find this player's
 // skirmish side. Zeroes *index, then walks TheSidesList's skirmish sides
@@ -79,7 +81,8 @@ bool Player::rva002AC43F(int *index)
 	int count = TheSidesList->getNumSkirmishSides();
 	*index = 0;
 	for (int i = 0; i < count; i++) {
-		AsciiString name = TheSidesList->getSkirmishSideInfo(i)->getDict()->getAsciiString(g_00DBDE24.get());
+		Dict *dict=TheSidesList->getSkirmishSideInfo(i)->getDict();
+		AsciiString name=dict->getAsciiString(g_00DBDE24.get());
 		if (name.compare(m_4c) == 0) {
 			*index = i;
 			return true;
