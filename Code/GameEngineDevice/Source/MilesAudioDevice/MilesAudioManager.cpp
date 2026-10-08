@@ -807,7 +807,7 @@ public:
     bool killLowestPrioritySoundImmediately(AudioEventRTS *event);
     float rva0005A9F8(void *ref, int a, int b);
     float rva00059AD0(void *event, int a);
-    void rva000578B3(int key);
+    void unmapPhysicalHandle(unsigned int handle);  // WorldBuilder name (0x000578B3)
     void rva00057948(const void *input);
     // Ledger rows name it (refreshAll/rva00052048 share its this).
     class GlobalVolumeData {
@@ -2090,7 +2090,7 @@ bool MilesAudioManager::rva000570C8(AudioEventRTS *event)
 void MilesAudioManager::rva00057948(const void *input)
 {
     MilesMutexGuard guard(&m_mutex, 0);
-    rva000578B3(*reinterpret_cast<const int *>(
+    unmapPhysicalHandle(*reinterpret_cast<const unsigned int *>(
         reinterpret_cast<const char *>(input) + 0x0C));
 }
 

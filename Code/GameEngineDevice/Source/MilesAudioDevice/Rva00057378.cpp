@@ -25,6 +25,9 @@ private:
 };
 
 typedef _STL::hash_multimap<unsigned int, int> MilesKeyAliases;
+// Physical Miles handle -> logical handle at +0x118, the reverse of the
+// alias table (WorldBuilder's unmapPhysicalHandle erases from both).
+typedef _STL::hash_map<unsigned int, int> MilesPhysicalHandles;
 
 class MilesAudioManager
 {
@@ -39,10 +42,12 @@ public:
     void rva0005A92A(int key, Rva0005A084Vector *output);
     bool rva000613A9(unsigned int handle);
     bool rva000615DA(unsigned int handle);
+    void unmapPhysicalHandle(unsigned int handle);
 private:
     char at00[0x104];
     MilesKeyAliases aliases;
-    char atAfterAliases[0x9d4 - 0x104 - sizeof(MilesKeyAliases)];
+    MilesPhysicalHandles physicalHandles;   // +0x118
+    char atAfterAliases[0x9d4 - 0x118 - sizeof(MilesPhysicalHandles)];
     void *mutex;
 };
 
@@ -137,4 +142,24 @@ void MilesAudioManager::rva0005A95B(unsigned int key, Rva0005A084Vector *output)
             ++it;
         } while (it != aliases.end() && it->first == key);
     }
+}
+
+// Native 000578B3..00057948, RET4. WorldBuilder's debug twin (7AB9C0)
+// names it from its asserts in MilesAudioManager.cpp. Handles below 5 are
+// pseudohandles and never mapped; otherwise the physical handle's entry in
+// +0x118 is erased, then the matching alias in the +0x104 multimap.
+void MilesAudioManager::unmapPhysicalHandle(unsigned int handle)
+{
+    if (handle < 5)
+        return;
+    MilesPhysicalHandles::iterator it = physicalHandles.find(handle);
+    if (it == physicalHandles.end())
+        return;
+    unsigned int logical = it->second;
+    physicalHandles.erase(it);
+    MilesKeyAliases::iterator alias = aliases.find(logical);
+    while (alias != aliases.end() && alias->second != handle && alias->first == logical)
+        ++alias;
+    if (alias != aliases.end() && alias->first == logical)
+        aliases.erase(alias);
 }
