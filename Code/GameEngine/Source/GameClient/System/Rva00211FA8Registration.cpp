@@ -75,3 +75,15 @@ void Rva00DFE1C8Host::rva00212017()
     theRadarWindowOverrideSource->rva002D4240(true);
     reinterpret_cast<Rva0029B380 *>(TheInGameUI)->rva0029B34B();
 }
+
+int parchmentMapFadeLoadGame(int,bool);
+// Native callback2B513E..2B5195: complete87B endsRET0 and returns2.
+// Entry independently stored by2B6AA2; next2B5195 already rowed.
+int rva002B513E();
+class Rva002B6AA2 { public: void rva002B6AA2(); };
+// Native2B6AA2..2B6AEC RET0; WB d8ba30 saves member receiver but does
+// not use it. Two callback wrappers and the same shared id are measured.
+void Rva002B6AA2::rva002B6AA2() {
+ { Rva003FE7E6(Rva00211E75Callback(reinterpret_cast<int>(&parchmentMapFadeLoadGame)), &g_00E02EC4); }
+ { Rva003FE7E6(Rva00211E75Callback(reinterpret_cast<int>(&rva002B513E)), &g_00E02EC4); }
+}
