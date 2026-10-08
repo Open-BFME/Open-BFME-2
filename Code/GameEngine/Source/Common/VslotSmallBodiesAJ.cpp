@@ -1,6 +1,7 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
+#include <list>
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class PlayerList;
@@ -1730,3 +1731,27 @@ float Rva0030BCB2::rva0030BCB2()
 	return ((Rva0053863ESub *)((char *)this - 0x28))->rva00538661();
 }
 
+
+// Retail 0x005680F9 (74 bytes) returns the instance-list storage at VA
+// 0x00E062D8; its one-time guard is VA 0x00E062DC. The named Impl constructor
+// inserts its instance and the named destructor erases its saved iterator.
+// The original list element spelling is unresolved: this is the existing
+// verified list<int> ABI view, using its rowed base constructor and holder
+// destructor. Explicit specialization declarations reuse those providers.
+// The function-local static generates _$E2 at retail 0x007B945A (10 bytes),
+// registered by this getter, and destroys this same object through 0x00200667.
+// It replaces the former independent g_Va00E062D8/manual-callback storage.
+namespace _STL {
+ template<> _List_base<int, allocator<int> >::_List_base(const allocator<int>&);
+ template<> _List_base<int, allocator<int> >::~_List_base();
+}
+class Rva00200667 : public _STL::list<int> {
+public:
+ __forceinline Rva00200667() : _STL::list<int>(_STL::allocator<int>()) {}
+ ~Rva00200667();
+};
+Rva00200667 *Rva005680F9GetInstances()
+{
+ static Rva00200667 instances;
+ return &instances;
+}
