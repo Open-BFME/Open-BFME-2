@@ -426,3 +426,60 @@ unsigned Rva000A32F1TabDrawField(GameWindow *window)
     return (unsigned)window->winGetHiliteColor(8);
 }
 
+
+// Further color accessor siblings: BF1 9cb GameWindowTransitionsStyles.cpp
+// O2/SSE/G7 placement exposed two holes; full native leaf-run audit exposed
+// the other five. Each target independently has one stack pointer argument
+// and a RET0 after the listed raw32 field read. Existing BF2 arrays48/B4/120
+// and 12-byte image/color/border records establish the selected fields.
+// Raw donor image labels use the older4-byte-short view and are not target
+// identities. Original callable names and color signedness remain unknown.
+
+// ?Rva000A3170TabDrawField@@YAIPAVGameWindow@@@Z
+// Native000A3170..000A317B: full RET-bounded rawword8C read; EnabledBorderColor index5.
+unsigned Rva000A3170TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetEnabledBorderColor(5);
+}
+
+// ?Rva000A0C66TabDrawField@@YAIPAVGameWindow@@@Z
+// Native000A0C66..000A0C6E: full RET-bounded rawword7C read; EnabledColor index4.
+unsigned Rva000A0C66TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetEnabledColor(4);
+}
+
+// ?Rva000A0C6ETabDrawField@@YAIPAVGameWindow@@@Z
+// Native000A0C6E..000A0C79: full RET-bounded rawword80 read; EnabledBorderColor index4.
+unsigned Rva000A0C6ETabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetEnabledBorderColor(4);
+}
+
+// ?Rva000A0C8FTabDrawField@@YAIPAVGameWindow@@@Z
+// Native000A0C8F..000A0C9A: full RET-bounded rawwordE8 read; DisabledColor index4.
+unsigned Rva000A0C8FTabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetDisabledColor(4);
+}
+
+// ?Rva000A0C9ATabDrawField@@YAIPAVGameWindow@@@Z
+// Native000A0C9A..000A0CA5: full RET-bounded rawwordEC read; DisabledBorderColor index4.
+unsigned Rva000A0C9ATabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetDisabledBorderColor(4);
+}
+
+// ?Rva000A0CBBTabDrawField@@YAIPAVGameWindow@@@Z
+// Native000A0CBB..000A0CC6: full RET-bounded rawword154 read; HiliteColor index4.
+unsigned Rva000A0CBBTabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetHiliteColor(4);
+}
+
+// ?Rva000A0CC6TabDrawField@@YAIPAVGameWindow@@@Z
+// Native000A0CC6..000A0CD1: full RET-bounded rawword158 read; HiliteBorderColor index4.
+unsigned Rva000A0CC6TabDrawField(GameWindow *window)
+{
+    return (unsigned)window->winGetHiliteBorderColor(4);
+}
