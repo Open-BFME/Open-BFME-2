@@ -16483,3 +16483,5 @@ _rva006F98C0Call,0x006F98C0,retail call at 0x006F9B84 supplies EAX ECX and two s
 ??1Rva002821CFDtor@@QAE@XZ,0x0027EA49,dtor for erase 0x002821CF
 ?rva00295CA6@Object@@QAEXXZ,0x00295CA6,callee at 0x00295F9F; Ghidra boundary 0x00295CA6..0x00295F05; thiscall void with no arguments; address-derived until rowed
 ?rva002ED313@Pathfinder@@QAE_NPAVObject@@@Z,0x002ED313,callee at 0x00295F7B; ECX is TheAI+0x10 and stack argument is Object*; Ghidra boundary 0x002ED313..0x002ED484 returns AL; Pathfinder is an address-derived structural inference
+?rva0027CE80@Rva0027CE80@@QAEXXZ,0x0027CE80,REL32 callee at 0x00283575 in TerrainLogic::reset; helper identity unresolved; GeneralsMD deleteWaypoints is semantic context only
+?rva0027D5AD@Rva0027D5AD@@QAEXXZ,0x0027D5AD,REL32 callee at 0x0028357C in TerrainLogic::reset; address-derived identity; GeneralsMD deleteBridges is semantic context only

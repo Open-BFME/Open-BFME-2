@@ -47,17 +47,78 @@ private:
     _STL::vector<void *> records;
     _STL::vector<void *> holders;
 };
+class Rva0027CE80 { public: void rva0027CE80(void); };
+class Rva0027D5AD { public: void rva0027D5AD(void); };
+class Rva00283002 { public: void rva00283002(void); };
+class Rva002827F3 { public: void rva002827F3(void) throw(); };
+class Rva0062AF7 { public: void Rva0027DA58(void); };
+void Rva002E373CClear(void);
 class TerrainLogic
 {
 public:
+    virtual void reset(void);
     void rva00283CE7(unsigned int key);
 private:
-    char unknown00[0x578];
+    char unknown00[0x574];
     Rva0027D098 **first, **last, **limit;
     Rva00283CB3 *child;
     char unknown588[0x1910 - 0x588];
     unsigned int stamp;
 };
+
+// Target 0x00283567 is the standalone TerrainLogic::reset entry (Ghidra
+// boundary, two call xrefs, one vtable pointer). The name is supported by the
+// retail callgraph lead and GeneralsMD's virtual TerrainLogic::reset; the
+// donor body clears waypoints, bridges, and PolygonTriggers. BFME2 adds the
+// cleanup below. Its ECX is the +4 secondary-base view: calls at
+// 0x27CE80/0x27D5AD/0x27DA58 use ECX-4, while these fields line up with
+// TerrainLogicXfer's full-object +0x568 count, +0x578 vector, +0x584 worker,
+// +0x588 2500-word table, and +0x1910 state. Extra field names remain
+// provisional; their accessed offsets come from retail bytes.
+struct Rva00283567ResetView
+{
+    void *vftable;
+    char pad04[0x44 - 4];
+    unsigned int field48;
+    char pad48[0x60 - 0x48];
+    Rva00283002 triggers;
+    char pad61[0x564 - 0x61];
+    unsigned int numWaterToUpdate;
+    char pad568[0x574 - 0x568];
+    _STL::vector<void *> records;
+    Rva002827F3 *worker;
+    int words[1250];
+    unsigned int field190c;
+    char pad1910[4];
+    float field1914;
+};
+
+void TerrainLogic::reset(void)
+{
+    Rva00283567ResetView *view = (Rva00283567ResetView *)this;
+    Rva0027CE80 *fullObject = (Rva0027CE80 *)((char *)this - 4);
+    fullObject->rva0027CE80();
+    ((Rva0027D5AD *)fullObject)->rva0027D5AD();
+    view->triggers.rva00283002();
+    Rva002E373CClear();
+
+    void **end = view->records.end();
+    for (void **it = view->records.begin(); it != end; ++it)
+    {
+        if (*it)
+            ::operator delete(*it);
+    }
+    view->records.clear();
+    view->worker->rva002827F3();
+    for (int i = 0; i < 1250; ++i)
+        view->words[i] = -1;
+    view->numWaterToUpdate = 0;
+    view->field190c = 0;
+    view->field48 = 1;
+    ((Rva0062AF7 *)((char *)this - 4))->Rva0027DA58();
+    view->field1914 = 0.0f;
+}
+
 void TerrainLogic::rva00283CE7(unsigned int key)
 {
     stamp = reinterpret_cast<Rva00283CE7FrameView *>(TheGameLogic)->frame;
