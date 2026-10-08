@@ -105,6 +105,7 @@ public:
 	virtual void rva005E715F(StrategicHUD::BuildQueueIconSlot *slot);
 	virtual void rva005E7166(StrategicHUD::BuildQueueIconSlot *slot);
 
+friend class ::Rva005E7ED7;
 private:
 	StrategicHUD::BuildQueueIconSlot *GetIconSlot() { return m_iconSlot; }
 
@@ -380,6 +381,7 @@ class Rva005E7ED7 : public StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon
 public:
  typedef StrategicInGameUI::BuildQueueDetailsPanel::Impl Owner;
  Rva005E7ED7(Owner *,int);
+ void MoveTo(int);
  virtual ~Rva005E7ED7();
 private: StrategicHUD::BuildQueueIconSlot *slot;
 };
@@ -443,3 +445,16 @@ private: Rva005E8350 *payload;
 };
 Rva005E87E0::Rva005E87E0(void *a,void *b,Rva005CE172Context *c)
  : payload(new Rva005E8350(this,a,b,c)) {}
+
+class Rva005E7DD6 { public: void setRva005E7DD6(int); };
+void Rva005E7ED7::MoveTo(int index)
+{
+ if(index!=m_queueIndex) {
+  m_queueIndex=index;
+  ((Rva005E7E05QueuedSlot *)slot)->SetNumTurns(0);
+  slot=(StrategicHUD::BuildQueueIconSlot *)((Rva005F6B12 *)m_owner)->rva005F6B12(index-1);
+  ((Rva005E7DD6 *)this)->setRva005E7DD6((int)slot);
+  int time=rva005E7582Get(m_owner->m_queue,index);
+  ((Rva005E7E05QueuedSlot *)slot)->SetNumTurns(time);
+ }
+}
