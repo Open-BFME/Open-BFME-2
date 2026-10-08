@@ -157,9 +157,20 @@ void Rva006D1130::grow(int capacity)
 // target uses a counted key instead of the donor's borrowed void pointer.
 class Rva006DB270 { public: void freeBlock(void *, int); };
 extern Rva006DB270 *g_pChainBlockAllocator;
+// The independent EAStringC providers prove the 4-byte string ABI used
+// by the 6D0660 comparison: C-string ctor6D4C80 equal6D3090 dtor6D3010.
+class EAStringC {
+public:
+ EAStringC(const char *);
+ ~EAStringC();
+ bool IsEqualTo(const EAStringC *) const;
+ void *data;
+};
 struct Rva006D0280 {
  void teardown();
  int m_useCount;
+ int unknown4;
+ EAStringC name8;
 };
 class Rva006D07E0Key {
 public:
@@ -194,4 +205,28 @@ Rva006D07E0Iterator Rva006D07E0List::find(Rva006D07E0Key key) {
   node=node->next;
  }
  return Rva006D07E0Iterator(0);
+}
+
+// Native Ghidra6D0660..6D0766; comparator called by6D0860 with
+// counted owner key. The provider is at14; its string table is28/2c
+// with10-byte stride (hex). All offsets are target facts; purpose and
+// original owner/table names are unknown.
+struct Rva006D0660Record { const char *text; char unknown4[12]; };
+struct Rva006D0660Table {
+ char unknown0[0x28];
+ int count28;
+ Rva006D0660Record *records2c;
+};
+class Rva006D0660 {
+public:
+ int contains(Rva006D07E0Key key);
+ char unknown0[0x14];
+ Rva006D0660Table *table14;
+};
+int Rva006D0660::contains(Rva006D07E0Key key) {
+ for(int i=0;i<table14->count28;++i) {
+  if(EAStringC(table14->records2c[i].text).IsEqualTo(&key.m_object->name8))
+   return 1;
+ }
+ return 0;
 }
