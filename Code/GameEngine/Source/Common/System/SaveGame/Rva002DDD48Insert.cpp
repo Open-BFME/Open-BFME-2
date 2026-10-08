@@ -59,6 +59,7 @@ class Rva002DDD48
 {
 public:
 	void rva002DDD48(SaveMapPreview *pos, const SaveMapPreview &x, const _STL::__false_type &, unsigned int n, bool at_end);
+	void push_back(const SaveMapPreview &x);
 
 private:
 	SaveMapPreview *m_start;
@@ -96,4 +97,19 @@ void Rva002DDD48::rva002DDD48(SaveMapPreview *pos, const SaveMapPreview &x, cons
 	m_start = new_start;
 	m_finish = new_finish;
 	m_end = new_end;
+}
+
+// Retail 0x002DDE6E, 56 bytes: STLport push_back. Placement copy at the
+// finish when capacity remains, otherwise the 0x002DDD48 overflow insert of
+// one element at the end. Its only caller is the save-game info xfer
+// 0x002DDEC0 (SaveGameInfoCopyBFME2.cpp), which fills the +0x38 preview range.
+void Rva002DDD48::push_back(const SaveMapPreview &x)
+{
+	if (m_finish != m_end)
+	{
+		new (m_finish) SaveMapPreview(x);
+		++m_finish;
+	}
+	else
+		rva002DDD48(m_finish, x, _STL::__false_type(), 1, true);
 }
