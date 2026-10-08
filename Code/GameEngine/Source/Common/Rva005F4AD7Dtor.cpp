@@ -1,4 +1,5 @@
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// cl: /O1 /G7 /arch:SSE /GX /MD /DNDEBUG /Ireference/shims/bfme2_ascii
+#include "ascii_string.h"
 // ??1Rva005F4AD7@@QAE@XZ @0x005F4AD7 22B
 // ??0Rva005F4AD7@@QAE@ABU0@@Z @0x005F4AB9 30B copy-ctor abutting the dtor.
 // ??4Rva005F4AD7@@QAEAAU0@ABU0@@Z @0x005FD4FF 63B assign same Holder trio.
@@ -31,7 +32,7 @@ struct Rva005F4AD7
 {
 	Rva005F4AD7Inner *m_ptr;
 	~Rva005F4AD7();
-	Rva005F4AD7(const Rva005F4AD7 &other);
+	Rva005F4AD7(const Rva005F4AD7 &other) throw();
 	Rva005F4AD7 &operator=(const Rva005F4AD7 &other);
 };
 Rva005F4AD7::~Rva005F4AD7()
@@ -40,7 +41,7 @@ Rva005F4AD7::~Rva005F4AD7()
 	if (p)
 		ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)((char *)p + 4 + p->m_04->m_04));
 }
-Rva005F4AD7::Rva005F4AD7(const Rva005F4AD7 &other)
+Rva005F4AD7::Rva005F4AD7(const Rva005F4AD7 &other) throw()
 {
 	Rva005F4AD7Inner *p = other.m_ptr;
 	m_ptr = p;
@@ -61,4 +62,21 @@ Rva005F4AD7 &Rva005F4AD7::operator=(const Rva005F4AD7 &other)
 		m_ptr = other.m_ptr;
 	}
 	return *this;
+}
+
+// Native 0x005F4AED dispatches slot 1 to produce a four-byte handle,
+// copies that result through the existing 30-byte constructor and destroys
+// the temporary through the existing 22-byte destructor. Its outer return
+// flag remains live across that destruction. The copy only adjusts the
+// intrusive count, so the local declaration is nonthrowing as retail proves.
+// The address-derived factory view avoids guessing its original class name.
+class Rva005F4AED {
+public:
+ virtual void slot00() = 0;
+ virtual Rva005F4AD7 createPanel(int level,const AsciiString &leaf) = 0;
+ Rva005F4AD7 rva005F4AED(int level,const AsciiString &leaf);
+};
+Rva005F4AD7 Rva005F4AED::rva005F4AED(int level,const AsciiString &leaf) {
+ const Rva005F4AD7 panel=createPanel(level,leaf);
+ return panel;
 }
