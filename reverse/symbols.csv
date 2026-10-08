@@ -16416,3 +16416,4 @@ _D3DXLoadSurfaceFromMemory@40,0x0062AF68,PE-named d3dx9_27.dll D3DXLoadSurfaceFr
 ?rva00211396@@YAHM_N@Z,0x00211396,callee of ?rva00212017@Rva00DFE1C8Host@@QAEXXZ
 ?rva002B513E@@YAHM_N@Z,0x002B513E,callee of ?rva002B6AA2@Rva002B6AA2@@QAEXXZ
 ?rva005C98C0@Rva005C98C0@@QAEPAXH@Z,0x005C98C0,callee of ?rva005C9ADD@Rva005C9B76@@QAEHHH@Z
+??0Rva005E9625@@QAE@PAVImpl@BattlePromptDialog@StrategicInGameUI@@HABVAsciiString@@@Z,0x005E9CC3,Native5E9DA5 constructs the owned20B clip; constructor181B RET12 at5E9CC3 forwards level and AsciiString name into verified StrategicHUD BattlePromptMovieClip5FA7EB; dtor53B5E9625 and guarded assign5E971F establish owner type; application class name unknown
