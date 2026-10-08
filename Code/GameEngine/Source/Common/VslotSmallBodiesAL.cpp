@@ -5,6 +5,9 @@
 // address-derived names with the argument counts their ret shows. Classes
 // and methods are address-derived and model only what each body touches.
 
+// stlport
+#include <vector>
+
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
@@ -12,10 +15,11 @@ typedef unsigned int UnsignedInt;
 // the pinned setter 0x0030BAD8 (index, pair) resp. 0x0030B232 (one
 // argument) on the +0x08 member, then virtual slot 12.
 struct BfmeE8;
-class Rva0030BAD8
-{
-public:
-	void rva0030BAD8(Int i, const BfmeE8 &value);
+struct Rva0030BAD8 {
+    _STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_points;
+    char m_pad[0x24 - 12];
+    bool m_dirty;
+    void rva0030BAD8(int index, const BfmeE8& point);
 };
 class Rva0030B232
 {
