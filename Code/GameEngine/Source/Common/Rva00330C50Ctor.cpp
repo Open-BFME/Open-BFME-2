@@ -29,6 +29,7 @@ class Rva00330C50 : public virtual Rva00330C50Interface
 {
 public:
 	Rva00330C50();
+	void rva00330AA6(int);
 	virtual ~Rva00330C50();
 	virtual void slot0();
 	virtual void slot1();
@@ -45,4 +46,13 @@ private:
 Rva00330C50::Rva00330C50() : container(0)
 {
 	changed = true;
+}
+
+class AreaPolygonBase { public: void reserve(int); };
+// Native330AA6 is an8-byte terminal jump to rowed AreaPolygonBase::reserve
+// at30B96B with the measured container adjustment8. The following16 bytes
+// form a separate float virtual dispatch, not part of this reserve wrapper.
+void Rva00330C50::rva00330AA6(int count)
+{
+ reinterpret_cast<AreaPolygonBase*>(&container)->reserve(count);
 }
