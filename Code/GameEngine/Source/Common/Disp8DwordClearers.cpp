@@ -53,3 +53,26 @@ BFME_DISP8_DWORD_MASK(Rva006DBDC0DwordMask, 0x04, ~0x04)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?state0@Rva002E2903Player@@QAEXXZ=?clear@Rva002E0668DwordClearer@@QAEXXZ")
+
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 donor
+// game/GameEngine/Source/Common/R1MemberValueReads.cpp /O1 /arch:SSE /G7
+// supplies the ordered two-field zeroing expression. Retail independently
+// proves dword zero stores at +0x0c then +0x24 and the complete leaf
+// 0x000C9286..0x000C928F between prior RET at C9285 and the next function.
+// Original receiver, field purposes and signedness remain unknown.
+class Rva000C9286PairClearer
+{
+public:
+    void clear();
+private:
+    char m_lead[0x0c];
+    unsigned m_at0c;
+    char m_middle[0x24 - 0x0c - 4];
+    unsigned m_at24;
+};
+
+void Rva000C9286PairClearer::clear()
+{
+    m_at0c = 0;
+    m_at24 = 0;
+}
