@@ -69439,3 +69439,4 @@ _Rva0059E0C1Lookup,,0x0059E0C1,54,Code/GameEngine/Source/Common/RvaLookupFieldOr
 ?Rva00580C0E@@YAXPAPAX00PAXVRva000795C1Record@@0@Z,,0x00580C0E,97,Code/Libraries/Source/WWVegas/WWLib/Rva00580C0EPopHeap.cpp,matched,
 ?Rva005807CE@@YAXPAPAXHHPAXVRva000795C1Record@@@Z,,0x005807CE,116,Code/Libraries/Source/WWVegas/WWLib/Rva00580E10SiftHeap.cpp,matched,
 ?Rva00580E10@@YAXPAPAX0VRva000795C1Record@@@Z,,0x00580E10,79,Code/Libraries/Source/WWVegas/WWLib/Rva00580E10SiftHeap.cpp,matched,
+?rva005BB5CE@Rva005BB5CEOwner@@QAE_NXZ,,0x005BB5CE,40,Code/Libraries/Source/WWVegas/WWLib/Rva005BB5CEGate.cpp,matched,

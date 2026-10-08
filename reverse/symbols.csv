@@ -16155,3 +16155,4 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva00329339@@YAXPAURva003294B3Obj@@H@Z,0x00329339,callee of ?rva003294B3@@YAXPAURva003294B3Obj@@HH@Z
 ?rva0032927A@@YAXPAURva003294B3Obj@@H@Z,0x0032927A,callee of ?rva003294B3@@YAXPAURva003294B3Obj@@HH@Z
 ?rva004E00D9@Rva004E02D7Owner@@QAEXXZ,0x004E00D9,address-named callee of 0x004E02D7 (unnamed follow-up member; byte gate is the proof)
+?rva005BB3A1@Rva005BB3A1@@QAE_NXZ,0x005BB3A1,address-named gate predicate of 0x005BB5CE (unowned; byte gate is the proof)
