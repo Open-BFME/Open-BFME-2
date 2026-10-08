@@ -39,3 +39,43 @@ BFME_DISP8_BYTE_SETTER(Rva004E3FF0ByteSlot, 0x0A)
 // RET4 before the next getter: store the raw argument byte at receiver+0x0D.
 // Original owner and field purpose remain unresolved.
 BFME_DISP8_BYTE_SETTER(Rva002E6A9DByteSlot, 0x0D)
+
+// Clean BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 /O1 /arch:SSE /G7
+// GameLogic accessor expressions guide these raw byte stores. The donor
+// names below are provenance only: native width/offset/ABI proof does not
+// establish the same original class, bool type, or field purpose.
+// Each independent ten-byte body reads the stack argument low byte, writes
+// receiver+disp8, and ends RET4. Every start follows a complete RET except
+// 395596, after39558B's ADD ECX98/tail-jump to real StringBase::set366F0.
+// Native0x00395596..0x003955A0; low rawbyte at+0x24.
+// Donor GameEngine/Source/GameLogic/Map/Rva0019A470ChunkParser.cpp
+// ?setInitiallyBuilt@BuildListInfo@@QAEX_N@Z (name and bool type unasserted in target).
+BFME_DISP8_BYTE_SETTER(Rva00395596ByteSlot, 0x24)
+// Native0x0033F239..0x0033F243; low rawbyte at+0x3A.
+// Donor GameEngine/Source/GameLogic/Map/Rva0019A470ChunkParser.cpp
+// ?setRepairable@BuildListInfo@@QAEX_N@Z (name and bool type unasserted in target).
+BFME_DISP8_BYTE_SETTER(Rva0033F239ByteSlot, 0x3A)
+// Native0x003297E1..0x003297EB; low rawbyte at+0x39.
+// Donor GameEngine/Source/GameLogic/Map/Rva0019A470ChunkParser.cpp
+// ?setUnsellable@BuildListInfo@@QAEX_N@Z (name and bool type unasserted in target).
+BFME_DISP8_BYTE_SETTER(Rva003297E1ByteSlot, 0x39)
+// Native0x003297D7..0x003297E1; low rawbyte at+0x38.
+// Donor GameEngine/Source/GameLogic/Map/Rva0019A470ChunkParser.cpp
+// ?setWhiner@BuildListInfo@@QAEX_N@Z (name and bool type unasserted in target).
+BFME_DISP8_BYTE_SETTER(Rva003297D7ByteSlot, 0x38)
+// Native0x002B2233..0x002B223D; low rawbyte at+0x54.
+// Donor GameEngine/Source/GameLogic/AI/AIPlayer.cpp
+// ?setUnderConstruction@BuildListInfo@@QAEX_N@Z (name and bool type unasserted in target).
+BFME_DISP8_BYTE_SETTER(Rva002B2233ByteSlot, 0x54)
+// Native0x00444036..0x00444040; low rawbyte at+0x5D.
+// Donor GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp
+// ?setShowBehindBuildingMarkers@GameLogic@@QAEX_N@Z (name and bool type unasserted in target).
+BFME_DISP8_BYTE_SETTER(Rva00444036ByteSlot, 0x5D)
+// Native0x003674B3..0x003674BD; low rawbyte at+0x5F.
+// Donor GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp
+// ?setShowDynamicLOD@GameLogic@@QAEX_N@Z (name and bool type unasserted in target).
+BFME_DISP8_BYTE_SETTER(Rva003674B3ByteSlot, 0x5F)
+// Native0x002DABFE..0x002DAC08; low rawbyte at+0x8.
+// Donor GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
+// ?lockGhostObjects@GhostObjectManager@@QAEX_N@Z (name and bool type unasserted in target).
+BFME_DISP8_BYTE_SETTER(Rva002DABFEByteSlot, 0x08)
