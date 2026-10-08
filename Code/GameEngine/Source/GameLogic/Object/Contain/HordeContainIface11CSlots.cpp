@@ -19,6 +19,10 @@
 #include <set>
 #include <vector>
 #include <math.h>
+// The +0x258 map's comparator: a per-RVA stand-in for less<unsigned short>,
+// so its instance names (operator[] 0x00470041 and the folded callees it
+// reaches) stay placeholders.
+struct Rva00470041Less : public _STL::less<unsigned short> {};
 struct Coord3D
 {
 	void zero() { x = 0.0f; y = 0.0f; z = 0.0f; }
@@ -290,6 +294,9 @@ public:
 	virtual void gap128() = 0; virtual void gap129() = 0; virtual void gap130() = 0; virtual void gap131() = 0;
 	virtual void gap132() = 0; virtual void gap133() = 0;
 	virtual void rva0046DDC5Slot134(int a1, int a2) = 0;
+	virtual void gap135() = 0; virtual void gap136() = 0; virtual void gap137() = 0; virtual void gap138() = 0;
+	virtual void gap139() = 0; virtual void gap140() = 0; virtual void gap141() = 0;
+	virtual void slot142(int value) = 0;
 };
 class AIUpdateInterface : public AIUpdateInterfaceSlots
 {
@@ -340,8 +347,19 @@ public:
 	unsigned char m_pad2F0[0x5D8 - 0x2F0];
 	short m_5D8; // +0x5D8
 };
-struct Rva00469689Body
+// The tracker's 0x0039B3D1 entry, under the owner name its pin (read from
+// ScriptActions::rva003BC93C) already carries.
+class Rva003BD306Target
 {
+public:
+	void rva0039B3D1(float value, bool flag);	// 0x0039B3D1
+};
+// Object +0x264: the experience tracker; +0x10 is the value slots 30 and 49
+// record per template.
+class ExperienceTracker : public Rva003BD306Target
+{
+public:
+	bool rva0039B4EC(int levels, bool flag1, bool flag2);	// 0x0039B4EC
 	unsigned char m_pad00[0x10];
 	float m_10; // +0x10
 };
@@ -413,7 +431,7 @@ public:
 	Rva0046B850Module *m_254; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
 	unsigned char m_pad25C[0x264 - 0x25C];
-	const Rva00469689Body *m_264; // +0x264
+	ExperienceTracker *m_264; // +0x264
 	unsigned char m_pad268[0x274 - 0x268];
 	Object *m_274; // +0x274
 	unsigned char m_pad278[0x304 - 0x278];
@@ -423,6 +441,7 @@ public:
 	unsigned char m_pad439[0x44C - 0x439];
 	int m_44C; // +0x44C
 	bool isEffectivelyDead() const { return (m_438 & 1) != 0; }
+	void rva0028AD32();
 	Object *rva002931F5(bool flag);
 	bool rva0028D9E5(int a1) const;
 	void setTeam(Team *team);
@@ -511,6 +530,12 @@ class Rva0046247D
 public:
 	void *rva0046247D(Rva0046247DPair &p);
 };
+// The rowed 0x0046E740 on the HordeContain base (slots 30 and 49 pass 0).
+class Rva0046E740
+{
+public:
+	void rva0046E740(int a1);
+};
 // Counts the nodes of the pair's +4 list.
 class Rva00291793
 {
@@ -581,7 +606,9 @@ struct HordeContainModuleDataFields
 		Rva00469851Names m_224;
 	};
 	bool m_230; // +0x230
-	unsigned char m_pad231[0x254 - 0x231];
+	unsigned char m_pad231[0x234 - 0x231];
+	int m_234; // +0x234 (slot 30 hands it to each AI's slot 142 unless -1)
+	unsigned char m_pad238[0x254 - 0x238];
 	bool m_254; // +0x254
 	unsigned char m_pad255[0x268 - 0x255];
 	unsigned int m_268; // +0x268
@@ -623,11 +650,11 @@ public:
 	virtual void gap18() = 0; virtual Object *rva0046CB2C() = 0; virtual Object *rva0046CC09() = 0; virtual Object *rva0046CBCA() = 0;
 	virtual void *rva004696CD() = 0; virtual bool rva0046CDC9() = 0; virtual void rva004696E5() = 0; virtual bool rva0046CCEF(const ThingTemplate *tmpl) = 0;
 	virtual void rva00472D43(void *thingTemplate) = 0; virtual bool rva0046970D(Object *obj, int a2, const Rva00469851Names *names, bool sameGroup) = 0; virtual void gap28() = 0; virtual void gap29() = 0;
-	virtual void gap30() = 0; virtual void rva00472A24(const Coord3D *pos, CommandSourceType cmdSource, int a3) = 0; virtual void gap32() = 0; virtual void rva00472C8E(Object *obj, CommandSourceType cmdSource) = 0;
+	virtual void rva00473799(const _STL::list<Object *> &items) = 0; virtual void rva00472A24(const Coord3D *pos, CommandSourceType cmdSource, int a3) = 0; virtual void gap32() = 0; virtual void rva00472C8E(Object *obj, CommandSourceType cmdSource) = 0;
 	virtual bool rva00468D11() = 0; virtual bool rva00468D2C() = 0; virtual bool rva0046BB6F(int *out, unsigned int frame) = 0; virtual bool rva0046A2A7() = 0;
 	virtual void gap38() = 0; virtual bool rva0046C65C() = 0; virtual bool rva0046C71E() = 0; virtual bool rva0046C6E7() = 0;
 	virtual void slot42(const Object *obj) = 0; virtual bool rva0046B9DC(int a1) = 0; virtual bool rva0046B95E(int a1) = 0; virtual void rva00468CA3(const Rva00468CA3Arg *arg) = 0;
-	virtual void gap46() = 0; virtual void gap47() = 0; virtual void gap48() = 0; virtual void gap49() = 0;
+	virtual void gap46() = 0; virtual void gap47() = 0; virtual void gap48() = 0; virtual void rva004739B4() = 0;
 	virtual void gap50() = 0; virtual void rva0046BD70() = 0; virtual void rva0046BE0E() = 0; virtual void rva0046C3FE(Player *player) = 0;
 	virtual void gap54() = 0; virtual void rva0046C4C0() = 0; virtual void rva0046C327() = 0; virtual void rva0046C20B() = 0;
 	virtual bool rva0046C5D7(int value) = 0; virtual bool rva0046F8A5() = 0; virtual bool rva0046F8F4() = 0; virtual void gap61() = 0;
@@ -729,6 +756,7 @@ class HordeContain : public TransportContain, public Rva0046BB38Iface11C
 {
 public:
 	void rva00468B24(float value);
+	void rva0046A893(Object *obj);
 	void checkSpecialUnitDeath(Object *obj);
 	void *rva0046AF12();
 	int getBannerCarrierIndexToUse(const Object *obj, const ThingTemplate **outTemplate);
@@ -790,6 +818,8 @@ public:
 	virtual void rva0046BD70();
 	virtual void rva0046BE0E();
 	virtual void rva0046C3FE(Player *player);
+	virtual void rva004739B4();
+	virtual void rva00473799(const _STL::list<Object *> &items);
 	virtual void rva0046D8AE();
 	virtual Object *rva0046CB2C();
 	virtual bool rva0046D80B();
@@ -854,7 +884,7 @@ private:
 	int m_200; // +0x200
 	unsigned char m_pad204[0x24C - 0x204];
 	_STL::map<int, void *> m_24C; // +0x24C
-	unsigned char m_pad258[0x264 - 0x258];
+	_STL::map<unsigned short, float, Rva00470041Less> m_258; // +0x258 (template +0x5D8 -> experience)
 	void *m_264; // +0x264
 	unsigned char m_pad268[0x26C - 0x268];
 	ObjectID m_26C; // +0x26C
@@ -2016,6 +2046,83 @@ bool HordeContain::slot38(Object *obj, int a2, int a3)
 	if (obj->m_template->isKindOf(13))
 		return false;
 	return TransportContain::slot38(obj, a2, a3);
+}
+
+// ?rva00473799@HordeContain@@UAEXABV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@@Z
+// @0x00473799: slot 30; unless +0x198 is set first runs primary slot 33 (1);
+// then for each listed Object with an AI: 0x0028AD32, slot 11 on it, records
+// its experience under its template's +0x5D8 key in the +0x258 map (keeping the
+// largest), 0x0046A893 and, unless the module data's +0x234 is -1, AI slot 142
+// with it. The largest goes to the horde Object's tracker (0x0039B3D1), then
+// 0x0046E740 (0) and slots 121 and 4 (0). As in slot 49, retail advances the
+// walk only past an entry with an AI.
+void HordeContain::rva00473799(const _STL::list<Object *> &items)
+{
+	if (!m_198)
+		((UpdateModule *)this)->slot33(1);
+	const HordeContainModuleDataFields *data = fields();
+	float best = 1.0f;
+	_STL::list<Object *>::const_iterator it = items.begin();
+	while (it != items.end())
+	{
+		Object *obj = *it;
+		AIUpdateInterface *ai = obj->m_ai;
+		if (ai)
+		{
+			obj->rva0028AD32();
+			assignSpotToUnit(obj);
+			float v = obj->m_264->m_10;
+			m_258[obj->m_template->m_5D8] = v;
+			if (v > best)
+				best = v;
+			rva0046A893(obj);
+			if (data && data->m_234 != -1)
+				ai->slot142(data->m_234);
+			++it;
+		}
+	}
+	m_object->m_264->rva0039B3D1(best, true);
+	((Rva0046E740 *)(UpdateModule *)this)->rva0046E740(0);
+	rva0046981C();
+	rva00472790(0);
+}
+
+// ?rva004739B4@HordeContain@@UAEXXZ @0x004739B4: slot 49; with anything
+// contained (listed or keyed in the +0x170 tree), levels every Object up once
+// and records its experience under its template's +0x5D8 key in the +0x258
+// map, then calls 0x0046E740 with 0. Retail advances the list walk only past a
+// non-null entry (the null branch jumps back without `mov esi,[esi]`).
+void HordeContain::rva004739B4()
+{
+	{
+		Rva0046247DPair p;
+		((Rva0046247D *)(UpdateModule *)this)->rva0046247D(p);
+		_STL::list<Object *>::const_iterator it = p.m04->begin();
+		if (m_170.size() == 0 && p.m04->size() == 0)
+			return;
+		while (it != p.m04->end())
+		{
+			Object *obj = *it;
+			if (obj)
+			{
+				obj->m_264->rva0039B4EC(1, false, false);
+				float v = obj->m_264->m_10;
+				m_258[obj->m_template->m_5D8] = v;
+				++it;
+			}
+		}
+	}
+	for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
+	{
+		Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
+		if (obj)
+		{
+			obj->m_264->rva0039B4EC(1, false, false);
+			float v = obj->m_264->m_10;
+			m_258[obj->m_template->m_5D8] = v;
+		}
+	}
+	((Rva0046E740 *)(UpdateModule *)this)->rva0046E740(0);
 }
 
 // ?rva0046C3FE@HordeContain@@UAEXPAVPlayer@@@Z @0x0046C3FE: slot 53, which
