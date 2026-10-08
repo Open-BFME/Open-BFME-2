@@ -20,6 +20,7 @@
 //              put every free member of one team into the containers of
 //              another team's members, round robin
 //   0x003C4EC3 (479B) ScriptActions::doCreateObject
+//   0x003C50A2 (658B) ScriptActions::createUnitOnTeamAt
 //
 // Target facts: Object +0x04 template (kind-of bits at template +0x108),
 // +0x250 contain module, +0x258 AI update (WorldBuilder's debug Object is
@@ -44,8 +45,20 @@
 // Object forwarder 0x0028FC18 where BFME1 has its blast-crater block.
 // Donor facts: BFME1 doCreateObject gives the statement order, the messages
 // and transferObjectName for 0x00357960.
+//
+// createUnitOnTeamAt shares that skeleton (without the unnamed-unit test
+// ahead of the lookup) and adds a fallback BFME1 lacks: a name that is not a
+// waypoint (TerrainLogic slot 0x88) is tried as a template, and the unit goes
+// to the object of that template closest (within 1e6, ThePartitionManager
+// 0x00625360 with the template filter, vftable 0x00C1FDEC) to the team's
+// position 0x0039E5B9. Neither found posts the waypoint warning. The
+// destination is the waypoint's +0x0C location or the object's +0x38
+// position; WB, like retail, leaves it unset when neither holds, and retail
+// keeps that unset local in the dead waypoint argument slot.
 
 #include "ascii_string.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/PartitionRangeQueryCallView.h"
 #include <list>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -61,7 +74,6 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 class Object;
 class Team;
 class Player;
-struct Coord3D;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
 class ContainedObjectSource
@@ -180,7 +192,9 @@ public:
 
 private:
 	const ThingTemplate *m_template;
-	unsigned char m_pad08[0x74 - 0x08];
+	unsigned char m_pad08[0x38 - 0x08];
+	Coord3D m_pos;
+	unsigned char m_pad44[0x74 - 0x44];
 	ObjectID m_id;
 	unsigned char m_pad78[0x88 - 0x78];
 	AsciiString m_name;
@@ -195,6 +209,7 @@ private:
 
 public:
 	ObjectID getID() const { return m_id; }
+	const Coord3D *getPosition() const { return &m_pos; }
 	Object *getContainedBy() const { return m_containedBy; }
 	void setName(const AsciiString &name) { m_name = name; }
 	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
@@ -232,6 +247,7 @@ public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 	Player *getControllingPlayer() const;
 	void getTeamAsAIGroup(AIGroup *group);
+	void rva0039E5B9(Coord3D *pos);
 };
 
 class ScriptEngine
@@ -254,16 +270,59 @@ struct CreateMask
 class ThingFactory
 {
 public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
 	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, bool flag);
 };
 extern ThingFactory *TheThingFactory;
 
-// ThingFactory::findTemplate, still rowed under its placeholder name.
-class Rva002D06CA
+class Waypoint
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const Coord3D *getLocation() const { return &m_location; }
+
+private:
+	unsigned char m_pad[0x0C];
+	Coord3D m_location;
 };
+
+class TerrainLogic
+{
+public:
+#define TERRAIN_SLOT(n) virtual void slot##n();
+	TERRAIN_SLOT(0) TERRAIN_SLOT(1) TERRAIN_SLOT(2) TERRAIN_SLOT(3) TERRAIN_SLOT(4)
+	TERRAIN_SLOT(5) TERRAIN_SLOT(6) TERRAIN_SLOT(7) TERRAIN_SLOT(8) TERRAIN_SLOT(9)
+	TERRAIN_SLOT(10) TERRAIN_SLOT(11) TERRAIN_SLOT(12) TERRAIN_SLOT(13) TERRAIN_SLOT(14)
+	TERRAIN_SLOT(15) TERRAIN_SLOT(16) TERRAIN_SLOT(17) TERRAIN_SLOT(18) TERRAIN_SLOT(19)
+	TERRAIN_SLOT(20) TERRAIN_SLOT(21) TERRAIN_SLOT(22) TERRAIN_SLOT(23) TERRAIN_SLOT(24)
+	TERRAIN_SLOT(25) TERRAIN_SLOT(26) TERRAIN_SLOT(27) TERRAIN_SLOT(28) TERRAIN_SLOT(29)
+	TERRAIN_SLOT(30) TERRAIN_SLOT(31) TERRAIN_SLOT(32) TERRAIN_SLOT(33)
+#undef TERRAIN_SLOT
+	virtual Waypoint *getWaypointByName(const AsciiString &name); // slot 0x88
+};
+extern TerrainLogic *TheTerrainLogic;
+
+// The partition filter chain: a vptr, the +0x04 link to the next filter, then
+// each filter's members (see ScriptActions_closestOfObjectTypes.cpp).
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	Rva000421C8 *m_next;
+};
+
+// vftable 0x00C1FDEC, allow 0x00261750 (Zero Hour's PartitionFilterThing).
+class Rva00261750Filter : public Rva000421C8
+{
+public:
+	Rva00261750Filter(const ThingTemplate *tmpl, bool match) : m_template(tmpl), m_match(match) {}
+	virtual bool allow(Object *obj);
+	const ThingTemplate *m_template;
+	bool m_match;
+};
+
+extern PartitionManager *ThePartitionManager;
 
 class Rva00358752Opaque
 {
@@ -292,6 +351,8 @@ protected:
 		const AsciiString &buildingName, bool instant);
 	void doCreateObject(const AsciiString &objectName, const AsciiString &thingName,
 		const AsciiString &teamName, Coord3D *pos, float angle);
+	void createUnitOnTeamAt(const AsciiString &unitName, const AsciiString &objType,
+		const AsciiString &teamName, const AsciiString &waypoint);
 };
 
 struct ContainTransfer
@@ -466,8 +527,7 @@ void ScriptActions::doCreateObject(const AsciiString &objectName, const AsciiStr
 		TheScriptEngine->AppendDebugMessage(teamName, true);
 		return;
 	}
-	const ThingTemplate *thingTemplate =
-		(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&thingName);
+	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(thingName);
 	if (thingTemplate) {
 		CreateMask mask;
 		memset(&mask, 0, sizeof(mask));
@@ -482,6 +542,63 @@ void ScriptActions::doCreateObject(const AsciiString &objectName, const AsciiStr
 			}
 			obj->setOrientation(angle);
 			obj->setPosition(pos);
+			obj->rva0028FC18();
+		}
+	}
+}
+
+void ScriptActions::createUnitOnTeamAt(const AsciiString &unitName, const AsciiString &objType,
+	const AsciiString &teamName, const AsciiString &waypoint)
+{
+	Object *pOldObj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue(unitName);
+	if (pOldObj && !pOldObj->isEffectivelyDead()) {
+		AsciiString str = "WARNING - Object with name ";
+		str.concat(unitName);
+		str.concat(" already exists. Failed Create.");
+		TheScriptEngine->AppendDebugMessage(str, false);
+		return;
+	}
+	Team *theTeam = TheScriptEngine->getTeamNamed(teamName, true);
+	if (!theTeam) {
+		TheScriptEngine->AppendDebugMessage("***WARNING - Team not found:***", false);
+		TheScriptEngine->AppendDebugMessage(teamName, true);
+		return;
+	}
+	Waypoint *way = TheTerrainLogic->getWaypointByName(waypoint);
+	Object *foundObject = 0;
+	if (!way) {
+		const ThingTemplate *tmpl = TheThingFactory->findTemplate(waypoint);
+		if (tmpl) {
+			Coord3D pos;
+			theTeam->rva0039E5B9(&pos);
+			foundObject = ThePartitionManager->getClosestObject(&pos, 100000 * 10.0f, 0,
+				&Rva00261750Filter(tmpl, true));
+		}
+	}
+	if (!way && !foundObject) {
+		TheScriptEngine->AppendDebugMessage("***WARNING - Waypoint/Object type not found:***", false);
+		TheScriptEngine->AppendDebugMessage(waypoint, true);
+		return;
+	}
+	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(objType);
+	if (thingTemplate) {
+		CreateMask mask;
+		memset(&mask, 0, sizeof(mask));
+		Object *obj = TheThingFactory->newObject(thingTemplate, theTeam, &mask, false);
+		if (obj) {
+			if (unitName != AsciiString::TheEmptyString) {
+				obj->setName(unitName);
+				if (pOldObj || TheScriptEngine->didUnitExist(unitName))
+					TheScriptEngine->rva00357960(unitName, obj);
+				else
+					TheScriptEngine->addObjectToCache(obj, "");
+			}
+			const Coord3D *destination;
+			if (way)
+				destination = way->getLocation();
+			else if (foundObject)
+				destination = foundObject->getPosition();
+			obj->setPosition(destination);
 			obj->rva0028FC18();
 		}
 	}
