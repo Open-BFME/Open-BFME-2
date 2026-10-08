@@ -310,5 +310,5 @@ void ConnectionManager::update(Bool isInGame, Int frameAdvanced)
 	}
 
 	if (m_transport != 0)
-		m_transport->rva004D4BA7();
+		m_transport->doSend();
 }

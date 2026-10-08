@@ -40,7 +40,7 @@ Bool Transport::update(Rva00594DC0 *receiver)
 			}
 		}
 	}
-	if (rva004D4BA7() == false)
+	if (doSend() == false)
 	{
 		for (int i = 0; i < 8; ++i)
 		{

@@ -11,11 +11,9 @@ public:
 	void bfmeCloseFY(int flag);
 };
 
-class BfmeExtraFY
-{
-public:
-	void bfmeFinishFY(void);
-};
+// The native 0x004CF900 call reaches Transport::doSend. The outer owner
+// remains address-derived; this field now uses the actual recovered provider.
+#include "../../Include/GameNetwork/Transport.h"
 
 class BfmeOwnerFY
 {
@@ -25,7 +23,7 @@ public:
 	unsigned char m_bfmeHeadFY[4];
 	BfmeSlotFY *m_bfmeSlotsFY[8];
 	unsigned char m_bfmeMidFY[0x12000];
-	BfmeExtraFY *m_bfmeExtraFY;
+	Transport *m_bfmeExtraFY;
 };
 
 void BfmeOwnerFY::bfmeShutdownFY(void)
@@ -37,5 +35,5 @@ void BfmeOwnerFY::bfmeShutdownFY(void)
 	}
 
 	if (m_bfmeExtraFY != 0)
-		m_bfmeExtraFY->bfmeFinishFY();
+		m_bfmeExtraFY->doSend();
 }

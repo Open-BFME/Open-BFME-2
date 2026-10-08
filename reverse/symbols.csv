@@ -8229,7 +8229,6 @@ name,address,notes
 ?bfmeFindYI@BfmeRegistryYI@@QAEPAXABVAsciiStringYI@@@Z,0x0031BE3C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeFindYU@BfmeRegistryYU@@QAEPAXABVAsciiStringYU@@@Z,0x0031BE3C,callee of ?bfmeApplyYU@@YGXH@Z at retail 0x002D4FB5 read from its REL32 displacement; donor registry-lookup view of the rowed 28B ?findCommandButton@ControlBar@@QAEPBVCommandButton@@ABVAsciiString@@@Z body at this address
 ?bfmeFinish1279@BfmeNode1279@@QAEXXZ,0x006E2B40,TU spelling for BfmeQueryProcess1279 callee; retail E8 at 0x6E2B40; node teardown after unlink
-?bfmeFinishFY@BfmeExtraFY@@QAEXXZ,0x004D4BA7,callee read from the retail REL32 in placed BFME1-donor body ?bfmeShutdownFY@BfmeOwnerFY@@QAEXXZ (0x004CF8D5)
 ?bfmeFinishYS@Gen_00755E70@@QAEXXZ,0x000C1252,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeFix1035@@YAXPAPADPADPAVBfmeG1035@@@Z,0x00610DD0,string-literal fixup called by the placed ?bfmeGo1035G 0x00131C40; REL32 read off retail at 0x00131C68
 ?bfmeFlagForRead@ScriptEngine@@IAEPA_NVAsciiString@@@Z,0x0020881A,callee of ?setFlag@ScriptEngine@@IAEXPAVScriptAction@@_N@Z at retail 0x00209405 read from its REL32 displacement; ICF alias onto the matched ?rva0020881A@ScriptEngine@@QAEPAXVAsciiString@@@Z
@@ -11929,7 +11928,6 @@ name,address,notes
 ?rva004D0E93@Rva004D0E93Target@@QAEXHHH@Z,0x004D0E93,"method a vtable-slot forwarder tail-jumps to (ret 0xc); opaque address name"
 ?rva004D1616@Rva004D1616NullTarget@@QAEXH@Z,0x004D1616,"method a null-checked vtable-slot forwarder tail-jumps to (ret 4); opaque address name"
 ?rva004D3DF4@DisconnectManager@@QAEXHPAVConnectionManager@@@Z,0x004D3DF4,"method (ret 8) of ConnectionManager+0x12100 that 0x004CF90D forwards (slot, this) to; callee body remains unclaimed; opaque address name"
-?rva004D4BA7@Transport@@QAE_NXZ,0x004D4BA7,"address read from the retail REL32 at 0x004D54FE in Transport::update 0x004D54C1; the send half (Zero Hour doSend)"
 ?rva004D4EC6@Transport@@QAE_NPBURva004495A2Addr@@PBULANMessage@@H@Z,0x004D4EC6,"address read from the retail REL32 sites at 0x004495CA / 0x0044961D / 0x00449648 in LANAPI send 0x004495A2; ECX is the transport at LANAPI+0x50, args ({ip port} destination, LANMessage, 0x1D8); Zero Hour's Transport::queueSend shape"
 ?rva004DD2C0@Rva004DD2C0@@QAEXXZ,0x004DD2C0,callee of ?rva004B0E9C@Rva004B0E9C@@QAEXXZ
 ?rva004DD637@Rva004DD843@@QAE_NXZ,0x004DD637,REL32 read at 0x0028ADBD in the byte-verified Object forwarder through Object+0xA4 (bool no-arg forwarder (null answers xor al); native body compares +0x4 with +0x1C via ICoord2D operator== 0x00004CAD); same receiver as rowed Rva004DD843::rva004DD843 0x004DD843 reached from 0x0028AD67; identity unknown

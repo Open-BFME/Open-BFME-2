@@ -44,6 +44,13 @@ struct sockaddr_in
 
 // ABI-only declaration of the existing receiver provider at 0x005952C4.
 // No receiver fields, size or original class identity are inferred here.
+// Existing address-owned send provider; only its witnessed ABI is used.
+class Rva00594C12
+{
+public:
+    int rva00594C12(const char *, int, unsigned long, unsigned short);
+};
+
 class Rva00594DC0
 {
 public:
@@ -240,5 +247,70 @@ bool Transport::doRecv(Rva00594DC0 *receiver)
         }
         ++slot;
     } while (--remaining);
+    return retval;
+}
+
+// BF1 Transport.cpp rev9cbfb551fe20 supplies queue/statistics semantics.
+// WB Transport::doSend and native [004D4BA7,004D4D08) supply the eight-slot
+// selection and clear-on-missing-destination behavior.
+bool Transport::doSend()
+{
+    int i;
+    for (i = 0; i < 8; ++i)
+        if (m_slots[i].m_object)
+            break;
+    if (i == 8)
+        return false;
+
+    unsigned int now = timeGetTime();
+    if ((unsigned int)m_int40E70 + 1000 < now) {
+        m_int40E70 = now;
+        m_int40E6C = (m_int40E6C + 1) % 30;
+        m_stats5[m_int40E6C] = 0;
+        m_stats2[m_int40E6C] = 0;
+        m_stats3[m_int40E6C] = 0;
+        m_stats0[m_int40E6C] = 0;
+        m_stats4[m_int40E6C] = 0;
+        m_stats1[m_int40E6C] = 0;
+    }
+    // A cursor over the witnessed packed message trailer: length, IPv4, port.
+    struct MessageTail {
+        int m_length;
+        unsigned long m_addr;
+        unsigned short m_port;
+    };
+    bool retval = true;
+    char *cursor = (char *)&m_outBuffer[0].m_length;
+    for (int n = 0; n < 128; ++n, cursor += sizeof(Message)) {
+        MessageTail &message = *(MessageTail *)cursor;
+        if (message.m_length != 0) {
+            Rva00594C12 *socket;
+            if (m_flag40E00) {
+                socket = (Rva00594C12 *)m_slots[0].m_object;
+            } else {
+                socket = 0;
+                for (int j = 0; j < 8; ++j) {
+                    if (m_slots[j].m_object &&
+                        (unsigned long)m_slots[j].m_x == message.m_addr &&
+                        (unsigned short)m_slots[j].m_y == message.m_port) {
+                        socket = (Rva00594C12 *)m_slots[j].m_object;
+                        break;
+                    }
+                }
+            }
+            if (!socket) {
+                message.m_length = 0;
+                continue;
+            }
+            if (socket->rva00594C12(cursor - sizeof(m_outBuffer[0].m_crc) - sizeof(m_outBuffer[0].m_data),
+                       message.m_length + 4, message.m_addr, message.m_port) > 0) {
+                ++m_stats5[m_int40E6C];
+                m_stats2[m_int40E6C] += message.m_length + 4;
+                message.m_length = 0;
+            } else {
+                retval = false;
+            }
+        }
+    }
     return retval;
 }

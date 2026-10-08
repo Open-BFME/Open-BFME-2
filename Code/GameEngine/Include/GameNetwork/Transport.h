@@ -35,7 +35,7 @@ public:
 	void setDestAddrToSocket(int index, void *address);
 	bool doRecv(Rva00594DC0 *receiver);
 	bool update(Rva00594DC0 *receiver);
-	bool rva004D4BA7();
+	bool doSend();
 
 private:
 #pragma pack(push, 1)
