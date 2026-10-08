@@ -242,6 +242,7 @@ public:
     void rva00570C64();
     void rva00570D36();
     void rva00571129();
+    int rva0057166C(void *,unsigned int,void *,void *);
     void rva0057179D(bool);
     void rva005700A0();
     void rva005709D1(AsciiString &,AsciiString &);
@@ -670,4 +671,53 @@ void AptOnlineLogin::rva005700A0()
         preferences2->write();
         ((AptOnlineShell *)owner)->LoadChildScreen("OnlineHome");
     }
+}
+
+// BFME1 9cbfb551fe OnlineLoginGadgetMessage00552AA0.cpp supplies the
+// re-entry guard and selection flow. Native57166C..57179D proves
+// BFME2 messages4026/402E/4032 and RET16; original method name unknown.
+int AptOnlineLogin::rva0057166C( void *arg0, unsigned int msg, void *control, void *arg3 )
+{
+	// Guards against re-entry while the cached-login refill updates the gadgets.
+	static bool s_updatingLoginGadgets;
+
+	switch( msg )
+	{
+	case 0x4026:
+		if( s_updatingLoginGadgets )
+			break;
+		if( control == 0 )
+			break;
+		if( control == email )
+		{
+			AsciiString nickname( ((Rva0056EBA1 *)this)->rva0056EB15() );
+			AsciiString empty( AsciiString::TheEmptyString );
+
+			s_updatingLoginGadgets = true;
+			rva005709D1( nickname, empty );
+			rva005706D4();
+			s_updatingLoginGadgets = false;
+		}
+		if( control == nickname )
+			rva005706D4();
+		break;
+
+	case 0x402E:
+		if( nickname == 0 || password == 0 )
+			break;
+		if( control == nickname )
+			rva005706D4();
+		if( control == email )
+			rva005706D4();
+		break;
+
+	case 0x4032:
+		if( nickname == 0 || password == 0 )
+			break;
+		if( control == password )
+			rva005706D4();
+		break;
+	}
+
+	return 1;
 }
