@@ -1,5 +1,3 @@
-// ?packedSize@Rva0019B4A0StringArray@@QBEHXZ
-// partial score=1.0 date=2026-10-08
 // cl: /O2 /arch:SSE /G7 /MD /EHsc /DNDEBUG
 // Clean donor: Open-BFME-1 9cbfb551fe20dae985f91f2319d8997287b6a705,
 // game/GameEngine/Source/Common/SmallGaps/Rva00978CC0PackedSize.cpp.
