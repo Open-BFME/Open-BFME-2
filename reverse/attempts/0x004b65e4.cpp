@@ -1,61 +1,73 @@
-// ?rva004B65E4@@YAXPAVINI@@PAX1PBX@Z
-// partial score=0.8 date=2026-10-08
-// cl: /O1 /MD /DNDEBUG /arch:SSE /G7
-// Retail 004b65e4..004b6691: a 591-bit model-condition INI range parser.
-// The native count, nineteen-word complement, two-bit diagnostic and
-// inclusive scan establish the behavior. WB identifies Common/BitFlags.h,
-// but not the method name. The existing helper names describe only their
-// verified storage/ABI; WeaponTemplateSetHead is the ledger's 76-byte view.
+// ?rva004B65E4@Rva004B65E4@@SAXPAVINI@@PAX1PBX@Z
+// partial score=0.95 date=2026-10-08
+// cl: /O1 /Oy- /DNDEBUG /MD /GX- /Oi-
+// Retail 0x004B65E4..0x004B6691: ModelConditionUpgrade's
+// RemoveConditionFlagsInRange parser (field table at VA 0x00C58730).
+// The native calls establish a 19-dword (591-bit) model-condition set.
+// The established copy/intersection providers retain their opaque set name;
+// no original spelling for this parser is asserted.
 class INI;
-class INIException {
+class WeaponTemplateSetHead
+{
 public:
-    INIException(int, const char *, ...);
-    INIException(const INIException &);
-    ~INIException();
-private:
-    char *message;
-    int tag;
-};
-class WeaponTemplateSetHead {
-public:
+    unsigned int bits[19];
     WeaponTemplateSetHead(const WeaponTemplateSetHead &);
     void rva000B3ED3(const WeaponTemplateSetHead &);
-    unsigned int words[19];
 };
-class Rva000B937E {
-public:
-    void rva000B937E(INI *, void *);
-};
-template<int N> class BitFlags {
+template<int N> class BitFlags
+{
 public:
     int count() const;
 };
-
-// ?rva004B65E4@@YAXPAVINI@@PAX1PBX@Z present-unmatched
-void rva004B65E4(INI *ini, void *, void *store, const void *)
+class Rva000B937E
 {
-    WeaponTemplateSetHead *destination = static_cast<WeaponTemplateSetHead *>(store);
-    WeaponTemplateSetHead added(*destination);
-    reinterpret_cast<Rva000B937E *>(destination)->rva000B937E(ini, 0);
-    for (unsigned int word = 0; word < 19; ++word)
-        added.words[word] = ~added.words[word];
-    added.rva000B3ED3(*destination);
-    if (reinterpret_cast<const BitFlags<591> *>(&added)->count() != 2)
-        throw INIException(1, "you must specifly only two bit flags for a range.");
-    bool started = false;
-    bool finished = false;
-    for (int bit = 0; bit < 591; ++bit) {
-        unsigned int word = static_cast<unsigned int>(bit) >> 5;
-        unsigned int mask = 1U << (bit & 31);
-        if (!started) {
-            if (!(added.words[word] & mask))
+public:
+    void rva000B937E(INI *, void *);
+};
+struct INIException
+{
+    INIException(int, const char *, ...);
+    char *mFailureMessage;
+    int mErrorCode;
+};
+extern "C" void __stdcall _CxxThrowException(void *, const _s__ThrowInfo *);
+extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVINIException@@");
+
+class Rva004B65E4
+{
+public:
+    static void rva004B65E4(INI *, void *, void *, const void *);
+};
+void Rva004B65E4::rva004B65E4(INI *ini, void *, void *store, const void *)
+{
+    WeaponTemplateSetHead *dest = (WeaponTemplateSetHead *)store;
+    WeaponTemplateSetHead added(*dest);
+    int bit = 0;
+    ((Rva000B937E *)dest)->rva000B937E(ini, 0);
+    for (unsigned int w = 0; w < 19; ++w)
+        added.bits[w] ^= ~0u;
+    added.rva000B3ED3(*dest);
+    if (((const BitFlags<591> *)&added)->count() != 2)
+    {
+        INIException e(1, "you must specifly only two bit flags for a range.");
+        _CxxThrowException(&e, &__identifier("_TI1?AVINIException@@"));
+    }
+    bool first = false;
+    bool last = false;
+    for (; bit < 591; ++bit)
+    {
+        unsigned int word = (unsigned int)bit >> 5;
+        unsigned int mask = 1u << (bit & 31);
+        if (!first)
+        {
+            if (!(added.bits[word] & mask))
                 continue;
-            started = true;
-        } else if (added.words[word] & mask) {
-            finished = true;
+            first = true;
         }
-        destination->words[word] |= mask;
-        if (finished)
+        else if (added.bits[word] & mask)
+            last = true;
+        dest->bits[word] |= mask;
+        if (last)
             break;
     }
 }
