@@ -10478,7 +10478,6 @@ name,address,notes
 ?method@Rva0040D3E8Sub@@QAEHH@Z,0x0040D3E8,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
 ?method@Rva0040D3FFSub@@QAEHXZ,0x0040D3FF,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
 ?method@Rva0040FAFESub@@QAEHH@Z,0x0040FAFE,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
-?method@Rva004FC3DCTarget@@QAEHH@Z,0x004FC3DC,REL32 callee decoded from target call bytes of wrapper 0x003EFE72; identity unproven
 ?method@Rva0054CBEFTarget@@QAEXH@Z,0x0054CBEF,REL32 callee decoded from target call bytes of wrapper 0x00437E9C; identity unproven
 ?method@Rva0059A71CSub@@QAEXPAX@Z,0x0059A71C,opaque thiscall-view alias; same body as rowed Rva0059A71C::rva; identity unproven
 ?method_002BFFD4@Rva002D3627Host@@QAEXPAXH0@Z,0x002BFFD4,Rva002D3627Host method called by Rva005C4230 ctor

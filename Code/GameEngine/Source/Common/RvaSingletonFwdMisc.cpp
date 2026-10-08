@@ -99,10 +99,11 @@ public:
 	bool rva0039ABFF() const;
 };
 
-class Rva004FC3DCTarget
+struct Rva003F1BD3TemplateView;
+class LivingWorldBuildPlot
 {
 public:
-	int method(int value);
+	void ConstructBuildingImmediately(const Rva003F1BD3TemplateView *value);
 };
 
 class Rva0054CBEFTarget
@@ -123,9 +124,10 @@ bool ExperienceTracker::rva0039ABFF() const
 	return reinterpret_cast<Rva00288CFA *>(TheExperienceLevelSystem)->rva00288CFA((int)this);
 }
 
-int __stdcall Rva003EFE72(int target, int value)
+void __stdcall Rva003EFE72(int target, int value)
 {
-	return ((Rva004FC3DCTarget *)target)->method(value);
+	((LivingWorldBuildPlot *)target)->ConstructBuildingImmediately(
+		(const Rva003F1BD3TemplateView *)value);
 }
 
 void Rva00437E9C(int value)

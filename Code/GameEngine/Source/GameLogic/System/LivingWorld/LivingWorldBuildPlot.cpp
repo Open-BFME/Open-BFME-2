@@ -18,6 +18,8 @@ public:
 };
 class LivingWorldBuildPlot;
 class LivingWorldBuildPlotIconTemplate;
+class LivingWorldRegion;
+struct Rva003F1BD3TemplateView;
 class LivingWorldBuildPlotIcon
 {
 public:
@@ -49,11 +51,15 @@ class LivingWorldBuildPlot
 {
 public:
     void CreateIcon(const AsciiString &iconName);
+    void ConstructBuildingImmediately(const Rva003F1BD3TemplateView *templ);
 private:
-    char m_unrecovered[0x20];
-    void *m_structure;
+    char m_unrecovered[0x1C];
+    LivingWorldRegion *m_region;
+    Rva00575674 m_building;
     Rva00575674 m_icon;
     Coord2D m_position;
+    int m_buildFrames;
+    bool m_hidden;
 };
 
 void LivingWorldBuildPlot::CreateIcon(const AsciiString &iconName)
@@ -65,7 +71,7 @@ void LivingWorldBuildPlot::CreateIcon(const AsciiString &iconName)
     if (templ)
     {
         m_icon.rva00575674((Object *)new LivingWorldBuildPlotIcon(templ, this, m_position));
-        m_icon.get()->slot20(m_structure != 0, true);
+        m_icon.get()->slot20(m_building.isBound(), true);
     }
 }
 
@@ -145,4 +151,26 @@ void Rva003F1C56Plot::rva004FC33E(const Rva003F1BD3TemplateView *templ)
         m_icon.get()->slot24(pending, true);
     m_listeners.forEach((void (Rva004FC320Listener::*)(void *))
         &Rva001FF3A9::rva001FF3A9, this);
+}
+
+class Rva004E0B60
+{
+public:
+    void rva004E0CB6();
+};
+
+// WorldBuilder 0x01311A50; native 0x004FC3DC..0x004FC470 RET4.
+void LivingWorldBuildPlot::ConstructBuildingImmediately(const Rva003F1BD3TemplateView *templ)
+{
+    if (m_building.isBound())
+        return;
+    m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position,
+        templ, ((Rva002B315BBumpCounter *)TheLivingWorldLogic)->bump()));
+    ((Rva004E0B60 *)m_building.get())->rva004E0CB6();
+    m_buildFrames = 0;
+    m_hidden = false;
+    if (m_icon.get())
+        m_icon.get()->slot24(false, true);
+    ((Rva004FC320List *)((char *)this + 8))->forEach(
+        (void (Rva004FC320Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
 }
