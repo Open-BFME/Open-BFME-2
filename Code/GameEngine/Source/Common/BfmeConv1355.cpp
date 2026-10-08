@@ -33,3 +33,15 @@ BfmeRefVGO &BfmeRefVGO::bfmeAssignVGO(const BfmeRefVGO &o)
 	}
 	return *this;
 }
+
+// Whole BFME 1 UnclaimedSmallLeaves02.cpp at9cbfb551fe emits this zero-word
+// helper under two opaque const-member names in the named Common O2/x87/G6
+// min5 sweep. Native6CDB60..6CDB6D is INT3-bounded, reads the first stack
+// pointer, stores one zero dword through it, and pops4 bytes; ECX is unused.
+// No direct/address references establish an original owner, member identity
+// or return contract. This ordinary callee-pop pointer projection preserves
+// the native effect without claiming those identities or a second class view.
+void __stdcall Rva006CDB60ClearWord(unsigned int *slot)
+{
+    *slot = 0;
+}
