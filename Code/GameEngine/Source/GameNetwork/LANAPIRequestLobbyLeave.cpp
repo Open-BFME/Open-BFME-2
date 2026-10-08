@@ -4,7 +4,7 @@
 // vtable offset +0x78, and the pointer at the corresponding .rdata table
 // entry is 0x008498A4. The body stores message type 7, calls the virtual
 // helper at +0xE4, and reaches address-derived target helpers at 0x4495A2 and
-// 0x4D54C1. The latter receives false and returns an ignored Bool. The message
+// 0x4D54C1. The latter receives a null receiver and returns an ignored Bool. The message
 // object extent/layout and both helper identities remain target-derived.
 
 typedef int Int;
@@ -17,11 +17,7 @@ struct LANMessage
 	unsigned char bytes[0x1D4];
 };
 
-class Transport
-{
-public:
-	Bool update( Bool argument );
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 class LANAPI
 {
@@ -100,5 +96,5 @@ void LANAPI::RequestLobbyLeave( Bool forced )
 	Rva004495A2( &message, 0 );
 
 	if( forced )
-		m_transport->update( false );
+		m_transport->update( 0 );
 }

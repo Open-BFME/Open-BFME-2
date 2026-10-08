@@ -9,6 +9,8 @@
 // field labels below describe offsets, without asserting original names.
 // Header adoption is gated per unit; incompatible views remain queued.
 
+class Rva00594DC0;
+
 struct Rva004D4A80Slot
 {
 	void *m_object;
@@ -31,14 +33,19 @@ public:
 	bool rva004D53B5(void *addr);
 	void setSlotSocket(void *obj, unsigned short index, int *vals);
 	void setDestAddrToSocket(int index, void *address);
+	bool doRecv(Rva00594DC0 *receiver);
+	bool update(Rva00594DC0 *receiver);
+	bool rva004D4BA7();
 
 private:
 #pragma pack(push, 1)
 	struct Message
 	{
-		char m_pad[0x404];
+		unsigned int m_crc;
+		unsigned char m_data[0x400];
 		int m_length; // +0x404
-		char m_tail[6];
+		unsigned long m_addr;
+		unsigned short m_port;
 	};
 #pragma pack(pop)
 	Message m_outBuffer[128];

@@ -34,10 +34,32 @@ struct SlotVals
 // (declared-only; resolves through the pin at 0x004D4A59)
 
 // Zero Hour's UDP socket wrapper; AllowBroadcasts is rowed at 0x00594B2E.
+struct sockaddr_in
+{
+    short m_family;
+    unsigned short m_port;
+    unsigned long m_addr;
+    char m_zero[8];
+};
+
+// ABI-only declaration of the existing receiver provider at 0x005952C4.
+// No receiver fields, size or original class identity are inferred here.
+class Rva00594DC0
+{
+public:
+    bool rva005952C4(void *, unsigned short, unsigned short *);
+};
+
+extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long);
+extern "C" __declspec(dllimport) unsigned short __stdcall htons(unsigned short);
+extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
+unsigned int ComputeCRC(const unsigned char *, unsigned int, unsigned int);
+
 class UDP
 {
 public:
 	int AllowBroadcasts(bool status);
+	int Read(unsigned char *, unsigned int, sockaddr_in *);
 };
 
 #include "../../Include/GameNetwork/Transport.h"
@@ -153,4 +175,70 @@ void Transport::setDestAddrToSocket(int index, void *address)
 	if (slot >= 8)
 		return;
 	*(SlotVals *)&m_slots[slot].m_x = *(SlotVals *)address;
+}
+
+// Primary semantic lead: BFME 1 Transport.cpp at 9cbfb551fe20.
+// Target-specific eight slots and optional receiver are witnessed by WB
+// Transport::doRecv and native [004D4D08,004D4EC6), including RET4.
+static inline void decryptTransportMessage(unsigned char *buf, int len)
+{
+    unsigned int mask = 0x38D9B7D4;
+    unsigned int *words = (unsigned int *)buf;
+    for (int i = 0; i < len / 4; ++i) {
+        *words = htonl(*words);
+        *words ^= mask;
+        ++words;
+        mask -= 0x7F39C50E;
+    }
+}
+
+bool Transport::doRecv(Rva00594DC0 *receiver)
+{
+    int i;
+    for (i = 0; i < 8; ++i)
+        if (m_slots[i].m_object)
+            break;
+    if (i == 8)
+        return false;
+
+    bool retval = false;
+    sockaddr_in from;
+    Message incomingMessage;
+    Rva004D4A80Slot *slot = m_slots;
+    int remaining = 8;
+    do {
+        if (slot->m_object) {
+            int len;
+            while ((len = ((UDP *)slot->m_object)->Read((unsigned char *)&incomingMessage,
+                                      sizeof(Message), &from)) > 0) {
+                unsigned short receiverResult;
+                if (receiver && receiver->rva005952C4(&incomingMessage,
+                                      (unsigned short)len, &receiverResult))
+                    continue;
+                decryptTransportMessage((unsigned char *)&incomingMessage, len);
+                incomingMessage.m_addr = htonl(from.m_addr);
+                incomingMessage.m_port = htons(from.m_port);
+                unsigned int msgLen = len - 4;
+                incomingMessage.m_length = msgLen;
+                if (msgLen <= 0 || msgLen > 0x400 ||
+                    incomingMessage.m_crc != ComputeCRC(incomingMessage.m_data, msgLen, 0)) {
+                    ++m_badPackets;
+                    ++m_stats4[m_int40E6C];
+                    m_stats1[m_int40E6C] += len;
+                    continue;
+                }
+                ++m_stats3[m_int40E6C];
+                m_stats0[m_int40E6C] += len;
+                for (int j = 0; j < 128; ++j) {
+                    if (m_inBuffer[j].m_length == 0) {
+                        memcpy(&m_inBuffer[j], &incomingMessage, sizeof(Message));
+                        retval = true;
+                        break;
+                    }
+                }
+            }
+        }
+        ++slot;
+    } while (--remaining);
+    return retval;
 }

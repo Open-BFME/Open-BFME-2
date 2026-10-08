@@ -32,11 +32,7 @@ private:
 	UnsignedShort m_key4;
 };
 
-class Transport
-{
-public:
-	Bool update( Bool flag ); // Transport::update, 0x004D54C1
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 class LANGameInfo
 {
@@ -146,7 +142,7 @@ void LANAPI::rva00449693( Bool arg )
 	fillInLANMessage( &msg );
 	Rva0044802D( msg.m_payload, sizeof( msg.m_payload ) );
 	Rva004495A2( &msg, 0 );
-	m_transport->update( false );
+	m_transport->update( 0 );
 	if( arg )
 		slot43();
 	else

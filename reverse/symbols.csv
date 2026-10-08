@@ -11934,7 +11934,6 @@ name,address,notes
 ?rva004D1616@Rva004D1616NullTarget@@QAEXH@Z,0x004D1616,"method a null-checked vtable-slot forwarder tail-jumps to (ret 4); opaque address name"
 ?rva004D3DF4@DisconnectManager@@QAEXHPAVConnectionManager@@@Z,0x004D3DF4,"method (ret 8) of ConnectionManager+0x12100 that 0x004CF90D forwards (slot, this) to; callee body remains unclaimed; opaque address name"
 ?rva004D4BA7@Transport@@QAE_NXZ,0x004D4BA7,"address read from the retail REL32 at 0x004D54FE in Transport::update 0x004D54C1; the send half (Zero Hour doSend)"
-?rva004D4D08@Transport@@QAE_N_N@Z,0x004D4D08,"address read from the retail REL32 at 0x004D54CC in Transport::update 0x004D54C1; the receive half (Zero Hour doRecv), taking update's flag"
 ?rva004D4EC6@Transport@@QAE_NPBURva004495A2Addr@@PBULANMessage@@H@Z,0x004D4EC6,"address read from the retail REL32 sites at 0x004495CA / 0x0044961D / 0x00449648 in LANAPI send 0x004495A2; ECX is the transport at LANAPI+0x50, args ({ip port} destination, LANMessage, 0x1D8); Zero Hour's Transport::queueSend shape"
 ?rva004DD2C0@Rva004DD2C0@@QAEXXZ,0x004DD2C0,callee of ?rva004B0E9C@Rva004B0E9C@@QAEXXZ
 ?rva004DD637@Rva004DD843@@QAE_NXZ,0x004DD637,REL32 read at 0x0028ADBD in the byte-verified Object forwarder through Object+0xA4 (bool no-arg forwarder (null answers xor al); native body compares +0x4 with +0x1C via ICoord2D operator== 0x00004CAD); same receiver as rowed Rva004DD843::rva004DD843 0x004DD843 reached from 0x0028AD67; identity unknown
@@ -13664,7 +13663,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??1Rva002E2D10Record@@QAE@XZ,0x001EB63C,dtor of the same 0xD8-byte revival record; REL32 at 0x003C6421 in doCreateUnitRevivalEntry
 ?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@PAVPlayer@@@Z,0x0037F38F,WB UnitRevivalTracker::addRevivableUnit (callgraph pair); same body as the matched rva0037F38F forwarder; REL32 at 0x003C6412 in doCreateUnitRevivalEntry with the player as the second argument
 ??0?$_Vector_base@PAVRva0040D701ArmySummary@@V?$allocator@PAVRva0040D701ArmySummary@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVRva0040D701ArmySummary@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor; REL32 at 0x003CA22B for the local army vector in doCreateUnitRevivalEntryFromDelayedCarryoverHero
-?update@Transport@@QAE_N_N@Z,0x004D54C1,opaque transport helper reached by RequestLobbyLeave 0x4498A4 with ECX=m_transport and Bool false; target body consumes that argument and returns Bool
 ?RemoveSocketForSlot@Transport@@QAEXG@Z,0x004D5133,address read from the REL32 displacement at Transport helper 0x4D5496 loop call site; slot-clear shape with word index; identity unproven
 ?triggerAbilityEffect@SpecialAbilityUpdate@@UAEXXZ,0x0045108D,slot 17 of ??_7SpecialAbilityUpdate 0x00C3FBA8; the slot-17 overrides of its subclasses (e.g. 0x004924BA and 0x00492329) call it first as the base slot; address name like the pinned slot-22 base rva004508B7
 ?rva003EFDB3@LivingWorldRegion@@ABEHPAVRva002E2903Player@@@Z,0x003EFDB3,unrowed LivingWorldRegion command-points-in-use query on the owner; retail REL32s in CanSpawnUnitWithinCPLimit 0x003F0293 and 0x003F02BD (int compared signed against the limit)

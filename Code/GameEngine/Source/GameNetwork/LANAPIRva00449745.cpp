@@ -7,7 +7,7 @@
 // differs from virtual slot64 via rowed Rva00248CDD compare; else stamps
 // timeGetTime()+1000 at +0x20, (arg ? arg-1 : 0) at +0x24, builds a 0x1D8
 // LANMessage (type 15, arg at +0x1E) for virtual slot57 plus pinned
-// LANAPI::Rva004495A2, calls pinned Transport::update(false) on +0x50,
+// LANAPI::Rva004495A2, calls pinned Transport::update(0) on +0x50,
 // then virtual slot44(arg). Chain lane: calls landed 0x00248CDD.
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
@@ -31,11 +31,7 @@ private:
 	UnsignedShort m_key4;
 };
 
-class Transport
-{
-public:
-	Bool update(Bool flag);
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 #pragma pack(push, 1)
 struct LANMessage
@@ -159,6 +155,6 @@ void LANAPI::rva00449745(UnsignedInt arg)
 	msg.m_arg = arg;
 	slot57(&msg);
 	Rva004495A2(&msg, 0);
-	m_transport->update(false);
+	m_transport->update(0);
 	slot44(arg);
 }

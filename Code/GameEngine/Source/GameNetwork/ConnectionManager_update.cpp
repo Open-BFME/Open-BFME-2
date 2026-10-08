@@ -150,12 +150,7 @@ extern "C" int strcmp(const char *a, const char *b);
 extern "C" char *strdup(const char *text);
 void free(void *memory);
 
-class Transport
-{
-public:
-	Bool rva004D4D08(Bool flag);
-	Bool rva004D4BA7();
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 class Connection
 {
@@ -239,7 +234,7 @@ void ConnectionManager::update(Bool isInGame, Int frameAdvanced)
 		return;
 
 	if (m_transport != 0)
-		m_transport->rva004D4D08(false);
+		m_transport->doRecv(0);
 
 	if (isInGame)
 	{

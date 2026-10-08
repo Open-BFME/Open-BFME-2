@@ -4,7 +4,7 @@
 // target body evidence sets the list heads at +0x0C/+0x10, LANGameInfo::next
 // at +0xF5C, player next at +0x10, pending/expiration at +0x28/+0x2C, the
 // address pair at +0x34, flags at +0x40/+0x41, current game at +0x44, and
-// transport at +0x50. Target Transport update takes a false Bool, unlike the
+// transport at +0x50. Target Transport update takes a null receiver, unlike the
 // BFME1 no-argument method.
 //
 // ??1LANPlayer@@QAE@XZ, retail 0x00447ACA, 68 bytes. Non-virtual dtor over
@@ -30,11 +30,7 @@ struct LANMessage
 	UnsignedByte payload[0x1D8 - sizeof(Int)];
 };
 
-class Transport
-{
-public:
-	Bool update(Bool active);
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 class LANGameInfo
 {
@@ -164,7 +160,7 @@ void LANAPI::reset(void)
 		Rva004495A2(&message, 0);
 	}
 
-	m_transport->update(false);
+	m_transport->update(0);
 
 	LANGameInfo *game = m_games;
 	while (game)

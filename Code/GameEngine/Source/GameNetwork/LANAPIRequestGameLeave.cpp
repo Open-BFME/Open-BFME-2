@@ -214,11 +214,7 @@ struct LANMessage
 };
 #pragma pack(pop)
 
-class Transport
-{
-public:
-	Bool update( Bool flag );
-};
+#include "../../Include/GameNetwork/Transport.h"
 
 class LANAPI : public VSlots<18>
 {
@@ -281,7 +277,7 @@ void LANAPI::RequestGameLeave( void )
 	wcsncpy( msg.GameToLeave.gameName, ( m_currentGame ) ? m_currentGame->getName().str() : L"", LAN_GAME_NAME_LENGTH );
 	msg.GameToLeave.gameName[LAN_GAME_NAME_LENGTH] = 0;
 	Rva004495A2( &msg, 0 );
-	m_transport->update( false );
+	m_transport->update( 0 );
 
 	if( m_currentGame && m_currentGame->getHostAddress()->Rva00248CBF( getLocalAddress() ) )
 	{
@@ -312,7 +308,7 @@ void LANAPI::RequestHasMap( void )
 	AsciiString portableMapName = TheGameState->realMapPathToPortableMapPath( m_currentGame->getMap() );
 	msg.MapStatus.mapCRC = ComputeCRC( (const UnsignedByte *)portableMapName.str(), portableMapName.getLength(), 0 );
 	Rva004495A2( &msg, 0 );
-	m_transport->update( false );
+	m_transport->update( 0 );
 
 	if( !msg.MapStatus.hasMap )
 	{
@@ -363,5 +359,5 @@ void LANAPI::RequestEnableMPSetupUI( Bool enable )
 	msg.EnableMPSetupUI.gameName[LAN_GAME_NAME_LENGTH] = 0;
 	msg.EnableMPSetupUI.enable = enable;
 	Rva004495A2( &msg, 0 );
-	m_transport->update( false );
+	m_transport->update( 0 );
 }
