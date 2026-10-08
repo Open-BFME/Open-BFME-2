@@ -384,6 +384,9 @@ public:
 	virtual void exitSlot11() = 0;
 };
 
+class BehaviorModule;
+class ProductionUpdateInterface;
+
 class Object
 {
 public:
@@ -393,8 +396,11 @@ public:
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Bool rva00290D2B(const UpgradeTemplate *upgrade) const; // hasUpgrade
 	Bool rva002940B9(const UpgradeTemplate *upgrade); // affectedByUpgrade
+	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
 
-	char m_unknown00[0x324];
+	char m_unknown00[0x244];
+	BehaviorModule **m_behaviors; // +0x244, null-terminated
+	char m_unknown248[0x324 - 0x248];
 	Real m_bfme324; // +0x324
 
 protected:
@@ -475,10 +481,40 @@ public:
 	Object *m_object;
 };
 
+// BehaviorModuleInterface: the per-module interface queries; retail reads
+// getProductionUpdateInterface from slot 28 (+0x70).
 class BehaviorModuleOther
 {
 public:
 	virtual void behaviorModuleOtherAnchor();
+	virtual void bmi01();
+	virtual void bmi02();
+	virtual void bmi03();
+	virtual void bmi04();
+	virtual void bmi05();
+	virtual void bmi06();
+	virtual void bmi07();
+	virtual void bmi08();
+	virtual void bmi09();
+	virtual void bmi10();
+	virtual void bmi11();
+	virtual void bmi12();
+	virtual void bmi13();
+	virtual void bmi14();
+	virtual void bmi15();
+	virtual void bmi16();
+	virtual void bmi17();
+	virtual void bmi18();
+	virtual void bmi19();
+	virtual void bmi20();
+	virtual void bmi21();
+	virtual void bmi22();
+	virtual void bmi23();
+	virtual void bmi24();
+	virtual void bmi25();
+	virtual void bmi26();
+	virtual void bmi27();
+	virtual ProductionUpdateInterface *getProductionUpdateInterface();	// +0x70
 };
 
 class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
@@ -579,6 +615,8 @@ public:
 	virtual UnsignedInt rva0049CEE1(Int value) const;
 	virtual UnsignedInt rva0049D0DE(const Rva0049D0DEMask *mask) const;
 	virtual const Rva0049D1B1 *nextProduction(const Rva0049D1B1 *p) const;
+
+	static ProductionUpdateInterface *getProductionUpdateInterfaceFromObject(Object *obj);
 
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -897,6 +935,24 @@ UnsignedInt ProductionUpdate::rva0049CEE1( Int value ) const
 		if( value == production->m_bfme30 )
 			count++;
 	return count;
+}
+
+// ?getProductionUpdateInterfaceFromObject@ProductionUpdate@@SAPAVProductionUpdateInterface@@PAVObject@@@Z @0x0049CEFC 41B
+// ZH's static lookup: the first behavior module that answers
+// getProductionUpdateInterface.
+ProductionUpdateInterface *ProductionUpdate::getProductionUpdateInterfaceFromObject( Object *obj )
+{
+	if( obj == NULL )
+		return NULL;
+
+	for( BehaviorModule **u = obj->getBehaviorModules(); *u; ++u )
+	{
+		ProductionUpdateInterface *pui = (*u)->getProductionUpdateInterface();
+		if( pui )
+			return pui;
+	}
+
+	return NULL;
 }
 
 // ?rva0049D0DE@ProductionUpdate@@UBEIPBURva0049D0DEMask@@@Z @0x0049D0DE 54B
