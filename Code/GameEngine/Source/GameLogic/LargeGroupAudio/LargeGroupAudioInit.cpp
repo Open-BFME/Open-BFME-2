@@ -33,6 +33,10 @@ class Rva003ED94FDtor
 {
 public:
     ~Rva003ED94FDtor();
+    // Match the existing eight-byte cleanup-owner view, rather than emitting
+    // a scalar deleting destructor for an empty class.
+    void *m_header;
+    int m_flag;
 };
 
 class Rva003ED9B1
