@@ -1,4 +1,6 @@
 // ?rva0050A1E9@Made002CC8A4@@QAEXPAXPAVObject@@@Z
+// partial score=0.95078 date=2026-10-09
+// ?rva0050A1E9@Made002CC8A4@@QAEXPAXPAVObject@@@Z
 // partial score=0.88 date=2026-10-04
 // cl: /O1 /MD /EHsc /DNDEBUG /arch:SSE
 //
@@ -49,6 +51,7 @@ public:
 class Player
 {
 };
+class DamageInfo;
 class Object
 {
 public:
@@ -56,7 +59,6 @@ public:
 	void kill(DamageType a, DeathType b);
 	bool rva0028C149(int attr, float *value, int arg);
 	bool testStatus(ObjectStatusTypes s) const;
-	class DamageInfo;
 	void attemptDamage(DamageInfo *info);
 public:
 	char m_pad00[4];
@@ -156,7 +158,13 @@ public:
 	virtual void v05();
 	virtual void v06();
 	virtual void v07();
-	virtual bool v14(const void *a, Object *b, const void *c);
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual unsigned char v14(const void *a, Object *b, const void *c);
 };
 
 class BfmeFixedStorage0004543D
@@ -225,19 +233,19 @@ void Made002CC8A4::rva0050A1E9(void *a, Object *shooter)
 		char *base = (char *)this + 0x160;
 		if (!((ObjectFilter *)base)->isValid())
 			goto doAttr;
-		if (!((BfmeTab1026 *)base)->bfmeHas1026((int)found->getControllingPlayer(), (int)shooter))
+		if (!((BfmeTab1026 *)base)->bfmeHas1026((int)shooter, (int)found->getControllingPlayer()))
 			goto doAttr;
 		shooter->kill(DT_8, DT_0);
 		return;
 	}
 doAttr:
 	{
-		shooter->rva0028C149(0xA, (float *)&shooter, 0);
-		float v = *(float *)&shooter;
-		if (v <= BfmeZeroRange)
+		float v;
+		shooter->rva0028C149(0xA, &v, 0);
+		if (!(v > BfmeZeroRange))
 			goto checkBit;
 		float r = GetGameLogicRandomValueReal(0.0f, g_00C6499C, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\MetaImpactNugget.cpp", 0x19B);
-		if (v <= r)
+		if (!(r > v))
 			return;
 	}
 checkBit:
@@ -246,22 +254,16 @@ checkBit:
 		if (*(unsigned char *)((char *)vp + 0x113) & 4)
 		{
 			float r2 = GetGameLogicRandomValueReal(0.0f, g_00C6499C, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\MetaImpactNugget.cpp", 0x1A4);
-			if (r2 > m_150)
+			if (r2 < m_150)
 				return;
 		}
 	}
 	{
 		Object *o = shooter;
 		void *tail = (void *)*(int *)((char *)o + 0x274);
-		if (!o->testStatus(ST_26))
-			goto tryDamage;
-		if (!tail)
-			goto tryDamage;
-		if (!*(int *)((char *)tail + 0x274))
-			goto tryDamage;
-		void *t4 = (void *)*(int *)((char *)tail + 4);
-		if (!(*(unsigned char *)((char *)t4 + 0x115) & 0x20))
-			goto tryDamage;
+		if (o->testStatus(ST_26) && tail && *(volatile int *)((char *)tail + 0x274) &&
+            (*(unsigned char *)((char *)*(void **)((char *)tail + 4) + 0x115) & 0x20))
+        {
 		void *t274 = (void *)*(int *)((char *)tail + 0x274);
 		void *t250 = (void *)*(int *)((char *)t274 + 0x250);
 		if (!t250)
@@ -269,16 +271,15 @@ checkBit:
 		Object *found2 = TheGameLogic->findObjectByID((ObjectID)*(int *)((char *)a + 8));
 		if (found2)
 			((Rva00294D61 *)found2)->report(o, 1);
-		void *rv = ((TargetIface *)t250)->v01();
-		void *rv2 = ((TargetIface *)t250)->v31(o);
-		((DamageInfoish *)rv)->v15(rv2);
+		((DamageInfoish *)((TargetIface *)t250)->v01())->v15(((TargetIface *)t250)->v31(o));
 		return;
+        }
 	}
 tryDamage:
 	{
 		Rva00263895Member info;
-		if (!((SelfIface *)this)->v14(a, shooter, &info))
+		if (((SelfIface *)this)->v14(a, shooter, &info) != 1)
 			return;
-		shooter->attemptDamage((Object::DamageInfo *)&info);
+		shooter->attemptDamage((DamageInfo *)&info);
 	}
 }
